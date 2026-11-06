@@ -4,6 +4,37 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-06 (04:30 PST, night): the expression library (10 files), the item examination window (7), ui_starbase / ui_friends / ui_ptrade / ui_ping / ui_playeropt / avatar_pip / ui_analyze / ui_attrb; +870 pairs, 0 lost
+
+- **Run** run/2026-11-05-night (PR #167, from master ab992dba), 15 Opus builders (ST1, EX1-EX4, IE1 / IE2, FR1, PT1 / PT2, PG1,
+  CP1, AP1, AN1, AT2) and 3 Sonnet (HC1-HC3) in the shared tree, one to three at a time; Claude subscription only. Items: the triage
+  plan's runs naming files not in the tree (`.work/triage/plan.md`), each builder continuing into its object's free
+  neighbours (claims recorded on the PR). Weekly usage 36% -> 42% (the user's goal 42% by 07:00; window closed at 41% at 02:18, reopened at 02:58 for AN1 / AT2 as
+  nothing was running; 42% at 04:18);
+  ~0.35% of the week per Opus builder-hour. Plan log: `.work/run-2026-11-05-night/plan.md`. Quiet-tree app verify at HEAD:
+  10529 in tree, +870 vs the baseline (+8 tie-break, +360 shared), 0 lost, 0 lost outright, 0 moves.
+- **The expression library (EX1-EX4, +346; app/shared/expr/):** expr_math_parser_impl.cpp, expr_math_tree.cpp,
+  expr_math_parser_factory.cpp, expr_lexer_impl.cpp, expr_lexer_match_list.cpp (SGI hash_map), expr_math_lexer_factory.cpp,
+  expr_lexer_matchers.cpp, expr_math_token.cpp, expr_math_float.cpp, expr_math_int.cpp, with their headers (expr_math_lexer.h /
+  expr_math_tree.h real now; expr_math_eval_impl.h / expr_math_builder.h named by the client's __FILE__). 0x4C4980-0x4D42C0
+  all exact but 9 (§4).
+- **The item examination window (IE1 / IE2, +162):** ui_item_examination.cpp, _options, _attributes, _description, _title,
+  _property_router, _specials; declaration-only ui_slot_info.h / ui_dynamicwindow.h / dynamic_window_icon.h; partial
+  item/client_item_property_option / _attribute / _special.h. Row classes wait for dynamic_window_toggle and gadget 0x6686F0.
+- **UI windows:** ui_starbase.cpp (ST1, +42: the starbase lights editor; the rest waits for P-ST1-1), ui_friends.cpp (FR1, +39),
+  ui_ptrade.cpp (PT1 / PT2, +25 own: all exact but 0x5E2CE0; the TRADE 31 handlers landed with clienttest checking the real
+  ones), ui_ping.cpp (PG1, +30, all exact), ui_playeropt.cpp (CP1, +30, ui_friends' twin, all but 0x5D9D10), avatar_pip.cpp
+  (AP1, +12), ui_analyze.cpp (AN1, +15 own: ui_manu's near-copy), ui_attrb.cpp (AT2, +36: the skill panel; the
+  attributes panel left).
+- **Harnesses (D182):** HC1 found clienttest broken by FR1's real 0x5913E0 (LNK2005 against a stand-in): HC2 fixed it
+  (97949a2f); PT2 replaced the TRADE 31 stand-ins (3490538c / 9572676a) and stubbed money.cpp's operators for clientpoc
+  (84a95404: 24 -> 21 unresolved). HC3 at ef68e0c1: app 386/386 (one VM-sync flake on the first build), clienttest 103 / 103 trace equal, udpreplay alex3 ok, handshake 54/54, clientpoc 21 unresolved; AN1 / AT2 after it added no tests/ stand-in addresses.
+- **Proposal for the user:** P-ST1-1 (§3: a duplicated ctype id initialiser flips 0x648380 to 0x646120 when ui_starbase.cpp's
+  range moves; recommend accepting it as a D66 non-loss). Interim placements (D137, the coordinator's; listed in §4):
+  ui_item_examination_attributes / _description / _specials.cpp, expr_lexer_matchers.cpp, expr_math_token.cpp,
+  UIStarbaseLightsClass in ui_starbase.cpp, UIPTradeClass in sclient.h, ui_friends.h, ui_analyze.h. Traps filed in workflow.md §3.1 / §3.4 /
+  §3.5 (one bullet per report). Section 4 gained one item per file with what is left.
+
 ### 2026-11-05 (14:51 PST, day): avatar.cpp's out-of-line helpers explained (D195's unref.py), ui_ship_cust's ctor / dtor, the character info window's five files; +436 pairs, 0 lost outright
 
 - **Run** run/2026-11-05-day (PR #163, from master 217fd903), 17 Opus builders (AR1-AR4, SC1 / SC2, BF1, LD7, SB2-SB4, TB1 /
