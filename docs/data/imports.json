@@ -25774,6 +25774,38 @@
      "0x45CC10"
     ]
    },
+   "ui_item_examination_property_router": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x537830",
+     "0x537880",
+     "0x5378E0",
+     "0x537910",
+     "0x537960",
+     "0x537990",
+     "0x5379B0",
+     "0x5379D0",
+     "0x5379F0",
+     "0x537A10",
+     "0x537A40",
+     "0x537A60",
+     "0x537A80"
+    ],
+    "merged": [],
+    "name": "client/ui_item_examination_property_router.cpp",
+    "shared": [
+     "0x42F250"
+    ],
+    "short_known": [
+     "0x537960",
+     "0x5379B0"
+    ]
+   },
    "ui_item_examination_title": {
     "ambiguous": [
      "0x42A6C0",
@@ -29476,6 +29508,7 @@
    "client/ui_item_examination_attributes.h": "reconstructed",
    "client/ui_item_examination_description.h": "reconstructed",
    "client/ui_item_examination_options.h": "reconstructed",
+   "client/ui_item_examination_property_router.h": "reconstructed",
    "client/ui_item_examination_title.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",
    "client/ui_manu.h": "reconstructed",
