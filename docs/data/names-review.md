@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1326 |
 | 2 | describes what the code does | 3026 |
-| 1 | neutral placeholder | 15070 |
+| 1 | neutral placeholder | 15088 |
 
 ## For review (score 3 and below)
 
@@ -4258,188 +4258,193 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6A2480` | `app/client/sbaseview.cpp:1665` | untagged neutral name (D10) |
 | 1 | `Unknown_441A50` | `app/client/sbaseview.cpp:1668` | untagged neutral name (D10) |
 | 1 | `sbaseview` | `app/client/sbaseview.h:10` | provisional, the view's file (sbaseview.cpp, D24) |
-| 1 | `view, layer, index, name` | `app/client/sbaseview.h:35` | what 0x69D030 passes |
-| 1 | `arg` | `app/client/sbaseview.h:36` | neutral |
-| 1 | `Unknown_639030` | `app/client/sbaseview.h:36` | untagged neutral name (D10) |
-| 1 | `avatar_id, new_room` | `app/client/sbaseview.h:37` | the packet's fields |
-| 1 | `Unknown_63CF30` | `app/client/sbaseview.h:37` | untagged neutral name (D10) |
-| 1 | `avatar_id, orient, position, action` | `app/client/sbaseview.h:38` | the packet's fields |
-| 1 | `Unknown_63E5C0` | `app/client/sbaseview.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown_6435E0` | `app/client/sbaseview.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/sbaseview.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/sbaseview.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/sbaseview.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown88` | `app/client/sbaseview.h:43` | untagged neutral name (D10) |
-| 1 | `UnknownB0` | `app/client/sbaseview.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown18C` | `app/client/sbaseview.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown18D` | `app/client/sbaseview.h:47` | untagged neutral name (D10) |
-| 1 | `name, color` | `app/client/sbaseview.h:48` | what 0x750F70 passes |
-| 1 | `Unknown_640150` | `app/client/sbaseview.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_6425D0` | `app/client/sbaseview.h:48` | untagged neutral name (D10) |
-| 1 | `unknown, desc` | `app/client/sbaseview.h:49` | the packet's fields |
-| 1 | `Unknown_6437A0` | `app/client/sbaseview.h:49` | untagged neutral name (D10) |
-| 1 | `state` | `app/client/sbaseview.h:50` | neutral |
-| 1 | `Unknown_640110` | `app/client/sbaseview.h:50` | untagged neutral name (D10) |
-| 1 | `a, b, c` | `app/client/sbaseview.h:51` | neutral |
-| 1 | `Unknown_640D80` | `app/client/sbaseview.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown_640F10` | `app/client/sbaseview.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown_640DF0` | `app/client/sbaseview.h:52` | untagged neutral name (D10) |
-| 1 | `fill, index, range` | `app/client/sbaseview.h:53` | what 0x646F70 passes |
-| 1 | `Unknown_640E90` | `app/client/sbaseview.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_640EC0` | `app/client/sbaseview.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_640EF0` | `app/client/sbaseview.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_640F30` | `app/client/sbaseview.h:53` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown19CClass` | `app/client/sbaseview.h:59` | neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40; ui_avatar_cust.cpp's StarbaseAvatarCreationInterface, 0x69F8F0 case 14: 0x54B7B0, 0x3D0 bytes)  // NAME 1 [cost]: the packet's field  // NAME 1 [view, layer]: what 0x69F8F0 passes |
-| 1 | `Unknown_551C40` | `app/client/sbaseview.h:59` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown184Class` | `app/client/sbaseview.h:60` | neutral (D10): the starbase view's +0x184 (0x69F8F0 case 5: 0x5EB810, 0xB08 bytes; 'TSM03A')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
-| 1 | `SBaseViewUnknown188Class` | `app/client/sbaseview.h:61` | neutral (D10): the starbase view's +0x188 (0x69F8F0 case 6: 0x5435D0, 0x11C bytes; 'FA_TSM02A.INI')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
-| 1 | `SBaseViewUnknown198Class` | `app/client/sbaseview.h:62` | neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes |
-| 1 | `client` | `app/client/sbaseview.h:70` | what 0x69F8F0 passes |
-| 1 | `packet` | `app/client/sbaseview.h:71` | the handler's packet |
-| 1 | `Unknown_5A3BC0` | `app/client/sbaseview.h:71` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:72` | the handler's packet |
-| 1 | `Unknown_5A3F10` | `app/client/sbaseview.h:72` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:73` | the handler's packet |
-| 1 | `Unknown_5A3FB0` | `app/client/sbaseview.h:73` | untagged neutral name (D10) |
-| 1 | `job_id` | `app/client/sbaseview.h:74` | the packet's JobID |
-| 1 | `Unknown_5A4430` | `app/client/sbaseview.h:74` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown698730Struct` | `app/client/sbaseview.h:80` | neutral (D10): what 0x698730 finds (0x6A2120 tests +0x0A / +0x0B) |
-| 1 | `Unknown00` | `app/client/sbaseview.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown0A` | `app/client/sbaseview.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown0B` | `app/client/sbaseview.h:80` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown1B4Class` | `app/client/sbaseview.h:81` | neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4; the view's destructor 0x69B0C0 deletes it through 0x698370); 0x698730: a hash lookup by key; +0x18 the column of 0x6A2120's model names (0..9)  // NAME 1 [key]: neutral |
-| 1 | `Unknown_698730` | `app/client/sbaseview.h:81` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/sbaseview.h:81` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown70Class` | `app/client/sbaseview.h:82` | untagged neutral name (D10) |
-| 1 | `SBaseViewChannelStruct` | `app/client/sbaseview.h:89` | neutral (D10) |
-| 1 | `SBaseViewUnknown1F4Class` | `app/client/sbaseview.h:101` | neutral (D10): 0x441A50, starbasesound.cpp's neighbourhood |
-| 1 | `arg` | `app/client/sbaseview.h:104` | neutral |
-| 1 | `arg` | `app/client/sbaseview.h:106` | what 0x6A2480 passes |
-| 1 | `Unknown_441A50` | `app/client/sbaseview.h:106` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sbaseview.h:107` | what 0x69D030 passes |
-| 1 | `Unknown_441A30` | `app/client/sbaseview.h:107` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/client/sbaseview.h:108` | neutral |
-| 1 | `Unknown_441A90` | `app/client/sbaseview.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown65B810ViewClass` | `app/client/sbaseview.h:111` | untagged neutral name (D10) |
-| 1 | `task, arg` | `app/client/sbaseview.h:114` | what the base / +0x1F4 get |
-| 1 | `Unknown_04` | `app/client/sbaseview.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/sbaseview.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/sbaseview.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/sbaseview.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/sbaseview.h:120` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/sbaseview.h:121` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sbaseview.h:122` | neutral |
-| 1 | `Unknown_18` | `app/client/sbaseview.h:122` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sbaseview.h:123` | neutral |
-| 1 | `Unknown_69D030` | `app/client/sbaseview.h:123` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sbaseview.h:124` | neutral |
-| 1 | `Unknown_6A2120` | `app/client/sbaseview.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown_69ED80` | `app/client/sbaseview.h:125` | untagged neutral name (D10) |
-| 1 | `Unknown_6A1180` | `app/client/sbaseview.h:126` | untagged neutral name (D10) |
-| 1 | `Unknown_6A1B80` | `app/client/sbaseview.h:127` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/sbaseview.h:128` | what SoundLibraryClass::Play_2D_Sound gets |
-| 1 | `Unknown_6A1000` | `app/client/sbaseview.h:128` | untagged neutral name (D10) |
-| 1 | `Unknown_6A1130` | `app/client/sbaseview.h:129` | untagged neutral name (D10) |
-| 1 | `Unknown_6A2480` | `app/client/sbaseview.h:130` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:131` | the handler's packet |
-| 1 | `Unknown_6A0FD0` | `app/client/sbaseview.h:131` | untagged neutral name (D10) |
-| 1 | `Unknown_69CBE0` | `app/client/sbaseview.h:134` | untagged neutral name (D10) |
-| 1 | `Unknown_69CC10` | `app/client/sbaseview.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown_69CCD0` | `app/client/sbaseview.h:136` | untagged neutral name (D10) |
-| 1 | `Unknown_69CDE0` | `app/client/sbaseview.h:137` | untagged neutral name (D10) |
-| 1 | `type` | `app/client/sbaseview.h:138` | the assert's index |
-| 1 | `Unknown_69D930` | `app/client/sbaseview.h:138` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/sbaseview.h:139` | what 0x69DC40 passes |
-| 1 | `Unknown_69D9D0` | `app/client/sbaseview.h:139` | untagged neutral name (D10) |
-| 1 | `Unknown_69DB50` | `app/client/sbaseview.h:140` | untagged neutral name (D10) |
-| 1 | `obj` | `app/client/sbaseview.h:141` | neutral |
-| 1 | `Unknown_69DBA0` | `app/client/sbaseview.h:141` | untagged neutral name (D10) |
-| 1 | `Unknown_69DC40` | `app/client/sbaseview.h:142` | untagged neutral name (D10) |
-| 1 | `Unknown_69DC60` | `app/client/sbaseview.h:143` | untagged neutral name (D10) |
-| 1 | `avatar, bone, offset` | `app/client/sbaseview.h:144` | neutral |
-| 1 | `Unknown_69DC80` | `app/client/sbaseview.h:144` | untagged neutral name (D10) |
-| 1 | `avatar, tm, offset` | `app/client/sbaseview.h:145` | neutral |
-| 1 | `Unknown_69DFC0` | `app/client/sbaseview.h:145` | untagged neutral name (D10) |
-| 1 | `Unknown_69F440` | `app/client/sbaseview.h:146` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sbaseview.h:147` | neutral |
-| 1 | `Unknown_69F460` | `app/client/sbaseview.h:147` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sbaseview.h:148` | neutral |
-| 1 | `Unknown_69F480` | `app/client/sbaseview.h:148` | untagged neutral name (D10) |
-| 1 | `model, name, index, once, backward` | `app/client/sbaseview.h:149` | neutral |
-| 1 | `Unknown_69F540` | `app/client/sbaseview.h:149` | untagged neutral name (D10) |
-| 1 | `Unknown_6A0EC0` | `app/client/sbaseview.h:150` | untagged neutral name (D10) |
-| 1 | `bone` | `app/client/sbaseview.h:151` | neutral |
-| 1 | `Unknown_69E260` | `app/client/sbaseview.h:151` | untagged neutral name (D10) |
-| 1 | `tm` | `app/client/sbaseview.h:152` | neutral |
-| 1 | `Unknown_69E510` | `app/client/sbaseview.h:152` | untagged neutral name (D10) |
-| 1 | `text, kind` | `app/client/sbaseview.h:153` | neutral |
-| 1 | `Unknown_6A1880` | `app/client/sbaseview.h:153` | untagged neutral name (D10) |
-| 1 | `bone, seconds, keep, lift` | `app/client/sbaseview.h:154` | neutral |
-| 1 | `Unknown_69E6E0` | `app/client/sbaseview.h:154` | untagged neutral name (D10) |
-| 1 | `mode, speed` | `app/client/sbaseview.h:155` | neutral |
-| 1 | `Unknown_69EF00` | `app/client/sbaseview.h:155` | untagged neutral name (D10) |
-| 1 | `tm, seconds, restart` | `app/client/sbaseview.h:156` | neutral |
-| 1 | `Unknown_69EB20` | `app/client/sbaseview.h:156` | untagged neutral name (D10) |
-| 1 | `Unknown_69F710` | `app/client/sbaseview.h:157` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sbaseview.h:158` | neutral |
-| 1 | `Unknown_69F850` | `app/client/sbaseview.h:158` | untagged neutral name (D10) |
-| 1 | `type, arg` | `app/client/sbaseview.h:159` | neutral |
-| 1 | `Unknown_69F8F0` | `app/client/sbaseview.h:159` | untagged neutral name (D10) |
-| 1 | `Unknown_6A0540` | `app/client/sbaseview.h:160` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/sbaseview.h:161` | what INIClass::Load gets |
-| 1 | `Unknown_6A0590` | `app/client/sbaseview.h:161` | untagged neutral name (D10) |
-| 1 | `Unknown_6A1C90` | `app/client/sbaseview.h:162` | untagged neutral name (D10) |
-| 1 | `Unknown_6A0E00` | `app/client/sbaseview.h:163` | untagged neutral name (D10) |
-| 1 | `Unknown_6A0E50` | `app/client/sbaseview.h:164` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/sbaseview.h:165` | what FontSys::Change_Text gets |
-| 1 | `Unknown_6A0E80` | `app/client/sbaseview.h:165` | untagged neutral name (D10) |
-| 1 | `Unknown_6A20C0` | `app/client/sbaseview.h:166` | untagged neutral name (D10) |
-| 1 | `Unknown_6A2100` | `app/client/sbaseview.h:167` | untagged neutral name (D10) |
-| 1 | `a, b, c, d, e` | `app/client/sbaseview.h:168` | neutral |
-| 1 | `Unknown_6A23E0` | `app/client/sbaseview.h:168` | untagged neutral name (D10) |
-| 1 | `a, b, c, d, e` | `app/client/sbaseview.h:169` | neutral |
-| 1 | `Unknown_6A2430` | `app/client/sbaseview.h:169` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/sbaseview.h:171` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/sbaseview.h:172` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/sbaseview.h:173` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/sbaseview.h:174` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/sbaseview.h:176` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/sbaseview.h:177` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/sbaseview.h:178` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/sbaseview.h:179` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/sbaseview.h:180` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/sbaseview.h:181` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/sbaseview.h:182` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/sbaseview.h:183` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/sbaseview.h:185` | untagged neutral name (D10) |
-| 1 | `UnknownE4` | `app/client/sbaseview.h:186` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/sbaseview.h:187` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/sbaseview.h:190` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/sbaseview.h:191` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/client/sbaseview.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown17C` | `app/client/sbaseview.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown180` | `app/client/sbaseview.h:192` | untagged neutral name (D10) |
-| 1 | `Unknown184` | `app/client/sbaseview.h:193` | untagged neutral name (D10) |
-| 1 | `Unknown188` | `app/client/sbaseview.h:193` | untagged neutral name (D10) |
-| 1 | `Unknown190` | `app/client/sbaseview.h:194` | untagged neutral name (D10) |
-| 1 | `Unknown198` | `app/client/sbaseview.h:195` | untagged neutral name (D10) |
-| 1 | `Unknown1A8` | `app/client/sbaseview.h:197` | untagged neutral name (D10) |
-| 1 | `Unknown1AC` | `app/client/sbaseview.h:198` | untagged neutral name (D10) |
-| 1 | `Unknown1B0` | `app/client/sbaseview.h:199` | untagged neutral name (D10) |
-| 1 | `Unknown1B4` | `app/client/sbaseview.h:200` | untagged neutral name (D10) |
-| 1 | `Unknown1B8` | `app/client/sbaseview.h:201` | untagged neutral name (D10) |
-| 1 | `Unknown1BC` | `app/client/sbaseview.h:202` | untagged neutral name (D10) |
-| 1 | `Unknown1C0` | `app/client/sbaseview.h:203` | untagged neutral name (D10) |
-| 1 | `Unknown1C4` | `app/client/sbaseview.h:204` | untagged neutral name (D10) |
-| 1 | `Unknown1C8` | `app/client/sbaseview.h:205` | untagged neutral name (D10) |
-| 1 | `Unknown1D4` | `app/client/sbaseview.h:208` | neutral; the type from the store order only |
-| 1 | `Unknown1E0` | `app/client/sbaseview.h:209` | neutral; as Unknown1D4 |
-| 1 | `Unknown1EC` | `app/client/sbaseview.h:210` | untagged neutral name (D10) |
-| 1 | `Unknown1ED` | `app/client/sbaseview.h:210` | untagged neutral name (D10) |
-| 1 | `Unknown1EE` | `app/client/sbaseview.h:210` | untagged neutral name (D10) |
-| 1 | `Unknown1EF` | `app/client/sbaseview.h:210` | untagged neutral name (D10) |
-| 1 | `Unknown1F0` | `app/client/sbaseview.h:210` | untagged neutral name (D10) |
-| 1 | `Unknown1F4` | `app/client/sbaseview.h:211` | untagged neutral name (D10) |
+| 1 | `UIStarbaseUnknownB4Struct` | `app/client/sbaseview.h:35` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/sbaseview.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown0A` | `app/client/sbaseview.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown0B` | `app/client/sbaseview.h:39` | untagged neutral name (D10) |
+| 1 | `view, layer, index, name` | `app/client/sbaseview.h:46` | what 0x69D030 passes |
+| 1 | `arg` | `app/client/sbaseview.h:47` | neutral |
+| 1 | `Unknown_639030` | `app/client/sbaseview.h:47` | untagged neutral name (D10) |
+| 1 | `avatar_id, new_room` | `app/client/sbaseview.h:48` | the packet's fields |
+| 1 | `Unknown_63CF30` | `app/client/sbaseview.h:48` | untagged neutral name (D10) |
+| 1 | `avatar_id, orient, position, action` | `app/client/sbaseview.h:49` | the packet's fields |
+| 1 | `Unknown_63E5C0` | `app/client/sbaseview.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_6435E0` | `app/client/sbaseview.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/sbaseview.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/sbaseview.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/sbaseview.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/sbaseview.h:54` | untagged neutral name (D10) |
+| 1 | `UnknownB0` | `app/client/sbaseview.h:56` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/sbaseview.h:57` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/sbaseview.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown18C` | `app/client/sbaseview.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown18D` | `app/client/sbaseview.h:60` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/sbaseview.h:61` | neutral |
+| 1 | `Unknown214` | `app/client/sbaseview.h:62` | untagged neutral name (D10) |
+| 1 | `name, color` | `app/client/sbaseview.h:63` | what 0x750F70 passes |
+| 1 | `Unknown_640150` | `app/client/sbaseview.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_6425D0` | `app/client/sbaseview.h:63` | untagged neutral name (D10) |
+| 1 | `unknown, desc` | `app/client/sbaseview.h:64` | the packet's fields |
+| 1 | `Unknown_6437A0` | `app/client/sbaseview.h:64` | untagged neutral name (D10) |
+| 1 | `state` | `app/client/sbaseview.h:65` | neutral |
+| 1 | `Unknown_640110` | `app/client/sbaseview.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_640CC0` | `app/client/sbaseview.h:66` | untagged neutral name (D10) |
+| 1 | `a, b, c` | `app/client/sbaseview.h:67` | neutral |
+| 1 | `Unknown_640D80` | `app/client/sbaseview.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_640F10` | `app/client/sbaseview.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_640DF0` | `app/client/sbaseview.h:68` | untagged neutral name (D10) |
+| 1 | `fill, index, range` | `app/client/sbaseview.h:69` | what 0x646F70 passes |
+| 1 | `Unknown_640E90` | `app/client/sbaseview.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_640EC0` | `app/client/sbaseview.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_640EF0` | `app/client/sbaseview.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_640F30` | `app/client/sbaseview.h:69` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown19CClass` | `app/client/sbaseview.h:75` | neutral (D10): the starbase view's +0x19C (RECUSTOMIZE_AVATAR_START 131: 0x551C40; ui_avatar_cust.cpp's StarbaseAvatarCreationInterface, 0x69F8F0 case 14: 0x54B7B0, 0x3D0 bytes)  // NAME 1 [cost]: the packet's field  // NAME 1 [view, layer]: what 0x69F8F0 passes |
+| 1 | `Unknown_551C40` | `app/client/sbaseview.h:75` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown184Class` | `app/client/sbaseview.h:76` | neutral (D10): the starbase view's +0x184 (0x69F8F0 case 5: 0x5EB810, 0xB08 bytes; 'TSM03A')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
+| 1 | `SBaseViewUnknown188Class` | `app/client/sbaseview.h:77` | neutral (D10): the starbase view's +0x188 (0x69F8F0 case 6: 0x5435D0, 0x11C bytes; 'FA_TSM02A.INI')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
+| 1 | `SBaseViewUnknown198Class` | `app/client/sbaseview.h:78` | neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes |
+| 1 | `client` | `app/client/sbaseview.h:86` | what 0x69F8F0 passes |
+| 1 | `packet` | `app/client/sbaseview.h:87` | the handler's packet |
+| 1 | `Unknown_5A3BC0` | `app/client/sbaseview.h:87` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:88` | the handler's packet |
+| 1 | `Unknown_5A3F10` | `app/client/sbaseview.h:88` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:89` | the handler's packet |
+| 1 | `Unknown_5A3FB0` | `app/client/sbaseview.h:89` | untagged neutral name (D10) |
+| 1 | `job_id` | `app/client/sbaseview.h:90` | the packet's JobID |
+| 1 | `Unknown_5A4430` | `app/client/sbaseview.h:90` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown698730Struct` | `app/client/sbaseview.h:96` | neutral (D10): what 0x698730 finds (0x6A2120 tests +0x0A / +0x0B) |
+| 1 | `SBaseViewUnknown1B4Class` | `app/client/sbaseview.h:97` | neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4; the view's destructor 0x69B0C0 deletes it through 0x698370); 0x698730: a hash lookup by key; +0x18 the column of 0x6A2120's model names (0..9)  // NAME 1 [key]: neutral |
+| 1 | `Unknown_698730` | `app/client/sbaseview.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/sbaseview.h:97` | untagged neutral name (D10) |
+| 1 | `SBaseViewUnknown70Class` | `app/client/sbaseview.h:98` | untagged neutral name (D10) |
+| 1 | `SBaseViewChannelStruct` | `app/client/sbaseview.h:105` | neutral (D10) |
+| 1 | `SBaseViewUnknown1F4Class` | `app/client/sbaseview.h:117` | neutral (D10): 0x441A50, starbasesound.cpp's neighbourhood |
+| 1 | `arg` | `app/client/sbaseview.h:120` | neutral |
+| 1 | `arg` | `app/client/sbaseview.h:122` | what 0x6A2480 passes |
+| 1 | `Unknown_441A50` | `app/client/sbaseview.h:122` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sbaseview.h:123` | what 0x69D030 passes |
+| 1 | `Unknown_441A30` | `app/client/sbaseview.h:123` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/client/sbaseview.h:124` | neutral |
+| 1 | `Unknown_441A90` | `app/client/sbaseview.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown65B810ViewClass` | `app/client/sbaseview.h:127` | untagged neutral name (D10) |
+| 1 | `task, arg` | `app/client/sbaseview.h:130` | what the base / +0x1F4 get |
+| 1 | `Unknown_04` | `app/client/sbaseview.h:132` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/sbaseview.h:133` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/sbaseview.h:134` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/sbaseview.h:135` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/sbaseview.h:136` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/sbaseview.h:137` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sbaseview.h:138` | neutral |
+| 1 | `Unknown_18` | `app/client/sbaseview.h:138` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sbaseview.h:139` | neutral |
+| 1 | `Unknown_69D030` | `app/client/sbaseview.h:139` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sbaseview.h:140` | neutral |
+| 1 | `Unknown_6A2120` | `app/client/sbaseview.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown_69ED80` | `app/client/sbaseview.h:141` | untagged neutral name (D10) |
+| 1 | `Unknown_6A1180` | `app/client/sbaseview.h:142` | untagged neutral name (D10) |
+| 1 | `Unknown_6A1B80` | `app/client/sbaseview.h:143` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/sbaseview.h:144` | what SoundLibraryClass::Play_2D_Sound gets |
+| 1 | `Unknown_6A1000` | `app/client/sbaseview.h:144` | untagged neutral name (D10) |
+| 1 | `Unknown_6A1130` | `app/client/sbaseview.h:145` | untagged neutral name (D10) |
+| 1 | `Unknown_6A2480` | `app/client/sbaseview.h:146` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/sbaseview.h:147` | the handler's packet |
+| 1 | `Unknown_6A0FD0` | `app/client/sbaseview.h:147` | untagged neutral name (D10) |
+| 1 | `Unknown_69CBE0` | `app/client/sbaseview.h:150` | untagged neutral name (D10) |
+| 1 | `Unknown_69CC10` | `app/client/sbaseview.h:151` | untagged neutral name (D10) |
+| 1 | `Unknown_69CCD0` | `app/client/sbaseview.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown_69CDE0` | `app/client/sbaseview.h:153` | untagged neutral name (D10) |
+| 1 | `type` | `app/client/sbaseview.h:154` | the assert's index |
+| 1 | `Unknown_69D930` | `app/client/sbaseview.h:154` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/sbaseview.h:155` | what 0x69DC40 passes |
+| 1 | `Unknown_69D9D0` | `app/client/sbaseview.h:155` | untagged neutral name (D10) |
+| 1 | `Unknown_69DB50` | `app/client/sbaseview.h:156` | untagged neutral name (D10) |
+| 1 | `obj` | `app/client/sbaseview.h:157` | neutral |
+| 1 | `Unknown_69DBA0` | `app/client/sbaseview.h:157` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC40` | `app/client/sbaseview.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC60` | `app/client/sbaseview.h:159` | untagged neutral name (D10) |
+| 1 | `avatar, bone, offset` | `app/client/sbaseview.h:160` | neutral |
+| 1 | `Unknown_69DC80` | `app/client/sbaseview.h:160` | untagged neutral name (D10) |
+| 1 | `avatar, tm, offset` | `app/client/sbaseview.h:161` | neutral |
+| 1 | `Unknown_69DFC0` | `app/client/sbaseview.h:161` | untagged neutral name (D10) |
+| 1 | `Unknown_69F440` | `app/client/sbaseview.h:162` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/sbaseview.h:163` | neutral |
+| 1 | `Unknown_69F460` | `app/client/sbaseview.h:163` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sbaseview.h:164` | neutral |
+| 1 | `Unknown_69F480` | `app/client/sbaseview.h:164` | untagged neutral name (D10) |
+| 1 | `model, name, index, once, backward` | `app/client/sbaseview.h:165` | neutral |
+| 1 | `Unknown_69F540` | `app/client/sbaseview.h:165` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0EC0` | `app/client/sbaseview.h:166` | untagged neutral name (D10) |
+| 1 | `bone` | `app/client/sbaseview.h:167` | neutral |
+| 1 | `Unknown_69E260` | `app/client/sbaseview.h:167` | untagged neutral name (D10) |
+| 1 | `tm` | `app/client/sbaseview.h:168` | neutral |
+| 1 | `Unknown_69E510` | `app/client/sbaseview.h:168` | untagged neutral name (D10) |
+| 1 | `text, kind` | `app/client/sbaseview.h:169` | neutral |
+| 1 | `Unknown_6A1880` | `app/client/sbaseview.h:169` | untagged neutral name (D10) |
+| 1 | `bone, seconds, keep, lift` | `app/client/sbaseview.h:170` | neutral |
+| 1 | `Unknown_69E6E0` | `app/client/sbaseview.h:170` | untagged neutral name (D10) |
+| 1 | `mode, speed` | `app/client/sbaseview.h:171` | neutral |
+| 1 | `Unknown_69EF00` | `app/client/sbaseview.h:171` | untagged neutral name (D10) |
+| 1 | `tm, seconds, restart` | `app/client/sbaseview.h:172` | neutral |
+| 1 | `Unknown_69EB20` | `app/client/sbaseview.h:172` | untagged neutral name (D10) |
+| 1 | `Unknown_69F710` | `app/client/sbaseview.h:173` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/sbaseview.h:174` | neutral |
+| 1 | `Unknown_69F850` | `app/client/sbaseview.h:174` | untagged neutral name (D10) |
+| 1 | `type, arg` | `app/client/sbaseview.h:175` | neutral |
+| 1 | `Unknown_69F8F0` | `app/client/sbaseview.h:175` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0540` | `app/client/sbaseview.h:176` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/sbaseview.h:177` | what INIClass::Load gets |
+| 1 | `Unknown_6A0590` | `app/client/sbaseview.h:177` | untagged neutral name (D10) |
+| 1 | `Unknown_6A1C90` | `app/client/sbaseview.h:178` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0E00` | `app/client/sbaseview.h:179` | untagged neutral name (D10) |
+| 1 | `Unknown_6A0E50` | `app/client/sbaseview.h:180` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/sbaseview.h:181` | what FontSys::Change_Text gets |
+| 1 | `Unknown_6A0E80` | `app/client/sbaseview.h:181` | untagged neutral name (D10) |
+| 1 | `Unknown_6A20C0` | `app/client/sbaseview.h:182` | untagged neutral name (D10) |
+| 1 | `Unknown_6A2100` | `app/client/sbaseview.h:183` | untagged neutral name (D10) |
+| 1 | `a, b, c, d, e` | `app/client/sbaseview.h:184` | neutral |
+| 1 | `Unknown_6A23E0` | `app/client/sbaseview.h:184` | untagged neutral name (D10) |
+| 1 | `a, b, c, d, e` | `app/client/sbaseview.h:185` | neutral |
+| 1 | `Unknown_6A2430` | `app/client/sbaseview.h:185` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/sbaseview.h:187` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/sbaseview.h:188` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/sbaseview.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/sbaseview.h:190` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/sbaseview.h:192` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/sbaseview.h:193` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/sbaseview.h:194` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/sbaseview.h:195` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/sbaseview.h:196` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/sbaseview.h:197` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/sbaseview.h:198` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/sbaseview.h:199` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/sbaseview.h:202` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/sbaseview.h:203` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/sbaseview.h:206` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/sbaseview.h:207` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/client/sbaseview.h:208` | untagged neutral name (D10) |
+| 1 | `Unknown17C` | `app/client/sbaseview.h:208` | untagged neutral name (D10) |
+| 1 | `Unknown180` | `app/client/sbaseview.h:208` | untagged neutral name (D10) |
+| 1 | `Unknown184` | `app/client/sbaseview.h:209` | untagged neutral name (D10) |
+| 1 | `Unknown188` | `app/client/sbaseview.h:209` | untagged neutral name (D10) |
+| 1 | `Unknown190` | `app/client/sbaseview.h:210` | untagged neutral name (D10) |
+| 1 | `Unknown198` | `app/client/sbaseview.h:211` | untagged neutral name (D10) |
+| 1 | `Unknown1A8` | `app/client/sbaseview.h:213` | untagged neutral name (D10) |
+| 1 | `Unknown1AC` | `app/client/sbaseview.h:214` | untagged neutral name (D10) |
+| 1 | `Unknown1B0` | `app/client/sbaseview.h:215` | untagged neutral name (D10) |
+| 1 | `Unknown1B4` | `app/client/sbaseview.h:216` | untagged neutral name (D10) |
+| 1 | `Unknown1B8` | `app/client/sbaseview.h:217` | untagged neutral name (D10) |
+| 1 | `Unknown1BC` | `app/client/sbaseview.h:218` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/sbaseview.h:219` | untagged neutral name (D10) |
+| 1 | `Unknown1C4` | `app/client/sbaseview.h:220` | untagged neutral name (D10) |
+| 1 | `Unknown1C8` | `app/client/sbaseview.h:221` | untagged neutral name (D10) |
+| 1 | `Unknown1D4` | `app/client/sbaseview.h:224` | neutral; the type from the store order only |
+| 1 | `Unknown1E0` | `app/client/sbaseview.h:225` | neutral; as Unknown1D4 |
+| 1 | `Unknown1EC` | `app/client/sbaseview.h:226` | untagged neutral name (D10) |
+| 1 | `Unknown1ED` | `app/client/sbaseview.h:226` | untagged neutral name (D10) |
+| 1 | `Unknown1EE` | `app/client/sbaseview.h:226` | untagged neutral name (D10) |
+| 1 | `Unknown1EF` | `app/client/sbaseview.h:226` | untagged neutral name (D10) |
+| 1 | `Unknown1F0` | `app/client/sbaseview.h:226` | untagged neutral name (D10) |
+| 1 | `Unknown1F4` | `app/client/sbaseview.h:227` | untagged neutral name (D10) |
 | 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_6766E0` | `app/client/sclient.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_676A00` | `app/client/sclient.cpp:32` | untagged neutral name (D10) |
@@ -11682,104 +11687,117 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42ECF0` | `app/client/ui_starbase.cpp:33` | untagged neutral name (D10) |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_starbase.cpp:34` | as ui_avatar_cust.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_starbase.cpp:34` | untagged neutral name (D10) |
-| 1 | `UIStarbaseLightsGadget671300Class` | `app/client/ui_starbase.cpp:37` | neutral (D10) |
-| 1 | `area, a, b, c, d` | `app/client/ui_starbase.cpp:40` | neutral |
-| 1 | `x, y` | `app/client/ui_starbase.cpp:41` | GadgetClass's |
-| 1 | `Unknown_30` | `app/client/ui_starbase.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_671630` | `app/client/ui_starbase.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/ui_starbase.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_starbase.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown65` | `app/client/ui_starbase.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown66` | `app/client/ui_starbase.cpp:46` | untagged neutral name (D10) |
-| 1 | `UIStarbaseLightsGadgetHolderStruct` | `app/client/ui_starbase.cpp:50` | neutral (D10) |
-| 1 | `Unknown_5859A0` | `app/client/ui_starbase.cpp:53` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/ui_starbase.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/ui_starbase.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/ui_starbase.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown09` | `app/client/ui_starbase.cpp:57` | untagged neutral name (D10) |
-| 1 | `UIStarbaseLightsClass` | `app/client/ui_starbase.cpp:64` | neutral, after its model's 'light02a' names |
-| 1 | `client` | `app/client/ui_starbase.cpp:67` | the base's |
-| 1 | `Unknown_54` | `app/client/ui_starbase.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_starbase.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_starbase.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_starbase.cpp:72` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/ui_starbase.cpp:73` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/ui_starbase.cpp:73` | untagged neutral name (D10) |
-| 1 | `Unknown_646940` | `app/client/ui_starbase.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown_646A00` | `app/client/ui_starbase.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown_646E00` | `app/client/ui_starbase.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown_648190` | `app/client/ui_starbase.cpp:77` | untagged neutral name (D10) |
-| 1 | `force` | `app/client/ui_starbase.cpp:78` | neutral |
-| 1 | `Unknown_646F70` | `app/client/ui_starbase.cpp:78` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_starbase.cpp:79` | neutral |
-| 1 | `Unknown_6474C0` | `app/client/ui_starbase.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown_647B30` | `app/client/ui_starbase.cpp:80` | untagged neutral name (D10) |
-| 1 | `point` | `app/client/ui_starbase.cpp:81` | neutral |
-| 1 | `Unknown_647F30` | `app/client/ui_starbase.cpp:81` | untagged neutral name (D10) |
-| 1 | `Model` | `app/client/ui_starbase.cpp:84` | neutral |
-| 1 | `Unknown84` | `app/client/ui_starbase.cpp:84` | untagged neutral name (D10) |
-| 1 | `UnknownA0` | `app/client/ui_starbase.cpp:86` | untagged neutral name (D10) |
-| 1 | `Slider` | `app/client/ui_starbase.cpp:87` | neutral |
-| 1 | `SliderValue` | `app/client/ui_starbase.cpp:88` | neutral |
-| 1 | `UnknownD8` | `app/client/ui_starbase.cpp:89` | untagged neutral name (D10) |
-| 1 | `Starbase` | `app/client/ui_starbase.cpp:90` | neutral |
-| 1 | `UnknownE0` | `app/client/ui_starbase.cpp:91` | untagged neutral name (D10) |
-| 1 | `UnknownE4` | `app/client/ui_starbase.cpp:92` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/ui_starbase.cpp:93` | untagged neutral name (D10) |
-| 1 | `UnknownEC` | `app/client/ui_starbase.cpp:94` | untagged neutral name (D10) |
-| 1 | `Current` | `app/client/ui_starbase.cpp:95` | neutral |
-| 1 | `UnknownF4` | `app/client/ui_starbase.cpp:96` | untagged neutral name (D10) |
-| 1 | `Intensity` | `app/client/ui_starbase.cpp:97` | the LightClass setter's |
-| 1 | `Fill` | `app/client/ui_starbase.cpp:98` | its text's |
-| 1 | `Color` | `app/client/ui_starbase.cpp:99` | neutral |
-| 1 | `Position` | `app/client/ui_starbase.cpp:100` | neutral |
-| 1 | `Atten` | `app/client/ui_starbase.cpp:101` | neutral |
-| 1 | `AmbientColor` | `app/client/ui_starbase.cpp:102` | neutral |
-| 1 | `AmbientPosition` | `app/client/ui_starbase.cpp:103` | neutral |
-| 1 | `std:` | `app/client/ui_starbase.cpp:104` | neutral |
-| 1 | `Unknown_640F10` | `app/client/ui_starbase.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_B8B864` | `app/client/ui_starbase.cpp:135` | neutral (D10) |
-| 1 | `Unknown_B8B880` | `app/client/ui_starbase.cpp:136` | neutral (D10) |
-| 1 | `UIStarbaseLightsKeyEventStruct` | `app/client/ui_starbase.cpp:139` | neutral (D10) |
-| 1 | `key` | `app/client/ui_starbase.cpp:141` | neutral |
-| 1 | `Unknown02` | `app/client/ui_starbase.cpp:141` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/ui_starbase.cpp:141` | untagged neutral name (D10) |
-| 1 | `Key` | `app/client/ui_starbase.cpp:142` | neutral (D10) |
-| 1 | `Unknown_98` | `app/client/ui_starbase.cpp:152` | untagged neutral name (D10) |
-| 1 | `Unknown_56D510` | `app/client/ui_starbase.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown_56D8D0` | `app/client/ui_starbase.cpp:159` | untagged neutral name (D10) |
-| 1 | `Unknown_66E460` | `app/client/ui_starbase.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown_66FA90` | `app/client/ui_starbase.cpp:162` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/ui_starbase.cpp:163` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0A` | `app/client/ui_starbase.cpp:176` | untagged neutral name (D10) |
-| 1 | `Unknown_65FFA0` | `app/client/ui_starbase.cpp:180` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/ui_starbase.cpp:181` | untagged neutral name (D10) |
-| 1 | `Unknown_56D970` | `app/client/ui_starbase.cpp:182` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/ui_starbase.cpp:183` | untagged neutral name (D10) |
-| 1 | `Unknown135C` | `app/client/ui_starbase.cpp:193` | untagged neutral name (D10) |
-| 1 | `Unknown_640D80` | `app/client/ui_starbase.cpp:194` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/ui_starbase.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown_BE82D0` | `app/client/ui_starbase.cpp:280` | untagged neutral name (D10) |
-| 1 | `Unknown_764530` | `app/client/ui_starbase.cpp:280` | untagged neutral name (D10) |
-| 1 | `Unknown_640DF0` | `app/client/ui_starbase.cpp:281` | untagged neutral name (D10) |
-| 1 | `Unknown_764EA0` | `app/client/ui_starbase.cpp:295` | untagged neutral name (D10) |
-| 1 | `Unknown_764CF0` | `app/client/ui_starbase.cpp:296` | untagged neutral name (D10) |
-| 1 | `Unknown_764AB0` | `app/client/ui_starbase.cpp:298` | untagged neutral name (D10) |
-| 1 | `Unknown_764880` | `app/client/ui_starbase.cpp:308` | untagged neutral name (D10) |
-| 1 | `Unknown_764F60` | `app/client/ui_starbase.cpp:310` | untagged neutral name (D10) |
-| 1 | `Unknown_764E20` | `app/client/ui_starbase.cpp:311` | untagged neutral name (D10) |
-| 1 | `Unknown_764C30` | `app/client/ui_starbase.cpp:313` | untagged neutral name (D10) |
-| 1 | `Unknown_764550` | `app/client/ui_starbase.cpp:316` | untagged neutral name (D10) |
-| 1 | `Unknown_66FD80` | `app/client/ui_starbase.cpp:326` | untagged neutral name (D10) |
-| 1 | `Unknown_640EC0` | `app/client/ui_starbase.cpp:344` | untagged neutral name (D10) |
-| 1 | `Unknown_640F30` | `app/client/ui_starbase.cpp:345` | untagged neutral name (D10) |
-| 1 | `Unknown_6D2700` | `app/client/ui_starbase.cpp:352` | untagged neutral name (D10) |
-| 1 | `Unknown_640EF0` | `app/client/ui_starbase.cpp:371` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_starbase.cpp:373` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_starbase.cpp:376` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/ui_starbase.cpp:424` | untagged neutral name (D10) |
-| 1 | `GadgetUnknown08Struct` | `app/client/ui_starbase.cpp:445` | untagged neutral name (D10) |
-| 1 | `Unknown_640E90` | `app/client/ui_starbase.cpp:453` | untagged neutral name (D10) |
+| 1 | `UIStarbaseSceneClass` | `app/client/ui_starbase.cpp:37` | neutral (D10) |
+| 1 | `fill` | `app/client/ui_starbase.cpp:40` | what 0x640EC0 passes |
+| 1 | `Unknown_762920` | `app/client/ui_starbase.cpp:40` | untagged neutral name (D10) |
+| 1 | `color` | `app/client/ui_starbase.cpp:41` | what 0x640E90 passes |
+| 1 | `Unknown_762940` | `app/client/ui_starbase.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_640CC0` | `app/client/ui_starbase.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_640D80` | `app/client/ui_starbase.cpp:59` | untagged neutral name (D10) |
+| 1 | `UnknownB0` | `app/client/ui_starbase.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown1B4` | `app/client/ui_starbase.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/ui_starbase.cpp:61` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/ui_starbase.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown0B` | `app/client/ui_starbase.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown0A` | `app/client/ui_starbase.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown_640DF0` | `app/client/ui_starbase.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_640E90` | `app/client/ui_starbase.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_starbase.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_640EC0` | `app/client/ui_starbase.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_640EF0` | `app/client/ui_starbase.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_640F10` | `app/client/ui_starbase.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_640F30` | `app/client/ui_starbase.cpp:99` | untagged neutral name (D10) |
+| 1 | `UIStarbaseLightsGadget671300Class` | `app/client/ui_starbase.cpp:106` | neutral (D10) |
+| 1 | `area, a, b, c, d` | `app/client/ui_starbase.cpp:109` | neutral |
+| 1 | `x, y` | `app/client/ui_starbase.cpp:110` | GadgetClass's |
+| 1 | `Unknown_30` | `app/client/ui_starbase.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_671630` | `app/client/ui_starbase.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_starbase.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_starbase.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown65` | `app/client/ui_starbase.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown66` | `app/client/ui_starbase.cpp:115` | untagged neutral name (D10) |
+| 1 | `UIStarbaseLightsGadgetHolderStruct` | `app/client/ui_starbase.cpp:119` | neutral (D10) |
+| 1 | `Unknown_5859A0` | `app/client/ui_starbase.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ui_starbase.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_starbase.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_starbase.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown09` | `app/client/ui_starbase.cpp:126` | untagged neutral name (D10) |
+| 1 | `UIStarbaseLightsClass` | `app/client/ui_starbase.cpp:133` | neutral, after its model's 'light02a' names |
+| 1 | `client` | `app/client/ui_starbase.cpp:136` | the base's |
+| 1 | `Unknown_54` | `app/client/ui_starbase.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_starbase.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_starbase.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_starbase.cpp:141` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_starbase.cpp:142` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_starbase.cpp:142` | untagged neutral name (D10) |
+| 1 | `Unknown_646940` | `app/client/ui_starbase.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_646A00` | `app/client/ui_starbase.cpp:144` | untagged neutral name (D10) |
+| 1 | `Unknown_646E00` | `app/client/ui_starbase.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown_648190` | `app/client/ui_starbase.cpp:146` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/ui_starbase.cpp:147` | neutral |
+| 1 | `Unknown_646F70` | `app/client/ui_starbase.cpp:147` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_starbase.cpp:148` | neutral |
+| 1 | `Unknown_6474C0` | `app/client/ui_starbase.cpp:148` | untagged neutral name (D10) |
+| 1 | `Unknown_647B30` | `app/client/ui_starbase.cpp:149` | untagged neutral name (D10) |
+| 1 | `point` | `app/client/ui_starbase.cpp:150` | neutral |
+| 1 | `Unknown_647F30` | `app/client/ui_starbase.cpp:150` | untagged neutral name (D10) |
+| 1 | `Model` | `app/client/ui_starbase.cpp:153` | neutral |
+| 1 | `Unknown84` | `app/client/ui_starbase.cpp:153` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/ui_starbase.cpp:155` | untagged neutral name (D10) |
+| 1 | `Slider` | `app/client/ui_starbase.cpp:156` | neutral |
+| 1 | `SliderValue` | `app/client/ui_starbase.cpp:157` | neutral |
+| 1 | `UnknownD8` | `app/client/ui_starbase.cpp:158` | untagged neutral name (D10) |
+| 1 | `Starbase` | `app/client/ui_starbase.cpp:159` | neutral |
+| 1 | `UnknownE0` | `app/client/ui_starbase.cpp:160` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/ui_starbase.cpp:161` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/ui_starbase.cpp:162` | untagged neutral name (D10) |
+| 1 | `UnknownEC` | `app/client/ui_starbase.cpp:163` | untagged neutral name (D10) |
+| 1 | `Current` | `app/client/ui_starbase.cpp:164` | neutral |
+| 1 | `UnknownF4` | `app/client/ui_starbase.cpp:165` | untagged neutral name (D10) |
+| 1 | `Intensity` | `app/client/ui_starbase.cpp:166` | the LightClass setter's |
+| 1 | `Fill` | `app/client/ui_starbase.cpp:167` | its text's |
+| 1 | `Color` | `app/client/ui_starbase.cpp:168` | neutral |
+| 1 | `Position` | `app/client/ui_starbase.cpp:169` | neutral |
+| 1 | `Atten` | `app/client/ui_starbase.cpp:170` | neutral |
+| 1 | `AmbientColor` | `app/client/ui_starbase.cpp:171` | neutral |
+| 1 | `AmbientPosition` | `app/client/ui_starbase.cpp:172` | neutral |
+| 1 | `std:` | `app/client/ui_starbase.cpp:173` | neutral |
+| 1 | `Unknown_B8B864` | `app/client/ui_starbase.cpp:204` | neutral (D10) |
+| 1 | `Unknown_B8B880` | `app/client/ui_starbase.cpp:205` | neutral (D10) |
+| 1 | `UIStarbaseLightsKeyEventStruct` | `app/client/ui_starbase.cpp:208` | neutral (D10) |
+| 1 | `key` | `app/client/ui_starbase.cpp:210` | neutral |
+| 1 | `Unknown02` | `app/client/ui_starbase.cpp:210` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_starbase.cpp:210` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_starbase.cpp:211` | neutral (D10) |
+| 1 | `Unknown_98` | `app/client/ui_starbase.cpp:221` | untagged neutral name (D10) |
+| 1 | `Unknown_56D510` | `app/client/ui_starbase.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown_56D8D0` | `app/client/ui_starbase.cpp:228` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_starbase.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_starbase.cpp:231` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_starbase.cpp:232` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/ui_starbase.cpp:245` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFA0` | `app/client/ui_starbase.cpp:249` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_starbase.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_56D970` | `app/client/ui_starbase.cpp:251` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_starbase.cpp:252` | untagged neutral name (D10) |
+| 1 | `Unknown135C` | `app/client/ui_starbase.cpp:262` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_starbase.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_BE82D0` | `app/client/ui_starbase.cpp:349` | untagged neutral name (D10) |
+| 1 | `Unknown_764530` | `app/client/ui_starbase.cpp:349` | untagged neutral name (D10) |
+| 1 | `Unknown_764EA0` | `app/client/ui_starbase.cpp:364` | untagged neutral name (D10) |
+| 1 | `Unknown_764CF0` | `app/client/ui_starbase.cpp:365` | untagged neutral name (D10) |
+| 1 | `Unknown_764AB0` | `app/client/ui_starbase.cpp:367` | untagged neutral name (D10) |
+| 1 | `Unknown_764880` | `app/client/ui_starbase.cpp:377` | untagged neutral name (D10) |
+| 1 | `Unknown_764F60` | `app/client/ui_starbase.cpp:379` | untagged neutral name (D10) |
+| 1 | `Unknown_764E20` | `app/client/ui_starbase.cpp:380` | untagged neutral name (D10) |
+| 1 | `Unknown_764C30` | `app/client/ui_starbase.cpp:382` | untagged neutral name (D10) |
+| 1 | `Unknown_764550` | `app/client/ui_starbase.cpp:385` | untagged neutral name (D10) |
+| 1 | `Unknown_66FD80` | `app/client/ui_starbase.cpp:395` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2700` | `app/client/ui_starbase.cpp:421` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_starbase.cpp:442` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_starbase.cpp:445` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_starbase.cpp:493` | untagged neutral name (D10) |
+| 1 | `GadgetUnknown08Struct` | `app/client/ui_starbase.cpp:514` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/uiview.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/uiview.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/uiview.cpp:14` | untagged neutral name (D10) |
@@ -15981,18 +15999,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Class_ID` | `app/client/rect3d.h:35` | E&B's class id |
 | 2 | `Set_Color` | `app/client/rect3d.h:39` | what it does |
 | 2 | `Set_Rect` | `app/client/rect3d.h:40` | what it does |
-| 2 | `Room` | `app/client/sbaseview.h:44` | what the handler compares with the packet's Room |
-| 2 | `Anim` | `app/client/sbaseview.h:94` | what it holds |
-| 2 | `Model` | `app/client/sbaseview.h:95` | what it holds |
-| 2 | `Mode` | `app/client/sbaseview.h:96` | Set_Animation's argument |
-| 2 | `Frame` | `app/client/sbaseview.h:97` | what it holds |
-| 2 | `Backward` | `app/client/sbaseview.h:98` | what it does |
-| 2 | `Get_Jobs` | `app/client/sbaseview.h:132` | what it returns |
-| 2 | `Get_Starbase` | `app/client/sbaseview.h:133` | what it returns |
-| 2 | `color, start, end` | `app/client/sbaseview.h:166` | SceneClass's Set_Fog_Color / Set_Fog_Range |
-| 2 | `Starbase` | `app/client/sbaseview.h:175` | what it holds |
-| 2 | `Channels` | `app/client/sbaseview.h:189` | what it holds |
-| 2 | `Jobs` | `app/client/sbaseview.h:195` | what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests |
+| 2 | `Room` | `app/client/sbaseview.h:55` | what the handler compares with the packet's Room |
+| 2 | `Anim` | `app/client/sbaseview.h:110` | what it holds |
+| 2 | `Model` | `app/client/sbaseview.h:111` | what it holds |
+| 2 | `Mode` | `app/client/sbaseview.h:112` | Set_Animation's argument |
+| 2 | `Frame` | `app/client/sbaseview.h:113` | what it holds |
+| 2 | `Backward` | `app/client/sbaseview.h:114` | what it does |
+| 2 | `Get_Jobs` | `app/client/sbaseview.h:148` | what it returns |
+| 2 | `Get_Starbase` | `app/client/sbaseview.h:149` | what it returns |
+| 2 | `color, start, end` | `app/client/sbaseview.h:182` | SceneClass's Set_Fog_Color / Set_Fog_Range |
+| 2 | `Starbase` | `app/client/sbaseview.h:191` | what it holds |
+| 2 | `Channels` | `app/client/sbaseview.h:205` | what it holds |
+| 2 | `Jobs` | `app/client/sbaseview.h:211` | what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests |
 | 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:40` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
 | 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:41` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |
@@ -18309,13 +18327,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RadarIconDataClass` | `app/client/radar_icon_data.h:21` | by convention (D24) from the client's radar_icon_data.cpp |
 | 3 | `rect3d.h` | `app/client/rect3d.h:18` | the header of rect3d.cpp |
 | 3 | `UITalkTreeSpaceClass` | `app/client/sbaseview.cpp:40` | class-from-file (D24) for ui_talkt_space.cpp |
-| 3 | `UIStarbaseClass` | `app/client/sbaseview.h:32` | class-from-file (D24) for app\client\ui_starbase.cpp |
-| 3 | `UIJobsClass` | `app/client/sbaseview.h:67` | class-from-file (D24) for app\client\ui_jobs.cpp |
-| 3 | `SBaseViewClass` | `app/client/sbaseview.h:111` | class-from-file (D24) for app\client\sbaseview.cpp |
-| 3 | `ViewRObjs` | `app/client/sbaseview.h:188` | the assert's 'ViewRObjs[type]' |
-| 3 | `PTrade` | `app/client/sbaseview.h:196` | its class's file (ui_ptrade.cpp) |
-| 3 | `RKey` | `app/client/sbaseview.h:206` | the lights loader's G_ASSERT '!RKey.Peek()' (0x6A0590) |
-| 3 | `RCamera` | `app/client/sbaseview.h:207` | the lights loader's G_ASSERT '!RCamera.Peek()' (0x6A0590) |
+| 3 | `UIStarbaseClass` | `app/client/sbaseview.h:43` | class-from-file (D24) for app\client\ui_starbase.cpp |
+| 3 | `UIJobsClass` | `app/client/sbaseview.h:83` | class-from-file (D24) for app\client\ui_jobs.cpp |
+| 3 | `SBaseViewClass` | `app/client/sbaseview.h:127` | class-from-file (D24) for app\client\sbaseview.cpp |
+| 3 | `ViewRObjs` | `app/client/sbaseview.h:204` | the assert's 'ViewRObjs[type]' |
+| 3 | `PTrade` | `app/client/sbaseview.h:212` | its class's file (ui_ptrade.cpp) |
+| 3 | `RKey` | `app/client/sbaseview.h:222` | the lights loader's G_ASSERT '!RKey.Peek()' (0x6A0590) |
+| 3 | `RCamera` | `app/client/sbaseview.h:223` | the lights loader's G_ASSERT '!RCamera.Peek()' (0x6A0590) |
 | 3 | `SoundManagerClass` | `app/client/sclient.cpp:774` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `ACTIONTYPE_MAX` | `app/client/sclient.cpp:4752` | the assert's (Unknown120C's two queues) |
 | 3 | `confirmedlist` | `app/client/sclient.cpp:5035` | the FAIL_IF's  // NAME 1 [timedlist]: 0x74EB00's queue |

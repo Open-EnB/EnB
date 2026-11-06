@@ -28,6 +28,17 @@ class RecustomizationCostClass;
 class LayerClass;
 class CharacterViewAvatarClass;
 
+class SBaseViewClass;
+class LightClass;
+
+// What the starbase interface holds at +0xB4, as far as 0x640D80 reads it
+struct UIStarbaseUnknownB4Struct	// NAME 1: neutral (D10)
+{
+	char Unknown00[0x0A];	// +0x00
+	bool Unknown0A;			// +0x0A (0x640D80: 2, else 1)
+	bool Unknown0B;			// +0x0B (0x640D80: 3)
+};
+
 // ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
 class UIStarbaseClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_starbase.cpp
 {
@@ -42,12 +53,17 @@ public:
 	int Unknown84;	// +0x84 (+0x7C Active: both handlers test it; the starbase view's 0x69C8F0 hands +0x84 to its +0x1F4's 0x441A90)
 	char Unknown88[0xAC - 0x88];	// +0x88
 	int Room;	// +0xAC (158 moves an avatar only in this room)  // NAME 2: what the handler compares with the packet's Room
-	char UnknownB0[0x18C - 0xB0];	// +0xB0
+	SBaseViewClass *UnknownB0;	// +0xB0 (the starbase view: 0x640D80 reads its +0x1B4's +0x18, 0x640E90 / 0x640EC0 call its +0x70 scene)
+	UIStarbaseUnknownB4Struct *UnknownB4;	// +0xB4 (0x640D80: its bytes +0x0A / +0x0B)
+	char UnknownB8[0x18C - 0xB8];	// +0xB8
 	bool Unknown18C;	// +0x18C (SClient 0x74D950 sets the starbase view's +0x174's)
-	char Unknown18D[0x224 - 0x18D];	// +0x18D
+	char Unknown18D[0x204 - 0x18D];	// +0x18D
+	std::vector<LightClass *> Lights;	// +0x204 (0x640CC0 removes and releases them; 0x640DF0 hands a copy to the lights panel)  // NAME 1: neutral
+	char Unknown214[0x224 - 0x214];	// +0x214
 	void Unknown_640150(); void Unknown_6425D0(const char *name, const Vector3 &color);	// 0x640150 (SClient 0x74ABC0: '/starbase reset'); 0x6425D0 (SClient 0x750F70: the chat-event colour)  // NAME 1 [name, color]: what 0x750F70 passes
 	void Unknown_6437A0(int unknown, AvatarDescClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields
 	void Unknown_640110(int state);	// 0x640110 (TRADE 31: 8 when a trade opens, 0 when it ends)  // NAME 1 [state]: neutral
+	void Unknown_640CC0();	// 0x640CC0 (no caller: the lights removed from their scene, released and cleared)
 	void Unknown_640D80(int *a, int *b, int *c); void Unknown_640F10();	// 0x640D80 (+0xB0's +0x1B4's +0x18, Room, 1..3 from +0xB4); 0x640F10 (empty: ret); the lights panel's 0x6466F0 / 0x6467B0  // NAME 1 [a, b, c]: neutral
 	std::vector<LightClass *> Unknown_640DF0();	// 0x640DF0 (a copy of the vector at +0x204: the lights panel's 0x646A00)
 	void Unknown_640E90(const Vector3 &color); void Unknown_640EC0(float fill); void Unknown_640EF0(int index); void Unknown_640F30(int index, float range);	// 0x640E90 / 0x640EC0 (+0xB0's +0x70's 0x762940 / 0x762920); 0x640EF0 / 0x640F30 (empty: ret 4 / ret 8); the lights panel's 0x646F70 / 0x6474C0 pass them  // NAME 1 [fill, index, range]: what 0x646F70 passes
