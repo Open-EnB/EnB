@@ -5,7 +5,7 @@
 **	__FILE__ is 'e:\build\beta\G\app\Client\map_pip.cpp'; the client holds no string of this header)
 **
 **	The base of the map picture-in-picture views. Constructor 0x6927C0, table 0xAFD078, 0x50 bytes.
-**	Its first 0x34 bytes come from pip_scene.cpp's constructor 0x7BA9C0 (not in the tree).
+**	Its first 0x34 bytes come from pip_scene.cpp's constructor 0x7BA9C0 (pip_scene.h).
 */
 
 #if defined(_MSC_VER)
