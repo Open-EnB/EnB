@@ -492,9 +492,12 @@ class UIPTradeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24)
 public:
 	UIPTradeClass(SClient *client);			// 0x5E1BE0 (0xE8 bytes; the main view's 0x50C690 and the starbase view's 0x69B5E0)  // NAME 1 [client]: what both pass
 	void Unknown_5E2F70(bool on); void Unknown_5E3050(bool on); void Unknown_5E3130();	// 0x5E2F70 (TRADE 31 types 3 / 4), 0x5E3050 (types 5 / 6), 0x5E3130 (type 2)  // NAME 1 [on]: what the handler passes
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual bool Unknown_68(int key); virtual void Unknown_6C(INIClass &ini);
-	virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager); virtual bool Unknown_78(void *arg);
-	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C (0x50C690: the view, 0)  // NAME 1 [view, arg]: what 0x50C690 passes
+	virtual void Unknown_54();							// +0x54 0x5E1FA0 (the set-up: the buttons, the inventories, the credits entry, the pips)
+	virtual void Unknown_58();							// +0x58 0x5E26F0 (activated)
+	virtual void Unknown_5C();							// +0x5C 0x5E2B30 (deactivated, when +0xD4 is 2)
+	virtual void Unknown_60();							// +0x60 0x5E2BF0 (every frame: the texts, the credits entry, the pips; +0xD8 counts down)
+	virtual bool Unknown_68(int key);					// +0x68 0x5E2CE0 (the buttons: request 'Roll_Select02b.wav')  // NAME 1 [key]: InterfaceClass's
+	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x5E2F00 (0x50C690: the view, 0; passed on to the inventories and, with false, the credits entry)  // NAME 1 [view, arg]: what 0x50C690 passes
 	void Unknown_5E3340();								// 0x5E3340 (the credits texts: 'CREDITS_TRADE00', 'CRED1_TRADE00', 'CRED2_TRADE00')
 	void Unknown_5E3750(bool on);						// 0x5E3750: the four buttons' slot +0x40, the two inventories activated or deactivated  // NAME 1 [on]: neutral
 	void Unknown_5E37F0();								// 0x5E37F0 (request 0x17 when the avatar's 'Inventory.PlayerTrade' or 'TradeMoney' is above 1, else 0x5E3340 once the other's 'TradeMoney' is)
@@ -508,8 +511,8 @@ public:
 	GadgetClass *Unknown0BC[4];							// +0xBC the buttons ('UI_PTRADE' 'CANCEL', 'CANCEL', 'CONFIRM', 'CREDITS')
 	AvatarPipClass *PlayerPIP;							// +0xCC  // NAME 3: the asserts' (line 145)
 	AvatarPipClass *OtherPIP;							// +0xD0  // NAME 3: the asserts' (line 146)
-	int Unknown0D4;										// +0xD4
-	int Unknown0D8;										// +0xD8
+	int State;											// +0xD4: UI_OPEN (2) or UI_CLOSED (0): slot +0x5C acts when it is UI_OPEN  // NAME 3: the destructor's G_ASSERT 'State == UI_CLOSED' (line 82)
+	float Unknown0D8;									// +0xD8 (slot +0x60 counts it down in seconds; at 0 slot +0x5C)
 	bool Unknown0DC;									// +0xDC
 	bool Unknown0DD;									// +0xDD
 	bool Unknown0DE;									// +0xDE

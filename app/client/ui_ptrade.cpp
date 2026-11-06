@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_ptrade.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_ptrade.cpp', 0x5E1B80-0x5E3EEF by its asserts and its callers).
-// So far 0x5E3750-0x5E3EEF (PT1); not yet: 0x5E1B80-0x5E374F.
+// So far the slots +0x5C / +0x60 / +0x7C (0x5E2B30, 0x5E2BF0, 0x5E2F00) and 0x5E3750-0x5E3EEF (PT1); not yet: the rest of 0x5E1B80-0x5E374F.
 #include <stdlib.h>
 #include <string>
 #include "sclient.h"
@@ -16,6 +16,7 @@
 #include "..\shared\auxdata\lookup.h"
 #include "..\shared\auxdata\delta_money.h"
 #include "..\shared\unknown_debug.h"
+#include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (0xBFAE3C - 0xBFAE40, read inline)
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -34,6 +35,61 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // What SClient 0x74C7B0 returns, as far as 0x5E3C90 reads it (the avatar's description at +0xF8, as ui_chat_panel.cpp's)
 class UIPTradeAvatarClass : public RefCountClass { public: char Unknown[0xF8 - sizeof(RefCountClass)]; AvatarDescClass Desc; };	// NAME 1: neutral (D10)
+
+// avatar_pip.cpp's pip (0x3C bytes; +0xCC, +0xD0), as far as this file calls it (ui_chat_panel.cpp declares it the same way)
+class AvatarPipClass	// NAME 3: class-from-file (D24) for app\client\avatar_pip.cpp
+{
+public:
+	void Unknown_7E3A20(int a, unsigned id, int b);		// 0x7E3A20 (slot +0x60: 0, the avatar's or the other's id, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
+	void Unknown_7E4350();								// 0x7E4350 (slot +0x5C)
+};
+
+// 0x5E2B30
+void UIPTradeClass::Unknown_5C()
+{
+	if (State == UI_OPEN) {
+		State = UI_CLOSED;
+		Unknown0AC->Unknown_5C();
+		Unknown0B0->Unknown_5C();
+		Unknown0B4->Unknown_5C();
+		SClient *sclient = Client->As_Space_Client();
+		if (Unknown0DC) {
+			sclient->PDAInterface->Unknown_695A00(0, 1);
+		}
+		Unknown_5E2F70(false);
+		Unknown_5E3050(false);
+		Unknown5BB320Class::Unknown_5C();
+		PlayerPIP->Unknown_7E4350();
+		OtherPIP->Unknown_7E4350();
+	}
+}
+
+// 0x5E2BF0
+void UIPTradeClass::Unknown_60()
+{
+	Unknown_5E3C90();
+	Unknown_5E39F0();
+	Unknown_5E37F0();
+	PlayerPIP->Unknown_7E3A20(0, ((ClientClass *)Client)->AvatarID, 0);
+	OtherPIP->Unknown_7E3A20(0, ((ClientClass *)Client)->Unknown1134, 0);
+	Unknown5BB320Class::Unknown_60();
+	if (Unknown0D8 > 0.0f) {
+		Unknown0D8 -= WW3D::Get_Frame_Time() * 0.001f;
+		if (Unknown0D8 < 0.0f) {
+			Unknown0D8 = 0.0f;
+			Unknown_5C();
+		}
+	}
+}
+
+// 0x5E2F00
+void UIPTradeClass::Unknown_7C(UIViewClass *view, bool arg)
+{
+	if (Unknown0B4) Unknown0B4->Unknown_7C(view, false);
+	if (Unknown0AC) Unknown0AC->Unknown_7C(view, arg);
+	if (Unknown0B0) Unknown0B0->Unknown_7C(view, arg);
+	Unknown5BB320Class::Unknown_7C(view, arg);
+}
 
 // 0x5E3750
 void UIPTradeClass::Unknown_5E3750(bool on)
