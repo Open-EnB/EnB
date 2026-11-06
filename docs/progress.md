@@ -2568,6 +2568,11 @@ below name only the work items, the blocked work, the leads and the queues.
      Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.3) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * ui_friends.cpp (FR1, 2026-11-05 night; UIFriendsClass 0x14C over UIChatPanelBaseClass, 0x58F0F0-0x5921F0, 39 pairs): ctor
+     0x58F210 / dtor 0x58F450 not yet written (the vtable waits for an exact ctor), 0x58F6B0 (slot +0x54), 0x590020 (slot
+     +0x68, an 11-case key switch; callees 0x7E8030 / 0x64A2B0 unknown), 0x591C30 (GroupInfo lookup via 0x5927E0), 0x5921C0
+     on; NOT EXACT 0x5908B0 / 0x590DB0 / 0x590E50 (register), 0x58FBA0 / 0x5913E0 / 0x591A30 (inline budget). cpacket.cpp's
+     stand-in `class UIFriendsClass` can include ui_friends.h (verify cpacket unchanged). ui_friends.h interim (NAME 1).
    * The item examination window (IE1 / IE2, 2026-11-05 night; ui_item_examination*.cpp, 0x531430-0x53AB4F): NOT EXACT the
      description ctor 0x534CA0 (frame 0x2C vs 0x24; a named Vector2 gets the frame but inlines the second string's `_Eos`),
      the attributes ctor 0x532BA0 / dtor 0x533000 forms in attempts.csv; title 0x53A140 (the name's std::string by value);
