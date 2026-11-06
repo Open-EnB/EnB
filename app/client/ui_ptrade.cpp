@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_ptrade.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_ptrade.cpp', 0x5E1B80-0x5E3EEF by its asserts and its callers).
-// So far 0x5E1BE0-0x5E3EEF but the set-up 0x5E1FA0 (slot +0x54) and 0x5E26D0 (PT1, PT2).
+// Every function 0x5E1BE0-0x5E40A1 is rebuilt, the credits button 0x5E3EF0 / 0x5E3F40 and its destructors 0x5E4010 / 0x5E4040 included (PT1, PT2).
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -21,6 +21,7 @@
 #include "..\shared\unknown_debug.h"
 #include "..\audio\soundlib.h"
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (0xBFAE3C - 0xBFAE40, read inline)
+#include "unknown_674260.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -47,8 +48,8 @@ class AvatarPipClass	// NAME 3: class-from-file (D24) for app\client\avatar_pip.
 public:
 	void Unknown_7E36B0(SClient *client, const RefCountPtr<RenderObjClass> &robj, int arg);	// 0x7E36B0 (slot +0x58: the mesh's AVATAR_YOU / AVATAR_THEM, 0)  // NAME 1 [client, robj, arg]: what 0x562F50 passes
 	void Unknown_7E3A20(int a, unsigned id, int b);		// 0x7E3A20 (slot +0x60: 0, the avatar's or the other's id, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
-	void Unknown_7E4350();								// 0x7E4350 (slot +0x5C)
-	~AvatarPipClass();									// 0x7E3410 (the destructor deletes both pips)
+	void Unknown_7E4350(); char Unknown00[0x3C];		// 0x7E4350 (slot +0x5C); 0x3C bytes (the set-up's new)
+	AvatarPipClass(); ~AvatarPipClass();				// 0x7E31B0 (the set-up's); 0x7E3410 (the destructor deletes both pips)
 };
 
 // 0x5E1BE0
@@ -75,7 +76,6 @@ UIPTradeClass::UIPTradeClass(SClient *client) :
 
 
 
-
 // 0x5E1D80
 UIPTradeClass::~UIPTradeClass()
 {
@@ -91,69 +91,69 @@ UIPTradeClass::~UIPTradeClass()
 	Unknown_BE67BC->Unload("fa_trade00a.ini");
 }
 
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
+
+// The four buttons' sub-objects and their styles (0xB850B0 / 0xB850C4)
+static const char *Unknown_B850B0[] = { "exit", "cancel", "confirm", "money", NULL };	// NAME 1: neutral (D10)
+static const char *Unknown_B850C4[] = { NULL, "CANCEL_TRADE00", "CONFIRM_TRADE00", "MONEY_TRADE00", NULL };	// NAME 1: neutral (D10)
+
+// The credits button (0x64 bytes, table 0xAF6578, over 0x674260's gadget): pressed, it counts only while the credits entry is closed
+class UIPTradeCreditsGadgetClass : public Unknown_674260Class	// NAME 1: neutral (D10)
+{
+public:
+	UIPTradeCreditsGadgetClass(const RefCountPtr<RenderObjClass> &model, RefCountPtr<UIPTradeCreditsClass> credits);	// 0x5E3F40  // NAME 1 [model, credits]: what the set-up passes
+	virtual bool Unknown_34(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x34 0x5E3EF0 (the base's, false while the credits entry is Active)  // NAME 1 [event, x, y, mask]: the base's
+
+	RefCountPtr<UIPTradeCreditsClass> Unknown60;		// +0x60
+};
 
 
 
 
 
+// 0x5E1FA0
+void UIPTradeClass::Unknown_54()
+{
+	for (int id = 1; id < 5; id++) {
+		RefCountPtr<RenderObjClass> robj = Create_NEW(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B850B0[id - 1]));
+		Unknown_496AE0(robj.Peek(), 0);
+		Unknown0BC[id - 1] = new ButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);
+		Unknown64.Unknown_6870E0(Unknown0BC[id - 1], id, View, 1, 0);
+		Unknown_5BB4F0(Unknown0BC[id - 1]);
+		if (Unknown_B850C4[id - 1]) {
+			RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B850C4[id - 1], InterfaceMesh->Peek_Mesh_Object()));
+			font->Set_Sort_Level(robj->Get_Sort_Level() - 1);
+			((ButtonGadgetClass *)Unknown0BC[id - 1])->Unknown_98(font.Peek());
+		}
+	}
+	GadgetClass::Set_Tooltip(Unknown0BC[1], "UI_PTRADE", "CANCEL");
+	GadgetClass::Set_Tooltip(Unknown0BC[0], "UI_PTRADE", "CANCEL");
+	GadgetClass::Set_Tooltip(Unknown0BC[2], "UI_PTRADE", "CONFIRM");
+	GadgetClass::Set_Tooltip(Unknown0BC[3], "UI_PTRADE", "CREDITS");
+	SClient *sclient = Client->As_Space_Client();
+	Unknown0AC = Create_Get(new UIManuInvClass(sclient, InterfaceMesh->Peek_Object(), 6, "TRADE00A.C%02d", 15));
+	Unknown0AC->Unknown_5417D0(this);
+	Unknown0AC->Unknown_54();
+	Unknown0B0 = Create_Get(new UIManuInvClass(sclient, InterfaceMesh->Peek_Object(), 6, "TRADE00A.X%02d", 16));
+	Unknown0B0->Unknown_5417D0(this);
+	Unknown0B0->Unknown_54();
+	Unknown0B4 = Create_Get(new UIPTradeCreditsClass(sclient, 0, 9));
+	Unknown0B4->Unknown_54();
+	Unknown0B4->Unknown_64A270("Enter Amount of Credits");
+	GadgetClass *credits = new UIPTradeCreditsGadgetClass(Create_Peek(InterfaceMesh->Unknown_5E26D0()), Unknown0B4);
+	Unknown64.Unknown_6870E0(credits, 6, View, 1, 0);
+	FAIL_IF(PlayerPIP) return;
+	FAIL_IF(OtherPIP) return;
+	PlayerPIP = new AvatarPipClass;
+	OtherPIP = new AvatarPipClass;
+	Unknown_10();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x5E26D0
+RenderObjClass *UIMeshClass::Unknown_5E26D0()
+{
+	return(Unknown1C);
+}
 
 // 0x5E2F70
 void UIPTradeClass::Unknown_5E2F70(bool on)
@@ -493,4 +493,20 @@ void UIPTradeClass::Unknown_5E3C90()
 	std::string name;
 	avatar->Desc.Get_Full_Name(name);
 	font->Change_Text(name.c_str(), 0);
+}
+
+// 0x5E3EF0
+bool UIPTradeCreditsGadgetClass::Unknown_34(KernelEventClass *event, float x, float y, unsigned int mask)
+{
+	if (GadgetClass::Unknown_34(event, x, y, mask)) {
+		return(Unknown60->Active ? false : true);
+	}
+	return(false);
+}
+
+// 0x5E3F40
+UIPTradeCreditsGadgetClass::UIPTradeCreditsGadgetClass(const RefCountPtr<RenderObjClass> &model, RefCountPtr<UIPTradeCreditsClass> credits) :
+	Unknown_674260Class(model)
+{
+	Unknown60 = credits;
 }
