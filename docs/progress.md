@@ -2569,6 +2569,12 @@ below name only the work items, the blocked work, the leads and the queues.
      Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.3) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * ui_analyze.cpp (AN1, 2026-11-06 night; UIAnalyzeClass 0x11C over Unknown5BB320Class, ui_manu.cpp's near-copy; ui_analyze.h
+     interim NAME 1): slots +0x54 0x5439F0 / +0x60 0x5443F0, 0x544D80, 0x545190, 0x545610, 0x5458B0 not written; NOT EXACT
+     0x545E40 (inline budget: the client calls the finds 0x546780 / 0x5467F0 out of line, as ui_manu's 0x5B4680 does: ui_manu
+     should use aux_roots.h's types too), 0x546090 (Cast<DeltaStringClass> out of line; end-of-file inline_depth(1) fixes it
+     but costs 0x5461C0), dtor 0x5437C0 (one relocation target differs). The file-wide question, why the client calls
+     Find_Field / Cast out of line, also covers ~10 of ui_manu's NOT EXACT functions.
    * ui_playeropt.cpp (CP1, 2026-11-05 night; UIPlayerOptClass 0x114, ui_friends' twin, 0x5D8C40-0x5DAE8F): NOT EXACT only
      0x5D9D10 (inline budget, 8 forms). Its levers for ui_friends.cpp: 0x590E50 with `X.Peek() != NULL && X->Is_Active()`,
      0x591A30 taking its target from its own 0x592150 (as 0x5DAB50), perhaps 0x58FBA0 by calling the file's own helper.
