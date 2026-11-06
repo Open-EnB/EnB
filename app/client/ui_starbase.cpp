@@ -210,6 +210,36 @@ void UIStarbaseLightsClass::Unknown_646940()
 	Fill = 0.75f;
 }
 
+// NOT EXACT: inline-budget (the client keeps the temporary vector's _Destroy 0x644410 out of line, ours inlines it)
+// and the far attenuation range: the client copies the two floats with mov, as Zero Hour's light.h overload
+// Get_Far_Attenuation_Range(float &, float &) gives (tested with an equivalent helper); this tree's light.h has
+// only the double & one, whose fld / fstp is kept here
+// 0x646A00
+void UIStarbaseLightsClass::Unknown_646A00()
+{
+	Unknown_BE82D0->Unknown_764530();
+	Lights = Starbase->Unknown_640DF0();
+	UnknownF4 = Lights.size();
+	int i;
+	for (i = 0; i < UnknownF4; i++) {
+		LightClass *light = Lights[i];
+		light->Get_Ambient(&AmbientColor);
+		light->Get_Diffuse(&Color[i]);
+		Intensity[i] = light->Get_Intensity();
+		double start;
+		double end;
+		light->Get_Far_Attenuation_Range(start, end);
+		Atten[i].X = start;
+		Atten[i].Y = end;
+	}
+	Fill = Unknown_BE82D0->Unknown_764EA0(UnknownE4, UnknownE8, UnknownEC);
+	AmbientColor = Unknown_BE82D0->Unknown_764CF0(UnknownE4, UnknownE8, UnknownEC);
+	for (i = 0; i < UnknownF4; i++) {
+		Position[i] = Unknown_BE82D0->Unknown_764AB0(UnknownE4, UnknownE8, UnknownEC, i);
+	}
+	AmbientPosition = Unknown_BE82D0->Unknown_764AB0(UnknownE4, UnknownE8, UnknownEC, 1000);
+}
+
 // 0x646E00
 void UIStarbaseLightsClass::Unknown_646E00()
 {

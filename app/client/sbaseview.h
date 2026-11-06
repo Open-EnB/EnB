@@ -49,6 +49,7 @@ public:
 	void Unknown_6437A0(int unknown, AvatarDescClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields
 	void Unknown_640110(int state);	// 0x640110 (TRADE 31: 8 when a trade opens, 0 when it ends)  // NAME 1 [state]: neutral
 	void Unknown_640D80(int *a, int *b, int *c); void Unknown_640F10();	// 0x640D80 (+0xB0's +0x1B4's +0x18, Room, 1..3 from +0xB4); 0x640F10 (empty: ret); the lights panel's 0x6466F0 / 0x6467B0  // NAME 1 [a, b, c]: neutral
+	std::vector<LightClass *> Unknown_640DF0();	// 0x640DF0 (a copy of the vector at +0x204: the lights panel's 0x646A00)
 	void Unknown_640E90(const Vector3 &color); void Unknown_640EC0(float fill); void Unknown_640EF0(int index); void Unknown_640F30(int index, float range);	// 0x640E90 / 0x640EC0 (+0xB0's +0x70's 0x762940 / 0x762920); 0x640EF0 / 0x640F30 (empty: ret 4 / ret 8); the lights panel's 0x646F70 / 0x6474C0 pass them  // NAME 1 [fill, index, range]: what 0x646F70 passes
 };
 

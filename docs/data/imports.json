@@ -26352,6 +26352,8 @@
    "ui_starbase": {
     "ambiguous": [
      "0x42A900",
+     "0x42AAE0",
+     "0x4333D0",
      "0x46BE90"
     ],
     "copy": "reconstructed",
@@ -26393,6 +26395,8 @@
      "0x647B30",
      "0x647F30",
      "0x648190",
+     "0x648310",
+     "0x648340",
      "0x648380",
      "0x6483B0",
      "0x6483C0"
@@ -28787,7 +28791,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 10004,
+  "in_tree_total": 10006,
   "totals": {}
  },
  "binkmovie": {
