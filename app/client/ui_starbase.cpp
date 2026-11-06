@@ -16,6 +16,7 @@
 #include "rendobj.h"
 #include "starbase_lights.h"
 #include "..\audio\soundlib.h"
+#include "control_keys_manager.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -30,11 +31,14 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, a
 
 void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [robj, u, v, color]: as ui_avatar_cust.cpp's
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (the pointer, 0..1)  // NAME 1 [x, y]: as ui_avatar_cust.cpp's
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_avatar_cust.cpp's
 
 // The colour pad's gadget (0x80 bytes, constructor 0x671300), as ui_avatar_cust.cpp's UIAvatarCustGadget671300Class
 class UIStarbaseLightsGadget671300Class : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
+	UIStarbaseLightsGadget671300Class(RenderObjClass *area, int a, int b, int c, int d);	// 0x671410 (0x646360: the palette, 0, 0, 0, 0)  // NAME 1 [area, a, b, c, d]: neutral
+	virtual bool Unknown_30(float x, float y);			// +0x30 (GadgetClass's pure slot: the pad's own)  // NAME 1 [x, y]: GadgetClass's
 	void Unknown_671630();								// 0x671630 (the buttons' flags off)
 	char Unknown30[0x64 - 0x30];						// +0x30
 	bool Unknown64;										// +0x64 (the left button held)
@@ -45,9 +49,12 @@ public:
 // The pad and its pull (the panel's +0xD8), as ui_avatar_cust.cpp's UIAvatarCustGadgetHolderStruct
 struct UIStarbaseLightsGadgetHolderStruct	// NAME 1: neutral (D10)
 {
+	UIStarbaseLightsGadgetHolderStruct();				// 0x585920 (0x10 bytes)
+	void Unknown_5859A0();								// 0x5859A0 (once the gadget is in)
 	GadgetClass *Unknown00;								// +0x00 (the pad: slots +0x08 / +0x64)
 	RenderObjClass *Unknown04;							// +0x04 (the pull, a bone of the panel's model)
 	bool Unknown08;										// +0x08 (dragged: 0x647B30)
+	char Unknown09[0x10 - 0x09];						// +0x09
 };
 
 // The starbase lights panel (0x444 bytes; constructor 0x646170 over ui_chat_panel_base.cpp's 0x56D280, table
@@ -76,7 +83,7 @@ public:
 	// The base's +0x84 model as the font manager takes it (UIChatPanelBaseClass declares it a plain pointer)
 	const RefCountPtr<RenderObjClass> &Model() { return(*(const RefCountPtr<RenderObjClass> *)&Unknown84); }	// NAME 1 [Model]: neutral
 
-	int UnknownA0[6];									// +0xA0 (the constructor clears them with one memset)
+	GadgetClass *UnknownA0[6];							// +0xA0 (the buttons exit, save, light00-03: 0x646360; the constructor clears them with one memset)
 	GadgetSlider *Slider[4];							// +0xB8 (near, far, intensity, fill: 0x646F70's texts)  // NAME 1: neutral
 	float SliderValue[4];								// +0xC8 (the values last seen: 0x646F70 compares them)  // NAME 1: neutral
 	UIStarbaseLightsGadgetHolderStruct *UnknownD8;		// +0xD8
@@ -121,6 +128,50 @@ UIStarbaseLightsClass::~UIStarbaseLightsClass()
 	if (Active) {
 		InterfaceClass::Unknown_5C();
 		Starbase->Unknown_640F10();
+	}
+}
+
+// The buttons 0x646360 makes: their models' names and their texts (0xB8B864 / 0xB8B880)
+static const char *Unknown_B8B864[6] = { "exit", "save", "light00", "light01", "light02", "light03" };	// NAME 1: neutral (D10)
+static const char *Unknown_B8B880[6] = { NULL, "save_light02a", "previous_light02a", "next_light02a", "diffuse_light02a", "ambient_light02a" };	// NAME 1: neutral (D10)
+
+// NOT EXACT: register (ours keeps 0 in ebp for the pushes and the stores, the client pushes immediates and never
+// saves ebp; tried: one or two loop counters, named locals for the zero vector and the key combo)
+// 0x646360
+void UIStarbaseLightsClass::Unknown_54()
+{
+	if (Unknown_98("light02a", "fa_light02a.ini")) {
+		Unknown_646940();
+		int i;
+		for (i = 0; i < 6; i++) {
+			UnknownA0[i] = Unknown_56D510(i + 1, Unknown_B8B864[i], Unknown_B8B880[i]);
+		}
+		for (i = 0; i < 4; i++) {
+			Slider[i] = Unknown_56D8D0(i + 8, 0);
+			Slider[i]->Unknown_66E460(Model(), true, i);
+			if (i == 2) {
+				Slider[2]->Unknown_66FA90(3.0f, 0.01f, true);
+				Slider[2]->Unknown_A4(0.5f, false);
+			} else if (i == 3) {
+				Slider[3]->Unknown_66FA90(3.0f, 0.01f, true);
+				Slider[3]->Unknown_A4(0.75f, false);
+			} else {
+				Slider[i]->Unknown_66FA90(1000.0f, 0.1f, true);
+				Slider[i]->Unknown_A4(500.0f, false);
+			}
+		}
+		UnknownD8 = new UIStarbaseLightsGadgetHolderStruct;
+		RefCountPtr<RenderObjClass> palette = Create_Get(Unknown84->Get_Sub_Object_By_Name("COLOR_PALETTE"));
+		Unknown_496AE0(palette.Peek(), false);
+		UnknownD8->Unknown00 = new UIStarbaseLightsGadget671300Class(palette.Peek(), 0, 0, 0, 0);
+		UnknownD8->Unknown00->Unknown2C_0A = true;
+		UnknownD8->Unknown04 = Unknown84->Get_Sub_Object_By_Name("PULL_COLOR");
+		Unknown_496AE0(UnknownD8->Unknown04, true);
+		UnknownD8->Unknown_5859A0();
+		UnknownD8->Unknown00->Unknown_65FFA0(-1);
+		Unknown64.Unknown_6870E0(UnknownD8->Unknown00, 0xD, View, true, false);
+		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
+		((ControlKeyListClass *)Unknown4C)->Add(ControlKeyComboStruct(0x1B, 0), (void *)1);
 	}
 }
 

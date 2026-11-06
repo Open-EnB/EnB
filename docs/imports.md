@@ -2003,7 +2003,7 @@ Base copy: reconstructed. Headers: 349 from reconstructed.
 | client/ui_shard.cpp | reconstructed | 47 | 3 | - | - | - |  |
 | client/ui_ship_cust.cpp | reconstructed | 109 | 4 | - | - | - |  |
 | client/ui_shipcust.cpp | reconstructed | 111 | 4 | - | - | - |  |
-| client/ui_starbase.cpp | reconstructed | 41 | 4 | - | - | - |  |
+| client/ui_starbase.cpp | reconstructed | 41 | 5 | - | - | - |  |
 | client/uiview.cpp | reconstructed | 36 | 3 | - | - | - |  |
 | shared/unique_design_id_lookup.cpp | reconstructed | 148 | 2 | - | - | - |  |
 | shared/unknown_458710.cpp | reconstructed | 21 | 0 | - | - | - |  |

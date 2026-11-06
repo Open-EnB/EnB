@@ -10,6 +10,7 @@
 
 class RenderObjClass;
 class GadgetClass;			// gadget.cpp's
+class GadgetSlider;			// gd_slider.h's
 
 class AvatarPipClass;		// avatar_pip.cpp's (the panel's +0x110; declared in ui_chat_panel.cpp)
 
@@ -34,8 +35,12 @@ public:
 	virtual void Unknown_8C();							// +0x8C 0x56DE60
 	virtual int Unknown_90() { return(0); }				// +0x90 0x5623B0 (emitted with the chat panel's table)
 	virtual void Unknown_94() {}						// +0x94 0x5623D0
-	virtual void Unknown_98();							// +0x98 0x56DB20
+	virtual bool Unknown_98(const char *name, const char *ini);	// +0x98 0x56DB20 (the model and its ini: ui_starbase.cpp's lights panel passes 'light02a', 'fa_light02a.ini')  // NAME 1 [name, ini]: what 0x646360 passes
 	virtual void Unknown_9C() {}						// +0x9C 0x5623F0
+
+	GadgetClass *Unknown_56D510(int id, const char *button, const char *text);	// 0x56D510 (the lights panel's 0x646360: a button by its model's name, with its text)  // NAME 1 [id, button, text]: what 0x646360 passes
+	GadgetSlider *Unknown_56D8D0(int id, int unknown);	// 0x56D8D0 (0x646360: its four sliders, ids 8-11)  // NAME 1 [id, unknown]: neutral
+	void Unknown_56D970(int id, const Vector3 &offset);	// 0x56D970 (G_ASSERT 'MovableBackGadget'; 0x646360 passes 1 and a zero vector)  // NAME 1 [id, offset]: neutral
 
 	RenderObjClass *Unknown84;							// +0x84 (its slot +0x70 finds the panel's parts by name; the font styles' owner)
 	RenderObjClass *Peek_Unknown84() { return(Unknown84); }	// NAME 1: neutral (D10)
