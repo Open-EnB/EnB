@@ -1775,8 +1775,8 @@ Base copy: reconstructed. Headers: 349 from reconstructed.
 | shared/expr/expr_lexer_impl.cpp | reconstructed | 24 | 2 | - | - | - |  |
 | shared/expr/expr_lexer_match_list.cpp | reconstructed | 31 | 1 | - | - | - |  |
 | shared/expr/expr_lexer_matchers.cpp | reconstructed | 10 | 1 | - | - | - |  |
-| shared/expr/expr_math_float.cpp | reconstructed | 88 | 4 | - | - | - |  |
-| shared/expr/expr_math_int.cpp | reconstructed | 118 | 3 | - | - | - |  |
+| shared/expr/expr_math_float.cpp | reconstructed | 91 | 4 | - | - | - |  |
+| shared/expr/expr_math_int.cpp | reconstructed | 121 | 3 | - | - | - |  |
 | shared/expr/expr_math_lexer_factory.cpp | reconstructed | 5 | 1 | - | - | - |  |
 | shared/expr/expr_math_parser_factory.cpp | reconstructed | 8 | 2 | - | - | - |  |
 | shared/expr/expr_math_parser_impl.cpp | reconstructed | 28 | 3 | - | - | - |  |

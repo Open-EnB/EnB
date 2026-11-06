@@ -51,14 +51,14 @@ public:
 		G_ASSERT(factory);
 	}
 
-	// NOT EXACT: 0x4CAF50: from the pseudocode; not matched yet
 	virtual void Visit_Unary(ExprMathUnaryClass *node)
 	{
+		PtrType child;
 		node->Get_Child()->Accept(this);
 		if (m_result == NULL) {
 			return;
 		}
-		PtrType child = m_result;
+		child = m_result;
 		m_result = m_factory->Create_Unary(std::string(node->Get_Token().Text.c_str()), child);
 		if (m_result == NULL) {
 			return;
@@ -68,19 +68,21 @@ public:
 		}
 	}
 
-	// NOT EXACT: 0x4CB260: from the pseudocode; not matched yet
+	// NOT EXACT: 0x4CB260 (float), 0x4CFB00 (int): the client releases left on the first early return and leaves right to a shared exit; ours releases both in place
 	virtual void Visit_Binary(ExprMathBinaryClass *node)
 	{
+		PtrType left;
+		PtrType right;
 		node->Get_Left()->Accept(this);
 		if (m_result == NULL) {
 			return;
 		}
-		PtrType left = m_result;
+		left = m_result;
 		node->Get_Right()->Accept(this);
 		if (m_result == NULL) {
 			return;
 		}
-		PtrType right = m_result;
+		right = m_result;
 		m_result = m_factory->Create_Binary(std::string(node->Get_Token().Text.c_str()), left, right);
 		if (m_result == NULL) {
 			return;
@@ -90,16 +92,19 @@ public:
 		}
 	}
 
-	// NOT EXACT: 0x4CB620: from the pseudocode; not matched yet
 	virtual void Visit_Leaf(ExprMathTreeClass *node)
 	{
 		const ExprMathTokenClass &token = node->Get_Token();
-		if (token.Type == 1) {
-			m_result = m_factory->Create_Variable(token.Text);
-		} else if (token.Type == 2) {
-			m_result = m_factory->Create_Constant(token.Text);
-		} else if (token.Type == 5) {
-			m_result = m_factory->Create_Variable(token.Text.substr(1, token.Text.size() - 2));
+		switch (token.Type) {
+			case 2:
+				m_result = m_factory->Create_Constant(token.Text);
+				break;
+			case 1:
+				m_result = m_factory->Create_Variable(token.Text);
+				break;
+			case 5:
+				m_result = m_factory->Create_Variable(token.Text.substr(1, token.Text.size() - 2));
+				break;
 		}
 	}
 
@@ -120,7 +125,6 @@ public:
 	ExprMathBuilderClass(ExprMathLexerClass *lexer, ExprMathParserClass *parser, ExprMathEvalFactoryClass<T> *factory) :
 		m_lexer(lexer), m_parser(parser), m_factory(factory) {}
 
-	// NOT EXACT: 0x4CACE0: from the pseudocode; not matched yet
 	PtrType Build(const char *source, std::vector<std::string> *names)
 	{
 		m_lexer->Set_Source(source);
@@ -137,7 +141,8 @@ public:
 		if (names != NULL) {
 			ExprMathTokenCollectorClass collector(1);
 			tree->Accept(&collector);
-			for (int i = 0; i < (int)collector.m_tokens.size(); i++) {
+			int count = collector.m_tokens.size();
+			for (int i = 0; i < count; i++) {
 				names->push_back(collector.m_tokens[i].Text);
 			}
 		}
