@@ -10215,15 +10215,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Field` | `app/client/ui_ptrade.cpp:398` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_ptrade.cpp:398` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Money` | `app/client/ui_ptrade.cpp:399` | neutral (D10) |
-| 1 | `Unknown_4F00C0` | `app/client/ui_ptrade.cpp:410` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_ptrade.cpp:426` | untagged neutral name (D10) |
-| 1 | `Unknown_Changed` | `app/client/ui_ptrade.cpp:438` | neutral (D10) |
-| 1 | `Unknown_Test_70_Above_1` | `app/client/ui_ptrade.cpp:438` | untagged neutral name (D10) |
-| 1 | `Unknown_Changed_Money` | `app/client/ui_ptrade.cpp:439` | neutral (D10) |
-| 1 | `Unknown_64A220` | `app/client/ui_ptrade.cpp:461` | untagged neutral name (D10) |
-| 1 | `Unknown_64A240` | `app/client/ui_ptrade.cpp:464` | untagged neutral name (D10) |
-| 1 | `Unknown_74D990` | `app/client/ui_ptrade.cpp:476` | untagged neutral name (D10) |
-| 1 | `Unknown_6D87D0` | `app/client/ui_ptrade.cpp:490` | untagged neutral name (D10) |
+| 1 | `Unknown_4F00C0` | `app/client/ui_ptrade.cpp:408` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_ptrade.cpp:424` | untagged neutral name (D10) |
+| 1 | `Unknown_Changed` | `app/client/ui_ptrade.cpp:436` | neutral (D10) |
+| 1 | `Unknown_Test_70_Above_1` | `app/client/ui_ptrade.cpp:436` | untagged neutral name (D10) |
+| 1 | `Unknown_Changed_Money` | `app/client/ui_ptrade.cpp:437` | neutral (D10) |
+| 1 | `Unknown_64A220` | `app/client/ui_ptrade.cpp:459` | untagged neutral name (D10) |
+| 1 | `Unknown_64A240` | `app/client/ui_ptrade.cpp:462` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/ui_ptrade.cpp:474` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/ui_ptrade.cpp:488` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_registration.cpp:22` | 0xBE67C4 |
 | 1 | `ProductEB` | `app/client/ui_registration.cpp:24` | client .data 0xB85EE0 (0x5FA0B0 compares +0x10 with it) |
 | 1 | `ProductTrial` | `app/client/ui_registration.cpp:25` | client .data 0xB85EF4 (0x5FA0B0) |

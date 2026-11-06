@@ -399,25 +399,23 @@ template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const c
 static inline DeltaTemplateClass<MoneyClass> *Unknown_Find_Money(DeltaCompoundClass *aux, const char *field) { return(Unknown_Find_Valid<DeltaTemplateClass<MoneyClass> >(aux, field)); }	// NAME 1: neutral (D10)
 
 // 0x5E3340
-// NOT EXACT: inline budget (0.21: the client calls auxdata.h's finds 0x5466A0 and RefCountPtr<FontSys>'s destructor 0x51C630 out of line here; ours inlines them; eight dead finds (D130) put the wrong ones out of line, 0.50, dropped)
 void UIPTradeClass::Unknown_5E3340()
 {
 	MoneyClass money;
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
-	NameClass name("Money");
-	DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);
-	if (t && t->Unknown70) money = t->Value;
+	DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Money(aux, "Money");
+	if (t) money = t->Value;
 	Unknown_5E3210("CREDITS_TRADE00", true, money.Unknown_4F00C0(false).c_str());
 	Unknown_5E3210("CRED1_TRADE00", true, Unknown0E0.Unknown_4F00C0(false).c_str());
 	if (((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)) {
-		money.Unknown00 = 0;
+		money = MoneyClass();
 		DeltaCompoundClass *other = (DeltaCompoundClass *)((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)->AuxData;
-		NameClass other_name("TradeMoney");
-		t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(other, other_name);
-		if (t && t->Unknown70) money = t->Value;
+		t = Unknown_Find_Money(other, "TradeMoney");
+		if (t) money = t->Value;
 		Unknown_5E3210("CRED2_TRADE00", true, money.Unknown_4F00C0(false).c_str());
 	}
 }
+
 
 // 0x5E3750
 void UIPTradeClass::Unknown_5E3750(bool on)
