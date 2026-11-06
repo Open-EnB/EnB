@@ -1092,6 +1092,7 @@ unless `--lever` cites a new row of this table.
 * **Pool (2026-11-01 day run):** appfile.py --pool exits at once on "host memory ... not starting" instead of waiting (retry after minutes; HV); `timeout N` around `importer.py verify` kills it while it waits on the lock (LG); subprocess `bash` can resolve to WSL's bash (empty output): use Git's bash.exe by full path (NW).
 * **pool.py release --agent (2026-11-05 night run, CS13):** it releases every VM leased under that agent: not while your own POC build holds a lease.
 
+* **A one-off C1083 on a tracked header (2026-11-05 night run, HC3):** a worktree's first `build.py build --lib app` failed one file with "Cannot open include file '..\packets\pkcolorization.h'" (tracked, unchanged); the rerun built 386/386. Rerun once before blaming a commit, and never run clienttest on an app.lib with a failed file (its 535 unresolved and trace diff are that file's). In a worktree `build/art` is a directory: copy MSS32.DLL into it.
 * **appfile.py without --pool (2026-11-05 night run, PG1):** it tries the default host 172.17.3.98 (an ssh timeout when that VM is down): use `--pool` with ENB_AGENT set.
 
 ### 3.6 RE tools, Ghidra and REA

@@ -2455,9 +2455,10 @@ LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a
 below name only the work items, the blocked work, the leads and the queues.
 
 * **The triage plan's runs (D163; the log entry of 2026-10-31 15:40).** `.work/triage/plan.md` (rerun `triage.py
-  plan` after each run): 161 runs of 3+ neighbouring functions with no pair and one suggested file, 72 agreeing with
-  both neighbours (the hint's file was right 23 of 23 in TG1 / TG2's six), 76 naming a file not in the tree (new
-  files: ui_registration 0x5FFFC0, htmlview 0x7761E0, ui_starbase 0x646F70, ui_ship_cust 0x61E8B0, ...); 2,735 template
+  plan` after each run): 52 runs of 3+ neighbouring functions with no pair and one suggested file (2026-11-06), 10 agreeing
+  with both neighbours (the hint's file was right 23 of 23 in TG1 / TG2's six; the 2026-11-05 night run found it wrong for
+  ui_item_examination's panels), 32 naming a file not in the tree (next by size: optdlg 0x846D10, ui_attrb 0x548440,
+  ui_analyze 0x545D30, ui_mfd 0x5BE570 / 0x5BEA00, galaxy_map_pip 0x53F9E0, ...); 2,735 template
   instances; 379 library kinds in the app range to check against gaps. Each run is a bounded builder item: claim the
   bare range (`run_branch.py claim 0xLO-0xHI`). The table is tracked in `docs/data/triage.*` (D172). The $200's
   remaining ~$156 is D163 part (3)'s overflow capacity.
