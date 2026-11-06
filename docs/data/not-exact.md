@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-541 entries in 137 files.
+555 entries in 140 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -438,6 +438,20 @@ edit the comments in the code, not this file.
 | `app/shared/dynamic_obj.cpp:9` | `DynObj::DynObj` | marker | NOT EXACT: shape (the client duplicates the epilogue into the allocation-failed path; attempts.py show 0x44AC70) |
 | `app/shared/dynamic_obj.cpp:18` | `DynObj::DynObj` | marker | NOT EXACT: register (the source's PxWrapper in edi, ours in ecx; attempts.py show 0x44ADA0) |
 | `app/shared/enbassetmgr.cpp:302` | `ENBAssetManager::Recolor_Texture` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64) |
+| `app/shared/expr/expr_math_builder.h:54` | `?` | marker | NOT EXACT: 0x4CAF50: from the pseudocode; not matched yet |
+| `app/shared/expr/expr_math_builder.h:71` | `?` | marker | NOT EXACT: 0x4CB260: from the pseudocode; not matched yet |
+| `app/shared/expr/expr_math_builder.h:93` | `?` | marker | NOT EXACT: 0x4CB620: from the pseudocode; not matched yet |
+| `app/shared/expr/expr_math_builder.h:123` | `?` | marker | NOT EXACT: 0x4CACE0: from the pseudocode; not matched yet |
+| `app/shared/expr/expr_math_eval_impl.h:301` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: the client calls the binary base constructor in every branch (ours inlines it in later ones); 0x4C8920, 0x4C8CE0, 0x4C9010, 0x4C9300 for float |
+| `app/shared/expr/expr_math_eval_impl.h:320` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: not matched yet (0x4C8B80, 0x4C8EB0, 0x4C92D0, 0x4C94C0 for float) |
+| `app/shared/expr/expr_math_eval_impl.h:340` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: the client calls the binary base constructor in every branch (ours inlines it in later ones); 0x4C8920, 0x4C8CE0, 0x4C9010, 0x4C9300 for float |
+| `app/shared/expr/expr_math_eval_impl.h:353` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: not matched yet (0x4C8B80, 0x4C8EB0, 0x4C92D0, 0x4C94C0 for float) |
+| `app/shared/expr/expr_math_eval_impl.h:373` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: the client calls the binary base constructor in every branch (ours inlines it in later ones); 0x4C8920, 0x4C8CE0, 0x4C9010, 0x4C9300 for float |
+| `app/shared/expr/expr_math_eval_impl.h:394` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: not matched yet (0x4C8B80, 0x4C8EB0, 0x4C92D0, 0x4C94C0 for float) |
+| `app/shared/expr/expr_math_eval_impl.h:406` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: the client calls the binary base constructor in every branch (ours inlines it in later ones); 0x4C8920, 0x4C8CE0, 0x4C9010, 0x4C9300 for float |
+| `app/shared/expr/expr_math_eval_impl.h:419` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: not matched yet (0x4C8B80, 0x4C8EB0, 0x4C92D0, 0x4C94C0 for float) |
+| `app/shared/expr/expr_math_float.cpp:62` | `ExprMathFloatFactoryClass::Create_Binary` | marker | NOT EXACT: 0x4C7D80 similarity 0.42: register choice (this / name swapped, ebx not kept as 0) and the result temporaries' release order @0x4C7D80 |
+| `app/shared/expr/expr_math_float.cpp:101` | `ExprMathFloatFactoryClass::Create_Unary` | marker | NOT EXACT: 0x4C8370 similarity 0.64: the groups' results assigned and released as in Create_Binary @0x4C8370 |
 | `app/shared/expr/expr_math_parser_impl.cpp:33` | `ExprMathParserImplClass::Add_Similar` | marker | NOT EXACT: the loop latch reloads it / &it->Ops in the other order (2 instructions swapped, same length) |
 | `app/shared/expr/expr_math_parser_impl.cpp:81` | `ExprMathParserImplClass::Parse_Level` | marker | NOT EXACT: the level > size guard keeps its own return NULL, and the token's destructor is inline / called on the other two exits |
 | `app/shared/gclass.cpp:12` | `GClass::Unknown_4A17B0` | marker | NOT EXACT: order-only (0.65; the client saves esi before the first test, VC6 after the Is_Valid tests; fifteen forms, attempts.py show 0x4A17B0) |

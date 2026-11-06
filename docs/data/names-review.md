@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1283 |
+| 3 | by convention from a client-named file or sibling | 1288 |
 | 2 | describes what the code does | 3014 |
 | 1 | neutral placeholder | 14237 |
 
@@ -18447,6 +18447,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ExprLexerNumberMatchClass` | `app/shared/expr/expr_lexer_matchers.h:19` | lexer type 2 |
 | 3 | `ExprLexerNameMatchClass` | `app/shared/expr/expr_lexer_matchers.h:31` | lexer type 1 |
 | 3 | `ExprLexerSpaceMatchClass` | `app/shared/expr/expr_lexer_matchers.h:42` | lexer type 0 |
+| 3 | `ExprMathArithmeticOpsClass` | `app/shared/expr/expr_math_eval_impl.h:297` | flag 1 |
+| 3 | `ExprMathFunctionOpsClass` | `app/shared/expr/expr_math_eval_impl.h:336` | flag 0x10 |
+| 3 | `ExprMathCompareOpsClass` | `app/shared/expr/expr_math_eval_impl.h:369` | flag 2 |
+| 3 | `ExprMathLogicOpsClass` | `app/shared/expr/expr_math_eval_impl.h:402` | flag 8 |
+| 3 | `expr_math_float.h` | `app/shared/expr/expr_math_float.h:16` | header name assumed from the client's expr_math_float.cpp |
 | 3 | `expr_math_lexer.h` | `app/shared/expr/expr_math_lexer.h:13` | interim header, named after expr_math_lexer_factory.cpp |
 | 3 | `ExprMathTokenClass` | `app/shared/expr/expr_math_lexer.h:18` | 0x14 bytes, a type and its text |
 | 3 | `Is_Valid` | `app/shared/expr/expr_math_lexer.h:25` | type != -1 and the text differs from Invalid_Text |
