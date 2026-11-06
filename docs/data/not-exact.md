@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-550 entries in 142 files.
+552 entries in 143 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -444,6 +444,8 @@ edit the comments in the code, not this file.
 | `app/shared/dynamic_obj.cpp:18` | `DynObj::DynObj` | marker | NOT EXACT: register (the source's PxWrapper in edi, ours in ecx; attempts.py show 0x44ADA0) |
 | `app/shared/enbassetmgr.cpp:302` | `ENBAssetManager::Recolor_Texture` | marker | NOT EXACT: register-only (explain.py: identical once registers are normalised; the client loads the mip count after pushing the format, ours before; 19 argument forms, attempts.py show 0x48CB40); the logic is the client's (D64) |
 | `app/shared/expr/expr_math_builder.h:71` | `?` | marker | NOT EXACT: 0x4CB260 (float), 0x4CFB00 (int): the client releases left on the first early return and leaves right to a shared exit; ours releases both in place |
+| `app/shared/expr/expr_math_eval_impl.h:301` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: float only (0x4C8920): the client's float copy has no EH frame for new; int's is exact (attempts.csv) |
+| `app/shared/expr/expr_math_eval_impl.h:358` | `EXPR_MATH_COMPARE_CLASS` | marker | NOT EXACT: float only (0x4C9010): the client's float copy has no EH frame for new; int's is exact (attempts.csv) |
 | `app/shared/expr/expr_math_float.cpp:62` | `ExprMathFloatFactoryClass::Create_Binary` | marker | NOT EXACT: 0x4C7D80 similarity 0.56: this and name in swapped registers (esi / edi), ebx not kept as 0 past ^ and % @0x4C7D80 |
 | `app/shared/expr/expr_math_int.cpp:51` | `ExprMathIntFactoryClass::Create_Binary` | marker | NOT EXACT: 0x4CBCD0 similarity 0.77: float's register choice, and the client inlines more of the groups' assignments @0x4CBCD0 |
 | `app/shared/expr/expr_math_int.cpp:93` | `ExprMathIntFactoryClass::Create_Unary` | marker | NOT EXACT: 0x4CC120 similarity 0.78: the client inlines more of the five groups' assignments (float's form, 0x4C8370, is exact) @0x4CC120 |

@@ -18659,10 +18659,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ExprLexerNameMatchClass` | `app/shared/expr/expr_lexer_matchers.h:31` | lexer type 1 |
 | 3 | `ExprLexerSpaceMatchClass` | `app/shared/expr/expr_lexer_matchers.h:42` | lexer type 0 |
 | 3 | `ExprMathArithmeticOpsClass` | `app/shared/expr/expr_math_eval_impl.h:297` | flag 1 |
-| 3 | `ExprMathFunctionOpsClass` | `app/shared/expr/expr_math_eval_impl.h:328` | flag 0x10 |
-| 3 | `ExprMathCompareOpsClass` | `app/shared/expr/expr_math_eval_impl.h:353` | flag 2 |
-| 3 | `ExprMathLogicOpsClass` | `app/shared/expr/expr_math_eval_impl.h:381` | flag 8 |
-| 3 | `ExprMathBitwiseOpsClass` | `app/shared/expr/expr_math_eval_impl.h:421` | flag 4 |
+| 3 | `ExprMathFunctionOpsClass` | `app/shared/expr/expr_math_eval_impl.h:329` | flag 0x10 |
+| 3 | `ExprMathCompareOpsClass` | `app/shared/expr/expr_math_eval_impl.h:354` | flag 2 |
+| 3 | `ExprMathLogicOpsClass` | `app/shared/expr/expr_math_eval_impl.h:383` | flag 8 |
+| 3 | `ExprMathBitwiseOpsClass` | `app/shared/expr/expr_math_eval_impl.h:423` | flag 4 |
 | 3 | `expr_math_float.h` | `app/shared/expr/expr_math_float.h:16` | header name assumed from the client's expr_math_float.cpp |
 | 3 | `expr_math_int.h` | `app/shared/expr/expr_math_int.h:16` | header name assumed from the client's expr_math_int.cpp |
 | 3 | `expr_math_lexer.h` | `app/shared/expr/expr_math_lexer.h:13` | interim header, named after expr_math_lexer_factory.cpp |

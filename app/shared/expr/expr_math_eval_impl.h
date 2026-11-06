@@ -298,6 +298,7 @@ class ExprMathArithmeticOpsClass	// NAME 3 [ExprMathArithmeticOpsClass]: flag 1
 {
 public:
 	typedef RefCountPtr<ExprMathEvalClass<T> > PtrType;
+	// NOT EXACT: float only (0x4C8920): the client's float copy has no EH frame for new; int's is exact (attempts.csv)
 	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 	{
 		if (name == "/") {
@@ -354,6 +355,7 @@ class ExprMathCompareOpsClass	// NAME 3 [ExprMathCompareOpsClass]: flag 2
 {
 public:
 	typedef RefCountPtr<ExprMathEvalClass<T> > PtrType;
+	// NOT EXACT: float only (0x4C9010): the client's float copy has no EH frame for new; int's is exact (attempts.csv)
 	static PtrType Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 	{
 		if (name == "<=") {
