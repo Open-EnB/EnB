@@ -4,7 +4,7 @@
 #include "..\packets\pk.h"
 #include <string.h>
 
-static const char *MusicTypeNames[] = { "", "MusicAmbient", "MusicCombat", "MusicPlanet", "MusicWander" };	// 0xBAF63C  // NAME 2: what it holds
+static const char *MusicTypeNames[] = { "", "MusicWander", "MusicPlanet", "MusicCombat", "MusicAmbient" };	// 0xBAF63C (the client's order, AU1 byte audit)  // NAME 2: what it holds
 
 bool Music_Type_From_Name(const char *name, int *type)
 {
