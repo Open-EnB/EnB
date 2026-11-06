@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 132 |
+| 5 | the client names it | 134 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1342 |
-| 2 | describes what the code does | 3065 |
-| 1 | neutral placeholder | 15195 |
+| 3 | by convention from a client-named file or sibling | 1355 |
+| 2 | describes what the code does | 3089 |
+| 1 | neutral placeholder | 15243 |
 
 ## For review (score 3 and below)
 
@@ -10391,51 +10391,99 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0BB4` | `app/client/ui_manu.h:176` | untagged neutral name (D10) |
 | 1 | `Unknown0BB8` | `app/client/ui_manu.h:177` | untagged neutral name (D10) |
 | 1 | `Unknown0BC0` | `app/client/ui_manu.h:178` | untagged neutral name (D10) |
-| 1 | `Unknown5BE4F0Class` | `app/client/ui_mfd.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_mfd.cpp:16` | untagged neutral name (D10) |
-| 1 | `Unknown5C3030Class` | `app/client/ui_mfd.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown5C3920Class` | `app/client/ui_mfd.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ui_mfd.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_5BCDE0` | `app/client/ui_mfd.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown5BE980Class` | `app/client/ui_mfd.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown5C2CD0Class` | `app/client/ui_mfd.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown5C3650Class` | `app/client/ui_mfd.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F34` | `app/client/ui_mfd.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_mfd.cpp:23` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_mfd.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_mfd.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_7E6060` | `app/client/ui_mfd.cpp:24` | neutral (D10) |
+| 1 | `UIMFDTargetingClass` | `app/client/ui_mfd.cpp:26` | neutral (D10): SClient +0x12A4 (ui_starmap.cpp's, the FAIL_IF's '!targeting') |
+| 1 | `Unknown_7C61B0` | `app/client/ui_mfd.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/ui_mfd.cpp:47` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_mfd.cpp:50` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/ui_mfd.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_mfd.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_5BF4B0` | `app/client/ui_mfd.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_mfd.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFA0` | `app/client/ui_mfd.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_mfd.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_mfd.cpp:229` | untagged neutral name (D10) |
+| 1 | `UICpitUnknownD0Class` | `app/client/ui_mfd.cpp:231` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_mfd.cpp:232` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_mfd.cpp:233` | untagged neutral name (D10) |
+| 1 | `Unknown_5BF4D0` | `app/client/ui_mfd.cpp:252` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_mfd.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown_5BCB30` | `app/client/ui_mfd.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_mfd.cpp:263` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_mfd.cpp:266` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_mfd.cpp:270` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_mfd.cpp:280` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_mfd.cpp:359` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_mfd.cpp:363` | untagged neutral name (D10) |
+| 1 | `UnknownObjectWatchClass` | `app/client/ui_mfd.cpp:384` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_mfd.cpp:386` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_mfd.cpp:401` | untagged neutral name (D10) |
+| 1 | `Unknown_5BCB00` | `app/client/ui_mfd.cpp:410` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_mfd.cpp:426` | untagged neutral name (D10) |
+| 1 | `Unknown_5BD500` | `app/client/ui_mfd.cpp:489` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF7A0` | `app/client/ui_mfd.cpp:642` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_mfd.cpp:653` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_mfd.cpp:682` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ui_mfd.cpp:686` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_mfd.cpp:695` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/ui_mfd.cpp:894` | untagged neutral name (D10) |
+| 1 | `Unknown5BE4F0Class` | `app/client/ui_mfd.cpp:942` | untagged neutral name (D10) |
+| 1 | `Unknown5C3030Class` | `app/client/ui_mfd.cpp:950` | untagged neutral name (D10) |
+| 1 | `Unknown5C3920Class` | `app/client/ui_mfd.cpp:951` | untagged neutral name (D10) |
+| 1 | `Unknown5BE980Class` | `app/client/ui_mfd.cpp:969` | untagged neutral name (D10) |
+| 1 | `Unknown5C2CD0Class` | `app/client/ui_mfd.cpp:977` | untagged neutral name (D10) |
+| 1 | `Unknown5C3650Class` | `app/client/ui_mfd.cpp:978` | untagged neutral name (D10) |
 | 1 | `ui_mfd.h` | `app/client/ui_mfd.h:4` | provisional header name for ui_mfd.cpp |
-| 1 | `UnknownC8Class` | `app/client/ui_mfd.h:12` | neutral (D10) |
-| 1 | `UIMFDItemClass` | `app/client/ui_mfd.h:16` | neutral (D10) |
-| 1 | `Unknown5C3030Class` | `app/client/ui_mfd.h:26` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/ui_mfd.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown5C3920Class` | `app/client/ui_mfd.h:27` | neutral (D10) |
-| 1 | `Unknown5C2CD0Class` | `app/client/ui_mfd.h:28` | neutral (D10) |
-| 1 | `Unknown5C3650Class` | `app/client/ui_mfd.h:29` | neutral (D10) |
-| 1 | `UnknownObjectWatchClass` | `app/client/ui_mfd.h:33` | untagged neutral name (D10) |
-| 1 | `InfoLineStruct` | `app/client/ui_mfd.h:37` | neutral (D10) |
-| 1 | `Unknown04` | `app/client/ui_mfd.h:40` | untagged neutral name (D10) |
-| 1 | `view, robj, layer, flag` | `app/client/ui_mfd.h:45` | what it does with them |
-| 1 | `Unknown_54` | `app/client/ui_mfd.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_mfd.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_mfd.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_mfd.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_mfd.h:51` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_mfd.h:52` | neutral (D10) |
-| 1 | `Unknown_88` | `app/client/ui_mfd.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_mfd.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ui_mfd.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown_Watch_0C` | `app/client/ui_mfd.h:55` | untagged neutral name (D10) |
-| 1 | `line, arg` | `app/client/ui_mfd.h:57` | neutral (D10) |
-| 1 | `Unknown_5BCE50` | `app/client/ui_mfd.h:57` | untagged neutral name (D10) |
-| 1 | `line, type` | `app/client/ui_mfd.h:60` | what it does |
-| 1 | `Unknown_5BCDE0` | `app/client/ui_mfd.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/ui_mfd.h:73` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/client/ui_mfd.h:76` | untagged neutral name (D10) |
-| 1 | `UnknownDC` | `app/client/ui_mfd.h:78` | untagged neutral name (D10) |
-| 1 | `UnknownE0` | `app/client/ui_mfd.h:79` | untagged neutral name (D10) |
-| 1 | `UnknownE4` | `app/client/ui_mfd.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/client/ui_mfd.h:82` | untagged neutral name (D10) |
-| 1 | `Unknown5BE4F0Class` | `app/client/ui_mfd.h:87` | neutral (D10) |
-| 1 | `view, robj, layer` | `app/client/ui_mfd.h:90` | the base's |
-| 1 | `Unknown5BE980Class` | `app/client/ui_mfd.h:97` | neutral (D10) |
-| 1 | `view, robj, layer` | `app/client/ui_mfd.h:100` | the base's |
+| 1 | `UIMFDItemClass` | `app/client/ui_mfd.h:17` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/ui_mfd.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_mfd.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_mfd.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_mfd.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_mfd.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_mfd.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_mfd.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/ui_mfd.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_mfd.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_mfd.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ui_mfd.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown5C3030Class` | `app/client/ui_mfd.h:38` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/ui_mfd.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown5C3920Class` | `app/client/ui_mfd.h:39` | neutral (D10) |
+| 1 | `Unknown5C2CD0Class` | `app/client/ui_mfd.h:40` | neutral (D10) |
+| 1 | `Unknown5C3650Class` | `app/client/ui_mfd.h:41` | neutral (D10) |
+| 1 | `UIMFDValueStruct` | `app/client/ui_mfd.h:44` | neutral (D10) |
+| 1 | `Unknown0` | `app/client/ui_mfd.h:56` | untagged neutral name (D10) |
+| 1 | `UnknownObjectWatchClass` | `app/client/ui_mfd.h:65` | untagged neutral name (D10) |
+| 1 | `InfoLineStruct` | `app/client/ui_mfd.h:69` | neutral (D10) |
+| 1 | `view, robj, layer, flag` | `app/client/ui_mfd.h:77` | what it does with them |
+| 1 | `Unknown_54` | `app/client/ui_mfd.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_mfd.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_mfd.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_mfd.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_mfd.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_mfd.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_mfd.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_mfd.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown_Watch_0C` | `app/client/ui_mfd.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown_5BCB00` | `app/client/ui_mfd.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown_5BCB30` | `app/client/ui_mfd.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown_5BD500` | `app/client/ui_mfd.h:98` | untagged neutral name (D10) |
+| 1 | `Unknown_5BD520` | `app/client/ui_mfd.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/ui_mfd.h:116` | untagged neutral name (D10) |
+| 1 | `UICpitUnknownD0Class` | `app/client/ui_mfd.h:119` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_mfd.h:119` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/ui_mfd.h:121` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/ui_mfd.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown_5BF4B0` | `app/client/ui_mfd.h:128` | untagged neutral name (D10) |
+| 1 | `Unknown_5BF4D0` | `app/client/ui_mfd.h:129` | untagged neutral name (D10) |
+| 1 | `Unknown5BE4F0Class` | `app/client/ui_mfd.h:133` | neutral (D10) |
+| 1 | `view, robj, layer` | `app/client/ui_mfd.h:136` | the base's |
+| 1 | `Unknown5BE980Class` | `app/client/ui_mfd.h:143` | neutral (D10) |
+| 1 | `view, robj, layer` | `app/client/ui_mfd.h:146` | the base's |
 | 1 | `Unknown_BE67C4` | `app/client/ui_missn.cpp:22` | 0xBE67C4 |
 | 1 | `LineDisplayClientClass` | `app/client/ui_missn.cpp:25` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_missn.cpp:28` | untagged neutral name (D10) |
@@ -16435,13 +16483,37 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `IDs` | `app/client/ui_manu.h:32` | what it holds |
 | 2 | `Gadget` | `app/client/ui_manu.h:42` | what it holds |
 | 2 | `item_id` | `app/client/ui_manu.h:138` | the packet's ItemID |
-| 2 | `owner` | `app/client/ui_mfd.h:19` | what it holds |
-| 2 | `Owner` | `app/client/ui_mfd.h:22` | what it holds |
-| 2 | `Value` | `app/client/ui_mfd.h:39` | what it holds |
-| 2 | `Font` | `app/client/ui_mfd.h:41` | what it holds |
-| 2 | `Type` | `app/client/ui_mfd.h:42` | what it holds |
-| 2 | `std:` | `app/client/ui_mfd.h:77` | what it holds |
-| 2 | `Lines` | `app/client/ui_mfd.h:81` | 'MFD_INFO_VALUE_%02d' |
+| 2 | `ui_mfd.cpp` | `app/client/ui_mfd.cpp:25` | what it holds |
+| 2 | `Get_Heading` | `app/client/ui_mfd.cpp:29` | what it does |
+| 2 | `UIMFDLabels` | `app/client/ui_mfd.cpp:35` | what it holds |
+| 2 | `UIMFDButtonNames` | `app/client/ui_mfd.cpp:41` | what it holds |
+| 2 | `owner` | `app/client/ui_mfd.h:20` | what it holds |
+| 2 | `object` | `app/client/ui_mfd.h:22` | what 0x5BC9E0 passes |
+| 2 | `Owner` | `app/client/ui_mfd.h:34` | what it holds |
+| 2 | `Self` | `app/client/ui_mfd.h:46` | what it holds |
+| 2 | `Target` | `app/client/ui_mfd.h:47` | what it holds |
+| 2 | `Int` | `app/client/ui_mfd.h:49` | flag 4, 0x10, 0x20, 0x40 |
+| 2 | `Float` | `app/client/ui_mfd.h:50` | flag 8 |
+| 2 | `String` | `app/client/ui_mfd.h:51` | flags 1, 2 |
+| 2 | `Flags` | `app/client/ui_mfd.h:54` | what it holds |
+| 2 | `Text` | `app/client/ui_mfd.h:72` | what it holds |
+| 2 | `Font` | `app/client/ui_mfd.h:73` | what it holds |
+| 2 | `Type` | `app/client/ui_mfd.h:74` | what it holds |
+| 2 | `key` | `app/client/ui_mfd.h:83` | InterfaceClass's |
+| 2 | `object` | `app/client/ui_mfd.h:84` | what it holds |
+| 2 | `Add_Item` | `app/client/ui_mfd.h:89` | what it does |
+| 2 | `Set_RObj` | `app/client/ui_mfd.h:90` | what it does |
+| 2 | `Next_Type` | `app/client/ui_mfd.h:93` | what it does |
+| 2 | `Previous_Type` | `app/client/ui_mfd.h:94` | what it does |
+| 2 | `Set_Type` | `app/client/ui_mfd.h:95` | what it does |
+| 2 | `Update_Line` | `app/client/ui_mfd.h:96` | what it does |
+| 2 | `Has_Value` | `app/client/ui_mfd.h:97` | what it does |
+| 2 | `Get_Value` | `app/client/ui_mfd.h:100` | what it does |
+| 2 | `Set_Name` | `app/client/ui_mfd.h:101` | what it does |
+| 2 | `std:` | `app/client/ui_mfd.h:120` | what it holds |
+| 2 | `Current` | `app/client/ui_mfd.h:122` | what it holds |
+| 2 | `Lines` | `app/client/ui_mfd.h:124` | 'MFD_INFO_VALUE_%02d' |
+| 2 | `Gadgets` | `app/client/ui_mfd.h:125` | what it holds |
 | 2 | `MissionStartTimeGreater` | `app/client/ui_missn.cpp:302` | describes what it does |
 | 2 | `FontStringFilesClass` | `app/client/ui_scut.cpp:15` | fontdatabase.h's |
 | 2 | `UIScutBankGadgetClass` | `app/client/ui_scut.cpp:98` | its 'bank_%d' model |
@@ -18720,7 +18792,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tech_level, source` | `app/client/ui_manu.h:145` | the asserts'; NAME 1 [on]: neutral |
 | 3 | `source` | `app/client/ui_manu.h:146` | the assert's; NAME 1 [on]: neutral |
 | 3 | `State` | `app/client/ui_manu.h:168` | the assert's |
-| 3 | `UIMFDClass` | `app/client/ui_mfd.h:33` | D24 class-from-file for ui_mfd.cpp |
+| 3 | `UIMFDClass` | `app/client/ui_mfd.h:65` | D24 class-from-file for ui_mfd.cpp |
+| 3 | `Set_Turn_To` | `app/client/ui_mfd.h:102` | the client's label |
+| 3 | `Set_Dist` | `app/client/ui_mfd.h:103` | the client's label |
+| 3 | `Set_ETA` | `app/client/ui_mfd.h:104` | the client's label |
+| 3 | `Set_Dir` | `app/client/ui_mfd.h:105` | the client's label |
+| 3 | `Set_Same_Dir` | `app/client/ui_mfd.h:106` | the client's label |
+| 3 | `Set_SP_Cur` | `app/client/ui_mfd.h:107` | the client's label |
+| 3 | `Set_SP_Percent` | `app/client/ui_mfd.h:108` | the client's label; NAME 2 [as_float]: what it does |
+| 3 | `Set_SP_Max` | `app/client/ui_mfd.h:109` | the client's label |
+| 3 | `Set_Level` | `app/client/ui_mfd.h:110` | the client's label |
+| 3 | `Set_Prof` | `app/client/ui_mfd.h:111` | the client's label |
+| 3 | `Set_Race` | `app/client/ui_mfd.h:112` | the client's label |
+| 3 | `Set_Vel` | `app/client/ui_mfd.h:113` | the client's label |
+| 3 | `Set_Rel_Vel` | `app/client/ui_mfd.h:114` | the client's label |
 | 3 | `As_Space_Client` | `app/client/ui_missn.cpp:30` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UITalkTreeSpaceClass` | `app/client/ui_missn.cpp:41` | class-from-file (D24) for app\client\ui_talkt_space.cpp |
 | 3 | `UIMissnClass` | `app/client/ui_missn.h:21` | class-from-file (D24) for app\Client\ui_missn.cpp |
