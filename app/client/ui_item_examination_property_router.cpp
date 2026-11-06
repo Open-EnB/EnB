@@ -93,7 +93,7 @@ void UIItemExaminationPropertyRouterClass::Unknown_08(ClientItemPropertyAttribut
 	Attributes.Add_Attribute(property);
 }
 
-void UIItemExaminationPropertyRouterClass::Unknown_04(UIItemExaminationSpecialPropertyClass *property)
+void UIItemExaminationPropertyRouterClass::Unknown_04(ClientItemPropertySpecialClass *property)
 {
 	Specials.Add_Special(property);
 }

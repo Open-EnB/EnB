@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1307 |
-| 2 | describes what the code does | 3021 |
-| 1 | neutral placeholder | 14544 |
+| 3 | by convention from a client-named file or sibling | 1308 |
+| 2 | describes what the code does | 3023 |
+| 1 | neutral placeholder | 14546 |
 
 ## For review (score 3 and below)
 
@@ -3563,6 +3563,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_28` | `app/client/intrlist.cpp:121` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/item/client_item_property_attribute.h:70` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/item/client_item_property_option.h:65` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/item/client_item_property_special.h:79` | neutral (D10) |
 | 1 | `FontManagerClass` | `app/client/loadingview.cpp:15` | neutral (D10)  // NAME 1 [object, name]: what this file passes |
 | 1 | `Unknown_6D2310` | `app/client/loadingview.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/loadingview.cpp:15` | untagged neutral name (D10) |
@@ -9171,32 +9172,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `info` | `app/client/ui_item_examination.cpp:239` | neutral |
 | 1 | `visitor` | `app/client/ui_item_examination.cpp:240` | neutral |
 | 1 | `ui_item_examination.h` | `app/client/ui_item_examination.h:4` | provisional header name for ui_item_examination.cpp |
-| 1 | `listener` | `app/client/ui_item_examination.h:23` | as the options panel's |
-| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination.h:23` | untagged neutral name (D10) |
-| 1 | `Add_Special, special` | `app/client/ui_item_examination.h:24` | as the options panel's Add_Option |
-| 1 | `Rebuild` | `app/client/ui_item_examination.h:25` | as the options panel's |
-| 1 | `Clear` | `app/client/ui_item_examination.h:26` | as the options panel's |
-| 1 | `Unknown64` | `app/client/ui_item_examination.h:28` | neutral (D10) |
-| 1 | `window` | `app/client/ui_item_examination.h:31` | neutral |
-| 1 | `Unknown_51A9C0` | `app/client/ui_item_examination.h:31` | untagged neutral name (D10) |
-| 1 | `client, item` | `app/client/ui_item_examination.h:38` | neutral |
-| 1 | `Unknown_54` | `app/client/ui_item_examination.h:40` | neutral (D10) |
-| 1 | `Unknown_58` | `app/client/ui_item_examination.h:41` | neutral (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_item_examination.h:42` | neutral (D10) |
-| 1 | `Unknown_60` | `app/client/ui_item_examination.h:43` | neutral (D10) |
-| 1 | `key` | `app/client/ui_item_examination.h:44` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/ui_item_examination.h:44` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/ui_item_examination.h:45` | InterfaceClass's |
-| 1 | `Unknown_7C` | `app/client/ui_item_examination.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ui_item_examination.h:46` | neutral (D10) |
-| 1 | `Unknown_94` | `app/client/ui_item_examination.h:47` | neutral (D10) |
-| 1 | `Item` | `app/client/ui_item_examination.h:51` | neutral (D10) |
-| 1 | `Keys` | `app/client/ui_item_examination.h:52` | neutral (D10) |
-| 1 | `Title` | `app/client/ui_item_examination.h:54` | neutral (D10) |
-| 1 | `Attributes` | `app/client/ui_item_examination.h:56` | neutral (D10) |
-| 1 | `Specials` | `app/client/ui_item_examination.h:57` | neutral (D10) |
-| 1 | `Options` | `app/client/ui_item_examination.h:58` | neutral (D10) |
-| 1 | `Description` | `app/client/ui_item_examination.h:59` | neutral (D10) |
+| 1 | `window` | `app/client/ui_item_examination.h:20` | neutral |
+| 1 | `Unknown_51A9C0` | `app/client/ui_item_examination.h:20` | untagged neutral name (D10) |
+| 1 | `client, item` | `app/client/ui_item_examination.h:27` | neutral |
+| 1 | `Unknown_54` | `app/client/ui_item_examination.h:29` | neutral (D10) |
+| 1 | `Unknown_58` | `app/client/ui_item_examination.h:30` | neutral (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_item_examination.h:31` | neutral (D10) |
+| 1 | `Unknown_60` | `app/client/ui_item_examination.h:32` | neutral (D10) |
+| 1 | `key` | `app/client/ui_item_examination.h:33` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_item_examination.h:33` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_item_examination.h:34` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_item_examination.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_item_examination.h:35` | neutral (D10) |
+| 1 | `Unknown_94` | `app/client/ui_item_examination.h:36` | neutral (D10) |
+| 1 | `Item` | `app/client/ui_item_examination.h:40` | neutral (D10) |
+| 1 | `Keys` | `app/client/ui_item_examination.h:41` | neutral (D10) |
+| 1 | `Title` | `app/client/ui_item_examination.h:43` | neutral (D10) |
+| 1 | `Attributes` | `app/client/ui_item_examination.h:45` | neutral (D10) |
+| 1 | `Specials` | `app/client/ui_item_examination.h:46` | neutral (D10) |
+| 1 | `Options` | `app/client/ui_item_examination.h:47` | neutral (D10) |
+| 1 | `Description` | `app/client/ui_item_examination.h:48` | neutral (D10) |
 | 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_attributes.cpp:6` | untagged neutral name (D10) |
 | 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_attributes.h:27` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_item_examination_attributes.h:36` | neutral (D10) |
@@ -9234,7 +9229,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_00` | `app/client/ui_item_examination_property_router.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_94` | `app/client/ui_item_examination_property_router.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown537830Class` | `app/client/ui_item_examination_property_router.cpp:115` | untagged neutral name (D10) |
-| 1 | `UIItemExaminationSpecialPropertyClass` | `app/client/ui_item_examination_property_router.h:21` | neutral (D10): what the specials panel's 0x5380B0 takes |
 | 1 | `UIItemExaminationDescriptionPropertyStruct` | `app/client/ui_item_examination_property_router.h:22` | neutral (D10): +0x08 the description's text |
 | 1 | `ClientItemPropertyClass` | `app/client/ui_item_examination_property_router.h:26` | neutral (D10): the item property files' common base, interim |
 | 1 | `Unknown_08` | `app/client/ui_item_examination_property_router.h:29` | neutral (D10) |
@@ -9267,6 +9261,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Specials` | `app/client/ui_item_examination_property_router.h:77` | the panel |
 | 1 | `Options` | `app/client/ui_item_examination_property_router.h:78` | the panel |
 | 1 | `Description` | `app/client/ui_item_examination_property_router.h:79` | the panel |
+| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_specials.cpp:6` | untagged neutral name (D10) |
+| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_specials.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_item_examination_specials.h:36` | neutral (D10) |
+| 1 | `Unknown68` | `app/client/ui_item_examination_specials.h:37` | neutral (D10) |
+| 1 | `Add_Special, special` | `app/client/ui_item_examination_specials.h:46` | appends to Specials |
+| 1 | `Rebuild` | `app/client/ui_item_examination_specials.h:47` | one row per special, as the options panel's |
+| 1 | `Clear` | `app/client/ui_item_examination_specials.h:48` | as the options panel's |
+| 1 | `Listener` | `app/client/ui_item_examination_specials.h:51` | passed to each row |
 | 1 | `IconSize` | `app/client/ui_item_examination_title.cpp:5` | what it sizes |
 | 1 | `icon_name` | `app/client/ui_item_examination_title.cpp:10` | neutral |
 | 1 | `Unknown_7EA190` | `app/client/ui_item_examination_title.cpp:10` | untagged neutral name (D10) |
@@ -15268,6 +15270,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `key_manager` | `app/client/intrface.h:129` | the FAIL_IF's; NAME 1 [event]: neutral |
 | 2 | `ClientItemPropertyAttributeClass` | `app/client/item/client_item_property_attribute.h:67` | class from file (D24), client_item_property_attribute.h |
 | 2 | `ClientItemPropertyOptionClass` | `app/client/item/client_item_property_option.h:62` | class from file (D24), client_item_property_option.h |
+| 2 | `ClientItemPropertySpecialClass` | `app/client/item/client_item_property_special.h:76` | class from file (D24), client_item_property_special.h |
 | 2 | `x10000` | `app/client/local_interface_sort.cpp:11` | the FAIL_IFs' |
 | 2 | `ui` | `app/client/local_interface_sort.h:32` | the FAIL_IF's |
 | 2 | `ui_scene` | `app/client/local_interface_sort.h:34` | the FAIL_IF's  // NAME 1 [front]: neutral |
@@ -15711,12 +15714,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add_Member` | `app/client/ui_group.h:112` | what it does; NAME 1 [unknown]: neutral |
 | 2 | `Remove_Member` | `app/client/ui_group.h:113` | what it does |
 | 2 | `std:` | `app/client/ui_group.h:114` | what it does; NAME 3 [it]: the FAIL_IF's |
-| 2 | `UIItemExaminationSpecialsClass` | `app/client/ui_item_examination.h:20` | its section 'ITEM_EXAMINATION_SPECIALS' |
 | 2 | `UIItemExaminationAttributeClass` | `app/client/ui_item_examination_attributes.h:29` | from 'ATTRIBUTE00_IEI00', as UIItemExaminationOptionClass |
 | 2 | `UIItemExaminationAttributesClass` | `app/client/ui_item_examination_attributes.h:40` | from 'ITEM_EXAMINATION_ATTRIBUTES', as UIItemExaminationOptionsClass |
 | 2 | `UIItemExaminationDescriptionClass` | `app/client/ui_item_examination_description.h:12` | its section 'ITEM_EXAMINATION_DESCRIPTION' |
 | 2 | `UIItemExaminationOptionClass` | `app/client/ui_item_examination_options.h:27` | from the file name and 'ItemOptionObject' |
 | 2 | `UIItemExaminationOptionsClass` | `app/client/ui_item_examination_options.h:40` | class from file (D24), ui_item_examination_options.cpp |
+| 2 | `UIItemExaminationSpecialClass` | `app/client/ui_item_examination_specials.h:29` | as the attributes panel's row |
+| 2 | `UIItemExaminationSpecialsClass` | `app/client/ui_item_examination_specials.h:40` | from 'ITEM_EXAMINATION_SPECIALS', as UIItemExaminationOptionsClass |
 | 2 | `UIItemExaminationTitleClass` | `app/client/ui_item_examination_title.h:32` | its text 'TITLE_IEI00' and ui_item_examination_title.cpp |
 | 2 | `Push_Line` | `app/client/ui_line_display.cpp:312` | what it does; the dead size() read spends the inline budget the client spends (workflow.md §3.3, the find-if-set wrapper's reads) |
 | 2 | `EphemeralStruct` | `app/client/ui_line_display.h:157` | what it holds (the ini's section name) |
@@ -17752,6 +17756,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `View` | `app/client/intrlist.cpp:18` | the FAIL_IF's |
 | 3 | `client_item_property_attribute.h` | `app/client/item/client_item_property_attribute.h:16` | the client's __FILE__ 0xB7883C |
 | 3 | `client_item_property_option.h` | `app/client/item/client_item_property_option.h:16` | the client's __FILE__ 0xB78A58 |
+| 3 | `client_item_property_special.h` | `app/client/item/client_item_property_special.h:16` | the client's __FILE__ 0xB78B68 |
 | 3 | `FontSys` | `app/client/loadingview.cpp:13` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: what 0x692420 passes |
 | 3 | `local_interface_sort.h` | `app/client/local_interface_sort.h:17` | header name assumed from the client's local_interface_sort.cpp |
 | 3 | `BridgeInterfaceClass` | `app/client/mainview.cpp:71` | class-from-file (D24) for bridge_int.cpp |
@@ -17974,10 +17979,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SymbolChatUI` | `app/client/ui_group.h:135` | the FAIL_IF's |
 | 3 | `Members` | `app/client/ui_group.h:136` | the asserts' |
 | 3 | `As_Space_Client` | `app/client/ui_item_examination.cpp:207` | the FAIL_IF's in ui_manu.cpp |
-| 3 | `UIItemExaminationClass` | `app/client/ui_item_examination.h:35` | class-from-file (D24) for app\Client\ui_item_examination.cpp |
-| 3 | `UI_CLOSED` | `app/client/ui_item_examination.h:49` | the FAIL_IF's |
-| 3 | `State` | `app/client/ui_item_examination.h:53` | the FAIL_IF's |
-| 3 | `CloseButton` | `app/client/ui_item_examination.h:55` | the assert's |
+| 3 | `UIItemExaminationClass` | `app/client/ui_item_examination.h:24` | class-from-file (D24) for app\Client\ui_item_examination.cpp |
+| 3 | `UI_CLOSED` | `app/client/ui_item_examination.h:38` | the FAIL_IF's |
+| 3 | `State` | `app/client/ui_item_examination.h:42` | the FAIL_IF's |
+| 3 | `CloseButton` | `app/client/ui_item_examination.h:44` | the assert's |
 | 3 | `ui_item_examination_options.h` | `app/client/ui_item_examination_options.h:16` | header name assumed from the client's ui_item_examination_options.cpp |
 | 3 | `ui_item_examination_property_router.h` | `app/client/ui_item_examination_property_router.h:5` | header name assumed from the client's ui_item_examination_property_router.cpp |
 | 3 | `property` | `app/client/ui_item_examination_property_router.h:54` | the FAIL_IF's; NAME 1 [Route]: the file's |

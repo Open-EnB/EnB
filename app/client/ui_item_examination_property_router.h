@@ -18,7 +18,7 @@ class UIItemExaminationDescriptionClass;
 class UIItemExaminationTitleNameClass;
 struct UIItemExaminationTitleIconStruct;
 class UIItemExaminationTitleSubtitlesClass;
-class UIItemExaminationSpecialPropertyClass;		// NAME 1: neutral (D10): what the specials panel's 0x5380B0 takes
+class ClientItemPropertySpecialClass;
 struct UIItemExaminationDescriptionPropertyStruct;	// NAME 1: neutral (D10): +0x08 the description's text
 class ClientItemPropertyVisitorClass;
 
@@ -36,7 +36,7 @@ class ClientItemPropertyVisitorClass  // NAME 1: neutral (D10)
 {
 public:
 	virtual void Unknown_00(ClientItemPropertyOptionClass *property);						// +0x00 (0x530490)  // NAME 1: neutral (D10); NAME 1 [property]: neutral
-	virtual void Unknown_04(UIItemExaminationSpecialPropertyClass *property);				// +0x04 (0x530470)  // NAME 1: neutral (D10)
+	virtual void Unknown_04(ClientItemPropertySpecialClass *property);				// +0x04 (0x530470)  // NAME 1: neutral (D10)
 	virtual void Unknown_08(ClientItemPropertyAttributeClass *property);					// +0x08 (0x530450)  // NAME 1: neutral (D10)
 	virtual void Unknown_0C(UIItemExaminationDescriptionPropertyStruct *property);			// +0x0C (0x530430)  // NAME 1: neutral (D10)
 	virtual void Unknown_10(UIItemExaminationTitleSubtitlesClass *property);				// +0x10 (0x530410)  // NAME 1: neutral (D10)
@@ -62,7 +62,7 @@ public:
 	virtual void Clear();																	// 0x5378E0 (the title and description cleared)
 	virtual void Route(const RefCountPtr<ClientItemPropertyClass> &property);				// 0x537910
 	virtual void Unknown_00(ClientItemPropertyOptionClass *property);						// 0x537A80 (the options panel)  // NAME 1: neutral (D10)
-	virtual void Unknown_04(UIItemExaminationSpecialPropertyClass *property);				// 0x537A60 (the specials panel)  // NAME 1: neutral (D10)
+	virtual void Unknown_04(ClientItemPropertySpecialClass *property);				// 0x537A60 (the specials panel)  // NAME 1: neutral (D10)
 	virtual void Unknown_08(ClientItemPropertyAttributeClass *property);					// 0x537A40 (the attributes panel)  // NAME 1: neutral (D10)
 	virtual void Unknown_0C(UIItemExaminationDescriptionPropertyStruct *property);			// 0x537A10 (the description)  // NAME 1: neutral (D10)
 	virtual void Unknown_10(UIItemExaminationTitleSubtitlesClass *property);				// 0x5379F0 (the title's subtitles)  // NAME 1: neutral (D10)

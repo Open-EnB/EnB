@@ -11,23 +11,12 @@
 #include "control_keys_manager.h"
 #include "ui_item_examination_description.h"
 #include "ui_item_examination_title.h"
+#include "ui_item_examination_specials.h"
 
 class UIItemExaminationAttributesClass;
 class UIItemExaminationOptionsClass;
-class UIItemExaminationSpecialPropertyClass;
 
-// The window's panels from files the tree does not have yet (no strings name them; interim here, D137)
-class UIItemExaminationSpecialsClass : public DynamicWindowBackgroundClass  // NAME 2: its section 'ITEM_EXAMINATION_SPECIALS'
-{
-public:
-	UIItemExaminationSpecialsClass(UIDynamicWindowUnknown84Class *listener);				// 0x537AD0 (0x7C bytes, table 0xAEE718)  // NAME 1 [listener]: as the options panel's
-	void Add_Special(UIItemExaminationSpecialPropertyClass *special);					// 0x5380B0 (the router's slot +0x04)  // NAME 1 [Add_Special, special]: as the options panel's Add_Option
-	void Rebuild();																			// 0x538150  // NAME 1 [Rebuild]: as the options panel's
-	void Clear();																			// 0x5382B0  // NAME 1 [Clear]: as the options panel's
-
-	char Unknown64[0x7C - 0x64];															// +0x64  // NAME 1: neutral (D10)
-};
-
+// From dynamic_window_move.cpp (not in the tree yet)
 GadgetClass *Unknown_51A9C0(UIDynamicWindowClass *window);									// 0x51A9C0 (dynamic_window_move.cpp: the window's move gadget)  // NAME 1 [window]: neutral
 
 // The item examination window (0xDC bytes; tables 0xAEE2C8 / 0xAEE2BC / 0xAEE2B0 / 0xAEE298; ui_slot_info.cpp's
