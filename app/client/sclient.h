@@ -111,17 +111,17 @@ extern FontStringFilesClass *Unknown_BE67BC;		// NAME 1: neutral (D10); fontdata
 class AvatarDescClass;				// avatar_desc.h
 struct GuildRankNameStruct;			// pkguildranknamesrequestclient.h
 
-// verbmanager.cpp's verb manager (0x14 bytes): SClient::Init creates it, the verb packets update it
-class VerbManagerClass		// NAME 3: class-from-file (D24) for verbmanager.cpp (constructor 0x81F100, 0x14 bytes)
-{
-public:
-	VerbManagerClass(SClient *client);					// 0x81F100
-	~VerbManagerClass();								// 0x81F1E0
-	void Unknown_81F810(int game_id, void *adds, void *drops);	// 0x81F810 (cpacket.cpp: VERB_UPDATE 92 passes its GameID, &Adds, &Drops: +0x20 then +0x10)  // NAME 1 [game_id, adds, drops]: the packet's fields
-	void Unknown_81F780(int game_id, void *verbs);	// 0x81F780 (cpacket.cpp: VERB_LIST 91 passes its GameID, &Verbs)  // NAME 1 [game_id, verbs]: the packet's fields
+// verbmanager.h's verb manager (0x14 bytes): SClient::Init creates it, the verb packets update it
+// (blank lines: the class moved to verbmanager.h, the lines below keep their numbers)
+class VerbManagerClass;
 
-	char Unknown00[0x14];
-};
+
+
+
+
+
+
+
 
 // the interface objects: intrface.h's InterfaceClass (P-LD4-1); view.cpp's list holds them
 class UIViewClass;

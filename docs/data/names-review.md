@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 134 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1355 |
-| 2 | describes what the code does | 3089 |
-| 1 | neutral placeholder | 15243 |
+| 3 | by convention from a client-named file or sibling | 1358 |
+| 2 | describes what the code does | 3091 |
+| 1 | neutral placeholder | 15269 |
 
 ## For review (score 3 and below)
 
@@ -1037,9 +1037,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_764030` | `app/client/client.h:102` | untagged neutral name (D10) |
 | 1 | `Unknown_763FF0` | `app/client/client.h:103` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/client.h:121` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/client.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/client.h:125` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/client.h:126` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/client.h:123` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/client.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/client.h:125` | untagged neutral name (D10) |
 | 1 | `text` | `app/client/client.h:131` | SClient's |
 | 1 | `Unknown_34` | `app/client/client.h:131` | untagged neutral name (D10) |
 | 1 | `Add_Unknown86C` | `app/client/client.h:139` | untagged neutral name (D10) |
@@ -4570,16 +4570,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1EF` | `app/client/sbaseview.h:226` | untagged neutral name (D10) |
 | 1 | `Unknown1F0` | `app/client/sbaseview.h:226` | untagged neutral name (D10) |
 | 1 | `Unknown1F4` | `app/client/sbaseview.h:227` | untagged neutral name (D10) |
-| 1 | `Unknown_719E10` | `app/client/sclient.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_6766E0` | `app/client/sclient.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_676A00` | `app/client/sclient.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_817070` | `app/client/sclient.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_816E60` | `app/client/sclient.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_814620` | `app/client/sclient.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_814430` | `app/client/sclient.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_74CA90` | `app/client/sclient.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_70A7E0` | `app/client/sclient.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_70AD70` | `app/client/sclient.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_719E10` | `app/client/sclient.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_6766E0` | `app/client/sclient.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_676A00` | `app/client/sclient.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_817070` | `app/client/sclient.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_816E60` | `app/client/sclient.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_814620` | `app/client/sclient.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_814430` | `app/client/sclient.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_74CA90` | `app/client/sclient.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_70A7E0` | `app/client/sclient.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_70AD70` | `app/client/sclient.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_C404D8Struct` | `app/client/sclient.cpp:46` | neutral (D10) |
 | 1 | `Unknown0000` | `app/client/sclient.cpp:48` | untagged neutral name (D10) |
 | 1 | `Unknown19A5` | `app/client/sclient.cpp:49` | untagged neutral name (D10) |
@@ -4912,10 +4912,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SClientUnknown1330Class` | `app/client/sclient.h:104` | neutral (D10): what SClient +0x1330 points to (destructor 0x43C560, musicmanager.cpp's neighbourhood) |
 | 1 | `SClientUnknown1394Class` | `app/client/sclient.h:106` | neutral (D10): the values of SClient +0x1394 (reference counted, slot +0x38) |
 | 1 | `Unknown_BE67BC` | `app/client/sclient.h:110` | neutral (D10); fontdatabase.h declares it too |
-| 1 | `game_id, adds, drops` | `app/client/sclient.h:120` | the packet's fields |
-| 1 | `Unknown_81F810` | `app/client/sclient.h:120` | untagged neutral name (D10) |
-| 1 | `game_id, verbs` | `app/client/sclient.h:121` | the packet's fields |
-| 1 | `Unknown_81F780` | `app/client/sclient.h:121` | untagged neutral name (D10) |
 | 1 | `client, arg` | `app/client/sclient.h:135` | neutral |
 | 1 | `Unknown_88` | `app/client/sclient.h:136` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/sclient.h:137` | untagged neutral name (D10) |
@@ -12011,6 +12007,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_40` | `app/client/ui_starbase.cpp:445` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/ui_starbase.cpp:493` | untagged neutral name (D10) |
 | 1 | `GadgetUnknown08Struct` | `app/client/ui_starbase.cpp:514` | untagged neutral name (D10) |
+| 1 | `verbs` | `app/client/ui_verb.h:15` | VERB_LIST's field |
+| 1 | `Unknown_658F40` | `app/client/ui_verb.h:15` | untagged neutral name (D10) |
+| 1 | `adds, drops` | `app/client/ui_verb.h:16` | VERB_UPDATE's fields |
+| 1 | `Unknown_659010` | `app/client/ui_verb.h:16` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/uiview.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/uiview.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/uiview.cpp:14` | untagged neutral name (D10) |
@@ -12423,6 +12423,32 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Function` | `app/client/unknown_signalbase.h:56` | what it holds |
 | 1 | `Unknown00` | `app/client/unknown_signalbase.h:100` | neutral (D10) |
 | 1 | `Unknown_4F7EF0` | `app/client/unknown_signalbase.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown_81F560` | `app/client/verbmanager.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_81F890` | `app/client/verbmanager.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_81F610` | `app/client/verbmanager.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_81F6A0` | `app/client/verbmanager.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_81FA40` | `app/client/verbmanager.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_81F780` | `app/client/verbmanager.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_658F40` | `app/client/verbmanager.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_81F810` | `app/client/verbmanager.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_659010` | `app/client/verbmanager.cpp:65` | untagged neutral name (D10) |
+| 1 | `game_id, window` | `app/client/verbmanager.h:24` | what 0x81F890 and the packet take |
+| 1 | `Unknown_81F560` | `app/client/verbmanager.h:24` | untagged neutral name (D10) |
+| 1 | `game_id, window` | `app/client/verbmanager.h:25` | as 0x81F560 |
+| 1 | `Unknown_81F610` | `app/client/verbmanager.h:25` | untagged neutral name (D10) |
+| 1 | `game_id, window` | `app/client/verbmanager.h:26` | as 0x81F560 |
+| 1 | `Unknown_81F6A0` | `app/client/verbmanager.h:26` | untagged neutral name (D10) |
+| 1 | `game_id, verbs` | `app/client/verbmanager.h:27` | the packet's fields |
+| 1 | `Unknown_81F780` | `app/client/verbmanager.h:27` | untagged neutral name (D10) |
+| 1 | `game_id, adds, drops` | `app/client/verbmanager.h:28` | the packet's fields |
+| 1 | `Unknown_81F810` | `app/client/verbmanager.h:28` | untagged neutral name (D10) |
+| 1 | `game_id, window` | `app/client/verbmanager.h:29` | as 0x81F560 |
+| 1 | `Unknown_81F890` | `app/client/verbmanager.h:29` | untagged neutral name (D10) |
+| 1 | `game_id, window` | `app/client/verbmanager.h:30` | as 0x81F560 |
+| 1 | `Unknown_81FA40` | `app/client/verbmanager.h:30` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/verbmanager.h:32` | neutral (D10); list nodes hold the window at +8 |
+| 1 | `std:` | `app/client/verbmanager.h:33` | neutral (D10); 0x81F100's map, nodes 0x18 bytes |
+| 1 | `Windows` | `app/client/verbmanager.h:36` | neutral (D10), what the lists hold |
 | 1 | `InterfaceClass` | `app/client/view.cpp:27` | neutral (D10) |
 | 1 | `Unknown04` | `app/client/view.cpp:32` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/client/view.cpp:32` | untagged neutral name (D10) |
@@ -15366,6 +15392,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Init` | `app/client/client.h:117` | what SClient's does |
 | 2 | `Shutdown` | `app/client/client.h:118` | what SClient's does |
 | 2 | `Do_Frame` | `app/client/client.h:122` | what SClient's does  // NAME 1 [focused]: Is_Focused() |
+| 2 | `Get_Avatar_ID` | `app/client/client.h:126` | what it does |
 | 2 | `Set_Avatar_ID` | `app/client/client.h:127` | what it does (D131: sets AvatarID, D123; sends the DEBUG packet) |
 | 2 | `Get_Avatar` | `app/client/client.h:128` | what it does |
 | 2 | `Set_Ship_ID` | `app/client/client.h:129` | what it does (Get_Ship's id) |
@@ -16179,8 +16206,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Starbase` | `app/client/sbaseview.h:191` | what it holds |
 | 2 | `Channels` | `app/client/sbaseview.h:205` | what it holds |
 | 2 | `Jobs` | `app/client/sbaseview.h:211` | what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests |
-| 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:40` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
-| 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:41` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
+| 2 | `Unknown_Load_Assets` | `app/client/sclient.cpp:41` | 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp) |
+| 2 | `Unknown_Free_Assets` | `app/client/sclient.cpp:42` | 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp) |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |
 | 2 | `Load` | `app/client/sclient.cpp:67` | what it does  // NAME 3 [textures, swatches, secret_textures]: the INI names |
 | 2 | `Load` | `app/client/sclient.cpp:88` | what it does |
@@ -16590,6 +16617,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Blue` | `app/client/unknown_screenfade.cpp:46` | Set_Screen_Fade_Color's third |
 | 2 | `Renderer` | `app/client/unknown_screenfade.cpp:49` | what it holds |
 | 2 | `emit` | `app/client/unknown_signalbase.h:83` | the typed form Save's call expands to |
+| 2 | `Client` | `app/client/verbmanager.h:35` | what it holds |
 | 2 | `Get_Average` | `app/common/average.h:106` | what it does |
 | 2 | `Add` | `app/common/average.h:116` | what it does |
 | 2 | `Count` | `app/common/average.h:123` | what it holds |
@@ -18584,7 +18612,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIStarmapClass` | `app/client/sclient.h:97` | class-from-file (D24) for ui_starmap.cpp (constructor 0x7C6120, 0x14 bytes) |
 | 3 | `EnvironmentMapManagerClass` | `app/client/sclient.h:101` | by convention (D24) from the client's env_map_manager.cpp: 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it |
 | 3 | `ProjDecalManagerClass` | `app/client/sclient.h:105` | class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector) |
-| 3 | `VerbManagerClass` | `app/client/sclient.h:115` | class-from-file (D24) for verbmanager.cpp (constructor 0x81F100, 0x14 bytes) |
 | 3 | `UITalkTreeClass` | `app/client/sclient.h:132` | class-from-file (D24) for app\client\ui_talkt.cpp |
 | 3 | `ViewClass` | `app/client/sclient.h:210` | class-from-file (D24) for view.cpp |
 | 3 | `As_Main_View` | `app/client/sclient.h:223` | ui_cpit.cpp's G_ASSERT 'View->As_Main_View()' |
@@ -18859,8 +18886,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ColorSliderTexture` | `app/client/ui_shipcust.h:127` | the G_ASSERT's |
 | 3 | `UISlotInfoClass` | `app/client/ui_slot_info.h:20` | class-from-file (D24) for app\Client\ui_slot_info.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_starbase.cpp:27` | ui_manu.cpp's FAIL_IF's |
+| 3 | `ui_verb.h` | `app/client/ui_verb.h:6` | the header of ui_verb.cpp (the client's __FILE__ 0xB8C43C) |
+| 3 | `UIVerbClass` | `app/client/ui_verb.h:12` | class-from-file (D24) for ui_verb.cpp (0x658F40's and 0x659010's asserts) |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |
 | 3 | `SignalBaseClass` | `app/client/unknown_signalbase.h:10` | the client's RTTI (the scope of MemberCallback) |
+| 3 | `verbmanager.h` | `app/client/verbmanager.h:6` | the header of verbmanager.cpp (the client's __FILE__ 0xBA8268) |
+| 3 | `VerbManagerClass` | `app/client/verbmanager.h:19` | class-from-file (D24) for verbmanager.cpp (constructor 0x81F100, 0x14 bytes) |
 | 3 | `wnd_file.h` | `app/client/wnd_file.h:17` | EA's Wnd_File.h beside the client's wnd_file.cpp |
 | 3 | `average.h` | `app/common/average.h:22` | after the client's average.h (D24) |
 | 3 | `AverageClass` | `app/common/average.h:26` | after the client's average.h (D24) |

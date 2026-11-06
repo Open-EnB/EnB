@@ -30279,6 +30279,72 @@
     "merged": [],
     "name": "common/vendor_defs.cpp"
    },
+   "verbmanager": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x52B350",
+     "0x81F100",
+     "0x81F1E0",
+     "0x81F430",
+     "0x81F560",
+     "0x81F5F0",
+     "0x81F610",
+     "0x81F6A0",
+     "0x81F780",
+     "0x81F810",
+     "0x81F890",
+     "0x81FA40",
+     "0x81FAD0",
+     "0x81FB20",
+     "0x81FC50",
+     "0x81FC70",
+     "0x81FD50",
+     "0x81FDE0",
+     "0x81FE50",
+     "0x81FE70",
+     "0x820340",
+     "0x820390",
+     "0x8203C0",
+     "0x820440",
+     "0x820750",
+     "0x8207D0"
+    ],
+    "merged": [],
+    "name": "client/verbmanager.cpp",
+    "shared": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x52B350",
+     "0x81F5F0"
+    ],
+    "short_known": [
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x81F5F0"
+    ],
+    "tiebreak": [
+     "0x8207D0"
+    ]
+   },
    "view": {
     "ambiguous": [
      "0x42B2F0",
@@ -30606,6 +30672,7 @@
    "client/ui_ship_cust.h": "reconstructed",
    "client/ui_shipcust.h": "reconstructed",
    "client/ui_slot_info.h": "reconstructed",
+   "client/ui_verb.h": "reconstructed",
    "client/uiview.h": "reconstructed",
    "client/unknown_490900.h": "reconstructed",
    "client/unknown_515640.h": "reconstructed",
@@ -30621,6 +30688,7 @@
    "client/unknown_personality.h": "reconstructed",
    "client/unknown_robj_hash.h": "reconstructed",
    "client/unknown_signalbase.h": "reconstructed",
+   "client/verbmanager.h": "reconstructed",
    "client/wnd_file.h": "reconstructed",
    "common/average.h": "reconstructed",
    "common/chartemplate.h": "reconstructed",
@@ -30872,7 +30940,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 10643,
+  "in_tree_total": 10667,
   "totals": {}
  },
  "binkmovie": {

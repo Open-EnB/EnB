@@ -120,10 +120,10 @@ public:
 	virtual void Process_Packets() = 0;					// +0x0C (SClient: 'SClient::Process_Packets')  // NAME 3: SClient's string names its override
 	virtual void Unknown_10() = 0;						// +0x10
 	virtual int Do_Frame(bool focused) = 0;				// +0x14: ClientTaskClass::Sector, 0 .. 5  // NAME 2: what SClient's does  // NAME 1 [focused]: Is_Focused()
-
 	virtual int Unknown_18() { return(0); }				// +0x18 0x7268E0
 	virtual int Unknown_1C() { return(0); }				// +0x1C 0x726900
 	virtual int Unknown_20() { return(0); }				// +0x20 0x726920
+	unsigned Get_Avatar_ID() { return(AvatarID); }	// (inlined: verbmanager.cpp 0x81F560 / 0x81F610 / 0x81F6A0's eax)  // NAME 2: what it does
 	virtual unsigned Set_Avatar_ID(unsigned id);		// +0x24 0x728010: returns the previous id  // NAME 2: what it does (D131: sets AvatarID, D123; sends the DEBUG packet)
 	virtual ClientObjectClass *Get_Avatar() { return(Find_Object(AvatarID)); }	// +0x28 0x726940 (D123)  // NAME 2: what it does
 	virtual unsigned Set_Ship_ID(unsigned id) { unsigned old = ShipID; ShipID = id; return(old); }	// +0x2C 0x726A00  // NAME 2: what it does (Get_Ship's id)
