@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-562 entries in 147 files.
+564 entries in 148 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -238,6 +238,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_analyze.cpp:112` | `UIAnalyzeClass::~UIAnalyzeClass` | marker | NOT EXACT: a relocation target (explain.py: identical once stack offsets, targets and relocations are masked; the unwind funclets look the same) (0x5437C0) @0x5437C0 |
 | `app/client/ui_analyze.cpp:228` | `UIAnalyzeClass::Unknown_545E40` | marker | NOT EXACT: inline budget (the client calls both finds out of line, 0x546780 / 0x5467F0, as ui_manu.cpp's 0x5B4680) (0x545E40) @0x545E40 |
 | `app/client/ui_analyze.cpp:269` | `UIAnalyzeClass::Unknown_546090` | marker | NOT EXACT: inline budget (the client calls UnknownRTTIClass<DeltaStringClass>::Cast out of line; a #pragma inline_depth(1) at the file's end makes it exact but costs 0x5461C0) (0x546090) @0x546090 |
+| `app/client/ui_attrb.cpp:144` | `Unknown548D60Class::Unknown_548D60` | marker | NOT EXACT: field-offset (explain.py; a register choice: the title's colour: ours holds the style in ecx and &+0x494 in eax, the client the other way round, with the ecx / eax / edx choices after it; flags, branches and calls as the client's) (0x548D60) @0x548D60 |
+| `app/client/ui_attrb.cpp:254` | `Unknown548D60Class::Unknown_5494E0` | mention | NOT EXACT: the title's colour stores (tried: Vector3 assignment, Set, a FontSys pointer helper, a reference to +0x494, a local pointer, memcpy, a chained Set returning the struct; attempts.csv). Its flags are bit fields read through bool accessors (the client's word load, shr, test 1; plain shifts or bare bit fields give a byte test), the last call's argument an if / else of two calls. pkskill.h's... |
 | `app/client/ui_attrb_skills.cpp:182` | `UIAttrbSkillsClass::Unknown_54A640` | marker | NOT EXACT: frame (similarity 0.68: the client's frame is 0x54, one NameClass slot shared by the two finds and the font in arg's slot; this keeps two NameClass slots and the font apart, 0x8C; the code is the client's) |
 | `app/client/ui_attrb_skills.cpp:420` | `UIAttrbSkillsClass::Unknown_58` | marker | NOT EXACT: register (similarity 0.71: the inlined 0x54B370 keeps the count in ecx and the gadget in edx, the client the reverse; 0x54B140 inlines it as the client does) |
 | `app/client/ui_avatar_cust.cpp:480` | `StarbaseAvatarCreationInterface::Unknown_68` | marker | NOT EXACT: register (0.62, 2402 bytes against 0x86D + the table): the client's own case per key (0x54EAD0 inlined for 0x12 / 0x13, the palette helper 0x5513E0 for 0x1A-0x1C, 0x551BF0 in the 0x14-0x19 tail VC6 cross-jumps), the view's Client read once at the top (edi) for 0x16-0x19, and the choosers' value through an inline getter there (the client's ecx); left: its converted temporary in the 0x54E... |
