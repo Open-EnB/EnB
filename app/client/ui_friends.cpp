@@ -29,6 +29,36 @@ static inline void Unknown_Delete_Player(UIFriendsPlayerInfoClass *info)	// NAME
 	delete info;
 }
 
+// 0x590430
+void UIFriendsClass::Unknown_7C(UIViewClass *view, bool arg)
+{
+	if (View != view) {
+		if (SymbolChatUI) {
+			SymbolChatUI->Unknown_7C(view, false);
+		}
+		Unknown0AE = true;
+		InterfaceClass::Unknown_7C(view, arg);
+	}
+}
+
+// 0x590480
+void UIFriendsClass::Unknown_590480(int count)
+{
+	Slider->Unknown_66FA90((float)count, 7.0f, true);
+	Unknown_590500();
+}
+
+// 0x590500
+void UIFriendsClass::Unknown_590500()
+{
+	int top = (int)Slider->Value;
+	if (Top != top) {
+		Top = top;
+		Unknown_590550();
+	}
+	Slider->Unknown_66FD80(false);
+}
+
 // 0x590550
 void UIFriendsClass::Unknown_590550()
 {
@@ -108,14 +138,7 @@ void UIFriendsClass::Unknown_5908B0()
 	}
 
 	Top = -1;
-	int count = PlayersInfo.size();
-	Slider->Unknown_66FA90((float)count, 7.0f, true);
-	int top = (int)Slider->Value;
-	if (Top != top) {
-		Top = top;
-		Unknown_590550();
-	}
-	Slider->Unknown_66FD80(false);
+	Unknown_590480(PlayersInfo.size());
 	Selection = -1;
 	Unknown0D0[2]->Unknown_40(false);
 	Unknown0D0[4]->Unknown_40(false);
