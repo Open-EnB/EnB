@@ -337,7 +337,7 @@ void ViewUnknown34Class::Unknown_588A70(const char *type, bool follow_mouse, con
 }
 
 // 0x589CA0: the text of a header element (a RefCountPtr of its render object)
-static RefCountPtr<FontSys> Unknown_589CA0(const RefCountPtr<RenderObjClass> &robj)	// NAME 1: neutral (D10)
+RefCountPtr<FontSys> Unknown_589CA0(const RefCountPtr<RenderObjClass> &robj)	// NAME 1: neutral (D10) (ui_ping.cpp's 0x5D85B0 calls it too)
 {
 	return(Create_Peek((FontSys *)robj.Peek()));
 }

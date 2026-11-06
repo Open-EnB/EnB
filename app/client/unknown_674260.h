@@ -24,6 +24,7 @@ class Unknown_674260Class : public Unknown_675120Class	// NAME 1: neutral (D10)
 {
 public:
 	Unknown_674260Class(const RefCountPtr<RenderObjClass> &model);	// 0x674260 (0x60 bytes)  // NAME 1 [model]: what the windows pass
+	virtual ~Unknown_674260Class();										// 0x6742F0 (deleting 0x674230; out of line next to the constructor: ui_ptrade.cpp's credits button 0x5E4040 calls it)
 };
 
 #endif

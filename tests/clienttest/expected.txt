@@ -2561,28 +2561,34 @@ stub SClient::Unknown_744B60 -> 0
 msg 4 TRADE (31) size 9: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_744B60 -> 0
+assert 0 (line 524)
 msg 5 TRADE (31) size 9: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_744B60 -> 0
+assert 0 (line 524)
 msg 6 TRADE (31) size 9: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_744B60 -> 0
+assert 0 (line 524)
 msg 7 TRADE (31) size 9: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_744B60 -> 0
+assert 0 (line 524)
 msg 8 TRADE (31) size 9: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_744B60 -> 0
+assert 0 (line 524)
 msg 9 TRADE (31) size 9: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_744B60 -> 0
-trade calls (main view): +58 +5C 5E3130 5E2F70(1) 5E2F70(0) 5E3050(1) 5E3050(0) 
-check TRADE 31 in space: types 0-6 to the main view's trade interface (slots +0x58 / +0x5C, 0x5E3130, 0x5E2F70, 0x5E3050), 7 ignored, +0x1134 cleared: ok
+trade calls (main view): +58 +5C 40(0) 40(0) 40(0) 40(0) [2 0 0] [2 1 0] [2 0 0] [2 0 1] [2 0 0] 
+check TRADE 31 in space: types 0-6 to the main view's trade interface (slots +0x58 / +0x5C; 0x5E3130: +0xD8 = 2, the buttons off; 0x5E2F70 / 0x5E3050: +0xDD / +0xDE), 7 ignored, +0x1134 cleared: ok
 msg 10 TRADE (31) size 9: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 1
 msg 11 TRADE (31) size 9: cpacket.cpp's handler
 stub SClient::Unknown_744B60 -> 1
-trade calls (starbase): +58 640110(8) 5E3130 640110(0) 
+assert 0 (line 524)
+trade calls (starbase): +58 640110(8) 40(0) 40(0) 40(0) 40(0) 640110(0) 
 check TRADE 31 docked: the starbase view's +0x1A4 and the starbase interface's 0x640110(8) / (0); its count back to 5: ok
 stub SClient::Unknown_74D990 0x6 'From: alex' 0
 stub SClient::Unknown_74D990 0x6 'Sent: (the date)' 0
@@ -2621,10 +2627,11 @@ stub SClient::Unknown_74D990 0x17 'Alex' 0
 stub SClient::Unknown_74D990 0x17 'Bea' 0
 stub SClient::Unknown_74D990 0x17 'Ignored:' 0
 stub SClient::Unknown_74D990 0x17 '<none>' 0
+fail_if player_list_size != location_list_size (line 610)
 stub SClient::Unknown_74D990 0x17 'Active channels:' 0
 stub SClient::Unknown_74D990 0x17 'Alex' 0
 stub SClient::Unknown_74D990 0x17 'Bea' 0
-list calls: 5913E0(2) 5DA600(2) 5E8E30-0(2) 5E8E30-1(2) 5E5D70(2) 
+list calls: 5DA600(2) 5E8E30-0(2) 5E8E30-1(2) 5E5D70(2) 
 check CLIENT_CHAT_LIST 164: friends, ignore, channel lists to the panel's members (type 3 with +0xA0 1 printed instead): ok
 stub SClient::Unknown_74D990 0x13 'Could not speak on Sector 1. (error 5)' 0
 stub SClient::Unknown_74D990 0x13 'Could not broadcast to Alex. (error 5)' 0

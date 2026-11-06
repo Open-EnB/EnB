@@ -89,6 +89,7 @@ public:
 	void Unknown_6D88F0(int left, int top, int right, int bottom);			// 0x6D88F0 (textgadg.cpp: the box's rectangle, from the bounding box and the position)  // NAME 1 [left, top, right, bottom]: what textgadg.cpp passes
 	Vector3 Unknown_6D8650();											// 0x6D8650: the text's position (+0x464 with +0x302 set, else the transform's; plus +0x47C and the effects' offset +0x488)  // NAME 1 [Unknown_6D8650]: neutral (D10)
 	const char *Unknown_6D87D0();											// 0x6D87D0: Info.Text (fontsys_cursor.cpp's FAIL_IF '!text')  // NAME 1 [Unknown_6D87D0]: neutral (D10)
+	void Unknown_6D8970(bool on);											// 0x6D8970: Underline (+0x407) set (ui_friends.cpp's 0x590550: off for 'offline')  // NAME 1 [Unknown_6D8970, on]: neutral (D10)
 	void Unknown_6D5F40(ShaderClass &shader);								// 0x6D5F40: the shader for Info.BlendType[FontIndex] (Update_Text)  // NAME 1 [Unknown_6D5F40]: neutral (D10)
 	bool Unknown_6D60C0();													// 0x6D60C0: the show delay (+0x26C ms); true while it lasts (Update_Text)  // NAME 1 [Unknown_6D60C0]: neutral (D10)
 	bool Unknown_6CD180();													// 0x6CD180: Update_Text runs the mouse-over effects while true  // NAME 1 [Unknown_6CD180]: neutral (D10)

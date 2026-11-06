@@ -4,6 +4,37 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-06 (04:30 PST, night): the expression library (10 files), the item examination window (7), ui_starbase / ui_friends / ui_ptrade / ui_ping / ui_playeropt / avatar_pip / ui_analyze / ui_attrb; +870 pairs, 0 lost
+
+- **Run** run/2026-11-05-night (PR #167, from master ab992dba), 15 Opus builders (ST1, EX1-EX4, IE1 / IE2, FR1, PT1 / PT2, PG1,
+  CP1, AP1, AN1, AT2) and 3 Sonnet (HC1-HC3) in the shared tree, one to three at a time; Claude subscription only. Items: the triage
+  plan's runs naming files not in the tree (`.work/triage/plan.md`), each builder continuing into its object's free
+  neighbours (claims recorded on the PR). Weekly usage 36% -> 42% (the user's goal 42% by 07:00; window closed at 41% at 02:18, reopened at 02:58 for AN1 / AT2 as
+  nothing was running; 42% at 04:18);
+  ~0.35% of the week per Opus builder-hour. Plan log: `.work/run-2026-11-05-night/plan.md`. Quiet-tree app verify at HEAD:
+  10529 in tree, +870 vs the baseline (+8 tie-break, +360 shared), 0 lost, 0 lost outright, 0 moves.
+- **The expression library (EX1-EX4, +346; app/shared/expr/):** expr_math_parser_impl.cpp, expr_math_tree.cpp,
+  expr_math_parser_factory.cpp, expr_lexer_impl.cpp, expr_lexer_match_list.cpp (SGI hash_map), expr_math_lexer_factory.cpp,
+  expr_lexer_matchers.cpp, expr_math_token.cpp, expr_math_float.cpp, expr_math_int.cpp, with their headers (expr_math_lexer.h /
+  expr_math_tree.h real now; expr_math_eval_impl.h / expr_math_builder.h named by the client's __FILE__). 0x4C4980-0x4D42C0
+  all exact but 9 (§4).
+- **The item examination window (IE1 / IE2, +162):** ui_item_examination.cpp, _options, _attributes, _description, _title,
+  _property_router, _specials; declaration-only ui_slot_info.h / ui_dynamicwindow.h / dynamic_window_icon.h; partial
+  item/client_item_property_option / _attribute / _special.h. Row classes wait for dynamic_window_toggle and gadget 0x6686F0.
+- **UI windows:** ui_starbase.cpp (ST1, +42: the starbase lights editor; the rest waits for P-ST1-1), ui_friends.cpp (FR1, +39),
+  ui_ptrade.cpp (PT1 / PT2, +25 own: all exact but 0x5E2CE0; the TRADE 31 handlers landed with clienttest checking the real
+  ones), ui_ping.cpp (PG1, +30, all exact), ui_playeropt.cpp (CP1, +30, ui_friends' twin, all but 0x5D9D10), avatar_pip.cpp
+  (AP1, +12), ui_analyze.cpp (AN1, +15 own: ui_manu's near-copy), ui_attrb.cpp (AT2, +36: the skill panel; the
+  attributes panel left).
+- **Harnesses (D182):** HC1 found clienttest broken by FR1's real 0x5913E0 (LNK2005 against a stand-in): HC2 fixed it
+  (97949a2f); PT2 replaced the TRADE 31 stand-ins (3490538c / 9572676a) and stubbed money.cpp's operators for clientpoc
+  (84a95404: 24 -> 21 unresolved). HC3 at ef68e0c1: app 386/386 (one VM-sync flake on the first build), clienttest 103 / 103 trace equal, udpreplay alex3 ok, handshake 54/54, clientpoc 21 unresolved; AN1 / AT2 after it added no tests/ stand-in addresses.
+- **Proposal for the user:** P-ST1-1 (§3: a duplicated ctype id initialiser flips 0x648380 to 0x646120 when ui_starbase.cpp's
+  range moves; recommend accepting it as a D66 non-loss). Interim placements (D137, the coordinator's; listed in §4):
+  ui_item_examination_attributes / _description / _specials.cpp, expr_lexer_matchers.cpp, expr_math_token.cpp,
+  UIStarbaseLightsClass in ui_starbase.cpp, UIPTradeClass in sclient.h, ui_friends.h, ui_analyze.h. Traps filed in workflow.md §3.1 / §3.4 /
+  §3.5 (one bullet per report). Section 4 gained one item per file with what is left.
+
 ### 2026-11-05 (21:45 PST, evening): PR #163's vc6-verify fixed: 0x6209D0 back in ui_ship_cust, D196 (objmatch's chained range) brings 0x620CA0 back; PRs #163 / #164 / #165 merged
 
 - **Why #163 failed:** 13 lost against master: 11 D66 moves and 2 outright (ui_shipcust 0x6209D0 / 0x620CA0), false
@@ -2429,6 +2460,13 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-ST1-1** (2026-11-05 night, ST1; recommend accept, then apply the patch as it stands): ui_starbase.cpp's
+  `.work/st1/helpers_640CC0.patch` (UIStarbaseClass layout +0xB0 / +0xB4 / +0x204 in sbaseview.h, helpers 0x640CC0-0x640F30
+  under `#pragma auto_inline(off)`) gains +10 and loses 0x648380 outright: 0x646120 and 0x648380 are the client's two
+  byte-identical copies of `std::ctype<unsigned short>::id`'s guarded initialiser in one object; ours compiles one, and once
+  the file's own range starts at 0x640CC0 D100 credits it to 0x646120. Any further rebuild of ui_starbase.cpp's ~120
+  remaining functions moves the range the same way. Accept 0x648380 as a D66 non-loss (the kind of (vi)), or keep the file's
+  range where it is? The rest of ui_starbase.cpp waits for this.
 * **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
   (a) **~$110: overflow builders on the API key**, the D163 (a) pilot's path (headless `claude -p`, Opus 5.5, the separate
   key `ENB_ANTHROPIC_API_KEY`, `--max-budget-usd` per builder, launched by the coordinator like any builder, within the
@@ -2470,9 +2508,10 @@ LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a
 below name only the work items, the blocked work, the leads and the queues.
 
 * **The triage plan's runs (D163; the log entry of 2026-10-31 15:40).** `.work/triage/plan.md` (rerun `triage.py
-  plan` after each run): 161 runs of 3+ neighbouring functions with no pair and one suggested file, 72 agreeing with
-  both neighbours (the hint's file was right 23 of 23 in TG1 / TG2's six), 76 naming a file not in the tree (new
-  files: ui_registration 0x5FFFC0, htmlview 0x7761E0, ui_starbase 0x646F70, ui_ship_cust 0x61E8B0, ...); 2,735 template
+  plan` after each run): 52 runs of 3+ neighbouring functions with no pair and one suggested file (2026-11-06), 10 agreeing
+  with both neighbours (the hint's file was right 23 of 23 in TG1 / TG2's six; the 2026-11-05 night run found it wrong for
+  ui_item_examination's panels), 32 naming a file not in the tree (next by size: optdlg 0x846D10, ui_attrb 0x548440,
+  ui_analyze 0x545D30, ui_mfd 0x5BE570 / 0x5BEA00, galaxy_map_pip 0x53F9E0, ...); 2,735 template
   instances; 379 library kinds in the app range to check against gaps. Each run is a bounded builder item: claim the
   bare range (`run_branch.py claim 0xLO-0xHI`). The table is tracked in `docs/data/triage.*` (D172). The $200's
   remaining ~$156 is D163 part (3)'s overflow capacity.
@@ -2583,6 +2622,55 @@ below name only the work items, the blocked work, the leads and the queues.
      Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.3) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * ui_attrb.cpp (AT2, 2026-11-06 night; the client's own file, object 0x546A80-0x54962F): the attributes panel 0x546A80-0x548250
+     (~20 functions; ctor 0x546A80 / dtor 0x546B50 first; G_ASSERTs on lines 237 / 382; InterfaceClass through the
+     `__INTRFACE_MEMBERS` ctor 0x540D30; avatar_pip at +0xA8, a 0x58CF60 object at +0x8C) not written; the skill panel
+     Unknown548D60Class (0xDC, over Unknown5BB320Class) exact but 0x548D60 (0.73, register in the title's colour stores, 9
+     forms). ui_attrb_skills.cpp's local Unknown548D60Class should include ui_attrb.h (with a verify).
+   * ui_analyze.cpp (AN1, 2026-11-06 night; UIAnalyzeClass 0x11C over Unknown5BB320Class, ui_manu.cpp's near-copy; ui_analyze.h
+     interim NAME 1): slots +0x54 0x5439F0 / +0x60 0x5443F0, 0x544D80, 0x545190, 0x545610, 0x5458B0 not written; NOT EXACT
+     0x545E40 (inline budget: the client calls the finds 0x546780 / 0x5467F0 out of line, as ui_manu's 0x5B4680 does: ui_manu
+     should use aux_roots.h's types too), 0x546090 (Cast<DeltaStringClass> out of line; end-of-file inline_depth(1) fixes it
+     but costs 0x5461C0), dtor 0x5437C0 (one relocation target differs). The file-wide question, why the client calls
+     Find_Field / Cast out of line, also covers ~10 of ui_manu's NOT EXACT functions.
+   * ui_playeropt.cpp (CP1, 2026-11-05 night; UIPlayerOptClass 0x114, ui_friends' twin, 0x5D8C40-0x5DAE8F): NOT EXACT only
+     0x5D9D10 (inline budget, 8 forms). Its levers for ui_friends.cpp: 0x590E50 with `X.Peek() != NULL && X->Is_Active()`,
+     0x591A30 taking its target from its own 0x592150 (as 0x5DAB50), perhaps 0x58FBA0 by calling the file's own helper.
+     clienttest.cpp:1857's stand-in UIChatPanelUnknownD8Class::Unknown_5DA600 now has a real definition (no clash): retire
+     it with the next tests/ edit. Next object ui_popup_browser.cpp 0x5DAE90.
+   * avatar_pip.cpp (AP1, 2026-11-05 night; AvatarPipClass 0x3C, 0x7E31B0-0x7E49AF): NOT EXACT 0x7E4520 (shape: the client
+     converts `* 0.1f` before Get_Sort_Level), 0x7E3A20 0.83 (shape: the light translation folded into zeroed floats, a release
+     tail-merge, Rotate_Y's operand order); the model carrier Unknown47FA70Class (ctor 0x47FA70, table 0xAE9D88; ro_proxy.cpp
+     by the triage, not in the tree). ui_chat_panel.cpp / ui_ptrade.cpp declare local AvatarPipClass stand-ins with wrong
+     signatures (0x7E36B0 returns bool, takes bool; 0x7E3A20 takes const char *, unsigned, CharacterViewAvatarClass *):
+     include avatar_pip.h, with a verify of both files.
+   * ui_ptrade.cpp (PT1 / PT2, 2026-11-05 night; UIPTradeClass in sclient.h, interim D137, base Unknown5BB320Class, 0xE8): NOT
+     EXACT only 0x5E2CE0 (0.84, register: key 3 reads the client through edx, the client eax; 7 forms). ui_group.h's
+     UISymbolChatClass 0x64A220 / 0x64A240 read the 0x649890 'TRADE01A' object's +0xC0 (UIPTradeCreditsClass, 0xD0, in
+     sclient.h): check 0x64A480's base and size and merge the two declarations. 0x5E1B80 / 0x5E1B90 are the previous file's.
+     money.cpp's operators 0x4F0500 / 0x4F0700 / 0x4F0740 are stubs in clienttest / clientpoc until money.cpp links there.
+   * ui_friends.cpp (FR1, 2026-11-05 night; UIFriendsClass 0x14C over UIChatPanelBaseClass, 0x58F0F0-0x5921F0, 39 pairs): ctor
+     0x58F210 / dtor 0x58F450 not yet written (the vtable waits for an exact ctor), 0x58F6B0 (slot +0x54), 0x590020 (slot
+     +0x68, an 11-case key switch; callees 0x7E8030 / 0x64A2B0 unknown), 0x591C30 (GroupInfo lookup via 0x5927E0), 0x5921C0
+     on; NOT EXACT 0x5908B0 / 0x590DB0 / 0x590E50 (register), 0x58FBA0 / 0x5913E0 / 0x591A30 (inline budget). cpacket.cpp's
+     stand-in `class UIFriendsClass` can include ui_friends.h (verify cpacket unchanged). ui_friends.h interim (NAME 1).
+   * The item examination window (IE1 / IE2, 2026-11-05 night; ui_item_examination*.cpp, 0x531430-0x53AB4F): NOT EXACT the
+     description ctor 0x534CA0 (frame 0x2C vs 0x24; a named Vector2 gets the frame but inlines the second string's `_Eos`),
+     the attributes ctor 0x532BA0 / dtor 0x533000 forms in attempts.csv; title 0x53A140 (the name's std::string by value);
+     the row classes (options 0x535CB0 / 0x5362F0 / 0x5362C0 / 0x536450, attributes 0x533450 / 0x533AC0 / 0x533A90, specials
+     0x538350 up to 0x539790) need dynamic_window_toggle and the gadget class at 0x6686F0 (0x34 bytes), neither in the tree;
+     the sorts' _Unguarded_insert / _Median / _Unguarded_partition inline operator< (0x534700). ui_item_examination.cpp's
+     local Unknown537830Class / LineDisplayClientClass onto the real headers in a line-neutral edit. Next object 0x53AA30.
+     Interim names (D137): ui_item_examination_attributes / _description / _specials.cpp; declaration-only ui_slot_info.h /
+     ui_dynamicwindow.h / dynamic_window_icon.h wait for their files.
+   * The expression library (app/shared/expr/, EX1-EX4, 2026-11-05 night): NOT EXACT expr_math_parser_impl Add_Similar 0x4D0DF0
+     (register), Parse_Level 0x4D10E0 (inline budget: a token scope closing before the returns, untried); expr_math_float
+     0x4C8920 / 0x4C9010 (frame: no EH frame for `new` in float's copy, int's exact), Create_Binary 0x4C7D80 / 0x4CBCD0 (shape),
+     Create_Unary 0x4CC120 (inline budget), Visit_Binary 0x4CB260 / 0x4CFB00 (shape: a merged tail, 28 calls vs 24);
+     std::fill 0x4D3CF0 / copy_backward 0x4D3EC0 parked (npos as an immediate -1); 0x4C7B70's guarded initialiser wants a D99
+     row. Lead (tools): a vtable-slot pairing for the operator classes' byte-identical dtors / deleting dtors (~60 addresses
+     in 0x4C9EC0-0x4CAC60 and 0x4CE2A0-0x4CF500, "multiple" today). Interim names (D137): expr_lexer_matchers.cpp,
+     expr_math_token.cpp, the expr_math_float / int headers.
    * **Font types:** Font32Class's XSpacing / MinSpacing reachable; unknown_6ca0c0.cpp and unknown_6cce60.cpp merged
      when evidence names the object (D137); FontSys::Font +0x24C as `RefCountPtr<Font32Class>` (0x588DC0 passes
      its address as one); sclient.h's `SClientFontDatabaseClass::Unknown_6C52B0(int)` is

@@ -321,6 +321,10 @@ ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char
 // the SClient / UI chain reaches it. clienttest never opens the ship customization window: this only links.
 #include "..\..\..\app\shared\money.h"
 bool operator>=(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator>=(MoneyClass)"); return(a.Unknown00 >= b.Unknown00); }
+// money.cpp's 0x4F0500 / 0x4F0700, declared by ui_ptrade.cpp (0x5E39F0, 0x5E2CE0): ui_ptrade.obj links since the TRADE 31
+// handlers 0x5E2F70 / 0x5E3050 / 0x5E3130 are the real ones. clienttest never opens the trade window: these only link.
+MoneyClass operator+(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator+(MoneyClass)"); MoneyClass sum; sum.Unknown00 = a.Unknown00 + b.Unknown00; return(sum); }
+bool operator>(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator>(MoneyClass)"); return(a.Unknown00 > b.Unknown00); }
 
 // ui_missn.cpp / ui_manu.cpp (via ui_ship_cust.obj's chain) call GadgetClass's slots +0x08 / +0x14 as void functions; gen_stubs
 // writes one signature a name (the pointer-returning one) and clienttest.py does not apply link_aliases.txt, so these two
