@@ -24,7 +24,7 @@ extern unsigned int Unknown_BE5F34;
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// (cameraeffects.cpp's)  // NAME 1: neutral (D10)
 float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// 0x7E6060 (distance_calc_client.cpp's)  // NAME 1: neutral (D10)
 #define MFD_RAD_TO_DEG 57.29577791868204	// 0xAF3630  // NAME 2: what it holds
-class UIMFDTargetingClass { public: void Unknown_7C61B0(); };	// NAME 1: neutral (D10): SClient +0x12A4 (ui_starmap.cpp's, the FAIL_IF's '!targeting')
+class UIMFDTargetingClass { public: void Unknown_7C61B0(); };	// NAME 1: neutral (D10): SClient +0x12A4 (the FAIL_IF's '!targeting')
 
 // The compass heading of a transform, in degrees
 static inline int Get_Heading(const Matrix3D &m)	// NAME 2: what it does
@@ -320,7 +320,7 @@ bool UIMFDClass::Unknown_68(int key)
 
 
 						FAIL_IF(!sclient) { return(true); }
-						UIMFDTargetingClass *targeting = (UIMFDTargetingClass *)sclient->Starmap;
+						UIMFDTargetingClass *targeting = (UIMFDTargetingClass *)sclient->Targeting;
 
 						FAIL_IF(!targeting) {
 							return(true);

@@ -744,7 +744,7 @@ bool UIGroupClass::Unknown_68(int key)
 		case 15:
 			key -= 11;
 			if (Members[key]) {
-				UIGroupTargetingClass *targeting = (UIGroupTargetingClass *)sclient->Starmap;
+				UIGroupTargetingClass *targeting = (UIGroupTargetingClass *)sclient->Targeting;
 
 
 

@@ -94,7 +94,7 @@ class BridgeInterfaceClass;		// NAME 3: class-from-file (D24) for bridge_int.cpp
 class UIHotKeysClass;			// NAME 3: class-from-file (D24) for ui_hot_keys.cpp (constructor 0x59C6F0, 0x84 bytes)
 class UITalkTreeSpaceClass;		// NAME 3: class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes)
 class GalaxyMapClientClass;		// NAME 3: class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes)
-class UIStarmapClass;			// NAME 3: class-from-file (D24) for ui_starmap.cpp (constructor 0x7C6120, 0x14 bytes)
+class TargetingClass;			// NAME 2: the asserts' 'targeting' (mainview.cpp, ui_mfd.cpp, ui_group.cpp); constructor 0x7C6120, 0x14 bytes
 class DeltaPlayerClass;
 class SClientUnknown12C4Class;	// NAME 1: neutral (D10): the elements of SClient +0x12C4
 class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it
@@ -1119,7 +1119,7 @@ public:
 	RefCountPtr<UITalkTreeClass> Unknown1298;		// +0x1298 Init: Unknown129C's object (the starbase view's 0x69F8F0: its +0x190)
 	RefCountPtr<UITalkTreeSpaceClass> Unknown129C;		// +0x129C Init
 	GalaxyMapClientClass *GalaxyMap;					// +0x12A0 Init  // NAME 3: its file's
-	UIStarmapClass *Starmap;							// +0x12A4 Init  // NAME 3: its file's
+	TargetingClass *Targeting;							// +0x12A4 Init  // NAME 2: the asserts'
 	CameraManagerClass *CameraManager;					// +0x12A8 Init  // NAME 3: its file's
 	int Unknown12AC;									// +0x12AC (the constructor leaves it)
 	int Unknown12B0;									// +0x12B0 Init: the base's Unknown10BC

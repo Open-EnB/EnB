@@ -192,11 +192,11 @@ public:
 	char Unknown04[0xCC - 0x04];
 };
 
-class UIStarmapClass
+class TargetingClass
 {
 public:
-	UIStarmapClass(SClient *client);					// 0x7C6120
-	virtual ~UIStarmapClass();
+	TargetingClass(SClient *client);					// 0x7C6120
+	virtual ~TargetingClass();
 
 	char Unknown04[0x14 - 0x04];
 };
@@ -312,7 +312,7 @@ SClient::SClient(ClientTaskClass *task) :
 	HotKeys(NULL),
 	VerbManager(NULL),
 	GalaxyMap(NULL),
-	Starmap(NULL),
+	Targeting(NULL),
 	CameraManager(NULL),
 	Unknown12B0(0),
 	Unknown12B4(0),
@@ -429,7 +429,7 @@ void SClient::Init()
 	LineDisplay = new UILineDisplayClass((LineDisplayClientClass *)this);
 	LineDisplay->Unknown_54();
 	GalaxyMap = new GalaxyMapClientClass;
-	Starmap = new UIStarmapClass(this);
+	Targeting = new TargetingClass(this);
 	PDAInterface = new PDAInterfaceClass(this);
 	PDAInterface->Unknown_54();
 	BridgeInterface = new BridgeInterfaceClass(this);
@@ -567,8 +567,8 @@ void SClient::Shutdown()
 	REF_PTR_RELEASE(PDAInterface);
 	delete GalaxyMap;
 	GalaxyMap = NULL;
-	delete Starmap;
-	Starmap = NULL;
+	delete Targeting;
+	Targeting = NULL;
 	delete BridgeInterface;
 	BridgeInterface = NULL;
 	REF_PTR_RELEASE(HotKeys);

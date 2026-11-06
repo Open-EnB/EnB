@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 134 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1370 |
-| 2 | describes what the code does | 3126 |
-| 1 | neutral placeholder | 15342 |
+| 3 | by convention from a client-named file or sibling | 1384 |
+| 2 | describes what the code does | 3150 |
+| 1 | neutral placeholder | 15450 |
 
 ## For review (score 3 and below)
 
@@ -9110,31 +9110,32 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown170` | `app/client/ui_cpit.h:181` | untagged neutral name (D10) |
 | 1 | `Unknown174` | `app/client/ui_cpit.h:182` | untagged neutral name (D10) |
 | 1 | `ui_dynamicwindow.h` | `app/client/ui_dynamicwindow.h:4` | provisional header name for ui_dynamicwindow.cpp |
-| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_dynamicwindow.h:17` | neutral (D10) |
-| 1 | `Unknown84_04` | `app/client/ui_dynamicwindow.h:21` | neutral (D10) |
-| 1 | `gadget, arg1, arg2` | `app/client/ui_dynamicwindow.h:22` | neutral |
-| 1 | `gadget` | `app/client/ui_dynamicwindow.h:23` | neutral |
-| 1 | `Unknown84_10` | `app/client/ui_dynamicwindow.h:24` | neutral (D10) |
-| 1 | `client, name, flags` | `app/client/ui_dynamicwindow.h:31` | what it passes on |
-| 1 | `Unknown_58` | `app/client/ui_dynamicwindow.h:33` | neutral (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_dynamicwindow.h:34` | neutral (D10) |
-| 1 | `Unknown_60` | `app/client/ui_dynamicwindow.h:35` | neutral (D10) |
-| 1 | `key` | `app/client/ui_dynamicwindow.h:36` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/ui_dynamicwindow.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown84_04` | `app/client/ui_dynamicwindow.h:37` | neutral (D10) |
-| 1 | `Unknown84_08` | `app/client/ui_dynamicwindow.h:38` | neutral (D10) |
-| 1 | `Unknown84_0C` | `app/client/ui_dynamicwindow.h:39` | neutral (D10) |
-| 1 | `Unknown84_10` | `app/client/ui_dynamicwindow.h:40` | neutral (D10) |
-| 1 | `Add_Element, element, row_index` | `app/client/ui_dynamicwindow.h:41` | DynamicWindowClass's |
-| 1 | `Remove_All, recursive` | `app/client/ui_dynamicwindow.h:42` | DynamicWindowClass's |
-| 1 | `Unknown_58ADA0` | `app/client/ui_dynamicwindow.h:43` | neutral (D10) |
-| 1 | `Unknown8C` | `app/client/ui_dynamicwindow.h:46` | neutral (D10) |
-| 1 | `Unknown90` | `app/client/ui_dynamicwindow.h:47` | neutral (D10) |
-| 1 | `std:` | `app/client/ui_dynamicwindow.h:48` | neutral (D10) |
-| 1 | `Unknown94` | `app/client/ui_dynamicwindow.h:48` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/ui_dynamicwindow.h:49` | neutral (D10) |
-| 1 | `UnknownA8` | `app/client/ui_dynamicwindow.h:50` | neutral (D10) |
-| 1 | `UnknownA9` | `app/client/ui_dynamicwindow.h:51` | neutral (D10) |
+| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_dynamicwindow.h:18` | neutral (D10) |
+| 1 | `Unknown84_04` | `app/client/ui_dynamicwindow.h:22` | neutral (D10) |
+| 1 | `gadget, arg1, arg2` | `app/client/ui_dynamicwindow.h:23` | neutral |
+| 1 | `gadget` | `app/client/ui_dynamicwindow.h:24` | neutral |
+| 1 | `Unknown84_10` | `app/client/ui_dynamicwindow.h:25` | neutral (D10) |
+| 1 | `client, name, flags` | `app/client/ui_dynamicwindow.h:32` | what it passes on |
+| 1 | `Unknown_58` | `app/client/ui_dynamicwindow.h:34` | neutral (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_dynamicwindow.h:35` | neutral (D10) |
+| 1 | `Unknown_60` | `app/client/ui_dynamicwindow.h:36` | neutral (D10) |
+| 1 | `key` | `app/client/ui_dynamicwindow.h:37` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_dynamicwindow.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown84_04` | `app/client/ui_dynamicwindow.h:38` | neutral (D10) |
+| 1 | `Unknown84_08` | `app/client/ui_dynamicwindow.h:39` | neutral (D10) |
+| 1 | `Unknown84_0C` | `app/client/ui_dynamicwindow.h:40` | neutral (D10) |
+| 1 | `Unknown84_10` | `app/client/ui_dynamicwindow.h:41` | neutral (D10) |
+| 1 | `Add_Element, element, row_index` | `app/client/ui_dynamicwindow.h:42` | DynamicWindowClass's |
+| 1 | `Remove_All, recursive` | `app/client/ui_dynamicwindow.h:43` | DynamicWindowClass's |
+| 1 | `Unknown_58A580` | `app/client/ui_dynamicwindow.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_58ADA0` | `app/client/ui_dynamicwindow.h:45` | neutral (D10) |
+| 1 | `Unknown8C` | `app/client/ui_dynamicwindow.h:48` | neutral (D10) |
+| 1 | `Unknown90` | `app/client/ui_dynamicwindow.h:49` | neutral (D10) |
+| 1 | `std:` | `app/client/ui_dynamicwindow.h:50` | neutral (D10) |
+| 1 | `Unknown94` | `app/client/ui_dynamicwindow.h:50` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/ui_dynamicwindow.h:51` | neutral (D10) |
+| 1 | `UnknownA8` | `app/client/ui_dynamicwindow.h:52` | neutral (D10) |
+| 1 | `UnknownA9` | `app/client/ui_dynamicwindow.h:53` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_faction.cpp:22` | 0xBE67C4 |
 | 1 | `LineDisplayClientClass` | `app/client/ui_faction.cpp:25` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_faction.cpp:28` | untagged neutral name (D10) |
@@ -10441,7 +10442,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Field` | `app/client/ui_mfd.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_mfd.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6060` | `app/client/ui_mfd.cpp:25` | neutral (D10) |
-| 1 | `UIMFDTargetingClass` | `app/client/ui_mfd.cpp:27` | neutral (D10): SClient +0x12A4 (ui_starmap.cpp's, the FAIL_IF's '!targeting') |
+| 1 | `UIMFDTargetingClass` | `app/client/ui_mfd.cpp:27` | neutral (D10): SClient +0x12A4 (the FAIL_IF's '!targeting') |
 | 1 | `Unknown_7C61B0` | `app/client/ui_mfd.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown9C` | `app/client/ui_mfd.cpp:48` | untagged neutral name (D10) |
 | 1 | `UnknownC8` | `app/client/ui_mfd.cpp:51` | untagged neutral name (D10) |
@@ -12080,6 +12081,113 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_40` | `app/client/ui_starbase.cpp:445` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/ui_starbase.cpp:493` | untagged neutral name (D10) |
 | 1 | `GadgetUnknown08Struct` | `app/client/ui_starbase.cpp:514` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_starmap.cpp:30` | neutral (D10) |
+| 1 | `Unknown_BE5F34` | `app/client/ui_starmap.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5EB0` | `app/client/ui_starmap.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_starmap.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_starmap.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_starmap.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_496240` | `app/client/ui_starmap.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_496AE0` | `app/client/ui_starmap.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_B9F8B8` | `app/client/ui_starmap.cpp:41` | neutral (D10) |
+| 1 | `Unknown_30` | `app/client/ui_starmap.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad30` | `app/client/ui_starmap.cpp:48` | untagged neutral name (D10) |
+| 1 | `UIStarmapPipViewClass` | `app/client/ui_starmap.cpp:52` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/ui_starmap.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_starmap.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_starmap.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_starmap.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_starmap.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_starmap.cpp:61` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_starmap.cpp:62` | neutral |
+| 1 | `Unknown_1C` | `app/client/ui_starmap.cpp:62` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_starmap.cpp:63` | neutral |
+| 1 | `Unknown_20` | `app/client/ui_starmap.cpp:63` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_starmap.cpp:64` | neutral |
+| 1 | `Unknown_24` | `app/client/ui_starmap.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown_693040` | `app/client/ui_starmap.cpp:65` | untagged neutral name (D10) |
+| 1 | `UIStarmapGalaxyMapClass` | `app/client/ui_starmap.cpp:69` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_starmap.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/ui_starmap.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/ui_starmap.cpp:74` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_starmap.cpp:75` | neutral (D10) |
+| 1 | `Unknown_9C` | `app/client/ui_starmap.cpp:75` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_starmap.cpp:76` | neutral (D10) |
+| 1 | `Unknown_AC` | `app/client/ui_starmap.cpp:76` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_starmap.cpp:77` | neutral (D10) |
+| 1 | `Unknown_BC` | `app/client/ui_starmap.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_58B160` | `app/client/ui_starmap.cpp:80` | neutral (D10) |
+| 1 | `Unknown_Show_How_To` | `app/client/ui_starmap.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_58A580` | `app/client/ui_starmap.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_starmap.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown100` | `app/client/ui_starmap.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_starmap.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_starmap.cpp:158` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/ui_starmap.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown_686DA0` | `app/client/ui_starmap.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_starmap.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_starmap.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8E00` | `app/client/ui_starmap.cpp:253` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/ui_starmap.cpp:262` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/ui_starmap.cpp:278` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_starmap.cpp:302` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_starmap.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_starmap.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8E50` | `app/client/ui_starmap.cpp:336` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_starmap.cpp:340` | untagged neutral name (D10) |
+| 1 | `Unknown_7C94C0` | `app/client/ui_starmap.cpp:345` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_starmap.cpp:351` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8C20` | `app/client/ui_starmap.cpp:358` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8BA0` | `app/client/ui_starmap.cpp:358` | untagged neutral name (D10) |
+| 1 | `Unknown_695A00` | `app/client/ui_starmap.cpp:365` | untagged neutral name (D10) |
+| 1 | `Unknown_744560` | `app/client/ui_starmap.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown_66C6C0` | `app/client/ui_starmap.cpp:392` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_starmap.cpp:437` | untagged neutral name (D10) |
+| 1 | `Unknown_53F9E0` | `app/client/ui_starmap.cpp:441` | untagged neutral name (D10) |
+| 1 | `Unknown_7C91A0` | `app/client/ui_starmap.cpp:443` | untagged neutral name (D10) |
+| 1 | `Unknown_7C1120` | `app/client/ui_starmap.cpp:477` | untagged neutral name (D10) |
+| 1 | `Unknown_53FCA0` | `app/client/ui_starmap.cpp:479` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8D90` | `app/client/ui_starmap.cpp:616` | untagged neutral name (D10) |
+| 1 | `Unknown_693020` | `app/client/ui_starmap.cpp:618` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8DB0` | `app/client/ui_starmap.cpp:622` | untagged neutral name (D10) |
+| 1 | `Unknown_744B60` | `app/client/ui_starmap.cpp:710` | untagged neutral name (D10) |
+| 1 | `Unknown_7C2D30` | `app/client/ui_starmap.cpp:723` | untagged neutral name (D10) |
+| 1 | `Unknown_7C0EE0` | `app/client/ui_starmap.cpp:745` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_starmap.h:36` | neutral |
+| 1 | `Unknown_18` | `app/client/ui_starmap.h:38` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_starmap.h:39` | neutral |
+| 1 | `Unknown_1C` | `app/client/ui_starmap.h:39` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_starmap.h:40` | neutral |
+| 1 | `Unknown_20` | `app/client/ui_starmap.h:40` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_starmap.h:41` | neutral |
+| 1 | `Unknown_24` | `app/client/ui_starmap.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_7C0EE0` | `app/client/ui_starmap.h:43` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_starmap.h:44` | neutral |
+| 1 | `Unknown_7C1120` | `app/client/ui_starmap.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_7C2D30` | `app/client/ui_starmap.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad50` | `app/client/ui_starmap.h:47` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_starmap.h:53` | neutral |
+| 1 | `Unknown_54` | `app/client/ui_starmap.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_starmap.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_starmap.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_starmap.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_starmap.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/ui_starmap.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_starmap.h:61` | untagged neutral name (D10) |
+| 1 | `mode` | `app/client/ui_starmap.h:66` | neutral |
+| 1 | `Unknown_7C8BA0` | `app/client/ui_starmap.h:66` | untagged neutral name (D10) |
+| 1 | `mode` | `app/client/ui_starmap.h:67` | neutral |
+| 1 | `Unknown_7C8C20` | `app/client/ui_starmap.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8D90` | `app/client/ui_starmap.h:68` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_starmap.h:69` | what 0x512A00 passes |
+| 1 | `Unknown_7C8DB0` | `app/client/ui_starmap.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8E00` | `app/client/ui_starmap.h:70` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/ui_starmap.h:71` | neutral |
+| 1 | `Unknown_7C8E50` | `app/client/ui_starmap.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown_7C91A0` | `app/client/ui_starmap.h:72` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_starmap.h:73` | MapPipClass::Unknown_0C's |
+| 1 | `Unknown_7C94C0` | `app/client/ui_starmap.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown100` | `app/client/ui_starmap.h:100` | untagged neutral name (D10) |
 | 1 | `verbs` | `app/client/ui_verb.h:15` | VERB_LIST's field |
 | 1 | `Unknown_658F40` | `app/client/ui_verb.h:15` | untagged neutral name (D10) |
 | 1 | `adds, drops` | `app/client/ui_verb.h:16` | VERB_UPDATE's fields |
@@ -16098,6 +16206,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ui` | `app/client/local_interface_sort.h:52` | InterfaceSortClass's |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
+| 2 | `TargetingClass` | `app/client/mainview.cpp:1121` | the asserts' |
 | 2 | `Info` | `app/client/mainview.cpp:1781` | InfoCount's |
 | 2 | `vp` | `app/client/map_pip.h:50` | the FAIL_IF's  // NAME 1 [arg]: neutral |
 | 2 | `view` | `app/client/map_pip.h:51` | the FAIL_IF's  // NAME 1 [arg1, arg2]: neutral |
@@ -16319,6 +16428,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Credits` | `app/client/sclient.h:55` | the text it fills |
 | 2 | `ID` | `app/client/sclient.h:75` | what Unknown_50 gets |
 | 2 | `EndTime` | `app/client/sclient.h:76` | what 0x807520 compares |
+| 2 | `TargetingClass` | `app/client/sclient.h:97` | the asserts' 'targeting' (mainview.cpp, ui_mfd.cpp, ui_group.cpp); constructor 0x7C6120, 0x14 bytes |
 | 2 | `button` | `app/client/sclient.h:172` | tsk_login.h's |
 | 2 | `Layer` | `app/client/sclient.h:188` | what it is |
 | 2 | `Type` | `app/client/sclient.h:199` | what 0x74F5C0 compares |
@@ -16418,6 +16528,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `turn, tilt` | `app/client/sclient.h:1054` | 0x717430's |
 | 2 | `move_direction, fixed_speed` | `app/client/sclient.h:1056` | 0x717430's |
 | 2 | `reset` | `app/client/sclient.h:1098` | true sets every sample name to NONE |
+| 2 | `Targeting` | `app/client/sclient.h:1122` | the asserts' |
 | 2 | `ViewMode` | `app/client/sclient.h:1150` | what Do_Frame's asserts show |
 | 2 | `Task` | `app/client/sclient.h:1156` | what it holds |
 | 2 | `Text` | `app/client/sclient.h:1168` | what it holds |
@@ -16525,6 +16636,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `owner` | `app/client/ui_cpit.h:65` | what it holds |
 | 2 | `Owner` | `app/client/ui_cpit.h:69` | what it holds |
 | 2 | `HulkWatch` | `app/client/ui_cpit.h:162` | what it holds |
+| 2 | `position` | `app/client/ui_dynamicwindow.h:44` | what the caller passes |
 | 2 | `UIFriendsPlayerInfoClass` | `app/client/ui_friends.h:18` | what PlayersInfo holds (the asserts' 'PlayersInfo', '!friend_info') |
 | 2 | `std:` | `app/client/ui_friends.h:24` | its style's |
 | 2 | `std:` | `app/client/ui_friends.h:25` | its style's |
@@ -16660,6 +16772,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ShortcutBeenCreated` | `app/client/ui_scut_gadgets.h:74` | the entry's |
 | 2 | `Pull` | `app/client/ui_ship_cust.cpp:90` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `Pull` | `app/client/ui_shipcust.cpp:118` | what ui_avatr.cpp's 0x556290 puts there |
+| 2 | `vp` | `app/client/ui_starmap.cpp:56` | map_pip.h's |
+| 2 | `key` | `app/client/ui_starmap.h:59` | InterfaceClass's |
+| 2 | `Get_Frame` | `app/client/ui_starmap.h:63` | what it does |
+| 2 | `Get_Min_Frame` | `app/client/ui_starmap.h:64` | what it does |
+| 2 | `Unknown_Show_How_To` | `app/client/ui_starmap.h:65` | what it does |
+| 2 | `frame` | `app/client/ui_starmap.h:70` | Frame |
+| 2 | `Frame` | `app/client/ui_starmap.h:78` | what it holds |
+| 2 | `MaxFrame` | `app/client/ui_starmap.h:79` | the option's |
+| 2 | `MinFrame` | `app/client/ui_starmap.h:80` | the option's |
+| 2 | `Maximized` | `app/client/ui_starmap.h:81` | the option's |
+| 2 | `StarmapPip` | `app/client/ui_starmap.h:82` | what it holds |
+| 2 | `GalaxyMapPip` | `app/client/ui_starmap.h:83` | what it holds |
+| 2 | `CurrentPip` | `app/client/ui_starmap.h:84` | what it holds |
+| 2 | `Destination` | `app/client/ui_starmap.h:93` | what it holds |
+| 2 | `ResizeUp` | `app/client/ui_starmap.h:94` | the sub-object's |
+| 2 | `ResizeDown` | `app/client/ui_starmap.h:95` | the sub-object's |
+| 2 | `HowToStarmap` | `app/client/ui_starmap.h:96` | what it holds |
+| 2 | `HowToGalaxyMap` | `app/client/ui_starmap.h:97` | what it holds |
+| 2 | `Buttons` | `app/client/ui_starmap.h:98` | what it holds |
+| 2 | `ZoomDirection` | `app/client/ui_starmap.h:99` | what it holds |
 | 2 | `BackgroundColor` | `app/client/unknown_490900.h:30` | what Begin_Render gets (scriptedmovie.cpp) |
 | 2 | `Pull` | `app/client/unknown_585920.cpp:27` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:7` | the client's ini words |
@@ -18673,7 +18805,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `local_interface_sort.h` | `app/client/local_interface_sort.h:17` | header name assumed from the client's local_interface_sort.cpp |
 | 3 | `BridgeInterfaceClass` | `app/client/mainview.cpp:71` | class-from-file (D24) for bridge_int.cpp |
 | 3 | `UIChatPanelClass` | `app/client/mainview.cpp:1111` | class-from-file (D24) for app\client\ui_chat_panel.cpp |
-| 3 | `UIStarmapClass` | `app/client/mainview.cpp:1121` | class-from-file (D24) for ui_starmap.cpp |
 | 3 | `CosSize` | `app/client/mainview.cpp:1777` | the G_ASSERT's 'cos_occluder_size' |
 | 3 | `InfoCount` | `app/client/mainview.cpp:1782` | the G_ASSERT's |
 | 3 | `StarmapPipSupportClass` | `app/client/map_pip.cpp:13` | class-from-file (D24) for app\client\starmap_pip_support.cpp |
@@ -18720,7 +18851,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIHotKeysClass` | `app/client/sclient.h:94` | class-from-file (D24) for ui_hot_keys.cpp (constructor 0x59C6F0, 0x84 bytes) |
 | 3 | `UITalkTreeSpaceClass` | `app/client/sclient.h:95` | class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes) |
 | 3 | `GalaxyMapClientClass` | `app/client/sclient.h:96` | class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes) |
-| 3 | `UIStarmapClass` | `app/client/sclient.h:97` | class-from-file (D24) for ui_starmap.cpp (constructor 0x7C6120, 0x14 bytes) |
 | 3 | `EnvironmentMapManagerClass` | `app/client/sclient.h:101` | by convention (D24) from the client's env_map_manager.cpp: 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it |
 | 3 | `ProjDecalManagerClass` | `app/client/sclient.h:105` | class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector) |
 | 3 | `UITalkTreeClass` | `app/client/sclient.h:132` | class-from-file (D24) for app\client\ui_talkt.cpp |
@@ -18778,7 +18908,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `HotKeys` | `app/client/sclient.h:1117` | its file's |
 | 3 | `VerbManager` | `app/client/sclient.h:1118` | its file's |
 | 3 | `GalaxyMap` | `app/client/sclient.h:1121` | its file's |
-| 3 | `Starmap` | `app/client/sclient.h:1122` | its file's |
 | 3 | `CameraManager` | `app/client/sclient.h:1123` | its file's |
 | 3 | `AuxData` | `app/client/sclient.h:1129` | the assert's name |
 | 3 | `PlayerVarAuxData` | `app/client/sclient.h:1130` | 0x7518A0's assert '!PlayerVarAuxData[lp]' |
@@ -18884,8 +19013,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `HulkUI` | `app/client/ui_cpit.h:152` | the assert's |
 | 3 | `Scan` | `app/client/ui_cpit.h:155` | its file's (ui_scan.cpp) |
 | 3 | `CurrentHarvestable` | `app/client/ui_cpit.h:163` | the asserts' |
-| 3 | `UIDynamicWindowClass` | `app/client/ui_dynamicwindow.h:28` | class-from-file (D24) for app\Client\ui_dynamicwindow.cpp |
-| 3 | `MainWindow` | `app/client/ui_dynamicwindow.h:45` | the FAIL_IF's |
+| 3 | `UIDynamicWindowClass` | `app/client/ui_dynamicwindow.h:29` | class-from-file (D24) for app\Client\ui_dynamicwindow.cpp |
+| 3 | `MainWindow` | `app/client/ui_dynamicwindow.h:47` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_faction.cpp:30` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIFactionClass` | `app/client/ui_faction.h:15` | class-from-file (D24) for app\Client\ui_faction.cpp |
 | 3 | `Get_Client` | `app/client/ui_faction.h:28` | the FAIL_IF's |
@@ -19006,6 +19135,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ColorSliderTexture` | `app/client/ui_shipcust.h:127` | the G_ASSERT's |
 | 3 | `UISlotInfoClass` | `app/client/ui_slot_info.h:20` | class-from-file (D24) for app\Client\ui_slot_info.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_starbase.cpp:27` | ui_manu.cpp's FAIL_IF's |
+| 3 | `UIBackGadgetClass` | `app/client/ui_starmap.cpp:43` | class-from-file (D24) for gd_uiback.cpp (0x68 bytes) |
+| 3 | `ui_starmap.h` | `app/client/ui_starmap.h:15` | header name assumed from the client's ui_starmap.cpp |
+| 3 | `StarmapPipClass` | `app/client/ui_starmap.h:33` | class-from-file (D24) for app\client\starmap_pip.cpp |
+| 3 | `UIStarmapClass` | `app/client/ui_starmap.h:50` | class-from-file (D24) for ui_starmap.cpp |
+| 3 | `manager` | `app/client/ui_starmap.h:60` | the FAIL_IF's |
+| 3 | `manager` | `app/client/ui_starmap.h:61` | the FAIL_IF's |
+| 3 | `InterfaceMesh` | `app/client/ui_starmap.h:75` | the FAIL_IF's |
+| 3 | `Viewport` | `app/client/ui_starmap.h:76` | the FAIL_IF's |
+| 3 | `MeshAnim` | `app/client/ui_starmap.h:77` | the FAIL_IF's |
+| 3 | `DestinationFont` | `app/client/ui_starmap.h:85` | the assert's |
+| 3 | `SectorFont` | `app/client/ui_starmap.h:86` | the assert's |
+| 3 | `SystemTitle` | `app/client/ui_starmap.h:87` | the assert's |
+| 3 | `SystemName` | `app/client/ui_starmap.h:88` | the assert's |
+| 3 | `SectorTitle` | `app/client/ui_starmap.h:89` | the assert's |
+| 3 | `SectorName` | `app/client/ui_starmap.h:90` | the assert's |
+| 3 | `StarbaseTitle` | `app/client/ui_starmap.h:91` | the assert's |
+| 3 | `StarbaseName` | `app/client/ui_starmap.h:92` | the assert's |
 | 3 | `ui_verb.h` | `app/client/ui_verb.h:6` | the header of ui_verb.cpp (the client's __FILE__ 0xB8C43C) |
 | 3 | `UIVerbClass` | `app/client/ui_verb.h:12` | class-from-file (D24) for ui_verb.cpp (0x658F40's and 0x659010's asserts) |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |

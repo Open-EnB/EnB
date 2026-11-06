@@ -3981,6 +3981,8 @@ RECONSTRUCTED = {
     ('app', 'client/galaxy_map_client.h'): "GalaxyMapClientClass (D24, 0xCC bytes, vtable 0xB057E8): galaxy_map.h's map plus the galaxy_map_c.ini scales, the explored bits and the Show All option (interim header name, D137)",
     ('app', 'client/galaxy_map_client.cpp'): "galaxy_map_client.cpp (the client's __FILE__ 0xB9E8A0), client 0x7A4830-0x7A56ED: the constructor, destructor, Load_Ini and the GALAXY_MAP packet handlers 0x7A4C50-0x7A5260 exact (GM2, claim run PR #139); 0x7A5470 / 0x7A54F0 / 0x7A5540 exact; 0x7A52F0 and 0x7A5400 NOT EXACT",
     ('app', 'client/gutter_data.h'): "GutterDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x2C bytes)",
+    ('app', 'client/ui_starmap.cpp'): "the PDA's star map window: __FILE__ 0xB9FDAC, FAIL_IFs at lines 211-239, 301, 311, 694-703, asserts on 581",
+    ('app', 'client/ui_starmap.h'): "UIStarmapClass (D24, ui_starmap.cpp's class; 0x104 bytes, constructor 0x7C63D0, table 0xB071E4); StarmapPipClass as far as it calls it (D137)",
     ('app', 'client/starmap_data.h'): "StarmapDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x3C bytes)",
     ('app', 'client/navigation_data.h'): "NavigationDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x18 bytes)",
     ('app', 'client/emote_data.h'): "EmoteDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x48 bytes)",

@@ -2136,3 +2136,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-06 12:38,0x5BDDF0,UIMFDClass::Set_Same_Dir,app/client/ui_mfd.cpp,app,partial,,4,frame,"one matrix slot only with a temporary (Get_Heading const ref), which reads through eax; the client reads the slot; block scope keeps two slots",,opus
 2026-11-06 12:38,0x5BDED0,UIMFDClass::Set_SP_Cur,app/client/ui_mfd.cpp,app,partial,,2,inline-budget,the client calls Find_Field<DeltaInterpolatorClass> 0x5BF2B0 and Cast<float> out of line,,opus
 2026-11-06 12:38,0x5BE120,UIMFDClass::Set_SP_Percent,app/client/ui_mfd.cpp,app,partial,,2,inline-budget,the client calls Cast 0x5BF350 out of line,,opus
+2026-11-06 14:11,0x7C8D90,UIStarmapClass::Unknown_7C8D90,ui_starmap,app,exact,,1,,"appfile.py marker, byte-identical, too short for the matcher (D99)",,opus
