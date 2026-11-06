@@ -143,7 +143,7 @@ void LoginUnknown18Class::Unknown_515440()
 	float x;
 	float y;
 	Unknown_42ECF0(&x, &y);
-	if (fabs(Unknown14 - x) > 0.0001 || fabs(Unknown18 - y) > 0.0001) {
+	if (fabs(Unknown14 - x) > 0.0001f || fabs(Unknown18 - y) > 0.0001f) {
 		Unknown14 = x;
 		Unknown18 = y;
 	}

@@ -433,7 +433,7 @@ int AdvancedPositionalUpdatePacketClass::Print(char *buffer, int)
 
 bool AdvancedPositionalUpdatePacketClass::Unknown_8ADB20()
 {
-	return(fabs(CurrentSpeed) > WWMATH_EPSILON || fabs(SetSpeed) > WWMATH_EPSILON || ImpartedVelocity.Length2() > WWMATH_EPSILON);
+	return(fabs(CurrentSpeed) > 0.00001f || fabs(SetSpeed) > 0.00001f || ImpartedVelocity.Length2() > 0.00001f);
 }
 
 AdvancedPositionalUpdatePacketClass *AdvancedPositionalUpdatePacketClass::Clone()

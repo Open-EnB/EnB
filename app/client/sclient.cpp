@@ -1369,7 +1369,7 @@ void SClient::Unknown_745B20(bool level, bool auto_level)
 // 0x745B90
 void SClient::Unknown_745B90(float turn)
 {
-	if (fabs(turn) < 0.0001) {
+	if (fabs(turn) < 0.0001f) {
 		ClientObjectClass *avatar = Get_Avatar();
 		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
 			((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, true, false);
@@ -1385,7 +1385,7 @@ void SClient::Unknown_745B90(float turn)
 // 0x745C70
 void SClient::Unknown_745C70(float tilt)
 {
-	if (fabs(tilt) < 0.0001) {
+	if (fabs(tilt) < 0.0001f) {
 		ClientObjectClass *avatar = Get_Avatar();
 		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
 			((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, false, true);

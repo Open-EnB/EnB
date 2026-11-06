@@ -1452,7 +1452,7 @@ void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 	}
 	float rest = 1.0f - keep;
 	for (int i = 0; i < 5; i++) {
-		if (now == 1 || fabs(Unknown274[i] - Desc.Body_Weight[i]) < 0.0001) {
+		if (now == 1 || fabs(Unknown274[i] - Desc.Body_Weight[i]) < 0.0001f) {
 			Unknown274[i] = Desc.Body_Weight[i];
 		} else {
 			moving = true;
@@ -1498,7 +1498,7 @@ void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
 	}
 	float rest = 1.0f - keep;
 	for (int i = 0; i < 5; i++) {
-		if (now == 1 || fabs(Unknown288[i] - Desc.Head_Weight[i]) < 0.0001) {
+		if (now == 1 || fabs(Unknown288[i] - Desc.Head_Weight[i]) < 0.0001f) {
 			Unknown288[i] = Desc.Head_Weight[i];
 		} else {
 			moving = true;
