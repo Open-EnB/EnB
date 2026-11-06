@@ -3898,6 +3898,8 @@ RECONSTRUCTED = {
                                         "0x45E3F0-0x45E536 (PROVISIONAL file name D10, interim placement D137: no __FILE__, after "
                                         "rs_proj_sup.cpp's inline copies, before rs_robj.cpp; builder RPS, run PR #144): the "
                                         "uncalled constructor 0x45E3F0, destructor 0x45E4A0 (deleting 0x45E470), Get_Name 0x45E530; exact",
+    ('app', 'shared/ro_offset.cpp'): "OffsetRenderObjClass (the client's Get_Name 0xB71AD0), a ProxyRObj at a fixed offset, client 0x47F560-0x47FA56: its own object before ro_proxy.cpp (out-of-line bodies after the previous object's inlines, own adjustors and inlines), the .cpp name inferred (interim, D137) (RO1)",
+    ('app', 'shared/ro_offset.h'): "OffsetRenderObjClass's declaration: table 0xAE9B48, 0xD0 bytes, __FILE__ 0xB71AA0 (asserts on lines 49, 50, 54) (RO1)",
     ('app', 'shared/ro_proxy.cpp'): "ProxyRObj (the client's profile name 'ProxyRObj::Render' 0xB71B34), a render object that forwards to the one it proxies, client 0x47FA70-0x480AEF (__FILE__ 0xB71AEC, line 56; table 0xAE9D88) (RP1)",
     ('app', 'shared/ro_proxy.h'): "ProxyRObj's declaration (replaces avatar_pip.h's Unknown47FA70Class; the header's name follows ro_offset.h's, NAME 1) (RP1)",
     ('app', 'shared/rs_robj.cpp'): "rs_robj.cpp, client 0x45E550-0x45F343 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_robj.cpp "
