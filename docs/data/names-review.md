@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 150 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1457 |
-| 2 | describes what the code does | 3275 |
-| 1 | neutral placeholder | 16171 |
+| 3 | by convention from a client-named file or sibling | 1465 |
+| 2 | describes what the code does | 3276 |
+| 1 | neutral placeholder | 16258 |
 
 ## For review (score 3 and below)
 
@@ -6441,37 +6441,124 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown58` | `app/client/skill_render.h:57` | untagged neutral name (D10) |
 | 1 | `gadget` | `app/client/skill_render.h:60` | neutral |
 | 1 | `Unknown_6A7380` | `app/client/skill_render.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/slot_data_render.h:34` | untagged neutral name (D10) |
-| 1 | `string` | `app/client/slot_data_render.h:35` | neutral |
-| 1 | `Unknown_0C` | `app/client/slot_data_render.h:35` | untagged neutral name (D10) |
-| 1 | `state` | `app/client/slot_data_render.h:36` | neutral |
-| 1 | `Unknown_10` | `app/client/slot_data_render.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/slot_data_render.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/slot_data_render.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/slot_data_render.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/slot_data_render.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/slot_data_render.h:41` | untagged neutral name (D10) |
-| 1 | `string` | `app/client/slot_data_render.h:42` | neutral |
-| 1 | `Unknown_28` | `app/client/slot_data_render.h:42` | untagged neutral name (D10) |
-| 1 | `force` | `app/client/slot_data_render.h:43` | neutral |
-| 1 | `Unknown_2C` | `app/client/slot_data_render.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/slot_data_render.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/slot_data_render.h:45` | untagged neutral name (D10) |
-| 1 | `color` | `app/client/slot_data_render.h:46` | neutral |
-| 1 | `Unknown_38` | `app/client/slot_data_render.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/client/slot_data_render.h:47` | untagged neutral name (D10) |
-| 1 | `slot` | `app/client/slot_data_render.h:48` | neutral |
-| 1 | `Unknown_40` | `app/client/slot_data_render.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/client/slot_data_render.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/slot_data_render.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_4C` | `app/client/slot_data_render.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/slot_data_render.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_6A8F00` | `app/client/slot_data_render.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown_6A8FE0` | `app/client/slot_data_render.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/slot_data_render.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/slot_data_render.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/slot_data_render.h:63` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/slot_data_render.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown00Base` | `app/client/slot_data_render.cpp:18` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/slot_data_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/slot_data_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown6A90A0Item` | `app/client/slot_data_render.cpp:21` | neutral (D10); NAME 1 [Unknown_BC]: the item's kind (0, 10; 1, 11; 7; 12, 13) |
+| 1 | `Unknown00` | `app/client/slot_data_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_BC` | `app/client/slot_data_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown6A90A0Interface` | `app/client/slot_data_render.cpp:22` | neutral (D10); NAME 3 [iface]: its FAIL_IF |
+| 1 | `Unknown_04` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_80` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/slot_data_render.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown68D870Class` | `app/client/slot_data_render.cpp:24` | neutral (D10) |
+| 1 | `Unknown2C` | `app/client/slot_data_render.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown68DC20Class` | `app/client/slot_data_render.cpp:25` | neutral (D10) |
+| 1 | `Unknown68B370Class` | `app/client/slot_data_render.cpp:26` | neutral (D10) |
+| 1 | `Unknown68BF10Class` | `app/client/slot_data_render.cpp:27` | neutral (D10); NAME 1 [arg]: neutral |
+| 1 | `Unknown68FB60Class` | `app/client/slot_data_render.cpp:28` | neutral (D10) |
+| 1 | `Unknown_496AE0` | `app/client/slot_data_render.cpp:30` | neutral (D10); NAME 1 [robj, a]: neutral |
+| 1 | `Unknown_4960C0` | `app/client/slot_data_render.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_495FD0` | `app/client/slot_data_render.cpp:31` | neutral (D10); NAME 1 [robj, texture, a, b]: neutral |
+| 1 | `Unknown_496730` | `app/client/slot_data_render.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_496110` | `app/client/slot_data_render.cpp:32` | neutral (D10); NAME 1 [robj, a, b, c]: neutral |
+| 1 | `Unknown_6A93E0` | `app/client/slot_data_render.cpp:34` | neutral (D10) |
+| 1 | `Unknown_6A9660` | `app/client/slot_data_render.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/slot_data_render.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/slot_data_render.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/slot_data_render.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/slot_data_render.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8C40` | `app/client/slot_data_render.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8A40` | `app/client/slot_data_render.cpp:168` | untagged neutral name (D10) |
+| 1 | `Unknown_6A89D0` | `app/client/slot_data_render.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8AB0` | `app/client/slot_data_render.cpp:284` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8B30` | `app/client/slot_data_render.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8B60` | `app/client/slot_data_render.cpp:306` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8CC0` | `app/client/slot_data_render.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8D00` | `app/client/slot_data_render.cpp:342` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8DF0` | `app/client/slot_data_render.cpp:360` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8EC0` | `app/client/slot_data_render.cpp:377` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8F00` | `app/client/slot_data_render.cpp:386` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8FE0` | `app/client/slot_data_render.cpp:416` | untagged neutral name (D10) |
+| 1 | `Unknown_6A90A0` | `app/client/slot_data_render.cpp:445` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/slot_data_render.h:35` | untagged neutral name (D10) |
+| 1 | `string` | `app/client/slot_data_render.h:36` | neutral |
+| 1 | `Unknown_0C` | `app/client/slot_data_render.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/slot_data_render.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/slot_data_render.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/slot_data_render.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/slot_data_render.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/slot_data_render.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/slot_data_render.h:42` | untagged neutral name (D10) |
+| 1 | `string` | `app/client/slot_data_render.h:43` | neutral |
+| 1 | `Unknown_28` | `app/client/slot_data_render.h:43` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/slot_data_render.h:44` | neutral |
+| 1 | `Unknown_2C` | `app/client/slot_data_render.h:44` | untagged neutral name (D10) |
+| 1 | `level` | `app/client/slot_data_render.h:45` | neutral |
+| 1 | `Unknown_30` | `app/client/slot_data_render.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/slot_data_render.h:46` | untagged neutral name (D10) |
+| 1 | `color` | `app/client/slot_data_render.h:47` | neutral |
+| 1 | `Unknown_38` | `app/client/slot_data_render.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/slot_data_render.h:48` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/slot_data_render.h:49` | neutral |
+| 1 | `Unknown_40` | `app/client/slot_data_render.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/slot_data_render.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/slot_data_render.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/slot_data_render.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/slot_data_render.h:54` | untagged neutral name (D10) |
+| 1 | `texture` | `app/client/slot_data_render.h:55` | neutral |
+| 1 | `Unknown_6A89D0` | `app/client/slot_data_render.h:55` | untagged neutral name (D10) |
+| 1 | `texture` | `app/client/slot_data_render.h:56` | neutral |
+| 1 | `Unknown_6A8A40` | `app/client/slot_data_render.h:56` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/slot_data_render.h:57` | neutral |
+| 1 | `Unknown_6A8AB0` | `app/client/slot_data_render.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8B30` | `app/client/slot_data_render.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8B60` | `app/client/slot_data_render.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8C40` | `app/client/slot_data_render.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8CC0` | `app/client/slot_data_render.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8D00` | `app/client/slot_data_render.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8DF0` | `app/client/slot_data_render.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8EC0` | `app/client/slot_data_render.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8F00` | `app/client/slot_data_render.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8FE0` | `app/client/slot_data_render.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/slot_data_render.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/slot_data_render.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/slot_data_render.h:75` | untagged neutral name (D10) |
 | 1 | `x, y` | `app/client/smouse.cpp:10` | as scriptedmovie.cpp's |
 | 1 | `Unknown_42ECF0` | `app/client/smouse.cpp:10` | untagged neutral name (D10) |
 | 1 | `SMouseDragClass` | `app/client/smouse.cpp:22` | neutral (D10) |
@@ -17277,7 +17364,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `View` | `app/client/scriptedmovie.cpp:1621` | what it holds |
 | 2 | `Frame` | `app/client/scriptedmovieline.h:17` | what the order compares |
 | 2 | `Text` | `app/client/scriptedmovieline.h:18` | what it holds |
-| 2 | `Get_Slot` | `app/client/slot_data_render.h:53` | the accessor of Unknown20, the slot |
+| 2 | `Get_Slot` | `app/client/slot_data_render.h:54` | the accessor of Unknown20, the slot |
+| 2 | `position` | `app/client/slot_data_render.h:61` | RenderObjClass::Set_Position |
 | 2 | `CameraModeStruct` | `app/client/soptions.h:26` | what it holds |
 | 2 | `Set_Camera_Mode` | `app/client/soptions.h:44` | what it does |
 | 2 | `Load_Camera_Mode` | `app/client/soptions.h:49` | what it does  // NAME 1 [ini, section]: the arguments' order is unchecked |
@@ -19801,14 +19889,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ValidityIndicator` | `app/client/skill_render.h:50` | its assert |
 | 3 | `WrongTargetTypeIndicator` | `app/client/skill_render.h:51` | its assert |
 | 3 | `RechargeIndicator` | `app/client/skill_render.h:52` | its assert |
-| 3 | `SlotDataRenderClass` | `app/client/slot_data_render.h:29` | class-from-file (D24) for app\Client\slot_data_render.cpp |
-| 3 | `sd` | `app/client/slot_data_render.h:34` | 0x6A7310's FAIL_IF; NAME 1 [robj]: neutral |
-| 3 | `render` | `app/client/slot_data_render.h:49` | 0x6A6F90's FAIL_IF |
-| 3 | `robj` | `app/client/slot_data_render.h:54` | its FAIL_IF |
-| 3 | `robj` | `app/client/slot_data_render.h:55` | its FAIL_IF |
-| 3 | `sd` | `app/client/slot_data_render.h:57` | 0x6A7310's FAIL_IF |
-| 3 | `render_object` | `app/client/slot_data_render.h:58` | 0x6A6250's FAIL_IF |
-| 3 | `Container` | `app/client/slot_data_render.h:60` | 0x6A7C00's assert |
+| 3 | `SlotDataClass` | `app/client/slot_data_render.cpp:19` | 0x6A7310's FAIL_IF |
+| 3 | `SlotDataRenderClass` | `app/client/slot_data_render.h:30` | class-from-file (D24) for app\Client\slot_data_render.cpp |
+| 3 | `sd` | `app/client/slot_data_render.h:35` | 0x6A7310's FAIL_IF; NAME 1 [robj]: neutral |
+| 3 | `state` | `app/client/slot_data_render.h:37` | its FAIL_IF |
+| 3 | `render` | `app/client/slot_data_render.h:50` | its FAIL_IF |
+| 3 | `scene` | `app/client/slot_data_render.h:59` | its FAIL_IF |
+| 3 | `icon` | `app/client/slot_data_render.h:62` | its FAIL_IF |
+| 3 | `icon` | `app/client/slot_data_render.h:63` | its FAIL_IF |
+| 3 | `robj` | `app/client/slot_data_render.h:65` | its FAIL_IF |
+| 3 | `robj` | `app/client/slot_data_render.h:66` | its FAIL_IF |
+| 3 | `SlotData` | `app/client/slot_data_render.h:68` | 0x6A7C00's FAIL_IF |
+| 3 | `Mesh` | `app/client/slot_data_render.h:69` | 0x6A7C00's FAIL_IF |
+| 3 | `Mask` | `app/client/slot_data_render.h:71` | 0x6A8AB0's FAIL_IF |
+| 3 | `Container` | `app/client/slot_data_render.h:72` | 0x6A7C00's assert |
+| 3 | `AddedToScene` | `app/client/slot_data_render.h:76` | 0x6A80D0's FAIL_IF |
+| 3 | `IsSubIcon` | `app/client/slot_data_render.h:77` | 0x6A8D00's assert |
 | 3 | `soptions.h` | `app/client/soptions.h:18` | header name assumed from the client's soptions.cpp |
 | 3 | `SOptionsClass` | `app/client/soptions.h:38` | class-from-file (D24) for soptions.cpp |
 | 3 | `PolyBudget` | `app/client/soptions.h:54` | the registry value's name |

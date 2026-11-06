@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\slot_data_render.cpp, what draws a slot's item
 // (the client's file per its asserts, 'e:\build\beta\G\app\Client\slot_data_render.cpp' at 0xB91684). Notes at the end.
+#include "assetmgr.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +8,6 @@
 #include "..\shared\g_assert.h"
 #include "slot_data_render.h"
 #include "skill_render.h"
-#include "assetmgr.h"
 #include "rendobj.h"
 #include "texture.h"
 #include "vector3.h"
@@ -47,10 +47,10 @@ SlotDataRenderClass::SlotDataRenderClass() :
 }
 
 // 0x6A7C00
-// NOT EXACT: in verify's compile only: the reloads at 0x6A7CD3 come out as ebx then edi (appfile.py's compile of this text: exact); see the notes
 bool SlotDataRenderClass::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 {
 	REF_PTR_SET(SlotData, sd);
+
 
 
 
@@ -547,7 +547,8 @@ const char *Unknown_6A9660(const char *serial_string, std::string &string)
 **	inline it (433 bytes against the client's 425), seven do not; accessors instead of the reads kept it inlined or moved 0x6A7C00's
 **	registers. The client's form is not known; the reads emit nothing.
 **	0x6A7C00 is a tie: the two reloads at 0x6A7CD3 (edi from robj's slot, then ebx from loaded's) swap with no change to
-**	the function: an accessor added to 0x6A8A40, reads after its body rather than before, or verify's compile path against
-**	appfile.py's.
+**	the function. What is included decides it: verify's include list (the DirectX SDK's folder) gives ebx first, appfile.py's
+**	automatic list edi first; assetmgr.h first gives the client's order under verify's. Also right there: adding ww3d.h, mesh.h, dx8wrapper.h, d3d8.h, gadget.h,
+**	camera.h, light.h or list.h after vector3.h; not 20 other headers tried. So a changed include in this file can bring it back.
 **	0x6A7420-0x6A7B20 before it is a separate object.
 */
