@@ -87,7 +87,6 @@ void UIPlayerOptClass::Unknown_54()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls the vector's _Destroy and the list iterator's ++ out of line; ours expands them, 0x5DA2B0 not being inlined; with 0x5DA2B0 inlined the rest matched, 0.54)
 // 0x5D9410
 void UIPlayerOptClass::Unknown_58()
 {
@@ -98,9 +97,7 @@ void UIPlayerOptClass::Unknown_58()
 		Unknown_5D9C70();
 		Top = -1;
 		Unknown_5D9A40(0);
-		int id = ((ClientClass *)Client)->Unknown1138;
-		ClientChatRequestPacketClass packet(0x17, id);
-		((ClientClass *)Client)->Send_Packet(&packet);
+		Unknown_5DA570();
 		Unknown_5DA2B0(true);
 		if (Unknown0CC[0]) {
 			((RObjGadgetClass *)Unknown0CC[0])->Unknown_66C360();
@@ -388,6 +385,9 @@ void UIPlayerOptClass::Unknown_5DA2B0(bool on)
 
 
 
+
+
+
 // 0x5DA340
 void UIPlayerOptClass::Unknown_5DA340()
 {
@@ -454,13 +454,11 @@ void UIPlayerOptClass::Unknown_5DAAD0()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls the name's _Tidy(false) out of line; as ui_friends.cpp's 0x591A30)
 // 0x5DAB50
 void UIPlayerOptClass::Unknown_5DAB50()
 {
-	SClient *sclient = Client->As_Space_Client();
-	ClientObjectClass *target;
-	if (!sclient->Unknown_744B60() && sclient && sclient->MainView && (target = sclient->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
+	ClientObjectClass *target = Unknown_5DAD50();
+	if (target) {
 		std::string name;
 		target->Get_Name(name);
 		int id = ((ClientClass *)Client)->Unknown1138;
