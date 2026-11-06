@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1314 |
+| 3 | by convention from a client-named file or sibling | 1317 |
 | 2 | describes what the code does | 3023 |
-| 1 | neutral placeholder | 14715 |
+| 1 | neutral placeholder | 14819 |
 
 ## For review (score 3 and below)
 
@@ -10151,6 +10151,110 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0B4` | `app/client/ui_ping.h:41` | untagged neutral name (D10) |
 | 1 | `Timer` | `app/client/ui_ping.h:42` | neutral |
 | 1 | `Shown` | `app/client/ui_ping.h:43` | neutral |
+| 1 | `LineDisplayClientClass` | `app/client/ui_playeropt.cpp:23` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_playeropt.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_playeropt.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_playeropt.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_playeropt.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_playeropt.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_playeropt.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_playeropt.cpp:31` | 0xBE67C4 |
+| 1 | `Unknown_B84594` | `app/client/ui_playeropt.cpp:34` | neutral (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_playeropt.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_playeropt.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_playeropt.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown0DC` | `app/client/ui_playeropt.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_playeropt.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_playeropt.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_playeropt.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_playeropt.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_playeropt.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_playeropt.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_56D510` | `app/client/ui_playeropt.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/ui_playeropt.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_playeropt.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_56D8D0` | `app/client/ui_playeropt.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_64A270` | `app/client/ui_playeropt.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_56D970` | `app/client/ui_playeropt.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_playeropt.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9A40` | `app/client/ui_playeropt.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_playeropt.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA2B0` | `app/client/ui_playeropt.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/ui_playeropt.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9BB0` | `app/client/ui_playeropt.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9C70` | `app/client/ui_playeropt.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_playeropt.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9AC0` | `app/client/ui_playeropt.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9FD0` | `app/client/ui_playeropt.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_5DAAD0` | `app/client/ui_playeropt.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA0D0` | `app/client/ui_playeropt.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_playeropt.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_playeropt.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_64A2B0` | `app/client/ui_playeropt.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA340` | `app/client/ui_playeropt.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_5DAB50` | `app/client/ui_playeropt.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA060` | `app/client/ui_playeropt.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_playeropt.cpp:171` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_playeropt.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9B10` | `app/client/ui_playeropt.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown_66FD80` | `app/client/ui_playeropt.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_playeropt.cpp:206` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9D10` | `app/client/ui_playeropt.cpp:228` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/client/ui_playeropt.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_playeropt.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_playeropt.cpp:256` | untagged neutral name (D10) |
+| 1 | `Unknown_64A220` | `app/client/ui_playeropt.cpp:279` | untagged neutral name (D10) |
+| 1 | `Unknown_64A240` | `app/client/ui_playeropt.cpp:282` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_playeropt.cpp:285` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA570` | `app/client/ui_playeropt.cpp:404` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA600` | `app/client/ui_playeropt.cpp:413` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA780` | `app/client/ui_playeropt.cpp:425` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA8C0` | `app/client/ui_playeropt.cpp:433` | untagged neutral name (D10) |
+| 1 | `Unknown_744B60` | `app/client/ui_playeropt.cpp:451` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A40` | `app/client/ui_playeropt.cpp:451` | untagged neutral name (D10) |
+| 1 | `Unknown_5DAD50` | `app/client/ui_playeropt.cpp:475` | untagged neutral name (D10) |
+| 1 | `ui_playeropt.h` | `app/client/ui_playeropt.h:4` | provisional header name for ui_playeropt.cpp |
+| 1 | `client` | `app/client/ui_playeropt.h:23` | UIChatPanelBaseClass's |
+| 1 | `Unknown_54` | `app/client/ui_playeropt.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_playeropt.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_playeropt.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_playeropt.h:28` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_playeropt.h:29` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_playeropt.h:29` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_playeropt.h:30` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_playeropt.h:30` | untagged neutral name (D10) |
+| 1 | `count` | `app/client/ui_playeropt.h:31` | neutral |
+| 1 | `Unknown_5D9A40` | `app/client/ui_playeropt.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9AC0` | `app/client/ui_playeropt.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9B10` | `app/client/ui_playeropt.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9BB0` | `app/client/ui_playeropt.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9C70` | `app/client/ui_playeropt.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9D10` | `app/client/ui_playeropt.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_5D9FD0` | `app/client/ui_playeropt.h:37` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_playeropt.h:38` | neutral |
+| 1 | `Unknown_5DA060` | `app/client/ui_playeropt.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA0D0` | `app/client/ui_playeropt.h:39` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_playeropt.h:40` | neutral |
+| 1 | `Unknown_5DA2B0` | `app/client/ui_playeropt.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA340` | `app/client/ui_playeropt.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA570` | `app/client/ui_playeropt.h:42` | untagged neutral name (D10) |
+| 1 | `names` | `app/client/ui_playeropt.h:43` | neutral |
+| 1 | `Unknown_5DA600` | `app/client/ui_playeropt.h:43` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/ui_playeropt.h:44` | neutral |
+| 1 | `Unknown_5DA780` | `app/client/ui_playeropt.h:44` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/ui_playeropt.h:45` | neutral |
+| 1 | `Unknown_5DA8C0` | `app/client/ui_playeropt.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_5DAAD0` | `app/client/ui_playeropt.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_5DAB50` | `app/client/ui_playeropt.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_5DAD50` | `app/client/ui_playeropt.h:48` | untagged neutral name (D10) |
+| 1 | `Slider` | `app/client/ui_playeropt.h:50` | neutral |
+| 1 | `Top` | `app/client/ui_playeropt.h:51` | as ui_friends.h's |
+| 1 | `Unknown0AC` | `app/client/ui_playeropt.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_playeropt.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_playeropt.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_playeropt.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown0DC` | `app/client/ui_playeropt.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_playeropt.h:58` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_popupmsg.cpp:21` | 0xBE67C4 |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_popupmsg.cpp:32` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_popupmsg.cpp:32` | untagged neutral name (D10) |
@@ -18190,6 +18294,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `CurrentMission` | `app/client/ui_missn.h:51` | the G_ASSERT's (l.688) |
 | 3 | `CurrentMissions` | `app/client/ui_missn.h:52` | the G_ASSERT's (l.689) |
 | 3 | `UIPingClass` | `app/client/ui_ping.h:19` | class-from-file (D24) for app\Client\ui_ping.cpp |
+| 3 | `As_Space_Client` | `app/client/ui_playeropt.cpp:28` | ui_manu.cpp's FAIL_IF's |
+| 3 | `UIPlayerOptClass` | `app/client/ui_playeropt.h:20` | class-from-file (D24) for app\client\ui_playeropt.cpp |
+| 3 | `Selection` | `app/client/ui_playeropt.h:52` | the assert's |
 | 3 | `ui_popupmsg.cpp` | `app/client/ui_popupmsg.cpp:61` | the G_ASSERT's |
 | 3 | `As_Space_Client` | `app/client/ui_ptrade.cpp:32` | ui_manu.cpp's FAIL_IF's |
 | 3 | `AvatarPipClass` | `app/client/ui_ptrade.cpp:46` | class-from-file (D24) for app\client\avatar_pip.cpp |
