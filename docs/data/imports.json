@@ -25763,6 +25763,43 @@
      "0x45CC10"
     ]
    },
+   "ui_item_examination_title": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42D050",
+     "0x42F250",
+     "0x45CC10",
+     "0x539950",
+     "0x539980",
+     "0x539E50",
+     "0x539E80",
+     "0x539F70",
+     "0x53A0A0",
+     "0x53A2C0"
+    ],
+    "merged": [],
+    "name": "client/ui_item_examination_title.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42D050",
+     "0x42F250",
+     "0x45CC10"
+    ]
+   },
    "ui_line_display": {
     "ambiguous": [
      "0x42A6C0",
@@ -29350,6 +29387,7 @@
    "client/dynamic_window_background.h": "reconstructed",
    "client/dynamic_window_class.h": "reconstructed",
    "client/dynamic_window_horizontal.h": "reconstructed",
+   "client/dynamic_window_icon.h": "reconstructed",
    "client/dynamic_window_multi_line_text.h": "reconstructed",
    "client/dynamic_window_render_object.h": "reconstructed",
    "client/dynamic_window_text.h": "reconstructed",
@@ -29424,6 +29462,7 @@
    "client/ui_item_examination_attributes.h": "reconstructed",
    "client/ui_item_examination_description.h": "reconstructed",
    "client/ui_item_examination_options.h": "reconstructed",
+   "client/ui_item_examination_title.h": "reconstructed",
    "client/ui_line_display.h": "reconstructed",
    "client/ui_manu.h": "reconstructed",
    "client/ui_missn.h": "reconstructed",

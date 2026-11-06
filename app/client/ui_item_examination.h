@@ -10,22 +10,12 @@
 #include "dynamic_window_background.h"
 #include "control_keys_manager.h"
 #include "ui_item_examination_description.h"
+#include "ui_item_examination_title.h"
 
 class UIItemExaminationAttributesClass;
 class UIItemExaminationOptionsClass;
 
 // The window's panels from files the tree does not have yet (no strings name them; interim here, D137)
-class UIItemExaminationTitleClass : public DynamicWindowHorizontalClass  // NAME 2: its text 'TITLE_IEI00'
-{
-public:
-	UIItemExaminationTitleClass();															// 0x539980 (0x70 bytes, table 0xAEE818)
-	void Clear();																			// 0x539F70  // NAME 1 [Clear]: as the options panel's
-
-	int Unknown64;																			// +0x64  // NAME 1: neutral (D10)
-	int Unknown68;																			// +0x68  // NAME 1: neutral (D10)
-	int Unknown6C;																			// +0x6C  // NAME 1: neutral (D10)
-};
-
 class UIItemExaminationSpecialsClass : public DynamicWindowBackgroundClass  // NAME 2: its section 'ITEM_EXAMINATION_SPECIALS'
 {
 public:
@@ -34,13 +24,6 @@ public:
 	void Clear();																			// 0x5382B0  // NAME 1 [Clear]: as the options panel's
 
 	char Unknown64[0x7C - 0x64];															// +0x64  // NAME 1: neutral (D10)
-};
-
-// dynamic_window_icon.cpp's factory (0x519A20, FAIL_IF 'texture_name.empty()'): a 0x54-byte element
-class DynamicWindowIconClass : public DynamicWindowClass  // NAME 3: class-from-file (D24) for dynamic_window_icon.cpp (base interim: what DynamicWindowGadgetClass takes)
-{
-public:
-	static RefCountPtr<DynamicWindowIconClass> Create(const std::string &texture_name, const Vector2 &size, unsigned int flags);	// 0x519A20  // NAME 2 [texture_name]: the FAIL_IF's; NAME 1 [Create, size, flags]: as DynamicWindowTextClass's
 };
 
 GadgetClass *Unknown_51A9C0(UIDynamicWindowClass *window);									// 0x51A9C0 (dynamic_window_move.cpp: the window's move gadget)  // NAME 1 [window]: neutral
