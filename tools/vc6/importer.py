@@ -4076,6 +4076,12 @@ RECONSTRUCTED = {
     ('app', 'shared/expr/expr_math_int.cpp'): "expr_math_int.cpp (the client's __FILE__; FAIL_IF line 22), client 0x4CBAF0-0x4D022F: Expr_Math_Int, the int factory (vtable 0xAEBDE4) with % of its own, and expr_math_eval_impl.h / expr_math_builder.h instantiated for int (EX4)",
     ('app', 'shared/expr/expr_math_int.h'): "ExprMathIntFactoryClass (8 bytes, vtable 0xAEBDE4) and Expr_Math_Int; header name assumed, NAME 3 (EX4)",
     ('app', 'shared/expr/expr_math_lexer_factory.h'): "ExprMathLexerFactoryClass (D24, class-from-file: Create 0x4D0360, Add_Operators 0x4D0230); header name assumed, NAME 3 (EX3)",
+    ('app', 'client/unknown_67d430.h'): "a ring of chat messages with a colour per type (0x70 bytes); neutral header name (D10)",
+    ('app', 'client/unknown_67d430.cpp'): "the object 0x67D430-0x67DC6F between charview.cpp and chat_window.cpp, its bounds the guarded initialisers 0x67D400 and 0x67DC50 (no __FILE__, neutral name D10, placement provisional D137); all exact (CH1)",
+    ('app', 'client/chat_window.h'): "ChatWindowClass, ChatFontSys (D24: header name assumed)",
+    ('app', 'client/chat_window.cpp'): "the client's __FILE__ 0xB8DAC8, the object 0x67DC80-0x68128F (CH1)",
+    ('app', 'client/chat_window_history.h'): "ChatWindowHistoryClass, ChatLineClass (D24: header name assumed)",
+    ('app', 'client/chat_window_history.cpp'): "the client's __FILE__ 0xB8DBA8, the object 0x6812A0-0x6831CF (CH1)",
     ('app', 'shared/unknown_font_split_string.h'): "FontSplitStringClass, a SplitStringClass measured with a Font32Class (0x2C bytes, vtable 0xAECBAC); neutral header name (D10)",
     ('app', 'shared/unknown_font_split_string.cpp'): "the object 0x4FA8F0-0x4FAC0F after split_string.cpp (its guarded static 0x4FABF0; no __FILE__, neutral name D10, placement provisional D137): FontSplitStringClass, all exact (LS1)",
     ('app', 'shared/unique_design_id_lookup.h'): "UniqueDesignIDLookupClass (D24), ids of named designs from an ini section in an SGI "
