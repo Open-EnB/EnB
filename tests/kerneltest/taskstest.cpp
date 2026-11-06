@@ -169,7 +169,6 @@ TicketClass::TicketClass(int) {}
 LoginCharacterClass::LoginCharacterClass() {}
 LoginCharacterClass::~LoginCharacterClass() {}
 AvatarDescClass::AvatarDescClass() {}
-ShipCustSettingsClass::ShipCustSettingsClass() {}
 void ShipCustSettingsClass::Unknown_00(DeltaChildVisitorClass *) {}
 void ShipCustPartClass::Unknown_00(DeltaChildVisitorClass *) {}
 bool LoginCharacterClass::Write(LinearBufferClass *) { return true; }
@@ -212,7 +211,7 @@ bool LoginTaskClass::Yield_Focus() { return true; }
 void LoginTaskClass::Run() {}
 void LoginTaskClass::Pre_Run() {}
 void LoginTaskClass::Render() {}
-void LoginTaskClass::Unknown_48(AvatarDescClass *, ShipCustDescClass *, int, int) {}
+void LoginTaskClass::Unknown_48(AvatarDescClass *, ShipCustDescClass *, int, bool) {}
 bool LoginTaskClass::Unknown_4C() { return false; }
 void LoginTaskClass::Unknown_50() {}
 void LoginTaskClass::Go_Next_Step() {}
