@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1321 |
 | 2 | describes what the code does | 3024 |
-| 1 | neutral placeholder | 14879 |
+| 1 | neutral placeholder | 14880 |
 
 ## For review (score 3 and below)
 
@@ -597,34 +597,35 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Valid` | `app/client/avatar_pip.cpp:22` | neutral (D10): as co.cpp's |
 | 1 | `Unknown_Find_Field` | `app/client/avatar_pip.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/avatar_pip.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown038` | `app/client/avatar_pip.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown034` | `app/client/avatar_pip.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown47FA70Class` | `app/client/avatar_pip.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown028` | `app/client/avatar_pip.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_7E4350` | `app/client/avatar_pip.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_7E35D0` | `app/client/avatar_pip.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown010` | `app/client/avatar_pip.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown014` | `app/client/avatar_pip.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_Avatar` | `app/client/avatar_pip.cpp:25` | neutral (D10) |
+| 1 | `Unknown_7E4350` | `app/client/avatar_pip.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown02C` | `app/client/avatar_pip.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_7E4520` | `app/client/avatar_pip.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown038` | `app/client/avatar_pip.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown034` | `app/client/avatar_pip.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown47FA70Class` | `app/client/avatar_pip.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown028` | `app/client/avatar_pip.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_7E35D0` | `app/client/avatar_pip.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown010` | `app/client/avatar_pip.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown014` | `app/client/avatar_pip.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown_7E36B0` | `app/client/avatar_pip.cpp:152` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/avatar_pip.cpp:162` | untagged neutral name (D10) |
 | 1 | `Unknown_7E4740` | `app/client/avatar_pip.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown_7E3A20` | `app/client/avatar_pip.cpp:197` | untagged neutral name (D10) |
-| 1 | `Unknown02C` | `app/client/avatar_pip.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown_7E4520` | `app/client/avatar_pip.cpp:206` | untagged neutral name (D10) |
+| 1 | `Unknown_7E3A20` | `app/client/avatar_pip.cpp:200` | untagged neutral name (D10) |
 | 1 | `Unknown_74C7B0` | `app/client/avatar_pip.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown030` | `app/client/avatar_pip.cpp:230` | untagged neutral name (D10) |
-| 1 | `Unknown204` | `app/client/avatar_pip.cpp:239` | untagged neutral name (D10) |
-| 1 | `Unknown_77E3D0` | `app/client/avatar_pip.cpp:239` | untagged neutral name (D10) |
-| 1 | `Unknown_784A50` | `app/client/avatar_pip.cpp:240` | untagged neutral name (D10) |
-| 1 | `Unknown_1C4` | `app/client/avatar_pip.cpp:241` | untagged neutral name (D10) |
-| 1 | `Unknown330` | `app/client/avatar_pip.cpp:249` | untagged neutral name (D10) |
-| 1 | `Unknown_786410` | `app/client/avatar_pip.cpp:253` | untagged neutral name (D10) |
-| 1 | `Unknown_47FF70` | `app/client/avatar_pip.cpp:279` | untagged neutral name (D10) |
-| 1 | `Unknown_65B7E0` | `app/client/avatar_pip.cpp:280` | untagged neutral name (D10) |
-| 1 | `Unknown_7E43E0` | `app/client/avatar_pip.cpp:287` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/avatar_pip.cpp:304` | untagged neutral name (D10) |
-| 1 | `Unknown_65B7A0` | `app/client/avatar_pip.cpp:305` | untagged neutral name (D10) |
-| 1 | `Unknown01C` | `app/client/avatar_pip.cpp:316` | untagged neutral name (D10) |
+| 1 | `Unknown030` | `app/client/avatar_pip.cpp:228` | untagged neutral name (D10) |
+| 1 | `Unknown204` | `app/client/avatar_pip.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown_77E3D0` | `app/client/avatar_pip.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown_784A50` | `app/client/avatar_pip.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown_1C4` | `app/client/avatar_pip.cpp:239` | untagged neutral name (D10) |
+| 1 | `Unknown330` | `app/client/avatar_pip.cpp:247` | untagged neutral name (D10) |
+| 1 | `Unknown_786410` | `app/client/avatar_pip.cpp:251` | untagged neutral name (D10) |
+| 1 | `Unknown_47FF70` | `app/client/avatar_pip.cpp:278` | untagged neutral name (D10) |
+| 1 | `Unknown_65B7E0` | `app/client/avatar_pip.cpp:279` | untagged neutral name (D10) |
+| 1 | `Unknown_7E43E0` | `app/client/avatar_pip.cpp:286` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/avatar_pip.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown_65B7A0` | `app/client/avatar_pip.cpp:304` | untagged neutral name (D10) |
+| 1 | `Unknown01C` | `app/client/avatar_pip.cpp:315` | untagged neutral name (D10) |
 | 1 | `Unknown47FA70Class` | `app/client/avatar_pip.h:36` | neutral (D10) |
 | 1 | `arg` | `app/client/avatar_pip.h:39` | neutral |
 | 1 | `obj` | `app/client/avatar_pip.h:42` | what it holds |
