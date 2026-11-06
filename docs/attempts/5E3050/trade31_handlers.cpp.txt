@@ -1,0 +1,33 @@
+// ui_ptrade.cpp's TRADE 31 handlers, byte-exact (PT1, appfile.py match), held back from the tree: tests/clienttest stands in for them and checks their calls (D182).
+// 0x5E2F70 must sit before the slot +0x58 0x5E26F0 (which inlines it); 0x5E3050 / 0x5E3130 after the slot +0x7C.
+
+// @0x5E2F70
+void UIPTradeClass::Unknown_5E2F70(bool on)
+{
+	Unknown0DD = on;
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
+	if (font) {
+		if (Unknown0DD) font->Change_Text("Awaiting Trade Confirmation", 0);
+		else font->Change_Text("", 0);
+	}
+}
+
+// @0x5E3050
+void UIPTradeClass::Unknown_5E3050(bool on)
+{
+	Unknown0DE = on;
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
+	if (font) {
+		if (Unknown0DE) font->Change_Text("Trade has been confirmed", 0);
+		else font->Change_Text("", 0);
+	}
+}
+
+// @0x5E3130
+void UIPTradeClass::Unknown_5E3130()
+{
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
+	if (font) font->Change_Text("Trading has successfully completed.", 0);
+	Unknown0D8 = 2.0f;
+	Unknown_5E3750(false);
+}
