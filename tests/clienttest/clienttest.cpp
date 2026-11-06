@@ -1677,7 +1677,7 @@ static void Test_Chat(SClient *client)
 	*(void ***)fake_trade = Trade_Table;
 	// what 0x5E2F70 / 0x5E3050 / 0x5E3130 read: the mesh (+0x84, no mesh object: no font), the buttons (+0xBC..+0xC8,
 	// slot +0x40), the item lists (+0xAC / +0xB0, Active +0x7C false: nothing called)
-	for (int i = 0; i < 64; i++) {
+	for (i = 0; i < 64; i++) {
 		Trade_Button_Table[i] = (void *)Zero_Slot;
 	}
 	Trade_Button_Table[0x40 / 4] = (void *)Trade_Button_40_Slot;
