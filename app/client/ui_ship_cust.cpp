@@ -624,8 +624,6 @@ bool StarbaseShipCustomizeInterface::Unknown_68(int key)
 
 
 
-
-
 // NOT EXACT: functional (D64)
 // @0x61A4D0
 void StarbaseShipCustomizeInterface::Unknown_61A4D0()
@@ -689,11 +687,13 @@ void StarbaseShipCustomizeInterface::Unknown_61A4D0()
 	if (Unknown237) {
 		Unknown237 = false;
 		int id = 0;
-		for (std::map<int, StarbaseShipCustGadgetStruct>::iterator it = Gadgets.begin(); it != Gadgets.end(); it++) {
+		std::map<int, StarbaseShipCustGadgetStruct>::iterator it = Gadgets.begin();
+		while (it != Gadgets.end()) {
 			if (it->second.Group == 0 && it->second.Selected) {
 				id = it->second.Id;
 				break;
 			}
+			it++;
 		}
 		switch (id) {
 			case 1:
@@ -738,7 +738,7 @@ void StarbaseShipCustomizeInterface::Unknown_61A4D0()
 		Unknown_61AC20(true);
 		Unknown_61D260();
 	}
-}
+	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// dead reads (D130; not the client's): with the while loop they spend VC6's inline budget so the step's _Min 0x6209D0 is called out of line, as the client's at 0x61A943 (3-5 reads; 0-2 inline it, 6+ put _Inc out of line)
 
 // @0x61AC20
 void StarbaseShipCustomizeInterface::Unknown_61AC20(bool on)
