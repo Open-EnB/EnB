@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\env_map_manager.cpp (__FILE__ 0xB9B1D4). Notes at the end.
 #include <stdio.h>
 #include "env_map_manager.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // 0x760360
 void EnvironmentMapManagerClass::Load(const char *env_map_ini_filename)

@@ -5,9 +5,9 @@
 
 #include "tcpqueue.h"
 
-// E&B's FAIL_IF (app\shared\unknown_debug.h's: 0x4E9450 reports, then the statement runs)
-void Unknown_Fail_If_Report(const char *expr, const char *file, int line);
-#define FAIL_IF(expr)	if ((expr) ? (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1) : 0)
+// E&B's FAIL_IF (app\shared\g_assert.h's: 0x4E9450 reports, then the statement runs)
+void Fail_If_Report(const char *expr, const char *file, int line);
+#define FAIL_IF(expr)	if ((expr) ? (Fail_If_Report(#expr, __FILE__, __LINE__), 1) : 0)
 
 TCPQueue::TCPQueue() :
   Length_(0)

@@ -4,7 +4,7 @@
 **	The movie task (tsk_movie.h). The assert sits on the client's line (87: D25). Notes at the end.
 */
 #include "tsk_movie.h"
-#include "..\..\shared\unknown_debug.h"
+#include "..\..\shared\g_assert.h"
 #include "ww3d.h"
 #include "vector3.h"
 #include <windows.h>

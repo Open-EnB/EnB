@@ -5,7 +5,7 @@
 // (KVPairTemplateClass<RaceType> in shipcust_desc.cpp); the bit field's text joins the names with '|'.
 #include "race.h"
 #include <string.h>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 static char *RaceNames[] = { "Terran", "Jenquai", "Progen", "Vrix", "Grey", "Dark Vrix", "Elendri", "Game", "Other" };	// 0xBB06E0  // NAME 1: what it holds
 

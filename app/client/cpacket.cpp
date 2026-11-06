@@ -65,7 +65,7 @@
 #include "influence.h"
 #include "postate.h"
 #include "..\packets\pkcreate.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <stdio.h>
 #include <time.h>
 #include <string>
@@ -155,7 +155,7 @@ bool StartPacketClass::Process_Packet(void *instance)
 
 
 
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (g_assert.h's reporter)
 // SClient +0x12C4's elements: the player-variable aux data roots (an UnknownSendRootClass, 0xADC bytes, made
 // in 0x7518A0), declared as far as PLAYER_VAR_AUX_DATA 28 calls them
 class SClientUnknown12C4Class : public UnknownSendRootClass
@@ -618,7 +618,7 @@ bool ObjectEffectPacketClass::Process_Packet(void *instance)
 		target->Unknown_28(GameID);
 	} else {
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "A non-unary effect descriptor %d was given for an effect on an object", EffectDescID);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "A non-unary effect descriptor %d was given for an effect on an object", EffectDescID);
 		G_ASSERT(0);
 	}
 	MainViewClass *view = sclient->MainView;
@@ -646,7 +646,7 @@ bool PointEffectPacketClass::Process_Packet(void *instance)
 		target->Unknown_2C(Matrix3D(Location));
 	} else {
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "A non-unary effect descriptor %d was given for an effect on a point", EffectDescID);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "A non-unary effect descriptor %d was given for an effect on a point", EffectDescID);
 		G_ASSERT(0);
 	}
 	MainViewClass *view = sclient->MainView;
@@ -684,7 +684,7 @@ bool ObjectToObjectEffectPacketClass::Process_Packet(void *instance)
 		binary->Unknown_6E82A0(Unknown36, Unknown34, TargetOffset);
 	} else {
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "A non-binary effect descriptor %d was given for an effect between two objects", EffectDescID);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "A non-binary effect descriptor %d was given for an effect between two objects", EffectDescID);
 		G_ASSERT(0);
 	}
 	MainViewClass *view = sclient->MainView;
@@ -733,7 +733,7 @@ bool ObjectToEffectEffectPacketClass::Process_Packet(void *instance)
 
 
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "A non-binary effect descriptor %d was given for an effect between an object and an effect", EffectDescID);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "A non-binary effect descriptor %d was given for an effect between an object and an effect", EffectDescID);
 		G_ASSERT(0);
 	}
 	MainViewClass *view = sclient->MainView;
@@ -773,7 +773,7 @@ bool ObjectToObjectDurationLinkedEffectPacketClass::Process_Packet(void *instanc
 		binary->Unknown_6E82A0(Unknown36, Unknown34, TargetOffset);
 	} else {
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "A non-binary effect descriptor %d was given for a duration-linked effect between two objects", EffectDescID);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "A non-binary effect descriptor %d was given for a duration-linked effect between two objects", EffectDescID);
 		G_ASSERT(0);
 	}
 	MainViewClass *view = sclient->MainView;
@@ -809,7 +809,7 @@ bool ObjectToPointEffectPacketClass::Process_Packet(void *instance)
 
 
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "A non-binary effect descriptor %d was given for an effect between an object and a point", EffectDescID);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "A non-binary effect descriptor %d was given for an effect between an object and a point", EffectDescID);
 		G_ASSERT(0);
 	}
 	MainViewClass *view = sclient->MainView;

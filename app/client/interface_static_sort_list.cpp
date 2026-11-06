@@ -6,7 +6,7 @@
 #include "..\..\ww3d2\rendobj.h"
 #include "..\..\ww3d2\predlod.h"
 #include "..\..\wwmath\wwmath.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 static bool Unknown_BE67E0;  // 0xBE67E0 (.bss, never written: every render object to the front list)  // NAME 1: neutral
 

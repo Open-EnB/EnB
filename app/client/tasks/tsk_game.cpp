@@ -9,7 +9,7 @@
 #include "..\sclient.h"
 #include "..\..\common\connect.h"
 #include "..\..\packets\pk.h"
-#include "..\..\shared\unknown_debug.h"
+#include "..\..\shared\g_assert.h"
 #include "..\..\..\wwlib\argv.h"
 #include "..\..\..\wwlib\ini.h"
 #include "wwprofile.h"

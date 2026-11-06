@@ -12,7 +12,7 @@
 #include "textureloader.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\packets\pkmanufactureitemcatagorypacket.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"
 #include "sbaseview.h"

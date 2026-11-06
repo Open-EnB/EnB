@@ -10,7 +10,7 @@
 #include "camera.h"
 #include "layer.h"
 #include "..\..\wwlib\ref_ptr.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
 #include "dx8renderer.h"
 #include "vector4.h"
@@ -130,8 +130,8 @@ static ClassSelectTitleStruct Unknown_BE5B6C[9] = {
 	{ Unknown_82F3C0(5), "Jenquai Explorer" }
 };
 
-static unsigned char Unknown_B7DC8C[9] = { 0, 0, 1, 1, 0, 0, 1, 0, 0 };
-static unsigned char Unknown_B7DC98[9] = { 0, 0, 1, 1, 0, 0, 1, 0, 0 };
+static unsigned char Unknown_B7DC8C[9] = { 0, 0, 1, 0, 1, 0, 0, 1, 0 };	// the client's bytes: 0x577B80 hides Scout, Seeker, Privateer (0x82F3C0's order)
+static unsigned char Unknown_B7DC98[9] = { 0, 1, 0, 0, 1, 0, 0, 1, 0 };	// the client's bytes: 0x575660's arrows skip the same three (Unknown_B7DB60's order)
 
 #pragma auto_inline(off)
 // the backward step through a local (prev): `index--` reuses dec's flags (jns), the client tests (test / jge)

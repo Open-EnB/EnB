@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\px.cpp. Notes at the end of the file.
 #define ENABLE_WWPROFILE
 #include "px.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "wwprofile.h"
 #include <stdio.h>
 #include <string.h>

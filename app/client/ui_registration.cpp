@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <stdlib.h>
 #include "ww3d.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <stdio.h>
 #include <stdarg.h>
 #include <string>

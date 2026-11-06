@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\auxdata\delta.cpp. Notes at the end of the file.
 #include "delta.h"
 #include "lookup.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 DeltaClass::DeltaClass(const char *name) :
 	Name(name),

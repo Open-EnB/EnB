@@ -3,7 +3,7 @@
 #include "nstrdup.h"
 #include "..\audio\soundlib.h"
 #include "..\..\wwaudio\AudibleSound.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\hanim.h"
 #include "..\..\ww3d2\hmorphanim.h"
@@ -21,7 +21,7 @@
 #include "..\..\ww3d2\scene.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\audio\surfacetypes.h"
-#include "..\shared\unknown_message.h"
+#include "..\shared\message.h"
 #include "random.h"
 #include "ini.h"
 #include "nlp.h"
@@ -43,7 +43,7 @@ static const char *Unknown_B9CD44[2] = { "L", "R" };	// NAME 1 [Unknown_B9CD44]:
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
 void Unknown_496DB0(RenderObjClass *robj);
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *tex, int index);	// 0x495FD0 (ro_funcs.cpp): the texture onto the mesh's stage index
-void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
+void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)	// 0x496DB0 (ro_funcs: every LOD to its last, the sub-objects too)
 // 0xBFAE52 is WW3D::OverbrightModifyOnLoad (MeshModelClass::post_process 0x9BCC40 reads it): the avatar's models
 // (body 0x77E9D0, head 0x77F000, weapon 0x77E0E0, accessory 0x77F960) load overbright (MODULATE2X), as FE_ROOM does
 static inline PlayerNLPClass *NLP_Of(CharacterViewAvatarClass *avatar) { return(avatar->PlayerNLP); } // NAME 1: neutral (D10)
@@ -576,7 +576,7 @@ void CharacterViewAvatarClass::Unknown_77DA20()
 		anims[i] = WW3DAssetManager::Get_Instance()->Get_HAnim(anim_name);
 	}
 	if (anims[0] == NULL || anims[1] == NULL || anims[2] == NULL) {
-		Unknown_4BC260("Avatar Creation", "", __FILE__, __LINE__, "Missing required Anim files for Avatar head");
+		Message_Error("Avatar Creation", "", __FILE__, __LINE__, "Missing required Anim files for Avatar head");
 	} else {
 		Unknown0BC = Create_NEW(new HMorphAnimClass());
 		Unknown0BC->Create_New_Morph(3, anims);
@@ -637,7 +637,7 @@ void CharacterViewAvatarClass::Unknown_77E0E0(int kind, const char *part, int nu
 		BodyObj->Add_Sub_Object_To_Bone(slot->Peek(), bone);
 		return;
 	}
-	Unknown_4BC000("Avatar Creation", "", __FILE__, __LINE__, "Avatar asset file does not exists %s", name);
+	Message_Info("Avatar Creation", "", __FILE__, __LINE__, "Avatar asset file does not exists %s", name);
 }
 
 // 0x77E350: empty (unreferenced; ret 4)
@@ -823,7 +823,7 @@ void CharacterViewAvatarClass::Unknown_77E9D0(int body, int pants, bool morph)
 		Unknown_781410(1, 0);
 	}
 	} else {
-		Unknown_4BC260("Avatar Creation", "", __FILE__, __LINE__, "Error loading up the body asset %s", body_name);
+		Message_Error("Avatar Creation", "", __FILE__, __LINE__, "Error loading up the body asset %s", body_name);
 	}
 }
 
@@ -921,7 +921,7 @@ void CharacterViewAvatarClass::Unknown_77F000(int num)
 		}
 		Unknown_77F750();
 	} else {
-		Unknown_4BC260("Avatar Creation", "", __FILE__, __LINE__, "Error loading up the head asset %s", head_name);
+		Message_Error("Avatar Creation", "", __FILE__, __LINE__, "Error loading up the head asset %s", head_name);
 	}
 }
 
@@ -1319,7 +1319,7 @@ void CharacterViewAvatarClass::Unknown_780AF0()
 
 	}
 	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
-		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad scale values");
 		return;
 	}
 	const char *names[] = { "ARM0", "ARM1", "ARM2", "ARM3", "ARM4", "SHIRT0", "SHIRT1", "SHIRT2", "SHIRT3", "SHIRT4",
@@ -1376,7 +1376,7 @@ void CharacterViewAvatarClass::Unknown_780F30()
 
 	}
 	if (scale.X <= 0.0f || scale.Y <= 0.0f || scale.Z <= 0.0f) {
-		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad head scale values");
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Encountered bad head scale values");
 		return;
 	}
 	for (i = 0; i < HeadObj->Get_Num_Sub_Objects(); i++) {
@@ -1440,7 +1440,7 @@ void CharacterViewAvatarClass::Unknown_7812A0(MeshClass *source_mesh, MeshClass 
 void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 {
 	if (BodyObj == NULL) {
-		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Missing main avatar body object");
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Missing main avatar body object");
 		Unknown29C = false;
 		Unknown29D = false;
 		return;
@@ -1487,7 +1487,7 @@ void CharacterViewAvatarClass::Unknown_781410(int now, int steps)
 void CharacterViewAvatarClass::Unknown_781570(int now, int steps)
 {
 	if (HeadObj == NULL) {
-		Unknown_4BC260("Avatar Morphing", "", __FILE__, __LINE__, "Missing main avatar head object");
+		Message_Error("Avatar Morphing", "", __FILE__, __LINE__, "Missing main avatar head object");
 		Unknown29D = false;
 		return;
 	}
@@ -2167,7 +2167,7 @@ void CharacterViewAvatarClass::Unknown_7831C0(const char *name)
 		}
 		Unknown21C = Unknown218;
 	} else {
-		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Cannot Find Gesture Animation file %s for gender %d, persoanlity %d",
+		Message_Error("Avatar Animation", "", __FILE__, __LINE__, "Cannot Find Gesture Animation file %s for gender %d, persoanlity %d",
 			name, Desc.Gender, (int)Desc.Personality);
 	}
 	Unknown215 = false;
@@ -2388,7 +2388,7 @@ void CharacterViewAvatarClass::Unknown_1C4()
 	}
 	Unknown0E4 = WW3D::Get_Frame_Count();
 	if (BodyObj == NULL || HeadObj == NULL || PlayerNLP == NULL) {
-		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj.Peek(), HeadObj.Peek(), PlayerNLP);
+		Message_Error("Avatar Animation", "", __FILE__, __LINE__, "Invalid avatar objects (%x %x %x)", BodyObj.Peek(), HeadObj.Peek(), PlayerNLP);
 		return;
 	}
 	Unknown_788900();
@@ -2626,8 +2626,8 @@ void CharacterViewAvatarClass::Unknown_784A50(const char *name, bool a, bool b)
 {
 	if (Unknown2F8 == 0 && Unknown308 == 0.0f) {
 		if (PlayerNLP == NULL) {
-			Unknown_Assert_Failed("PlayerNLP", __FILE__, 2675);
-			Unknown_4BC260("Avatar Animation", "", __FILE__, 2676, "Invalid NLP pointer");
+			G_Assert_Report("PlayerNLP", __FILE__, 2675);
+			Message_Error("Avatar Animation", "", __FILE__, 2676, "Invalid NLP pointer");
 			return;
 		}
 		Unknown_781760(name);
@@ -2649,8 +2649,8 @@ void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 {
 	if (Unknown2F8 == 0 && Unknown308 == 0.0f) {
 		if (PlayerNLP == NULL) {
-			Unknown_Assert_Failed("PlayerNLP", __FILE__, 2704);
-			Unknown_4BC260("Avatar Animation", "", __FILE__, 2705, "Invalid NLP pointer");
+			G_Assert_Report("PlayerNLP", __FILE__, 2704);
+			Message_Error("Avatar Animation", "", __FILE__, 2705, "Invalid NLP pointer");
 			return;
 		}
 		Unknown_781840(data, size);
@@ -2725,8 +2725,8 @@ void CharacterViewAvatarClass::Unknown_784B80(char *data, int size, bool flag)
 void CharacterViewAvatarClass::Unknown_784C90(const char *name, bool a)
 {
 	if (PlayerNLP == NULL) {
-		Unknown_Assert_Failed("PlayerNLP", __FILE__, __LINE__);
-		Unknown_4BC260("Avatar Animation", "", __FILE__, __LINE__, "Invalid NLP pointer");
+		G_Assert_Report("PlayerNLP", __FILE__, __LINE__);
+		Message_Error("Avatar Animation", "", __FILE__, __LINE__, "Invalid NLP pointer");
 		return;
 	}
 	if (!a) {

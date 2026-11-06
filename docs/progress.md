@@ -4,6 +4,20 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-06 (10:55 PST, morning): chartemplate.cpp whole, D198's message names, EA's final data proven and the POC shows EA's six classes; +48 pairs, 0 lost outright
+
+- **Run** run/2026-11-06 (PR #168, from master 769dc288), builders CT1, RN1, EA1 and CARD1. Plan log: `.work/run-2026-11-06/plan.md`. Quiet-tree verify at dad1b5a6:
+  app 10560 in tree, +48 vs the baseline, 0 lost outright, 1 corrected (D197, PR #169 merged), 37 moves and 8 shared-holder entries, all D198's file renames.
+  Harness at dad1b5a6 (D182): clienttest 103 / 103 trace equal; udpreplay alex3 the same figures as CT1's run (26336 of 26465 first sendings, 7 of 8 sets), handshake 54.
+- **Client-exact class screen (CT1, EA1):** chartemplate.cpp whole, all exact, with chartemplate.h (+38; 2c8b5e84 D197's patch, +10; 1452406b the ui_class flag tables 0xB7DC8C / 0xB7DC98 at the client's bytes; f7b6c290). The three hidden classes are the client's own bytes, NULL names and flags. Net-7's memory patch undoes them and its data adds the buttons: "retail shows nine" (my report during the run) described Net-7's data, not EA's.
+- **EA's final data, without installing (EA1):** `eandb_demo.exe` (2002, Wise, unpacked by `.work/eadata/wise.py`) plus `enb-up.exe` (RTPatch through its own DLL on pool VM enb-vc6-01: 1281 patches, 0 ignored, 0 invalid) gives `.work/eadata/ea2004/`. Against EA's manifest of 2004-12-28: 1177 of 1187 files hash-exact, rechecked independently by `.work/coord/check_ea1.py`. Not proven: FA_PUB6.ini, fa_ptnews.ini, orbital4025.ini, dimple.dll (Castanet never updated them, so the 2002 bytes); fa_opt01a.ini, rs.ini, sounds.ini, mixfile_art_19.mix (same size, hash differs, unexplained); RESULTS.INI (local output); enb.exe (missing). Details in `.work/eadata/ea2004_provenance.tsv`.
+- **D199, D200 (the user):** 249f8524 stays the target though it is EA's 82663b2f plus Net-7's URL edits. `C:\EnBDevelopment\ClientPOC_EA` is EA's set beside ClientPOC, used with `clientpoc.py --ea --instance NAME` (6fd9ac35). Copied from ea2004: 1015 files, 0 differing; three key files rechecked against the manifest.
+- **The result, seen in the POC:** the last-built POC exe over ClientPOC_EA, antprox /REPLAY, `.work/ct1/in_class.txt`: one back-buffer shot, frame 300000 (`.work/poc/shots/EA1-105041/`), shows Enforcer, Tradesman, Sentinel / Warrior, Defender, Explorer: six buttons, the three absent, no code change. Login, character select and the class screen ran without a crash on EA's authlogin.dll; `combo_ffactory.cpp(101)`'s FAIL_IF fired x25 (x29 on ClientPOC in CT1's run, so not new). Only that path was run: the rest of EA's data, including sounds.ini and art_19, is untested.
+- **D198 (RN1, 7082af70):** Message_Debug / Info / Warn / Error / Stat / Common (NAME 5), Message_Critical, G_Assert_Report, Fail_If_Report (NAME 2), g_assert.h/.cpp, message*.h/.cpp and the message classes. app 10560 = 10560, no lines moved.
+- **Tools:** the progress card's caption split in two (CARD1, d41587cd). Traps filed in workflow.md §3.
+- **Waiting on the user:** `/accept-d66` on PR #168's head for D198's moves, then the merge. P-EA1-1's remaining part (§3).
+- **Next session:** kerneltest's build (§4, the first item below it). Game data never goes in git: ClientPOC_EA and `.work/eadata/` exist only on this machine.
+
 ### 2026-11-06 (04:30 PST, night): the expression library (10 files), the item examination window (7), ui_starbase / ui_friends / ui_ptrade / ui_ping / ui_playeropt / avatar_pip / ui_analyze / ui_attrb; +870 pairs, 0 lost
 
 - **Run** run/2026-11-05-night (PR #167, from master ab992dba), 15 Opus builders (ST1, EX1-EX4, IE1 / IE2, FR1, PT1 / PT2, PG1,
@@ -2457,16 +2471,14 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D194 | 2026-11-05 | P-CS4-1 approved, option (a): D193's folded-COMDAT test (objmatch `body_sig`) also applies in D166's caller tie-break (`caller_tiebreak`'s by_addr check), so a byte-identical linker-folded body that several symbols propose (lookup_table's four Create_NEW at 0x4EE9F0) is credited instead of dropped; a narrow tool change with a full verify. |
 | D195 | 2026-11-05 | P-AR2-1 approved: `tools/re/unref.py` lists, per app file, the client function starts in the file's range with no call / thunk reference in .text and no .rdata (vtable) reference that are not yet in the tree (promoted from `.work/ar2/unref.py` / `vt.py`): unreferenced members VC6 auto-inlines into callers, the lever that decides which nested helpers the client calls out of line (avatar.cpp, AR2: 18 found, 16 exact, +31). |
 | D196 | 2026-11-05 | objmatch's D114(b) range widening is chained: each COMDAT a file is credited with widens the range the next one is measured from, until it stops growing (same holder and D183 nearest-holder conditions). Cause (SC4): ui_ship_cust.cpp's `<string>` initialiser 0x620CA0 (`std::ctype<unsigned short>::id`, guard 0xC416FC) sits after more than 0x1000 of the file's map / MemberCallback copies, so the unwidened range stopped at 0x620640 and the pair was lost when ui_shipcust's false match went (PR #163's vc6-verify). Measured on the run branch: app +85, ww3d2 +7 shared, 0 lost, replay 0; 'tie-break by callers' 433 -> 171 (the same pairs credited by the range first). Narrowed by SC4 (wt/sc4 00c32265): the chain runs only upwards, through COMDATs the object alone is exact at (the full chain lost ui_shipcust's 0x620CA0 / 0x628E40 on master). The false pair ui_shipcust 0x620CA0 is a decided loss in accepted-corrections.json (PR #164). Order: #164, then #163 (its 12 moves by `/accept-d66`), then the objmatch PR from the new master | user |
+| D197 | 2026-11-06 | P-ST1-1 accepted: ui_starbase 0x648380 moving to 0x646120 is a D66 non-loss (the kind of (vi)). The two are the client's byte-identical copies of `std::ctype<unsigned short>::id`'s guarded initialiser in one object; ours compiles one and D100 credits it to whichever copy the file's range reaches first. `.work/st1/helpers_640CC0.patch` is applied as it stands (+10) and the rest of ui_starbase.cpp may proceed. The entry in accepted-corrections.json lands first (PR #169) | user |
+| D198 | 2026-11-06 | Names for the assert and message objects. The client's (NAME 5, each pushes the string to its WWPROFILE): reporters 0x4BBED0 / 0x4BC000 / 0x4BC130 / 0x4BC260 / 0x4BC460 / 0x4BC5A0 = `Message_Debug` / `_Info` / `_Warn` / `_Error` / `_Stat` / `_Common`. Chosen (NAME 2; the client's are not recoverable from it: no __FILE__, no label, no RTTI): `Message_Critical` 0x4BC3A0 (level 0x20; no caller, no label), `G_Assert_Report` 0x4E9410, `Fail_If_Report` 0x4E9450, `g_assert.h/.cpp`, `message.h/.cpp`, `message_filter / _record / _server.cpp`, `MessageRecordClass`, `MessageFilterClass`, `MessageServerProtocolClass`, `MessageServerProtocolEntryStruct`. `unknown_new.cpp` stays. A real name found later is one more scripted rename | user |
+| D199 | 2026-11-06 | P-EA1-2, the user: client.exe 249f8524 stays the matching target (D1), recorded as what it is: EA's final client 82663b2f (same size, `.text` and PE stamp identical) with 720 bytes of Net-7's URL edits in `.data`, 0xB84710-0xBA013F (`auth.east.ea.com,auth.west.ea.com,www.ea.com` -> `play.net-7.org`, the store / manual / support links). No function's bytes differ. The tree keeps those strings. |
+| D200 | 2026-11-06 | P-EA1-1 (a), the user: `C:\\EnBDevelopment\\ClientPOC_EA` (`Data`, `release`, EA's final set only, local, never committed) beside `ClientPOC`, which stays as it is. `clientpoc.py run|replay --ea --instance NAME` uses its Data and DLLs; the exe stays the POC build, `--exe`'s or `--retail`'s. Its `release\\client.exe` is EA's 82663b2f, kept as data, not run by the tool. |
 
 ## 3. Open decisions
 
-* **P-ST1-1** (2026-11-05 night, ST1; recommend accept, then apply the patch as it stands): ui_starbase.cpp's
-  `.work/st1/helpers_640CC0.patch` (UIStarbaseClass layout +0xB0 / +0xB4 / +0x204 in sbaseview.h, helpers 0x640CC0-0x640F30
-  under `#pragma auto_inline(off)`) gains +10 and loses 0x648380 outright: 0x646120 and 0x648380 are the client's two
-  byte-identical copies of `std::ctype<unsigned short>::id`'s guarded initialiser in one object; ours compiles one, and once
-  the file's own range starts at 0x640CC0 D100 credits it to 0x646120. Any further rebuild of ui_starbase.cpp's ~120
-  remaining functions moves the range the same way. Accept 0x648380 as a D66 non-loss (the kind of (vi)), or keep the file's
-  range where it is? The rest of ui_starbase.cpp waits for this.
+* **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
 * **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
   (a) **~$110: overflow builders on the API key**, the D163 (a) pilot's path (headless `claude -p`, Opus 5.5, the separate
   key `ENB_ANTHROPIC_API_KEY`, `--max-budget-usd` per builder, launched by the coordinator like any builder, within the
@@ -2506,6 +2518,11 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 written but not byte-exact, with its cause: `docs/data/not-exact.md`; every abandoned attempt, its blocker and
 LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a new §3.1 lever). The items
 below name only the work items, the blocked work, the leads and the queues.
+
+* **antprox's build table calls 249f8524 EA's last client (D199):** it is EA's 82663b2f plus Net-7's URL edits; correct the label in the AntaresProxy repo, and add 82663b2f if EA's exe should be recognised.
+* **kerneltest does not build on master (found by RN1, 2026-11-06, read, not rebuilt at master):** taskstest.cpp:172 defines `ShipCustSettingsClass::ShipCustSettingsClass()`, which shipcust_desc.h made inline in cddc4830 (2026-11-05); also a `Unknown_48` overload and unresolved BINKMovie symbols. D198's rename of its reporter stand-ins is unverified until it builds.
+* **symbols.json / ghidra_symbols.py keep 15 old D198 names:** run `symbols.py` with every library's `--objs` at the next refresh (without them it rewrites the file wholesale).
+* **Audit other hand-copied static tables against the client's bytes (CT1):** ui_class's two were wrong with every function exact; pairs can't see it.
 
 * **The triage plan's runs (D163; the log entry of 2026-10-31 15:40).** `.work/triage/plan.md` (rerun `triage.py
   plan` after each run): 52 runs of 3+ neighbouring functions with no pair and one suggested file (2026-11-06), 10 agreeing
@@ -2770,7 +2787,7 @@ below name only the work items, the blocked work, the leads and the queues.
      teleport loader 0x788F90 functional (NOT EXACT); ctor / dtor; ship_pip's `Unknown_Zoom` is a provisional file-static helper (NAME 1); the server's answer to GLOBAL_CREATE_CHARACTER (LoginTask +0x20 approved,
      +0x1090 errors 8-13) once antprox /REPLAY answers opcode 0x0072 (it logs it as ignored). Interim placements (D137):
      unknown_585920.cpp (0x585920 .. 0x585D10, 0x5860B0, 0x671300 / 0x6714F0 / 0x671570 / 0x671630; all exact since
-     2026-11-05), decal.cpp's 0x82EF70, chartemplate.cpp's partial content: revisit when objmatch
+     2026-11-05), decal.cpp's 0x82EF70: revisit when objmatch
      places them.
    * ui_chat_panel / ui_manu leads (CGP, 2026-11-04): 0x56B700 register only (178 = 178), 0x5AFFC0
      frame only (0xAC vs 0x9C), inline budget 0x567DF0 / 0x567760 / 0x563280 / 0x565390, register 0x5630B0 / 0x5AFCD0 /

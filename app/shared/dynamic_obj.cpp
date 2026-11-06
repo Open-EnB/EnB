@@ -2,7 +2,7 @@
 #define ENABLE_WWPROFILE
 #include "dynamic_obj.h"
 #include "px_wrapper.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "wwprofile.h"
 
 // 0x44AC70

@@ -60,7 +60,7 @@ public:
 };
 static UnknownBFAEE0Class BFAEE0;
 WW3DAssetManager *WW3DAssetManager::TheInstance = (WW3DAssetManager *)&BFAEE0;
-void Unknown_Assert_Failed(const char *expr, const char *, int line)
+void G_Assert_Report(const char *expr, const char *, int line)
 {
 	Asserts++;
 	fprintf(Out, "assert %s (line %d)\n", expr, line);

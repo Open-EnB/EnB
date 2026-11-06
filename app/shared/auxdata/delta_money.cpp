@@ -2,7 +2,7 @@
 #include "delta_money.h"
 #include "linearbu.h"
 #include "..\money.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 // (lines 7-64 hold the rest of the client's file, not rebuilt yet: the asserts below are on the
 // client's lines 69 and 86)

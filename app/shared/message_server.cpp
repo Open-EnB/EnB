@@ -1,15 +1,15 @@
-// Earth & Beyond client (reconstruction): E&B's message server (unknown_message.h). Notes at the end of the file.
-#include "unknown_message.h"
+// Earth & Beyond client (reconstruction): E&B's message server (message.h). Notes at the end of the file.
+#include "message.h"
 #include <string.h>
 #include <time.h>
 #include "..\..\libs\wwonline\wnet\tcpmgr.h"
 #include "..\..\libs\wwonline\wnet\tcpcon.h"
 
-// PLACEMENT: provisional (D137): see unknown_message.h; its own object because the reporters
-// (unknown_message.cpp) call 0x4BCD10 instead of inlining it
+// PLACEMENT: provisional (D137): see message.h; its own object because the reporters
+// (message.cpp) call 0x4BCD10 instead of inlining it
 
 // 0x4BCA80
-Unknown4BCA80Class::Unknown4BCA80Class() :
+MessageServerProtocolClass::MessageServerProtocolClass() :
 	Unknown00(NULL),
 	Unknown1C(0),
 	Unknown38(false)
@@ -18,13 +18,13 @@ Unknown4BCA80Class::Unknown4BCA80Class() :
 }
 
 // 0x4BCB50
-Unknown4BCA80Class::~Unknown4BCA80Class()
+MessageServerProtocolClass::~MessageServerProtocolClass()
 {
 	delete Unknown00;
 }
 
 // 0x4BCCB0
-void Unknown4BCA80Class::Unknown_4BCCB0()
+void MessageServerProtocolClass::Unknown_4BCCB0()
 {
 	for (uint16 port = 9999; port <= 10009; port++) {
 		if (Unknown00->addListener(0, port, FALSE) == TRUE) {
@@ -34,13 +34,13 @@ void Unknown4BCA80Class::Unknown_4BCCB0()
 }
 
 // 0x4BCCF0
-void Unknown4BCA80Class::Unknown_4BCCF0(bool value)
+void MessageServerProtocolClass::Unknown_4BCCF0(bool value)
 {
 	Unknown38 = value;
 }
 
 // 0x4BCD10
-int Unknown4BCA80Class::Unknown_4BCD10()
+int MessageServerProtocolClass::Unknown_4BCD10()
 {
 	return Unknown04.length();
 }
@@ -51,11 +51,11 @@ int Unknown4BCA80Class::Unknown_4BCD10()
 // NOT EXACT: shape (explain.py: registers, 2 rows once masked): the two inlined ArrayList destructor calls
 // ('Filters.clear()' and 'remove') form their element's address as offset + vector where ours loads the
 // vector first; everything else is the client's (0.85)
-void Unknown4BCA80Class::Unknown_4BCD30()
+void MessageServerProtocolClass::Unknown_4BCD30()
 {
 	TCPCon *con = NULL;
-	Unknown4BCA80EntryStruct *client;
-	Unknown4BB8A0Class *message;
+	MessageServerProtocolEntryStruct *client;
+	MessageRecordClass *message;
 	char buffer[256];
 	int clients;
 	int count;
@@ -71,7 +71,7 @@ void Unknown4BCA80Class::Unknown_4BCD30()
 		Unknown1C = now;
 		while (Unknown00->getIncomingConnection(&con, 0, 0)) {
 			Unknown00->setBufferedWrites(con, TRUE);
-			Unknown4BCA80EntryStruct entry;
+			MessageServerProtocolEntryStruct entry;
 			entry.Connection = con;
 			Unknown04.addTail(entry);
 		}
@@ -82,7 +82,7 @@ void Unknown4BCA80Class::Unknown_4BCD30()
 				break;
 			}
 			for (n = client->Connection->read((uint8 *)buffer, 255, 0); n > 0; n = client->Connection->read((uint8 *)buffer, 255, 0)) {
-				Unknown4BDFE0Class filter;
+				MessageFilterClass filter;
 				buffer[n] = 0;
 				if ((int)strlen(buffer) >= n) {
 					client->Connection->unread((uint8 *)buffer, n);
@@ -131,12 +131,12 @@ void Unknown4BCA80Class::Unknown_4BCD30()
 }
 
 // 0x4BD3F0
-bit8 Unknown4BCA80Class::Unknown_4BD3F0(Unknown4BCA80EntryStruct *client, Unknown4BB8A0Class *message)
+bit8 MessageServerProtocolClass::Unknown_4BD3F0(MessageServerProtocolEntryStruct *client, MessageRecordClass *message)
 {
 	if (client != NULL && message != NULL) {
 		int count = client->Filters.length();
 		for (int i = 0; i < count; i++) {
-			Unknown4BDFE0Class *filter;
+			MessageFilterClass *filter;
 			client->Filters.getPointer(&filter, i);
 			if ((client->Mask & message->Level) != 0 && filter->Unknown_4BE2C0(message) == TRUE) {
 				return(TRUE);
@@ -147,7 +147,7 @@ bit8 Unknown4BCA80Class::Unknown_4BD3F0(Unknown4BCA80EntryStruct *client, Unknow
 }
 
 // 0x4BD470
-void Unknown4BCA80Class::Unknown_4BD470(int level, Wstring &sender, Wstring &file, int line, int x, int y, Wstring &text)
+void MessageServerProtocolClass::Unknown_4BD470(int level, Wstring &sender, Wstring &file, int line, int x, int y, Wstring &text)
 {
 	char *name = file.get();
 	char *next;
@@ -157,7 +157,7 @@ void Unknown4BCA80Class::Unknown_4BD470(int level, Wstring &sender, Wstring &fil
 	while ((next = strchr(name, '/')) != NULL) {
 		name = next + 1;
 	}
-	Unknown4BB8A0Class message;
+	MessageRecordClass message;
 	message.Level = level;
 	message.Sender = sender;
 	message.File.set(name);

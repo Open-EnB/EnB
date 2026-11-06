@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\common\tcpconn.cpp (PARTIAL). Notes at the end of the file.
 #include "tcpconn.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\nstrdup.h"
 #include <string.h>
 #include <winsock.h>
@@ -12,8 +12,8 @@ static std::set<TCPListenerClass *> Listeners;	// 0xBE91A8 (initialiser 0x828AA0
 static unsigned char WriteBuffer[0x400];	// NAME 2: what it holds
 // E&B's message reporter 0x4BC000 (cdecl, printf-style: the sender (the pooled "" 0xBDA908), the
 // category, the file and line, a format); not rebuilt
-void Unknown_4BC000(const char *sender, const char *category, const char *file, int line,
-	const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000
+void Message_Info(const char *sender, const char *category, const char *file, int line,
+	const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
 
 // 0x828C40 (no caller): TCPMgr::setBlocking's ioctlsocket as a free function
 int Set_Blocking(SOCKET socket, bool block) { unsigned long flag = 1; if (block) flag = 0; return(ioctlsocket(socket, FIONBIO, &flag)); }	// NAME 1: what it does (no caller)
@@ -355,7 +355,7 @@ received:
 
 failed:
 	Con->close(true);
-	Unknown_4BC000("", "TCP", __FILE__, __LINE__, "CONNECT RSA EXCH FAILED: %d : %d", nbytes, ebytes);
+	Message_Info("", "TCP", __FILE__, __LINE__, "CONNECT RSA EXCH FAILED: %d : %d", nbytes, ebytes);
 	if (error != 0) {
 		*error = -2;
 	}

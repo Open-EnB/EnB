@@ -4,7 +4,7 @@
 #include "bmp2d.h"
 #include "matrix3d.h"
 #include "vector3.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <math.h>
 
 void Unknown_42ECF0(float *x, float *y);	// 0x42ECF0 (input.cpp): the pointer's position, 0..1  // NAME 1 [x, y]: as scriptedmovie.cpp's

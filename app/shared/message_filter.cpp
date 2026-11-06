@@ -1,5 +1,5 @@
-// Earth & Beyond client (reconstruction): the message server's client filter (unknown_message.h). Notes at the end of the file.
-#include "unknown_message.h"
+// Earth & Beyond client (reconstruction): the message server's client filter (message.h). Notes at the end of the file.
+#include "message.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,22 +7,22 @@
 #include <ctype.h>
 #include <string>
 
-// PLACEMENT: provisional (D137): see unknown_message.h; its own object because the server
-// (unknown_message_server.cpp) calls its constructor 0x4BDFE0 and destructor 0x4BE060 instead of inlining them
+// PLACEMENT: provisional (D137): see message.h; its own object because the server
+// (message_server.cpp) calls its constructor 0x4BDFE0 and destructor 0x4BE060 instead of inlining them
 
 // 0x4BDFE0
-Unknown4BDFE0Class::Unknown4BDFE0Class() :
+MessageFilterClass::MessageFilterClass() :
 	Type(0)
 {
 }
 
 // 0x4BE060
-Unknown4BDFE0Class::~Unknown4BDFE0Class()
+MessageFilterClass::~MessageFilterClass()
 {
 }
 
 // 0x4BE0F0
-bit8 Unknown4BDFE0Class::Unknown_4BE0F0(FILE *out, char *section)
+bit8 MessageFilterClass::Unknown_4BE0F0(FILE *out, char *section)
 {
 	fprintf(out, "[%s]%s", section, "\r\n");
 	fprintf(out, "Name = %s%s", Name.get(), "\r\n");
@@ -35,7 +35,7 @@ bit8 Unknown4BDFE0Class::Unknown_4BE0F0(FILE *out, char *section)
 }
 
 // 0x4BE1E0
-bit8 Unknown4BDFE0Class::Unknown_4BE1E0(ConfigFile &config, char *section)
+bit8 MessageFilterClass::Unknown_4BE1E0(ConfigFile &config, char *section)
 {
 	if (!config.getString("Name", Name, section)) {
 		return FALSE;
@@ -60,7 +60,7 @@ bit8 Unknown4BDFE0Class::Unknown_4BE1E0(ConfigFile &config, char *section)
 // NOT EXACT: shape (explain.py: 14 masked rows; 0.80): register allocation only: the client keeps pass in bl
 // (with its stack home) after the module test, ours reloads it from the stack; every call and branch is
 // the client's (25 forms tried: helpers, loop and test forms, bool, early returns)
-bit8 Unknown4BDFE0Class::Unknown_4BE2C0(Unknown4BB8A0Class *message)
+bit8 MessageFilterClass::Unknown_4BE2C0(MessageRecordClass *message)
 {
 	bit8 pass = TRUE;
 
@@ -121,7 +121,7 @@ bit8 Unknown4BDFE0Class::Unknown_4BE2C0(Unknown4BB8A0Class *message)
 }
 
 // 0x4BE7A0
-bit8 Unknown4BDFE0Class::Unknown_4BE7A0(Wstring &text)
+bit8 MessageFilterClass::Unknown_4BE7A0(Wstring &text)
 {
 	Wstring type;
 

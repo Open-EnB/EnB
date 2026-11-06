@@ -12,7 +12,7 @@
 #include "rs_track.h"
 #include "rinfo.h"
 #include "colmath.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // @0x45D9E0
 Unknown45D9E0Class::Unknown45D9E0Class(RsTrackClass *owner, int def, int manager) :

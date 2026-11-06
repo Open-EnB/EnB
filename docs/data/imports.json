@@ -1999,15 +1999,97 @@
     ]
    },
    "chartemplate": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42A900",
+     "0x42AAE0",
+     "0x42AC90",
+     "0x42AFF0",
+     "0x42B250",
+     "0x42B2F0",
+     "0x42D180"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42B420",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42D120",
+     "0x42D140",
+     "0x42D8A0",
+     "0x42DB00",
+     "0x42DC10",
+     "0x42DFC0",
+     "0x4B58D0",
+     "0x816880",
+     "0x82F210",
+     "0x82F250",
+     "0x82F2C0",
+     "0x82F310",
      "0x82F350",
-     "0x82F3C0"
+     "0x82F3C0",
+     "0x82F400",
+     "0x82F740",
+     "0x82F7D0",
+     "0x82FC30",
+     "0x82FD40",
+     "0x82FF90",
+     "0x830000",
+     "0x830040",
+     "0x8300D0",
+     "0x8302A0",
+     "0x8302C0",
+     "0x830300",
+     "0x830340",
+     "0x830370",
+     "0x8303B0",
+     "0x8303E0"
     ],
     "merged": [],
-    "name": "common/chartemplate.cpp"
+    "name": "common/chartemplate.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42B420",
+     "0x42C4E0",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42D120",
+     "0x42D140",
+     "0x42D8A0",
+     "0x42DB00",
+     "0x42DC10",
+     "0x42DFC0",
+     "0x4B58D0",
+     "0x8302A0"
+    ],
+    "shared_callers": [
+     "0x42DFC0"
+    ],
+    "short_known": [
+     "0x42D120",
+     "0x42D140",
+     "0x8302A0"
+    ],
+    "tiebreak": [
+     "0x42DFC0",
+     "0x8302C0",
+     "0x830300",
+     "0x830340",
+     "0x830370",
+     "0x8303B0",
+     "0x8303E0"
+    ]
    },
    "charview": {
     "ambiguous": [
@@ -7475,6 +7557,17 @@
      "0x42F250"
     ]
    },
+   "g_assert": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4E9410",
+     "0x4E9450"
+    ],
+    "merged": [],
+    "name": "shared/g_assert.cpp"
+   },
    "gadget": {
     "ambiguous": [
      "0x42B2F0",
@@ -8811,6 +8904,7 @@
      "0x42CF30",
      "0x42D050",
      "0x42D120",
+     "0x42D140",
      "0x42D180",
      "0x42D300",
      "0x42D5D0",
@@ -8832,20 +8926,25 @@
      "0x42A940",
      "0x42A970",
      "0x42AB30",
+     "0x42B420",
      "0x42C4E0",
      "0x42CAB0",
      "0x42CD30",
      "0x42CF30",
      "0x42D050",
      "0x42D120",
+     "0x42D140",
+     "0x42D8A0",
      "0x42DB00",
-     "0x42DB80"
+     "0x42DB80",
+     "0x42DC10",
+     "0x42DFC0"
     ],
     "short_known": [
-     "0x42D120"
+     "0x42D120",
+     "0x42D140"
     ],
     "tiebreak": [
-     "0x42DC10",
      "0x42DDF0",
      "0x42E190"
     ]
@@ -10827,6 +10926,110 @@
      "0x827450",
      "0x8274C0",
      "0x827510"
+    ]
+   },
+   "message": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x444160",
+     "0x4BBE90",
+     "0x4BBEB0",
+     "0x4BBED0",
+     "0x4BC000",
+     "0x4BC130",
+     "0x4BC260",
+     "0x4BC3A0",
+     "0x4BC460",
+     "0x4BC5A0",
+     "0x4BC8F0",
+     "0x4BC9B0"
+    ],
+    "merged": [],
+    "name": "shared/message.cpp",
+    "shared": [
+     "0x444160"
+    ],
+    "short_known": [
+     "0x4BBE90",
+     "0x4BBEB0"
+    ]
+   },
+   "message_filter": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120",
+     "0x4BDFE0",
+     "0x4BE060",
+     "0x4BE0F0",
+     "0x4BE1E0",
+     "0x4BE7A0",
+     "0x4BE9D0"
+    ],
+    "merged": [],
+    "name": "shared/message_filter.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120"
+    ],
+    "short_known": [
+     "0x42D120"
+    ]
+   },
+   "message_record": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4BB8A0",
+     "0x4BB930",
+     "0x4BB9C0",
+     "0x4BBAA0"
+    ],
+    "merged": [],
+    "name": "shared/message_record.cpp"
+   },
+   "message_server": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4BCA80",
+     "0x4BCB50",
+     "0x4BCCB0",
+     "0x4BCD10",
+     "0x4BD3A0",
+     "0x4BD3F0",
+     "0x4BD470",
+     "0x4BD870",
+     "0x4BD8C0",
+     "0x4BD910",
+     "0x4BD960",
+     "0x4BD990",
+     "0x4BDBE0",
+     "0x4BDEF0"
+    ],
+    "merged": [],
+    "name": "shared/message_server.cpp",
+    "short_known": [
+     "0x4BCD10"
     ]
    },
    "mousetbl": {
@@ -28060,7 +28263,6 @@
     "ambiguous": [
      "0x42A900",
      "0x42AAE0",
-     "0x4333D0",
      "0x46BE90",
      "0x474080"
     ],
@@ -28089,6 +28291,16 @@
      "0x5623B0",
      "0x5623D0",
      "0x5623F0",
+     "0x640CC0",
+     "0x640D80",
+     "0x640DF0",
+     "0x640E90",
+     "0x640EC0",
+     "0x640EF0",
+     "0x640F10",
+     "0x640F30",
+     "0x644430",
+     "0x646120",
      "0x646170",
      "0x646260",
      "0x646290",
@@ -28106,7 +28318,6 @@
      "0x648190",
      "0x648310",
      "0x648340",
-     "0x648380",
      "0x6483B0",
      "0x6483C0"
     ],
@@ -28158,6 +28369,9 @@
      "0x5623B0",
      "0x5623D0",
      "0x5623F0",
+     "0x640EF0",
+     "0x640F10",
+     "0x640F30",
      "0x6467E0",
      "0x6483B0",
      "0x6483C0"
@@ -29115,17 +29329,6 @@
      "0x78E140"
     ]
    },
-   "unknown_debug": {
-    "ambiguous": [],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x4E9410",
-     "0x4E9450"
-    ],
-    "merged": [],
-    "name": "shared/unknown_debug.cpp"
-   },
    "unknown_font_split_string": {
     "ambiguous": [
      "0x42B2F0"
@@ -29406,110 +29609,6 @@
     "name": "common/unknown_memregistry.cpp",
     "tiebreak": [
      "0x828A10"
-    ]
-   },
-   "unknown_message": {
-    "ambiguous": [],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x444160",
-     "0x4BBE90",
-     "0x4BBEB0",
-     "0x4BBED0",
-     "0x4BC000",
-     "0x4BC130",
-     "0x4BC260",
-     "0x4BC3A0",
-     "0x4BC460",
-     "0x4BC5A0",
-     "0x4BC8F0",
-     "0x4BC9B0"
-    ],
-    "merged": [],
-    "name": "shared/unknown_message.cpp",
-    "shared": [
-     "0x444160"
-    ],
-    "short_known": [
-     "0x4BBE90",
-     "0x4BBEB0"
-    ]
-   },
-   "unknown_message_filter": {
-    "ambiguous": [
-     "0x42A6C0",
-     "0x42B2F0"
-    ],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x42A820",
-     "0x42A940",
-     "0x42A970",
-     "0x42AB30",
-     "0x42CAB0",
-     "0x42CD30",
-     "0x42D120",
-     "0x4BDFE0",
-     "0x4BE060",
-     "0x4BE0F0",
-     "0x4BE1E0",
-     "0x4BE7A0",
-     "0x4BE9D0"
-    ],
-    "merged": [],
-    "name": "shared/unknown_message_filter.cpp",
-    "shared": [
-     "0x42A820",
-     "0x42A940",
-     "0x42A970",
-     "0x42AB30",
-     "0x42CAB0",
-     "0x42CD30",
-     "0x42D120"
-    ],
-    "short_known": [
-     "0x42D120"
-    ]
-   },
-   "unknown_message_record": {
-    "ambiguous": [],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x4BB8A0",
-     "0x4BB930",
-     "0x4BB9C0",
-     "0x4BBAA0"
-    ],
-    "merged": [],
-    "name": "shared/unknown_message_record.cpp"
-   },
-   "unknown_message_server": {
-    "ambiguous": [],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x4BCA80",
-     "0x4BCB50",
-     "0x4BCCB0",
-     "0x4BCD10",
-     "0x4BD3A0",
-     "0x4BD3F0",
-     "0x4BD470",
-     "0x4BD870",
-     "0x4BD8C0",
-     "0x4BD910",
-     "0x4BD960",
-     "0x4BD990",
-     "0x4BDBE0",
-     "0x4BDEF0"
-    ],
-    "merged": [],
-    "name": "shared/unknown_message_server.cpp",
-    "short_known": [
-     "0x4BCD10"
     ]
    },
    "unknown_msgbox": {
@@ -30280,6 +30379,7 @@
    "client/unknown_signalbase.h": "reconstructed",
    "client/wnd_file.h": "reconstructed",
    "common/average.h": "reconstructed",
+   "common/chartemplate.h": "reconstructed",
    "common/circbuff.h": "reconstructed",
    "common/connect.h": "reconstructed",
    "common/dbgconn.h": "reconstructed",
@@ -30482,6 +30582,7 @@
    "shared/expr/expr_math_parser_factory.h": "reconstructed",
    "shared/expr/expr_math_parser_impl.h": "reconstructed",
    "shared/expr/expr_math_tree.h": "reconstructed",
+   "shared/g_assert.h": "reconstructed",
    "shared/gclass.h": "reconstructed",
    "shared/graphics_settings.h": "reconstructed",
    "shared/heightfield.h": "reconstructed",
@@ -30496,6 +30597,7 @@
    "shared/land_lighting.h": "reconstructed",
    "shared/landdmap.h": "reconstructed",
    "shared/lookup_table.h": "reconstructed",
+   "shared/message.h": "reconstructed",
    "shared/message/msgserv.h": "reconstructed",
    "shared/money.h": "reconstructed",
    "shared/proj_man.h": "reconstructed",
@@ -30518,17 +30620,15 @@
    "shared/symbol_substitution.h": "reconstructed",
    "shared/unique_design_id_lookup.h": "reconstructed",
    "shared/unknown_8b4560.h": "reconstructed",
-   "shared/unknown_debug.h": "reconstructed",
    "shared/unknown_font_split_string.h": "reconstructed",
    "shared/unknown_login_data.h": "reconstructed",
-   "shared/unknown_message.h": "reconstructed",
    "shared/unknown_packetdata.h": "reconstructed",
    "shared/unknown_px_callbacks.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 10529,
+  "in_tree_total": 10560,
   "totals": {}
  },
  "binkmovie": {

@@ -9,7 +9,7 @@
 #include "assetmgr.h"
 #include "gadget.h"
 #include "unknown_675120.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\duration.h"
 #include "..\audio\soundlib.h"
 #include "buff_database.h"

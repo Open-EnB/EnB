@@ -21,7 +21,7 @@
 #define __SPLINE_H
 
 #include "vector3.h"
-#include "unknown_debug.h"
+#include "g_assert.h"
 
 // NAME 1: a float array of a set size (0x10 bytes: +0x04 the values, +0x08 their count, +0x0C the last index)
 class SplineFloatArrayClass

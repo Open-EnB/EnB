@@ -13,7 +13,7 @@ bool ObjectEffectPacketClass::Process_Packet(void *instance)
 		target->Unknown_28(GameID);
 	} else {
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "A non-unary effect descriptor %d was given for an effect on an object", EffectDescID);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "A non-unary effect descriptor %d was given for an effect on an object", EffectDescID);
 		G_ASSERT(0);
 	}
 	MainViewClass *view = sclient->MainView;

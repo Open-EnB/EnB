@@ -3,7 +3,7 @@
 #include "intrface.h"
 #include "local_interface_sort.h"
 #include "interface_static_sort_list.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "sclient.h"	// UIViewClass (slot +0x50: its scene)
 #include "interface_scene.h"	// InterfaceSceneClass (+0x9C the static sort list)
 #include "rendobj.h"

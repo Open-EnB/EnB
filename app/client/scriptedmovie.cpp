@@ -3,7 +3,7 @@
 #include "eff_o.h"
 #include "sclient.h"
 #include "scriptedmovieline.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\rendobj.h"
 #include "..\..\ww3d2\assetmgr.h"

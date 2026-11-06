@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include <algorithm>
 #include "fontdatabase.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\inisup.h"
 

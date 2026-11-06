@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\Client\control_keys_manager.cpp. Notes at the end of the file.
 #include "control_keys_manager.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\inisup.h"
 #include <stdio.h>

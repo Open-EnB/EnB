@@ -16,7 +16,7 @@
 #include "dx8renderer.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\wwlib\ref_ptr.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
 #include "tutorial_manager.h"
 #include "ui_shipcust.h"

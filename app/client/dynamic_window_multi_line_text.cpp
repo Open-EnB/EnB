@@ -4,7 +4,7 @@
 #include "fontmanager.h"
 #include "aabox.h"
 #include "..\shared\unknown_font_split_string.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 
 

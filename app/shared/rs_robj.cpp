@@ -14,7 +14,7 @@
 #include "meshmdl.h"
 #include "nullrobj.h"
 #include "..\..\wwlib\nstrdup.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 #define RSTRACK_CLASSID	0x10001	// NAME 2: RsTrackClass::Class_ID
 

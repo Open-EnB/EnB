@@ -3,7 +3,7 @@
 // Notes at the end of the file.
 #include "vendor_defs.h"
 #include <string.h>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
 

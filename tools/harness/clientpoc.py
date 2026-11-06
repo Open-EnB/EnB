@@ -26,6 +26,11 @@ are posted to the window of the client.exe whose parent is that antprox (found b
 then both are killed by PID. antprox's console output and its per-run files go in the shot folder
 (antprox.out, antprox-logs\\).
 
+--ea (with --instance, P-EA1-1): the instance lives in C:\\EnBDevelopment\\ClientPOC_EA\\inst\\NAME over that folder's
+Data and DLLs, EA's final set (hash-proven against EA's manifest; only the *.th6 thumbnails the client writes are added). The
+exe is unchanged: ClientPOC\\release's last build, --exe's, or --retail's copy of 249f8524. Its release\\client.exe is EA's own
+82663b2f, kept as data and never run by this tool.
+
 run: starts C:\\EnBDevelopment\\ClientPOC\\release\\client.exe with that folder as working directory (never
 the game's install), ENB_POC_WINDOWED=1 unless --fullscreen, waits N seconds (default 40) and kills it by PID
 if it still runs; then prints the digest. Delete stubs.log and _except.txt first (the client's exception
@@ -125,6 +130,7 @@ def stop_listener(listener, inst=None, out=None):
             f.write(l + '\n')
 
 RELEASE = r'C:\EnBDevelopment\ClientPOC\release'
+EA_RELEASE = r'C:\EnBDevelopment\ClientPOC_EA\release'
 RETAIL = os.path.join(os.environ.get('ENB_RETAIL_INSTALL') or r'C:\Program Files (x86)\EA GAMES\Earth & Beyond',
                       'release', 'client.exe')
 EXE = os.path.join(RELEASE, 'client.exe')
@@ -139,9 +145,14 @@ SHOTS = os.path.join(ROOT, '.work', 'poc', 'shots')
 
 class Inst:
     """Where a run happens: the release folder, or ClientPOC\\inst\\NAME\\release filled from it."""
-    def __init__(self, name=None, exe=None, retail=False):
+    def __init__(self, name=None, exe=None, retail=False, ea=False):
         self.name = name
-        self.base = None if not name else os.path.join(os.path.dirname(RELEASE), 'inst', name)
+        self.source = EA_RELEASE if ea else RELEASE      # the DLLs and, beside it, the shared Data
+        if ea and not os.path.isdir(EA_RELEASE):
+            raise SystemExit(f'--ea: no {EA_RELEASE} (see docs/progress.md, P-EA1-1)')
+        if ea and not name:
+            raise SystemExit('--ea needs --instance')
+        self.base = None if not name else os.path.join(os.path.dirname(self.source), 'inst', name)
         self.dir = RELEASE if not name else os.path.join(self.base, 'release')
         self.retail = retail
         self.src_exe = RETAIL if retail else (exe or EXE)
@@ -162,9 +173,9 @@ class Inst:
             self._data()
             skip = {'client.exe', 'client.map', 'd3d8.dll', 'stubs.log', '_except.txt', 'd3d8shot.log',
                     'authlogin.log', 'stderr.txt'}
-            for f in os.listdir(RELEASE):
-                if f.lower() not in skip and os.path.isfile(os.path.join(RELEASE, f)):
-                    self._copy(os.path.join(RELEASE, f), os.path.join(self.dir, f))
+            for f in os.listdir(self.source):
+                if f.lower() not in skip and os.path.isfile(os.path.join(self.source, f)):
+                    self._copy(os.path.join(self.source, f), os.path.join(self.dir, f))
             self._copy(self.src_exe, self.exe)
             m = os.path.splitext(self.src_exe)[0] + '.map'
             if not self.retail:
@@ -177,7 +188,7 @@ class Inst:
     OWN = {'ini', 'output'}
 
     def _data(self):
-        shared = os.path.join(os.path.dirname(RELEASE), 'Data')
+        shared = os.path.join(os.path.dirname(self.source), 'Data')
         mine = os.path.join(self.base, 'Data')
         for top in os.listdir(shared):
             src, dst = os.path.join(shared, top), os.path.join(mine, top)
@@ -616,16 +627,18 @@ def remove_instance(base):
 
 
 def clean(name=None, older=None):
-    """Delete ClientPOC\\inst\\NAME (or every instance, or those unused for `older` hours), skipping any whose
-    client still runs. Shots and antprox logs stay in .work/poc/shots."""
-    top = os.path.join(os.path.dirname(RELEASE), 'inst')
-    names = [name] if name else (sorted(os.listdir(top)) if os.path.isdir(top) else [])
+    """Delete ClientPOC\\inst\\NAME and ClientPOC_EA\\inst\\NAME (or every instance, or those unused for `older`
+    hours), skipping any whose client still runs. Shots and antprox logs stay in .work/poc/shots."""
+    tops = [os.path.join(os.path.dirname(r), 'inst') for r in (RELEASE, EA_RELEASE)]
+    if name:
+        found = [os.path.join(t, name) for t in tops if os.path.isdir(os.path.join(t, name))]
+        if not found:
+            print(f'{name}: no such instance')
+    else:
+        found = [os.path.join(t, n) for t in tops if os.path.isdir(t) for n in sorted(os.listdir(t))]
     freed = 0
-    for n in names:
-        base = os.path.join(top, n)
-        if not os.path.isdir(base):
-            print(f'{n}: no such instance')
-            continue
+    for base in found:
+        n = os.path.basename(base)
         if older is not None and time.time() - os.stat(os.path.join(base, 'release')
                                                          if os.path.isdir(os.path.join(base, 'release'))
                                                          else base).st_mtime < older * 3600:
@@ -655,6 +668,8 @@ def main():
                     'build\\programs\\clientpoc\\clientpoc.exe (needs --instance)')
     ap.add_argument('--retail', action='store_true',
                     help='replay: run a copy of the retail client under the d3d8shot input hooks (D190; needs --instance, --shots)')
+    ap.add_argument('--ea', action='store_true',
+                    help='run over EA\'s final data, ClientPOC_EA (needs --instance; the exe is still ClientPOC\\release\'s, --exe\'s or --retail\'s)')
     ap.add_argument('--messages', action='store_true',
                     help='-ENABLE_MESSAGES and msglisten.py beside the client: <shots dir>\\messages.log')
     ap.add_argument('args', nargs='*')
@@ -665,7 +680,7 @@ def main():
         return clean(a.instance, a.older)
     if a.exe is not None and not os.path.isfile(a.exe):
         raise SystemExit(f'--exe {a.exe!r}: no such file (an empty --exe would run release\\client.exe instead)')
-    inst = Inst(a.instance, a.exe, a.retail)
+    inst = Inst(a.instance, a.exe, a.retail, a.ea)
     if a.command == 'run':
         run(a.seconds, a.fullscreen, a.args, a.shots, read_input(a.input) if a.input else None, inst, a.messages)
     elif a.command == 'replay':

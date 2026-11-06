@@ -18,7 +18,7 @@
 
 #ifndef CONNECT_H
 #define CONNECT_H
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "circbuff.h"
 #include <vector>
 #include <list>

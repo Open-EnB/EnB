@@ -2,7 +2,7 @@
 #include "fontsys_cursor.h"
 #include "fontmanager.h"
 #include "font32bit.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // local_interface_sort.cpp's sort object (8 bytes; constructor 0x6E0E80 over an interface, destructor 0x6E18B0), as intrface.cpp's
 class InterfaceSortClass  // NAME 1: neutral (D10)

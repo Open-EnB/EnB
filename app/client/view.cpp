@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 #include "sclient.h"
 #include "tasks\tsk_login.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <vector>
 
 // local_interface_sort.cpp's sort object (8 bytes) over one interface object (0x541980; the main view's 0x512A00

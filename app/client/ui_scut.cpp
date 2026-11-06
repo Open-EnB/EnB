@@ -7,7 +7,7 @@
 #include "client.h"
 #include "..\audio\soundlib.h"
 #include "rendobj.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
 
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this

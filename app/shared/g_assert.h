@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: e:\build\beta\G\app\shared\ (file name unknown; neutral name, D10)
+**	Original location: e:\build\beta\G\app\shared\ (client file name unknown; name chosen, D198)
 **
 **	E&B's assert macros, compiled in in the release client (no NDEBUG test):
 **
@@ -27,13 +27,13 @@
 #pragma once
 #endif
 
-#ifndef __UNKNOWN_DEBUG_H  // NAME 1 [unknown_debug.h]: neutral file name (D37, D10): the object has no __FILE__
-#define __UNKNOWN_DEBUG_H
+#ifndef __G_ASSERT_H  // NAME 2 [g_assert.h]: chosen file name (D198): the object has no __FILE__
+#define __G_ASSERT_H
 
-void Unknown_Assert_Failed(const char *expr, const char *file, int line);		// 0x4E9410
-void Unknown_Fail_If_Report(const char *expr, const char *file, int line);		// 0x4E9450
+void G_Assert_Report(const char *expr, const char *file, int line);		// 0x4E9410
+void Fail_If_Report(const char *expr, const char *file, int line);		// 0x4E9450
 
-#define G_ASSERT(expr)	((expr) ? (void)0 : Unknown_Assert_Failed(#expr, __FILE__, __LINE__))
-#define FAIL_IF(expr)	if ((expr) && (Unknown_Fail_If_Report(#expr, __FILE__, __LINE__), 1))	// D165: the && form (the ?: form left scriptedmovie 0x803310, co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690 off)
+#define G_ASSERT(expr)	((expr) ? (void)0 : G_Assert_Report(#expr, __FILE__, __LINE__))
+#define FAIL_IF(expr)	if ((expr) && (Fail_If_Report(#expr, __FILE__, __LINE__), 1))	// D165: the && form (the ?: form left scriptedmovie 0x803310, co 0x6FEC40, ini_manager 0x4EB1B0, px 0x44C2E0 / 0x44C520 / 0x44C690 off)
 
-#endif //__UNKNOWN_DEBUG_H
+#endif //__G_ASSERT_H

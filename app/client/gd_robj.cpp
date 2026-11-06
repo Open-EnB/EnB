@@ -4,7 +4,7 @@
 #include "scene.h"
 #include "fontmanager.h"
 #include "aabox.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // ro_funcs.cpp (app\shared, cdecl), as far as this file calls it
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110: a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.h

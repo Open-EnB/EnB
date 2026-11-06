@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 #include <hash_map.h>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "intrface.h"

@@ -10,7 +10,7 @@
 #include "auxdata\linearbu.h"
 #include <stdio.h>
 #include <string.h>
-#include "unknown_debug.h"
+#include "g_assert.h"
 
 extern ShipCustSettingsClass Unknown_BE56D8[][2];		// NAME 1 [Unknown_BE56D8]: 0xBE56D8, each race's two default settings (filled at run time)
 

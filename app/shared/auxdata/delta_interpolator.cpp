@@ -2,7 +2,7 @@
 #include <float.h>
 #include "delta_interpolator.h"
 #include "..\duration.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 // the time LastTime starts from (0xBE3A88, set to 0 by this file's initialiser 0x4A60F0)
 static DurationClass UnknownTime(0);

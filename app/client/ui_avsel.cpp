@@ -7,7 +7,7 @@
 #include "camera.h"
 #include "layer.h"
 #include "..\..\wwlib\ref_ptr.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
 #include "dx8renderer.h"
 #include "vector4.h"

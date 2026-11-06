@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\Client\mousetbl.cpp (__FILE__ 0xB94DD0). Notes at the end of the file.
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "assetmgr.h"
 #include "texture.h"
 #include "rendobj.h"

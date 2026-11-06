@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\Client\font32bit.cpp. Notes at the end of the file.
 #include "font32bit.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\ww3d2\surfaceclass.h"
 #include "..\..\wwmath\vector2i.h"
 #include <string.h>

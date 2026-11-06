@@ -6,7 +6,7 @@
 #include "..\packets\pkmanufactureitemcatagorypacket.h"
 #include "rendobj.h"
 #include "sbaseview.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\audio\soundlib.h"
 #include "assetmgr.h"

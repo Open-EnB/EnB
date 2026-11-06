@@ -4,7 +4,7 @@
 #include "ini.h"
 #include "nstrdup.h"
 #include "random.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\packets\pkmessagechatstream.h"
 #include <stdio.h>
 #include <stdlib.h>

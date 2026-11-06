@@ -3633,24 +3633,24 @@ RECONSTRUCTED = {
     ('wwshade', 'shd8ssbumpspec.vsh_code.h'): "shd8ssbumpspec_vsh_code, client .data 0xBCE4CC-0xBCEB7B (Shd8BumpSpecClass::Init 0xA147A0)",
     ('wwshade', 'shd8ssbumpspec.psh_code.h'): "shd8ssbumpspec_psh_code, client .data 0xBCEB7C-0xBCEBB7 (Shd8BumpSpecClass::Init 0xA147A0)",
     # E&B's own code (D23, APP_LIBS): paths under app\, as in e:\build\beta\G\app\...
-    ('app', 'shared/unknown_message.h'): "E&B's message reporters 0x4BBED0-0x4BC460 and the message server class "
-                                         "Unknown4BCA80Class (D137 provisional placement: the object 0x4BB8A0-0x4BE9D0 "
+    ('app', 'shared/message.h'): "E&B's message reporters 0x4BBED0-0x4BC460 and the message server class "
+                                         "MessageServerProtocolClass (D137 provisional placement: the object 0x4BB8A0-0x4BE9D0 "
                                          "has no __FILE__): neutral (D10)",
-    ('app', 'shared/unknown_message.cpp'): "the message reporters 0x4BBED0-0x4BC460 (levels 1-0x20, WWPROFILE labels "
+    ('app', 'shared/message.cpp'): "the message reporters 0x4BBED0-0x4BC460 (levels 1-0x20, WWPROFILE labels "
                                            "'Message_Debug'...), their common path 0x4BC5A0 and the server's accessors "
                                            "0x4BBE90 / 0x4BBEB0 (D137 provisional)",
-    ('app', 'shared/unknown_message_record.cpp'): "the message server's record Unknown4BB8A0Class 0x4BB8A0-0x4BBAA0 (its "
+    ('app', 'shared/message_record.cpp'): "the message server's record MessageRecordClass 0x4BB8A0-0x4BBAA0 (its "
                                                   "constructor, destructor and text forms: a separate object, the reporters "
                                                   "call them; D137 provisional)",
-    ('app', 'shared/unknown_message_server.cpp'): "the message server Unknown4BCA80Class from 0x4BCA80: constructor, destructor, "
+    ('app', 'shared/message_server.cpp'): "the message server MessageServerProtocolClass from 0x4BCA80: constructor, destructor, "
                                                   "listener 0x4BCCB0, 0x4BCCF0, 0x4BCD10, 0x4BD3F0, 0x4BD470 and its ArrayList "
                                                   "instances (a separate object: the reporters call 0x4BCD10, not inlined; D137 provisional)",
-    ('app', 'shared/unknown_message_filter.cpp'): "the message server's client filter Unknown4BDFE0Class from 0x4BDFE0: constructor "
+    ('app', 'shared/message_filter.cpp'): "the message server's client filter MessageFilterClass from 0x4BDFE0: constructor "
                                                   "and destructor 0x4BE060, its ini writer / reader 0x4BE0F0 / 0x4BE1E0, the match 0x4BE2C0 (D64) "
                                                   "and the parser 0x4BE7A0 (a separate object: the server calls them; D137 provisional)",
     ('app', 'shared/message/msgserv.cpp'): "the message server task MsgServer 0x8B20D0-0x8B2379 (its __FILE__ e:\\build\\beta\\G\\app\\shared\\message\\msgserv.cpp, the assert 'Get_Internal_Server_Protocol() == NULL' at line 48, the profiler label 'MsgServer::Run'): all byte-exact",
     ('app', 'shared/message/msgserv.h'): "MsgServer's class (vtable 0xB0C418; header name assumed from msgserv.cpp)",
-    ('app', 'shared/unknown_debug.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
+    ('app', 'shared/g_assert.h'): "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); "
                                        "the header's name is unknown (its object, in app\\shared between "
                                        "event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)",
     ('app', 'client/ctrngadg.cpp'): "the cockpit's full-screen camera gadget (its assert names e:\\build\\beta\\G\\app\\client\\ctrngadg.cpp, 0xB76294): constructor 0x50A850, the table 0xAECDE4's deleting destructor 0x50AAE0 / destructor 0x50AB10, the hit test 0x50AB30 and the event slot 0x50ABC0 (NOT EXACT), its value holder's destructor 0x50B2C0 and the static initialisers 0x50B2E0-0x50B340; GadgetClass's one-line slots 0x50A8C0-0x50AAC0 are emitted in its object",
@@ -3659,11 +3659,11 @@ RECONSTRUCTED = {
                                  "WWDebug's handler 0x509C10, the output 0x509C40, the print forms 0x509D50-0x509E30, "
                                  "0x509E50-0x509EB0, WinMain's step log 0x509EF0 / 0x50A1E0 over a std::deque<DbgStepStruct> "
                                  "(its out-of-line members 0x509B30, 0x50A560-0x50A810)",
-    ('app', 'shared/unknown_debug.cpp'): "the assert reporters 0x4E9410 and 0x4E9450 (they call E&B's reporter "
+    ('app', 'shared/g_assert.cpp'): "the assert reporters 0x4E9410 and 0x4E9450 (they call E&B's reporter "
                                          "0x4BC260 with the pooled \"\" 0xBDA908; byte-exact, objmatch 'multiple': the "
                                          "two differ only in their strings)",
     ('app', 'shared/unknown_new.cpp'): "E&B's global operator new 0x4E9CB0, new[] 0x4E9CE0 and delete 0x4E9D10 "
-                                       "(wwlib's FastAllocatorGeneral); the client's object is unknown_debug.cpp's, "
+                                       "(wwlib's FastAllocatorGeneral); the client's object is g_assert.cpp's, "
                                        "kept apart so that programs defining their own reporters link",
     ('app', 'shared/auxdata/bitset.cpp'): "BitSetClass (D24), client 0x4A47B0-0x4A4C4B: 12 functions, the "
                                           "asserts on the client's lines (D25)",
@@ -4172,8 +4172,10 @@ RECONSTRUCTED = {
                                   "the client's layout (0x18 bytes)",
     ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x830F30 (the stream connection's 100,000-byte receive "
                                     "buffer): all 7 functions exact, the asserts on the client's lines 112 / 166 (D25)",
-    ('app', 'common/chartemplate.cpp'): "chartemplate.cpp (PARTIAL): the template index of a race and profession (0x82F350) and "
-                                        "a template's name (0x82F3C0, table 0xBA8A08), both exact, FAIL_IFs on the client's lines 85 / 86 / 92 (D25)",
+    ('app', 'common/chartemplate.cpp'): "chartemplate.cpp (the client's __FILE__), whole: the CharTemplateEnum converters and the nine templates of "
+                                        "'chartemplate.ini', client 0x82F210-0x8303B0, all exact; asserts on the client's lines 85 / 86 / 92 / 132 / "
+                                        "136 / 153 / 171 / 172 (D25). No caller in the client but 0x82F350 / 0x82F3C0's",
+    ('app', 'common/chartemplate.h'): "CharTemplateEnum (the client's Type_Name) and CharTemplateClass (D24), the layout from 0x82F7D0 (header name assumed)",
     ('app', 'client/ship_pip.cpp'): "ShipPipClass (D24 class-from-file), the ship picture-in-picture gadget (table 0xB07DF4, "
                                     "37 slots, 0xF4 bytes), client 0x80B2E0-0x80E815 (__FILE__ 0xBA74A4; asserts on lines 132 / 253 / 267, "
                                     "D25); NOT EXACT (D64): 0x80C640, 0x80CA30, 0x80CE10, 0x80D5E0, 0x80E260, 0x80E530 (CRE1)",

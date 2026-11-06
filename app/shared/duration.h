@@ -20,7 +20,7 @@
 #define __DURATION_H
 
 #include <limits.h>
-#include "unknown_debug.h"
+#include "g_assert.h"
 
 class DurationClass  // NAME 3: by convention (D24) from the client's file duration.h (D37)
 {

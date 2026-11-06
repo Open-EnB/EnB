@@ -5,7 +5,7 @@
 #include "sclient.h"
 #include "tasks\tsk_login.h"
 #include "..\kernel\kernel.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (0xBFAE3C - 0xBFAE40, read inline)
 
 bool Unknown_42EC60(int button, int arg);							// 0x42EC60 (a key down: input.cpp's)  // NAME 1 [button, arg]: neutral

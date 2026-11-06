@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <vector>
 #include "expr_lexer_match_list.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 // @0x4C5930
 ExprLexerMatchListClass::ExprLexerMatchListClass() :

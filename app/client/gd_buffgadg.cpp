@@ -11,7 +11,7 @@
 #include "rendobj.h"
 #include "fontmanager.h"
 #include "buff_database.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\duration.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\wwmath\vector2.h"

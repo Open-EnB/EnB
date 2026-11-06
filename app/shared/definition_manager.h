@@ -24,7 +24,7 @@
 #include <string>
 #include <hash_map.h>
 #include "..\..\wwlib\refcount.h"
-#include "unknown_debug.h"
+#include "g_assert.h"
 
 // One cached definition and its users (12 bytes)
 template <class T>

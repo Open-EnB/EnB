@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\auxdata\permstr.cpp. Notes at the end of the file.
 #include <string.h>
 #include "permstr.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 #include "..\..\..\wwlib\nstrdup.h"
 
 // app\dbgmgr\dbgmgr.cpp's formatted debug output (0x509DC0; its header is not rebuilt yet)

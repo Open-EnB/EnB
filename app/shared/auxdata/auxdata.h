@@ -21,7 +21,7 @@
 #include "delta_template.h"
 #include "lookup.h"
 #include "name.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 #include "rtti.h"
 
 

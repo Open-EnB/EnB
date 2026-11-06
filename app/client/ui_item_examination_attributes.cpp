@@ -1,6 +1,6 @@
 #include "ui_item_examination_attributes.h"
 #include "dynamic_window_text.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <algorithm>
 
 UIItemExaminationAttributesClass::UIItemExaminationAttributesClass(UIDynamicWindowUnknown84Class *listener) :

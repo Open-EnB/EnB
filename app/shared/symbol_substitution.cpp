@@ -1,8 +1,8 @@
 // Earth & Beyond client (reconstruction): app\shared\symbol_substitution.cpp. Notes at the end of the file.
 #include "symbol_substitution.h"
-#include "unknown_debug.h"
+#include "g_assert.h"
 
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC260]: 0x4BC260, 0x4BC000's sibling
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Error]: the client's WWPROFILE("Message_Error") label (D198)
 
 SymbolSubstitutionClass::SymbolSubstitutionClass()
 {
@@ -109,7 +109,7 @@ bool Substitute_Symbols(std::string &str, const SymbolSubstitutionClass &symbols
 
 		end = Find_Mark(str, start + 1);
 		if (end == std::string::npos) {
-			Unknown_4BC260("", "SymbolSubstitution", __FILE__, __LINE__, "Unmatched '%c' pair! Cannot perform string substitution on string \"%s\"", '$', original.c_str());
+			Message_Error("", "SymbolSubstitution", __FILE__, __LINE__, "Unmatched '%c' pair! Cannot perform string substitution on string \"%s\"", '$', original.c_str());
 			str = original;
 			return false;
 		}

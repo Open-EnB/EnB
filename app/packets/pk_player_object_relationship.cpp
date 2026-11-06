@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): e:\build\beta\G\app\Packets\pk_player_object_relationship.cpp. Notes at the end of the file.
 #include "pk_player_object_relationship.h"
 #include "..\shared\strconv_lib.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <stdio.h>
 #include <string.h>
 

@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\auxdata\lookup.cpp. Notes at the end of the file.
 #include "lookup.h"
 #include "delta.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 // (the client's file has no assert before line 67)
 

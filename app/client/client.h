@@ -24,7 +24,7 @@
 #include "refcount.h"
 #include "ref_ptr.h"
 #include <string>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "matrix3d.h"
 #include "..\shared\duration.h"
 class KernelClass;

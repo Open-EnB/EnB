@@ -3,7 +3,7 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"
 #include "..\packets\pkupdate.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "sclient.h"
 #include "wwmath.h"
 #include "rendobj.h"

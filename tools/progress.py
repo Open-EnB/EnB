@@ -618,9 +618,11 @@ def render_card(r, names, hist, today_label):
         o.append('    <rect x="%d" y="100" width="9" height="9" rx="2" class="s-%s"/>' % (lx, s))
         o.append('<text x="%d" y="108.5" class="muted" font-size="11.5">%s</text>\n' % (lx + 14, esc(label)))
         lx += 14 + int(len(label) * 6.1) + 18
-    o.append('    <text x="28" y="128" class="muted" font-size="12.5">%s of %s bytes of client.exe\'s .text: %s KB byte-exact '
+    o.append('    <text x="28" y="128" class="muted" font-size="12.5">%s of %s bytes of client.exe\'s .text:</text>\n'
+             % (fmt(rebuilt), fmt(tot)))
+    o.append('    <text x="28" y="143" class="muted" font-size="12.5">%s KB byte-exact '
              'from source, %s KB runtime and D3DX, %s KB the linker\'s thunks, padding and EH stubs.</text>\n'
-             % (fmt(rebuilt), fmt(tot), fmt(c['exact'] // 1024), fmt(c['third'] // 1024), fmt(c['linker'] // 1024)))
+             % (fmt(c['exact'] // 1024), fmt(c['third'] // 1024), fmt(c['linker'] // 1024)))
     # bar 2
     o.append('    <text x="28" y="164" class="strong" font-size="15" font-weight="600">Written in C++</text>\n')
     o.append('    <text x="852" y="164" class="strong" font-size="20" font-weight="700" text-anchor="end">%.2f%%</text>\n' % pct(written, tot))

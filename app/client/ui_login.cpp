@@ -13,7 +13,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "refcount.h"
 #include "..\audio\soundlib.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\auxdata\permstr.h"
 #include "tutorial_manager.h"
 

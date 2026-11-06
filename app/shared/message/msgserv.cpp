@@ -2,7 +2,7 @@
 #include "msgserv.h"
 #include <winsock.h>
 #include <string.h>
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 #include "..\kv_encoder_base.h"
 #include "..\..\..\wwdebug\wwprofile.h"
 
@@ -88,7 +88,7 @@ void MsgServer::Describe(void *table)
 **	0x4BCD30) and Describe (KVEncoderBaseClass::Add 0x4B4A70 of 'TaskType'). 0x8B2390 after them (a
 **	guarded atexit of an empty destructor, 0xC416FC) is a header static's: not rebuilt.
 **
-**	The protocol (unknown_message*.cpp): a listener connects and sends filter lines, each '\0'-ended:
+**	The protocol (message*.cpp): a listener connects and sends filter lines, each '\0'-ended:
 **	'S' name '`' type '`' modules '`' files '`' prefix (Wstring::getToken skips empty fields, so each
 **	needs a character: ' ' is "any"; type is a mask of the levels 1 debug, 2 info, 4 warn, 8 error,
 **	0x10 stat, 0x20 0x4BC3A0's; 0xFFFFFF clears its filters). The server sends each message the filters

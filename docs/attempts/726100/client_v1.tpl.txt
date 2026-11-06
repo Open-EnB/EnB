@@ -10,7 +10,7 @@
 #include "..\common\dbgconn.h"
 #include "..\packets\pkdebug.h"
 #include "..\shared\spln_db.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "wwaudio.h"
 #include <stdlib.h>
 

@@ -15,7 +15,7 @@
 #include <string.h>
 #include "stub_log.h"
 
-#include "unknown_debug.h"
+#include "g_assert.h"
 #include "kv_list.h"
 #include "kv_pair_string.h"
 #include "lookup.h"
@@ -36,7 +36,7 @@
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
-// (0x4BC260, the assert functions' reporter, is real: app/shared/unknown_message.cpp)
+// (0x4BC260, the assert functions' reporter, is real: app/shared/message.cpp)
 
 // ------------------------------------------------------------------------- globals (data)
 

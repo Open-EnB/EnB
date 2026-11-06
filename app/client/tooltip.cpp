@@ -15,7 +15,7 @@
 #include "option.h"
 #include "tasks\tsk_login.h"
 #include "..\packets\pkgadget.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "aabox.h"
 
 unsigned int Unknown_Get_Ticks();				// 0x4A3B40, the aux-data clock

@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\packets\pkjoblist.cpp. Notes at the end of the file.
 #include "pkjoblist.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "nstrdup.h"
 #include <string.h>
 #include <stdio.h>

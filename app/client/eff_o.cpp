@@ -26,7 +26,7 @@
 #include "..\audio\soundlib.h"
 #include "..\..\wwaudio\Sound3D.h"
 bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp, not in strconv_lib.h: sscanf "%f,%f,%f")  // NAME 2: as strconv_lib.h's pairs
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (g_assert.h's reporter)
 static char *Unknown_B92E30[] = {"RObjLookAtEffect", "RObjEffect", "WarpEffect", "LineEffect", "StraightSeekEffect", "SpiralSeekEffect", "SplineRandomSeekEffect", "LinearRandomSeekEffect", "SoundEffect", "PassEffect", "AttachEffect", "RenderStateEffect", "ParticleJetEffect", NULL};	// 0xB92E30: effect.ini's EffectClass values, the factory's switch  // NAME 1: neutral (D10)
 Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0x82ECB0 (cdecl; a transform at the position facing along the direction)  // NAME 1 [direction, position]: what 0x6E8DD0 passes
 // The render-state effect the factory's helper 0x6EC7D0 makes (0xE4 bytes; its file, between eff_robj.cpp and
@@ -483,7 +483,7 @@ void UnknownB00060EffectClass::Unknown_28(int game_id)
 		Unknown_6E7AA0();
 		return;
 	}
-	Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Set_Source_Object_ID couldn't find the object!");
+	Message_Error("A/V Effects", "", __FILE__, __LINE__, "Set_Source_Object_ID couldn't find the object!");
 	Flag.State = 2;
 	Unknown_20();
 	Unknown_6E7330();
@@ -552,7 +552,7 @@ void UnknownB00060EffectClass::Unknown_24(int next)
 		}
 		G_ASSERT(0);
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Unary effect linked to non-unary effect %d", (next == 0) ? StartLinkID : NextLinkID);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "Unary effect linked to non-unary effect %d", (next == 0) ? StartLinkID : NextLinkID);
 	}
 }
 
@@ -633,7 +633,7 @@ void UnknownB0009CEffectClass::Unknown_28(int game_id)
 		Unknown_6E8F80();
 		return;
 	}
-	Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Set_Source_Object_ID couldn't find the object!");
+	Message_Error("A/V Effects", "", __FILE__, __LINE__, "Set_Source_Object_ID couldn't find the object!");
 	Flag.State = 2;
 	Unknown_20();
 	Unknown_6E7330();
@@ -660,7 +660,7 @@ void UnknownB0009CEffectClass::Unknown_34(int game_id)
 		TargetPosition = TargetObject->Unknown_24() + TargetOffset;
 		return;
 	}
-	Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Set_Target_Object_ID couldn't find the object!");
+	Message_Error("A/V Effects", "", __FILE__, __LINE__, "Set_Target_Object_ID couldn't find the object!");
 	Flag.State = 2;
 	Unknown_20();
 	Unknown_6E7330();
@@ -814,7 +814,7 @@ void UnknownB0009CEffectClass::Unknown_24(int next)
 		}
 		G_ASSERT(0);
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Invalid effect %d (neither unary nor binary!)", (next == 0) ? StartLinkID : NextLinkID);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "Invalid effect %d (neither unary nor binary!)", (next == 0) ? StartLinkID : NextLinkID);
 	}
 }
 
@@ -957,7 +957,7 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned id, unsigned duration, u
 
 
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Missing or invalid effect entry %d", desc_id);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "Missing or invalid effect entry %d", desc_id);
 		return(NULL);
 	}
 	float robj_scale = ini->Get_Float(section, "RObjScale", 1.0f);
@@ -1010,7 +1010,7 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned id, unsigned duration, u
 
 
 
-			FAIL_IF(f_client_duration <= 0.0f) { Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Client & server duration are 0 for effect %d", desc_id); f_client_duration = 1.0f; }
+			FAIL_IF(f_client_duration <= 0.0f) { Message_Error("A/V Effects", "", __FILE__, __LINE__, "Client & server duration are 0 for effect %d", desc_id); f_client_duration = 1.0f; }
 			duration = f_client_duration * 1000.0f;
 			if (effect_class == 3) {
 				duration = duration * inv_speedup;
@@ -1048,7 +1048,7 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned id, unsigned duration, u
 
 
 
-			FAIL_IF(f_client_duration <= 0.0f) { Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Both server duration for effect %d and client duration of it's linked effect %d are 0", desc_id, linked_desc_id); f_client_duration = 1.0f; }
+			FAIL_IF(f_client_duration <= 0.0f) { Message_Error("A/V Effects", "", __FILE__, __LINE__, "Both server duration for effect %d and client duration of it's linked effect %d are 0", desc_id, linked_desc_id); f_client_duration = 1.0f; }
 			duration = f_client_duration * 1000.0f;
 			if (linked_class == 3) {
 				duration = duration * inv_speedup;
@@ -1207,7 +1207,7 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned id, unsigned duration, u
 
 
 		G_ASSERT(0);
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Failed to create effect %d", desc_id);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "Failed to create effect %d", desc_id);
 	}
 	return(effect);
 }
@@ -1347,7 +1347,7 @@ EffectObjectClass *Unknown_6EAC50(INIClass *ini, const char *section, unsigned i
 
 
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Base asset for line effect %d isn't a line", section);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "Base asset for line effect %d isn't a line", section);
 	}
 	return(effect);
 }
@@ -1538,19 +1538,19 @@ EffectObjectClass *Unknown_6EB9B0(INIClass *ini, const char *section, unsigned i
 
 
 				G_ASSERT(0);
-				Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Swatch %s for PassEffect %d is not a mesh!", swatch, section);
+				Message_Error("A/V Effects", "", __FILE__, __LINE__, "Swatch %s for PassEffect %d is not a mesh!", swatch, section);
 			}
 			robj->Release_Ref();
 		} else {
 
 
 			G_ASSERT(0);
-			Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Could not create swatch %s from file %s for PassEffect %d", swatch, filename, section);
+			Message_Error("A/V Effects", "", __FILE__, __LINE__, "Could not create swatch %s from file %s for PassEffect %d", swatch, filename, section);
 		}
 	} else {
 
 		G_ASSERT(0);
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "No Swatch specified in effect.ini for PassEffect %d", section);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "No Swatch specified in effect.ini for PassEffect %d", section);
 	}
 	if (!pass) {
 		pass = Create_NEW(new MaterialPassClass);
@@ -1705,7 +1705,7 @@ EffectObjectClass *Unknown_6EC950(INIClass *ini, const char *section, unsigned i
 
 
 
-		Unknown_4BC260("A/V Effects", "", __FILE__, __LINE__, "Base asset for particle jet effect %d isn't a particle emitter", section);
+		Message_Error("A/V Effects", "", __FILE__, __LINE__, "Base asset for particle jet effect %d isn't a particle emitter", section);
 	}
 	return(effect);
 }

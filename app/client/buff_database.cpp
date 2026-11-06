@@ -1,13 +1,13 @@
 // Earth & Beyond client (reconstruction): app\Client\buff_database.cpp. Notes at the end of the file.
 #include <stdio.h>
 #include "buff_database.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\wwstring.h"
 #include "..\..\wwlib\nstrdup.h"
 
-void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC260]: 0x4BC260, 0x4BC000's sibling
+void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Error]: the client's WWPROFILE("Message_Error") label (D198)
 
 BuffDatabaseClass *BuffDatabaseClass::Instance;
 
@@ -44,7 +44,7 @@ BuffDatabaseClass::BuffDatabaseClass() : Buffs(0)
 {
 	INIClass ini("buffdef.ini");
 	if (!ini.Is_Loaded()) {
-		Unknown_4BC260("Buff Database", "", __FILE__, __LINE__, "buffdef.ini file not found");
+		Message_Error("Buff Database", "", __FILE__, __LINE__, "buffdef.ini file not found");
 		return;
 	}
 
@@ -75,7 +75,7 @@ BuffDatabaseClass::BuffDatabaseClass() : Buffs(0)
 			BuffDefStruct *def = new BuffDefStruct(type, asset, tool_tip, alt_tool_tip, is_good);
 			if (Find(def->Type) != 0) {
 				delete def;
-				Unknown_4BC000("Buff Database", "", __FILE__, __LINE__, "Duplicate buff type definition encountered");
+				Message_Info("Buff Database", "", __FILE__, __LINE__, "Duplicate buff type definition encountered");
 			} else {
 				Buffs[std::string(def->Type)] = def;
 			}

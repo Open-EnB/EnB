@@ -20,7 +20,7 @@
 #include <string>
 #include <hash_map.h>
 #include "unknown_robj_hash.h"									// hash<RenderObjClass *>: the fonts are keyed by their render object
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\..\wwlib\wwstring.h"

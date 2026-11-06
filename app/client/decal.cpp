@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 #include "decal.h"
-#include "..\shared\unknown_debug.h"
-#include "..\shared\unknown_message.h"
+#include "..\shared\g_assert.h"
+#include "..\shared\message.h"
 #include "..\shared\enbassetmgr.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwmath\vector4.h"
@@ -130,19 +130,19 @@ void SClientUnknown1334Class::Load(const char *decal_texture_ini_filename, const
 
 				} else {
 					G_ASSERT(0);
-					Unknown_4BC260("Decals", "", __FILE__, __LINE__, "Swatch %s for swatch decal %d is not a mesh!", name, i);
+					Message_Error("Decals", "", __FILE__, __LINE__, "Swatch %s for swatch decal %d is not a mesh!", name, i);
 				}
 				robj->Release_Ref();
 
 
 			} else {
 				G_ASSERT(0);
-				Unknown_4BC260("Decals", "", __FILE__, __LINE__, "Could not create swatch %s from file %s for swatch decal %d", name, filename, i);
+				Message_Error("Decals", "", __FILE__, __LINE__, "Could not create swatch %s from file %s for swatch decal %d", name, filename, i);
 			}
 
 		} else {
 			G_ASSERT(0);
-			Unknown_4BC260("Decals", "", __FILE__, __LINE__, "No Swatch specified in decal_swatches.ini for swatch decal %d", i);
+			Message_Error("Decals", "", __FILE__, __LINE__, "No Swatch specified in decal_swatches.ini for swatch decal %d", i);
 		}
 		SwatchArray.push_back(swatch);
 	}

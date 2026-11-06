@@ -19,14 +19,14 @@
 #include "srandom.h"
 #include <string.h>
 #include "..\..\libs\wwonline\wlib\wdebug.h"	// E&B's INFMSG (MsgManager::infoStream 0x8B5B90)
-// E&B's message reporter 0x4BC130 (cdecl, printf-style; unknown_debug.cpp's 0x4BC260 is its sibling): the
+// E&B's message reporter 0x4BC130 (cdecl, printf-style; message.cpp's 0x4BC260 is its sibling): the
 // sender, the category, the file and line, a format (D81: the client pushes its pooled "" 0xBDA908 as the
 // sender, as dbgmgr.cpp does). Not rebuilt: a program that links CordMgr defines it
 // (tests/udpreplay does). The asserts and these calls sit on the client's lines (D25), so
 // this block keeps the eight lines the stand-in class took.
 //
-void Unknown_4BC130(const char *sender, const char *category, const char *file, int line,
-	const char *format, ...);	// NAME 1 [Unknown_4BC130]: 0x4BC130
+void Message_Warn(const char *sender, const char *category, const char *file, int line,
+	const char *format, ...);	// NAME 5 [Message_Warn]: the client's WWPROFILE("Message_Warn") label (D198)
 
 // 0x8B3EC0 (WWOnline's library, not app\wwudp; here until that library is in the tree, so that
 // CordCon calls it as the client does instead of inlining it): CRC-32 with the reflected table of 0xEDB88320,
@@ -247,7 +247,7 @@ bool CordMgr::Pump_Connections()
 
 #include <stdio.h>
 #include <ctype.h>
-void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter
+void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
 
 // NOT EXACT: 0x857F20 (frame 0x6E4 vs 0x6EC, registers: the client keeps this in ebp). Every data socket, then every
 // listening one, until Read says nothing more (< 0); SYN1 / SYN2 only on a listening socket, the data only on a data
@@ -589,7 +589,7 @@ bool CordMgr::Pump()
 
 
 
-				Unknown_4BC130("", "UDP", __FILE__, __LINE__, "Unexpected packet: (%d) (%s : %d) -> (%d [%d]) (%s)",
+				Message_Warn("", "UDP", __FILE__, __LINE__, "Unexpected packet: (%d) (%s : %d) -> (%d [%d]) (%s)",
 					len, from_text, from.sin_port, lport, logged, bytes);
 			unsigned short session = 0;
 			if ((type == 4 || type == 5) && len >= 3) {
@@ -615,7 +615,7 @@ bool CordMgr::Pump()
 
 
 
-						Unknown_4BC000("", "UDP", __FILE__, __LINE__, "We must have dropped an ack2 packet to the client!: %d", session);
+						Message_Info("", "UDP", __FILE__, __LINE__, "We must have dropped an ack2 packet to the client!: %d", session);
 						goto next;
 					}
 				}
@@ -1269,7 +1269,7 @@ bool CordMgr::Process_CORD_Packet(unsigned char *data, int len, sockaddr_in *fro
 
 
 
-				Unknown_4BC130("", "UDP", __FILE__, __LINE__, "Packet failed validation (%p : %d (key=%d))",
+				Message_Warn("", "UDP", __FILE__, __LINE__, "Packet failed validation (%p : %d (key=%d))",
 					ntohl(from->sin_addr.s_addr), ntohs(from->sin_port), con->Key_);
 			}
 		}

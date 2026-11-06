@@ -4,7 +4,7 @@
 #include "stredit.h"
 #include "..\kernel\kernel.h"
 #include "..\input\input.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 #define STRING_CHECK_VALUE '~'	// NAME 5: the asserts'
 

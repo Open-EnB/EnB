@@ -2,7 +2,7 @@
 #define ENABLE_WWPROFILE
 #include "px_wrapper.h"
 #include "px.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "wwprofile.h"
 #include "wwmath.h"
 #include <algorithm>

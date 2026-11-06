@@ -2,7 +2,7 @@
 #include "fontmanager.h"
 #include "fontdatabase.h"
 #include "font32bit.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\ww3d2\dx8wrapper.h"
 #include "..\..\ww3d2\texture.h"

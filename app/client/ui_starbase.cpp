@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x633010-0x648340 by its asserts and its string order).
-// So far only the starbase lights panel (the class below, 0x646170-0x648238, ST1); the file's
-// own functions with their asserts (lines 368-4180) come before it in the client.
+// So far the starbase interface's lights helpers 0x640CC0-0x640F30 and the starbase lights panel (the class below,
+// 0x646170-0x648238), ST1; the file's own functions with their asserts (lines 368-4180) lie around them in the client.
 #include <stdio.h>
 #include <string.h>
 #include <vector>
@@ -32,6 +32,75 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, a
 void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [robj, u, v, color]: as ui_avatar_cust.cpp's
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (the pointer, 0..1)  // NAME 1 [x, y]: as ui_avatar_cust.cpp's
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_avatar_cust.cpp's
+
+// The starbase view's +0x70 scene (sbaseview.cpp's SBaseViewUnknown70Class), as far as the starbase interface calls it
+class UIStarbaseSceneClass	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_762920(float fill);					// 0x762920 (its +0xAC)  // NAME 1 [fill]: what 0x640EC0 passes
+	void Unknown_762940(const Vector3 &color);			// 0x762940 (its +0xA0: the ambient colour)  // NAME 1 [color]: what 0x640E90 passes
+};
+
+// Out of line, as the client: its lights panel below calls 0x640D80-0x640F30 (auto_inline off, as co.cpp's 0x6F3ED0)
+#pragma auto_inline(off)
+
+// 0x640CC0
+void UIStarbaseClass::Unknown_640CC0()
+{
+	for (std::vector<LightClass *>::iterator it = Lights.begin(); it != Lights.end(); it++) {
+		LightClass *light = *it;
+		light->Remove();
+		light->Release_Ref();
+	}
+	Lights.erase(Lights.begin(), Lights.end());
+}
+
+// 0x640D80
+void UIStarbaseClass::Unknown_640D80(int *a, int *b, int *c)
+{
+	*a = UnknownB0->Unknown1B4->Unknown18;
+	*b = Room;
+	if (UnknownB4->Unknown0B) {
+		*c = 3;
+	} else {
+		*c = UnknownB4->Unknown0A ? 2 : 1;
+	}
+}
+
+// 0x640DF0
+std::vector<LightClass *> UIStarbaseClass::Unknown_640DF0()
+{
+	return(Lights);
+}
+
+// 0x640E90
+void UIStarbaseClass::Unknown_640E90(const Vector3 &color)
+{
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_762940(color);
+}
+
+// 0x640EC0
+void UIStarbaseClass::Unknown_640EC0(float fill)
+{
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_762920(fill);
+}
+
+// 0x640EF0
+void UIStarbaseClass::Unknown_640EF0(int index)
+{
+}
+
+// 0x640F10
+void UIStarbaseClass::Unknown_640F10()
+{
+}
+
+// 0x640F30
+void UIStarbaseClass::Unknown_640F30(int index, float range)
+{
+}
+
+#pragma auto_inline(on)
 
 // The colour pad's gadget (0x80 bytes, constructor 0x671300), as ui_avatar_cust.cpp's UIAvatarCustGadget671300Class
 class UIStarbaseLightsGadget671300Class : public GadgetClass	// NAME 1: neutral (D10)

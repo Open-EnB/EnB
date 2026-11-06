@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\packets\gameedit\pkgekv.cpp. Notes at the end of the file.
 #include "pkgekv.h"
-#include "..\..\shared\unknown_debug.h"
+#include "..\..\shared\g_assert.h"
 #include <stdio.h>
 #include <string.h>
 

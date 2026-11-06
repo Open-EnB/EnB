@@ -66,7 +66,7 @@ indirect calls are resolved: the Delta slots over all 87 Delta vtables. Ghidra's
 | helper | 0x4AACE0 | `LinearBufferClass::Read(dst, n)` | 135 | linearbu.cpp | exact | everywhere |
 | helper | 0x4AB280 / 0x4AB2A0 | `LinearBufferClass::Get_Pos` / seek? | 4 / 43 | linearbu.cpp | in tree (12 copies) / exact | from 0x4A9710 |
 | helper | 0x4A47B0, 0x4A4AA0 / 0x4A4960 | `BitSetClass` ctor, bit test / dtor | 136, 72 / 10 | auxdata/bitset.cpp | exact / in tree (5 copies) | from 0x4A9400/0x4A9710 |
-| helper | 0x4E9410, 0x4E9CB0, 0x4E9D10 | `G_ASSERT`, E&B `operator new` / `delete` | 39, 18, 22 | unknown_debug.h (header only) | missing | direct |
+| helper | 0x4E9410, 0x4E9CB0, 0x4E9D10 | `G_ASSERT`, E&B `operator new` / `delete` | 39, 18, 22 | g_assert.h (header only) | missing | direct |
 
 **Roots** (top level only; M1.3): CREATE factory 0x6F6000 (1,258 B, co.cpp; byte index table
 0x6F6518, 11-entry jump table 0x6F64EC; called from 0x6F2820, 839 B, the CREATE handler?); Ship

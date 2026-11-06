@@ -27,7 +27,7 @@
 #include "aabtreecull.h"
 #include "gridcull.h"
 #include "obbox.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 class CameraClass;
 class VertexMaterialClass;

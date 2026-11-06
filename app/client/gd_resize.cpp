@@ -2,7 +2,7 @@
 #include "gd_resize.h"
 #include "rendobj.h"
 #include "wwmath.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 ResizeGadgetClass::ResizeGadgetClass(const RefCountPtr<RenderObjClass> &robj) :
 	Unknown_675120Class(robj.Peek(), 0x77),

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "ui_line_display.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\wwstring.h"
 #include "..\..\wwlib\random.h"

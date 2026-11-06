@@ -22,7 +22,7 @@
 #include "delta.h"
 #include "..\duration.h"
 #include "linearbu.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 template<class T> class DeltaTemplateClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta_template.h
 {

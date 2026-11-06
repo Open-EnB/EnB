@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\chat_edit_stream.cpp. Notes at the end of the file.
-#include "unknown_debug.h"
+#include "g_assert.h"
 #include "chat_edit_stream.h"
 #include <stdlib.h>
 #include <string.h>

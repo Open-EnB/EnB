@@ -5,7 +5,7 @@
 // (KVPairTemplateClass<ProfessionType> in shipcust_desc.cpp); the bit field's text joins the names with '|'.
 #include "prof.h"
 #include <string.h>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 static char *ProfessionNames[] = { "Warrior", "Tradesman", "Explorer", "Other" };	// 0xBB05E8  // NAME 1: what it holds
 

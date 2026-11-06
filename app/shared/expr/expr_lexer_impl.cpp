@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\shared\expr\expr_lexer_impl.cpp. Notes at the end of the file.
 #include "expr_lexer_impl.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 
 typedef std::vector<std::pair<int, ExprLexerMatchClass *> > ExprLexerMatchVector;	// NAME 3 [ExprLexerMatchVector]

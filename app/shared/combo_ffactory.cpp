@@ -4,7 +4,7 @@
 #include <ctype.h>
 #include <algorithm>
 #include "combo_ffactory.h"
-#include "unknown_debug.h"
+#include "g_assert.h"
 #include "..\..\wwlib\mixfile.h"
 #include "..\..\wwlib\wwfile.h"
 #include "..\..\ww3d2\texturethumbnail.h"

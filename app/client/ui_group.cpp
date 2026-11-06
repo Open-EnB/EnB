@@ -10,7 +10,7 @@
 #include "control_keys_manager.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\nstrdup.h"
 #include "..\packets\pkcta_request.h"
 #include "..\packets\pkrequesttarget.h"
@@ -69,7 +69,7 @@ public:
 
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: what the callers pass
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (g_assert.h's reporter)
 
 // The member rows' bars (0xB7F4B8 / 0xB7F4C4): 0x597310 sorts them above or below the row's 'main'
 static const char *Unknown_B7F4B8[] = { "hull_bar0", "shield_bar0", NULL };	// NAME 1: neutral (D10)
@@ -560,7 +560,7 @@ void UIGroupMemberClass::Unknown_5938A0(const char *text, float time, int index)
 		}
 		Unknown24 = time;
 	} else {
-		Unknown_4BC260("Group Inteface", "", __FILE__, __LINE__, "Invalid Symbol name or missing renderobj");
+		Message_Error("Group Inteface", "", __FILE__, __LINE__, "Invalid Symbol name or missing renderobj");
 		Unknown24 = 0;
 		Unknown1D = false;
 	}

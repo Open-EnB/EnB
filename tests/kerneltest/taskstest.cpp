@@ -159,7 +159,7 @@ void Unknown_Debug_Begin_Step(const char *text) { fprintf(Out, "step: %s\n", tex
 void Unknown_Debug_End_Step(const char *text) { fprintf(Out, "step end: %s\n", text); }
 bool Unknown_5FAE70() { return false; }
 bool Unknown_5FAD50() { return false; }
-void Unknown_Fail_If_Report(const char *expr, const char *, int line) { fprintf(Out, "fail_if %s (line %d)\n", expr, line); }
+void Fail_If_Report(const char *expr, const char *, int line) { fprintf(Out, "fail_if %s (line %d)\n", expr, line); }
 void Unknown_Load_Assets(const std::string &ini) { fprintf(Out, "load assets %s\n", ini.c_str()); }
 void Unknown_Free_Assets() { fprintf(Out, "free assets\n"); }
 

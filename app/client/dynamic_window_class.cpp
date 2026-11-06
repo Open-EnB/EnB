@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\Client\dynamic_window_class.cpp (__FILE__ 0xB76A30). Notes at the end of the file.
 #include "dynamic_window_class.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 DynamicWindowClass::DynamicWindowClass(const char *name, int unknown) :
 	DynamicWindowBackgroundClass(name, 6),

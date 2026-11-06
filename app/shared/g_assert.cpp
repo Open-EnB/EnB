@@ -1,23 +1,23 @@
-// Earth & Beyond client (reconstruction): the assert reporters of unknown_debug.h. Notes at the end of the file.
-#include "unknown_debug.h"
+// Earth & Beyond client (reconstruction): the assert reporters of g_assert.h. Notes at the end of the file.
+#include "g_assert.h"
 
-#include "unknown_message.h"
+#include "message.h"
 
-void Unknown_Assert_Failed(const char *expr, const char *file, int line)
+void G_Assert_Report(const char *expr, const char *file, int line)
 {
-	Unknown_4BC260("", "G_ASSERT", file, line, "ASSERTION FAILED: %s", expr);
+	Message_Error("", "G_ASSERT", file, line, "ASSERTION FAILED: %s", expr);
 }
 
-void Unknown_Fail_If_Report(const char *expr, const char *file, int line)
+void Fail_If_Report(const char *expr, const char *file, int line)
 {
-	Unknown_4BC260("", "FAIL_IF", file, line, "ERROR: %s", expr);
+	Message_Error("", "FAIL_IF", file, line, "ERROR: %s", expr);
 }
 
 
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4E9410 and 0x4E9450, the first two functions of the object unknown_debug.h
+**	client.exe 0x4E9410 and 0x4E9450, the first two functions of the object g_assert.h
 **	describes. Both push the expression, the format, the line, the file, the category and ""
 **	(0xBDA908: the client's pooled empty string, also the first two arguments of 0x4BC130's calls in
 **	dbgmgr.cpp, pk.cpp's nstrdup fallback and dx8webbrowser's empty name; not an object) and call

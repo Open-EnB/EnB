@@ -4,7 +4,7 @@
 #include "..\audio\soundlib.h"
 #include "..\..\wwaudio\AudibleSound.h"
 #include "..\..\wwlib\nstrdup.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 inline SoundManagerQueueEntryStruct::SoundManagerQueueEntryStruct(const char *name) :
 	Name(nstrdup(name))

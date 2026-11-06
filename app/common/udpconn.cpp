@@ -5,7 +5,7 @@
 #include "..\packets\pk.h"
 #include "..\wwudp\cordcon.h"
 #include "..\wwudp\cordmgr.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "wwprofile.h"
 #include "..\..\wwlib\nstrdup.h"
 #include <stdlib.h>

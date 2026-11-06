@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\split_string.cpp. Notes at the end of the file.
 #include <string.h>
 #include "split_string.h"
-#include "unknown_debug.h"
+#include "g_assert.h"
 
 
 SplitStringClass::SplitStringClass(const char *text, float width, int cursor) :

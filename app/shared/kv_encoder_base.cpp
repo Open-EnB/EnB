@@ -2,7 +2,7 @@
 #include "kv_encoder_base.h"
 #include "kv_list.h"
 #include "kv_pair_string.h"
-#include "unknown_debug.h"
+#include "g_assert.h"
 
 // the prefixes joined, each followed by a dot (0x4B43E0; Push_Prefix and Set_Prefix inline it)
 static void Unknown_Join(std::list<std::string> &list, std::string &out)

@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pk.cpp (PARTIAL). Notes at the end of the file.
 #include "pk.h"
 #include "pk_classes.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\nstrdup.h"
 #include <string.h>
 #include <winsock.h>

@@ -35,7 +35,7 @@
 #include "..\common\lego_identifier.h"
 #include "ref_ptr.h"
 #include "sphere.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 class RenderObjClass;
 class AudibleSoundClass;

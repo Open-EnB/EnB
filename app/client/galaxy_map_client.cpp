@@ -6,7 +6,7 @@
 #include "..\packets\pkgalaxymap.h"
 #include "..\shared\auxdata\linearbu.h"
 #include "..\shared\auxdata\bitset.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 // 0x7A4830
 GalaxyMapClientClass::GalaxyMapClientClass() :
 	Version(0),

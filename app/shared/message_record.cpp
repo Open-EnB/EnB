@@ -1,13 +1,13 @@
-// Earth & Beyond client (reconstruction): the message server's record (unknown_message.h). Notes at the end of the file.
-#include "unknown_message.h"
+// Earth & Beyond client (reconstruction): the message server's record (message.h). Notes at the end of the file.
+#include "message.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-// PLACEMENT: provisional (D137): see unknown_message.h; its own object because the reporters
-// (unknown_message.cpp) call its constructor 0x4BB8A0 and destructor 0x4BB930 instead of inlining them
+// PLACEMENT: provisional (D137): see message.h; its own object because the reporters
+// (message.cpp) call its constructor 0x4BB8A0 and destructor 0x4BB930 instead of inlining them
 
 // 0x4BB8A0
-Unknown4BB8A0Class::Unknown4BB8A0Class() :
+MessageRecordClass::MessageRecordClass() :
 	Level(0),
 	Line(0),
 	X(0),
@@ -17,12 +17,12 @@ Unknown4BB8A0Class::Unknown4BB8A0Class() :
 }
 
 // 0x4BB930
-Unknown4BB8A0Class::~Unknown4BB8A0Class()
+MessageRecordClass::~MessageRecordClass()
 {
 }
 
 // 0x4BB9C0
-void Unknown4BB8A0Class::To_String(Wstring &out)
+void MessageRecordClass::To_String(Wstring &out)
 {
 	char buffer[128];
 	char *file = (File.length() != 0) ? File.get() : "NULL";
@@ -33,7 +33,7 @@ void Unknown4BB8A0Class::To_String(Wstring &out)
 }
 
 // 0x4BBAA0
-bit8 Unknown4BB8A0Class::From_String(Wstring &in)
+bit8 MessageRecordClass::From_String(Wstring &in)
 {
 	Wstring level;
 	Wstring line;

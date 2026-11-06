@@ -64,7 +64,7 @@ WWUDP = [r'app\wwudp\cordcon.cpp', r'app\wwudp\cordmgr.cpp', r'app\wwudp\unknown
 # --conn (conn): the connection layer over them (docs/kernel-map.md 4), with what it needs
 CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpconn.cpp',
         r'app\kernel\kernel.cpp', r'app\shared\auxdata\linearbu.cpp', r'app\packets\pk.cpp',
-        r'app\packets\clientstub.cpp', r'app\shared\unknown_debug.cpp',
+        r'app\packets\clientstub.cpp', r'app\shared\g_assert.cpp',
         r'app\common\unknown_navlist.cpp',   # WARP 155's navigation list
         r'app\common\lego_identifier.cpp',   # the object-to-object effects' bone path (opcodes 11-14)
         r'app\shared\avatar_desc.cpp',       # AVATAR_DESCRIPTION 97's member (avatar_desc_stubs.cpp)

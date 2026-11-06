@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\expr\expr_math_tree.cpp. Notes at the end of the file.
 #include <stdio.h>
 #include "expr_math_tree.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 
 // @0x4D2580

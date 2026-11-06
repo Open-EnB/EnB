@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction)
 #include "sclient.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\ww3d2\rendobj.h"
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\ww3d.h"

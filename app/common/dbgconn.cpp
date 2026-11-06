@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\common\dbgconn.cpp (PARTIAL). Notes at the end of the file.
 #include "dbgconn.h"
 #include "..\packets\pk.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\auxdata\unknown_root.h"
 #include "..\..\wwlib\ini.h"
 #include <string.h>

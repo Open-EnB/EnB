@@ -2,7 +2,7 @@
 #include "sclient.h"
 #include "co.h"
 #include "..\packets\pk_player_object_relationship.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"
 #include "..\..\wwlib\inisup.h"
@@ -13,7 +13,7 @@ void Unknown_70CC40(SClient *sclient, PlayerObjectRelationshipPacket *packet);	/
 void Unknown_70CC90(SClient *sclient, PlayerObjectReactionUpdatePacket *packet);	// NAME 1 [Unknown_70CC90, sclient, packet]: cpacket.cpp's 138 handler
 void Unknown_70CD50(SClient *sclient, PlayerObjectIsAttackingUpdatePacket *packet);	// NAME 1 [Unknown_70CD50, sclient, packet]: cpacket.cpp's ATTACKER_UPDATES 139 handler
 void Unknown_70A7E0(const std::string &ini);	// NAME 1 [Unknown_70A7E0]: sclient.cpp's name ('gutter_color.ini')
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC260]: 0x4BC260, E&B's message reporter (buff_database.cpp)
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Error]: the client's WWPROFILE("Message_Error") label (D198)
 bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp, not in strconv_lib.h: sscanf "%f %f %f")  // NAME 2: as strconv_lib.h's pairs
 
 // One gutter colour: the ini's <name>1 and <name>2 entries (0.66 grey when missing; 0x18 bytes)
@@ -94,7 +94,7 @@ void Unknown_70A7E0(const std::string &filename)
 	INIClass ini;
 
 	FAIL_IF(!ini.Load(filename.c_str())) {
-		Unknown_4BC260("", "Relationship", __FILE__, __LINE__, "Failed to load gutter color ini (%s)", filename.c_str());
+		Message_Error("", "Relationship", __FILE__, __LINE__, "Failed to load gutter color ini (%s)", filename.c_str());
 		return;
 	}
 
@@ -114,7 +114,7 @@ GutterColorSetStruct Unknown_70ADF0(const std::string &name)	// NAME 1 [Unknown_
 {
 	std::hash_map<std::string, GutterColorSetStruct>::iterator it = GutterColors.find(name);
 	if (it == GutterColors.end()) {
-		Unknown_4BC260("", "Relationship", __FILE__, __LINE__, "Failed to lookup gutter color %s", name.c_str());
+		Message_Error("", "Relationship", __FILE__, __LINE__, "Failed to lookup gutter color %s", name.c_str());
 		return(Unknown_70A540());
 	} return((*it).second);
 }
