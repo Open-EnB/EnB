@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1313 |
+| 3 | by convention from a client-named file or sibling | 1314 |
 | 2 | describes what the code does | 3023 |
-| 1 | neutral placeholder | 14663 |
+| 1 | neutral placeholder | 14714 |
 
 ## For review (score 3 and below)
 
@@ -10099,6 +10099,57 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownC0` | `app/client/ui_missn.h:49` | untagged neutral name (D10) |
 | 1 | `UnknownC4` | `app/client/ui_missn.h:50` | untagged neutral name (D10) |
 | 1 | `UnknownD8` | `app/client/ui_missn.h:53` | untagged neutral name (D10) |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_ping.cpp:23` | as eff_o.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/ui_ping.cpp:23` | untagged neutral name (D10) |
+| 1 | `robj, a, b, c` | `app/client/ui_ping.cpp:24` | neutral |
+| 1 | `Unknown_496110` | `app/client/ui_ping.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_589CA0` | `app/client/ui_ping.cpp:25` | untagged neutral name (D10) |
+| 1 | `UIPingLabels` | `app/client/ui_ping.cpp:28` | neutral (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_ping.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_ping.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_ping.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_ping.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown098` | `app/client/ui_ping.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_ping.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/ui_ping.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_686DD0` | `app/client/ui_ping.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_ping.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_686CC0` | `app/client/ui_ping.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_ping.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_ping.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/ui_ping.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_674260Class` | `app/client/ui_ping.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown51C800Class` | `app/client/ui_ping.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_ping.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_5D85B0` | `app/client/ui_ping.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_ping.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_ping.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_ping.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown_4BC460` | `app/client/ui_ping.cpp:265` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_ping.cpp:290` | untagged neutral name (D10) |
+| 1 | `ui_ping.h` | `app/client/ui_ping.h:4` | provisional header name for ui_ping.cpp |
+| 1 | `Unknown51C800Class` | `app/client/ui_ping.h:13` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_ping.h:22` | InterfaceClass's |
+| 1 | `Unknown_54` | `app/client/ui_ping.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_ping.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_ping.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_ping.h:27` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_ping.h:28` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_ping.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_5D85B0` | `app/client/ui_ping.h:29` | untagged neutral name (D10) |
+| 1 | `Mesh` | `app/client/ui_ping.h:31` | neutral |
+| 1 | `Efficiency` | `app/client/ui_ping.h:32` | its style's |
+| 1 | `Window` | `app/client/ui_ping.h:33` | as unknown_msgbox.cpp's |
+| 1 | `Info` | `app/client/ui_ping.h:34` | as unknown_msgbox.cpp's |
+| 1 | `Header` | `app/client/ui_ping.h:35` | its style's |
+| 1 | `Unknown098` | `app/client/ui_ping.h:36` | untagged neutral name (D10) |
+| 1 | `Rows` | `app/client/ui_ping.h:37` | neutral |
+| 1 | `Button` | `app/client/ui_ping.h:38` | neutral |
+| 1 | `Unknown0AC` | `app/client/ui_ping.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_ping.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_ping.h:41` | untagged neutral name (D10) |
+| 1 | `Timer` | `app/client/ui_ping.h:42` | neutral |
+| 1 | `Shown` | `app/client/ui_ping.h:43` | neutral |
 | 1 | `Unknown_BE67C4` | `app/client/ui_popupmsg.cpp:21` | 0xBE67C4 |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_popupmsg.cpp:32` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_popupmsg.cpp:32` | untagged neutral name (D10) |
@@ -11689,7 +11740,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_68` | `app/client/unknown_msgbox.cpp:279` | untagged neutral name (D10) |
 | 1 | `Unknown_589140` | `app/client/unknown_msgbox.cpp:317` | untagged neutral name (D10) |
 | 1 | `Unknown_588DC0` | `app/client/unknown_msgbox.cpp:324` | untagged neutral name (D10) |
-| 1 | `Unknown_589CA0` | `app/client/unknown_msgbox.cpp:340` | neutral (D10) |
+| 1 | `Unknown_589CA0` | `app/client/unknown_msgbox.cpp:340` | neutral (D10) (ui_ping.cpp's 0x5D85B0 calls it too) |
 | 1 | `Unknown_5890B0` | `app/client/unknown_msgbox.cpp:376` | untagged neutral name (D10) |
 | 1 | `Unknown_78F700Class` | `app/client/unknown_personality.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_78F9F0` | `app/client/unknown_personality.cpp:36` | untagged neutral name (D10) |
@@ -18137,6 +18188,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SelectedBttnTexture` | `app/client/ui_missn.h:46` | the G_ASSERT's (l.151) |
 | 3 | `CurrentMission` | `app/client/ui_missn.h:51` | the G_ASSERT's (l.688) |
 | 3 | `CurrentMissions` | `app/client/ui_missn.h:52` | the G_ASSERT's (l.689) |
+| 3 | `UIPingClass` | `app/client/ui_ping.h:19` | class-from-file (D24) for app\Client\ui_ping.cpp |
 | 3 | `ui_popupmsg.cpp` | `app/client/ui_popupmsg.cpp:61` | the G_ASSERT's |
 | 3 | `As_Space_Client` | `app/client/ui_ptrade.cpp:32` | ui_manu.cpp's FAIL_IF's |
 | 3 | `AvatarPipClass` | `app/client/ui_ptrade.cpp:46` | class-from-file (D24) for app\client\avatar_pip.cpp |
