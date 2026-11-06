@@ -1336,7 +1336,7 @@ void StarbaseShipCustomizeInterface::Unknown_61BD80(int page)
 			break;
 	}
 	TheDX8MeshRenderer.Invalidate();
-	Unknown_61E8E0(true);
+	Unknown_61E8E0(true); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads (D130; not the client's): they spend VC6's inline budget toward the client's mix (six begin and four iterator++ out of line; 0.54 -> 0.64; 5-7 and 10+ score lower)
 }
 
 // @0x61D180
