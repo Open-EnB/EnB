@@ -49,7 +49,6 @@ UIPlayerOptClass::UIPlayerOptClass(SClient *client) :
 	}
 }
 
-// NOT EXACT: inline budget (the client inlines slot +0x5C with the list's begin and calls the erases out of line; 0 in ebx, ours ebp)
 // 0x5D8E90
 UIPlayerOptClass::~UIPlayerOptClass()
 {
@@ -96,8 +95,8 @@ void UIPlayerOptClass::Unknown_58()
 	if (!Is_Active()) {
 		InterfaceSortScopeClass sort(this);
 		UIChatPanelBaseClass::Unknown_58();
-		Unknown0B0.erase(Unknown0B0.begin(), Unknown0B0.end());
-		Unknown0C0.erase(Unknown0C0.begin(), Unknown0C0.end());
+		Unknown_5D9BB0();
+		Unknown_5D9C70();
 		Top = -1;
 		Unknown_5D9A40(0);
 		int id = ((ClientClass *)Client)->Unknown1138;
@@ -214,20 +213,20 @@ void UIPlayerOptClass::Unknown_5D9B10()
 // 0x5D9BB0
 void UIPlayerOptClass::Unknown_5D9BB0()
 {
-	Unknown0B0.erase(Unknown0B0.begin(), Unknown0B0.end());
+	Unknown0B0.clear();
 }
 
 // 0x5D9C70
 void UIPlayerOptClass::Unknown_5D9C70()
 {
-	Unknown0C0.erase(Unknown0C0.begin(), Unknown0C0.end());
+	Unknown0C0.clear();
 }
 
-// NOT EXACT: inline budget (the client calls the vector's erase out of line; ours expands it)
+// NOT EXACT: inline budget (the client calls the vector's erase out of line, keeps the list iterator in a stack slot and rotates the loop)
 // 0x5D9D10
 void UIPlayerOptClass::Unknown_5D9D10()
 {
-	Unknown0B0.erase(Unknown0B0.begin(), Unknown0B0.end());
+	Unknown_5D9BB0();
 	for (std::list<std::string>::iterator node = Unknown0C0.begin(); node != Unknown0C0.end(); node++) {
 		std::string name = *node;
 		std::vector<std::string>::iterator pos;
@@ -388,6 +387,7 @@ void UIPlayerOptClass::Unknown_5DA2B0(bool on)
 
 
 
+
 // 0x5DA340
 void UIPlayerOptClass::Unknown_5DA340()
 {
@@ -408,11 +408,11 @@ void UIPlayerOptClass::Unknown_5DA570()
 	((ClientClass *)Client)->Send_Packet(&packet);
 }
 
-// NOT EXACT: inline budget (the client empties the list through the iterator's ++ and erase out of line; ours expands them)
+// NOT EXACT: inline budget (the client empties the list through the iterator's ++ and erase out of line)
 // 0x5DA600
 void UIPlayerOptClass::Unknown_5DA600(std::vector<std::string> names)
 {
-	Unknown0C0.erase(Unknown0C0.begin(), Unknown0C0.end());
+	Unknown_5D9C70();
 	for (std::vector<std::string>::iterator it = names.begin(); it != names.end(); it++) {
 		Unknown0C0.push_back(*it);
 	}
