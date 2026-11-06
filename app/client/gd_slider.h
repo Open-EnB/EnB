@@ -69,6 +69,7 @@ public:
 	float UnknownCC;									// +0xCC
 	float UnknownD0;									// +0xD0
 	float Value;										// +0xD4
+	float Get_Value() const { return(Value); }			// inline: ui_starbase.cpp 0x646F70 / 0x6474C0 copy it through the FPU (fld / fstp), not a plain mov  // NAME 1 [Get_Value]: neutral
 	int UnknownD8;										// +0xD8 (floor of Value: 0x66FC70 compares it with ftol's int)
 	float UnknownDC;									// +0xDC
 	int UnknownE0;										// +0xE0 (the part under the pointer, 1..6: 0x66EF00)

@@ -26288,6 +26288,26 @@
      "0x881130"
     ]
    },
+   "ui_starbase": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x646F70",
+     "0x6474C0",
+     "0x647B30",
+     "0x647F30"
+    ],
+    "merged": [],
+    "name": "client/ui_starbase.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
    "uiview": {
     "ambiguous": [
      "0x42B2F0",
@@ -28621,7 +28641,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 9969,
+  "in_tree_total": 9973,
   "totals": {}
  },
  "binkmovie": {
