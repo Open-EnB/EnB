@@ -9,6 +9,7 @@
 #include "dynamic_window_horizontal.h"
 #include "dynamic_window_background.h"
 #include "control_keys_manager.h"
+#include "ui_item_examination_description.h"
 
 class UIItemExaminationAttributesClass;
 class UIItemExaminationOptionsClass;
@@ -23,15 +24,6 @@ public:
 	int Unknown64;																			// +0x64  // NAME 1: neutral (D10)
 	int Unknown68;																			// +0x68  // NAME 1: neutral (D10)
 	int Unknown6C;																			// +0x6C  // NAME 1: neutral (D10)
-};
-
-class UIItemExaminationDescriptionClass : public DynamicWindowBackgroundClass  // NAME 2: its section 'ITEM_EXAMINATION_DESCRIPTION'
-{
-public:
-	UIItemExaminationDescriptionClass();													// 0x534CA0 (0x78 bytes, table 0xAEE490)
-	void Clear();																			// 0x535060  // NAME 1 [Clear]: as the options panel's
-
-	char Unknown64[0x78 - 0x64];															// +0x64  // NAME 1: neutral (D10)
 };
 
 class UIItemExaminationSpecialsClass : public DynamicWindowBackgroundClass  // NAME 2: its section 'ITEM_EXAMINATION_SPECIALS'
@@ -60,14 +52,14 @@ class UIItemExaminationClass : public UISlotInfoClass  // NAME 3: class-from-fil
 public:
 	UIItemExaminationClass(LineDisplayClientClass *client, const RefCountPtr<UISlotInfoItemClass> &item);	// 0x531660  // NAME 1 [client, item]: neutral
 	virtual ~UIItemExaminationClass();														// 0x5321C0 (deleting 0x532190)
-	virtual void Unknown_54();																// 0x532480 (Escape into the key list)
-	virtual void Unknown_58();																// 0x5324D0
-	virtual void Unknown_5C();																// 0x532500 (the panels cleared)
-	virtual void Unknown_60();																// 0x5325C0 (the base's)
+	virtual void Unknown_54();																// 0x532480 (Escape into the key list)  // NAME 1: neutral (D10)
+	virtual void Unknown_58();																// 0x5324D0  // NAME 1: neutral (D10)
+	virtual void Unknown_5C();																// 0x532500 (the panels cleared)  // NAME 1: neutral (D10)
+	virtual void Unknown_60();																// 0x5325C0 (the base's)  // NAME 1: neutral (D10)
 	virtual bool Unknown_68(int key);														// 0x5325E0 (key 1 closes)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);									// 0x532610 (the base's)  // NAME 1 [view, arg]: InterfaceClass's
-	virtual UISlotInfoItemClass *Unknown_90();												// 0x532460 (Item)
-	virtual bool Unknown_94();																// 0x532640 (FAIL_IF 'State != UI_CLOSED', '!client', '!space_client')
+	virtual UISlotInfoItemClass *Unknown_90();												// 0x532460 (Item)  // NAME 1: neutral (D10)
+	virtual bool Unknown_94();																// 0x532640 (FAIL_IF 'State != UI_CLOSED', '!client', '!space_client')  // NAME 1: neutral (D10)
 
 	enum { UI_CLOSED = 0 };																	// (the FAIL_IF 'State != UI_CLOSED')  // NAME 3: the FAIL_IF's
 

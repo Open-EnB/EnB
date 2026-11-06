@@ -6,7 +6,7 @@
 #include "gadget.h"
 #include "fontdatabase.h"
 #include "control_keys_manager.h"
-
+#include "..\shared\auxdata\permstr.h"
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10), as sclient.h declares it
 
 static Vector2 CloseButtonSize(16.0f, 16.0f);	// 0xBE5A50 (0x531630)  // NAME 1: what it sizes
