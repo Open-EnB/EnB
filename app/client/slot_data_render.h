@@ -42,7 +42,7 @@ public:
 	virtual const char *Unknown_28(std::string *string);					// +0x28 0x6A8610  // NAME 1 [string]: neutral
 	virtual void Unknown_2C(bool force);									// +0x2C 0x6A87A0  // NAME 1 [force]: neutral
 	virtual void Unknown_30();												// +0x30 0x6A89A0
-	virtual const char *Unknown_34();										// +0x34 0x6A7BB0 (0: a null name)
+	virtual const char *Unknown_34();										// +0x34 0x6A7BB0 (0)
 	virtual bool Unknown_38(Vector3 &color) { return(false); }				// +0x38 0x68B490  // NAME 1 [color]: neutral
 	virtual void Unknown_3C() {}											// +0x3C 0x68B4B0
 	virtual void Unknown_40(int slot);										// +0x40 0x6A8730  // NAME 1 [slot]: neutral
@@ -50,7 +50,7 @@ public:
 	virtual const char *Unknown_48() { return("InvItem"); }					// +0x48 0x68B4D0
 	virtual int Unknown_4C();												// +0x4C 0x6A8980
 
-	int Get_Slot() { return(Unknown20); }									// (0x6A6EA0's register)
+	int Get_Slot() { return(Unknown20); }									// (0x6A6EA0's register)  // NAME 2: the accessor of Unknown20, the slot
 	void Unknown_6A8F00(RenderObjClass *robj);								// 0x6A8F00 (onto the container)  // NAME 3 [robj]: its FAIL_IF
 	void Unknown_6A8FE0(RenderObjClass *robj);								// 0x6A8FE0 (off it)  // NAME 3 [robj]: its FAIL_IF
 
