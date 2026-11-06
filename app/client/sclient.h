@@ -486,6 +486,7 @@ class UIPTradeCreditsClass : public Unknown5BB320Class	// NAME 1: neutral (D10):
 public:
 	int Unknown_64A220();								// 0x64A220: its +0xC0 (0x5E39F0: 0 still open, 2 accepted)
 	const char *Unknown_64A240();						// 0x64A240 (0x5E39F0: the amount typed, to atoi)
+	void Unknown_64A2B0(const char *text);				// 0x64A2B0 (slot +0x68, key 4: the amount offered so far, or "")  // NAME 1 [text]: neutral
 };
 
 class UIPTradeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_ptrade.cpp

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-558 entries in 144 files.
+559 entries in 144 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -323,9 +323,10 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
 | `app/client/ui_missn.cpp:514` | `UIMissnClass::Unknown_5C5DB0` | marker | NOT EXACT: register (similarity 0.58: the client keeps this in ebp, spilled, and the mission in ebx, spilled to new_mission's slot; edi is pushed only around the text; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline) |
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
-| `app/client/ui_ptrade.cpp:161` | `UIPTradeClass::Unknown_5E37F0` | marker | NOT EXACT: register-only (0.72, same length: the client keeps the sclient in edi and the avatar in ebx, ours the other way) |
-| `app/client/ui_ptrade.cpp:177` | `UIPTradeClass::Unknown_5E39F0` | marker | NOT EXACT: inline budget (0.32: the client calls auxdata.h's Unknown_Find_Field out of line here, with the aux data read before the name; ours inlines it) |
-| `app/client/ui_ptrade.cpp:207` | `UIPTradeClass::Unknown_5E3C90` | marker | NOT EXACT: shape (0.69: the client's first return releases the style in place, ours jumps to a shared tail; 450 of 466 bytes) |
+| `app/client/ui_ptrade.cpp:133` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
+| `app/client/ui_ptrade.cpp:194` | `UIPTradeClass::Unknown_5E37F0` | marker | NOT EXACT: register-only (0.72, same length: the client keeps the sclient in edi and the avatar in ebx, ours the other way) |
+| `app/client/ui_ptrade.cpp:210` | `UIPTradeClass::Unknown_5E39F0` | marker | NOT EXACT: inline budget (0.32: the client calls auxdata.h's Unknown_Find_Field out of line here, with the aux data read before the name; ours inlines it) |
+| `app/client/ui_ptrade.cpp:240` | `UIPTradeClass::Unknown_5E3C90` | marker | NOT EXACT: shape (0.69: the client's first return releases the style in place, ours jumps to a shared tail; 450 of 466 bytes) |
 | `app/client/ui_registration.cpp:308` | `RegistrationInterface::Unknown_5F9460` | marker | NOT EXACT: shape (explain.py: 14 calls in ours, 13 in the client; the value_type temporaries' stack slots differ) @0x5F9460 |
 | `app/client/ui_registration.cpp:2347` | `RegistrationInterface::Unknown_5FA0B0` | marker | NOT EXACT: field-offset (explain.py; 340 instructions each: register choice in the inlined operator= into +0x2CC and the 'EB' compare) @0x5FA0B0 |
 | `app/client/ui_registration.cpp:2529` | `RegistrationInterface::Unknown_5FB0C0` | marker | NOT EXACT: inline-budget (explain.py: the client calls the second append(1, '-') and the first end()'s _Freeze out of line) @0x5FB0C0 |

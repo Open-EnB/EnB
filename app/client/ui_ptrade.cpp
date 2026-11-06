@@ -1,7 +1,9 @@
 // Earth & Beyond client (reconstruction): app\client\ui_ptrade.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_ptrade.cpp', 0x5E1B80-0x5E3EEF by its asserts and its callers).
-// So far the destructor 0x5E1D80, the slots +0x5C / +0x60 / +0x7C (0x5E2B30, 0x5E2BF0, 0x5E2F00) and 0x5E3750-0x5E3EEF (PT1); not yet: the rest of 0x5E1B80-0x5E374F.
+// So far 0x5E1BE0-0x5E1F2F (the constructor and the destructors), the slots +0x5C / +0x60 / +0x68 / +0x7C and 0x5E3750-0x5E3EEF (PT1); not yet: 0x5E1FA0, 0x5E26D0-0x5E2B2F, 0x5E2F70-0x5E374F.
 #include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include <string>
 #include "sclient.h"
 #include "ui_manu.h"
@@ -16,6 +18,7 @@
 #include "..\shared\auxdata\lookup.h"
 #include "..\shared\auxdata\delta_money.h"
 #include "..\shared\unknown_debug.h"
+#include "..\audio\soundlib.h"
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (0xBFAE3C - 0xBFAE40, read inline)
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
@@ -30,6 +33,7 @@ public:
 // money.cpp's arithmetic and comparisons (cdecl, not rebuilt)
 MoneyClass operator+(const MoneyClass &a, const MoneyClass &b);	// 0x4F0500  // NAME 1 [a, b]: neutral
 bool operator>=(const MoneyClass &a, const MoneyClass &b);	// 0x4F0740  // NAME 1 [a, b]: neutral
+bool operator>(const MoneyClass &a, const MoneyClass &b);	// 0x4F0700  // NAME 1 [a, b]: neutral
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
@@ -45,25 +49,21 @@ public:
 	~AvatarPipClass();									// 0x7E3410 (the destructor deletes both pips)
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x5E1BE0
+UIPTradeClass::UIPTradeClass(SClient *client) :
+	Unknown5BB320Class(new UIMeshClass("TRADE00A", 1), client),
+	PlayerPIP(NULL),
+	OtherPIP(NULL),
+	State(UI_CLOSED),
+	Unknown0D8(0),
+	Unknown0DC(false),
+	Unknown0DD(false),
+	Unknown0DE(false)
+{
+	memset(&Unknown0B8, 0, sizeof(Unknown0B8) + sizeof(Unknown0BC));
+	Unknown_BE67BC->Load("fa_trade00a.ini");
+	Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
+}
 
 
 
@@ -127,6 +127,39 @@ void UIPTradeClass::Unknown_60()
 			Unknown_5C();
 		}
 	}
+}
+
+// 0x5E2CE0
+// NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2)
+bool UIPTradeClass::Unknown_68(int key)
+{
+	SClient *sclient = Client->As_Space_Client();
+	switch (key) {
+		case 1:
+		case 2:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x16, ((ClientClass *)Client)->Unknown1134, 0));
+			return(true);
+		case 3:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x15, ((ClientClass *)Client)->Unknown1134, 0));
+			return(true);
+		case 4:
+		{
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown0B4->Unknown_58();
+			char text[0x14];
+			if (Unknown0E0 > MoneyClass()) {
+				_snprintf(text, sizeof(text), "%d", Unknown0E0.Unknown00);
+				Unknown0B4->Unknown_64A2B0(text);
+			} else {
+				Unknown0B4->Unknown_64A2B0("");
+			}
+			Unknown_5E3750(false);
+			return(true);
+		}
+	}
+	return(false);
 }
 
 // 0x5E2F00
