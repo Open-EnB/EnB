@@ -23828,6 +23828,50 @@
      "0x82E340"
     ]
    },
+   "ui_analyze": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x52B350",
+     "0x544B90",
+     "0x545D30",
+     "0x546000",
+     "0x5461C0"
+    ],
+    "merged": [],
+    "name": "client/ui_analyze.cpp",
+    "shared": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x52B350",
+     "0x544B90"
+    ],
+    "short_known": [
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x544B90"
+    ]
+   },
    "ui_attrb_skills": {
     "ambiguous": [
      "0x42B2F0",
@@ -30309,7 +30353,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 10505,
+  "in_tree_total": 10508,
   "totals": {}
  },
  "binkmovie": {

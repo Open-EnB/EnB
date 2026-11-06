@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1321 |
+| 3 | by convention from a client-named file or sibling | 1323 |
 | 2 | describes what the code does | 3024 |
-| 1 | neutral placeholder | 14880 |
+| 1 | neutral placeholder | 14922 |
 
 ## For review (score 3 and below)
 
@@ -6325,6 +6325,48 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown18` | `app/client/tooltip.h:55` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/tutorial_manager.cpp:9` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_4BC260` | `app/client/tutorial_manager.cpp:10` | 0x4BC260, 0x4BC000's sibling |
+| 1 | `LineDisplayClientClass` | `app/client/ui_analyze.cpp:22` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_analyze.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_analyze.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_analyze.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_analyze.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_analyze.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_analyze.cpp:26` | untagged neutral name (D10) |
+| 1 | `UIAnalyzeInvClass` | `app/client/ui_analyze.cpp:32` | neutral (D10) |
+| 1 | `on` | `app/client/ui_analyze.cpp:35` | neutral |
+| 1 | `Unknown_62F5B0` | `app/client/ui_analyze.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_analyze.cpp:37` | untagged neutral name (D10) |
+| 1 | `robj, texture, unknown` | `app/client/ui_analyze.cpp:40` | as ui_manu.cpp's |
+| 1 | `Unknown_495FD0` | `app/client/ui_analyze.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_analyze.cpp:44` | untagged neutral name (D10) |
+| 1 | `index, show, text` | `app/client/ui_analyze.cpp:47` | neutral |
+| 1 | `Unknown_544C50` | `app/client/ui_analyze.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_545D30` | `app/client/ui_analyze.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_545E40` | `app/client/ui_analyze.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_546000` | `app/client/ui_analyze.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_546090` | `app/client/ui_analyze.cpp:51` | untagged neutral name (D10) |
+| 1 | `level, a, b, c` | `app/client/ui_analyze.cpp:52` | neutral |
+| 1 | `Unknown_5461C0` | `app/client/ui_analyze.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_analyze.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_analyze.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_analyze.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown0D8` | `app/client/ui_analyze.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown0DC` | `app/client/ui_analyze.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown0E0` | `app/client/ui_analyze.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown0FC` | `app/client/ui_analyze.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/ui_analyze.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/ui_analyze.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/ui_analyze.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown114` | `app/client/ui_analyze.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/ui_analyze.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_AEF0EC` | `app/client/ui_analyze.cpp:68` | neutral (D10): what 0x546090 stores (read from .rdata) |
+| 1 | `Unknown1138` | `app/client/ui_analyze.cpp:73` | untagged neutral name (D10) |
+| 1 | `UnknownB0122CEnum` | `app/client/ui_analyze.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_analyze.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_analyze.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_analyze.cpp:109` | untagged neutral name (D10) |
+| 1 | `Unknown2C_06` | `app/client/ui_analyze.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_analyze.cpp:166` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_attrb_skills.cpp:12` | 0xBE67C4 |
 | 1 | `Unknown664500Class` | `app/client/ui_attrb_skills.cpp:15` | neutral (D10) |
 | 1 | `window, skill, index` | `app/client/ui_attrb_skills.cpp:18` | neutral |
@@ -18248,6 +18290,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tooltip.h` | `app/client/tooltip.h:17` | header name assumed from the client's tooltip.cpp |
 | 3 | `tutorial_manager.h` | `app/client/tutorial_manager.h:19` | header name assumed from the client's tutorial_manager.cpp |
 | 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |
+| 3 | `As_Space_Client` | `app/client/ui_analyze.cpp:27` | ui_manu.cpp's FAIL_IF's |
+| 3 | `UIAnalyzeClass` | `app/client/ui_analyze.cpp:44` | class-from-file (D24) for app\client\ui_analyze.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_attrb_skills.cpp:88` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIAttrbSkillsClass` | `app/client/ui_attrb_skills.h:57` | class-from-file (D24) for app\Client\ui_attrb_skills.cpp |
 | 3 | `InterfaceMesh` | `app/client/ui_attrb_skills.h:85` | Init's FAIL_IF '!InterfaceMesh' (l.121) |
