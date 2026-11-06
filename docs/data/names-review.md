@@ -10221,7 +10221,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64A220` | `app/client/ui_ptrade.cpp:458` | untagged neutral name (D10) |
 | 1 | `Unknown_64A240` | `app/client/ui_ptrade.cpp:461` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_ptrade.cpp:474` | untagged neutral name (D10) |
-| 1 | `Unknown_6D87D0` | `app/client/ui_ptrade.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/ui_ptrade.cpp:487` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_registration.cpp:22` | 0xBE67C4 |
 | 1 | `ProductEB` | `app/client/ui_registration.cpp:24` | client .data 0xB85EE0 (0x5FA0B0 compares +0x10 with it) |
 | 1 | `ProductTrial` | `app/client/ui_registration.cpp:25` | client .data 0xB85EF4 (0x5FA0B0) |

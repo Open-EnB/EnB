@@ -435,20 +435,20 @@ static inline bool Unknown_Changed(ClientObjectClass *object, const char *field)
 static inline bool Unknown_Changed_Money(ClientObjectClass *object, const char *field) { DeltaCompoundClass *aux = (DeltaCompoundClass *)object->AuxData; NameClass name(field); DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name); return(t && t->Unknown70 > 1); }	// NAME 1: neutral (D10)
 
 // 0x5E37F0
-// NOT EXACT: register-only (0.72, same length: the client keeps the sclient in edi and the avatar in ebx, ours the other way)
 void UIPTradeClass::Unknown_5E37F0()
 {
 	ClientClass *sclient = Client->As_Space_Client();
 	ClientObjectClass *avatar = sclient->Get_Avatar();
 	if (avatar && avatar->AuxData) {
 		if (Unknown_Changed(avatar, "Inventory.PlayerTrade") || Unknown_Changed(avatar, "TradeMoney")) {
-			sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x17, ((ClientClass *)Client)->Unknown1134, 0));
+			int id = ((ClientClass *)Client)->Unknown1134; sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x17, id, 0));
 			Unknown_5E3340();
 		} else if (((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134) && Unknown_Changed_Money(((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134), "TradeMoney")) {
 			Unknown_5E3340();
 		}
 	}
 }
+
 
 // 0x5E39F0
 // NOT EXACT: inline budget (0.32: the client calls auxdata.h's Unknown_Find_Field out of line here, with the aux data read before the name; ours inlines it; up to twelve dead finds (D130) left it inline, 0.47 at best, dropped)
@@ -481,19 +481,19 @@ void UIPTradeClass::Unknown_5E39F0()
 }
 
 // 0x5E3C90
-// NOT EXACT: shape (0.69: the client's first return releases the style in place, ours jumps to a shared tail; 450 of 466 bytes)
 void UIPTradeClass::Unknown_5E3C90()
 {
 	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("RECIPIENT_NAME_TRADE00", InterfaceMesh->Peek_Object()));
 	const char *text = font->Unknown_6D87D0();
 	if (text && *text && *text != ' ') return;
 	SClient *sclient = Client->As_Space_Client();
-	RefCountPtr<UIPTradeAvatarClass> avatar = Create_NEW((UIPTradeAvatarClass *)sclient->Unknown_74C7B0(((ClientClass *)Client)->Unknown1134));
+	int id = ((ClientClass *)Client)->Unknown1134; RefCountPtr<UIPTradeAvatarClass> avatar = Create_NEW((UIPTradeAvatarClass *)sclient->Unknown_74C7B0(id));
 	if (!avatar) return;
 	std::string name;
 	avatar->Desc.Get_Full_Name(name);
 	font->Change_Text(name.c_str(), 0);
 }
+
 
 // 0x5E3EF0
 bool UIPTradeCreditsGadgetClass::Unknown_34(KernelEventClass *event, float x, float y, unsigned int mask)
