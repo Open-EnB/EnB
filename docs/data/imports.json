@@ -1667,6 +1667,40 @@
      "0x4C4240"
     ]
    },
+   "avatar_pip": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080",
+     "0x497300",
+     "0x5988A0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x5149F0",
+     "0x514A80",
+     "0x514AD0",
+     "0x514B60",
+     "0x7E31B0",
+     "0x7E3410",
+     "0x7E35D0",
+     "0x7E36B0",
+     "0x7E4350",
+     "0x7E43E0",
+     "0x7E4740"
+    ],
+    "merged": [],
+    "name": "client/avatar_pip.cpp",
+    "shared": [
+     "0x42F250",
+     "0x5149F0",
+     "0x514A80",
+     "0x514AD0",
+     "0x514B60"
+    ]
+   },
    "bandwidthaccounting": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -29894,6 +29928,7 @@
    "client/aux_roots.h": "reconstructed",
    "client/aux_roots_send.h": "reconstructed",
    "client/avatar.h": "reconstructed",
+   "client/avatar_pip.h": "reconstructed",
    "client/buff_database.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
    "client/charview.h": "reconstructed",

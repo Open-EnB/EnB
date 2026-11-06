@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1317 |
-| 2 | describes what the code does | 3023 |
-| 1 | neutral placeholder | 14819 |
+| 3 | by convention from a client-named file or sibling | 1321 |
+| 2 | describes what the code does | 3024 |
+| 1 | neutral placeholder | 14878 |
 
 ## For review (score 3 and below)
 
@@ -592,6 +592,65 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown378` | `app/client/avatar.h:269` | untagged neutral name (D10) |
 | 1 | `Unknown37C` | `app/client/avatar.h:270` | untagged neutral name (D10) |
 | 1 | `Unknown380` | `app/client/avatar.h:271` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/avatar_pip.cpp:21` | as ui_avatr.cpp's |
+| 1 | `Unknown_497300` | `app/client/avatar_pip.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/avatar_pip.cpp:22` | neutral (D10): as co.cpp's |
+| 1 | `Unknown_Find_Field` | `app/client/avatar_pip.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/avatar_pip.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown038` | `app/client/avatar_pip.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown034` | `app/client/avatar_pip.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown47FA70Class` | `app/client/avatar_pip.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown028` | `app/client/avatar_pip.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_7E4350` | `app/client/avatar_pip.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_7E35D0` | `app/client/avatar_pip.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown010` | `app/client/avatar_pip.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown014` | `app/client/avatar_pip.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_7E36B0` | `app/client/avatar_pip.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/avatar_pip.cpp:162` | untagged neutral name (D10) |
+| 1 | `Unknown_7E4740` | `app/client/avatar_pip.cpp:169` | untagged neutral name (D10) |
+| 1 | `Unknown_7E3A20` | `app/client/avatar_pip.cpp:197` | untagged neutral name (D10) |
+| 1 | `Unknown02C` | `app/client/avatar_pip.cpp:201` | untagged neutral name (D10) |
+| 1 | `Unknown_7E4520` | `app/client/avatar_pip.cpp:206` | untagged neutral name (D10) |
+| 1 | `Unknown_74C7B0` | `app/client/avatar_pip.cpp:224` | untagged neutral name (D10) |
+| 1 | `Unknown030` | `app/client/avatar_pip.cpp:230` | untagged neutral name (D10) |
+| 1 | `Unknown204` | `app/client/avatar_pip.cpp:239` | untagged neutral name (D10) |
+| 1 | `Unknown_77E3D0` | `app/client/avatar_pip.cpp:239` | untagged neutral name (D10) |
+| 1 | `Unknown_784A50` | `app/client/avatar_pip.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown_1C4` | `app/client/avatar_pip.cpp:241` | untagged neutral name (D10) |
+| 1 | `Unknown330` | `app/client/avatar_pip.cpp:249` | untagged neutral name (D10) |
+| 1 | `Unknown_786410` | `app/client/avatar_pip.cpp:253` | untagged neutral name (D10) |
+| 1 | `Unknown_47FF70` | `app/client/avatar_pip.cpp:279` | untagged neutral name (D10) |
+| 1 | `Unknown_65B7E0` | `app/client/avatar_pip.cpp:280` | untagged neutral name (D10) |
+| 1 | `Unknown_7E43E0` | `app/client/avatar_pip.cpp:287` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/avatar_pip.cpp:304` | untagged neutral name (D10) |
+| 1 | `Unknown_65B7A0` | `app/client/avatar_pip.cpp:305` | untagged neutral name (D10) |
+| 1 | `Unknown01C` | `app/client/avatar_pip.cpp:316` | untagged neutral name (D10) |
+| 1 | `Unknown47FA70Class` | `app/client/avatar_pip.h:36` | neutral (D10) |
+| 1 | `arg` | `app/client/avatar_pip.h:39` | neutral |
+| 1 | `obj` | `app/client/avatar_pip.h:42` | what it holds |
+| 1 | `Unknown_47FF70` | `app/client/avatar_pip.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad` | `app/client/avatar_pip.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_7E35D0` | `app/client/avatar_pip.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_7E36B0` | `app/client/avatar_pip.h:54` | untagged neutral name (D10) |
+| 1 | `name, id, avatar` | `app/client/avatar_pip.h:55` | what it does with them |
+| 1 | `Unknown_7E3A20` | `app/client/avatar_pip.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_7E4350` | `app/client/avatar_pip.h:56` | untagged neutral name (D10) |
+| 1 | `avatar` | `app/client/avatar_pip.h:57` | what it holds |
+| 1 | `Unknown_7E43E0` | `app/client/avatar_pip.h:57` | untagged neutral name (D10) |
+| 1 | `model` | `app/client/avatar_pip.h:58` | what it holds |
+| 1 | `Unknown_7E4520` | `app/client/avatar_pip.h:58` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/avatar_pip.h:59` | what it does |
+| 1 | `Unknown_7E4740` | `app/client/avatar_pip.h:59` | untagged neutral name (D10) |
+| 1 | `Camera` | `app/client/avatar_pip.h:63` | neutral (D10): what it holds |
+| 1 | `Scene` | `app/client/avatar_pip.h:64` | neutral (D10): what it holds |
+| 1 | `Unknown010` | `app/client/avatar_pip.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown014` | `app/client/avatar_pip.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown01C` | `app/client/avatar_pip.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown028` | `app/client/avatar_pip.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown02C` | `app/client/avatar_pip.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown030` | `app/client/avatar_pip.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown034` | `app/client/avatar_pip.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown038` | `app/client/avatar_pip.h:72` | untagged neutral name (D10) |
 | 1 | `Unknown_4BC000` | `app/client/buff_database.cpp:9` | 0x4BC000, E&B's message reporter (tcpconn.cpp) |
 | 1 | `Unknown_4BC260` | `app/client/buff_database.cpp:10` | 0x4BC260, 0x4BC000's sibling |
 | 1 | `CameraEffectsRandom` | `app/client/cameraeffects.cpp:11` | neutral (D10) |
@@ -14899,6 +14958,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `HeadObj` | `app/client/avatar.h:237` | '!HeadObj' assert (0x786370 sets hidden) |
 | 2 | `BodyObj` | `app/client/avatar.h:238` | '!HeadSource \|\| !BodyObj' assert (0x786370 / 0x7863E0) |
 | 2 | `SpeechSound` | `app/client/avatar.h:249` | plays speech sound |
+| 2 | `sclient, vp` | `app/client/avatar_pip.h:54` | the FAIL_IFs'; NAME 1 [arg]: neutral |
 | 2 | `BuffDefStruct` | `app/client/buff_database.h:24` | what it holds (one BUFF-n section, 0x14 bytes) |
 | 2 | `Type` | `app/client/buff_database.h:29` | the ini key |
 | 2 | `Asset` | `app/client/buff_database.h:30` | the ini key |
@@ -17876,6 +17936,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:970` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaStargateClass` | `app/client/aux_roots.h:986` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaHullClass` | `app/client/aux_roots_send.h:22` | the client's root string "Hull", Westwood XxxClass (D24); structure = - (no match) |
+| 3 | `avatar_pip.h` | `app/client/avatar_pip.h:18` | header name assumed from the client's avatar_pip.cpp |
+| 3 | `AvatarPipClass` | `app/client/avatar_pip.h:47` | class-from-file (D24) for app\client\avatar_pip.cpp |
+| 3 | `Client` | `app/client/avatar_pip.h:61` | the FAIL_IF's |
+| 3 | `PIPView` | `app/client/avatar_pip.h:62` | the FAIL_IF's |
 | 3 | `buff_database.h` | `app/client/buff_database.h:18` | header name assumed from the client's buff_database.cpp |
 | 3 | `BuffDatabaseClass` | `app/client/buff_database.h:36` | by convention (D24) from the client's file buff_database.cpp ('Buff Database' in its messages) |
 | 3 | `cfaction_database.h` | `app/client/cfaction_database.h:18` | header name assumed from the client's cfaction_database.cpp |
