@@ -20,9 +20,10 @@
 class ChatLineClass : public RefCountClass  // NAME 3: the asserts' chat_line
 {
 public:
-	virtual ~ChatLineClass();
 public:
 	bool Is_Null() const { return (Flags & 0x10) != 0; }  // the asserts' Is_Null (bit 4)
+	bool Is_Last() const { return (Flags & 4) != 0; }  // the assert's (bit 2)
+	bool Is_First() const { return (Flags & 2) != 0; }  // NAME 2: 0x682770's walk back stops at it (bit 1)
 	void Set_Flag_1() { Flags |= 1; }  // NAME 1: neutral (D10)
 	int Unknown08;  // +0x08  // NAME 1: neutral (D10)
 	std::string Text;  // +0x0C  // NAME 2: a string, the line's own

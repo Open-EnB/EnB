@@ -63,6 +63,11 @@ public:
 	void Unknown_67E180(const RefCountPtr<ChatLineClass> &line);  // 0x67E180 (FAIL_IF l.147)  // NAME 1 [Unknown_67E180, line]: neutral (D10)
 	bool Unknown_67F7F0(unsigned int max_lines);  // 0x67F7F0  // NAME 1 [max_lines]: neutral (D10)
 	void Unknown_67FC60();  // 0x67FC60  // NAME 1: neutral (D10)
+	void Unknown_6804E0(int *unknown);  // 0x6804E0: called with &Unknown64  // NAME 1 [unknown]: neutral (D10)
+	int Get_Slider_Value() const { return Unknown74->UnknownD8; }  // NAME 2: reads the slider's floor of Value
+	void Unknown_680670();  // 0x680670  // NAME 1: neutral (D10)
+	void Unknown_6806C0();  // 0x6806C0  // NAME 1: neutral (D10)
+	void Unknown_680700(bool unknown);  // 0x680700 (FAIL_IF l.547)  // NAME 1 [unknown]: neutral (D10)
 	void Unknown_680790();  // 0x680790  // NAME 1: neutral (D10)
 	void Unknown_6809B0();  // 0x6809B0  // NAME 1: neutral (D10)
 	const RefCountPtr<ChatFontSys> &Get_Font(unsigned int index);  // 0x6808D0 (FAIL_IF '!size' l.598)  // NAME 2 [Get_Font, index]: what it does
