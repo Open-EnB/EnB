@@ -25082,15 +25082,25 @@
    },
    "ui_item_examination_attributes": {
     "ambiguous": [
-     "0x46BE90"
+     "0x42A6C0",
+     "0x46BE90",
+     "0x474080"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A820",
+     "0x42AB30",
+     "0x42D050",
      "0x42F250",
+     "0x45CC10",
+     "0x532BA0",
+     "0x532FD0",
+     "0x533000",
      "0x5331B0",
      "0x533250",
      "0x5333B0",
+     "0x533B80",
      "0x533C00",
      "0x533C30",
      "0x533C60",
@@ -25107,7 +25117,11 @@
     "merged": [],
     "name": "client/ui_item_examination_attributes.cpp",
     "shared": [
-     "0x42F250"
+     "0x42A820",
+     "0x42AB30",
+     "0x42D050",
+     "0x42F250",
+     "0x45CC10"
     ]
    },
    "ui_item_examination_options": {
