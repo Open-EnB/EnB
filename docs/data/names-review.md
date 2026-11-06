@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 141 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1396 |
-| 2 | describes what the code does | 3194 |
-| 1 | neutral placeholder | 15654 |
+| 3 | by convention from a client-named file or sibling | 1412 |
+| 2 | describes what the code does | 3195 |
+| 1 | neutral placeholder | 15798 |
 
 ## For review (score 3 and below)
 
@@ -6110,6 +6110,150 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SignalMapData` | `app/client/signal_map.cpp:28` | neutral (D10) |
 | 1 | `Unknown_4F7EF0` | `app/client/signal_map.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_4F7F60` | `app/client/signal_map.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown744FE0Class` | `app/client/skill_render.cpp:15` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_744FE0` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown6A5520Value` | `app/client/skill_render.cpp:17` | neutral (D10): returned through a hidden pointer, added with an operator (0x6A6550) |
+| 1 | `Unknown6A5440Class` | `app/client/skill_render.cpp:18` | neutral (D10), as gd_attrb_skills.cpp's; NAME 1 [skill]: neutral |
+| 1 | `Unknown_6A5470` | `app/client/skill_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_6A54B0` | `app/client/skill_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_6A5520` | `app/client/skill_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_6A55B0` | `app/client/skill_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/skill_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown813C50Class` | `app/client/skill_render.cpp:19` | neutral (D10); NAME 1 [ability]: neutral |
+| 1 | `Unknown_813C50` | `app/client/skill_render.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_813CC0` | `app/client/skill_render.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_813DA0` | `app/client/skill_render.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown6A7A00Base` | `app/client/skill_render.cpp:20` | neutral (D10) |
+| 1 | `Unknown20` | `app/client/skill_render.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/skill_render.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown6A7A00Class` | `app/client/skill_render.cpp:21` | neutral (D10); NAME 2 [Get_Level]: 0x6A54B0's result is compared with the abilities' levels; NAME 1 [skill]: neutral |
+| 1 | `Unknown_6A4B40` | `app/client/skill_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_6A4C20` | `app/client/skill_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown669570Class` | `app/client/skill_render.cpp:24` | neutral (D10); NAME 1 [robj, name, value]: neutral |
+| 1 | `Unknown_A4` | `app/client/skill_render.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/skill_render.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown6A3D60Class` | `app/client/skill_render.cpp:25` | neutral (D10); NAME 1 [robj, distance, range, state, arg]: neutral |
+| 1 | `Unknown_6A4020` | `app/client/skill_render.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown670C90Class` | `app/client/skill_render.cpp:26` | neutral (D10): +0x64 is 0x6A7380's slot_render |
+| 1 | `Unknown64` | `app/client/skill_render.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown815320Struct` | `app/client/skill_render.cpp:28` | neutral (D10); NAME 2 [Name]: 0x6A6A80 writes it as the ability |
+| 1 | `Unknown10` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_815320` | `app/client/skill_render.cpp:29` | neutral (D10) |
+| 1 | `Unknown8155B0Struct` | `app/client/skill_render.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_8155B0` | `app/client/skill_render.cpp:31` | neutral (D10) |
+| 1 | `Unknown_815260` | `app/client/skill_render.cpp:32` | neutral (D10) |
+| 1 | `Unknown_815720` | `app/client/skill_render.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_818200` | `app/client/skill_render.cpp:33` | neutral (D10) |
+| 1 | `Unknown_818520` | `app/client/skill_render.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_818430` | `app/client/skill_render.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_6A93E0` | `app/client/skill_render.cpp:34` | neutral (D10) |
+| 1 | `Unknown_6A9660` | `app/client/skill_render.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_496730` | `app/client/skill_render.cpp:35` | neutral (D10) |
+| 1 | `Unknown_7E6060` | `app/client/skill_render.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/skill_render.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/skill_render.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/skill_render.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/skill_render.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/skill_render.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/skill_render.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/skill_render.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/skill_render.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/skill_render.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/skill_render.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7310` | `app/client/skill_render.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8FE0` | `app/client/skill_render.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown_6A73C0` | `app/client/skill_render.cpp:236` | untagged neutral name (D10) |
+| 1 | `Unknown_6A72E0` | `app/client/skill_render.cpp:301` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/skill_render.cpp:302` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/skill_render.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/skill_render.cpp:313` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/skill_render.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/skill_render.cpp:416` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7380` | `app/client/skill_render.cpp:439` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8F00` | `app/client/skill_render.cpp:450` | untagged neutral name (D10) |
+| 1 | `Unknown669570Class` | `app/client/skill_render.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown6A3D60Class` | `app/client/skill_render.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown6A7A00Class` | `app/client/skill_render.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown670C90Class` | `app/client/skill_render.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/skill_render.h:30` | untagged neutral name (D10) |
+| 1 | `out` | `app/client/skill_render.h:31` | neutral |
+| 1 | `Unknown_0C` | `app/client/skill_render.h:31` | untagged neutral name (D10) |
+| 1 | `serial_string` | `app/client/skill_render.h:32` | as 0x6A90A0's assert |
+| 1 | `Unknown_10` | `app/client/skill_render.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/skill_render.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/skill_render.h:34` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/skill_render.h:35` | neutral |
+| 1 | `Unknown_2C` | `app/client/skill_render.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/skill_render.h:36` | untagged neutral name (D10) |
+| 1 | `color` | `app/client/skill_render.h:37` | neutral |
+| 1 | `Unknown_38` | `app/client/skill_render.h:37` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/skill_render.h:38` | neutral |
+| 1 | `Unknown_40` | `app/client/skill_render.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/skill_render.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/skill_render.h:40` | untagged neutral name (D10) |
+| 1 | `ability, update` | `app/client/skill_render.h:42` | neutral |
+| 1 | `Unknown_6A72E0` | `app/client/skill_render.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7310` | `app/client/skill_render.h:43` | untagged neutral name (D10) |
+| 1 | `on, robj` | `app/client/skill_render.h:44` | neutral |
+| 1 | `Unknown_6A73C0` | `app/client/skill_render.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/skill_render.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/skill_render.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/skill_render.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/skill_render.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/skill_render.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/skill_render.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/skill_render.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/skill_render.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/skill_render.h:57` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/skill_render.h:60` | neutral |
+| 1 | `Unknown_6A7380` | `app/client/skill_render.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/slot_data_render.h:34` | untagged neutral name (D10) |
+| 1 | `string` | `app/client/slot_data_render.h:35` | neutral |
+| 1 | `Unknown_0C` | `app/client/slot_data_render.h:35` | untagged neutral name (D10) |
+| 1 | `state` | `app/client/slot_data_render.h:36` | neutral |
+| 1 | `Unknown_10` | `app/client/slot_data_render.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/slot_data_render.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/slot_data_render.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/slot_data_render.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/slot_data_render.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/slot_data_render.h:41` | untagged neutral name (D10) |
+| 1 | `string` | `app/client/slot_data_render.h:42` | neutral |
+| 1 | `Unknown_28` | `app/client/slot_data_render.h:42` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/slot_data_render.h:43` | neutral |
+| 1 | `Unknown_2C` | `app/client/slot_data_render.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/slot_data_render.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/slot_data_render.h:45` | untagged neutral name (D10) |
+| 1 | `color` | `app/client/slot_data_render.h:46` | neutral |
+| 1 | `Unknown_38` | `app/client/slot_data_render.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/slot_data_render.h:47` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/slot_data_render.h:48` | neutral |
+| 1 | `Unknown_40` | `app/client/slot_data_render.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/slot_data_render.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/slot_data_render.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/slot_data_render.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/slot_data_render.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8F00` | `app/client/slot_data_render.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8FE0` | `app/client/slot_data_render.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/slot_data_render.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/slot_data_render.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/slot_data_render.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/slot_data_render.h:64` | untagged neutral name (D10) |
 | 1 | `x, y` | `app/client/smouse.cpp:10` | as scriptedmovie.cpp's |
 | 1 | `Unknown_42ECF0` | `app/client/smouse.cpp:10` | untagged neutral name (D10) |
 | 1 | `SMouseDragClass` | `app/client/smouse.cpp:22` | neutral (D10) |
@@ -16744,6 +16888,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `View` | `app/client/scriptedmovie.cpp:1621` | what it holds |
 | 2 | `Frame` | `app/client/scriptedmovieline.h:17` | what the order compares |
 | 2 | `Text` | `app/client/scriptedmovieline.h:18` | what it holds |
+| 2 | `Get_Slot` | `app/client/slot_data_render.h:53` | the accessor of Unknown20, the slot |
 | 2 | `CameraModeStruct` | `app/client/soptions.h:26` | what it holds |
 | 2 | `Set_Camera_Mode` | `app/client/soptions.h:44` | what it does |
 | 2 | `Load_Camera_Mode` | `app/client/soptions.h:49` | what it does  // NAME 1 [ini, section]: the arguments' order is unchecked |
@@ -19179,6 +19324,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PIPView` | `app/client/ship_pip.h:62` | the FAIL_IF's |
 | 3 | `FloatParent` | `app/client/ship_pip.h:88` | the assert's |
 | 3 | `shiputils.cpp` | `app/client/shiputils.cpp:366` | the FAIL_IF's 'slot_id >= MAX_NUM_DECAL_SLOTS' |
+| 3 | `SlotDataClass` | `app/client/skill_render.cpp:22` | its local sd (0x6A7310) |
+| 3 | `Abilities, NumActivatable` | `app/client/skill_render.cpp:30` | asserts |
+| 3 | `SkillRenderClass` | `app/client/skill_render.h:25` | class-from-file (D24) for app\Client\skill_render.cpp |
+| 3 | `string` | `app/client/skill_render.h:34` | its FAIL_IF |
+| 3 | `render` | `app/client/skill_render.h:39` | its FAIL_IF |
+| 3 | `ValidityIndicator` | `app/client/skill_render.h:50` | its assert |
+| 3 | `WrongTargetTypeIndicator` | `app/client/skill_render.h:51` | its assert |
+| 3 | `RechargeIndicator` | `app/client/skill_render.h:52` | its assert |
+| 3 | `SlotDataRenderClass` | `app/client/slot_data_render.h:29` | class-from-file (D24) for app\Client\slot_data_render.cpp |
+| 3 | `sd` | `app/client/slot_data_render.h:34` | 0x6A7310's FAIL_IF; NAME 1 [robj]: neutral |
+| 3 | `render` | `app/client/slot_data_render.h:49` | 0x6A6F90's FAIL_IF |
+| 3 | `robj` | `app/client/slot_data_render.h:54` | its FAIL_IF |
+| 3 | `robj` | `app/client/slot_data_render.h:55` | its FAIL_IF |
+| 3 | `sd` | `app/client/slot_data_render.h:57` | 0x6A7310's FAIL_IF |
+| 3 | `render_object` | `app/client/slot_data_render.h:58` | 0x6A6250's FAIL_IF |
+| 3 | `Container` | `app/client/slot_data_render.h:60` | 0x6A7C00's assert |
 | 3 | `soptions.h` | `app/client/soptions.h:18` | header name assumed from the client's soptions.cpp |
 | 3 | `SOptionsClass` | `app/client/soptions.h:38` | class-from-file (D24) for soptions.cpp |
 | 3 | `PolyBudget` | `app/client/soptions.h:54` | the registry value's name |
