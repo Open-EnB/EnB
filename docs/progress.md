@@ -2568,6 +2568,14 @@ below name only the work items, the blocked work, the leads and the queues.
      Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.3) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * The expression library (app/shared/expr/, EX1-EX4, 2026-11-05 night): NOT EXACT expr_math_parser_impl Add_Similar 0x4D0DF0
+     (register), Parse_Level 0x4D10E0 (inline budget: a token scope closing before the returns, untried); expr_math_float
+     0x4C8920 / 0x4C9010 (frame: no EH frame for `new` in float's copy, int's exact), Create_Binary 0x4C7D80 / 0x4CBCD0 (shape),
+     Create_Unary 0x4CC120 (inline budget), Visit_Binary 0x4CB260 / 0x4CFB00 (shape: a merged tail, 28 calls vs 24);
+     std::fill 0x4D3CF0 / copy_backward 0x4D3EC0 parked (npos as an immediate -1); 0x4C7B70's guarded initialiser wants a D99
+     row. Lead (tools): a vtable-slot pairing for the operator classes' byte-identical dtors / deleting dtors (~60 addresses
+     in 0x4C9EC0-0x4CAC60 and 0x4CE2A0-0x4CF500, "multiple" today). Interim names (D137): expr_lexer_matchers.cpp,
+     expr_math_token.cpp, the expr_math_float / int headers.
    * **Font types:** Font32Class's XSpacing / MinSpacing reachable; unknown_6ca0c0.cpp and unknown_6cce60.cpp merged
      when evidence names the object (D137); FontSys::Font +0x24C as `RefCountPtr<Font32Class>` (0x588DC0 passes
      its address as one); sclient.h's `SClientFontDatabaseClass::Unknown_6C52B0(int)` is
