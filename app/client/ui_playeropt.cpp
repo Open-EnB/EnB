@@ -60,7 +60,6 @@ UIPlayerOptClass::~UIPlayerOptClass()
 	}
 }
 
-// NOT EXACT: register allocation (the client loads the model into eax and the gadget's +0x2C into ecx; ours ecx / edx)
 // 0x5D9100
 void UIPlayerOptClass::Unknown_54()
 {
@@ -76,7 +75,7 @@ void UIPlayerOptClass::Unknown_54()
 			Unknown0DC[i] = Unknown_56D510(i + 6, name, NULL);
 			Unknown0DC[i]->Unknown2C_0A = true;
 			_snprintf(name, sizeof(name), "name%02d_tsi27a", i);
-			Unknown0F8[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Unknown84));
+			Unknown0F8[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Peek_Unknown84()));
 		}
 		Slider = Unknown_56D8D0(0xE, 0);
 		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
@@ -309,6 +308,7 @@ void UIPlayerOptClass::Unknown_5DA2B0(bool on)
 		Unknown0CC[2]->Unknown_40(false);
 	}
 }
+
 
 
 

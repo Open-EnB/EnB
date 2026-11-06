@@ -2111,3 +2111,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-06,0x5D8E90,,app/client/ui_playeropt.cpp,app,exact,1.00,3,,"Unknown_5C() inlined, with 0x5D9BB0 / 0x5D9C70 as the lists' clear()",,claude-opus-5-5
 2026-11-06,0x5D9610,,app/client/ui_playeropt.cpp,app,exact,1.00,2,,"0x5DA2B0 written with an early return for the selection check (kept out of line, as the client)",,claude-opus-5-5
 2026-11-06,0x5DA600,,app/client/ui_playeropt.cpp,app,exact,1.00,2,,"0x5DA2B0 written with an early return for the selection check (kept out of line, as the client)",,claude-opus-5-5
+2026-11-06,0x5D9100,,app/client/ui_playeropt.cpp,app,exact,1.00,4,,the model through the base's inline Peek_Unknown84() (the bare member: 0.80),,claude-opus-5-5

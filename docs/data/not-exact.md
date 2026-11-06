@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-563 entries in 146 files.
+562 entries in 146 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -325,10 +325,9 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
 | `app/client/ui_missn.cpp:514` | `UIMissnClass::Unknown_5C5DB0` | marker | NOT EXACT: register (similarity 0.58: the client keeps this in ebp, spilled, and the mission in ebx, spilled to new_mission's slot; edi is pushed only around the text; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline) |
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
-| `app/client/ui_playeropt.cpp:63` | `UIPlayerOptClass::Unknown_54` | marker | NOT EXACT: register allocation (the client loads the model into eax and the gadget's +0x2C into ecx; ours ecx / edx) 0x5D9100 |
-| `app/client/ui_playeropt.cpp:91` | `UIPlayerOptClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's _Destroy and the list iterator's ++ out of line; ours expands them, 0x5DA2B0 not being inlined; with 0x5DA2B0 inlined the rest matched, 0.54) 0x5D9410 |
-| `app/client/ui_playeropt.cpp:224` | `UIPlayerOptClass::Unknown_5D9D10` | marker | NOT EXACT: inline budget (the client calls the vector's erase out of line, keeps the list iterator in a stack slot and rotates the loop) 0x5D9D10 |
-| `app/client/ui_playeropt.cpp:272` | `UIPlayerOptClass::Unknown_5DA0D0` | marker | NOT EXACT: register allocation (the client holds this in ebx and 0 in ebp, ours the reverse; as ui_friends.cpp's 0x590E50) 0x5DA0D0 |
+| `app/client/ui_playeropt.cpp:90` | `UIPlayerOptClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's _Destroy and the list iterator's ++ out of line; ours expands them, 0x5DA2B0 not being inlined; with 0x5DA2B0 inlined the rest matched, 0.54) 0x5D9410 |
+| `app/client/ui_playeropt.cpp:223` | `UIPlayerOptClass::Unknown_5D9D10` | marker | NOT EXACT: inline budget (the client calls the vector's erase out of line, keeps the list iterator in a stack slot and rotates the loop) 0x5D9D10 |
+| `app/client/ui_playeropt.cpp:271` | `UIPlayerOptClass::Unknown_5DA0D0` | marker | NOT EXACT: register allocation (the client holds this in ebx and 0 in ebp, ours the reverse; as ui_friends.cpp's 0x590E50) 0x5DA0D0 |
 | `app/client/ui_playeropt.cpp:457` | `UIPlayerOptClass::Unknown_5DAB50` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(false) out of line; as ui_friends.cpp's 0x591A30) 0x5DAB50 |
 | `app/client/ui_ptrade.cpp:239` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
 | `app/client/ui_registration.cpp:308` | `RegistrationInterface::Unknown_5F9460` | marker | NOT EXACT: shape (explain.py: 14 calls in ours, 13 in the client; the value_type temporaries' stack slots differ) @0x5F9460 |
