@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1280 |
-| 2 | describes what the code does | 3011 |
-| 1 | neutral placeholder | 14229 |
+| 3 | by convention from a client-named file or sibling | 1281 |
+| 2 | describes what the code does | 3014 |
+| 1 | neutral placeholder | 14237 |
 
 ## For review (score 3 and below)
 
@@ -3557,6 +3557,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_687360` | `app/client/intrlist.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/intrlist.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/intrlist.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/item/client_item_property_attribute.h:70` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/item/client_item_property_option.h:65` | neutral (D10) |
 | 1 | `FontManagerClass` | `app/client/loadingview.cpp:15` | neutral (D10)  // NAME 1 [object, name]: what this file passes |
 | 1 | `Unknown_6D2310` | `app/client/loadingview.cpp:15` | untagged neutral name (D10) |
@@ -8997,14 +8998,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0EC` | `app/client/ui_group.h:138` | untagged neutral name (D10) |
 | 1 | `Unknown0F0` | `app/client/ui_group.h:139` | untagged neutral name (D10) |
 | 1 | `Unknown0F1` | `app/client/ui_group.h:140` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_item_examination_attributes.h:36` | neutral (D10) |
+| 1 | `Unknown68` | `app/client/ui_item_examination_attributes.h:37` | neutral (D10) |
+| 1 | `Add_Attribute, attribute` | `app/client/ui_item_examination_attributes.h:46` | appends to Attributes |
+| 1 | `Rebuild` | `app/client/ui_item_examination_attributes.h:47` | one row per attribute, as the options panel's |
+| 1 | `Clear` | `app/client/ui_item_examination_attributes.h:48` | as the options panel's |
+| 1 | `Listener` | `app/client/ui_item_examination_attributes.h:51` | passed to each row |
 | 1 | `UIItemExaminationOptionListenerClass` | `app/client/ui_item_examination_options.h:25` | neutral; the examination window's base at +0x84 (table 0xAEE298) |
 | 1 | `Unknown64` | `app/client/ui_item_examination_options.h:34` | neutral (D10) |
 | 1 | `Unknown68` | `app/client/ui_item_examination_options.h:35` | neutral (D10) |
 | 1 | `Unknown6C` | `app/client/ui_item_examination_options.h:36` | neutral (D10) |
 | 1 | `Unknown70` | `app/client/ui_item_examination_options.h:37` | neutral (D10) |
-| 1 | `Rebuild` | `app/client/ui_item_examination_options.h:46` | empties the panel, adds the frame and one row per option |
-| 1 | `Clear` | `app/client/ui_item_examination_options.h:47` | removes the rows and drops the options |
-| 1 | `Listener` | `app/client/ui_item_examination_options.h:50` | passed to each row |
+| 1 | `Add_Option, option` | `app/client/ui_item_examination_options.h:46` | appends to Options |
+| 1 | `Rebuild` | `app/client/ui_item_examination_options.h:47` | empties the panel, adds the frame and one row per option |
+| 1 | `Clear` | `app/client/ui_item_examination_options.h:48` | removes the rows and drops the options |
+| 1 | `Listener` | `app/client/ui_item_examination_options.h:51` | passed to each row |
 | 1 | `Unknown_BDBB84` | `app/client/ui_line_display.cpp:11` | neutral (D10): the random generator the fonts are picked with |
 | 1 | `Unknown_BE67BC` | `app/client/ui_line_display.cpp:14` | neutral (D10); sclient.h declares it so |
 | 1 | `LineDisplayUnknown138Class` | `app/client/ui_line_display.cpp:28` | neutral (D10) |
@@ -14950,6 +14958,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `PIPPolyBudget` | `app/client/interface_static_sort_list.h:140` | the asserts' |
 | 2 | `view` | `app/client/intrface.h:110` | the member's assert '!View'; NAME 1 [unknown]: neutral |
 | 2 | `key_manager` | `app/client/intrface.h:129` | the FAIL_IF's; NAME 1 [event]: neutral |
+| 2 | `ClientItemPropertyAttributeClass` | `app/client/item/client_item_property_attribute.h:67` | class from file (D24), client_item_property_attribute.h |
 | 2 | `ClientItemPropertyOptionClass` | `app/client/item/client_item_property_option.h:62` | class from file (D24), client_item_property_option.h |
 | 2 | `x10000` | `app/client/local_interface_sort.cpp:11` | the FAIL_IFs' |
 | 2 | `ui` | `app/client/local_interface_sort.h:32` | the FAIL_IF's |
@@ -15391,6 +15400,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add_Member` | `app/client/ui_group.h:110` | what it does; NAME 1 [unknown]: neutral |
 | 2 | `Remove_Member` | `app/client/ui_group.h:111` | what it does |
 | 2 | `std:` | `app/client/ui_group.h:112` | what it does; NAME 3 [it]: the FAIL_IF's |
+| 2 | `UIItemExaminationAttributeClass` | `app/client/ui_item_examination_attributes.h:29` | from 'ATTRIBUTE00_IEI00', as UIItemExaminationOptionClass |
+| 2 | `UIItemExaminationAttributesClass` | `app/client/ui_item_examination_attributes.h:40` | from 'ITEM_EXAMINATION_ATTRIBUTES', as UIItemExaminationOptionsClass |
 | 2 | `UIItemExaminationOptionClass` | `app/client/ui_item_examination_options.h:27` | from the file name and 'ItemOptionObject' |
 | 2 | `UIItemExaminationOptionsClass` | `app/client/ui_item_examination_options.h:40` | class from file (D24), ui_item_examination_options.cpp |
 | 2 | `Push_Line` | `app/client/ui_line_display.cpp:312` | what it does; the dead size() read spends the inline budget the client spends (workflow.md §3.3, the find-if-set wrapper's reads) |
@@ -17424,6 +17435,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Active` | `app/client/intrface.h:154` | the FAIL_IF's |
 | 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:155` | the assert's |
 | 3 | `View` | `app/client/intrlist.cpp:18` | the FAIL_IF's |
+| 3 | `client_item_property_attribute.h` | `app/client/item/client_item_property_attribute.h:16` | the client's __FILE__ 0xB7883C |
 | 3 | `client_item_property_option.h` | `app/client/item/client_item_property_option.h:16` | the client's __FILE__ 0xB78A58 |
 | 3 | `FontSys` | `app/client/loadingview.cpp:13` | the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: what 0x692420 passes |
 | 3 | `local_interface_sort.h` | `app/client/local_interface_sort.h:17` | header name assumed from the client's local_interface_sort.cpp |
