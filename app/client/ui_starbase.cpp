@@ -135,8 +135,17 @@ UIStarbaseLightsClass::~UIStarbaseLightsClass()
 static const char *Unknown_B8B864[6] = { "exit", "save", "light00", "light01", "light02", "light03" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8B880[6] = { NULL, "save_light02a", "previous_light02a", "next_light02a", "diffuse_light02a", "ambient_light02a" };	// NAME 1: neutral (D10)
 
-// NOT EXACT: register (ours keeps 0 in ebp for the pushes and the stores, the client pushes immediates and never
-// saves ebp; tried: one or two loop counters, named locals for the zero vector and the key combo)
+// kernel.h's input event, as ui_class.cpp's UIClassKeyEventStruct (0x646360's Escape)
+struct UIStarbaseLightsKeyEventStruct	// NAME 1: neutral (D10)
+{
+	UIStarbaseLightsKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
+	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
+	short Unknown02;									// +0x02
+	float Unknown04;									// +0x04
+	float Unknown08;									// +0x08
+	int Unknown0C;										// +0x0C
+};
+
 // 0x646360
 void UIStarbaseLightsClass::Unknown_54()
 {
@@ -171,7 +180,7 @@ void UIStarbaseLightsClass::Unknown_54()
 		UnknownD8->Unknown00->Unknown_65FFA0(-1);
 		Unknown64.Unknown_6870E0(UnknownD8->Unknown00, 0xD, View, true, false);
 		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
-		((ControlKeyListClass *)Unknown4C)->Add(ControlKeyComboStruct(0x1B, 0), (void *)1);
+		((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIStarbaseLightsKeyEventStruct(0x1B), (void *)1);
 	}
 }
 

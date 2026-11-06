@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-542 entries in 137 files.
+541 entries in 137 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -342,8 +342,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:1349` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
 | `app/client/ui_shipcust.cpp:1668` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
-| `app/client/ui_starbase.cpp:138` | `UIStarbaseLightsClass::Unknown_54` | marker | NOT EXACT: register (ours keeps 0 in ebp for the pushes and the stores, the client pushes immediates and never saves ebp; tried: one or two loop counters, named locals for the zero vector and the key combo) 0x646360 |
-| `app/client/ui_starbase.cpp:264` | `UIStarbaseLightsClass::Unknown_646A00` | marker | NOT EXACT: inline-budget (the client keeps the temporary vector's _Destroy 0x644410 out of line, ours inlines it) and the far attenuation range: the client copies the two floats with mov, as Zero Hour's light.h overload Get_Far_Attenuation_Range(float &, float &) gives (tested with an equivalent helper); this tree's light.h has only the double & one, whose fld / fstp is kept here 0x646A00 |
+| `app/client/ui_starbase.cpp:273` | `UIStarbaseLightsClass::Unknown_646A00` | marker | NOT EXACT: inline-budget (the client keeps the temporary vector's _Destroy 0x644410 out of line, ours inlines it) and the far attenuation range: the client copies the two floats with mov, as Zero Hour's light.h overload Get_Far_Attenuation_Range(float &, float &) gives (tested with an equivalent helper); this tree's light.h has only the double & one, whose fld / fstp is kept here 0x646A00 |
 | `app/client/unknown_6ca0c0.cpp:94` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
 | `app/client/unknown_6cce60.cpp:36` | `FontSys::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
 | `app/client/unknown_6cce60.cpp:76` | `FontSys::Unknown_6CD180` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180) |
