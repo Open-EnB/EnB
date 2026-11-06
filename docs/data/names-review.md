@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 134 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1361 |
-| 2 | describes what the code does | 3101 |
-| 1 | neutral placeholder | 15318 |
+| 3 | by convention from a client-named file or sibling | 1370 |
+| 2 | describes what the code does | 3126 |
+| 1 | neutral placeholder | 15342 |
 
 ## For review (score 3 and below)
 
@@ -11232,6 +11232,30 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_610E10` | `app/client/ui_scut.h:88` | untagged neutral name (D10) |
 | 1 | `Unknown_610F30` | `app/client/ui_scut.h:89` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/ui_scut.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown_8B44E0` | `app/client/ui_scut_gadgets.cpp:19` | neutral placeholder (D10) |
+| 1 | `Unknown_14` | `app/client/ui_scut_gadgets.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown_610D00` | `app/client/ui_scut_gadgets.cpp:148` | untagged neutral name (D10) |
+| 1 | `Unknown66CB20Class` | `app/client/ui_scut_gadgets.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_scut_gadgets.cpp:188` | untagged neutral name (D10) |
+| 1 | `Unknown_66CB20` | `app/client/ui_scut_gadgets.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_610C70` | `app/client/ui_scut_gadgets.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_scut_gadgets.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown_610B00` | `app/client/ui_scut_gadgets.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_scut_gadgets.cpp:305` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/ui_scut_gadgets.cpp:305` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/ui_scut_gadgets.cpp:305` | untagged neutral name (D10) |
+| 1 | `Unknown_610E10` | `app/client/ui_scut_gadgets.cpp:409` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_scut_gadgets.cpp:413` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF7A0` | `app/client/ui_scut_gadgets.cpp:437` | untagged neutral name (D10) |
+| 1 | `Unknown66CB20Class` | `app/client/ui_scut_gadgets.h:18` | neutral (D10) |
+| 1 | `gadget` | `app/client/ui_scut_gadgets.h:21` | what 0x614360 passes |
+| 1 | `Unknown_66CB20` | `app/client/ui_scut_gadgets.h:21` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_scut_gadgets.h:50` | neutral |
+| 1 | `Unknown_0C` | `app/client/ui_scut_gadgets.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_scut_gadgets.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_scut_gadgets.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_scut_gadgets.h:53` | untagged neutral name (D10) |
+| 1 | `Delete_Gadgets` | `app/client/ui_scut_gadgets.h:61` | neutral |
 | 1 | `Unknown_BE67C4` | `app/client/ui_shard.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C9C` | `app/client/ui_shard.cpp:30` | neutral (D10)			// NAME 1 [Unknown_BE67C4]: 0xBE67C4 |
 | 1 | `UIShardKeyEventStruct` | `app/client/ui_shard.cpp:33` | neutral (D10): kernel.h's input event |
@@ -16609,6 +16633,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Bank` | `app/client/ui_scut.h:64` | its 'bank_%d' model |
 | 2 | `Group` | `app/client/ui_scut.h:67` | what it holds |
 | 2 | `Bars` | `app/client/ui_scut.h:91` | what it holds |
+| 2 | `ShortcutIni` | `app/client/ui_scut_gadgets.cpp:21` | what it holds |
+| 2 | `ShortcutDataStruct` | `app/client/ui_scut_gadgets.h:25` | what it holds |
+| 2 | `key, bar, group, button` | `app/client/ui_scut_gadgets.h:27` | the entries' |
+| 2 | `std:` | `app/client/ui_scut_gadgets.h:29` | the entry's |
+| 2 | `STATE_NO_UI` | `app/client/ui_scut_gadgets.h:41` | Get_State's first return |
+| 2 | `STATE_RESTORED` | `app/client/ui_scut_gadgets.h:43` | Get_State's other return |
+| 2 | `Set_UI` | `app/client/ui_scut_gadgets.h:48` | what it does |
+| 2 | `Clear_UI` | `app/client/ui_scut_gadgets.h:49` | what it does |
+| 2 | `gadget, key` | `app/client/ui_scut_gadgets.h:51` | what it fills |
+| 2 | `key` | `app/client/ui_scut_gadgets.h:52` | what it is given |
+| 2 | `Restore` | `app/client/ui_scut_gadgets.h:56` | what it does |
+| 2 | `Restore` | `app/client/ui_scut_gadgets.h:57` | what it does; NAME 1 [list]: neutral |
+| 2 | `Create_Shortcut` | `app/client/ui_scut_gadgets.h:58` | what it does; NAME 1 [arg, target]: neutral |
+| 2 | `Delete_Shortcut` | `app/client/ui_scut_gadgets.h:59` | what it does; NAME 3 [scut]: the FAIL_IF's |
+| 2 | `Delete_All` | `app/client/ui_scut_gadgets.h:60` | what it does |
+| 2 | `Clean` | `app/client/ui_scut_gadgets.h:62` | what it does |
+| 2 | `Load` | `app/client/ui_scut_gadgets.h:63` | what it does; NAME 1 [list]: neutral |
+| 2 | `Save` | `app/client/ui_scut_gadgets.h:64` | what it does; NAME 1 [list]: neutral |
+| 2 | `Build` | `app/client/ui_scut_gadgets.h:65` | what it does; NAME 1 [list]: neutral |
+| 2 | `Save_Current` | `app/client/ui_scut_gadgets.h:66` | what it does |
+| 2 | `Init_Name` | `app/client/ui_scut_gadgets.h:67` | what it does; NAME 3 [client]: the FAIL_IF's |
+| 2 | `std:` | `app/client/ui_scut_gadgets.h:71` | what it is in shortcut.ini |
+| 2 | `std:` | `app/client/ui_scut_gadgets.h:72` | the entry's |
+| 2 | `std:` | `app/client/ui_scut_gadgets.h:73` | what it holds |
+| 2 | `ShortcutBeenCreated` | `app/client/ui_scut_gadgets.h:74` | the entry's |
 | 2 | `Pull` | `app/client/ui_ship_cust.cpp:90` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `Pull` | `app/client/ui_shipcust.cpp:118` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `BackgroundColor` | `app/client/unknown_490900.h:30` | what Begin_Render gets (scriptedmovie.cpp) |
@@ -18936,6 +18985,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `bar` | `app/client/ui_scut.h:85` | the FAIL_IF's; NAME 1 [gadget]: 0x611BD0's |
 | 3 | `bar` | `app/client/ui_scut.h:86` | the FAIL_IF's; NAME 1 [gadget, group, bttn_idx]: 0x611BD0's |
 | 3 | `gadget, bar, group, bttn_idx` | `app/client/ui_scut.h:88` | the FAIL_IFs' |
+| 3 | `Bar` | `app/client/ui_scut_gadgets.h:30` | the FAIL_IF's |
+| 3 | `Group` | `app/client/ui_scut_gadgets.h:31` | the FAIL_IF's |
+| 3 | `Button` | `app/client/ui_scut_gadgets.h:32` | the FAIL_IF's |
+| 3 | `UIScutGadgetsClass` | `app/client/ui_scut_gadgets.h:37` | class-from-file (D24) for ui_scut_gadgets.cpp |
+| 3 | `Get_State` | `app/client/ui_scut_gadgets.h:42` | the FAIL_IF's |
+| 3 | `sclient` | `app/client/ui_scut_gadgets.h:46` | the FAIL_IF's; NAME 2 [name]: Section's last part |
+| 3 | `Get_State` | `app/client/ui_scut_gadgets.h:55` | the FAIL_IF's |
+| 3 | `ShortcutUI` | `app/client/ui_scut_gadgets.h:69` | the FAIL_IF's |
+| 3 | `std:` | `app/client/ui_scut_gadgets.h:70` | the FAIL_IF's |
 | 3 | `ShardSelection` | `app/client/ui_shard.h:45` | the FAIL_IF's |
 | 3 | `std:` | `app/client/ui_shard.h:59` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_ship_cust.cpp:106` | the FAIL_IF's in ui_manu.cpp |
