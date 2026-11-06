@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1304 |
 | 2 | describes what the code does | 3021 |
-| 1 | neutral placeholder | 14462 |
+| 1 | neutral placeholder | 14467 |
 
 ## For review (score 3 and below)
 
@@ -8763,54 +8763,57 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownC0` | `app/client/ui_faction.h:36` | untagged neutral name (D10) |
 | 1 | `UnknownC4` | `app/client/ui_faction.h:37` | untagged neutral name (D10) |
 | 1 | `UnknownC8` | `app/client/ui_faction.h:38` | untagged neutral name (D10) |
-| 1 | `LineDisplayClientClass` | `app/client/ui_friends.cpp:21` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/ui_friends.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/ui_friends.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_friends.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_friends.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_friends.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/ui_friends.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_Delete_Player, info` | `app/client/ui_friends.cpp:37` | neutral |
-| 1 | `Unknown_Delete_Player` | `app/client/ui_friends.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_friends.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_591030` | `app/client/ui_friends.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown_5906C0` | `app/client/ui_friends.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown_590810` | `app/client/ui_friends.cpp:48` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_friends.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown0AE` | `app/client/ui_friends.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown_591350` | `app/client/ui_friends.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown_590500` | `app/client/ui_friends.cpp:60` | untagged neutral name (D10) |
-| 1 | `Unknown_590C70` | `app/client/ui_friends.cpp:61` | untagged neutral name (D10) |
-| 1 | `Unknown_590E50` | `app/client/ui_friends.cpp:62` | untagged neutral name (D10) |
-| 1 | `Unknown_744B60` | `app/client/ui_friends.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5A40` | `app/client/ui_friends.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown0D0` | `app/client/ui_friends.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_friends.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown_74D570` | `app/client/ui_friends.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_friends.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown_590480` | `app/client/ui_friends.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown_66FA90` | `app/client/ui_friends.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_590550` | `app/client/ui_friends.cpp:103` | untagged neutral name (D10) |
-| 1 | `Unknown_66FD80` | `app/client/ui_friends.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `app/client/ui_friends.cpp:115` | untagged neutral name (D10) |
-| 1 | `Unknown130` | `app/client/ui_friends.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown0F0` | `app/client/ui_friends.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8970` | `app/client/ui_friends.cpp:119` | untagged neutral name (D10) |
-| 1 | `Unknown_Set_2FC` | `app/client/ui_friends.cpp:120` | untagged neutral name (D10) |
-| 1 | `Unknown0C4` | `app/client/ui_friends.cpp:149` | untagged neutral name (D10) |
-| 1 | `Unknown_5908B0` | `app/client/ui_friends.cpp:157` | untagged neutral name (D10) |
-| 1 | `Unknown0AC` | `app/client/ui_friends.cpp:166` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECF0` | `app/client/ui_friends.cpp:198` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ui_friends.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/ui_friends.cpp:202` | untagged neutral name (D10) |
-| 1 | `Unknown_6D87D0` | `app/client/ui_friends.cpp:211` | untagged neutral name (D10) |
-| 1 | `Unknown_590DB0` | `app/client/ui_friends.cpp:221` | untagged neutral name (D10) |
-| 1 | `Is_Unknown2C_00` | `app/client/ui_friends.cpp:227` | untagged neutral name (D10) |
-| 1 | `Unknown_591EE0` | `app/client/ui_friends.cpp:228` | untagged neutral name (D10) |
-| 1 | `Unknown_64A220` | `app/client/ui_friends.cpp:243` | untagged neutral name (D10) |
-| 1 | `Unknown_64A240` | `app/client/ui_friends.cpp:246` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/ui_friends.cpp:247` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ui_friends.cpp:248` | untagged neutral name (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/ui_friends.cpp:24` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_friends.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_friends.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_friends.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_friends.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_friends.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_friends.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_Delete_Player, info` | `app/client/ui_friends.cpp:40` | neutral |
+| 1 | `Unknown_Delete_Player` | `app/client/ui_friends.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_friends.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_590810` | `app/client/ui_friends.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_590480` | `app/client/ui_friends.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_friends.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_591030` | `app/client/ui_friends.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_friends.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/ui_friends.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_friends.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_5906C0` | `app/client/ui_friends.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_friends.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown0AE` | `app/client/ui_friends.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_591350` | `app/client/ui_friends.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_590500` | `app/client/ui_friends.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_590C70` | `app/client/ui_friends.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_590E50` | `app/client/ui_friends.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_744B60` | `app/client/ui_friends.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A40` | `app/client/ui_friends.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_friends.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_74D570` | `app/client/ui_friends.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_friends.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_friends.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_590550` | `app/client/ui_friends.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_66FD80` | `app/client/ui_friends.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown114` | `app/client/ui_friends.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown130` | `app/client/ui_friends.cpp:144` | untagged neutral name (D10) |
+| 1 | `Unknown0F0` | `app/client/ui_friends.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8970` | `app/client/ui_friends.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_friends.cpp:148` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_friends.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_5908B0` | `app/client/ui_friends.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_friends.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/client/ui_friends.cpp:226` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_friends.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_friends.cpp:230` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/ui_friends.cpp:239` | untagged neutral name (D10) |
+| 1 | `Unknown_590DB0` | `app/client/ui_friends.cpp:249` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_00` | `app/client/ui_friends.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown_591EE0` | `app/client/ui_friends.cpp:256` | untagged neutral name (D10) |
+| 1 | `Unknown_64A220` | `app/client/ui_friends.cpp:271` | untagged neutral name (D10) |
+| 1 | `Unknown_64A240` | `app/client/ui_friends.cpp:274` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_friends.cpp:277` | untagged neutral name (D10) |
+| 1 | `Unknown_5910D0` | `app/client/ui_friends.cpp:583` | untagged neutral name (D10) |
 | 1 | `ui_friends.h` | `app/client/ui_friends.h:4` | provisional header name for ui_friends.cpp |
 | 1 | `name, location` | `app/client/ui_friends.h:21` | the members they set |
 | 1 | `Unknown_5908B0` | `app/client/ui_friends.h:33` | untagged neutral name (D10) |
@@ -8818,33 +8821,35 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_590810` | `app/client/ui_friends.h:35` | untagged neutral name (D10) |
 | 1 | `on` | `app/client/ui_friends.h:36` | neutral |
 | 1 | `Unknown_591030` | `app/client/ui_friends.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_friends.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_friends.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown_591350` | `app/client/ui_friends.h:39` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/ui_friends.h:40` | InterfaceClass's |
-| 1 | `Unknown_7C` | `app/client/ui_friends.h:40` | untagged neutral name (D10) |
-| 1 | `count` | `app/client/ui_friends.h:41` | neutral |
-| 1 | `Unknown_590480` | `app/client/ui_friends.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown_590500` | `app/client/ui_friends.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown_590550` | `app/client/ui_friends.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown_590C70` | `app/client/ui_friends.h:44` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_friends.h:45` | neutral |
-| 1 | `Unknown_590DB0` | `app/client/ui_friends.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_590E50` | `app/client/ui_friends.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_591EE0` | `app/client/ui_friends.h:47` | untagged neutral name (D10) |
-| 1 | `Slider` | `app/client/ui_friends.h:49` | neutral |
-| 1 | `Top` | `app/client/ui_friends.h:50` | neutral |
-| 1 | `Unknown0AC` | `app/client/ui_friends.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown0AD` | `app/client/ui_friends.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown0AE` | `app/client/ui_friends.h:54` | untagged neutral name (D10) |
-| 1 | `SymbolChatUI` | `app/client/ui_friends.h:55` | as ui_group.h's |
-| 1 | `Unknown0C4` | `app/client/ui_friends.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown0D0` | `app/client/ui_friends.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown0F0` | `app/client/ui_friends.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `app/client/ui_friends.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `app/client/ui_friends.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `app/client/ui_friends.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown130` | `app/client/ui_friends.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_friends.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_friends.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_friends.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_591350` | `app/client/ui_friends.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_5910D0` | `app/client/ui_friends.h:41` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_friends.h:42` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_friends.h:42` | untagged neutral name (D10) |
+| 1 | `count` | `app/client/ui_friends.h:43` | neutral |
+| 1 | `Unknown_590480` | `app/client/ui_friends.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_590500` | `app/client/ui_friends.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_590550` | `app/client/ui_friends.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_590C70` | `app/client/ui_friends.h:46` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_friends.h:47` | neutral |
+| 1 | `Unknown_590DB0` | `app/client/ui_friends.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_590E50` | `app/client/ui_friends.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_591EE0` | `app/client/ui_friends.h:49` | untagged neutral name (D10) |
+| 1 | `Slider` | `app/client/ui_friends.h:51` | neutral |
+| 1 | `Top` | `app/client/ui_friends.h:52` | neutral |
+| 1 | `Unknown0AC` | `app/client/ui_friends.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown0AD` | `app/client/ui_friends.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown0AE` | `app/client/ui_friends.h:56` | untagged neutral name (D10) |
+| 1 | `SymbolChatUI` | `app/client/ui_friends.h:57` | as ui_group.h's |
+| 1 | `Unknown0C4` | `app/client/ui_friends.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_friends.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown0F0` | `app/client/ui_friends.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/ui_friends.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/ui_friends.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown114` | `app/client/ui_friends.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown130` | `app/client/ui_friends.h:65` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_group.cpp:21` | neutral (D10) |
 | 1 | `UIGroupAvatarClass` | `app/client/ui_group.cpp:22` | neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC) |
 | 1 | `Unknown` | `app/client/ui_group.cpp:22` | untagged neutral name (D10) |
@@ -17878,10 +17883,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Get_Client` | `app/client/ui_faction.h:28` | the FAIL_IF's |
 | 3 | `StandardBttnTexture` | `app/client/ui_faction.h:32` | the G_ASSERT's (l.139) |
 | 3 | `SelectedBttnTexture` | `app/client/ui_faction.h:33` | the G_ASSERT's (l.143) |
-| 3 | `As_Space_Client` | `app/client/ui_friends.cpp:26` | ui_manu.cpp's FAIL_IF's |
+| 3 | `As_Space_Client` | `app/client/ui_friends.cpp:29` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UIFriendsClass` | `app/client/ui_friends.h:30` | class-from-file (D24) for app\client\ui_friends.cpp |
-| 3 | `Selection` | `app/client/ui_friends.h:51` | the asserts' |
-| 3 | `std:` | `app/client/ui_friends.h:56` | the asserts' |
+| 3 | `Selection` | `app/client/ui_friends.h:53` | the asserts' |
+| 3 | `std:` | `app/client/ui_friends.h:58` | the asserts' |
 | 3 | `FontManagerClass` | `app/client/ui_group.cpp:20` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_group.cpp:24` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `Get_Interface` | `app/client/ui_group.h:23` | the asserts' |

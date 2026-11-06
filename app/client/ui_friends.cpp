@@ -16,6 +16,9 @@
 #include "..\input\input.h"
 #include "..\packets\pkclientchat.h"
 #include "co.h"
+#include "gd_robj.h"
+#include "local_interface_sort.h"
+#include "..\shared\unknown_debug.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -37,6 +40,31 @@ UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass(std::string name, std::string
 static inline void Unknown_Delete_Player(UIFriendsPlayerInfoClass *info)	// NAME 1 [Unknown_Delete_Player, info]: neutral
 {
 	delete info;
+}
+
+// NOT EXACT: inline budget (the client calls the vector's erase, the list's begin and erase out of line and expands the list's ??_G; ours the reverse)
+// 0x58FBA0
+void UIFriendsClass::Unknown_58()
+{
+	if (!Is_Active()) {
+		InterfaceSortScopeClass sort(this);
+		UIChatPanelBaseClass::Unknown_58();
+		std::vector<UIFriendsPlayerInfoClass *>::iterator it;
+		for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
+			delete *it;
+		}
+		PlayersInfo.erase(PlayersInfo.begin(), PlayersInfo.end());
+		Unknown_590810();
+		Top = -1;
+		Unknown_590480(0);
+		int id = ((ClientClass *)Client)->Unknown1138;
+	ClientChatRequestPacketClass packet(0x18, id);
+		((ClientClass *)Client)->Send_Packet(&packet);
+		Unknown_591030(true);
+		if (Unknown0D0[0]) {
+			((RObjGadgetClass *)Unknown0D0[0])->Unknown_66C360();
+		}
+	}
 }
 
 // 0x58FDD0
@@ -235,7 +263,7 @@ void UIFriendsClass::Unknown_590DB0(int index)
 	}
 }
 
-// NOT EXACT: register allocation (the client holds this in ebx and 0 in ebp, ours the reverse; the packet's lea comes before the Unknown1138 load)
+// NOT EXACT: register allocation (the client holds this in ebx and 0 in ebp, ours the reverse)
 // 0x590E50
 void UIFriendsClass::Unknown_590E50()
 {
@@ -244,7 +272,8 @@ void UIFriendsClass::Unknown_590E50()
 		if (state) {
 			int length;
 			if (state == 2 && (length = strlen(SymbolChatUI->Unknown_64A240())) != 0) {
-				ClientChatRequestPacketClass packet(8, ((ClientClass *)Client)->Unknown1138);
+				int id = ((ClientClass *)Client)->Unknown1138;
+	ClientChatRequestPacketClass packet(8, id);
 				packet.Unknown14 = std::string(SymbolChatUI->Unknown_64A240());
 				((ClientClass *)Client)->Send_Packet(&packet);
 			}
@@ -271,4 +300,301 @@ void UIFriendsClass::Unknown_591030(bool on)
 		Unknown0D0[2]->Unknown_40(false);
 		Unknown0D0[4]->Unknown_40(false);
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x5910D0
+void UIFriendsClass::Unknown_5910D0()
+{
+	int list_size = PlayersInfo.size();
+	FAIL_IF(Selection < 0 || Selection >= list_size) return;
+	UIFriendsPlayerInfoClass *info = PlayersInfo[Selection];
+	int id = ((ClientClass *)Client)->Unknown1138;
+	ClientChatRequestPacketClass packet(9, id);
+	packet.Unknown14 = std::string(info->Name.c_str());
+	((ClientClass *)Client)->Send_Packet(&packet);
+}
+
+// 0x591350
+void UIFriendsClass::Unknown_591350()
+{
+	int id = ((ClientClass *)Client)->Unknown1138;
+	ClientChatRequestPacketClass packet(0x18, id);
+	((ClientClass *)Client)->Send_Packet(&packet);
 }
