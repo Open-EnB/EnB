@@ -125,7 +125,7 @@ public:
 	GadgetClass *Gadgets[4];							// +0x178 (of 0x5BBF70's table 0xB8207C, 1..3; [1] with the mask 0x1055)  // NAME 2: what it holds
 };
 
-void Unknown_5BF4B0();									// 0x5BF4B0 (the constructor's last: 'fa_harvesting.ini' loaded, ui_mfd_extended_context_harvestable.cpp's)
+void Unknown_5BF4B0();									// 0x5BF4B0 (the constructor's last: ui_mfd_extended_context.cpp's; 'fa_harvesting.ini' loaded)
 void Unknown_5BF4D0();									// 0x5BF4D0 (the destructor's: the same file unloaded)
 
 // The display with slots +0x54 / +0x90 for what 0x5DD960's class builds on (constructor 0x5BE4F0: flag 0; tables 0xAF3678 /
