@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\ini_manager.cpp. Notes at the end of the file.
-#include "unknown_debug.h"
+#include "g_assert.h"
 #include "ini_manager.h"
 
 // libs/sgistl's insert_unique_noresize as an explicit specialization (the definitions table's copy, SGI's body unchanged): the template's own instance compiles since P-H7-1

@@ -14,7 +14,7 @@
 #include "wwmath.h"
 #include <math.h>
 #include <stdio.h>
-#include "unknown_debug.h"
+#include "g_assert.h"
 
 StarLayerClass::StarLayerClass(void) :
 	PointGroup(NULL),

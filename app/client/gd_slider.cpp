@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\gd_slider.cpp. Notes at the end of the file.
 #include <stdio.h>
 #include "always.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "rendobj.h"
 #include "aabox.h"

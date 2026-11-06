@@ -23,7 +23,7 @@
 #include "ww3d.h"
 #include "assetmgr.h"
 #include "dx8webbrowser.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\combo_ffactory.h"
 #include "..\kernel\kernel.h"
 #include "..\common\udpconn.h"
@@ -43,7 +43,7 @@ void Unknown_Debug_Begin_Step(const char *text);	// NAME 1 [Unknown_Debug_Begin_
 void Unknown_Debug_End_Step(const char *text);		// NAME 1 [Unknown_Debug_End_Step]: 0x50A1E0 (dbgmgr.cpp)
 void Unknown_509E70();								// NAME 1 [Unknown_509E70]: dbgmgr.cpp, opens the log ('Earth and Beyond')
 void Unknown_509EB0();								// NAME 1 [Unknown_509EB0]: dbgmgr.cpp, closes it (the allocation count assert, WWMemoryLog's Release_Log)
-void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)
+void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
 
 // ui_registration.h: Unknown_5FAD50, Unknown_5FADE0
 // dialogs (optdlg.cpp's neighbours)
@@ -593,7 +593,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			kernel->Set_Focus(login);
 		}
 
-		Unknown_4BC000("", "", __FILE__, __LINE__, "Server initialized & ready to go");
+		Message_Info("", "", __FILE__, __LINE__, "Server initialized & ready to go");
 		kernel->Run();
 
 		Unknown_Debug_Begin_Step("shutting down kernel");

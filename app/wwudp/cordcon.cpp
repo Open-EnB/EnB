@@ -19,7 +19,7 @@
 #include "..\..\libs\wwonline\wlib\wdebug.h"	// E&B's INFMSG (MsgManager::infoStream 0x8B5B90)
 #include "rc4.h"
 #include "wwprofile.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <string.h>
 #include <time.h>
 #include <windows.h>

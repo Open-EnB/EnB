@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\packets\pktask.cpp. Notes at the end of the file.
 #include "pktask.h"
 #include "pkguildplayeronline.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "nstrdup.h"
 #include <string.h>
 #include <stdio.h>

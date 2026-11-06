@@ -6,7 +6,7 @@
 #include "gadget.h"
 #include "unknown_675120.h"
 #include "fontmanager.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
 #include "ui_bio.h"
 #include "ui_attrb_skills.h"

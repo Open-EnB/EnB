@@ -21,7 +21,7 @@
 // part's constructor and destructor are copies from earlier objects or this one's (COMDAT).
 //
 #include "pk_sub_parts.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <stdio.h>
 
 SubPartsPacket::SubPartsPacket(int game_id) :

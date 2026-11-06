@@ -2,7 +2,7 @@
 #define ENABLE_WWPROFILE
 #include "px_collision.h"
 #include "dynamic_obj.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "wwprofile.h"
 #include "wwmath.h"
 #include "meshgeometry.h"

@@ -78,15 +78,15 @@ static int Loop_Drop = -1;		// --loop N: drop every Nth datagram (-1: the captur
 // ------------------------------------------------------------------------- E&B's log (cordmgr.cpp)
 
 static int LogLines = 0;
-void Unknown_4BC130(const char *, const char *, const char *, int, const char *, ...)
+void Message_Warn(const char *, const char *, const char *, int, const char *, ...)
 {
 	LogLines++;
 }
-void Unknown_4BC000(const char *, const char *, const char *, int, const char *, ...)	// Pump's ack2 note
+void Message_Info(const char *, const char *, const char *, int, const char *, ...)	// Pump's ack2 note
 {
 	LogLines++;
 }
-void Unknown_4BC260(const char *, const char *, const char *, int, const char *, ...)	// avatar_desc.cpp's defaults loader
+void Message_Error(const char *, const char *, const char *, int, const char *, ...)	// avatar_desc.cpp's defaults loader
 {
 }
 void Cord_SHA(const void *, int, unsigned int *)	// WWOnline's SHA-1 0x8B4A90 (Compute_Ticks; no caller)

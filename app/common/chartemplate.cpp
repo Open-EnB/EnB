@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "chartemplate.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\inisup.h"
 #include "..\..\wwlib\wwstring.h"

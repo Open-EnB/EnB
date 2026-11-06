@@ -73,7 +73,7 @@ directories).
    with the Write tool. The asserts sit on the client's `__LINE__` through the layout (blank
    lines, comments; no `#line`, D25), so little fits above the first assert: put the
    reconstruction notes at the end of the file (as bitset.cpp does) and check with
-   `grep -n 'G_ASSERT\|FAIL_IF'`. The assert macros: `#include "..\unknown_debug.h"` (relative).
+   `grep -n 'G_ASSERT\|FAIL_IF'`. The assert macros: `#include "..\g_assert.h"` (relative).
 3. **Record.** Add `('app', 'shared/auxdata/x.cpp')` and its header to `RECONSTRUCTED` with the
    evidence (lower-case paths with `/`); `load_state` makes the state entry from them. Two app
    `.cpp` files may not share a base name (it is the file key; `load_state` refuses it).
@@ -158,7 +158,7 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 * **Heartbeat rate from the 1 % weekly-usage steps misleads (2026-11-02 night run, coordinator):** the weekly figure moves in whole percent steps, so a heartbeat's rate over 5-15 minutes reads 0 or 1 % per step and swings the launch allowance; measure over an hour or more before scaling builders up or down.
 * **A worktree build with a stale `ENB_VC6_HOST(S)` deletes app.lib (2026-11-02 night run, KRN2, 04:19):** a build on a just-released lease fails every file, deletes app.lib, and the POC then silently runs the old exe. Use `--pool 1`, and check the build output says 'compiled' before trusting a POC run. `wt.py remove` needs `--force` when files were copied in.
 * **An Edit ending in blank lines can add a line (2026-11-02 night run, KRN2):** check `git diff --numstat` after such an Edit when the file's line numbers matter (`__LINE__` asserts).
-* **Headers and EA sources, last round (2026-11-02 night run, HDR 60b483bf, EAM3 9f59bf88):** `#include <string>` added to a widely included app header changes code in other files that include it (unknown_message.h cost unknown_message_server.cpp's 0x4BCB50 outright: give such a declaration its own small header); a declaration moved into a header shows in names-review as an "untagged neutral name" at its first use. Before reverse engineering an asset-manager or render-state class, look for EA's published source: `C:\EnBDevelopment\EA\CnC_Renegade\Code\ww3d2\hueshift\enbassetmgr.cpp` is E&B's ENBAssetManager (Make_*_Unique, Recolor_*, Create_Render_Obj with HSV). Definition order inside a file can drop an EH frame (0x48CF90 keeps the client's frameless form only when defined before 0x48CB40); REF_PTR_SET's null test disappears when the cache-or-new choice is an inline helper with two returns.
+* **Headers and EA sources, last round (2026-11-02 night run, HDR 60b483bf, EAM3 9f59bf88):** `#include <string>` added to a widely included app header changes code in other files that include it (message.h cost message_server.cpp's 0x4BCB50 outright: give such a declaration its own small header); a declaration moved into a header shows in names-review as an "untagged neutral name" at its first use. Before reverse engineering an asset-manager or render-state class, look for EA's published source: `C:\EnBDevelopment\EA\CnC_Renegade\Code\ww3d2\hueshift\enbassetmgr.cpp` is E&B's ENBAssetManager (Make_*_Unique, Recolor_*, Create_Render_Obj with HSV). Definition order inside a file can drop an EH frame (0x48CF90 keeps the client's frameless form only when defined before 0x48CB40); REF_PTR_SET's null test disappears when the cache-or-new choice is an inline helper with two returns.
 
 ### 3.1 VC6 code generation
 
@@ -1190,7 +1190,7 @@ unless `--lever` cites a new row of this table.
 
 * **Ghidra can attribute an argument pushed for a later call to the call before it** (H10, 2026-10-27): a pushed `1`
   belonged to a sort object's constructor (`ret 8`), not to 0x541800 (no arguments). Check each callee's `ret N`.
-  Including ref_ptr.h needs unknown_debug.h first (G_ASSERT).
+  Including ref_ptr.h needs g_assert.h first (G_ASSERT).
 * In Git Bash `cmd //c mklink //J` makes broken links: use PowerShell
   `New-Item -ItemType Junction`. A `__FILE__` that differs only in case (`app\Client\`) differs in the string, not the bytes.
 * **`client.py dis` crashes on a cp1252 console:** set `PYTHONIOENCODING=utf-8`. `attempts.py check` reports pk.h's

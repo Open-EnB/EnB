@@ -25,8 +25,8 @@
 // the file and line, the column and row, then printf's. Not rebuilt: the program defines it.
 // (This block keeps the six lines the stand-in class took: the calls sit on the client's lines, D25.)
 //
-void Unknown_4BC460(const char *window, const char *sender, const char *file, int line, int x, int y,
-	const char *format, ...);	// NAME 1 [Unknown_4BC460]: the debug window print
+void Message_Stat(const char *window, const char *sender, const char *file, int line, int x, int y,
+	const char *format, ...);	// NAME 5 [Message_Stat]: the client's WWPROFILE("Message_Stat") label (D198)
 
 unsigned int Unknown_Get_Ticks();	// the aux-data clock 0x4A3B40 (unknown_root.h)
 
@@ -278,8 +278,8 @@ void BandwidthAccountingClass::Print_Address(int index, int row)
 	unsigned int bw_in = Entries[index].BwIn;
 	unsigned int pps_out = Entries[index].PpsOut;
 	unsigned int pps_in = Entries[index].PpsIn;
-	Unknown_4BC460(WINDOW_IP, "", __FILE__, __LINE__, 0, row, "%s : %d      ", inet_ntoa(ip), port);
-	Unknown_4BC460(WINDOW_IP, "", __FILE__, __LINE__, 26, row, "%05d     %05d    %03d        %03d", bw_out, bw_in, pps_out, pps_in);
+	Message_Stat(WINDOW_IP, "", __FILE__, __LINE__, 0, row, "%s : %d      ", inet_ntoa(ip), port);
+	Message_Stat(WINDOW_IP, "", __FILE__, __LINE__, 26, row, "%05d     %05d    %03d        %03d", bw_out, bw_in, pps_out, pps_in);
 }
 
 
@@ -307,30 +307,30 @@ void BandwidthAccountingClass::Print()
 {
 	int i;
 	for (i = 0; i < 16; i++) {
-		Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, i, "                                                                     ");
+		Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, i, "                                                                     ");
 	}
 
 
 
 
-	Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 0, "BW Out  :  %d kbps      ", BwOut >> 7);
-	Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 1, "BW In   :  %d kbps      ", BwIn >> 7);
-	Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 2, "Pkts Out:  %d ps     ", PpsOut);
-	Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 3, "Pkts In :  %d ps     ", PpsIn);
-	Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 4, "Peak Out:  %d kbps     ", PeakOut >> 7);
-	Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 5, "Peak In :  %d kbps     ", PeakIn >> 7);
-	Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 30, 4, "Peak Out Per Addr : %d bps      ", PeakOutPerAddr);
-	Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 30, 5, " Peak In Per Addr : %d bps      ", PeakInPerAddr);
+	Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 0, "BW Out  :  %d kbps      ", BwOut >> 7);
+	Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 1, "BW In   :  %d kbps      ", BwIn >> 7);
+	Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 2, "Pkts Out:  %d ps     ", PpsOut);
+	Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 3, "Pkts In :  %d ps     ", PpsIn);
+	Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 4, "Peak Out:  %d kbps     ", PeakOut >> 7);
+	Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 5, "Peak In :  %d kbps     ", PeakIn >> 7);
+	Message_Stat(WINDOW, "", __FILE__, __LINE__, 30, 4, "Peak Out Per Addr : %d bps      ", PeakOutPerAddr);
+	Message_Stat(WINDOW, "", __FILE__, __LINE__, 30, 5, " Peak In Per Addr : %d bps      ", PeakInPerAddr);
 
-	Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 6, "Total UDP addresses tracked : %d     ", Entries.Count());
+	Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 6, "Total UDP addresses tracked : %d     ", Entries.Count());
 	if (PacketsOut != 0) {
 
 
-		Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 8, "Packets 1 - 50  bytes    :  %d %%      ", Sizes[0] * 100 / (int)PacketsOut);
-		Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 9, "Packets 51 - 100 bytes   :  %d %%      ", Sizes[1] * 100 / (int)PacketsOut);
-		Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 10, "Packets 101 - 250 bytes  :  %d %%      ", Sizes[2] * 100 / (int)PacketsOut);
-		Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 11, "Packets 251 - 576 bytes  :  %d %%      ", Sizes[3] * 100 / (int)PacketsOut);
-		Unknown_4BC460(WINDOW, "", __FILE__, __LINE__, 0, 12, "Packets > 576 bytes      :  %d %%      ", Sizes[4] * 100 / (int)PacketsOut);
+		Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 8, "Packets 1 - 50  bytes    :  %d %%      ", Sizes[0] * 100 / (int)PacketsOut);
+		Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 9, "Packets 51 - 100 bytes   :  %d %%      ", Sizes[1] * 100 / (int)PacketsOut);
+		Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 10, "Packets 101 - 250 bytes  :  %d %%      ", Sizes[2] * 100 / (int)PacketsOut);
+		Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 11, "Packets 251 - 576 bytes  :  %d %%      ", Sizes[3] * 100 / (int)PacketsOut);
+		Message_Stat(WINDOW, "", __FILE__, __LINE__, 0, 12, "Packets > 576 bytes      :  %d %%      ", Sizes[4] * 100 / (int)PacketsOut);
 	}
 	if (SortCountdown-- <= 0) {
 		Sort();
@@ -355,10 +355,10 @@ void BandwidthAccountingClass::Print()
 
 
 
-	Unknown_4BC460(WINDOW_IP, "", __FILE__, __LINE__, 0, 0, "Address                   Bw Out    Bw In    Pkts Out   Pkts In");
+	Message_Stat(WINDOW_IP, "", __FILE__, __LINE__, 0, 0, "Address                   Bw Out    Bw In    Pkts Out   Pkts In");
 	for (i = 1; i < 17; i++) {
 
-		Unknown_4BC460(WINDOW_IP, "", __FILE__, __LINE__, 0, i, "                                                                   ");
+		Message_Stat(WINDOW_IP, "", __FILE__, __LINE__, 0, i, "                                                                   ");
 	}
 	for (i = 0; i < rows; i++) {
 		Print_Address(i, i + 1);

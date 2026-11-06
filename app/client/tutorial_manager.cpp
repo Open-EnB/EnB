@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <string.h>
 #include "tutorial_manager.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\wwstring.h"
 
-void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC260]: 0x4BC260, 0x4BC000's sibling
+void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Error]: the client's WWPROFILE("Message_Error") label (D198)
 
 class StandardFileClass  // NAME 4: Westwood's wnd_file.cpp (Generals' Tools/Autorun/Wnd_File.h), the client's 0x6B61B0-0x6B6880
 {
@@ -91,7 +91,7 @@ TutorialManagerClass::TutorialManagerClass() : Steps(100), CurrentStep(0), Curre
 {
 	INIClass ini("tutorialdef.ini");
 	if (!ini.Is_Loaded()) {
-		Unknown_4BC260("Tutorial Manager", "", __FILE__, __LINE__, "tutorialdef.ini file not found");
+		Message_Error("Tutorial Manager", "", __FILE__, __LINE__, "tutorialdef.ini file not found");
 		return;
 	}
 
@@ -111,7 +111,7 @@ TutorialManagerClass::TutorialManagerClass() : Steps(100), CurrentStep(0), Curre
 				TutorialStepStruct *step = new TutorialStepStruct(name);
 				if (Find(step->Name) != 0) {
 					delete step;
-					Unknown_4BC000("Tutorial Manager", "", __FILE__, __LINE__, "Duplicate tutorial step definition encountered");
+					Message_Info("Tutorial Manager", "", __FILE__, __LINE__, "Duplicate tutorial step definition encountered");
 				} else {
 					int line = 0;
 					while (true) {
@@ -187,7 +187,7 @@ void TutorialManagerClass::Start_Step(const char *name)
 {
 	std::hash_map<std::string, TutorialStepStruct *>::const_iterator i = Steps.find(std::string(name));
 	if (i == Steps.end()) {
-		Unknown_4BC260("Tutorial Manager", "", __FILE__, __LINE__, "Tutorial step %s not found!", name);
+		Message_Error("Tutorial Manager", "", __FILE__, __LINE__, "Tutorial step %s not found!", name);
 		CurrentStep = 0;
 	} else {
 		CurrentStep = (*i).second;
@@ -379,7 +379,7 @@ void TutorialManagerClass::Reload()
 	}
 	INIClass ini("tutorialdef.ini");
 	if (!ini.Is_Loaded()) {
-		Unknown_4BC260("Tutorial Manager", "", __FILE__, __LINE__, "tutorialdef.ini file not found");
+		Message_Error("Tutorial Manager", "", __FILE__, __LINE__, "tutorialdef.ini file not found");
 	} else {
 
 
@@ -399,7 +399,7 @@ void TutorialManagerClass::Reload()
 				TutorialStepStruct *step = new TutorialStepStruct(name);
 				if (Find(step->Name) != 0) {
 					delete step;
-					Unknown_4BC000("Tutorial Manager", "", __FILE__, __LINE__, "Duplicate tutorial step definition encountered");
+					Message_Info("Tutorial Manager", "", __FILE__, __LINE__, "Duplicate tutorial step definition encountered");
 				} else {
 					int line = 0;
 					while (true) {

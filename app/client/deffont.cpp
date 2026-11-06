@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\deffont.cpp. Notes at the end of the file.
 #include "deffont.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ffactory.h"
 #include "..\..\wwlib\wwfile.h"
 #include "..\..\wwlib\wwfont.h"

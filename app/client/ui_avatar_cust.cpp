@@ -12,7 +12,7 @@
 #include "texture.h"
 #include "dx8renderer.h"
 #include "..\..\wwlib\ref_ptr.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
 
 class UIAvatarCustAvatarClass;

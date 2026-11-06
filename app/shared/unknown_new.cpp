@@ -38,6 +38,6 @@ void operator delete(void *memory)
 **	FastAllocatorGeneral (Get_Allocator 0x9DAC10, E&B's out-of-line Alloc 0x9DAE10 and Free
 **	0x9DAF60). There is no operator delete[] in the object: delete[] falls back to the CRT's, which
 **	calls this operator delete. The client has these in one object with the assert reporters
-**	(unknown_debug.cpp, whose notes say why the tree keeps them apart). new and new[] are too short
+**	(g_assert.cpp, whose notes say why the tree keeps them apart). new and new[] are too short
 **	for objmatch to search (fewer than 12 fixed bytes); delete is counted.
 */

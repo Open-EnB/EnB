@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include "sclient.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\land.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\ww3d2\scene.h"

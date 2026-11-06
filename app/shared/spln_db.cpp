@@ -10,7 +10,7 @@
 #include <windows.h>
 #include <string.h>
 #include <time.h>
-#include "unknown_debug.h"
+#include "g_assert.h"
 #include "spline.h"
 // NAME 2: chunk 0x800 (version 0x100, entry count, 0, 0), read by Load_Header (0xBE34A8)
 struct SplineFileHeaderStruct

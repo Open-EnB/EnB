@@ -5,11 +5,11 @@
 #include <deque>
 #include "wwdebug.h"
 #include "wwmemlog.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
-void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC000 (unknown_message.h)
-void Unknown_4BC130(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC130 (unknown_message.h)
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_message.h)
+void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC000 (message.h)
+void Message_Warn(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC130 (message.h)
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (message.h)
 unsigned int Unknown_Get_Ticks();				// 0x4A3B40, the aux-data clock (unknown_root.h)
 void Unknown_509C40(int type, const char *buf);	// NAME 1 [Unknown_509C40]: the log's output (WWDebug's handler 0x509C10 and the print forms)
 
@@ -37,13 +37,13 @@ void Unknown_509C40(int type, const char *buf)
 
 	switch (type) {
 		case WWDEBUG_TYPE_INFORMATION:
-			Unknown_4BC000("", "", __FILE__, __LINE__, "%s", buf);
+			Message_Info("", "", __FILE__, __LINE__, "%s", buf);
 			break;
 		case WWDEBUG_TYPE_WARNING:
-			Unknown_4BC130("", "", __FILE__, __LINE__, "%s", buf);
+			Message_Warn("", "", __FILE__, __LINE__, "%s", buf);
 			break;
 		case WWDEBUG_TYPE_ERROR:
-			Unknown_4BC260("", "", __FILE__, __LINE__, "%s", buf);
+			Message_Error("", "", __FILE__, __LINE__, "%s", buf);
 			break;
 	}
 	char prefix[80] = "";

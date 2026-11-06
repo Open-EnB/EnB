@@ -2,7 +2,7 @@
 #include "px_callback_poll.h"
 #include "px_callback_type.h"
 #include "px_wrapper.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // 0x452780
 PxPollCallback::PxPollCallback(PxObject *object, PxCallbackFunction callback, const Vector3 &extent) :

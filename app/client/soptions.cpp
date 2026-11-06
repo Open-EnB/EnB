@@ -7,7 +7,7 @@
 #include "ini.h"
 #include "ww3d.h"
 #include "wwmath.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // 0x75A280
 SOptionsClass::SOptionsClass() :

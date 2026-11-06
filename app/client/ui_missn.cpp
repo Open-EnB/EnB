@@ -9,7 +9,7 @@
 #include "gd_slider.h"
 #include "fontmanager.h"
 #include "local_interface_sort.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
 #include "..\packets\pkmissionforfeit.h"
 #include "unknown_675120.h"

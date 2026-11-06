@@ -11,7 +11,7 @@
 
 #define ENABLE_WWPROFILE
 #include "kernel.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "wwprofile.h"
 #include <windows.h>
 #include <malloc.h>

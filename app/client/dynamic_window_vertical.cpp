@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\dynamic_window_vertical.cpp (__FILE__ 0xB77010). Notes at the end of the file.
 #include "dynamic_window_vertical.h"
 #include "aabox.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <algorithm>
 
 DynamicWindowVerticalClass::DynamicWindowVerticalClass(unsigned int flags) :

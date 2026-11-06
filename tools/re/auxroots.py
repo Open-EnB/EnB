@@ -710,7 +710,7 @@ HEADER = r'''// Earth & Beyond client (reconstruction)
 #include "..\shared\auxdata\delta_item_array.h"
 #include "..\shared\money.h"
 #include "..\shared\strconv_lib.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // The money field is delta_money.h's specialisation: every member out of line in delta_money.cpp
 // (the constructor 0x4A7080 and destructor 0x4A7100 are called, the destructor under an EH state

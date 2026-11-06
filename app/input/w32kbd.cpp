@@ -1,9 +1,9 @@
 // Earth & Beyond client (reconstruction): app\input\w32kbd.cpp. Notes at the end of the file.
 #include "w32kbd.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <ctype.h>
 
-void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)
+void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
 
 static bool Unknown_B6EA58 = true;					// Set_Repeat's flag: auto-repeated presses are kept  // NAME 1 [Unknown_B6EA58]: neutral (D10)
 static unsigned char Unknown_BDAAE8[INPUT_KEY_COUNT];	// 1: a letter, 2: a key of the numeric pad's second meaning  // NAME 1 [Unknown_BDAAE8]: neutral (D10)
@@ -121,7 +121,7 @@ int Unknown_4307A0(int message, unsigned int wparam, unsigned int lparam)
 		return 0;
 	}
 	if (wparam >= VK_LWIN && wparam <= VK_RWIN) {
-		Unknown_4BC000("input", "", __FILE__, __LINE__, "Ignore (%4x, %4x)", wparam, lparam);
+		Message_Info("input", "", __FILE__, __LINE__, "Ignore (%4x, %4x)", wparam, lparam);
 		return 0;
 	}
 	unsigned short flags = 0;
@@ -267,7 +267,7 @@ int Unknown_4307A0(int message, unsigned int wparam, unsigned int lparam)
 
 
 
-	Unknown_4BC000("input", "", __FILE__, __LINE__, "(%4x, %4x, %4x) => (%4x %4x) :  %c%c%c%c%c%c \n", message, wparam, lparam, key, flags,
+	Message_Info("input", "", __FILE__, __LINE__, "(%4x, %4x, %4x) => (%4x %4x) :  %c%c%c%c%c%c \n", message, wparam, lparam, key, flags,
 		control ? 'C' : '-', alt ? 'A' : '-', shift ? 'S' : '-', caps ? 'U' : '-', pad ? 'N' : '-', extended ? 'E' : '-');
 	return 0;
 }

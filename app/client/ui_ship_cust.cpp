@@ -9,7 +9,7 @@
 #include "texture.h"
 #include "vertmaterial.h"
 #include "..\..\wwlib\ref_ptr.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\shipcust_desc.h"
 #include "ui_shipcust.h"
 #include "decal.h"

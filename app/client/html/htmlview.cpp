@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\html\htmlview.cpp (PARTIAL). Notes at the end of the file.
 #include <windows.h>
 #include "htmlview.h"
-#include "..\..\shared\unknown_debug.h"
+#include "..\..\shared\g_assert.h"
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>

@@ -10,7 +10,7 @@
 
 
 #include "tsk_smovie.h"
-#include "..\..\shared\unknown_debug.h"
+#include "..\..\shared\g_assert.h"
 #include "ffactory.h"
 #include "wwfile.h"
 #include "nstrdup.h"

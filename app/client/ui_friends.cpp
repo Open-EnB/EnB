@@ -18,7 +18,7 @@
 #include "co.h"
 #include "gd_robj.h"
 #include "local_interface_sort.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)

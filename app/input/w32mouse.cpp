@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\input\w32mouse.cpp. Notes at the end of the file.
 #include "w32mouse.h"
 #include "w32kbd.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\wwstring.h"
 #include "..\..\wwmath\wwmath.h"
 

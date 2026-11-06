@@ -4,7 +4,7 @@
 #include "..\..\ww3d2\shader.h"
 #include "..\..\ww3d2\scene.h"
 #include "..\..\wwmath\matrix3d.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // NOT EXACT: 0.79, inline budget: the client calls Switch_To_Multi_Vertex_Color out of line (0x6B7230, its Convert_Color_Clamp inlined) and inlines all four Vertex calls; ours inlines Switch (calling Convert_Color_Clamp) and calls the last UV
 Rect3DClass::Rect3DClass(const Vector4 &color, const Vector4 &rect) :

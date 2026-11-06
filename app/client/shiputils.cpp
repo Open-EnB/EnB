@@ -4,7 +4,7 @@
 // (avatar.cpp's 0x780810) runs it on its body and head; co.cpp's ships run the same file's 0x80F220 (not rebuilt).
 #include <vector>
 #include <string.h>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\packets\pkcolorization.h"
 #include "env_map_manager.h"
 #include "..\..\ww3d2\rendobj.h"

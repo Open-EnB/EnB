@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\common\circbuff.cpp. Notes at the end of the file.
 #include "circbuff.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <string.h>
 
 

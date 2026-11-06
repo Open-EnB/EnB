@@ -1,4 +1,4 @@
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "ui_item_examination_property_router.h"
 #include "ui_item_examination.h"
 #include "ui_item_examination_attributes.h"

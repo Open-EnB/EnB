@@ -3,7 +3,7 @@
 #include "dynamic_window_class.h"
 #include "rendobj.h"
 #include "aabox.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.h
 

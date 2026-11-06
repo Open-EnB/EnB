@@ -7,7 +7,7 @@
 #include "navigation_data.h"
 #include "emote_data.h"
 
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 
 

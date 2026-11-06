@@ -2,7 +2,7 @@
 #include <string.h>
 #include "gclass.h"
 #include "..\..\wwlib\vector.h"
-#include "unknown_debug.h"
+#include "g_assert.h"
 
 // The list +0x10 puts the first base's nodes in (0x4A17B0 walks it) and the dirty list +0x18 fills (0x4A20A0
 // empties it). The client's destroy them through guarded atexit functions (0x4A1610, 0x4A1740: template statics?)

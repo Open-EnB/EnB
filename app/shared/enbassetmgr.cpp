@@ -3,7 +3,7 @@
 #include "rendobj.h"
 #include "proto.h"
 #include "wwprofile.h"
-#include "unknown_debug.h"
+#include "g_assert.h"
 #include <string.h>
 #include <stdio.h>
 #pragma warning(disable: 4786)

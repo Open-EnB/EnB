@@ -23,7 +23,7 @@
 #include <string>
 #include <typeinfo.h>
 #include <hash_map.h>
-#include "unknown_debug.h"
+#include "g_assert.h"
 
 // The binder's member templates take their type as an empty object passed by reference
 template<class T>

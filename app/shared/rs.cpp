@@ -17,7 +17,7 @@
 #include <string.h>
 #include "rs_track.h"
 #include "..\..\wwlib\nstrdup.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 static CRITICAL_SECTION *Unknown_BDC094;			// 0xBDC094: the render states' lock  // NAME 1 [Unknown_BDC094]: neutral (D10)
 static HANDLE Unknown_BDC098;						// 0xBDC098: the loader thread's event  // NAME 1 [Unknown_BDC098]: neutral (D10)

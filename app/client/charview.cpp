@@ -5,7 +5,7 @@
 #include "tasks\tsk_login.h"
 #include "ui_avsel.h"
 #include "uiview.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
 #include "..\..\wwaudio\WWAudio.h"
 #include "..\..\wwaudio\AudibleSound.h"

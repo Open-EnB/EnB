@@ -23,7 +23,7 @@
 #include <string>
 #include "..\..\..\wwlib\refcount.h"
 #include "..\..\..\wwlib\ref_ptr.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 // Supplies a variable's value by name (slot +4).
 template <class T>

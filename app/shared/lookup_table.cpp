@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <algorithm>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "lookup_table.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\inisup.h"

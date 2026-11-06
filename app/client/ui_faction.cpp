@@ -14,7 +14,7 @@
 #include "gd_slider.h"
 #include "fontmanager.h"
 #include "local_interface_sort.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "cfaction_database.h"
 #include "ui_faction.h"
 

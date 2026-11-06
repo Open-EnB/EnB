@@ -17,8 +17,8 @@
 #include "assetmgr.h"
 #include "vector2.h"
 #include "..\..\ww3d2\ww3d.h"
-#include "..\shared\unknown_debug.h"
-#include "..\shared\unknown_message.h"
+#include "..\shared\g_assert.h"
+#include "..\shared\message.h"
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight  // NAME 1 [robj, a, b, c]: neutral
@@ -262,13 +262,13 @@ void UIPingClass::Unknown_5D85B0()
 	}
 
 
-	Unknown_4BC460("", "NET_STATS", __FILE__, __LINE__, 1, 1, "Send:     %.2f", send);
-	Unknown_4BC460("", "NET_STATS", __FILE__, __LINE__, 1, 2, "Recv:     %.2f", recv);
-	Unknown_4BC460("", "NET_STATS", __FILE__, __LINE__, 1, 3, "Rtt:      %.2f", rtt);
-	Unknown_4BC460("", "NET_STATS", __FILE__, __LINE__, 1, 4, "WinSize:  %.2f", win_size);
-	Unknown_4BC460("", "NET_STATS", __FILE__, __LINE__, 1, 5, "WinUsed:  %.2f", win_used);
-	Unknown_4BC460("", "NET_STATS", __FILE__, __LINE__, 1, 6, "PctLoss:  %.2f", pct_loss);
-	Unknown_4BC460("", "NET_STATS", __FILE__, __LINE__, 1, 6, "NoRecvT:  %d   ", no_recv);
+	Message_Stat("", "NET_STATS", __FILE__, __LINE__, 1, 1, "Send:     %.2f", send);
+	Message_Stat("", "NET_STATS", __FILE__, __LINE__, 1, 2, "Recv:     %.2f", recv);
+	Message_Stat("", "NET_STATS", __FILE__, __LINE__, 1, 3, "Rtt:      %.2f", rtt);
+	Message_Stat("", "NET_STATS", __FILE__, __LINE__, 1, 4, "WinSize:  %.2f", win_size);
+	Message_Stat("", "NET_STATS", __FILE__, __LINE__, 1, 5, "WinUsed:  %.2f", win_used);
+	Message_Stat("", "NET_STATS", __FILE__, __LINE__, 1, 6, "PctLoss:  %.2f", pct_loss);
+	Message_Stat("", "NET_STATS", __FILE__, __LINE__, 1, 6, "NoRecvT:  %d   ", no_recv);
 
 	RefCountPtr<FontSys> text;
 	if (Button) {

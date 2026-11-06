@@ -7,7 +7,7 @@ C = 'app/client/co.cpp'
 CH = 'app/client/co.h'
 AUX = 'app/shared/auxdata/auxdata.h'
 PERM = 'app/shared/auxdata/permstr.h'
-DBG = 'app/shared/unknown_debug.h'
+DBG = 'app/shared/g_assert.h'
 
 src = open(os.path.join(WT, C.replace('/', os.sep)), 'rb').read().decode('latin1').replace('\r\n', '\n')
 start = src.index('void ClientObjectClass::Unknown_6FBEF0()')
@@ -58,8 +58,8 @@ tmp = sub(tmp, '\t\t\tNameClass trail_name("EngineTrailType");\n\t\t\tDeltaTempl
 TMP = [(C, FN, tmp)]
 
 # --- assertfn: G_ASSERT through an inline function (an expansion per assert: two per find) ---
-DBG_OLD = '#define G_ASSERT(expr)\t((expr) ? (void)0 : Unknown_Assert_Failed(#expr, __FILE__, __LINE__))'
-DBG_NEW = ('inline void Unknown_Assert_Check(bool ok, const char *expr, const char *file, int line) { if (!ok) Unknown_Assert_Failed(expr, file, line); }\n'
+DBG_OLD = '#define G_ASSERT(expr)\t((expr) ? (void)0 : G_Assert_Report(#expr, __FILE__, __LINE__))'
+DBG_NEW = ('inline void Unknown_Assert_Check(bool ok, const char *expr, const char *file, int line) { if (!ok) G_Assert_Report(expr, file, line); }\n'
            '#define G_ASSERT(expr)\tUnknown_Assert_Check((expr) ? true : false, #expr, __FILE__, __LINE__)')
 ASSERTFN = [(DBG, DBG_OLD, DBG_NEW)]
 

@@ -14,7 +14,7 @@
 #include "..\..\wwaudio\AudibleSound.h"
 #include "control_keys_manager.h"
 #include "..\packets\pk_player_object_relationship.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 // The event 0x6FEEE0 emits (the client's RTTI .?AVPlayerObjectRelationshipChangeEvent@@, 0x14 bytes)
 class PlayerObjectRelationshipChangeEvent	// NAME 5: the client's RTTI name
 {
@@ -864,7 +864,7 @@ public:
 	bool operator!() const { return(Line == NULL); }
 	RenderObjClass *Line;						// +0x00  // NAME 2: what it holds
 };
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (unknown_debug.h's reporter)
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (g_assert.h's reporter)
 static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float scale, float *hsv);
 
 // 0x6F5140
@@ -932,7 +932,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 		if (robj) {
 			return(robj);
 		}
-		Unknown_4BC260("Base Asset", "", __FILE__, __LINE__, "Could not create render object %s from file %s", name, file);
+		Message_Error("Base Asset", "", __FILE__, __LINE__, "Could not create render object %s from file %s", name, file);
 		return(AssetManager->Create_Render_Obj("missing"));
 
 
@@ -1727,7 +1727,7 @@ void ClientObjectClass::Unknown_6FCB20(bool visible)
 
 // delta_array.h's item accessor (its G_ASSERT on that header's line 93, inline in the damage decals 0x6FD310), written
 // here: declaring it in the header moves aux_roots.cpp's pairs (the 0x6FB1E0 canary, workflow.md 3.4; P-DF1-2)
-template<class T> static inline DeltaTemplateClass<T> *Unknown_Get_Item(DeltaArrayClass<T> *array, unsigned index) { std::vector<DeltaClass *> &Items = array->Children; if (!(index < Items.size())) Unknown_Assert_Failed("index < Items.size()", "..\\shared/auxdata/delta_array.h", 93); return((DeltaTemplateClass<T> *)Items[index]); }	// NAME 1: neutral
+template<class T> static inline DeltaTemplateClass<T> *Unknown_Get_Item(DeltaArrayClass<T> *array, unsigned index) { std::vector<DeltaClass *> &Items = array->Children; if (!(index < Items.size())) G_Assert_Report("index < Items.size()", "..\\shared/auxdata/delta_array.h", 93); return((DeltaTemplateClass<T> *)Items[index]); }	// NAME 2: what it does; the client's name is unknown (D198)
 // the decal pools of co.cpp's decal system (the constructor's MultiFixedPoolDecalSystemClass(3, ...))
 #define NUM_DAMAGE_POOLS 3	// NAME 3: the FAIL_IF's name
 class ProjDecalManagerClass	// NAME 3: the FAIL_IF's 'proj_decal_manager' (sclient.cpp declares its other members)

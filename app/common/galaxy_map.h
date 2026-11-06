@@ -19,7 +19,7 @@
 #include "vector3.h"
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\auxdata\linearbu.h"
 
 class LinearBufferClass;

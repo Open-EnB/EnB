@@ -5,7 +5,7 @@
 #include "ww3d.h"
 #include <string.h>
 #include <float.h>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // 0x45FDA0
 // NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx

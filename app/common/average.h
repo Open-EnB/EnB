@@ -21,7 +21,7 @@
 #ifndef AVERAGE_H
 #define AVERAGE_H	// NAME 3: after the client's average.h (D24)
 
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 class AverageClass	// NAME 3: after the client's average.h (D24)
 {

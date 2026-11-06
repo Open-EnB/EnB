@@ -20,7 +20,7 @@
 
 #include <stdio.h>
 #include "delta.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 template<class T> class DeltaItemArrayClass : public DeltaCompoundClass	// NAME 3: by convention (D24) from the client's file delta_item_array.h
 {

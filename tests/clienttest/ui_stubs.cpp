@@ -81,9 +81,9 @@ void Unknown_496110(RenderObjClass *, float, float, float) { Trace("stub Unknown
 Random2Class Unknown_BDADC8;		// 0xBDADC8 (soundlib.cpp's)
 RandomClass Unknown_BDBB84;		// 0xBDBB84 (avatar.cpp's)
 
-// ------------------------------------------------------------------------- wlib's Wstring (unknown_message.cpp)
+// ------------------------------------------------------------------------- wlib's Wstring (message.cpp)
 
-// The message reporters' common path 0x4BC5A0 and the server (app.lib's unknown_message*.obj, linked for the real
+// The message reporters' common path 0x4BC5A0 and the server (app.lib's message*.obj, linked for the real
 // reporters) use these; gen_stubs.py --link writes no operators. Never reached here: no message server.
 class Wstring
 {
@@ -97,11 +97,11 @@ public:
 Wstring &Wstring::operator+=(const char *) { Trace("stub Wstring::operator+=(const char *) (0x8B6640)"); return *this; }
 Wstring &Wstring::operator+=(const Wstring &) { Trace("stub Wstring::operator+=(const Wstring &) (0x8B6750)"); return *this; }
 Wstring &Wstring::operator=(const Wstring &) { Trace("stub Wstring::operator=(const Wstring &) (0x8B61D0)"); return *this; }
-// the message filter's match 0x4BE2C0 (unknown_message_filter.obj); never reached here
+// the message filter's match 0x4BE2C0 (message_filter.obj); never reached here
 char Wstring::operator==(const Wstring &) const { Trace("stub Wstring::operator==(const Wstring &) (0x8B5F70)"); return 0; }
 char Wstring::operator!=(const Wstring &) const { Trace("stub Wstring::operator!=(const Wstring &) (0x8B6070)"); return 1; }
 
-// the message server's 0x4BD470 (unknown_message_server.obj) stamps its record with this; never reached here
+// the message server's 0x4BD470 (message_server.obj) stamps its record with this; never reached here
 class Wtime
 {
 public:

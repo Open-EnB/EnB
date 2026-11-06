@@ -19,7 +19,7 @@
 #define PK_H
 
 #include "..\shared\auxdata\linearbu.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <string>
 
 class ConnectionClass;

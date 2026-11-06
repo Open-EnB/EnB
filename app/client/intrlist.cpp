@@ -8,7 +8,7 @@
 #include "layer.h"
 #include "..\input\inpdsp.h"
 #include "..\kernel\kernel.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // What InterfaceUnknown64Class's list holds (0x10 bytes, 0x6870E0 fills it): a gadget, its key's data, its view
 struct InterfaceUnknown64EntryStruct  // NAME 1: neutral (D10)

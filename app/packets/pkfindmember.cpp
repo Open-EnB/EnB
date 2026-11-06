@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\packets\pkfindmember.cpp. Notes at the end of the file.
 #include "pkfindmember.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <stdio.h>
 
 FindMemberPacketClass::FindMemberPacketClass() :

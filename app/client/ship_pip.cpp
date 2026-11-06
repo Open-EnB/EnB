@@ -5,7 +5,7 @@
 #include "tasks\tsk_game.h"
 #include "tasks\tsk_login.h"
 #include "avatar.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\input\input.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\..\ww3d2\rendobj.h"

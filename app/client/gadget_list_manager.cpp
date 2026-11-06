@@ -2,7 +2,7 @@
 #include <string.h>
 #include "gadget_list_manager.h"
 #include "gadget.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 GadgetListManagerClass::GadgetListManagerClass() :
 	Unknown0C(100)

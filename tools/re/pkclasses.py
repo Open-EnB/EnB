@@ -491,7 +491,7 @@ def main():
           '*/',
           '',
           '#include "pk_classes.h"',
-          '#include "..\\shared\\unknown_debug.h"',
+          '#include "..\\shared\\g_assert.h"',
           '']
     for line, f, off, name in stubs_all:
         if len(cs) > line - 2:

@@ -18,7 +18,7 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\lookup.h"
 #include "..\shared\auxdata\delta_money.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (0xBFAE3C - 0xBFAE40, read inline)
 #include "unknown_674260.h"

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "wnd_file.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // 0x6B61B0
 StandardFileClass::StandardFileClass( void )

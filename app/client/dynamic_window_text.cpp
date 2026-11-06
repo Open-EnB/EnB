@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\dynamic_window_text.cpp (__FILE__ 0xB76DB8). Notes at the end of the file.
 #include "dynamic_window_text.h"
 #include "fontmanager.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 
 

@@ -3,7 +3,7 @@
     python tools/harness/msglisten.py [--pid PID | --port P] [--host H] [--out FILE] [--seconds N]
                                       [--levels MASK] [--modules A,B] [--files F,G] [--prefix TEXT] [--raw]
 
-The client's side (app/shared/message/msgserv.cpp, app/shared/unknown_message*.cpp): MsgServer listens on
+The client's side (app/shared/message/msgserv.cpp, app/shared/message*.cpp): MsgServer listens on
 the first free TCP port of 9999-10009 (TCPMgr::addListener(0, port): every interface, the client's own
 choice) and, every 200 ms as a kernel task (and after each error report), accepts listeners (at most once a
 second), reads their filters and sends them the queued messages. Its reporters drop every message while no

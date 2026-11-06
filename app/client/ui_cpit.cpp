@@ -16,7 +16,7 @@
 #include "option.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
 
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this

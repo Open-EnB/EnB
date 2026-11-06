@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction)
 #include "sbaseview.h"
 #include "wwmath.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\ww3d2\rendobj.h"
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\hanim.h"

@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\extrap.cpp. Notes at the end of the file.
 #include "extrap.h"
 #include "..\packets\pkupdate.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "client.h"
 #include "co.h"
 #include "sclient.h"

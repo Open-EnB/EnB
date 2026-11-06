@@ -2,7 +2,7 @@
 #include "input.h"
 #include "w32kbd.h"
 #include "w32mouse.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 
 InputQueueClass *Unknown_BDA968;

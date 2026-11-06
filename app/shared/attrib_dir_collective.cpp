@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\shared\attrib_dir_collective.cpp. Notes at the end of the file.
 #include <algorithm>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "attrib_dir_collective.h"
 
 

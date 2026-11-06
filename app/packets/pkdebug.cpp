@@ -2,7 +2,7 @@
 // DEBUG 26: a game id, a debug command (an index into DebugLabels) and its argument.
 // Notes at the end of the file.
 #include "pkdebug.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <stdio.h>
 
 // The debug commands' names (Print's Command)

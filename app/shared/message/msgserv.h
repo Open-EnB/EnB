@@ -4,7 +4,7 @@
 **	Original location: e:\build\beta\G\app\shared\message\msgserv.h (name assumed from msgserv.cpp)
 **
 **	The message server task: WinMain makes it with -ENABLE_MESSAGES only (main_client.cpp). It holds
-**	the message server (unknown_message.h's Unknown4BCA80Class), listens on the first free TCP port
+**	the message server (message.h's MessageServerProtocolClass), listens on the first free TCP port
 **	of 9999-10009, installs it as the reporters' server (0xBE55D0) and, as a kernel task, pumps it
 **	every 200 ms (accepts listeners, reads their filters, sends them the queued messages).
 */
@@ -19,7 +19,7 @@
 #define __MSGSERV_H
 
 #include "..\..\kernel\kernel.h"
-#include "..\unknown_message.h"
+#include "..\message.h"
 
 // 0x48 bytes; vtable 0xB0C418
 class MsgServer : public TaskClass	// NAME 5: the client's profiler label 'MsgServer::Run'
@@ -36,7 +36,7 @@ public:
 
 	void Unknown_8B2230();							// 0x8B2230 listens, installs the server (assert 'Get_Internal_Server_Protocol() == NULL')  // NAME 1: neutral (D10)
 
-	Unknown4BCA80Class Server;						// +0x0C  // NAME 2: what it holds
+	MessageServerProtocolClass Server;						// +0x0C  // NAME 2: what it holds
 };
 
 #endif //__MSGSERV_H

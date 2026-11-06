@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\cfaction_database.cpp. Notes at the end of the file.
 #include <stdlib.h>
 #include "cfaction_database.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\inisup.h"
 

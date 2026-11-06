@@ -11,7 +11,7 @@
 #include "kv_encoder_base.h"
 #include <stdio.h>
 #include <string.h>
-#include "unknown_debug.h"
+#include "g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\point.h"
 #include "kv_acc_array.h"
@@ -407,7 +407,7 @@ void AvatarDescClass::Reset()
 	Load_Defaults(0, 0);
 }
 
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC260]: 0x4BC260, E&B's message reporter (buff_database.cpp)
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Error]: the client's WWPROFILE("Message_Error") label (D198)
 
 static INIClass AvatarDefinitions;	// 0xBE55D8  // NAME 2: avatardef.ini
 static const char *AvatarGenderNames[] = { "male_", "female_" };	// 0xB73CC8  // NAME 2: what it holds
@@ -618,7 +618,7 @@ void AvatarDescClass::Load_Defaults(int type, const char *name)
 	if (!AvatarDefinitions.Is_Loaded()) {
 		AvatarDefinitions.Load("avatardef.ini");
 		if (!AvatarDefinitions.Is_Loaded()) {
-			Unknown_4BC260("Avatar Descriptions", "", __FILE__, __LINE__, "avatardef.ini file not found");
+			Message_Error("Avatar Descriptions", "", __FILE__, __LINE__, "avatardef.ini file not found");
 			return;
 		}
 	}

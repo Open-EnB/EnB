@@ -10,7 +10,7 @@
 #include "option.h"
 #include "..\packets\pkclientchat.h"
 #include "texture.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
 
 // fontmanager.h's FontManagerClass at 0xBE67C4, as far as this file calls it (as ui_cpit.cpp declares it)

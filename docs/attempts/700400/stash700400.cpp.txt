@@ -18,7 +18,7 @@
 #define __RTTI_H
 
 #include "delta.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 
 

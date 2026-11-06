@@ -2,7 +2,7 @@
 #include "dynamic_window_render_object.h"
 #include "rendobj.h"
 #include "wwmath.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 void Unknown_496730(RenderObjClass *robj, int sort_level, bool dec_if_match);	// 0x496730 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, sort_level, dec_if_match]: ui_cpit.cpp's
 

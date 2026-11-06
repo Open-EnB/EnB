@@ -4,7 +4,7 @@
 #include "..\..\ww3d2\ww3d.h"
 #include "..\..\ww3d2\camera.h"
 #include "..\..\ww3d2\predlod.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #pragma inline_depth(0)	// the client calls the list's inline constructor 0x6DA930 out of line (a code-generation lever, as fontdatabase.cpp's auto_inline: no inlining in this constructor)
 // 0x6DA4D0
 InterfaceSceneClass::InterfaceSceneClass() :

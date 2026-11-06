@@ -5,7 +5,7 @@
 #include "option.h"
 #include "avatar.h"
 #include "co.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_template.h"
 #include "..\..\wwlib\ref_ptr.h"

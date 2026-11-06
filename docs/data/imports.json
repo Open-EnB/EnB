@@ -7557,6 +7557,17 @@
      "0x42F250"
     ]
    },
+   "g_assert": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4E9410",
+     "0x4E9450"
+    ],
+    "merged": [],
+    "name": "shared/g_assert.cpp"
+   },
    "gadget": {
     "ambiguous": [
      "0x42B2F0",
@@ -10915,6 +10926,110 @@
      "0x827450",
      "0x8274C0",
      "0x827510"
+    ]
+   },
+   "message": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x444160",
+     "0x4BBE90",
+     "0x4BBEB0",
+     "0x4BBED0",
+     "0x4BC000",
+     "0x4BC130",
+     "0x4BC260",
+     "0x4BC3A0",
+     "0x4BC460",
+     "0x4BC5A0",
+     "0x4BC8F0",
+     "0x4BC9B0"
+    ],
+    "merged": [],
+    "name": "shared/message.cpp",
+    "shared": [
+     "0x444160"
+    ],
+    "short_known": [
+     "0x4BBE90",
+     "0x4BBEB0"
+    ]
+   },
+   "message_filter": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120",
+     "0x4BDFE0",
+     "0x4BE060",
+     "0x4BE0F0",
+     "0x4BE1E0",
+     "0x4BE7A0",
+     "0x4BE9D0"
+    ],
+    "merged": [],
+    "name": "shared/message_filter.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120"
+    ],
+    "short_known": [
+     "0x42D120"
+    ]
+   },
+   "message_record": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4BB8A0",
+     "0x4BB930",
+     "0x4BB9C0",
+     "0x4BBAA0"
+    ],
+    "merged": [],
+    "name": "shared/message_record.cpp"
+   },
+   "message_server": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4BCA80",
+     "0x4BCB50",
+     "0x4BCCB0",
+     "0x4BCD10",
+     "0x4BD3A0",
+     "0x4BD3F0",
+     "0x4BD470",
+     "0x4BD870",
+     "0x4BD8C0",
+     "0x4BD910",
+     "0x4BD960",
+     "0x4BD990",
+     "0x4BDBE0",
+     "0x4BDEF0"
+    ],
+    "merged": [],
+    "name": "shared/message_server.cpp",
+    "short_known": [
+     "0x4BCD10"
     ]
    },
    "mousetbl": {
@@ -29214,17 +29329,6 @@
      "0x78E140"
     ]
    },
-   "unknown_debug": {
-    "ambiguous": [],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x4E9410",
-     "0x4E9450"
-    ],
-    "merged": [],
-    "name": "shared/unknown_debug.cpp"
-   },
    "unknown_font_split_string": {
     "ambiguous": [
      "0x42B2F0"
@@ -29505,110 +29609,6 @@
     "name": "common/unknown_memregistry.cpp",
     "tiebreak": [
      "0x828A10"
-    ]
-   },
-   "unknown_message": {
-    "ambiguous": [],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x444160",
-     "0x4BBE90",
-     "0x4BBEB0",
-     "0x4BBED0",
-     "0x4BC000",
-     "0x4BC130",
-     "0x4BC260",
-     "0x4BC3A0",
-     "0x4BC460",
-     "0x4BC5A0",
-     "0x4BC8F0",
-     "0x4BC9B0"
-    ],
-    "merged": [],
-    "name": "shared/unknown_message.cpp",
-    "shared": [
-     "0x444160"
-    ],
-    "short_known": [
-     "0x4BBE90",
-     "0x4BBEB0"
-    ]
-   },
-   "unknown_message_filter": {
-    "ambiguous": [
-     "0x42A6C0",
-     "0x42B2F0"
-    ],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x42A820",
-     "0x42A940",
-     "0x42A970",
-     "0x42AB30",
-     "0x42CAB0",
-     "0x42CD30",
-     "0x42D120",
-     "0x4BDFE0",
-     "0x4BE060",
-     "0x4BE0F0",
-     "0x4BE1E0",
-     "0x4BE7A0",
-     "0x4BE9D0"
-    ],
-    "merged": [],
-    "name": "shared/unknown_message_filter.cpp",
-    "shared": [
-     "0x42A820",
-     "0x42A940",
-     "0x42A970",
-     "0x42AB30",
-     "0x42CAB0",
-     "0x42CD30",
-     "0x42D120"
-    ],
-    "short_known": [
-     "0x42D120"
-    ]
-   },
-   "unknown_message_record": {
-    "ambiguous": [],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x4BB8A0",
-     "0x4BB930",
-     "0x4BB9C0",
-     "0x4BBAA0"
-    ],
-    "merged": [],
-    "name": "shared/unknown_message_record.cpp"
-   },
-   "unknown_message_server": {
-    "ambiguous": [],
-    "copy": "reconstructed",
-    "expected": {},
-    "in_tree": [
-     "0x4BCA80",
-     "0x4BCB50",
-     "0x4BCCB0",
-     "0x4BCD10",
-     "0x4BD3A0",
-     "0x4BD3F0",
-     "0x4BD470",
-     "0x4BD870",
-     "0x4BD8C0",
-     "0x4BD910",
-     "0x4BD960",
-     "0x4BD990",
-     "0x4BDBE0",
-     "0x4BDEF0"
-    ],
-    "merged": [],
-    "name": "shared/unknown_message_server.cpp",
-    "short_known": [
-     "0x4BCD10"
     ]
    },
    "unknown_msgbox": {
@@ -30582,6 +30582,7 @@
    "shared/expr/expr_math_parser_factory.h": "reconstructed",
    "shared/expr/expr_math_parser_impl.h": "reconstructed",
    "shared/expr/expr_math_tree.h": "reconstructed",
+   "shared/g_assert.h": "reconstructed",
    "shared/gclass.h": "reconstructed",
    "shared/graphics_settings.h": "reconstructed",
    "shared/heightfield.h": "reconstructed",
@@ -30596,6 +30597,7 @@
    "shared/land_lighting.h": "reconstructed",
    "shared/landdmap.h": "reconstructed",
    "shared/lookup_table.h": "reconstructed",
+   "shared/message.h": "reconstructed",
    "shared/message/msgserv.h": "reconstructed",
    "shared/money.h": "reconstructed",
    "shared/proj_man.h": "reconstructed",
@@ -30618,10 +30620,8 @@
    "shared/symbol_substitution.h": "reconstructed",
    "shared/unique_design_id_lookup.h": "reconstructed",
    "shared/unknown_8b4560.h": "reconstructed",
-   "shared/unknown_debug.h": "reconstructed",
    "shared/unknown_font_split_string.h": "reconstructed",
    "shared/unknown_login_data.h": "reconstructed",
-   "shared/unknown_message.h": "reconstructed",
    "shared/unknown_packetdata.h": "reconstructed",
    "shared/unknown_px_callbacks.h": "reconstructed",
    "wwudp/cordcon.h": "reconstructed",

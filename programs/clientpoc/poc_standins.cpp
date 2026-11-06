@@ -35,22 +35,22 @@ bool Unknown_846C90()
 
 // ---------------------------------------------------------------- the assert reporters (0x4E9410 / 0x4E9450), teed
 
-// app/shared/unknown_debug.cpp's two functions, with a line in the stub log first: the client's reporter
+// app/shared/g_assert.cpp's two functions, with a line in the stub log first: the client's reporter
 // 0x4BC260 (called next, as the client does) drops every message while no listener is connected to the
 // message server (-ENABLE_MESSAGES; tools/harness/msglisten.py), and the start-up ones (combo_ffactory.cpp,
-// soundlib.cpp) come before the server can accept one. Defining both keeps unknown_debug.obj out.
-void Unknown_4BC260(const char *sender, const char *category, const char *file, int line, const char *format, ...);
+// soundlib.cpp) come before the server can accept one. Defining both keeps g_assert.obj out.
+void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);
 
-void Unknown_Assert_Failed(const char *expr, const char *file, int line)
+void G_Assert_Report(const char *expr, const char *file, int line)
 {
 	Stub_Log_Line("G_ASSERT: ASSERTION FAILED: %s, %s(%d)", expr, file, line);
-	Unknown_4BC260("", "G_ASSERT", file, line, "ASSERTION FAILED: %s", expr);
+	Message_Error("", "G_ASSERT", file, line, "ASSERTION FAILED: %s", expr);
 }
 
-void Unknown_Fail_If_Report(const char *expr, const char *file, int line)
+void Fail_If_Report(const char *expr, const char *file, int line)
 {
 	Stub_Log_Line("FAIL_IF: ERROR: %s, %s(%d)", expr, file, line);
-	Unknown_4BC260("", "FAIL_IF", file, line, "ERROR: %s", expr);
+	Message_Error("", "FAIL_IF", file, line, "ERROR: %s", expr);
 }
 
 

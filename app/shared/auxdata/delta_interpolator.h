@@ -19,7 +19,7 @@
 
 #include "delta_template.h"
 #include "..\duration.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 // vtable 0xAEAE54, size 0x250
 class DeltaInterpolatorClass : public DeltaCompoundClass  // NAME 3: by convention (D24) from the client's file delta_interpolator.cpp (D59)

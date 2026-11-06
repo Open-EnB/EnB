@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\shared\px_process.cpp. Notes at the end of the file.
 #include "px_process.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 // 0x455880
 PxProcessNode::PxProcessNode() :

@@ -6,7 +6,7 @@
 #include "gadget.h"
 #include "gd_slider.h"
 #include "fontmanager.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "ui_attrb_skills.h"
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4

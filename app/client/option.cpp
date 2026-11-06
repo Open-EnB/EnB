@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include "option.h"
 #include "sclient.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\graphics_settings.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\point.h"
 #include "..\..\wwlib\wwstring.h"
 
-void Unknown_4BC000(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 1 [Unknown_4BC000]: 0x4BC000, E&B's message reporter (tcpconn.cpp)
+void Message_Info(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Info]: the client's WWPROFILE("Message_Info") label (D198)
 
 OptionClass *OptionClass::Instance;
 
@@ -568,7 +568,7 @@ void OptionClass::Load(__int64 character_id, SClient *client)
 				if (option != NULL) {
 					option->Set_Value(value);
 				} else {
-				Unknown_4BC000("Client Options", "", __FILE__, __LINE__, "Obsolete bool option encountered");
+				Message_Info("Client Options", "", __FILE__, __LINE__, "Obsolete bool option encountered");
 				}
 			}
 			index++;
@@ -592,7 +592,7 @@ void OptionClass::Load(__int64 character_id, SClient *client)
 				if (option != NULL) {
 					option->Set_Value(value);
 				} else {
-				Unknown_4BC000("Client Options", "", __FILE__, __LINE__, "Obsolete int option encountered");
+				Message_Info("Client Options", "", __FILE__, __LINE__, "Obsolete int option encountered");
 				}
 			}
 			index++;
@@ -616,7 +616,7 @@ void OptionClass::Load(__int64 character_id, SClient *client)
 				if (option != NULL) {
 					option->Set_Value(value);
 				} else {
-				Unknown_4BC000("Client Options", "", __FILE__, __LINE__, "Obsolete float option encountered");
+				Message_Info("Client Options", "", __FILE__, __LINE__, "Obsolete float option encountered");
 				}
 			}
 			index++;
@@ -641,7 +641,7 @@ void OptionClass::Load(__int64 character_id, SClient *client)
 				if (option != NULL) {
 					option->Set_Value(Vector3(value.X, value.Y, value.Z));
 				} else {
-				Unknown_4BC000("Client Options", "", __FILE__, __LINE__, "Obsolete vec3 option encountered");
+				Message_Info("Client Options", "", __FILE__, __LINE__, "Obsolete vec3 option encountered");
 				}
 			}
 			index++;
@@ -666,7 +666,7 @@ void OptionClass::Load(__int64 character_id, SClient *client)
 				if (option != NULL) {
 					option->Set_Value(value);
 				} else {
-				Unknown_4BC000("Client Options", "", __FILE__, __LINE__, "Obsolete String option encountered");
+				Message_Info("Client Options", "", __FILE__, __LINE__, "Obsolete String option encountered");
 				}
 			}
 			index++;

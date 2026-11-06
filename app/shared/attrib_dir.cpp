@@ -2,7 +2,7 @@
 #define ENABLE_WWPROFILE
 #include <ctype.h>
 #include <algorithm>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "attrib_dir.h"
 #include "wwprofile.h"
 

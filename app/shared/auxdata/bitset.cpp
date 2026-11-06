@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\shared\auxdata\bitset.cpp. Notes at the end of the file.
 #include "bitset.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 #include <string.h>
 
 BitSetClass::BitSetClass(unsigned int size) : Buffer(NULL), NumBytes(0), NumBits(size)

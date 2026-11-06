@@ -5,7 +5,7 @@
 #include "strconv_lib.h"
 #include "vector3.h"
 #include "matrix3d.h"
-#include "unknown_debug.h"
+#include "g_assert.h"
 
 char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
 char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10) (not rebuilt)  // NAME 1: neutral placeholder (D10)

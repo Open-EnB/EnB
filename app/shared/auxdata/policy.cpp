@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\shared\auxdata\policy.cpp. Notes at the end of the file.
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 #include "policy.h"
 #include "delta.h"
 #include "lookup.h"

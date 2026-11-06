@@ -5,7 +5,7 @@
 #include "gadget.h"
 #include "control_keys_manager.h"
 #include "unknown_signalbase.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 #include "interface_static_sort_list.h"	// the view's scene's +0x9C (the asserts' 'ssl')
 

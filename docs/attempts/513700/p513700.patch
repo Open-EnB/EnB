@@ -4,7 +4,7 @@ index 92658de..e0f5935 100644
 +++ b/app/client/mainview.cpp
 @@ -5,6 +5,7 @@
  #include "sclient.h"
- #include "..\shared\unknown_debug.h"
+ #include "..\shared\g_assert.h"
  #include "..\shared\land.h"
 +#include "..\shared\stars.h"
  #include "..\..\wwlib\ini.h"

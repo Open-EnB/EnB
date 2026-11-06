@@ -3,7 +3,7 @@
 #include <sstream>
 #include <algorithm>
 #include "unique_design_id_lookup.h"
-#include "unknown_debug.h"
+#include "g_assert.h"
 #include "..\..\wwlib\inisup.h"
 
 

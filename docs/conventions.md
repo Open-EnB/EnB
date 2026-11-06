@@ -185,8 +185,9 @@ protected:
 ```
 
 * Asserts: `WWASSERT(expr)` in library code. E&B's app code uses `G_ASSERT(expr)` and
-  `FAIL_IF(expr)` (`app/shared/unknown_debug.h`, over the client's report functions 0x4E9410 and
-  0x4E9450; the macro names are ours, the client's are not known). Reproduce each assert where the
+  `FAIL_IF(expr)` (`app/shared/g_assert.h`, over the client's report functions 0x4E9410 and
+  0x4E9450; the macro names are ours, the client's are not known; the client's category strings are
+  "G_ASSERT" and "FAIL_IF", and the report functions' names G_Assert_Report / Fail_If_Report are chosen, D198). Reproduce each assert where the
   binary has it, with the expression exactly as stringified in the client (`docs/data/asserts.txt`)
   and on the client's line: the macros compile `__FILE__` and `__LINE__` ([workflow.md](workflow.md) §3).
 * Profiling: `WWPROFILE("Class::Method")` at the top of hot functions. The label strings in the

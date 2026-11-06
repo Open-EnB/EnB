@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\px_box_list.cpp. Notes at the end of the file.
 #include "px_box_list.h"
 #include "px_wrapper.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <algorithm>
 
 // 0x44D740

@@ -2,7 +2,7 @@
 #include <string.h>
 #include "surfacetypes.h"
 #include "soundlib.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\inisup.h"
 #include "..\..\wwlib\ffactory.h"

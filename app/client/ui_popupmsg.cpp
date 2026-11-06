@@ -7,7 +7,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "refcount.h"
 #include "wwstring.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\auxdata\permstr.h"
 
 // gadget.cpp's gadget: gadget.h

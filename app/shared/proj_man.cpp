@@ -13,7 +13,7 @@
 #include "wwprofile.h"
 #include "wwmath.h"
 #include <math.h>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 
 static float	MIN_STATIC_SHADOW_COS_HALF_THETA		= cos(DEG_TO_RADF(10.0f)/2.0f);	// angle to allow shadow tex re-use

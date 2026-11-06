@@ -18,7 +18,7 @@
 // (see the notes).
 //
 #include "lego_identifier.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <string.h>
 #include <algorithm>
 

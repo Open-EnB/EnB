@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Audio\soundlib.cpp. Notes at the end of the file.
 #include <string.h>
 #include "soundlib.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\inisup.h"
 #include "..\..\wwlib\ffactory.h"

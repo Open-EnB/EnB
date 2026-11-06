@@ -15,7 +15,7 @@
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\nstrdup.h"
 #include "..\..\wwlib\ref_ptr.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 GadgetClass *Unknown_BE5F24 = NULL;
 GadgetClass *Unknown_BE5F28 = NULL;
 GadgetClass *Unknown_BE5F2C = NULL;		// 0xBE5F2C (slot +0x2C: the last gadget an event went to)  // NAME 1: neutral (D10)

@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\auxdata\name.cpp. Notes at the end of the file.
 #include <string.h>
 #include "name.h"
-#include "..\unknown_debug.h"
+#include "..\g_assert.h"
 
 NameClass::NameClass(const char *name) :
 	Name(name),

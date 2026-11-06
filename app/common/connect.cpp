@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\common\connect.cpp (PARTIAL). Notes at the end of the file.
 #include "connect.h"
 #include "..\packets\pk.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <string.h>
 #include "..\..\wwlib\nstrdup.h"
 

@@ -165,8 +165,8 @@ void VerbManagerClass::Unknown_81F810(int game_id, void *, void *) { Trace("stub
 
 // ------------------------------------------------------------------------- the asserts and the debug log
 
-void Unknown_Assert_Failed(const char *expr, const char *, int line) { Trace("assert %s (line %d)", expr, line); }
-void Unknown_Fail_If_Report(const char *expr, const char *, int line) { Trace("fail_if %s (line %d)", expr, line); }
+void G_Assert_Report(const char *expr, const char *, int line) { Trace("assert %s (line %d)", expr, line); }
+void Fail_If_Report(const char *expr, const char *, int line) { Trace("fail_if %s (line %d)", expr, line); }
 void Unknown_Debug_Begin_Step(const char *text) { Trace("step: %s", text); }
 void Unknown_Debug_End_Step(const char *text) { Trace("step end: %s", text); }
 void Unknown_Debug_Print(const char *text) { Trace("log: %s", text); }

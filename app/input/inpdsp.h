@@ -22,7 +22,7 @@
 
 #include <string>
 #include <hash_map.h>
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\..\wwlib\refcount.h"
 #include "..\kernel\kernel.h"
 

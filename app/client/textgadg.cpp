@@ -13,7 +13,7 @@
 #include "layer.h"
 #include "scene.h"
 #include "ww3d.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 
 
 

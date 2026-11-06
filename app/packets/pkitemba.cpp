@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\packets\pkitemba.cpp. Notes at the end of the file.
 #include "pkitemba.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include <stdio.h>
 
 ItemBasePacketClass::ItemBasePacketClass(int item_template_id, int category, int subcategory, int item_type, const RefCountPtr<ItemBaseInfoClass> &info,

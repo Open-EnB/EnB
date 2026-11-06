@@ -78,8 +78,8 @@ public:
 };
 static UnknownBFAEE0Class BFAEE0;
 UnknownBFAEE0Class *Unknown_BFAEE0 = &BFAEE0;
-void Unknown_Assert_Failed(const char *expr, const char *file, int line) { Movie_Log("G_ASSERT %s (%s %d)\n", expr, file, line); }
-void Unknown_Fail_If_Report(const char *expr, const char *file, int line) { Movie_Log("FAIL_IF %s (%s %d)\n", expr, file, line); }
+void G_Assert_Report(const char *expr, const char *file, int line) { Movie_Log("G_ASSERT %s (%s %d)\n", expr, file, line); }
+void Fail_If_Report(const char *expr, const char *file, int line) { Movie_Log("FAIL_IF %s (%s %d)\n", expr, file, line); }
 
 // ------------------------------------------------------------------ screenshots
 

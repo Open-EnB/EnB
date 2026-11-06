@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\common\memconn.cpp. Notes at the end of the file.
 #include "memconn.h"
 #include "..\packets\pk.h"
-#include "..\shared\unknown_debug.h"
+#include "..\shared\g_assert.h"
 #include "..\shared\auxdata\unknown_root.h"
 
 MemoryConnectionClass::MemoryConnectionClass() :
