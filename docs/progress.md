@@ -2520,6 +2520,8 @@ written but not byte-exact, with its cause: `docs/data/not-exact.md`; every aban
 LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a new §3.1 lever). The items
 below name only the work items, the blocked work, the leads and the queues.
 
+* **gd_slot_data's neighbours (GS1):** replace `Unknown670C90Class` in gd_attrb_skills.cpp with `SlotDataGadgetClass` (gd_slot_data.h), one verify. 0x671300-0x672690 is another object or two: 0x671300-0x671790 a `ButtonGadgetClass` over a UV control (table 0xAFB278, no __FILE__, base of gd_buffgadg.h's gadgets), 0x671790 on the text editor gadget (StrEditClass; triage says gd_text_editor.cpp for 0x672120, appfile's window for it starts at 0x672870).
+* **chat_window / chat_window_history's rest (CH1; drafts with `// @0x` markers in `.work/wt/CH1/.work/ch1/client/`):** chat_window 0x67F7F0, 0x67FC60, 0x67FFD0, 0x680320, 0x6804E0, 0x680790, 0x6809B0; chat_window_history ctor 0x6812C0 (emits 0x6815A0 and 0x681570), 0x6818C0, 0x681DB0, 0x682080, 0x6821C0, 0x6821F0, 0x682880, 0x6828D0; asserts still to place: lines 413, 421, 457, 473, 616, 626. `FontSys::Font` (+0x24C) should be `RefCountPtr<Font32Class>` (0x67E71F handles it as a ref pointer; chat_window.cpp casts for now). `unknown_67d430.*` is interim (D137): no `__FILE__`.
 * **antprox's build table calls 249f8524 EA's last client (D199):** it is EA's 82663b2f plus Net-7's URL edits; correct the label in the AntaresProxy repo, and add 82663b2f if EA's exe should be recognised.
 * **symbols.json / ghidra_symbols.py keep 15 old D198 names:** run `symbols.py` with every library's `--objs` at the next refresh (without them it rewrites the file wholesale).
 * **The rest of the static table audit (AU1, `.work/au1/tablecmp.py`):** 481 tables and 371 float constants compared; left: 4-byte scalars (BridgeNear / BridgeFar, ...), constants read only by non-exact functions, tables the compiler inlined or emitted no symbol for, 8 masked pointers in 7 tables (ui_attrb 0xB79F04, ui_analyze 0xB7967C, ui_manu 0xB81868, ...).
@@ -2566,8 +2568,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * Data and records: the .bss int Unknown_BE71D4 (in postate.cpp) moves to its owner, CLIENT_SET_TIME 0x737960's
      file or sclient 0x7472A0's, when 0x737960 is rebuilt; RenderHookClass's 7-byte destructor 0x6F36F0 wants a D99
      exact row; docs/attempts/726100's stash still says `new PxClass` (PxList); asserts.txt files px.cpp's
-     `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); 92's sets named Drops
-     (+0x10) / Adds (+0x20) from the client's Print: confirm when the handler 0x81F810 is read; P-MV2-3 (anything
+     `!(low && high)` 0x44BA70 under dynamic_obj.cpp (a file-boundary error in its generator); P-MV2-3 (anything
      added to duration.h re-sweeps auxpad.py).
    * From the 2026-10-31 t4 run (TK19): sclient's testeffects.ini loader 0x74CA90 (636 instructions; emits
      vector<TestEffectStruct>::_Destroy 0x7568D0); sclient's hash_map instances 0x7567B0 / 0x756820 / 0x756890 pair once
