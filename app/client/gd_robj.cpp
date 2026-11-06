@@ -158,9 +158,9 @@ void RObjGadgetClass::Unknown_90(TextureClass *texture)
 	Unknown_495FD0(RObj, texture, 0);
 }
 
-void RObjGadgetClass::Unknown_66C4A0()
+TextureClass *RObjGadgetClass::Unknown_66C4A0()
 {
-	Unknown_4960C0(RObj, 0);
+	return(Unknown_4960C0(RObj, 0));
 }
 
 bool RObjGadgetClass::Unknown_30(float x, float y)

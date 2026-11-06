@@ -17,11 +17,11 @@ extern ShipCustSettingsClass Unknown_BE56D8[][2];		// NAME 1 [Unknown_BE56D8]: 0
 static int Unknown_B75D28[3][3] = { { 1, 0, 2 }, { 1, 0, 2 }, { 1, 0, 2 } };	// NAME 1 [Unknown_B75D28]: 0xB75D28, the hull style per race and profession
 static int Unknown_B75D4C[3][3] = { { 1, 0, 2 }, { 1, 0, 2 }, { 1, 0, 2 } };	// NAME 1 [Unknown_B75D4C]: 0xB75D4C, the wing style per race and profession
 
-// 0x618500 (out of line after ui_shard.cpp in the client)
-ShipCustSettingsClass::ShipCustSettingsClass() :
-	Color(1.0F, 1.0F, 1.0F), Unknown10(0.5F), Unknown14(0.5F), Is_Matte(false), Metal(METAL_NONE)
-{
-}
+// 0x618500, the settings' default constructor, is shipcust_desc.h's inline: its out-of-line copy sits
+// in ui_ship_cust.cpp's object (the constructor 0x6181B0's ??_H target, after ui_shard.cpp), and
+// ui_ship_cust.cpp's out-of-line ShipCustPartClass constructor 0x6191F0 inlines it.
+
+
 
 // 0x4F61C0
 ShipCustSettingsClass::ShipCustSettingsClass(float red, float green, float blue, float unknown10, float unknown14, bool matte, ShipCustomizationMetal metal) :

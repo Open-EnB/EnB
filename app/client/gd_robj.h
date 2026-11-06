@@ -58,7 +58,7 @@ public:
 	void Unknown_66C2A0(float opacity);									// 0x66C2A0 (ro_funcs.cpp's 0x496240 on the model; gd_buffgadg.cpp passes 0..1)  // NAME 1 [opacity]: as ro_funcs.cpp's
 	void Unknown_66C2D0();												// 0x66C2D0 (the highlight on: slot +0x9C, the style's 0x6CE910)
 	void Unknown_66C360();												// 0x66C360 (the highlight off: slot +0xA0)
-	void Unknown_66C4A0();												// 0x66C4A0 (ro_funcs.cpp's 0x4960C0 on the model, index 0)
+	TextureClass *Unknown_66C4A0();												// 0x66C4A0 (ro_funcs.cpp's 0x4960C0 on the model, index 0)
 	const Matrix3D &Unknown_66C6C0();									// 0x66C6C0 (the model's transform, or a static identity)
 
 	RenderObjClass *RObj;												// +0x30 (G_ASSERT 'RObj' l.250)  // NAME 3: the assert's

@@ -318,3 +318,9 @@ Where the client's names disagree with these conventions, the client's are used;
   link to the real members; its vtable-named entries are renamed in tools/re/symbols_named.json.
 
 * **SClient::EnvironmentMapManager (2026-11-03):** option.cpp's assert `sclient->EnvironmentMapManager` (0xBA245C) and scriptedmovie.cpp's (the constructor's l.231) name SClient's +0x1338 (was `Unknown1338`; scriptedmovie.cpp's macro is gone). No string names its class: it is `EnvironmentMapManagerClass` (the user, 2026-11-03), NAME 3 by convention (D24) from the client's file env_map_manager.cpp (was `SClientUnknown1338Class`).
+
+* **Unknown5BB320Class::InterfaceMesh (2026-11-05, IM1):** the FAIL_IFs `!InterfaceMesh` in ui_faction.cpp's 0x58D400
+  (l.118) and ui_attrb_skills.cpp's 0x549AA0 (l.121) test the interface base's +0x84 and the code re-reads it after calls
+  (a member, not a local): sclient.h's `UIMeshClass *InterfaceMesh` (was `Mesh`, NAME 2), NAME 3. Its eleven derived
+  windows' uses follow; ui_faction.cpp's and ui_missn.cpp's `#define InterfaceMesh Mesh` are gone (a comment line keeps
+  their `__LINE__`s). ui_scut.h's UIScutBarClass::Mesh (+0x08) and ScriptedMovieObjectStruct::Mesh are other members.

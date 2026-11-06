@@ -227,16 +227,3 @@ RegistrationErrorStruct RegistrationUnknown1ACClass::Unknown_7D1AC0()
 	error.Unknown10 = -1;
 	return error;
 }
-
-// sbaseview.cpp's starbase interface name (0x69D030 calls it; not rebuilt): empty, the client's tsd* model names unread
-class SBaseViewClass
-{
-public:
-	std::string Unknown_6A2120(int index);
-};
-
-std::string SBaseViewClass::Unknown_6A2120(int)
-{
-	STUB_CALLED("SBaseViewClass::Unknown_6A2120 (0x6A2120)");
-	return std::string();
-}

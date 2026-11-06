@@ -142,7 +142,7 @@ bool StartPacketClass::Process_Packet(void *instance)
 #include "..\packets\pkstarbase_avatar_change.h"
 #include "..\packets\pkrecustomize.h"
 #include "sbaseview.h"		// the starbase view and the interfaces it holds (moved out of this file)
-
+#include "ui_ship_cust.h"	// its +0x1A0, StarbaseShipCustomizeInterface
 
 
 
@@ -261,16 +261,16 @@ bool CreatePacketClass::Process_Packet(void *instance)
 
 
 
-// ui_talkt.cpp's talk tree interface and ui_talkt_space.cpp's (SClient +0x1298), declared as far as the
-// talk tree packets call them
-class UITalkTreeClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt.cpp
-{
-public:
-	virtual void Unknown_88();
-	virtual void Unknown_8C();
-	virtual void Unknown_90(TalkTreePacketClass *packet);	// +0x90 (TALK_TREE 84)  // NAME 1 [packet]: the handler's packet
-	void Unknown_64D230(int action);	// 0x64D230 (TALK_TREE_ACTION 86)  // NAME 1 [action]: the packet's Action
-};
+// ui_talkt.cpp's talk tree interface UITalkTreeClass (SClient +0x1298, the talk tree packets call its
+// Unknown_90 / Unknown_64D230): sclient.h (the starbase view's +0x190 is one too). ui_talkt_space.cpp's
+// derives from it.
+//
+//
+//
+//
+//
+//
+//
 class UITalkTreeSpaceClass : public UITalkTreeClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt_space.cpp
 {
 };
@@ -2170,7 +2170,7 @@ bool TradePacketClass::Process_Packet(void *instance)
 		trade = ((SBaseViewClass *)sclient->Unknown135C)->PTrade.Peek();
 		starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
 	} else if (!sclient->Unknown_744B60() && sclient->MainView) {
-		trade = (UIPTradeClass *)sclient->MainView->Unknown1E4;
+		trade = sclient->MainView->Unknown1E4;
 	}
 	if (!trade) return(true); {
 		switch ((unsigned char)Type) {
@@ -3420,7 +3420,7 @@ bool RecustomizeShipStartPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 
 	FAIL_IF(!sclient) return(true);
-	SBaseViewUnknown1A0Class *ship_ui = ((SBaseViewClass *)sclient->Unknown135C)->ShipUI.Peek();
+	StarbaseShipCustomizeInterface *ship_ui = ((SBaseViewClass *)sclient->Unknown135C)->ShipUI.Peek();
 
 	FAIL_IF(!ship_ui) return(true);
 	ship_ui->Unknown_61F250(&Desc, &Cost, Unknown1A4, Unknown1A8, Unknown1AC, Unknown1B0);

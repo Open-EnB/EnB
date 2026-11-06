@@ -315,23 +315,16 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 #include "..\..\..\app\client\control_keys_manager.h"
 ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char *entry) { Trace("stub Unknown_42A1A0 [%s] %s", section ? section : "(null)", entry ? entry : "(null)"); return(ControlKeyComboStruct(0, 0)); }
 
-// ------------------------------------------------------------------------- ui_buff.cpp's gadget (BUFF)
+// ------------------------------------------------------------------------- money.cpp's comparison
 
-// ui_buff.cpp declares UIBuffGadgetClass / UIBuffInfoStruct (not gd_buffgadg.cpp's BuffGadgetClass / BuffInfoStruct, so its
-// calls name symbols no object defines) and gen_stubs cannot write members of an incomplete class: declared here as far as the mangled names go
-class LineDisplayClientClass;
-struct BuffDefStruct;
-class RenderObjClass;
-class LayerClass;
-class DurationClass;
-struct UIBuffElementStruct;
-struct UIBuffInfoStruct { void Unknown_665390(const UIBuffElementStruct &); };
-class UIBuffGadgetClass
-{
-public:
-	UIBuffGadgetClass(LineDisplayClientClass *, BuffDefStruct *, const UIBuffInfoStruct &, RenderObjClass *, int, const LayerClass &);
-	bool Unknown_6661F0(const UIBuffInfoStruct &, const DurationClass &);
-};
-UIBuffGadgetClass::UIBuffGadgetClass(LineDisplayClientClass *, BuffDefStruct *, const UIBuffInfoStruct &, RenderObjClass *, int, const LayerClass &) { Trace("stub UIBuffGadgetClass::UIBuffGadgetClass (0x665A40)"); }
-bool UIBuffGadgetClass::Unknown_6661F0(const UIBuffInfoStruct &, const DurationClass &) { Trace("stub UIBuffGadgetClass::Unknown_6661F0"); return false; }
-void UIBuffInfoStruct::Unknown_665390(const UIBuffElementStruct &) { Trace("stub UIBuffInfoStruct::Unknown_665390"); }
+// money.cpp's 0x4F0740 (cdecl, not rebuilt), declared by ui_ship_cust.cpp / ui_avatar_cust.cpp: ui_ship_cust.obj links since
+// the SClient / UI chain reaches it. clienttest never opens the ship customization window: this only links.
+#include "..\..\..\app\shared\money.h"
+bool operator>=(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator>=(MoneyClass)"); return(a.Unknown00 >= b.Unknown00); }
+
+// ui_missn.cpp / ui_manu.cpp (via ui_ship_cust.obj's chain) call GadgetClass's slots +0x08 / +0x14 as void functions; gen_stubs
+// writes one signature a name (the pointer-returning one) and clienttest.py does not apply link_aliases.txt, so these two
+// names link here. Never called: clienttest opens no such window.
+class GadgetClass { public: virtual void Unknown_08(); virtual void Unknown_14(); };
+void GadgetClass::Unknown_08() {}
+void GadgetClass::Unknown_14() {}

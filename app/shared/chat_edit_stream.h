@@ -19,7 +19,25 @@ struct Unknown_ChatBlockStruct	// NAME 1: neutral (D10)
 	short Length;	// +0x02 (the bytes after the head; a text's with its 0)  // NAME 1: neutral (D10)
 };
 
-class Unknown_ChatStreamClass  // NAME 1: neutral (D10): what it reads
+// the stream's interface: a vtable of 11 _purecall slots (0xB046F4, no RTTI), stored only by the
+// implicit copy constructor's base part (the avatar's 0x77C8F0 copies +0xE8 through it)
+class Unknown_ChatStreamBaseClass  // NAME 1: neutral (D10)
+{
+public:
+	virtual char *Unknown_00() = 0;
+	virtual int Unknown_04() = 0;
+	virtual void Unknown_4C48C0(char *text) = 0;
+	virtual bool Unknown_4C4940() = 0;
+	virtual void Unknown_4C44A0() = 0;
+	virtual void *Unknown_4C4850(const void *blocks, bool skip_end) = 0;
+	virtual void *Unknown_4C47B0(class Unknown_ChatStreamClass *stream, bool skip_end) = 0;
+	virtual void *Unknown_4C46E0(const void *block) = 0;
+	virtual void *Unknown_4C45B0(char type, unsigned char value, const char *text, short len) = 0;
+	virtual void *Unknown_4C4410() = 0;
+	virtual void Unknown_4C4830() = 0;
+};
+
+class Unknown_ChatStreamClass : public Unknown_ChatStreamBaseClass  // NAME 1: neutral (D10): what it reads
 {
 public:
 	Unknown_ChatStreamClass();	// 0x4C4430

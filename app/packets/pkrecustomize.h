@@ -52,6 +52,7 @@ class ShipRecustomizationCostClass : public Unknown_PacketDataClass  // NAME 1: 
 {
 public:
 	ShipRecustomizationCostClass();	// 0x8499C0 (the 12 ints 0)
+	int Unknown_849AC0(ShipCustDescClass *olddesc, ShipCustDescClass *newdesc);	// 0x849AC0 (ui_ship_cust.cpp's 0x61F180: the window's ship before and after; the costs of the parts that differ, summed, as RecustomizationCostClass's 0x8493F0)  // NAME 1 [olddesc, newdesc]: as 0x8493F0's
 	virtual bool Write(LinearBufferClass *buffer);	// +0x00 0x84A1D0
 	virtual bool Read(LinearBufferClass *buffer);	// +0x04 0x84A210
 	virtual int Get_Size();	// +0x08 0x84A250

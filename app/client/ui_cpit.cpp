@@ -244,9 +244,9 @@ UICpitClass::UICpitClass(MainViewClass *view, const LayerClass &layer) :
 {
 	Unknown0B0 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi01_gutter"));
 	Unknown_496730(Unknown0B0.Peek(), 0x20, 0);
-	Mesh->Unknown_5BA460(1);
+	InterfaceMesh->Unknown_5BA460(1);
 	Unknown_BE67BC->Load("fc_cpit.ini");
-	Unknown_BE67C4->Add(Mesh->Peek_Object());
+	Unknown_BE67C4->Add(InterfaceMesh->Peek_Object());
 }
 
 
@@ -287,7 +287,7 @@ void UICpitClass::Unknown_54()
 
 
 	G_ASSERT(View->As_Main_View());
-	Unknown154 = Unknown_BE67C4->Get_Style("SpeedDisplay", Mesh->Peek_Object());
+	Unknown154 = Unknown_BE67C4->Get_Style("SpeedDisplay", InterfaceMesh->Peek_Object());
 	Unknown0AC = new UICpitGadget6B56AClass(0, 0, 640, 480, View->As_Main_View());
 	Unknown64.Unknown_6870E0(Unknown0AC, 0x48, View, 1, 1);
 	Unknown0AC->Unknown_660070(1);
@@ -307,7 +307,7 @@ void UICpitClass::Unknown_54()
 	Scan = new UIScanClass(View->As_Main_View(), &Layer);
 	Scan->Unknown_54();
 	View->Unknown_6B4940(Scan);
-	Unknown0D0 = new UICpitUnknownD0Class(Mesh->Peek_Object(), &Layer, this, -1);
+	Unknown0D0 = new UICpitUnknownD0Class(InterfaceMesh->Peek_Object(), &Layer, this, -1);
 	UnknownDC = new UIScutClass(view, &Layer);
 	UnknownDC->Unknown_5417D0(this);
 	UnknownDC->Unknown_54();
@@ -316,8 +316,8 @@ void UICpitClass::Unknown_54()
 	Unknown0E0->Unknown_54();
 	Unknown0E0->Unknown_7C(View, 0);
 
-	RenderObjClass *object = Mesh->Unknown_5B8B40("WARP");
-	RenderObjClass *uv = Mesh->Unknown_5B8B40("WARP_BAR");
+	RenderObjClass *object = InterfaceMesh->Unknown_5B8B40("WARP");
+	RenderObjClass *uv = InterfaceMesh->Unknown_5B8B40("WARP_BAR");
 	Unknown0B4 = new UICpitWarpGadgetClass(object, uv, &Layer);
 	Unknown64.Unknown_6870E0(Unknown0B4, 1, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP");
@@ -325,8 +325,8 @@ void UICpitClass::Unknown_54()
 	uv->Release_Ref();
 	object->Release_Ref();
 
-	object = Mesh->Unknown_5B8B40("LEFT");
-	uv = Mesh->Unknown_5B8B40("LEFT_UV");
+	object = InterfaceMesh->Unknown_5B8B40("LEFT");
+	uv = InterfaceMesh->Unknown_5B8B40("LEFT_UV");
 	Unknown0C0 = new UICpitTurnGadgetClass(object, uv, &Layer, -1, 0, 3);
 	Unknown64.Unknown_6870E0(Unknown0C0, 6, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0C0, "UI_CPIT", "LEFT");
@@ -334,8 +334,8 @@ void UICpitClass::Unknown_54()
 	uv->Release_Ref();
 	object->Release_Ref();
 
-	object = Mesh->Unknown_5B8B40("RIGHT");
-	uv = Mesh->Unknown_5B8B40("RIGHT_UV");
+	object = InterfaceMesh->Unknown_5B8B40("RIGHT");
+	uv = InterfaceMesh->Unknown_5B8B40("RIGHT_UV");
 	Unknown0C4 = new UICpitTurnGadgetClass(object, uv, &Layer, -1, 0, 3);
 	Unknown64.Unknown_6870E0(Unknown0C4, 7, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0C4, "UI_CPIT", "RIGHT");
@@ -343,8 +343,8 @@ void UICpitClass::Unknown_54()
 	uv->Release_Ref();
 	object->Release_Ref();
 
-	object = Mesh->Unknown_5B8B40("THROTTLE");
-	uv = Mesh->Unknown_5B8B40("THROTTLE_UV");
+	object = InterfaceMesh->Unknown_5B8B40("THROTTLE");
+	uv = InterfaceMesh->Unknown_5B8B40("THROTTLE_UV");
 	Unknown0B8 = new UICpitThrottleGadgetClass(object, uv, &Layer, -1, 0);
 	Unknown64.Unknown_6870E0(Unknown0B8, 4, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0B8, "UI_CPIT", "THROTTLE");
@@ -352,8 +352,8 @@ void UICpitClass::Unknown_54()
 	uv->Release_Ref();
 	object->Release_Ref();
 
-	object = Mesh->Unknown_5B8B40("REVERSE");
-	uv = Mesh->Unknown_5B8B40("REVERSE_UV");
+	object = InterfaceMesh->Unknown_5B8B40("REVERSE");
+	uv = InterfaceMesh->Unknown_5B8B40("REVERSE_UV");
 	Unknown0BC = new UICpitThrottleGadgetClass(object, uv, &Layer, -1, 0);
 	Unknown64.Unknown_6870E0(Unknown0BC, 4, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0BC, "UI_CPIT", "REVERSE");
@@ -361,13 +361,13 @@ void UICpitClass::Unknown_54()
 	uv->Release_Ref();
 	object->Release_Ref();
 
-	Unknown16C = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("throttle_on"));
-	Unknown170 = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("reverse_on"));
-	Unknown174 = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("warp_on"));
+	Unknown16C = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("throttle_on"));
+	Unknown170 = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("reverse_on"));
+	Unknown174 = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("warp_on"));
 	Unknown16C->Set_Hidden(true);
 	Unknown170->Set_Hidden(true);
 	Unknown174->Set_Hidden(true);
-	gadget = new UICpitGadget674260Class(Unknown_497300(Mesh->Peek_Object()));
+	gadget = new UICpitGadget674260Class(Unknown_497300(InterfaceMesh->Peek_Object()));
 	gadget->Unknown_28(&Layer);
 	Unknown64.Unknown_6870E0(gadget, 0x4F, View, 1, 0);
 	Unknown_10();
@@ -411,7 +411,7 @@ UICpitClass::~UICpitClass()
 	}
 	Unknown158.clear();
 	Unknown154 = NULL;
-	Unknown_BE67C4->Remove(Mesh->Peek_Object());
+	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Object());
 	Unknown_BE67BC->Unload("fc_cpit.ini");
 	Unknown_5C();
 	delete Unknown0D0;
@@ -458,8 +458,8 @@ void UICpitClass::Unknown_5C()
 {
 	if (Unknown148 == 1) {
 		Unknown0B0->Remove();
-		Mesh->Unknown_5B9830();
-		Mesh->Unknown_5B9930(-1);
+		InterfaceMesh->Unknown_5B9830();
+		InterfaceMesh->Unknown_5B9930(-1);
 		HulkUI->Unknown_5C();
 		Unknown0CC->Unknown_5C();
 		UnknownDC->Unknown_5C();
@@ -1868,17 +1868,17 @@ void UICpitClass::Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *h
 {
 	if (text) {
 		if (emp) {
-			Mesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)text, "reactor_bar0");
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)text, "reactor_bar0");
 		} else {
-			Mesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)text, "shield_bar0");
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)text, "shield_bar0");
 		}
 		Unknown158.push_back(*(RenderObjClass **)&text);	// (the text is fontmanager.h's FontSys, a render object: pushed from its argument slot)
 	}
 	if (header) {
 		if (emp) {
-			Mesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)header, "reactor_bar0");
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)header, "reactor_bar0");
 		} else {
-			Mesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)header, "shield_bar0");
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)header, "shield_bar0");
 		}
 		Unknown158.push_back(*(RenderObjClass **)&header);
 		if (inflicted == 3) {
@@ -1934,9 +1934,9 @@ bool UICpitClass::Unknown_584000(bool report)
 // 0x584110: the WARP_CPIT / DISTRESS_CPIT / SPACE_CPIT texts shown by the state
 void UICpitClass::Unknown_584110()
 {
-	RefCountPtr<FontSys> warpfont = Create_Peek(Unknown_BE67C4->Get_Style("WARP_CPIT", Mesh->Peek_Object()));
-	RefCountPtr<FontSys> distressfont = Create_Peek(Unknown_BE67C4->Get_Style("DISTRESS_CPIT", Mesh->Peek_Object()));
-	RefCountPtr<FontSys> spacefont = Create_Peek(Unknown_BE67C4->Get_Style("SPACE_CPIT", Mesh->Peek_Object()));
+	RefCountPtr<FontSys> warpfont = Create_Peek(Unknown_BE67C4->Get_Style("WARP_CPIT", InterfaceMesh->Peek_Object()));
+	RefCountPtr<FontSys> distressfont = Create_Peek(Unknown_BE67C4->Get_Style("DISTRESS_CPIT", InterfaceMesh->Peek_Object()));
+	RefCountPtr<FontSys> spacefont = Create_Peek(Unknown_BE67C4->Get_Style("SPACE_CPIT", InterfaceMesh->Peek_Object()));
 
 
 
@@ -2004,7 +2004,7 @@ void UICpitClass::Unknown_584110()
 // 0x5845A0: the WARP_CPIT text dimmed while the warp button is off
 void UICpitClass::Unknown_5845A0()
 {
-	RefCountPtr<FontSys> style = Create_Peek(Unknown_BE67C4->Get_Style("WARP_CPIT", Mesh->Peek_Object()));
+	RefCountPtr<FontSys> style = Create_Peek(Unknown_BE67C4->Get_Style("WARP_CPIT", InterfaceMesh->Peek_Object()));
 	if (style) {
 		FontSys *font;
 		if (Unknown0B4->Unknown_60()) {

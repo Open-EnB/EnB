@@ -451,10 +451,10 @@ int CharacterViewClass::Unknown_0C(bool on)
 }
 
 // 0x67A210
-void CharacterViewClass::Unknown_18(int on)
+void CharacterViewClass::Unknown_18(bool on)
 {
 	if (Unknown1B4) {
-		if ((char)on) {
+		if (on) {
 			Unknown1B4->Unknown_58();
 		} else {
 			Unknown1B4->Unknown_5C();

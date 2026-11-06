@@ -61,8 +61,8 @@ public:
 };
 typedef SignalBaseClass::MemberCallback<GadgetClass, ShipCustomizeInterface, void (ShipCustomizeInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> ShipCustCallbackClass;	// NAME 1 [ShipCustCallbackClass]: neutral (D10); vtable 0xAF7970
 
-// The decal library (decal.h): its header inlines that this file calls out of line are emitted here, as the client's
-// object of this neighbourhood emits them (0x618A50, 0x618C10, 0x619280, 0x61DF40)
+// The decal library (decal.h): its header inlines that this file calls out of line are emitted here too (COMDATs; the
+// client's copies 0x618A50, 0x618C10, 0x619280, 0x61DF40 sit in ui_ship_cust.cpp's object, which emits them as well)
 #include "decal.h"
 
 
@@ -1137,26 +1137,33 @@ bool ShipCustomizeInterface::Unknown_68(int key)
 
 
 
+
+static const float Unknown_AF794C = 1.0f;	// NAME 1 [Unknown_AF794C]: neutral (D10); three .rdata 1.0f 0xAF794C / 0xAF7950 / 0xAF7954 read only by 0x624270 (fld, fchs for the negatives): named statics, one per axis, as ui_ship_cust.cpp's 0x61A4D0
+static const float Unknown_AF7950 = 1.0f;	// NAME 1 [Unknown_AF7950]: neutral (D10)
+static const float Unknown_AF7954 = 1.0f;	// NAME 1 [Unknown_AF7954]: neutral (D10)
+static void Set_Float(float &dst, float value) { dst = value; }	// NAME 1 [Set_Float]: neutral (D10)
+static bool Is_Pressed(GadgetClass *gadget) { return Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget; }	// NAME 1 [Is_Pressed]: neutral (D10)
+static void Copy_Desc(ShipCustDescClass &dst, const ShipCustDescClass &src) { dst = src; }	// NAME 1 [Copy_Desc]: neutral (D10)
 // NOT EXACT: functional (D64)
 // @0x624270
 void ShipCustomizeInterface::Unknown_624270()
 {
 	GadgetClass *gadget;
 	gadget = Gadgets[0x0F].Gadget;
-	if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-		Unknown22C->Unknown0B8 = 1.0f;
+	if (Is_Pressed(gadget)) {
+		Set_Float(Unknown22C->Unknown0B8, Unknown_AF794C);
 	} else {
 		gadget = Gadgets[0x0E].Gadget;
-		if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-			Unknown22C->Unknown0B8 = -1.0f;
+		if (Is_Pressed(gadget)) {
+			Set_Float(Unknown22C->Unknown0B8, -Unknown_AF794C);
 		} else {
 			gadget = Gadgets[0x0C].Gadget;
-			if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-				Unknown22C->Unknown0BC = 1.0f;
+			if (Is_Pressed(gadget)) {
+				Set_Float(Unknown22C->Unknown0BC, Unknown_AF794C);
 			} else {
 				gadget = Gadgets[0x0D].Gadget;
-				if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-					Unknown22C->Unknown0BC = -1.0f;
+				if (Is_Pressed(gadget)) {
+					Set_Float(Unknown22C->Unknown0BC, -Unknown_AF794C);
 				} else {
 					Unknown22C->Unknown0B8 = 0.0f;
 					Unknown22C->Unknown0BC = 0.0f;
@@ -1165,20 +1172,20 @@ void ShipCustomizeInterface::Unknown_624270()
 		}
 	}
 	gadget = Gadgets[0x2C].Gadget;
-	if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-		Unknown22C->Unknown0C0 = -1.0f;
+	if (Is_Pressed(gadget)) {
+		Set_Float(Unknown22C->Unknown0C0, -Unknown_AF7950);
 	} else {
 		gadget = Gadgets[0x2B].Gadget;
-		if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-			Unknown22C->Unknown0C0 = 1.0f;
+		if (Is_Pressed(gadget)) {
+			Set_Float(Unknown22C->Unknown0C0, Unknown_AF7950);
 		} else {
 			gadget = Gadgets[0x2D].Gadget;
-			if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-				Unknown22C->Unknown0C4 = -1.0f;
+			if (Is_Pressed(gadget)) {
+				Set_Float(Unknown22C->Unknown0C4, -Unknown_AF7950);
 			} else {
 				gadget = Gadgets[0x2E].Gadget;
-				if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-					Unknown22C->Unknown0C4 = 1.0f;
+				if (Is_Pressed(gadget)) {
+					Set_Float(Unknown22C->Unknown0C4, Unknown_AF7950);
 				} else {
 					Unknown22C->Unknown0C0 = 0.0f;
 					Unknown22C->Unknown0C4 = 0.0f;
@@ -1187,26 +1194,19 @@ void ShipCustomizeInterface::Unknown_624270()
 		}
 	}
 	gadget = Gadgets[0x2F].Gadget;
-	if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-		Unknown22C->Unknown0C8 = -1.0f;
+	if (Is_Pressed(gadget)) {
+		Set_Float(Unknown22C->Unknown0C8, -Unknown_AF7954);
 	} else {
 		gadget = Gadgets[0x30].Gadget;
-		if (Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget) {
-			Unknown22C->Unknown0C8 = 1.0f;
+		if (Is_Pressed(gadget)) {
+			Set_Float(Unknown22C->Unknown0C8, Unknown_AF7954);
 		} else {
 			Unknown22C->Unknown0C8 = 0.0f;
 		}
 	}
 	if (Unknown213) {
 		Unknown213 = false;
-		int id = 0;
-		for (std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin(); it != Gadgets.end(); it++) {
-			if (it->second.Group == 0 && it->second.Selected) {
-				id = it->second.Id;
-				break;
-			}
-		}
-		switch (id) {
+		switch (Unknown_625930(0)) {
 			case 1:
 				Unknown_625A60(0);
 				return;
@@ -1227,7 +1227,7 @@ void ShipCustomizeInterface::Unknown_624270()
 	if (Unknown215) {
 		if (Unknown218 == 5) {
 			Desc.Selected_Decal = (Unknown264 == 0) ? 0x7FFFFFF : Unknown264 - 1;
-			CharacterView->Unknown244 = Desc;
+			Copy_Desc(CharacterView->Unknown244, Desc);
 			LoginTask->Go_Next_Step();
 		} else {
 			LoginTask->Go_Back_Step();
@@ -1249,7 +1249,7 @@ void ShipCustomizeInterface::Unknown_624270()
 		Unknown_6249D0(true);
 		Unknown_6277A0();
 	}
-}
+	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// dead reads (D130; not the client's): with the while loop and the file-static inlines they spend VC6's inline budget as the client does: map::insert out of line at the first four lookups, the step's _Inc 0x6296C0 out of line with the group-0 lookup through the inlined 0x625930 (its extra inline layer puts _Tree::begin 0x628F00 out of line too); 13-15 reads, 10-12 leave three lookups deep
 
 
 // @0x6249D0

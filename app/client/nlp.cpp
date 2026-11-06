@@ -185,6 +185,21 @@ Unknown_NLPPhraseStruct *NLPLexiconClass::Unknown_78E980(const char *text)
 	return(NULL);
 }
 
+// 0x78EB50
+PlayerNLPClass::PlayerNLPClass()
+{
+	Initialized = false;
+	Unknown08 = -1;
+	Personality = NULL;
+	Lexicon = NULL;
+}
+
+// 0x78EB80
+PlayerNLPClass::~PlayerNLPClass()
+{
+	Unknown_78ECC0();
+}
+
 // 0x78EC00
 bool PlayerNLPClass::Unknown_78EC00(int personality, int nlp)
 {
@@ -242,21 +257,6 @@ const char *PlayerNLPClass::Unknown_78ED30(const char *text, const char *end)
 	}
 	return(NULL);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

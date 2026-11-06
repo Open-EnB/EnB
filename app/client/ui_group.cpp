@@ -610,7 +610,7 @@ UIGroupClass::UIGroupClass(SClient *client) :
 		Unknown0C0[i] = NULL;
 	}
 	Unknown_BE67BC->Load("FA_TSI03A.INI");
-	Unknown_BE67C4->Add(Mesh->Peek_Mesh_Object());
+	Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
 }
 
 // 0x593D70
@@ -629,7 +629,7 @@ UIGroupClass::~UIGroupClass()
 	}
 	Members.clear();
 	Unknown_5954C0();
-	Unknown_BE67C4->Remove(Mesh->Peek_Mesh_Object());
+	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 	Unknown_BE67BC->Unload("FA_TSI03A.INI");
 	delete Unknown0E8;
 	Unknown0E8 = NULL;
@@ -652,9 +652,9 @@ void UIGroupClass::Unknown_54()
 		if (i == 0) {
 			model = Unknown0E8->Unknown_5944A0();
 			Unknown_496AE0(model.Peek(), 0);
-			Mesh->Peek_Object()->Add_Sub_Object_To_Bone(model.Peek(), "formation_bone");
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(model.Peek(), "formation_bone");
 		} else {
-			model = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B7F4D0[i]));
+			model = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B7F4D0[i]));
 		}
 		if (model != NULL) {
 			Unknown_496AE0(model.Peek(), 0);
@@ -665,7 +665,7 @@ void UIGroupClass::Unknown_54()
 			Unknown64.Unknown_6870E0(Unknown0C0[i], i + 1, View, 1, 1);
 			Unknown_5BB4F0(Unknown0C0[i]);
 			if (Unknown_B7F518[i]) {
-				FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B7F518[i], Mesh->Peek_Mesh_Object());
+				FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B7F518[i], InterfaceMesh->Peek_Mesh_Object());
 				if (style) {
 					Unknown0C0[i]->Unknown_98(style);
 				}
@@ -674,7 +674,7 @@ void UIGroupClass::Unknown_54()
 		Unknown0C0[i]->Unknown_40(false);
 		Unknown0C0[i]->Unknown_8C(true);
 	}
-	Unknown0E4 = Create_Get(Mesh->Peek_Object()->Get_Sub_Object_By_Name("formation_butto"));
+	Unknown0E4 = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("formation_butto"));
 	Unknown0E4->Set_Hidden(1);
 }
 
@@ -1013,7 +1013,7 @@ void UIGroupClass::Unknown_5954C0()
 	char name[32];
 	for (int i = 0; i < 5; i++) {
 		_snprintf(name, sizeof(name), "NAME%02d_TSI03A", i);
-		Unknown_BE67C4->Get_Style(name, Mesh->Peek_Mesh_Object())->Set_Hidden(1);
+		Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object())->Set_Hidden(1);
 	}
 }
 // 0x595530
@@ -1031,7 +1031,7 @@ void UIGroupClass::Unknown_595530()
 			char bone[32];
 			Unknown_496AE0(member->Unknown34.Peek(), 0);
 			_snprintf(bone, sizeof(bone), "group%02d", index);
-			Mesh->Peek_Object()->Add_Sub_Object_To_Bone(member->Unknown34.Peek(), bone);
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(member->Unknown34.Peek(), bone);
 			RefCountPtr<RenderObjClass> frame = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("group"));
 			member->Unknown40 = new UIGroupButtonGadgetClass(frame.Peek(), &Layer, 5, 3);
 			member->Unknown40->Unknown_65FFA0(-1);
@@ -1102,7 +1102,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			char name[32];
 			_snprintf(name, sizeof(name), "NAME%02d_TSI03A", index);
-			FontSys *text = Unknown_BE67C4->Get_Style(name, Mesh->Peek_Mesh_Object());
+			FontSys *text = Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object());
 			RefCountPtr<UIGroupAvatarClass> avatar = Create_NEW((UIGroupAvatarClass *)((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74C7B0(member->ID));
 			if (avatar) {
 				text->Change_Text(avatar->Name, 0);
@@ -1864,9 +1864,9 @@ void UIGroupClass::Unknown_598370()
 	if (!Unknown0F1) {
 		if (Unknown0C0[0]) {
 			Unknown0C0[0]->Unknown_94(NULL);
-			Mesh->Peek_Object()->Remove_Sub_Objects_From_Bone("formation_bone");
+			InterfaceMesh->Peek_Object()->Remove_Sub_Objects_From_Bone("formation_bone");
 			Unknown0E8->Unknown_592C50();
-			Mesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown0E8->Unknown_5944A0().Peek(), "formation_bone");
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown0E8->Unknown_5944A0().Peek(), "formation_bone");
 			Unknown0C0[0]->Unknown_94(Unknown0E8->Unknown_5944A0().Peek());
 		}
 		SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();

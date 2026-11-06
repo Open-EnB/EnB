@@ -262,7 +262,6 @@ void GadgetSlider::Unknown_8C(bool on)
 	Unknown108 = !on;
 }
 
-// NOT EXACT: shape (similarity 0.81): the wheel box's Extent.X + Center.X loads Center first (the client Extent; 20 forms)
 // @0x66EF00
 bool GadgetSlider::Unknown_30(float x, float y)
 {
@@ -341,7 +340,9 @@ bool GadgetSlider::Unknown_30(float x, float y)
 	if (WheelRegion == NULL && !Unknown109) {
 		return(false);
 	}
-	const AABoxClass &box = Unknown109 ? Unknown10C : WheelRegion->Get_Bounding_Box();
+	const AABoxClass *pbox;
+	if (Unknown109) pbox = &Unknown10C; else pbox = &WheelRegion->Get_Bounding_Box();
+	const AABoxClass &box = *pbox;
 	if (UnknownEC < box.Center.X - box.Extent.X) {
 		return(false);
 	}
@@ -410,103 +411,103 @@ bool GadgetSlider::Unknown_30(float x, float y)
 
 
 
-// NOT EXACT: shape (similarity 0.81): the early return keeps its own epilogue (the client's shares the assert's), case 2 cross-jumps into case 5
 // @0x66F330
+// The body inside `if (Unknown_60())` with one return(false) after it: the failed test jumps into
+// the assert path's epilogue, as in the client (an early return(false) keeps its own epilogue).
 bool GadgetSlider::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
-	if (!Unknown_60()) {
-		return(false);
-	}
-	unsigned int now = Unknown_Get_Ticks();
-	int delay = Unknown_B8D434;
-	if (mask & 0x11) {
-		GadgetClass::Unknown_2C(event, x, y, mask);
-		Unknown_68();
-		delay = Unknown_B8D430;
-		UnknownE4 = UnknownE0;
-		UnknownFC = now;
-		UnknownF4 = Value;
-		if (IsHorizontal) {
-			UnknownF8 = UnknownEC - Thumb->Get_Position().X;
-		} else {
-			UnknownF8 = UnknownF0 - Thumb->Get_Position().Y;
-		}
-		switch (UnknownE4) {
-			default:
-				FAIL_IF(PressedObject) {
+	if (Unknown_60()) {
+		unsigned int now = Unknown_Get_Ticks();
+		int delay = Unknown_B8D434;
+		if (mask & 0x11) {
+			GadgetClass::Unknown_2C(event, x, y, mask);
+			Unknown_68();
+			delay = Unknown_B8D430;
+			UnknownE4 = UnknownE0;
+			UnknownFC = now;
+			UnknownF4 = Value;
+			if (IsHorizontal) {
+				UnknownF8 = UnknownEC - Thumb->Get_Position().X;
+			} else {
+				UnknownF8 = UnknownF0 - Thumb->Get_Position().Y;
+			}
+			switch (UnknownE4) {
+				default:
+					FAIL_IF(PressedObject) {
+						PressedObject = NULL;
+					}
+					break;
+				case 5:
+					PressedObject = MaxArrow;
+					break;
+				case 1:
+					PressedObject = MinArrow;
+					break;
+			}
+			if (PressedObject != NULL) {
+				Vector3 color = Unknown_9C();
+				Unknown_496110(PressedObject.Peek(), color.X, color.Y, color.Z);
+			}
+		} else if (Unknown_BE5F24 == this ? true : Unknown_BE5F28 == this) {
+			if (mask & 0x44) {
+				GadgetClass::Unknown_2C(event, x, y, mask);
+				Unknown_6C();
+				if (PressedObject != NULL) {
+					Vector3 color = Unknown_A0();
+					Unknown_496110(PressedObject.Peek(), color.X, color.Y, color.Z);
 					PressedObject = NULL;
 				}
-				break;
-			case 5:
-				PressedObject = MaxArrow;
-				break;
-			case 1:
-				PressedObject = MinArrow;
-				break;
-		}
-		if (PressedObject != NULL) {
-			Vector3 color = Unknown_9C();
-			Unknown_496110(PressedObject.Peek(), color.X, color.Y, color.Z);
-		}
-	} else if (Unknown_BE5F24 == this ? true : Unknown_BE5F28 == this) {
-		if (mask & 0x44) {
-			GadgetClass::Unknown_2C(event, x, y, mask);
-			Unknown_6C();
-			if (PressedObject != NULL) {
-				Vector3 color = Unknown_A0();
-				Unknown_496110(PressedObject.Peek(), color.X, color.Y, color.Z);
-				PressedObject = NULL;
+				return(true);
 			}
+			if (mask & 0x22) {
+				Unknown_30(x, y);
+				GadgetClass::Unknown_2C(event, x, y, mask);
+			}
+		} else if (mask & 0x1000) {
+			switch (event->Key) {
+				case 0x101:
+					Unknown_A4(Value - 1.0f, false);
+					break;
+				case 0x102:
+					Unknown_A4(Value + 1.0f, false);
+					break;
+				default:
+
+
+
+
+					G_ASSERT(false);
+					return(false);
+			}
+			GadgetClass::Unknown_2C(event, x, y, mask);
 			return(true);
 		}
-		if (mask & 0x22) {
-			Unknown_30(x, y);
-			GadgetClass::Unknown_2C(event, x, y, mask);
+
+		if (UnknownE4 == 3) {
+			Unknown_670440();
+			return(true);
 		}
-	} else if (mask & 0x1000) {
-		switch (event->Key) {
-			case 0x101:
-				Unknown_A4(Value - 1.0f, false);
-				break;
-			case 0x102:
-				Unknown_A4(Value + 1.0f, false);
-				break;
-			default:
-
-
-
-
-				G_ASSERT(false);
-				return(false);
+		if (UnknownE4 == UnknownE0 && UnknownFC <= now) {
+			UnknownFC += delay;
+			switch (UnknownE0) {
+				case 1:
+					Unknown_A4(Value - 1.0f, false);
+					break;
+				case 2:
+					Unknown_A4(Value - UnknownC8, false);
+					break;
+				case 4:
+					Unknown_A4(Value + UnknownC8, false);
+					break;
+				case 5:
+					Unknown_A4(Value + 1.0f, false);
+					break;
+			}
 		}
-		GadgetClass::Unknown_2C(event, x, y, mask);
 		return(true);
 	}
-
-	if (UnknownE4 == 3) {
-		Unknown_670440();
-		return(true);
-	}
-	if (UnknownE4 == UnknownE0 && UnknownFC <= now) {
-		UnknownFC += delay;
-		switch (UnknownE0) {
-			case 1:
-				Unknown_A4(Value - 1.0f, false);
-				break;
-			case 2:
-				Unknown_A4(Value - UnknownC8, false);
-				break;
-			case 4:
-				Unknown_A4(Value + UnknownC8, false);
-				break;
-			case 5:
-				Unknown_A4(Value + 1.0f, false);
-				break;
-		}
-	}
-	return(true);
+	return(false);
 }
-
 // @0x66F850
 void GadgetSlider::Unknown_74()
 {
@@ -518,7 +519,6 @@ void GadgetSlider::Unknown_74()
 	}
 	RObjGadgetClass::Unknown_74();
 }
-
 // @0x66F8A0
 void GadgetSlider::Unknown_78()
 {
@@ -918,7 +918,7 @@ void GadgetSlider::Unknown_670440()
 **	static (0x66EF00 reads its key: 0x101 / 0x102 are the wheel's).
 **	0x66EE20 (+0x8C): byte-exact with the base call in an if / else (the client cross-jumps the two calls).
 **	+0xA4 and +0xAC are Vector2s (0x66FD80 stores each through a Vector2 temporary: 0.51 -> 0.58; the constructor stays exact).
-**	NOT EXACT (D64): 0x66EF00 (0.81), 0x66F330 (0.56), 0x66FA90 (0.77), 0x66FD80 (0.58).
+**	NOT EXACT (D64): 0x66FD80 (0.58).
 */
 
 const int Unknown_B8D430 = 500;

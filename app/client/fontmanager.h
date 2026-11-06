@@ -98,6 +98,7 @@ public:
 	void Unknown_6CA0C0(FontEffectStruct *effect);						// 0x6CA0C0 (unknown_6ca0c0.cpp): one step of one effect (Update_Text's only callee for them)  // NAME 1 [Unknown_6CA0C0]: neutral (D10)
 	void Unknown_6D5B10(float &width, float &height);					// 0x6D5B10 (unknown_6ca0c0.cpp): the text rectangle (+0x420) in 640 x 480 screen units  // NAME 1 [Unknown_6D5B10]: neutral (D10)
 	void Unknown_6CE4E0(int font_index);								// 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text rebuilt (SWITCH / REVERT; not yet reconstructed)  // NAME 1 [Unknown_6CE4E0, font_index]: neutral (D10)
+	void __cdecl Unknown_6CE420(int unknown, const char *format, ...);	// 0x6CE420: the text from a format (ui_missn.cpp's 0x5C5AC0 passes 0, ui_line_display.cpp's slot +0x60 2)  // NAME 1 [Unknown_6CE420, unknown, format]: neutral (D10)
 
 	FontStringStruct Info;	// +0xF4: its string template (0x6D0A70 copies it; +0xF4 its name, what 0x6D10B0 compares)  // NAME 2 [Info]: what it holds
 	FontColorStruct *Colors[2];											// +0x1E0: Info.Color's two (FontDatabaseClass::Find_Color; the second defaults to the first, 0x6D5170)  // NAME 2: what 0x6D5170 stores

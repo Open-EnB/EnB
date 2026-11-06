@@ -1,0 +1,192 @@
+void LandClass::Unknown_46F120(void)
+{
+	int i;
+	for (i = 0; i < 256; i++) {
+		Normals[i].Set(LandNormalTable[i][0], LandNormalTable[i][1], LandNormalTable[i][2]);
+	}
+
+	// Per height-field vertex: the normal of the triangles around it (vectors to its neighbours, cross products of neighbour pairs
+	// around it, the client's -1 / +1 neighbours wrap through Get_Height_2's mask), matched against Normals into Unknown1E4.
+	// Only even grid vertices (0 .. Size) are visited: the four corners get all eight triangles, the edge vertices one normal per
+	// half (left / right, top / bottom) and the interior ones one per quadrant, written to the 1 or 2 x 2 bytes beside them.
+	float spacing = Field->Get_Spacing();
+	int size = Field->Get_Size();
+	int index = 0;
+	int x;
+	int y;
+
+	// the four corners (x, y in { 0, Size }): written at (0, 0), (Size - 1, 0), (0, Size - 1), (Size - 1, Size - 1)
+	for (y = 0; y < size + 1; y += size) {
+		for (x = 0; x < size + 1; x += size) {
+			int xp = x + 1;
+			int yp = y + 1;
+			float h00 = Field->Get_Height_2(xp - 2, y - 1);
+			float h10 = Field->Get_Height_2(x, y - 1);
+			float h20 = Field->Get_Height_2(xp, y - 1);
+			float h01 = Field->Get_Height_2(xp - 2, y);
+			float h = Field->Get_Height_2(x, y);
+			float h21 = Field->Get_Height_2(xp, y);
+			float h02 = Field->Get_Height_2(xp - 2, yp);
+			float h12 = Field->Get_Height_2(x, yp);
+			Vector3 v00(-spacing, -spacing, h00 - h);
+			Vector3 v10(0.0f, -spacing, h10 - h);
+			Vector3 v20(spacing, -spacing, h20 - h);
+			Vector3 v01(-spacing, 0.0f, h01 - h);
+			Vector3 v21(spacing, 0.0f, h21 - h);
+			Vector3 v02(-spacing, spacing, h02 - h);
+			Vector3 v12(0.0f, spacing, h12 - h);
+			float h22 = Field->Get_Height_2(xp, yp);
+			Vector3 v22(spacing, spacing, h22 - h);
+			Vector3 c1;
+			Vector3::Cross_Product(v00, v10, &c1);
+			Vector3 c0;
+			Vector3::Cross_Product(v10, v20, &c0);
+			Vector3 c2;
+			Vector3::Cross_Product(v20, v21, &c2);
+			Vector3 c3;
+			Vector3::Cross_Product(v21, v22, &c3);
+			Vector3 c4;
+			Vector3::Cross_Product(v22, v12, &c4);
+			Vector3 c5;
+			Vector3::Cross_Product(v12, v02, &c5);
+			Vector3 c6;
+			Vector3::Cross_Product(v02, v01, &c6);
+			Vector3 c7;
+			Vector3::Cross_Product(v01, v00, &c7);
+			Vector3 n = c0 + c1 + c2 + c3 + c4 + c5 + c6 + c7;
+			n.Normalize();
+			Unknown1E4[index] = Nearest_Normal(n);
+			index += size - 1;
+		}
+		index = (size - 1) * size;
+	}
+
+	// the top and bottom rows (y in { 0, Size }), even x in 2 .. Size - 2: the left half at x - 1, the right half at x
+	index = 1;
+	for (y = 0; y < size + 1; y += size) {
+		for (x = 2; x <= size - 2; x += 2) {
+			int xp = x + 1;
+			int yp = y + 1;
+			float h00 = Field->Get_Height_2(xp - 2, y - 1);
+			float h20 = Field->Get_Height_2(xp, y - 1);
+			float h01 = Field->Get_Height_2(xp - 2, y);
+			float h = Field->Get_Height_2(x, y);
+			float h21 = Field->Get_Height_2(xp, y);
+			float h02 = Field->Get_Height_2(xp - 2, yp);
+			Vector3 v00(-spacing, -spacing, h00 - h);
+			Vector3 v20(spacing, -spacing, h20 - h);
+			Vector3 v01(-spacing, 0.0f, h01 - h);
+			Vector3 v21(spacing, 0.0f, h21 - h);
+			Vector3 v02(-spacing, spacing, h02 - h);
+			float h22 = Field->Get_Height_2(xp, yp);
+			Vector3 v22(spacing, spacing, h22 - h);
+			Vector3 c9;
+			Vector3::Cross_Product(v02, v01, &c9);
+			Vector3 c8;
+			Vector3::Cross_Product(v01, v00, &c8);
+			Vector3 n = c8 + c9;
+			n.Normalize();
+			Unknown1E4[index] = Nearest_Normal(n);
+			Vector3 c11;
+			Vector3::Cross_Product(v21, v22, &c11);
+			Vector3 c10;
+			Vector3::Cross_Product(v20, v21, &c10);
+			n = c10 + c11;
+			n.Normalize();
+			Unknown1E4[index + 1] = Nearest_Normal(n);
+			index += 2;
+		}
+		index = (size - 1) * size + 1;
+	}
+
+	// even rows y in 2 .. Size - 2
+	index = size;
+	for (y = 2; y <= size - 2; y += 2) {
+		// the left and right columns (x in { 0, Size }): the top half at row y - 1, the bottom half at row y
+		for (x = 0; x < size + 1; x += size) {
+			int xp = x + 1;
+			int yp = y + 1;
+			float h00 = Field->Get_Height_2(xp - 2, y - 1);
+			float h10 = Field->Get_Height_2(x, y - 1);
+			float h20 = Field->Get_Height_2(xp, y - 1);
+			float h = Field->Get_Height_2(x, y);
+			float h02 = Field->Get_Height_2(xp - 2, yp);
+			float h12 = Field->Get_Height_2(x, yp);
+			Vector3 v00(-spacing, -spacing, h00 - h);
+			Vector3 v10(0.0f, -spacing, h10 - h);
+			Vector3 v20(spacing, -spacing, h20 - h);
+			Vector3 v02(-spacing, spacing, h02 - h);
+			Vector3 v12(0.0f, spacing, h12 - h);
+			float h22 = Field->Get_Height_2(xp, yp);
+			Vector3 v22(spacing, spacing, h22 - h);
+			Vector3 c13;
+			Vector3::Cross_Product(v00, v10, &c13);
+			Vector3 c12;
+			Vector3::Cross_Product(v10, v20, &c12);
+			Vector3 n = c12 + c13;
+			n.Normalize();
+			Unknown1E4[index] = Nearest_Normal(n);
+			Vector3 c15;
+			Vector3::Cross_Product(v22, v12, &c15);
+			Vector3 c14;
+			Vector3::Cross_Product(v12, v02, &c14);
+			n = c14 + c15;
+			n.Normalize();
+			Unknown1E4[index + size] = Nearest_Normal(n);
+			index += size - 1;
+		}
+		index += 3 - size * 2;
+		// the interior even x in 2 .. Size - 2: one quadrant each at (x - 1, y - 1), (x, y - 1), (x - 1, y), (x, y)
+		for (x = 2; x <= size - 2; x += 2) {
+			int xp = x + 1;
+			int yp = y + 1;
+			float h00 = Field->Get_Height_2(xp - 2, y - 1);
+			float h10 = Field->Get_Height_2(x, y - 1);
+			float h20 = Field->Get_Height_2(xp, y - 1);
+			float h01 = Field->Get_Height_2(xp - 2, y);
+			float h = Field->Get_Height_2(x, y);
+			float h21 = Field->Get_Height_2(xp, y);
+			float h02 = Field->Get_Height_2(xp - 2, yp);
+			float h12 = Field->Get_Height_2(x, yp);
+			Vector3 v00(-spacing, -spacing, h00 - h);
+			Vector3 v10(0.0f, -spacing, h10 - h);
+			Vector3 v20(spacing, -spacing, h20 - h);
+			Vector3 v01(-spacing, 0.0f, h01 - h);
+			Vector3 v21(spacing, 0.0f, h21 - h);
+			Vector3 v02(-spacing, spacing, h02 - h);
+			Vector3 v12(0.0f, spacing, h12 - h);
+			float h22 = Field->Get_Height_2(xp, yp);
+			Vector3 v22(spacing, spacing, h22 - h);
+			Vector3 c17;
+			Vector3::Cross_Product(v00, v10, &c17);
+			Vector3 c16;
+			Vector3::Cross_Product(v01, v00, &c16);
+			Vector3 n = c16 + c17;
+			n.Normalize();
+			Unknown1E4[index] = Nearest_Normal(n);
+			Vector3 c19;
+			Vector3::Cross_Product(v10, v20, &c19);
+			Vector3 c18;
+			Vector3::Cross_Product(v20, v21, &c18);
+			n = c18 + c19;
+			n.Normalize();
+			Unknown1E4[index + 1] = Nearest_Normal(n);
+			Vector3 c21;
+			Vector3::Cross_Product(v12, v02, &c21);
+			Vector3 c20;
+			Vector3::Cross_Product(v02, v01, &c20);
+			n = c20 + c21;
+			n.Normalize();
+			Unknown1E4[index + size] = Nearest_Normal(n);
+			Vector3 c23;
+			Vector3::Cross_Product(v21, v22, &c23);
+			Vector3 c22;
+			Vector3::Cross_Product(v22, v12, &c22);
+			n = c22 + c23;
+			n.Normalize();
+			Unknown1E4[index + size + 1] = Nearest_Normal(n);
+			index += 2;
+		}
+		index += size + 1;
+	}
+}
