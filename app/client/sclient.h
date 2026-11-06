@@ -126,22 +126,22 @@ class VerbManagerClass;
 // the interface objects: intrface.h's InterfaceClass (P-LD4-1); view.cpp's list holds them
 class UIViewClass;
 
-// ui_talkt.cpp's talk tree (0x180 bytes): SClient's +0x1298 holds it or ui_talkt_space.cpp's (derived) +0x129C;
-// the starbase view's +0x190 is one (0x69F8F0 hands &+0x190 straight to 0x74C9D0)
-class TalkTreePacketClass;
-class UITalkTreeClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt.cpp
-{
-public:
-	UITalkTreeClass(SClient *client, int arg);	// 0x64B6E0 (the starbase view's 0x69F8F0 passes its client and 1)  // NAME 1 [client, arg]: neutral
-	virtual void Unknown_88();
-	virtual void Unknown_8C();
-	virtual void Unknown_90(TalkTreePacketClass *packet);	// +0x90 (TALK_TREE 84)  // NAME 1 [packet]: the handler's packet
-	int Unknown_64CF90(); void Unknown_64CFF0(); bool Unknown_64D3E0(); bool Unknown_64EEA0(); void Unknown_64EED0();	// the starbase view's 0x69C8F0 / 0x69CCD0; 0x64EED0 (0x742530)
-	void Unknown_64D230(int action);	// 0x64D230 (TALK_TREE_ACTION 86)  // NAME 1 [action]: the packet's Action
-	char Unknown84[0x160 - 0x84];	// +0x84
-	int Unknown160;	// +0x160 (the starbase view's 0x69CCD0 tests it with Active)
-	char Unknown164[0x180 - 0x164];	// +0x164
-};
+// ui_talkt.cpp's talk tree: ui_talkt.h, included below after its base Unknown5BB320Class
+
+class UITalkTreeClass;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // what every view holds at +0x34 (0x1F8 bytes, constructor 0x5875C0, table 0xAF1180): the message box (dialogbox.ini's
 // sections by type: Header%d lines, Option%d buttons with Key%d keys; the "HTML" type opens the settings store's browser 7).
@@ -393,7 +393,7 @@ public:
 };
 #include "ui_cpit.h"		// ui_cpit.cpp's cockpit interface (the main view's +0x1D0)
 class UICpitClass;		// (for ui_cpit.h included first: its own include of sclient.h reaches this before the class)
-
+#include "ui_talkt.h"		// ui_talkt.cpp's talk tree (needs Unknown5BB320Class)
 
 
 
