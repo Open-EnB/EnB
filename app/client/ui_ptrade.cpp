@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_ptrade.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_ptrade.cpp', 0x5E1B80-0x5E3EEF by its asserts and its callers).
-// So far 0x5E1BE0-0x5E1F2F (the constructor and the destructors), the slots +0x5C / +0x60 / +0x68 / +0x7C and 0x5E3750-0x5E3EEF (PT1); not yet: 0x5E1FA0, 0x5E26D0-0x5E2B2F, 0x5E2F70-0x5E374F.
+// So far 0x5E1BE0-0x5E1F2F (the constructor and the destructors), the slots +0x5C / +0x60 / +0x68 / +0x7C and 0x5E3210-0x5E3EEF (PT1); not yet: 0x5E1FA0, 0x5E26D0-0x5E2B2F, 0x5E2F70-0x5E320F.
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -171,6 +171,250 @@ void UIPTradeClass::Unknown_7C(UIViewClass *view, bool arg)
 	Unknown5BB320Class::Unknown_7C(view, arg);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x5E3210
+void UIPTradeClass::Unknown_5E3210(const char *name, bool visible, const char *text)
+{
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object()));
+	FAIL_IF(!font) return;
+	font->Change_Text(text, 0);
+	font->Set_Hidden(!visible);
+}
+
+// 0x5E3340
+// NOT EXACT: inline budget (0.21: the client calls auxdata.h's finds 0x5466A0 and RefCountPtr<FontSys>'s destructor 0x51C630 out of line here; ours inlines them; eight dead finds (D130) put the wrong ones out of line, 0.50, dropped)
+void UIPTradeClass::Unknown_5E3340()
+{
+	MoneyClass money;
+	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
+	NameClass name("Money");
+	DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);
+	if (t && t->Unknown70) money = t->Value;
+	Unknown_5E3210("CREDITS_TRADE00", true, money.Unknown_4F00C0(false).c_str());
+	Unknown_5E3210("CRED1_TRADE00", true, Unknown0E0.Unknown_4F00C0(false).c_str());
+	if (((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)) {
+		money.Unknown00 = 0;
+		DeltaCompoundClass *other = (DeltaCompoundClass *)((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)->AuxData;
+		NameClass other_name("TradeMoney");
+		t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(other, other_name);
+		if (t && t->Unknown70) money = t->Value;
+		Unknown_5E3210("CRED2_TRADE00", true, money.Unknown_4F00C0(false).c_str());
+	}
+}
+
 // 0x5E3750
 void UIPTradeClass::Unknown_5E3750(bool on)
 {
@@ -207,7 +451,7 @@ void UIPTradeClass::Unknown_5E37F0()
 }
 
 // 0x5E39F0
-// NOT EXACT: inline budget (0.32: the client calls auxdata.h's Unknown_Find_Field out of line here, with the aux data read before the name; ours inlines it)
+// NOT EXACT: inline budget (0.32: the client calls auxdata.h's Unknown_Find_Field out of line here, with the aux data read before the name; ours inlines it; up to twelve dead finds (D130) left it inline, 0.47 at best, dropped)
 void UIPTradeClass::Unknown_5E39F0()
 {
 	if (Unknown0B4 && Unknown0B4->Active) {

@@ -501,6 +501,7 @@ public:
 	virtual void Unknown_60();							// +0x60 0x5E2BF0 (every frame: the texts, the credits entry, the pips; +0xD8 counts down)
 	virtual bool Unknown_68(int key);					// +0x68 0x5E2CE0 (the buttons: request 'Roll_Select02b.wav')  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x5E2F00 (0x50C690: the view, 0; passed on to the inventories and, with false, the credits entry)  // NAME 1 [view, arg]: what 0x50C690 passes
+	void Unknown_5E3210(const char *name, bool visible, const char *text);	// 0x5E3210 (FAIL_IF '!font', line 392: the style of that name on the mesh, its text, shown or hidden; inlined into 0x5E3340)  // NAME 1 [name, visible, text]: neutral
 	void Unknown_5E3340();								// 0x5E3340 (the credits texts: 'CREDITS_TRADE00', 'CRED1_TRADE00', 'CRED2_TRADE00')
 	void Unknown_5E3750(bool on);						// 0x5E3750: the four buttons' slot +0x40, the two inventories activated or deactivated  // NAME 1 [on]: neutral
 	void Unknown_5E37F0();								// 0x5E37F0 (request 0x17 when the avatar's 'Inventory.PlayerTrade' or 'TradeMoney' is above 1, else 0x5E3340 once the other's 'TradeMoney' is)
