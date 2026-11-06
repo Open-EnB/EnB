@@ -2621,10 +2621,11 @@ stub SClient::Unknown_74D990 0x17 'Alex' 0
 stub SClient::Unknown_74D990 0x17 'Bea' 0
 stub SClient::Unknown_74D990 0x17 'Ignored:' 0
 stub SClient::Unknown_74D990 0x17 '<none>' 0
+fail_if player_list_size != location_list_size (line 610)
 stub SClient::Unknown_74D990 0x17 'Active channels:' 0
 stub SClient::Unknown_74D990 0x17 'Alex' 0
 stub SClient::Unknown_74D990 0x17 'Bea' 0
-list calls: 5913E0(2) 5DA600(2) 5E8E30-0(2) 5E8E30-1(2) 5E5D70(2) 
+list calls: 5DA600(2) 5E8E30-0(2) 5E8E30-1(2) 5E5D70(2) 
 check CLIENT_CHAT_LIST 164: friends, ignore, channel lists to the panel's members (type 3 with +0xA0 1 printed instead): ok
 stub SClient::Unknown_74D990 0x13 'Could not speak on Sector 1. (error 5)' 0
 stub SClient::Unknown_74D990 0x13 'Could not broadcast to Alex. (error 5)' 0

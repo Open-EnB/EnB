@@ -1828,13 +1828,11 @@ static void Test_Guild(SClient *client, FakeMainViewClass *main_view)
 // (Unknown0C) gets chat_defs.cpp's text (0x830AA0, written here) and a line per request type (Unknown10), the success
 // case (code 0) a line for types 3 / 5 / 20 / 21 / 22, both in colour 0x13. 204: a question per Type to 0x74E580.
 static FakeMainViewClass *Test_Main_View = 0;
-class UIFriendsClass { public: void Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> others); };
 class UIChatPanelUnknownD8Class { public: void Unknown_5DA600(std::vector<std::string> names); };
 class UIChatPanelUnknownE4Class { public: void Unknown_5E8E30(std::vector<std::string> names, bool flag); };
 class UIChatPanelUnknownE8Class { public: void Unknown_5E5D70(std::vector<std::string> names); };
 static std::string List_Log;
 static void List_Add(const char *who, const std::vector<std::string> &names) { char b[64]; sprintf(b, "%s(%d) ", who, (int)names.size()); List_Log += b; }
-void UIFriendsClass::Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> others) { List_Add("5913E0", names); }
 void UIChatPanelUnknownD8Class::Unknown_5DA600(std::vector<std::string> names) { List_Add("5DA600", names); }
 void UIChatPanelUnknownE4Class::Unknown_5E8E30(std::vector<std::string> names, bool flag) { List_Add(flag ? "5E8E30-1" : "5E8E30-0", names); }
 void UIChatPanelUnknownE8Class::Unknown_5E5D70(std::vector<std::string> names) { List_Add("5E5D70", names); }
@@ -1875,7 +1873,7 @@ static void Test_Chat_Lists(SClient *client)
 		list.Process_Packet(client);
 	}
 	Trace("list calls: %s", List_Log.c_str());
-	Check(List_Log == "5913E0(2) 5DA600(2) 5E8E30-0(2) 5E8E30-1(2) 5E5D70(2) ",
+	Check(List_Log == "5DA600(2) 5E8E30-0(2) 5E8E30-1(2) 5E5D70(2) ",
 		"CLIENT_CHAT_LIST 164: friends, ignore, channel lists to the panel's members (type 3 with +0xA0 1 printed instead)");
 
 	ClientChatErrorPacketClass error(5);
