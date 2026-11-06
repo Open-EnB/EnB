@@ -19,7 +19,7 @@ class UIFriendsPlayerInfoClass	// NAME 2: what PlayersInfo holds (the asserts' '
 {
 public:
 	UIFriendsPlayerInfoClass(std::string name, std::string location);	// 0x58F0F0 (0x5908B0)  // NAME 1 [name, location]: the members they set
-	~UIFriendsPlayerInfoClass();						// 0x590780 (deleting 0x590C40)
+	~UIFriendsPlayerInfoClass() {}						// 0x590780 (inline, called out of line from the deleting destructor 0x590C40)
 
 	std::string Name;									// +0x00 (the rows' 'name%02d_TSI28A' styles)  // NAME 2: its style's
 	std::string Location;								// +0x10 ('offline' when not on; 'LOCATION%02d_TSI28A'; the assert's 'location_list_size')  // NAME 2: its style's
@@ -31,7 +31,9 @@ class UIFriendsClass : public UIChatPanelBaseClass	// NAME 3: class-from-file (D
 {
 public:
 	void Unknown_5908B0();								// 0x5908B0: PlayersInfo rebuilt from +0xC4, sorted (by name, or by location with 'offline' last)
-	void Unknown_Clear_Players();						// (inline in ui_friends.cpp: 0x5908B0 expands it)  // NAME 1 [Unknown_Clear_Players]: neutral
+	void Unknown_5906C0();								// 0x5906C0: PlayersInfo's players deleted, the vector emptied (0x5908B0 expands it; the destructor calls it)
+	void Unknown_590810();								// 0x590810: +0xC4's players deleted, the list emptied (the destructor calls it)
+	void Unknown_591030(bool on);						// 0x591030: the buttons and rows' slot +0x40; [2] / [4] off while nothing is selected  // NAME 1 [on]: neutral
 	void Unknown_590550();								// 0x590550 (0x5908B0: the rows from the slider's position)
 	void Unknown_590C70();								// 0x590C70 (slot +0x60, every frame: the rows under the pointer or selected lit)
 	void Unknown_590DB0(int index);						// 0x590DB0: a row clicked (twice: 0x591EE0)  // NAME 1 [index]: neutral

@@ -16,14 +16,48 @@
 #include "..\input\input.h"
 #include "..\packets\pkclientchat.h"
 
+// 0x58F0F0
+UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass(std::string name, std::string location)
+{
+	Name = name;
+	Location = location;
+}
+
 // One player deleted (inline)
 static inline void Unknown_Delete_Player(UIFriendsPlayerInfoClass *info)	// NAME 1 [Unknown_Delete_Player, info]: neutral
 {
 	delete info;
 }
 
-// PlayersInfo's players deleted and the list emptied (inline: no copy in the client)
-inline void UIFriendsClass::Unknown_Clear_Players()
+// 0x590550
+void UIFriendsClass::Unknown_590550()
+{
+	for (int i = 0; i < 7; i++) {
+		unsigned int index = Top + i;
+		if (index < PlayersInfo.size()) {
+			UIFriendsPlayerInfoClass *info = PlayersInfo[index];
+			Unknown114[i]->Change_Text(info->Name.c_str(), 0);
+			Unknown130[i]->Change_Text(info->Location.c_str(), 0);
+			Unknown0F0[i]->Unknown_40(true);
+			if (stricmp(info->Location.c_str(), "offline") == 0) {
+				Unknown114[i]->Unknown_6D8970(false);
+				Unknown114[i]->Unknown_Set_2FC(0.5f);
+				Unknown130[i]->Unknown_Set_2FC(0.5f);
+			} else {
+				Unknown114[i]->Unknown_6D8970(true);
+				Unknown114[i]->Unknown_Set_2FC(1.0f);
+				Unknown130[i]->Unknown_Set_2FC(1.0f);
+			}
+		} else {
+			Unknown114[i]->Change_Text(" ", 0);
+			Unknown130[i]->Change_Text(" ", 0);
+			Unknown0F0[i]->Unknown_40(false);
+		}
+	}
+}
+
+// 0x5906C0
+void UIFriendsClass::Unknown_5906C0()
 {
 	std::vector<UIFriendsPlayerInfoClass *>::iterator it;
 	for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
@@ -32,11 +66,21 @@ inline void UIFriendsClass::Unknown_Clear_Players()
 	PlayersInfo.erase(PlayersInfo.begin(), PlayersInfo.end());
 }
 
+// 0x590810
+void UIFriendsClass::Unknown_590810()
+{
+	std::list<UIFriendsPlayerInfoClass *>::iterator it;
+	for (it = Unknown0C4.begin(); it != Unknown0C4.end(); it++) {
+		Unknown_Delete_Player(*it);
+	}
+	Unknown0C4.erase(Unknown0C4.begin(), Unknown0C4.end());
+}
+
 // NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14)
 // 0x5908B0
 void UIFriendsClass::Unknown_5908B0()
 {
-	Unknown_Clear_Players();
+	Unknown_5906C0();
 
 	for (std::list<UIFriendsPlayerInfoClass *>::iterator node = Unknown0C4.begin(); node != Unknown0C4.end(); node++) {
 		UIFriendsPlayerInfoClass *info = *node;
@@ -137,5 +181,25 @@ void UIFriendsClass::Unknown_590E50()
 			}
 			SymbolChatUI->Unknown_5C();
 		}
+	}
+}
+
+// 0x591030
+void UIFriendsClass::Unknown_591030(bool on)
+{
+	int i;
+	for (i = 0; i < 8; i++) {
+		if (Unknown0D0[i]) {
+			Unknown0D0[i]->Unknown_40(on);
+		}
+	}
+	for (i = 0; i < 7; i++) {
+		if (Unknown0F0[i]) {
+			Unknown0F0[i]->Unknown_40(on);
+		}
+	}
+	if (on && Selection < 0) {
+		Unknown0D0[2]->Unknown_40(false);
+		Unknown0D0[4]->Unknown_40(false);
 	}
 }
