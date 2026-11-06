@@ -170,7 +170,7 @@ bool UIScutGadgetsClass::Restore(const std::list<ShortcutDataStruct> &list)
 }
 
 // @0x614360
-RObjGadgetClass *UIScutGadgetsClass::Create_Shortcut(int arg, Unknown66CB20Class *target)
+RObjGadgetClass *UIScutGadgetsClass::Create_Shortcut(int slot, Unknown66CB20Class *button)
 {
 
 
@@ -185,10 +185,10 @@ RObjGadgetClass *UIScutGadgetsClass::Create_Shortcut(int arg, Unknown66CB20Class
 
 
 	FAIL_IF(!ShortcutUI) return(NULL);
-	RObjGadgetClass *gadget = Unknown_0C(arg);
+	RObjGadgetClass *gadget = Unknown_0C(slot);
 	if (!gadget) return(NULL);
-	if (target) {
-		target->Unknown_66CB20(gadget);
+	if (button) {
+		button->Unknown_66CB20(gadget);
 	} else {
 		if (!ShortcutUI->Unknown_610C70(gadget, Unknown_18()) && !ShortcutUI->Unknown_610B00(gadget)) {
 			GadgetClass::Destroy(gadget);

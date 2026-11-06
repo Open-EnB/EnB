@@ -14,7 +14,7 @@ class GadgetClass;
 class ClientClass;
 class SClient;
 
-// What Create_Shortcut's second argument points to: 0x66CB20 hands a new gadget on to its +0x78 (UIScutBarClass::Unknown_611BD0)
+// What Create_Shortcut's second argument points to, a shortcut button: 0x66CB20 hands a new gadget on to its +0x78 (UIScutBarClass::Unknown_611BD0) at its +0x7C (bttn_idx)
 class Unknown66CB20Class	// NAME 1: neutral (D10)
 {
 public:
@@ -47,7 +47,7 @@ public:
 	virtual ~UIScutGadgetsClass();						// +0x00 0x613A20 (deleting 0x6139F0)
 	virtual void Set_UI(const RefCountPtr<UIScutClass> &ui);	// +0x04 0x613BA0: the old bars saved and emptied, the new one kept  // NAME 2: what it does
 	virtual void Clear_UI();							// +0x08 0x613D70 (no direct caller)  // NAME 2: what it does
-	virtual RObjGadgetClass *Unknown_0C(int arg) = 0;	// +0x0C (0x614360: makes the gadget)  // NAME 1 [arg]: neutral
+	virtual RObjGadgetClass *Unknown_0C(int slot) = 0;	// +0x0C (0x614360: makes the gadget)  // NAME 3 [slot]: as Create_Shortcut's
 	virtual bool Unknown_10(RObjGadgetClass *gadget, std::string &key) = 0;	// +0x10 (0x614FB0: the gadget's %d_Key)  // NAME 2 [gadget, key]: what it fills
 	virtual RObjGadgetClass *Unknown_14(const char *key) = 0;	// +0x14 (0x614040: the gadget of a %d_Key)  // NAME 2 [key]: what it is given
 	virtual int Unknown_18() { return(0); }				// +0x18 0x6139D0 (0x614360: the bar for a new gadget)
@@ -55,7 +55,7 @@ public:
 	int Get_State();									// 0x613F50 (the G_ASSERT's)  // NAME 3: the FAIL_IF's
 	bool Restore();										// 0x613F80 (FAIL_IF l.135)  // NAME 2: what it does
 	bool Restore(const std::list<ShortcutDataStruct> &list);	// 0x614040 (G_ASSERTs 'added' l.160, '!restored' l.166)  // NAME 2: what it does; NAME 1 [list]: neutral
-	RObjGadgetClass *Create_Shortcut(int arg, Unknown66CB20Class *target);	// 0x614360 (FAIL_IF '!ShortcutUI' l.187; 'shortcut_created_sn_1.wav')  // NAME 2: what it does; NAME 1 [arg, target]: neutral
+	RObjGadgetClass *Create_Shortcut(int slot, Unknown66CB20Class *button);	// 0x614360 (FAIL_IF '!ShortcutUI' l.187; 'shortcut_created_sn_1.wav')  // NAME 2: what it does; NAME 3 [slot]: ui_skills.cpp's 'from_slot != SlotDrag->Get_Slot()' (0x62DA30), the Slots of 0x6309F0, 0x685610's in 0x5A0740; NAME 2 [button]: the gadget under the pointer, or NULL for the first free one (0x66CB20 gives its bar +0x78 and bttn_idx +0x7C to 0x611BD0)
 	bool Delete_Shortcut(int scut);						// 0x614660 (FAIL_IFs l.235, l.238)  // NAME 2: what it does; NAME 3 [scut]: the FAIL_IF's
 	void Delete_All();									// 0x614730 (no direct caller)  // NAME 2: what it does
 	void Delete_Gadgets();								// (inline in the .cpp: a budget layer, see the notes; 0x613BA0 calls 0x614660 out of line through it)  // NAME 1: neutral
