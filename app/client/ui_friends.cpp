@@ -616,3 +616,42 @@ void UIFriendsClass::Unknown_5913E0(std::vector<std::string> names, std::vector<
 	Unknown_590550();
 	Unknown_591030(true);
 }
+
+// 0x5916B0
+void UIFriendsClass::Unknown_5916B0(std::string name, std::string location)
+{
+	Unknown0C4.push_back(new UIFriendsPlayerInfoClass(name, location));
+	Unknown_5908B0();
+	Unknown_590550();
+}
+
+// 0x591880
+void UIFriendsClass::Unknown_591880(std::string name)
+{
+	for (std::list<UIFriendsPlayerInfoClass *>::iterator it = Unknown0C4.begin(); it != Unknown0C4.end(); it++) {
+		UIFriendsPlayerInfoClass *info = *it;
+		if (strcmp(info->Name.c_str(), name.c_str()) == 0) {
+			delete info;
+			Unknown0C4.erase(it);
+			break;
+		}
+	}
+	Unknown_5908B0();
+	Unknown_590550();
+}
+
+// NOT EXACT: inline budget (the client calls the name's _Tidy(false) out of line in its default constructor; ours expands it)
+// 0x591A30
+void UIFriendsClass::Unknown_591A30()
+{
+	SClient *sclient = Client->As_Space_Client();
+	ClientObjectClass *target;
+	if (!sclient->Unknown_744B60() && sclient && sclient->MainView && (target = sclient->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
+		std::string name;
+		target->Get_Name(name);
+		int id = ((ClientClass *)Client)->Unknown1138;
+		ClientChatRequestPacketClass packet(8, id);
+		packet.Unknown14 = std::string(name.c_str());
+		((ClientClass *)Client)->Send_Packet(&packet);
+	}
+}
