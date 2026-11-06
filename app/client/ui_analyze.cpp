@@ -18,6 +18,7 @@
 #include "sbaseview.h"
 #include "local_interface_sort.h"
 #include "..\audio\soundlib.h"
+#include "ui_analyze.h"
 
 class SBaseViewClass;
 
@@ -30,15 +31,6 @@ public:
 	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::Unknown_18; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
-// ui_inv.cpp's interface (0xE0 bytes, constructor 0x59EDC0) the window holds three of (+0xD4 'TSM02A.E%02d', +0xD8
-// 'TSM02A.RESULT', +0xDC 'TSM02A.OVER'), as far as this file calls it
-class UIAnalyzeInvClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_62F5B0(bool on);						// 0x62F5B0 (0x546090 passes false)  // NAME 1 [on]: neutral
-
-	char Unknown84[0xE0 - 0x84];						// +0x84
-};
 
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
 
@@ -56,48 +48,6 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class UIAnalyzePDAClass { public: void Unknown_695A00(int a, int b); bool Unknown_695780(bool arg); };	// NAME 1: neutral (D10): PDAInterfaceClass's 0x695780 / 0x695A00, as ui_manu.cpp's  // NAME 1 [a, b, arg]: neutral
 class UIAnalyzeSClientClass { public: void Unknown_744560(int arg); };	// NAME 1: neutral (D10): SClient's 0x744560 (slot +0x58 passes 0x19, slot +0x5C 0x1A)  // NAME 1 [arg]: neutral
 
-enum
-{
-	UI_CLOSED = 0,										// (the destructor's G_ASSERT 'State == UI_CLOSED'; slot +0x5C sets it)  // NAME 3: the assert's
-	UI_OPEN = 2											// (slot +0x58 sets it)  // NAME 1: neutral (D10)
-};
-
-// ui_analyze.cpp's analysis window (0x11C bytes, tables 0xAEF120 / 0xAEF114 / 0xAEF108; constructor 0x5435D0, made by
-// sbaseview.cpp's 0x69F8F0 case 6; laid out from the constructor; as far as this file's rebuilt functions use it)
-class UIAnalyzeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_analyze.cpp
-{
-public:
-	UIAnalyzeClass(SBaseViewClass *view, const LayerClass &layer);	// 0x5435D0 (0x11C bytes: sbaseview.cpp's 0x69F8F0 case 6)  // NAME 1 [view, layer]: as ui_manu.cpp's
-	virtual ~UIAnalyzeClass();							// 0x5437C0 (G_ASSERT 'State == UI_CLOSED', l.116; deleting 0x543790)
-	virtual void Unknown_54();							// 0x5439F0 (not rebuilt yet)
-	virtual void Unknown_58();							// 0x544090
-	virtual void Unknown_5C();							// 0x544270
-	virtual void Unknown_60();							// 0x5443F0 (not rebuilt yet)
-	virtual bool Unknown_68(int key);					// 0x544BB0  // NAME 1 [key]: InterfaceClass's
-	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x544020 (InterfaceClass's, then the three sub-windows')  // NAME 1 [view, arg]: InterfaceClass's
-	void Unknown_544D80();								// 0x544D80: the cost and probability texts
-	void Unknown_545610();								// 0x545610 ('Validity', 'Mode')
-	void Unknown_5458B0();								// 0x5458B0: the analysis started (key 5)
-	void Unknown_544C50(int index, bool show, const char *text);	// 0x544C50 (FAIL_IF '!font', l.483): a text set and shown (as ui_manu.cpp's 0x5B1AF0)  // NAME 1 [index, show, text]: neutral
-	void Unknown_545D30();								// 0x545D30: MANUFACTURE_ACTION 126 of 0 sent, the category columns hidden
-	void Unknown_545E40();								// 0x545E40: the category icons set to the item's 'CurrentItemCategory'
-	void Unknown_546000();								// 0x546000: the category columns and their icons hidden
-	void Unknown_546090();								// 0x546090: the item's 'FailureMessage' shown
-	void Unknown_5461C0(int level, int a, int b, int c);	// 0x5461C0: the icon of a category column (as ui_manu.cpp's 0x5B42F0)  // NAME 1 [level, a, b, c]: neutral
-
-	LayerClass Unknown0AC;								// +0x0AC (the constructor's layer)
-	SBaseViewClass *Unknown0D0;							// +0x0D0 (the constructor's view: sbaseview.cpp's starbase view)
-	RefCountPtr<UIAnalyzeInvClass> Unknown0D4;			// +0x0D4 'TSM02A.E%02d'
-	RefCountPtr<UIAnalyzeInvClass> Unknown0D8;			// +0x0D8 'TSM02A.RESULT'
-	RefCountPtr<UIAnalyzeInvClass> Unknown0DC;			// +0x0DC 'TSM02A.OVER'
-	ButtonGadgetClass *Unknown0E0[7];					// +0x0E0 (+0xE8..+0xF0: the category columns)
-	RefCountPtr<RenderObjClass> Unknown0FC[3];			// +0x0FC the category columns' icons
-	int State;											// +0x108 (UI_CLOSED when shut)  // NAME 3: the destructor's G_ASSERT 'State == UI_CLOSED'
-	DeltaCompoundClass *Unknown10C;						// +0x10C: the item's aux data
-	bool Unknown110;									// +0x110
-	float Unknown114;									// +0x114 (0x546090: 2.0f)
-	bool Unknown118;									// +0x118
-};
 
 // The names of the window's texts (0xB7967C)
 static const char *Unknown_B7967C[] = { "Credits_tsm02a", "Go_tsm02a", "inv_tsm02a", "Cost_tsm02a", "Chance_tsm02a", "Critical_tsm02a", "Attempt_tsm02a", "Result_tsm02a", "Succ_tsm02a", "Crit_tsm02a", "" };	// NAME 1: neutral (D10)
@@ -117,6 +67,60 @@ UIAnalyzeClass::UIAnalyzeClass(SBaseViewClass *view, const LayerClass &layer) :
 	memset(Unknown0E0, 0, sizeof(Unknown0E0));
 	memset(Unknown0FC, 0, sizeof(Unknown0FC));
 	Unknown_BE67BC->Load("FA_TSM02A.INI");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: a relocation target (explain.py: identical once stack offsets, targets and relocations are masked; the unwind funclets look the same) (0x5437C0)
+// @0x5437C0
+UIAnalyzeClass::~UIAnalyzeClass()
+{
+	G_ASSERT(State == UI_CLOSED);
+	for (int i = 0; i < 3; i++) {
+		Unknown0FC[i] = NULL;
+	}
+	Unknown0D4 = NULL;
+	Unknown0D8 = NULL;
+	Unknown0DC = NULL;
+	Unknown_BE67BC->Unload("FA_TSM02A.INI");
 }
 
 static inline int Analyze_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
@@ -472,10 +476,6 @@ void UIAnalyzeClass::Unknown_5461C0(int level, int a, int b, int c)
 
 
 
-
-
-
-
 // @0x544C50
 void UIAnalyzeClass::Unknown_544C50(int index, bool show, const char *text)
 {
@@ -487,9 +487,9 @@ void UIAnalyzeClass::Unknown_544C50(int index, bool show, const char *text)
 
 // Notes (AN1, 2026-11-06). Rebuilt: slots +0x58 / +0x5C / +0x68 / +0x7C (0x544090 / 0x544270 / 0x544BB0 / 0x544020,
 // as ui_manu.cpp's), 0x545D30-0x5461C0, the constructor 0x5435D0 (with it the deleting destructor 0x543790)
-// and the text helper 0x544C50 on its line (483, after them for now). Not yet in this file: the destructor 0x5437C0
-// (G_ASSERT 'State == UI_CLOSED', l.116), slots +0x54 0x5439F0 and +0x60 0x5443F0 and the text and validity functions
-// 0x544D80-0x5458B0 (they inline 0x544C50's FAIL_IF): when they come, the class goes to a header and the functions
+// and the text helper 0x544C50 on its line (483, after them for now); the destructor 0x5437C0 on its G_ASSERT's line 116.
+// Not yet in this file: slots +0x54 0x5439F0 and +0x60 0x5443F0 and the text and validity functions 0x544D80-0x5458B0
+// (they inline 0x544C50's FAIL_IF): when they come, the functions go
 // into the client's order (0x544C50 between 0x544BB0 and 0x544D80). 0x545D30 repeats 0x546000's six hides (the client inlines them there but calls 0x546000 out of line
 // from slot +0x5C; auto_inline(off) around 0x546000 gives both). UIAnalyzeClass is laid out from the constructor. The client calls the finds of
 // 'CurrentItemCategory' / 'PrimaryCategories' out of line (0x546780 / 0x5467F0, Unknown_Find_Field over aux_roots.h's

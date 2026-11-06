@@ -30127,6 +30127,7 @@
    "client/textgadg.h": "reconstructed",
    "client/tooltip.h": "reconstructed",
    "client/tutorial_manager.h": "reconstructed",
+   "client/ui_analyze.h": "reconstructed",
    "client/ui_attrb_skills.h": "reconstructed",
    "client/ui_avsel.h": "reconstructed",
    "client/ui_bio.h": "reconstructed",
