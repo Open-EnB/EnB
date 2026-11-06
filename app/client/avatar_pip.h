@@ -41,7 +41,8 @@ public:
 	virtual void Render(RenderInfoClass &rinfo);
 	bool Unknown_47FF70(RenderObjClass *obj);			// 0x47FF70 (the model at +0x8C, referenced; false when it is already there)  // NAME 1 [obj]: what it holds
 
-	char Unknown_Pad[0xC4 - sizeof(RenderObjClass)];
+	RenderObjClass *Model;								// +0x8C (0x47FF70)  // NAME 2: what it holds
+	char Unknown_Pad90[0xC4 - 0x90];
 };
 
 class AvatarPipClass  // NAME 3: class-from-file (D24) for app\client\avatar_pip.cpp

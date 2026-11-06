@@ -490,7 +490,7 @@ ClientObjectClass *UIMFDClass::Unknown_5BD500()
 {
 	return((ClientObjectClass *)((ClientClass *)Client)->Get_Avatar());
 }
-
+ClientObjectClass *UIMFDClass::Unknown_5BD520() { return(Object); }
 // NOT EXACT: 0x5BCE50, register only: ours keeps line in ebx (one more saved register), the client in esi, reloading it from its slot
 void UIMFDClass::Update_Line(InfoLineStruct &line, bool force)
 {

@@ -34,11 +34,8 @@ public:
 	UIMFDClass *Owner;									// +0x04  // NAME 2: what it holds
 };
 
-// The items 0x5BE570 and 0x5BEA00 add (their sizes 0xC / 0x44 and 0x58 / 0xC; constructors after ui_mfd.cpp's object)
-class Unknown5C3030Class : public UIMFDItemClass { public: Unknown5C3030Class(UIMFDClass *owner); int Unknown08; };	// NAME 1: neutral (D10)
-class Unknown5C3920Class : public UIMFDItemClass { public: Unknown5C3920Class(UIMFDClass *owner); char Unknown08[0x3C]; };	// NAME 1: neutral (D10)
-class Unknown5C2CD0Class : public UIMFDItemClass { public: Unknown5C2CD0Class(UIMFDClass *owner); char Unknown08[0x50]; };	// NAME 1: neutral (D10)
-class Unknown5C3650Class : public UIMFDItemClass { public: Unknown5C3650Class(UIMFDClass *owner); int Unknown08; };	// NAME 1: neutral (D10)
+// The items 0x5BE570 and 0x5BEA00 add (their sizes 0xC / 0x44 and 0x58 / 0xC)
+#include "ui_mfdm.h"
 
 // A value line's value (0x10 bytes), as 0x5BD540 fills it: the asserts' 'max.IsInt' / 'per.IsFloat' are its flags
 struct UIMFDValueStruct	// NAME 1: neutral (D10)
@@ -96,7 +93,7 @@ public:
 	void Update_Line(InfoLineStruct &line, bool force);	// 0x5BCE50 (the line's text)  // NAME 2: what it does
 	bool Has_Value(int type);							// 0x5BD4C0  // NAME 2: what it does
 	ClientObjectClass *Unknown_5BD500();				// 0x5BD500 (the client's slot +0x28)
-	ClientObjectClass *Unknown_5BD520() { return(Object); }	// 0x5BD520
+	ClientObjectClass *Unknown_5BD520();				// 0x5BD520
 	void Get_Value(int type, UIMFDValueStruct &value);	// 0x5BD540  // NAME 2: what it does
 	void Set_Name(UIMFDValueStruct &value);				// 0x5BD9A0 (line label: none)  // NAME 2: what it does
 	void Set_Turn_To(UIMFDValueStruct &value);			// 0x5BDAB0 ('Turn To: ')  // NAME 3: the client's label

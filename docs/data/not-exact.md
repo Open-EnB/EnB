@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-573 entries in 151 files.
+579 entries in 152 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -336,7 +336,13 @@ edit the comments in the code, not this file.
 | `app/client/ui_mfd.cpp:713` | `UIMFDClass::Set_SP_Cur` | marker | NOT EXACT: 0x5BDED0, inline budget: the client calls the finds 0x5BF2B0 / the float Cast out of line |
 | `app/client/ui_mfd.cpp:886` | `UIMFDClass::Set_SP_Percent` | marker | NOT EXACT: 0x5BE120, inline budget: the client calls Cast 0x5BF350 out of line where ours inlines it |
 | `app/client/ui_mfd.cpp:985` | `Unknown5BE980Class::Unknown_90` | marker | NOT EXACT: 0x5BECF0, the case block's first load of each line's Font comes before the 'lea' ([esi+0x128]) where the client loads it after the stores ([edi+0x40]); the duplicated default and the zero in ebx do match (attempts.csv) |
-| `app/client/ui_mfd_extended_context_harvestable.cpp:189` | `UIMFDExtendedContextHarvestableClass::Get_Line_Text` | marker | NOT EXACT: 0x5C0350: VC6 merges the five return("") tails; the client repeats each in place and keeps 0 in ebp 0x5C0350 |
+| `app/client/ui_mfd_extended_context_harvestable.cpp:189` | `UIMFDExtendedContextHarvestableClass::Get_Line_Text` | marker | NOT EXACT: 0x5C0350: VC6 merges the five return("") tails; the client repeats each in place and keeps 0 in ebp @0x5C0350 |
+| `app/client/ui_mfdm.cpp:44` | `UIMFDPIPItemClass::UIMFDPIPItemClass` | marker | NOT EXACT: 0x5C2000: the -1.0 constant and two stack slots (register / frame) 0x5C2000 |
+| `app/client/ui_mfdm.cpp:80` | `UIMFDPIPItemClass::~UIMFDPIPItemClass` | marker | NOT EXACT: 0x5C2470: a load scheduled before a store, one EH state store (order) 0x5C2470 |
+| `app/client/ui_mfdm.cpp:155` | `UIMFDPIPItemClass::Unknown_08` | marker | NOT EXACT: 0x5C25C0: one pop scheduled after a load (order) 0x5C25C0 |
+| `app/client/ui_mfdm.cpp:211` | `UIMFDPIPItemClass::Unknown_10` | marker | NOT EXACT: 0x5C2920: the position copied through memory slots; the clip planes on the FPU (frame) 0x5C2920 |
+| `app/client/ui_mfdm.cpp:377` | `Unknown5C3030Class::Unknown_08` | marker | NOT EXACT: 0x5C3150: the three size locals stored in another order (order) 0x5C3150 |
+| `app/client/ui_mfdm.cpp:688` | `Unknown5C3920Class::Unknown_10` | marker | NOT EXACT: 0x5C3C40: register and FPU forms still open (register) 0x5C3C40 |
 | `app/client/ui_missn.cpp:514` | `UIMissnClass::Unknown_5C5DB0` | marker | NOT EXACT: register (similarity 0.58: the client keeps this in ebp, spilled, and the mission in ebx, spilled to new_mission's slot; edi is pushed only around the text; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline) |
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
 | `app/client/ui_playeropt.cpp:220` | `UIPlayerOptClass::Unknown_5D9D10` | marker | NOT EXACT: inline budget (0.63: the client keeps the inner name copy's destructor inline at the loop's end and calls it only on the break, ours merges both into one call; the two string copies' stack slots are swapped) 0x5D9D10 |
