@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_friends.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_friends.cpp', 0x58F090-0x5928AF by its asserts and its string order).
-// So far 0x58F0F0, 0x58FBA0-0x591A2F but 0x590020, and 0x591EE0 (FR1); not yet: 0x58F210 / 0x58F450 / 0x58F6B0 / 0x590020 / 0x591C30.
+// So far 0x58F0F0, 0x58FBA0-0x591A2F but 0x590020, and 0x591EE0-0x59219F (FR1); not yet: 0x58F210 / 0x58F450 / 0x58F6B0 / 0x590020 / 0x591C30.
 #define __INTRFACE_MEMBERS	// intrface.h's members (0x591EE0 calls InterfaceClass's 0x541930)
 #include <string.h>
 #include <wchar.h>
@@ -727,4 +727,39 @@ void UIFriendsClass::Unknown_591EE0()
 	cpanel->Unknown_5658B0(friend_info->Name.c_str());
 	sclient->Unknown_744E70(true);
 	cpanel->Unknown_541930();
+}
+
+// 0x592090
+void UIFriendsClass::Unknown_592090()
+{
+	SClient *sclient = Client->As_Space_Client();
+	SClient *space = Client->As_Space_Client();
+	ClientObjectClass *target;
+	if (!space->Unknown_744B60() && space && space->MainView && (target = space->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
+		Unknown0D0[3]->Unknown_40(true);
+	} else {
+		Unknown0D0[3]->Unknown_40(false);
+	}
+	if (sclient->Unknown_74D570()) {
+		Unknown0D0[7]->Unknown_40(true);
+	} else {
+		Unknown0D0[7]->Unknown_40(false);
+	}
+}
+
+// 0x592150
+ClientObjectClass *UIFriendsClass::Unknown_592150()
+{
+	SClient *sclient = Client->As_Space_Client();
+	if (sclient->Unknown_744B60()) {
+		return(NULL);
+	}
+	ClientObjectClass *target = NULL;
+	if (sclient && sclient->MainView) {
+		target = sclient->MainView->Unknown_5C();
+		if (target == NULL || !target->Unknown_6F5A40()) {
+			return(NULL);
+		}
+	}
+	return(target);
 }

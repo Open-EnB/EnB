@@ -42,6 +42,8 @@ public:
 	void Unknown_5916B0(std::string name, std::string location);	// 0x5916B0 (cpacket.cpp: CLIENT_CHAT_EVENT 165, event 21 'is now friends with')  // NAME 1 [name, location]: the members they set
 	void Unknown_591880(std::string name);				// 0x591880 (cpacket.cpp: CLIENT_CHAT_EVENT 165, event 22 'is no longer friends with')  // NAME 1 [name]: what it compares
 	void Unknown_591A30();								// 0x591A30 (request 8 with the target's name, when the target is a player)
+	void Unknown_592090();								// 0x592090 (no caller: slot +0x60's last part, [3] with a player target, [7] in a group)
+	ClientObjectClass *Unknown_592150();				// 0x592150 (no caller: the main view's target when it is a player, else NULL)
 	void Unknown_5910D0();								// 0x5910D0 (FAIL_IF 'Selection < 0 || Selection >= list_size', line 586: request 9 with the selected player's name)
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x590430 (the symbol chat moved too; +0xAE set)  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_590480(int count);						// 0x590480 (the slider over count rows, 7 shown; 0x5908B0 expands it)  // NAME 1 [count]: neutral
