@@ -8,8 +8,11 @@
 
 // What the screens show (0x630280 gets it from its argument's slot +0x10): reference counted at +0x18
 struct UISlotInfoItemBaseStruct { virtual void Unknown_00(); char Unknown04[0x18 - 4]; };								// NAME 1: neutral (D10)
+class UISlotInfoItemUnknown54Class;
 class UISlotInfoItemClass : public UISlotInfoItemBaseStruct, public RefCountClass			// NAME 1: neutral (D10)
 {
+public:
+	UISlotInfoItemUnknown54Class *Unknown_688830();										// 0x688830 (+0x54)
 };
 
 // ui_slot_info.cpp's screen (0xB0 bytes; tables 0xAF814C / 0xAF8140 / 0xAF8134 / 0xAF811C; 0x630280 makes the

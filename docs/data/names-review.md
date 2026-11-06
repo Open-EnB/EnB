@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1299 |
+| 3 | by convention from a client-named file or sibling | 1300 |
 | 2 | describes what the code does | 3021 |
-| 1 | neutral placeholder | 14385 |
+| 1 | neutral placeholder | 14407 |
 
 ## For review (score 3 and below)
 
@@ -9098,6 +9098,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_60` | `app/client/ui_item_examination.cpp:182` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_item_examination.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_item_examination.cpp:197` | untagged neutral name (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/ui_item_examination.cpp:202` | neutral (D10), as ui_cinfo.cpp declares it |
+| 1 | `Unknown_00` | `app/client/ui_item_examination.cpp:205` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_item_examination.cpp:205` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_item_examination.cpp:205` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_item_examination.cpp:205` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_item_examination.cpp:206` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_item_examination.cpp:206` | untagged neutral name (D10) |
+| 1 | `slot, arg` | `app/client/ui_item_examination.cpp:209` | neutral |
+| 1 | `UISlotInfoItemUnknown54Class` | `app/client/ui_item_examination.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_68AAA0` | `app/client/ui_item_examination.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown537830Class` | `app/client/ui_item_examination.cpp:210` | neutral (D10): 0x1C bytes, tables 0xAEE6CC / 0xAEE6A0, the panels it fills |
+| 1 | `Unknown00` | `app/client/ui_item_examination.cpp:215` | untagged neutral name (D10) |
+| 1 | `Unknown521B80Class` | `app/client/ui_item_examination.cpp:217` | neutral (D10): 0x521B80 / 0x521BB0 / 0x521BD0  // NAME 1 [space_client, entry, item, slot, visitor] |
+| 1 | `Unknown_521BD0` | `app/client/ui_item_examination.cpp:217` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_item_examination.cpp:219` | untagged neutral name (D10) |
+| 1 | `holder, slot, entry` | `app/client/ui_item_examination.cpp:222` | neutral |
+| 1 | `Unknown_688830` | `app/client/ui_item_examination.cpp:222` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_item_examination.cpp:223` | untagged neutral name (D10) |
+| 1 | `info` | `app/client/ui_item_examination.cpp:239` | neutral |
+| 1 | `visitor` | `app/client/ui_item_examination.cpp:240` | neutral |
 | 1 | `ui_item_examination.h` | `app/client/ui_item_examination.h:4` | provisional header name for ui_item_examination.cpp |
 | 1 | `Clear` | `app/client/ui_item_examination.h:21` | as the options panel's |
 | 1 | `Unknown64` | `app/client/ui_item_examination.h:23` | neutral (D10) |
@@ -10971,15 +10991,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UISlotInfoItemBaseStruct` | `app/client/ui_slot_info.h:10` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_slot_info.h:10` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/ui_slot_info.h:10` | untagged neutral name (D10) |
-| 1 | `UISlotInfoItemClass` | `app/client/ui_slot_info.h:11` | neutral (D10) |
-| 1 | `client, name` | `app/client/ui_slot_info.h:20` | the base's |
-| 1 | `Unknown_58` | `app/client/ui_slot_info.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_slot_info.h:23` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ui_slot_info.h:24` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_slot_info.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ui_slot_info.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `app/client/ui_slot_info.h:27` | untagged neutral name (D10) |
-| 1 | `UnknownAC` | `app/client/ui_slot_info.h:29` | neutral (D10) |
+| 1 | `UISlotInfoItemUnknown54Class` | `app/client/ui_slot_info.h:11` | untagged neutral name (D10) |
+| 1 | `UISlotInfoItemClass` | `app/client/ui_slot_info.h:12` | neutral (D10) |
+| 1 | `Unknown_688830` | `app/client/ui_slot_info.h:15` | untagged neutral name (D10) |
+| 1 | `client, name` | `app/client/ui_slot_info.h:23` | the base's |
+| 1 | `Unknown_58` | `app/client/ui_slot_info.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_slot_info.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_slot_info.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_slot_info.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_slot_info.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_slot_info.h:30` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_slot_info.h:32` | neutral (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/ui_starbase.cpp:22` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_starbase.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_starbase.cpp:25` | untagged neutral name (D10) |
@@ -17812,6 +17834,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `std:` | `app/client/ui_group.h:104` | the asserts' |
 | 3 | `SymbolChatUI` | `app/client/ui_group.h:135` | the FAIL_IF's |
 | 3 | `Members` | `app/client/ui_group.h:136` | the asserts' |
+| 3 | `As_Space_Client` | `app/client/ui_item_examination.cpp:207` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `DynamicWindowIconClass` | `app/client/ui_item_examination.h:48` | class-from-file (D24) for dynamic_window_icon.cpp (base interim: what DynamicWindowGadgetClass takes) |
 | 3 | `UIItemExaminationClass` | `app/client/ui_item_examination.h:58` | class-from-file (D24) for app\Client\ui_item_examination.cpp |
 | 3 | `UI_CLOSED` | `app/client/ui_item_examination.h:72` | the FAIL_IF's |
@@ -17879,7 +17902,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `decalmaterialmanager` | `app/client/ui_shipcust.h:34` | the assert's; NAME 1 [decal]: neutral |
 | 3 | `event` | `app/client/ui_shipcust.h:108` | the FAIL_IF's; NAME 1 [sender]: the callback's type |
 | 3 | `ColorSliderTexture` | `app/client/ui_shipcust.h:127` | the G_ASSERT's |
-| 3 | `UISlotInfoClass` | `app/client/ui_slot_info.h:17` | class-from-file (D24) for app\Client\ui_slot_info.cpp |
+| 3 | `UISlotInfoClass` | `app/client/ui_slot_info.h:20` | class-from-file (D24) for app\Client\ui_slot_info.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_starbase.cpp:27` | ui_manu.cpp's FAIL_IF's |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |
 | 3 | `SignalBaseClass` | `app/client/unknown_signalbase.h:10` | the client's RTTI (the scope of MemberCallback) |

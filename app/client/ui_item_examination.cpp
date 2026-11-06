@@ -1,3 +1,4 @@
+#include "..\shared\unknown_debug.h"
 #include "ui_item_examination.h"
 #include "ui_item_examination_attributes.h"
 #include "ui_item_examination_options.h"
@@ -5,7 +6,6 @@
 #include "gadget.h"
 #include "fontdatabase.h"
 #include "control_keys_manager.h"
-#include "..\shared\unknown_debug.h"
 
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10), as sclient.h declares it
 
@@ -198,3 +198,62 @@ void UIItemExaminationClass::Unknown_7C(UIViewClass *view, bool arg)
 {
 	InterfaceClass::Unknown_7C(view, arg);
 }
+class SClient;	// The callees of Unknown_94 from files the tree does not have yet (interim here, D137)
+class LineDisplayClientClass  // NAME 1: neutral (D10), as ui_cinfo.cpp declares it
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14();
+	virtual SClient *As_Space_Client();							// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
+};
+class UISlotInfoItemUnknown54Class { public: int *Unknown_68AAA0(int slot, bool arg); };	// the item's +0x54 (inv_d*.cpp's 0x68AAA0)  // NAME 1 [slot, arg]: neutral
+class Unknown537830Class  // NAME 1: neutral (D10): 0x1C bytes, tables 0xAEE6CC / 0xAEE6A0, the panels it fills
+{
+public:
+	Unknown537830Class(UIItemExaminationTitleClass &title, UIItemExaminationAttributesClass &attributes, UIItemExaminationSpecialsClass &specials, UIItemExaminationOptionsClass &options, UIItemExaminationDescriptionClass &description);	// 0x537830  // NAME 1 [title, attributes, specials, options, description]
+	~Unknown537830Class();																	// 0x5378C0
+	char Unknown00[0x1C];
+};
+class Unknown521B80Class { public: Unknown521B80Class(SClient *space_client, int *entry, const RefCountPtr<UISlotInfoItemClass> &item, int slot); ~Unknown521B80Class(); void Unknown_521BD0(Unknown537830Class &visitor); int Unknown00[4]; };	// NAME 1: neutral (D10): 0x521B80 / 0x521BB0 / 0x521BD0  // NAME 1 [space_client, entry, item, slot, visitor]
+
+bool UIItemExaminationClass::Unknown_94()
+{
+	FAIL_IF(State != UI_CLOSED) return(false);
+	UISlotInfoItemUnknown54Class *holder = Item->Unknown_688830();	// NAME 1 [holder, slot, entry]: neutral
+	int slot = UnknownAC;
+	int *entry = holder->Unknown_68AAA0(slot, false);
+	if (entry == NULL || *entry == -1 || *entry == -2) {
+		return(false);
+	}
+
+
+
+
+
+
+
+	LineDisplayClientClass *client = Client;
+	FAIL_IF(!client) return(false);
+	SClient *space_client = client->As_Space_Client();
+	FAIL_IF(!space_client) return(false);
+	Unknown521B80Class info(space_client, entry, Item, slot);	// NAME 1 [info]: neutral
+	Unknown537830Class visitor(*Title, *Attributes, *Specials, *Options, *Description);	// NAME 1 [visitor]: neutral
+	info.Unknown_521BD0(visitor);
+	Attributes->Rebuild();
+	Specials->Rebuild();
+	Options->Rebuild();
+	return(true);
+}
+
+/*
+**	Reconstruction notes (from the retail client.exe, SHA-256 249f8524...51c4).
+**	Original location: e:\build\beta\G\app\Client\ui_item_examination.cpp (its __FILE__ 0xB786DC: FAIL_IF '!main_gadget'
+**	line 82, G_ASSERT 'CloseButton' line 90, G_ASSERT '0' line 178, FAIL_IFs 'State != UI_CLOSED' / '!client' /
+**	'!space_client' lines 221 / 236 / 238).
+**
+**	IE2 (run 2026-11-05-night): the object 0x5315E0-0x532B9F, all exact: the close button's size 0x531630, the
+**	constructor 0x531660, the destructor 0x5321C0 (deleting 0x532190; the slot +0x5C inlined), the slots 0x532460-0x532640,
+**	the Create_NEW copies 0x532930-0x532AB0 and the adjustor thunks 0x532B70 / 0x532B80 / 0x532B90. The bases
+**	(ui_slot_info.cpp's, ui_dynamicwindow.cpp's) and the title, description and specials panels are declared only.
+**	Unknown_94's lookup needs the call before the slot read (one expression loaded UnknownAC first).
+*/

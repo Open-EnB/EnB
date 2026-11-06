@@ -2027,7 +2027,7 @@ Base copy: reconstructed. Headers: 349 from reconstructed.
 | client/ui_cpit.cpp | reconstructed | 98 | 5 | - | - | - |  |
 | client/ui_faction.cpp | reconstructed | 67 | 5 | - | - | - |  |
 | client/ui_group.cpp | reconstructed | 90 | 6 | - | - | - |  |
-| client/ui_item_examination.cpp | reconstructed | 44 | 3 | - | - | - |  |
+| client/ui_item_examination.cpp | reconstructed | 45 | 3 | - | - | - |  |
 | client/ui_item_examination_attributes.cpp | reconstructed | 24 | 3 | - | - | - |  |
 | client/ui_item_examination_options.cpp | reconstructed | 26 | 3 | - | - | - |  |
 | client/ui_line_display.cpp | reconstructed | 98 | 7 | - | - | - |  |
