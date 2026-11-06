@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 131 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1328 |
-| 2 | describes what the code does | 3046 |
-| 1 | neutral placeholder | 15011 |
+| 3 | by convention from a client-named file or sibling | 1340 |
+| 2 | describes what the code does | 3058 |
+| 1 | neutral placeholder | 15149 |
 
 ## For review (score 3 and below)
 
@@ -3079,6 +3079,115 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown9C` | `app/client/galaxy_map_client.h:52` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/galaxy_map_client.h:53` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/galaxy_map_client.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_496AE0` | `app/client/galaxy_map_pip.cpp:24` | untagged neutral name (D10) |
+| 1 | `xB79240` | `app/client/galaxy_map_pip.cpp:26` | neutral (D10) |
+| 1 | `Unknown_B7923C` | `app/client/galaxy_map_pip.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_B79240` | `app/client/galaxy_map_pip.cpp:28` | untagged neutral name (D10) |
+| 1 | `xAEEE48` | `app/client/galaxy_map_pip.cpp:30` | neutral (D10) |
+| 1 | `Unknown_AEEE48` | `app/client/galaxy_map_pip.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_Map` | `app/client/galaxy_map_pip.cpp:35` | neutral (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/galaxy_map_pip.cpp:36` | neutral (D10): avatar_pip.cpp's |
+| 1 | `Unknown_Find_Field` | `app/client/galaxy_map_pip.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/galaxy_map_pip.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/galaxy_map_pip.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/galaxy_map_pip.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_5404E0` | `app/client/galaxy_map_pip.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/galaxy_map_pip.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/galaxy_map_pip.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_53FE30` | `app/client/galaxy_map_pip.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/galaxy_map_pip.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/galaxy_map_pip.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/galaxy_map_pip.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_7A7070` | `app/client/galaxy_map_pip.cpp:109` | untagged neutral name (D10) |
+| 1 | `Unknown_7A6AB0` | `app/client/galaxy_map_pip.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown_7A6DD0` | `app/client/galaxy_map_pip.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/galaxy_map_pip.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_53F9E0` | `app/client/galaxy_map_pip.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5ED0` | `app/client/galaxy_map_pip.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5890` | `app/client/galaxy_map_pip.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_693020` | `app/client/galaxy_map_pip.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_7A72C0` | `app/client/galaxy_map_pip.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/galaxy_map_pip.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_7A7450` | `app/client/galaxy_map_pip.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown_53FCA0` | `app/client/galaxy_map_pip.cpp:167` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/galaxy_map_pip.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5E10` | `app/client/galaxy_map_pip.cpp:171` | untagged neutral name (D10) |
+| 1 | `Unknown_53FD10` | `app/client/galaxy_map_pip.cpp:176` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5980` | `app/client/galaxy_map_pip.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/galaxy_map_pip.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/galaxy_map_pip.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown_53FD60` | `app/client/galaxy_map_pip.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5AA0` | `app/client/galaxy_map_pip.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown_53FDA0` | `app/client/galaxy_map_pip.cpp:192` | untagged neutral name (D10) |
+| 1 | `Unknown_7A83D0` | `app/client/galaxy_map_pip.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown_5406A0` | `app/client/galaxy_map_pip.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_53FE10` | `app/client/galaxy_map_pip.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown_7A6A70` | `app/client/galaxy_map_pip.cpp:201` | untagged neutral name (D10) |
+| 1 | `Unknown_7A8770` | `app/client/galaxy_map_pip.cpp:416` | untagged neutral name (D10) |
+| 1 | `Unknown_7A89A0` | `app/client/galaxy_map_pip.cpp:419` | untagged neutral name (D10) |
+| 1 | `Unknown_7A57A0` | `app/client/galaxy_map_pip.cpp:436` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/galaxy_map_pip.cpp:443` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5540` | `app/client/galaxy_map_pip.cpp:475` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/galaxy_map_pip.cpp:476` | untagged neutral name (D10) |
+| 1 | `transform, arg` | `app/client/galaxy_map_pip.h:37` | what it stores |
+| 1 | `Unknown_7A57A0` | `app/client/galaxy_map_pip.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5890` | `app/client/galaxy_map_pip.h:38` | untagged neutral name (D10) |
+| 1 | `arg, min, max` | `app/client/galaxy_map_pip.h:39` | neutral |
+| 1 | `Unknown_7A5980` | `app/client/galaxy_map_pip.h:39` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:40` | neutral |
+| 1 | `Unknown_7A5AA0` | `app/client/galaxy_map_pip.h:40` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:41` | neutral |
+| 1 | `Unknown_7A5E10` | `app/client/galaxy_map_pip.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_7A5ED0` | `app/client/galaxy_map_pip.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/galaxy_map_pip.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/galaxy_map_pip.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/galaxy_map_pip.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_7A6A70` | `app/client/galaxy_map_pip.h:58` | untagged neutral name (D10) |
+| 1 | `scene, camera` | `app/client/galaxy_map_pip.h:59` | what the caller passes |
+| 1 | `Unknown_7A6AB0` | `app/client/galaxy_map_pip.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_7A6DD0` | `app/client/galaxy_map_pip.h:60` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:61` | neutral |
+| 1 | `Unknown_7A7070` | `app/client/galaxy_map_pip.h:61` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:62` | neutral |
+| 1 | `Unknown_7A72C0` | `app/client/galaxy_map_pip.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown_7A7450` | `app/client/galaxy_map_pip.h:63` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:64` | neutral |
+| 1 | `Unknown_7A83D0` | `app/client/galaxy_map_pip.h:64` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:65` | what the caller passes |
+| 1 | `Unknown_7A8770` | `app/client/galaxy_map_pip.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_7A89A0` | `app/client/galaxy_map_pip.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad00` | `app/client/galaxy_map_pip.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/galaxy_map_pip.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/galaxy_map_pip.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad24` | `app/client/galaxy_map_pip.h:71` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/galaxy_map_pip.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown_PadB8` | `app/client/galaxy_map_pip.h:73` | untagged neutral name (D10) |
+| 1 | `pip` | `app/client/galaxy_map_pip.h:82` | what the caller passes |
+| 1 | `x, y` | `app/client/galaxy_map_pip.h:84` | GadgetClass's |
+| 1 | `Unknown_30` | `app/client/galaxy_map_pip.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad4A` | `app/client/galaxy_map_pip.h:86` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/galaxy_map_pip.h:92` | neutral |
+| 1 | `Unknown_04` | `app/client/galaxy_map_pip.h:94` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/galaxy_map_pip.h:95` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/galaxy_map_pip.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/galaxy_map_pip.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/galaxy_map_pip.h:98` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/galaxy_map_pip.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/galaxy_map_pip.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown_53F9E0` | `app/client/galaxy_map_pip.h:102` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:103` | neutral |
+| 1 | `Unknown_53FCA0` | `app/client/galaxy_map_pip.h:103` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:104` | neutral |
+| 1 | `Unknown_53FD10` | `app/client/galaxy_map_pip.h:104` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:105` | neutral |
+| 1 | `Unknown_53FD60` | `app/client/galaxy_map_pip.h:105` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:106` | neutral |
+| 1 | `Unknown_53FDA0` | `app/client/galaxy_map_pip.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown_53FE10` | `app/client/galaxy_map_pip.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown_53FE30` | `app/client/galaxy_map_pip.h:108` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/galaxy_map_pip.h:109` | neutral |
+| 1 | `Unknown_5404E0` | `app/client/galaxy_map_pip.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown_5406A0` | `app/client/galaxy_map_pip.h:110` | untagged neutral name (D10) |
 | 1 | `PulseTime` | `app/client/gd_buffgadg.cpp:19` | what 0x665F20 does with it |
 | 1 | `BuffElementSortClass` | `app/client/gd_buffgadg.cpp:109` | neutral (D10) |
 | 1 | `Unknown_671300Class` | `app/client/gd_buffgadg.cpp:156` | untagged neutral name (D10) |
@@ -3864,6 +3973,35 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7BCA40` | `app/client/mainview.cpp:2358` | untagged neutral name (D10) |
 | 1 | `Unknown514CC0ViewClass` | `app/client/mainview.cpp:2362` | untagged neutral name (D10) |
 | 1 | `Unknown5B7AB0Class` | `app/client/mainview.cpp:2376` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad30` | `app/client/map_pip.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/map_pip.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad40` | `app/client/map_pip.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown49` | `app/client/map_pip.h:37` | untagged neutral name (D10) |
+| 1 | `client, arg` | `app/client/map_pip.h:43` | neutral |
+| 1 | `arg` | `app/client/map_pip.h:45` | neutral |
+| 1 | `Unknown_04` | `app/client/map_pip.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/map_pip.h:46` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/map_pip.h:47` | neutral |
+| 1 | `Unknown_0C` | `app/client/map_pip.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/map_pip.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/map_pip.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/map_pip.h:50` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/map_pip.h:51` | neutral |
+| 1 | `Unknown_1C` | `app/client/map_pip.h:51` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/map_pip.h:52` | neutral |
+| 1 | `Unknown_20` | `app/client/map_pip.h:52` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/map_pip.h:53` | neutral |
+| 1 | `Unknown_24` | `app/client/map_pip.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_693020` | `app/client/map_pip.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/map_pip.h:57` | untagged neutral name (D10) |
+| 1 | `Scene` | `app/client/map_pip.h:58` | neutral (D10): what it holds |
+| 1 | `Camera` | `app/client/map_pip.h:59` | neutral (D10): what it holds |
+| 1 | `Unknown_Pad10` | `app/client/map_pip.h:60` | untagged neutral name (D10) |
+| 1 | `Client` | `app/client/map_pip.h:61` | neutral (D10): what it holds |
+| 1 | `Unknown40` | `app/client/map_pip.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/map_pip.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/map_pip.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/map_pip.h:67` | untagged neutral name (D10) |
 | 1 | `Unknown_BE7C70` | `app/client/mousetbl.cpp:25` | neutral (D10) |
 | 1 | `Unknown_BE7CD4` | `app/client/mousetbl.cpp:26` | neutral (D10) |
 | 1 | `Unknown_7228C0` | `app/client/mousetbl.cpp:90` | untagged neutral name (D10) |
@@ -14978,19 +15116,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5FAD50` | `tests/kerneltest/taskstest.cpp:161` | untagged neutral name (D10) |
 | 1 | `Unknown_Load_Assets` | `tests/kerneltest/taskstest.cpp:163` | untagged neutral name (D10) |
 | 1 | `Unknown_Free_Assets` | `tests/kerneltest/taskstest.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `tests/kerneltest/taskstest.cpp:173` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `tests/kerneltest/taskstest.cpp:215` | untagged neutral name (D10) |
-| 1 | `Unknown_4C` | `tests/kerneltest/taskstest.cpp:216` | untagged neutral name (D10) |
-| 1 | `Unknown_50` | `tests/kerneltest/taskstest.cpp:217` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `tests/kerneltest/taskstest.cpp:220` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `tests/kerneltest/taskstest.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `tests/kerneltest/taskstest.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `tests/kerneltest/taskstest.cpp:235` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `tests/kerneltest/taskstest.cpp:236` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `tests/kerneltest/taskstest.cpp:237` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `tests/kerneltest/taskstest.cpp:238` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `tests/kerneltest/taskstest.cpp:239` | untagged neutral name (D10) |
-| 1 | `Unknown` | `tests/kerneltest/taskstest.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `tests/kerneltest/taskstest.cpp:172` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `tests/kerneltest/taskstest.cpp:214` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `tests/kerneltest/taskstest.cpp:215` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `tests/kerneltest/taskstest.cpp:216` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `tests/kerneltest/taskstest.cpp:219` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `tests/kerneltest/taskstest.cpp:221` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `tests/kerneltest/taskstest.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `tests/kerneltest/taskstest.cpp:234` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `tests/kerneltest/taskstest.cpp:235` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `tests/kerneltest/taskstest.cpp:236` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `tests/kerneltest/taskstest.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `tests/kerneltest/taskstest.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown` | `tests/kerneltest/taskstest.cpp:249` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `tests/movietest/movietest.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown_9179D0` | `tests/movietest/movietest.cpp:59` | untagged neutral name (D10) |
 | 1 | `Unknown_42EA80` | `tests/movietest/movietest.cpp:60` | untagged neutral name (D10) |
@@ -15607,6 +15745,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SectorPosScale` | `app/client/galaxy_map_client.h:49` | the ini's |
 | 2 | `GalaxyShift` | `app/client/galaxy_map_client.h:50` | the ini's GalaxyShiftX / GalaxyShiftY |
 | 2 | `ShowAll` | `app/client/galaxy_map_client.h:51` | the option 'Galaxymap_Show_All' |
+| 2 | `camera` | `app/client/galaxy_map_pip.h:38` | the FAIL_IF's |
+| 2 | `a, b, t` | `app/client/galaxy_map_pip.h:42` | what Lerp takes |
+| 2 | `Transform` | `app/client/galaxy_map_pip.h:44` | 0x7A5ED0's Lerp |
+| 2 | `map` | `app/client/galaxy_map_pip.h:55` | the assert's |
+| 2 | `sphere` | `app/client/galaxy_map_pip.h:110` | Center, then Radius / tan(fov / 2)  // NAME 1 [angle]: what it does with it |
+| 2 | `Debug` | `app/client/galaxy_map_pip.h:112` | the command line's |
+| 2 | `Render` | `app/client/galaxy_map_pip.h:113` | what it holds |
+| 2 | `FocalPoint` | `app/client/galaxy_map_pip.h:114` | what it holds |
+| 2 | `Target` | `app/client/galaxy_map_pip.h:115` | what it holds |
+| 2 | `Start` | `app/client/galaxy_map_pip.h:116` | what it holds |
+| 2 | `Ease` | `app/client/galaxy_map_pip.h:117` | what it holds |
+| 2 | `EaseRate` | `app/client/galaxy_map_pip.h:118` | what it holds |
 | 2 | `std:` | `app/client/gd_buffgadg.h:42` | the aux field's |
 | 2 | `std:` | `app/client/gd_buffgadg.h:43` | the aux field's |
 | 2 | `ExpirationTime` | `app/client/gd_buffgadg.h:44` | the aux field's |
@@ -18216,6 +18366,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Manager` | `app/client/gadget_list_manager.h:67` | the FAIL_IFs' |
 | 3 | `galaxy_map_client.h` | `app/client/galaxy_map_client.h:13` | header name assumed from the client's galaxy_map_client.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/galaxy_map_client.h:26` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
+| 3 | `galaxy_map_pip.h` | `app/client/galaxy_map_pip.h:16` | header name assumed from the client's galaxy_map_pip.cpp |
+| 3 | `GalaxyMapFocalPointClass` | `app/client/galaxy_map_pip.h:31` | class-from-file (D24) for app\Client\galaxy_map_focal_point.cpp |
+| 3 | `GalaxyMapRenderClass` | `app/client/galaxy_map_pip.h:52` | class-from-file (D24) for app\Client\galaxy_map_render.cpp |
+| 3 | `GadgetGalaxyMapClass` | `app/client/galaxy_map_pip.h:79` | class-from-file (D24) for app\client\gd_galaxy_map.cpp |
+| 3 | `GalaxyMapPipClass` | `app/client/galaxy_map_pip.h:89` | class-from-file (D24) for app\client\galaxy_map_pip.cpp |
+| 3 | `GalaxyBackground` | `app/client/galaxy_map_pip.h:119` | the FAIL_IF's |
+| 3 | `Grid` | `app/client/galaxy_map_pip.h:120` | the FAIL_IF's |
 | 3 | `UVControllerClass` | `app/client/gd_buffgadg.h:31` | class-from-file (D24) for app\shared\uvcontrl.cpp |
 | 3 | `std:` | `app/client/gd_buffgadg.h:66` | the FAIL_IF's 'index >= Elements.size()' |
 | 3 | `BuffGadgetClass` | `app/client/gd_buffgadg.h:94` | class-from-file (D24) for app\Client\gd_buffgadg.cpp |
@@ -18256,6 +18413,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIStarmapClass` | `app/client/mainview.cpp:1121` | class-from-file (D24) for ui_starmap.cpp |
 | 3 | `CosSize` | `app/client/mainview.cpp:1777` | the G_ASSERT's 'cos_occluder_size' |
 | 3 | `InfoCount` | `app/client/mainview.cpp:1782` | the G_ASSERT's |
+| 3 | `map_pip.h` | `app/client/map_pip.h:16` | header name assumed from the client's map_pip.cpp |
+| 3 | `GadgetPipSceneClass` | `app/client/map_pip.h:31` | class-from-file (D24) for app\client\gd_pip_scene.cpp |
+| 3 | `MapPipClass` | `app/client/map_pip.h:40` | class-from-file (D24) for app\client\map_pip.cpp |
+| 3 | `ViewportGadget` | `app/client/map_pip.h:62` | the FAIL_IF's |
+| 3 | `Interface` | `app/client/map_pip.h:63` | the FAIL_IF's |
 | 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
 | 3 | `nlp.h` | `app/client/nlp.h:13` | by convention from nlp.cpp |
 | 3 | `option.h` | `app/client/option.h:22` | header name assumed from the client's option.cpp |

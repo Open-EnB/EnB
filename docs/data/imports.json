@@ -8005,6 +8005,45 @@
      "0x7A4FA0"
     ]
    },
+   "galaxy_map_pip": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x53F390",
+     "0x53F4F0",
+     "0x53F510",
+     "0x53F540",
+     "0x53F770",
+     "0x53F7E0",
+     "0x53F800",
+     "0x53F920",
+     "0x53FCA0",
+     "0x53FD10",
+     "0x53FD60",
+     "0x53FDA0",
+     "0x53FE30",
+     "0x5408B0",
+     "0x540940"
+    ],
+    "merged": [],
+    "name": "client/galaxy_map_pip.cpp",
+    "shared": [
+     "0x42F250"
+    ],
+    "short_known": [
+     "0x53F4F0",
+     "0x53F7E0"
+    ],
+    "tiebreak": [
+     "0x540940"
+    ]
+   },
    "gclass": {
     "ambiguous": [
      "0x45C0E0"
@@ -30286,6 +30325,7 @@
    "client/gadget.h": "reconstructed",
    "client/gadget_list_manager.h": "reconstructed",
    "client/galaxy_map_client.h": "reconstructed",
+   "client/galaxy_map_pip.h": "reconstructed",
    "client/gd_buffgadg.h": "reconstructed",
    "client/gd_dynamicwindow.h": "reconstructed",
    "client/gd_resize.h": "reconstructed",
@@ -30303,6 +30343,7 @@
    "client/item/client_item_property_option.h": "reconstructed",
    "client/item/client_item_property_special.h": "reconstructed",
    "client/local_interface_sort.h": "reconstructed",
+   "client/map_pip.h": "reconstructed",
    "client/mousetbl.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
    "client/nlp.h": "reconstructed",
@@ -30628,7 +30669,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 10560,
+  "in_tree_total": 10575,
   "totals": {}
  },
  "binkmovie": {
