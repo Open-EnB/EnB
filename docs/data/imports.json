@@ -5652,6 +5652,33 @@
      "0x761BC0"
     ]
    },
+   "expr_math_parser_factory": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x42CA60"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x432C30",
+     "0x4D0560",
+     "0x4D0790",
+     "0x4D07E0",
+     "0x4D0920",
+     "0x4D0950",
+     "0x4D0A40",
+     "0x4D0A70"
+    ],
+    "merged": [],
+    "name": "shared/expr/expr_math_parser_factory.cpp",
+    "shared": [
+     "0x432C30",
+     "0x4D0A70"
+    ],
+    "short_known": [
+     "0x4D0A70"
+    ]
+   },
    "expr_math_parser_impl": {
     "ambiguous": [
      "0x42A6C0",
@@ -5711,6 +5738,61 @@
     "short_known": [
      "0x42D120",
      "0x4D2290"
+    ]
+   },
+   "expr_math_tree": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30",
+     "0x4D2580",
+     "0x4D2730",
+     "0x4D2760",
+     "0x4D27D0",
+     "0x4D27F0",
+     "0x4D2980",
+     "0x4D29A0",
+     "0x4D2BB0",
+     "0x4D2BE0",
+     "0x4D2CF0",
+     "0x4D2D10",
+     "0x4D2D30",
+     "0x4D2D80",
+     "0x4D2DD0",
+     "0x4D2DF0",
+     "0x4D2FD0",
+     "0x4D3000",
+     "0x4D30D0",
+     "0x4D30F0",
+     "0x4D3140",
+     "0x4D3160",
+     "0x4D3190",
+     "0x4D31D0",
+     "0x4D3260",
+     "0x4D32D0",
+     "0x4D3310",
+     "0x4D3380",
+     "0x4D33D0"
+    ],
+    "merged": [],
+    "name": "shared/expr/expr_math_tree.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CD30"
+    ],
+    "short_known": [
+     "0x4D27D0",
+     "0x4D2CF0",
+     "0x4D2D10",
+     "0x4D30D0"
     ]
    },
    "extrap": {
@@ -28745,6 +28827,7 @@
    "shared/enbassetmgr.h": "reconstructed",
    "shared/expr/expr_math_lexer.h": "reconstructed",
    "shared/expr/expr_math_parser.h": "reconstructed",
+   "shared/expr/expr_math_parser_factory.h": "reconstructed",
    "shared/expr/expr_math_parser_impl.h": "reconstructed",
    "shared/expr/expr_math_tree.h": "reconstructed",
    "shared/gclass.h": "reconstructed",

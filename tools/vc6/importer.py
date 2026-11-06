@@ -4044,7 +4044,13 @@ RECONSTRUCTED = {
     ('app', 'shared/expr/expr_math_parser_impl.h'): "ExprMathParserImplClass (D24, class-from-file; 0x14 bytes: vptr, vector<GroupStruct> m_groups, the asserts' name) (EX1)",
     ('app', 'shared/expr/expr_math_parser.h'): "ExprMathParserClass, the parser interface (vtable 0xAEC0F0: destructor, Parse returning NULL); provisional header name, NAME 3 (EX1)",
     ('app', 'shared/expr/expr_math_lexer.h'): "ExprMathTokenClass (0x14 bytes, Is_Valid 0x4C79E0) and the lexer interface (slots +4 Get_Token, +0x10 Next) as far as the parser uses them; interim header (D137), NAME 3 (EX1)",
-    ('app', 'shared/expr/expr_math_tree.h'): "the expression tree's node classes as far as the parser builds them (leaf 0x4D2580, unary 0x4D2DF0, binary 0x4D29A0); interim header beside expr_math_tree.cpp (D137), NAME 3 (EX1)",
+    ('app', 'shared/expr/expr_math_tree.h'): "the expression tree: the node ExprMathTreeClass (0xAEC0FC, the root: no base vtable store), the binary and unary nodes "
+                                       "(0xAEC108, 0xAEC114), the visitor interface, the two printers and the token collector (0xAEC120); header name assumed, NAME 3 (EX1, EX2)",
+    ('app', 'shared/expr/expr_math_tree.cpp'): "expr_math_tree.cpp (the client's __FILE__; G_ASSERT lines 52 53 59 63 86 96 120 126 142), client 0x4D2580-0x4D3410: "
+                                       "the three node classes, the infix and postfix printers and the token collector's constructor, all exact (EX2)",
+    ('app', 'shared/expr/expr_math_parser_factory.cpp'): "expr_math_parser_factory.cpp (the client's __FILE__; FAIL_IF line 32), client 0x4D0560-0x4D0A7F: "
+                                       "Add_Operators, Create, the factory parser's Parse_Primary and destructors, ~ExprMathParserClass and allocator<string>::deallocate, all exact (EX2)",
+    ('app', 'shared/expr/expr_math_parser_factory.h'): "ExprMathParserFactoryClass (D24, class-from-file: Create 0x4D0790, Add_Operators 0x4D0560); header name assumed, NAME 3 (EX2)",
     ('app', 'shared/unknown_font_split_string.h'): "FontSplitStringClass, a SplitStringClass measured with a Font32Class (0x2C bytes, vtable 0xAECBAC); neutral header name (D10)",
     ('app', 'shared/unknown_font_split_string.cpp'): "the object 0x4FA8F0-0x4FAC0F after split_string.cpp (its guarded static 0x4FABF0; no __FILE__, neutral name D10, placement provisional D137): FontSplitStringClass, all exact (LS1)",
     ('app', 'shared/unique_design_id_lookup.h'): "UniqueDesignIDLookupClass (D24), ids of named designs from an ini section in an SGI "

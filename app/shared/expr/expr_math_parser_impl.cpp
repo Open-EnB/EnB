@@ -154,7 +154,7 @@ ExprMathTreeClass *ExprMathParserImplClass::Parse_Primary(ExprMathLexerClass *le
 {
 	ExprMathTokenClass token = Peek(lex);
 	if (token.Type == 2 || token.Type == 1) {
-		ExprMathTreeClass *leaf = new ExprMathLeafClass(token);
+		ExprMathTreeClass *leaf = new ExprMathTreeClass(token);
 		lex->Next();
 		return leaf;
 	}

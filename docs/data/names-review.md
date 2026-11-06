@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1253 |
+| 3 | by convention from a client-named file or sibling | 1257 |
 | 2 | describes what the code does | 3008 |
 | 1 | neutral placeholder | 14222 |
 
@@ -18416,15 +18416,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `expr_math_parser.h` | `app/shared/expr/expr_math_parser.h:13` | header name assumed from expr_math_parser_impl.cpp |
 | 3 | `ExprMathParserClass` | `app/shared/expr/expr_math_parser.h:21` | base of ExprMathParserImplClass |
 | 3 | `Parse` | `app/shared/expr/expr_math_parser.h:25` | lex from the assert '!lex' |
+| 3 | `prefix` | `app/shared/expr/expr_math_parser_factory.cpp:34` | the prefix operators, one group at level 0 |
+| 3 | `expr_math_parser_factory.h` | `app/shared/expr/expr_math_parser_factory.h:14` | header name assumed from the client's expr_math_parser_factory.cpp |
+| 3 | `ExprMathParserFactoryClass` | `app/shared/expr/expr_math_parser_factory.h:20` | class-from-file (D24) |
+| 3 | `Add_Operators` | `app/shared/expr/expr_math_parser_factory.h:28` | 'parser' from the assert |
 | 3 | `expr_math_parser_impl.h` | `app/shared/expr/expr_math_parser_impl.h:17` | header name assumed from the client's expr_math_parser_impl.cpp |
 | 3 | `ExprMathParserImplClass` | `app/shared/expr/expr_math_parser_impl.h:25` | from the file name |
 | 3 | `GroupStruct` | `app/shared/expr/expr_math_parser_impl.h:28` | 0x14 bytes, one precedence level |
 | 3 | `Type` | `app/shared/expr/expr_math_parser_impl.h:30` | 0 prefix (Parse_Unary), else binary (Parse_Binary) |
 | 3 | `Ops` | `app/shared/expr/expr_math_parser_impl.h:31` | from the argument 'ops' |
 | 3 | `Peek` | `app/shared/expr/expr_math_parser_impl.h:45` | skips type-0 tokens |
-| 3 | `expr_math_tree.h` | `app/shared/expr/expr_math_tree.h:12` | header name assumed from the client's expr_math_tree.cpp |
-| 3 | `ExprMathTreeClass` | `app/shared/expr/expr_math_tree.h:17` | the nodes' base (slot 0 the deleting destructor) |
-| 3 | `Evaluate` | `app/shared/expr/expr_math_tree.h:21` | slot 1 (leaf 0x4D2980) |
+| 3 | `expr_math_tree.h` | `app/shared/expr/expr_math_tree.h:17` | header name assumed from the client's expr_math_tree.cpp |
+| 3 | `ExprMathTreeClass` | `app/shared/expr/expr_math_tree.h:26` | class-from-file (D24) |
+| 3 | `m_token` | `app/shared/expr/expr_math_tree.h:36` | m_ as the asserts' m_left / m_child |
 | 3 | `gclass.h` | `app/shared/gclass.h:21` | header name assumed from the client's gclass.cpp |
 | 3 | `Get_Target_Node` | `app/shared/gclass.h:82` | the client's assert 'Get_Target_Node()' |
 | 3 | `Get_Targeting_List` | `app/shared/gclass.h:83` | the client's assert 'Get_Targeting_List() != NULL' |
