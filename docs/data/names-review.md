@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1313 |
 | 2 | describes what the code does | 3023 |
-| 1 | neutral placeholder | 14662 |
+| 1 | neutral placeholder | 14663 |
 
 ## For review (score 3 and below)
 
@@ -14339,6 +14339,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4BC260` | `programs/clientpoc/poc_standins.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown_Assert_Failed` | `programs/clientpoc/poc_standins.cpp:44` | untagged neutral name (D10) |
 | 1 | `Unknown_Fail_If_Report` | `programs/clientpoc/poc_standins.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `programs/clientpoc/poc_standins.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown_497300` | `programs/clientpoc/poc_ui.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `programs/clientpoc/poc_ui.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_67A250` | `programs/clientpoc/poc_ui.cpp:42` | untagged neutral name (D10) |
