@@ -89,7 +89,6 @@ UIPingClass::~UIPingClass()
 	Unknown_BE67BC->Unload("fc_ping.ini");
 }
 
-// NOT EXACT: register allocation (the client keeps 0 in ebx throughout and has one more stack slot, frame 0x38 vs 0x34)
 // 0x5D7D60
 void UIPingClass::Unknown_54()
 {
@@ -118,12 +117,12 @@ void UIPingClass::Unknown_54()
 
 	char name[32];
 	for (int i = 0; i < 3; i++) {
-		_snprintf(name, sizeof(name), "PING_INFO_%d", 0);
+		_snprintf(name, sizeof(name), "PING_INFO_%d", i);
 		text = Create_NEW(new FontSys(name, 0, 0));
 		_snprintf(name, sizeof(name), "%s000", UIPingLabels[i]);
 		text->Change_Text(name, 0);
 		Rows[i] = Create_NEW(new Unknown51C800Class(text.Peek(), 6));
-		Unknown098->Add_Object(Rows[i].Peek(), 0);
+		Unknown098->Add_Object(Rows[i].Peek(), i);
 	}
 }
 
@@ -179,6 +178,7 @@ bool UIPingClass::Unknown_68(int key)
 	}
 	return(false);
 }
+
 
 
 
@@ -337,6 +337,5 @@ void UIPingClass::Unknown_5D85B0()
 **	output in the range: the deleting destructor 0x5D79D0, RefCountPtr's out-of-line default constructor 0x5D8BD0
 **	(the eh vector constructor's element) and the table thunks 0x5D8C20 / 0x5D8C30.
 **
-**	The client's 'PING_INFO_%d' takes 0 for all three rows and adds every row at index 0 (ebx, zero throughout 0x5D7D60).
 **	The NoRecvT line repeats the PctLoss row (6).
 */
