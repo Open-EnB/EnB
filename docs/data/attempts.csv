@@ -2142,3 +2142,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-06 14:25,0x5C2000,,app/client/ui_mfdm.cpp,app,partial,,12,frame,view plane orders; extent as Vector3 / Vector2 / floats,,claude-opus-5-5
 2026-11-06 14:30,0x5C2000,,app/client/ui_mfdm.cpp,app,exact,,13,,Size is a Vector2 member; the bounding box copied to a local AABoxClass,,claude-opus-5-5
 2026-11-06 14:44,0x670C90,SlotDataGadgetClass::Unknown_670C90,app/client/gd_slot_data.cpp,app,exact,,1,,"D99: too short for the matcher, appfile.py match EXACT at its marker",,opus
+2026-11-06 15:01,0x6A73C0,SkillRenderClass::Unknown_6A73C0,app/client/skill_render.cpp,app,exact,,,,D99: objdiff 0 rows over its 31 bytes; appfile PREFIX because 0x6A73F0 (guarded initialiser) is not a known start,,
