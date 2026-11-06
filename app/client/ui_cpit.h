@@ -37,9 +37,9 @@ class UnknownObjectWatchClass : public UnknownAF0DD0Class	// NAME 1: neutral (D1
 {
 public:
 	UnknownObjectWatchClass() : Object(NULL) {}
-	virtual void Unknown_04(int arg) { Unknown_0C(); Unknown_08(NULL); }	// +0x04 0x57DC20 (the object's node goes)  // NAME 1 [arg]: eff_o.h's
+	virtual void Unknown_04(int arg) { Unknown_Watch_0C(); Unknown_08(NULL); }	// +0x04 0x57DC20 (the object's node goes)  // NAME 1 [arg]: eff_o.h's
 	virtual void Unknown_08(ClientObjectClass *object) { Object = object; Unknown_73FDB0(&Node, object); }	// +0x08 0x57DBF0  // NAME 1 [object]: what it holds
-	virtual void Unknown_0C() = 0;						// +0x0C
+	virtual void Unknown_Watch_0C() = 0;						// +0x0C
 	operator ClientObjectClass * () { return(Object); }	// (the asserts' 'CurrentHarvestable == 0' / '!= 0' read +0x04)
 	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (a virtual call to slot +0x08 where the member is set)
 
@@ -52,7 +52,7 @@ class UICpitHulkWatchClass : public UnknownObjectWatchClass	// NAME 1: neutral (
 {
 public:
 	UICpitHulkWatchClass(UICpitClass *owner);			// 0x584A80  // NAME 2 [owner]: what it holds
-	virtual void Unknown_0C();							// +0x0C 0x584AF0 (FAIL_IF '!co' l.2082; the cockpit's 0x582070)
+	virtual void Unknown_Watch_0C();							// +0x0C 0x584AF0 (FAIL_IF '!co' l.2082; the cockpit's 0x582070)
 	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (the base's: the implicit copy assignment hides it)
 
 	UICpitClass *Owner;									// +0x18  // NAME 2: what it holds
@@ -63,7 +63,7 @@ class UICpitHarvestWatchClass : public UnknownObjectWatchClass	// NAME 1: neutra
 {
 public:
 	UICpitHarvestWatchClass(UICpitClass *owner);		// 0x584B70  // NAME 2 [owner]: what it holds
-	virtual void Unknown_0C();							// +0x0C 0x584BE0 (FAIL_IF '!co' l.2097; the cockpit's 0x5820C0(false))
+	virtual void Unknown_Watch_0C();							// +0x0C 0x584BE0 (FAIL_IF '!co' l.2097; the cockpit's 0x5820C0(false))
 	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (the base's: the implicit copy assignment hides it)
 
 	UICpitClass *Owner;									// +0x18  // NAME 2: what it holds
@@ -74,7 +74,7 @@ class UICpitUnknownD0Class : public UnknownObjectWatchClass	// NAME 1: neutral (
 {
 public:
 	UICpitUnknownD0Class(RenderObjClass *model, LayerClass *layer, UICpitClass *cpit, int arg);	// 0x5DBFC0 (the set-up passes the mesh's model, the layer, the cockpit, -1)  // NAME 1 [model, layer, cpit, arg]: what the set-up passes
-	virtual void Unknown_0C();							// +0x0C (its own)
+	virtual void Unknown_Watch_0C();							// +0x0C (its own)
 	virtual void Unknown_10();							// +0x10 (slot +0x60, every frame)
 	void Unknown_5DC390();								// 0x5DC390 (ui_group.cpp's 0x595530: a member with no object)
 	void Unknown_5DCAE0();								// 0x5DCAE0 (ui_group.cpp: before the delete)
