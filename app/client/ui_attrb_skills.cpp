@@ -11,17 +11,17 @@
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-// gd_attrb_skills.cpp's gadget (UnknownC4's elements), as far as this file calls it
-class Unknown664500Class : public RObjGadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_664500();	Unknown664500Class();	void Unknown_663DF0(class UIAttrbSkillsClass *window, int skill, int index);	// 0x664500; 0x662DC0 (0x114 bytes); 0x663DF0 (0x54ACE0: the window, the skill, the class index)  // NAME 1 [window, skill, index]: neutral
-	void Unknown_664430();								// 0x664430
-	int Unknown_6645A0(int level, bool arg);	void Unknown_6647F0();	void Unknown_664890(bool on);	// 0x6645A0 / 0x6647F0 / 0x664890  // NAME 1 [level, arg, on]: neutral
-	virtual void Unknown_A4(bool arg);					// +0xA4 (0x54AB20 passes false)  // NAME 1 [arg]: neutral
-	char Unknown60[0x110 - 0x60];						// +0x60
-	void *Unknown110;									// +0x110 (0x54B370 counts the gadgets where it is set)
-};
+#include "gd_attrb_skills.h"
+
+
+
+
+
+
+
+
+
+
 
 // What the skill base's 0x62D710 returns, as far as this file calls it
 class Unknown6A5440Class  // NAME 1: neutral (D10)
