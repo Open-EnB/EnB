@@ -20,6 +20,7 @@
 #include "point.h"
 #include "vector2.h"
 #include "gadget.h"
+#include "pip_scene.h"
 
 class SClient;
 class InterfaceClass;
@@ -37,30 +38,6 @@ public:
 	TPoint2D<float> Unknown38;							// +0x38 (0x53F9E0 hands it to 0x7A72C0 by value)
 	char Unknown_Pad40[0x49 - 0x40];
 	bool Unknown49;										// +0x49 (0x693020)
-};
-
-// pip_scene.cpp's base (not in the tree yet), as far as map_pip.cpp and galaxy_map_pip.cpp use it. Table 0xB0665C: the destructor only. 0x34 bytes.
-// PLACEMENT: provisional (D137): the client's pip_scene.cpp gives it a file; move it there when that file comes in
-class PipSceneClass  // NAME 3: class-from-file (D24) for app\client\pip_scene.cpp
-{
-public:
-	PipSceneClass(SClient *client);						// 0x7BA9C0  // NAME 1 [client]: what it stores
-	virtual ~PipSceneClass();							// +0x00 0x7BAC10 (deleting 0x7BABE0)
-
-	bool Unknown_7BACD0(const RefCountPtr<RenderObjClass> &vp, bool arg);	// 0x7BACD0 (FAIL_IF '!vp')  // NAME 2 [vp]: the FAIL_IF's  // NAME 1 [arg]: neutral
-	bool Unknown_7BB080(UIViewClass *view, int arg1, int arg2);	// 0x7BB080 (FAIL_IF '!view')  // NAME 2 [view]: the FAIL_IF's  // NAME 1 [arg1, arg2]: neutral
-	void Unknown_7BB110();								// 0x7BB110
-
-	SClient *Unknown04;									// +0x04 (0x7BA9C0's client)
-	RefCountPtr<SimpleSceneClass> Scene;				// +0x08 (0x7BA9C0 news it; 0x53F920 adds to it)  // NAME 1: neutral (D10): what it holds
-	RefCountPtr<CameraClass> Camera;					// +0x0C (0x53F770 sets its clip planes)  // NAME 1: neutral (D10): what it holds
-	int Unknown10;										// +0x10
-	Vector2 Unknown14;									// +0x14 (0x692EF0 hands it to 0x7C3C60)
-	Vector2 Unknown1C;									// +0x1C (0x692EF0 hands it to 0x7C3C60)
-	float Unknown24;									// +0x24 (with +0x14)
-	float Unknown28;									// +0x28 (with +0x1C)
-	int Unknown2C;										// +0x2C
-	int Unknown30;										// +0x30
 };
 
 class MapPipClass : public PipSceneClass  // NAME 3: class-from-file (D24) for app\Client\map_pip.cpp

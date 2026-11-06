@@ -8,17 +8,17 @@
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\camera.h"
 
-// starmap_pip_support.cpp's (not in the tree yet), as far as this file uses it. 0x118 bytes.
-// PLACEMENT: provisional (D137): the client's starmap_pip_support.cpp gives it a file; move it there when that file comes in
-class StarmapPipSupportClass : public RenderObjClass  // NAME 3: class-from-file (D24) for app\client\starmap_pip_support.cpp
-{
-public:
-	StarmapPipSupportClass();							// 0x7C3AC0
-	virtual RenderObjClass *Clone() const;
-	virtual void Render(RenderInfoClass &rinfo);
-	void Unknown_7C3C60(const Vector2 &arg1, float arg2);	// 0x7C3C60 (+0x10C, +0x114)  // NAME 1 [arg1, arg2]: neutral
-	char Unknown_Pad[0x118 - sizeof(RenderObjClass)];
-};
+#include "starmap_pip_support.h"
+
+
+
+
+
+
+
+
+
+
 
 bool Unknown_4967F0(RenderObjClass *robj, int arg, RenderObjClass *model);	// 0x4967F0 (gadget.cpp declares it the same)  // NAME 1 [robj, arg, model]: neutral
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (gadget.cpp declares it the same)  // NAME 1 [robj]: as ui_avatr.cpp's
@@ -238,10 +238,10 @@ bool MapPipClass::Unknown_10(const RefCountPtr<RenderObjClass> &vp)
 		return(false);
 	}
 	if (Unknown48) {
-		Unknown48->Unknown_7C3C60(Unknown14, Unknown24);
+		Unknown48->Unknown_7C3C60(Rect_Min(), ViewportSize.X);
 	}
 	if (Unknown4C) {
-		Unknown4C->Unknown_7C3C60(Unknown1C, Unknown28);
+		Unknown4C->Unknown_7C3C60(Rect_Max(), ViewportSize.Y);
 	}
 	return(true);
 }
