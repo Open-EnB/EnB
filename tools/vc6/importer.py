@@ -4043,7 +4043,7 @@ RECONSTRUCTED = {
                                        "vector<GroupStruct> instances exact; NOT EXACT: Add_Similar 0x4D0DF0, Parse_Level 0x4D10E0 (EX1)",
     ('app', 'shared/expr/expr_math_parser_impl.h'): "ExprMathParserImplClass (D24, class-from-file; 0x14 bytes: vptr, vector<GroupStruct> m_groups, the asserts' name) (EX1)",
     ('app', 'shared/expr/expr_math_parser.h'): "ExprMathParserClass, the parser interface (vtable 0xAEC0F0: destructor, Parse returning NULL); provisional header name, NAME 3 (EX1)",
-    ('app', 'shared/expr/expr_math_lexer.h'): "ExprMathTokenClass (0x14 bytes, Is_Valid 0x4C79E0), the lexer interface (vtable 0xAEBB00, seven slots) and the matcher interface (0xAEBB30); interim header (D137), NAME 3 (EX1, EX3)",
+    ('app', 'shared/expr/expr_math_lexer.h'): "ExprMathTokenClass (0x14 bytes; its functions in expr_math_token.cpp), the lexer interface (vtable 0xAEBB00, seven slots) and the matcher interface (0xAEBB30); interim header (D137), NAME 3 (EX1, EX3)",
     ('app', 'shared/expr/expr_math_tree.h'): "the expression tree: the node ExprMathTreeClass (0xAEC0FC, the root: no base vtable store), the binary and unary nodes "
                                        "(0xAEC108, 0xAEC114), the visitor interface, the two printers and the token collector (0xAEC120); header name assumed, NAME 3 (EX1, EX2)",
     ('app', 'shared/expr/expr_math_tree.cpp'): "expr_math_tree.cpp (the client's __FILE__; G_ASSERT lines 52 53 59 63 86 96 120 126 142), client 0x4D2580-0x4D42C0: "
@@ -4065,6 +4065,8 @@ RECONSTRUCTED = {
                                        "hashtable / vector instances, all exact (EX3)",
     ('app', 'shared/expr/expr_math_lexer_factory.cpp'): "expr_math_lexer_factory.cpp (the client's __FILE__; FAIL_IF line 12), client 0x4D0230-0x4D052F: "
                                        "Add_Operators, Create and the white-space matcher's destructors, all exact (EX3)",
+    ('app', 'shared/expr/expr_math_token.cpp'): "the object 0x4C7620-0x4C7B4F between expr_lexer_match_list.cpp and expr_math_float.cpp (no __FILE__, "
+                                       "interim name and placement D137): ExprMathTokenClass's constructors, Is_Valid, operator== / !=, all exact (EX3)",
     ('app', 'shared/expr/expr_math_lexer_factory.h'): "ExprMathLexerFactoryClass (D24, class-from-file: Create 0x4D0360, Add_Operators 0x4D0230); header name assumed, NAME 3 (EX3)",
     ('app', 'shared/unknown_font_split_string.h'): "FontSplitStringClass, a SplitStringClass measured with a Font32Class (0x2C bytes, vtable 0xAECBAC); neutral header name (D10)",
     ('app', 'shared/unknown_font_split_string.cpp'): "the object 0x4FA8F0-0x4FAC0F after split_string.cpp (its guarded static 0x4FABF0; no __FILE__, neutral name D10, placement provisional D137): FontSplitStringClass, all exact (LS1)",

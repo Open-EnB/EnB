@@ -22,7 +22,11 @@ public:
 	ExprMathTokenClass(int type, const char *text);				// 0x4C7740
 	ExprMathTokenClass(int type, const std::string &text);		// 0x4C7850
 
-	bool Is_Valid() const;		// 0x4C79E0  // NAME 3 [Is_Valid]: type != -1 and the text differs from a global
+	bool Is_Valid() const;		// 0x4C79E0  // NAME 3 [Is_Valid]: type != -1 and the text differs from Invalid_Text
+	bool operator==(const ExprMathTokenClass &other) const;	// 0x4C7A60
+	bool operator!=(const ExprMathTokenClass &other) const;	// 0x4C7AE0
+
+	static const char *Invalid_Text;	// 0xB7459C ("")  // NAME 3 [Invalid_Text]: the default token's text
 
 	int Type;					// NAME 3 [Type]: 0 white space (skipped by the parser), 1 names, 2 numbers, 3 parentheses, 4 operators
 	std::string Text;			// NAME 3 [Text]

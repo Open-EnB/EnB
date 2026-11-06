@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1282 |
+| 3 | by convention from a client-named file or sibling | 1283 |
 | 2 | describes what the code does | 3014 |
 | 1 | neutral placeholder | 14237 |
 
@@ -18449,13 +18449,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ExprLexerSpaceMatchClass` | `app/shared/expr/expr_lexer_matchers.h:42` | lexer type 0 |
 | 3 | `expr_math_lexer.h` | `app/shared/expr/expr_math_lexer.h:13` | interim header, named after expr_math_lexer_factory.cpp |
 | 3 | `ExprMathTokenClass` | `app/shared/expr/expr_math_lexer.h:18` | 0x14 bytes, a type and its text |
-| 3 | `Is_Valid` | `app/shared/expr/expr_math_lexer.h:25` | type != -1 and the text differs from a global |
-| 3 | `Type` | `app/shared/expr/expr_math_lexer.h:27` | 0 white space (skipped by the parser), 1 names, 2 numbers, 3 parentheses, 4 operators |
-| 3 | `Has_Token` | `app/shared/expr/expr_math_lexer.h:37` | the current token is valid |
-| 3 | `Has_Error` | `app/shared/expr/expr_math_lexer.h:38` | no valid token, text left |
-| 3 | `Set_Source` | `app/shared/expr/expr_math_lexer.h:40` | 'source' from the assert |
-| 3 | `Reset` | `app/shared/expr/expr_math_lexer.h:41` | back to the source's start |
-| 3 | `ExprLexerMatchClass` | `app/shared/expr/expr_math_lexer.h:46` | from expr_lexer_match_list.cpp |
+| 3 | `Is_Valid` | `app/shared/expr/expr_math_lexer.h:25` | type != -1 and the text differs from Invalid_Text |
+| 3 | `Invalid_Text` | `app/shared/expr/expr_math_lexer.h:29` | the default token's text |
+| 3 | `Type` | `app/shared/expr/expr_math_lexer.h:31` | 0 white space (skipped by the parser), 1 names, 2 numbers, 3 parentheses, 4 operators |
+| 3 | `Has_Token` | `app/shared/expr/expr_math_lexer.h:41` | the current token is valid |
+| 3 | `Has_Error` | `app/shared/expr/expr_math_lexer.h:42` | no valid token, text left |
+| 3 | `Set_Source` | `app/shared/expr/expr_math_lexer.h:44` | 'source' from the assert |
+| 3 | `Reset` | `app/shared/expr/expr_math_lexer.h:45` | back to the source's start |
+| 3 | `ExprLexerMatchClass` | `app/shared/expr/expr_math_lexer.h:50` | from expr_lexer_match_list.cpp |
 | 3 | `expr_math_lexer_factory.h` | `app/shared/expr/expr_math_lexer_factory.h:14` | header name assumed from the client's expr_math_lexer_factory.cpp |
 | 3 | `ExprMathLexerFactoryClass` | `app/shared/expr/expr_math_lexer_factory.h:20` | class-from-file (D24) |
 | 3 | `Add_Operators` | `app/shared/expr/expr_math_lexer_factory.h:28` | 'lexer' from the assert |
