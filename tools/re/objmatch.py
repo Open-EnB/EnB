@@ -28,7 +28,12 @@ address inside the object's own range (first..last address of its exact function
 alone: not COMDAT copies of inline, template or compiler-generated functions, which the linker
 may place with another object) is credited, `exact` with `tiebreak` and `range` set. The range
 also covers the object's exact COMDATs that no other object is exact at, within 0x1000 bytes of
-either end of that own range (D114(b), P-M1-2), and an exact COMDAT that two or more objects are
+either end of that own range (D114(b), P-M1-2; D196, 2026-11-05: at the upper end the widening is
+chained through the COMDATs only this object is exact at, each measured from the range the previous
+ones widened, so a run of template copies longer than 0x1000 after a file's last own function reaches
+the file's static initialisers, ui_ship_cust's 0x620CA0; the lower end and D183's shared COMDATs are
+measured from the own range only: chaining them let ui_shipcust's range run down over ui_ship_cust's
+copies of a map type the two files shared), and an exact COMDAT that two or more objects are
 exact at, at one address under one symbol (D183, P-IS-1), for the holder whose own range is
 strictly nearest to it (inside it counts as 0; a tie widens none). Measured 2026-11-01: crediting
 it to every holder lets a later object's range reach over the first object's code (inpkeys' range
@@ -641,18 +646,28 @@ def match_objects(img, paths, region=None, callers=False):
                     if r['status'] == 'exact':
                         holders[int(r['addresses'][0], 16)].add(id(obj))
                 wide = dict(ranges)
-                for r, obj, sec, s, length in results:
-                    if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges:
-                        a = int(r['addresses'][0], 16)
-                        lo, hi = ranges[id(obj)]
-                        # D183: or held by several objects, all under this symbol, when this holder's own
-                        # range is strictly the nearest of the holders'
-                        if (holders[a] == {id(obj)} or claimed[a] == {r['symbol']} and all(
-                                range_distance(ranges[id(obj)], a) < range_distance(ranges[o], a)
-                                for o in holders[a] if o != id(obj) and o in ranges)) and \
-                                lo - RANGE_GAP <= a <= hi + RANGE_GAP:
+                grown = True
+                while grown:    # chained: a COMDAT within RANGE_GAP of the widened range widens it too
+                    grown = False
+                    for r, obj, sec, s, length in results:
+                        if r['status'] == 'exact' and not obj.own(sec) and id(obj) in ranges:
+                            a = int(r['addresses'][0], 16)
                             wlo, whi = wide[id(obj)]
-                            wide[id(obj)] = (min(wlo, a), max(whi, a))
+                            if wlo <= a <= whi:
+                                continue
+                            # D196: only a COMDAT this object alone is exact at chains, and only upwards (an
+                            # object's copies and initialisers follow its own code); D183: one held by several
+                            # objects, all under this symbol, when this holder's own range is strictly the
+                            # nearest of the holders', and anything below, are measured from the own range
+                            # (chained, ui_shipcust's range ran down over ui_ship_cust's copies of their
+                            # shared map type on 217fd903: 0x628E40 lost)
+                            lo, hi = ranges[id(obj)][0], (whi if holders[a] == {id(obj)} else ranges[id(obj)][1])
+                            if (holders[a] == {id(obj)} or claimed[a] == {r['symbol']} and all(
+                                    range_distance(ranges[id(obj)], a) < range_distance(ranges[o], a)
+                                    for o in holders[a] if o != id(obj) and o in ranges)) and \
+                                    lo - RANGE_GAP <= a <= hi + RANGE_GAP:
+                                wide[id(obj)] = (min(wlo, a), max(whi, a))
+                                grown = True
                 ranges = wide
             registered = initialiser_targets(results, pending, ranges, text, start, known, thunk) if phase == 'init' else {}
             if phase == 'short':
