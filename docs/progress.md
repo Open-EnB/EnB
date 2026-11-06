@@ -2568,6 +2568,15 @@ below name only the work items, the blocked work, the leads and the queues.
      Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.3) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * The item examination window (IE1 / IE2, 2026-11-05 night; ui_item_examination*.cpp, 0x531430-0x53AB4F): NOT EXACT the
+     description ctor 0x534CA0 (frame 0x2C vs 0x24; a named Vector2 gets the frame but inlines the second string's `_Eos`),
+     the attributes ctor 0x532BA0 / dtor 0x533000 forms in attempts.csv; title 0x53A140 (the name's std::string by value);
+     the row classes (options 0x535CB0 / 0x5362F0 / 0x5362C0 / 0x536450, attributes 0x533450 / 0x533AC0 / 0x533A90, specials
+     0x538350 up to 0x539790) need dynamic_window_toggle and the gadget class at 0x6686F0 (0x34 bytes), neither in the tree;
+     the sorts' _Unguarded_insert / _Median / _Unguarded_partition inline operator< (0x534700). ui_item_examination.cpp's
+     local Unknown537830Class / LineDisplayClientClass onto the real headers in a line-neutral edit. Next object 0x53AA30.
+     Interim names (D137): ui_item_examination_attributes / _description / _specials.cpp; declaration-only ui_slot_info.h /
+     ui_dynamicwindow.h / dynamic_window_icon.h wait for their files.
    * The expression library (app/shared/expr/, EX1-EX4, 2026-11-05 night): NOT EXACT expr_math_parser_impl Add_Similar 0x4D0DF0
      (register), Parse_Level 0x4D10E0 (inline budget: a token scope closing before the returns, untried); expr_math_float
      0x4C8920 / 0x4C9010 (frame: no EH frame for `new` in float's copy, int's exact), Create_Binary 0x4C7D80 / 0x4CBCD0 (shape),
