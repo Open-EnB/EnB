@@ -41,7 +41,7 @@ class UIItemExaminationOptionsClass : public DynamicWindowVerticalClass  // NAME
 {
 public:
 	UIItemExaminationOptionsClass(UIItemExaminationOptionListenerClass *listener);			// 0x5352D0  // NAME 1 [listener]
-	virtual ~UIItemExaminationOptionsClass();
+	virtual ~UIItemExaminationOptionsClass();											// +0x04 0x5357E0
 
 	void Add_Option(ClientItemPropertyOptionClass *option);								// 0x535970  // NAME 1 [Add_Option, option]: appends to Options
 	void Rebuild();																			// 0x535A10  // NAME 1 [Rebuild]: empties the panel, adds the frame and one row per option
