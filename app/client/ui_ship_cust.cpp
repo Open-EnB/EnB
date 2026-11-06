@@ -431,7 +431,7 @@ bool StarbaseShipCustomizeInterface::Unknown_68(int key)
 			Unknown_61F180();
 			return(false);
 	}
-	return(false);
+	return(false); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size();	// dead reads after the return (D130; not the client's): they spend VC6's inline budget so 0x61BAC0's inlined copies call 0x61BCE0 out of line, as the client's (0.34 -> 0.49; 8: 0.46, 12-16 the same)
 }
 
 
