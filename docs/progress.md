@@ -35,6 +35,28 @@ Newest first within each section. Dates are when the entry was written.
   UIStarbaseLightsClass in ui_starbase.cpp, UIPTradeClass in sclient.h, ui_friends.h, ui_analyze.h. Traps filed in workflow.md §3.1 / §3.4 /
   §3.5 (one bullet per report). Section 4 gained one item per file with what is left.
 
+### 2026-11-05 (21:45 PST, evening): PR #163's vc6-verify fixed: 0x6209D0 back in ui_ship_cust, D196 (objmatch's chained range) brings 0x620CA0 back; PRs #163 / #164 / #165 merged
+
+- **Why #163 failed:** 13 lost against master: 11 D66 moves and 2 outright (ui_shipcust 0x6209D0 / 0x620CA0), false
+  pairs master held while ui_ship_cust and ui_shipcust shared one map type. The coordinator had accepted them under
+  D66 (iii) during the run (`--accept`); that ruling is the user's, and the verify service passes no outright loss
+  (ruleset "Protect master (D148)" requires vc6-verify, no bypass; github-plan.md 4.5.5).
+- **0x6209D0** (`_Tree<..., StarbaseShipCustGadgetStruct>::_Min`, called out of line from 0x61A4D0): SC3 (Opus)
+  rewrote 0x61A4D0's group-0 loop (`while` with `it++` last, 4 dead size() reads; c3bd14d8), now in ui_ship_cust.
+  Also 0x61A4D0 0.52 -> 0.76, ui_shipcust's twin 0x624270 0.46 -> 0.79, 0x61F250 0.34 -> 0.78, 0x61BD80 0.54 -> 0.64,
+  0x619470 0.34 -> 0.49, +1 shared 0x55D8A0 (b745aeed); quiet-tree verify f59aaf04.
+- **0x620CA0** (`<string>`'s guarded `std::ctype<unsigned short>::id` initialiser, one byte-identical copy per
+  includer): no include was missing; objmatch's D114(b) range stopped 0x1000 short of it, after ui_ship_cust's map
+  copies. D196 (the user's): the widening chains upwards through COMDATs a file alone is exact at (SC4; the two-way
+  first version lost ui_shipcust 0x620CA0 / 0x628E40 on master's pre-split tree, RW1). Landed in three PRs, in order:
+  #164 (accepted-corrections.json: ui_shipcust 0x620CA0 a decided loss, D196), #163 (+438, the user's `/accept-d66`
+  for 12 moves), #165 (objmatch.py; full verify against a1a1d1dd: app +84, ww3d2 +7 shared, 0 lost, 0 moves;
+  0x620CA0 in ui_ship_cust, ui_shipcust's own 0x62A6F0; app's tie-break by callers 433 -> 171). master ab992dba.
+- Builders: SC3, SC4 (Opus), RW1 (Sonnet); claims ended with #163. The verify service once failed "compile errors?"
+  on host memory (SC4's stopped verify kept two VMs leased; the service needs 6 GB free). Traps filed in workflow.md
+  §3.1 / §3.4 / §3.5. Cleanup: worktrees rw1 / sc4 / corr removed, 21 merged branches deleted (wt/pins kept: a
+  commit of its own; remote `claims-state` listed, not checked).
+
 ### 2026-11-05 (14:51 PST, day): avatar.cpp's out-of-line helpers explained (D195's unref.py), ui_ship_cust's ctor / dtor, the character info window's five files; +436 pairs, 0 lost outright
 
 - **Run** run/2026-11-05-day (PR #163, from master 217fd903), 17 Opus builders (AR1-AR4, SC1 / SC2, BF1, LD7, SB2-SB4, TB1 /
@@ -2703,7 +2725,11 @@ below name only the work items, the blocked work, the leads and the queues.
    * ui_ship_cust.cpp (CS21 / SC1, 2026-11-05: the starbase's buy-ship window StarbaseShipCustomizeInterface, RTTI 0xB89BB0,
      declared in ui_ship_cust.h; ctor 0x6181B0 / dtor 0x6186A0 exact; 28 exact): NOT EXACT (attempts rows): slot +0x54
      0x618CA0 0.73 (SC2: every call matches; registers left: Selected_Decal via [ebp+0xF0] where the client reuses ebx,
-     eax / ecx / edx swaps), 0x619470 0.34, 0x61A4D0 0.52, 0x61BD80 0.54, 0x61F250 0.34 (functional),
+     eax / ecx / edx swaps), 0x619470 0.49 (lead: write each of the 26 cases out, as the client's jump table has them),
+     0x61A4D0 0.76 (the client calls _Tree::begin 0x61FBE0 out of line; routing through 0x61BC50 does it but puts _Inc
+     out of line and loses 0x6209D0; tail registers), 0x61BD80 0.64 (lookup mix: the client's operator[] / map::insert /
+     _Tree::insert / pair ctor out of line 4 / 6 / 9 / 4, ours 8 / 8 / 3 / 0), 0x61F250 0.78 (register: the inlined
+     0x61AD30's hull / wing loops),
      0x61B170 0.89 (register: Page's load / `mov ebx, 1` scheduled into the u arithmetic, 7 more forms; the unreferenced
      0x61B0F0 is exactly its Page == 1 body), 0x61DF80 0.47 (0.60 stashed: the client copies block 1's Matrix3D inline,
      blocks 2 / 3 through ??_H), 0x61E8B0 0.62 (LIMIT REACHED), 0x61E8E0 0.42 (0.64 stashed; 0x50C vs 0x4AC: the client
@@ -2720,7 +2746,7 @@ below name only the work items, the blocked work, the leads and the queues.
      by-value signatures landed 5e63a2c2: frame 0x30 vs 0x2C, ebp pushed per case, case 0's Unknown054 test branches the
      other way), 0x624E50 0.68;
      0x623080 (inline budget, over D130 only), ctor 0x622180 0.37 (the client calls ShipCustPartClass's operator= 0x619320
-     out of line), 0x625A60 0.65, 0x624270 0.46 (shape: each store right after its test, 1.0f by fld from .rdata), 0x621390
+     out of line), 0x625A60 0.65, 0x624270 0.79 (SC3's forms; LoginTask's two vtable calls not tail-merged, tail registers), 0x621390
      0.65 (register; push_back drops 0x8810F0-0x881250's duplicates, still held by pknamedecal: D66 (i)); LIMIT REACHED
      0x621530, 0x624E50),
      ui_shard's 0x616220 (register: the inlined 0x617660's eax vs ecx), shiputils 0x80EAF0 0.38 (asserts on client lines
