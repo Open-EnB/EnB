@@ -36,6 +36,7 @@
 #include "refcount.h"
 #include "slist.h"
 #include "..\shared\land_lighting.h"
+#include "..\shared\money.h"		// MoneyClass (UIPTradeClass +0xE0)
 
 struct KernelEventClass;			// kernel.h: an input event (16 bytes)
 class LoginUnknown0CClass;		// tsk_login.h: inpdsp.cpp's input dispatcher (0x18 bytes)
@@ -491,6 +492,7 @@ class UIPTradeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24)
 {
 public:
 	UIPTradeClass(SClient *client);			// 0x5E1BE0 (0xE8 bytes; the main view's 0x50C690 and the starbase view's 0x69B5E0)  // NAME 1 [client]: what both pass
+	virtual ~UIPTradeClass();							// 0x5E1D80 (slot 0x5E1D50; G_ASSERT 'State == UI_CLOSED', line 82)
 	void Unknown_5E2F70(bool on); void Unknown_5E3050(bool on); void Unknown_5E3130();	// 0x5E2F70 (TRADE 31 types 3 / 4), 0x5E3050 (types 5 / 6), 0x5E3130 (type 2)  // NAME 1 [on]: what the handler passes
 	virtual void Unknown_54();							// +0x54 0x5E1FA0 (the set-up: the buttons, the inventories, the credits entry, the pips)
 	virtual void Unknown_58();							// +0x58 0x5E26F0 (activated)
@@ -504,9 +506,9 @@ public:
 	void Unknown_5E39F0();								// 0x5E39F0 (the credits entry closed: request 0x18 with the amount, or 'Insufficient credits.')
 	void Unknown_5E3C90();								// 0x5E3C90 ('RECIPIENT_NAME_TRADE00' empty: the other's full name)
 
-	UIManuInvClass *Unknown0AC;							// +0xAC 'TRADE00A.C%02d' 15, the player's items (referenced: the set-up's RefCountPtr releases)
-	UIManuInvClass *Unknown0B0;							// +0xB0 'TRADE00A.X%02d' 16, the other's items (referenced)
-	UIPTradeCreditsClass *Unknown0B4;					// +0xB4 the credits entry (referenced)
+	RefCountPtr<UIManuInvClass> Unknown0AC;				// +0xAC 'TRADE00A.C%02d' 15, the player's items (the destructor releases it twice over: NULL, then as a member)
+	RefCountPtr<UIManuInvClass> Unknown0B0;				// +0xB0 'TRADE00A.X%02d' 16, the other's items
+	RefCountPtr<UIPTradeCreditsClass> Unknown0B4;		// +0xB4 the credits entry
 	int Unknown0B8;										// +0xB8 (the constructor clears it with +0xBC..+0xC8)
 	GadgetClass *Unknown0BC[4];							// +0xBC the buttons ('UI_PTRADE' 'CANCEL', 'CANCEL', 'CONFIRM', 'CREDITS')
 	AvatarPipClass *PlayerPIP;							// +0xCC  // NAME 3: the asserts' (line 145)
@@ -516,7 +518,7 @@ public:
 	bool Unknown0DC;									// +0xDC
 	bool Unknown0DD;									// +0xDD
 	bool Unknown0DE;									// +0xDE
-	__int64 Unknown0E0;									// +0xE0 the credits offered (a MoneyClass: 0x5E39F0 adds it to the avatar's Money)
+	MoneyClass Unknown0E0;								// +0xE0 the credits offered (0x5E39F0 adds it to the avatar's Money; the destructor's EH states count it)
 };
 
 // the object 0x50C690 makes, registers and releases at once (0x90 bytes, with the base's +0x24 scene)

@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_ptrade.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_ptrade.cpp', 0x5E1B80-0x5E3EEF by its asserts and its callers).
-// So far the slots +0x5C / +0x60 / +0x7C (0x5E2B30, 0x5E2BF0, 0x5E2F00) and 0x5E3750-0x5E3EEF (PT1); not yet: the rest of 0x5E1B80-0x5E374F.
+// So far the destructor 0x5E1D80, the slots +0x5C / +0x60 / +0x7C (0x5E2B30, 0x5E2BF0, 0x5E2F00) and 0x5E3750-0x5E3EEF (PT1); not yet: the rest of 0x5E1B80-0x5E374F.
 #include <stdlib.h>
 #include <string>
 #include "sclient.h"
@@ -42,7 +42,54 @@ class AvatarPipClass	// NAME 3: class-from-file (D24) for app\client\avatar_pip.
 public:
 	void Unknown_7E3A20(int a, unsigned id, int b);		// 0x7E3A20 (slot +0x60: 0, the avatar's or the other's id, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
 	void Unknown_7E4350();								// 0x7E4350 (slot +0x5C)
+	~AvatarPipClass();									// 0x7E3410 (the destructor deletes both pips)
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x5E1D80
+UIPTradeClass::~UIPTradeClass()
+{
+	G_ASSERT(State == UI_CLOSED);
+	Unknown0AC = NULL;
+	Unknown0B0 = NULL;
+	Unknown0B4 = NULL;
+	delete PlayerPIP;
+	delete OtherPIP;
+	PlayerPIP = NULL;
+	OtherPIP = NULL;
+	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
+	Unknown_BE67BC->Unload("fa_trade00a.ini");
+}
 
 // 0x5E2B30
 void UIPTradeClass::Unknown_5C()
@@ -127,7 +174,7 @@ void UIPTradeClass::Unknown_5E37F0()
 }
 
 // 0x5E39F0
-// NOT EXACT: inline budget (0.48: the client calls auxdata.h's Unknown_Find_Field out of line here, with the aux data read before the name; ours inlines it)
+// NOT EXACT: inline budget (0.32: the client calls auxdata.h's Unknown_Find_Field out of line here, with the aux data read before the name; ours inlines it)
 void UIPTradeClass::Unknown_5E39F0()
 {
 	if (Unknown0B4 && Unknown0B4->Active) {
@@ -136,13 +183,14 @@ void UIPTradeClass::Unknown_5E39F0()
 			if (result == 2) {
 				int amount = atoi(Unknown0B4->Unknown_64A240());
 				MoneyClass money;
+				DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
 				NameClass name("Money");
-				DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, name);
+				DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(aux, name);
 				if (t && t->Unknown70) money = t->Value;
-				if (money + *(MoneyClass *)&Unknown0E0 >= MoneyClass(amount)) {
-					Unknown0E0 = amount;
+				if (money + Unknown0E0 >= MoneyClass(amount)) {
+					Unknown0E0.Unknown00 = amount;
 					SClient *sclient = Client->As_Space_Client();
-					sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x18, ((ClientClass *)Client)->Unknown1134, (int)Unknown0E0));
+					sclient->Send_Packet(&ActionPacketClass(sclient->AvatarID, 0x18, ((ClientClass *)Client)->Unknown1134, (int)Unknown0E0.Unknown00));
 					Unknown_5E3340();
 				} else {
 					std::string text("Insufficient credits.");
