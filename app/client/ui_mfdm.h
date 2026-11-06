@@ -6,6 +6,7 @@
 #include "ref_ptr.h"
 #include "matrix3d.h"
 #include "vector3.h"
+#include "vector2.h"
 
 class CameraClass;
 class SimpleSceneClass;
@@ -35,8 +36,7 @@ public:
 	Matrix3D Transform;									// +0x10 (the camera's when UnknownBool is set)  // NAME 2: what it holds
 	bool UnknownBool;									// +0x40 (0: the camera looks at the object)  // NAME 1: neutral (D10)
 	RenderObjClass *PIPVP;								// +0x44  // NAME 5: the client's assert
-	float Width;										// +0x48  // NAME 2: the viewport's size
-	float Height;										// +0x4C  // NAME 2: the viewport's size
+	Vector2 Size;										// +0x48 (the viewport's)  // NAME 2: what it holds
 	LightClass *Light;									// +0x50  // NAME 5: the client's assert
 };
 

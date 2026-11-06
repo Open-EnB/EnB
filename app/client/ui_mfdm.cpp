@@ -42,26 +42,22 @@ bool UIMFDItemClass::Unknown_14()
 {
 	return(false);
 }
-// NOT EXACT: 0x5C2000: the -1.0 constant and two stack slots (register / frame)
+
 // 0x5C2000
 UIMFDPIPItemClass::UIMFDPIPItemClass(UIMFDClass *owner) :
 	UIMFDItemClass(owner),
 	Transform(true),
 	UnknownBool(false),
 	PIPVP(NULL),
-	Width(-1.0f),
-	Height(-1.0f),
+	Size(-1.0f, -1.0f),
 	Light(new LightClass(LightClass::POINT))
 {
-	Vector3 extent;
 	Scene = Create_NEW(new SimpleSceneClass());
 	Scene->Set_Fog_Enable(false);
 	Scene->Set_Ambient_Light(Vector3(0.2f, 0.2f, 0.2f));
 	Camera = Create_NEW(new CameraClass());
-	Vector2 vmax(0.887f, 0.5f);
-	Vector2 vmin(-0.887f, -0.5f);
 	Camera->Set_Viewport(Vector2(0.3f, 0.68750006f), Vector2(0.46875f, 0.87500006f));
-	Camera->Set_View_Plane(vmin, vmax);
+	Camera->Set_View_Plane(Vector2(-0.887f, -0.5f), Vector2(0.887f, 0.5f));
 	Camera->Set_Clip_Planes(5.0f, 5000.0f);
 	Light->Set_Intensity(1.0f);
 	Light->Set_Force_Visible(true);
@@ -72,16 +68,20 @@ UIMFDPIPItemClass::UIMFDPIPItemClass(UIMFDClass *owner) :
 	Light->Set_Transform(Matrix3D::Identity);
 	Light->Add(Scene.Peek());
 	PIPVP = Owner->RObj->Get_Sub_Object_By_Name("scanner_click");
-	const AABoxClass &box = PIPVP->Get_Bounding_Box();
-	extent.X = box.Extent.X;
-	extent.Y = box.Extent.Y;
-	Width = extent.X + extent.X;
-	Height = extent.Y + extent.Y;
+	AABoxClass box = PIPVP->Get_Bounding_Box();
+	Size.X = box.Extent.X + box.Extent.X;
+	Size.Y = box.Extent.Y + box.Extent.Y;
 }
 // NOT EXACT: 0x5C2470: a load scheduled before a store, one EH state store (order)
 // 0x5C2470
 UIMFDPIPItemClass::~UIMFDPIPItemClass()
 {
+
+
+
+
+
+
 
 
 
@@ -183,11 +183,11 @@ void UIMFDPIPItemClass::Unknown_08()
 	}
 	((UIViewClass *)Owner->View)->Unknown_65B7A0(Scene, Camera, poly, level);
 	Vector3 pos = PIPVP->Get_Position();
-	Vector2 p(pos.X - Width * 0.5f, pos.Y + Height * 0.5f);
+	Vector2 p(pos.X - Size.X * 0.5f, pos.Y + Size.Y * 0.5f);
 	p.X = p.X + 320.0f;
 	p.Y = 240.0f - p.Y;
-	Camera->Set_Viewport(Vector2(p.X * (1.0f / 640.0f), p.Y * (1.0f / 480.0f)), Vector2((p.X + Width) * (1.0f / 640.0f), (p.Y + Height) * (1.0f / 480.0f)));
-	float a = 0.5 / Height * Width;
+	Camera->Set_Viewport(Vector2(p.X * (1.0f / 640.0f), p.Y * (1.0f / 480.0f)), Vector2((p.X + Size.X) * (1.0f / 640.0f), (p.Y + Size.Y) * (1.0f / 480.0f)));
+	float a = 0.5 / Size.Y * Size.X;
 	Camera->Set_View_Plane(Vector2(-a, -0.5f), Vector2(a, 0.5f));
 	MainViewClass *view = ((SClient *)((ClientClass *)Owner->Client)->Unknown_18())->MainView;
 	OrbitalManager *orbitals = view->Orbitals;

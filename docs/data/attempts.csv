@@ -2140,3 +2140,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-06 14:25,0x5C2470,,app/client/ui_mfdm.cpp,app,partial,,3,order,REF_PTR_RELEASE; if + NULL; RefCountPtr cast,,claude-opus-5-5
 2026-11-06 14:25,0x5C25C0,,app/client/ui_mfdm.cpp,app,partial,,5,order,"named sclient, view, orbitals locals: a pop scheduled late",,claude-opus-5-5
 2026-11-06 14:25,0x5C2000,,app/client/ui_mfdm.cpp,app,partial,,12,frame,view plane orders; extent as Vector3 / Vector2 / floats,,claude-opus-5-5
+2026-11-06 14:30,0x5C2000,,app/client/ui_mfdm.cpp,app,exact,,13,,Size is a Vector2 member; the bounding box copied to a local AABoxClass,,claude-opus-5-5
