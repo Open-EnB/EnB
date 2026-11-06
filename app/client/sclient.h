@@ -166,6 +166,7 @@ class ViewUnknown34Class : public InterfaceClass	// NAME 1: neutral (D10)
 public:
 	ViewUnknown34Class(UIViewClass *view, const LayerClass &layer);	// 0x5875C0 (0x1F8 bytes; UIViewClass's Init 0x65A820 makes it over a layer of its +0x1C scene and +0x20 camera)  // NAME 1 [view, layer]: what 0x65A820 passes
 	virtual ~ViewUnknown34Class();						// 0x587A10 (deleting 0x587900)
+	bool Unknown_5898F0(float x, float y);				// 0x5898F0 (gd_text_editor.cpp's 0x6735A0: the point on one of its gadgets)  // NAME 1 [x, y]: slot +0x30's
 	void Unknown_588870();								// 0x588870 (UIViewClass's +0x14 0x65B470: the HTML box's browser)
 	void Unknown_588A70(const char *type, bool follow_mouse, const char *text, int width, bool hide_on_key, bool flush);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, follow_mouse, text, width, hide_on_key, flush]: what the function does with them
 	bool Is_HTML() { return stricmp(Type, "HTML") == 0; }	// (LoginTaskClass::Run: inline, the client computes the name in eax)  // NAME 1: what it tests
@@ -1142,7 +1143,7 @@ public:
 	UIViewClass *CurrentView;								// +0x1350 (0x7429B0's FAIL_IF '!CurrentView')
 	MainViewClass *MainView;							// +0x1354 Init  // NAME 3: its file's
 	UIViewClass *Unknown1358;								// +0x1358 Init (0x514CC0, 0x50 bytes)
-	UIViewClass *Unknown135C;								// +0x135C
+	UIViewClass *Get_Unknown135C() { return(Unknown135C); } UIViewClass *Get_MainView() { return((UIViewClass *)MainView); } UIViewClass *Unknown135C;								// +0x135C
 	Movie3DViewClass *Movie3DView;						// +0x1360 view mode 3 (the client's G_ASSERT names, ll.4090 / 4104)
 	ScriptedMovieViewClass *ScriptedMovieView;			// +0x1364 view mode 6 (the client's G_ASSERT names, ll.4117 / 4127)
 	LoadingViewClass *LoadingView;						// +0x1368 Init  // NAME 3: its file's

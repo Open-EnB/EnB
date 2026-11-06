@@ -30,12 +30,15 @@ public:
 	bool Split(const char *text, float width, int cursor);						// 0x4F9D90: false when one word is wider than width  // NAME 2: what it does
 	unsigned int Count();														// 0x4FA710: the number of lines  // NAME 2: what it returns
 	const char *Get(unsigned int index);										// 0x4FA740: one line, NULL past the end  // NAME 2: what it returns
+	void Set_Escaped_New_Lines(bool on) { EscapedNewLines = on; }			// (inline: gd_text_editor.cpp 0x671790)  // NAME 1 [Set_Escaped_New_Lines, on]: the member it sets
+	void Set_Trim_Last(bool on) { TrimLast = on; }							// (inline: gd_text_editor.cpp 0x671790)  // NAME 1 [Set_Trim_Last, on]: the member it sets
+	void Set_Trim_Lines(bool on) { TrimLines = on; }						// (inline: gd_text_editor.cpp 0x671790)  // NAME 1 [Set_Trim_Lines, on]: the member it sets
 	int Get_New_Lines() { return(NewLines); }								// (inline: tooltip.cpp's 0x6ABC60 reads +0x20)  // NAME 1 [Get_New_Lines]: the member it returns
 
 	virtual float Get_Text_Width(const char *buff);								// slot +0x04, 0x4FA790: strlen  // NAME 2: what Split measures a line with
 	virtual float Get_Char_Width(char c);										// slot +0x08, 0x4FA800: 1 or 0  // NAME 2: what Split measures a character with
 
-protected:
+public:
 	std::vector<std::string> Lines;												// +0x04  // NAME 2: what it holds
 	float Width;																// +0x14: the widest line, -1 when Split fails  // NAME 2: what it holds
 	int CursorLine;																// +0x18: the line of Split's cursor offset  // NAME 2: what it holds

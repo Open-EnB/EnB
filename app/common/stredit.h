@@ -22,6 +22,9 @@
 
 struct KernelEventClass;
 
+// std::string, declared only: <string> would change the code of the files that include this one (stredit.cpp, textgadg.cpp)
+namespace std { template<class _E> struct char_traits; template<class _Ty> class allocator; template<class _E, class _Tr, class _A> class basic_string; }
+
 class StrEditClass  // NAME 3: class-from-file (D24) for app\common\stredit.cpp
 {
 public:
@@ -31,6 +34,13 @@ public:
 	bool Insert(const char *text);										// 0x84B020 (G_ASSERT 'StrLen == (int)strlen(String)': at the cursor)  // NAME 2: what it does
 	char *Get_String(int length = -1, char *buffer = NULL);				// 0x84B1B0 (-1: StrLen + 1; no buffer: a new one the caller deletes)  // NAME 2: what it does; NAME 1 [length, buffer]: neutral
 
+	void Set_String(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &text);							// 0x84B200 (Clear, then Insert of the text)  // NAME 2: what it does; NAME 1 [text]: neutral
+	void Insert_String(const std::basic_string<char, std::char_traits<char>, std::allocator<char> > &text);						// 0x84B270 (Insert with InsertMode on)  // NAME 2: what it does; NAME 1 [text]: neutral
+	bool Set_Cursor(unsigned int position);								// 0x84B2B0 (true when it moved)  // NAME 2: what it does; NAME 1 [position]: neutral
+	bool Move_Cursor(int delta);										// 0x84B2F0 (true when it moved)  // NAME 2: what it does; NAME 1 [delta]: neutral
+
+	int Get_Max_Len() { return(MaxLen); }								// (inline: gd_text_editor.cpp 0x6730B0)  // NAME 1 [Get_Max_Len]: the member it returns
+	bool Get_Insert_Mode() { return(InsertMode); }						// (inline: gd_text_editor.cpp 0x672B00)  // NAME 1 [Get_Insert_Mode]: the member it returns
 	int Get_Length() { return(strlen(String)); }						// (inline: textgadg.cpp 0x6AA690 / 0x6AA6C0)  // NAME 2: what it does
 	void Clear() { memset(String, 0, MaxLen); Cursor = String; StrLen = 0; }	// (inline: textgadg.cpp 0x6AA570)  // NAME 2: what it does
 

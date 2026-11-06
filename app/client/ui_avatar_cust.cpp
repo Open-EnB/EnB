@@ -105,10 +105,10 @@ public:
 };
 
 // The pulls' gadget (0x80 bytes, constructor 0x671300), as ui_avatr.cpp's UIAvatrGadget671300Class
-class UIAvatarCustGadget671300Class : public GadgetClass	// NAME 1: neutral (D10)
+class Unknown_671300Class : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIAvatarCustGadget671300Class(RenderObjClass *area, int a, const LayerClass &layer, int b, int c, int d);	// 0x671300 (0x54D8A0: the palette, 0, the window's layer +0xAC, 0, 0, 0)  // NAME 1 [area, a, layer, b, c, d]: neutral
+	Unknown_671300Class(RenderObjClass *area, int a, const LayerClass &layer, int b, int c, int d);	// 0x671300 (0x54D8A0: the palette, 0, the window's layer +0xAC, 0, 0, 0)  // NAME 1 [area, a, layer, b, c, d]: neutral
 	void Unknown_671630();								// 0x671630 (the buttons' flags off, as ui_avatr.cpp's)
 	char Unknown34[0x64 - 0x34];						// +0x34
 	bool Unknown64;										// +0x64 (the left button held, as ui_avatr.cpp's)
@@ -616,7 +616,7 @@ void StarbaseAvatarCreationInterface::Unknown_54D8A0()
 	Unknown31C = new UIAvatarCustGadgetHolderStruct;
 	RenderObjClass *palette = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("COLOR_PALETTE");
 	Unknown_496AE0(palette, 0);
-	Unknown31C->Unknown00 = new UIAvatarCustGadget671300Class(palette, 0, *Unknown0AC, 0, 0, 0);
+	Unknown31C->Unknown00 = new Unknown_671300Class(palette, 0, *Unknown0AC, 0, 0, 0);
 	Unknown31C->Unknown00->Unknown2C400 = true;
 	Unknown31C->Unknown_5859A0();
 	palette->Release_Ref();
@@ -632,7 +632,7 @@ void StarbaseAvatarCreationInterface::Unknown_54DA50()
 	Unknown308 = new UIAvatarCustGadgetHolderStruct;
 	RefCountPtr<RenderObjClass> area = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("HEAD_AREA"));
 	Unknown_496AE0(area.Peek(), 0);
-	Unknown308->Unknown00 = new UIAvatarCustGadget671300Class(area.Peek(), 0, *Unknown0AC, 0, 0, 0);
+	Unknown308->Unknown00 = new Unknown_671300Class(area.Peek(), 0, *Unknown0AC, 0, 0, 0);
 	Unknown308->Unknown00->Unknown2C400 = true;
 	Unknown308->Unknown_5859A0();
 	Unknown308->Unknown04 = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("HEAD_PULL");
@@ -964,10 +964,10 @@ void StarbaseAvatarCreationInterface::Unknown_54F2B0()
 void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
 {
 	UIAvatarCustGadgetHolderStruct *pull = Unknown308;
-	if (((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown64) {
+	if (((Unknown_671300Class *)pull->Unknown00)->Unknown64) {
 		pull->Unknown08 = true;
 	}
-	if ((((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown64 || ((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown65) && pull->Unknown08) {
+	if ((((Unknown_671300Class *)pull->Unknown00)->Unknown64 || ((Unknown_671300Class *)pull->Unknown00)->Unknown65) && pull->Unknown08) {
 		AABoxClass box;
 		pull->Unknown00->Unknown_64(box);
 		float x;
@@ -998,7 +998,7 @@ void StarbaseAvatarCreationInterface::Unknown_54F390(int arg)
 	} else {
 		pull->Unknown08 = false;
 	}
-	((UIAvatarCustGadget671300Class *)pull->Unknown00)->Unknown_671630();
+	((Unknown_671300Class *)pull->Unknown00)->Unknown_671630();
 }
 
 // A Vector2 point set member by member, tm[2][3] = 0, the edges declared up front, the tattoo offset built from the
@@ -1048,10 +1048,10 @@ void StarbaseAvatarCreationInterface::Unknown_54F6F0(int unused, bool random, fl
 // 0x54FAA0
 void StarbaseAvatarCreationInterface::Unknown_54FAA0()
 {
-	if (((UIAvatarCustGadget671300Class *)Unknown31C->Unknown00)->Unknown64) {
+	if (((Unknown_671300Class *)Unknown31C->Unknown00)->Unknown64) {
 		Unknown31C->Unknown08 = true;
 	}
-	if ((((UIAvatarCustGadget671300Class *)Unknown31C->Unknown00)->Unknown64 || ((UIAvatarCustGadget671300Class *)Unknown31C->Unknown00)->Unknown65) && Unknown31C->Unknown08) {
+	if ((((Unknown_671300Class *)Unknown31C->Unknown00)->Unknown64 || ((Unknown_671300Class *)Unknown31C->Unknown00)->Unknown65) && Unknown31C->Unknown08) {
 		AABoxClass box;
 		Unknown31C->Unknown00->Unknown_64(box);
 		float x;
@@ -1125,7 +1125,7 @@ void StarbaseAvatarCreationInterface::Unknown_54FAA0()
 	} else {
 		Unknown31C->Unknown08 = false;
 	}
-	((UIAvatarCustGadget671300Class *)Unknown31C->Unknown00)->Unknown_671630();
+	((Unknown_671300Class *)Unknown31C->Unknown00)->Unknown_671630();
 }
 
 // The translations through Set_X / Set_Y_Translation with the products parenthesised (either alone leaves

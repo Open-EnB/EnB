@@ -85,28 +85,28 @@ typedef SignalBaseClass::MemberCallback<GadgetClass, ShipCustomizeInterface, voi
 // The colour palette's pull gadget (0x80 bytes, constructor 0x671300) and the palette with its pull (0x10 bytes,
 // constructor 0x585920), as unknown_585920.cpp declares them (ui_avatr.cpp's names)
 class UIMeshClass;
-class UIAvatrUnknown4A1240Class;
-class UIAvatrGadget671300Class : public ButtonGadgetClass	// NAME 1: neutral (D10), as ui_avatr.cpp's
-{
-public:
-	UIAvatrGadget671300Class(RenderObjClass *area, int a, UIMeshClass *mesh, int b, int c, int d);	// 0x671300 (mesh: the window's layer)  // NAME 1 [area, a, mesh, b, c, d]: as ui_avatr.cpp's
-	virtual ~UIAvatrGadget671300Class();				// +0x00 0x6714F0 (deleting 0x6713E0)
-	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x671570 (the drag)  // NAME 1 [event, x, y, mask]: gadget.h's
-	virtual void Unknown_A4();							// +0xA4 0x671650
-	virtual void Unknown_A8();							// +0xA8 0x671670
-	virtual void Unknown_AC();							// +0xAC 0x6716B0
-	void Unknown_671630();								// 0x671630 (the frame's end: the drag's flags cleared; unknown_585920.cpp)
+#include "unknown_671300.h"
 
-	bool Unknown64;										// +0x64 (pressed)
-	bool Unknown65;										// +0x65 (held)
-	bool Unknown66;										// +0x66
-	UIAvatrUnknown4A1240Class *Unknown68;				// +0x68
-	int Unknown6C;										// +0x6C
-	int Unknown70;										// +0x70
-	bool Unknown74;										// +0x74
-	int Unknown78;										// +0x78 (the constructor's b)
-	int Unknown7C;										// +0x7C (the constructor's c)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class UIAvatrPullClass	// NAME 1: neutral (D10), as ui_avatr.cpp's
 {
 public:
@@ -114,7 +114,7 @@ public:
 	~UIAvatrPullClass();								// 0x585950
 	void Unknown_5859A0();								// 0x5859A0 (the pull model onto the gadget's box centre)
 
-	UIAvatrGadget671300Class *Gadget;					// +0x00  // NAME 1: neutral (D10)
+	Unknown_671300Class *Gadget;					// +0x00  // NAME 1: neutral (D10)
 	RenderObjClass *Pull;								// +0x04 ('PULL_COLOR')  // NAME 2: what ui_avatr.cpp's 0x556290 puts there
 	bool Unknown08;										// +0x08 (dragging)
 	float Unknown0C;									// +0x0C (0.5)
@@ -1599,7 +1599,7 @@ void ShipCustomizeInterface::Unknown_625440()
 	}
 	G_ASSERT(ColorSliderTexture);/*@L1600*/
 	Unknown_495FD0(palette, ColorSliderTexture.Peek(), 0);
-	Unknown24C->Gadget = new UIAvatrGadget671300Class(palette, 0, (UIMeshClass *)Layer, 0, 0, 0);
+	Unknown24C->Gadget = new Unknown_671300Class(palette, 0, *Layer, 0, 0, 0);
 	Unknown24C->Gadget->Unknown2C_0A = 1;
 	Unknown24C->Unknown_5859A0();
 	palette->Release_Ref();

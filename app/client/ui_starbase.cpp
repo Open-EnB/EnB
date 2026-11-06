@@ -103,10 +103,10 @@ void UIStarbaseClass::Unknown_640F30(int index, float range)
 #pragma auto_inline(on)
 
 // The colour pad's gadget (0x80 bytes, constructor 0x671300), as ui_avatar_cust.cpp's UIAvatarCustGadget671300Class
-class UIStarbaseLightsGadget671300Class : public GadgetClass	// NAME 1: neutral (D10)
+class Unknown_671300Class : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIStarbaseLightsGadget671300Class(RenderObjClass *area, int a, int b, int c, int d);	// 0x671410 (0x646360: the palette, 0, 0, 0, 0)  // NAME 1 [area, a, b, c, d]: neutral
+	Unknown_671300Class(RenderObjClass *area, int a, int b, int c, int d);	// 0x671410 (0x646360: the palette, 0, 0, 0, 0)  // NAME 1 [area, a, b, c, d]: neutral
 	virtual bool Unknown_30(float x, float y);			// +0x30 (GadgetClass's pure slot: the pad's own)  // NAME 1 [x, y]: GadgetClass's
 	void Unknown_671630();								// 0x671630 (the buttons' flags off)
 	char Unknown30[0x64 - 0x30];						// +0x30
@@ -241,7 +241,7 @@ void UIStarbaseLightsClass::Unknown_54()
 		UnknownD8 = new UIStarbaseLightsGadgetHolderStruct;
 		RefCountPtr<RenderObjClass> palette = Create_Get(Unknown84->Get_Sub_Object_By_Name("COLOR_PALETTE"));
 		Unknown_496AE0(palette.Peek(), false);
-		UnknownD8->Unknown00 = new UIStarbaseLightsGadget671300Class(palette.Peek(), 0, 0, 0, 0);
+		UnknownD8->Unknown00 = new Unknown_671300Class(palette.Peek(), 0, 0, 0, 0);
 		UnknownD8->Unknown00->Unknown2C_0A = true;
 		UnknownD8->Unknown04 = Unknown84->Get_Sub_Object_By_Name("PULL_COLOR");
 		Unknown_496AE0(UnknownD8->Unknown04, true);
@@ -485,10 +485,10 @@ void UIStarbaseLightsClass::Unknown_6474C0(int index)
 // 0x647B30
 void UIStarbaseLightsClass::Unknown_647B30()
 {
-	if (((UIStarbaseLightsGadget671300Class *)UnknownD8->Unknown00)->Unknown64) {
+	if (((Unknown_671300Class *)UnknownD8->Unknown00)->Unknown64) {
 		UnknownD8->Unknown08 = true;
 	}
-	if ((((UIStarbaseLightsGadget671300Class *)UnknownD8->Unknown00)->Unknown64 || ((UIStarbaseLightsGadget671300Class *)UnknownD8->Unknown00)->Unknown65) && UnknownD8->Unknown08) {
+	if ((((Unknown_671300Class *)UnknownD8->Unknown00)->Unknown64 || ((Unknown_671300Class *)UnknownD8->Unknown00)->Unknown65) && UnknownD8->Unknown08) {
 		AABoxClass box;
 		UnknownD8->Unknown00->Unknown_64(box);
 		float x;
@@ -524,7 +524,7 @@ void UIStarbaseLightsClass::Unknown_647B30()
 	} else {
 		UnknownD8->Unknown08 = false;
 	}
-	((UIStarbaseLightsGadget671300Class *)UnknownD8->Unknown00)->Unknown_671630();
+	((Unknown_671300Class *)UnknownD8->Unknown00)->Unknown_671630();
 }
 
 // 0x647F30
