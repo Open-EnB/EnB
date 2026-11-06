@@ -13,17 +13,29 @@
 #include "chat_window_history.h"
 #include "fontmanager.h"
 #include "font32bit.h"
+#include "gd_slider.h"
 #include <vector>
 #include <string>
 
 class ChatFontSys : public FontSys  // NAME 2: a FontSys (0x4EC bytes, vtable 0xAFBF28) holding a chat line
 {
 public:
-	ChatFontSys(const char *name) : FontSys(name, 0, "") {}
+	ChatFontSys(const char *name) : FontSys(name, 0, "") { Set_Sort_Level(10); }
 
 	void Set_Line(const RefCountPtr<ChatLineClass> &line)  // NAME 2: what it does
 	{
 		if (Line.Peek()) {
+			Line = line;
+			if (Line.Peek()) {
+				Line->Set_Flag_1();
+			}
+			Remove();
+		}
+	}
+
+	void Set_Line_Always(const RefCountPtr<ChatLineClass> &line)  // NAME 2: Set_Line without its test: 0x67E250 compares first
+	{
+		if (line.Peek() != Line.Peek()) {
 			Line = line;
 			if (Line.Peek()) {
 				Line->Set_Flag_1();
@@ -38,16 +50,22 @@ public:
 class ChatWindowClass : public ChatWindowHistoryClass  // NAME 3: the file's name, the assert 'window->ChatWindow'
 {
 public:
-	ChatWindowClass(void *owner, int unknown, int index);  // 0x67DC80 (ui_chat_window.cpp's 0x56FD30)  // NAME 1 [owner, unknown, index]: neutral (D10)
+	ChatWindowClass(GadgetSlider *owner, int unknown, int index);  // 0x67DC80 (ui_chat_window.cpp's 0x56FD30)  // NAME 1 [owner, unknown, index]: neutral (D10)
 	virtual ~ChatWindowClass();  // 0x67DF50 (deleting 0x67DF20)
 
 	virtual bool Unknown_04(unsigned int max_lines, unsigned int width);  // +0x04 0x67E620
-	virtual void Unknown_08();  // +0x08 0x67E250
-	virtual void Unknown_0C();  // +0x0C 0x67E220
-	virtual void Unknown_10();  // +0x10 0x67E480
-	virtual void Unknown_14();  // +0x14 0x67E4C0
+	virtual int Unknown_08(int unknown1, int unknown2);  // +0x08 0x67E250  // NAME 1 [unknown1, unknown2]: neutral (D10)
+	virtual void Unknown_0C(int unknown1, int unknown2);  // +0x0C 0x67E220  // NAME 1 [unknown1, unknown2]: neutral (D10)
+	virtual int Unknown_10(int unknown);  // +0x10 0x67E480  // NAME 1 [unknown]: neutral (D10)
+	virtual bool Unknown_14(const char *command);  // +0x14 0x67E4C0: '/chat render', '/chat extra', '/chat build'  // NAME 2 [command]: its strings
 
 	void Unknown_67E670();  // 0x67E670  // NAME 1: neutral (D10)
+	void Unknown_67E180(const RefCountPtr<ChatLineClass> &line);  // 0x67E180 (FAIL_IF l.147)  // NAME 1 [Unknown_67E180, line]: neutral (D10)
+	bool Unknown_67F7F0(unsigned int max_lines);  // 0x67F7F0  // NAME 1 [max_lines]: neutral (D10)
+	void Unknown_67FC60();  // 0x67FC60  // NAME 1: neutral (D10)
+	void Unknown_680790();  // 0x680790  // NAME 1: neutral (D10)
+	void Unknown_6809B0();  // 0x6809B0  // NAME 1: neutral (D10)
+	const RefCountPtr<ChatFontSys> &Get_Font(unsigned int index);  // 0x6808D0 (FAIL_IF '!size' l.598)  // NAME 2 [Get_Font, index]: what it does
 	void Clear_Fonts();  // 0x67F680  // NAME 2: what it does (FAIL_IF '!font_ptr' l.293)
 
 	RefCountPtr<ChatLineClass> Unknown60;  // +0x60  // NAME 1: neutral (D10)
@@ -55,7 +73,7 @@ public:
 	int Unknown68;  // +0x68  // NAME 1: neutral (D10)
 	int Unknown6C;  // +0x6C  // NAME 1: neutral (D10)
 	int Unknown70;  // +0x70  // NAME 1: neutral (D10)
-	void *Unknown74;  // +0x74: the constructor's owner  // NAME 1: neutral (D10)
+	GadgetSlider *Unknown74;  // +0x74: the constructor's owner  // NAME 1: neutral (D10)
 	int Unknown78;  // +0x78  // NAME 1: neutral (D10)
 	std::vector< RefCountPtr<ChatFontSys> > Fonts;  // +0x7C  // NAME 3: the asserts' font_ptr
 	RefCountPtr<Font32Class> Font;  // +0x8C  // NAME 2: its class

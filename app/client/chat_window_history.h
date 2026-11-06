@@ -22,6 +22,7 @@ class ChatLineClass : public RefCountClass  // NAME 3: the asserts' chat_line
 public:
 	virtual ~ChatLineClass();
 public:
+	bool Is_Null() const { return (Flags & 0x10) != 0; }  // the asserts' Is_Null (bit 4)
 	void Set_Flag_1() { Flags |= 1; }  // NAME 1: neutral (D10)
 	int Unknown08;  // +0x08  // NAME 1: neutral (D10)
 	std::string Text;  // +0x0C  // NAME 2: a string, the line's own
@@ -38,13 +39,16 @@ public:
 	virtual ~ChatWindowHistoryClass();  // 0x681640 (deleting 0x681610)
 
 	virtual bool Unknown_04(unsigned int max_lines, unsigned int width);  // +0x04 0x6817E0  // NAME 1 [Unknown_04, max_lines, width]: neutral (D10)
-	virtual void Unknown_08();  // +0x08 0x6821F0  // NAME 1: neutral (D10)
-	virtual void Unknown_0C();  // +0x0C 0x6821C0  // NAME 1: neutral (D10)
-	virtual void Unknown_10();  // +0x10 0x682080  // NAME 1: neutral (D10)
-	virtual void Unknown_14();  // +0x14 0x6828D0  // NAME 1: neutral (D10)
+	virtual int Unknown_08(int unknown1, int unknown2);  // +0x08 0x6821F0  // NAME 1: neutral (D10)
+	virtual void Unknown_0C(int unknown1, int unknown2);  // +0x0C 0x6821C0  // NAME 1: neutral (D10)
+	virtual int Unknown_10(int unknown);  // +0x10 0x682080  // NAME 1: neutral (D10)
+	virtual bool Unknown_14(const char *command);  // +0x14 0x6828D0  // NAME 1: neutral (D10)
 
 	void Set_Font(const RefCountPtr<Font32Class> &font);  // 0x6817A0  // NAME 2: calls the splitter's Set_Font
 
+	const RefCountPtr<ChatLineClass> &Unknown_682730(unsigned int index);  // 0x682730  // NAME 1 [index]: neutral (D10)
+	const RefCountPtr<ChatLineClass> &Unknown_682770(unsigned int index);  // 0x682770 (lines 412, 418)  // NAME 1 [index]: neutral (D10)
+	int Unknown_682840();  // 0x682840  // NAME 1: neutral (D10)
 	void Unknown_681DB0();  // 0x681DB0  // NAME 1: neutral (D10)
 	void Unknown_6818C0();  // 0x6818C0  // NAME 1: neutral (D10)
 
