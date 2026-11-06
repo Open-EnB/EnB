@@ -4720,6 +4720,8 @@ RECONSTRUCTED = {
     ('app', 'client/slot_data_render.h'): "SlotDataRenderClass as far as skill_render.cpp needs it (D24 header name from slot_data_render.cpp's __FILE__ 0xB91684; table 0xAFD810) (SK1)",
     ('app', 'client/skill_render.h'): "SkillRenderClass's declaration (D24 header name from skill_render.cpp's __FILE__ 0xB91528; table 0xAFD664, 0x5C bytes) (SK1)",
     ('app', 'client/skill_render.cpp'): "SkillRenderClass (D24 class-from-file), what draws a skill's slot (the client's __FILE__ 0xB91528, asserts on lines 114-442; object 0x6A5EA0-0x6A7410 between <string>'s initialisers 0x6A5E00 and 0x6A73F0) (SK1)",
+    ('app', 'client/target_find.h'): "TargetFindClass's declaration (D24 header name from target_find.cpp's __FILE__; table 0xB07008, 0x0C bytes) (TF1)",
+    ('app', 'client/target_find.cpp'): "TargetFindClass (D24 class-from-file), the cycling target finder (the client's __FILE__ 0xB9F7D4, FAIL_IFs at lines 181-249; client 0x7C3EC0-0x7C50FB) (TF1)",
     ('app', 'client/map_pip.h'): "MapPipClass's declaration (D24 header name from map_pip.cpp's __FILE__; table 0xAFD078, 0x50 bytes), with pip_scene.cpp's base (GP1, MP1)",
     ('app', 'client/map_pip.cpp'): "MapPipClass (D24 class-from-file), the map picture-in-picture views' base (the client's __FILE__ 0xB909E0; client 0x6927C0-0x693020) (MP1)",
     ('app', 'client/galaxy_map_pip.h'): "GalaxyMapPipClass's declaration (D24 header name from galaxy_map_pip.cpp's __FILE__; table 0xAEEE94, 0x11C bytes), with galaxy_map_render.cpp's and galaxy_map_focal_point.cpp's classes as far as it calls them (GP1)",

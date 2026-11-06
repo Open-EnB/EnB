@@ -23,7 +23,9 @@ class RadarDataClass : public ClientObjectDataClass  // NAME 5: the client's typ
 public:
 	RadarDataClass(ClientObjectClass *co);			// 0x7BB1D0 (radar_data.cpp)
 
-	char Unknown08[0x7C - 0x08];		// +0x08: not rebuilt (0x7c bytes: co_data.cpp's new)
+	char Unknown08[0x78 - 0x08];		// +0x08: not rebuilt (0x7c bytes: co_data.cpp's new)
+	bool Unknown78;						// +0x78 (0x7C4940 tests it)
+	char Unknown79[0x7C - 0x79];		// +0x79
 };
 
 #endif //__RADAR_DATA_H

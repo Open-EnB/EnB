@@ -722,7 +722,7 @@ void UIGroupClass::Unknown_60()
 
 
 
-class UIGroupTargetingClass { public: void Unknown_7C43A0(int index); };	// NAME 1: neutral (D10): SClient +0x12A4 (ui_starmap.cpp's, the FAIL_IF's '!targeting'), as far as 0x5946D0 calls it
+#include "target_find.h"	// (0x7C43A0; SClient +0x12A4 derives from it: constructor 0x7C6120)
 extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (as sclient.cpp declares it; 0x5946D0 tests 0x50)
 
 
@@ -744,12 +744,12 @@ bool UIGroupClass::Unknown_68(int key)
 		case 15:
 			key -= 11;
 			if (Members[key]) {
-				UIGroupTargetingClass *targeting = (UIGroupTargetingClass *)sclient->Targeting;
+				TargetFindClass *targeting = (TargetFindClass *)sclient->Targeting;
 
 
 
 				FAIL_IF(!targeting) return(false);
-				targeting->Unknown_7C43A0(key);
+				targeting->Select_Group_Member(key);
 				Unknown0E8->Unknown_593180(Members[key]->Unknown18);
 			}
 			break;
