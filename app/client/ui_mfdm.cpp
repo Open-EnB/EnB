@@ -251,7 +251,7 @@ Unknown5C2CD0Class::Unknown5C2CD0Class(UIMFDClass *owner) :
 	Carrier(NULL)
 {
 	UnknownBool = false;
-	Carrier = new Unknown47FA70Class(true);
+	Carrier = new ProxyRObj(true);
 }
 
 // 0x5C2DC0
@@ -263,7 +263,7 @@ Unknown5C2CD0Class::~Unknown5C2CD0Class()
 // 0x5C2E40
 RenderObjClass *Unknown5C2CD0Class::Get_RObj()
 {
-	return((Carrier->Model != NULL) ? Carrier : NULL);
+	return((Carrier->Proxied != NULL) ? Carrier : NULL);
 }
 
 // 0x5C2E60
@@ -336,7 +336,7 @@ void Unknown5C2CD0Class::Unknown_10()
 {
 	ClientObjectClass *object = Owner->Unknown_5BD520();
 	if (object != NULL) {
-		if (Carrier->Model != object->RenderObject) {
+		if (Carrier->Proxied != object->RenderObject) {
 			Unknown_0C();
 			Unknown_08();
 		}
@@ -346,7 +346,7 @@ void Unknown5C2CD0Class::Unknown_10()
 			source = object;
 		}
 		Transform = source->Unknown_28(true);
-	} else if (Carrier->Model != NULL) {
+	} else if (Carrier->Proxied != NULL) {
 		Unknown_0C();
 		Unknown_08();
 	}

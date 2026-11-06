@@ -14,7 +14,7 @@ class LightClass;
 class TextureClass;
 class FontSys;
 class RenderObjClass;
-class Unknown47FA70Class;
+class ProxyRObj;
 class UIMFDExtendedContextClass;
 
 // An item that shows a 3-D object in its own scene on the 'scanner_click' viewport (0x54 bytes before its subclass's
@@ -52,7 +52,7 @@ public:
 	virtual int Unknown_1C() { return((int)this); }		// 0x5C2D70
 	virtual RenderObjClass *Get_RObj();					// 0x5C2E40
 
-	Unknown47FA70Class *Carrier;						// +0x54  // NAME 2: what it holds
+	ProxyRObj *Carrier;						// +0x54  // NAME 2: what it holds
 };
 
 // 0x5BE570's item: the object rendered once into the viewport's texture (0xC bytes; constructor 0x5C3030, vtable 0xAF3B3C)

@@ -23,6 +23,7 @@
 #include "vector2.h"
 #include "vector3.h"
 #include "..\..\ww3d2\rendobj.h"
+#include "..\shared\ro_proxy.h"
 
 class SClient;
 class UIViewClass;
@@ -30,20 +31,6 @@ class CameraClass;
 class SimpleSceneClass;
 class LightClass;
 class CharacterViewAvatarClass;
-
-// The 0xC4-byte render object that carries the PIP's model (constructor 0x47FA70, table 0xAE9D88; the
-// file is not known), as far as this file calls it
-class Unknown47FA70Class : public RenderObjClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown47FA70Class(bool arg);						// 0x47FA70 (+0xC1; the PIP passes false)  // NAME 1 [arg]: neutral
-	virtual RenderObjClass *Clone(void) const;
-	virtual void Render(RenderInfoClass &rinfo);
-	bool Unknown_47FF70(RenderObjClass *obj);			// 0x47FF70 (the model at +0x8C, referenced; false when it is already there)  // NAME 1 [obj]: what it holds
-
-	RenderObjClass *Model;								// +0x8C (0x47FF70)  // NAME 2: what it holds
-	char Unknown_Pad90[0xC4 - 0x90];
-};
 
 class AvatarPipClass  // NAME 3: class-from-file (D24) for app\client\avatar_pip.cpp
 {
@@ -69,7 +56,7 @@ public:
 	RefCountPtr<LightClass> Unknown028;					// +0x28 the point light (the constructor's)
 	RefCountPtr<CharacterViewAvatarClass> Unknown02C;	// +0x2C the avatar (0x7E43E0; ui_chat_panel.cpp tests its +0x204)
 	RefCountPtr<RenderObjClass> Unknown030;				// +0x30 the model (0x7E4520)
-	RefCountPtr<Unknown47FA70Class> Unknown034;			// +0x34 the model's carrier (the constructor's)
+	RefCountPtr<ProxyRObj> Unknown034;			// +0x34 the model's carrier (the constructor's)
 	bool Unknown038;									// +0x38 (0x7E36B0's arg; 0x7E3A20 hands it to 0x786410)
 };
 

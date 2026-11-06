@@ -3898,6 +3898,8 @@ RECONSTRUCTED = {
                                         "0x45E3F0-0x45E536 (PROVISIONAL file name D10, interim placement D137: no __FILE__, after "
                                         "rs_proj_sup.cpp's inline copies, before rs_robj.cpp; builder RPS, run PR #144): the "
                                         "uncalled constructor 0x45E3F0, destructor 0x45E4A0 (deleting 0x45E470), Get_Name 0x45E530; exact",
+    ('app', 'shared/ro_proxy.cpp'): "ProxyRObj (the client's profile name 'ProxyRObj::Render' 0xB71B34), a render object that forwards to the one it proxies, client 0x47FA70-0x480AEF (__FILE__ 0xB71AEC, line 56; table 0xAE9D88) (RP1)",
+    ('app', 'shared/ro_proxy.h'): "ProxyRObj's declaration (replaces avatar_pip.h's Unknown47FA70Class; the header's name follows ro_offset.h's, NAME 1) (RP1)",
     ('app', 'shared/rs_robj.cpp'): "rs_robj.cpp, client 0x45E550-0x45F343 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_robj.cpp "
                                  "in its asserts, lines 92-416, D25; builder RS, run PR #144): the render-object state "
                                  "Unknown45E850Class (vtable 0xAE8138): the mesh marker 0x45E550, constructors 0x45E5F0 / "
