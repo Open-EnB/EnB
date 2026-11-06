@@ -217,7 +217,7 @@ void UIPlayerOptClass::Unknown_5D9C70()
 	Unknown0C0.clear();
 }
 
-// NOT EXACT: inline budget (the client calls the vector's erase out of line, keeps the list iterator in a stack slot and rotates the loop)
+// NOT EXACT: inline budget (0.63: the client keeps the inner name copy's destructor inline at the loop's end and calls it only on the break, ours merges both into one call; the two string copies' stack slots are swapped)
 // 0x5D9D10
 void UIPlayerOptClass::Unknown_5D9D10()
 {
@@ -494,4 +494,10 @@ ClientObjectClass *UIPlayerOptClass::Unknown_5DAD50()
 **	window follows at 0x5DAE90. The window is ui_friends.cpp's twin: the same slider, rows and request packets over
 **	a list of names (requests 0x17, 10, 11); its text entry is ui_ptrade.cpp's credits entry (0x649890) asking
 **	'Ignore Player'. Compiler-generated: 0x5D8E60 (deleting destructor), 0x5DADC0, 0x5DAE40, 0x5DAE70, 0x5DAE80.
+**
+**	Every function is byte-exact but 0x5D9D10 (attempts.csv). The levers: the lists emptied with clear() in
+**	0x5D9BB0 / 0x5D9C70 (an extra inline level: the destructor's inlined slot +0x5C then calls the erases out of
+**	line); 0x5DA2B0 written with an early return, which the client never inlines; 0x5D9410 sending through
+**	0x5DA570 and 0x5DAB50 asking 0x5DAD50 (inlined helpers take the budget the client spent there); the model
+**	through Peek_Unknown84() (0x5D9100) and the entry through Peek() / Is_Active() (0x5DA0D0).
 */
