@@ -10263,9 +10263,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42ECF0` | `app/client/ui_playeropt.cpp:250` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/ui_playeropt.cpp:252` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/ui_playeropt.cpp:253` | untagged neutral name (D10) |
-| 1 | `Unknown_64A220` | `app/client/ui_playeropt.cpp:276` | untagged neutral name (D10) |
-| 1 | `Unknown_64A240` | `app/client/ui_playeropt.cpp:279` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ui_playeropt.cpp:282` | untagged neutral name (D10) |
+| 1 | `Unknown_64A220` | `app/client/ui_playeropt.cpp:275` | untagged neutral name (D10) |
+| 1 | `Unknown_64A240` | `app/client/ui_playeropt.cpp:278` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_playeropt.cpp:281` | untagged neutral name (D10) |
 | 1 | `Unknown_5DA570` | `app/client/ui_playeropt.cpp:404` | untagged neutral name (D10) |
 | 1 | `Unknown_5DA600` | `app/client/ui_playeropt.cpp:412` | untagged neutral name (D10) |
 | 1 | `Unknown_5DA780` | `app/client/ui_playeropt.cpp:424` | untagged neutral name (D10) |

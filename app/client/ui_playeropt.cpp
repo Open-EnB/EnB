@@ -268,11 +268,10 @@ void UIPlayerOptClass::Unknown_5DA060(int index)
 	}
 }
 
-// NOT EXACT: register allocation (the client holds this in ebx and 0 in ebp, ours the reverse; as ui_friends.cpp's 0x590E50)
 // 0x5DA0D0
 void UIPlayerOptClass::Unknown_5DA0D0()
 {
-	if (Unknown0AC && Unknown0AC->Active) {
+	if (Unknown0AC.Peek() != NULL && Unknown0AC->Is_Active()) {
 		int state = Unknown0AC->Unknown_64A220();
 		if (state) {
 			int length;
@@ -308,6 +307,7 @@ void UIPlayerOptClass::Unknown_5DA2B0(bool on)
 		Unknown0CC[2]->Unknown_40(false);
 	}
 }
+
 
 
 
