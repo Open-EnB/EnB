@@ -10636,19 +10636,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6280E0` | `app/client/ui_shipcust.cpp:815` | untagged neutral name (D10) |
 | 1 | `Unknown_88` | `app/client/ui_shipcust.cpp:837` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ui_shipcust.cpp:842` | untagged neutral name (D10) |
-| 1 | `Unknown_AF794C` | `app/client/ui_shipcust.cpp:1132` | neutral (D10); three .rdata 1.0f 0xAF794C / 0xAF7950 / 0xAF7954 read only by 0x624270 (fld, fchs for the negatives): named statics, one per axis, as ui_ship_cust.cpp's 0x61A4D0 |
-| 1 | `Unknown_AF7950` | `app/client/ui_shipcust.cpp:1133` | neutral (D10) |
-| 1 | `Unknown_AF7954` | `app/client/ui_shipcust.cpp:1134` | neutral (D10) |
-| 1 | `Set_Float` | `app/client/ui_shipcust.cpp:1135` | neutral (D10) |
-| 1 | `Is_Pressed` | `app/client/ui_shipcust.cpp:1136` | neutral (D10) |
-| 1 | `Unknown_BE5F24` | `app/client/ui_shipcust.cpp:1136` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F28` | `app/client/ui_shipcust.cpp:1136` | untagged neutral name (D10) |
-| 1 | `Copy_Desc` | `app/client/ui_shipcust.cpp:1137` | neutral (D10) |
-| 1 | `Unknown0B8` | `app/client/ui_shipcust.cpp:1145` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_shipcust.cpp:1153` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_shipcust.cpp:1167` | untagged neutral name (D10) |
-| 1 | `Unknown0C4` | `app/client/ui_shipcust.cpp:1175` | untagged neutral name (D10) |
-| 1 | `Unknown0C8` | `app/client/ui_shipcust.cpp:1189` | untagged neutral name (D10) |
+| 1 | `Unknown_AF794C` | `app/client/ui_shipcust.cpp:1141` | neutral (D10); three .rdata 1.0f 0xAF794C / 0xAF7950 / 0xAF7954 read only by 0x624270 (fld, fchs for the negatives): named statics, one per axis, as ui_ship_cust.cpp's 0x61A4D0 |
+| 1 | `Unknown_AF7950` | `app/client/ui_shipcust.cpp:1142` | neutral (D10) |
+| 1 | `Unknown_AF7954` | `app/client/ui_shipcust.cpp:1143` | neutral (D10) |
+| 1 | `Set_Float` | `app/client/ui_shipcust.cpp:1144` | neutral (D10) |
+| 1 | `Is_Pressed` | `app/client/ui_shipcust.cpp:1145` | neutral (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/ui_shipcust.cpp:1145` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/ui_shipcust.cpp:1145` | untagged neutral name (D10) |
+| 1 | `Copy_Desc` | `app/client/ui_shipcust.cpp:1146` | neutral (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_shipcust.cpp:1154` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_shipcust.cpp:1162` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_shipcust.cpp:1176` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_shipcust.cpp:1184` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_shipcust.cpp:1198` | untagged neutral name (D10) |
+| 1 | `Unknown_625930` | `app/client/ui_shipcust.cpp:1209` | untagged neutral name (D10) |
 | 1 | `Unknown_67B2B0` | `app/client/ui_shipcust.cpp:1236` | untagged neutral name (D10) |
 | 1 | `Unknown_6249D0` | `app/client/ui_shipcust.cpp:1237` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/ui_shipcust.cpp:1240` | untagged neutral name (D10) |
@@ -10668,7 +10669,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6259C0` | `app/client/ui_shipcust.cpp:1626` | untagged neutral name (D10) |
 | 1 | `Unknown2C_0B` | `app/client/ui_shipcust.cpp:1631` | untagged neutral name (D10) |
 | 1 | `Unknown_6603A0` | `app/client/ui_shipcust.cpp:1632` | untagged neutral name (D10) |
-| 1 | `Unknown_625930` | `app/client/ui_shipcust.cpp:1639` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_shipcust.cpp:1660` | untagged neutral name (D10) |
 | 1 | `Unknown_67AB20` | `app/client/ui_shipcust.cpp:1702` | untagged neutral name (D10) |
 | 1 | `Unknown_627FA0` | `app/client/ui_shipcust.cpp:1802` | untagged neutral name (D10) |

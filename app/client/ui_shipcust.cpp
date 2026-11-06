@@ -1129,6 +1129,15 @@ bool ShipCustomizeInterface::Unknown_68(int key)
 
 
 
+
+
+
+
+
+
+
+
+
 static const float Unknown_AF794C = 1.0f;	// NAME 1 [Unknown_AF794C]: neutral (D10); three .rdata 1.0f 0xAF794C / 0xAF7950 / 0xAF7954 read only by 0x624270 (fld, fchs for the negatives): named statics, one per axis, as ui_ship_cust.cpp's 0x61A4D0
 static const float Unknown_AF7950 = 1.0f;	// NAME 1 [Unknown_AF7950]: neutral (D10)
 static const float Unknown_AF7954 = 1.0f;	// NAME 1 [Unknown_AF7954]: neutral (D10)
@@ -1197,16 +1206,7 @@ void ShipCustomizeInterface::Unknown_624270()
 	}
 	if (Unknown213) {
 		Unknown213 = false;
-		int id = 0;
-		std::map<int, ShipCustGadgetStruct>::iterator it = Gadgets.begin();
-		while (it != Gadgets.end()) {
-			if (it->second.Group == 0 && it->second.Selected) {
-				id = it->second.Id;
-				break;
-			}
-			it++;
-		}
-		switch (id) {
+		switch (Unknown_625930(0)) {
 			case 1:
 				Unknown_625A60(0);
 				return;
@@ -1249,7 +1249,7 @@ void ShipCustomizeInterface::Unknown_624270()
 		Unknown_6249D0(true);
 		Unknown_6277A0();
 	}
-	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// dead reads (D130; not the client's): with the while loop and the file-static inlines they spend VC6's inline budget as the client does: map::insert out of line at the first four lookups, the step's _Inc 0x6296C0 out of line (9-11 reads; 6-8 leave three lookups deep and call _Min instead)
+	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// dead reads (D130; not the client's): with the while loop and the file-static inlines they spend VC6's inline budget as the client does: map::insert out of line at the first four lookups, the step's _Inc 0x6296C0 out of line with the group-0 lookup through the inlined 0x625930 (its extra inline layer puts _Tree::begin 0x628F00 out of line too); 13-15 reads, 10-12 leave three lookups deep
 
 
 // @0x6249D0
