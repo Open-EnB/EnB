@@ -14,9 +14,28 @@
 #ifndef __EXPR_LEXER_MATCH_LIST_H	// NAME 3 [expr_lexer_match_list.h]: header name assumed from the client's expr_lexer_match_list.cpp
 #define __EXPR_LEXER_MATCH_LIST_H
 
+#include <hash_map.h>
 #include "expr_math_lexer.h"
 
-struct ExprLexerMatchNodeStruct;	// NAME 3 [ExprLexerMatchNodeStruct]: the token tree's node (not rebuilt yet)
+// The token tree's node: 0x1C bytes, a flag and the children by character (an SGI hash_map of 100 buckets).
+struct ExprLexerMatchNodeStruct	// NAME 3 [ExprLexerMatchNodeStruct]
+{
+	ExprLexerMatchNodeStruct() :
+		Terminal(false)
+	{
+	}
+
+	~ExprLexerMatchNodeStruct()		// 0x4C65D0
+	{
+		for (std::hash_map<char, ExprLexerMatchNodeStruct *>::iterator it = Children.begin(); it != Children.end(); ++it) {
+			delete (*it).second;
+		}
+		Children.clear();
+	}
+
+	bool Terminal;														// +0  // NAME 3 [Terminal]: a listed token ends here
+	std::hash_map<char, ExprLexerMatchNodeStruct *> Children;			// +4  // NAME 3 [Children]
+};
 
 // 8 bytes, vtable 0xAEBBD0.
 class ExprLexerMatchListClass : public ExprLexerMatchClass	// NAME 3 [ExprLexerMatchListClass]: class-from-file (D24)
@@ -28,6 +47,7 @@ public:
 	virtual int Match(const char *text);						// 0x4C6530
 
 	void Add(const char *tokens);								// 0x4C6160  // NAME 3 [Add]: the tokens, separated by spaces
+	void Add_Token(const char *token);							// 0x4C62C0  // NAME 3 [Add_Token]: 'token' from the assert
 
 protected:
 	ExprLexerMatchNodeStruct *Begin;							// +4  // NAME 3 [Begin]: from the constructors' asserts

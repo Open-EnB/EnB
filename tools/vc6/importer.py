@@ -4059,7 +4059,10 @@ RECONSTRUCTED = {
     ('app', 'shared/expr/expr_lexer_matchers.cpp'): "the object 0x4C56B0-0x4C592F between expr_lexer_impl.cpp and expr_lexer_match_list.cpp (no __FILE__, "
                                        "interim name and placement D137): the number, name and white-space matchers, all exact (EX3)",
     ('app', 'shared/expr/expr_lexer_matchers.h'): "the number (0xAEBB24), name (0xAEBB3C) and white-space (0xAEC0D4) matchers; interim header (D137), NAME 3 (EX3)",
-    ('app', 'shared/expr/expr_lexer_match_list.h'): "ExprLexerMatchListClass (D24, class-from-file; 8 bytes, vtable 0xAEBBD0: the token tree's Begin); declared only, header name assumed, NAME 3 (EX3)",
+    ('app', 'shared/expr/expr_lexer_match_list.h'): "ExprLexerMatchListClass (D24, class-from-file; 8 bytes, vtable 0xAEBBD0: the token tree's Begin) and the tree's node (a flag and an SGI hash_map<char, node *>); header name assumed, NAME 3 (EX3)",
+    ('app', 'shared/expr/expr_lexer_match_list.cpp'): "expr_lexer_match_list.cpp (the client's __FILE__; G_ASSERT lines 13 22, FAIL_IF 38 67 108), client 0x4C5930-0x4C761F: "
+                                       "ExprLexerMatchListClass's constructors, destructors, Add, Add_Token and Match, the node's destructors and the "
+                                       "hashtable / vector instances, all exact (EX3)",
     ('app', 'shared/expr/expr_math_lexer_factory.cpp'): "expr_math_lexer_factory.cpp (the client's __FILE__; FAIL_IF line 12), client 0x4D0230-0x4D052F: "
                                        "Add_Operators, Create and the white-space matcher's destructors, all exact (EX3)",
     ('app', 'shared/expr/expr_math_lexer_factory.h'): "ExprMathLexerFactoryClass (D24, class-from-file: Create 0x4D0360, Add_Operators 0x4D0230); header name assumed, NAME 3 (EX3)",

@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1281 |
+| 3 | by convention from a client-named file or sibling | 1282 |
 | 2 | describes what the code does | 3014 |
 | 1 | neutral placeholder | 14237 |
 
@@ -18438,10 +18438,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `m_matchers` | `app/shared/expr/expr_lexer_impl.h:40` | m_ as the asserts' m |
 | 3 | `m_token` | `app/shared/expr/expr_lexer_impl.h:43` | as ExprMathTreeClass's |
 | 3 | `expr_lexer_match_list.h` | `app/shared/expr/expr_lexer_match_list.h:14` | header name assumed from the client's expr_lexer_match_list.cpp |
-| 3 | `ExprLexerMatchNodeStruct` | `app/shared/expr/expr_lexer_match_list.h:19` | the token tree's node (not rebuilt yet) |
-| 3 | `ExprLexerMatchListClass` | `app/shared/expr/expr_lexer_match_list.h:22` | class-from-file (D24) |
-| 3 | `Add` | `app/shared/expr/expr_lexer_match_list.h:30` | the tokens, separated by spaces |
-| 3 | `Begin` | `app/shared/expr/expr_lexer_match_list.h:33` | from the constructors' asserts |
+| 3 | `Terminal` | `app/shared/expr/expr_lexer_match_list.h:36` | a listed token ends here |
+| 3 | `ExprLexerMatchListClass` | `app/shared/expr/expr_lexer_match_list.h:41` | class-from-file (D24) |
+| 3 | `Add` | `app/shared/expr/expr_lexer_match_list.h:49` | the tokens, separated by spaces |
+| 3 | `Add_Token` | `app/shared/expr/expr_lexer_match_list.h:50` | 'token' from the assert |
+| 3 | `Begin` | `app/shared/expr/expr_lexer_match_list.h:53` | from the constructors' asserts |
 | 3 | `expr_lexer_matchers.h` | `app/shared/expr/expr_lexer_matchers.h:13` | interim header, no client name |
 | 3 | `ExprLexerNumberMatchClass` | `app/shared/expr/expr_lexer_matchers.h:19` | lexer type 2 |
 | 3 | `ExprLexerNameMatchClass` | `app/shared/expr/expr_lexer_matchers.h:31` | lexer type 1 |
