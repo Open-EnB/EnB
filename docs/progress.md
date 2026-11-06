@@ -2478,6 +2478,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-AU1-1** (2026-11-06, AU1; recommend yes): keep the data audit as `tools/re/datacmp.py`, run once per run? Exact functions can't show wrong initialised data: its first pass found two wrong tables (MusicTypeNames reversed, so Music_Type_From_Name returned the opposite type) and two wrong constants. About 2 minutes a run; a tools change, so `/verify-approved`.
 * **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
 * **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
   (a) **~$110: overflow builders on the API key**, the D163 (a) pilot's path (headless `claude -p`, Opus 5.5, the separate
@@ -2520,9 +2521,8 @@ LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a
 below name only the work items, the blocked work, the leads and the queues.
 
 * **antprox's build table calls 249f8524 EA's last client (D199):** it is EA's 82663b2f plus Net-7's URL edits; correct the label in the AntaresProxy repo, and add 82663b2f if EA's exe should be recognised.
-* **kerneltest does not build on master (found by RN1, 2026-11-06, read, not rebuilt at master):** taskstest.cpp:172 defines `ShipCustSettingsClass::ShipCustSettingsClass()`, which shipcust_desc.h made inline in cddc4830 (2026-11-05); also a `Unknown_48` overload and unresolved BINKMovie symbols. D198's rename of its reporter stand-ins is unverified until it builds.
 * **symbols.json / ghidra_symbols.py keep 15 old D198 names:** run `symbols.py` with every library's `--objs` at the next refresh (without them it rewrites the file wholesale).
-* **Audit other hand-copied static tables against the client's bytes (CT1):** ui_class's two were wrong with every function exact; pairs can't see it.
+* **The rest of the static table audit (AU1, `.work/au1/tablecmp.py`):** 481 tables and 371 float constants compared; left: 4-byte scalars (BridgeNear / BridgeFar, ...), constants read only by non-exact functions, tables the compiler inlined or emitted no symbol for, 8 masked pointers in 7 tables (ui_attrb 0xB79F04, ui_analyze 0xB7967C, ui_manu 0xB81868, ...).
 
 * **The triage plan's runs (D163; the log entry of 2026-10-31 15:40).** `.work/triage/plan.md` (rerun `triage.py
   plan` after each run): 52 runs of 3+ neighbouring functions with no pair and one suggested file (2026-11-06), 10 agreeing
