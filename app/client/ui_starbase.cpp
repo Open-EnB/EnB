@@ -1,8 +1,9 @@
 // Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x633010-0x648340 by its asserts and its string order).
-// So far only the starbase lights panel's 0x646F70-0x6480FF (the panel class below, ST1); the file's
+// So far only the starbase lights panel (the class below, 0x646170-0x648238, ST1); the file's
 // own functions with their asserts (lines 368-4180) come before it in the client.
 #include <stdio.h>
+#include <string.h>
 #include <vector>
 #include "ui_chat_panel.h"
 #include "sbaseview.h"
@@ -13,6 +14,17 @@
 #include "aabox.h"
 #include "matrix3d.h"
 #include "rendobj.h"
+#include "starbase_lights.h"
+#include "..\audio\soundlib.h"
+
+// The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
+class LineDisplayClientClass  // NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14();
+	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+};
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, as ui_login.cpp's
 
@@ -41,11 +53,21 @@ struct UIStarbaseLightsGadgetHolderStruct	// NAME 1: neutral (D10)
 // The starbase lights panel (0x444 bytes; constructor 0x646170 over ui_chat_panel_base.cpp's 0x56D280, table
 // 0xAF8610; no caller of the constructor in the client: a debug panel). Its texts are 'near_light02a',
 // 'far_light02a', 'Int_light02a', 'Fill_light02a' and 'GO_light02a' in the 'fa_light02a.ini' model (0x646360).
-// Declared as far as 0x646F70-0x6480FF use it (interim placement in this file, D137).
+// Declared as far as this file's functions use it (interim placement in this file, D137).
 class UIStarbaseLightsClass : public UIChatPanelBaseClass	// NAME 1: neutral, after its model's 'light02a' names
 {
 public:
 	UIStarbaseLightsClass(SClient *client);				// 0x646170  // NAME 1 [client]: the base's
+	virtual ~UIStarbaseLightsClass();					// 0x646290 (deleting 0x646260)
+	virtual void Unknown_54();							// +0x54 0x646360
+	virtual void Unknown_58();							// +0x58 0x6466F0 (activated: the starbase, its lights, light 0)
+	virtual void Unknown_5C();							// +0x5C 0x6467B0
+	virtual void Unknown_60();							// +0x60 0x6467E0 (every frame: the sliders, the pad)
+	virtual bool Unknown_68(int key);					// +0x68 0x646810 (the panel's keys 1-6)  // NAME 1 [key]: InterfaceClass's
+	void Unknown_646940();								// 0x646940
+	void Unknown_646A00();								// 0x646A00 (the lights read)
+	void Unknown_646E00();								// 0x646E00 (key 2)
+	void Unknown_648190();								// 0x648190 (no caller: the pad points from the lights manager)
 	void Unknown_646F70(bool force);					// 0x646F70 (the sliders into the current light; its texts)  // NAME 1 [force]: neutral
 	void Unknown_6474C0(int index);						// 0x6474C0 (a light chosen; mode 1: the ambient light)  // NAME 1 [index]: neutral
 	void Unknown_647B30();								// 0x647B30 (the colour pad dragged)
@@ -74,6 +96,135 @@ public:
 	Vector3 AmbientPosition;							// +0x428  // NAME 1: neutral
 	std::vector<LightClass *> Lights;					// +0x434 (the allocator byte from the constructor's argument slot)  // NAME 1: neutral
 };
+
+// 0x646170
+UIStarbaseLightsClass::UIStarbaseLightsClass(SClient *client) :
+	UIChatPanelBaseClass(client),
+	UnknownD8(NULL),
+	Starbase(NULL),
+	UnknownE0(0),
+	UnknownE4(0),
+	UnknownE8(0),
+	UnknownEC(1),
+	Current(-1),
+	UnknownF4(0),
+	Fill(0.5f)
+{
+	memset(UnknownA0, 0, sizeof(UnknownA0));
+	memset(Slider, 0, sizeof(Slider));
+	memset(SliderValue, 0, sizeof(SliderValue));
+}
+
+// 0x646290
+UIStarbaseLightsClass::~UIStarbaseLightsClass()
+{
+	if (Active) {
+		InterfaceClass::Unknown_5C();
+		Starbase->Unknown_640F10();
+	}
+}
+
+// 0x6466F0
+void UIStarbaseLightsClass::Unknown_58()
+{
+	if (!Active) {
+		UIChatPanelBaseClass::Unknown_58();
+		UnknownE0 = 0;
+		Starbase = ((SBaseViewClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown135C)->Get_Starbase().Peek();
+		Starbase->Unknown_640D80(&UnknownE4, &UnknownE8, &UnknownEC);
+		Unknown_646A00();
+		Unknown_6474C0(0);
+	}
+}
+
+// 0x6467B0
+void UIStarbaseLightsClass::Unknown_5C()
+{
+	if (Active) {
+		InterfaceClass::Unknown_5C();
+		Starbase->Unknown_640F10();
+	}
+}
+
+// 0x6467E0
+void UIStarbaseLightsClass::Unknown_60()
+{
+	Unknown_646F70(false);
+	Unknown_647B30();
+}
+
+// 0x646810
+bool UIStarbaseLightsClass::Unknown_68(int key)
+{
+	((LineDisplayClientClass *)Client)->As_Space_Client();
+	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+	switch (key) {
+		case 1:
+			Unknown_5C();
+			Unknown98 = 1;
+			return(true);
+		case 2:
+			Unknown_646E00();
+			return(true);
+		case 4:
+			Unknown_6474C0((Current + 1) % UnknownF4);
+			return(true);
+		case 3:
+			{
+				int index = Current - 1;
+				if (index < 0) {
+					index = UnknownF4 - 1;
+				}
+				Unknown_6474C0(index);
+			}
+			return(true);
+		case 5:
+			UnknownE0 = 0;
+			Unknown_6474C0(Current);
+			return(true);
+		case 6:
+			UnknownE0 = 1;
+			Unknown_6474C0(Current);
+			return(true);
+	}
+	return(false);
+}
+
+// 0x646940
+void UIStarbaseLightsClass::Unknown_646940()
+{
+	for (int i = 0; i < 20; i++) {
+		Intensity[i] = 1.0f;
+		Color[i].X = 0.5f;
+		Color[i].Y = 0.5f;
+		Color[i].Z = 0.5f;
+		Position[i].X = 0.5f;
+		Position[i].Y = 0.5f;
+		Position[i].Z = 0.5f;
+		Atten[i].X = 0.0f;
+		Atten[i].Y = 50.0f;
+		Atten[i].Z = 0.0f;
+	}
+	AmbientColor.Set(0.0f, 0.0f, 0.0f);
+	AmbientPosition.Set(0.0f, 0.0f, 0.0f);
+	Fill = 0.75f;
+}
+
+// 0x646E00
+void UIStarbaseLightsClass::Unknown_646E00()
+{
+	int i = 0;
+	for (std::vector<LightClass *>::iterator it = Lights.begin(); it != Lights.end(); it++, i++) {
+		Unknown_BE82D0->Unknown_764880(UnknownE4, UnknownE8, UnknownEC, i, *it);
+	}
+	Unknown_BE82D0->Unknown_764F60(UnknownE4, UnknownE8, UnknownEC, Fill);
+	Unknown_BE82D0->Unknown_764E20(UnknownE4, UnknownE8, UnknownEC, AmbientColor);
+	for (i = 0; i < UnknownF4; i++) {
+		Unknown_BE82D0->Unknown_764C30(UnknownE4, UnknownE8, UnknownEC, i, Position[i]);
+	}
+	Unknown_BE82D0->Unknown_764C30(UnknownE4, UnknownE8, UnknownEC, 1000, AmbientPosition);
+	Unknown_BE82D0->Unknown_764550();
+}
 
 // 0x646F70
 void UIStarbaseLightsClass::Unknown_646F70(bool force)
@@ -242,4 +393,13 @@ void UIStarbaseLightsClass::Unknown_647F30(Vector3 point)
 		Unknown_496C00(area->Unknown30, point.X, 1.0f - point.Y, &AmbientColor);
 		AmbientPosition.Set(point.X, point.Y, 0.0f);
 	}
+}
+
+// 0x648190
+void UIStarbaseLightsClass::Unknown_648190()
+{
+	for (int i = 0; i < UnknownF4; i++) {
+		Position[i] = Unknown_BE82D0->Unknown_764AB0(UnknownE4, UnknownE8, UnknownEC, i);
+	}
+	AmbientPosition = Unknown_BE82D0->Unknown_764AB0(UnknownE4, UnknownE8, UnknownEC, 1000);
 }

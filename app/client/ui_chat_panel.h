@@ -28,6 +28,7 @@ class UIChatPanelBaseClass : public InterfaceClass	// NAME 3: class-from-file (D
 {
 public:
 	UIChatPanelBaseClass(SClient *client);				// 0x56D280  // NAME 1 [client]: what 0x561DD0 passes
+	virtual ~UIChatPanelBaseClass();					// 0x56D330 (deleting 0x56D300; out of line: ui_starbase.cpp's lights panel 0x646290 calls it)
 	virtual void Unknown_58();							// +0x58 0x56D4F0
 	virtual void Unknown_88();							// +0x88 0x56DD80
 	virtual void Unknown_8C();							// +0x8C 0x56DE60
