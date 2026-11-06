@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 106 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
-| 3 | by convention from a client-named file or sibling | 1259 |
+| 3 | by convention from a client-named file or sibling | 1280 |
 | 2 | describes what the code does | 3011 |
-| 1 | neutral placeholder | 14231 |
+| 1 | neutral placeholder | 14229 |
 
 ## For review (score 3 and below)
 
@@ -13021,8 +13021,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:37` | untagged neutral name (D10) |
 | 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:44` | neutral (D10) |
 | 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/shared/expr/expr_math_lexer.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/shared/expr/expr_math_lexer.h:33` | untagged neutral name (D10) |
 | 1 | `_Nodes` | `app/shared/gclass.cpp:9` | neutral (D10) |
 | 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.cpp:9` | untagged neutral name (D10) |
 | 1 | `_DirtyList` | `app/shared/gclass.cpp:10` | neutral (D10) |
@@ -18422,11 +18420,32 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.h:41` | EA hueshift style for CLASSID_SPHERE |
 | 3 | `Recolor_Ring` | `app/shared/enbassetmgr.h:42` | EA hueshift style for CLASSID_RING |
 | 3 | `AssetManager` | `app/shared/enbassetmgr.h:46` | 0xBDADC0, scriptedmovie.cpp's G_ASSERT 'AssetManager' (0x802D30) |
+| 3 | `expr_lexer_impl.h` | `app/shared/expr/expr_lexer_impl.h:15` | header name assumed from the client's expr_lexer_impl.cpp |
+| 3 | `ExprLexerImplClass` | `app/shared/expr/expr_lexer_impl.h:24` | class-from-file (D24) |
+| 3 | `Add_Matcher` | `app/shared/expr/expr_lexer_impl.h:37` | 'm' from the assert; the lexer deletes it |
+| 3 | `m_matchers` | `app/shared/expr/expr_lexer_impl.h:40` | m_ as the asserts' m |
+| 3 | `m_token` | `app/shared/expr/expr_lexer_impl.h:43` | as ExprMathTreeClass's |
+| 3 | `expr_lexer_match_list.h` | `app/shared/expr/expr_lexer_match_list.h:14` | header name assumed from the client's expr_lexer_match_list.cpp |
+| 3 | `ExprLexerMatchNodeStruct` | `app/shared/expr/expr_lexer_match_list.h:19` | the token tree's node (not rebuilt yet) |
+| 3 | `ExprLexerMatchListClass` | `app/shared/expr/expr_lexer_match_list.h:22` | class-from-file (D24) |
+| 3 | `Add` | `app/shared/expr/expr_lexer_match_list.h:30` | the tokens, separated by spaces |
+| 3 | `Begin` | `app/shared/expr/expr_lexer_match_list.h:33` | from the constructors' asserts |
+| 3 | `expr_lexer_matchers.h` | `app/shared/expr/expr_lexer_matchers.h:13` | interim header, no client name |
+| 3 | `ExprLexerNumberMatchClass` | `app/shared/expr/expr_lexer_matchers.h:19` | lexer type 2 |
+| 3 | `ExprLexerNameMatchClass` | `app/shared/expr/expr_lexer_matchers.h:31` | lexer type 1 |
+| 3 | `ExprLexerSpaceMatchClass` | `app/shared/expr/expr_lexer_matchers.h:42` | lexer type 0 |
 | 3 | `expr_math_lexer.h` | `app/shared/expr/expr_math_lexer.h:13` | interim header, named after expr_math_lexer_factory.cpp |
 | 3 | `ExprMathTokenClass` | `app/shared/expr/expr_math_lexer.h:18` | 0x14 bytes, a type and its text |
-| 3 | `Is_Valid` | `app/shared/expr/expr_math_lexer.h:21` | type != -1 and the text differs from a global |
-| 3 | `Type` | `app/shared/expr/expr_math_lexer.h:23` | 0 skipped by the parser, 1 / 2 leaves, 4 operators |
-| 3 | `ExprMathLexerClass` | `app/shared/expr/expr_math_lexer.h:27` | the parser calls slots +4 and +0x10 |
+| 3 | `Is_Valid` | `app/shared/expr/expr_math_lexer.h:25` | type != -1 and the text differs from a global |
+| 3 | `Type` | `app/shared/expr/expr_math_lexer.h:27` | 0 white space (skipped by the parser), 1 names, 2 numbers, 3 parentheses, 4 operators |
+| 3 | `Has_Token` | `app/shared/expr/expr_math_lexer.h:37` | the current token is valid |
+| 3 | `Has_Error` | `app/shared/expr/expr_math_lexer.h:38` | no valid token, text left |
+| 3 | `Set_Source` | `app/shared/expr/expr_math_lexer.h:40` | 'source' from the assert |
+| 3 | `Reset` | `app/shared/expr/expr_math_lexer.h:41` | back to the source's start |
+| 3 | `ExprLexerMatchClass` | `app/shared/expr/expr_math_lexer.h:46` | from expr_lexer_match_list.cpp |
+| 3 | `expr_math_lexer_factory.h` | `app/shared/expr/expr_math_lexer_factory.h:14` | header name assumed from the client's expr_math_lexer_factory.cpp |
+| 3 | `ExprMathLexerFactoryClass` | `app/shared/expr/expr_math_lexer_factory.h:20` | class-from-file (D24) |
+| 3 | `Add_Operators` | `app/shared/expr/expr_math_lexer_factory.h:28` | 'lexer' from the assert |
 | 3 | `expr_math_parser.h` | `app/shared/expr/expr_math_parser.h:13` | header name assumed from expr_math_parser_impl.cpp |
 | 3 | `ExprMathParserClass` | `app/shared/expr/expr_math_parser.h:21` | base of ExprMathParserImplClass |
 | 3 | `Parse` | `app/shared/expr/expr_math_parser.h:25` | lex from the assert '!lex' |

@@ -4043,7 +4043,7 @@ RECONSTRUCTED = {
                                        "vector<GroupStruct> instances exact; NOT EXACT: Add_Similar 0x4D0DF0, Parse_Level 0x4D10E0 (EX1)",
     ('app', 'shared/expr/expr_math_parser_impl.h'): "ExprMathParserImplClass (D24, class-from-file; 0x14 bytes: vptr, vector<GroupStruct> m_groups, the asserts' name) (EX1)",
     ('app', 'shared/expr/expr_math_parser.h'): "ExprMathParserClass, the parser interface (vtable 0xAEC0F0: destructor, Parse returning NULL); provisional header name, NAME 3 (EX1)",
-    ('app', 'shared/expr/expr_math_lexer.h'): "ExprMathTokenClass (0x14 bytes, Is_Valid 0x4C79E0) and the lexer interface (slots +4 Get_Token, +0x10 Next) as far as the parser uses them; interim header (D137), NAME 3 (EX1)",
+    ('app', 'shared/expr/expr_math_lexer.h'): "ExprMathTokenClass (0x14 bytes, Is_Valid 0x4C79E0), the lexer interface (vtable 0xAEBB00, seven slots) and the matcher interface (0xAEBB30); interim header (D137), NAME 3 (EX1, EX3)",
     ('app', 'shared/expr/expr_math_tree.h'): "the expression tree: the node ExprMathTreeClass (0xAEC0FC, the root: no base vtable store), the binary and unary nodes "
                                        "(0xAEC108, 0xAEC114), the visitor interface, the two printers and the token collector (0xAEC120); header name assumed, NAME 3 (EX1, EX2)",
     ('app', 'shared/expr/expr_math_tree.cpp'): "expr_math_tree.cpp (the client's __FILE__; G_ASSERT lines 52 53 59 63 86 96 120 126 142), client 0x4D2580-0x4D42C0: "
@@ -4052,6 +4052,17 @@ RECONSTRUCTED = {
     ('app', 'shared/expr/expr_math_parser_factory.cpp'): "expr_math_parser_factory.cpp (the client's __FILE__; FAIL_IF line 32), client 0x4D0560-0x4D0A7F: "
                                        "Add_Operators, Create, the factory parser's Parse_Primary and destructors, ~ExprMathParserClass and allocator<string>::deallocate, all exact (EX2)",
     ('app', 'shared/expr/expr_math_parser_factory.h'): "ExprMathParserFactoryClass (D24, class-from-file: Create 0x4D0790, Add_Operators 0x4D0560); header name assumed, NAME 3 (EX2)",
+    ('app', 'shared/expr/expr_lexer_impl.cpp'): "expr_lexer_impl.cpp (the client's __FILE__; FAIL_IF lines 34 101), client 0x4C4980-0x4C569F: "
+                                       "ExprLexerImplClass's constructor, destructors, Add_Matcher and six virtuals, ~ExprMathLexerClass, ~ExprMathTokenClass "
+                                       "and the vector<pair<int, ExprLexerMatchClass *> > instances, all exact (EX3)",
+    ('app', 'shared/expr/expr_lexer_impl.h'): "ExprLexerImplClass (D24, class-from-file; 0x3C bytes, vtable 0xAEBADC); header name assumed, NAME 3 (EX3)",
+    ('app', 'shared/expr/expr_lexer_matchers.cpp'): "the object 0x4C56B0-0x4C592F between expr_lexer_impl.cpp and expr_lexer_match_list.cpp (no __FILE__, "
+                                       "interim name and placement D137): the number, name and white-space matchers, all exact (EX3)",
+    ('app', 'shared/expr/expr_lexer_matchers.h'): "the number (0xAEBB24), name (0xAEBB3C) and white-space (0xAEC0D4) matchers; interim header (D137), NAME 3 (EX3)",
+    ('app', 'shared/expr/expr_lexer_match_list.h'): "ExprLexerMatchListClass (D24, class-from-file; 8 bytes, vtable 0xAEBBD0: the token tree's Begin); declared only, header name assumed, NAME 3 (EX3)",
+    ('app', 'shared/expr/expr_math_lexer_factory.cpp'): "expr_math_lexer_factory.cpp (the client's __FILE__; FAIL_IF line 12), client 0x4D0230-0x4D052F: "
+                                       "Add_Operators, Create and the white-space matcher's destructors, all exact (EX3)",
+    ('app', 'shared/expr/expr_math_lexer_factory.h'): "ExprMathLexerFactoryClass (D24, class-from-file: Create 0x4D0360, Add_Operators 0x4D0230); header name assumed, NAME 3 (EX3)",
     ('app', 'shared/unknown_font_split_string.h'): "FontSplitStringClass, a SplitStringClass measured with a Font32Class (0x2C bytes, vtable 0xAECBAC); neutral header name (D10)",
     ('app', 'shared/unknown_font_split_string.cpp'): "the object 0x4FA8F0-0x4FAC0F after split_string.cpp (its guarded static 0x4FABF0; no __FILE__, neutral name D10, placement provisional D137): FontSplitStringClass, all exact (LS1)",
     ('app', 'shared/unique_design_id_lookup.h'): "UniqueDesignIDLookupClass (D24), ids of named designs from an ini section in an SGI "

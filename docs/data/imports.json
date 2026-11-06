@@ -5652,6 +5652,115 @@
      "0x761BC0"
     ]
    },
+   "expr_lexer_impl": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120",
+     "0x4C4980",
+     "0x4C4AE0",
+     "0x4C4B10",
+     "0x4C4B40",
+     "0x4C4CA0",
+     "0x4C4CF0",
+     "0x4C4F60",
+     "0x4C50F0",
+     "0x4C5110",
+     "0x4C5150",
+     "0x4C5410",
+     "0x4C5530",
+     "0x4C5560",
+     "0x4C55A0",
+     "0x4C55C0",
+     "0x4C5610",
+     "0x4C5650"
+    ],
+    "merged": [],
+    "name": "shared/expr/expr_lexer_impl.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120",
+     "0x4C55A0"
+    ],
+    "short_known": [
+     "0x42D120",
+     "0x4C50F0",
+     "0x4C55A0"
+    ],
+    "tiebreak": [
+     "0x4C55C0",
+     "0x4C5610",
+     "0x4C5650"
+    ]
+   },
+   "expr_lexer_matchers": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4C56B0",
+     "0x4C56E0",
+     "0x4C5710",
+     "0x4C5730",
+     "0x4C5760",
+     "0x4C57D0",
+     "0x4C5800",
+     "0x4C5830",
+     "0x4C5850",
+     "0x4C58F0"
+    ],
+    "merged": [],
+    "name": "shared/expr/expr_lexer_matchers.cpp",
+    "shared": [
+     "0x4C5710",
+     "0x4C5730",
+     "0x4C5830"
+    ],
+    "short_known": [
+     "0x4C5710",
+     "0x4C5830"
+    ]
+   },
+   "expr_math_lexer_factory": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4C5730",
+     "0x4D0230",
+     "0x4D0360",
+     "0x4D04E0",
+     "0x4D0510"
+    ],
+    "merged": [],
+    "name": "shared/expr/expr_math_lexer_factory.cpp",
+    "shared": [
+     "0x4C5730",
+     "0x4D0510"
+    ],
+    "short_known": [
+     "0x4D0510"
+    ]
+   },
    "expr_math_parser_factory": {
     "ambiguous": [
      "0x42B2F0",
@@ -28866,7 +28975,11 @@
    "shared/duration.h": "reconstructed",
    "shared/dynamic_obj.h": "reconstructed",
    "shared/enbassetmgr.h": "reconstructed",
+   "shared/expr/expr_lexer_impl.h": "reconstructed",
+   "shared/expr/expr_lexer_match_list.h": "reconstructed",
+   "shared/expr/expr_lexer_matchers.h": "reconstructed",
    "shared/expr/expr_math_lexer.h": "reconstructed",
+   "shared/expr/expr_math_lexer_factory.h": "reconstructed",
    "shared/expr/expr_math_parser.h": "reconstructed",
    "shared/expr/expr_math_parser_factory.h": "reconstructed",
    "shared/expr/expr_math_parser_impl.h": "reconstructed",
