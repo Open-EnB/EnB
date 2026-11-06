@@ -160,9 +160,6 @@ void Unknown_80FF20(RenderObjClass *, const char *, float *)
 	Trace("gen Unknown_80FF20");	// the line gen_stubs.py's stand-in wrote
 }
 
-// verbmanager.cpp (VERB_UPDATE 92: the handler tests VerbManager first, which Init makes)
-void VerbManagerClass::Unknown_81F810(int game_id, void *, void *) { Trace("stub VerbManagerClass::Unknown_81F810 %d", game_id); }
-
 // ------------------------------------------------------------------------- the asserts and the debug log
 
 void G_Assert_Report(const char *expr, const char *, int line) { Trace("assert %s (line %d)", expr, line); }
