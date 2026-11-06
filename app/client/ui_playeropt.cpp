@@ -88,7 +88,7 @@ void UIPlayerOptClass::Unknown_54()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls 0x5DA2B0, the vector's _Destroy, the list iterator's ++ and erase out of line)
+// NOT EXACT: inline budget (the client calls the vector's _Destroy and the list iterator's ++ out of line; ours expands them, 0x5DA2B0 not being inlined; with 0x5DA2B0 inlined the rest matched, 0.54)
 // 0x5D9410
 void UIPlayerOptClass::Unknown_58()
 {
@@ -109,7 +109,6 @@ void UIPlayerOptClass::Unknown_58()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls 0x5DA2B0 out of line and the names' _Tidy(true) in the list loop)
 // 0x5D9610
 void UIPlayerOptClass::Unknown_5C()
 {
@@ -303,12 +302,13 @@ void UIPlayerOptClass::Unknown_5DA2B0(bool on)
 			Unknown0DC[i]->Unknown_40(on);
 		}
 	}
-	if (on && Selection < 0) {
+	if (!on) {
+		return;
+	}
+	if (Selection < 0) {
 		Unknown0CC[2]->Unknown_40(false);
 	}
 }
-
-
 
 
 
@@ -408,7 +408,6 @@ void UIPlayerOptClass::Unknown_5DA570()
 	((ClientClass *)Client)->Send_Packet(&packet);
 }
 
-// NOT EXACT: inline budget (the client empties the list through the iterator's ++ and erase out of line)
 // 0x5DA600
 void UIPlayerOptClass::Unknown_5DA600(std::vector<std::string> names)
 {
