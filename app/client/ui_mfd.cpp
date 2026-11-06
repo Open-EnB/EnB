@@ -17,6 +17,7 @@
 #include "..\shared\auxdata\delta_interpolator.h"
 #include <math.h>
 #include "nstrdup.h"
+#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static 0xBE5C8C, initialised by 0x5BB6D0)
 #include "ui_mfd.h"
 
 extern unsigned int Unknown_BE5F34;
@@ -65,7 +66,6 @@ void UIMFDClass::Add_Item(UIMFDItemClass *item)
 
 void UIMFDClass::Set_RObj(RenderObjClass *robj)
 {
-
 
 
 
@@ -491,31 +491,32 @@ ClientObjectClass *UIMFDClass::Unknown_5BD500()
 	return((ClientObjectClass *)((ClientClass *)Client)->Get_Avatar());
 }
 
-// NOT EXACT: 0x5BCE50, functional from the pseudocode; the string's construction and compares still differ (shape)
+// NOT EXACT: 0x5BCE50, register only: ours keeps line in ebx (one more saved register), the client in esi, reloading it from its slot
 void UIMFDClass::Update_Line(InfoLineStruct &line, bool force)
 {
 	UIMFDValueStruct value;
 	char text[0x40];
 	Get_Value(line.Type, value);
-	if (value.Flags & 4) {
+	unsigned int flags = value.Flags;
+	if (flags & 4) {
 		if (!force && *(int *)line.Text == value.Int) {
 			return;
 		}
 		sprintf(text, "%d", value.Int);
 		*(int *)line.Text = value.Int;
-	} else if (value.Flags & 8) {
+	} else if (flags & 8) {
 		if (!force && *(float *)line.Text == value.Float) {
 			return;
 		}
 		sprintf(text, "%3.0f", value.Float);
 		*(float *)line.Text = value.Float;
-	} else if (value.Flags & 0x10) {
+	} else if (flags & 0x10) {
 		if (!force && *(float *)line.Text == value.Float) {
 			return;
 		}
 		sprintf(text, "%.2fk", value.Float * 0.001f);
 		*(float *)line.Text = value.Float;
-	} else if (value.Flags & 0x20) {
+	} else if (flags & 0x20) {
 		if (!force && *(int *)line.Text == value.Int) {
 			return;
 		}
@@ -535,7 +536,7 @@ void UIMFDClass::Update_Line(InfoLineStruct &line, bool force)
 				*(int *)line.Text = value.Int;
 			}
 		}
-	} else if (value.Flags & 0x40) {
+	} else if (flags & 0x40) {
 		if (!force && *(int *)line.Text == value.Int) {
 			return;
 		}
@@ -549,9 +550,13 @@ void UIMFDClass::Update_Line(InfoLineStruct &line, bool force)
 			strcpy(text, "< 0 >");
 			*(int *)line.Text = value.Int;
 		}
-	} else if (value.Flags & 3) {
+	} else {
+		int allocated = flags & 1;
+		if (allocated == 0 && (flags & 2) == 0) {
+			return;
+		}
 		if (!force && strcmp(line.Text, value.String) == 0) {
-			if (value.Flags & 1) {
+			if (allocated != 0) {
 				delete [] (char *)value.String;
 			}
 			return;
@@ -560,17 +565,14 @@ void UIMFDClass::Update_Line(InfoLineStruct &line, bool force)
 		strncpy(text, value.String, 0x3F);
 		line.Text[0x3F] = 0;
 		text[0x3F] = 0;
-		if (value.Flags & 1) {
+		if (flags & 1) {
 			delete [] (char *)value.String;
 			value.String = NULL;
 		}
-	} else {
-		return;
 	}
 	std::string str("");
-	const char *label = UIMFDLabels[line.Type];
-	if (strcmp(label, " ") != 0) {
-		str += label;
+	if (strcmp(UIMFDLabels[line.Type], " ") != 0) {
+		str = UIMFDLabels[line.Type];
 	}
 	str += text;
 	line.Font->Change_Text(str.c_str(), 0);
@@ -716,8 +718,6 @@ void UIMFDClass::Set_SP_Cur(UIMFDValueStruct &value)
 	Set_SP_Percent(per, true);
 	Set_SP_Max(max);
 	if (max.Flags != 0 && per.Flags != 0) {
-
-
 
 
 

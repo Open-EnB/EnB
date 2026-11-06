@@ -10391,18 +10391,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0BB4` | `app/client/ui_manu.h:176` | untagged neutral name (D10) |
 | 1 | `Unknown0BB8` | `app/client/ui_manu.h:177` | untagged neutral name (D10) |
 | 1 | `Unknown0BC0` | `app/client/ui_manu.h:178` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F34` | `app/client/ui_mfd.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Valid` | `app/client/ui_mfd.cpp:23` | neutral (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_mfd.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_mfd.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_7E6060` | `app/client/ui_mfd.cpp:24` | neutral (D10) |
-| 1 | `UIMFDTargetingClass` | `app/client/ui_mfd.cpp:26` | neutral (D10): SClient +0x12A4 (ui_starmap.cpp's, the FAIL_IF's '!targeting') |
-| 1 | `Unknown_7C61B0` | `app/client/ui_mfd.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/ui_mfd.cpp:47` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/client/ui_mfd.cpp:50` | untagged neutral name (D10) |
-| 1 | `UnknownDC` | `app/client/ui_mfd.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/ui_mfd.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown_5BF4B0` | `app/client/ui_mfd.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F34` | `app/client/ui_mfd.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_mfd.cpp:24` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_mfd.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_mfd.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_7E6060` | `app/client/ui_mfd.cpp:25` | neutral (D10) |
+| 1 | `UIMFDTargetingClass` | `app/client/ui_mfd.cpp:27` | neutral (D10): SClient +0x12A4 (ui_starmap.cpp's, the FAIL_IF's '!targeting') |
+| 1 | `Unknown_7C61B0` | `app/client/ui_mfd.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/ui_mfd.cpp:48` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_mfd.cpp:51` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/ui_mfd.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_mfd.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_5BF4B0` | `app/client/ui_mfd.cpp:59` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_mfd.cpp:191` | untagged neutral name (D10) |
 | 1 | `Unknown_65FFA0` | `app/client/ui_mfd.cpp:223` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_mfd.cpp:229` | untagged neutral name (D10) |
@@ -10425,11 +10425,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5BCB00` | `app/client/ui_mfd.cpp:410` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_mfd.cpp:426` | untagged neutral name (D10) |
 | 1 | `Unknown_5BD500` | `app/client/ui_mfd.cpp:489` | untagged neutral name (D10) |
-| 1 | `Unknown_6FF7A0` | `app/client/ui_mfd.cpp:642` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/ui_mfd.cpp:653` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ui_mfd.cpp:682` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/ui_mfd.cpp:686` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/ui_mfd.cpp:695` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF7A0` | `app/client/ui_mfd.cpp:644` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_mfd.cpp:655` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_mfd.cpp:684` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ui_mfd.cpp:688` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_mfd.cpp:697` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/ui_mfd.cpp:894` | untagged neutral name (D10) |
 | 1 | `Unknown5BE4F0Class` | `app/client/ui_mfd.cpp:942` | untagged neutral name (D10) |
 | 1 | `Unknown5C3030Class` | `app/client/ui_mfd.cpp:950` | untagged neutral name (D10) |
@@ -16483,10 +16483,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `IDs` | `app/client/ui_manu.h:32` | what it holds |
 | 2 | `Gadget` | `app/client/ui_manu.h:42` | what it holds |
 | 2 | `item_id` | `app/client/ui_manu.h:138` | the packet's ItemID |
-| 2 | `ui_mfd.cpp` | `app/client/ui_mfd.cpp:25` | what it holds |
-| 2 | `Get_Heading` | `app/client/ui_mfd.cpp:29` | what it does |
-| 2 | `UIMFDLabels` | `app/client/ui_mfd.cpp:35` | what it holds |
-| 2 | `UIMFDButtonNames` | `app/client/ui_mfd.cpp:41` | what it holds |
+| 2 | `ui_mfd.cpp` | `app/client/ui_mfd.cpp:26` | what it holds |
+| 2 | `Get_Heading` | `app/client/ui_mfd.cpp:30` | what it does |
+| 2 | `UIMFDLabels` | `app/client/ui_mfd.cpp:36` | what it holds |
+| 2 | `UIMFDButtonNames` | `app/client/ui_mfd.cpp:42` | what it holds |
 | 2 | `owner` | `app/client/ui_mfd.h:20` | what it holds |
 | 2 | `object` | `app/client/ui_mfd.h:22` | what 0x5BC9E0 passes |
 | 2 | `Owner` | `app/client/ui_mfd.h:34` | what it holds |
