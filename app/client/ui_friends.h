@@ -34,6 +34,9 @@ public:
 	void Unknown_5906C0();								// 0x5906C0: PlayersInfo's players deleted, the vector emptied (0x5908B0 expands it; the destructor calls it)
 	void Unknown_590810();								// 0x590810: +0xC4's players deleted, the list emptied (the destructor calls it)
 	void Unknown_591030(bool on);						// 0x591030: the buttons and rows' slot +0x40; [2] / [4] off while nothing is selected  // NAME 1 [on]: neutral
+	virtual void Unknown_5C();							// +0x5C 0x58FDD0 (deactivated: the buttons off, both lists emptied)
+	virtual void Unknown_60();							// +0x60 0x58FF00 (every frame: the slider, the rows, the symbol chat; [3] with a target, [7] in a group)
+	void Unknown_591350();								// 0x591350 (slot +0x60 once +0xAE is set: request packet)
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x590430 (the symbol chat moved too; +0xAE set)  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_590480(int count);						// 0x590480 (the slider over count rows, 7 shown; 0x5908B0 expands it)  // NAME 1 [count]: neutral
 	void Unknown_590500();								// 0x590500 (Top from the slider's value; the rows refreshed when it moved)

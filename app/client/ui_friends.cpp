@@ -15,6 +15,16 @@
 #include "client.h"
 #include "..\input\input.h"
 #include "..\packets\pkclientchat.h"
+#include "co.h"
+
+// The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
+class LineDisplayClientClass  // NAME 1: neutral (D10)
+{
+public:
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
+	virtual void Unknown_10(); virtual void Unknown_14();
+	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+};
 
 // 0x58F0F0
 UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass(std::string name, std::string location)
@@ -27,6 +37,42 @@ UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass(std::string name, std::string
 static inline void Unknown_Delete_Player(UIFriendsPlayerInfoClass *info)	// NAME 1 [Unknown_Delete_Player, info]: neutral
 {
 	delete info;
+}
+
+// 0x58FDD0
+void UIFriendsClass::Unknown_5C()
+{
+	if (Active) {
+		Unknown_591030(false);
+		Unknown_5906C0();
+		Unknown_590810();
+		InterfaceClass::Unknown_5C();
+	}
+}
+
+// 0x58FF00
+void UIFriendsClass::Unknown_60()
+{
+	if (Unknown0AE) {
+		Unknown0AE = false;
+		Unknown_591350();
+	}
+	Unknown_590500();
+	Unknown_590C70();
+	Unknown_590E50();
+	SClient *sclient = Client->As_Space_Client();
+	SClient *space = Client->As_Space_Client();
+	ClientObjectClass *target;
+	if (!space->Unknown_744B60() && space && space->MainView && (target = space->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
+		Unknown0D0[3]->Unknown_40(true);
+	} else {
+		Unknown0D0[3]->Unknown_40(false);
+	}
+	if (sclient->Unknown_74D570()) {
+		Unknown0D0[7]->Unknown_40(true);
+	} else {
+		Unknown0D0[7]->Unknown_40(false);
+	}
 }
 
 // 0x590430
