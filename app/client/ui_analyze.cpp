@@ -44,7 +44,12 @@ bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	/
 
 // fontmanager.h's FontManagerClass at 0xBE67C4, as far as this file calls it (as ui_manu.cpp declares it: the header
 // cannot be included next to sclient.h)
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); };	// NAME 3: fontmanager.h's
+class FontSys : public RenderObjClass	// NAME 5 [FontSys]: fontmanager.h's (the client's name)
+{
+public:
+	void Unknown_6CDBC0(const char *text, int unknown);	// 0x6CDBC0: the text set  // NAME 1 [text, unknown]: what this file passes
+};
+class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 class UIAnalyzePDAClass { public: void Unknown_695A00(int a, int b); bool Unknown_695780(bool arg); };	// NAME 1: neutral (D10): PDAInterfaceClass's 0x695780 / 0x695A00, as ui_manu.cpp's  // NAME 1 [a, b, arg]: neutral
@@ -89,6 +94,8 @@ public:
 	bool Unknown118;									// +0x118
 };
 
+// The names of the window's texts (0xB7967C)
+static const char *Unknown_B7967C[] = { "Credits_tsm02a", "Go_tsm02a", "inv_tsm02a", "Cost_tsm02a", "Chance_tsm02a", "Critical_tsm02a", "Attempt_tsm02a", "Result_tsm02a", "Succ_tsm02a", "Crit_tsm02a", "" };	// NAME 1: neutral (D10)
 static const float Unknown_AEF0EC = 2.0f;			// NAME 1: neutral (D10): what 0x546090 stores (read from .rdata)
 
 static inline int Analyze_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
@@ -293,11 +300,196 @@ void UIAnalyzeClass::Unknown_5461C0(int level, int a, int b, int c)
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @0x544C50
+void UIAnalyzeClass::Unknown_544C50(int index, bool show, const char *text)
+{
+	const char *name = Unknown_B7967C[index]; RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object()));
+	FAIL_IF(!font) return;
+	font->Unknown_6CDBC0(text, 0);
+	font->Set_Hidden(!show);
+}
+
 // Notes (AN1, 2026-11-06). Rebuilt: slots +0x58 / +0x5C / +0x68 / +0x7C (0x544090 / 0x544270 / 0x544BB0 / 0x544020,
-// as ui_manu.cpp's) and 0x545D30-0x5461C0. Not yet in this file: the constructor 0x5435D0, the destructor 0x5437C0
+// as ui_manu.cpp's), 0x545D30-0x5461C0 and the text helper 0x544C50 on its line (483, after them for now). Not yet in this file: the constructor 0x5435D0, the destructor 0x5437C0
 // (G_ASSERT 'State == UI_CLOSED', l.116), slots +0x54 0x5439F0 and +0x60 0x5443F0 and the text and validity functions
-// 0x544C50-0x5458B0 (FAIL_IF '!font', l.483: 0x544C50): when they come, the class goes to a header and the asserts
-// onto their lines. 0x545D30 repeats 0x546000's six hides (the client inlines them there but calls 0x546000 out of line
+// 0x544D80-0x5458B0 (they inline 0x544C50's FAIL_IF): when they come, the class goes to a header and the functions
+// into the client's order (0x544C50 between 0x544BB0 and 0x544D80). 0x545D30 repeats 0x546000's six hides (the client inlines them there but calls 0x546000 out of line
 // from slot +0x5C; auto_inline(off) around 0x546000 gives both). UIAnalyzeClass is laid out from the constructor. The client calls the finds of
 // 'CurrentItemCategory' / 'PrimaryCategories' out of line (0x546780 / 0x5467F0, Unknown_Find_Field over aux_roots.h's
 // own types: ui_manu.cpp's 0x5B4680 calls the same copies, so it uses the same types) and inlines the 'FailureMessage'
