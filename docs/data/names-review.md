@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1304 |
 | 2 | describes what the code does | 3021 |
-| 1 | neutral placeholder | 14467 |
+| 1 | neutral placeholder | 14485 |
 
 ## For review (score 3 and below)
 
@@ -9208,26 +9208,44 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Rebuild` | `app/client/ui_item_examination_options.h:47` | empties the panel, adds the frame and one row per option |
 | 1 | `Clear` | `app/client/ui_item_examination_options.h:48` | removes the rows and drops the options |
 | 1 | `Listener` | `app/client/ui_item_examination_options.h:51` | passed to each row |
-| 1 | `IconSize` | `app/client/ui_item_examination_title.cpp:3` | what it sizes |
-| 1 | `icon_name` | `app/client/ui_item_examination_title.cpp:8` | neutral |
-| 1 | `Unknown_7EA190` | `app/client/ui_item_examination_title.cpp:8` | untagged neutral name (D10) |
-| 1 | `column` | `app/client/ui_item_examination_title.cpp:11` | neutral |
-| 1 | `Unknown_53A140` | `app/client/ui_item_examination_title.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_519FE0` | `app/client/ui_item_examination_title.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/ui_item_examination_title.cpp:38` | untagged neutral name (D10) |
+| 1 | `IconSize` | `app/client/ui_item_examination_title.cpp:5` | what it sizes |
+| 1 | `icon_name` | `app/client/ui_item_examination_title.cpp:10` | neutral |
+| 1 | `Unknown_7EA190` | `app/client/ui_item_examination_title.cpp:10` | untagged neutral name (D10) |
+| 1 | `column` | `app/client/ui_item_examination_title.cpp:13` | neutral |
+| 1 | `Unknown_53A140` | `app/client/ui_item_examination_title.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_519FE0` | `app/client/ui_item_examination_title.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_item_examination_title.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_530310` | `app/client/ui_item_examination_title.cpp:89` | untagged neutral name (D10) |
+| 1 | `damage` | `app/client/ui_item_examination_title.cpp:90` | neutral |
+| 1 | `Unknown_49E210` | `app/client/ui_item_examination_title.cpp:90` | untagged neutral name (D10) |
+| 1 | `type` | `app/client/ui_item_examination_title.cpp:105` | neutral |
+| 1 | `Unknown_7EB4D0` | `app/client/ui_item_examination_title.cpp:105` | untagged neutral name (D10) |
 | 1 | `UIItemExaminationTitleNameClass` | `app/client/ui_item_examination_title.h:16` | neutral (D10): 0x53A140 (the name's text, by value) |
 | 1 | `Unknown_53A140` | `app/client/ui_item_examination_title.h:16` | untagged neutral name (D10) |
 | 1 | `UIItemExaminationTitleIconStruct` | `app/client/ui_item_examination_title.h:17` | neutral (D10): +0x08 the icon's texture name |
-| 1 | `Unknown00` | `app/client/ui_item_examination_title.h:17` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/ui_item_examination_title.h:17` | untagged neutral name (D10) |
-| 1 | `Clear` | `app/client/ui_item_examination_title.h:25` | as the options panel's |
-| 1 | `Set_Name, name` | `app/client/ui_item_examination_title.h:26` | what it does |
-| 1 | `Set_Icon, icon` | `app/client/ui_item_examination_title.h:27` | what it does |
-| 1 | `Icon` | `app/client/ui_item_examination_title.h:30` | what it holds |
-| 1 | `Text` | `app/client/ui_item_examination_title.h:31` | what it holds |
-| 1 | `Subtitles` | `app/client/ui_item_examination_title.h:32` | what it holds |
-| 1 | `std:` | `app/client/ui_item_examination_title.h:35` | neutral (D10); NAME 1 [id]: neutral |
-| 1 | `Unknown_7EA190` | `app/client/ui_item_examination_title.h:35` | untagged neutral name (D10) |
+| 1 | `UIItemExaminationTitleSubtitlesClass` | `app/client/ui_item_examination_title.h:18` | neutral (D10): what slot +0x10 of the filler passes (0x530310 is in the item property files) |
+| 1 | `Unknown_530310` | `app/client/ui_item_examination_title.h:21` | neutral (D10) |
+| 1 | `Get_Level` | `app/client/ui_item_examination_title.h:22` | the member it returns |
+| 1 | `Get_Damage_Type` | `app/client/ui_item_examination_title.h:23` | the member it returns |
+| 1 | `Get_Type` | `app/client/ui_item_examination_title.h:24` | the member it returns |
+| 1 | `Unknown00` | `app/client/ui_item_examination_title.h:26` | neutral (D10) |
+| 1 | `Level` | `app/client/ui_item_examination_title.h:27` | what it shows |
+| 1 | `DamageType` | `app/client/ui_item_examination_title.h:28` | what it shows ('SUBTITLE_DAMAGE_TYPE_IEI00') |
+| 1 | `Type` | `app/client/ui_item_examination_title.h:29` | what it shows ('SUBTITLE_TYPE_IEI00') |
+| 1 | `Clear` | `app/client/ui_item_examination_title.h:38` | as the options panel's |
+| 1 | `Set_Name, name` | `app/client/ui_item_examination_title.h:39` | what it does |
+| 1 | `Set_Icon, icon` | `app/client/ui_item_examination_title.h:40` | what it does |
+| 1 | `Set_Subtitles, info` | `app/client/ui_item_examination_title.h:41` | what it does |
+| 1 | `Icon` | `app/client/ui_item_examination_title.h:44` | what it holds |
+| 1 | `Text` | `app/client/ui_item_examination_title.h:45` | what it holds |
+| 1 | `Subtitles` | `app/client/ui_item_examination_title.h:46` | what it holds |
+| 1 | `std:` | `app/client/ui_item_examination_title.h:49` | neutral (D10); NAME 1 [id]: neutral |
+| 1 | `Unknown_7EA190` | `app/client/ui_item_examination_title.h:49` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_item_examination_title.h:50` | neutral (D10); NAME 1 [damage_type]: neutral |
+| 1 | `Unknown_49E210` | `app/client/ui_item_examination_title.h:50` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_item_examination_title.h:51` | neutral (D10); NAME 1 [type]: neutral |
+| 1 | `Unknown_7EB4D0` | `app/client/ui_item_examination_title.h:51` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/ui_line_display.cpp:11` | neutral (D10): the random generator the fonts are picked with |
 | 1 | `Unknown_BE67BC` | `app/client/ui_line_display.cpp:14` | neutral (D10); sclient.h declares it so |
 | 1 | `LineDisplayUnknown138Class` | `app/client/ui_line_display.cpp:28` | neutral (D10) |
@@ -15640,7 +15658,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `UIItemExaminationDescriptionClass` | `app/client/ui_item_examination_description.h:12` | its section 'ITEM_EXAMINATION_DESCRIPTION' |
 | 2 | `UIItemExaminationOptionClass` | `app/client/ui_item_examination_options.h:27` | from the file name and 'ItemOptionObject' |
 | 2 | `UIItemExaminationOptionsClass` | `app/client/ui_item_examination_options.h:40` | class from file (D24), ui_item_examination_options.cpp |
-| 2 | `UIItemExaminationTitleClass` | `app/client/ui_item_examination_title.h:19` | its text 'TITLE_IEI00' and ui_item_examination_title.cpp |
+| 2 | `UIItemExaminationTitleClass` | `app/client/ui_item_examination_title.h:32` | its text 'TITLE_IEI00' and ui_item_examination_title.cpp |
 | 2 | `Push_Line` | `app/client/ui_line_display.cpp:312` | what it does; the dead size() read spends the inline budget the client spends (workflow.md §3.3, the find-if-set wrapper's reads) |
 | 2 | `EphemeralStruct` | `app/client/ui_line_display.h:157` | what it holds (the ini's section name) |
 | 2 | `std:` | `app/client/ui_line_display.h:160` | describes what it does |

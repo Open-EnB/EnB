@@ -2039,7 +2039,7 @@ Base copy: reconstructed. Headers: 349 from reconstructed.
 | client/ui_item_examination_attributes.cpp | reconstructed | 24 | 3 | - | - | - |  |
 | client/ui_item_examination_description.cpp | reconstructed | 13 | 3 | - | - | - |  |
 | client/ui_item_examination_options.cpp | reconstructed | 26 | 3 | - | - | - |  |
-| client/ui_item_examination_title.cpp | reconstructed | 14 | 4 | - | - | - |  |
+| client/ui_item_examination_title.cpp | reconstructed | 16 | 4 | - | - | - |  |
 | client/ui_line_display.cpp | reconstructed | 98 | 7 | - | - | - |  |
 | client/ui_login.cpp | reconstructed | 59 | 4 | - | - | - |  |
 | client/ui_manu.cpp | reconstructed | 80 | 6 | - | - | - |  |
