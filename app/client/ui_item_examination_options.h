@@ -22,12 +22,12 @@
 #include "item/client_item_property_option.h"
 #include <vector>
 
-class UIItemExaminationOptionListenerClass;  // NAME 1 [UIItemExaminationOptionListenerClass]: neutral; the examination window's base at +0x84 (table 0xAEE298)
+class UIDynamicWindowUnknown84Class;  // ui_dynamicwindow.h's gadget side (the examination window's +0x84, table 0xAEE298)
 
 class UIItemExaminationOptionClass : public DynamicWindowHorizontalClass  // NAME 2 [UIItemExaminationOptionClass]: from the file name and 'ItemOptionObject'
 {
 public:
-	UIItemExaminationOptionClass(const RefCountPtr<ClientItemPropertyOptionClass> &option, UIItemExaminationOptionListenerClass *listener);	// 0x535CB0  // NAME 1 [option, listener]
+	UIItemExaminationOptionClass(const RefCountPtr<ClientItemPropertyOptionClass> &option, UIDynamicWindowUnknown84Class *listener);	// 0x535CB0  // NAME 1 [option, listener]
 	virtual ~UIItemExaminationOptionClass();												// +0x04 0x5362F0 (deleting 0x5362C0)
 
 protected:
@@ -40,7 +40,7 @@ protected:
 class UIItemExaminationOptionsClass : public DynamicWindowVerticalClass  // NAME 2 [UIItemExaminationOptionsClass]: class from file (D24), ui_item_examination_options.cpp
 {
 public:
-	UIItemExaminationOptionsClass(UIItemExaminationOptionListenerClass *listener);			// 0x5352D0  // NAME 1 [listener]
+	UIItemExaminationOptionsClass(UIDynamicWindowUnknown84Class *listener);			// 0x5352D0  // NAME 1 [listener]
 	virtual ~UIItemExaminationOptionsClass();											// +0x04 0x5357E0
 
 	void Add_Option(ClientItemPropertyOptionClass *option);								// 0x535970  // NAME 1 [Add_Option, option]: appends to Options
@@ -48,7 +48,7 @@ public:
 	void Clear();																			// 0x535BF0  // NAME 1 [Clear]: removes the rows and drops the options
 
 protected:
-	UIItemExaminationOptionListenerClass *Listener;											// +0x64  // NAME 1 [Listener]: passed to each row
+	UIDynamicWindowUnknown84Class *Listener;											// +0x64  // NAME 1 [Listener]: passed to each row
 	std::vector< RefCountPtr<ClientItemPropertyOptionClass> > Options;						// +0x68  // NAME 1 [Options]
 	RefCountPtr<DynamicWindowBackgroundClass> Frame;										// +0x78 ('ITEM_EXAMINATION_OPTIONS')  // NAME 1 [Frame]
 	RefCountPtr<DynamicWindowVerticalClass> List;											// +0x7C (the rows)  // NAME 1 [List]

@@ -3,7 +3,7 @@
 #include "..\shared\unknown_debug.h"
 #include <algorithm>
 
-UIItemExaminationOptionsClass::UIItemExaminationOptionsClass(UIItemExaminationOptionListenerClass *listener) :
+UIItemExaminationOptionsClass::UIItemExaminationOptionsClass(UIDynamicWindowUnknown84Class *listener) :
 	DynamicWindowVerticalClass(0x82),
 	Listener(listener)
 {

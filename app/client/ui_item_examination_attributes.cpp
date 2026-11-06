@@ -3,7 +3,7 @@
 #include "..\shared\unknown_debug.h"
 #include <algorithm>
 
-UIItemExaminationAttributesClass::UIItemExaminationAttributesClass(UIItemExaminationOptionListenerClass *listener) :
+UIItemExaminationAttributesClass::UIItemExaminationAttributesClass(UIDynamicWindowUnknown84Class *listener) :
 	DynamicWindowBackgroundClass("ITEM_EXAMINATION_ATTRIBUTES", 6),
 	Listener(listener)
 {
