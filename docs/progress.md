@@ -2568,6 +2568,17 @@ below name only the work items, the blocked work, the leads and the queues.
      Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.3) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * ui_playeropt.cpp (CP1, 2026-11-05 night; UIPlayerOptClass 0x114, ui_friends' twin, 0x5D8C40-0x5DAE8F): NOT EXACT only
+     0x5D9D10 (inline budget, 8 forms). Its levers for ui_friends.cpp: 0x590E50 with `X.Peek() != NULL && X->Is_Active()`,
+     0x591A30 taking its target from its own 0x592150 (as 0x5DAB50), perhaps 0x58FBA0 by calling the file's own helper.
+     clienttest.cpp:1857's stand-in UIChatPanelUnknownD8Class::Unknown_5DA600 now has a real definition (no clash): retire
+     it with the next tests/ edit. Next object ui_popup_browser.cpp 0x5DAE90.
+   * avatar_pip.cpp (AP1, 2026-11-05 night; AvatarPipClass 0x3C, 0x7E31B0-0x7E49AF): NOT EXACT 0x7E4520 (shape: the client
+     converts `* 0.1f` before Get_Sort_Level), 0x7E3A20 0.83 (shape: the light translation folded into zeroed floats, a release
+     tail-merge, Rotate_Y's operand order); the model carrier Unknown47FA70Class (ctor 0x47FA70, table 0xAE9D88; ro_proxy.cpp
+     by the triage, not in the tree). ui_chat_panel.cpp / ui_ptrade.cpp declare local AvatarPipClass stand-ins with wrong
+     signatures (0x7E36B0 returns bool, takes bool; 0x7E3A20 takes const char *, unsigned, CharacterViewAvatarClass *):
+     include avatar_pip.h, with a verify of both files.
    * ui_ptrade.cpp (PT1 / PT2, 2026-11-05 night; UIPTradeClass in sclient.h, interim D137, base Unknown5BB320Class, 0xE8): NOT
      EXACT only 0x5E2CE0 (0.84, register: key 3 reads the client through edx, the client eax; 7 forms). ui_group.h's
      UISymbolChatClass 0x64A220 / 0x64A240 read the 0x649890 'TRADE01A' object's +0xC0 (UIPTradeCreditsClass, 0xD0, in
