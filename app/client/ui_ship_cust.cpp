@@ -2150,7 +2150,7 @@ void StarbaseShipCustomizeInterface::Unknown_61F250(ShipCustDescClass *desc, Shi
 	Unknown17C = c;
 	Unknown180 = d;
 	Unknown36C = *desc;
-	Desc = *desc;
+	Desc = *desc; Gadgets.size();	// a dead read (D130; not the client's): it spends VC6's inline budget so this copy calls ShipCustPartClass's operator= 0x619320 out of line while the copy above keeps ShipCustSettingsClass's 0x61F640 out of line, as the client's (2+ reads put both on 0x619320)
 	if (Desc.Selected_Decal != 0x7FFFFFF) {
 		Unknown318 = (Desc.Selected_Decal >= 0) ? Desc.Selected_Decal + 1 : Desc.Selected_Decal;
 	}
