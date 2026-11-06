@@ -2569,6 +2569,11 @@ below name only the work items, the blocked work, the leads and the queues.
      Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.3) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
+   * ui_attrb.cpp (AT2, 2026-11-06 night; the client's own file, object 0x546A80-0x54962F): the attributes panel 0x546A80-0x548250
+     (~20 functions; ctor 0x546A80 / dtor 0x546B50 first; G_ASSERTs on lines 237 / 382; InterfaceClass through the
+     `__INTRFACE_MEMBERS` ctor 0x540D30; avatar_pip at +0xA8, a 0x58CF60 object at +0x8C) not written; the skill panel
+     Unknown548D60Class (0xDC, over Unknown5BB320Class) exact but 0x548D60 (0.73, register in the title's colour stores, 9
+     forms). ui_attrb_skills.cpp's local Unknown548D60Class should include ui_attrb.h (with a verify).
    * ui_analyze.cpp (AN1, 2026-11-06 night; UIAnalyzeClass 0x11C over Unknown5BB320Class, ui_manu.cpp's near-copy; ui_analyze.h
      interim NAME 1): slots +0x54 0x5439F0 / +0x60 0x5443F0, 0x544D80, 0x545190, 0x545610, 0x5458B0 not written; NOT EXACT
      0x545E40 (inline budget: the client calls the finds 0x546780 / 0x5467F0 out of line, as ui_manu's 0x5B4680 does: ui_manu
