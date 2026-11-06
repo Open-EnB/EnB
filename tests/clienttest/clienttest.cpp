@@ -1593,18 +1593,25 @@ static void Test_CTA(SClient *client)
 // from synthetic packets. TRADE: the trade interface (ui_ptrade.cpp) is the starbase view's +0x1A4 when 0x744B60 says
 // the player is docked, else the main view's +0x1E4; Type 0 opens a trade with PartnerID (ClientClass +0x1134, the
 // interface's slot +0x58, the starbase interface's 0x640110(8)), 1 / 2 end it (slot +0x5C / 0x5E3130, +0x1134 = 0,
-// 0x640110(0)), 3-6 call 0x5E2F70 / 0x5E3050 with true / false. NOTE_CONTENT prints 'From: ', 'Sent: ' (ctime) and
+// 0x640110(0)), 3-6 call 0x5E2F70 / 0x5E3050 with true / false (the real ui_ptrade.cpp ones: +0xDD / +0xDE set, and
+// 0x5E3130's +0xD8 = 2 and its buttons' slot +0x40(false); the fake mesh has no font, so each logs fontmanager.cpp's
+// Get_Style G_ASSERT and changes no text). NOTE_CONTENT prints 'From: ', 'Sent: ' (ctime) and
 // each line of the text split at CR / LF (the 8-byte string class 0x8B5D90, written here as a plain tokenizer).
 // MESSAGE_CHATSTREAM: no avatar for ShipID, nothing happens (0x74C840 finds none). FIND_MEMBER: the chat panel's
 // +0xF8 interface's slot +0x90 result's +0xA8 (ui_groupfind.cpp) gets the packet (0x59A400) when its +0x7C is set.
 static std::string Trade_Log;
-void UIPTradeClass::Unknown_5E2F70(bool on) { Trade_Log += on ? "5E2F70(1) " : "5E2F70(0) "; }
-void UIPTradeClass::Unknown_5E3050(bool on) { Trade_Log += on ? "5E3050(1) " : "5E3050(0) "; }
-void UIPTradeClass::Unknown_5E3130() { Trade_Log += "5E3130 "; }
 void UIStarbaseClass::Unknown_640110(int state) { char b[32]; sprintf(b, "640110(%d) ", state); Trade_Log += b; }
 static void *Trade_Table[64];
 static void Trade_58_Slot() { Trade_Log += "+58 "; }
 static void Trade_5C_Slot() { Trade_Log += "+5C "; }
+static void *Trade_Button_Table[64];
+static void __stdcall Trade_Button_40_Slot(bool on) { Trade_Log += on ? "40(1) " : "40(0) "; }	// GadgetClass +0x40: one argument, popped
+static void Trade_State(const char *trade)
+{
+	char b[48];
+	sprintf(b, "[%g %d %d] ", *(float *)(trade + 0xD8), trade[0xDD], trade[0xDE]);
+	Trade_Log += b;
+}
 static std::vector<unsigned char> Trade_Message(int partner, unsigned char type)
 {
 	std::vector<unsigned char> p(5, 0);	// PartnerID, Type (pktrade.cpp)
@@ -1668,6 +1675,22 @@ static void Test_Chat(SClient *client)
 	static double fake_sbview[0x200 / 8];
 	static double fake_starbase[0x100 / 8];
 	*(void ***)fake_trade = Trade_Table;
+	// what 0x5E2F70 / 0x5E3050 / 0x5E3130 read: the mesh (+0x84, no mesh object: no font), the buttons (+0xBC..+0xC8,
+	// slot +0x40), the item lists (+0xAC / +0xB0, Active +0x7C false: nothing called)
+	for (int i = 0; i < 64; i++) {
+		Trade_Button_Table[i] = (void *)Zero_Slot;
+	}
+	Trade_Button_Table[0x40 / 4] = (void *)Trade_Button_40_Slot;
+	static double fake_mesh[0x40 / 8];
+	static double fake_button[0x40 / 8];
+	static double fake_list[0x100 / 8];
+	*(void ***)fake_button = Trade_Button_Table;
+	*(char **)((char *)fake_trade + 0x84) = (char *)fake_mesh;
+	*(char **)((char *)fake_trade + 0xAC) = (char *)fake_list;
+	*(char **)((char *)fake_trade + 0xB0) = (char *)fake_list;
+	for (int b = 0; b < 4; b++) {
+		*(char **)((char *)fake_trade + 0xBC + b * 4) = (char *)fake_button;
+	}
 	*(int *)((char *)fake_starbase + 0x3C) = 5;	// the reference count: never reaches 0 here
 	*(char **)((char *)fake_sbview + 0x60) = (char *)fake_starbase;
 	*(char **)((char *)fake_sbview + 0x1A4) = (char *)fake_trade;
@@ -1686,10 +1709,13 @@ static void Test_Chat(SClient *client)
 		if (type == 0) {
 			Check(client->Unknown1134 == 44, "TRADE 31 type 0: +0x1134 = PartnerID 44");
 		}
+		if (type >= 2 && type <= 6) {
+			Trade_State((char *)fake_trade);
+		}
 	}
 	Trace("trade calls (main view): %s", Trade_Log.c_str());
-	Check(Trade_Log == "+58 +5C 5E3130 5E2F70(1) 5E2F70(0) 5E3050(1) 5E3050(0) " && client->Unknown1134 == 0,
-		"TRADE 31 in space: types 0-6 to the main view's trade interface (slots +0x58 / +0x5C, 0x5E3130, 0x5E2F70, 0x5E3050), 7 ignored, +0x1134 cleared");
+	Check(Trade_Log == "+58 +5C 40(0) 40(0) 40(0) 40(0) [2 0 0] [2 1 0] [2 0 0] [2 0 1] [2 0 0] " && client->Unknown1134 == 0,
+		"TRADE 31 in space: types 0-6 to the main view's trade interface (slots +0x58 / +0x5C; 0x5E3130: +0xD8 = 2, the buttons off; 0x5E2F70 / 0x5E3050: +0xDD / +0xDE), 7 ignored, +0x1134 cleared");
 	Trade_Log = "";
 	Stub_744B60 = true;
 	client->Unknown135C = (UIViewClass *)fake_sbview;
@@ -1698,7 +1724,7 @@ static void Test_Chat(SClient *client)
 	client->Process_Packets();
 	client->Process_Packets();
 	Trace("trade calls (starbase): %s", Trade_Log.c_str());
-	Check(Trade_Log == "+58 640110(8) 5E3130 640110(0) " && *(int *)((char *)fake_starbase + 0x3C) == 5,
+	Check(Trade_Log == "+58 640110(8) 40(0) 40(0) 40(0) 40(0) 640110(0) " && *(int *)((char *)fake_starbase + 0x3C) == 5,
 		"TRADE 31 docked: the starbase view's +0x1A4 and the starbase interface's 0x640110(8) / (0); its count back to 5");
 	Stub_744B60 = false;
 	client->Unknown135C = saved_view;

@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_ptrade.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_ptrade.cpp', 0x5E1B80-0x5E3EEF by its asserts and its callers).
-// So far 0x5E1BE0-0x5E3EEF but the set-up 0x5E1FA0 (slot +0x54), 0x5E26D0 and the TRADE 31 handlers 0x5E2F70 / 0x5E3050 / 0x5E3130 (held back: clienttest stands in for them, D182) (PT1).
+// So far 0x5E1BE0-0x5E3EEF but the set-up 0x5E1FA0 (slot +0x54) and 0x5E26D0 (PT1, PT2).
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -155,16 +155,16 @@ UIPTradeClass::~UIPTradeClass()
 
 
 
-
-
-
-
-
-
-
-
-
-
+// 0x5E2F70
+void UIPTradeClass::Unknown_5E2F70(bool on)
+{
+	Unknown0DD = on;
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
+	if (font) {
+		if (Unknown0DD) font->Change_Text("Awaiting Trade Confirmation", 0);
+		else font->Change_Text("", 0);
+	}
+}
 
 // 0x5E26F0
 // NOT EXACT: inline budget (0.69: the client calls ~RefCountPtr<FontSys> 0x51C630 out of line in the inlined 0x5E2F70, and its temporaries take the other stack slots)
@@ -191,14 +191,7 @@ void UIPTradeClass::Unknown_58()
 		font = Create_Peek(Unknown_BE67C4->Get_Style("RECIPIENT_NAME_TRADE00", InterfaceMesh->Peek_Object()));
 		if (font) font->Change_Text("", 0);
 		Unknown_5E3750(true);
-		Unknown0DD = false;	// 0x5E2F70(false), expanded (clienttest stands in for 0x5E2F70: D182)
-		{
-			RefCountPtr<FontSys> confirm = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
-			if (confirm) {
-				if (Unknown0DD) confirm->Change_Text("Awaiting Trade Confirmation", 0);
-				else confirm->Change_Text("", 0);
-			}
-		}
+		Unknown_5E2F70(false);
 		Unknown0E0.Unknown00 = 0;
 		Unknown0D8 = 0;
 	}
@@ -284,18 +277,25 @@ void UIPTradeClass::Unknown_7C(UIViewClass *view, bool arg)
 	Unknown5BB320Class::Unknown_7C(view, arg);
 }
 
+// 0x5E3050
+void UIPTradeClass::Unknown_5E3050(bool on)
+{
+	Unknown0DE = on;
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
+	if (font) {
+		if (Unknown0DE) font->Change_Text("Trade has been confirmed", 0);
+		else font->Change_Text("", 0);
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
+// 0x5E3130
+void UIPTradeClass::Unknown_5E3130()
+{
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("REC_CONFIRM_TRADE00", InterfaceMesh->Peek_Mesh_Object()));
+	if (font) font->Change_Text("Trading has successfully completed.", 0);
+	Unknown0D8 = 2.0f;
+	Unknown_5E3750(false);
+}
 
 
 

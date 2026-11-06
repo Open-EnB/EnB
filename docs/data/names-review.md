@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 33 |
 | 3 | by convention from a client-named file or sibling | 1313 |
 | 2 | describes what the code does | 3023 |
-| 1 | neutral placeholder | 14641 |
+| 1 | neutral placeholder | 14638 |
 
 ## For review (score 3 and below)
 
@@ -10167,26 +10167,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0AC` | `app/client/ui_ptrade.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown0B0` | `app/client/ui_ptrade.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown0B4` | `app/client/ui_ptrade.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_5E2F70` | `app/client/ui_ptrade.cpp:159` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_ptrade.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown_695780` | `app/client/ui_ptrade.cpp:177` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B40` | `app/client/ui_ptrade.cpp:178` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3340` | `app/client/ui_ptrade.cpp:181` | untagged neutral name (D10) |
 | 1 | `Unknown_74C7B0` | `app/client/ui_ptrade.cpp:183` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3750` | `app/client/ui_ptrade.cpp:193` | untagged neutral name (D10) |
-| 1 | `Unknown0E0` | `app/client/ui_ptrade.cpp:202` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/ui_ptrade.cpp:202` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_ptrade.cpp:208` | untagged neutral name (D10) |
-| 1 | `Unknown_695A00` | `app/client/ui_ptrade.cpp:217` | untagged neutral name (D10) |
-| 1 | `Unknown_5E2F70` | `app/client/ui_ptrade.cpp:219` | untagged neutral name (D10) |
-| 1 | `Unknown_5E3050` | `app/client/ui_ptrade.cpp:220` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_ptrade.cpp:228` | untagged neutral name (D10) |
-| 1 | `Unknown_5E3C90` | `app/client/ui_ptrade.cpp:230` | untagged neutral name (D10) |
-| 1 | `Unknown_5E39F0` | `app/client/ui_ptrade.cpp:231` | untagged neutral name (D10) |
-| 1 | `Unknown_5E37F0` | `app/client/ui_ptrade.cpp:232` | untagged neutral name (D10) |
-| 1 | `Unknown1134` | `app/client/ui_ptrade.cpp:234` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_ptrade.cpp:247` | untagged neutral name (D10) |
-| 1 | `Unknown_64A2B0` | `app/client/ui_ptrade.cpp:267` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_ptrade.cpp:279` | untagged neutral name (D10) |
+| 1 | `Unknown0E0` | `app/client/ui_ptrade.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ui_ptrade.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_ptrade.cpp:201` | untagged neutral name (D10) |
+| 1 | `Unknown_695A00` | `app/client/ui_ptrade.cpp:210` | untagged neutral name (D10) |
+| 1 | `Unknown_5E3050` | `app/client/ui_ptrade.cpp:213` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_ptrade.cpp:221` | untagged neutral name (D10) |
+| 1 | `Unknown_5E3C90` | `app/client/ui_ptrade.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown_5E39F0` | `app/client/ui_ptrade.cpp:224` | untagged neutral name (D10) |
+| 1 | `Unknown_5E37F0` | `app/client/ui_ptrade.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown1134` | `app/client/ui_ptrade.cpp:227` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_ptrade.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown_64A2B0` | `app/client/ui_ptrade.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_ptrade.cpp:272` | untagged neutral name (D10) |
+| 1 | `Unknown_5E3130` | `app/client/ui_ptrade.cpp:292` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3210` | `app/client/ui_ptrade.cpp:389` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_ptrade.cpp:404` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_ptrade.cpp:405` | untagged neutral name (D10) |
@@ -14524,36 +14525,32 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6AF220Class` | `tests/clienttest/clienttest.cpp:1492` | untagged neutral name (D10) |
 | 1 | `Unknown_6B09D0` | `tests/clienttest/clienttest.cpp:1492` | untagged neutral name (D10) |
 | 1 | `Unknown13C0` | `tests/clienttest/clienttest.cpp:1573` | untagged neutral name (D10) |
-| 1 | `Unknown_5E2F70` | `tests/clienttest/clienttest.cpp:1601` | untagged neutral name (D10) |
-| 1 | `Unknown_5E3050` | `tests/clienttest/clienttest.cpp:1602` | untagged neutral name (D10) |
-| 1 | `Unknown_5E3130` | `tests/clienttest/clienttest.cpp:1603` | untagged neutral name (D10) |
-| 1 | `Unknown8B5D90Class` | `tests/clienttest/clienttest.cpp:1617` | untagged neutral name (D10) |
-| 1 | `Unknown_8B7C60` | `tests/clienttest/clienttest.cpp:1623` | untagged neutral name (D10) |
-| 1 | `Unknown_8B6FC0` | `tests/clienttest/clienttest.cpp:1624` | untagged neutral name (D10) |
-| 1 | `Unknown_59A400` | `tests/clienttest/clienttest.cpp:1647` | untagged neutral name (D10) |
-| 1 | `Unknown1134` | `tests/clienttest/clienttest.cpp:1681` | untagged neutral name (D10) |
-| 1 | `Unknown_74DFF0` | `tests/clienttest/clienttest.cpp:1760` | untagged neutral name (D10) |
-| 1 | `Unknown_83D900` | `tests/clienttest/clienttest.cpp:1766` | untagged neutral name (D10) |
-| 1 | `Unknown_83D970` | `tests/clienttest/clienttest.cpp:1768` | untagged neutral name (D10) |
-| 1 | `Unknown119C` | `tests/clienttest/clienttest.cpp:1799` | untagged neutral name (D10) |
-| 1 | `Unknown_5913E0` | `tests/clienttest/clienttest.cpp:1831` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownD8Class` | `tests/clienttest/clienttest.cpp:1832` | untagged neutral name (D10) |
-| 1 | `Unknown_5DA600` | `tests/clienttest/clienttest.cpp:1832` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownE4Class` | `tests/clienttest/clienttest.cpp:1833` | untagged neutral name (D10) |
-| 1 | `Unknown_5E8E30` | `tests/clienttest/clienttest.cpp:1833` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownE8Class` | `tests/clienttest/clienttest.cpp:1834` | untagged neutral name (D10) |
-| 1 | `Unknown_5E5D70` | `tests/clienttest/clienttest.cpp:1834` | untagged neutral name (D10) |
-| 1 | `Unknown_830AA0` | `tests/clienttest/clienttest.cpp:1841` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `tests/clienttest/clienttest.cpp:1853` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `tests/clienttest/clienttest.cpp:1862` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `tests/clienttest/clienttest.cpp:1882` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `tests/clienttest/clienttest.cpp:1883` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `tests/clienttest/clienttest.cpp:1884` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `tests/clienttest/clienttest.cpp:1887` | untagged neutral name (D10) |
-| 1 | `Unknown1274` | `tests/clienttest/clienttest.cpp:2041` | untagged neutral name (D10) |
-| 1 | `LoginUnknown18Class` | `tests/clienttest/clienttest.cpp:2041` | untagged neutral name (D10) |
-| 1 | `SClientUnknown12C4Class` | `tests/clienttest/clienttest.cpp:2044` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `tests/clienttest/clienttest.cpp:2045` | untagged neutral name (D10) |
+| 1 | `Unknown8B5D90Class` | `tests/clienttest/clienttest.cpp:1624` | untagged neutral name (D10) |
+| 1 | `Unknown_8B7C60` | `tests/clienttest/clienttest.cpp:1630` | untagged neutral name (D10) |
+| 1 | `Unknown_8B6FC0` | `tests/clienttest/clienttest.cpp:1631` | untagged neutral name (D10) |
+| 1 | `Unknown_59A400` | `tests/clienttest/clienttest.cpp:1654` | untagged neutral name (D10) |
+| 1 | `Unknown1134` | `tests/clienttest/clienttest.cpp:1704` | untagged neutral name (D10) |
+| 1 | `Unknown_74DFF0` | `tests/clienttest/clienttest.cpp:1786` | untagged neutral name (D10) |
+| 1 | `Unknown_83D900` | `tests/clienttest/clienttest.cpp:1792` | untagged neutral name (D10) |
+| 1 | `Unknown_83D970` | `tests/clienttest/clienttest.cpp:1794` | untagged neutral name (D10) |
+| 1 | `Unknown119C` | `tests/clienttest/clienttest.cpp:1825` | untagged neutral name (D10) |
+| 1 | `UIChatPanelUnknownD8Class` | `tests/clienttest/clienttest.cpp:1857` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA600` | `tests/clienttest/clienttest.cpp:1857` | untagged neutral name (D10) |
+| 1 | `UIChatPanelUnknownE4Class` | `tests/clienttest/clienttest.cpp:1858` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8E30` | `tests/clienttest/clienttest.cpp:1858` | untagged neutral name (D10) |
+| 1 | `UIChatPanelUnknownE8Class` | `tests/clienttest/clienttest.cpp:1859` | untagged neutral name (D10) |
+| 1 | `Unknown_5E5D70` | `tests/clienttest/clienttest.cpp:1859` | untagged neutral name (D10) |
+| 1 | `Unknown_830AA0` | `tests/clienttest/clienttest.cpp:1865` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `tests/clienttest/clienttest.cpp:1877` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `tests/clienttest/clienttest.cpp:1886` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `tests/clienttest/clienttest.cpp:1906` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `tests/clienttest/clienttest.cpp:1907` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `tests/clienttest/clienttest.cpp:1908` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `tests/clienttest/clienttest.cpp:1911` | untagged neutral name (D10) |
+| 1 | `Unknown1274` | `tests/clienttest/clienttest.cpp:2065` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `tests/clienttest/clienttest.cpp:2065` | untagged neutral name (D10) |
+| 1 | `SClientUnknown12C4Class` | `tests/clienttest/clienttest.cpp:2068` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `tests/clienttest/clienttest.cpp:2069` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `tests/clienttest/tsk_game_stubs.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `tests/clienttest/tsk_game_stubs.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_5594B0` | `tests/clienttest/ui_avsel_stubs.cpp:21` | untagged neutral name (D10) |
