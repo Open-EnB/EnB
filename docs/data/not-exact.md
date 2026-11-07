@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-685 entries in 193 files.
+686 entries in 193 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -455,7 +455,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:1668` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
 | `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
-| `app/client/ui_starbase.cpp:342` | `UIStarbaseLightsClass::Unknown_646A00` | marker | NOT EXACT: inline-budget (the client keeps the temporary vector's _Destroy 0x644410 out of line, ours inlines it) and the far attenuation range: the client copies the two floats with mov, as Zero Hour's light.h overload Get_Far_Attenuation_Range(float &, float &) gives (tested with an equivalent helper); this tree's light.h has only the double & one, whose fld / fstp is kept here 0x646A00 |
+| `app/client/ui_starbase.cpp:45` | `UIStarbaseClass::Unknown_640810` | marker | NOT EXACT: register-only residue at the top (the client loads +0xB0 into eax before Room, a's chain through eax / ecx; ours through ecx / edx) and in the inlined 0x640CC0 loop (eax / edx swapped); 42 rows. The budget forms that reach the client's out-of-line calls (0x6443C0 erase, 0x644180 insert, 0x6444A0 insert(n)) and ??_H: 0x640CC0 inlined (it has no caller of its own), with clear() in it, Unk... |
+| `app/client/ui_starbase.cpp:393` | `UIStarbaseLightsClass::Unknown_646A00` | marker | NOT EXACT: inline-budget (the client keeps the temporary vector's _Destroy 0x644410 out of line, ours inlines it) and the far attenuation range: the client copies the two floats with mov, as Zero Hour's light.h overload Get_Far_Attenuation_Range(float &, float &) gives (tested with an equivalent helper); this tree's light.h has only the double & one, whose fld / fstp is kept here 0x646A00 |
 | `app/client/ui_talkt.cpp:68` | `UITalkTreeClass::UITalkTreeClass` | marker | NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup) |
 | `app/client/ui_talkt.cpp:287` | `UITalkTreeClass::Unknown_5C` | marker | NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client) |
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
