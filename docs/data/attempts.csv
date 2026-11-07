@@ -2186,3 +2186,10 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-06 20:32,0x84BE60,"String_To_Value(const char *, TargetGeneratorSummaryBF *)",app/common/target_generator_summary.cpp,app,partial,0.64,14,inline-budget,"the temporary string's _Eos out of line in the client, value in ebx; tried: order of found and *value, index vs pointer loop, reference local for the bits, *value | flag, named copy of the temporary, implicit conversion",,Opus 5.5
 2026-11-06 21:45,0x5F0F10,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,members' implicit dtors,,opus
 2026-11-06 21:45,0x5F2280,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,functional,,opus
+2026-11-06 21:45,0x5F1730,,app/client/ui_registration.cpp,app,partial,,1,order,for and while over the maps; shape: second loop's _Min a call in ours,,opus
+2026-11-06 21:45,0x5F2B20,,app/client/ui_registration.cpp,app,partial,,1,order,ternary both ways; struct filled after new; order-only around the button struct's stores,,opus
+2026-11-06 21:45,0x5F3250,,app/client/ui_registration.cpp,app,partial,,1,frame,"for form; frame: sub esp 0x30 vs 0x28; client calls begin 0x605970, _Min 0x608450",,opus
+2026-11-06 21:45,0x5F8CD0,,app/client/ui_registration.cpp,app,partial,,1,register,ternary on the focus; register choice,,opus
+2026-11-06 21:45,0x5F8EA0,,app/client/ui_registration.cpp,app,partial,,1,order,"bool leap local, early returns; shape: bl bool form not reproduced",,opus
+2026-11-06 21:45,0x6039E0,,app/client/ui_registration.cpp,app,partial,,1,order,"while with a cached end; order-only: this in ebp, end in edi",,opus
+2026-11-06 21:45,0x603A60,,app/client/ui_registration.cpp,app,partial,,1,order,struct tm copy local; shape: gmtime copy's registers popped before the compare,,opus
