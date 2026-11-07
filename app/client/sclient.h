@@ -414,33 +414,7 @@ public:
 class MainViewClass;
 class INIClass;
 
-// orbitalmanager.cpp's manager (the main view's +0x140, 0x1D4 bytes), as far as the main view reads it
-class OrbitalManager		// NAME 2: the client's (OrbitalManager::Update)
-{
-public:
-	~OrbitalManager();									// 0x4F4FD0 (the main view's Shutdown 0x50C2F0)
-	OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *callback);	// 0x4F3250 (0x1D4 bytes; the main view's 0x50BA60)  // NAME 1 [client, callback]: what 0x50BA60 passes
-	void Unknown_4F3310();								// 0x4F3310 (the main view's 0x513700, before the sector's orbital%04d.ini is read)
-	void Unknown_4F34C0(INIClass &ini);				// 0x4F34C0 (0x513700: orbital%04d.ini when it loaded)  // NAME 1 [ini]: what it gets
-	float Get_Unknown54() const { return(Unknown54); }	// (inline: the main view's 0x50CCF0 copies it through the FPU)  // NAME 1: neutral (D10): the member it returns
-
-	void Update(CameraClass *camera, float time, bool planet);	// 0x4F45A0 (the main view's Update unless its +0x168 is set: the hours, view mode 1)  // NAME 1 [camera, time, planet]: what Update passes
-	const Vector4 &Unknown_4F50D0(int index);			// 0x4F50D0 (Update, view mode 0: light index's colour and intensity, 4 the fill)  // NAME 1 [index]: neutral
-	const Vector3 &Unknown_4F5140(int index);			// 0x4F5140 (Update, view mode 0: light index's offset)  // NAME 1 [index]: neutral
-
-	char Unknown00[0x14];								// +0x00
-	Vector3 Unknown14;									// +0x14 (Update: the sun's colour, the land's LightColor)
-	Vector3 Unknown20;									// +0x20 (Update: the sun's direction, the land's SunDirection)
-	float Unknown2C;									// +0x2C (Update: the land's SunAngle)
-	float Unknown30;									// +0x30 (Update: the land's ShadowBias)
-	Vector3 Unknown34;									// +0x34 (Update: the fog colour)
-	char Unknown40[0x4C - 0x40];						// +0x40
-	bool Unknown4C;										// +0x4C (Update: the sun light is added; the land's Valid)
-	float Unknown50;									// +0x50 (the main view's 0x50CCF0: the near plane at a unit FOV)
-	float Unknown54;									// +0x54 (0x50CCF0: the far plane)
-	Vector3 Unknown58;									// +0x58 (Update: the ambient light)
-	char Unknown64[0x1D4 - 0x64];						// +0x64
-};
+#include "..\shared\orbitalmanager.h"	// orbitalmanager.cpp's manager (the main view's +0x140, 0x1D4 bytes; WE4, 2026-11-07)
 
 // what the main view's scene (0x75ECF0) holds at +0x98, as far as Update calls it
 class MainViewSceneUnknown98Class	// NAME 1: neutral (D10)

@@ -103,12 +103,7 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
 	Client = client;
 }
 
-// ---------------------------------------------------------------- orbital manager (0x4F3250, 0x1D4 bytes; no table)
-OrbitalManager::OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *callback)
-{
-	STUB_CALLED("POC OrbitalManager: zero");
-	memset(this, 0, 0x1D4);
-}
+// orbitalmanager.cpp (0x4F28A0-0x4F51C0) is real app code since WE4: its stand-in left here.
 
 // ---------------------------------------------------------------- the main view's windows that have no class in the tree: empty windows on its view (0x53E970, 0x53D250 and +0x1DC's)
 MainViewUnknown53E970Class::MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene) : InterfaceClass((UIViewClass *)view, (int)scene)

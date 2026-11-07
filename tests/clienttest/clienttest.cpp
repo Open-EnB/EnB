@@ -215,6 +215,9 @@ static FakeTableStruct Fake_View1DC = { View1DC_Table };
 static void __stdcall View1DC_88_Slot(RenderObjClass *model) { Trace("mainview 1DC's +0x88 %s", model ? "a model" : "NULL"); }	// 0x513540: the backdrop model
 static void __stdcall View1DC_8C_Slot(int arg) { Trace("mainview 1DC's +0x8C %d", arg); }	// 0x513600
 static void *View138_Table[32];
+static void *Orbital_View_Table[4];	// the orbitals' ViewInterface (mainview.cpp's MainViewOrbitalCallbackClass): +0x00 the scene
+static FakeTableStruct Fake_Orbital_View = { Orbital_View_Table };
+static SimpleSceneClass *__stdcall Orbital_View_00_Slot() { Trace("orbitals' view interface: no scene"); return(NULL); }
 static void *Cpit_Table[64];
 static void View138_58_Slot() { Trace("mainview 138's +0x58 (on)"); }	// 0x514010
 static void View138_5C_Slot() { Trace("mainview 138's +0x5C (off)"); }
@@ -2034,6 +2037,8 @@ int main(int argc, char **argv)
 		View1DC_Table[s] = (void *)Zero_Slot;
 	}
 	View1DC_Table[0x88 / 4] = (void *)View1DC_88_Slot;
+	Orbital_View_Table[0] = (void *)Orbital_View_00_Slot;
+	Orbital_View_Table[1] = (void *)Zero_Slot;
 	View1DC_Table[0x8C / 4] = (void *)View1DC_8C_Slot;
 	for (int c = 0; c < 64; c++) {
 		Cpit_Table[c] = (void *)Zero_Slot;
@@ -2070,10 +2075,11 @@ int main(int argc, char **argv)
 		OptionClass::Instance = new OptionClass();
 	}
 	// 0x513700 (SERVER_PARAMETERS 66) calls the main view's stars (+0x134: a real StarFieldClass; no stars.ini in the
-	// working directory, so its Init loads nothing) and orbitals (+0x140: zeroed, OrbitalManager's members are stand-ins)
+	// working directory, so its Init loads nothing) and orbitals (+0x140: zeroed but its ViewInterface, a fake whose scene is NULL: orbitalmanager.cpp's 0x4F3310 is real, WE4)
 	static double fake_orbitals[(sizeof(OrbitalManager) + 7) / 8];
 	*(StarFieldClass **)&main_view.Unknown04[0x134 - 0x04] = new StarFieldClass(0);
 	*(OrbitalManager **)&main_view.Unknown04[0x140 - 0x04] = (OrbitalManager *)fake_orbitals;
+	((OrbitalManager *)fake_orbitals)->ViewInterface = (MainViewOrbitalCallbackClass *)&Fake_Orbital_View;
 	// 0x513540 / 0x513600 (SClient 0x745000, 0x7456B0) call the +0x1DC object's slots +0x88 / +0x8C
 	*(FakeTableStruct **)&main_view.Unknown04[0x1DC - 0x04] = &Fake_View1DC;
 	// 0x514010 (SClient 0x745F30, CLIENT_TYPE 60) turns the cockpit (+0x1D0, zeroed: no scanner) and the +0x138
