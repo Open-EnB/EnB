@@ -792,22 +792,22 @@ public:
 	Vector3 Target;										// +0x0C  // NAME 2: what it holds
 	Vector3 Rate;										// +0x18: per unit of time  // NAME 2: what it holds
 };
-// ui_mesh.cpp's mesh (the scripted movie's objects), as far as scriptedmovie.cpp calls it
-class UIMeshClass	// NAME 3: class-from-file (D24) for ui_mesh.cpp
-{
-public:
-	UIMeshClass(const char *name, int arg); UIMeshClass(const char *name, ClientClass *client); ~UIMeshClass();	// 0x5B8120 / 0x5B8330 (a ship's: Create_Object), 0x5B8640 (Destroy_Object deletes it); arg an int (ui_scut.cpp's 0x610570 passes 2)  // NAME 1 [name, arg, client]: what Create_Object passes
-	void Unknown_5B92B0();								// 0x5B92B0 (Destroy_Object, before the delete)
-	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
-	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's
-	RenderObjClass *Unknown_5B8B40(const char *name); void Unknown_5B9830(); void Unknown_5B9930(int arg); void Unknown_5BA460(int arg); void Unknown_5B9410(); void Unknown_5B9290(SimpleSceneClass *scene); RenderObjClass *Peek_Mesh_Object() { return(Unknown1C); } void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral; 0x5B9830 / 0x5B9930 / 0x5BA460: the cockpit's (ui_cpit.cpp passes -1, 1)  // NAME 1 [arg]: neutral
-	void Unknown_5B8EE0(int a, int b, const char *anim_name, int c, int d, int e, int f, int g); void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's  // 0x5B8EE0 (ui_verb.cpp: the button's index twice, its animation, 0s, -1)  // NAME 1 [Unknown_5B8EE0, a, b, anim_name, c..g]: neutral
-	RenderObjClass *Peek_Object(); RenderObjClass *Unknown_5E26D0(); RenderObjClass *Unknown_5B8B20(); void Unknown_5B8850(const char *name, bool arg);	// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()'); 0x5B8B20: the same with a reference added (Add_Camera); 0x5E26D0: the same read, out of line in ui_ptrade.cpp's window (0x809600, 0x808C30)  // NAME 3: the assert's; 0x5B8850: the page model of that name onto the mesh (ui_ship_cust.cpp's 0x61BD80: the page's style name, 1)  // NAME 1 [Unknown_5B8850, name, arg]: neutral
-	char Unknown00[0x1C];								// +0x00
-	RenderObjClass *Unknown1C;							// +0x1C: the model (Toggle_Engine_Trails reads it without Peek_Object)
-	char Unknown20[0x70 - 0x20];						// +0x20
-	int Unknown70;										// +0x70: flags (the Play_Animation commands clear bit 0, set or clear bit 1)
-};
+#include "ui_mesh.h"		// ui_mesh.cpp's mesh (the scripted movie's objects): UIMeshClass, moved out (UM1, 2026-11-07)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // one of the scripted movie's objects (0x0C bytes, in a vector at +0x58)
 struct ScriptedMovieObjectStruct	// NAME 1: neutral (D10)
 {	ScriptedMovieObjectStruct() : Mesh(NULL), Slot(-1), Unknown08(0) {}	// (Create_Object 0x804290 stores all three first)

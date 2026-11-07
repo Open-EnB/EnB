@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-653 entries in 179 files.
+659 entries in 180 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -394,6 +394,12 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1513` | `Unknown_5B5CD0` | marker | NOT EXACT: inline budget (the client calls std::string's _Eos out of line in the static's constructor; ours inlines it) (0x5B5CD0) |
 | `app/client/ui_manu.cpp:1562` | `UIManuClass::Unknown_5B5320` | marker | NOT EXACT: inline budget (the client calls all seven finds out of line, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours inlines them, and six dead finds (D130) move none) (0x5B5320) |
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
+| `app/client/ui_mesh.cpp:35` | `UIMeshClass::UIMeshClass` | marker | NOT EXACT: 0x5B8330 (0.78): the client calls GenericNode() / Link out of line for the running list (inline budget) and stores the hsv zeros inside the new |
+| `app/client/ui_mesh.cpp:62` | `UIMeshClass::Unknown_5B8850` | marker | NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it |
+| `app/client/ui_mesh.cpp:194` | `UIMeshClass::Unknown_5B8EE0` | marker | NOT EXACT: 0x5B8EE0 (0.50): register choice (slot in edx, the node through lea ecx) |
+| `app/client/ui_mesh.cpp:203` | `UIMeshClass::Unknown_5B8FF0` | marker | NOT EXACT: 0x5B8FF0 (0.50): as 0x5B8EE0 |
+| `app/client/ui_mesh.cpp:247` | `UIMeshClass::Unknown_5B92D0` | marker | NOT EXACT: 0x5B92D0 (0.50): register choice (this in ebp, slot in edi) |
+| `app/client/ui_mesh.cpp:271` | `UIMeshClass::Unknown_5B9410` | marker | NOT EXACT: 0x5B9410 (0.73) |
 | `app/client/ui_mfd.cpp:494` | `UIMFDClass::Update_Line` | marker | NOT EXACT: 0x5BCE50, register only: ours keeps line in ebx (one more saved register), the client in esi, reloading it from its slot |
 | `app/client/ui_mfd.cpp:581` | `UIMFDClass::Get_Value` | marker | NOT EXACT: 0x5BD540, inline budget: the client calls 0x5BDED0's two finds (case 10) where ours inlines 0x5BE330 |
 | `app/client/ui_mfd.cpp:675` | `UIMFDClass::Set_ETA` | marker | NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (register/frame only) |

@@ -4964,6 +4964,10 @@ RECONSTRUCTED = {
     ('app', 'client/unknown_log.h'): "Unknown_Log and Unknown_7E5F70 declarations; header PROVISIONAL (D137)",
     ('app', 'shared/unknown_8b4560.cpp'): "Unknown_8B4510 and Unknown_8B4560 (client 0x8B4510-0x8B4596): the 64-bit byte swap functions; file PROVISIONAL (D137)",
     ('app', 'shared/unknown_8b4560.h'): "Unknown_8B4510 and Unknown_8B4560 declarations; header PROVISIONAL (D137)",
+    ('app', 'client/ui_mesh.cpp'): "ui_mesh.cpp (the client's __FILE__ 0xB8200C 'e:\\build\\beta\\G\\app\\Client\\ui_mesh.cpp'; client 0x5B8120-0x5BB240: after ui_manu_util.cpp's <string> initialiser 0x5B80D0 and its two adjustor thunks, up to its own initialiser 0x5BB220, before Unknown5BB320Class 0x5BB250; asserts lines 38-551): UIMeshClass (ui_mesh.h), its process lists and the wwlib templates it instantiates (SList<GadgetClass>, List / DataNode, VectorClass), UM1",
+    ('app', 'client/ui_mesh.h'): "UIMeshClass (NAME 3, D24 from ui_mesh.cpp), moved out of sclient.h: SubjectClass at +0x04, the model +0x1C (the asserts' InterfaceMesh), the gadget SList +0x20, the HAnimComboClass +0x2C, the running and per-channel process lists; header PROVISIONAL (D137), UM1",
+    ('app', 'client/ui_proc.h'): "UIProcClass (NAME 3, D24 from ui_proc.cpp) and its six subclasses as ui_mesh.cpp inlines and emits them; ui_proc.cpp itself not rebuilt; header PROVISIONAL (D137), UM1",
+    ('app', 'shared/observer.h'): "SubjectClass (NAME 1), observer.cpp's 0x18-byte subject (DynamicVectorClass<ObserverClass *>: 0x49E890 / 0x49E950 / 0x49EAB0), UIMeshClass's base at +0x04; observer.cpp not rebuilt; header PROVISIONAL (D137), UM1",
 }
 
 # Text appended to imported files (after everything, so no existing line moves).
