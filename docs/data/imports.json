@@ -2171,12 +2171,15 @@
    },
    "camctrl_pland": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x499720",
+     "0x4A91B0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x447C40",
      "0x7923E0",
      "0x792410",
      "0x792430",
@@ -2193,6 +2196,7 @@
     "name": "client/camctrl_pland.cpp",
     "shared": [
      "0x42F250",
+     "0x447C40",
      "0x7923E0",
      "0x792410",
      "0x792430",
@@ -2240,7 +2244,8 @@
    },
    "camctrl_stargate": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x499720"
     ],
     "copy": "reconstructed",
     "expected": {},
