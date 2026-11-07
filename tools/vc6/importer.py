@@ -3989,6 +3989,7 @@ RECONSTRUCTED = {
     ('app', 'client/radar_data.cpp'): "RadarDataClass (the client's typeid name), the object's radar colours (the client's __FILE__ 0xB9F070, FAIL_IFs at lines 73-227; 0x7BB1D0-0x7BC02B) (RD1)",
     ('app', 'client/co_player_relationship.h'): "the gutter colour structs, moved from co_player_relationship.cpp for radar_data.h (D24 header name) (RD1)",
     ('app', 'client/client_object_events.h'): "PlayerObjectRelationshipChangeEvent and ClientGroupEvent, moved from co.cpp and ui_group.cpp for radar_data.cpp (neutral header name, D137) (RD1)",
+    ('app', 'client/starmap_data.cpp'): "StarmapDataClass (the client's typeid name), the object's starmap icon and mesh (the client's __FILE__ 0xB9F3A4, asserts at lines 147-354; 0x7BE600-0x7BF810) (RD1)",
     ('app', 'client/radar_icon_data.cpp'): "RadarIconDataClass (D24), the base of the gutter and starmap data (the client's __FILE__ 0xB9F220, FAIL_IFs at lines 64-138; 0x7BC040-0x7BC6D0, ended by <string>'s initialiser 0x7BC6F0) (GR2)",
     ('app', 'client/nav_list_builder.h'): "NavListBuilderClass (D24), declared as far as the rebuilt part of its object uses it (GR2)",
     ('app', 'client/nav_list_builder.cpp'): "NavListBuilderClass (D24): the constructor, destructor, 0x7B7C80 and Clear of the object at 0x7B7BF0 (the client's __FILE__ 0xB9EE4C, FAIL_IF '!from' at line 150); the rest is not rebuilt (GR2)",

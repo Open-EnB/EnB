@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-624 entries in 172 files.
+625 entries in 173 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -256,6 +256,7 @@ edit the comments in the code, not this file.
 | `app/client/skill_data_peek.cpp:149` | `SkillDataPeekClass::Get_Affiliations` | marker | NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return) 0x6A5730 |
 | `app/client/slot_data.cpp:32` | `SlotDataClass::Unknown_6A7730` | marker | NOT EXACT: shape, the client lays out the second emit before the shared failure exit (three forms of the branches) 0x6A7730 |
 | `app/client/slot_data.cpp:56` | `SlotDataClass::Unknown_6A7860` | marker | NOT EXACT: inlines 0x6A7730, the same shape 0x6A7860 |
+| `app/client/starmap_data.cpp:231` | `StarmapDataClass::Create_Mesh` | marker | NOT EXACT: frame and registers (the client keeps 0 in ebx and is_ship on the stack, the old transform above the rotation) @0x7BEF50 |
 | `app/client/target_reticle.cpp:107` | `TargetReticleClass::Update` | marker | NOT EXACT: 0x7C5690, register rotation only (13 rows at the inlined time == LastTime: eax / ecx for ecx / eax, edx / eax for ecx / eax, eax for ecx at LastValue); same length (1990 bytes) @0x7C5690 |
 | `app/client/tasks/settings_store.cpp:10` | `Unknown_7CA2D0Class::Unknown_7CA2D0Class` | marker | NOT EXACT: shape (functional for the POC: the client's constructor also sets the two vtables, counts itself in a global, and fills the browser descriptors at +0x70 ('SUPPORT', 'PRIVACY', ... with their http://support.net-7.org URLs); only the state the login path reads is set here: the empty strings and map, the URL-check deadlines) |
 | `app/client/tasks/settings_store.cpp:30` | `Unknown_7CA2D0` | marker | NOT EXACT: schedule (the client runs the constructor through a jump thunk and registers the destructor thunk with atexit) |

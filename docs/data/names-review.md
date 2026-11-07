@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 157 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1542 |
-| 2 | describes what the code does | 3523 |
-| 1 | neutral placeholder | 17313 |
+| 2 | describes what the code does | 3536 |
+| 1 | neutral placeholder | 17328 |
 
 ## For review (score 3 and below)
 
@@ -7239,7 +7239,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_764AB0` | `app/client/starbase_lights.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_764510` | `app/client/starbase_lights.h:43` | sets 0xBE82D0  // NAME 1 [manager]: neutral |
 | 1 | `Unknown_BE82D0` | `app/client/starbase_lights.h:44` | neutral (D10) |
-| 1 | `Unknown1C` | `app/client/starmap_data.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_B9F38C` | `app/client/starmap_data.cpp:17` | neutral |
+| 1 | `Unknown_B9F390` | `app/client/starmap_data.cpp:18` | neutral |
+| 1 | `Unknown_79B6B0` | `app/client/starmap_data.cpp:19` | neutral |
+| 1 | `Unknown_7BF4C0` | `app/client/starmap_data.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_7BF630` | `app/client/starmap_data.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/starmap_data.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/starmap_data.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/starmap_data.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/starmap_data.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/starmap_data.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/starmap_data.cpp:150` | untagged neutral name (D10) |
+| 1 | `StarmapMeshClass` | `app/client/starmap_data.cpp:224` | neutral (0xF4 bytes; vtable 0xB069B8) |
+| 1 | `Unknown_6F5A40` | `app/client/starmap_data.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown_7008B0` | `app/client/starmap_data.cpp:261` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/starmap_data.cpp:277` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/starmap_data.h:45` | untagged neutral name (D10) |
 | 1 | `Unknown_466920Class` | `app/client/starmap_pip_support.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown10C` | `app/client/starmap_pip_support.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown114` | `app/client/starmap_pip_support.cpp:10` | untagged neutral name (D10) |
@@ -18626,6 +18641,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/sound_manager.h:44` | what they hold |
 | 2 | `Sounds` | `app/client/sound_manager.h:45` | what they hold |
 | 2 | `INI` | `app/client/starbase_lights.h:40` | env_map_manager.h's |
+| 2 | `size` | `app/client/starmap_data.cpp:27` | 0x80 or 0x100 |
+| 2 | `SmallTextureSize` | `app/client/starmap_data.cpp:37` | what 0x7BEF50 uses it for |
+| 2 | `LargeTextureSize` | `app/client/starmap_data.cpp:38` | what 0x7BEF50 uses it for |
+| 2 | `PCIconSize` | `app/client/starmap_data.cpp:39` | what it holds |
+| 2 | `Update, cache, pos, scene` | `app/client/starmap_data.h:36` | what it does, what 0x7C06D9 passes |
+| 2 | `Update_Transform, pos, position, angle, size, rotate_icon` | `app/client/starmap_data.h:37` | what it does |
+| 2 | `Get_Position` | `app/client/starmap_data.h:38` | the icon's position |
+| 2 | `WorldPosition` | `app/client/starmap_data.h:40` | what it holds |
+| 2 | `Mesh` | `app/client/starmap_data.h:41` | what it holds |
+| 2 | `Texture` | `app/client/starmap_data.h:42` | what it holds |
+| 2 | `Radius` | `app/client/starmap_data.h:43` | the object's slot +0x30 |
+| 2 | `MeshSize` | `app/client/starmap_data.h:44` | what it holds |
+| 2 | `Create_Mesh` | `app/client/starmap_data.h:48` | what it does |
 | 2 | `SortLevel` | `app/client/starmap_pip_support.h:35` | Get_Sort_Level's |
 | 2 | `total_range` | `app/client/starmap_pip_support.h:45` | the FAIL_IF's  // NAME 1 [arg1, arg2, arg3]: neutral |
 | 2 | `TARGET_FIND_AVATAR` | `app/client/target_find.h:24` | Type == 1 |
