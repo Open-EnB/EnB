@@ -232,9 +232,7 @@ public:
 // @0x7BEF50
 void StarmapDataClass::Create_Mesh()
 {
-	if (Mesh != NULL) {
-		return;
-	}
+	if (Mesh == NULL) {
 	ClientObjectClass *co = Peek_Client_Object();
 
 
@@ -253,9 +251,11 @@ void StarmapDataClass::Create_Mesh()
 
 
 
-	if (!co) { G_ASSERT(co); return; }
+
+
+	if (!co) { G_ASSERT(co); } else {
 	RenderObjClass *robj = co->RenderObject;
-	if (!robj) { G_ASSERT(robj); return; }
+	if (!robj) { G_ASSERT(robj); } else {
 	bool is_ship = false;
 	if (co->Unknown_6F5A40()) {
 		is_ship = co->Unknown_7008B0();
@@ -284,14 +284,14 @@ void StarmapDataClass::Create_Mesh()
 	Mesh->Set_Sort_Level(4);
 	MeshSize = -1.0f;
 	robj->Set_Transform(old_tm);
+	}
+	}
+	}
 }
 
 // @0x7BF4C0
 const char *Unknown_7BF4C0(ClientObjectClass *co)
 {
-
-
-
 
 
 

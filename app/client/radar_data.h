@@ -38,6 +38,7 @@ public:
 	void Unknown_7BBC00(ClientGroupEvent *event, ClientObjectClass *object);	// 0x7BBC00: the object's group changed  // NAME 2 [event, object]: the event's type, the FAIL_IF
 
 	SClient *Peek_SClient() { return((SClient *)Unknown_18()); }	// NAME 1: neutral
+	bool Get_Unknown78() { return(Unknown78); }			// NAME 1: neutral
 
 	int Unknown08;						// +0x08 (gutter_data.cpp's 0x7B63C0: 1 and 2 show the labels; 0x7c bytes: co_data.cpp's new)  // NAME 1: neutral (D10)
 	Vector3 Color;						// +0x0C (target_reticle.cpp 0x7C5690 colours the corners with it)  // NAME 2: what it does

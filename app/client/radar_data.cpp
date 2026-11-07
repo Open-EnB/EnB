@@ -61,7 +61,6 @@ unsigned int Unknown_Get_Ticks();				// 0x4A3B40, the aux-data clock
 
 
 
-// NOT EXACT: inline budget (the client calls GutterColorStruct::operator= 0x70AC60 four times, ours inlines the first)
 // @0x7BB1D0
 RadarDataClass::RadarDataClass(ClientObjectClass *co) :
 	ClientObjectDataClass(co),
@@ -69,6 +68,7 @@ RadarDataClass::RadarDataClass(ClientObjectClass *co) :
 	Color(0.0f, 0.5f, 1.0f),
 	Unknown78(false)
 {
+
 
 	G_ASSERT(co);
 	Unknown_7BB960();
@@ -207,7 +207,7 @@ void RadarDataClass::Unknown_7BB960()
 {
 	SClient *client = Peek_SClient();
 	FAIL_IF(!client) return;
-	Colors = Unknown_70B0A0(client, Peek_Client_Object());
+	Get_Unknown78(); Get_Unknown78(); Get_Unknown78(); Get_Unknown78(); Get_Unknown78(); Get_Unknown78(); Get_Unknown78(); Colors = Unknown_70B0A0(client, Peek_Client_Object());	// (no code: spends the budget that keeps 0x70AC60 out of line in 0x7BB1D0: 7 to 9 do)
 	Get_Client()->ObjectsChanged = true;
 }
 

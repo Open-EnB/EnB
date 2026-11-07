@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1542 |
 | 2 | describes what the code does | 3547 |
-| 1 | neutral placeholder | 17338 |
+| 1 | neutral placeholder | 17350 |
 
 ## For review (score 3 and below)
 
@@ -5034,8 +5034,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7151D0` | `app/client/postate.h:333` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/postate.h:335` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/client/radar_data.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/radar_data.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/radar_data.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/radar_data.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/radar_data.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_7BB960` | `app/client/radar_data.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown_4F7EF0` | `app/client/radar_data.cpp:75` | untagged neutral name (D10) |
 | 1 | `Unknown_7BBA90` | `app/client/radar_data.cpp:75` | untagged neutral name (D10) |
@@ -5046,6 +5046,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_700860` | `app/client/radar_data.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_7BB8C0` | `app/client/radar_data.cpp:133` | untagged neutral name (D10) |
 | 1 | `Unknown_70BAC0` | `app/client/radar_data.cpp:202` | untagged neutral name (D10) |
+| 1 | `Get_Unknown78` | `app/client/radar_data.cpp:210` | untagged neutral name (D10) |
 | 1 | `Unknown_70B0A0` | `app/client/radar_data.cpp:210` | untagged neutral name (D10) |
 | 1 | `Unknown_7BB570` | `app/client/radar_data.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_7BB8C0` | `app/client/radar_data.h:34` | untagged neutral name (D10) |
@@ -5055,9 +5056,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7BBC00` | `app/client/radar_data.h:38` | untagged neutral name (D10) |
 | 1 | `Peek_SClient` | `app/client/radar_data.h:40` | neutral |
 | 1 | `Unknown_18` | `app/client/radar_data.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/radar_data.h:42` | neutral (D10) |
-| 1 | `Unknown78` | `app/client/radar_data.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown79` | `app/client/radar_data.h:46` | untagged neutral name (D10) |
+| 1 | `Get_Unknown78` | `app/client/radar_data.h:41` | neutral |
+| 1 | `Unknown78` | `app/client/radar_data.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/radar_data.h:43` | neutral (D10) |
+| 1 | `Unknown79` | `app/client/radar_data.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_496AE0` | `app/client/radar_icon_data.cpp:12` | untagged neutral name (D10) |
 | 1 | `PDAInterfaceUnknownA0Class` | `app/client/radar_system.cpp:28` | neutral (D10) |
 | 1 | `Unknown_7C0440` | `app/client/radar_system.cpp:31` | untagged neutral name (D10) |
@@ -17012,13 +17014,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE5BD0` | `programs/clientpoc/poc_data.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `programs/clientpoc/poc_data.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_BE7D80` | `programs/clientpoc/poc_data.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C9C` | `programs/clientpoc/poc_data.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C90` | `programs/clientpoc/poc_data.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C94` | `programs/clientpoc/poc_data.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C98` | `programs/clientpoc/poc_data.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CA0` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB4` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C9C` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown_42A1A0` | `programs/clientpoc/poc_link.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `programs/clientpoc/poc_link.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
@@ -17260,14 +17267,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `tests/clienttest/clienttest.cpp:2075` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `tests/clienttest/tsk_game_stubs.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `tests/clienttest/tsk_game_stubs.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown_5594B0` | `tests/clienttest/ui_avsel_stubs.cpp:21` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C9C` | `tests/clienttest/ui_avsel_stubs.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CAC` | `tests/clienttest/ui_avsel_stubs.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB0` | `tests/clienttest/ui_avsel_stubs.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `tests/clienttest/ui_avsel_stubs.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CBC` | `tests/clienttest/ui_avsel_stubs.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC0` | `tests/clienttest/ui_avsel_stubs.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `tests/clienttest/ui_avsel_stubs.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_5594B0` | `tests/clienttest/ui_avsel_stubs.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C90` | `tests/clienttest/ui_avsel_stubs.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C94` | `tests/clienttest/ui_avsel_stubs.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C98` | `tests/clienttest/ui_avsel_stubs.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CA0` | `tests/clienttest/ui_avsel_stubs.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB4` | `tests/clienttest/ui_avsel_stubs.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C9C` | `tests/clienttest/ui_avsel_stubs.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `tests/clienttest/ui_avsel_stubs.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB0` | `tests/clienttest/ui_avsel_stubs.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `tests/clienttest/ui_avsel_stubs.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CBC` | `tests/clienttest/ui_avsel_stubs.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `tests/clienttest/ui_avsel_stubs.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `tests/clienttest/ui_avsel_stubs.cpp:44` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `tests/clienttest/ui_login_stubs.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `tests/clienttest/ui_stubs.cpp:56` | untagged neutral name (D10) |
 | 1 | `UnknownEventDispatcherClass` | `tests/clienttest/ui_stubs.cpp:63` | untagged neutral name (D10) |
@@ -18386,8 +18398,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `state` | `app/client/radar_data.h:34` | what 0x7BD6E0 / 0x7BD860 pass |
 | 2 | `event, object` | `app/client/radar_data.h:37` | the event's type, the FAIL_IF |
 | 2 | `event, object` | `app/client/radar_data.h:38` | the event's type, the FAIL_IF |
-| 2 | `Color` | `app/client/radar_data.h:43` | what it does |
-| 2 | `Colors` | `app/client/radar_data.h:44` | what it holds |
+| 2 | `Color` | `app/client/radar_data.h:44` | what it does |
+| 2 | `Colors` | `app/client/radar_data.h:45` | what it holds |
 | 2 | `icon_name` | `app/client/radar_icon_data.h:31` | gutter_data.cpp's 'gutter_icon' |
 | 2 | `Set_Icon` | `app/client/radar_icon_data.h:34` | what it does |
 | 2 | `Add_To_Scene` | `app/client/radar_icon_data.h:35` | what it does |
