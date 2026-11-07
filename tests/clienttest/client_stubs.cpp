@@ -13,6 +13,7 @@
 #include <vector>
 #include "clienttest.h"
 #include "..\..\..\app\client\sclient.h"
+#include "..\..\..\app\client\ui_talkt.h"
 #include "..\..\..\app\common\connect.h"
 #include "..\..\..\app\packets\pknamedecal.h"
 #include "..\..\..\app\packets\pkguildranknamesrequestclient.h"
@@ -160,8 +161,8 @@ void Unknown_80FF20(RenderObjClass *, const char *, float *)
 	Trace("gen Unknown_80FF20");	// the line gen_stubs.py's stand-in wrote
 }
 
-// verbmanager.cpp (VERB_UPDATE 92: the handler tests VerbManager first, which Init makes)
-void VerbManagerClass::Unknown_81F810(int game_id, void *, void *) { Trace("stub VerbManagerClass::Unknown_81F810 %d", game_id); }
+// ui_talkt.cpp (compiled in, its 0x64EED0 renamed): the real one would close the fake object's ActiveUI
+void UITalkTreeClass::Unknown_64EED0() { Trace("gen UITalkTreeClass::Unknown_64EED0"); }
 
 // ------------------------------------------------------------------------- the asserts and the debug log
 

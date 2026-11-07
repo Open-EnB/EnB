@@ -16,7 +16,20 @@
 // the high 16 bits pick the verb, the low 16 bits are an argument)
 enum VerbEnum  // NAME 4: the client's own label 'VerbEnum' (0x84C450's Type_Name)
 {
-	VERB_NONE = 0	// NAME 1: neutral placeholder (D10)
+	VERB_NONE = 0,			// NAME 3: the table's 'NA'
+	VERB_SCAN = 0x10000,	// NAME 3: the table's 'Scan'
+	VERB_LAND = 0x20000,	// NAME 3: the table's 'Land'
+	VERB_LOOT = 0x30000,	// NAME 3: the table's 'Loot'
+	VERB_GROUP = 0x40000,	// NAME 3: the table's 'Group'
+	VERB_MESSAGE = 0x50000,	// NAME 3: the table's 'Message'
+	VERB_TRADE = 0x60000,	// NAME 3: the table's 'Trade'
+	VERB_TRACTOR = 0x70000,	// NAME 3: the table's 'Tractor'
+	VERB_DOCK = 0x80000,	// NAME 3: the table's 'Dock'
+	VERB_PROSPECT = 0x90000,	// NAME 3: the table's 'Prospect'
+	VERB_GATE = 0xA0000,	// NAME 3: the table's 'Gate'
+	VERB_REGISTER = 0xB0000,	// NAME 3: the table's 'Register'
+	VERB_JUMPSTART = 0xC0000,	// NAME 3: the table's 'Jumpstart'
+	VERB_FOLLOW = 0xD0000	// NAME 3: the table's 'Follow'
 };
 
 const char *Type_Name(VerbEnum *);								// 0x84C450

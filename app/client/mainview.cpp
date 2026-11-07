@@ -1117,11 +1117,11 @@ public:
 	unsigned Unknown118;								// +0x118 (0x512400 skips 0x563910 when the target's game id equals it)
 };
 
-// ui_starmap.cpp's star map (SClient +0x12A4), as far as the main view's 0x512400 uses it (its G_ASSERT calls it 'targeting')
-class UIStarmapClass	// NAME 3: class-from-file (D24) for ui_starmap.cpp
+// SClient +0x12A4, as far as the main view's 0x512400 uses it (its G_ASSERT calls it 'targeting')
+class TargetingClass	// NAME 2: the asserts'
 {
 public:
-	virtual ~UIStarmapClass();
+	virtual ~TargetingClass();
 
 	char Unknown04[0x10 - 0x04];
 	bool Unknown10;										// +0x10 (0x512400 clears it when TargetGameID's +0x70 is above 1)
@@ -1421,7 +1421,7 @@ void MainViewClass::Unknown_512400()
 	NameClass set_name("TargetGameID");
 	DeltaTemplateClass<int> *set = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)avatar->AuxData, set_name);
 	if (set && set->Unknown70 > 1 && Client) {
-		UIStarmapClass *targeting = Client->Starmap;
+		TargetingClass *targeting = Client->Targeting;
 		if (targeting) {
 			targeting->Unknown10 = false;
 		} else {

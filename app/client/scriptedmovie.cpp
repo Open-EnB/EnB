@@ -914,7 +914,7 @@ void ScriptedMovieViewClass::Unknown_802420()
 	if (Unknown6F) {
 		float x, y;
 		Unknown_42ECF0(&x, &y);
-		if (fabs(Unknown70 - x) > 0.0001 || fabs(Unknown74 - y) > 0.0001) {
+		if (fabs(Unknown70 - x) > 0.0001f || fabs(Unknown74 - y) > 0.0001f) {
 			Unknown70 = x;
 			Unknown74 = y;
 		}

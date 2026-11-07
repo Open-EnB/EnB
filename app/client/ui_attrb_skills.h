@@ -35,7 +35,7 @@ public:
 	virtual void Unknown_A0();							// +0xA0 0x62D540
 	virtual void Unknown_A4();							// +0xA4 0x62D590
 	virtual const char *Unknown_A8();					// +0xA8 (a name: the attributes tab's 'Skills')
-	virtual void Unknown_AC();							// +0xAC 0x62D6A0
+	virtual class SlotDataGadgetClass *Unknown_AC(RenderObjClass *robj, const int *skill);	// +0xAC 0x62D6A0 (a slot gadget for gd_attrb_skills.cpp's 0x663DF0)  // NAME 1 [robj, skill]: neutral
 	virtual void Unknown_B0();							// +0xB0 (0x62DE80's class's 0x4025BD)
 	virtual void Unknown_B4();							// +0xB4 0x62EB90
 	virtual void Unknown_B8();							// +0xB8 0x62EE10

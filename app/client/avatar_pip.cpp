@@ -35,7 +35,7 @@ AvatarPipClass::AvatarPipClass() :
 	Client(NULL),
 	Unknown038(false)
 {
-	Unknown034 = Create_NEW(new Unknown47FA70Class(false));
+	Unknown034 = Create_NEW(new ProxyRObj(false));
 	Unknown028 = Create_NEW(new LightClass(LightClass::POINT));
 	Unknown028->Set_Intensity(1.0f);
 	Unknown028->Set_Force_Visible(true);

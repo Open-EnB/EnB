@@ -23,6 +23,7 @@
 #include "tasks\tsk_login.h"
 #include <string>
 #include <vector>
+#include "verbmanager.h"
 #include "fontdatabase.h"		// FontStringFilesClass at 0xBE67BC: Init loads the default string files (P-H12-3)
 // Callees in files that aren't rebuilt (cdecl, declared here as far as SClient calls them)
 void Unknown_719E10(SClient *client);					// 0x719E10 (control_keys_manager.cpp): the destructor's
@@ -39,7 +40,6 @@ void Unknown_70A7E0(const std::string &ini);			// 0x70A7E0: 'gutter_color.ini'
 void Unknown_70AD70();									// 0x70AD70
 void Unknown_Load_Assets(const std::string &ini);		// NAME 2 [Unknown_Load_Assets]: 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp)
 void Unknown_Free_Assets();								// NAME 2 [Unknown_Free_Assets]: 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp)
-
 extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  // NAME 2: what Pump_Messages redraws
 
 // The object at 0xC404D8 (soundlib.cpp's neighbourhood): the constructor sets its byte +0x19A5
@@ -192,11 +192,11 @@ public:
 	char Unknown04[0xCC - 0x04];
 };
 
-class UIStarmapClass
+class TargetingClass
 {
 public:
-	UIStarmapClass(SClient *client);					// 0x7C6120
-	virtual ~UIStarmapClass();
+	TargetingClass(SClient *client);					// 0x7C6120
+	virtual ~TargetingClass();
 
 	char Unknown04[0x14 - 0x04];
 };
@@ -312,7 +312,7 @@ SClient::SClient(ClientTaskClass *task) :
 	HotKeys(NULL),
 	VerbManager(NULL),
 	GalaxyMap(NULL),
-	Starmap(NULL),
+	Targeting(NULL),
 	CameraManager(NULL),
 	Unknown12B0(0),
 	Unknown12B4(0),
@@ -429,7 +429,7 @@ void SClient::Init()
 	LineDisplay = new UILineDisplayClass((LineDisplayClientClass *)this);
 	LineDisplay->Unknown_54();
 	GalaxyMap = new GalaxyMapClientClass;
-	Starmap = new UIStarmapClass(this);
+	Targeting = new TargetingClass(this);
 	PDAInterface = new PDAInterfaceClass(this);
 	PDAInterface->Unknown_54();
 	BridgeInterface = new BridgeInterfaceClass(this);
@@ -567,8 +567,8 @@ void SClient::Shutdown()
 	REF_PTR_RELEASE(PDAInterface);
 	delete GalaxyMap;
 	GalaxyMap = NULL;
-	delete Starmap;
-	Starmap = NULL;
+	delete Targeting;
+	Targeting = NULL;
 	delete BridgeInterface;
 	BridgeInterface = NULL;
 	REF_PTR_RELEASE(HotKeys);
@@ -1369,7 +1369,7 @@ void SClient::Unknown_745B20(bool level, bool auto_level)
 // 0x745B90
 void SClient::Unknown_745B90(float turn)
 {
-	if (fabs(turn) < 0.0001) {
+	if (fabs(turn) < 0.0001f) {
 		ClientObjectClass *avatar = Get_Avatar();
 		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
 			((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, true, false);
@@ -1385,7 +1385,7 @@ void SClient::Unknown_745B90(float turn)
 // 0x745C70
 void SClient::Unknown_745C70(float tilt)
 {
-	if (fabs(tilt) < 0.0001) {
+	if (fabs(tilt) < 0.0001f) {
 		ClientObjectClass *avatar = Get_Avatar();
 		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
 			((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, false, true);

@@ -2074,7 +2074,7 @@ UICpitHulkWatchClass::UICpitHulkWatchClass(UICpitClass *owner) : Owner(owner)
 }
 
 // 0x584AF0
-void UICpitHulkWatchClass::Unknown_0C()
+void UICpitHulkWatchClass::Unknown_Watch_0C()
 {
 	ClientObjectClass *co = Object;
 
@@ -2089,7 +2089,7 @@ UICpitHarvestWatchClass::UICpitHarvestWatchClass(UICpitClass *owner) : Owner(own
 }
 
 // 0x584BE0
-void UICpitHarvestWatchClass::Unknown_0C()
+void UICpitHarvestWatchClass::Unknown_Watch_0C()
 {
 	ClientObjectClass *co = Object;
 

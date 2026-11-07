@@ -7,10 +7,10 @@
 #include "..\shared\g_assert.h"
 
 #define STRING_CHECK_VALUE '~'	// NAME 5: the asserts'
-
+#include <string>
 
 /*
-**	Reconstruction notes (stredit.cpp, client 0x84AA10-0x84B200 so far; __FILE__ 0xBB0FEC, asserts on the client's
+**	Reconstruction notes (stredit.cpp, client 0x84AA10-0x84B350; __FILE__ 0xBB0FEC, asserts on the client's
 **	lines 335 / 382 / 400, D25: blank lines keep them there).
 **
 **	StrEditClass (stredit.h) is the text gadgets' edit buffer: String holds MaxLen characters, the terminator and
@@ -19,8 +19,8 @@
 **	Enter as a newline with flag 0x40, and the event's character (input.cpp's 0x42EB80) through the flags and Chars.
 **	The event's modifier bits are read as bit-fields in the client (shr / test 1: key up bit 12, shift 8, ctrl 9,
 **	alt 10), which kernel.h's KernelEventClass does not declare: Process_Key is NOT EXACT for it.
-**	Not yet: 0x84B200 (Clear, then Insert of a std::string's text), 0x84B270 and the file's rest to 0x84B8A0
-**	(the asserts 'r >= VENDOR_TYPE_NUM' / 'r <= VENDOR_TYPE_INVALID').
+**	<string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360
+**	("Effect Radius : %d"), is another file's.
 */
 
 StrEditClass::StrEditClass(int maxlen, const char *string, unsigned int flags, const char *chars)
@@ -411,4 +411,33 @@ char *StrEditClass::Get_String(int length, char *buffer)
 	}
 	strncpy(buffer, String, length);
 	return(buffer);
+}
+
+void StrEditClass::Set_String(const std::string &text)
+{
+	Clear();
+	Insert(text.c_str());
+}
+
+void StrEditClass::Insert_String(const std::string &text)
+{
+	bool mode = InsertMode;
+	InsertMode = true;
+	Insert(text.c_str());
+	InsertMode = mode;
+}
+
+bool StrEditClass::Set_Cursor(unsigned int position)
+{
+	int old = Cursor - String;
+	if (position > (unsigned int)StrLen) {
+		position = StrLen;
+	}
+	Cursor = String + position;
+	return(old != Cursor - String);
+}
+
+bool StrEditClass::Move_Cursor(int delta)
+{
+	return(Set_Cursor((Cursor - String) + delta));
 }

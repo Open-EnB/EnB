@@ -47,10 +47,10 @@ public:
 };
 
 // The pulls' gadget (0x80 bytes, constructor 0x671300), as far as 0x556290 makes it
-class UIAvatrGadget671300Class : public GadgetClass	// NAME 1: neutral (D10)
+class LayerClass; class Unknown_671300Class : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	void Unknown_671630();	UIAvatrGadget671300Class(RenderObjClass *area, int a, UIMeshClass *mesh, int b, int c, int d);	// 0x671630 (the buttons' flags off); 0x671300 (0x556290: the area model, 0, the window's mesh, 0, 0, 0)  // NAME 1 [area, a, mesh, b, c, d]: neutral
+	void Unknown_671630();	Unknown_671300Class(RenderObjClass *area, int a, const LayerClass &layer, int b, int c, int d);	// 0x671630 (the buttons' flags off); 0x671300 (0x556290: the area model, 0, the window's mesh, 0, 0, 0)  // NAME 1 [area, a, layer, b, c, d]: neutral
 
 	char Unknown34[0x64 - 0x34]; bool Unknown64; bool Unknown65; char Unknown66[0x80 - 0x66];	// +0x34; +0x64 / +0x65 the left / right button held (0x671570)
 };
@@ -870,7 +870,7 @@ void AvatarCreationInterface::Unknown_5560E0()
 	Unknown180 = new UIAvatrPullClass;
 	RenderObjClass *palette = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("COLOR_PALETTE");
 	Unknown_496AE0(palette, 0);
-	Unknown180->Gadget = new UIAvatrGadget671300Class(palette, 0, Unknown084, 0, 0, 0);
+	Unknown180->Gadget = new Unknown_671300Class(palette, 0, *(LayerClass *)Unknown084, 0, 0, 0);
 	Unknown180->Gadget->Unknown2C |= 0x400;
 	Unknown180->Unknown_5859A0();
 	palette->Release_Ref();
@@ -887,7 +887,7 @@ void AvatarCreationInterface::Unknown_556290()
 	Unknown16C = new UIAvatrPullClass;
 	RefCountPtr<RenderObjClass> area = Create_Get(Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("BODY_AREA"));
 	Unknown_496AE0(area.Peek(), 0);
-	Unknown160->Gadget = new UIAvatrGadget671300Class(area.Peek(), 0, Unknown084, 0, 0, 0);
+	Unknown160->Gadget = new Unknown_671300Class(area.Peek(), 0, *(LayerClass *)Unknown084, 0, 0, 0);
 	Unknown160->Gadget->Unknown2C |= 0x400;
 	Unknown160->Unknown_5859A0();
 	Unknown160->Pull = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("BODY_PULL");
@@ -895,7 +895,7 @@ void AvatarCreationInterface::Unknown_556290()
 	Unknown64.Unknown_6870E0(Unknown160->Gadget, 0x37, View, 1, 1);
 	area = Create_Get(Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("HEAD_AREA"));
 	Unknown_496AE0(area.Peek(), 0);
-	Unknown16C->Gadget = new UIAvatrGadget671300Class(area.Peek(), 0, Unknown084, 0, 0, 0);
+	Unknown16C->Gadget = new Unknown_671300Class(area.Peek(), 0, *(LayerClass *)Unknown084, 0, 0, 0);
 	Unknown16C->Gadget->Unknown2C |= 0x400;
 	Unknown16C->Unknown_5859A0();
 	Unknown16C->Pull = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("HEAD_PULL");
@@ -1479,10 +1479,10 @@ void AvatarCreationInterface::Unknown_5591E0(int dir)
 void AvatarCreationInterface::Unknown_55A960()
 {
 
-	if (((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown64) {
+	if (((Unknown_671300Class *)Unknown180->Gadget)->Unknown64) {
 		Unknown180->Unknown08 = true;
 	}
-	if ((((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown64 || ((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown65) && Unknown180->Unknown08) {
+	if ((((Unknown_671300Class *)Unknown180->Gadget)->Unknown64 || ((Unknown_671300Class *)Unknown180->Gadget)->Unknown65) && Unknown180->Unknown08) {
 		AABoxClass box;
 		Unknown180->Gadget->Unknown_64(box);
 		float x;
@@ -1523,7 +1523,7 @@ void AvatarCreationInterface::Unknown_55A960()
 	} else {
 		Unknown180->Unknown08 = false;
 	}
-	((UIAvatrGadget671300Class *)Unknown180->Gadget)->Unknown_671630();
+	((Unknown_671300Class *)Unknown180->Gadget)->Unknown_671630();
 }
 
 // The body tab's metal (-1: none) into +0x1C0 and the chosen part; the envmaps through the inline Peek_Unknown3A4()
@@ -1758,10 +1758,10 @@ void AvatarCreationInterface::Unknown_55A1F0(int arg)
 {
 	UIAvatrPullClass *pull = (arg == 0) ? Unknown160 : Unknown16C;
 
-	if (((UIAvatrGadget671300Class *)pull->Gadget)->Unknown64) {
+	if (((Unknown_671300Class *)pull->Gadget)->Unknown64) {
 		pull->Unknown08 = true;
 	}
-	if ((((UIAvatrGadget671300Class *)pull->Gadget)->Unknown64 || ((UIAvatrGadget671300Class *)pull->Gadget)->Unknown65) && pull->Unknown08) {
+	if ((((Unknown_671300Class *)pull->Gadget)->Unknown64 || ((Unknown_671300Class *)pull->Gadget)->Unknown65) && pull->Unknown08) {
 		AABoxClass box;
 		pull->Gadget->Unknown_64(box);
 		float x;
@@ -1793,7 +1793,7 @@ void AvatarCreationInterface::Unknown_55A1F0(int arg)
 	} else {
 		pull->Unknown08 = false;
 	}
-	((UIAvatrGadget671300Class *)pull->Gadget)->Unknown_671630();
+	((Unknown_671300Class *)pull->Gadget)->Unknown_671630();
 }
 
 // The colour pull's marker onto the chosen part's point (+0x184), in ui_avatar_cust.cpp's 0x54FFC0 form

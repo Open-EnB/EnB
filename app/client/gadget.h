@@ -113,6 +113,7 @@ public:
 	bool Is_Unknown2C_04() { return(Unknown2C_04); }					// (inline: 0x661AA0)  // NAME 1: neutral (D10)
 	bool Is_Unknown2C_06() { return(Unknown2C_06); }					// (inline: tooltip.cpp's 0x6AB5B0 / 0x6AB930, the short delay)  // NAME 1: neutral (D10)
 	bool Is_Unknown2C_07() { return(Unknown2C_07); }					// (inline: tooltip.cpp's 0x6AB5B0, the tooltip changed)  // NAME 1: neutral (D10)
+	bool Is_Unknown2C_08() { return(Unknown2C_08); } inline bool Is_Held();	// (inline: gd_slot_data.cpp's 0x671150; Is_Held: inline, below: gd_text_editor.cpp 0x6720A0)  // NAME 1: neutral (D10); Is_Held: what it answers
 	bool Is_First_Sort_Group() { return(FirstSortGroup); }				// (inline: 0x661BB0)  // NAME 2: as Set_First_Sort_Group
 	bool Is_Last_Sort_Group() { return(LastSortGroup); }				// (inline: 0x661BB0)  // NAME 2: as Set_Last_Sort_Group
 	void Toggle_Unknown2C_00();											// 0x660960 (bit 0, with +0x28's half second)  // NAME 1: neutral (D10)
@@ -178,5 +179,6 @@ public:
 
 extern GadgetClass *Unknown_BE5F24;										// 0xBE5F24 (held by the first button: slot +0x68)  // NAME 1: neutral (D10)
 extern GadgetClass *Unknown_BE5F28;										// 0xBE5F28 (held by the second button)  // NAME 1: neutral (D10)
+inline bool GadgetClass::Is_Held() { return(Unknown_BE5F24 == this || Unknown_BE5F28 == this); }
 
 #endif // __GADGET_H

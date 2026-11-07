@@ -70,6 +70,8 @@
 #include "..\..\..\app\packets\pkgmeditplayerinventory.h"
 #include "..\..\..\app\client\ui_line_display.h"
 #include "..\..\..\app\client\ui_group.h"
+#include "..\..\..\app\client\ui_verb.h"
+#include "..\..\..\app\client\verbmanager.h"
 #include "..\..\..\app\packets\pkcta_request.h"
 #include "..\..\..\app\packets\pktrade.h"
 #include "..\..\..\app\packets\pknotelist.h"
@@ -1305,12 +1307,13 @@ static void Test_Formation(SClient *client)
 static int Verb_Calls = 0;
 static int Verb_Game_ID = 0;
 static std::set<VerbEnum> Verb_Set;
-void VerbManagerClass::Unknown_81F780(int game_id, void *verbs)
+// The verb manager is the real one (verbmanager.cpp); the window it hands the verbs to is a fake object whose
+// UIVerbClass::Unknown_658F40 (ui_verb.cpp) is this stand-in, which records what the manager passed on.
+void UIVerbClass::Unknown_658F40(const std::set<VerbEnum> *verbs)
 {
 	Verb_Calls++;
-	Verb_Game_ID = game_id;
-	Verb_Set = *(std::set<VerbEnum> *)verbs;
-	Trace("stub VerbManagerClass::Unknown_81F780 %d, %d verbs", game_id, (int)Verb_Set.size());
+	Verb_Set = *verbs;
+	Trace("stub VerbManagerClass::Unknown_81F780 %d, %d verbs", Verb_Game_ID, (int)Verb_Set.size());
 }
 
 static void Test_Verbs(SClient *client)
@@ -1330,8 +1333,11 @@ static void Test_Verbs(SClient *client)
 	Memory->Incoming.push_back(Built_Message(&VerbListPacketClass(4400, verbs)));
 	client->Process_Packets();
 	Check(Verb_Calls == 0, "VERB_LIST 91 without a verb manager: nothing called");
-	static char fake_manager[0x14];
-	client->VerbManager = (VerbManagerClass *)fake_manager;
+	static char fake_window[0x400];
+	Verb_Game_ID = 4400;
+	VerbManagerClass real_manager(client);
+	real_manager.Unknown_81F890(Verb_Game_ID, (UIVerbClass *)fake_window);
+	client->VerbManager = &real_manager;
 	Memory->Incoming.push_back(Built_Message(&VerbListPacketClass(4400, verbs)));
 	client->Process_Packets();
 	Check(Verb_Calls == 1 && Verb_Set == verbs,

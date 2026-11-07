@@ -94,7 +94,7 @@ class BridgeInterfaceClass;		// NAME 3: class-from-file (D24) for bridge_int.cpp
 class UIHotKeysClass;			// NAME 3: class-from-file (D24) for ui_hot_keys.cpp (constructor 0x59C6F0, 0x84 bytes)
 class UITalkTreeSpaceClass;		// NAME 3: class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes)
 class GalaxyMapClientClass;		// NAME 3: class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes)
-class UIStarmapClass;			// NAME 3: class-from-file (D24) for ui_starmap.cpp (constructor 0x7C6120, 0x14 bytes)
+class TargetingClass;			// NAME 2: the asserts' 'targeting' (mainview.cpp, ui_mfd.cpp, ui_group.cpp); constructor 0x7C6120, 0x14 bytes
 class DeltaPlayerClass;
 class SClientUnknown12C4Class;	// NAME 1: neutral (D10): the elements of SClient +0x12C4
 class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it
@@ -111,37 +111,37 @@ extern FontStringFilesClass *Unknown_BE67BC;		// NAME 1: neutral (D10); fontdata
 class AvatarDescClass;				// avatar_desc.h
 struct GuildRankNameStruct;			// pkguildranknamesrequestclient.h
 
-// verbmanager.cpp's verb manager (0x14 bytes): SClient::Init creates it, the verb packets update it
-class VerbManagerClass		// NAME 3: class-from-file (D24) for verbmanager.cpp (constructor 0x81F100, 0x14 bytes)
-{
-public:
-	VerbManagerClass(SClient *client);					// 0x81F100
-	~VerbManagerClass();								// 0x81F1E0
-	void Unknown_81F810(int game_id, void *adds, void *drops);	// 0x81F810 (cpacket.cpp: VERB_UPDATE 92 passes its GameID, &Adds, &Drops: +0x20 then +0x10)  // NAME 1 [game_id, adds, drops]: the packet's fields
-	void Unknown_81F780(int game_id, void *verbs);	// 0x81F780 (cpacket.cpp: VERB_LIST 91 passes its GameID, &Verbs)  // NAME 1 [game_id, verbs]: the packet's fields
+// verbmanager.h's verb manager (0x14 bytes): SClient::Init creates it, the verb packets update it
+// (blank lines: the class moved to verbmanager.h, the lines below keep their numbers)
+class VerbManagerClass;
 
-	char Unknown00[0x14];
-};
+
+
+
+
+
+
+
 
 // the interface objects: intrface.h's InterfaceClass (P-LD4-1); view.cpp's list holds them
 class UIViewClass;
 
-// ui_talkt.cpp's talk tree (0x180 bytes): SClient's +0x1298 holds it or ui_talkt_space.cpp's (derived) +0x129C;
-// the starbase view's +0x190 is one (0x69F8F0 hands &+0x190 straight to 0x74C9D0)
-class TalkTreePacketClass;
-class UITalkTreeClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_talkt.cpp
-{
-public:
-	UITalkTreeClass(SClient *client, int arg);	// 0x64B6E0 (the starbase view's 0x69F8F0 passes its client and 1)  // NAME 1 [client, arg]: neutral
-	virtual void Unknown_88();
-	virtual void Unknown_8C();
-	virtual void Unknown_90(TalkTreePacketClass *packet);	// +0x90 (TALK_TREE 84)  // NAME 1 [packet]: the handler's packet
-	int Unknown_64CF90(); void Unknown_64CFF0(); bool Unknown_64D3E0(); bool Unknown_64EEA0(); void Unknown_64EED0();	// the starbase view's 0x69C8F0 / 0x69CCD0; 0x64EED0 (0x742530)
-	void Unknown_64D230(int action);	// 0x64D230 (TALK_TREE_ACTION 86)  // NAME 1 [action]: the packet's Action
-	char Unknown84[0x160 - 0x84];	// +0x84
-	int Unknown160;	// +0x160 (the starbase view's 0x69CCD0 tests it with Active)
-	char Unknown164[0x180 - 0x164];	// +0x164
-};
+// ui_talkt.cpp's talk tree: ui_talkt.h, included below after its base Unknown5BB320Class
+
+class UITalkTreeClass;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // what every view holds at +0x34 (0x1F8 bytes, constructor 0x5875C0, table 0xAF1180): the message box (dialogbox.ini's
 // sections by type: Header%d lines, Option%d buttons with Key%d keys; the "HTML" type opens the settings store's browser 7).
@@ -166,6 +166,7 @@ class ViewUnknown34Class : public InterfaceClass	// NAME 1: neutral (D10)
 public:
 	ViewUnknown34Class(UIViewClass *view, const LayerClass &layer);	// 0x5875C0 (0x1F8 bytes; UIViewClass's Init 0x65A820 makes it over a layer of its +0x1C scene and +0x20 camera)  // NAME 1 [view, layer]: what 0x65A820 passes
 	virtual ~ViewUnknown34Class();						// 0x587A10 (deleting 0x587900)
+	bool Unknown_5898F0(float x, float y);				// 0x5898F0 (gd_text_editor.cpp's 0x6735A0: the point on one of its gadgets)  // NAME 1 [x, y]: slot +0x30's
 	void Unknown_588870();								// 0x588870 (UIViewClass's +0x14 0x65B470: the HTML box's browser)
 	void Unknown_588A70(const char *type, bool follow_mouse, const char *text, int width, bool hide_on_key, bool flush);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, follow_mouse, text, width, hide_on_key, flush]: what the function does with them
 	bool Is_HTML() { return stricmp(Type, "HTML") == 0; }	// (LoginTaskClass::Run: inline, the client computes the name in eax)  // NAME 1: what it tests
@@ -393,7 +394,7 @@ public:
 };
 #include "ui_cpit.h"		// ui_cpit.cpp's cockpit interface (the main view's +0x1D0)
 class UICpitClass;		// (for ui_cpit.h included first: its own include of sclient.h reaches this before the class)
-
+#include "ui_talkt.h"		// ui_talkt.cpp's talk tree (needs Unknown5BB320Class)
 
 
 
@@ -797,7 +798,7 @@ public:
 	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
 	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's
 	RenderObjClass *Unknown_5B8B40(const char *name); void Unknown_5B9830(); void Unknown_5B9930(int arg); void Unknown_5BA460(int arg); void Unknown_5B9410(); void Unknown_5B9290(SimpleSceneClass *scene); RenderObjClass *Peek_Mesh_Object() { return(Unknown1C); } void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral; 0x5B9830 / 0x5B9930 / 0x5BA460: the cockpit's (ui_cpit.cpp passes -1, 1)  // NAME 1 [arg]: neutral
-	void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's
+	void Unknown_5B8EE0(int a, int b, const char *anim_name, int c, int d, int e, int f, int g); void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's  // 0x5B8EE0 (ui_verb.cpp: the button's index twice, its animation, 0s, -1)  // NAME 1 [Unknown_5B8EE0, a, b, anim_name, c..g]: neutral
 	RenderObjClass *Peek_Object(); RenderObjClass *Unknown_5E26D0(); RenderObjClass *Unknown_5B8B20(); void Unknown_5B8850(const char *name, bool arg);	// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()'); 0x5B8B20: the same with a reference added (Add_Camera); 0x5E26D0: the same read, out of line in ui_ptrade.cpp's window (0x809600, 0x808C30)  // NAME 3: the assert's; 0x5B8850: the page model of that name onto the mesh (ui_ship_cust.cpp's 0x61BD80: the page's style name, 1)  // NAME 1 [Unknown_5B8850, name, arg]: neutral
 	char Unknown00[0x1C];								// +0x00
 	RenderObjClass *Unknown1C;							// +0x1C: the model (Toggle_Engine_Trails reads it without Peek_Object)
@@ -1119,7 +1120,7 @@ public:
 	RefCountPtr<UITalkTreeClass> Unknown1298;		// +0x1298 Init: Unknown129C's object (the starbase view's 0x69F8F0: its +0x190)
 	RefCountPtr<UITalkTreeSpaceClass> Unknown129C;		// +0x129C Init
 	GalaxyMapClientClass *GalaxyMap;					// +0x12A0 Init  // NAME 3: its file's
-	UIStarmapClass *Starmap;							// +0x12A4 Init  // NAME 3: its file's
+	TargetingClass *Targeting;							// +0x12A4 Init  // NAME 2: the asserts'
 	CameraManagerClass *CameraManager;					// +0x12A8 Init  // NAME 3: its file's
 	int Unknown12AC;									// +0x12AC (the constructor leaves it)
 	int Unknown12B0;									// +0x12B0 Init: the base's Unknown10BC

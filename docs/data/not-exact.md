@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-564 entries in 148 files.
+595 entries in 158 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -29,6 +29,13 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:3653` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs) |
 | `app/client/avatar_pip.cpp:198` | `AvatarPipClass::Unknown_7E3A20` | marker | NOT EXACT: shape (the client copies target into the light's translation first, then folds Translate's products: two zeroed floats per axis where ours multiplies; a release tail-merge and Rotate_Y's operand order; 0.83) |
 | `app/client/avatar_pip.cpp:294` | `AvatarPipClass::Unknown_7E4520` | marker | NOT EXACT: scheduling (the client converts budget * 0.1f to int before the vp's Get_Sort_Level call; ours after; 0.79) |
+| `app/client/chat_window.cpp:250` | `ChatWindowClass::Unknown_67E670` | marker | NOT EXACT: the clamp of `spaces` only: the client tests spaces < 1 twice (0x67E78C, 0x67E79D); VC6 folds the second here |
+| `app/client/chat_window.cpp:299` | `ChatWindowClass::Unknown_67F7F0` | marker | NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy) |
+| `app/client/chat_window.cpp:503` | `ChatWindowClass::Unknown_6804E0` | marker | NOT EXACT: the height is kept in two stack slots in the client (fst [esp+0xC]; fstp [esp+8], frame 4 larger); the rest is the client form |
+| `app/client/chat_window_history.cpp:5` | `ChatWindowHistoryClass::ChatWindowHistoryClass` | marker | NOT EXACT: Text's copy is inlined here; the client calls string's copy constructor (0x681400), and everything after it shifts |
+| `app/client/chat_window_history.cpp:101` | `ChatWindowHistoryClass::Unknown_681DB0` | marker | NOT EXACT: registers and frame 8 smaller: the client keeps History at ebx + 4 without an esi base; functional |
+| `app/client/chat_window_history.cpp:165` | `ChatWindowHistoryClass::Unknown_08` | marker | NOT EXACT: slots and registers: count in the text parameter's slot, i in ebx; the loop's index test calls size() out of line (0x6824F0) |
+| `app/client/chat_window_history.cpp:215` | `ChatWindowHistoryClass::Unknown_682770` | marker | NOT EXACT: the walk back: the client keeps the mask 2 in al and an unrotated loop (0x6827BB); this rotates it |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; five forms; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
@@ -130,6 +137,7 @@ edit the comments in the code, not this file.
 | `app/client/gadget.cpp:1032` | `GadgetClass::Unknown_6609A0` | marker | NOT EXACT: shape (written from the client's 0x6609A0 for the proof-of-concept client: the flash's frame, a one-second pulse unless the gadget is held under the pointer) |
 | `app/client/galaxy_map_client.cpp:176` | `GalaxyMapClientClass::Unknown_7A52F0` | mention | NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0) |
 | `app/client/galaxy_map_client.cpp:193` | `GalaxyMapClientClass::Unknown_7A5400` | mention | NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400) |
+| `app/client/galaxy_map_pip.cpp:407` | `GalaxyMapPipClass::Unknown_5404E0` | marker | NOT EXACT: only UnknownRTTIClass::Cast: the client calls it out of line here, ours expands it, and one register follows (see notes) @0x5404E0 |
 | `app/client/gd_buffgadg.cpp:90` | `BuffInfoStruct::Get_Element` | marker | NOT EXACT: register (the static element's zero expiry: the client stores ebx twice, ours a second zeroed register; one instruction) 0x6656A0 |
 | `app/client/gd_buffgadg.cpp:101` | `BuffElementStruct::BuffElementStruct` | marker | NOT EXACT: inline budget (the client calls basic_string::assign for both members, ours inlines it: 52 vs 115 instructions) 0x665940 |
 | `app/client/gd_buffgadg.cpp:188` | `BuffGadgetClass::Unknown_AC` | marker | NOT EXACT: frame (the client keeps the time now on the stack, ours in registers; the body after it matches) 0x665F20 |
@@ -138,6 +146,10 @@ edit the comments in the code, not this file.
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
 | `app/client/gd_slider.cpp:729` | `GadgetSlider::Unknown_66FD80` | marker | NOT EXACT: frame (similarity 0.58): the client keeps the low bone's X on the FPU stack, ours spills it (0x1C frame vs 0x18) @0x66FD80 |
 | `app/client/gd_slider.cpp:921` | `GadgetSlider::Unknown_670440` | mention | NOT EXACT (D64): 0x66FD80 (0.58). |
+| `app/client/gd_text_editor.cpp:162` | `TextEditorGadgetClass::Set_Render_Obj` | marker | NOT EXACT: registers (client this esi, it ebp, line edi with a home at +0x24; here ebx, edi, esi) and the slots of first and height swapped @0x671CB0 |
+| `app/client/gd_text_editor.cpp:221` | `TextEditorGadgetClass::Unknown_2C` | marker | NOT EXACT: only 0x672A60 inlined in this copy of 0x673150; the client calls it @0x672120 |
+| `app/client/gd_text_editor.cpp:560` | `TextEditorGadgetClass::Unknown_6732F0` | marker | NOT EXACT: ebx and ebp swapped (length / line), one fcomp scheduled after the column's copy @0x6732F0 |
+| `app/client/gd_text_editor.cpp:612` | `TextEditorGadgetClass::Unknown_6735A0` | marker | NOT EXACT: registers (the client hoists the load of Client between the test and the branch; x and y in edx and ecx) @0x6735A0 |
 | `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284 |
 | `app/client/html/htmlview.cpp:1331` | `HtmlViewClass::Draw_Item` | marker | NOT EXACT: 0x7767A0, the client saves ebx / esi only after the Type test (its early returns pop two registers); the text loop's loads are scheduled differently |
 | `app/client/html/htmlview.cpp:1486` | `HtmlViewClass::Hit_Test` | marker | NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin |
@@ -328,6 +340,16 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1513` | `Unknown_5B5CD0` | marker | NOT EXACT: inline budget (the client calls std::string's _Eos out of line in the static's constructor; ours inlines it) (0x5B5CD0) |
 | `app/client/ui_manu.cpp:1562` | `UIManuClass::Unknown_5B5320` | marker | NOT EXACT: inline budget (the client calls all seven finds out of line, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours inlines them, and six dead finds (D130) move none) (0x5B5320) |
 | `app/client/ui_manu.cpp:1743` | `UIManuClass::Unknown_5B67C0` | marker | NOT EXACT: register (tech_level and this in edi / esi the other way round; the client saves ebx before the FAIL_IF exit) (0x5B67C0) |
+| `app/client/ui_mfd.cpp:494` | `UIMFDClass::Update_Line` | marker | NOT EXACT: 0x5BCE50, register only: ours keeps line in ebx (one more saved register), the client in esi, reloading it from its slot |
+| `app/client/ui_mfd.cpp:581` | `UIMFDClass::Get_Value` | marker | NOT EXACT: 0x5BD540, inline budget: the client calls 0x5BDED0's two finds (case 10) where ours inlines 0x5BE330 |
+| `app/client/ui_mfd.cpp:675` | `UIMFDClass::Set_ETA` | marker | NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (register/frame only) |
+| `app/client/ui_mfd.cpp:702` | `UIMFDClass::Set_Same_Dir` | marker | NOT EXACT: 0x5BDDF0, the first matrix is read through eax where the client reads its slot (frame) |
+| `app/client/ui_mfd.cpp:713` | `UIMFDClass::Set_SP_Cur` | marker | NOT EXACT: 0x5BDED0, inline budget: the client calls the finds 0x5BF2B0 / the float Cast out of line |
+| `app/client/ui_mfd.cpp:886` | `UIMFDClass::Set_SP_Percent` | marker | NOT EXACT: 0x5BE120, inline budget: the client calls Cast 0x5BF350 out of line where ours inlines it |
+| `app/client/ui_mfd.cpp:985` | `Unknown5BE980Class::Unknown_90` | marker | NOT EXACT: 0x5BECF0, the case block's first load of each line's Font comes before the 'lea' ([esi+0x128]) where the client loads it after the stores ([edi+0x40]); the duplicated default and the zero in ebx do match (attempts.csv) |
+| `app/client/ui_mfd_extended_context_harvestable.cpp:189` | `UIMFDExtendedContextHarvestableClass::Get_Line_Text` | marker | NOT EXACT: 0x5C0350: VC6 merges the five return("") tails; the client repeats each in place and keeps 0 in ebp 0x5C0350 |
+| `app/client/ui_mfdm.cpp:75` | `UIMFDPIPItemClass::~UIMFDPIPItemClass` | marker | NOT EXACT: 0x5C2470: a load scheduled before a store, one EH state store (order) 0x5C2470 |
+| `app/client/ui_mfdm.cpp:155` | `UIMFDPIPItemClass::Unknown_08` | marker | NOT EXACT: 0x5C25C0: one pop scheduled after a load (order) 0x5C25C0 |
 | `app/client/ui_missn.cpp:514` | `UIMissnClass::Unknown_5C5DB0` | marker | NOT EXACT: register (similarity 0.58: the client keeps this in ebp, spilled, and the mission in ebx, spilled to new_mission's slot; edi is pushed only around the text; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline) |
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
 | `app/client/ui_playeropt.cpp:220` | `UIPlayerOptClass::Unknown_5D9D10` | marker | NOT EXACT: inline budget (0.63: the client keeps the inner name copy's destructor inline at the loop's end and calls it only on the break, ours merges both into one call; the two string copies' stack slots are swapped) 0x5D9D10 |
@@ -359,7 +381,16 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:1349` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
 | `app/client/ui_shipcust.cpp:1668` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
+| `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
 | `app/client/ui_starbase.cpp:342` | `UIStarbaseLightsClass::Unknown_646A00` | marker | NOT EXACT: inline-budget (the client keeps the temporary vector's _Destroy 0x644410 out of line, ours inlines it) and the far attenuation range: the client copies the two floats with mov, as Zero Hour's light.h overload Get_Far_Attenuation_Range(float &, float &) gives (tested with an equivalent helper); this tree's light.h has only the double & one, whose fld / fstp is kept here 0x646A00 |
+| `app/client/ui_talkt.cpp:68` | `UITalkTreeClass::UITalkTreeClass` | marker | NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup) |
+| `app/client/ui_talkt.cpp:287` | `UITalkTreeClass::Unknown_5C` | marker | NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client) |
+| `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
+| `app/client/ui_talkt.cpp:535` | `UITalkTreeClass::Unknown_68` | marker | NOT EXACT: 0x64D400 (Unknown_68: the second append's _Grow out of line in the client) |
+| `app/client/ui_talkt.cpp:618` | `UITalkTreeClass::Unknown_60` | marker | NOT EXACT: 0x64D770 (Unknown_60: this in edi, one slot fewer) |
+| `app/client/ui_talkt.cpp:747` | `UITalkTreeClass::Unknown_64DF80` | marker | NOT EXACT: 0x64DF80 (Unknown_64DF80: registers, _Eos out of line in the client) |
+| `app/client/ui_talkt.cpp:839` | `UITalkTreeClass::Unknown_64E7A0` | marker | NOT EXACT: 0x64E7A0 (Unknown_64E7A0: one slot fewer) |
+| `app/client/ui_verb.cpp:262` | `UIVerbClass::Unknown_88` | marker | NOT EXACT: inline budget (the first Clear_Buttons copy: the client calls size(), inlines erase); the second copy matches |
 | `app/client/unknown_6ca0c0.cpp:94` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
 | `app/client/unknown_6cce60.cpp:36` | `FontSys::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
 | `app/client/unknown_6cce60.cpp:76` | `FontSys::Unknown_6CD180` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180) |
@@ -407,7 +438,7 @@ edit the comments in the code, not this file.
 | `app/common/lego_identifier.cpp:133` | `LegoIdentifierClass::Pop_Root` | marker | NOT EXACT: 0x8444C0, npos read from memory in the client's erase (shape; attempts.py show 0x8444C0) |
 | `app/common/lego_identifier.cpp:150` | `LegoIdentifierClass::Add` | marker | NOT EXACT: 0x8448A0, npos read from memory in the client's copy (shape; attempts.py show 0x8448A0). The client copies over the chain's end without growing it (kept: it is the client's code). |
 | `app/common/lego_identifier.cpp:171` | `LegoIdentifierClass::Set_Name` | marker | NOT EXACT: 0x844CD0, registers (attempts.py show 0x844CD0) |
-| `app/common/stredit.cpp:21` | `StrEditClass::StrEditClass` | mention | NOT EXACT for it. Not yet: 0x84B200 (Clear, then Insert of a std::string's text), 0x84B270 and the file's rest to 0x84B8A0 (the asserts 'r >= VENDOR_TYPE_NUM' / 'r <= VENDOR_TYPE_INVALID'). |
+| `app/common/stredit.cpp:21` | `StrEditClass::StrEditClass` | mention | NOT EXACT for it. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
 | `app/common/stredit.cpp:190` | `StrEditClass::Process_Key` | marker | NOT EXACT: the modifier bits (0.58): the client tests the event's flags as bit-fields, see the notes |
 | `app/common/tcpconn.cpp:661` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |
 | `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
