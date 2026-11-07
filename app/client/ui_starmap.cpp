@@ -40,7 +40,7 @@ enum { UISTARMAP_PTR_SIZE = sizeof(RefCountPtr<UIStarmapClass>) };	// (instantia
 // The window's buttons, ids 1.. (0xB9F8B8)
 static const char *Unknown_B9F8B8[] = { "EXIT", "SECTOR_BTTN", "RESIZE_BTTN", "QUESTION_BTTN", "CENTER_BTTN", "XYZ_BTTN", "LABEL_BTTN" };	// NAME 1: neutral (D10)
 
-#include "gd_uiback.h"	// UIBackGadgetClass
+#include "gd_uiback.h"	// BoundedUIBackGadget
 
 
 
@@ -249,7 +249,7 @@ void UIStarmapClass::Unknown_54()
 		robj->Release_Ref();
 		Unknown64.Unknown_6870E0(button, i + 1, View, 1, 0);
 	}
-	Unknown64.Unknown_6870E0(new UIBackGadgetClass(InterfaceMesh), 9, View, 1, 0);
+	Unknown64.Unknown_6870E0(new BoundedUIBackGadget(InterfaceMesh), 9, View, 1, 0);
 	Unknown_7C8E00(Get_Min_Frame());
 	HowToStarmap = Create_Get(new UIDynamicWindowClass(Client, "STARMAP_HOW_TO", 2));
 	Unknown_58B160(HowToStarmap.Peek(), "STARMAP_HOW_TO", 0, 0x10, "Starmap Click Controls:");

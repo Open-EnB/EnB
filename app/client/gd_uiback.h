@@ -79,11 +79,11 @@ class MovableUIBackGadgetMoved							// NAME 5: the client's RTTI .?AVMovableUIB
 };
 
 // The gadget over a window's back: answers the pointer between the bones 'back_tl' and 'back_br' (0x68 bytes, table 0xAFB7AC)
-class UIBackGadgetClass : public UIBackGadget	// NAME 3: class-from-file (D24) for gd_uiback.cpp
+class BoundedUIBackGadget : public UIBackGadget	// NAME 2: answers the pointer only inside its back_tl / back_br rectangle (0x674DE0); base and pattern from the RTTI sibling MovableUIBackGadget (D210)
 {
 public:
-	UIBackGadgetClass(const RefCountPtr<RenderObjClass> &model);	// 0x674C10  // NAME 1 [model]: what ui_starmap.cpp passes
-	virtual ~UIBackGadgetClass();						// +0x00 0x674D50 (deleting 0x674D20)
+	BoundedUIBackGadget(const RefCountPtr<RenderObjClass> &model);	// 0x674C10  // NAME 1 [model]: what ui_starmap.cpp passes
+	virtual ~BoundedUIBackGadget();						// +0x00 0x674D50 (deleting 0x674D20)
 	virtual bool Unknown_30(float x, float y);			// +0x30 0x674DE0  // NAME 1 [x, y]: the base's
 	void Unknown_674D70();								// 0x674D70 (FAIL_IF '!robj': the bones' indices; inlined in the constructor)
 

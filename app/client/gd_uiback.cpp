@@ -151,7 +151,7 @@ bool MovableUIBackGadget::Unknown_2C(KernelEventClass *event, float x, float y, 
 }
 
 // @0x674C10
-UIBackGadgetClass::UIBackGadgetClass(const RefCountPtr<RenderObjClass> &model) :
+BoundedUIBackGadget::BoundedUIBackGadget(const RefCountPtr<RenderObjClass> &model) :
 	UIBackGadget(model),
 	Unknown60(0),
 	Unknown64(0)
@@ -159,7 +159,7 @@ UIBackGadgetClass::UIBackGadgetClass(const RefCountPtr<RenderObjClass> &model) :
 	Unknown_674D70();
 }
 // @0x674D50
-UIBackGadgetClass::~UIBackGadgetClass() {}
+BoundedUIBackGadget::~BoundedUIBackGadget() {}
 
 
 
@@ -192,7 +192,7 @@ UIBackGadgetClass::~UIBackGadgetClass() {}
 
 
 // @0x674D70
-void UIBackGadgetClass::Unknown_674D70()
+void BoundedUIBackGadget::Unknown_674D70()
 {
 	RenderObjClass *robj = RObj;
 	FAIL_IF (!robj) { return; }
@@ -201,7 +201,7 @@ void UIBackGadgetClass::Unknown_674D70()
 }
 
 // @0x674DE0
-bool UIBackGadgetClass::Unknown_30(float x, float y)
+bool BoundedUIBackGadget::Unknown_30(float x, float y)
 {
 	RenderObjClass *robj = RObj;
 	FAIL_IF (!robj) {
