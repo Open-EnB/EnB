@@ -95,15 +95,6 @@ const char *Type_Name(MoneyClass)
 	return "MoneyClass";
 }
 
-bool operator==(const MoneyClass &a, const MoneyClass &b)
-{
-	return a.Unknown00 == b.Unknown00;
-}
-
-bool operator!=(const MoneyClass &a, const MoneyClass &b)
-{
-	return !(a.Unknown00 == b.Unknown00);
-}
 
 // ------------------------------------------------------------------------- lego_identifier.cpp's helpers
 

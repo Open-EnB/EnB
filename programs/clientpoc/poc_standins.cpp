@@ -54,26 +54,3 @@ void Fail_If_Report(const char *expr, const char *file, int line)
 }
 
 
-// ---------------------------------------------------------------- money.cpp's arithmetic and comparisons
-
-// money.cpp (0x4F0500 operator+, 0x4F0700 operator>, 0x4F0740 operator>=; cdecl) is not rebuilt; ui_ptrade.cpp and
-// ui_ship_cust.cpp / ui_avatar_cust.cpp call them. On MoneyClass's 8-byte value, without a log line (the trade and
-// customization windows call them every frame).
-#include "..\..\app\shared\money.h"
-
-MoneyClass operator+(const MoneyClass &a, const MoneyClass &b)
-{
-	MoneyClass sum;
-	sum.Unknown00 = a.Unknown00 + b.Unknown00;
-	return sum;
-}
-
-bool operator>(const MoneyClass &a, const MoneyClass &b)
-{
-	return a.Unknown00 > b.Unknown00;
-}
-
-bool operator>=(const MoneyClass &a, const MoneyClass &b)
-{
-	return a.Unknown00 >= b.Unknown00;
-}
