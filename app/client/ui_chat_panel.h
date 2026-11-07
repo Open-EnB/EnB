@@ -55,6 +55,9 @@ public:
 class UIChatPanelWindowClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
+#ifdef POC_WINDOW_CTOR
+	UIChatPanelWindowClass(LineDisplayClientClass *client) : InterfaceClass(client) {}
+#endif
 	char Unknown84[0x98 - 0x84];						// +0x84
 	int Unknown98;										// +0x98 (0x5630B0 / 0x565F80 test it)
 };
@@ -80,6 +83,7 @@ class UIChatPanelClass : public UIChatPanelBaseClass	// NAME 3: class-from-file 
 public:
 	UIChatPanelClass(SClient *client);					// 0x561DD0
 	virtual ~UIChatPanelClass();						// 0x562410
+	virtual void Unknown_54();							// 0x5629E0 (the set-up)
 	virtual void Unknown_58();							// 0x562F50 (the pip set, the chat window and the reply list activated)
 	virtual void Unknown_5C();							// 0x563060 (the combo released, the chat window deactivated)
 	virtual void Unknown_60();							// 0x5630B0 (every frame)

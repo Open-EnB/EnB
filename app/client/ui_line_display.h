@@ -31,127 +31,9 @@
 class INIClass;
 class Vector3;
 
-// The 0x4E8-byte text object of one STR-n section (constructor 0x6D47C0), reference counted
-class LineDisplayTextClass : public RefCountClass  // NAME 1: neutral (D10): what the line display keeps per STR-n
-{
-public:
-	LineDisplayTextClass(const char *name, int unknown1, int unknown2);		// 0x6D47C0
-	bool Unknown_6D89C0();												// 0x6D89C0
-	void Unknown_6CDBC0(const char *text, int unknown);					// 0x6CDBC0: slot +0x60 passes the line and 1
-	void Unknown_6CE910(bool history);									// 0x6CE910
-	void __cdecl Unknown_6CE420(int unknown, const char *format, ...);		// 0x6CE420: slot +0x60 passes 2, '(%d) %s'
-
-	virtual void Unknown_008();
-	virtual void Unknown_00C();
-	virtual void Unknown_010();
-	virtual void Unknown_014();
-	virtual void Unknown_018();
-	virtual void Unknown_01C();
-	virtual void Unknown_020();
-	virtual void Unknown_024();
-	virtual void Unknown_028();
-	virtual void Unknown_02C();
-	virtual void Unknown_030();
-	virtual void Unknown_034(int unknown);								// +0x34: slot +0x60 passes the screen's +0x44
-	virtual void Unknown_038();									// +0x38: Clear calls it when +0x40 says so
-	virtual void Unknown_03C();
-	virtual int Unknown_040();									// +0x40
-	virtual void Unknown_044();
-	virtual void Unknown_048();
-	virtual void Unknown_04C();
-	virtual void Unknown_050();
-	virtual void Unknown_054(const Vector3 &offset);				// +0x54: the slot 0x7C override passes (0, -161 or 0, 0)
-	virtual void Unknown_058();
-	virtual void Unknown_05C();
-	virtual void Unknown_060();
-	virtual void Unknown_064();
-	virtual void Unknown_068();
-	virtual void Unknown_06C();
-	virtual void Unknown_070();
-	virtual void Unknown_074();
-	virtual void Unknown_078();
-	virtual void Unknown_07C();
-	virtual void Unknown_080();
-	virtual void Unknown_084();
-	virtual void Unknown_088();
-	virtual void Unknown_08C();
-	virtual void Unknown_090();
-	virtual void Unknown_094();
-	virtual void Unknown_098();
-	virtual void Unknown_09C();
-	virtual void Unknown_0A0();
-	virtual void Unknown_0A4();
-	virtual void Unknown_0A8();
-	virtual void Unknown_0AC();
-	virtual void Unknown_0B0();
-	virtual void Unknown_0B4();
-	virtual void Unknown_0B8();
-	virtual void Unknown_0BC();
-	virtual void Unknown_0C0();
-	virtual void Unknown_0C4();
-	virtual void Unknown_0C8();
-	virtual void Unknown_0CC();
-	virtual void Unknown_0D0();
-	virtual void Unknown_0D4();
-	virtual void Unknown_0D8();
-	virtual void Unknown_0DC();
-	virtual void Unknown_0E0();
-	virtual void Unknown_0E4();
-	virtual void Unknown_0E8();
-	virtual void Unknown_0EC();
-	virtual void Unknown_0F0();
-	virtual void Unknown_0F4();
-	virtual void Unknown_0F8();
-	virtual void Unknown_0FC();
-	virtual void Unknown_100();
-	virtual void Unknown_104();
-	virtual void Unknown_108();
-	virtual void Unknown_10C();
-	virtual void Unknown_110();
-	virtual void Unknown_114();
-	virtual void Unknown_118();
-	virtual void Unknown_11C();
-	virtual void Unknown_120();
-	virtual void Unknown_124();
-	virtual void Unknown_128();
-	virtual void Unknown_12C();
-	virtual void Unknown_130();
-	virtual void Unknown_134();
-	virtual void Unknown_138();
-	virtual void Unknown_13C();
-	virtual void Unknown_140();
-	virtual void Unknown_144();
-	virtual void Unknown_148();
-	virtual void Unknown_14C();
-	virtual void Unknown_150();
-	virtual void Unknown_154();
-	virtual void Unknown_158();
-	virtual void Unknown_15C();
-	virtual void Unknown_160();
-	virtual void Unknown_164();
-	virtual void Unknown_168();
-	virtual void Unknown_16C(bool on);							// +0x16C: Load passes true
-	virtual void Unknown_170();
-	virtual void Unknown_174();
-	virtual void Unknown_178();
-	virtual void Unknown_17C();
-	virtual void Unknown_180();
-	virtual void Unknown_184();
-	virtual void Unknown_188();
-	virtual void Unknown_18C();
-	virtual void Unknown_190();
-	virtual void Unknown_194();
-	virtual void Unknown_198();
-	virtual void Unknown_19C();
-	virtual void Unknown_1A0();
-	virtual void Unknown_1A4();
-	virtual bool Unknown_1A8();									// +0x1A8
-
-	char Unknown008[0x24C - 0x08];														// +0x08
-	char Unknown24C[0x440 - 0x24C];														// +0x24C: what Add_Line's wrapper is built on
-	int Unknown440;																			// +0x440: 2 or 3 let a line show
-	char Unknown444[0x4E8 - 0x444];														// +0x444
-};
+// The text object of one STR-n section is fontmanager.h's FontSys (0x4E8 bytes, constructor 0x6D47C0)
+class FontSys;
+typedef FontSys LineDisplayTextClass;  // NAME 1: neutral (D10): what the line display keeps per STR-n
 
 // One Ephemeral-%02d section of ephemeral.ini (0x88 bytes)
 struct EphemeralStruct  // NAME 2: what it holds (the ini's section name)
@@ -172,7 +54,7 @@ struct EphemeralStruct  // NAME 2: what it holds (the ini's section name)
 struct LineDisplayStringStruct  // NAME 2: what it holds (the ini's section name)
 {
 	LineDisplayStringStruct(const char *name);												// 0x5A52A0
-	void Show(bool on);																		// 0x5A53E0  // NAME 2: describes what it does
+	void Show(int on);																		// 0x5A53E0  // NAME 2: describes what it does
 	std::string Get_Name() const { return Name; }											// 0x5A6380 (out of line in Load)  // NAME 2: describes what it does
 	RefCountPtr<LineDisplayTextClass> Get_Text() const { return Text; }					// 0x5A80D0  // NAME 2: describes what it does
 

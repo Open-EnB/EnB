@@ -85,7 +85,7 @@ public:
 	void Unknown_6D5A80(float &width, float &height);					// 0x6D5A80: a character cell's size (+0x420.. extents over +0x2B4 / +0x2B8, times Scale; dynamic_window_multi_line_text.cpp's 'CharacterHeight')  // NAME 1: neutral (D10)
 	void Unknown_6D5D40();													// 0x6D5D40  // NAME 1 [Unknown_6D5D40]: neutral (D10)
 	void Unknown_6CD950(int index, float time);							// 0x6CD950: triggers EffectTriggered[index] for time seconds (+0x2A4 in ms) and restarts its state  // NAME 1 [Unknown_6CD950, index, time]: neutral (D10)
-	void Unknown_6CE910(bool on);											// 0x6CE910 (textgadg.cpp: on while the box has the focus)  // NAME 1 [on]: neutral
+	bool Unknown_6D89C0(); /* 0x6D89C0 (ui_line_display.cpp), NAME 1: neutral (D10) */	void Unknown_6CE910(bool on);											// 0x6CE910 (textgadg.cpp: on while the box has the focus)  // NAME 1 [on]: neutral
 	void Unknown_6D88F0(int left, int top, int right, int bottom);			// 0x6D88F0 (textgadg.cpp: the box's rectangle, from the bounding box and the position)  // NAME 1 [left, top, right, bottom]: what textgadg.cpp passes
 	Vector3 Unknown_6D8650();											// 0x6D8650: the text's position (+0x464 with +0x302 set, else the transform's; plus +0x47C and the effects' offset +0x488)  // NAME 1 [Unknown_6D8650]: neutral (D10)
 	void Set_Offset(float x, float y) { Unknown47C.X = x; Unknown47C.Y = y; }	// (inline: gutter_data.cpp's 0x7B63C0)  // NAME 2: what it does

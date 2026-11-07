@@ -60,3 +60,326 @@ CameraManagerClass::CameraManagerClass(SClient *client)
 	STUB_CALLED("POC CameraManagerClass: zero");
 	memset(this, 0, sizeof(*this));
 }
+
+// ---------------------------------------------------------------- enbscene.cpp's scene (0x75ECF0, 0xF4 bytes; its base 0x494EE0 is claimed): a plain SimpleSceneClass
+#include "..\..\ww3d2\scene.h"
+#include "..\..\ww3d2\dazzle.h"
+class MainViewSceneUnknown98Class;
+class MainViewSceneClass : public SimpleSceneClass
+{
+public:
+	MainViewSceneClass();
+	void Unknown_75F690(const Vector3 &sun, const Vector3 &camera);
+	void Unknown_75F700(const Vector3 &color);
+	virtual void Unknown_68(CameraClass *camera);
+	MainViewSceneUnknown98Class *Unknown98; char Unknown9C[0xF4 - 0x9C];
+};
+MainViewSceneClass::MainViewSceneClass()
+{
+	STUB_CALLED("POC MainViewSceneClass: a plain SimpleSceneClass");
+}
+
+// ---------------------------------------------------------------- enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes): the base's answer
+class MainViewDazzleHandlerClass : public DazzleVisibilityClass
+{
+public:
+	MainViewDazzleHandlerClass(SClient *client);
+	~MainViewDazzleHandlerClass();
+	SClient *Client;
+};
+MainViewDazzleHandlerClass::MainViewDazzleHandlerClass(SClient *client) : Client(client)
+{
+	STUB_CALLED("POC MainViewDazzleHandlerClass: the base's visibility");
+}
+MainViewDazzleHandlerClass::~MainViewDazzleHandlerClass()
+{
+}
+
+// ---------------------------------------------------------------- cameraeffects.cpp (0x6E2BD0): the table, no effects
+CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
+{
+	STUB_CALLED("POC CameraEffectsClass: no effects");
+	Client = client;
+}
+
+// ---------------------------------------------------------------- orbital manager (0x4F3250, 0x1D4 bytes; no table)
+OrbitalManager::OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *callback)
+{
+	STUB_CALLED("POC OrbitalManager: zero");
+	memset(this, 0, 0x1D4);
+}
+
+// ---------------------------------------------------------------- the main view's windows that have no class in the tree: empty windows on its view (0x53E970, 0x53D250 and +0x1DC's)
+MainViewUnknown53E970Class::MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene) : InterfaceClass((UIViewClass *)view, (int)scene)
+{
+	STUB_CALLED("POC MainViewUnknown53E970Class: an empty window");
+}
+MainViewUnknown138Class::MainViewUnknown138Class(MainViewClass *view, SimpleSceneClass *scene, INIClass &ini) : InterfaceClass((UIViewClass *)view, (int)scene)
+{
+	STUB_CALLED("POC MainViewUnknown138Class: an empty window");
+}
+MainViewUnknown1DCClass::MainViewUnknown1DCClass(MainViewClass *view, SimpleSceneClass *scene) : InterfaceClass((UIViewClass *)view, (int)scene)
+{
+	STUB_CALLED("POC MainViewUnknown1DCClass: an empty window");
+}
+
+// ---------------------------------------------------------------- ui_mesh.cpp (0x5B8120-0x5BA4C0, not rebuilt yet): the model only, no animations
+#include "..\..\ww3d2\assetmgr.h"
+#include "..\..\ww3d2\rendobj.h"
+UIMeshClass::UIMeshClass(const char *name, int arg)
+{
+	STUB_CALLED("POC UIMeshClass: the model, no animations");
+	memset(this, 0, sizeof(*this));
+	Unknown_5B8850(name, arg != 0);
+}
+UIMeshClass::UIMeshClass(const char *name, ClientClass *client)
+{
+	STUB_CALLED("POC UIMeshClass: the model, no animations");
+	memset(this, 0, sizeof(*this));
+	Unknown_5B8850(name, false);
+}
+UIMeshClass::~UIMeshClass()
+{
+	if (Unknown1C != NULL) {
+		Unknown1C->Remove();
+		Unknown1C->Release_Ref();
+		Unknown1C = NULL;
+	}
+}
+void UIMeshClass::Unknown_5B8850(const char *name, bool arg)
+{
+	if (Unknown1C != NULL) {
+		Unknown1C->Remove();
+		Unknown1C->Release_Ref();
+		Unknown1C = NULL;
+	}
+	if (name != NULL) {
+		Unknown1C = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
+		if (Unknown1C == NULL) {
+			STUB_CALLED("POC UIMeshClass: a model was not found");
+		}
+	}
+}
+RenderObjClass *UIMeshClass::Peek_Object()
+{
+	return(Unknown1C);
+}
+RenderObjClass *UIMeshClass::Unknown_5B8B20()
+{
+	Unknown1C->Add_Ref();
+	return(Unknown1C);
+}
+RenderObjClass *UIMeshClass::Unknown_5B8B40(const char *name)
+{
+	return(Unknown1C != NULL ? Unknown1C->Get_Sub_Object_By_Name(name) : NULL);
+}
+void UIMeshClass::Unknown_5B9100(const char *bone_name, RenderObjClass *object)
+{
+	Unknown1C->Add_Sub_Object_To_Bone(object, bone_name);
+}
+void UIMeshClass::Unknown_5B9130(const char *bone_name, UIMeshClass *child)
+{
+	Unknown1C->Add_Sub_Object_To_Bone(child->Unknown1C, bone_name);
+}
+void UIMeshClass::Unknown_5B9290(SimpleSceneClass *scene)
+{
+	if (Unknown1C != NULL) {
+		Unknown1C->Add(scene);
+	}
+}
+void UIMeshClass::Unknown_5B92B0()
+{
+	if (Unknown1C != NULL) {
+		Unknown1C->Remove();
+	}
+}
+
+// ---------------------------------------------------------------- the interface base over a mesh and a layer (0x5BB250-0x5BB6B0)
+Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, SClient *client) : InterfaceClass((LineDisplayClientClass *)client), InterfaceMesh(mesh)
+{
+	STUB_CALLED("POC Unknown5BB320Class");
+}
+Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, UIViewClass *view, const LayerClass &layer) : InterfaceClass(view, (int)((LayerClass &)layer).Peek_Scene()), InterfaceMesh(mesh), Layer(layer)
+{
+	STUB_CALLED("POC Unknown5BB320Class");
+}
+Unknown5BB320Class::~Unknown5BB320Class()
+{
+	delete InterfaceMesh;
+}
+void Unknown5BB320Class::Unknown_58()
+{
+	InterfaceMesh->Unknown_5B9290((SimpleSceneClass *)Layer.Peek_Scene());
+	InterfaceClass::Unknown_58();
+}
+void Unknown5BB320Class::Unknown_5C()
+{
+	InterfaceMesh->Unknown_5B92B0();
+	InterfaceClass::Unknown_5C();
+}
+void Unknown5BB320Class::Unknown_60()
+{
+}
+void Unknown5BB320Class::Unknown_7C(UIViewClass *view, bool arg)
+{
+	if (view == NULL) {
+		Layer.Set_Scene(NULL);
+		Layer.Set_Camera(NULL);
+	} else {
+		Layer.Set_Scene((SceneClass *)view->Unknown_50());
+		Layer.Set_Camera((CameraClass *)view->Unknown_54());
+	}
+	InterfaceClass::Unknown_7C(view, arg);
+}
+void Unknown5BB320Class::Unknown_88()
+{
+}
+void Unknown5BB320Class::Unknown_8C()
+{
+}
+
+// ---------------------------------------------------------------- the cockpit's parts with no class in the tree (ui_cpit.h, ui_cpit.cpp's views)
+#include "..\..\app\client\unknown_671300.h"
+UICpitUnknownC8Class::UICpitUnknownC8Class(UICpitClass *cpit, SClient *sclient, int type) : InterfaceClass((LineDisplayClientClass *)sclient)
+{
+	STUB_CALLED("POC UICpitUnknownC8Class: an empty window");
+	memset(Unknown84, 0, sizeof(Unknown84));
+}
+UICpitUnknownE0Class::UICpitUnknownE0Class(SClient *sclient) : InterfaceClass((LineDisplayClientClass *)sclient)
+{
+	STUB_CALLED("POC UICpitUnknownE0Class: an empty window");
+	memset(Unknown84, 0, sizeof(Unknown84));
+}
+UIScanClass::UIScanClass(UIViewClass *view, LayerClass *layer) : InterfaceClass(view, (int)layer->Peek_Scene())
+{
+	STUB_CALLED("POC UIScanClass: an empty window");
+	memset(Unknown84, 0, sizeof(Unknown84));
+	Unknown88 = NULL;
+	memset(Unknown8C, 0, sizeof(Unknown8C));
+}
+UICpitUnknownD0Class::UICpitUnknownD0Class(RenderObjClass *model, LayerClass *layer, UICpitClass *cpit, int arg)
+{
+	STUB_CALLED("POC UICpitUnknownD0Class: an empty watch");
+	memset(Unknown18, 0, sizeof(Unknown18));
+}
+class UICpitWarpGadgetClass : public Unknown_671300Class { public: UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer); void Unknown_676190(int a, int b); char Unknown80[0x94 - 0x80]; };
+UICpitWarpGadgetClass::UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer) : Unknown_671300Class(object, (int)bar, layer, 0, 0, 3)
+{
+	STUB_CALLED("POC UICpitWarpGadgetClass: a plain button");
+	memset(Unknown80, 0, sizeof(Unknown80));
+}
+class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); virtual bool Unknown_30(float x, float y); char Unknown30[0x49 - 0x30]; bool Unknown49; char Unknown4A[0x5C - 0x4A]; };
+UICpitGadget6B56AClass::UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view) : GadgetClass(0xFF)
+{
+	STUB_CALLED("POC UICpitGadget6B56AClass: a gadget that takes nothing");
+	memset(Unknown30, 0, sizeof(Unknown30));
+	Unknown49 = false;
+	memset(Unknown4A, 0, sizeof(Unknown4A));
+}
+
+// ---------------------------------------------------------------- ui_symbolchat (0x64A480): an empty window
+#include "..\..\app\client\ui_group.h"
+UISymbolChatClass::UISymbolChatClass(SClient *sclient) : InterfaceClass((LineDisplayClientClass *)sclient)
+{
+	STUB_CALLED("POC UISymbolChatClass: an empty window");
+}
+
+// ---------------------------------------------------------------- the trade window's parts (0x59EDC0, 0x649890)
+#include "..\..\app\client\ui_manu.h"
+UIManuInvClass::UIManuInvClass(SClient *client, RenderObjClass *model, int count, const char *format, int unknown) : InterfaceClass((LineDisplayClientClass *)client)
+{
+	STUB_CALLED("POC UIManuInvClass: an empty window");
+	memset(Unknown84, 0, sizeof(Unknown84));
+}
+UIPTradeCreditsClass::UIPTradeCreditsClass(SClient *client, int a, int b) : Unknown5BB320Class(new UIMeshClass("TRADE01A", 0), client)
+{
+	STUB_CALLED("POC UIPTradeCreditsClass: the model only");
+	memset(Unknown0AC, 0, sizeof(Unknown0AC));
+}
+
+// ---------------------------------------------------------------- the +0x1358 view's window (0x5B7AB0): an empty window
+Unknown5B7AB0Class::Unknown5B7AB0Class(UIViewClass *view, const LayerClass &layer) : InterfaceClass(view, (int)layer.Peek_Scene())
+{
+	STUB_CALLED("POC Unknown5B7AB0Class: an empty window");
+	memset(Unknown84, 0, sizeof(Unknown84));
+}
+
+// ---------------------------------------------------------------- 0x79B9E0: the camera modules' signal map, a function-local static (camera_manager.cpp's neighbourhood)
+#include "..\..\app\client\unknown_signalbase.h"
+class SClientNotifierClass;
+SClientNotifierClass *Unknown_79B9E0()
+{
+	static SignalMap map;
+	return((SClientNotifierClass *)&map);
+}
+class SClientNotifierClass { public: void Add(int id, SignalBaseClass::CallbackClass *callback); void Remove(int id, SignalBaseClass::CallbackClass *callback); };
+void SClientNotifierClass::Add(int id, SignalBaseClass::CallbackClass *callback) { ((SignalMap *)this)->connect((void *)id, callback); }	// 0x4F9740 by sclient.cpp's name
+void SClientNotifierClass::Remove(int id, SignalBaseClass::CallbackClass *callback) { ((SignalMap *)this)->disconnect((void *)id, *callback); }	// 0x4F98D0
+
+// ---------------------------------------------------------------- the chat panel's parts (ui_chat_panel.cpp's slot +0x54): empty windows
+#define POC_WINDOW_CTOR
+#include "..\..\app\client\ui_chat_panel.h"
+#include "..\..\app\client\ui_combobox.h"
+class UIChatReplyListClass : public InterfaceClass { public: UIChatReplyListClass(SClient *client); char Unknown84[0xA4 - 0x84]; };
+UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((LineDisplayClientClass *)client)
+{
+	STUB_CALLED("POC UIChatReplyListClass: an empty window");
+	memset(Unknown84, 0, sizeof(Unknown84));
+}
+UIChatIntClass::UIChatIntClass(SClient *client, int a, int b, int kind) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+{
+	STUB_CALLED("POC UIChatIntClass: an empty window");
+}
+UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c) : InterfaceClass(owner->Client)
+{
+	STUB_CALLED("POC UIComboBoxClass: an empty window");
+}
+void UIChatPanelClass::Unknown_5689D0(int index)
+{
+	Combo[index] = Create_NEW(new UIComboBoxClass(this, NULL, NULL, NULL, 0, 0, 0, 0, 0));
+}
+class UIChatF8EventClass {};
+class UIChatIntHandlerClass
+{
+public:
+	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *));
+};
+UIChatIntHandlerClass::UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *))
+{
+	STUB_CALLED("POC UIChatIntHandlerClass: nothing");
+}
+class UnknownEventDispatcherClass
+{
+public:
+	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatF8EventClass &, InterfaceClass *), const UIChatF8EventClass &type);
+	void Unknown_56CEC0(UIChatIntClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *), const UIChatIntEventClass &type);
+};
+void UnknownEventDispatcherClass::Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatF8EventClass &, InterfaceClass *), const UIChatF8EventClass &type)
+{
+}
+void UnknownEventDispatcherClass::Unknown_56CEC0(UIChatIntClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *), const UIChatIntEventClass &type)
+{
+}
+
+// ---------------------------------------------------------------- rs_list.cpp (0x45A720-0x45C310) and rs.ini's table 0x763E00: not rebuilt yet: every list is empty, no states
+#include "..\\..\\app\\client\\client.h"
+#include "..\\..\\app\\shared\\rs_track.h"
+RenderStateListClass::RenderStateListClass(RenderStateListClass *source)
+{
+	STUB_CALLED("POC RenderStateListClass: empty");
+	Head = NULL;
+	memset(Unknown08, 0, sizeof(Unknown08));
+	Unknown20 = NULL;
+	Current = NULL;
+	Source = source;
+	Unknown2C = 0;
+}
+RenderStateListClass::~RenderStateListClass()
+{
+}
+void *Unknown763E00Class::Unknown_764030(int id)
+{
+	static char zero[0x30];
+	STUB_CALLED("POC Unknown763E00Class::Unknown_764030: an empty list for every id");
+	return(zero);
+}

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-628 entries in 176 files.
+629 entries in 176 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -307,6 +307,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_buff.cpp:215` | `UIBuffClass::Unknown_561030` | marker | NOT EXACT: inline-budget (the client calls auxdata.h's find out of line, 0x561C40, and ~vector 0x561B80 on the new-buff path) |
 | `app/client/ui_buff.cpp:287` | `UIBuffClass::Unknown_561B40` | mention | NOT EXACT (inline budget); the static is defined first (its asserts are on lines 197 / 205, and defined after 0x561030 the BuffInfoStruct destructor 0x561A60 does not match). The COMDATs they bring: the destructors 0x561A60 / 0x5619D0 and the vector's _Destroy 0x561BD0 match; auxdata.h's find 0x561C40 and ~vector 0x561B80 are inlined in ours. After the slots: the adjustor thunks 0x561D60 (-4) / 0x... |
 | `app/client/ui_chat_panel.cpp:191` | `UIChatPanelClass::UIChatPanelClass` | marker | NOT EXACT: functional (WE1): the first compile of the constructor, not yet aligned 0x561DD0 |
+| `app/client/ui_chat_panel.cpp:458` | `UIChatPanelClass::Unknown_54` | marker | NOT EXACT: functional (WE1): from the pseudocode, not aligned; the tooltips' sort order (0x65FFC0) and the button text's slot +0x168 are left out 0x5629E0 |
 | `app/client/ui_chat_panel.cpp:521` | `UIChatPanelClass::Unknown_60` | marker | NOT EXACT: register (the client copies the lag light's table pointer to edx for Is_Hidden, ebx in ours; then eax / edx swapped at As_Space_Client); 0x56C0C0 is out of line through auto_inline(off), as the client 0x5630B0 |
 | `app/client/ui_chat_panel.cpp:558` | `UIChatPanelClass::Unknown_68` | marker | NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240) 0x563280 |
 | `app/client/ui_chat_panel.cpp:640` | `UIChatPanelClass::Unknown_563910` | marker | NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8) 0x563910 |

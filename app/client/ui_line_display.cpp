@@ -12,7 +12,7 @@ extern RandomClass Unknown_BDBB84;  // NAME 1 [Unknown_BDBB84]: neutral (D10): t
 
 #include "fontdatabase.h"	// FontStringFilesClass at 0xBE67BC: the constructor / destructor load and unload fc_line_display.ini
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1 [Unknown_BE67BC]: neutral (D10); sclient.h declares it so
-
+#include "fontmanager.h"	// FontSys, the text objects
 
 
 
@@ -144,9 +144,9 @@ LineDisplayStringStruct::LineDisplayStringStruct(const char *name) : Name(name)
 }
 
 
-void LineDisplayStringStruct::Show(bool on)
+void LineDisplayStringStruct::Show(int on)
 {
-	Text->Unknown_16C(on);
+	Text->Set_Sort_Level(on);
 }
 
 
@@ -355,7 +355,7 @@ void UILineDisplayClass::Unknown_60()
 			if (!text) {
 				return;
 			}
-			if (!((text->Unknown440 == 2 && text->Unknown_1A8()) || text->Unknown440 == 3 || text->Unknown_6D89C0())) {
+			if (!((text->Unknown440 == 2 && text->Is_Complete()) || text->Unknown440 == 3 || text->Unknown_6D89C0())) {
 				return;
 			}
 			if (Lines.size() && Current == Lines[0]) {
@@ -402,18 +402,18 @@ void UILineDisplayClass::Unknown_60()
 	if (HistoryMode) {
 		text->Unknown_6CE420(2, "(%d) %s", History.size() - HistoryIndex, Current->Text.c_str());
 	} else {
-		text->Unknown_6CDBC0(Current->Text.c_str(), 1);
+		text->Change_Text(Current->Text.c_str(), 1);
 	}
 	if (Style == "Simple" || Style == "MessageLine") {
 		LineDisplaySClientClass *sclient;
 		LineDisplayUnknown138Class *object;
 		if (Client && (sclient = Client->Unknown_18()) != 0 && sclient->Unknown127C && (object = sclient->Unknown127C->Unknown138) != 0) {
 			Vector3 offset(0.0f, object->UnknownC8, 0.0f);
-			text->Unknown_054(offset);
+			text->Set_Position(offset);
 		}
 	}
 	InterfaceSortClass sort(Unknown_541800(), 1);
-	text->Unknown_034(Unknown44);
+	text->Add((SceneClass *)Unknown44);
 }
 
 
@@ -479,7 +479,7 @@ void UILineDisplayClass::Add_Line(const char *text, int display_time, const char
 	}
 	RefCountPtr<LineDisplayTextClass> font_text = Find_Text(font);
 	if (font_text) {
-		LineDisplayWrapClass *wrap = new LineDisplayWrapClass(font_text->Unknown24C, 0, 0, 0);
+		LineDisplayWrapClass *wrap = new LineDisplayWrapClass(&font_text->Font, 0, 0, 0);
 		wrap->Unknown_4F9D90(text, 575.0f, 0);
 		int count = wrap->Unknown_4FA710();
 		if (!count) {
@@ -610,7 +610,7 @@ void UILineDisplayClass::Unknown_7C(UIViewClass *unknown1, bool unknown2)
 	std::hash_map<std::string, LineDisplayStringStruct *>::iterator s;
 	for (s = Strings.begin(); s != Strings.end(); ++s) {
 		LineDisplayStringStruct *string = (*s).second;
-		string->Get_Text()->Unknown_054(offset);
+		string->Get_Text()->Set_Position(offset);
 	}
 	InterfaceClass::Unknown_7C(unknown1, unknown2);
 }
@@ -624,8 +624,8 @@ void UILineDisplayClass::Clear()
 	std::hash_map<std::string, LineDisplayStringStruct *>::iterator s;
 	for (s = Strings.begin(); s != Strings.end(); ++s) {
 		LineDisplayStringStruct *string = (*s).second;
-		if (string->Get_Text()->Unknown_040()) {
-			string->Get_Text()->Unknown_038();
+		if (string->Get_Text()->Peek_Scene()) {
+			string->Get_Text()->Remove();
 		}
 	}
 	Current = 0;

@@ -6,7 +6,7 @@
 #include <windows.h>
 #include "eff_o.h"
 #include "sclient.h"
-#include "ui_line_display.h"
+#include "fontmanager.h"	// FontSys: ui_line_display.h's text objects
 #include "co_data.h"
 #include "co_subtypes.h"
 #include "..\packets\pk_player_object_relationship.h"
@@ -74,7 +74,7 @@
 #include "..\shared\rs_track.h"
 #define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
 #include "verbmanager.h"
-
+#include "ui_line_display.h"
 
 
 

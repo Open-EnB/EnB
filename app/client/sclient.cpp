@@ -151,8 +151,8 @@ public:
 	char Unknown13C[0x264 - 0x13C]; bool MessageButtonShowing; char Unknown265[3]; bool Is_Message_Button_Showing() { return(MessageButtonShowing); }	// +0x264 (0x74FEC0's FAIL_IF names the getter)  // NAME 2 [MessageButtonShowing]: its getter's
 };
 
+#include "fontmanager.h"	// FontSys: ui_line_display.h's text objects
 #include "ui_line_display.h"						// UILineDisplayClass (0x5A5410, 0x100 bytes; Init passes the SClient as its client)
-
 
 
 class UIHotKeysClass : public InterfaceClass
