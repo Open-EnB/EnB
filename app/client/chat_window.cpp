@@ -6,12 +6,9 @@
 
 ChatWindowClass::ChatWindowClass(GadgetSlider *owner, int unknown, int index) :
 	ChatWindowHistoryClass(unknown),
-	Unknown64(0),
-	Unknown68(0),
-	Unknown6C(0),
-	Unknown70(0),
+	Rect(0.0f, 0.0f, 0.0f, 0.0f),
 	Unknown74(owner),
-	Unknown78(0),
+	LineHeight(0.0f),
 	Unknown90(0),
 	Unknown94(0),
 	Unknown98(0),
@@ -32,15 +29,18 @@ ChatWindowClass::ChatWindowClass(GadgetSlider *owner, int unknown, int index) :
 ChatWindowClass::~ChatWindowClass()
 {
 	Clear_Fonts();
-	Unknown60 = NULL;
+	Scene = NULL;
 	Unknown74 = NULL;
 }
 
-void ChatWindowClass::Unknown_67E180(const RefCountPtr<ChatLineClass> &line)
+void ChatWindowClass::Unknown_67E180(const RefCountPtr<SceneClass> &scene)
 {
-	Unknown60 = line;
+	Scene = scene;
 	for (std::vector< RefCountPtr<ChatFontSys> >::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
 		const RefCountPtr<ChatFontSys> &font_ptr = *it;
+
+
+
 
 
 
@@ -296,242 +296,152 @@ void ChatWindowClass::Clear_Fonts()
 	Fonts.erase(Fonts.begin(), Fonts.end());
 }
 
-void ChatWindowClass::Unknown_680670()
+// NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy)
+bool ChatWindowClass::Unknown_67F7F0(unsigned int max_lines)
 {
-	if (Unknown_10(Unknown94 - Get_Slider_Value())) {
-		Unknown9C = true;
+	max_lines += UnknownA4 * 2;
+	if (max_lines < 4) {
+		max_lines = 4;
 	}
-	Unknown94 = Get_Slider_Value();
+	unsigned int old_size = Fonts.size();
+	if (old_size == max_lines) {
+		return false;
+	}
+	if (old_size < max_lines) {
+		max_lines += 4;
+	} else if (old_size < max_lines + 4) {
+		return false;
+	}
+	std::vector< RefCountPtr<ChatFontSys> > old;
+	old.swap(Fonts);
+	Fonts.resize(max_lines);
+	for (unsigned int i = 0; i < old_size; i++) {
+		RefCountPtr<ChatFontSys> &font = old[i];
+		if (font.Peek()) {
+			if (font->Line.Peek()) {
+				unsigned int index = font->Line->Unknown08 % max_lines;
+				if (!Fonts[index].Peek()) {
+					Fonts[index] = font;
+				} else {
+					font->Set_Line(RefCountPtr<ChatLineClass>());
+				}
+			}
+			font = NULL;
+		}
+	}
+	for (std::vector< RefCountPtr<ChatFontSys> >::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
+		if (!it->Peek()) {
+			*it = Create_NEW(new ChatFontSys(Name.c_str()));
+		}
+	}
+	return true;
 }
 
-void ChatWindowClass::Unknown_6806C0()
+void ChatWindowClass::Unknown_67FC60()
 {
-	Clear_Fonts();
-	Unknown_67E670();
-	Unknown_67F7F0(Unknown48);
-	Unknown_6804E0(&Unknown64);
-	Unknown9D = true;
+	int count = Fonts.size();
+	if (count != 0) {
+		int pos = Unknown_682840();
+		int extra = UnknownA4;
+		int line = pos - extra;
+		line -= (Unknown4C < extra) ? Unknown4C : extra;
+		if (line < 0) {
+			line = 0;
+		}
+		unsigned int id = 0;
+		int i = 0;
+		for (; i < count; i++, line++) {
+			const RefCountPtr<ChatLineClass> &chat_line = Unknown_682730(line);
+			if (chat_line->Is_Null()) {
+				break;
+			}
+			id = chat_line->Unknown08;
+			if (line == pos) {
+				Unknown90 = id;
+			}
+			const RefCountPtr<ChatFontSys> &line_ptr = Get_Font(id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			FAIL_IF(!line_ptr) continue;
+			line_ptr->Set_Line_Always(chat_line);
+		}
+		id++;
+		for (; i < count; i++, id++) {
+			const RefCountPtr<ChatFontSys> &line_ptr = Get_Font(id);
+
+
+			FAIL_IF(!line_ptr) continue;
+			line_ptr->Set_Line(RefCountPtr<ChatLineClass>());
+		}
+		Unknown_6809B0();
+		Unknown9C = true;
+		Unknown9D = false;
+	}
 }
 
-void ChatWindowClass::Unknown_680700(bool unknown)
+void ChatWindowClass::Unknown_67FFD0()
 {
-	Unknown9E = unknown;
-	Unknown_680790();
 	if (Unknown9E) {
-		for (std::vector< RefCountPtr<ChatFontSys> >::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
-			const RefCountPtr<ChatFontSys> &font_ptr = *it;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		return;
+	}
+	if (Unknown9D) {
+		Unknown_67FC60();
+	}
+	if (Unknown9C) {
+		int limit = UnknownA0 ? UnknownA0 : Unknown50;
+		unsigned int id = Unknown90;
+		int done = 0;
+		unsigned int i = 0;
+		for (; i < Unknown50 && done < limit; i++, id++) {
+			const RefCountPtr<ChatFontSys> &font_ptr = Get_Font(id);
 
 
 
@@ -545,11 +455,125 @@ void ChatWindowClass::Unknown_680700(bool unknown)
 
 
 			FAIL_IF(!font_ptr) continue;
+			if (font_ptr->Unknown_680320(UnknownBC, Scene)) {
+				done++;
+			}
+		}
+		if (done != 0) {
+			return;
+		}
+		unsigned int size = Fonts.size();
+		int extra = UnknownA8 ? UnknownA8 : size;
+		done = 0;
+		for (; i < size && done < extra; i++, id++) {
+			const RefCountPtr<ChatFontSys> &font_ptr = Get_Font(id);
+
+
+
+			FAIL_IF(!font_ptr) continue;
+			if (font_ptr->Unknown_680320(UnknownBC, RefCountPtr<SceneClass>())) { done++; }
+		}
+		if (done != 0) { return; }
+		Unknown9C = false;
+	}
+}
+bool ChatFontSys::Unknown_680320(const char *indent, RefCountPtr<SceneClass> scene)
+{
+	bool changed = false;
+	if (Line.Peek() && !Line->Unknown29) {
+		if (Line->Flags & 1) {
+			Line->Flags &= ~1;
+			Set_Color(Line->Color);
+			const char *text = Line->Text.c_str();
+			while (*text == ' ') { text++; }
+			if (Line->Is_First()) {
+				Unknown_6CE420(0, "%c%s", Line->Is_Bit_3() ? '^' : ' ', text);
+			} else {
+				Unknown_6CE420(0, "%c%s%s", Line->Is_Bit_3() ? '^' : ' ', indent, text);
+			}
+			changed = true;
+		}
+		if (scene.Peek() && Peek_Scene() == NULL) {
+			Add(scene.Peek());
+			changed = true;
+		}
+	}
+	return changed;
+}
+// NOT EXACT: the height is kept in two stack slots in the client (fst [esp+0xC]; fstp [esp+8], frame 4 larger); the rest is the client form
+void ChatWindowClass::Unknown_6804E0(const RectClass &rect)
+{
+	Rect = rect;
+	float line_height = Font->Get_Line_Height(480.0f);
+	float half_height;
+	float height = half_height = Rect.Top - Rect.Bottom;
+	int lines = 1;
+	LineHeight = line_height;
+	if (height > 0.0f && line_height > 0.0001f) {
+		float count = height / line_height;
+		if (count >= 1.0f) { lines = (int)count; }
+	}
+	Vector3 extent((Rect.Right - Rect.Left) * 0.5f, half_height * 0.5f, 0.0f);
+	Vector3 center(extent.X + Rect.Left, Rect.Top - extent.Y, 0.0f);
+	AABoxClass box(center, extent);
+	Unknown74->Unknown_670230(box, false);
+	int width = (int)((Rect.Right - Rect.Left) - Font->Get_Text_Width(UnknownBC, 640.0f));
+	if (width < 1) { width = 1; }
+	Unknown_04(lines, width);
+}
+void ChatWindowClass::Unknown_680670()
+{
+	if (Unknown_10(Unknown94 - Get_Slider_Value())) { Unknown9C = true; }
+	Unknown94 = Get_Slider_Value();
+}
+void ChatWindowClass::Unknown_6806C0()
+{
+	Clear_Fonts();
+	Unknown_67E670();
+	Unknown_67F7F0(Unknown48);
+	Unknown_6804E0(Rect);
+	Unknown9D = true;
+}
+void ChatWindowClass::Unknown_680700(bool unknown)
+{
+	Unknown9E = unknown;
+	Unknown_680790();
+	if (Unknown9E) {
+		for (std::vector< RefCountPtr<ChatFontSys> >::iterator it = Fonts.begin(); it != Fonts.end(); ++it) {
+			const RefCountPtr<ChatFontSys> &font_ptr = *it;
+
+
+
+			FAIL_IF(!font_ptr) continue;
 			font_ptr->Remove();
 		}
 	} else {
 		Unknown9C = true;
 	}
+}
+
+void ChatWindowClass::Unknown_680790()
+{
+	if (Unknown74 == NULL) {
+		return;
+	}
+	int total = History.size() + Unknown48;
+	int pos = Unknown_682840();
+	if (Unknown98 != total) {
+		Unknown98 = total;
+		bool at_end = false;
+		if ((float)Get_Slider_Value() == Unknown74->UnknownC0 - Unknown74->UnknownC8) {
+			at_end = true;
+		}
+		Unknown74->Unknown_66FA90((float)total, (float)Unknown48, true);
+		if (at_end) {
+			Unknown74->Unknown_A4((float)(Unknown98 - Unknown48), true);
+		}
+	} else if (pos != Get_Slider_Value()) {
+		Unknown74->Unknown_A4((float)pos, false);
+	}
+	Unknown94 = Get_Slider_Value();
+	Unknown74->Unknown_8C(Unknown9E);
 }
 
 const RefCountPtr<ChatFontSys> &ChatWindowClass::Get_Font(unsigned int index)
@@ -571,32 +595,37 @@ const RefCountPtr<ChatFontSys> &ChatWindowClass::Get_Font(unsigned int index)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	FAIL_IF(!size) return null_font;
 	return Fonts[index % size];
+}
+
+void ChatWindowClass::Unknown_6809B0()
+{
+	Vector3 pos(Rect.Left, Rect.Top + 3.0f, 0.0f);
+	unsigned int id = Unknown90;
+	unsigned int i = 0;
+	for (; i < Unknown50; i++, id++) {
+		const RefCountPtr<ChatFontSys> &font_ptr = Get_Font(id);
+
+
+
+
+
+
+
+		FAIL_IF(!font_ptr) continue;
+		font_ptr->Set_Position(pos);
+		pos.Y -= LineHeight;
+	}
+	unsigned int size = Fonts.size();
+	for (; i < size; i++, id++) {
+		const RefCountPtr<ChatFontSys> &font_ptr = Get_Font(id);
+
+
+
+		FAIL_IF(!font_ptr) continue;
+		font_ptr->Remove();
+	}
 }
 
 /*

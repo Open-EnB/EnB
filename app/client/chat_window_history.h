@@ -14,6 +14,7 @@
 #include "..\shared\unknown_font_split_string.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\..\wwlib\refcount.h"
+#include "..\..\wwmath\vector3.h"
 #include <vector>
 #include <string>
 
@@ -24,13 +25,13 @@ public:
 	bool Is_Null() const { return (Flags & 0x10) != 0; }  // the asserts' Is_Null (bit 4)
 	bool Is_Last() const { return (Flags & 4) != 0; }  // the assert's (bit 2)
 	bool Is_First() const { return (Flags & 2) != 0; }  // NAME 2: 0x682770's walk back stops at it (bit 1)
+	bool Is_Bit_3() const { return (Flags & 8) != 0; }  // NAME 1: neutral (D10)
 	void Set_Flag_1() { Flags |= 1; }  // NAME 1: neutral (D10)
 	int Unknown08;  // +0x08  // NAME 1: neutral (D10)
 	std::string Text;  // +0x0C  // NAME 2: a string, the line's own
-	int Unknown1C;  // +0x1C  // NAME 1: neutral (D10)
-	int Unknown20;  // +0x20  // NAME 1: neutral (D10)
-	int Unknown24;  // +0x24  // NAME 1: neutral (D10)
+	Vector3 Color;  // +0x1C: 0x680320's FontSys::Set_Color  // NAME 2: what it holds
 	unsigned char Flags;  // +0x28: bit 2 the asserts' Is_Last  // NAME 2: what it holds
+	bool Unknown29;  // +0x29  // NAME 1: neutral (D10)
 };
 
 class ChatWindowHistoryClass  // NAME 3: the file's name, its asserts' History
@@ -50,6 +51,7 @@ public:
 	const RefCountPtr<ChatLineClass> &Unknown_682730(unsigned int index);  // 0x682730  // NAME 1 [index]: neutral (D10)
 	const RefCountPtr<ChatLineClass> &Unknown_682770(unsigned int index);  // 0x682770 (lines 412, 418)  // NAME 1 [index]: neutral (D10)
 	int Unknown_682840();  // 0x682840  // NAME 1: neutral (D10)
+	int Unknown_682880();  // 0x682880  // NAME 1: neutral (D10)
 	void Unknown_681DB0();  // 0x681DB0  // NAME 1: neutral (D10)
 	void Unknown_6818C0();  // 0x6818C0  // NAME 1: neutral (D10)
 

@@ -1,5 +1,6 @@
 #include "chat_window_history.h"
 #include "..\shared\g_assert.h"
+#include <string.h>
 
 ChatWindowHistoryClass::~ChatWindowHistoryClass()
 {
@@ -55,6 +56,53 @@ bool ChatWindowHistoryClass::Unknown_04(unsigned int max_lines, unsigned int wid
 	return changed;
 }
 
+int ChatWindowHistoryClass::Unknown_10(int unknown)
+{
+	unsigned int page = Unknown48;
+	int result = 0;
+	if (page > 0 && unknown != 0) {
+		int before = History.size() - Unknown50 - Unknown4C;
+		if (unknown > 0) {
+			if (Unknown5C && unknown >= (int)page) {
+				unknown = page;
+			}
+			Unknown4C += unknown;
+		} else {
+			if (Unknown5C) {
+				unknown = -unknown;
+				if (unknown >= (int)page) {
+					unknown = page;
+				}
+			} else {
+				unknown = -unknown;
+			}
+			Unknown4C -= unknown;
+		}
+		while (Unknown4C > 0 && Unknown50 < page) {
+			Unknown4C--;
+			Unknown50++;
+		}
+		int limit = History.size() - Unknown50;
+		if (Unknown4C > limit) {
+			Unknown4C = limit;
+		}
+		while (Unknown4C < 0) {
+			Unknown4C++;
+			if (Unknown50 != 0) {
+				Unknown50--;
+			}
+		}
+		result = History.size() - Unknown4C - Unknown50 - before;
+	}
+	return result;
+}
+
+void ChatWindowHistoryClass::Unknown_0C(int unknown1, int unknown2)
+{
+	Unknown4C = 0;
+	ChatWindowHistoryClass::Unknown_08(unknown1, unknown2);
+}
+
 const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682730(unsigned int index)
 {
 	if (index >= History.size()) {
@@ -70,54 +118,6 @@ const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682770(unsigne
 		return NullLine;
 	}
 	std::vector< RefCountPtr<ChatLineClass> >::iterator it = History.end() - 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -429,6 +429,21 @@ const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682770(unsigne
 int ChatWindowHistoryClass::Unknown_682840()
 {
 	return History.size() - Unknown50 - Unknown4C;
+}
+
+int ChatWindowHistoryClass::Unknown_682880()
+{
+	int count = History.size() - Unknown48;
+	return (count > 0) ? count : 0;
+}
+
+bool ChatWindowHistoryClass::Unknown_14(const char *command)
+{
+	if (strncmp(command, "/chat page", strlen("/chat page")) == 0) {
+		Unknown5C = !Unknown5C;
+		return true;
+	}
+	return false;
 }
 
 /*
