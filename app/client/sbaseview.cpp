@@ -1343,7 +1343,7 @@ void SBaseViewClass::Unknown_6A0EC0()
 		float x;
 		float y;
 		Unknown_42ECF0(&x, &y);
-		if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown1274->Unknown_515320() == 5) {
+		if (((SClient *)((ClientClass *)Client)->Unknown_18())->Mouse->Unknown_515320() == 5) {
 			y = WWMath::Min(1.0f, y + 0.02f);
 		} else {
 			y = WWMath::Max(0.0f, y - 0.01f);

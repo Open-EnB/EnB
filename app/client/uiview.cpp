@@ -312,7 +312,7 @@ void Unknown65B810ViewClass::Unknown_10()
 int Unknown65B810ViewClass::Unknown_44()
 {
 	if (Client) {
-		return((int)Client->Unknown1274);
+		return((int)Client->Mouse);
 	}
 	return(0);
 }

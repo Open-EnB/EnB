@@ -103,6 +103,9 @@ public:
 	bool Unknown_515510(SMouseDragClass *drag);			// 0x515510 (FAIL_IF '!drag')  // NAME 3 [drag]: the FAIL_IF's
 	bool Unknown_5155A0(SMouseDragClass *drag);			// 0x5155A0 (FAIL_IF 'DragObject != drag')  // NAME 3 [drag]: the FAIL_IF's
 
+	float Get_X() { return(Unknown14); }				// (inline: gutter_radar.cpp's 0x7B6E40 reads it through the FPU)  // NAME 2: what it does
+	float Get_Y() { return(Unknown18); }				// (as Get_X)  // NAME 2: what it does
+
 	int Unknown00;										// +0x00 (the constructor's argument)
 	RenderObjClass *Unknown04;							// +0x04: the cursor's model
 	void *Unknown08;									// +0x08: the scene it is in

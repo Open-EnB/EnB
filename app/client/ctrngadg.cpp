@@ -203,11 +203,11 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 		}
 	}
 	Unknown_42ED20(0.5f, 0.5f);
-	((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown1274->Unknown_5153B0();
+	((SClient *)((ClientClass *)Client)->Unknown_18())->Mouse->Unknown_5153B0();
 	return(true);
 release:
 	((SClient *)Client)->CameraManager->Unknown28 = false;
-	((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown1274->Unknown_515400();
+	((SClient *)((ClientClass *)Client)->Unknown_18())->Mouse->Unknown_515400();
 	Unknown44 = true;
 	CtrnValueHolderClass<unsigned int> holder(Unknown_BE5F34, 1);
 	Unknown_6C();

@@ -106,7 +106,7 @@ TargetReticleClass::~TargetReticleClass()
 
 // NOT EXACT: 0x7C5690, register rotation only (13 rows at the inlined time == LastTime: eax / ecx for ecx / eax, edx / eax for ecx / eax, eax for ecx at LastValue); same length (1990 bytes)
 // @0x7C5690
-void TargetReticleClass::Update(const Vector2 &pos, float size)
+void TargetReticleClass::Update(const Vector3 &pos, float size)
 {
 
 

@@ -303,7 +303,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown1198(true),
 	Unknown126C(-1),
 	Unknown1270(NULL),
-	Unknown1274(NULL),
+	Mouse(NULL),
 	Unknown1278(0),
 	LineDisplay(NULL),
 	PDAInterface(NULL),
@@ -422,8 +422,8 @@ void SClient::Init()
 	Unknown_7451D0();
 	Load_INIs();
 	Unknown_719D50(this);
-	Unknown1274 = new LoginUnknown18Class((int)this);
-	Unknown1274->Unknown_515120(2);
+	Mouse = new LoginUnknown18Class((int)this);
+	Mouse->Unknown_515120(2);
 	ChatPanel = Create_NEW(new UIChatPanelClass(this));
 	ChatPanel->Unknown_54();
 	LineDisplay = new UILineDisplayClass((LineDisplayClientClass *)this);
@@ -583,8 +583,8 @@ void SClient::Shutdown()
 	Movie3DView = NULL;
 	delete ScriptedMovieView;
 	ScriptedMovieView = NULL;
-	delete Unknown1274;
-	Unknown1274 = NULL;
+	delete Mouse;
+	Mouse = NULL;
 	delete LoadingView;
 	LoadingView = NULL;
 	if (Unknown18) {
@@ -636,7 +636,7 @@ UIViewClass *SClient::Unknown_742530(UIViewClass *view)
 	if (view) {
 		inner = view->Unknown_1C();
 		if (inner) Unknown1278 = (int)inner->Unknown2C; else Unknown1278 = 0;
-		Unknown1274->Unknown_515340((void *)view->Unknown_3C());
+		Mouse->Unknown_515340((void *)view->Unknown_3C());
 		CurrentView->Unknown_18(true);
 		if (CurrentView == MainView || CurrentView == Unknown135C) {
 			PDAInterface->Unknown_7C(inner, 1);
@@ -652,7 +652,7 @@ UIViewClass *SClient::Unknown_742530(UIViewClass *view)
 		}
 		HotKeys->Unknown_7C(CurrentView->Unknown_1C(), 1);
 	} else {
-		Unknown1274->Unknown_515340(NULL);
+		Mouse->Unknown_515340(NULL);
 		PDAInterface->Unknown_7C(NULL, 0); ChatPanel->Unknown_7C(NULL, 0); HotKeys->Unknown_7C(NULL, 0);
 	}
 	LineDisplay->Unknown_7C(inner, 1);

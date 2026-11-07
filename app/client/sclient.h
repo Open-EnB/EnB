@@ -80,7 +80,7 @@ class StarFieldClass;
 class OrbitalManager;
 class Vector4;
 class MainViewOrbitalCallbackClass;
-class MainViewUnknown84Class;
+class GutterRadarClass;
 class MainViewDazzleHandlerClass;
 class WWProfileIterator;
 class Render2DTextClass;
@@ -333,7 +333,7 @@ public:
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
 	void Unknown_7BD6E0(ClientObjectClass *target);	// 0x7BD6E0 (the main view's 0x513630 / 0x512400: the target)  // NAME 1 [target]: what 0x512400 passes
 	void Unknown_7BCA40(bool arg); bool Unknown_7BD980(); const class NavigationListClass &Unknown_7BD960();	// 0x7BCA40 (the main view's slot +0x18); 0x7BD980: the warp path is built, 0x7BD960 the path (ui_cpit.cpp's warp button 0x583250)  // NAME 1 [arg]: neutral
-	void Unknown_7BCA70(MainViewUnknown84Class *object, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
+	void Unknown_7BCA70(GutterRadarClass *object, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
 
 	char Unknown00[0x4D]; bool Unknown4D; char Unknown4E[0x50 - 0x4E];	// +0x4D: names of the objects under the mouse ('/art name', 0x74ABC0)
 };
@@ -691,7 +691,7 @@ public:
 	int PolyBudget;									// +0x78 (the options' PolyBudget, 8000..40000; Render_Space_Mode's / Gas_Giant's budget)  // NAME 3: the registry value's (soptions.h)
 	int TextureReduction;							// +0x7C (the options' TextureReduction, 0..3; WW3D::Set_Texture_Reduction)  // NAME 3: the registry value's (soptions.h)
 	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar'; 0x50BA60 makes it, 0x7BC770)  // NAME 3: the FAIL_IF's name
-	MainViewUnknown84Class *Unknown84;					// +0x84 (0x50BA60 makes it: 0x24 bytes, 0x7B6BD0, with the base's +0x1C scene)
+	GutterRadarClass *Unknown84;					// +0x84 (0x50BA60 makes it: 0x24 bytes, 0x7B6BD0, with the base's +0x1C scene)
 	IntersectionClass Intersection;						// +0x88 (vtable 0xAEA8A0 and its statics in the constructor)  // NAME 2: what it is
 	SimpleSceneClass *Scene;							// +0x10C (0x5137F0 adds the land to it through slot +0x0C, Add_Render_Object; 0x50BA60 makes it, 0xF4 bytes, 0x75ECF0)  // NAME 2: what it is
 	SimpleSceneClass *Unknown110;						// +0x110 (slot +0x68)
@@ -1108,7 +1108,7 @@ public:
 	std::deque<int> Unknown120C[2];						// +0x120C
 	int Unknown126C;									// +0x126C (-1)
 	LoginUnknown0CClass *Unknown1270;					// +0x1270 Init: the input dispatcher (inpdsp.cpp)
-	LoginUnknown18Class *Unknown1274;					// +0x1274 Init: the software mouse (0x514FE0)
+	LoginUnknown18Class *Mouse;					// +0x1274 Init: the software mouse (0x514FE0)
 	int Unknown1278;									// +0x1278
 	RefCountPtr<UIChatPanelClass> ChatPanel;			// +0x127C Init (the reference count at +0x3C)  // NAME 3: its file's
 	UILineDisplayClass *LineDisplay;					// +0x1280 Init  // NAME 3: its file's

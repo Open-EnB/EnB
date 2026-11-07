@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 150 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1517 |
-| 2 | describes what the code does | 3362 |
-| 1 | neutral placeholder | 16726 |
+| 3 | by convention from a client-named file or sibling | 1520 |
+| 2 | describes what the code does | 3376 |
+| 1 | neutral placeholder | 16734 |
 
 ## For review (score 3 and below)
 
@@ -2178,7 +2178,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10BC` | `app/client/ctrngadg.cpp:131` | untagged neutral name (D10) |
 | 1 | `Unknown12B4` | `app/client/ctrngadg.cpp:132` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ctrngadg.cpp:145` | untagged neutral name (D10) |
-| 1 | `Unknown1274` | `app/client/ctrngadg.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown_5153B0` | `app/client/ctrngadg.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown_515400` | `app/client/ctrngadg.cpp:210` | untagged neutral name (D10) |
 | 1 | `Unknown_6C` | `app/client/ctrngadg.cpp:213` | untagged neutral name (D10) |
@@ -3877,10 +3876,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_A9` | `app/client/gd_text_editor.h:74` | untagged neutral name (D10) |
 | 1 | `Unknown_B0` | `app/client/gd_text_editor.h:76` | untagged neutral name (D10) |
 | 1 | `Unknown_B4` | `app/client/gd_text_editor.h:77` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/gutter_data.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/gutter_data.h:30` | neutral (D10) |
-| 1 | `Unknown20` | `app/client/gutter_data.h:31` | neutral (D10) |
-| 1 | `Unknown24` | `app/client/gutter_data.h:32` | untagged neutral name (D10) |
+| 1 | `pos, size, on_screen, scene, scale` | `app/client/gutter_data.h:31` | what 0x7B7040 passes |
+| 1 | `Unknown_7B5BF0` | `app/client/gutter_data.h:31` | untagged neutral name (D10) |
+| 1 | `pos, size` | `app/client/gutter_data.h:32` | what 0x7B7040 passes |
+| 1 | `Unknown_7B6170` | `app/client/gutter_data.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/gutter_data.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/gutter_data.h:35` | neutral (D10) |
+| 1 | `Unknown20` | `app/client/gutter_data.h:36` | neutral (D10) |
+| 1 | `Unknown24` | `app/client/gutter_data.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_831E90` | `app/client/gutter_radar.cpp:18` | neutral (D10) |
+| 1 | `Unknown_7B7810` | `app/client/gutter_radar.cpp:23` | untagged neutral name (D10) |
+| 1 | `gdata, pos, size, scale` | `app/client/gutter_radar.cpp:24` | what 0x7B7040 passes |
+| 1 | `Unknown_7B7880` | `app/client/gutter_radar.cpp:24` | untagged neutral name (D10) |
+| 1 | `create` | `app/client/gutter_radar.cpp:30` | passed on to 0x79D840 |
+| 1 | `Unknown_7BE120` | `app/client/gutter_radar.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/gutter_radar.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/gutter_radar.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/gutter_radar.cpp:142` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gutter_radar.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_7B5BF0` | `app/client/gutter_radar.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown_7B6170` | `app/client/gutter_radar.cpp:154` | untagged neutral name (D10) |
+| 1 | `Reticle08` | `app/client/gutter_radar.h:47` | neutral (D10) |
+| 1 | `Reticle0C` | `app/client/gutter_radar.h:48` | neutral (D10) |
 | 1 | `TableDepth` | `app/client/html/htmlview.cpp:456` | 0xBE83F0, counted up by <table>, down by </table>; nothing reads it |
 | 1 | `RowDepth` | `app/client/html/htmlview.cpp:457` | 0xBE83F4, the same for <tr> |
 | 1 | `CellDepth` | `app/client/html/htmlview.cpp:458` | 0xBE83F8, the same for <td> |
@@ -4438,17 +4455,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown9C` | `app/client/mainview.cpp:28` | untagged neutral name (D10) |
 | 1 | `MainViewDazzleHandlerClass` | `app/client/mainview.cpp:32` | neutral (D10) |
 | 1 | `client` | `app/client/mainview.cpp:35` | what 0x50BA60 passes |
-| 1 | `MainViewUnknown84Class` | `app/client/mainview.cpp:40` | neutral (D10) |
-| 1 | `client, scene` | `app/client/mainview.cpp:43` | what 0x50BA60 passes |
-| 1 | `Scene` | `app/client/mainview.cpp:44` | neutral |
-| 1 | `Unknown00` | `app/client/mainview.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/mainview.cpp:44` | untagged neutral name (D10) |
 | 1 | `MainViewOrbitalCallbackClass` | `app/client/mainview.cpp:48` | neutral (D10) |
 | 1 | `view` | `app/client/mainview.cpp:51` | neutral |
 | 1 | `Unknown_00` | `app/client/mainview.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown_74` | `app/client/mainview.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/mainview.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown1C8` | `app/client/mainview.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/mainview.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/mainview.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/mainview.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/mainview.cpp:75` | untagged neutral name (D10) |
@@ -5065,7 +5078,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6A0E50` | `app/client/sbaseview.cpp:1323` | untagged neutral name (D10) |
 | 1 | `Unknown_6A0E80` | `app/client/sbaseview.cpp:1331` | untagged neutral name (D10) |
 | 1 | `Unknown_42ECF0` | `app/client/sbaseview.cpp:1345` | untagged neutral name (D10) |
-| 1 | `Unknown1274` | `app/client/sbaseview.cpp:1346` | untagged neutral name (D10) |
 | 1 | `Unknown_515320` | `app/client/sbaseview.cpp:1346` | untagged neutral name (D10) |
 | 1 | `Unknown_6A0FD0` | `app/client/sbaseview.cpp:1356` | untagged neutral name (D10) |
 | 1 | `Unknown_6A1000` | `app/client/sbaseview.cpp:1362` | untagged neutral name (D10) |
@@ -5359,7 +5371,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1198` | `app/client/sclient.cpp:303` | untagged neutral name (D10) |
 | 1 | `Unknown126C` | `app/client/sclient.cpp:304` | untagged neutral name (D10) |
 | 1 | `Unknown1270` | `app/client/sclient.cpp:305` | untagged neutral name (D10) |
-| 1 | `Unknown1274` | `app/client/sclient.cpp:306` | untagged neutral name (D10) |
 | 1 | `Unknown1278` | `app/client/sclient.cpp:307` | untagged neutral name (D10) |
 | 1 | `Unknown1288` | `app/client/sclient.cpp:310` | untagged neutral name (D10) |
 | 1 | `Unknown12B0` | `app/client/sclient.cpp:317` | untagged neutral name (D10) |
@@ -5610,7 +5621,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_49F300` | `app/client/sclient.h:60` | untagged neutral name (D10) |
 | 1 | `Unknown_49F200` | `app/client/sclient.h:62` | untagged neutral name (D10) |
 | 1 | `ScriptedMovieEffectStruct` | `app/client/sclient.h:73` | neutral (D10) |
-| 1 | `MainViewUnknown84Class` | `app/client/sclient.h:83` | untagged neutral name (D10) |
 | 1 | `SClientUnknown12C4Class` | `app/client/sclient.h:99` | neutral (D10): the elements of SClient +0x12C4 |
 | 1 | `SClientUnknown1334Class` | `app/client/sclient.h:100` | neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it |
 | 1 | `SClientUnknown12BCClass` | `app/client/sclient.h:102` | neutral (D10): what SClient +0x12BC points to (a virtual destructor) |
@@ -6240,7 +6250,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown120C` | `app/client/sclient.h:1108` | untagged neutral name (D10) |
 | 1 | `Unknown126C` | `app/client/sclient.h:1109` | untagged neutral name (D10) |
 | 1 | `Unknown1270` | `app/client/sclient.h:1110` | untagged neutral name (D10) |
-| 1 | `Unknown1274` | `app/client/sclient.h:1111` | untagged neutral name (D10) |
 | 1 | `Unknown1278` | `app/client/sclient.h:1112` | untagged neutral name (D10) |
 | 1 | `Unknown1288` | `app/client/sclient.h:1116` | untagged neutral name (D10) |
 | 1 | `Unknown1298` | `app/client/sclient.h:1120` | untagged neutral name (D10) |
@@ -7222,62 +7231,62 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_515440` | `app/client/tasks/tsk_login.h:102` | untagged neutral name (D10) |
 | 1 | `Unknown_515510` | `app/client/tasks/tsk_login.h:103` | untagged neutral name (D10) |
 | 1 | `Unknown_5155A0` | `app/client/tasks/tsk_login.h:104` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/tasks/tsk_login.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/tasks/tsk_login.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/tasks/tsk_login.h:108` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/tasks/tsk_login.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/tasks/tsk_login.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/tasks/tsk_login.h:111` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/tasks/tsk_login.h:112` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/tasks/tsk_login.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/tasks/tsk_login.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/tasks/tsk_login.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/tasks/tsk_login.h:116` | untagged neutral name (D10) |
-| 1 | `mode` | `app/client/tasks/tsk_login.h:124` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
-| 1 | `Set_Step` | `app/client/tasks/tsk_login.h:140` | what it does |
-| 1 | `Unknown_64` | `app/client/tasks/tsk_login.h:141` | untagged neutral name (D10) |
-| 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:142` | what it does |
-| 1 | `Unknown_6C` | `app/client/tasks/tsk_login.h:143` | untagged neutral name (D10) |
-| 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:144` | what it does |
-| 1 | `Get_Selected` | `app/client/tasks/tsk_login.h:146` | what it returns |
-| 1 | `Get_Avatar_Descs` | `app/client/tasks/tsk_login.h:147` | what it returns |
-| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:147` | untagged neutral name (D10) |
-| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:148` | 0x769400 looks it up in the galaxies |
-| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:149` | untagged neutral name (D10) |
-| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:150` | untagged neutral name (D10) |
-| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:151` | what it does |
-| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:152` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:153` | what it does |
-| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:154` | what it does |
-| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:155` | what it does |
-| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:156` | what it does |
-| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:157` | what it does |
-| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:158` | what it does |
-| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:159` | untagged neutral name (D10) |
-| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:160` | what it does |
-| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:161` | what it does |
-| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:162` | untagged neutral name (D10) |
-| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:163` | what it does |
-| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:164` | what it does |
-| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:165` | what it does |
-| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:166` | what it does |
-| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:167` | what it does |
-| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:168` | what it does |
-| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:170` | untagged neutral name (D10) |
-| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:172` | untagged neutral name (D10) |
-| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:173` | untagged neutral name (D10) |
-| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:175` | untagged neutral name (D10) |
-| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:176` | untagged neutral name (D10) |
-| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:180` | untagged neutral name (D10) |
-| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:181` | untagged neutral name (D10) |
-| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:185` | untagged neutral name (D10) |
-| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:189` | untagged neutral name (D10) |
-| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:193` | untagged neutral name (D10) |
-| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:195` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:198` | untagged neutral name (D10) |
-| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:199` | untagged neutral name (D10) |
-| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:200` | untagged neutral name (D10) |
-| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:202` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/tasks/tsk_login.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/tasks/tsk_login.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/tasks/tsk_login.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/tasks/tsk_login.h:110` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/tasks/tsk_login.h:111` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/tasks/tsk_login.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/tasks/tsk_login.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/tasks/tsk_login.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/tasks/tsk_login.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/tasks/tsk_login.h:118` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/tasks/tsk_login.h:119` | untagged neutral name (D10) |
+| 1 | `mode` | `app/client/tasks/tsk_login.h:127` | MenuTask passes 1, or 9 (0x5FAE70 and not 0x5FAD50) |
+| 1 | `Set_Step` | `app/client/tasks/tsk_login.h:143` | what it does |
+| 1 | `Unknown_64` | `app/client/tasks/tsk_login.h:144` | untagged neutral name (D10) |
+| 1 | `Process_Packets` | `app/client/tasks/tsk_login.h:145` | what it does |
+| 1 | `Unknown_6C` | `app/client/tasks/tsk_login.h:146` | untagged neutral name (D10) |
+| 1 | `Create_Character_View` | `app/client/tasks/tsk_login.h:147` | what it does |
+| 1 | `Get_Selected` | `app/client/tasks/tsk_login.h:149` | what it returns |
+| 1 | `Get_Avatar_Descs` | `app/client/tasks/tsk_login.h:150` | what it returns |
+| 1 | `Unknown0350` | `app/client/tasks/tsk_login.h:150` | untagged neutral name (D10) |
+| 1 | `Galaxy_ID` | `app/client/tasks/tsk_login.h:151` | 0x769400 looks it up in the galaxies |
+| 1 | `Unknown_7692A0` | `app/client/tasks/tsk_login.h:152` | untagged neutral name (D10) |
+| 1 | `Unknown_7693E0` | `app/client/tasks/tsk_login.h:153` | untagged neutral name (D10) |
+| 1 | `Set_Username` | `app/client/tasks/tsk_login.h:154` | what it does |
+| 1 | `Set_Password` | `app/client/tasks/tsk_login.h:155` | what it does |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:156` | what it does |
+| 1 | `Show_Message` | `app/client/tasks/tsk_login.h:157` | what it does |
+| 1 | `Close_Global_Connection` | `app/client/tasks/tsk_login.h:158` | what it does |
+| 1 | `Delete_Character_View` | `app/client/tasks/tsk_login.h:159` | what it does |
+| 1 | `Fetch_EA_Ticket` | `app/client/tasks/tsk_login.h:160` | what it does |
+| 1 | `Start_Game` | `app/client/tasks/tsk_login.h:161` | what it does |
+| 1 | `Unknown_76A370` | `app/client/tasks/tsk_login.h:162` | untagged neutral name (D10) |
+| 1 | `Save_Login_Name` | `app/client/tasks/tsk_login.h:163` | what it does |
+| 1 | `Load_Login` | `app/client/tasks/tsk_login.h:164` | what it does |
+| 1 | `Unknown_768CB0` | `app/client/tasks/tsk_login.h:165` | untagged neutral name (D10) |
+| 1 | `Set_Galaxies` | `app/client/tasks/tsk_login.h:166` | what it does |
+| 1 | `Handle_Global_Error` | `app/client/tasks/tsk_login.h:167` | what it does |
+| 1 | `Handle_Global_Login` | `app/client/tasks/tsk_login.h:168` | what it does |
+| 1 | `Send_Referrer` | `app/client/tasks/tsk_login.h:169` | what it does |
+| 1 | `Handle_Referrer_Response` | `app/client/tasks/tsk_login.h:170` | what it does |
+| 1 | `Kill_Kernel` | `app/client/tasks/tsk_login.h:171` | what it does |
+| 1 | `Unknown000C` | `app/client/tasks/tsk_login.h:173` | untagged neutral name (D10) |
+| 1 | `Unknown0014` | `app/client/tasks/tsk_login.h:175` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/tasks/tsk_login.h:176` | untagged neutral name (D10) |
+| 1 | `Unknown001D` | `app/client/tasks/tsk_login.h:178` | untagged neutral name (D10) |
+| 1 | `Unknown0020` | `app/client/tasks/tsk_login.h:179` | untagged neutral name (D10) |
+| 1 | `Unknown0030` | `app/client/tasks/tsk_login.h:183` | untagged neutral name (D10) |
+| 1 | `Unknown0034` | `app/client/tasks/tsk_login.h:184` | untagged neutral name (D10) |
+| 1 | `Unknown088C` | `app/client/tasks/tsk_login.h:188` | untagged neutral name (D10) |
+| 1 | `Unknown107D` | `app/client/tasks/tsk_login.h:192` | untagged neutral name (D10) |
+| 1 | `Unknown108C` | `app/client/tasks/tsk_login.h:196` | untagged neutral name (D10) |
+| 1 | `Unknown1094` | `app/client/tasks/tsk_login.h:198` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/tasks/tsk_login.h:201` | untagged neutral name (D10) |
+| 1 | `Unknown1139` | `app/client/tasks/tsk_login.h:202` | untagged neutral name (D10) |
+| 1 | `Unknown113C` | `app/client/tasks/tsk_login.h:203` | untagged neutral name (D10) |
+| 1 | `Unknown1144` | `app/client/tasks/tsk_login.h:205` | untagged neutral name (D10) |
 | 1 | `tsk_menu.cpp` | `app/client/tasks/tsk_menu.cpp:16` | neutral name from the class's log text, sorting between tsk_login.cpp and tsk_movie.cpp (the link order) |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_menu.cpp:17` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown_Debug_Begin_Step` | `app/client/tasks/tsk_menu.cpp:18` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
@@ -13455,7 +13464,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_65B7E0` | `app/client/uiview.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/uiview.cpp:298` | untagged neutral name (D10) |
 | 1 | `Unknown_44` | `app/client/uiview.cpp:312` | untagged neutral name (D10) |
-| 1 | `Unknown1274` | `app/client/uiview.cpp:315` | untagged neutral name (D10) |
 | 1 | `unknown_490900.h` | `app/client/unknown_490900.h:16` | neutral (D137) |
 | 1 | `ScriptedMovieViewerSettingsStruct` | `app/client/unknown_490900.h:23` | neutral (D10), scriptedmovie.cpp's |
 | 1 | `name, color` | `app/client/unknown_490900.h:27` | neutral |
@@ -17411,6 +17419,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Width` | `app/client/gd_text_editor.h:71` | what it holds |
 | 2 | `LineHeight` | `app/client/gd_text_editor.h:75` | what it holds |
 | 2 | `Client` | `app/client/gd_text_editor.h:78` | its type |
+| 2 | `x, y, width, height, layer` | `app/client/gutter_radar.cpp:23` | what it stores |
+| 2 | `MouseTargetClass` | `app/client/gutter_radar.h:27` | the G_ASSERT's member name |
+| 2 | `client, scene` | `app/client/gutter_radar.h:34` | what it stores |
+| 2 | `Set_Targets` | `app/client/gutter_radar.h:37` | what it does |
+| 2 | `Update` | `app/client/gutter_radar.h:38` | what it does |
+| 2 | `Clear_Mouse_Target` | `app/client/gutter_radar.h:39` | what it does |
+| 2 | `Project` | `app/client/gutter_radar.h:42` | what it does |
+| 2 | `Get_Icon_Scale` | `app/client/gutter_radar.h:43` | its options |
+| 2 | `Scene` | `app/client/gutter_radar.h:46` | what it holds |
+| 2 | `Position` | `app/client/gutter_radar.h:49` | what it holds |
+| 2 | `Size` | `app/client/gutter_radar.h:50` | what it holds |
 | 2 | `Get_Font` | `app/client/html/htmlview.h:8` | a cached CreateFontIndirect (not placed: before unknown_htmlblock.cpp) |
 | 2 | `Open` | `app/client/html/htmlview.h:15` | given the view's url by Open |
 | 2 | `Update` | `app/client/html/htmlview.h:16` | polled by the view's Update |
@@ -17915,15 +17934,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CORNER_COUNT` | `app/client/target_reticle.h:32` | UL, UR, BR, BL |
 | 2 | `sort_level, show_text` | `app/client/target_reticle.h:34` | what it does with them |
 | 2 | `Update` | `app/client/target_reticle.h:37` | what it does |
-| 2 | `Set_Client_Object` | `app/client/target_reticle.h:38` | what it does |
-| 2 | `CornerStruct` | `app/client/target_reticle.h:41` | one corner's bone and material (constructor 0x7C54E0, destructor 0x7C5500) |
-| 2 | `BoneIndex` | `app/client/target_reticle.h:43` | what it holds |
-| 2 | `Material` | `app/client/target_reticle.h:44` | what it holds |
-| 2 | `VertexMaterial` | `app/client/target_reticle.h:45` | what it holds |
-| 2 | `Client` | `app/client/target_reticle.h:48` | what it holds |
-| 2 | `Scene` | `app/client/target_reticle.h:49` | what it holds |
-| 2 | `Corners` | `app/client/target_reticle.h:51` | what it holds |
-| 2 | `Text` | `app/client/target_reticle.h:52` | what it holds |
+| 2 | `Get_Client_Object` | `app/client/target_reticle.h:38` | what it does |
+| 2 | `Set_Client_Object` | `app/client/target_reticle.h:39` | what it does |
+| 2 | `CornerStruct` | `app/client/target_reticle.h:42` | one corner's bone and material (constructor 0x7C54E0, destructor 0x7C5500) |
+| 2 | `BoneIndex` | `app/client/target_reticle.h:44` | what it holds |
+| 2 | `Material` | `app/client/target_reticle.h:45` | what it holds |
+| 2 | `VertexMaterial` | `app/client/target_reticle.h:46` | what it holds |
+| 2 | `Client` | `app/client/target_reticle.h:49` | what it holds |
+| 2 | `Scene` | `app/client/target_reticle.h:50` | what it holds |
+| 2 | `Corners` | `app/client/target_reticle.h:52` | what it holds |
+| 2 | `Text` | `app/client/target_reticle.h:53` | what it holds |
 | 2 | `targeting.h` | `app/client/targeting.h:15` | assumed from the asserts' 'targeting' (mainview.cpp, ui_mfd.cpp, ui_group.cpp); the link order agrees |
 | 2 | `TargetingClass` | `app/client/targeting.h:20` | the asserts' 'targeting' (mainview.cpp, ui_mfd.cpp, ui_group.cpp) |
 | 2 | `Clear_Target` | `app/client/targeting.h:27` | what it does |
@@ -17933,6 +17953,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Select_Next_Target_Filtered` | `app/client/targeting.h:31` | what it does |
 | 2 | `Select_Prev_Target_Filtered` | `app/client/targeting.h:32` | what it does |
 | 2 | `username, password` | `app/client/tasks/tsk_game.h:39` | LoginTaskClass's 0x7697A0 / 0x7697E0 get them back |
+| 2 | `Get_X` | `app/client/tasks/tsk_login.h:106` | what it does |
+| 2 | `Get_Y` | `app/client/tasks/tsk_login.h:107` | what it does |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
 | 2 | `volume` | `app/client/tasks/tsk_movie.cpp:18` | BinkSetVolume's argument |
 | 2 | `Add_Movie` | `app/client/tasks/tsk_movie.h:38` | what it does |
@@ -20295,6 +20317,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `TextEditorGadgetClass` | `app/client/gd_text_editor.h:29` | class-from-file (D24) for app\Client\gd_text_editor.cpp |
 | 3 | `Slider` | `app/client/gd_text_editor.h:72` | the FAIL_IF's |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
+| 3 | `gutter_radar.h` | `app/client/gutter_radar.h:15` | header name assumed from the client's gutter_radar.cpp |
+| 3 | `RadarSystemDataCacheClass` | `app/client/gutter_radar.h:29` | class-from-file (D24) for radar_system_data_cache.cpp |
+| 3 | `GutterRadarClass` | `app/client/gutter_radar.h:31` | class-from-file (D24) for gutter_radar.cpp |
 | 3 | `HtmlViewClass` | `app/client/html/htmlview.h:54` | htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0 |
 | 3 | `influence.h` | `app/client/influence.h:17` | header name assumed from the client's influence.cpp |
 | 3 | `InfluenceClass` | `app/client/influence.h:24` | class-from-file (D24) for app\client\influence.cpp |
@@ -20518,7 +20543,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `tsk_login.h` | `app/client/tasks/tsk_login.h:17` | header name assumed from the client's tsk_login.cpp |
 | 3 | `drag` | `app/client/tasks/tsk_login.h:103` | the FAIL_IF's |
 | 3 | `drag` | `app/client/tasks/tsk_login.h:104` | the FAIL_IF's |
-| 3 | `DragObject` | `app/client/tasks/tsk_login.h:117` | the FAIL_IFs' |
+| 3 | `DragObject` | `app/client/tasks/tsk_login.h:120` | the FAIL_IFs' |
 | 3 | `MenuTaskClass` | `app/client/tasks/tsk_menu.h:23` | the client's 'MenuTask' (its log) in LoginTaskClass's form (D24) |
 | 3 | `tsk_movie.h` | `app/client/tasks/tsk_movie.h:18` | header name assumed from the client's tsk_movie.cpp |
 | 3 | `MovieTaskClass` | `app/client/tasks/tsk_movie.h:25` | after tsk_movie.cpp and LoginTaskClass (D24) |

@@ -4736,6 +4736,8 @@ RECONSTRUCTED = {
     ('app', 'client/skill_render.cpp'): "SkillRenderClass (D24 class-from-file), what draws a skill's slot (the client's __FILE__ 0xB91528, asserts on lines 114-442; object 0x6A5EA0-0x6A7410 between <string>'s initialisers 0x6A5E00 and 0x6A73F0) (SK1)",
     ('app', 'client/target_find.h'): "TargetFindClass's declaration (D24 header name from target_find.cpp's __FILE__; table 0xB07008, 0x0C bytes) (TF1)",
     ('app', 'client/target_find.cpp'): "TargetFindClass (D24 class-from-file), the cycling target finder (the client's __FILE__ 0xB9F7D4, FAIL_IFs at lines 181-249; client 0x7C3EC0-0x7C509F) (TF1)",
+    ('app', 'client/gutter_radar.h'): "GutterRadarClass's declaration (D24 header name from gutter_radar.cpp's __FILE__; 0x24 bytes, no table) (GR1)",
+    ('app', 'client/gutter_radar.cpp'): "GutterRadarClass (D24 class-from-file), the gutter icons and the two reticles (the client's __FILE__ 0xB9EDD4, FAIL_IFs at lines 100-140; 0x7B6BD0-0x7B7790, ended by <string>'s guarded initialiser) (GR1)",
     ('app', 'client/target_reticle.h'): "TargetReticleClass's declaration (D24 header name from target_reticle.cpp's __FILE__; 0x44 bytes, no table) (TR1)",
     ('app', 'client/target_reticle.cpp'): "TargetReticleClass (D24 class-from-file), the reticle round a target (the client's __FILE__ 0xB9F85C, FAIL_IFs at lines 82-281; client 0x7C50B0-0x7C60F0) (TR1)",
     ('app', 'client/targeting.h'): "TargetingClass's declaration (the asserts' 'targeting'; no string of the file in the client, table 0xB07134, 0x14 bytes) (TR1)",

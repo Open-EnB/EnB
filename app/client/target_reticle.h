@@ -16,7 +16,7 @@
 #define __TARGET_RETICLE_H
 
 #include "ref_ptr.h"
-#include "vector2.h"
+#include "vector3.h"
 
 class SClient;
 class SceneClass;
@@ -34,7 +34,8 @@ public:
 	TargetReticleClass(SClient *client, const RefCountPtr<SceneClass> &scene, int sort_level, bool show_text);	// 0x7C5100  // NAME 2 [sort_level, show_text]: what it does with them
 	~TargetReticleClass();											// 0x7C55A0
 
-	void Update(const Vector2 &pos, float size);					// 0x7C5690 (gutter_radar.cpp's 0x7B7040): pos in 0..1 of the screen; size in the same units  // NAME 2: what it does
+	void Update(const Vector3 &pos, float size);					// 0x7C5690 (gutter_radar.cpp's 0x7B7040): pos in 0..1 of the screen; size in the same units  // NAME 2: what it does
+	ClientObjectClass *Get_Client_Object() { return(ClientObject); }	// (inline: gutter_radar.cpp's 0x7B7040 reads +0x40)  // NAME 2: what it does
 	void Set_Client_Object(ClientObjectClass *co);					// 0x7C6060: the object the reticle marks, or NULL to hide it  // NAME 2: what it does
 
 private:
