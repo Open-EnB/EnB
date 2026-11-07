@@ -1120,7 +1120,7 @@ public:
 	RefCountPtr<UITalkTreeClass> Unknown1298;		// +0x1298 Init: Unknown129C's object (the starbase view's 0x69F8F0: its +0x190)
 	RefCountPtr<UITalkTreeSpaceClass> Unknown129C;		// +0x129C Init
 	GalaxyMapClientClass *GalaxyMap;					// +0x12A0 Init  // NAME 3: its file's
-	TargetingClass *Targeting;							// +0x12A4 Init  // NAME 2: the asserts'
+	ClientObjectClass *Get_Target();	TargetingClass *Targeting;	// 0x744FE0: the main view's slot +0x5C (targeting.cpp)  // NAME 2: what it returns; +0x12A4 Init  // NAME 2: the asserts'
 	CameraManagerClass *CameraManager;					// +0x12A8 Init  // NAME 3: its file's
 	int Unknown12AC;									// +0x12AC (the constructor leaves it)
 	int Unknown12B0;									// +0x12B0 Init: the base's Unknown10BC

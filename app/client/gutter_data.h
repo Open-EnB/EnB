@@ -17,13 +17,19 @@
 #define __GUTTER_DATA_H
 
 #include "radar_icon_data.h"
+#include "ref_ptr.h"
+
+class FontSys;
 
 class GutterDataClass : public RadarIconDataClass  // NAME 5: the client's typeid name .PAVGutterDataClass@@ (co_data.cpp's registry)
 {
 public:
 	GutterDataClass(ClientObjectClass *co);			// 0x7B4F30 (gutter_data.cpp)
 
-	char Unknown08[0x2C - 0x08];		// +0x08: not rebuilt (0x2c bytes: co_data.cpp's new)
+	char Unknown08[0x1C - 0x08];		// +0x08: not rebuilt (0x2c bytes: co_data.cpp's new)
+	RefCountPtr<FontSys> Unknown1C;		// +0x1C (target_reticle.cpp 0x7C5690: the label it places its text under)  // NAME 1: neutral (D10)
+	RefCountPtr<FontSys> Unknown20;		// +0x20 (target_reticle.cpp 0x7C5690: used instead of +0x1C when its +0x300 is set)  // NAME 1: neutral (D10)
+	char Unknown24[0x2C - 0x24];		// +0x24: not rebuilt
 };
 
 #endif //__GUTTER_DATA_H

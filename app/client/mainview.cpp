@@ -1118,15 +1118,15 @@ public:
 };
 
 // SClient +0x12A4, as far as the main view's 0x512400 uses it (its G_ASSERT calls it 'targeting')
-class TargetingClass	// NAME 2: the asserts'
-{
-public:
-	virtual ~TargetingClass();
+#include "targeting.h"	// (+0x10: 0x512400 clears it when TargetGameID's +0x70 is above 1)
 
-	char Unknown04[0x10 - 0x04];
-	bool Unknown10;										// +0x10 (0x512400 clears it when TargetGameID's +0x70 is above 1)
-	char Unknown11[0x14 - 0x11];
-};
+
+
+
+
+
+
+
 
 // 0xBFAE3C is WW3D::SyncTime (WW3D::Sync 0x918200 writes it): read inline through WW3D::Get_Sync_Time (ww3d.h above)
 // Renegade's console.cpp profile display (Commando, CConsoleClass's profile text), as

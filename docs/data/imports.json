@@ -23008,6 +23008,7 @@
      "0x7441D0",
      "0x744B90",
      "0x744BD0",
+     "0x744FE0",
      "0x745000",
      "0x745050",
      "0x745160",
@@ -23393,6 +23394,7 @@
      "0x729240",
      "0x740AC0",
      "0x7427A0",
+     "0x744FE0",
      "0x745730",
      "0x747C50",
      "0x74BEA0",
@@ -25237,6 +25239,10 @@
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x7C3F10",
+     "0x7C3F40",
+     "0x7C3F60",
+     "0x7C3F90",
      "0x7C3FB0",
      "0x7C3FF0",
      "0x7C40E0",
@@ -25264,6 +25270,10 @@
     "name": "client/target_find.cpp",
     "shared": [
      "0x42F250"
+    ],
+    "short_known": [
+     "0x7C3F40",
+     "0x7C3F90"
     ]
    },
    "target_generator_summary": {
@@ -25305,6 +25315,77 @@
     ],
     "short_known": [
      "0x42D120"
+    ]
+   },
+   "target_reticle": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7C5100",
+     "0x7C5500",
+     "0x7C55A0",
+     "0x7C6060"
+    ],
+    "merged": [],
+    "name": "client/target_reticle.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
+   "targeting": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x52B350",
+     "0x7232B0",
+     "0x7C6120",
+     "0x7C6160",
+     "0x7C6190",
+     "0x7C61B0",
+     "0x7C61F0",
+     "0x7C6220",
+     "0x7C6250",
+     "0x7C6280",
+     "0x7C62B0"
+    ],
+    "merged": [],
+    "name": "client/targeting.cpp",
+    "shared": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x52B350",
+     "0x7232B0"
+    ],
+    "short_known": [
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x7232B0",
+     "0x7C6190",
+     "0x7C61B0"
     ]
    },
    "tcpconn": {
@@ -33476,6 +33557,8 @@
    "client/starmap_data.h": "reconstructed",
    "client/starmap_pip_support.h": "reconstructed",
    "client/target_find.h": "reconstructed",
+   "client/target_reticle.h": "reconstructed",
+   "client/targeting.h": "reconstructed",
    "client/tasks/tsk_game.h": "reconstructed",
    "client/tasks/tsk_login.h": "reconstructed",
    "client/tasks/tsk_menu.h": "reconstructed",
@@ -33799,7 +33882,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11265,
+  "in_tree_total": 11283,
   "totals": {}
  },
  "binkmovie": {

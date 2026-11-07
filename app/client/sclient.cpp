@@ -192,14 +192,14 @@ public:
 	char Unknown04[0xCC - 0x04];
 };
 
-class TargetingClass
-{
-public:
-	TargetingClass(SClient *client);					// 0x7C6120
-	virtual ~TargetingClass();
+#include "targeting.h"
 
-	char Unknown04[0x14 - 0x04];
-};
+
+
+
+
+
+
 
 class CameraManagerClass
 {
@@ -2176,7 +2176,7 @@ void SClient::Unknown_745160()
 
 
 
-
+ClientObjectClass *SClient::Get_Target() { return(MainView->Unknown_5C()); }	// 0x744FE0 (called only from other files)
 // 0x745000
 void SClient::Unknown_745000(int base_asset)
 {

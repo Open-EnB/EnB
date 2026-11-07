@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 150 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1494 |
-| 2 | describes what the code does | 3339 |
-| 1 | neutral placeholder | 16526 |
+| 3 | by convention from a client-named file or sibling | 1496 |
+| 2 | describes what the code does | 3360 |
+| 1 | neutral placeholder | 16542 |
 
 ## For review (score 3 and below)
 
@@ -3877,7 +3877,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_A9` | `app/client/gd_text_editor.h:74` | untagged neutral name (D10) |
 | 1 | `Unknown_B0` | `app/client/gd_text_editor.h:76` | untagged neutral name (D10) |
 | 1 | `Unknown_B4` | `app/client/gd_text_editor.h:77` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/gutter_data.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/gutter_data.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/gutter_data.h:30` | neutral (D10) |
+| 1 | `Unknown20` | `app/client/gutter_data.h:31` | neutral (D10) |
+| 1 | `Unknown24` | `app/client/gutter_data.h:32` | untagged neutral name (D10) |
 | 1 | `TableDepth` | `app/client/html/htmlview.cpp:456` | 0xBE83F0, counted up by <table>, down by </table>; nothing reads it |
 | 1 | `RowDepth` | `app/client/html/htmlview.cpp:457` | 0xBE83F4, the same for <tr> |
 | 1 | `CellDepth` | `app/client/html/htmlview.cpp:458` | 0xBE83F8, the same for <td> |
@@ -4359,15 +4362,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_493D00` | `app/client/mainview.cpp:1091` | untagged neutral name (D10) |
 | 1 | `id, flag` | `app/client/mainview.cpp:1114` | what it gets |
 | 1 | `Unknown_563910` | `app/client/mainview.cpp:1114` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/mainview.cpp:1126` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/mainview.cpp:1127` | untagged neutral name (D10) |
-| 1 | `Unknown11` | `app/client/mainview.cpp:1128` | untagged neutral name (D10) |
 | 1 | `Unknown_5103F0` | `app/client/mainview.cpp:1210` | untagged neutral name (D10) |
 | 1 | `Unknown_510420` | `app/client/mainview.cpp:1215` | untagged neutral name (D10) |
 | 1 | `Unknown_512400` | `app/client/mainview.cpp:1409` | untagged neutral name (D10) |
 | 1 | `Unknown88` | `app/client/mainview.cpp:1412` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/mainview.cpp:1419` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/mainview.cpp:1420` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/mainview.cpp:1426` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD6E0` | `app/client/mainview.cpp:1456` | untagged neutral name (D10) |
 | 1 | `Unknown_60E540` | `app/client/mainview.cpp:1457` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/mainview.cpp:1460` | untagged neutral name (D10) |
@@ -4738,9 +4739,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7150F0` | `app/client/postate.h:332` | untagged neutral name (D10) |
 | 1 | `Unknown_7151D0` | `app/client/postate.h:333` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/postate.h:335` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/radar_data.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/radar_data.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown79` | `app/client/radar_data.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/radar_data.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/radar_data.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/radar_data.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown79` | `app/client/radar_data.h:31` | untagged neutral name (D10) |
 | 1 | `SBaseViewUnknown70Class` | `app/client/sbaseview.cpp:34` | neutral (D10) |
 | 1 | `Unknown98` | `app/client/sbaseview.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_77B7D0, t` | `app/client/sbaseview.cpp:36` | neutral (D10) |
@@ -6812,6 +6814,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Select` | `app/client/target_find.h:52` | neutral by what callers hand it |
 | 1 | `Select_Nearest_100` | `app/client/target_find.h:62` | neutral (D10) |
 | 1 | `Select_Nearest_200` | `app/client/target_find.h:63` | neutral (D10) |
+| 1 | `robj, make_geometry_unique` | `app/client/target_reticle.cpp:22` | as eff_o.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/target_reticle.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_7E6060` | `app/client/target_reticle.cpp:23` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/target_reticle.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/target_reticle.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/target_reticle.cpp:273` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/target_reticle.cpp:274` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/target_reticle.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/target_reticle.cpp:301` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/target_reticle.cpp:302` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5B10` | `app/client/target_reticle.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8650` | `app/client/target_reticle.cpp:308` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/targeting.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/targeting.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/targeting.h:34` | neutral (D10) |
+| 1 | `Unknown10` | `app/client/targeting.h:35` | neutral (D10) |
 | 1 | `Unknown_7CA2D0Class` | `app/client/tasks/settings_store.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/tasks/settings_store.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/client/tasks/settings_store.cpp:16` | untagged neutral name (D10) |
@@ -11155,8 +11173,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Field` | `app/client/ui_mfd.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_mfd.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6060` | `app/client/ui_mfd.cpp:25` | neutral (D10) |
-| 1 | `UIMFDTargetingClass` | `app/client/ui_mfd.cpp:27` | neutral (D10): SClient +0x12A4 (the FAIL_IF's '!targeting') |
-| 1 | `Unknown_7C61B0` | `app/client/ui_mfd.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown9C` | `app/client/ui_mfd.cpp:48` | untagged neutral name (D10) |
 | 1 | `UnknownC8` | `app/client/ui_mfd.cpp:51` | untagged neutral name (D10) |
 | 1 | `UnknownDC` | `app/client/ui_mfd.cpp:52` | untagged neutral name (D10) |
@@ -17339,7 +17355,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ui` | `app/client/local_interface_sort.h:52` | InterfaceSortClass's |
 | 2 | `Client` | `app/client/mainview.cpp:36` | what it holds |
 | 2 | `View` | `app/client/mainview.cpp:54` | what it holds |
-| 2 | `TargetingClass` | `app/client/mainview.cpp:1121` | the asserts' |
 | 2 | `Info` | `app/client/mainview.cpp:1781` | InfoCount's |
 | 2 | `iface, vp` | `app/client/map_pip.h:48` | the FAIL_IFs' iface_ptr is its Peek  // NAME 1 [arg]: neutral |
 | 2 | `vp` | `app/client/map_pip.h:51` | what 0x692B30 passes |
@@ -17515,6 +17530,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Position` | `app/client/postate.h:337` | what it holds |
 | 2 | `Velocity` | `app/client/postate.h:338` | what it holds |
 | 2 | `Time` | `app/client/postate.h:339` | what it holds |
+| 2 | `Color` | `app/client/radar_data.h:28` | what it does |
 | 2 | `Rect3DClass` | `app/client/rect3d.h:26` | rect3d.cpp's class (the file name, Westwood's Class suffix) |
 | 2 | `color, rect` | `app/client/rect3d.h:29` | what it does with them |
 | 2 | `Class_ID` | `app/client/rect3d.h:35` | E&B's class id |
@@ -17662,7 +17678,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `turn, tilt` | `app/client/sclient.h:1055` | 0x717430's |
 | 2 | `move_direction, fixed_speed` | `app/client/sclient.h:1057` | 0x717430's |
 | 2 | `reset` | `app/client/sclient.h:1099` | true sets every sample name to NONE |
-| 2 | `Targeting` | `app/client/sclient.h:1123` | the asserts' |
+| 2 | `Get_Target` | `app/client/sclient.h:1123` | what it returns; +0x12A4 Init  // NAME 2: the asserts' |
 | 2 | `ViewMode` | `app/client/sclient.h:1151` | what Do_Frame's asserts show |
 | 2 | `Task` | `app/client/sclient.h:1157` | what it holds |
 | 2 | `Text` | `app/client/sclient.h:1169` | what it holds |
@@ -17709,6 +17725,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Flags` | `app/client/target_find.h:73` | what it does |
 | 2 | `Client` | `app/client/target_find.h:75` | what it holds |
 | 2 | `Filter` | `app/client/target_find.h:76` | what it holds |
+| 2 | `Corner_Names` | `app/client/target_reticle.cpp:28` | what it holds |
+| 2 | `CORNER_COUNT` | `app/client/target_reticle.h:32` | UL, UR, BR, BL |
+| 2 | `sort_level, show_text` | `app/client/target_reticle.h:34` | what it does with them |
+| 2 | `Update` | `app/client/target_reticle.h:37` | what it does |
+| 2 | `Set_Client_Object` | `app/client/target_reticle.h:38` | what it does |
+| 2 | `CornerStruct` | `app/client/target_reticle.h:41` | one corner's bone and material (constructor 0x7C54E0, destructor 0x7C5500) |
+| 2 | `BoneIndex` | `app/client/target_reticle.h:43` | what it holds |
+| 2 | `Material` | `app/client/target_reticle.h:44` | what it holds |
+| 2 | `VertexMaterial` | `app/client/target_reticle.h:45` | what it holds |
+| 2 | `Client` | `app/client/target_reticle.h:48` | what it holds |
+| 2 | `Scene` | `app/client/target_reticle.h:49` | what it holds |
+| 2 | `Corners` | `app/client/target_reticle.h:51` | what it holds |
+| 2 | `Text` | `app/client/target_reticle.h:52` | what it holds |
+| 2 | `targeting.h` | `app/client/targeting.h:15` | assumed from the asserts' 'targeting' (mainview.cpp, ui_mfd.cpp, ui_group.cpp); the link order agrees |
+| 2 | `TargetingClass` | `app/client/targeting.h:20` | the asserts' 'targeting' (mainview.cpp, ui_mfd.cpp, ui_group.cpp) |
+| 2 | `Clear_Target` | `app/client/targeting.h:27` | what it does |
+| 2 | `Get_Target` | `app/client/targeting.h:28` | what it does |
+| 2 | `Select_Next_Target` | `app/client/targeting.h:29` | what it does |
+| 2 | `Select_Prev_Target` | `app/client/targeting.h:30` | what it does |
+| 2 | `Select_Next_Target_Filtered` | `app/client/targeting.h:31` | what it does |
+| 2 | `Select_Prev_Target_Filtered` | `app/client/targeting.h:32` | what it does |
 | 2 | `username, password` | `app/client/tasks/tsk_game.h:39` | LoginTaskClass's 0x7697A0 / 0x7697E0 get them back |
 | 2 | `Handle_Input` | `app/client/tasks/tsk_menu.h:33` | what it does |
 | 2 | `volume` | `app/client/tasks/tsk_movie.cpp:18` | BinkSetVolume's argument |
@@ -20267,6 +20304,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `target_find.h` | `app/client/target_find.h:9` | header name assumed from the client's target_find.cpp |
 | 3 | `TargetFindClass` | `app/client/target_find.h:47` | class-from-file (D24) for target_find.cpp |
 | 3 | `idx` | `app/client/target_find.h:66` | the FAIL_IF's  // NAME 2: what it does |
+| 3 | `target_reticle.h` | `app/client/target_reticle.h:15` | header name assumed from the client's target_reticle.cpp |
+| 3 | `TargetReticleClass` | `app/client/target_reticle.h:29` | class-from-file (D24) for target_reticle.cpp |
 | 3 | `tsk_game.h` | `app/client/tasks/tsk_game.h:18` | header name assumed from the client's tsk_game.cpp |
 | 3 | `ClientTaskClass` | `app/client/tasks/tsk_game.h:29` | the client's 'ClientTask' (its profile label) in LoginTaskClass's form (D24) |
 | 3 | `tsk_login.h` | `app/client/tasks/tsk_login.h:17` | header name assumed from the client's tsk_login.cpp |

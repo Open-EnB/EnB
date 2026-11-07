@@ -1,9 +1,9 @@
 /*
 **	target_find.h: the cycling target finder (app\client\target_find.cpp).
 **
-**	The client has no name for the class. Its one known derived class is the object at
-**	SClient +0x12A4 (constructor 0x7C6120, vtable 0xB07134; ui_group.cpp's FAIL_IF calls that
-**	pointer 'targeting'), whose slot +0x04 receives every object found here.
+**	The client has no name for the class. Its one known derived class is targeting.h's TargetingClass,
+**	the object at SClient +0x12A4 (constructor 0x7C6120, vtable 0xB07134), whose slot +0x04 receives
+**	every object found here.
 */
 
 #ifndef __TARGET_FIND_H  // NAME 3 [target_find.h]: header name assumed from the client's target_find.cpp

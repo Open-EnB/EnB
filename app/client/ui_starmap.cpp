@@ -789,8 +789,8 @@ void UIStarmapClass::Unknown_7C94C0(bool on)
 **	Placement: the FAIL_IFs at lines 211-239, 301, 311, 581 and 694-703 name the file; 0x7C91A0 and 0x7C94C0 have no
 **	assert but 0x7C8980 and 0x7C8C20 call them (the only callers), and their data are this window's (+0xAC, +0xCC, +0xA8).
 **	The object runs 0x7C63D0-0x7C96E0: after the two come the COMDATs Create_Get 0x7C9590, Clear 0x7C95C0,
-**	operator-> 0x7C9600, Create_Peek 0x7C9620 and the vtable's this-adjusters 0x7C96D0 / 0x7C96E0. The class at 0x7C6120
-**	(SClient +0x12A4) is not this file's: its own neighbours are target_reticle.cpp's, and the callers call it 'targeting'.
+**	operator-> 0x7C9600, Create_Peek 0x7C9620 and the vtable's this-adjusters 0x7C96D0 / 0x7C96E0. The PermStringInitClass
+**	at 0xBE87E4 (0x7C6380, atexit 0x7C63B0) comes first in it, after targeting.cpp's <string> initialiser 0x7C6350.
 **
 **	Forms worth keeping: VC6 hoists the common `fld Frame` and the pushed float out of the if / else arms in 0x7C8980;
 **	the x87 load before the inlined 0x7C8E00 comes from an accessor returning float (Get_Frame), not from the member.
