@@ -2,26 +2,34 @@
 // (the client's file per its asserts, 'e:\build\beta\G\app\Client\inv_render.cpp' at 0xB90220). Notes at the end.
 #include <string>
 #include "..\shared\g_assert.h"
-#include "inv_render.h"
+#include "inv_trade_render.h"
 #include "assetmgr.h"
 #include "rendobj.h"
 #include "fontmanager.h"
 #include "fontdatabase.h"
-#include "client.h"
+#include "..\audio\soundlib.h"
+#include <stdio.h>
+#include "..\shared\money.h"
+#include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x68FB10)
 #include "ui_item_examination_property_router.h"
 
 // inv_data.cpp's, as far as this file calls it
-class Unknown688830Item { public: TextureClass *Unknown_831840(); char Unknown00[0x48]; int Unknown48; char Unknown4C[4]; int Unknown50; };	// NAME 1: neutral (D10)
-class Unknown688830Class { public: Unknown688830Item *Unknown_68AAA0(int slot, bool flag); int Unknown_689CA0(int slot); bool Unknown_689C30(); int Unknown_689D20(int id); char Unknown00[0x80]; int Unknown80; };	// NAME 1: neutral (D10); NAME 1 [slot, flag]: neutral
-class SClient;
+class Unknown688830Item { public: int Get_Type() { return(Unknown0C); } const std::string &Get_Name() { return(Unknown14); } TextureClass *Unknown_831840(); char Unknown00[4]; int Unknown04; int Unknown08; int Unknown0C; char Unknown10[4]; std::string Unknown14; char Unknown24[0x48 - 0x24]; int Unknown48; char Unknown4C[4]; int Unknown50; char Unknown54[4]; int Unknown58; };	// NAME 1: neutral (D10)
+class Unknown688830Class { public: Unknown688830Item *Unknown_68AAA0(int slot, bool flag); int Unknown_689CA0(int slot); bool Unknown_689C30(); int Unknown_689D20(int id); unsigned Unknown_68A840(int slot); unsigned Unknown_68A6E0(int slot); unsigned Unknown_68A6B0(int slot); unsigned Unknown_68A680(int slot); float Unknown_68A630(int slot); float Unknown_68A7C0(int slot); DurationClass Unknown_68A720(int slot); float Unknown_689F90(int slot); float Unknown_68A010(int slot); float Unknown_689F10(int slot); MoneyClass Unknown_689DA0(int slot); int Unknown_68AC50(int slot); char Unknown00[0x80]; int Unknown80; };	// NAME 1: neutral (D10); NAME 1 [slot, flag]: neutral
+class ClientObjectClass { public: bool Unknown_6F5A10(); bool Unknown_6F5A40(); };	// co.h's, as far as this file calls it
+float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// NAME 1: neutral (D10); NAME 1 [a, b]: neutral
+class SClient { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual ClientObjectClass *Unknown_28(); ClientObjectClass *Unknown_744FE0(); char Unknown04[0x10BC - 4]; unsigned int Unknown10BC; };	// sclient.cpp's, as skill_render.cpp's Unknown744FE0Class
 class LineDisplayClientClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual SClient *As_Space_Client(); };	// NAME 1: neutral (D10), as ui_cinfo.cpp declares it
 struct InvDataBaseStruct { virtual void Unknown_00(); char Unknown04[0x18 - 4]; };	// NAME 1: neutral (D10); ui_slot_info.h's UISlotInfoItemBaseStruct
 class InvDataClass : public InvDataBaseStruct, public RefCountClass { public: LineDisplayClientClass *Get_Client() { return(Client); } Unknown688830Class *Unknown_688830(); Unknown688830Class *Unknown_688850(); int Unknown_6A7990(); int Unknown_6A7A00(int index); LineDisplayClientClass *Client; };	// NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004; Client: the FAIL_IF at line 182
 class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual InvDataClass *Unknown_10(); };	// NAME 3: slot_data_render.h's
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
-class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Unknown6A3D60Class(); char Unknown00[0x18]; };	// NAME 1: neutral (D10); skill_render.cpp's
+class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Unknown6A3D60Class(); void Unknown_6A4020(float distance, float range, int state, bool arg); char Unknown00[0x18]; };	// NAME 1: neutral (D10); skill_render.cpp's
+// the zero 0x68E360 compares with: its destructor is the empty 0x68EAC0
+class Unknown68E360Class : public DurationClass { public: Unknown68E360Class(__int64 time = 0) : DurationClass(time) {} ~Unknown68E360Class() {} };	// NAME 1: neutral (D10)
 // ro_funcs.cpp's
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	// NAME 1: neutral (D10); NAME 1 [robj, a, b]: neutral
+bool Unknown_4F0640(const MoneyClass &a, const MoneyClass &b);	// NAME 1: neutral (D10): money.cpp's inequality
 // 0x521B80: what walks an item's properties
 class Unknown521B80Class { public: Unknown521B80Class(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot); ~Unknown521B80Class(); void Unknown_521BD0(UIItemExaminationPropertyRouterBaseClass &visitor); int Unknown00[4]; };	// NAME 1: neutral (D10); NAME 1 [space_client, item, data, slot, visitor]: neutral
 class Unknown68C680PropertyClass : public RefCountClass { public: virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual bool Unknown_18(); };	// NAME 1: neutral (D10): ClientItemPropertySpecialClass as far as 0x68C680 calls it
@@ -86,14 +94,6 @@ InvRenderClass::~InvRenderClass()
 		CannotUseIndicator = NULL;
 	}
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -209,7 +209,7 @@ void InvRenderClass::Unknown_2C(bool force)
 				}
 			}
 			int item_level = item->Unknown48;
-			DurationClass now((unsigned)((ClientClass *)space_client)->Unknown10BC);
+			DurationClass now((unsigned)space_client->Unknown10BC);
 			if (!force && Unknown38.Time <= now.Time) {
 				goto done;
 			}
@@ -255,72 +255,72 @@ TextureClass *InvRenderClass::Unknown_34()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x68CCC0, 109 rows: register only, the client adds _Len + _N of the nine inlined appends through eax
+// 0x68CCC0
+const char *InvRenderClass::Unknown_28(std::string *string)
+{
+	FAIL_IF(!string) return(0);
+	SlotDataRenderClass::Unknown_28(string);
+	Unknown688830Class *data = Peek_Inv_Data()->Unknown_688830();
+	int slot = Get_Slot();
+	Unknown688830Item *item = data->Unknown_68AAA0(slot, false);
+	if (item) {
+		*string += item->Get_Name();
+		*string += "\n";
+		char buffer[32];	// NAME 1 [buffer, structure, quality, price, cost, type]: neutral
+		float structure = data->Unknown_689F90(slot);
+		if (structure != -1.0f) {
+			sprintf(buffer, "Structure %0.0f%%\n", structure * 100.0f);
+			*string += buffer;
+		}
+		float quality = data->Unknown_68A010(slot);
+		if (structure != -1.0f) {
+			sprintf(buffer, "Quality %0.0f%%\n", quality * 100.0f);
+			*string += buffer;
+		}
+		MoneyClass price = data->Unknown_689DA0(slot);
+		if (Unknown_4F0640(price, MoneyClass(-1)) && Unknown_4F0640(price, MoneyClass(0))) {
+			_snprintf(buffer, sizeof(buffer), "Price %s\n", price.Unknown_4F00C0(true).c_str());
+			*string += buffer;
+		}
+		if (item->Get_Type() == 13) {
+			float cost = data->Unknown_689F10(slot);
+			if (cost != 0.0f) {
+				_snprintf(buffer, sizeof(buffer), "Avg. Cost %1.1f\n", cost);
+				*string += buffer;
+			}
+		}
+	} else {
+		int type = data->Unknown_68AC50(slot);
+		switch (type) {
+			case 0:
+				*string += "Unused Slot\n";
+				break;
+			case 4:
+				*string += "Shields Slot\n";
+				break;
+			case 0x40:
+				*string += "Engine Slot\n";
+				break;
+			case 0x80:
+				*string += "Reactor Slot\n";
+				break;
+			case -1:
+				*string += "Empty Slot\n";
+				break;
+			default:
+				if (type & 0x1C022) {
+					*string += "Weapon Slot\n";
+				} else if (type & 0x20809) {
+					*string += "Device Slot\n";
+				} else {
+					*string += "Empty Slot\n";
+				}
+				break;
+		}
+	}
+	return("NORMAL_SLOT");
+}
 
 
 
@@ -472,7 +472,7 @@ Unknown68DC20Class::Unknown68DC20Class() :
 	InvRenderClass(false),
 	Unknown6C(0),
 	Unknown70(0),
-	Unknown74(-1.0f),
+	Unknown74(-1.0f), Unknown78(0), Unknown80(0),
 	Unknown84(0x100),
 	Unknown88(true)
 {
@@ -577,6 +577,225 @@ Unknown68DC20Class::~Unknown68DC20Class()
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: 0x68E360, about 120 rows: register and order only, in the compares of the duration and the second switch
+// 0x68E360
+void Unknown68DC20Class::Unknown_2C(bool force)
+{
+	static Unknown68E360Class _Zero;	// 0xBE65A8  // NAME 1: neutral (D10)
+	DurationClass previous = Unknown78;	// NAME 1 [previous, flag, sclient, slot, target, self, data, state, moved, kind, type, ammo, weapon, device, now, done, on, wrong, sound]: neutral
+	Unknown78 = _Zero;
+	Unknown74 = -1.0f;
+	bool flag = false;
+	FAIL_IF(!Peek_Inv_Data()->Get_Client()) return;
+	SClient *sclient = Peek_Inv_Data()->Get_Client()->As_Space_Client();
+	FAIL_IF(!sclient) return;
+	InvRenderClass::Unknown_2C(force);
+	int slot = Unknown20;
+	if (slot == -1) {
+		if (force) {
+			Unknown_68EAE0(false, OnIndicator);
+			Unknown_68EAE0(false, ValidityIndicator);
+			Unknown_68EAE0(false, OutOfAmmoIndicator);
+			Unknown_68EAE0(false, WrongTargetTypeIndicator);
+			Unknown_68EAE0(false, RechargeIndicator);
+		}
+		return;
+	}
+	ClientObjectClass *target = sclient->Unknown_744FE0();
+	if (target) {
+		ClientObjectClass *self = sclient->Unknown_28();
+		if (self) {
+			Unknown74 = Unknown_7E6060(target, self);
+		}
+		if (target->Unknown_6F5A10() && !target->Unknown_6F5A40()) {
+			flag = true;
+		}
+	}
+	Unknown688830Class *data = Peek_Inv_Data()->Unknown_688830();
+	unsigned state = data->Unknown_68A840(slot);
+	unsigned moved = data->Unknown_68A6E0(slot);
+	unsigned kind = data->Unknown_68A6B0(slot);
+	Unknown688830Item *item = data->Unknown_68AAA0(slot, true);
+	int type = item ? item->Unknown0C : -1;
+	bool weapon = false;
+	bool device = false;
+	int mode;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	switch (type) {
+		case 1:
+		case 5:
+		case 14:
+		case 15:
+		case 16:
+		case 17:
+			weapon = true;
+			Unknown70 = data->Unknown_68A7C0(slot);
+			if (!(state & 0x36)) {
+				mode = (state & 0x800) ? 1 : 2;
+				goto have;
+			}
+			break;
+		case 0:
+		case 2:
+		case 6:
+		case 7:
+		case 8:
+		case 11:
+		case 12:
+			if (data->Unknown_68A680(slot) & 5) {
+				device = true;
+				if (data->Unknown_68A6B0(slot) & 0x44) {
+					Unknown70 = data->Unknown_68A630(slot);
+				}
+				if (!(moved & 0x3F8)) {
+					mode = ((kind & 0x34) != 0) ? 2 : 0;
+					goto have;
+				}
+			}
+			break;
+		case -1:
+			break;
+		default:
+			G_ASSERT(false);
+			break;
+	}
+	mode = 0;
+have:
+	Unknown6C->Unknown_6A4020(Unknown74, Unknown70, mode, flag);
+	DurationClass now((unsigned)sclient->Unknown10BC);
+	Unknown78 = data->Unknown_68A720(slot);
+	bool update = force;	// NAME 1 [update, on]: neutral
+	bool done;
+	if (Unknown78.Time <= now.Time || (Unknown78 == _Zero)) {
+		Unknown78 = _Zero;
+		if (previous != _Zero) {
+			update = true;
+		}
+		done = true;
+	} else {
+		Unknown78.Time = Unknown78.Time - now.Time;
+		if (previous == _Zero) {
+			update = true;
+		}
+		done = false;
+	}
+	if (Unknown80 != state) {
+		update = true;
+	}
+	if ((!device || Unknown84 == moved) && !update) {
+		return;
+	}
+	unsigned char on = (unsigned char)(state & 1);
+	if (Unknown88 && (unsigned char)(Unknown80 & 1) != on) {
+		Unknown88 = false;
+		switch (type) {
+			case 1:
+			case 5:
+			case 14:
+			case 15:
+			case 16:
+			case 17:
+				SoundLibraryClass::Play_2D_Sound(on ? "shortcut_activate_weapon.wav" : "shortcut_deactivate_weapon.wav", 2);
+				break;
+			case 0:
+			case 12:
+				SoundLibraryClass::Play_2D_Sound(on ? "shortcut_activate_ability_sn_1.wav" : "shortcut_deactivate_ability.wav", 2);
+				break;
+		}
+	}
+	Unknown80 = state;
+	Unknown84 = moved;
+	Unknown_68EAE0(on != 0, OnIndicator);
+	Unknown_68EAE0((Unknown80 & 8) == 8, OutOfAmmoIndicator);
+	Unknown_68EAE0(!done, RechargeIndicator);
+	bool ready = false;	// NAME 1 [ready]: neutral
+	bool wrong = false;
+	if (weapon) {
+		ready = (Unknown80 & 0x680) == 0;
+		wrong = ((Unknown80 >> 1) & 1) != 0;
+	} else if (device) {
+		unsigned flags = data->Unknown_68A6E0(slot);	// NAME 1 [flags]: neutral
+		ready = (flags == 0 && Unknown78 == _Zero);
+		wrong = (flags & 0x70) != 0;
+	}
+	Unknown_68EAE0(!ready, ValidityIndicator);
+	Unknown_68EAE0(wrong, WrongTargetTypeIndicator);
+}
+
 // 0x68EAE0
 void InvRenderClass::Unknown_68EAE0(bool on, const RefCountPtr<RenderObjClass> &robj)
 {
@@ -587,473 +806,254 @@ void InvRenderClass::Unknown_68EAE0(bool on, const RefCountPtr<RenderObjClass> &
 	}
 }
 
-// 0x68FB60
-Unknown68FB60Class::Unknown68FB60Class() :
-	InvRenderClass(true),
-	Unknown78(0)
+// 0x68EB10
+void InvRenderClass::Unknown_68EB10(Unknown688830Item *item)
 {
-	Unknown_BE67BC->Load("fa_ce02a.ini");
+	int type = -1;	// NAME 1 [type, texture, group, kind, sub_kind, name]: neutral
+	if (item) {
+		type = item->Get_Type();
+	}
+	Unknown_6A8AB0(false);
+	RefCountPtr<TextureClass> texture;
+	switch (type) {
+		case 10:
+			texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_red.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+			if (Get_Filter() != "All" && Get_Filter() != "Ammo") {
+				Unknown_6A8AB0(true);
+			}
+			break;
+		case 14:
+			texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_red.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+			if (Get_Filter() != "All" && Get_Filter() != "Beams") {
+				Unknown_6A8AB0(true);
+			}
+			break;
+		case 15:
+			texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_red.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+			if (Get_Filter() != "All" && Get_Filter() != "Missile Launchers") {
+				Unknown_6A8AB0(true);
+			}
+			break;
+		case 16:
+			texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_red.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+			if (Get_Filter() != "All" && Get_Filter() != "Projectile Launchers") {
+				Unknown_6A8AB0(true);
+			}
+			break;
+		case 6:
+			texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_grey.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+			if (Get_Filter() != "All" && Get_Filter() != "Engines") {
+				Unknown_6A8AB0(true);
+			}
+			break;
+		case 7:
+			texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_grey.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+			if (Get_Filter() != "All" && Get_Filter() != "Reactors") {
+				Unknown_6A8AB0(true);
+			}
+			break;
+		case 2:
+			texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_grey.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+			if (Get_Filter() != "All" && Get_Filter() != "Shields") {
+				Unknown_6A8AB0(true);
+			}
+			break;
+		case 11:
+			texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_grey.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+			if (Get_Filter() != "All" && Get_Filter() != "Devices") {
+				Unknown_6A8AB0(true);
+			}
+			break;
+		case 18:
+			texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_blue.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+			if (Get_Filter() != "All" && Get_Filter() != "Overrides") {
+				Unknown_6A8AB0(true);
+			}
+			break;
+		case 13:
+		{
+			int group = item->Unknown04;
+			int kind = item->Unknown08;
+			int sub_kind = item->Unknown58;
+			std::string name(item->Unknown14);
+			if (sub_kind == 0x88) {
+				texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_green.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+				if (Get_Filter() != "All" && Get_Filter() != "Trade Goods") {
+					Unknown_6A8AB0(true);
+				}
+			} else if (sub_kind == 0x80 && (group == 0x50 || (group == -1 && kind == -1))) {
+				texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_yellow.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+				if (Get_Filter() != "All" && Get_Filter() != "Resources") {
+					Unknown_6A8AB0(true);
+				}
+			} else {
+				texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("icon_brown.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+				if (Get_Filter() != "All" && Get_Filter() != "Components") {
+					Unknown_6A8AB0(true);
+				}
+			}
+			break;
+		}
+	}
+	Unknown_6A8A40(texture.Peek());
 }
 
-// 0x68FC80
-Unknown68FB60Class::~Unknown68FB60Class()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: 0x68F510, 22 rows: the client multiplies by -3600000 and adds; it calls max_size and _Eos in the last append
+// 0x68F510
+const char *Unknown68DC20Class::Unknown_28(std::string *string)
 {
-	Unknown78 = 0;
-	Unknown_BE67BC->Unload("fa_ce02a.ini");
+	static Unknown68E360Class _Zero;	// 0xBE65B8  // NAME 1: neutral (D10)
+	FAIL_IF(!string) return(0);
+	InvRenderClass::Unknown_28(string);
+	char buffer[256];	// NAME 1 [buffer, seconds, whole, ms, hours, rest, minutes, s, m, h]: neutral
+	if (Unknown74 > 0.0f) {
+		sprintf(buffer, "Range: %.2fk / %.2fk\n", Unknown74 * 0.001f, Unknown70 * 0.001f);
+		*string += buffer;
+	}
+	if (Unknown78 != _Zero) {
+		static Unknown68E360Class _One(1);	// 0xBE6598  // NAME 1: neutral (D10)
+		__int64 whole;
+		const __int64 *seconds;
+		if (Unknown78.Time < _One.Time * 1000) {
+			seconds = &_One.Time;
+		} else {
+			whole = Unknown78.Time / 1000;
+			seconds = &whole;
+		}
+		__int64 ms = *seconds * 1000;
+		__int64 hours = ms / 3600000;
+		__int64 rest = ms + hours * -3600000;
+		__int64 minutes = rest / 60000;
+		DurationClass secs((rest - minutes * 60000) / 1000);
+		int s = secs.As_Int();
+		int m = DurationClass(minutes).As_Int();
+		int h = DurationClass(hours).As_Int();
+		if (h) {
+			sprintf(buffer, "Time: %d:02%d:02%d\n", h, m, s);
+		} else if (m) {
+			sprintf(buffer, "Time: %d:02%d\n", m, s);
+		} else if (s == 1) {
+			sprintf(buffer, "Time: 1 second\n");
+		} else {
+			sprintf(buffer, "Time: %d seconds\n", s);
+		}
+		*string += buffer;
+	}
+	return("WEAPON_ON");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1108,16 +1108,33 @@ const char *Get_Roman_Numeral(int value)
 	return(_RomanNumerals[value]);
 }
 
+// inv_trade_render.cpp's by the client's objects; here until the user's call on 0x68FAE0 (D66, P-IR2-1)
+// 0x68FB60
+InvTradeRenderClass::InvTradeRenderClass() :
+	InvRenderClass(true),
+	DescriptionGroup(0)
+{
+	Unknown_BE67BC->Load("fa_ce02a.ini");
+}
+
+// 0x68FC80
+InvTradeRenderClass::~InvTradeRenderClass()
+{
+	DescriptionGroup = 0;
+	Unknown_BE67BC->Unload("fa_ce02a.ini");
+}
+
 /*
 **	Reconstruction notes. The client's file per its asserts ('e:\build\beta\G\app\Client\inv_render.cpp' at 0xB90220;
-**	lines 119-1107), its object 0x68BF10-0x68FB4A: `<string>`'s initialiser and its atexit (0x68FB10, 0x68FB40) end it. Blank stretches keep
-**	__LINE__ for the functions not rebuilt yet: 0x68CCC0, 0x68E360, 0x68EB10, 0x68F510. 0x68FB60 on is inv_trade_render.cpp's
-**	(0x68FE10 has that __FILE__).
+**	lines 119-1107), its object 0x68BF10-0x68FB4A: `<string>`'s initialiser and its atexit (0x68FB10, 0x68FB40) end it.
+**	0x68FB60 on is inv_trade_render.cpp's (0x68FE10 has its __FILE__); its constructor and destructor stay below for now (D66, P-IR2-1).
 **	0x68BF10 copies its allocator from the argument's own slot (`mov al,[esp+0x28]`), then tests that byte: hence the cast
 **	in Unknown44's initialiser, and no stack slot of the temporary. Get_Roman_Numeral (0x68FA30) sits on the asserts' lines and inlines
 **	into the earlier 0x68D700, where `value > 0` folds the first FAIL_IF away (line 1106 has no string reference there).
-**	Unknown78Struct: three zeros with a constructor of their own keep +0x74's store in order at 0x68DC20.
-**	Unknown38 is a DurationClass (a __int64 member hoists its store in 0x68BF10). 0x68C3E0 has no caller: 0x68C6B0 inlines it.
-**	Unknown68C5D0Class: the visitor's table 0xAFCC74 stores empty slots, 0xAEE6DC's slots forward; its declared base (D137)
-**	is not ClientItemPropertyVisitorClass, whose table 0x68C5A0 does not store: hence the cast at line 168.
+**	Unknown38 and Unknown78 are DurationClass: as a __int64 member 0x68BF10's store hoists; Unknown78 at +0x78 keeps +0x74's store in order at 0x68DC20.
+**	0x68C3E0 has no caller: 0x68C6B0 inlines it. Unknown68C5D0Class: the visitor's table 0xAFCC74 has empty slots, 0xAEE6DC's forward; its
+**	declared base (D137) is not ClientItemPropertyVisitorClass, whose table 0x68C5A0 does not store: hence the cast in Route.
+**	Accessors matter here: VC6's inline budget in the long functions moved to the client's only with Get_Slot, Get_Type, Get_Name (0x68CCC0)
+**	and Get_Filter (0x68EB10, exact): without them the early compares and appends inline where the client calls them.
+**	The statics with the empty destructors 0x68EAC0, 0x68FA10: Unknown68E360Class. 0x68FAA0 and 0x68FAE0 are another header's initialisers, not rebuilt.
 */

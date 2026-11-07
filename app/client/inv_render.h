@@ -5,7 +5,7 @@
 **	'e:\build\beta\G\app\Client\inv_render.cpp' at 0xB90220; the client holds no string of this header)
 **
 **	What draws an inventory item's slot: table 0xAFCBD8, constructor 0x68BF10, destructor 0x68C190, 0x58 bytes, and its
-**	derived classes (tables 0xAFCCA0, 0xAFCD04, 0xAFCDF0), which 0x6A90A0 makes. Rebuilt as far as the listed addresses.
+**	derived classes (tables 0xAFCCA0, 0xAFCD04; 0xAFCDF0 is inv_trade_render.h's), which 0x6A90A0 makes. Rebuilt as far as the listed addresses.
 */
 
 #if defined(_MSC_VER)
@@ -37,6 +37,7 @@ public:
 	virtual TextureClass *Unknown_34();										// +0x34 0x68CBA0
 	virtual void Unknown_50(int count);										// +0x50 0x68D790 (the count's text)  // NAME 1 [count]: neutral
 
+	const std::string &Get_Filter() { return(Unknown44); }					// NAME 1: what 0x68EB10 compares it with
 	InvDataClass *Peek_Inv_Data();											// 0x68D620  // NAME 3: the assert '!Peek_Inv_Data()->Get_Client()'
 	void Unknown_68D700(int value);											// 0x68D700 (the level's text)  // NAME 1 [value]: neutral
 	int Unknown_68D7E0(int slot);											// 0x68D7E0  // NAME 1 [slot]: neutral
@@ -67,14 +68,6 @@ public:
 	int Unknown5C;															// +0x5C (-1)
 };
 
-struct Unknown78Struct	// NAME 1: neutral (D10); its own zeroing keeps 0x68DC20's stores in +0x74, +0x78 order
-{
-	Unknown78Struct() : Unknown00(0), Unknown04(0), Unknown08(0) {}
-	int Unknown00;
-	int Unknown04;
-	int Unknown08;
-};
-
 class Unknown68DC20Class : public InvRenderClass	// NAME 1: neutral (D10)
 {
 public:
@@ -91,28 +84,12 @@ public:
 	RefCountPtr<RenderObjClass> WrongTargetTypeIndicator;	// +0x64 ('item_noskill')  // NAME 2: skill_render.cpp's, same model
 	RefCountPtr<RenderObjClass> RechargeIndicator;	// +0x68  // NAME 3: 0x68DCC0's assert
 	Unknown6A3D60Class *Unknown6C;											// +0x6C (destructor 0x6A3F10)
-	int Unknown70;															// +0x70
+	float Unknown70;														// +0x70 (the range)
 	float Unknown74;														// +0x74 (-1)
-	Unknown78Struct Unknown78;												// +0x78
-	int Unknown84;															// +0x84 (0x100)
+	DurationClass Unknown78;												// +0x78
+	unsigned Unknown80;														// +0x80
+	unsigned Unknown84;														// +0x84 (0x100)
 	bool Unknown88;															// +0x88
-};
-
-class Unknown68FB60Class : public InvRenderClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown68FB60Class();													// 0x68FB60 ('fa_ce02a.ini')
-	virtual ~Unknown68FB60Class();											// +0x04 0x68FC80 (deleting 0x68FC50)
-	virtual void *Unknown_24() { return(this); }							// +0x24 0x68FC30
-	virtual void Unknown_2C(bool force);									// +0x2C 0x68FE10
-
-	std::string Unknown58;													// +0x58
-	std::string Unknown68;													// +0x68
-	int Unknown78;															// +0x78
-	RefCountPtr<RenderObjClass> Unknown7C;									// +0x7C
-	RefCountPtr<RenderObjClass> Unknown80;									// +0x80
-	RefCountPtr<RenderObjClass> Unknown84;									// +0x84
-	RefCountPtr<RenderObjClass> Unknown88;									// +0x88
 };
 
 #endif

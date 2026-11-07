@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 150 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1496 |
+| 3 | by convention from a client-named file or sibling | 1513 |
 | 2 | describes what the code does | 3361 |
-| 1 | neutral placeholder | 16566 |
+| 1 | neutral placeholder | 16685 |
 
 ## For review (score 3 and below)
 
@@ -4105,66 +4105,95 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_687360` | `app/client/intrlist.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/intrlist.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/intrlist.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown688830Item` | `app/client/inv_render.cpp:14` | neutral (D10) |
-| 1 | `Unknown_831840` | `app/client/inv_render.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/inv_render.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/inv_render.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/inv_render.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/inv_render.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown688830Class` | `app/client/inv_render.cpp:15` | neutral (D10); NAME 1 [slot, flag]: neutral |
-| 1 | `Unknown_68AAA0` | `app/client/inv_render.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_689CA0` | `app/client/inv_render.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_689C30` | `app/client/inv_render.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_689D20` | `app/client/inv_render.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/inv_render.cpp:15` | untagged neutral name (D10) |
-| 1 | `LineDisplayClientClass` | `app/client/inv_render.cpp:17` | neutral (D10), as ui_cinfo.cpp declares it |
-| 1 | `Unknown_00` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
-| 1 | `InvDataBaseStruct` | `app/client/inv_render.cpp:18` | neutral (D10); ui_slot_info.h's UISlotInfoItemBaseStruct |
-| 1 | `Unknown04` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown_688830` | `app/client/inv_render.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown_688850` | `app/client/inv_render.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown_6A7990` | `app/client/inv_render.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown_6A7A00` | `app/client/inv_render.cpp:19` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/inv_render.cpp:21` | neutral (D10) |
-| 1 | `Unknown6A3D60Class` | `app/client/inv_render.cpp:22` | neutral (D10); skill_render.cpp's |
-| 1 | `Unknown_496730` | `app/client/inv_render.cpp:24` | neutral (D10); NAME 1 [robj, a, b]: neutral |
-| 1 | `Unknown521B80Class` | `app/client/inv_render.cpp:26` | neutral (D10); NAME 1 [space_client, item, data, slot, visitor]: neutral |
-| 1 | `Unknown_521BD0` | `app/client/inv_render.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown68C680PropertyClass` | `app/client/inv_render.cpp:27` | neutral (D10): ClientItemPropertySpecialClass as far as 0x68C680 calls it |
-| 1 | `Unknown_18` | `app/client/inv_render.cpp:27` | untagged neutral name (D10) |
-| 1 | `_Unknown_BE6588` | `app/client/inv_render.cpp:35` | neutral (D10) |
-| 1 | `Unknown68C5D0Class` | `app/client/inv_render.cpp:37` | neutral (D10): table 0xAFCC74, the visitor with empty slots |
-| 1 | `Unknown_1C` | `app/client/inv_render.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/inv_render.cpp:48` | untagged neutral name (D10) |
-| 1 | `Unknown68C5A0Class` | `app/client/inv_render.cpp:51` | neutral (D10): tables 0xAFCC68, 0xAFCC3C |
-| 1 | `Usable` | `app/client/inv_render.cpp:59` | what 0x68C6B0 does with it |
-| 1 | `Unknown38` | `app/client/inv_render.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/inv_render.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown688830Item` | `app/client/inv_render.cpp:17` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_831840` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/inv_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown688830Class` | `app/client/inv_render.cpp:18` | neutral (D10); NAME 1 [slot, flag]: neutral |
+| 1 | `Unknown_68AAA0` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_689CA0` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_689C30` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_689D20` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_68A840` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_68A6E0` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_68A6B0` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_68A680` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_68A630` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_68A7C0` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_68A720` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_689F90` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_68A010` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_689F10` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_689DA0` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_68AC50` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/inv_render.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A10` | `app/client/inv_render.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A40` | `app/client/inv_render.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_7E6060` | `app/client/inv_render.cpp:20` | neutral (D10); NAME 1 [a, b]: neutral |
+| 1 | `Unknown_00` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_744FE0` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/inv_render.cpp:21` | untagged neutral name (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/inv_render.cpp:22` | neutral (D10), as ui_cinfo.cpp declares it |
+| 1 | `InvDataBaseStruct` | `app/client/inv_render.cpp:23` | neutral (D10); ui_slot_info.h's UISlotInfoItemBaseStruct |
+| 1 | `Unknown_688830` | `app/client/inv_render.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_688850` | `app/client/inv_render.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7990` | `app/client/inv_render.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7A00` | `app/client/inv_render.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/inv_render.cpp:26` | neutral (D10) |
+| 1 | `Unknown6A3D60Class` | `app/client/inv_render.cpp:27` | neutral (D10); skill_render.cpp's |
+| 1 | `Unknown_6A4020` | `app/client/inv_render.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown68E360Class` | `app/client/inv_render.cpp:29` | neutral (D10) |
+| 1 | `Unknown_496730` | `app/client/inv_render.cpp:31` | neutral (D10); NAME 1 [robj, a, b]: neutral |
+| 1 | `Unknown_4F0640` | `app/client/inv_render.cpp:32` | neutral (D10): money.cpp's inequality |
+| 1 | `Unknown521B80Class` | `app/client/inv_render.cpp:34` | neutral (D10); NAME 1 [space_client, item, data, slot, visitor]: neutral |
+| 1 | `Unknown_521BD0` | `app/client/inv_render.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown68C680PropertyClass` | `app/client/inv_render.cpp:35` | neutral (D10): ClientItemPropertySpecialClass as far as 0x68C680 calls it |
+| 1 | `_Unknown_BE6588` | `app/client/inv_render.cpp:43` | neutral (D10) |
+| 1 | `Unknown68C5D0Class` | `app/client/inv_render.cpp:45` | neutral (D10): table 0xAFCC74, the visitor with empty slots |
+| 1 | `Unknown68C5A0Class` | `app/client/inv_render.cpp:59` | neutral (D10): tables 0xAFCC68, 0xAFCC3C |
+| 1 | `Usable` | `app/client/inv_render.cpp:67` | what 0x68C6B0 does with it |
+| 1 | `Unknown38` | `app/client/inv_render.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/inv_render.cpp:75` | untagged neutral name (D10) |
 | 1 | `Unknown_68C3E0` | `app/client/inv_render.cpp:124` | neutral (D10); NAME 1 [space_client, item, data, slot]: neutral |
 | 1 | `visitor` | `app/client/inv_render.cpp:126` | neutral |
 | 1 | `info` | `app/client/inv_render.cpp:127` | neutral |
 | 1 | `usable` | `app/client/inv_render.cpp:174` | neutral |
 | 1 | `Unknown_2C` | `app/client/inv_render.cpp:180` | untagged neutral name (D10) |
 | 1 | `count, usable, item, level, data, other, item_level, now, inv_data, done` | `app/client/inv_render.cpp:185` | neutral |
-| 1 | `Unknown10BC` | `app/client/inv_render.cpp:212` | untagged neutral name (D10) |
 | 1 | `Unknown_68D700` | `app/client/inv_render.cpp:223` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/inv_render.cpp:224` | untagged neutral name (D10) |
 | 1 | `Unknown_68EAE0` | `app/client/inv_render.cpp:225` | untagged neutral name (D10) |
 | 1 | `Unknown_68EB10` | `app/client/inv_render.cpp:226` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/inv_render.cpp:233` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/inv_render.cpp:235` | untagged neutral name (D10) |
+| 1 | `buffer, structure, quality, price, cost, type` | `app/client/inv_render.cpp:270` | neutral |
+| 1 | `Unknown_4F00C0` | `app/client/inv_render.cpp:283` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/inv_render.cpp:356` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE420` | `app/client/inv_render.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_6A8F00` | `app/client/inv_render.cpp:374` | untagged neutral name (D10) |
 | 1 | `Unknown_6A8FE0` | `app/client/inv_render.cpp:376` | untagged neutral name (D10) |
 | 1 | `Unknown_68D7E0` | `app/client/inv_render.cpp:393` | untagged neutral name (D10) |
 | 1 | `Unknown68D870Class` | `app/client/inv_render.cpp:404` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/inv_render.cpp:406` | untagged neutral name (D10) |
 | 1 | `Unknown5C` | `app/client/inv_render.cpp:407` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/inv_render.cpp:428` | untagged neutral name (D10) |
 | 1 | `Unknown_68DA20` | `app/client/inv_render.cpp:438` | untagged neutral name (D10) |
@@ -4172,11 +4201,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6C` | `app/client/inv_render.cpp:473` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/inv_render.cpp:474` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/inv_render.cpp:475` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/inv_render.cpp:475` | untagged neutral name (D10) |
 | 1 | `Unknown84` | `app/client/inv_render.cpp:476` | untagged neutral name (D10) |
 | 1 | `Unknown88` | `app/client/inv_render.cpp:477` | untagged neutral name (D10) |
-| 1 | `Unknown68FB60Class` | `app/client/inv_render.cpp:591` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/inv_render.cpp:593` | untagged neutral name (D10) |
-| 1 | `Unknown78Struct` | `app/client/inv_render.cpp:1119` | untagged neutral name (D10) |
+| 1 | `_Zero` | `app/client/inv_render.cpp:635` | neutral (D10) |
+| 1 | `previous, flag, sclient, slot, target, self, data, state, moved, kind, type, ammo, weapon, device, now, done, on, wrong, sound` | `app/client/inv_render.cpp:636` | neutral |
+| 1 | `update, on` | `app/client/inv_render.cpp:741` | neutral |
+| 1 | `ready` | `app/client/inv_render.cpp:785` | neutral |
+| 1 | `flags` | `app/client/inv_render.cpp:791` | neutral |
+| 1 | `type, texture, group, kind, sub_kind, name` | `app/client/inv_render.cpp:812` | neutral |
+| 1 | `Unknown_6A8AB0` | `app/client/inv_render.cpp:816` | untagged neutral name (D10) |
+| 1 | `Unknown_6A8A40` | `app/client/inv_render.cpp:898` | untagged neutral name (D10) |
+| 1 | `_Zero` | `app/client/inv_render.cpp:1018` | neutral (D10) |
+| 1 | `buffer, seconds, whole, ms, hours, rest, minutes, s, m, h` | `app/client/inv_render.cpp:1021` | neutral |
+| 1 | `_One` | `app/client/inv_render.cpp:1027` | neutral (D10) |
 | 1 | `Unknown6A3D60Class` | `app/client/inv_render.h:24` | untagged neutral name (D10) |
 | 1 | `Unknown688830Item` | `app/client/inv_render.h:25` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/inv_render.h:30` | neutral |
@@ -4188,40 +4226,122 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/client/inv_render.h:37` | untagged neutral name (D10) |
 | 1 | `count` | `app/client/inv_render.h:38` | neutral |
 | 1 | `Unknown_50` | `app/client/inv_render.h:38` | untagged neutral name (D10) |
-| 1 | `value` | `app/client/inv_render.h:41` | neutral |
-| 1 | `Unknown_68D700` | `app/client/inv_render.h:41` | untagged neutral name (D10) |
-| 1 | `slot` | `app/client/inv_render.h:42` | neutral |
-| 1 | `Unknown_68D7E0` | `app/client/inv_render.h:42` | untagged neutral name (D10) |
-| 1 | `on, robj` | `app/client/inv_render.h:43` | neutral |
-| 1 | `Unknown_68EAE0` | `app/client/inv_render.h:43` | untagged neutral name (D10) |
-| 1 | `item` | `app/client/inv_render.h:44` | neutral |
-| 1 | `Unknown_68EB10` | `app/client/inv_render.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/inv_render.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/inv_render.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/inv_render.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/inv_render.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown68D870Class` | `app/client/inv_render.h:55` | neutral (D10) |
-| 1 | `Unknown_40` | `app/client/inv_render.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_68DA20` | `app/client/inv_render.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/inv_render.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/inv_render.h:67` | untagged neutral name (D10) |
-| 1 | `Unknown78Struct` | `app/client/inv_render.h:70` | neutral (D10); its own zeroing keeps 0x68DC20's stores in +0x74, +0x78 order |
-| 1 | `Unknown00` | `app/client/inv_render.h:72` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/inv_render.h:72` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/inv_render.h:72` | untagged neutral name (D10) |
-| 1 | `Unknown68DC20Class` | `app/client/inv_render.h:78` | neutral (D10) |
-| 1 | `Unknown_3C` | `app/client/inv_render.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown88` | `app/client/inv_render.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/inv_render.h:93` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/inv_render.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/inv_render.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/inv_render.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/inv_render.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown68FB60Class` | `app/client/inv_render.h:101` | neutral (D10) |
-| 1 | `Unknown_24` | `app/client/inv_render.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/inv_render.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/inv_render.h:112` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/inv_render.h:113` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/inv_render.h:40` | what 0x68EB10 compares it with |
+| 1 | `Unknown44` | `app/client/inv_render.h:40` | untagged neutral name (D10) |
+| 1 | `value` | `app/client/inv_render.h:42` | neutral |
+| 1 | `Unknown_68D700` | `app/client/inv_render.h:42` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/inv_render.h:43` | neutral |
+| 1 | `Unknown_68D7E0` | `app/client/inv_render.h:43` | untagged neutral name (D10) |
+| 1 | `on, robj` | `app/client/inv_render.h:44` | neutral |
+| 1 | `Unknown_68EAE0` | `app/client/inv_render.h:44` | untagged neutral name (D10) |
+| 1 | `item` | `app/client/inv_render.h:45` | neutral |
+| 1 | `Unknown_68EB10` | `app/client/inv_render.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/inv_render.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/inv_render.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/inv_render.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown68D870Class` | `app/client/inv_render.h:56` | neutral (D10) |
+| 1 | `Unknown_40` | `app/client/inv_render.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown_68DA20` | `app/client/inv_render.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/inv_render.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/inv_render.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown68DC20Class` | `app/client/inv_render.h:71` | neutral (D10) |
+| 1 | `Unknown_3C` | `app/client/inv_render.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/inv_render.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/inv_render.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/inv_render.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/inv_render.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/inv_render.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/inv_render.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/inv_render.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown688830Item` | `app/client/inv_trade_render.cpp:13` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/inv_trade_render.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/inv_trade_render.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown688830Class` | `app/client/inv_trade_render.cpp:14` | neutral (D10); NAME 1 [slot, flag]: neutral |
+| 1 | `Unknown_68AAA0` | `app/client/inv_trade_render.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_689CA0` | `app/client/inv_trade_render.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_689C60` | `app/client/inv_trade_render.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_689DA0` | `app/client/inv_trade_render.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown695E10Class` | `app/client/inv_trade_render.cpp:15` | neutral (D10); NAME 1 [id, owned, slots]: neutral |
+| 1 | `Unknown_695E10` | `app/client/inv_trade_render.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown1284` | `app/client/inv_trade_render.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown_688830` | `app/client/inv_trade_render.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/inv_trade_render.cpp:18` | neutral (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/inv_trade_render.cpp:19` | neutral (D10) |
+| 1 | `Unknown_2C` | `app/client/inv_trade_render.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/inv_trade_render.cpp:69` | untagged neutral name (D10) |
+| 1 | `hidden, data, cost, stack, slots, owned, name, item` | `app/client/inv_trade_render.cpp:70` | neutral |
+| 1 | `Unknown_6CE420` | `app/client/inv_trade_render.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_4F00C0` | `app/client/inv_trade_render.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_68D7E0` | `app/client/inv_trade_render.cpp:82` | untagged neutral name (D10) |
+| 1 | `counter` | `app/client/inv_trade_render.cpp:92` | neutral |
+| 1 | `Unknown` | `app/client/inv_trade_render.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/inv_trade_render.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/inv_trade_render.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/inv_trade_render.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0550` | `app/client/inv_trade_render.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0390` | `app/client/inv_trade_render.cpp:138` | untagged neutral name (D10) |
+| 1 | `index, suffix` | `app/client/inv_trade_render.cpp:150` | neutral |
+| 1 | `Unknown_6902E0` | `app/client/inv_trade_render.cpp:150` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/inv_trade_render.cpp:153` | neutral |
+| 1 | `Unknown_24` | `app/client/inv_trade_render.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/inv_trade_render.h:28` | untagged neutral name (D10) |
+| 1 | `robj, index, suffix` | `app/client/inv_trade_render.h:30` | neutral |
+| 1 | `Unknown_6902E0` | `app/client/inv_trade_render.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/inv_trade_render.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/inv_trade_render.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown66CC00Class` | `app/client/inv_transaction.cpp:15` | neutral (D10); NAME 1 [view, arg]: neutral |
+| 1 | `Unknown_30` | `app/client/inv_transaction.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/inv_transaction.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/inv_transaction.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/inv_transaction.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/inv_transaction.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/inv_transaction.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown690880ViewClass` | `app/client/inv_transaction.cpp:17` | neutral (D10) |
+| 1 | `Unknown6908E0Class` | `app/client/inv_transaction.cpp:19` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/inv_transaction.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/inv_transaction.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/inv_transaction.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/inv_transaction.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/inv_transaction.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/inv_transaction.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/inv_transaction.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/inv_transaction.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/inv_transaction.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_6908C0` | `app/client/inv_transaction.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_6908E0` | `app/client/inv_transaction.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_690FA0` | `app/client/inv_transaction.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/inv_transaction.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/inv_transaction.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/inv_transaction.cpp:56` | untagged neutral name (D10) |
+| 1 | `sclient, layer` | `app/client/inv_transaction.cpp:57` | neutral |
+| 1 | `Unknown_744B60` | `app/client/inv_transaction.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown135C` | `app/client/inv_transaction.cpp:60` | untagged neutral name (D10) |
+| 1 | `Get_Unknown34` | `app/client/inv_transaction.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_690AA0` | `app/client/inv_transaction.cpp:120` | untagged neutral name (D10) |
+| 1 | `sort` | `app/client/inv_transaction.cpp:141` | neutral |
+| 1 | `Unknown2C` | `app/client/inv_transaction.cpp:144` | untagged neutral name (D10) |
+| 1 | `Unknown_690D20` | `app/client/inv_transaction.cpp:148` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/inv_transaction.cpp:180` | untagged neutral name (D10) |
+| 1 | `active` | `app/client/inv_transaction.cpp:188` | neutral |
+| 1 | `Unknown_5890B0` | `app/client/inv_transaction.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/inv_transaction.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/inv_transaction.cpp:229` | untagged neutral name (D10) |
+| 1 | `client, packet` | `app/client/inv_transaction.cpp:238` | neutral |
+| 1 | `Unknown_6910C0` | `app/client/inv_transaction.cpp:286` | untagged neutral name (D10) |
+| 1 | `Unknown66CC00Class` | `app/client/inv_transaction.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown690880ViewClass` | `app/client/inv_transaction.h:18` | untagged neutral name (D10) |
+| 1 | `Unknown6908E0Class` | `app/client/inv_transaction.h:19` | untagged neutral name (D10) |
+| 1 | `ViewUnknown34Class` | `app/client/inv_transaction.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_6908C0` | `app/client/inv_transaction.h:26` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/inv_transaction.h:27` | neutral |
+| 1 | `Unknown_6908E0` | `app/client/inv_transaction.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_690AA0` | `app/client/inv_transaction.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_690D20` | `app/client/inv_transaction.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_690FA0` | `app/client/inv_transaction.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_6910C0` | `app/client/inv_transaction.h:31` | untagged neutral name (D10) |
+| 1 | `State` | `app/client/inv_transaction.h:33` | what it holds |
+| 1 | `ToInv` | `app/client/inv_transaction.h:40` | the packet's constructor |
+| 1 | `ToSlot` | `app/client/inv_transaction.h:41` | the packet's constructor |
 | 1 | `Unknown08` | `app/client/item/client_item_property_attribute.h:70` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/item/client_item_property_option.h:65` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/item/client_item_property_special.h:79` | neutral (D10) |
@@ -6673,7 +6793,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6A90A0` | `app/client/slot_data_render.cpp:445` | untagged neutral name (D10) |
 | 1 | `Unknown68D870Class` | `app/client/slot_data_render.cpp:460` | untagged neutral name (D10) |
 | 1 | `Unknown68DC20Class` | `app/client/slot_data_render.cpp:464` | untagged neutral name (D10) |
-| 1 | `Unknown68FB60Class` | `app/client/slot_data_render.cpp:482` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/slot_data_render.h:35` | untagged neutral name (D10) |
 | 1 | `string` | `app/client/slot_data_render.h:36` | neutral |
 | 1 | `Unknown_0C` | `app/client/slot_data_render.h:36` | untagged neutral name (D10) |
@@ -17364,9 +17483,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_View` | `app/client/intrface.h:134` | what it returns |
 | 2 | `Peek_Scene` | `app/client/intrface.h:135` | what 0x692E00 does with it |
 | 2 | `space_client` | `app/client/inv_render.cpp:183` | its slot |
-| 2 | `LevelText` | `app/client/inv_render.h:46` | its string template |
-| 2 | `CountText` | `app/client/inv_render.h:47` | its string template |
-| 2 | `WrongTargetTypeIndicator` | `app/client/inv_render.h:91` | skill_render.cpp's, same model |
+| 2 | `LevelText` | `app/client/inv_render.h:47` | its string template |
+| 2 | `CountText` | `app/client/inv_render.h:48` | its string template |
+| 2 | `WrongTargetTypeIndicator` | `app/client/inv_render.h:84` | skill_render.cpp's, same model |
 | 2 | `ClientItemPropertyAttributeClass` | `app/client/item/client_item_property_attribute.h:67` | class from file (D24), client_item_property_attribute.h |
 | 2 | `ClientItemPropertyOptionClass` | `app/client/item/client_item_property_option.h:62` | class from file (D24), client_item_property_option.h |
 | 2 | `ClientItemPropertySpecialClass` | `app/client/item/client_item_property_special.h:76` | class from file (D24), client_item_property_special.h |
@@ -20149,16 +20268,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Active` | `app/client/intrface.h:157` | the FAIL_IF's |
 | 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:158` | the assert's |
 | 3 | `View` | `app/client/intrlist.cpp:18` | the FAIL_IF's |
-| 3 | `InvDataClass` | `app/client/inv_render.cpp:19` | Peek_Inv_Data, inv_data's __FILE__ 0xB90004; Client: the FAIL_IF at line 182 |
-| 3 | `SlotDataClass` | `app/client/inv_render.cpp:20` | slot_data_render.h's |
-| 3 | `_RomanNumerals` | `app/client/inv_render.cpp:31` | the assert at line 1107 |
+| 3 | `InvDataClass` | `app/client/inv_render.cpp:24` | Peek_Inv_Data, inv_data's __FILE__ 0xB90004; Client: the FAIL_IF at line 182 |
+| 3 | `SlotDataClass` | `app/client/inv_render.cpp:25` | slot_data_render.h's |
+| 3 | `_RomanNumerals` | `app/client/inv_render.cpp:39` | the assert at line 1107 |
 | 3 | `InvRenderClass` | `app/client/inv_render.h:27` | class-from-file (D24) for app\Client\inv_render.cpp |
-| 3 | `Peek_Inv_Data` | `app/client/inv_render.h:40` | the assert '!Peek_Inv_Data()->Get_Client()' |
-| 3 | `CannotUseIndicator` | `app/client/inv_render.h:50` | 0x68C2D0's assert |
-| 3 | `OnIndicator` | `app/client/inv_render.h:88` | 0x68DCC0's assert |
-| 3 | `OutOfAmmoIndicator` | `app/client/inv_render.h:89` | 0x68DCC0's assert |
-| 3 | `ValidityIndicator` | `app/client/inv_render.h:90` | 0x68DCC0's assert |
-| 3 | `RechargeIndicator` | `app/client/inv_render.h:92` | 0x68DCC0's assert |
+| 3 | `Peek_Inv_Data` | `app/client/inv_render.h:41` | the assert '!Peek_Inv_Data()->Get_Client()' |
+| 3 | `CannotUseIndicator` | `app/client/inv_render.h:51` | 0x68C2D0's assert |
+| 3 | `OnIndicator` | `app/client/inv_render.h:81` | 0x68DCC0's assert |
+| 3 | `OutOfAmmoIndicator` | `app/client/inv_render.h:82` | 0x68DCC0's assert |
+| 3 | `ValidityIndicator` | `app/client/inv_render.h:83` | 0x68DCC0's assert |
+| 3 | `RechargeIndicator` | `app/client/inv_render.h:85` | 0x68DCC0's assert |
+| 3 | `InvDataClass` | `app/client/inv_trade_render.cpp:17` | Peek_Inv_Data, inv_data's __FILE__ 0xB90004 |
+| 3 | `InvTradeRenderClass` | `app/client/inv_trade_render.h:22` | class-from-file (D24) for app\Client\inv_trade_render.cpp |
+| 3 | `DescriptionGroup` | `app/client/inv_trade_render.h:34` | DescriptionGroup, 0x6902E0's assert |
+| 3 | `CostText` | `app/client/inv_trade_render.h:35` | CostText, 0x6902E0's assert |
+| 3 | `StackText` | `app/client/inv_trade_render.h:36` | StackText, 0x6902E0's assert |
+| 3 | `OwnedText` | `app/client/inv_trade_render.h:37` | OwnedText, 0x6902E0's assert |
+| 3 | `OwnedTextValue` | `app/client/inv_trade_render.h:38` | OwnedTextValue, 0x6902E0's assert |
+| 3 | `USER_SELECT_NO` | `app/client/inv_transaction.cpp:12` | the asserts' |
+| 3 | `from_inv, from_slot, num, all` | `app/client/inv_transaction.cpp:120` | the FAIL_IFs; NAME 1 [to_inv, to_slot]: Unknown_690D20's packet |
+| 3 | `choice` | `app/client/inv_transaction.cpp:190` | the assert's |
+| 3 | `InvTransactionClass` | `app/client/inv_transaction.h:22` | class-from-file (D24) for app\Client\inv_transaction.cpp |
+| 3 | `View` | `app/client/inv_transaction.h:34` | the FAIL_IF '!View' |
+| 3 | `QuantityGadget` | `app/client/inv_transaction.h:35` | the FAIL_IF |
+| 3 | `DropQuery` | `app/client/inv_transaction.h:36` | the FAIL_IF |
+| 3 | `Num` | `app/client/inv_transaction.h:37` | the FAIL_IF's num |
+| 3 | `FromInv` | `app/client/inv_transaction.h:38` | the FAIL_IF's from_inv |
+| 3 | `FromSlot` | `app/client/inv_transaction.h:39` | the FAIL_IF's from_slot |
 | 3 | `client_item_property_attribute.h` | `app/client/item/client_item_property_attribute.h:16` | the client's __FILE__ 0xB7883C |
 | 3 | `client_item_property_option.h` | `app/client/item/client_item_property_option.h:16` | the client's __FILE__ 0xB78A58 |
 | 3 | `client_item_property_special.h` | `app/client/item/client_item_property_special.h:16` | the client's __FILE__ 0xB78B68 |

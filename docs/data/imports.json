@@ -10310,9 +10310,18 @@
     "expected": {},
     "in_tree": [
      "0x42A820",
+     "0x42A940",
+     "0x42A970",
      "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42CF30",
+     "0x42D120",
+     "0x42DB80",
      "0x42F250",
+     "0x4407B0",
      "0x45CC10",
+     "0x4CBA10",
      "0x68B410",
      "0x68B450",
      "0x68B470",
@@ -10359,6 +10368,7 @@
      "0x68E120",
      "0x68E340",
      "0x68EAE0",
+     "0x68EB10",
      "0x68FA30",
      "0x68FAE0",
      "0x68FB60",
@@ -10370,9 +10380,18 @@
     "name": "client/inv_render.cpp",
     "shared": [
      "0x42A820",
+     "0x42A940",
+     "0x42A970",
      "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42CF30",
+     "0x42D120",
+     "0x42DB80",
      "0x42F250",
+     "0x4407B0",
      "0x45CC10",
+     "0x4CBA10",
      "0x68B410",
      "0x68B450",
      "0x68B470",
@@ -10394,6 +10413,7 @@
      "0x68FC30"
     ],
     "short_known": [
+     "0x42D120",
      "0x68B410",
      "0x68B450",
      "0x68B470",
@@ -10415,6 +10435,87 @@
      "0x68D8E0",
      "0x68E340",
      "0x68FC30"
+    ]
+   },
+   "inv_trade_render": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42D120",
+     "0x42F250",
+     "0x6902E0"
+    ],
+    "merged": [],
+    "name": "client/inv_trade_render.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D050",
+     "0x42D120",
+     "0x42F250"
+    ],
+    "short_known": [
+     "0x42D120"
+    ]
+   },
+   "inv_transaction": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x52B350",
+     "0x690880",
+     "0x6908E0",
+     "0x690F80",
+     "0x690FA0",
+     "0x6910C0"
+    ],
+    "merged": [],
+    "name": "client/inv_transaction.cpp",
+    "shared": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x52B350",
+     "0x690F80"
+    ],
+    "short_known": [
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x690F80"
     ]
    },
    "kernel": {
@@ -33564,6 +33665,8 @@
    "client/interface_static_sort_list.h": "reconstructed",
    "client/intrface.h": "reconstructed",
    "client/inv_render.h": "reconstructed",
+   "client/inv_trade_render.h": "reconstructed",
+   "client/inv_transaction.h": "reconstructed",
    "client/item/client_item_property_attribute.h": "reconstructed",
    "client/item/client_item_property_option.h": "reconstructed",
    "client/item/client_item_property_special.h": "reconstructed",
@@ -33917,7 +34020,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11298,
+  "in_tree_total": 11304,
   "totals": {}
  },
  "binkmovie": {
