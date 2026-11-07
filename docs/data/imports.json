@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 106,
+  "ambiguous_total": 109,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -12484,28 +12484,53 @@
      "0x42B2F0",
      "0x4333D0",
      "0x436420",
-     "0x436730"
+     "0x436730",
+     "0x451060",
+     "0x451370",
+     "0x4513D0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x42F250",
      "0x4A0B70",
+     "0x7B7BA0",
      "0x7B7BF0",
      "0x7B7C30",
      "0x7B7C60",
      "0x7B7C80",
-     "0x7B81E0"
+     "0x7B7EF0",
+     "0x7B81E0",
+     "0x7B8210",
+     "0x7B8510",
+     "0x7B8880",
+     "0x7B8BF0",
+     "0x7B8E40",
+     "0x7B8E90",
+     "0x7B8ED0",
+     "0x7B8F10",
+     "0x7B8F50",
+     "0x7B91F0",
+     "0x7B9240",
+     "0x7B9280",
+     "0x7B95B0",
+     "0x7B96A0",
+     "0x7B9780"
     ],
     "merged": [],
     "name": "client/nav_list_builder.cpp",
     "shared": [
      "0x42F250",
-     "0x4A0B70"
+     "0x4A0B70",
+     "0x7B9280"
     ],
     "short_known": [
      "0x4A0B70",
-     "0x7B7C60"
+     "0x7B7C60",
+     "0x7B9280"
+    ],
+    "tiebreak": [
+     "0x7B9780"
     ]
    },
    "nlp": {
@@ -35253,7 +35278,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11625,
+  "in_tree_total": 11642,
   "totals": {}
  },
  "binkmovie": {

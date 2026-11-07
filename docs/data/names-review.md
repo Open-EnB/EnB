@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 157 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1542 |
-| 2 | describes what the code does | 3536 |
-| 1 | neutral placeholder | 17328 |
+| 2 | describes what the code does | 3547 |
+| 1 | neutral placeholder | 17338 |
 
 ## For review (score 3 and below)
 
@@ -4787,17 +4787,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE7C70` | `app/client/mousetbl.h:26` | neutral (D10) |
 | 1 | `Unknown_7228C0` | `app/client/mousetbl.h:28` | neutral (D10) |
 | 1 | `Unknown_723150` | `app/client/mousetbl.h:29` | neutral (D10) |
-| 1 | `Unknown1C` | `app/client/nav_list_builder.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown_7B7C80` | `app/client/nav_list_builder.cpp:21` | untagged neutral name (D10) |
-| 1 | `from, to` | `app/client/nav_list_builder.h:27` | FAIL_IF '!from' |
-| 1 | `Unknown_7B7C80` | `app/client/nav_list_builder.h:27` | untagged neutral name (D10) |
-| 1 | `range, from, to` | `app/client/nav_list_builder.h:28` | FAIL_IF '!co_from' |
-| 1 | `Unknown_7B7EF0` | `app/client/nav_list_builder.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/nav_list_builder.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_832010` | `app/client/nav_list_builder.cpp:11` | neutral: bit 0 within radius1, bit 1 within radius2 |
+| 1 | `NavLinkStruct` | `app/client/nav_list_builder.cpp:14` | neutral; the assert's 'link' |
+| 1 | `NavNodeStruct` | `app/client/nav_list_builder.cpp:23` | neutral; the asserts' 'nav_points' |
+| 1 | `Unknown1C` | `app/client/nav_list_builder.cpp:32` | neutral |
+| 1 | `Unknown_7B7C80` | `app/client/nav_list_builder.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_7B7EF0` | `app/client/nav_list_builder.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/nav_list_builder.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/nav_list_builder.cpp:282` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/nav_list_builder.cpp:287` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/nav_list_builder.cpp:302` | untagged neutral name (D10) |
+| 1 | `from, to` | `app/client/nav_list_builder.h:28` | FAIL_IF '!from' |
+| 1 | `Unknown_7B7C80` | `app/client/nav_list_builder.h:28` | untagged neutral name (D10) |
+| 1 | `range, to` | `app/client/nav_list_builder.h:29` | neutral; co_from: the FAIL_IF |
+| 1 | `Unknown_7B7EF0` | `app/client/nav_list_builder.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/nav_list_builder.h:37` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/navigation_data.h:26` | neutral (D10) |
-| 1 | `Unknown0C` | `app/client/navigation_data.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/navigation_data.h:28` | neutral (D10) |
-| 1 | `Unknown15` | `app/client/navigation_data.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/navigation_data.h:27` | neutral (D10) |
+| 1 | `Unknown0D` | `app/client/navigation_data.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/navigation_data.h:29` | neutral (D10) |
+| 1 | `Unknown14` | `app/client/navigation_data.h:30` | neutral (D10) |
+| 1 | `Unknown15` | `app/client/navigation_data.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/nlp.cpp:14` | neutral (D10), as eff_o.cpp's |
 | 1 | `Unknown_B9D668` | `app/client/nlp.cpp:17` | neutral (D10) |
 | 1 | `Unknown_78E190` | `app/client/nlp.cpp:21` | neutral (D10) |
@@ -18188,8 +18198,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `TargetPriority` | `app/client/mouse_targeting.h:41` | what it holds |
 | 2 | `TargetDistance` | `app/client/mouse_targeting.h:42` | what it holds |
 | 2 | `SelfPriority` | `app/client/mouse_targeting.h:43` | what it holds |
-| 2 | `client` | `app/client/nav_list_builder.h:24` | what it stores |
-| 2 | `Client` | `app/client/nav_list_builder.h:30` | what the constructor stores |
+| 2 | `Distance` | `app/client/nav_list_builder.cpp:19` | what it holds |
+| 2 | `Object` | `app/client/nav_list_builder.cpp:28` | what it holds |
+| 2 | `Radius` | `app/client/nav_list_builder.cpp:29` | what it holds |
+| 2 | `std:` | `app/client/nav_list_builder.cpp:30` | what it holds |
+| 2 | `Distance` | `app/client/nav_list_builder.cpp:31` | what it holds |
+| 2 | `Previous` | `app/client/nav_list_builder.cpp:33` | what it holds |
+| 2 | `client` | `app/client/nav_list_builder.h:25` | what it stores |
+| 2 | `Build_Nodes, range` | `app/client/nav_list_builder.h:30` | what it does; the rest the FAIL_IFs' |
+| 2 | `Link_Nodes, range1, range2` | `app/client/nav_list_builder.h:31` | what it does |
+| 2 | `Find_Path` | `app/client/nav_list_builder.h:32` | what it does |
+| 2 | `Add_Path, path` | `app/client/nav_list_builder.h:33` | what it does |
+| 2 | `Delete_Nodes` | `app/client/nav_list_builder.h:34` | what it does |
+| 2 | `Client` | `app/client/nav_list_builder.h:36` | what the constructor stores |
 | 2 | `Phrase` | `app/client/nlp.h:28` | the INI key |
 | 2 | `Context` | `app/client/nlp.h:29` | the INI keys |
 | 2 | `NLPLexiconClass` | `app/client/nlp.h:33` | the client's text 'NLPLexicon not initialized!' |
@@ -21138,7 +21159,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Interface` | `app/client/map_pip.h:62` | the FAIL_IF's |
 | 3 | `mouse_targeting.h` | `app/client/mouse_targeting.h:15` | header name assumed from the client's mouse_targeting.cpp |
 | 3 | `nav_list_builder.h` | `app/client/nav_list_builder.h:12` | header name assumed from the client's nav_list_builder.cpp |
-| 3 | `NavListBuilderClass` | `app/client/nav_list_builder.h:21` | class-from-file (D24) for nav_list_builder.cpp |
+| 3 | `NavListBuilderClass` | `app/client/nav_list_builder.h:22` | class-from-file (D24) for nav_list_builder.cpp |
 | 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
 | 3 | `nlp.h` | `app/client/nlp.h:13` | by convention from nlp.cpp |
 | 3 | `option.h` | `app/client/option.h:22` | header name assumed from the client's option.cpp |

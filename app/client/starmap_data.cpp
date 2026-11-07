@@ -151,7 +151,7 @@ bool StarmapDataClass::Update(RadarSystemDataCacheClass *cache, const Vector3 &p
 	}
 	NavigationDataClass *nav = cache->Get_Navigation_Data();
 	if (nav) {
-		if (nav->Unknown0C[0]) {
+		if (nav->Unknown0C) {
 			if (Unknown38) {
 				Set_Icon(Unknown_7BF4C0(co));
 				Get_Client()->ObjectsChanged = true;

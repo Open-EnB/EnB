@@ -24,7 +24,9 @@ public:
 	NavigationDataClass(ClientObjectClass *co);			// 0x7BA8B0 (navigation_data.cpp)
 
 	float Unknown08;					// +0x08: a range (radar_system_data_cache.cpp's 0x7BE3A0)  // NAME 1: neutral (D10)
-	char Unknown0C[0x14 - 0x0C];		// +0x0C: not rebuilt (0x18 bytes: co_data.cpp's new)
+	bool Unknown0C;						// +0x0C (starmap_data.cpp's 0x7BE970: false shows 'm_unknown'; 0x18 bytes: co_data.cpp's new)  // NAME 1: neutral (D10)
+	char Unknown0D[0x10 - 0x0D];		// +0x0D
+	int Unknown10;						// +0x10 (nav_list_builder.cpp's 0x7B8210: 1 makes the object a node of the search)  // NAME 1: neutral (D10)
 	bool Unknown14;						// +0x14 (0x7BE3A0: in range whatever the distance)  // NAME 1: neutral (D10)
 	char Unknown15[0x18 - 0x15];		// +0x15
 };
