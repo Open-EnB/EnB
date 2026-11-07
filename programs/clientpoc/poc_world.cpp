@@ -48,18 +48,7 @@ BridgeInterfaceClass::~BridgeInterfaceClass()
 {
 }
 
-// ---------------------------------------------------------------- camera_manager.cpp (0x798D20, 0x792320-0x79BB80's modules): 0x4C bytes, zero
-class CameraManagerClass
-{
-public:
-	CameraManagerClass(SClient *client);
-	char Unknown00[0x4C];
-};
-CameraManagerClass::CameraManagerClass(SClient *client)
-{
-	STUB_CALLED("POC CameraManagerClass: zero");
-	memset(this, 0, sizeof(*this));
-}
+// camera_manager.cpp is real app code (camera_manager.h; its stand-in left here since CM2).
 
 // ---------------------------------------------------------------- enbscene.cpp's scene (0x75ECF0, 0xF4 bytes; its base 0x494EE0 is claimed): a plain SimpleSceneClass
 #include "..\..\ww3d2\scene.h"
@@ -125,76 +114,9 @@ MainViewUnknown1DCClass::MainViewUnknown1DCClass(MainViewClass *view, SimpleScen
 	STUB_CALLED("POC MainViewUnknown1DCClass: an empty window");
 }
 
-// ---------------------------------------------------------------- ui_mesh.cpp (0x5B8120-0x5BA4C0, not rebuilt yet): the model only, no animations
+// ui_mesh.cpp (0x5B8120-0x5BA4C0) is real app code since UM1: its stand-in left here.
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\rendobj.h"
-UIMeshClass::UIMeshClass(const char *name, int arg)
-{
-	STUB_CALLED("POC UIMeshClass: the model, no animations");
-	memset(this, 0, sizeof(*this));
-	Unknown_5B8850(name, arg != 0);
-}
-UIMeshClass::UIMeshClass(const char *name, ClientClass *client)
-{
-	STUB_CALLED("POC UIMeshClass: the model, no animations");
-	memset(this, 0, sizeof(*this));
-	Unknown_5B8850(name, false);
-}
-UIMeshClass::~UIMeshClass()
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Remove();
-		Unknown1C->Release_Ref();
-		Unknown1C = NULL;
-	}
-}
-void UIMeshClass::Unknown_5B8850(const char *name, bool arg)
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Remove();
-		Unknown1C->Release_Ref();
-		Unknown1C = NULL;
-	}
-	if (name != NULL) {
-		Unknown1C = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
-		if (Unknown1C == NULL) {
-			STUB_CALLED("POC UIMeshClass: a model was not found");
-		}
-	}
-}
-RenderObjClass *UIMeshClass::Peek_Object()
-{
-	return(Unknown1C);
-}
-RenderObjClass *UIMeshClass::Unknown_5B8B20()
-{
-	Unknown1C->Add_Ref();
-	return(Unknown1C);
-}
-RenderObjClass *UIMeshClass::Unknown_5B8B40(const char *name)
-{
-	return(Unknown1C != NULL ? Unknown1C->Get_Sub_Object_By_Name(name) : NULL);
-}
-void UIMeshClass::Unknown_5B9100(const char *bone_name, RenderObjClass *object)
-{
-	Unknown1C->Add_Sub_Object_To_Bone(object, bone_name);
-}
-void UIMeshClass::Unknown_5B9130(const char *bone_name, UIMeshClass *child)
-{
-	Unknown1C->Add_Sub_Object_To_Bone(child->Unknown1C, bone_name);
-}
-void UIMeshClass::Unknown_5B9290(SimpleSceneClass *scene)
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Add(scene);
-	}
-}
-void UIMeshClass::Unknown_5B92B0()
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Remove();
-	}
-}
 
 // ---------------------------------------------------------------- the interface base over a mesh and a layer (0x5BB250-0x5BB6B0)
 Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, SClient *client) : InterfaceClass((LineDisplayClientClass *)client), InterfaceMesh(mesh)
