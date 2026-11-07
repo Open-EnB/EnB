@@ -32,6 +32,7 @@ public:
 	void Unknown_4F34C0(INIClass &ini);				// 0x4F34C0 (0x513700: orbital%04d.ini when it loaded)  // NAME 1 [ini]: what it gets
 	bool Unknown_4F37C0(INIClass *ini);				// 0x4F37C0 (light_sector%04d.ini, else ini's [LIGHTS] / [PICKER])  // NAME 1 [ini]: neutral
 	void Unknown_4F38E0(INIClass &ini);				// 0x4F38E0 ([LIGHTS] and [PICKER])  // NAME 1 [ini]: neutral
+	void Unknown_4F3EF0();								// 0x4F3EF0 (writes them to light_sector%04d.ini: the light editor 0x586800)
 	float Get_Unknown54() const { return(Unknown54); }	// (inline: the main view's 0x50CCF0 copies it through the FPU)  // NAME 1: neutral (D10): the member it returns
 
 	void Update(CameraClass *camera, float time, bool planet);	// 0x4F45A0 (the main view's Update unless its +0x168 is set: the hours, view mode 1)  // NAME 1 [camera, time, planet]: what Update passes

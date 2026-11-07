@@ -384,16 +384,19 @@ void OrbitalManager::Unknown_4F34C0(INIClass &ini)
 
 
 
-// NOT EXACT: the loaded branch: a jmp past the NULL test in the client, a setcc-like join here (similarity 0.84)
+
 bool OrbitalManager::Unknown_4F37C0(INIClass *ini)
 {
 	G_ASSERT(ViewInterface);
 	char filename[64];
 	_snprintf(filename, sizeof(filename), "light_sector%04d.ini", ViewInterface->Unknown_04());
 	INIClass light_ini(filename);
-	INIClass *src = light_ini.Is_Loaded() ? &light_ini : ini;
-	if (src != NULL) {
-		Unknown_4F38E0(*src);
+	if (light_ini.Is_Loaded()) {
+		Unknown_4F38E0(light_ini);
+		return(true);
+	}
+	if (ini != NULL) {
+		Unknown_4F38E0(*ini);
 		return(true);
 	}
 	return(false);
@@ -452,6 +455,62 @@ void OrbitalManager::Unknown_4F38E0(INIClass &ini)
 }
 
 
+void OrbitalManager::Unknown_4F3EF0()
+{
+	INIClass ini;
+	ini.Put_Float("LIGHTS", "KEYR", Unknown88[0].X);
+	ini.Put_Float("LIGHTS", "KEYG", Unknown88[0].Y);
+	ini.Put_Float("LIGHTS", "KEYB", Unknown88[0].Z);
+	ini.Put_Float("LIGHTS", "KEYI", Unknown88[0].W);
+	ini.Put_Float("LIGHTS", "KEYX", UnknownD8[0].X);
+	ini.Put_Float("LIGHTS", "KEYY", UnknownD8[0].Y);
+	ini.Put_Float("LIGHTS", "KEYZ", UnknownD8[0].Z);
+	ini.Put_Float("LIGHTS", "RKEYR", Unknown88[1].X);
+	ini.Put_Float("LIGHTS", "RKEYG", Unknown88[1].Y);
+	ini.Put_Float("LIGHTS", "RKEYB", Unknown88[1].Z);
+	ini.Put_Float("LIGHTS", "RKEYI", Unknown88[1].W);
+	ini.Put_Float("LIGHTS", "RKEYX", UnknownD8[1].X);
+	ini.Put_Float("LIGHTS", "RKEYY", UnknownD8[1].Y);
+	ini.Put_Float("LIGHTS", "RKEYZ", UnknownD8[1].Z);
+	ini.Put_Float("LIGHTS", "CAMERAR", Unknown88[2].X);
+	ini.Put_Float("LIGHTS", "CAMERAG", Unknown88[2].Y);
+	ini.Put_Float("LIGHTS", "CAMERAB", Unknown88[2].Z);
+	ini.Put_Float("LIGHTS", "CAMERAI", Unknown88[2].W);
+	ini.Put_Float("LIGHTS", "CAMERAX", UnknownD8[2].X);
+	ini.Put_Float("LIGHTS", "CAMERAY", UnknownD8[2].Y);
+	ini.Put_Float("LIGHTS", "CAMERAZ", UnknownD8[2].Z);
+	ini.Put_Float("LIGHTS", "RCAMERAR", Unknown88[3].X);
+	ini.Put_Float("LIGHTS", "RCAMERAG", Unknown88[3].Y);
+	ini.Put_Float("LIGHTS", "RCAMERAB", Unknown88[3].Z);
+	ini.Put_Float("LIGHTS", "RCAMERAI", Unknown88[3].W);
+	ini.Put_Float("LIGHTS", "RCAMERAX", UnknownD8[3].X);
+	ini.Put_Float("LIGHTS", "RCAMERAY", UnknownD8[3].Y);
+	ini.Put_Float("LIGHTS", "RCAMERAZ", UnknownD8[3].Z);
+	ini.Put_Float("LIGHTS", "AMBIENTR", Unknown88[4].X);
+	ini.Put_Float("LIGHTS", "AMBIENTG", Unknown88[4].Y);
+	ini.Put_Float("LIGHTS", "AMBIENTB", Unknown88[4].Z);
+	ini.Put_Float("LIGHTS", "AMBIENTI", Unknown88[4].W);
+	ini.Put_Float("PICKER", "PKX", Unknown114[0].X);
+	ini.Put_Float("PICKER", "PKY", Unknown114[0].Y);
+	ini.Put_Float("PICKER", "PKZ", Unknown114[0].Z);
+	ini.Put_Float("PICKER", "PRKX", Unknown114[1].X);
+	ini.Put_Float("PICKER", "PRKY", Unknown114[1].Y);
+	ini.Put_Float("PICKER", "PRKZ", Unknown114[1].Z);
+	ini.Put_Float("PICKER", "PCX", Unknown114[2].X);
+	ini.Put_Float("PICKER", "PCY", Unknown114[2].Y);
+	ini.Put_Float("PICKER", "PCZ", Unknown114[2].Z);
+	ini.Put_Float("PICKER", "PRCX", Unknown114[3].X);
+	ini.Put_Float("PICKER", "PRCY", Unknown114[3].Y);
+	ini.Put_Float("PICKER", "PRCZ", Unknown114[3].Z);
+	ini.Put_Float("PICKER", "PAX", Unknown114[4].X);
+	ini.Put_Float("PICKER", "PAY", Unknown114[4].Y);
+	ini.Put_Float("PICKER", "PAZ", Unknown114[4].Z);
+	char filename[64];
+	_snprintf(filename, sizeof(filename), "light_sector%04d.ini", ViewInterface->Unknown_04());
+	ini.Save(filename);
+}
+
+
 // NOT EXACT: from the pseudocode (similarity 0.54)
 void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 {
@@ -476,14 +535,14 @@ void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 				Vector3 center = sphere.Center;
 				float radius = sphere.Radius * 0.6f;
 				int blocked = 0;
-				Vector2 *sample = Unknown150;
-				for (int i = 0; i < 16; i++, sample++) {
+				for (int i = 0; i < 16; i++) {
+					float angle = Unknown150[i].X * (WWMATH_PI * 2.0f);
 					CastResultStruct result;
-					float r = WWMath::Sqrt((1.0f - sample->Y) * sample->Y);
-					float d = r * radius + r * radius;
-					float s = sinf(sample->X * WWMATH_PI * 2);
-					float c = cosf(sample->X * WWMATH_PI * 2);
-					Vector3 point(c * d + center.X, s * d + center.Y, center.Z + (1.0f - (sample->Y + sample->Y)) * radius);
+					float r = WWMath::Sqrt((1.0f - Unknown150[i].Y) * Unknown150[i].Y);
+					float d = r * radius * 2.0f;
+					float s = sinf(angle);
+					float c = cosf(angle);
+					Vector3 point = center + Vector3(c * d, s * d, (1.0f - 2.0f * Unknown150[i].Y) * radius);
 					LineSegClass ray(camera->Get_Position(), point);
 					for (std::vector<OrbitalObject *>::iterator other = Orbitals.begin(); other != Orbitals.end(); other++) {
 						if (orb != *other) {
@@ -509,14 +568,16 @@ void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 			}
 			if (orb->Unknown68 > 0.0f) {
 				bool is_sun = false;
-				float bright = orb->LightValue.Length2() * orb->Unknown6C * orb->Unknown68;
-				if (!Unknown4C) {
+				float bright = orb->LightValue.Length2() * orb->Unknown68 * orb->Unknown6C;
+				if (Unknown4C) {
+					if (brightest < bright) {
+						brightest = bright;
+						is_sun = true;
+					}
+				} else {
+					brightest = bright;
 					Unknown4C = true;
 					is_sun = true;
-					brightest = bright;
-				} else if (brightest < bright) {
-					is_sun = true;
-					brightest = bright;
 				}
 				Vector3 sky;
 				SkyColor[0]->Evaluate(orb->Time, &sky.X);
@@ -562,72 +623,11 @@ void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 				Unknown_75B8F0(orb->Object, dir, camera->Get_Position());
 			}
 		} else {
-			Unknown_75B7B0(orb->Object, time * orb->PhasePerHour);
+			float phase = time * orb->PhasePerHour;
+			Unknown_75B7B0(orb->Object, phase);
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -785,6 +785,5 @@ void OrbitalManager::Unknown_4F51C0(int index, const Vector3 &value)
 **	vector<OrbitalObject *> instantiations 0x4F5200 (destructor), 0x4F5240 (_Destroy), 0x4F5260 (insert),
 **	0x4F5500 (copy). Profile labels 'OrbitalObject::Update', 'OrbitalManager::Update' (WWPROFILE, as cordmgr.cpp).
 **	The INI keys of orbital%04d.ini's [ORBITALS] / [ORBITAL%3.3d] and light_sector%04d.ini's [LIGHTS] / [PICKER]
-**	name the members. Not built: 0x4F3EF0 (writes [LIGHTS] / [PICKER] back to light_sector%04d.ini; the light
-**	editor's 0x586800 calls it).
+**	name the members. 0x4F3EF0 writes [LIGHTS] / [PICKER] back to light_sector%04d.ini (the light editor 0x586800).
 */
