@@ -141,40 +141,4 @@ void Poc_Start_Watchdog()
 	CreateThread(NULL, 0, Poc_Watchdog, NULL, 0, &id);
 }
 
-// ---------------------------------------------------------------- 0x6BB7E0 / 0x6BB8B0: co.cpp's render hook (vtable 0xB007A4; file unknown, after debris.cpp)
-// The generated stand-in of Pre_Render answers false, which skips every model Set_Model 0x6F33F0 hooks: the
-// player's ship drew nothing. Written from the pseudocode (WE3); the static-sort branch (a flagged pass whose
-// shader's +0x28 & 0xE0 is set while sorting is on goes to WW3D::Add_To_Static_Sort_List and answers false) is left out.
-#include <list>
-#include "..\..\ww3d2\rendobj.h"
-#include "..\..\ww3d2\rinfo.h"
-class MaterialPassClass;
-struct UnknownB007A4PassStruct
-{
-	MaterialPassClass *Pass;
-	bool Unknown04;
-};
-class UnknownB007A4Class : public RenderHookClass
-{
-public:
-	virtual bool Pre_Render(RenderObjClass *robj, RenderInfoClass &rinfo);
-	virtual void Post_Render(RenderObjClass *robj, RenderInfoClass &rinfo);
-	std::list<UnknownB007A4PassStruct> Passes;
-};
-bool UnknownB007A4Class::Pre_Render(RenderObjClass *robj, RenderInfoClass &rinfo)
-{
-	STUB_CALLED("POC UnknownB007A4Class::Pre_Render (0x6BB7E0): the passes, no static sort");
-	if (Passes.size() != 0) {
-		const UnknownB007A4PassStruct &pass = Passes.front();
-		rinfo.Push_Material_Pass(pass.Pass);
-		rinfo.Push_Override_Flags((RenderInfoClass::RINFO_OVERRIDE_FLAGS)(rinfo.Current_Override_Flags() | (pass.Unknown04 ? 4 : 0)));
-	}
-	return(true);
-}
-void UnknownB007A4Class::Post_Render(RenderObjClass *robj, RenderInfoClass &rinfo)
-{
-	if (Passes.size() != 0) {
-		rinfo.Pop_Override_Flags();
-		rinfo.Pop_Material_Pass();
-	}
-}
+// co.cpp's render hook 0x6BB7E0 / 0x6BB8B0 is real app code since WE5 (app/client/unknown_6bb7e0.cpp).
