@@ -302,7 +302,7 @@ public:
 	bool Unknown11C;			// +0x11C
 	bool Unknown11D;			// +0x11D (0x5FB9F0: with state 0; the constructor sets it with state 0x17)
 	bool Unknown11E;			// +0x11E
-	RefCountPtr<RenderObjClass> FontId;  // NAME 1 [FontId]: +0x120 (the page's model, the font manager's key; destructor 0x4740B0)
+	RefCountPtr<RenderObjClass> DialogRenderObj;  // NAME 1 [DialogRenderObj]: +0x120 (the page's model, the font manager's key; destructor 0x4740B0)
 	struct tm Unknown124;		// +0x124: today (the constructor's gmtime)
 	int Unknown148;				// +0x148: the text field with the focus (0x5F8CD0)
 	Sub14CImplClass Sub14C;   // NAME 1 [Sub14C]: +0x14C

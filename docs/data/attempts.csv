@@ -2184,3 +2184,5 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-06 19:56,0x7B71B0,GutterRadarClass::Clear_Mouse_Target,app/client/gutter_radar.cpp,app,exact,,1,,"D99: 8 bytes, too short for the matcher; appfile match EXACT at its marker",,claude-opus-5-5
 2026-11-06 20:20,0x84C060,"Value_To_String(char *, int, TargetGeneratorSummaryBF)",app/common/target_generator_summary.cpp,app,exact,,2,,pointer loop over the table (the index form leaves jl where the client has jb),,Opus 5.5
 2026-11-06 20:32,0x84BE60,"String_To_Value(const char *, TargetGeneratorSummaryBF *)",app/common/target_generator_summary.cpp,app,partial,0.64,14,inline-budget,"the temporary string's _Eos out of line in the client, value in ebx; tried: order of found and *value, index vs pointer loop, reference local for the bits, *value | flag, named copy of the temporary, implicit conversion",,Opus 5.5
+2026-11-06 21:45,0x5F0F10,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,members' implicit dtors,,opus
+2026-11-06 21:45,0x5F2280,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,functional,,opus

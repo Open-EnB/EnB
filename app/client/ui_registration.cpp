@@ -32,15 +32,82 @@
 #include "fontdatabase.h"
 #include "fontsys_cursor.h"
 #include "local_interface_sort.h"
+#include "tutorial_manager.h"
 #define __UI_REGISTRATION_MEMBERS
 #include "ui_registration.h"
 extern FontManagerClass *Unknown_BE67C4;  // NAME 1: 0xBE67C4
+
+// What the text gadgets get by field (their dynamic initializers open the object, 0x5EED20-0x5EF0A0), and the characters they also allow (client .data 0xB85ECC)
+extern const int Unknown_B08C90;  // NAME 1 [Unknown_B08C90]: 0xB08C90 (textgadg.h's flags)
+extern const int Unknown_B08C94;  // NAME 1 [Unknown_B08C94]: 0xB08C94 (textgadg.h's flags)
+extern const int Unknown_B08C98;  // NAME 1 [Unknown_B08C98]: 0xB08C98 (textgadg.h's flags)
+extern const int Unknown_B08C9C;  // NAME 1 [Unknown_B08C9C]: 0xB08C9C (textgadg.h's flags)
+extern const int Unknown_B08CA0;  // NAME 1 [Unknown_B08CA0]: 0xB08CA0 (textgadg.h's flags)
+extern const int Unknown_B08CB4;  // NAME 1 [Unknown_B08CB4]: 0xB08CB4 (textgadg.h's flags)
+static const int Unknown_BE5DC8 = Unknown_B08CB4 | Unknown_B08CB8 | Unknown_B08CA0 | Unknown_B08CAC;  // NAME 1 [Unknown_BE5DC8]: 0xBE5DC8
+static const int Unknown_BE5DC4 = Unknown_B08CB8 | Unknown_B08CA0 | Unknown_B08CAC;  // NAME 1 [Unknown_BE5DC4]: 0xBE5DC4
+static const int Unknown_BE5DE4 = Unknown_B08CB8 | Unknown_B08CB4 | Unknown_B08CA0 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DE4]: 0xBE5DE4
+static const int Unknown_BE5DCC = Unknown_B08C98 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DCC]: 0xBE5DCC
+static const int Unknown_BE5DA8 = Unknown_B08CB8 | Unknown_B08CB4 | Unknown_B08C9C | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DA8]: 0xBE5DA8
+static const int Unknown_BE5DB4 = Unknown_B08C90 | Unknown_B08C9C | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DB4]: 0xBE5DB4
+static const int Unknown_BE5DA4 = Unknown_B08C9C | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DA4]: 0xBE5DA4
+static const int Unknown_BE5DBC = Unknown_B08C90 | Unknown_B08CB8 | Unknown_B08C98 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DBC]: 0xBE5DBC
+static const int Unknown_BE5DD4 = Unknown_B08C90 | Unknown_B08CB8 | Unknown_B08CA0 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DD4]: 0xBE5DD4
+static const int Unknown_BE5DD8 = Unknown_B08CB8 | Unknown_B08CB4 | Unknown_B08CA0 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DD8]: 0xBE5DD8
+static const int Unknown_BE5DB8 = Unknown_B08C90 | Unknown_B08CA0 | Unknown_B08CAC;  // NAME 1 [Unknown_BE5DB8]: 0xBE5DB8
+static const int Unknown_BE5DAC = Unknown_B08CB8 | Unknown_B08C94 | Unknown_B08CA0 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DAC]: 0xBE5DAC
+static const int Unknown_BE5DD0 = Unknown_B08C98 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DD0]: 0xBE5DD0
+static const int Unknown_BE5DC0 = Unknown_B08C90 | Unknown_B08CA0 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DC0]: 0xBE5DC0
+static const int Unknown_BE5DB0 = Unknown_B08C98 | Unknown_B08CB0;  // NAME 1 [Unknown_BE5DB0]: 0xBE5DB0
+static const int Unknown_BE5DE0 = Unknown_BE5DC8;  // NAME 1 [Unknown_BE5DE0]: 0xBE5DE0
+static const int Unknown_BE5DDC = (Unknown_BE5DAC & ~Unknown_B08CB0) | Unknown_B08CAC;  // NAME 1 [Unknown_BE5DDC]: 0xBE5DDC
+static const char *Unknown_B85ECC = "()-";  // NAME 1 [Unknown_B85ECC]: client .data 0xB85ECC
+static const char *Unknown_B85ED0 = "@.-_";  // NAME 1 [Unknown_B85ED0]: client .data 0xB85ED0
+static const char *Unknown_B85ED4 = "#.-";  // NAME 1 [Unknown_B85ED4]: client .data 0xB85ED4
+static const char *Unknown_B85ED8 = "-";  // NAME 1 [Unknown_B85ED8]: client .data 0xB85ED8
+static const char *Unknown_B85EDC = ",";  // NAME 1 [Unknown_B85EDC]: client .data 0xB85EDC
 
 static const char *ProductEB = "EB";  // NAME 1 [ProductEB]: client .data 0xB85EE0 (0x5FA0B0 compares +0x10 with it)
 static const char *ProductTrial = "EB-TRIAL";  // NAME 1 [ProductTrial]: client .data 0xB85EF4 (0x5FA0B0)
 static const char *RegDataFile = "RG_REGDATA.INI";  // NAME 1 [RegDataFile]: client .data 0xB85EF8 (0x5F8FD0's INIClass)
 static const char *RegistrationKey = "Software\\Westwood Studios\\Earth and Beyond\\Registration";  // NAME 1 [RegistrationKey]: client .data 0xB85EFC
 static const char *RegistrationServerError = "Could not communicate with registration server.\nPlease try again later.";  // NAME 1 [RegistrationServerError]: client .data 0xB85F00
+
+// The screen's pages by state (client .data 0xB85F08: the model, its font file)
+struct RegistrationPageStruct  // NAME 1 [RegistrationPageStruct]: neutral (D10)
+{
+	const char *Name;			// NAME 1 [Name]: 'RG_A1'
+	const char *Ini;			// NAME 1 [Ini]: 'rg_a1.ini'
+};
+static const RegistrationPageStruct RegistrationPages[] = {  // NAME 1 [RegistrationPages]: client .data 0xB85F08
+	{ "RG_A1", "rg_a1.ini" },
+	{ "RG_A2", "rg_a2.ini" },
+	{ "RG_A3", "rg_a3.ini" },
+	{ "RG_A5", "rg_a5.ini" },
+	{ "RG_A6", "rg_a6.ini" },
+	{ "RG_A7", "rg_a7.ini" },
+	{ "RG_A10", "rg_a10.ini" },
+	{ "RG_A8", "rg_a8.ini" },
+	{ "RG_A9", "rg_a9.ini" },
+	{ "RG_B1", "rg_b1.ini" },
+	{ "RG_C1", "rg_c1.ini" },
+	{ "RG_D1", "rg_D1.ini" },
+	{ "RG_D3", "rg_D3.ini" },
+	{ "RG_D4", "rg_D4.ini" },
+	{ "RG_F1", "rg_F1.ini" },
+	{ "RG_C2", "rg_c2.ini" },
+	{ "RG_C3", "rg_c3.ini" },
+	{ "RG_E1", "rg_e1.ini" },
+	{ "RG_G1", "rg_G1.ini" },
+	{ "RG_I1", "rg_I1.ini" },
+	{ "RG_K1", "rg_K1.ini" },
+	{ "RG_X2", "rg_X2.ini" },
+	{ "RG_X1", "rg_X1.ini" },
+	{ "RG_X3", "rg_X3.ini" },
+	{ "None", "None" },
+};
+
+static const char *RegistrationMonths[] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", 0 };  // NAME 1 [RegistrationMonths]: client .data 0xB85FD0 (combo box 0x14)
 
 static const char *StatusStrings[] = {  // NAME 1 [StatusStrings]: client .data 0xB86004
 	"Please Wait...",
@@ -92,6 +159,7 @@ extern FontStringFilesClass *Unknown_BE67BC;  // NAME 1: 0xBE67BC (fontdatabase.
 extern const int Unknown_B08CBC;  // NAME 1 [Unknown_B08CBC]: 0x800, what 0x5F2D30 adds to the text gadgets' flags
 extern const int Unknown_B08CC0;  // NAME 1 [Unknown_B08CC0]: 0x1000
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
+void Unknown_Debug_Printf(const char *format, ...);
 class RegistrationSettingsClass { public: void Unknown_7CB240(int a); void Unknown_7CB2E0(const char *url, int a); };  // NAME 1 [RegistrationSettingsClass, a, url]: as ui_login.cpp's
 
 static const char *RegistrationSubscribeURL = "https://jump-subs.ea.com/SubscribeEntry.jsp?prodID=REG-EB&iPath=3&CancelURL=http%3A%2F%2Fwww.earthandbeyond.ea.com%2F";  // NAME 1 [RegistrationSubscribeURL]: the literal 0xB8139C (0x5F2280)
@@ -110,79 +178,11 @@ class RegistrationKeyListClass { public: void Add(const RegistrationKeyStruct &c
 class RegistrationFontClass : public FontSys { public: void Unknown_6D5EF0(bool on); };  // NAME 1 [RegistrationFontClass, on]: neutral (D10): 0x6D5EF0 (0x5F8DB0)
 static const int CardDoubled[10] = { 0, 2, 4, 6, 8, 1, 3, 5, 7, 9 };  // NAME 1 [CardDoubled]: client .rdata 0xAF6F88 (0x603820: a digit doubled, Luhn)
 
-// The screen's pages by state (client .data 0xB85F08: the model, its font file)
-struct RegistrationPageStruct  // NAME 1 [RegistrationPageStruct]: neutral (D10)
-{
-	const char *Name;			// NAME 1 [Name]: 'RG_A1'
-	const char *Ini;			// NAME 1 [Ini]: 'rg_a1.ini'
-};
-static const RegistrationPageStruct RegistrationPages[] = {  // NAME 1 [RegistrationPages]: client .data 0xB85F08
-	{ "RG_A1", "rg_a1.ini" },
-	{ "RG_A2", "rg_a2.ini" },
-	{ "RG_A3", "rg_a3.ini" },
-	{ "RG_A5", "rg_a5.ini" },
-	{ "RG_A6", "rg_a6.ini" },
-	{ "RG_A7", "rg_a7.ini" },
-	{ "RG_A10", "rg_a10.ini" },
-	{ "RG_A8", "rg_a8.ini" },
-	{ "RG_A9", "rg_a9.ini" },
-	{ "RG_B1", "rg_b1.ini" },
-	{ "RG_C1", "rg_c1.ini" },
-	{ "RG_D1", "rg_D1.ini" },
-	{ "RG_D3", "rg_D3.ini" },
-	{ "RG_D4", "rg_D4.ini" },
-	{ "RG_F1", "rg_F1.ini" },
-	{ "RG_C2", "rg_c2.ini" },
-	{ "RG_C3", "rg_c3.ini" },
-	{ "RG_E1", "rg_e1.ini" },
-	{ "RG_G1", "rg_G1.ini" },
-	{ "RG_I1", "rg_I1.ini" },
-	{ "RG_K1", "rg_K1.ini" },
-	{ "RG_X2", "rg_X2.ini" },
-	{ "RG_X1", "rg_X1.ini" },
-	{ "RG_X3", "rg_X3.ini" },
-	{ "None", "None" },
-};
-
 static inline RegistrationUnknown1ACClass *Get_Unknown1AC()  // NAME 1 [Get_Unknown1AC]: 0xBDA960, inlined in 0x5EF0B0
 {
 	static RegistrationUnknown1ACClass instance;
 	return(&instance);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -431,7 +431,7 @@ void RegistrationInterface::Unknown_60()
 			frame = 0.0f;
 		}
 		Unknown1BC->Set_Frame(0, frame);
-		FontId->Update_Sub_Object_Transforms();
+		DialogRenderObj->Update_Sub_Object_Transforms();
 	}
 	if (Unknown1C4 != 0 && --Unknown1C4 == 0) {
 		int width;
@@ -439,7 +439,7 @@ void RegistrationInterface::Unknown_60()
 		int bits;
 		bool windowed;
 		WW3D::Get_Device_Resolution(width, height, bits, windowed);
-		RenderObjClass *label = FontId->Get_Sub_Object_By_Name("LABEL_TEXT");
+		RenderObjClass *label = DialogRenderObj->Get_Sub_Object_By_Name("LABEL_TEXT");
 		Unknown_7CA2D0()->Unknown_7CA5C0(4, label, NULL);
 		UnknownC0->Unknown0018->Unknown_5153B0();
 		label->Release_Ref();
@@ -458,7 +458,7 @@ void RegistrationInterface::Unknown_5F1940()
 			frame = 0.0f;
 		}
 		Unknown1BC->Set_Frame(0, frame);
-		FontId->Update_Sub_Object_Transforms();
+		DialogRenderObj->Update_Sub_Object_Transforms();
 	}
 }
 
@@ -549,7 +549,7 @@ bool RegistrationInterface::Unknown_68(int key)
 				Unknown270.Unknown48 = entry.Unknown48;
 				Unknown270.Unknown4C = entry.Unknown4C;
 				const char *text = Unknown578[Unknown384].Unknown34.c_str();
-				ManagedFontClass *font = Unknown_BE67C4->Find(FontId.Peek());
+				ManagedFontClass *font = Unknown_BE67C4->Find(DialogRenderObj.Peek());
 				if (font) {
 					font->Unknown_6D0A70("WRAP_LABEL_DESC_RG_F1", text);
 					return false;
@@ -561,7 +561,7 @@ bool RegistrationInterface::Unknown_68(int key)
 				Unknown388 = Unknown108[0x2A].Combo->Selected;
 				Unknown38C = Unknown598[Unknown388];
 				const char *text = PaymentTypeTexts[Unknown38C];
-				ManagedFontClass *font = Unknown_BE67C4->Find(FontId.Peek());
+				ManagedFontClass *font = Unknown_BE67C4->Find(DialogRenderObj.Peek());
 				if (font) {
 					font->Unknown_6D0A70("WRAP_EXPLAIN_TEXT_RG_D1", text);
 					return false;
@@ -747,7 +747,7 @@ void RegistrationInterface::Unknown_5F2990(bool on)
 	while (button != UnknownE8.end()) {
 		(*button).second.Gadget->Unknown_40(on);
 		if ((*button).second.Style) {
-			RenderObjClass *model = !(*button).second.InFrame ? FontId.Peek() : UnknownBC->Peek_Model();
+			RenderObjClass *model = !(*button).second.InFrame ? DialogRenderObj.Peek() : UnknownBC->Peek_Model();
 			FontSys *style = Unknown_BE67C4->Get_Style((*button).second.Style, model);
 			if (style) {
 				style->Unknown_Set_2FC(on ? 1.0f : 0.33f);
@@ -888,7 +888,7 @@ void RegistrationInterface::Unknown_5F2A80(int on, UIComboBoxClass *except)
 // @0x5F2B20
 void RegistrationInterface::Unknown_5F2B20(int id, const char *name, const char *style, unsigned short key, unsigned short group, bool in_frame)
 {
-	RenderObjClass *robj = !in_frame ? FontId->Get_Sub_Object_By_Name(name) : UnknownBC->Peek_Model()->Get_Sub_Object_By_Name(name);
+	RenderObjClass *robj = !in_frame ? DialogRenderObj->Get_Sub_Object_By_Name(name) : UnknownBC->Peek_Model()->Get_Sub_Object_By_Name(name);
 	G_ASSERT(robj);
 	Unknown_496AE0(robj, false);
 	ButtonGadgetClass *gadget = new ButtonGadgetClass(robj, *Layer, 5, 3);
@@ -920,7 +920,7 @@ void RegistrationInterface::Unknown_5F2D30(int id, const char *name, const char 
 	value.Unknown08 = (int)style;
 	value.Unknown0C = (int)name;
 	value.Unknown10 = next;
-	TextGadgetClass *gadget = new TextGadgetClass(this, length, style, FontId.Peek(), flags | Unknown_B08CBC | Unknown_B08CC0, chars);
+	TextGadgetClass *gadget = new TextGadgetClass(this, length, style, DialogRenderObj.Peek(), flags | Unknown_B08CBC | Unknown_B08CC0, chars);
 	value.Gadget = gadget;
 	gadget->Cursor->Set_Color(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 	gadget->Unknown_28(Layer);
@@ -938,7 +938,7 @@ void RegistrationInterface::Unknown_5F2F90(int id, const char *name, int a, int 
 	RegistrationComboStruct value;
 	value.Unknown04 = id;
 	value.Unknown08 = (int)name;
-	value.Combo = new UIComboBoxClass(this, Layer, FontId.Peek(), name, id, 0x30, a, b, 0);
+	value.Combo = new UIComboBoxClass(this, Layer, DialogRenderObj.Peek(), name, id, 0x30, a, b, 0);
 	Unknown108.insert(std::map<int, RegistrationComboStruct>::value_type(id, value));
 }
 
@@ -1013,7 +1013,7 @@ void RegistrationInterface::Unknown_5F3510(int id, bool on)
 	const char *style = UnknownE8[id].Style;
 	gadget->Unknown_8C(on);
 	if (style) {
-		FontSys *font = Unknown_BE67C4->Get_Style(style, FontId.Peek());
+		FontSys *font = Unknown_BE67C4->Get_Style(style, DialogRenderObj.Peek());
 		if (font) {
 			font->Set_Hidden(on != 0);
 		}
@@ -1038,21 +1038,828 @@ void RegistrationInterface::Unknown_5F3600()
 	if (Unknown118) {
 		Unknown_BE67C4->Remove(UnknownBC->Peek_Model());
 		Unknown_BE67BC->Unload("RG_FRAME.INI");
-		Unknown_BE67C4->Remove(FontId.Peek());
+		Unknown_BE67C4->Remove(DialogRenderObj.Peek());
 		Unknown_BE67BC->Unload(RegistrationPages[UnknownD4].Ini);
 		Unknown118 = false;
 	}
 	RenderObjClass *frame = UnknownBC->Peek_Model();
 	if (frame) {
-		frame->Remove_Sub_Object(FontId.Peek());
-		FontId = NULL;
+		frame->Remove_Sub_Object(DialogRenderObj.Peek());
+		DialogRenderObj = NULL;
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @0x5F3770
+void RegistrationInterface::Unknown_5F3770(int state)
+{
+	Unknown_5C();
+	InterfaceClass::Unknown_5C();
+	Unknown_5F3600();
+	if (state == 0x18) {
+		UnknownD4 = 0x18;
+		InterfaceClass::Unknown_58();
+		Unknown_58();
+		TheDX8MeshRenderer.Invalidate();
+		return;
+	}
+	RenderObjClass *frame = UnknownBC->Peek_Model();
+	DialogRenderObj = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(RegistrationPages[state].Name));
+	G_ASSERT(DialogRenderObj);
+	frame->Add_Sub_Object(DialogRenderObj.Peek());
+	Unknown_BE67BC->Load("RG_FRAME.INI");
+	Unknown_BE67C4->Add(frame);
+	Unknown_BE67BC->Load(RegistrationPages[state].Ini);
+	Unknown_BE67C4->Add(DialogRenderObj.Peek());
+	Unknown118 = true;
+	Unknown_5F2B20(0x2E, "Button_Privacy", "BUTTON_PRIVACY_RG_FRAME", 0, 0, true);
+	Unknown_5F8DB0(state != 0x15 && state != 0x16);
+	Unknown_Debug_Printf("meshname: %s   fontini: %s \n", RegistrationPages[state].Name, RegistrationPages[state].Ini);
+	UnknownD4 = state;
+	UnknownBC->Get_Unknown198()->Unknown_784E00();
+	switch (UnknownD4) {
+		case 0:
+			Unknown_5F2B20(1,"RADIO_YES",0,0,1,0);
+			Unknown_5F2B20(2,"RADIO_NO",0,0,1,0);
+			Unknown_5F2B20(5,"RADIO_FORGOT",0,0,1,0);
+			Unknown_5F3250(Unknown268);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A1",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG1")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG1", false);
+				TutorialManagerClass::Instance->Set_Completed("REG1");
+			}
+			break;
+		case 1:
+			Unknown_5F2D30(10,"Entry_Username","Entry_Username_RG_A2",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0);
+			Unknown_5F2D30(0xb,"Entry_Password","Entry_Password_RG_A2",0x10,Unknown1E8.c_str(),10,1, Unknown_BE5DC4,Unknown_B85EDC);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A2",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A2",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A2",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG2")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG2", false);
+				TutorialManagerClass::Instance->Set_Completed("REG2");
+			}
+			if (Unknown1D8.empty()) {
+				Unknown_5F8CD0(10, true);
+			}
+			break;
+		case 2:
+			Unknown_5F2B20(1,"RADIO_YES",0,0,1,0);
+			Unknown_5F2B20(2,"RADIO_NO",0,0,1,0);
+			Unknown_5F3250((2 - (Unknown1C9)));
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A3",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A3",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A3",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG4")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG4", false);
+				TutorialManagerClass::Instance->Set_Completed("REG4");
+			}
+			break;
+		case 3:
+			Unknown_5F2D30(10,"Entry_Username","Entry_Username_RG_A5",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0);
+			Unknown_5F2D30(0xb,"Entry_Password","Entry_Password_RG_A5",0x10,Unknown1E8.c_str(),0xc,1, Unknown_BE5DC4,0);
+			Unknown_5F2D30(0xc,"Entry_Retype","Entry_Retype_RG_A5",0x10,Unknown1F8.c_str(),10,1, Unknown_BE5DC4,0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A5",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A5",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A5",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG3")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG3", false);
+				TutorialManagerClass::Instance->Set_Completed("REG3");
+			}
+			if (Unknown1D8.empty()) {
+				Unknown_5F8CD0(10, true);
+			}
+			break;
+		case 4:
+			Unknown_5F2D30(10,"Entry_Username","ENTRY_USERNAME_RG_A6",0x10,Unknown1D8.c_str(),0xb,0, Unknown_BE5DC8,0);
+			Unknown_5F2D30(0xb,"Entry_Password","ENTRY_PASSWORD_RG_A6",0x10,Unknown208.c_str(),10,1, Unknown_BE5DC4,0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A6",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A6",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A6",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG5")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG5", false);
+				TutorialManagerClass::Instance->Set_Completed("REG5");
+			}
+			if (Unknown1D8.empty()) {
+				Unknown_5F8CD0(10, true);
+			}
+			break;
+		case 5:
+			Unknown_5F2D30(0xb,"Entry_Password","ENTRY_PASSWORD_RG_A7",0x10,Unknown1E8.c_str(),0xc,1, Unknown_BE5DC4,0);
+			Unknown_5F2D30(0xc,"Entry_Retype","ENTRY_RETYPE_RG_A7",0x10,Unknown1F8.c_str(),0xb,1, Unknown_BE5DC4,0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A7",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A7",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A7",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG6")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG6", false);
+				TutorialManagerClass::Instance->Set_Completed("REG6");
+			}
+			if (Unknown1E8.empty()) {
+				Unknown_5F8CD0(0xb, true);
+			}
+			break;
+		case 6:
+			Unknown_5F2B20(8,"RADIO_NAME",0,0,1,0);
+			Unknown_5F2B20(9,"RADIO_PASSWORD",0,0,1,0);
+			Unknown_5F3250(Unknown26C);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A10",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A10",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A10",0,0,0);
+			break;
+		case 7:
+			Unknown_5F2D30(0x13,"ENTRY_EMAIL","ENTRY_EMAIL_RG_A8",0x28,Unknown258.c_str(),0,0,Unknown_BE5DDC, Unknown_B85ED0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A8",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A8",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A8",0,0,0);
+			if (Unknown258.empty()) {
+				Unknown_5F8CD0(0x13, true);
+			}
+			break;
+		case 8:
+			Unknown_5F2D30(10,"ENTRY_USERNAME","ENTRY_NAME_RG_A9",0x10,Unknown248.c_str(),0,0,Unknown_BE5DE0, 0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_A9",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_A9",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_A9",0,0,0);
+			if (Unknown248.empty()) {
+				Unknown_5F8CD0(10, true);
+			}
+			break;
+		case 9:
+			Unknown_5F2B20(0xd,"Radio_01",0,0,1,0);
+			Unknown_5F2B20(0xe,"Radio_02",0,0,1,0);
+			Unknown_5F2B20(0xf,"Radio_03",0,0,1,0);
+			Unknown_5F2B20(0x10,"Radio_04",0,0,1,0);
+			Unknown_5F2B20(0x11,"Radio_05",0,0,1,0);
+			Unknown_5F2B20(0x12,"Radio_06",0,0,1,0);
+			Unknown_5F3250(0x12);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_B1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_B1",0,0,0);
+			Unknown_5F8520("LABEL_SUGGEST01_RG_B1", Unknown3C4.Unknown00[0].c_str());
+			Unknown_5F8520("LABEL_SUGGEST02_RG_B1", Unknown3C4.Unknown00[1].c_str());
+			Unknown_5F8520("LABEL_SUGGEST03_RG_B1", Unknown3C4.Unknown00[2].c_str());
+			Unknown_5F8520("LABEL_SUGGEST04_RG_B1", Unknown3C4.Unknown00[3].c_str());
+			Unknown_5F8520("LABEL_SUGGEST05_RG_B1", Unknown3C4.Unknown00[4].c_str());
+			if (!TutorialManagerClass::Instance->Is_Completed("REG7")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG7", false);
+				TutorialManagerClass::Instance->Set_Completed("REG7");
+			}
+			break;
+		case 10:
+			{
+				char buffer[6];
+				Unknown_5F2D30(0x13, "ENTRY_E-MAIL", "ENTRY_EMAILADDRESS_RG_C1", 0x28, Unknown3C4.Unknown5C.c_str(), 0, 0, Unknown_BE5DAC, Unknown_B85ED0);
+				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
+				Unknown_5F98C0(1900, Unknown124.tm_year + 1900);
+				if (Unknown3C4.Unknown7E < 1) {
+					Unknown108[0x16].Combo->Unknown_57AC70(0);
+				} else {
+					_snprintf(buffer, 5, "%d", (int)Unknown3C4.Unknown7E);
+					Unknown108[0x16].Combo->Unknown_57AD50(buffer);
+				}
+				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
+				Unknown108[0x14].Combo->Unknown_57B1D0(RegistrationMonths);
+				Unknown108[0x14].Combo->Unknown_57AC70(Unknown3C4.Unknown7D < 1 ? 0 : Unknown3C4.Unknown7D - 1);
+				Unknown_5F2F90(0x15, "COMBO_DAY", 2, 5);
+				Unknown_5F9460();
+				Unknown108[0x15].Combo->Unknown_57AC70(Unknown3C4.Unknown7C < 1 ? 0 : Unknown3C4.Unknown7C - 1);
+				Unknown_5F2B20(0x17, "RADIO_MALE", 0, 0, 1, false);
+				Unknown_5F2B20(0x18, "RADIO_FEMALE", 0, 0, 1, false);
+				Unknown_5F3250((Unknown3C4.Unknown58 != 0) + 0x17);
+				Unknown_5F2F90(0x19, "COMBO_COUNTRY", 0x2C, 7);
+				Unknown_5F9700();
+				if (Unknown3C4.Unknown80.size() == 0) {
+					Unknown108[0x19].Combo->Unknown_57AD50(UnknownA4);
+				} else {
+					Unknown108[0x19].Combo->Unknown_57AD50(Unknown3C4.Unknown80.c_str());
+				}
+				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C1",0,0,0);
+				Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C1",0,0,0);
+				Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C1",0,0,0);
+				if (!TutorialManagerClass::Instance->Is_Completed("REG8")) {
+					UnknownBC->Get_Unknown198()->Unknown_784C90("REG8", false);
+					TutorialManagerClass::Instance->Set_Completed("REG8");
+				}
+				if (Unknown3C4.Unknown5C.empty()) {
+					Unknown_5F8CD0(0x13, true);
+				}
+			}
+			break;
+		case 0xB:
+			Unknown_5F2F90(0x2A, "COMBO_OPTION", 0x14, std::_cpp_min(5, (int)Unknown598.size()));
+			Unknown_5F9EB0();
+			Unknown108[0x2A].Combo->Unknown_57AC70(Unknown388);
+			Unknown38C = Unknown598[Unknown388];
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D1",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D1",0,0,0);
+			Unknown_5F84E0("WRAP_EXPLAIN_TEXT_RG_D1", PaymentTypeTexts[Unknown38C]);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG14")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG14", false);
+				TutorialManagerClass::Instance->Set_Completed("REG14");
+			}
+			break;
+		case 0xC:
+			{
+				char buffer[6];
+				Unknown_5F2D30(0x1a,"ENTRY_NAME","ENTRY_FIRSTNAME_RG_D3",0x32,Unknown478.Unknown04.c_str(),0x1b,0, Unknown_BE5DA8,0);
+				Unknown_5F2D30(0x1b,"ENTRY_LASTNAME","ENTRY_LASTNAME_RG_D3",0x32,Unknown478.Unknown14.c_str(),0x1c,0, Unknown_BE5DA8,0);
+				Unknown_5F2D30(0x1c,"ENTRY_ADDRESS1","ENTRY_ADDRESS1_RG_D3",0x32,Unknown478.Unknown24.c_str(),0x1d,0, Unknown_BE5DE4,Unknown_B85ED4);
+				Unknown_5F2D30(0x1d,"ENTRY_ADDRESS2","ENTRY_ADDRESS2_RG_D3",0x32,Unknown478.Unknown34.c_str(),0x1e,0, Unknown_BE5DE4,Unknown_B85ED4);
+				Unknown_5F2D30(0x1e,"ENTRY_CITY","ENTRY_CITY_RG_D3",0x32,Unknown478.Unknown44.c_str(),0x1f,0, Unknown_BE5DD8,0);
+				Unknown_5F2D30(0x1f,"ENTRY_STATE","ENTRY_STATE_RG_D3",2,Unknown478.Unknown54.c_str(),0x20,0,Unknown_BE5DB4, 0);
+				Unknown_5F2D30(0x20,"ENTRY_ZIP","ENTRY_ZIP_RG_D3",10,Unknown478.Unknown74.c_str(),0x21,0,Unknown_BE5DBC, Unknown_B85ED8);
+				Unknown_5F2D30(0x21,"ENTRY_PHONE","ENTRY_PHONE_RG_D3",0xf,Unknown478.Unknown84.c_str(),0x23,0, Unknown_BE5DCC,Unknown_B85ECC);
+				Unknown_5F2D30(0x23,"ENTRY_CARDNUMBE","ENTRY_CARD_RG_D3",0x10,Unknown478.UnknownA8.c_str(),0,0, Unknown_BE5DD0,0);
+				Unknown_5F2F90(0x19, "COMBO_COUNTRY", 0x2C, 7);
+				Unknown_5F9700();
+				if (Unknown478.Unknown64.empty()) {
+					if (Unknown3C4.Unknown80.size() == 0) {
+						Unknown108[0x19].Combo->Unknown_57AD50(UnknownA4);
+					} else {
+						Unknown108[0x19].Combo->Unknown_57AD50(Unknown3C4.Unknown80.c_str());
+						Unknown108[0x19].Combo->Unknown_57B3C0(0);
+					}
+				} else {
+					Unknown108[0x19].Combo->Unknown_57AD50(Unknown478.Unknown64.c_str());
+					Unknown108[0x19].Combo->Unknown_57B3C0(0);
+				}
+				Unknown_5F2F90(0x22, "COMBO_CARDTYPE", 0x13, 4);
+				Unknown_5F9A90();
+				Unknown108[0x22].Combo->Unknown_57AC70(0);
+				{
+					std::vector<RegistrationUnknown5A8Struct>::iterator entry = Unknown5A8.begin();
+					std::vector<RegistrationUnknown5A8Struct>::iterator last = Unknown5A8.end();
+					for (; entry != last; entry++) {
+						if ((*entry).Unknown00 == Unknown478.Unknown94.Unknown00) {
+							break;
+						}
+					}
+					if (entry != last) {
+						Unknown108[0x22].Combo->Unknown_57AC70(entry - Unknown5A8.begin());
+					}
+				}
+				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
+				Unknown108[0x14].Combo->Unknown_57B1D0(RegistrationMonths);
+				Unknown108[0x14].Combo->Unknown_57AC70(Unknown560 < 1 ? 0 : Unknown560 - 1);
+				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
+				Unknown_5F98C0(Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);
+				if (Unknown564 < 1) {
+					Unknown108[0x16].Combo->Unknown_57AC70(0);
+				} else {
+					_snprintf(buffer, 5, "%d", Unknown564);
+					Unknown108[0x16].Combo->Unknown_57AD50(buffer);
+				}
+				Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D3", !Unknown1CD ? "\nPlease enter your billing information below." : "The information below is for Identification/Age verification purposes only.  YOU WILL NOT BE BILLED!");
+				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D3",0,0,0);
+				Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D3",0,0,0);
+				Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D3",0,0,0);
+				Unknown_5F3510(7, Unknown1D0);
+				if (!Unknown1CD) {
+					if (!TutorialManagerClass::Instance->Is_Completed("REG13")) {
+						UnknownBC->Get_Unknown198()->Unknown_784C90("REG13", false);
+						TutorialManagerClass::Instance->Set_Completed("REG13");
+					}
+				}
+				if (Unknown478.Unknown04.empty()) {
+					Unknown_5F8CD0(0x1A, true);
+				}
+			}
+			break;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		case 0xD:
+			{
+				char buffer[6];
+				Unknown_5F2D30(0x1a,"ENTRY_NAME","ENTRY_FIRSTNAME_RG_D4",0x32,Unknown478.Unknown04.c_str(),0x1b,0, Unknown_BE5DA8,0);
+				Unknown_5F2D30(0x1b,"ENTRY_LASTNAME","ENTRY_LASTNAME_RG_D4",0x32,Unknown478.Unknown14.c_str(),0x1c,0, Unknown_BE5DA8,0);
+				Unknown_5F2D30(0x1c,"ENTRY_ADDRESS1","ENTRY_ADDRESS1_RG_D4",0x32,Unknown478.Unknown24.c_str(),0x1d,0, Unknown_BE5DE4,Unknown_B85ED4);
+				Unknown_5F2D30(0x1d,"ENTRY_ADDRESS2","ENTRY_ADDRESS2_RG_D4",0x32,Unknown478.Unknown34.c_str(),0x1e,0, Unknown_BE5DE4,Unknown_B85ED4);
+				Unknown_5F2D30(0x1e,"ENTRY_CITY","ENTRY_CITY_RG_D4",0x32,Unknown478.Unknown44.c_str(),0x1f,0, Unknown_BE5DD8,0);
+				Unknown_5F2D30(0x1f,"ENTRY_STATE","ENTRY_STATE_RG_D4",0x14,Unknown478.Unknown54.c_str(),0x20,0, Unknown_BE5DA4,0);
+				Unknown_5F2D30(0x20,"ENTRY_ZIP","ENTRY_ZIP_RG_D4",10,Unknown478.Unknown74.c_str(),0x21,0,Unknown_BE5DD4, Unknown_B85ED8);
+				Unknown_5F2D30(0x21,"ENTRY_PHONE","ENTRY_PHONE_RG_D4",0xf,Unknown478.Unknown84.c_str(),0x23,0, Unknown_BE5DCC,Unknown_B85ECC);
+				Unknown_5F2D30(0x23,"ENTRY_CARDNUMBE","ENTRY_CARD_RG_D4",0x14,Unknown478.UnknownA8.c_str(),0x25,0, Unknown_BE5DD0,0);
+				Unknown_5F2D30(0x25,"ENTRY_MONTH","ENTRY_MONTH_RG_D4",2,Unknown478.UnknownC8.c_str(),0x26,0,Unknown_BE5DB0, 0);
+				Unknown_5F2D30(0x26,"ENTRY_YEAR","ENTRY_YEAR_RG_D4",4,Unknown478.UnknownD8.c_str(),0x24,0,Unknown_BE5DB0,0);
+				Unknown_5F2D30(0x24,"ENTRY_ISSUER","ENTRY_ISSUER_RG_D4",2,Unknown478.UnknownB8.c_str(),0,0,Unknown_BE5DC0, 0);
+				Unknown_5F2F90(0x19, "COMBO_COUNTRY", 0x2C, 7);
+				Unknown_5F9700();
+				if (Unknown478.Unknown64.empty()) {
+					if (Unknown3C4.Unknown80.size() == 0) {
+						G_ASSERT(0);
+						Unknown108[0x19].Combo->Unknown_57AD50(UnknownA4);
+					} else {
+						Unknown108[0x19].Combo->Unknown_57AD50(Unknown3C4.Unknown80.c_str());
+						Unknown108[0x19].Combo->Unknown_57B3C0(0);
+					}
+				} else {
+					Unknown108[0x19].Combo->Unknown_57AD50(Unknown478.Unknown64.c_str());
+					Unknown108[0x19].Combo->Unknown_57B3C0(0);
+				}
+				Unknown_5F2F90(0x22, "COMBO_CARDTYPE", 0x13, 4);
+				Unknown_5F9A90();
+				Unknown108[0x22].Combo->Unknown_57AC70(0);
+				{
+					std::vector<RegistrationUnknown5A8Struct>::iterator entry = Unknown5A8.begin();
+					std::vector<RegistrationUnknown5A8Struct>::iterator last = Unknown5A8.end();
+					for (; entry != last; entry++) {
+						if ((*entry).Unknown00 == Unknown478.Unknown94.Unknown00) {
+							break;
+						}
+					}
+					if (entry != last) {
+						Unknown108[0x22].Combo->Unknown_57AC70(entry - Unknown5A8.begin());
+					}
+				}
+				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
+				Unknown108[0x14].Combo->Unknown_57B1D0(RegistrationMonths);
+				Unknown108[0x14].Combo->Unknown_57AC70(Unknown560 < 1 ? 0 : Unknown560 - 1);
+				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
+				Unknown_5F98C0(Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);
+				if (Unknown564 < 1) {
+					Unknown108[0x16].Combo->Unknown_57AC70(0);
+				} else {
+					_snprintf(buffer, 5, "%d", Unknown564);
+					Unknown108[0x16].Combo->Unknown_57AD50(buffer);
+				}
+				Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D4", !Unknown1CD ? "\nPlease enter your billing information below." : "The information below is for Identification/Age verification purposes only.  YOU WILL NOT BE BILLED!");
+				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D4",0,0,0);
+				Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D4",0,0,0);
+				Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_D4",0,0,0);
+				Unknown_5F3510(7, Unknown1D0);
+				if (!Unknown1CD) {
+					if (!TutorialManagerClass::Instance->Is_Completed("REG13")) {
+						UnknownBC->Get_Unknown198()->Unknown_784C90("REG13", false);
+						TutorialManagerClass::Instance->Set_Completed("REG13");
+					}
+				}
+				if (Unknown478.Unknown04.empty()) {
+					Unknown_5F8CD0(0x1A, true);
+				}
+			}
+			break;
+		case 0xE:
+			Unknown_5F2F90(0x29, "COMBO_OPTION", 0x2D, std::_cpp_min(5, (int)Unknown578.size()));
+			Unknown_5F9C90();
+			Unknown108[0x29].Combo->Unknown_57AC70(Unknown384);
+			Unknown270 = Unknown578[Unknown384];
+			Unknown_5F84E0("WRAP_LABEL_DESC_RG_F1", Unknown270.Unknown34.c_str());
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_F1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_F1",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_F1",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG15")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG15", false);
+				TutorialManagerClass::Instance->Set_Completed("REG15");
+			}
+			break;
+		case 0xF:
+			Unknown_5F2B20(1, "RADIO_YES1", 0, 0, 1, false);
+			Unknown_5F2B20(2, "RADIO_NO1", 0, 0, 1, false);
+			Unknown_5F3250(2 - (Unknown3C4.Unknown90 != 0));
+			Unknown_5F2B20(3, "RADIO_YES2", 0, 0, 2, false);
+			Unknown_5F2B20(4, "RADIO_NO2", 0, 0, 2, false);
+			Unknown_5F3250(4 - (Unknown3C4.Unknown91 != 0));
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C2",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C2",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C2",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG9")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG9", false);
+				TutorialManagerClass::Instance->Set_Completed("REG9");
+			}
+			break;
+		case 16:
+			Unknown_5F2D30(0x13,"ENTRY_PARENT","ENTRY_PARENT_RG_C3",0x28,Unknown3C4.Unknown6C.c_str(),0,0, Unknown_BE5DAC,Unknown_B85ED0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C3",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C3",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_C3",0,0,0);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG10")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG10", false);
+				TutorialManagerClass::Instance->Set_Completed("REG10");
+			}
+			if (Unknown3C4.Unknown6C.empty()) {
+				Unknown_5F8CD0(0x13, true);
+			}
+			break;
+		case 0x11:
+			Unknown_5F2D30(0x2B, "ENTRY_CODE", "ENTRY_CODE_RG_E1", 0x13, Unknown228.c_str(), 0x2B, 0, Unknown_BE5DB8, 0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_E1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_E1",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_E1",0,0,0);
+			Unknown_5F3510(7, Unknown1D0);
+			if (Unknown228.size() == 0 || Unknown1D0) {
+				Unknown_5F8CD0(0x2B, true);
+			}
+			if (!TutorialManagerClass::Instance->Is_Completed("REG11")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG11", false);
+				TutorialManagerClass::Instance->Set_Completed("REG11");
+			}
+			break;
+		case 0x12:
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_G1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_G1",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_G1",0,0,0);
+			if (!Unknown1CD) {
+				if (!TutorialManagerClass::Instance->Is_Completed("REG16")) {
+					UnknownBC->Get_Unknown198()->Unknown_784C90("REG16", false);
+					TutorialManagerClass::Instance->Set_Completed("REG16");
+				}
+			} else {
+				Unknown_5F84E0("WRAP_LABEL_RG_G1", "We are ready to activate your Trial Subscription.\n\nClick the NEXT button to proceed.");
+			}
+			break;
+		case 0x13:
+			Unknown_5FAC90();
+			if (Unknown11B) {
+				Unknown_5F84E0("WRAP_LABEL_TEXT_RG_I1", "Your GameTime Code has been applied to your Account.\n\nClick \"Go Play!\" to log into Earth & Beyond!");
+			}
+			Unknown_5F2B20(6, "MIDDLE_BUTTON", "MIDDLE_BUTTON_RG_I1", 0, 0, false);
+			if (!TutorialManagerClass::Instance->Is_Completed("REG17")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG17", false);
+				TutorialManagerClass::Instance->Set_Completed("REG17");
+			}
+			break;
+		case 0x14:
+			Unknown_5F2D30(0x2B, "ENTRY_CODE", "ENTRY_CODE_RG_K1", 0x13, Unknown238.c_str(), 0x2B, 0, Unknown_BE5DB8, 0);
+			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_K1",0,0,0);
+			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_K1",0,0,0);
+			Unknown_5F2B20(7,"MIDDLE_BUTTON","MIDDLE_BUTTON_RG_K1",0,0,0);
+			if (Unknown238.size() == 0 || Unknown1D0) {
+				Unknown_5F8CD0(0x2B, true);
+			}
+			if (!TutorialManagerClass::Instance->Is_Completed("REG12")) {
+				UnknownBC->Get_Unknown198()->Unknown_784C90("REG12", false);
+				TutorialManagerClass::Instance->Set_Completed("REG12");
+			}
+			break;
+		case 0x15:
+			Unknown1C4 = 10;
+			Unknown_5F2B20(7, "MIDDLE_BUTTON", "MIDDLE_BUTTON_RG_X2", 0, 0, false);
+			break;
+		case 0x16:
+			Unknown1BC = new HAnimComboClass(1);
+			Unknown1C0 = Create_Get(WW3DAssetManager::Get_Instance()->Get_HAnim("RG_X1.RG_X1a"));
+			Unknown1BC->Set_Motion(0, Unknown1C0.Peek());
+			Unknown1BC->Set_Weight(0, 1.0f);
+			DialogRenderObj->Set_Animation(Unknown1BC);
+			break;
+		case 0x17:
+			Unknown_5F2B20(0x2D, "LEFT_BUTTON", "LEFT_BUTTON_RG_X3", 0, 0, false);
+			Unknown_5F2B20(6, "RIGHT_BUTTON", "RIGHT_BUTTON_RG_X3", 0, 0, false);
+			break;
+	}
+	InterfaceClass::Unknown_58();
+	Unknown_58();
+	TheDX8MeshRenderer.Invalidate();
 }
 
 // @0x5F84E0
 void RegistrationInterface::Unknown_5F84E0(const char *name, const char *text)
 {
-	ManagedFontClass *font = Unknown_BE67C4->Find(FontId.Peek());
+	ManagedFontClass *font = Unknown_BE67C4->Find(DialogRenderObj.Peek());
 	if (font) {
 		font->Unknown_6D0A70(name, text);
 	}
@@ -1061,7 +1868,7 @@ void RegistrationInterface::Unknown_5F84E0(const char *name, const char *text)
 // @0x5F8520
 void RegistrationInterface::Unknown_5F8520(const char *name, const char *text)
 {
-	FontSys *style = Unknown_BE67C4->Get_Style(name, FontId.Peek());
+	FontSys *style = Unknown_BE67C4->Get_Style(name, DialogRenderObj.Peek());
 	if (style) {
 		style->Change_Text(text, 0);
 	}
@@ -1527,813 +2334,6 @@ void RegistrationInterface::Unknown_5F9C90()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @0x5F9EB0
 void RegistrationInterface::Unknown_5F9EB0()
 {
@@ -2476,7 +2476,7 @@ void __cdecl Unknown_5FAE90(RegistrationInterface *self, const char *format, ...
 		vsprintf(buffer, format, args);
 		va_end(args);
 		FontManagerClass *fm = Unknown_BE67C4;
-		RenderObjClass *font_id = self->FontId.Peek();
+		RenderObjClass *font_id = self->DialogRenderObj.Peek();
 		ManagedFontClass *font = fm->Find(font_id);
 		if (font) {
 			font->Unknown_6D0A70("WRAP_TEXT_MAIN_RG_X1", buffer);
@@ -2484,7 +2484,7 @@ void __cdecl Unknown_5FAE90(RegistrationInterface *self, const char *format, ...
 	} else {
 		FontManagerClass *fm = Unknown_BE67C4;
 		const char *text = StatusStrings[self->StatusIndex];
-		ManagedFontClass *font = fm->Find(self->FontId.Peek());
+		ManagedFontClass *font = fm->Find(self->DialogRenderObj.Peek());
 		if (font) {
 			font->Unknown_6D0A70("WRAP_TEXT_MAIN_RG_X1", text);
 		}
@@ -2497,7 +2497,7 @@ void RegistrationInterface::Unknown_5FAF60(int arg)
 	char buffer[1024];
 	const char *str = Sub14C.Slot12(arg);
 	_snprintf(buffer, 1024, "%s...", str);
-	RenderObjClass *font_id = FontId.Peek();
+	RenderObjClass *font_id = DialogRenderObj.Peek();
 	ManagedFontClass *font = Unknown_BE67C4->Find(font_id);
 	if (font) {
 		font->Unknown_6D0A70("WRAP_STATUS_TEXT_RG_X1", buffer);
@@ -2520,7 +2520,7 @@ void RegistrationInterface::Unknown_5FB030()
 	int bits;
 	bool windowed;
 	WW3D::Get_Device_Resolution(width, height, bits, windowed);
-	RenderObjClass *label = FontId->Get_Sub_Object_By_Name("LABEL_TEXT");
+	RenderObjClass *label = DialogRenderObj->Get_Sub_Object_By_Name("LABEL_TEXT");
 	Unknown_7CA2D0()->Unknown_7CA5C0(4, label, NULL);
 	UnknownC0->Unknown0018->Unknown_5153B0();
 	label->Release_Ref();
@@ -3069,4 +3069,24 @@ void RegistrationInterface::Unknown_603B20()
 **	  its case 1 copies 0x7D21C0's account record into +0x3C4 (five strings in a loop, so +0x3C4 starts with a
 **	  std::string[5]; ints +0x50..+0x58, strings +0x5C / +0x6C, bytes +0x7C / +0x7D, short +0x7E, +0x80, bytes
 **	  +0x90 / +0x91, two more strings).
+**
+**	Builder RG1, 2026-11-06:
+**	- The object opens at 0x5EED20: 17 dynamic initializers of the text fields' flags (Unknown_BE5DC8 .. Unknown_BE5DDC,
+**	  written in their order at the top of the file; 0xB08C90-0xB08CB8 are textgadg.h's flags), then the constructor
+**	  0x5EF0B0, and runs at least to the out-of-line vector helpers 0x60B760-0x60C350.
+**	- The classes moved to ui_registration.h under __UI_REGISTRATION_MEMBERS (provisional, D137): they filled the lines
+**	  above the constructor's G_ASSERT at line 369. Only this file defines the macro, so main_client.cpp sees what it did.
+**	- DialogRenderObj is the client's DialogRenderObj (G_ASSERT line 1281), a RefCountPtr<RenderObjClass> (destructor 0x4740B0).
+**	- The +0x14C member is Sub14CImplClass (0x60 bytes, tables 0xAF70DC / 0xAF70C8; slots 0x7DFED0-0x7E15B0 in their own
+**	  object) over Sub14CClass (table 0xAF7130: pure but for 0x5F0170 / 0x5F0280 / 0x5F02A0) and RegistrationCallbackClass.
+**	- +0x1AC is a function-static RegistrationUnknown1ACClass at 0xBDA960 (destructor 0x5F0680, atexit 0x5F0660).
+**	- The screen: 0x5F3770(state) loads RegistrationPages[state] (0xB85F08; state 0x18 only leaves), switch on the state;
+**	  G_ASSERT(0) line 1693 is in case 0xD, an empty country. Exact helpers: 0x5F3110, 0x5F2990, 0x5F2A80, 0x5F33E0,
+**	  0x5F3470, 0x5F3510, 0x5F3600, 0x5F84E0, 0x5F8520, 0x5F86F0, 0x5F87D0, 0x5F89F0, 0x5F8A90, 0x5F8DB0, 0x5F8F60, 0x603B20.
+**	- A map walk that inlines _Min is `it = begin(); while (it != end()) { ...; it++; }` (workflow.md 3.1): 0x5F2990, 0x5F2A80,
+**	  0x5F33E0, 0x5F3470, 0x5F86F0. A function with the `for` form keeps the call.
+**	- Slot 0x90 of the model in 0x5F1730 is Update_Sub_Object_Transforms, not Set_Animation (0x94, case 0x16 of 0x5F3770).
+**	- 0x5FBD30 (Next, 17 KB, FAIL_IF lines 2868 / 3637, callers 0x5F1A10 key 6) and 0x600000 (the reply handler, 14 KB) are
+**	  still not written. 0x600000's switch is on StatusIndex with one inlined error box per reply; the 0xF4-byte entries
+**	  (+0x568, destructor 0x449CC0, vectors of 0x30 and 0x4C bytes inside) come from 0x7D3CC0.
 */
