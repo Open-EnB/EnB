@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 170 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1596 |
+| 3 | by convention from a client-named file or sibling | 1597 |
 | 2 | describes what the code does | 3687 |
-| 1 | neutral placeholder | 18433 |
+| 1 | neutral placeholder | 18420 |
 
 ## For review (score 3 and below)
 
@@ -4473,7 +4473,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6740E0` | `app/client/gd_uiback.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown_674120` | `app/client/gd_uiback.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown_674160` | `app/client/gd_uiback.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown_674260Class` | `app/client/gd_uiback.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_675120Class` | `app/client/gd_uiback.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown5C_03` | `app/client/gd_uiback.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_65FFA0` | `app/client/gd_uiback.cpp:53` | untagged neutral name (D10) |
@@ -4491,35 +4490,37 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6C` | `app/client/gd_uiback.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_674D70` | `app/client/gd_uiback.cpp:159` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/gd_uiback.cpp:204` | untagged neutral name (D10) |
-| 1 | `Unknown_673EE0Class` | `app/client/gd_uiback.h:22` | neutral (D10) |
-| 1 | `Unknown_671300Class` | `app/client/gd_uiback.h:22` | untagged neutral name (D10) |
-| 1 | `robj, unknown1, layer, unknown2, unknown3` | `app/client/gd_uiback.h:25` | neutral, the base's |
-| 1 | `event, x, y, mask` | `app/client/gd_uiback.h:27` | the base's |
-| 1 | `Unknown_2C` | `app/client/gd_uiback.h:27` | untagged neutral name (D10) |
-| 1 | `seconds` | `app/client/gd_uiback.h:28` | what it is compared with |
-| 1 | `Unknown_6740E0` | `app/client/gd_uiback.h:28` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/gd_uiback.h:29` | neutral |
-| 1 | `Unknown_674120` | `app/client/gd_uiback.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_673EE0Class` | `app/client/gd_uiback.h:23` | neutral (D10) |
+| 1 | `Unknown_671300Class` | `app/client/gd_uiback.h:23` | untagged neutral name (D10) |
+| 1 | `robj, unknown1, layer, unknown2, unknown3` | `app/client/gd_uiback.h:26` | neutral, the base's |
+| 1 | `event, x, y, mask` | `app/client/gd_uiback.h:28` | the base's |
+| 1 | `Unknown_2C` | `app/client/gd_uiback.h:28` | untagged neutral name (D10) |
+| 1 | `seconds` | `app/client/gd_uiback.h:29` | what it is compared with |
+| 1 | `Unknown_6740E0` | `app/client/gd_uiback.h:29` | untagged neutral name (D10) |
 | 1 | `on` | `app/client/gd_uiback.h:30` | neutral |
-| 1 | `Unknown_674160` | `app/client/gd_uiback.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/gd_uiback.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/gd_uiback.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_AFB794Class` | `app/client/gd_uiback.h:37` | neutral (D10) |
-| 1 | `Unknown_674260Class` | `app/client/gd_uiback.h:46` | untagged neutral name (D10) |
-| 1 | `model, offset` | `app/client/gd_uiback.h:49` | what it does with them |
-| 1 | `model, target` | `app/client/gd_uiback.h:50` | what it does with them |
-| 1 | `event, x, y, mask` | `app/client/gd_uiback.h:52` | the base's |
-| 1 | `Unknown60` | `app/client/gd_uiback.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/gd_uiback.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/gd_uiback.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/gd_uiback.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown8C` | `app/client/gd_uiback.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown94` | `app/client/gd_uiback.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/gd_uiback.h:61` | untagged neutral name (D10) |
-| 1 | `model` | `app/client/gd_uiback.h:73` | what ui_starmap.cpp passes |
-| 1 | `x, y` | `app/client/gd_uiback.h:75` | the base's |
-| 1 | `Unknown_30` | `app/client/gd_uiback.h:75` | untagged neutral name (D10) |
-| 1 | `Unknown_674D70` | `app/client/gd_uiback.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_674120` | `app/client/gd_uiback.h:30` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/gd_uiback.h:31` | neutral |
+| 1 | `Unknown_674160` | `app/client/gd_uiback.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/gd_uiback.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/gd_uiback.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_AFB794Class` | `app/client/gd_uiback.h:38` | neutral (D10) |
+| 1 | `Unknown_675120Class` | `app/client/gd_uiback.h:49` | untagged neutral name (D10) |
+| 1 | `mesh, name` | `app/client/gd_uiback.h:52` | the base's |
+| 1 | `model` | `app/client/gd_uiback.h:53` | what the windows pass |
+| 1 | `model, offset` | `app/client/gd_uiback.h:61` | what it does with them |
+| 1 | `model, target` | `app/client/gd_uiback.h:62` | what it does with them |
+| 1 | `event, x, y, mask` | `app/client/gd_uiback.h:64` | the base's |
+| 1 | `Unknown60` | `app/client/gd_uiback.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/gd_uiback.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/gd_uiback.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/gd_uiback.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/client/gd_uiback.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown94` | `app/client/gd_uiback.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/gd_uiback.h:73` | untagged neutral name (D10) |
+| 1 | `model` | `app/client/gd_uiback.h:85` | what ui_starmap.cpp passes |
+| 1 | `x, y` | `app/client/gd_uiback.h:87` | the base's |
+| 1 | `Unknown_30` | `app/client/gd_uiback.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown_674D70` | `app/client/gd_uiback.h:88` | untagged neutral name (D10) |
 | 1 | `Unknown_495FD0` | `app/client/gutter_data.cpp:23` | untagged neutral name (D10) |
 | 1 | `x, y` | `app/client/gutter_data.cpp:24` | as gadget.cpp's |
 | 1 | `Unknown_42ECF0` | `app/client/gutter_data.cpp:24` | untagged neutral name (D10) |
@@ -8459,7 +8460,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownD0` | `app/client/ui_attrb.cpp:110` | untagged neutral name (D10) |
 | 1 | `UnknownD4` | `app/client/ui_attrb.cpp:111` | untagged neutral name (D10) |
 | 1 | `UnknownD8` | `app/client/ui_attrb.cpp:112` | untagged neutral name (D10) |
-| 1 | `Unknown_674260Class` | `app/client/ui_attrb.cpp:113` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_attrb.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_attrb.cpp:119` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_attrb.cpp:124` | untagged neutral name (D10) |
@@ -9826,7 +9826,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_66E460` | `app/client/ui_bio.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_bio.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_bio.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_674260Class` | `app/client/ui_bio.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_bio.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_bio.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_bio.cpp:51` | untagged neutral name (D10) |
@@ -10334,7 +10333,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown64` | `app/client/ui_cinfo.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_cinfo.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_5BB4F0` | `app/client/ui_cinfo.cpp:65` | untagged neutral name (D10) |
-| 1 | `Unknown_674260Class` | `app/client/ui_cinfo.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_cinfo.cpp:74` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_cinfo.cpp:84` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/ui_cinfo.cpp:87` | untagged neutral name (D10) |
@@ -10716,7 +10714,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown16C` | `app/client/ui_cpit.cpp:364` | untagged neutral name (D10) |
 | 1 | `Unknown170` | `app/client/ui_cpit.cpp:365` | untagged neutral name (D10) |
 | 1 | `Unknown174` | `app/client/ui_cpit.cpp:366` | untagged neutral name (D10) |
-| 1 | `Unknown_674260Class` | `app/client/ui_cpit.cpp:370` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_cpit.cpp:371` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_cpit.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_79B600` | `app/client/ui_cpit.cpp:380` | untagged neutral name (D10) |
@@ -10968,7 +10965,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6870E0` | `app/client/ui_faction.cpp:132` | untagged neutral name (D10) |
 | 1 | `Unknown_5BB4F0` | `app/client/ui_faction.cpp:133` | untagged neutral name (D10) |
 | 1 | `Unknown_66C4A0` | `app/client/ui_faction.cpp:138` | untagged neutral name (D10) |
-| 1 | `Unknown_674260Class` | `app/client/ui_faction.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_faction.cpp:160` | untagged neutral name (D10) |
 | 1 | `Unknown_58DC20` | `app/client/ui_faction.cpp:164` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_faction.cpp:170` | untagged neutral name (D10) |
@@ -12458,7 +12454,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_66C4A0` | `app/client/ui_missn.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_missn.cpp:161` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_missn.cpp:163` | untagged neutral name (D10) |
-| 1 | `Unknown_674260Class` | `app/client/ui_missn.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field_Outlined` | `app/client/ui_missn.cpp:182` | neutral (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_missn.cpp:182` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Set_Field` | `app/client/ui_missn.cpp:183` | neutral (D10): as ui_faction.cpp's (a field that is set, else NULL) |
@@ -12533,7 +12528,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown64` | `app/client/ui_ping.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_ping.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown2C_0A` | `app/client/ui_ping.cpp:103` | untagged neutral name (D10) |
-| 1 | `Unknown_674260Class` | `app/client/ui_ping.cpp:107` | untagged neutral name (D10) |
 | 1 | `Unknown51C800Class` | `app/client/ui_ping.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_ping.cpp:130` | untagged neutral name (D10) |
 | 1 | `Unknown_5D85B0` | `app/client/ui_ping.cpp:135` | untagged neutral name (D10) |
@@ -12829,7 +12823,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B850B0` | `app/client/ui_ptrade.cpp:97` | neutral (D10) |
 | 1 | `Unknown_B850C4` | `app/client/ui_ptrade.cpp:98` | neutral (D10) |
 | 1 | `UIPTradeCreditsGadgetClass` | `app/client/ui_ptrade.cpp:101` | neutral (D10) |
-| 1 | `Unknown_674260Class` | `app/client/ui_ptrade.cpp:101` | untagged neutral name (D10) |
 | 1 | `model, credits` | `app/client/ui_ptrade.cpp:104` | what the set-up passes |
 | 1 | `event, x, y, mask` | `app/client/ui_ptrade.cpp:105` | the base's |
 | 1 | `Unknown_34` | `app/client/ui_ptrade.cpp:105` | untagged neutral name (D10) |
@@ -14592,7 +14585,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6870E0` | `app/client/ui_talkt.cpp:177` | untagged neutral name (D10) |
 | 1 | `Unknown_98` | `app/client/ui_talkt.cpp:182` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B40` | `app/client/ui_talkt.cpp:200` | untagged neutral name (D10) |
-| 1 | `Unknown_674260Class` | `app/client/ui_talkt.cpp:201` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ui_talkt.cpp:202` | untagged neutral name (D10) |
 | 1 | `Unknown_64C7B0` | `app/client/ui_talkt.cpp:245` | untagged neutral name (D10) |
 | 1 | `Unknown168` | `app/client/ui_talkt.cpp:246` | untagged neutral name (D10) |
@@ -14889,11 +14881,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown74` | `app/client/unknown_671300.h:53` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/unknown_671300.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/unknown_671300.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown_675120Class` | `app/client/unknown_674260.h:6` | untagged neutral name (D10) |
-| 1 | `unknown_674260.h` | `app/client/unknown_674260.h:14` | neutral (D137) |
-| 1 | `Unknown_674260Class` | `app/client/unknown_674260.h:22` | neutral (D10) |
-| 1 | `mesh, name` | `app/client/unknown_674260.h:25` | the base's |
-| 1 | `model` | `app/client/unknown_674260.h:26` | what the windows pass |
 | 1 | `Unknown_675120Class` | `app/client/unknown_675120.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B40` | `app/client/unknown_675120.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_675120.cpp:33` | untagged neutral name (D10) |
@@ -19170,9 +19157,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Width` | `app/client/gd_text_editor.h:71` | what it holds |
 | 2 | `LineHeight` | `app/client/gd_text_editor.h:75` | what it holds |
 | 2 | `Client` | `app/client/gd_text_editor.h:78` | its type |
-| 2 | `Set_Position` | `app/client/gd_uiback.h:40` | 0x6745F0 forwards to the model's  // NAME 1 [position]: neutral |
-| 2 | `Get_Position` | `app/client/gd_uiback.h:41` | 0x674610 forwards to the model's |
-| 2 | `Peek_Object` | `app/client/gd_uiback.h:42` | 0x674640 returns its model |
+| 2 | `Set_Position` | `app/client/gd_uiback.h:41` | 0x6745F0 forwards to the model's  // NAME 1 [position]: neutral |
+| 2 | `Get_Position` | `app/client/gd_uiback.h:42` | 0x674610 forwards to the model's |
+| 2 | `Peek_Object` | `app/client/gd_uiback.h:43` | 0x674640 returns its model |
 | 2 | `Remove_From_Scene` | `app/client/gutter_data.h:34` | what it does |
 | 2 | `Get_Render_Obj` | `app/client/gutter_data.h:35` | what it returns |
 | 2 | `Add_To_Scene` | `app/client/gutter_data.h:36` | what it does |
@@ -22353,7 +22340,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `TextEditorGadgetClass` | `app/client/gd_text_editor.h:29` | class-from-file (D24) for app\Client\gd_text_editor.cpp |
 | 3 | `Slider` | `app/client/gd_text_editor.h:72` | the FAIL_IF's |
 | 3 | `GD_UIBACK_H` | `app/client/gd_uiback.h:12` | header name from gd_uiback.cpp's __FILE__ (D24) |
-| 3 | `UIBackGadgetClass` | `app/client/gd_uiback.h:70` | class-from-file (D24) for gd_uiback.cpp |
+| 3 | `UIBackGadget` | `app/client/gd_uiback.h:49` | MovableUIBackGadget's base (RTTI); gd_uiback.cpp (D208) |
+| 3 | `UIBackGadgetClass` | `app/client/gd_uiback.h:82` | class-from-file (D24) for gd_uiback.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `gutter_radar.h` | `app/client/gutter_radar.h:15` | header name assumed from the client's gutter_radar.cpp |
 | 3 | `GutterRadarClass` | `app/client/gutter_radar.h:29` | class-from-file (D24) for gutter_radar.cpp |

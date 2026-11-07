@@ -50,11 +50,11 @@ void Unknown_673EE0Class::Unknown_674120(bool on) { if (on) { Unknown80 = 1; } e
 // @0x674160
 void Unknown_673EE0Class::Unknown_674160(bool on) { if (on) { Unknown80 = 2; } else { Unknown80 = 0; } }
 // @0x6741A0
-Unknown_674260Class::Unknown_674260Class(UIMeshClass *mesh, const char *name) : Unknown_675120Class(mesh, name, 0x10FF) { Unknown5C_03 = false; Unknown_65FFA0(1000); }
+UIBackGadget::UIBackGadget(UIMeshClass *mesh, const char *name) : Unknown_675120Class(mesh, name, 0x10FF) { Unknown5C_03 = false; Unknown_65FFA0(1000); }
 // @0x674260
-Unknown_674260Class::Unknown_674260Class(const RefCountPtr<RenderObjClass> &model) : Unknown_675120Class(model.Peek(), 0x10FF) { Unknown5C_03 = false; Unknown_65FFA0(1000); }
+UIBackGadget::UIBackGadget(const RefCountPtr<RenderObjClass> &model) : Unknown_675120Class(model.Peek(), 0x10FF) { Unknown5C_03 = false; Unknown_65FFA0(1000); }
 // @0x6742F0
-Unknown_674260Class::~Unknown_674260Class() {}
+UIBackGadget::~UIBackGadget() {}
 class Unknown_AFB77CClass : public Unknown_AFB794Class { public:	// NAME 1: neutral (D10): the target over a model (table 0xAFB77C); NAME 3 [render_object]: 0x6744E0's FAIL_IF; NAME 1 [position, Object]: neutral
 	Unknown_AFB77CClass(const RefCountPtr<RenderObjClass> &render_object) : Object(render_object) {}
 	virtual void Set_Position(const Vector3 &position) { Object->Set_Position(position); } virtual Vector3 Get_Position() { return(Object->Get_Position()); } virtual RenderObjClass *Peek_Object() { return(Object.Peek()); }
@@ -70,7 +70,7 @@ static RefCountPtr<Unknown_AFB77CClass> Unknown_6744E0(const RefCountPtr<RenderO
 
 // @0x674310
 MovableUIBackGadget::MovableUIBackGadget(const RefCountPtr<RenderObjClass> &model, const Vector3 &offset) :
-	Unknown_674260Class(model),
+	UIBackGadget(model),
 	Unknown64(false),
 	Unknown68(0, 0, 0),
 	Unknown74(0, 0, 0),
@@ -90,7 +90,7 @@ MovableUIBackGadget::MovableUIBackGadget(const RefCountPtr<RenderObjClass> &mode
 
 // @0x674740
 MovableUIBackGadget::MovableUIBackGadget(const RefCountPtr<RenderObjClass> &model, const RefCountPtr<Unknown_AFB794Class> &target) :
-	Unknown_674260Class(model),
+	UIBackGadget(model),
 	Unknown60(target),
 	Unknown64(false),
 	Unknown68(0, 0, 0),
@@ -152,7 +152,7 @@ bool MovableUIBackGadget::Unknown_2C(KernelEventClass *event, float x, float y, 
 
 // @0x674C10
 UIBackGadgetClass::UIBackGadgetClass(const RefCountPtr<RenderObjClass> &model) :
-	Unknown_674260Class(model),
+	UIBackGadget(model),
 	Unknown60(0),
 	Unknown64(0)
 {

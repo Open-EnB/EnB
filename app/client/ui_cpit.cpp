@@ -367,7 +367,7 @@ void UICpitClass::Unknown_54()
 	Unknown16C->Set_Hidden(true);
 	Unknown170->Set_Hidden(true);
 	Unknown174->Set_Hidden(true);
-	gadget = new Unknown_674260Class(Unknown_497300(InterfaceMesh->Peek_Object()));
+	gadget = new UIBackGadget(Unknown_497300(InterfaceMesh->Peek_Object()));
 	gadget->Unknown_28(&Layer);
 	Unknown64.Unknown_6870E0(gadget, 0x4F, View, 1, 0);
 	Unknown_10();

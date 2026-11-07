@@ -6,7 +6,7 @@
 #include "ui_ping.h"
 #include "gadget.h"
 #include "unknown_675120.h"
-#include "unknown_674260.h"
+#include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "unknown_51c800.h"
 #include "dynamic_window_class.h"
 #include "fontmanager.h"
@@ -104,7 +104,7 @@ void UIPingClass::Unknown_54()
 		GadgetClass::Set_Tooltip(Button, "UI_PING", "PING");
 	}
 
-	GadgetClass *gadget = new Unknown_674260Class(Mesh);
+	GadgetClass *gadget = new UIBackGadget(Mesh);
 	Unknown64.Unknown_6870E0(gadget, 3, View, 1, 0);
 	GadgetClass::Set_Tooltip(gadget, "UI_PING", "PING");
 
