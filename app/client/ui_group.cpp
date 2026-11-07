@@ -1436,7 +1436,7 @@ void UIGroupClass::Unknown_597080(const char *text, const char *name, int index)
 		int i = 0;
 		for (std::vector<UIGroupMemberClass *>::iterator it = Members.begin(); it != Members.end(); it++, i++) {
 			UIGroupMemberClass *member = *it;
-			if (member->Name == name) {
+			if (name == member->Name) {	// (name on the left: the client loads it first with any headers; the other way round the order follows the symbol count)
 				InterfaceClass::Unknown_5C();
 				member->Unknown1D = (index != 0);
 				member->Unknown_5938A0(text, 5.0f, i);
