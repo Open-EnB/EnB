@@ -1289,8 +1289,8 @@ TEXTURE_API_PATCHES = {
     ],
     ('wwaudio', 'wwaudio.h'): [
         ('\tbool\t\t\t\t\t\t\t\t\t\t\t\t\tm_ForceDisable;\n',
-         '\tbool\t\t\t\t\t\t\t\t\t\t\t\t\tm_ForceDisable;\n\tbool\t\t\t\t\t\t\t\t\t\t\t\t\tm_Unknown19A5;\t// E&B: sounds started while set are queued paused (AudibleSoundClass::Play 0x9FD419); set by the app, cleared by Unknown_Resume_All\n\tbool\t\t\t\t\t\t\t\t\t\t\t\t\tm_Unknown19A6;\t// E&B: set by Temp_Disable_Audio (true); the volume setters do nothing while set\n',
-         'WWAudioClass: two bools after m_ForceDisable (+0x19A4): +0x19A5 read by AudibleSoundClass::Play 0x9FD419 and cleared by 0x9F4720; +0x19A6 tested by the volume setters (0x9F2244, 0x9F22F4, 0x9F23A4, 0x9F2484) and set by Temp_Disable_Audio 0x9F4C50'),
+         '\tbool\t\t\t\t\t\t\t\t\t\t\t\t\tm_ForceDisable;\npublic: bool m_Unknown19A5; private:\t// E&B: sounds started while set are queued paused (AudibleSoundClass::Play 0x9FD419); set by the app, cleared by Unknown_Resume_All\n\tbool\t\t\t\t\t\t\t\t\t\t\t\t\tm_Unknown19A6;\t// E&B: set by Temp_Disable_Audio (true); the volume setters do nothing while set\n',
+         'WWAudioClass: two bools after m_ForceDisable (+0x19A4): +0x19A5 read by AudibleSoundClass::Play 0x9FD419 and cleared by 0x9F4720; +0x19A6 tested by the volume setters (0x9F2244, 0x9F22F4, 0x9F23A4, 0x9F2484) and set by Temp_Disable_Audio 0x9F4C50; +0x19A5 public, as SClient code writes it directly (WE1)'),
         ('\tvoid\t\t\t\t\tTemp_Disable_Audio (bool onoff);\n',
          '\tvoid\t\t\t\t\tTemp_Disable_Audio (bool onoff);\n\tvoid\t\t\t\t\tUnknown_Resume_All (void);\t// E&B; name not known\n',
          'WWAudioClass::Unknown_Resume_All 0x9F4720 (name not known, D10): an E&B method called from the app (0x5AD123, 0x744852)'),
