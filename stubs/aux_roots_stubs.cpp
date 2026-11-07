@@ -178,29 +178,6 @@ char *Value_To_String(char *buf, int size, EffectGeneratorUsageBF value)
 	return buf;
 }
 
-const char *Type_Name(TargetGeneratorSummaryBF)
-{
-	return "TargetGeneratorSummaryBF";	// the client's 0x84BE40
-}
-
-bool String_To_Value(const char *text, TargetGeneratorSummaryBF *value)
-{
-	STUB_CALLED("String_To_Value(TargetGeneratorSummaryBF) (0x84BE60)");
-	int v;
-	if (sscanf(text, "%d", &v) != 1) {
-		return false;
-	}
-	*value = (TargetGeneratorSummaryBF)v;
-	return true;
-}
-
-char *Value_To_String(char *buf, int size, TargetGeneratorSummaryBF value)
-{
-	STUB_CALLED("Value_To_String(TargetGeneratorSummaryBF) (0x84C060)");
-	_snprintf(buf, size, "%d", (int)value);
-	return buf;
-}
-
 const char *Type_Name(GameActionValidityBitFlag)
 {
 	return "GameActionValidityBitFlag";	// the client's 0x83D270

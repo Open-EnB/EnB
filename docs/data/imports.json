@@ -8786,6 +8786,7 @@
      "0x42F250",
      "0x4407B0",
      "0x4B5740",
+     "0x4F5C60",
      "0x50A8E0",
      "0x50A900",
      "0x50A920",
@@ -25636,12 +25637,22 @@
      "0x42C4E0",
      "0x42CAB0",
      "0x42CD30",
+     "0x42CF30",
      "0x42D050",
      "0x42D120",
+     "0x432B80",
      "0x4B5740",
+     "0x4F5C60",
      "0x84B360",
      "0x84B8A0",
-     "0x84B930"
+     "0x84B930",
+     "0x84BAC0",
+     "0x84BB80",
+     "0x84BBF0",
+     "0x84BCB0",
+     "0x84BDF0",
+     "0x84BE40",
+     "0x84C060"
     ],
     "merged": [],
     "name": "common/target_generator_summary.cpp",
@@ -25653,12 +25664,16 @@
      "0x42C4E0",
      "0x42CAB0",
      "0x42CD30",
+     "0x42CF30",
      "0x42D050",
      "0x42D120",
-     "0x4B5740"
+     "0x432B80",
+     "0x4B5740",
+     "0x4F5C60"
     ],
     "short_known": [
-     "0x42D120"
+     "0x42D120",
+     "0x84BE40"
     ]
    },
    "target_reticle": {
@@ -34231,7 +34246,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11347,
+  "in_tree_total": 11354,
   "totals": {}
  },
  "binkmovie": {

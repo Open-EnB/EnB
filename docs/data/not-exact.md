@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-605 entries in 163 files.
+606 entries in 164 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -450,6 +450,7 @@ edit the comments in the code, not this file.
 | `app/common/lego_identifier.cpp:171` | `LegoIdentifierClass::Set_Name` | marker | NOT EXACT: 0x844CD0, registers (attempts.py show 0x844CD0) |
 | `app/common/stredit.cpp:21` | `StrEditClass::StrEditClass` | mention | NOT EXACT for it. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
 | `app/common/stredit.cpp:190` | `StrEditClass::Process_Key` | marker | NOT EXACT: the modifier bits (0.58): the client tests the event's flags as bit-fields, see the notes |
+| `app/common/target_generator_summary.cpp:92` | `String_To_Value` | marker | NOT EXACT: inline-budget (the temporary string's _Eos stays out of line in the client, and value lives in ebx) |
 | `app/common/tcpconn.cpp:661` | `TCPListenerClass::Listen` | marker | NOT EXACT: ours merges the two `ret == SOCKET_ERROR` failure tails (lines 706 / 716); the client keeps both. |
 | `app/common/udpconn.cpp:126` | `UDPConnection::UDPConnection` | marker | NOT EXACT: two register choices (con's Ip_ / Port_ reads, the openc tail); Encrypt stays unset |
 | `app/common/udpconn.cpp:816` | `Unknown_82E1D0` | mention | NOT EXACT: the constructor over a CordCon (registers). Send_Data is exact (UDP, 2026-11-02: its last lookup through the one-layer Find_Ptr; CordCon::write's argument order, see below). * Send_Data (NW1, 2026-11-01): one UDPChannelClass for the channel (getValue fills it, add copies it), `channel >= 0` tested first, key.Reliable read for the open mode (an if, not ?:) and the drop test, the two clos... |

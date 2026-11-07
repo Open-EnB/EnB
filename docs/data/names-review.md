@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 152 |
+| 5 | the client names it | 153 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1522 |
-| 2 | describes what the code does | 3379 |
-| 1 | neutral placeholder | 16792 |
+| 2 | describes what the code does | 3382 |
+| 1 | neutral placeholder | 16798 |
 
 ## For review (score 3 and below)
 
@@ -14060,8 +14060,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Insert_Mode` | `app/common/stredit.h:43` | the member it returns |
 | 1 | `Unknown04` | `app/common/stredit.h:48` | untagged neutral name (D10) |
 | 1 | `Flags` | `app/common/stredit.h:52` | neutral (D10) |
-| 1 | `Unknown20` | `app/common/target_generator_summary.cpp:9` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/common/target_generator_summary.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/common/target_generator_summary.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/common/target_generator_summary.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_4FC2F0` | `app/common/target_generator_summary.cpp:59` | neutral |
+| 1 | `Unknown_4A1590` | `app/common/target_generator_summary.cpp:60` | neutral placeholder (D10) |
+| 1 | `std:` | `app/common/target_generator_summary.cpp:62` | neutral (D10) |
+| 1 | `Unknown_BF3F80` | `app/common/target_generator_summary.cpp:62` | untagged neutral name (D10) |
+| 1 | `TargetGeneratorFlagStruct` | `app/common/target_generator_summary.cpp:65` | neutral (D10) |
+| 1 | `Unknown_BF3F90` | `app/common/target_generator_summary.cpp:75` | neutral (D10) |
 | 1 | `Set_Blocking` | `app/common/tcpconn.cpp:19` | what it does (no caller) |
 | 1 | `TCPConnection::Set_Name_Unknown` | `app/common/tcpconn.cpp:577` | what it does |
 | 1 | `TCPConnection::Get_Manager` | `app/common/tcpconn.cpp:578` | what it returns |
@@ -18631,10 +18637,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Chars` | `app/common/stredit.h:51` | what it holds |
 | 2 | `Cursor` | `app/common/stredit.h:53` | what it points at |
 | 2 | `InsertMode` | `app/common/stredit.h:54` | what it holds |
-| 2 | `TargetSummaryText` | `app/common/target_generator_summary.cpp:5` | what it holds |
-| 2 | `std:` | `app/common/target_generator_summary.cpp:7` | what it holds |
-| 2 | `std:` | `app/common/target_generator_summary.cpp:8` | what it holds |
-| 2 | `Target_Summary_Text` | `app/common/target_generator_summary.cpp:14` | what it does; NAME 1 [flags, radius]: neutral |
+| 2 | `TargetSummaryText` | `app/common/target_generator_summary.cpp:7` | what it holds |
+| 2 | `std:` | `app/common/target_generator_summary.cpp:9` | what it holds |
+| 2 | `std:` | `app/common/target_generator_summary.cpp:10` | what it holds |
+| 2 | `Target_Summary_Text` | `app/common/target_generator_summary.cpp:16` | what it does; NAME 1 [flags, radius]: neutral |
+| 2 | `flag, name` | `app/common/target_generator_summary.cpp:68` | what they hold |
+| 2 | `Flag` | `app/common/target_generator_summary.cpp:70` | what it holds |
+| 2 | `std:` | `app/common/target_generator_summary.cpp:71` | what it holds |
 | 2 | `TCPManager` | `app/common/tcpconn.cpp:10` | what it is |
 | 2 | `std:` | `app/common/tcpconn.cpp:11` | what it holds |
 | 2 | `WriteBuffer` | `app/common/tcpconn.cpp:12` | what it holds |
