@@ -412,14 +412,14 @@ static inline bool Clamp_In_Place(float &value, float min, float max)
 #include "sclient.h"
 #include "emote_data.h"
 
-// camera_manager.cpp's class (sclient.cpp declares its other members): the per-frame update's calls
-class CameraManagerClass
-{
-public:
-	bool Unknown_79B670();			// 0x79B670 (the per-frame update tests it for the player's object)
-	bool Unknown_79B690();			// 0x79B690 (the engine sounds 0x6FDBD0 test it for the player's object: thrust on)
-	void Unknown_79B2B0(int mode);	// 0x79B2B0  // NAME 1 [mode]: CAMERA_CONTROL 146 passes 0x0C, 0x0D, 0, 0x0F, 6, 0x0A, 0x17, 0x10 or 0x19
-};
+#include "camera_manager.h"
+
+
+
+
+
+
+
 
 // 0x6F3C60 (out of address order: here the includes above it move no assert line)
 void ClientObjectClass::Unknown_20()
