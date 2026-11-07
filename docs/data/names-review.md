@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 157 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1536 |
-| 2 | describes what the code does | 3472 |
+| 2 | describes what the code does | 3474 |
 | 1 | neutral placeholder | 17222 |
 
 ## For review (score 3 and below)
@@ -5015,7 +5015,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown18` | `app/client/radar_data.h:29` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/radar_data.h:30` | untagged neutral name (D10) |
 | 1 | `Unknown79` | `app/client/radar_data.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/radar_icon_data.h:44` | neutral (D10) |
+| 1 | `Unknown_496AE0` | `app/client/radar_icon_data.cpp:12` | untagged neutral name (D10) |
 | 1 | `SBaseViewUnknown70Class` | `app/client/sbaseview.cpp:34` | neutral (D10) |
 | 1 | `Unknown98` | `app/client/sbaseview.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_77B7D0, t` | `app/client/sbaseview.cpp:36` | neutral (D10) |
@@ -18260,9 +18260,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add_To_Scene` | `app/client/radar_icon_data.h:35` | what it does |
 | 2 | `Remove_From_Scene` | `app/client/radar_icon_data.h:36` | what it does |
 | 2 | `Get_Render_Obj` | `app/client/radar_icon_data.h:37` | what it returns |
-| 2 | `Get_Color` | `app/client/radar_icon_data.h:40` | what it returns |
-| 2 | `Position` | `app/client/radar_icon_data.h:42` | mouse_targeting.cpp's 0x7B7880 compares it with the mouse |
-| 2 | `SortLevel` | `app/client/radar_icon_data.h:45` | what it holds |
+| 2 | `Peek_Scene` | `app/client/radar_icon_data.h:40` | what it returns |
+| 2 | `Is_In_Scene` | `app/client/radar_icon_data.h:41` | what it returns |
+| 2 | `Get_Color` | `app/client/radar_icon_data.h:42` | what it returns |
+| 2 | `Position` | `app/client/radar_icon_data.h:44` | mouse_targeting.cpp's 0x7B7880 compares it with the mouse |
+| 2 | `SortLevel` | `app/client/radar_icon_data.h:47` | what it holds |
 | 2 | `Rect3DClass` | `app/client/rect3d.h:26` | rect3d.cpp's class (the file name, Westwood's Class suffix) |
 | 2 | `color, rect` | `app/client/rect3d.h:29` | what it does with them |
 | 2 | `Class_ID` | `app/client/rect3d.h:35` | E&B's class id |

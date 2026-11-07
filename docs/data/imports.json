@@ -3448,6 +3448,7 @@
      "0x79D0F0",
      "0x79D130",
      "0x79D150",
+     "0x79D180",
      "0x79D1A0",
      "0x79D1E0",
      "0x79D220",
@@ -3508,6 +3509,7 @@
     "short_known": [
      "0x42D120",
      "0x79D130",
+     "0x79D180",
      "0x79E010"
     ],
     "tiebreak": [
@@ -21583,6 +21585,40 @@
      "0x848FF0"
     ]
    },
+   "radar_icon_data": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x79D130",
+     "0x7BC040",
+     "0x7BC0D0",
+     "0x7BC100",
+     "0x7BC1F0",
+     "0x7BC260",
+     "0x7BC2B0",
+     "0x7BC2E0",
+     "0x7BC320",
+     "0x7BC5C0",
+     "0x7BC5E0",
+     "0x7BC6D0"
+    ],
+    "merged": [],
+    "name": "client/radar_icon_data.cpp",
+    "shared": [
+     "0x42F250",
+     "0x79D130"
+    ],
+    "short_known": [
+     "0x79D130",
+     "0x7BC6D0"
+    ]
+   },
    "rect3d": {
     "ambiguous": [
      "0x497350"
@@ -34741,7 +34777,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11546,
+  "in_tree_total": 11558,
   "totals": {}
  },
  "binkmovie": {

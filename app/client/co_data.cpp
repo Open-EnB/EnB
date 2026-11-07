@@ -42,9 +42,9 @@ ClientObjectDataClass::ClientObjectDataClass(ClientObjectClass *co) :
 	G_ASSERT(co);
 }
 
-
-
-
+ClientObjectDataClass::~ClientObjectDataClass()
+{
+}
 
 
 

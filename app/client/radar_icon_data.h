@@ -20,10 +20,10 @@
 #include "ref_ptr.h"
 #include "vector2.h"
 
-class RefCountClass;
 class RenderObjClass;
 class SceneClass;
 class Vector3;
+class VertexMaterialClass;
 
 class RadarIconDataClass : public ClientObjectDataClass  // NAME 3: by convention (D24) from the client's radar_icon_data.cpp
 {
@@ -37,11 +37,13 @@ public:
 	virtual RefCountPtr<RenderObjClass> Get_Render_Obj();	// +0x14 0x7BC2B0 (gutter_data.cpp's 0x7B5AD0): mouse_targeting.cpp's 0x7B7880 intersects it  // NAME 2: what it returns
 
 	RefCountPtr<RenderObjClass> &Get_Icon_RObj();			// 0x7BC6D0 (the FAIL_IF's name '!Get_Icon_RObj()')
+	SceneClass *Peek_Scene();								// 0x7BC2E0  // NAME 2: what it returns
+	bool Is_In_Scene();										// 0x7BC5C0  // NAME 2: what it returns
 	const Vector3 &Get_Color();								// 0x7BC5E0: the radar data's, through the icon's material  // NAME 2: what it returns
 
 	Vector2 Position;										// +0x08: 0..1 of the screen  // NAME 2: mouse_targeting.cpp's 0x7B7880 compares it with the mouse
 	RefCountPtr<RenderObjClass> IconRObj;					// +0x10 (the FAIL_IF's name)
-	RefCountPtr<RefCountClass> Unknown14;					// +0x14: released with IconRObj  // NAME 1: neutral (D10)
+	RefCountPtr<VertexMaterialClass> VMat;					// +0x14 (the FAIL_IF's name)
 	int SortLevel;											// +0x18: the icon's, from its slot +0x168 at 0x7BC320  // NAME 2: what it holds
 };
 
