@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 150 |
+| 5 | the client names it | 152 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1520 |
-| 2 | describes what the code does | 3376 |
-| 1 | neutral placeholder | 16733 |
+| 3 | by convention from a client-named file or sibling | 1522 |
+| 2 | describes what the code does | 3379 |
+| 1 | neutral placeholder | 16792 |
 
 ## For review (score 3 and below)
 
@@ -3876,6 +3876,64 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_A9` | `app/client/gd_text_editor.h:74` | untagged neutral name (D10) |
 | 1 | `Unknown_B0` | `app/client/gd_text_editor.h:76` | untagged neutral name (D10) |
 | 1 | `Unknown_B4` | `app/client/gd_text_editor.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown_673EE0Class` | `app/client/gd_uiback.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_671300Class` | `app/client/gd_uiback.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/gd_uiback.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/gd_uiback.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/gd_uiback.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/gd_uiback.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/gd_uiback.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown66` | `app/client/gd_uiback.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_6740E0` | `app/client/gd_uiback.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_674120` | `app/client/gd_uiback.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_674160` | `app/client/gd_uiback.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_674260Class` | `app/client/gd_uiback.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_675120Class` | `app/client/gd_uiback.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown5C_03` | `app/client/gd_uiback.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFA0` | `app/client/gd_uiback.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_AFB77CClass` | `app/client/gd_uiback.cpp:58` | neutral (D10): the target over a model (table 0xAFB77C); NAME 3 [render_object]: 0x6744E0's FAIL_IF; NAME 1 [position, Object]: neutral |
+| 1 | `Unknown_AFB794Class` | `app/client/gd_uiback.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_6744E0` | `app/client/gd_uiback.cpp:63` | neutral (D10) |
+| 1 | `Unknown68` | `app/client/gd_uiback.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/gd_uiback.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/client/gd_uiback.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown94` | `app/client/gd_uiback.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/gd_uiback.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/gd_uiback.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/gd_uiback.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/gd_uiback.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/gd_uiback.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_674D70` | `app/client/gd_uiback.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_uiback.cpp:204` | untagged neutral name (D10) |
+| 1 | `Unknown_673EE0Class` | `app/client/gd_uiback.h:22` | neutral (D10) |
+| 1 | `Unknown_671300Class` | `app/client/gd_uiback.h:22` | untagged neutral name (D10) |
+| 1 | `robj, unknown1, layer, unknown2, unknown3` | `app/client/gd_uiback.h:25` | neutral, the base's |
+| 1 | `event, x, y, mask` | `app/client/gd_uiback.h:27` | the base's |
+| 1 | `Unknown_2C` | `app/client/gd_uiback.h:27` | untagged neutral name (D10) |
+| 1 | `seconds` | `app/client/gd_uiback.h:28` | what it is compared with |
+| 1 | `Unknown_6740E0` | `app/client/gd_uiback.h:28` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/gd_uiback.h:29` | neutral |
+| 1 | `Unknown_674120` | `app/client/gd_uiback.h:29` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/gd_uiback.h:30` | neutral |
+| 1 | `Unknown_674160` | `app/client/gd_uiback.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/gd_uiback.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/gd_uiback.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_AFB794Class` | `app/client/gd_uiback.h:37` | neutral (D10) |
+| 1 | `Unknown_674260Class` | `app/client/gd_uiback.h:46` | untagged neutral name (D10) |
+| 1 | `model, offset` | `app/client/gd_uiback.h:49` | what it does with them |
+| 1 | `model, target` | `app/client/gd_uiback.h:50` | what it does with them |
+| 1 | `event, x, y, mask` | `app/client/gd_uiback.h:52` | the base's |
+| 1 | `Unknown60` | `app/client/gd_uiback.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/gd_uiback.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/gd_uiback.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/gd_uiback.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/client/gd_uiback.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown94` | `app/client/gd_uiback.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/gd_uiback.h:61` | untagged neutral name (D10) |
+| 1 | `model` | `app/client/gd_uiback.h:73` | what ui_starmap.cpp passes |
+| 1 | `x, y` | `app/client/gd_uiback.h:75` | the base's |
+| 1 | `Unknown_30` | `app/client/gd_uiback.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown_674D70` | `app/client/gd_uiback.h:76` | untagged neutral name (D10) |
 | 1 | `pos, size, on_screen, scene, scale` | `app/client/gutter_data.h:31` | what 0x7B7040 passes |
 | 1 | `Unknown_7B5BF0` | `app/client/gutter_data.h:31` | untagged neutral name (D10) |
 | 1 | `pos, size` | `app/client/gutter_data.h:32` | what 0x7B7040 passes |
@@ -13568,7 +13626,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_675120Class` | `app/client/unknown_674260.h:6` | untagged neutral name (D10) |
 | 1 | `unknown_674260.h` | `app/client/unknown_674260.h:15` | neutral (D137) |
 | 1 | `Unknown_674260Class` | `app/client/unknown_674260.h:23` | neutral (D10) |
-| 1 | `model` | `app/client/unknown_674260.h:26` | what the windows pass |
+| 1 | `mesh, name` | `app/client/unknown_674260.h:26` | the base's |
+| 1 | `model` | `app/client/unknown_674260.h:27` | what the windows pass |
 | 1 | `Unknown_675120Class` | `app/client/unknown_675120.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B40` | `app/client/unknown_675120.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_675120.cpp:33` | untagged neutral name (D10) |
@@ -17418,6 +17477,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Width` | `app/client/gd_text_editor.h:71` | what it holds |
 | 2 | `LineHeight` | `app/client/gd_text_editor.h:75` | what it holds |
 | 2 | `Client` | `app/client/gd_text_editor.h:78` | its type |
+| 2 | `Set_Position` | `app/client/gd_uiback.h:40` | 0x6745F0 forwards to the model's  // NAME 1 [position]: neutral |
+| 2 | `Get_Position` | `app/client/gd_uiback.h:41` | 0x674610 forwards to the model's |
+| 2 | `Peek_Object` | `app/client/gd_uiback.h:42` | 0x674640 returns its model |
 | 2 | `x, y, width, height, layer` | `app/client/gutter_radar.cpp:23` | what it stores |
 | 2 | `MouseTargetClass` | `app/client/gutter_radar.h:27` | the G_ASSERT's member name |
 | 2 | `client, scene` | `app/client/gutter_radar.h:34` | what it stores |
@@ -20315,6 +20377,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ShortcutOwner` | `app/client/gd_slot_data.h:85` | the asserts' |
 | 3 | `TextEditorGadgetClass` | `app/client/gd_text_editor.h:29` | class-from-file (D24) for app\Client\gd_text_editor.cpp |
 | 3 | `Slider` | `app/client/gd_text_editor.h:72` | the FAIL_IF's |
+| 3 | `GD_UIBACK_H` | `app/client/gd_uiback.h:12` | header name from gd_uiback.cpp's __FILE__ (D24) |
+| 3 | `UIBackGadgetClass` | `app/client/gd_uiback.h:70` | class-from-file (D24) for gd_uiback.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `gutter_radar.h` | `app/client/gutter_radar.h:15` | header name assumed from the client's gutter_radar.cpp |
 | 3 | `RadarSystemDataCacheClass` | `app/client/gutter_radar.h:29` | class-from-file (D24) for radar_system_data_cache.cpp |
