@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 112,
+  "ambiguous_total": 113,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -1202,6 +1202,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A100",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -1423,6 +1424,7 @@
     "merged": [],
     "name": "client/avatar.cpp",
     "shared": [
+     "0x42A100",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -2232,6 +2234,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A100",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -2335,6 +2338,7 @@
     "merged": [],
     "name": "client/charview.cpp",
     "shared": [
+     "0x42A100",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -5577,6 +5581,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A100",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -5611,6 +5616,7 @@
     "merged": [],
     "name": "client/dynamic_window_background.cpp",
     "shared": [
+     "0x42A100",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -9814,6 +9820,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A100",
      "0x42F250",
      "0x50A8E0",
      "0x50A900",
@@ -9857,6 +9864,7 @@
     "merged": [],
     "name": "client/gd_slider.cpp",
     "shared": [
+     "0x42A100",
      "0x42F250",
      "0x50A8E0",
      "0x50A900",
@@ -23815,6 +23823,131 @@
      "0x4586F0"
     ]
    },
+   "rs_list": {
+    "ambiguous": [
+     "0x45A750"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A100",
+     "0x42F250",
+     "0x457FA0",
+     "0x45A2D0",
+     "0x45A300",
+     "0x45A340",
+     "0x45A370",
+     "0x45A3B0",
+     "0x45A430",
+     "0x45A470",
+     "0x45A4A0",
+     "0x45A4D0",
+     "0x45A500",
+     "0x45A530",
+     "0x45A6F0",
+     "0x45A720",
+     "0x45A870",
+     "0x45A8F0",
+     "0x45A970",
+     "0x45A9F0",
+     "0x45AA40",
+     "0x45AA80",
+     "0x45ACD0",
+     "0x45B130",
+     "0x45B160",
+     "0x45B1B0",
+     "0x45B1E0",
+     "0x45B280",
+     "0x45B300",
+     "0x45B390",
+     "0x45B3E0",
+     "0x45B480",
+     "0x45B990",
+     "0x45BAB0",
+     "0x45BB70",
+     "0x45BE40",
+     "0x45C0B0",
+     "0x45C0E0",
+     "0x45C1B0",
+     "0x45C270",
+     "0x45C310",
+     "0x45C8B0",
+     "0x45C8E0",
+     "0x45C920",
+     "0x45C950",
+     "0x45C990",
+     "0x45CA00",
+     "0x45CA30",
+     "0x45CB00",
+     "0x45CB40",
+     "0x45CB70",
+     "0x45CBE0",
+     "0x45CC10",
+     "0x45CC30",
+     "0x45CC60",
+     "0x45CC90",
+     "0x45CCE0",
+     "0x45CDC0",
+     "0x45CE00",
+     "0x45CE70",
+     "0x45CEA0",
+     "0x45CF20",
+     "0x45D000",
+     "0x45D050",
+     "0x45D0A0",
+     "0x45D0F0",
+     "0x45D280",
+     "0x45D2C0",
+     "0x45D330",
+     "0x45D360",
+     "0x45D3A0",
+     "0x45D3D0",
+     "0x45D440",
+     "0x45D4B0",
+     "0x45D500",
+     "0x45D530",
+     "0x45D5C0",
+     "0x45D6D0",
+     "0x45D6F0",
+     "0x45D710",
+     "0x45D730",
+     "0x45D770",
+     "0x45D790",
+     "0x45D7C0",
+     "0x45D7E0",
+     "0x45D800",
+     "0x491830",
+     "0x494CC0"
+    ],
+    "merged": [],
+    "name": "shared/rs_list.cpp",
+    "shared": [
+     "0x42A100",
+     "0x42F250",
+     "0x457FA0",
+     "0x45CA00",
+     "0x45CC10",
+     "0x45CC30",
+     "0x45D6D0",
+     "0x45D6F0",
+     "0x45D710",
+     "0x45D770",
+     "0x45D7C0",
+     "0x45D7E0",
+     "0x45D800",
+     "0x491830",
+     "0x494CC0"
+    ],
+    "short_known": [
+     "0x45D6D0",
+     "0x45D6F0",
+     "0x45D710",
+     "0x45D770",
+     "0x45D7C0",
+     "0x45D7E0",
+     "0x45D800"
+    ]
+   },
    "rs_proj_sup": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -23939,6 +24072,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A100",
      "0x42F250",
      "0x45CC10",
      "0x45CC30",
@@ -24127,6 +24261,7 @@
     "merged": [],
     "name": "shared/rs_track.cpp",
     "shared": [
+     "0x42A100",
      "0x42F250",
      "0x45CC10",
      "0x45CC30",
@@ -24315,6 +24450,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A100",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -24431,6 +24567,7 @@
     "merged": [],
     "name": "client/sbaseview.cpp",
     "shared": [
+     "0x42A100",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -30048,6 +30185,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A100",
      "0x42F250",
      "0x57A330",
      "0x57AAB0",
@@ -30057,6 +30195,7 @@
     "merged": [],
     "name": "client/ui_combobox.cpp",
     "shared": [
+     "0x42A100",
      "0x42F250"
     ]
    },
@@ -31528,6 +31667,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A100",
      "0x42F250",
      "0x430370",
      "0x457FA0",
@@ -31628,6 +31768,7 @@
     "merged": [],
     "name": "client/ui_mesh.cpp",
     "shared": [
+     "0x42A100",
      "0x42F250",
      "0x430370",
      "0x457FA0",
@@ -32771,6 +32912,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A100",
      "0x42A710",
      "0x42A820",
      "0x42A940",
@@ -32968,6 +33110,7 @@
     "merged": [],
     "name": "client/ui_registration.cpp",
     "shared": [
+     "0x42A100",
      "0x42A710",
      "0x42A820",
      "0x42A940",
@@ -33952,6 +34095,7 @@
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x42A100",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -33999,6 +34143,7 @@
     "merged": [],
     "name": "client/ui_starmap.cpp",
     "shared": [
+     "0x42A100",
      "0x42A820",
      "0x42A940",
      "0x42A970",
@@ -34833,6 +34978,68 @@
      "0x4586F0"
     ]
    },
+   "unknown_45d840": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x458590",
+     "0x4585B0",
+     "0x4585D0",
+     "0x4585F0",
+     "0x458610",
+     "0x458630",
+     "0x458650",
+     "0x458670",
+     "0x458690",
+     "0x4586B0",
+     "0x4586D0",
+     "0x4586F0",
+     "0x45D840",
+     "0x45D890",
+     "0x45D8C0",
+     "0x45D900",
+     "0x45D990",
+     "0x45D9B0",
+     "0x491830",
+     "0x494CC0"
+    ],
+    "merged": [],
+    "name": "shared/unknown_45d840.cpp",
+    "shared": [
+     "0x42F250",
+     "0x458590",
+     "0x4585B0",
+     "0x4585D0",
+     "0x4585F0",
+     "0x458610",
+     "0x458630",
+     "0x458650",
+     "0x458670",
+     "0x458690",
+     "0x4586B0",
+     "0x4586D0",
+     "0x4586F0",
+     "0x491830",
+     "0x494CC0"
+    ],
+    "short_known": [
+     "0x458590",
+     "0x4585B0",
+     "0x4585D0",
+     "0x4585F0",
+     "0x458610",
+     "0x458630",
+     "0x458650",
+     "0x458670",
+     "0x458690",
+     "0x4586B0",
+     "0x4586D0",
+     "0x4586F0",
+     "0x45D990"
+    ]
+   },
    "unknown_45e3f0": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -35248,6 +35455,35 @@
      "0x48E910",
      "0x510CC0",
      "0x6CF410"
+    ]
+   },
+   "unknown_763e00": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x491830",
+     "0x494CC0",
+     "0x763E00",
+     "0x763E30",
+     "0x763E70",
+     "0x763FF0",
+     "0x764030",
+     "0x764060",
+     "0x764220",
+     "0x764270",
+     "0x764350",
+     "0x764390",
+     "0x7643E0",
+     "0x764410"
+    ],
+    "merged": [],
+    "name": "client/unknown_763e00.cpp",
+    "shared": [
+     "0x42F250",
+     "0x491830",
+     "0x494CC0"
     ]
    },
    "unknown_7979a0": {
@@ -36626,6 +36862,7 @@
    "client/unknown_675120.h": "reconstructed",
    "client/unknown_67d430.h": "reconstructed",
    "client/unknown_6ca0c0.h": "reconstructed",
+   "client/unknown_763e00.h": "reconstructed",
    "client/unknown_7979a0.h": "reconstructed",
    "client/unknown_798ae0.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
@@ -36896,7 +37133,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12179,
+  "in_tree_total": 12278,
   "totals": {}
  },
  "binkmovie": {
