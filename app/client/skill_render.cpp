@@ -30,7 +30,7 @@ Unknown815320Struct *Unknown_815320(int ability);	// NAME 1: neutral (D10)
 struct Unknown8155B0Struct { std::vector<Unknown815320Struct *> Abilities; int NumActivatable; };	// NAME 3 [Abilities, NumActivatable]: asserts
 const Unknown8155B0Struct &Unknown_8155B0(int skill);	// NAME 1: neutral (D10)
 int Unknown_815260(const std::string &name);	void Unknown_815720(std::string *string, int ability, bool below, unsigned int level);	// NAME 1: neutral (D10)
-const char *Unknown_818200(int skill);	int Unknown_818520(const char *name);	TextureClass *Unknown_818430(int skill);	// NAME 1: neutral (D10)
+class SkillNamesDatabase { public: static const char *Unknown_818200(int skill); static int Unknown_818520(const char *name); static TextureClass *Unknown_818430(int skill); };	// NAME 1: neutral (D10)
 void Unknown_6A93E0(const char *value, std::string &string);	const char *Unknown_6A9660(const char *state, std::string &string);	// NAME 1: neutral (D10)
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// NAME 1: neutral (D10)
 
@@ -245,7 +245,7 @@ void SkillRenderClass::Unknown_2C(bool force)
 void SkillRenderClass::Unknown_0C(std::string &out)
 {
 	SlotDataRenderClass::Unknown_0C(out);
-	const char *name = Unknown_818200(Unknown20);
+	const char *name = SkillNamesDatabase::Unknown_818200(Unknown20);
 	std::string string;
 	Unknown_6A93E0(name, string);
 	Unknown_6A93E0(Unknown_815320(Unknown34)->Name.c_str(), string);
@@ -287,7 +287,7 @@ const char *SkillRenderClass::Unknown_10(const char *serial_string)
 
 
 	FAIL_IF(string.empty()) return(0);
-	int slot = Unknown_818520(string.c_str());
+	int slot = SkillNamesDatabase::Unknown_818520(string.c_str());
 
 	FAIL_IF(slot < 0) return(0);
 
@@ -306,7 +306,7 @@ const char *SkillRenderClass::Unknown_10(const char *serial_string)
 // 0x6A6EA0
 TextureClass *SkillRenderClass::Unknown_34()
 {
-	return(Unknown_818430(Get_Slot()));
+	return(SkillNamesDatabase::Unknown_818430(Get_Slot()));
 }
 
 // 0x6A6EC0

@@ -42,8 +42,8 @@ struct Unknown815320Struct { char Unknown00[0x10]; int Unknown10; int Unknown14;
 Unknown815320Struct *Unknown_815320(int ability);	// NAME 1: neutral (D10)
 struct Unknown8155B0Struct { std::vector<Unknown815320Struct *> Abilities; int Unknown10; };	// NAME 3 [Abilities]: its assert
 const Unknown8155B0Struct &Unknown_8155B0(int skill);	// NAME 1: neutral (D10)
-const char *Unknown_818200(int skill);	const char *Unknown_818250(int skill);	const char *Unknown_8182A0(int skill, int level);	// as ui_attrb.cpp's
-unsigned int Unknown_8185C0(int skill, int index);	// NAME 1: neutral (D10)
+class SkillNamesDatabase { public: static const char *Unknown_818200(int skill); static const char *Unknown_818250(int skill); static const char *Unknown_8182A0(int skill, int level);	// as ui_attrb.cpp
+	static unsigned int Unknown_8185C0(int skill, int index); };	// NAME 1: neutral (D10)
 bool Unknown_496960(RenderObjClass *robj, float x, float y, LayerClass &layer);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
 void Unknown_496AE0(RenderObjClass *robj, int arg);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
 void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int index);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
@@ -240,7 +240,7 @@ int Unknown664500Class::Unknown_663DF0(UIAttrbSkillsClass *ui, int skill, int in
 	FAIL_IF(!AttachTo) return(-1);
 	SkillData = Create_Peek(ui->Unknown_62D710());
 	Unknown6C = skill;
-	Unknown100->Change_Text(Unknown_818200(skill), 0);
+	Unknown100->Change_Text(SkillNamesDatabase::Unknown_818200(skill), 0);
 	const Unknown8155B0Struct &skill_a = Unknown_8155B0(skill);
 	int count = 0;
 	Unknown110 = skill_a.Unknown10;
@@ -266,7 +266,7 @@ int Unknown664500Class::Unknown_663DF0(UIAttrbSkillsClass *ui, int skill, int in
 		}
 		Unknown815320Struct *ability = *it;
 		if (ability) {
-			if (ability->Unknown1C && ability->Unknown18 <= Unknown_8185C0(Unknown6C, index)) {
+			if (ability->Unknown1C && ability->Unknown18 <= SkillNamesDatabase::Unknown_8185C0(Unknown6C, index)) {
 				SlotDataGadgetClass *gadget = ui->Unknown_AC(a_robj.Peek(), &Unknown6C);
 				if (gadget) {
 					UnknownF0.push_back(gadget);
@@ -477,14 +477,14 @@ void Unknown664500Class::Unknown_664C60()
 			_snprintf(buffer, 256, "Unavailable %s", Unknown110 ? "Activated Skill" : "Passive Skill");
 		}
 		text = buffer;
-		SplitStringClass split(Unknown_818250(Unknown6C), (float)Unknown_B0804C, 0);
+		SplitStringClass split(SkillNamesDatabase::Unknown_818250(Unknown6C), (float)Unknown_B0804C, 0);
 		for (unsigned int lp = 0; lp < split.Count(); lp++) {
 			text += split.Get(lp);
 			text += "\n";
 		}
 		text += "Click for description";
 	} else {
-		text = Unknown_8182A0(Unknown6C, Unknown88 + 1);
+		text = SkillNamesDatabase::Unknown_8182A0(Unknown6C, Unknown88 + 1);
 	}
 	Set_Unknown14(text.c_str());
 }

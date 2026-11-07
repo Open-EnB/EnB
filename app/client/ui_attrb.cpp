@@ -66,11 +66,11 @@ public:
 };
 
 // skillnam.cpp's, as far as this file calls them (cdecl)
-const char *Unknown_8184D0(int skill);					// 0x8184D0: 'Combat', 'Trade' or 'Explore'  // NAME 1: neutral (D10)
-const char *Unknown_818200(int skill);					// 0x818200: the skill's name  // NAME 1: neutral (D10)
-const char *Unknown_818250(int skill);					// 0x818250: its description  // NAME 1: neutral (D10)
-const char *Unknown_8182A0(int skill, int level);		// 0x8182A0: a level's detail  // NAME 1: neutral (D10)
-const char *Unknown_818640(int skill, int index);		// 0x818640: not yet trained  // NAME 1: neutral (D10)
+class SkillNamesDatabase { public: static const char *Unknown_8184D0(int skill);	// 0x8184D0: 'Combat', 'Trade' or 'Explore'  // NAME 1: neutral (D10)
+	static const char *Unknown_818200(int skill);					// 0x818200: the skill's name  // NAME 1: neutral (D10)
+	static const char *Unknown_818250(int skill);					// 0x818250: its description  // NAME 1: neutral (D10)
+	static const char *Unknown_8182A0(int skill, int level);		// 0x8182A0: a level's detail  // NAME 1: neutral (D10)
+	static const char *Unknown_818640(int skill, int index); };	// 0x818640: not yet trained  // NAME 1: neutral (D10)
 
 // The level names (0xB79F04)
 static const char *Unknown_B79F04[] = { "", "", "Improved", "Advanced", "Expert", "Super", "Ultra", "Master", "Extreme", "Awesome" };	// NAME 1: neutral (D10)
@@ -151,8 +151,8 @@ void Unknown548D60Class::Unknown_548D60(SkillDataClass *list, int skill, int ind
 	int level = list->Unknown50.Get_Level(UnknownAC);
 	int max = list->Unknown50.Get_Quest_Only_Levels(UnknownAC);
 	bool maxed = (info->Unknown00 == 3 || level >= max);
-	const char *category = Unknown_8184D0(UnknownAC);
-	const char *name = Unknown_818200(UnknownAC);
+	const char *category = SkillNamesDatabase::Unknown_8184D0(UnknownAC);
+	const char *name = SkillNamesDatabase::Unknown_818200(UnknownAC);
 	RefCountPtr<FontSys> title = Create_Peek(Unknown_BE67C4->Get_Style("TITLE_ATT", InterfaceMesh->Peek_Mesh_Object()));
 	char buffer[0x40];
 	if (strcmp(category, "Combat") == 0) {
@@ -172,23 +172,23 @@ void Unknown548D60Class::Unknown_548D60(SkillDataClass *list, int skill, int ind
 		title->Change_Text(buffer, 0);
 		((AttrbFontSys *)title.Peek())->Set_Color(0.0f, 1.0f, 1.0f);
 	}
-	UnknownBC->Unknown_6D0A70("WRAP_SKILL_DESC_ATT", Unknown_818250(UnknownAC));
+	UnknownBC->Unknown_6D0A70("WRAP_SKILL_DESC_ATT", SkillNamesDatabase::Unknown_818250(UnknownAC));
 	const char *detail;
 	if (level) {
 		UnknownC0->Set_Hidden(false);
 		UnknownC4->Set_Hidden(true);
-		detail = Unknown_8182A0(UnknownAC, level);
+		detail = SkillNamesDatabase::Unknown_8182A0(UnknownAC, level);
 	} else {
 		UnknownC0->Set_Hidden(true);
 		UnknownC4->Set_Hidden(false);
-		detail = Unknown_818640(UnknownAC, index);
+		detail = SkillNamesDatabase::Unknown_818640(UnknownAC, index);
 	}
 	UnknownBC->Unknown_6D0A70("WRAP_LEVEL_DETAIL_ATT", detail);
 	if (info->Is_Bit06()) {
 		UnknownBC->Unknown_6D0A70("WRAP_NEXT_LEVEL_DETAIL_ATT", "You have already attained the maximum level for this skill.");
 		_snprintf(buffer, sizeof(buffer), "Maximum Level Attained");
 	} else {
-		UnknownBC->Unknown_6D0A70("WRAP_NEXT_LEVEL_DETAIL_ATT", Unknown_8182A0(UnknownAC, level + 1));
+		UnknownBC->Unknown_6D0A70("WRAP_NEXT_LEVEL_DETAIL_ATT", SkillNamesDatabase::Unknown_8182A0(UnknownAC, level + 1));
 		if (info->Is_Bit07()) {
 			_snprintf(buffer, sizeof(buffer), "%s Only.", list->Unknown50.Get_Affiliations(UnknownAC).c_str());
 		} else if (maxed) {

@@ -31,8 +31,8 @@ void Unknown_719E10(SClient *client);					// 0x719E10 (control_keys_manager.cpp)
 														// (as tsk_login.cpp)
 void Unknown_6766E0(const char *ini);					// 0x6766E0: 'action.ini'
 void Unknown_676A00();									// 0x676A00: Load_INIs' 0x6766E0 undone
-void Unknown_817070(const char *ini, const char *ex_ini);	// 0x817070: 'cskill_t.ini', 'cskill_ex_t.ini'
-void Unknown_816E60();									// 0x816E60
+class SkillNamesDatabase { public: static void Unknown_817070(const char *ini, const char *ex_ini);	// 0x817070: 'cskill_t.ini', 'cskill_ex_t.ini'
+	static void Unknown_816E60(); };						// 0x816E60
 void Unknown_814620(const char *ini, const char *ex_ini);	// 0x814620: 'cskill_ability_t.ini', 'cskill_ability_ex_t.ini'
 void Unknown_814430();									// 0x814430
 void Unknown_74CA90(const char *ini);					// 0x74CA90 (sclient.cpp's attributed run): 'testeffects.ini'
@@ -394,7 +394,7 @@ void SClient::Load_INIs()
 	if (INIUsers == 0) {
 		Unknown_7228C0();
 		Unknown_6766E0("action.ini");
-		Unknown_817070("cskill_t.ini", "cskill_ex_t.ini");
+		SkillNamesDatabase::Unknown_817070("cskill_t.ini", "cskill_ex_t.ini");
 		Unknown_814620("cskill_ability_t.ini", "cskill_ability_ex_t.ini");
 		Unknown_74CA90("testeffects.ini");
 		Unknown_70A7E0(std::string("gutter_color.ini"));
@@ -502,7 +502,7 @@ void SClient::Unload_INIs()
 	if (--INIUsers == 0) {
 		Unknown_723150();
 		Unknown_676A00();
-		Unknown_816E60();
+		SkillNamesDatabase::Unknown_816E60();
 		Unknown_814430();
 		Unknown_70AD70();
 		Unknown_Free_Assets();

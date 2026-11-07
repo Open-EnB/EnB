@@ -22,7 +22,6 @@ const char *Unknown_82F3C0(int index);	// 0x82F3C0: a character template's name 
 
 
 
-
 enum {
 	MAX_SKILL_LEVEL = 9,		// NAME 5: the assert 'level > MAX_SKILL_LEVEL+1', 0x8182E0
 	NUM_CHAR_TEMPLATES = 9		// NAME 5: the assert '(unsigned) char_tmpl >= NUM_CHAR_TEMPLATES', 0x8185FD
@@ -36,12 +35,13 @@ public:
 	~SkillNameClass();
 
 	void Set_Description(unsigned int level, const char *text);
-	void Set_Max(unsigned int char_tmpl, int max);
-	void Set_Trainer(unsigned int char_tmpl, const std::string &text);
+	void Set_Max(int char_tmpl, int max);
+	void Set_Trainer(int char_tmpl, const std::string &text);
 	const char *Get_Description(unsigned int level) const;
-	int Get_Max(unsigned int char_tmpl) const;
-	const char *Get_Trainer(unsigned int char_tmpl) const;
+	int Get_Max(int char_tmpl) const;
+	const char *Get_Trainer(int char_tmpl) const;
 	int Get_Range(unsigned int idx) const;
+	void Add_Range(int range) { Ranges.push_back(range); }
 
 	char *Name;								// +0x00  // NAME 2: 'All Skills' entry's value
 	char *Icon;								// +0x04  // NAME 2: its 'Icon'
@@ -58,7 +58,7 @@ inline SkillNameClass::SkillNameClass(const char *name, const char *icon, const 
 	Name(NULL), Icon(NULL), Category(NULL), Description(NULL), Selectable(selectable)
 {
 	memset(Max, 0, NUM_CHAR_TEMPLATES);	// the client clears 9 bytes, not 9 ints
-	Ranges.push_back(0);
+	Add_Range(0);
 	if (name && *name) {
 		Name = nstrdup(name);
 	} else {
@@ -74,7 +74,7 @@ inline SkillNameClass::SkillNameClass(const char *name, const char *icon, const 
 	if (description && *description) {
 		Description = nstrdup(description);
 	}
-	Descriptions.resize(MAX_SKILL_LEVEL + 2, std::string("No Description Available"));
+	{ std::string blank("No Description Available"); Descriptions.resize(MAX_SKILL_LEVEL + 2, blank); }
 	Descriptions[0] = "You do not have this skill yet";
 	Descriptions[MAX_SKILL_LEVEL + 1] = "You have achieved the highest level for this skill.";
 }
@@ -101,11 +101,11 @@ inline void SkillNameClass::Set_Description(unsigned int level, const char *text
 	FAIL_IF(level > MAX_SKILL_LEVEL+1) return;
 	Descriptions[level] = text;
 }
-inline void SkillNameClass::Set_Max(unsigned int char_tmpl, int max) {
+inline void SkillNameClass::Set_Max(int char_tmpl, int max) {
 	FAIL_IF((unsigned) char_tmpl >= NUM_CHAR_TEMPLATES) return;
 	Max[char_tmpl] = max;
 }
-inline void SkillNameClass::Set_Trainer(unsigned int char_tmpl, const std::string &text)
+inline void SkillNameClass::Set_Trainer(int char_tmpl, const std::string &text)
 {
 	FAIL_IF((unsigned) char_tmpl >= NUM_CHAR_TEMPLATES) return;
 	Trainers[char_tmpl] = text;
@@ -123,11 +123,11 @@ inline const char *SkillNameClass::Get_Description(unsigned int level) const
 	FAIL_IF(level > MAX_SKILL_LEVEL+1) return("Invalid Skill Level");
 	return(Descriptions[level].c_str());
 }
-inline int SkillNameClass::Get_Max(unsigned int char_tmpl) const {
+inline int SkillNameClass::Get_Max(int char_tmpl) const {
 	FAIL_IF((unsigned) char_tmpl >= NUM_CHAR_TEMPLATES) return(0);
 	return(Max[char_tmpl]);
 }
-inline const char *SkillNameClass::Get_Trainer(unsigned int char_tmpl) const
+inline const char *SkillNameClass::Get_Trainer(int char_tmpl) const
 {
 	FAIL_IF((unsigned) char_tmpl >= NUM_CHAR_TEMPLATES) return("Bug");
 	return(Trainers[char_tmpl].c_str());
@@ -140,12 +140,11 @@ inline int SkillNameClass::Get_Range(unsigned int idx) const
 	return(Ranges[idx]);
 }
 
-static std::vector<SkillNameClass *> _AllSkills;				// 0xBE8E28  // NAME 5: the assert 'index >= _AllSkills.size()'
-static std::hash_map<std::string, int> _SkillIndex;			// 0xBE8E38  // NAME 2: describes what it does
+std::vector<SkillNameClass *> SkillNamesDatabase::_AllSkills;				// 0xBE8E28  // NAME 5: the assert 'index >= _AllSkills.size()'
+std::hash_map<std::string, int> SkillNamesDatabase::_SkillIndex;			// 0xBE8E38  // NAME 2: describes what it does
 
-// NOT EXACT: register, the client's loop in esi and a dead store of end() before the erase's last store
 // 0x816E60
-void Unknown_816E60()
+void SkillNamesDatabase::Unknown_816E60()
 {
 	for (std::vector<SkillNameClass *>::iterator it = _AllSkills.begin(); it != _AllSkills.end(); ++it) {
 		delete *it;
@@ -155,14 +154,15 @@ void Unknown_816E60()
 	_SkillIndex.clear();
 }
 
-// NOT EXACT: frame, 0x1C4 against the client's 0x1C0, and the string locals' slots; every call in the client's order
 // 0x817070
-void Unknown_817070(const char *ini_name, const char *ex_ini_name)
+void SkillNamesDatabase::Unknown_817070(const char *ini_name, const char *ex_ini_name)
 {
 	std::string bug("Bug: Report Me");
 	INIClass ini;
 	ini.Load(ini_name);
 	ini.Load(ex_ini_name);
+
+
 
 
 
@@ -220,7 +220,7 @@ void Unknown_817070(const char *ini_name, const char *ex_ini_name)
 		const char *p = range;
 		if (p) {
 			while (*p) {
-				skill->Ranges.push_back(atoi(p));
+				skill->Add_Range(atoi(p));
 				while (*p && *p != ',') {
 					p++;
 				}
@@ -258,21 +258,21 @@ void Unknown_817070(const char *ini_name, const char *ex_ini_name)
 				StringClass temp;
 				ini.Get_String(temp, name.c_str(), "Trainer", "Unknown");
 				trainer = "See ";
-				trainer += temp;
+				trainer.append(temp);
 				ini.Get_String(temp, name.c_str(), "Location", "Unknown");
-				trainer += " at ";
-				trainer += temp;
+				trainer.append(" at ");
+				trainer.append(temp);
 				ini.Get_String(temp, name.c_str(), "Sector", "Unknown");
-				trainer += " in ";
-				trainer += temp;
+				trainer.append(" in ");
+				trainer.append(temp);
 				ini.Get_String(temp, name.c_str(), "System", "Unknown");
-				trainer += ", ";
-				trainer += temp;
-				trainer += " System";
+				trainer.append(", ");
+				trainer.append(temp);
+				trainer.append(" System");
 				if (ini.Get_Int(name.c_str(), "Learn Lvl", 0)) {
 					ini.Get_String(temp, name.c_str(), "Learn Lvl", "");
 					trainer += " upon reaching level ";
-					trainer += temp;
+					trainer.append(temp);
 				}
 				trainer += ".";
 				skill->Set_Trainer(char_tmpl, trainer);
@@ -288,7 +288,7 @@ void Unknown_817070(const char *ini_name, const char *ex_ini_name)
 }
 
 // 0x818170
-int Unknown_818170(const std::string &name)
+int SkillNamesDatabase::Unknown_818170(const std::string &name)
 {
 	std::hash_map<std::string, int>::iterator it = _SkillIndex.find(name);
 	if (it == _SkillIndex.end()) {
@@ -298,7 +298,7 @@ int Unknown_818170(const std::string &name)
 }
 
 // 0x818200
-const char *Unknown_818200(int index)
+const char *SkillNamesDatabase::Unknown_818200(int index)
 {
 
 
@@ -320,27 +320,27 @@ const char *Unknown_818200(int index)
 }
 
 // 0x818250
-const char *Unknown_818250(int index)
+const char *SkillNamesDatabase::Unknown_818250(int index)
 {
 	FAIL_IF(index >= _AllSkills.size()) return("?Skill Error?");
 	return(_AllSkills[index]->Description);
 }
 
 // 0x8182A0
-const char *Unknown_8182A0(int index, int level)
+const char *SkillNamesDatabase::Unknown_8182A0(int index, int level)
 {
 	FAIL_IF(index >= _AllSkills.size()) return("?Skill Error?");
 	return(_AllSkills[index]->Get_Description(level));
 }
 // 0x818340
-int Unknown_818340(int index, unsigned int idx)
+int SkillNamesDatabase::Unknown_818340(int index, unsigned int idx)
 {
 	FAIL_IF(index >= _AllSkills.size()) return(0);
 	return(_AllSkills[index]->Get_Range(idx));
 }
 
 // 0x8183E0
-const char *Unknown_8183E0(int index)
+const char *SkillNamesDatabase::Unknown_8183E0(int index)
 {
 
 	FAIL_IF(index >= _AllSkills.size()) return("?Skill Error?");
@@ -348,7 +348,7 @@ const char *Unknown_8183E0(int index)
 }
 
 // 0x818430
-TextureClass *Unknown_818430(int index)
+TextureClass *SkillNamesDatabase::Unknown_818430(int index)
 {
 	const char *icon = Unknown_8183E0(index);
 	if (icon && *icon) {
@@ -361,7 +361,7 @@ TextureClass *Unknown_818430(int index)
 }
 
 // 0x8184D0
-const char *Unknown_8184D0(int index)
+const char *SkillNamesDatabase::Unknown_8184D0(int index)
 {
 
 
@@ -371,7 +371,7 @@ const char *Unknown_8184D0(int index)
 }
 
 // 0x818520
-int Unknown_818520(const char *name)
+int SkillNamesDatabase::Unknown_818520(const char *name)
 {
 	for (unsigned int i = 0; i < _AllSkills.size(); i++) {
 		if (!stricmp(name, _AllSkills[i]->Name)) {
@@ -388,13 +388,13 @@ int SkillNamesDatabase::Max_Skill()
 }
 
 // 0x8185C0
-unsigned int Unknown_8185C0(int index, int char_tmpl)
+unsigned int SkillNamesDatabase::Unknown_8185C0(int index, int char_tmpl)
 {
 	FAIL_IF(index >= _AllSkills.size()) return(0);
 	return(_AllSkills[index]->Get_Max(char_tmpl));
 }
 // 0x818640
-const char *Unknown_818640(int index, int char_tmpl)
+const char *SkillNamesDatabase::Unknown_818640(int index, int char_tmpl)
 {
 	FAIL_IF(index >= _AllSkills.size()) return(0);
 	return(_AllSkills[index]->Get_Trainer(char_tmpl));
@@ -405,8 +405,13 @@ const char *Unknown_818640(int index, int char_tmpl)
 **
 **	The object runs from 0x816D70 (_AllSkills' constructor stub; 0x816CE0 before it is skill_ability_names.cpp's template) to
 **	<string>'s initialiser at 0x8190A0, with its statics at 0xBE8E20-0xBE8E4F. The next object (0x8190D0) is time_mgr.cpp.
-**	Only SkillNamesDatabase::Max_Skill is named by the client (0x6A4F40's assert); the other functions take no this and
-**	keep their callers' neutral names. Unknown_818430 calls Unknown_8183E0, inlined one level: the assert's line 346 is
-**	shared. The line numbers come from the asserts; the class in this file holds lines 65-139 as in the client, where
-**	the same __FILE__ is on its inline members' asserts, so the class is this file's and not a header's.
+**	Only SkillNamesDatabase::Max_Skill is named by the client (0x6A4F40's assert). The others are its static members too:
+**	their asserts read _AllSkills unqualified, and only members with external linkage give both the statics' guarded
+**	atexit stubs (0x816DB0, 0x816E30) and 0x816E60's and 0x817070's code: a file static gives other registers there, a
+**	plain global loses the guards. Unknown_818430 calls Unknown_8183E0, inlined one level: the assert's line 346 is shared.
+**	SkillNameClass's inline members carry this file's __FILE__ on lines 65-139, so the class is this file's, not a header's.
+**
+**	Forms 0x817070 needs: Add_Range, an inline taking the value, shares the atoi temporary's slot with the constructor's
+**	(a direct push_back makes the frame 4 bigger); a named string for the descriptions' resize; append for the trainer's
+**	pieces, since += spends enough inline budget to push ' upon reaching level ' out of line.
 */

@@ -13,10 +13,10 @@
 #include "..\shared\split_string.h"
 
 // skillnam.cpp's (not rebuilt yet)
-class SkillNamesDatabase { public: static int Max_Skill(); };	// NAME 5: 0x6A4F40's assert
-int Unknown_818170(const std::string &name);	// NAME 1: neutral (D10)
-int Unknown_818340(int skill, unsigned int level);	// NAME 1: neutral (D10)
-TextureClass *Unknown_818430(int skill);	// NAME 1: neutral (D10)
+class SkillNamesDatabase { public: static int Max_Skill();	// NAME 5: 0x6A4F40's assert
+	static int Unknown_818170(const std::string &name);	// NAME 1: neutral (D10)
+	static int Unknown_818340(int skill, unsigned int level);	// NAME 1: neutral (D10)
+	static TextureClass *Unknown_818430(int skill); };	// NAME 1: neutral (D10)
 // kv_util.cpp's (not rebuilt yet)
 void Unknown_4BB3F0(KVTripleListClass &list, INIClass &ini, const char *section);	// NAME 1: neutral (D10)
 
@@ -129,7 +129,7 @@ static void Unknown_814A30(INIClass &ini, const char *section, unsigned int &ind
 		sprintf(level_key, "Level_%d", level);
 		TPoint3D<float> color = ini.Get_Point("AbilityColors", level_key, white);
 		color = ini.Get_Point(name.c_str(), "Color", color);
-		unsigned int skill_index = Unknown_818170(skill_name);
+		unsigned int skill_index = SkillNamesDatabase::Unknown_818170(skill_name);
 
 
 
@@ -167,7 +167,7 @@ int Unknown_815260(const std::string &name)
 // 0x815300
 unsigned int Unknown_815300(const std::string &name)
 {
-	return(Unknown_818170(name));
+	return(SkillNamesDatabase::Unknown_818170(name));
 }
 
 
@@ -216,7 +216,7 @@ TextureClass *Unknown_815690(int ability_idx, Vector3 *color)
 	if (color) {
 		*color = ability->Unknown20;
 	}
-	return(Unknown_818430(ability->Unknown14));
+	return(SkillNamesDatabase::Unknown_818430(ability->Unknown14));
 }
 
 // NOT EXACT: inline-budget, the client calls _Eos and _Tidy out of line and inlines _Grow in the last append
@@ -231,7 +231,7 @@ void Unknown_815720(std::string *string, int ability_idx, bool below, unsigned i
 		return;
 	}
 	Unknown815320Struct *ability = Unknown_815320(ability_idx);
-	int range = Unknown_818340(ability->Unknown14, level > ability->Unknown18 ? level : ability->Unknown18);
+	int range = SkillNamesDatabase::Unknown_818340(ability->Unknown14, level > ability->Unknown18 ? level : ability->Unknown18);
 	char cost[64];
 	if (ability->EnergyCost >= 0) {
 		itoa(ability->EnergyCost, cost, 10);

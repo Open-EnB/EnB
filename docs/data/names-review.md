@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 164 |
+| 5 | the client names it | 165 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1548 |
-| 2 | describes what the code does | 3613 |
-| 1 | neutral placeholder | 17394 |
+| 2 | describes what the code does | 3614 |
+| 1 | neutral placeholder | 17397 |
 
 ## For review (score 3 and below)
 
@@ -6948,7 +6948,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8155B0` | `app/client/skill_render.cpp:31` | neutral (D10) |
 | 1 | `Unknown_815260` | `app/client/skill_render.cpp:32` | neutral (D10) |
 | 1 | `Unknown_815720` | `app/client/skill_render.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_818200` | `app/client/skill_render.cpp:33` | neutral (D10) |
+| 1 | `SkillNamesDatabase` | `app/client/skill_render.cpp:33` | neutral (D10) |
+| 1 | `Unknown_818200` | `app/client/skill_render.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_818520` | `app/client/skill_render.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_818430` | `app/client/skill_render.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_6A93E0` | `app/client/skill_render.cpp:34` | neutral (D10) |
@@ -7012,8 +7013,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `gadget` | `app/client/skill_render.h:61` | neutral |
 | 1 | `Unknown_6A7380` | `app/client/skill_render.h:61` | untagged neutral name (D10) |
 | 1 | `Unknown_82F3C0` | `app/client/skillnam.cpp:18` | neutral (D10) |
-| 1 | `Unknown_816E60` | `app/client/skillnam.cpp:148` | untagged neutral name (D10) |
-| 1 | `Unknown_817070` | `app/client/skillnam.cpp:160` | untagged neutral name (D10) |
+| 1 | `Unknown_816E60` | `app/client/skillnam.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_817070` | `app/client/skillnam.cpp:158` | untagged neutral name (D10) |
 | 1 | `Unknown` | `app/client/skillnam.cpp:259` | untagged neutral name (D10) |
 | 1 | `Unknown_818170` | `app/client/skillnam.cpp:291` | untagged neutral name (D10) |
 | 1 | `Unknown_818200` | `app/client/skillnam.cpp:301` | untagged neutral name (D10) |
@@ -7037,8 +7038,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_818430` | `app/client/skillnam.h:37` | neutral (D10) |
 | 1 | `Unknown_8184D0` | `app/client/skillnam.h:38` | neutral (D10) |
 | 1 | `Unknown_818520` | `app/client/skillnam.h:39` | neutral (D10) |
-| 1 | `Unknown_8185C0` | `app/client/skillnam.h:40` | neutral (D10) |
-| 1 | `Unknown_818640` | `app/client/skillnam.h:41` | neutral (D10) |
+| 1 | `Unknown_8185C0` | `app/client/skillnam.h:41` | neutral (D10) |
+| 1 | `Unknown_818640` | `app/client/skillnam.h:42` | neutral (D10) |
 | 1 | `Unknown30` | `app/client/slot_data.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown40` | `app/client/slot_data.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_Watch_0C` | `app/client/slot_data.cpp:24` | untagged neutral name (D10) |
@@ -7859,7 +7860,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `skill` | `app/client/ui_attrb.cpp:57` | neutral |
 | 1 | `SkillDataClass` | `app/client/ui_attrb.cpp:60` | neutral (D10) |
 | 1 | `Unknown50` | `app/client/ui_attrb.cpp:65` | untagged neutral name (D10) |
-| 1 | `Unknown_8184D0` | `app/client/ui_attrb.cpp:69` | neutral (D10) |
+| 1 | `SkillNamesDatabase` | `app/client/ui_attrb.cpp:69` | neutral (D10) |
+| 1 | `Unknown_8184D0` | `app/client/ui_attrb.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_818200` | `app/client/ui_attrb.cpp:70` | neutral (D10) |
 | 1 | `Unknown_818250` | `app/client/ui_attrb.cpp:71` | neutral (D10) |
 | 1 | `Unknown_8182A0` | `app/client/ui_attrb.cpp:72` | neutral (D10) |
@@ -11726,7 +11728,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Valid` | `app/client/ui_mfd_extended_context_harvestable.cpp:14` | neutral (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_mfd_extended_context_harvestable.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_mfd_extended_context_harvestable.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown_818520` | `app/client/ui_mfd_extended_context_harvestable.cpp:15` | neutral (D10) |
+| 1 | `SkillNamesDatabase` | `app/client/ui_mfd_extended_context_harvestable.cpp:15` | neutral (D10) |
+| 1 | `Unknown_818520` | `app/client/ui_mfd_extended_context_harvestable.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_5BF730` | `app/client/ui_mfd_extended_context_harvestable.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_mfd_extended_context_harvestable.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_5BF760` | `app/client/ui_mfd_extended_context_harvestable.cpp:26` | untagged neutral name (D10) |
@@ -18707,7 +18710,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Fields` | `app/client/skill_data_peek.h:148` | describes what it does |
 | 2 | `Status` | `app/client/skill_data_peek.h:149` | describes what it does |
 | 2 | `UnknownDurationSum` | `app/client/skill_render.cpp:17` | describes what it does |
-| 2 | `SkillNameClass` | `app/client/skillnam.cpp:32` | an entry of _AllSkills |
+| 2 | `SkillNameClass` | `app/client/skillnam.cpp:31` | an entry of _AllSkills |
 | 2 | `Name` | `app/client/skillnam.cpp:46` | 'All Skills' entry's value |
 | 2 | `Icon` | `app/client/skillnam.cpp:47` | its 'Icon' |
 | 2 | `Category` | `app/client/skillnam.cpp:48` | its 'Category' |
@@ -18716,6 +18719,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/skillnam.cpp:52` | its section's 'Trainer' |
 | 2 | `std:` | `app/client/skillnam.cpp:54` | its 'Desc_N' |
 | 2 | `std:` | `app/client/skillnam.cpp:144` | describes what it does |
+| 2 | `std:` | `app/client/skillnam.h:46` | describes what it does |
 | 2 | `Value` | `app/client/slot_data.h:31` | describes what it does |
 | 2 | `Get_Slot` | `app/client/slot_data_render.h:54` | the accessor of Unknown20, the slot |
 | 2 | `position` | `app/client/slot_data_render.h:61` | RenderObjClass::Set_Position |
