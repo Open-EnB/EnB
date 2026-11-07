@@ -3873,6 +3873,8 @@ RECONSTRUCTED = {
     ('app', 'shared/shipcust_desc.cpp'): "the ship customisation, client 0x4F6210-0x4F6970 of the window 0x4F6160-0x4F9740 (D90 9b): the race / profession setters, the wire and key/value slots of the description, its parts and settings; exact; the KV templates and the rest of the window not yet",
     ('app', 'shared/kv_acc_array.h'): "KVArrayAccessorClass<T> (D24 from the asserts' __FILE__ ..\\shared/kv_acc_array.h): a StringValueClass over an array, the values joined by a separator; avatar_desc.cpp's float instance 0x4C3110-0x4C3BE0; the asserts on the client's lines 66, 72, 93",
     ('app', 'shared/rs_track.h'): "RsTrackClass (D24, class-from-file for rs_track.cpp; 0x100 bytes, vtable 0xAE8294, Class_ID 0x10001), with rs_list.cpp's RenderStateClass / RenderStateListClass and proj_man's two helpers declared as far as it uses them (interim, D137); co.cpp and cpacket.cpp include it in place of their own declarations",
+    ('app', 'shared/rs_eff_p.cpp'): "the effect pass render states Unknown458C10Class and Unknown4591A0Class, client 0x458C10-0x459630 "
+                                   "(__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_eff_p.cpp in its asserts, line 253, D25)",
     ('app', 'shared/rs_list.cpp'): "the render state list RenderStateListClass and the state maker Unknown45C430Class, client 0x45A2B0-0x45C9D9 and its template copies to 0x45D820 "
                                   "(__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_list.cpp in its asserts, lines 198 215 226 625 656, D25): the INI readers, the lookups, the per-TYPE "
                                   "state makers, the constructors from rs.ini, a source list and nothing, the destructor, the global maker 0xBDC0A0 (RS1)",

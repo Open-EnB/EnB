@@ -228,16 +228,46 @@ public:
 
 	char Unknown2C[0x3C - 0x2C];									// NAME 1: neutral (D10)
 };
+class MaterialPassClass;
 class Unknown458C10Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'effect_pass' (rs_eff_p.cpp, 0x34 bytes; the client's debug text names it RenderStateEffectPassClass)
 {
 public:
-	Unknown458C10Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, bool two_sided, bool hidden, const char *texture, int a, int b, ShaderClass shader);	// 0x458C10  // NAME 1 [two_sided, hidden, texture, a, b, shader]: rs_list.cpp's keys
-	virtual ~Unknown458C10Class();
-	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);
-	virtual void Unknown_14(RsTrackClass *owner);
+	Unknown458C10Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, bool two_sided, bool hidden, const char *texture, bool a, bool b, ShaderClass shader);	// 0x458C10  // NAME 1 [two_sided, hidden, texture, a, b, shader]: rs_list.cpp's keys
+	Unknown458C10Class(RenderStateListClass *list, const Unknown458C10Class &source);	// 0x458DD0
+	virtual ~Unknown458C10Class();									// 0x458F10 (deleting 0x458DA0)
+	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x458FA0
+	virtual void Unknown_14(RsTrackClass *owner);					// +0x14 0x459030
+	virtual void Unknown_18(RsTrackClass *owner);					// +0x18 0x459060
+	virtual void Unknown_28(int a, int b);							// +0x28 0x459080
+	virtual void Unknown_2C(int a, int b);							// +0x2C 0x4590F0
 	void Unknown_459120(TextureMapperClass *mapper);				// 0x459120  // NAME 1 [mapper]: what rs_list.cpp hands it
+	TextureMapperClass *Unknown_459170();							// 0x459170
 
-	char Unknown2C[0x34 - 0x2C];									// NAME 1: neutral (D10)
+	MaterialPassClass *MaterialPass;								// +0x2C
+	bool TwoSided;													// +0x30
+	bool Hidden;													// +0x31
+};
+
+class Unknown4591A0Class : public Unknown458C10Class	// NAME 1: neutral (D10); rs_eff_p.cpp
+{
+public:
+	Unknown4591A0Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, int next_id, bool two_sided, bool hidden, const char *texture, int a, int b, ShaderClass shader, float cycle_time, float start_v, float end_v);
+	Unknown4591A0Class(RenderStateListClass *list, const Unknown4591A0Class &source);
+	virtual ~Unknown4591A0Class();
+	virtual void Unknown_18(RsTrackClass *owner);
+	virtual void Unknown_30(RsTrackClass *owner, float seconds);
+	virtual void Unknown_34(float seconds);
+	virtual void Unknown_3C();
+	virtual void Unknown_4C(float v) = 0;
+
+	RenderStateClass *Unknown_459630();
+
+	float CurrentTime;												// +0x34
+	float TimeRate;													// +0x38
+	float StartV;													// +0x3C
+	float DeltaV;													// +0x40
+	int NextID;														// +0x44
+	RenderStateClass *NextRenderState;								// +0x48
 };
 extern char *Unknown_B70E40[];									// 0xB70E40 ('Axial', 'Silhouette', 'Environment', 'Screen', NULL: EFFECT_PASS_TYPE's names)  // NAME 1: neutral (D10)
 
