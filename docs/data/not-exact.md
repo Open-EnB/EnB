@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-631 entries in 177 files.
+661 entries in 178 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -138,6 +138,36 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_client.cpp:176` | `GalaxyMapClientClass::Unknown_7A52F0` | mention | NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0) |
 | `app/client/galaxy_map_client.cpp:193` | `GalaxyMapClientClass::Unknown_7A5400` | mention | NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400) |
 | `app/client/galaxy_map_pip.cpp:407` | `GalaxyMapPipClass::Unknown_5404E0` | marker | NOT EXACT: only UnknownRTTIClass::Cast: the client calls it out of line here, ours expands it, and one register follows (see notes) @0x5404E0 |
+| `app/client/galaxy_map_render.cpp:128` | `Create_Item` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:208` | `Find_Nearest` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:344` | `GalaxyMapRenderClass::Unknown_7A6DD0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:428` | `GalaxyMapRenderClass::Unknown_7A72C0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:467` | `GalaxyMapRenderClass::Unknown_7A7560` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:536` | `GalaxyMapRenderClass::Unknown_7A7D70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:569` | `GalaxyMapRenderClass::Unknown_7A7D70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:808` | `GalaxyMapRenderClass::Unknown_7A89A0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:822` | `GalaxyMapRenderClass::Unknown_7A8B70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:915` | `GalaxyMapRenderClass::Unknown_7A9500` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:972` | `GalaxyMapRenderClass::Unknown_7A97A0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1080` | `GalaxyMapRenderMeshClass::Intersect` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1119` | `GalaxyMapRenderMeshClass::Set_Scale` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1180` | `GalaxyMapRenderSystemClass::GalaxyMapRenderSystemClass` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1188` | `GalaxyMapRenderSystemClass::~GalaxyMapRenderSystemClass` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1211` | `GalaxyMapRenderSystemClass::Unknown_7AAB60` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1309` | `GalaxyMapRenderSectorClass::GalaxyMapRenderSectorClass` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1355` | `GalaxyMapRenderSectorClass::~GalaxyMapRenderSectorClass` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1361` | `GalaxyMapRenderSectorClass::Release_Item` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1373` | `GalaxyMapRenderSectorClass::Unknown_7AB6D0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1386` | `GalaxyMapRenderSectorClass::Unknown_7AB8B0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1420` | `GalaxyMapRenderSectorClass::Unknown_7ABA70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1501` | `GalaxyMapRenderSectorClass::Unknown_7AC070` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1508` | `GalaxyMapRenderSectorClass::Unknown_7AC130` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1566` | `GalaxyMapRenderGateClass::Unknown_7ACBB0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1580` | `GalaxyMapRenderGateClass::Unknown_7ACBB0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1690` | `GalaxyMapRenderGateClass::Unknown_7AD090` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1740` | `GalaxyMapRenderGateClass::Unknown_7AD5B0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1761` | `GalaxyMapRenderGateClass::Unknown_7AD5B0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1864` | `GalaxyMapRenderGateClass::Unknown_7AD850` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/gd_buffgadg.cpp:90` | `BuffInfoStruct::Get_Element` | marker | NOT EXACT: register (the static element's zero expiry: the client stores ebx twice, ours a second zeroed register; one instruction) 0x6656A0 |
 | `app/client/gd_buffgadg.cpp:101` | `BuffElementStruct::BuffElementStruct` | marker | NOT EXACT: inline budget (the client calls basic_string::assign for both members, ours inlines it: 52 vs 115 instructions) 0x665940 |
 | `app/client/gd_buffgadg.cpp:188` | `BuffGadgetClass::Unknown_AC` | marker | NOT EXACT: frame (the client keeps the time now on the stack, ours in registers; the body after it matches) 0x665F20 |

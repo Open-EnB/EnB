@@ -92,7 +92,7 @@ public:
 	void Set_Justify(int vertical, int horizontal) { Info.Justify[0] = vertical; Info.Justify[1] = horizontal; }	// (inline: gutter_data.cpp's 0x7B63C0)  // NAME 2 [vertical, horizontal]: 1 / 2 and 3 / 4
 	void Unknown_6D8A80(bool on);											// 0x6D8A80: +0x4E6 set; off sets +0x4A0 to 1 (gutter_data.cpp)  // NAME 1 [Unknown_6D8A80, on]: neutral (D10)
 	const char *Unknown_6D87D0();											// 0x6D87D0: Info.Text (fontsys_cursor.cpp's FAIL_IF '!text')  // NAME 1 [Unknown_6D87D0]: neutral (D10)
-	void Unknown_6D8970(bool on);											// 0x6D8970: Underline (+0x407) set (ui_friends.cpp's 0x590550: off for 'offline')  // NAME 1 [Unknown_6D8970, on]: neutral (D10)
+	void Unknown_6D8940(float height); void Unknown_6D8970(bool on);											// 0x6D8970: Underline (+0x407) set (ui_friends.cpp's 0x590550: off for 'offline')  // NAME 1 [Unknown_6D8970, on]: neutral (D10)
 	void Unknown_6D5F40(ShaderClass &shader);								// 0x6D5F40: the shader for Info.BlendType[FontIndex] (Update_Text)  // NAME 1 [Unknown_6D5F40]: neutral (D10)
 	bool Unknown_6D60C0();													// 0x6D60C0: the show delay (+0x26C ms); true while it lasts (Update_Text)  // NAME 1 [Unknown_6D60C0]: neutral (D10)
 	bool Unknown_6CD180();													// 0x6CD180: Update_Text runs the mouse-over effects while true  // NAME 1 [Unknown_6CD180]: neutral (D10)
