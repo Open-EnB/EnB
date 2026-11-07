@@ -27,7 +27,7 @@ public:
 	void Set_Elevation_Offset(float offset);			// 0x79BEC0  // NAME 2: the manager's
 	void Unknown_79BEF0(bool hidden);					// 0x79BEF0 (SClient::Init passes CameraMode == 0)  // NAME 2 [hidden]: what it passes to 0x6F3BF0
 	void Unknown_79BF40(int id);						// 0x79BF40 (the followed object's id)  // NAME 1 [id]: neutral
-	void Unknown_79BFC0(ClientObjectClass *obj, Quaternion *des_quat, Vector3 *des_pos);	// 0x79BFC0 (not rebuilt)  // NAME 2 [des_quat, des_pos, obj]: its FAIL_IFs
+	void Unknown_79BFC0(ClientObjectClass *obj, Quaternion *des_quat, Vector3 *des_pos);	// 0x79BFC0 (NOT EXACT)  // NAME 2 [des_quat, des_pos, obj]: its FAIL_IFs
 
 	float Heading;										// +0x08  // NAME 2: sclient.cpp's
 	float Distance;										// +0x0C  // NAME 2: sclient.cpp's

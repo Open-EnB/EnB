@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1596 |
 | 2 | describes what the code does | 3679 |
-| 1 | neutral placeholder | 18402 |
+| 1 | neutral placeholder | 18405 |
 
 ## For review (score 3 and below)
 
@@ -1054,6 +1054,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_79BE90` | `app/client/cammod_chase.cpp:85` | untagged neutral name (D10) |
 | 1 | `Unknown_79BEF0` | `app/client/cammod_chase.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_79BF40` | `app/client/cammod_chase.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/cammod_chase.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_6F3ED0` | `app/client/cammod_chase.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_79B6B0` | `app/client/cammod_chase.cpp:166` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/cammod_chase.h:20` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/cammod_chase.h:21` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/cammod_chase.h:22` | untagged neutral name (D10) |

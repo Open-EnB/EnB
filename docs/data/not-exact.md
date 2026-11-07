@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-682 entries in 190 files.
+684 entries in 192 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -40,6 +40,8 @@ edit the comments in the code, not this file.
 | `app/client/camera_manager.cpp:252` | `CameraManagerClass::Unknown_799E40` | marker | NOT EXACT: 0x799E40 (frame order: the client puts target at -0x10 above the 12-byte block locals and Sqrt's float above the avatar position temporary, ours the reverse; bit 15's Length2 keeps Y and Z on the FPU in the client) 0x799E40 |
 | `app/client/camera_manager.cpp:653` | `CameraManagerClass::Unknown_79B4F0` | marker | NOT EXACT: 0x79B4F0 (the default arm: the client keeps true in bl across the assert, so its return is not merged with case 0's mov al,1) |
 | `app/client/camera_manager.cpp:706` | `CameraManagerClass::Unknown_79B6B0` | mention | NOT EXACT (CS1, 2026-11-07). 0x799E40's inlining: 0x79B330 inline for its first 17 requests and 0x799DA0 for 23 sites only with 0x79B330 written without a bit local (with it, the requests 15 and 16 lose theirs to the budget); the 'bit' local form is exact out of line too. 0x7998B0's shifted box needs Set_Translation (Matrix3D(-delta) copies through the FPU). |
+| `app/client/cammod_chase.cpp:145` | `ChaseCameraModuleClass::Unknown_79BFC0` | marker | NOT EXACT: inline budget (0.42: the client inlines Translate_Z and computes Normalize's Length2 twice; ours calls Translate_Z) |
+| `app/client/cammod_chase.h:30` | `?` | mention | NOT EXACT) // NAME 2 [des_quat, des_pos, obj]: its FAIL_IFs |
 | `app/client/chat_window.cpp:250` | `ChatWindowClass::Unknown_67E670` | marker | NOT EXACT: the clamp of `spaces` only: the client tests spaces < 1 twice (0x67E78C, 0x67E79D); VC6 folds the second here |
 | `app/client/chat_window.cpp:299` | `ChatWindowClass::Unknown_67F7F0` | marker | NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy) |
 | `app/client/chat_window.cpp:503` | `ChatWindowClass::Unknown_6804E0` | marker | NOT EXACT: the height is kept in two stack slots in the client (fst [esp+0xC]; fstp [esp+8], frame 4 larger); the rest is the client form |

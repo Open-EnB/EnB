@@ -2441,6 +2441,10 @@
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x447C40",
+     "0x551270",
+     "0x67A1D0",
+     "0x69F3B0",
      "0x79BB80",
      "0x79BC60",
      "0x79BC90",
@@ -2460,6 +2464,10 @@
     "name": "client/cammod_chase.cpp",
     "shared": [
      "0x42F250",
+     "0x447C40",
+     "0x551270",
+     "0x67A1D0",
+     "0x69F3B0",
      "0x79BCC0"
     ],
     "short_known": [
