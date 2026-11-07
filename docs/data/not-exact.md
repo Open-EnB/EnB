@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-629 entries in 176 files.
+630 entries in 176 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -215,6 +215,7 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:5280` | `SClient::Unknown_750C20` | marker | NOT EXACT: field offset (explain.py; really stack slots and registers, 137 masked rows of 209): the client keeps the effect in ebp and the binary end in esi (ours the other way), hoists AvatarID before the lego test and gives the record's copies other slots; two forms (an int time accumulator, then i * interval: the start's order and the guarded induction variable matched) 0x750C20 (no caller refe... |
 | `app/client/sclient.cpp:5522` | `SClient::Unknown_34` | marker | NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds 0x74ABC0 (slot +0x34: the chat line's '/' commands; true when the line was a command) |
 | `app/client/sclient.cpp:5693` | `SClient::Unknown_750F70` | marker | NOT EXACT: shape (explain.py: 144 instructions, the client 159; 36 masked rows, 35 of them registers; 10 calls, the client 11): the client sends the empty sender, a NULL starbase view and a NULL interface to one _Tidy(true) exit and destroys the string inline elsewhere (ebx holds this); two forms (early return on empty: 58 rows) 0x750F70 (cpacket.cpp: CLIENT_CHAT_EVENT 165, the sender and 2..15 by... |
+| `app/client/sclient.cpp:5726` | `SClient::Unknown_64` | marker | NOT EXACT: functional (WE1): from the pseudocode, not aligned; the listener's camera turn written as Rotate_X / Rotate_Z 0x744690: ClientTaskClass::Render's frame: the loading view's while loading, else the current view's, then the listener |
 | `app/client/scriptedmovie.cpp:281` | `ScriptedMovieViewClass::~ScriptedMovieViewClass` | marker | NOT EXACT: inline budget (0.73): the client calls the erase copy of BoneClientObjectList, copy 0x80AF50 out of line, ours inlines it (then registers differ) 0x8008B0: the objects, lights, lines, sounds, bones' objects and cameras freed; SClient's managers kept |
 | `app/client/scriptedmovie.cpp:460` | `ScriptedMovieViewClass::Unknown_0C` | marker | NOT EXACT: shape (0.83): the client reads the background colour as three dwords and the inlined 0x801D70 copies zfar as an integer before znear |
 | `app/client/scriptedmovie.cpp:798` | `ScriptedMovieViewClass::Unknown_8020B0` | marker | NOT EXACT: shape (0.38): the client copies b's half into each region through an out-of-line 16-byte copy (0x780AC0, avatar.cpp's) three times, frame 0x40 to our 0x30 0x8020B0: the ship model's four colourization regions, each a then b, in a metal (shiputils.cpp's 0x80EFF0) |

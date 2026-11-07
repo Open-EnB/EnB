@@ -140,7 +140,7 @@ public:
 class UIChatPanelClass : public InterfaceClass
 {
 public:
-	UIChatPanelClass(SClient *client); void Unknown_5685C0();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
+	UIChatPanelClass(SClient *client); void Unknown_5685C0(); void Unknown_568690();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
 	bool Unknown_56BA80();								// 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
 	void Unknown_565F30(int arg); void Unknown_56BAA0(int a, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [a, text]: what 0x74E710 passes
@@ -224,7 +224,7 @@ class MusicManagerClass
 public:
 	MusicManagerClass();								// 0x439E40
 	~MusicManagerClass();								// 0x43A040
-	void Unknown_43AD70();								// 0x43AD70 (Shutdown, before the delete)
+	void Unknown_43AD70(); void Unknown_43AE30(int a, int b, int c, int d);	// 0x43AD70 (Shutdown, before the delete); 0x43AE30 (0x744690 passes 0, 0, 0, 8 while loading)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_43B760(unsigned sector);				// 0x43B760 (0x750A70: SERVER_PARAMETERS 66's SectorNum)  // NAME 1 [sector]: what it gets
 
 	char Unknown00[0x1FC];
@@ -5716,6 +5716,86 @@ void SClient::Unknown_750F70(const char *name, int channel)
 			object->Unknown_700820(color);
 		}
 	}
+}
+
+
+#include "thread.h"
+#include "textureloader.h"
+extern int Unknown_BB9C40;		// NAME 1: neutral (D10): cleared while 0x744690 renders the first frames (Unknown1374)
+extern int Unknown_BBB5D0;		// NAME 1: neutral (D10): the same
+// NOT EXACT: functional (WE1): from the pseudocode, not aligned; the listener's camera turn written as Rotate_X / Rotate_Z
+// 0x744690: ClientTaskClass::Render's frame: the loading view's while loading, else the current view's, then the listener
+void SClient::Unknown_64()
+{
+	ThreadClass::Switch_Thread();
+	if (Task->Is_Focused() && LoadingView->Unknown68) {
+		if (ChatPanel) {
+			ChatPanel->Unknown_5685C0();
+			ChatPanel->Unknown_568690();
+		}
+		LoadingView->Unknown_0C(true);
+		if (MusicManager) {
+			MusicManager->Unknown_43AE30(0, 0, 0, 8);
+			SoundLibraryClass::Update();
+		}
+		if (Unknown1330) {
+			delete Unknown1330;
+			Unknown1330 = NULL;
+		}
+		return;
+	}
+	if (Unknown14F0) {
+		Send_Packet(&ClientChatRequestPacketClass(0x1E, Unknown1138));
+		Unknown14F0 = false;
+	}
+	if (Unknown1198 && !Unknown1388) {
+		return;
+	}
+	Mouse->Unknown_515440();
+	int saved_c40 = Unknown_BB9C40;
+	int saved_5d0 = Unknown_BBB5D0;
+	bool on = true;
+	if (Unknown1374) {
+		on = false;
+		WWAudioClass::Get_Instance()->m_Unknown19A5 = true;
+		Unknown_BB9C40 = 0;
+		Unknown_BBB5D0 = 0;
+	}
+	if (CurrentView) {
+		CurrentView->Unknown_0C(on);
+	}
+	if (Unknown1374) {
+		Unknown1374--;
+		Unknown_BB9C40 = saved_c40;
+		Unknown_BBB5D0 = saved_5d0;
+		TextureLoader::Flush_Pending_Load_Tasks();
+		if (Unknown1374 == 0 && WWAudioClass::Get_Instance()) {
+			WWAudioClass::Get_Instance()->Unknown_Resume_All();
+		}
+	}
+	RenderObjClass *camera = (RenderObjClass *)Unknown12B8;
+	if (camera == NULL) {
+		if (CurrentView == NULL || CurrentView != Unknown135C) {
+			camera = (RenderObjClass *)MainView->Unknown_7C();
+		} else {
+			camera = *(RenderObjClass **)((char *)Unknown135C + 0x6C);
+		}
+		if (camera == NULL) {
+			return;
+		}
+	}
+	Matrix3D tm = camera->Get_Transform();
+	if (camera->Class_ID() == RenderObjClass::CLASSID_CAMERA) {
+		tm.Rotate_X(-1.5707964f);
+		tm.Rotate_Z(1.5707964f);
+	}
+	SoundLibraryClass::Set_Listener_Transform(tm);
+	Unknown_74BFB0();
+	if (Unknown1330) {
+		float z = tm[2][3];
+		Unknown1330->Unknown_43C660(Unknown10BC, *(int *)&z);
+	}
+	SoundLibraryClass::Update();
 }
 
 /*
