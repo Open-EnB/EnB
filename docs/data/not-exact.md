@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-579 entries in 156 files.
+583 entries in 157 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -141,6 +141,10 @@ edit the comments in the code, not this file.
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
 | `app/client/gd_slider.cpp:729` | `GadgetSlider::Unknown_66FD80` | marker | NOT EXACT: frame (similarity 0.58): the client keeps the low bone's X on the FPU stack, ours spills it (0x1C frame vs 0x18) @0x66FD80 |
 | `app/client/gd_slider.cpp:921` | `GadgetSlider::Unknown_670440` | mention | NOT EXACT (D64): 0x66FD80 (0.58). |
+| `app/client/gd_text_editor.cpp:162` | `TextEditorGadgetClass::Set_Render_Obj` | marker | NOT EXACT: registers (client this esi, it ebp, line edi with a home at +0x24; here ebx, edi, esi) and the slots of first and height swapped @0x671CB0 |
+| `app/client/gd_text_editor.cpp:221` | `TextEditorGadgetClass::Unknown_2C` | marker | NOT EXACT: only 0x672A60 inlined in this copy of 0x673150; the client calls it @0x672120 |
+| `app/client/gd_text_editor.cpp:560` | `TextEditorGadgetClass::Unknown_6732F0` | marker | NOT EXACT: ebx and ebp swapped (length / line), one fcomp scheduled after the column's copy @0x6732F0 |
+| `app/client/gd_text_editor.cpp:612` | `TextEditorGadgetClass::Unknown_6735A0` | marker | NOT EXACT: registers (the client hoists the load of Client between the test and the branch; x and y in edx and ecx) @0x6735A0 |
 | `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284 |
 | `app/client/html/htmlview.cpp:1331` | `HtmlViewClass::Draw_Item` | marker | NOT EXACT: 0x7767A0, the client saves ebx / esi only after the Type test (its early returns pop two registers); the text loop's loads are scheduled differently |
 | `app/client/html/htmlview.cpp:1486` | `HtmlViewClass::Hit_Test` | marker | NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin |
