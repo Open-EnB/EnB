@@ -77,6 +77,8 @@ public:
 MainViewSceneClass::MainViewSceneClass()
 {
 	STUB_CALLED("POC MainViewSceneClass: a plain SimpleSceneClass");
+	void Poc_Start_Watchdog();
+	Poc_Start_Watchdog();
 }
 
 // ---------------------------------------------------------------- enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes): the base's answer
