@@ -1074,12 +1074,12 @@ bool NameDecalPacketClass::Process_Packet(void *instance)
 
 #include "..\audio\soundlib.h"
 
-// camera_manager.cpp's class (sclient.cpp declares its other members): CAMERA_CONTROL 146's call
-class CameraManagerClass
-{
-public:
-	void Unknown_79B2B0(int mode);	// 0x79B2B0  // NAME 1 [mode]: CAMERA_CONTROL 146 passes 0x0C, 0x0D, 0, 0x0F, 6, 0x0A, 0x17, 0x10 or 0x19
-};
+#include "camera_manager.h"
+
+
+
+
+
 
 // audio\musicmanager.cpp's class (sclient.cpp declares its other members)
 class MusicManagerClass
