@@ -17,6 +17,7 @@ class UIComboBoxUnknownBCClass;	// ui_combobox.cpp's
 class UIComboBoxClass : public InterfaceClass	// NAME 3: class-from-file (D24)
 {
 public:
+	UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c);	// 0x5786C0 (0x118 bytes; ui_registration.cpp's 0x5F2F90)  // NAME 1 [owner, layer, model, name, id, key, a, b, c]: neutral
 	void Unknown_57A330();								// 0x57A330 (the drop-down's opening / closing per frame)
 	void Unknown_57AAB0();								// 0x57AAB0 (the rows from the top item)
 	void Unknown_57AC70(int index);						// 0x57AC70 (select by index)  // NAME 1 [index]: neutral
@@ -49,6 +50,7 @@ public:
 	GadgetClass **Unknown0F8;							// +0xF8 (the rows)
 	char Unknown0FC[0x10C - 0xFC];						// +0xFC
 	volatile int Unknown10C;							// +0x10C (set: the text field is left alone; volatile: the client reads it after the store to Selected, 0x57AC70 / 0x57AD50)
+	char Unknown110[0x118 - 0x110];						// +0x110 (the constructor 0x5786C0 news 0x118 bytes)
 };
 
 #endif

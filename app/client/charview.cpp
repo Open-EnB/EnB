@@ -110,10 +110,10 @@ public:
 
 
 
-class Unknown5EF0B0InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): modes 9-12
+class RegistrationInterface : public InterfaceClass	// NAME 1: neutral (D10): modes 9-12
 {
 public:
-	Unknown5EF0B0InterfaceClass(UIViewClass *view, LayerClass *layer, int unknown);	// 0x5EF0B0 (3, 20, 3, 0)  // NAME 1 [view, layer, unknown]: neutral
+	RegistrationInterface(UIViewClass *view, LayerClass *layer, int unknown);	// 0x5EF0B0 (3, 20, 3, 0)  // NAME 1 [view, layer, unknown]: neutral
 	char Unknown84[0x5B8 - 0x84];
 };
 
@@ -281,16 +281,16 @@ void CharacterViewClass::Unknown_08()
 		case 8:
 			return;
 		case 12:
-			Unknown1B4 = new Unknown5EF0B0InterfaceClass(this, Unknown074, 0);
+			Unknown1B4 = new RegistrationInterface(this, Unknown074, 0);
 			break;
 		case 10:
-			Unknown1B4 = new Unknown5EF0B0InterfaceClass(this, Unknown074, 20);
+			Unknown1B4 = new RegistrationInterface(this, Unknown074, 20);
 			break;
 		case 11:
-			Unknown1B4 = new Unknown5EF0B0InterfaceClass(this, Unknown074, 3);
+			Unknown1B4 = new RegistrationInterface(this, Unknown074, 3);
 			break;
 		case 9:
-			Unknown1B4 = new Unknown5EF0B0InterfaceClass(this, Unknown074, 3);
+			Unknown1B4 = new RegistrationInterface(this, Unknown074, 3);
 			break;
 	}
 	Unknown1B4->Unknown_54();

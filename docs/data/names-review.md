@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1520 |
 | 2 | describes what the code does | 3382 |
-| 1 | neutral placeholder | 16752 |
+| 1 | neutral placeholder | 17066 |
 
 ## For review (score 3 and below)
 
@@ -680,7 +680,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `view, layer, keep` | `app/client/charview.cpp:98` | as ui_avatr.cpp's |
 | 1 | `Unknown615A50InterfaceClass` | `app/client/charview.cpp:101` | neutral (D10): mode 5 |
 | 1 | `view, layer` | `app/client/charview.cpp:104` | as LoginInterface's |
-| 1 | `Unknown5EF0B0InterfaceClass` | `app/client/charview.cpp:113` | neutral (D10): modes 9-12 |
+| 1 | `RegistrationInterface` | `app/client/charview.cpp:113` | neutral (D10): modes 9-12 |
 | 1 | `view, layer, unknown` | `app/client/charview.cpp:116` | neutral |
 | 1 | `Unknown_BE6018` | `app/client/charview.cpp:121` | neutral (D10) |
 | 1 | `Unknown068` | `app/client/charview.cpp:142` | untagged neutral name (D10) |
@@ -9751,38 +9751,40 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0A0` | `app/client/ui_combobox.cpp:156` | untagged neutral name (D10) |
 | 1 | `Unknown0C4` | `app/client/ui_combobox.cpp:162` | untagged neutral name (D10) |
 | 1 | `UIComboBoxUnknownBCClass` | `app/client/ui_combobox.h:14` | untagged neutral name (D10) |
-| 1 | `Unknown_57A330` | `app/client/ui_combobox.h:20` | untagged neutral name (D10) |
-| 1 | `Unknown_57AAB0` | `app/client/ui_combobox.h:21` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_combobox.h:22` | neutral |
-| 1 | `Unknown_57AC70` | `app/client/ui_combobox.h:22` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/ui_combobox.h:23` | neutral |
-| 1 | `Unknown_57AD50` | `app/client/ui_combobox.h:23` | untagged neutral name (D10) |
-| 1 | `Unknown_57B210` | `app/client/ui_combobox.h:24` | neutral (D10) |
-| 1 | `Unknown_57B000, text` | `app/client/ui_combobox.h:25` | neutral (D10) |
-| 1 | `Unknown_57B000` | `app/client/ui_combobox.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown_57B3C0, arg` | `app/client/ui_combobox.h:26` | neutral (D10) |
-| 1 | `Unknown_57B3C0` | `app/client/ui_combobox.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_57B440` | `app/client/ui_combobox.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_Item_Text` | `app/client/ui_combobox.h:29` | neutral (D10) |
-| 1 | `Unknown_Show_Selected` | `app/client/ui_combobox.h:30` | neutral (D10) |
-| 1 | `Unknown084` | `app/client/ui_combobox.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown088` | `app/client/ui_combobox.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown0A0` | `app/client/ui_combobox.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown0A4` | `app/client/ui_combobox.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown0B8` | `app/client/ui_combobox.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_combobox.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_combobox.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown0C4` | `app/client/ui_combobox.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown0C8` | `app/client/ui_combobox.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown0CC` | `app/client/ui_combobox.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown0D0` | `app/client/ui_combobox.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown0D4` | `app/client/ui_combobox.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown0D8` | `app/client/ui_combobox.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown0DC` | `app/client/ui_combobox.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown0F4` | `app/client/ui_combobox.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown0F8` | `app/client/ui_combobox.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown0FC` | `app/client/ui_combobox.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `app/client/ui_combobox.h:51` | untagged neutral name (D10) |
+| 1 | `owner, layer, model, name, id, key, a, b, c` | `app/client/ui_combobox.h:20` | neutral |
+| 1 | `Unknown_57A330` | `app/client/ui_combobox.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_57AAB0` | `app/client/ui_combobox.h:22` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_combobox.h:23` | neutral |
+| 1 | `Unknown_57AC70` | `app/client/ui_combobox.h:23` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/ui_combobox.h:24` | neutral |
+| 1 | `Unknown_57AD50` | `app/client/ui_combobox.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_57B210` | `app/client/ui_combobox.h:25` | neutral (D10) |
+| 1 | `Unknown_57B000, text` | `app/client/ui_combobox.h:26` | neutral (D10) |
+| 1 | `Unknown_57B000` | `app/client/ui_combobox.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_57B3C0, arg` | `app/client/ui_combobox.h:27` | neutral (D10) |
+| 1 | `Unknown_57B3C0` | `app/client/ui_combobox.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_57B440` | `app/client/ui_combobox.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_Item_Text` | `app/client/ui_combobox.h:30` | neutral (D10) |
+| 1 | `Unknown_Show_Selected` | `app/client/ui_combobox.h:31` | neutral (D10) |
+| 1 | `Unknown084` | `app/client/ui_combobox.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown088` | `app/client/ui_combobox.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown0A0` | `app/client/ui_combobox.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown0A4` | `app/client/ui_combobox.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_combobox.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_combobox.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_combobox.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_combobox.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_combobox.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_combobox.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_combobox.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_combobox.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown0D8` | `app/client/ui_combobox.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown0DC` | `app/client/ui_combobox.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown0F4` | `app/client/ui_combobox.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_combobox.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown0FC` | `app/client/ui_combobox.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/ui_combobox.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown110` | `app/client/ui_combobox.h:53` | untagged neutral name (D10) |
 | 1 | `Unknown_Pad` | `app/client/ui_cpit.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown2FC` | `app/client/ui_cpit.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown300` | `app/client/ui_cpit.cpp:30` | untagged neutral name (D10) |
@@ -11923,165 +11925,477 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64A240` | `app/client/ui_ptrade.cpp:462` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_ptrade.cpp:474` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/ui_ptrade.cpp:488` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_registration.cpp:22` | 0xBE67C4 |
-| 1 | `ProductEB` | `app/client/ui_registration.cpp:24` | client .data 0xB85EE0 (0x5FA0B0 compares +0x10 with it) |
-| 1 | `ProductTrial` | `app/client/ui_registration.cpp:25` | client .data 0xB85EF4 (0x5FA0B0) |
-| 1 | `RegDataFile` | `app/client/ui_registration.cpp:26` | client .data 0xB85EF8 (0x5F8FD0's INIClass) |
-| 1 | `RegistrationKey` | `app/client/ui_registration.cpp:27` | client .data 0xB85EFC |
-| 1 | `RegistrationServerError` | `app/client/ui_registration.cpp:28` | client .data 0xB85F00 |
-| 1 | `StatusStrings` | `app/client/ui_registration.cpp:30` | client .data 0xB86004 |
-| 1 | `PaymentTypeNames` | `app/client/ui_registration.cpp:51` | client .data 0xB86048 (0x5F9EB0's G_ASSERT 'typetext') |
-| 1 | `PaymentTypeTexts` | `app/client/ui_registration.cpp:61` | client .data 0xB86064 (the descriptions, as 0xB86048's order) |
-| 1 | `DaysInMonth` | `app/client/ui_registration.cpp:71` | client .rdata 0xAF6F58 (0x5F9460) |
-| 1 | `Sub14CClass` | `app/client/ui_registration.cpp:73` | vtable 0xAF7130 |
-| 1 | `Slot11` | `app/client/ui_registration.cpp:86` | slot 0x2C (0x5FB950 hands its result to slot 0x30) |
-| 1 | `Slot12` | `app/client/ui_registration.cpp:87` | slot 0x30 |
-| 1 | `RegistrationCallbackClass` | `app/client/ui_registration.cpp:92` | neutral (D10): the server's replies reach the screen through it |
-| 1 | `Unknown_5F00C0` | `app/client/ui_registration.cpp:96` | untagged neutral name (D10) |
-| 1 | `Unknown_5F00E0` | `app/client/ui_registration.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_5F0100` | `app/client/ui_registration.cpp:98` | untagged neutral name (D10) |
-| 1 | `RegistrationErrorStruct` | `app/client/ui_registration.cpp:102` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/ui_registration.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/ui_registration.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ui_registration.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/ui_registration.cpp:107` | untagged neutral name (D10) |
-| 1 | `RegistrationInterface` | `app/client/ui_registration.cpp:110` | provisional (D137) |
-| 1 | `RegistrationComboStruct` | `app/client/ui_registration.cpp:113` | neutral (D10) |
-| 1 | `Combo` | `app/client/ui_registration.cpp:115` | what it points to (ui_combobox.cpp's 0x57B000 / 0x57B3C0) |
-| 1 | `Unknown04` | `app/client/ui_registration.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/ui_registration.cpp:117` | untagged neutral name (D10) |
-| 1 | `RegistrationTextStruct` | `app/client/ui_registration.cpp:121` | neutral (D10) |
-| 1 | `Gadget` | `app/client/ui_registration.cpp:123` | what 0x5FB0C0 calls Get_Text / Set_Text on |
-| 1 | `Unknown0C` | `app/client/ui_registration.cpp:126` | untagged neutral name (D10) |
-| 1 | `RegistrationUnknown5A8Struct` | `app/client/ui_registration.cpp:131` | neutral (D10) |
-| 1 | `RegistrationUnknown578Struct` | `app/client/ui_registration.cpp:138` | neutral (D10) |
-| 1 | `Unknown20` | `app/client/ui_registration.cpp:142` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/ui_registration.cpp:144` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/ui_registration.cpp:145` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/ui_registration.cpp:146` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/ui_registration.cpp:147` | untagged neutral name (D10) |
-| 1 | `RegistrationCardPrefixStruct` | `app/client/ui_registration.cpp:154` | the INI keys card%02dprefix / card%02did |
-| 1 | `Prefix` | `app/client/ui_registration.cpp:156` | the INI key |
-| 1 | `Id` | `app/client/ui_registration.cpp:157` | the INI key |
-| 1 | `RegistrationUnknown3C4Struct` | `app/client/ui_registration.cpp:162` | neutral (D10) |
-| 1 | `Unknown80` | `app/client/ui_registration.cpp:165` | untagged neutral name (D10) |
-| 1 | `RegistrationUnknown1ACClass` | `app/client/ui_registration.cpp:169` | neutral (D10) |
-| 1 | `Unknown_7D1AC0` | `app/client/ui_registration.cpp:172` | untagged neutral name (D10) |
-| 1 | `Unknown_7D3570` | `app/client/ui_registration.cpp:173` | untagged neutral name (D10) |
-| 1 | `a, b, info, c, d, e, f` | `app/client/ui_registration.cpp:174` | neutral |
-| 1 | `Unknown_7D4E30` | `app/client/ui_registration.cpp:174` | untagged neutral name (D10) |
-| 1 | `a, b, info, d, e` | `app/client/ui_registration.cpp:175` | neutral |
-| 1 | `Unknown_7D5600` | `app/client/ui_registration.cpp:175` | untagged neutral name (D10) |
-| 1 | `a, b, c, payment_type, code, gt_pricing, gt_code, send_email, f` | `app/client/ui_registration.cpp:176` | the request keys they fill |
-| 1 | `Unknown_7D9790` | `app/client/ui_registration.cpp:176` | untagged neutral name (D10) |
-| 1 | `Unknown_BE8AD4` | `app/client/ui_registration.cpp:179` | 0xBE8AD4 (0x7CF190 zeroes it; the registration requests' last argument) |
-| 1 | `Unknown_5FAE90` | `app/client/ui_registration.cpp:180` | untagged neutral name (D10) |
-| 1 | `Unknown88` | `app/client/ui_registration.cpp:188` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/ui_registration.cpp:189` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/ui_registration.cpp:190` | untagged neutral name (D10) |
-| 1 | `UnknownA0` | `app/client/ui_registration.cpp:191` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/ui_registration.cpp:192` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `app/client/ui_registration.cpp:193` | untagged neutral name (D10) |
-| 1 | `UnknownAC` | `app/client/ui_registration.cpp:194` | untagged neutral name (D10) |
-| 1 | `UnknownBC` | `app/client/ui_registration.cpp:195` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/client/ui_registration.cpp:196` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `app/client/ui_registration.cpp:197` | untagged neutral name (D10) |
-| 1 | `UnknownC7` | `app/client/ui_registration.cpp:198` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/client/ui_registration.cpp:199` | untagged neutral name (D10) |
-| 1 | `UnknownCA` | `app/client/ui_registration.cpp:200` | untagged neutral name (D10) |
-| 1 | `UnknownCB` | `app/client/ui_registration.cpp:201` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/client/ui_registration.cpp:202` | untagged neutral name (D10) |
-| 1 | `UnknownD8` | `app/client/ui_registration.cpp:203` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/ui_registration.cpp:204` | untagged neutral name (D10) |
-| 1 | `UnknownF8` | `app/client/ui_registration.cpp:205` | untagged neutral name (D10) |
-| 1 | `Unknown108` | `app/client/ui_registration.cpp:206` | untagged neutral name (D10) |
-| 1 | `Unknown118` | `app/client/ui_registration.cpp:207` | untagged neutral name (D10) |
-| 1 | `Unknown11B` | `app/client/ui_registration.cpp:208` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/ui_registration.cpp:209` | untagged neutral name (D10) |
-| 1 | `Unknown11D` | `app/client/ui_registration.cpp:210` | untagged neutral name (D10) |
-| 1 | `Unknown11E` | `app/client/ui_registration.cpp:211` | untagged neutral name (D10) |
-| 1 | `FontId` | `app/client/ui_registration.cpp:212` | +0x120 (the font manager's key, a render object) |
-| 1 | `Sub14C` | `app/client/ui_registration.cpp:214` | +0x14C |
-| 1 | `Unknown1AC` | `app/client/ui_registration.cpp:216` | untagged neutral name (D10) |
-| 1 | `StatusIndex` | `app/client/ui_registration.cpp:217` | +0x1B0 |
-| 1 | `Unknown1B4` | `app/client/ui_registration.cpp:218` | untagged neutral name (D10) |
-| 1 | `Unknown1C9` | `app/client/ui_registration.cpp:219` | untagged neutral name (D10) |
-| 1 | `Unknown1CA` | `app/client/ui_registration.cpp:220` | untagged neutral name (D10) |
-| 1 | `Unknown1CD` | `app/client/ui_registration.cpp:221` | untagged neutral name (D10) |
-| 1 | `Unknown1CE` | `app/client/ui_registration.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown1CF` | `app/client/ui_registration.cpp:223` | untagged neutral name (D10) |
-| 1 | `Unknown1D0` | `app/client/ui_registration.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown1D1` | `app/client/ui_registration.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown1D2` | `app/client/ui_registration.cpp:226` | untagged neutral name (D10) |
-| 1 | `Unknown1D3` | `app/client/ui_registration.cpp:227` | untagged neutral name (D10) |
-| 1 | `Unknown1D4` | `app/client/ui_registration.cpp:228` | untagged neutral name (D10) |
-| 1 | `Unknown1D8` | `app/client/ui_registration.cpp:229` | untagged neutral name (D10) |
-| 1 | `Unknown1E8` | `app/client/ui_registration.cpp:230` | untagged neutral name (D10) |
-| 1 | `Unknown1F8` | `app/client/ui_registration.cpp:231` | untagged neutral name (D10) |
-| 1 | `Unknown208` | `app/client/ui_registration.cpp:232` | untagged neutral name (D10) |
-| 1 | `Unknown218` | `app/client/ui_registration.cpp:233` | untagged neutral name (D10) |
-| 1 | `Unknown238` | `app/client/ui_registration.cpp:234` | untagged neutral name (D10) |
-| 1 | `Unknown248` | `app/client/ui_registration.cpp:235` | untagged neutral name (D10) |
-| 1 | `Unknown270` | `app/client/ui_registration.cpp:236` | untagged neutral name (D10) |
-| 1 | `Unknown2CC` | `app/client/ui_registration.cpp:237` | untagged neutral name (D10) |
-| 1 | `Unknown328` | `app/client/ui_registration.cpp:238` | untagged neutral name (D10) |
-| 1 | `Unknown384` | `app/client/ui_registration.cpp:239` | untagged neutral name (D10) |
-| 1 | `Unknown38C` | `app/client/ui_registration.cpp:240` | untagged neutral name (D10) |
-| 1 | `Unknown390` | `app/client/ui_registration.cpp:241` | untagged neutral name (D10) |
-| 1 | `Unknown3C4` | `app/client/ui_registration.cpp:242` | untagged neutral name (D10) |
-| 1 | `Unknown454` | `app/client/ui_registration.cpp:243` | untagged neutral name (D10) |
-| 1 | `Unknown578` | `app/client/ui_registration.cpp:244` | untagged neutral name (D10) |
-| 1 | `Unknown588` | `app/client/ui_registration.cpp:245` | untagged neutral name (D10) |
-| 1 | `Unknown598` | `app/client/ui_registration.cpp:246` | untagged neutral name (D10) |
-| 1 | `Unknown5A8` | `app/client/ui_registration.cpp:247` | untagged neutral name (D10) |
-| 1 | `Unknown_5F2990` | `app/client/ui_registration.cpp:249` | untagged neutral name (D10) |
-| 1 | `Unknown_5F3770` | `app/client/ui_registration.cpp:250` | untagged neutral name (D10) |
-| 1 | `Unknown_5F8FD0` | `app/client/ui_registration.cpp:251` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_registration.cpp:252` | neutral |
-| 1 | `Unknown_5F8DB0` | `app/client/ui_registration.cpp:252` | untagged neutral name (D10) |
-| 1 | `month, day, year` | `app/client/ui_registration.cpp:253` | 0x5F9460 passes 2, 29, the year |
-| 1 | `Unknown_5F8EA0` | `app/client/ui_registration.cpp:253` | untagged neutral name (D10) |
-| 1 | `Unknown_5F9460` | `app/client/ui_registration.cpp:254` | untagged neutral name (D10) |
-| 1 | `Unknown_5F9700` | `app/client/ui_registration.cpp:255` | untagged neutral name (D10) |
-| 1 | `from, to` | `app/client/ui_registration.cpp:256` | the loop's bounds |
-| 1 | `Unknown_5F98C0` | `app/client/ui_registration.cpp:256` | untagged neutral name (D10) |
-| 1 | `Unknown_5F9A90` | `app/client/ui_registration.cpp:257` | untagged neutral name (D10) |
-| 1 | `Unknown_5F9C90` | `app/client/ui_registration.cpp:258` | untagged neutral name (D10) |
-| 1 | `Unknown_5F9EB0` | `app/client/ui_registration.cpp:259` | untagged neutral name (D10) |
-| 1 | `Unknown_5FA0B0` | `app/client/ui_registration.cpp:260` | untagged neutral name (D10) |
-| 1 | `Unknown_5FA5F0` | `app/client/ui_registration.cpp:261` | untagged neutral name (D10) |
-| 1 | `Unknown_5FA900` | `app/client/ui_registration.cpp:262` | untagged neutral name (D10) |
-| 1 | `Unknown_5FAC90` | `app/client/ui_registration.cpp:263` | untagged neutral name (D10) |
-| 1 | `Unknown_5FAF60` | `app/client/ui_registration.cpp:264` | untagged neutral name (D10) |
-| 1 | `Unknown_5FAFF0` | `app/client/ui_registration.cpp:265` | untagged neutral name (D10) |
-| 1 | `Unknown_5FB030` | `app/client/ui_registration.cpp:266` | untagged neutral name (D10) |
-| 1 | `Unknown_5FB0C0` | `app/client/ui_registration.cpp:267` | untagged neutral name (D10) |
-| 1 | `Unknown_5FB330` | `app/client/ui_registration.cpp:268` | untagged neutral name (D10) |
-| 1 | `Unknown_5FB540` | `app/client/ui_registration.cpp:269` | untagged neutral name (D10) |
-| 1 | `Unknown_5FB750` | `app/client/ui_registration.cpp:270` | untagged neutral name (D10) |
-| 1 | `Unknown_5FB890` | `app/client/ui_registration.cpp:271` | untagged neutral name (D10) |
-| 1 | `Unknown_57B210` | `app/client/ui_registration.cpp:321` | untagged neutral name (D10) |
-| 1 | `Unknown_57B000` | `app/client/ui_registration.cpp:325` | untagged neutral name (D10) |
-| 1 | `Unknown_57AC70` | `app/client/ui_registration.cpp:327` | untagged neutral name (D10) |
-| 1 | `Get_Unknown198` | `app/client/ui_registration.cpp:2408` | untagged neutral name (D10) |
-| 1 | `Unknown_784E00` | `app/client/ui_registration.cpp:2408` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_registration.cpp:37` | 0xBE67C4 |
+| 1 | `ProductEB` | `app/client/ui_registration.cpp:39` | client .data 0xB85EE0 (0x5FA0B0 compares +0x10 with it) |
+| 1 | `ProductTrial` | `app/client/ui_registration.cpp:40` | client .data 0xB85EF4 (0x5FA0B0) |
+| 1 | `RegDataFile` | `app/client/ui_registration.cpp:41` | client .data 0xB85EF8 (0x5F8FD0's INIClass) |
+| 1 | `RegistrationKey` | `app/client/ui_registration.cpp:42` | client .data 0xB85EFC |
+| 1 | `RegistrationServerError` | `app/client/ui_registration.cpp:43` | client .data 0xB85F00 |
+| 1 | `StatusStrings` | `app/client/ui_registration.cpp:45` | client .data 0xB86004 |
+| 1 | `PaymentTypeNames` | `app/client/ui_registration.cpp:66` | client .data 0xB86048 (0x5F9EB0's G_ASSERT 'typetext') |
+| 1 | `PaymentTypeTexts` | `app/client/ui_registration.cpp:76` | client .data 0xB86064 (the descriptions, as 0xB86048's order) |
+| 1 | `DaysInMonth` | `app/client/ui_registration.cpp:86` | client .rdata 0xAF6F58 (0x5F9460) |
+| 1 | `Unknown_BE8AD4` | `app/client/ui_registration.cpp:88` | 0xBE8AD4 (0x7CF190 zeroes it; the registration requests' last argument) |
+| 1 | `Unknown_5FAE90` | `app/client/ui_registration.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5BC4` | `app/client/ui_registration.cpp:90` | neutral (D10): the open combo box (ui_combobox.cpp) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_registration.cpp:91` | 0xBE67BC (fontdatabase.h's) |
+| 1 | `Unknown_B08CBC` | `app/client/ui_registration.cpp:92` | 0x800, what 0x5F2D30 adds to the text gadgets' flags |
+| 1 | `Unknown_B08CC0` | `app/client/ui_registration.cpp:93` | 0x1000 |
+| 1 | `Unknown_496AE0` | `app/client/ui_registration.cpp:94` | untagged neutral name (D10) |
+| 1 | `RegistrationSettingsClass, a, url` | `app/client/ui_registration.cpp:95` | as ui_login.cpp's |
+| 1 | `Unknown_7CB240` | `app/client/ui_registration.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB2E0` | `app/client/ui_registration.cpp:95` | untagged neutral name (D10) |
+| 1 | `RegistrationSubscribeURL` | `app/client/ui_registration.cpp:97` | the literal 0xB8139C (0x5F2280) |
+| 1 | `RegistrationKeyStruct` | `app/client/ui_registration.cpp:99` | neutral (D10): 0x10 bytes, 0x721E60's first argument |
+| 1 | `key` | `app/client/ui_registration.cpp:101` | the key's code |
+| 1 | `Unknown04` | `app/client/ui_registration.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_registration.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_registration.cpp:101` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_registration.cpp:102` | the key's code |
+| 1 | `Modifiers` | `app/client/ui_registration.cpp:103` | as ControlKeyComboStruct's |
+| 1 | `RegistrationKeyListClass` | `app/client/ui_registration.cpp:108` | neutral (D10): InterfaceClass +0x4C (ui_login.cpp declares it likewise) PLACEHOLDER |
+| 1 | `RegistrationFontClass, on` | `app/client/ui_registration.cpp:110` | neutral (D10): 0x6D5EF0 (0x5F8DB0) |
+| 1 | `Unknown_6D5EF0` | `app/client/ui_registration.cpp:110` | untagged neutral name (D10) |
+| 1 | `CardDoubled` | `app/client/ui_registration.cpp:111` | client .rdata 0xAF6F88 (0x603820: a digit doubled, Luhn) |
+| 1 | `RegistrationPageStruct` | `app/client/ui_registration.cpp:114` | neutral (D10) |
+| 1 | `Name` | `app/client/ui_registration.cpp:116` | 'RG_A1' |
+| 1 | `Ini` | `app/client/ui_registration.cpp:117` | 'rg_a1.ini' |
+| 1 | `RegistrationPages` | `app/client/ui_registration.cpp:119` | client .data 0xB85F08 |
+| 1 | `Get_Unknown1AC` | `app/client/ui_registration.cpp:147` | 0xBDA960, inlined in 0x5EF0B0 |
+| 1 | `RegistrationUnknown1ACClass` | `app/client/ui_registration.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_registration.cpp:288` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/ui_registration.cpp:289` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/ui_registration.cpp:290` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_registration.cpp:291` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_registration.cpp:292` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_registration.cpp:293` | untagged neutral name (D10) |
+| 1 | `UnknownC5` | `app/client/ui_registration.cpp:294` | untagged neutral name (D10) |
+| 1 | `UnknownC6` | `app/client/ui_registration.cpp:295` | untagged neutral name (D10) |
+| 1 | `UnknownC7` | `app/client/ui_registration.cpp:296` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_registration.cpp:297` | untagged neutral name (D10) |
+| 1 | `UnknownC9` | `app/client/ui_registration.cpp:298` | untagged neutral name (D10) |
+| 1 | `UnknownCA` | `app/client/ui_registration.cpp:299` | untagged neutral name (D10) |
+| 1 | `UnknownCC` | `app/client/ui_registration.cpp:300` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/ui_registration.cpp:302` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/ui_registration.cpp:303` | untagged neutral name (D10) |
+| 1 | `Unknown119` | `app/client/ui_registration.cpp:304` | untagged neutral name (D10) |
+| 1 | `Unknown11A` | `app/client/ui_registration.cpp:305` | untagged neutral name (D10) |
+| 1 | `Unknown11B` | `app/client/ui_registration.cpp:306` | untagged neutral name (D10) |
+| 1 | `Unknown11D` | `app/client/ui_registration.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown11E` | `app/client/ui_registration.cpp:308` | untagged neutral name (D10) |
+| 1 | `Unknown148` | `app/client/ui_registration.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown1AC` | `app/client/ui_registration.cpp:310` | untagged neutral name (D10) |
+| 1 | `Unknown1C4` | `app/client/ui_registration.cpp:312` | untagged neutral name (D10) |
+| 1 | `Unknown1C8` | `app/client/ui_registration.cpp:313` | untagged neutral name (D10) |
+| 1 | `Unknown1C9` | `app/client/ui_registration.cpp:314` | untagged neutral name (D10) |
+| 1 | `Unknown1CA` | `app/client/ui_registration.cpp:315` | untagged neutral name (D10) |
+| 1 | `Unknown1CB` | `app/client/ui_registration.cpp:316` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/ui_registration.cpp:317` | untagged neutral name (D10) |
+| 1 | `Unknown1CD` | `app/client/ui_registration.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown1CE` | `app/client/ui_registration.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown1CF` | `app/client/ui_registration.cpp:320` | untagged neutral name (D10) |
+| 1 | `Unknown1D0` | `app/client/ui_registration.cpp:321` | untagged neutral name (D10) |
+| 1 | `Unknown1D1` | `app/client/ui_registration.cpp:322` | untagged neutral name (D10) |
+| 1 | `Unknown1D2` | `app/client/ui_registration.cpp:323` | untagged neutral name (D10) |
+| 1 | `Unknown1D3` | `app/client/ui_registration.cpp:324` | untagged neutral name (D10) |
+| 1 | `Unknown1D4` | `app/client/ui_registration.cpp:325` | untagged neutral name (D10) |
+| 1 | `Unknown1D5` | `app/client/ui_registration.cpp:326` | untagged neutral name (D10) |
+| 1 | `Unknown1D8` | `app/client/ui_registration.cpp:327` | untagged neutral name (D10) |
+| 1 | `Unknown1E8` | `app/client/ui_registration.cpp:328` | untagged neutral name (D10) |
+| 1 | `Unknown208` | `app/client/ui_registration.cpp:329` | untagged neutral name (D10) |
+| 1 | `Unknown228` | `app/client/ui_registration.cpp:330` | untagged neutral name (D10) |
+| 1 | `Unknown268` | `app/client/ui_registration.cpp:331` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/ui_registration.cpp:332` | untagged neutral name (D10) |
+| 1 | `Unknown384` | `app/client/ui_registration.cpp:333` | untagged neutral name (D10) |
+| 1 | `Unknown388` | `app/client/ui_registration.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown38C` | `app/client/ui_registration.cpp:335` | untagged neutral name (D10) |
+| 1 | `Unknown560` | `app/client/ui_registration.cpp:336` | untagged neutral name (D10) |
+| 1 | `Unknown564` | `app/client/ui_registration.cpp:337` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_registration.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_registration.cpp:353` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_registration.cpp:354` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_registration.cpp:354` | untagged neutral name (D10) |
+| 1 | `Unknown_67AB20` | `app/client/ui_registration.cpp:356` | untagged neutral name (D10) |
+| 1 | `Unknown_67A6C0` | `app/client/ui_registration.cpp:358` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_registration.cpp:359` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8FD0` | `app/client/ui_registration.cpp:361` | untagged neutral name (D10) |
+| 1 | `Unknown_7CEF30` | `app/client/ui_registration.cpp:362` | untagged neutral name (D10) |
+| 1 | `Unknown1B8` | `app/client/ui_registration.cpp:363` | untagged neutral name (D10) |
+| 1 | `Unknown1B4` | `app/client/ui_registration.cpp:364` | untagged neutral name (D10) |
+| 1 | `Unknown3C4` | `app/client/ui_registration.cpp:365` | untagged neutral name (D10) |
+| 1 | `Unknown90` | `app/client/ui_registration.cpp:365` | untagged neutral name (D10) |
+| 1 | `Unknown91` | `app/client/ui_registration.cpp:366` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/ui_registration.cpp:370` | untagged neutral name (D10) |
+| 1 | `Unknown7E` | `app/client/ui_registration.cpp:371` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/ui_registration.cpp:372` | untagged neutral name (D10) |
+| 1 | `Unknown7D` | `app/client/ui_registration.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown_67B4F0` | `app/client/ui_registration.cpp:375` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/ui_registration.cpp:376` | untagged neutral name (D10) |
+| 1 | `Unknown_5F3770` | `app/client/ui_registration.cpp:377` | untagged neutral name (D10) |
+| 1 | `Unknown_7CF190` | `app/client/ui_registration.cpp:386` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_registration.cpp:387` | untagged neutral name (D10) |
+| 1 | `Unknown_5F3600` | `app/client/ui_registration.cpp:389` | untagged neutral name (D10) |
+| 1 | `Unknown_67A670` | `app/client/ui_registration.cpp:390` | untagged neutral name (D10) |
+| 1 | `Unknown_67A9B0` | `app/client/ui_registration.cpp:391` | untagged neutral name (D10) |
+| 1 | `Unknown0018` | `app/client/ui_registration.cpp:394` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/ui_registration.cpp:394` | untagged neutral name (D10) |
+| 1 | `Unknown_5F1660` | `app/client/ui_registration.cpp:398` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_registration.cpp:414` | untagged neutral name (D10) |
+| 1 | `Unknown_5F2280` | `app/client/ui_registration.cpp:416` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/ui_registration.cpp:417` | untagged neutral name (D10) |
+| 1 | `Unknown_6AAD10` | `app/client/ui_registration.cpp:418` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/ui_registration.cpp:420` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/ui_registration.cpp:426` | untagged neutral name (D10) |
+| 1 | `Unknown1BC` | `app/client/ui_registration.cpp:427` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/ui_registration.cpp:443` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA5C0` | `app/client/ui_registration.cpp:443` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/ui_registration.cpp:444` | untagged neutral name (D10) |
+| 1 | `Unknown_5F1940` | `app/client/ui_registration.cpp:450` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_registration.cpp:466` | untagged neutral name (D10) |
+| 1 | `Unknown_5F3470` | `app/client/ui_registration.cpp:488` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/ui_registration.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_registration.cpp:489` | untagged neutral name (D10) |
+| 1 | `Unknown_5FBD30` | `app/client/ui_registration.cpp:493` | untagged neutral name (D10) |
+| 1 | `Unknown_5F86F0` | `app/client/ui_registration.cpp:497` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8A90` | `app/client/ui_registration.cpp:500` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_registration.cpp:525` | untagged neutral name (D10) |
+| 1 | `Unknown_5F9460` | `app/client/ui_registration.cpp:535` | untagged neutral name (D10) |
+| 1 | `RegistrationUnknown578Struct` | `app/client/ui_registration.cpp:542` | untagged neutral name (D10) |
+| 1 | `Unknown578` | `app/client/ui_registration.cpp:542` | untagged neutral name (D10) |
+| 1 | `Unknown270` | `app/client/ui_registration.cpp:543` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ui_registration.cpp:543` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_registration.cpp:544` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/ui_registration.cpp:545` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_registration.cpp:546` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_registration.cpp:547` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_registration.cpp:548` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/ui_registration.cpp:549` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_registration.cpp:554` | untagged neutral name (D10) |
+| 1 | `Unknown598` | `app/client/ui_registration.cpp:562` | untagged neutral name (D10) |
+| 1 | `Unknown_5F2990` | `app/client/ui_registration.cpp:573` | untagged neutral name (D10) |
+| 1 | `Unknown_5F2A80` | `app/client/ui_registration.cpp:574` | untagged neutral name (D10) |
+| 1 | `Get_Unknown198` | `app/client/ui_registration.cpp:577` | untagged neutral name (D10) |
+| 1 | `Unknown_784E00` | `app/client/ui_registration.cpp:577` | untagged neutral name (D10) |
+| 1 | `Unknown_67A8D0` | `app/client/ui_registration.cpp:578` | untagged neutral name (D10) |
+| 1 | `Get_Unknown34` | `app/client/ui_registration.cpp:583` | untagged neutral name (D10) |
+| 1 | `Unknown_588A70` | `app/client/ui_registration.cpp:583` | untagged neutral name (D10) |
+| 1 | `Unknown39` | `app/client/ui_registration.cpp:594` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8CD0` | `app/client/ui_registration.cpp:598` | untagged neutral name (D10) |
+| 1 | `Unknown_57B3C0` | `app/client/ui_registration.cpp:610` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB0C0` | `app/client/ui_registration.cpp:633` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/ui_registration.cpp:641` | untagged neutral name (D10) |
+| 1 | `RegistrationUnknown5A8Struct` | `app/client/ui_registration.cpp:648` | untagged neutral name (D10) |
+| 1 | `Unknown5A8` | `app/client/ui_registration.cpp:648` | untagged neutral name (D10) |
+| 1 | `Unknown_57AC70` | `app/client/ui_registration.cpp:655` | untagged neutral name (D10) |
+| 1 | `Is_Unknown220` | `app/client/ui_registration.cpp:663` | untagged neutral name (D10) |
+| 1 | `Unknown_7863E0` | `app/client/ui_registration.cpp:673` | untagged neutral name (D10) |
+| 1 | `Unknown_5890B0` | `app/client/ui_registration.cpp:681` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/ui_registration.cpp:687` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_registration.cpp:748` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_registration.cpp:753` | untagged neutral name (D10) |
+| 1 | `Unknown_5F2B20` | `app/client/ui_registration.cpp:889` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_registration.cpp:908` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_registration.cpp:908` | untagged neutral name (D10) |
+| 1 | `Unknown_5F2D30` | `app/client/ui_registration.cpp:916` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_registration.cpp:928` | untagged neutral name (D10) |
+| 1 | `Unknown3B` | `app/client/ui_registration.cpp:929` | untagged neutral name (D10) |
+| 1 | `Unknown_5F2F90` | `app/client/ui_registration.cpp:936` | untagged neutral name (D10) |
+| 1 | `Unknown_5F3110` | `app/client/ui_registration.cpp:946` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_registration.cpp:949` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_registration.cpp:959` | untagged neutral name (D10) |
+| 1 | `Unknown_5F3250` | `app/client/ui_registration.cpp:969` | untagged neutral name (D10) |
+| 1 | `Unknown_5F33E0` | `app/client/ui_registration.cpp:984` | untagged neutral name (D10) |
+| 1 | `Unknown_5F3510` | `app/client/ui_registration.cpp:1010` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_registration.cpp:1014` | untagged neutral name (D10) |
+| 1 | `Unknown_5F84E0` | `app/client/ui_registration.cpp:1053` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8520` | `app/client/ui_registration.cpp:1062` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8560` | `app/client/ui_registration.cpp:1071` | untagged neutral name (D10) |
+| 1 | `Unknown_5F87D0` | `app/client/ui_registration.cpp:1116` | untagged neutral name (D10) |
+| 1 | `Unknown_5F89F0` | `app/client/ui_registration.cpp:1122` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8AD0` | `app/client/ui_registration.cpp:1141` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8DB0` | `app/client/ui_registration.cpp:1178` | untagged neutral name (D10) |
+| 1 | `Unknown4E4` | `app/client/ui_registration.cpp:1186` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8EA0` | `app/client/ui_registration.cpp:1204` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8F60` | `app/client/ui_registration.cpp:1229` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/ui_registration.cpp:1246` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/ui_registration.cpp:1248` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_registration.cpp:1256` | untagged neutral name (D10) |
+| 1 | `Unknown_57B210` | `app/client/ui_registration.cpp:1286` | untagged neutral name (D10) |
+| 1 | `Unknown_57B000` | `app/client/ui_registration.cpp:1290` | untagged neutral name (D10) |
+| 1 | `Unknown_5F9700` | `app/client/ui_registration.cpp:1296` | untagged neutral name (D10) |
+| 1 | `Unknown_5F98C0` | `app/client/ui_registration.cpp:1304` | untagged neutral name (D10) |
+| 1 | `Unknown_5F9A90` | `app/client/ui_registration.cpp:1314` | untagged neutral name (D10) |
+| 1 | `Unknown_5F9C90` | `app/client/ui_registration.cpp:1322` | untagged neutral name (D10) |
+| 1 | `Unknown_5F9EB0` | `app/client/ui_registration.cpp:2338` | untagged neutral name (D10) |
+| 1 | `Unknown_5FA0B0` | `app/client/ui_registration.cpp:2349` | untagged neutral name (D10) |
+| 1 | `Unknown_7D3570` | `app/client/ui_registration.cpp:2351` | untagged neutral name (D10) |
+| 1 | `Unknown2CC` | `app/client/ui_registration.cpp:2369` | untagged neutral name (D10) |
+| 1 | `Unknown_5FA5F0` | `app/client/ui_registration.cpp:2389` | untagged neutral name (D10) |
+| 1 | `Unknown588` | `app/client/ui_registration.cpp:2391` | untagged neutral name (D10) |
+| 1 | `Unknown328` | `app/client/ui_registration.cpp:2393` | untagged neutral name (D10) |
+| 1 | `Unknown_5FA900` | `app/client/ui_registration.cpp:2397` | untagged neutral name (D10) |
+| 1 | `Unknown_7D9790` | `app/client/ui_registration.cpp:2403` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB330` | `app/client/ui_registration.cpp:2404` | untagged neutral name (D10) |
+| 1 | `Unknown238` | `app/client/ui_registration.cpp:2404` | untagged neutral name (D10) |
+| 1 | `Unknown_7D4E30` | `app/client/ui_registration.cpp:2414` | untagged neutral name (D10) |
 | 1 | `Unknown_784C90` | `app/client/ui_registration.cpp:2419` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/ui_registration.cpp:2423` | untagged neutral name (D10) |
+| 1 | `Unknown_7D5600` | `app/client/ui_registration.cpp:2426` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAC90` | `app/client/ui_registration.cpp:2439` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAD50` | `app/client/ui_registration.cpp:2450` | untagged neutral name (D10) |
 | 1 | `Unknown_5FADE0` | `app/client/ui_registration.cpp:2457` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAE70` | `app/client/ui_registration.cpp:2464` | untagged neutral name (D10) |
-| 1 | `Unknown_6D0A70` | `app/client/ui_registration.cpp:2482` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA2D0` | `app/client/ui_registration.cpp:2524` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA5C0` | `app/client/ui_registration.cpp:2524` | untagged neutral name (D10) |
-| 1 | `Unknown0018` | `app/client/ui_registration.cpp:2525` | untagged neutral name (D10) |
-| 1 | `Unknown_5153B0` | `app/client/ui_registration.cpp:2525` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAF60` | `app/client/ui_registration.cpp:2495` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAFF0` | `app/client/ui_registration.cpp:2508` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB030` | `app/client/ui_registration.cpp:2516` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB540` | `app/client/ui_registration.cpp:2579` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB750` | `app/client/ui_registration.cpp:2866` | untagged neutral name (D10) |
 | 1 | `Unknown_5FB7A0` | `app/client/ui_registration.cpp:2881` | untagged neutral name (D10) |
-| 1 | `Get_Unknown34` | `app/client/ui_registration.cpp:2889` | untagged neutral name (D10) |
-| 1 | `Unknown_588A70` | `app/client/ui_registration.cpp:2889` | untagged neutral name (D10) |
-| 1 | `Unknown_57B3C0` | `app/client/ui_registration.cpp:2931` | untagged neutral name (D10) |
-| 1 | `Unknown_67A8D0` | `app/client/ui_registration.cpp:2937` | untagged neutral name (D10) |
+| 1 | `Unknown390` | `app/client/ui_registration.cpp:2891` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB890` | `app/client/ui_registration.cpp:2897` | untagged neutral name (D10) |
+| 1 | `Unknown_5F00E0` | `app/client/ui_registration.cpp:2909` | untagged neutral name (D10) |
+| 1 | `Unknown_5F0100` | `app/client/ui_registration.cpp:2919` | untagged neutral name (D10) |
+| 1 | `Unknown_7D1AC0` | `app/client/ui_registration.cpp:2921` | untagged neutral name (D10) |
+| 1 | `Unknown_603820` | `app/client/ui_registration.cpp:2952` | untagged neutral name (D10) |
+| 1 | `Unknown_6039E0` | `app/client/ui_registration.cpp:2972` | untagged neutral name (D10) |
+| 1 | `Unknown_603A60` | `app/client/ui_registration.cpp:2986` | untagged neutral name (D10) |
+| 1 | `Unknown_603B20` | `app/client/ui_registration.cpp:2997` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAD50` | `app/client/ui_registration.h:20` | untagged neutral name (D10) |
 | 1 | `Unknown_5FADE0` | `app/client/ui_registration.h:23` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAE70` | `app/client/ui_registration.h:26` | untagged neutral name (D10) |
+| 1 | `Sub14CClass` | `app/client/ui_registration.h:32` | vtable 0xAF7130 (0x5F03B0, _purecall, the shared 0x5F0170 / 0x5F0280 / 0x5F02A0) |
+| 1 | `Slot10` | `app/client/ui_registration.h:44` | slot 0x28, 0x5F0170 |
+| 1 | `Slot11` | `app/client/ui_registration.h:45` | slot 0x2C (0x5FB950 hands its result to slot 0x30) |
+| 1 | `Slot12` | `app/client/ui_registration.h:46` | slot 0x30 |
+| 1 | `Slot14` | `app/client/ui_registration.h:48` | slot 0x38, 0x5F0280 |
+| 1 | `Slot15` | `app/client/ui_registration.h:49` | slot 0x3C, 0x5F02A0 |
+| 1 | `RegistrationCallbackClass` | `app/client/ui_registration.h:55` | neutral (D10): the server's replies reach the screen through it |
+| 1 | `Unknown_5F00C0` | `app/client/ui_registration.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_5F00E0` | `app/client/ui_registration.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_5F0100` | `app/client/ui_registration.h:61` | untagged neutral name (D10) |
+| 1 | `Sub14CUnknown18Class` | `app/client/ui_registration.h:65` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_registration.h:70` | untagged neutral name (D10) |
+| 1 | `Sub14CUnknown10Class` | `app/client/ui_registration.h:74` | neutral (D10) |
+| 1 | `Sub14CUnknown10Ptr` | `app/client/ui_registration.h:82` | neutral (D10): 0x5F0590's own EH state around the release |
+| 1 | `Pointer` | `app/client/ui_registration.h:86` | neutral |
+| 1 | `Sub14CImplClass` | `app/client/ui_registration.h:91` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/ui_registration.h:94` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_registration.h:94` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_registration.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_registration.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/ui_registration.h:119` | untagged neutral name (D10) |
+| 1 | `RegistrationErrorStruct` | `app/client/ui_registration.h:123` | neutral (D10) |
+| 1 | `Unknown24` | `app/client/ui_registration.h:129` | untagged neutral name (D10) |
+| 1 | `RegistrationInterface` | `app/client/ui_registration.h:132` | provisional (D137) |
+| 1 | `RegistrationComboStruct` | `app/client/ui_registration.h:135` | neutral (D10) |
+| 1 | `Combo` | `app/client/ui_registration.h:137` | what it points to (ui_combobox.cpp's 0x57B000 / 0x57B3C0) |
+| 1 | `Unknown04` | `app/client/ui_registration.h:138` | untagged neutral name (D10) |
+| 1 | `RegistrationTextStruct` | `app/client/ui_registration.h:143` | neutral (D10) |
+| 1 | `Gadget` | `app/client/ui_registration.h:145` | what 0x5FB0C0 calls Get_Text / Set_Text on |
+| 1 | `RegistrationUnknown5A8Struct` | `app/client/ui_registration.h:153` | neutral (D10) |
+| 1 | `RegistrationUnknown578Struct` | `app/client/ui_registration.h:160` | neutral (D10) |
+| 1 | `Unknown20` | `app/client/ui_registration.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_registration.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_registration.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/ui_registration.h:162` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_registration.h:170` | untagged neutral name (D10) |
+| 1 | `RegistrationCardPrefixStruct` | `app/client/ui_registration.h:177` | the INI keys card%02dprefix / card%02did |
+| 1 | `Prefix` | `app/client/ui_registration.h:179` | the INI key |
+| 1 | `Id` | `app/client/ui_registration.h:180` | the INI key |
+| 1 | `Is_Prefix_Of, text` | `app/client/ui_registration.h:182` | what it does |
+| 1 | `RegistrationUnknown3C4Struct` | `app/client/ui_registration.h:187` | neutral (D10) |
+| 1 | `Unknown50` | `app/client/ui_registration.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/ui_registration.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/ui_registration.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/ui_registration.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown7D` | `app/client/ui_registration.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown7E` | `app/client/ui_registration.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown90` | `app/client/ui_registration.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown91` | `app/client/ui_registration.h:189` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_registration.h:194` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/ui_registration.h:195` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/ui_registration.h:199` | untagged neutral name (D10) |
+| 1 | `Unknown94` | `app/client/ui_registration.h:202` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/ui_registration.h:203` | untagged neutral name (D10) |
+| 1 | `RegistrationUnknown478Struct` | `app/client/ui_registration.h:207` | neutral (D10) |
+| 1 | `Unknown64` | `app/client/ui_registration.h:217` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/ui_registration.h:218` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_registration.h:219` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/ui_registration.h:221` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_registration.h:222` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_registration.h:223` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/ui_registration.h:224` | untagged neutral name (D10) |
+| 1 | `RegistrationUnknown568Struct` | `app/client/ui_registration.h:228` | neutral (D10) |
+| 1 | `RegistrationUnknown1ACClass` | `app/client/ui_registration.h:235` | neutral (D10) |
+| 1 | `Unknown_7CF190` | `app/client/ui_registration.h:239` | untagged neutral name (D10) |
+| 1 | `a, url, page, version, callback` | `app/client/ui_registration.h:241` | the [Connection] keys |
+| 1 | `Unknown_7CEF30` | `app/client/ui_registration.h:241` | untagged neutral name (D10) |
+| 1 | `Unknown_7D1AC0` | `app/client/ui_registration.h:242` | untagged neutral name (D10) |
+| 1 | `Unknown_7D3570` | `app/client/ui_registration.h:243` | untagged neutral name (D10) |
+| 1 | `a, b, info, c, d, e, f` | `app/client/ui_registration.h:244` | neutral |
+| 1 | `Unknown_7D4E30` | `app/client/ui_registration.h:244` | untagged neutral name (D10) |
+| 1 | `a, b, info, d, e` | `app/client/ui_registration.h:245` | neutral |
+| 1 | `Unknown_7D5600` | `app/client/ui_registration.h:245` | untagged neutral name (D10) |
+| 1 | `a, b, c, payment_type, code, gt_pricing, gt_code, send_email, f` | `app/client/ui_registration.h:246` | the request keys they fill |
+| 1 | `Unknown_7D9790` | `app/client/ui_registration.h:246` | untagged neutral name (D10) |
+| 1 | `RegistrationButtonStruct` | `app/client/ui_registration.h:253` | neutral (D10) |
+| 1 | `RObj` | `app/client/ui_registration.h:256` | what 0x5F2B20 stores |
+| 1 | `Name` | `app/client/ui_registration.h:257` | 0x5F2B20's |
+| 1 | `Style` | `app/client/ui_registration.h:258` | 0x6D25D0's argument |
+| 1 | `Key` | `app/client/ui_registration.h:259` | 0x721E60's |
+| 1 | `Group` | `app/client/ui_registration.h:260` | 0x5F3470 |
+| 1 | `Selected` | `app/client/ui_registration.h:261` | what the on texture goes with |
+| 1 | `InFrame` | `app/client/ui_registration.h:262` | 0x5F2990's model choice |
+| 1 | `mode` | `app/client/ui_registration.h:268` | neutral |
+| 1 | `Unknown_60` | `app/client/ui_registration.h:270` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_registration.h:271` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/ui_registration.h:275` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_registration.h:276` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/ui_registration.h:277` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/ui_registration.h:278` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_registration.h:281` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_registration.h:282` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/ui_registration.h:283` | untagged neutral name (D10) |
+| 1 | `UnknownC4` | `app/client/ui_registration.h:284` | untagged neutral name (D10) |
+| 1 | `UnknownC5` | `app/client/ui_registration.h:285` | untagged neutral name (D10) |
+| 1 | `UnknownC6` | `app/client/ui_registration.h:286` | untagged neutral name (D10) |
+| 1 | `UnknownC7` | `app/client/ui_registration.h:287` | untagged neutral name (D10) |
+| 1 | `UnknownC9` | `app/client/ui_registration.h:289` | untagged neutral name (D10) |
+| 1 | `UnknownCA` | `app/client/ui_registration.h:290` | untagged neutral name (D10) |
+| 1 | `UnknownCC` | `app/client/ui_registration.h:291` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/ui_registration.h:293` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/ui_registration.h:295` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/ui_registration.h:296` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/ui_registration.h:297` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/ui_registration.h:298` | untagged neutral name (D10) |
+| 1 | `Unknown119` | `app/client/ui_registration.h:299` | untagged neutral name (D10) |
+| 1 | `Unknown11A` | `app/client/ui_registration.h:300` | untagged neutral name (D10) |
+| 1 | `Unknown11B` | `app/client/ui_registration.h:301` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_registration.h:302` | untagged neutral name (D10) |
+| 1 | `Unknown11D` | `app/client/ui_registration.h:303` | untagged neutral name (D10) |
+| 1 | `Unknown11E` | `app/client/ui_registration.h:304` | untagged neutral name (D10) |
+| 1 | `FontId` | `app/client/ui_registration.h:305` | +0x120 (the page's model, the font manager's key; destructor 0x4740B0) |
+| 1 | `Unknown124` | `app/client/ui_registration.h:306` | untagged neutral name (D10) |
+| 1 | `Unknown148` | `app/client/ui_registration.h:307` | untagged neutral name (D10) |
+| 1 | `Sub14C` | `app/client/ui_registration.h:308` | +0x14C |
+| 1 | `Unknown1AC` | `app/client/ui_registration.h:309` | untagged neutral name (D10) |
+| 1 | `StatusIndex` | `app/client/ui_registration.h:310` | +0x1B0 |
+| 1 | `Unknown1B4` | `app/client/ui_registration.h:311` | untagged neutral name (D10) |
+| 1 | `Unknown1B8` | `app/client/ui_registration.h:312` | untagged neutral name (D10) |
+| 1 | `Unknown1BC` | `app/client/ui_registration.h:313` | untagged neutral name (D10) |
+| 1 | `Unknown1C0` | `app/client/ui_registration.h:314` | untagged neutral name (D10) |
+| 1 | `Unknown1C4` | `app/client/ui_registration.h:315` | untagged neutral name (D10) |
+| 1 | `Unknown1C8` | `app/client/ui_registration.h:316` | untagged neutral name (D10) |
+| 1 | `Unknown1C9` | `app/client/ui_registration.h:317` | untagged neutral name (D10) |
+| 1 | `Unknown1CA` | `app/client/ui_registration.h:318` | untagged neutral name (D10) |
+| 1 | `Unknown1CB` | `app/client/ui_registration.h:319` | untagged neutral name (D10) |
+| 1 | `Unknown1CC` | `app/client/ui_registration.h:320` | untagged neutral name (D10) |
+| 1 | `Unknown1CD` | `app/client/ui_registration.h:321` | untagged neutral name (D10) |
+| 1 | `Unknown1CE` | `app/client/ui_registration.h:322` | untagged neutral name (D10) |
+| 1 | `Unknown1CF` | `app/client/ui_registration.h:323` | untagged neutral name (D10) |
+| 1 | `Unknown1D0` | `app/client/ui_registration.h:324` | untagged neutral name (D10) |
+| 1 | `Unknown1D1` | `app/client/ui_registration.h:325` | untagged neutral name (D10) |
+| 1 | `Unknown1D2` | `app/client/ui_registration.h:326` | untagged neutral name (D10) |
+| 1 | `Unknown1D3` | `app/client/ui_registration.h:327` | untagged neutral name (D10) |
+| 1 | `Unknown1D4` | `app/client/ui_registration.h:328` | untagged neutral name (D10) |
+| 1 | `Unknown1D5` | `app/client/ui_registration.h:329` | untagged neutral name (D10) |
+| 1 | `Unknown1D8` | `app/client/ui_registration.h:330` | untagged neutral name (D10) |
+| 1 | `Unknown1E8` | `app/client/ui_registration.h:331` | untagged neutral name (D10) |
+| 1 | `Unknown1F8` | `app/client/ui_registration.h:332` | untagged neutral name (D10) |
+| 1 | `Unknown208` | `app/client/ui_registration.h:333` | untagged neutral name (D10) |
+| 1 | `Unknown218` | `app/client/ui_registration.h:334` | untagged neutral name (D10) |
+| 1 | `Unknown228` | `app/client/ui_registration.h:335` | untagged neutral name (D10) |
+| 1 | `Unknown238` | `app/client/ui_registration.h:336` | untagged neutral name (D10) |
+| 1 | `Unknown248` | `app/client/ui_registration.h:337` | untagged neutral name (D10) |
+| 1 | `Unknown258` | `app/client/ui_registration.h:338` | untagged neutral name (D10) |
+| 1 | `Unknown268` | `app/client/ui_registration.h:339` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/ui_registration.h:340` | untagged neutral name (D10) |
+| 1 | `Unknown270` | `app/client/ui_registration.h:341` | untagged neutral name (D10) |
+| 1 | `Unknown2CC` | `app/client/ui_registration.h:342` | untagged neutral name (D10) |
+| 1 | `Unknown328` | `app/client/ui_registration.h:343` | untagged neutral name (D10) |
+| 1 | `Unknown384` | `app/client/ui_registration.h:344` | untagged neutral name (D10) |
+| 1 | `Unknown388` | `app/client/ui_registration.h:345` | untagged neutral name (D10) |
+| 1 | `Unknown38C` | `app/client/ui_registration.h:346` | untagged neutral name (D10) |
+| 1 | `Unknown390` | `app/client/ui_registration.h:347` | untagged neutral name (D10) |
+| 1 | `Unknown3C4` | `app/client/ui_registration.h:348` | untagged neutral name (D10) |
+| 1 | `Unknown478` | `app/client/ui_registration.h:349` | untagged neutral name (D10) |
+| 1 | `Unknown560` | `app/client/ui_registration.h:350` | untagged neutral name (D10) |
+| 1 | `Unknown564` | `app/client/ui_registration.h:351` | untagged neutral name (D10) |
+| 1 | `Unknown568` | `app/client/ui_registration.h:352` | untagged neutral name (D10) |
+| 1 | `Unknown578` | `app/client/ui_registration.h:353` | untagged neutral name (D10) |
+| 1 | `Unknown588` | `app/client/ui_registration.h:354` | untagged neutral name (D10) |
+| 1 | `Unknown598` | `app/client/ui_registration.h:355` | untagged neutral name (D10) |
+| 1 | `Unknown5A8` | `app/client/ui_registration.h:356` | untagged neutral name (D10) |
+| 1 | `Unknown_5F1660` | `app/client/ui_registration.h:358` | untagged neutral name (D10) |
+| 1 | `Unknown_5F1940` | `app/client/ui_registration.h:359` | untagged neutral name (D10) |
+| 1 | `Unknown_5F2280` | `app/client/ui_registration.h:360` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_registration.h:361` | the gadgets' slot +0x40 |
+| 1 | `Unknown_5F2990` | `app/client/ui_registration.h:361` | untagged neutral name (D10) |
+| 1 | `on, except` | `app/client/ui_registration.h:362` | neutral |
+| 1 | `Unknown_5F2A80` | `app/client/ui_registration.h:362` | untagged neutral name (D10) |
+| 1 | `id, name, style, key, group, in_frame` | `app/client/ui_registration.h:363` | neutral |
+| 1 | `Unknown_5F2B20` | `app/client/ui_registration.h:363` | untagged neutral name (D10) |
+| 1 | `id, name, style, length, text, next, password, flags, chars` | `app/client/ui_registration.h:364` | neutral |
+| 1 | `Unknown_5F2D30` | `app/client/ui_registration.h:364` | untagged neutral name (D10) |
+| 1 | `id, name, a, b` | `app/client/ui_registration.h:365` | neutral |
+| 1 | `Unknown_5F2F90` | `app/client/ui_registration.h:365` | untagged neutral name (D10) |
+| 1 | `Unknown_5F3110` | `app/client/ui_registration.h:366` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/ui_registration.h:367` | the button's |
+| 1 | `Unknown_5F3250` | `app/client/ui_registration.h:367` | untagged neutral name (D10) |
+| 1 | `group` | `app/client/ui_registration.h:368` | neutral |
+| 1 | `Unknown_5F33E0` | `app/client/ui_registration.h:368` | untagged neutral name (D10) |
+| 1 | `group` | `app/client/ui_registration.h:369` | neutral |
+| 1 | `Unknown_5F3470` | `app/client/ui_registration.h:369` | untagged neutral name (D10) |
+| 1 | `id, on` | `app/client/ui_registration.h:370` | neutral |
+| 1 | `Unknown_5F3510` | `app/client/ui_registration.h:370` | untagged neutral name (D10) |
+| 1 | `Unknown_5F3600` | `app/client/ui_registration.h:371` | untagged neutral name (D10) |
+| 1 | `Unknown_5F3770` | `app/client/ui_registration.h:372` | untagged neutral name (D10) |
+| 1 | `name, text` | `app/client/ui_registration.h:373` | 0x6D0A70's |
+| 1 | `Unknown_5F84E0` | `app/client/ui_registration.h:373` | untagged neutral name (D10) |
+| 1 | `name, text` | `app/client/ui_registration.h:374` | 0x6CDBC0's |
+| 1 | `Unknown_5F8520` | `app/client/ui_registration.h:374` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8560` | `app/client/ui_registration.h:375` | untagged neutral name (D10) |
+| 1 | `Unknown_5F86F0` | `app/client/ui_registration.h:376` | untagged neutral name (D10) |
+| 1 | `Unknown_5F87D0` | `app/client/ui_registration.h:377` | untagged neutral name (D10) |
+| 1 | `Unknown_5F89F0` | `app/client/ui_registration.h:378` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8A90` | `app/client/ui_registration.h:379` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8AD0` | `app/client/ui_registration.h:380` | untagged neutral name (D10) |
+| 1 | `id, on` | `app/client/ui_registration.h:381` | neutral |
+| 1 | `Unknown_5F8CD0` | `app/client/ui_registration.h:381` | untagged neutral name (D10) |
+| 1 | `Unknown_5F8FD0` | `app/client/ui_registration.h:382` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_registration.h:383` | neutral |
+| 1 | `Unknown_5F8DB0` | `app/client/ui_registration.h:383` | untagged neutral name (D10) |
+| 1 | `month, day, year` | `app/client/ui_registration.h:384` | 0x5F9460 passes 2, 29, the year box's year |
+| 1 | `Unknown_5F8EA0` | `app/client/ui_registration.h:384` | untagged neutral name (D10) |
+| 1 | `text` | `app/client/ui_registration.h:385` | neutral |
+| 1 | `Unknown_5F8F60` | `app/client/ui_registration.h:385` | untagged neutral name (D10) |
+| 1 | `Unknown_5F9460` | `app/client/ui_registration.h:386` | untagged neutral name (D10) |
+| 1 | `Unknown_5F9700` | `app/client/ui_registration.h:387` | untagged neutral name (D10) |
+| 1 | `from, to` | `app/client/ui_registration.h:388` | the loop's bounds |
+| 1 | `Unknown_5F98C0` | `app/client/ui_registration.h:388` | untagged neutral name (D10) |
+| 1 | `Unknown_5F9A90` | `app/client/ui_registration.h:389` | untagged neutral name (D10) |
+| 1 | `Unknown_5F9C90` | `app/client/ui_registration.h:390` | untagged neutral name (D10) |
+| 1 | `Unknown_5F9EB0` | `app/client/ui_registration.h:391` | untagged neutral name (D10) |
+| 1 | `Unknown_5FA0B0` | `app/client/ui_registration.h:392` | untagged neutral name (D10) |
+| 1 | `Unknown_5FA5F0` | `app/client/ui_registration.h:393` | untagged neutral name (D10) |
+| 1 | `Unknown_5FA900` | `app/client/ui_registration.h:394` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAC90` | `app/client/ui_registration.h:395` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAF60` | `app/client/ui_registration.h:396` | untagged neutral name (D10) |
+| 1 | `Unknown_5FAFF0` | `app/client/ui_registration.h:397` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB030` | `app/client/ui_registration.h:398` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB0C0` | `app/client/ui_registration.h:399` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB330` | `app/client/ui_registration.h:400` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB540` | `app/client/ui_registration.h:401` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB750` | `app/client/ui_registration.h:402` | untagged neutral name (D10) |
+| 1 | `Unknown_5FB890` | `app/client/ui_registration.h:403` | untagged neutral name (D10) |
+| 1 | `Unknown_5FBD30` | `app/client/ui_registration.h:404` | untagged neutral name (D10) |
+| 1 | `number` | `app/client/ui_registration.h:405` | a card number's Luhn check |
+| 1 | `Unknown_603820` | `app/client/ui_registration.h:405` | untagged neutral name (D10) |
+| 1 | `number` | `app/client/ui_registration.h:406` | neutral |
+| 1 | `Unknown_6039E0` | `app/client/ui_registration.h:406` | untagged neutral name (D10) |
+| 1 | `month, day, year, age` | `app/client/ui_registration.h:407` | neutral |
+| 1 | `Unknown_603A60` | `app/client/ui_registration.h:407` | untagged neutral name (D10) |
+| 1 | `Unknown_603B20` | `app/client/ui_registration.h:408` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_scut.cpp:17` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
@@ -18054,8 +18368,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Number` | `app/client/ui_chat_panel.cpp:86` | what 0x565390 passes to atoi |
 | 2 | `Combo` | `app/client/ui_chat_panel.h:141` | the assert's NUM_COMBO |
 | 2 | `MessageButtonShowing` | `app/client/ui_chat_panel.h:192` | its getter's |
-| 2 | `Selected` | `app/client/ui_combobox.h:46` | what 0x57AC70 / 0x57AD50 set |
-| 2 | `std:` | `app/client/ui_combobox.h:47` | what the rows show |
+| 2 | `Selected` | `app/client/ui_combobox.h:47` | what 0x57AC70 / 0x57AD50 set |
+| 2 | `std:` | `app/client/ui_combobox.h:48` | what the rows show |
 | 2 | `FontStringFilesClass` | `app/client/ui_cpit.cpp:24` | fontdatabase.h's |
 | 2 | `SoundManager` | `app/client/ui_cpit.cpp:394` | what it holds |
 | 2 | `Object` | `app/client/ui_cpit.h:46` | what it holds |
