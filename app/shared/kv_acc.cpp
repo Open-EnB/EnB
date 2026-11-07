@@ -137,7 +137,7 @@ void KVTenthsSecondsAccessorClass::Set(const unsigned int &value)
 }
 
 // @0x4B15E0
-KVTenthsSpanAccessorClass::KVTenthsSpanAccessorClass(unsigned int *value) : Value(value), Seconds(0)
+KVTenthsSpanAccessorClass::KVTenthsSpanAccessorClass(unsigned int *value) : Value(value)
 {
 }
 
