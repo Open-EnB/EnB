@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 170 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1597 |
-| 2 | describes what the code does | 3685 |
-| 1 | neutral placeholder | 18418 |
+| 3 | by convention from a client-named file or sibling | 1595 |
+| 2 | describes what the code does | 3679 |
+| 1 | neutral placeholder | 18401 |
 
 ## For review (score 3 and below)
 
@@ -1680,12 +1680,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5A40` | `app/client/co.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_6F4290` | `app/client/co.cpp:376` | untagged neutral name (D10) |
 | 1 | `Unknown_6F45E0` | `app/client/co.cpp:385` | untagged neutral name (D10) |
-| 1 | `Unknown_79B670` | `app/client/co.cpp:419` | untagged neutral name (D10) |
-| 1 | `Unknown_79B690` | `app/client/co.cpp:420` | untagged neutral name (D10) |
-| 1 | `mode` | `app/client/co.cpp:421` | CAMERA_CONTROL 146 passes 0x0C, 0x0D, 0, 0x0F, 6, 0x0A, 0x17, 0x10 or 0x19 |
-| 1 | `Unknown_79B2B0` | `app/client/co.cpp:421` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/co.cpp:429` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/co.cpp:430` | untagged neutral name (D10) |
+| 1 | `Unknown_79B670` | `app/client/co.cpp:430` | untagged neutral name (D10) |
+| 1 | `Unknown_79B2B0` | `app/client/co.cpp:431` | untagged neutral name (D10) |
 | 1 | `Unknown_7E76E0` | `app/client/co.cpp:432` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6860` | `app/client/co.cpp:435` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/co.cpp:438` | untagged neutral name (D10) |
@@ -1791,6 +1789,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6FE1E0` | `app/client/co.cpp:1782` | untagged neutral name (D10) |
 | 1 | `Unknown_6FD7A0` | `app/client/co.cpp:1891` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A70` | `app/client/co.cpp:2003` | untagged neutral name (D10) |
+| 1 | `Unknown_79B690` | `app/client/co.cpp:2005` | untagged neutral name (D10) |
 | 1 | `model, levels, hull_level, client, id, unknown` | `app/client/co.cpp:2111` | what 0x6FE1E0 passes |
 | 1 | `model, hull_level, number, id, organic, view, client, unknown` | `app/client/co.cpp:2112` | what 0x6FE1E0 passes |
 | 1 | `Unknown_8117D0` | `app/client/co.cpp:2112` | untagged neutral name (D10) |
@@ -2315,9 +2314,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_588A70` | `app/client/cpacket.cpp:963` | untagged neutral name (D10) |
 | 1 | `model, name, rgb` | `app/client/cpacket.cpp:1056` | what NAME_DECAL 178 passes |
 | 1 | `Unknown_80FF20` | `app/client/cpacket.cpp:1056` | untagged neutral name (D10) |
-| 1 | `mode` | `app/client/cpacket.cpp:1081` | CAMERA_CONTROL 146 passes 0x0C, 0x0D, 0, 0x0F, 6, 0x0A, 0x17, 0x10 or 0x19 |
-| 1 | `Unknown_79B2B0` | `app/client/cpacket.cpp:1081` | untagged neutral name (D10) |
 | 1 | `Unknown_43ADF0` | `app/client/cpacket.cpp:1088` | untagged neutral name (D10) |
+| 1 | `Unknown_79B2B0` | `app/client/cpacket.cpp:1098` | untagged neutral name (D10) |
 | 1 | `Unknown13AC` | `app/client/cpacket.cpp:1099` | untagged neutral name (D10) |
 | 1 | `Unknown13B0` | `app/client/cpacket.cpp:1103` | untagged neutral name (D10) |
 | 1 | `Unknown13B4` | `app/client/cpacket.cpp:1110` | untagged neutral name (D10) |
@@ -2546,16 +2544,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown18` | `app/client/ctrngadg.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ctrngadg.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/ctrngadg.cpp:26` | untagged neutral name (D10) |
-| 1 | `yaw` | `app/client/ctrngadg.cpp:33` | neutral |
-| 1 | `Unknown_79B370` | `app/client/ctrngadg.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_79B390` | `app/client/ctrngadg.cpp:34` | untagged neutral name (D10) |
-| 1 | `zoom` | `app/client/ctrngadg.cpp:35` | neutral |
-| 1 | `Unknown_79B3B0` | `app/client/ctrngadg.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_79B3D0` | `app/client/ctrngadg.cpp:36` | untagged neutral name (D10) |
-| 1 | `pitch` | `app/client/ctrngadg.cpp:37` | neutral |
-| 1 | `Unknown_79B3F0` | `app/client/ctrngadg.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_79B410` | `app/client/ctrngadg.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/ctrngadg.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F34` | `app/client/ctrngadg.cpp:44` | neutral (D10) |
 | 1 | `CtrnValueHolderClass` | `app/client/ctrngadg.cpp:47` | neutral (D10) |
 | 1 | `value, temp` | `app/client/ctrngadg.cpp:50` | neutral |
@@ -2570,6 +2558,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10BC` | `app/client/ctrngadg.cpp:131` | untagged neutral name (D10) |
 | 1 | `Unknown12B4` | `app/client/ctrngadg.cpp:132` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ctrngadg.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/ctrngadg.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown_5153B0` | `app/client/ctrngadg.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown_515400` | `app/client/ctrngadg.cpp:210` | untagged neutral name (D10) |
 | 1 | `Unknown_6C` | `app/client/ctrngadg.cpp:213` | untagged neutral name (D10) |
@@ -6074,7 +6063,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `base_asset, a` | `app/client/sclient.cpp:89` | SERVER_PARAMETERS 66's BackdropBaseAsset; neutral |
 | 1 | `Unknown_760770` | `app/client/sclient.cpp:89` | untagged neutral name (D10) |
 | 1 | `Unknown758F40Class` | `app/client/sclient.cpp:96` | neutral (D10): 0x0C bytes, destructor 0x758F40 |
-| 1 | `Unknown34` | `app/client/sclient.cpp:122` | untagged neutral name (D10) |
 | 1 | `Unknown_RefCountPtr_Size` | `app/client/sclient.cpp:125` | not the client's: instantiates RefCountPtr<RefCountClass>, so 0x744C10's Create_Peek(RefCountClass *) 0x514960 is visible (VC6 injects a template's friends only once it is instantiated) |
 | 1 | `SClientUnknown135CViewClass` | `app/client/sclient.cpp:128` | neutral (D10) |
 | 1 | `Unknown4C` | `app/client/sclient.cpp:128` | untagged neutral name (D10) |
@@ -6107,12 +6095,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/client/sclient.cpp:182` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/sclient.cpp:183` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/sclient.cpp:192` | untagged neutral name (D10) |
-| 1 | `first_mode` | `app/client/sclient.cpp:213` | what it is |
-| 1 | `Unknown_79B4B0` | `app/client/sclient.cpp:213` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/sclient.cpp:214` | what 0x745750 passes |
-| 1 | `Unknown_799E40` | `app/client/sclient.cpp:214` | untagged neutral name (D10) |
-| 1 | `Unknown_79B2B0` | `app/client/sclient.cpp:214` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/sclient.cpp:218` | untagged neutral name (D10) |
 | 1 | `a, b, c, d` | `app/client/sclient.cpp:227` | neutral |
 | 1 | `Unknown_43AD70` | `app/client/sclient.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_43AE30` | `app/client/sclient.cpp:227` | untagged neutral name (D10) |
@@ -6188,6 +6170,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_744E50` | `app/client/sclient.cpp:464` | untagged neutral name (D10) |
 | 1 | `Unknown_75A5D0` | `app/client/sclient.cpp:468` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/sclient.cpp:470` | untagged neutral name (D10) |
+| 1 | `Unknown_79B4B0` | `app/client/sclient.cpp:477` | untagged neutral name (D10) |
 | 1 | `Unknown_744C10` | `app/client/sclient.cpp:479` | untagged neutral name (D10) |
 | 1 | `Unknown_7518A0` | `app/client/sclient.cpp:482` | untagged neutral name (D10) |
 | 1 | `Unknown_514220` | `app/client/sclient.cpp:486` | untagged neutral name (D10) |
@@ -6204,6 +6187,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2C` | `app/client/sclient.cpp:638` | untagged neutral name (D10) |
 | 1 | `Unknown_515340` | `app/client/sclient.cpp:639` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/sclient.cpp:639` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/sclient.cpp:644` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/sclient.cpp:644` | untagged neutral name (D10) |
 | 1 | `Unknown1E4` | `app/client/sclient.cpp:647` | untagged neutral name (D10) |
 | 1 | `Unknown_584A20` | `app/client/sclient.cpp:649` | untagged neutral name (D10) |
@@ -6244,6 +6228,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_802930` | `app/client/sclient.cpp:886` | untagged neutral name (D10) |
 | 1 | `Unknown_74BF00` | `app/client/sclient.cpp:887` | untagged neutral name (D10) |
 | 1 | `Unknown86CList` | `app/client/sclient.cpp:1004` | untagged neutral name (D10) |
+| 1 | `Unknown_799E40` | `app/client/sclient.cpp:1013` | untagged neutral name (D10) |
 | 1 | `Unknown_6E6AD0` | `app/client/sclient.cpp:1021` | untagged neutral name (D10) |
 | 1 | `Unknown_7456B0` | `app/client/sclient.cpp:1028` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/sclient.cpp:1032` | untagged neutral name (D10) |
@@ -6252,6 +6237,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_75A570` | `app/client/sclient.cpp:1163` | untagged neutral name (D10) |
 | 1 | `Unknown_75A5A0` | `app/client/sclient.cpp:1164` | untagged neutral name (D10) |
 | 1 | `Unknown_745750` | `app/client/sclient.cpp:1303` | untagged neutral name (D10) |
+| 1 | `Unknown_79B2B0` | `app/client/sclient.cpp:1307` | untagged neutral name (D10) |
 | 1 | `Unknown_755600` | `app/client/sclient.cpp:1331` | untagged neutral name (D10) |
 | 1 | `Unknown_745AA0` | `app/client/sclient.cpp:1352` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/sclient.cpp:1355` | untagged neutral name (D10) |
@@ -10714,9 +10700,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown174` | `app/client/ui_cpit.cpp:366` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_cpit.cpp:371` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_cpit.cpp:373` | untagged neutral name (D10) |
-| 1 | `Unknown_79B600` | `app/client/ui_cpit.cpp:380` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_cpit.cpp:381` | neutral |
-| 1 | `Unknown_79B2B0` | `app/client/ui_cpit.cpp:381` | untagged neutral name (D10) |
 | 1 | `Unknown_Avatar_ID` | `app/client/ui_cpit.cpp:385` | neutral (D10) |
 | 1 | `Unknown_Player_ID` | `app/client/ui_cpit.cpp:386` | neutral (D10) |
 | 1 | `Unknown1138` | `app/client/ui_cpit.cpp:386` | untagged neutral name (D10) |
@@ -10768,10 +10751,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_53B770` | `app/client/ui_cpit.cpp:1247` | untagged neutral name (D10) |
 | 1 | `Unknown_53B710` | `app/client/ui_cpit.cpp:1248` | untagged neutral name (D10) |
 | 1 | `Unknown_53B740` | `app/client/ui_cpit.cpp:1249` | untagged neutral name (D10) |
+| 1 | `Unknown_79B600` | `app/client/ui_cpit.cpp:1295` | untagged neutral name (D10) |
 | 1 | `Unknown_6E32E0` | `app/client/ui_cpit.cpp:1413` | untagged neutral name (D10) |
 | 1 | `Unknown_674120` | `app/client/ui_cpit.cpp:1471` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD980` | `app/client/ui_cpit.cpp:1616` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD960` | `app/client/ui_cpit.cpp:1617` | untagged neutral name (D10) |
+| 1 | `Unknown_79B2B0` | `app/client/ui_cpit.cpp:1630` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/ui_cpit.cpp:1634` | untagged neutral name (D10) |
 | 1 | `Unknown_671630` | `app/client/ui_cpit.cpp:1635` | untagged neutral name (D10) |
 | 1 | `Unknown66` | `app/client/ui_cpit.cpp:1706` | untagged neutral name (D10) |
@@ -14691,10 +14676,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64F630` | `app/client/ui_talkt_space.h:20` | untagged neutral name (D10) |
 | 1 | `robj, arg` | `app/client/ui_verb.cpp:21` | what ui_group.cpp passes |
 | 1 | `Unknown_496AE0` | `app/client/ui_verb.cpp:21` | untagged neutral name (D10) |
-| 1 | `mode` | `app/client/ui_verb.cpp:27` | co.cpp's |
-| 1 | `Unknown_79B2B0` | `app/client/ui_verb.cpp:27` | untagged neutral name (D10) |
-| 1 | `mode` | `app/client/ui_verb.cpp:28` | neutral |
-| 1 | `Unknown_79B4F0` | `app/client/ui_verb.cpp:28` | untagged neutral name (D10) |
 | 1 | `UIVerbButtonMatchStruct` | `app/client/ui_verb.cpp:34` | neutral (D10) |
 | 1 | `UnknownA0` | `app/client/ui_verb.cpp:94` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/ui_verb.cpp:99` | untagged neutral name (D10) |
@@ -14707,6 +14688,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_60` | `app/client/ui_verb.cpp:133` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_verb.cpp:136` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/ui_verb.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_79B2B0` | `app/client/ui_verb.cpp:165` | untagged neutral name (D10) |
 | 1 | `Unknown13B8` | `app/client/ui_verb.cpp:166` | untagged neutral name (D10) |
 | 1 | `Unknown_6FC950` | `app/client/ui_verb.cpp:168` | untagged neutral name (D10) |
 | 1 | `Unknown_6FC880` | `app/client/ui_verb.cpp:169` | untagged neutral name (D10) |
@@ -14715,6 +14697,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74D990` | `app/client/ui_verb.cpp:185` | untagged neutral name (D10) |
 | 1 | `Unknown_744B60` | `app/client/ui_verb.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown1E4` | `app/client/ui_verb.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown_79B4F0` | `app/client/ui_verb.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_verb.cpp:253` | untagged neutral name (D10) |
 | 1 | `Unknown_81F6A0` | `app/client/ui_verb.cpp:270` | untagged neutral name (D10) |
 | 1 | `UnknownObjectWatchClass` | `app/client/ui_verb.cpp:272` | untagged neutral name (D10) |
@@ -19596,13 +19579,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Load` | `app/client/sclient.cpp:88` | what it does |
 | 2 | `INI` | `app/client/sclient.cpp:93` | what it is |
 | 2 | `Load` | `app/client/sclient.cpp:107` | what it does |
-| 2 | `ChaseCameraModuleClass` | `app/client/sclient.cpp:118` | the FAIL_IF '!CameraManager->Get_Player_Chase_Camera_Module()' (0x744C10) |
 | 2 | `MessageButtonShowing` | `app/client/sclient.cpp:151` | its getter's |
-| 2 | `Set_Heading` | `app/client/sclient.cpp:209` | Init passes the camera mode's Heading |
-| 2 | `Set_Distance` | `app/client/sclient.cpp:210` | Init passes the camera mode's Distance |
-| 2 | `Set_Tilt` | `app/client/sclient.cpp:211` | Init passes the camera mode's Tilt |
-| 2 | `Set_Elevation_Offset` | `app/client/sclient.cpp:212` | Init passes the camera mode's ElevationOffset |
-| 2 | `FOV` | `app/client/sclient.cpp:219` | what it holds |
 | 2 | `INIUsers` | `app/client/sclient.cpp:299` | what it counts |
 | 2 | `SoundManager` | `app/client/sclient.cpp:779` | what it holds |
 | 2 | `Sample2DNames` | `app/client/sclient.cpp:5116` | what it holds |
@@ -22213,7 +22190,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Friends` | `app/client/cpacket.cpp:2467` | its methods' file |
 | 3 | `UIGroupFindClass` | `app/client/cpacket.cpp:2481` | class-from-file (D24) for app\client\ui_groupfind.cpp  // NAME 1 [packet]: the handler's packet |
 | 3 | `BridgeInterfaceClass` | `app/client/ctrngadg.cpp:16` | class-from-file (D24) for bridge_int.cpp |
-| 3 | `CameraManagerClass` | `app/client/ctrngadg.cpp:30` | class-from-file (D24) for camera_manager.cpp |
 | 3 | `ctrngadg.h` | `app/client/ctrngadg.h:18` | header name assumed from the client's ctrngadg.cpp |
 | 3 | `CtrnGadgetClass` | `app/client/ctrngadg.h:25` | class-from-file (D24) for app\client\ctrngadg.cpp |
 | 3 | `decal.cpp` | `app/client/decal.cpp:15` | the FAIL_IF's 'i - SECRET_DECALS' |
@@ -22644,7 +22620,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Change_Text` | `app/client/ui_cpit.cpp:32` | the client's label |
 | 3 | `FontManagerClass` | `app/client/ui_cpit.cpp:35` | fontmanager.h's |
 | 3 | `CtrnGadgetClass` | `app/client/ui_cpit.cpp:206` | ctrngadg.h's (D24 class-from-file) |
-| 3 | `CameraManagerClass` | `app/client/ui_cpit.cpp:377` | class-from-file (D24) for camera_manager.cpp |
 | 3 | `SoundManagerClass` | `app/client/ui_cpit.cpp:389` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `BridgeInterfaceClass` | `app/client/ui_cpit.cpp:1244` | class-from-file (D24) for bridge_int.cpp |
 | 3 | `UICpitClass` | `app/client/ui_cpit.h:112` | class-from-file (D24) for ui_cpit.cpp |
