@@ -23,7 +23,7 @@ class Unknown6A90A0Interface { public: virtual void Unknown_00(); virtual void U
 #include "inv_trade_render.h"
 
 
-class Unknown68B370Class : public SlotDataRenderClass { public: Unknown68B370Class(); char Unknown2C[0x30 - 0x2C]; };	// NAME 1: neutral (D10)
+#include "inv_manu_render.h"
 
 
 // ro_funcs.cpp's
@@ -475,7 +475,7 @@ SlotDataRenderClass *Unknown_6A90A0(int kind, Unknown6A90A0Interface *iface, Ren
 				switch (item->Unknown_BC) {
 					case 12:
 					case 13:
-						render = new Unknown68B370Class;
+						render = new InvManuRenderClass;
 						break;
 					case 7:
 						if (kind == 0) {

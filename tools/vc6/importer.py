@@ -4725,6 +4725,8 @@ RECONSTRUCTED = {
     ('app', 'client/inv_render.h'): "InvRenderClass's declaration and its derived classes (D24 header name from inv_render.cpp's __FILE__ 0xB90220; tables 0xAFCBD8, 0xAFCCA0, 0xAFCD04, 0xAFCDF0) (IR1)",
     ('app', 'client/inv_transaction.h'): "InvTransactionClass's declaration (D24 header name from inv_transaction.cpp's __FILE__ 0xB90764) (IR2)",
     ('app', 'client/inv_transaction.cpp'): "InvTransactionClass (D24 class-from-file), one move of inventory items (the client's __FILE__ 0xB90764, asserts on lines 123-276; object from 0x690880, after inv_trade_render.cpp's initialiser 0x690850) (IR2)",
+    ('app', 'client/inv_manu_render.h'): "InvManuRenderClass's declaration (D24 header name from inv_manu_render.cpp's __FILE__ 0xB900CC; table 0xAFCAF0) (IR2)",
+    ('app', 'client/inv_manu_render.cpp'): "InvManuRenderClass (D24 class-from-file), an inventory slot on the manufacturing screen (the client's __FILE__ 0xB900CC, asserts on lines 121-160; object 0x68B370-0x68BEFA, permstr.h's initialiser 0x68BEC0 ends it) (IR2)",
     ('app', 'client/inv_trade_render.h'): "InvTradeRenderClass's declaration (D24 header name from inv_trade_render.cpp's __FILE__ 0xB905A8; table 0xAFCDF0) (IR2)",
     ('app', 'client/inv_trade_render.cpp'): "InvTradeRenderClass (D24 class-from-file), an inventory slot on the trade screen (the client's __FILE__ 0xB905A8, asserts on lines 115-185; object from 0x68FB60, after inv_render.cpp's <string> initialiser 0x68FB10) (IR2)",
     ('app', 'client/inv_render.cpp'): "InvRenderClass (D24 class-from-file), what draws an inventory item's slot (the client's __FILE__ 0xB90220, asserts on lines 119-1107; object from 0x68BF10); started: see its notes (IR1)",
