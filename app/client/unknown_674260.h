@@ -4,8 +4,7 @@
 **	Its code is gd_uiback.cpp's (0x6741A0-0x6742F0); this header's name stays neutral (D137), the base of gd_uiback.h's gadgets.
 **
 **	The gadget constructor 0x674260 makes (0x60 bytes, over Unknown_675120Class) over a screen's model: as far as
-**	ui_bio.cpp's bio tab (gadget 2) and ui_cinfo.cpp's character info window (gadget 6) make it. ui_cpit.cpp
-**	declares it locally over GadgetClass (UICpitGadget674260Class): that file does not include unknown_675120.h.
+**	ui_bio.cpp's bio tab (gadget 2), ui_cinfo.cpp's character info window (gadget 6) and ui_cpit.cpp make it.
 */
 
 #if defined(_MSC_VER)

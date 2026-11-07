@@ -12,8 +12,8 @@ class ClientObjectClass;
 class RenderObjClass;
 class GadgetClass;
 class UICpitWarpGadgetClass;
-class UICpitThrottleGadgetClass;
-class UICpitTurnGadgetClass;
+class Unknown_673EE0Class;
+class Unknown_671300Class;
 class IncapacitanceDetailsPacket;
 class AvatarDescClass;
 class Unknown6D47C0Class;
@@ -145,10 +145,10 @@ public:
 	GadgetClass *Unknown0AC;							// +0xAC (0x57DD20 news it, 0x5C bytes, 0x6B56A0; the destructor deletes it through 0x65EED0)
 	RefCountPtr<RenderObjClass> Unknown0B0;				// +0xB0 'tsi01_gutter' (the constructor)
 	UICpitWarpGadgetClass *Unknown0B4;							// +0xB4 'WARP' (0x57DD20)
-	UICpitThrottleGadgetClass *Unknown0B8;							// +0xB8 'THROTTLE'
-	UICpitThrottleGadgetClass *Unknown0BC;							// +0xBC 'REVERSE'
-	UICpitTurnGadgetClass *Unknown0C0;							// +0xC0 'LEFT'
-	UICpitTurnGadgetClass *Unknown0C4;							// +0xC4 'RIGHT'
+	Unknown_673EE0Class *Unknown0B8;							// +0xB8 'THROTTLE'
+	Unknown_673EE0Class *Unknown0BC;							// +0xBC 'REVERSE'
+	Unknown_671300Class *Unknown0C0;							// +0xC0 'LEFT'
+	Unknown_671300Class *Unknown0C4;							// +0xC4 'RIGHT'
 	InterfaceClass *HulkUI;								// +0xC8 (0xE4 bytes, 0x5850E0; G_ASSERT 'HulkUI' l.1208)  // NAME 3: the assert's
 	InterfaceClass *Unknown0CC;							// +0xCC (0xE4 bytes, 0x5850E0: the harvesting window)
 	UICpitUnknownD0Class *Unknown0D0;				// +0xD0 (0x28 bytes, 0x5DBFC0)
