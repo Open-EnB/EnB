@@ -26,10 +26,10 @@ class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Un
 
 // skill_ability_names.cpp's, skillnam.cpp's, slot_data_render.cpp's, ro_funcs.cpp's, distance_calc_client.cpp's
 struct Unknown815320Struct { std::string Name; int Unknown10; int Unknown14; unsigned int Unknown18; bool Unknown1C; Vector3 Unknown20; };	// NAME 1: neutral (D10); NAME 2 [Name]: 0x6A6A80 writes it as the ability
-Unknown815320Struct *Unknown_815320(int ability);	// NAME 1: neutral (D10)
+
 struct Unknown8155B0Struct { std::vector<Unknown815320Struct *> Abilities; int NumActivatable; };	// NAME 3 [Abilities, NumActivatable]: asserts
-const Unknown8155B0Struct &Unknown_8155B0(int skill);	// NAME 1: neutral (D10)
-int Unknown_815260(const std::string &name);	void Unknown_815720(std::string *string, int ability, bool below, unsigned int level);	// NAME 1: neutral (D10)
+
+class SkillAbilityNamesDatabase { public: static Unknown815320Struct *Unknown_815320(int ability); static const Unknown8155B0Struct &Unknown_8155B0(int skill); static int Unknown_815260(const std::string &name); static void Unknown_815720(std::string *string, int ability, bool below, unsigned int level); };	// NAME 1: neutral (D10)
 class SkillNamesDatabase { public: static const char *Unknown_818200(int skill); static int Unknown_818520(const char *name); static TextureClass *Unknown_818430(int skill); };	// NAME 1: neutral (D10)
 void Unknown_6A93E0(const char *value, std::string &string);	const char *Unknown_6A9660(const char *state, std::string &string);	// NAME 1: neutral (D10)
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// NAME 1: neutral (D10)
@@ -248,7 +248,7 @@ void SkillRenderClass::Unknown_0C(std::string &out)
 	const char *name = SkillNamesDatabase::Unknown_818200(Unknown20);
 	std::string string;
 	Unknown_6A93E0(name, string);
-	Unknown_6A93E0(Unknown_815320(Unknown34)->Name.c_str(), string);
+	Unknown_6A93E0(SkillAbilityNamesDatabase::Unknown_815320(Unknown34)->Name.c_str(), string);
 	out += string;
 }
 
@@ -298,7 +298,7 @@ const char *SkillRenderClass::Unknown_10(const char *serial_string)
 
 
 	FAIL_IF(string.empty()) return(0);
-	Unknown_6A72E0(Unknown_815260(string), false);
+	Unknown_6A72E0(SkillAbilityNamesDatabase::Unknown_815260(string), false);
 	Unknown_40(slot);
 	return(state);
 }
@@ -315,7 +315,7 @@ bool SkillRenderClass::Unknown_38(Vector3 &color)
 	unsigned int level = Unknown_6A7310()->Get_Level(Unknown20);
 	color.Set(0.2f, 0.2f, 0.2f);
 	if (Unknown34 >= 0) {
-		Unknown815320Struct *ability = Unknown_815320(Unknown34);
+		Unknown815320Struct *ability = SkillAbilityNamesDatabase::Unknown_815320(Unknown34);
 		if (ability->Unknown18 <= level) {
 			color.X = ability->Unknown20.X;
 			color.Y = ability->Unknown20.Y;
@@ -351,7 +351,7 @@ void SkillRenderClass::Unknown_40(int slot)
 	if (slot == -1) {
 		Unknown34 = -1;
 	} else if (Unknown34 == -1) {
-		const Unknown8155B0Struct &s_ability = Unknown_8155B0(slot);
+		const Unknown8155B0Struct &s_ability = SkillAbilityNamesDatabase::Unknown_8155B0(slot);
 		FAIL_IF(!s_ability.NumActivatable) return;
 
 		SkillDataClass *skill_data = Unknown_6A7310();
@@ -385,10 +385,10 @@ const char *SkillRenderClass::Unknown_28(std::string *string)
 	if (Unknown38 == 1) {
 		return("LOC_SHORTCUT_OPEN");
 	}
-	Unknown815320Struct *ability = Unknown_815320(Unknown34);
+	Unknown815320Struct *ability = SkillAbilityNamesDatabase::Unknown_815320(Unknown34);
 	unsigned int level = Unknown_6A7310()->Get_Level(Unknown20);
 	bool enough = ability->Unknown18 <= level;
-	Unknown_815720(string, ability->Unknown10, !enough, level);
+	SkillAbilityNamesDatabase::Unknown_815720(string, ability->Unknown10, !enough, level);
 	switch (Unknown38) {
 		default:
 

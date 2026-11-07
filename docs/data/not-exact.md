@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-627 entries in 176 files.
+625 entries in 176 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -247,10 +247,8 @@ edit the comments in the code, not this file.
 | `app/client/signal_map.cpp:155` | `SignalMap::connect` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:166` | `SignalMap::disconnect` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:190` | `SignalMap::emit` | marker | NOT EXACT: functional (shape) |
-| `app/client/skill_ability_names.cpp:28` | `Unknown_814430` | marker | NOT EXACT: register, the delete loop's iterator in edi and the ability in esi (client: esi, edi) 0x814430 |
-| `app/client/skill_ability_names.cpp:65` | `Unknown_814620` | marker | NOT EXACT: register, from the resize on; the sort's vector reference (lea esi, [eax + 4]; client: esi = the iterator) 0x814620 |
-| `app/client/skill_ability_names.cpp:99` | `Unknown_814A30` | marker | NOT EXACT: frame, 0x10E8 bytes of locals against the client's 0x10CC (key at +0x24 overlaps other scopes; total at +0x44) 0x814A30 |
-| `app/client/skill_ability_names.cpp:222` | `Unknown_815720` | marker | NOT EXACT: inline-budget, the client calls _Eos and _Tidy out of line and inlines _Grow in the last append 0x815720 |
+| `app/client/skill_ability_names.cpp:99` | `SkillAbilityNamesDatabase::Unknown_814A30` | marker | NOT EXACT: frame, 0x10E8 bytes of locals against the client's 0x10CC (key at +0x24 overlaps other scopes; total at +0x44) 0x814A30 |
+| `app/client/skill_ability_names.cpp:222` | `SkillAbilityNamesDatabase::Unknown_815720` | marker | NOT EXACT: inline-budget, the client calls _Eos and _Tidy out of line and inlines _Grow in the last append 0x815720 |
 | `app/client/skill_data.cpp:95` | `SkillDataClass::Unknown_6A4C20` | marker | NOT EXACT: inline-budget, the client calls 0x610290 (Unknown_Find_Field) out of line in its two inlined reads 0x6A4C20 |
 | `app/client/skill_data.cpp:144` | `SkillDataClass::Unknown_20` | marker | NOT EXACT: inline-budget, the client inlines only the -1 push_back and calls 0x4A0880 for the other two 0x6A4F40 |
 | `app/client/skill_data_peek.cpp:149` | `SkillDataPeekClass::Get_Affiliations` | marker | NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return) 0x6A5730 |

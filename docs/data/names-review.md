@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 165 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1548 |
-| 2 | describes what the code does | 3614 |
-| 1 | neutral placeholder | 17397 |
+| 3 | by convention from a client-named file or sibling | 1551 |
+| 2 | describes what the code does | 3616 |
+| 1 | neutral placeholder | 17400 |
 
 ## For review (score 3 and below)
 
@@ -3335,9 +3335,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/client/gd_attrb_skills.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/gd_attrb_skills.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/gd_attrb_skills.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_815320` | `app/client/gd_attrb_skills.cpp:42` | neutral (D10) |
 | 1 | `Unknown8155B0Struct` | `app/client/gd_attrb_skills.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_8155B0` | `app/client/gd_attrb_skills.cpp:44` | neutral (D10) |
+| 1 | `SkillAbilityNamesDatabase` | `app/client/gd_attrb_skills.cpp:44` | neutral (D10) |
+| 1 | `Unknown_815320` | `app/client/gd_attrb_skills.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_8155B0` | `app/client/gd_attrb_skills.cpp:44` | untagged neutral name (D10) |
 | 1 | `Unknown_818200` | `app/client/gd_attrb_skills.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_818250` | `app/client/gd_attrb_skills.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_8182A0` | `app/client/gd_attrb_skills.cpp:45` | untagged neutral name (D10) |
@@ -6854,8 +6855,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown8155B0Struct` | `app/client/skill_ability_names.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_814430` | `app/client/skill_ability_names.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/skill_ability_names.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_814A30` | `app/client/skill_ability_names.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_814620` | `app/client/skill_ability_names.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_814A30` | `app/client/skill_ability_names.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_815230` | `app/client/skill_ability_names.cpp:153` | untagged neutral name (D10) |
 | 1 | `Unknown_815260` | `app/client/skill_ability_names.cpp:159` | untagged neutral name (D10) |
 | 1 | `Unknown_815300` | `app/client/skill_ability_names.cpp:168` | untagged neutral name (D10) |
@@ -6865,22 +6866,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown20` | `app/client/skill_ability_names.cpp:217` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/skill_ability_names.cpp:219` | untagged neutral name (D10) |
 | 1 | `Unknown_815720` | `app/client/skill_ability_names.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown815320Struct` | `app/client/skill_ability_names.h:25` | neutral (D10) |
-| 1 | `Unknown10` | `app/client/skill_ability_names.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/skill_ability_names.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/skill_ability_names.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/skill_ability_names.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/skill_ability_names.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown8155B0Struct` | `app/client/skill_ability_names.h:51` | neutral (D10) |
-| 1 | `Unknown_814430` | `app/client/skill_ability_names.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown_814620` | `app/client/skill_ability_names.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown_815230` | `app/client/skill_ability_names.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_815260` | `app/client/skill_ability_names.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_815300` | `app/client/skill_ability_names.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown_815320` | `app/client/skill_ability_names.h:63` | untagged neutral name (D10) |
-| 1 | `Unknown_8155B0` | `app/client/skill_ability_names.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown_815690` | `app/client/skill_ability_names.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_815720` | `app/client/skill_ability_names.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown815320Struct` | `app/client/skill_ability_names.h:27` | neutral (D10) |
+| 1 | `Unknown10` | `app/client/skill_ability_names.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/skill_ability_names.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/skill_ability_names.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/skill_ability_names.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/skill_ability_names.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown8155B0Struct` | `app/client/skill_ability_names.h:53` | neutral (D10) |
+| 1 | `Unknown_814430` | `app/client/skill_ability_names.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_814620` | `app/client/skill_ability_names.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown_815230` | `app/client/skill_ability_names.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_815260` | `app/client/skill_ability_names.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown_815300` | `app/client/skill_ability_names.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_815320` | `app/client/skill_ability_names.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown_8155B0` | `app/client/skill_ability_names.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_815690` | `app/client/skill_ability_names.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown_815720` | `app/client/skill_ability_names.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown_814A30` | `app/client/skill_ability_names.h:74` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Valid` | `app/client/skill_data.cpp:9` | neutral (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/skill_data.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/skill_data.cpp:9` | untagged neutral name (D10) |
@@ -6943,10 +6945,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_815320` | `app/client/skill_render.cpp:29` | neutral (D10) |
 | 1 | `Unknown8155B0Struct` | `app/client/skill_render.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_8155B0` | `app/client/skill_render.cpp:31` | neutral (D10) |
-| 1 | `Unknown_815260` | `app/client/skill_render.cpp:32` | neutral (D10) |
+| 1 | `SkillAbilityNamesDatabase` | `app/client/skill_render.cpp:32` | neutral (D10) |
+| 1 | `Unknown_815320` | `app/client/skill_render.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_8155B0` | `app/client/skill_render.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_815260` | `app/client/skill_render.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_815720` | `app/client/skill_render.cpp:32` | untagged neutral name (D10) |
 | 1 | `SkillNamesDatabase` | `app/client/skill_render.cpp:33` | neutral (D10) |
 | 1 | `Unknown_818200` | `app/client/skill_render.cpp:33` | untagged neutral name (D10) |
@@ -18677,11 +18680,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Fields` | `app/client/skill_ability_data_peek.h:144` | describes what it does |
 | 2 | `Status` | `app/client/skill_ability_data_peek.h:145` | describes what it does |
 | 2 | `std:` | `app/client/skill_ability_names.cpp:25` | describes what it does |
-| 2 | `_NumActivated` | `app/client/skill_ability_names.cpp:26` | describes what it does |
+| 2 | `SkillAbilityNamesDatabase::_NumActivated` | `app/client/skill_ability_names.cpp:26` | describes what it does |
 | 2 | `Compare_Abilities` | `app/client/skill_ability_names.cpp:42` | describes what it does |
-| 2 | `std:` | `app/client/skill_ability_names.h:41` | 0x6A6A80 writes it as the ability's name |
-| 2 | `EnergyCost` | `app/client/skill_ability_names.h:47` | 0x815720's 'Energy cost' |
-| 2 | `std:` | `app/client/skill_ability_names.h:48` | the ini's key |
+| 2 | `std:` | `app/client/skill_ability_names.h:43` | 0x6A6A80 writes it as the ability's name |
+| 2 | `EnergyCost` | `app/client/skill_ability_names.h:49` | 0x815720's 'Energy cost' |
+| 2 | `std:` | `app/client/skill_ability_names.h:50` | the ini's key |
+| 2 | `std:` | `app/client/skill_ability_names.h:78` | describes what it does |
+| 2 | `_NumActivated` | `app/client/skill_ability_names.h:79` | describes what it does |
 | 2 | `UnknownClientTime` | `app/client/skill_data.cpp:11` | describes what it does |
 | 2 | `Get_Skill_Points` | `app/client/skill_data.h:33` | the client's field name 'RPGInfo.SkillPoints' |
 | 2 | `Get_Skill_Powerup_Start` | `app/client/skill_data.h:34` | the client's field name 'RPGInfo.SkillPowerupStart' |
@@ -21405,8 +21410,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SkillAbilityDataPeekClass` | `app/client/skill_ability_data_peek.h:24` | by convention (D24) from the client's file skill_ability_data_peek.cpp |
 | 3 | `std:` | `app/client/skill_ability_names.cpp:23` | its asserts |
 | 3 | `std:` | `app/client/skill_ability_names.cpp:24` | its asserts |
-| 3 | `std:` | `app/client/skill_ability_names.h:53` | skill_render.cpp's FAIL_IF |
-| 3 | `NumActivatable` | `app/client/skill_ability_names.h:54` | skill_render.cpp's FAIL_IF |
+| 3 | `std:` | `app/client/skill_ability_names.h:55` | skill_render.cpp's FAIL_IF |
+| 3 | `NumActivatable` | `app/client/skill_ability_names.h:56` | skill_render.cpp's FAIL_IF |
+| 3 | `SkillAbilityNamesDatabase` | `app/client/skill_ability_names.h:60` | its sibling SkillNamesDatabase, skill_ability_names.cpp's __FILE__ |
+| 3 | `std:` | `app/client/skill_ability_names.h:76` | its asserts |
+| 3 | `std:` | `app/client/skill_ability_names.h:77` | its asserts |
 | 3 | `SkillDataClass` | `app/client/skill_data.h:22` | by convention (D24) from the client's file skill_data.cpp |
 | 3 | `SkillDataPeekClass` | `app/client/skill_data_peek.h:25` | by convention (D24) from the client's file skill_data_peek.cpp |
 | 3 | `SlotDataClass` | `app/client/skill_render.cpp:22` | its local sd (0x6A7310) |

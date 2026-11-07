@@ -39,9 +39,9 @@ public:
 
 
 struct Unknown815320Struct { char Unknown00[0x10]; int Unknown10; int Unknown14; unsigned int Unknown18; bool Unknown1C; unsigned int Get_18() { return(Unknown18); } };	// NAME 1: neutral (D10)
-Unknown815320Struct *Unknown_815320(int ability);	// NAME 1: neutral (D10)
+
 struct Unknown8155B0Struct { std::vector<Unknown815320Struct *> Abilities; int Unknown10; };	// NAME 3 [Abilities]: its assert
-const Unknown8155B0Struct &Unknown_8155B0(int skill);	// NAME 1: neutral (D10)
+class SkillAbilityNamesDatabase { public: static Unknown815320Struct *Unknown_815320(int ability); static const Unknown8155B0Struct &Unknown_8155B0(int skill); };	// NAME 1: neutral (D10)
 class SkillNamesDatabase { public: static const char *Unknown_818200(int skill); static const char *Unknown_818250(int skill); static const char *Unknown_8182A0(int skill, int level);	// as ui_attrb.cpp
 	static unsigned int Unknown_8185C0(int skill, int index); };	// NAME 1: neutral (D10)
 bool Unknown_496960(RenderObjClass *robj, float x, float y, LayerClass &layer);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
@@ -241,7 +241,7 @@ int Unknown664500Class::Unknown_663DF0(UIAttrbSkillsClass *ui, int skill, int in
 	SkillData = Create_Peek(ui->Unknown_62D710());
 	Unknown6C = skill;
 	Unknown100->Change_Text(SkillNamesDatabase::Unknown_818200(skill), 0);
-	const Unknown8155B0Struct &skill_a = Unknown_8155B0(skill);
+	const Unknown8155B0Struct &skill_a = SkillAbilityNamesDatabase::Unknown_8155B0(skill);
 	int count = 0;
 	Unknown110 = skill_a.Unknown10;
 	std::vector<Unknown815320Struct *>::const_iterator it = skill_a.Abilities.begin();
@@ -325,7 +325,7 @@ void Unknown664500Class::Unknown_664500()
 	for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
 		SlotDataGadgetClass *gadget = *it;
 		if (gadget->Unknown_60()) {
-			Unknown815320Struct *ability = Unknown_815320(Unknown_6A7380(gadget)->Get_34());
+			Unknown815320Struct *ability = SkillAbilityNamesDatabase::Unknown_815320(Unknown_6A7380(gadget)->Get_34());
 			bool on = ability->Get_18() <= (unsigned int)Unknown104;
 			if (on != gadget->Unknown68) {
 				gadget->Unknown_670C90(on);
@@ -389,7 +389,7 @@ int Unknown664500Class::Unknown_6645A0(int level, bool arg)
 
 
 			FAIL_IF(!skill_render) continue;
-			Unknown815320Struct *ability = Unknown_815320(skill_render->Get_34());
+			Unknown815320Struct *ability = SkillAbilityNamesDatabase::Unknown_815320(skill_render->Get_34());
 			gadget->Unknown_670C90(ability->Get_18() <= (unsigned int)Unknown104);
 		}
 	}

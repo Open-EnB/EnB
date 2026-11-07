@@ -19,8 +19,10 @@
 #include <string>
 #include <vector>
 #include "vector3.h"
+#include <hash_map.h>
 
 class TextureClass;
+class INIClass;
 
 struct Unknown815320Struct	// NAME 1: neutral (D10)
 {
@@ -55,14 +57,26 @@ struct Unknown8155B0Struct	// NAME 1: neutral (D10)
 	Unknown8155B0Struct() : NumActivatable(0) {}		// 0x815640
 };
 
-void Unknown_814430();													// 0x814430 (SClient::Unload_INIs)
-void Unknown_814620(const char *ini, const char *ex_ini);		// 0x814620 (SClient's 'cskill_ability_t.ini', 'cskill_ability_ex_t.ini')
-int Unknown_815230();													// 0x815230 (_AllAbilities' size)
-int Unknown_815260(const std::string &name);						// 0x815260 (an ability by name, or -1)
-unsigned int Unknown_815300(const std::string &name);					// 0x815300 (a skill by name)
-Unknown815320Struct *Unknown_815320(int ability);					// 0x815320
-const Unknown8155B0Struct &Unknown_8155B0(int skill);			// 0x8155B0
-TextureClass *Unknown_815690(int ability, Vector3 *color);		// 0x815690
-void Unknown_815720(std::string *string, int ability, bool below, unsigned int level);	// 0x815720
+class SkillAbilityNamesDatabase	// NAME 3: its sibling SkillNamesDatabase, skill_ability_names.cpp's __FILE__
+{
+public:
+	static void Unknown_814430();													// 0x814430 (SClient::Unload_INIs)
+	static void Unknown_814620(const char *ini, const char *ex_ini);		// 0x814620 (SClient's 'cskill_ability_t.ini', 'cskill_ability_ex_t.ini')
+	static int Unknown_815230();													// 0x815230 (_AllAbilities' size)
+	static int Unknown_815260(const std::string &name);						// 0x815260 (an ability by name, or -1)
+	static unsigned int Unknown_815300(const std::string &name);			// 0x815300 (a skill by name)
+	static Unknown815320Struct *Unknown_815320(int ability);					// 0x815320
+	static const Unknown8155B0Struct &Unknown_8155B0(int skill);			// 0x8155B0
+	static TextureClass *Unknown_815690(int ability, Vector3 *color);		// 0x815690
+	static void Unknown_815720(std::string *string, int ability, bool below, unsigned int level);	// 0x815720
+
+private:
+	static void Unknown_814A30(INIClass &ini, const char *section, unsigned int &index, bool activated);	// 0x814A30
+
+	static std::vector<Unknown815320Struct *> _AllAbilities;					// 0xBE8DA8  // NAME 3: its asserts
+	static std::vector<Unknown8155B0Struct> _SkillAbilities;					// 0xBE8DB8  // NAME 3: its asserts
+	static std::hash_map<std::string, unsigned int> _AbilityIndex;			// 0xBE8DC8  // NAME 2: describes what it does
+	static int _NumActivated;															// 0xBE8DF8  // NAME 2: describes what it does
+};
 
 #endif //__SKILL_ABILITY_NAMES_H

@@ -20,14 +20,14 @@ class SkillNamesDatabase { public: static int Max_Skill();	// NAME 5: 0x6A4F40's
 // kv_util.cpp's (not rebuilt yet)
 void Unknown_4BB3F0(KVTripleListClass &list, INIClass &ini, const char *section);	// NAME 1: neutral (D10)
 
-static std::vector<Unknown815320Struct *> _AllAbilities;					// 0xBE8DA8  // NAME 3: its asserts
-static std::vector<Unknown8155B0Struct> _SkillAbilities;					// 0xBE8DB8  // NAME 3: its asserts
-static std::hash_map<std::string, unsigned int> _AbilityIndex;			// 0xBE8DC8  // NAME 2: describes what it does
-static int _NumActivated;															// 0xBE8DF8  // NAME 2: describes what it does
+std::vector<Unknown815320Struct *> SkillAbilityNamesDatabase::_AllAbilities;					// 0xBE8DA8  // NAME 3: its asserts
+std::vector<Unknown8155B0Struct> SkillAbilityNamesDatabase::_SkillAbilities;					// 0xBE8DB8  // NAME 3: its asserts
+std::hash_map<std::string, unsigned int> SkillAbilityNamesDatabase::_AbilityIndex;			// 0xBE8DC8  // NAME 2: describes what it does
+int SkillAbilityNamesDatabase::_NumActivated;															// 0xBE8DF8  // NAME 2: describes what it does
 
-// NOT EXACT: register, the delete loop's iterator in edi and the ability in esi (client: esi, edi)
+
 // 0x814430
-void Unknown_814430()
+void SkillAbilityNamesDatabase::Unknown_814430()
 {
 	std::vector<Unknown815320Struct *>::iterator it;
 	for (it = _AllAbilities.begin(); it != _AllAbilities.end(); ++it) {
@@ -44,7 +44,6 @@ static bool Compare_Abilities(const Unknown815320Struct *a, const Unknown815320S
 	return(a->Unknown18 < b->Unknown18);
 }
 
-static void Unknown_814A30(INIClass &ini, const char *section, unsigned int &index, bool activated);
 
 
 
@@ -62,9 +61,10 @@ static void Unknown_814A30(INIClass &ini, const char *section, unsigned int &ind
 
 
 
-// NOT EXACT: register, from the resize on; the sort's vector reference (lea esi, [eax + 4]; client: esi = the iterator)
+
+
 // 0x814620
-void Unknown_814620(const char *ini_name, const char *ex_ini_name)
+void SkillAbilityNamesDatabase::Unknown_814620(const char *ini_name, const char *ex_ini_name)
 {
 	INIClass ini;
 	ini.Load(ini_name);
@@ -98,7 +98,7 @@ void Unknown_814620(const char *ini_name, const char *ex_ini_name)
 
 // NOT EXACT: frame, 0x10E8 bytes of locals against the client's 0x10CC (key at +0x24 overlaps other scopes; total at +0x44)
 // 0x814A30
-static void Unknown_814A30(INIClass &ini, const char *section, unsigned int &index, bool activated)
+void SkillAbilityNamesDatabase::Unknown_814A30(INIClass &ini, const char *section, unsigned int &index, bool activated)
 {
 	KVTripleListClass entries;
 	Unknown_4BB3F0(entries, ini, section);
@@ -150,13 +150,13 @@ static void Unknown_814A30(INIClass &ini, const char *section, unsigned int &ind
 }
 
 // 0x815230
-int Unknown_815230()
+int SkillAbilityNamesDatabase::Unknown_815230()
 {
 	return(_AllAbilities.size());
 }
 
 // 0x815260
-int Unknown_815260(const std::string &name)
+int SkillAbilityNamesDatabase::Unknown_815260(const std::string &name)
 {
 	if (_AbilityIndex.find(name) == _AbilityIndex.end()) {
 		return(-1);
@@ -165,7 +165,7 @@ int Unknown_815260(const std::string &name)
 }
 
 // 0x815300
-unsigned int Unknown_815300(const std::string &name)
+unsigned int SkillAbilityNamesDatabase::Unknown_815300(const std::string &name)
 {
 	return(SkillNamesDatabase::Unknown_818170(name));
 }
@@ -178,7 +178,7 @@ unsigned int Unknown_815300(const std::string &name)
 
 
 // 0x815320
-Unknown815320Struct *Unknown_815320(int ability_idx)
+Unknown815320Struct *SkillAbilityNamesDatabase::Unknown_815320(int ability_idx)
 {
 	static Unknown815320Struct null_ability("null", -1, -1, 0, false, NULL, 0, "");
 	if ((unsigned int)ability_idx < _AllAbilities.size()) {
@@ -199,7 +199,7 @@ Unknown815320Struct *Unknown_815320(int ability_idx)
 }
 
 // 0x8155B0
-const Unknown8155B0Struct &Unknown_8155B0(int skill)
+const Unknown8155B0Struct &SkillAbilityNamesDatabase::Unknown_8155B0(int skill)
 {
 	static Unknown8155B0Struct empty;
 	if ((unsigned int)skill >= _SkillAbilities.size()) {
@@ -209,7 +209,7 @@ const Unknown8155B0Struct &Unknown_8155B0(int skill)
 }
 
 // 0x815690
-TextureClass *Unknown_815690(int ability_idx, Vector3 *color)
+TextureClass *SkillAbilityNamesDatabase::Unknown_815690(int ability_idx, Vector3 *color)
 {
 	FAIL_IF((unsigned int)ability_idx >= _AllAbilities.size()) return(NULL);
 	Unknown815320Struct *ability = Unknown_815320(ability_idx);
@@ -221,7 +221,7 @@ TextureClass *Unknown_815690(int ability_idx, Vector3 *color)
 
 // NOT EXACT: inline-budget, the client calls _Eos and _Tidy out of line and inlines _Grow in the last append
 // 0x815720
-void Unknown_815720(std::string *string, int ability_idx, bool below, unsigned int level)
+void SkillAbilityNamesDatabase::Unknown_815720(std::string *string, int ability_idx, bool below, unsigned int level)
 {
 
 
