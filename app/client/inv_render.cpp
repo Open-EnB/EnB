@@ -29,7 +29,7 @@ class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Un
 class Unknown68E360Class : public DurationClass { public: Unknown68E360Class(__int64 time = 0) : DurationClass(time) {} ~Unknown68E360Class() {} };	// NAME 1: neutral (D10)
 // ro_funcs.cpp's
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	// NAME 1: neutral (D10); NAME 1 [robj, a, b]: neutral
-bool Unknown_4F0640(const MoneyClass &a, const MoneyClass &b);	// NAME 1: neutral (D10): money.cpp's inequality
+bool operator!=(const MoneyClass &a, const MoneyClass &b);	// 0x4F0640: money.cpp's inequality
 // 0x521B80: what walks an item's properties
 class Unknown521B80Class { public: Unknown521B80Class(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot); ~Unknown521B80Class(); void Unknown_521BD0(UIItemExaminationPropertyRouterBaseClass &visitor); int Unknown00[4]; };	// NAME 1: neutral (D10); NAME 1 [space_client, item, data, slot, visitor]: neutral
 class Unknown68C680PropertyClass : public RefCountClass { public: virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual bool Unknown_18(); };	// NAME 1: neutral (D10): ClientItemPropertySpecialClass as far as 0x68C680 calls it
@@ -279,7 +279,7 @@ const char *InvRenderClass::Unknown_28(std::string *string)
 			*string += buffer;
 		}
 		MoneyClass price = data->Unknown_689DA0(slot);
-		if (Unknown_4F0640(price, MoneyClass(-1)) && Unknown_4F0640(price, MoneyClass(0))) {
+		if (operator!=(price, MoneyClass(-1)) && operator!=(price, MoneyClass(0))) {
 			_snprintf(buffer, sizeof(buffer), "Price %s\n", price.Unknown_4F00C0(true).c_str());
 			*string += buffer;
 		}

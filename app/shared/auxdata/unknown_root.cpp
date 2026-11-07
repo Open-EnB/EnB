@@ -92,7 +92,7 @@ public:
 class PolicyConditionalSetClass : public PolicyRuleSetClass  // NAME 2: describes what it does
 {
 public:
-	PolicyConditionalSetClass(RefCountPtr<PolicyConditionClass> condition) : Condition(condition) {}
+	PolicyConditionalSetClass(const RefCountPtr<PolicyConditionClass> &condition) : Condition(condition) {}
 	virtual RefCountPtr<PolicyConditionClass> Get_Condition(int, int) { return Condition; }	// 0x4A4320
 
 	RefCountPtr<PolicyConditionClass> Condition;		// +0x18  // NAME 2: describes what it does

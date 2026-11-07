@@ -20,13 +20,13 @@
 #include "ui_buff.h"
 bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
 
-// the +0x10C scene (0x75ECF0, 0xF4 bytes)
-class MainViewSceneClass : public SimpleSceneClass	// NAME 1: neutral (D10)
-{
-public:
-	MainViewSceneClass(); void Unknown_75F690(const Vector3 &sun, const Vector3 &camera); void Unknown_75F700(const Vector3 &color); virtual void Unknown_68(CameraClass *camera);	// 0x75ECF0; 0x75F690 / 0x75F700 / slot +0x68 (its own): Update  // NAME 1 [sun, camera, color]: what Update passes
-	MainViewSceneUnknown98Class *Unknown98; char Unknown9C[0xF4 - 0x9C];	// +0x98 (Update calls its 0x493D00)
-};
+#include "enbscene.h"	// the +0x10C scene (0x75ECF0, 0xF4 bytes)
+
+
+
+
+
+
 
 // enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes)
 class MainViewDazzleHandlerClass : public DazzleVisibilityClass	// NAME 1: neutral (D10)
@@ -36,8 +36,8 @@ public:
 	SClient *Client;								// +0x04  // NAME 2: what it holds
 };
 
+#include "ui_scan.h"
 #include "gutter_radar.h"	// the +0x84 object (0x7B6BD0)
-
 
 
 
@@ -322,7 +322,7 @@ void MainViewClass::Unknown_08()
 	Unknown1E4 = new UIPTradeClass(Client);
 	Unknown1E4->Unknown_54();
 	Unknown1E4->Unknown_7C(this, 0);
-	Unknown1DC = new MainViewUnknown1DCClass(this, Unknown110);
+	Unknown1DC = new BackInterfaceClass(this, Unknown110);
 	Unknown1DC->Unknown_54();
 	Unknown1DC->Unknown_58();
 	Unknown_6B4940(Unknown1DC);
@@ -1088,8 +1088,8 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 	}
 	if (Orbitals->Unknown4C) {
 		Scene->Add_Render_Object(Unknown144[0].Peek());
-		((MainViewSceneClass *)Scene)->Unknown98->Unknown_493D00(-Orbitals->Unknown20);
-		((MainViewSceneClass *)Scene)->Unknown_68(Camera);
+		((MainViewSceneClass *)Scene)->ProjectorManager->Set_Shadow_Light_Direction(-Orbitals->Unknown20);
+		((MainViewSceneClass *)Scene)->Apply_Projectors(Camera);
 		if (Client->Unknown10F8) {
 			Vector3 dir;
 			Unknown144[0]->Get_Spot_Direction(dir);
@@ -1409,7 +1409,7 @@ void MainViewClass::Set_Camera(CameraClass *camera)
 void MainViewClass::Unknown_512400()
 {
 	if (!Cpit || !Cpit->Scan) return;
-	ClientObjectClass *current = Cpit->Scan->Unknown88;
+	ClientObjectClass *current = Cpit->Scan->Object;
 	unsigned current_id = current ? current->GameID : 0;
 	SClient *client = Client;
 	if (!client) return;
@@ -1917,7 +1917,7 @@ void MainViewClass::Unknown_513540(int base_asset)
 	model->Release_Ref();
 }
 
-void MainViewClass::Unknown_513600(int arg) { Unknown1DC->Unknown_8C(arg); }
+void MainViewClass::Unknown_513600(int arg) { Unknown1DC->Unknown_8C((RenderObjClass *)arg); }
 
 void MainViewClass::Unknown_513630(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level)
 {
@@ -1932,7 +1932,7 @@ UIScanClass *MainViewClass::Unknown_5136A0()
 
 ClientObjectClass *MainViewClass::Unknown_5C()
 {
-	return((Cpit && Cpit->Scan) ? Cpit->Scan->Unknown88 : NULL);
+	return((Cpit && Cpit->Scan) ? Cpit->Scan->Object : NULL);
 }
 
 

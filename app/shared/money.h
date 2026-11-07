@@ -35,7 +35,17 @@ public:
 	// money.cpp 0x4F00C0 (not rebuilt): the amount in decimal; the flag's meaning unknown (opcode 220's Print passes false)
 	std::string Unknown_4F00C0(bool unknown) const;  // NAME 1: neutral placeholder (D10)
 
-	__int64 Unknown00;		// +0x00 read and written as 8 bytes
+#ifdef __MONEY_MEMBERS	// money.cpp only: other files' declaration counts move aux_roots.cpp's SYMBOL_PAD windows (workflow.md 3.3), so they do not see these
+	unsigned int Divide(float price_per_unit) const;	// NAME 2: describes what it does
+	unsigned int Divide(const MoneyClass &price_per_unit) const;	// NAME 2: describes what it does
+	MoneyClass &Div(MoneyClass *quotient, unsigned int divisor, MoneyClass *remainder) const;	// NAME 2: describes what it does
+	float operator/(int count) const;	// NAME 2: describes what it does
+	float operator/(const MoneyClass &money) const;	// NAME 2: describes what it does
+	int As_Int() const;	// NAME 2: describes what it does
+	unsigned int As_Unsigned_Int() const;	// NAME 2: describes what it does
+#endif
+
+	__int64 Unknown00;		// +0x00 read and written as 8 bytes; the client's name Amount (asserts, lines 38 and 60)
 };
 
 #endif //__MONEY_H

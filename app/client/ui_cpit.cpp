@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "ui_cpit.h"
+class UIScanClass : public InterfaceClass { public: UIScanClass(UIViewClass *view, LayerClass *layer); char Unknown84[0x88 - 0x84]; ClientObjectClass *Unknown88; char Unknown8C[0x1B0 - 0x8C]; };	// 0x60D800: ui_scan.h's, as far as this file calls it (ui_scan.h reaches fontmanager.h, which can't be included here: see below); +0x88 is UIMFDClass's watched Object
 #include "client.h"
 #include "..\packets\pkaction.h"
 #include "..\packets\pkskillstringrq.h"
@@ -18,7 +19,6 @@
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 #include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
-
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
 // file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
@@ -367,19 +367,19 @@ void UICpitClass::Unknown_54()
 	Unknown16C->Set_Hidden(true);
 	Unknown170->Set_Hidden(true);
 	Unknown174->Set_Hidden(true);
-	gadget = new Unknown_674260Class(Unknown_497300(InterfaceMesh->Peek_Object()));
+	gadget = new UIBackGadget(Unknown_497300(InterfaceMesh->Peek_Object()));
 	gadget->Unknown_28(&Layer);
 	Unknown64.Unknown_6870E0(gadget, 0x4F, View, 1, 0);
 	Unknown_10();
 }
 
-// camera_manager.cpp's manager (SClient +0x12A8), as far as the warp button calls it
-class CameraManagerClass	// NAME 3: class-from-file (D24) for camera_manager.cpp
-{
-public:
-	bool Unknown_79B600();								// 0x79B600 (0x5821C0: no warp, the speed shown as 100)
-	void Unknown_79B2B0(int arg);						// 0x79B2B0 (0x583250 passes 17 in the 3-D movie view)  // NAME 1 [arg]: neutral
-};
+#include "camera_manager.h"
+
+
+
+
+
+
 
 // (inline: the client reads these before the other arguments of the packets' constructors)
 inline unsigned Unknown_Avatar_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->AvatarID); }	// NAME 1: neutral (D10)

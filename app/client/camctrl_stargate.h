@@ -16,7 +16,7 @@ public:
 	virtual void Unknown_04();							// +0x04 0x795A50
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x795A80
 	virtual void Unknown_0C();							// +0x0C 0x795C60
-	void Unknown_795C80(int phase);						// 0x795C80 (places the module for the phase; not rebuilt)  // NAME 1 [phase]: what the callers pass
+	void Unknown_795C80(bool phase);						// 0x795C80 (places the module for the phase)  // NAME 1 [phase]: what the callers pass
 
 	CameraModule79C8E0Class *Unknown0C;					// +0x0C (0x79C8E0's module)
 	unsigned Unknown10;									// +0x10 (the client clock +0x10BC at the start)

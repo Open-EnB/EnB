@@ -48,38 +48,14 @@ BridgeInterfaceClass::~BridgeInterfaceClass()
 {
 }
 
-// ---------------------------------------------------------------- camera_manager.cpp (0x798D20, 0x792320-0x79BB80's modules): 0x4C bytes, zero
-class CameraManagerClass
-{
-public:
-	CameraManagerClass(SClient *client);
-	char Unknown00[0x4C];
-};
-CameraManagerClass::CameraManagerClass(SClient *client)
-{
-	STUB_CALLED("POC CameraManagerClass: zero");
-	memset(this, 0, sizeof(*this));
-}
+// camera_manager.cpp is real app code (camera_manager.h; its stand-in left here since CM2).
 
-// ---------------------------------------------------------------- enbscene.cpp's scene (0x75ECF0, 0xF4 bytes; its base 0x494EE0 is claimed): a plain SimpleSceneClass
+// enbscene.cpp's scene (0x75ECF0-0x75F852) is real app code since WE7: its stand-in and the POC light (WE3) left here;
+// the space view is lit by mainview.cpp's four +0x144 lights from OrbitalManager (WE4).
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\dazzle.h"
-class MainViewSceneUnknown98Class;
-class MainViewSceneClass : public SimpleSceneClass
-{
-public:
-	MainViewSceneClass();
-	void Unknown_75F690(const Vector3 &sun, const Vector3 &camera);
-	void Unknown_75F700(const Vector3 &color);
-	virtual void Unknown_68(CameraClass *camera);
-	MainViewSceneUnknown98Class *Unknown98; char Unknown9C[0xF4 - 0x9C];
-};
-MainViewSceneClass::MainViewSceneClass()
-{
-	STUB_CALLED("POC MainViewSceneClass: a plain SimpleSceneClass");
-	void Poc_Start_Watchdog();
-	Poc_Start_Watchdog();
-}
+#include "..\..\ww3d2\light.h"
+#include "..\..\wwlib\multilist.h"
 
 // ---------------------------------------------------------------- enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes): the base's answer
 class MainViewDazzleHandlerClass : public DazzleVisibilityClass
@@ -92,6 +68,8 @@ public:
 MainViewDazzleHandlerClass::MainViewDazzleHandlerClass(SClient *client) : Client(client)
 {
 	STUB_CALLED("POC MainViewDazzleHandlerClass: the base's visibility");
+	void Poc_Start_Watchdog();	// at world entry (the main view's constructor), as the scene stand-in did
+	Poc_Start_Watchdog();
 }
 MainViewDazzleHandlerClass::~MainViewDazzleHandlerClass()
 {
@@ -104,12 +82,7 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
 	Client = client;
 }
 
-// ---------------------------------------------------------------- orbital manager (0x4F3250, 0x1D4 bytes; no table)
-OrbitalManager::OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *callback)
-{
-	STUB_CALLED("POC OrbitalManager: zero");
-	memset(this, 0, 0x1D4);
-}
+// orbitalmanager.cpp (0x4F28A0-0x4F51C0) is real app code since WE4: its stand-in left here.
 
 // ---------------------------------------------------------------- the main view's windows that have no class in the tree: empty windows on its view (0x53E970, 0x53D250 and +0x1DC's)
 MainViewUnknown53E970Class::MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene) : InterfaceClass((UIViewClass *)view, (int)scene)
@@ -120,81 +93,10 @@ MainViewUnknown138Class::MainViewUnknown138Class(MainViewClass *view, SimpleScen
 {
 	STUB_CALLED("POC MainViewUnknown138Class: an empty window");
 }
-MainViewUnknown1DCClass::MainViewUnknown1DCClass(MainViewClass *view, SimpleSceneClass *scene) : InterfaceClass((UIViewClass *)view, (int)scene)
-{
-	STUB_CALLED("POC MainViewUnknown1DCClass: an empty window");
-}
 
-// ---------------------------------------------------------------- ui_mesh.cpp (0x5B8120-0x5BA4C0, not rebuilt yet): the model only, no animations
+// ui_mesh.cpp (0x5B8120-0x5BA4C0) is real app code since UM1: its stand-in left here.
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\rendobj.h"
-UIMeshClass::UIMeshClass(const char *name, int arg)
-{
-	STUB_CALLED("POC UIMeshClass: the model, no animations");
-	memset(this, 0, sizeof(*this));
-	Unknown_5B8850(name, arg != 0);
-}
-UIMeshClass::UIMeshClass(const char *name, ClientClass *client)
-{
-	STUB_CALLED("POC UIMeshClass: the model, no animations");
-	memset(this, 0, sizeof(*this));
-	Unknown_5B8850(name, false);
-}
-UIMeshClass::~UIMeshClass()
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Remove();
-		Unknown1C->Release_Ref();
-		Unknown1C = NULL;
-	}
-}
-void UIMeshClass::Unknown_5B8850(const char *name, bool arg)
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Remove();
-		Unknown1C->Release_Ref();
-		Unknown1C = NULL;
-	}
-	if (name != NULL) {
-		Unknown1C = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
-		if (Unknown1C == NULL) {
-			STUB_CALLED("POC UIMeshClass: a model was not found");
-		}
-	}
-}
-RenderObjClass *UIMeshClass::Peek_Object()
-{
-	return(Unknown1C);
-}
-RenderObjClass *UIMeshClass::Unknown_5B8B20()
-{
-	Unknown1C->Add_Ref();
-	return(Unknown1C);
-}
-RenderObjClass *UIMeshClass::Unknown_5B8B40(const char *name)
-{
-	return(Unknown1C != NULL ? Unknown1C->Get_Sub_Object_By_Name(name) : NULL);
-}
-void UIMeshClass::Unknown_5B9100(const char *bone_name, RenderObjClass *object)
-{
-	Unknown1C->Add_Sub_Object_To_Bone(object, bone_name);
-}
-void UIMeshClass::Unknown_5B9130(const char *bone_name, UIMeshClass *child)
-{
-	Unknown1C->Add_Sub_Object_To_Bone(child->Unknown1C, bone_name);
-}
-void UIMeshClass::Unknown_5B9290(SimpleSceneClass *scene)
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Add(scene);
-	}
-}
-void UIMeshClass::Unknown_5B92B0()
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Remove();
-	}
-}
 
 // ---------------------------------------------------------------- the interface base over a mesh and a layer (0x5BB250-0x5BB6B0)
 Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, SClient *client) : InterfaceClass((LineDisplayClientClass *)client), InterfaceMesh(mesh)
@@ -251,13 +153,6 @@ UICpitUnknownE0Class::UICpitUnknownE0Class(SClient *sclient) : InterfaceClass((L
 {
 	STUB_CALLED("POC UICpitUnknownE0Class: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
-}
-UIScanClass::UIScanClass(UIViewClass *view, LayerClass *layer) : InterfaceClass(view, (int)layer->Peek_Scene())
-{
-	STUB_CALLED("POC UIScanClass: an empty window");
-	memset(Unknown84, 0, sizeof(Unknown84));
-	Unknown88 = NULL;
-	memset(Unknown8C, 0, sizeof(Unknown8C));
 }
 UICpitUnknownD0Class::UICpitUnknownD0Class(RenderObjClass *model, LayerClass *layer, UICpitClass *cpit, int arg)
 {
@@ -396,15 +291,7 @@ Unknown45F390Class::~Unknown45F390Class() {}
 RenderStateClass *Unknown45F390Class::Unknown_04(RenderStateListClass *list) { return(new Unknown45F390Class(list, ID, LinkID, Flags, NULL, 0)); }
 void Unknown45F390Class::Unknown_14(RsTrackClass *owner) {}
 
-Unknown458C10Class::Unknown458C10Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, bool two_sided, bool hidden, const char *texture, int a, int b, ShaderClass shader) :
-	RenderStateClass(list, id, link_id, flags)
-{
-	STUB_CALLED("POC Unknown458C10Class ('effect_pass' state): does nothing");
-	memset(Unknown2C, 0, sizeof(Unknown2C));
-}
-Unknown458C10Class::~Unknown458C10Class() {}
-RenderStateClass *Unknown458C10Class::Unknown_04(RenderStateListClass *list) { return(new Unknown458C10Class(list, ID, LinkID, Flags, false, false, "", 1, 1, ShaderClass())); }
-void Unknown458C10Class::Unknown_14(RsTrackClass *owner) {}
-void Unknown458C10Class::Unknown_459120(TextureMapperClass *mapper) {}
+// (rs_eff_p.cpp's 'effect_pass' state 0x458C10 is rebuilt in app.lib)
 
 char *Unknown_B70E40[] = { "Axial", "Silhouette", "Environment", "Screen", NULL };
+

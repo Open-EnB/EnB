@@ -135,14 +135,14 @@ class Unknown67D360Class { public: ~Unknown67D360Class(); char Unknown00[0x14]; 
 class Unknown619280Class { public: Unknown619280Class(); ~Unknown619280Class(); char Unknown00[0x44]; };	// 0x619280  // NAME 1: neutral (D10)
 // env_map_manager.cpp's object at the view's +0x140 (sclient.cpp's EnvironmentMapManagerClass), as far as Create_Skybox calls it
 class EnvironmentMapManagerClass { public: EnvironmentMapManagerClass() : Unknown10(2) {} ~EnvironmentMapManagerClass(); void Load(const char *ini); void Unknown_760770(int base_asset, bool a); std::vector<Unknown67D360Class> Unknown00; int Unknown10; INIClass INI; };	// destructor 0x679820, Load 0x760360, 0x760770  // NAME 1 [base_asset, a]: sclient.cpp's
-// the skybox's interface (0x8C bytes, constructor 0x53AA30; its file unknown), as far as Create_Skybox calls it
-class Unknown53AA30InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown53AA30InterfaceClass(UIViewClass *view, SimpleSceneClass *scene);	// 0x53AA30  // NAME 1 [view, scene]: what Create_Skybox passes
-	virtual void Unknown_88(RenderObjClass *model);	// +0x88 (Create_Skybox: the skybox model)  // NAME 1 [model]: neutral
-	char Unknown84[0x8C - 0x84];						// +0x84
-};
+// the skybox's interface: backint.cpp's BackInterfaceClass (backint.h, through sclient.h)
+
+
+
+
+
+
+
 // decal.cpp's decal INIs at the view's +0x144 (sclient.h's SClientUnknown1334Class), as far as the shutdown deletes it
 class SClientUnknown1334Class { public: ~SClientUnknown1334Class(); void Load(const char *textures, const char *swatches, const char *secret_textures); std::vector<int> Unknown00; std::vector<int> Unknown10; std::vector<int> Unknown20; Unknown619280Class Unknown30; Unknown619280Class Unknown74; };	// 0x618A50, Load 0x75BE00 (decal.cpp)  // NAME 3 [textures, swatches, secret_textures]: the INI names (sclient.cpp's)
 // ViewerSettings (+0x68): unknown_490900.h (its first member the scene light, removed on the shutdown)
@@ -1543,7 +1543,7 @@ bool ScriptedMovieViewClass::Create_Skybox(ScriptedMovieLineClass *params)
 
 	G_ASSERT(BackgroundScene);
 	BackgroundScene->Set_Fog_Enable(false);
-	BackInterface = new Unknown53AA30InterfaceClass(this, BackgroundScene);
+	BackInterface = new BackInterfaceClass(this, BackgroundScene);
 
 
 	G_ASSERT(BackInterface);

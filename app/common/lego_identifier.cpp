@@ -99,13 +99,13 @@ bool LegoIdentifierClass::Is_Empty() const
 {
 	return(BoneNameChain.empty());
 }
-// NOT EXACT: 0x843E80, registers in the inlined vector assignment (shape; attempts.py show 0x843E80)
+// 0x843E80: exact with LegoSplitStruct's constructor in the file (WE6)
 LegoIdentifierClass &LegoIdentifierClass::operator=(const LegoIdentifierClass &src)
 {
 	BoneNameChain = src.BoneNameChain;
 	return(*this);
 }
-// NOT EXACT: 0x844120, npos read from memory in the client's clear (shape; attempts.py show 0x844120)
+// 0x844120: exact with LegoSplitStruct's constructor in the file (WE6)
 LegoIdentifierClass &LegoIdentifierClass::operator=(const std::string &name)
 {
 	BoneNameChain.clear();
@@ -130,7 +130,7 @@ std::string LegoIdentifierClass::Get_Root() const
 	return(!BoneNameChain.empty() ? BoneNameChain[0] : EmptyName);
 }
 
-// NOT EXACT: 0x8444C0, npos read from memory in the client's erase (shape; attempts.py show 0x8444C0)
+// 0x8444C0: exact since LegoSplitStruct's constructor follows in the file (npos from memory: the file state, WE6)
 std::string LegoIdentifierClass::Pop_Root()
 {
 	FAIL_IF(!BoneNameChain.size()) {
@@ -147,8 +147,7 @@ void LegoIdentifierClass::Add(const std::string &bone)
 }
 
 
-// NOT EXACT: 0x8448A0, npos read from memory in the client's copy (shape; attempts.py show 0x8448A0).
-// The client copies over the chain's end without growing it (kept: it is the client's code).
+// 0x8448A0. The client copies over the chain's end without growing it (kept: it is the client's code).
 void LegoIdentifierClass::Add(const LegoIdentifierClass &src)
 {
 	std::copy(src.BoneNameChain.begin(), src.BoneNameChain.end(), BoneNameChain.end());
@@ -180,16 +179,54 @@ void LegoIdentifierClass::Set_Name(const std::string &name)
 	}
 }
 
+// 0x844ED0
+// NOT EXACT: inline-budget (explain.py), 0.79: the client keeps the vtable pointer in edi and the name in ebp (ours swapped) and gives
+// the Rest path its own destructor tail (the second identifier's destructor out of line); four forms (WE6)
+LegoSplitStruct::LegoSplitStruct(const LegoIdentifierClass &base, const LegoIdentifierClass &id) :
+	State(2)
+{
+	LegoIdentifierClass b(base);
+	LegoIdentifierClass i(id);
+	while (b.Get_Count() && i.Get_Count()) {
+		std::string b_root = b.Pop_Root();
+		std::string i_root = i.Pop_Root();
+		if (b_root != i_root) {
+			State = 2;
+			return;
+		}
+		Base.Add(b_root);
+	}
+	if (b.Get_Count()) {
+		State = 2;
+	} else if (!i.Get_Count()) {
+		State = 3;
+	} else {
+		Name = i.Pop_Root();
+		if (!i.Get_Count()) {
+			State = 0;
+		} else {
+			Rest.BoneNameChain = i.BoneNameChain;
+			State = 1;
+		}
+	}
+}
+
+// 0x8451A0
+bool LegoSplitStruct::Is_Invalid(void) const
+{
+	return(State != 0 && State != 1);
+}
+
 
 /*
 **	Reconstruction notes (lego_identifier.cpp)
 **
 **	* Client 0x8436D0-0x8451A0: itemtype.cpp's object ends at 0x8436A0 (the guarded static every
 **	  <string> includer has, 0xC416FC, atexit 0x42B320); this one opens with EmptyName's initialiser
-**	  and ends before manufacturing_defs.cpp's 0x8451A0. The asserts sit on the client's lines 58, 75,
+**	  and ends with 0x8451A0 (manufacturing_defs.cpp follows). The asserts sit on the client's lines 58, 75,
 **	  136 and 175 (the constructor 0x843970 inlines Set_Name: its FAIL_IF is line 175 too).
-**	* Not rebuilt: 0x844ED0 (a comparison of two identifiers into a 3-state result over other classes'
-**	  helpers 0x4E4AA0, 0x73F950, 0x47D640, 0x441480, 0x47D440, 0x4D22B0).
+**	* 0x844ED0 is LegoSplitStruct's constructor (WE6, NOT EXACT 0.79); its Is_Invalid 0x8451A0 (exact) is
+**	  placed here provisionally (D137): the 20-byte function at this object's end, before manufacturing_defs.cpp.
 **	* Written by builder P4 (2026-10-26) for the object-to-object effects (pkpointeffect.cpp, opcodes
 **	  11-14), which send an identifier's name and set one from the received string.
 */

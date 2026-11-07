@@ -118,7 +118,7 @@ ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id)
 	Unknown98 = new UnknownB006B8Class;
 	Node.Set(this);
 	UnknownB4 = Unknown_731FA0(this);
-	Unknown134.Unknown_498F00(0, 0, Unknown_6F4590());
+	Unknown134.Set(0, 0, Unknown_6F4590());
 	int i;
 	for (i = 0; i < 5; i++) {
 		Unknown104[i] = 1;
@@ -286,7 +286,7 @@ void ClientObjectClass::Unknown_6F33F0(RenderObjClass *model, int base_asset, fl
 	BaseAsset = base_asset;
 	Scale = scale;
 	if (UnknownB4) {
-		UnknownB4->Unknown_20(base_asset, Create_Peek(RenderObject));
+		UnknownB4->Init(base_asset, Create_Peek(RenderObject));
 	}
 	if (RenderObject) {
 		RenderObject->Add_Ref();
@@ -412,14 +412,14 @@ static inline bool Clamp_In_Place(float &value, float min, float max)
 #include "sclient.h"
 #include "emote_data.h"
 
-// camera_manager.cpp's class (sclient.cpp declares its other members): the per-frame update's calls
-class CameraManagerClass
-{
-public:
-	bool Unknown_79B670();			// 0x79B670 (the per-frame update tests it for the player's object)
-	bool Unknown_79B690();			// 0x79B690 (the engine sounds 0x6FDBD0 test it for the player's object: thrust on)
-	void Unknown_79B2B0(int mode);	// 0x79B2B0  // NAME 1 [mode]: CAMERA_CONTROL 146 passes 0x0C, 0x0D, 0, 0x0F, 6, 0x0A, 0x17, 0x10 or 0x19
-};
+#include "camera_manager.h"
+
+
+
+
+
+
+
 
 // 0x6F3C60 (out of address order: here the includes above it move no assert line)
 void ClientObjectClass::Unknown_20()
@@ -572,7 +572,7 @@ void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)
 	}
 	double target = Unknown_6F3ED0();
 	double current = Unknown144;
-	double rate = Unknown134.Unknown04[2];
+	double rate = Unknown134.Current;
 	double stop = (rate * rate) / (Unknown_6F4590() * 2.0f);
 	double diff = fabs(target - current);
 	double limit = Unknown_6F45E0();
@@ -587,11 +587,11 @@ void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)
 			accel = -Unknown_6F45E0();
 		}
 	}
-	Unknown134.Unknown_498CC0(accel);
-	if (Unknown134.Unknown00) {
-		Unknown134.Unknown_498E00((float)WW3D::Get_Frame_Time());
+	Unknown134.Set_Target(accel);
+	if (Unknown134.IsActive) {
+		Unknown134.Update((float)WW3D::Get_Frame_Time());
 	}
-	Unknown144 = Unknown134.Unknown04[2] + Unknown144;
+	Unknown144 = Unknown134.Current + Unknown144;
 	tm.Rotate_X(Unknown144);
 }
 
@@ -2251,7 +2251,7 @@ void ClientObjectClass::Unknown_6FED30()
 Matrix3D ClientObjectClass::Unknown_6FED80(const LegoIdentifierClass &lego)
 {
 	if (UnknownB4) {
-		return(UnknownB4->Unknown_2C(lego));
+		return(UnknownB4->Get_Lego_Transform(lego));
 	}
 	if (RenderObject) {
 		return(RenderObject->Get_Transform());
@@ -2276,7 +2276,7 @@ void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
 	if (UnknownB4) {
 		for (std::vector<LegoIdentifierClass>::reverse_iterator it = UnknownB8.rbegin(); it != UnknownB8.rend(); it++) {
 
-			UnknownB4->Unknown_34(*it);
+			UnknownB4->Remove(*it);
 		}
 	}
 	UnknownB8.clear();
@@ -2288,7 +2288,7 @@ void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
 		LegoIdentifierClass id(part.Name);
 		UnknownB8.push_back(id);
 		if (UnknownB4 && client) {
-			RefCountPtr<LegoClass> lego = Unknown_7294D0(id, 1, part.Value, client, 1.0f); UnknownB4->Unknown_30(lego);
+			RefCountPtr<LegoClass> lego = Unknown_7294D0(id, 1, part.Value, client, 1.0f); UnknownB4->Add(lego);
 		}
 	}
 	Unknown_6FCB70();

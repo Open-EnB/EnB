@@ -42,7 +42,7 @@ public:
 
 
 
-#include "unknown_674260.h"		// the gadget 0x674260 makes (0x60 bytes)
+#include "gd_uiback.h"		// UIBackGadget (0x674260)
 
 
 
@@ -69,7 +69,7 @@ UICinfoClass::UICinfoClass(SClient *client) :
 			GadgetClass::Set_Tooltip(button, "UI_CINFO", MenuNames[i - 1]);
 		}
 	}
-	GadgetClass *gadget = new Unknown_674260Class(Create_Peek(InterfaceMesh->Peek_Object()));
+	GadgetClass *gadget = new UIBackGadget(Create_Peek(InterfaceMesh->Peek_Object()));
 	Unknown64.Unknown_6870E0(gadget, 6, View, 1, 0);
 	Unknown_BE67BC->Load("fa_cinfo.ini");
 }

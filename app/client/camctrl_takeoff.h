@@ -5,6 +5,7 @@
 
 #include "camctrl.h"
 #include "unknown_7979a0.h"
+#include "quat.h"
 
 // The camera manager's tenth controller (state 9; vtable 0xB05100, 0x60 bytes): the take-off, with effect 0x170 on the
 // avatar for five seconds; +0x14 says yes after two
@@ -14,15 +15,19 @@ public:
 	CameraController09Class(SClient *client);			// 0x7961B0
 	virtual ~CameraController09Class();					// 0x796280, deleting 0x796250
 	virtual void Unknown_04();							// +0x04 0x796300
-	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x796440 (not rebuilt)
+	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x796440
 	virtual void Unknown_0C();							// +0x0C 0x796850
 	virtual bool Unknown_14();							// +0x14 0x7968F0 (two seconds since the start)
-	void Unknown_796920();								// 0x796920 (places the module, the ship's path; not rebuilt)
+	void Unknown_796920();								// 0x796920 (places the module, the ship's path)
 
 	CameraModule79C8E0Class *Unknown0C;					// +0x0C (0x79C8E0's module)
 	unsigned Unknown10;									// +0x10 (the client clock +0x10BC at the start)
 	unsigned Unknown14;									// +0x14 (the effect's id: Next_Local_ID)
-	int Unknown18[(0x5C - 0x18) / 4];					// +0x18: 0x796440 / 0x796920's, not laid out
+	Vector3 Unknown18;									// +0x18
+	Vector3 Unknown24;									// +0x24
+	Vector3 Unknown30;									// +0x30
+	Quaternion Unknown3C;								// +0x3C
+	Quaternion Unknown4C;								// +0x4C
 	bool Unknown5C;										// +0x5C (the start clears it)
 };
 

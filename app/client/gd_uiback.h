@@ -13,7 +13,8 @@
 #define GD_UIBACK_H
 
 #include "unknown_671300.h"
-#include "unknown_674260.h"
+#include "unknown_675120.h"
+#include "..\..\wwlib\ref_ptr.h"
 #include "vector2.h"
 #include "vector3.h"
 #include "..\..\wwlib\refcount.h"
@@ -42,8 +43,19 @@ public:
 	virtual RenderObjClass *Peek_Object() = 0;				// +0x10  // NAME 2: 0x674640 returns its model
 };
 
+class RenderObjClass;
+
+// The base of the movable gadget and of 0x674C10's class (0x60 bytes, over Unknown_675120Class; ui_bio.cpp's bio tab, ui_cinfo.cpp's character info window and ui_cpit.cpp make it)
+class UIBackGadget : public Unknown_675120Class	// NAME 3: MovableUIBackGadget's base (RTTI); gd_uiback.cpp (D208)
+{
+public:
+	UIBackGadget(UIMeshClass *mesh, const char *name);	// 0x6741A0 (nothing calls it)  // NAME 1 [mesh, name]: the base's
+	UIBackGadget(const RefCountPtr<RenderObjClass> &model);	// 0x674260 (0x60 bytes)  // NAME 1 [model]: what the windows pass
+	virtual ~UIBackGadget();										// 0x6742F0 (deleting 0x674230; out of line next to the constructor: ui_ptrade.cpp's credits button 0x5E4040 calls it)
+};
+
 // The gadget that drags its target with the pointer (RTTI 'MovableUIBackGadget'; 0xA4 bytes, table 0xAFB6B8)
-class MovableUIBackGadget : public Unknown_674260Class	// NAME 5: the client's RTTI .?AVMovableUIBackGadget@@ (the typeid 0x6748F0 passes)
+class MovableUIBackGadget : public UIBackGadget	// NAME 5: the client's RTTI .?AVMovableUIBackGadget@@ (the typeid 0x6748F0 passes)
 {
 public:
 	MovableUIBackGadget(const RefCountPtr<RenderObjClass> &model, const Vector3 &offset);	// 0x674310 (the target: the model itself)  // NAME 1 [model, offset]: what it does with them
@@ -67,11 +79,11 @@ class MovableUIBackGadgetMoved							// NAME 5: the client's RTTI .?AVMovableUIB
 };
 
 // The gadget over a window's back: answers the pointer between the bones 'back_tl' and 'back_br' (0x68 bytes, table 0xAFB7AC)
-class UIBackGadgetClass : public Unknown_674260Class	// NAME 3: class-from-file (D24) for gd_uiback.cpp
+class BoundedUIBackGadget : public UIBackGadget	// NAME 2: answers the pointer only inside its back_tl / back_br rectangle (0x674DE0); base and pattern from the RTTI sibling MovableUIBackGadget (D210)
 {
 public:
-	UIBackGadgetClass(const RefCountPtr<RenderObjClass> &model);	// 0x674C10  // NAME 1 [model]: what ui_starmap.cpp passes
-	virtual ~UIBackGadgetClass();						// +0x00 0x674D50 (deleting 0x674D20)
+	BoundedUIBackGadget(const RefCountPtr<RenderObjClass> &model);	// 0x674C10  // NAME 1 [model]: what ui_starmap.cpp passes
+	virtual ~BoundedUIBackGadget();						// +0x00 0x674D50 (deleting 0x674D20)
 	virtual bool Unknown_30(float x, float y);			// +0x30 0x674DE0  // NAME 1 [x, y]: the base's
 	void Unknown_674D70();								// 0x674D70 (FAIL_IF '!robj': the bones' indices; inlined in the constructor)
 

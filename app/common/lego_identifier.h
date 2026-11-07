@@ -48,4 +48,17 @@ public:
 	std::vector<std::string> BoneNameChain;		// +0x04  // NAME 5: the client's asserts '!BoneNameChain.empty()'
 };
 
+// Where one identifier sits relative to another (lego_identifier.cpp's 0x844ED0, 0x3C bytes): the
+// first bone below the base (Name) and the rest of the path. Declared from client_lego_impl.cpp's users.
+struct LegoSplitStruct  // NAME 1 [LegoSplitStruct]: neutral (D10), the client's 'split' locals
+{
+	LegoSplitStruct(const LegoIdentifierClass &base, const LegoIdentifierClass &id);	// 0x844ED0
+	bool Is_Invalid(void) const;									// 0x8451A0: State is neither 0 nor 1  // NAME 3: the client's asserts 'split.Is_Invalid()'
+
+	int State;														// +0x00  // NAME 1: neutral (D10)
+	LegoIdentifierClass Base;										// +0x04  // NAME 1: neutral (D10)
+	std::string Name;												// +0x18: the child's bone name  // NAME 2: what it holds
+	LegoIdentifierClass Rest;										// +0x28  // NAME 2: what it holds
+};
+
 #endif

@@ -20,12 +20,13 @@ echo "== run $(date +%T)" >> "$L"
 python tools/harness/clientpoc.py --seconds 40 --shots 60000,120000 run >> "$L" 2>&1
 echo "== poc exit $? $(date +%T)" >> "$L"
 if [ "$CHECK_HARNESS" = 1 ]; then
-  echo "== clienttest $(date +%T)" >> "$L"
-  python tools/harness/clienttest.py build >> "$L" 2>&1
-  python tools/harness/clienttest.py run >> "$L" 2>&1; echo "clienttest exit $?" >> "$L"
-  echo "== udpreplay $(date +%T)" >> "$L"
+  # lease first: clienttest's build needs a host too (without one it ssh'es to a stale IP, 2026-11-07)
   python tools/vc6/pool.py lease --agent $N > .work/lease.txt 2>&1
   IP=$(grep -o '[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*' .work/lease.txt | head -1)
+  echo "== clienttest $(date +%T)" >> "$L"
+  ENB_VC6_HOST=Daniel@$IP ENB_VC6_HOSTS=Daniel@$IP python tools/harness/clienttest.py build >> "$L" 2>&1
+  python tools/harness/clienttest.py run >> "$L" 2>&1; echo "clienttest exit $?" >> "$L"
+  echo "== udpreplay $(date +%T)" >> "$L"
   ENB_VC6_HOSTS=Daniel@$IP python tools/harness/udpreplay.py build >> "$L" 2>&1
   python tools/harness/udpreplay.py run alex3 >> "$L" 2>&1; echo "udpreplay alex3 exit $?" >> "$L"
   python tools/harness/udpreplay.py handshake >> "$L" 2>&1; echo "handshake exit $?" >> "$L"

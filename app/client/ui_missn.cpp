@@ -13,7 +13,7 @@
 #include "..\audio\soundlib.h"
 #include "..\packets\pkmissionforfeit.h"
 #include "unknown_675120.h"
-#include "unknown_674260.h"		// the gadget 0x674260 makes (0x60 bytes)
+#include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "assetmgr.h"
 #include <stdio.h>
 #include "ui_missn.h"
@@ -166,9 +166,9 @@ void UIMissnClass::Unknown_54()
 		}
 	}
 
-	GadgetClass *gadget = new Unknown_674260Class(Create_Peek(DescriptionPanel));
+	GadgetClass *gadget = new UIBackGadget(Create_Peek(DescriptionPanel));
 	Unknown64.Unknown_6870E0(gadget, 7, View, 1, 0);
-	gadget = new Unknown_674260Class(Create_Peek(InterfaceMesh->Peek_Mesh_Object()));
+	gadget = new UIBackGadget(Create_Peek(InterfaceMesh->Peek_Mesh_Object()));
 	Unknown64.Unknown_6870E0(gadget, 7, View, 1, 0);
 
 	UnknownB8 = new GadgetSlider(false);

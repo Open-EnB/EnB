@@ -115,6 +115,6 @@ void UIItemExaminationTitleClass::Set_Subtitles(const UIItemExaminationTitleSubt
 **
 **	Partial (IE2, run 2026-11-05-night): the title panel's constructor 0x539980, destructor 0x539E80 (deleting 0x539E50),
 **	Clear 0x539F70, Set_Name 0x53A0A0 and Set_Icon 0x53A2C0 and Set_Subtitles 0x53A2F0 exact, with the icon size's static 0xBE5A90
-**	(32 x 32, its initialiser 0x539950). Not yet here: 0x53A140 (the name's text by value) and the class with
-**	tables 0xAEE924 / 0xAEE918 / 0xAEE90C (0x53AA30-0x53AAB0).
+**	(32 x 32, its initialiser 0x539950). Not yet here: 0x53A140 (the name's text by value). The class with
+**	tables 0xAEE924 / 0xAEE918 / 0xAEE90C (0x53AA30-0x53AF30) is backint.cpp's BackInterfaceClass (WE2).
 */

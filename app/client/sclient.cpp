@@ -38,8 +38,8 @@ class SkillAbilityNamesDatabase { public: static void Unknown_814620(const char 
 void Unknown_74CA90(const char *ini);					// 0x74CA90 (sclient.cpp's attributed run): 'testeffects.ini'
 void Unknown_70A7E0(const std::string &ini);			// 0x70A7E0: 'gutter_color.ini'
 void Unknown_70AD70();									// 0x70AD70
-void Unknown_Load_Assets(const std::string &ini);		// NAME 2 [Unknown_Load_Assets]: 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp)
-void Unknown_Free_Assets();								// NAME 2 [Unknown_Free_Assets]: 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp)
+#include "client_lego_impl.h"							// the bone maps of cbasset.ini: Init_Bone_Maps 0x729BF0, Shutdown_Bone_Maps 0x729D60
+
 extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  // NAME 2: what Pump_Messages redraws
 
 // The object at 0xC404D8 is WWAudioClass::_theInstance (WWAudioClass's ctor and dtor set it): the constructor
@@ -114,13 +114,13 @@ public:
 // (RefCountPtr's release reads +0x3C and calls +0x38's slot 0; Shutdown releases the raw pointers so)
 // (InterfaceClass, their base, is in intrface.h; pdaint.cpp's PDAInterfaceClass in sclient.h: the main view reads the PDA)
 
-// The camera manager's +0x04, as far as SClient 0x744C10 reads it
-class ChaseCameraModuleClass	// NAME 2: the FAIL_IF '!CameraManager->Get_Player_Chase_Camera_Module()' (0x744C10)
-{
-public:
-	char Unknown00[0x34];
-	bool Unknown34;										// +0x34 (0x744C10 asks the main view's slot +0x78 only when set)
-};
+#include "camera_manager.h"
+
+
+
+
+
+
 
 typedef char Unknown_RefCountPtr_Size[sizeof(RefCountPtr<RefCountClass>)];	// NAME 1: not the client's: instantiates RefCountPtr<RefCountClass>, so 0x744C10's Create_Peek(RefCountClass *) 0x514960 is visible (VC6 injects a template's friends only once it is instantiated)
 
@@ -201,23 +201,23 @@ public:
 
 
 
-class CameraManagerClass
-{
-public:
-	CameraManagerClass(SClient *client);				// 0x798D20
-	~CameraManagerClass();								// 0x799220
-	void Set_Heading(float heading); float Get_Heading();	// 0x79B370, 0x79B390 (0x7436A0's Save Camera)  // NAME 2: Init passes the camera mode's Heading
-	void Set_Distance(float distance); float Get_Distance();	// 0x79B3B0, 0x79B3D0  // NAME 2: Init passes the camera mode's Distance
-	void Set_Tilt(float tilt); float Get_Tilt();		// 0x79B3F0, 0x79B410  // NAME 2: Init passes the camera mode's Tilt
-	void Set_Elevation_Offset(float offset); float Get_Elevation_Offset();	// 0x79B470, 0x79B490  // NAME 2: Init passes the camera mode's ElevationOffset
-	void Unknown_79B4B0(bool first_mode);				// 0x79B4B0: Init passes CameraMode == 0  // NAME 1 [first_mode]: what it is
-	ChaseCameraModuleClass *Get_Player_Chase_Camera_Module() { return((ChaseCameraModuleClass *)Unknown04); }	void Unknown_799E40(); void Unknown_79B2B0(bool on);	// inline (0x744C10's FAIL_IF); 0x799E40 (Process_AI, unless the current view is +0x135C); 0x79B2B0 (0x745750 passes true)  // NAME 1 [on]: what 0x745750 passes
 
-	int Unknown00;										// +0x00
-	int Unknown04;										// +0x04 (Init and Shutdown hand it to the notifier)
-	char Unknown08[0x48 - 0x08];						// +0x08
-	float FOV;											// +0x48 Init: the camera mode's FOV  // NAME 2: what it holds
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class MusicManagerClass
 {
@@ -261,6 +261,7 @@ public:
 #include "unknown_signalbase.h"
 typedef SignalBaseClass::CallbackClass SClientCallbackBaseClass;	// NAME 1 [SClientCallbackBaseClass]: neutral (D10)
 typedef SignalBaseClass::MemberCallback<CameraModuleClass, SClient, void (SClient::*)(CameraModuleSignal *, CameraModuleClass *), CameraModuleSignal> SClientCallbackClass;	// NAME 1 [SClientCallbackClass]: neutral (D10)
+#include "cammod.h"
 
 
 
@@ -272,14 +273,13 @@ typedef SignalBaseClass::MemberCallback<CameraModuleClass, SClient, void (SClien
 
 
 
-// What 0x79B9E0 returns (camera_manager.cpp's neighbourhood): it keeps the callbacks per camera manager id
-class SClientNotifierClass		// NAME 1: neutral (D10)
-{
-public:
-	void Add(int id, SClientCallbackBaseClass *callback);		// 0x4F9740  // NAME 2: what Init does with it
-	void Remove(int id, SClientCallbackBaseClass *callback);	// 0x4F98D0  // NAME 2: what Shutdown does with it
-};
-SClientNotifierClass *Unknown_79B9E0();					// NAME 1 [Unknown_79B9E0]: neutral (D10)
+
+
+
+
+
+
+
 
 // The font database Init asks: sclient.h's SClientFontDatabaseClass (fontdatabase.cpp's at 0xBE67BC; the options
 // at 0xBE8B38 are option.h's OptionClass::Instance)
@@ -398,7 +398,7 @@ void SClient::Load_INIs()
 		SkillAbilityNamesDatabase::Unknown_814620("cskill_ability_t.ini", "cskill_ability_ex_t.ini");
 		Unknown_74CA90("testeffects.ini");
 		Unknown_70A7E0(std::string("gutter_color.ini"));
-		Unknown_Load_Assets(std::string("cbasset.ini"));
+		ClientLegoImplClass::Init_Bone_Maps(std::string("cbasset.ini"));
 	}
 	INIUsers++;
 }
@@ -459,9 +459,9 @@ void SClient::Init()
 	camera->Release_Ref();
 
 	CameraManager = new CameraManagerClass(this);
-	int id = CameraManager->Unknown04;
-	SClientNotifierClass *notifier = Unknown_79B9E0();
-	notifier->Add(id, new SClientCallbackClass(this, &SClient::Unknown_744E50));
+	int id = (int)CameraManager->Module;
+	SignalMap &notifier = CameraModuleClass::Get_Signal_Map();
+	notifier.connect((void *)id, new SClientCallbackClass(this, &SClient::Unknown_744E50));
 	if (OptionClass::Instance->Get_Bool("Bridge_Mode")) {
 		Set_Camera_Mode(0);
 	} else {
@@ -505,7 +505,7 @@ void SClient::Unload_INIs()
 		SkillNamesDatabase::Unknown_816E60();
 		SkillAbilityNamesDatabase::Unknown_814430();
 		Unknown_70AD70();
-		Unknown_Free_Assets();
+		ClientLegoImplClass::Shutdown_Bone_Maps();
 	}
 }
 
@@ -538,10 +538,10 @@ void SClient::Shutdown()
 	delete Unknown1330;
 	Unknown1330 = NULL;
 
-	int id = CameraManager->Unknown04;
-	SClientNotifierClass *notifier = Unknown_79B9E0();
+	int id = (int)CameraManager->Module;
+	SignalMap &notifier = CameraModuleClass::Get_Signal_Map();
 	SClientCallbackClass callback(this, &SClient::Unknown_744E50);
-	notifier->Remove(id, &callback);
+	notifier.disconnect((void *)id, callback);
 	delete CameraManager;
 	CameraManager = NULL;
 

@@ -160,8 +160,10 @@ void Unknown_Debug_End_Step(const char *text) { fprintf(Out, "step end: %s\n", t
 bool Unknown_5FAE70() { return false; }
 bool Unknown_5FAD50() { return false; }
 void Fail_If_Report(const char *expr, const char *, int line) { fprintf(Out, "fail_if %s (line %d)\n", expr, line); }
-void Unknown_Load_Assets(const std::string &ini) { fprintf(Out, "load assets %s\n", ini.c_str()); }
-void Unknown_Free_Assets() { fprintf(Out, "free assets\n"); }
+// client_lego_impl.cpp's bone maps (tsk_smovie.cpp calls them; declared as far as these stand-ins need)
+class ClientLegoImplClass { public: static void Init_Bone_Maps(const std::string &filename); static void Shutdown_Bone_Maps(void); };
+void ClientLegoImplClass::Init_Bone_Maps(const std::string &ini) { fprintf(Out, "load assets %s\n", ini.c_str()); }
+void ClientLegoImplClass::Shutdown_Bone_Maps(void) { fprintf(Out, "free assets\n"); }
 
 static LoginTaskClass *Login;
 bool LoginTaskClass::Accept_Focus() { fprintf(Out, "login accepts focus\n"); return true; }

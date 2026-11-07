@@ -77,13 +77,12 @@ void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("s
 
 // (the constructor 0x6F2820 and destructor 0x6F2FE0 link from app.lib: clienttest.cpp's TestObjectClass logs
 // the destruction and takes its fakes back first; the slots +0x04-+0x18 are the base's, client.cpp's)
-RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *) { return(RefCountPtr<UnknownB4Class>(NULL)); }
-Unknown498C10Class::Unknown498C10Class() : Unknown00(false) {}		// (silent: every object constructs one)
-void Unknown498C10Class::Unknown_498F00(float, float, float) {}
-// co.cpp's SUBPARTS 0x6FEF70 asks client.cpp's 0x7294D0 (not rebuilt) for a sub part's lego: a by-value RefCountPtr
-// gen_stubs.py cannot write (reached only with a +0xB4 object, which Unknown_731FA0 above never gives)
-#include "..\..\..\app\client\client_lego_impl.h"
-RefCountPtr<LegoClass> Unknown_7294D0(const LegoIdentifierClass &, int, int value, ClientClass *, float) { Trace("stub Unknown_7294D0 %d", value); return(RefCountPtr<LegoClass>(NULL)); }
+// client_lego_root.cpp's lego root (app.lib) needs cbasset.ini's bone maps, which clienttest does not load: no root, as
+// before; both of co.cpp's references stand in, so client_lego_root.obj is not pulled from app.lib (no LNK2005)
+RefCountPtr<ClientLegoRootClass> Unknown_731FA0(ClientObjectClass *) { return(RefCountPtr<ClientLegoRootClass>(NULL)); }
+void ClientLegoRootClass::Unknown_732690() {}
+// (co.h's +0x134 AccelClass links from app.lib: accel.cpp)
+// (co.cpp's SUBPARTS 0x6FEF70 gets a sub part's lego from 0x7294D0: app.lib's unknown_7294d0.cpp)
 
 // co.cpp's per-frame update 0x6F3C60 prints the player's position on wwlib's mono screen (the client's global at
 // 0xC1ECC0, constructed next to mono.cpp's code; no tree file defines it)
@@ -302,16 +301,6 @@ EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned dura
 #include "..\..\..\app\client\control_keys_manager.h"
 ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char *entry) { Trace("stub Unknown_42A1A0 [%s] %s", section ? section : "(null)", entry ? entry : "(null)"); return(ControlKeyComboStruct(0, 0)); }
 
-// ------------------------------------------------------------------------- money.cpp's comparison
-
-// money.cpp's 0x4F0740 (cdecl, not rebuilt), declared by ui_ship_cust.cpp / ui_avatar_cust.cpp: ui_ship_cust.obj links since
-// the SClient / UI chain reaches it. clienttest never opens the ship customization window: this only links.
-#include "..\..\..\app\shared\money.h"
-bool operator>=(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator>=(MoneyClass)"); return(a.Unknown00 >= b.Unknown00); }
-// money.cpp's 0x4F0500 / 0x4F0700, declared by ui_ptrade.cpp (0x5E39F0, 0x5E2CE0): ui_ptrade.obj links since the TRADE 31
-// handlers 0x5E2F70 / 0x5E3050 / 0x5E3130 are the real ones. clienttest never opens the trade window: these only link.
-MoneyClass operator+(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator+(MoneyClass)"); MoneyClass sum; sum.Unknown00 = a.Unknown00 + b.Unknown00; return(sum); }
-bool operator>(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator>(MoneyClass)"); return(a.Unknown00 > b.Unknown00); }
 
 // ui_missn.cpp / ui_manu.cpp (via ui_ship_cust.obj's chain) call GadgetClass's slots +0x08 / +0x14 as void functions; gen_stubs
 // writes one signature a name (the pointer-returning one) and clienttest.py does not apply link_aliases.txt, so these two
@@ -320,12 +309,4 @@ class GadgetClass { public: virtual void Unknown_08(); virtual void Unknown_14()
 void GadgetClass::Unknown_08() {}
 void GadgetClass::Unknown_14() {}
 
-// ------------------------------------------------------------------------- rs_eff_p.cpp (the effect pass state rs_list.cpp makes)
-// gen_stubs cannot write this one: its ShaderClass argument is passed by value
-#include "..\..\..\app\shared\rs_track.h"
-#include "shader.h"
-Unknown458C10Class::Unknown458C10Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, bool two_sided, bool hidden, const char *texture, int a, int b, ShaderClass shader) :
-	RenderStateClass(list, id, link_id, flags)
-{
-	Trace("stub Unknown458C10Class::Unknown458C10Class");
-}
+// (rs_eff_p.cpp's 'effect_pass' state 0x458C10 links from app.lib)

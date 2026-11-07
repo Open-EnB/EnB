@@ -17,7 +17,7 @@
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-#include "unknown_674260.h"		// the gadget 0x674260 makes (0x60 bytes)
+#include "gd_uiback.h"		// UIBackGadget (0x674260)
 
 // What 0x6A5640 returns for a skill (0x548D60 reads it), as far as this file reads it
 struct SkillLevelAvailabilityStruct  // NAME 1: neutral (D10)
@@ -110,7 +110,7 @@ void Unknown548D60Class::Unknown_54()
 	UnknownD0 = Create_Peek(Unknown_BE67C4->Get_Style("POINTS_AVAILABLE_ATT", InterfaceMesh->Peek_Mesh_Object()));
 	UnknownD4 = Create_Peek(Unknown_BE67C4->Get_Style("UPGRADE_REQUIRES_ATT", InterfaceMesh->Peek_Mesh_Object()));
 	UnknownD8 = Create_Peek(Unknown_BE67C4->Get_Style("UPGRADE_COSTS_ATT", InterfaceMesh->Peek_Mesh_Object()));
-	GadgetClass *gadget = new Unknown_674260Class(Create_Peek(InterfaceMesh->Peek_Object()));
+	GadgetClass *gadget = new UIBackGadget(Create_Peek(InterfaceMesh->Peek_Object()));
 	Unknown64.Unknown_6870E0(gadget, 3, View, 1, 0);
 	Unknown_10();
 }

@@ -140,3 +140,5 @@ void Poc_Start_Watchdog()
 	DWORD id;
 	CreateThread(NULL, 0, Poc_Watchdog, NULL, 0, &id);
 }
+
+// co.cpp's render hook 0x6BB7E0 / 0x6BB8B0 is real app code since WE5 (app/client/unknown_6bb7e0.cpp).

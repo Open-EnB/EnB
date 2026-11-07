@@ -33,53 +33,38 @@
 #include "..\packets\pkcolorization.h"
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\common\lego_identifier.h"
+#include "..\shared\accel.h"
 #include "ref_ptr.h"
 #include "sphere.h"
+#include "client_lego_root.h"
 #include "..\shared\g_assert.h"
 
 class RenderObjClass;
 class AudibleSoundClass;
 
-// co.cpp's +0xB4 object: a RefCountClass the constructor gets from 0x731FA0 (0xB8 bytes, constructor
-// 0x732030); 0x6FCB20 passes the visibility to its slot +0x18
-class LegoClass;
-class UnknownB4Class : public RefCountClass		// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18(bool visible);			// NAME 2 [visible]: 0x6FCB20's argument
-	virtual void Unknown_1C();
-	virtual void Unknown_20(int base_asset, const RefCountPtr<RenderObjClass> &model);	// +0x20 (Set_Model 0x6F33F0: the new BaseAsset and model)  // NAME 2 [base_asset, model]: what Set_Model passes
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual Matrix3D Unknown_2C(const LegoIdentifierClass &lego);	// +0x2C (0x6FED80 returns it when the object is set)  // NAME 1 [lego]: eff_o.cpp's 0x6E8F80 passes the source's lego plus 'EMITTER'
-	virtual void Unknown_30(const RefCountPtr<LegoClass> &lego);	// +0x30 (SUBPARTS' 0x6FEF70: each new sub part's lego)  // NAME 1 [lego]: what 0x6FEF70 passes
-	virtual RefCountPtr<LegoClass> Unknown_34(const LegoIdentifierClass &id);	// +0x34 (0x6FEF70: each old sub part's id, last first; the result is dropped)  // NAME 1 [id]: what 0x6FEF70 passes
-	void Unknown_732690();							// 0x732690 (co.cpp's destructor calls it before the release)
-};
-
+// co.cpp's +0xB4 object is the client's lego root (client_lego_root.h; 0x731FA0 makes it)
 // The +0xB4 object's source (cdecl; co.cpp's constructor assigns its result)
 class ClientObjectClass;
-RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *object);	// 0x731FA0  // NAME 1 [object]: neutral
+RefCountPtr<ClientLegoRootClass> Unknown_731FA0(ClientObjectClass *object);	// 0x731FA0  // NAME 1 [object]: neutral
 
-// co.cpp's +0x134 object (16 bytes: a flag and three floats; constructor 0x498C10, its setter 0x498F00 sets
-// +0x0C, +0x04 and +0x08 and the flag when the first two differ)
-class Unknown498C10Class							// NAME 1: neutral (D10)
-{
-public:
-	Unknown498C10Class();							// 0x498C10
-	void Unknown_498F00(float a, float b, float c);	// 0x498F00  // NAME 1 [a, b, c]: neutral
-	void Unknown_498CC0(float value);				// 0x498CC0 (co.cpp's tilt 0x6F3FA0 passes the turn's acceleration)  // NAME 1 [value]: neutral
-	void Unknown_498D40(float value, bool reset);	// 0x498D40 (the flag off, +0x04 / +0x0C to value; reset: +0x08 to 0)  // NAME 1 [value, reset]: neutral
-	void Unknown_498C30(float target, float rate);	// 0x498C30 (+0x04 / +0x08; the flag when +0x0C is not yet target)  // NAME 1 [target, rate]: neutral
-	float Unknown_498E00(float time);				// 0x498E00 (0x6F3FA0 passes WW3D's frame time when the flag is set)  // NAME 1 [time]: what it gets
-	float Unknown_Value(int time) { if (!Unknown00) return(Unknown04[2]); return(Unknown_498E00((float)time)); }	// (inline: cameraeffects.cpp's 0x6E3710, 0x6E3B60)  // NAME 1: neutral (D10)
-	bool Unknown00;									// +0x00
-	float Unknown04[3];								// +0x04
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // co.cpp's +0x8C object (the destructor deletes it through its slot +0x00)
 class Unknown8CClass								// NAME 1: neutral (D10)
@@ -297,7 +282,7 @@ public:
 	RenderObjClass *RenderObject;						// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods): co.cpp's G_ASSERT 'RenderObject != 0', l.361
 	bool UnknownB0;										// +0xB0 (0x6FCB20 toggles it)
 	char UnknownB1[0xB4 - 0xB1];						// +0xB1
-	RefCountPtr<UnknownB4Class> UnknownB4;				// +0xB4 (the constructor assigns 0x731FA0's result)
+	RefCountPtr<ClientLegoRootClass> UnknownB4;				// +0xB4 (the constructor assigns 0x731FA0's result)
 	std::vector<LegoIdentifierClass> UnknownB8;			// +0xB8 (constructed with a count of 0)
 	std::vector<ColorizationRegionStruct> Colorization;	// +0xC8 the model's colorization regions (cpacket.cpp's COLORIZATION 17 assigns them, 0x73F770 their operator=)  // NAME 2: what it holds
 	std::string DecalName;								// +0xD8 (cpacket.cpp's NAME_DECAL 178 sets it through 0x736140)  // NAME 2: what NAME_DECAL stores in it
@@ -313,7 +298,7 @@ public:
 	bool Unknown128;									// +0x128 (0x6FC950 sets it)
 	char Unknown129[0x12C - 0x129];						// +0x129
 	RelationshipClass Relationship;						// +0x12C (pk_player_object_relationship.h; constructor 0x848C80): 0x6FEEE0 sets it  // NAME 2: what it holds
-	Unknown498C10Class Unknown134;						// +0x134 (the constructor's 0x498F00 with the size factors)
+	AccelClass Unknown134;								// +0x134 accel.h's (the constructor's Set 0x498F00 with the size factors; the tilt 0x6F3FA0 its Set_Target / Update)
 	float Unknown144;										// +0x144 (slot +0x28 compares it with +-0.157: which thrust models show)
 	int Unknown148;										// +0x148 the render state 0x6FF1D0 last set (0 to 3 from PercentFull)
 	unsigned Unknown14C;								// +0x14C an effect's id (0x6FC880 removes the effect through the client's Get_Effect)
