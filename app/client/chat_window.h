@@ -58,8 +58,8 @@ public:
 	virtual ~ChatWindowClass();  // 0x67DF50 (deleting 0x67DF20)
 
 	virtual bool Unknown_04(unsigned int max_lines, unsigned int width);  // +0x04 0x67E620
-	virtual int Unknown_08(int unknown1, int unknown2);  // +0x08 0x67E250  // NAME 1 [unknown1, unknown2]: neutral (D10)
-	virtual void Unknown_0C(int unknown1, int unknown2);  // +0x0C 0x67E220  // NAME 1 [unknown1, unknown2]: neutral (D10)
+	virtual int Unknown_08(const Vector3 &color, const std::string &text);  // +0x08 0x67E250
+	virtual void Unknown_0C(const Vector3 &color, const std::string &text);  // +0x0C 0x67E220
 	virtual int Unknown_10(int unknown);  // +0x10 0x67E480  // NAME 1 [unknown]: neutral (D10)
 	virtual bool Unknown_14(const char *command);  // +0x14 0x67E4C0: '/chat render', '/chat extra', '/chat build'  // NAME 2 [command]: its strings
 

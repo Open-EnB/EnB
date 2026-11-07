@@ -150,15 +150,15 @@ void ChatWindowClass::Unknown_67E180(const RefCountPtr<SceneClass> &scene)
 	Unknown9C = true;
 }
 
-void ChatWindowClass::Unknown_0C(int unknown1, int unknown2)
+void ChatWindowClass::Unknown_0C(const Vector3 &color, const std::string &text)
 {
 	Unknown9D = true;
-	ChatWindowHistoryClass::Unknown_0C(unknown1, unknown2);
+	ChatWindowHistoryClass::Unknown_0C(color, text);
 }
 
-int ChatWindowClass::Unknown_08(int unknown1, int unknown2)
+int ChatWindowClass::Unknown_08(const Vector3 &color, const std::string &text)
 {
-	int count = ChatWindowHistoryClass::Unknown_08(unknown1, unknown2);
+	int count = ChatWindowHistoryClass::Unknown_08(color, text);
 	if (count == 0) {
 		return 0;
 	}
@@ -505,15 +505,15 @@ void ChatWindowClass::Unknown_6804E0(const RectClass &rect)
 {
 	Rect = rect;
 	float line_height = Font->Get_Line_Height(480.0f);
-	float half_height;
-	float height = half_height = Rect.Top - Rect.Bottom;
+	float height = Rect.Top - Rect.Bottom;
+	float count = height;
 	int lines = 1;
 	LineHeight = line_height;
-	if (height > 0.0f && line_height > 0.0001f) {
-		float count = height / line_height;
+	if (count > 0.0f && line_height > 0.0001f) {
+		count /= line_height;
 		if (count >= 1.0f) { lines = (int)count; }
 	}
-	Vector3 extent((Rect.Right - Rect.Left) * 0.5f, half_height * 0.5f, 0.0f);
+	Vector3 extent((Rect.Right - Rect.Left) * 0.5f, height * 0.5f, 0.0f);
 	Vector3 center(extent.X + Rect.Left, Rect.Top - extent.Y, 0.0f);
 	AABoxClass box(center, extent);
 	Unknown74->Unknown_670230(box, false);

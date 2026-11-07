@@ -2,6 +2,23 @@
 #include "..\shared\g_assert.h"
 #include <string.h>
 
+// NOT EXACT: Text's copy is inlined here; the client calls string's copy constructor (0x681400), and everything after it shifts
+ChatWindowHistoryClass::ChatWindowHistoryClass(int unknown) :
+	Splitter(RefCountPtr<Font32Class>(), NULL, 0.0f, 0),
+	Unknown44(unknown),
+	Unknown48(0),
+	Unknown4C(0),
+	Unknown50(0),
+	Unknown54(0x7FFFFF),
+	Unknown58(0),
+	Unknown5C(false)
+{
+	NullLine = Create_NEW(new ChatLineClass(-1, "", Vector3(0.0f, 0.0f, 0.0f), true, true));
+	NullLine->Null = true;
+	Splitter.Set_Trim_Lines(false);
+	Splitter.Set_Escaped_New_Lines(false);
+}
+
 ChatWindowHistoryClass::~ChatWindowHistoryClass()
 {
 	History.clear();
@@ -56,6 +73,48 @@ bool ChatWindowHistoryClass::Unknown_04(unsigned int max_lines, unsigned int wid
 	return changed;
 }
 
+void ChatWindowHistoryClass::Unknown_6818C0()
+{
+	std::vector< RefCountPtr<ChatLineClass> > old;
+	old.swap(History);
+	for (std::vector< RefCountPtr<ChatLineClass> >::iterator it = old.begin(); it != old.end(); ++it) {
+		const char *text = (*it)->Text.c_str();
+		if (Splitter.Split(text, (float)Unknown54, 0)) {
+			int count = Splitter.Count();
+			for (int i = 0; i < count; i++) {
+				RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, Splitter.Get(i), (*it)->Color, i == 0, i + 1 == count));
+				line->Set_Bit_3();
+				History.push_back(line);
+			}
+		} else {
+			RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, text, (*it)->Color, true, true));
+			line->Unknown29 = true;
+			History.push_back(line);
+			line->Set_Bit_3();
+		}
+	}
+	if (History.size() < Unknown50) {
+		Unknown50 = History.size();
+	}
+}
+
+// NOT EXACT: registers and frame 8 smaller: the client keeps History at ebx + 4 without an esi base; functional
+void ChatWindowHistoryClass::Unknown_681DB0()
+{
+	std::vector< RefCountPtr<ChatLineClass> > old;
+	old.swap(History);
+	std::string text;
+	for (std::vector< RefCountPtr<ChatLineClass> >::iterator it = old.begin(); it != old.end(); ++it) {
+		text += (*it)->Text;
+		if ((*it)->Is_Last()) {
+			RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, text, (*it)->Color, true, true));
+			line->Set_Bit_3();
+			History.insert(History.end(), 1, line);
+			text.erase();
+		}
+	}
+}
+
 int ChatWindowHistoryClass::Unknown_10(int unknown)
 {
 	unsigned int page = Unknown48;
@@ -97,10 +156,52 @@ int ChatWindowHistoryClass::Unknown_10(int unknown)
 	return result;
 }
 
-void ChatWindowHistoryClass::Unknown_0C(int unknown1, int unknown2)
+void ChatWindowHistoryClass::Unknown_0C(const Vector3 &color, const std::string &text)
 {
 	Unknown4C = 0;
-	ChatWindowHistoryClass::Unknown_08(unknown1, unknown2);
+	ChatWindowHistoryClass::Unknown_08(color, text);
+}
+
+// NOT EXACT: slots and registers: count in the text parameter's slot, i in ebx; the loop's index test calls size() out of line (0x6824F0)
+int ChatWindowHistoryClass::Unknown_08(const Vector3 &color, const std::string &text)
+{
+	if (text.empty()) {
+		return 0;
+	}
+	Splitter.Set_Trim_Last(false);
+	Splitter.Set_Escaped_New_Lines(false);
+	Splitter.Split(text.c_str(), (float)Unknown54, 0);
+	int count = Splitter.Count();
+	if (count == 1) {
+		RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, text, color, true, true));
+		History.push_back(line);
+		Unknown_682730(History.size() - Unknown48 - 1)->Set_Bit_3();
+	} else {
+		for (int i = 0; i < count; i++) {
+			RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, Splitter.Get(i), color, i == 0, i + 1 == count));
+			History.push_back(line);
+			Unknown_682730(History.size() - Unknown48 - 1)->Set_Bit_3();
+		}
+	}
+	for (int i = 0; i < count; i++) {
+		if (Unknown4C != 0) {
+			Unknown4C++;
+		} else {
+			if (Unknown50 >= Unknown48) {
+				break;
+			}
+			Unknown50++;
+		}
+	}
+	unsigned int keep = Unknown44 > Unknown48 ? Unknown44 : Unknown48;
+	while (History.size() > keep) {
+		std::vector< RefCountPtr<ChatLineClass> >::iterator it = History.begin();
+		while (!(*it)->Is_Last()) {
+			++it;
+		}
+		History.erase(History.begin(), it + 1);
+	}
+	return count;
 }
 
 const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682730(unsigned int index)
@@ -118,107 +219,6 @@ const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682770(unsigne
 		return NullLine;
 	}
 	std::vector< RefCountPtr<ChatLineClass> >::iterator it = History.end() - 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

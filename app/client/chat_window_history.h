@@ -21,16 +21,38 @@
 class ChatLineClass : public RefCountClass  // NAME 3: the asserts' chat_line
 {
 public:
-public:
+	ChatLineClass(int id, const std::string &text, const Vector3 &color, bool first, bool last) :  // NAME 2 [id, text, color, first, last]: what they fill
+		Unknown08(id),
+		Text(text),
+		Color(color),
+		Unknown29(false)
+	{
+		Dirty = true;
+		First = first;
+		Last = last;
+		Bit3 = false;
+		Null = false;
+	}
+
 	bool Is_Null() const { return (Flags & 0x10) != 0; }  // the asserts' Is_Null (bit 4)
 	bool Is_Last() const { return (Flags & 4) != 0; }  // the assert's (bit 2)
 	bool Is_First() const { return (Flags & 2) != 0; }  // NAME 2: 0x682770's walk back stops at it (bit 1)
 	bool Is_Bit_3() const { return (Flags & 8) != 0; }  // NAME 1: neutral (D10)
 	void Set_Flag_1() { Flags |= 1; }  // NAME 1: neutral (D10)
+	void Set_Bit_3() { if ((Flags & 8) != 8) { Flags |= 8; Flags |= 1; } }  // NAME 1: neutral (D10)
 	int Unknown08;  // +0x08  // NAME 1: neutral (D10)
 	std::string Text;  // +0x0C  // NAME 2: a string, the line's own
 	Vector3 Color;  // +0x1C: 0x680320's FontSys::Set_Color  // NAME 2: what it holds
-	unsigned char Flags;  // +0x28: bit 2 the asserts' Is_Last  // NAME 2: what it holds
+	union {
+		unsigned char Flags;  // +0x28: bit 2 the asserts' Is_Last  // NAME 2: what it holds
+		struct {
+			unsigned char Dirty : 1;  // NAME 2: 0x680320 clears it when it redraws
+			unsigned char First : 1;  // NAME 2: the first of a split
+			unsigned char Last : 1;  // NAME 3: the assert's Is_Last
+			unsigned char Bit3 : 1;  // NAME 1: neutral (D10)
+			unsigned char Null : 1;  // NAME 3: the assert's Is_Null
+		};
+	};
 	bool Unknown29;  // +0x29  // NAME 1: neutral (D10)
 };
 
@@ -41,8 +63,8 @@ public:
 	virtual ~ChatWindowHistoryClass();  // 0x681640 (deleting 0x681610)
 
 	virtual bool Unknown_04(unsigned int max_lines, unsigned int width);  // +0x04 0x6817E0  // NAME 1 [Unknown_04, max_lines, width]: neutral (D10)
-	virtual int Unknown_08(int unknown1, int unknown2);  // +0x08 0x6821F0  // NAME 1: neutral (D10)
-	virtual void Unknown_0C(int unknown1, int unknown2);  // +0x0C 0x6821C0  // NAME 1: neutral (D10)
+	virtual int Unknown_08(const Vector3 &color, const std::string &text);  // +0x08 0x6821F0  // NAME 2 [color, text]: what the lines take
+	virtual void Unknown_0C(const Vector3 &color, const std::string &text);  // +0x0C 0x6821C0  // NAME 2 [color, text]: Unknown_08's
 	virtual int Unknown_10(int unknown);  // +0x10 0x682080  // NAME 1: neutral (D10)
 	virtual bool Unknown_14(const char *command);  // +0x14 0x6828D0  // NAME 1: neutral (D10)
 
