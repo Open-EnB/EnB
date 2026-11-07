@@ -5,6 +5,7 @@
 #include "target_reticle.h"
 #include "gutter_data.h"
 #include "mouse_targeting.h"
+#include "radar_system_data_cache.h"
 #include "sclient.h"
 #include "client.h"
 #include "co.h"
@@ -24,11 +25,10 @@ float Unknown_831E90(const Vector3 &a, float a_radius, const Vector3 &b, float b
 
 
 
-class RadarSystemDataCacheClass
-{
-public:
-	GutterDataClass *Unknown_7BE120(bool create);				// 0x7BE120  // NAME 1 [create]: passed on to 0x79D840
-};
+
+
+
+
 
 // @0x7B6BD0
 GutterRadarClass::GutterRadarClass(SClient *client, const RefCountPtr<SimpleSceneClass> &scene) :
@@ -131,7 +131,7 @@ void GutterRadarClass::Set_Targets(ClientObjectClass *first, ClientObjectClass *
 // @0x7B7040
 void GutterRadarClass::Update(RadarSystemDataCacheClass *entry)
 {
-	GutterDataClass *gdata = entry->Unknown_7BE120(true);
+	GutterDataClass *gdata = entry->Get_Gutter_Data(true);
 
 
 	FAIL_IF(!gdata) return;

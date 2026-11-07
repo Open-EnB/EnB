@@ -5,7 +5,7 @@
 **	whose __FILE__ is the client's 0xB9F32C)
 **
 **	One object's cached view for one radar pass: radar_system.cpp's 0x7BCA70 makes one on its stack (0x34 bytes) and
-**	moves it from object to object. Declared as far as radar_system.cpp and gutter_radar.cpp use it; not rebuilt.
+**	moves it from object to object. 0x34 bytes, no virtuals.
 */
 
 #if defined(_MSC_VER)
@@ -19,31 +19,44 @@
 
 class ClientObjectClass;
 class GutterDataClass;
+class NavigationDataClass;
 class RadarDataClass;
-class RadarSystemClass;
 class StarmapDataClass;
 
 class RadarSystemDataCacheClass	// NAME 3: class-from-file (D24) for radar_system_data_cache.cpp
 {
 public:
-	RadarSystemDataCacheClass(ClientObjectClass *avatar, RadarSystemClass *radar);	// 0x7BDFC0  // NAME 2 [avatar, radar]: what 0x7BCA70 passes
+	RadarSystemDataCacheClass(ClientObjectClass *player, float extra_range);	// 0x7BDFC0  // NAME 2 [extra_range]: 0x7BE3A0 adds it; radar_system.cpp's 0x7BCA70 passes 0
 	~RadarSystemDataCacheClass();							// 0x7BE060
 
 	void Set_Object(ClientObjectClass *object);				// 0x7BE080  // NAME 2: what it does
 	RadarDataClass *Get_Radar_Data(bool create);			// 0x7BE0D0  // NAME 2 [Get_Radar_Data, create]: co_data.h's
-	GutterDataClass *Get_Gutter_Data(bool create);			// 0x7BE120  // NAME 2 [Get_Gutter_Data, create]: co_data.h's
+	GutterDataClass *Get_Gutter_Data(bool create);			// 0x7BE120 (gutter_radar.cpp's 0x7B7040)  // NAME 2 [Get_Gutter_Data, create]: co_data.h's
 	StarmapDataClass *Get_Starmap_Data(bool create);		// 0x7BE170  // NAME 2 [Get_Starmap_Data, create]: co_data.h's
-	int Unknown_7BE1C0();									// 0x7BE1C0
-	bool Unknown_7BE350();									// 0x7BE350
-	bool Unknown_7BE3A0();									// 0x7BE3A0
+	NavigationDataClass *Get_Navigation_Data();				// 0x7BE1C0  // NAME 2: co_data.h's
+	void Remove_Radar_Data();								// 0x7BE210  // NAME 2: co_data.h's
+	void Remove_Gutter_Data();								// 0x7BE260  // NAME 2: co_data.h's
+	void Remove_Starmap_Data();								// 0x7BE2B0  // NAME 2: co_data.h's
+	void Remove_Navigation_Data();							// 0x7BE300  // NAME 2: co_data.h's
+	bool Get_Is_Targetable();								// 0x7BE350 (cached)  // NAME 2: the FAIL_IF's IsTargetable
+	bool Get_Is_In_Range();									// 0x7BE3A0 (cached)  // NAME 2: what it computes
+	const Vector3 &Get_Player_Position();					// 0x7BE520  // NAME 2: what it returns
+	float Get_Player_Radius();								// 0x7BE560  // NAME 2: what it returns
 
-	ClientObjectClass *Avatar;								// +0x00  // NAME 2: what it holds
-	Vector3 AvatarPosition;									// +0x04  // NAME 2: what it holds
-	float AvatarRadius;										// +0x10  // NAME 2: what it holds
-	bool Is_Avatar;											// +0x14: Object == Avatar  // NAME 2: what it holds
-	RadarSystemClass *Radar;								// +0x18  // NAME 2: what it holds
-	ClientObjectClass *Object;								// +0x1C  // NAME 2: what it holds
-	char Unknown20[0x34 - 0x20];							// +0x20: not rebuilt
+	ClientObjectClass *Player;								// +0x00 (the FAIL_IF's name)
+	Vector3 PlayerPosition;									// +0x04  // NAME 2: what it holds
+	float PlayerRadius;										// +0x10  // NAME 2: what it holds
+	bool IsPlayer;											// +0x14  // NAME 2: what it holds
+	float ExtraRange;										// +0x18  // NAME 2: what it does
+	ClientObjectClass *ClientObject;						// +0x1C (the FAIL_IF's name)
+	RadarDataClass *RadarData;								// +0x20  // NAME 2: what it caches
+	GutterDataClass *GutterData;							// +0x24  // NAME 2: what it caches
+	StarmapDataClass *StarmapData;							// +0x28  // NAME 2: what it caches
+	NavigationDataClass *NavigationData;					// +0x2C  // NAME 2: what it caches
+	bool IsTargetable;										// +0x30 (the FAIL_IF's name)
+	bool IsTargetableValid;									// +0x31  // NAME 2: what it holds
+	bool IsInRange;											// +0x32  // NAME 2: what it holds
+	bool IsInRangeValid;									// +0x33  // NAME 2: what it holds
 };
 
 #endif //__RADAR_SYSTEM_DATA_CACHE_H

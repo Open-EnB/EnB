@@ -106,7 +106,7 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, PDAInterfaceUnkn
 	} else {
 		ScanRange = 0.0f;
 	}
-	RadarSystemDataCacheClass entry(avatar, this);
+	RadarSystemDataCacheClass entry(avatar, 0.0f);
 	Vector3 avatar_pos = avatar->Unknown_24();
 	avatar->Unknown_30();
 	MouseTargetClass mouse_target(Target);
@@ -143,7 +143,7 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, PDAInterfaceUnkn
 
 			FAIL_IF(!co) continue;
 			entry.Set_Object(co);
-			if (!entry.Unknown_7BE350()) {
+			if (!entry.Get_Is_Targetable()) {
 				gutter->Update(&entry);
 				GutterDataClass *gdata = entry.Get_Gutter_Data(false);
 				if (gdata) {
@@ -169,7 +169,7 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, PDAInterfaceUnkn
 
 		FAIL_IF(!co) continue;
 		entry.Set_Object(co);
-		bool valid = entry.Unknown_7BE350();
+		bool valid = entry.Get_Is_Targetable();
 		if (co->Unknown_24().Is_Valid() && valid) {
 			Unknown_7BDD50(entry, scene);
 			bool show_gutter = (gutter && Unknown_7BDBF0(entry));
@@ -471,22 +471,22 @@ bool RadarSystemClass::Unknown_7BD980()
 // @0x7BDBF0
 bool RadarSystemClass::Unknown_7BDBF0(RadarSystemDataCacheClass &entry)
 {
-	if (Unknown4C && ((ClientObjectClass *)Hover == entry.Object)) {
+	if (Unknown4C && ((ClientObjectClass *)Hover == entry.ClientObject)) {
 		return(true);
 	}
-	if (entry.Object == (ClientObjectClass *)Target) {
+	if (entry.ClientObject == (ClientObjectClass *)Target) {
 		return(true);
 	}
-	if (!OptionClass::Instance->Get_Bool("Show_Self_Name") && entry.Is_Avatar) {
+	if (!OptionClass::Instance->Get_Bool("Show_Self_Name") && entry.IsPlayer) {
 		return(false);
 	}
-	return(entry.Unknown_7BE3A0());
+	return(entry.Get_Is_In_Range());
 }
 
 // @0x7BDC70
 bool RadarSystemClass::Unknown_7BDC70(RadarSystemDataCacheClass &entry)
 {
-	ClientObjectClass *co = entry.Object;
+	ClientObjectClass *co = entry.ClientObject;
 
 
 
@@ -504,10 +504,10 @@ bool RadarSystemClass::Unknown_7BDC70(RadarSystemDataCacheClass &entry)
 
 
 	FAIL_IF(!co) return(false);
-	if (entry.Is_Avatar) {
+	if (entry.IsPlayer) {
 		return(true);
 	}
-	if (entry.Unknown_7BE1C0()) {
+	if (entry.Get_Navigation_Data()) {
 		return(true);
 	}
 	if (co->Unknown_6F5A40()) {
@@ -533,16 +533,16 @@ bool RadarSystemClass::Unknown_7BDC70(RadarSystemDataCacheClass &entry)
 // @0x7BDD50
 void RadarSystemClass::Unknown_7BDD50(RadarSystemDataCacheClass &entry, const RefCountPtr<RefCountClass> &scene)
 {
-	if (entry.Unknown_7BE1C0()) {
+	if (entry.Get_Navigation_Data()) {
 
 
 
 
 
-		FAIL_IF(!entry.Object) return;
-		RenderObjClass *robj = entry.Object->RenderObject;
+		FAIL_IF(!entry.ClientObject) return;
+		RenderObjClass *robj = entry.ClientObject->RenderObject;
 		if (robj) {
-			if (entry.Unknown_7BE3A0()) {
+			if (entry.Get_Is_In_Range()) {
 				if (!robj->Peek_Scene()) {
 					robj->Add((SceneClass *)scene.Peek());
 				}

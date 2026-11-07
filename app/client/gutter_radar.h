@@ -24,8 +24,7 @@ class ClientObjectClass;
 class TargetReticleClass;
 
 class MouseTargetClass;
-// radar_system_data_cache.cpp's per-object entry (0x7BE120 hands out its gutter data)
-class RadarSystemDataCacheClass;	// NAME 3: class-from-file (D24) for radar_system_data_cache.cpp
+class RadarSystemDataCacheClass;
 
 class GutterRadarClass	// NAME 3: class-from-file (D24) for gutter_radar.cpp
 {

@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 157 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1542 |
-| 2 | describes what the code does | 3507 |
+| 3 | by convention from a client-named file or sibling | 1541 |
+| 2 | describes what the code does | 3521 |
 | 1 | neutral placeholder | 17291 |
 
 ## For review (score 3 and below)
@@ -3960,15 +3960,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D5B10` | `app/client/gutter_data.cpp:484` | untagged neutral name (D10) |
 | 1 | `Unknown300` | `app/client/gutter_data.cpp:486` | untagged neutral name (D10) |
 | 1 | `Set_Sort_Group, unused, group` | `app/client/gutter_data.h:38` | what it does; the first is never read |
-| 1 | `Unknown_831E90` | `app/client/gutter_radar.cpp:19` | neutral (D10) |
-| 1 | `create` | `app/client/gutter_radar.cpp:30` | passed on to 0x79D840 |
-| 1 | `Unknown_7BE120` | `app/client/gutter_radar.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_831E90` | `app/client/gutter_radar.cpp:20` | neutral (D10) |
 | 1 | `Unknown_64` | `app/client/gutter_radar.cpp:108` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/gutter_radar.cpp:108` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/gutter_radar.cpp:142` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/gutter_radar.cpp:143` | untagged neutral name (D10) |
-| 1 | `Reticle08` | `app/client/gutter_radar.h:46` | neutral (D10) |
-| 1 | `Reticle0C` | `app/client/gutter_radar.h:47` | neutral (D10) |
+| 1 | `Reticle08` | `app/client/gutter_radar.h:45` | neutral (D10) |
+| 1 | `Reticle0C` | `app/client/gutter_radar.h:46` | neutral (D10) |
 | 1 | `TableDepth` | `app/client/html/htmlview.cpp:456` | 0xBE83F0, counted up by <table>, down by </table>; nothing reads it |
 | 1 | `RowDepth` | `app/client/html/htmlview.cpp:457` | 0xBE83F4, the same for <tr> |
 | 1 | `CellDepth` | `app/client/html/htmlview.cpp:458` | 0xBE83F8, the same for <td> |
@@ -4790,7 +4788,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `range, from, to` | `app/client/nav_list_builder.h:28` | FAIL_IF '!co_from' |
 | 1 | `Unknown_7B7EF0` | `app/client/nav_list_builder.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/nav_list_builder.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/navigation_data.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/navigation_data.h:26` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/navigation_data.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/navigation_data.h:28` | neutral (D10) |
+| 1 | `Unknown15` | `app/client/navigation_data.h:29` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/nlp.cpp:14` | neutral (D10), as eff_o.cpp's |
 | 1 | `Unknown_B9D668` | `app/client/nlp.cpp:17` | neutral (D10) |
 | 1 | `Unknown_78E190` | `app/client/nlp.cpp:21` | neutral (D10) |
@@ -5038,7 +5039,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/client/radar_system.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_693020` | `app/client/radar_system.cpp:113` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD860` | `app/client/radar_system.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown_7BE350` | `app/client/radar_system.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown_7BDD50` | `app/client/radar_system.cpp:174` | untagged neutral name (D10) |
 | 1 | `Unknown_7BDBF0` | `app/client/radar_system.cpp:175` | untagged neutral name (D10) |
 | 1 | `Unknown_7BDC70` | `app/client/radar_system.cpp:177` | untagged neutral name (D10) |
@@ -5055,8 +5055,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7BD960` | `app/client/radar_system.cpp:443` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD980` | `app/client/radar_system.cpp:449` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/radar_system.cpp:453` | untagged neutral name (D10) |
-| 1 | `Unknown_7BE3A0` | `app/client/radar_system.cpp:483` | untagged neutral name (D10) |
-| 1 | `Unknown_7BE1C0` | `app/client/radar_system.cpp:510` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A40` | `app/client/radar_system.cpp:513` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/radar_system.cpp:525` | untagged neutral name (D10) |
 | 1 | `Unknown_Watch_0C` | `app/client/radar_system.cpp:557` | untagged neutral name (D10) |
@@ -5081,10 +5079,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7BDD50` | `app/client/radar_system.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/radar_system.h:68` | untagged neutral name (D10) |
 | 1 | `Unknown4D` | `app/client/radar_system.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown_7BE1C0` | `app/client/radar_system_data_cache.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown_7BE350` | `app/client/radar_system_data_cache.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_7BE3A0` | `app/client/radar_system_data_cache.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/radar_system_data_cache.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_831F90` | `app/client/radar_system_data_cache.cpp:10` | neutral (D10) |
+| 1 | `Unknown_24` | `app/client/radar_system_data_cache.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/radar_system_data_cache.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5980` | `app/client/radar_system_data_cache.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/radar_system_data_cache.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/radar_system_data_cache.cpp:176` | untagged neutral name (D10) |
 | 1 | `SBaseViewUnknown70Class` | `app/client/sbaseview.cpp:34` | neutral (D10) |
 | 1 | `Unknown98` | `app/client/sbaseview.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_77B7D0, t` | `app/client/sbaseview.cpp:36` | neutral (D10) |
@@ -17997,15 +17997,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Update_Guild_Label` | `app/client/gutter_data.h:52` | what it does |
 | 2 | `Remove_Labels_From_Scene` | `app/client/gutter_data.h:53` | what it does |
 | 2 | `Update_Labels` | `app/client/gutter_data.h:54` | what it does |
-| 2 | `client, scene` | `app/client/gutter_radar.h:33` | what it stores |
-| 2 | `Set_Targets` | `app/client/gutter_radar.h:36` | what it does |
-| 2 | `Update` | `app/client/gutter_radar.h:37` | what it does |
-| 2 | `Clear_Mouse_Target` | `app/client/gutter_radar.h:38` | what it does |
-| 2 | `Project` | `app/client/gutter_radar.h:41` | what it does |
-| 2 | `Get_Icon_Scale` | `app/client/gutter_radar.h:42` | its options |
-| 2 | `Scene` | `app/client/gutter_radar.h:45` | what it holds |
-| 2 | `Position` | `app/client/gutter_radar.h:48` | what it holds |
-| 2 | `Size` | `app/client/gutter_radar.h:49` | what it holds |
+| 2 | `client, scene` | `app/client/gutter_radar.h:32` | what it stores |
+| 2 | `Set_Targets` | `app/client/gutter_radar.h:35` | what it does |
+| 2 | `Update` | `app/client/gutter_radar.h:36` | what it does |
+| 2 | `Clear_Mouse_Target` | `app/client/gutter_radar.h:37` | what it does |
+| 2 | `Project` | `app/client/gutter_radar.h:40` | what it does |
+| 2 | `Get_Icon_Scale` | `app/client/gutter_radar.h:41` | its options |
+| 2 | `Scene` | `app/client/gutter_radar.h:44` | what it holds |
+| 2 | `Position` | `app/client/gutter_radar.h:47` | what it holds |
+| 2 | `Size` | `app/client/gutter_radar.h:48` | what it holds |
 | 2 | `Get_Font` | `app/client/html/htmlview.h:8` | a cached CreateFontIndirect (not placed: before unknown_htmlblock.cpp) |
 | 2 | `Open` | `app/client/html/htmlview.h:15` | given the view's url by Open |
 | 2 | `Update` | `app/client/html/htmlview.h:16` | polled by the view's Update |
@@ -18356,17 +18356,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `TargetPath` | `app/client/radar_system.h:65` | the starmap's FAIL_IF '!TargetPath' |
 | 2 | `ScanRange` | `app/client/radar_system.h:66` | what it holds |
 | 2 | `GutterCount` | `app/client/radar_system.h:67` | what it holds |
-| 2 | `avatar, radar` | `app/client/radar_system_data_cache.h:29` | what 0x7BCA70 passes |
+| 2 | `extra_range` | `app/client/radar_system_data_cache.h:29` | 0x7BE3A0 adds it; radar_system.cpp's 0x7BCA70 passes 0 |
 | 2 | `Set_Object` | `app/client/radar_system_data_cache.h:32` | what it does |
 | 2 | `Get_Radar_Data, create` | `app/client/radar_system_data_cache.h:33` | co_data.h's |
 | 2 | `Get_Gutter_Data, create` | `app/client/radar_system_data_cache.h:34` | co_data.h's |
 | 2 | `Get_Starmap_Data, create` | `app/client/radar_system_data_cache.h:35` | co_data.h's |
-| 2 | `Avatar` | `app/client/radar_system_data_cache.h:40` | what it holds |
-| 2 | `AvatarPosition` | `app/client/radar_system_data_cache.h:41` | what it holds |
-| 2 | `AvatarRadius` | `app/client/radar_system_data_cache.h:42` | what it holds |
-| 2 | `Is_Avatar` | `app/client/radar_system_data_cache.h:43` | what it holds |
-| 2 | `Radar` | `app/client/radar_system_data_cache.h:44` | what it holds |
-| 2 | `Object` | `app/client/radar_system_data_cache.h:45` | what it holds |
+| 2 | `Get_Navigation_Data` | `app/client/radar_system_data_cache.h:36` | co_data.h's |
+| 2 | `Remove_Radar_Data` | `app/client/radar_system_data_cache.h:37` | co_data.h's |
+| 2 | `Remove_Gutter_Data` | `app/client/radar_system_data_cache.h:38` | co_data.h's |
+| 2 | `Remove_Starmap_Data` | `app/client/radar_system_data_cache.h:39` | co_data.h's |
+| 2 | `Remove_Navigation_Data` | `app/client/radar_system_data_cache.h:40` | co_data.h's |
+| 2 | `Get_Is_Targetable` | `app/client/radar_system_data_cache.h:41` | the FAIL_IF's IsTargetable |
+| 2 | `Get_Is_In_Range` | `app/client/radar_system_data_cache.h:42` | what it computes |
+| 2 | `Get_Player_Position` | `app/client/radar_system_data_cache.h:43` | what it returns |
+| 2 | `Get_Player_Radius` | `app/client/radar_system_data_cache.h:44` | what it returns |
+| 2 | `PlayerPosition` | `app/client/radar_system_data_cache.h:47` | what it holds |
+| 2 | `PlayerRadius` | `app/client/radar_system_data_cache.h:48` | what it holds |
+| 2 | `IsPlayer` | `app/client/radar_system_data_cache.h:49` | what it holds |
+| 2 | `ExtraRange` | `app/client/radar_system_data_cache.h:50` | what it does |
+| 2 | `RadarData` | `app/client/radar_system_data_cache.h:52` | what it caches |
+| 2 | `GutterData` | `app/client/radar_system_data_cache.h:53` | what it caches |
+| 2 | `StarmapData` | `app/client/radar_system_data_cache.h:54` | what it caches |
+| 2 | `NavigationData` | `app/client/radar_system_data_cache.h:55` | what it caches |
+| 2 | `IsTargetableValid` | `app/client/radar_system_data_cache.h:57` | what it holds |
+| 2 | `IsInRange` | `app/client/radar_system_data_cache.h:58` | what it holds |
+| 2 | `IsInRangeValid` | `app/client/radar_system_data_cache.h:59` | what it holds |
 | 2 | `Rect3DClass` | `app/client/rect3d.h:26` | rect3d.cpp's class (the file name, Westwood's Class suffix) |
 | 2 | `color, rect` | `app/client/rect3d.h:29` | what it does with them |
 | 2 | `Class_ID` | `app/client/rect3d.h:35` | E&B's class id |
@@ -21008,8 +21022,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIBackGadgetClass` | `app/client/gd_uiback.h:70` | class-from-file (D24) for gd_uiback.cpp |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `gutter_radar.h` | `app/client/gutter_radar.h:15` | header name assumed from the client's gutter_radar.cpp |
-| 3 | `RadarSystemDataCacheClass` | `app/client/gutter_radar.h:28` | class-from-file (D24) for radar_system_data_cache.cpp |
-| 3 | `GutterRadarClass` | `app/client/gutter_radar.h:30` | class-from-file (D24) for gutter_radar.cpp |
+| 3 | `GutterRadarClass` | `app/client/gutter_radar.h:29` | class-from-file (D24) for gutter_radar.cpp |
 | 3 | `HtmlViewClass` | `app/client/html/htmlview.h:54` | htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0 |
 | 3 | `influence.h` | `app/client/influence.h:17` | header name assumed from the client's influence.cpp |
 | 3 | `InfluenceClass` | `app/client/influence.h:24` | class-from-file (D24) for app\client\influence.cpp |

@@ -21678,6 +21678,34 @@
      "0x7BD960"
     ]
    },
+   "radar_system_data_cache": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7BDFC0",
+     "0x7BE080",
+     "0x7BE0D0",
+     "0x7BE120",
+     "0x7BE170",
+     "0x7BE1C0",
+     "0x7BE210",
+     "0x7BE260",
+     "0x7BE2B0",
+     "0x7BE300",
+     "0x7BE350",
+     "0x7BE520",
+     "0x7BE560"
+    ],
+    "merged": [],
+    "name": "client/radar_system_data_cache.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
    "rect3d": {
     "ambiguous": [
      "0x497350"
@@ -34839,7 +34867,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11573,
+  "in_tree_total": 11586,
   "totals": {}
  },
  "binkmovie": {

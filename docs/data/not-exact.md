@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-620 entries in 170 files.
+621 entries in 171 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -192,6 +192,7 @@ edit the comments in the code, not this file.
 | `app/client/postate.cpp:1484` | `Unknown7192A0Class::Unknown_14` | mention | NOT EXACT), type 14 (0xB02A00), type 15 (0xB02A40). Not rebuilt: the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes are declared in postate.h only. |
 | `app/client/radar_system.cpp:86` | `RadarSystemClass::Unknown_7BCA70` | marker | NOT EXACT: register (ours keeps a zero register and this in edi; the client gutter in ebx, starmap in edi, this in ebp) @0x7BCA70 |
 | `app/client/radar_system.cpp:341` | `RadarSystemClass::Unknown_7BD6E0` | marker | NOT EXACT: order (the client loads the view mode into eax before the compare; ours compares the member) @0x7BD6E0 |
+| `app/client/radar_system_data_cache.cpp:157` | `RadarSystemDataCacheClass::Get_Is_In_Range` | marker | NOT EXACT: order (the client's always-in-range path returns on its own, before the distance test; ours shares the tail) @0x7BE3A0 |
 | `app/client/rect3d.cpp:9` | `Rect3DClass::Rect3DClass` | marker | NOT EXACT: 0.79, inline budget: the client calls Switch_To_Multi_Vertex_Color out of line (0x6B7230, its Convert_Color_Clamp inlined) and inlines all four Vertex calls; ours inlines Switch (calling Convert_Color_Clamp) and calls the last UV |
 | `app/client/sbaseview.cpp:405` | `SBaseViewClass::Unknown_69D030` | marker | NOT EXACT: literal (explain.py; 0.87): Rotate_Z's first row multiplies c * x before s * y in the client |
 | `app/client/sbaseview.cpp:1242` | `SBaseViewClass::Unknown_6A0590` | marker | NOT EXACT: frame (0.72): the frame slots (the matrix rows, the cross products' temporaries) and the rotation's row order (the client computes Z, Y, X) |
