@@ -2193,3 +2193,11 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-06 21:45,0x5F8EA0,,app/client/ui_registration.cpp,app,partial,,1,order,"bool leap local, early returns; shape: bl bool form not reproduced",,opus
 2026-11-06 21:45,0x6039E0,,app/client/ui_registration.cpp,app,partial,,1,order,"while with a cached end; order-only: this in ebp, end in edi",,opus
 2026-11-06 21:45,0x603A60,,app/client/ui_registration.cpp,app,partial,,1,order,struct tm copy local; shape: gmtime copy's registers popped before the compare,,opus
+2026-11-06 21:48,0x5EF0B0,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,"init list with RegistrationUnknown578Struct's inline ctor; inline-budget: first string of +0x2CC/+0x328 inline here, out of line in client; +0x328's id vector the reverse",,opus
+2026-11-06 21:48,0x5F0F10,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,members' implicit dtors; inline-budget,,opus
+2026-11-06 21:48,0x5F1A10,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,"functional, map operator[] inline; inline-budget: client calls 0x604280/0x604650/0x6047D0/0x604BA0",,opus
+2026-11-06 21:48,0x5F2280,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,functional; inline-budget,,opus
+2026-11-06 21:48,0x5F3770,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,"functional, generated from pseudocode per case; inline-budget: same frame and first 0x1400 bytes",,opus
+2026-11-06 21:48,0x5F8560,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,"for with it++; inline-budget: client calls begin 0x606960, iterator++ 0x607120",,opus
+2026-11-06 21:48,0x5F8AD0,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,operator[] throughout; inline-budget: client calls 0x606150/0x6047D0/0x6074B0,,opus
+2026-11-06 21:48,0x603820,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,local std::string; inline-budget: _Eos out of line in client,,opus
