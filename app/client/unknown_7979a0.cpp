@@ -5,6 +5,12 @@
 #include "client.h"
 #include "co.h"
 #include "..\common\unknown_navlist.h"
+#include "random.h"
+#include "matrix3d.h"
+#include <math.h>
+
+extern Random4Class Unknown_BDB1C0;	// NAME 1: neutral (D10): the client's 0xBDB1C0 (seed 0x1105, initialiser 0x444240; its home file is unknown)
+Matrix3D Unknown_82ECB0(const Vector3 &dir, const Vector3 &pos);	// 0x82ECB0 (a frame along dir at pos; its file is unknown)  // NAME 1 [dir, pos]: what the placements pass
 
 // 0x7979A0
 CameraController02Class::CameraController02Class(SClient *client) :
@@ -158,10 +164,101 @@ void CameraController02Class::Unknown_0C()
 	}
 }
 
+// NOT EXACT: 0x7981B0 (written from the pseudocode, functional; not matched form by form)
+// 0x7981B0
+void CameraController02Class::Unknown_7981B0()
+{
+	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
+	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
+	Vector3 dir;
+	if (dest == NULL) {
+		dir = tm.Get_X_Vector();
+	} else {
+		dir = dest->Unknown_24() - tm.Get_Translation();
+	}
+	float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+	float back = angle + 3.1415927f;
+	float range = CameraManagerClass::Unknown_79B6B0();
+	Vector3 one(range + range, (float)cos(angle) * range * 1.25f, (float)sin(angle) * range * 1.25f);
+	Vector3 two(range + range, (float)cos(back) * range * 1.25f, (float)sin(back) * range * 1.25f);
+	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+	Vector3 first, second;
+	Matrix3D::Transform_Vector(frame, one, &first);
+	Matrix3D::Transform_Vector(frame, two, &second);
+	const Vector3 &camera = Client->CameraManager->Position;
+	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C;
+	if ((second - camera).Length2() <= (first - camera).Length2()) {
+		module->Position = second;
+	} else {
+		module->Position = first;
+	}
+	module->Unknown14 = true;
+	module->Unknown18 = Client->AvatarID;
+	module->Unknown_04();
+}
+
+// NOT EXACT: 0x798570 (written from the pseudocode, functional; not matched form by form)
+// 0x798570
+void CameraController02Class::Unknown_798570()
+{
+	float range = CameraManagerClass::Unknown_79B6B0();
+	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
+	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
+	float dist = 1000.0f;
+	if (dest) {
+		Vector3 pos = tm.Get_Translation();
+		dist = (dest->Unknown_24() - pos).Length();
+	}
+	float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+	if (Unknown_BDB1C0(0, 1)) {
+		angle += 3.1415927f;
+	}
+	float s = (float)sin(angle);
+	float c = (float)cos(angle);
+	Vector3 offset(dist * 0.75f, c * range, s * range);
+	offset.Y += offset.Y;
+	offset.Z += offset.Z;
+	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
+	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C;
+	Matrix3D::Transform_Vector(frame, offset, &module->Position);
+	module->Unknown14 = true;
+	module->Unknown18 = Client->AvatarID;
+	module->Unknown_04();
+}
+
+// NOT EXACT: 0x7987F0 (written from the pseudocode, functional; not matched form by form)
+// 0x7987F0
+void CameraController02Class::Unknown_7987F0()
+{
+	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
+	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
+	Vector3 dir;
+	if (dest == NULL) {
+		dir = tm.Get_X_Vector();
+	} else {
+		dir = dest->Unknown_24() - tm.Get_Translation();
+	}
+	float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+	if (Unknown_BDB1C0(0, 1)) {
+		angle += 3.1415927f;
+	}
+	float speed = Client->Get_Avatar()->Unknown_2C().Length();
+	float range = CameraManagerClass::Unknown_79B6B0();
+	float s = (float)sin(angle);
+	float c = (float)cos(angle);
+	Vector3 offset(speed * 1000.0f, c * range * 1.25f, s * range * 1.25f);
+	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
+	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C;
+	Matrix3D::Transform_Vector(frame, offset, &module->Position);
+	module->Unknown14 = true;
+	module->Unknown18 = Client->AvatarID;
+	module->Unknown_04();
+}
+
 /*
 ** Reconstruction notes (CM1, 2026-11-07)
 **
 ** The object 0x7979A0-0x798ACF: after camctrl_tractor.cpp's (its <string> initialiser 0x797970), ending with its own at
-** 0x798AB0. No __FILE__ or assert: the name is PROVISIONAL (D137). The slot +0x08 0x797B50 NOT EXACT (CS1); not rebuilt: the
-** helpers 0x7981B0 / 0x798570 / 0x7987F0 (the module's placements by Random4Class and 0x82ECB0).
+** 0x798AB0. No __FILE__ or assert: the name is PROVISIONAL (D137). The slot +0x08 0x797B50 NOT EXACT (CS1); the module's placements
+** 0x7981B0 / 0x798570 / 0x7987F0 (Random4Class 0xBDB1C0 and 0x82ECB0) NOT EXACT from the pseudocode (CS1).
 */

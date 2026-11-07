@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-670 entries in 183 files.
+674 entries in 183 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -463,8 +463,12 @@ edit the comments in the code, not this file.
 | `app/client/unknown_6cce60.cpp:265` | `FontSys::Change_Text` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDBC0) |
 | `app/client/unknown_6cce60.cpp:355` | `FontSys::Unknown_6CE4E0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0) |
 | `app/client/unknown_6cce60.cpp:381` | `FontSys::Unknown_6CE7D0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0) |
-| `app/client/unknown_7979a0.cpp:37` | `CameraController02Class::Unknown_08` | marker | NOT EXACT: 0x797B50 (case 0 tests Flags bit 0 from the bit-1 test's register where the client reloads it (test byte ptr), and the switch's blocks for cases 3 / 4 come in another order) 0x797B50 |
-| `app/client/unknown_7979a0.cpp:165` | `CameraController02Class::Unknown_0C` | mention | NOT EXACT (CS1); not rebuilt: the helpers 0x7981B0 / 0x798570 / 0x7987F0 (the module's placements by Random4Class and 0x82ECB0). |
+| `app/client/unknown_7979a0.cpp:43` | `CameraController02Class::Unknown_08` | marker | NOT EXACT: 0x797B50 (case 0 tests Flags bit 0 from the bit-1 test's register where the client reloads it (test byte ptr), and the switch's blocks for cases 3 / 4 come in another order) 0x797B50 |
+| `app/client/unknown_7979a0.cpp:167` | `CameraController02Class::Unknown_7981B0` | marker | NOT EXACT: 0x7981B0 (written from the pseudocode, functional; not matched form by form) 0x7981B0 |
+| `app/client/unknown_7979a0.cpp:200` | `CameraController02Class::Unknown_798570` | marker | NOT EXACT: 0x798570 (written from the pseudocode, functional; not matched form by form) 0x798570 |
+| `app/client/unknown_7979a0.cpp:229` | `CameraController02Class::Unknown_7987F0` | marker | NOT EXACT: 0x7987F0 (written from the pseudocode, functional; not matched form by form) 0x7987F0 |
+| `app/client/unknown_7979a0.cpp:262` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT (CS1); the module's placements |
+| `app/client/unknown_7979a0.cpp:263` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT from the pseudocode (CS1). |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |

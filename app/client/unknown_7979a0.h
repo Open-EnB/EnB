@@ -4,6 +4,7 @@
 #define UNKNOWN_7979A0_H
 
 #include "camctrl.h"
+#include "vector3.h"
 #include "cammod.h"
 
 // The camera module this controller drives (constructor 0x79C8E0, 0x1C bytes, vtable 0xB05594: the object after
@@ -13,7 +14,9 @@ class CameraModule79C8E0Class : public CameraModuleClass	// NAME 1: neutral (D10
 public:
 	CameraModule79C8E0Class(SClient *client);			// 0x79C8E0
 	virtual void Unknown_08(Vector3 *des_pos, Quaternion *des_quat);	// +0x08
-	char Unknown08[0x1C - 0x08];						// +0x08: not rebuilt
+	Vector3 Position;									// +0x08 (the controller's placements set it; the constructor 0)  // NAME 1: what 0x798570 stores
+	bool Unknown14;										// +0x14 (the constructor true)
+	int Unknown18;										// +0x18 (the placements: the avatar's id)
 };
 
 // The camera manager's third controller (state 2; vtable 0xB05268, 0x1C bytes)
@@ -25,9 +28,9 @@ public:
 	virtual void Unknown_04();							// +0x04 0x797B10
 	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x797B50 (the warp's phases 0-4 by the client clock and the warp path)
 	virtual void Unknown_0C();							// +0x0C 0x798130 (stops the phase's module)
-	void Unknown_7981B0();								// 0x7981B0 (not rebuilt)
-	void Unknown_798570();								// 0x798570 (phase 3's module placement; not rebuilt)
-	void Unknown_7987F0();								// 0x7987F0 (phase 4's module placement; not rebuilt)
+	void Unknown_7981B0();								// 0x7981B0 (phase 0's module placement, from the start)
+	void Unknown_798570();								// 0x798570 (phase 3's module placement)
+	void Unknown_7987F0();								// 0x7987F0 (phase 4's module placement)
 
 	CameraModuleClass *Unknown0C;						// +0x0C (0x79C8E0's module)
 	int Unknown10;										// +0x10 (the phase, 0-4; 2 uses the manager's chase module)
