@@ -3234,7 +3234,12 @@
      "0x830DA0",
      "0x830EB0",
      "0x830ED0",
-     "0x830EF0"
+     "0x830EF0",
+     "0x830F60",
+     "0x830F90",
+     "0x830FD0",
+     "0x831060",
+     "0x8310D0"
     ],
     "merged": [],
     "name": "common/circbuff.cpp",
@@ -13780,6 +13785,28 @@
     "short_known": [
      "0x4BCD10"
     ]
+   },
+   "money": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4F04C0",
+     "0x4F0500",
+     "0x4F0540",
+     "0x4F0580",
+     "0x4F05C0",
+     "0x4F0600",
+     "0x4F0640",
+     "0x4F0680",
+     "0x4F06C0",
+     "0x4F0700",
+     "0x4F0740"
+    ],
+    "merged": [],
+    "name": "shared/money.cpp"
    },
    "mouse_targeting": {
     "ambiguous": [
@@ -37739,7 +37766,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12399,
+  "in_tree_total": 12415,
   "totals": {}
  },
  "binkmovie": {

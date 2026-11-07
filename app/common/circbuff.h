@@ -3,7 +3,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\common\circbuff.h (name assumed from circbuff.cpp)
 **
-**	A ring buffer of bytes (circbuff.cpp 0x830BF0-0x830F30): the stream connection's 100,000-byte
+**	A ring buffer of bytes (circbuff.cpp 0x830BF0-0x831277): the stream connection's 100,000-byte
 **	receive buffer (connect.cpp). Members from the asserts (BytesUsed, BufferSize) and the
 **	constructor 0x830BF0's order; 0x18 bytes.
 */
@@ -28,6 +28,11 @@ public:
 	int Get_Free() const;						// 0x830EB0: BufferSize - BytesUsed  // NAME 2: what it returns
 	int Get_Used() const;						// 0x830ED0: BytesUsed  // NAME 2: what it returns
 	bool Unread(int len);						// 0x830EF0: the last len bytes read are back in front  // NAME 2: what it does
+	int Get_Contiguous_Used() const;			// 0x830F60: the used bytes from ReadPtr before the wrap (no caller)  // NAME 2: what it returns
+	int Get_Contiguous_Free() const;			// 0x830F90: the free bytes from WritePtr before the wrap (no caller)  // NAME 2: what it returns
+	char *Peek(int offset, int *len);			// 0x830FD0: the byte offset bytes past ReadPtr and the contiguous run there (no caller)  // NAME 2: what it does
+	bool Is_Valid() const;						// 0x831060: the pointers agree with BytesUsed (no caller)  // NAME 2: what it checks
+	void Dump(const char *title, int row);		// 0x8310D0: the state and contents to the console at row (no caller)  // NAME 2: what it does						// 0x830EF0: the last len bytes read are back in front  // NAME 2: what it does
 
 	char *Buffer;					// +0x00  // NAME 2: what it holds
 	int BufferSize;					// +0x04

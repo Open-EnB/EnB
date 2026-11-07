@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 170 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1596 |
-| 2 | describes what the code does | 3679 |
-| 1 | neutral placeholder | 18427 |
+| 2 | describes what the code does | 3684 |
+| 1 | neutral placeholder | 18434 |
 
 ## For review (score 3 and below)
 
@@ -17271,6 +17271,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4BD3F0` | `app/shared/message_server.cpp:121` | untagged neutral name (D10) |
 | 1 | `Unknown_4BE2C0` | `app/shared/message_server.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown_4BD470` | `app/shared/message_server.cpp:150` | untagged neutral name (D10) |
+| 1 | `money` | `app/shared/money.cpp:8` | neutral |
+| 1 | `Unknown00` | `app/shared/money.cpp:10` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/shared/money.cpp:14` | neutral |
+| 1 | `a, b` | `app/shared/money.cpp:20` | neutral |
+| 1 | `money, scale` | `app/shared/money.cpp:26` | neutral |
+| 1 | `scale, money` | `app/shared/money.cpp:32` | neutral |
+| 1 | `Unknown_4F0640` | `app/shared/money.cpp:78` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/shared/money.h:29` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/money.h:36` | neutral placeholder (D10) |
 | 1 | `Unknown_4F00C0` | `app/shared/money.h:36` | untagged neutral name (D10) |
@@ -20307,10 +20314,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Free` | `app/common/circbuff.h:28` | what it returns |
 | 2 | `Get_Used` | `app/common/circbuff.h:29` | what it returns |
 | 2 | `Unread` | `app/common/circbuff.h:30` | what it does |
-| 2 | `Buffer` | `app/common/circbuff.h:32` | what it holds |
-| 2 | `ReadPtr` | `app/common/circbuff.h:35` | what it holds |
-| 2 | `WritePtr` | `app/common/circbuff.h:36` | what it holds |
-| 2 | `IsExternal` | `app/common/circbuff.h:37` | what it means |
+| 2 | `Get_Contiguous_Used` | `app/common/circbuff.h:31` | what it returns |
+| 2 | `Get_Contiguous_Free` | `app/common/circbuff.h:32` | what it returns |
+| 2 | `Peek` | `app/common/circbuff.h:33` | what it does |
+| 2 | `Is_Valid` | `app/common/circbuff.h:34` | what it checks |
+| 2 | `Dump` | `app/common/circbuff.h:35` | what it does						// 0x830EF0: the last len bytes read are back in front  // NAME 2: what it does |
+| 2 | `Buffer` | `app/common/circbuff.h:37` | what it holds |
+| 2 | `ReadPtr` | `app/common/circbuff.h:40` | what it holds |
+| 2 | `WritePtr` | `app/common/circbuff.h:41` | what it holds |
+| 2 | `IsExternal` | `app/common/circbuff.h:42` | what it means |
 | 2 | `Host_Name` | `app/common/connect.cpp:37` | what it holds |
 | 2 | `Local_Address` | `app/common/connect.cpp:38` | what it holds |
 | 2 | `Local_IP` | `app/common/connect.cpp:39` | what it holds |

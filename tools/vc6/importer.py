@@ -3709,6 +3709,8 @@ RECONSTRUCTED = {
                                           "Pos, OwnsBuffer (linearbu.cpp's asserts and code)",
     ('app', 'shared/auxdata/linearbu.cpp'): "LinearBufferClass, client 0x4AAB60-0x4AB536: 21 functions, asserts on "
                                             "the client's lines 22-310 (D25)",
+    ('app', 'shared/money.cpp'): "money.cpp (the client's __FILE__ from 0x4F0220's asserts): so far the free operators "
+                                 "0x4F04C0-0x4F0740 (negate, + / -, * by a float both ways, the six comparisons), all exact",
     ('app', 'shared/money.h'): "MoneyClass (D24), only what delta_money.cpp uses: 8 bytes, 8-aligned; "
                                "operator!= (DeltaTemplateClass<MoneyClass>::Set_Value)",
     ('app', 'shared/auxdata/delta_time.cpp'): "the time field's Read 0x4A81D0 and Write 0x4A8270 "
@@ -4215,8 +4217,9 @@ RECONSTRUCTED = {
     ('app', 'common/galaxy_map.cpp'): "galaxy_map.cpp (the client's __FILE__ 0xBA97D4), client 0x835DD0-0x8390C0, every function exact: the data classes' Create / constructor / Set / Read / Write, the system's 0x837C70-0x838320, the sector's 0x8383B0-0x8388E0, the gate's 0x838970-0x838BD0, the starbase's 0x838C20-0x8390C0 (GM1); the map's constructor 0x835DD0, destructor 0x836240, Write / Read 0x836590 / 0x8365C0, Clear 0x836740, Add_Data 0x836960, Remove_Data 0x836B70 (GM1, run 2026-11-01); Add_System / Add_Sector / Add_Gate / Add_Starbase 0x836F30 / 0x837190 / 0x8373F0 / 0x837650, the lookups 0x8378B0 / 0x837970 / 0x837A50 / 0x837B30 (TK16, claims #121 / #127), the base's Read / Write 0x837C10 / 0x837C40 and the system's factory 0x837C70 (TK12, claim #112); the four map iterators' constructors and First 0x839140-0x839AC0 (GM2; their Next NOT EXACT)",
     ('app', 'common/circbuff.h'): "CircBuffClass (descriptive, D24; members from the asserts): the ring buffer of bytes, "
                                   "the client's layout (0x18 bytes)",
-    ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x830F30 (the stream connection's 100,000-byte receive "
-                                    "buffer): all 7 functions exact, the asserts on the client's lines 112 / 166 (D25)",
+    ('app', 'common/circbuff.cpp'): "the ring buffer, client 0x830BF0-0x831277 (the stream connection's 100,000-byte receive "
+                                    "buffer): all 12 functions exact (0x830F60-0x8310D0 with no caller), the asserts on the "
+                                    "client's lines 112 / 166 (D25)",
     ('app', 'common/chartemplate.cpp'): "chartemplate.cpp (the client's __FILE__), whole: the CharTemplateEnum converters and the nine templates of "
                                         "'chartemplate.ini', client 0x82F210-0x8303B0, all exact; asserts on the client's lines 85 / 86 / 92 / 132 / "
                                         "136 / 153 / 171 / 172 (D25). No caller in the client but 0x82F350 / 0x82F3C0's",
