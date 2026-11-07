@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1520 |
 | 2 | describes what the code does | 3376 |
-| 1 | neutral placeholder | 16734 |
+| 1 | neutral placeholder | 16733 |
 
 ## For review (score 3 and below)
 
@@ -6673,7 +6673,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_20` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_744FE0` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown6A5520Value` | `app/client/skill_render.cpp:17` | neutral (D10): returned through a hidden pointer, added with an operator (0x6A6550) |

@@ -161,7 +161,7 @@ void GutterRadarClass::Clear_Mouse_Target()
 }
 
 // @0x7B71D0
-// NOT EXACT: FPU order (the client keeps 1/z on the stack past the size's last use, fmul st(1) and a later fstp st(0); ours fmulp), and Fabs's store one instruction earlier in the two edge branches
+// NOT EXACT: FPU order (the client keeps 1/z on the stack past the size's last use, fmul st(1) and a later fstp st(0); ours fmulp)
 bool GutterRadarClass::Project(const Vector3 &pos, float radius)
 {
 	bool on_screen = false;
@@ -187,14 +187,16 @@ bool GutterRadarClass::Project(const Vector3 &pos, float radius)
 		on_screen = true;
 	} else {
 		if (abs_x > abs_y) {
-			double edge = z * -0.490625f * width; Position.Y = (edge * view.Y / WWMath::Fabs(view.X)) * inv_z * y_scale;
+			Position.Y = ((float)(z * -0.490625f * width) * view.Y / WWMath::Fabs(view.X)) * inv_z * y_scale;
+			float edge_x;
 			if (view.X > 0.0f) {
-				Position.X = 0.490625f;
+				edge_x = 0.490625f;
 			} else {
-				Position.X = -0.490625f;
+				edge_x = -0.490625f;
 			}
+			Position.X = edge_x;
 		} else {
-			double edge = -(z * 0.4875f) * height; Position.X = (float)(-((edge * view.X / WWMath::Fabs(view.Y)) * inv_z)) * x_scale;
+			Position.X = (float)(-(((float)(-(z * 0.4875f) * height) * view.X / WWMath::Fabs(view.Y)) * inv_z)) * x_scale;
 			Position.Y = (view.Y > 0.0f) ? -0.4875f : 0.4875f;
 		}
 		Position.Z = z;

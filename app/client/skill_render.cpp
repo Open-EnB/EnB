@@ -11,8 +11,8 @@
 
 class ClientObjectClass;
 
-// The client as far as this file calls it (sclient.h's holds neither 0x744FE0 nor the time at +0x10BC)
-class Unknown744FE0Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual ClientObjectClass *Unknown_28(); ClientObjectClass *Unknown_744FE0(); char Unknown04[0x10BC - 4]; unsigned int Unknown10BC; };	// NAME 1: neutral (D10)
+#include "sclient.h"	// (0x744FE0; this file's class below keeps the slot +0x28 and the time at +0x10BC, which sclient.h does not hold)
+class Unknown744FE0Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual ClientObjectClass *Unknown_28(); char Unknown04[0x10BC - 4]; unsigned int Unknown10BC; };	// NAME 1: neutral (D10)
 // skill_data.cpp's list (gd_attrb_skills.cpp's Unknown6A7A00Class): its bases sit at +0x50 and +0xB0 (the `add ecx, 0x50` after the arguments)
 struct Unknown6A5520Value { Unknown6A5520Value(); Unknown6A5520Value(__int64 v) : Value(v) {} Unknown6A5520Value operator+(const Unknown6A5520Value &r) const { return(Unknown6A5520Value(Value + r.Value)); } __int64 Value; };	// NAME 1: neutral (D10): returned through a hidden pointer, added with an operator (0x6A6550)
 class Unknown6A5440Class { public: bool Unknown_6A5470(int skill); int Unknown_6A54B0(int skill); Unknown6A5520Value Unknown_6A5520(int skill); Unknown6A5520Value Unknown_6A55B0(int skill); char Unknown00[0x60]; };	// NAME 1: neutral (D10), as gd_attrb_skills.cpp's; NAME 1 [skill]: neutral
@@ -202,7 +202,7 @@ void SkillRenderClass::Unknown_2C(bool force)
 	Unknown744FE0Class *sclient = Unknown_6A7310()->Unknown20;
 
 	FAIL_IF(!sclient) return;
-	ClientObjectClass *a = sclient->Unknown_744FE0();
+	ClientObjectClass *a = ((SClient *)sclient)->Get_Target();
 	if (a) {
 		ClientObjectClass *b = sclient->Unknown_28();
 		if (b) {
