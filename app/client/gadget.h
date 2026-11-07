@@ -109,7 +109,7 @@ public:
 	void Unknown_6608F0();												// 0x6608F0 (the flash's clone to the model's transform)
 	bool Is_Unknown2C_00();												// 0x660940  // NAME 1: neutral (D10)
 	InterfaceClass *Get_Interface() { return(Unknown08); }				// (inline: gadget_list_manager.cpp's 0x661BB0 copies it)  // NAME 1: neutral (D10): what it returns
-	bool Is_Unknown2C_03() { return(Unknown2C_03); } bool Is_Unknown2C_02() { return(Unknown2C_02); }					// (inline: gadget_list_manager.cpp's 0x661AA0)  // NAME 1: neutral (D10)
+	bool Is_Unknown2C_02() { return(Unknown2C_02); }					// (inline: gadget_list_manager.cpp's 0x661AA0)  // NAME 1: neutral (D10)
 	bool Is_Unknown2C_04() { return(Unknown2C_04); }					// (inline: 0x661AA0)  // NAME 1: neutral (D10)
 	bool Is_Unknown2C_06() { return(Unknown2C_06); }					// (inline: tooltip.cpp's 0x6AB5B0 / 0x6AB930, the short delay)  // NAME 1: neutral (D10)
 	bool Is_Unknown2C_07() { return(Unknown2C_07); }					// (inline: tooltip.cpp's 0x6AB5B0, the tooltip changed)  // NAME 1: neutral (D10)
