@@ -1,6 +1,6 @@
 {
  "app": {
-  "ambiguous_total": 113,
+  "ambiguous_total": 114,
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
@@ -5624,7 +5624,9 @@
      "0x42F250",
      "0x45CC10",
      "0x45CC30",
-     "0x47CE60"
+     "0x47CE60",
+     "0x5170C0",
+     "0x5170F0"
     ],
     "short_known": [
      "0x516BB0"
@@ -13466,6 +13468,7 @@
    },
    "nav_list_builder": {
     "ambiguous": [
+     "0x42A900",
      "0x42AAE0",
      "0x42AFF0",
      "0x42B2F0",
@@ -13486,7 +13489,6 @@
      "0x7B7C30",
      "0x7B7C60",
      "0x7B7C80",
-     "0x7B7EF0",
      "0x7B81E0",
      "0x7B8210",
      "0x7B8510",
@@ -13494,8 +13496,6 @@
      "0x7B8BF0",
      "0x7B8E40",
      "0x7B8E90",
-     "0x7B8ED0",
-     "0x7B8F10",
      "0x7B8F50",
      "0x7B91F0",
      "0x7B9240",
@@ -13548,6 +13548,31 @@
     "shared": [
      "0x42F250"
     ]
+   },
+   "observer": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x49E890",
+     "0x49E950",
+     "0x49EA20",
+     "0x49EA60",
+     "0x49EAB0",
+     "0x49EAF0",
+     "0x49EB30",
+     "0x49EB60",
+     "0x49EBB0",
+     "0x49EC90",
+     "0x49ECD0",
+     "0x49ED20",
+     "0x49ED50",
+     "0x49EE30",
+     "0x49EE70",
+     "0x49EEE0"
+    ],
+    "merged": [],
+    "name": "shared/observer.cpp"
    },
    "option": {
     "ambiguous": [
@@ -31782,7 +31807,13 @@
      "0x5B96D0",
      "0x5B96F0",
      "0x5B9790",
+     "0x5B97B0",
+     "0x5BA4D0",
+     "0x5BA500",
      "0x5BAC90"
+    ],
+    "shared_callers": [
+     "0x5BA500"
     ],
     "short_known": [
      "0x5B8B00",
@@ -32699,6 +32730,65 @@
      "0x515750",
      "0x5DBF50",
      "0x5DBF60"
+    ]
+   },
+   "ui_proc": {
+    "ambiguous": [
+     "0x430450",
+     "0x5B9740"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A100",
+     "0x42F250",
+     "0x457FA0",
+     "0x5170C0",
+     "0x5170F0",
+     "0x5B96B0",
+     "0x5B96F0",
+     "0x5B97B0",
+     "0x5BA4D0",
+     "0x5BA500",
+     "0x5DCCE0",
+     "0x5DCD20",
+     "0x5DCEB0",
+     "0x5DCED0",
+     "0x5DCF00",
+     "0x5DD030",
+     "0x5DD2E0",
+     "0x5DD720",
+     "0x5DD770",
+     "0x5DD7E0",
+     "0x5DD830",
+     "0x5DD8A0",
+     "0x5DD910"
+    ],
+    "merged": [],
+    "name": "client/ui_proc.cpp",
+    "shared": [
+     "0x42A100",
+     "0x42F250",
+     "0x457FA0",
+     "0x5170C0",
+     "0x5170F0",
+     "0x5B96B0",
+     "0x5B96F0",
+     "0x5B97B0",
+     "0x5BA4D0",
+     "0x5BA500",
+     "0x5DCEB0"
+    ],
+    "shared_callers": [
+     "0x5BA500"
+    ],
+    "short_known": [
+     "0x5B96B0",
+     "0x5B96F0",
+     "0x5DCEB0"
+    ],
+    "tiebreak": [
+     "0x5BA500"
     ]
    },
    "ui_ptrade": {
@@ -37133,7 +37223,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12278,
+  "in_tree_total": 12304,
   "totals": {}
  },
  "binkmovie": {

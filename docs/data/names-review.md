@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 170 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1577 |
+| 3 | by convention from a client-named file or sibling | 1583 |
 | 2 | describes what the code does | 3686 |
-| 1 | neutral placeholder | 18109 |
+| 1 | neutral placeholder | 18144 |
 
 ## For review (score 3 and below)
 
@@ -12468,34 +12468,61 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D2310` | `app/client/ui_popupmsg.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_7693E0` | `app/client/ui_popupmsg.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/ui_popupmsg.cpp:187` | untagged neutral name (D10) |
+| 1 | `button, arg` | `app/client/ui_proc.cpp:12` | neutral |
+| 1 | `Unknown_42EC60` | `app/client/ui_proc.cpp:12` | untagged neutral name (D10) |
+| 1 | `FastAnim` | `app/client/ui_proc.cpp:14` | after the switch |
+| 1 | `Unknown_5DCCE0` | `app/client/ui_proc.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_49EAB0` | `app/client/ui_proc.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown26` | `app/client/ui_proc.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_5DD030` | `app/client/ui_proc.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_proc.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_proc.cpp:142` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/ui_proc.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/ui_proc.cpp:188` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_proc.cpp:200` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_proc.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9A20` | `app/client/ui_proc.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/ui_proc.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_proc.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9550` | `app/client/ui_proc.cpp:217` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9D80` | `app/client/ui_proc.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9FB0` | `app/client/ui_proc.cpp:233` | untagged neutral name (D10) |
+| 1 | `Unknown_5BA270` | `app/client/ui_proc.cpp:241` | untagged neutral name (D10) |
 | 1 | `ui_proc.h` | `app/client/ui_proc.h:4` | provisional header name for ui_proc.cpp |
-| 1 | `Unknown_04` | `app/client/ui_proc.h:19` | untagged neutral name (D10) |
-| 1 | `Unknown_5DCCE0` | `app/client/ui_proc.h:19` | untagged neutral name (D10) |
-| 1 | `time` | `app/client/ui_proc.h:20` | what 0x5B9410 passes |
-| 1 | `Unknown_08` | `app/client/ui_proc.h:20` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_proc.h:21` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_proc.h:22` | untagged neutral name (D10) |
-| 1 | `event, arg` | `app/client/ui_proc.h:23` | neutral |
-| 1 | `Node` | `app/client/ui_proc.h:25` | what it is |
-| 1 | `Slot` | `app/client/ui_proc.h:27` | neutral |
-| 1 | `Id` | `app/client/ui_proc.h:28` | neutral |
-| 1 | `UIProc5DCD20Class` | `app/client/ui_proc.h:32` | neutral (D10) |
-| 1 | `Unknown20` | `app/client/ui_proc.h:36` | untagged neutral name (D10) |
-| 1 | `UIProc5DCF00Class` | `app/client/ui_proc.h:40` | neutral (D10) |
-| 1 | `UIProc5DD7E0Class` | `app/client/ui_proc.h:48` | neutral (D10) |
-| 1 | `arg` | `app/client/ui_proc.h:51` | neutral |
-| 1 | `UIProc5DD770Class` | `app/client/ui_proc.h:57` | neutral (D10) |
-| 1 | `arg, on` | `app/client/ui_proc.h:60` | neutral |
-| 1 | `Unknown24` | `app/client/ui_proc.h:60` | untagged neutral name (D10) |
-| 1 | `UIProc5DD830Class` | `app/client/ui_proc.h:67` | neutral (D10) |
-| 1 | `name, arg` | `app/client/ui_proc.h:70` | neutral |
-| 1 | `Name` | `app/client/ui_proc.h:73` | neutral |
-| 1 | `UIProc5DD8A0Class` | `app/client/ui_proc.h:78` | neutral (D10) |
-| 1 | `name, on` | `app/client/ui_proc.h:81` | neutral |
-| 1 | `Name` | `app/client/ui_proc.h:84` | neutral |
-| 1 | `UIProc5DD910Class` | `app/client/ui_proc.h:89` | neutral (D10) |
-| 1 | `name` | `app/client/ui_proc.h:92` | neutral |
-| 1 | `Name` | `app/client/ui_proc.h:95` | neutral |
+| 1 | `Unknown_04` | `app/client/ui_proc.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown_5DCCE0` | `app/client/ui_proc.h:22` | untagged neutral name (D10) |
+| 1 | `time` | `app/client/ui_proc.h:23` | what 0x5B9410 passes |
+| 1 | `Unknown_08` | `app/client/ui_proc.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_proc.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_proc.h:25` | untagged neutral name (D10) |
+| 1 | `event, arg` | `app/client/ui_proc.h:26` | neutral |
+| 1 | `Node` | `app/client/ui_proc.h:28` | what it is |
+| 1 | `Slot` | `app/client/ui_proc.h:30` | neutral |
+| 1 | `Id` | `app/client/ui_proc.h:31` | neutral |
+| 1 | `UIProcEventStruct` | `app/client/ui_proc.h:35` | neutral (D10) |
+| 1 | `Proc` | `app/client/ui_proc.h:37` | neutral |
+| 1 | `Event` | `app/client/ui_proc.h:38` | neutral |
+| 1 | `Arg` | `app/client/ui_proc.h:39` | neutral |
+| 1 | `UIProc5DCD20Class` | `app/client/ui_proc.h:44` | neutral (D10) |
+| 1 | `time` | `app/client/ui_proc.h:50` | neutral |
+| 1 | `anim` | `app/client/ui_proc.h:53` | neutral |
+| 1 | `Unknown_5DD030` | `app/client/ui_proc.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown26` | `app/client/ui_proc.h:58` | untagged neutral name (D10) |
+| 1 | `UIProc5DD7E0Class` | `app/client/ui_proc.h:64` | neutral (D10) |
+| 1 | `arg` | `app/client/ui_proc.h:67` | neutral |
+| 1 | `Unknown20` | `app/client/ui_proc.h:67` | untagged neutral name (D10) |
+| 1 | `UIProc5DD770Class` | `app/client/ui_proc.h:73` | neutral (D10) |
+| 1 | `arg, on` | `app/client/ui_proc.h:76` | neutral |
+| 1 | `Unknown24` | `app/client/ui_proc.h:76` | untagged neutral name (D10) |
+| 1 | `UIProc5DD830Class` | `app/client/ui_proc.h:83` | neutral (D10) |
+| 1 | `name, arg` | `app/client/ui_proc.h:86` | neutral |
+| 1 | `Name` | `app/client/ui_proc.h:89` | neutral |
+| 1 | `UIProc5DD8A0Class` | `app/client/ui_proc.h:94` | neutral (D10) |
+| 1 | `name, on` | `app/client/ui_proc.h:97` | neutral |
+| 1 | `Name` | `app/client/ui_proc.h:100` | neutral |
+| 1 | `UIProc5DD910Class` | `app/client/ui_proc.h:105` | neutral (D10) |
+| 1 | `name` | `app/client/ui_proc.h:108` | neutral |
+| 1 | `Name` | `app/client/ui_proc.h:111` | neutral |
 | 1 | `LineDisplayClientClass` | `app/client/ui_ptrade.cpp:27` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_ptrade.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_ptrade.cpp:30` | untagged neutral name (D10) |
@@ -16966,13 +16993,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `app/shared/money.h:29` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/money.h:36` | neutral placeholder (D10) |
 | 1 | `Unknown_4F00C0` | `app/shared/money.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_49EA60` | `app/shared/observer.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/shared/observer.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_49EAB0` | `app/shared/observer.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/observer.cpp:111` | untagged neutral name (D10) |
 | 1 | `observer.h` | `app/shared/observer.h:4` | provisional header name for observer.cpp |
-| 1 | `ObserverClass` | `app/shared/observer.h:9` | the file's |
-| 1 | `SubjectClass` | `app/shared/observer.h:12` | neutral, after the file (D10) |
-| 1 | `size` | `app/shared/observer.h:15` | what the vector's constructor does with it |
-| 1 | `event` | `app/shared/observer.h:17` | neutral |
-| 1 | `Unknown_49EAB0` | `app/shared/observer.h:17` | untagged neutral name (D10) |
-| 1 | `Observers` | `app/shared/observer.h:19` | what it holds |
+| 1 | `ObserverClass` | `app/shared/observer.h:12` | neutral, after the file (D10) |
+| 1 | `subject, event` | `app/shared/observer.h:15` | neutral |
+| 1 | `Unknown_00` | `app/shared/observer.h:15` | untagged neutral name (D10) |
+| 1 | `subject` | `app/shared/observer.h:16` | neutral |
+| 1 | `Unknown_04` | `app/shared/observer.h:16` | untagged neutral name (D10) |
+| 1 | `SubjectClass` | `app/shared/observer.h:20` | neutral, after the file (D10) |
+| 1 | `size` | `app/shared/observer.h:23` | what the vector's constructor does with it |
+| 1 | `Unknown_49EA60` | `app/shared/observer.h:25` | untagged neutral name (D10) |
+| 1 | `event` | `app/shared/observer.h:26` | neutral |
+| 1 | `Unknown_49EAB0` | `app/shared/observer.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/proj_man.cpp:188` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/shared/proj_man.cpp:581` | untagged neutral name (D10) |
 | 1 | `Unknown09` | `app/shared/proj_man.cpp:637` | untagged neutral name (D10) |
@@ -19801,7 +19836,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Axis` | `app/client/ui_mfdm.h:108` | what it holds |
 | 2 | `Position` | `app/client/ui_mfdm.h:109` | what it holds |
 | 2 | `MissionStartTimeGreater` | `app/client/ui_missn.cpp:302` | describes what it does |
-| 2 | `UIMesh` | `app/client/ui_proc.h:26` | the FAIL_IFs' 'uimesh' |
+| 2 | `UIMesh` | `app/client/ui_proc.h:29` | the FAIL_IFs' 'uimesh' |
 | 2 | `FontStringFilesClass` | `app/client/ui_scut.cpp:15` | fontdatabase.h's |
 | 2 | `UIScutBankGadgetClass` | `app/client/ui_scut.cpp:98` | its 'bank_%d' model |
 | 2 | `Group` | `app/client/ui_scut.cpp:107` | what it holds |
@@ -22424,10 +22459,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIPlayerOptClass` | `app/client/ui_playeropt.h:20` | class-from-file (D24) for app\client\ui_playeropt.cpp |
 | 3 | `Selection` | `app/client/ui_playeropt.h:52` | the assert's |
 | 3 | `ui_popupmsg.cpp` | `app/client/ui_popupmsg.cpp:61` | the G_ASSERT's |
-| 3 | `UIProcClass` | `app/client/ui_proc.h:14` | class-from-file (D24) for ui_proc.cpp |
-| 3 | `uimesh` | `app/client/ui_proc.h:17` | the FAIL_IFs' '!uimesh' (0x5DCD20 l.36) |
-| 3 | `uimesh, anim_name` | `app/client/ui_proc.h:35` | the FAIL_IFs'; NAME 1 [loop, a..d]: neutral |
-| 3 | `uimesh, morph_anim` | `app/client/ui_proc.h:43` | the FAIL_IFs'; NAME 1 [loop, a..d]: neutral |
+| 3 | `UIProcClass` | `app/client/ui_proc.h:17` | class-from-file (D24) for ui_proc.cpp |
+| 3 | `uimesh` | `app/client/ui_proc.h:20` | the FAIL_IFs' '!uimesh' (0x5DCD20 l.36) |
+| 3 | `uimesh, anim_name` | `app/client/ui_proc.h:47` | the FAIL_IFs'; NAME 2 [cycle, delete_self, start_frame, end_frame]: the members'; NAME 1 [reverse]: neutral |
+| 3 | `uimesh, morph_anim` | `app/client/ui_proc.h:48` | the FAIL_IFs'; NAME 2 [cycle, delete_self, start_frame, end_frame]: the members'; NAME 1 [reverse]: neutral |
+| 3 | `AnimComboData` | `app/client/ui_proc.h:55` | the FAIL_IFs' '!AnimComboData' |
+| 3 | `Cycle` | `app/client/ui_proc.h:56` | the FAIL_IF's 'Cycle && DeleteSelf' |
+| 3 | `DeleteSelf` | `app/client/ui_proc.h:57` | the FAIL_IF's |
+| 3 | `StartFrame` | `app/client/ui_proc.h:59` | the FAIL_IF's 'StartFrame > EndFrame' |
+| 3 | `EndFrame` | `app/client/ui_proc.h:60` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_ptrade.cpp:32` | ui_manu.cpp's FAIL_IF's |
 | 3 | `AvatarPipClass` | `app/client/ui_ptrade.cpp:46` | class-from-file (D24) for app\client\avatar_pip.cpp |
 | 3 | `ui_registration.h` | `app/client/ui_registration.h:16` | header name assumed from ui_registration.cpp |
@@ -23336,6 +23376,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `LookupTableClass` | `app/shared/lookup_table.h:35` | by convention (D24) from the client's file lookup_table.cpp |
 | 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
 | 3 | `MoneyClass` | `app/shared/money.h:22` | by convention (D24) from the client's file money.cpp (D37) |
+| 3 | `Observers` | `app/shared/observer.h:28` | the assert's 'Observers.Count()' (l.102) |
 | 3 | `ProjectorManagerClass` | `app/shared/proj_man.h:127` | class-from-file (D24) for app\shared\proj_man.cpp |
 | 3 | `ProjSceneClass` | `app/shared/projscen.h:22` | class-from-file (D24) for app\shared\projscen.cpp |
 | 3 | `EndType` | `app/shared/px.h:28` | PxList's dump prints "LOW" / "HIGH" for it |
