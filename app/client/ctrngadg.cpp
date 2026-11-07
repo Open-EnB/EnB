@@ -26,20 +26,20 @@ public:
 	float Unknown74;													// +0x74 (the view's yaw)
 };
 
-// camera_manager.cpp's class, as far as the event slot uses it (the camera's +0x04 object's +0x08 / +0x0C / +0x10)
-class CameraManagerClass	// NAME 3: class-from-file (D24) for camera_manager.cpp
-{
-public:
-	void Unknown_79B370(float yaw);										// 0x79B370  // NAME 1 [yaw]: neutral
-	float Unknown_79B390();												// 0x79B390
-	void Unknown_79B3B0(float zoom);									// 0x79B3B0  // NAME 1 [zoom]: neutral
-	float Unknown_79B3D0();												// 0x79B3D0
-	void Unknown_79B3F0(float pitch);									// 0x79B3F0  // NAME 1 [pitch]: neutral
-	float Unknown_79B410();												// 0x79B410
+#include "camera_manager.h"
 
-	char Unknown00[0x28];
-	bool Unknown28;														// +0x28 (set while the gadget turns the camera)
-};
+
+
+
+
+
+
+
+
+
+
+
+
 
 extern unsigned int Unknown_BE5F34;										// 0xBE5F34 (gadget.cpp's: the event mask)  // NAME 1: neutral (D10)
 
@@ -162,10 +162,10 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 					G_ASSERT(false);
 					return(false);
 			}
-			zoom = ((SClient *)Client)->CameraManager->Unknown_79B3D0() * (float)exp(zoom);
+			zoom = ((SClient *)Client)->CameraManager->Get_Distance() * (float)exp(zoom);
 			if (zoom < 0.5f) zoom = 0.5f;
 			else if (zoom > 10.0f) zoom = 10.0f;
-			((SClient *)Client)->CameraManager->Unknown_79B3B0(zoom);
+			((SClient *)Client)->CameraManager->Set_Distance(zoom);
 			((SClient *)Client)->CameraManager->Unknown28 = true;
 			return(true);
 		}
@@ -178,27 +178,27 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 			} else {
 				y = (y - 0.5f) * speed;
 			}
-			float zoom = ((SClient *)Client)->CameraManager->Unknown_79B3D0() * (float)exp(y);
+			float zoom = ((SClient *)Client)->CameraManager->Get_Distance() * (float)exp(y);
 			if (zoom < 0.5f) zoom = 0.5f;
 			else if (zoom > 10.0f) zoom = 10.0f;
-			((SClient *)Client)->CameraManager->Unknown_79B3B0(zoom);
+			((SClient *)Client)->CameraManager->Set_Distance(zoom);
 			((SClient *)Client)->CameraManager->Unknown28 = true;
 		} else {
 			if (!ctrl) goto release;
 			if (Unknown44) {
-				x = ((SClient *)Client)->CameraManager->Unknown_79B390();
-				y = ((SClient *)Client)->CameraManager->Unknown_79B410();
+				x = ((SClient *)Client)->CameraManager->Get_Heading();
+				y = ((SClient *)Client)->CameraManager->Get_Tilt();
 				Unknown44 = false;
 				CtrnValueHolderClass<unsigned int> holder(Unknown_BE5F34, 1);
 				Unknown_68();
 			} else {
-				x = (0.5f - x) * speed + ((SClient *)Client)->CameraManager->Unknown_79B390();
-				y = (y - 0.5f) * speed + ((SClient *)Client)->CameraManager->Unknown_79B410();
+				x = (0.5f - x) * speed + ((SClient *)Client)->CameraManager->Get_Heading();
+				y = (y - 0.5f) * speed + ((SClient *)Client)->CameraManager->Get_Tilt();
 				if (y < -1.4835299f) y = -1.4835299f;
 				else if (y > 1.4835299f) y = 1.4835299f;
 			}
-			((SClient *)Client)->CameraManager->Unknown_79B370(x);
-			((SClient *)Client)->CameraManager->Unknown_79B3F0(y);
+			((SClient *)Client)->CameraManager->Set_Heading(x);
+			((SClient *)Client)->CameraManager->Set_Tilt(y);
 			((SClient *)Client)->CameraManager->Unknown28 = true;
 		}
 	}
