@@ -96,43 +96,60 @@ def split_corrections(lost, gained, corrections):
     return corrected, rest
 
 
-def main(argv):
-    if len(argv) != 3:
-        sys.exit(__doc__)
-    da, db = load(argv[1]), load(argv[2])
+def compare(da, db, corrections=None):
+    """Every list main prints, from two loaded imports.json copies, as a dict. `lost` is lost_outright's pairs, the
+    moves and the shared holders together; corrections: the accepted list to judge by (default the file's)."""
     ta, tb = pairs(da, 'tiebreak'), pairs(db, 'tiebreak')
     a, b = pairs(da) - ta, pairs(db) - tb          # plain pairs
     # a pair that was plain in A and is a tie-break in B (or the reverse) is neither gained nor lost
     gained_t, lost_t = tb - pairs(da), ta - pairs(db)
-    print('gained', sorted(b - a - (pairs(da))))
-    print('gained tie-break', sorted(gained_t))
     lost = a - pairs(db)
     # D66 (vii): the tie-break pair went with its caller. A caller is a pair of the same file in A that
     # B no longer has (any lost pair of the file: the check cannot see which function calls which)
     lost_files = {(lib, f) for lib, f, _ in lost}
     with_caller = {x for x in lost_t if (x[0], x[1]) in lost_files}
     lost |= lost_t - with_caller
-    corrected, rest = split_corrections(lost, pairs(db) - pairs(da), load_corrections())
+    corrected, rest = split_corrections(lost, pairs(db) - pairs(da),
+                                        load_corrections() if corrections is None else corrections)
     lost = set(rest)
-    for dec in sorted({e['decision'] for e, _ in corrected}):
-        print(f'corrected (accepted: {dec})',
-              sorted((lib, f, a, e['moved_to']) for e, (lib, f, a) in corrected if e['decision'] == dec))
-    print('lost', sorted(lost))
-    print('lost tie-break (counted in lost)', sorted((lost_t - with_caller) & lost))
-    print('lost tie-break with its caller (D66 vii, not a loss)', sorted(with_caller))
     allb = pairs(db)
     holders = {}
     for lib, f, addr in allb:
         holders.setdefault(addr, set()).add((lib, f))
     sa, sb = shared_addresses(da), shared_addresses(db)
-    print('gained shared', sorted(x for x in pairs(db) - pairs(da) if (x[0], x[2]) in sb))
-    print('gained short at a known address (D188; also in gained)', sorted(pairs(db, 'short_known') - pairs(da)))
-    print('lost outright', sorted({x[2] for x in lost if x[2] not in holders}))
     held = [x for x in lost if x[2] in holders]
-    print('lost shared holder (counted in lost, not a move)',
-          sorted((lib, f, sorted(holders[addr]), addr) for lib, f, addr in held if (lib, addr) in sa | sb))
-    print('moves', sorted((lib, f, sorted(holders[addr]), addr)
-                          for lib, f, addr in held if (lib, addr) not in sa | sb))
+    return {
+        'gained': sorted(b - a - (pairs(da))),
+        'gained_tiebreak': sorted(gained_t),
+        'corrected': corrected,
+        'lost': sorted(lost),
+        'lost_tiebreak': sorted((lost_t - with_caller) & lost),
+        'with_caller': sorted(with_caller),
+        'gained_shared': sorted(x for x in pairs(db) - pairs(da) if (x[0], x[2]) in sb),
+        'gained_short': sorted(pairs(db, 'short_known') - pairs(da)),
+        'lost_outright': sorted({x[2] for x in lost if x[2] not in holders}),
+        'shared_holders': sorted((lib, f, sorted(holders[addr]), addr) for lib, f, addr in held if (lib, addr) in sa | sb),
+        'moves': sorted((lib, f, sorted(holders[addr]), addr) for lib, f, addr in held if (lib, addr) not in sa | sb),
+    }
+
+
+def main(argv):
+    if len(argv) != 3:
+        sys.exit(__doc__)
+    r = compare(load(argv[1]), load(argv[2]))
+    print('gained', r['gained'])
+    print('gained tie-break', r['gained_tiebreak'])
+    for dec in sorted({e['decision'] for e, _ in r['corrected']}):
+        print(f'corrected (accepted: {dec})',
+              sorted((lib, f, a, e['moved_to']) for e, (lib, f, a) in r['corrected'] if e['decision'] == dec))
+    print('lost', r['lost'])
+    print('lost tie-break (counted in lost)', r['lost_tiebreak'])
+    print('lost tie-break with its caller (D66 vii, not a loss)', r['with_caller'])
+    print('gained shared', r['gained_shared'])
+    print('gained short at a known address (D188; also in gained)', r['gained_short'])
+    print('lost outright', r['lost_outright'])
+    print('lost shared holder (counted in lost, not a move)', r['shared_holders'])
+    print('moves', r['moves'])
 
 
 if __name__ == '__main__':

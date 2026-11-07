@@ -237,7 +237,7 @@ void UIMFDPIPItemClass::Unknown_10()
 	float dist = (camera.Get_Translation() - pos).Length();
 	float diameter = sphere.Radius + sphere.Radius;
 	float zfar = diameter + dist;
-	if (fabs(Camera->Get_Depth() - zfar) > 0.0001) {
+	if (fabs(Camera->Get_Depth() - zfar) > 0.0001f) {
 		float znear = dist - diameter;
 		Camera->Set_Clip_Planes(WWMath::Max(1.0f, znear), zfar);
 	}
@@ -715,7 +715,7 @@ void Unknown5C3920Class::Unknown_10()
 		Lines[6]->Unknown_6CE420(0, "Heading:%d", heading);
 		Heading = heading;
 	}
-	int pitch = (int)(90.0 - y.Z * 90.0) % 360;
+	int pitch = (int)(180.0 - y.Z * 180.0) % 360;
 	if (x.Z < 0.0f) {
 		pitch = -pitch;
 	}
