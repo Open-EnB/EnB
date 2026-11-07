@@ -142,7 +142,7 @@ void GutterRadarClass::Update(RadarSystemDataCacheClass *entry)
 	Vector3 pos = co->Unknown_24();
 	float radius = co->Unknown_30();
 	bool on_screen = Project(pos, radius);
-	float icon_scale = Get_Icon_Scale(pos, radius); float scale = gdata->Unknown_7B5BF0(Position, Size, on_screen, Scene, icon_scale);
+	float icon_scale = Get_Icon_Scale(pos, radius); float scale = gdata->Update(Position, Size, on_screen, Scene, icon_scale);
 	if (co == Reticle08->Get_Client_Object()) {
 		Reticle08->Update(Position, Size);
 	} else if (co == Reticle0C->Get_Client_Object()) {
@@ -151,7 +151,7 @@ void GutterRadarClass::Update(RadarSystemDataCacheClass *entry)
 	if (MouseTarget) {
 		MouseTarget->Test(gdata, Position, Size, scale);
 	}
-	gdata->Unknown_7B6170(Position, Size);
+	gdata->Update_Indicator(Position, Size);
 }
 
 // @0x7B71B0

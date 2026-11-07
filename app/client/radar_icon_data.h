@@ -23,6 +23,7 @@
 class RefCountClass;
 class RenderObjClass;
 class SceneClass;
+class Vector3;
 
 class RadarIconDataClass : public ClientObjectDataClass  // NAME 3: by convention (D24) from the client's radar_icon_data.cpp
 {
@@ -35,7 +36,8 @@ public:
 	virtual bool Remove_From_Scene();						// +0x10 0x7BC260 (gutter_data.cpp's 0x7B5A60)  // NAME 2: what it does
 	virtual RefCountPtr<RenderObjClass> Get_Render_Obj();	// +0x14 0x7BC2B0 (gutter_data.cpp's 0x7B5AD0): mouse_targeting.cpp's 0x7B7880 intersects it  // NAME 2: what it returns
 
-	RefCountPtr<RenderObjClass> &Get_Icon_RObj() { return(IconRObj); }	// 0x7BC6D0 (the FAIL_IF's name '!Get_Icon_RObj()')
+	RefCountPtr<RenderObjClass> &Get_Icon_RObj();			// 0x7BC6D0 (the FAIL_IF's name '!Get_Icon_RObj()')
+	const Vector3 &Get_Color();								// 0x7BC5E0: the radar data's, through the icon's material  // NAME 2: what it returns
 
 	Vector2 Position;										// +0x08: 0..1 of the screen  // NAME 2: mouse_targeting.cpp's 0x7B7880 compares it with the mouse
 	RefCountPtr<RenderObjClass> IconRObj;					// +0x10 (the FAIL_IF's name)

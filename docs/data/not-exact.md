@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-615 entries in 168 files.
+618 entries in 169 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -150,6 +150,9 @@ edit the comments in the code, not this file.
 | `app/client/gd_text_editor.cpp:221` | `TextEditorGadgetClass::Unknown_2C` | marker | NOT EXACT: only 0x672A60 inlined in this copy of 0x673150; the client calls it @0x672120 |
 | `app/client/gd_text_editor.cpp:560` | `TextEditorGadgetClass::Unknown_6732F0` | marker | NOT EXACT: ebx and ebp swapped (length / line), one fcomp scheduled after the column's copy @0x6732F0 |
 | `app/client/gd_text_editor.cpp:612` | `TextEditorGadgetClass::Unknown_6735A0` | marker | NOT EXACT: registers (the client hoists the load of Client between the test and the branch; x and y in edx and ecx) @0x6735A0 |
+| `app/client/gutter_data.cpp:80` | `GutterDataClass::Update_Name_Label` | marker | NOT EXACT: register (this in esi and spilled, the client ebx, frame 4 bytes less; the shape is the client's) @0x7B50D0 |
+| `app/client/gutter_data.cpp:119` | `GutterDataClass::Update_Guild_Label` | marker | NOT EXACT: tail merge and register (the client keeps the first Set_Color's first stores and jumps to the third; this in esi, ours edi) @0x7B54E0 |
+| `app/client/gutter_data.cpp:401` | `GutterDataClass::Update_Labels` | marker | NOT EXACT: register and slots (ours spills rdata and holds old_horizontal in ebp; the client the reverse) @0x7B63C0 |
 | `app/client/gutter_radar.cpp:164` | `GutterRadarClass::Project` | marker | NOT EXACT: FPU order (the client keeps 1/z on the stack past the size's last use, fmul st(1) and a later fstp st(0); ours fmulp) |
 | `app/client/gutter_radar.cpp:230` | `GutterRadarClass::Get_Icon_Scale` | marker | NOT EXACT: tail merge (the client keeps the first return(1.0f)'s own epilogue; ours jumps to the last one) |
 | `app/client/html/htmlview.cpp:469` | `HtmlViewClass::Parse` | marker | NOT EXACT: 0x7710D0, functional (D64), from the pseudocode: inline budget (the client keeps more template copies out of line), frame 0x27C vs 0x284 |

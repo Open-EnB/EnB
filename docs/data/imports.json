@@ -9595,6 +9595,53 @@
      "0x674F00"
     ]
    },
+   "gutter_data": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080",
+     "0x497300"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42AB30",
+     "0x42CF30",
+     "0x42D050",
+     "0x42F250",
+     "0x447C40",
+     "0x79D130",
+     "0x7B4F30",
+     "0x7B50A0",
+     "0x7B57D0",
+     "0x7B58F0",
+     "0x7B5A60",
+     "0x7B5AD0",
+     "0x7B5B50",
+     "0x7B5BF0",
+     "0x7B5FF0",
+     "0x7B6040",
+     "0x7B6170",
+     "0x7B61F0",
+     "0x7B6A00"
+    ],
+    "merged": [],
+    "name": "client/gutter_data.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42AB30",
+     "0x42CF30",
+     "0x42D050",
+     "0x42F250",
+     "0x447C40",
+     "0x79D130"
+    ],
+    "short_known": [
+     "0x79D130"
+    ]
+   },
    "gutter_radar": {
     "ambiguous": [
      "0x42B2F0",
@@ -34439,6 +34486,7 @@
    "client/unknown_personality.h": "reconstructed",
    "client/unknown_robj_hash.h": "reconstructed",
    "client/unknown_signalbase.h": "reconstructed",
+   "client/user_click_indicator.h": "reconstructed",
    "client/verbmanager.h": "reconstructed",
    "client/wnd_file.h": "reconstructed",
    "common/average.h": "reconstructed",
@@ -34693,7 +34741,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11533,
+  "in_tree_total": 11546,
   "totals": {}
  },
  "binkmovie": {

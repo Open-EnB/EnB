@@ -24,7 +24,7 @@ class RadarDataClass : public ClientObjectDataClass  // NAME 5: the client's typ
 public:
 	RadarDataClass(ClientObjectClass *co);			// 0x7BB1D0 (radar_data.cpp)
 
-	char Unknown08[0x0C - 0x08];		// +0x08: not rebuilt (0x7c bytes: co_data.cpp's new)
+	int Unknown08;						// +0x08 (gutter_data.cpp's 0x7B63C0: 1 and 2 show the labels; 0x7c bytes: co_data.cpp's new)  // NAME 1: neutral (D10)
 	Vector3 Color;						// +0x0C (target_reticle.cpp 0x7C5690 colours the corners with it)  // NAME 2: what it does
 	char Unknown18[0x78 - 0x18];		// +0x18: not rebuilt
 	bool Unknown78;						// +0x78 (0x7C4940 tests it)

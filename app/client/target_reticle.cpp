@@ -297,8 +297,8 @@ void TargetReticleClass::Update(const Vector3 &pos, float size)
 			}
 			Text->Change_Text(text, 0);
 
-			RefCountPtr<FontSys> label = gdata->Unknown1C;
-			RefCountPtr<FontSys> alt_label = gdata->Unknown20;
+			RefCountPtr<FontSys> label = gdata->NameLabel;
+			RefCountPtr<FontSys> alt_label = gdata->GuildLabel;
 			RefCountPtr<FontSys> shown = !alt_label->Unknown300 ? label : alt_label;
 
 			int *to_justify = Text->Info.Justify; int j0 = shown->Info.Justify[0]; int j1 = shown->Info.Justify[1]; to_justify[0] = j0; to_justify[1] = j1;
