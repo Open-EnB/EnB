@@ -50,41 +50,12 @@ BridgeInterfaceClass::~BridgeInterfaceClass()
 
 // camera_manager.cpp is real app code (camera_manager.h; its stand-in left here since CM2).
 
-// ---------------------------------------------------------------- enbscene.cpp's scene (0x75ECF0, 0xF4 bytes; its base 0x494EE0 is claimed): a plain SimpleSceneClass
+// enbscene.cpp's scene (0x75ECF0-0x75F852) is real app code since WE7: its stand-in and the POC light (WE3) left here;
+// the space view is lit by mainview.cpp's four +0x144 lights from OrbitalManager (WE4).
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\dazzle.h"
 #include "..\..\ww3d2\light.h"
 #include "..\..\wwlib\multilist.h"
-class MainViewSceneUnknown98Class;
-class MainViewSceneClass : public SimpleSceneClass
-{
-public:
-	MainViewSceneClass();
-	void Unknown_75F690(const Vector3 &sun, const Vector3 &camera);
-	void Unknown_75F700(const Vector3 &color);
-	virtual void Unknown_68(CameraClass *camera);
-	MainViewSceneUnknown98Class *Unknown98; char Unknown9C[0xA8 - 0x9C];
-	RefMultiListClass<RenderObjClass> UnknownA8;	// +0xA8, +0xC0: enbscene.cpp's lists (0x75F690 / 0x75F700 walk them since WE5): constructed empty
-	RefMultiListClass<RenderObjClass> UnknownC0;
-	char UnknownD8[0xF4 - 0xD8];
-};
-MainViewSceneClass::MainViewSceneClass()
-{
-	STUB_CALLED("POC MainViewSceneClass: a plain SimpleSceneClass");
-	void Poc_Start_Watchdog();
-	Poc_Start_Watchdog();
-	// POC light (WE3), NOT THE CLIENT'S: the space view's lights are mainview.cpp's four +0x144 directional lights,
-	// which Update gives OrbitalManager's colours (0x4F50D0) and sun direction (+0x20) and adds when they are not
-	// black, and the scene's ambient is OrbitalManager's +0x58 (WE5: enbscene.cpp's 0x75F690 / 0x75B8F0 place no
-	// lights, they set the planets' day / night). The POC's OrbitalManager is zero, so lit models drew black (D3D
-	// AMBIENT 0, no light): one white directional light from above stands in until OrbitalManager lands.
-	LightClass *light = new LightClass(LightClass::DIRECTIONAL);
-	light->Set_Diffuse(Vector3(0.9f, 0.9f, 0.9f));
-	light->Set_Ambient(Vector3(0.35f, 0.35f, 0.35f));
-	light->Set_Spot_Direction(Vector3(0.3f, 0.4f, -0.866f));
-	Add_Render_Object(light);
-	light->Release_Ref();
-}
 
 // ---------------------------------------------------------------- enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes): the base's answer
 class MainViewDazzleHandlerClass : public DazzleVisibilityClass
@@ -97,6 +68,8 @@ public:
 MainViewDazzleHandlerClass::MainViewDazzleHandlerClass(SClient *client) : Client(client)
 {
 	STUB_CALLED("POC MainViewDazzleHandlerClass: the base's visibility");
+	void Poc_Start_Watchdog();	// at world entry (the main view's constructor), as the scene stand-in did
+	Poc_Start_Watchdog();
 }
 MainViewDazzleHandlerClass::~MainViewDazzleHandlerClass()
 {

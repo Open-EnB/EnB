@@ -20,13 +20,13 @@
 #include "ui_buff.h"
 bool Unknown_C404F8;			// NAME 1: neutral (D10): the client's 0xC404F8, 0x514480 copies 'Doppler_Enabled' to it (its home file is unknown)
 
-// the +0x10C scene (0x75ECF0, 0xF4 bytes)
-class MainViewSceneClass : public SimpleSceneClass	// NAME 1: neutral (D10)
-{
-public:
-	MainViewSceneClass(); void Unknown_75F690(const Vector3 &sun, const Vector3 &camera); void Unknown_75F700(const Vector3 &color); virtual void Unknown_68(CameraClass *camera);	// 0x75ECF0; 0x75F690 / 0x75F700 / slot +0x68 (its own): Update  // NAME 1 [sun, camera, color]: what Update passes
-	MainViewSceneUnknown98Class *Unknown98; char Unknown9C[0xF4 - 0x9C];	// +0x98 (Update calls its 0x493D00)
-};
+#include "enbscene.h"	// the +0x10C scene (0x75ECF0, 0xF4 bytes)
+
+
+
+
+
+
 
 // enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes)
 class MainViewDazzleHandlerClass : public DazzleVisibilityClass	// NAME 1: neutral (D10)
@@ -1088,8 +1088,8 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 	}
 	if (Orbitals->Unknown4C) {
 		Scene->Add_Render_Object(Unknown144[0].Peek());
-		((MainViewSceneClass *)Scene)->Unknown98->Unknown_493D00(-Orbitals->Unknown20);
-		((MainViewSceneClass *)Scene)->Unknown_68(Camera);
+		((MainViewSceneClass *)Scene)->ProjectorManager->Set_Shadow_Light_Direction(-Orbitals->Unknown20);
+		((MainViewSceneClass *)Scene)->Apply_Projectors(Camera);
 		if (Client->Unknown10F8) {
 			Vector3 dir;
 			Unknown144[0]->Get_Spot_Direction(dir);

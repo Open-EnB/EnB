@@ -6703,19 +6703,73 @@
     ]
    },
    "enbscene": {
-    "ambiguous": [],
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90"
+    ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x45CC10",
+     "0x48CA70",
+     "0x491830",
+     "0x494CC0",
+     "0x495DE0",
+     "0x495E10",
+     "0x495E30",
+     "0x495E50",
+     "0x495E70",
+     "0x495EA0",
+     "0x495EC0",
+     "0x495EF0",
+     "0x495F20",
+     "0x495F40",
+     "0x495F60",
+     "0x75ECF0",
+     "0x75EE70",
+     "0x75EEA0",
+     "0x75EED0",
+     "0x75F180",
+     "0x75F440",
+     "0x75F560",
      "0x75F690",
      "0x75F700",
-     "0x75F750"
+     "0x75F750",
+     "0x7601F0",
+     "0x760290"
     ],
     "merged": [],
     "name": "client/enbscene.cpp",
     "shared": [
-     "0x42F250"
+     "0x42F250",
+     "0x45CC10",
+     "0x48CA70",
+     "0x491830",
+     "0x494CC0",
+     "0x495DE0",
+     "0x495E10",
+     "0x495E30",
+     "0x495E50",
+     "0x495E70",
+     "0x495EA0",
+     "0x495EC0",
+     "0x495EF0",
+     "0x495F20",
+     "0x495F40",
+     "0x495F60"
+    ],
+    "short_known": [
+     "0x495E10",
+     "0x495E30",
+     "0x495E50",
+     "0x495EA0",
+     "0x495F20",
+     "0x495F40",
+     "0x495F60"
+    ],
+    "tiebreak": [
+     "0x760290"
     ]
    },
    "encode": {
@@ -13497,6 +13551,8 @@
      "0x444160",
      "0x447C40",
      "0x48E910",
+     "0x491830",
+     "0x494CC0",
      "0x4973B0",
      "0x50B680",
      "0x50B6A0",
@@ -13598,6 +13654,8 @@
      "0x444160",
      "0x447C40",
      "0x48E910",
+     "0x491830",
+     "0x494CC0",
      "0x4973B0",
      "0x50B680",
      "0x50B6A0",
@@ -37790,6 +37848,7 @@
    "client/dynamic_window_vertical.h": "reconstructed",
    "client/eff_o.h": "reconstructed",
    "client/emote_data.h": "reconstructed",
+   "client/enbscene.h": "reconstructed",
    "client/env_map_manager.h": "reconstructed",
    "client/extrap.h": "reconstructed",
    "client/font32bit.h": "reconstructed",
@@ -38205,7 +38264,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12516,
+  "in_tree_total": 12525,
   "totals": {}
  },
  "binkmovie": {
