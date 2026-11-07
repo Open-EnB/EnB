@@ -161,19 +161,21 @@ OrbitalObject *OrbitalObject::Create(INIClass &ini, const char *section, ClientC
 }
 
 
-// NOT EXACT: the rotations' trig order and the temporaries' stack slots differ (similarity 0.41)
+// NOT EXACT: the first rotation's sin / cos order and the temporaries' stack slots differ (similarity 0.53)
 void OrbitalObject::Update(CameraClass *camera, float time)
 {
 	WWPROFILE("OrbitalObject::Update");
 	float orbit = (time * OrbitsPerHour * 2.0f + StartAngle) * WWMATH_PI;
-	Matrix3 rot(true);
+	Matrix3D rot(true);
 	rot.Rotate_Y(RZ * WWMATH_PI);
-	rot.Rotate_Z(RX * WWMATH_PI);
-	rot.Rotate_Y(-orbit);
-	Matrix3::Rotate_Vector(rot, Vector3(0, 0, -1), &Direction);
-	Vector3 pos = camera->Get_Transform().Get_Translation() + Distance * Direction;
+	float a = RX * WWMATH_PI;
+	rot.Rotate_Z(sinf(a), cosf(a));
+	rot.Rotate_Y(sinf(-orbit), cosf(-orbit));
+	Matrix3D::Rotate_Vector(rot, Vector3(0, 0, -1), &Direction);
+	Vector3 pos = Distance * Direction + camera->Get_Transform().Get_Translation();
 	Vector3 x = -Direction;
-	Vector3 z = rot.Get_X_Vector();
+	Vector3 z;
+	rot.Get_X_Vector(&z);
 	Vector3 y;
 	Vector3::Cross_Product(z, x, &y);
 	Matrix3D tm;
@@ -206,8 +208,6 @@ OrbitalManager::OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *ca
 		sampler.Sample(&Unknown150[i].X);
 	}
 }
-
-
 
 
 
@@ -511,10 +511,11 @@ void OrbitalManager::Unknown_4F3EF0()
 }
 
 
-// NOT EXACT: from the pseudocode (similarity 0.54)
+// NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57)
 void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 {
 	WWPROFILE("OrbitalManager::Update");
+	Vector3 light;
 	std::vector<OrbitalObject *>::iterator it;
 	for (it = Orbitals.begin(); it != Orbitals.end(); it++) {
 		(*it)->Update(camera, time);
@@ -587,7 +588,6 @@ void OrbitalManager::Update(CameraClass *camera, float time, bool planet)
 				sky.Y *= orb->SkyValue.Y;
 				sky.Z *= orb->SkyValue.Z;
 				Unknown34 += orb->Unknown68 * sky * orb->Unknown6C;
-				Vector3 light;
 				LightColor[0]->Evaluate(orb->Time, &light.X);
 				LightColor[1]->Evaluate(orb->Time, &light.Y);
 				LightColor[2]->Evaluate(orb->Time, &light.Z);
