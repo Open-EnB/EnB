@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1597 |
 | 2 | describes what the code does | 3721 |
-| 1 | neutral placeholder | 18628 |
+| 1 | neutral placeholder | 18631 |
 
 ## For review (score 3 and below)
 
@@ -1654,15 +1654,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_1C` | `app/client/client_lego_impl.h:70` | neutral (D10) |
 | 1 | `Unknown_3C` | `app/client/client_lego_impl.h:78` | neutral (D10) |
 | 1 | `LegoOrphanDataClass` | `app/client/client_lego_impl.h:90` | neutral (D10), the client's 'child_orphan_data' local |
-| 1 | `LegoSplitStruct` | `app/client/client_lego_impl.h:98` | neutral (D10), the client's 'split' locals |
-| 1 | `State` | `app/client/client_lego_impl.h:103` | neutral (D10) |
-| 1 | `Base` | `app/client/client_lego_impl.h:104` | neutral (D10) |
-| 1 | `LegoParentClass` | `app/client/client_lego_impl.h:110` | neutral (D10), the client's 'Parent' member |
-| 1 | `LegoChildStruct` | `app/client/client_lego_impl.h:117` | neutral (D10): a child lego and the knob it hangs on |
-| 1 | `unknown` | `app/client/client_lego_impl.h:128` | neutral (D10) |
-| 1 | `Unknown50` | `app/client/client_lego_impl.h:165` | neutral (D10) |
-| 1 | `Unknown64` | `app/client/client_lego_impl.h:170` | neutral (D10) |
-| 1 | `Unknown65` | `app/client/client_lego_impl.h:171` | neutral (D10) |
+| 1 | `LegoParentClass` | `app/client/client_lego_impl.h:99` | neutral (D10), the client's 'Parent' member |
+| 1 | `LegoChildStruct` | `app/client/client_lego_impl.h:106` | neutral (D10): a child lego and the knob it hangs on |
+| 1 | `unknown` | `app/client/client_lego_impl.h:117` | neutral (D10) |
+| 1 | `Unknown50` | `app/client/client_lego_impl.h:154` | neutral (D10) |
+| 1 | `Unknown64` | `app/client/client_lego_impl.h:159` | neutral (D10) |
+| 1 | `Unknown65` | `app/client/client_lego_impl.h:160` | neutral (D10) |
 | 1 | `client_object_events.h` | `app/client/client_object_events.h:3` | neutral header name (D10) |
 | 1 | `Value` | `app/client/client_object_events.h:29` | neutral |
 | 1 | `Unknown_4F7EF0` | `app/client/co.cpp:31` | untagged neutral name (D10) |
@@ -15486,6 +15483,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Current` | `app/common/galaxy_map.h:354` | the entry at It, NULL at the end |
 | 1 | `Unknown_4A1590` | `app/common/lego_identifier.cpp:25` | neutral placeholder (D10) |
 | 1 | `Unknown_4FC2F0` | `app/common/lego_identifier.cpp:26` | neutral placeholder (D10) |
+| 1 | `LegoSplitStruct` | `app/common/lego_identifier.h:53` | neutral (D10), the client's 'split' locals |
+| 1 | `State` | `app/common/lego_identifier.h:58` | neutral (D10) |
+| 1 | `Base` | `app/common/lego_identifier.h:59` | neutral (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/memconn.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_869790` | `app/common/memconn.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/common/memconn.cpp:184` | untagged neutral name (D10) |
@@ -18334,6 +18334,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown458C10Class` | `programs/clientpoc/poc_world.cpp:328` | untagged neutral name (D10) |
 | 1 | `Unknown_459120` | `programs/clientpoc/poc_world.cpp:337` | untagged neutral name (D10) |
 | 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:339` | untagged neutral name (D10) |
+| 1 | `UnknownB4Class` | `programs/clientpoc/poc_world.cpp:347` | untagged neutral name (D10) |
+| 1 | `Unknown_731FA0` | `programs/clientpoc/poc_world.cpp:347` | untagged neutral name (D10) |
+| 1 | `Unknown_Load_Assets` | `programs/clientpoc/poc_world.cpp:355` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
@@ -18862,24 +18865,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Notify_Parent` | `app/client/client_lego_impl.h:81` | what it does |
 | 2 | `Get_Transform` | `app/client/client_lego_impl.h:82` | what it returns |
 | 2 | `std:` | `app/client/client_lego_impl.h:93` | what it holds |
-| 2 | `std:` | `app/client/client_lego_impl.h:105` | what it holds |
-| 2 | `Rest` | `app/client/client_lego_impl.h:106` | what it holds |
-| 2 | `Child_Moved` | `app/client/client_lego_impl.h:113` | what it does |
-| 2 | `Child_Changed` | `app/client/client_lego_impl.h:114` | what it does |
-| 2 | `Child` | `app/client/client_lego_impl.h:121` | what it holds |
-| 2 | `Knob` | `app/client/client_lego_impl.h:122` | what it holds |
-| 2 | `Init_Bone_Maps` | `app/client/client_lego_impl.h:131` | what it does |
-| 2 | `Shutdown_Bone_Maps` | `app/client/client_lego_impl.h:132` | what it does |
-| 2 | `Get_Bone_Map` | `app/client/client_lego_impl.h:133` | what it returns |
-| 2 | `Create` | `app/client/client_lego_impl.h:134` | what it does |
-| 2 | `Attach` | `app/client/client_lego_impl.h:158` | what it does |
-| 2 | `Detach` | `app/client/client_lego_impl.h:159` | what it does |
-| 2 | `Update_Radius` | `app/client/client_lego_impl.h:160` | what it does |
-| 2 | `Identifier` | `app/client/client_lego_impl.h:164` | what it holds |
-| 2 | `AssetId` | `app/client/client_lego_impl.h:166` | Init's asset_id (the client's assert 'asset_id < 0') |
-| 2 | `Scale` | `app/client/client_lego_impl.h:168` | what Set_Scale sets |
-| 2 | `Radius` | `app/client/client_lego_impl.h:169` | what Update_Radius sets |
-| 2 | `Transform` | `app/client/client_lego_impl.h:173` | what Get_Transform returns |
+| 2 | `Child_Moved` | `app/client/client_lego_impl.h:102` | what it does |
+| 2 | `Child_Changed` | `app/client/client_lego_impl.h:103` | what it does |
+| 2 | `Child` | `app/client/client_lego_impl.h:110` | what it holds |
+| 2 | `Knob` | `app/client/client_lego_impl.h:111` | what it holds |
+| 2 | `Init_Bone_Maps` | `app/client/client_lego_impl.h:120` | what it does |
+| 2 | `Shutdown_Bone_Maps` | `app/client/client_lego_impl.h:121` | what it does |
+| 2 | `Get_Bone_Map` | `app/client/client_lego_impl.h:122` | what it returns |
+| 2 | `Create` | `app/client/client_lego_impl.h:123` | what it does |
+| 2 | `Attach` | `app/client/client_lego_impl.h:147` | what it does |
+| 2 | `Detach` | `app/client/client_lego_impl.h:148` | what it does |
+| 2 | `Update_Radius` | `app/client/client_lego_impl.h:149` | what it does |
+| 2 | `Identifier` | `app/client/client_lego_impl.h:153` | what it holds |
+| 2 | `AssetId` | `app/client/client_lego_impl.h:155` | Init's asset_id (the client's assert 'asset_id < 0') |
+| 2 | `Scale` | `app/client/client_lego_impl.h:157` | what Set_Scale sets |
+| 2 | `Radius` | `app/client/client_lego_impl.h:158` | what Update_Radius sets |
+| 2 | `Transform` | `app/client/client_lego_impl.h:162` | what Get_Transform returns |
 | 2 | `Object` | `app/client/client_object_events.h:18` | what it holds |
 | 2 | `Old` | `app/client/client_object_events.h:19` | what it holds |
 | 2 | `New` | `app/client/client_object_events.h:20` | what it holds |
@@ -20689,6 +20690,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add` | `app/common/lego_identifier.h:44` | what it does |
 | 2 | `std:` | `app/common/lego_identifier.h:45` | what it returns |
 | 2 | `Set_Name` | `app/common/lego_identifier.h:46` | what it does |
+| 2 | `std:` | `app/common/lego_identifier.h:60` | what it holds |
+| 2 | `Rest` | `app/common/lego_identifier.h:61` | what it holds |
 | 2 | `Packet` | `app/common/memconn.h:30` | what it holds |
 | 2 | `Time` | `app/common/memconn.h:31` | what it holds |
 | 2 | `std:` | `app/common/memconn.h:40` | what it holds |
@@ -22430,8 +22433,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Px` | `app/client/client.h:161` | px.cpp's |
 | 3 | `PxProcess` | `app/client/client.h:162` | px_process.cpp's |
 | 3 | `client_lego_impl.h` | `app/client/client_lego_impl.h:21` | header name assumed from the client's client_lego_impl.cpp |
-| 3 | `Is_Invalid` | `app/client/client_lego_impl.h:101` | the client's asserts 'split.Is_Invalid()' |
-| 3 | `ClientLegoImplClass` | `app/client/client_lego_impl.h:125` | by convention (D24) from the client's client_lego_impl.cpp |
+| 3 | `ClientLegoImplClass` | `app/client/client_lego_impl.h:114` | by convention (D24) from the client's client_lego_impl.cpp |
 | 3 | `co.cpp` | `app/client/co.cpp:1732` | the FAIL_IF's name |
 | 3 | `ProjDecalManagerClass` | `app/client/co.cpp:1733` | the FAIL_IF's 'proj_decal_manager' (sclient.cpp declares its other members) |
 | 3 | `co.h` | `app/client/co.h:23` | header name assumed from the client's co.cpp |
@@ -23116,6 +23118,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `MaxDataObjects` | `app/common/galaxy_map.h:298` | Add_Data's FAIL_IF '(int)id >= MaxDataObjects' |
 | 3 | `lego_identifier.h` | `app/common/lego_identifier.h:18` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `LegoIdentifierClass` | `app/common/lego_identifier.h:28` | by convention from the client's lego_identifier.cpp (D24) |
+| 3 | `Is_Invalid` | `app/common/lego_identifier.h:56` | the client's asserts 'split.Is_Invalid()' |
 | 3 | `memconn.h` | `app/common/memconn.h:20` | a .h paired with the client's memconn.cpp (D24) |
 | 3 | `prof.h` | `app/common/prof.h:17` | header name assumed from the client's prof.cpp |
 | 3 | `ProfessionType` | `app/common/prof.h:20` | the client's Type_Name 'ProfessionType' |

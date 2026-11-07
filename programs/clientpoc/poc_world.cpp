@@ -337,3 +337,22 @@ void Unknown458C10Class::Unknown_14(RsTrackClass *owner) {}
 void Unknown458C10Class::Unknown_459120(TextureMapperClass *mapper) {}
 
 char *Unknown_B70E40[] = { "Axial", "Silhouette", "Environment", "Screen", NULL };
+
+// ---------------------------------------------------------------- client_lego_root.cpp (0x731FA0, its class 0xB8 bytes, constructor 0x732030): a plain ClientLegoImplClass
+// POC stand-in (WE6), NOT THE CLIENT'S: the root (table 0xB030A0) is ClientLegoImplClass's table but for its destructor
+// 0x7324C0 and slot +0x1C 0x732650; its constructor also reads the object's 'Legos' aux data (attachments, 0x732880):
+// left out. co.h's UnknownB4Class is that table's view (+0x18 Unknown_18, +0x20 Init, +0x2C, +0x30 Add, +0x34 Remove)
+#include "..\..\app\client\co.h"
+#include "..\..\app\client\client_lego_impl.h"
+RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *object)
+{
+	STUB_CALLED("POC Unknown_731FA0 (the lego root): a ClientLegoImplClass, no aux-data attachments");
+	ClientLegoImplClass *root = new ClientLegoImplClass(LegoIdentifierClass(), 1);
+	return(Create_Get((UnknownB4Class *)(LegoClass *)root));
+}
+// sclient.cpp's Load_INIs 0x740F60 and tsk_smovie.cpp call client_lego_impl.cpp's Init_Bone_Maps 0x729BF0 under a
+// placeholder name (they don't include client_lego_impl.h): POC forwarder (WE6), so the bone maps of cbasset.ini load
+void Unknown_Load_Assets(const std::string &ini)
+{
+	ClientLegoImplClass::Init_Bone_Maps(ini);
+}
