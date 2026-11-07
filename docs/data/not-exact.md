@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-686 entries in 193 files.
+694 entries in 197 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -32,8 +32,12 @@ edit the comments in the code, not this file.
 | `app/client/camctrl_dock.cpp:122` | `CameraController06Class::Unknown_792750` | marker | NOT EXACT: stack slots and register choices differ (same length, 0x760 bytes); functional |
 | `app/client/camctrl_entersector.cpp:61` | `CameraController04Class::Unknown_793740` | marker | NOT EXACT: one operand order (offset.Z *= scale.Z: ours loads scale.Z first); functional |
 | `app/client/camctrl_land.cpp:112` | `CameraController05Class::Unknown_793CE0` | marker | NOT EXACT: written from the client's code and Ghidra's (0x830 bytes; the temporaries' order and slots differ), functional |
+| `app/client/camctrl_pland.cpp:115` | `CameraController07Class::Unknown_794A90` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
 | `app/client/camctrl_rescue.cpp:52` | `CameraController11Class::Unknown_795570` | marker | NOT EXACT: the offset's temporaries and slots differ (the expression right to left, as the client's); functional |
-| `app/client/camctrl_stargate.cpp:39` | `CameraController03Class::Unknown_08` | marker | NOT EXACT: stack slots and one copy of the distance differ; functional |
+| `app/client/camctrl_stargate.cpp:42` | `CameraController03Class::Unknown_08` | marker | NOT EXACT: stack slots and one copy of the distance differ; functional |
+| `app/client/camctrl_stargate.cpp:103` | `CameraController03Class::Unknown_795C80` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
+| `app/client/camctrl_takeoff.cpp:119` | `CameraController09Class::Unknown_08` | marker | NOT EXACT: shape: the same callees, 16 calls in ours and 17 in the client; functional |
+| `app/client/camctrl_takeoff.cpp:210` | `CameraController09Class::Unknown_796920` | marker | NOT EXACT: field-offset: a [reg + N] displacement differs; functional |
 | `app/client/camctrl_tractor.cpp:73` | `CameraController08Class::Unknown_797570` | marker | NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional |
 | `app/client/camctrl_tractor.cpp:116` | `CameraController08Class::Unknown_797770` | marker | NOT EXACT: a few operand loads and slots differ (16 rows); functional |
 | `app/client/camera_manager.cpp:176` | `CameraManagerClass::Unknown_7998B0` | marker | NOT EXACT: 0x7998B0 (Center.X of the shifted box: the client adds the translation before the two zero products, ours after; Y and Z match) 0x7998B0 |
@@ -67,8 +71,8 @@ edit the comments in the code, not this file.
 | `app/client/co.cpp:2326` | `ClientObjectClass::Get_Name` | marker | NOT EXACT: inline-budget (the client calls rtti.h's cast 0x5469C0 at all four lookups and the string assign's helpers; ours inlines them) |
 | `app/client/co.cpp:2608` | `ClientObjectClass::Unknown_6FF7A0` | marker | NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse) |
 | `app/client/co.cpp:2654` | `ClientObjectClass::Unknown_6FF7A0` | mention | NOT EXACT), 0x6FEF70 (l.2284) and 0x6F5F60. The aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in aux_roots.cpp (generated). The asserts sit on the client's lines (D25): the blank stretches hold the members not yet written; members without asserts (0x6FF4B0-0x700400, 0x6FF7A0) sit where room was. The constructor (T17's reading of 0x6F2820, for whoever rebuilds it): Clien... |
-| `app/client/co.h:133` | `Unknown_810750` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
-| `app/client/co.h:269` | `Unknown_810750` | mention | NOT EXACT) |
+| `app/client/co.h:118` | `Unknown_810750` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
+| `app/client/co.h:254` | `Unknown_810750` | mention | NOT EXACT) |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
 | `app/client/co_player_relationship.cpp:149` | `Unknown_70B450` | marker | NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450) |
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |
@@ -474,6 +478,8 @@ edit the comments in the code, not this file.
 | `app/client/unknown_6cce60.cpp:265` | `FontSys::Change_Text` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDBC0) |
 | `app/client/unknown_6cce60.cpp:355` | `FontSys::Unknown_6CE4E0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0) |
 | `app/client/unknown_6cce60.cpp:381` | `FontSys::Unknown_6CE7D0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0) |
+| `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
+| `app/client/unknown_75b7b0.cpp:57` | `Unknown_75BB50` | marker | NOT EXACT: functional (D64), 0.37: ours calls StringClass::operator= where the client inlines it, so the registers differ (WE5) @0x75BB50 |
 | `app/client/unknown_7979a0.cpp:43` | `CameraController02Class::Unknown_08` | marker | NOT EXACT: 0x797B50 (case 0 tests Flags bit 0 from the bit-1 test's register where the client reloads it (test byte ptr), and the switch's blocks for cases 3 / 4 come in another order) 0x797B50 |
 | `app/client/unknown_7979a0.cpp:167` | `CameraController02Class::Unknown_7981B0` | marker | NOT EXACT: 0x7981B0 (written from the pseudocode, functional; not matched form by form) 0x7981B0 |
 | `app/client/unknown_7979a0.cpp:200` | `CameraController02Class::Unknown_798570` | marker | NOT EXACT: 0x798570 (written from the pseudocode, functional; not matched form by form) 0x798570 |
@@ -620,6 +626,8 @@ edit the comments in the code, not this file.
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/message_filter.cpp:60` | `MessageFilterClass::Unknown_4BE2C0` | marker | NOT EXACT: shape (explain.py: 14 masked rows; 0.80): register allocation only: the client keeps pass in bl (with its stack home) after the module test, ours reloads it from the stack; every call and branch is the client's (25 forms tried: helpers, loop and test forms, bool, early returns) |
 | `app/shared/message_server.cpp:51` | `MessageServerProtocolClass::Unknown_4BCD30` | marker | NOT EXACT: shape (explain.py: registers, 2 rows once masked): the two inlined ArrayList destructor calls ('Filters.clear()' and 'remove') form their element's address as offset + vector where ours loads the vector first; everything else is the client's (0.85) |
+| `app/shared/orbitalmanager.cpp:164` | `OrbitalObject::Update` | marker | NOT EXACT: the first rotation's sin / cos order and the temporaries' stack slots differ (similarity 0.53) |
+| `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57) |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
 | `app/shared/projscen.cpp:352` | `ProjSceneClass::Apply_Projectors` | marker | NOT EXACT: register-only residue in the second list's constructor (client lea ecx / lea edx, xor eax; here lea eax / lea ecx); attempts.csv |
 | `app/shared/px.cpp:241` | `PxBox::Set_Corners` | marker | NOT EXACT: inline budget (the client inlines Is_Valid_Float for low.Y and high.Y too; attempts.py show 0x44BC90) |

@@ -1963,6 +1963,18 @@
      "0x49B8C0"
     ]
    },
+   "bridgesounds": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x436AF0",
+     "0x436B60",
+     "0x436BA0"
+    ],
+    "merged": [],
+    "name": "audio/bridgesounds.cpp"
+   },
    "buff_database": {
     "ambiguous": [
      "0x42A6C0",
@@ -6632,6 +6644,22 @@
      "0x48B0D0",
      "0x48F6B0",
      "0x48FE40"
+    ]
+   },
+   "enbscene": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x75F690",
+     "0x75F700",
+     "0x75F750"
+    ],
+    "merged": [],
+    "name": "client/enbscene.cpp",
+    "shared": [
+     "0x42F250"
     ]
    },
    "encode": {
@@ -13909,6 +13937,7 @@
    },
    "nav_list_builder": {
     "ambiguous": [
+     "0x42A900",
      "0x42AAE0",
      "0x42AFF0",
      "0x42B2F0",
@@ -13929,7 +13958,6 @@
      "0x7B7C30",
      "0x7B7C60",
      "0x7B7C80",
-     "0x7B7EF0",
      "0x7B81E0",
      "0x7B8210",
      "0x7B8510",
@@ -13937,8 +13965,6 @@
      "0x7B8BF0",
      "0x7B8E40",
      "0x7B8E90",
-     "0x7B8ED0",
-     "0x7B8F10",
      "0x7B8F50",
      "0x7B91F0",
      "0x7B9240",
@@ -14236,6 +14262,60 @@
     "tiebreak": [
      "0x7FEF50",
      "0x7FEFD0"
+    ]
+   },
+   "orbitalmanager": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x444160",
+     "0x447C40",
+     "0x4481E0",
+     "0x483760",
+     "0x483780",
+     "0x4F28A0",
+     "0x4F2930",
+     "0x4F2960",
+     "0x4F3250",
+     "0x4F3310",
+     "0x4F34C0",
+     "0x4F37C0",
+     "0x4F38E0",
+     "0x4F3EF0",
+     "0x4F4FD0",
+     "0x4F5090",
+     "0x4F50D0",
+     "0x4F5100",
+     "0x4F5140",
+     "0x4F5160",
+     "0x4F51A0",
+     "0x4F51C0",
+     "0x4F5200",
+     "0x4F5240",
+     "0x4F5260",
+     "0x4F5500"
+    ],
+    "merged": [],
+    "name": "shared/orbitalmanager.cpp",
+    "shared": [
+     "0x42F250",
+     "0x444160",
+     "0x447C40",
+     "0x483760",
+     "0x483780",
+     "0x4F5240"
+    ],
+    "short_known": [
+     "0x483760",
+     "0x4F5240"
+    ],
+    "tiebreak": [
+     "0x4F5260",
+     "0x4F5500"
     ]
    },
    "permstr": {
@@ -28018,7 +28098,8 @@
      "0x483720",
      "0x483730",
      "0x483740",
-     "0x483760"
+     "0x483760",
+     "0x483780"
     ],
     "short_known": [
      "0x4627A0",
@@ -35969,6 +36050,21 @@
      "0x42CD30"
     ]
    },
+   "unknown_6bb7e0": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x6BB7E0",
+     "0x6BB8B0"
+    ],
+    "merged": [],
+    "name": "client/unknown_6bb7e0.cpp",
+    "shared": [
+     "0x42F250"
+    ]
+   },
    "unknown_6ca0c0": {
     "ambiguous": [
      "0x42B2F0",
@@ -36015,6 +36111,24 @@
      "0x48E910",
      "0x510CC0",
      "0x6CF410"
+    ]
+   },
+   "unknown_75b7b0": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x48CA70",
+     "0x75B7B0"
+    ],
+    "merged": [],
+    "name": "client/unknown_75b7b0.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x48CA70"
     ]
    },
    "unknown_763e00": {
@@ -36953,7 +37067,8 @@
    },
    "unknown_root": {
     "ambiguous": [
-     "0x42B2F0"
+     "0x42B2F0",
+     "0x46BE90"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -36971,11 +37086,21 @@
      "0x4A3FA0",
      "0x4A3FF0",
      "0x4A4080",
+     "0x4A42D0",
      "0x4A42F0",
      "0x4A4320",
+     "0x4A4350",
+     "0x4A4380",
+     "0x4A4400",
+     "0x4A4420",
+     "0x4A4450",
+     "0x4A4480",
+     "0x4A4500",
      "0x4A4590",
      "0x4A4660",
      "0x4A46F0",
+     "0x4A4720",
+     "0x4A4780",
      "0x4B0860"
     ],
     "merged": [],
@@ -36987,13 +37112,19 @@
      "0x4A3C70",
      "0x4A3C90",
      "0x4A3CB0",
-     "0x4A42F0"
+     "0x4A42D0",
+     "0x4A42F0",
+     "0x4A4400",
+     "0x4A4500"
     ],
     "short_known": [
      "0x4A3C50",
      "0x4A3C70",
      "0x4A3C90",
-     "0x4A3CB0"
+     "0x4A3CB0",
+     "0x4A42D0",
+     "0x4A4400",
+     "0x4A4500"
     ]
    },
    "unknown_screenfade": {
@@ -37353,6 +37484,8 @@
    }
   },
   "headers": {
+   "audio/ambientsoundmanager.h": "reconstructed",
+   "audio/bridgesounds.h": "reconstructed",
    "audio/soundlib.h": "reconstructed",
    "audio/surfacetypes.h": "reconstructed",
    "client/aux_roots.h": "reconstructed",
@@ -37539,6 +37672,7 @@
    "client/unknown_675120.h": "reconstructed",
    "client/unknown_67d430.h": "reconstructed",
    "client/unknown_6ca0c0.h": "reconstructed",
+   "client/unknown_75b7b0.h": "reconstructed",
    "client/unknown_763e00.h": "reconstructed",
    "client/unknown_794510.h": "reconstructed",
    "client/unknown_7979a0.h": "reconstructed",
@@ -37781,6 +37915,7 @@
    "shared/money.h": "reconstructed",
    "shared/observer.h": "reconstructed",
    "shared/observer_impl.h": "reconstructed",
+   "shared/orbitalmanager.h": "reconstructed",
    "shared/proj_man.h": "reconstructed",
    "shared/projscen.h": "reconstructed",
    "shared/px.h": "reconstructed",
@@ -37812,7 +37947,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12422,
+  "in_tree_total": 12460,
   "totals": {}
  },
  "binkmovie": {
