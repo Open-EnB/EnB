@@ -35250,6 +35250,55 @@
      "0x6CF410"
     ]
    },
+   "unknown_7979a0": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x792460",
+     "0x7979A0",
+     "0x797A60",
+     "0x797A90",
+     "0x797B10",
+     "0x798130"
+    ],
+    "merged": [],
+    "name": "client/unknown_7979a0.cpp",
+    "shared": [
+     "0x42F250",
+     "0x792460"
+    ]
+   },
+   "unknown_798ae0": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x792460",
+     "0x798AE0",
+     "0x798B10",
+     "0x798B40",
+     "0x798B60",
+     "0x798BA0",
+     "0x798CD0"
+    ],
+    "merged": [],
+    "name": "client/unknown_798ae0.cpp",
+    "shared": [
+     "0x42F250",
+     "0x792460"
+    ],
+    "short_known": [
+     "0x798B40",
+     "0x798CD0"
+    ]
+   },
    "unknown_847d20": {
     "ambiguous": [
      "0x42A6C0",
@@ -36392,6 +36441,7 @@
    "client/avatar.h": "reconstructed",
    "client/avatar_pip.h": "reconstructed",
    "client/buff_database.h": "reconstructed",
+   "client/camctrl.h": "reconstructed",
    "client/camera_manager.h": "reconstructed",
    "client/cammod.h": "reconstructed",
    "client/cammod_chase.h": "reconstructed",
@@ -36560,6 +36610,8 @@
    "client/unknown_675120.h": "reconstructed",
    "client/unknown_67d430.h": "reconstructed",
    "client/unknown_6ca0c0.h": "reconstructed",
+   "client/unknown_7979a0.h": "reconstructed",
+   "client/unknown_798ae0.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
    "client/unknown_creator.h": "reconstructed",
    "client/unknown_fontsound.h": "reconstructed",
@@ -36828,7 +36880,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12164,
+  "in_tree_total": 12176,
   "totals": {}
  },
  "binkmovie": {

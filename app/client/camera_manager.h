@@ -8,30 +8,17 @@
 #include "vector3.h"
 #include "quat.h"
 #include "cammod_chase.h"
+#include "camctrl.h"
+#include "unknown_798ae0.h"
+#include "unknown_7979a0.h"
 
 class SClient;
 
-// The camera controllers' base (vtable 0xB04B40: its destructor 0x792460, slots +0x04 .. +0x0C pure, +0x10 .. +0x18
-// 0x7923E0 / 0x792410 / 0x792430; its file not rebuilt). The manager holds one per state, STATE_LAST_CONTROLLER of them.
-class CameraControllerClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual ~CameraControllerClass();
-	virtual void Unknown_04() = 0;						// +0x04 (the constructor's, after +0x10(false): the state's start)
-	virtual void Unknown_08() = 0;						// +0x08
-	virtual void Unknown_0C() = 0;						// +0x0C
-	virtual void Unknown_10(bool arg);					// +0x10 0x7923E0 (the constructor passes false)  // NAME 1 [arg]: neutral
-	virtual bool Unknown_14();							// +0x14 0x792410 (0x79B690 asks the current state's)
-	virtual void Unknown_18();							// +0x18 0x792430
-};
-
 // The twelve controllers in the manager's order (their files not rebuilt: the camctrl_*.cpp objects 0x792320-0x798D10;
-// declared as far as the constructor's new needs them: the size and the constructor)
+// declared as far as the constructor's new needs them: the size and the constructor; the first and third are unknown_798ae0.h's and unknown_7979a0.h's)
 #define CAMERA_CONTROLLER(name, size, ctor) \
-	class name : public CameraControllerClass { public: name(SClient *client); void Unknown_04(); void Unknown_08(); void Unknown_0C(); char Unknown04[size - 4]; };
-CAMERA_CONTROLLER(CameraController00Class, 0x14, 0x798AE0)	// NAME 1: neutral (D10): vtable 0xB05318
+	class name : public CameraControllerClass { public: name(SClient *client); void Unknown_04(); void Unknown_08(void *arg1, void *arg2, int *new_state, int arg4); void Unknown_0C(); char Unknown0C[size - 0x0C]; };
 CAMERA_CONTROLLER(CameraController01Class, 0x10, 0x794510)	// NAME 1: neutral (D10)
-CAMERA_CONTROLLER(CameraController02Class, 0x1C, 0x7979A0)	// NAME 1: neutral (D10)
 CAMERA_CONTROLLER(CameraController03Class, 0x1C, 0x795900)	// NAME 1: neutral (D10)
 CAMERA_CONTROLLER(CameraController04Class, 0x14, 0x793520)	// NAME 1: neutral (D10)
 CAMERA_CONTROLLER(CameraController05Class, 0x18, 0x793920)	// NAME 1: neutral (D10)

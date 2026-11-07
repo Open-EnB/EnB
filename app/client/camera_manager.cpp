@@ -74,7 +74,7 @@ CameraManagerClass::CameraManagerClass(SClient *client) :
 	controller = new CameraController10Class(Client); Controllers.push_back(controller);
 	controller = new CameraController11Class(Client); Controllers.push_back(controller);
 	G_ASSERT(Controllers.size() == STATE_LAST_CONTROLLER);
-	Controllers[State]->Unknown_10(false);
+	Controllers[State]->Set_Flag(0);
 	Controllers[State]->Unknown_04();
 }
 
