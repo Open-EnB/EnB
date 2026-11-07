@@ -77,7 +77,10 @@ void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("s
 
 // (the constructor 0x6F2820 and destructor 0x6F2FE0 link from app.lib: clienttest.cpp's TestObjectClass logs
 // the destruction and takes its fakes back first; the slots +0x04-+0x18 are the base's, client.cpp's)
+// client_lego_root.cpp's lego root (app.lib) needs cbasset.ini's bone maps, which clienttest does not load: no root, as
+// before; both of co.cpp's references stand in, so client_lego_root.obj is not pulled from app.lib (no LNK2005)
 RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *) { return(RefCountPtr<UnknownB4Class>(NULL)); }
+void UnknownB4Class::Unknown_732690() {}
 // (co.h's +0x134 AccelClass links from app.lib: accel.cpp)
 // (co.cpp's SUBPARTS 0x6FEF70 gets a sub part's lego from 0x7294D0: app.lib's unknown_7294d0.cpp)
 

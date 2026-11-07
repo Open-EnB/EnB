@@ -130,8 +130,7 @@ std::string LegoIdentifierClass::Get_Root() const
 	return(!BoneNameChain.empty() ? BoneNameChain[0] : EmptyName);
 }
 
-// 0x8444C0: exact since LegoSplitStruct's constructor follows in the file (its assign reads npos from
-// memory, and so do this erase and Add's copy: the file state, WE6)
+// 0x8444C0: exact since LegoSplitStruct's constructor follows in the file (npos from memory: the file state, WE6)
 std::string LegoIdentifierClass::Pop_Root()
 {
 	FAIL_IF(!BoneNameChain.size()) {

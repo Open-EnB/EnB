@@ -38,8 +38,8 @@ class SkillAbilityNamesDatabase { public: static void Unknown_814620(const char 
 void Unknown_74CA90(const char *ini);					// 0x74CA90 (sclient.cpp's attributed run): 'testeffects.ini'
 void Unknown_70A7E0(const std::string &ini);			// 0x70A7E0: 'gutter_color.ini'
 void Unknown_70AD70();									// 0x70AD70
-void Unknown_Load_Assets(const std::string &ini);		// NAME 2 [Unknown_Load_Assets]: 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini' (as tsk_smovie.cpp)
-void Unknown_Free_Assets();								// NAME 2 [Unknown_Free_Assets]: 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp)
+#include "client_lego_impl.h"							// the bone maps of cbasset.ini: Init_Bone_Maps 0x729BF0, Shutdown_Bone_Maps 0x729D60
+
 extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  // NAME 2: what Pump_Messages redraws
 
 // The object at 0xC404D8 is WWAudioClass::_theInstance (WWAudioClass's ctor and dtor set it): the constructor
@@ -398,7 +398,7 @@ void SClient::Load_INIs()
 		SkillAbilityNamesDatabase::Unknown_814620("cskill_ability_t.ini", "cskill_ability_ex_t.ini");
 		Unknown_74CA90("testeffects.ini");
 		Unknown_70A7E0(std::string("gutter_color.ini"));
-		Unknown_Load_Assets(std::string("cbasset.ini"));
+		ClientLegoImplClass::Init_Bone_Maps(std::string("cbasset.ini"));
 	}
 	INIUsers++;
 }
@@ -505,7 +505,7 @@ void SClient::Unload_INIs()
 		SkillNamesDatabase::Unknown_816E60();
 		SkillAbilityNamesDatabase::Unknown_814430();
 		Unknown_70AD70();
-		Unknown_Free_Assets();
+		ClientLegoImplClass::Shutdown_Bone_Maps();
 	}
 }
 

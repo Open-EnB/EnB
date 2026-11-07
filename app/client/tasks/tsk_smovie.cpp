@@ -38,8 +38,8 @@ public:
 	char Unknown1150[0x1178 - 0x1150];						// +0x1150
 };
 
-void Unknown_Load_Assets(const std::string &ini);	// NAME 2 [Unknown_Load_Assets]: 0x729BF0 (client_lego_impl.cpp), 'cbasset.ini'
-void Unknown_Free_Assets();							// NAME 2 [Unknown_Free_Assets]: 0x729D60 (client_lego_impl.cpp)
+#include "..\client_lego_impl.h"					// the bone maps of cbasset.ini: Init_Bone_Maps 0x729BF0, Shutdown_Bone_Maps 0x729D60
+
 bool Unknown_42EA80(KernelEventClass *event);		// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp)
 void Unknown_42E8A0(KernelEventClass *event);		// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp)
 
@@ -125,14 +125,14 @@ bool ScriptedMovieTaskClass::Init(KernelClass *kernel)
 		Clients.push_back(new MovieClientClass(this, kernel));
 		number++;
 	}
-	Unknown_Load_Assets("cbasset.ini");
+	ClientLegoImplClass::Init_Bone_Maps("cbasset.ini");
 	return true;
 }
 
 // 0x76CB60
 bool ScriptedMovieTaskClass::Shutdown()
 {
-	Unknown_Free_Assets();
+	ClientLegoImplClass::Shutdown_Bone_Maps();
 	return true;
 }
 
