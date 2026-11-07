@@ -283,7 +283,7 @@ public:
 	virtual RenderObjClass *Peek_RObj() { return(Line.Peek()); }	// +0x0C 0x7AA400
 
 	RefCountPtr<SegmentedLineClass> Line;					// +0x08  // NAME 3: the FAIL_IF's '!line'
-	RefCountPtr<SegmentedLineClass> &Get_Line() { return(Line); }	// 0x7AD070
+	RefCountPtr<SegmentedLineClass> &Get_Line();			// 0x7AD070 (out of line in the client)
 };
 
 // A gate (table 0xB05974; 0x1C bytes)
@@ -301,7 +301,7 @@ public:
 	float Unknown_7AD5B0(const Vector3 &point);				// 0x7AD5B0: the distance to the line, -1 off it  // NAME 1 [point]: neutral
 	void Unknown_7AD850(const Vector3 &point);				// 0x7AD850 (FAIL_IF '!line', '!to_name', '!from_name')  // NAME 3 [to_name, from_name]: the FAIL_IFs'
 	void Unknown_7ADFC0(const Vector3 &a, const Vector3 &b);	// 0x7ADFC0  // NAME 1 [a, b]: neutral
-	const RefCountPtr<GalaxyMapRenderSectorClass> &Unknown_7AE220() { return(Flipped ? From : To); }	// 0x7AE220
+	const RefCountPtr<GalaxyMapRenderSectorClass> &Unknown_7AE220();	// 0x7AE220 (no caller: a .cpp function)
 
 	RefCountPtr<GalaxyMapGateClass> Data;					// +0x0C  // NAME 2: what it holds
 	RefCountPtr<GalaxyMapRenderSectorClass> From;			// +0x10  // NAME 3: the FAIL_IF's
@@ -366,3 +366,18 @@ public:
 };
 
 #endif // __GALAXY_MAP_RENDER_H
+
+/*
+**	Reconstruction notes
+**
+**	The client names this header (galaxy_map_render.h's __FILE__ 0xB9E9F4: G_ASSERT(false) on line 194,
+**	the item base's Update 0x7A9B80). The classes' names are neutral (D10, D24) except
+**	GalaxyMapRenderClass (class-from-file); the layouts come from the constructors 0x7A6020,
+**	0x7A9B20, 0x7AA1B0, 0x7AA420, 0x7AAF20, 0x7AC870 and the tables 0xB0593C (item base: Delete_This,
+**	the deleting destructor, Release_Item, two pure slots, Needs_Update, Update, Add_To_Scene,
+**	Remove_From_Scene), 0xB0588C (mesh), 0xB058B8 (line), 0xB058E4 (system), 0xB05910 (sector),
+**	0xB05974 (gate). The item base's destructor 0x7A9CC0 stores only RefCountClass's table: implicit.
+**	GalaxyMapRObjClass / GalaxyMapLineRObjClass stand in for galaxy_map_robj.cpp's classes (its
+**	FAIL_IFs at lines 65 and 0x171 name 'from'); the line is held as RefCountPtr<SegmentedLineClass>
+**	(Create_NEW 0x692680 is shared with another object's RefCountPtr<SegmentedLineClass>).
+*/

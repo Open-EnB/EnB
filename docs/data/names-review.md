@@ -3376,9 +3376,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7ABFE0` | `app/client/galaxy_map_render.cpp:1496` | untagged neutral name (D10) |
 | 1 | `Unknown_7AC070` | `app/client/galaxy_map_render.cpp:1501` | untagged neutral name (D10) |
 | 1 | `Unknown_7AD090` | `app/client/galaxy_map_render.cpp:1523` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE7D0` | `app/client/galaxy_map_render.cpp:1536` | untagged neutral name (D10) |
-| 1 | `Unknown_7AC7B0` | `app/client/galaxy_map_render.cpp:1543` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/galaxy_map_render.cpp:1572` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE7D0` | `app/client/galaxy_map_render.cpp:1565` | untagged neutral name (D10) |
+| 1 | `Unknown_7AC7B0` | `app/client/galaxy_map_render.cpp:1572` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/galaxy_map_render.cpp:1601` | untagged neutral name (D10) |
 | 1 | `Unknown_7B3F00` | `app/client/galaxy_map_render.cpp:1690` | untagged neutral name (D10) |
 | 1 | `GalaxyMapRObjClass` | `app/client/galaxy_map_render.h:38` | what it is |
 | 1 | `points` | `app/client/galaxy_map_render.h:45` | what it walks |

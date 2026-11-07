@@ -1527,11 +1527,40 @@ void GalaxyMapRenderSectorClass::Unknown_7AC130(bool visible, bool show_gates, b
 		Matrix3D tm(true);
 		if (angles.empty()) {
 			Vector3 pos = robj->Get_Position();
-			tm.Set_Translation(tm.Get_X_Vector() * 2.0f + pos);
+			tm.Set_Translation(tm.Get_Y_Vector() * 2.0f + pos);
 			Name->Set_Transform(tm);
 			Name->Set_Justify(2, 0);
 		} else {
-			Name->Set_Justify(0, 3);
+			std::sort(angles.begin(), angles.end());
+			float first = angles.back() - (2.0f * WWMATH_PI);
+			float last = angles.front() + (2.0f * WWMATH_PI);
+			angles.insert(angles.begin(), 1, first);
+			angles.push_back(last);
+			float gap = 0.0f;
+			float start = first;
+			float prev = first;
+			for (std::vector<float>::iterator f = angles.begin(); f != angles.end(); ++f) {
+				float d = *f - prev;
+				if (gap < d) { gap = d; start = prev; }
+				prev = *f;
+			}
+			float angle = gap * 0.5 + start;
+			if (angle >= WWMATH_PI) { angle -= (2.0f * WWMATH_PI); }
+			if (angle < -WWMATH_PI) { angle += (2.0f * WWMATH_PI); }
+			angle = WWMath::Clamp(angle, -WWMATH_PI, WWMATH_PI);
+			float dist = 2.0f;
+			Matrix3D rot(true);
+			if (fabs(angle) <= DEG_TO_RADF(90.0f)) {
+				rot.Rotate_Z(angle);
+				Name->Set_Justify(0, 3);
+			} else {
+				dist = -2.0f;
+				rot.Rotate_Z(angle - WWMATH_PI);
+				Name->Set_Justify(0, 4);
+			}
+			Vector3 pos = robj->Get_Position();
+			rot.Set_Translation(rot.Get_X_Vector() * dist + pos);
+			Name->Set_Transform(rot);
 		}
 		Name->Unknown_6CE7D0(0);
 		if (!Name->Peek_Scene()) { Name->Add(robj->Peek_Scene()); }
@@ -1648,35 +1677,6 @@ bool GalaxyMapRenderGateClass::Unknown_7ACBB0(RenderSectorsType &sectors)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void GalaxyMapRenderGateClass::Unknown_7ACEF0(INIClass &ini)
 {
 	const RefCountPtr<GalaxyMapRenderSectorClass> &from = From; const RefCountPtr<GalaxyMapRenderSectorClass> &to = To;
@@ -1691,12 +1691,12 @@ void GalaxyMapRenderGateClass::Unknown_7ACEF0(INIClass &ini)
 	}
 }
 
+RefCountPtr<SegmentedLineClass> &GalaxyMapRenderLineClass::Get_Line()
+{
+	return(Line);
+}
+
 // NOT EXACT: written from the client's code (see attempts.csv)
-
-
-
-
-
 
 
 
@@ -1994,3 +1994,28 @@ void GalaxyMapRenderGateClass::Unknown_7ADFC0(const Vector3 &a, const Vector3 &b
 		From->Unknown_7AC070(Flipped);
 	}
 }
+
+const RefCountPtr<GalaxyMapRenderSectorClass> &GalaxyMapRenderGateClass::Unknown_7AE220()
+{
+	return(Flipped ? From : To);
+}
+
+/*
+**	Reconstruction notes
+**
+**	The object: __FILE__ 0xB9E970 (app\Client\galaxy_map_render.cpp), client 0x7A6020-0x7B2B30. It
+**	starts with the constructor right after galaxy_map_focal_point.cpp's object and ends, after its
+**	<string> initialiser 0x7B2500, with the late template members it needs (hashtable::resize
+**	0x7B2530 / 0x7B2700 / 0x7B28D0 and std::_Construct 0x7B2AA0 / 0x7B2AD0 / 0x7B2B00, called only
+**	from here); galaxy_map_robj.cpp starts at 0x7B2B30 (FAIL_IF '_name_scale < WWMATH_EPSILON',
+**	line 65). The templates at the top are the FAIL_IFs on lines 124 ('!result'), 152
+**	('it == container.end()') and 194 ('!scene') that the members inline.
+**
+**	Forms: iterators constructed in place, not assigned (an assigned one is kept in registers);
+**	the update list's element is a one-member struct, whose implicit destructor _Destroy calls
+**	through ??_G (0x7B18A0); the destructors call Release_Item, which reaches Remove_From_Scene through
+**	the table just stored; New_Item 0x7A9370 / 0x7A93F0 are static (called without a thunk);
+**	0x7ABA70, 0x7A83D0 and 0x7A89A0 write their results through references (ret without eax).
+**	What stays NOT EXACT is listed in docs/data/attempts.csv (inline budgets in the long members,
+**	0x7A8B70 above all, and three order-only residues).
+*/
