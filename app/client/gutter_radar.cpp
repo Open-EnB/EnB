@@ -4,6 +4,7 @@
 #include "gutter_radar.h"
 #include "target_reticle.h"
 #include "gutter_data.h"
+#include "mouse_targeting.h"
 #include "sclient.h"
 #include "client.h"
 #include "co.h"
@@ -17,12 +18,11 @@
 
 float Unknown_831E90(const Vector3 &a, float a_radius, const Vector3 &b, float b_radius);	// 0x831E90 (cdecl): the distance between two spheres  // NAME 1: neutral (D10)
 
-class MouseTargetClass
-{
-public:
-	void Unknown_7B7810(float x, float y, float width, float height, const LayerClass &layer);	// 0x7B7810  // NAME 2 [x, y, width, height, layer]: what it stores
-	void Unknown_7B7880(GutterDataClass *gdata, const Vector3 &pos, float size, float scale);	// 0x7B7880  // NAME 1 [gdata, pos, size, scale]: what 0x7B7040 passes
-};
+
+
+
+
+
 
 class RadarSystemDataCacheClass
 {
@@ -104,7 +104,7 @@ void GutterRadarClass::Set_Targets(ClientObjectClass *first, ClientObjectClass *
 	G_ASSERT(!MouseTarget);
 	MouseTarget = mouse_target;
 	if (MouseTarget) {
-		MouseTarget->Unknown_7B7810(Client->Mouse->Get_X(), Client->Mouse->Get_Y(), 0.01875f, 0.025f,
+		MouseTarget->Set(Client->Mouse->Get_X(), Client->Mouse->Get_Y(), 0.01875f, 0.025f,
 			LayerClass(Client->MainView->Unknown_64(), (CameraClass *)Client->MainView->Unknown_7C()));
 	}
 	Reticle08->Set_Client_Object(first);
@@ -149,7 +149,7 @@ void GutterRadarClass::Update(RadarSystemDataCacheClass *entry)
 		Reticle0C->Update(Position, Size);
 	}
 	if (MouseTarget) {
-		MouseTarget->Unknown_7B7880(gdata, Position, Size, scale);
+		MouseTarget->Test(gdata, Position, Size, scale);
 	}
 	gdata->Unknown_7B6170(Position, Size);
 }

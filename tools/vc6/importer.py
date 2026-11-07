@@ -4747,6 +4747,8 @@ RECONSTRUCTED = {
     ('app', 'client/target_find.h'): "TargetFindClass's declaration (D24 header name from target_find.cpp's __FILE__; table 0xB07008, 0x0C bytes) (TF1)",
     ('app', 'client/target_find.cpp'): "TargetFindClass (D24 class-from-file), the cycling target finder (the client's __FILE__ 0xB9F7D4, FAIL_IFs at lines 181-249; client 0x7C3EC0-0x7C509F) (TF1)",
     ('app', 'client/gutter_radar.h'): "GutterRadarClass's declaration (D24 header name from gutter_radar.cpp's __FILE__; 0x24 bytes, no table) (GR1)",
+    ('app', 'client/mouse_targeting.h'): "MouseTargetClass's declaration (D24 header name from mouse_targeting.cpp's __FILE__; 0x48 bytes, no table) (GR2)",
+    ('app', 'client/mouse_targeting.cpp'): "MouseTargetClass, the object under the mouse (the client's __FILE__ 0xB9EE10, FAIL_IF at line 66; 0x7B77C0-0x7B7B4F, ended by <string>'s initialiser 0x7B7B30) (GR2)",
     ('app', 'client/gutter_radar.cpp'): "GutterRadarClass (D24 class-from-file), the gutter icons and the two reticles (the client's __FILE__ 0xB9EDD4, FAIL_IFs at lines 100-140; 0x7B6BD0-0x7B7790, ended by <string>'s guarded initialiser) (GR1)",
     ('app', 'client/target_reticle.h'): "TargetReticleClass's declaration (D24 header name from target_reticle.cpp's __FILE__; 0x44 bytes, no table) (TR1)",
     ('app', 'client/target_reticle.cpp'): "TargetReticleClass (D24 class-from-file), the reticle round a target (the client's __FILE__ 0xB9F85C, FAIL_IFs at lines 82-281; client 0x7C50B0-0x7C60F0) (TR1)",

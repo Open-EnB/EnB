@@ -12334,6 +12334,27 @@
      "0x4BCD10"
     ]
    },
+   "mouse_targeting": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x4973B0",
+     "0x7B77C0",
+     "0x7B7810",
+     "0x7B7880"
+    ],
+    "merged": [],
+    "name": "client/mouse_targeting.cpp",
+    "shared": [
+     "0x42F250",
+     "0x4973B0"
+    ]
+   },
    "mousetbl": {
     "ambiguous": [],
     "copy": "reconstructed",
@@ -34318,6 +34339,7 @@
    "client/item/client_item_property_special.h": "reconstructed",
    "client/local_interface_sort.h": "reconstructed",
    "client/map_pip.h": "reconstructed",
+   "client/mouse_targeting.h": "reconstructed",
    "client/mousetbl.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
    "client/nlp.h": "reconstructed",
@@ -34671,7 +34693,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11530,
+  "in_tree_total": 11533,
   "totals": {}
  },
  "binkmovie": {

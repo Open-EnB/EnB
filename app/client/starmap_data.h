@@ -23,7 +23,7 @@ class StarmapDataClass : public RadarIconDataClass  // NAME 5: the client's type
 public:
 	StarmapDataClass(ClientObjectClass *co);			// 0x7BE640 (starmap_data.cpp)
 
-	char Unknown08[0x3C - 0x08];		// +0x08: not rebuilt (0x3c bytes: co_data.cpp's new)
+	char Unknown1C[0x3C - 0x1C];		// +0x1C: not rebuilt (0x3c bytes: co_data.cpp's new)
 };
 
 #endif //__STARMAP_DATA_H

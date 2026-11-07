@@ -23,8 +23,7 @@ class SimpleSceneClass;
 class ClientObjectClass;
 class TargetReticleClass;
 
-// mouse_targeting.cpp's object (0x7B77C0): the gutter radar's FAIL_IFs call it MouseTarget
-class MouseTargetClass;		// NAME 2: the G_ASSERT's member name
+class MouseTargetClass;
 // radar_system_data_cache.cpp's per-object entry (0x7BE120 hands out its gutter data)
 class RadarSystemDataCacheClass;	// NAME 3: class-from-file (D24) for radar_system_data_cache.cpp
 

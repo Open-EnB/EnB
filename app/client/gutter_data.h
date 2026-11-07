@@ -31,7 +31,6 @@ public:
 	float Unknown_7B5BF0(const Vector3 &pos, float size, bool on_screen, const RefCountPtr<SimpleSceneClass> &scene, float scale);	// 0x7B5BF0 (gutter_radar.cpp's 0x7B7040)  // NAME 1 [pos, size, on_screen, scene, scale]: what 0x7B7040 passes
 	void Unknown_7B6170(const Vector3 &pos, float size);	// 0x7B6170 (gutter_radar.cpp's 0x7B7040)  // NAME 1 [pos, size]: what 0x7B7040 passes
 
-	char Unknown08[0x1C - 0x08];		// +0x08: not rebuilt (0x2c bytes: co_data.cpp's new)
 	RefCountPtr<FontSys> Unknown1C;		// +0x1C (target_reticle.cpp 0x7C5690: the label it places its text under)  // NAME 1: neutral (D10)
 	RefCountPtr<FontSys> Unknown20;		// +0x20 (target_reticle.cpp 0x7C5690: used instead of +0x1C when its +0x300 is set)  // NAME 1: neutral (D10)
 	char Unknown24[0x2C - 0x24];		// +0x24: not rebuilt
