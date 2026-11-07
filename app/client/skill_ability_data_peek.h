@@ -26,7 +26,7 @@ class SkillAbilityDataPeekClass  // NAME 3: by convention (D24) from the client'
 public:
 	SkillAbilityDataPeekClass(void *owner);							// 0x8139F0
 
-	void Detach();													// 0x813A40  // NAME 2: describes what it does
+	~SkillAbilityDataPeekClass();							// 0x813A40 (0x6A4710's unwind states; it clears, the name stays)
 	void Attach(DeltaCompoundClass *root);					// 0x813A60  // NAME 2: describes what it does
 
 	bool Unknown_813B00();										// the list's Unknown70 > 1  // NAME 1: neutral (D10)

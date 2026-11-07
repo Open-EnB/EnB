@@ -24,16 +24,16 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
 // What the skill base's 0x62D710 returns, as far as this file calls it
-class Unknown6A5440Class  // NAME 1: neutral (D10)
+class SkillDataPeekClass  // NAME 1: neutral (D10)
 {
 public:
 	bool Unknown_6A5440();								// 0x6A5440
 };
-class Unknown6A7A00Class  // NAME 1: neutral (D10)
+class SkillDataClass  // NAME 1: neutral (D10)
 {
 public:
 	char Unknown00[0x50];	int Unknown_6A7990(); void Unknown_6A7860(); int Unknown_6A7A00(unsigned int index);	// +0x00; 0x6A7990 (0x54A200: zero, then 0x6A7860) / 0x6A7860 / 0x6A7A00 (+0x44's element, else -1)  // NAME 1 [index]: neutral
-	Unknown6A5440Class Unknown50;						// +0x50
+	SkillDataPeekClass Unknown50;						// +0x50
 };
 
 // intrlist.cpp's list (InterfaceClass +0x58; intrface.h declares it only under __INTRFACE_MEMBERS), as far as this file calls it
@@ -94,7 +94,7 @@ class Unknown548D60Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown548D60Class(SClient *client);				// 0x5482B0 (Init makes it)  // NAME 1 [client]: as UIBioClass's
-	void Unknown_548D60(Unknown6A7A00Class *list, int skill, int index);	// 0x548D60 (the selected skill)  // NAME 1 [list, skill, index]: neutral
+	void Unknown_548D60(SkillDataClass *list, int skill, int index);	// 0x548D60 (the selected skill)  // NAME 1 [list, skill, index]: neutral
 	char Unknown84[0xDC - 0x84];						// +0x84
 };
 // The panel at +0xC0 (0xB0 bytes, constructor 0x546A80), as far as this file calls it
@@ -228,7 +228,7 @@ void UIAttrbSkillsClass::Unknown_54ACE0()
 	unsigned id = ((ClientClass *)Client)->AvatarID; Unknown77E3F0Class *avatar = Client->As_Space_Client()->Unknown_74C840(id);
 	if (avatar) {
 		int index = Unknown_82F350(avatar->Unknown108, avatar->Unknown10C);
-		Unknown6A7A00Class *list = Unknown_62D710();
+		SkillDataClass *list = Unknown_62D710();
 		int count = list->Unknown_6A7990();
 		for (int i = 0; i < count; i++) {
 			int skill = list->Unknown_6A7A00(i);

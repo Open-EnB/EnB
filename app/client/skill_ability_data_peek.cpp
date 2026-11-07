@@ -20,7 +20,7 @@ SkillAbilityDataPeekClass::SkillAbilityDataPeekClass(void *owner) :
 }
 
 // 0x813A40
-void SkillAbilityDataPeekClass::Detach()
+SkillAbilityDataPeekClass::~SkillAbilityDataPeekClass()
 {
 	Owner = 0;
 	List = 0;

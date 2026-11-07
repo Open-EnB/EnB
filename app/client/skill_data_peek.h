@@ -27,7 +27,7 @@ class SkillDataPeekClass  // NAME 3: by convention (D24) from the client's file 
 public:
 	SkillDataPeekClass(void *owner);							// 0x6A5330
 
-	void Detach();													// 0x6A5380  // NAME 2: describes what it does
+	~SkillDataPeekClass();							// 0x6A5380 (0x6A4710's unwind states; it clears, the name stays)
 	void Attach(DeltaCompoundClass *root);					// 0x6A53A0  // NAME 2: describes what it does
 
 	bool Unknown_6A5440();										// the list's Unknown70 > 1  // NAME 1: neutral (D10)
@@ -36,7 +36,7 @@ public:
 	int Get_Level(int skill);									// 0x6A54B0  // NAME 2: the client's field name (0xB913DC)
 	DurationClass Get_Recycle_Time(int skill);				// 0x6A5520  // NAME 2: the client's field name (0xB913DC)
 	DurationClass Get_Last_Activation(int skill);			// 0x6A55B0  // NAME 2: the client's field name (0xB913DC)
-	const SkillLevelAvailabilityStruct &Get_Availability(int skill);	// 0x6A5640  // NAME 2: the client's field name (0xB913DC)
+	SkillLevelAvailabilityStruct &Get_Availability(int skill);	// 0x6A5640  // NAME 2: the client's field name (0xB913DC)
 	std::string Get_Affiliations(int skill);				// 0x6A5730  // NAME 2: the client's field name (0xB913DC)
 	int Get_Quest_Only_Levels(int skill);					// 0x6A5970  // NAME 2: the client's field name (0xB913DC)
 	int Get_Max_Skill_Levels(int skill);					// 0x6A59E0  // NAME 2: the client's field name (0xB913DC)

@@ -11,7 +11,7 @@ static const char *SkillFieldNames[7] = {	// 0xB913DC  // NAME 2: describes what
 // A value with a destructor (0x6A5640's atexit 0x6A5710 is an empty one; SkillLevelAvailabilityStruct itself has none)
 struct UnknownEmptyAvailability { SkillLevelAvailabilityStruct Value; ~UnknownEmptyAvailability() {} };	// NAME 2: describes what it does
 
-// @0x6A5330
+// 0x6A5330
 SkillDataPeekClass::SkillDataPeekClass(void *owner) :
 	Owner(owner),
 	Name("RPGInfo.Skills"),
@@ -22,8 +22,8 @@ SkillDataPeekClass::SkillDataPeekClass(void *owner) :
 	Update_Fields();
 }
 
-// @0x6A5380
-void SkillDataPeekClass::Detach()
+// 0x6A5380
+SkillDataPeekClass::~SkillDataPeekClass()
 {
 	Owner = 0;
 	List = 0;
@@ -31,7 +31,7 @@ void SkillDataPeekClass::Detach()
 	Update_Fields();
 }
 
-// @0x6A53A0
+// 0x6A53A0
 void SkillDataPeekClass::Attach(DeltaCompoundClass *root)
 {
 	List = 0;
@@ -50,7 +50,7 @@ void SkillDataPeekClass::Attach(DeltaCompoundClass *root)
 	Update_Fields();
 }
 
-// @0x6A5440
+// 0x6A5440
 bool SkillDataPeekClass::Unknown_6A5440()
 {
 	if (!List) {
@@ -59,7 +59,7 @@ bool SkillDataPeekClass::Unknown_6A5440()
 	return(List->Unknown70 > 1);
 }
 
-// @0x6A5470
+// 0x6A5470
 bool SkillDataPeekClass::Unknown_6A5470(int skill)
 {
 	DeltaCompoundClass *d = Get_Skill(skill);
@@ -69,13 +69,13 @@ bool SkillDataPeekClass::Unknown_6A5470(int skill)
 	return(d->Unknown70 > 1);
 }
 
-// @0x6A54B0
+// 0x6A54B0
 int SkillDataPeekClass::Get_Level(int skill)
 {
 	return(Peek_Value(skill, 0, (int *)0));
 }
 
-// @0x6A5520
+// 0x6A5520
 DurationClass SkillDataPeekClass::Get_Recycle_Time(int skill)
 {
 	return(Peek_Value(skill, 1, (int *)0));
@@ -120,7 +120,7 @@ DurationClass SkillDataPeekClass::Get_Recycle_Time(int skill)
 
 
 
-// @0x6A55B0
+// 0x6A55B0
 DurationClass SkillDataPeekClass::Get_Last_Activation(int skill)
 {
 	DeltaClass *d = Get_Field(skill, 2);
@@ -133,8 +133,8 @@ DurationClass SkillDataPeekClass::Get_Last_Activation(int skill)
 	return(DurationClass(0));
 }
 
-// @0x6A5640
-const SkillLevelAvailabilityStruct &SkillDataPeekClass::Get_Availability(int skill)
+// 0x6A5640
+SkillLevelAvailabilityStruct &SkillDataPeekClass::Get_Availability(int skill)
 {
 	static UnknownEmptyAvailability empty;
 	DeltaClass *d = Get_Field(skill, 3);
@@ -147,7 +147,7 @@ const SkillLevelAvailabilityStruct &SkillDataPeekClass::Get_Availability(int ski
 	return(empty.Value);
 }
 // NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return)
-// @0x6A5730
+// 0x6A5730
 std::string SkillDataPeekClass::Get_Affiliations(int skill)
 {
 	DeltaClass *d = Get_Field(skill, 4);
@@ -160,20 +160,20 @@ std::string SkillDataPeekClass::Get_Affiliations(int skill)
 	return(empty);
 }
 
-// @0x6A5970
+// 0x6A5970
 int SkillDataPeekClass::Get_Quest_Only_Levels(int skill)
 {
 	return(Peek_Value(skill, 5, (int *)0));
 }
 
-// @0x6A59E0
+// 0x6A59E0
 int SkillDataPeekClass::Get_Max_Skill_Levels(int skill)
 {
 	return(Peek_Value(skill, 6, (int *)0));
 }
 
 #pragma auto_inline(off)
-// @0x6A5A50
+// 0x6A5A50
 DeltaCompoundClass *SkillDataPeekClass::Get_Skill(int skill)
 {
 	Status = 2;
@@ -193,7 +193,7 @@ DeltaCompoundClass *SkillDataPeekClass::Get_Skill(int skill)
 	return(dcont);
 }
 
-// @0x6A5B10
+// 0x6A5B10
 DeltaClass *SkillDataPeekClass::Get_Field(int skill, int field)
 {
 	Status = 2;
@@ -225,7 +225,7 @@ DeltaClass *SkillDataPeekClass::Get_Field(int skill, int field)
 
 
 
-// @0x6A5BD0
+// 0x6A5BD0
 void SkillDataPeekClass::Update_Fields()
 {
 	for (int f = 0; f < 7; f++) Fields[f] = -1;

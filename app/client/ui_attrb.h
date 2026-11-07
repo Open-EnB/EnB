@@ -21,7 +21,7 @@ public:
 	virtual ~Unknown548D60Class();						// 0x548440 (deleting 0x548410)
 	virtual void Unknown_54();							// 0x548610 (the buttons, the styles, the gadget)
 	virtual bool Unknown_68(int key);					// 0x548C50 (key 1 closes, key 2 sends SkillPacketClass)  // NAME 1 [key]: InterfaceClass's
-	void Unknown_548D60(class Unknown6A7A00Class *list, int skill, int index);	// 0x548D60: the selected skill's texts (ui_attrb_skills.cpp calls it)  // NAME 1 [list, skill, index]: as ui_attrb_skills.cpp's
+	void Unknown_548D60(class SkillDataClass *list, int skill, int index);	// 0x548D60: the selected skill's texts (ui_attrb_skills.cpp calls it)  // NAME 1 [list, skill, index]: as ui_attrb_skills.cpp's
 	void Unknown_5494E0(bool on);						// 0x5494E0 ('UPGRADE' on, its style shown and the requirement hidden; or the other way)  // NAME 1 [on]: neutral
 
 	int UnknownAC;										// +0xAC (the skill SkillPacketClass carries)

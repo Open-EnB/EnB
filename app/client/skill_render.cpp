@@ -13,13 +13,13 @@ class ClientObjectClass;
 
 #include "sclient.h"	// (0x744FE0; this file's class below keeps the slot +0x28 and the time at +0x10BC, which sclient.h does not hold)
 class Unknown744FE0Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual ClientObjectClass *Unknown_28(); char Unknown04[0x10BC - 4]; unsigned int Unknown10BC; };	// NAME 1: neutral (D10)
-// skill_data.cpp's list (gd_attrb_skills.cpp's Unknown6A7A00Class): its bases sit at +0x50 and +0xB0 (the `add ecx, 0x50` after the arguments)
-struct Unknown6A5520Value { Unknown6A5520Value(); Unknown6A5520Value(__int64 v) : Value(v) {} Unknown6A5520Value operator+(const Unknown6A5520Value &r) const { return(Unknown6A5520Value(Value + r.Value)); } __int64 Value; };	// NAME 1: neutral (D10): returned through a hidden pointer, added with an operator (0x6A6550)
-class Unknown6A5440Class { public: bool Unknown_6A5470(int skill); int Unknown_6A54B0(int skill); Unknown6A5520Value Unknown_6A5520(int skill); Unknown6A5520Value Unknown_6A55B0(int skill); char Unknown00[0x60]; };	// NAME 1: neutral (D10), as gd_attrb_skills.cpp's; NAME 1 [skill]: neutral
-class Unknown813C50Class { public: unsigned int Unknown_813C50(int ability); int Unknown_813CC0(int ability); unsigned int Unknown_813DA0(int ability); };	// NAME 1: neutral (D10); NAME 1 [ability]: neutral
+// skill_data.cpp's list (gd_attrb_skills.cpp's SkillDataClass): its bases sit at +0x50 and +0xB0 (the `add ecx, 0x50` after the arguments)
+struct UnknownDurationSum { UnknownDurationSum(__int64 v) : Value(v) {} UnknownDurationSum operator+(const UnknownDurationSum &r) const { return(UnknownDurationSum(Value + r.Value)); } __int64 Value; };	// (added with a member operator, 0x6A6550; duration.h's class has none yet)  // NAME 2: describes what it does
+class SkillDataPeekClass { public: bool Unknown_6A5470(int skill); int Get_Level(int skill); DurationClass Get_Recycle_Time(int skill); DurationClass Get_Last_Activation(int skill); char Unknown00[0x60]; };	// NAME 1: neutral (D10), as gd_attrb_skills.cpp's; NAME 1 [skill]: neutral
+enum TargetGeneratorSummaryBF; enum GameActionValidityBitFlag; class SkillAbilityDataPeekClass { public: TargetGeneratorSummaryBF Get_Targets(int ability); int Get_Range(int ability); GameActionValidityBitFlag Get_Validity(int ability); };	// NAME 1: neutral (D10); NAME 1 [ability]: neutral
 class Unknown6A7A00Base { public: char Unknown00[0x20]; Unknown744FE0Class *Unknown20; char Unknown24[0x2C]; };	// NAME 1: neutral (D10)
-class Unknown6A7A00Class : public Unknown6A7A00Base, public Unknown6A5440Class, public Unknown813C50Class { public: int Get_Level(int skill) { return(Unknown_6A54B0(skill)); } int Unknown_6A4B40(); float Unknown_6A4C20(); };	// NAME 1: neutral (D10); NAME 2 [Get_Level]: 0x6A54B0's result is compared with the abilities' levels; NAME 1 [skill]: neutral
-class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual Unknown6A7A00Class *Unknown_14(); };	// NAME 3: its local sd (0x6A7310)
+class SkillDataClass : public Unknown6A7A00Base, public SkillDataPeekClass, public SkillAbilityDataPeekClass { public: int Get_Level(int skill) { return(SkillDataPeekClass::Get_Level(skill)); } int Get_Skill_Powerup_Ability_Number(); float Unknown_6A4C20(); };	// NAME 1: neutral (D10); NAME 2 [Get_Level]: 0x6A54B0's result is compared with the abilities' levels; NAME 1 [skill]: neutral
+class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual SkillDataClass *Unknown_14(); };	// NAME 3: its local sd (0x6A7310)
 // gd_gauge.cpp's gauge (ui_faction.cpp's), shortcut_range_gauge.cpp's
 class Unknown669570Class : public RObjGadgetClass { public: Unknown669570Class(RenderObjClass *robj, const char *name); virtual void Unknown_A4(float value); char Unknown60[0x6C - 0x60]; };	// NAME 1: neutral (D10); NAME 1 [robj, name, value]: neutral
 class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Unknown6A3D60Class(); void Unknown_6A4020(float distance, float range, int state, bool arg); char Unknown00[0x18]; };	// NAME 1: neutral (D10); NAME 1 [robj, distance, range, state, arg]: neutral
@@ -138,7 +138,7 @@ bool SkillRenderClass::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 // 0x6A6550
 void SkillRenderClass::Unknown_2C(bool force)
 {
-	Unknown6A7A00Class *skills = Unknown_6A7310();
+	SkillDataClass *skills = Unknown_6A7310();
 	FAIL_IF(!skills) return;
 
 	int slot = Unknown20;
@@ -148,7 +148,7 @@ void SkillRenderClass::Unknown_2C(bool force)
 	SlotDataRenderClass::Unknown_2C(force);
 
 	if (Unknown38 == 0 || Unknown38 == 1) {
-		int active = skills->Unknown_6A4B40();
+		int active = skills->Get_Skill_Powerup_Ability_Number();
 		if (active == Unknown34 && Unknown34 != -1) {
 			if (!Unknown2C->Get_Container()) {
 				RenderObjClass *robj = Mesh;
@@ -210,7 +210,7 @@ void SkillRenderClass::Unknown_2C(bool force)
 		}
 	}
 
-	Unknown6A7A00Class *skill_data = Unknown_6A7310();
+	SkillDataClass *skill_data = Unknown_6A7310();
 
 
 
@@ -219,19 +219,19 @@ void SkillRenderClass::Unknown_2C(bool force)
 
 
 	FAIL_IF(!skill_data) return;
-	Unknown6A5440Class &skill = *skill_data;
-	Unknown813C50Class &ability = *skill_data;
+	SkillDataPeekClass &skill = *skill_data;
+	SkillAbilityDataPeekClass &ability = *skill_data;
 
-	unsigned int flags = ability.Unknown_813DA0(Unknown34);
-	unsigned int flags2 = ability.Unknown_813C50(Unknown34);
-	float range = (float)ability.Unknown_813CC0(Unknown34);
+	unsigned int flags = ability.Get_Validity(Unknown34);
+	unsigned int flags2 = ability.Get_Targets(Unknown34);
+	float range = (float)ability.Get_Range(Unknown34);
 	Unknown50 = range;
 	if (Unknown48) {
 		Unknown48->Unknown_6A4020(Unknown4C, range, (flags & 0x3F8) ? 0 : (((flags2 & 0x34) != 0) ? 2 : 0), true);
 	}
 
 	__int64 now = sclient->Unknown10BC;
-	bool ready = ((skill.Unknown_6A5520(slot) + skill.Unknown_6A55B0(slot)).Value <= now);
+	bool ready = (((const UnknownDurationSum &)skill.Get_Recycle_Time(slot) + (const UnknownDurationSum &)skill.Get_Last_Activation(slot)).Value <= now);
 	if (force || flags != Unknown54 || Unknown58 != ready) {
 		Unknown_6A73C0((flags & 0x170) != 0, WrongTargetTypeIndicator);
 		Unknown_6A73C0(flags != 0 || !ready, ValidityIndicator);
@@ -354,10 +354,10 @@ void SkillRenderClass::Unknown_40(int slot)
 		const Unknown8155B0Struct &s_ability = Unknown_8155B0(slot);
 		FAIL_IF(!s_ability.NumActivatable) return;
 
-		Unknown6A7A00Class *skill_data = Unknown_6A7310();
+		SkillDataClass *skill_data = Unknown_6A7310();
 
 		FAIL_IF(!skill_data) return;
-		unsigned int level = skill_data->Unknown_6A54B0(slot);
+		unsigned int level = skill_data->Get_Level(slot);
 		for (std::vector<Unknown815320Struct *>::const_iterator it = s_ability.Abilities.begin(); it != s_ability.Abilities.end(); ++it) {
 			Unknown815320Struct *ability = *it;
 			if (ability->Unknown1C && ability->Unknown18 <= level) {
@@ -424,11 +424,11 @@ void SkillRenderClass::Unknown_6A72E0(int ability, bool update)
 
 
 // 0x6A7310
-Unknown6A7A00Class *SkillRenderClass::Unknown_6A7310()
+SkillDataClass *SkillRenderClass::Unknown_6A7310()
 {
 	SlotDataClass *sd = SlotData; FAIL_IF(!sd) return(0);
 
-	Unknown6A7A00Class *skill = sd->Unknown_14();
+	SkillDataClass *skill = sd->Unknown_14();
 	G_ASSERT(skill);
 	return(skill);
 }

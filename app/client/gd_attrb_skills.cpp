@@ -16,18 +16,18 @@
 extern const int Unknown_B0804C;	// 0xB0804C: 40, the tooltip's width (read as an int, so not a literal; no other reader)  // NAME 1: neutral (D10)
 #define MAX_SKILLS 11	// NAME 3: the assert's; the dots' array
 // What the skill data holds about a skill, as far as this file calls it (0x6A5440's class, at the data's +0x50)
-struct Unknown6A5640Struct { int Unknown00; int Unknown04; };	// NAME 1: neutral (D10), as ui_attrb.cpp's
-class Unknown6A5440Class	// NAME 1: neutral (D10), as ui_attrb_skills.cpp's
+struct SkillLevelAvailabilityStruct { int Unknown00; int Unknown04; };	// NAME 1: neutral (D10), as ui_attrb.cpp's
+class SkillDataPeekClass	// NAME 1: neutral (D10), as ui_attrb_skills.cpp's
 {
 public:
-	bool Unknown_6A5470(int skill);	Unknown6A5640Struct *Unknown_6A5640(int skill);	int Unknown_6A54B0(int skill);	int Unknown_6A59E0(int skill);	// NAME 1 [skill]: neutral
+	bool Unknown_6A5470(int skill);	SkillLevelAvailabilityStruct &Get_Availability(int skill);	int Get_Level(int skill);	int Get_Max_Skill_Levels(int skill);	// NAME 1 [skill]: neutral
 };
 // ui_attrb_skills.cpp's list (0x62D710's answer); its reference count sits at +0x18 here
 class Unknown6A7A00Base { public: virtual void Unknown_00(); char Unknown04[0x14]; };	// NAME 1: neutral (D10)
-class Unknown6A7A00Class : public Unknown6A7A00Base, public RefCountClass	// NAME 1: neutral (D10)
+class SkillDataClass : public Unknown6A7A00Base, public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
-	char Unknown20[0x30];	Unknown6A5440Class Unknown50;	// +0x50
+	char Unknown20[0x30];	SkillDataPeekClass Unknown50;	// +0x50
 };
 
 
@@ -169,13 +169,13 @@ void Unknown664500Class::Unknown_A4(bool arg)
 {
 
 	FAIL_IF(!AttachTo) return;
-	Unknown6A7A00Class &data = *SkillData;
+	SkillDataClass &data = *SkillData;
 	if (!arg && !data.Unknown50.Unknown_6A5470(Unknown6C)) {
 		return;
 	}
-	Unknown6A5640Struct *info = (*SkillData).Unknown50.Unknown_6A5640(Unknown6C);
-	Unknown104 = data.Unknown50.Unknown_6A54B0(Unknown6C);
-	Unknown108 = data.Unknown50.Unknown_6A59E0(Unknown6C);
+	SkillLevelAvailabilityStruct *info = &(*SkillData).Unknown50.Get_Availability(Unknown6C);
+	Unknown104 = data.Unknown50.Get_Level(Unknown6C);
+	Unknown108 = data.Unknown50.Get_Max_Skill_Levels(Unknown6C);
 	Unknown10C = info->Unknown04 == 0;
 	if (info->Unknown00 != 4) {
 		Unknown10C = false;
