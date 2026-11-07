@@ -96,18 +96,18 @@ void SkillAbilityNamesDatabase::Unknown_814620(const char *ini_name, const char 
 
 
 
-// NOT EXACT: frame, 0x10E8 bytes of locals against the client's 0x10CC (key at +0x24 overlaps other scopes; total at +0x44)
+
 // 0x814A30
 void SkillAbilityNamesDatabase::Unknown_814A30(INIClass &ini, const char *section, unsigned int &index, bool activated)
 {
 	KVTripleListClass entries;
 	Unknown_4BB3F0(entries, ini, section);
-	unsigned int total = index + entries.Get_Count();
+	int count = entries.Get_Count(); unsigned int total = index + count;
 	_AllAbilities.resize(total);
 	TPoint3D<float> white(1.0f, 1.0f, 1.0f);
 	for (; index < total; index++) {
 		KVTripleClass *item;
-		{ char key[32]; sprintf(key, "%d", index); item = entries.Find(key); }
+		{ char key[4]; sprintf(key, "%d", index); item = entries.Find(key); }
 
 
 
