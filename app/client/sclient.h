@@ -363,15 +363,8 @@ public:
 	char UnknownAC[0xC0 - 0xAC];
 };
 
-// ui_scan.cpp's scanner (the cockpit's +0xD4), as far as the main view calls it
-class UIScanClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_scan.cpp
-{
-public:	UIScanClass(UIViewClass *view, LayerClass *layer);	// 0x60D800 (0x1B0 bytes; the cockpit's set-up passes the main view and its layer)  // NAME 1 [view, layer]: what 0x57DD20 passes
-	void Unknown_60E540(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level);	// 0x60E540 (the main view's 0x513630)  // NAME 1 [target, assessment, sound, level]: what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel)
-
-	char Unknown84[0x88 - 0x84];						// +0x84
-	ClientObjectClass *Unknown88; char Unknown8C[0x1B0 - 0x8C];	// +0x88 (the main view's slot +0x5C returns it); 0x1B0 bytes (the cockpit's set-up)
-};
+// ui_scan.cpp's scanner (the cockpit's +0xD4): ui_scan.h
+class UIScanClass;
 
 class IncapacitanceDetailsPacket;
 class UIMeshClass;

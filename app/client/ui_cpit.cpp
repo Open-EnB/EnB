@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "ui_cpit.h"
+class UIScanClass : public InterfaceClass { public: UIScanClass(UIViewClass *view, LayerClass *layer); char Unknown84[0x88 - 0x84]; ClientObjectClass *Unknown88; char Unknown8C[0x1B0 - 0x8C]; };	// 0x60D800: ui_scan.h's, as far as this file calls it (ui_scan.h reaches fontmanager.h, which can't be included here: see below); +0x88 is UIMFDClass's watched Object
 #include "client.h"
 #include "..\packets\pkaction.h"
 #include "..\packets\pkskillstringrq.h"
@@ -18,7 +19,6 @@
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 #include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
-
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
 // file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's

@@ -36,8 +36,8 @@ public:
 	SClient *Client;								// +0x04  // NAME 2: what it holds
 };
 
+#include "ui_scan.h"
 #include "gutter_radar.h"	// the +0x84 object (0x7B6BD0)
-
 
 
 
@@ -1409,7 +1409,7 @@ void MainViewClass::Set_Camera(CameraClass *camera)
 void MainViewClass::Unknown_512400()
 {
 	if (!Cpit || !Cpit->Scan) return;
-	ClientObjectClass *current = Cpit->Scan->Unknown88;
+	ClientObjectClass *current = Cpit->Scan->Object;
 	unsigned current_id = current ? current->GameID : 0;
 	SClient *client = Client;
 	if (!client) return;
@@ -1932,7 +1932,7 @@ UIScanClass *MainViewClass::Unknown_5136A0()
 
 ClientObjectClass *MainViewClass::Unknown_5C()
 {
-	return((Cpit && Cpit->Scan) ? Cpit->Scan->Unknown88 : NULL);
+	return((Cpit && Cpit->Scan) ? Cpit->Scan->Object : NULL);
 }
 
 

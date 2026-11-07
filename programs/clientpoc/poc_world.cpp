@@ -154,13 +154,6 @@ UICpitUnknownE0Class::UICpitUnknownE0Class(SClient *sclient) : InterfaceClass((L
 	STUB_CALLED("POC UICpitUnknownE0Class: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-UIScanClass::UIScanClass(UIViewClass *view, LayerClass *layer) : InterfaceClass(view, (int)layer->Peek_Scene())
-{
-	STUB_CALLED("POC UIScanClass: an empty window");
-	memset(Unknown84, 0, sizeof(Unknown84));
-	Unknown88 = NULL;
-	memset(Unknown8C, 0, sizeof(Unknown8C));
-}
 UICpitUnknownD0Class::UICpitUnknownD0Class(RenderObjClass *model, LayerClass *layer, UICpitClass *cpit, int arg)
 {
 	STUB_CALLED("POC UICpitUnknownD0Class: an empty watch");
