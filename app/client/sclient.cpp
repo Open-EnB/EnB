@@ -42,13 +42,13 @@ void Unknown_Load_Assets(const std::string &ini);		// NAME 2 [Unknown_Load_Asset
 void Unknown_Free_Assets();								// NAME 2 [Unknown_Free_Assets]: 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp)
 extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  // NAME 2: what Pump_Messages redraws
 
-// The object at 0xC404D8 (soundlib.cpp's neighbourhood): the constructor sets its byte +0x19A5
-struct Unknown_C404D8Struct		// NAME 1: neutral (D10)
-{
-	char Unknown0000[0x19A5];
-	bool Unknown19A5;
-};
-extern Unknown_C404D8Struct *Unknown_C404D8;			// NAME 1: neutral (D10)
+// The object at 0xC404D8 is WWAudioClass::_theInstance (WWAudioClass's ctor and dtor set it): the constructor
+// sets its +0x19A5, which queues sounds started during the load
+#include "WWAudio.h"
+
+
+
+
 
 // The members' classes as far as the constructor and destructor build and free them
 class Unknown619280Class		// NAME 1: neutral (D10): 0x44 bytes, constructor 0x619280 (before ui_ship_cust.cpp)
@@ -362,7 +362,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown1334 = new SClientUnknown1334Class;
 	EnvironmentMapManager = new EnvironmentMapManagerClass;
 	ProjDecalManager = new ProjDecalManagerClass;
-	Unknown_C404D8->Unknown19A5 = true;
+	WWAudioClass::Get_Instance()->m_Unknown19A5 = true;
 	Unknown119C.size();		// dead: keeps the string's _Tidy out of line, as the client has it (D40's lever)
 }
 

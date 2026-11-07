@@ -188,67 +188,67 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (c
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: functional (WE1): the first compile of the constructor, not yet aligned
+// 0x561DD0
+UIChatPanelClass::UIChatPanelClass(SClient *client) :
+	UIChatPanelBaseClass(client),
+	UnknownA0(0),
+	UnknownD8(NULL),
+	UnknownDC(NULL),
+	UnknownE0(NULL),
+	UnknownE4(NULL),
+	UnknownE8(NULL),
+	UnknownEC(NULL),
+	UnknownF0(NULL),
+	UnknownF4(false),
+	UnknownFC(0),
+	Unknown100(0),
+	Unknown108(0),
+	Unknown10C(false),
+	Unknown10D(false),
+	Unknown110(NULL),
+	Unknown114(NULL),
+	Unknown118(0),
+	Unknown11C(0),
+	Unknown120(true),
+	Unknown134(0),
+	Unknown13C(0),
+	Unknown140(0),
+	Unknown144(0),
+	Unknown148(0),
+	Unknown14C(6),
+	Unknown150(0),
+	Unknown154(false),
+	Unknown1D8(""),
+	Unknown1E8(NULL),
+	Unknown1EC(0),
+	Unknown1F0(false),
+	Unknown1F4(""),
+	Unknown204(""),
+	Unknown214(""),
+	Unknown224(false),
+	Unknown225(false),
+	Unknown227(false),
+	Unknown238(""),
+	Unknown248(""),
+	Unknown258(NULL),
+	Unknown25C(false),
+	Unknown260(0.0f),
+	MessageButtonShowing(false),
+	Unknown265(false),
+	Unknown266(false),
+	Unknown267(false)
+{
+	memset(UnknownA4, 0, sizeof(UnknownA4));
+	memset(Combo, 0, sizeof(Combo));
+	int i;
+	for (i = 0; i < 3; i++) {
+		Unknown158[i] = "";
+	}
+	for (i = 0; i < 5; i++) {
+		Unknown188[i] = "";
+	}
+}
 
 
 

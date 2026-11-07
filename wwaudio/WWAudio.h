@@ -730,7 +730,7 @@ private:
 	INIClass											  *AudioIni;
 
 	bool													m_ForceDisable;
-	bool													m_Unknown19A5;	// E&B: sounds started while set are queued paused (AudibleSoundClass::Play 0x9FD419); set by the app, cleared by Unknown_Resume_All
+public: bool m_Unknown19A5; private:	// E&B: sounds started while set are queued paused (AudibleSoundClass::Play 0x9FD419); set by the app, cleared by Unknown_Resume_All
 	bool													m_Unknown19A6;	// E&B: set by Temp_Disable_Audio (true); the volume setters do nothing while set
 };
 

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-623 entries in 175 files.
+628 entries in 176 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -306,6 +306,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_buff.cpp:190` | `Unknown_5615C0` | marker | NOT EXACT: inline-budget (the client calls string::assign out of line for the first two strings, inlines the third) |
 | `app/client/ui_buff.cpp:215` | `UIBuffClass::Unknown_561030` | marker | NOT EXACT: inline-budget (the client calls auxdata.h's find out of line, 0x561C40, and ~vector 0x561B80 on the new-buff path) |
 | `app/client/ui_buff.cpp:287` | `UIBuffClass::Unknown_561B40` | mention | NOT EXACT (inline budget); the static is defined first (its asserts are on lines 197 / 205, and defined after 0x561030 the BuffInfoStruct destructor 0x561A60 does not match). The COMDATs they bring: the destructors 0x561A60 / 0x5619D0 and the vector's _Destroy 0x561BD0 match; auxdata.h's find 0x561C40 and ~vector 0x561B80 are inlined in ours. After the slots: the adjustor thunks 0x561D60 (-4) / 0x... |
+| `app/client/ui_chat_panel.cpp:191` | `UIChatPanelClass::UIChatPanelClass` | marker | NOT EXACT: functional (WE1): the first compile of the constructor, not yet aligned 0x561DD0 |
 | `app/client/ui_chat_panel.cpp:521` | `UIChatPanelClass::Unknown_60` | marker | NOT EXACT: register (the client copies the lag light's table pointer to edx for Is_Hidden, ebx in ours; then eax / edx swapped at As_Space_Client); 0x56C0C0 is out of line through auto_inline(off), as the client 0x5630B0 |
 | `app/client/ui_chat_panel.cpp:558` | `UIChatPanelClass::Unknown_68` | marker | NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240) 0x563280 |
 | `app/client/ui_chat_panel.cpp:640` | `UIChatPanelClass::Unknown_563910` | marker | NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8) 0x563910 |
@@ -315,6 +316,10 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:1204` | `UIChatPanelClass::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |
 | `app/client/ui_chat_panel.cpp:1987` | `UIChatPanelClass::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
 | `app/client/ui_chat_panel.cpp:2382` | `UIChatPanelClass::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
+| `app/client/ui_chat_panel_base.cpp:31` | `UIChatPanelBaseClass::~UIChatPanelBaseClass` | marker | NOT EXACT: functional (WE1) 0x56D330 |
+| `app/client/ui_chat_panel_base.cpp:90` | `UIChatPanelBaseClass::Unknown_56D510` | marker | NOT EXACT: functional (WE1) 0x56D510 |
+| `app/client/ui_chat_panel_base.cpp:125` | `UIChatPanelBaseClass::Unknown_56D8D0` | marker | NOT EXACT: functional (WE1) 0x56D8D0 |
+| `app/client/ui_chat_panel_base.cpp:157` | `UIChatPanelBaseClass::Unknown_98` | marker | NOT EXACT: functional (WE1) 0x56DB20 |
 | `app/client/ui_cinfo.cpp:224` | `UICinfoClass::Unknown_573E80` | marker | NOT EXACT: register (the menu fonts' Get_Style arguments load in another register order; 0x5741A0's loop inlined three times) |
 | `app/client/ui_cinfo.cpp:278` | `UICinfoClass::Unknown_5741A0` | marker | NOT EXACT: register (this and the index swap ebx / edi; four loop forms tried) |
 | `app/client/ui_class.cpp:155` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot) @0x574710 |
