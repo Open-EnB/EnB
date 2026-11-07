@@ -53,6 +53,7 @@ BridgeInterfaceClass::~BridgeInterfaceClass()
 // ---------------------------------------------------------------- enbscene.cpp's scene (0x75ECF0, 0xF4 bytes; its base 0x494EE0 is claimed): a plain SimpleSceneClass
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\dazzle.h"
+#include "..\..\ww3d2\light.h"
 class MainViewSceneUnknown98Class;
 class MainViewSceneClass : public SimpleSceneClass
 {
@@ -68,6 +69,15 @@ MainViewSceneClass::MainViewSceneClass()
 	STUB_CALLED("POC MainViewSceneClass: a plain SimpleSceneClass");
 	void Poc_Start_Watchdog();
 	Poc_Start_Watchdog();
+	// POC light (WE3), NOT THE CLIENT'S: the scene's own lights (the list at +0xAC that Unknown_75F690 0x75F690
+	// places through 0x75B8F0) are not built, so lit models drew black (D3D AMBIENT 0, no light). One white
+	// directional light from above stands in until enbscene.cpp's lights land.
+	LightClass *light = new LightClass(LightClass::DIRECTIONAL);
+	light->Set_Diffuse(Vector3(0.9f, 0.9f, 0.9f));
+	light->Set_Ambient(Vector3(0.35f, 0.35f, 0.35f));
+	light->Set_Spot_Direction(Vector3(0.3f, 0.4f, -0.866f));
+	Add_Render_Object(light);
+	light->Release_Ref();
 }
 
 // ---------------------------------------------------------------- enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes): the base's answer
