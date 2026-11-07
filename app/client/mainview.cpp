@@ -322,7 +322,7 @@ void MainViewClass::Unknown_08()
 	Unknown1E4 = new UIPTradeClass(Client);
 	Unknown1E4->Unknown_54();
 	Unknown1E4->Unknown_7C(this, 0);
-	Unknown1DC = new MainViewUnknown1DCClass(this, Unknown110);
+	Unknown1DC = new BackInterfaceClass(this, Unknown110);
 	Unknown1DC->Unknown_54();
 	Unknown1DC->Unknown_58();
 	Unknown_6B4940(Unknown1DC);
@@ -1917,7 +1917,7 @@ void MainViewClass::Unknown_513540(int base_asset)
 	model->Release_Ref();
 }
 
-void MainViewClass::Unknown_513600(int arg) { Unknown1DC->Unknown_8C(arg); }
+void MainViewClass::Unknown_513600(int arg) { Unknown1DC->Unknown_8C((RenderObjClass *)arg); }
 
 void MainViewClass::Unknown_513630(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level)
 {

@@ -109,10 +109,6 @@ MainViewUnknown138Class::MainViewUnknown138Class(MainViewClass *view, SimpleScen
 {
 	STUB_CALLED("POC MainViewUnknown138Class: an empty window");
 }
-MainViewUnknown1DCClass::MainViewUnknown1DCClass(MainViewClass *view, SimpleSceneClass *scene) : InterfaceClass((UIViewClass *)view, (int)scene)
-{
-	STUB_CALLED("POC MainViewUnknown1DCClass: an empty window");
-}
 
 // ui_mesh.cpp (0x5B8120-0x5BA4C0) is real app code since UM1: its stand-in left here.
 #include "..\..\ww3d2\assetmgr.h"

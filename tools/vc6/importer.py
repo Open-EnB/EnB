@@ -4796,6 +4796,8 @@ RECONSTRUCTED = {
     ('app', 'client/target_reticle.cpp'): "TargetReticleClass (D24 class-from-file), the reticle round a target (the client's __FILE__ 0xB9F85C, FAIL_IFs at lines 82-281; client 0x7C50B0-0x7C60F0) (TR1)",
     ('app', 'client/targeting.h'): "TargetingClass's declaration (the asserts' 'targeting'; no string of the file in the client, table 0xB07134, 0x14 bytes) (TR1)",
     ('app', 'client/targeting.cpp'): "TargetingClass (name from the asserts' 'targeting', file name provisional: D137), TargetFindClass's selection through REQUEST_TARGET (client 0x7C6120-0x7C636F, bounded by <string>'s initialisers 0x7C60F0 / 0x7C6350) (TR1)",
+    ('app', 'client/backint.h'): "BackInterfaceClass's declaration (header name from backint.cpp's __FILE__ 0xB78C80; tables 0xAEE924 / 0xAEE918 / 0xAEE90C, 0x8C bytes) (WE2)",
+    ('app', 'client/backint.cpp'): "BackInterfaceClass, the backdrop / skybox interface (the client's __FILE__ 0xB78C80, asserts on lines 81 / 125 / 127; client 0x53AA30-0x53AF30) (WE2)",
     ('app', 'client/map_pip.h'): "MapPipClass's declaration (D24 header name from map_pip.cpp's __FILE__; table 0xAFD078, 0x50 bytes), with pip_scene.cpp's base (GP1, MP1)",
     ('app', 'client/map_pip.cpp'): "MapPipClass (D24 class-from-file), the map picture-in-picture views' base (the client's __FILE__ 0xB909E0; client 0x6927C0-0x693020) (MP1)",
     ('app', 'client/galaxy_map_pip.h'): "GalaxyMapPipClass's declaration (D24 header name from galaxy_map_pip.cpp's __FILE__; table 0xAEEE94, 0x11C bytes), with galaxy_map_render.cpp's and galaxy_map_focal_point.cpp's classes as far as it calls them (GP1)",
