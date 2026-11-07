@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-661 entries in 178 files.
+650 entries in 178 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -145,26 +145,15 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_render.cpp:467` | `GalaxyMapRenderClass::Unknown_7A7560` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:536` | `GalaxyMapRenderClass::Unknown_7A7D70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:569` | `GalaxyMapRenderClass::Unknown_7A7D70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:808` | `GalaxyMapRenderClass::Unknown_7A89A0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:822` | `GalaxyMapRenderClass::Unknown_7A8B70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:915` | `GalaxyMapRenderClass::Unknown_7A9500` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:972` | `GalaxyMapRenderClass::Unknown_7A97A0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:823` | `GalaxyMapRenderClass::Unknown_7A8B70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:925` | `GalaxyMapRenderClass::Unknown_7A9500` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1080` | `GalaxyMapRenderMeshClass::Intersect` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1119` | `GalaxyMapRenderMeshClass::Set_Scale` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1180` | `GalaxyMapRenderSystemClass::GalaxyMapRenderSystemClass` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1188` | `GalaxyMapRenderSystemClass::~GalaxyMapRenderSystemClass` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1211` | `GalaxyMapRenderSystemClass::Unknown_7AAB60` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1309` | `GalaxyMapRenderSectorClass::GalaxyMapRenderSectorClass` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1355` | `GalaxyMapRenderSectorClass::~GalaxyMapRenderSectorClass` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1361` | `GalaxyMapRenderSectorClass::Release_Item` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1373` | `GalaxyMapRenderSectorClass::Unknown_7AB6D0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1386` | `GalaxyMapRenderSectorClass::Unknown_7AB8B0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1420` | `GalaxyMapRenderSectorClass::Unknown_7ABA70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1501` | `GalaxyMapRenderSectorClass::Unknown_7AC070` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1508` | `GalaxyMapRenderSectorClass::Unknown_7AC130` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1187` | `GalaxyMapRenderSystemClass::~GalaxyMapRenderSystemClass` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1370` | `GalaxyMapRenderSectorClass::Unknown_7AB6D0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1507` | `GalaxyMapRenderSectorClass::Unknown_7AC130` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1566` | `GalaxyMapRenderGateClass::Unknown_7ACBB0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1580` | `GalaxyMapRenderGateClass::Unknown_7ACBB0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1690` | `GalaxyMapRenderGateClass::Unknown_7AD090` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1694` | `GalaxyMapRenderGateClass::Unknown_7AD090` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1740` | `GalaxyMapRenderGateClass::Unknown_7AD5B0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1761` | `GalaxyMapRenderGateClass::Unknown_7AD5B0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1864` | `GalaxyMapRenderGateClass::Unknown_7AD850` | marker | NOT EXACT: written from the client's code (see attempts.csv) |

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1567 |
 | 2 | describes what the code does | 3658 |
-| 1 | neutral placeholder | 17578 |
+| 1 | neutral placeholder | 17580 |
 
 ## For review (score 3 and below)
 
@@ -3312,6 +3312,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/client/galaxy_map_render.cpp:29` | what it holds |
 | 1 | `std:` | `app/client/galaxy_map_render.cpp:30` | what it holds |
 | 1 | `std:` | `app/client/galaxy_map_render.cpp:31` | what it holds |
+| 1 | `New_Item` | `app/client/galaxy_map_render.cpp:32` | what it does |
 | 1 | `Find_Item` | `app/client/galaxy_map_render.cpp:119` | what it does |
 | 1 | `Create_Item` | `app/client/galaxy_map_render.cpp:130` | what it does |
 | 1 | `Remove_Item` | `app/client/galaxy_map_render.cpp:149` | what it does |
@@ -3344,10 +3345,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7AD850` | `app/client/galaxy_map_render.cpp:556` | untagged neutral name (D10) |
 | 1 | `Unknown_7AAED0` | `app/client/galaxy_map_render.cpp:563` | untagged neutral name (D10) |
 | 1 | `Unknown_7ADFC0` | `app/client/galaxy_map_render.cpp:566` | untagged neutral name (D10) |
-| 1 | `Unknown_7A83D0` | `app/client/galaxy_map_render.cpp:722` | untagged neutral name (D10) |
-| 1 | `Unknown_7AE220` | `app/client/galaxy_map_render.cpp:746` | untagged neutral name (D10) |
+| 1 | `Unknown_7A83D0` | `app/client/galaxy_map_render.cpp:720` | untagged neutral name (D10) |
+| 1 | `Unknown_7AE220` | `app/client/galaxy_map_render.cpp:744` | untagged neutral name (D10) |
 | 1 | `Unknown_7ABA70` | `app/client/galaxy_map_render.cpp:802` | untagged neutral name (D10) |
-| 1 | `Unknown_7A89A0` | `app/client/galaxy_map_render.cpp:809` | untagged neutral name (D10) |
+| 1 | `Unknown_7A89A0` | `app/client/galaxy_map_render.cpp:808` | untagged neutral name (D10) |
 | 1 | `Unknown_7AB6D0` | `app/client/galaxy_map_render.cpp:895` | untagged neutral name (D10) |
 | 1 | `Unknown_7A5400` | `app/client/galaxy_map_render.cpp:895` | untagged neutral name (D10) |
 | 1 | `Unknown_7ACBB0` | `app/client/galaxy_map_render.cpp:908` | untagged neutral name (D10) |
@@ -3355,9 +3356,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7AAB60` | `app/client/galaxy_map_render.cpp:955` | untagged neutral name (D10) |
 | 1 | `Unknown_7A97A0` | `app/client/galaxy_map_render.cpp:956` | untagged neutral name (D10) |
 | 1 | `Unknown_7ACEF0` | `app/client/galaxy_map_render.cpp:968` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/galaxy_map_render.cpp:1182` | untagged neutral name (D10) |
-| 1 | `Unknown_7AA8C0` | `app/client/galaxy_map_render.cpp:1202` | untagged neutral name (D10) |
-| 1 | `Unknown_7AA950` | `app/client/galaxy_map_render.cpp:1207` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/galaxy_map_render.cpp:1181` | untagged neutral name (D10) |
+| 1 | `Unknown_7AA8C0` | `app/client/galaxy_map_render.cpp:1201` | untagged neutral name (D10) |
+| 1 | `Unknown_7AA950` | `app/client/galaxy_map_render.cpp:1206` | untagged neutral name (D10) |
 | 1 | `Unknown38` | `app/client/galaxy_map_render.cpp:1247` | untagged neutral name (D10) |
 | 1 | `Unknown_7A5470` | `app/client/galaxy_map_render.cpp:1248` | untagged neutral name (D10) |
 | 1 | `Unknown_7AB8B0` | `app/client/galaxy_map_render.cpp:1263` | untagged neutral name (D10) |
@@ -3368,17 +3369,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D8940` | `app/client/galaxy_map_render.cpp:1349` | untagged neutral name (D10) |
 | 1 | `Unknown450` | `app/client/galaxy_map_render.cpp:1351` | untagged neutral name (D10) |
 | 1 | `Unknown_6D88F0` | `app/client/galaxy_map_render.cpp:1352` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/galaxy_map_render.cpp:1378` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/galaxy_map_render.cpp:1375` | untagged neutral name (D10) |
 | 1 | `Unknown_7A54F0` | `app/client/galaxy_map_render.cpp:1410` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/galaxy_map_render.cpp:1442` | untagged neutral name (D10) |
 | 1 | `Unknown_7ABDD0` | `app/client/galaxy_map_render.cpp:1491` | untagged neutral name (D10) |
 | 1 | `Unknown_7ABFE0` | `app/client/galaxy_map_render.cpp:1496` | untagged neutral name (D10) |
-| 1 | `Unknown_7AC070` | `app/client/galaxy_map_render.cpp:1502` | untagged neutral name (D10) |
+| 1 | `Unknown_7AC070` | `app/client/galaxy_map_render.cpp:1501` | untagged neutral name (D10) |
 | 1 | `Unknown_7AD090` | `app/client/galaxy_map_render.cpp:1523` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE7D0` | `app/client/galaxy_map_render.cpp:1536` | untagged neutral name (D10) |
 | 1 | `Unknown_7AC7B0` | `app/client/galaxy_map_render.cpp:1543` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/galaxy_map_render.cpp:1572` | untagged neutral name (D10) |
-| 1 | `Unknown_7B3F00` | `app/client/galaxy_map_render.cpp:1688` | untagged neutral name (D10) |
+| 1 | `Unknown_7B3F00` | `app/client/galaxy_map_render.cpp:1690` | untagged neutral name (D10) |
 | 1 | `GalaxyMapRObjClass` | `app/client/galaxy_map_render.h:38` | what it is |
 | 1 | `points` | `app/client/galaxy_map_render.h:45` | what it walks |
 | 1 | `Unknown_7B3440` | `app/client/galaxy_map_render.h:45` | untagged neutral name (D10) |
@@ -3388,7 +3389,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7B3700` | `app/client/galaxy_map_render.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_Pad` | `app/client/galaxy_map_render.h:49` | untagged neutral name (D10) |
 | 1 | `GalaxyMapLineRObjClass` | `app/client/galaxy_map_render.h:54` | what it is |
-| 1 | `ini, name, to, color` | `app/client/galaxy_map_render.h:58` | what 0x7ACEF0 passes |
+| 1 | `ini, name, color, to` | `app/client/galaxy_map_render.h:58` | what 0x7ACEF0 passes |
 | 1 | `Unknown_7B3F00` | `app/client/galaxy_map_render.h:58` | untagged neutral name (D10) |
 | 1 | `Unknown_PadE8` | `app/client/galaxy_map_render.h:60` | untagged neutral name (D10) |
 | 1 | `Hidden` | `app/client/galaxy_map_render.h:61` | 0x7AD090, 0x7AD850 |
@@ -3459,10 +3460,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7A7560` | `app/client/galaxy_map_render.h:335` | untagged neutral name (D10) |
 | 1 | `changed` | `app/client/galaxy_map_render.h:336` | what the callers pass |
 | 1 | `Unknown_7A7D70` | `app/client/galaxy_map_render.h:336` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/galaxy_map_render.h:337` | neutral |
+| 1 | `sphere, arg` | `app/client/galaxy_map_render.h:337` | neutral |
 | 1 | `Unknown_7A83D0` | `app/client/galaxy_map_render.h:337` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/galaxy_map_render.h:338` | what the caller passes |
 | 1 | `Unknown_7A8770` | `app/client/galaxy_map_render.h:338` | untagged neutral name (D10) |
+| 1 | `sphere` | `app/client/galaxy_map_render.h:339` | neutral |
 | 1 | `Unknown_7A89A0` | `app/client/galaxy_map_render.h:339` | untagged neutral name (D10) |
 | 1 | `Unknown_7A8B70` | `app/client/galaxy_map_render.h:340` | untagged neutral name (D10) |
 | 1 | `Unknown_7A9500` | `app/client/galaxy_map_render.h:341` | untagged neutral name (D10) |

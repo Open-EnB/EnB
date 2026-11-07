@@ -55,7 +55,7 @@ class GalaxyMapLineRObjClass : public SegmentedLineClass  // NAME 1: what it is
 {
 public:
 	GalaxyMapLineRObjClass();								// 0x7B3E30
-	void Unknown_7B3F00(INIClass &ini, const char *name, const RefCountPtr<RenderObjClass> &from, const RefCountPtr<RenderObjClass> &to, const Vector3 &color);	// 0x7B3F00 (FAIL_IF '!from')  // NAME 1 [ini, name, to, color]: what 0x7ACEF0 passes
+	void Unknown_7B3F00(INIClass &ini, const char *name, const Vector3 &color, const RefCountPtr<RenderObjClass> &from, const RefCountPtr<RenderObjClass> &to);	// 0x7B3F00 (FAIL_IF '!from' on its fourth argument)  // NAME 1 [ini, name, color, to]: what 0x7ACEF0 passes
 
 	char Unknown_PadE8[0xF4 - sizeof(SegmentedLineClass)];
 	bool Hidden;											// +0xF4  // NAME 1: 0x7AD090, 0x7AD850
@@ -257,7 +257,7 @@ public:
 
 	bool Unknown_7AB6D0(std::hash_map<int, RefCountPtr<GalaxyMapRenderSystemClass> > &systems, bool explored);	// 0x7AB6D0  // NAME 1 [systems, explored]: what it finds; 0x7A5400's
 	void Unknown_7AB8B0(GalaxyMapClientClass *map, const Vector3 &offset, Vector3 *position);	// 0x7AB8B0  // NAME 1 [map, offset, position]: neutral
-	Vector3 Unknown_7ABA70(bool invert);					// 0x7ABA70 (FAIL_IF '!sys_data': the colour)  // NAME 1 [invert]: 1 - colour
+	Vector3 &Unknown_7ABA70(Vector3 &color, bool invert);	// 0x7ABA70 (FAIL_IF '!sys_data': the colour)  // NAME 1 [invert]: 1 - colour
 	void Unknown_7ABDD0(const RefCountPtr<GalaxyMapRenderGateClass> &gate);	// 0x7ABDD0  // NAME 1 [gate]: what it stores
 	void Unknown_7ABFE0();									// 0x7ABFE0
 	void Unknown_7AC070(bool invert);						// 0x7AC070  // NAME 1 [invert]: as 0x7ABA70's
@@ -334,9 +334,9 @@ public:
 	void Unknown_7A7450();								// 0x7A7450
 	bool Unknown_7A7560();								// 0x7A7560
 	void Unknown_7A7D70(bool changed);					// 0x7A7D70  // NAME 1 [changed]: what the callers pass
-	SphereClass Unknown_7A83D0(bool arg);					// 0x7A83D0  // NAME 1 [arg]: neutral
+	void Unknown_7A83D0(SphereClass &sphere, bool arg);	// 0x7A83D0 (no return value: ret 8 without eax)  // NAME 1 [sphere, arg]: neutral
 	bool Unknown_7A8770(int arg);						// 0x7A8770 (the aux data's SectorNum)  // NAME 1 [arg]: what the caller passes
-	SphereClass Unknown_7A89A0();							// 0x7A89A0
+	bool Unknown_7A89A0(SphereClass &sphere);				// 0x7A89A0 (true with the home sector, else Bounds)  // NAME 1 [sphere]: neutral
 	void Unknown_7A8B70();								// 0x7A8B70 (FAIL_IF '!GalaxyMap')
 	void Unknown_7A9500();								// 0x7A9500 (FAIL_IF '!sys_rend')
 	void Unknown_7A97A0(const SphereClass &sphere);		// 0x7A97A0  // NAME 1 [sphere]: what it reads
