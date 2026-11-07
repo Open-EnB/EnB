@@ -14,10 +14,11 @@ class Unknown688830Class { public: Unknown688830Item *Unknown_68AAA0(int slot, b
 class InvDataClass { public: Unknown688830Class *Unknown_688830(); Unknown688830Class *Unknown_688850(); int Unknown_6A7990(); int Unknown_6A7A00(int index); };	// NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
 class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual InvDataClass *Unknown_10(); };	// NAME 3: slot_data_render.h's
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
+class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Unknown6A3D60Class(); char Unknown00[0x18]; };	// NAME 1: neutral (D10); skill_render.cpp's
 // ro_funcs.cpp's
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	// NAME 1: neutral (D10); NAME 1 [robj, a, b]: neutral
 
-static const char *Get_Roman_Numeral(int value);
+const char *Get_Roman_Numeral(int value);
 
 static const char *_RomanNumerals[] = {	// 0xB90138  // NAME 3: the assert at line 1107
 	" ", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"
@@ -115,29 +116,28 @@ bool InvRenderClass::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 
 
 
-
 	G_ASSERT(CannotUseIndicator);
 	return(SlotDataRenderClass::Unknown_08(sd, robj));
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x68CBA0
+TextureClass *InvRenderClass::Unknown_34()
+{
+	int slot = Unknown20;
+	if (slot != -1) {
+		Unknown688830Class *data = Peek_Inv_Data()->Unknown_688850();
+		Unknown688830Item *item = data->Unknown_68AAA0(slot, false);
+		if (item) {
+			return(item->Unknown_831840());
+		}
+		data = Peek_Inv_Data()->Unknown_688830();
+		item = data->Unknown_68AAA0(slot, false);
+		if (item) {
+			return(item->Unknown_831840());
+		}
+	}
+	return(0);
+}
 
 
 
@@ -442,20 +442,139 @@ void Unknown68D870Class::Unknown_2C(bool force)
 	}
 }
 
+// 0x68DA20
+bool Unknown68D870Class::Unknown_68DA20(bool force)
+{
+	Unknown688830Class *data = Peek_Inv_Data()->Unknown_688830();
+	if (force || data->Unknown_689C30()) {
+		int old_count = Unknown58;
+		int old_slot = Unknown20;
+		int new_slot = -1;
+		Unknown58 = 0;
+		int count = Peek_Inv_Data()->Unknown_6A7990();
+		for (int i = 0; i < count; i++) {
+			int id = Peek_Inv_Data()->Unknown_6A7A00(i);
+			if (data->Unknown_689CA0(id) == Unknown5C) {
+				Unknown58 = data->Unknown_689D20(id) + Unknown58;
+				new_slot = id;
+			}
+		}
+		if (Unknown58 != old_count || new_slot != old_slot) {
+			SlotDataRenderClass::Unknown_40(new_slot);
+			return(true);
+		}
+	}
+	return(false);
+}
+
 // 0x68DC20
 Unknown68DC20Class::Unknown68DC20Class() :
 	InvRenderClass(false),
-	Unknown58(0),
-	Unknown5C(0),
-	Unknown60(0),
-	Unknown64(0),
-	Unknown68(0),
 	Unknown6C(0),
 	Unknown70(0),
 	Unknown74(-1.0f),
 	Unknown84(0x100),
 	Unknown88(true)
 {
+}
+
+// 0x68DCC0
+bool Unknown68DC20Class::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
+{
+	if (!InvRenderClass::Unknown_08(sd, robj)) {
+		return(false);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	OnIndicator = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("itemon"));
+	G_ASSERT(OnIndicator);
+
+	OutOfAmmoIndicator = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("item_noammo"));
+	G_ASSERT(OutOfAmmoIndicator);
+
+	ValidityIndicator = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("item_dark"));
+	G_ASSERT(ValidityIndicator);
+
+	WrongTargetTypeIndicator = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("item_noskill"));
+	G_ASSERT(ValidityIndicator);
+
+	RechargeIndicator = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("item_timer"));
+	G_ASSERT(RechargeIndicator);
+	RenderObjClass *mesh = Mesh;
+	if (mesh) {
+		Unknown6C = new Unknown6A3D60Class(mesh);
+	}
+	return(true);
+}
+
+// 0x68E120
+Unknown68DC20Class::~Unknown68DC20Class()
+{
+	delete Unknown6C;
+	Unknown6C = 0;
+	if (OnIndicator) {
+		OnIndicator->Remove();
+		OnIndicator = NULL;
+	}
+	if (OutOfAmmoIndicator) {
+		OutOfAmmoIndicator->Remove();
+		OutOfAmmoIndicator = NULL;
+	}
+	if (ValidityIndicator) {
+		ValidityIndicator->Remove();
+		ValidityIndicator = NULL;
+	}
+	if (WrongTargetTypeIndicator) {
+		WrongTargetTypeIndicator->Remove();
+		WrongTargetTypeIndicator = NULL;
+	}
+	if (RechargeIndicator) {
+		RechargeIndicator->Remove();
+		RechargeIndicator = NULL;
+	}
 }
 
 // 0x68EAE0
@@ -476,6 +595,12 @@ Unknown68FB60Class::Unknown68FB60Class() :
 	Unknown_BE67BC->Load("fa_ce02a.ini");
 }
 
+// 0x68FC80
+Unknown68FB60Class::~Unknown68FB60Class()
+{
+	Unknown78 = 0;
+	Unknown_BE67BC->Unload("fa_ce02a.ini");
+}
 
 
 
@@ -975,133 +1100,8 @@ Unknown68FB60Class::Unknown68FB60Class() :
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-static const char *Get_Roman_Numeral(int value)
+// 0x68FA30
+const char *Get_Roman_Numeral(int value)
 {
 	FAIL_IF(value < 0) return("?");
 	FAIL_IF(value >= (sizeof(_RomanNumerals) / sizeof(char *))) return("?");
@@ -1111,10 +1111,9 @@ static const char *Get_Roman_Numeral(int value)
 /*
 **	Reconstruction notes. The client's file per its asserts ('e:\build\beta\G\app\Client\inv_render.cpp' at 0xB90220;
 **	lines 119-1107), its object 0x68BF10-0x68FC60 and on. Blank stretches keep __LINE__ for the functions not rebuilt yet:
-**	0x68C3E0-0x68C680 (the property visitor classes), 0x68C6B0, 0x68CCC0, 0x68DCC0-0x68E120, 0x68E360, 0x68EB10, 0x68F510,
-**	0x68FA30, 0x68FC80 on.
+**	0x68C3E0-0x68C680 (the property visitor classes), 0x68C6B0, 0x68CCC0, 0x68E360, 0x68EB10, 0x68F510, 0x68FE10 on.
 **	0x68BF10 copies its allocator from the argument's own slot (`mov al,[esp+0x28]`), then tests that byte: hence the cast
-**	in Unknown44's initialiser, and no stack slot of the temporary. Get_Roman_Numeral sits on the assert's line and inlines
+**	in Unknown44's initialiser, and no stack slot of the temporary. Get_Roman_Numeral (0x68FA30) sits on the asserts' lines and inlines
 **	into the earlier 0x68D700, where `value > 0` folds the first FAIL_IF away (line 1106 has no string reference there).
 **	Unknown78Struct: three zeros with a constructor of their own keep +0x74's store in order at 0x68DC20.
 */

@@ -20,6 +20,7 @@
 
 class FontSys;
 class InvDataClass;
+class Unknown6A3D60Class;
 
 class InvRenderClass : public SlotDataRenderClass	// NAME 3: class-from-file (D24) for app\Client\inv_render.cpp
 {
@@ -83,12 +84,12 @@ public:
 
 	void Unknown_68EAE0(bool on, const RefCountPtr<RenderObjClass> &robj);	// 0x68EAE0 (onto or off the container)  // NAME 1 [on, robj]: neutral
 
-	int Unknown58;															// +0x58
-	int Unknown5C;															// +0x5C
-	int Unknown60;															// +0x60
-	int Unknown64;															// +0x64
-	int Unknown68;															// +0x68
-	int Unknown6C;															// +0x6C
+	RefCountPtr<RenderObjClass> OnIndicator;	// +0x58  // NAME 3: 0x68DCC0's assert
+	RefCountPtr<RenderObjClass> OutOfAmmoIndicator;	// +0x5C  // NAME 3: 0x68DCC0's assert
+	RefCountPtr<RenderObjClass> ValidityIndicator;	// +0x60  // NAME 3: 0x68DCC0's assert
+	RefCountPtr<RenderObjClass> WrongTargetTypeIndicator;	// +0x64 ('item_noskill')  // NAME 2: skill_render.cpp's, same model
+	RefCountPtr<RenderObjClass> RechargeIndicator;	// +0x68  // NAME 3: 0x68DCC0's assert
+	Unknown6A3D60Class *Unknown6C;											// +0x6C (destructor 0x6A3F10)
 	int Unknown70;															// +0x70
 	float Unknown74;														// +0x74 (-1)
 	Unknown78Struct Unknown78;												// +0x78
