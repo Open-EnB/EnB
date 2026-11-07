@@ -23,7 +23,7 @@ public:
 	CameraController02Class(SClient *client);			// 0x7979A0
 	virtual ~CameraController02Class();					// 0x797A90, deleting 0x797A60
 	virtual void Unknown_04();							// +0x04 0x797B10
-	virtual void Unknown_08(void *arg1, void *arg2, int *new_state, int arg4);	// +0x08 0x797B50 (not rebuilt)
+	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x797B50 (not rebuilt)
 	virtual void Unknown_0C();							// +0x0C 0x798130 (stops the phase's module)
 	void Unknown_7981B0();								// 0x7981B0 (not rebuilt)
 

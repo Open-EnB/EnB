@@ -13,7 +13,7 @@ public:
 	CameraController00Class(SClient *client);			// 0x798AE0
 	virtual ~CameraController00Class();					// 0x798B40, deleting 0x798B10
 	virtual void Unknown_04();							// +0x04 0x798B60
-	virtual void Unknown_08(void *arg1, void *arg2, int *new_state, int arg4);	// +0x08 0x798BA0
+	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x798BA0
 	virtual void Unknown_0C();							// +0x0C 0x798CD0 (empty)
 
 	unsigned Unknown0C;									// +0x0C (the client clock +0x10BC when the avatar was seen)

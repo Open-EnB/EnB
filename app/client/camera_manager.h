@@ -17,7 +17,7 @@ class SClient;
 // The twelve controllers in the manager's order (their files not rebuilt: the camctrl_*.cpp objects 0x792320-0x798D10;
 // declared as far as the constructor's new needs them: the size and the constructor; the first and third are unknown_798ae0.h's and unknown_7979a0.h's)
 #define CAMERA_CONTROLLER(name, size, ctor) \
-	class name : public CameraControllerClass { public: name(SClient *client); void Unknown_04(); void Unknown_08(void *arg1, void *arg2, int *new_state, int arg4); void Unknown_0C(); char Unknown0C[size - 0x0C]; };
+	class name : public CameraControllerClass { public: name(SClient *client); void Unknown_04(); void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target); void Unknown_0C(); char Unknown0C[size - 0x0C]; };
 CAMERA_CONTROLLER(CameraController01Class, 0x10, 0x794510)	// NAME 1: neutral (D10)
 CAMERA_CONTROLLER(CameraController03Class, 0x1C, 0x795900)	// NAME 1: neutral (D10)
 CAMERA_CONTROLLER(CameraController04Class, 0x14, 0x793520)	// NAME 1: neutral (D10)
@@ -44,9 +44,9 @@ public:
 	void Unknown_7994D0();								// 0x7994D0 (ACTION 8 for SClient +0x13B8)
 	void Unknown_799590();								// 0x799590 (ACTION 27 for the avatar)
 	void Unknown_799610(const Vector3 &pos, const Quaternion &rot);	// 0x799610 (eases Position / Orientation toward them)  // NAME 1 [pos, rot]: what they are
-	void Unknown_7998B0();								// 0x7998B0 (not rebuilt)
+	void Unknown_7998B0(int id);						// 0x7998B0 (pulls the camera in front of the object whose ID the controller gave)  // NAME 1 [id]: Find_Object's
 	bool Unknown_799DA0(int *new_state, int state);		// 0x799DA0  // NAME 2 [new_state]: its FAIL_IF; NAME 1 [state]: neutral
-	void Unknown_799E40();								// 0x799E40 (SClient's Process_AI; not rebuilt)
+	void Unknown_799E40();								// 0x799E40 (SClient's Process_AI: the requests' state changes, the controller's placement, the camera)
 	void Unknown_79B2B0(int request);					// 0x79B2B0 (sets the request's bit in Requests)  // NAME 1 [request]: neutral
 	bool Unknown_79B330(int request);					// 0x79B330 (tests and clears it)  // NAME 1 [request]: neutral
 	void Set_Heading(float heading); float Get_Heading();	// 0x79B370, 0x79B390  // NAME 2: sclient.cpp's

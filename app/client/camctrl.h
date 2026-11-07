@@ -4,7 +4,7 @@
 #ifndef CAMCTRL_H  // NAME 1 [camctrl.h]: PROVISIONAL (D137)
 #define CAMCTRL_H
 
-class SClient;
+class SClient; class Vector3; class Quaternion;
 
 // The camera controllers' base (vtable 0xB04B40: its deleting destructor 0x792460, slots +0x04 .. +0x0C pure,
 // +0x10 .. +0x18 0x7923E0 / 0x792410 / 0x792430, all inline: the client's copies are the COMDATs of the first
@@ -15,7 +15,7 @@ public:
 	CameraControllerClass(SClient *client) : Client(client), Flags(0) {}
 	virtual ~CameraControllerClass() {}
 	virtual void Unknown_04() = 0;						// +0x04 (the state's start: the manager's constructor calls it after +0x10(0))
-	virtual void Unknown_08(void *arg1, void *arg2, int *new_state, int arg4) = 0;	// +0x08 (0x798BA0: 4 arguments, the third an out int)  // NAME 1 [arg1, arg2, new_state, arg4]: neutral
+	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target) = 0;	// +0x08 (the manager 0x799E40 passes its position, orientation, the mode (1 eases, 2 sets; 2 by default) and an object ID for 0x7998B0 (-1 none))  // NAME 1 [pos, rot, mode, target]: what 0x799E40 does with them
 	virtual void Unknown_0C() = 0;						// +0x0C
 	virtual void Set_Flag(int bit) { Flags |= 1 << bit; }	// +0x10 0x7923E0  // NAME 1: what it does
 	virtual bool Unknown_14() { return(false); }		// +0x14 0x792410 (0x79B690 asks the current state's)

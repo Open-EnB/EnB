@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-659 entries in 181 files.
+668 entries in 182 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -29,7 +29,10 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:3653` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs) |
 | `app/client/avatar_pip.cpp:198` | `AvatarPipClass::Unknown_7E3A20` | marker | NOT EXACT: shape (the client copies target into the light's translation first, then folds Translate's products: two zeroed floats per axis where ours multiplies; a release tail-merge and Rotate_Y's operand order; 0.83) |
 | `app/client/avatar_pip.cpp:294` | `AvatarPipClass::Unknown_7E4520` | marker | NOT EXACT: scheduling (the client converts budget * 0.1f to int before the vp's Get_Sort_Level call; ours after; 0.79) |
+| `app/client/camera_manager.cpp:176` | `CameraManagerClass::Unknown_7998B0` | marker | NOT EXACT: 0x7998B0 (Center.X of the shifted box: the client adds the translation before the two zero products, ours after; Y and Z match) 0x7998B0 |
+| `app/client/camera_manager.cpp:252` | `CameraManagerClass::Unknown_799E40` | marker | NOT EXACT: 0x799E40 (frame order: the client puts target at -0x10 above the 12-byte block locals and Sqrt's float above the avatar position temporary, ours the reverse; bit 15's Length2 keeps Y and Z on the FPU in the client) 0x799E40 |
 | `app/client/camera_manager.cpp:653` | `CameraManagerClass::Unknown_79B4F0` | marker | NOT EXACT: 0x79B4F0 (the default arm: the client keeps true in bl across the assert, so its return is not merged with case 0's mov al,1) |
+| `app/client/camera_manager.cpp:706` | `CameraManagerClass::Unknown_79B6B0` | mention | NOT EXACT (CS1, 2026-11-07). 0x799E40's inlining: 0x79B330 inline for its first 17 requests and 0x799DA0 for 23 sites only with 0x79B330 written without a bit local (with it, the requests 15 and 16 lose theirs to the budget); the 'bit' local form is exact out of line too. 0x7998B0's shifted box needs Set_Translation (Matrix3D(-delta) copies through the FPU). |
 | `app/client/chat_window.cpp:250` | `ChatWindowClass::Unknown_67E670` | marker | NOT EXACT: the clamp of `spaces` only: the client tests spaces < 1 twice (0x67E78C, 0x67E79D); VC6 folds the second here |
 | `app/client/chat_window.cpp:299` | `ChatWindowClass::Unknown_67F7F0` | marker | NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy) |
 | `app/client/chat_window.cpp:503` | `ChatWindowClass::Unknown_6804E0` | marker | NOT EXACT: the height is kept in two stack slots in the client (fst [esp+0xC]; fstp [esp+8], frame 4 larger); the rest is the client form |
@@ -631,6 +634,12 @@ edit the comments in the code, not this file.
 | `app/shared/ro_funcs.cpp:279` | `Unknown_4967F0` | marker | NOT EXACT: shape |
 | `app/shared/ro_funcs.cpp:360` | `Unknown_496DB0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr 0x474080 for each sub-object) |
 | `app/shared/ro_funcs.cpp:399` | `Unknown_496C00` | marker | NOT EXACT: functional (D64), from the pseudocode and the disassembly: the colour of the model's first texture at (u, v), u and v 0..1 (FAIL_IFs '!material' l.365, l.367, '!surf' l.374); black when it can't @0x496C00 |
+| `app/shared/rs_list.cpp:256` | `RenderStateListClass::Unknown_45AB20` | marker | NOT EXACT: schedule (0.86): the client stores the float DURATION before the next push |
+| `app/shared/rs_list.cpp:293` | `RenderStateListClass::Unknown_45AD90` | marker | NOT EXACT: regs (0.67): the client keeps 0 in ebp from the start and one more local |
+| `app/shared/rs_list.cpp:555` | `RenderStateListClass::Unknown_45B550` | marker | NOT EXACT: switch (0.71): the client's SHADER jump table starts at 0 (case 0 on the default's code); ours subtracts 1 |
+| `app/shared/rs_list.cpp:677` | `RenderStateListClass::Unknown_45BC30` | marker | NOT EXACT: schedule (0.86): the client stores the float DURATION before the next push |
+| `app/shared/rs_list.cpp:770` | `Unknown45C430Class::Unknown_00` | marker | NOT EXACT: inlining (0.62): the client calls the effect pass maker 0x45B990 out of line; ours inlines it |
+| `app/shared/rs_list.cpp:868` | `RenderStateListClass::Unknown_04` | mention | NOT EXACT (functional, D64): 0x45AB20 and 0x45BC30 (the float DURATION's store is scheduled before the next push in the client), 0x45AD90 (register allocation: the client keeps 0 in ebp from the start, one more local), 0x45B550 (the SHADER switch: the client's jump table starts at 0 with case 0 on the default's code; ours subtracts 1), 0x45C430 (the client calls the effect pass maker 0x45B990 out ... |
 | `app/shared/rs_track.cpp:11` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.82): the client stores the vtables before loading RenderStateList's +0x2C byte and compares the inlined assert's pointer with ebx |
 | `app/shared/rs_track.cpp:34` | `RsTrackClass::RsTrackClass` | marker | NOT EXACT: shape (0.83): as 0x45FDA0 |
 | `app/shared/rs_track.cpp:507` | `RsTrackClass::Unknown_1C8` | marker | NOT EXACT: shape (0.75): the client saves edi after the early returns; the last call loads UnknownC4 into ecx |

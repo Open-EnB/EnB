@@ -9,19 +9,19 @@
 #include "wwmath.h"
 #include "..\packets\pkaction.h"
 #include "..\shared\g_assert.h"
+#include "co.h"
+#include "camera.h"
+#include "..\common\unknown_navlist.h"
+#include "obbox.h"
+#include "castres.h"
+#include "scene.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
+// the main view's scene (mainview.cpp's 0x75ECF0, its +0x10C), as far as 0x7998B0 calls it
+class MainViewSceneClass : public SimpleSceneClass	// NAME 1: neutral (D10): mainview.cpp's
+{
+public:
+	void Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship);	// 0x75FB00 (sweeps the box through the scene; camctrl 0x796920 calls it too)  // NAME 1 [to, from, move, result, ignore, ship]: what 0x7998B0 passes
+};
 
 
 
@@ -173,50 +173,50 @@ void CameraManagerClass::Unknown_799610(const Vector3 &pos, const Quaternion &ro
 		Orientation = q;
 	}
 }
+// NOT EXACT: 0x7998B0 (Center.X of the shifted box: the client adds the translation before the two zero products, ours after; Y and Z match)
+// 0x7998B0
+void CameraManagerClass::Unknown_7998B0(int id)
+{
+	ClientObjectClass *object = Client->Find_Object(id);
+	if (object) {
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		FAIL_IF(!Client->MainView) {return;}
+		CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+		FAIL_IF(!cam) {return;}
+		Matrix3D tm = Build_Matrix3D(Orientation);
+		tm.Set_Translation(Position);
+		cam->Set_Transform(tm);
+		MainViewSceneClass *scene = (MainViewSceneClass *)Client->MainView->Unknown_64();
+		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
+		OBBoxClass moved;
+		Vector3 delta = Position - object->Unknown_24();
+		Matrix3D shift(true);
+		shift.Set_Translation(-delta);
+		OBBoxClass::Transform(shift, box, &moved);
+		CastResultStruct result;
+		bool ship = OptionClass::Instance->Get_Bool("Camera_Ship");
+		scene->Unknown_75FB00(moved, box, delta, &result, object->RenderObject, ship);
+		if (result.Fraction < 1.0f) {
+			float fraction = result.Fraction;
+			float znear, zfar;
+			cam->Get_Clip_Planes(znear, zfar);
+			float dist = delta.Length();
+			float t = (object->Unknown_30() + znear) / dist;
+			if (t > 1.0f) {
+				t = 1.0f;
+			}
+			if (fraction < t) {
+				fraction = t;
+			}
+			Position = object->Unknown_24() + delta * fraction;
+		}
+	}
+}
 
 
 
@@ -249,6 +249,154 @@ bool CameraManagerClass::Unknown_799DA0(int *new_state, int state)
 	}
 	return(result);
 }
+// NOT EXACT: 0x799E40 (frame order: the client puts target at -0x10 above the 12-byte block locals and Sqrt's float above the avatar position temporary, ours the reverse; bit 15's Length2 keeps Y and Z on the FPU in the client)
+// 0x799E40
+void CameraManagerClass::Unknown_799E40()
+{
+	int new_state = -1;
+	bool ease = false;
+	int mode;
+	int target;
+	if (Unknown_79B330(0)) {
+		if (!Unknown_799DA0(&new_state, 4)) {
+			Unknown_799DA0(&new_state, 0);
+			Controllers[0]->Set_Flag(0);
+		}
+	} else if (Unknown_79B330(1)) {
+		Unknown_799DA0(&new_state, 0);
+	} else if (Unknown_79B330(2)) {
+		NavigationListClass &path = (NavigationListClass &)Client->MainView->Radar->Unknown_7BD960();
+		bool warp = true;
+		if (path.Is_Last()) {
+			ClientObjectClass *dest = Client->Find_Object(path.Get_Current());
+			if (dest) {
+				Vector3 dest_pos = dest->Unknown_24();
+				float dist = (dest_pos - Client->Get_Avatar()->Unknown_24()).Length();
+				if (dist - (dest->Unknown_30() + 75.0f) < 15000.0f) {
+					warp = false;
+				}
+			}
+		}
+		if (warp) {
+			Unknown_799DA0(&new_state, 2);
+		}
+	} else if (Unknown_79B330(3)) {
+		if (State == 2) {
+			Controllers[2]->Set_Flag(0);
+		}
+	} else if (Unknown_79B330(4)) {
+		if (State == 2) {
+			Controllers[2]->Set_Flag(1);
+		}
+	} else if (Unknown_79B330(5)) {
+		if (State == 2) {
+			ease = true;
+			Unknown_799DA0(&new_state, 1);
+		}
+	} else if (Unknown_79B330(6)) {
+		if (!Client->Unknown_74D730() && State != 3) {
+			if (State != 0) {
+				if (!Unknown_799DA0(&new_state, 3)) {
+					Unknown_799DA0(&new_state, 0);
+					Unknown_7993E0();
+				}
+			}
+		} else {
+			Unknown_799DA0(&new_state, 0);
+			Unknown_7993E0();
+		}
+	} else if (Unknown_79B330(24)) {
+		Unknown_799DA0(&new_state, 0);
+		Unknown_7993E0();
+	} else if (Unknown_79B330(7)) {
+		Unknown_799DA0(&new_state, 1);
+	} else if (Unknown_79B330(8)) {
+		if (!Client->Unknown_74D730() && State != 5) {
+			if (State != 0) {
+				if (!Unknown_799DA0(&new_state, 5)) {
+					Unknown_799DA0(&new_state, 0);
+					Unknown_7994D0();
+				}
+			}
+		} else {
+			Unknown_799DA0(&new_state, 0);
+			Unknown_7994D0();
+		}
+	} else if (Unknown_79B330(9)) {
+		Unknown_799DA0(&new_state, 0);
+		Unknown_7994D0();
+	} else if (Unknown_79B330(10)) {
+		if (!Client->Unknown_74D730() && State != 6) {
+			if (State != 0) {
+				if (Unknown_799DA0(&new_state, 6)) {
+					Controllers[6]->Set_Flag(0);
+				} else {
+					Unknown_799DA0(&new_state, 0);
+					Unknown_7992F0();
+				}
+			}
+		} else {
+			Unknown_799DA0(&new_state, 0);
+			Unknown_7992F0();
+		}
+	} else if (Unknown_79B330(11)) {
+		Unknown_799DA0(&new_state, 0);
+		Unknown_7992F0();
+	} else if (Unknown_79B330(12)) {
+		if (Unknown_799DA0(&new_state, 6)) {
+			Controllers[6]->Set_Flag(1);
+		} else {
+			Unknown_799DA0(&new_state, 0);
+			Controllers[0]->Set_Flag(0);
+		}
+	} else if (Unknown_79B330(13)) {
+		if (!Unknown_799DA0(&new_state, 7)) {
+			Unknown_799DA0(&new_state, 0);
+			Controllers[0]->Set_Flag(0);
+		}
+	} else if (Unknown_79B330(14)) {
+		Unknown_799DA0(&new_state, 1);
+	} else if (Unknown_79B330(15)) {
+		if (!Client->Unknown_74D730()) {
+			ClientObjectClass *target = Client->Find_Object(Client->Unknown13B4);
+			ClientObjectClass *avatar = Client->Get_Avatar();
+			if (target && avatar) {
+				Vector3 target_pos = target->Unknown_24(); Vector3 diff = target_pos - avatar->Unknown_24();
+				float radius = target->Unknown_30();
+				if (diff.Length2() > (radius * radius + 5625.0f) * 2.0f) {
+					Unknown_799DA0(&new_state, 8);
+				}
+			}
+		}
+	} else if (Unknown_79B330(16)) {
+		ease = true;
+		Unknown_799DA0(&new_state, 1);
+	} else if (Unknown_79B330(17)) {
+		if (State != 0 && !Unknown_799DA0(&new_state, 9)) {
+			Unknown_799DA0(&new_state, 0);
+			Unknown_799590();
+		}
+	} else if (Unknown_79B330(18)) {
+		Unknown_799DA0(&new_state, 0);
+		Unknown_799590();
+	} else if (Unknown_79B330(19)) {
+		Unknown_799DA0(&new_state, 1);
+	} else if (Unknown_79B330(22)) {
+		Unknown_799DA0(&new_state, 1);
+	} else if (Unknown_79B330(20)) {
+		if (State == 1) {
+			Unknown_799DA0(&new_state, 10);
+		}
+	} else if (Unknown_79B330(21)) {
+		if (State == 10) {
+			Unknown_799DA0(&new_state, 1);
+			ease = true;
+		}
+	} else if (Unknown_79B330(23)) {
+		Unknown_799DA0(&new_state, 11);
+	} else if (Unknown_79B330(25)) {
+		Unknown_799DA0(&new_state, 1);
+	}
 
 
 
@@ -337,6 +485,39 @@ bool CameraManagerClass::Unknown_799DA0(int *new_state, int state)
 
 
 
+	if (new_state != -1) {
+		FAIL_IF(new_state == State) {return;}
+		Controllers[State]->Unknown_0C();
+		State = new_state;
+		Controllers[State]->Unknown_04();
+	}
+	Vector3 pos = Position;
+	Quaternion rot = Orientation;
+	mode = 2;
+	target = -1;
+	Controllers[State]->Unknown_08(&pos, &rot, &mode, &target);
+	if (ease) {
+		mode = 1;
+	}
+	if ((Position - pos).Length2() > 6250000.0f) {
+		mode = 2;
+	}
+	if (!Unknown_79B4F0(2) && Client->Get_Avatar() && Client->Get_Avatar()->Unknown_6FC970()) {
+		mode = 2;
+	}
+	switch (mode) {
+		case 1:
+			Unknown_799610(pos, rot);
+			break;
+		case 2:
+			Position = pos;
+			Orientation = rot;
+			break;
+	}
+	if (target != -1) {
+		Unknown_7998B0(target);
+	}
+	Matrix3D tm(Orientation, Position);
 
 
 
@@ -350,192 +531,11 @@ bool CameraManagerClass::Unknown_799DA0(int *new_state, int state)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	CameraClass *cam = (CameraClass *)Client->MainView->Unknown_7C();
+	FAIL_IF(!cam) {return;}
+	cam->Set_Transform(tm);
+	cam->Set_View_Plane(FOV, -1.0f);
+}
 
 
 
@@ -631,9 +631,9 @@ void CameraManagerClass::Unknown_79B2B0(int request)
 // 0x79B330
 bool CameraManagerClass::Unknown_79B330(int request)
 {
-	unsigned bit = 1 << request;
-	bool set = (Requests & bit) != 0;
-	Requests &= ~bit;
+	bool set = (Requests & (1 << request)) != 0;
+	Requests &= ~(1 << request);
+
 	return(set);
 }
 
@@ -703,5 +703,8 @@ float CameraManagerClass::Unknown_79B6B0() { return(75.0f); }						// 0x79B6B0
 ** insert(it, n, x) 0x79B710. 0x79B9E0 onward is the next object. asserts.txt gives the constructor's assert string
 ** 0xB9E58C to camctrl_tractor.cpp (the preceding __FILE__): it is this file's (0x7990D4 pushes it with 0xB9E5C0).
 **
-** Not rebuilt: 0x7998B0 (lines 188 / 190) and 0x799E40 (lines 237 x 23, 489, 535: it inlines 0x799DA0).
+** 0x7998B0 (lines 188 / 190) and 0x799E40 (lines 237 x 23, 489, 535: it inlines 0x799DA0) rebuilt NOT EXACT (CS1,
+** 2026-11-07). 0x799E40's inlining: 0x79B330 inline for its first 17 requests and 0x799DA0 for 23 sites only with
+** 0x79B330 written without a bit local (with it, the requests 15 and 16 lose theirs to the budget); the 'bit' local
+** form is exact out of line too. 0x7998B0's shifted box needs Set_Translation (Matrix3D(-delta) copies through the FPU).
 */

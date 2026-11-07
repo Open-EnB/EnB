@@ -27,7 +27,7 @@ void CameraController00Class::Unknown_04()
 }
 
 // 0x798BA0
-void CameraController00Class::Unknown_08(void *arg1, void *arg2, int *new_state, int arg4)
+void CameraController00Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
 	if (!Unknown11 && (Flags & 1)) {
 		CameraController00Class::Unknown_04();
@@ -35,28 +35,28 @@ void CameraController00Class::Unknown_08(void *arg1, void *arg2, int *new_state,
 	if (Unknown10) {
 		if (!Client->Get_Avatar()) {
 			Unknown10 = false;
-			*new_state = 0;
+			*mode = 0;
 			return;
 		}
 		if ((unsigned)(Client->Unknown10BC - Unknown0C) > 15000 || Unknown11) {
 			Client->CameraManager->Unknown_79B2B0(0x16);
 		}
-		*new_state = 0;
+		*mode = 0;
 		return;
 	}
 	if (Client->Get_Avatar()) {
 		if (Unknown11) {
 			Client->CameraManager->Unknown_79B2B0(0x16);
-			*new_state = 0;
+			*mode = 0;
 			return;
 		}
-		int *state = new_state;
+		int *state = mode;
 		Unknown0C = Client->Unknown10BC;
 		Unknown10 = true;
 		*state = 0;
 		return;
 	}
-	*new_state = 0;
+	*mode = 0;
 }
 
 // 0x798CD0
@@ -71,5 +71,5 @@ void CameraController00Class::Unknown_0C()
 ** 0x798CF0, before camera_manager.cpp's constructor 0x798D20. No __FILE__, assert or string: the name is PROVISIONAL
 ** (D137); by the link order it is one of the camctrl_*.cpp files after camctrl_tractor.cpp (0x797770), like the
 ** object 0x797990-0x798ACF before it. Its constructor is the camera manager's first new (state 0). 0x798BA0's
-** last arms keep their own *new_state stores only with the pointer in a local (VC6 otherwise tail-merges them).
+** last arms keep their own *mode stores only with the pointer in a local (VC6 otherwise tail-merges them).
 */
