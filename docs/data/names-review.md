@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 157 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1541 |
-| 2 | describes what the code does | 3521 |
-| 1 | neutral placeholder | 17291 |
+| 3 | by convention from a client-named file or sibling | 1542 |
+| 2 | describes what the code does | 3523 |
+| 1 | neutral placeholder | 17313 |
 
 ## For review (score 3 and below)
 
@@ -1229,6 +1229,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown50` | `app/client/client_lego_impl.h:165` | neutral (D10) |
 | 1 | `Unknown64` | `app/client/client_lego_impl.h:170` | neutral (D10) |
 | 1 | `Unknown65` | `app/client/client_lego_impl.h:171` | neutral (D10) |
+| 1 | `client_object_events.h` | `app/client/client_object_events.h:3` | neutral header name (D10) |
+| 1 | `Value` | `app/client/client_object_events.h:29` | neutral |
 | 1 | `Unknown_4F7EF0` | `app/client/co.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_B93ACC` | `app/client/co.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_B93AD8` | `app/client/co.cpp:36` | untagged neutral name (D10) |
@@ -1663,6 +1665,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_70BF90` | `app/client/co_player_relationship.cpp:231` | 'PVPAttackable' when 0x70BF60 says so |
 | 1 | `Unknown_70C2A0` | `app/client/co_player_relationship.cpp:240` | 'Player' for type 1 |
 | 1 | `Unknown_6FEEE0` | `app/client/co_player_relationship.cpp:311` | untagged neutral name (D10) |
+| 1 | `Unknown_70B0A0` | `app/client/co_player_relationship.h:45` | the gutter colours of an object |
+| 1 | `Unknown_70BAC0` | `app/client/co_player_relationship.h:46` | the object is a player in the client's group |
 | 1 | `Unknown_BE350C` | `app/client/co_subtype_base.cpp:5` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
 | 1 | `Unknown70DBC0Class` | `app/client/co_subtype_base.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_Dyn04` | `app/client/co_subtype_base.cpp:14` | untagged neutral name (D10) |
@@ -5019,12 +5023,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7150F0` | `app/client/postate.h:332` | untagged neutral name (D10) |
 | 1 | `Unknown_7151D0` | `app/client/postate.h:333` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/postate.h:335` | untagged neutral name (D10) |
-| 1 | `Unknown_7BB570` | `app/client/radar_data.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_7BB8C0` | `app/client/radar_data.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/radar_data.h:30` | neutral (D10) |
-| 1 | `Unknown18` | `app/client/radar_data.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/radar_data.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown79` | `app/client/radar_data.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Get_Ticks` | `app/client/radar_data.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/radar_data.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/radar_data.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB960` | `app/client/radar_data.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_4F7EF0` | `app/client/radar_data.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_7BBA90` | `app/client/radar_data.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_7BBC00` | `app/client/radar_data.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB910` | `app/client/radar_data.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB570` | `app/client/radar_data.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_74D8B0` | `app/client/radar_data.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_700860` | `app/client/radar_data.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB8C0` | `app/client/radar_data.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown_70BAC0` | `app/client/radar_data.cpp:202` | untagged neutral name (D10) |
+| 1 | `Unknown_70B0A0` | `app/client/radar_data.cpp:210` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB570` | `app/client/radar_data.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB8C0` | `app/client/radar_data.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB910` | `app/client/radar_data.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_7BB960` | `app/client/radar_data.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_7BBA90` | `app/client/radar_data.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_7BBC00` | `app/client/radar_data.h:38` | untagged neutral name (D10) |
+| 1 | `Peek_SClient` | `app/client/radar_data.h:40` | neutral |
+| 1 | `Unknown_18` | `app/client/radar_data.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/radar_data.h:42` | neutral (D10) |
+| 1 | `Unknown78` | `app/client/radar_data.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown79` | `app/client/radar_data.h:46` | untagged neutral name (D10) |
 | 1 | `Unknown_496AE0` | `app/client/radar_icon_data.cpp:12` | untagged neutral name (D10) |
 | 1 | `PDAInterfaceUnknownA0Class` | `app/client/radar_system.cpp:28` | neutral (D10) |
 | 1 | `Unknown_7C0440` | `app/client/radar_system.cpp:31` | untagged neutral name (D10) |
@@ -10507,7 +10530,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B7F4F4` | `app/client/ui_group.cpp:87` | neutral (D10) |
 | 1 | `Unknown_B7F518` | `app/client/ui_group.cpp:88` | neutral (D10) |
 | 1 | `Unknown_4F7EF0` | `app/client/ui_group.cpp:91` | untagged neutral name (D10) |
-| 1 | `Value` | `app/client/ui_group.cpp:96` | neutral |
 | 1 | `UIGroupUnknownE8Class` | `app/client/ui_group.cpp:152` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/ui_group.cpp:153` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/ui_group.cpp:155` | untagged neutral name (D10) |
@@ -14412,8 +14434,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Is_Same` | `app/client/unknown_signalbase.h:52` | what it does |
 | 1 | `Object` | `app/client/unknown_signalbase.h:55` | what it holds |
 | 1 | `Function` | `app/client/unknown_signalbase.h:56` | what it holds |
-| 1 | `Unknown00` | `app/client/unknown_signalbase.h:100` | neutral (D10) |
-| 1 | `Unknown_4F7EF0` | `app/client/unknown_signalbase.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/unknown_signalbase.h:106` | neutral (D10) |
+| 1 | `Unknown_4F7EF0` | `app/client/unknown_signalbase.h:109` | untagged neutral name (D10) |
 | 1 | `view` | `app/client/user_click_indicator.h:28` | gutter_data.cpp's 0x7B6040's FAIL_IF |
 | 1 | `Unknown_6B3D00` | `app/client/user_click_indicator.h:28` | untagged neutral name (D10) |
 | 1 | `scene` | `app/client/user_click_indicator.h:29` | gutter_data.cpp's 0x7B58F0 |
@@ -17507,9 +17529,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Scale` | `app/client/client_lego_impl.h:168` | what Set_Scale sets |
 | 2 | `Radius` | `app/client/client_lego_impl.h:169` | what Update_Radius sets |
 | 2 | `Transform` | `app/client/client_lego_impl.h:173` | what Get_Transform returns |
-| 2 | `Object` | `app/client/co.cpp:25` | what it holds |
-| 2 | `Old` | `app/client/co.cpp:26` | what it holds |
-| 2 | `New` | `app/client/co.cpp:27` | what it holds |
+| 2 | `Object` | `app/client/client_object_events.h:18` | what it holds |
+| 2 | `Old` | `app/client/client_object_events.h:19` | what it holds |
+| 2 | `New` | `app/client/client_object_events.h:20` | what it holds |
 | 2 | `Pass` | `app/client/co.cpp:250` | what it holds |
 | 2 | `std:` | `app/client/co.cpp:260` | what it holds |
 | 2 | `co.cpp` | `app/client/co.cpp:836` | the class id the handlers test |
@@ -17545,7 +17567,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/co.h:303` | what NAME_DECAL stores in it |
 | 2 | `Sphere` | `app/client/co.h:304` | what it holds |
 | 2 | `Relationship` | `app/client/co.h:315` | what it holds |
-| 2 | `Get_Client_Object` | `app/client/co_data.h:38` | what it does |
 | 2 | `Get_Client` | `app/client/co_data.h:41` | what it does |
 | 2 | `Remove_All` | `app/client/co_data.h:44` | what it does |
 | 2 | `Get` | `app/client/co_data.h:56` | what it does |
@@ -17561,11 +17582,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Emote_Data` | `app/client/co_data.h:90` | what it does |
 | 2 | `Remove_Emote_Data` | `app/client/co_data.h:91` | what it does |
 | 2 | `String_To_Value` | `app/client/co_player_relationship.cpp:17` | as strconv_lib.h's pairs |
-| 2 | `GutterColorStruct` | `app/client/co_player_relationship.cpp:20` | what it holds ('Failed to lookup gutter color %s') |
-| 2 | `Color1` | `app/client/co_player_relationship.cpp:25` | the assert's color_1 |
-| 2 | `Color2` | `app/client/co_player_relationship.cpp:26` | the assert's color_2 |
-| 2 | `GutterColorSetStruct` | `app/client/co_player_relationship.cpp:30` | what it holds |
-| 2 | `Read_Color` | `app/client/co_player_relationship.cpp:35` | what it does |
 | 2 | `std:` | `app/client/co_player_relationship.cpp:43` | what it holds |
 | 2 | `defaults` | `app/client/co_player_relationship.cpp:80` | what it holds |
 | 2 | `neutral` | `app/client/co_player_relationship.cpp:156` | what it holds |
@@ -17577,6 +17593,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `shun` | `app/client/co_player_relationship.cpp:287` | what it holds |
 | 2 | `friendly` | `app/client/co_player_relationship.cpp:288` | what it holds |
 | 2 | `adore` | `app/client/co_player_relationship.cpp:289` | what it holds |
+| 2 | `GutterColorStruct` | `app/client/co_player_relationship.h:23` | what it holds ('Failed to lookup gutter color %s') |
+| 2 | `Color1` | `app/client/co_player_relationship.h:28` | the assert's color_1 |
+| 2 | `Color2` | `app/client/co_player_relationship.h:29` | the assert's color_2 |
+| 2 | `GutterColorSetStruct` | `app/client/co_player_relationship.h:33` | what it holds |
+| 2 | `Read_Color` | `app/client/co_player_relationship.h:37` | what it does |
 | 2 | `TargetID` | `app/client/co_subtypes.h:81` | what it holds |
 | 2 | `ParentID` | `app/client/co_subtypes.h:82` | what it holds |
 | 2 | `Bone` | `app/client/co_subtypes.h:84` | what it holds |
@@ -18326,8 +18347,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Position` | `app/client/postate.h:337` | what it holds |
 | 2 | `Velocity` | `app/client/postate.h:338` | what it holds |
 | 2 | `Time` | `app/client/postate.h:339` | what it holds |
-| 2 | `state` | `app/client/radar_data.h:28` | what 0x7BD6E0 / 0x7BD860 pass |
-| 2 | `Color` | `app/client/radar_data.h:31` | what it does |
+| 2 | `state` | `app/client/radar_data.h:34` | what 0x7BD6E0 / 0x7BD860 pass |
+| 2 | `event, object` | `app/client/radar_data.h:37` | the event's type, the FAIL_IF |
+| 2 | `event, object` | `app/client/radar_data.h:38` | the event's type, the FAIL_IF |
+| 2 | `Color` | `app/client/radar_data.h:43` | what it does |
+| 2 | `Colors` | `app/client/radar_data.h:44` | what it holds |
 | 2 | `icon_name` | `app/client/radar_icon_data.h:31` | gutter_data.cpp's 'gutter_icon' |
 | 2 | `Set_Icon` | `app/client/radar_icon_data.h:34` | what it does |
 | 2 | `Add_To_Scene` | `app/client/radar_icon_data.h:35` | what it does |
@@ -18633,7 +18657,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CORNER_COUNT` | `app/client/target_reticle.h:32` | UL, UR, BR, BL |
 | 2 | `sort_level, show_text` | `app/client/target_reticle.h:34` | what it does with them |
 | 2 | `Update` | `app/client/target_reticle.h:37` | what it does |
-| 2 | `Get_Client_Object` | `app/client/target_reticle.h:38` | what it does |
+| 2 | `Peek_Client_Object` | `app/client/target_reticle.h:38` | what it does |
 | 2 | `Set_Client_Object` | `app/client/target_reticle.h:39` | what it does |
 | 2 | `CornerStruct` | `app/client/target_reticle.h:42` | one corner's bone and material (constructor 0x7C54E0, destructor 0x7C5500) |
 | 2 | `BoneIndex` | `app/client/target_reticle.h:44` | what it holds |
@@ -20891,10 +20915,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RadiusAdjust` | `app/client/co.h:294` | the INI key |
 | 3 | `co_data.h` | `app/client/co_data.h:19` | header name assumed from the client's co_data.cpp |
 | 3 | `ClientObjectDataClass` | `app/client/co_data.h:34` | by convention (D24) from the client's co_data.cpp |
-| 3 | `Target` | `app/client/co_player_relationship.cpp:37` | the ini name 'Target' |
-| 3 | `Mouse` | `app/client/co_player_relationship.cpp:38` | the ini name 'Mouse' |
-| 3 | `NotTarget` | `app/client/co_player_relationship.cpp:39` | the ini name 'NotTarget' |
-| 3 | `JumpStart` | `app/client/co_player_relationship.cpp:40` | the ini name 'JumpStart' |
+| 3 | `co_player_relationship.h` | `app/client/co_player_relationship.h:12` | header name assumed from the client's co_player_relationship.cpp |
+| 3 | `Target` | `app/client/co_player_relationship.h:39` | the ini name 'Target' |
+| 3 | `Mouse` | `app/client/co_player_relationship.h:40` | the ini name 'Mouse' |
+| 3 | `NotTarget` | `app/client/co_player_relationship.h:41` | the ini name 'NotTarget' |
+| 3 | `JumpStart` | `app/client/co_player_relationship.h:42` | the ini name 'JumpStart' |
 | 3 | `control_keys_manager.h` | `app/client/control_keys_manager.h:18` | header name assumed from the client's control_keys_manager.cpp |
 | 3 | `SoundManagerClass` | `app/client/cpacket.cpp:86` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `NavigationDataClass` | `app/client/cpacket.cpp:98` | class-from-file (D24) for app\client\navigation_data.cpp |

@@ -89,12 +89,12 @@ static const char *Unknown_B7F518[] = { NULL, NULL, NULL, "FORM_UP_TSI03A", "LEA
 
 // The SignalMap the group events go to: a function-static instance (co.cpp's 0x4F7EF0), not rebuilt
 SignalMap &Unknown_4F7EF0();
-class ClientGroupEvent	// NAME 5: the client's RTTI .?AVClientGroupEvent@@
-{
-public:
-	ClientGroupEvent(bool value) : Value(value) {}
-	bool Value;											// +0x00  // NAME 1: neutral
-};
+#include "client_object_events.h"
+
+
+
+
+
 
 
 

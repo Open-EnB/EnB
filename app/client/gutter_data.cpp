@@ -180,7 +180,7 @@ bool GutterDataClass::Remove_From_Scene()
 // @0x7B5AD0
 RefCountPtr<RenderObjClass> GutterDataClass::Get_Render_Obj()
 {
-	ClientObjectClass *co = Get_Client_Object();
+	ClientObjectClass *co = Peek_Client_Object();
 
 
 
@@ -402,11 +402,11 @@ void GutterDataClass::Set_Scale(float scale)
 // @0x7B63C0
 void GutterDataClass::Update_Labels()
 {
-	RadarDataClass *rdata = Get_Radar_Data(Get_Client_Object(), false);
+	RadarDataClass *rdata = Get_Radar_Data(Peek_Client_Object(), false);
 	if (!rdata) {
 		return;
 	}
-	ClientObjectClass *rdata_co = rdata->Get_Client_Object();
+	ClientObjectClass *rdata_co = rdata->Peek_Client_Object();
 
 
 

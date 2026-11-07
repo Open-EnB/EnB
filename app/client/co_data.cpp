@@ -138,7 +138,7 @@ bool Remove_Emote_Data(ClientObjectClass *co)
 **	Notes (reconstruction)
 **
 **	The client's co_data.obj: 0x79D0F0-0x7A4770. ClientObjectDataClass's constructor (the assert
-**	'co', line 42), its inline Get_Client_Object and destructor (vtable 0xB056CC), Get_Client (the
+**	'co', line 42), its inline Peek_Client_Object and destructor (vtable 0xB056CC), Get_Client (the
 **	FAIL_IF '!ClientObject', line 54) and Unknown_18 (Get_Client inlined), the binder's Instance
 **	0x79D250 (a function-local static at 0xBE86E0, guard 0xBE86D8, destructor 0x79D2C0),
 **	Remove_All 0x79D390 (co.cpp's object destructor 0x6F2FE0 calls it), then per type (radar,

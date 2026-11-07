@@ -89,6 +89,12 @@ public:
 	}
 
 	template <class SENDER, class OBJECT, class EVENT>
+	void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event)	// (radar_data.cpp's 0x7BB1D0: the unused event is built)
+	{
+		connect((void *)sender, new SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
+	}
+
+	template <class SENDER, class OBJECT, class EVENT>
 	void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event)
 	{
 		disconnect(sender, object, function, event);

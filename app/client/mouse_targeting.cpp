@@ -65,7 +65,7 @@ void MouseTargetClass::Test(RadarIconDataClass *rdata, const Vector3 &pos, float
 {
 	FAIL_IF(!rdata) return;
 
-	ClientObjectClass *co = rdata->Get_Client_Object();
+	ClientObjectClass *co = rdata->Peek_Client_Object();
 	int priority = 0;
 	float distance = 0.0f;
 	Vector2 abs_delta = rdata->Position - Mouse;

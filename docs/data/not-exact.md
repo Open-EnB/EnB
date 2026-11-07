@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-621 entries in 171 files.
+624 entries in 172 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -190,6 +190,9 @@ edit the comments in the code, not this file.
 | `app/client/postate.cpp:1163` | `Unknown718510Class::Unknown_08` | marker | NOT EXACT: shape (17 rows: the client's first Normalize and the up-vector cross product load their operands in another order; five forms; attempts.py show 0x718830) |
 | `app/client/postate.cpp:1482` | `Unknown7192A0Class::Unknown_14` | mention | NOT EXACT) and 11 (0xB028F0), type 12 (0xB0292C), type 13 (0xB029C0, a HermiteSpline3DClass path; its transform |
 | `app/client/postate.cpp:1484` | `Unknown7192A0Class::Unknown_14` | mention | NOT EXACT), type 14 (0xB02A00), type 15 (0xB02A40). Not rebuilt: the statics 0x714820 and after 0x719620, 0x7196C0. extrap.cpp's classes are declared in postate.h only. |
+| `app/client/radar_data.cpp:64` | `RadarDataClass::RadarDataClass` | marker | NOT EXACT: inline budget (the client calls GutterColorStruct::operator= 0x70AC60 four times, ours inlines the first) @0x7BB1D0 |
+| `app/client/radar_data.cpp:88` | `RadarDataClass::Unknown_7BB570` | marker | NOT EXACT: block layout and registers (the client's case 0 sits after the common tail, sharing case 1's last two stores) @0x7BB570 |
+| `app/client/radar_data.cpp:223` | `RadarDataClass::Unknown_7BBC00` | marker | NOT EXACT: inline budget (the client calls GutterColorStruct::operator= 0x70AC60 for the last of the four, ours inlines all four) @0x7BBC00 |
 | `app/client/radar_system.cpp:86` | `RadarSystemClass::Unknown_7BCA70` | marker | NOT EXACT: register (ours keeps a zero register and this in edi; the client gutter in ebx, starmap in edi, this in ebp) @0x7BCA70 |
 | `app/client/radar_system.cpp:341` | `RadarSystemClass::Unknown_7BD6E0` | marker | NOT EXACT: order (the client loads the view mode into eax before the compare; ours compares the member) @0x7BD6E0 |
 | `app/client/radar_system_data_cache.cpp:157` | `RadarSystemDataCacheClass::Get_Is_In_Range` | marker | NOT EXACT: order (the client's always-in-range path returns on its own, before the distance test; ours shares the tail) @0x7BE3A0 |

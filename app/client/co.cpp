@@ -15,17 +15,17 @@
 #include "control_keys_manager.h"
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\shared\g_assert.h"
-// The event 0x6FEEE0 emits (the client's RTTI .?AVPlayerObjectRelationshipChangeEvent@@, 0x14 bytes)
-class PlayerObjectRelationshipChangeEvent	// NAME 5: the client's RTTI name
-{
-public:
-	PlayerObjectRelationshipChangeEvent(ClientObjectClass *object, const RelationshipClass &old_relationship, const RelationshipClass &new_relationship) :
-		Object(object), Old(old_relationship), New(new_relationship) {}
+#include "client_object_events.h"
 
-	ClientObjectClass *Object;		// +0x00  // NAME 2: what it holds
-	RelationshipClass Old;			// +0x04  // NAME 2: what it holds
-	RelationshipClass New;			// +0x0C  // NAME 2: what it holds
-};
+
+
+
+
+
+
+
+
+
 
 // The SignalMap the relationship event goes to: a function-static instance (0xBE57C0), not rebuilt
 SignalMap &Unknown_4F7EF0();

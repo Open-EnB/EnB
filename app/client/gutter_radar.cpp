@@ -136,16 +136,16 @@ void GutterRadarClass::Update(RadarSystemDataCacheClass *entry)
 
 	FAIL_IF(!gdata) return;
 
-	ClientObjectClass *co = gdata->Get_Client_Object();
+	ClientObjectClass *co = gdata->Peek_Client_Object();
 	FAIL_IF(!co) return;
 
 	Vector3 pos = co->Unknown_24();
 	float radius = co->Unknown_30();
 	bool on_screen = Project(pos, radius);
 	float icon_scale = Get_Icon_Scale(pos, radius); float scale = gdata->Update(Position, Size, on_screen, Scene, icon_scale);
-	if (co == Reticle08->Get_Client_Object()) {
+	if (co == Reticle08->Peek_Client_Object()) {
 		Reticle08->Update(Position, Size);
-	} else if (co == Reticle0C->Get_Client_Object()) {
+	} else if (co == Reticle0C->Peek_Client_Object()) {
 		Reticle0C->Update(Position, Size);
 	}
 	if (MouseTarget) {

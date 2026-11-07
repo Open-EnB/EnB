@@ -130,7 +130,7 @@ bool RadarIconDataClass::Is_In_Scene()
 // @0x7BC5E0
 const Vector3 &RadarIconDataClass::Get_Color()
 {
-	RadarDataClass *rdata = Get_Radar_Data(Get_Client_Object(), false);
+	RadarDataClass *rdata = Get_Radar_Data(Peek_Client_Object(), false);
 
 
 
