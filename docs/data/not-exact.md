@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-625 entries in 174 files.
+626 entries in 175 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -567,6 +567,7 @@ edit the comments in the code, not this file.
 | `app/shared/message_filter.cpp:60` | `MessageFilterClass::Unknown_4BE2C0` | marker | NOT EXACT: shape (explain.py: 14 masked rows; 0.80): register allocation only: the client keeps pass in bl (with its stack home) after the module test, ours reloads it from the stack; every call and branch is the client's (25 forms tried: helpers, loop and test forms, bool, early returns) |
 | `app/shared/message_server.cpp:51` | `MessageServerProtocolClass::Unknown_4BCD30` | marker | NOT EXACT: shape (explain.py: registers, 2 rows once masked): the two inlined ArrayList destructor calls ('Filters.clear()' and 'remove') form their element's address as offset + vector where ours loads the vector first; everything else is the client's (0.85) |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
+| `app/shared/projscen.cpp:352` | `ProjSceneClass::Apply_Projectors` | marker | NOT EXACT: register-only residue in the second list's constructor (client lea ecx / lea edx, xor eax; here lea eax / lea ecx); attempts.csv |
 | `app/shared/px.cpp:241` | `PxBox::Set_Corners` | marker | NOT EXACT: inline budget (the client inlines Is_Valid_Float for low.Y and high.Y too; attempts.py show 0x44BC90) |
 | `app/shared/px.cpp:407` | `PxList::Remove` | marker | NOT EXACT: register (base and index swapped in one address of the overlap test; attempts.py show 0x44C2E0) |
 | `app/shared/px.cpp:487` | `PxList::Set_Self` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C520) |
