@@ -35258,6 +35258,9 @@
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
      "0x792460",
      "0x7979A0",
      "0x797A60",
@@ -35269,7 +35272,13 @@
     "name": "client/unknown_7979a0.cpp",
     "shared": [
      "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
      "0x792460"
+    ],
+    "short_known": [
+     "0x792410"
     ]
    },
    "unknown_798ae0": {
@@ -35280,6 +35289,9 @@
     "expected": {},
     "in_tree": [
      "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
      "0x792460",
      "0x798AE0",
      "0x798B10",
@@ -35292,9 +35304,13 @@
     "name": "client/unknown_798ae0.cpp",
     "shared": [
      "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
      "0x792460"
     ],
     "short_known": [
+     "0x792410",
      "0x798B40",
      "0x798CD0"
     ]
@@ -36880,7 +36896,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12176,
+  "in_tree_total": 12179,
   "totals": {}
  },
  "binkmovie": {

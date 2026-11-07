@@ -644,15 +644,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown034` | `app/client/avatar_pip.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown038` | `app/client/avatar_pip.h:60` | untagged neutral name (D10) |
 | 1 | `camctrl.h` | `app/client/camctrl.h:4` | PROVISIONAL (D137) |
-| 1 | `CameraControllerClass` | `app/client/camctrl.h:11` | neutral (D10) |
-| 1 | `Unknown_04` | `app/client/camctrl.h:16` | untagged neutral name (D10) |
-| 1 | `arg1, arg2, new_state, arg4` | `app/client/camctrl.h:17` | neutral |
-| 1 | `Unknown_08` | `app/client/camctrl.h:17` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/camctrl.h:18` | untagged neutral name (D10) |
-| 1 | `Set_Flag` | `app/client/camctrl.h:19` | what it does |
-| 1 | `Unknown_14` | `app/client/camctrl.h:20` | untagged neutral name (D10) |
-| 1 | `Clear_Flag` | `app/client/camctrl.h:21` | what it does |
-| 1 | `Flags` | `app/client/camctrl.h:24` | neutral |
+| 1 | `CameraControllerClass` | `app/client/camctrl.h:12` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/camctrl.h:17` | untagged neutral name (D10) |
+| 1 | `arg1, arg2, new_state, arg4` | `app/client/camctrl.h:18` | neutral |
+| 1 | `Unknown_08` | `app/client/camctrl.h:18` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/camctrl.h:19` | untagged neutral name (D10) |
+| 1 | `Set_Flag` | `app/client/camctrl.h:20` | what it does |
+| 1 | `Unknown_14` | `app/client/camctrl.h:21` | untagged neutral name (D10) |
+| 1 | `Clear_Flag` | `app/client/camctrl.h:22` | what it does |
+| 1 | `Flags` | `app/client/camctrl.h:25` | neutral |
 | 1 | `Unknown20` | `app/client/camera_manager.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/camera_manager.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/camera_manager.cpp:57` | untagged neutral name (D10) |
@@ -18023,7 +18023,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Find` | `app/client/buff_database.h:43` | describes what it does |
 | 2 | `Instance` | `app/client/buff_database.h:45` | describes what it holds |
 | 2 | `std:` | `app/client/buff_database.h:48` | describes what it holds |
-| 2 | `Client` | `app/client/camctrl.h:23` | what it holds (the manager's) |
+| 2 | `Client` | `app/client/camctrl.h:24` | what it holds (the manager's) |
 | 2 | `new_state` | `app/client/camera_manager.h:48` | its FAIL_IF; NAME 1 [state]: neutral |
 | 2 | `Set_Heading` | `app/client/camera_manager.h:52` | sclient.cpp's |
 | 2 | `Set_Distance` | `app/client/camera_manager.h:53` | sclient.cpp's |
