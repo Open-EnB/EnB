@@ -35,7 +35,7 @@ void SOptionsClass::Load_Camera_Mode(INIClass &, const char *section) { Trace("s
 // ------------------------------------------------------------------------- the main view's radar (mainview.cpp's 0x512A00)
 
 // the radar's 0x7BCA70: written by hand for its trace (whether the scene is set); gen_stubs.py writes the +0x84 object's 0x7B6BD0
-void RadarSystemClass::Unknown_7BCA70(MainViewUnknown84Class *, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene)
+void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene)
 {
 	Trace("stub RadarSystemClass::Unknown_7BCA70 %s, scene %s", arg ? "an object" : "NULL", scene.Peek() ? "set" : "NULL");
 }
