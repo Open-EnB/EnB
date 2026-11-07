@@ -12477,6 +12477,37 @@
      "0x42F250"
     ]
    },
+   "nav_list_builder": {
+    "ambiguous": [
+     "0x42AAE0",
+     "0x42AFF0",
+     "0x42B2F0",
+     "0x4333D0",
+     "0x436420",
+     "0x436730"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x4A0B70",
+     "0x7B7BF0",
+     "0x7B7C30",
+     "0x7B7C60",
+     "0x7B7C80",
+     "0x7B81E0"
+    ],
+    "merged": [],
+    "name": "client/nav_list_builder.cpp",
+    "shared": [
+     "0x42F250",
+     "0x4A0B70"
+    ],
+    "short_known": [
+     "0x4A0B70",
+     "0x7B7C60"
+    ]
+   },
    "nlp": {
     "ambiguous": [
      "0x42B2F0"
@@ -34867,7 +34898,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11586,
+  "in_tree_total": 11591,
   "totals": {}
  },
  "binkmovie": {

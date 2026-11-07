@@ -4783,6 +4783,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE7C70` | `app/client/mousetbl.h:26` | neutral (D10) |
 | 1 | `Unknown_7228C0` | `app/client/mousetbl.h:28` | neutral (D10) |
 | 1 | `Unknown_723150` | `app/client/mousetbl.h:29` | neutral (D10) |
+| 1 | `Unknown1C` | `app/client/nav_list_builder.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_7B7C80` | `app/client/nav_list_builder.cpp:21` | untagged neutral name (D10) |
 | 1 | `from, to` | `app/client/nav_list_builder.h:27` | FAIL_IF '!from' |
 | 1 | `Unknown_7B7C80` | `app/client/nav_list_builder.h:27` | untagged neutral name (D10) |
 | 1 | `range, from, to` | `app/client/nav_list_builder.h:28` | FAIL_IF '!co_from' |
@@ -17044,7 +17046,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_75A5A0` | `tests/clienttest/client_stubs.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_75A5D0` | `tests/clienttest/client_stubs.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_7BCA70` | `tests/clienttest/client_stubs.cpp:38` | untagged neutral name (D10) |
-| 1 | `MainViewUnknown84Class` | `tests/clienttest/client_stubs.cpp:38` | untagged neutral name (D10) |
 | 1 | `PDAInterfaceUnknownA0Class` | `tests/clienttest/client_stubs.cpp:38` | untagged neutral name (D10) |
 | 1 | `Unknown_743290` | `tests/clienttest/client_stubs.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_744B60` | `tests/clienttest/client_stubs.cpp:46` | untagged neutral name (D10) |
@@ -17207,7 +17208,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown24` | `tests/clienttest/clienttest.cpp:1913` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `tests/clienttest/clienttest.cpp:1914` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `tests/clienttest/clienttest.cpp:1917` | untagged neutral name (D10) |
-| 1 | `Unknown1274` | `tests/clienttest/clienttest.cpp:2071` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `tests/clienttest/clienttest.cpp:2071` | untagged neutral name (D10) |
 | 1 | `SClientUnknown12C4Class` | `tests/clienttest/clienttest.cpp:2074` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `tests/clienttest/clienttest.cpp:2075` | untagged neutral name (D10) |
