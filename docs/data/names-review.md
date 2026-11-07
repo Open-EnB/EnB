@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 170 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1596 |
+| 3 | by convention from a client-named file or sibling | 1598 |
 | 2 | describes what the code does | 3684 |
-| 1 | neutral placeholder | 18434 |
+| 1 | neutral placeholder | 18459 |
 
 ## For review (score 3 and below)
 
@@ -12661,6 +12661,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0CC` | `app/client/ui_playeropt.h:56` | untagged neutral name (D10) |
 | 1 | `Unknown0DC` | `app/client/ui_playeropt.h:57` | untagged neutral name (D10) |
 | 1 | `Unknown0F8` | `app/client/ui_playeropt.h:58` | untagged neutral name (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/ui_popup_browser.cpp:14` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_popup_browser.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_popup_browser.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_popup_browser.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_popup_browser.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_popup_browser.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_popup_browser.cpp:18` | untagged neutral name (D10) |
+| 1 | `PopupBrowserSettingsClass, a` | `app/client/ui_popup_browser.cpp:23` | as ui_registration.cpp's |
+| 1 | `Unknown_7CB240` | `app/client/ui_popup_browser.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_popup_browser.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_popup_browser.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_popup_browser.cpp:31` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/ui_popup_browser.cpp:32` | neutral |
+| 1 | `Unknown_5DB530` | `app/client/ui_popup_browser.cpp:32` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/ui_popup_browser.cpp:34` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/ui_popup_browser.cpp:35` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_popup_browser.cpp:36` | neutral |
+| 1 | `UnknownB8` | `app/client/ui_popup_browser.cpp:37` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_popup_browser.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/ui_popup_browser.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/ui_popup_browser.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/ui_popup_browser.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_popup_browser.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_popup_browser.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA5C0` | `app/client/ui_popup_browser.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_popupmsg.cpp:21` | 0xBE67C4 |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_popupmsg.cpp:32` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_popupmsg.cpp:32` | untagged neutral name (D10) |
@@ -22755,6 +22780,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `As_Space_Client` | `app/client/ui_playeropt.cpp:28` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UIPlayerOptClass` | `app/client/ui_playeropt.h:20` | class-from-file (D24) for app\client\ui_playeropt.cpp |
 | 3 | `Selection` | `app/client/ui_playeropt.h:52` | the assert's |
+| 3 | `As_Space_Client` | `app/client/ui_popup_browser.cpp:19` | ui_manu.cpp's FAIL_IF's |
+| 3 | `UIPopupBrowserClass` | `app/client/ui_popup_browser.cpp:26` | class-from-file (D24) for ui_popup_browser.cpp |
 | 3 | `ui_popupmsg.cpp` | `app/client/ui_popupmsg.cpp:61` | the G_ASSERT's |
 | 3 | `UIProcClass` | `app/client/ui_proc.h:14` | class-from-file (D24) for ui_proc.cpp |
 | 3 | `uimesh` | `app/client/ui_proc.h:17` | the FAIL_IFs' '!uimesh' (0x5DCD20 l.36) |
