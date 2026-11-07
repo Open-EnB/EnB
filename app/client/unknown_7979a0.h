@@ -23,9 +23,11 @@ public:
 	CameraController02Class(SClient *client);			// 0x7979A0
 	virtual ~CameraController02Class();					// 0x797A90, deleting 0x797A60
 	virtual void Unknown_04();							// +0x04 0x797B10
-	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x797B50 (not rebuilt)
+	virtual void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target);	// +0x08 0x797B50 (the warp's phases 0-4 by the client clock and the warp path)
 	virtual void Unknown_0C();							// +0x0C 0x798130 (stops the phase's module)
 	void Unknown_7981B0();								// 0x7981B0 (not rebuilt)
+	void Unknown_798570();								// 0x798570 (phase 3's module placement; not rebuilt)
+	void Unknown_7987F0();								// 0x7987F0 (phase 4's module placement; not rebuilt)
 
 	CameraModuleClass *Unknown0C;						// +0x0C (0x79C8E0's module)
 	int Unknown10;										// +0x10 (the phase, 0-4; 2 uses the manager's chase module)
