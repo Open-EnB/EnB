@@ -7,6 +7,7 @@
 #include <vector>
 #include "vector3.h"
 #include "quat.h"
+#include "cammod_chase.h"
 
 class SClient;
 
@@ -41,30 +42,6 @@ CAMERA_CONTROLLER(CameraController09Class, 0x60, 0x7961B0)	// NAME 1: neutral (D
 CAMERA_CONTROLLER(CameraController10Class, 0x10, 0x7930E0)	// NAME 1: neutral (D10)
 CAMERA_CONTROLLER(CameraController11Class, 0x10, 0x7953B0)	// NAME 1: neutral (D10)
 #undef CAMERA_CONTROLLER
-
-// The manager's +0x04 (cammod_chase.cpp: constructor 0x79BB80, 0x38 bytes, vtable 0xB054F8)
-class ChaseCameraModuleClass	// NAME 2: the FAIL_IF '!CameraManager->Get_Player_Chase_Camera_Module()' (sclient.cpp 0x744C10)
-{
-public:
-	ChaseCameraModuleClass(SClient *client);			// 0x79BB80
-	virtual ~ChaseCameraModuleClass();					// 0x79BCC0
-	void Set_Heading(float heading);					// 0x79BE00  // NAME 2: the manager's (sclient.cpp)
-	void Set_Distance(float distance);					// 0x79BE30  // NAME 2: the manager's
-	void Set_Tilt(float tilt);							// 0x79BE60  // NAME 2: the manager's
-	void Unknown_79BE90(bool arg);						// 0x79BE90  // NAME 1 [arg]: neutral
-	void Set_Elevation_Offset(float offset);			// 0x79BEC0  // NAME 2: the manager's
-	void Unknown_79BEF0(bool arg);						// 0x79BEF0  // NAME 1 [arg]: neutral
-
-	int Unknown04;										// +0x04
-	float Heading;										// +0x08  // NAME 2: sclient.cpp's
-	float Distance;										// +0x0C  // NAME 2: sclient.cpp's
-	float Tilt;											// +0x10  // NAME 2: sclient.cpp's
-	bool Unknown14;										// +0x14
-	float ElevationOffset;								// +0x18  // NAME 2: sclient.cpp's
-	bool Unknown1C;										// +0x1C
-	int Unknown20[(0x34 - 0x20) / 4];					// +0x20
-	bool Unknown34;										// +0x34 (sclient.cpp 0x744C10 asks the main view's slot +0x78 only when set)
-};
 
 class CameraManagerClass	// NAME 3: class-from-file (D24) for camera_manager.cpp
 {

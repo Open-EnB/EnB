@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 168 |
+| 5 | the client names it | 170 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1576 |
-| 2 | describes what the code does | 3677 |
-| 1 | neutral placeholder | 17866 |
+| 3 | by convention from a client-named file or sibling | 1577 |
+| 2 | describes what the code does | 3682 |
+| 1 | neutral placeholder | 17894 |
 
 ## For review (score 3 and below)
 
@@ -679,68 +679,61 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_79B690` | `app/client/camera_manager.cpp:694` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/camera_manager.cpp:694` | untagged neutral name (D10) |
 | 1 | `Unknown_79B6B0` | `app/client/camera_manager.cpp:695` | untagged neutral name (D10) |
-| 1 | `CameraControllerClass` | `app/client/camera_manager.h:15` | neutral (D10) |
-| 1 | `Unknown_04` | `app/client/camera_manager.h:19` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/camera_manager.h:20` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/camera_manager.h:21` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/camera_manager.h:22` | neutral |
-| 1 | `Unknown_10` | `app/client/camera_manager.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/camera_manager.h:23` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/camera_manager.h:24` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/camera_manager.h:30` | untagged neutral name (D10) |
-| 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:31` | neutral (D10): vtable 0xB05318 |
-| 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:32` | neutral (D10) |
+| 1 | `CameraControllerClass` | `app/client/camera_manager.h:16` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/camera_manager.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/camera_manager.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/camera_manager.h:22` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/camera_manager.h:23` | neutral |
+| 1 | `Unknown_10` | `app/client/camera_manager.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/camera_manager.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/camera_manager.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/camera_manager.h:31` | untagged neutral name (D10) |
+| 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:32` | neutral (D10): vtable 0xB05318 |
 | 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:33` | neutral (D10) |
 | 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:34` | neutral (D10) |
 | 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:35` | neutral (D10) |
 | 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:36` | neutral (D10) |
-| 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:37` | neutral (D10): state 6, 'Camera_Dock' |
-| 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:38` | neutral (D10) |
+| 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:37` | neutral (D10) |
+| 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:38` | neutral (D10): state 6, 'Camera_Dock' |
 | 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:39` | neutral (D10) |
 | 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:40` | neutral (D10) |
 | 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:41` | neutral (D10) |
 | 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:42` | neutral (D10) |
-| 1 | `arg` | `app/client/camera_manager.h:54` | neutral |
-| 1 | `Unknown_79BE90` | `app/client/camera_manager.h:54` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/camera_manager.h:56` | neutral |
-| 1 | `Unknown_79BEF0` | `app/client/camera_manager.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/camera_manager.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown1C` | `app/client/camera_manager.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/camera_manager.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/camera_manager.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown_7992F0` | `app/client/camera_manager.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown_7993E0` | `app/client/camera_manager.h:79` | untagged neutral name (D10) |
-| 1 | `Unknown_7994D0` | `app/client/camera_manager.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown_799590` | `app/client/camera_manager.h:81` | untagged neutral name (D10) |
-| 1 | `pos, rot` | `app/client/camera_manager.h:82` | what they are |
-| 1 | `Unknown_799610` | `app/client/camera_manager.h:82` | untagged neutral name (D10) |
-| 1 | `Unknown_7998B0` | `app/client/camera_manager.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown_799DA0` | `app/client/camera_manager.h:84` | untagged neutral name (D10) |
-| 1 | `Unknown_799E40` | `app/client/camera_manager.h:85` | untagged neutral name (D10) |
-| 1 | `request` | `app/client/camera_manager.h:86` | neutral |
-| 1 | `Unknown_79B2B0` | `app/client/camera_manager.h:86` | untagged neutral name (D10) |
-| 1 | `request` | `app/client/camera_manager.h:87` | neutral |
-| 1 | `Unknown_79B330` | `app/client/camera_manager.h:87` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/camera_manager.h:91` | neutral |
-| 1 | `Unknown_79B430` | `app/client/camera_manager.h:91` | untagged neutral name (D10) |
-| 1 | `Unknown_79B450` | `app/client/camera_manager.h:91` | untagged neutral name (D10) |
-| 1 | `first_mode` | `app/client/camera_manager.h:93` | sclient.cpp's |
-| 1 | `Unknown_79B4B0` | `app/client/camera_manager.h:93` | untagged neutral name (D10) |
-| 1 | `Unknown_79B4D0` | `app/client/camera_manager.h:93` | untagged neutral name (D10) |
-| 1 | `state` | `app/client/camera_manager.h:94` | neutral |
-| 1 | `Unknown_79B4F0` | `app/client/camera_manager.h:94` | untagged neutral name (D10) |
-| 1 | `Unknown_79B600` | `app/client/camera_manager.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown_79B630` | `app/client/camera_manager.h:96` | untagged neutral name (D10) |
-| 1 | `Unknown_79B650` | `app/client/camera_manager.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown_79B670` | `app/client/camera_manager.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_79B690` | `app/client/camera_manager.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_79B6B0` | `app/client/camera_manager.h:100` | untagged neutral name (D10) |
-| 1 | `Module` | `app/client/camera_manager.h:104` | neutral |
-| 1 | `Requests` | `app/client/camera_manager.h:105` | neutral |
-| 1 | `Unknown24` | `app/client/camera_manager.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/camera_manager.h:110` | untagged neutral name (D10) |
-| 1 | `Position` | `app/client/camera_manager.h:111` | neutral |
-| 1 | `Orientation` | `app/client/camera_manager.h:112` | neutral |
+| 1 | `CAMERA_CONTROLLER` | `app/client/camera_manager.h:43` | neutral (D10) |
+| 1 | `Unknown_7992F0` | `app/client/camera_manager.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_7993E0` | `app/client/camera_manager.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown_7994D0` | `app/client/camera_manager.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_799590` | `app/client/camera_manager.h:58` | untagged neutral name (D10) |
+| 1 | `pos, rot` | `app/client/camera_manager.h:59` | what they are |
+| 1 | `Unknown_799610` | `app/client/camera_manager.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_7998B0` | `app/client/camera_manager.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_799DA0` | `app/client/camera_manager.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_799E40` | `app/client/camera_manager.h:62` | untagged neutral name (D10) |
+| 1 | `request` | `app/client/camera_manager.h:63` | neutral |
+| 1 | `Unknown_79B2B0` | `app/client/camera_manager.h:63` | untagged neutral name (D10) |
+| 1 | `request` | `app/client/camera_manager.h:64` | neutral |
+| 1 | `Unknown_79B330` | `app/client/camera_manager.h:64` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/camera_manager.h:68` | neutral |
+| 1 | `Unknown_79B430` | `app/client/camera_manager.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown_79B450` | `app/client/camera_manager.h:68` | untagged neutral name (D10) |
+| 1 | `first_mode` | `app/client/camera_manager.h:70` | sclient.cpp's |
+| 1 | `Unknown_79B4B0` | `app/client/camera_manager.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown_79B4D0` | `app/client/camera_manager.h:70` | untagged neutral name (D10) |
+| 1 | `state` | `app/client/camera_manager.h:71` | neutral |
+| 1 | `Unknown_79B4F0` | `app/client/camera_manager.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown_79B600` | `app/client/camera_manager.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown_79B630` | `app/client/camera_manager.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown_79B650` | `app/client/camera_manager.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown_79B670` | `app/client/camera_manager.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown_79B690` | `app/client/camera_manager.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_79B6B0` | `app/client/camera_manager.h:77` | untagged neutral name (D10) |
+| 1 | `Module` | `app/client/camera_manager.h:81` | neutral |
+| 1 | `Requests` | `app/client/camera_manager.h:82` | neutral |
+| 1 | `Unknown20` | `app/client/camera_manager.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/camera_manager.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/camera_manager.h:87` | untagged neutral name (D10) |
+| 1 | `Position` | `app/client/camera_manager.h:88` | neutral |
+| 1 | `Orientation` | `app/client/camera_manager.h:89` | neutral |
 | 1 | `CameraEffectsRandom` | `app/client/cameraeffects.cpp:11` | neutral (D10) |
 | 1 | `UnknownAFFE6CClass` | `app/client/cameraeffects.cpp:15` | neutral (D10) |
 | 1 | `owner` | `app/client/cameraeffects.cpp:18` | neutral |
@@ -763,6 +756,41 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Value` | `app/client/cameraeffects.cpp:92` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/cameraeffects.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/cameraeffects.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/cammod.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/cammod.cpp:19` | untagged neutral name (D10) |
+| 1 | `cammod.h` | `app/client/cammod.h:3` | PROVISIONAL (D137) |
+| 1 | `on` | `app/client/cammod.h:15` | neutral |
+| 1 | `On` | `app/client/cammod.h:16` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/cammod.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/cammod.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/cammod.h:27` | untagged neutral name (D10) |
+| 1 | `Get_Signal_Map` | `app/client/cammod.h:29` | neutral, what it returns |
+| 1 | `Unknown14` | `app/client/cammod_chase.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/cammod_chase.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/cammod_chase.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/cammod_chase.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/cammod_chase.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_6F3BF0` | `app/client/cammod_chase.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/cammod_chase.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_79BFC0` | `app/client/cammod_chase.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/cammod_chase.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_79BE90` | `app/client/cammod_chase.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_79BEF0` | `app/client/cammod_chase.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_79BF40` | `app/client/cammod_chase.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/cammod_chase.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/cammod_chase.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/cammod_chase.h:22` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/cammod_chase.h:26` | neutral |
+| 1 | `Unknown_79BE90` | `app/client/cammod_chase.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_79BEF0` | `app/client/cammod_chase.h:28` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/cammod_chase.h:29` | neutral |
+| 1 | `Unknown_79BF40` | `app/client/cammod_chase.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_79BFC0` | `app/client/cammod_chase.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/cammod_chase.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/cammod_chase.h:37` | untagged neutral name (D10) |
+| 1 | `ObjectID` | `app/client/cammod_chase.h:38` | neutral |
+| 1 | `Unknown24` | `app/client/cammod_chase.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/cammod_chase.h:40` | untagged neutral name (D10) |
 | 1 | `Unknown_Inline_Platform` | `app/client/charview.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown1A0` | `app/client/charview.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_Inline_Env_Maps` | `app/client/charview.cpp:43` | untagged neutral name (D10) |
@@ -17957,23 +17985,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Find` | `app/client/buff_database.h:43` | describes what it does |
 | 2 | `Instance` | `app/client/buff_database.h:45` | describes what it holds |
 | 2 | `std:` | `app/client/buff_database.h:48` | describes what it holds |
-| 2 | `ChaseCameraModuleClass` | `app/client/camera_manager.h:46` | the FAIL_IF '!CameraManager->Get_Player_Chase_Camera_Module()' (sclient.cpp 0x744C10) |
-| 2 | `Set_Heading` | `app/client/camera_manager.h:51` | the manager's (sclient.cpp) |
-| 2 | `Set_Distance` | `app/client/camera_manager.h:52` | the manager's |
-| 2 | `Set_Tilt` | `app/client/camera_manager.h:53` | the manager's |
-| 2 | `Set_Elevation_Offset` | `app/client/camera_manager.h:55` | the manager's |
-| 2 | `Heading` | `app/client/camera_manager.h:59` | sclient.cpp's |
-| 2 | `Distance` | `app/client/camera_manager.h:60` | sclient.cpp's |
-| 2 | `Tilt` | `app/client/camera_manager.h:61` | sclient.cpp's |
-| 2 | `ElevationOffset` | `app/client/camera_manager.h:63` | sclient.cpp's |
-| 2 | `new_state` | `app/client/camera_manager.h:84` | its FAIL_IF; NAME 1 [state]: neutral |
-| 2 | `Set_Heading` | `app/client/camera_manager.h:88` | sclient.cpp's |
-| 2 | `Set_Distance` | `app/client/camera_manager.h:89` | sclient.cpp's |
-| 2 | `Set_Tilt` | `app/client/camera_manager.h:90` | sclient.cpp's |
-| 2 | `Set_Elevation_Offset` | `app/client/camera_manager.h:92` | sclient.cpp's |
-| 2 | `Client` | `app/client/camera_manager.h:103` | what it holds |
-| 2 | `State` | `app/client/camera_manager.h:107` | the FAIL_IF 'new_state == State' |
-| 2 | `FOV` | `app/client/camera_manager.h:113` | sclient.cpp's |
+| 2 | `new_state` | `app/client/camera_manager.h:61` | its FAIL_IF; NAME 1 [state]: neutral |
+| 2 | `Set_Heading` | `app/client/camera_manager.h:65` | sclient.cpp's |
+| 2 | `Set_Distance` | `app/client/camera_manager.h:66` | sclient.cpp's |
+| 2 | `Set_Tilt` | `app/client/camera_manager.h:67` | sclient.cpp's |
+| 2 | `Set_Elevation_Offset` | `app/client/camera_manager.h:69` | sclient.cpp's |
+| 2 | `Client` | `app/client/camera_manager.h:80` | what it holds |
+| 2 | `State` | `app/client/camera_manager.h:84` | the FAIL_IF 'new_state == State' |
+| 2 | `FOV` | `app/client/camera_manager.h:90` | sclient.cpp's |
+| 2 | `des_pos, des_quat` | `app/client/cammod.h:26` | cammod_chase.cpp's FAIL_IFs |
+| 2 | `Client` | `app/client/cammod.h:31` | what it holds (SClient::Init's this) |
+| 2 | `ChaseCameraModuleClass` | `app/client/cammod_chase.h:15` | the FAIL_IF '!CameraManager->Get_Player_Chase_Camera_Module()' (sclient.cpp 0x744C10) |
+| 2 | `des_pos, des_quat` | `app/client/cammod_chase.h:21` | 0x79BFC0's FAIL_IFs |
+| 2 | `Set_Heading` | `app/client/cammod_chase.h:23` | the manager's (sclient.cpp) |
+| 2 | `Set_Distance` | `app/client/cammod_chase.h:24` | the manager's |
+| 2 | `Set_Tilt` | `app/client/cammod_chase.h:25` | the manager's |
+| 2 | `Set_Elevation_Offset` | `app/client/cammod_chase.h:27` | the manager's |
+| 2 | `hidden` | `app/client/cammod_chase.h:28` | what it passes to 0x6F3BF0 |
+| 2 | `des_quat, des_pos, obj` | `app/client/cammod_chase.h:30` | its FAIL_IFs |
+| 2 | `Heading` | `app/client/cammod_chase.h:32` | sclient.cpp's |
+| 2 | `Distance` | `app/client/cammod_chase.h:33` | sclient.cpp's |
+| 2 | `Tilt` | `app/client/cammod_chase.h:34` | sclient.cpp's |
+| 2 | `ElevationOffset` | `app/client/cammod_chase.h:36` | sclient.cpp's |
 | 2 | `std:` | `app/client/cfaction_database.cpp:42` | what Get_Name and Get_Description return for an unknown faction |
 | 2 | `Init` | `app/client/cfaction_database.h:27` | describes what it does |
 | 2 | `Shutdown` | `app/client/cfaction_database.h:28` | describes what it does |
@@ -21584,7 +21617,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `buff_database.h` | `app/client/buff_database.h:18` | header name assumed from the client's buff_database.cpp |
 | 3 | `BuffDatabaseClass` | `app/client/buff_database.h:36` | by convention (D24) from the client's file buff_database.cpp ('Buff Database' in its messages) |
 | 3 | `camera_manager.h` | `app/client/camera_manager.h:4` | header name from camera_manager.cpp (D24) |
-| 3 | `CameraManagerClass` | `app/client/camera_manager.h:69` | class-from-file (D24) for camera_manager.cpp |
+| 3 | `CameraManagerClass` | `app/client/camera_manager.h:46` | class-from-file (D24) for camera_manager.cpp |
+| 3 | `cammod_chase.h` | `app/client/cammod_chase.h:4` | header name from cammod_chase.cpp (D24) |
 | 3 | `cfaction_database.h` | `app/client/cfaction_database.h:18` | header name assumed from the client's cfaction_database.cpp |
 | 3 | `CFactionDatabaseClass` | `app/client/cfaction_database.h:24` | by convention (D24) from the client's file cfaction_database.cpp |
 | 3 | `EnvironmentMapManagerClass` | `app/client/charview.cpp:65` | by convention (D24) from the client's env_map_manager.cpp |

@@ -1964,6 +1964,12 @@
      "0x799DA0",
      "0x79B2B0",
      "0x79B330",
+     "0x79B370",
+     "0x79B3B0",
+     "0x79B3F0",
+     "0x79B430",
+     "0x79B470",
+     "0x79B4B0",
      "0x79B600",
      "0x79B670",
      "0x79B690",
@@ -2013,6 +2019,50 @@
     "shared": [
      "0x42F250",
      "0x546970"
+    ]
+   },
+   "cammod": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x79BA50",
+     "0x79BAD0"
+    ],
+    "merged": [],
+    "name": "client/cammod.cpp"
+   },
+   "cammod_chase": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x79BB80",
+     "0x79BC60",
+     "0x79BC90",
+     "0x79BCC0",
+     "0x79BCE0",
+     "0x79BD50",
+     "0x79BDC0",
+     "0x79BE00",
+     "0x79BE30",
+     "0x79BE60",
+     "0x79BE90",
+     "0x79BEC0",
+     "0x79BEF0",
+     "0x79BF40"
+    ],
+    "merged": [],
+    "name": "client/cammod_chase.cpp",
+    "shared": [
+     "0x42F250",
+     "0x79BCC0"
+    ],
+    "short_known": [
+     "0x79BCC0"
     ]
    },
    "cfaction_database": {
@@ -36343,6 +36393,8 @@
    "client/avatar_pip.h": "reconstructed",
    "client/buff_database.h": "reconstructed",
    "client/camera_manager.h": "reconstructed",
+   "client/cammod.h": "reconstructed",
+   "client/cammod_chase.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
    "client/charview.h": "reconstructed",
    "client/chat_window.h": "reconstructed",
@@ -36776,7 +36828,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12142,
+  "in_tree_total": 12164,
   "totals": {}
  },
  "binkmovie": {
