@@ -40,13 +40,13 @@ enum { UISTARMAP_PTR_SIZE = sizeof(RefCountPtr<UIStarmapClass>) };	// (instantia
 // The window's buttons, ids 1.. (0xB9F8B8)
 static const char *Unknown_B9F8B8[] = { "EXIT", "SECTOR_BTTN", "RESIZE_BTTN", "QUESTION_BTTN", "CENTER_BTTN", "XYZ_BTTN", "LABEL_BTTN" };	// NAME 1: neutral (D10)
 
-class UIBackGadgetClass : public GadgetClass  // NAME 3: class-from-file (D24) for gd_uiback.cpp (0x68 bytes)
-{
-public:
-	UIBackGadgetClass(const RefCountPtr<RenderObjClass> &mesh);	// 0x674C10 (gd_uiback.cpp's)
-	virtual bool Unknown_30(float x, float y);
-	char Unknown_Pad30[0x68 - 0x30];
-};
+#include "gd_uiback.h"	// UIBackGadgetClass
+
+
+
+
+
+
 
 // MapPipClass as this file calls it: slot +0x04 takes a RefCountPtr, slots +0x1C-+0x24 a bool, and 0x693040 (map_pip.cpp's)
 class UIStarmapPipViewClass  // NAME 1: neutral (D10)

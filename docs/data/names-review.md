@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 153 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1521 |
+| 3 | by convention from a client-named file or sibling | 1520 |
 | 2 | describes what the code does | 3382 |
-| 1 | neutral placeholder | 16754 |
+| 1 | neutral placeholder | 16752 |
 
 ## For review (score 3 and below)
 
@@ -13144,8 +13144,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496240` | `app/client/ui_starmap.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_496AE0` | `app/client/ui_starmap.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_B9F8B8` | `app/client/ui_starmap.cpp:41` | neutral (D10) |
-| 1 | `Unknown_30` | `app/client/ui_starmap.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad30` | `app/client/ui_starmap.cpp:48` | untagged neutral name (D10) |
 | 1 | `UIStarmapPipViewClass` | `app/client/ui_starmap.cpp:52` | neutral (D10) |
 | 1 | `Unknown_04` | `app/client/ui_starmap.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_starmap.cpp:57` | untagged neutral name (D10) |
@@ -20775,7 +20773,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `key` | `app/client/ui_slot_scut.h:100` | the FAIL_IF's |
 | 3 | `SlotIFace` | `app/client/ui_slot_scut.h:106` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_starbase.cpp:27` | ui_manu.cpp's FAIL_IF's |
-| 3 | `UIBackGadgetClass` | `app/client/ui_starmap.cpp:43` | class-from-file (D24) for gd_uiback.cpp (0x68 bytes) |
 | 3 | `ui_starmap.h` | `app/client/ui_starmap.h:15` | header name assumed from the client's ui_starmap.cpp |
 | 3 | `StarmapPipClass` | `app/client/ui_starmap.h:33` | class-from-file (D24) for app\client\starmap_pip.cpp |
 | 3 | `UIStarmapClass` | `app/client/ui_starmap.h:50` | class-from-file (D24) for ui_starmap.cpp |
