@@ -69,23 +69,11 @@ RelationshipClass::RelationshipClass()
 }
 
 // MoneyClass's (money.cpp, 0x4F0AB0 / 0x4F0BE0 / 0x4F0640)
-const char *Type_Name(MoneyClass *)
-{
-	STUB_CALLED("Type_Name(MoneyClass *) (0x4F0AB0)");
-	return "MoneyClass";
-}
-
 char *Value_To_String(char *buf, int size, const MoneyClass &value)
 {
 	STUB_CALLED("Value_To_String(MoneyClass) (0x4F0BE0)");
 	sprintf(buf, "%I64d", value.Unknown00);
 	return buf;
-}
-
-bool String_To_Value(const char *text, MoneyClass *value)
-{
-	STUB_CALLED("String_To_Value(MoneyClass) (0x4F0AD0)");
-	return false;
 }
 
 // money.cpp's by-value type name and comparisons (0x4F0AB0, 0x4F0600, 0x4F0640), declared in delta_money.cpp

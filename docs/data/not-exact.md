@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-693 entries in 198 files.
+695 entries in 199 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -625,6 +625,8 @@ edit the comments in the code, not this file.
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/message_filter.cpp:60` | `MessageFilterClass::Unknown_4BE2C0` | marker | NOT EXACT: shape (explain.py: 14 masked rows; 0.80): register allocation only: the client keeps pass in bl (with its stack home) after the module test, ours reloads it from the stack; every call and branch is the client's (25 forms tried: helpers, loop and test forms, bool, early returns) |
 | `app/shared/message_server.cpp:51` | `MessageServerProtocolClass::Unknown_4BCD30` | marker | NOT EXACT: shape (explain.py: registers, 2 rows once masked): the two inlined ArrayList destructor calls ('Filters.clear()' and 'remove') form their element's address as offset + vector where ours loads the vector first; everything else is the client's (0.85) |
+| `app/shared/money.cpp:46` | `MoneyClass::Div` | marker | NOT EXACT: shape: 1 masked rows differ; no simpler class fits |
+| `app/shared/money.cpp:175` | `std::istream &operator>>` | marker | NOT EXACT: inline-budget: 16 calls in ours, 17 in the client; 5 callees only in the client: ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z |
 | `app/shared/orbitalmanager.cpp:164` | `OrbitalObject::Update` | marker | NOT EXACT: the first rotation's sin / cos order and the temporaries' stack slots differ (similarity 0.53) |
 | `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57) |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |

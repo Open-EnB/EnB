@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 170 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1599 |
-| 2 | describes what the code does | 3723 |
-| 1 | neutral placeholder | 18642 |
+| 2 | describes what the code does | 3740 |
+| 1 | neutral placeholder | 18644 |
 
 ## For review (score 3 and below)
 
@@ -4926,7 +4926,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6A4020` | `app/client/inv_render.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown68E360Class` | `app/client/inv_render.cpp:29` | neutral (D10) |
 | 1 | `Unknown_496730` | `app/client/inv_render.cpp:31` | neutral (D10); NAME 1 [robj, a, b]: neutral |
-| 1 | `Unknown_4F0640` | `app/client/inv_render.cpp:32` | neutral (D10): money.cpp's inequality |
 | 1 | `Unknown521B80Class` | `app/client/inv_render.cpp:34` | neutral (D10); NAME 1 [space_client, item, data, slot, visitor]: neutral |
 | 1 | `Unknown_521BD0` | `app/client/inv_render.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown68C680PropertyClass` | `app/client/inv_render.cpp:35` | neutral (D10): ClientItemPropertySpecialClass as far as 0x68C680 calls it |
@@ -17380,13 +17379,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4BD3F0` | `app/shared/message_server.cpp:121` | untagged neutral name (D10) |
 | 1 | `Unknown_4BE2C0` | `app/shared/message_server.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown_4BD470` | `app/shared/message_server.cpp:150` | untagged neutral name (D10) |
-| 1 | `money` | `app/shared/money.cpp:8` | neutral |
-| 1 | `Unknown00` | `app/shared/money.cpp:10` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/shared/money.cpp:14` | neutral |
-| 1 | `a, b` | `app/shared/money.cpp:20` | neutral |
-| 1 | `money, scale` | `app/shared/money.cpp:26` | neutral |
-| 1 | `scale, money` | `app/shared/money.cpp:32` | neutral |
-| 1 | `Unknown_4F0640` | `app/shared/money.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `app/shared/money.cpp:10` | neutral placeholder (D10) |
+| 1 | `Unknown_8B44C0` | `app/shared/money.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_4F0080` | `app/shared/money.cpp:15` | neutral |
+| 1 | `Unknown00` | `app/shared/money.cpp:26` | untagged neutral name (D10) |
+| 1 | `money` | `app/shared/money.cpp:98` | neutral |
+| 1 | `a, b` | `app/shared/money.cpp:105` | neutral |
+| 1 | `a, b` | `app/shared/money.cpp:112` | neutral |
+| 1 | `money, scale` | `app/shared/money.cpp:119` | neutral |
+| 1 | `scale, money` | `app/shared/money.cpp:126` | neutral |
+| 1 | `Unknown_4F00C0` | `app/shared/money.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/shared/money.h:29` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/money.h:36` | neutral placeholder (D10) |
 | 1 | `Unknown_4F00C0` | `app/shared/money.h:36` | untagged neutral name (D10) |
@@ -18362,26 +18364,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:95` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:45` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `stubs/app_stubs.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_8B44E0` | `stubs/app_stubs.cpp:112` | untagged neutral name (D10) |
-| 1 | `Unknown_8B44C0` | `stubs/app_stubs.cpp:118` | untagged neutral name (D10) |
-| 1 | `Unknown_4A1590` | `stubs/app_stubs.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_4FC2F0` | `stubs/app_stubs.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `stubs/app_stubs.cpp:185` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `stubs/app_stubs.cpp:186` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `stubs/app_stubs.cpp:187` | untagged neutral name (D10) |
-| 1 | `RegistrationUnknown578Struct` | `stubs/app_stubs.cpp:191` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `stubs/app_stubs.cpp:195` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `stubs/app_stubs.cpp:197` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `stubs/app_stubs.cpp:198` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `stubs/app_stubs.cpp:199` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `stubs/app_stubs.cpp:200` | untagged neutral name (D10) |
-| 1 | `RegistrationUnknown1ACClass` | `stubs/app_stubs.cpp:203` | untagged neutral name (D10) |
-| 1 | `Unknown_7D1AC0` | `stubs/app_stubs.cpp:206` | untagged neutral name (D10) |
-| 1 | `Unknown_7D3570` | `stubs/app_stubs.cpp:207` | untagged neutral name (D10) |
-| 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:228` | untagged neutral name (D10) |
-| 1 | `Unknown_82ECB0` | `stubs/app_stubs.cpp:232` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `stubs/app_stubs.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_8B44E0` | `stubs/app_stubs.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_8B44C0` | `stubs/app_stubs.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `stubs/app_stubs.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown_4FC2F0` | `stubs/app_stubs.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `stubs/app_stubs.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `stubs/app_stubs.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `stubs/app_stubs.cpp:175` | untagged neutral name (D10) |
+| 1 | `RegistrationUnknown578Struct` | `stubs/app_stubs.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `stubs/app_stubs.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `stubs/app_stubs.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `stubs/app_stubs.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `stubs/app_stubs.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `stubs/app_stubs.cpp:188` | untagged neutral name (D10) |
+| 1 | `RegistrationUnknown1ACClass` | `stubs/app_stubs.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_7D1AC0` | `stubs/app_stubs.cpp:194` | untagged neutral name (D10) |
+| 1 | `Unknown_7D3570` | `stubs/app_stubs.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:216` | untagged neutral name (D10) |
+| 1 | `Unknown_82ECB0` | `stubs/app_stubs.cpp:220` | untagged neutral name (D10) |
 | 1 | `UnknownB0122CEnum` | `stubs/aux_roots_stubs.cpp:68` | untagged neutral name (D10) |
 | 1 | `UnknownB0133CEnum` | `stubs/aux_roots_stubs.cpp:86` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `stubs/aux_roots_stubs.cpp:104` | untagged neutral name (D10) |
@@ -21891,6 +21893,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Messages` | `app/shared/message.h:97` | what it holds |
 | 2 | `Message_Critical` | `app/shared/message.h:111` | what it does: level 0x20, the highest; the client's name is unknown (D198) |
 | 2 | `Server` | `app/shared/message/msgserv.h:39` | what it holds |
+| 2 | `MoneyClass::Divide` | `app/shared/money.cpp:22` | describes what it does |
+| 2 | `MoneyClass::Divide` | `app/shared/money.cpp:34` | describes what it does |
+| 2 | `MoneyClass::Div` | `app/shared/money.cpp:47` | describes what it does |
+| 2 | `MoneyClass:` | `app/shared/money.cpp:59` | describes what it does |
+| 2 | `MoneyClass:` | `app/shared/money.cpp:66` | describes what it does |
+| 2 | `MoneyClass::As_Int` | `app/shared/money.cpp:75` | describes what it does |
+| 2 | `MoneyClass::As_Unsigned_Int` | `app/shared/money.cpp:88` | describes what it does |
+| 2 | `Type_Name` | `app/shared/money.cpp:212` | describes what it does |
+| 2 | `String_To_Value` | `app/shared/money.cpp:219` | describes what it does |
+| 2 | `Value_To_String` | `app/shared/money.cpp:227` | describes what it does |
+| 2 | `Divide` | `app/shared/money.h:39` | describes what it does |
+| 2 | `Divide` | `app/shared/money.h:40` | describes what it does |
+| 2 | `Div` | `app/shared/money.h:41` | describes what it does |
+| 2 | `count` | `app/shared/money.h:42` | describes what it does |
+| 2 | `money` | `app/shared/money.h:43` | describes what it does |
+| 2 | `As_Int` | `app/shared/money.h:44` | describes what it does |
+| 2 | `As_Unsigned_Int` | `app/shared/money.h:45` | describes what it does |
 | 2 | `OrbitalObject` | `app/shared/orbitalmanager.cpp:37` | the client's (OrbitalObject::Update) |
 | 2 | `Object` | `app/shared/orbitalmanager.cpp:45` | the client's assert 'orb->Object' |
 | 2 | `StartAngle` | `app/shared/orbitalmanager.cpp:46` | the INI key |
