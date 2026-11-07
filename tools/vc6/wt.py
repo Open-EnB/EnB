@@ -696,6 +696,7 @@ def add_only_union(base, ours, theirs):
     merges by itself stays merged; a line both sides added once; the result has to compile."""
     if base is None or ours is None or theirs is None:
         return None, 'added or deleted on one side'
+    os.makedirs(WTDIR, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=WTDIR) as td:
         fs = []
         for tag, t in (('ours', ours), ('base', base), ('theirs', theirs)):
