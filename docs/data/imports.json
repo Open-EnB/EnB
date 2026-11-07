@@ -1937,6 +1937,64 @@
      "0x678420"
     ]
    },
+   "camera_manager": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x52B350",
+     "0x581C80",
+     "0x798D20",
+     "0x799220",
+     "0x7992F0",
+     "0x7993E0",
+     "0x7994D0",
+     "0x799590",
+     "0x799610",
+     "0x799DA0",
+     "0x79B2B0",
+     "0x79B330",
+     "0x79B600",
+     "0x79B670",
+     "0x79B690",
+     "0x79B6D0",
+     "0x79B710"
+    ],
+    "merged": [],
+    "name": "client/camera_manager.cpp",
+    "shared": [
+     "0x42F250",
+     "0x52B210",
+     "0x52B240",
+     "0x52B270",
+     "0x52B2A0",
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x52B350",
+     "0x581C80"
+    ],
+    "short_known": [
+     "0x52B2D0",
+     "0x52B310",
+     "0x52B330",
+     "0x581C80",
+     "0x79B670"
+    ],
+    "tiebreak": [
+     "0x79B710"
+    ]
+   },
    "cameraeffects": {
     "ambiguous": [
      "0x42B2F0"
@@ -36284,6 +36342,7 @@
    "client/avatar.h": "reconstructed",
    "client/avatar_pip.h": "reconstructed",
    "client/buff_database.h": "reconstructed",
+   "client/camera_manager.h": "reconstructed",
    "client/cfaction_database.h": "reconstructed",
    "client/charview.h": "reconstructed",
    "client/chat_window.h": "reconstructed",
@@ -36717,7 +36776,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12127,
+  "in_tree_total": 12142,
   "totals": {}
  },
  "binkmovie": {
