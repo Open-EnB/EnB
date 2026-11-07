@@ -21,7 +21,7 @@ public:
 	virtual bool Unknown_14() { return(false); }		// +0x14 0x792410 (0x79B690 asks the current state's)
 	virtual void Clear_Flag(int bit) { Flags &= ~(1 << bit); }	// +0x18 0x792430  // NAME 1: what it does
 
-	bool Get_Flag(int bit) { return((Flags >> bit) & 1); }	// (0x797B50's shr / test al,1 tests)  // NAME 1: what it does
+	bool Get_Flag(int bit) volatile { return((Flags >> bit) & 1); }	// (0x797B50's shr / test al,1 tests; volatile: camctrl_dock.cpp reads Flags afresh at each test)  // NAME 1: what it does
 
 	SClient *Client;									// +0x04  // NAME 2: what it holds (the manager's)
 	unsigned Flags;										// +0x08  // NAME 1: neutral

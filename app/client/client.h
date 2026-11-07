@@ -139,6 +139,7 @@ public:
 	virtual void Add_Unknown86C(Unknown86CRecordClass *record);	// +0x54 0x727B40
 	virtual Unknown86CRecordClass *Remove_Unknown86C(unsigned id);	// +0x58 0x727CA0
 
+	int Next_Local_ID() { return(--Unknown113C); }		// (inline: camctrl_land.cpp / camctrl_pland.cpp's starts keep the value in a register)  // NAME 1: what it does
 	ClientObjectClass *Find_Object(unsigned id);		// 0x727070: the hash, then a check of the whole list (assert l.165)  // NAME 2: what it does
 	ClientObjectClass *Find_Object(const char *name);	// 0x727130  // NAME 2: what it does
 	EffectObjectClass *Find_Effect(unsigned id);		// 0x7273F0  // NAME 2: what it does
@@ -198,7 +199,7 @@ public:
 	unsigned ShipID;									// +0x1130 slots +0x2C / +0x30  // NAME 2: what it holds
 	int Unknown1134;									// +0x1134
 	int Unknown1138;									// +0x1138 rand() after srand(timeGetTime())
-	int Unknown113C;									// +0x113C
+	int Unknown113C;									// +0x113C (counted down: the client's own ids, Next_Local_ID)
 	bool ObjectsChanged;								// +0x1140 set by Add_Object / Remove_Object  // NAME 2: what it holds
 	HeightFieldClass *Unknown1144;						// +0x1144: the land's height field (SERVER_PARAMETERS 66 copies LandClass +0x90)
 	SplineDatabaseClass *Splines;						// +0x1148 splines.wsd  // NAME 2: what it holds

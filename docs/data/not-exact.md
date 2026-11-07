@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-675 entries in 184 files.
+682 entries in 190 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -29,6 +29,13 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:3653` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs) |
 | `app/client/avatar_pip.cpp:198` | `AvatarPipClass::Unknown_7E3A20` | marker | NOT EXACT: shape (the client copies target into the light's translation first, then folds Translate's products: two zeroed floats per axis where ours multiplies; a release tail-merge and Rotate_Y's operand order; 0.83) |
 | `app/client/avatar_pip.cpp:294` | `AvatarPipClass::Unknown_7E4520` | marker | NOT EXACT: scheduling (the client converts budget * 0.1f to int before the vp's Get_Sort_Level call; ours after; 0.79) |
+| `app/client/camctrl_dock.cpp:122` | `CameraController06Class::Unknown_792750` | marker | NOT EXACT: stack slots and register choices differ (same length, 0x760 bytes); functional |
+| `app/client/camctrl_entersector.cpp:61` | `CameraController04Class::Unknown_793740` | marker | NOT EXACT: one operand order (offset.Z *= scale.Z: ours loads scale.Z first); functional |
+| `app/client/camctrl_land.cpp:112` | `CameraController05Class::Unknown_793CE0` | marker | NOT EXACT: written from the client's code and Ghidra's (0x830 bytes; the temporaries' order and slots differ), functional |
+| `app/client/camctrl_rescue.cpp:52` | `CameraController11Class::Unknown_795570` | marker | NOT EXACT: the offset's temporaries and slots differ (the expression right to left, as the client's); functional |
+| `app/client/camctrl_stargate.cpp:39` | `CameraController03Class::Unknown_08` | marker | NOT EXACT: stack slots and one copy of the distance differ; functional |
+| `app/client/camctrl_tractor.cpp:73` | `CameraController08Class::Unknown_797570` | marker | NOT EXACT: the register choice (edx / ebp for 3) and the duplicated !ship test differ; functional |
+| `app/client/camctrl_tractor.cpp:116` | `CameraController08Class::Unknown_797770` | marker | NOT EXACT: a few operand loads and slots differ (16 rows); functional |
 | `app/client/camera_manager.cpp:176` | `CameraManagerClass::Unknown_7998B0` | marker | NOT EXACT: 0x7998B0 (Center.X of the shifted box: the client adds the translation before the two zero products, ours after; Y and Z match) 0x7998B0 |
 | `app/client/camera_manager.cpp:252` | `CameraManagerClass::Unknown_799E40` | marker | NOT EXACT: 0x799E40 (frame order: the client puts target at -0x10 above the 12-byte block locals and Sqrt's float above the avatar position temporary, ours the reverse; bit 15's Length2 keeps Y and Z on the FPU in the client) 0x799E40 |
 | `app/client/camera_manager.cpp:653` | `CameraManagerClass::Unknown_79B4F0` | marker | NOT EXACT: 0x79B4F0 (the default arm: the client keeps true in bl across the assert, so its return is not merged with case 0's mov al,1) |

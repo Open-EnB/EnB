@@ -1939,6 +1939,319 @@
      "0x678420"
     ]
    },
+   "camctrl_dock": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x499720"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x792320",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x792490",
+     "0x7924B0",
+     "0x7924E0",
+     "0x792560",
+     "0x792590",
+     "0x7926B0"
+    ],
+    "merged": [],
+    "name": "client/camctrl_dock.cpp",
+    "shared": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x792490"
+    ],
+    "short_known": [
+     "0x792410",
+     "0x792490"
+    ]
+   },
+   "camctrl_emote": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x7930E0",
+     "0x793180",
+     "0x7931B0",
+     "0x793230",
+     "0x793250",
+     "0x793280",
+     "0x7932A0"
+    ],
+    "merged": [],
+    "name": "client/camctrl_emote.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460"
+    ],
+    "short_known": [
+     "0x792410",
+     "0x793230",
+     "0x793280"
+    ]
+   },
+   "camctrl_entersector": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x7934F0",
+     "0x793520",
+     "0x7935C0",
+     "0x7935F0",
+     "0x793670",
+     "0x7936A0",
+     "0x793720"
+    ],
+    "merged": [],
+    "name": "client/camctrl_entersector.cpp",
+    "shared": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460"
+    ],
+    "short_known": [
+     "0x792410",
+     "0x793720"
+    ]
+   },
+   "camctrl_land": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x499720",
+     "0x4A91B0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x793920",
+     "0x7939C0",
+     "0x7939E0",
+     "0x793A10",
+     "0x793A90",
+     "0x793BC0",
+     "0x793C40"
+    ],
+    "merged": [],
+    "name": "client/camctrl_land.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x7939C0"
+    ],
+    "short_known": [
+     "0x792410",
+     "0x7939C0"
+    ]
+   },
+   "camctrl_pland": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x7946D0",
+     "0x794770",
+     "0x794790",
+     "0x7947C0",
+     "0x794840",
+     "0x794970",
+     "0x7949F0"
+    ],
+    "merged": [],
+    "name": "client/camctrl_pland.cpp",
+    "shared": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x794770"
+    ],
+    "short_known": [
+     "0x792410",
+     "0x794770"
+    ]
+   },
+   "camctrl_rescue": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x7953B0",
+     "0x795450",
+     "0x795480",
+     "0x795500",
+     "0x795520",
+     "0x795550"
+    ],
+    "merged": [],
+    "name": "client/camctrl_rescue.cpp",
+    "shared": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460"
+    ],
+    "short_known": [
+     "0x792410",
+     "0x795500",
+     "0x795550"
+    ]
+   },
+   "camctrl_stargate": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x795900",
+     "0x7959A0",
+     "0x7959D0",
+     "0x795A50",
+     "0x795C60"
+    ],
+    "merged": [],
+    "name": "client/camctrl_stargate.cpp",
+    "shared": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460"
+    ],
+    "short_known": [
+     "0x792410",
+     "0x795C60"
+    ]
+   },
+   "camctrl_takeoff": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x7961B0",
+     "0x796250",
+     "0x796280",
+     "0x796300",
+     "0x796850",
+     "0x7968F0"
+    ],
+    "merged": [],
+    "name": "client/camctrl_takeoff.cpp",
+    "shared": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460"
+    ],
+    "short_known": [
+     "0x792410"
+    ]
+   },
+   "camctrl_tractor": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x797320",
+     "0x7973E0",
+     "0x797410",
+     "0x797490",
+     "0x7974D0",
+     "0x797720",
+     "0x797740"
+    ],
+    "merged": [],
+    "name": "client/camctrl_tractor.cpp",
+    "shared": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460"
+    ],
+    "short_known": [
+     "0x792410",
+     "0x797720"
+    ]
+   },
    "camera_manager": {
     "ambiguous": [
      "0x42B2F0"
@@ -1975,6 +2288,7 @@
      "0x79B600",
      "0x79B670",
      "0x79B690",
+     "0x79B6B0",
      "0x79B6D0",
      "0x79B710"
     ],
@@ -1997,7 +2311,8 @@
      "0x52B310",
      "0x52B330",
      "0x581C80",
-     "0x79B670"
+     "0x79B670",
+     "0x79B6B0"
     ],
     "tiebreak": [
      "0x79B710"
@@ -35578,6 +35893,39 @@
      "0x494CC0"
     ]
    },
+   "unknown_794510": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460",
+     "0x794510",
+     "0x794540",
+     "0x794570",
+     "0x794590",
+     "0x7945E0",
+     "0x794670"
+    ],
+    "merged": [],
+    "name": "client/unknown_794510.cpp",
+    "shared": [
+     "0x42F250",
+     "0x7923E0",
+     "0x792410",
+     "0x792430",
+     "0x792460"
+    ],
+    "short_known": [
+     "0x792410",
+     "0x794570"
+    ]
+   },
    "unknown_7979a0": {
     "ambiguous": [
      "0x42B2F0"
@@ -36786,6 +37134,15 @@
    "client/avatar_pip.h": "reconstructed",
    "client/buff_database.h": "reconstructed",
    "client/camctrl.h": "reconstructed",
+   "client/camctrl_dock.h": "reconstructed",
+   "client/camctrl_emote.h": "reconstructed",
+   "client/camctrl_entersector.h": "reconstructed",
+   "client/camctrl_land.h": "reconstructed",
+   "client/camctrl_pland.h": "reconstructed",
+   "client/camctrl_rescue.h": "reconstructed",
+   "client/camctrl_stargate.h": "reconstructed",
+   "client/camctrl_takeoff.h": "reconstructed",
+   "client/camctrl_tractor.h": "reconstructed",
    "client/camera_manager.h": "reconstructed",
    "client/cammod.h": "reconstructed",
    "client/cammod_chase.h": "reconstructed",
@@ -36956,6 +37313,7 @@
    "client/unknown_67d430.h": "reconstructed",
    "client/unknown_6ca0c0.h": "reconstructed",
    "client/unknown_763e00.h": "reconstructed",
+   "client/unknown_794510.h": "reconstructed",
    "client/unknown_7979a0.h": "reconstructed",
    "client/unknown_798ae0.h": "reconstructed",
    "client/unknown_authlogin.h": "reconstructed",
@@ -37227,7 +37585,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12307,
+  "in_tree_total": 12373,
   "totals": {}
  },
  "binkmovie": {

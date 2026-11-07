@@ -11,24 +11,18 @@
 #include "camctrl.h"
 #include "unknown_798ae0.h"
 #include "unknown_7979a0.h"
+#include "camctrl_dock.h"
+#include "camctrl_emote.h"
+#include "camctrl_entersector.h"
+#include "camctrl_land.h"
+#include "camctrl_pland.h"
+#include "unknown_794510.h"
+#include "camctrl_rescue.h"
+#include "camctrl_stargate.h"
+#include "camctrl_takeoff.h"
+#include "camctrl_tractor.h"
 
 class SClient;
-
-// The twelve controllers in the manager's order (their files not rebuilt: the camctrl_*.cpp objects 0x792320-0x798D10;
-// declared as far as the constructor's new needs them: the size and the constructor; the first and third are unknown_798ae0.h's and unknown_7979a0.h's)
-#define CAMERA_CONTROLLER(name, size, ctor) \
-	class name : public CameraControllerClass { public: name(SClient *client); void Unknown_04(); void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target); void Unknown_0C(); char Unknown0C[size - 0x0C]; };
-CAMERA_CONTROLLER(CameraController01Class, 0x10, 0x794510)	// NAME 1: neutral (D10)
-CAMERA_CONTROLLER(CameraController03Class, 0x1C, 0x795900)	// NAME 1: neutral (D10)
-CAMERA_CONTROLLER(CameraController04Class, 0x14, 0x793520)	// NAME 1: neutral (D10)
-CAMERA_CONTROLLER(CameraController05Class, 0x18, 0x793920)	// NAME 1: neutral (D10)
-CAMERA_CONTROLLER(CameraController06Class, 0x1C, 0x792320)	// NAME 1: neutral (D10): state 6, 'Camera_Dock'
-CAMERA_CONTROLLER(CameraController07Class, 0x18, 0x7946D0)	// NAME 1: neutral (D10)
-CAMERA_CONTROLLER(CameraController08Class, 0x20, 0x797320)	// NAME 1: neutral (D10)
-CAMERA_CONTROLLER(CameraController09Class, 0x60, 0x7961B0)	// NAME 1: neutral (D10)
-CAMERA_CONTROLLER(CameraController10Class, 0x10, 0x7930E0)	// NAME 1: neutral (D10)
-CAMERA_CONTROLLER(CameraController11Class, 0x10, 0x7953B0)	// NAME 1: neutral (D10)
-#undef CAMERA_CONTROLLER
 
 class CameraManagerClass	// NAME 3: class-from-file (D24) for camera_manager.cpp
 {
