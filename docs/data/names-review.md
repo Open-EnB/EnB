@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1596 |
 | 2 | describes what the code does | 3679 |
-| 1 | neutral placeholder | 18405 |
+| 1 | neutral placeholder | 18407 |
 
 ## For review (score 3 and below)
 
@@ -18119,6 +18119,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_73FDB0` | `programs/clientpoc/poc_world2.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5090` | `programs/clientpoc/poc_world2.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:95` | untagged neutral name (D10) |
+| 1 | `UnknownB007A4PassStruct` | `programs/clientpoc/poc_world2.cpp:152` | untagged neutral name (D10) |
+| 1 | `UnknownB007A4Class` | `programs/clientpoc/poc_world2.cpp:157` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:45` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `stubs/app_stubs.cpp:81` | untagged neutral name (D10) |
