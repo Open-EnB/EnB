@@ -11,10 +11,10 @@
 #include "rendobj.h"
 #include "texture.h"
 #include "..\shared\split_string.h"
-
+#include "gd_slot_data.h"
+#include "skill_render.h"
 extern const int Unknown_B0804C;	// 0xB0804C: 40, the tooltip's width (read as an int, so not a literal; no other reader)  // NAME 1: neutral (D10)
 #define MAX_SKILLS 11	// NAME 3: the assert's; the dots' array
-
 // What the skill data holds about a skill, as far as this file calls it (0x6A5440's class, at the data's +0x50)
 struct Unknown6A5640Struct { int Unknown00; int Unknown04; };	// NAME 1: neutral (D10), as ui_attrb.cpp's
 class Unknown6A5440Class	// NAME 1: neutral (D10), as ui_attrb_skills.cpp's
@@ -29,15 +29,15 @@ class Unknown6A7A00Class : public Unknown6A7A00Base, public RefCountClass	// NAM
 public:
 	char Unknown20[0x30];	Unknown6A5440Class Unknown50;	// +0x50
 };
-// gd_slot_data.cpp's gadget (UnknownF0's elements), as far as this file calls it
-class Unknown670C90Class : public RObjGadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_670C90(bool on);	char Unknown60[8];	bool Unknown68;	// 0x670C90 (Unknown68); +0x68  // NAME 1 [on]: neutral
-};
-// skill_render.cpp's (0x6A7380: a slot gadget's) and skill_ability_names.cpp's, as far as this file calls them
-class Unknown6A7380Class { public: void Unknown_6A72E0(int ability, int arg); char Unknown00[0x34]; int Unknown34; int Get_34() { return(Unknown34); } };	// NAME 1: neutral (D10)
-Unknown6A7380Class *Unknown_6A7380(Unknown670C90Class *gadget);	// NAME 1: neutral (D10)
+
+
+
+
+
+
+
+
+
 struct Unknown815320Struct { char Unknown00[0x10]; int Unknown10; int Unknown14; unsigned int Unknown18; bool Unknown1C; unsigned int Get_18() { return(Unknown18); } };	// NAME 1: neutral (D10)
 Unknown815320Struct *Unknown_815320(int ability);	// NAME 1: neutral (D10)
 struct Unknown8155B0Struct { std::vector<Unknown815320Struct *> Abilities; int Unknown10; };	// NAME 3 [Abilities]: its assert
@@ -201,7 +201,7 @@ void Unknown664500Class::Unknown_A4(bool arg)
 // 0x663DA0
 void Unknown664500Class::Unknown_28(LayerClass *layer)
 {
-	for (std::vector<Unknown670C90Class *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
+	for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
 		(*it)->Unknown_28(layer);
 	}
 	RObjGadgetClass::Unknown_28(layer);
@@ -267,13 +267,13 @@ int Unknown664500Class::Unknown_663DF0(UIAttrbSkillsClass *ui, int skill, int in
 		Unknown815320Struct *ability = *it;
 		if (ability) {
 			if (ability->Unknown1C && ability->Unknown18 <= Unknown_8185C0(Unknown6C, index)) {
-				Unknown670C90Class *gadget = ui->Unknown_AC(a_robj.Peek(), &Unknown6C);
+				SlotDataGadgetClass *gadget = ui->Unknown_AC(a_robj.Peek(), &Unknown6C);
 				if (gadget) {
 					UnknownF0.push_back(gadget);
 					count++;
-					Unknown6A7380Class *skill_render = Unknown_6A7380(gadget);
+					SkillRenderClass *skill_render = Unknown_6A7380(gadget);
 					if (skill_render) {
-						skill_render->Unknown_6A72E0(ability->Unknown10, 1);
+						skill_render->Unknown_6A72E0(ability->Unknown10, true);
 					} else {
 
 
@@ -322,8 +322,8 @@ void Unknown664500Class::Unknown_664430()
 // 0x664500
 void Unknown664500Class::Unknown_664500()
 {
-	for (std::vector<Unknown670C90Class *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
-		Unknown670C90Class *gadget = *it;
+	for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
+		SlotDataGadgetClass *gadget = *it;
 		if (gadget->Unknown_60()) {
 			Unknown815320Struct *ability = Unknown_815320(Unknown_6A7380(gadget)->Get_34());
 			bool on = ability->Get_18() <= (unsigned int)Unknown104;
@@ -371,12 +371,12 @@ int Unknown664500Class::Unknown_6645A0(int level, bool arg)
 	Unknown_A4(true);
 	if (arg) {
 		int lp = 0;
-		for (std::vector<Unknown670C90Class *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
-			Unknown670C90Class *gadget = *it;
+		for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
+			SlotDataGadgetClass *gadget = *it;
 			AbilityIconBox[lp++]->Set_Hidden(false);
 			gadget->Unknown_40(true);
 			gadget->Unknown_8C(false);
-			Unknown6A7380Class *skill_render = Unknown_6A7380(gadget);
+			SkillRenderClass *skill_render = Unknown_6A7380(gadget);
 
 
 
@@ -403,8 +403,8 @@ void Unknown664500Class::Unknown_6647F0()
 	if (Unknown_60()) {
 		Unknown_66B770Class::Unknown_40(false);
 		int lp = 0;
-		for (std::vector<Unknown670C90Class *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
-			Unknown670C90Class *gadget = *it;
+		for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
+			SlotDataGadgetClass *gadget = *it;
 			gadget->Unknown_40(false);
 			gadget->Unknown_8C(true);
 			gadget->Unknown_670C90(false);

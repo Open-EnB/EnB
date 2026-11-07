@@ -64,7 +64,7 @@ extern GadgetClass *Unknown_BE5F28;
 
 
 SlotDataGadgetClass::SlotDataGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render) :
-	Unknown_675120Class(slot_render->Unknown0C, 0xE55), SlotIFace(slot_iface), SlotRender(slot_render), Unknown68(true)
+	Unknown_675120Class(slot_render->Mesh, 0xE55), SlotIFace(slot_iface), SlotRender(slot_render), Unknown68(true)
 {
 	G_ASSERT(SlotIFace);
 	FAIL_IF(!SlotRender) return;
@@ -126,7 +126,7 @@ int SlotDataGadgetClass::Unknown_670910()
 int SlotDataGadgetClass::Unknown_670950()
 {
 	FAIL_IF(!SlotRender) return(0);
-	return(SlotRender->Unknown08);
+	return((int)SlotRender->SlotData);
 }
 
 
@@ -137,7 +137,7 @@ void SlotDataGadgetClass::Unknown_20(int arg)
 {
 	FAIL_IF(!SlotRender) return;
 	std::string text;
-	const char *entry = SlotRender->Unknown_28(text);
+	const char *entry = SlotRender->Unknown_28(&text);
 	if (entry) {
 		Set_Tooltip(this, "GD_SLOT_DATA", entry, text.c_str());
 	}
@@ -234,7 +234,7 @@ void SlotDataGadgetClass::Unknown_670C90(bool on)
 	Unknown68 = on;
 }
 
-void SlotDataGadgetClass::Unknown_A8(int arg)
+void SlotDataGadgetClass::Unknown_A8(bool arg)
 {
 	FAIL_IF(!SlotRender) return;
 	SlotRender->Unknown_2C(arg);
@@ -353,7 +353,7 @@ void Unknown_670E30Class::Unknown_84(int arg)
 	Unknown_A8(0);
 	if (scut_gadg->Is_Unknown2C_08()) {
 		std::string text;
-		const char *entry = SlotRender->Unknown_28(text);
+		const char *entry = SlotRender->Unknown_28(&text);
 		if (entry) {
 			Set_Tooltip(scut_gadg, "GD_SLOT_DATA", entry, text.c_str());
 		}

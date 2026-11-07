@@ -25,7 +25,7 @@ class RenderObjClass;
 class FontSys;
 class UIAttrbSkillsClass;
 class Unknown6A7A00Class;
-class Unknown670C90Class;
+class SlotDataGadgetClass;
 
 class Unknown664500Class : public ButtonGadgetClass	// NAME 1: neutral (D10)
 {
@@ -60,7 +60,7 @@ public:
 	RefCountPtr<RenderObjClass> Unknown8C[11];				// +0x8C ('DOT00_%02d'; MAX_SKILLS, the assert's)
 	RefCountPtr<RenderObjClass> AbilityIcons[7];			// +0xB8 ('ICON_BOX%02d')  // NAME 3: its assert
 	RefCountPtr<RenderObjClass> AbilityIconBox[7];			// +0xD4 ('SKILL_BOX%02d')  // NAME 3: its assert
-	std::vector<Unknown670C90Class *> UnknownF0;			// +0xF0 (its allocator byte, then +0xF4 first / +0xF8 last / +0xFC end)
+	std::vector<SlotDataGadgetClass *> UnknownF0;			// +0xF0 (its allocator byte, then +0xF4 first / +0xF8 last / +0xFC end)
 	RefCountPtr<FontSys> Unknown100;						// +0x100 ('SKILL_NAME_ATT', on 'DESC00')
 	int Unknown104;											// +0x104 (0x6A54B0: the level)
 	int Unknown108;											// +0x108 (0x6A59E0: the dots shown; 11 at first)

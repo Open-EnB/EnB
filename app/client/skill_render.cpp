@@ -4,7 +4,7 @@
 #include <vector>
 #include "..\shared\g_assert.h"
 #include "skill_render.h"
-#include "gd_robj.h"
+#include "gd_slot_data.h"
 #include "assetmgr.h"
 #include "rendobj.h"
 #include "vector3.h"
@@ -20,10 +20,10 @@ class Unknown813C50Class { public: unsigned int Unknown_813C50(int ability); int
 class Unknown6A7A00Base { public: char Unknown00[0x20]; Unknown744FE0Class *Unknown20; char Unknown24[0x2C]; };	// NAME 1: neutral (D10)
 class Unknown6A7A00Class : public Unknown6A7A00Base, public Unknown6A5440Class, public Unknown813C50Class { public: int Get_Level(int skill) { return(Unknown_6A54B0(skill)); } int Unknown_6A4B40(); float Unknown_6A4C20(); };	// NAME 1: neutral (D10); NAME 2 [Get_Level]: 0x6A54B0's result is compared with the abilities' levels; NAME 1 [skill]: neutral
 class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual Unknown6A7A00Class *Unknown_14(); };	// NAME 3: its local sd (0x6A7310)
-// gd_gauge.cpp's gauge (ui_faction.cpp's), shortcut_range_gauge.cpp's, gd_slot_data.cpp's gadget
+// gd_gauge.cpp's gauge (ui_faction.cpp's), shortcut_range_gauge.cpp's
 class Unknown669570Class : public RObjGadgetClass { public: Unknown669570Class(RenderObjClass *robj, const char *name); virtual void Unknown_A4(float value); char Unknown60[0x6C - 0x60]; };	// NAME 1: neutral (D10); NAME 1 [robj, name, value]: neutral
 class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Unknown6A3D60Class(); void Unknown_6A4020(float distance, float range, int state, bool arg); char Unknown00[0x18]; };	// NAME 1: neutral (D10); NAME 1 [robj, distance, range, state, arg]: neutral
-class Unknown670C90Class : public RObjGadgetClass { public: char Unknown60[4]; SlotDataRenderClass *Unknown64; };	// NAME 1: neutral (D10): +0x64 is 0x6A7380's slot_render
+
 // skill_ability_names.cpp's, skillnam.cpp's, slot_data_render.cpp's, ro_funcs.cpp's, distance_calc_client.cpp's
 struct Unknown815320Struct { std::string Name; int Unknown10; int Unknown14; unsigned int Unknown18; bool Unknown1C; Vector3 Unknown20; };	// NAME 1: neutral (D10); NAME 2 [Name]: 0x6A6A80 writes it as the ability
 Unknown815320Struct *Unknown_815320(int ability);	// NAME 1: neutral (D10)
@@ -436,9 +436,9 @@ Unknown6A7A00Class *SkillRenderClass::Unknown_6A7310()
 
 
 // 0x6A7380
-SkillRenderClass *Unknown_6A7380(Unknown670C90Class *gadget)
+SkillRenderClass *Unknown_6A7380(SlotDataGadgetClass *gadget)
 {
-	SlotDataRenderClass *slot_render = gadget->Unknown64;
+	SlotDataRenderClass *slot_render = gadget->SlotRender;
 	FAIL_IF(!slot_render) return(0);
 	return(slot_render->Unknown_20());
 }

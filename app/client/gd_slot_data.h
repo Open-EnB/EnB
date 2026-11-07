@@ -19,33 +19,12 @@
 
 #include "gd_robj.h"
 #include "unknown_675120.h"
-#include "refcount.h"
+#include "slot_data_render.h"
 #include <string>
 
 class SlotDataGadgetClass;
 class Unknown_670E30Class;
 class UIScutBarClass;
-
-// slot_data_render.cpp's object (not in the tree yet), as far as these gadgets use it
-class SlotDataRenderClass : public RefCountClass  // NAME 3: class-from-file (D24) for app\Client\slot_data_render.cpp
-{
-public:
-	virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14();
-	virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24();
-	virtual const char *Unknown_28(std::string &text);					// +0x28 (the tooltip's entry, its text into the string; 0x670990)  // NAME 1 [text]: what it fills
-	virtual void Unknown_2C(int arg);									// +0x2C (0x670CB0)  // NAME 1 [arg]: neutral
-	virtual void Unknown_30(); virtual void Unknown_34();
-	virtual bool Unknown_38(Vector3 &color);							// +0x38 (the colour changed; 0x670D50, 0x670DE0)  // NAME 1 [color]: what the gadget passes
-	virtual void Unknown_3C();											// +0x3C (the press; 0x670B20)
-	virtual void Unknown_40(int slot);									// +0x40 (0x670890; -1: unused)  // NAME 1 [slot]: the tooltips' 'Unused Slot'
-	void Unknown_6A8EC0();												// 0x6A8EC0
-
-	int Unknown08;														// +0x08 (0x670950)
-	RenderObjClass *Unknown0C;											// +0x0C (the gadget's model)
-	void *Unknown10;													// +0x10 (0x6A8EC0's)
-	char Unknown14[0x20 - 0x14];
-	int Unknown20;														// +0x20 (0x670910; -1 for no render)
-};
 
 // What a slot reports to (ui_slot_data.cpp's screen, not in the tree yet): one slot used
 class SlotDataIFaceClass  // NAME 1: neutral (D10)
@@ -79,7 +58,7 @@ public:
 	virtual Vector3 Unknown_9C();										// +0x9C 0x670D50 (the base's, darkened when the render says so)
 	virtual Vector3 Unknown_A0();										// +0xA0 0x670DE0
 	virtual Unknown_670E30Class *Unknown_A4() { return(NULL); }			// +0xA4 0x670760
-	virtual void Unknown_A8(int arg);									// +0xA8 0x670CB0 (the render's +0x2C)  // NAME 1 [arg]: neutral
+	virtual void Unknown_A8(bool arg);									// +0xA8 0x670CB0 (the render's +0x2C)  // NAME 1 [arg]: neutral
 	virtual void Unknown_AC(int slot);									// +0xAC 0x670890 (the render's +0x40, the tooltip)  // NAME 1 [slot]: as the render's
 
 	int Unknown_670910();												// 0x670910 (the render's +0x20, or -1)
