@@ -104,6 +104,10 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.0 Everyone
 
+* **A pair that holds only with other files' exact text is a near miss (D203, 2026-11-07):** never work round
+  other code (keeping a header byte-equal, dropping a needed edit) to keep a pair won earlier. nav_list_builder's
+  0x7B7EF0 and its vector destructors 0x7B8ED0 / 0x7B8F10 are the first: their loss is accepted under D66 (name
+  D203 in the commit; the coordinator's heartbeat `--accept`s them). Aim for both changes exact at once.
 * **An uncommitted app header edit reaches other builders' verifies half done** (2026-10-29, PX4): UI1's verify
   compiled PX4's new px_collision.cpp against HEAD's px_collision.h and wrote C2511 plus an empty px_collision entry
   into the working imports.json. Draft in a scratch copy (`appfile.py match` on `.work/<id>/m/`), touch the tree
