@@ -29,6 +29,7 @@ public:
 
 	void Unknown_764530();								// 0x764530 (ui_starbase.cpp 0x646A00, before the lights are read)
 	void Unknown_764550();								// 0x764550 (ui_starbase.cpp 0x646E00, after the lights are stored: the INI saved)
+	LightClass *Unknown_764570(int a, int b, int c, int index);	// 0x764570 (ui_starbase.cpp 0x640810: a new light from the INI)  // NAME 1 [a, b, c, index]: neutral
 	void Unknown_764880(int a, int b, int c, int index, LightClass *light);	// 0x764880 (0x646E00: each light)  // NAME 1 [a, b, c, index, light]: neutral
 	void Unknown_764C30(int a, int b, int c, int index, const Vector3 &point);	// 0x764C30 (0x646E00: a pad point; index 1000 the ambient light's)  // NAME 1 [a, b, c, index, point]: neutral
 	Vector3 Unknown_764CF0(int a, int b, int c);		// 0x764CF0 (0x646A00: the ambient colour)  // NAME 1 [a, b, c]: neutral

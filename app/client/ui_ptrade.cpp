@@ -21,7 +21,7 @@
 #include "..\shared\g_assert.h"
 #include "..\audio\soundlib.h"
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time (0xBFAE3C - 0xBFAE40, read inline)
-#include "unknown_674260.h"
+#include "gd_uiback.h"		// UIBackGadget (0x674260)
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -98,7 +98,7 @@ static const char *Unknown_B850B0[] = { "exit", "cancel", "confirm", "money", NU
 static const char *Unknown_B850C4[] = { NULL, "CANCEL_TRADE00", "CONFIRM_TRADE00", "MONEY_TRADE00", NULL };	// NAME 1: neutral (D10)
 
 // The credits button (0x64 bytes, table 0xAF6578, over 0x674260's gadget): pressed, it counts only while the credits entry is closed
-class UIPTradeCreditsGadgetClass : public Unknown_674260Class	// NAME 1: neutral (D10)
+class UIPTradeCreditsGadgetClass : public UIBackGadget	// NAME 1: neutral (D10)
 {
 public:
 	UIPTradeCreditsGadgetClass(const RefCountPtr<RenderObjClass> &model, RefCountPtr<UIPTradeCreditsClass> credits);	// 0x5E3F40  // NAME 1 [model, credits]: what the set-up passes
@@ -507,7 +507,7 @@ bool UIPTradeCreditsGadgetClass::Unknown_34(KernelEventClass *event, float x, fl
 
 // 0x5E3F40
 UIPTradeCreditsGadgetClass::UIPTradeCreditsGadgetClass(const RefCountPtr<RenderObjClass> &model, RefCountPtr<UIPTradeCreditsClass> credits) :
-	Unknown_674260Class(model)
+	UIBackGadget(model)
 {
 	Unknown60 = credits;
 }

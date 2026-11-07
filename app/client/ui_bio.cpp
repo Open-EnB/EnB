@@ -12,7 +12,7 @@
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-#include "unknown_674260.h"		// the gadget 0x674260 makes (0x60 bytes)
+#include "gd_uiback.h"		// UIBackGadget (0x674260)
 
 
 
@@ -28,7 +28,7 @@ UIBioClass::UIBioClass(SClient *client) :
 	UnknownAC = new GadgetSlider(false);
 	UnknownAC->Unknown_66E460(Create_Peek(InterfaceMesh->Peek_Object()), 0, 0);
 	Unknown64.Unknown_6870E0(UnknownAC, 1, View, 1, 0);
-	GadgetClass *gadget = new Unknown_674260Class(Create_Peek(InterfaceMesh->Peek_Object()));
+	GadgetClass *gadget = new UIBackGadget(Create_Peek(InterfaceMesh->Peek_Object()));
 	Unknown64.Unknown_6870E0(gadget, 2, View, 1, 0);
 }
 

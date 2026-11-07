@@ -96,6 +96,30 @@
    "moved_to": "0x646120",
    "decision": "D197",
    "note": "<string>'s guarded initialiser of std::ctype<unsigned short>::id: 0x646120 and 0x648380 are the client's two byte-identical copies in one object and ours compiles one, so D100 credits it to whichever copy the file's own range reaches first. A new function low in ui_starbase.cpp (0x640CC0, P-ST1-1) moves the credit to 0x646120: not a code loss (the kind of D66 (vi))."
+  },
+  {
+   "address": "0x7B7EF0",
+   "lib": "app",
+   "file": "nav_list_builder",
+   "moved_to": null,
+   "decision": "D203",
+   "note": "NavListBuilderClass::Unknown_7B7EF0; D203 (the user, on P-RS1-1): exact only with the exact text of the headers nav_list_builder.cpp includes; a near miss, not a pair to protect: other work editing those headers may drop it (attempts.csv row)."
+  },
+  {
+   "address": "0x7B8ED0",
+   "lib": "app",
+   "file": "nav_list_builder",
+   "moved_to": null,
+   "decision": "D203",
+   "note": "vector destructor hanging on 0x7B7EF0; D203 (the user, on P-RS1-1): exact only with the exact text of the headers nav_list_builder.cpp includes; a near miss, not a pair to protect: other work editing those headers may drop it (attempts.csv row)."
+  },
+  {
+   "address": "0x7B8F10",
+   "lib": "app",
+   "file": "nav_list_builder",
+   "moved_to": null,
+   "decision": "D203",
+   "note": "vector destructor hanging on 0x7B7EF0; D203 (the user, on P-RS1-1): exact only with the exact text of the headers nav_list_builder.cpp includes; a near miss, not a pair to protect: other work editing those headers may drop it (attempts.csv row)."
   }
  ]
 }

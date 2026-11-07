@@ -9,7 +9,7 @@
 #include "gd_robj.h"
 #include "unknown_675120.h"
 #include <stdio.h>
-#include "unknown_674260.h"		// the gadget 0x674260 makes (0x60 bytes)
+#include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "assetmgr.h"
 #include "gd_slider.h"
 #include "fontmanager.h"
@@ -143,7 +143,7 @@ void UIFactionClass::Unknown_54()
 	G_ASSERT(SelectedBttnTexture);
 
 	RefCountPtr<RenderObjClass> frame = Create_Get(mesh->Get_Sub_Object_By_Name("new_frame"));
-	GadgetClass *gadget = new Unknown_674260Class(frame);
+	GadgetClass *gadget = new UIBackGadget(frame);
 	Unknown64.Unknown_6870E0(gadget, 9, View, 1, 0);
 
 	UnknownBC = new GadgetSlider(false);

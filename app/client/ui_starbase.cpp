@@ -14,6 +14,7 @@
 #include "aabox.h"
 #include "matrix3d.h"
 #include "rendobj.h"
+#include "scene.h"
 #include "starbase_lights.h"
 #include "..\audio\soundlib.h"
 #include "control_keys_manager.h"
@@ -41,9 +42,56 @@ public:
 	void Unknown_762940(const Vector3 &color);			// 0x762940 (its +0xA0: the ambient colour)  // NAME 1 [color]: what 0x640E90 passes
 };
 
-// Out of line, as the client: its lights panel below calls 0x640D80-0x640F30 (auto_inline off, as co.cpp's 0x6F3ED0)
-#pragma auto_inline(off)
+// NOT EXACT: register-only residue at the top (the client loads +0xB0 into eax before Room, a's chain through
+// eax / ecx; ours through ecx / edx) and in the inlined 0x640CC0 loop (eax / edx swapped); 42 rows. The budget
+// forms that reach the client's out-of-line calls (0x6443C0 erase, 0x644180 insert, 0x6444A0 insert(n)) and ??_H:
+// 0x640CC0 inlined (it has no caller of its own), with clear() in it, Unknown_Kind() for c, and while (true)
+// (do / while and for (;;) rotate the loop)
+// 0x640810
+void UIStarbaseClass::Unknown_640810()
+{
+	int i = 0;
+	int a = UnknownB0->Unknown1B4->Unknown18;
+	int room = Room;
+	int c = Unknown_Kind();
+	Unknown_640CC0();
+	while (true) {
+		char name[64];  // NAME 1: neutral
+		_snprintf(name, sizeof(name), "D_LIGHT%02d", i);
+		if (!((UIMeshClass *)Unknown84)->Peek_Object()->Get_Bone_Index(name)) {
+			break;
+		}
+		Matrix3D tm = ((UIMeshClass *)Unknown84)->Peek_Object()->Get_Bone_Transform(name);
+		LightClass *light = Unknown_BE82D0->Unknown_764570(a, room, c, i);
+		light->Set_Transform(tm);
+		((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(light);
+		Lights.push_back(light);
+		i++;
+	}
+	if (i) {
+		Vector3 color = Unknown_BE82D0->Unknown_764CF0(a, room, c);
+		((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_762940(color);
+		float fill = Unknown_BE82D0->Unknown_764EA0(a, room, c);
+		((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_762920(fill);
+	} else {
+		Matrix3D tm(true);
+		tm.Set_Translation(Vector3(100.0f, 50.0f, 10.0f));
+		LightClass *light = new LightClass;
+		light->Set_Intensity(1.0f);
+		light->Set_Force_Visible(true);
+		light->Set_Far_Attenuation_Range(0.0, 500.0);
+		light->Set_Ambient(Vector3(0.0f, 0.0f, 0.0f));
+		light->Set_Specular(Vector3(0.0f, 0.0f, 0.0f));
+		light->Set_Diffuse(Vector3(0.8f, 0.6f, 0.4f));
+		light->Set_Transform(tm);
+		((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(light);
+		light->Add_Ref();
+		Lights.push_back(light);
+		((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_762920(0.7f);
+	}
+}
 
+// Inlined into 0x640810 above, so before the pragma
 // 0x640CC0
 void UIStarbaseClass::Unknown_640CC0()
 {
@@ -52,8 +100,11 @@ void UIStarbaseClass::Unknown_640CC0()
 		light->Remove();
 		light->Release_Ref();
 	}
-	Lights.erase(Lights.begin(), Lights.end());
+	Lights.clear();
 }
+
+// Out of line, as the client: its lights panel below calls 0x640D80-0x640F30 (auto_inline off, as co.cpp's 0x6F3ED0)
+#pragma auto_inline(off)
 
 // 0x640D80
 void UIStarbaseClass::Unknown_640D80(int *a, int *b, int *c)

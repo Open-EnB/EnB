@@ -20,13 +20,13 @@
 
 void Unknown_496AE0(RenderObjClass *robj, int arg);	// 0x496AE0  // NAME 1 [robj, arg]: what ui_group.cpp passes
 
-// camera_manager.cpp's class (sclient.cpp declares its other members)
-class CameraManagerClass
-{
-public:
-	void Unknown_79B2B0(int mode);		// 0x79B2B0  // NAME 1 [mode]: co.cpp's
-	bool Unknown_79B4F0(int mode);		// 0x79B4F0  // NAME 1 [mode]: neutral
-};
+#include "camera_manager.h"
+
+
+
+
+
+
 
 inline VerbEnum Verb_Type(VerbEnum verb) { return((VerbEnum)(verb & 0xFFFF0000)); }		// NAME 5: the client's assert
 

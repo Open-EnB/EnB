@@ -48,22 +48,13 @@ BridgeInterfaceClass::~BridgeInterfaceClass()
 {
 }
 
-// ---------------------------------------------------------------- camera_manager.cpp (0x798D20, 0x792320-0x79BB80's modules): 0x4C bytes, zero
-class CameraManagerClass
-{
-public:
-	CameraManagerClass(SClient *client);
-	char Unknown00[0x4C];
-};
-CameraManagerClass::CameraManagerClass(SClient *client)
-{
-	STUB_CALLED("POC CameraManagerClass: zero");
-	memset(this, 0, sizeof(*this));
-}
+// camera_manager.cpp is real app code (camera_manager.h; its stand-in left here since CM2).
 
 // ---------------------------------------------------------------- enbscene.cpp's scene (0x75ECF0, 0xF4 bytes; its base 0x494EE0 is claimed): a plain SimpleSceneClass
 #include "..\..\ww3d2\scene.h"
 #include "..\..\ww3d2\dazzle.h"
+#include "..\..\ww3d2\light.h"
+#include "..\..\wwlib\multilist.h"
 class MainViewSceneUnknown98Class;
 class MainViewSceneClass : public SimpleSceneClass
 {
@@ -72,13 +63,27 @@ public:
 	void Unknown_75F690(const Vector3 &sun, const Vector3 &camera);
 	void Unknown_75F700(const Vector3 &color);
 	virtual void Unknown_68(CameraClass *camera);
-	MainViewSceneUnknown98Class *Unknown98; char Unknown9C[0xF4 - 0x9C];
+	MainViewSceneUnknown98Class *Unknown98; char Unknown9C[0xA8 - 0x9C];
+	RefMultiListClass<RenderObjClass> UnknownA8;	// +0xA8, +0xC0: enbscene.cpp's lists (0x75F690 / 0x75F700 walk them since WE5): constructed empty
+	RefMultiListClass<RenderObjClass> UnknownC0;
+	char UnknownD8[0xF4 - 0xD8];
 };
 MainViewSceneClass::MainViewSceneClass()
 {
 	STUB_CALLED("POC MainViewSceneClass: a plain SimpleSceneClass");
 	void Poc_Start_Watchdog();
 	Poc_Start_Watchdog();
+	// POC light (WE3), NOT THE CLIENT'S: the space view's lights are mainview.cpp's four +0x144 directional lights,
+	// which Update gives OrbitalManager's colours (0x4F50D0) and sun direction (+0x20) and adds when they are not
+	// black, and the scene's ambient is OrbitalManager's +0x58 (WE5: enbscene.cpp's 0x75F690 / 0x75B8F0 place no
+	// lights, they set the planets' day / night). The POC's OrbitalManager is zero, so lit models drew black (D3D
+	// AMBIENT 0, no light): one white directional light from above stands in until OrbitalManager lands.
+	LightClass *light = new LightClass(LightClass::DIRECTIONAL);
+	light->Set_Diffuse(Vector3(0.9f, 0.9f, 0.9f));
+	light->Set_Ambient(Vector3(0.35f, 0.35f, 0.35f));
+	light->Set_Spot_Direction(Vector3(0.3f, 0.4f, -0.866f));
+	Add_Render_Object(light);
+	light->Release_Ref();
 }
 
 // ---------------------------------------------------------------- enbdazzle.cpp's visibility handler (0x75DD00, 8 bytes): the base's answer
@@ -104,12 +109,7 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
 	Client = client;
 }
 
-// ---------------------------------------------------------------- orbital manager (0x4F3250, 0x1D4 bytes; no table)
-OrbitalManager::OrbitalManager(SClient *client, MainViewOrbitalCallbackClass *callback)
-{
-	STUB_CALLED("POC OrbitalManager: zero");
-	memset(this, 0, 0x1D4);
-}
+// orbitalmanager.cpp (0x4F28A0-0x4F51C0) is real app code since WE4: its stand-in left here.
 
 // ---------------------------------------------------------------- the main view's windows that have no class in the tree: empty windows on its view (0x53E970, 0x53D250 and +0x1DC's)
 MainViewUnknown53E970Class::MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene) : InterfaceClass((UIViewClass *)view, (int)scene)
@@ -120,81 +120,10 @@ MainViewUnknown138Class::MainViewUnknown138Class(MainViewClass *view, SimpleScen
 {
 	STUB_CALLED("POC MainViewUnknown138Class: an empty window");
 }
-MainViewUnknown1DCClass::MainViewUnknown1DCClass(MainViewClass *view, SimpleSceneClass *scene) : InterfaceClass((UIViewClass *)view, (int)scene)
-{
-	STUB_CALLED("POC MainViewUnknown1DCClass: an empty window");
-}
 
-// ---------------------------------------------------------------- ui_mesh.cpp (0x5B8120-0x5BA4C0, not rebuilt yet): the model only, no animations
+// ui_mesh.cpp (0x5B8120-0x5BA4C0) is real app code since UM1: its stand-in left here.
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\rendobj.h"
-UIMeshClass::UIMeshClass(const char *name, int arg)
-{
-	STUB_CALLED("POC UIMeshClass: the model, no animations");
-	memset(this, 0, sizeof(*this));
-	Unknown_5B8850(name, arg != 0);
-}
-UIMeshClass::UIMeshClass(const char *name, ClientClass *client)
-{
-	STUB_CALLED("POC UIMeshClass: the model, no animations");
-	memset(this, 0, sizeof(*this));
-	Unknown_5B8850(name, false);
-}
-UIMeshClass::~UIMeshClass()
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Remove();
-		Unknown1C->Release_Ref();
-		Unknown1C = NULL;
-	}
-}
-void UIMeshClass::Unknown_5B8850(const char *name, bool arg)
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Remove();
-		Unknown1C->Release_Ref();
-		Unknown1C = NULL;
-	}
-	if (name != NULL) {
-		Unknown1C = WW3DAssetManager::Get_Instance()->Create_Render_Obj(name);
-		if (Unknown1C == NULL) {
-			STUB_CALLED("POC UIMeshClass: a model was not found");
-		}
-	}
-}
-RenderObjClass *UIMeshClass::Peek_Object()
-{
-	return(Unknown1C);
-}
-RenderObjClass *UIMeshClass::Unknown_5B8B20()
-{
-	Unknown1C->Add_Ref();
-	return(Unknown1C);
-}
-RenderObjClass *UIMeshClass::Unknown_5B8B40(const char *name)
-{
-	return(Unknown1C != NULL ? Unknown1C->Get_Sub_Object_By_Name(name) : NULL);
-}
-void UIMeshClass::Unknown_5B9100(const char *bone_name, RenderObjClass *object)
-{
-	Unknown1C->Add_Sub_Object_To_Bone(object, bone_name);
-}
-void UIMeshClass::Unknown_5B9130(const char *bone_name, UIMeshClass *child)
-{
-	Unknown1C->Add_Sub_Object_To_Bone(child->Unknown1C, bone_name);
-}
-void UIMeshClass::Unknown_5B9290(SimpleSceneClass *scene)
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Add(scene);
-	}
-}
-void UIMeshClass::Unknown_5B92B0()
-{
-	if (Unknown1C != NULL) {
-		Unknown1C->Remove();
-	}
-}
 
 // ---------------------------------------------------------------- the interface base over a mesh and a layer (0x5BB250-0x5BB6B0)
 Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, SClient *client) : InterfaceClass((LineDisplayClientClass *)client), InterfaceMesh(mesh)

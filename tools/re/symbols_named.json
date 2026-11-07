@@ -836,5 +836,43 @@
   "address": "0x84A560",
   "symbol": "?Value_To_String@@YAPADPADHABUSkillLevelAvailabilityStruct@@@Z",
   "evidence": "called by the KVPair slot +0x0C Get_Value_String 0x759D00 of SkillLevelAvailabilityStruct (leaf vtable 0xB03694); its file app\\Common\\skill_level_availability.cpp ('%d,%d,%d,%d'; tools/re/auxroots.py BLOB_EXTERN; AUXR 2026-11-04)"
+ },
+ {
+  "address": "0xAEAC9C",
+  "symbol": "??_7PolicyIncludeAllClass@@6B@",
+  "kind": "vtable",
+  "evidence": "PolicyIncludeAllClass vtable: constructed in UnknownSendRootClass::Unknown_48 0x4A40B0 (0x4A418F); slot 0 is scalar deleting dtor 0x4A4420, slot 1 is Get_Condition 0x4A4320"
+ },
+ {
+  "address": "0xAEACA8",
+  "symbol": "??_7PolicyConditionalSetClass@@6B@",
+  "kind": "vtable",
+  "evidence": "PolicyConditionalSetClass vtable: constructed in UnknownSendRootClass::Unknown_48 0x4A40B0 (0x4A415A); slot 0 is scalar deleting dtor 0x4A4350, slot 1 is Get_Condition 0x4A4320"
+ },
+ {
+  "address": "0xAEACC0",
+  "symbol": "??_7PolicyAlwaysClass@@6B@",
+  "kind": "vtable",
+  "evidence": "PolicyAlwaysClass vtable: constructed in UnknownSendRootClass::Unknown_48 0x4A40B0 (0x4A4111); slot 0 is RefCountClass::Delete_This 0x45CC10, slot 1 is scalar deleting dtor 0x4A4450"
+ },
+ {
+  "address": "0x4A4420",
+  "symbol": "??_GPolicyIncludeAllClass@@UAEPAXI@Z",
+  "evidence": "PolicyIncludeAllClass scalar deleting destructor: slot 0 of vtable 0xAEAC9C; calls destructor 0x4A4480 and operator delete"
+ },
+ {
+  "address": "0x4A4450",
+  "symbol": "??_GPolicyAlwaysClass@@UAEPAXI@Z",
+  "evidence": "PolicyAlwaysClass scalar deleting destructor: slot 1 of vtable 0xAEACC0; calls destructor 0x4A4500 and operator delete"
+ },
+ {
+  "address": "0x4A4480",
+  "symbol": "??1PolicyIncludeAllClass@@UAE@XZ",
+  "evidence": "PolicyIncludeAllClass destructor: called by scalar deleting destructor 0x4A4420; decrements RefCountPtr Condition at +0x18 and calls PolicyRuleSetClass destructor"
+ },
+ {
+  "address": "0x4A4500",
+  "symbol": "??1PolicyAlwaysClass@@UAE@XZ",
+  "evidence": "PolicyAlwaysClass destructor: called by scalar deleting destructor 0x4A4450; resets vtable to RefCountClass 0xAE7FB0"
  }
 ]

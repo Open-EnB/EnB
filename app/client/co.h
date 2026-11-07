@@ -33,6 +33,7 @@
 #include "..\packets\pkcolorization.h"
 #include "..\packets\pk_player_object_relationship.h"
 #include "..\common\lego_identifier.h"
+#include "..\shared\accel.h"
 #include "ref_ptr.h"
 #include "sphere.h"
 #include "..\shared\g_assert.h"
@@ -64,22 +65,6 @@ public:
 // The +0xB4 object's source (cdecl; co.cpp's constructor assigns its result)
 class ClientObjectClass;
 RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *object);	// 0x731FA0  // NAME 1 [object]: neutral
-
-// co.cpp's +0x134 object (16 bytes: a flag and three floats; constructor 0x498C10, its setter 0x498F00 sets
-// +0x0C, +0x04 and +0x08 and the flag when the first two differ)
-class Unknown498C10Class							// NAME 1: neutral (D10)
-{
-public:
-	Unknown498C10Class();							// 0x498C10
-	void Unknown_498F00(float a, float b, float c);	// 0x498F00  // NAME 1 [a, b, c]: neutral
-	void Unknown_498CC0(float value);				// 0x498CC0 (co.cpp's tilt 0x6F3FA0 passes the turn's acceleration)  // NAME 1 [value]: neutral
-	void Unknown_498D40(float value, bool reset);	// 0x498D40 (the flag off, +0x04 / +0x0C to value; reset: +0x08 to 0)  // NAME 1 [value, reset]: neutral
-	void Unknown_498C30(float target, float rate);	// 0x498C30 (+0x04 / +0x08; the flag when +0x0C is not yet target)  // NAME 1 [target, rate]: neutral
-	float Unknown_498E00(float time);				// 0x498E00 (0x6F3FA0 passes WW3D's frame time when the flag is set)  // NAME 1 [time]: what it gets
-	float Unknown_Value(int time) { if (!Unknown00) return(Unknown04[2]); return(Unknown_498E00((float)time)); }	// (inline: cameraeffects.cpp's 0x6E3710, 0x6E3B60)  // NAME 1: neutral (D10)
-	bool Unknown00;									// +0x00
-	float Unknown04[3];								// +0x04
-};
 
 // co.cpp's +0x8C object (the destructor deletes it through its slot +0x00)
 class Unknown8CClass								// NAME 1: neutral (D10)
@@ -313,7 +298,7 @@ public:
 	bool Unknown128;									// +0x128 (0x6FC950 sets it)
 	char Unknown129[0x12C - 0x129];						// +0x129
 	RelationshipClass Relationship;						// +0x12C (pk_player_object_relationship.h; constructor 0x848C80): 0x6FEEE0 sets it  // NAME 2: what it holds
-	Unknown498C10Class Unknown134;						// +0x134 (the constructor's 0x498F00 with the size factors)
+	AccelClass Unknown134;								// +0x134 accel.h's (the constructor's Set 0x498F00 with the size factors; the tilt 0x6F3FA0 its Set_Target / Update)
 	float Unknown144;										// +0x144 (slot +0x28 compares it with +-0.157: which thrust models show)
 	int Unknown148;										// +0x148 the render state 0x6FF1D0 last set (0 to 3 from PercentFull)
 	unsigned Unknown14C;								// +0x14C an effect's id (0x6FC880 removes the effect through the client's Get_Effect)

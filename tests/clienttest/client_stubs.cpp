@@ -78,8 +78,7 @@ void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("s
 // (the constructor 0x6F2820 and destructor 0x6F2FE0 link from app.lib: clienttest.cpp's TestObjectClass logs
 // the destruction and takes its fakes back first; the slots +0x04-+0x18 are the base's, client.cpp's)
 RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *) { return(RefCountPtr<UnknownB4Class>(NULL)); }
-Unknown498C10Class::Unknown498C10Class() : Unknown00(false) {}		// (silent: every object constructs one)
-void Unknown498C10Class::Unknown_498F00(float, float, float) {}
+// (co.h's +0x134 AccelClass links from app.lib: accel.cpp)
 // co.cpp's SUBPARTS 0x6FEF70 asks client.cpp's 0x7294D0 (not rebuilt) for a sub part's lego: a by-value RefCountPtr
 // gen_stubs.py cannot write (reached only with a +0xB4 object, which Unknown_731FA0 above never gives)
 #include "..\..\..\app\client\client_lego_impl.h"

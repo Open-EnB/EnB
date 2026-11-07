@@ -11,7 +11,7 @@
 #include "client.h"
 #include "gadget.h"
 #include "unknown_675120.h"
-#include "unknown_674260.h"
+#include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "fontmanager.h"
 #include "fontdatabase.h"
 #include "dynamic_window_class.h"
@@ -198,7 +198,7 @@ void UITalkTreeClass::Unknown_54()
 	Unknown64.Unknown_6870E0(Buttons[BTTN_EXIT], BTTN_EXIT, View, 1, 0);
 	GadgetClass::Set_Tooltip(Buttons[BTTN_EXIT], "UI_TALKTREE", "EXIT");
 	RefCountPtr<RenderObjClass> frame = Create_Get(InterfaceMesh->Unknown_5B8B40("frame01"));
-	Unknown64.Unknown_6870E0(new Unknown_674260Class(frame), 12, View, 1, 0);
+	Unknown64.Unknown_6870E0(new UIBackGadget(frame), 12, View, 1, 0);
 	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UITalkTreeKeyEventStruct(0x1B), (void *)11);
 	RenderObjClass *npc_line = InterfaceMesh->Unknown_5B8B40("TALK00");
 	if (npc_line) {
