@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 156 |
+| 5 | the client names it | 157 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1532 |
-| 2 | describes what the code does | 3435 |
-| 1 | neutral placeholder | 17177 |
+| 3 | by convention from a client-named file or sibling | 1533 |
+| 2 | describes what the code does | 3436 |
+| 1 | neutral placeholder | 17198 |
 
 ## For review (score 3 and below)
 
@@ -6887,17 +6887,39 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown58` | `app/client/skill_render.h:58` | untagged neutral name (D10) |
 | 1 | `gadget` | `app/client/skill_render.h:61` | neutral |
 | 1 | `Unknown_6A7380` | `app/client/skill_render.h:61` | untagged neutral name (D10) |
-| 1 | `UnknownObjectWatchClass` | `app/client/slot_data.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_Watch_0C` | `app/client/slot_data.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/slot_data.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/slot_data.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/slot_data.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/slot_data.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/slot_data.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/slot_data.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/slot_data.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/slot_data.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/slot_data.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/slot_data.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/slot_data.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown_Watch_0C` | `app/client/slot_data.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/slot_data.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/slot_data.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7AB0` | `app/client/slot_data.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7730` | `app/client/slot_data.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/slot_data.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/slot_data.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/slot_data.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7860` | `app/client/slot_data.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7990` | `app/client/slot_data.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_6A79C0` | `app/client/slot_data.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7A00` | `app/client/slot_data.cpp:82` | untagged neutral name (D10) |
+| 1 | `UnknownObjectWatchClass` | `app/client/slot_data.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Watch_0C` | `app/client/slot_data.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/slot_data.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/slot_data.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/slot_data.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/slot_data.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/slot_data.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/slot_data.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7730` | `app/client/slot_data.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7860` | `app/client/slot_data.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7990` | `app/client/slot_data.h:49` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/slot_data.h:50` | neutral |
+| 1 | `Unknown_6A79C0` | `app/client/slot_data.h:50` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/slot_data.h:51` | neutral |
+| 1 | `Unknown_6A7A00` | `app/client/slot_data.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7AB0` | `app/client/slot_data.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/slot_data.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/slot_data.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/slot_data.h:61` | untagged neutral name (D10) |
 | 1 | `Unknown00Base` | `app/client/slot_data_render.cpp:18` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/slot_data_render.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/slot_data_render.cpp:18` | untagged neutral name (D10) |
@@ -7737,12 +7759,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67C4` | `app/client/ui_attrb_skills.cpp:12` | 0xBE67C4 |
 | 1 | `SkillDataPeekClass` | `app/client/ui_attrb_skills.cpp:27` | neutral (D10) |
 | 1 | `Unknown_6A5440` | `app/client/ui_attrb_skills.cpp:30` | untagged neutral name (D10) |
-| 1 | `SkillDataClass` | `app/client/ui_attrb_skills.cpp:32` | neutral (D10) |
-| 1 | `index` | `app/client/ui_attrb_skills.cpp:35` | neutral |
-| 1 | `Unknown00` | `app/client/ui_attrb_skills.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_6A7990` | `app/client/ui_attrb_skills.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_6A7860` | `app/client/ui_attrb_skills.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_6A7A00` | `app/client/ui_attrb_skills.cpp:35` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_attrb_skills.cpp:32` | neutral |
+| 1 | `Unknown_6A7990` | `app/client/ui_attrb_skills.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7860` | `app/client/ui_attrb_skills.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7A00` | `app/client/ui_attrb_skills.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ui_attrb_skills.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/ui_attrb_skills.cpp:36` | untagged neutral name (D10) |
 | 1 | `InterfaceUnknown58Class` | `app/client/ui_attrb_skills.cpp:40` | neutral (D10) |
 | 1 | `Unknown_686CC0` | `app/client/ui_attrb_skills.cpp:43` | untagged neutral name (D10) |
@@ -18392,6 +18413,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Fields` | `app/client/skill_data_peek.h:148` | describes what it does |
 | 2 | `Status` | `app/client/skill_data_peek.h:149` | describes what it does |
 | 2 | `UnknownDurationSum` | `app/client/skill_render.cpp:17` | describes what it does |
+| 2 | `Value` | `app/client/slot_data.h:31` | describes what it does |
 | 2 | `Get_Slot` | `app/client/slot_data_render.h:54` | the accessor of Unknown20, the slot |
 | 2 | `position` | `app/client/slot_data_render.h:61` | RenderObjClass::Set_Position |
 | 2 | `CameraModeStruct` | `app/client/soptions.h:26` | what it holds |
@@ -21011,11 +21033,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ValidityIndicator` | `app/client/skill_render.h:51` | its assert |
 | 3 | `WrongTargetTypeIndicator` | `app/client/skill_render.h:52` | its assert |
 | 3 | `RechargeIndicator` | `app/client/skill_render.h:53` | its assert |
-| 3 | `client` | `app/client/slot_data.h:30` | the assert's Get_Client() |
-| 3 | `Get_Client` | `app/client/slot_data.h:40` | skill_data.cpp's FAIL_IF |
-| 3 | `Peek_Aux_Data` | `app/client/slot_data.h:41` | skill_data.cpp's FAIL_IF |
-| 3 | `Client` | `app/client/slot_data.h:43` | Get_Client() |
-| 3 | `AuxData` | `app/client/slot_data.h:44` | Peek_Aux_Data() |
+| 3 | `client` | `app/client/slot_data.h:37` | the assert's Get_Client() |
+| 3 | `Get_Client` | `app/client/slot_data.h:54` | skill_data.cpp's FAIL_IF |
+| 3 | `Peek_Aux_Data` | `app/client/slot_data.h:55` | skill_data.cpp's FAIL_IF |
+| 3 | `Client` | `app/client/slot_data.h:57` | Get_Client() |
+| 3 | `AuxData` | `app/client/slot_data.h:58` | Peek_Aux_Data() |
 | 3 | `SlotDataClass` | `app/client/slot_data_render.cpp:19` | 0x6A7310's FAIL_IF |
 | 3 | `SlotDataRenderClass` | `app/client/slot_data_render.h:30` | class-from-file (D24) for app\Client\slot_data_render.cpp |
 | 3 | `sd` | `app/client/slot_data_render.h:35` | 0x6A7310's FAIL_IF; NAME 1 [robj]: neutral |
@@ -21076,6 +21098,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UI_CLOSED` | `app/client/ui_analyze.h:26` | the assert's |
 | 3 | `UIAnalyzeClass` | `app/client/ui_analyze.h:32` | class-from-file (D24) for app\client\ui_analyze.cpp |
 | 3 | `State` | `app/client/ui_analyze.h:60` | the destructor's G_ASSERT 'State == UI_CLOSED' |
+| 3 | `SkillDataClass` | `app/client/ui_attrb_skills.cpp:33` | skill_data.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_attrb_skills.cpp:88` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIAttrbSkillsClass` | `app/client/ui_attrb_skills.h:57` | class-from-file (D24) for app\Client\ui_attrb_skills.cpp |
 | 3 | `InterfaceMesh` | `app/client/ui_attrb_skills.h:85` | Init's FAIL_IF '!InterfaceMesh' (l.121) |

@@ -4,9 +4,8 @@
 **	Original location assumed: e:\build\beta\G\app\Client\slot_data.h, after slot_data_render.cpp's asserts' 'sd' and the
 **	client's RTTI (.?AVSlotDataClass@@, 0xB8A5C8). The client holds no string of this header.
 **
-**	What a slot's data derives from, as far as skill_data.cpp needs it: constructor 0x6A7420, destructor 0x6A7530 (deleting
-**	0x6A7500), table 0xAFD758 and, for its RefCountClass at +0x18, 0xAFD74C. Those functions are not rebuilt yet (D137:
-**	interim placement, ui_slot_scut.h and four other files still declare their own stand-ins).
+**	What a slot's data derives from: constructor 0x6A7420, destructor 0x6A7530 (deleting 0x6A7500), table 0xAFD758 and, for its
+**	RefCountClass at +0x18, 0xAFD74C (ui_slot_scut.h and four other files still declare their own stand-ins).
 */
 
 #if defined(_MSC_VER)
@@ -19,10 +18,18 @@
 #include <vector>
 #include "refcount.h"
 #include "ui_cpit.h"
+#include "unknown_signalbase.h"
 
 class InvDataClass;
 class SkillDataClass;
 class DeltaCompoundClass;
+
+class SlotDataEventDataChange	// NAME 5: the client's RTTI, 0xB8A690
+{
+public:
+	SlotDataEventDataChange(int value) : Value(value) {}
+	int Value;															// +0x00 2 or 1: Unknown_20's answer  // NAME 2: describes what it does
+};
 
 class SlotDataClass : public UnknownObjectWatchClass, public RefCountClass	// NAME 5: the client's RTTI, 0xB8A5C8
 {
@@ -36,6 +43,13 @@ public:
 	virtual DeltaCompoundClass *Unknown_1C() = 0;				// +0x1C
 	virtual bool Unknown_20() = 0;								// +0x20
 	virtual void Unknown_24();										// +0x24 0x6A7A40
+
+	bool Unknown_6A7730();											// 0x6A7730
+	void Unknown_6A7860();											// 0x6A7860
+	int Unknown_6A7990();											// 0x6A7990 (Unknown40's size)
+	int Unknown_6A79C0(unsigned int index);					// 0x6A79C0  // NAME 1 [index]: neutral
+	int Unknown_6A7A00(unsigned int index);					// 0x6A7A00  // NAME 1 [index]: neutral
+	static SignalMap &Unknown_6A7AB0();							// 0x6A7AB0 (the function-local static 0xBE6688)
 
 	SClient *Get_Client() { return(Client); }					// NAME 3: skill_data.cpp's FAIL_IF
 	DeltaCompoundClass *Peek_Aux_Data() { return(AuxData); }	// NAME 3: skill_data.cpp's FAIL_IF

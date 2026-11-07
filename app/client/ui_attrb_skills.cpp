@@ -29,10 +29,10 @@ class SkillDataPeekClass  // NAME 1: neutral (D10)
 public:
 	bool Unknown_6A5440();								// 0x6A5440
 };
-class SkillDataClass  // NAME 1: neutral (D10)
+class SlotDataClass { public: int Unknown_6A7990(); void Unknown_6A7860(); int Unknown_6A7A00(unsigned int index); char Unknown00[0x50]; };	// +0x00; 0x6A7990 (0x54A200: zero, then 0x6A7860) / 0x6A7860 / 0x6A7A00 (+0x44's element, else -1)  // NAME 1 [index]: neutral
+class SkillDataClass : public SlotDataClass  // NAME 3: skill_data.cpp
 {
 public:
-	char Unknown00[0x50];	int Unknown_6A7990(); void Unknown_6A7860(); int Unknown_6A7A00(unsigned int index);	// +0x00; 0x6A7990 (0x54A200: zero, then 0x6A7860) / 0x6A7860 / 0x6A7A00 (+0x44's element, else -1)  // NAME 1 [index]: neutral
 	SkillDataPeekClass Unknown50;						// +0x50
 };
 

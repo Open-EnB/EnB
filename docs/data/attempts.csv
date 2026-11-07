@@ -2210,3 +2210,5 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-06 22:00,0x814620,Unknown_814620,app/client/skill_ability_names.cpp,app,parked,,4,register,"named blank for resize (the temp lives to the end), count local, it->Abilities, a vector reference: rotated from the erase on",,opus
 2026-11-06 22:00,0x814A30,Unknown_814A30,app/client/skill_ability_names.cpp,app,parked,,2,frame,"0x10E8 of locals vs 0x10CC; the key buffer in a block made no difference; total at +0x44, level at +0x5C in the client",,opus
 2026-11-06 22:00,0x815720,Unknown_815720,app/client/skill_ability_names.cpp,app,parked,,4,inline-budget,the client calls _Eos and _Tidy out of line early and inlines _Grow in the last append; += and append tried,,opus
+2026-11-06 22:13,0x6A7730,SlotDataClass::Unknown_6A7730,app/client/slot_data.cpp,app,parked,,5,shape,"if/else both orientations, ternary, inverted Unknown_20, shared goto failed: the client lays out the second emit before the shared failure exit",,opus
+2026-11-06 22:13,0x6A7860,SlotDataClass::Unknown_6A7860,app/client/slot_data.cpp,app,parked,,5,shape,"inlines 0x6A7730, same residue",,opus
