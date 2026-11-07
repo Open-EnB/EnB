@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-627 entries in 176 files.
+629 entries in 177 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -254,6 +254,8 @@ edit the comments in the code, not this file.
 | `app/client/skill_data.cpp:95` | `SkillDataClass::Unknown_6A4C20` | marker | NOT EXACT: inline-budget, the client calls 0x610290 (Unknown_Find_Field) out of line in its two inlined reads 0x6A4C20 |
 | `app/client/skill_data.cpp:144` | `SkillDataClass::Unknown_20` | marker | NOT EXACT: inline-budget, the client inlines only the -1 push_back and calls 0x4A0880 for the other two 0x6A4F40 |
 | `app/client/skill_data_peek.cpp:149` | `SkillDataPeekClass::Get_Affiliations` | marker | NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return) 0x6A5730 |
+| `app/client/skillnam.cpp:146` | `Unknown_816E60` | marker | NOT EXACT: register, the client's loop in esi and a dead store of end() before the erase's last store 0x816E60 |
+| `app/client/skillnam.cpp:158` | `Unknown_817070` | marker | NOT EXACT: frame, 0x1C4 against the client's 0x1C0, and the string locals' slots; every call in the client's order 0x817070 |
 | `app/client/slot_data.cpp:32` | `SlotDataClass::Unknown_6A7730` | marker | NOT EXACT: shape, the client lays out the second emit before the shared failure exit (three forms of the branches) 0x6A7730 |
 | `app/client/slot_data.cpp:56` | `SlotDataClass::Unknown_6A7860` | marker | NOT EXACT: inlines 0x6A7730, the same shape 0x6A7860 |
 | `app/client/starmap_data.cpp:231` | `StarmapDataClass::Create_Mesh` | marker | NOT EXACT: frame and registers (the client keeps 0 in ebx and is_ship on the stack, the old transform above the rotation) @0x7BEF50 |

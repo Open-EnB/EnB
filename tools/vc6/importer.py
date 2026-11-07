@@ -4761,6 +4761,8 @@ RECONSTRUCTED = {
     ('app', 'client/skill_data_peek.cpp'): "SkillDataPeekClass, a view of RPGInfo.Skills (the client's __FILE__ 0xB914A4, asserts on lines 130-250; object 0x6A52E0-0x6A5E9F: permstr.h's static opens it, <string>'s initialiser 0x6A5E00 closes it) (SD1)",
     ('app', 'client/skill_ability_data_peek.h'): "SkillAbilityDataPeekClass (D24 class-from-file; the client's __FILE__ 0xBA7950, G_ASSERT on line 134) (SD1)",
     ('app', 'client/skill_ability_data_peek.cpp'): "SkillAbilityDataPeekClass, a view of RPGInfo.SkillAbilities, skill_data_peek.cpp's twin (the client's __FILE__ 0xBA7990, asserts on lines 159-226; object from 0x8139A0, permstr.h's static, to <string>'s initialiser 0x814230) (SD1)",
+    ('app', 'client/skillnam.h'): "the skills' functions (header name assumed from skillnam.cpp's __FILE__ 0xBA7E00) (SN1)",
+    ('app', 'client/skillnam.cpp'): "the skills' ini table (the client's __FILE__ 0xBA7E00, asserts on lines 65-399, statics 0xBE8E28-0xBE8E4F; object from the static's 0x816D70 to <string>'s initialiser 0x8190A0) (SN1)",
     ('app', 'client/skill_ability_names.h'): "the abilities' structs and functions (header name assumed from skill_ability_names.cpp's __FILE__ 0xBA7A18) (SD1)",
     ('app', 'client/skill_ability_names.cpp'): "the abilities' ini tables (the client's __FILE__ 0xBA7A18, asserts on lines 74-229, statics 0xBE8DA8-0xBE8DF8; object from 0x814280 after skill_ability_data_peek.cpp's <string> initialiser, its templates to 0x816F50) (SD1)",
     ('app', 'client/skill_render.h'): "SkillRenderClass's declaration (D24 header name from skill_render.cpp's __FILE__ 0xB91528; table 0xAFD664, 0x5C bytes) (SK1)",

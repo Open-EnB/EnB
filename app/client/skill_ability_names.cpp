@@ -14,7 +14,7 @@
 
 // skillnam.cpp's (not rebuilt yet)
 class SkillNamesDatabase { public: static int Max_Skill(); };	// NAME 5: 0x6A4F40's assert
-unsigned int Unknown_818170(const char *name);	// NAME 1: neutral (D10)
+int Unknown_818170(const std::string &name);	// NAME 1: neutral (D10)
 int Unknown_818340(int skill, unsigned int level);	// NAME 1: neutral (D10)
 TextureClass *Unknown_818430(int skill);	// NAME 1: neutral (D10)
 // kv_util.cpp's (not rebuilt yet)
@@ -129,7 +129,7 @@ static void Unknown_814A30(INIClass &ini, const char *section, unsigned int &ind
 		sprintf(level_key, "Level_%d", level);
 		TPoint3D<float> color = ini.Get_Point("AbilityColors", level_key, white);
 		color = ini.Get_Point(name.c_str(), "Color", color);
-		unsigned int skill_index = Unknown_818170(skill_name.c_str());
+		unsigned int skill_index = Unknown_818170(skill_name);
 
 
 
@@ -165,7 +165,7 @@ int Unknown_815260(const std::string &name)
 }
 
 // 0x815300
-unsigned int Unknown_815300(const char *name)
+unsigned int Unknown_815300(const std::string &name)
 {
 	return(Unknown_818170(name));
 }

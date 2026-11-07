@@ -59,7 +59,7 @@ void Unknown_814430();													// 0x814430 (SClient::Unload_INIs)
 void Unknown_814620(const char *ini, const char *ex_ini);		// 0x814620 (SClient's 'cskill_ability_t.ini', 'cskill_ability_ex_t.ini')
 int Unknown_815230();													// 0x815230 (_AllAbilities' size)
 int Unknown_815260(const std::string &name);						// 0x815260 (an ability by name, or -1)
-unsigned int Unknown_815300(const char *name);					// 0x815300 (a skill by name)
+unsigned int Unknown_815300(const std::string &name);					// 0x815300 (a skill by name)
 Unknown815320Struct *Unknown_815320(int ability);					// 0x815320
 const Unknown8155B0Struct &Unknown_8155B0(int skill);			// 0x8155B0
 TextureClass *Unknown_815690(int ability, Vector3 *color);		// 0x815690
