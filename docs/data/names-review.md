@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 165 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1567 |
-| 2 | describes what the code does | 3658 |
-| 1 | neutral placeholder | 17580 |
+| 3 | by convention from a client-named file or sibling | 1568 |
+| 2 | describes what the code does | 3659 |
+| 1 | neutral placeholder | 17616 |
 
 ## For review (score 3 and below)
 
@@ -3380,20 +3380,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7AC7B0` | `app/client/galaxy_map_render.cpp:1572` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/galaxy_map_render.cpp:1601` | untagged neutral name (D10) |
 | 1 | `Unknown_7B3F00` | `app/client/galaxy_map_render.cpp:1690` | untagged neutral name (D10) |
-| 1 | `GalaxyMapRObjClass` | `app/client/galaxy_map_render.h:38` | what it is |
-| 1 | `points` | `app/client/galaxy_map_render.h:45` | what it walks |
-| 1 | `Unknown_7B3440` | `app/client/galaxy_map_render.h:45` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/galaxy_map_render.h:46` | neutral |
-| 1 | `Unknown_7B3690` | `app/client/galaxy_map_render.h:46` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/galaxy_map_render.h:47` | neutral |
-| 1 | `Unknown_7B3700` | `app/client/galaxy_map_render.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad` | `app/client/galaxy_map_render.h:49` | untagged neutral name (D10) |
-| 1 | `GalaxyMapLineRObjClass` | `app/client/galaxy_map_render.h:54` | what it is |
-| 1 | `ini, name, color, to` | `app/client/galaxy_map_render.h:58` | what 0x7ACEF0 passes |
-| 1 | `Unknown_7B3F00` | `app/client/galaxy_map_render.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown_PadE8` | `app/client/galaxy_map_render.h:60` | untagged neutral name (D10) |
-| 1 | `Hidden` | `app/client/galaxy_map_render.h:61` | 0x7AD090, 0x7AD850 |
-| 1 | `Unknown_PadF5` | `app/client/galaxy_map_render.h:62` | untagged neutral name (D10) |
 | 1 | `GalaxyMapRenderItemClass` | `app/client/galaxy_map_render.h:66` | what it is |
 | 1 | `Release_Item` | `app/client/galaxy_map_render.h:69` | what it does |
 | 1 | `Needs_Update` | `app/client/galaxy_map_render.h:72` | 0x7A8B70 lists those that do |
@@ -3476,6 +3462,56 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Version` | `app/client/galaxy_map_render.h:352` | GalaxyMapClientClass's Version, last seen |
 | 1 | `Unknown28` | `app/client/galaxy_map_render.h:353` | untagged neutral name (D10) |
 | 1 | `UnknownB8` | `app/client/galaxy_map_render.h:364` | untagged neutral name (D10) |
+| 1 | `Unknown4981E0Class` | `app/client/galaxy_map_robj.cpp:15` | neutral (D10) |
+| 1 | `line` | `app/client/galaxy_map_robj.cpp:18` | what it holds |
+| 1 | `ini .. hsv` | `app/client/galaxy_map_robj.cpp:20` | what co.cpp's 0x6F51D0 passes |
+| 1 | `Unknown_4983A0` | `app/client/galaxy_map_robj.cpp:20` | untagged neutral name (D10) |
+| 1 | `_max_polys` | `app/client/galaxy_map_robj.cpp:24` | what DynamicMeshClass takes |
+| 1 | `_max_verts` | `app/client/galaxy_map_robj.cpp:25` | what DynamicMeshClass takes |
+| 1 | `_max_tile` | `app/client/galaxy_map_robj.cpp:27` | what it holds |
+| 1 | `Unknown20` | `app/client/galaxy_map_robj.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/galaxy_map_robj.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8940` | `app/client/galaxy_map_robj.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown450` | `app/client/galaxy_map_robj.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_7B3770` | `app/client/galaxy_map_robj.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_7B3C60` | `app/client/galaxy_map_robj.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE7D0` | `app/client/galaxy_map_robj.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_7B3440` | `app/client/galaxy_map_robj.cpp:136` | untagged neutral name (D10) |
+| 1 | `Unknown_7B3690` | `app/client/galaxy_map_robj.cpp:180` | untagged neutral name (D10) |
+| 1 | `Unknown_7B3700` | `app/client/galaxy_map_robj.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown440` | `app/client/galaxy_map_robj.cpp:197` | untagged neutral name (D10) |
+| 1 | `Swap_UV` | `app/client/galaxy_map_robj.cpp:205` | what it does |
+| 1 | `Unknown_7B3CD0` | `app/client/galaxy_map_robj.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown_7B3F00` | `app/client/galaxy_map_robj.cpp:367` | untagged neutral name (D10) |
+| 1 | `GalaxyMapRObjClass` | `app/client/galaxy_map_robj.h:28` | what it is |
+| 1 | `points` | `app/client/galaxy_map_robj.h:39` | what it walks |
+| 1 | `Unknown_7B3440` | `app/client/galaxy_map_robj.h:39` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/galaxy_map_robj.h:40` | neutral |
+| 1 | `Unknown_7B3690` | `app/client/galaxy_map_robj.h:40` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/galaxy_map_robj.h:41` | neutral |
+| 1 | `Unknown_7B3700` | `app/client/galaxy_map_robj.h:41` | untagged neutral name (D10) |
+| 1 | `min, max, resize` | `app/client/galaxy_map_robj.h:42` | what it does with them |
+| 1 | `Unknown_7B3770` | `app/client/galaxy_map_robj.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_7B3C60` | `app/client/galaxy_map_robj.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_7B3CD0` | `app/client/galaxy_map_robj.h:44` | untagged neutral name (D10) |
+| 1 | `UVFlagsStruct` | `app/client/galaxy_map_robj.h:46` | what it holds (initialised first, before Name: a member with its own constructor) |
+| 1 | `SwapUV` | `app/client/galaxy_map_robj.h:49` | what 0x7B3770 does with it |
+| 1 | `FlipU` | `app/client/galaxy_map_robj.h:50` | what 0x7B3770 does with it |
+| 1 | `FlipV` | `app/client/galaxy_map_robj.h:51` | what 0x7B3770 does with it |
+| 1 | `UVFlags` | `app/client/galaxy_map_robj.h:52` | what it holds |
+| 1 | `Name` | `app/client/galaxy_map_robj.h:53` | what it shows |
+| 1 | `Texture` | `app/client/galaxy_map_robj.h:54` | what it holds |
+| 1 | `Material` | `app/client/galaxy_map_robj.h:55` | what it holds |
+| 1 | `Color` | `app/client/galaxy_map_robj.h:56` | what it holds |
+| 1 | `NameOffset` | `app/client/galaxy_map_robj.h:57` | what it holds |
+| 1 | `Blink` | `app/client/galaxy_map_robj.h:58` | what it does |
+| 1 | `Placement` | `app/client/galaxy_map_robj.h:59` | what it decides |
+| 1 | `GalaxyMapLineRObjClass` | `app/client/galaxy_map_robj.h:63` | what it is |
+| 1 | `ini, name, color, from, to` | `app/client/galaxy_map_robj.h:71` | what 0x7ACEF0 passes, the FAIL_IFs' 'from' / 'to' |
+| 1 | `Unknown_7B3F00` | `app/client/galaxy_map_robj.h:71` | untagged neutral name (D10) |
+| 1 | `Color` | `app/client/galaxy_map_robj.h:73` | what it holds |
+| 1 | `Hidden` | `app/client/galaxy_map_robj.h:74` | what it does |
+| 1 | `Fade` | `app/client/galaxy_map_robj.h:75` | what it holds |
 | 1 | `Unknown_B0804C` | `app/client/gd_attrb_skills.cpp:16` | neutral (D10) |
 | 1 | `SkillLevelAvailabilityStruct` | `app/client/gd_attrb_skills.cpp:19` | neutral (D10), as ui_attrb.cpp's |
 | 1 | `Unknown00` | `app/client/gd_attrb_skills.cpp:19` | untagged neutral name (D10) |
@@ -18220,7 +18256,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Start` | `app/client/galaxy_map_pip.h:71` | what it holds |
 | 2 | `Ease` | `app/client/galaxy_map_pip.h:72` | what it holds |
 | 2 | `EaseRate` | `app/client/galaxy_map_pip.h:73` | what it holds |
-| 2 | `system` | `app/client/galaxy_map_render.h:41` | AA420 passes its data |
 | 2 | `Peek_RObj` | `app/client/galaxy_map_render.h:70` | 0x7A9940 adds it to the scene |
 | 2 | `Get_Data` | `app/client/galaxy_map_render.h:71` | 0x7B1090 reads its Get_Hash_ID |
 | 2 | `Add_To_Scene` | `app/client/galaxy_map_render.h:195` | what it does |
@@ -18249,6 +18284,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `PickedGate` | `app/client/galaxy_map_render.h:361` | 0x7A7560 |
 | 2 | `PickedGatePoint` | `app/client/galaxy_map_render.h:362` | 0x7A7560 |
 | 2 | `Bounds` | `app/client/galaxy_map_render.h:363` | what 0x7A9500 stores |
+| 2 | `Line` | `app/client/galaxy_map_robj.cpp:21` | what it holds |
+| 2 | `system` | `app/client/galaxy_map_robj.h:31` | 0x7AA420 passes its data |
 | 2 | `std:` | `app/client/gd_buffgadg.h:35` | the aux field's |
 | 2 | `std:` | `app/client/gd_buffgadg.h:36` | the aux field's |
 | 2 | `ExpirationTime` | `app/client/gd_buffgadg.h:37` | the aux field's |
@@ -21425,6 +21462,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `HomeSectorRObj` | `app/client/galaxy_map_render.h:347` | the FAIL_IF's |
 | 3 | `Camera` | `app/client/galaxy_map_render.h:349` | the FAIL_IF's |
 | 3 | `SystemZoomMinRadius` | `app/client/galaxy_map_render.h:365` | the ini's |
+| 3 | `_name_scale` | `app/client/galaxy_map_robj.cpp:26` | the FAIL_IF's |
 | 3 | `gd_attrb_skills.cpp` | `app/client/gd_attrb_skills.cpp:17` | the assert's; the dots' array |
 | 3 | `Abilities` | `app/client/gd_attrb_skills.cpp:43` | its assert |
 | 3 | `gd_attrb_skills.h` | `app/client/gd_attrb_skills.h:16` | header name assumed from the client's gd_attrb_skills.cpp |

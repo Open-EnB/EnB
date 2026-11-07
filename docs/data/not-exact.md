@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-651 entries in 178 files.
+653 entries in 179 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -158,6 +158,8 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_render.cpp:1761` | `GalaxyMapRenderGateClass::Unknown_7AD5B0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1864` | `GalaxyMapRenderGateClass::Unknown_7AD850` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:2019` | `GalaxyMapRenderGateClass::Unknown_7AE220` | mention | NOT EXACT is listed in docs/data/attempts.csv (inline budgets in the long members, 0x7A8B70 above all, and three order-only residues). |
+| `app/client/galaxy_map_robj.cpp:52` | `GalaxyMapRObjClass::GalaxyMapRObjClass` | marker | NOT EXACT: registers only (Placement read through ecx, the client's eax; the Name temporary's address in edx, the client's ecx) @0x7B2B30 |
+| `app/client/galaxy_map_robj.cpp:412` | `GalaxyMapLineRObjClass::Render` | marker | NOT EXACT: x87 operand order (the client multiplies Color's members by the clamped Fade held in st(1), ours keeps a copy with fld st(0)) @0x7B43F0 |
 | `app/client/gd_buffgadg.cpp:90` | `BuffInfoStruct::Get_Element` | marker | NOT EXACT: register (the static element's zero expiry: the client stores ebx twice, ours a second zeroed register; one instruction) 0x6656A0 |
 | `app/client/gd_buffgadg.cpp:101` | `BuffElementStruct::BuffElementStruct` | marker | NOT EXACT: inline budget (the client calls basic_string::assign for both members, ours inlines it: 52 vs 115 instructions) 0x665940 |
 | `app/client/gd_buffgadg.cpp:188` | `BuffGadgetClass::Unknown_AC` | marker | NOT EXACT: frame (the client keeps the time now on the stack, ours in registers; the body after it matches) 0x665F20 |

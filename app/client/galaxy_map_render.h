@@ -2,8 +2,8 @@
 /*
 **	The galaxy map's renderer and the items it draws: one per system, sector and gate of the
 **	map (galaxy_map.h's data objects), each holding its render object. galaxy_map_render.cpp's
-**	classes; GalaxyMapRObjClass's and GalaxyMapLineRObjClass's are galaxy_map_robj.cpp's, declared
-**	here as far as this file calls them.
+**	classes; GalaxyMapRObjClass and GalaxyMapLineRObjClass are galaxy_map_robj.cpp's, declared
+**	in galaxy_map_robj.h.
 */
 
 #if defined(_MSC_VER)
@@ -33,34 +33,34 @@ class INIClass;
 class GalaxyMapClientClass;
 class GalaxyMapSystemIteratorClass;
 
-// galaxy_map_robj.cpp's system marker, as far as this file calls it. 0x120 bytes, table 0xB05A44
-// PLACEMENT: provisional (D137): galaxy_map_robj.cpp is not in the tree yet
-class GalaxyMapRObjClass : public RenderObjClass  // NAME 1: what it is
-{
-public:
-	GalaxyMapRObjClass(const RefCountPtr<GalaxyMapSystemClass> &system);	// 0x7B2B30  // NAME 2 [system]: AA420 passes its data
-	virtual RenderObjClass *Clone(void) const;
-	virtual void Render(RenderInfoClass &rinfo);
+#include "galaxy_map_robj.h"	// GalaxyMapRObjClass, GalaxyMapLineRObjClass (galaxy_map_robj.cpp's)
 
-	void Unknown_7B3440(std::vector<Vector3> &points);	// 0x7B3440  // NAME 1 [points]: what it walks
-	void Unknown_7B3690(bool on);						// 0x7B3690  // NAME 1 [on]: neutral
-	void Unknown_7B3700(bool on);						// 0x7B3700  // NAME 1 [on]: neutral
 
-	char Unknown_Pad[0x120 - sizeof(RenderObjClass)];
-};
 
-// galaxy_map_robj.cpp's line between two sectors, as far as this file calls it. 0xFC bytes, table 0xB05CAC
-// PLACEMENT: provisional (D137): galaxy_map_robj.cpp is not in the tree yet
-class GalaxyMapLineRObjClass : public SegmentedLineClass  // NAME 1: what it is
-{
-public:
-	GalaxyMapLineRObjClass();								// 0x7B3E30
-	void Unknown_7B3F00(INIClass &ini, const char *name, const Vector3 &color, const RefCountPtr<RenderObjClass> &from, const RefCountPtr<RenderObjClass> &to);	// 0x7B3F00 (FAIL_IF '!from' on its fourth argument)  // NAME 1 [ini, name, color, to]: what 0x7ACEF0 passes
 
-	char Unknown_PadE8[0xF4 - sizeof(SegmentedLineClass)];
-	bool Hidden;											// +0xF4  // NAME 1: 0x7AD090, 0x7AD850
-	char Unknown_PadF5[0xFC - 0xF5];
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // The base of the map's items (table 0xB0593C; 8 bytes; its destructor 0x7A9CC0 is implicit)
 class GalaxyMapRenderItemClass : public RefCountClass  // NAME 1: what it is
@@ -377,7 +377,7 @@ public:
 **	the deleting destructor, Release_Item, two pure slots, Needs_Update, Update, Add_To_Scene,
 **	Remove_From_Scene), 0xB0588C (mesh), 0xB058B8 (line), 0xB058E4 (system), 0xB05910 (sector),
 **	0xB05974 (gate). The item base's destructor 0x7A9CC0 stores only RefCountClass's table: implicit.
-**	GalaxyMapRObjClass / GalaxyMapLineRObjClass stand in for galaxy_map_robj.cpp's classes (its
-**	FAIL_IFs at lines 65 and 0x171 name 'from'); the line is held as RefCountPtr<SegmentedLineClass>
+**	GalaxyMapRObjClass / GalaxyMapLineRObjClass are galaxy_map_robj.h's (the line's include keeps the
+**	lines of the stand-ins it replaced); the line is held as RefCountPtr<SegmentedLineClass>
 **	(Create_NEW 0x692680 is shared with another object's RefCountPtr<SegmentedLineClass>).
 */
