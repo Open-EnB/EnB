@@ -118,7 +118,7 @@ ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id)
 	Unknown98 = new UnknownB006B8Class;
 	Node.Set(this);
 	UnknownB4 = Unknown_731FA0(this);
-	Unknown134.Unknown_498F00(0, 0, Unknown_6F4590());
+	Unknown134.Set(0, 0, Unknown_6F4590());
 	int i;
 	for (i = 0; i < 5; i++) {
 		Unknown104[i] = 1;
@@ -572,7 +572,7 @@ void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)
 	}
 	double target = Unknown_6F3ED0();
 	double current = Unknown144;
-	double rate = Unknown134.Unknown04[2];
+	double rate = Unknown134.Current;
 	double stop = (rate * rate) / (Unknown_6F4590() * 2.0f);
 	double diff = fabs(target - current);
 	double limit = Unknown_6F45E0();
@@ -587,11 +587,11 @@ void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)
 			accel = -Unknown_6F45E0();
 		}
 	}
-	Unknown134.Unknown_498CC0(accel);
-	if (Unknown134.Unknown00) {
-		Unknown134.Unknown_498E00((float)WW3D::Get_Frame_Time());
+	Unknown134.Set_Target(accel);
+	if (Unknown134.IsActive) {
+		Unknown134.Update((float)WW3D::Get_Frame_Time());
 	}
-	Unknown144 = Unknown134.Unknown04[2] + Unknown144;
+	Unknown144 = Unknown134.Current + Unknown144;
 	tm.Rotate_X(Unknown144);
 }
 

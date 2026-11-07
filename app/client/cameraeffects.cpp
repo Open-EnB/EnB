@@ -27,7 +27,7 @@ class UnknownAFFE64Class : public UnknownAFFE6CClass	// NAME 1: neutral (D10)
 public:
 	virtual bool Unknown_00();						// +0x00 0x6E3710
 	Vector3 Unknown08;								// +0x08 (the force, 'Shake.ForceX'-'Z')
-	Unknown498C10Class Unknown14;					// +0x14
+	AccelClass Unknown14;							// +0x14 (accel.h's)
 };
 
 // The shield hit's jitter (0x1C bytes, table 0xAFFE84): its strength from the ship's shield
@@ -37,17 +37,17 @@ public:
 	UnknownAFFE84Class(CameraEffectsClass *owner, float damage);	// 0x6E37F0  // NAME 1 [owner, damage]: neutral
 	virtual bool Unknown_00();						// +0x00 0x6E3B60
 	float Unknown08;								// +0x08
-	Unknown498C10Class Unknown0C;					// +0x0C
+	AccelClass Unknown0C;							// +0x0C (accel.h's)
 };
 
-template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	static inline float Unknown_Accel_Value(AccelClass &accel, int time) { if (!accel.IsActive) return(accel.Current); return(accel.Update((float)time)); }	// NAME 1: neutral (D10): as co.cpp's; Unknown_Accel_Value NAME 1: neutral (D10), the form 0x6E3710 / 0x6E3B60 inline (an int time, converted after the test; AccelClass::Get_Value takes a float)
 
 // 0x6E37F0
 UnknownAFFE84Class::UnknownAFFE84Class(CameraEffectsClass *owner, float damage) : UnknownAFFE6CClass(owner)
 {
 	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (D130; not the client's): they spend VC6's inline budget, so the two finds' casts stay out of line as the client's (with one, 0x6E37F0 is not exact)
 	if (damage <= 0.0f) {
-		Unknown0C.Unknown_498D40(0.0f, true);
+		Unknown0C.Set_Value(0.0f, true);
 		return;
 	}
 	SClient *client = Owner->Client;
@@ -80,8 +80,8 @@ UnknownAFFE84Class::UnknownAFFE84Class(CameraEffectsClass *owner, float damage) 
 	if (Unknown08 > 0.0f) {
 		float time = (Unknown08 + 1.0f) * 0.5f;
 		float rate = 1.0f / (time * 1000.0f);
-		Unknown0C.Unknown_498D40(1.0f, true);
-		Unknown0C.Unknown_498C30(0.0f, rate);
+		Unknown0C.Set_Value(1.0f, true);
+		Unknown0C.Set_Target(0.0f, rate);
 		Unknown08 = Unknown08 * 0.12f;
 	}
 }
@@ -89,7 +89,7 @@ UnknownAFFE84Class::UnknownAFFE84Class(CameraEffectsClass *owner, float damage) 
 // 0x6E3710
 bool UnknownAFFE64Class::Unknown_00()
 {
-	float value = Unknown14.Unknown_Value(WW3D::Get_Frame_Time());
+	float value = Unknown_Accel_Value(Unknown14, WW3D::Get_Frame_Time());
 	if (value >= 1.0f) {
 		return(false);
 	}
@@ -109,7 +109,7 @@ bool UnknownAFFE64Class::Unknown_00()
 // 0x6E3B60
 bool UnknownAFFE84Class::Unknown_00()
 {
-	float value = Unknown0C.Unknown_Value(WW3D::Get_Frame_Time());
+	float value = Unknown_Accel_Value(Unknown0C, WW3D::Get_Frame_Time());
 	if (value <= 0.0f) {
 		return(false);
 	}
