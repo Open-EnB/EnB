@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1596 |
 | 2 | describes what the code does | 3679 |
-| 1 | neutral placeholder | 18407 |
+| 1 | neutral placeholder | 18419 |
 
 ## For review (score 3 and below)
 
@@ -774,19 +774,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown718510Class` | `app/client/camctrl_land.cpp:146` | untagged neutral name (D10) |
 | 1 | `Unknown113C` | `app/client/camctrl_land.cpp:165` | untagged neutral name (D10) |
 | 1 | `CameraModule79C4A0Class` | `app/client/camctrl_land.h:12` | neutral (D10) |
-| 1 | `Unknown_08` | `app/client/camctrl_land.h:16` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/camctrl_land.h:18` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/camctrl_land.h:19` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/camctrl_land.h:20` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/camctrl_land.h:21` | untagged neutral name (D10) |
-| 1 | `CameraController05Class` | `app/client/camctrl_land.h:26` | neutral (D10) |
-| 1 | `Unknown_04` | `app/client/camctrl_land.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/camctrl_land.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/camctrl_land.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown_793CE0` | `app/client/camctrl_land.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/camctrl_land.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/camctrl_land.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/camctrl_land.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/camctrl_land.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/camctrl_land.h:18` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/camctrl_land.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/camctrl_land.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/camctrl_land.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/camctrl_land.h:23` | untagged neutral name (D10) |
+| 1 | `CameraController05Class` | `app/client/camctrl_land.h:28` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/client/camctrl_land.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/camctrl_land.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_793CE0` | `app/client/camctrl_land.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/camctrl_land.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/camctrl_land.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/camctrl_land.h:41` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/camctrl_pland.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/camctrl_pland.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/camctrl_pland.cpp:16` | untagged neutral name (D10) |
@@ -15052,18 +15052,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_28` | `app/client/unknown_7979a0.cpp:171` | untagged neutral name (D10) |
 | 1 | `unknown_7979a0.h` | `app/client/unknown_7979a0.h:3` | PROVISIONAL (D137) |
 | 1 | `CameraModule79C8E0Class` | `app/client/unknown_7979a0.h:12` | neutral (D10) |
-| 1 | `Unknown_08` | `app/client/unknown_7979a0.h:16` | untagged neutral name (D10) |
-| 1 | `Position` | `app/client/unknown_7979a0.h:17` | what 0x798570 stores |
-| 1 | `Unknown14` | `app/client/unknown_7979a0.h:18` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/unknown_7979a0.h:19` | untagged neutral name (D10) |
-| 1 | `CameraController02Class` | `app/client/unknown_7979a0.h:23` | neutral (D10) |
-| 1 | `Unknown_04` | `app/client/unknown_7979a0.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/unknown_7979a0.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown_7981B0` | `app/client/unknown_7979a0.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown_798570` | `app/client/unknown_7979a0.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown_7987F0` | `app/client/unknown_7979a0.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/unknown_7979a0.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/unknown_7979a0.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/unknown_7979a0.h:17` | untagged neutral name (D10) |
+| 1 | `Position` | `app/client/unknown_7979a0.h:18` | what 0x798570 stores |
+| 1 | `Unknown14` | `app/client/unknown_7979a0.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/unknown_7979a0.h:20` | untagged neutral name (D10) |
+| 1 | `CameraController02Class` | `app/client/unknown_7979a0.h:24` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/unknown_7979a0.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/unknown_7979a0.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_7981B0` | `app/client/unknown_7979a0.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_798570` | `app/client/unknown_7979a0.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_7987F0` | `app/client/unknown_7979a0.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/unknown_7979a0.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/unknown_7979a0.h:37` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/unknown_798ae0.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/unknown_798ae0.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/unknown_798ae0.cpp:21` | untagged neutral name (D10) |
@@ -15080,6 +15080,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/client/unknown_798ae0.h:19` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/unknown_798ae0.h:20` | untagged neutral name (D10) |
 | 1 | `Unknown11` | `app/client/unknown_798ae0.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/unknown_79c4a0.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/unknown_79c4a0.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/unknown_79c4a0.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/unknown_79c4a0.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/unknown_79c4a0.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/unknown_79c4a0.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/unknown_79c4a0.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/unknown_79c8e0.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/unknown_79c8e0.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/unknown_79c8e0.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_6FEC40` | `app/client/unknown_79c8e0.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/unknown_79c8e0.cpp:33` | untagged neutral name (D10) |
 | 1 | `AuthLoginErrorStruct` | `app/client/unknown_authlogin.cpp:14` | what it holds |
 | 1 | `AuthLoginUnknownError` | `app/client/unknown_authlogin.cpp:20` | its text |
 | 1 | `Unknown` | `app/client/unknown_authlogin.cpp:20` | untagged neutral name (D10) |

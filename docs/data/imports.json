@@ -2468,6 +2468,7 @@
      "0x551270",
      "0x67A1D0",
      "0x69F3B0",
+     "0x79BC60",
      "0x79BCC0"
     ],
     "short_known": [
@@ -36084,6 +36085,58 @@
      "0x798CD0"
     ]
    },
+   "unknown_79c4a0": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x79BC60",
+     "0x79C4A0",
+     "0x79C510",
+     "0x79C540",
+     "0x79C560",
+     "0x79C590"
+    ],
+    "merged": [],
+    "name": "client/unknown_79c4a0.cpp",
+    "shared": [
+     "0x42F250",
+     "0x79BC60",
+     "0x79C540"
+    ],
+    "short_known": [
+     "0x79C540"
+    ]
+   },
+   "unknown_79c8e0": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42F250",
+     "0x447C40",
+     "0x79BC60",
+     "0x79C8E0",
+     "0x79C920",
+     "0x79C950"
+    ],
+    "merged": [],
+    "name": "client/unknown_79c8e0.cpp",
+    "shared": [
+     "0x42F250",
+     "0x447C40",
+     "0x79BC60",
+     "0x79C950"
+    ],
+    "short_known": [
+     "0x79C950"
+    ]
+   },
    "unknown_847d20": {
     "ambiguous": [
      "0x42A6C0",
@@ -37678,7 +37731,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12385,
+  "in_tree_total": 12393,
   "totals": {}
  },
  "binkmovie": {

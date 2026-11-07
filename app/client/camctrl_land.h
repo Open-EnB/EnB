@@ -7,18 +7,20 @@
 #include "cammod.h"
 #include "matrix3d.h"
 
-// The camera module the landing camera drives (constructor 0x79C4A0, 0x44 bytes: one of the cammod objects after
-// cammod_chase.cpp's; not rebuilt; placed here, PROVISIONAL, D137), laid out from camctrl_land.cpp's 0x793CE0 stores
+// The camera module the landing camera drives (constructor 0x79C4A0, table 0xB05594, 0x44 bytes: unknown_79c4a0.cpp,
+// the object after cammod_chase.cpp's; declared here, PROVISIONAL, D137), laid out from camctrl_land.cpp's 0x793CE0 stores
 class CameraModule79C4A0Class : public CameraModuleClass	// NAME 1: neutral (D10)
 {
 public:
 	CameraModule79C4A0Class(SClient *client);			// 0x79C4A0
-	virtual void Unknown_08(Vector3 *des_pos, Quaternion *des_quat);	// +0x08
+	virtual ~CameraModule79C4A0Class() {}				// 0x79C540, deleting 0x79C510
+	virtual void Unknown_04();							// +0x04 0x79C560 (the start time, then the base's)
+	virtual void Unknown_08(Vector3 *des_pos, Quaternion *des_quat);	// +0x08 0x79C590 (+0x08 turned about axis +0x3C by the time since the start times +0x38)
 
 	Matrix3D Unknown08;									// +0x08 (0x793CE0: the camera's transform)
 	float Unknown38;									// +0x38 (0x793CE0: +-0.00002 at random)
 	int Unknown3C;										// +0x3C (0x793CE0: 2)
-	int Unknown40;										// +0x40: not seen
+	int Unknown40;										// +0x40 (0x79C560: the client clock Unknown10BC at the start)
 };
 
 // The camera manager's sixth controller (state 5; vtable 0xB04D4C, 0x18 bytes): the landing at the target SClient

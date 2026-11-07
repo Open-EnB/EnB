@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-684 entries in 192 files.
+685 entries in 193 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -479,6 +479,7 @@ edit the comments in the code, not this file.
 | `app/client/unknown_7979a0.cpp:229` | `CameraController02Class::Unknown_7987F0` | marker | NOT EXACT: 0x7987F0 (written from the pseudocode, functional; not matched form by form) 0x7987F0 |
 | `app/client/unknown_7979a0.cpp:262` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT (CS1); the module's placements |
 | `app/client/unknown_7979a0.cpp:263` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT from the pseudocode (CS1). |
+| `app/client/unknown_79c8e0.cpp:20` | `CameraModule79C8E0Class::Unknown_08` | marker | NOT EXACT: shape (0.52: the client's Normalize of the direction stores the difference first, the cross products load in another order) |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |

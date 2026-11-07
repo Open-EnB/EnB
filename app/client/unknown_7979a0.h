@@ -7,13 +7,14 @@
 #include "vector3.h"
 #include "cammod.h"
 
-// The camera module this controller drives (constructor 0x79C8E0, 0x1C bytes, vtable 0xB05594: the object after
-// cammod_chase.cpp's; not rebuilt)
+// The camera module this controller drives (constructor 0x79C8E0, 0x1C bytes, vtable 0xB05630: unknown_79c8e0.cpp,
+// the object after unknown_79c4a0.cpp's)
 class CameraModule79C8E0Class : public CameraModuleClass	// NAME 1: neutral (D10)
 {
 public:
 	CameraModule79C8E0Class(SClient *client);			// 0x79C8E0
-	virtual void Unknown_08(Vector3 *des_pos, Quaternion *des_quat);	// +0x08
+	virtual ~CameraModule79C8E0Class() {}				// 0x79C950, deleting 0x79C920
+	virtual void Unknown_08(Vector3 *des_pos, Quaternion *des_quat);	// +0x08 0x79C970 (looks from Position at the object Unknown18's bounding-sphere centre)
 	Vector3 Position;									// +0x08 (the controller's placements set it; the constructor 0)  // NAME 1: what 0x798570 stores
 	bool Unknown14;										// +0x14 (the constructor true)
 	int Unknown18;										// +0x18 (the placements: the avatar's id)
