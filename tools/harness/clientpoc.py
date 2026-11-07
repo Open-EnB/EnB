@@ -529,7 +529,7 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
     start = time.time()
     pid = None
     listener = None
-    last_input, killed = None, None
+    last_input, killed, self_exit = None, None, False
     try:
         while time.time() - start < 20 and a.poll() is None:
             if 'Replay server ready' in open(os.path.join(out, 'antprox.out'), errors='replace').read():
@@ -556,6 +556,7 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
                 seen = time.time()
                 if a.poll() is not None or 'Client exited' in open(os.path.join(out, 'antprox.out'),
                                                                    errors='replace').read():
+                    self_exit = True
                     break
             if pending and hwnd is None and pid:
                 hwnd = find_window(pid, inst.retail)
@@ -571,7 +572,8 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
         if pending:
             print(f'input: {len(pending)} steps not sent')
     finally:
-        killed = datetime.datetime.now()
+        # D207: a client (or antprox) that exited by itself was not killed; exit_report reads killed=None as that
+        killed = None if self_exit else datetime.datetime.now()
         if pid:
             subprocess.run(['taskkill', '/F', '/PID', str(pid)], capture_output=True)
         subprocess.run(['taskkill', '/F', '/T', '/PID', str(a.pid)], capture_output=True)
