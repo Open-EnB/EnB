@@ -68,6 +68,8 @@
 #include "..\..\..\app\packets\pkrecustomize.h"
 #include "..\..\..\app\packets\pkgmviewmissionlog.h"
 #include "..\..\..\app\packets\pkgmeditplayerinventory.h"
+#include "..\..\..\wwlib\refcount.h"
+class FontSys : public RefCountClass {};	// ui_line_display.h's text objects, complete for its RefCountPtr (fontmanager.h would pull fontsys.obj in)
 #include "..\..\..\app\client\ui_line_display.h"
 #include "..\..\..\app\client\ui_group.h"
 #include "..\..\..\app\client\ui_verb.h"

@@ -70,7 +70,6 @@ void SClient::Unknown_7517E0(int a, int b, int c, int d) { Trace("stub SClient::
 void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("stub SClient::Unknown_751850 %d ranks", (int)ranks.size()); }
 
 // SClient's slots declared only (sclient.h): never called by the tests
-void SClient::Unknown_64() { Trace("stub SClient::Unknown_64"); }
 
 // ------------------------------------------------------------------------- co.cpp's client object
 // (co.cpp's rebuilt members link from app.lib: the type tests, the model accessor 0x6F3BC0, the aux-data
@@ -180,15 +179,6 @@ struct TestEffectStruct { char Unknown00[0x64]; };	// sclient.cpp's testeffects.
 std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80 (sclient.cpp's 0x750C20, which nothing calls; 0x74CA90 fills it)
 
 
-// The object at 0xC404D8 (soundlib.cpp's neighbourhood): SClient's constructor sets its byte +0x19A5, so the
-// pointer must point somewhere (declared as sclient.cpp declares it)
-struct Unknown_C404D8Struct
-{
-	char Unknown0000[0x19A5];
-	bool Unknown19A5;
-};
-static Unknown_C404D8Struct The_C404D8;
-Unknown_C404D8Struct *Unknown_C404D8 = &The_C404D8;
 
 // ------------------------------------------------------------------------- auxdata.h's lookup (co.cpp)
 
