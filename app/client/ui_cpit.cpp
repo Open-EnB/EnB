@@ -373,13 +373,13 @@ void UICpitClass::Unknown_54()
 	Unknown_10();
 }
 
-// camera_manager.cpp's manager (SClient +0x12A8), as far as the warp button calls it
-class CameraManagerClass	// NAME 3: class-from-file (D24) for camera_manager.cpp
-{
-public:
-	bool Unknown_79B600();								// 0x79B600 (0x5821C0: no warp, the speed shown as 100)
-	void Unknown_79B2B0(int arg);						// 0x79B2B0 (0x583250 passes 17 in the 3-D movie view)  // NAME 1 [arg]: neutral
-};
+#include "camera_manager.h"
+
+
+
+
+
+
 
 // (inline: the client reads these before the other arguments of the packets' constructors)
 inline unsigned Unknown_Avatar_ID(LineDisplayClientClass *client) { return(((ClientClass *)client)->AvatarID); }	// NAME 1: neutral (D10)
