@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1598 |
 | 2 | describes what the code does | 3684 |
-| 1 | neutral placeholder | 18459 |
+| 1 | neutral placeholder | 18499 |
 
 ## For review (score 3 and below)
 
@@ -15050,6 +15050,46 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `name` | `app/client/unknown_763e00.h:24` | neutral |
 | 1 | `Unknown_764060` | `app/client/unknown_763e00.h:24` | untagged neutral name (D10) |
 | 1 | `Lists` | `app/client/unknown_763e00.h:26` | neutral (D10) |
+| 1 | `Unknown_BDBB84` | `app/client/unknown_78a910.cpp:16` | neutral (D10), as eff_o.cpp's |
+| 1 | `Unknown_B9D55C` | `app/client/unknown_78a910.cpp:18` | neutral (D10): this object's own copy of avatar.cpp's 0xB9CD28 |
+| 1 | `Unknown78A910AnimStruct` | `app/client/unknown_78a910.cpp:21` | neutral (D10) |
+| 1 | `Anim` | `app/client/unknown_78a910.cpp:23` | neutral |
+| 1 | `Min` | `app/client/unknown_78a910.cpp:24` | neutral |
+| 1 | `Max` | `app/client/unknown_78a910.cpp:25` | neutral |
+| 1 | `std:` | `app/client/unknown_78a910.cpp:26` | neutral |
+| 1 | `std:` | `app/client/unknown_78a910.cpp:27` | neutral |
+| 1 | `Unknown78A910AvatarClass` | `app/client/unknown_78a910.cpp:31` | neutral (D10) |
+| 1 | `Unknown_78B810` | `app/client/unknown_78a910.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_78BA20` | `app/client/unknown_78a910.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_78BB60` | `app/client/unknown_78a910.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown384` | `app/client/unknown_78a910.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown388` | `app/client/unknown_78a910.cpp:39` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/unknown_78a910.cpp:40` | neutral |
+| 1 | `Unknown398` | `app/client/unknown_78a910.cpp:40` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/unknown_78a910.cpp:41` | neutral |
+| 1 | `Unknown3A8` | `app/client/unknown_78a910.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown3B8` | `app/client/unknown_78a910.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown3B9` | `app/client/unknown_78a910.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown3BA` | `app/client/unknown_78a910.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown3BB` | `app/client/unknown_78a910.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown3BC` | `app/client/unknown_78a910.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown3C0` | `app/client/unknown_78a910.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown3C4` | `app/client/unknown_78a910.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown3D4` | `app/client/unknown_78a910.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown3D8` | `app/client/unknown_78a910.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown3DC` | `app/client/unknown_78a910.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown3E0` | `app/client/unknown_78a910.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_788730` | `app/client/unknown_78a910.cpp:71` | untagged neutral name (D10) |
+| 1 | `min` | `app/client/unknown_78a910.cpp:125` | neutral |
+| 1 | `max` | `app/client/unknown_78a910.cpp:126` | neutral |
+| 1 | `Unknown_7831C0` | `app/client/unknown_78a910.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/unknown_78a910.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/unknown_78a910.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown_782CA0` | `app/client/unknown_78a910.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_782FF0` | `app/client/unknown_78a910.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown_783470` | `app/client/unknown_78a910.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown208` | `app/client/unknown_78a910.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown220` | `app/client/unknown_78a910.cpp:144` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/unknown_794510.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/unknown_794510.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_79BF40` | `app/client/unknown_794510.cpp:22` | untagged neutral name (D10) |

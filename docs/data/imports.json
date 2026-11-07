@@ -36041,6 +36041,28 @@
      "0x494CC0"
     ]
    },
+   "unknown_78a910": {
+    "ambiguous": [
+     "0x42B2F0",
+     "0x46BE90",
+     "0x474080"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A100",
+     "0x42F250",
+     "0x78B810",
+     "0x78BA20",
+     "0x78BB60"
+    ],
+    "merged": [],
+    "name": "client/unknown_78a910.cpp",
+    "shared": [
+     "0x42A100",
+     "0x42F250"
+    ]
+   },
    "unknown_794510": {
     "ambiguous": [
      "0x42B2F0"
@@ -37785,7 +37807,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12419,
+  "in_tree_total": 12422,
   "totals": {}
  },
  "binkmovie": {

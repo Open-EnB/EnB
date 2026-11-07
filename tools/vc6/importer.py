@@ -3878,6 +3878,9 @@ RECONSTRUCTED = {
                                   "state makers, the constructors from rs.ini, a source list and nothing, the destructor, the global maker 0xBDC0A0 (RS1)",
     ('app', 'shared/unknown_45d840.cpp'): "the message render state Unknown45D840Class (rs.ini TYPE 'message', vtable 0xAE8050, 0x30 bytes), client 0x45D840-0x45D9C6: "
                                         "its own object after rs_list.cpp's template copies (PROVISIONAL file name, D137) (RS1)",
+    ('app', 'client/unknown_78a910.cpp'): "the starbase avatar, client 0x78A910-0x78BEA0 (PROVISIONAL file, D137: no __FILE__; "
+                                        "after avatar.cpp's object, its own copy of the skeleton-name table 0xB9D55C): so far "
+                                        "0x78B810, 0x78BA20, 0x78BB60, exact; the class declared in the .cpp only (TG3)",
     ('app', 'client/unknown_763e00.cpp'): "Unknown763E00Class, rs.ini's render state lists by RSLID (a VectorClass<RenderStateListClass *> member), client 0x763E00-0x764460: "
                                         "constructor, destructor, the rs.ini load 0x763E70, the delete-all 0x763FF0, the lookup 0x764030, the one-object add 0x764060 and VectorClass's "
                                         "template copies (PROVISIONAL file name, D137: no __FILE__, between proj_decal_manager.cpp and starbase_lights.cpp) (RS1)",
