@@ -45,6 +45,7 @@ APP = [r'app\client\client.cpp', r'app\client\sclient.cpp', r'app\client\cpacket
        r'app\shared\avatar_desc.cpp',       # AVATAR_DESCRIPTION 97's member
        r'app\client\shiputils.cpp',       # the real 0x80E8C0 / 0x80EFF0 run; its 0x80FF20 is renamed (client_stubs.cpp's stand-in)
        r'app\client\ui_verb.cpp',        # the real window, its 0x658F40 renamed (clienttest.cpp's stand-in records the verbs)
+       r'app\client\ui_talkt.cpp',       # the real conversation window, its 0x64EED0 renamed (client_stubs.cpp's stand-in)
        r'app\shared\gclass.cpp']          # InterfaceClass's base GClass (gen_stubs cannot write its template-pointer slots)
 for _sub in ('', 'gameedit'):
     _d = os.path.join(REPO, 'app', 'packets', _sub)
@@ -100,6 +101,8 @@ def build(out):
                         '#define Unknown_80EAF0(a, b, c) Clienttest_Unknown_80EAF0()\n')
             if p.endswith('ui_verb.cpp'):
                 f.write('#define Unknown_658F40 Real_Unknown_658F40\n')
+            if p.endswith('ui_talkt.cpp'):
+                f.write('#define Unknown_64EED0 Real_Unknown_64EED0\n')
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
     B.PROGRAMS['clienttest'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['app'],
                                 'subsystem': 'console', 'runtime': [], 'sys': ['WININET.LIB']}  # settings_store.cpp's lkey thread
