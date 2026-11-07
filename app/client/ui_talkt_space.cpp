@@ -131,7 +131,7 @@ void UITalkTreeSpaceClass::Unknown_60()
 // 0x64F630: the NPC's picture and full name (0x64CF90 returns the name, or NULL)
 void UITalkTreeSpaceClass::Unknown_64F630()
 {
-	const char *name = (const char *)Unknown_64CF90();	// NAME 1: what 0x7E3A20 takes
+	const char *name = Unknown_64CF90();	// NAME 1: what 0x7E3A20 takes
 	if (AvatarPIP->Unknown_7E3A20(name, 0, NULL)) {
 		RefCountPtr<CharacterViewAvatarClass> &avatar = AvatarPIP->Unknown02C;	// NAME 2: the PIP's +0x2C avatar
 		std::string full_name;	// NAME 2: what Get_Full_Name fills

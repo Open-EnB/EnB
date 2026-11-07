@@ -68,6 +68,7 @@ public:
 class SelectTalkTreePacketClass : public PacketClass  // NAME 2: Net-7's opcode name SELECT_TALK_TREE (the Net-7 opcode table; no structure check)
 {
 public:
+	SelectTalkTreePacketClass(int player_id, int selection);	// 0x8A75F0 (the UI's 0x64C8D0, 0x64D770)  // NAME 2 [player_id, selection]: the members
 	SelectTalkTreePacketClass(RawPacketClass *raw);	// 0x8A7670
 	virtual RawPacketClass *Build();	// +0x04 0x8A7710
 	virtual bool Process_Packet(void *client);	// +0x08 0x867FB0 (clientstub.cpp l.95)

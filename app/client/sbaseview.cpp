@@ -290,16 +290,16 @@ void SBaseViewClass::Unknown_14()
 		if (Unknown190->Unknown_64CF90()) {
 			switch (Unknown50) {
 				case 0:
-					if (Unknown174) Unknown174->Unknown_639030(Unknown190->Unknown_64CF90());
+					if (Unknown174) Unknown174->Unknown_639030((int)Unknown190->Unknown_64CF90());
 					break;
 				case 1:
-					if (Unknown178) Unknown178->Unknown_639030(Unknown190->Unknown_64CF90());
+					if (Unknown178) Unknown178->Unknown_639030((int)Unknown190->Unknown_64CF90());
 					break;
 				case 3:
-					if (Unknown17C) Unknown17C->Unknown_639030(Unknown190->Unknown_64CF90());
+					if (Unknown17C) Unknown17C->Unknown_639030((int)Unknown190->Unknown_64CF90());
 					break;
 				case 2:
-					if (Unknown180) Unknown180->Unknown_639030(Unknown190->Unknown_64CF90());
+					if (Unknown180) Unknown180->Unknown_639030((int)Unknown190->Unknown_64CF90());
 					break;
 			}
 			Unknown190->Unknown_64CFF0();
@@ -367,7 +367,7 @@ bool SBaseViewClass::Unknown_69CCD0()
 	if (Unknown184 && Unknown184->Is_Active()) return(true);
 	if (Unknown188 && Unknown188->Is_Active()) return(true);
 	if (Unknown18C && Unknown18C->Is_Active()) return(true);
-	if (Unknown190 && (Unknown190->Is_Active() || Unknown190->Unknown160 != 0)) return(true);
+	if (Unknown190 && (Unknown190->Is_Active() || Unknown190->ActiveUI != 0)) return(true);
 	if (Jobs && Jobs->Is_Active()) return(true);
 	if (Unknown198 && Unknown198->Is_Active()) return(true);
 	if (AvatarUI != NULL && AvatarUI->Is_Active()) return(true);
