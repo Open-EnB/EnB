@@ -54,13 +54,27 @@ public:
 class DeltaChildVisitorClass : public KVEncoderBaseClass  // NAME 2: describes what it does
 {
 public:
-	virtual void Add_Child(int mask, const char *name, DeltaInterfaceClass *child) = 0;	// +0x04 a key/value object under the name  // NAME 2: what it does
+	DeltaChildVisitorClass(KVListClass *list, int flags, const char *prefix);	// 0x4B1790 (kv_encoder.cpp; vtable 0xAEB460)
+	virtual void Add_Child(int mask, const char *name, DeltaInterfaceClass *child);	// +0x04 0x4B1820 a key/value object under the name  // NAME 2: what it does
 	// the login objects' slots (a virtual more here moves aux_roots.cpp's VC6 symbol count: its pad
 	// absorbs these, workflow.md 3.3)
 	virtual void Unknown_08() = 0;
 	virtual void Unknown_0C() = 0;
 	virtual void Add_Color(int mask, const char *name, Vector3 *value) = 0;	// +0x10 (shipcust_desc.cpp's colours)  // NAME 1: its users' keys
+	virtual void Unknown_14() = 0;
+	virtual void Unknown_18() = 0;
 
+	// the typed adds of kv_encoder.cpp (no caller found): one value, a value kept per frame, one pair per element
+	void Add_Vector3(int mask, const char *name, Vector3 *value);						// 0x4B18C0  // NAME 2: what it does
+	void Add_Matrix3D(int mask, const char *name, Matrix3D *value);					// 0x4B18F0  // NAME 2: what it does
+	void Add_Accel(int mask, const char *name, AccelClass *value);						// 0x4B1920  // NAME 2: what it does
+	void Add_Vector3_Frame(int mask, const char *name, Vector3 *value);				// 0x4B1950  // NAME 2: what it does
+	void Add_Matrix3D_Frame(int mask, const char *name, Matrix3D *value);			// 0x4B1AE0  // NAME 2: what it does
+	void Add_Vector3_Elements(int mask, const char *name, Vector3 *value);			// 0x4B1CC0  // NAME 2: what it does
+	void Add_Matrix3D_Elements(int mask, const char *name, Matrix3D *value);		// 0x4B1D40  // NAME 2: what it does
+	void Add_Accel_Elements(int mask, const char *name, AccelClass *value);			// 0x4B1DC0  // NAME 2: what it does
+	void Add_Vector3_Elements_Frame(int mask, const char *name, Vector3 *value);	// 0x4B1E60  // NAME 2: what it does
+	void Add_Matrix3D_Elements_Frame(int mask, const char *name, Matrix3D *value);	// 0x4B2210  // NAME 2: what it does
 };
 
 // The base DeltaClass's constructor stores first (vtable 0xAEADC8: one slot, _purecall).

@@ -3731,6 +3731,7 @@ RECONSTRUCTED = {
                                                       "(vtable 0xAEAF08: Clone 0x4A6AF0, Get 0x4A6B30)",
     ('app', 'shared/auxdata/delta_interpolator.h'): "DeltaInterpolatorClass (vtable 0xAEAE54, size 0x250; fields "
                                                     "from the ctor's strings), Get_Value's assert on line 54 (D25)",
+    ('app', 'shared/kv_encoder.cpp'): "PROVISIONAL file name (D137; no assert, no __FILE__; the base's kv_encoder_base.cpp follows it): DeltaChildVisitorClass's members (auxdata/delta.h; vtable 0xAEB460, ctor 0x4B1790), client 0x4B1740 (permstr.h's static) - 0x4B37EF (<string>'s initialiser): the typed adds for Vector3, Matrix3D, AccelClass, their pairs and accessors; 15 of 15 markers exact",
     ('app', 'shared/kv_encoder_base.h'): "KVEncoderBaseClass (D24; vtable 0xAEB62C, size 0x0C: Data, the pair "
                                          "list) and its Data (0x3C bytes: PrefixList and FlagList from the "
                                          "asserts, Flags, two strings); Add_Value<T> (inlined in 0x4A6930)",
