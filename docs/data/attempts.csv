@@ -2231,3 +2231,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-07 00:51,0x814430,Unknown_814430,app/client/skill_ability_names.cpp,app,exact,,1,,statics as SkillAbilityNamesDatabase members (external linkage); clear() kept,,opus
 2026-11-07 00:51,0x814620,Unknown_814620,app/client/skill_ability_names.cpp,app,exact,,1,,statics as SkillAbilityNamesDatabase members; no source change in the function,,opus
 2026-11-07 00:59,0x814A30,Unknown_814A30,app/client/skill_ability_names.cpp,app,exact,,2,,"char key[4] (key at +0x24); a named int count; one line, so no __LINE__ moves",,opus
+2026-11-07 01:23,0x815720,Unknown_815720,app/client/skill_ability_names.cpp,app,exact,,13,,one dead string->size() before if (below) spends the client budget; at the end it flips the wrong sites; also its line was one low,,opus

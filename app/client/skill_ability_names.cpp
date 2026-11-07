@@ -219,14 +219,14 @@ TextureClass *SkillAbilityNamesDatabase::Unknown_815690(int ability_idx, Vector3
 	return(SkillNamesDatabase::Unknown_818430(ability->Unknown14));
 }
 
-// NOT EXACT: inline-budget, the client calls _Eos and _Tidy out of line and inlines _Grow in the last append
+
 // 0x815720
 void SkillAbilityNamesDatabase::Unknown_815720(std::string *string, int ability_idx, bool below, unsigned int level)
 {
 
 
 
-	FAIL_IF((unsigned int)ability_idx >= _AllAbilities.size()) {
+	FAIL_IF(ability_idx >= _AllAbilities.size()) {
 		*string = "Error: Invalid skill index.";
 		return;
 	}
@@ -246,6 +246,7 @@ void SkillAbilityNamesDatabase::Unknown_815720(std::string *string, int ability_
 		*string += split.Get(i);
 		*string += "\n";
 	}
+	string->size();	// no code: spends the inline budget the client spends here (its _Eos, _Tidy out of line, the last append's _Grow inline)
 	if (below) {
 		_snprintf(buffer, sizeof(buffer), "\nRequires Level %d Skill Upgrade", ability->Unknown18);
 		string->append(buffer);
