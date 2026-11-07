@@ -1,5 +1,5 @@
-// Earth & Beyond client (reconstruction): app\client\ui_mesh.cpp, the interface's animated mesh (UIMeshClass,
-// 0x5B8120-0x5BB240; the asserts sit on the client's lines). Notes at the end of the file (UM1, 2026-11-07).
+// Earth & Beyond client (reconstruction): app\client\ui_mesh.cpp, the animated mesh (UIMeshClass, 0x5B8120-0x5BB240). Notes at the end.
+#include "ui_proc_impl.h"
 #include <stdlib.h>
 #include <string.h>
 #include "sclient.h"
@@ -184,7 +184,7 @@ void UIMeshClass::Unknown_5B8D50(RenderObjClass *robj)
 	info->Release_Ref();
 }
 
-void UIMeshClass::Unknown_5B8DF0(int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
+void UIMeshClass::Unknown_5B8DF0(int id, const char *anim_name, bool loop, int a, int b, int c, int d)
 {
 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
 	proc->Id = id;
@@ -192,7 +192,7 @@ void UIMeshClass::Unknown_5B8DF0(int id, const char *anim_name, bool loop, bool 
 }
 
 // NOT EXACT: 0x5B8EE0 (0.50): register choice (slot in edx, the node through lea ecx)
-void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
+void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, int a, int b, int c, int d)
 {
 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
 	proc->Slot = slot;
@@ -201,9 +201,9 @@ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool l
 }
 
 // NOT EXACT: 0x5B8FF0 (0.50): as 0x5B8EE0
-void UIMeshClass::Unknown_5B8FF0(int slot, int id, HAnimClass *morph_anim, bool loop, bool a, bool b, int c, int d)
+void UIMeshClass::Unknown_5B8FF0(int slot, int id, const char *morph_anim, bool loop, int a, int b, int c, int d)
 {
-	UIProcClass *proc = new UIProc5DCD20Class(this, morph_anim, loop, a, b, c, d);
+	UIProcClass *proc = new UIProc5DCD20Class(this, (HAnimClass *)morph_anim, loop, a, b, c, d);
 	proc->Slot = slot;
 	proc->Id = id;
 	Unknown4C[slot]->Add_Tail(&proc->Node);

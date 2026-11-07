@@ -13468,7 +13468,6 @@
    },
    "nav_list_builder": {
     "ambiguous": [
-     "0x42A900",
      "0x42AAE0",
      "0x42AFF0",
      "0x42B2F0",
@@ -13489,6 +13488,7 @@
      "0x7B7C30",
      "0x7B7C60",
      "0x7B7C80",
+     "0x7B7EF0",
      "0x7B81E0",
      "0x7B8210",
      "0x7B8510",
@@ -13496,6 +13496,8 @@
      "0x7B8BF0",
      "0x7B8E40",
      "0x7B8E90",
+     "0x7B8ED0",
+     "0x7B8F10",
      "0x7B8F50",
      "0x7B91F0",
      "0x7B9240",
@@ -36930,6 +36932,7 @@
    "client/ui_ping.h": "reconstructed",
    "client/ui_playeropt.h": "reconstructed",
    "client/ui_proc.h": "reconstructed",
+   "client/ui_proc_impl.h": "reconstructed",
    "client/ui_registration.h": "reconstructed",
    "client/ui_scut.h": "reconstructed",
    "client/ui_scut_gadgets.h": "reconstructed",
@@ -37192,6 +37195,7 @@
    "shared/message/msgserv.h": "reconstructed",
    "shared/money.h": "reconstructed",
    "shared/observer.h": "reconstructed",
+   "shared/observer_impl.h": "reconstructed",
    "shared/proj_man.h": "reconstructed",
    "shared/projscen.h": "reconstructed",
    "shared/px.h": "reconstructed",
@@ -37223,7 +37227,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 12304,
+  "in_tree_total": 12307,
   "totals": {}
  },
  "binkmovie": {

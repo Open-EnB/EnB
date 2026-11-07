@@ -2,6 +2,7 @@
 // process, 0x5DCCE0-0x5DD960; the asserts sit on the client's lines). Notes at the end of the file (UP1, 2026-11-07).
 #include <stdio.h>
 #include <math.h>
+#include "ui_proc_impl.h"
 #include "ui_mesh.h"
 #include "argv.h"
 #include "wwmath.h"
@@ -10,7 +11,6 @@
 #include "..\..\ww3d2\assetmgr.h"
 
 bool Unknown_42EC60(int button, int arg);				// 0x42EC60 (a key down: input.cpp's)  // NAME 1 [button, arg]: neutral
-
 static bool FastAnim;									// 0xBE5D80: '-FASTANIM' on the command line  // NAME 1: after the switch
 
 // @0x5DCCE0
@@ -24,7 +24,7 @@ void UIProcClass::Unknown_5DCCE0(int event, int arg)
 }
 
 // @0x5DCD20
-UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame) :
+UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name, bool cycle, int delete_self, int reverse, int start_frame, int end_frame) :
 	UIProcClass(uimesh),
 	Cycle(cycle),
 	DeleteSelf(delete_self),
@@ -54,7 +54,7 @@ UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name,
 }
 
 // @0x5DCF00
-UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, HAnimClass *morph_anim, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame) :
+UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, HAnimClass *morph_anim, bool cycle, int delete_self, int reverse, int start_frame, int end_frame) :
 	UIProcClass(uimesh),
 	Cycle(cycle),
 	DeleteSelf(delete_self),
