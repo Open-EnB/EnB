@@ -363,25 +363,48 @@ void UnknownEventDispatcherClass::Unknown_56CEC0(UIChatIntClass *sender, UIChatP
 {
 }
 
-// ---------------------------------------------------------------- rs_list.cpp (0x45A720-0x45C310) and rs.ini's table 0x763E00: not rebuilt yet: every list is empty, no states
-#include "..\\..\\app\\client\\client.h"
+// ---------------------------------------------------------------- the render states rs_list.cpp makes from files not in the tree yet
+// (rs_hanim.cpp 'anim', 'link', 'sound', rs_eff_p.cpp 'effect_pass'): plain states that do nothing when activated
 #include "..\\..\\app\\shared\\rs_track.h"
-RenderStateListClass::RenderStateListClass(RenderStateListClass *source)
+#include "shader.h"
+Unknown4596A0Class::Unknown4596A0Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *anim, const char *suffix, int next_id, HAnimComboDataClass *combo) :
+	RenderStateClass(list, id, link_id, flags)
 {
-	STUB_CALLED("POC RenderStateListClass: empty");
-	Head = NULL;
-	memset(Unknown08, 0, sizeof(Unknown08));
-	Unknown20 = NULL;
-	Current = NULL;
-	Source = source;
-	Unknown2C = 0;
+	STUB_CALLED("POC Unknown4596A0Class ('anim' state): does nothing");
+	memset(Unknown2C, 0, sizeof(Unknown2C));
 }
-RenderStateListClass::~RenderStateListClass()
+Unknown4596A0Class::~Unknown4596A0Class() {}
+RenderStateClass *Unknown4596A0Class::Unknown_04(RenderStateListClass *list) { return(new Unknown4596A0Class(list, ID, LinkID, Flags, NULL, NULL, -1, NULL)); }
+void Unknown4596A0Class::Unknown_14(RsTrackClass *owner) {}
+
+Unknown45A090Class::Unknown45A090Class(RenderStateListClass *list, int id, int link_id, unsigned int flags) :
+	RenderStateClass(list, id, link_id, flags)
 {
+	STUB_CALLED("POC Unknown45A090Class ('link' state): does nothing");
 }
-void *Unknown763E00Class::Unknown_764030(int id)
+Unknown45A090Class::~Unknown45A090Class() {}
+RenderStateClass *Unknown45A090Class::Unknown_04(RenderStateListClass *list) { return(new Unknown45A090Class(list, ID, LinkID, Flags)); }
+void Unknown45A090Class::Unknown_14(RsTrackClass *owner) {}
+
+Unknown45F390Class::Unknown45F390Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message) :
+	RenderStateClass(list, id, link_id, flags)
 {
-	static char zero[0x30];
-	STUB_CALLED("POC Unknown763E00Class::Unknown_764030: an empty list for every id");
-	return(zero);
+	STUB_CALLED("POC Unknown45F390Class ('sound' state): does nothing");
+	memset(Unknown2C, 0, sizeof(Unknown2C));
 }
+Unknown45F390Class::~Unknown45F390Class() {}
+RenderStateClass *Unknown45F390Class::Unknown_04(RenderStateListClass *list) { return(new Unknown45F390Class(list, ID, LinkID, Flags, NULL, 0)); }
+void Unknown45F390Class::Unknown_14(RsTrackClass *owner) {}
+
+Unknown458C10Class::Unknown458C10Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, bool two_sided, bool hidden, const char *texture, int a, int b, ShaderClass shader) :
+	RenderStateClass(list, id, link_id, flags)
+{
+	STUB_CALLED("POC Unknown458C10Class ('effect_pass' state): does nothing");
+	memset(Unknown2C, 0, sizeof(Unknown2C));
+}
+Unknown458C10Class::~Unknown458C10Class() {}
+RenderStateClass *Unknown458C10Class::Unknown_04(RenderStateListClass *list) { return(new Unknown458C10Class(list, ID, LinkID, Flags, false, false, "", 1, 1, ShaderClass())); }
+void Unknown458C10Class::Unknown_14(RsTrackClass *owner) {}
+void Unknown458C10Class::Unknown_459120(TextureMapperClass *mapper) {}
+
+char *Unknown_B70E40[] = { "Axial", "Silhouette", "Environment", "Screen", NULL };

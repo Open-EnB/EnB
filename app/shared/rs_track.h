@@ -62,7 +62,7 @@ public:
 	void Unknown_4584B0(RsTrackClass *owner, float seconds, RenderStateClass *next);	// 0x4584B0  // NAME 1 [owner, seconds, next]: neutral; 0x45ECD0 passes the time left over
 	void Unknown_458540(const char *text);							// 0x458540 (Unknown24 from text)  // NAME 1 [text]: neutral
 	RenderStateListClass *Get_Render_State_List() { return(List); }	// the assert at rs_track.cpp line 191
-	bool Unknown_Flag4() const { return((Flags >> 4) & 1); }		// NAME 1: neutral (D10)
+	bool Is_Enabled() const { return((Flags >> 4) & 1); }			// NAME 2: rs_list.cpp's assert 'state->Is_Enabled()' (lines 198, 215, 226)
 	bool Unknown_Flag10() const { return((Flags >> 10) & 1); }		// NAME 1: neutral (D10)
 	bool Unknown_Flag12() const { return((Flags >> 12) & 1); }		// NAME 1: neutral (D10)
 	bool Unknown_Flag13() const { return((Flags >> 13) & 1); }		// NAME 1: neutral (D10)
@@ -80,13 +80,30 @@ public:
 	unsigned int Flags;												// +0x28  // NAME 2: bit tests
 };
 
+class INIClass;
+class Unknown45C430Class;
+
 class RenderStateListClass	// NAME 2: the member RenderStateList of rs_track.cpp's assert
 {
 public:
+	RenderStateListClass(INIClass &ini, const char *section, Unknown45C430Class *factory);	// 0x45BE40 (rs.ini's '<n>' entries: RST_ flags, then '<n>\STATE<i>' sections)  // NAME 1 [ini, section, factory]: neutral
 	RenderStateListClass(RenderStateListClass *source);				// 0x45C1B0  // NAME 1 [source]: neutral
-	~RenderStateListClass();										// 0x45C310
-	virtual void Unknown_00();										// +0x00  // NAME 1: neutral (D10)
-	virtual void Unknown_04(float scale, float *hsv);				// +0x04  // NAME 1 [scale, hsv]: what 0x45FFB0 passes
+	RenderStateListClass();											// 0x45C270
+	virtual ~RenderStateListClass();								// +0x00 0x45C310 (deleting 0x45C0B0)
+	virtual void Unknown_04(float scale, float *hsv);				// +0x04 0x45C990  // NAME 1 [scale, hsv]: what 0x45FFB0 passes
+	// the INI readers (this unused; 0x45A2D0-0x45A6F0, inlined into their callers too)
+	int Unknown_45A2D0(INIClass &ini, const char *section);		// 0x45A2D0 ('ID', -1)  // NAME 1 [ini, section]: neutral
+	int Unknown_45A300(INIClass &ini, const char *section, char *buffer);	// 0x45A300 ('FILE')  // NAME 1 [buffer]: neutral
+	void Unknown_45A340(const char *filename);						// 0x45A340 (the asset manager loads it)  // NAME 1 [filename]: neutral
+	int Unknown_45A370(INIClass &ini, const char *section, char *buffer);	// 0x45A370 ('OBJECT')
+	int Unknown_45A3B0(INIClass &ini, const char *section, char *anim, char *suffix);	// 0x45A3B0 ('ANIM', 'SUFFIX'; strlen(anim))  // NAME 1 [anim, suffix]: the keys
+	int Unknown_45A430(INIClass &ini, const char *section, char *buffer);	// 0x45A430 ('BONE')
+	int Unknown_45A470(INIClass &ini, const char *section);		// 0x45A470 ('NEXT', -1)
+	int Unknown_45A4A0(INIClass &ini, const char *section);		// 0x45A4A0 ('LINK', -1)
+	int Unknown_45A4D0(INIClass &ini, const char *section);		// 0x45A4D0 ('MESSAGE', 0)
+	float Unknown_45A500(INIClass &ini, const char *section);		// 0x45A500 ('DURATION', 0)
+	unsigned int Unknown_45A530(INIClass &ini, const char *section);	// 0x45A530 (the RS_ flags)
+	char *Unknown_45A6F0(INIClass &ini, const char *section);		// 0x45A6F0 ('INITSTR', allocated)
 	RenderStateClass *Unknown_45A720(int id);						// 0x45A720  // NAME 1 [id]: neutral
 	RenderStateClass *Unknown_45A750(int id);						// 0x45A750  // NAME 1 [id]: neutral
 	RenderStateClass *Unknown_45A7E0(int id);						// 0x45A7E0 (rs_robj.cpp's NextRenderState and source state)  // NAME 1 [id]: neutral
@@ -95,14 +112,41 @@ public:
 	void Unknown_45A970(RsTrackClass *owner, RenderInfoClass &rinfo);	// 0x45A970  // NAME 1 [owner, rinfo]: neutral
 	void Unknown_45A9F0(RsTrackClass *owner);						// 0x45A9F0  // NAME 1 [owner]: neutral
 	void Unknown_45AA40(void *value, bool recursive);				// 0x45AA40  // NAME 1 [value, recursive]: Set_User_Data's
+	// the state makers, one pair per rs.ini TYPE (0x45C430's dispatch)
+	RenderStateClass *Unknown_45AA80(int id, int link_id, unsigned int flags, const char *name, int next_id, float duration);	// 0x45AA80 ('object': rs_robj.cpp's state)
+	RenderStateClass *Unknown_45AB20(INIClass &ini, const char *section, int id);	// 0x45AB20 ('object')
+	RenderStateClass *Unknown_45ACD0(int id, int link_id, unsigned int flags, const char *anim, const char *suffix, int next_id, HAnimComboDataClass *combo);	// 0x45ACD0 ('anim': rs_hanim.cpp's state 0x4596A0)  // NAME 1 [anim, suffix, combo]: the keys
+	RenderStateClass *Unknown_45AD90(INIClass &ini, const char *section, int id);	// 0x45AD90 ('anim')
+	RenderStateClass *Unknown_45B1E0(int id, int link_id, unsigned int flags, int message);	// 0x45B1E0 ('message': Unknown45D840Class)  // NAME 1 [message]: the key
+	RenderStateClass *Unknown_45B280(INIClass &ini, const char *section, int id);	// 0x45B280 ('message')
+	RenderStateClass *Unknown_45B300(int id, int link_id, unsigned int flags);	// 0x45B300 ('link': 0x45A090's state)
+	RenderStateClass *Unknown_45B390(INIClass &ini, const char *section, int id);	// 0x45B390 ('link')
+	RenderStateClass *Unknown_45B3E0(int id, int link_id, unsigned int flags, int message, const char *sound);	// 0x45B3E0 ('sound': 0x45F390's state)  // NAME 1 [sound]: the key
+	RenderStateClass *Unknown_45B480(INIClass &ini, const char *section, int id);	// 0x45B480 ('sound')
+	RenderStateClass *Unknown_45B550(const char *filename, int link_id, unsigned int flags, int id, int next_id);	// 0x45B550 ('effect_pass': reads the file's Effect_Pass_Description)  // NAME 1 [filename]: the key
+	RenderStateClass *Unknown_45B990(INIClass &ini, const char *section, int id);	// 0x45B990 ('effect_pass')
+	RenderStateClass *Unknown_45BAB0(int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone, int message);	// 0x45BAB0 ('bone': Unknown458710Class by name)
+	RenderStateClass *Unknown_45BB70(int id, int link_id, unsigned int flags, RenderObjClass *robj, int next_id, float duration, const char *bone, int message);	// 0x45BB70 (no caller: by model)
+	RenderStateClass *Unknown_45BC30(INIClass &ini, const char *section, int id);	// 0x45BC30 ('bone')
+	void Unknown_45C8B0();											// 0x45C8B0 (no caller: every state's Unknown_0C)  // NAME 1: neutral (D10)
+	void Unknown_45C8E0(int id);									// 0x45C8E0 (no caller: one state's Unknown_0C)
+	void Unknown_45C920();											// 0x45C920 (no caller: every state's Unknown_10)
+	void Unknown_45C950(int id);									// 0x45C950 (no caller: one state's Unknown_10)
 
 	RenderStateClass *Head;											// +0x04  // NAME 2: the list walk
-	char Unknown08[0x20 - 0x08];									// NAME 1: neutral (D10)
-	GenericNode *Unknown20;											// +0x20 (the active states' chain 0x457E10 links into)  // NAME 1: neutral (D10)
+	List<RenderStateClass *> Unknown08;								// +0x08 (the active states 0x457E10 adds at the tail)  // NAME 1: neutral (D10)
 	RenderStateClass *Current;										// +0x24  // NAME 2: Peek_Render_Object's state
 	RenderStateListClass *Source;									// +0x28  // NAME 2: what Clone passes on
-	unsigned char Unknown2C;										// +0x2C  // NAME 1: neutral (D10)
+	unsigned char Unknown2C;										// +0x2C (rs.ini's RST_ flags)  // NAME 1: neutral (D10)
 };
+
+// the state maker rs.ini's lists are built with (vtable 0xAE7F30, the one object 0xBDC0A0)
+class Unknown45C430Class	// NAME 1: neutral (D10)
+{
+public:
+	virtual int Unknown_00(RenderStateListClass *list, INIClass &ini, const char *section, const char *type, int index);	// +0x00 0x45C430 (0 object, 1 message, 5 link, 2 bone, 6 effect_pass, 3 sound, 4 anim, -1)  // NAME 1 [list, ini, section, type, index]: neutral
+};
+extern Unknown45C430Class Unknown_BDC0A0;							// 0xBDC0A0 (rs_list.cpp; its initialiser 0x45A2B0)
 
 // rs_robj.cpp's render-object state (vtable 0xAE8138, 0x44 bytes): a state that shows a model (made by name from
 // the asset manager or handed in), and after Unknown34 seconds moves on to the state NextID names
@@ -150,6 +194,65 @@ public:
 
 	char *Unknown44;												// +0x44 (the bone path RsTrackClass::Unknown_1D0 / Unknown_461D60 take)  // NAME 1: neutral (D10)
 	int Unknown48;													// +0x48 (Unknown_1D0's last argument)  // NAME 1: neutral (D10)
+};
+
+// The states rs_list.cpp makes from the other rs_*.cpp files, declared as far as rs_list.cpp uses them
+// (interim, D137: their files are not in the tree yet)
+class ShaderClass;
+class TextureMapperClass;
+class Unknown4596A0Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'anim' (rs_hanim.cpp, 0x60 bytes)
+{
+public:
+	Unknown4596A0Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *anim, const char *suffix, int next_id, HAnimComboDataClass *combo);	// 0x4596A0  // NAME 1 [anim, suffix, next_id, combo]: rs_list.cpp's keys
+	virtual ~Unknown4596A0Class();
+	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);
+	virtual void Unknown_14(RsTrackClass *owner);
+
+	char Unknown2C[0x60 - 0x2C];									// NAME 1: neutral (D10)
+};
+class Unknown45A090Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'link' (0x2C bytes)
+{
+public:
+	Unknown45A090Class(RenderStateListClass *list, int id, int link_id, unsigned int flags);	// 0x45A090
+	virtual ~Unknown45A090Class();
+	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);
+	virtual void Unknown_14(RsTrackClass *owner);
+};
+class Unknown45F390Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'sound' (0x3C bytes)
+{
+public:
+	Unknown45F390Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message);	// 0x45F390  // NAME 1 [sound, message]: rs_list.cpp's keys
+	virtual ~Unknown45F390Class();
+	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);
+	virtual void Unknown_14(RsTrackClass *owner);
+
+	char Unknown2C[0x3C - 0x2C];									// NAME 1: neutral (D10)
+};
+class Unknown458C10Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'effect_pass' (rs_eff_p.cpp, 0x34 bytes; the client's debug text names it RenderStateEffectPassClass)
+{
+public:
+	Unknown458C10Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, bool two_sided, bool hidden, const char *texture, int a, int b, ShaderClass shader);	// 0x458C10  // NAME 1 [two_sided, hidden, texture, a, b, shader]: rs_list.cpp's keys
+	virtual ~Unknown458C10Class();
+	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);
+	virtual void Unknown_14(RsTrackClass *owner);
+	void Unknown_459120(TextureMapperClass *mapper);				// 0x459120  // NAME 1 [mapper]: what rs_list.cpp hands it
+
+	char Unknown2C[0x34 - 0x2C];									// NAME 1: neutral (D10)
+};
+extern char *Unknown_B70E40[];									// 0xB70E40 ('Axial', 'Silhouette', 'Environment', 'Screen', NULL: EFFECT_PASS_TYPE's names)  // NAME 1: neutral (D10)
+
+// rs_list.cpp's message state (vtable 0xAE8050, 0x30 bytes): activated, it hands its message to the owner
+class Unknown45D840Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'message'
+{
+public:
+	Unknown45D840Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, int message);	// 0x45D840  // NAME 1 [message]: the key
+	Unknown45D840Class(RenderStateListClass *list, const Unknown45D840Class &source);	// 0x45D8C0
+	virtual ~Unknown45D840Class();									// 0x45D990 (deleting 0x45D890)
+	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);	// +0x04 0x45D900
+	virtual void Unknown_14(RsTrackClass *owner);					// +0x14 0x45D9B0
+	// (the bodies are inline at the end of rs_list.cpp: emitted after its templates, the maker 0x45B1E0 calls the constructor)
+
+	int Message;													// +0x2C  // NAME 2: rs.ini's MESSAGE
 };
 
 // rs_proj_sup.cpp's projector caster (0x45D9E0, vtable 0xAE80B0) and receiver (0x45DC80, vtable 0xAE80EC) RsTrackClass

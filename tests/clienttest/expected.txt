@@ -1,5 +1,4 @@
 == SClient (its constructor, the base's)
-stub Unknown763E00Class::Unknown763E00Class
 stub Unknown831340Class::Unknown831340Class -1 'Null Item' type -1
 stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
 gen Unknown764FD0Class::Unknown764FD0Class
@@ -1036,7 +1035,6 @@ asset manager +0x78 'rs_stargate' scale 1 hsv (0 0 0) -> model 93
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38961
 msg 344 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
-gen RenderStateListClass::Unknown_45A750
 msg 345 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 346 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 347 AUX_DATA (27) size 36: cpacket.cpp's handler

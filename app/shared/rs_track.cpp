@@ -237,7 +237,7 @@ void RsTrackClass::Unknown_4604D0(int render_state_id)
 		Peek_Render_Object()->Set_Hidden(false);
 	} else {
 		RenderStateClass *state = RenderStateList.Unknown_45A750(render_state_id);
-		if (state != NULL && !state->Unknown_Flag4()) {
+		if (state != NULL && !state->Is_Enabled()) {
 			Unknown_460440(state, 50);
 			UnknownC0 = true;
 		}
@@ -312,7 +312,7 @@ bool RsTrackClass::Unknown_460810(int render_state_id)
 	if (render_state_id != -1) {
 		RenderStateClass *state = RenderStateList.Unknown_45A720(render_state_id);
 		if (state != NULL) {
-			return(state->Unknown_Flag4());
+			return(state->Is_Enabled());
 		}
 	}
 	return(false);
@@ -333,7 +333,7 @@ void RsTrackClass::Unknown_460880(int render_state_id, int link_id)
 	RenderStateClass *state = RenderStateList.Unknown_45A750(render_state_id);
 	if (state != NULL) {
 		bool active = false;
-		if (state->Unknown_Flag4()) {
+		if (state->Is_Enabled()) {
 			Unknown_460710(state, 50);
 			active = true;
 		}
@@ -354,7 +354,7 @@ void RsTrackClass::Unknown_1CC(RenderStateClass *state, RenderObjClass *robj)
 	RenderStateListClass *list = &RenderStateList;
 	list->Current = state;
 	for (RenderStateClass *s = RenderStateList.Head; s != NULL; s = s->Next) {
-		if (s->Unknown_Flag4()) {
+		if (s->Is_Enabled()) {
 			s->Unknown_1C(this);
 		}
 	}

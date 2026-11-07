@@ -120,10 +120,6 @@ Unknown831340Class::Unknown831340Class(int a, int, int, const RefCountPtr<ItemBa
 	Trace("stub Unknown831340Class::Unknown831340Class %d '%s' type %d", a, name.c_str(), g);
 }
 Unknown831340Class::~Unknown831340Class() { Trace("stub Unknown831340Class::~Unknown831340Class"); }
-Unknown763E00Class::Unknown763E00Class() { Trace("stub Unknown763E00Class::Unknown763E00Class"); }
-Unknown763E00Class::~Unknown763E00Class() { Trace("stub Unknown763E00Class::~Unknown763E00Class"); }
-void Unknown763E00Class::Unknown_763E70(const char *ini) { Trace("stub Unknown763E00Class::Unknown_763E70 %s", ini); }
-void Unknown763E00Class::Unknown_763FF0() { Trace("stub Unknown763E00Class::Unknown_763FF0"); }
 
 // ------------------------------------------------------------------------- cpacket.cpp's callees in other files
 
@@ -323,3 +319,13 @@ bool operator>(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator>
 class GadgetClass { public: virtual void Unknown_08(); virtual void Unknown_14(); };
 void GadgetClass::Unknown_08() {}
 void GadgetClass::Unknown_14() {}
+
+// ------------------------------------------------------------------------- rs_eff_p.cpp (the effect pass state rs_list.cpp makes)
+// gen_stubs cannot write this one: its ShaderClass argument is passed by value
+#include "..\..\..\app\shared\rs_track.h"
+#include "shader.h"
+Unknown458C10Class::Unknown458C10Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, bool two_sided, bool hidden, const char *texture, int a, int b, ShaderClass shader) :
+	RenderStateClass(list, id, link_id, flags)
+{
+	Trace("stub Unknown458C10Class::Unknown458C10Class");
+}
