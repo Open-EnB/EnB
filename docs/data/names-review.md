@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 150 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1495 |
+| 3 | by convention from a client-named file or sibling | 1494 |
 | 2 | describes what the code does | 3339 |
-| 1 | neutral placeholder | 16547 |
+| 1 | neutral placeholder | 16526 |
 
 ## For review (score 3 and below)
 
@@ -3315,7 +3315,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `arg` | `app/client/galaxy_map_pip.h:89` | neutral |
 | 1 | `Unknown_5404E0` | `app/client/galaxy_map_pip.h:89` | untagged neutral name (D10) |
 | 1 | `Unknown_5406A0` | `app/client/galaxy_map_pip.h:90` | untagged neutral name (D10) |
-| 1 | `Unknown_B0804C` | `app/client/gd_attrb_skills.cpp:15` | neutral (D10) |
+| 1 | `Unknown_B0804C` | `app/client/gd_attrb_skills.cpp:16` | neutral (D10) |
 | 1 | `Unknown6A5640Struct` | `app/client/gd_attrb_skills.cpp:19` | neutral (D10), as ui_attrb.cpp's |
 | 1 | `Unknown00` | `app/client/gd_attrb_skills.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/gd_attrb_skills.cpp:19` | untagged neutral name (D10) |
@@ -3330,15 +3330,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6A7A00Class` | `app/client/gd_attrb_skills.cpp:27` | neutral (D10) |
 | 1 | `Unknown20` | `app/client/gd_attrb_skills.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/gd_attrb_skills.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown670C90Class` | `app/client/gd_attrb_skills.cpp:33` | neutral (D10) |
-| 1 | `on` | `app/client/gd_attrb_skills.cpp:36` | neutral |
-| 1 | `Unknown_670C90` | `app/client/gd_attrb_skills.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `app/client/gd_attrb_skills.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/gd_attrb_skills.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown6A7380Class` | `app/client/gd_attrb_skills.cpp:39` | neutral (D10) |
-| 1 | `Unknown_6A72E0` | `app/client/gd_attrb_skills.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/gd_attrb_skills.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_6A7380` | `app/client/gd_attrb_skills.cpp:40` | neutral (D10) |
 | 1 | `Unknown815320Struct` | `app/client/gd_attrb_skills.cpp:41` | neutral (D10) |
 | 1 | `Unknown10` | `app/client/gd_attrb_skills.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/gd_attrb_skills.cpp:41` | untagged neutral name (D10) |
@@ -3375,10 +3366,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_663DF0` | `app/client/gd_attrb_skills.cpp:211` | untagged neutral name (D10) |
 | 1 | `Unknown_62D710` | `app/client/gd_attrb_skills.cpp:241` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/gd_attrb_skills.cpp:270` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7380` | `app/client/gd_attrb_skills.cpp:274` | untagged neutral name (D10) |
+| 1 | `Unknown_6A72E0` | `app/client/gd_attrb_skills.cpp:276` | untagged neutral name (D10) |
 | 1 | `Unknown_664430` | `app/client/gd_attrb_skills.cpp:312` | untagged neutral name (D10) |
 | 1 | `Unknown_6647F0` | `app/client/gd_attrb_skills.cpp:314` | untagged neutral name (D10) |
 | 1 | `Unknown_664500` | `app/client/gd_attrb_skills.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/gd_attrb_skills.cpp:327` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/gd_attrb_skills.cpp:330` | untagged neutral name (D10) |
+| 1 | `Unknown_670C90` | `app/client/gd_attrb_skills.cpp:331` | untagged neutral name (D10) |
 | 1 | `Unknown_66C2D0` | `app/client/gd_attrb_skills.cpp:332` | untagged neutral name (D10) |
 | 1 | `Unknown_66C360` | `app/client/gd_attrb_skills.cpp:333` | untagged neutral name (D10) |
 | 1 | `Unknown_6645A0` | `app/client/gd_attrb_skills.cpp:340` | untagged neutral name (D10) |
@@ -3391,7 +3386,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set_Unknown14` | `app/client/gd_attrb_skills.cpp:489` | untagged neutral name (D10) |
 | 1 | `UnknownC4` | `app/client/gd_attrb_skills.h:7` | untagged neutral name (D10) |
 | 1 | `Unknown6A7A00Class` | `app/client/gd_attrb_skills.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown670C90Class` | `app/client/gd_attrb_skills.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown664500Class` | `app/client/gd_attrb_skills.h:30` | neutral (D10) |
 | 1 | `Unknown_24` | `app/client/gd_attrb_skills.h:35` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/gd_attrb_skills.h:36` | untagged neutral name (D10) |
@@ -3713,7 +3707,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE5F24` | `app/client/gd_slot_data.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F28` | `app/client/gd_slot_data.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown_675120Class` | `app/client/gd_slot_data.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/gd_slot_data.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown68` | `app/client/gd_slot_data.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown2C_06` | `app/client/gd_slot_data.cpp:73` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/gd_slot_data.cpp:78` | untagged neutral name (D10) |
@@ -3721,7 +3714,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_670910` | `app/client/gd_slot_data.cpp:108` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/gd_slot_data.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_670950` | `app/client/gd_slot_data.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/gd_slot_data.cpp:129` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/gd_slot_data.cpp:136` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/gd_slot_data.cpp:140` | untagged neutral name (D10) |
 | 1 | `Unknown_66C360` | `app/client/gd_slot_data.cpp:159` | untagged neutral name (D10) |
@@ -3749,75 +3741,65 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_84` | `app/client/gd_slot_data.cpp:348` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_08` | `app/client/gd_slot_data.cpp:354` | untagged neutral name (D10) |
 | 1 | `Unknown_675120Class` | `app/client/gd_slot_data.h:7` | untagged neutral name (D10) |
+| 1 | `SlotDataIFaceClass` | `app/client/gd_slot_data.h:30` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/gd_slot_data.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/gd_slot_data.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/gd_slot_data.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/gd_slot_data.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/gd_slot_data.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/gd_slot_data.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/gd_slot_data.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/gd_slot_data.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/gd_slot_data.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/gd_slot_data.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/gd_slot_data.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/gd_slot_data.h:34` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/gd_slot_data.h:35` | what it fills |
+| 1 | `Unknown_20` | `app/client/gd_slot_data.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/gd_slot_data.h:35` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/gd_slot_data.h:35` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/gd_slot_data.h:36` | neutral |
-| 1 | `Unknown_2C` | `app/client/gd_slot_data.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/gd_slot_data.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/gd_slot_data.h:37` | untagged neutral name (D10) |
-| 1 | `color` | `app/client/gd_slot_data.h:38` | what the gadget passes |
-| 1 | `Unknown_38` | `app/client/gd_slot_data.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/client/gd_slot_data.h:39` | untagged neutral name (D10) |
-| 1 | `slot` | `app/client/gd_slot_data.h:40` | the tooltips' 'Unused Slot' |
-| 1 | `Unknown_40` | `app/client/gd_slot_data.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_6A8EC0` | `app/client/gd_slot_data.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/gd_slot_data.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/gd_slot_data.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/gd_slot_data.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/gd_slot_data.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/gd_slot_data.h:47` | untagged neutral name (D10) |
-| 1 | `SlotDataIFaceClass` | `app/client/gd_slot_data.h:51` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/gd_slot_data.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/gd_slot_data.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/client/gd_slot_data.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/gd_slot_data.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown_4C` | `app/client/gd_slot_data.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown_50` | `app/client/gd_slot_data.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/gd_slot_data.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/gd_slot_data.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/gd_slot_data.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/gd_slot_data.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/gd_slot_data.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/gd_slot_data.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/gd_slot_data.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/gd_slot_data.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/gd_slot_data.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/client/gd_slot_data.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/gd_slot_data.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_80` | `app/client/gd_slot_data.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/gd_slot_data.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/gd_slot_data.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/gd_slot_data.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/gd_slot_data.h:63` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `app/client/gd_slot_data.h:63` | untagged neutral name (D10) |
-| 1 | `gadget, event, mask` | `app/client/gd_slot_data.h:64` | what it passes |
-| 1 | `Unknown_98` | `app/client/gd_slot_data.h:64` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/gd_slot_data.h:73` | the base's |
-| 1 | `Unknown_9C` | `app/client/gd_slot_data.h:79` | untagged neutral name (D10) |
-| 1 | `Unknown_A0` | `app/client/gd_slot_data.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/gd_slot_data.h:81` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/gd_slot_data.h:82` | neutral |
-| 1 | `Unknown_A8` | `app/client/gd_slot_data.h:82` | untagged neutral name (D10) |
-| 1 | `slot` | `app/client/gd_slot_data.h:83` | as the render's |
-| 1 | `Unknown_AC` | `app/client/gd_slot_data.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown_670910` | `app/client/gd_slot_data.h:85` | untagged neutral name (D10) |
-| 1 | `Unknown_670950` | `app/client/gd_slot_data.h:86` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/gd_slot_data.h:87` | neutral |
-| 1 | `Unknown_670C90` | `app/client/gd_slot_data.h:87` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/gd_slot_data.h:91` | untagged neutral name (D10) |
-| 1 | `Unknown_670E30Class` | `app/client/gd_slot_data.h:94` | neutral (D10) |
-| 1 | `layer` | `app/client/gd_slot_data.h:97` | what slot +0x28 takes |
-| 1 | `arg` | `app/client/gd_slot_data.h:100` | the base's |
-| 1 | `arg` | `app/client/gd_slot_data.h:101` | the base's |
-| 1 | `arg` | `app/client/gd_slot_data.h:102` | the base's |
+| 1 | `Unknown_2C` | `app/client/gd_slot_data.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_slot_data.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/gd_slot_data.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/gd_slot_data.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/gd_slot_data.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/gd_slot_data.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/client/gd_slot_data.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/gd_slot_data.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_4C` | `app/client/gd_slot_data.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/gd_slot_data.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/gd_slot_data.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/gd_slot_data.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/gd_slot_data.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/gd_slot_data.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/gd_slot_data.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/gd_slot_data.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/gd_slot_data.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/gd_slot_data.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/gd_slot_data.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_78` | `app/client/gd_slot_data.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/gd_slot_data.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_80` | `app/client/gd_slot_data.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_84` | `app/client/gd_slot_data.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/gd_slot_data.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/gd_slot_data.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/gd_slot_data.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/gd_slot_data.h:42` | untagged neutral name (D10) |
+| 1 | `gadget, event, mask` | `app/client/gd_slot_data.h:43` | what it passes |
+| 1 | `Unknown_98` | `app/client/gd_slot_data.h:43` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/gd_slot_data.h:52` | the base's |
+| 1 | `Unknown_9C` | `app/client/gd_slot_data.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/gd_slot_data.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/gd_slot_data.h:60` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/gd_slot_data.h:61` | neutral |
+| 1 | `Unknown_A8` | `app/client/gd_slot_data.h:61` | untagged neutral name (D10) |
+| 1 | `slot` | `app/client/gd_slot_data.h:62` | as the render's |
+| 1 | `Unknown_AC` | `app/client/gd_slot_data.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown_670910` | `app/client/gd_slot_data.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown_670950` | `app/client/gd_slot_data.h:65` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/gd_slot_data.h:66` | neutral |
+| 1 | `Unknown_670C90` | `app/client/gd_slot_data.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/gd_slot_data.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown_670E30Class` | `app/client/gd_slot_data.h:73` | neutral (D10) |
+| 1 | `layer` | `app/client/gd_slot_data.h:76` | what slot +0x28 takes |
+| 1 | `arg` | `app/client/gd_slot_data.h:79` | the base's |
+| 1 | `arg` | `app/client/gd_slot_data.h:80` | the base's |
+| 1 | `arg` | `app/client/gd_slot_data.h:81` | the base's |
 | 1 | `Unknown_BE5F34` | `app/client/gd_text_editor.cpp:26` | neutral (D10) |
 | 1 | `Unknown_671300Class` | `app/client/gd_text_editor.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/gd_text_editor.cpp:30` | untagged neutral name (D10) |
@@ -6517,8 +6499,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown60` | `app/client/skill_render.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown6A3D60Class` | `app/client/skill_render.cpp:25` | neutral (D10); NAME 1 [robj, distance, range, state, arg]: neutral |
 | 1 | `Unknown_6A4020` | `app/client/skill_render.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown670C90Class` | `app/client/skill_render.cpp:26` | neutral (D10): +0x64 is 0x6A7380's slot_render |
-| 1 | `Unknown64` | `app/client/skill_render.cpp:26` | untagged neutral name (D10) |
 | 1 | `Unknown815320Struct` | `app/client/skill_render.cpp:28` | neutral (D10); NAME 2 [Name]: 0x6A6A80 writes it as the ability |
 | 1 | `Unknown10` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
@@ -6560,7 +6540,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown669570Class` | `app/client/skill_render.h:20` | untagged neutral name (D10) |
 | 1 | `Unknown6A3D60Class` | `app/client/skill_render.h:21` | untagged neutral name (D10) |
 | 1 | `Unknown6A7A00Class` | `app/client/skill_render.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown670C90Class` | `app/client/skill_render.h:23` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/skill_render.h:30` | untagged neutral name (D10) |
 | 1 | `out` | `app/client/skill_render.h:31` | neutral |
 | 1 | `Unknown_0C` | `app/client/skill_render.h:31` | untagged neutral name (D10) |
@@ -6579,20 +6558,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C` | `app/client/skill_render.h:40` | untagged neutral name (D10) |
 | 1 | `ability, update` | `app/client/skill_render.h:42` | neutral |
 | 1 | `Unknown_6A72E0` | `app/client/skill_render.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown_6A7310` | `app/client/skill_render.h:43` | untagged neutral name (D10) |
-| 1 | `on, robj` | `app/client/skill_render.h:44` | neutral |
-| 1 | `Unknown_6A73C0` | `app/client/skill_render.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/skill_render.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/skill_render.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/skill_render.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/skill_render.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/skill_render.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/skill_render.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/skill_render.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/skill_render.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/skill_render.h:57` | untagged neutral name (D10) |
-| 1 | `gadget` | `app/client/skill_render.h:60` | neutral |
-| 1 | `Unknown_6A7380` | `app/client/skill_render.h:60` | untagged neutral name (D10) |
+| 1 | `Get_34` | `app/client/skill_render.h:43` | neutral (D10) |
+| 1 | `Unknown34` | `app/client/skill_render.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7310` | `app/client/skill_render.h:44` | untagged neutral name (D10) |
+| 1 | `on, robj` | `app/client/skill_render.h:45` | neutral |
+| 1 | `Unknown_6A73C0` | `app/client/skill_render.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/skill_render.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/skill_render.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/skill_render.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/skill_render.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/skill_render.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/skill_render.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/skill_render.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/skill_render.h:58` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/skill_render.h:61` | neutral |
+| 1 | `Unknown_6A7380` | `app/client/skill_render.h:61` | untagged neutral name (D10) |
 | 1 | `Unknown00Base` | `app/client/slot_data_render.cpp:18` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/slot_data_render.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/slot_data_render.cpp:18` | untagged neutral name (D10) |
@@ -7541,7 +7521,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_A4` | `app/client/ui_attrb_skills.h:36` | untagged neutral name (D10) |
 | 1 | `Unknown_A8` | `app/client/ui_attrb_skills.h:37` | untagged neutral name (D10) |
 | 1 | `robj, skill` | `app/client/ui_attrb_skills.h:38` | neutral |
-| 1 | `Unknown670C90Class` | `app/client/ui_attrb_skills.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/ui_attrb_skills.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown_B0` | `app/client/ui_attrb_skills.h:39` | untagged neutral name (D10) |
 | 1 | `Unknown_B4` | `app/client/ui_attrb_skills.h:40` | untagged neutral name (D10) |
@@ -17205,7 +17184,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `MinBoneIdx` | `app/client/gd_slider.h:54` | G_ASSERT 'MinBoneIdx' |
 | 2 | `MaxBoneIdx` | `app/client/gd_slider.h:55` | G_ASSERT 'MaxBoneIdx' |
 | 2 | `PressedObject` | `app/client/gd_slider.h:84` | FAIL_IF 'PressedObject' |
-| 2 | `slot_iface, slot_render` | `app/client/gd_slot_data.h:70` | the asserts' members; ui_slot_data.cpp's '!slot_render' |
+| 2 | `slot_iface, slot_render` | `app/client/gd_slot_data.h:49` | the asserts' members; ui_slot_data.cpp's '!slot_render' |
 | 2 | `Set_Render_Obj` | `app/client/gd_text_editor.h:40` | the base's |
 | 2 | `std:` | `app/client/gd_text_editor.h:42` | what it answers |
 | 2 | `Set_Text` | `app/client/gd_text_editor.h:43` | what it does; NAME 1 [text]: neutral |
@@ -20060,7 +20039,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GalaxyMapPipClass` | `app/client/galaxy_map_pip.h:69` | class-from-file (D24) for app\client\galaxy_map_pip.cpp |
 | 3 | `GalaxyBackground` | `app/client/galaxy_map_pip.h:99` | the FAIL_IF's |
 | 3 | `Grid` | `app/client/galaxy_map_pip.h:100` | the FAIL_IF's |
-| 3 | `gd_attrb_skills.cpp` | `app/client/gd_attrb_skills.cpp:16` | the assert's; the dots' array |
+| 3 | `gd_attrb_skills.cpp` | `app/client/gd_attrb_skills.cpp:17` | the assert's; the dots' array |
 | 3 | `Abilities` | `app/client/gd_attrb_skills.cpp:43` | its assert |
 | 3 | `gd_attrb_skills.h` | `app/client/gd_attrb_skills.h:16` | header name assumed from the client's gd_attrb_skills.cpp |
 | 3 | `AttachTo` | `app/client/gd_attrb_skills.h:50` | its asserts |
@@ -20086,11 +20065,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Peek_Render_Obj` | `app/client/gd_robj.h:55` | the FAIL_IF's |
 | 3 | `RObj` | `app/client/gd_robj.h:64` | the assert's |
 | 3 | `gd_slot_data.h` | `app/client/gd_slot_data.h:17` | header name assumed from the client's gd_slot_data.cpp |
-| 3 | `SlotDataRenderClass` | `app/client/gd_slot_data.h:30` | class-from-file (D24) for app\Client\slot_data_render.cpp |
-| 3 | `SlotDataGadgetClass` | `app/client/gd_slot_data.h:67` | class-from-file (D24) for app\Client\gd_slot_data.cpp |
-| 3 | `SlotIFace` | `app/client/gd_slot_data.h:89` | the asserts' |
-| 3 | `SlotRender` | `app/client/gd_slot_data.h:90` | the asserts' |
-| 3 | `ShortcutOwner` | `app/client/gd_slot_data.h:106` | the asserts' |
+| 3 | `SlotDataGadgetClass` | `app/client/gd_slot_data.h:46` | class-from-file (D24) for app\Client\gd_slot_data.cpp |
+| 3 | `SlotIFace` | `app/client/gd_slot_data.h:68` | the asserts' |
+| 3 | `SlotRender` | `app/client/gd_slot_data.h:69` | the asserts' |
+| 3 | `ShortcutOwner` | `app/client/gd_slot_data.h:85` | the asserts' |
 | 3 | `TextEditorGadgetClass` | `app/client/gd_text_editor.h:29` | class-from-file (D24) for app\Client\gd_text_editor.cpp |
 | 3 | `Slider` | `app/client/gd_text_editor.h:72` | the FAIL_IF's |
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
@@ -20250,9 +20228,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SkillRenderClass` | `app/client/skill_render.h:25` | class-from-file (D24) for app\Client\skill_render.cpp |
 | 3 | `string` | `app/client/skill_render.h:34` | its FAIL_IF |
 | 3 | `render` | `app/client/skill_render.h:39` | its FAIL_IF |
-| 3 | `ValidityIndicator` | `app/client/skill_render.h:50` | its assert |
-| 3 | `WrongTargetTypeIndicator` | `app/client/skill_render.h:51` | its assert |
-| 3 | `RechargeIndicator` | `app/client/skill_render.h:52` | its assert |
+| 3 | `ValidityIndicator` | `app/client/skill_render.h:51` | its assert |
+| 3 | `WrongTargetTypeIndicator` | `app/client/skill_render.h:52` | its assert |
+| 3 | `RechargeIndicator` | `app/client/skill_render.h:53` | its assert |
 | 3 | `SlotDataClass` | `app/client/slot_data_render.cpp:19` | 0x6A7310's FAIL_IF |
 | 3 | `SlotDataRenderClass` | `app/client/slot_data_render.h:30` | class-from-file (D24) for app\Client\slot_data_render.cpp |
 | 3 | `sd` | `app/client/slot_data_render.h:35` | 0x6A7310's FAIL_IF; NAME 1 [robj]: neutral |
