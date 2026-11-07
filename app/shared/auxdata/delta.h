@@ -65,6 +65,9 @@ public:
 	virtual void Unknown_18() = 0;
 
 	// the typed adds of kv_encoder.cpp (no caller found): one value, a value kept per frame, one pair per element
+	// In the client five of these are virtual, in KVFilterEncoderClass (kv_encoder.h; vtable 0xAEB6B8) over this class's pure slots: +0x08 Add_Accel,
+	// +0x0C Add_Matrix3D, +0x10 Add_Vector3 (Add_Color above), +0x14 Add_Matrix3D_Frame, +0x18 Add_Vector3_Frame; the five Elements ones hold no slot.
+	// Declared as they are here because with those signatures no SYMBOL_PAD has aux_roots.cpp's six constructors exact (workflow.md 3.3): interim, D137.
 	void Add_Vector3(int mask, const char *name, Vector3 *value);						// 0x4B18C0  // NAME 2: what it does
 	void Add_Matrix3D(int mask, const char *name, Matrix3D *value);					// 0x4B18F0  // NAME 2: what it does
 	void Add_Accel(int mask, const char *name, AccelClass *value);						// 0x4B1920  // NAME 2: what it does

@@ -5261,7 +5261,14 @@
      "0x4A4E50",
      "0x4A62F0",
      "0x4A85E0",
-     "0x4A8830"
+     "0x4A8770",
+     "0x4A8830",
+     "0x4A8850",
+     "0x4A8880",
+     "0x4A88B0",
+     "0x4A88E0",
+     "0x4A8910",
+     "0x4A8990"
     ],
     "short_known": [
      "0x4A3C50",
@@ -10856,14 +10863,73 @@
      "0x444190"
     ]
    },
-   "kv_encoder": {
+   "kv_acc": {
     "ambiguous": [
      "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
     "in_tree": [
+     "0x4A7F00",
+     "0x4B0A90",
+     "0x4B0B20",
+     "0x4B0B50",
+     "0x4B0B90",
+     "0x4B0BB0",
+     "0x4B0BD0",
+     "0x4B1160",
+     "0x4B1190",
+     "0x4B11C0",
+     "0x4B11E0",
+     "0x4B1270",
+     "0x4B1300",
+     "0x4B1340",
+     "0x4B1370",
+     "0x4B13A0",
+     "0x4B13C0",
+     "0x4B14B0",
+     "0x4B15A0",
+     "0x4B1610",
+     "0x4B1640",
+     "0x4B1660",
+     "0x4B16B0"
+    ],
+    "merged": [],
+    "name": "shared/kv_acc.cpp",
+    "shared": [
+     "0x4A7F00",
+     "0x4B0B90",
+     "0x4B0BB0",
+     "0x4B11C0",
+     "0x4B13A0",
+     "0x4B1640"
+    ],
+    "short_known": [
+     "0x4B0B90",
+     "0x4B0BB0",
+     "0x4B11C0",
+     "0x4B13A0",
+     "0x4B1640"
+    ]
+   },
+   "kv_encoder": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120",
      "0x42F250",
+     "0x432D50",
+     "0x433700",
      "0x4484C0",
      "0x448580",
      "0x4485A0",
@@ -10943,12 +11009,26 @@
      "0x4B36F0",
      "0x4B3710",
      "0x4B3730",
-     "0x4B3760"
+     "0x4B3760",
+     "0x4B5AD0",
+     "0x4B5B20",
+     "0x4B5B50",
+     "0x4B5BE0",
+     "0x4B5C60"
     ],
     "merged": [],
     "name": "shared/kv_encoder.cpp",
     "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120",
      "0x42F250",
+     "0x432D50",
+     "0x433700",
      "0x4484C0",
      "0x448580",
      "0x4485A0",
@@ -10973,6 +11053,7 @@
      "0x4B3710"
     ],
     "short_known": [
+     "0x42D120",
      "0x448580",
      "0x4B1800",
      "0x4B24F0",
@@ -10992,8 +11073,7 @@
    "kv_encoder_base": {
     "ambiguous": [
      "0x42A6C0",
-     "0x42B2F0",
-     "0x444190"
+     "0x42B2F0"
     ],
     "copy": "reconstructed",
     "expected": {},
@@ -11008,6 +11088,27 @@
      "0x42D050",
      "0x42D120",
      "0x433700",
+     "0x4A7F00",
+     "0x4B0C90",
+     "0x4B0CD0",
+     "0x4B0D10",
+     "0x4B0D30",
+     "0x4B0D60",
+     "0x4B0D80",
+     "0x4B0E00",
+     "0x4B0E40",
+     "0x4B0E60",
+     "0x4B0E90",
+     "0x4B0EB0",
+     "0x4B0EF0",
+     "0x4B0F30",
+     "0x4B0F50",
+     "0x4B0F80",
+     "0x4B0FA0",
+     "0x4B0FC0",
+     "0x4B10A0",
+     "0x4B10E0",
+     "0x4B1110",
      "0x4B3850",
      "0x4B3B10",
      "0x4B3B90",
@@ -11023,6 +11124,11 @@
      "0x4B45B0",
      "0x4B4820",
      "0x4B48A0",
+     "0x4B4A70",
+     "0x4B4C50",
+     "0x4B4E30",
+     "0x4B5010",
+     "0x4B51F0",
      "0x4B53D0",
      "0x4B5450",
      "0x4B5470",
@@ -11032,6 +11138,7 @@
      "0x4B56B0",
      "0x4B56F0",
      "0x4B5740",
+     "0x4B58B0",
      "0x4B58D0"
     ],
     "merged": [],
@@ -11047,6 +11154,14 @@
      "0x42D050",
      "0x42D120",
      "0x433700",
+     "0x4A7F00",
+     "0x4B0D10",
+     "0x4B0D60",
+     "0x4B0E40",
+     "0x4B0E90",
+     "0x4B0F30",
+     "0x4B0F80",
+     "0x4B1110",
      "0x4B53D0",
      "0x4B5560",
      "0x4B55F0",
@@ -11054,7 +11169,14 @@
      "0x4B58D0"
     ],
     "short_known": [
-     "0x42D120"
+     "0x42D120",
+     "0x4B0D10",
+     "0x4B0D60",
+     "0x4B0E40",
+     "0x4B0E90",
+     "0x4B0F30",
+     "0x4B0F80",
+     "0x4B1110"
     ]
    },
    "kv_list": {
@@ -11159,6 +11281,41 @@
     "name": "shared/kv_pair_string.cpp",
     "short_known": [
      "0x4B8090"
+    ]
+   },
+   "kv_time_adds": {
+    "ambiguous": [
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4A8770",
+     "0x4A8830",
+     "0x4A8850",
+     "0x4A8880",
+     "0x4A88B0",
+     "0x4A88E0",
+     "0x4A8910",
+     "0x4A8990",
+     "0x4B5F00",
+     "0x4B5F30",
+     "0x4B60B0"
+    ],
+    "merged": [],
+    "name": "shared/kv_time_adds.cpp",
+    "shared": [
+     "0x4A8770",
+     "0x4A8830",
+     "0x4A8850",
+     "0x4A8880",
+     "0x4A88B0",
+     "0x4A88E0",
+     "0x4A8910",
+     "0x4A8990"
+    ],
+    "short_known": [
+     "0x4A8830"
     ]
    },
    "kv_tripl": {
@@ -35477,6 +35634,9 @@
    "shared/heightfield.h": "reconstructed",
    "shared/ini_manager.h": "reconstructed",
    "shared/kv_acc_array.h": "reconstructed",
+   "shared/kv_acc_string.h": "reconstructed",
+   "shared/kv_acc_time.h": "reconstructed",
+   "shared/kv_encoder.h": "reconstructed",
    "shared/kv_encoder_base.h": "reconstructed",
    "shared/kv_list.h": "reconstructed",
    "shared/kv_pair.h": "reconstructed",
@@ -35520,7 +35680,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11742,
+  "in_tree_total": 11798,
   "totals": {}
  },
  "binkmovie": {

@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): notes at the end of the file
-#include "auxdata\delta.h"
+#include "kv_encoder.h"
 #include "vector3.h"
 #include "matrix3d.h"
 
@@ -13,19 +13,6 @@ bool String_To_Value(const char *text, Matrix3D *value);					// 0x4A3990
 inline const char *Type_Name(Vector3 *) { return "Vector3"; }
 inline const char *Type_Name(Matrix3D *) { return "Matrix3D"; }
 
-// accel.cpp's value (0x498C10-0x499180; not in the tree yet, interim here, D137)
-class AccelClass	// NAME 3: the pair's type name "AccelClass"
-{
-public:
-	AccelClass();											// 0x498C10
-	AccelClass &operator=(const AccelClass &that);	// 0x498FD0
-	bool operator!=(const AccelClass &that) const;	// 0x499000
-
-	bool Unknown00;										// +0x00  // NAME 1: neutral (D10)
-	float Target;											// +0x04 (the key's)
-	float Accel;											// +0x08 (the key's)
-	float Current;											// +0x0C (the key's)
-};
 char *Value_To_String(char *buf, int size, const AccelClass &value);	// 0x499070
 bool String_To_Value(const char *text, AccelClass *value);				// 0x4990C0
 inline const char *Type_Name(AccelClass *) { return "AccelClass"; }
@@ -56,6 +43,7 @@ DeltaChildVisitorClass::DeltaChildVisitorClass(KVListClass *list, int flags, con
 {
 }
 
+#pragma auto_inline(off)
 // @0x4B1820
 void DeltaChildVisitorClass::Add_Child(int mask, const char *name, DeltaInterfaceClass *child)
 {
@@ -71,6 +59,7 @@ void DeltaChildVisitorClass::Add_Child(int mask, const char *name, DeltaInterfac
 		Pop_Prefix();
 	}
 }
+#pragma auto_inline(on)
 
 // @0x4B18C0
 void DeltaChildVisitorClass::Add_Vector3(int mask, const char *name, Vector3 *value)
@@ -182,6 +171,37 @@ void DeltaChildVisitorClass::Add_Matrix3D_Elements_Frame(int mask, const char *n
 	}
 }
 
+// @0x4B5AD0
+KVFilterEncoderClass::KVFilterEncoderClass(KVListClass *list, int flags, const char *prefix) :
+	DeltaChildVisitorClass(list, flags, prefix)
+{
+}
+
+// @0x4B5BE0
+void KVFilterEncoderClass::Add_Child(int mask, const char *name, DeltaInterfaceClass *child)
+{
+	const char *key = Make_Key(name);
+	for (std::vector<std::string>::iterator i = Excludes.begin(); i != Excludes.end(); ++i) {
+		if (strncmp(i->c_str(), key, i->length()) == 0) {
+			return;
+		}
+	}
+	DeltaChildVisitorClass::Add_Child(mask, name, child);
+}
+
+// @0x4B5C60
+void KVFilterEncoderClass::Add_Exclude(const char *prefix)
+{
+	Excludes.push_back(std::string(prefix));
+}
+
+// @0x4B5D70
+// NOT EXACT: inline budget: the client's string destructor calls _Refcnt and deallocate out of line (0x4B5E40, 0x4B5E60) here; attempts.csv
+void KVFilterEncoderClass::Clear_Excludes()
+{
+	Excludes.clear();
+}
+
 #pragma auto_inline(off)
 // @0x4B2BB0
 void KVEncoderBaseClass::Add(int mask, const char *name, Vector3 *value)
@@ -223,7 +243,10 @@ void KVEncoderBaseClass::Add(int mask, const char *name, AccelClass *value)
 **	kv_encoder_base.cpp. Client 0x4B1740 (permstr.h's static opens the object) to 0x4B37EF (<string>'s initialiser
 **	ends it); kv_encoder_base.cpp's own static follows at 0x4B3800.
 **
-**	The members of DeltaChildVisitorClass (auxdata\delta.h; vtable 0xAEB460): typed adds for Vector3, Matrix3D
-**	and AccelClass, each over one value or over a value kept per frame (the frame toggle 0xBE350C), as one pair or one
-**	float pair per element. The typed pairs and accessors this object instantiates follow them: 0x4B2420-0x4B3760.
+**	DeltaChildVisitorClass's members (auxdata\delta.h; vtable 0xAEB460): typed adds, five of which KVFilterEncoderClass's vtable
+**	0xAEB6B8 holds in the client (delta.h's note), for Vector3, Matrix3D and AccelClass, each over one value or
+**	over a value kept per frame (the frame toggle 0xBE350C), as one pair or one float pair per element. The typed pairs and
+**	accessors this object instantiates follow them: 0x4B2420-0x4B3760. KVFilterEncoderClass's constructor, Add_Child, Add_Exclude
+**	and Clear_Excludes (0x4B5AD0-0x4B5D70) sit in the client after kv_encoder_base.cpp's templates and before a <string> initialiser
+**	0x4B5E80, with no static of their own: probably kv_encoder_base.cpp's object. Placed here with their class (interim, D137).
 */
