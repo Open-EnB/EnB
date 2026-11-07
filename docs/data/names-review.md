@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 164 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1547 |
-| 2 | describes what the code does | 3606 |
-| 1 | neutral placeholder | 17395 |
+| 3 | by convention from a client-named file or sibling | 1548 |
+| 2 | describes what the code does | 3613 |
+| 1 | neutral placeholder | 17394 |
 
 ## For review (score 3 and below)
 
@@ -7425,9 +7425,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LOGIN_PASSWORD_DEFAULT` | `app/client/tasks/tsk_login.cpp:35` | Load_Login's second default |
 | 1 | `Unknown_VersionStruct` | `app/client/tasks/tsk_login.cpp:36` | the version 0x4456C0 returns (0xBDBE78) |
 | 1 | `Unknown_4456C0` | `app/client/tasks/tsk_login.cpp:37` | neutral (D10) |
-| 1 | `Unknown_8190D0Class` | `app/client/tasks/tsk_login.cpp:38` | what 0x8190D0 returns |
-| 1 | `Unknown_8191B0` | `app/client/tasks/tsk_login.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_8190D0` | `app/client/tasks/tsk_login.cpp:39` | neutral (D10) |
 | 1 | `Unknown_BB9654` | `app/client/tasks/tsk_login.cpp:42` | neutral (D10); Accept_Focus clears it |
 | 1 | `Galaxies` | `app/client/tasks/tsk_login.cpp:47` | copied to the task's |
 | 1 | `Unknown_7E5F70` | `app/client/tasks/tsk_login.cpp:48` | neutral (D10); once, by the first LoginTaskClass(mode) |
@@ -7677,6 +7674,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown5C` | `app/client/textgadg.h:88` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/textgadg.h:90` | untagged neutral name (D10) |
 | 1 | `Flags` | `app/client/textgadg.h:91` | neutral (D10) |
+| 1 | `Is_Unknown_819280` | `app/client/time_mgr.cpp:60` | untagged neutral name (D10) |
+| 1 | `Is_Unknown_819280` | `app/client/time_mgr.h:29` | neutral (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/client/tooltip.cpp:21` | untagged neutral name (D10) |
 | 1 | `button, arg` | `app/client/tooltip.cpp:22` | neutral |
 | 1 | `Unknown_42EC60` | `app/client/tooltip.cpp:22` | untagged neutral name (D10) |
@@ -18823,6 +18822,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Model` | `app/client/textgadg.h:82` | the constructor's model |
 | 2 | `Cursor` | `app/client/textgadg.h:83` | what it is |
 | 2 | `Box` | `app/client/textgadg.h:89` | what it holds |
+| 2 | `_instance` | `app/client/time_mgr.cpp:8` | describes what it does |
+| 2 | `Get_Instance` | `app/client/time_mgr.h:25` | a local static's address |
+| 2 | `Set_Time` | `app/client/time_mgr.h:27` | describes what it does |
+| 2 | `In_Date_Range` | `app/client/time_mgr.h:28` | describes what it does |
+| 2 | `Time` | `app/client/time_mgr.h:32` | 0x8191E0's gmtime |
+| 2 | `Dirty` | `app/client/time_mgr.h:33` | Result is out of date |
+| 2 | `Result` | `app/client/time_mgr.h:34` | 0x819280's cached answer |
 | 2 | `MAX_LINES` | `app/client/tooltip.h:32` | tooltip.cpp's assert 'lines > MAX_LINES' (0x6ABC60); the constructor makes 20 fonts |
 | 2 | `gadget` | `app/client/tooltip.h:40` | the FAIL_IF's; NAME 1 [event]: the callback's |
 | 2 | `Lines` | `app/client/tooltip.h:56` | 'lines > MAX_LINES' |
@@ -21464,6 +21470,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `print, s_size, cursorpos, prompt` | `app/client/textgadg.h:50` | the asserts'; NAME 1 [insert, password]: what 0x6AAD10 passes |
 | 3 | `TextGadgetClass` | `app/client/textgadg.h:69` | class-from-file (D24) for app\client\textgadg.cpp |
 | 3 | `pwidth, cp` | `app/client/textgadg.h:79` | the asserts'; NAME 1 [string, font]: neutral |
+| 3 | `TimeMgrClass` | `app/client/time_mgr.h:19` | D24, the client's file time_mgr.cpp |
 | 3 | `tooltip.h` | `app/client/tooltip.h:17` | header name assumed from the client's tooltip.cpp |
 | 3 | `tutorial_manager.h` | `app/client/tutorial_manager.h:19` | header name assumed from the client's tutorial_manager.cpp |
 | 3 | `TutorialManagerClass` | `app/client/tutorial_manager.h:64` | by convention (D24) from the client's file tutorial_manager.cpp ('Tutorial Manager' in its messages, 'starting up Tutorial Manager system') |

@@ -27285,6 +27285,20 @@
      "0x65C920"
     ]
    },
+   "time_mgr": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x8190D0",
+     "0x819140",
+     "0x8191B0",
+     "0x8191E0",
+     "0x819280"
+    ],
+    "merged": [],
+    "name": "client/time_mgr.cpp"
+   },
    "tooltip": {
     "ambiguous": [
      "0x42B2F0",
@@ -35463,6 +35477,7 @@
    "client/tasks/tsk_movie.h": "reconstructed",
    "client/tasks/tsk_smovie.h": "reconstructed",
    "client/textgadg.h": "reconstructed",
+   "client/time_mgr.h": "reconstructed",
    "client/tooltip.h": "reconstructed",
    "client/tutorial_manager.h": "reconstructed",
    "client/ui_analyze.h": "reconstructed",
@@ -35785,7 +35800,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11817,
+  "in_tree_total": 11822,
   "totals": {}
  },
  "binkmovie": {

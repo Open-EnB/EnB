@@ -35,8 +35,8 @@ static char *LOGIN_NAME_DEFAULT = "Click to enter name";	// 0xB9B9E0  // NAME 1:
 static char *LOGIN_PASSWORD_DEFAULT = "";			// 0xB9B9E4  // NAME 1: Load_Login's second default
 struct Unknown_VersionStruct { int Major; int Minor; };	// NAME 1 [Unknown_VersionStruct]: the version 0x4456C0 returns (0xBDBE78)
 Unknown_VersionStruct *Unknown_4456C0();				// NAME 1 [Unknown_4456C0]: neutral (D10)
-class Unknown_8190D0Class { public: void Unknown_8191B0(); };	// NAME 1 [Unknown_8190D0Class]: what 0x8190D0 returns
-Unknown_8190D0Class *Unknown_8190D0(int unknown);		// NAME 1 [Unknown_8190D0]: neutral (D10)
+#include "..\time_mgr.h"
+
 #include "..\splash.h"	// Splash (0x6A9B60, Render 0x6A9E40)
 #include "..\mousetbl.h"								// Unknown_723150 (the destructor calls it), Unknown_7228C0 (the first LoginTaskClass(mode))
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10); Accept_Focus clears it
@@ -966,7 +966,7 @@ void LoginTaskClass::Start_Game()
 {
 	if (Ticket.Character_ID != 0) {
 		LoginTicketInfoClass info = Ticket_Info;
-		Unknown_8190D0(info.Create_Time)->Unknown_8191B0();
+		TimeMgrClass::Get_Instance()->Set_Time(info.Create_Time);
 		Unknown_Debug_Print("LoginTask: removing self.");
 		KernelClass *kernel = Kernel;
 		Done = true;
