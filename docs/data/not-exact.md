@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-659 entries in 180 files.
+658 entries in 180 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -398,8 +398,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_mesh.cpp:62` | `UIMeshClass::Unknown_5B8850` | marker | NOT EXACT: 0x5B8850 (0.79): the client's FAIL_IF path jumps to the shared epilogue, ours repeats it |
 | `app/client/ui_mesh.cpp:194` | `UIMeshClass::Unknown_5B8EE0` | marker | NOT EXACT: 0x5B8EE0 (0.50): register choice (slot in edx, the node through lea ecx) |
 | `app/client/ui_mesh.cpp:203` | `UIMeshClass::Unknown_5B8FF0` | marker | NOT EXACT: 0x5B8FF0 (0.50): as 0x5B8EE0 |
-| `app/client/ui_mesh.cpp:247` | `UIMeshClass::Unknown_5B92D0` | marker | NOT EXACT: 0x5B92D0 (0.50): register choice (this in ebp, slot in edi) |
-| `app/client/ui_mesh.cpp:271` | `UIMeshClass::Unknown_5B9410` | marker | NOT EXACT: 0x5B9410 (0.73) |
+| `app/client/ui_mesh.cpp:271` | `UIMeshClass::Unknown_5B9410` | marker | NOT EXACT: 0x5B9410 (0.82): the client keeps the loop's bool (setne al; test al, al) where ours tests proc directly |
 | `app/client/ui_mfd.cpp:494` | `UIMFDClass::Update_Line` | marker | NOT EXACT: 0x5BCE50, register only: ours keeps line in ebx (one more saved register), the client in esi, reloading it from its slot |
 | `app/client/ui_mfd.cpp:581` | `UIMFDClass::Get_Value` | marker | NOT EXACT: 0x5BD540, inline budget: the client calls 0x5BDED0's two finds (case 10) where ours inlines 0x5BE330 |
 | `app/client/ui_mfd.cpp:675` | `UIMFDClass::Set_ETA` | marker | NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (register/frame only) |

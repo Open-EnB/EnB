@@ -195,18 +195,18 @@ void UIMeshClass::Unknown_5B8DF0(int id, const char *anim_name, bool loop, int a
 void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, int a, int b, int c, int d)
 {
 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
-	proc->Id = id;
 	proc->Slot = slot;
+	proc->Id = id;
 	Unknown4C[slot]->Add_Tail(&proc->Node);
 }
 
 // NOT EXACT: 0x5B8FF0 (0.50): as 0x5B8EE0
 void UIMeshClass::Unknown_5B8FF0(int slot, int id, const char *morph_anim, bool loop, int a, int b, int c, int d)
 {
-	UIProc5DCF00Class *proc = new UIProc5DCF00Class(this, morph_anim, loop, a, b, c, d);
+	UIProcClass *proc = new UIProc5DCF00Class(this, morph_anim, loop, a, b, c, d);
 	proc->Slot = slot;
 	proc->Id = id;
-	Unknown4C[proc->Slot]->Add_Tail(&proc->Node);
+	Unknown4C[slot]->Add_Tail(&proc->Node);
 }
 
 void UIMeshClass::Unknown_5B9100(const char *bone_name, RenderObjClass *object)
@@ -244,13 +244,13 @@ void UIMeshClass::Unknown_5B92B0()
 	InterfaceMesh->Remove();
 }
 
-// NOT EXACT: 0x5B92D0 (0.50): register choice (this in ebp, slot in edi)
 UIProcClass *UIMeshClass::Unknown_5B92D0(int slot)
 {
 	if (slot == -1 || Unknown5C[slot]) {
 		return(NULL);
 	}
-	for (DataNode<UIProcClass *> *node = Unknown4C[slot]->First_Valid(); node != NULL; node = Unknown4C[slot]->First_Valid()) {
+	DataNode<UIProcClass *> *node;
+	while ((node = Unknown4C[slot]->First_Valid()) != NULL) {
 		UIProcClass *proc = node->Get();
 		if (proc->Unknown_04()) {
 			Unknown5C[slot] = true;
@@ -268,7 +268,7 @@ void UIMeshClass::Unknown_00()
 	Unknown_5B9410();
 }
 
-// NOT EXACT: 0x5B9410 (0.73)
+// NOT EXACT: 0x5B9410 (0.82): the client keeps the loop's bool (setne al; test al, al) where ours tests proc directly
 void UIMeshClass::Unknown_5B9410()
 {
 	for (int i = 0; i < Unknown6C; i++) {
@@ -282,15 +282,16 @@ void UIMeshClass::Unknown_5B9410()
 	while (node != NULL) {
 		DataNode<UIProcClass *> *next = node->Next_Valid();
 		UIProcClass *proc = node->Get();
-		do {
+		bool running = true;
+		while (running) {
 			int slot = proc->Slot;
 			if (proc->Unknown_08(time)) {
 				break;
 			}
 			proc->Unknown_0C();
 			delete proc;
-			proc = Unknown_5B92D0(slot);
-		} while ((proc != NULL) ? true : false);
+			running = ((proc = Unknown_5B92D0(slot)) != NULL);
+		}
 		node = next;
 	}
 	if (Unknown2C->Get_Num_Anims() != 0) {
@@ -392,7 +393,6 @@ void UIMeshClass::Unknown_5B9BC0(int slot, const char *name, int arg)
 	proc->Slot = slot;
 	Unknown4C[slot]->Add_Tail(&proc->Node);
 }
-
 
 
 
@@ -570,3 +570,4 @@ void UIMeshClass::Unknown_5BA460(int arg)
 // - 0x5BA480-0x5BB1B0 are the wwlib templates this file instantiates (SList<GadgetClass>, DataNode / List of UIProcClass,
 //   VectorClass<UIProcListClass *> and VectorClass<bool>), emitted with the tables 0xAF31E0-0xAF3274.
 // - UIProcClass's constructor sets Node's value in its body: in the initialiser list the store moved ahead of UIMesh's.
+// - 0x5B92D0 is exact only with the node assigned in the while condition (a for loop gave this and slot swapped registers).
