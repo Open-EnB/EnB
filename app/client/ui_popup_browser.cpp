@@ -1,13 +1,13 @@
 // Earth & Beyond client (reconstruction): app\client\ui_popup_browser.cpp (the client's __FILE__
-// 'e:\build\beta\G\app\Client\ui_popup_browser.cpp', 0x5DAE90-0x5DB670 by its assert and the table
-// 0xAF59F8). So far the panel's four members 0x5DB4A0-0x5DB5F6 (TG3); the constructor 0x5DAE90, the
-// destructors 0x5DB140 / 0x5DB170, the setup 0x5DB2D0 (line 85) and 0x5DB650-0x5DB670 are not rebuilt.
+// 'e:\build\beta\G\app\Client\ui_popup_browser.cpp', 0x5DAE90-0x5DB670 by its assert and the table 0xAF59F8).
 #include "ui_chat_panel.h"
 #include "sclient.h"
 #include "tasks\tsk_login.h"
 #include "tasks\tsk_game.h"
 #include "..\audio\soundlib.h"
 #include "rendobj.h"
+#include "fontmanager.h"
+#include "..\shared\g_assert.h"
 #include <string>
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
@@ -26,19 +26,59 @@ class PopupBrowserSettingsClass { public: void Unknown_7CB240(int a); };	// NAME
 class UIPopupBrowserClass : public UIChatPanelBaseClass	// NAME 3: class-from-file (D24) for ui_popup_browser.cpp
 {
 public:
+	UIPopupBrowserClass(SClient *client, int browser_id, const char *title, const char *url = NULL);	// 0x5DAE90  // NAME 1 [client, browser_id, title, url]: neutral
+	virtual ~UIPopupBrowserClass();						// 0x5DB170 (deleting 0x5DB140; adjustors 0x5DB650 / 0x5DB660)
+
+	virtual void Unknown_54();							// +0x54 0x5DB2D0
 	virtual void Unknown_58();							// +0x58 0x5DB4A0 (activated: the base's, the software mouse hidden)
 	virtual void Unknown_5C();							// +0x5C 0x5DB4E0 (deactivated: the browser closed, the mouse shown)
 	virtual void Unknown_60();							// +0x60 0x5DB580 (every frame: the browser opened on the count's last frame)
-	bool Unknown_5DB530(int id);						// 0x5DB530 (a button: 1 closes the panel)  // NAME 1 [id]: neutral
+	virtual bool Unknown_68(int id);					// +0x68 0x5DB530 (a button: 1 closes the panel)  // NAME 1 [id]: neutral
 
 	int UnknownA0;										// +0xA0
 	int UnknownA4;										// +0xA4 (frames until the browser opens)
 	std::string Url;									// +0xA8 (empty: none)  // NAME 1: neutral
-	char UnknownB8[0xC8 - 0xB8];						// +0xB8
+	std::string Title;									// +0xB8  // NAME 1: neutral
 	int UnknownC8;										// +0xC8 (the browser's id at the settings store)
 };
 
-// 0x5DB4A0
+// NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it)
+// @0x5DAE90
+UIPopupBrowserClass::UIPopupBrowserClass(SClient *client, int browser_id, const char *title, const char *url) :
+	UIChatPanelBaseClass(client)
+{
+	((int *)Unknown70)[1] = 1;
+	UnknownA0 = 0;
+	if (url) {
+		Url.assign(url);
+	} else {
+		Url.assign("");
+	}
+	if (title) {
+		Title.assign(title);
+	} else {
+		Title = "";
+	}
+	UnknownC8 = browser_id;
+}
+
+// @0x5DB170
+UIPopupBrowserClass::~UIPopupBrowserClass()
+{
+	if (Active) {
+		((PopupBrowserSettingsClass *)Unknown_7CA2D0())->Unknown_7CB240(UnknownC8);
+		InterfaceClass::Unknown_5C();
+		((LineDisplayClientClass *)Client)->As_Space_Client()->Mouse->Unknown_515400();
+	}
+}
+
+// NOT EXACT: stub
+// @0x5DB2D0
+void UIPopupBrowserClass::Unknown_54()
+{
+}
+
+// @0x5DB4A0
 void UIPopupBrowserClass::Unknown_58()
 {
 	if (!Active) {
@@ -47,7 +87,7 @@ void UIPopupBrowserClass::Unknown_58()
 	}
 }
 
-// 0x5DB4E0
+// @0x5DB4E0
 void UIPopupBrowserClass::Unknown_5C()
 {
 	if (Active) {
@@ -57,8 +97,8 @@ void UIPopupBrowserClass::Unknown_5C()
 	}
 }
 
-// 0x5DB530
-bool UIPopupBrowserClass::Unknown_5DB530(int id)
+// @0x5DB530
+bool UIPopupBrowserClass::Unknown_68(int id)
 {
 	((LineDisplayClientClass *)Client)->As_Space_Client();
 	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -71,7 +111,7 @@ bool UIPopupBrowserClass::Unknown_5DB530(int id)
 	return(false);
 }
 
-// 0x5DB580
+// @0x5DB580
 void UIPopupBrowserClass::Unknown_60()
 {
 	if (UnknownA4 && --UnknownA4 == 0) {

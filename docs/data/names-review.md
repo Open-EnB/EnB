@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1600 |
 | 2 | describes what the code does | 3751 |
-| 1 | neutral placeholder | 18687 |
+| 1 | neutral placeholder | 18690 |
 
 ## For review (score 3 and below)
 
@@ -12681,22 +12681,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/ui_popup_browser.cpp:18` | untagged neutral name (D10) |
 | 1 | `PopupBrowserSettingsClass, a` | `app/client/ui_popup_browser.cpp:23` | as ui_registration.cpp's |
 | 1 | `Unknown_7CB240` | `app/client/ui_popup_browser.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_popup_browser.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_popup_browser.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_popup_browser.cpp:31` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/ui_popup_browser.cpp:32` | neutral |
-| 1 | `Unknown_5DB530` | `app/client/ui_popup_browser.cpp:32` | untagged neutral name (D10) |
-| 1 | `UnknownA0` | `app/client/ui_popup_browser.cpp:34` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/ui_popup_browser.cpp:35` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_popup_browser.cpp:36` | neutral |
-| 1 | `UnknownB8` | `app/client/ui_popup_browser.cpp:37` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/client/ui_popup_browser.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_5153B0` | `app/client/ui_popup_browser.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA2D0` | `app/client/ui_popup_browser.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown_515400` | `app/client/ui_popup_browser.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/ui_popup_browser.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_popup_browser.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA5C0` | `app/client/ui_popup_browser.cpp:80` | untagged neutral name (D10) |
+| 1 | `client, browser_id, title, url` | `app/client/ui_popup_browser.cpp:29` | neutral |
+| 1 | `Unknown_54` | `app/client/ui_popup_browser.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_popup_browser.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_popup_browser.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_popup_browser.cpp:35` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/ui_popup_browser.cpp:36` | neutral |
+| 1 | `Unknown_68` | `app/client/ui_popup_browser.cpp:36` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/ui_popup_browser.cpp:38` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/ui_popup_browser.cpp:39` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_popup_browser.cpp:40` | neutral |
+| 1 | `std:` | `app/client/ui_popup_browser.cpp:41` | neutral |
+| 1 | `UnknownC8` | `app/client/ui_popup_browser.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_popup_browser.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/ui_popup_browser.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/ui_popup_browser.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/ui_popup_browser.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_popup_browser.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_popup_browser.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA5C0` | `app/client/ui_popup_browser.cpp:120` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_popupmsg.cpp:21` | 0xBE67C4 |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_popupmsg.cpp:32` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_popupmsg.cpp:32` | untagged neutral name (D10) |

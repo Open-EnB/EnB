@@ -2313,3 +2313,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-07,0x60DF90,UIScanClass::~UIScanClass,app/client/ui_scan.cpp,app,partial,0.61,1,source,"first functional draft (inline Remove, threat destructor) (WE9)",,opus
 2026-11-07,0x60E300,UIScanClass::Unknown_68,app/client/ui_scan.cpp,app,partial,0.51,1,layout,first functional draft (key tests' block layout) (WE9),,opus
 2026-11-07,0x60E480,UIScanClass::Unknown_60,app/client/ui_scan.cpp,app,partial,0.68,1,source,first functional draft (WE9),,opus
+2026-11-07 12:08,0x5DAE90,UIPopupBrowserClass::UIPopupBrowserClass,app/client/ui_popup_browser.cpp,app,partial,0.52,,inline-budget,client calls Url's _Tidy(false) out of line; ours expands it,,
