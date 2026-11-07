@@ -324,6 +324,8 @@ public:
 	Unknown5B7AB0Class *Unknown4C;						// +0x4C (0x514E70 makes it; the destructor releases it)
 };
 
+class RadarSystemClass;
+#ifndef __RADAR_SYSTEM_H
 // radar_system.cpp's radar (the main view's +0x80), declared as far as cpacket.cpp calls it
 class RadarSystemClass	// NAME 3: class-from-file (D24) for radar_system.cpp
 {
@@ -337,6 +339,7 @@ public:
 
 	char Unknown00[0x4D]; bool Unknown4D; char Unknown4E[0x50 - 0x4E];	// +0x4D: names of the objects under the mouse ('/art name', 0x74ABC0)
 };
+#endif
 
 // what the PDA's +0xA8 points to, as far as the main view's 0x512A00 calls it
 class PDAInterfaceUnknownA8Class	// NAME 1: neutral (D10)

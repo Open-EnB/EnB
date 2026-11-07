@@ -21619,6 +21619,65 @@
      "0x7BC6D0"
     ]
    },
+   "radar_system": {
+    "ambiguous": [
+     "0x42A6C0",
+     "0x42AAE0",
+     "0x42AFF0",
+     "0x42B2F0",
+     "0x4333D0",
+     "0x457CA0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A970",
+     "0x42AB30",
+     "0x42F250",
+     "0x44C2B0",
+     "0x457FA0",
+     "0x4A0B70",
+     "0x514B60",
+     "0x57DBC0",
+     "0x57DBF0",
+     "0x57DC20",
+     "0x584E20",
+     "0x7BC770",
+     "0x7BC8B0",
+     "0x7BC8E0",
+     "0x7BC930",
+     "0x7BCA40",
+     "0x7BD4C0",
+     "0x7BD5D0",
+     "0x7BD860",
+     "0x7BD920",
+     "0x7BD960",
+     "0x7BD980",
+     "0x7BDBF0",
+     "0x7BDC70",
+     "0x7BDD50",
+     "0x7BDDF0"
+    ],
+    "merged": [],
+    "name": "client/radar_system.cpp",
+    "shared": [
+     "0x42A970",
+     "0x42AB30",
+     "0x42F250",
+     "0x44C2B0",
+     "0x457FA0",
+     "0x4A0B70",
+     "0x514B60",
+     "0x57DBC0",
+     "0x57DBF0",
+     "0x57DC20",
+     "0x584E20"
+    ],
+    "short_known": [
+     "0x4A0B70",
+     "0x7BD960"
+    ]
+   },
    "rect3d": {
     "ambiguous": [
      "0x497350"
@@ -34424,6 +34483,7 @@
    "client/map_pip.h": "reconstructed",
    "client/mouse_targeting.h": "reconstructed",
    "client/mousetbl.h": "reconstructed",
+   "client/nav_list_builder.h": "reconstructed",
    "client/navigation_data.h": "reconstructed",
    "client/nlp.h": "reconstructed",
    "client/option.h": "reconstructed",
@@ -34431,6 +34491,8 @@
    "client/postate.h": "reconstructed",
    "client/radar_data.h": "reconstructed",
    "client/radar_icon_data.h": "reconstructed",
+   "client/radar_system.h": "reconstructed",
+   "client/radar_system_data_cache.h": "reconstructed",
    "client/rect3d.h": "reconstructed",
    "client/sbaseview.h": "reconstructed",
    "client/sclient.h": "reconstructed",
@@ -34777,7 +34839,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11558,
+  "in_tree_total": 11573,
   "totals": {}
  },
  "binkmovie": {
