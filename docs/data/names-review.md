@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 153 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1520 |
-| 2 | describes what the code does | 3382 |
-| 1 | neutral placeholder | 17115 |
+| 3 | by convention from a client-named file or sibling | 1522 |
+| 2 | describes what the code does | 3423 |
+| 1 | neutral placeholder | 17131 |
 
 ## For review (score 3 and below)
 
@@ -6719,6 +6719,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SignalMapData` | `app/client/signal_map.cpp:28` | neutral (D10) |
 | 1 | `Unknown_4F7EF0` | `app/client/signal_map.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_4F7F60` | `app/client/signal_map.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_813B00` | `app/client/skill_ability_data_peek.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/skill_ability_data_peek.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_813B30` | `app/client/skill_ability_data_peek.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown_813B00` | `app/client/skill_ability_data_peek.h:32` | neutral (D10) |
+| 1 | `Unknown_813B30` | `app/client/skill_ability_data_peek.h:33` | neutral (D10) |
+| 1 | `Unknown04` | `app/client/skill_ability_data_peek.h:53` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/client/skill_ability_data_peek.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_6A5440` | `app/client/skill_data_peek.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/skill_data_peek.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_6A5470` | `app/client/skill_data_peek.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/skill_data_peek.cpp:128` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/client/skill_data_peek.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_6A5440` | `app/client/skill_data_peek.h:33` | neutral (D10) |
+| 1 | `Unknown_6A5470` | `app/client/skill_data_peek.h:34` | neutral (D10) |
+| 1 | `Unknown04` | `app/client/skill_data_peek.h:54` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/client/skill_data_peek.h:54` | untagged neutral name (D10) |
 | 1 | `Unknown744FE0Class` | `app/client/skill_render.cpp:15` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/skill_render.cpp:15` | untagged neutral name (D10) |
@@ -18277,6 +18293,47 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `View` | `app/client/scriptedmovie.cpp:1621` | what it holds |
 | 2 | `Frame` | `app/client/scriptedmovieline.h:17` | what the order compares |
 | 2 | `Text` | `app/client/scriptedmovieline.h:18` | what it holds |
+| 2 | `SkillAbilityFieldNames` | `app/client/skill_ability_data_peek.cpp:7` | describes what it does |
+| 2 | `Detach` | `app/client/skill_ability_data_peek.h:29` | describes what it does |
+| 2 | `Attach` | `app/client/skill_ability_data_peek.h:30` | describes what it does |
+| 2 | `Get_Has_Ability` | `app/client/skill_ability_data_peek.h:35` | the client's field name (0xBA7910) |
+| 2 | `Get_Usage` | `app/client/skill_ability_data_peek.h:36` | the client's field name (0xBA7910) |
+| 2 | `Get_Targets` | `app/client/skill_ability_data_peek.h:37` | the client's field name (0xBA7910) |
+| 2 | `Get_Range` | `app/client/skill_ability_data_peek.h:38` | the client's field name (0xBA7910) |
+| 2 | `Get_Radius` | `app/client/skill_ability_data_peek.h:39` | the client's field name (0xBA7910) |
+| 2 | `Get_Validity` | `app/client/skill_ability_data_peek.h:40` | the client's field name (0xBA7910) |
+| 2 | `Get_Can_Be_Used_While_Incapacitated` | `app/client/skill_ability_data_peek.h:41` | the client's field name (0xBA7910) |
+| 2 | `Get_Ability` | `app/client/skill_ability_data_peek.h:44` | describes what it does |
+| 2 | `Get_Field` | `app/client/skill_ability_data_peek.h:45` | describes what it does |
+| 2 | `Update_Fields` | `app/client/skill_ability_data_peek.h:46` | describes what it does |
+| 2 | `Peek_Value` | `app/client/skill_ability_data_peek.h:49` | describes what it does |
+| 2 | `Owner` | `app/client/skill_ability_data_peek.h:140` | describes what it does |
+| 2 | `Name` | `app/client/skill_ability_data_peek.h:141` | describes what it does |
+| 2 | `List` | `app/client/skill_ability_data_peek.h:142` | describes what it does |
+| 2 | `Count` | `app/client/skill_ability_data_peek.h:143` | describes what it does |
+| 2 | `Fields` | `app/client/skill_ability_data_peek.h:144` | describes what it does |
+| 2 | `Status` | `app/client/skill_ability_data_peek.h:145` | describes what it does |
+| 2 | `SkillFieldNames` | `app/client/skill_data_peek.cpp:7` | describes what it does |
+| 2 | `UnknownEmptyAvailability` | `app/client/skill_data_peek.cpp:12` | describes what it does |
+| 2 | `Detach` | `app/client/skill_data_peek.h:30` | describes what it does |
+| 2 | `Attach` | `app/client/skill_data_peek.h:31` | describes what it does |
+| 2 | `Get_Level` | `app/client/skill_data_peek.h:36` | the client's field name (0xB913DC) |
+| 2 | `Get_Recycle_Time` | `app/client/skill_data_peek.h:37` | the client's field name (0xB913DC) |
+| 2 | `Get_Last_Activation` | `app/client/skill_data_peek.h:38` | the client's field name (0xB913DC) |
+| 2 | `Get_Availability` | `app/client/skill_data_peek.h:39` | the client's field name (0xB913DC) |
+| 2 | `std:` | `app/client/skill_data_peek.h:40` | the client's field name (0xB913DC) |
+| 2 | `Get_Quest_Only_Levels` | `app/client/skill_data_peek.h:41` | the client's field name (0xB913DC) |
+| 2 | `Get_Max_Skill_Levels` | `app/client/skill_data_peek.h:42` | the client's field name (0xB913DC) |
+| 2 | `Get_Skill` | `app/client/skill_data_peek.h:45` | describes what it does |
+| 2 | `Get_Field` | `app/client/skill_data_peek.h:46` | describes what it does |
+| 2 | `Update_Fields` | `app/client/skill_data_peek.h:47` | describes what it does |
+| 2 | `Peek_Value` | `app/client/skill_data_peek.h:50` | describes what it does |
+| 2 | `Owner` | `app/client/skill_data_peek.h:144` | describes what it does |
+| 2 | `Name` | `app/client/skill_data_peek.h:145` | describes what it does |
+| 2 | `List` | `app/client/skill_data_peek.h:146` | describes what it does |
+| 2 | `Count` | `app/client/skill_data_peek.h:147` | describes what it does |
+| 2 | `Fields` | `app/client/skill_data_peek.h:148` | describes what it does |
+| 2 | `Status` | `app/client/skill_data_peek.h:149` | describes what it does |
 | 2 | `Get_Slot` | `app/client/slot_data_render.h:54` | the accessor of Unknown20, the slot |
 | 2 | `position` | `app/client/slot_data_render.h:61` | RenderObjClass::Set_Position |
 | 2 | `CameraModeStruct` | `app/client/soptions.h:26` | what it holds |
@@ -20881,6 +20938,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `PIPView` | `app/client/ship_pip.h:62` | the FAIL_IF's |
 | 3 | `FloatParent` | `app/client/ship_pip.h:88` | the assert's |
 | 3 | `shiputils.cpp` | `app/client/shiputils.cpp:366` | the FAIL_IF's 'slot_id >= MAX_NUM_DECAL_SLOTS' |
+| 3 | `SkillAbilityDataPeekClass` | `app/client/skill_ability_data_peek.h:24` | by convention (D24) from the client's file skill_ability_data_peek.cpp |
+| 3 | `SkillDataPeekClass` | `app/client/skill_data_peek.h:25` | by convention (D24) from the client's file skill_data_peek.cpp |
 | 3 | `SlotDataClass` | `app/client/skill_render.cpp:22` | its local sd (0x6A7310) |
 | 3 | `Abilities, NumActivatable` | `app/client/skill_render.cpp:30` | asserts |
 | 3 | `SkillRenderClass` | `app/client/skill_render.h:25` | class-from-file (D24) for app\Client\skill_render.cpp |

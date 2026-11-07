@@ -2201,3 +2201,5 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-06 21:48,0x5F8560,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,"for with it++; inline-budget: client calls begin 0x606960, iterator++ 0x607120",,opus
 2026-11-06 21:48,0x5F8AD0,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,operator[] throughout; inline-budget: client calls 0x606150/0x6047D0/0x6074B0,,opus
 2026-11-06 21:48,0x603820,,app/client/ui_registration.cpp,app,partial,,1,inline-budget,local std::string; inline-budget: _Eos out of line in client,,opus
+2026-11-06 21:18,0x6A5380,SkillDataPeekClass::Detach,app/client/skill_data_peek.cpp,app,exact,,,,too short for the matcher; EXACT at its marker (D99),,opus
+2026-11-06 21:18,0x813A40,SkillAbilityDataPeekClass::Detach,app/client/skill_ability_data_peek.cpp,app,exact,,,,too short for the matcher; EXACT at its marker (D99),,opus

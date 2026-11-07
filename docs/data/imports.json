@@ -24322,6 +24322,71 @@
      "0x4F9200"
     ]
    },
+   "skill_ability_data_peek": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x8139F0",
+     "0x813A60",
+     "0x813B00",
+     "0x813B30",
+     "0x813B70",
+     "0x813BE0",
+     "0x813C50",
+     "0x813CC0",
+     "0x813D30",
+     "0x813DA0",
+     "0x813E10",
+     "0x813E80",
+     "0x813F40",
+     "0x814000"
+    ],
+    "merged": [],
+    "name": "client/skill_ability_data_peek.cpp"
+   },
+   "skill_data_peek": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120",
+     "0x6A5330",
+     "0x6A53A0",
+     "0x6A5440",
+     "0x6A5470",
+     "0x6A54B0",
+     "0x6A5520",
+     "0x6A55B0",
+     "0x6A5640",
+     "0x6A5900",
+     "0x6A5970",
+     "0x6A59E0",
+     "0x6A5A50",
+     "0x6A5B10",
+     "0x6A5BD0"
+    ],
+    "merged": [],
+    "name": "client/skill_data_peek.cpp",
+    "shared": [
+     "0x42A820",
+     "0x42A940",
+     "0x42A970",
+     "0x42AB30",
+     "0x42CAB0",
+     "0x42CD30",
+     "0x42D120"
+    ],
+    "short_known": [
+     "0x42D120"
+    ]
+   },
    "skill_render": {
     "ambiguous": [
      "0x42A6C0",
@@ -34071,6 +34136,8 @@
    "client/scriptedmovieline.h": "reconstructed",
    "client/ship_pip.h": "reconstructed",
    "client/shiputils.h": "reconstructed",
+   "client/skill_ability_data_peek.h": "reconstructed",
+   "client/skill_data_peek.h": "reconstructed",
    "client/skill_render.h": "reconstructed",
    "client/slot_data_render.h": "reconstructed",
    "client/soptions.h": "reconstructed",
@@ -34405,7 +34472,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11448,
+  "in_tree_total": 11476,
   "totals": {}
  },
  "binkmovie": {
