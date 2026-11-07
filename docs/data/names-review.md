@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 170 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1597 |
-| 2 | describes what the code does | 3687 |
-| 1 | neutral placeholder | 18420 |
+| 2 | describes what the code does | 3685 |
+| 1 | neutral placeholder | 18418 |
 
 ## For review (score 3 and below)
 
@@ -6126,8 +6126,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_04` | `app/client/sclient.cpp:246` | untagged neutral name (D10) |
 | 1 | `SClientCallbackBaseClass` | `app/client/sclient.cpp:262` | neutral (D10) |
 | 1 | `SClientCallbackClass` | `app/client/sclient.cpp:263` | neutral (D10) |
-| 1 | `SClientNotifierClass` | `app/client/sclient.cpp:276` | neutral (D10) |
-| 1 | `Unknown_79B9E0` | `app/client/sclient.cpp:282` | neutral (D10) |
 | 1 | `Unknown_BBB084` | `app/client/sclient.cpp:292` | neutral (D10): Init clears it |
 | 1 | `Unknown_C07550` | `app/client/sclient.cpp:293` | neutral (D10): the text's coordinate range |
 | 1 | `Unknown_6E6A90` | `app/client/sclient.cpp:296` | untagged neutral name (D10) |
@@ -19605,8 +19603,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Tilt` | `app/client/sclient.cpp:211` | Init passes the camera mode's Tilt |
 | 2 | `Set_Elevation_Offset` | `app/client/sclient.cpp:212` | Init passes the camera mode's ElevationOffset |
 | 2 | `FOV` | `app/client/sclient.cpp:219` | what it holds |
-| 2 | `Add` | `app/client/sclient.cpp:279` | what Init does with it |
-| 2 | `Remove` | `app/client/sclient.cpp:280` | what Shutdown does with it |
 | 2 | `INIUsers` | `app/client/sclient.cpp:299` | what it counts |
 | 2 | `SoundManager` | `app/client/sclient.cpp:779` | what it holds |
 | 2 | `Sample2DNames` | `app/client/sclient.cpp:5116` | what it holds |

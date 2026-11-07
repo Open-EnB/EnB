@@ -261,6 +261,7 @@ public:
 #include "unknown_signalbase.h"
 typedef SignalBaseClass::CallbackClass SClientCallbackBaseClass;	// NAME 1 [SClientCallbackBaseClass]: neutral (D10)
 typedef SignalBaseClass::MemberCallback<CameraModuleClass, SClient, void (SClient::*)(CameraModuleSignal *, CameraModuleClass *), CameraModuleSignal> SClientCallbackClass;	// NAME 1 [SClientCallbackClass]: neutral (D10)
+#include "cammod.h"
 
 
 
@@ -272,14 +273,13 @@ typedef SignalBaseClass::MemberCallback<CameraModuleClass, SClient, void (SClien
 
 
 
-// What 0x79B9E0 returns (camera_manager.cpp's neighbourhood): it keeps the callbacks per camera manager id
-class SClientNotifierClass		// NAME 1: neutral (D10)
-{
-public:
-	void Add(int id, SClientCallbackBaseClass *callback);		// 0x4F9740  // NAME 2: what Init does with it
-	void Remove(int id, SClientCallbackBaseClass *callback);	// 0x4F98D0  // NAME 2: what Shutdown does with it
-};
-SClientNotifierClass *Unknown_79B9E0();					// NAME 1 [Unknown_79B9E0]: neutral (D10)
+
+
+
+
+
+
+
 
 // The font database Init asks: sclient.h's SClientFontDatabaseClass (fontdatabase.cpp's at 0xBE67BC; the options
 // at 0xBE8B38 are option.h's OptionClass::Instance)
@@ -460,8 +460,8 @@ void SClient::Init()
 
 	CameraManager = new CameraManagerClass(this);
 	int id = CameraManager->Unknown04;
-	SClientNotifierClass *notifier = Unknown_79B9E0();
-	notifier->Add(id, new SClientCallbackClass(this, &SClient::Unknown_744E50));
+	SignalMap &notifier = CameraModuleClass::Get_Signal_Map();
+	notifier.connect((void *)id, new SClientCallbackClass(this, &SClient::Unknown_744E50));
 	if (OptionClass::Instance->Get_Bool("Bridge_Mode")) {
 		Set_Camera_Mode(0);
 	} else {
@@ -539,9 +539,9 @@ void SClient::Shutdown()
 	Unknown1330 = NULL;
 
 	int id = CameraManager->Unknown04;
-	SClientNotifierClass *notifier = Unknown_79B9E0();
+	SignalMap &notifier = CameraModuleClass::Get_Signal_Map();
 	SClientCallbackClass callback(this, &SClient::Unknown_744E50);
-	notifier->Remove(id, &callback);
+	notifier.disconnect((void *)id, callback);
 	delete CameraManager;
 	CameraManager = NULL;
 
