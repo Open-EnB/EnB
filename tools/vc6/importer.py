@@ -4722,6 +4722,8 @@ RECONSTRUCTED = {
     ('app', 'client/ui_playeropt.cpp'): "ui_playeropt.cpp (the client's __FILE__ 0xB84604; client 0x5D8C40-0x5DAE8F by its assert (line 395), 'UI_PLAYEROPT' / 'fa_tsi27a.ini' and its table 0xAF58B0, after ui_ping.cpp, before ui_popup_browser.cpp's 0x5DAE90): the window's constructor, slots +0x60-+0x7C and its list helpers (CP1)",
     ('app', 'client/galaxy_map_focal_point.h'): "GalaxyMapFocalPointClass's declaration (D24 header name from galaxy_map_focal_point.cpp's __FILE__; 0x3C bytes, no table) (MP1)",
     ('app', 'client/galaxy_map_focal_point.cpp'): "GalaxyMapFocalPointClass (D24 class-from-file), the point the galaxy map's camera looks at (the client's __FILE__ 0xB9E8F4; client 0x7A5730-0x7A5FF3) (MP1)",
+    ('app', 'client/inv_render.h'): "InvRenderClass's declaration and its derived classes (D24 header name from inv_render.cpp's __FILE__ 0xB90220; tables 0xAFCBD8, 0xAFCCA0, 0xAFCD04, 0xAFCDF0) (IR1)",
+    ('app', 'client/inv_render.cpp'): "InvRenderClass (D24 class-from-file), what draws an inventory item's slot (the client's __FILE__ 0xB90220, asserts on lines 119-1107; object from 0x68BF10); started: see its notes (IR1)",
     ('app', 'client/slot_data_render.h'): "SlotDataRenderClass (D24 header name from slot_data_render.cpp's __FILE__ 0xB91684; table 0xAFD810) (SK1, SR1)",
     ('app', 'client/slot_data_render.cpp'): "SlotDataRenderClass (D24 class-from-file), what draws a slot's item (the client's __FILE__ 0xB91684, asserts on lines 89-531; object 0x6A7B60-0x6A9B50 between <string>'s initialisers 0x6A7B20 / 0x6A9B30) (SR1)",
     ('app', 'client/skill_render.h'): "SkillRenderClass's declaration (D24 header name from skill_render.cpp's __FILE__ 0xB91528; table 0xAFD664, 0x5C bytes) (SK1)",
