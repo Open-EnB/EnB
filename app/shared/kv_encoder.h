@@ -7,20 +7,7 @@
 #define __KV_ENCODER_H
 
 #include "auxdata\delta.h"
-
-// accel.cpp's value (0x498C10-0x499180; not in the tree yet, interim here, D137)
-class AccelClass	// NAME 3: the pair's type name "AccelClass"
-{
-public:
-	AccelClass();											// 0x498C10
-	AccelClass &operator=(const AccelClass &that);	// 0x498FD0
-	bool operator!=(const AccelClass &that) const;	// 0x499000
-
-	bool Unknown00;										// +0x00  // NAME 1: neutral (D10)
-	float Target;											// +0x04 (the key's)
-	float Accel;											// +0x08 (the key's)
-	float Current;											// +0x0C (the key's)
-};
+#include "accel.h"
 
 // (its typed adds are virtual in the client: delta.h's note; declared on the base for now)
 // The visitor that adds pairs (vtable 0xAEB6B8, 0x1C bytes), leaving out the children whose key starts with one of its

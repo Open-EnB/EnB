@@ -13,8 +13,7 @@ bool String_To_Value(const char *text, Matrix3D *value);					// 0x4A3990
 inline const char *Type_Name(Vector3 *) { return "Vector3"; }
 inline const char *Type_Name(Matrix3D *) { return "Matrix3D"; }
 
-char *Value_To_String(char *buf, int size, const AccelClass &value);	// 0x499070
-bool String_To_Value(const char *text, AccelClass *value);				// 0x4990C0
+// accel.cpp's conversions (accel.h)
 inline const char *Type_Name(AccelClass *) { return "AccelClass"; }
 
 // A pair's accessor over a member kept twice, one per frame (the frame toggle 0xBE350C)

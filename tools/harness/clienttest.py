@@ -83,6 +83,10 @@ def build(out):
     t = open(p, encoding='latin1', newline='').read()
     t2 = re.sub(r'std::string Unknown_4BE9D0\(const char \*name\)\r?\n\{.*?\r?\n\}', '', t, flags=re.S)
     assert t2 != t
+    # kv_encoder_base.obj (app.lib) now defines the buffer add 0x4B4A70, which avatar_desc_stubs.cpp also defines
+    t3 = re.sub(r'void KVEncoderBaseClass::Add\(int, const char \*, char \*, int\) \{\}\r?\n', '', t2)
+    assert t3 != t2
+    t2 = t3
     open(p, 'w', encoding='latin1', newline='').write(t2)
     r = subprocess.run([sys.executable, os.path.join(SRC, 'gen_stubs.py'), stage], capture_output=True, text=True)
     print(r.stdout.strip())

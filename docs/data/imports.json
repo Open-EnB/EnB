@@ -4,6 +4,28 @@
   "base": "reconstructed",
   "compile_errors": [],
   "files": {
+   "accel": {
+    "ambiguous": [],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x498C10",
+     "0x498C30",
+     "0x498CC0",
+     "0x498D40",
+     "0x498D80",
+     "0x498E00",
+     "0x498E90",
+     "0x498EE0",
+     "0x498F00",
+     "0x498F80",
+     "0x498FD0",
+     "0x499000",
+     "0x499070"
+    ],
+    "merged": [],
+    "name": "shared/accel.cpp"
+   },
    "attrib_dir": {
     "ambiguous": [
      "0x42A6C0",
@@ -5277,6 +5299,23 @@
      "0x4A62F0",
      "0x4A85E0",
      "0x4A8830"
+    ]
+   },
+   "delta_visitor": {
+    "ambiguous": [
+     "0x42AFF0",
+     "0x42B2F0"
+    ],
+    "copy": "reconstructed",
+    "expected": {},
+    "in_tree": [
+     "0x4B0680",
+     "0x4B08D0"
+    ],
+    "merged": [],
+    "name": "shared/auxdata/delta_visitor.cpp",
+    "tiebreak": [
+     "0x4B08D0"
     ]
    },
    "display": {
@@ -35898,6 +35937,7 @@
    "packets/pkverbrequest.h": "reconstructed",
    "packets/pkversionrequest.h": "reconstructed",
    "packets/pkwarpindex.h": "reconstructed",
+   "shared/accel.h": "reconstructed",
    "shared/attrib_dir.h": "reconstructed",
    "shared/attrib_dir_collective.h": "reconstructed",
    "shared/auxdata/auxdata.h": "reconstructed",
@@ -35993,7 +36033,7 @@
    "wwudp/cordmgr.h": "reconstructed",
    "wwudp/udp.h": "reconstructed"
   },
-  "in_tree_total": 11852,
+  "in_tree_total": 11867,
   "totals": {}
  },
  "binkmovie": {
