@@ -18,17 +18,17 @@ struct Unknown729990Struct					// NAME 1: neutral (D10)
 Unknown729990Struct Unknown_729770(ClientClass *client, int base_asset, float scale);	// 0x729770  // NAME 1 [client, base_asset, scale]: what 0x7294D0 passes
 RefCountPtr<LegoClass> Unknown_7294D0(const LegoIdentifierClass &id, int kind, int value, ClientClass *client, float scale);	// 0x7294D0  // NAME 1 [id, kind, value, client, scale]: what 0x6FEF70 passes
 
-// 0x731FA0 (cdecl, co.cpp's constructor): the object's lego root, as co.h's view of it
-RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *object)
+// 0x731FA0 (cdecl, co.cpp's constructor): the object's lego root
+RefCountPtr<ClientLegoRootClass> Unknown_731FA0(ClientObjectClass *object)
 {
-	return(Create_NEW((UnknownB4Class *)(LegoClass *)new ClientLegoRootClass(*object)));
+	return(Create_NEW(new ClientLegoRootClass(*object)));
 }
 
-// 0x732690 (co.cpp's destructor, through co.h's view): every lego off the root
-void UnknownB4Class::Unknown_732690()
+// 0x732690 (co.cpp's destructor): every lego off the root
+void ClientLegoRootClass::Unknown_732690()
 {
 	std::vector<RefCountPtr<LegoClass> > legos;
-	((ClientLegoImplClass *)(LegoClass *)this)->ClientLegoImplClass::Detach_All(legos);
+	ClientLegoImplClass::Detach_All(legos);
 }
 
 ClientLegoRootClass::ClientLegoRootClass(ClientObjectClass &client_object) :
@@ -200,6 +200,6 @@ void ClientLegoRootClass::Update_Attachment(unsigned int aux_data_index)
 ** Create_NEW 0x732FB0, the identifier vector's size 0x732FE0, erase 0x733020, uninitialized_copy 0x733090,
 ** uninitialized_fill_n 0x7330E0, fill 0x733120, copy_backward 0x733160.
 ** The vtable 0xB030A0 is ClientLegoImplClass's 0xB02F1C but for the destructor, +0x1C and +0x48 (Notify_Parent).
-** co.h's UnknownB4Class is still co.cpp's view of this class (interim, D137): 0x731FA0 returns it and
-** 0x732690 is defined as its member here.
+** co.h's +0xB4 member (UnknownB4) is a ClientLegoRootClass: 0x731FA0 returns it and
+** 0x732690 is its member.
 */

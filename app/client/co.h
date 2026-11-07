@@ -36,35 +36,35 @@
 #include "..\shared\accel.h"
 #include "ref_ptr.h"
 #include "sphere.h"
+#include "client_lego_root.h"
 #include "..\shared\g_assert.h"
 
 class RenderObjClass;
 class AudibleSoundClass;
 
-// co.cpp's +0xB4 object: a RefCountClass the constructor gets from 0x731FA0 (0xB8 bytes, constructor
-// 0x732030); 0x6FCB20 passes the visibility to its slot +0x18
-class LegoClass;
-class UnknownB4Class : public RefCountClass		// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18(bool visible);			// NAME 2 [visible]: 0x6FCB20's argument
-	virtual void Unknown_1C();
-	virtual void Unknown_20(int base_asset, const RefCountPtr<RenderObjClass> &model);	// +0x20 (Set_Model 0x6F33F0: the new BaseAsset and model)  // NAME 2 [base_asset, model]: what Set_Model passes
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual Matrix3D Unknown_2C(const LegoIdentifierClass &lego);	// +0x2C (0x6FED80 returns it when the object is set)  // NAME 1 [lego]: eff_o.cpp's 0x6E8F80 passes the source's lego plus 'EMITTER'
-	virtual void Unknown_30(const RefCountPtr<LegoClass> &lego);	// +0x30 (SUBPARTS' 0x6FEF70: each new sub part's lego)  // NAME 1 [lego]: what 0x6FEF70 passes
-	virtual RefCountPtr<LegoClass> Unknown_34(const LegoIdentifierClass &id);	// +0x34 (0x6FEF70: each old sub part's id, last first; the result is dropped)  // NAME 1 [id]: what 0x6FEF70 passes
-	void Unknown_732690();							// 0x732690 (co.cpp's destructor calls it before the release)
-};
-
+// co.cpp's +0xB4 object is the client's lego root (client_lego_root.h; 0x731FA0 makes it)
 // The +0xB4 object's source (cdecl; co.cpp's constructor assigns its result)
 class ClientObjectClass;
-RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *object);	// 0x731FA0  // NAME 1 [object]: neutral
+RefCountPtr<ClientLegoRootClass> Unknown_731FA0(ClientObjectClass *object);	// 0x731FA0  // NAME 1 [object]: neutral
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // co.cpp's +0x8C object (the destructor deletes it through its slot +0x00)
 class Unknown8CClass								// NAME 1: neutral (D10)
@@ -282,7 +282,7 @@ public:
 	RenderObjClass *RenderObject;						// +0xAC (cpacket.cpp's render-state handlers: Class_ID, then rs_track.cpp's methods): co.cpp's G_ASSERT 'RenderObject != 0', l.361
 	bool UnknownB0;										// +0xB0 (0x6FCB20 toggles it)
 	char UnknownB1[0xB4 - 0xB1];						// +0xB1
-	RefCountPtr<UnknownB4Class> UnknownB4;				// +0xB4 (the constructor assigns 0x731FA0's result)
+	RefCountPtr<ClientLegoRootClass> UnknownB4;				// +0xB4 (the constructor assigns 0x731FA0's result)
 	std::vector<LegoIdentifierClass> UnknownB8;			// +0xB8 (constructed with a count of 0)
 	std::vector<ColorizationRegionStruct> Colorization;	// +0xC8 the model's colorization regions (cpacket.cpp's COLORIZATION 17 assigns them, 0x73F770 their operator=)  // NAME 2: what it holds
 	std::string DecalName;								// +0xD8 (cpacket.cpp's NAME_DECAL 178 sets it through 0x736140)  // NAME 2: what NAME_DECAL stores in it

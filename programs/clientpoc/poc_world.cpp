@@ -298,16 +298,7 @@ Unknown45F390Class::~Unknown45F390Class() {}
 RenderStateClass *Unknown45F390Class::Unknown_04(RenderStateListClass *list) { return(new Unknown45F390Class(list, ID, LinkID, Flags, NULL, 0)); }
 void Unknown45F390Class::Unknown_14(RsTrackClass *owner) {}
 
-Unknown458C10Class::Unknown458C10Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, bool two_sided, bool hidden, const char *texture, int a, int b, ShaderClass shader) :
-	RenderStateClass(list, id, link_id, flags)
-{
-	STUB_CALLED("POC Unknown458C10Class ('effect_pass' state): does nothing");
-	memset(Unknown2C, 0, sizeof(Unknown2C));
-}
-Unknown458C10Class::~Unknown458C10Class() {}
-RenderStateClass *Unknown458C10Class::Unknown_04(RenderStateListClass *list) { return(new Unknown458C10Class(list, ID, LinkID, Flags, false, false, "", 1, 1, ShaderClass())); }
-void Unknown458C10Class::Unknown_14(RsTrackClass *owner) {}
-void Unknown458C10Class::Unknown_459120(TextureMapperClass *mapper) {}
+// (rs_eff_p.cpp's 'effect_pass' state 0x458C10 is rebuilt in app.lib)
 
 char *Unknown_B70E40[] = { "Axial", "Silhouette", "Environment", "Screen", NULL };
 

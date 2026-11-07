@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 170 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1599 |
-| 2 | describes what the code does | 3740 |
-| 1 | neutral placeholder | 18632 |
+| 2 | describes what the code does | 3738 |
+| 1 | neutral placeholder | 18623 |
 
 ## For review (score 3 and below)
 
@@ -1666,7 +1666,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_729770` | `app/client/client_lego_root.cpp:18` | untagged neutral name (D10) |
 | 1 | `id, kind, value, client, scale` | `app/client/client_lego_root.cpp:19` | what 0x6FEF70 passes |
 | 1 | `Unknown_7294D0` | `app/client/client_lego_root.cpp:19` | untagged neutral name (D10) |
-| 1 | `UnknownB4Class` | `app/client/client_lego_root.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_731FA0` | `app/client/client_lego_root.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_732690` | `app/client/client_lego_root.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/client_lego_root.cpp:42` | untagged neutral name (D10) |
@@ -1674,7 +1673,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/client/client_lego_root.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_6FCB70` | `app/client/client_lego_root.cpp:91` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/client_lego_root.cpp:189` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/client_lego_root.cpp:203` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/client_lego_root.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_732690` | `app/client/client_lego_root.h:33` | neutral (D10) |
 | 1 | `client_object_events.h` | `app/client/client_object_events.h:3` | neutral header name (D10) |
 | 1 | `Value` | `app/client/client_object_events.h:29` | neutral |
 | 1 | `Unknown_4F7EF0` | `app/client/co.cpp:31` | untagged neutral name (D10) |
@@ -1725,7 +1726,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/client/co.cpp:251` | untagged neutral name (D10) |
 | 1 | `UnknownB007A4Class` | `app/client/co.cpp:253` | neutral (D10), named by its vtable |
 | 1 | `Unknown_6F33F0` | `app/client/co.cpp:264` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/co.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown_38` | `app/client/co.cpp:297` | untagged neutral name (D10) |
 | 1 | `Unknown_6FCB70` | `app/client/co.cpp:316` | untagged neutral name (D10) |
 | 1 | `Unknown_6F3BF0` | `app/client/co.cpp:359` | untagged neutral name (D10) |
@@ -1735,6 +1735,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5A40` | `app/client/co.cpp:373` | untagged neutral name (D10) |
 | 1 | `Unknown_6F4290` | `app/client/co.cpp:376` | untagged neutral name (D10) |
 | 1 | `Unknown_6F45E0` | `app/client/co.cpp:385` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/co.cpp:425` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/co.cpp:429` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/co.cpp:430` | untagged neutral name (D10) |
 | 1 | `Unknown_79B670` | `app/client/co.cpp:430` | untagged neutral name (D10) |
@@ -1854,7 +1855,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `id, kind, value, client, scale` | `app/client/co.cpp:2273` | what 0x6FEF70 passes |
 | 1 | `Unknown_7294D0` | `app/client/co.cpp:2273` | untagged neutral name (D10) |
 | 1 | `Unknown_6FEF70` | `app/client/co.cpp:2274` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/co.cpp:2291` | untagged neutral name (D10) |
 | 1 | `Unknown_Changed` | `app/client/co.cpp:2325` | neutral (D10) |
 | 1 | `Unknown` | `app/client/co.cpp:2345` | untagged neutral name (D10) |
 | 1 | `Unknown_Field_Changed` | `app/client/co.cpp:2349` | neutral (D10) |
@@ -1876,37 +1876,30 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7009A0` | `app/client/co.cpp:2595` | untagged neutral name (D10) |
 | 1 | `Unknown98Class` | `app/client/co.cpp:2672` | untagged neutral name (D10) |
 | 1 | `UnknownCOClass` | `app/client/co.h:12` | untagged neutral name (D10) |
-| 1 | `UnknownB4Class` | `app/client/co.h:47` | neutral (D10) |
-| 1 | `Unknown_08` | `app/client/co.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/co.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/co.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/co.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/co.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/co.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/co.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/co.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/co.h:58` | untagged neutral name (D10) |
-| 1 | `lego` | `app/client/co.h:59` | eff_o.cpp's 0x6E8F80 passes the source's lego plus 'EMITTER' |
-| 1 | `Unknown_2C` | `app/client/co.h:59` | untagged neutral name (D10) |
-| 1 | `lego` | `app/client/co.h:60` | what 0x6FEF70 passes |
-| 1 | `Unknown_30` | `app/client/co.h:60` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/co.h:61` | what 0x6FEF70 passes |
-| 1 | `Unknown_34` | `app/client/co.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_732690` | `app/client/co.h:62` | untagged neutral name (D10) |
-| 1 | `object` | `app/client/co.h:67` | neutral |
-| 1 | `Unknown_731FA0` | `app/client/co.h:67` | untagged neutral name (D10) |
+| 1 | `object` | `app/client/co.h:48` | neutral |
+| 1 | `Unknown_731FA0` | `app/client/co.h:48` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `app/client/co.h:70` | neutral (D10) |
 | 1 | `Unknown04` | `app/client/co.h:76` | untagged neutral name (D10) |
 | 1 | `Unknown98Class` | `app/client/co.h:83` | neutral (D10) |
 | 1 | `Unknown_04` | `app/client/co.h:87` | untagged neutral name (D10) |
 | 1 | `unknown` | `app/client/co.h:88` | neutral |
+| 1 | `Unknown_08` | `app/client/co.h:88` | untagged neutral name (D10) |
 | 1 | `unknown` | `app/client/co.h:89` | neutral |
+| 1 | `Unknown_0C` | `app/client/co.h:89` | untagged neutral name (D10) |
 | 1 | `unknown` | `app/client/co.h:90` | neutral |
+| 1 | `Unknown_10` | `app/client/co.h:90` | untagged neutral name (D10) |
 | 1 | `unknown` | `app/client/co.h:91` | neutral |
+| 1 | `Unknown_14` | `app/client/co.h:91` | untagged neutral name (D10) |
 | 1 | `unknown` | `app/client/co.h:92` | neutral |
+| 1 | `Unknown_18` | `app/client/co.h:92` | untagged neutral name (D10) |
 | 1 | `unknown` | `app/client/co.h:93` | neutral |
+| 1 | `Unknown_1C` | `app/client/co.h:93` | untagged neutral name (D10) |
 | 1 | `unknown` | `app/client/co.h:94` | neutral |
+| 1 | `Unknown_20` | `app/client/co.h:94` | untagged neutral name (D10) |
 | 1 | `state` | `app/client/co.h:95` | neutral |
+| 1 | `Unknown_24` | `app/client/co.h:95` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/co.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/co.h:97` | untagged neutral name (D10) |
 | 1 | `UnknownB006B8Class` | `app/client/co.h:101` | neutral (D10), named by its vtable |
 | 1 | `unknown` | `app/client/co.h:105` | neutral |
 | 1 | `unknown` | `app/client/co.h:106` | neutral |
@@ -1937,7 +1930,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Count` | `app/client/co.h:153` | neutral |
 | 1 | `Data` | `app/client/co.h:155` | neutral |
 | 1 | `Unknown1C` | `app/client/co.h:158` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/co.h:175` | untagged neutral name (D10) |
 | 1 | `value` | `app/client/co.h:176` | neutral |
+| 1 | `Unknown_34` | `app/client/co.h:176` | untagged neutral name (D10) |
 | 1 | `Unknown_38` | `app/client/co.h:177` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/co.h:178` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/co.h:179` | untagged neutral name (D10) |
@@ -18336,9 +18331,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `programs/clientpoc/poc_world.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown45A090Class` | `programs/clientpoc/poc_world.cpp:282` | untagged neutral name (D10) |
 | 1 | `Unknown45F390Class` | `programs/clientpoc/poc_world.cpp:291` | untagged neutral name (D10) |
-| 1 | `Unknown458C10Class` | `programs/clientpoc/poc_world.cpp:301` | untagged neutral name (D10) |
-| 1 | `Unknown_459120` | `programs/clientpoc/poc_world.cpp:310` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:312` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:303` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
@@ -18406,7 +18399,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_49F300` | `tests/clienttest/client_stubs.cpp:68` | untagged neutral name (D10) |
 | 1 | `Unknown_7517E0` | `tests/clienttest/client_stubs.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_751850` | `tests/clienttest/client_stubs.cpp:70` | untagged neutral name (D10) |
-| 1 | `UnknownB4Class` | `tests/clienttest/client_stubs.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown_731FA0` | `tests/clienttest/client_stubs.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown_732690` | `tests/clienttest/client_stubs.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown_BE350C` | `tests/clienttest/client_stubs.cpp:93` | untagged neutral name (D10) |
@@ -18455,7 +18447,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6E9490EffectClass` | `tests/clienttest/client_stubs.cpp:272` | untagged neutral name (D10) |
 | 1 | `Unknown_6E9490` | `tests/clienttest/client_stubs.cpp:287` | untagged neutral name (D10) |
 | 1 | `Unknown_42A1A0` | `tests/clienttest/client_stubs.cpp:302` | untagged neutral name (D10) |
-| 1 | `Unknown458C10Class` | `tests/clienttest/client_stubs.cpp:316` | untagged neutral name (D10) |
 | 1 | `Unknown_BDAA7C` | `tests/clienttest/clienttest.cpp:108` | untagged neutral name (D10) |
 | 1 | `Unknown_BDA968` | `tests/clienttest/clienttest.cpp:109` | untagged neutral name (D10) |
 | 1 | `Unknown_BE71D4` | `tests/clienttest/clienttest.cpp:147` | untagged neutral name (D10) |
@@ -18884,10 +18875,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Transform` | `app/client/client_lego_impl.h:162` | what Get_Transform returns |
 | 2 | `AssetId` | `app/client/client_lego_root.cpp:15` | what 0x7294D0 passes to Create as the asset id |
 | 2 | `Model` | `app/client/client_lego_root.cpp:16` | what it holds |
-| 2 | `Update` | `app/client/client_lego_root.h:33` | what it does |
-| 2 | `Update_Attachment` | `app/client/client_lego_root.h:34` | what it does |
-| 2 | `Object` | `app/client/client_lego_root.h:36` | what it holds |
-| 2 | `std:` | `app/client/client_lego_root.h:38` | what it holds |
+| 2 | `Update` | `app/client/client_lego_root.h:34` | what it does |
+| 2 | `Update_Attachment` | `app/client/client_lego_root.h:35` | what it does |
+| 2 | `Object` | `app/client/client_lego_root.h:37` | what it holds |
+| 2 | `std:` | `app/client/client_lego_root.h:39` | what it holds |
 | 2 | `Object` | `app/client/client_object_events.h:18` | what it holds |
 | 2 | `Old` | `app/client/client_object_events.h:19` | what it holds |
 | 2 | `New` | `app/client/client_object_events.h:20` | what it holds |
@@ -18896,8 +18887,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `co.cpp` | `app/client/co.cpp:836` | the class id the handlers test |
 | 2 | `Line` | `app/client/co.cpp:865` | what it holds |
 | 2 | `Unknown_Get_Item` | `app/client/co.cpp:1730` | what it does; the client's name is unknown (D198) |
-| 2 | `visible` | `app/client/co.h:54` | 0x6FCB20's argument |
-| 2 | `base_asset, model` | `app/client/co.h:56` | what Set_Model passes |
 | 2 | `base_asset` | `app/client/co.h:124` | what CREATE passes |
 | 2 | `Bone` | `app/client/co.h:140` | what it holds |
 | 2 | `Transform` | `app/client/co.h:141` | what it holds |

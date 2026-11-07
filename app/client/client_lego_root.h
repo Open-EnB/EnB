@@ -30,6 +30,7 @@ public:
 	virtual void Unknown_1C(void);									// +0x1C 0x732650: the aux data's changes first
 	virtual void Notify_Parent(void);								// +0x48 0x732750: the object gets the radius (its slot +0x34)
 
+	void Unknown_732690(void);									// 0x732690 (co.cpp's destructor): every lego off the root  // NAME 1: neutral (D10)
 	void Update(void);												// 0x732790: the client's asserts '!AuxData', '!AuxData->Is_Valid()'  // NAME 2: what it does
 	void Update_Attachment(unsigned int aux_data_index);			// 0x732880: the client's assert 'aux_data_index >= ...'  // NAME 2: what it does
 

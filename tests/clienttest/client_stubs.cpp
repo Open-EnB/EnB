@@ -79,8 +79,8 @@ void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("s
 // the destruction and takes its fakes back first; the slots +0x04-+0x18 are the base's, client.cpp's)
 // client_lego_root.cpp's lego root (app.lib) needs cbasset.ini's bone maps, which clienttest does not load: no root, as
 // before; both of co.cpp's references stand in, so client_lego_root.obj is not pulled from app.lib (no LNK2005)
-RefCountPtr<UnknownB4Class> Unknown_731FA0(ClientObjectClass *) { return(RefCountPtr<UnknownB4Class>(NULL)); }
-void UnknownB4Class::Unknown_732690() {}
+RefCountPtr<ClientLegoRootClass> Unknown_731FA0(ClientObjectClass *) { return(RefCountPtr<ClientLegoRootClass>(NULL)); }
+void ClientLegoRootClass::Unknown_732690() {}
 // (co.h's +0x134 AccelClass links from app.lib: accel.cpp)
 // (co.cpp's SUBPARTS 0x6FEF70 gets a sub part's lego from 0x7294D0: app.lib's unknown_7294d0.cpp)
 
@@ -309,12 +309,4 @@ class GadgetClass { public: virtual void Unknown_08(); virtual void Unknown_14()
 void GadgetClass::Unknown_08() {}
 void GadgetClass::Unknown_14() {}
 
-// ------------------------------------------------------------------------- rs_eff_p.cpp (the effect pass state rs_list.cpp makes)
-// gen_stubs cannot write this one: its ShaderClass argument is passed by value
-#include "..\..\..\app\shared\rs_track.h"
-#include "shader.h"
-Unknown458C10Class::Unknown458C10Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, bool two_sided, bool hidden, const char *texture, int a, int b, ShaderClass shader) :
-	RenderStateClass(list, id, link_id, flags)
-{
-	Trace("stub Unknown458C10Class::Unknown458C10Class");
-}
+// (rs_eff_p.cpp's 'effect_pass' state 0x458C10 links from app.lib)

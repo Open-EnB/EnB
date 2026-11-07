@@ -286,7 +286,7 @@ void ClientObjectClass::Unknown_6F33F0(RenderObjClass *model, int base_asset, fl
 	BaseAsset = base_asset;
 	Scale = scale;
 	if (UnknownB4) {
-		UnknownB4->Unknown_20(base_asset, Create_Peek(RenderObject));
+		UnknownB4->Init(base_asset, Create_Peek(RenderObject));
 	}
 	if (RenderObject) {
 		RenderObject->Add_Ref();
@@ -2251,7 +2251,7 @@ void ClientObjectClass::Unknown_6FED30()
 Matrix3D ClientObjectClass::Unknown_6FED80(const LegoIdentifierClass &lego)
 {
 	if (UnknownB4) {
-		return(UnknownB4->Unknown_2C(lego));
+		return(UnknownB4->Get_Lego_Transform(lego));
 	}
 	if (RenderObject) {
 		return(RenderObject->Get_Transform());
@@ -2276,7 +2276,7 @@ void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
 	if (UnknownB4) {
 		for (std::vector<LegoIdentifierClass>::reverse_iterator it = UnknownB8.rbegin(); it != UnknownB8.rend(); it++) {
 
-			UnknownB4->Unknown_34(*it);
+			UnknownB4->Remove(*it);
 		}
 	}
 	UnknownB8.clear();
@@ -2288,7 +2288,7 @@ void ClientObjectClass::Unknown_6FEF70(SubPartsPacket *packet)
 		LegoIdentifierClass id(part.Name);
 		UnknownB8.push_back(id);
 		if (UnknownB4 && client) {
-			RefCountPtr<LegoClass> lego = Unknown_7294D0(id, 1, part.Value, client, 1.0f); UnknownB4->Unknown_30(lego);
+			RefCountPtr<LegoClass> lego = Unknown_7294D0(id, 1, part.Value, client, 1.0f); UnknownB4->Add(lego);
 		}
 	}
 	Unknown_6FCB70();
