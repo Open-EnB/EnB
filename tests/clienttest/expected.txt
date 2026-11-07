@@ -136,7 +136,9 @@ gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen CameraManagerClass::Unknown_799E40
+camera controller +0x08
+mainview 7C
+model Set_Transform (0, 0, 0)
 stub EffectObjectClass::Unknown_6E6AD0 297
 stub Unknown_6E6A90 297
 gen MainViewUnknown138Class::Unknown_53DFB0
@@ -171,7 +173,9 @@ gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen CameraManagerClass::Unknown_799E40
+camera controller +0x08
+mainview 7C
+model Set_Transform (0, 0, 0)
 gen MainViewUnknown138Class::Unknown_53DFB0
 gen MainViewUnknown138Class::Unknown_53E030
 mainview 1DC's +0x8C 0
@@ -196,7 +200,9 @@ gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen CameraManagerClass::Unknown_799E40
+camera controller +0x08
+mainview 7C
+model Set_Transform (0, 0, 0)
 gen MainViewUnknown138Class::Unknown_53DFB0
 gen MainViewUnknown138Class::Unknown_53E030
 mainview 1DC's +0x8C 0
@@ -254,7 +260,9 @@ gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
 gen Unknown498C10Class::Unknown_498CC0
 model Set_Transform (0, 0, 0)
-gen CameraManagerClass::Unknown_799E40
+camera controller +0x08
+mainview 7C
+model Set_Transform (0, 0, 0)
 gen MainViewUnknown138Class::Unknown_53DFB0
 gen MainViewUnknown138Class::Unknown_53E030
 mainview 1DC's +0x8C 0
@@ -1825,7 +1833,6 @@ sent START_ACK (6) size 8: 8a460000
 msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler
 stub SClient::Unknown_74D990 0x0 'We have entered Glory's Orbit (Beta Hydri System).' 0
 msg 755 CAMERA_CONTROL (146) size 12: cpacket.cpp's handler
-gen CameraManagerClass::Unknown_79B2B0
 msg 756 CLIENT_CHAT_EVENT (165) size 49: cpacket.cpp's handler
 msg 757 AUX_DATA (27) size 81: cpacket.cpp's handler
 msg 758 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
@@ -2366,7 +2373,6 @@ msg 1003 ? (103) size 22: cpacket.cpp's handler
 fail_if !gadget (line 1851)
 check GADGET 103 for a gadget the list doesn't know: the FAIL_IF '!gadget', nothing called: ok
 msg 1004 ? (144) size 267: cpacket.cpp's handler
-gen CameraManagerClass::Unknown_79B2B0
 stub UICpitUnknownE0Class slot +0x58
 incapacitance calls: 552FC0 553370('a') 553500(3) 5537A0(3) slot58 
 check INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the real ui_cpit.cpp 0x584690 hands the packet to the cockpit's +0xE0 object (0x552FC0, 0x553370, 0x553500, 0x5537A0, slot +0x58): ok
