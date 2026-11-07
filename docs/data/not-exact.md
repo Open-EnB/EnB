@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-692 entries in 197 files.
+693 entries in 198 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -58,6 +58,7 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
 | `app/client/client_lego_impl.cpp:310` | `ClientLegoImplClass::Get_Lego_Transform` | marker | NOT EXACT: inline budget: the client builds one more Matrix3D result (6 ??_H against our 5), 0.88 (attempts.csv) |
 | `app/client/client_lego_impl.cpp:363` | `ClientLegoImplClass::Add` | marker | NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours; 0.75 (attempts.csv) |
+| `app/client/client_lego_root.cpp:102` | `ClientLegoRootClass::Update_Attachment` | marker | NOT EXACT: shape (similarity 0.86, every row equal but one: the client's null test of lego at the end jumps past its release to the epilogue, ours to the release; attempts.py show 0x732880) |
 | `app/client/co.cpp:483` | `ClientObjectClass::Unknown_28` | marker | NOT EXACT: register (eax / edx swapped for the vtable loads from the thrust sound on), the one-case switch 0x6F5A40 at done (movsx / dec where the client compares the byte) and 'x \|\| y' (the client ORs the bools); the find is out of line as the client's since Unknown_Find_Aux (IB1) 0x6F4610 |
 | `app/client/co.cpp:563` | `ClientObjectClass::Unknown_6F3FA0` | marker | NOT EXACT: inline budget (0x6F3ED0 is out of line through auto_inline(off) at its definition, as the client; the client still calls 0x6F45E0 out of line in one branch of the inlined 0x6F4590 and auxdata.h's find 0x7079B0; attempts.py show 0x6F3FA0) 0x6F3FA0 (slot +0x28's tilt: the turn +0x144 steered toward 0x6F3ED0's angle through +0x134, then the roll) |
 | `app/client/co.cpp:1472` | `ClientObjectClass::Unknown_6FBEF0` | marker | NOT EXACT: inline budget (the client calls the four finds' Casts 0x531590 / 0x7099F0 out of line, ours inlines them; 74 calls vs 70; frame 0x270 since F8; attempts.py show 0x6FBEF0) 0x6FBEF0 (the warp state: PrivateWarpState's messages, then GlobalWarpState's sounds, effects and camera modes) |
@@ -520,9 +521,9 @@ edit the comments in the code, not this file.
 | `app/common/galaxy_map.cpp:540` | `GalaxyMapStarbaseIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8399D0) |
 | `app/common/galaxy_map.cpp:609` | `GalaxyMapStarbaseIteratorClass::First` | mention | NOT EXACT (the client recomputes the value's address after the end test). |
 | `app/common/lego_identifier.cpp:83` | `LegoIdentifierClass::LegoIdentifierClass` | marker | NOT EXACT: 0x843970, the client inlines Set_Name here (inline-budget; attempts.py show 0x843970) |
-| `app/common/lego_identifier.cpp:171` | `LegoIdentifierClass::Set_Name` | marker | NOT EXACT: 0x844CD0, registers (attempts.py show 0x844CD0) |
-| `app/common/lego_identifier.cpp:184` | `LegoSplitStruct::LegoSplitStruct` | marker | NOT EXACT: inline-budget (explain.py), 0.79: the client keeps the vtable pointer in edi and the name in ebp (ours swapped) and gives the Rest path its own destructor tail (the second identifier's destructor out of line); four forms (WE6) |
-| `app/common/lego_identifier.cpp:229` | `LegoSplitStruct::Is_Invalid` | mention | NOT EXACT 0.79); its Is_Invalid 0x8451A0 (exact) is placed here provisionally (D137): the 20-byte function at this object's end, before manufacturing_defs.cpp. * Written by builder P4 (2026-10-26) for the object-to-object effects (pkpointeffect.cpp, opcodes 11-14), which send an identifier's name and set one from the received string. |
+| `app/common/lego_identifier.cpp:170` | `LegoIdentifierClass::Set_Name` | marker | NOT EXACT: 0x844CD0, registers (attempts.py show 0x844CD0) |
+| `app/common/lego_identifier.cpp:183` | `LegoSplitStruct::LegoSplitStruct` | marker | NOT EXACT: inline-budget (explain.py), 0.79: the client keeps the vtable pointer in edi and the name in ebp (ours swapped) and gives the Rest path its own destructor tail (the second identifier's destructor out of line); four forms (WE6) |
+| `app/common/lego_identifier.cpp:228` | `LegoSplitStruct::Is_Invalid` | mention | NOT EXACT 0.79); its Is_Invalid 0x8451A0 (exact) is placed here provisionally (D137): the 20-byte function at this object's end, before manufacturing_defs.cpp. * Written by builder P4 (2026-10-26) for the object-to-object effects (pkpointeffect.cpp, opcodes 11-14), which send an identifier's name and set one from the received string. |
 | `app/common/stredit.cpp:21` | `StrEditClass::StrEditClass` | mention | NOT EXACT for it. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
 | `app/common/stredit.cpp:190` | `StrEditClass::Process_Key` | marker | NOT EXACT: the modifier bits (0.58): the client tests the event's flags as bit-fields, see the notes |
 | `app/common/target_generator_summary.cpp:92` | `String_To_Value` | marker | NOT EXACT: inline-budget (the temporary string's _Eos stays out of line in the client, and value lives in ebx) |
