@@ -904,6 +904,13 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **A header static's `_$E` copy is no placement evidence** (NM1, 2026-11-07): the guard-0xC416FC initialiser has 533 copies in
+  the app; one found inside a file's window is often the neighbour's. The client's CRT initialiser table (.CRT$XCU, 0xB6427C-0xB6E59C)
+  lists them in link order: check it before trusting a range credit (P-IR3-1).
+* **New declarations in a shared header can shift aux_roots' SYMBOL_PAD** (AF1: MoneyClass's members lost 8; WE8: DeltaClass::Is_Valid
+  lost 24): put members only one file needs behind a guard macro defined in that file, then `auxpad.py sweep`.
+* **An npos use added to a file can make its other near misses exact** (WE6, lego_identifier): re-verify a file's NOT EXACT functions
+  after adding code to it. A comment edited after verify can shift a `__LINE__` assert (WE6's lost 0x8444C0): grep FAIL_IF lines first.
 * **A shared `<string>` initialiser left unpaired is a range question, not a missing include (2026-11-05 evening, SC4, D196):** every `<string>` includer has a byte-identical guarded initialiser of `std::ctype<unsigned short>::id` (guard 0xC416FC, atexit 0x42B320): check the .obj for its `_$E` before editing includes. `importer.py verify --lib a,b` silently verifies nothing: repeat `--lib` per library. A bare `verify` without `--pool` while another agent holds the importer lock falls through to stale hosts (ssh timeouts, nothing done): use `--pool K`.
 * **The verify service judges a PR with master's tools and master's accepted-corrections.json (2026-11-05 evening, PR #163):** a PR's own objmatch change or corrections entry does not count for it, an outright loss passes no command and the ruleset has no bypass. A false pair a PR exposes needs its corrections entry merged first (PR #164); a coordinator's in-run `--accept` is not that ruling.
 * **Landing builders' new files (2026-11-04 night run):** a new file not registered in importer.py (`NEW_FILES` /
@@ -1273,6 +1280,15 @@ unless `--lever` cites a new row of this table.
 
 ### 3.7 Harnesses, programs, unattended runs
 
+* **The POC run of 2026-11-07 (WE2-WE8):** an image that "stays on top" can be a stale back buffer (the POC runs windowed,
+  space mode clears no colour): check the view renders before chasing its removal. A gen stand-in of a bool render hook (Pre_Render)
+  answers false and hides every hooked model; an uninitialised gen stand-in (co.h's AccelClass) corrupts a float every frame: grep the
+  stubs log for `gen` lines on the path first. A black model with AMBIENT=0 in a draw dump is a missing light, not a texture
+  (`drawdump.py`). Retail's frame count at a given time varies (in world at 250000-290000; slower POC needs `--seconds 140`) and
+  `D3D8SHOT_MAX` caps the frames logged: dump a dense spread and keep the last frame with ship draws (fvf 0112).
+* **A landed app definition collides with stand-ins in three places** (HF1, HF2): programs/clientpoc/poc_standins.cpp /
+  poc_world*.cpp, stubs/app_stubs.cpp and tests/clienttest/client_stubs.cpp; and new callers can make app.lib pull an object that
+  clienttest also compiles itself (shiputils, ui_talkt): LNK2005 in clienttest with a clean verify. Grep all three, link both programs.
 * **A test's stand-in goes stale when app code is pointed at a library symbol (kerneltest, 2026-11-04):** c759a57b
   replaced kernel.cpp's `Unknown_BFAEE0` with `WW3DAssetManager::Get_Instance()`; kerneltest.cpp still defined the old
   global, so the link pulled ww3d2.lib(assetmgr.obj) and, a chain later, ww3d.obj, which clashes with taskstest.cpp's
@@ -1444,6 +1460,10 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
+* **Landing in a busy run (2026-11-07):** no run-branch commit while a landing runs (it refuses: "moved while landing"); a branch
+  based on another builder's unlanded branch re-carries those commits after they land under new hashes: `git rebase --onto
+  run/<date> <old base tip>` its own commits only; after resolving generated conflicts by hand, regenerate (verify, report, names.py)
+  before landing, or bring-over refuses ("the commits record other pairs"). poc_check.sh's LOG must be an absolute path.
 * **Coordinator merges (2026-11-03 afternoon run):** never resolve a C++ source conflict by keeping both sides (it
   duplicated gd_slider's code: 3 lost outright, caught by the verify); append-append of new functions is the one safe
   case. `tools/agy/rebase_gen.sh` takes the run's imports.json and re-verifies only app: a library's new file then drops
