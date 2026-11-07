@@ -12,7 +12,7 @@
 #include "ui_mfd_extended_context_harvestable.h"
 
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t == NULL || t->Unknown70 == 0) return(NULL); return(t); }	// (cameraeffects.cpp's)  // NAME 1: neutral (D10)
-int Unknown_818520(const char *name);	// 0x818520 (skillnam.cpp's: a skill's index by its name)  // NAME 1: neutral (D10)
+class SkillNamesDatabase { public: static int Unknown_818520(const char *name); };	// 0x818520 (skillnam.cpp's: a skill's index by its name)  // NAME 1: neutral (D10)
 
 static const char *HarvestableName = "HarvestableResources";	// 0xB82294  // NAME 2: what it holds
 
@@ -46,7 +46,7 @@ RefCountPtr<UIMFDExtendedContextClass> Unknown_5BF790(ClientObjectClass *self, C
 		return(NULL);
 	if (!(char)co->Unknown_6F5E20())
 		return(NULL);
-	static int prospect_skill_index = Unknown_818520("Prospect");
+	static int prospect_skill_index = SkillNamesDatabase::Unknown_818520("Prospect");
 
 
 	FAIL_IF(-1 == prospect_skill_index)

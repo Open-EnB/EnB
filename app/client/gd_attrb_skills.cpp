@@ -16,18 +16,18 @@
 extern const int Unknown_B0804C;	// 0xB0804C: 40, the tooltip's width (read as an int, so not a literal; no other reader)  // NAME 1: neutral (D10)
 #define MAX_SKILLS 11	// NAME 3: the assert's; the dots' array
 // What the skill data holds about a skill, as far as this file calls it (0x6A5440's class, at the data's +0x50)
-struct Unknown6A5640Struct { int Unknown00; int Unknown04; };	// NAME 1: neutral (D10), as ui_attrb.cpp's
-class Unknown6A5440Class	// NAME 1: neutral (D10), as ui_attrb_skills.cpp's
+struct SkillLevelAvailabilityStruct { int Unknown00; int Unknown04; };	// NAME 1: neutral (D10), as ui_attrb.cpp's
+class SkillDataPeekClass	// NAME 1: neutral (D10), as ui_attrb_skills.cpp's
 {
 public:
-	bool Unknown_6A5470(int skill);	Unknown6A5640Struct *Unknown_6A5640(int skill);	int Unknown_6A54B0(int skill);	int Unknown_6A59E0(int skill);	// NAME 1 [skill]: neutral
+	bool Unknown_6A5470(int skill);	SkillLevelAvailabilityStruct &Get_Availability(int skill);	int Get_Level(int skill);	int Get_Max_Skill_Levels(int skill);	// NAME 1 [skill]: neutral
 };
 // ui_attrb_skills.cpp's list (0x62D710's answer); its reference count sits at +0x18 here
 class Unknown6A7A00Base { public: virtual void Unknown_00(); char Unknown04[0x14]; };	// NAME 1: neutral (D10)
-class Unknown6A7A00Class : public Unknown6A7A00Base, public RefCountClass	// NAME 1: neutral (D10)
+class SkillDataClass : public Unknown6A7A00Base, public RefCountClass	// NAME 1: neutral (D10)
 {
 public:
-	char Unknown20[0x30];	Unknown6A5440Class Unknown50;	// +0x50
+	char Unknown20[0x30];	SkillDataPeekClass Unknown50;	// +0x50
 };
 
 
@@ -39,11 +39,11 @@ public:
 
 
 struct Unknown815320Struct { char Unknown00[0x10]; int Unknown10; int Unknown14; unsigned int Unknown18; bool Unknown1C; unsigned int Get_18() { return(Unknown18); } };	// NAME 1: neutral (D10)
-Unknown815320Struct *Unknown_815320(int ability);	// NAME 1: neutral (D10)
+
 struct Unknown8155B0Struct { std::vector<Unknown815320Struct *> Abilities; int Unknown10; };	// NAME 3 [Abilities]: its assert
-const Unknown8155B0Struct &Unknown_8155B0(int skill);	// NAME 1: neutral (D10)
-const char *Unknown_818200(int skill);	const char *Unknown_818250(int skill);	const char *Unknown_8182A0(int skill, int level);	// as ui_attrb.cpp's
-unsigned int Unknown_8185C0(int skill, int index);	// NAME 1: neutral (D10)
+class SkillAbilityNamesDatabase { public: static Unknown815320Struct *Unknown_815320(int ability); static const Unknown8155B0Struct &Unknown_8155B0(int skill); };	// NAME 1: neutral (D10)
+class SkillNamesDatabase { public: static const char *Unknown_818200(int skill); static const char *Unknown_818250(int skill); static const char *Unknown_8182A0(int skill, int level);	// as ui_attrb.cpp
+	static unsigned int Unknown_8185C0(int skill, int index); };	// NAME 1: neutral (D10)
 bool Unknown_496960(RenderObjClass *robj, float x, float y, LayerClass &layer);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
 void Unknown_496AE0(RenderObjClass *robj, int arg);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
 void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int index);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
@@ -169,13 +169,13 @@ void Unknown664500Class::Unknown_A4(bool arg)
 {
 
 	FAIL_IF(!AttachTo) return;
-	Unknown6A7A00Class &data = *SkillData;
+	SkillDataClass &data = *SkillData;
 	if (!arg && !data.Unknown50.Unknown_6A5470(Unknown6C)) {
 		return;
 	}
-	Unknown6A5640Struct *info = (*SkillData).Unknown50.Unknown_6A5640(Unknown6C);
-	Unknown104 = data.Unknown50.Unknown_6A54B0(Unknown6C);
-	Unknown108 = data.Unknown50.Unknown_6A59E0(Unknown6C);
+	SkillLevelAvailabilityStruct *info = &(*SkillData).Unknown50.Get_Availability(Unknown6C);
+	Unknown104 = data.Unknown50.Get_Level(Unknown6C);
+	Unknown108 = data.Unknown50.Get_Max_Skill_Levels(Unknown6C);
 	Unknown10C = info->Unknown04 == 0;
 	if (info->Unknown00 != 4) {
 		Unknown10C = false;
@@ -240,8 +240,8 @@ int Unknown664500Class::Unknown_663DF0(UIAttrbSkillsClass *ui, int skill, int in
 	FAIL_IF(!AttachTo) return(-1);
 	SkillData = Create_Peek(ui->Unknown_62D710());
 	Unknown6C = skill;
-	Unknown100->Change_Text(Unknown_818200(skill), 0);
-	const Unknown8155B0Struct &skill_a = Unknown_8155B0(skill);
+	Unknown100->Change_Text(SkillNamesDatabase::Unknown_818200(skill), 0);
+	const Unknown8155B0Struct &skill_a = SkillAbilityNamesDatabase::Unknown_8155B0(skill);
 	int count = 0;
 	Unknown110 = skill_a.Unknown10;
 	std::vector<Unknown815320Struct *>::const_iterator it = skill_a.Abilities.begin();
@@ -266,7 +266,7 @@ int Unknown664500Class::Unknown_663DF0(UIAttrbSkillsClass *ui, int skill, int in
 		}
 		Unknown815320Struct *ability = *it;
 		if (ability) {
-			if (ability->Unknown1C && ability->Unknown18 <= Unknown_8185C0(Unknown6C, index)) {
+			if (ability->Unknown1C && ability->Unknown18 <= SkillNamesDatabase::Unknown_8185C0(Unknown6C, index)) {
 				SlotDataGadgetClass *gadget = ui->Unknown_AC(a_robj.Peek(), &Unknown6C);
 				if (gadget) {
 					UnknownF0.push_back(gadget);
@@ -325,7 +325,7 @@ void Unknown664500Class::Unknown_664500()
 	for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
 		SlotDataGadgetClass *gadget = *it;
 		if (gadget->Unknown_60()) {
-			Unknown815320Struct *ability = Unknown_815320(Unknown_6A7380(gadget)->Get_34());
+			Unknown815320Struct *ability = SkillAbilityNamesDatabase::Unknown_815320(Unknown_6A7380(gadget)->Get_34());
 			bool on = ability->Get_18() <= (unsigned int)Unknown104;
 			if (on != gadget->Unknown68) {
 				gadget->Unknown_670C90(on);
@@ -389,7 +389,7 @@ int Unknown664500Class::Unknown_6645A0(int level, bool arg)
 
 
 			FAIL_IF(!skill_render) continue;
-			Unknown815320Struct *ability = Unknown_815320(skill_render->Get_34());
+			Unknown815320Struct *ability = SkillAbilityNamesDatabase::Unknown_815320(skill_render->Get_34());
 			gadget->Unknown_670C90(ability->Get_18() <= (unsigned int)Unknown104);
 		}
 	}
@@ -477,14 +477,14 @@ void Unknown664500Class::Unknown_664C60()
 			_snprintf(buffer, 256, "Unavailable %s", Unknown110 ? "Activated Skill" : "Passive Skill");
 		}
 		text = buffer;
-		SplitStringClass split(Unknown_818250(Unknown6C), (float)Unknown_B0804C, 0);
+		SplitStringClass split(SkillNamesDatabase::Unknown_818250(Unknown6C), (float)Unknown_B0804C, 0);
 		for (unsigned int lp = 0; lp < split.Count(); lp++) {
 			text += split.Get(lp);
 			text += "\n";
 		}
 		text += "Click for description";
 	} else {
-		text = Unknown_8182A0(Unknown6C, Unknown88 + 1);
+		text = SkillNamesDatabase::Unknown_8182A0(Unknown6C, Unknown88 + 1);
 	}
 	Set_Unknown14(text.c_str());
 }

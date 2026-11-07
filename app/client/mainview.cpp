@@ -36,13 +36,13 @@ public:
 	SClient *Client;								// +0x04  // NAME 2: what it holds
 };
 
-// the +0x84 object (0x7B6BD0, 0x24 bytes; gutter_data.cpp's neighbourhood)
-class MainViewUnknown84Class	// NAME 1: neutral (D10)
-{
-public:
-	MainViewUnknown84Class(SClient *client, const RefCountPtr<SimpleSceneClass> &scene); ~MainViewUnknown84Class();	// 0x7B6BD0 / 0x7B6D80 (Shutdown 0x50C2F0)  // NAME 1 [client, scene]: what 0x50BA60 passes
-	char Unknown00[0x04]; RefCountPtr<SimpleSceneClass> Scene; char Unknown08[0x24 - 0x08];	// +0x04: 0x7B6BD0 stores its scene argument there, add-ref'd  // NAME 1 [Scene]: neutral
-};
+#include "gutter_radar.h"	// the +0x84 object (0x7B6BD0)
+
+
+
+
+
+
 
 // the orbitals' callback (table 0xAED01C: 0x50C2B0 / 0x50C2D0)
 class MainViewOrbitalCallbackClass	// NAME 1: neutral (D10)
@@ -196,7 +196,7 @@ void MainViewClass::Unknown_04()
 	Unknown128 = new MainViewDazzleHandlerClass(Client);
 	DazzleRenderObjClass::Install_Dazzle_Visibility_Handler(Unknown128);
 	Radar = new RadarSystemClass((SClient *)Client->Unknown_18());
-	Unknown84 = new MainViewUnknown84Class((SClient *)Client->Unknown_18(), Create_Peek((SimpleSceneClass *)Unknown_50()));
+	Unknown84 = new GutterRadarClass((SClient *)Client->Unknown_18(), Create_Peek((SimpleSceneClass *)Unknown_50()));
 	Unknown110->Set_Fog_Enable(false);
 	Unknown114->Set_Fog_Enable(false);
 	Scene->Set_Fog_Enable(false);
@@ -1118,15 +1118,15 @@ public:
 };
 
 // SClient +0x12A4, as far as the main view's 0x512400 uses it (its G_ASSERT calls it 'targeting')
-class TargetingClass	// NAME 2: the asserts'
-{
-public:
-	virtual ~TargetingClass();
+#include "targeting.h"	// (+0x10: 0x512400 clears it when TargetGameID's +0x70 is above 1)
 
-	char Unknown04[0x10 - 0x04];
-	bool Unknown10;										// +0x10 (0x512400 clears it when TargetGameID's +0x70 is above 1)
-	char Unknown11[0x14 - 0x11];
-};
+
+
+
+
+
+
+
 
 // 0xBFAE3C is WW3D::SyncTime (WW3D::Sync 0x918200 writes it): read inline through WW3D::Get_Sync_Time (ww3d.h above)
 // Renegade's console.cpp profile display (Commando, CConsoleClass's profile text), as

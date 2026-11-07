@@ -1,4 +1,4 @@
-// target_find.cpp: the cycling target finder (0x7C3EC0-0x7C50FB); notes at the end of the file.
+// target_find.cpp: the cycling target finder (0x7C3EC0-0x7C509F); notes at the end of the file.
 #include "target_find.h"
 #include "sclient.h"
 #include "client.h"
@@ -286,16 +286,16 @@ unsigned TargetFindClass::Get_Flags(ClientObjectClass *co)
 /*
 **	Notes
 **
-**	The object is 0x7C3EC0-0x7C50FB, placed by the __FILE__ 0xB9F7D4 pushed at 0x7C43B7, 0x7C4549,
+**	The object is 0x7C3EC0-0x7C509F, placed by the __FILE__ 0xB9F7D4 pushed at 0x7C43B7, 0x7C4549,
 **	0x7C45DE and 0x7C494C (asserts.txt lists 0xB9F7AC under starmap_pip_support.cpp, wrongly).
 **	Its start: 0x7C3E50 is the previous object's closing <string> initialiser (guard 0xC416FC), and
 **	0x7C3EC0 / 0x7C3EF0 are this object's two header statics (a PermStringInitClass at 0xBE87DC and
 **	its atexit, $E70 / $E68 here, 22 and 10 bytes), too short for the matcher. The class's table is
 **	0xB07008; 0x7C3F60 is the scalar deleting destructor (objmatch: 'multiple').
 **	Its end: its own <string> initialiser is 0x7C4DE0 ($E136), then the COMDATs of std::sort:
-**	0x7C4E30 _Sort, 0x7C4FF0 _Unguarded_insert, 0x7C5040 _Unguarded_partition. 0x7C5100 is called
-**	only from 0x7B6BD0 and starts the next object, whose first class derives from this one
-**	(constructor 0x7C6120, table 0xB07134, SClient +0x12A4).
+**	0x7C4E30 _Sort, 0x7C4FF0 _Unguarded_insert, 0x7C5040 _Unguarded_partition. 0x7C50B0 / 0x7C50E0 (a PermStringInitClass at
+**	0xBE87E0 and its atexit) open the next object, target_reticle.cpp. TargetingClass (targeting.cpp, 0x7C6120, table
+**	0xB07134, SClient +0x12A4) derives from this class.
 **
 **	Forms the bytes decide (Build_List 0x7C4530): 'Filter ? Match_Filter(co) : true' keeps the
 **	client's sete / test (|| folds them); a float local keeps the fstp after the pushes; the entry's

@@ -147,64 +147,64 @@ void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient)
 	}
 }
 
-// gadget.cpp's gadget, as far as the cockpit calls it (the warp, throttle and turn buttons)
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public: static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h's: static, cdecl, variadic)
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24();
-	virtual void Unknown_28(LayerClass *layer);			// +0x28 (the set-up: the cockpit's layer)  // NAME 1 [layer]: ui_group.cpp's
-	virtual void Unknown_2C(KernelEventClass *event, int a, int b, int c);	// +0x2C (slot +0x68: a zero event, 0, 0, 1 or 4 for the warp keys)  // NAME 1 [event, a, b, c]: neutral
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(int on);					// +0x40 (slot +0x60: 1 shows the warp button as RESCUE)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual bool Unknown_60();							// +0x60 (0x5845A0: the warp button is on)
-	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
-	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
-	virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90();
-	virtual void Unknown_94(); virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0();
-	virtual void Unknown_A4(float value);				// +0xA4 (slot +0x60: 2.0f when incapacitated, else 0)  // NAME 1 [value]: neutral
-	virtual void Unknown_A8();
-	virtual void Unknown_AC();							// +0xAC (0x583250, last)
+// The cockpit's five buttons: gd_text_editor.cpp's object (the turn buttons), gd_uiback.cpp's (the thrust buttons), and the warp button
+#include "unknown_671300.h"
+#include "gd_uiback.h"
+class UICpitWarpGadgetClass : public Unknown_671300Class { public: UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer); void Unknown_676190(int a, int b); char Unknown80[0x94 - 0x80]; };	// 0x676000 (0x94 bytes; 'WARP', 'WARP_BAR'; 0x676190: slot +0x60: 5, 0 when incapacitated, else 0, 0)  // NAME 1: neutral (D10); NAME 1 [object, bar, layer, a, b]: neutral
 
-	void Unknown_660070(int arg);						// 0x660070 (the set-up passes 1)  // NAME 1 [arg]: neutral
-	void Unknown_65FFA0(int arg);						// 0x65FFA0 (the set-up passes 1000)  // NAME 1 [arg]: neutral
-	void Unknown_65FFC0(int arg, GadgetClass *gadget);	// 0x65FFC0 (the set-up passes -1 and +0xAC)  // NAME 1 [arg, gadget]: neutral
 
-	char Unknown04[0x49 - 0x04];						// +0x04 (0x50 bytes: 0x50A850's gadget)
-	bool Unknown49;										// +0x49 (0x5821C0: +0xAC's keeps the throttle light on)
-	char Unknown4A[0x50 - 0x4A];						// +0x4A
-};
 
-// gadget.cpp's button under the cockpit's five (0x80 bytes and more), as far as the cockpit calls it
-class UICpitButtonClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_671740(bool on, float value);			// 0x671740 (0x583510: 1, 1.0f; 0, 0)  // NAME 1 [on, value]: neutral
-	void Unknown_671630();								// 0x671630 (after slot +0xAC)
-	void Unknown_674120(int arg);						// 0x674120 (0x5821C0 passes 1 past the speed limit)  // NAME 1 [arg]: neutral
-	void Unknown_674160(int arg);						// 0x674160 (0x583250 passes 0 to the throttle and reverse buttons)  // NAME 1 [arg]: neutral
-	void Unknown_676190(int a, int b);					// 0x676190 (slot +0x60: 5, 0 when incapacitated, else 0, 0)  // NAME 1 [a, b]: neutral
-	void Unknown_66C360();								// 0x66C360 (slot +0x68: after slot +0xA4 on the throttle buttons)
-	bool Unknown_6740E0(float value);					// 0x6740E0 (0x583790 passes 1.0f: the auto thrust engaged)  // NAME 1 [value]: neutral
 
-	char Unknown50[0x64 - 0x50];						// +0x50
-	bool Unknown64;										// +0x64: pressed (0x583250, 0x583510)
-	bool Unknown65;										// +0x65
-	bool Unknown66;										// +0x66 (0x583510: either turn button's set stops the turn)
-	char Unknown67[0x80 - 0x67];						// +0x67
-};
-// The five (gadget.cpp's constructors, made by the set-up 0x57DD20)
-class UICpitTurnGadgetClass : public UICpitButtonClass { public: UICpitTurnGadgetClass(RenderObjClass *object, RenderObjClass *uv, LayerClass *layer, int a, int b, int c); };	// 0x671300 (0x80 bytes; 'LEFT', 'RIGHT')  // NAME 1: neutral (D10); NAME 1 [object, uv, layer, a, b, c]: what the set-up passes (-1, 0, 3)
-class UICpitThrottleGadgetClass : public UICpitButtonClass { public: UICpitThrottleGadgetClass(RenderObjClass *object, RenderObjClass *uv, LayerClass *layer, int a, int b); int Unknown80; char Unknown84[0x88 - 0x84]; };	// 0x673EE0 (0x88 bytes; 'THROTTLE', 'REVERSE'; +0x80: 2 stops the throttle, 0x583790)  // NAME 1: neutral (D10); NAME 1 [object, uv, layer, a, b]: what the set-up passes (-1, 0)
-class UICpitWarpGadgetClass : public UICpitButtonClass { public: UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, LayerClass *layer); char Unknown80[0x94 - 0x80]; };	// 0x676000 (0x94 bytes; 'WARP', 'WARP_BAR')  // NAME 1: neutral (D10); NAME 1 [object, bar, layer]: what the set-up passes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // gadget.cpp's and view.cpp's gadgets the set-up makes, as far as it makes them
-class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); char Unknown50[0x5C - 0x50]; };	// 0x6B56A0 (0x5C bytes; +0xAC)  // NAME 1: neutral (D10); NAME 1 [x, y, width, height, view]: what the set-up passes (0, 0, 640, 480)
-class CtrnGadgetClass : public GadgetClass { public: CtrnGadgetClass(int x, int y, int width, int height, LineDisplayClientClass *client); };	// 0x50A850 (0x50 bytes): ctrngadg.h's, as far as the set-up makes it (that header's gadget.h clashes with this file's GadgetClass)  // NAME 3: ctrngadg.h's (D24 class-from-file)
-class UICpitGadget674260Class : public GadgetClass { public: UICpitGadget674260Class(const RefCountPtr<RenderObjClass> &model); char Unknown50[0x60 - 0x50]; };	// 0x674260 (0x60 bytes)  // NAME 1: neutral (D10); NAME 1 [model]: what the set-up passes
+class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); virtual bool Unknown_30(float x, float y); char Unknown30[0x49 - 0x30]; bool Unknown49; char Unknown4A[0x5C - 0x4A]; };	// 0x6B56A0 (0x5C bytes; +0xAC)  // NAME 1: neutral (D10); NAME 1 [x, y, width, height, view]: what the set-up passes (0, 0, 640, 480)
+class CtrnGadgetClass : public GadgetClass { public: CtrnGadgetClass(int x, int y, int width, int height, LineDisplayClientClass *client); virtual bool Unknown_30(float x, float y); char Unknown30[0x50 - 0x30]; };	// 0x50A850 (0x50 bytes): ctrngadg.h's, as far as the set-up makes it (that header's gadget.h clashes with this file's GadgetClass)  // NAME 3: ctrngadg.h's (D24 class-from-file)
+
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
 
 // 0x57D830
@@ -290,11 +290,11 @@ void UICpitClass::Unknown_54()
 	Unknown154 = Unknown_BE67C4->Get_Style("SpeedDisplay", InterfaceMesh->Peek_Object());
 	Unknown0AC = new UICpitGadget6B56AClass(0, 0, 640, 480, View->As_Main_View());
 	Unknown64.Unknown_6870E0(Unknown0AC, 0x48, View, 1, 1);
-	Unknown0AC->Unknown_660070(1);
+	Unknown0AC->Set_Last_Sort_Group(true);
 	Unknown0AC->Unknown_65FFA0(1000);
 	Unknown_5BB4F0(Unknown0AC);
 	GadgetClass *gadget = new CtrnGadgetClass(0, 0, 640, 480, Client);
-	gadget->Unknown_660070(1);
+	gadget->Set_Last_Sort_Group(true);
 	gadget->Unknown_65FFC0(-1, Unknown0AC);
 	Unknown64.Unknown_6870E0(gadget, 0x4D, View, 1, 0);
 	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
@@ -318,7 +318,7 @@ void UICpitClass::Unknown_54()
 
 	RenderObjClass *object = InterfaceMesh->Unknown_5B8B40("WARP");
 	RenderObjClass *uv = InterfaceMesh->Unknown_5B8B40("WARP_BAR");
-	Unknown0B4 = new UICpitWarpGadgetClass(object, uv, &Layer);
+	Unknown0B4 = new UICpitWarpGadgetClass(object, uv, Layer);
 	Unknown64.Unknown_6870E0(Unknown0B4, 1, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP");
 	Unknown_5BB4F0(Unknown0B4);
@@ -327,7 +327,7 @@ void UICpitClass::Unknown_54()
 
 	object = InterfaceMesh->Unknown_5B8B40("LEFT");
 	uv = InterfaceMesh->Unknown_5B8B40("LEFT_UV");
-	Unknown0C0 = new UICpitTurnGadgetClass(object, uv, &Layer, -1, 0, 3);
+	Unknown0C0 = new Unknown_671300Class(object, (int)uv, Layer, -1, 0, 3);
 	Unknown64.Unknown_6870E0(Unknown0C0, 6, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0C0, "UI_CPIT", "LEFT");
 	Unknown_5BB4F0(Unknown0C0);
@@ -336,7 +336,7 @@ void UICpitClass::Unknown_54()
 
 	object = InterfaceMesh->Unknown_5B8B40("RIGHT");
 	uv = InterfaceMesh->Unknown_5B8B40("RIGHT_UV");
-	Unknown0C4 = new UICpitTurnGadgetClass(object, uv, &Layer, -1, 0, 3);
+	Unknown0C4 = new Unknown_671300Class(object, (int)uv, Layer, -1, 0, 3);
 	Unknown64.Unknown_6870E0(Unknown0C4, 7, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0C4, "UI_CPIT", "RIGHT");
 	Unknown_5BB4F0(Unknown0C4);
@@ -345,7 +345,7 @@ void UICpitClass::Unknown_54()
 
 	object = InterfaceMesh->Unknown_5B8B40("THROTTLE");
 	uv = InterfaceMesh->Unknown_5B8B40("THROTTLE_UV");
-	Unknown0B8 = new UICpitThrottleGadgetClass(object, uv, &Layer, -1, 0);
+	Unknown0B8 = new Unknown_673EE0Class(object, (int)uv, Layer, -1, 0);
 	Unknown64.Unknown_6870E0(Unknown0B8, 4, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0B8, "UI_CPIT", "THROTTLE");
 	Unknown_5BB4F0(Unknown0B8);
@@ -354,7 +354,7 @@ void UICpitClass::Unknown_54()
 
 	object = InterfaceMesh->Unknown_5B8B40("REVERSE");
 	uv = InterfaceMesh->Unknown_5B8B40("REVERSE_UV");
-	Unknown0BC = new UICpitThrottleGadgetClass(object, uv, &Layer, -1, 0);
+	Unknown0BC = new Unknown_673EE0Class(object, (int)uv, Layer, -1, 0);
 	Unknown64.Unknown_6870E0(Unknown0BC, 4, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0BC, "UI_CPIT", "REVERSE");
 	Unknown_5BB4F0(Unknown0BC);
@@ -367,7 +367,7 @@ void UICpitClass::Unknown_54()
 	Unknown16C->Set_Hidden(true);
 	Unknown170->Set_Hidden(true);
 	Unknown174->Set_Hidden(true);
-	gadget = new UICpitGadget674260Class(Unknown_497300(InterfaceMesh->Peek_Object()));
+	gadget = new Unknown_674260Class(Unknown_497300(InterfaceMesh->Peek_Object()));
 	gadget->Unknown_28(&Layer);
 	Unknown64.Unknown_6870E0(gadget, 0x4F, View, 1, 0);
 	Unknown_10();
@@ -1445,7 +1445,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 			((FontSys *)Unknown154)->Change_Text(text, 0);
 		}
 	}
-	UICpitThrottleGadgetClass *gadget;
+	Unknown_673EE0Class *gadget;
 	if (Unknown144 == 1 || Unknown144 == 3) {
 		NameClass name("MaxSpeed");
 		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name);

@@ -31,10 +31,10 @@ void Unknown_719E10(SClient *client);					// 0x719E10 (control_keys_manager.cpp)
 														// (as tsk_login.cpp)
 void Unknown_6766E0(const char *ini);					// 0x6766E0: 'action.ini'
 void Unknown_676A00();									// 0x676A00: Load_INIs' 0x6766E0 undone
-void Unknown_817070(const char *ini, const char *ex_ini);	// 0x817070: 'cskill_t.ini', 'cskill_ex_t.ini'
-void Unknown_816E60();									// 0x816E60
-void Unknown_814620(const char *ini, const char *ex_ini);	// 0x814620: 'cskill_ability_t.ini', 'cskill_ability_ex_t.ini'
-void Unknown_814430();									// 0x814430
+class SkillNamesDatabase { public: static void Unknown_817070(const char *ini, const char *ex_ini);	// 0x817070: 'cskill_t.ini', 'cskill_ex_t.ini'
+	static void Unknown_816E60(); };						// 0x816E60
+class SkillAbilityNamesDatabase { public: static void Unknown_814620(const char *ini, const char *ex_ini);	// 0x814620: 'cskill_ability_t.ini', 'cskill_ability_ex_t.ini'
+	static void Unknown_814430(); };						// 0x814430
 void Unknown_74CA90(const char *ini);					// 0x74CA90 (sclient.cpp's attributed run): 'testeffects.ini'
 void Unknown_70A7E0(const std::string &ini);			// 0x70A7E0: 'gutter_color.ini'
 void Unknown_70AD70();									// 0x70AD70
@@ -42,13 +42,13 @@ void Unknown_Load_Assets(const std::string &ini);		// NAME 2 [Unknown_Load_Asset
 void Unknown_Free_Assets();								// NAME 2 [Unknown_Free_Assets]: 0x729D60 (client_lego_impl.cpp) (as tsk_smovie.cpp)
 extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  // NAME 2: what Pump_Messages redraws
 
-// The object at 0xC404D8 (soundlib.cpp's neighbourhood): the constructor sets its byte +0x19A5
-struct Unknown_C404D8Struct		// NAME 1: neutral (D10)
-{
-	char Unknown0000[0x19A5];
-	bool Unknown19A5;
-};
-extern Unknown_C404D8Struct *Unknown_C404D8;			// NAME 1: neutral (D10)
+// The object at 0xC404D8 is WWAudioClass::_theInstance (WWAudioClass's ctor and dtor set it): the constructor
+// sets its +0x19A5, which queues sounds started during the load
+#include "WWAudio.h"
+
+
+
+
 
 // The members' classes as far as the constructor and destructor build and free them
 class Unknown619280Class		// NAME 1: neutral (D10): 0x44 bytes, constructor 0x619280 (before ui_ship_cust.cpp)
@@ -140,7 +140,7 @@ public:
 class UIChatPanelClass : public InterfaceClass
 {
 public:
-	UIChatPanelClass(SClient *client); void Unknown_5685C0();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
+	UIChatPanelClass(SClient *client); void Unknown_5685C0(); void Unknown_568690();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
 	bool Unknown_56BA80();								// 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
 	void Unknown_565F30(int arg); void Unknown_56BAA0(int a, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [a, text]: what 0x74E710 passes
@@ -151,8 +151,8 @@ public:
 	char Unknown13C[0x264 - 0x13C]; bool MessageButtonShowing; char Unknown265[3]; bool Is_Message_Button_Showing() { return(MessageButtonShowing); }	// +0x264 (0x74FEC0's FAIL_IF names the getter)  // NAME 2 [MessageButtonShowing]: its getter's
 };
 
+#include "fontmanager.h"	// FontSys: ui_line_display.h's text objects
 #include "ui_line_display.h"						// UILineDisplayClass (0x5A5410, 0x100 bytes; Init passes the SClient as its client)
-
 
 
 class UIHotKeysClass : public InterfaceClass
@@ -192,14 +192,14 @@ public:
 	char Unknown04[0xCC - 0x04];
 };
 
-class TargetingClass
-{
-public:
-	TargetingClass(SClient *client);					// 0x7C6120
-	virtual ~TargetingClass();
+#include "targeting.h"
 
-	char Unknown04[0x14 - 0x04];
-};
+
+
+
+
+
+
 
 class CameraManagerClass
 {
@@ -224,7 +224,7 @@ class MusicManagerClass
 public:
 	MusicManagerClass();								// 0x439E40
 	~MusicManagerClass();								// 0x43A040
-	void Unknown_43AD70();								// 0x43AD70 (Shutdown, before the delete)
+	void Unknown_43AD70(); void Unknown_43AE30(int a, int b, int c, int d);	// 0x43AD70 (Shutdown, before the delete); 0x43AE30 (0x744690 passes 0, 0, 0, 8 while loading)  // NAME 1 [a, b, c, d]: neutral
 	void Unknown_43B760(unsigned sector);				// 0x43B760 (0x750A70: SERVER_PARAMETERS 66's SectorNum)  // NAME 1 [sector]: what it gets
 
 	char Unknown00[0x1FC];
@@ -303,7 +303,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown1198(true),
 	Unknown126C(-1),
 	Unknown1270(NULL),
-	Unknown1274(NULL),
+	Mouse(NULL),
 	Unknown1278(0),
 	LineDisplay(NULL),
 	PDAInterface(NULL),
@@ -362,7 +362,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown1334 = new SClientUnknown1334Class;
 	EnvironmentMapManager = new EnvironmentMapManagerClass;
 	ProjDecalManager = new ProjDecalManagerClass;
-	Unknown_C404D8->Unknown19A5 = true;
+	WWAudioClass::Get_Instance()->m_Unknown19A5 = true;
 	Unknown119C.size();		// dead: keeps the string's _Tidy out of line, as the client has it (D40's lever)
 }
 
@@ -394,8 +394,8 @@ void SClient::Load_INIs()
 	if (INIUsers == 0) {
 		Unknown_7228C0();
 		Unknown_6766E0("action.ini");
-		Unknown_817070("cskill_t.ini", "cskill_ex_t.ini");
-		Unknown_814620("cskill_ability_t.ini", "cskill_ability_ex_t.ini");
+		SkillNamesDatabase::Unknown_817070("cskill_t.ini", "cskill_ex_t.ini");
+		SkillAbilityNamesDatabase::Unknown_814620("cskill_ability_t.ini", "cskill_ability_ex_t.ini");
 		Unknown_74CA90("testeffects.ini");
 		Unknown_70A7E0(std::string("gutter_color.ini"));
 		Unknown_Load_Assets(std::string("cbasset.ini"));
@@ -422,8 +422,8 @@ void SClient::Init()
 	Unknown_7451D0();
 	Load_INIs();
 	Unknown_719D50(this);
-	Unknown1274 = new LoginUnknown18Class((int)this);
-	Unknown1274->Unknown_515120(2);
+	Mouse = new LoginUnknown18Class((int)this);
+	Mouse->Unknown_515120(2);
 	ChatPanel = Create_NEW(new UIChatPanelClass(this));
 	ChatPanel->Unknown_54();
 	LineDisplay = new UILineDisplayClass((LineDisplayClientClass *)this);
@@ -502,8 +502,8 @@ void SClient::Unload_INIs()
 	if (--INIUsers == 0) {
 		Unknown_723150();
 		Unknown_676A00();
-		Unknown_816E60();
-		Unknown_814430();
+		SkillNamesDatabase::Unknown_816E60();
+		SkillAbilityNamesDatabase::Unknown_814430();
 		Unknown_70AD70();
 		Unknown_Free_Assets();
 	}
@@ -583,8 +583,8 @@ void SClient::Shutdown()
 	Movie3DView = NULL;
 	delete ScriptedMovieView;
 	ScriptedMovieView = NULL;
-	delete Unknown1274;
-	Unknown1274 = NULL;
+	delete Mouse;
+	Mouse = NULL;
 	delete LoadingView;
 	LoadingView = NULL;
 	if (Unknown18) {
@@ -636,7 +636,7 @@ UIViewClass *SClient::Unknown_742530(UIViewClass *view)
 	if (view) {
 		inner = view->Unknown_1C();
 		if (inner) Unknown1278 = (int)inner->Unknown2C; else Unknown1278 = 0;
-		Unknown1274->Unknown_515340((void *)view->Unknown_3C());
+		Mouse->Unknown_515340((void *)view->Unknown_3C());
 		CurrentView->Unknown_18(true);
 		if (CurrentView == MainView || CurrentView == Unknown135C) {
 			PDAInterface->Unknown_7C(inner, 1);
@@ -652,7 +652,7 @@ UIViewClass *SClient::Unknown_742530(UIViewClass *view)
 		}
 		HotKeys->Unknown_7C(CurrentView->Unknown_1C(), 1);
 	} else {
-		Unknown1274->Unknown_515340(NULL);
+		Mouse->Unknown_515340(NULL);
 		PDAInterface->Unknown_7C(NULL, 0); ChatPanel->Unknown_7C(NULL, 0); HotKeys->Unknown_7C(NULL, 0);
 	}
 	LineDisplay->Unknown_7C(inner, 1);
@@ -2176,7 +2176,7 @@ void SClient::Unknown_745160()
 
 
 
-
+ClientObjectClass *SClient::Get_Target() { return(MainView->Unknown_5C()); }	// 0x744FE0 (called only from other files)
 // 0x745000
 void SClient::Unknown_745000(int base_asset)
 {
@@ -5716,6 +5716,86 @@ void SClient::Unknown_750F70(const char *name, int channel)
 			object->Unknown_700820(color);
 		}
 	}
+}
+
+
+#include "thread.h"
+#include "textureloader.h"
+extern int Unknown_BB9C40;		// NAME 1: neutral (D10): cleared while 0x744690 renders the first frames (Unknown1374)
+extern int Unknown_BBB5D0;		// NAME 1: neutral (D10): the same
+// NOT EXACT: functional (WE1): from the pseudocode, not aligned; the listener's camera turn written as Rotate_X / Rotate_Z
+// 0x744690: ClientTaskClass::Render's frame: the loading view's while loading, else the current view's, then the listener
+void SClient::Unknown_64()
+{
+	ThreadClass::Switch_Thread();
+	if (Task->Is_Focused() && LoadingView->Unknown68) {
+		if (ChatPanel) {
+			ChatPanel->Unknown_5685C0();
+			ChatPanel->Unknown_568690();
+		}
+		LoadingView->Unknown_0C(true);
+		if (MusicManager) {
+			MusicManager->Unknown_43AE30(0, 0, 0, 8);
+			SoundLibraryClass::Update();
+		}
+		if (Unknown1330) {
+			delete Unknown1330;
+			Unknown1330 = NULL;
+		}
+		return;
+	}
+	if (Unknown14F0) {
+		Send_Packet(&ClientChatRequestPacketClass(0x1E, Unknown1138));
+		Unknown14F0 = false;
+	}
+	if (Unknown1198 && !Unknown1388) {
+		return;
+	}
+	Mouse->Unknown_515440();
+	int saved_c40 = Unknown_BB9C40;
+	int saved_5d0 = Unknown_BBB5D0;
+	bool on = true;
+	if (Unknown1374) {
+		on = false;
+		WWAudioClass::Get_Instance()->m_Unknown19A5 = true;
+		Unknown_BB9C40 = 0;
+		Unknown_BBB5D0 = 0;
+	}
+	if (CurrentView) {
+		CurrentView->Unknown_0C(on);
+	}
+	if (Unknown1374) {
+		Unknown1374--;
+		Unknown_BB9C40 = saved_c40;
+		Unknown_BBB5D0 = saved_5d0;
+		TextureLoader::Flush_Pending_Load_Tasks();
+		if (Unknown1374 == 0 && WWAudioClass::Get_Instance()) {
+			WWAudioClass::Get_Instance()->Unknown_Resume_All();
+		}
+	}
+	RenderObjClass *camera = (RenderObjClass *)Unknown12B8;
+	if (camera == NULL) {
+		if (CurrentView == NULL || CurrentView != Unknown135C) {
+			camera = (RenderObjClass *)MainView->Unknown_7C();
+		} else {
+			camera = *(RenderObjClass **)((char *)Unknown135C + 0x6C);
+		}
+		if (camera == NULL) {
+			return;
+		}
+	}
+	Matrix3D tm = camera->Get_Transform();
+	if (camera->Class_ID() == RenderObjClass::CLASSID_CAMERA) {
+		tm.Rotate_X(-1.5707964f);
+		tm.Rotate_Z(1.5707964f);
+	}
+	SoundLibraryClass::Set_Listener_Transform(tm);
+	Unknown_74BFB0();
+	if (Unknown1330) {
+		float z = tm[2][3];
+		Unknown1330->Unknown_43C660(Unknown10BC, *(int *)&z);
+	}
+	SoundLibraryClass::Update();
 }
 
 /*

@@ -19,7 +19,7 @@
 
 class Unknown669570Class;
 class Unknown6A3D60Class;
-class Unknown6A7A00Class;
+class SkillDataClass;
 class SlotDataGadgetClass;
 
 class SkillRenderClass : public SlotDataRenderClass	// NAME 3: class-from-file (D24) for app\Client\skill_render.cpp
@@ -41,7 +41,7 @@ public:
 
 	void Unknown_6A72E0(int ability, bool update);						// 0x6A72E0 (gd_attrb_skills.cpp's)  // NAME 1 [ability, update]: neutral
 	int Get_34() { return(Unknown34); }									// (gd_attrb_skills.cpp's registers)  // NAME 1: neutral (D10)
-	Unknown6A7A00Class *Unknown_6A7310();								// 0x6A7310 (the slot data's skill; asserts 'sd', 'skill')
+	SkillDataClass *Unknown_6A7310();								// 0x6A7310 (the slot data's skill; asserts 'sd', 'skill')
 	void Unknown_6A73C0(bool on, const RefCountPtr<RenderObjClass> &robj);	// 0x6A73C0 (onto or off the container)  // NAME 1 [on, robj]: neutral
 
 	RefCountPtr<RenderObjClass> Unknown2C;								// +0x2C ('itemon01')

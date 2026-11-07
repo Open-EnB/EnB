@@ -45,6 +45,7 @@ APP = [r'app\client\client.cpp', r'app\client\sclient.cpp', r'app\client\cpacket
        r'app\shared\avatar_desc.cpp',       # AVATAR_DESCRIPTION 97's member
        r'app\client\shiputils.cpp',       # the real 0x80E8C0 / 0x80EFF0 run; its 0x80FF20 is renamed (client_stubs.cpp's stand-in)
        r'app\client\ui_verb.cpp',        # the real window, its 0x658F40 renamed (clienttest.cpp's stand-in records the verbs)
+       r'app\client\radar_system.cpp',  # the real radar, its 0x7BCA70 renamed (client_stubs.cpp's stand-in traces the frame)
        r'app\client\ui_talkt.cpp',       # the real conversation window, its 0x64EED0 renamed (client_stubs.cpp's stand-in)
        r'app\shared\gclass.cpp']          # InterfaceClass's base GClass (gen_stubs cannot write its template-pointer slots)
 for _sub in ('', 'gameedit'):
@@ -92,6 +93,8 @@ def build(out):
         name = 'app_' + re.sub(r'\W', '_', os.path.splitext(p)[0][4:]) + '.cpp'
         with open(os.path.join(stage, name), 'w', newline='\r\n') as f:
             f.write('// %s, compiled into clienttest (clienttest.py build)\n' % p)
+            if p.endswith('radar_system.cpp'):
+                f.write('#define Unknown_7BCA70 Real_Unknown_7BCA70\n')
             if p.endswith('shiputils.cpp'):
                 f.write('#define Unknown_80FF20 Real_Unknown_80FF20\n')
                 # the real 0x80EAF0 (decals onto 'decalNN' meshes) needs decal.cpp's library and real meshes: its

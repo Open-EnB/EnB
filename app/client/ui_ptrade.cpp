@@ -152,7 +152,7 @@ void UIPTradeClass::Unknown_54()
 // 0x5E26D0
 RenderObjClass *UIMeshClass::Unknown_5E26D0()
 {
-	return(Unknown1C);
+	return(InterfaceMesh);
 }
 
 

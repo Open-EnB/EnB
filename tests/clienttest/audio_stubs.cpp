@@ -11,7 +11,14 @@ class WWAudioClass
 {
 public:
 	void Flush_Cache(void);
+private:
+	static WWAudioClass *_theInstance;	// (private, as WWAudio.h has it: the same symbol)
+	friend void Hook_Audio_Functions();
 };
+
+// SClient's constructor sets the instance's +0x19A5 (sounds started during the load wait): zeroed memory of the
+// instance's size stands in for it
+static int The_Audio_Instance[0x1A00 / 4];
 
 static void Flush_Cache_Hook()
 {
@@ -20,6 +27,7 @@ static void Flush_Cache_Hook()
 
 void Hook_Audio_Functions()
 {
+	WWAudioClass::_theInstance = (WWAudioClass *)The_Audio_Instance;
 	void (WWAudioClass::*member)(void) = &WWAudioClass::Flush_Cache;
 	unsigned char *at;
 	memcpy(&at, &member, 4);

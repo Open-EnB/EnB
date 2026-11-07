@@ -35,8 +35,8 @@ class ClientObjectDataClass  // NAME 3: by convention (D24) from the client's co
 {
 public:
 	ClientObjectDataClass(ClientObjectClass *co);			// 0x79D0F0 (the assert names 'co')
-	virtual ClientObjectClass *Get_Client_Object() { return(ClientObject); }	// +0x00 0x79D130  // NAME 2: what it does
-	virtual ~ClientObjectDataClass() {}						// +0x04 0x79D150 (0x79D180)
+	virtual ClientObjectClass *Peek_Client_Object() { return(ClientObject); }	// +0x00 0x79D130 (the client's FAIL_IF 'object != Peek_Client_Object()', radar_data.cpp)
+	virtual ~ClientObjectDataClass();						// +0x04 0x79D150 (0x79D180): called, not inlined, by radar_icon_data.cpp's 0x7BC100
 
 	ClientClass *Get_Client();								// 0x79D1A0: the object's client (+0x7C)  // NAME 2: what it does
 	int Unknown_18();										// 0x79D1E0: the client's slot +0x18, else 0  // NAME 1: the client's slot

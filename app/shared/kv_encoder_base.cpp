@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\shared\kv_encoder_base.cpp. Notes at the end of the file.
 #include "kv_encoder_base.h"
 #include "kv_list.h"
-#include "kv_pair_string.h"
+#include "kv_acc_string.h"
 #include "g_assert.h"
 
 // the prefixes joined, each followed by a dot (0x4B43E0; Push_Prefix and Set_Prefix inline it)
@@ -144,6 +144,57 @@ void KVEncoderBaseClass::Add_String(int mask, const char *name, StringValueClass
 	List->Add(new KVPairStringClass(Make_Key(name), value));
 }
 
+void KVEncoderBaseClass::Add(int mask, const char *name, char *buffer, int size)
+{
+	bool even;
+	bool odd;
+	Unknown_Test(mask, even, odd);
+	if (even || odd) {
+		List->Add(new KVPairStringClass(Make_Key(name), new KVBufferAccessorClass(buffer, size), even, odd));
+	}
+}
+
+void KVStringEncoderClass::Add_New_String(int mask, const char *name, char **value)
+{
+	bool even;
+	bool odd;
+	Unknown_Test(mask, even, odd);
+	if (even || odd) {
+		List->Add(new KVPairStringClass(Make_Key(name), new KVNewStringAccessorClass(value), even, odd));
+	}
+}
+
+void KVStringEncoderClass::Add_Dup_String(int mask, const char *name, char **value)
+{
+	bool even;
+	bool odd;
+	Unknown_Test(mask, even, odd);
+	if (even || odd) {
+		List->Add(new KVPairStringClass(Make_Key(name), new KVDupStringAccessorClass(value), even, odd));
+	}
+}
+
+void KVStringEncoderClass::Add_Fixed_String(int mask, const char *name, const char *value)
+{
+	bool even;
+	bool odd;
+	Unknown_Test(mask, even, odd);
+	if (even || odd) {
+		odd = false;
+		List->Add(new KVPairStringClass(Make_Key(name), new KVFixedStringAccessorClass(value), even, odd));
+	}
+}
+
+void KVStringEncoderClass::Add_Std_String(int mask, const char *name, std::string *value)
+{
+	bool even;
+	bool odd;
+	Unknown_Test(mask, even, odd);
+	if (even || odd) {
+		List->Add(new KVPairStringClass(Make_Key(name), new KVStdStringAccessorClass(value), even, odd));
+	}
+}
+
 /*
 **	Reconstruction notes
 **
@@ -156,8 +207,6 @@ void KVEncoderBaseClass::Add_String(int mask, const char *name, StringValueClass
 **	109), Unknown_Join 0x4B43E0 (static: called directly, without a thunk), Set_Prefix 0x4B45B0
 **	(117), Unknown_Test 0x4B4820 (130), Add_String 0x4B48A0 (Unknown_Test and Make_Key inlined).
 **	The constructor 0x4B3850 (line 45, Set_Prefix inlined: line 117) is not exact: the same code
-**	with `this` in ebx where ours has ebp, and the new's result through eax. Not rebuilt yet: the
-**	other Add functions 0x4B4A70-0x4B5370 (accessor objects of vtables 0xAEB34C, 0xAEB360,
-**	0xAEB374, 0xAEB388, made inline: their classes are kv headers' not rebuilt yet), the
-**	interface 0xAEB590 (0x4B3710/0x4B3730), the initialiser 0x4B3760 (permstr.h's static, atexit).
+**	with `this` in ebx where ours has ebp, and the new's result through eax. The other adds 0x4B4A70-0x4B5370
+**	make the accessors of kv_acc_string.h (vtables 0xAEB338-0xAEB388; their copies at 0x4B0A90-0x4B1110).
 */

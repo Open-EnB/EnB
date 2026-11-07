@@ -1078,6 +1078,35 @@ void GadgetClass::Unknown_6609A0()
 }
 
 
+
+// 0x660D30
+InterfaceDeactivationGadgetClass::InterfaceDeactivationGadgetClass(int a, int b, int c, int d, int e) :
+	GadgetClass(e)
+{
+	*(float *)&Unknown30[0x00] = (float)a * 0.0015625f;
+	*(float *)&Unknown30[0x04] = (float)b * 0.0020833334f;
+	*(float *)&Unknown30[0x08] = (float)c * 0.0015625f;
+	*(float *)&Unknown30[0x0C] = (float)d * 0.0020833334f;
+}
+
+// 0x660DD0
+bool InterfaceDeactivationGadgetClass::Unknown_30(float x, float y)
+{
+	float left = *(float *)&Unknown30[0x00];
+	float top = *(float *)&Unknown30[0x04];
+	return(left <= x && x <= *(float *)&Unknown30[0x08] + left && top <= y && y <= *(float *)&Unknown30[0x0C] + top);
+}
+
+// 0x660E40
+void InterfaceDeactivationGadgetClass::Unknown_64(AABoxClass &box)
+{
+	box.Center.X = *(float *)&Unknown30[0x08] * 0.5f + *(float *)&Unknown30[0x00];
+	box.Center.Y = *(float *)&Unknown30[0x0C] * 0.5f + *(float *)&Unknown30[0x04];
+	box.Center.Z = 0.0f;
+	box.Extent.X = *(float *)&Unknown30[0x08] * 0.5f;
+	box.Extent.Y = *(float *)&Unknown30[0x0C] * 0.5f;
+	box.Extent.Z = 0.0f;
+}
 /*
 **	Reconstruction notes
 **

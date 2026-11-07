@@ -23,35 +23,10 @@
 #include "matrix3d.h"
 #include "map_pip.h"
 #include "galaxy_map_focal_point.h"
+#include "galaxy_map_render.h"
 
 class GalaxyMapClientClass;
 class SceneClass;
-
-// galaxy_map_render.cpp (not in the tree yet), as far as this file calls it. 0xC0 bytes.
-// PLACEMENT: provisional (D137): the client's galaxy_map_render.h gives it a header; no other user in the tree yet
-class GalaxyMapRenderClass  // NAME 3: class-from-file (D24) for app\Client\galaxy_map_render.cpp
-{
-public:
-	GalaxyMapRenderClass(GalaxyMapClientClass *map);	// 0x7A6020 (FAIL_IF 'GalaxyMap')  // NAME 2 [map]: the assert's
-	~GalaxyMapRenderClass();							// 0x7A64F0
-
-	void Unknown_7A6A70();								// 0x7A6A70
-	void Unknown_7A6AB0(const RefCountPtr<SceneClass> &scene, const RefCountPtr<CameraClass> &camera);	// 0x7A6AB0  // NAME 1 [scene, camera]: what the caller passes
-	void Unknown_7A6DD0();								// 0x7A6DD0
-	void Unknown_7A7070(bool arg);						// 0x7A7070 (FAIL_IF '!GalaxyMap')  // NAME 1 [arg]: neutral
-	void Unknown_7A72C0(float x, float y);				// 0x7A72C0 (FAIL_IF '!Camera')  // NAME 1 [x, y]: neutral
-	void Unknown_7A7450();								// 0x7A7450
-	SphereClass Unknown_7A83D0(bool arg);					// 0x7A83D0  // NAME 1 [arg]: neutral
-	void Unknown_7A8770(int arg);						// 0x7A8770 (the aux data's SectorNum)  // NAME 1 [arg]: what the caller passes
-	SphereClass Unknown_7A89A0();							// 0x7A89A0
-
-	char Unknown_Pad00[0x14];
-	Vector2 Unknown14;									// +0x14 (0x53FD10)
-	Vector2 Unknown1C;									// +0x1C (0x53FD10)
-	char Unknown_Pad24[0xB4 - 0x24];
-	float UnknownB4;									// +0xB4 (0x53FCA0)
-	char Unknown_PadB8[0xC0 - 0xB8];
-};
 
 // gd_galaxy_map.cpp's gadget (not in the tree yet), as far as this file calls it. 0x50 bytes.
 // PLACEMENT: provisional (D137): the client's gd_galaxy_map.cpp gives it a file; no other user in the tree yet

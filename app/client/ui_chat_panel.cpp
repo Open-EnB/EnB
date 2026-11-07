@@ -71,7 +71,7 @@ public:
 class UIChatReplyListClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
-	int Unknown_56EFB0();								// 0x56EFB0: the line picked (1-based), 0 for none, negative to close
+	UIChatReplyListClass(SClient *client); int Unknown_56EFB0();	// 0x56E2A0 (0xA4 bytes; slot +0x54); 0x56EFB0: the line picked (1-based), 0 for none, negative to close
 	void Unknown_56EED0(std::list<std::string> &names, int arg);	// 0x56EED0 (0x567540: the reply names, +0x1EC)  // NAME 1 [names, arg]: what 0x567540 passes
 };
 
@@ -181,10 +181,74 @@ public: static void Set_Tooltip(GadgetClass *gadget, const char *section, const 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
 // 0x65EFB0 is GadgetClass::Set_Tooltip (variadic as gadget.h declares it)
 
+class Unknown67D430Class { public: Unknown67D430Class(int count); char Unknown00[0x70]; };	// 0x67D430 (0x70 bytes; slot +0x54 passes 200)  // NAME 1: neutral (D10)
+class Unknown65BFD0Class { public: Unknown65BFD0Class(LineDisplayClientClass *client); char Unknown00[0x80]; };	// 0x65BFD0 (0x80 bytes, slot +0x54)  // NAME 1: neutral (D10)
+#include "assetmgr.h"
 
 
 
 
+// NOT EXACT: functional (WE1): the first compile of the constructor, not yet aligned
+// 0x561DD0
+UIChatPanelClass::UIChatPanelClass(SClient *client) :
+	UIChatPanelBaseClass(client),
+	UnknownA0(0),
+	UnknownD8(NULL),
+	UnknownDC(NULL),
+	UnknownE0(NULL),
+	UnknownE4(NULL),
+	UnknownE8(NULL),
+	UnknownEC(NULL),
+	UnknownF0(NULL),
+	UnknownF4(false),
+	UnknownFC(0),
+	Unknown100(0),
+	Unknown108(0),
+	Unknown10C(false),
+	Unknown10D(false),
+	Unknown110(NULL),
+	Unknown114(NULL),
+	Unknown118(0),
+	Unknown11C(0),
+	Unknown120(true),
+	Unknown134(0),
+	Unknown13C(0),
+	Unknown140(0),
+	Unknown144(0),
+	Unknown148(0),
+	Unknown14C(6),
+	Unknown150(0),
+	Unknown154(false),
+	Unknown1D8(""),
+	Unknown1E8(NULL),
+	Unknown1EC(0),
+	Unknown1F0(false),
+	Unknown1F4(""),
+	Unknown204(""),
+	Unknown214(""),
+	Unknown224(false),
+	Unknown225(false),
+	Unknown227(false),
+	Unknown238(""),
+	Unknown248(""),
+	Unknown258(NULL),
+	Unknown25C(false),
+	Unknown260(0.0f),
+	MessageButtonShowing(false),
+	Unknown265(false),
+	Unknown266(false),
+	Unknown267(false)
+{
+	memset(UnknownA4, 0, sizeof(UnknownA4));
+	memset(Combo, 0, sizeof(Combo));
+	int i;
+	for (i = 0; i < 3; i++) {
+		Unknown158[i] = "";
+	}
+	for (i = 0; i < 5; i++) {
+		Unknown188[i] = "";
+	}
+}
 
 
 
@@ -391,113 +455,49 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (c
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: functional (WE1): from the pseudocode, not aligned; the tooltips' sort order (0x65FFC0) and the button text's slot +0x168 are left out
+// 0x5629E0
+void UIChatPanelClass::Unknown_54()
+{
+	static const char *const buttons[6] = { "RESIZE_MAX00", "RESIZE_MIN00", "GIZMO_EXPAND", "B05", "AVATAR_THEM", "FRAME_DETAIL_MI" };	// 0xB7C284
+	static const char *const texts[6] = { NULL, NULL, NULL, "message_TSI05B", NULL, NULL };	// 0xB7C268
+	static const char *const tips[6] = { "RESIZE_MAX", "RESIZE_MIN", "GIZMO_EXPAND", NULL, "AVATAR_THEM", "AVATAR_THEM" };	// 0xB7C2A0
+	if (!Unknown_98("tsi05b", "fa_tsi05b.ini")) {
+		return;
+	}
+	Unknown114 = Unknown84->Get_Sub_Object_By_Name("cockpit");
+	Unknown114->Set_Hidden(1);
+	Unknown258 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("connect_break");
+	if (Unknown258) {
+		Unknown84->Add_Sub_Object_To_Bone(Unknown258, "frame_detail");
+	}
+	Unknown25C = false;
+	Unknown260 = 0.0f;
+	if (Unknown258) {
+		Unknown258->Set_Hidden(1);
+	}
+	for (int i = 0; i < 6; i++) {
+		UnknownA4[i + 1] = Unknown_56D510(i + 1, buttons[i], texts[i]);
+		if (tips[i]) {
+			GadgetClass::Set_Tooltip(UnknownA4[i + 1], "UI_CHAT_PANEL", tips[i]);
+		}
+	}
+	Unknown_56BAA0(false, NULL);
+	Unknown1E8 = new UIChatReplyListClass(Client->As_Space_Client());
+	Unknown1E8->Unknown_54();
+	Unknown110 = new AvatarPipClass;
+	Unknown_563DC0(false);
+	Unknown13C = (int)new Unknown67D430Class(200);
+	Unknown140 = (int)new Unknown65BFD0Class(Client);
+	Unknown_56C0C0();
+	Unknown144 = OptionClass::Instance->Get_Int("Chat_Default_Channel");
+	Unknown1F4 = OptionClass::Instance->Get_String("Channel_Label");
+	for (i = 0; i < NUM_COMBO; i++) {
+		Unknown_5689D0(i);
+	}
+	UnknownD4 = NULL;
+	Unknown_10();
+}
 
 // 0x562F50
 void UIChatPanelClass::Unknown_58()

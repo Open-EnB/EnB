@@ -9,7 +9,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 class GadgetSlider;			// gd_slider.h's sliders (+0xD4, +0xD8)
 class RenderObjClass;
-class Unknown6A7A00Class;	// what the skill base's 0x62D710 returns (ui_attrb_skills.cpp declares it as far as it calls it)
+class SkillDataClass;	// what the skill base's 0x62D710 returns (ui_attrb_skills.cpp declares it as far as it calls it)
 class Unknown664500Class;	// gd_attrb_skills.cpp's gadget (UnknownC4's elements; ui_attrb_skills.cpp declares it as far as it calls it)
 
 // The skill windows' base (0xBC bytes; constructor 0x62D1F0 over 0x62DE80's, destructor 0x62D300; tables 0xAF7DBC /
@@ -46,7 +46,7 @@ public:
 	virtual void Unknown_CC();							// +0xCC (0x62DE80's class's 0x406C7B)
 	virtual void Unknown_D0();							// +0xD0
 	virtual InterfaceClass *Unknown_D4();				// +0xD4
-	Unknown6A7A00Class *Unknown_62D710();				// 0x62D710
+	SkillDataClass *Unknown_62D710();				// 0x62D710
 	void Unknown_62F4D0(RefCountPtr<RenderObjClass> &frame, int id);	// 0x62F4D0 (the attributes tab's Init passes its 'new_frame' and 0x138C)  // NAME 1 [frame, id]: neutral
 
 	char Unknown84[0xBC - 0x84];						// +0x84 (0x62DE80: +0x84, a container at +0x88, +0x98..+0xB4, flags +0xB8)

@@ -49,6 +49,7 @@ TextureClass * Create_Projector_Render_Target(int width,int height);	// NAME 2: 
 class ProjectionDefClass : public RefCountClass	// NAME 2: the asserts' ProjectionDef
 {
 public:
+	ProjectionDefClass(void) : Unknown08(true), Unknown09(false), Additive(false), Intensity(0.75f), NearZ(0.0f), FarZ(3000.0f), TextureSize(64) {}	// inline (projscen.cpp's 0x495280)
 	bool							Is_Additive(void) const			{ return Additive; }		// NAME 2: Renegade's Shadow_Is_Additive
 	float							Get_Intensity(void) const		{ return Intensity; }	// NAME 2: Renegade's Shadow_Intensity
 	float							Get_NearZ(void) const			{ return NearZ; }		// NAME 2: Renegade's Shadow_NearZ
@@ -187,7 +188,6 @@ public:
 ** The receiver hooks itself into its cullable: the culling systems collect the ProjectorReceiverCullClass and
 ** Apply_Projectors reaches the receiver through its Receiver member. The receiver holds a reference to the
 ** cullable until its destructor.
-**
 **
 **
 **

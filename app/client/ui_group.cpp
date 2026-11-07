@@ -57,12 +57,12 @@ void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);
 class UIGroupIconGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIGroupIconGadgetClass(RenderObjClass *object, int unknown1, int unknown2);	// 0x675310 (0x5938A0 passes the symbol, 5, 3)  // NAME 1 [object, unknown1, unknown2]: neutral
+	// (made as ButtonGadgetClass: 0x675310 (0x5938A0 passes the symbol, 5, 3)
 	char Unknown30[0x64 - 0x30];						// +0x30
 };
 // The asset manager (*0xBFAEE0)
 #include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
-
+class ButtonGadgetClass : public GadgetClass { public: ButtonGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask, unsigned int flags); ButtonGadgetClass(RenderObjClass *robj, unsigned int mask, unsigned int flags); char Unknown30[0x64 - 0x30]; };	// unknown_675120.h's 0x675240 / 0x675310, as far as this file makes them (this file has its own view of GadgetClass)
 
 
 
@@ -79,7 +79,7 @@ static const char *Unknown_B7F4C4[] = { "hull_bar1", "shield_bar1", NULL };	// N
 class UIGroupButtonGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIGroupButtonGadgetClass(RenderObjClass *object, LayerClass *layer, int unknown1, int unknown2);	// 0x675240 (0x594040 passes the button model, the window's layer, 0x55, 3)  // NAME 1 [object, layer, unknown1, unknown2]: neutral
+	// (made as ButtonGadgetClass: 0x675240 (0x594040 passes the button model, the window's layer, 0x55, 3)  // NAME 1 [object, layer, unknown1, unknown2]: neutral
 	char Unknown30[0x64 - 0x30];						// +0x30
 };
 // The formation buttons' bones, string ids and font styles (0xB7F4D0, 0xB7F4F4, 0xB7F518; 0x594040)
@@ -89,12 +89,12 @@ static const char *Unknown_B7F518[] = { NULL, NULL, NULL, "FORM_UP_TSI03A", "LEA
 
 // The SignalMap the group events go to: a function-static instance (co.cpp's 0x4F7EF0), not rebuilt
 SignalMap &Unknown_4F7EF0();
-class ClientGroupEvent	// NAME 5: the client's RTTI .?AVClientGroupEvent@@
-{
-public:
-	ClientGroupEvent(bool value) : Value(value) {}
-	bool Value;											// +0x00  // NAME 1: neutral
-};
+#include "client_object_events.h"
+
+
+
+
+
 
 
 
@@ -553,7 +553,7 @@ void UIGroupMemberClass::Unknown_5938A0(const char *text, float time, int index)
 		Unknown_496AE0(Unknown38.Peek(), 0);
 		Unknown30->Add_Sub_Object_To_Bone(Unknown38.Peek(), "icon");
 		if (Unknown1D) {
-			Unknown3C = new UIGroupIconGadgetClass(Unknown38.Peek(), 5, 3);
+			Unknown3C = (UIGroupIconGadgetClass *)new ButtonGadgetClass(Unknown38.Peek(), 5, 3);
 			Get_Interface()->Unknown64.Unknown_6870E0(Unknown3C, index + 0x17, Get_Interface()->View, 1, 1);
 			Unknown3C->Unknown_65FFA0(-1);
 			Unknown_65EFB0(Unknown3C, "UI_GROUP", "CONTEXT");
@@ -658,7 +658,7 @@ void UIGroupClass::Unknown_54()
 		}
 		if (model != NULL) {
 			Unknown_496AE0(model.Peek(), 0);
-			Unknown0C0[i] = new UIGroupButtonGadgetClass(model.Peek(), &Layer, 0x55, 3);
+			Unknown0C0[i] = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(model.Peek(), Layer, 0x55, 3);
 			if (Unknown_B7F4F4[i]) {
 				Unknown_65EFB0(Unknown0C0[i], "UI_FORMATION", Unknown_B7F4F4[i]);
 			}
@@ -1033,7 +1033,7 @@ void UIGroupClass::Unknown_595530()
 			_snprintf(bone, sizeof(bone), "group%02d", index);
 			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(member->Unknown34.Peek(), bone);
 			RefCountPtr<RenderObjClass> frame = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("group"));
-			member->Unknown40 = new UIGroupButtonGadgetClass(frame.Peek(), &Layer, 5, 3);
+			member->Unknown40 = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(frame.Peek(), Layer, 5, 3);
 			member->Unknown40->Unknown_65FFA0(-1);
 			Unknown64.Unknown_6870E0(member->Unknown40, index + 11, View, 1, 1);
 			Unknown_5BB4F0(member->Unknown40);
@@ -1041,7 +1041,7 @@ void UIGroupClass::Unknown_595530()
 			if (Unknown0F1) {
 				member->Unknown40->Unknown_40(false);
 			}
-			member->Unknown44 = new UIGroupButtonGadgetClass(frame.Peek(), &Layer, 0x50, 3);
+			member->Unknown44 = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(frame.Peek(), Layer, 0x50, 3);
 			member->Unknown44->Unknown_65FFA0(-1);
 			Unknown64.Unknown_6870E0(member->Unknown44, index + 17, View, 1, 1);
 			Unknown_5BB4F0(member->Unknown44);
@@ -1050,7 +1050,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			RefCountPtr<RenderObjClass> target = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("p_intarget01"));
 			Unknown_496AE0(target.Peek(), 1);
-			member->Unknown48 = new UIGroupButtonGadgetClass(target.Peek(), &Layer, 0x55, 3);
+			member->Unknown48 = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
 			member->Unknown48->Unknown_65FFA0(-1);
 			Unknown_65EFB0(member->Unknown48, "UI_FORMATION", "ASSIST");
 			Unknown64.Unknown_6870E0(member->Unknown48, index + 41, View, 1, 1);
@@ -1060,7 +1060,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			target = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("p_outtarget01"));
 			Unknown_496AE0(target.Peek(), 1);
-			member->Unknown4C = new UIGroupButtonGadgetClass(target.Peek(), &Layer, 0x55, 3);
+			member->Unknown4C = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
 			member->Unknown4C->Unknown_65FFA0(-1);
 			Unknown_65EFB0(member->Unknown4C, "UI_FORMATION", "HELP");
 			Unknown64.Unknown_6870E0(member->Unknown4C, index + 29, View, 1, 1);
@@ -1070,7 +1070,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			target = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("p_boot01"));
 			Unknown_496AE0(target.Peek(), 1);
-			member->Unknown50 = new UIGroupButtonGadgetClass(target.Peek(), &Layer, 0x55, 3);
+			member->Unknown50 = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
 			member->Unknown50->Unknown_65FFA0(-1);
 			Unknown64.Unknown_6870E0(member->Unknown50, index + 35, View, 1, 1);
 			Unknown_5BB4F0(member->Unknown50);

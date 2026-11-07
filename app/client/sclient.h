@@ -80,7 +80,7 @@ class StarFieldClass;
 class OrbitalManager;
 class Vector4;
 class MainViewOrbitalCallbackClass;
-class MainViewUnknown84Class;
+class GutterRadarClass;
 class MainViewDazzleHandlerClass;
 class WWProfileIterator;
 class Render2DTextClass;
@@ -324,6 +324,8 @@ public:
 	Unknown5B7AB0Class *Unknown4C;						// +0x4C (0x514E70 makes it; the destructor releases it)
 };
 
+class RadarSystemClass;
+#ifndef __RADAR_SYSTEM_H
 // radar_system.cpp's radar (the main view's +0x80), declared as far as cpacket.cpp calls it
 class RadarSystemClass	// NAME 3: class-from-file (D24) for radar_system.cpp
 {
@@ -333,10 +335,11 @@ public:
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
 	void Unknown_7BD6E0(ClientObjectClass *target);	// 0x7BD6E0 (the main view's 0x513630 / 0x512400: the target)  // NAME 1 [target]: what 0x512400 passes
 	void Unknown_7BCA40(bool arg); bool Unknown_7BD980(); const class NavigationListClass &Unknown_7BD960();	// 0x7BCA40 (the main view's slot +0x18); 0x7BD980: the warp path is built, 0x7BD960 the path (ui_cpit.cpp's warp button 0x583250)  // NAME 1 [arg]: neutral
-	void Unknown_7BCA70(MainViewUnknown84Class *object, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
+	void Unknown_7BCA70(GutterRadarClass *object, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
 
 	char Unknown00[0x4D]; bool Unknown4D; char Unknown4E[0x50 - 0x4E];	// +0x4D: names of the objects under the mouse ('/art name', 0x74ABC0)
 };
+#endif
 
 // what the PDA's +0xA8 points to, as far as the main view's 0x512A00 calls it
 class PDAInterfaceUnknownA8Class	// NAME 1: neutral (D10)
@@ -691,7 +694,7 @@ public:
 	int PolyBudget;									// +0x78 (the options' PolyBudget, 8000..40000; Render_Space_Mode's / Gas_Giant's budget)  // NAME 3: the registry value's (soptions.h)
 	int TextureReduction;							// +0x7C (the options' TextureReduction, 0..3; WW3D::Set_Texture_Reduction)  // NAME 3: the registry value's (soptions.h)
 	RadarSystemClass *Radar;							// +0x80 (cpacket.cpp: WARP_INDEX 156's FAIL_IF '!radar'; 0x50BA60 makes it, 0x7BC770)  // NAME 3: the FAIL_IF's name
-	MainViewUnknown84Class *Unknown84;					// +0x84 (0x50BA60 makes it: 0x24 bytes, 0x7B6BD0, with the base's +0x1C scene)
+	GutterRadarClass *Unknown84;					// +0x84 (0x50BA60 makes it: 0x24 bytes, 0x7B6BD0, with the base's +0x1C scene)
 	IntersectionClass Intersection;						// +0x88 (vtable 0xAEA8A0 and its statics in the constructor)  // NAME 2: what it is
 	SimpleSceneClass *Scene;							// +0x10C (0x5137F0 adds the land to it through slot +0x0C, Add_Render_Object; 0x50BA60 makes it, 0xF4 bytes, 0x75ECF0)  // NAME 2: what it is
 	SimpleSceneClass *Unknown110;						// +0x110 (slot +0x68)
@@ -789,22 +792,22 @@ public:
 	Vector3 Target;										// +0x0C  // NAME 2: what it holds
 	Vector3 Rate;										// +0x18: per unit of time  // NAME 2: what it holds
 };
-// ui_mesh.cpp's mesh (the scripted movie's objects), as far as scriptedmovie.cpp calls it
-class UIMeshClass	// NAME 3: class-from-file (D24) for ui_mesh.cpp
-{
-public:
-	UIMeshClass(const char *name, int arg); UIMeshClass(const char *name, ClientClass *client); ~UIMeshClass();	// 0x5B8120 / 0x5B8330 (a ship's: Create_Object), 0x5B8640 (Destroy_Object deletes it); arg an int (ui_scut.cpp's 0x610570 passes 2)  // NAME 1 [name, arg, client]: what Create_Object passes
-	void Unknown_5B92B0();								// 0x5B92B0 (Destroy_Object, before the delete)
-	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
-	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's
-	RenderObjClass *Unknown_5B8B40(const char *name); void Unknown_5B9830(); void Unknown_5B9930(int arg); void Unknown_5BA460(int arg); void Unknown_5B9410(); void Unknown_5B9290(SimpleSceneClass *scene); RenderObjClass *Peek_Mesh_Object() { return(Unknown1C); } void Unknown_5B9550(int arg);						// 0x5B9550 (the Play_Animation commands pass 0)  // NAME 1 [arg]: neutral; 0x5B9830 / 0x5B9930 / 0x5BA460: the cockpit's (ui_cpit.cpp passes -1, 1)  // NAME 1 [arg]: neutral
-	void Unknown_5B8EE0(int a, int b, const char *anim_name, int c, int d, int e, int f, int g); void Unknown_5B8DF0(int a, const char *anim_name, bool loop, int b, int c, int d, int e);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [a, loop, b, c, d, e]: neutral; NAME 2 [anim_name]: the FAIL_IF's  // 0x5B8EE0 (ui_verb.cpp: the button's index twice, its animation, 0s, -1)  // NAME 1 [Unknown_5B8EE0, a, b, anim_name, c..g]: neutral
-	RenderObjClass *Peek_Object(); RenderObjClass *Unknown_5E26D0(); RenderObjClass *Unknown_5B8B20(); void Unknown_5B8850(const char *name, bool arg);	// 0x5B8B00 (its +0x1C; the asserts' '(*itor).Mesh->Peek_Object()'); 0x5B8B20: the same with a reference added (Add_Camera); 0x5E26D0: the same read, out of line in ui_ptrade.cpp's window (0x809600, 0x808C30)  // NAME 3: the assert's; 0x5B8850: the page model of that name onto the mesh (ui_ship_cust.cpp's 0x61BD80: the page's style name, 1)  // NAME 1 [Unknown_5B8850, name, arg]: neutral
-	char Unknown00[0x1C];								// +0x00
-	RenderObjClass *Unknown1C;							// +0x1C: the model (Toggle_Engine_Trails reads it without Peek_Object)
-	char Unknown20[0x70 - 0x20];						// +0x20
-	int Unknown70;										// +0x70: flags (the Play_Animation commands clear bit 0, set or clear bit 1)
-};
+#include "ui_mesh.h"		// ui_mesh.cpp's mesh (the scripted movie's objects): UIMeshClass, moved out (UM1, 2026-11-07)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // one of the scripted movie's objects (0x0C bytes, in a vector at +0x58)
 struct ScriptedMovieObjectStruct	// NAME 1: neutral (D10)
 {	ScriptedMovieObjectStruct() : Mesh(NULL), Slot(-1), Unknown08(0) {}	// (Create_Object 0x804290 stores all three first)
@@ -1089,7 +1092,7 @@ public:
 	void Unknown_745160(); void Unknown_744560(int arg);	// 0x745160: the cockpit's 0x584A60 after clearing Unknown1198; 0x744560 (ui_cpit.cpp passes 11 when the hulk is let in, 12 when it goes)  // NAME 1 [arg]: neutral
 	void Unknown_745050();								// 0x745050: 0x745000 again with the kept base asset (scriptedmovie.cpp's neighbourhood 0x8010A0)
 	void Unknown_7456B0();								// 0x7456B0: the main view's debris mode and four resets
-	void Process_AI();									// 0x744260 (Do_Frame, after Process_Packets): every object's slot +0x20, the camera, the finished effects, the third list's records (S: 'SClient::Process_AI')
+	void Unknown_74BFB0(); void Process_AI();			// 0x74BFB0 (0x744690, after the listener); 0x744260 (Do_Frame, after Process_Packets): every object's slot +0x20, the camera, the finished effects, the third list's records (S: 'SClient::Process_AI')
 	void Unknown_745EC0(FileClass *file, int indent);	// 0x745EC0: 'Client %x' and the main view's dump  // NAME 1 [file, indent]: Printf_Indented's
 	ClientObjectClass *Unknown_74BF80();				// 0x74BF80: the object of Unknown1328, else NULL
 	void Unknown_74C370(RefCountClass *object);			// 0x74C370: Unknown12B8's reference-counted setter (0x7EFA40 calls it)  // NAME 1 [object]: neutral
@@ -1108,7 +1111,7 @@ public:
 	std::deque<int> Unknown120C[2];						// +0x120C
 	int Unknown126C;									// +0x126C (-1)
 	LoginUnknown0CClass *Unknown1270;					// +0x1270 Init: the input dispatcher (inpdsp.cpp)
-	LoginUnknown18Class *Unknown1274;					// +0x1274 Init: the software mouse (0x514FE0)
+	LoginUnknown18Class *Mouse;					// +0x1274 Init: the software mouse (0x514FE0)
 	int Unknown1278;									// +0x1278
 	RefCountPtr<UIChatPanelClass> ChatPanel;			// +0x127C Init (the reference count at +0x3C)  // NAME 3: its file's
 	UILineDisplayClass *LineDisplay;					// +0x1280 Init  // NAME 3: its file's
@@ -1120,7 +1123,7 @@ public:
 	RefCountPtr<UITalkTreeClass> Unknown1298;		// +0x1298 Init: Unknown129C's object (the starbase view's 0x69F8F0: its +0x190)
 	RefCountPtr<UITalkTreeSpaceClass> Unknown129C;		// +0x129C Init
 	GalaxyMapClientClass *GalaxyMap;					// +0x12A0 Init  // NAME 3: its file's
-	TargetingClass *Targeting;							// +0x12A4 Init  // NAME 2: the asserts'
+	ClientObjectClass *Get_Target();	TargetingClass *Targeting;	// 0x744FE0: the main view's slot +0x5C (targeting.cpp)  // NAME 2: what it returns; +0x12A4 Init  // NAME 2: the asserts'
 	CameraManagerClass *CameraManager;					// +0x12A8 Init  // NAME 3: its file's
 	int Unknown12AC;									// +0x12AC (the constructor leaves it)
 	int Unknown12B0;									// +0x12B0 Init: the base's Unknown10BC

@@ -3256,7 +3256,7 @@ bool ScriptedMovieViewClass::Toggle_Engine_Trails(ScriptedMovieLineClass *params
 
 
 			G_ASSERT((*itor).Mesh);
-			Unknown_810750((*itor).Mesh->Unknown1C, on);
+			Unknown_810750((*itor).Mesh->InterfaceMesh, on);
 			return(true);
 		}
 	}
@@ -3306,7 +3306,7 @@ bool ScriptedMovieViewClass::Turn_On_Damage_Particles(ScriptedMovieLineClass *pa
 			} else {
 				levels[0] = damage_amount; levels[1] = damage_amount; levels[2] = damage_amount; levels[3] = damage_amount;
 			}
-			Unknown_810CF0((*itor).Mesh->Unknown1C, levels, levels[0], NULL, (unsigned)-1, 0);
+			Unknown_810CF0((*itor).Mesh->InterfaceMesh, levels, levels[0], NULL, (unsigned)-1, 0);
 			return(true);
 		}
 	}
@@ -3373,7 +3373,7 @@ bool ScriptedMovieViewClass::Add_Name_Decal(ScriptedMovieLineClass *params)
 
 			FAIL_IF((param == NULL) && "User error: Add_Name_Decal: Need blue") {return(false);}
 			rgb[2] = atof(param);
-			Unknown_80FF20((*itor).Mesh->Unknown1C, name, rgb);
+			Unknown_80FF20((*itor).Mesh->InterfaceMesh, name, rgb);
 			return(true);
 		}
 	}
@@ -3419,7 +3419,7 @@ bool ScriptedMovieViewClass::Add_Decal_To_Ship(ScriptedMovieLineClass *params)
 			decals.push_back(decal);
 			decal.Unknown00 = 2; decal.Unknown04 = number; decal.Unknown08.Set(1.0f, 1.0f, 1.0f, 1.0f);
 			decals.push_back(decal);
-			Unknown_80E8C0((*itor).Mesh->Unknown1C, decals, DecalMaterialManager);
+			Unknown_80E8C0((*itor).Mesh->InterfaceMesh, decals, DecalMaterialManager);
 			return(true);
 		}
 	}
@@ -3601,7 +3601,7 @@ bool ScriptedMovieViewClass::Hide_Object(ScriptedMovieLineClass *params, bool hi
 			G_ASSERT((*itor).Mesh);
 			G_ASSERT((*itor).Mesh->Peek_Object());
 			(*itor).Mesh->Peek_Object()->Set_Hidden(hide);
-			Unknown_810750((*itor).Mesh->Unknown1C, !hide);
+			Unknown_810750((*itor).Mesh->InterfaceMesh, !hide);
 			return(true);
 		}
 	}

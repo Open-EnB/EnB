@@ -35,7 +35,7 @@ void SOptionsClass::Load_Camera_Mode(INIClass &, const char *section) { Trace("s
 // ------------------------------------------------------------------------- the main view's radar (mainview.cpp's 0x512A00)
 
 // the radar's 0x7BCA70: written by hand for its trace (whether the scene is set); gen_stubs.py writes the +0x84 object's 0x7B6BD0
-void RadarSystemClass::Unknown_7BCA70(MainViewUnknown84Class *, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene)
+void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene)
 {
 	Trace("stub RadarSystemClass::Unknown_7BCA70 %s, scene %s", arg ? "an object" : "NULL", scene.Peek() ? "set" : "NULL");
 }
@@ -70,7 +70,6 @@ void SClient::Unknown_7517E0(int a, int b, int c, int d) { Trace("stub SClient::
 void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("stub SClient::Unknown_751850 %d ranks", (int)ranks.size()); }
 
 // SClient's slots declared only (sclient.h): never called by the tests
-void SClient::Unknown_64() { Trace("stub SClient::Unknown_64"); }
 
 // ------------------------------------------------------------------------- co.cpp's client object
 // (co.cpp's rebuilt members link from app.lib: the type tests, the model accessor 0x6F3BC0, the aux-data
@@ -121,10 +120,6 @@ Unknown831340Class::Unknown831340Class(int a, int, int, const RefCountPtr<ItemBa
 	Trace("stub Unknown831340Class::Unknown831340Class %d '%s' type %d", a, name.c_str(), g);
 }
 Unknown831340Class::~Unknown831340Class() { Trace("stub Unknown831340Class::~Unknown831340Class"); }
-Unknown763E00Class::Unknown763E00Class() { Trace("stub Unknown763E00Class::Unknown763E00Class"); }
-Unknown763E00Class::~Unknown763E00Class() { Trace("stub Unknown763E00Class::~Unknown763E00Class"); }
-void Unknown763E00Class::Unknown_763E70(const char *ini) { Trace("stub Unknown763E00Class::Unknown_763E70 %s", ini); }
-void Unknown763E00Class::Unknown_763FF0() { Trace("stub Unknown763E00Class::Unknown_763FF0"); }
 
 // ------------------------------------------------------------------------- cpacket.cpp's callees in other files
 
@@ -180,15 +175,6 @@ struct TestEffectStruct { char Unknown00[0x64]; };	// sclient.cpp's testeffects.
 std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80 (sclient.cpp's 0x750C20, which nothing calls; 0x74CA90 fills it)
 
 
-// The object at 0xC404D8 (soundlib.cpp's neighbourhood): SClient's constructor sets its byte +0x19A5, so the
-// pointer must point somewhere (declared as sclient.cpp declares it)
-struct Unknown_C404D8Struct
-{
-	char Unknown0000[0x19A5];
-	bool Unknown19A5;
-};
-static Unknown_C404D8Struct The_C404D8;
-Unknown_C404D8Struct *Unknown_C404D8 = &The_C404D8;
 
 // ------------------------------------------------------------------------- auxdata.h's lookup (co.cpp)
 
@@ -333,3 +319,13 @@ bool operator>(const MoneyClass &a, const MoneyClass &b) { Trace("stub operator>
 class GadgetClass { public: virtual void Unknown_08(); virtual void Unknown_14(); };
 void GadgetClass::Unknown_08() {}
 void GadgetClass::Unknown_14() {}
+
+// ------------------------------------------------------------------------- rs_eff_p.cpp (the effect pass state rs_list.cpp makes)
+// gen_stubs cannot write this one: its ShaderClass argument is passed by value
+#include "..\..\..\app\shared\rs_track.h"
+#include "shader.h"
+Unknown458C10Class::Unknown458C10Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, bool two_sided, bool hidden, const char *texture, int a, int b, ShaderClass shader) :
+	RenderStateClass(list, id, link_id, flags)
+{
+	Trace("stub Unknown458C10Class::Unknown458C10Class");
+}

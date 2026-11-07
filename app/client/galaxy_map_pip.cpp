@@ -174,7 +174,7 @@ void GalaxyMapPipClass::Unknown_53F9E0()
 void GalaxyMapPipClass::Unknown_53FCA0(float arg)
 {
 	Ease = -1.0f;
-	FocalPoint.MaxDistance = Render->UnknownB4 * 3.0f;
+	FocalPoint.MaxDistance = Render->Bounds.Radius * 3.0f;
 	FocalPoint.Unknown_7A5E10(arg);
 	FocalPoint.Unknown_7A5890(Camera);
 }
@@ -198,7 +198,7 @@ void GalaxyMapPipClass::Unknown_53FD60(const Vector2 &arg)
 // @0x53FDA0
 void GalaxyMapPipClass::Unknown_53FDA0(bool arg)
 {
-	SphereClass v = Render->Unknown_7A83D0(arg);
+	SphereClass v; Render->Unknown_7A83D0(v, arg);
 	Unknown_5406A0(v, arg ? Unknown_B79240 : Unknown_B7923C);
 }
 
@@ -416,7 +416,7 @@ void GalaxyMapPipClass::Unknown_5404E0(bool arg)
 			Render->Unknown_7A8770(Unknown_Sector_Value(sector));
 		}
 	}
-	SphereClass v = Render->Unknown_7A89A0();
+	SphereClass v; Render->Unknown_7A89A0(v);
 	Unknown_5406A0(v, Unknown_B79240);
 	if (arg) {
 		Ease = -1.0f;

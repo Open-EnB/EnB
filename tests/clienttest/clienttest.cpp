@@ -56,6 +56,9 @@
 #include "..\..\..\app\kernel\kernel.h"
 #include "..\..\..\app\input\input.h"
 #include "..\..\..\app\client\sclient.h"
+#include "..\..\..\app\client\camera_manager.h"
+#include "..\..\..\app\client\option.h"
+#include <new>
 #include "..\..\..\app\common\connect.h"
 #include "..\..\..\app\packets\pk.h"
 #include "..\..\..\app\packets\pkdebug.h"
@@ -68,6 +71,8 @@
 #include "..\..\..\app\packets\pkrecustomize.h"
 #include "..\..\..\app\packets\pkgmviewmissionlog.h"
 #include "..\..\..\app\packets\pkgmeditplayerinventory.h"
+#include "..\..\..\wwlib\refcount.h"
+class FontSys : public RefCountClass {};	// ui_line_display.h's text objects, complete for its RefCountPtr (fontmanager.h would pull fontsys.obj in)
 #include "..\..\..\app\client\ui_line_display.h"
 #include "..\..\..\app\client\ui_group.h"
 #include "..\..\..\app\client\ui_verb.h"
@@ -961,6 +966,39 @@ static bool Model_Deleted(int number)
 		}
 	}
 	return(false);
+}
+
+// SClient's camera manager (camera_manager.cpp, real: Process_AI's 0x799E40, CAMERA_CONTROL's 0x79B2B0): its constructor
+// would make the twelve controllers (stand-ins), so the client gets one with no requests and state 0, every state held
+// by a controller that leaves the camera where it is (mode 0); in (4) the main view's +0x7C gives Fake_Camera
+// (Path_Views). Its 0x79B4F0 asks OptionClass::Instance: an empty one (every Get_Bool false) unless one is set
+class FakeCameraControllerClass : public CameraControllerClass
+{
+public:
+	FakeCameraControllerClass() : CameraControllerClass(0) {}
+	void Unknown_04() {}
+	void Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target) { Trace("camera controller +0x08"); *mode = 0; }
+	void Unknown_0C() {}
+};
+
+static CameraManagerClass *Fake_Camera_Manager(SClient *client)
+{
+	static double storage[(sizeof(CameraManagerClass) + sizeof(double) - 1) / sizeof(double)];
+	static FakeCameraControllerClass controller;
+	static bool made = false;
+	CameraManagerClass *manager = (CameraManagerClass *)storage;
+	if (!made) {
+		memset(storage, 0, sizeof(storage));
+		new (&manager->Controllers) std::vector<CameraControllerClass *>();
+		for (int i = 0; i < CameraManagerClass::STATE_LAST_CONTROLLER; i++) {
+			manager->Controllers.push_back(&controller);
+		}
+		manager->Orientation = Quaternion(true);
+		manager->FOV = 1.5707964f;
+		made = true;
+	}
+	manager->Client = client;
+	return(manager);
 }
 
 static void Test_Path(SClient *client, FakeMainViewClass *main_view)
@@ -2027,6 +2065,10 @@ int main(int argc, char **argv)
 	The_Client = client;
 	FakeMainViewClass main_view;
 	client->MainView = (MainViewClass *)&main_view;
+	client->CameraManager = Fake_Camera_Manager(client);
+	if (OptionClass::Instance == 0) {
+		OptionClass::Instance = new OptionClass();
+	}
 	// 0x513700 (SERVER_PARAMETERS 66) calls the main view's stars (+0x134: a real StarFieldClass; no stars.ini in the
 	// working directory, so its Init loads nothing) and orbitals (+0x140: zeroed, OrbitalManager's members are stand-ins)
 	static double fake_orbitals[(sizeof(OrbitalManager) + 7) / 8];
@@ -2068,7 +2110,7 @@ int main(int argc, char **argv)
 	client->HotKeys = (UIHotKeysClass *)Switch_Hot_Keys;
 	// Unknown_742530 calls the real smouse.cpp 0x515340 on the software mouse (+0x1274): a zeroed one (no cursor model, no drag)
 	static char fake_mouse[0x40];
-	client->Unknown1274 = (LoginUnknown18Class *)fake_mouse;
+	client->Mouse = (LoginUnknown18Class *)fake_mouse;
 	*(void **)&main_view.Unknown04[0x34 - 0x04] = Switch_Main_34;
 	client->AuxData = (DeltaPlayerClass *)Fake_Player_Root;	// Init's roots (sclient.cpp 0x7518A0, not run)
 	client->PlayerVarAuxData[0] = (SClientUnknown12C4Class *)Fake_Player_Var_Root;

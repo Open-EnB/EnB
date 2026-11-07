@@ -6,7 +6,7 @@
 #include <windows.h>
 #include "eff_o.h"
 #include "sclient.h"
-#include "ui_line_display.h"
+#include "fontmanager.h"	// FontSys: ui_line_display.h's text objects
 #include "co_data.h"
 #include "co_subtypes.h"
 #include "..\packets\pk_player_object_relationship.h"
@@ -74,7 +74,7 @@
 #include "..\shared\rs_track.h"
 #define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
 #include "verbmanager.h"
-
+#include "ui_line_display.h"
 
 
 
@@ -103,7 +103,7 @@ public:
 class GutterDataClass	// NAME 3: class-from-file (D24) for app\client\gutter_data.cpp
 {
 public:
-	void Unknown_7B6040(bool turn_on, MainViewClass *mainview);	// 0x7B6040 (the click indicator 105)  // NAME 1 [turn_on, mainview]: the packet's TurnOn, SClient's main view
+	bool Set_Click_Indicator(bool turn_on, class UIViewClass *view);	// 0x7B6040 (the click indicator 105): gutter_data.h's
 };
 class EmoteDataClass	// NAME 2: co_data.h's name for what Get_Emote_Data returns
 {
@@ -1904,7 +1904,7 @@ bool ClickIndicatorPacketClass::Process_Packet(void *instance)
 	GutterDataClass *gdata = Get_Gutter_Data(co, true);
 
 	FAIL_IF(!gdata) return(true);
-	gdata->Unknown_7B6040(TurnOn, sclient->MainView);
+	gdata->Set_Click_Indicator(TurnOn, (UIViewClass *)sclient->MainView);
 	return(true);
 }
 

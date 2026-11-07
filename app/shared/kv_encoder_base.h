@@ -25,6 +25,8 @@
 
 class StringValueClass;
 class Vector3;
+class Matrix3D;
+class AccelClass;
 
 // (D104: the login objects' accessor; aux_roots.cpp's symbol pad keeps its constructors in place, workflow.md 3.3)
 // A pair's accessor over a member (the character slot's: vtables 0xB0C594 quad, 0xB0C5CC long)
@@ -89,7 +91,10 @@ public:
 	void Add(int mask, const char *name, int *value);					// 0x4C2EB0 (in avatar_desc.cpp's run)
 	void Add(int mask, const char *name, char *buffer, int size);		// 0x4B4A70 (kv_encoder_base.cpp)
 	void Add(int mask, const char *name, char *value);					// 0x4C2FE0 (in avatar_desc.cpp's run)
-	void Add(int mask, const char *name, Vector3 *value);				// 0x4B2BB0
+	void Add(int mask, const char *name, Vector3 *value);				// 0x4B2BB0 (kv_encoder.cpp)
+	void Add(int mask, const char *name, Matrix3D *value);				// 0x4B2CF0 (kv_encoder.cpp)
+	void Add(int mask, const char *name, AccelClass *value);				// 0x4B2E80 (kv_encoder.cpp)
+	void Add(int mask, const char *name, float *value);					// 0x448260 (the float pair's object, not in the tree)
 	template<class T> void Add_Typed(int mask, const char *name, T *value);	// the other typed adds (shipcust_desc.cpp's bool one)
 	// The adds over a pointer accessor (the character slot's 0x8C0C40 quad, 0x8C0D80 long; shipcust_desc.cpp's
 	// profession 0x4F6A80, race 0x4F6BB0, metal 0x4F6CE0)

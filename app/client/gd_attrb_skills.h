@@ -24,7 +24,7 @@
 class RenderObjClass;
 class FontSys;
 class UIAttrbSkillsClass;
-class Unknown6A7A00Class;
+class SkillDataClass;
 class SlotDataGadgetClass;
 
 class Unknown664500Class : public ButtonGadgetClass	// NAME 1: neutral (D10)
@@ -48,7 +48,7 @@ public:
 	void Unknown_664C60();									// 0x664C60 (the tooltip's text)
 
 	RefCountPtr<RenderObjClass> AttachTo;					// +0x64  // NAME 3: its asserts
-	RefCountPtr<Unknown6A7A00Class> SkillData;				// +0x68  // NAME 3: its assert
+	RefCountPtr<SkillDataClass> SkillData;				// +0x68  // NAME 3: its assert
 	int Unknown6C;											// +0x6C (the skill)
 	RefCountPtr<RenderObjClass> Unknown70;					// +0x70 (the 'TSI12D' model)
 	RefCountPtr<RenderObjClass> LargeBttn;					// +0x74 ('HIGHLIGHT01')  // NAME 3: its assert

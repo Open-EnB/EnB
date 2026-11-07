@@ -70,7 +70,7 @@ RenderStateClass::~RenderStateClass()
 void RenderStateClass::Unknown_457E10()
 {
 	Flags |= 0x10;
-	List->Unknown20->Link(this);
+	List->Unknown08.Add_Tail(this);
 }
 
 // 0x457E90: flag 4 off, unlinked

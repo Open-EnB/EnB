@@ -33,6 +33,8 @@
 #include "pkmanufactureitemcatagorypacket.h"
 #include "pkguildplayeronline.h"
 #include "pkmessagechatstream.h"
+#include "random.h"
+#include "matrix3d.h"
 
 // ------------------------------------------------------------------------- E&B debug hooks
 
@@ -226,4 +228,20 @@ RegistrationErrorStruct RegistrationUnknown1ACClass::Unknown_7D1AC0()
 	RegistrationErrorStruct error;
 	error.Unknown10 = -1;
 	return error;
+}
+
+// ------------------------------------------------------------------------- the warp camera's placements (unknown_7979a0.cpp)
+
+// 0xBDB1C0: a global Random4Class with seed 0x1105 (its initialiser 0x444240; its home file is unknown). Data, so it
+// can't log; seeded as the client's
+Random4Class Unknown_BDB1C0(0x1105);
+
+// 0x82ECB0 (not rebuilt): a frame along dir at pos (gen_stubs skips a by-value Matrix3D). A stand-in that works: the
+// object's X axis toward pos + dir
+Matrix3D Unknown_82ECB0(const Vector3 &dir, const Vector3 &pos)
+{
+	STUB_CALLED("Unknown_82ECB0 (0x82ECB0)");
+	Matrix3D tm(true);
+	tm.Obj_Look_At(pos, pos + dir, 0.0f);
+	return tm;
 }

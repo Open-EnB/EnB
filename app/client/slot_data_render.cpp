@@ -20,12 +20,12 @@ class SlotDataClass : public Unknown00Base, public RefCountClass {};	// NAME 3: 
 // What 0x6A90A0's callers (0x62DF90, 0x62EF80, 0x631000, 0x631270) pass: slots +0x90 and +0x94, +0x98 the data
 class Unknown6A90A0Item { public: char Unknown00[0xBC]; int Unknown_BC; };	// NAME 1: neutral (D10); NAME 1 [Unknown_BC]: the item's kind (0, 10; 1, 11; 7; 12, 13)
 class Unknown6A90A0Interface { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C(); virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C(); virtual Unknown6A90A0Item *Unknown_90(); virtual void *Unknown_94(); SlotDataClass *Get_Data() { return(Unknown98); } char Unknown04[0x94]; SlotDataClass *Unknown98; };	// NAME 1: neutral (D10); NAME 3 [iface]: its FAIL_IF
-// inv_render.cpp's derived classes, as far as their factory calls them
-class Unknown68D870Class : public SlotDataRenderClass { public: Unknown68D870Class(); char Unknown2C[0x60 - 0x2C]; };	// NAME 1: neutral (D10)
-class Unknown68DC20Class : public SlotDataRenderClass { public: Unknown68DC20Class(); char Unknown2C[0x90 - 0x2C]; };	// NAME 1: neutral (D10)
-class Unknown68B370Class : public SlotDataRenderClass { public: Unknown68B370Class(); char Unknown2C[0x30 - 0x2C]; };	// NAME 1: neutral (D10)
-class Unknown68BF10Class : public SlotDataRenderClass { public: Unknown68BF10Class(bool arg); char Unknown2C[0x58 - 0x2C]; };	// NAME 1: neutral (D10); NAME 1 [arg]: neutral
-class Unknown68FB60Class : public SlotDataRenderClass { public: Unknown68FB60Class(); char Unknown2C[0x90 - 0x2C]; };	// NAME 1: neutral (D10)
+#include "inv_trade_render.h"
+
+
+#include "inv_manu_render.h"
+
+
 // ro_funcs.cpp's
 void Unknown_496AE0(RenderObjClass *robj, int a);	TextureClass *Unknown_4960C0(RenderObjClass *robj, int a);	// NAME 1: neutral (D10); NAME 1 [robj, a]: neutral
 void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int a);	void Unknown_496730(RenderObjClass *robj, int a, bool b);	// NAME 1: neutral (D10); NAME 1 [robj, texture, a, b]: neutral
@@ -475,17 +475,17 @@ SlotDataRenderClass *Unknown_6A90A0(int kind, Unknown6A90A0Interface *iface, Ren
 				switch (item->Unknown_BC) {
 					case 12:
 					case 13:
-						render = new Unknown68B370Class;
+						render = new InvManuRenderClass;
 						break;
 					case 7:
 						if (kind == 0) {
-							render = new Unknown68FB60Class;
+							render = new InvTradeRenderClass;
 						} else {
-							render = new Unknown68BF10Class(true);
+							render = new InvRenderClass(true);
 						}
 						break;
 					default:
-						render = new Unknown68BF10Class(true);
+						render = new InvRenderClass(true);
 						break;
 				}
 			} else if (skill) {

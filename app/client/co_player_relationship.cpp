@@ -17,28 +17,28 @@ void Message_Error(const char *sender, const char *category, const char *file, i
 bool String_To_Value(const char *text, Vector3 *value);	// 0x4A3810 (strconv_lib.cpp, not in strconv_lib.h: sscanf "%f %f %f")  // NAME 2: as strconv_lib.h's pairs
 
 // One gutter colour: the ini's <name>1 and <name>2 entries (0.66 grey when missing; 0x18 bytes)
-struct GutterColorStruct	// NAME 2: what it holds ('Failed to lookup gutter color %s')
-{
-	GutterColorStruct() {}
-	GutterColorStruct(const Vector3 &color_1, const Vector3 &color_2) : Color1(color_1), Color2(color_2) {}	// 0x70CE10 (out of line in 0x70A7E0)
+#include "co_player_relationship.h"
+GutterColorSetStruct::GutterColorSetStruct() : Target(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)), Mouse(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)),
+	NotTarget(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)) {}
 
-	Vector3 Color1;	// +0x00  // NAME 2: the assert's color_1
-	Vector3 Color2;	// +0x0C  // NAME 2: the assert's color_2
-};
 
-// The colours of one gutter ini section (0x60 bytes; copied whole by 0x70ACA0)
-struct GutterColorSetStruct	// NAME 2: what it holds
-{
-	GutterColorSetStruct() : Target(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)), Mouse(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)),
-		NotTarget(Vector3(0.66f, 0.66f, 0.66f), Vector3(0.66f, 0.66f, 0.66f)) {}	// 0x70A790 (JumpStart left as it is)
-	GutterColorSetStruct(INISection *section);	// 0x70A010
-	void Read_Color(INISection *section, const std::string &name, GutterColorStruct &color);	// 0x70A2E0 (ecx unused)  // NAME 2: what it does
 
-	GutterColorStruct Target;	// +0x00  // NAME 3: the ini name 'Target'
-	GutterColorStruct Mouse;	// +0x18  // NAME 3: the ini name 'Mouse'
-	GutterColorStruct NotTarget;	// +0x30  // NAME 3: the ini name 'NotTarget'
-	GutterColorStruct JumpStart;	// +0x48  // NAME 3: the ini name 'JumpStart'
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 std::hash_map<std::string, GutterColorSetStruct> GutterColors;	// 0xBE70E8 (constructor 0x70CE50, destructor 0x709F40) by ini section  // NAME 2: what it holds
 

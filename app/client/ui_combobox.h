@@ -17,11 +17,13 @@ class UIComboBoxUnknownBCClass;	// ui_combobox.cpp's
 class UIComboBoxClass : public InterfaceClass	// NAME 3: class-from-file (D24)
 {
 public:
+	UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c);	// 0x5786C0 (0x118 bytes; ui_registration.cpp's 0x5F2F90)  // NAME 1 [owner, layer, model, name, id, key, a, b, c]: neutral
 	void Unknown_57A330();								// 0x57A330 (the drop-down's opening / closing per frame)
 	void Unknown_57AAB0();								// 0x57AAB0 (the rows from the top item)
 	void Unknown_57AC70(int index);						// 0x57AC70 (select by index)  // NAME 1 [index]: neutral
 	void Unknown_57AD50(const char *text);				// 0x57AD50 (select by text: the first item it begins)  // NAME 1 [text]: neutral
 	void Unknown_57B210();										// 0x57B210 (ui_registration.cpp 0x5F9460: the rows emptied before a refill)  // NAME 1 [Unknown_57B210]: neutral (D10)
+	void Unknown_57B1D0(const char **items);				// 0x57B1D0 (ui_registration.cpp: a table up to its NULL)  // NAME 1 [items]: neutral
 	void Unknown_57B000(const char *text);						// 0x57B000 (ui_registration.cpp's map inserts: the entry's text)  // NAME 1 [Unknown_57B000, text]: neutral (D10)
 	void Unknown_57B3C0(int arg);							// 0x57B3C0 (ui_registration.cpp 0x5FB9F0: 0 on each of its combo boxes; the +0xD0 / +0xD4 gadgets' slot +0x40)  // NAME 1 [Unknown_57B3C0, arg]: neutral (D10)
 	void Unknown_57B440();								// 0x57B440 (ui_chat_panel.cpp: slot +0x7C, before each combo's slot +0x7C)
@@ -49,6 +51,7 @@ public:
 	GadgetClass **Unknown0F8;							// +0xF8 (the rows)
 	char Unknown0FC[0x10C - 0xFC];						// +0xFC
 	volatile int Unknown10C;							// +0x10C (set: the text field is left alone; volatile: the client reads it after the store to Selected, 0x57AC70 / 0x57AD50)
+	char Unknown110[0x118 - 0x110];						// +0x110 (the constructor 0x5786C0 news 0x118 bytes)
 };
 
 #endif
