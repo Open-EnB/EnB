@@ -6,7 +6,7 @@
 **
 **	The text gadgets' edit buffer (0x20 bytes; constructor 0x84AA10, destructor 0x84AAB0): a string of MaxLen
 **	characters with a cursor, the check character STRING_CHECK_VALUE ('~') after the terminator. Declared as
-**	far as textgadg.cpp uses it (D10); stredit.cpp has its functions to 0x84B1B0 so far.
+**	far as textgadg.cpp uses it (D10); stredit.cpp is the whole object, to 0x84B350.
 */
 
 
@@ -22,7 +22,7 @@
 
 struct KernelEventClass;
 
-// std::string, declared only: <string> would change the code of the files that include this one (stredit.cpp, textgadg.cpp)
+// std::string, declared only: <string> would change the code of textgadg.cpp, which includes this one; stredit.cpp includes it itself
 namespace std { template<class _E> struct char_traits; template<class _Ty> class allocator; template<class _E, class _Tr, class _A> class basic_string; }
 
 class StrEditClass  // NAME 3: class-from-file (D24) for app\common\stredit.cpp
