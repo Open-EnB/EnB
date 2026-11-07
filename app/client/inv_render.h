@@ -17,10 +17,12 @@
 
 #include <string>
 #include "slot_data_render.h"
+#include "..\shared\duration.h"
 
 class FontSys;
 class InvDataClass;
 class Unknown6A3D60Class;
+class Unknown688830Item;
 
 class InvRenderClass : public SlotDataRenderClass	// NAME 3: class-from-file (D24) for app\Client\inv_render.cpp
 {
@@ -38,12 +40,13 @@ public:
 	InvDataClass *Peek_Inv_Data();											// 0x68D620  // NAME 3: the assert '!Peek_Inv_Data()->Get_Client()'
 	void Unknown_68D700(int value);											// 0x68D700 (the level's text)  // NAME 1 [value]: neutral
 	int Unknown_68D7E0(int slot);											// 0x68D7E0  // NAME 1 [slot]: neutral
+	void Unknown_68EAE0(bool on, const RefCountPtr<RenderObjClass> &robj);	// 0x68EAE0 (onto or off the container)  // NAME 1 [on, robj]: neutral
+	void Unknown_68EB10(Unknown688830Item *item);							// 0x68EB10  // NAME 1 [item]: neutral
 
 	FontSys *LevelText;														// +0x2C ('INVENTORY_LEVEL')  // NAME 2: its string template
 	FontSys *CountText;														// +0x30 ('INVENTORY_COUNT')  // NAME 2: its string template
 	char Unknown34[4];														// +0x34
-	int Unknown38;															// +0x38
-	int Unknown3C;															// +0x3C
+	DurationClass Unknown38;												// +0x38 (the next time 0x68C6B0 looks)
 	RefCountPtr<RenderObjClass> CannotUseIndicator;							// +0x40  // NAME 3: 0x68C2D0's assert
 	std::string Unknown44;													// +0x44 ('All')
 	char Unknown54[4];														// +0x54
@@ -81,8 +84,6 @@ public:
 	virtual const char *Unknown_28(std::string *string);					// +0x28 0x68F510
 	virtual void Unknown_2C(bool force);									// +0x2C 0x68E360
 	virtual void Unknown_3C() { Unknown88 = true; }							// +0x3C 0x68E340
-
-	void Unknown_68EAE0(bool on, const RefCountPtr<RenderObjClass> &robj);	// 0x68EAE0 (onto or off the container)  // NAME 1 [on, robj]: neutral
 
 	RefCountPtr<RenderObjClass> OnIndicator;	// +0x58  // NAME 3: 0x68DCC0's assert
 	RefCountPtr<RenderObjClass> OutOfAmmoIndicator;	// +0x5C  // NAME 3: 0x68DCC0's assert
