@@ -205,7 +205,6 @@ static void Remove_Items(CONTAINER &container)	// NAME 1: what it does
 	}
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
 template <class T, class CONTAINER>
 static void Find_Nearest(RefCountPtr<T> &result, CONTAINER &container, const LineSegClass &ray, const Vector3 &pos)	// NAME 1: what it does
 {
@@ -216,10 +215,11 @@ static void Find_Nearest(RefCountPtr<T> &result, CONTAINER &container, const Lin
 		Vector3 contact;
 		if (item->Intersect(ray, &contact)) {
 			float d = (contact - pos).Length2();
-			if (d < best) { result = item; best = d; }
+			if (best > d) { best = d; result = item; }
 		}
 	}
 }
+
 
 
 
@@ -958,11 +958,11 @@ void GalaxyMapRenderClass::Unknown_7A9500()
 	}
 	float width = (Unknown1C.X - Unknown14.X) * 0.5f;
 	float height = (Unknown1C.Y - Unknown14.Y) * 0.5f;
-	float x = width + Unknown14.X;
 	float y = height + Unknown14.Y;
+	float x = width + Unknown14.X;
 	float radius = (width > height) ? width : height;
-	Bounds.Center.Set(x, y, 0.0f);
-	Bounds.Radius = radius;
+	Bounds.Center.Y = y; Bounds.Center.X = x;
+	Bounds.Radius = radius; Bounds.Center.Z = 0.0f;
 	INIClass ini("galaxy_map_c.ini");
 	for (RenderGatesType::iterator g = Gates.begin(); g != Gates.end(); ++g) {
 		(*g).second->Unknown_7ACEF0(ini);
@@ -1187,9 +1187,10 @@ GalaxyMapRenderSystemClass::GalaxyMapRenderSystemClass(const RefCountPtr<GalaxyM
 // NOT EXACT: written from the client's code (see attempts.csv)
 GalaxyMapRenderSystemClass::~GalaxyMapRenderSystemClass()
 {
-	Release_Item();
+	GalaxyMapRenderMeshClass::Release_Item();
+	Sectors.clear();
+	Data = NULL;
 }
-
 
 inline void GalaxyMapRenderSystemClass::Release_Item()
 {
@@ -1207,7 +1208,6 @@ void GalaxyMapRenderSystemClass::Unknown_7AA950(const RefCountPtr<GalaxyMapRende
 {
 	Sectors.push_back(sector);
 }
-
 
 
 
@@ -1592,18 +1592,19 @@ void GalaxyMapRenderGateClass::Release_Item()
 	Data = NULL;
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
 bool GalaxyMapRenderGateClass::Unknown_7ACBB0(RenderSectorsType &sectors)
 {
 	From = NULL;
 	To = NULL;
 	RefCountPtr<GalaxyMapRenderSectorClass> from;
-	if (!Find_Item(from, sectors, Data->Unknown0C)) { return(false); }
+	int from_id = Data->Unknown0C;
+	if (!Find_Item(from, sectors, from_id)) { return(false); }
 	RefCountPtr<GalaxyMapRenderSectorClass> to;
-	if (!Find_Item(to, sectors, Data->Unknown10)) { return(false); }
+	int to_id = Data->Unknown10;
+	if (!Find_Item(to, sectors, to_id)) { return(false); }
 	From = from;
 	To = to;
-	from->Gates.push_back(Create_Peek(this));
+	From->Gates.push_back(Create_Peek(this));
 	return(true);
 }
 // NOT EXACT: written from the client's code (see attempts.csv)
@@ -1676,20 +1677,19 @@ bool GalaxyMapRenderGateClass::Unknown_7ACBB0(RenderSectorsType &sectors)
 
 
 
-
 void GalaxyMapRenderGateClass::Unknown_7ACEF0(INIClass &ini)
 {
-	const RefCountPtr<GalaxyMapRenderSectorClass> &from = From; const RefCountPtr<GalaxyMapRenderSectorClass> &to = To;
-	FAIL_IF(!from) {
-	} else FAIL_IF(!to) {
+	Vector3 color;
+	FAIL_IF(!From) {
+	} else FAIL_IF(!To) {
 	} else {
 		const char *name = "IntraGateLine";
-		Intra = (from->Data->Unknown10 == to->Data->Unknown10);
+		Intra = (From->Data->Unknown10 == To->Data->Unknown10);
 		if (!Intra) { name = "InterGateLine"; }
-		Vector3 color;
-		((GalaxyMapLineRObjClass *)Get_Line().operator->())->Unknown_7B3F00(ini, name, from->Unknown_7ABA70(color, Intra), Unknown_497300(from->Peek_RObj()), Unknown_497300(to->Peek_RObj()));
+		((GalaxyMapLineRObjClass *)Get_Line().operator->())->Unknown_7B3F00(ini, name, To->Unknown_7ABA70(color, Intra), Unknown_497300(From->Peek_RObj()), Unknown_497300(To->Peek_RObj()));
 	}
 }
+
 
 RefCountPtr<SegmentedLineClass> &GalaxyMapRenderLineClass::Get_Line()
 {
