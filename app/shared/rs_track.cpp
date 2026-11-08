@@ -245,24 +245,24 @@ void RsTrackClass::Unknown_4604D0(int render_state_id)
 }
 
 // 0x4605A0
-void RsTrackClass::Unknown_4605A0(int render_state_id, int arg)
+void RsTrackClass::Unknown_4605A0(int render_state_id, float seconds)
 {
 	if (render_state_id != -1) {
 		RenderStateClass *state = RenderStateList.Unknown_45A720(render_state_id);
 		if (state != NULL) {
-			state->Unknown_44(arg);
+			state->Unknown_44(seconds);
 		}
 	}
 }
 
 // 0x4605E0
-void RsTrackClass::Unknown_4605E0(int render_state_id, int arg)
+void RsTrackClass::Unknown_4605E0(int render_state_id, float seconds)
 {
 	if (render_state_id != -1) {
 		RenderStateClass *state = RenderStateList.Unknown_45A720(render_state_id);
 		if (state != NULL) {
 			Unknown_4604D0(render_state_id);
-			state->Unknown_48(arg);
+			state->Unknown_48(seconds);
 		}
 	}
 }

@@ -26,7 +26,9 @@ public:
 	void Unknown_57B1D0(const char **items);				// 0x57B1D0 (ui_registration.cpp: a table up to its NULL)  // NAME 1 [items]: neutral
 	void Unknown_57B000(const char *text);						// 0x57B000 (ui_registration.cpp's map inserts: the entry's text)  // NAME 1 [Unknown_57B000, text]: neutral (D10)
 	void Unknown_57B3C0(int arg);							// 0x57B3C0 (ui_registration.cpp 0x5FB9F0: 0 on each of its combo boxes; the +0xD0 / +0xD4 gadgets' slot +0x40)  // NAME 1 [Unknown_57B3C0, arg]: neutral (D10)
-	void Unknown_57B440();								// 0x57B440 (ui_chat_panel.cpp: slot +0x7C, before each combo's slot +0x7C)
+	void Unknown_57B440();								// 0x57B440 (ui_chat_panel.cpp: slot +0x7C, before each combo's slot +0x7C): the drop-down closes
+	void Unknown_57B570(bool on);						// 0x57B570 (0x5689D0): +0x114 and the arrow button's +0x40 / +0x8C  // NAME 1 [on]: neutral
+	void Unknown_57B5C0(int first, int last);			// 0x57B5C0 (0x5689D0: 0 and the item count): the rows first..last-1 get +0x78 set  // NAME 1 [first, last]: neutral
 
 	const char *Unknown_Item_Text(unsigned index) { return(index < Items.size() ? Items[index].c_str() : ""); }	// (inline: 0x57AC70, 0x57AD50)  // NAME 1: neutral (D10)
 	void Unknown_Show_Selected();	// (inline: 0x57AC70, 0x57AD50; ui_combobox.cpp defines it: it reads the text field's gadget)  // NAME 1: neutral (D10)
@@ -34,14 +36,15 @@ public:
 	UIMeshClass *Unknown084;							// +0x84 (the box's mesh)
 	char Unknown088[0xA0 - 0x88];						// +0x88
 	HAnimComboClass *Unknown0A0;						// +0xA0 (the drop-down's animation)
-	char Unknown0A4[0xB8 - 0xA4];						// +0xA4
+	char Unknown0A4[0xB4 - 0xA4];						// +0xA4
+	int Unknown0B4;										// +0xB4 (the most rows: 0x57B000 caps +0xB8 at it)
 	int Unknown0B8;										// +0xB8 (the rows)
 	UIComboBoxUnknownBCClass *Unknown0BC;				// +0xBC
 	int Unknown0C0;										// +0xC0
 	int Unknown0C4;										// +0xC4
 	int Unknown0C8;										// +0xC8 (the drop-down: 0 up, 1 opening, 2 closing, 3 down)
 	float Unknown0CC;									// +0xCC (the rows shown)
-	char Unknown0D0[0xD4 - 0xD0];						// +0xD0
+	GadgetClass *Unknown0D0;							// +0xD0 (the arrow button, 'ARROWBOX00': 0x57B570)
 	GadgetClass *Unknown0D4;							// +0xD4 (the text field)
 	GadgetSlider *Unknown0D8;							// +0xD8
 	unsigned int Unknown0DC;							// +0xDC (the top item)
@@ -51,7 +54,9 @@ public:
 	GadgetClass **Unknown0F8;							// +0xF8 (the rows)
 	char Unknown0FC[0x10C - 0xFC];						// +0xFC
 	volatile int Unknown10C;							// +0x10C (set: the text field is left alone; volatile: the client reads it after the store to Selected, 0x57AC70 / 0x57AD50)
-	char Unknown110[0x118 - 0x110];						// +0x110 (the constructor 0x5786C0 news 0x118 bytes)
+	char Unknown110[0x114 - 0x110];						// +0x110
+	bool Unknown114;									// +0x114 (0x57B570)
+	char Unknown115[0x118 - 0x115];						// +0x115 (the constructor 0x5786C0 news 0x118 bytes)
 };
 
 #endif

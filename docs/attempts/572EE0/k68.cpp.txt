@@ -1,0 +1,38 @@
+
+extern unsigned int Unknown_BE5F34;
+
+// @0x572EE0
+bool UIChatWindowSplitClass::Unknown_68(int key)
+{
+	switch (key) {
+		case 0x65:
+			if (Unknown_BE5F34 & 0x10) {
+				std::string name(Unknown11C);
+				name += "Size";
+				int def = OptionClass::Instance->Get_Default_Int(name.c_str());
+				if (UnknownF0.Unknown08 == def) {
+					Unknown_5732A0(UnknownF0.Unknown0C, Unknown104.Unknown08);
+				} else {
+					UnknownF0.Unknown0C = UnknownF0.Unknown08;
+					Unknown_5732A0(def, Unknown104.Unknown08);
+				}
+			}
+			break;
+		case 0x66:
+			if (Unknown_BE5F34 & 0x10) {
+				std::string name(Unknown11C);
+				name += "Split";
+				int def = OptionClass::Instance->Get_Default_Int(name.c_str());
+				if (Unknown104.Unknown08 == def) {
+					Unknown_5732A0(UnknownF0.Unknown08, Unknown104.Unknown0C);
+				} else {
+					Unknown104.Unknown0C = Unknown104.Unknown08;
+					Unknown_5732A0(UnknownF0.Unknown08, def);
+				}
+			}
+			break;
+		default:
+			return(ChatWindowInterface::Unknown_68(key));
+	}
+	return(true);
+}

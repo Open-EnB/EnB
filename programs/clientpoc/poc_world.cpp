@@ -22,14 +22,7 @@ UIHotKeysClass::UIHotKeysClass(SClient *client) : InterfaceClass((LineDisplayCli
 	STUB_CALLED("POC UIHotKeysClass: an empty InterfaceClass");
 }
 
-// ---------------------------------------------------------------- pdaint.cpp (0x693140, table 0xAFD148): 0xC0 bytes
-PDAInterfaceClass::PDAInterfaceClass(SClient *client) : InterfaceClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC PDAInterfaceClass: an empty InterfaceClass");
-	memset(Unknown84, 0, sizeof(Unknown84));
-	UnknownA8 = NULL;
-	memset(UnknownAC, 0, sizeof(UnknownAC));
-}
+// pdaint.cpp's PDA is real app code since PD1 (pdaint.cpp); its windows' stand-ins are in poc_world3.cpp.
 
 // ---------------------------------------------------------------- bridge (0x53B040): 0xC4 bytes, zero
 class BridgeInterfaceClass
@@ -223,73 +216,122 @@ UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((Li
 	STUB_CALLED("POC UIChatReplyListClass: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-UIChatIntClass::UIChatIntClass(SClient *client, int a, int b, int kind) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+// The split chat window (ui_chat_window_split.cpp: all but the set-up are rebuilt): a set-up that loads the kind's model (0x5723B0's first steps: slot +0x98 with 0xB7D938's names, the base's
+// set-up, slot +0xA0 with one window, two when split) and leaves the frame's resize gadgets out
+void UIChatWindowSplitClass::Unknown_54()
 {
-	STUB_CALLED("POC UIChatIntClass: an empty window");
+	static const char *models[] = { "tsi05f", "tsi05d", "tsi05e" };
+	if (!Unknown_98(models[UnknownE8], NULL)) return;
+	ChatWindowInterface::Unknown_54();
+	Unknown_A0((UnknownE8 != 0) ? 2 : 1);
+}
+
+// 0x765DF0 (file unknown, not rebuilt): the client's code, the chat line colour by its index (0..23), else white;
+// a generated stub cannot return a Vector3 (the call links to 0)
+Vector3 Unknown764FD0Class::Unknown_765DF0(int index)
+{
+	if (index < 24 && index >= 0) return(Unknown00[index]);
+	return(Vector3(1.0f, 1.0f, 1.0f));
+}
+
+// SClient 0x74D990 (parked, docs/attempts/74D990: clienttest's trace stub collides with the real one): the chat
+// line with its type's prefix onto the chat panel (0x563760), as the stash has it, without its sounds and line display
+void SClient::Unknown_74D990(int color, char *text, int a)
+{
+	if (!text || !*text) return;
+	UIChatPanelClass *chatpanel = ChatPanel.Peek();
+	if (!chatpanel) return;
+	std::string line("");
+	if (!(char)a) {
+		if (color == 0 || color == 17) line = "COMPUTER: ";
+		else if (color == 6) line = "TIP: ";
+		else if (color == 21) line = "WARNING: ";
+		else if (color == 19) line = "SYSTEM: ";
+		else if (color == 20 || color == 1 || color == 18) line = "OUTDATED MESSAGE TYPE: ";
+	}
+	if (color == 22) return;
+	line += text;
+	chatpanel->Unknown_563760(color, line);
+}
+
+// FontSys 0x6CE420 (unknown_6cce60.cpp's object, not rebuilt): the client's code, the text from a format into Change_Text
+// (a generated stub left the chat window's lines, the inventory counts and the mission texts empty)
+#include <stdarg.h>
+#include "..\..\app\client\fontmanager.h"
+void __cdecl FontSys::Unknown_6CE420(int unknown, const char *format, ...)
+{
+	if (format == NULL) {
+		Change_Text(NULL, unknown);
+		return;
+	}
+	char buffer[0x400];
+	va_list args;
+	va_start(args, format);
+	_vsnprintf(buffer, sizeof(buffer), format, args);
+	va_end(args);
+	buffer[sizeof(buffer) - 1] = 0;
+	Change_Text(buffer, unknown);
+}
+
+// chatgadg.cpp's text entry (0x65BFD0, not rebuilt): a text gadget that holds no text, so the chat window's calls
+// through its table reach real code (a generated constructor leaves no table)
+#include "..\..\app\client\textgadg.h"
+class Unknown65BFD0Class : public TextBaseGadgetClass
+{
+public:
+	Unknown65BFD0Class(LineDisplayClientClass *client);
+	void Unknown_65E7C0(const char *text);
+	void Unknown_65EBF0(char *buffer, int size, int &cursorpos, bool &insert);
+	char Unknown44[0x80 - 0x44];
+};
+Unknown65BFD0Class::Unknown65BFD0Class(LineDisplayClientClass *client) : TextBaseGadgetClass(0xFF, 0, NULL)
+{
+	STUB_CALLED("POC Unknown65BFD0Class (chatgadg.cpp's text entry): no text");
+	memset(Unknown44, 0, sizeof(Unknown44));
+}
+void Unknown65BFD0Class::Unknown_65E7C0(const char *text) {}
+void Unknown65BFD0Class::Unknown_65EBF0(char *buffer, int size, int &cursorpos, bool &insert)
+{
+	buffer[0] = 0;
+	cursorpos = 0;
+	insert = false;
 }
 UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c) : InterfaceClass(owner->Client)
 {
 	STUB_CALLED("POC UIComboBoxClass: an empty window");
+	memset((char *)this + sizeof(InterfaceClass), 0, sizeof(UIComboBoxClass) - sizeof(InterfaceClass));	// the real 0x57B440 (slot +0x7C) reads the drop-down state +0xC8
 }
 void UIChatPanelClass::Unknown_5689D0(int index)
 {
 	Combo[index] = Create_NEW(new UIComboBoxClass(this, NULL, NULL, NULL, 0, 0, 0, 0, 0));
 }
-class UIChatF8EventClass {};
+class OptionFontInterfaceEvent {};
 class UIChatIntHandlerClass
 {
 public:
-	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *));
+	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *));
 };
-UIChatIntHandlerClass::UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *))
+UIChatIntHandlerClass::UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *))
 {
 	STUB_CALLED("POC UIChatIntHandlerClass: nothing");
 }
 class UnknownEventDispatcherClass
 {
 public:
-	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatF8EventClass &, InterfaceClass *), const UIChatF8EventClass &type);
-	void Unknown_56CEC0(UIChatIntClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *), const UIChatIntEventClass &type);
+	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &type);
+	void Unknown_56CEC0(ChatWindowInterface *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &type);
 };
-void UnknownEventDispatcherClass::Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatF8EventClass &, InterfaceClass *), const UIChatF8EventClass &type)
+void UnknownEventDispatcherClass::Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &type)
 {
 }
-void UnknownEventDispatcherClass::Unknown_56CEC0(UIChatIntClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *), const UIChatIntEventClass &type)
+void UnknownEventDispatcherClass::Unknown_56CEC0(ChatWindowInterface *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &type)
 {
 }
 
 // ---------------------------------------------------------------- the render states rs_list.cpp makes from files not in the tree yet
-// (rs_hanim.cpp 'anim', 'link', 'sound', rs_eff_p.cpp 'effect_pass'): plain states that do nothing when activated
+// (unknown_45a090.cpp's 'link' state and unknown_45f390.cpp's 'sound' state are rebuilt in app.lib)
 #include "..\\..\\app\\shared\\rs_track.h"
 #include "shader.h"
-Unknown4596A0Class::Unknown4596A0Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *anim, const char *suffix, int next_id, HAnimComboDataClass *combo) :
-	RenderStateClass(list, id, link_id, flags)
-{
-	STUB_CALLED("POC Unknown4596A0Class ('anim' state): does nothing");
-	memset(Unknown2C, 0, sizeof(Unknown2C));
-}
-Unknown4596A0Class::~Unknown4596A0Class() {}
-RenderStateClass *Unknown4596A0Class::Unknown_04(RenderStateListClass *list) { return(new Unknown4596A0Class(list, ID, LinkID, Flags, NULL, NULL, -1, NULL)); }
-void Unknown4596A0Class::Unknown_14(RsTrackClass *owner) {}
-
-Unknown45A090Class::Unknown45A090Class(RenderStateListClass *list, int id, int link_id, unsigned int flags) :
-	RenderStateClass(list, id, link_id, flags)
-{
-	STUB_CALLED("POC Unknown45A090Class ('link' state): does nothing");
-}
-Unknown45A090Class::~Unknown45A090Class() {}
-RenderStateClass *Unknown45A090Class::Unknown_04(RenderStateListClass *list) { return(new Unknown45A090Class(list, ID, LinkID, Flags)); }
-void Unknown45A090Class::Unknown_14(RsTrackClass *owner) {}
-
-Unknown45F390Class::Unknown45F390Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message) :
-	RenderStateClass(list, id, link_id, flags)
-{
-	STUB_CALLED("POC Unknown45F390Class ('sound' state): does nothing");
-	memset(Unknown2C, 0, sizeof(Unknown2C));
-}
-Unknown45F390Class::~Unknown45F390Class() {}
-RenderStateClass *Unknown45F390Class::Unknown_04(RenderStateListClass *list) { return(new Unknown45F390Class(list, ID, LinkID, Flags, NULL, 0)); }
-void Unknown45F390Class::Unknown_14(RsTrackClass *owner) {}
 
 // (rs_eff_p.cpp's 'effect_pass' state 0x458C10 is rebuilt in app.lib)
 

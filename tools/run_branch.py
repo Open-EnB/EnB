@@ -131,9 +131,9 @@ def cmd_start(a):
         print(f'{b}: empty commit `Start run {b[4:]}` (the draft PR needs one)')
     base = os.path.join(ROOT, '.work', f'imports.{git("rev-parse", "--short", "origin/master")}.json')
     # the single-file snapshot of master's ledger (ledger.py export --rev; pacing.py --baseline, pairs_cmp.py)
-    r = subprocess.run([sys.executable, os.path.join(ROOT, 'tools', 'vc6', 'ledger.py'), 'export', '--rev', 'origin/master',
-                        '-o', base], cwd=ROOT)
-    if r.returncode:
+    ex = subprocess.run([sys.executable, os.path.join(ROOT, 'tools', 'vc6', 'ledger.py'), 'export', '--rev', 'origin/master',
+                         '-o', base], cwd=ROOT)
+    if ex.returncode:
         sys.exit('run_branch: ledger.py export of origin/master failed')
     print(f'baseline: {os.path.relpath(base, ROOT)} (coordinator-pacing --baseline)')
     push = subprocess.run(['git', 'push', '-u', 'origin', b], cwd=ROOT)

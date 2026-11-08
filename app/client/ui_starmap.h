@@ -20,6 +20,7 @@
 #include "intrface.h"
 #include "map_pip.h"
 #include "fontmanager.h"
+#include "starmap_pip.h"
 
 class NavigationListClass;
 class GalaxyMapPipClass;
@@ -27,25 +28,6 @@ class UIDynamicWindowClass;
 class ButtonGadgetClass;
 class HAnimClass;
 class SClient;
-
-// starmap_pip.cpp's PIP (not in the tree yet), as far as this file calls it. 0xD4 bytes.
-// PLACEMENT: provisional (D137): the client's starmap_pip.cpp gives it a file; no other user in the tree yet
-class StarmapPipClass : public MapPipClass  // NAME 3: class-from-file (D24) for app\client\starmap_pip.cpp
-{
-public:
-	StarmapPipClass(SClient *client);					// 0x7BF930  // NAME 1 [client]: neutral
-	virtual ~StarmapPipClass();
-	virtual GadgetClass *Unknown_18();
-	virtual void Unknown_1C(int arg);					// NAME 1 [arg]: neutral
-	virtual void Unknown_20(int arg);					// NAME 1 [arg]: neutral
-	virtual void Unknown_24(int arg);					// NAME 1 [arg]: neutral
-
-	NavigationListClass *Unknown_7C0EE0();				// 0x7C0EE0 (FAIL_IF '!WarpPath', '!TargetPath')
-	void Unknown_7C1120(float arg);						// 0x7C1120 (0x7C8980's zoom)  // NAME 1 [arg]: neutral
-	void Unknown_7C2D30();								// 0x7C2D30 (0x7C8E50)
-
-	char Unknown_Pad50[0xD4 - 0x50];
-};
 
 class UIStarmapClass : public InterfaceClass  // NAME 3: class-from-file (D24) for ui_starmap.cpp
 {

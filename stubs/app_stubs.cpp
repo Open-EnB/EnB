@@ -224,3 +224,17 @@ Matrix3D Unknown_82ECB0(const Vector3 &dir, const Vector3 &pos)
 	tm.Obj_Look_At(pos, pos + dir, 0.0f);
 	return tm;
 }
+
+// starbase_lights.cpp 0x764AB0 / 0x764CF0 (not rebuilt; gen_stubs skips a by-value Vector3): a light's pad point
+// and the ambient colour, called by ui_starbase.cpp's lights panel, linked since its constructor 0x6333E0 is real
+#include "starbase_lights.h"
+Vector3 Unknown_764480Class::Unknown_764AB0(int a, int b, int c, int index)
+{
+	STUB_CALLED("Unknown_764480Class::Unknown_764AB0 (0x764AB0)");
+	return Vector3(0.5f, 0.5f, 0.0f);
+}
+Vector3 Unknown_764480Class::Unknown_764CF0(int a, int b, int c)
+{
+	STUB_CALLED("Unknown_764480Class::Unknown_764CF0 (0x764CF0)");
+	return Vector3(0.5f, 0.5f, 0.5f);
+}

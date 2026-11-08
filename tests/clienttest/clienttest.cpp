@@ -2106,6 +2106,11 @@ int main(int argc, char **argv)
 	Switch_Table[0x7C / 4] = (void *)Switch_7C_Slot;
 	Switch_Table[0x5C / 4] = (void *)Switch_5C_Slot;
 	Switch_Pda[0] = Switch_Table;
+	// the PDA's windows (+0x98 .. +0xA8): pdaint.cpp's real 0x695F40 (since PD1) reads each one's Active (+0x7C): none
+	static char fake_pda_window[0x100];
+	for (int p = 0x98; p <= 0xA8; p += 4) {
+		Switch_Pda[p / 4] = fake_pda_window;
+	}
 	Switch_Hot_Keys[0] = Switch_Table;
 	Switch_Main_34[0] = Switch_Table;
 	for (int d = 0; d < 64; d++) {

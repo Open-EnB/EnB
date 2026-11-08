@@ -337,7 +337,8 @@ def unlink_all(path):
     """Remove every junction / directory link inside path (the link only, never its target)."""
     for p in _links_inside(path):
         if os.path.isjunction(p):
-            subprocess.run(['cmd', '/c', 'rmdir', p], capture_output=True)
+            # cmd reads '/' as a switch: give rmdir a backslash path
+            subprocess.run(['cmd', '/c', 'rmdir', os.path.normpath(p)], capture_output=True)
         else:
             try:
                 os.rmdir(p) if os.path.isdir(p) else os.unlink(p)

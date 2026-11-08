@@ -1,7 +1,6 @@
 // Earth & Beyond client (reconstruction): app\shared\rs_list.cpp, client 0x45A2B0-0x45C9D9 and its template copies
 // to 0x45D820 (__FILE__ e:\build\beta\G\app\shared\rs_list.cpp in its asserts, lines 198 / 215 / 226 / 625 / 656).
-// The render state list: built from rs.ini's '<n>' sections (RST_ flags, then one state per '<n>\STATE<i>',
-// made by TYPE through the state maker 0xBDC0A0). Notes at the end.
+// The render state list: built from rs.ini's '<n>' sections (RST_ flags, then one state per '<n>\STATE<i>', made by TYPE through the state maker 0xBDC0A0). Notes at the end.
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -9,11 +8,12 @@
 #include "rs_track.h"
 #include "ini.h"
 #include "assetmgr.h"
-#include "hanim.h"
+#include "rs_hanim.h"
 #include "shader.h"
 #include "mapper.h"
 #include "..\shared\g_assert.h"
-
+#include "unknown_45a090.h"
+#include "unknown_45f390.h"
 void Unknown_Debug_Print(const char *text);			// 0x509E30 (dbgmgr.cpp, D38)
 
 Unknown45C430Class Unknown_BDC0A0;
@@ -232,7 +232,7 @@ void RenderStateListClass::Unknown_45A970(RsTrackClass *owner, RenderInfoClass &
 void RenderStateListClass::Unknown_45A9F0(RsTrackClass *owner)
 {
 	for (RenderStateClass *state = Unknown08.First_Valid(); state != NULL; state = state->Next_Valid()) {
-		state->Unknown_38((int)owner);
+		state->Unknown_38(owner);
 	}
 }
 
@@ -638,7 +638,7 @@ RenderStateClass *RenderStateListClass::Unknown_45B550(const char *filename, int
 
 
 
-
+#pragma auto_inline(off)
 // 0x45B990
 RenderStateClass *RenderStateListClass::Unknown_45B990(INIClass &ini, const char *section, int id)
 {
@@ -656,7 +656,7 @@ RenderStateClass *RenderStateListClass::Unknown_45B990(INIClass &ini, const char
 	G_ASSERT(0);
 	return(NULL);
 }
-
+#pragma auto_inline(on)
 // 0x45BAB0
 RenderStateClass *RenderStateListClass::Unknown_45BAB0(int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone, int message)
 {
@@ -767,7 +767,6 @@ RenderStateListClass::~RenderStateListClass()
 }
 
 // 0x45C430
-// NOT EXACT: inlining (0.62): the client calls the effect pass maker 0x45B990 out of line; ours inlines it
 int Unknown45C430Class::Unknown_00(RenderStateListClass *list, INIClass &ini, const char *section, const char *type, int index)
 {
 	int id = ini.Get_Int(section, "ID", index);
@@ -868,5 +867,5 @@ void RenderStateListClass::Unknown_04(float scale, float *hsv)
 ** NOT EXACT (functional, D64): 0x45AB20 and 0x45BC30 (the float DURATION's store is scheduled before the next push
 ** in the client), 0x45AD90 (register allocation: the client keeps 0 in ebp from the start, one more local),
 ** 0x45B550 (the SHADER switch: the client's jump table starts at 0 with case 0 on the default's code; ours
-** subtracts 1), 0x45C430 (the client calls the effect pass maker 0x45B990 out of line; ours inlines it).
+** subtracts 1).
 */

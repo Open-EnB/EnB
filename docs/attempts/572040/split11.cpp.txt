@@ -1,0 +1,147 @@
+#define __INTRFACE_MEMBERS
+#include "ui_chat_window_split.h"
+#include "hanim.h"
+#include "gd_resize.h"
+#include "gadget.h"
+#include "option.h"
+#include <string.h>
+#include "..\shared\g_assert.h"
+
+// @0x571F00
+UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit, int kind) :
+	ChatWindowInterface(client, history, edit),
+	UnknownE8(kind),
+	UnknownEC(NULL),
+	Unknown118(kind == 2),
+	Unknown11C(NULL)
+{
+	switch (UnknownE8) {
+		case 0:
+			Unknown11C = "ChatWinSplit_None";
+			break;
+		case 1:
+			Unknown11C = "ChatWinSplit_Vert";
+			break;
+		case 2:
+			Unknown11C = "ChatWinSplit_Horz";
+			break;
+	}
+}
+
+// @0x572040
+UIChatWindowSplitClass::~UIChatWindowSplitClass()
+{
+#ifdef DEF
+	std::string name;
+	name = Unknown11C;
+#elif defined(LEN)
+	std::string name(Unknown11C, strlen(Unknown11C));
+#else
+	std::string name(Unknown11C);
+#endif
+#ifdef DEAD_TOP
+	name.size(); name.size(); name.size(); name.size(); name.size(); name.size();
+#endif
+	name += "Size";
+	IntOptionStruct *option = OptionClass::Instance->Find_Int(name.c_str());
+	if (option) {
+		option->Value = UnknownF0.Unknown08;
+	} else {
+#line 88
+		G_ASSERT(false);
+	}
+	name = Unknown11C;
+	name += "Split";
+	option = OptionClass::Instance->Find_Int(name.c_str());
+	if (option) {
+		option->Value = Unknown104.Unknown08;
+	} else {
+#line 97
+		G_ASSERT(false);
+	}
+#ifdef L3
+	if (UnknownEC) {
+		HAnimComboDataClass *size = UnknownF0.Unknown00;
+		HAnimComboDataClass *split = Unknown104.Unknown00;
+		UnknownEC->Remove_Anim_Combo_Data(size);
+		UnknownEC->Remove_Anim_Combo_Data(split);
+	}
+#elif defined(L4)
+	HAnimComboClass *combo = UnknownEC;
+	if (combo) {
+		combo->Remove_Anim_Combo_Data(UnknownF0.Unknown00);
+		UnknownEC->Remove_Anim_Combo_Data(Unknown104.Unknown00);
+	}
+#elif defined(L1)
+	if (UnknownEC) {
+		HAnimComboDataClass *size = UnknownF0.Unknown00;
+		UnknownEC->Remove_Anim_Combo_Data(size);
+		UnknownEC->Remove_Anim_Combo_Data(Unknown104.Unknown00);
+	}
+#elif defined(L2)
+	if (UnknownEC) {
+		UnknownEC->Remove_Anim_Combo_Data(UnknownF0.Unknown00);
+		HAnimComboDataClass *split = Unknown104.Unknown00;
+		UnknownEC->Remove_Anim_Combo_Data(split);
+	}
+#elif defined(LOC)
+	if (UnknownEC) {
+		HAnimComboDataClass *size = UnknownF0.Unknown00;
+		UnknownEC->Remove_Anim_Combo_Data(size);
+		HAnimComboDataClass *split = Unknown104.Unknown00;
+		UnknownEC->Remove_Anim_Combo_Data(split);
+	}
+#else
+	if (UnknownEC) {
+		UnknownEC->Remove_Anim_Combo_Data(UnknownF0.Unknown00);
+		UnknownEC->Remove_Anim_Combo_Data(Unknown104.Unknown00);
+	}
+#endif
+	delete UnknownEC;
+	UnknownEC = NULL;
+#if DN >= 1
+	name.size();
+#endif
+#if DN >= 2
+	name.size();
+#endif
+#if DN >= 3
+	name.size();
+#endif
+#if DN >= 4
+	name.size();
+#endif
+#if DN >= 5
+	name.size();
+#endif
+#if DN >= 6
+	name.size();
+#endif
+#if DN >= 7
+	name.size();
+#endif
+#if DN >= 8
+	name.size();
+#endif
+}
+
+// @0x572DE0
+void UIChatWindowSplitClass::Unknown_58()
+{
+	ChatWindowInterface::Unknown_58();
+}
+
+// @0x572E00
+void UIChatWindowSplitClass::Unknown_5C()
+{
+	ChatWindowInterface::Unknown_5C();
+}
+
+// @0x573430
+inline ChatWinSplitResizeStruct::~ChatWinSplitResizeStruct()
+{
+	delete Unknown00;
+	Unknown00 = NULL;
+	GadgetClass::Destroy(Unknown04);
+	Unknown04 = NULL;
+}

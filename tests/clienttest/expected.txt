@@ -440,7 +440,6 @@ stub Unknown831340Class::Unknown831340Class 7042 'CE3K MG-15' type 13
 msg 65 ITEM_BASE (37) size 325: cpacket.cpp's handler
 stub Unknown831340Class::Unknown831340Class 1708 'Athanor Hyperion Mounts' type 13
 msg 66 CLIENT_TYPE (60) size 8: cpacket.cpp's handler
-gen PDAInterfaceClass::Unknown_695F40
 gen UITalkTreeClass::Unknown_64EED0
 d3d ResourceManagerDiscardBytes 0
 stub WWAudioClass::Flush_Cache

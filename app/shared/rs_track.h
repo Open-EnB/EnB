@@ -43,11 +43,11 @@ public:
 	virtual void Unknown_2C(int a, int b) {}						// +0x2C 0x458630  // NAME 1 [a, b]: neutral
 	virtual void Unknown_30(RsTrackClass *owner, float seconds);	// +0x30 0x458350 (rs_robj.cpp's 0x45ECD0 adds seconds to its timer)  // NAME 1 [owner, seconds]: Unknown_45A870's
 	virtual void Unknown_34(float seconds) {}						// +0x34 0x458650 (0x4584B0 passes the time left over)  // NAME 1 [seconds]: neutral
-	virtual void Unknown_38(int a) {}								// +0x38 0x458670  // NAME 1 [a]: neutral
+	virtual void Unknown_38(RsTrackClass *owner) {}				// +0x38 0x458670 (rs_hanim.cpp's 0x459FE0 hands its channel to owner)  // NAME 1 [owner]: neutral
 	virtual void Unknown_3C() {}									// +0x3C 0x458690 (ACTIVATE_NEXT_RENDER_STATE 49)  // NAME 1: neutral (D10)
 	virtual void Unknown_40(float scale, float *hsv) {}				// +0x40 0x4586B0 (rs_robj.cpp's 0x45F280 remakes its model at scale / hsv)  // NAME 1 [scale, hsv]: what the asset manager's Unknown_78 takes
-	virtual void Unknown_44(int arg) {}								// +0x44 0x4586D0  // NAME 1 [arg]: neutral
-	virtual void Unknown_48(int arg) {}								// +0x48 0x4586F0  // NAME 1 [arg]: neutral
+	virtual void Unknown_44(float seconds) {}						// +0x44 0x4586D0 (rs_hanim.cpp's 0x459A30 fades out over seconds)  // NAME 1 [seconds]: neutral
+	virtual void Unknown_48(float seconds) {}						// +0x48 0x4586F0 (rs_hanim.cpp's 0x459AA0 fades in over seconds)  // NAME 1 [seconds]: neutral
 	void Unknown_457E10();											// 0x457E10 (flag 4 on, into the list's +0x20 chain)  // NAME 1: neutral (D10)
 	void Unknown_457E90();											// 0x457E90 (flag 4 off, unlinked)  // NAME 1: neutral (D10)
 	void Unknown_457EE0(const char *text);							// 0x457EE0 (copies text into Unknown14)  // NAME 1 [text]: neutral
@@ -115,7 +115,7 @@ public:
 	// the state makers, one pair per rs.ini TYPE (0x45C430's dispatch)
 	RenderStateClass *Unknown_45AA80(int id, int link_id, unsigned int flags, const char *name, int next_id, float duration);	// 0x45AA80 ('object': rs_robj.cpp's state)
 	RenderStateClass *Unknown_45AB20(INIClass &ini, const char *section, int id);	// 0x45AB20 ('object')
-	RenderStateClass *Unknown_45ACD0(int id, int link_id, unsigned int flags, const char *anim, const char *suffix, int next_id, HAnimComboDataClass *combo);	// 0x45ACD0 ('anim': rs_hanim.cpp's state 0x4596A0)  // NAME 1 [anim, suffix, combo]: the keys
+	RenderStateClass *Unknown_45ACD0(int id, int link_id, unsigned int flags, const char *anim, const char *suffix, int next_id, HAnimComboDataClass *combo);	// 0x45ACD0 ('anim': rs_hanim.h's state 0x4596A0)  // NAME 1 [anim, suffix, combo]: the keys
 	RenderStateClass *Unknown_45AD90(INIClass &ini, const char *section, int id);	// 0x45AD90 ('anim')
 	RenderStateClass *Unknown_45B1E0(int id, int link_id, unsigned int flags, int message);	// 0x45B1E0 ('message': Unknown45D840Class)  // NAME 1 [message]: the key
 	RenderStateClass *Unknown_45B280(INIClass &ini, const char *section, int id);	// 0x45B280 ('message')
@@ -200,34 +200,6 @@ public:
 // (interim, D137: their files are not in the tree yet)
 class ShaderClass;
 class TextureMapperClass;
-class Unknown4596A0Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'anim' (rs_hanim.cpp, 0x60 bytes)
-{
-public:
-	Unknown4596A0Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *anim, const char *suffix, int next_id, HAnimComboDataClass *combo);	// 0x4596A0  // NAME 1 [anim, suffix, next_id, combo]: rs_list.cpp's keys
-	virtual ~Unknown4596A0Class();
-	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);
-	virtual void Unknown_14(RsTrackClass *owner);
-
-	char Unknown2C[0x60 - 0x2C];									// NAME 1: neutral (D10)
-};
-class Unknown45A090Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'link' (0x2C bytes)
-{
-public:
-	Unknown45A090Class(RenderStateListClass *list, int id, int link_id, unsigned int flags);	// 0x45A090
-	virtual ~Unknown45A090Class();
-	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);
-	virtual void Unknown_14(RsTrackClass *owner);
-};
-class Unknown45F390Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'sound' (0x3C bytes)
-{
-public:
-	Unknown45F390Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message);	// 0x45F390  // NAME 1 [sound, message]: rs_list.cpp's keys
-	virtual ~Unknown45F390Class();
-	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);
-	virtual void Unknown_14(RsTrackClass *owner);
-
-	char Unknown2C[0x3C - 0x2C];									// NAME 1: neutral (D10)
-};
 class MaterialPassClass;
 class Unknown458C10Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'effect_pass' (rs_eff_p.cpp, 0x34 bytes; the client's debug text names it RenderStateEffectPassClass)
 {
@@ -399,8 +371,8 @@ public:
 	RenderObjClass *Unknown_460410();								// 0x460410  // NAME 1: neutral (D10)
 	void Unknown_460440(RenderStateClass *state, int depth);		// 0x460440 (activates a state and its links)  // NAME 1 [state, depth]: neutral
 	void Unknown_4604D0(int render_state_id);						// 0x4604D0 (ACTIVATE_RENDER_STATE 48)
-	void Unknown_4605A0(int render_state_id, int arg);				// 0x4605A0  // NAME 1 [arg]: neutral
-	void Unknown_4605E0(int render_state_id, int arg);				// 0x4605E0  // NAME 1 [arg]: neutral
+	void Unknown_4605A0(int render_state_id, float seconds);		// 0x4605A0 (the state's Unknown_44: rs_hanim.cpp fades out over seconds)  // NAME 1 [seconds]: neutral
+	void Unknown_4605E0(int render_state_id, float seconds);		// 0x4605E0 (activates it, then its Unknown_48: fades in)  // NAME 1 [seconds]: neutral
 	void Unknown_460710(RenderStateClass *state, int depth);		// 0x460710 (deactivates a state chain)  // NAME 1 [state, depth]: neutral
 	void Unknown_460780(int render_state_id);						// 0x460780 (DEACTIVATE_RENDER_STATE 50)
 	bool Unknown_460810(int render_state_id);						// 0x460810  // NAME 1: neutral (D10)

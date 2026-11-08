@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x633010-0x648340 by its asserts and its string order).
-// So far the starbase interface's lights helpers 0x640CC0-0x640F30 and the starbase lights panel (the class below,
+// So far the starbase interface's constructor 0x6333E0 (SB1), its lights helpers 0x640CC0-0x640F30 and the starbase lights panel (the class below,
 // 0x646170-0x648238), ST1; the file's own functions with their asserts (lines 368-4180) lie around them in the client.
 #include <stdio.h>
 #include <string.h>
@@ -15,6 +15,7 @@
 #include "matrix3d.h"
 #include "rendobj.h"
 #include "scene.h"
+#include "assetmgr.h"
 #include "starbase_lights.h"
 #include "..\audio\soundlib.h"
 #include "control_keys_manager.h"
@@ -26,6 +27,9 @@ public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C(); virtual void Unknown_40();
+	virtual void Unknown_44(int arg);					// +0x44 (the starbase interface's destructor passes its +0x190's +0x90)  // NAME 1 [arg]: neutral
 };
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, as ui_login.cpp's
@@ -41,6 +45,163 @@ public:
 	void Unknown_762920(float fill);					// 0x762920 (its +0xAC)  // NAME 1 [fill]: what 0x640EC0 passes
 	void Unknown_762940(const Vector3 &color);			// 0x762940 (its +0xA0: the ambient colour)  // NAME 1 [color]: what 0x640E90 passes
 };
+
+// The four rooms (the constructor's index): the key 0x698730 looks up (0xB8A870), the room's model part (0xB8A880),
+// and the race letters by the starbase's column +0x18 (0xB8A950)
+static int Unknown_B8A870[4] = { 0, 1, 3, 2 };	// NAME 1: neutral (D10)
+static const char *Unknown_B8A880[4] = { "hangar", "main", "bazaar", "lounge" };	// NAME 1: neutral (D10)
+static const char *Unknown_B8A950[10] = { "t", "j", "p", "n", "n", "n", "n", "n", "n", "n" };	// NAME 1: neutral (D10)
+
+// kernel.h's input event, as UIStarbaseLightsKeyEventStruct below, with its second short
+struct UIStarbaseKeyEventStruct	// NAME 1: neutral (D10)
+{
+	UIStarbaseKeyEventStruct(short key, short modifiers) : Key(key), Unknown02(modifiers), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key, modifiers]: neutral
+	short Key;											// +0x00  // NAME 1: neutral (D10)
+	short Unknown02;									// +0x02
+	float Unknown04;									// +0x04
+	float Unknown08;									// +0x08
+	int Unknown0C;										// +0x0C
+};
+
+inline SBaseViewUnknown1B4Class *UIStarbaseClass::Unknown_Info() { return(UnknownB0->Unknown1B4); }
+// 0x6333E0
+UIStarbaseClass::UIStarbaseClass(UIViewClass *view, LayerClass *layer, int index, const char *name) :
+	Unknown5BB320Class(new UIMeshClass(name, 1), view, *layer),
+	Room(index),
+	UnknownB0((SBaseViewClass *)view),
+	UnknownB4(NULL),
+	UnknownB8(0),
+	UnknownBC(NULL),
+	UnknownD4(100),
+	Unknown180(0),
+	Unknown184(NULL),
+	Unknown188(NULL),
+	Unknown18C(false),
+	Unknown190(0),
+	Unknown194(NULL),
+	Unknown1A0(NULL),
+	Unknown1AC(0),
+	Unknown1B0(false),
+	Unknown1B1(false),
+	Unknown1B2(false),
+	Unknown1B3(false),
+	Unknown1B4(-1.0f),
+	Unknown1B8(0.5f),
+	Unknown1EC(0),
+	Unknown1F0(0),
+	Unknown1F4(0),
+	Unknown1F8(NULL),
+	Unknown1FC(false),
+	Unknown1FD(false),
+	Unknown1FE(false),
+	Unknown1FF(false),
+	Unknown200(false),
+	Unknown201(false),
+	Unknown214(false),
+	Unknown215(false),
+	Unknown216(false),
+	Unknown217(false),
+	Unknown218(false),
+	Unknown219(false),
+	Unknown21A(false),
+	Unknown21B(false),
+	Unknown21C(false),
+	Unknown220(0)
+{
+	int i;
+	for (i = 0; i < 4; i++) {
+		UnknownF8[i] = 0;
+		Unknown108[i] = NULL;
+	}
+	for (i = 0; i < 4; i++) {
+		Unknown118[i] = 0;
+		Unknown128[i] = NULL;
+		Unknown138[i] = false;
+	}
+	for (i = 0; i < 14; i++) {
+		Unknown13C[i] = 0;
+	}
+	UnknownB0 = (SBaseViewClass *)View->Unknown_30();
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIStarbaseKeyEventStruct(2, 0), (void *)0x2B);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIStarbaseKeyEventStruct(2, 0x1000), (void *)0x2C);
+	UnknownB4 = (UIStarbaseUnknownB4Struct *)Unknown_Info()->Unknown_698730(Unknown_B8A870[Room]);
+	int column = Unknown_Info()->Unknown18;
+	char model[32];
+	if (UnknownB4->Unknown0B) {
+		_snprintf(model, sizeof(model), "%sextra_%s_3", Unknown_B8A950[column], Unknown_B8A880[Room]);
+	} else if (UnknownB4->Unknown0A) {
+		_snprintf(model, sizeof(model), "%sextra_%s_2", Unknown_B8A950[column], Unknown_B8A880[Room]);
+	} else {
+		_snprintf(model, sizeof(model), "%sextra_%s", Unknown_B8A950[column], Unknown_B8A880[Room]);
+	}
+	UnknownBC = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
+	if (UnknownBC) {
+		Unknown_Model()->Add_Sub_Object(UnknownBC.Peek());
+	}
+}
+
+#pragma auto_inline(off)
+
+// NOT EXACT: register-only residue in the body (every vtable load of its own statements in eax where the client's is in edx and the
+// reverse; the members' destructors after it match), objdiff 0.82 counting the unrelocated jumps
+// 0x633B50
+UIStarbaseClass::~UIStarbaseClass()
+{
+	int i;
+	if (Unknown190) {
+		Client->Unknown_44(Unknown190->Unknown90);
+		delete Unknown190;
+		Unknown190 = NULL;
+	}
+	UIStarbaseClass::Unknown_5C();
+	Unknown1F8 = NULL;
+	UnknownB4 = NULL;
+	InterfaceMesh->Unknown_5B9930(-1);
+	if (UnknownBC) {
+		UnknownBC->Remove();
+		UnknownBC = NULL;
+	}
+	delete UnknownC0.D;
+	if (Unknown180) {
+		GadgetClass::Destroy(Unknown180);
+		Unknown180 = NULL;
+	}
+	if (Unknown184) {
+		Unknown184->Remove();
+		Unknown184 = NULL;
+	}
+	for (i = 0; i < 14; i++) {
+		delete Unknown13C[i];
+	}
+	for (i = 0; i < 4; i++) {
+		if (Unknown128[i]) {
+			Unknown128[i]->Remove();
+			Unknown128[i] = NULL;
+		}
+	}
+	for (i = 0; i < 4; i++) {
+		if (Unknown108[i]) {
+			Unknown108[i]->Remove();
+			Unknown108[i] = NULL;
+		}
+	}
+	std::list<RefCountPtr<RenderObjClass> >::iterator it;
+	for (it = Unknown194.begin(); it != Unknown194.end(); it++) {
+		RefCountPtr<RenderObjClass> robj = *it;
+		InterfaceMesh->Peek_Object()->Remove_Sub_Object(robj.Peek());
+		robj->Remove();
+	}
+	Unknown194.clear();
+	for (it = Unknown1A0.begin(); it != Unknown1A0.end(); it++) {
+		RefCountPtr<RenderObjClass> robj = *it;
+		InterfaceMesh->Peek_Object()->Remove_Sub_Object(robj.Peek());
+		robj->Set_Animation();
+		robj->Remove();
+	}
+	Unknown1A0.clear();
+}
+
+#pragma auto_inline(on)
 
 // NOT EXACT: register-only residue at the top (the client loads +0xB0 into eax before Room, a's chain through
 // eax / ecx; ours through ecx / edx) and in the inlined 0x640CC0 loop (eax / edx swapped); 42 rows. The budget
@@ -58,10 +219,10 @@ void UIStarbaseClass::Unknown_640810()
 	while (true) {
 		char name[64];  // NAME 1: neutral
 		_snprintf(name, sizeof(name), "D_LIGHT%02d", i);
-		if (!((UIMeshClass *)Unknown84)->Peek_Object()->Get_Bone_Index(name)) {
+		if (!InterfaceMesh->Peek_Object()->Get_Bone_Index(name)) {
 			break;
 		}
-		Matrix3D tm = ((UIMeshClass *)Unknown84)->Peek_Object()->Get_Bone_Transform(name);
+		Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform(name);
 		LightClass *light = Unknown_BE82D0->Unknown_764570(a, room, c, i);
 		light->Set_Transform(tm);
 		((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(light);
