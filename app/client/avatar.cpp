@@ -324,11 +324,11 @@ void CharacterViewAvatarClass::Unknown_77D4A0()
 
 // 0x77D7F0: the NLP made again from Desc, the models loaded again (0x77DA20) and, for a player avatar, the morph
 // weights normalised and shown at once (unreferenced; the constructor inlines it)
-// NOT EXACT: register (this in edi, the client's esi: 0.62)
 void CharacterViewAvatarClass::Unknown_77D7F0()
 {
 	Unknown_781680();
-	Unknown224 = Unknown_BDBB84(0, PlayerNLP->Personality->Get_Fidget_Delay() / 2);
+	int delay = PlayerNLP->Personality->Get_Fidget_Delay() / 2;
+	Unknown224 = Unknown_BDBB84(0, delay);
 	Unknown_77DA20();
 	if (Desc.Avatar_Type == 0) {
 		Unknown_77E830(Desc.Body_Weight);
@@ -340,15 +340,15 @@ void CharacterViewAvatarClass::Unknown_77D7F0()
 }
 
 // 0x77D9F0
-// NOT EXACT: shape (the client loads +0x234 again in each branch)
 float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 {
 	if (a) {
-		return(Unknown234 + 1.0f);
+		const float &h = Unknown234;
+		return(h + 1.0f);
 	}
-	return(Unknown234);
+	const float &h2 = Unknown234;
+	return(h2);
 }
-
 
 
 
@@ -3521,113 +3521,113 @@ void CharacterViewAvatarClass::Unknown_788890()
 }
 
 // 0x788900
-// NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x784F20 where this repeats its three stores)
+// NOT EXACT: shape (0.59: the goal tests' order and the inlined Vector3 temporaries)
 void CharacterViewAvatarClass::Unknown_788900()
 {
-	if (Unknown318.size() == 0) {
-		return;
-	}
-	Matrix3D *goal;
-	Vector3 delta;
-	float dist;
-	for (;;) {
-		goal = Unknown318.front();
-		delta.X = (*goal)[0][3] - Unknown330[0][3];
-		delta.Y = (*goal)[1][3] - Unknown330[1][3];
-		delta.Z = (*goal)[2][3] - Unknown330[2][3];
-		dist = sqrt(delta.X * delta.X + delta.Y * delta.Y + delta.Z * delta.Z);
-		if (dist >= 3.0f) {
-			break;
-		}
-		if (Unknown318.size() < 2) {
+	while (Unknown318.size() != 0) {
+		Vector3 pos = Unknown330.Get_Translation();
+		Matrix3D *goal = Unknown318.front();
+		Vector3 delta = goal->Get_Translation() - pos;
+		float dist = delta.Length();
+		if (dist < 3.0f) {
+			if (Unknown318.size() > 1) {
+				Unknown_788890();
+				continue;
+			}
 			Unknown_784F20();
-			int flags = Unknown2F8;
-			Unknown2F8 = flags & 0xFFFC;
-			float facing = Unknown330[0][0] * (*goal)[0][1] + Unknown330[1][0] * (*goal)[1][1] + Unknown330[2][0] * (*goal)[2][1];
-			float rate = (float)fabs(facing);
-			if (rate < 0.0436193f) {
-				Unknown2F8 = flags & 0xFFF0;
-				if (Unknown318.size() != 0) {
-					delete *Unknown318.begin();
-					Unknown318.erase(Unknown318.begin());
-				}
+			Unknown2F8 &= 0xFFFC;
+			float facing = Vector3::Dot_Product(goal->Get_Y_Vector(), Unknown330.Get_X_Vector());
+			if (fabs(facing) < 0.0436193873653360) {
+				Unknown_786D20();
+				Unknown_788890();
 				return;
 			}
-			Unknown2FC = rate;
 			if (facing < 0.0f) {
-				Unknown2F8 = (flags & 0xFFF0) | 4;
+				Unknown_786CF0((float)fabs(facing));
 			} else {
-				Unknown2F8 = (flags & 0xFFF0) | 8;
+				Unknown_786CC0((float)fabs(facing));
 			}
 			return;
 		}
-		if (Unknown318.size() != 0) {
-			delete *Unknown318.begin();
-			Unknown318.erase(Unknown318.begin());
-		}
-		if (Unknown318.size() == 0) {
-			return;
-		}
-	}
-	float len2 = delta.X * delta.X + delta.Y * delta.Y + delta.Z * delta.Z;
-	if (len2 != 0.0f) {
-		float inv = WWMath::Inv_Sqrt(len2);
-		delta.X *= inv;
-		delta.Y *= inv;
-		delta.Z *= inv;
-	}
-	float side = Unknown330[0][1] * delta.X + delta.Y * Unknown330[1][1] + delta.Z * Unknown330[2][1];
-	float rate = (float)fabs(side);
-	if (Unknown330[0][0] * delta.X + Unknown330[1][0] * delta.Y + Unknown330[2][0] * delta.Z <= 0.0f
-		&& Unknown330[0][0] * (*goal)[0][0] + Unknown330[1][0] * (*goal)[1][0] + Unknown330[2][0] * (*goal)[2][0] >= 0.0f
-		&& dist <= 10.0f) {
-		// The goal is behind and faces our way: back up to it.
-		bool full = false;
-		if (rate < 0.5f) {
-			int flags = Unknown2F8;
-			if (flags & 1) {
-				if (dist >= 10.0f) {
-					full = true;
-				} else {
-					if (Unknown20C != 2) {
-						Unknown208 = 0;
-						Unknown20C = 2;
-						Unknown214 = true;
+		delta.Normalize();
+		float side = Vector3::Dot_Product(delta, Unknown330.Get_Y_Vector());
+		if (Vector3::Dot_Product(delta, Unknown330.Get_X_Vector()) <= 0.0f
+			&& Vector3::Dot_Product(goal->Get_X_Vector(), Unknown330.Get_X_Vector()) >= 0.0f
+			&& dist <= 10.0f) {
+			bool full = false;
+			if (fabs(side) < 0.5) {
+				if (Unknown2F8 & 1) {
+					if (dist < 10.0f) {
+						Unknown_Inline_786C70();
+						Unknown2F8 |= 2;
+					} else {
+						full = true;
 					}
-					flags &= 0xFFFC;
+				} else {
+					Unknown2F8 |= 2;
 				}
 			}
-			if (!full) {
-				Unknown2F8 = flags | 2;
+			if (side < 0.0f) {
+				if (full) {
+					Unknown_786CF0(1.0f);
+				} else {
+					Unknown_786CF0((float)fabs(side));
+				}
+			} else {
+				if (full) {
+					Unknown_786CC0(1.0f);
+				} else {
+					Unknown_786CC0((float)fabs(side));
+				}
 			}
+			return;
 		}
-		Unknown2FC = full ? 1.0f : rate;
+		if (fabs(side) < 0.5) {
+			if (Unknown2F8 & 2) {
+				Unknown_Inline_786C70();
+			}
+			Unknown2F8 |= 1;
+		}
 		if (side < 0.0f) {
-			Unknown2F8 = (Unknown2F8 & 0xFFF3) | 4;
+			Unknown_786CC0((float)fabs(side));
 		} else {
-			Unknown2F8 = (Unknown2F8 & 0xFFF3) | 8;
+			Unknown_786CF0((float)fabs(side));
 		}
 		return;
 	}
-	if (rate < 0.5f) {
-		int flags = Unknown2F8;
-		if (flags & 2) {
-			if (Unknown20C != 2) {
-				Unknown208 = 0;
-				Unknown20C = 2;
-				Unknown214 = true;
-			}
-			flags &= 0xFFFC;
-		}
-		Unknown2F8 = flags | 1;
-	}
-	Unknown2FC = rate;
-	if (side < 0.0f) {
-		Unknown2F8 = (Unknown2F8 & 0xFFF3) | 8;
-	} else {
-		Unknown2F8 = (Unknown2F8 & 0xFFF3) | 4;
-	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // 0x788EF0
 // the teleport effect dropped at once (charview 0x67B390)
