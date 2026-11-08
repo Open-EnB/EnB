@@ -9,7 +9,8 @@
             [--weekly-rate 2.0] [--session-rate 4.0] [--floor-gb 3] [--gb-per-builder 2] [--no-log]
 
 `usage` reads the account's windows with the local Claude Code login token (the same numbers as /usage).
-`heartbeat` prints usage, free memory, the pool, HEAD's health and the number of builders that may be
+`heartbeat` prints usage, free memory, the pool, HEAD's health, the unlanded wt/* branches (`wt.py list --unlanded`'s
+first line) and the number of builders that may be
 launched now, and appends one line to the plan's log (unless --no-log). The projection uses the burn rate
 observed between the previous heartbeat line in the plan and now when there is one, else the --*-rate
 defaults (percent of the window per hour per Opus builder).
@@ -138,6 +139,16 @@ def parse_hhmm(s):
     return t
 
 
+def unlanded():
+    """`wt.py list --unlanded`'s first line: the wt/* branches with commits on neither master nor a run branch."""
+    try:
+        sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
+        import wt
+        return wt.unlanded_line(wt.unlanded_branches())
+    except (Exception, SystemExit) as e:    # wt exits through sys.exit on a git error: never stop the heartbeat
+        return 'unlanded    ? (%s)' % (str(e)[:120] or type(e).__name__)
+
+
 def heartbeat(a):
     now = datetime.now()
     rows = usage()
@@ -202,6 +213,7 @@ def heartbeat(a):
     lines.append('allowance   launch %d more (memory allows %d, usage allows %d)' % (allow, allow_mem, allow_use))
     if not parses or lost:
         lines.append('ACTION      HEAD is unhealthy: fix before any launch')
+    lines.append(unlanded())
     print('\n'.join(lines))
 
     if a.plan and not a.no_log:

@@ -105,7 +105,9 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
   (the Write tool, never a heredoc) with slots for the last results; run them after the final report.
 - Then: `python tools/vc6/pool.py stop-idle --minutes 0`, `python tools/harness/clientpoc.py clean --all` (POC
   instances; a running client's is kept), `git status` clean except `.claude/settings.json`,
-  HEAD's ledger parses, delete the heartbeat cron, log the end with the final usage figures.
+  HEAD's ledger parses, `python tools/vc6/wt.py list --unlanded` is empty, or each one is named in the log with
+  why (the heartbeat's `unlanded` line counts them; `wt.py remove` refuses such a branch without `--force`), delete
+  the heartbeat cron, log the end with the final usage figures.
 - Claims: `python tools/run_branch.py release <builder id>` (or `release UNIT`) for each claim whose builder
   brought nothing in; the others end when the run's PR merges. An old issue claim: `release N` (it drops the
   `Claims #N` line too). At handoff `run_branch.py ready --summary FILE
@@ -114,7 +116,7 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
   (tools/progress.py), takes the PR out of draft; the verify service verifies it and the maintainer merges it.
 - Cleanup, once no builder is running (at handoff, and again at the next run's start, after the previous PR merged):
   `python tools/run_branch.py cleanup` deletes the local branches and worktrees whose every commit is already in
-  origin/master (merged, or the same patch), keeps and lists the ones with commits of their own (say in the log
+  origin/master (merged, or landed by wt.py's test: same author time, author and subject, or the same patch), keeps and lists the ones with commits of their own (say in the log
   which, and why they are kept), fast-forwards local master and lists remote branches other than master and the
   current run's (GitHub deletes a merged PR's branch; a leftover one is deleted with the user's say-so). Never
   while a builder works: a fresh builder worktree with no commits yet looks merged.

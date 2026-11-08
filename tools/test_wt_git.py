@@ -59,6 +59,7 @@ class GitRepo(unittest.TestCase):
         for k, v in (('user.name', 't'), ('user.email', 't@t'), ('core.autocrlf', 'false'),
                      ('commit.gpgsign', 'false')):
             run(self.root, 'config', k, v)
+        write(self.root, '.gitignore', '.work/\n')
         self.base = commit(self.root, 'base', **{'docs/imports_dot_md': 'A\n', 'src_dot_txt': 's1\ns2\ns3\n',
                                                  'docs/data/attempts_dot_csv': 'a,b\n1,2\n'})
         run(self.root, 'checkout', '-q', '-b', 'run/x')
@@ -171,6 +172,73 @@ class SinglePick(GitRepo):
         bo, why, took = self.pick([c])
         self.assertIn('src.txt', why)
         self.assertFalse(os.path.exists(os.path.join(bo, '.git', 'CHERRY_PICK_HEAD')))
+
+
+def remove_args(name, **kw):
+    d = dict(name=name, delete_branch=True, force=False)
+    d.update(kw)
+    return argparse.Namespace(**d)
+
+
+class Unlanded(GitRepo):
+    def quiet(self, fn, *args):
+        with redirect_stdout(io.StringIO()) as out:
+            fn(*args)
+        return out.getvalue()
+
+    def branch_exists(self, name):
+        return subprocess.run(['git', 'rev-parse', '--verify', '-q', 'refs/heads/wt/' + name], cwd=self.root,
+                              capture_output=True).returncode == 0
+
+    def test_remove_refuses_unlanded(self):
+        p = self.worktree('T')
+        c = commit(p, 'builder work', **{'new_dot_txt': 'x\n'})
+        with self.assertRaises(SystemExit) as e:
+            self.quiet(wt.cmd_remove, remove_args('T'))
+        self.assertIn(c[:9], str(e.exception))
+        self.assertIn('builder work', str(e.exception))
+        self.assertTrue(os.path.isdir(p))
+        self.assertTrue(self.branch_exists('T'))
+        out = self.quiet(wt.cmd_remove, remove_args('T', force=True))
+        self.assertIn('unlanded', out)
+        self.assertFalse(self.branch_exists('T'))
+
+    def test_remove_allows_patch_equivalent(self):
+        p = self.worktree('T')
+        commit(p, 'builder work', **{'new_dot_txt': 'x\n'})
+        commit(self.root, 'the same change, landed under another subject', **{'new_dot_txt': 'x\n'})
+        self.assertEqual(wt.own_commits('refs/heads/wt/T', wt.landed_refs()), [])
+        self.quiet(wt.cmd_remove, remove_args('T'))
+        self.assertFalse(os.path.isdir(p))
+        self.assertFalse(self.branch_exists('T'))
+
+    def test_pick_with_generated_side_taken_counts_as_landed(self):
+        p = self.worktree('T')
+        c = commit(p, 'builder work', **{'new_dot_txt': 'x\n', 'docs/imports_dot_md': 'B\n'})
+        commit(self.root, 'run', **{'docs/imports_dot_md': 'C\n'})
+        r = subprocess.run(['git', 'cherry-pick', c], cwd=self.root, capture_output=True)
+        self.assertNotEqual(r.returncode, 0)                  # imports.md conflicts: take the run's side
+        run(self.root, 'checkout', '--ours', '--', 'docs/imports.md')
+        run(self.root, 'add', 'docs/imports.md')
+        subprocess.run(['git', '-c', 'core.editor=true', 'cherry-pick', '--continue'], cwd=self.root,
+                       capture_output=True, check=True)
+        self.assertEqual(wt.own_commits('refs/heads/wt/T', wt.landed_refs()), [])
+
+    def test_list_unlanded(self):
+        a = self.worktree('A')
+        commit(a, 'A work', **{'a_dot_txt': 'a\n'})
+        b = self.worktree('B')
+        commit(b, 'B work', **{'b_dot_txt': 'b\n'})
+        run(self.root, 'cherry-pick', 'wt/B')                 # B landed on run/x
+        self.worktree('C')                                     # no commits of its own
+        g = self.worktree('G')
+        commit(g, 'generated only', **{'docs/imports_dot_md': 'G\n'})  # regenerated anyway: not unlanded work
+        rows = wt.unlanded_branches()
+        self.assertEqual([n for n, _ in rows], ['A'])
+        out = self.quiet(wt.cmd_list, argparse.Namespace(unlanded=True))
+        self.assertTrue(out.startswith('unlanded    1 wt/* branch(es)'))
+        self.assertIn('A (1)', out)
+        self.assertIn('A work', out)
 
 
 if __name__ == '__main__':

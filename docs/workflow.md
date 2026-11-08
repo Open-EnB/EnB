@@ -1492,7 +1492,7 @@ unless `--lever` cites a new row of this table.
 * **Git Bash turns a `'// 0x...'` argument into a path** (2026-10-28, PX2): prefix the command with
   `MSYS_NO_PATHCONV=1`.
 * **`wt.py remove` deletes the worktree's `.work/` scratch** (2026-10-28, MV2): keep scripts you want in the main
-  tree's `.work/`. Export `ENB_VC6_HOSTS` in the same Bash call as every `build.py build`, or it compiles on
+  tree's `.work/`. It refuses a branch with unlanded commits (A1) unless `--force`; `wt.py list --unlanded` lists them. Export `ENB_VC6_HOSTS` in the same Bash call as every `build.py build`, or it compiles on
   whichever VM vc6_hosts.json names (possibly another builder's lease).
 * **`build.py` lists files with `git ls-files`** (2026-10-28, DO1): in a worktree a new file needs only `git add`
   before `build.py build --allow-dirty` (LD3's "commit first" is the stricter form).

@@ -1,7 +1,7 @@
 """Builder worktrees (D113): make one, list them, bring a branch's verified commits over, remove one.
 
     python tools/vc6/wt.py new NAME [--base REV]
-    python tools/vc6/wt.py list
+    python tools/vc6/wt.py list [--unlanded]
     python tools/vc6/wt.py bring-over NAME [--target BRANCH] [--lib X ...] [--pool K] [--dry] [--keep]
     python tools/vc6/wt.py bring-over A B..C D [--batch-name N] [--target BRANCH] [--lib X ...] [--pool K] [--trailer T]
                                       [--dry] [--picks-only] [--resume] [--keep]
@@ -82,9 +82,16 @@ rebase: a builder's own worktree .work/wt/NAME (wt/NAME checked out, nothing mod
 
 remove: removes every junction inside the worktree first (rmdir, never a recursive delete through
   one), then `git worktree remove --force`, prune, the .base record; --delete-branch deletes wt/NAME.
-  A dirty worktree is refused unless --force.
+  A dirty worktree is refused unless --force, and so is a branch with unlanded commits (own_commits below; the
+  refusal lists them, sha and subject; with --force they are printed with how to recover the branch).
 
 list: every worktree but the main one: name, recorded base, commits ahead of it, dirty or clean.
+  --unlanded: the wt/* branches (with a worktree or not) that have commits landed on none of master,
+  origin/master and the local run/* branches; landed = reachable, or a commit there with the same author time,
+  author and subject (a cherry-pick or rebase, whatever its conflict resolution did), or patch-equivalent
+  (`git cherry`), or touching generated files only. Every such branch counts as finished but unlanded (a builder
+  still at work shows too). First line: `unlanded    N wt/* branch(es) ...: A (2), B (1)`, which pacing.py's
+  heartbeat prints; then each branch's commits. run_branch.py cleanup uses the same test (own_commits).
 
 Promoted from .work/eval/setup.py and .work/p9/wt.py (setup), the coordinator's hand bring-over of
 F6's branch (4f2a8b1) and commit_mine.py's compare-and-swap; K5, 2026-10-27. The batch form: the coordinator's
@@ -294,6 +301,18 @@ def drop_worktree(path):
 
 def cmd_remove(a):
     path = wt_path(a.name)
+    branch = 'refs/heads/wt/' + a.name
+    if ok('rev-parse', '--verify', '-q', branch):
+        own = own_commits(branch, landed_refs())
+        listing = ''.join(f'  {c[:9]} {s[:100]}\n' for c, s in own)
+        if own and not a.force:
+            sys.exit(f'wt: wt/{a.name} has {len(own)} commit(s) on neither master nor a run branch (patch-equivalent '
+                     f'copies count as landed):\n{listing}land them (wt.py bring-over {a.name} --target run/<date>), '
+                     f'or pass --force to drop them; nothing removed')
+        if own:
+            print(f'--force: wt/{a.name} has {len(own)} unlanded commit(s):\n{listing}'
+                  + (f'recover with `git branch wt/{a.name} {own[-1][0][:12]}` while git keeps it'
+                     if a.delete_branch else f'wt/{a.name} itself is kept'))
     if os.path.isdir(path):
         dirty = git('status', '--porcelain', cwd=path, check=False)
         if dirty.returncode == 0 and dirty.stdout.strip() and not a.force:
@@ -338,7 +357,84 @@ def worktrees():
     return res
 
 
+# ---------------------------------------------------------------- unlanded work (pipeline-plan §4 item 5)
+
+def landed_refs(cwd=None):
+    """Where a commit counts as landed: master, origin/master and every local run/* branch."""
+    refs = [r for r in ('refs/heads/master', 'refs/remotes/origin/master')
+            if ok('rev-parse', '--verify', '-q', r, cwd=cwd)]
+    return refs + git('for-each-ref', '--format=%(refname)', 'refs/heads/run/', cwd=cwd).split()
+
+
+_IDS = {}
+
+
+def _identities(up, cwd=None):
+    """{(author time, author, subject)} of every non-merge commit reachable from UP (cached per process): a
+    cherry-pick or rebase keeps all three, whatever its conflict resolution did to the diff."""
+    key = (rev(up, cwd=cwd), cwd or ROOT)
+    if key not in _IDS:
+        out = git('log', '--no-merges', '--format=%at%x09%an%x09%s', up, cwd=cwd)
+        _IDS[key] = set(out.splitlines())
+    return _IDS[key]
+
+
+def own_commits(branch, upstreams, cwd=None):
+    """[(sha, subject)], oldest first: BRANCH's commits landed on none of UPSTREAMS. Landed: reachable from one; a
+    commit there with the same author time, author and subject (a cherry-pick or rebase of it, even one whose
+    generated files took the target's side); patch-equivalent to one of its commits (`git cherry`); or touching
+    generated files only (regenerated anyway). Shared by `remove`, `list --unlanded`, pacing.py and run_branch.py
+    cleanup."""
+    if not upstreams:
+        raise ValueError('own_commits: no upstream to compare with')
+    out = git('rev-list', '--reverse', '--no-merges', '--format=%at%x09%an%x09%s', branch, '--not', *upstreams,
+              cwd=cwd).splitlines()
+    reach = [(c[len('commit '):].strip(), ident) for c, ident in zip(out[0::2], out[1::2])]
+    if not reach:
+        return []
+    known = set().union(*(_identities(up, cwd) for up in upstreams))
+    left = {c for c, ident in reach if ident not in known}
+    for c in sorted(left):
+        names = git('diff-tree', '--no-commit-id', '--name-only', '-r', '--root', c, cwd=cwd).splitlines()
+        if names and all(generated(p) for p in names):
+            left.discard(c)
+    for up in upstreams:
+        if not left:
+            break
+        left &= {l[2:].strip() for l in git('cherry', up, branch, cwd=cwd).splitlines() if l.startswith('+ ')}
+    return [(c, ident.split('\t', 2)[-1]) for c, ident in reach if c in left]
+
+
+def unlanded_branches(cwd=None):
+    """[(name, [(sha, subject)])] of the wt/* branches with commits landed nowhere (own_commits); every such branch
+    counts as finished-but-unlanded (whether its builder still runs is not looked at)."""
+    ups = landed_refs(cwd)
+    out = []
+    for ref in git('for-each-ref', '--format=%(refname:short)', 'refs/heads/wt/', cwd=cwd).split():
+        own = own_commits(ref, ups, cwd)
+        if own:
+            out.append((ref[3:], own))
+    return out
+
+
+def unlanded_line(rows):
+    """The one line `list --unlanded` starts with and pacing.py's heartbeat prints."""
+    return (f'unlanded    {len(rows)} wt/* branch(es) with commits on neither master nor a run branch'
+            + (': ' + ', '.join(f'{n} ({len(c)})' for n, c in rows) if rows else ''))
+
+
 def cmd_list(a):
+    if a.unlanded:
+        rows = unlanded_branches()
+        print(unlanded_line(rows))
+        for name, own in rows:
+            where = os.path.relpath(wt_path(name), ROOT) if os.path.isdir(wt_path(name)) else 'no worktree'
+            print(f'  {name}  ({where})')
+            for c, s in own[-10:]:
+                print(f'    {c[:9]} {s[:100]}')
+            if len(own) > 10:
+                print(f'    ... {len(own) - 10} older')
+        return
     rows = [('name', 'branch', 'base', 'ahead', 'state', 'path')]
     for p, b, head in worktrees():
         name = os.path.basename(p)
@@ -1249,7 +1345,9 @@ def main():
     p = sub.add_parser('new')
     p.add_argument('name')
     p.add_argument('--base', default='HEAD')
-    sub.add_parser('list')
+    p = sub.add_parser('list')
+    p.add_argument('--unlanded', action='store_true',
+                   help='the wt/* branches with commits on neither master nor a run branch (patch-equivalence counted)')
     p = sub.add_parser('bring-over')
     p.add_argument('names', nargs='+', metavar='NAME',
                    help='a worktree name; two or more, or A..B (A\'s branch below B\'s own commits): the batch form')
@@ -1276,7 +1374,8 @@ def main():
     p = sub.add_parser('remove')
     p.add_argument('name')
     p.add_argument('--delete-branch', action='store_true')
-    p.add_argument('--force', action='store_true', help='remove a worktree with uncommitted changes')
+    p.add_argument('--force', action='store_true',
+                   help='remove a worktree with uncommitted changes or a branch with unlanded commits')
     a = ap.parse_args()
     os.makedirs(WTDIR, exist_ok=True)
     {'new': cmd_new, 'list': cmd_list, 'bring-over': cmd_bring_over, 'rebase': cmd_rebase,
