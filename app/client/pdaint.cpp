@@ -196,7 +196,7 @@ void PDAInterfaceClass::Unknown_60()
 }
 
 // the chat panel's window (0x694AA0) put away when a PDA window opens (inlined in each of 0x693E70's cases)
-inline void PDA_Close_Chat_Window(UIChatPanelClass *chat)	// NAME 1: neutral (D10)
+inline void PDA_Close_Chat_Window(ChatPanelInterface *chat)	// NAME 1: neutral (D10)
 {
 	if (chat->Unknown_694AA0()) {
 		RefCountPtr<UIChatPanelWindowClass> window = chat->Unknown_694AA0();
@@ -211,7 +211,7 @@ bool PDAInterfaceClass::Unknown_68(int key)
 	if (!UnknownBC) {
 		return(true);
 	}
-	UIChatPanelClass *chat = Get_Client()->As_Space_Client()->ChatPanel.Peek();
+	ChatPanelInterface *chat = Get_Client()->As_Space_Client()->ChatPanel.Peek();
 	SClient *client = Get_Client()->As_Space_Client();
 	const char *sound;
 	switch (key) {
@@ -766,7 +766,7 @@ void PDAInterfaceClass::Unknown_695FE0(bool on)
 **	and 0x695E10 (710, 711); the constructor 0x693140 sets the table 0xAFD148 whose slots are this file's functions.
 **	SClient::Init news it (0xC0 bytes, +0x1284).
 **
-**	Output in the range besides these: the deleting destructor 0x693200, UIChatPanelClass's inline 0x694AA0 and
+**	Output in the range besides these: the deleting destructor 0x693200, ChatPanelInterface's inline 0x694AA0 and
 **	the Create_NEW instantiations 0x696030 / 0x6960A0 / 0x696110 / 0x696180 / 0x6961F0 / 0x696260.
 **
 **	The windows' slots called here are InterfaceClass's (+0x54 set-up, +0x58 on, +0x5C off, +0x7C onto a view);

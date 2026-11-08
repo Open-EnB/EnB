@@ -450,7 +450,7 @@ a class by value, goes in client_stubs.cpp by hand). The SClient is made with it
 included); its views are fakes with the client's slot layout (main view +0x80 / +0x84, loading view +0x0C, +0x68).
 SClient's chat line 0x74D990 is the real one (2026-11-08, CW4): `build` renames its call of the chat panel's 0x563760
 in sclient.cpp's object only (`#define Unknown_563760 Clienttest_Unknown_563760`), and client_stubs.cpp traces that
-call (`stub UIChatPanelClass::Unknown_563760 TYPE 'PREFIX: text'`); type 6's line display call traces as Add_Line_3.
+call (`stub ChatPanelInterface::Unknown_563760 TYPE 'PREFIX: text'`); type 6's line display call traces as Add_Line_3.
 
 `run` writes the first COUNT server-to-client messages of SESSION from the reference decoder's NAME.trace.jsonl (udpreplay's
 reference) to `.work/harness/clienttest/`, runs the program there and compares its trace with

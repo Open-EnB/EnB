@@ -137,10 +137,10 @@ public:
 	bool Unknown7C;										// +0x7C (tested before every call)
 };
 
-class UIChatPanelClass : public InterfaceClass
+class ChatPanelInterface : public InterfaceClass
 {
 public:
-	UIChatPanelClass(SClient *client); void Unknown_5685C0(); void Unknown_568690();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
+	ChatPanelInterface(SClient *client); void Unknown_5685C0(); void Unknown_568690();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
 	bool Unknown_56BA80(); void Unknown_563760(int type, const std::string &text);	// 0x563760 (0x74D990's chat line); 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
 	void Unknown_565F30(int arg); void Unknown_56BAA0(int a, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [a, text]: what 0x74E710 passes
@@ -424,7 +424,7 @@ void SClient::Init()
 	Unknown_719D50(this);
 	Mouse = new LoginUnknown18Class((int)this);
 	Mouse->Unknown_515120(2);
-	ChatPanel = Create_NEW(new UIChatPanelClass(this));
+	ChatPanel = Create_NEW(new ChatPanelInterface(this));
 	ChatPanel->Unknown_54();
 	LineDisplay = new UILineDisplayClass((LineDisplayClientClass *)this);
 	LineDisplay->Unknown_54();
@@ -4589,7 +4589,7 @@ void SClient::Unknown_74D990(int color, char *text, int a)
 		case 19: if (OptionClass::Instance->Get_Bool("Chat_Errors_System")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2); break;
 		case 21: if (!OptionClass::Instance->Get_Bool("Chat_Warnings")) SoundLibraryClass::Play_2D_Sound("Text_Warning", 2); break;
 	}
-	UIChatPanelClass *chatpanel = ChatPanel.Peek();
+	ChatPanelInterface *chatpanel = ChatPanel.Peek();
 	FAIL_IF(!chatpanel) return;
 	std::string line("");
 	if (color == 0 || color == 17) {
@@ -5067,7 +5067,7 @@ void SClient::Unknown_74FA30()
 // with the last one
 void SClient::Unknown_74FEC0()
 {
-	std::deque<int> &timedlist = Unknown120C[1]; std::deque<int> &confirmedlist = Unknown11AC[1]; UIChatPanelClass *chat_panel = ChatPanel.Peek();	// NAME 3 [confirmedlist, chat_panel]: the FAIL_IFs'  // NAME 1 [timedlist]: 0x74EB00's queue
+	std::deque<int> &timedlist = Unknown120C[1]; std::deque<int> &confirmedlist = Unknown11AC[1]; ChatPanelInterface *chat_panel = ChatPanel.Peek();	// NAME 3 [confirmedlist, chat_panel]: the FAIL_IFs'  // NAME 1 [timedlist]: 0x74EB00's queue
 	FAIL_IF(!chat_panel) return;
 
 	FAIL_IF(chat_panel->Is_Message_Button_Showing() && confirmedlist.empty()) {

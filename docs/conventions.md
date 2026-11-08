@@ -348,3 +348,10 @@ Where the client's names disagree with these conventions, the client's are used;
 * **StarmapPipClass::ScaleMult (2026-11-08, PD4):** 0x7C1770's FAIL_IF `ScaleMult < WWMATH_EPSILON` (starmap_pip.cpp
   l.1006) tests the PIP's +0x58: starmap_pip.h's `float ScaleMult` (was `Mult`, NAME 1), NAME 3; its inline setter is
   `Unknown_Set_ScaleMult`. +0x5C keeps `CurMult` (0x7C1C50's `CurMult < WWMATH_EPSILON`).
+* **ChatPanelInterface and ChatWindowInterface (2026-11-08, RN1, P-CW1-3):** the client's RTTI names ui_chat_panel.cpp's
+  panel `ChatPanelInterface` (the receiver in `MemberCallback<OptionFontInterface, ChatPanelInterface, ...>` 0xB7D308 and
+  `MemberCallback<ChatWindowInterface, ChatPanelInterface, ...>` 0xB7D408; no `.?AV` descriptor of its own), without a
+  `Class` suffix: was `UIChatPanelClass` (NAME 3, D24), NAME 5, in every file's local view of it, clienttest's stub and
+  expected trace and the POC. The chat window is `ChatWindowInterface` (`.?AVChatWindowInterface@@` 0xB7D3E0; was
+  `UIChatIntClass`). Their base `UIChatPanelBaseClass` is `ChatPanelUIBase` in the same RTTI
+  (`MemberCallback<MovableUIBackGadget, ChatPanelUIBase, ...>`), not renamed yet.

@@ -281,7 +281,7 @@ UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, Rende
 	STUB_CALLED("POC UIComboBoxClass: an empty window");
 	memset((char *)this + sizeof(InterfaceClass), 0, sizeof(UIComboBoxClass) - sizeof(InterfaceClass));	// the real 0x57B440 (slot +0x7C) reads the drop-down state +0xC8
 }
-void UIChatPanelClass::Unknown_5689D0(int index)
+void ChatPanelInterface::Unknown_5689D0(int index)
 {
 	Combo[index] = Create_NEW(new UIComboBoxClass(this, NULL, NULL, NULL, 0, 0, 0, 0, 0));
 }

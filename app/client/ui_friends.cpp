@@ -714,7 +714,7 @@ void UIFriendsClass::Unknown_591EE0()
 	SClient *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 
-	UIChatPanelClass *cpanel = sclient->ChatPanel.Peek();
+	ChatPanelInterface *cpanel = sclient->ChatPanel.Peek();
 	FAIL_IF(!cpanel) return;
 
 

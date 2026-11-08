@@ -69,9 +69,9 @@ static std::string Chat_Trace_Text(const char *text)
 	}
 	return(t);
 }
-void UIChatPanelClass::Clienttest_Unknown_563760(int type, const std::string &text)
+void ChatPanelInterface::Clienttest_Unknown_563760(int type, const std::string &text)
 {
-	Trace("stub UIChatPanelClass::Unknown_563760 0x%X '%s'", type, Chat_Trace_Text(text.c_str()).c_str());
+	Trace("stub ChatPanelInterface::Unknown_563760 0x%X '%s'", type, Chat_Trace_Text(text.c_str()).c_str());
 }
 // gen_stubs cannot return a class by value (P-T18-2): the chat colour SClient 0x750F70 reads (0x765DF0's body)
 Vector3 Unknown764FD0Class::Unknown_765DF0(int index) { Trace("stub Unknown764FD0Class::Unknown_765DF0 %d", index); return((index >= 0 && index < 24) ? Unknown00[index] : Vector3(1.0f, 1.0f, 1.0f)); }

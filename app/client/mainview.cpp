@@ -1108,7 +1108,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 #include "aux_roots.h"			// (Type_Name(int *) for DeltaTemplateClass<int>)
 // ui_chat_panel.cpp's chat panel (SClient +0x127C), as far as the main view's 0x512400 uses it (sclient.cpp and
 // cpacket.cpp declare their own parts)
-class UIChatPanelClass	// NAME 3: class-from-file (D24) for app\client\ui_chat_panel.cpp
+class ChatPanelInterface	// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408)
 {
 public:
 	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (0x512400: the target's game id and true when 0x6F5A40 says so, else 0, false)  // NAME 1 [id, flag]: what it gets

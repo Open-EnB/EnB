@@ -38,11 +38,11 @@ public:
 #include "ui_chat_window_split.h"
 
 // The chat panel (SClient +0x127C; 0x268 bytes, constructor 0x561DD0, table 0xAEFF1C)
-class UIChatPanelClass : public UIChatPanelBaseClass	// NAME 3: class-from-file (D24) for app\client\ui_chat_panel.cpp
+class ChatPanelInterface : public UIChatPanelBaseClass	// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408)
 {
 public:
-	UIChatPanelClass(SClient *client);					// 0x561DD0
-	virtual ~UIChatPanelClass();						// 0x562410
+	ChatPanelInterface(SClient *client);					// 0x561DD0
+	virtual ~ChatPanelInterface();						// 0x562410
 	virtual void Unknown_54();							// 0x5629E0 (the set-up)
 	virtual void Unknown_58();							// 0x562F50 (the pip set, the chat window and the reply list activated)
 	virtual void Unknown_5C();							// 0x563060 (the combo released, the chat window deactivated)
