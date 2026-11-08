@@ -102,6 +102,10 @@ def build(out):
                 f.write('void Trace(const char *format, ...);\n'
                         'static void Clienttest_Unknown_80EAF0() { Trace("gen Unknown_80EAF0"); }\n'
                         '#define Unknown_80EAF0(a, b, c) Clienttest_Unknown_80EAF0()\n')
+            if p.endswith('sclient.cpp'):
+                # the real 0x74D990 runs; its chat line to the panel (0x563760, ui_chat_panel.obj's real one) goes to
+                # client_stubs.cpp's trace instead (the fake panel has no history or window)
+                f.write('#define Unknown_563760 Clienttest_Unknown_563760\n')
             if p.endswith('ui_verb.cpp'):
                 f.write('#define Unknown_658F40 Real_Unknown_658F40\n')
             if p.endswith('ui_talkt.cpp'):

@@ -14,6 +14,9 @@
 #include "clienttest.h"
 #include "..\..\..\app\client\sclient.h"
 #include "..\..\..\app\client\ui_talkt.h"
+#define Unknown_563760 Clienttest_Unknown_563760	// as in sclient.cpp's object (clienttest.py build)
+#include "..\..\..\app\client\ui_chat_panel.h"
+#undef Unknown_563760
 #include "..\..\..\app\common\connect.h"
 #include "..\..\..\app\packets\pknamedecal.h"
 #include "..\..\..\app\packets\pkguildranknamesrequestclient.h"
@@ -47,20 +50,28 @@ bool SClient::Unknown_744B60() { Trace("stub SClient::Unknown_744B60 -> %d", Stu
 void SClient::Unknown_74C530(unsigned id) { Trace("stub SClient::Unknown_74C530 %u", id); }
 void SClient::Unknown_74B680(int a, int starbase_id) { Trace("stub SClient::Unknown_74B680 %d %d", a, starbase_id); }
 void SClient::Unknown_74BA30(int a, int starbase_id, int mode) { Trace("stub SClient::Unknown_74BA30 %d %d %d", a, starbase_id, mode); }
-void SClient::Unknown_74D990(int color, char *text, int a)
+// SClient's chat line 0x74D990 is sclient.cpp's real one: its call of the chat panel's 0x563760 (the line with its
+// type's prefix) comes here, renamed in sclient.cpp's object only (clienttest.py build; ui_chat_panel.obj keeps its own)
+// MESSAGE_TIME's and NOTE_CONTENT's lines carry the local time: the trace keeps the text up to it
+static std::string Chat_Trace_Text(const char *text)
 {
-	// MESSAGE_TIME's lines carry the local time: the trace keeps the text up to it
 	std::string t(text ? text : "(null)");
-	if (t.find("Local Time: ") == 0) {
-		t = "Local Time: (now)";
+	std::string::size_type at = t.find("Local Time: ");
+	if (at != std::string::npos) {
+		t = t.substr(0, at) + "Local Time: (now)";
 	}
-	if (t.find("Sent: ") == 0) {
-		t = "Sent: (the date)";	// NOTE_CONTENT 184: ctime of the note's time, in the local time zone
+	at = t.find("Sent: ");
+	if (at != std::string::npos) {
+		t = t.substr(0, at) + "Sent: (the date)";	// NOTE_CONTENT 184: ctime of the note's time, in the local time zone
 	}
 	while (!t.empty() && (t[t.size() - 1] == '\n' || t[t.size() - 1] == '\r')) {
 		t.erase(t.size() - 1);
 	}
-	Trace("stub SClient::Unknown_74D990 0x%X '%s' %d", color, t.c_str(), a);
+	return(t);
+}
+void UIChatPanelClass::Clienttest_Unknown_563760(int type, const std::string &text)
+{
+	Trace("stub UIChatPanelClass::Unknown_563760 0x%X '%s'", type, Chat_Trace_Text(text.c_str()).c_str());
 }
 // gen_stubs cannot return a class by value (P-T18-2): the chat colour SClient 0x750F70 reads (0x765DF0's body)
 Vector3 Unknown764FD0Class::Unknown_765DF0(int index) { Trace("stub Unknown764FD0Class::Unknown_765DF0 %d", index); return((index >= 0 && index < 24) ? Unknown00[index] : Vector3(1.0f, 1.0f, 1.0f)); }
@@ -144,7 +155,7 @@ public:
 UILineDisplayClass::UILineDisplayClass(LineDisplayClientClass *) { Trace("stub UILineDisplayClass::UILineDisplayClass"); }
 void UILineDisplayClass::Add_Line(const char *text, int display_time, const char *font, int priority) { Trace("stub UILineDisplayClass::Add_Line '%s' %d '%s' %d", text ? text : "(null)", display_time, font ? font : "(null)", priority); }
 void UILineDisplayClass::Add_Line_7(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_7 '%s' %d '%s'", text ? text : "(null)", display_time, font ? font : "(null)"); }
-void UILineDisplayClass::Add_Line_3(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_3 '%s' %d '%s'", text ? text : "(null)", display_time, font ? font : "(null)"); }
+void UILineDisplayClass::Add_Line_3(const char *text, int display_time, const char *font) { Trace("stub UILineDisplayClass::Add_Line_3 '%s' %d '%s'", Chat_Trace_Text(text).c_str(), display_time, font ? font : "(null)"); }
 void UILineDisplayClass::Show_Ephemeral(const char *type) { Trace("stub UILineDisplayClass::Show_Ephemeral '%s'", type ? type : "(null)"); }
 void UILineDisplayClass::Flush_Lines() { Trace("stub UILineDisplayClass::Flush_Lines"); }
 

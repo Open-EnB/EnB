@@ -234,26 +234,6 @@ Vector3 Unknown764FD0Class::Unknown_765DF0(int index)
 	return(Vector3(1.0f, 1.0f, 1.0f));
 }
 
-// SClient 0x74D990 (parked, docs/attempts/74D990: clienttest's trace stub collides with the real one): the chat
-// line with its type's prefix onto the chat panel (0x563760), as the stash has it, without its sounds and line display
-void SClient::Unknown_74D990(int color, char *text, int a)
-{
-	if (!text || !*text) return;
-	UIChatPanelClass *chatpanel = ChatPanel.Peek();
-	if (!chatpanel) return;
-	std::string line("");
-	if (!(char)a) {
-		if (color == 0 || color == 17) line = "COMPUTER: ";
-		else if (color == 6) line = "TIP: ";
-		else if (color == 21) line = "WARNING: ";
-		else if (color == 19) line = "SYSTEM: ";
-		else if (color == 20 || color == 1 || color == 18) line = "OUTDATED MESSAGE TYPE: ";
-	}
-	if (color == 22) return;
-	line += text;
-	chatpanel->Unknown_563760(color, line);
-}
-
 // FontSys 0x6CE420 (unknown_6cce60.cpp's object, not rebuilt): the client's code, the text from a format into Change_Text
 // (a generated stub left the chat window's lines, the inventory counts and the mission texts empty)
 #include <stdarg.h>
