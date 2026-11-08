@@ -89,7 +89,7 @@ public:
 	void Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass *mouse_target);	// 0x7C0440 (G_ASSERT 'MouseTarget'; radar_system.cpp)  // NAME 2 [hover, mouse_target]: its G_ASSERT
 	void Unknown_7C0620(RadarSystemDataCacheClass *entry);	// 0x7C0620 (FAIL_IF '!sdata', '!co'; radar_system.cpp)  // NAME 2 [entry]: as the gutter's Update
 	void Unknown_7C0910(ClientObjectClass *target, NavListBuilderClass *warp_path, NavListBuilderClass *target_path);	// 0x7C0910 (radar_system.cpp)  // NAME 2 [target, warp_path, target_path]: what it receives
-	void Unknown_7C1280(const Vector2 &position, float radius);	// 0x7C1280 (0x7C0620, 0x7C1350: the bounds grow)  // NAME 1 [position, radius]: what it does with them
+	void Unknown_7C1280(const Vector3 &position, float radius);	// 0x7C1280 (0x7C0620, 0x7C1350: the bounds grow; 0x7C1350 passes ClientObjectClass slot +0x24's Vector3)  // NAME 1 [position, radius]: what it does with them
 	void Unknown_7C1A90(float mult);					// 0x7C1A90  // NAME 1 [mult]: what it sets
 	void Unknown_7C1B70(float value);					// 0x7C1B70  // NAME 1 [value]: neutral
 	void Unknown_7C1C30();								// 0x7C1C30 (no caller)
@@ -102,6 +102,7 @@ public:
 	bool Unknown_7C1060();								// 0x7C1060 (an object is hovered; FAIL_IF '!radar')
 	bool Unknown_7C10D0();								// 0x7C10D0 (+0x60 the hovered object's id; FAIL_IF '!radar')
 	void Unknown_7C1120(float arg);						// 0x7C1120 (0x7C8980's zoom)  // NAME 1 [arg]: neutral
+	bool Unknown_7C1350();								// 0x7C1350 (FAIL_IF '!co'; the bounds of the avatar and the navigation objects, and the map on)
 	void Unknown_7C1510(bool arg);						// 0x7C1510 (FAIL_IF 'MapRange_ws.X < WWMATH_EPSILON')  // NAME 1 [arg]: neutral
 	void Unknown_7C1770(float x, float y);				// 0x7C1770 (FAIL_IF '!camera', 'ScaleMult < WWMATH_EPSILON')  // NAME 1 [x, y]: what 0x7C0260 passes (+0x68 over CurMult)
 	void Unknown_7C2060(int mode);						// 0x7C2060 (the coordinates' fonts in or out of the interface's scene)  // NAME 1 [mode]: what it stores

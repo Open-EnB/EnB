@@ -758,7 +758,7 @@ void StarmapPipClass::Unknown_7C1120(float arg)
 
 
 // @0x7C1280
-void StarmapPipClass::Unknown_7C1280(const Vector2 &position, float radius)
+void StarmapPipClass::Unknown_7C1280(const Vector3 &position, float radius)
 {
 	bool changed = false;
 	if (position.X - radius < Unknown74.X) {
@@ -783,7 +783,7 @@ void StarmapPipClass::Unknown_7C1280(const Vector2 &position, float radius)
 	}
 }
 
-// 0x7C1350 .. 0x7C1770 are not rebuilt yet, but for the inline below:
+// 0x7C1510 and 0x7C1770 are not rebuilt yet. For the inline below:
 // 0x7C0260, 0x7C1120, 0x7C1510 and 0x7C1A90 expand it (FAIL_IF on 1039).
 
 
@@ -854,44 +854,44 @@ void StarmapPipClass::Unknown_7C1280(const Vector2 &position, float radius)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma auto_inline(off)
+// @0x7C1350
+bool StarmapPipClass::Unknown_7C1350()
+{
+	bool found = false;
+	Unknown_14();
+	ClientObjectClass *avatar = Client->Get_Avatar();
+	HashNodeClass<ClientObjectClass *> *node = Client->ObjectList.First_Valid();
+	while (node) {
+		ClientObjectClass *co = node->Get_Record();
+		FAIL_IF(!co) continue;
+		if (co == avatar || Get_Navigation_Data(co, false)) {
+			Unknown_7C1280(co->Unknown_24(), co->Unknown_30());
+			found = true;
+		}
+		node = node->Next_Valid();
+	}
+	if (!found) {
+		return(false);
+	}
+	Unknown50 = true;
+	if (ViewportGadget) {
+		ViewportGadget->Unknown_40(true);
+	}
+	Unknown48->Set_Hidden(false);
+	Unknown4C->Set_Hidden(false);
+	Unknown_7C1510(false);
+	if (!Unknown60) {
+		if (Mult == 1.0f) {
+			Unknown_7C1770(Unknown84.X * 0.5f + Unknown74.X, Unknown84.Y * 0.5f + Unknown74.Y);
+		} else if (avatar) {
+			Vector3 pos = avatar->Unknown_24();
+			Unknown_7C1770(pos.X, pos.Y);
+		}
+	}
+	return(true);
+}
+#pragma auto_inline(on)
 
 
 
@@ -1321,9 +1321,9 @@ void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 **	+0x84 is a Vector2: as two ints the constructor's 'or ecx,-1' moved one store earlier.
 **
 **	Exact: 0x7BF930, 0x7BFF20, 0x7C01C0, 0x7C0240, 0x7C0330, 0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0,
-**	0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1280, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C2280, 0x7C2D30,
+**	0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1280, 0x7C1350, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C2280, 0x7C2D30,
 **	0x7C3220, 0x7C3720. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
 **	int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order).
-**	Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1350-0x7C1770, 0x7C1C50, 0x7C2340, 0x7C2850,
+**	Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1510, 0x7C1770, 0x7C1C50, 0x7C2340, 0x7C2850,
 **	0x7C2DA0-0x7C30E0 (the POC and clienttest get them from generated stubs).
 */
