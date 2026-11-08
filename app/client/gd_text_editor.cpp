@@ -218,7 +218,6 @@ bool TextEditorGadgetClass::Unknown_30(float x, float y)
 	return RObjGadgetClass::Unknown_30(x, y);
 }
 
-// NOT EXACT: only 0x672A60 inlined in this copy of 0x673150; the client calls it
 // @0x672120
 bool TextEditorGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
@@ -278,6 +277,7 @@ bool TextEditorGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y
 		GadgetClass::Unknown_2C(event, x, y, mask);
 		SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 		Unknown_6732F0(x, y);
+		Lines.size();		// dead read: spends the inline budget so 0x672A60 stays out of line, as in the client
 		Take_Focus();
 		return true;
 	}
