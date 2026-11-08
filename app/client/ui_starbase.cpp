@@ -203,16 +203,11 @@ UIStarbaseClass::~UIStarbaseClass()
 
 #pragma auto_inline(on)
 
-// NOT EXACT: register-only residue at the top (the client loads +0xB0 into eax before Room, a's chain through
-// eax / ecx; ours through ecx / edx) and in the inlined 0x640CC0 loop (eax / edx swapped); 42 rows. The budget
-// forms that reach the client's out-of-line calls (0x6443C0 erase, 0x644180 insert, 0x6444A0 insert(n)) and ??_H:
-// 0x640CC0 inlined (it has no caller of its own), with clear() in it, Unknown_Kind() for c, and while (true)
-// (do / while and for (;;) rotate the loop)
 // 0x640810
 void UIStarbaseClass::Unknown_640810()
 {
 	int i = 0;
-	int a = UnknownB0->Unknown1B4->Unknown18;
+	int a = Unknown_Info()->Unknown18;
 	int room = Room;
 	int c = Unknown_Kind();
 	Unknown_640CC0();
