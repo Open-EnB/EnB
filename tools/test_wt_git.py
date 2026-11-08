@@ -317,7 +317,9 @@ class Stacked(GitRepo):
         stubs = {'LOCK': os.path.join(locks, 'importer.lock'), 'importer_agent': lambda path: 'x',
                  'libs_touched': lambda *a: [], 'regen_and_commit': lambda *a, **k: None,
                  'say_losses': lambda r: None, 'judge_losses': lambda *a: dict(gained=[], gained_tiebreak=[], moves=[], lost_outright=[]),
-                 'regenerate_rebased': lambda a, path, st: None}
+                 'regenerate_rebased': lambda a, path, st: None,
+                 # no junctions (cmd /c mklink is Windows-only; CI runs Linux): these tests are about git
+                 'furnish': lambda path, libs=True, pseudo=True: None}
         for k, v in stubs.items():
             old = getattr(wt, k)
             setattr(wt, k, v)
