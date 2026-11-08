@@ -1704,7 +1704,7 @@ public:
 
 	char Unknown04[0xF0 - 0x04];
 };
-// NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 24 forms; attempts.py show 0x738970)
+
 // 0x738970
 bool DamagePacketClass::Process_Packet(void *instance)
 {
@@ -1773,7 +1773,7 @@ bool DamagePacketClass::Process_Packet(void *instance)
 	}
 	if (Victim == avatar_id) {
 		if (sclient->MainView->Cpit) {
-			sclient->MainView->Cpit->Unknown_583DC0(damage_text, header_text, inflicted, type == 4);
+			bool emp = (type == 4); sclient->MainView->Cpit->Unknown_583DC0(damage_text, header_text, inflicted, emp);
 		}
 	} else if (Source == avatar_id) {
 		if (damage_text) {
