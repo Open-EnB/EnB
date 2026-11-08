@@ -2311,7 +2311,6 @@ bool NotifyEmotePacketClass::Process_Packet(void *instance)
 	emote->Unknown_7E6650(Emote);
 	return(true);
 }
-// NOT EXACT: register-only (this in edi, the interface in esi: the client has them the other way round; attempts.py show 0x73A9F0)
 // 0x73A9F0
 bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -2319,7 +2318,8 @@ bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	if (!sclient->Unknown135C) return(true);
 	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
-	if (!starbase || starbase->Room != Room || !starbase->Active) return(true);
+	int room;
+	if (!starbase || (room = starbase->Room) != Room || !starbase->Active) return(true);
 	starbase->Unknown_63E5C0(AvatarID, Orient, &Vector3(Unknown14, Unknown18, Unknown1C), ActionFlag);
 	return(true);
 }
