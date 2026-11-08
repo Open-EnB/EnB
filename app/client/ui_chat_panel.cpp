@@ -13,14 +13,14 @@
 #include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
 
-// fontmanager.h's FontManagerClass at 0xBE67C4, as far as this file calls it (as ui_cpit.cpp declares it)
-class FontSys : public RenderObjClass	// NAME 5 [FontSys]: fontmanager.h's (the client's name) (a DynamicMeshClass there)
-{
-public:
-	void Change_Text(const char *text, int unknown);	// 0x6CDBC0 (fontmanager.h's)  // NAME 3: the client's label
-	const char *Unknown_6D87D0();						// 0x6D87D0: the text shown  // NAME 1: neutral (D10)
-};
-class FontManagerClass { public: FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
+#include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
+
+
+
+
+
+
+
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // What the avatar pip's +0x2C holds (a render object), as far as 0x563C50 reads it

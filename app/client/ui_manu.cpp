@@ -13,24 +13,24 @@
 #include "texture.h"
 #include "textureloader.h"
 
-// fontmanager.h's text object and FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at 0xBE67BC, as far as
-// this file calls them (as ui_group.cpp declares them: neither header can be included next to sclient.h)
-class FontSys : public RenderObjClass	// NAME 5 [FontSys]: fontmanager.h's (the client's name)
-{
-public:
-	void Unknown_6CDBC0(const char *text, int unknown);	// 0x6CDBC0: the text set  // NAME 1 [text, unknown]: what this file passes
-	void Unknown_6CE910(bool on);						// 0x6CE910: highlighted  // NAME 1 [on]: neutral
+#include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 
-	char Unknown_Pad[0x2FC - sizeof(RenderObjClass)];
-	float Unknown2FC;									// +0x2FC (0x5B3A70: 0.33f)
-	char Unknown300[0x4C5 - 0x300];						// +0x300
-	bool Unknown4C5;									// +0x4C5 (0x5B3A70: false)
-	char Unknown4C6[0x4E4 - 0x4C6];						// +0x4C6
-	bool Unknown4E4;									// +0x4E4 (0x5B2230: set on the level 3 rows)
-	void Unknown_Set_2FC(float value) { Unknown2FC = value; Unknown4C5 = false; }	// (inline: the go button's brightness in 0x5B2480 / 0x5B4850)  // NAME 1: neutral (D10)
-};
-class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
@@ -243,10 +243,10 @@ void UIManuClass::Unknown_58()
 			sprintf(buffer, "desc%02d_tsm01a", i);
 			Unknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
 			Unknown16C[i]->Set_Sort_Level(Unknown0E8[i]->Unknown30->Get_Sort_Level() + 1);
-			Unknown16C[i]->Unknown_6CDBC0("", 0);
+			Unknown16C[i]->Change_Text("", 0);
 			sprintf(buffer, "var%02d_tsm01a", i);
 			Unknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
-			Unknown194[i]->Unknown_6CDBC0("", 0);
+			Unknown194[i]->Change_Text("", 0);
 		}
 		Unknown0AC->Unknown_69DC40();
 		Unknown0B4->Unknown_58();
@@ -287,10 +287,10 @@ void UIManuClass::Unknown_5C()
 	((UIManuSClientClass *)sclient)->Unknown_744560(0x18);
 	for (int i = 0; i < 10; i++) {
 		if (Unknown16C[i]) {
-			Unknown16C[i]->Unknown_6CDBC0("", 0);
+			Unknown16C[i]->Change_Text("", 0);
 		}
 		if (Unknown194[i]) {
-			Unknown194[i]->Unknown_6CDBC0("", 0);
+			Unknown194[i]->Change_Text("", 0);
 		}
 	}
 }
@@ -649,7 +649,7 @@ void UIManuClass::Unknown_5B1AF0(int index, bool show, const char *text)
 {
 	const char *name = Unknown_B81868[index]; RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object()));
 	FAIL_IF(!font) return;
-	font->Unknown_6CDBC0(text, 0);
+	font->Change_Text(text, 0);
 	font->Set_Hidden(!show);
 }
 
@@ -758,9 +758,9 @@ void UIManuClass::Unknown_5B2230()
 				char name[64];
 				char text[64];
 				Unknown_5B2A80(name, text, Unknown0B90 + row);
-				Unknown16C[row]->Unknown_6CDBC0(name, 0);
+				Unknown16C[row]->Change_Text(name, 0);
 				Unknown16C[row]->Unknown4E4 = true;
-				Unknown194[row]->Unknown_6CDBC0(text, 0);
+				Unknown194[row]->Change_Text(text, 0);
 				Unknown_5B21A0(row);
 			}
 			for (int i = 0; i < 3; i++) {
@@ -770,7 +770,7 @@ void UIManuClass::Unknown_5B2230()
 		}
 		for (int row = 0; row < 10; row++) {
 			Unknown16C[row]->Unknown4E4 = false;
-			Unknown16C[row]->Unknown_6CDBC0("", 0);
+			Unknown16C[row]->Change_Text("", 0);
 		}
 		for (int i = 0; i < 3; i++) {
 			if (i == Unknown0B98) {
@@ -1062,7 +1062,7 @@ void UIManuClass::Unknown_5B3A70()
 		}
 		Unknown0CC[6]->Unknown_40(false);
 		FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B81868[0], InterfaceMesh->Peek_Mesh_Object());
-		style->Unknown2FC = 0.33f;
+		style->Unknown2F4[2] = 0.33f;
 		style->Unknown4C5 = false;
 	}
 }

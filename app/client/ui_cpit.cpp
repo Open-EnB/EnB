@@ -19,20 +19,20 @@ class UIScanClass : public InterfaceClass { public: UIScanClass(UIViewClass *vie
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 #include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
-// fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
-// file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
-class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontSys : public RenderObjClass	// NAME 5 [FontSys]: fontmanager.h's (the client's name) (a DynamicMeshClass there, 0x4E8 bytes)
-{
-public:
-	char Unknown_Pad[0x2FC - sizeof(RenderObjClass)];
-	float Unknown2FC;									// +0x2FC (0x5845A0: 1, or 0.5 while the warp button is off)
-	char Unknown300[0x4C5 - 0x300];
-	bool Unknown4C5;									// +0x4C5 (0x5845A0 clears it)
-	void Change_Text(const char *text, int unknown);	// 0x6CDBC0 (fontmanager.h's)  // NAME 3: the client's label
-	void Unknown_6CE910(int on);						// 0x6CE910 (0x5821C0: 1 past the speed limit)  // NAME 1 [on]: neutral
-};
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
+#include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // The asset manager (*0xBFAEE0)
@@ -2008,9 +2008,9 @@ void UICpitClass::Unknown_5845A0()
 	if (style) {
 		FontSys *font;
 		if (Unknown0B4->Unknown_60()) {
-			(font = style.Peek())->Unknown2FC = 1.0f;
+			(font = style.Peek())->Unknown2F4[2] = 1.0f;
 		} else {
-			(font = style.Peek())->Unknown2FC = 0.5f;
+			(font = style.Peek())->Unknown2F4[2] = 0.5f;
 		}
 		font->Unknown4C5 = false;
 	}

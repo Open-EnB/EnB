@@ -34,15 +34,15 @@ public:
 
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
 
-// fontmanager.h's FontManagerClass at 0xBE67C4, as far as this file calls it (as ui_manu.cpp declares it: the header
-// cannot be included next to sclient.h)
-class FontSys : public RenderObjClass	// NAME 5 [FontSys]: fontmanager.h's (the client's name)
-{
-public:
-	void Unknown_6CDBC0(const char *text, int unknown);	// 0x6CDBC0: the text set  // NAME 1 [text, unknown]: what this file passes
-};
-class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
+#include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
+
+
+
+
+
+
+
+
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 class UIAnalyzePDAClass { public: void Unknown_695A00(int a, int b); bool Unknown_695780(bool arg); };	// NAME 1: neutral (D10): PDAInterfaceClass's 0x695780 / 0x695A00, as ui_manu.cpp's  // NAME 1 [a, b, arg]: neutral
@@ -481,7 +481,7 @@ void UIAnalyzeClass::Unknown_544C50(int index, bool show, const char *text)
 {
 	const char *name = Unknown_B7967C[index]; RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object()));
 	FAIL_IF(!font) return;
-	font->Unknown_6CDBC0(text, 0);
+	font->Change_Text(text, 0);
 	font->Set_Hidden(!show);
 }
 
