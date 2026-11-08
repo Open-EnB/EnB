@@ -63,7 +63,7 @@ PDAInterfaceClass::PDAInterfaceClass(SClient *client) :
 	}
 }
 
-// 0x693230 (NOT EXACT: registers (the client keeps this in ebp and pushes ebx late: 0.58))
+// 0x693230
 void PDAInterfaceClass::Unknown_54()
 {
 	InterfaceMesh = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("TSI14A"));
@@ -83,22 +83,22 @@ void PDAInterfaceClass::Unknown_54()
 	Starmap = Create_NEW(new UIStarmapClass(client));
 	Starmap->Unknown_54();
 
-	ButtonGadgetClass **button = Buttons;
-	int id = 0;
-	for (const char **name = PDAButtonNames; name < &PDAButtonNames[NUM_BUTTONS]; name++) {
-		RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(*name);
+	for (int i = 0; i < NUM_BUTTONS; i++) {
+		RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(PDAButtonNames[i]);
 		Unknown_496AE0(robj, 0);
-		*button = new ButtonGadgetClass(robj, 0x55, 3);
+		Buttons[i] = new ButtonGadgetClass(robj, 0x55, 3);
 		robj->Release_Ref();
-		Unknown64.Unknown_6870E0(*button, ++id, NULL, 1, 0);
-		GadgetClass::Set_Tooltip(*button, "UI_CPIT", *name);
-		button++;
+		Unknown64.Unknown_6870E0(Buttons[i], i + 1, NULL, 1, 0);
+		GadgetClass::Set_Tooltip(Buttons[i], "UI_CPIT", PDAButtonNames[i]);
 	}
 
 	Unknown64.Unknown_6870E0(new UIBackGadget(InterfaceMesh), 0xE, View, 1, 0);
 	Experience = new Unknown58C450Class(InterfaceMesh.Peek(), this);
 	Unknown_10();
 }
+
+
+
 
 // 0x693950
 PDAInterfaceClass::~PDAInterfaceClass()
@@ -647,7 +647,7 @@ bool PDAInterfaceClass::Unknown_695C50(int index)
 	return(false);
 }
 
-// 0x695CE0 (NOT EXACT: the last return (the client tests +0xB0 in eax with no xor: 0.70))
+// 0x695CE0
 bool PDAInterfaceClass::Unknown_695CE0()
 {
 	if (Cargo && Cargo->Is_Active()) {
@@ -665,7 +665,7 @@ bool PDAInterfaceClass::Unknown_695CE0()
 	if (Starmap && Starmap->Is_Active()) {
 		return(true);
 	}
-	return(UnknownB0.Peek() != NULL);
+	return(UnknownB0.Peek() ? true : false);
 }
 
 // 0x695D70
