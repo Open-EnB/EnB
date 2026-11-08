@@ -216,9 +216,83 @@ UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((Li
 	STUB_CALLED("POC UIChatReplyListClass: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-ChatWindowInterface::ChatWindowInterface(SClient *client, int a, int b, int kind) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+// The split chat window (ui_chat_window_split.cpp, not rebuilt): the real ChatWindowInterface (ui_chat_window.cpp)
+// with a set-up that loads the kind's model (0x5723B0's first steps: slot +0x98 with 0xB7D938's names, the base's
+// set-up, slot +0xA0 with one window, two when split) and leaves the frame's resize gadgets out
+UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit, int kind) :
+	ChatWindowInterface(client, history, edit)
 {
-	STUB_CALLED("POC ChatWindowInterface: an empty window");
+	STUB_CALLED("POC UIChatWindowSplitClass: the chat window without its split");
+	UnknownE8 = kind;
+	UnknownEC = UnknownF0 = UnknownF4 = UnknownFC = Unknown100 = Unknown104 = Unknown108 = Unknown110 = Unknown114 = 0;
+	UnknownF8 = Unknown10C = -1;
+	Unknown118 = (kind == 2);
+	Unknown11C = NULL;
+}
+UIChatWindowSplitClass::~UIChatWindowSplitClass() {}
+void UIChatWindowSplitClass::Unknown_54()
+{
+	static const char *models[] = { "tsi05f", "tsi05d", "tsi05e" };
+	if (!Unknown_98(models[UnknownE8], NULL)) return;
+	ChatWindowInterface::Unknown_54();
+	Unknown_A0((UnknownE8 != 0) ? 2 : 1);
+}
+void UIChatWindowSplitClass::Unknown_58() { ChatWindowInterface::Unknown_58(); }
+void UIChatWindowSplitClass::Unknown_5C() { ChatWindowInterface::Unknown_5C(); }
+void UIChatWindowSplitClass::Unknown_60() { ChatWindowInterface::Unknown_60(); }
+bool UIChatWindowSplitClass::Unknown_68(int key) { return(ChatWindowInterface::Unknown_68(key)); }
+void UIChatWindowSplitClass::Unknown_A8() { ChatWindowInterface::Unknown_A8(); }
+
+// 0x765DF0 (file unknown, not rebuilt): the client's code, the chat line colour by its index (0..23), else white;
+// a generated stub cannot return a Vector3 (the call links to 0)
+Vector3 Unknown764FD0Class::Unknown_765DF0(int index)
+{
+	if (index < 24 && index >= 0) return(Unknown00[index]);
+	return(Vector3(1.0f, 1.0f, 1.0f));
+}
+
+// SClient 0x74D990 (parked, docs/attempts/74D990: clienttest's trace stub collides with the real one): the chat
+// line with its type's prefix onto the chat panel (0x563760), as the stash has it, without its sounds and line display
+void SClient::Unknown_74D990(int color, char *text, int a)
+{
+	if (!text || !*text) return;
+	UIChatPanelClass *chatpanel = ChatPanel.Peek();
+	if (!chatpanel) return;
+	std::string line("");
+	if (!(char)a) {
+		if (color == 0 || color == 17) line = "COMPUTER: ";
+		else if (color == 6) line = "TIP: ";
+		else if (color == 21) line = "WARNING: ";
+		else if (color == 19) line = "SYSTEM: ";
+		else if (color == 20 || color == 1 || color == 18) line = "OUTDATED MESSAGE TYPE: ";
+	}
+	if (color == 22) return;
+	line += text;
+	chatpanel->Unknown_563760(color, line);
+}
+
+// chatgadg.cpp's text entry (0x65BFD0, not rebuilt): a text gadget that holds no text, so the chat window's calls
+// through its table reach real code (a generated constructor leaves no table)
+#include "..\..\app\client\textgadg.h"
+class Unknown65BFD0Class : public TextBaseGadgetClass
+{
+public:
+	Unknown65BFD0Class(LineDisplayClientClass *client);
+	void Unknown_65E7C0(const char *text);
+	void Unknown_65EBF0(char *buffer, int size, int &cursorpos, bool &insert);
+	char Unknown44[0x80 - 0x44];
+};
+Unknown65BFD0Class::Unknown65BFD0Class(LineDisplayClientClass *client) : TextBaseGadgetClass(0xFF, 0, NULL)
+{
+	STUB_CALLED("POC Unknown65BFD0Class (chatgadg.cpp's text entry): no text");
+	memset(Unknown44, 0, sizeof(Unknown44));
+}
+void Unknown65BFD0Class::Unknown_65E7C0(const char *text) {}
+void Unknown65BFD0Class::Unknown_65EBF0(char *buffer, int size, int &cursorpos, bool &insert)
+{
+	buffer[0] = 0;
+	cursorpos = 0;
+	insert = false;
 }
 UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c) : InterfaceClass(owner->Client)
 {

@@ -2392,13 +2392,13 @@ void UIChatPanelClass::Unknown_56C180(int window)
 	Unknown134 = window;
 	switch (window) {
 		case 1:
-			ChatInt = Create_Get(new ChatWindowInterface(Client->As_Space_Client(), Unknown13C, Unknown140, 0));
+			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (Unknown65BFD0Class *)Unknown140, 0));
 			break;
 		case 2:
-			ChatInt = Create_Get(new ChatWindowInterface(Client->As_Space_Client(), Unknown13C, Unknown140, 1));
+			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (Unknown65BFD0Class *)Unknown140, 1));
 			break;
 		case 3:
-			ChatInt = Create_Get(new ChatWindowInterface(Client->As_Space_Client(), Unknown13C, Unknown140, 2));
+			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (Unknown65BFD0Class *)Unknown140, 2));
 			break;
 		default:
 			G_ASSERT(false);

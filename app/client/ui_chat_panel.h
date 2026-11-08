@@ -16,40 +16,12 @@ class AvatarPipClass;		// avatar_pip.cpp's (the panel's +0x110; declared in ui_c
 
 #include "ui_combobox.h"	// UIComboBoxClass: the panel's combos (Combo[]; was UIChatComboClass, P-TG4-1)
 
-// What the chat window's events carry, as far as 0x56C730 reads it
-class ChatWindowInterfaceEvent { public: ChatWindowInterfaceEvent() : Unknown00(0) {} int Unknown00; };	// NAME 5: the client's RTTI (.?AVChatWindowInterfaceEvent@@ 0xB7D4B0, the Event_Type of the callback table 0xAEFFF8): +0x00 1 is a click (0x56C6A0 passes a zeroed one to name the handler)
 
 class OptionFontInterfaceEvent;
 
 enum { NUM_COMBO = 5 };	// NAME 3: the assert's
 
-class DestroyGadgetEvent;
-// ui_chat_panel_base.cpp's class (0xA0 bytes; constructor 0x56D280 (the client to 0x540D30), destructor 0x56D300,
-// table 0xAF00B4), as far as the chat panel uses it (interim placement here, D137: its own file is not rebuilt)
-class UIChatPanelBaseClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_chat_panel_base.cpp
-{
-public:
-	UIChatPanelBaseClass(SClient *client);				// 0x56D280  // NAME 1 [client]: what 0x561DD0 passes
-	virtual ~UIChatPanelBaseClass();					// 0x56D330 (deleting 0x56D300; out of line: ui_starbase.cpp's lights panel 0x646290 calls it)
-	virtual void Unknown_58();							// +0x58 0x56D4F0
-	virtual void Unknown_88(const RefCountPtr<RenderObjClass> &robj, const char *bone_name);	// +0x88 0x56DD80 (FAIL_IF '!robj', the assert's bone_name)
-	virtual void Unknown_8C(const RefCountPtr<RenderObjClass> &robj);	// +0x8C 0x56DE60 (FAIL_IF 'robj.Peek() != InterfaceMesh->Get_Container()')
-	virtual int Unknown_90() { return(0); }				// +0x90 0x5623B0 (emitted with the chat panel's table)
-	virtual void Unknown_94() {}						// +0x94 0x5623D0
-	virtual bool Unknown_98(const char *name, const char *ini);	// +0x98 0x56DB20 (the model and its ini: ui_starbase.cpp's lights panel passes 'light02a', 'fa_light02a.ini')  // NAME 1 [name, ini]: what 0x646360 passes
-	virtual void Unknown_9C() {}						// +0x9C 0x5623F0
-
-	GadgetClass *Unknown_56D510(int id, const char *button, const char *text);	// 0x56D510 (the lights panel's 0x646360: a button by its model's name, with its text)  // NAME 1 [id, button, text]: what 0x646360 passes
-	GadgetSlider *Unknown_56D8D0(int id, int unknown);	// 0x56D8D0 (0x646360: its four sliders, ids 8-11)  // NAME 1 [id, unknown]: neutral
-	void Unknown_56DEE0(DestroyGadgetEvent *event, GadgetClass *sender);	// 0x56DEE0 (the handler of +0x9C's destruction: slot +0x9C)  // NAME 1 [event, sender]: what the signal passes
-	void Unknown_56D970(int id, const Vector3 &offset);	// 0x56D970 (G_ASSERT 'MovableBackGadget'; 0x646360 passes 1 and a zero vector)  // NAME 1 [id, offset]: neutral
-
-	RefCountPtr<RenderObjClass> Unknown84;				// +0x84, the asserts' InterfaceMesh (its slot +0x70 finds the panel's parts by name; the font styles' owner)
-	RenderObjClass *Peek_Unknown84() { return(Unknown84.Peek()); }	// NAME 1: neutral (D10)
-	std::string Unknown88;								// +0x88 (the string file 0x56DB20 loads; the destructor unloads it)
-	int Unknown98;										// +0x98
-	int Unknown9C;										// +0x9C
-};
+#include "ui_chat_panel_base.h"	// UIChatPanelBaseClass (moved out of this header for ui_chat_window.h)
 
 // The base of the windows the panel holds (ChatInt, +0xF8, +0x104): an int at +0x98 (0x565F80: set, the window closed)
 class UIChatPanelWindowClass : public InterfaceClass	// NAME 1: neutral (D10)
@@ -62,20 +34,8 @@ public:
 	int Unknown98;										// +0x98 (0x5630B0 / 0x565F80 test it)
 };
 
-// What the chat panel's ChatInt (+0x138) points to (the chat window), as far as this file calls it
-class ChatWindowInterface : public UIChatPanelWindowClass	// NAME 5: the client's RTTI (.?AVChatWindowInterface@@ 0xB7D3E0, the Sender_Type of the callback table 0xAEFFF8): the assert's 'ChatInt'
-{
-public:
-	virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90(); virtual void Unknown_94();
-	virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0(); virtual void Unknown_A4();
-	virtual void Unknown_A8(); virtual void Unknown_AC(bool on); virtual void Unknown_B0();
-	virtual void Unknown_B4(const char *text);			// +0xB4 (0x565C40: 'To %s:')  // NAME 1 [text]: neutral
-	virtual bool Unknown_B8(int key);					// +0xB8 (0x5638E0 hands slot +0x68's key on)  // NAME 1 [key]: what 0x5638E0 passes
-
-	ChatWindowInterface(SClient *client, int a, int b, int kind);	// 0x571F00 (0x120 bytes; 0x56C180: +0x13C, +0x140 and the kind 0..2)  // NAME 1 [client, a, b, kind]: what 0x56C180 passes
-	void Unknown_571430();								// 0x571430 (0x56C7B0, on the +0xF8 window's events)
-
-};
+// The chat window (ChatInt, +0x138): ui_chat_window.h; the split window the panel makes: ui_chat_window_split.h
+#include "ui_chat_window_split.h"
 
 // The chat panel (SClient +0x127C; 0x268 bytes, constructor 0x561DD0, table 0xAEFF1C)
 class UIChatPanelClass : public UIChatPanelBaseClass	// NAME 3: class-from-file (D24) for app\client\ui_chat_panel.cpp
