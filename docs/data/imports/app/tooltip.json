@@ -4,8 +4,7 @@
   "0x46BE90",
   "0x474080",
   "0x51E9E0",
-  "0x51EA50",
-  "0x551F00"
+  "0x51EA50"
  ],
  "copy": "reconstructed",
  "description": "tooltip.cpp (__FILE__ 0xB91938; asserts '!Hides' line 181, 'CurGadget != gadget' 210, 'lines > MAX_LINES' 331), client 0x6AB320-0x6ABE90: the constructor 0x6AB320 ('TOOLTIPS', 'TOOLTIP_FONT') and destructor 0x6AB4D0, their EH handlers in the block of 0x6AB930 / 0x6ABC60 (GAD3)",
@@ -13,6 +12,10 @@
  "in_tree": [
   "0x42F250",
   "0x51E220",
+  "0x56E0A0",
+  "0x56E0C0",
+  "0x56E100",
+  "0x56E130",
   "0x6AB320",
   "0x6AB4D0",
   "0x6AB850",
@@ -25,6 +28,14 @@
  "name": "client/tooltip.cpp",
  "shared": [
   "0x42F250",
-  "0x51E220"
+  "0x51E220",
+  "0x56E0A0",
+  "0x56E0C0",
+  "0x56E100",
+  "0x56E130"
+ ],
+ "short_known": [
+  "0x56E0A0",
+  "0x56E130"
  ]
 }

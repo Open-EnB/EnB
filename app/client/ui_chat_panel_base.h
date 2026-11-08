@@ -28,7 +28,7 @@ public:
 	virtual void Unknown_9C() {}						// +0x9C 0x5623F0
 
 	GadgetClass *Unknown_56D510(int id, const char *button, const char *text);	// 0x56D510 (the lights panel's 0x646360: a button by its model's name, with its text)  // NAME 1 [id, button, text]: what 0x646360 passes
-	GadgetSlider *Unknown_56D8D0(int id, int unknown);	// 0x56D8D0 (0x646360: its four sliders, ids 8-11)  // NAME 1 [id, unknown]: neutral
+	GadgetSlider *Unknown_56D8D0(int id, bool unknown);	// 0x56D8D0 (0x646360: its four sliders, ids 8-11; unknown is GadgetSlider's bool: the client pushes the argument's dword as loaded)  // NAME 1 [id, unknown]: neutral
 	void Unknown_56DEE0(DestroyGadgetEvent *event, GadgetClass *sender);	// 0x56DEE0 (the handler of +0x9C's destruction: slot +0x9C)  // NAME 1 [event, sender]: what the signal passes
 	void Unknown_56D970(int id, const Vector3 &offset);	// 0x56D970 (G_ASSERT 'MovableBackGadget'; 0x646360 passes 1 and a zero vector)  // NAME 1 [id, offset]: neutral
 

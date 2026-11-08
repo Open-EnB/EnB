@@ -28,7 +28,6 @@ UIChatPanelBaseClass::UIChatPanelBaseClass(SClient *client) :
 {
 }
 
-// NOT EXACT: functional (WE1)
 // 0x56D330
 UIChatPanelBaseClass::~UIChatPanelBaseClass()
 {
@@ -36,12 +35,13 @@ UIChatPanelBaseClass::~UIChatPanelBaseClass()
 		GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)Unknown9C, this, &UIChatPanelBaseClass::Unknown_56DEE0, DestroyGadgetEvent());
 	}
 	const char *name = Unknown88.c_str();
-	Unknown_BE67C4->Remove(InterfaceMesh.Peek());
-	Unknown_BE67BC->Unload(name);
+	if (name != NULL) {
+		Unknown_BE67C4->Remove(InterfaceMesh.Peek());
+		Unknown_BE67BC->Unload(name);
+	}
 	if (InterfaceMesh->Get_Container() != NULL) {
 		InterfaceMesh->Remove();
 	}
-	Unknown88.erase();
 }
 
 // 0x56D4F0
@@ -122,9 +122,8 @@ GadgetClass *UIChatPanelBaseClass::Unknown_56D510(int id, const char *bttn_name,
 
 
 
-// NOT EXACT: functional (WE1)
 // 0x56D8D0
-GadgetSlider *UIChatPanelBaseClass::Unknown_56D8D0(int id, int unknown)
+GadgetSlider *UIChatPanelBaseClass::Unknown_56D8D0(int id, bool unknown)
 {
 	GadgetSlider *gadget = new GadgetSlider(unknown, 0);
 	Unknown64.Unknown_6870E0(gadget, id, View, true, false);
@@ -154,7 +153,8 @@ GadgetSlider *UIChatPanelBaseClass::Unknown_56D8D0(int id, int unknown)
 
 
 
-// NOT EXACT: functional (WE1)
+
+
 // 0x56DB20
 bool UIChatPanelBaseClass::Unknown_98(const char *name, const char *ini)
 {
@@ -163,14 +163,14 @@ bool UIChatPanelBaseClass::Unknown_98(const char *name, const char *ini)
 	if (InterfaceMesh->Get_Container() == NULL && InterfaceMesh->Peek_Scene() == NULL) {
 		Unknown58.Unknown_686CC0(InterfaceMesh.Peek(), NULL);
 	}
-	if (ini == NULL) {
-		return(true);
+	if (ini != NULL) {
+		Unknown88 = ini;
+		Unknown_BE67BC->Load(ini);
+		Unknown_BE67C4->Add(InterfaceMesh.Peek());
 	}
-	Unknown88 = ini;
-	Unknown_BE67BC->Load(ini);
-	Unknown_BE67C4->Add(InterfaceMesh.Peek());
 	return(true);
 }
+
 
 
 // 0x56DD80
