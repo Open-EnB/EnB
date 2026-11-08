@@ -608,9 +608,9 @@ void ChatWindowInterface::Unknown_C8(int pages, unsigned int index)
 inline Vector3 ChatWindowInterface::Unknown_5719A0(const Unknown67D430EntryStruct &entry)
 {
 	int type = entry.Get_Type();
-	Vector3 color(1.0f, 1.0f, 1.0f);
-	FAIL_IF(!Client) return(color);
-	SClient *sclient = Client->As_Space_Client();
+	Vector3 color(1.0f, 1.0f, 1.0f); LineDisplayClientClass *client = Client;
+	FAIL_IF(!client) return(color);
+	SClient *sclient = client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(color);
 	color = sclient->Unknown13CC.Unknown_765DF0(type);
