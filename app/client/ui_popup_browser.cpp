@@ -47,6 +47,7 @@ public:
 UIPopupBrowserClass::UIPopupBrowserClass(SClient *client, int browser_id, const char *title, const char *url) :
 	UIChatPanelBaseClass(client)
 {
+	Url.size(); Url.size();		// dead reads: spend the inline budget toward the client's out-of-line _Tidy
 	((int *)Unknown70)[1] = 1;
 	UnknownA0 = 0;
 	if (url) {
