@@ -79,14 +79,26 @@ float Unknown669570Class::Unknown_A8(float value)
 	return(value);
 }
 
-// ---------------------------------------------------------------- starmap_pip.cpp's PIP (0x7BF930, ui_starmap.h): 0xD4 bytes
-StarmapPipClass::StarmapPipClass(SClient *client) : MapPipClass(client, false)
+// ---------------------------------------------------------------- gd_pip_scene.cpp's gadget base (0x66ACE0, map_pip.h): 0x4C bytes
+GadgetPipSceneClass::GadgetPipSceneClass(PipSceneClass *pip) : GadgetClass(0x1077)
 {
-	STUB_CALLED("POC StarmapPipClass: an empty MapPipClass");
-	memset(Unknown_Pad50, 0, sizeof(Unknown_Pad50));
+	STUB_CALLED("POC GadgetPipSceneClass: an empty GadgetClass");
+	memset(Unknown_Pad30, 0, sizeof(Unknown_Pad30));
+	*(PipSceneClass **)Unknown_Pad30 = pip;
+	Unknown38.X = 0.0f;
+	Unknown38.Y = 0.0f;
+	memset(Unknown_Pad40, 0, sizeof(Unknown_Pad40));
+	Unknown49 = false;
 }
-StarmapPipClass::~StarmapPipClass()
+
+// ---------------------------------------------------------------- gd_starmap.cpp's gadget (0x7B4700, starmap_pip.h): 0x50 bytes
+GadgetStarmapClass::GadgetStarmapClass(StarmapPipClass *pip) : GadgetPipSceneClass(pip), StarmapPIP(pip)
 {
+	STUB_CALLED("POC GadgetStarmapClass: the PIP only");
+}
+bool GadgetStarmapClass::Unknown_30(float x, float y)
+{
+	return(false);
 }
 
 // ---------------------------------------------------------------- ui_dynamicwindow.cpp's screen (0x589D30): 0xAC bytes, empty

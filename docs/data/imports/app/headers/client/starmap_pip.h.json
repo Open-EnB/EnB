@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: StarmapPipClass (0xD4 bytes), its label class (0x7C3220) and the gd_starmap.cpp gadget / 0x7B97F0 object as far as it uses them"
+}
