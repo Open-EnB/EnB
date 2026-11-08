@@ -32,7 +32,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_43FD70` | `app/audio/soundlib.cpp:888` | untagged neutral name (D10) |
 | 1 | `Unknown_43FA80` | `app/audio/soundlib.cpp:888` | untagged neutral name (D10) |
 | 1 | `SoundINIClass` | `app/audio/surfacetypes.cpp:13` | an INIClass with its own vtable 0xAE7500 (destructor only) |
-| 1 | `Unknown_442650` | `app/audio/surfacetypes.cpp:24` | 0x442650, surfacetypes.cpp's loader |
+| 1 | `Unknown_442650` | `app/audio/surfacetypes.cpp:23` | 0x442650, surfacetypes.cpp's loader |
 | 1 | `Unknown_442870` | `app/audio/surfacetypes.cpp:86` | 0x442870, surfacetypes.cpp's release |
 | 1 | `Unknown_4428E0` | `app/audio/surfacetypes.cpp:102` | 0x4428E0 |
 | 1 | `Unknown_442930` | `app/audio/surfacetypes.cpp:117` | 0x442930 |
@@ -976,7 +976,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7C` | `app/client/camera_manager.cpp:189` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/camera_manager.cpp:194` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/camera_manager.cpp:197` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/camera_manager.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/camera_manager.cpp:210` | untagged neutral name (D10) |
 | 1 | `Unknown_799DA0` | `app/client/camera_manager.cpp:235` | untagged neutral name (D10) |
 | 1 | `Unknown_79B4F0` | `app/client/camera_manager.cpp:239` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7700` | `app/client/camera_manager.cpp:247` | untagged neutral name (D10) |
@@ -4462,9 +4462,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D5B10` | `app/client/gd_text_editor.cpp:184` | untagged neutral name (D10) |
 | 1 | `Unknown47C` | `app/client/gd_text_editor.cpp:194` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/gd_text_editor.cpp:207` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F24` | `app/client/gd_text_editor.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown_6735A0` | `app/client/gd_text_editor.cpp:269` | untagged neutral name (D10) |
-| 1 | `Unknown_6732F0` | `app/client/gd_text_editor.cpp:272` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/gd_text_editor.cpp:224` | untagged neutral name (D10) |
+| 1 | `Unknown_6735A0` | `app/client/gd_text_editor.cpp:268` | untagged neutral name (D10) |
+| 1 | `Unknown_6732F0` | `app/client/gd_text_editor.cpp:271` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/gd_text_editor.cpp:287` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/gd_text_editor.cpp:292` | untagged neutral name (D10) |
 | 1 | `Unknown_6C` | `app/client/gd_text_editor.cpp:300` | untagged neutral name (D10) |
@@ -5433,7 +5433,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown15` | `app/client/navigation_data.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/nlp.cpp:14` | neutral (D10), as eff_o.cpp's |
 | 1 | `Unknown_B9D668` | `app/client/nlp.cpp:17` | neutral (D10) |
-| 1 | `Unknown_78E190` | `app/client/nlp.cpp:21` | neutral (D10) |
+| 1 | `Unknown_78E190` | `app/client/nlp.cpp:20` | neutral (D10) |
 | 1 | `Unknown_78E2C0` | `app/client/nlp.cpp:40` | neutral (D10) |
 | 1 | `Unknown_78E2F0` | `app/client/nlp.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_78E870` | `app/client/nlp.cpp:56` | neutral (D10) |
@@ -5445,7 +5445,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_78EC00` | `app/client/nlp.cpp:204` | untagged neutral name (D10) |
 | 1 | `Unknown_BE856C` | `app/client/nlp.cpp:207` | untagged neutral name (D10) |
 | 1 | `Unknown_790D40` | `app/client/nlp.cpp:207` | untagged neutral name (D10) |
-| 1 | `Unknown_78ED30` | `app/client/nlp.cpp:227` | untagged neutral name (D10) |
+| 1 | `Unknown_78ED30` | `app/client/nlp.cpp:226` | untagged neutral name (D10) |
 | 1 | `Unknown_78EE00` | `app/client/nlp.cpp:392` | untagged neutral name (D10) |
 | 1 | `Unknown_78F700Class` | `app/client/nlp.cpp:412` | untagged neutral name (D10) |
 | 1 | `Unknown_78EEF0` | `app/client/nlp.cpp:428` | untagged neutral name (D10) |
@@ -8262,9 +8262,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7CA2D0` | `app/client/tasks/settings_store.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_7CB610` | `app/client/tasks/settings_store.cpp:38` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/tasks/settings_store.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_7CB6F0` | `app/client/tasks/settings_store.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_7CB8F0` | `app/client/tasks/settings_store.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `app/client/tasks/settings_store.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB6F0` | `app/client/tasks/settings_store.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB8F0` | `app/client/tasks/settings_store.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/tasks/settings_store.cpp:155` | untagged neutral name (D10) |
 | 1 | `Address, Port` | `app/client/tasks/tsk_game.cpp:20` | handed to Redirect |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_game.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.cpp:66` | untagged neutral name (D10) |
@@ -10666,8 +10666,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown44` | `app/client/ui_chat_window.cpp:122` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_chat_window.cpp:124` | untagged neutral name (D10) |
 | 1 | `Unknown_5715F0` | `app/client/ui_chat_window.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `app/client/ui_chat_window.cpp:149` | untagged neutral name (D10) |
-| 1 | `UnknownD4` | `app/client/ui_chat_window.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_chat_window.cpp:148` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/ui_chat_window.cpp:154` | untagged neutral name (D10) |
 | 1 | `Unknown_A0` | `app/client/ui_chat_window.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown_56D8D0` | `app/client/ui_chat_window.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown_66E460` | `app/client/ui_chat_window.cpp:177` | untagged neutral name (D10) |
@@ -11589,7 +11589,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5913E0` | `app/client/ui_friends.cpp:606` | untagged neutral name (D10) |
 | 1 | `Unknown_5916B0` | `app/client/ui_friends.cpp:621` | untagged neutral name (D10) |
 | 1 | `Unknown_591880` | `app/client/ui_friends.cpp:629` | untagged neutral name (D10) |
-| 1 | `Unknown_591A30` | `app/client/ui_friends.cpp:645` | untagged neutral name (D10) |
+| 1 | `Unknown_591A30` | `app/client/ui_friends.cpp:644` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_friends.cpp:724` | untagged neutral name (D10) |
 | 1 | `Unknown_5658B0` | `app/client/ui_friends.cpp:727` | untagged neutral name (D10) |
 | 1 | `Unknown_744E70` | `app/client/ui_friends.cpp:728` | untagged neutral name (D10) |
@@ -12661,8 +12661,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_04` | `app/client/ui_mesh.cpp:255` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/client/ui_mesh.cpp:266` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9410` | `app/client/ui_mesh.cpp:268` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_mesh.cpp:288` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_mesh.cpp:291` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_mesh.cpp:287` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_mesh.cpp:290` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9550` | `app/client/ui_mesh.cpp:305` | untagged neutral name (D10) |
 | 1 | `Unknown_5B95E0` | `app/client/ui_mesh.cpp:322` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9830` | `app/client/ui_mesh.cpp:329` | untagged neutral name (D10) |
@@ -13210,13 +13210,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/client/ui_popup_browser.cpp:40` | neutral |
 | 1 | `std:` | `app/client/ui_popup_browser.cpp:41` | neutral |
 | 1 | `UnknownC8` | `app/client/ui_popup_browser.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_popup_browser.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA2D0` | `app/client/ui_popup_browser.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown_515400` | `app/client/ui_popup_browser.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown_5153B0` | `app/client/ui_popup_browser.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/ui_popup_browser.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_popup_browser.cpp:118` | untagged neutral name (D10) |
-| 1 | `Unknown_7CA5C0` | `app/client/ui_popup_browser.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_popup_browser.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA2D0` | `app/client/ui_popup_browser.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_515400` | `app/client/ui_popup_browser.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_5153B0` | `app/client/ui_popup_browser.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_popup_browser.cpp:109` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_popup_browser.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA5C0` | `app/client/ui_popup_browser.cpp:121` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_popupmsg.cpp:21` | 0xBE67C4 |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_popupmsg.cpp:32` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_popupmsg.cpp:32` | untagged neutral name (D10) |
@@ -15696,45 +15696,45 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown44C` | `app/client/unknown_6cce60.cpp:48` | untagged neutral name (D10) |
 | 1 | `Unknown4A4` | `app/client/unknown_6cce60.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown406` | `app/client/unknown_6cce60.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown4C4` | `app/client/unknown_6cce60.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown2D0` | `app/client/unknown_6cce60.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8DC0` | `app/client/unknown_6cce60.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown2C4` | `app/client/unknown_6cce60.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown420` | `app/client/unknown_6cce60.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown2C8` | `app/client/unknown_6cce60.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD180` | `app/client/unknown_6cce60.cpp:77` | untagged neutral name (D10) |
-| 1 | `Unknown440` | `app/client/unknown_6cce60.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown250` | `app/client/unknown_6cce60.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown4E4` | `app/client/unknown_6cce60.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown430` | `app/client/unknown_6cce60.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown302` | `app/client/unknown_6cce60.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown464` | `app/client/unknown_6cce60.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown47C` | `app/client/unknown_6cce60.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown300` | `app/client/unknown_6cce60.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD6F0` | `app/client/unknown_6cce60.cpp:144` | untagged neutral name (D10) |
-| 1 | `Unknown301` | `app/client/unknown_6cce60.cpp:157` | untagged neutral name (D10) |
-| 1 | `Unknown270` | `app/client/unknown_6cce60.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown414` | `app/client/unknown_6cce60.cpp:174` | untagged neutral name (D10) |
-| 1 | `Unknown404` | `app/client/unknown_6cce60.cpp:175` | untagged neutral name (D10) |
-| 1 | `Unknown303` | `app/client/unknown_6cce60.cpp:176` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD950` | `app/client/unknown_6cce60.cpp:186` | untagged neutral name (D10) |
-| 1 | `Unknown_6CDAB0` | `app/client/unknown_6cce60.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown2F4` | `app/client/unknown_6cce60.cpp:232` | untagged neutral name (D10) |
-| 1 | `Unknown494` | `app/client/unknown_6cce60.cpp:239` | untagged neutral name (D10) |
-| 1 | `Unknown2F0` | `app/client/unknown_6cce60.cpp:273` | untagged neutral name (D10) |
-| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:283` | untagged neutral name (D10) |
-| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:291` | untagged neutral name (D10) |
-| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:303` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/unknown_6cce60.cpp:313` | untagged neutral name (D10) |
-| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:321` | untagged neutral name (D10) |
-| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:347` | untagged neutral name (D10) |
-| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:348` | untagged neutral name (D10) |
-| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:350` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE4E0` | `app/client/unknown_6cce60.cpp:356` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/unknown_6cce60.cpp:370` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE7D0` | `app/client/unknown_6cce60.cpp:382` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:389` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:401` | untagged neutral name (D10) |
+| 1 | `Unknown4C4` | `app/client/unknown_6cce60.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown2D0` | `app/client/unknown_6cce60.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8DC0` | `app/client/unknown_6cce60.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown420` | `app/client/unknown_6cce60.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown2C4` | `app/client/unknown_6cce60.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown2C8` | `app/client/unknown_6cce60.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD180` | `app/client/unknown_6cce60.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown440` | `app/client/unknown_6cce60.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown250` | `app/client/unknown_6cce60.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown4E4` | `app/client/unknown_6cce60.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown430` | `app/client/unknown_6cce60.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown302` | `app/client/unknown_6cce60.cpp:107` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/unknown_6cce60.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown47C` | `app/client/unknown_6cce60.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown300` | `app/client/unknown_6cce60.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD6F0` | `app/client/unknown_6cce60.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown301` | `app/client/unknown_6cce60.cpp:158` | untagged neutral name (D10) |
+| 1 | `Unknown270` | `app/client/unknown_6cce60.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown414` | `app/client/unknown_6cce60.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown404` | `app/client/unknown_6cce60.cpp:176` | untagged neutral name (D10) |
+| 1 | `Unknown303` | `app/client/unknown_6cce60.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD950` | `app/client/unknown_6cce60.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown_6CDAB0` | `app/client/unknown_6cce60.cpp:226` | untagged neutral name (D10) |
+| 1 | `Unknown2F4` | `app/client/unknown_6cce60.cpp:233` | untagged neutral name (D10) |
+| 1 | `Unknown494` | `app/client/unknown_6cce60.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown2F0` | `app/client/unknown_6cce60.cpp:274` | untagged neutral name (D10) |
+| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:284` | untagged neutral name (D10) |
+| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:292` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:304` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/unknown_6cce60.cpp:314` | untagged neutral name (D10) |
+| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:322` | untagged neutral name (D10) |
+| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:348` | untagged neutral name (D10) |
+| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:349` | untagged neutral name (D10) |
+| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:351` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE4E0` | `app/client/unknown_6cce60.cpp:357` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/unknown_6cce60.cpp:371` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE7D0` | `app/client/unknown_6cce60.cpp:383` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:390` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:402` | untagged neutral name (D10) |
 | 1 | `Unknown729990Struct` | `app/client/unknown_7294d0.cpp:8` | neutral (D10) |
 | 1 | `client, base_asset, scale` | `app/client/unknown_7294d0.cpp:17` | what 0x7294D0 passes |
 | 1 | `Unknown_729770` | `app/client/unknown_7294d0.cpp:17` | untagged neutral name (D10) |
@@ -18046,12 +18046,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4BCCF0` | `app/shared/message_server.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_4BCD10` | `app/shared/message_server.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/message_server.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_4BCD30` | `app/shared/message_server.cpp:54` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/shared/message_server.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown_4BE7A0` | `app/shared/message_server.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_4BD3F0` | `app/shared/message_server.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown_4BE2C0` | `app/shared/message_server.cpp:141` | untagged neutral name (D10) |
-| 1 | `Unknown_4BD470` | `app/shared/message_server.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_4BCD30` | `app/shared/message_server.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/shared/message_server.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown_4BE7A0` | `app/shared/message_server.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_4BD3F0` | `app/shared/message_server.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_4BE2C0` | `app/shared/message_server.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_4BD470` | `app/shared/message_server.cpp:148` | untagged neutral name (D10) |
 | 1 | `Unknown_4A1590` | `app/shared/money.cpp:10` | neutral placeholder (D10) |
 | 1 | `Unknown_8B44C0` | `app/shared/money.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown_4F0080` | `app/shared/money.cpp:15` | neutral |
