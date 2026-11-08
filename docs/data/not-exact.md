@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-708 entries in 204 files.
+707 entries in 204 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -445,11 +445,10 @@ edit the comments in the code, not this file.
 | `app/client/ui_registration.cpp:2347` | `RegistrationInterface::Unknown_5FA0B0` | marker | NOT EXACT: field-offset (explain.py; 340 instructions each: register choice in the inlined operator= into +0x2CC and the 'EB' compare) @0x5FA0B0 |
 | `app/client/ui_registration.cpp:2529` | `RegistrationInterface::Unknown_5FB0C0` | marker | NOT EXACT: inline-budget (explain.py: the client calls the second append(1, '-') and the first end()'s _Freeze out of line) @0x5FB0C0 |
 | `app/client/ui_registration.cpp:2916` | `RegistrationInterface::Unknown_5F0100` | marker | NOT EXACT: field-offset (explain.py's first mismatch; the shape is inline-budget: the client calls the map's begin 0x606960, the iterator's operator++(int) 0x604DF0 and pop_back's copy 0x60A060 / _Destroy 0x605950 out of line, and destroys the reply under one EH state) @0x5FB9F0 |
-| `app/client/ui_scan.cpp:50` | `UIScanClass::~UIScanClass` | marker | NOT EXACT: the target's watch (Remove, the signal map's 0x610460 / 0x4F98D0 inline) and the threat object's inline destructor (WE9: functional) @0x60DF90 |
 | `app/client/ui_scan.cpp:68` | `UIScanClass::Unknown_54` | marker | NOT EXACT: functional (WE9; similarity 0.59): the verb window's and the fonts' set-up order and registers @0x60D8D0 |
-| `app/client/ui_scan.cpp:305` | `UIScanClass::Unknown_68` | marker | NOT EXACT: functional (WE9; similarity 0.51): the key tests' block layout @0x60E300 |
-| `app/client/ui_scan.cpp:472` | `UIScanClass::Unknown_60` | marker | NOT EXACT: functional (WE9; similarity 0.68) @0x60E480 |
+| `app/client/ui_scan.cpp:305` | `UIScanClass::Unknown_68` | marker | NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec @0x60E300 |
 | `app/client/ui_scan.cpp:500` | `UIScanClass::Unknown_88` | marker | NOT EXACT: order (WE9; similarity 0.85): the client builds the old target's Remove arguments before calling 0x4F7EF0, ours after @0x60E580 |
+| `app/client/ui_scan.cpp:746` | `UIScanClass::Unknown_60F1A0` | marker | NOT EXACT: inline-budget (TL1; similarity 0.65): the client calls the Reputation find out of line (0x610370; an explicit instantiation here does not move it), tail-merges only cases 2 and 5 @0x60F1A0 |
 | `app/client/ui_scut.cpp:379` | `UIScutBarClass::UIScutBarClass` | marker | NOT EXACT: register (ecx / edx swapped around the 0x6870E0 and bank constructor arguments) |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's) |
 | `app/client/ui_scut.cpp:500` | `UIScutBarClass::Unknown_611710` | marker | NOT EXACT: register / stack slots of the name temporaries (the call structure is the client's) |

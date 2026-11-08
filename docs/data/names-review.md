@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1608 |
-| 2 | describes what the code does | 3761 |
-| 1 | neutral placeholder | 18913 |
+| 3 | by convention from a client-named file or sibling | 1610 |
+| 2 | describes what the code does | 3762 |
+| 1 | neutral placeholder | 18939 |
 
 ## For review (score 3 and below)
 
@@ -13582,6 +13582,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/ui_scan.cpp:26` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F34` | `app/client/ui_scan.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5EB0` | `app/client/ui_scan.cpp:31` | untagged neutral name (D10) |
+| 1 | `UIScanInterruptDelay` | `app/client/ui_scan.cpp:32` | neutral (D10) |
 | 1 | `Unknown5BE980Class` | `app/client/ui_scan.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown198` | `app/client/ui_scan.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown1A4` | `app/client/ui_scan.cpp:45` | untagged neutral name (D10) |
@@ -13607,41 +13608,66 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_60FEE0` | `app/client/ui_scan.cpp:509` | untagged neutral name (D10) |
 | 1 | `Unknown_60EFE0` | `app/client/ui_scan.cpp:515` | untagged neutral name (D10) |
 | 1 | `Unknown_84` | `app/client/ui_scan.cpp:518` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/ui_scan.cpp:533` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/ui_scan.cpp:534` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_scan.cpp:543` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_scan.cpp:544` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_scan.cpp:544` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Changed_Field` | `app/client/ui_scan.cpp:545` | neutral (D10) |
+| 1 | `Unknown_6CE7D0` | `app/client/ui_scan.cpp:690` | untagged neutral name (D10) |
+| 1 | `Unknown_70B0A0` | `app/client/ui_scan.cpp:724` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/ui_scan.cpp:762` | untagged neutral name (D10) |
+| 1 | `Unknown_60E6A0` | `app/client/ui_scan.cpp:764` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_scan.cpp:770` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/ui_scan.cpp:771` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/ui_scan.cpp:772` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/ui_scan.cpp:772` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/ui_scan.cpp:811` | untagged neutral name (D10) |
+| 1 | `Unknown_Refresh` | `app/client/ui_scan.cpp:814` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/ui_scan.cpp:819` | untagged neutral name (D10) |
+| 1 | `Unknown_Update` | `app/client/ui_scan.cpp:820` | untagged neutral name (D10) |
 | 1 | `ui_scan.h` | `app/client/ui_scan.h:3` | provisional header name for ui_scan.cpp |
-| 1 | `UIScanThreatClass` | `app/client/ui_scan.h:19` | neutral (D10) |
-| 1 | `Unknown14` | `app/client/ui_scan.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/ui_scan.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/ui_scan.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/ui_scan.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/ui_scan.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/ui_scan.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/ui_scan.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown_60FEE0` | `app/client/ui_scan.h:24` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_scan.h:27` | neutral |
-| 1 | `Unknown1C` | `app/client/ui_scan.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/ui_scan.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown5BE980Class` | `app/client/ui_scan.h:42` | untagged neutral name (D10) |
-| 1 | `view, layer` | `app/client/ui_scan.h:45` | what 0x57DD20 passes |
-| 1 | `Unknown_54` | `app/client/ui_scan.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_scan.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_scan.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_scan.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_scan.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ui_scan.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown_Watch_0C` | `app/client/ui_scan.h:53` | untagged neutral name (D10) |
-| 1 | `target, assessment, sound, level` | `app/client/ui_scan.h:55` | what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel) |
-| 1 | `Unknown_60E540` | `app/client/ui_scan.h:55` | untagged neutral name (D10) |
-| 1 | `target, assessment, sound, level` | `app/client/ui_scan.h:56` | 0x60E540's |
-| 1 | `Unknown_60ED60` | `app/client/ui_scan.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown_60ED10` | `app/client/ui_scan.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown_60EFE0` | `app/client/ui_scan.h:58` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_scan.h:59` | neutral |
-| 1 | `Unknown_60F1A0` | `app/client/ui_scan.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown198` | `app/client/ui_scan.h:65` | untagged neutral name (D10) |
-| 1 | `Threat` | `app/client/ui_scan.h:67` | neutral |
-| 1 | `Unknown1A4` | `app/client/ui_scan.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown59E2C0Class` | `app/client/ui_scan.h:15` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/ui_scan.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_scan.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_scan.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_scan.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_scan.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/ui_scan.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/ui_scan.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/ui_scan.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_scan.h:26` | untagged neutral name (D10) |
+| 1 | `UIScanThreatClass` | `app/client/ui_scan.h:37` | neutral (D10) |
+| 1 | `Unknown18` | `app/client/ui_scan.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/ui_scan.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/ui_scan.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/ui_scan.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_60FEE0` | `app/client/ui_scan.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_Update` | `app/client/ui_scan.h:43` | neutral (D10) |
+| 1 | `Unknown_Refresh` | `app/client/ui_scan.h:44` | neutral (D10) |
+| 1 | `std:` | `app/client/ui_scan.h:47` | neutral |
+| 1 | `Unknown14` | `app/client/ui_scan.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_scan.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_scan.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown5BE980Class` | `app/client/ui_scan.h:60` | untagged neutral name (D10) |
+| 1 | `view, layer` | `app/client/ui_scan.h:63` | what 0x57DD20 passes |
+| 1 | `Unknown_54` | `app/client/ui_scan.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_scan.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_scan.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_scan.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_scan.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_scan.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown_Watch_0C` | `app/client/ui_scan.h:71` | untagged neutral name (D10) |
+| 1 | `target, assessment, sound, level` | `app/client/ui_scan.h:73` | what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel) |
+| 1 | `Unknown_60E540` | `app/client/ui_scan.h:73` | untagged neutral name (D10) |
+| 1 | `target, assessment, sound, level` | `app/client/ui_scan.h:74` | 0x60E540's |
+| 1 | `Unknown_60ED60` | `app/client/ui_scan.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown_60E6A0` | `app/client/ui_scan.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown_60ED10` | `app/client/ui_scan.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_60EFE0` | `app/client/ui_scan.h:77` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_scan.h:78` | neutral |
+| 1 | `Unknown_60F1A0` | `app/client/ui_scan.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown198` | `app/client/ui_scan.h:86` | untagged neutral name (D10) |
+| 1 | `Threat` | `app/client/ui_scan.h:88` | neutral |
+| 1 | `Unknown1A4` | `app/client/ui_scan.h:89` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_scut.cpp:17` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
@@ -20617,18 +20643,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `UIMesh` | `app/client/ui_proc.h:26` | the FAIL_IFs' 'uimesh' |
 | 2 | `UIMesh` | `app/client/ui_proc_impl.h:32` | the FAIL_IFs' 'uimesh' |
 | 2 | `UIScanButtonNames` | `app/client/ui_scan.cpp:34` | what it holds |
-| 2 | `owner` | `app/client/ui_scan.h:22` | what it holds |
-| 2 | `Owner` | `app/client/ui_scan.h:26` | what it holds |
-| 2 | `key` | `app/client/ui_scan.h:51` | InterfaceClass's |
-| 2 | `object` | `app/client/ui_scan.h:52` | UIMFDClass's |
-| 2 | `event, object` | `app/client/ui_scan.h:57` | the event's type |
-| 2 | `object` | `app/client/ui_scan.h:58` | what 0x60E580 passes |
-| 2 | `Create_Mesh` | `app/client/ui_scan.h:60` | what it does |
-| 2 | `Get_Targeting` | `app/client/ui_scan.h:61` | what it returns |
-| 2 | `Buttons` | `app/client/ui_scan.h:64` | what it holds |
-| 2 | `Verb` | `app/client/ui_scan.h:66` | what it holds |
-| 2 | `ConFont` | `app/client/ui_scan.h:69` | what it holds |
-| 2 | `FactionFont` | `app/client/ui_scan.h:70` | what it holds |
+| 2 | `owner` | `app/client/ui_scan.h:40` | what it holds |
+| 2 | `Owner` | `app/client/ui_scan.h:46` | what it holds |
+| 2 | `key` | `app/client/ui_scan.h:69` | InterfaceClass's |
+| 2 | `object` | `app/client/ui_scan.h:70` | UIMFDClass's |
+| 2 | `object` | `app/client/ui_scan.h:75` | what 0x60F1A0 passes |
+| 2 | `event, object` | `app/client/ui_scan.h:76` | the event's type |
+| 2 | `object` | `app/client/ui_scan.h:77` | what 0x60E580 passes |
+| 2 | `Create_Mesh` | `app/client/ui_scan.h:79` | what it does |
+| 2 | `Get_Targeting` | `app/client/ui_scan.h:82` | what it returns |
+| 2 | `Buttons` | `app/client/ui_scan.h:85` | what it holds |
+| 2 | `Verb` | `app/client/ui_scan.h:87` | what it holds |
+| 2 | `ConFont` | `app/client/ui_scan.h:90` | what it holds |
+| 2 | `FactionFont` | `app/client/ui_scan.h:91` | what it holds |
 | 2 | `FontStringFilesClass` | `app/client/ui_scut.cpp:15` | fontdatabase.h's |
 | 2 | `UIScutBankGadgetClass` | `app/client/ui_scut.cpp:98` | its 'bank_%d' model |
 | 2 | `Group` | `app/client/ui_scut.cpp:107` | what it holds |
@@ -23338,7 +23365,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `AvatarPipClass` | `app/client/ui_ptrade.cpp:46` | class-from-file (D24) for app\client\avatar_pip.cpp |
 | 3 | `ui_registration.h` | `app/client/ui_registration.h:16` | header name assumed from ui_registration.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_scan.cpp:27` | the FAIL_IF's |
-| 3 | `UIScanClass` | `app/client/ui_scan.h:42` | class-from-file (D24) for ui_scan.cpp |
+| 3 | `UIScanClass` | `app/client/ui_scan.h:60` | class-from-file (D24) for ui_scan.cpp |
+| 3 | `Peek_Object` | `app/client/ui_scan.h:80` | the FAIL_IF's |
+| 3 | `Get_Client` | `app/client/ui_scan.h:81` | the FAIL_IF's |
 | 3 | `FontManagerClass` | `app/client/ui_scut.cpp:16` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_scut.cpp:31` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `Owner` | `app/client/ui_scut.cpp:89` | the assert's |
