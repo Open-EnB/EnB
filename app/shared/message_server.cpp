@@ -48,9 +48,6 @@ int MessageServerProtocolClass::Unknown_4BCD10()
 
 
 // 0x4BCD30
-// NOT EXACT: shape (explain.py: registers, 2 rows once masked): the two inlined ArrayList destructor calls
-// ('Filters.clear()' and 'remove') form their element's address as offset + vector where ours loads the
-// vector first; everything else is the client's (0.85)
 void MessageServerProtocolClass::Unknown_4BCD30()
 {
 	TCPCon *con = NULL;
@@ -91,11 +88,12 @@ void MessageServerProtocolClass::Unknown_4BCD30()
 				Wstring text;
 				text.set(buffer);
 				if (filter.Unknown_4BE7A0(text)) {
+					ArrayList<MessageFilterClass> &filters = client->Filters;
 					if (filter.Type == 0xFFFFFF) {
-						client->Filters.clear();
+						filters.clear();
 						client->Mask = 0;
 					} else {
-						client->Filters.addTail(filter);
+						filters.addTail(filter);
 						client->Mask |= filter.Type;
 					}
 				}
