@@ -74,6 +74,18 @@ class Ledger(unittest.TestCase):
     def test_compare(self):
         self.assertEqual(ledger.compare(self.src, self.root), 0)
 
+    def test_describe_adds_a_reconstructed_file(self):
+        ledger.describe('app', 'shared/auxdata/zz.cpp', 'desc A', self.root)
+        ledger.describe('app', 'shared/auxdata/zz.h', 'desc H', self.root)
+        d = ledger.descriptions(self.root)
+        self.assertEqual(d[('app', 'shared/auxdata/zz.cpp')], 'desc A')
+        self.assertEqual(d[('app', 'shared/auxdata/zz.h')], 'desc H')
+        st = ledger.load(self.root)['app']
+        self.assertEqual(st['files']['zz'], {'name': 'shared/auxdata/zz.cpp'})
+        self.assertEqual(st['headers']['shared/auxdata/zz.h'], 'reconstructed')
+        with self.assertRaises(SystemExit):
+            ledger.describe('app', 'other/zz.cpp', 'same key', self.root)
+
     def test_case_collision_refused(self):
         s = json.loads(json.dumps(STATE))
         s['wwlib']['headers']['vector.h'] = 'R'

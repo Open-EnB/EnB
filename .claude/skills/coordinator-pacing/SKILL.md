@@ -44,7 +44,7 @@ python .claude/skills/coordinator-pacing/scripts/pacing.py heartbeat --plan .wor
 2026-10-27), so they do not block launches; any other loss sets the allowance to 0.
 
 It prints and logs: both usage windows with reset times; host free memory, the pool's running and leased VMs;
-whether HEAD's imports.json parses and which addresses are lost outright against the baseline (pairs that
+whether HEAD's ledger (docs/data/imports) parses and which addresses are lost outright against the baseline (pairs that
 reappear under another file are rename moves, D95(c), not losses); the burn rate observed since the previous
 heartbeat line (per builder, per hour), or the defaults when there is none; the projection at the handoff time
 with the builders running now; and the allowance: how many more builders may start.
@@ -57,7 +57,7 @@ The rules behind the allowance (defaults in the script, all overridable):
   and 4 % of the session window per hour. Launch only while the projection at the handoff stays under the cap
   (92 %). Never launch under 5 % of the week. Seven Opus builders burned about 1 % of the session window per
   minute at their heaviest; the observed rate in the log is the better guide once two heartbeats exist.
-- **Health:** no launch while HEAD's imports.json does not parse or an address is lost outright. Fix first
+- **Health:** no launch while HEAD's ledger does not parse or an address is lost outright. Fix first
   (usually a builder's commit script: see workflow.md §3.8).
 - **Harness check (D182):** at a heartbeat after any landed commit that rebuilds a file clienttest or udpreplay links
   (app code under app/, wlib / wnet, their stubs), run them at HEAD on a quiet copy: a worktree at HEAD (`python
@@ -105,7 +105,7 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
   (the Write tool, never a heredoc) with slots for the last results; run them after the final report.
 - Then: `python tools/vc6/pool.py stop-idle --minutes 0`, `python tools/harness/clientpoc.py clean --all` (POC
   instances; a running client's is kept), `git status` clean except `.claude/settings.json`,
-  HEAD's imports.json parses, delete the heartbeat cron, log the end with the final usage figures.
+  HEAD's ledger parses, delete the heartbeat cron, log the end with the final usage figures.
 - Claims: `python tools/run_branch.py release <builder id>` (or `release UNIT`) for each claim whose builder
   brought nothing in; the others end when the run's PR merges. An old issue claim: `release N` (it drops the
   `Claims #N` line too). At handoff `run_branch.py ready --summary FILE

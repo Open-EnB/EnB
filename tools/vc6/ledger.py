@@ -27,6 +27,9 @@ git revision (its shards, or its docs/data/imports.json before the split).
                                                   one-shot: a single-file ledger into shards
     python ledger.py compare OLD [SRC]            OLD (a snapshot) against SRC's export: every field
                                                   equal, stored counts against the computed ones
+    python ledger.py describe LIB NAME TEXT       a reconstructed file's description (RECONSTRUCTED):
+                                                  app shared/auxdata/x.cpp -> app/x.json,
+                                                  app shared/auxdata/x.h -> app/headers/shared/auxdata/x.h.json
 """
 import argparse
 import ast
@@ -321,6 +324,28 @@ def split(path, root=None, descriptions_from=None):
           f'{sum(len(b.get("headers", {})) for b in state.values())} header rows, {len(desc)} descriptions')
 
 
+def describe(lib, name, text, root=None):
+    """Write or update a reconstructed file's shard (its description; the RECONSTRUCTED entry): NAME is the
+    path under the library with '/' (shared/auxdata/x.cpp). A .cpp gets <lib>/<key>.json with its name, a
+    header <lib>/headers/NAME.json with copy 'reconstructed'; verify fills in the rest."""
+    root = root or LEDGER
+    name = name.replace('\\', '/')
+    if name.lower().endswith('.cpp'):
+        key = os.path.splitext(os.path.basename(name))[0].lower()
+        p = os.path.join(root, lib, key + '.json')
+        obj = json.loads(_text(p)) if os.path.isfile(p) else {}
+        if obj.get('name', name) != name:
+            raise SystemExit(f'{lib}: {name} and {obj["name"]} share the key {key}')
+        obj['name'] = name
+    else:
+        p = os.path.join(root, lib, HEADERS, *name.split('/')) + '.json'
+        obj = json.loads(_text(p)) if os.path.isfile(p) else {}
+        obj.setdefault('copy', 'reconstructed')
+    obj['description'] = text
+    _write(p, dumps(obj))
+    print(os.path.relpath(p, REPO).replace(os.sep, '/'))
+
+
 def compare(old_path, src=None):
     """OLD snapshot against SRC's export: 0 when equal but for the counts, which must equal the computed."""
     old = json.loads(_text(old_path))
@@ -361,6 +386,10 @@ def main():
     s.add_argument('file')
     s.add_argument('--root', help='the shard directory (default docs/data/imports)')
     s.add_argument('--descriptions', metavar='PYFILE', help="a Python file whose RECONSTRUCTED literal gives the descriptions")
+    d = sub.add_parser('describe', help="a reconstructed file's description (its RECONSTRUCTED entry)")
+    d.add_argument('lib')
+    d.add_argument('name', help="the path under the library with '/', e.g. shared/auxdata/x.cpp")
+    d.add_argument('text')
     c = sub.add_parser('compare', help='a snapshot against an export: equal but for the counts')
     c.add_argument('old')
     c.add_argument('src', nargs='?')
@@ -373,6 +402,8 @@ def main():
             sys.stdout.write(text)
     elif a.cmd == 'split':
         split(a.file, a.root, a.descriptions)
+    elif a.cmd == 'describe':
+        describe(a.lib, a.name, a.text)
     elif a.cmd == 'compare':
         sys.exit(compare(a.old, a.src))
 

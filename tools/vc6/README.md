@@ -32,9 +32,9 @@ A job takes its VMs from `ENB_VC6_HOSTS=<user>@<ip>[,...]` (printed by `pool.py 
 | `pool.py stop-idle [--minutes M]` | Stop free VMs idle for M minutes |
 | `pool.py create [N] [--max M]` | Make N differencing clones of the base disk |
 | `pool.py destroy VM...` or `--all-free` | Delete pool clones (never other VMs) |
-| `commit_mine.py MSGFILE [SPEC.json] [--base REV] [--file NAME ...] [--addr A ...] [--path F ...] [--refresh-totals] [--dry]` | Commit only your own work when the index is shared with other builders (D62, D112(2)): the `whole` paths as they are, plus only the hunks of shared files (`importer.py`, headers) whose +/- lines contain your keywords; built in a private index (one per run) and landed by compare-and-swap (`commit-tree`, then `update-ref <branch> NEW OLD`; one rebuild on a moved HEAD, then a loud failure). `docs/data/imports.json` by entry: `--file NAME` (or a block-name key) takes that `files` block and its stem's `headers` rows (a header key as NAME takes that row), other builders' adjacent entries stay out; `in_tree_total` hunks dropped unless `--refresh-totals` (all libraries' count lines from the working copy). `attempts.csv`, `not-exact.md`, `names-review.md` by row, always: HEAD's file plus/minus the rows whose address (`--addr`, SPEC `addrs`, 0x keys, the --file blocks' in_tree) or file (`--path`, SPEC `files`/`whole`, the blocks' sources and headers) is yours; their count lines follow. `--dry` lists the choices |
-| `commit_rows.py` | commit_mine's row and entry merges (no git): csv records with multi-line fields, .md table rows by path, imports.json `files`/`headers` entries and count lines |
-| `wt.py new NAME [--base REV]` / `list` / `bring-over NAME [--target B] [--lib X] [--dry]` / `bring-over A B C..D [--batch-name N] [--target B] [--dry] [--picks-only] [--resume]` / `remove NAME [--delete-branch]` | Builder worktrees (D113). `new`: `.work/wt/NAME` on branch `wt/NAME` at REV (HEAD), junctions `.work/locks`, `pool`, `pseudo`, copies of `vc6_hosts.json`, the `.dgram` captures and the non-app libraries, the base in `.work/wt/NAME.base`; importer.py there runs as agent NAME. `bring-over`: the branch's commits not yet on B (master) are fast-forwarded or cherry-picked in a scratch worktree `NAME.bo` (attempts.csv conflicts by row union, names-review.md / not-exact.md regenerated, any other conflict refused), the libraries they touch verified there (`importer.py verify --pool 1`), and B moves only when no address is lost outright against B's imports.json (D202: D66 moves and shared holders land, printed, and the merge still needs the maintainer's `/accept-d66`) and the commits record what the verify gives: under the importer lock, by compare-and-swap, the checked-out worktree's uncommitted copies 3-way merged. A modified non-generated tracked file in the builder's worktree stops it. **Batch form** (two or more branches, a range `A..B`, or `--batch-name`; D202), one verify over all of them: each branch's own commits cherry-picked in order onto one scratch worktree `N.bo` of B (patch-equivalent and empty ones skipped); generated files take B's side, attempts.csv keeps both sides' rows, importer.py keeps both sides when both only add and the result compiles; any other conflict stops with the file and commit named, B untouched and the scratch left mid-pick (finish it, rerun with `--resume`, or `wt.py remove N`). Then `verify --lock-wait`, the same loss rule, `report`, names.py, notexact.py, a generated record commit; B moves only if clean (a dirty or moved B is refused and named). `--picks-only` stops before the verify. Also the cure for "the commits record other pairs than the verify gives": `bring-over A --batch-name N`. `remove`: junctions first (rmdir), then `git worktree remove`; refuses a dirty worktree without `--force`. `list`: every worktree, its base, commits ahead, dirty or clean |
+| `commit_mine.py MSGFILE [SPEC.json] [--base REV] [--file NAME ...] [--addr A ...] [--path F ...] [--library-files] [--dry]` | Commit only your own work when the index is shared with other builders (D62, D112(2)): the `whole` paths as they are, plus only the hunks of shared files (`importer.py`, headers) whose +/- lines contain your keywords; built in a private index (one per run) and landed by compare-and-swap (`commit-tree`, then `update-ref <branch> NEW OLD`; one rebuild on a moved HEAD, then a loud failure). The ledger by whole shard: `--file NAME` takes `<lib>/NAME.json` and its stem's header shards (a header name as NAME takes that shard), as the working copy has them (added, changed or removed); `--library-files` takes every `library.json`. `attempts.csv`, `not-exact.md`, `names-review.md` by row, always: HEAD's file plus/minus the rows whose address (`--addr`, SPEC `addrs`, 0x keys, the --file blocks' in_tree) or file (`--path`, SPEC `files`/`whole`, the blocks' sources and headers) is yours; their count lines follow. `--dry` lists the choices |
+| `commit_rows.py` | commit_mine's row merges (no git): csv records with multi-line fields, .md table rows by path (ledger shards are taken whole) |
+| `wt.py new NAME [--base REV]` / `list` / `bring-over NAME [--target B] [--lib X] [--dry]` / `bring-over A B C..D [--batch-name N] [--target B] [--dry] [--picks-only] [--resume]` / `remove NAME [--delete-branch]` | Builder worktrees (D113). `new`: `.work/wt/NAME` on branch `wt/NAME` at REV (HEAD), junctions `.work/locks`, `pool`, `pseudo`, copies of `vc6_hosts.json`, the `.dgram` captures and the non-app libraries, the base in `.work/wt/NAME.base`; importer.py there runs as agent NAME. `bring-over`: the branch's commits not yet on B (master) are fast-forwarded or cherry-picked in a scratch worktree `NAME.bo` (attempts.csv conflicts by row union, names-review.md / not-exact.md regenerated, any other conflict refused), the libraries they touch verified there (`verify.py --pool 1`), and B moves only when no address is lost outright against B's ledger (D202: D66 moves and shared holders land, printed, and the merge still needs the maintainer's `/accept-d66`) and the commits record what the verify gives: under the importer lock, by compare-and-swap, the checked-out worktree's uncommitted copies 3-way merged. A modified non-generated tracked file in the builder's worktree stops it. **Batch form** (two or more branches, a range `A..B`, or `--batch-name`; D202), one verify over all of them: each branch's own commits cherry-picked in order onto one scratch worktree `N.bo` of B (patch-equivalent and empty ones skipped); generated files take B's side, attempts.csv keeps both sides' rows, libdefs.py and importer.py keep both sides when both only add and the result compiles, a conflicted ledger shard takes B's side (keeping the branch's description); any other conflict stops with the file and commit named, B untouched and the scratch left mid-pick (finish it, rerun with `--resume`, or `wt.py remove N`). Then `verify --lock-wait`, the same loss rule, `report`, names.py, notexact.py, a generated record commit; B moves only if clean (a dirty or moved B is refused and named). `--picks-only` stops before the verify. Also the cure for "the commits record other pairs than the verify gives": `bring-over A --batch-name N`. `remove`: junctions first (rmdir), then `git worktree remove`; refuses a dirty worktree without `--force`. `list`: every worktree, its base, commits ahead, dirty or clean |
 
 ## Building and linking
 
@@ -53,29 +53,52 @@ A job takes its VMs from `ENB_VC6_HOSTS=<user>@<ip>[,...]` (printed by `pool.py 
 | `runtime_match.sh` | Byte-match the VC6 runtime libraries and D3DX (`docs/data/bytematch-*`) |
 | `bytematch_all.sh [--pool K] [WORKDIR]` | Compile all libraries from each EA copy (R, G, Z) and byte-match them (~4 min). Reference only since the freeze (D211): no tool reads its output |
 
-## Verifying the libraries (importer.py)
+## Verifying the libraries (verify.py, the ledger)
 
-`importer.py` keeps `docs/data/imports.json` (what came from where, what matches) and writes
-`docs/imports.md`. Since the freeze (D211, 2026-11-07) the EA-derived libraries are plain source:
-a change is a direct edit of the file plus an entry in its end-of-file `// EnB:` block
-(docs/conventions.md, "E&B changes to an EA-derived file"; docs/workflow.md §2), then `verify`
-and `pairs_cmp.py`. `RECONSTRUCTED` (file descriptions) is the only table left in importer.py.
+Since the freeze (D211, 2026-11-07) the EA-derived libraries are plain source: a change is a direct
+edit of the file plus an entry in its end-of-file `// EnB:` block (docs/conventions.md, "E&B changes
+to an EA-derived file"; docs/workflow.md §2), then `verify.py` and `pairs_cmp.py`. importer.py was
+split (docs/pipeline-plan.md §3.3):
+
+| Module | Holds |
+|---|---|
+| `libdefs.py` | The libraries (`LIB_DIR`, `LIB_TREE`, `APP_LIBS`), EA's copies (`COPY_ROOT`), compile flags (`LIB_FLAGS`, `FILE_FLAGS`, `flags_of`), include paths (`tree_includes`, `late_sync`), `dest()`, `lib_of`, `NOT_LINKED` |
+| `ledger.py` | The ledger `docs/data/imports/`: `load(src)` (the tree, a shard directory, a snapshot file or a git revision; imports.json's dict with the counts computed), `save`, `load_state` / `save_state`, `RECONSTRUCTED` (computed from the shards' descriptions); commands `export`, `describe`, `split`, `compare` |
+| `verify.py` | Compile and byte-match the libraries, record the pairs in the ledger; `compile_and_match` |
+| `report.py` | Write docs/imports.md from the ledger |
+| `vc6lock.py` | The importer lock, the agent and its scratch folder `WORK`, `pool_lease` |
+| `importer.py` | Transition shim: `import importer` resolves every old attribute in the modules above; `importer.py verify\|report` forwards with a deprecation line |
+
+**The ledger** (`docs/data/imports/`, one JSON shard per source file, so two landings conflict only
+when they touch the same file):
+
+* `<lib>/<key>.json`: one source file's block (`name`, `copy`, `in_tree`, `ambiguous`, `tiebreak`,
+  `shared`, `shared_callers`, `short_known`, `expected`, `best`, `merged`, `headers_from`), key = the
+  file's base name in lower case; plus `description` for a file written from the client (`RECONSTRUCTED`).
+* `<lib>/headers/<name>.json`: one header row, `{"copy": origin}` (+ `description`); `<name>` keeps its
+  case and the app's subdirectories (`app/headers/client/ui_mesh.h.json`). A shard with only a
+  description is a `RECONSTRUCTED` entry without a header row.
+* `<lib>/library.json`: `base`, `totals` (each copy's plan-time count), `compile_errors`.
+* The counts (`in_tree_total`, `ambiguous_total`) are not stored: `ledger.load` computes them.
+* JSON sorted, indent 1 (one array element per line), LF, final newline.
 
 ```
-python tools/vc6/importer.py verify --lib X [--lib Y] --pool K [--holder-pid P]   compile the tree's library and byte-match it on K leased VMs (release afterwards; D166: a function found at several byte-identical client addresses is credited to the address whose every caller is exact in the same file and is the one our callers reach, `objmatch.py caller_tiebreak`; the pair is in `in_tree` and in the file's `tiebreak` list, and leaves `ambiguous`)
-python tools/vc6/importer.py report                                              write docs/imports.md
+python tools/vc6/verify.py --lib X [--lib Y] --pool K [--holder-pid P]   compile the tree's library and byte-match it on K leased VMs (release afterwards; D166: a function found at several byte-identical client addresses is credited to the address whose every caller is exact in the same file and is the one our callers reach, `objmatch.py caller_tiebreak`; the pair is in `in_tree` and in the file's `tiebreak` list, and leaves `ambiguous`)
+python tools/vc6/report.py                                              write docs/imports.md
+python tools/vc6/ledger.py export [SRC | --rev SHA] [-o FILE]           the single-file snapshot (a baseline: .work/imports.<sha>.json)
+python tools/vc6/ledger.py describe LIB NAME TEXT                       a reconstructed file's description (docs/workflow.md §2.1)
 ```
 
-**Per-agent scratch (D112).** `importer.py --agent NAME` (or `ENB_AGENT=NAME`; `tryv2.py --agent NAME VARIANTS.py` the same) puts the compile output under `.work/NAME/tmp/enb_import/` instead of the shared `%TEMP%\enb_import`, names the importer lock's owner, and prefixes tryv2's tags (`tryv2-NAME-base`), so concurrent builders stop overwriting each other's objects. With no agent, a run from inside a git worktree other than the main tree takes the worktree's directory name; otherwise the scratch is `%TEMP%\enb_import` and the lock owner USERNAME@host, as before. vc6.py's per-host sync cache stays shared (keyed by host IP).
+**Per-agent scratch (D112).** `verify.py --agent NAME` (or `ENB_AGENT=NAME`; `tryv2.py --agent NAME VARIANTS.py` the same) puts the compile output under `.work/NAME/tmp/enb_import/` instead of the shared `%TEMP%\enb_import`, names the importer lock's owner, and prefixes tryv2's tags (`tryv2-NAME-base`), so concurrent builders stop overwriting each other's objects. With no agent, a run from inside a git worktree other than the main tree takes the worktree's directory name; otherwise the scratch is `%TEMP%\enb_import` and the lock owner USERNAME@host, as before. vc6.py's per-host sync cache stays shared (keyed by host IP).
 
-Both commands take `--lock-wait S` (the importer lock, docs/workflow.md §1). The import commands
-(plan, assemble, add, replay, refine) were deleted at the freeze (323f258d).
+`verify.py` and `report.py` take `--lock-wait S` (the importer lock, docs/workflow.md §1). The import
+commands (plan, assemble, add, replay, refine) were deleted at the freeze (323f258d).
 
 | Script | Does |
 |---|---|
 | `verify_pr.py PR [--pool K] [--approved] [--no-post] [--keep] [--lib X]` | Verify a pull request before it reaches master (docs/github-plan.md 4.5.5): GitHub's test merge `pull/PR/merge` in a detached worktree `.work/wt/prPR.vf`, the libraries it touches (wt.py's libs_touched) verified on the pool, pairs against master's record and the PR's own, `// NOT EXACT` markers before and after; posts the commit status `vc6-verify` and one PR comment (.work/verify/prPR.json). Refuses a PR that changes anything but C/C++ sources, docs and docs/data until `--approved` (the maintainer has read it) |
 | `verify_watch.py once [--dry]` / `launch [--ref R]` / `land PR [--dry]` / `automerge on\|off` / `install [--minutes N]` / `uninstall` / `status` | The polling service (docs/github-plan.md 4.5.5): runs verify_pr.py on each ready PR to master whose head or master is new, and lands contributors' PRs (one commit with the verified record, through a `verified/prN` landing PR it merges when `checks` pass): by itself when automerge is on and the PR is eligible, or on a maintainer's `/land SHA`. The scheduled task "EnB verify watch" runs `launch`: master's own `once` from `.work/wt/verifier`. A gated PR waits at `vc6-verify: pending` for `/verify-approved SHA`; `/hold` stops a landing. Log `.work/verify/watch.log` |
-| `pairs_cmp.py A.json B.json` | Compare the sets of `(lib, file, address)` pairs of two saved `imports.json` copies and print `gained`, `lost`, `lost outright` (addresses no file holds afterwards; D66(v) needs it empty) and `moves` (lost pairs whose address another file holds): the fix loop keeps a change only if nothing is lost. Tie-break pairs (D166, a file's `tiebreak` list) are shown apart (`gained tie-break`, `lost tie-break`); one lost with its file's other lost pairs is `lost tie-break with its caller (D66 vii, not a loss)` and not in `lost` |
+| `pairs_cmp.py A B` | Compare the sets of `(lib, file, address)` pairs of two ledgers (each a shard directory such as `docs/data/imports`, a snapshot file from `ledger.py export`, or a git revision) and print `gained`, `lost`, `lost outright` (addresses no file holds afterwards; D66(v) needs it empty) and `moves` (lost pairs whose address another file holds): the fix loop keeps a change only if nothing is lost. Tie-break pairs (D166, a file's `tiebreak` list) are shown apart (`gained tie-break`, `lost tie-break`); one lost with its file's other lost pairs is `lost tie-break with its caller (D66 vii, not a loss)` and not in `lost` |
 | `tryvariants.py LIB FILE VARIANTS.py` | Compile text-edit variants of one file; report the client functions each gains or loses. One library file at its top level only (no app subdirectories): otherwise use `tryv2.py` |
 | `tryv2.py VARIANTS.py` | Variants whose edits span several files (a header and its .cpp, two app files, app subdirectories): `V = {name: [(relpath, old, new)]}`, `COMPILE`, optional `WATCH` addresses, optional `EXTRA_INC` (extra include/sync directories, default `libs/sgistl`); gains/losses per variant, tree files restored. Prefer it for app code |
 | `flagsweep.py FILE SYMBOL ADDR [--source COPY] [--jobs N]` | Compiles FILE (or an untracked COPY of a library file) with every `/O1 /O2` x `/Ob0 /Ob1 /Ob2` x `/G3 /G4 /G5 /G6 /GB` in place of the library's switches (30 compiles, ~1 min on one VM) and ranks exact / `explain.py` class / masked residue: rules switches out in one run. So far no switch has ever fixed a near miss (workflow.md §3.1) |
@@ -90,7 +113,7 @@ with a file tool, not a shell heredoc (escapes get mangled).
 * **`bytematch_all.sh` writes to `%TEMP%\enb_bytematch` unless given a directory** (the usual one
   is `.work/bm2`). Its output is reference only since D211.
 
-* **The importer lock and child processes.** A script holding the lock that runs `importer.py`,
+* **The importer lock and child processes.** A script holding the lock that runs `verify.py`,
   `tryvariants.py` or `trydiff.py` as a child deadlocks until `--lock-wait`: run
   children from an unlocked parent or call in-process. `tools/vc6/zhall.py` holds the
   lock for its whole run (~15 min for ww3d2); read-only `objdiff.py` on verify objects still works.
@@ -117,4 +140,4 @@ with a file tool, not a shell heredoc (escapes get mangled).
 * **Checked builds.** WWASSERT / WWDEBUG_* are compiled out in the release libraries as in the
   client; `ENB_CHECKED=1 build.py --out build/chk` compiles them in. A checked build changes some
   mangled names (`private=public`): build every library the same way. A full build also compiles
-  another builder's uncommitted importer.py entries.
+  another builder's uncommitted libdefs.py entries.

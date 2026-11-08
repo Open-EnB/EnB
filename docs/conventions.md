@@ -288,7 +288,7 @@ under the repository's GPL v3 (D1, [LICENSE](../LICENSE)). The generators (`auxr
 
 **Files imported from EA's C&C releases** (Renegade, Generals, Zero Hour: the `ww*` libraries,
 `binkmovie`, `libs/wwonline`) keep EA's licence header and Westwood's banner unchanged. Which copy
-and commit each came from is recorded in `docs/data/imports.json` ([imports.md](imports.md)), not in
+and commit each came from is recorded in the ledger `docs/data/imports/` ([imports.md](imports.md)), not in
 the file. A file changed to match the client (edits, C-equivalent comments, functions spliced from
 another copy, or an EA file reworked in place such as `wwlib/rc4.cpp`) says so on the line under EA's
 copyright:

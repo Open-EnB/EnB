@@ -9,15 +9,16 @@ described in docs/toolchain.md §1.
 | What | Where | How to recreate |
 |---|---|---|
 | Byte-match evidence for every EA copy (R/G/Z); reference only since the freeze (D211), no tool takes it as input | `.work/bm2` (git-ignored) | `tools/vc6/bytematch_all.sh` (all three copies, each against its own libraries; `RAD` points at `SDK\radtools\include_enb`, written by `tools/vc6/sdk_patch.py`) |
-| The tree's own compiled objects, read by `gaps.py`, `layoutdiff.py`, `vtables.py`, `symbols.py` | `%TEMP%\enb_import\verify-<lib>` | `python tools/vc6/importer.py verify` |
+| The tree's own compiled objects, read by `gaps.py`, `layoutdiff.py`, `vtables.py`, `symbols.py` | `%TEMP%\enb_import\verify-<lib>` | `python tools/vc6/verify.py` |
 | The build VMs' addresses | `.work/vc6_hosts.json` | `python tools/vc6/vc6.py discover` (after the VMs restart: DHCP) |
-| Scratch scripts, backups of `importer.py` and `imports.json`, logs | `.work/` | disposable |
-| The importer lock: one run at a time of `importer.py` (`verify`, `report`), `tryvariants.py`, `trydiff.py` (and anything calling `importer.compile_and_match`/`save_state`), held until the process exits; JSON with agent (`ENB_AGENT`, else user@host), pid, command, start. A second run prints `importer in use by ...` and waits `--lock-wait` s (env `ENB_LOCK_WAIT`, default 600), then exits 1; a dead holder (same host) or one older than 4 h is taken over | `.work/locks/importer.lock` | nothing to do: removed at exit; if a run dies it is taken over by the next one (delete it by hand only if no importer is running) |
+| Scratch scripts, ledger snapshots (`ledger.py export -o .work/...`), logs | `.work/` | disposable |
+| The importer lock: one run at a time of `verify.py`, `report.py`, `tryvariants.py`, `trydiff.py` (and anything calling `verify.compile_and_match`/`ledger.save_state`; `vc6lock.py`), held until the process exits; JSON with agent (`ENB_AGENT`, else user@host), pid, command, start. A second run prints `importer in use by ...` and waits `--lock-wait` s (env `ENB_LOCK_WAIT`, default 600), then exits 1; a dead holder (same host) or one older than 4 h is taken over | `.work/locks/importer.lock` | nothing to do: removed at exit; if a run dies it is taken over by the next one (delete it by hand only if no importer is running) |
 
 `.work/` holds nothing that the repository depends on. Every kept change lives in the tree. In an
 EA-derived file it is also described in the file's end-of-file `// EnB:` block (D211;
-conventions.md, "E&B changes to an EA-derived file"); `tools/vc6/importer.py` keeps only the file
-descriptions (`RECONSTRUCTED`).
+conventions.md, "E&B changes to an EA-derived file"). What matches is the ledger `docs/data/imports/`
+(`tools/vc6/ledger.py`: one JSON shard per source file, which also holds a reconstructed file's
+description, `RECONSTRUCTED`).
 
 ## 2. The loop for one fix
 
@@ -43,8 +44,8 @@ descriptions (`RECONSTRUCTED`).
    one line for one. Never put a comment line above code in an EA-derived file (§3.0). To find
    one function's form quickly, try variants first: `tools/vc6/tryvariants.py LIB FILE V.py`.
 4. **Check.**
-   * Save `docs/data/imports.json` first.
-   * Run `importer.py verify --lib ...` for every library that includes the changed header.
+   * Save the ledger first: `python tools/vc6/ledger.py export -o .work/<item>/before.json`.
+   * Run `verify.py --lib ...` for every library that includes the changed header.
      WWLib headers reach every library. Add `--pool K` to build on K VMs leased from
      `tools/vc6/pool.py` instead of the default host (the hosts in `.work/vc6_hosts.json`;
      released at the end; toolchain.md §1.3).
@@ -53,16 +54,16 @@ descriptions (`RECONSTRUCTED`).
 5. **Keep or drop.**
    * Keep the change only if it gains and loses nothing. Any accepted loss must be written down,
      in the commit message and in docs/library-matching.md.
-   * Then run `importer.py report` and commit.
+   * Then run `report.py` and commit.
 
 Counting: the "in tree" totals that verify prints count each client function once. The
-`(file, address)` pairs in `imports.json` also include app-region duplicates (inline functions
+`(file, address)` pairs in the ledger also include app-region duplicates (inline functions
 compiled into E&B's objects), so they run higher.
 
 ### 2.1 Adding an app file (E&B's own code, D23)
 
-E&B's files are the importer's non-EA library `app` (`APP_LIBS` in importer.py): no EA copy,
-every file in `RECONSTRUCTED`, under `app/` as in `e:\build\beta\G\app\...` (A1, lower-case
+E&B's files are the non-EA library `app` (`APP_LIBS` in libdefs.py): no EA copy,
+every file in `RECONSTRUCTED` (a ledger shard with a `description`), under `app/` as in `e:\build\beta\G\app\...` (A1, lower-case
 directories).
 
 1. **Draft.** `python tools/re/appfile.py show app\shared\auxdata\x.cpp` gives the window, its
@@ -75,12 +76,14 @@ directories).
    lines, comments; no `#line`, D25), so little fits above the first assert: put the
    reconstruction notes at the end of the file (as bitset.cpp does) and check with
    `grep -n 'G_ASSERT\|FAIL_IF'`. The assert macros: `#include "..\g_assert.h"` (relative).
-3. **Record.** Add `('app', 'shared/auxdata/x.cpp')` and its header to `RECONSTRUCTED` with the
-   evidence (lower-case paths with `/`); `load_state` makes the state entry from them. Two app
-   `.cpp` files may not share a base name (it is the file key; `load_state` refuses it).
-4. **Verify** as in §2: `importer.py verify --lib app` (`/MT /W3 /O2 /Ob2 /GX`, `NDEBUG`
+3. **Record.** `python tools/vc6/ledger.py describe app shared/auxdata/x.cpp "EVIDENCE"`, and the
+   same for its header (lower-case paths with `/`): the shards `docs/data/imports/app/x.json` and
+   `docs/data/imports/app/headers/shared/auxdata/x.h.json` hold the description (`RECONSTRUCTED`);
+   verify fills in the rest (`ledger.load_state` makes the state entry from the descriptions). Two app
+   `.cpp` files may not share a base name (it is the file key; `describe` and `load_state` refuse it).
+4. **Verify** as in §2: `verify.py --lib app` (`/MT /W3 /O2 /Ob2 /GX`, `NDEBUG`
    defined: D61, G_ASSERT / FAIL_IF don't depend on it; matched within 0x401000-0x8C1B50 only),
-   `tools/vc6/pairs_cmp.py`, `report`, commit. Functions
+   `tools/vc6/pairs_cmp.py`, `report.py`, commit. Functions
    too short to search for (objmatch `short`: bitset's 10-byte destructor) aren't counted by verify:
    show them with `appfile.py match` on a copy with markers on the blank lines before each
    function (so no assert moves; `.work/night/item10/mark.py`, untracked, historical), and say so
