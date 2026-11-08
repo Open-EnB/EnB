@@ -1077,19 +1077,19 @@ SceneClass *GalaxyMapRenderItemClass::Remove_From_Scene()
 	return(NULL);
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
 bool GalaxyMapRenderMeshClass::Intersect(const LineSegClass &ray, Vector3 *contact)
 {
 	RenderObjClass *robj = Peek_RObj();
-	if (robj) {
-		CastResultStruct sphere_result;
-		if (CollisionMath::Collide(ray, robj->Get_Bounding_Sphere(), &sphere_result)) {
-			CastResultStruct box_result;
-			box_result.ComputeContactPoint = (contact != NULL);
-			if (CollisionMath::Collide(ray, robj->Get_Bounding_Box(), &box_result)) {
-				if (contact) { *contact = box_result.ContactPoint; }
-				return(true);
+	if (!robj) { return(false); }
+	CastResultStruct sphere_result;
+	if (CollisionMath::Collide(ray, robj->Get_Bounding_Sphere(), &sphere_result)) {
+		CastResultStruct box_result;
+		box_result.ComputeContactPoint = (contact != NULL);
+		if (CollisionMath::Collide(ray, robj->Get_Bounding_Box(), &box_result)) {
+			if (contact) {
+				*contact = box_result.ContactPoint;
 			}
+			return(true);
 		}
 	}
 	return(false);
