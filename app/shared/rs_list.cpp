@@ -9,7 +9,7 @@
 #include "rs_track.h"
 #include "ini.h"
 #include "assetmgr.h"
-#include "hanim.h"
+#include "rs_hanim.h"
 #include "shader.h"
 #include "mapper.h"
 #include "..\shared\g_assert.h"
@@ -232,7 +232,7 @@ void RenderStateListClass::Unknown_45A970(RsTrackClass *owner, RenderInfoClass &
 void RenderStateListClass::Unknown_45A9F0(RsTrackClass *owner)
 {
 	for (RenderStateClass *state = Unknown08.First_Valid(); state != NULL; state = state->Next_Valid()) {
-		state->Unknown_38((int)owner);
+		state->Unknown_38(owner);
 	}
 }
 

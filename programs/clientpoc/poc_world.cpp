@@ -253,19 +253,9 @@ void UnknownEventDispatcherClass::Unknown_56CEC0(ChatWindowInterface *sender, UI
 }
 
 // ---------------------------------------------------------------- the render states rs_list.cpp makes from files not in the tree yet
-// (rs_hanim.cpp 'anim', 'link', 'sound', rs_eff_p.cpp 'effect_pass'): plain states that do nothing when activated
+// ('link', 'sound'): plain states that do nothing when activated
 #include "..\\..\\app\\shared\\rs_track.h"
 #include "shader.h"
-Unknown4596A0Class::Unknown4596A0Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *anim, const char *suffix, int next_id, HAnimComboDataClass *combo) :
-	RenderStateClass(list, id, link_id, flags)
-{
-	STUB_CALLED("POC Unknown4596A0Class ('anim' state): does nothing");
-	memset(Unknown2C, 0, sizeof(Unknown2C));
-}
-Unknown4596A0Class::~Unknown4596A0Class() {}
-RenderStateClass *Unknown4596A0Class::Unknown_04(RenderStateListClass *list) { return(new Unknown4596A0Class(list, ID, LinkID, Flags, NULL, NULL, -1, NULL)); }
-void Unknown4596A0Class::Unknown_14(RsTrackClass *owner) {}
-
 Unknown45A090Class::Unknown45A090Class(RenderStateListClass *list, int id, int link_id, unsigned int flags) :
 	RenderStateClass(list, id, link_id, flags)
 {

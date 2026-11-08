@@ -874,5 +874,35 @@
   "address": "0x4A4500",
   "symbol": "??1PolicyAlwaysClass@@UAE@XZ",
   "evidence": "PolicyAlwaysClass destructor: called by scalar deleting destructor 0x4A4450; resets vtable to RefCountClass 0xAE7FB0"
+ },
+ {
+  "address": "0x458670",
+  "symbol": "?Unknown_38@RenderStateClass@@UAEXPAVRsTrackClass@@@Z",
+  "evidence": "RenderStateClass's slot +0x38 (empty, ret 4): rs_hanim.cpp's override 0x459FE0 takes an RsTrackClass * (it calls RsTrackClass::Unknown_462180 on it) and rs_list.cpp's 0x45A9F0 passes the owner; retyped from int (RH1, 2026-11-08)",
+  "replaces": "?Unknown_38@RenderStateClass@@UAEXH@Z"
+ },
+ {
+  "address": "0x4586D0",
+  "symbol": "?Unknown_44@RenderStateClass@@UAEXM@Z",
+  "evidence": "RenderStateClass's slot +0x44 (empty, ret 4): rs_hanim.cpp's override 0x459A30 compares and divides by its argument as a float (fld [esp+4]); retyped from int (RH1, 2026-11-08)",
+  "replaces": "?Unknown_44@RenderStateClass@@UAEXH@Z"
+ },
+ {
+  "address": "0x4586F0",
+  "symbol": "?Unknown_48@RenderStateClass@@UAEXM@Z",
+  "evidence": "RenderStateClass's slot +0x48 (empty, ret 4): rs_hanim.cpp's override 0x459AA0 takes a float (fld [esp+4]); retyped from int (RH1, 2026-11-08)",
+  "replaces": "?Unknown_48@RenderStateClass@@UAEXH@Z"
+ },
+ {
+  "address": "0x4605A0",
+  "symbol": "?Unknown_4605A0@RsTrackClass@@QAEXHM@Z",
+  "evidence": "RsTrackClass::Unknown_4605A0 passes its second argument on to the state's float slot +0x44 unconverted; retyped from int (RH1, 2026-11-08)",
+  "replaces": "?Unknown_4605A0@RsTrackClass@@QAEXHH@Z"
+ },
+ {
+  "address": "0x4605E0",
+  "symbol": "?Unknown_4605E0@RsTrackClass@@QAEXHM@Z",
+  "evidence": "RsTrackClass::Unknown_4605E0 passes its second argument on to the state's float slot +0x48 unconverted; retyped from int (RH1, 2026-11-08)",
+  "replaces": "?Unknown_4605E0@RsTrackClass@@QAEXHH@Z"
  }
 ]
