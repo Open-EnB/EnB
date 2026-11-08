@@ -41,13 +41,13 @@ UIScanClass::UIScanClass(UIViewClass *view, LayerClass *layer) :
 	UIMesh(NULL),
 	Unknown198(-1),
 	Verb(NULL),
-	Threat(NULL),
+	InterruptInfo(NULL),
 	Unknown1A4(0)
 {
 	memset(Buttons, 0, sizeof(Buttons));
 }
 
-// (exact with the threat's +0x14 / +0x30 as RefCountPtr members and a plain 'delete Threat', its null test the delete's own; TL1)
+// (exact with the threat's +0x14 / +0x30 as RefCountPtr members and a plain 'delete InterruptInfo', its null test the delete's own; TL1)
 // @0x60DF90
 UIScanClass::~UIScanClass()
 {
@@ -55,8 +55,8 @@ UIScanClass::~UIScanClass()
 		Unknown_4F7EF0().Remove(Object, this, &UIScanClass::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
 	}
 	REF_PTR_RELEASE(Verb);
-	delete Threat;
-	Threat = NULL;
+	delete InterruptInfo;
+	InterruptInfo = NULL;
 
 
 	if (UIMesh != NULL) {
@@ -193,7 +193,7 @@ void UIScanClass::Unknown_54()
 	Verb = new UIVerbClass(View->Unknown_20(), Layer, UIMesh, 0);
 	Verb->Unknown_54();
 	View->Unknown_6B4940(Verb);
-	Threat = new UIScanThreatClass(this);
+	InterruptInfo = new UIScanThreatClass(this);
 	RenderObjClass *robj = RObj;
 
 
@@ -506,7 +506,7 @@ void UIScanClass::Unknown_88(ClientObjectClass *object)
 		Unknown_80();
 		if (old != NULL) {
 			Unknown_4F7EF0().Remove(old, this, &UIScanClass::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
-			Threat->Unknown_60FEE0();
+			InterruptInfo->Unknown_60FEE0();
 		}
 		UIMFDClass::Unknown_88(object);
 		if (object != NULL) {
@@ -544,6 +544,20 @@ template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, con
 { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }
 template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
 { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); }
+#include "..\..\ww3d2\assetmgr.h"
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: avatar.cpp's)
+void Unknown_496730(RenderObjClass *robj, int sort_level, bool dec_if_match);	// 0x496730 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, sort_level, dec_if_match]: ui_cpit.cpp's
+#pragma auto_inline(off)
+template DeltaTemplateClass<DurationClass> *Unknown_Find_Field<DeltaTemplateClass<DurationClass> >(DeltaCompoundClass *root, const NameClass &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x610290)
+template DeltaStringClass *Unknown_Find_Field<DeltaStringClass>(DeltaCompoundClass *root, const NameClass &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x514BD0)
+// The interrupt display: the 'tsi08c' model on the scanner's 'BONE_INTER' bone, its progress display (+0x2C) and
+// the ability's name on 'MFD_INTERRUPT'; the faction line hidden meanwhile
+// NOT EXACT: inline-budget (TL2; similarity 0.43): the client calls the three finds (0x610290, 0x514BD0) out of line and
+// assigns the cleared name through assign(const char *, size_type) out of line, and reads the time through 0x60ECD0 (the
+// time field's value; a Get_Value declared in delta_template.h costs aux_roots 8 pairs); ours inlines them, its registers differ
+// @0x60E6A0
+void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
+{
 
 
 
@@ -554,6 +568,29 @@ template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root,
 
 
 
+	G_ASSERT(InterruptInfo);
+	Unknown_80();
+	InterruptInfo->Unknown18 = false;
+	if (!InterruptInfo->Unknown30) {
+		InterruptInfo->Unknown30 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi08c"));
+		if (InterruptInfo->Unknown30) {
+			Unknown_496AE0(InterruptInfo->Unknown30.Peek(), 0);
+			UIMesh->Peek_Mesh_Object()->Add_Sub_Object_To_Bone(InterruptInfo->Unknown30.Peek(), "BONE_INTER");
+			InterruptInfo->Unknown_Clear();
+			InterruptInfo->Unknown2C = new Unknown59E2C0Class(InterruptInfo->Unknown30.Peek(), &Layer, this, object, -1);
+			Unknown_496730(InterruptInfo->Unknown30.Peek(), 8, 1);
+		}
+	}
+	if (InterruptInfo->Unknown30) {
+		ClientObjectClass *target = Object;
+		if (!target || !target->AuxData) return;
+		InterruptInfo->Unknown2C->Unknown_59E600();
+		InterruptInfo->Unknown2C->Unknown_60EC70(DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC));
+		DeltaTemplateClass<DurationClass> *time = Unknown_Find_Set_Field<DeltaTemplateClass<DurationClass> >((DeltaCompoundClass *)target->AuxData, "InterruptibleActivationTime");
+		if (time) {
+			InterruptInfo->Unknown2C->Unknown_60ECA0(time->Value);
+		}
+		RenderObjClass *robj = RObj;
 
 
 
@@ -572,73 +609,36 @@ template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root,
 
 
 
+		G_ASSERT(robj);
+		DeltaStringClass *name = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)object->AuxData, "InterruptibleAbilityName");
+		if (name) {
+			InterruptInfo->AbilityName = name->String;
+		} else {
+			InterruptInfo->AbilityName = "Unknown Skill";
+		}
+		if (!InterruptInfo->Unknown14) {
+			InterruptInfo->Unknown14 = Create_Get(new FontSys("MFD_INTERRUPT", (int)robj, NULL));
+			InterruptInfo->Unknown14->Set_Sort_Level(8);
+		}
+		InterruptInfo->Unknown14->Change_Text(InterruptInfo->AbilityName.c_str(), 0);
+		InterruptInfo->Unknown14->Set_Hidden(0);
+		FactionFont->Set_Hidden(1);
+	}
+	Unknown_84();
+}
 
+// @0x60EC70
+void Unknown59E2C0Class::Unknown_60EC70(DurationClass time)
+{
+	Unknown28 = time;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @0x60ECA0
+void Unknown59E2C0Class::Unknown_60ECA0(DurationClass time)
+{
+	Unknown30 = time;
+}
+#pragma auto_inline(on)
 
 
 
@@ -742,7 +742,7 @@ inline TargetingClass *UIScanClass::Get_Targeting()
 
 
 
-template DeltaStringClass *Unknown_Find_Field<DeltaStringClass>(DeltaCompoundClass *root, const NameClass &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x514BD0)
+
 // NOT EXACT: inline-budget (TL1; similarity 0.65): the client calls the Reputation find out of line (0x610370; an explicit instantiation here does not move it), tail-merges only cases 2 and 5
 // @0x60F1A0
 void UIScanClass::Unknown_60F1A0(bool arg)
@@ -759,41 +759,41 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 			case 0:
 				break;
 			case 1:
-				if (Threat->Unknown28 != 1) {
-					Threat->Unknown28 = 1;
+				if (InterruptInfo->Unknown28 != 1) {
+					InterruptInfo->Unknown28 = 1;
 					Unknown_60E6A0(object);
 				}
 				break;
 			case 2:
-				if (Threat->Unknown28 == 1) {
-					Threat->Unknown28 = 2;
-					Threat->Unknown14->Change_Text("Interrupted!", 0);
-					Threat->Unknown18 = true;
-					Threat->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+				if (InterruptInfo->Unknown28 == 1) {
+					InterruptInfo->Unknown28 = 2;
+					InterruptInfo->Unknown14->Change_Text("Interrupted!", 0);
+					InterruptInfo->Unknown18 = true;
+					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
 				}
 				break;
 			case 3:
-				if (Threat->Unknown28 == 1) {
-					Threat->Unknown28 = 3;
-					Threat->Unknown14->Change_Text("Interruption Failed!", 0);
-					Threat->Unknown18 = true;
-					Threat->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+				if (InterruptInfo->Unknown28 == 1) {
+					InterruptInfo->Unknown28 = 3;
+					InterruptInfo->Unknown14->Change_Text("Interruption Failed!", 0);
+					InterruptInfo->Unknown18 = true;
+					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
 				}
 				break;
 			case 4:
-				if (Threat->Unknown28 == 1) {
-					Threat->Unknown28 = 4;
-					Threat->Unknown14->Change_Text("Skill Activated!", 0);
-					Threat->Unknown18 = true;
-					Threat->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+				if (InterruptInfo->Unknown28 == 1) {
+					InterruptInfo->Unknown28 = 4;
+					InterruptInfo->Unknown14->Change_Text("Skill Activated!", 0);
+					InterruptInfo->Unknown18 = true;
+					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
 				}
 				break;
 			case 5:
-				if (Threat->Unknown28 == 1) {
-					Threat->Unknown28 = 5;
-					Threat->Unknown14->Change_Text("Skill Deactivated", 0);
-					Threat->Unknown18 = true;
-					Threat->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+				if (InterruptInfo->Unknown28 == 1) {
+					InterruptInfo->Unknown28 = 5;
+					InterruptInfo->Unknown14->Change_Text("Skill Deactivated", 0);
+					InterruptInfo->Unknown18 = true;
+					InterruptInfo->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
 				}
 				break;
 			default:
@@ -808,16 +808,16 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 		}
 	}
 
-	if (Threat->Unknown2C) {
-		if (Threat->Unknown18 && DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC) - Threat->Unknown20 >= UIScanInterruptDelay) {
-			Threat->Unknown18 = false;
-			Threat->Unknown_Refresh();
+	if (InterruptInfo->Unknown2C) {
+		if (InterruptInfo->Unknown18 && DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC) - InterruptInfo->Unknown20 >= UIScanInterruptDelay) {
+			InterruptInfo->Unknown18 = false;
+			InterruptInfo->Unknown_Refresh();
 			expired = true;
 		}
-		if (Threat->Unknown2C) {
+		if (InterruptInfo->Unknown2C) {
 			DeltaTemplateClass<float> *progress = Unknown_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)object->AuxData, "InterruptProgress");
-			Threat->Unknown2C->Unknown40 = progress ? progress->Value : 0.0f;
-			Threat->Unknown_Update();
+			InterruptInfo->Unknown2C->Unknown40 = progress ? progress->Value : 0.0f;
+			InterruptInfo->Unknown_Update();
 
 
 
@@ -894,4 +894,13 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 **	The threat's +0x14 / +0x30 are RefCountPtr members (the destructor's 0x51C630 / 0x4740B0 take [edi+0x14] /
 **	[edi+0x30]), its +0x20 the DurationClass the interrupt message started at; 0xBE5E10 is a file static DurationClass
 **	(its initialiser 0x60D7D0 matches).
+**
+**	TL2 (2026-11-08): 0x60E6A0 (the interrupt display; functional) and the progress display's two time setters 0x60EC70 /
+**	0x60ECA0 (defined after it under auto_inline(off), as the client's addresses place them). +0x1A0 is InterruptInfo
+**	(0x60E6A0's G_ASSERT l.571). The progress display (Unknown59E2C0Class) needs '#pragma pack(push, 4)': its times at
+**	+0x28 / +0x30 would otherwise pad the vtable pointer (0x50 bytes, the client's new asks 0x48). Its by-value time
+**	arguments are built in place (sub esp, 8; mov [esp+N], esp): a user-defined DurationClass copy constructor gives
+**	that form (0.43 -> 0.46) but costs aux_roots 8 pairs and slot_data_render 0x6A7C00, so duration.h keeps the implicit one.
+**	0x60ECD0 (lea eax, [ecx+0x88]) is the time field's value accessor, out of line in 0x60E6A0; declaring it in
+**	delta_template.h costs aux_roots 8 pairs (its inline budget), so 0x60E6A0 reads Value directly.
 */
