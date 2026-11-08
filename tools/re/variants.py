@@ -976,12 +976,53 @@ def fit_lines(new, n):
     return new
 
 
+ASSERT_RE = re.compile(r'\b(?:FAIL_IF|WWASSERT|G_ASSERT|assert|ASSERT|TT_ASSERT|WWDEBUG_SAY|WWRELEASE_SAY|__LINE__)\s*\(?')
+
+
+def assert_lines(lines):
+    return [i for i, l in enumerate(lines) if ASSERT_RE.search(l) and not l.lstrip().startswith('//')]
+
+
+def align_asserts(new, orig):
+    """try --fit: put the variant's k-th assert line at the line of the definition's k-th assert (the tree's asserts
+    carry the client's __LINE__), by blank lines before it or by joining the lines above it; unchanged when the two
+    have different numbers of asserts or the lines above an assert cannot be shrunk enough."""
+    an, ao = assert_lines(new), assert_lines(orig)
+    if not an or len(an) != len(ao):
+        return new
+    out, prev = [], 0
+    for i_n, i_o in zip(an, ao):
+        seg = new[prev:i_n]
+        want = i_o - len(out)
+        if want < 1:
+            return new
+        if len(seg) > want:
+            seg = [x for x in seg if x.strip()]
+            if len(seg) > want:
+                seg = fit_lines(seg + ['SENTINEL;'], want + 1)[:-1]
+            if len(seg) > want:
+                return new
+        seg += [''] * (want - len(seg))
+        out += seg + [new[i_n]]
+        prev = i_n + 1
+    return out + new[prev:]
+
+
 def splice(rel, line, func, code):
     lines = read_lines(rel)
     ext = function_extent(lines, line, func)
     # keep the line count: later functions' asserts embed __LINE__ (a shifted file loses their pairs)
     new = code.rstrip('\n').split('\n')
     n = ext[1] - ext[0] + 1
+    if FIT:
+        new = align_asserts(new, lines[ext[0]:ext[1] + 1])
+        k = max(assert_lines(new), default=-1) + 1        # the part after the last assert may shrink
+        tail = new[k:]
+        while k + len(tail) > n and '' in [x.strip() for x in tail]:
+            tail.pop([x.strip() for x in tail].index(''))
+        if k + len(tail) > n:
+            tail = fit_lines(tail, n - k)
+        new = new[:k] + tail
     while len(new) > n and '' in [x.strip() for x in new]:
         new.pop([x.strip() for x in new].index(''))
     if FIT and len(new) > n:
@@ -1203,7 +1244,7 @@ def main():
     p.add_argument('--only', nargs='*')
     p.add_argument('--pool', type=int, help='K worker processes, one VM each (unattended; resumes from results.d)')
     p.add_argument('--status', action='store_true')
-    p.add_argument('--fit', action='store_true', help='shrink a variant longer than the definition to its line count')
+    p.add_argument('--fit', action='store_true', help='keep the line count of the definition and put each assert on its assert line (__LINE__)')
     p.add_argument('--keep-losers', action='store_true', help='keep the objects of variants that lose other exact pairs')
     p.add_argument('--answers', help='variants from this JSON file ({custom_id: [{idea, code}]}) instead of the fetched batches')
     p.add_argument('--worker', type=int, help=argparse.SUPPRESS)
