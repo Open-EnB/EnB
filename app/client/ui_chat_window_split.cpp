@@ -7,6 +7,7 @@
 #include "option.h"
 #include "..\shared\g_assert.h"
 
+extern unsigned int Unknown_BE5F34;		// 0xBE5F34 (gadget.cpp's: the event mask; 0x10 for slot +0x68's keys 0x65 / 0x66)  // NAME 1: neutral (D10)
 #define InterfaceMesh Unknown84		// the base's +0x84 (ui_chat_window.cpp's name)
 
 // 0x571F00
@@ -29,7 +30,6 @@ UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Cla
 			break;
 	}
 }
-
 
 
 
@@ -139,6 +139,43 @@ void UIChatWindowSplitClass::Unknown_60()
 	ChatWindowInterface::Unknown_60();
 }
 
+// 0x572EE0  // NOT EXACT: functional (CW3): the client tests the key mask loaded once before the switch and spends the std::string budget differently (_Tidy out of line, assign inline; 0.41-0.56)
+bool UIChatWindowSplitClass::Unknown_68(int key)
+{
+	unsigned int mask = Unknown_BE5F34;
+	switch (key) {
+		case 0x66:
+			if (mask & 0x10) {
+				std::string name(Unknown11C);
+				name += "Split";
+				int def = OptionClass::Instance->Get_Default_Int(name.c_str());
+				if (Unknown104.Unknown08 == def) {
+					Unknown_5732A0(UnknownF0.Unknown08, Unknown104.Unknown0C);
+				} else {
+					Unknown104.Unknown0C = Unknown104.Unknown08;
+					Unknown_5732A0(UnknownF0.Unknown08, def);
+				}
+			}
+			break;
+		case 0x65:
+			if (mask & 0x10) {
+				std::string name(Unknown11C);
+				name += "Size";
+				int def = OptionClass::Instance->Get_Default_Int(name.c_str());
+				if (UnknownF0.Unknown08 == def) {
+					Unknown_5732A0(UnknownF0.Unknown0C, Unknown104.Unknown08);
+				} else {
+					UnknownF0.Unknown0C = UnknownF0.Unknown08;
+					Unknown_5732A0(def, Unknown104.Unknown08);
+				}
+			}
+			break;
+		default:
+			return(ChatWindowInterface::Unknown_68(key));
+	}
+	return(true);
+}
+
 // 0x573220
 void UIChatWindowSplitClass::Unknown_A8()
 {
@@ -151,43 +188,6 @@ void UIChatWindowSplitClass::Unknown_A8()
 		if (UnknownE8) Unknown104.Unknown04->Unknown_40(true);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -373,8 +373,9 @@ inline ChatWinSplitResizeStruct::~ChatWinSplitResizeStruct()
 **	+0x58 0x572DE0 and +0x5C 0x572E00 (jumps to the base's, too short for the matcher) and the resize handle's
 **	destructor 0x573430; slot +0x60 0x572E20 (the two drags), slot +0xA8 0x573220 and 0x5732A0 (FAIL_IF
 **	'!AnimCombo' l.331: the values clamped, the frames set; slot 0x90 of the mesh is Update_Sub_Object_Transforms).
-**	Not rebuilt: the set-up 0x5723B0 (G_ASSERT 'anim' ll.129 / 136) and slot +0x68 0x572EE0; the POC
-**	(programs/clientpoc/poc_world.cpp) stands in for slots +0x54 and +0x68.
+**	Slot +0x68 0x572EE0 is functional (the keys 0x65 / 0x66 with the event mask's 0x10 toggle the size / split
+**	between the option's default and the last value). Not rebuilt: the set-up 0x5723B0 (G_ASSERT 'anim' ll.129 /
+**	136); the POC (programs/clientpoc/poc_world.cpp) stands in for slot +0x54.
 **	The destructor saves the two handles' values as the int options '<prefix>Size' and '<prefix>Split', the
 **	prefix being +0x11C ('ChatWinSplit_None' / '_Vert' / '_Horz' by the kind).
 */
