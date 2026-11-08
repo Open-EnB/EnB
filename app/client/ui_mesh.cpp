@@ -268,7 +268,6 @@ void UIMeshClass::Unknown_00()
 	Unknown_5B9410();
 }
 
-// NOT EXACT: 0x5B9410 (0.82): the client keeps the loop's bool (setne al; test al, al) where ours tests proc directly
 void UIMeshClass::Unknown_5B9410()
 {
 	for (int i = 0; i < Unknown6C; i++) {
@@ -286,11 +285,12 @@ void UIMeshClass::Unknown_5B9410()
 		while (running) {
 			int slot = proc->Slot;
 			if (proc->Unknown_08(time)) {
-				break;
+				running = false;
+			} else {
+				proc->Unknown_0C();
+				delete proc;
+				proc = Unknown_5B92D0(slot); running = (proc != NULL);
 			}
-			proc->Unknown_0C();
-			delete proc;
-			running = ((proc = Unknown_5B92D0(slot)) != NULL);
 		}
 		node = next;
 	}
