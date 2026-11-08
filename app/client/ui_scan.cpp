@@ -29,7 +29,7 @@ public:
 
 extern unsigned int Unknown_BE5F34;		// (gadget.cpp's: the event mask)
 extern KernelEventClass Unknown_BE5EB0;	// (gadget.cpp's: the last event)
-
+static DurationClass UIScanInterruptDelay(2000);	// 0xBE5E10 (its initialiser 0x60D7D0): how long the threat's interrupt message stays  // NAME 1: neutral (D10)
 // 0xB8892C (the two target buttons, ids 6 and 7)
 static const char *UIScanButtonNames[] = {	// NAME 2: what it holds
 	"PREV_TARGET", "NEXT_TARGET"
@@ -530,204 +530,204 @@ UIScanThreatClass::~UIScanThreatClass()
 	if (active) {
 		Owner->Unknown_58();
 	}
-	REF_PTR_RELEASE(Unknown24);
-	REF_PTR_RELEASE(Unknown20);
+
+
 }
 
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"				// (after auxdata.h, as ui_faction.cpp)
+#include "cfaction_database.h"
+#include <stdio.h>
+#include "co_player_relationship.h"
+// A field under root that is set (+0x70), else NULL; and one changed since (+0x70 above 1): ui_faction.cpp's
+template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+{ C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }
+template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
+{ C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma auto_inline(off)
+// @0x60EFE0
+void UIScanClass::Unknown_60EFE0(ClientObjectClass *object)
+{
+	if (!object) {
+		ConFont->Set_Hidden(1);
+		ConFont->Unknown_6CE7D0(1);
+		return;
+	}
+
+	LineDisplayClientClass *client = Client;
+
+
+	FAIL_IF(!client) return;
+	SClient *sclient = client->As_Space_Client();
+
+	FAIL_IF(!sclient) return;
+	GutterColorSetStruct colors = Unknown_70B0A0(sclient, object);
+	GutterColorStruct color = colors.Target;
+	ConFont->Set_Color(color.Color1);
+}
 // The cockpit's targeting, through the client
 inline TargetingClass *UIScanClass::Get_Targeting()
 {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	FAIL_IF(!Client) return(NULL);
@@ -740,10 +740,160 @@ inline TargetingClass *UIScanClass::Get_Targeting()
 	return(ts);
 }
 
+
+
+// NOT EXACT: functional (TL1): the client calls the InterruptState / InterruptProgress / FactionIdentifier / Reputation finds out of line and inlines the TechLevel ones
+// @0x60F1A0
+void UIScanClass::Unknown_60F1A0(bool arg)
+{
+	if (arg) {
+		FactionFont->Set_Hidden(1);
+	}
+	ClientObjectClass *object = Object;
+	if (!object || !object->AuxData) return;
+
+	bool expired = false;
+	DeltaTemplateClass<InterruptStateType> *state = Unknown_Find_Set_Field<DeltaTemplateClass<InterruptStateType> >((DeltaCompoundClass *)object->AuxData, "InterruptState");
+	if (state) {
+		switch (state->Value) {
+			case 0:
+				break;
+			case 1:
+				if (Threat->Unknown28 != 1) {
+					Threat->Unknown28 = 1;
+					Unknown_60E6A0(object);
+				}
+				break;
+			case 2:
+				if (Threat->Unknown28 == 1) {
+					Threat->Unknown28 = 2;
+					Threat->Unknown14->Change_Text("Interrupted!", 0);
+					Threat->Unknown18 = true;
+					Threat->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+				}
+				break;
+			case 3:
+				if (Threat->Unknown28 == 1) {
+					Threat->Unknown28 = 3;
+					Threat->Unknown14->Change_Text("Interruption Failed!", 0);
+					Threat->Unknown18 = true;
+					Threat->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+				}
+				break;
+			case 4:
+				if (Threat->Unknown28 == 1) {
+					Threat->Unknown28 = 4;
+					Threat->Unknown14->Change_Text("Skill Activated!", 0);
+					Threat->Unknown18 = true;
+					Threat->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+				}
+				break;
+			case 5:
+				if (Threat->Unknown28 == 1) {
+					Threat->Unknown28 = 5;
+					Threat->Unknown14->Change_Text("Skill Deactivated", 0);
+					Threat->Unknown18 = true;
+					Threat->Unknown20 = DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC);
+				}
+				break;
+			default:
+
+
+
+
+
+
+
+				G_ASSERT(false);
+		}
+	}
+
+	if (Threat->Unknown2C) {
+		if (Threat->Unknown18 && DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC) - Threat->Unknown20 >= UIScanInterruptDelay) {
+			Threat->Unknown18 = false;
+			Threat->Unknown_Refresh();
+			expired = true;
+		}
+		if (Threat->Unknown2C) {
+			DeltaTemplateClass<float> *progress = Unknown_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)object->AuxData, "InterruptProgress");
+			Threat->Unknown2C->Unknown40 = progress ? progress->Value : 0.0f;
+			Threat->Unknown2C->Unknown38 = Threat->Unknown28;
+			if (Threat->Unknown2C) {
+				Threat->Unknown2C->Unknown_10();
+			}
+			return;
+		}
+	}
+
+	DeltaStringClass *faction = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)object->AuxData, "FactionIdentifier");
+	if (faction) {
+
+
+
+		FAIL_IF(!Get_Client()) return;
+		SClient *sclient = Get_Client()->As_Space_Client();
+		FAIL_IF(!sclient) return;
+
+		DeltaPlayerClass *aux_data = sclient->AuxData;
+		FAIL_IF(!aux_data) return;
+
+		DeltaReputationClass *reputation;
+		if (!arg && !expired) {
+			reputation = Unknown_Find_Changed_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
+		} else {
+			reputation = Unknown_Find_Set_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
+		}
+		if (reputation) {
+			FactionFont->Set_Hidden(0);
+			FactionFont->Change_Text("", 0);
+			int count = reputation->Faction.Children.size();
+			const std::string &name = CFactionDatabaseClass::Get_Name(std::string(faction->String));
+			FactionFont->Set_Color(Vector3(0.7f, 0.7f, 0.7f));
+			for (int i = 0; i < count; i++) {
+				DeltaFactionClass *entry = (DeltaFactionClass *)reputation->Faction.Children[i];
+				if (entry->Name.String && strcmp(entry->Name.String, faction->String) == 0) {
+					int reaction = (int)entry->Reaction.Value;
+					if (reaction >= 2000) {
+						FactionFont->Set_Color(Vector3(0.1f, 1.0f, 0.1f));
+					} else if (reaction >= -2000) {
+						FactionFont->Set_Color(Vector3(1.0f, 1.0f, 0.1f));
+					} else {
+						FactionFont->Set_Color(Vector3(1.0f, 0.1f, 0.1f));
+					}
+					break;
+				}
+			}
+			FactionFont->Change_Text(name.c_str(), 0);
+		}
+	}
+
+	DeltaTemplateClass<int> *tech;
+	if (!arg && !expired) {
+		tech = Unknown_Find_Changed_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)object->AuxData, "TechLevel");
+	} else {
+		tech = Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)object->AuxData, "TechLevel");
+	}
+	if (tech && tech->Value) {
+		char text[128];
+		sprintf(text, "Tech Level: %d", tech->Value);
+		FactionFont->Change_Text(text, 0);
+		FactionFont->Set_Color(Vector3(0.7f, 0.7f, 0.7f));
+		FactionFont->Set_Hidden(0);
+	}
+}
+#pragma auto_inline(on)
+
 /*
 **	Notes (WE9, 2026-11-07)
 **
 **	The client's object runs 0x60D750-~0x610560 (__FILE__ 0xB8899C). Rebuilt for the POC's scanner (the radar panel and
 **	the target box at the lower right): the constructor, the slots and 0x60E540; the threat object's 0x60ED60 / 0x60FEE0
-**	and 0x60ED10 / 0x60EFE0 / 0x60F1A0 are not rebuilt yet. Blank lines keep the asserts on their client lines.
+**	and 0x60E6A0 / 0x60ED10 are not rebuilt yet. Blank lines keep the asserts on their client lines.
+**
+**	TL1 (2026-11-08): 0x60EFE0 (the con line's colour: exact only with the gutter set named and its Target copied) and
+**	0x60F1A0 (the threat's interrupt message, the faction and tech-level lines; functional) are rebuilt between
+**	'#pragma auto_inline(off)' / '(on)' (on blank lines): without it /Ob2 inlines both into 0x60E580 (0.85 -> 0.36).
+**	The threat's +0x14 / +0x30 are RefCountPtr members (the destructor's 0x51C630 / 0x4740B0 take [edi+0x14] /
+**	[edi+0x30]), its +0x20 the DurationClass the interrupt message started at; 0xBE5E10 is a file static DurationClass
+**	(its initialiser 0x60D7D0 matches).
 */
