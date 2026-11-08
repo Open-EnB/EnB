@@ -140,7 +140,7 @@ public:
 class UIChatPanelClass : public InterfaceClass
 {
 public:
-	UIChatPanelClass(SClient *client); void Unknown_5685C0(); void Unknown_568690();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
+	UIChatPanelClass(SClient *client); void Unknown_5685C0(); void Unknown_568690(); void Unknown_563760(int type, const std::string &text);	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)  // 0x563760: a chat line (0x74D990)  // NAME 1 [Unknown_563760, type, text]: neutral (D10)
 	bool Unknown_56BA80();								// 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
 	void Unknown_565F30(int arg); void Unknown_56BAA0(int a, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [a, text]: what 0x74E710 passes
@@ -4576,41 +4576,41 @@ bool SClient::Unknown_74D8B0(ClientObjectClass *co)	// 0x74D8B0
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: functional (CW1): from the disassembly, not compared yet
+// 0x74D990: a message on the chat (the chat panel's 0x563760) with its type's prefix unless 'a' (6, 21: also on
+// the line display; 22: the line display only); errors and warnings sound when their option says so
+void SClient::Unknown_74D990(int color, char *text, int a)
+{
+	if (!text || !*text) return;
+	if (color == 17) {
+		if (OptionClass::Instance->Get_Bool("Chat_Errors_IC")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2);
+	} else if (color == 19) {
+		if (OptionClass::Instance->Get_Bool("Chat_Errors_System")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2);
+	} else if (color == 21 && !OptionClass::Instance->Get_Bool("Chat_Warnings")) {
+		SoundLibraryClass::Play_2D_Sound("Text_Warning", 2);
+	}
+	UIChatPanelClass *chatpanel = ChatPanel.Peek();
+	FAIL_IF(!chatpanel) return;
+	std::string line("");
+	if (color == 0 || color == 17) {
+		if (!(char)a) line = "COMPUTER: ";
+	} else if (color == 6) {
+		if (!(char)a) line = "TIP: ";
+		if (LineDisplay) LineDisplay->Add_Line_3(text, 3000, "MessageLine");
+	} else if (color == 21) {
+		if (!(char)a) line = "WARNING: ";
+		if (LineDisplay) LineDisplay->Add_Line_3(text, 3000, "MessageLine");
+	} else if (color == 19) {
+		if (!(char)a) line = "SYSTEM: ";
+	} else if (color == 20 || color == 1 || color == 18) {
+		if (!(char)a) line = "OUTDATED MESSAGE TYPE: ";
+	} else if (color != 3 && color == 22) {
+		if (LineDisplay) LineDisplay->Add_Line_3(text, 0, "QuickLine");
+		return;
+	}
+	line += text;
+	chatpanel->Unknown_563760(color, line);
+}
 
 
 

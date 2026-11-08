@@ -17,9 +17,9 @@ class AvatarPipClass;		// avatar_pip.cpp's (the panel's +0x110; declared in ui_c
 #include "ui_combobox.h"	// UIComboBoxClass: the panel's combos (Combo[]; was UIChatComboClass, P-TG4-1)
 
 // What the chat window's events carry, as far as 0x56C730 reads it
-class UIChatIntEventClass { public: UIChatIntEventClass() : Unknown00(0) {} int Unknown00; };	// NAME 1: neutral (D10): +0x00 1 is a click (0x56C6A0 passes a zeroed one to name the handler)
+class ChatWindowInterfaceEvent { public: ChatWindowInterfaceEvent() : Unknown00(0) {} int Unknown00; };	// NAME 5: the client's RTTI (.?AVChatWindowInterfaceEvent@@ 0xB7D4B0, the Event_Type of the callback table 0xAEFFF8): +0x00 1 is a click (0x56C6A0 passes a zeroed one to name the handler)
 
-class UIChatF8EventClass;
+class OptionFontInterfaceEvent;
 
 enum { NUM_COMBO = 5 };	// NAME 3: the assert's
 
@@ -63,7 +63,7 @@ public:
 };
 
 // What the chat panel's ChatInt (+0x138) points to (the chat window), as far as this file calls it
-class UIChatIntClass : public UIChatPanelWindowClass	// NAME 1: neutral (D10): the assert's 'ChatInt'
+class ChatWindowInterface : public UIChatPanelWindowClass	// NAME 5: the client's RTTI (.?AVChatWindowInterface@@ 0xB7D3E0, the Sender_Type of the callback table 0xAEFFF8): the assert's 'ChatInt'
 {
 public:
 	virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90(); virtual void Unknown_94();
@@ -72,7 +72,7 @@ public:
 	virtual void Unknown_B4(const char *text);			// +0xB4 (0x565C40: 'To %s:')  // NAME 1 [text]: neutral
 	virtual bool Unknown_B8(int key);					// +0xB8 (0x5638E0 hands slot +0x68's key on)  // NAME 1 [key]: what 0x5638E0 passes
 
-	UIChatIntClass(SClient *client, int a, int b, int kind);	// 0x571F00 (0x120 bytes; 0x56C180: +0x13C, +0x140 and the kind 0..2)  // NAME 1 [client, a, b, kind]: what 0x56C180 passes
+	ChatWindowInterface(SClient *client, int a, int b, int kind);	// 0x571F00 (0x120 bytes; 0x56C180: +0x13C, +0x140 and the kind 0..2)  // NAME 1 [client, a, b, kind]: what 0x56C180 passes
 	void Unknown_571430();								// 0x571430 (0x56C7B0, on the +0xF8 window's events)
 
 };
@@ -92,6 +92,7 @@ public:
 	virtual void Unknown_70(ControlKeysManager *manager);	// 0x56BC10 (FAIL_IF '!manager' l.2309)  // NAME 3 [manager]: the FAIL_IF's
 	virtual void Unknown_74(ControlKeysManager *manager);	// 0x56BD80 (FAIL_IF '!manager' l.2317)  // NAME 3 [manager]: the FAIL_IF's
 
+	void Unknown_563760(int type, const std::string &text);	// 0x563760 (SClient's 0x74D990): a chat line logged, kept and shown  // NAME 1 [type, text]: what 0x74D990 passes
 	bool Unknown_5638E0(int key);						// 0x5638E0: the chat window's slot +0xB8, false without one  // NAME 1 [key]: neutral
 	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (CLIENT_CHAT_EVENT 165: the sender's game id, 0; the main view: the target, true)  // NAME 1 [id, flag]: what cpacket.cpp passes
 	void Unknown_563C50();								// 0x563C50: the pip's target checked
@@ -99,7 +100,7 @@ public:
 	void Unknown_564030(bool on);						// 0x564030  // NAME 1 [on]: neutral
 	void Unknown_564150(bool on);						// 0x564150 (FAIL_IFs '!big_robj', '!bigbutframe' ll.782 / 783)  // NAME 1 [on]: neutral
 	void Unknown_564400(bool on);						// 0x564400 (FAIL_IFs '!small_robj', '!smallbutframe' ll.798 / 799)  // NAME 1 [on]: neutral
-	void Unknown_5646A0(int channel);					// 0x5646A0  // NAME 1 [channel]: neutral
+	bool Unknown_5646A0(int channel);					// 0x5646A0: talk on a channel (false, the reason on the chat, when no one is there)  // NAME 1 [channel]: neutral
 	void Unknown_564F50();								// 0x564F50 (0x65DE90): +0x1F4 copied to +0x204, 0x5646A0 on the default channel
 	void Unknown_565100();								// 0x565100: 0x5646A0 on +0x14C
 	void Unknown_565120();								// 0x565120
@@ -139,8 +140,8 @@ public:
 	void Unknown_56C180(int window);					// 0x56C180  // NAME 1 [window]: neutral
 	void Unknown_56C6A0();								// 0x56C6A0: the chat window's handler removed, the window released
 	void Unknown_56C7E0();								// 0x56C7E0 (request 12: the chat font settings)
-	void Unknown_56C730(const UIChatIntEventClass &event, UIChatIntClass *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
-	void Unknown_56C7B0(const UIChatF8EventClass &event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
+	void Unknown_56C730(const ChatWindowInterfaceEvent &event, ChatWindowInterface *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
+	void Unknown_56C7B0(const OptionFontInterfaceEvent &event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
 
 	int UnknownA0;										// +0xA0
 	GadgetClass *UnknownA4[7];							// +0xA4 (the constructor clears all seven)
@@ -168,7 +169,7 @@ public:
 	bool Unknown120;									// +0x120 (constructor: true)
 	std::string Unknown124;								// +0x124
 	int Unknown134;										// +0x134 (the chat window's kind, 'DefaultChatWindow')
-	RefCountPtr<UIChatIntClass> ChatInt;				// +0x138  // NAME 3: the assert's 'ChatInt.Peek()'
+	RefCountPtr<ChatWindowInterface> ChatInt;				// +0x138  // NAME 3: the assert's 'ChatInt.Peek()'
 	int Unknown13C;										// +0x13C
 	int Unknown140;										// +0x140
 	int Unknown144;										// +0x144 (the default channel)

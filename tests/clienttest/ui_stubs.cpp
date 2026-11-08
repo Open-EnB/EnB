@@ -48,14 +48,14 @@ void SClientNotifierClass::Remove(int id, SClientCallbackBaseClass *) { Trace("s
 
 // ------------------------------------------------------------------------- ui_chat_panel.cpp's dispatcher and handler
 
-class UIChatF8EventClass {};
+class OptionFontInterfaceEvent {};
 class UIChatIntHandlerClass
 {
 public:
-	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *));
+	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *));
 	char Unknown00[0x10];
 };
-UIChatIntHandlerClass::UIChatIntHandlerClass(UIChatPanelClass *, void (UIChatPanelClass::*)(const UIChatIntEventClass &, UIChatIntClass *))
+UIChatIntHandlerClass::UIChatIntHandlerClass(UIChatPanelClass *, void (UIChatPanelClass::*)(const ChatWindowInterfaceEvent &, ChatWindowInterface *))
 {
 	memset(Unknown00, 0, sizeof(Unknown00));
 	Trace("stub UIChatIntHandlerClass::UIChatIntHandlerClass (0x56D0F0)");
@@ -63,11 +63,11 @@ UIChatIntHandlerClass::UIChatIntHandlerClass(UIChatPanelClass *, void (UIChatPan
 class UnknownEventDispatcherClass
 {
 public:
-	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatF8EventClass &, InterfaceClass *), const UIChatF8EventClass &type);
-	void Unknown_56CEC0(UIChatIntClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const UIChatIntEventClass &, UIChatIntClass *), const UIChatIntEventClass &type);
+	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &type);
+	void Unknown_56CEC0(ChatWindowInterface *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &type);
 };
-void UnknownEventDispatcherClass::Unknown_56CE40(InterfaceClass *, UIChatPanelClass *, void (UIChatPanelClass::*)(const UIChatF8EventClass &, InterfaceClass *), const UIChatF8EventClass &) { Trace("stub UnknownEventDispatcherClass::Unknown_56CE40"); }
-void UnknownEventDispatcherClass::Unknown_56CEC0(UIChatIntClass *, UIChatPanelClass *, void (UIChatPanelClass::*)(const UIChatIntEventClass &, UIChatIntClass *), const UIChatIntEventClass &) { Trace("stub UnknownEventDispatcherClass::Unknown_56CEC0"); }
+void UnknownEventDispatcherClass::Unknown_56CE40(InterfaceClass *, UIChatPanelClass *, void (UIChatPanelClass::*)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &) { Trace("stub UnknownEventDispatcherClass::Unknown_56CE40"); }
+void UnknownEventDispatcherClass::Unknown_56CEC0(ChatWindowInterface *, UIChatPanelClass *, void (UIChatPanelClass::*)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &) { Trace("stub UnknownEventDispatcherClass::Unknown_56CEC0"); }
 
 // ------------------------------------------------------------------------- ui_cpit.cpp's effect node and string
 
