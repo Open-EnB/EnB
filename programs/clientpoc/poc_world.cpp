@@ -271,6 +271,25 @@ void SClient::Unknown_74D990(int color, char *text, int a)
 	chatpanel->Unknown_563760(color, line);
 }
 
+// FontSys 0x6CE420 (unknown_6cce60.cpp's object, not rebuilt): the client's code, the text from a format into Change_Text
+// (a generated stub left the chat window's lines, the inventory counts and the mission texts empty)
+#include <stdarg.h>
+#include "..\..\app\client\fontmanager.h"
+void __cdecl FontSys::Unknown_6CE420(int unknown, const char *format, ...)
+{
+	if (format == NULL) {
+		Change_Text(NULL, unknown);
+		return;
+	}
+	char buffer[0x400];
+	va_list args;
+	va_start(args, format);
+	_vsnprintf(buffer, sizeof(buffer), format, args);
+	va_end(args);
+	buffer[sizeof(buffer) - 1] = 0;
+	Change_Text(buffer, unknown);
+}
+
 // chatgadg.cpp's text entry (0x65BFD0, not rebuilt): a text gadget that holds no text, so the chat window's calls
 // through its table reach real code (a generated constructor leaves no table)
 #include "..\..\app\client\textgadg.h"
