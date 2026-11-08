@@ -23,8 +23,9 @@ D23-D25, D54, D56, D62, D66, D69) are one table row each in progress.md §2; rea
 
 **Verification (CLAUDE.md, D66).** Library or app code changes are kept only if the set of
 `(file, address)` pairs gains and loses nothing: save `docs/data/imports.json`, run
-`importer.py verify --lib X [--pool K]`, compare with `tools/vc6/pairs_cmp.py`; then `report`,
-`replay` (0 differences), the §3.6.1 row in `docs/library-matching.md`, commit. D66 names the
+`importer.py verify --lib X [--pool K]`, compare with `tools/vc6/pairs_cmp.py`; then `report`, commit. A change to an EA-derived file is a
+direct edit plus its entry in the file's end-of-file `// EnB:` block, never a comment line above code
+(D211; conventions.md, "E&B changes to an EA-derived file"). D66 names the
 three kinds of non-loss (say which in the commit); any other loss waits for the user.
 
 **Shared tree (D62).** Other builders may be working in the same tree. Their changes must not be
@@ -70,7 +71,7 @@ release exe is shared and any build may sit there), then `clientpoc.py replay --
 Before you report, delete yours:
 `python tools/harness/clientpoc.py clean --instance NAME` (your shots stay in .work/poc/shots).
 
-**Git.** Never `importer.py assemble`; never push (the coordinator pushes the run branch, D148); never `git reset --hard`, `git checkout -- .`
+**Git.** Never push (the coordinator pushes the run branch, D148); never `git reset --hard`, `git checkout -- .`
 or `git clean` on anything you didn't create. `git add` only your files, by name (never `-A` or
 `.`; `.claude/settings.json` stays out). **The index is shared with the other builders**: a bare
 `git commit` takes whatever they have staged, and a path commit (`git commit -- <files>`) takes the

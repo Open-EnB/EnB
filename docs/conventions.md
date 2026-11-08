@@ -176,6 +176,22 @@ protected:
 
   A reconstructed function has a comment above it giving the client address its body came from
   and what it does, e.g. `// 0x801860: the Unknown120 scene through the scripted camera ...`.
+* **E&B changes to an EA-derived file** (the `ww*` libraries, `binkmovie`, `libs/wwonline`) are
+  described in the file's end-of-file block, never inline: an inline comment above code would move
+  the lines below it and the `__LINE__` the asserts compile (D211). The block is the file's last
+  lines, after the include guard's `#endif` in a header, and opens with our header line:
+
+```cpp
+// Earth & Beyond client (reconstruction): changes to Zero Hour's texture.cpp (frozen 2026-11-07 from importer.py)
+// EnB: TextureBaseClass::TextureBaseClass (line 89 at the freeze): the base constructor has no
+//       'reducible' argument (0x94B020 ends ret 0x14)
+```
+
+  Each entry starts with `// EnB:` (so `grep -rn '// EnB:'` lists every E&B change), names the
+  function or declaration it describes, says what changed and gives the evidence (a client address).
+  A later change adds its entry to the block, naming the function; line numbers only as "at the
+  freeze" or with a date, since edits above move them. A file without a block gets one, and the
+  banner note (§4).
 * Within a body, comment blocks use the Westwood double-slash box:
 
 ```cpp
@@ -225,9 +241,11 @@ function) in this form:
 * Say what the block computes, in C, and anything surprising about it (side effects,
   original bugs, registers it relies on).
 * Add a line on why it is assembly when that is not obvious.
-* Comments never change the compiled bytes. In imported EA files they do move the lines
-  below them, so they are added through `tools/vc6/annotations.py` (re-applied on every
-  import), and the library is re-verified afterwards.
+* Comments never change the compiled bytes, but in imported EA files they move the lines below
+  them (`__LINE__`). The C-equivalent comments already in those files stay where they are (written
+  by annotations.py before the freeze, D211). A new one goes inline above the assembly only when nothing below it in
+  the file compiles `__LINE__` (WWASSERT, WWDEBUG_SAY, FAIL_IF); otherwise it is an entry in the
+  end-of-file `// EnB:` block naming the function. Re-verify the library either way.
 
 ## 3. Toolchain the conventions assume
 
@@ -266,12 +284,12 @@ A longer description follows as a block comment:
 
 No Westwood banner box and no EA copyright line: the file is written from the client's bytes,
 under the repository's GPL v3 (D1, [LICENSE](../LICENSE)). The generators (`auxroots.py`,
-`pkclasses.py`, `pkemit.py`, importer.py's `NEW_FILES`) write the same line.
+`pkclasses.py`, `pkemit.py`) write the same line.
 
 **Files imported from EA's C&C releases** (Renegade, Generals, Zero Hour: the `ww*` libraries,
 `binkmovie`, `libs/wwonline`) keep EA's licence header and Westwood's banner unchanged. Which copy
 and commit each came from is recorded in `docs/data/imports.json` ([imports.md](imports.md)), not in
-the file. A file changed to match the client (PATCHES, annotations, APPENDS, functions spliced from
+the file. A file changed to match the client (edits, C-equivalent comments, functions spliced from
 another copy, or an EA file reworked in place such as `wwlib/rc4.cpp`) says so on the line under EA's
 copyright:
 
@@ -279,11 +297,13 @@ copyright:
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 ```
 
-importer.py writes that line itself (`MODIFIED_NOTE`) on every assemble and replay, in place of
-the banner's bare `**` line: don't edit imported files by hand.
+Since the freeze (D211) these files are edited directly: keep the note, and add the change's
+entry to the end-of-file `// EnB:` block (§2, Statements and comments). The note takes the place of
+the banner's bare `**` line, one line for one, so a file changed for the first time gets it the
+same way.
 
 **Third-party code that is not EA's** keeps its own notice (`libs/sgistl`, SGI STL 3.3, D87).
 
