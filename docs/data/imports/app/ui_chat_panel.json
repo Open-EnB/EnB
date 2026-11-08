@@ -6,7 +6,8 @@
   "0x46BE90",
   "0x474080",
   "0x497300",
-  "0x541A10"
+  "0x541A10",
+  "0x551F00"
  ],
  "copy": "reconstructed",
  "description": "UIChatPanelClass (ui_chat_panel.cpp's __FILE__; client 0x561DD0-0x56CBF5, claims #33 / #34): slots +0x58 / +0x5C / +0x7C, the frame and font toggles 0x563DC0-0x564400 (lines 710 / 782 / 798), the channel list 0x565120 (the 0xB7C530 table), the window requests 0x565F80 / 0x566AF0, the combo select 0x5698F0 (line 1980), the control keys (lines 2309 / 2317), the target talk 0x56BEF0 (line 2326), the default window 0x56C0C0 (line 2377), the chat window's handlers 0x56C6A0-0x56C7B0 (line 2441) through the interface event dispatcher 0x540A20, and the small accessors exact on the client's lines (D25); slots +0x60 / +0x68, 0x563910, 0x565390, 0x565D80, 0x567540, 0x567760, 0x5679A0, 0x567DF0, 0x56B700 and 0x56C180 (lines 2404 / 2420 / 2423) NOT EXACT; the constructor, destructor, slot +0x54, 0x5646A0, 0x5689D0, 0x569A00 and 0x56C7E0 not written yet, CH1",
@@ -44,6 +45,7 @@
   "0x5156B0",
   "0x5156F0",
   "0x515750",
+  "0x51E220",
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
@@ -93,7 +95,24 @@
   "0x56C730",
   "0x56C7B0",
   "0x56CCB0",
-  "0x56D1D0"
+  "0x56CE40",
+  "0x56CEC0",
+  "0x56CF40",
+  "0x56CF60",
+  "0x56CF80",
+  "0x56CFA0",
+  "0x56CFC0",
+  "0x56CFE0",
+  "0x56D000",
+  "0x56D020",
+  "0x56D040",
+  "0x56D0C0",
+  "0x56D0F0",
+  "0x56D120",
+  "0x56D1A0",
+  "0x56D1D0",
+  "0x56D200",
+  "0x56D230"
  ],
  "merged": [],
  "name": "client/ui_chat_panel.cpp",
@@ -130,9 +149,18 @@
   "0x5156B0",
   "0x5156F0",
   "0x515750",
+  "0x51E220",
   "0x5623B0",
   "0x5623D0",
-  "0x5623F0"
+  "0x5623F0",
+  "0x56CF40",
+  "0x56CF60",
+  "0x56CF80",
+  "0x56CFA0",
+  "0x56CFC0",
+  "0x56CFE0",
+  "0x56D000",
+  "0x56D020"
  ],
  "short_known": [
   "0x42D120",
@@ -153,6 +181,14 @@
   "0x5623B0",
   "0x5623D0",
   "0x5623F0",
-  "0x56BA80"
+  "0x56BA80",
+  "0x56CF40",
+  "0x56CF60",
+  "0x56CF80",
+  "0x56CFA0",
+  "0x56CFC0",
+  "0x56CFE0",
+  "0x56D000",
+  "0x56D020"
  ]
 }

@@ -48,26 +48,13 @@ void SClientNotifierClass::Remove(int id, SClientCallbackBaseClass *) { Trace("s
 
 // ------------------------------------------------------------------------- ui_chat_panel.cpp's dispatcher and handler
 
-class OptionFontInterfaceEvent {};
-class UIChatIntHandlerClass
+class UnknownEventDispatcherClass;
+UnknownEventDispatcherClass *Unknown_540A20()	// 0x540A20 (intrface.cpp's function-local static SignalMap 0xBE5AF0): a real map, ui_chat_panel.cpp connects to it
 {
-public:
-	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *));
-	char Unknown00[0x10];
-};
-UIChatIntHandlerClass::UIChatIntHandlerClass(UIChatPanelClass *, void (UIChatPanelClass::*)(const ChatWindowInterfaceEvent &, ChatWindowInterface *))
-{
-	memset(Unknown00, 0, sizeof(Unknown00));
-	Trace("stub UIChatIntHandlerClass::UIChatIntHandlerClass (0x56D0F0)");
+	static SignalMap map;
+	Trace("stub Unknown_540A20");
+	return((UnknownEventDispatcherClass *)&map);
 }
-class UnknownEventDispatcherClass
-{
-public:
-	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &type);
-	void Unknown_56CEC0(ChatWindowInterface *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &type);
-};
-void UnknownEventDispatcherClass::Unknown_56CE40(InterfaceClass *, UIChatPanelClass *, void (UIChatPanelClass::*)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &) { Trace("stub UnknownEventDispatcherClass::Unknown_56CE40"); }
-void UnknownEventDispatcherClass::Unknown_56CEC0(ChatWindowInterface *, UIChatPanelClass *, void (UIChatPanelClass::*)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &) { Trace("stub UnknownEventDispatcherClass::Unknown_56CEC0"); }
 
 // ------------------------------------------------------------------------- ui_cpit.cpp's effect node and string
 

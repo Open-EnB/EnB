@@ -285,27 +285,11 @@ void UIChatPanelClass::Unknown_5689D0(int index)
 {
 	Combo[index] = Create_NEW(new UIComboBoxClass(this, NULL, NULL, NULL, 0, 0, 0, 0, 0));
 }
-class OptionFontInterfaceEvent {};
-class UIChatIntHandlerClass
+class UnknownEventDispatcherClass;
+UnknownEventDispatcherClass *Unknown_540A20()	// 0x540A20 (intrface.cpp's function-local static SignalMap 0xBE5AF0): a real map, ui_chat_panel.cpp connects to it
 {
-public:
-	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *));
-};
-UIChatIntHandlerClass::UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *))
-{
-	STUB_CALLED("POC UIChatIntHandlerClass: nothing");
-}
-class UnknownEventDispatcherClass
-{
-public:
-	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &type);
-	void Unknown_56CEC0(ChatWindowInterface *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &type);
-};
-void UnknownEventDispatcherClass::Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &type)
-{
-}
-void UnknownEventDispatcherClass::Unknown_56CEC0(ChatWindowInterface *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &type)
-{
+	static SignalMap map;
+	return((UnknownEventDispatcherClass *)&map);
 }
 
 // ---------------------------------------------------------------- the render states rs_list.cpp makes from files not in the tree yet

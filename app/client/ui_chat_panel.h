@@ -100,8 +100,8 @@ public:
 	void Unknown_56C180(int window);					// 0x56C180  // NAME 1 [window]: neutral
 	void Unknown_56C6A0();								// 0x56C6A0: the chat window's handler removed, the window released
 	void Unknown_56C7E0();								// 0x56C7E0 (request 12: the chat font settings)
-	void Unknown_56C730(const ChatWindowInterfaceEvent &event, ChatWindowInterface *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
-	void Unknown_56C7B0(const OptionFontInterfaceEvent &event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
+	void Unknown_56C730(ChatWindowInterfaceEvent *event, ChatWindowInterface *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
+	void Unknown_56C7B0(OptionFontInterfaceEvent *event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
 
 	int UnknownA0;										// +0xA0
 	GadgetClass *UnknownA4[7];							// +0xA4 (the constructor clears all seven)

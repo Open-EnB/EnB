@@ -95,22 +95,22 @@ static ChatChannelStruct Unknown_B7C530[17] = {	// NAME 1: neutral (D10): 17 ent
 // What the +0xF8 window's events carry (an empty type: 0x5685C0 passes one to name the handler)
 class OptionFontInterfaceEvent {};	// NAME 5: the client's RTTI (.?AVOptionFontInterfaceEvent@@ 0xB7D3B0, the Event_Type of the callback table 0xAEFFDC, whose sender is .?AVOptionFontInterface@@)
 
-// The chat window's event handler object (0x10 bytes, constructor 0x56D0F0): the receiver and its member
-class UIChatIntHandlerClass	// NAME 1: neutral (D10)
-{
-public:
-	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *));	// 0x56D0F0  // NAME 1 [receiver, handler]: what 0x56C180 passes
-	char Unknown00[0x10];
-};
 
-// The interface event dispatcher (0x540A20 returns its function-local static at 0xBE5AF0), as far as this file calls
-// it: its member templates take the sender, the receiver, the handler and a sample of the event type
-class UnknownEventDispatcherClass	// NAME 1: neutral (D10)
+
+
+
+
+
+
+// The interface event dispatcher (0x540A20 returns its function-local static at 0xBE5AF0): intrface.cpp's signal map. Add news a
+// SignalBaseClass::MemberCallback (its constructor 0x56D0F0); Remove builds one on the stack and disconnects it (0x56CE40, 0x56CEC0)
+class UnknownEventDispatcherClass : public SignalMap	// NAME 1: neutral (D10)
 {
 public:
-	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &type);	// 0x56CE40 (the handler removed)  // NAME 1 [sender, receiver, handler, type]: what 0x5685C0 passes
-	void Unknown_4F9740(InterfaceClass *sender, UIChatIntHandlerClass *handler);	// 0x4F9740 (the handler added)  // NAME 1 [sender, handler]: what 0x56C180 passes
-	void Unknown_56CEC0(ChatWindowInterface *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &type);	// 0x56CEC0 (the handler removed)  // NAME 1 [sender, receiver, handler, type]: what 0x56C6A0 passes
+	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }	// 0x4F9740 (the client's 'SignalMap::connect')
+	template <class SENDER, class OBJECT, class EVENT> void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *)) { Add(sender, new SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function)); }
+	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }	// 0x4F98D0 (the client's 'SignalMap::disconnect')
+	template <class SENDER, class OBJECT, class EVENT> void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event) { Remove(sender, SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function)); }	// 0x56CE40, 0x56CEC0
 };
 UnknownEventDispatcherClass *Unknown_540A20();			// 0x540A20 (intrface.cpp)  // NAME 1: neutral (D10)
 
@@ -1365,7 +1365,7 @@ void UIChatPanelClass::Unknown_5685C0()
 {
 	if (UnknownF8) {
 		if (Unknown10D) {
-			Unknown_540A20()->Unknown_56CE40(UnknownF8.Peek(), this, &UIChatPanelClass::Unknown_56C7B0, OptionFontInterfaceEvent());
+			Unknown_540A20()->Remove((InterfaceClass *)UnknownF8.Peek(), this, &UIChatPanelClass::Unknown_56C7B0, OptionFontInterfaceEvent());
 			Unknown10D = false;
 		}
 		UnknownF8->Unknown_7C(NULL, 0);
@@ -2385,7 +2385,7 @@ void UIChatPanelClass::Unknown_56C180(int window)
 {
 	bool active = Active;
 	if (ChatInt) {
-		Unknown_540A20()->Unknown_56CEC0(ChatInt.Peek(), this, &UIChatPanelClass::Unknown_56C730, ChatWindowInterfaceEvent());
+		Unknown_540A20()->Remove(ChatInt.Peek(), this, &UIChatPanelClass::Unknown_56C730, ChatWindowInterfaceEvent());
 		ChatInt->Unknown_7C(NULL, 0);
 		ChatInt = NULL;
 	}
@@ -2407,7 +2407,7 @@ void UIChatPanelClass::Unknown_56C180(int window)
 	}
 	if (ChatInt) {
 		UnknownEventDispatcherClass *dispatcher = Unknown_540A20();
-		dispatcher->Unknown_4F9740(ChatInt.Peek(), new UIChatIntHandlerClass(this, &UIChatPanelClass::Unknown_56C730));
+		dispatcher->Add(ChatInt.Peek(), this, &UIChatPanelClass::Unknown_56C730);
 		ChatInt->Unknown_5417D0(this);
 		ChatInt->Unknown_54();
 		ChatInt->Unknown_7C(View, active);
@@ -2428,7 +2428,7 @@ void UIChatPanelClass::Unknown_56C180(int window)
 void UIChatPanelClass::Unknown_56C6A0()
 {
 	if (ChatInt) {
-		Unknown_540A20()->Unknown_56CEC0(ChatInt.Peek(), this, &UIChatPanelClass::Unknown_56C730, ChatWindowInterfaceEvent());
+		Unknown_540A20()->Remove(ChatInt.Peek(), this, &UIChatPanelClass::Unknown_56C730, ChatWindowInterfaceEvent());
 		ChatInt->Unknown_7C(NULL, 0);
 		ChatInt = NULL;
 	}
@@ -2436,10 +2436,10 @@ void UIChatPanelClass::Unknown_56C6A0()
 
 
 // 0x56C730
-void UIChatPanelClass::Unknown_56C730(const ChatWindowInterfaceEvent &event, ChatWindowInterface *chat_int)
+void UIChatPanelClass::Unknown_56C730(ChatWindowInterfaceEvent *event, ChatWindowInterface *chat_int)
 {
 	FAIL_IF(chat_int != ChatInt.Peek()) return;
-	if (event.Unknown00 == 1) {
+	if (event->Unknown00 == 1) {
 		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
 		Unknown_565120();
 		Unknown_565390(0);
@@ -2447,7 +2447,7 @@ void UIChatPanelClass::Unknown_56C730(const ChatWindowInterfaceEvent &event, Cha
 }
 
 // 0x56C7B0
-void UIChatPanelClass::Unknown_56C7B0(const OptionFontInterfaceEvent &event, InterfaceClass *sender)
+void UIChatPanelClass::Unknown_56C7B0(OptionFontInterfaceEvent *event, InterfaceClass *sender)
 {
 	if (sender == UnknownF8.Peek() && ChatInt) ChatInt->Unknown_571430();
 }
@@ -2469,10 +2469,13 @@ void UIChatPanelClass::Unknown_56C7B0(const OptionFontInterfaceEvent &event, Int
 ** under ui_buff.cpp: they are this file's (0x5629FC reads fa_tsi05b.ini; the NUM_COMBO assert passes this file's
 ** __FILE__).
 **
-** Handlers: the chat window's and the +0xF8 window's events are routed through intrface.cpp's dispatcher (0x540A20
-** returns a function-local static); its member templates (0x56CE40 / 0x56CEC0 remove, 0x4F9740 adds a 0x10-byte
-** handler object, 0x56D0F0) are declared here as plain members, which compile to the same calls. The handler's last
-** argument is a sample of the event type: a zeroed ChatWindowInterfaceEvent, an empty OptionFontInterfaceEvent.
+** Handlers: the chat window's and the +0xF8 window's events are routed through intrface.cpp's signal map (0x540A20
+** returns a function-local static SignalMap), with SignalMap's member templates as intrface.cpp declares them (OM1,
+** P-CW1-1): Add news a SignalBaseClass::MemberCallback (0x10 bytes, its constructor 0x56D0F0) and connects it
+** (0x4F9740); Remove (0x56CE40, 0x56CEC0) builds one on the stack and disconnects it (0x4F98D0). The handlers take
+** the event by pointer, as MemberCallback::Call passes it; the last argument of Remove is a sample of the event type
+** (a zeroed ChatWindowInterfaceEvent, an empty OptionFontInterfaceEvent). The callbacks' ??_G copies are
+** byte-identical to the panel's own ??_G 0x562410: objmatch's range round tells them apart by their callees (P-CW1-1).
 **
 ** Levers that made functions exact: inline accessors for the font owner (+0x84) and the gadget's +0x30 (0x563DC0,
 ** 0x56BAA0, 0x562F50), a local for View (0x562F50), the branch order that gives the client's EH states (0x563910,
