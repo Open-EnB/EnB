@@ -6,7 +6,7 @@
     python .claude/skills/coordinator-pacing/scripts/pacing.py health [--baseline IMPORTS.json]
     python .claude/skills/coordinator-pacing/scripts/pacing.py heartbeat --plan PLAN.md --builders N
             [--baseline IMPORTS.json] [--handoff HH:MM] [--cap 92] [--floor-weekly 5]
-            [--weekly-rate 2.0] [--session-rate 4.0] [--floor-gb 3] [--gb-per-builder 2] [--no-log]
+            [--weekly-rate 0.5] [--session-rate 4.0] [--floor-gb 3] [--gb-per-builder 2] [--no-log]
 
 `usage` reads the account's windows with the local Claude Code login token (the same numbers as /usage).
 `heartbeat` prints usage, free memory, the pool, HEAD's health, the unlanded wt/* branches (`wt.py list --unlanded`'s
@@ -243,7 +243,7 @@ def main():
     hb.add_argument('--handoff', default=None, help='HH:MM when the handoff must be written')
     hb.add_argument('--cap', type=float, default=92.0, help='max projected %% of either window at the handoff')
     hb.add_argument('--floor-weekly', type=float, default=5.0, help='never launch under this %% of the week')
-    hb.add_argument('--weekly-rate', type=float, default=2.0, help='%% of the week per hour per Opus builder')
+    hb.add_argument('--weekly-rate', type=float, default=0.5, help='%% of the week per hour per Opus builder')
     hb.add_argument('--session-rate', type=float, default=4.0, help='%% of the session per hour per Opus builder')
     hb.add_argument('--floor-gb', type=float, default=3.0)
     hb.add_argument('--gb-per-builder', type=float, default=2.0)
