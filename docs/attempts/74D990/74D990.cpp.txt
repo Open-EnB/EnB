@@ -1,0 +1,35 @@
+// NOT EXACT: functional (CW1): from the disassembly, not compared yet
+// 0x74D990: a message on the chat (the chat panel's 0x563760) with its type's prefix unless 'a' (6, 21: also on
+// the line display; 22: the line display only); errors and warnings sound when their option says so
+void SClient::Unknown_74D990(int color, char *text, int a)
+{
+	if (!text || !*text) return;
+	if (color == 17) {
+		if (OptionClass::Instance->Get_Bool("Chat_Errors_IC")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2);
+	} else if (color == 19) {
+		if (OptionClass::Instance->Get_Bool("Chat_Errors_System")) SoundLibraryClass::Play_2D_Sound("Text_Error", 2);
+	} else if (color == 21 && !OptionClass::Instance->Get_Bool("Chat_Warnings")) {
+		SoundLibraryClass::Play_2D_Sound("Text_Warning", 2);
+	}
+	UIChatPanelClass *chatpanel = ChatPanel.Peek();
+	FAIL_IF(!chatpanel) return;
+	std::string line("");
+	if (color == 0 || color == 17) {
+		if (!(char)a) line = "COMPUTER: ";
+	} else if (color == 6) {
+		if (!(char)a) line = "TIP: ";
+		if (LineDisplay) LineDisplay->Add_Line_3(text, 3000, "MessageLine");
+	} else if (color == 21) {
+		if (!(char)a) line = "WARNING: ";
+		if (LineDisplay) LineDisplay->Add_Line_3(text, 3000, "MessageLine");
+	} else if (color == 19) {
+		if (!(char)a) line = "SYSTEM: ";
+	} else if (color == 20 || color == 1 || color == 18) {
+		if (!(char)a) line = "OUTDATED MESSAGE TYPE: ";
+	} else if (color != 3 && color == 22) {
+		if (LineDisplay) LineDisplay->Add_Line_3(text, 0, "QuickLine");
+		return;
+	}
+	line += text;
+	chatpanel->Unknown_563760(color, line);
+}

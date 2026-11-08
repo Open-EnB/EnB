@@ -223,6 +223,7 @@ ChatWindowInterface::ChatWindowInterface(SClient *client, int a, int b, int kind
 UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c) : InterfaceClass(owner->Client)
 {
 	STUB_CALLED("POC UIComboBoxClass: an empty window");
+	memset((char *)this + sizeof(InterfaceClass), 0, sizeof(UIComboBoxClass) - sizeof(InterfaceClass));	// the real 0x57B440 (slot +0x7C) reads the drop-down state +0xC8
 }
 void UIChatPanelClass::Unknown_5689D0(int index)
 {

@@ -41,6 +41,8 @@ public:
 	bool Unknown61;										// +0x61 (a row: the selected one; the row's constructor 0x578210 clears it)
 	char Unknown62[0x68 - 0x62];						// +0x62
 	FontSys *Unknown68;							// +0x68 (the text)
+	char Unknown6C[0x78 - 0x6C];						// +0x6C
+	bool Unknown78;										// +0x78 (a row: set by 0x57B5C0; the row's constructor clears it)
 };
 
 // gd_slider.cpp's slider (the list's scroll bar, the combo box's +0xD8), as far as this file calls it: gd_slider.h's GadgetSlider (gd_slider.h's gadget.h clashes with this file's GadgetClass)
@@ -214,6 +216,65 @@ void UIComboBoxClass::Unknown_57A330()
 	drop->Release_Ref();
 }
 
+// NOT EXACT: inline-budget (the client expands the item's string constructor, _Tidy and _Grow, where ours calls assign; and compares the cap the other way round)
+// 0x57B000
+void UIComboBoxClass::Unknown_57B000(const char *text)
+{
+	Unknown0B8++;
+	Unknown0B8 = min(Unknown0B8, Unknown0B4);
+	Items.push_back(std::string(text));
+	if (Items.size() == 1) {
+		Selected = 0;
+		Unknown_Show_Selected();
+	}
+}
+
+// 0x57B1D0
+void UIComboBoxClass::Unknown_57B1D0(const char **items)
+{
+	while (*items) {
+		Unknown_57B000(*items++);
+	}
+}
+
+// 0x57B210
+void UIComboBoxClass::Unknown_57B210()
+{
+	Items.clear();
+	Unknown0DC = 0;
+	Selected = 0;
+	Unknown_57AAB0();
+	Unknown0B8 = 0;
+}
+
+// 0x57B440
+void UIComboBoxClass::Unknown_57B440()
+{
+	if (Unknown0C8 == 1 || Unknown0C8 == 3 || Unknown0C8 == 2) {
+		Unknown0C8 = 2;
+		Unknown0CC = -1.0f;
+		Unknown_57A330();
+	}
+}
+
+// 0x57B570
+void UIComboBoxClass::Unknown_57B570(bool on)
+{
+	Unknown114 = on;
+	Unknown0D0->Unknown_40(!on);
+	Unknown0D0->Unknown_8C(on);
+}
+
+// 0x57B5C0
+void UIComboBoxClass::Unknown_57B5C0(int first, int last)
+{
+	first = (first > 0) ? first : 0;
+	int end = (last < Unknown0B8) ? last : Unknown0B8;
+	for (int i = first; i < end; i++) {
+		Unknown0F8[i]->Unknown78 = true;
+	}
+}
+
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\ui_combobox.cpp (its __FILE__, 0x5790C0's assert 'AttachBone' on line 310)
@@ -225,4 +286,6 @@ void UIComboBoxClass::Unknown_57A330()
 **	box's public selection (ui_chat_panel.cpp, 0x5F3770 and others call them). The rows are the gadget
 **	subclass 0x578210 builds (table 0xAF097C). 0x57A330's top-row clamps: always.h's min, then an upper
 **	clamp in WWMath::Clamp_Int's form on unsigned (std::_cpp_min and a ternary both lose the client's ja).
+**	The item list and drop-down helpers 0x57B000, 0x57B1D0, 0x57B210, 0x57B440, 0x57B570, 0x57B5C0 (CW1, 2026-11-08):
+**	0x57B000 caps the rows +0xB8 at +0xB4 and shows the first item; 0x57B210 empties the list.
 */
