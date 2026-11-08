@@ -14,11 +14,18 @@ new: `git worktree add .work/wt/NAME -b wt/NAME BASE` (default HEAD); NTFS junct
   (udpreplay needs app.lib: `build.py build --lib app --allow-dirty` in the worktree); records BASE in
   .work/wt/NAME.base. verify.py run inside the worktree takes NAME as its agent (scratch under
   the worktree's .work/NAME/tmp): `new` checks that.
+  Stacked branches (pipeline-plan §4 item 4): `--base wt/PARENT` records PARENT's tip as the base plus a line
+  `parent PARENT` (one-line records of older worktrees read as no parent). Until PARENT's commits are on TARGET
+  (own_commits finds none up to the recorded tip), bring-over refuses NAME unless PARENT comes before it in the same
+  batch; `list` shows "on wt/PARENT (unlanded)" or "(parent landed: rebase)"; `rebase NAME` then replays NAME's own
+  commits only (`git rebase --onto ONTO <recorded parent tip>`) and drops the parent line (`--onto wt/PARENT` keeps it,
+  recording PARENT's new tip).
 
 bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss rule below holds, never
   touching TARGET otherwise:
-  1. the commits of wt/NAME not yet on TARGET (patch-equivalent ones skipped, merges refused);
-  2. TARGET at the recorded base (or an ancestor of the branch): fast-forward to the branch tip;
+  1. the commits of wt/NAME not yet on TARGET (patch-equivalent ones skipped, merges refused), only those above the
+     recorded base (the branch's own, as the batch form picks them; a stacked branch's parent must be on TARGET);
+  2. TARGET at the recorded base (or an ancestor of the branch, the base on TARGET): fast-forward to the branch tip;
      else cherry-pick them, in a scratch worktree .work/wt/NAME.bo at TARGET, conflicts resolved as in
      the batch form (step 2 there: generated files take TARGET's side, attempts.csv both sides' rows);
      any other conflict refuses (`wt.py rebase NAME --onto TARGET` then stops on it for the builder);
@@ -89,7 +96,9 @@ remove: removes every junction inside the worktree first (rmdir, never a recursi
   A dirty worktree is refused unless --force, and so is a branch with unlanded commits (own_commits below; the
   refusal lists them, sha and subject; with --force they are printed with how to recover the branch).
 
-list: every worktree but the main one: name, recorded base, commits ahead of it, dirty or clean.
+list: every worktree but the main one: name, recorded base, commits ahead of it, dirty or clean (plus the parent of a
+  stacked branch: "on wt/P (unlanded)", "(parent landed: rebase)" when it landed under new hashes, or "(parent
+  landed)" when its recorded tip itself is on a run branch or master: nothing to rebase for).
   --unlanded: the wt/* branches (with a worktree or not) that have commits landed on none of master,
   origin/master and the local run/* branches; landed = reachable, or a commit there with the same author time,
   author and subject (a cherry-pick or rebase, whatever its conflict resolution did), or patch-equivalent
@@ -192,6 +201,32 @@ def base_file(name):
     return os.path.join(WTDIR, name + '.base')
 
 
+def read_base(name):
+    """(base, parent) from .work/wt/NAME.base: line 1 the base commit (None without a record); a later line
+    `parent P` when NAME was made with --base wt/P (the base is then P's tip at that time). Older one-line records
+    read as no parent."""
+    if not os.path.exists(base_file(name)):
+        return None, None
+    with open(base_file(name), encoding='utf-8') as f:
+        lines = [l.strip() for l in f.read().splitlines() if l.strip()]
+    parent = next((l.split(None, 1)[1] for l in lines[1:] if l.startswith('parent ') and len(l.split()) > 1), None)
+    return (lines[0] if lines else None), parent
+
+
+def write_base(name, base, parent=None):
+    with open(base_file(name), 'w', newline='\n') as f:
+        f.write(base + '\n' + (f'parent {parent}\n' if parent else ''))
+
+
+def stacked_on(name, upstreams):
+    """(parent, parent tip, landed) when NAME was made on wt/PARENT, else None. landed: the parent's commits up to the
+    recorded tip are all on UPSTREAMS (own_commits finds none)."""
+    base, parent = read_base(name)
+    if not parent or not base:
+        return None
+    return parent, base, not own_commits(base, upstreams)
+
+
 def check_name(name):
     if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*', name) or name.endswith('.bo'):
         sys.exit(f'wt: bad worktree name {name!r} (letters, digits, . _ -; not ending in .bo)')
@@ -248,13 +283,18 @@ def cmd_new(a):
     if ok('rev-parse', '--verify', '-q', 'refs/heads/wt/' + a.name):
         sys.exit(f'wt: branch wt/{a.name} exists (wt.py remove {a.name} --delete-branch, or another name)')
     base = rev(a.base)
+    m = re.fullmatch(r'(?:refs/heads/)?wt/([A-Za-z0-9][A-Za-z0-9._-]*)', a.base)
+    parent = m.group(1) if m and ok('rev-parse', '--verify', '-q', 'refs/heads/wt/' + m.group(1)) else None
     os.makedirs(WTDIR, exist_ok=True)
     git('worktree', 'add', path, '-b', 'wt/' + a.name, base)
     furnish(path)
-    with open(base_file(a.name), 'w', newline='\n') as f:
-        f.write(base + '\n')
+    write_base(a.name, base, parent)
     agent = importer_agent(path)
     print(f'worktree {path}\nbranch   wt/{a.name} at {base[:9]} ({git("log", "-1", "--format=%s", base).strip()[:70]})')
+    if parent:
+        print(f'stacked on wt/{parent} (its tip {base[:9]} recorded): once wt/{parent} lands, `wt.py rebase {a.name}` '
+              f'replays only wt/{a.name}\'s own commits; bring-over refuses wt/{a.name} before it (or batch them, '
+              f'{parent} first)')
     print(f'importer agent there: {agent}' + ('' if agent == a.name else f'  (WARNING: expected {a.name})'))
     print(f'hint: work in it by absolute path; importer.py verify there runs as --agent {a.name} by default; '
           f'udpreplay needs `python tools/vc6/build.py build --lib app --allow-dirty` there first; '
@@ -440,17 +480,24 @@ def cmd_list(a):
                 print(f'    ... {len(own) - 10} older')
         return
     rows = [('name', 'branch', 'base', 'ahead', 'state', 'path')]
+    ups = None
     for p, b, head in worktrees():
         name = os.path.basename(p)
-        base = '-'
+        base, stack = '-', ''
         if os.path.normcase(os.path.dirname(p)) == os.path.normcase(WTDIR) and os.path.exists(base_file(name)):
-            base = open(base_file(name)).read().strip()
+            base = read_base(name)[0] or '-'
+            ups = landed_refs() if ups is None else ups
+            st = stacked_on(name, ups)
+            if st:                      # landed as is (its tip reachable): nothing to rebase for
+                same = st[2] and any(ok('merge-base', '--is-ancestor', st[1], r) for r in ups)
+                stack = f'; on wt/{st[0]}' + (' (unlanded)' if not st[2] else ' (parent landed)' if same
+                                              else ' (parent landed: rebase)')
         if base == '-' and b:
             base = git('merge-base', 'master', b, check=False).stdout.decode().strip() or '-'
         ahead = git('rev-list', '--count', f'{base}..{head}').strip() if base != '-' else '?'
         st = git('status', '--porcelain', '-uno', cwd=p, check=False)
         n = len(st.stdout.splitlines()) if st.returncode == 0 else -1
-        state = 'clean' if n == 0 else ('?' if n < 0 else f'dirty ({n})')
+        state = ('clean' if n == 0 else ('?' if n < 0 else f'dirty ({n})')) + stack
         rows.append((name, b or '(detached)', base[:9], ahead, state, os.path.relpath(p, ROOT)))
     w = [max(len(r[i]) for r in rows) for i in range(6)]
     for r in rows:
@@ -1002,10 +1049,7 @@ def batch_spec(spec):
         lo, hi = br(lo.rstrip('.')), br(hi.lstrip('.'))
         return f'{lo}..{hi}', hi, rev('refs/heads/wt/' + hi), rev('refs/heads/wt/' + lo)
     name = br(spec)
-    low = None
-    if os.path.exists(base_file(name)):
-        low = open(base_file(name)).read().strip()
-    return name, name, rev('refs/heads/wt/' + name), low
+    return name, name, rev('refs/heads/wt/' + name), read_base(name)[0]
 
 
 def batch_commits(bo, tip, low):
@@ -1098,6 +1142,20 @@ def regen_and_commit(a, bo, subject, target, old, took=()):
     git('commit', '-q', '-F', '-', cwd=bo, inp=msg.encode())
 
 
+def order_stacked(names, target):
+    """Exit when a branch of NAMES (in landing order) is stacked on a parent whose commits are not on TARGET and the
+    parent is not earlier in NAMES (pipeline-plan §4 item 4: a child never lands its parent's commits, nor before it)."""
+    for i, n in enumerate(names):
+        st = stacked_on(n, ['refs/heads/' + target])
+        if not st or st[2] or st[0] in names[:i]:
+            continue
+        p = st[0]
+        where = ('it comes after wt/' + n + ' in this batch: put it before' if p in names[i + 1:]
+                 else 'land it first, or put it before wt/' + n + ' in one batch')
+        sys.exit(f'wt: wt/{n} is stacked on wt/{p} (tip {st[1][:9]}), whose commits are not on {target} yet: {where} '
+                 f'(`wt.py bring-over {p} {n} --target {target}`); nothing done')
+
+
 def cmd_batch(a):
     specs = [batch_spec(s) for s in a.names]
     labels = [s[0] for s in specs]
@@ -1106,6 +1164,7 @@ def cmd_batch(a):
     check_builders([s[1] for s in specs])
     tref = 'refs/heads/' + a.target
     bo = wt_path(name) + '.bo'
+    order_stacked([s[1] for s in specs if '..' not in s[0]], a.target)
     for label, n, tip, low in specs:
         if low and '..' not in label and ok('merge-base', '--is-ancestor', low, tip):
             below = git('rev-list', '--count', f'{rev(tref)}..{low}').strip()
@@ -1189,12 +1248,18 @@ def cmd_bring_over(a):
     tip = rev('refs/heads/' + branch)
     tref = 'refs/heads/' + a.target
     old = rev(tref)
-    base = open(base_file(a.name)).read().strip() if os.path.exists(base_file(a.name)) else \
-        git('merge-base', old, tip).strip()
+    order_stacked([a.name], a.target)
+    base = read_base(a.name)[0] or git('merge-base', old, tip).strip()
     if git('rev-list', '--merges', f'{base}..{tip}').strip():
         sys.exit(f'wt: {branch} has merge commits after its base; refused')
     commits = git('rev-list', '--reverse', '--no-merges', '--right-only', '--cherry-pick',
                   f'{old}...{tip}').split()
+    own = None
+    if ok('merge-base', '--is-ancestor', base, tip):     # only the branch's own commits, as the batch form picks them
+        own = set(git('rev-list', f'{base}..{tip}').split())
+        commits = [c for c in commits if c in own]
+        if not ok('merge-base', '--is-ancestor', base, old):
+            print(f'note: {branch} is based on {base[:9]}, not on {a.target}: only its own commits are picked')
     if not commits:
         sys.exit(f'wt: nothing to bring over: every commit of {branch} is on {a.target}')
     print(f'{branch}: {len(commits)} commit(s) to bring onto {a.target} {old[:9]} (base {base[:9]})')
@@ -1202,7 +1267,7 @@ def cmd_bring_over(a):
     logp = bo + '.log'
     if os.path.isdir(bo):
         drop_worktree(bo)
-    ff = ok('merge-base', '--is-ancestor', old, tip)
+    ff = ok('merge-base', '--is-ancestor', old, tip) and (own is None or ok('merge-base', '--is-ancestor', base, old))
     git('worktree', 'add', '--detach', bo, tip if ff else old)
     furnish(bo, libs=False, pseudo=False)
     why = None
@@ -1254,8 +1319,7 @@ def cmd_bring_over(a):
         print(f'landed: {a.target} {old[:9]} -> {landed[:9]}')
         print(git('log', '--format=  %h %s', f'{old}..{landed}').rstrip()[:2000])
         if ff and landed == tip:
-            with open(base_file(a.name), 'w', newline='\n') as f:
-                f.write(new + '\n')
+            write_base(a.name, landed)
         else:
             print(f'note: {branch} keeps its own copies; a later bring-over skips them (patch-equivalent)')
     finally:
@@ -1278,7 +1342,7 @@ def run_branch_of(name):
     """The run branch wt/NAME was based on: a run/* branch holding its recorded base (the main tree's current
     branch first, else the newest), else the main tree's current branch when it is a run branch."""
     cur = current_branch()
-    base = read_text(base_file(name)).strip() if os.path.exists(base_file(name)) else None
+    base = read_base(name)[0]
     if base and ok('cat-file', '-e', base + '^{commit}'):
         holders = git('for-each-ref', '--sort=-committerdate', '--format=%(refname:short)', '--contains', base,
                       'refs/heads/run/').split()
@@ -1382,12 +1446,22 @@ def cmd_rebase(a):
             git('checkout', 'HEAD', '--', *dirty, cwd=path)
             print(f'generated leftovers dropped (regenerated below): {", ".join(dirty)}')
         onto_name = a.onto or run_branch_of(a.name)
-        st = {'onto': onto_name, 'onto_sha': rev(onto_name), 'old': rev('HEAD', cwd=path), 'took': []}
+        st = {'onto': onto_name, 'onto_sha': rev(onto_name), 'old': rev('HEAD', cwd=path), 'took': [], 'parent': None}
         if ok('merge-base', '--is-ancestor', st['onto_sha'], st['old']):
             print(f'{branch} already contains {onto_name} {st["onto_sha"][:9]}: nothing to rebase')
             return
-        # item 4 (stacked branches) adds an upstream here: ['--onto', onto, PARENT_TIP] replays the child's own commits
         start = [st['onto_sha']]
+        stack = stacked_on(a.name, [st['onto_sha']])
+        if stack:                       # pipeline-plan §4 item 4: replay the child's own commits only
+            parent, ptip, landed = stack
+            if re.fullmatch(r'(?:refs/heads/)?wt/' + re.escape(parent), onto_name):
+                st['parent'] = parent   # onto the parent's newer tip: still stacked on it
+            elif not landed:
+                sys.exit(f'wt: {branch} is stacked on wt/{parent} (tip {ptip[:9]}), whose commits are not on {onto_name} '
+                         f'yet: land wt/{parent} first (or `wt.py rebase {a.name} --onto wt/{parent}`); nothing done')
+            if ok('merge-base', '--is-ancestor', ptip, st['old']):
+                start = ['--onto', st['onto_sha'], ptip]
+                print(f'stacked on wt/{parent}: only the commits above its recorded tip {ptip[:9]} are replayed')
         print(f'rebasing {branch} {st["old"][:9]} onto {onto_name} {st["onto_sha"][:9]} (log {logp})', flush=True)
     with open(logp, 'a', newline='\n', encoding='utf-8') as log:
         took = set(st['took'])
@@ -1409,8 +1483,7 @@ def cmd_rebase(a):
           + (f'; generated conflicts took its side: {", ".join(st["took"][:8])}' if st['took'] else ''), flush=True)
     regenerate_rebased(a, path, st)
     os.remove(statef)
-    with open(base_file(a.name), 'w', newline='\n') as f:
-        f.write(st['onto_sha'] + '\n')
+    write_base(a.name, st['onto_sha'], st.get('parent'))
     print(f'done: {branch} at {rev("HEAD", cwd=path)[:9]} '
           f'({git("log", "-1", "--format=%s", "HEAD", cwd=path).strip()[:80]}); base recorded {st["onto_sha"][:9]}')
 

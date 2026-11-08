@@ -300,5 +300,99 @@ class Land(GitRepo):
         self.assertEqual(run(self.root, 'rev-parse', 'run/x'), theirs)
 
 
+def bo_args(*names, **kw):
+    d = dict(names=list(names), batch_name=None, target='run/x', lib=[], pool=1, trailer=None, dry=False,
+             picks_only=False, resume=False, keep=False, lock_wait=1)
+    d.update(kw)
+    return argparse.Namespace(**d)
+
+
+class Stacked(GitRepo):
+    """Item 4: a branch made on another builder's branch records its parent and lands after it, its own commits only."""
+
+    def setUp(self):
+        super().setUp()
+        locks = os.path.join(self.root, '.work', 'locks')
+        os.makedirs(locks)
+        stubs = {'LOCK': os.path.join(locks, 'importer.lock'), 'importer_agent': lambda path: 'x',
+                 'libs_touched': lambda *a: [], 'regen_and_commit': lambda *a, **k: None,
+                 'say_losses': lambda r: None, 'judge_losses': lambda *a: dict(gained=[], gained_tiebreak=[], moves=[], lost_outright=[]),
+                 'regenerate_rebased': lambda a, path, st: None}
+        for k, v in stubs.items():
+            old = getattr(wt, k)
+            setattr(wt, k, v)
+            self.addCleanup(setattr, wt, k, old)
+        old = wt.ledger.load
+        wt.ledger.load = lambda *a, **k: {}
+        self.addCleanup(setattr, wt.ledger, 'load', old)
+        self.quiet(wt.cmd_new, argparse.Namespace(name='P', base='run/x'))
+        self.pp = os.path.join(self.wtdir, 'P')
+        self.p1 = commit(self.pp, 'parent work', **{'p_dot_txt': 'p\n'})
+        self.quiet(wt.cmd_new, argparse.Namespace(name='C', base='wt/P'))
+        self.cp = os.path.join(self.wtdir, 'C')
+        self.c1 = commit(self.cp, 'child work', **{'c_dot_txt': 'c\n'})
+
+    def quiet(self, fn, *args):
+        with redirect_stdout(io.StringIO()) as out:
+            fn(*args)
+        return out.getvalue()
+
+    def land_parent_differently(self):
+        """P's commit lands on run/x with the same author, time and subject but another diff (a conflict resolved
+        by hand): not patch-equivalent, so a plain rebase of the child would replay it and conflict."""
+        run(self.root, 'cherry-pick', '-n', self.p1)
+        write(self.root, 'p.txt', 'p\nresolved\n')
+        run(self.root, 'add', 'p.txt')
+        run(self.root, 'commit', '-q', '-C', self.p1)
+        return run(self.root, 'rev-parse', 'HEAD')
+
+    def test_new_records_parent(self):
+        self.assertEqual(wt.read_base('C'), (self.p1, 'P'))             # P's tip when C was made, and P
+        self.assertEqual(wt.read_base('P'), (self.base, None))
+        with open(os.path.join(self.wtdir, 'OLD.base'), 'w') as f:      # an old one-line record still reads
+            f.write(self.base + '\n')
+        self.assertEqual(wt.read_base('OLD'), (self.base, None))
+
+    def test_list_marks_parent_landed(self):
+        out = self.quiet(wt.cmd_list, argparse.Namespace(unlanded=False))
+        self.assertIn('on wt/P (unlanded)', out)
+        self.land_parent_differently()
+        out = self.quiet(wt.cmd_list, argparse.Namespace(unlanded=False))
+        self.assertIn('on wt/P (parent landed: rebase)', out)
+
+    def test_rebase_takes_child_commits_only(self):
+        commit(self.root, 'run moves', **{'r_dot_txt': 'r\n'})
+        with self.assertRaises(SystemExit) as e:                        # the parent not landed: refused
+            self.quiet(wt.cmd_rebase, rebase_args('C', onto='run/x'))
+        self.assertIn('stacked on wt/P', str(e.exception))
+        tip = self.land_parent_differently()
+        self.quiet(wt.cmd_rebase, rebase_args('C', onto='run/x'))
+        self.assertEqual(run(self.cp, 'rev-parse', 'HEAD~1'), tip)
+        self.assertEqual(run(self.cp, 'log', '--format=%s', f'{tip}..HEAD'), 'child work')
+        self.assertEqual(rd(os.path.join(self.cp, 'p.txt')), 'p\nresolved\n')
+        self.assertEqual(wt.read_base('C'), (tip, None))
+
+    def test_bring_over_child_alone_refused(self):
+        with self.assertRaises(SystemExit) as e:
+            self.quiet(wt.cmd_bring_over, bo_args('C'))
+        self.assertIn('stacked on wt/P', str(e.exception))
+        with self.assertRaises(SystemExit) as e:
+            self.quiet(wt.cmd_bring_over, bo_args('C', 'P'))
+        self.assertIn('put it before', str(e.exception))
+        self.assertEqual(run(self.root, 'rev-parse', 'run/x'), self.base)
+
+    def test_batch_parent_first_lands(self):
+        write(self.root, 'other.txt', 'uncommitted\n')                  # untracked: no effect
+        self.quiet(wt.cmd_bring_over, bo_args('P', 'C'))
+        self.assertEqual(run(self.root, 'log', '--format=%s', f'{self.base}..run/x').splitlines(),
+                         ['child work', 'parent work'])
+
+    def test_child_after_parent_landed_brings_own_commits(self):
+        tip = self.land_parent_differently()
+        self.quiet(wt.cmd_bring_over, bo_args('C'))
+        self.assertEqual(run(self.root, 'log', '--format=%s', f'{tip}..run/x').splitlines(), ['child work'])
+        self.assertEqual(rd(os.path.join(self.root, 'p.txt')), 'p\nresolved\n')
+
+
 if __name__ == '__main__':
     unittest.main()
