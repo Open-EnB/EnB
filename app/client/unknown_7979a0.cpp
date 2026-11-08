@@ -64,9 +64,7 @@ void CameraController02Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 			if (Get_Flag(1)) {
 				Client->CameraManager->Unknown_79B2B0(5);
 				Clear_Flag(1);
-				break;
-			}
-			if ((unsigned)Client->Unknown10BC > (unsigned)Unknown14) {
+			} else if ((unsigned)Client->Unknown10BC > (unsigned)Unknown14) {
 				Unknown10 = 2;
 				Unknown14 = Client->Unknown10BC + 5000;
 				Unknown18 = Client->Unknown10BC;
@@ -131,14 +129,14 @@ void CameraController02Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 			Unknown0C->Unknown_08(pos, rot);
 			*mode = 1;
 			break;
-		case 2:
-			Client->CameraManager->Get_Player_Chase_Camera_Module()->Unknown_08(pos, rot);
-			*mode = 2;
-			break;
 		case 1:
 		case 3:
 		case 4:
 			Unknown0C->Unknown_08(pos, rot);
+			*mode = 2;
+			break;
+		case 2:
+			Client->CameraManager->Get_Player_Chase_Camera_Module()->Unknown_08(pos, rot);
 			*mode = 2;
 			break;
 	}
@@ -173,35 +171,26 @@ void CameraController02Class::Unknown_7981B0()
 	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
 	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
 	Vector3 dir;
-	if (dest) {
-		Vector3 target = dest->Unknown_24();
-		dir = target - tm.Get_Translation();
-	} else {
+	if (dest == NULL) {
 		dir = tm.Get_X_Vector();
+	} else {
+		dir = dest->Unknown_24() - tm.Get_Translation();
 	}
 	float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
 	float back = angle + 3.1415927f;
 	float range = CameraManagerClass::Unknown_79B6B0();
-	float s1 = (float)sin(angle);
-	float c1 = (float)cos(angle);
-	float s2 = (float)sin(back);
-	float c2 = (float)cos(back);
-	Vector3 one(range + range, c1 * range, s1 * range);
-	one.Y *= 1.25f;
-	one.Z *= 1.25f;
-	Vector3 two(range + range, c2 * range, s2 * range);
-	two.Y *= 1.25f;
-	two.Z *= 1.25f;
+	Vector3 one(range + range, (float)cos(angle) * range * 1.25f, (float)sin(angle) * range * 1.25f);
+	Vector3 two(range + range, (float)cos(back) * range * 1.25f, (float)sin(back) * range * 1.25f);
 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
 	Vector3 first, second;
-	frame.mulVector3(one, first);
-	frame.mulVector3(two, second);
+	Matrix3D::Transform_Vector(frame, one, &first);
+	Matrix3D::Transform_Vector(frame, two, &second);
 	const Vector3 &camera = Client->CameraManager->Position;
 	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C;
-	if ((first - camera).Length2() <= (second - camera).Length2()) {
-		module->Position = first;
-	} else {
+	if ((second - camera).Length2() <= (first - camera).Length2()) {
 		module->Position = second;
+	} else {
+		module->Position = first;
 	}
 	module->Unknown14 = true;
 	module->Unknown18 = Client->AvatarID;
@@ -217,8 +206,8 @@ void CameraController02Class::Unknown_798570()
 	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
 	float dist = 1000.0f;
 	if (dest) {
-		Vector3 target = dest->Unknown_24();
-		dist = (target - tm.Get_Translation()).Length();
+		Vector3 pos = tm.Get_Translation();
+		dist = (dest->Unknown_24() - pos).Length();
 	}
 	float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
 	if (Unknown_BDB1C0(0, 1)) {
@@ -231,7 +220,7 @@ void CameraController02Class::Unknown_798570()
 	offset.Z += offset.Z;
 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
 	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C;
-	frame.mulVector3(offset, module->Position);
+	Matrix3D::Transform_Vector(frame, offset, &module->Position);
 	module->Unknown14 = true;
 	module->Unknown18 = Client->AvatarID;
 	module->Unknown_04();
@@ -244,11 +233,10 @@ void CameraController02Class::Unknown_7987F0()
 	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
 	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
 	Vector3 dir;
-	if (dest) {
-		Vector3 target = dest->Unknown_24();
-		dir = target - tm.Get_Translation();
-	} else {
+	if (dest == NULL) {
 		dir = tm.Get_X_Vector();
+	} else {
+		dir = dest->Unknown_24() - tm.Get_Translation();
 	}
 	float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
 	if (Unknown_BDB1C0(0, 1)) {
@@ -258,12 +246,10 @@ void CameraController02Class::Unknown_7987F0()
 	float range = CameraManagerClass::Unknown_79B6B0();
 	float s = (float)sin(angle);
 	float c = (float)cos(angle);
-	Vector3 offset(speed * 1000.0f, c * range, s * range);
-	offset.Y *= 1.25f;
-	offset.Z *= 1.25f;
+	Vector3 offset(speed * 1000.0f, c * range * 1.25f, s * range * 1.25f);
 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
 	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C;
-	frame.mulVector3(offset, module->Position);
+	Matrix3D::Transform_Vector(frame, offset, &module->Position);
 	module->Unknown14 = true;
 	module->Unknown18 = Client->AvatarID;
 	module->Unknown_04();
