@@ -46,7 +46,7 @@ class ShipCustSettingsClass : public DeltaInterfaceClass	// NAME 2: the parts' k
 public:
 	ShipCustSettingsClass() : Color(1.0F, 1.0F, 1.0F), Unknown10(0.5F), Unknown14(0.5F), Is_Matte(false), Metal(METAL_NONE) {}	// 0x618500 (inline: the out-of-line copy is ui_ship_cust.cpp's, its constructor's ??_H target; 0x6191F0 inlines it)
 	ShipCustSettingsClass(float red, float green, float blue, float unknown10, float unknown14, bool matte, ShipCustomizationMetal metal);	// 0x4F61C0
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor);				// 0x4F6900 (vtable 0xAEC91C)
+	virtual void Unknown_00(KVEncoderClass *visitor);				// 0x4F6900 (vtable 0xAEC91C)
 
 	Vector3 Color;										// +0x04 NAME 2: its key 'Color'
 	float Unknown10;									// +0x10 (copied, not a key)
@@ -62,7 +62,7 @@ class ShipCustPartClass : public DeltaInterfaceClass	// NAME 2: the description'
 {
 public:
 	ShipCustPartClass() {}
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor);				// 0x4F6890 (vtable 0xAF78BC)
+	virtual void Unknown_00(KVEncoderClass *visitor);				// 0x4F6890 (vtable 0xAF78BC)
 
 	ShipCustSettingsClass Settings[2];					// +0x04 NAME 2: its keys 'Settings%d'
 };
@@ -87,7 +87,7 @@ public:
 	virtual bool Write_Short(LinearBufferClass *buffer);	// +0x0C 0x4F6530: the name one byte shorter  // NAME 2: what it does
 	virtual bool Read_Short(LinearBufferClass *buffer);	// +0x10 0x4F6620  // NAME 2: what it does
 	virtual int Get_Short_Size();						// +0x14 0x4F6730  // NAME 2: what it does
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
+	virtual void Unknown_00(KVEncoderClass *visitor);				// second table +0x00 0x4F6750 (thunk 0x40AEE8)
 	// operator= written out, memberwise as the implicit one (P-P7-1; out of line at 0x55D8A0, ui_avsel.cpp's window): the
 	// implicit copy of the union below copies its bool apart before the name; the client copies the name as one byte loop
 	ShipCustDescClass &operator=(const ShipCustDescClass &that)

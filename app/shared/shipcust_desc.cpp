@@ -146,9 +146,9 @@ int ShipCustDescClass::Get_Short_Size()
 }
 
 // 0x4F6750
-void ShipCustDescClass::Unknown_00(DeltaChildVisitorClass *object)
+void ShipCustDescClass::Unknown_00(KVEncoderClass *object)
 {
-	DeltaChildVisitorClass *visitor = object;
+	KVEncoderClass *visitor = object;
 	char name[64];
 
 	visitor->Add_Pointer(0x3FF, "Profession", &Profession);
@@ -158,7 +158,7 @@ void ShipCustDescClass::Unknown_00(DeltaChildVisitorClass *object)
 	visitor->Add(0x3FF, "WingStyle", &Wing_Style);
 	visitor->Add(0x3FF, "SelectedDecal", &Selected_Decal);
 	visitor->Add(0x3FF, "ShipName", Ship_Name, 0x1A);
-	visitor->Add_Color(0x3FF, "ShipNameColor", &Ship_Name_Color);
+	visitor->Add_Vector3(0x3FF, "ShipNameColor", &Ship_Name_Color);
 	for (int i = 0; i < 4; i++) {
 		_snprintf(name, sizeof(name), "PartAttributes%d", i);
 		visitor->Add_Child(0x3FF, name, &Parts[i]);
@@ -166,9 +166,9 @@ void ShipCustDescClass::Unknown_00(DeltaChildVisitorClass *object)
 }
 
 // 0x4F6890
-void ShipCustPartClass::Unknown_00(DeltaChildVisitorClass *object)
+void ShipCustPartClass::Unknown_00(KVEncoderClass *object)
 {
-	DeltaChildVisitorClass *visitor = object;
+	KVEncoderClass *visitor = object;
 	char name[64];
 
 	for (int i = 0; i < 2; i++) {
@@ -178,11 +178,11 @@ void ShipCustPartClass::Unknown_00(DeltaChildVisitorClass *object)
 }
 
 // 0x4F6900
-void ShipCustSettingsClass::Unknown_00(DeltaChildVisitorClass *object)
+void ShipCustSettingsClass::Unknown_00(KVEncoderClass *object)
 {
-	DeltaChildVisitorClass *visitor = object;
+	KVEncoderClass *visitor = object;
 
-	visitor->Add_Color(0x3FF, "Color", &Color);
+	visitor->Add_Vector3(0x3FF, "Color", &Color);
 	visitor->Add_Typed(0x3FF, "IsMatte", &Is_Matte);
 	visitor->Add_Pointer(0x3FF, "Metal", &Metal);
 }

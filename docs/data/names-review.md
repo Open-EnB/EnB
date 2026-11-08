@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1626 |
 | 2 | describes what the code does | 3778 |
-| 1 | neutral placeholder | 19429 |
+| 1 | neutral placeholder | 19426 |
 
 ## For review (score 3 and below)
 
@@ -17470,29 +17470,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/shared/auxdata/delta.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/shared/auxdata/delta.cpp:138` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/shared/auxdata/delta.cpp:153` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/shared/auxdata/delta.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/shared/auxdata/delta.h:62` | untagged neutral name (D10) |
-| 1 | `Add_Color` | `app/shared/auxdata/delta.h:63` | its users' keys |
-| 1 | `Unknown_14` | `app/shared/auxdata/delta.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/shared/auxdata/delta.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_00` | `app/shared/auxdata/delta.h:87` | untagged neutral name (D10) |
-| 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.h:92` | neutral (D10) |
-| 1 | `Unknown_10` | `app/shared/auxdata/delta.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/shared/auxdata/delta.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/shared/auxdata/delta.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/shared/auxdata/delta.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/shared/auxdata/delta.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/shared/auxdata/delta.h:115` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/shared/auxdata/delta.h:116` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/shared/auxdata/delta.h:117` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/shared/auxdata/delta.h:119` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/shared/auxdata/delta.h:122` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/shared/auxdata/delta.h:124` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/shared/auxdata/delta.h:125` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/shared/auxdata/delta.h:126` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/shared/auxdata/delta.h:133` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/shared/auxdata/delta.h:135` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/shared/auxdata/delta.h:148` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/shared/auxdata/delta.h:79` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownGlobal` | `app/shared/auxdata/delta.h:84` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/shared/auxdata/delta.h:94` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/shared/auxdata/delta.h:95` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/shared/auxdata/delta.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/shared/auxdata/delta.h:98` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/shared/auxdata/delta.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/shared/auxdata/delta.h:105` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/shared/auxdata/delta.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/shared/auxdata/delta.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/shared/auxdata/delta.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/shared/auxdata/delta.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/auxdata/delta.h:111` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/shared/auxdata/delta.h:114` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/shared/auxdata/delta.h:116` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/shared/auxdata/delta.h:117` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/shared/auxdata/delta.h:118` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/shared/auxdata/delta.h:125` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta.h:127` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/shared/auxdata/delta.h:140` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta_array.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_array.h:63` | untagged neutral name (D10) |
 | 1 | `UnknownTime` | `app/shared/auxdata/delta_interpolator.cpp:8` | untagged neutral name (D10) |
@@ -17843,7 +17840,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE350C` | `app/shared/kv_encoder.cpp:6` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
 | 1 | `Unknown_Test` | `app/shared/kv_encoder.cpp:51` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/shared/kv_encoder.cpp:56` | untagged neutral name (D10) |
-| 1 | `KVFilterEncoderClass` | `app/shared/kv_encoder.h:15` | neutral, what it does (D10) |
+| 1 | `KVFilterEncoderClass` | `app/shared/kv_encoder.h:14` | neutral, what it does (D10) |
 | 1 | `Unknown_Join` | `app/shared/kv_encoder_base.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/shared/kv_encoder_base.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/shared/kv_encoder_base.cpp:63` | untagged neutral name (D10) |
@@ -22147,31 +22144,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DeltaVisitorClass` | `app/shared/auxdata/delta.h:38` | describes what it does |
 | 2 | `Visit` | `app/shared/auxdata/delta.h:41` | describes what it does |
 | 2 | `Visit_Children` | `app/shared/auxdata/delta.h:46` | describes what it does |
-| 2 | `DeltaChildVisitorClass` | `app/shared/auxdata/delta.h:54` | describes what it does |
+| 2 | `KVEncoderClass` | `app/shared/auxdata/delta.h:54` | kv_encoder_base.cpp's base's encoder, in kv_encoder.cpp (D206) |
 | 2 | `Add_Child` | `app/shared/auxdata/delta.h:58` | what it does |
-| 2 | `Add_Vector3` | `app/shared/auxdata/delta.h:71` | what it does |
-| 2 | `Add_Matrix3D` | `app/shared/auxdata/delta.h:72` | what it does |
-| 2 | `Add_Accel` | `app/shared/auxdata/delta.h:73` | what it does |
-| 2 | `Add_Vector3_Frame` | `app/shared/auxdata/delta.h:74` | what it does |
-| 2 | `Add_Matrix3D_Frame` | `app/shared/auxdata/delta.h:75` | what it does |
-| 2 | `Add_Vector3_Elements` | `app/shared/auxdata/delta.h:76` | what it does |
-| 2 | `Add_Matrix3D_Elements` | `app/shared/auxdata/delta.h:77` | what it does |
-| 2 | `Add_Accel_Elements` | `app/shared/auxdata/delta.h:78` | what it does |
-| 2 | `Add_Vector3_Elements_Frame` | `app/shared/auxdata/delta.h:79` | what it does |
-| 2 | `Add_Matrix3D_Elements_Frame` | `app/shared/auxdata/delta.h:80` | what it does |
-| 2 | `DeltaInterfaceClass` | `app/shared/auxdata/delta.h:84` | describes what it does |
-| 2 | `Accept` | `app/shared/auxdata/delta.h:101` | describes what it does |
-| 2 | `Set_Parent` | `app/shared/auxdata/delta.h:104` | describes what it does |
-| 2 | `As_Delta` | `app/shared/auxdata/delta.h:108` | describes what it does |
-| 2 | `As_Compound` | `app/shared/auxdata/delta.h:109` | describes what it does |
-| 2 | `Write` | `app/shared/auxdata/delta.h:112` | describes what it does |
-| 2 | `Name` | `app/shared/auxdata/delta.h:120` | describes what it does |
-| 2 | `FullName` | `app/shared/auxdata/delta.h:121` | describes what it does |
-| 2 | `Parent` | `app/shared/auxdata/delta.h:123` | describes what it does |
-| 2 | `Add` | `app/shared/auxdata/delta.h:150` | describes what it does |
-| 2 | `Get_Lookup` | `app/shared/auxdata/delta.h:151` | after the asserts' Lookup |
-| 2 | `Decode` | `app/shared/auxdata/delta.h:155` | describes what it does |
-| 2 | `Children` | `app/shared/auxdata/delta.h:157` | describes what it does |
+| 2 | `Add_Accel` | `app/shared/auxdata/delta.h:61` | what it does |
+| 2 | `Add_Matrix3D` | `app/shared/auxdata/delta.h:62` | what it does |
+| 2 | `Add_Vector3` | `app/shared/auxdata/delta.h:63` | what it does |
+| 2 | `Add_Matrix3D_Frame` | `app/shared/auxdata/delta.h:64` | what it does |
+| 2 | `Add_Vector3_Frame` | `app/shared/auxdata/delta.h:65` | what it does |
+| 2 | `Add_Vector3_Elements` | `app/shared/auxdata/delta.h:68` | what it does |
+| 2 | `Add_Matrix3D_Elements` | `app/shared/auxdata/delta.h:69` | what it does |
+| 2 | `Add_Accel_Elements` | `app/shared/auxdata/delta.h:70` | what it does |
+| 2 | `Add_Vector3_Elements_Frame` | `app/shared/auxdata/delta.h:71` | what it does |
+| 2 | `Add_Matrix3D_Elements_Frame` | `app/shared/auxdata/delta.h:72` | what it does |
+| 2 | `DeltaInterfaceClass` | `app/shared/auxdata/delta.h:76` | describes what it does |
+| 2 | `Accept` | `app/shared/auxdata/delta.h:93` | describes what it does |
+| 2 | `Set_Parent` | `app/shared/auxdata/delta.h:96` | describes what it does |
+| 2 | `As_Delta` | `app/shared/auxdata/delta.h:100` | describes what it does |
+| 2 | `As_Compound` | `app/shared/auxdata/delta.h:101` | describes what it does |
+| 2 | `Write` | `app/shared/auxdata/delta.h:104` | describes what it does |
+| 2 | `Name` | `app/shared/auxdata/delta.h:112` | describes what it does |
+| 2 | `FullName` | `app/shared/auxdata/delta.h:113` | describes what it does |
+| 2 | `Parent` | `app/shared/auxdata/delta.h:115` | describes what it does |
+| 2 | `Add` | `app/shared/auxdata/delta.h:142` | describes what it does |
+| 2 | `Get_Lookup` | `app/shared/auxdata/delta.h:143` | after the asserts' Lookup |
+| 2 | `Decode` | `app/shared/auxdata/delta.h:147` | describes what it does |
+| 2 | `Children` | `app/shared/auxdata/delta.h:149` | describes what it does |
 | 2 | `DeltaInterpolatorValueClass` | `app/shared/auxdata/delta_interpolator.cpp:177` | describes what it does |
 | 2 | `Owner` | `app/shared/auxdata/delta_interpolator.cpp:185` | describes what it does |
 | 2 | `Value` | `app/shared/auxdata/delta_interpolator.cpp:186` | describes what it does |
@@ -22526,9 +22523,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Value0` | `app/shared/kv_encoder.cpp:32` | what it holds |
 | 2 | `Value1` | `app/shared/kv_encoder.cpp:33` | what it holds |
 | 2 | `Matrix_Keys` | `app/shared/kv_encoder.cpp:37` | what it holds |
-| 2 | `Add_Exclude` | `app/shared/kv_encoder.h:21` | what it does |
-| 2 | `Clear_Excludes` | `app/shared/kv_encoder.h:22` | what it does |
-| 2 | `std:` | `app/shared/kv_encoder.h:24` | what it holds |
+| 2 | `Add_Exclude` | `app/shared/kv_encoder.h:25` | what it does |
+| 2 | `Clear_Excludes` | `app/shared/kv_encoder.h:26` | what it does |
+| 2 | `std:` | `app/shared/kv_encoder.h:28` | what it holds |
 | 2 | `KVPointerAccessorClass` | `app/shared/kv_encoder_base.h:33` | what it does |
 | 2 | `KVEncoderDataClass` | `app/shared/kv_encoder_base.h:46` | after the asserts' Data |
 | 2 | `Flags` | `app/shared/kv_encoder_base.h:51` | after the asserts' FlagList |
@@ -24677,8 +24674,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `bitset.h` | `app/shared/auxdata/bitset.h:16` | header name assumed from the client's bitset.cpp |
 | 3 | `BitSetClass` | `app/shared/auxdata/bitset.h:19` | by convention (D24) from the client's file bitset.cpp |
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |
-| 3 | `DeltaClass` | `app/shared/auxdata/delta.h:95` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaBase) |
-| 3 | `DeltaCompoundClass` | `app/shared/auxdata/delta.h:130` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaCompound) |
+| 3 | `DeltaClass` | `app/shared/auxdata/delta.h:87` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaBase) |
+| 3 | `DeltaCompoundClass` | `app/shared/auxdata/delta.h:122` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaCompound) |
 | 3 | `DeltaArrayClass` | `app/shared/auxdata/delta_array.h:25` | by convention (D24) from the client's file delta_array.h |
 | 3 | `DeltaInterpolatorClass` | `app/shared/auxdata/delta_interpolator.h:25` | by convention (D24) from the client's file delta_interpolator.cpp (D59) |
 | 3 | `DeltaItemArrayClass` | `app/shared/auxdata/delta_item_array.h:25` | by convention (D24) from the client's file delta_item_array.h |

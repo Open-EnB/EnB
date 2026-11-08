@@ -171,26 +171,26 @@ TicketClass::TicketClass(int) {}
 LoginCharacterClass::LoginCharacterClass() {}
 LoginCharacterClass::~LoginCharacterClass() {}
 AvatarDescClass::AvatarDescClass() {}
-void ShipCustSettingsClass::Unknown_00(DeltaChildVisitorClass *) {}
-void ShipCustPartClass::Unknown_00(DeltaChildVisitorClass *) {}
+void ShipCustSettingsClass::Unknown_00(KVEncoderClass *) {}
+void ShipCustPartClass::Unknown_00(KVEncoderClass *) {}
 bool LoginCharacterClass::Write(LinearBufferClass *) { return true; }
 bool LoginCharacterClass::Read(LinearBufferClass *) { return true; }
 int LoginCharacterClass::Get_Size() { return 0; }
-void LoginCharacterClass::Unknown_00(DeltaChildVisitorClass *) {}
+void LoginCharacterClass::Unknown_00(KVEncoderClass *) {}
 bool AvatarDescClass::Write(LinearBufferClass *) { return true; }
 bool AvatarDescClass::Write_Short(LinearBufferClass *) { return true; }
 bool AvatarDescClass::Read_Short(LinearBufferClass *) { return true; }
 int AvatarDescClass::Get_Short_Size() { return 0; }
 bool AvatarDescClass::Read(LinearBufferClass *) { return true; }
 int AvatarDescClass::Get_Size() { return 0; }
-void AvatarDescClass::Unknown_00(DeltaChildVisitorClass *) {}
+void AvatarDescClass::Unknown_00(KVEncoderClass *) {}
 bool ShipCustDescClass::Write(LinearBufferClass *) { return true; }
 bool ShipCustDescClass::Read(LinearBufferClass *) { return true; }
 int ShipCustDescClass::Get_Size() { return 0; }
 bool ShipCustDescClass::Write_Short(LinearBufferClass *) { return true; }
 bool ShipCustDescClass::Read_Short(LinearBufferClass *) { return true; }
 int ShipCustDescClass::Get_Short_Size() { return 0; }
-void ShipCustDescClass::Unknown_00(DeltaChildVisitorClass *) {}
+void ShipCustDescClass::Unknown_00(KVEncoderClass *) {}
 void ShipCustDescClass::Set_Race(int) {}
 void ShipCustDescClass::Reset_Parts() {}
 void ShipCustDescClass::Set_Profession(int) {}

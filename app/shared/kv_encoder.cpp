@@ -37,14 +37,14 @@ public:
 static const char *Matrix_Keys[12] = { "Xx", "Xy", "Xz", "Yx", "Yy", "Yz", "Zx", "Zy", "Zz", "Tx", "Ty", "Tz" };	// NAME 2: what it holds
 
 // @0x4B1790
-DeltaChildVisitorClass::DeltaChildVisitorClass(KVListClass *list, int flags, const char *prefix) :
+KVEncoderClass::KVEncoderClass(KVListClass *list, int flags, const char *prefix) :
 	KVEncoderBaseClass(list, flags, prefix)
 {
 }
 
 #pragma auto_inline(off)
 // @0x4B1820
-void DeltaChildVisitorClass::Add_Child(int mask, const char *name, DeltaInterfaceClass *child)
+void KVEncoderClass::Add_Child(int mask, const char *name, DeltaInterfaceClass *child)
 {
 	bool even;
 	bool odd;
@@ -61,25 +61,25 @@ void DeltaChildVisitorClass::Add_Child(int mask, const char *name, DeltaInterfac
 #pragma auto_inline(on)
 
 // @0x4B18C0
-void DeltaChildVisitorClass::Add_Vector3(int mask, const char *name, Vector3 *value)
+void KVFilterEncoderClass::Add_Vector3(int mask, const char *name, Vector3 *value)
 {
 	Add(mask, name, value);
 }
 
 // @0x4B18F0
-void DeltaChildVisitorClass::Add_Matrix3D(int mask, const char *name, Matrix3D *value)
+void KVFilterEncoderClass::Add_Matrix3D(int mask, const char *name, Matrix3D *value)
 {
 	Add(mask, name, value);
 }
 
 // @0x4B1920
-void DeltaChildVisitorClass::Add_Accel(int mask, const char *name, AccelClass *value)
+void KVFilterEncoderClass::Add_Accel(int mask, const char *name, AccelClass *value)
 {
 	Add(mask, name, value);
 }
 
 // @0x4B1950
-void DeltaChildVisitorClass::Add_Vector3_Frame(int mask, const char *name, Vector3 *value)
+void KVFilterEncoderClass::Add_Vector3_Frame(int mask, const char *name, Vector3 *value)
 {
 	bool even;
 	bool odd;
@@ -90,7 +90,7 @@ void DeltaChildVisitorClass::Add_Vector3_Frame(int mask, const char *name, Vecto
 }
 
 // @0x4B1AE0
-void DeltaChildVisitorClass::Add_Matrix3D_Frame(int mask, const char *name, Matrix3D *value)
+void KVFilterEncoderClass::Add_Matrix3D_Frame(int mask, const char *name, Matrix3D *value)
 {
 	bool even;
 	bool odd;
@@ -101,7 +101,7 @@ void DeltaChildVisitorClass::Add_Matrix3D_Frame(int mask, const char *name, Matr
 }
 
 // @0x4B1CC0
-void DeltaChildVisitorClass::Add_Vector3_Elements(int mask, const char *name, Vector3 *value)
+void KVEncoderClass::Add_Vector3_Elements(int mask, const char *name, Vector3 *value)
 {
 	Push_Prefix(name);
 	Add(mask, "X", &value->X);
@@ -111,7 +111,7 @@ void DeltaChildVisitorClass::Add_Vector3_Elements(int mask, const char *name, Ve
 }
 
 // @0x4B1D40
-void DeltaChildVisitorClass::Add_Matrix3D_Elements(int mask, const char *name, Matrix3D *value)
+void KVEncoderClass::Add_Matrix3D_Elements(int mask, const char *name, Matrix3D *value)
 {
 	Push_Prefix(name);
 	for (int column = 0; column < 4; column++) {
@@ -123,7 +123,7 @@ void DeltaChildVisitorClass::Add_Matrix3D_Elements(int mask, const char *name, M
 }
 
 // @0x4B1DC0
-void DeltaChildVisitorClass::Add_Accel_Elements(int mask, const char *name, AccelClass *value)
+void KVEncoderClass::Add_Accel_Elements(int mask, const char *name, AccelClass *value)
 {
 	bool even;
 	bool odd;
@@ -138,7 +138,7 @@ void DeltaChildVisitorClass::Add_Accel_Elements(int mask, const char *name, Acce
 }
 
 // @0x4B1E60
-void DeltaChildVisitorClass::Add_Vector3_Elements_Frame(int mask, const char *name, Vector3 *value)
+void KVEncoderClass::Add_Vector3_Elements_Frame(int mask, const char *name, Vector3 *value)
 {
 	bool even;
 	bool odd;
@@ -153,7 +153,7 @@ void DeltaChildVisitorClass::Add_Vector3_Elements_Frame(int mask, const char *na
 }
 
 // @0x4B2210
-void DeltaChildVisitorClass::Add_Matrix3D_Elements_Frame(int mask, const char *name, Matrix3D *value)
+void KVEncoderClass::Add_Matrix3D_Elements_Frame(int mask, const char *name, Matrix3D *value)
 {
 	bool even;
 	bool odd;
@@ -172,7 +172,7 @@ void DeltaChildVisitorClass::Add_Matrix3D_Elements_Frame(int mask, const char *n
 
 // @0x4B5AD0
 KVFilterEncoderClass::KVFilterEncoderClass(KVListClass *list, int flags, const char *prefix) :
-	DeltaChildVisitorClass(list, flags, prefix)
+	KVEncoderClass(list, flags, prefix)
 {
 }
 
@@ -185,7 +185,7 @@ void KVFilterEncoderClass::Add_Child(int mask, const char *name, DeltaInterfaceC
 			return;
 		}
 	}
-	DeltaChildVisitorClass::Add_Child(mask, name, child);
+	KVEncoderClass::Add_Child(mask, name, child);
 }
 
 // @0x4B5C60
@@ -242,9 +242,10 @@ void KVEncoderBaseClass::Add(int mask, const char *name, AccelClass *value)
 **	kv_encoder_base.cpp. Client 0x4B1740 (permstr.h's static opens the object) to 0x4B37EF (<string>'s initialiser
 **	ends it); kv_encoder_base.cpp's own static follows at 0x4B3800.
 **
-**	DeltaChildVisitorClass's members (auxdata\delta.h; vtable 0xAEB460): typed adds, five of which KVFilterEncoderClass's vtable
-**	0xAEB6B8 holds in the client (delta.h's note), for Vector3, Matrix3D and AccelClass, each over one value or
-**	over a value kept per frame (the frame toggle 0xBE350C), as one pair or one float pair per element. The typed pairs and
+**	KVEncoderClass's members (auxdata\delta.h; vtable 0xAEB460, whose slots +0x08-+0x18 are _purecall) and five typed adds
+**	of KVFilterEncoderClass, the bodies of those slots in its vtable 0xAEB6B8 (0x4B18C0-0x4B1950, D206), for Vector3, Matrix3D
+**	and AccelClass, each over one value or over a value kept per frame (the frame toggle 0xBE350C); KVEncoderClass's own
+**	five (0x4B1CC0-0x4B2210) add one float pair per element. The typed pairs and
 **	accessors this object instantiates follow them: 0x4B2420-0x4B3760. KVFilterEncoderClass's constructor, Add_Child, Add_Exclude
 **	and Clear_Excludes (0x4B5AD0-0x4B5D70) sit in the client after kv_encoder_base.cpp's templates and before a <string> initialiser
 **	0x4B5E80, with no static of their own: probably kv_encoder_base.cpp's object. Placed here with their class (interim, D137).

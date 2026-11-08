@@ -51,28 +51,20 @@ public:
 // encoder base's vtable (0xAEB62C, the destructor only) doesn't have, so the encoders the fields
 // are given derive from it.
 // The login objects hand it their own children and colours too (D104: slots +0x04-+0x10).
-class DeltaChildVisitorClass : public KVEncoderBaseClass  // NAME 2: describes what it does
+class KVEncoderClass : public KVEncoderBaseClass  // NAME 2: kv_encoder_base.cpp's base's encoder, in kv_encoder.cpp (D206)
 {
 public:
-	DeltaChildVisitorClass(KVListClass *list, int flags, const char *prefix);	// 0x4B1790 (kv_encoder.cpp; vtable 0xAEB460)
+	KVEncoderClass(KVListClass *list, int flags, const char *prefix);	// 0x4B1790 (kv_encoder.cpp; vtable 0xAEB460)
 	virtual void Add_Child(int mask, const char *name, DeltaInterfaceClass *child);	// +0x04 0x4B1820 a key/value object under the name  // NAME 2: what it does
-	// the login objects' slots (a virtual more here moves aux_roots.cpp's VC6 symbol count: its pad
-	// absorbs these, workflow.md 3.3)
-	virtual void Unknown_08() = 0;
-	virtual void Unknown_0C() = 0;
-	virtual void Add_Color(int mask, const char *name, Vector3 *value) = 0;	// +0x10 (shipcust_desc.cpp's colours)  // NAME 1: its users' keys
-	virtual void Unknown_14() = 0;
-	virtual void Unknown_18() = 0;
+	// the typed adds, pure here (_purecall in 0xAEB460); KVFilterEncoderClass (kv_encoder.h; vtable 0xAEB6B8) has
+	// their bodies 0x4B18C0-0x4B1950 (D206). shipcust_desc.cpp's colours go through +0x10.
+	virtual void Add_Accel(int mask, const char *name, AccelClass *value) = 0;			// +0x08  // NAME 2: what it does
+	virtual void Add_Matrix3D(int mask, const char *name, Matrix3D *value) = 0;		// +0x0C  // NAME 2: what it does
+	virtual void Add_Vector3(int mask, const char *name, Vector3 *value) = 0;			// +0x10  // NAME 2: what it does
+	virtual void Add_Matrix3D_Frame(int mask, const char *name, Matrix3D *value) = 0;	// +0x14  // NAME 2: what it does
+	virtual void Add_Vector3_Frame(int mask, const char *name, Vector3 *value) = 0;	// +0x18  // NAME 2: what it does
 
-	// the typed adds of kv_encoder.cpp (no caller found): one value, a value kept per frame, one pair per element
-	// In the client five of these are virtual, in KVFilterEncoderClass (kv_encoder.h; vtable 0xAEB6B8) over this class's pure slots: +0x08 Add_Accel,
-	// +0x0C Add_Matrix3D, +0x10 Add_Vector3 (Add_Color above), +0x14 Add_Matrix3D_Frame, +0x18 Add_Vector3_Frame; the five Elements ones hold no slot.
-	// Declared as they are here because with those signatures no SYMBOL_PAD has aux_roots.cpp's six constructors exact (workflow.md 3.3): interim, D137.
-	void Add_Vector3(int mask, const char *name, Vector3 *value);						// 0x4B18C0  // NAME 2: what it does
-	void Add_Matrix3D(int mask, const char *name, Matrix3D *value);					// 0x4B18F0  // NAME 2: what it does
-	void Add_Accel(int mask, const char *name, AccelClass *value);						// 0x4B1920  // NAME 2: what it does
-	void Add_Vector3_Frame(int mask, const char *name, Vector3 *value);				// 0x4B1950  // NAME 2: what it does
-	void Add_Matrix3D_Frame(int mask, const char *name, Matrix3D *value);			// 0x4B1AE0  // NAME 2: what it does
+	// the typed adds of kv_encoder.cpp that hold no slot (no caller found): one float pair per element
 	void Add_Vector3_Elements(int mask, const char *name, Vector3 *value);			// 0x4B1CC0  // NAME 2: what it does
 	void Add_Matrix3D_Elements(int mask, const char *name, Matrix3D *value);		// 0x4B1D40  // NAME 2: what it does
 	void Add_Accel_Elements(int mask, const char *name, AccelClass *value);			// 0x4B1DC0  // NAME 2: what it does
@@ -84,7 +76,7 @@ public:
 class DeltaInterfaceClass  // NAME 2: describes what it does
 {
 public:
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor) = 0;
+	virtual void Unknown_00(KVEncoderClass *visitor) = 0;
 };
 
 // Per-class globals stored at +0x04 (E&B's own type information, rtti.h?): DeltaClass 0xBE3A78,
@@ -96,7 +88,7 @@ class DeltaClass : public DeltaInterfaceClass  // NAME 3: by convention (D24) fr
 {
 public:
 	DeltaClass(const char *name);														// 0x4A4D40
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor);					// +0x00 0x4A4E10
+	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 0x4A4E10
 	virtual ~DeltaClass() {}															// +0x04 0x4A5150
 	virtual void Accept(DeltaVisitorClass &visitor);								// +0x08 0x4A4FE0  // NAME 2: describes what it does
 	virtual bool Unknown_0C(LinearBufferClass &buf);							// +0x0C 0x4A4EC0, Unknown_38 then Write
@@ -135,7 +127,7 @@ public:
 		Unknown04 = UnknownGlobal;
 	}
 	static int UnknownGlobal;	// the per-class global at +0x04 (0xBE3A74)
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor);					// +0x00 0x4A55D0
+	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 0x4A55D0
 	virtual ~DeltaCompoundClass();													// +0x04 0x4A5070
 	virtual void Accept(DeltaVisitorClass &visitor);								// +0x08 0x4A5650
 	virtual bool Unknown_0C(LinearBufferClass &buf);							// +0x0C 0x4A5270

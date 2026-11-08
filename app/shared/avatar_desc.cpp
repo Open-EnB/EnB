@@ -298,9 +298,9 @@ int AvatarDescClass::Get_Short_Size()
 }
 
 // 0x4BFED0
-void AvatarDescClass::Unknown_00(DeltaChildVisitorClass *object)
+void AvatarDescClass::Unknown_00(KVEncoderClass *object)
 {
-	DeltaChildVisitorClass *visitor = object;
+	KVEncoderClass *visitor = object;
 
 	visitor->Add(0x3FF, "avatar_first_name", First_Name, sizeof(First_Name));
 	visitor->Add(0x3FF, "avatar_last_name", Last_Name, sizeof(Last_Name));

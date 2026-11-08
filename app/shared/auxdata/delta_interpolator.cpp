@@ -186,7 +186,7 @@ public:
 	float Value;								// +0x08 the value Get read last  // NAME 2: describes what it does
 };
 
-void DeltaInterpolatorClass::Unknown_00(DeltaChildVisitorClass *visitor)
+void DeltaInterpolatorClass::Unknown_00(KVEncoderClass *visitor)
 {
 	visitor->Push_Prefix(Name.Get_String());
 	visitor->Push_Flags();

@@ -38,7 +38,7 @@ inline const char *Type_Name(__int64 *) { return "quad"; }				// 0x8C0F70
 class Vector3;
 
 // The KV encoder's typed adds and the visitor's slots are kv_encoder_base.h's KVEncoderBaseClass and
-// delta.h's DeltaChildVisitorClass (D104; LoginKVVisitorClass until 2026-10-28)
+// delta.h's KVEncoderClass (D104; LoginKVVisitorClass until 2026-10-28)
 
 // The one-slot interface vtable 0xAEADC8 is delta.h's DeltaInterfaceClass (P-T5-2)
 #include "auxdata\delta.h"

@@ -27,7 +27,7 @@ class DeltaStringClass : public DeltaClass  // NAME 3: by convention (D24) from 
 public:
 	DeltaStringClass(const char *name, const char *string);					// 0x4A78F0
 	virtual ~DeltaStringClass();														// +0x04 0x4A79E0
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor);					// +0x00 0x4A7E60
+	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 0x4A7E60
 	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C 0x4A7CA0
 	virtual bool Write(LinearBufferClass &buf);									// +0x30 0x4A7BB0
 
