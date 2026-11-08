@@ -40,6 +40,7 @@ public:
 	UIScanThreatClass(UIScanClass *owner) : Owner(owner), Unknown18(false), Unknown20(0), Unknown28(0), Unknown2C(NULL) {}	// NAME 2 [owner]: what it holds
 	~UIScanThreatClass();
 	void Unknown_60FEE0();								// 0x60FEE0 (the scanner's 0x60E580 when the target goes; the destructor between hide and show)
+	void Unknown_Update() { Unknown2C->Unknown38 = Unknown28; if (Unknown2C) { Unknown2C->Unknown_10(); } }	// (inline in 0x60F1A0: the progress display's state and redraw)  // NAME 1: neutral (D10)
 	void Unknown_Refresh();								// (inline in 0x60DF90 and 0x60F1A0: 0x60FEE0 between the owner's hide and show)  // NAME 1: neutral (D10)
 
 	UIScanClass *Owner;									// +0x00  // NAME 2: what it holds

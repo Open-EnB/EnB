@@ -742,7 +742,8 @@ inline TargetingClass *UIScanClass::Get_Targeting()
 
 
 
-// NOT EXACT: functional (TL1): the client calls the InterruptState / InterruptProgress / FactionIdentifier / Reputation finds out of line and inlines the TechLevel ones
+template DeltaStringClass *Unknown_Find_Field<DeltaStringClass>(DeltaCompoundClass *root, const NameClass &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x514BD0)
+// NOT EXACT: inline-budget (TL1; similarity 0.65): the client calls the Reputation find out of line (0x610370; an explicit instantiation here does not move it), tail-merges only cases 2 and 5
 // @0x60F1A0
 void UIScanClass::Unknown_60F1A0(bool arg)
 {
@@ -751,7 +752,6 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 	}
 	ClientObjectClass *object = Object;
 	if (!object || !object->AuxData) return;
-
 	bool expired = false;
 	DeltaTemplateClass<InterruptStateType> *state = Unknown_Find_Set_Field<DeltaTemplateClass<InterruptStateType> >((DeltaCompoundClass *)object->AuxData, "InterruptState");
 	if (state) {
@@ -817,10 +817,10 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 		if (Threat->Unknown2C) {
 			DeltaTemplateClass<float> *progress = Unknown_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)object->AuxData, "InterruptProgress");
 			Threat->Unknown2C->Unknown40 = progress ? progress->Value : 0.0f;
-			Threat->Unknown2C->Unknown38 = Threat->Unknown28;
-			if (Threat->Unknown2C) {
-				Threat->Unknown2C->Unknown_10();
-			}
+			Threat->Unknown_Update();
+
+
+
 			return;
 		}
 	}
@@ -837,12 +837,11 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 		DeltaPlayerClass *aux_data = sclient->AuxData;
 		FAIL_IF(!aux_data) return;
 
-		DeltaReputationClass *reputation;
-		if (!arg && !expired) {
-			reputation = Unknown_Find_Changed_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
-		} else {
-			reputation = Unknown_Find_Set_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
-		}
+		DeltaReputationClass *reputation = (!arg && !expired) ?
+			Unknown_Find_Changed_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation") :
+			Unknown_Find_Set_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
+
+
 		if (reputation) {
 			FactionFont->Set_Hidden(0);
 			FactionFont->Change_Text("", 0);
@@ -867,12 +866,11 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 		}
 	}
 
-	DeltaTemplateClass<int> *tech;
-	if (!arg && !expired) {
-		tech = Unknown_Find_Changed_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)object->AuxData, "TechLevel");
-	} else {
-		tech = Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)object->AuxData, "TechLevel");
-	}
+	DeltaTemplateClass<int> *tech = (!arg && !expired) ?
+		Unknown_Find_Changed_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)object->AuxData, "TechLevel") :
+		Unknown_Find_Set_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)object->AuxData, "TechLevel");
+
+
 	if (tech && tech->Value) {
 		char text[128];
 		sprintf(text, "Tech Level: %d", tech->Value);
