@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-729 entries in 207 files.
+728 entries in 207 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -666,7 +666,6 @@ edit the comments in the code, not this file.
 | `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57) |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
 | `app/shared/projscen.cpp:352` | `ProjSceneClass::Apply_Projectors` | marker | NOT EXACT: register-only residue in the second list's constructor (client lea ecx / lea edx, xor eax; here lea eax / lea ecx); attempts.csv |
-| `app/shared/px.cpp:241` | `PxBox::Set_Corners` | marker | NOT EXACT: inline budget (the client inlines Is_Valid_Float for low.Y and high.Y too; attempts.py show 0x44BC90) |
 | `app/shared/px.cpp:407` | `PxList::Remove` | marker | NOT EXACT: register (base and index swapped in one address of the overlap test; attempts.py show 0x44C2E0) |
 | `app/shared/px.cpp:487` | `PxList::Set_Self` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C520) |
 | `app/shared/px.cpp:561` | `PxList::Set_Test_Mask` | marker | NOT EXACT: register (as 0x44C2E0; attempts.py show 0x44C690) |
