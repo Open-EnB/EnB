@@ -302,25 +302,25 @@ void UIScanClass::Unknown_5C()
 	}
 }
 
-// NOT EXACT: functional (WE9; similarity 0.51): the key tests' block layout
+// NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec
 // @0x60E300
 bool UIScanClass::Unknown_68(int key)
 {
+	bool modifier = (Unknown_BE5F34 & 0x70) != 0;
+	bool control = (Unknown_BE5F34 & 0x800) != 0;
 	bool next;
-	bool plain = (Unknown_BE5F34 & 0x70) == 0;
-	if (key == 6) {
-		next = false;
-	} else if (key == 7) {
-		next = true;
-	} else if (Unknown_BE5EB0.Key == 0x101) {
-		next = true;
-		plain = !(Unknown_BE5F34 & 0x800);
-	} else if (Unknown_BE5EB0.Key == 0x102) {
-		next = false;
-		plain = !(Unknown_BE5F34 & 0x800);
-	} else {
-		return(UIMFDClass::Unknown_68(key));
+	bool shifted;
+	switch (key) {
+		case 6: next = false; shifted = modifier; break;
+		case 7: next = true; shifted = modifier; break;
+		default:
+			if (Unknown_BE5EB0.Key == 0x101) { next = true; shifted = control; }
+			else if (Unknown_BE5EB0.Key == 0x102) { next = false; shifted = control; }
+			else return(UIMFDClass::Unknown_68(key));
 	}
+	bool plain = !shifted;
+
+
 	TargetingClass *ts = Get_Targeting();
 	if (ts != NULL) {
 		SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
@@ -469,7 +469,7 @@ bool UIScanClass::Unknown_68(int key)
 	return(false);
 }
 
-// NOT EXACT: functional (WE9; similarity 0.68)
+// (exact with the gadget's Is_Unknown2C_08(): its bool return gives the client's shr / test dl, 1; TL1)
 // @0x60E480
 void UIScanClass::Unknown_60()
 {
@@ -478,9 +478,9 @@ void UIScanClass::Unknown_60()
 	if (sclient != NULL) {
 		RadarSystemClass *radar = sclient->MainView->Radar;
 		if (radar != NULL) {	// (+0x48: radar_system.h's GutterCount; sclient.h declares the class as far as cpacket.cpp calls it)
-			if (Buttons[2]->Unknown2C_08) {
+			if (Buttons[2]->Is_Unknown2C_08()) {
 				GadgetClass::Set_Tooltip(Buttons[2], "UI_SCAN", UIScanButtonNames[1], *(int *)&radar->Unknown00[0x48]);
-			} else if (Buttons[1]->Unknown2C_08) {
+			} else if (Buttons[1]->Is_Unknown2C_08()) {
 				GadgetClass::Set_Tooltip(Buttons[1], "UI_SCAN", UIScanButtonNames[0], *(int *)&radar->Unknown00[0x48]);
 			}
 		}

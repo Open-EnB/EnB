@@ -13596,7 +13596,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/ui_scan.cpp:295` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_scan.cpp:307` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_scan.cpp:474` | untagged neutral name (D10) |
-| 1 | `Unknown2C_08` | `app/client/ui_scan.cpp:481` | untagged neutral name (D10) |
+| 1 | `Is_Unknown2C_08` | `app/client/ui_scan.cpp:481` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/ui_scan.cpp:482` | untagged neutral name (D10) |
 | 1 | `Unknown_60F1A0` | `app/client/ui_scan.cpp:488` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9410` | `app/client/ui_scan.cpp:489` | untagged neutral name (D10) |
