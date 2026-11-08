@@ -72,7 +72,6 @@ UIMFDPIPItemClass::UIMFDPIPItemClass(UIMFDClass *owner) :
 	Size.X = box.Extent.X + box.Extent.X;
 	Size.Y = box.Extent.Y + box.Extent.Y;
 }
-// NOT EXACT: 0x5C2470: a load scheduled before a store, one EH state store (order)
 // 0x5C2470
 UIMFDPIPItemClass::~UIMFDPIPItemClass()
 {
@@ -137,14 +136,15 @@ UIMFDPIPItemClass::~UIMFDPIPItemClass()
 
 
 
+
 	G_ASSERT(Light);
-	REF_PTR_RELEASE(Light);
+	if (Light) { Light->Release_Ref(); Light = NULL; }
 
 
 
 
 	G_ASSERT(PIPVP);
-	REF_PTR_RELEASE(PIPVP);
+	if (PIPVP) { PIPVP->Release_Ref(); PIPVP = NULL; }
 }
 
 // 0x5C25A0
