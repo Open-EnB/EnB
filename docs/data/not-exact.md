@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-697 entries in 203 files.
+677 entries in 202 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -15,8 +15,6 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Unknown_Hex_String` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/aux_roots_send.h:3` | `Type_Name` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
-| `app/client/avatar.cpp:327` | `CharacterViewAvatarClass::Unknown_77D7F0` | marker | NOT EXACT: register (this in edi, the client's esi: 0.62) |
-| `app/client/avatar.cpp:343` | `CharacterViewAvatarClass::Unknown_77D9F0` | marker | NOT EXACT: shape (the client loads +0x234 again in each branch) |
 | `app/client/avatar.cpp:1196` | `CharacterViewAvatarClass::Unknown_780810` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's vector insert and 0x780AC0 copies) |
 | `app/client/avatar.cpp:1310` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
 | `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
@@ -24,7 +22,7 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:2380` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, blink and face callees not built; the movement's branches merged) |
 | `app/client/avatar.cpp:3239` | `CharacterViewAvatarClass::Unknown_786410` | marker | NOT EXACT: register (the Set_Translation stores' y / z go through ecx / edx in the client, edx / eax here: 0.94) |
 | `app/client/avatar.cpp:3399` | `CharacterViewAvatarClass::Unknown_787450` | marker | NOT EXACT: order-only (the second Normalize sums z*z + y*y where the client sums y*y first, or the reverse: 0.92) |
-| `app/client/avatar.cpp:3524` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client calls 0x784F20 where this repeats its three stores) |
+| `app/client/avatar.cpp:3524` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: shape (0.59: the goal tests' order and the inlined Vector3 temporaries) |
 | `app/client/avatar.cpp:3653` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs) |
 | `app/client/avatar_pip.cpp:198` | `AvatarPipClass::Unknown_7E3A20` | marker | NOT EXACT: shape (the client copies target into the light's translation first, then folds Translate's products: two zeroed floats per axis where ours multiplies; a release tail-merge and Rotate_Y's operand order; 0.83) |
 | `app/client/avatar_pip.cpp:294` | `AvatarPipClass::Unknown_7E4520` | marker | NOT EXACT: scheduling (the client converts budget * 0.1f to int before the vp's Get_Sort_Level call; ours after; 0.79) |
@@ -176,8 +174,6 @@ edit the comments in the code, not this file.
 | `app/client/gd_buffgadg.cpp:227` | `BuffGadgetClass::Unknown_6661F0` | marker | NOT EXACT: register (explain.py: identical once registers are normalised; ecx / edx swapped at the time compare) 0x6661F0 |
 | `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
-| `app/client/gd_slider.cpp:729` | `GadgetSlider::Unknown_66FD80` | marker | NOT EXACT: frame (similarity 0.58): the client keeps the low bone's X on the FPU stack, ours spills it (0x1C frame vs 0x18) @0x66FD80 |
-| `app/client/gd_slider.cpp:921` | `GadgetSlider::Unknown_670440` | mention | NOT EXACT (D64): 0x66FD80 (0.58). |
 | `app/client/gd_text_editor.cpp:162` | `TextEditorGadgetClass::Set_Render_Obj` | marker | NOT EXACT: registers (client this esi, it ebp, line edi with a home at +0x24; here ebx, edi, esi) and the slots of first and height swapped @0x671CB0 |
 | `app/client/gd_text_editor.cpp:560` | `TextEditorGadgetClass::Unknown_6732F0` | marker | NOT EXACT: ebx and ebp swapped (length / line), one fcomp scheduled after the column's copy @0x6732F0 |
 | `app/client/gd_text_editor.cpp:612` | `TextEditorGadgetClass::Unknown_6735A0` | marker | NOT EXACT: registers (the client hoists the load of Client between the test and the branch; x and y in edx and ecx) @0x6735A0 |
@@ -214,11 +210,9 @@ edit the comments in the code, not this file.
 | `app/client/nlp.cpp:460` | `PlayerNLPClass::Unknown_78F050` | marker | NOT EXACT: functional for POC (D64), shape (a merged or split tail) |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
-| `app/client/pdaint.cpp:66` | `PDAInterfaceClass::Unknown_54` | mention | NOT EXACT: registers (the client keeps this in ebp and pushes ebx late: 0.58)) |
 | `app/client/pdaint.cpp:208` | `PDAInterfaceClass::Unknown_68` | mention | NOT EXACT: shape (the chat window block, the sound tail and the cases' order: 0.17)) |
 | `app/client/pdaint.cpp:530` | `PDAInterfaceClass::Unknown_695780` | mention | NOT EXACT: shape (the client's FAIL_IF returns share one tail: 0.15)) |
 | `app/client/pdaint.cpp:603` | `PDAInterfaceClass::Unknown_695A00` | mention | NOT EXACT: shape (cases 1 and 3 jump to the common return-true tail: 0.36)) |
-| `app/client/pdaint.cpp:650` | `PDAInterfaceClass::Unknown_695CE0` | mention | NOT EXACT: the last return (the client tests +0xB0 in eax with no xor: 0.70)) |
 | `app/client/pdaint.cpp:747` | `PDAInterfaceClass::Unknown_695FE0` | mention | NOT EXACT: block order (the client puts the off branch's own return first: 0.59)) |
 | `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |
 | `app/client/postate.cpp:1012` | `Unknown717010Class::Unknown_7179A0` | marker | NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0) |
@@ -228,7 +222,6 @@ edit the comments in the code, not this file.
 | `app/client/radar_data.cpp:88` | `RadarDataClass::Unknown_7BB570` | marker | NOT EXACT: block layout and registers (the client's case 0 sits after the common tail, sharing case 1's last two stores) @0x7BB570 |
 | `app/client/radar_data.cpp:223` | `RadarDataClass::Unknown_7BBC00` | marker | NOT EXACT: inline budget (the client calls GutterColorStruct::operator= 0x70AC60 for the last of the four, ours inlines all four) @0x7BBC00 |
 | `app/client/radar_system.cpp:86` | `RadarSystemClass::Unknown_7BCA70` | marker | NOT EXACT: register (ours keeps a zero register and this in edi; the client gutter in ebx, starmap in edi, this in ebp) @0x7BCA70 |
-| `app/client/radar_system.cpp:341` | `RadarSystemClass::Unknown_7BD6E0` | marker | NOT EXACT: order (the client loads the view mode into eax before the compare; ours compares the member) @0x7BD6E0 |
 | `app/client/radar_system_data_cache.cpp:157` | `RadarSystemDataCacheClass::Get_Is_In_Range` | marker | NOT EXACT: order (the client's always-in-range path returns on its own, before the distance test; ours shares the tail) @0x7BE3A0 |
 | `app/client/rect3d.cpp:9` | `Rect3DClass::Rect3DClass` | marker | NOT EXACT: 0.79, inline budget: the client calls Switch_To_Multi_Vertex_Color out of line (0x6B7230, its Convert_Color_Clamp inlined) and inlines all four Vertex calls; ours inlines Switch (calling Convert_Color_Clamp) and calls the last UV |
 | `app/client/sbaseview.cpp:405` | `SBaseViewClass::Unknown_69D030` | marker | NOT EXACT: literal (explain.py; 0.87): Rotate_Z's first row multiplies c * x before s * y in the client |
@@ -284,8 +277,7 @@ edit the comments in the code, not this file.
 | `app/client/skill_data.cpp:95` | `SkillDataClass::Unknown_6A4C20` | marker | NOT EXACT: inline-budget, the client calls 0x610290 (Unknown_Find_Field) out of line in its two inlined reads 0x6A4C20 |
 | `app/client/skill_data.cpp:144` | `SkillDataClass::Unknown_20` | marker | NOT EXACT: inline-budget, the client inlines only the -1 push_back and calls 0x4A0880 for the other two 0x6A4F40 |
 | `app/client/skill_data_peek.cpp:149` | `SkillDataPeekClass::Get_Affiliations` | marker | NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return) 0x6A5730 |
-| `app/client/slot_data.cpp:32` | `SlotDataClass::Unknown_6A7730` | marker | NOT EXACT: shape, the client lays out the second emit before the shared failure exit (three forms of the branches) 0x6A7730 |
-| `app/client/slot_data.cpp:56` | `SlotDataClass::Unknown_6A7860` | marker | NOT EXACT: inlines 0x6A7730, the same shape 0x6A7860 |
+| `app/client/slot_data.cpp:32` | `SlotDataClass::Unknown_6A7730` | marker | NOT EXACT: shape (0.59: the client lays out the second emit before the shared failure exit; this form makes the copy 0x6A7860 inlines exact) 0x6A7730 |
 | `app/client/starmap_data.cpp:231` | `StarmapDataClass::Create_Mesh` | marker | NOT EXACT: frame and registers (the client keeps 0 in ebx and is_ship on the stack, the old transform above the rotation) @0x7BEF50 |
 | `app/client/starmap_pip.cpp:173` | `StarmapPipClass::Unknown_10` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C0C80 |
 | `app/client/starmap_pip.cpp:968` | `Unknown_491550` | marker | NOT EXACT: stack (the client keeps diff at +0x24 and t at +0x1C, the other way round: 0.88) |
@@ -334,7 +326,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatr.cpp:1401` | `AvatarCreationInterface::Unknown_558D30` | mention | NOT EXACT (the POC's last avatar-screen gens). |
 | `app/client/ui_avatr.cpp:1547` | `AvatarCreationInterface::Unknown_5582A0` | marker | NOT EXACT: functional (D64), from the client's 0x5582A0 (the gender button: the offsets saved for the old gender; the other gender's avatar kept at +0x1CC comes back (+0x2D8), or the first time a copy of this one in the other gender with the palettes' default colours; the old description is then kept at +0x1CC) 0x5582A0 |
 | `app/client/ui_avatr.cpp:1648` | `AvatarCreationInterface::Unknown_557290` | marker | NOT EXACT: functional (D64), from the client's 0x557290 (Random Appearance: the head and face on tabs 0 / 1, the body and clothes on tabs 0 / 2, each choice from 0 to its count; a female avatar has hair and no beard) 0x557290 |
-| `app/client/ui_avatr.cpp:1754` | `AvatarCreationInterface::Unknown_55A1F0` | marker | NOT EXACT: functional (D64), from the client's 0x55A1F0 (a pull dragged: 0 the body's (+0x160: the blend weights, 0x55A060), 1 the head's (+0x16C: +0x170 / +0x174, then 0x55B540); its marker on the window model's bone) 0x55A1F0 |
 | `app/client/ui_avsel.cpp:432` | `AvatarSelectionInterface::Unknown_68` | marker | NOT EXACT: inline budget (0.49): shipcust_desc.h's written-out operator= (P-P7-1) inlines here; the client calls the implicit one out of line (0x55D8A0) 0x55D060 |
 | `app/client/ui_avsel.cpp:721` | `AvatarSelectionInterface::Unknown_55E070` | marker | NOT EXACT: register (0.78; the else branch's vtable load in eax, the client's in edx) 0x55E070 |
 | `app/client/ui_avsel.cpp:1038` | `AvatarSelectionInterface::Unknown_55F140` | marker | NOT EXACT: register (0.78; the profession index: the client adds race * 2 to the profession, then race) 0x55F140 |
@@ -355,10 +346,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:1314` | `ChatPanelInterface::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |
 | `app/client/ui_chat_panel.cpp:1987` | `ChatPanelInterface::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
 | `app/client/ui_chat_panel.cpp:2382` | `ChatPanelInterface::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
-| `app/client/ui_chat_panel_base.cpp:31` | `UIChatPanelBaseClass::~UIChatPanelBaseClass` | marker | NOT EXACT: functional (WE1) 0x56D330 |
 | `app/client/ui_chat_panel_base.cpp:90` | `UIChatPanelBaseClass::Unknown_56D510` | marker | NOT EXACT: functional (WE1) 0x56D510 |
-| `app/client/ui_chat_panel_base.cpp:125` | `UIChatPanelBaseClass::Unknown_56D8D0` | marker | NOT EXACT: functional (WE1) 0x56D8D0 |
-| `app/client/ui_chat_panel_base.cpp:157` | `UIChatPanelBaseClass::Unknown_98` | marker | NOT EXACT: functional (WE1) 0x56DB20 |
 | `app/client/ui_chat_window.cpp:170` | `ChatWindowInterface::Unknown_A0` | marker | NOT EXACT: functional (CW2): frame 0x54 vs the client's 0x50 and the history loop (0.40) |
 | `app/client/ui_chat_window.cpp:246` | `ChatWindowInterface::Unknown_7C` | marker | NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (eax / edx swapped; 0.81) |
 | `app/client/ui_chat_window.cpp:351` | `ChatWindowInterface::Unknown_A4` | marker | NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first; frame 8 vs 0xC; 0.61) |
@@ -373,7 +361,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_cinfo.cpp:224` | `UICinfoClass::Unknown_573E80` | marker | NOT EXACT: register (the menu fonts' Get_Style arguments load in another register order; 0x5741A0's loop inlined three times) |
 | `app/client/ui_cinfo.cpp:278` | `UICinfoClass::Unknown_5741A0` | marker | NOT EXACT: register (this and the index swap ebx / edi; four loop forms tried) |
 | `app/client/ui_class.cpp:155` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot) @0x574710 |
-| `app/client/ui_class.cpp:489` | `ClassSelectInterface::Unknown_575D50` | marker | NOT EXACT: order (0.91: the client reads the gender through CharacterView + 0x88 after Unknown8C) @0x575D50 |
 | `app/client/ui_class.cpp:1117` | `ClassSelectInterface::Unknown_576AC0` | marker | NOT EXACT: inline-budget (0.80: ours inlines all 18 dialog names' string assigns, the client calls the last one out of line; two dead size() reads at the top gave 0.84 and the client's 17, then the register order of the 0x67B390 call and the identity matrix stores were left) @0x576AC0 |
 | `app/client/ui_combobox.cpp:219` | `UIComboBoxClass::Unknown_57B000` | marker | NOT EXACT: inline-budget (the client expands the item's string constructor, _Tidy and _Grow, where ours calls assign) 0x57B000 |
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
@@ -513,7 +500,6 @@ edit the comments in the code, not this file.
 | `app/client/unknown_personality_manager.cpp:87` | `Unknown_790560Class::Unknown_790D40` | marker | NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout) |
 | `app/client/unknown_personality_manager.cpp:97` | `Unknown_790560Class::Unknown_790D90` | marker | NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout) |
 | `app/client/unknown_personality_manager.cpp:116` | `Unknown_790560Class::Unknown_790E20` | marker | NOT EXACT: functional for POC (D64), shape (5 rows: the null test's return layout) |
-| `app/client/unknown_personality_manager.cpp:137` | `Unknown_790560Class::Unknown_790EE0` | marker | NOT EXACT: functional for POC (D64), shape (push_back's inlined insert) |
 | `app/client/unknown_phoneme.cpp:66` | `Unknown_791310Class::Unknown_791310Class` | marker | NOT EXACT: functional for POC (D64), shape (the index loop) |
 | `app/client/unknown_phoneme.cpp:83` | `Unknown_791310Class::Unknown_791400` | marker | NOT EXACT: functional for POC (D64), literal (the shapes' initial stores in another order) |
 | `app/client/unknown_phoneme.cpp:185` | `Unknown_791310Class::Unknown_7917B0` | marker | NOT EXACT: functional for POC (D64), shape (the index entry's loads) |
@@ -659,13 +645,7 @@ edit the comments in the code, not this file.
 | `app/shared/px_collision.h:46` | `?` | mention | NOT EXACT; the client calls MeshGeometryClass::Cast_OBBox / Intersect_OBBox on them) // NAME 3 [aobj_coll_rep, bobj_coll_rep]: the FAIL_IF's |
 | `app/shared/px_process.cpp:89` | `PxProcessClass::Push` | marker | NOT EXACT: shape (the client's inlined insert knows _Last - _P is 0 (xor dl, dl) and computes max(size(), 1) with ja; ours reloads; attempts.py show 0x455D10) |
 | `app/shared/px_process.cpp:96` | `PxProcessClass::Pop` | marker | NOT EXACT: shape (register: the client keeps the old end in esi and copies through edx; attempts.py show 0x455F60) |
-| `app/shared/ro_funcs.cpp:81` | `Unknown_496110` | marker | NOT EXACT: shape |
-| `app/shared/ro_funcs.cpp:114` | `Unknown_496240` | marker | NOT EXACT: shape |
-| `app/shared/ro_funcs.cpp:148` | `Unknown_496360` | marker | NOT EXACT: shape |
-| `app/shared/ro_funcs.cpp:182` | `Unknown_496490` | marker | NOT EXACT: shape |
 | `app/shared/ro_funcs.cpp:279` | `Unknown_4967F0` | marker | NOT EXACT: shape |
-| `app/shared/ro_funcs.cpp:360` | `Unknown_496DB0` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr 0x474080 for each sub-object) |
-| `app/shared/ro_funcs.cpp:399` | `Unknown_496C00` | marker | NOT EXACT: functional (D64), from the pseudocode and the disassembly: the colour of the model's first texture at (u, v), u and v 0..1 (FAIL_IFs '!material' l.365, l.367, '!surf' l.374); black when it can't @0x496C00 |
 | `app/shared/rs_list.cpp:256` | `RenderStateListClass::Unknown_45AB20` | marker | NOT EXACT: schedule (0.86): the client stores the float DURATION before the next push |
 | `app/shared/rs_list.cpp:293` | `RenderStateListClass::Unknown_45AD90` | marker | NOT EXACT: regs (0.67): the client keeps 0 in ebp from the start and one more local |
 | `app/shared/rs_list.cpp:555` | `RenderStateListClass::Unknown_45B550` | marker | NOT EXACT: switch (0.71): the client's SHADER jump table starts at 0 (case 0 on the default's code); ours subtracts 1 |
