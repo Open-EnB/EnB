@@ -674,7 +674,6 @@ RenderStateClass *RenderStateListClass::Unknown_45BB70(int id, int link_id, unsi
 }
 
 // 0x45BC30
-// NOT EXACT: schedule (0.86): the client stores the float DURATION before the next push
 RenderStateClass *RenderStateListClass::Unknown_45BC30(INIClass &ini, const char *section, int id)
 {
 	char name[MAX_PATH];
@@ -685,7 +684,7 @@ RenderStateClass *RenderStateListClass::Unknown_45BC30(INIClass &ini, const char
 	int name_len = Unknown_45A370(ini, section, name);
 	int message = Unknown_45A4D0(ini, section);
 	int next_id = Unknown_45A470(ini, section);
-	float duration = Unknown_45A500(ini, section);
+	float duration = ini.Get_Float(section, "DURATION", 0);
 	char *initstr = Unknown_45A6F0(ini, section);
 	char file[MAX_PATH];
 	Unknown_45A300(ini, section, file);
@@ -864,8 +863,8 @@ void RenderStateListClass::Unknown_04(float scale, float *hsv)
 ** effect pass maker reads CYCLE_TIME / START_V_COORD / END_V_COORD and drops them for the types other than
 ** Environment (2) and Screen (3), and releases its NULL mapper for Screen (the client reads address 4 there).
 **
-** NOT EXACT (functional, D64): 0x45AB20 and 0x45BC30 (the float DURATION's store is scheduled before the next push
-** in the client), 0x45AD90 (register allocation: the client keeps 0 in ebp from the start, one more local),
+** NOT EXACT (functional, D64): 0x45AB20 (the float DURATION's store is scheduled before the next push in the
+** client), 0x45AD90 (register allocation: the client keeps 0 in ebp from the start, one more local),
 ** 0x45B550 (the SHADER switch: the client's jump table starts at 0 with case 0 on the default's code; ours
 ** subtracts 1).
 */
