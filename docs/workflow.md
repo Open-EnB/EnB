@@ -1286,7 +1286,9 @@ unless `--lever` cites a new row of this table.
   poc_world*.cpp, stubs/app_stubs.cpp and tests/clienttest/client_stubs.cpp; and new callers can make app.lib pull an object that
   clienttest also compiles itself (shiputils, ui_talkt): LNK2005 in clienttest with a clean verify. Grep all three, link both programs.
   `python tools/vc6/standins.py check` finds the first kind in seconds (wt.py bring-over refuses on it); a stand-in that
-  must stay (the app object is never pulled) gets `// standins: keep (why)` on or just above its line.
+  must stay (the app object is never pulled) gets `// standins: keep (why)` on or just above its line. The second kind
+  needs the link: `python tools/vc6/linkgate.py check` (bring-over runs it; an unresolved symbol outside
+  tools/vc6/link_baseline.json refuses too).
 * **A test's stand-in goes stale when app code is pointed at a library symbol (kerneltest, 2026-11-04):** c759a57b
   replaced kernel.cpp's `Unknown_BFAEE0` with `WW3DAssetManager::Get_Instance()`; kerneltest.cpp still defined the old
   global, so the link pulled ww3d2.lib(assetmgr.obj) and, a chain later, ww3d.obj, which clashes with taskstest.cpp's

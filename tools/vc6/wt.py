@@ -2,9 +2,9 @@
 
     python tools/vc6/wt.py new NAME [--base REV]
     python tools/vc6/wt.py list [--unlanded]
-    python tools/vc6/wt.py bring-over NAME [--target BRANCH] [--lib X ...] [--pool K] [--dry] [--keep]
+    python tools/vc6/wt.py bring-over NAME [--target BRANCH] [--lib X ...] [--pool K] [--dry] [--keep] [--no-link]
     python tools/vc6/wt.py bring-over A B..C D [--batch-name N] [--target BRANCH] [--lib X ...] [--pool K] [--trailer T]
-                                      [--dry] [--picks-only] [--resume] [--keep]
+                                      [--dry] [--picks-only] [--resume] [--keep] [--no-link]
     python tools/vc6/wt.py rebase NAME [--onto BRANCH] [--continue] [--lib X ...] [--pool K] [--trailer T]
     python tools/vc6/wt.py remove NAME [--delete-branch] [--force]
 
@@ -41,6 +41,13 @@ bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss
      verified ledger's new app pairs too) refuses a function defined anew in app/ that a hand stand-in still defines
      (programs/clientpoc/poc_standins.cpp, poc_world*.cpp, poc_gadget_*.cpp, stubs/app_stubs.cpp,
      tests/clienttest/client_stubs.cpp), naming symbol and file:line; the batch form runs it too, after its verify;
+  4b. link (item 6b, when the commits touch app/, stubs/, programs/clientpoc/ or tests/clienttest/; else skipped,
+     printed): linkgate.py in the scratch worktree on --pool K VMs: build.py build --lib app (plus the other touched
+     libraries; the rest copied from the main tree's build/), the POC linked (--no-deploy) and clienttest built;
+     refused on LNK2005 / LNK1169, a compile error, no exe, or an unresolved symbol not in
+     tools/vc6/link_baseline.json (the POC's known set gen_stubs cannot write). Once per batch in the batch form.
+     --no-link skips it with a warning (doc-only or tools-only landings). Minutes: the app build. The harness run
+     (D182) stays separate;
   5. landing: under the importer lock, the worktree that has TARGET checked out (the main tree for
      master) gets each changed path 3-way merged with its uncommitted copy (git merge-file; attempts.csv
      by row union; any other conflict, a ledger shard's included, refuses), then `update-ref refs/heads/TARGET NEW OLD` (compare-and-swap), then the merged files
@@ -70,7 +77,8 @@ Batch form (two or more branches, a range, or --batch-name; D202): one verify ov
      same command with --resume, or `wt.py remove N` to drop it.
   3. `verify.py` once (the libraries the batch touches, plus --lib); every library's `in tree:` line must be
      in the log. The loss rule. report.py, names.py, notexact.py; the regenerated files are committed with a generated
-     subject and --trailer (default the newest Co-Authored-By on TARGET). The stand-in check (single form's 4a).
+     subject and --trailer (default the newest Co-Authored-By on TARGET). The stand-in check and the link check
+     (single form's 4a, 4b), once for the whole batch.
   4. landing: the worktree holding TARGET must have no tracked file modified (.claude/settings.json aside, unless the
      batch changes it): checked at the start and again under the lock. TARGET moves by compare-and-swap; a TARGET
      that moved during the verify is handled as in the single form's step 5 (unrelated commits: replayed onto;
@@ -131,6 +139,7 @@ sys.path.insert(0, HERE)
 import commit_rows as cr  # noqa: E402
 import ledger  # noqa: E402
 import pairs_cmp  # noqa: E402
+import linkgate  # noqa: E402
 import standins  # noqa: E402
 
 
@@ -899,6 +908,25 @@ def standin_gate(old, new, old_ledger, new_ledger, target):
     print('stand-ins: no collision')
 
 
+def link_gate(a, bo, old, new, target):
+    """Pipeline-plan §4 item 6b: when OLD..NEW touches app/, stubs/, programs/clientpoc/ or tests/clienttest/,
+    linkgate.py in the scratch worktree BO (app.lib built there, the POC and clienttest linked, a.pool VMs); exits on
+    a duplicate definition, an unresolved symbol not in its baseline, a compile error or no exe."""
+    paths = git('diff', '--name-only', old, new).splitlines()
+    if getattr(a, 'no_link', False):
+        print('WARNING: --no-link: the link check (POC and clienttest) is skipped; the landing may still break them')
+        return
+    if not linkgate.touches(paths):
+        print('link check: skipped, no path under ' + ', '.join(linkgate.TOUCH) + ' touched')
+        return
+    libs = [lib for lib in libs_touched(old, new, ()) if lib != 'app' and lib in EA_LIBS]
+    problems, _ = linkgate.gate(bo, libs, a.pool, bo + '.link')
+    if problems:
+        sys.exit('wt: link check refused:\n' + '\n'.join('  ' + p for p in problems)
+                 + f'\nwt: {target} untouched (logs {bo}.link.*.log)')
+    print('link check: passed')
+
+
 def check_builders(names):
     """Exits on a modified non-generated tracked file in a builder's worktree; generated leftovers are only named
     (the landing reads the branch: nothing is checked out, so nothing can be discarded)."""
@@ -1240,6 +1268,7 @@ def cmd_batch(a):
         new = rev('HEAD', cwd=bo)
         say_losses(res)
         standin_gate(old, new, ledger.load(old, repo=ROOT), ledger.load(new, repo=ROOT), a.target)
+        link_gate(a, bo, old, new, a.target)
         if a.dry:
             print(f'--dry: would land {old[:9]} -> {new[:9]} on {a.target}')
             return
@@ -1329,6 +1358,7 @@ def cmd_bring_over(a):
             new = rev('HEAD', cwd=bo)
         say_losses(res)
         standin_gate(old, new, before, after_rec, a.target)
+        link_gate(a, bo, old, new, a.target)
         if a.dry:
             print(f'--dry: would land {old[:9]} -> {new[:9]} on {a.target}')
             return
@@ -1530,6 +1560,8 @@ def main():
     p.add_argument('--no-replay', action='store_true', help='ignored: no replay since the freeze (D211)')
     p.add_argument('--dry', action='store_true', help='stop before landing')
     p.add_argument('--keep', action='store_true', help='keep the scratch worktree NAME.bo')
+    p.add_argument('--no-link', action='store_true',
+                   help='skip the link check (item 6b; doc-only or tools-only landings), with a warning')
     p = sub.add_parser('rebase')
     p.add_argument('name')
     p.add_argument('--onto', help='the branch to rebase onto (default the run branch wt/NAME was based on)')
