@@ -53,11 +53,14 @@ the range must start a zero-separated run of the client's CRT initialiser table 
 .data: the longest run of zero or .text dwords, `xcu_previous`), which lists each object's initialisers
 in link order. USE_XCU switches (c). When several symbols propose one address in the range round,
 the one whose own evidence there is strictly the strongest is credited and the others stay tied
-(P-CW1-1, 2026-11-08; `range_evidence`, compared as a tuple): first whether the client names the
-address with the symbol itself (D88 / D171's self names, or an exact function's call or reference to
-the symbol reaches it), then how many of its calls go to functions of the object's own code (not
-COMDATs) and land inside the object's range there; a tie at the top, or no evidence, still drops them
-all. USE_RANGE_EVIDENCE switches it.
+(P-CW1-1, 2026-11-08; `range_evidence`, compared as a tuple). A proposer is refuted when one of its
+calls goes to a function defined in its own object whose bytes do not fullmatch where that call lands
+(a template callback's ??_G calling its own inline destructor, against the class's ??_G, ui_chat_panel's
+0x562410); if one proposer is left, it is credited. Of several left, the strongest: first whether the
+client names the address with the symbol itself (D88 / D171's self names, or an exact function's call
+or reference to the symbol reaches it), then how many of its calls go to functions of the object's own
+code (not COMDATs) and land inside the object's range there; a tie at the top, or no evidence, still
+drops them all. USE_RANGE_EVIDENCE switches it.
 
 Such a COMDAT is `shared` (D183's guard): set on each holder's exact result; importer.py lists it in
 the file's `shared` list. A shared result is not placement evidence: a D166 caller tie-break that
@@ -773,11 +776,15 @@ def match_objects(img, paths, region=None, callers=False):
                         r, obj, sec, s, length, hits = item
                         e = range_evidence(obj, sec, s, length, text, start, a, ranges.get(id(obj)), thunk,
                                            names.get(r['symbol'], ()), known.get(r['symbol'], ()))
-                        best[a][r['symbol']] = max(best[a].get(r['symbol'], (False, 0)), e)
+                        best[a][r['symbol']] = min(best[a].get(r['symbol'], e), e)   # each copy of the symbol must hold
                 for a, ev in best.items():
-                    top = max(ev.values())
-                    if top > (False, 0) and sum(e == top for e in ev.values()) == 1:
-                        winner[a] = next(k for k, e in ev.items() if e == top)
+                    left = {k: e for k, e in ev.items() if e[0]}     # not refuted by a callee's bytes
+                    if len(left) == 1:
+                        winner[a] = next(iter(left))
+                    elif left:
+                        top = max(left.values())
+                        if top > (True, False, 0) and sum(e == top for e in left.values()) == 1:
+                            winner[a] = next(k for k, e in left.items() if e == top)
             for item, a in proposals:
                 r, obj, sec, s, length, hits = item
                 if len(by_addr[a]) > 1 and winner.get(a) != r['symbol'] or claimed[a] - {r['symbol']}:
@@ -1322,25 +1329,34 @@ USE_RANGE_EVIDENCE = True
 
 
 def range_evidence(obj, sec, start, length, text, base, a, rng, thunk, own_names, own_known):
-    """P-CW1-1: (named, own calls) of a range-round proposal at `a`, compared as a tuple. `named`: the client
-    names `a` with the function's own symbol (symbols.json or a vtable slot the run learned: D88 / D171's self
-    names; or an exact function's call or reference to the symbol reaches `a`). `own calls`: how many of its
-    relative calls / jumps go to a function defined in the object's own code (not a COMDAT: the linker keeps
-    it with this object) and, at `a`, land inside the object's range (`rng`). A COMDAT copy calling another
-    COMDAT has neither."""
+    """P-CW1-1: (callees hold, named, own calls) of a range-round proposal at `a`, compared as a tuple.
+    `callees hold`: False when one of its relative calls / jumps goes to a function defined in this object
+    whose own bytes (relocations masked) do not fullmatch where the call lands at `a` (through the thunk): the
+    symbol is not at `a` (a template callback's ??_G calling its own inline destructor, against a class's ??_G
+    calling a destructor of another file). `named`: the client names `a` with the function's own symbol
+    (symbols.json or a vtable slot the run learned: D88 / D171's self names; or an exact function's call or
+    reference to the symbol reaches `a`). `own calls`: how many of its calls go to a function of the object's
+    own code (not a COMDAT: the linker keeps it with this object) and land inside the object's range (`rng`)."""
     named = a in own_names or a in own_known
     calls = 0
-    if rng:
-        o = a - base
-        for k, n, typ, sym, addend in obj.reloc_targets(sec, start, length):
-            if typ != 0x14 or n != 4 or sym is None or sym['section'] <= 0 or (sym['type'] >> 4) != 2 \
-                    or not obj.own(sym['section'] - 1) or o + k + 4 > len(text):
-                continue
-            t = a + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]
-            t = thunk.get(t, t) & 0xFFFFFFFF
-            if rng[0] <= t <= rng[1]:
-                calls += 1
-    return (named, calls)
+    o = a - base
+    funcs = getattr(obj, '_funcs', None)
+    if funcs is None:
+        funcs = obj._funcs = {(sc, st): en for nm, sc, st, en in obj.functions()}
+    for k, n, typ, sym, addend in obj.reloc_targets(sec, start, length):
+        if typ != 0x14 or n != 4 or sym is None or sym['section'] <= 0 or (sym['type'] >> 4) != 2 \
+                or o + k + 4 > len(text):
+            continue
+        t = a + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]
+        t = thunk.get(t, t) & 0xFFFFFFFF
+        end = funcs.get((sym['section'] - 1, sym['value']))
+        if end is not None:
+            pat, fixed, ln = obj.pattern(sym['section'] - 1, sym['value'], end)
+            if ln and (not 0 <= t - base <= len(text) - ln or not re.fullmatch(pat, text[t - base:t - base + ln], re.S)):
+                return (False, named, 0)
+        if rng and obj.own(sym['section'] - 1) and rng[0] <= t <= rng[1]:
+            calls += 1
+    return (True, named, calls)
 
 
 RANGE_GAP = 0x1000   # D114(b): how far beyond its own range an object's lone (or D183 shared) exact COMDAT may lie
