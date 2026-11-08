@@ -673,38 +673,38 @@ template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root,
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #pragma auto_inline(off)
+// @0x60ED60
+void UIScanClass::Unknown_60ED60(ClientObjectClass *target, const std::string &assessment, const std::string &sound, int level)
+{
+	if (!target) {
+		ConFont->Set_Hidden(1);
+		return;
+	}
+	if (target->AuxData && !strcmp(((DeltaClass *)target->AuxData)->FullName.Get_String(), "Earth")) {
+		ConFont->Set_Hidden(1);
+		return;
+	}
+	if (assessment.empty()) {
+		ConFont->Set_Hidden(1);
+		ConFont->Unknown_6CE7D0(1);
+		return;
+	}
+	ConFont->Unknown_6CE7D0(2);
+	ConFont->Set_Hidden(0);
+	std::string text = assessment;
+	if (level >= 0) {
+		char buf[64];
+		_snprintf(buf, 64, "Combat Level %d", level);
+		text = buf;
+	}
+	ConFont->Change_Text(text.c_str(), 0);
+	if (!sound.empty()) {
+		SoundLibraryClass::Play_2D_Sound(sound.c_str(), 2);
+	}
+}
+
+
 // @0x60EFE0
 void UIScanClass::Unknown_60EFE0(ClientObjectClass *object)
 {
