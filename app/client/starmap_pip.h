@@ -96,7 +96,7 @@ public:
 	void Unknown_7C1C30();								// 0x7C1C30 (no caller)
 	void Unknown_7C2280();								// 0x7C2280 (the labels deleted; no caller, the slots expand it)
 	void Unknown_Set_54(float value);					// (inline, line 1069: 0x7C1510, 0x7C1B70)  // NAME 1: neutral (D10)
-	void Unknown_Set_Mult(float mult);					// (inline, line 1039: 0x7C0260, 0x7C1120, 0x7C1510, 0x7C1A90)  // NAME 1: neutral (D10)
+	void Unknown_Set_ScaleMult(float mult);				// (inline, line 1039: 0x7C0260, 0x7C1120, 0x7C1510, 0x7C1A90)  // NAME 1: neutral (D10)
 	void Unknown_7C0EA0(bool on);						// 0x7C0EA0  // NAME 1 [on]: neutral
 	NavigationListClass *Unknown_7C0EE0();				// 0x7C0EE0 (FAIL_IF '!WarpPath', '!TargetPath')
 	bool Unknown_7C0FA0();								// 0x7C0FA0 (the hovered object targeted; FAIL_IF '!radar', '!targeting')
@@ -113,12 +113,11 @@ public:
 	bool Unknown50;										// +0x50 (0x7C0D70 clears it)
 	bool Unknown51;										// +0x51
 	float Unknown54;									// +0x54 (1.0; times the mult: CurMult)
-	float Mult;											// +0x58 (1.0; 0x7C0260 sets 0.5)  // NAME 1: neutral (D10): what it holds
+	float ScaleMult;									// +0x58 (1.0; 0x7C0260 sets 0.5)  // NAME 3: 0x7C1770's FAIL_IF 'ScaleMult < WWMATH_EPSILON'
 	float CurMult;										// +0x5C (1.0)  // NAME 3: the FAIL_IF's
 	unsigned Unknown60;									// +0x60 (the client's AvatarID, 0x7C0260 / 0x7C0AF0)
 	RefCountPtr<RenderObjClass> Unknown64;				// +0x64
-	Vector2 Unknown68;									// +0x68 (over CurMult: 0x7C1770's scale)
-	float Unknown70;									// +0x70 (0x7C0C80: the viewport's larger side)
+	Vector3 Unknown68;									// +0x68 (X, Y over CurMult: 0x7C1770's scale; Z: 0x7C0C80, the viewport's larger side; 0x7C1770 copies it whole)
 	Vector2 Unknown74;									// +0x74 (0x7C0D70: FLT_MAX, FLT_MAX)
 	Vector2 Unknown7C;									// +0x7C (0x7C0D70: -FLT_MAX, -FLT_MAX)
 	Vector2 Unknown84;									// +0x84 (0x7C1280: +0x7C less +0x74)

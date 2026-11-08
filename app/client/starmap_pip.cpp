@@ -31,11 +31,11 @@ StarmapPipClass::StarmapPipClass(SClient *client) :
 	Unknown50(false),
 	Unknown51(false),
 	Unknown54(1.0f),
-	Mult(1.0f),
+	ScaleMult(1.0f),
 	CurMult(1.0f),
 	Unknown60(0),
-	Unknown68(0.0f, 0.0f),
-	Unknown70(0.0f),
+	Unknown68(0.0f, 0.0f, 0.0f),
+	// (+0x70 is Unknown68.Z)
 	Unknown74(0.0f, 0.0f),
 	Unknown7C(0.0f, 0.0f),
 	Unknown84(0.0f, 0.0f),
@@ -106,7 +106,7 @@ void StarmapPipClass::Unknown_20(int arg)
 {
 	Unknown60 = Client->AvatarID;
 	if (arg && Unknown50) {
-		Unknown_Set_Mult(0.5f);
+		Unknown_Set_ScaleMult(0.5f);
 	}
 }
 
@@ -177,7 +177,7 @@ bool StarmapPipClass::Unknown_10(const RefCountPtr<RenderObjClass> &vp)
 	if (!MapPipClass::Unknown_10(vp)) {
 		return(false);
 	}
-	Unknown70 = (ViewportSize.Y < ViewportSize.X) ? ViewportSize.X : ViewportSize.Y;
+	Unknown68.Z = (ViewportSize.Y < ViewportSize.X) ? ViewportSize.X : ViewportSize.Y;
 	Unknown_7C1510(false);
 	Vector3 position(Rect.Left, Rect.Bottom, 0.0f);
 	XPos->Set_Position(position);
@@ -746,11 +746,11 @@ bool StarmapPipClass::Unknown_7C10D0()
 void StarmapPipClass::Unknown_7C1120(float arg)
 {
 	if (Unknown50) {
-		float mult = (Mult + Mult) * arg + Mult;
+		float mult = (ScaleMult + ScaleMult) * arg + ScaleMult;
 		if (mult < 0.5f) {
 			mult = 0.5f;
 		}
-		Unknown_Set_Mult(mult);
+		Unknown_Set_ScaleMult(mult);
 	}
 }
 
@@ -882,7 +882,7 @@ bool StarmapPipClass::Unknown_7C1350()
 	Unknown4C->Set_Hidden(false);
 	Unknown_7C1510(false);
 	if (!Unknown60) {
-		if (Mult == 1.0f) {
+		if (ScaleMult == 1.0f) {
 			Unknown_7C1770(Unknown84.X * 0.5f + Unknown74.X, Unknown84.Y * 0.5f + Unknown74.Y);
 		} else if (avatar) {
 			Vector3 pos = avatar->Unknown_24();
@@ -977,7 +977,7 @@ void StarmapPipClass::Unknown_7C1770(float x, float y)
 		y = WWMath::Clamp(y, Unknown74.Y, Unknown7C.Y);
 		Unknown68.X = x * CurMult;
 		Unknown68.Y = y * CurMult;
-		Vector3 pos = *(Vector3 *)&Unknown68;
+		Vector3 pos = Unknown68;
 		Unknown_491550(&pos.X, &pos.Y);
 		Camera->Set_Position(pos);
 		int left = (int)(pos.X - ViewportSize.X * 0.5f);
@@ -1003,9 +1003,9 @@ void StarmapPipClass::Unknown_7C1770(float x, float y)
 
 
 
-		FAIL_IF(Mult < WWMATH_EPSILON) return;
+		FAIL_IF(ScaleMult < WWMATH_EPSILON) return;
 		Vector2 range = Unknown84 * 3.0f;
-		Vector2 min = Unknown84 / Mult;
+		Vector2 min = Unknown84 / ScaleMult;
 		Vector2 diff = range - min;
 		Vector2 t((x - Unknown74.X) / Unknown84.X, (Unknown7C.Y - y) / Unknown84.Y);
 		Unknown48->Unknown_7C3CA0(range.X, min.X, diff.X * t.X, true);
@@ -1033,14 +1033,14 @@ void StarmapPipClass::Unknown_7C1770(float x, float y)
 
 
 
-inline void StarmapPipClass::Unknown_Set_Mult(float mult)
+inline void StarmapPipClass::Unknown_Set_ScaleMult(float mult)
 {
-	if (Mult == mult) return;
+	if (ScaleMult == mult) return;
 	FAIL_IF(CurMult < WWMATH_EPSILON) {
 		CurMult = 1.0f;
 	}
 	Vector2 scale(Unknown68.X / CurMult, Unknown68.Y / CurMult);
-	Mult = mult;
+	ScaleMult = mult;
 	CurMult = Unknown54 * mult;
 	Unknown_7C1770(scale.X, scale.Y);
 }
@@ -1053,7 +1053,7 @@ void StarmapPipClass::Unknown_7C1A90(float mult)
 		if (mult < 0.5f) {
 			mult = 0.5f;
 		}
-		Unknown_Set_Mult(mult);
+		Unknown_Set_ScaleMult(mult);
 	}
 }
 
@@ -1071,7 +1071,7 @@ inline void StarmapPipClass::Unknown_Set_54(float value)
 	}
 	Vector2 scale(Unknown68.X / CurMult, Unknown68.Y / CurMult);
 	Unknown54 = value;
-	CurMult = Mult * value;
+	CurMult = ScaleMult * value;
 	Unknown_7C1770(scale.X, scale.Y);
 }
 
@@ -1087,7 +1087,7 @@ void StarmapPipClass::Unknown_7C1B70(float value)
 // @0x7C1C30
 void StarmapPipClass::Unknown_7C1C30()
 {
-	CurMult = Mult * Unknown54;
+	CurMult = ScaleMult * Unknown54;
 }
 
 // 0x7C1C50 ('CurMult < WWMATH_EPSILON' 1157) is not rebuilt yet.
@@ -1303,6 +1303,12 @@ void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 	}
 }
 
+// @0x7C3A90
+void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int bottom)
+{
+	Text->Unknown_6D88F0(left, top, right, bottom);
+}
+
 /*
 **	Reconstruction notes
 **
@@ -1312,10 +1318,11 @@ void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 **	and its literals ('STARMAP_X_POS' 0xB9F4A8 .. 'Starmap_ShowCoords' 0xB9F470) sit just before the file's
 **	first FAIL_IF strings (0xB9F4B8, 0xB9F4D8); the label class's 'RADAR_*' literals (0xB9F704-0xB9F734) follow
 **	the slots' messages (0xB9F50C-0xB9F5D8). 'Starmap_Label' 0xB9F31C is pooled with an earlier object's.
-**	0x7C3830 ends the claim; 0x7C3A90 (triage's hint for the end) is not settled.
+**	0x7C3A90 ends the object: a forward to FontSys called only from this file (0x7C1770, 0x7C2340), defined after
+**	0x7C3830 where the order puts it; starmap_pip_support.cpp starts at 0x7C3AC0.
 **
 **	The FAIL_IFs on 1039 and 1069 sit in inlines the client expands (1039: 0x7C0260, 0x7C1120, 0x7C1510, 0x7C1A90;
-**	1069: 0x7C1510, 0x7C1B70): Unknown_Set_Mult and Unknown_Set_54 here, defined where their lines put them, after
+**	1069: 0x7C1510, 0x7C1B70): Unknown_Set_ScaleMult and Unknown_Set_54 here, defined where their lines put them, after
 **	their first callers (VC6 inlines them from the later definition). 0x7C2280 (no caller) is the labels' delete
 **	that 0x7C0AF0 and the destructor expand; 0x7C0D70 has the loop written out (that form is the exact one there).
 **	+0x84 is a Vector2: as two ints the constructor's 'or ecx,-1' moved one store earlier.
@@ -1323,7 +1330,7 @@ void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 **	Exact: 0x7BF930, 0x7BFF20, 0x7C01C0, 0x7C0240, 0x7C0330, 0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0,
 **	0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1280, 0x7C1350, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C2280, 0x7C2D30,
 **	0x7C3220, 0x7C3720. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
-**	int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order), 0x7C1770 (two stack slots swapped; it copies +0x68 as a Vector3, Unknown68 and Unknown70 look like one Vector3).
+**	int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68, which it copies whole).
 **	Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1510, 0x7C1C50, 0x7C2340, 0x7C2850,
 **	0x7C2DA0-0x7C30E0 (the POC and clienttest get them from generated stubs).
 */
