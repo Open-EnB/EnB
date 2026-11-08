@@ -216,16 +216,6 @@ UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((Li
 	STUB_CALLED("POC UIChatReplyListClass: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-// The split chat window (ui_chat_window_split.cpp: all but the set-up are rebuilt): a set-up that loads the kind's model (0x5723B0's first steps: slot +0x98 with 0xB7D938's names, the base's
-// set-up, slot +0xA0 with one window, two when split) and leaves the frame's resize gadgets out
-void UIChatWindowSplitClass::Unknown_54()
-{
-	static const char *models[] = { "tsi05f", "tsi05d", "tsi05e" };
-	if (!Unknown_98(models[UnknownE8], NULL)) return;
-	ChatWindowInterface::Unknown_54();
-	Unknown_A0((UnknownE8 != 0) ? 2 : 1);
-}
-
 // 0x765DF0 (file unknown, not rebuilt): the client's code, the chat line colour by its index (0..23), else white;
 // a generated stub cannot return a Vector3 (the call links to 0)
 Vector3 Unknown764FD0Class::Unknown_765DF0(int index)

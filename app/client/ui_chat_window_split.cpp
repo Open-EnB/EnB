@@ -2,6 +2,7 @@
 #define __INTRFACE_MEMBERS
 #include "ui_chat_window_split.h"
 #include "hanim.h"
+#include "assetmgr.h"
 #include "gd_resize.h"
 #include "gadget.h"
 #include "option.h"
@@ -9,6 +10,8 @@
 
 extern unsigned int Unknown_BE5F34;		// 0xBE5F34 (gadget.cpp's: the event mask; 0x10 for slot +0x68's keys 0x65 / 0x66)  // NAME 1: neutral (D10)
 #define InterfaceMesh Unknown84		// the base's +0x84 (ui_chat_window.cpp's name)
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass
+static const char *Unknown_B7D938[] = { "tsi05f", "tsi05d", "tsi05e" };	// 0xB7D938 (the kinds' models: slot +0x98's names, the animations '<model>.<model>-1' / '-2')  // NAME 1: neutral (D10)
 
 // 0x571F00
 UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit, int kind) :
@@ -30,9 +33,6 @@ UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Cla
 			break;
 	}
 }
-
-
-
 
 
 
@@ -102,6 +102,89 @@ UIChatWindowSplitClass::~UIChatWindowSplitClass()
 	}
 	delete UnknownEC;
 	UnknownEC = NULL;
+}
+
+
+
+
+
+
+
+
+// 0x5723B0  // NOT EXACT: register-only (W1): the last Release_Ref's vtable goes through edx where the client uses eax; every other byte is the client's
+void UIChatWindowSplitClass::Unknown_54()
+{
+	if (!Unknown_98(Unknown_B7D938[UnknownE8], NULL)) return;
+	ChatWindowInterface::Unknown_54();
+
+	UnknownEC = new HAnimComboClass;
+	Unknown104.Unknown00 = new HAnimComboDataClass(true);
+	UnknownF0.Unknown00 = new HAnimComboDataClass(true);
+
+	std::string name(Unknown_B7D938[UnknownE8]);
+	name += '.';
+	name += Unknown_B7D938[UnknownE8];
+	name += "-1";
+	HAnimClass *anim = WW3DAssetManager::Get_Instance()->Get_HAnim(name.c_str());
+	G_ASSERT(anim);
+	UnknownF0.Unknown00->Give_HAnim(anim);
+
+
+
+	name[name.length() - 1] = '2';
+	anim = WW3DAssetManager::Get_Instance()->Get_HAnim(name.c_str());
+	G_ASSERT(anim);
+	Unknown104.Unknown00->Give_HAnim(anim);
+
+	RefCountPtr<RenderObjClass> robj;
+	robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("GIZMO_HORIZ01"));
+	Unknown_496AE0(robj.Peek(), 0);
+	UnknownF0.Unknown04 = new ResizeGadgetClass(robj);
+	GadgetClass::Set_Tooltip(UnknownF0.Unknown04, "UI_CHAT_WINDOW_SPLIT", "Resize");
+	Unknown64.Unknown_6870E0(UnknownF0.Unknown04, 0x65, View, 1, 1);
+
+	if (UnknownE8) {
+		robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("GIZMO_HORIZ"));
+		Unknown_496AE0(robj.Peek(), 0);
+	} else {
+		robj = NULL;
+	}
+	Unknown104.Unknown04 = new ResizeGadgetClass(robj);
+	GadgetClass::Set_Tooltip(Unknown104.Unknown04, "UI_CHAT_WINDOW_SPLIT", Unknown11C);
+	Unknown64.Unknown_6870E0(Unknown104.Unknown04, 0x66, View, 1, 1);
+
+	UnknownF0.Unknown00->Build_Active_Pivot_Map();
+	Unknown104.Unknown00->Build_Active_Pivot_Map();
+	UnknownF0.Unknown10 = (UnknownF0.Unknown00->Peek_HAnim()->Get_Num_Frames() > 360) ? 360 : UnknownF0.Unknown00->Peek_HAnim()->Get_Num_Frames();
+	Unknown104.Unknown10 = Unknown104.Unknown00->Peek_HAnim()->Get_Num_Frames();
+	Unknown_5732A0(0, 0);
+	UnknownF0.Unknown04->Unknown_66BDA0();
+	Unknown104.Unknown04->Unknown_66BDA0();
+
+	switch (UnknownE8) {
+		case 0:
+			UnknownF0.Unknown04->Set_Unknown78(0, UnknownF0.Unknown10 - 1);
+			break;
+		case 1:
+			UnknownF0.Unknown04->Set_Unknown78(0, UnknownF0.Unknown10 - 1);
+			Unknown104.Unknown04->Set_Unknown70(Unknown104.Unknown10 * 0.1, 0);
+			Unknown104.Unknown04->Set_Unknown78(Unknown104.Unknown10 * 0.9, 0);
+			Unknown104.Unknown0C = Unknown104.Unknown10 * 0.9;
+			break;
+		case 2:
+			UnknownF0.Unknown04->Set_Unknown78(0, UnknownF0.Unknown10 - 1);
+			Unknown104.Unknown04->Set_Unknown78(0, Unknown104.Unknown10 - 1);
+			break;
+	}
+
+	std::string option;
+	option = Unknown11C;
+	option += "Size";
+	int size = OptionClass::Instance->Get_Int(option.c_str());
+	option = Unknown11C;
+	option += "Split";
+	Unknown_5732A0(size, OptionClass::Instance->Get_Int(option.c_str()));
+	Unknown_A0((UnknownE8 != 0) + 1);
 }
 
 #pragma auto_inline(off)
@@ -242,89 +325,6 @@ void UIChatWindowSplitClass::Unknown_A8()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x5732A0
 void UIChatWindowSplitClass::Unknown_5732A0(unsigned int size, unsigned int split)
 {
@@ -374,8 +374,13 @@ inline ChatWinSplitResizeStruct::~ChatWinSplitResizeStruct()
 **	destructor 0x573430; slot +0x60 0x572E20 (the two drags), slot +0xA8 0x573220 and 0x5732A0 (FAIL_IF
 **	'!AnimCombo' l.331: the values clamped, the frames set; slot 0x90 of the mesh is Update_Sub_Object_Transforms).
 **	Slot +0x68 0x572EE0 is functional (the keys 0x65 / 0x66 with the event mask's 0x10 toggle the size / split
-**	between the option's default and the last value). Not rebuilt: the set-up 0x5723B0 (G_ASSERT 'anim' ll.129 /
-**	136); the POC (programs/clientpoc/poc_world.cpp) stands in for slot +0x54.
+**	between the option's default and the last value). The set-up 0x5723B0 (slot +0x54, G_ASSERT 'anim' ll.129 /
+**	136; W1, 2026-11-08) is functional with a register-only residue: the kind's model by slot +0x98 with the names
+**	0xB7D938, the base's set-up, the animations '<model>.<model>-1' / '-2' given to the size / split handles, the
+**	resize gadgets on 'GIZMO_HORIZ01' and (split kinds) 'GIZMO_HORIZ' with their ranges, then the saved options.
+**	Its forms: the anim string by its constructor (EH state after assign), the option string default-constructed
+**	then assigned (EH state 9 before the inline assign), the frame clamp as a macro-style ternary (the call twice),
+**	the ranges through inline setters on the gadget (gd_resize.h; Vector2::Set adds +0x78 to the pointer).
 **	The destructor saves the two handles' values as the int options '<prefix>Size' and '<prefix>Split', the
 **	prefix being +0x11C ('ChatWinSplit_None' / '_Vert' / '_Horz' by the kind).
 */

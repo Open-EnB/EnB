@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-677 entries in 202 files.
+678 entries in 202 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -357,7 +357,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_window.cpp:607` | `ChatWindowInterface::Unknown_5719A0` | marker | NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (exact as Vector3 &f(Vector3 &color, entry): proposal) |
 | `app/client/ui_chat_window.cpp:622` | `ChatWindowInterface::Unknown_571A70` | marker | NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (the client has one, uncalled) |
 | `app/client/ui_chat_window_split.cpp:79` | `UIChatWindowSplitClass::~UIChatWindowSplitClass` | marker | NOT EXACT: functional (CW3): ours inlines the second assign and append and the first assign's copy; the client calls the first assign and both appends (std::string budget, 0.37) |
-| `app/client/ui_chat_window_split.cpp:142` | `UIChatWindowSplitClass::Unknown_68` | marker | NOT EXACT: functional (CW3): the client tests the key mask loaded once before the switch and spends the std::string budget differently (_Tidy out of line, assign inline; 0.41-0.56) |
+| `app/client/ui_chat_window_split.cpp:114` | `UIChatWindowSplitClass::Unknown_54` | marker | NOT EXACT: register-only (W1): the last Release_Ref's vtable goes through edx where the client uses eax; every other byte is the client's |
+| `app/client/ui_chat_window_split.cpp:225` | `UIChatWindowSplitClass::Unknown_68` | marker | NOT EXACT: functional (CW3): the client tests the key mask loaded once before the switch and spends the std::string budget differently (_Tidy out of line, assign inline; 0.41-0.56) |
 | `app/client/ui_cinfo.cpp:224` | `UICinfoClass::Unknown_573E80` | marker | NOT EXACT: register (the menu fonts' Get_Style arguments load in another register order; 0x5741A0's loop inlined three times) |
 | `app/client/ui_cinfo.cpp:278` | `UICinfoClass::Unknown_5741A0` | marker | NOT EXACT: register (this and the index swap ebx / edi; four loop forms tried) |
 | `app/client/ui_class.cpp:155` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot) @0x574710 |
