@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-707 entries in 204 files.
+718 entries in 205 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -369,6 +369,17 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel_base.cpp:90` | `UIChatPanelBaseClass::Unknown_56D510` | marker | NOT EXACT: functional (WE1) 0x56D510 |
 | `app/client/ui_chat_panel_base.cpp:125` | `UIChatPanelBaseClass::Unknown_56D8D0` | marker | NOT EXACT: functional (WE1) 0x56D8D0 |
 | `app/client/ui_chat_panel_base.cpp:157` | `UIChatPanelBaseClass::Unknown_98` | marker | NOT EXACT: functional (WE1) 0x56DB20 |
+| `app/client/ui_chat_window.cpp:148` | `ChatWindowInterface::Unknown_98` | marker | NOT EXACT: functional (CW2): ours keeps 0 in ebx for the FontSys arguments and the null tests, the client pushes constants (0.55) |
+| `app/client/ui_chat_window.cpp:170` | `ChatWindowInterface::Unknown_A0` | marker | NOT EXACT: functional (CW2): frame 0x54 vs the client's 0x50 and the history loop (0.40) |
+| `app/client/ui_chat_window.cpp:246` | `ChatWindowInterface::Unknown_7C` | marker | NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (eax / edx swapped; 0.81) |
+| `app/client/ui_chat_window.cpp:351` | `ChatWindowInterface::Unknown_A4` | marker | NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first; frame 8 vs 0xC; 0.61) |
+| `app/client/ui_chat_window.cpp:362` | `ChatWindowInterface::Unknown_CC` | marker | NOT EXACT: functional (CW2): as 0x570CD0 (0.70) |
+| `app/client/ui_chat_window.cpp:378` | `ChatWindowInterface::Unknown_AC` | marker | NOT EXACT: functional (CW2): register residue (0.78) |
+| `app/client/ui_chat_window.cpp:403` | `ChatWindowInterface::Unknown_B0` | marker | NOT EXACT: functional (CW2): the inlined 0x5719A0 (0.66; exact with 0x5719A0 as Vector3 &f(Vector3 &color, entry), which inlines vector::size 0x571B70 into 0x56FD30: proposal) |
+| `app/client/ui_chat_window.cpp:455` | `ChatWindowInterface::Unknown_A8` | marker | NOT EXACT: functional (CW2): the client tests the first name before taking its address (je before lea edi; 0.84) |
+| `app/client/ui_chat_window.cpp:509` | `ChatWindowInterface::Unknown_5715F0` | marker | NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (0.71) |
+| `app/client/ui_chat_window.cpp:607` | `ChatWindowInterface::Unknown_5719A0` | marker | NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (exact as Vector3 &f(Vector3 &color, entry): proposal) |
+| `app/client/ui_chat_window.cpp:622` | `ChatWindowInterface::Unknown_571A70` | marker | NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (the client has one, uncalled) |
 | `app/client/ui_cinfo.cpp:224` | `UICinfoClass::Unknown_573E80` | marker | NOT EXACT: register (the menu fonts' Get_Style arguments load in another register order; 0x5741A0's loop inlined three times) |
 | `app/client/ui_cinfo.cpp:278` | `UICinfoClass::Unknown_5741A0` | marker | NOT EXACT: register (this and the index swap ebx / edi; four loop forms tried) |
 | `app/client/ui_class.cpp:155` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot) @0x574710 |
