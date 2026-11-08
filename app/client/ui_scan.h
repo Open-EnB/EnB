@@ -51,6 +51,7 @@ class UIScanThreatClass	// NAME 1: neutral (D10)
 public:
 	UIScanThreatClass(UIScanClass *owner) : Owner(owner), Unknown18(false), Unknown20(0), Unknown28(0), Unknown2C(NULL) {}	// NAME 2 [owner]: what it holds
 	~UIScanThreatClass();
+	UIScanClass *Get_Interface() { return(Owner); }		// (inline: 0x60FEE0's G_ASSERT 'Get_Interface()->Is_Active()', as UIGroupClass's members')  // NAME 3: the assert's
 	void Unknown_60FEE0();								// 0x60FEE0 (the scanner's 0x60E580 when the target goes; the destructor between hide and show)
 	void Unknown_Update() { Unknown2C->Unknown38 = Unknown28; if (Unknown2C) { Unknown2C->Unknown_10(); } }	// (inline in 0x60F1A0: the progress display's state and redraw)  // NAME 1: neutral (D10)
 	void Unknown_Clear()								// (inline in 0x60E6A0, and 0x60FEE0's after its assert: the progress display deleted, the state and name cleared)  // NAME 1: neutral (D10)

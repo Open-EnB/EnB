@@ -879,6 +879,190 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 		FactionFont->Set_Hidden(0);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @0x60FEE0
+void UIScanThreatClass::Unknown_60FEE0()
+{
+	G_ASSERT(Get_Interface()->Is_Partially_Deactivated() || !Get_Interface()->Is_Active());
+	Unknown_Clear();
+	if (Unknown14) {
+		Unknown14->Change_Text("", 0);
+		Unknown14->Set_Hidden(1);
+	}
+	if (Unknown30) {
+		Unknown30->Remove();
+		Unknown30 = NULL;
+	}
+}
 #pragma auto_inline(on)
 
 /*
@@ -903,4 +1087,8 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 **	that form (0.43 -> 0.46) but costs aux_roots 8 pairs and slot_data_render 0x6A7C00, so duration.h keeps the implicit one.
 **	0x60ECD0 (lea eax, [ecx+0x88]) is the time field's value accessor, out of line in 0x60E6A0; declaring it in
 **	delta_template.h costs aux_roots 8 pairs (its inline budget), so 0x60E6A0 reads Value directly.
+**
+**	TL3 (2026-11-08): 0x60FEE0 (the threat's clear-and-hide; exact) after 0x60F1A0 under the same auto_inline(off), its
+**	G_ASSERT on l.1055; its body after the assert is TL2's inline Unknown_Clear, then +0x14's Change_Text('') / Set_Hidden(1)
+**	and +0x30's Remove() and release. Get_Interface() (the assert's) returns Owner.
 */
