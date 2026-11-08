@@ -1,0 +1,47 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x5B2BD0 UIManuClass::Unknown_5B2BD0, similarity 0.307 vs the tree's 0.23; not exact.
+// idea: Use the switch form and spend the inline budget with dead size() reads ahead of the calls. The intent is to starve the later expansions, so that 5B2950 and the inner vector size() calls stay out of line as in the client.
+void UIManuClass::Unknown_5B2BD0(bool force)
+{
+	if (!Unknown0BAD && Unknown0B98 != 3) {
+		NameClass name("PrimaryCategories");
+		UIManuCategoriesClass *categories = Unknown_Find_Field<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, name);
+		if (categories && categories->Unknown70 && (force || categories->Unknown70 > 1)) {
+			UIManuNodeClass *tree = (UIManuNodeClass *)categories;
+			tree->Unknown084.size();
+			tree->Unknown084.size();
+			tree->Unknown084.size();
+			Unknown_5B2B40();
+			unsigned int count;
+			unsigned int i;
+			switch (Unknown0B98) {
+			case 0:
+				count = tree->Unknown084.size();
+				for (i = 0; i < count; i++) {
+					Unknown98C[i] = Unknown_5B3B90(tree, i);
+				}
+				break;
+			case 1: {
+				int a = Unknown0B80[0];
+				count = tree->Unknown084[a]->Unknown1A8.size();
+				for (i = 0; i < count; i++) {
+					Unknown98C[i] = Unknown_5B3CA0(tree, a, i);
+				}
+				break;
+			}
+			case 2: {
+				int a = Unknown0B80[0];
+				int b = Unknown0B80[1];
+				count = tree->Unknown084[a]->Unknown1A8[b]->Unknown230.size();
+				for (i = 0; i < count; i++) {
+					Unknown98C[i] = !tree->Unknown084[a]->Unknown1A8[b]->Unknown230[i]->Unknown230;
+				}
+				break;
+			}
+			}
+			if (count < 500) {
+				memset(&Unknown98C[count], 1, 500 - count);
+			}
+			Unknown_5B2230();
+		}
+	}
+}

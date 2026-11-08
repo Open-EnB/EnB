@@ -1,0 +1,66 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x4654E0 HeightFieldClass::Cast_OBBox, similarity 0.652 vs the tree's 0.552; not exact.
+// idea: Use Vector3 min and Vector2 max (the client spills min to an X/Y/Z-sized slot at 0x38 but max only to 0x9c), saving exactly 4 bytes.
+bool HeightFieldClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
+{
+	bool hit = false;
+	Vector3 corners[16];
+	int n = 0;
+	int i, j, k;
+	for (i = -1; i <= 1; i += 2) {
+		for (j = -1; j <= 1; j += 2) {
+			for (k = -1; k <= 1; k += 2) {
+				float params[3];
+				params[0] = (float)i;
+				params[1] = (float)j;
+				params[2] = (float)k;
+				boxtest.Box.Compute_Point(params, &corners[n]);
+				n++;
+			}
+		}
+	}
+	for (i = 0; i < 8; i++) {
+		corners[i + 8] = corners[i] + boxtest.Move;
+	}
+	Vector3 min = corners[0];
+	Vector2 max(corners[0].X, corners[0].Y);
+	for (i = 1; i < 16; i++) {
+		min.X = WWMath::Min(min.X, corners[i].X);
+		max.X = WWMath::Max(max.X, corners[i].X);
+		min.Y = WWMath::Min(min.Y, corners[i].Y);
+		max.Y = WWMath::Max(max.Y, corners[i].Y);
+	}
+	float half = (float)HalfSize;
+	int i0 = (int)(min.X / XSpacing + half - 1.0f);
+	int i1 = (int)(max.X / XSpacing + half + 1.0f);
+	int j1 = (int)(max.Y / YSpacing + half + 1.0f);
+	int j0 = (int)(min.Y / YSpacing + half - 1.0f);
+	for (j = j0; j <= j1; j++) {
+		for (i = i0; i <= i1; i++) {
+			Vector3 verts[4];
+			Vector3 normal;
+			TriClass tri;
+			tri.N = &normal;
+			Get_Vertex(i, j, &verts[0]);
+			verts[1].X = verts[0].X + XSpacing;
+			verts[1].Y = verts[0].Y;
+			verts[1].Z = Get_Height(i + 1, j);
+			verts[2].X = verts[0].X + XSpacing;
+			verts[2].Y = verts[0].Y + YSpacing;
+			verts[2].Z = Get_Height(i + 1, j + 1);
+			verts[3].X = verts[0].X;
+			verts[3].Y = verts[0].Y + YSpacing;
+			verts[3].Z = Get_Height(i, j + 1);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[2];
+			tri.V[2] = &verts[3];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(boxtest.Box, boxtest.Move, tri, Vector3(0, 0, 0), boxtest.Result);
+			tri.V[0] = &verts[0];
+			tri.V[1] = &verts[1];
+			tri.V[2] = &verts[2];
+			tri.Compute_Normal();
+			hit |= CollisionMath::Collide(boxtest.Box, boxtest.Move, tri, Vector3(0, 0, 0), boxtest.Result);
+		}
+	}
+	return hit;
+}

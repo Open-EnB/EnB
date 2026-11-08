@@ -1,0 +1,167 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x74ABC0 SClient::Unknown_34, similarity 0.714 vs the tree's 0.641; not exact.
+// idea: As the split-ifs variant, and also give /deco and the two /self tag commands a return in each branch, adding more late destructor sites so the out-of-line _Tidy boundary moves down to /self tag as in the client.
+bool SClient::Unknown_34(const char *text)
+{
+	if (strncmp(text, "/group", strlen("/group")) == 0) {
+		return(Unknown_747510(text));
+	}
+	if (strncmp(text, ChatCommandHelp[0], strlen(ChatCommandHelp[0])) == 0) {
+		return(Unknown_745FF0(text));
+	}
+	if (Unknown_747C70(text)) {
+		return(true);
+	}
+	std::string reason;
+	int len;
+	for (const LogoffCommandStruct *command = LogoffCommands; (len = strlen(command->Name)) != 0; command++) {
+		if (strnicmp(command->Name, text, len) == 0) {
+			const char *p = text + len;
+			while (*p == ' ') {
+				p++;
+			}
+			reason = p;
+			bool quit = command->Quit;
+			Unknown138C = 1;
+			LogoffRequestPacketClass packet(Unknown1138);
+			Send_Packet(&packet);
+			if (quit) {
+				Unknown_743290();
+			}
+			return(true);
+		}
+	}
+	if (strnicmp(text, CampCommands[0], 4) == 0) {
+		MessageStringPacketClass message(0x11, "Unable to camp - insufficient marshmallows.");
+		message.Process_Packet(this);
+		return(true);
+	}
+	if (strncmp(text, "/fps", 4) == 0) {
+		if (Unknown14EC != 1) {
+			Unknown14EC = 1;
+			Unknown05 = true;
+			Unknown_74D990(0x17, "FPS reporting enabled.", 0);
+		} else {
+			Unknown14EC = 0;
+			Unknown05 = false;
+			Unknown_74D990(0x17, "FPS reporting disabled.", 0);
+		}
+		return(true);
+	}
+	if (Unknown14EC == 3) {
+		if (!WWProfileManager::Is_Profile_Enabled()) {
+			WWProfileManager::Enable_Profile(true);
+			WWProfileManager::Reset();
+		}
+	} else if (WWProfileManager::Is_Profile_Enabled()) {
+		WWProfileManager::Enable_Profile(false);
+	}
+	if (stricmp(text, "/resetship") == 0) {
+		if (CurrentView && Unknown1378 == 0) {
+			UIViewClass *ui_view = CurrentView->Unknown_1C();
+			ViewUnknown34Class *dialog;
+			if (ui_view && (dialog = ui_view->Get_Unknown34()) != NULL) {
+				Unknown1378 = 1;
+				dialog->Unknown_588A70("YES_NO", 0, "This will reset all ship systems, leaving you vulnerable to attack for a short time. Continue?", 0x140, 0, 0);
+			}
+		}
+		return(true);
+	}
+	if (stricmp(text, "/beacon") == 0) {
+		IncapacitanceDistressBeaconPacketClass packet(AvatarID, true);
+		Connection->Send_Packet(&packet);
+		return(true);
+	}
+	if (stricmp(text, "/beacon off") == 0) {
+		IncapacitanceDistressBeaconPacketClass packet(AvatarID, false);
+		Connection->Send_Packet(&packet);
+		return(true);
+	}
+	if (stricmp(text, "/rescue") == 0) {
+		Packet_008FClass packet(AvatarID);
+		Connection->Send_Packet(&packet);
+		return(true);
+	}
+	if (stricmp(text, "/starbase reset") == 0 && CurrentView && CurrentView == Unknown135C) {
+		UIStarbaseClass *starbase = ((SBaseViewClass *)Unknown135C)->Get_Starbase().Peek();
+		starbase->Unknown_640150();
+		return(true);
+	}
+	if (stricmp(text, "/deco") == 0) {
+		LandClass *land = MainView->Land;
+		if (land) {
+			bool &decorations = ((bool *)land)[0x192];
+			decorations = !decorations;
+			if (decorations) {
+				Unknown_74D990(0x17, "Decoration rendering is on.", 0);
+				return(true);
+			}
+			Unknown_74D990(0x17, "Decoration rendering is off.", 0);
+			return(true);
+		}
+		return(true);
+	}
+	if (stricmp(text, "/self tag on") == 0) {
+		BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Show_Self_Name");
+		if (option) {
+			option->Value = true;
+			Unknown_74D990(0x17, "Your own avatar name tag will now be displayed.", 0);
+			return(true);
+		}
+		return(true);
+	}
+	if (stricmp(text, "/self tag off") == 0) {
+		BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Show_Self_Name");
+		if (option) {
+			option->Value = false;
+			Unknown_74D990(0x17, "Your own avatar name tag will now be hidden.", 0);
+			return(true);
+		}
+		return(true);
+	}
+	if (Unknown_747FA0(text)) {
+		return(true);
+	}
+	if (Unknown_749020(text)) {
+		return(true);
+	}
+	if (Unknown_749590(text)) {
+		return(true);
+	}
+	if (Unknown_749A70(text)) {
+		return(true);
+	}
+	if (Unknown_749ED0(text)) {
+		return(true);
+	}
+	if (text[0] == '/' && text[1] == 'g' && text[2] == ' ') {
+		Connection->Send_Packet(&ClientChatPacketClass(AvatarID, (char *)text + 3, 1, NULL));
+		return(true);
+	}
+	if (strnicmp(text, "/gu ", 4) == 0) {
+		Connection->Send_Packet(&ClientChatPacketClass(AvatarID, (char *)text + 4, 2, NULL));
+		return(true);
+	}
+	ClientObjectClass *ship;
+	if (stricmp(text, "/art name") == 0 && (ship = Get_Ship()) != NULL) {
+		std::string name;
+		ship->Unknown_6FF7A0(name);
+		RadarSystemClass *radar;
+		if (strstr(name.c_str(), "[DEV]") && MainView && (radar = MainView->Radar) != NULL) {
+			radar->Unknown4D = !radar->Unknown4D;
+			if (radar->Unknown4D) {
+				Unknown_BE5F20 = this;
+				Unknown_74D990(0x17, "Showing of objects under mouse.", 0);
+			} else {
+				Unknown_BE5F20 = NULL;
+				Unknown_74D990(0x17, "No longer showing name of objects under mouse.", 0);
+			}
+			return(true);
+		}
+	}
+	if (strcmp(text, "/texture_flush") == 0) {
+		WW3D::_Invalidate_Textures();
+		Unknown_74D990(0, "TEXTURES FLUSHED", 0);
+		return(true);
+	}
+	return(ClientClass::Unknown_34(text));
+}

@@ -1,0 +1,67 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x7179A0 Unknown717010Class::Unknown_7179A0, similarity 0.764 vs the tree's 0.605; not exact.
+// idea: Spell out the AutoLevel find in a static helper with a non-tail null-aux return, the Find, then the Cast plus G_ASSERT. The helper's multi-return expansion with a conditional call then precedes the Cast, which the notes name as the shape that sends a Cast out of line.
+static DeltaTemplateClass<bool> *Unknown_Find_Auto_Level(DeltaCompoundClass *aux_data, NameClass &name)
+{
+	if (!aux_data) {
+		return(0);
+	}
+	DeltaClass *d = aux_data->Get_Lookup()->Find(name);
+	if (!d) {
+		return(0);
+	}
+	DeltaTemplateClass<bool> *t = UnknownRTTIClass<DeltaTemplateClass<bool> >::Cast(d);
+	G_ASSERT(t);
+	if (!t) {
+		return(0);
+	}
+	if (!t->Unknown70) {
+		return(0);
+	}
+	return(t);
+}
+
+void Unknown717010Class::Unknown_7179A0(int unknown, DeltaCompoundClass *aux_data, int time, bool level, bool auto_level)
+{
+	float zero = 0.0f;
+	float tilt_rate = 0.0f;
+	if (auto_level) {
+		NameClass name("AutoLevel");
+		DeltaTemplateClass<bool> *t = Unknown_Find_Auto_Level(aux_data, name);
+		if (t && t->Value) {
+			NameClass rate_name("MaxTiltRate");
+			DeltaTemplateClass<float> *r = Unknown_Find_Field<DeltaTemplateClass<float> >(aux_data, rate_name);
+			if (r && r->Unknown70) {
+				tilt_rate = r->Value * 0.001f;
+			}
+		}
+	}
+	if (Unknown_B948A0 && Unknown24) {
+		StateNode *next = ((Unknown710110Class *)Unknown24)->Unknown_710260();
+		if (level) {
+			next->Set_Motion(time + (Unknown_BE71D4 >> 1), 0, 0, &zero, 0);
+		}
+		if (auto_level) {
+			next->End_Tilt(time + (Unknown_BE71D4 >> 1), tilt_rate);
+		}
+		if (Unknown_B948A1) {
+			Extrap = new Unknown712DB0Class(Extrap, next, time, time + Unknown_BE71D4);
+		} else {
+			Extrap = new Unknown7125F0Class(Extrap, next, time, time + Unknown_BE71D4);
+		}
+		Unknown24 = next;
+	} else {
+		if (level) {
+			Extrap->Set_Motion(time, 0, 0, &zero, 0);
+		}
+		if (auto_level) {
+			Extrap->End_Tilt(time, tilt_rate);
+		}
+	}
+	if (level) {
+		MovementID++;
+	}
+	if (auto_level) {
+		MovementID++;
+	}
+	Unknown20 = true;
+}

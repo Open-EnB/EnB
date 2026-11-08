@@ -1,0 +1,94 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x46B3C0 LandClass::Update_Patches, similarity 0.621 vs the tree's 0.458; not exact.
+// idea: Copy the camera position into a second Vector3 and compute the cells from the original. Or the change tests bitwise (sete, xor, or). Keep each patch's x/y floats in locals and build the delta inline. Use a level that defaults to 4 and is set at the break; together these should give the client's larger frame and its change test.
+void LandClass::Update_Patches(CameraClass &camera, int lod)
+{
+	Vector3 campos = camera.Get_Position();
+	Vector3 pos = campos;
+	float extent = Field->Get_Spacing() * (float)(unsigned int)PatchSize;
+	float half = extent * 0.5f;
+	float inv_extent = 1.0f / extent;
+	float inv_spacing = 1.0f / Field->Get_Spacing();
+	int cell_x = (int)(inv_extent * campos.X);
+	int cell_y = (int)(inv_extent * campos.Y);
+	int cell_z = (int)(inv_extent * campos.Z);
+	int i, j;
+	if ((Dirty == true) | (CameraCellX ^ cell_x) | (cell_z ^ CameraCellZ) | (cell_y ^ CameraCellY)) {
+		Dirty = false;
+		for (i = 0; i < GridWidth; i++) {
+			for (j = 0; j < GridWidth; j++) {
+				LandPatchClass *patch = Patches[j * GridWidth + i];
+				float px, py;
+				if (Field->Is_Wrapping()) {
+					px = (float)(((i - cell_x) & GridMask) - HalfGridWidth + cell_x) * extent;
+					py = (float)(((j - cell_y) & GridMask) - HalfGridWidth + cell_y) * extent;
+				} else {
+					px = (float)(i - HalfGridWidth) * extent;
+					py = (float)(j - HalfGridWidth) * extent;
+				}
+				patch->X = px;
+				patch->Y = py;
+				patch->Z = 0.0f;
+				Vector3 delta(pos.X - (px + half), pos.Y - (py + half), pos.Z - Field->Get_VScale() * patch->MidHeight);
+				float distance = delta.Length();
+				int cells = (int)(distance * inv_spacing);
+				int threshold = LandLodDistances[lod];
+				int level = 4;
+				for (int l = 0; l < 4; l++) {
+					if (cells < threshold) {
+						level = l;
+						break;
+					}
+					threshold <<= 1;
+				}
+				patch->Level = level;
+				patch->Quarters = 0;
+				patch->Visited = false;
+			}
+		}
+		Limit_Levels((HalfGridWidth + cell_x) & GridMask, (HalfGridWidth + cell_y) & GridMask);
+		for (i = 0; i < GridWidth; i++) {
+			for (j = 0; j < GridWidth; j++) {
+				LandPatchClass *patch = Patches[j * GridWidth + i];
+				int level = patch->Level;
+				if (level != 0) {
+					if (Patches[((i - 1) & GridMask) + j * GridWidth]->Level < level) {
+						patch->Quarters |= 1;
+					}
+					if (Patches[((i + 1) & GridMask) + j * GridWidth]->Level < level) {
+						patch->Quarters |= 2;
+					}
+					if (Patches[((j - 1) & GridMask) * GridWidth + i]->Level < level) {
+						patch->Quarters |= 4;
+					}
+					if (Patches[((j + 1) & GridMask) * GridWidth + i]->Level < level) {
+						patch->Quarters |= 8;
+					}
+				}
+			}
+		}
+		CameraCellX = cell_x;
+		CameraCellY = cell_y;
+		CameraCellZ = cell_z;
+	}
+	for (i = 0; i < GridWidth; i++) {
+		for (j = 0; j < GridWidth; j++) {
+			int index = j * GridWidth + i;
+			LandPatchClass *patch = Patches[index];
+			LandPatchRecordClass *record = &PatchRecords[index];
+			Vector3 min(patch->X, patch->Y, patch->Z);
+			Vector3 size((float)(unsigned int)PatchSize * Field->Get_Spacing(), (float)(unsigned int)PatchSize * Field->Get_YSpacing(),
+				(float)Field->Get_Max_Value() * Field->Get_VScale());
+			Vector3 max = min + size;
+			AABoxClass box(MinMaxAABoxClass(min, max));
+			bool visible = !camera.Cull_Box(box);
+			patch->Visible = visible;
+			record->Visible = visible;
+			record->Level = patch->Level;
+		}
+	}
+	if (Unknown_BDC0D8->Unknown11) {
+		Matrix4 scale(Vector4(Field->Get_Spacing(), 0.0f, 0.0f, 0.0f), Vector4(0.0f, Field->Get_YSpacing(), 0.0f, 0.0f),
+			Vector4(0.0f, 0.0f, Field->Get_VScale(), 0.0f), Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+		Unknown_BDC0D8->Unknown_466F40(camera, lod, scale);
+	}
+}

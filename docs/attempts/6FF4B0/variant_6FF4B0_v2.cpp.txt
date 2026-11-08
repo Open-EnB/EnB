@@ -1,0 +1,18 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x6FF4B0 ClientObjectClass::Get_Name, similarity 0.401 vs the tree's 0.323; not exact.
+// idea: Test Type directly (`Type != 1`) instead of through the inline Unknown_6F5A40, dropping one inline layer from the budget so the Cast goes out of line, with temporaries for the NameClass arguments.
+void ClientObjectClass::Get_Name(std::string &name)
+{
+	DeltaStringClass *t;
+	if (Type != 1) {
+		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, NameClass("Name"));
+		if (!t || !t->Unknown70) {
+			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, NameClass("Owner"));
+		}
+	} else {
+		t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, NameClass("Owner"));
+		if (!t || !t->Unknown70) {
+			t = Unknown_Find_Field<DeltaStringClass>((DeltaCompoundClass *)AuxData, NameClass("Name"));
+		}
+	}
+	name = (t && t->Unknown70) ? t->String : "Unknown";
+}

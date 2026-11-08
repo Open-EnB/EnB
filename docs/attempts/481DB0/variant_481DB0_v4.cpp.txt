@@ -1,0 +1,76 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x481DB0 StarLayerClass::Load, similarity 0.803 vs the tree's 0.702; not exact.
+// idea: Use float locals x/y/z declared inside the loop, assigned in source order x, y, z per branch, with one Set after the branch (tests whether VC6 reorders them itself toward the shared tail).
+bool StarLayerClass::Load(const INIClass &ini, const char *section)
+{
+	FAIL_IF(!section) return false;
+	FAIL_IF(!*section) return false;
+	if (!ini.Find_Section(section)) {
+		return false;
+	}
+
+	StringClass texture_name;
+	QMCSamplingClass sampler(5);
+
+	ShaderClass shader = ShaderClass::_PresetAdditiveSpriteShader;
+	shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
+	PointGroup = new PointGroupClass;
+	PointGroup->Set_Shader(shader);
+	PointGroup->Set_Point_Alpha(1.0f);
+	PointGroup->Set_Point_Color(Vector3(1.0f, 1.0f, 1.0f));
+
+	ini.Get_String(texture_name, section, "Texture");
+	RefCountPtr<TextureClass> texture = Create_NEW(WW3DAssetManager::Get_Instance()->Get_Texture(texture_name));
+	PointGroup->Set_Texture(texture.Peek());
+
+	int log2_width = ini.Get_Int(section, "TextureLog2Width", 0);
+	PointGroup->Set_Frame_Row_Column_Count_Log2(log2_width);
+	Quads = ini.Get_Bool(section, "Quads", false);
+	PointGroup->Set_Point_Mode(Quads ? PointGroupClass::QUADS : PointGroupClass::TRIS);
+
+	NumStars = ini.Get_Int(section, "NumStars", 1000);
+	float min_size = ini.Get_Float(section, "MinSize", 0.0f);
+	float max_size = ini.Get_Float(section, "MaxSize", 1.0f);
+	int qmc_offset = ini.Get_Int(section, "QMCOffset", 0);
+	bool pick_randomly = ini.Get_Bool(section, "PickRandomly", true);
+	bool hemisphere = ini.Get_Bool(section, "Hemisphere", false);
+
+	int width = 1 << log2_width;
+	float size_range = max_size - min_size;
+	int frame_count = width * width;
+
+	Points = Create_NEW(new ShareBufferClass<Vector3>(NumStars));
+	TransformedPoints = Create_NEW(new ShareBufferClass<Vector3>(NumStars));
+	Sizes = Create_NEW(new ShareBufferClass<float>(NumStars));
+	Orientations = Create_NEW(new ShareBufferClass<unsigned char>(NumStars));
+	Frames = Create_NEW(new ShareBufferClass<unsigned char>(NumStars));
+
+	Vector3 *points = Points->Get_Array();
+	float *sizes = Sizes->Get_Array();
+	unsigned char *orientations = Orientations->Get_Array();
+	unsigned char *frames = Frames->Get_Array();
+	sampler.Set_Offset(qmc_offset);
+
+	for (int i = 0; i < NumStars; i++) {
+		float sample[5];
+		sampler.Sample(sample);
+		float r;
+		float x, y, z;
+		if (hemisphere) {
+			r = powf(1.0f - sample[1] * sample[1], 0.5f);
+			x = (float)cos(sample[0] * 6.2831855f) * r;
+			y = (float)sin(sample[0] * 6.2831855f) * r;
+			z = sample[1];
+		} else {
+			r = powf((1.0f - sample[1]) * sample[1], 0.5f);
+			x = (float)cos(sample[0] * 6.2831855f) * r * 2.0f;
+			y = (float)sin(sample[0] * 6.2831855f) * r * 2.0f;
+			z = 1.0f - sample[1] * 2.0f;
+		}
+		points[i].Set(x, y, z);
+		points[i] *= 100.0f;
+		sizes[i] = sample[2] * size_range + min_size;
+		orientations[i] = (unsigned char)(sample[3] * 255.0f);
+		frames[i] = pick_randomly ? (unsigned char)(frame_count * sample[4]) : (unsigned char)(i % frame_count);
+	}
+	return true;
+}

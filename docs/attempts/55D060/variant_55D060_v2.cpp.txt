@@ -1,0 +1,132 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x55D060 AvatarSelectionInterface::Unknown_68, similarity 0.554 vs the tree's 0.488; not exact.
+// idea: Share the 'FE01C' close-down tail between case 7's not-created path and case 8 through a label, as the client's code does (case 8 sets 8C=8 and jumps into case 7's block); combined with the direct Unknown088 indexing, the smaller body changes the budget so the ShipCustDesc operator= is called rather than expanded.
+bool AvatarSelectionInterface::Unknown_68(int key)
+{
+	if (Unknown0F4 > -1 || Unknown0F0 != 0.0f) {
+		Unknown_55EF90();
+		return true;
+	}
+	if (Unknown0F8 || Unknown0F9 || Unknown0FA || Unknown0FB || Unknown0FC || Unknown0FD || Unknown095 || Unknown094) {
+		return false;
+	}
+	if (!BuddyReferralUI) {
+		int previous;
+		switch (key) {
+			case 17:
+				Unknown_55EF90();
+				Unknown_55F760();
+				return false;
+			case 1: case 2: case 3: case 4: case 5:
+				SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+				if (Unknown096) {
+					Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
+				}
+				previous = Unknown090;
+				Unknown090 = key - 1;
+				break;
+			case 11: case 12: case 13: case 14: case 15:
+				SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+				if (Unknown096) {
+					Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
+				}
+				previous = Unknown090;
+				Unknown090 = key - 11;
+				break;
+			case 6:
+				SoundLibraryClass::Play_2D_Sound("Avatar_Delete_Character", 2);
+				if (Unknown090 >= 0) {
+					Unknown0BC[Unknown090]->Unknown_784A50("/angry please no", 1, 0);
+					Unknown084->Unknown034->Unknown_588A70("YES_NO", 0, "Confirm deletion of the character?", 0x140, 0, 0);
+					Unknown097 = true;
+					Unknown0F9 = true;
+					Unknown_55EF90();
+				}
+				return true;
+			case 7:
+				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				if (Unknown090 >= 0) {
+					Unknown08C = 7;
+					Unknown088->Selected = Unknown090;
+					if (Unknown0E4[Unknown090]) {
+						LoginCharacterClass *character = &Unknown088->Characters[Unknown088->Selected];
+						if (character->ID != 0 && character->Galaxy_ID >= 0) {
+							TutorialManagerClass::Instance->Write_Completed_File();
+							Unknown088->Unknown_5C();
+							return true;
+						}
+						Unknown084->Unknown_5594B0(Unknown088->Get_Avatar_Descs()[Unknown088->Get_Selected()]);
+						Unknown084->Unknown244 = Unknown088->Unknown088C[Unknown088->Selected];
+						Unknown084->Unknown_67ACE0(1);
+						Unknown084->Unknown1CD = true;
+						Unknown084->Unknown1CE = true;
+						Unknown088->Go_Next_Step();
+						return true;
+					}
+close_down:
+					if (Unknown084->Unknown_67AD30(1, "FE01C.FE01C-1")) {
+						Unknown084->Unknown_67AE60(1);
+					}
+					Unknown0FD = true;
+					Unknown_55EF90();
+				}
+				return true;
+			case 8:
+				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				if (Unknown096) {
+					if (Unknown0BC[Unknown090]) {
+						Unknown0BC[Unknown090]->Unknown_784A50("/normal", 0, 0);
+					}
+					Unknown090 = -1;
+					Unknown_8C();
+					return true;
+				}
+				Unknown08C = 8;
+				goto close_down;
+			case 10:
+				SoundLibraryClass::Play_2D_Sound("Login_Mouse_Click", 2);
+				Unknown084->Unknown_67B270();
+				Unknown0F9 = true;
+				Unknown_55EF90();
+				return true;
+			default:
+				return false;
+		}
+		Unknown_55ED20();
+		if (Unknown090 != previous) {
+			Unknown_55E8E0();
+		}
+		return true;
+	} else {
+		SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+		switch (key) {
+			case 1: case 8:
+				Unknown11C = "";
+				Unknown_55FBB0();
+				Unknown_55ED20();
+				return false;
+			case 4:
+				Unknown114->Unknown_74(1);
+				return false;
+			case 2:
+				{
+					char *text = Unknown114->Get_Text();
+					Unknown11C = text;
+					Unknown11C.Trim();
+					delete text;
+				}
+				if (strcmp(Unknown11C, "") == 0) {
+					Unknown084->Unknown034->Unknown_588A70("OK", 0, "Please enter a valid EA Member Name.", 0x140, 0, 0);
+					return false;
+				}
+				if (stricmp(Unknown11C, Unknown088->Ticket_Info.EA_Customer.c_str()) == 0) {
+					Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, you cannot refer yourself.", 0x140, 0, 0);
+					return false;
+				}
+				Unknown_55FBB0();
+				Unknown088->Send_Referrer(Unknown11C);
+				Unknown120 = true;
+				return false;
+		}
+		return false;
+	}
+}

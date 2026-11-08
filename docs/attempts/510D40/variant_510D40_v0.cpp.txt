@@ -1,0 +1,52 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x510D40 MainViewClass::Unknown_510D40, similarity 0.885 vs the tree's 0.614; not exact.
+// idea: Compute the colour with dx8wrapper.h's inline-asm DX8Wrapper::Convert_Color(arg, 0.0f), which gives the client's fnstcw/fistp block wrapped in push ebp and the callee-saved pushes in the prologue; also write the indices through a post-incremented pointer so each store is preceded by add eax,2.
+void MainViewClass::Unknown_510D40(Vector3 &arg)
+{
+	Matrix4 view, proj;
+	Matrix4 identity(true);
+	DX8Wrapper::Get_Transform(D3DTS_VIEW, view);
+	DX8Wrapper::Get_Transform(D3DTS_PROJECTION, proj);
+	ShaderClass shader = ShaderClass::_PresetOpaqueShader;
+	shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
+	DX8Wrapper::Set_Shader(shader);
+	VertexMaterialClass *vmtl = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+	DX8Wrapper::Set_Material(vmtl);
+	REF_PTR_RELEASE(vmtl);
+	DX8Wrapper::Set_Transform(D3DTS_WORLD, identity);
+	DX8Wrapper::Set_Transform(D3DTS_VIEW, identity);
+	DX8Wrapper::Set_Transform(D3DTS_PROJECTION, identity);
+	unsigned color = DX8Wrapper::Convert_Color(arg, 0.0f);
+	DynamicVBAccessClass vbaccess(BUFFER_TYPE_DYNAMIC_DX8, dynamic_fvf_type, 4);
+	{
+		DynamicVBAccessClass::WriteLockClass lock(&vbaccess);
+		unsigned char *vb = (unsigned char *)lock.Get_Formatted_Vertex_Array();
+		const FVFInfoClass &fvf = vbaccess.FVF_Info();
+		*(Vector3 *)(vb + fvf.Get_Location_Offset()) = Vector3(1.0f, 1.0f, 1.0f);
+		*(unsigned *)(vb + fvf.Get_Diffuse_Offset()) = color;
+		vb += fvf.Get_FVF_Size();
+		*(Vector3 *)(vb + fvf.Get_Location_Offset()) = Vector3(1.0f, -1.0f, 1.0f);
+		*(unsigned *)(vb + fvf.Get_Diffuse_Offset()) = color;
+		vb += fvf.Get_FVF_Size();
+		*(Vector3 *)(vb + fvf.Get_Location_Offset()) = Vector3(-1.0f, -1.0f, 1.0f);
+		*(unsigned *)(vb + fvf.Get_Diffuse_Offset()) = color;
+		vb += fvf.Get_FVF_Size();
+		*(Vector3 *)(vb + fvf.Get_Location_Offset()) = Vector3(-1.0f, 1.0f, 1.0f);
+		*(unsigned *)(vb + fvf.Get_Diffuse_Offset()) = color;
+	}
+	DynamicIBAccessClass ibaccess(BUFFER_TYPE_DYNAMIC_DX8, 2 * 3);
+	{
+		DynamicIBAccessClass::WriteLockClass lock(&ibaccess);
+		unsigned short *indices = lock.Get_Index_Array();
+		*indices++ = 0;
+		*indices++ = 2;
+		*indices++ = 1;
+		*indices++ = 0;
+		*indices++ = 3;
+		*indices = 2;
+	}
+	DX8Wrapper::Set_Vertex_Buffer(vbaccess);
+	DX8Wrapper::Set_Index_Buffer(ibaccess, 0);
+	DX8Wrapper::Draw_Triangles(0, 2, 0, 4);
+	DX8Wrapper::Set_Transform(D3DTS_VIEW, view);
+	DX8Wrapper::Set_Transform(D3DTS_PROJECTION, proj);
+}

@@ -1,0 +1,29 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x750F70 SClient::Unknown_750F70, similarity 0.846 vs the tree's 0.575; not exact.
+// idea: Use the same early-return shape, but make the starbase branch end in its own return and drop the else, so its exit joins the final inline destructor and the object path follows linearly.
+void SClient::Unknown_750F70(const char *name, int channel)
+{
+	if (name == NULL) {
+		return;
+	}
+	std::string sender(name);
+	if (sender.empty()) {
+		return;
+	}
+	Vector3 color = Unknown13CC.Unknown_765DF0(channel);
+	if (CurrentView && CurrentView == Unknown135C) {
+		if (!Unknown135C) {
+			return;
+		}
+		UIStarbaseClass *starbase = ((SBaseViewClass *)Unknown135C)->Get_Starbase().Peek();
+		if (!starbase) {
+			return;
+		}
+		starbase->Unknown_6425D0(sender.c_str(), color);
+		return;
+	}
+	ClientObjectClass *object = Find_Object(sender.c_str());
+	if (!object) {
+		return;
+	}
+	object->Unknown_700820(color);
+}

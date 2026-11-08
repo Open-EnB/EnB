@@ -1,0 +1,14 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x73A9F0 StarbaseAvatarUpdatePacketClass::Process_Packet, similarity 0.814 vs the tree's 0.623; not exact.
+// idea: Cache the starbase's room in an int local before the compare, so the starbase load is defined first and takes eax as in the client.
+bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("StarbaseAvatarUpdatePacketClass::Process_Packet ()");
+	SClient *sclient = (SClient *)instance;
+	if (!sclient->Unknown135C) return(true);
+	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
+	if (!starbase) return(true);
+	int room = starbase->Room;
+	if (room != Room || !starbase->Active) return(true);
+	starbase->Unknown_63E5C0(AvatarID, Orient, &Vector3(Unknown14, Unknown18, Unknown1C), ActionFlag);
+	return(true);
+}

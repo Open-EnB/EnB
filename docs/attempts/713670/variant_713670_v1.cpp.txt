@@ -1,0 +1,51 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x713670 Unknown713520Class::Unknown_1C, similarity 0.857 vs the tree's 0.618; not exact.
+// idea: Write the translation step as Translate(Vector3(OrbitDist,0,0)), a heavier nested inline, so the budget is exhausted before the second Rotate_Z; the velocity is built in a named Vector3 so x passes through memory as in the client.
+void Unknown713520Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
+{
+	float dt = (float)(time - Time);
+	Matrix3D transform = Matrix3D::Identity;
+	Vector3 center(0.0f, 0.0f, 0.0f);
+	Vector3 point(0.0f, 0.0f, 0.0f);
+	if (position || velocity) {
+		ClientObjectClass *object;
+		if (OrbitID == 0 || (object = Client->Find_Object(OrbitID)) == 0) {
+			point = Unknown0C;
+		} else {
+			center = object->Unknown98->Unknown_1C(time);
+			float angle = dt * OrbitRate + OrbitAngle;
+			transform.Translate(center);
+			transform.Rotate_Z(angle);
+			transform.Translate(Vector3(OrbitDist, 0.0f, 0.0f));
+			transform.Rotate_Z(-angle);
+			point = transform.Get_Translation();
+		}
+		if (!unknown) {
+			Unknown0C = point;
+		}
+		if (position) {
+			*position = point;
+		}
+	}
+	if (orientation) {
+		transform.Rotate_X(TiltAngle);
+		transform.Rotate_Z(dt * RotateRate + RotateAngle);
+		*orientation = Build_Quaternion(transform);
+	}
+	if (velocity) {
+		float x = center.X - point.X;
+		float y = center.Y - point.Y;
+		Vector3 v;
+		if (OrbitRate > 0.0f) {
+			v.Set(-y, x, 0.0f);
+		} else {
+			v.Set(y, -x, 0.0f);
+		}
+		*velocity = v * OrbitRate;
+	}
+	if (speed) {
+		*speed = OrbitRate * OrbitDist;
+	}
+	if (rotrate) {
+		rotrate->Set(0.0f, 0.0f, 0.0f);
+	}
+}
