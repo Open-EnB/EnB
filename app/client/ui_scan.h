@@ -77,6 +77,7 @@ public:
 	void Unknown_60EFE0(ClientObjectClass *object);		// 0x60EFE0 (0x60E580's new target)  // NAME 2 [object]: what 0x60E580 passes
 	void Unknown_60F1A0(bool arg);						// 0x60F1A0 (0x60E480 passes 0, 0x60E580 1)  // NAME 1 [arg]: neutral
 	void Create_Mesh();									// (inline in 0x60D8D0: G_ASSERT '!UIMesh' l.270)  // NAME 2: what it does
+	ClientObjectClass *Peek_Object() { return(Object); }	// (inline: 0x60ED10's FAIL_IF 'object != Peek_Object()')  // NAME 3: the FAIL_IF's
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x60F1A0's FAIL_IF '!Get_Client()', as UIFactionClass's)  // NAME 3: the FAIL_IF's
 	TargetingClass *Get_Targeting();					// (inline in 0x60E300: FAIL_IFs '!Client', '!sclient', '!ts' l.733-739)  // NAME 2: what it returns
 

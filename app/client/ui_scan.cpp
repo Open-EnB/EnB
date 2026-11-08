@@ -655,12 +655,12 @@ template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root,
 
 
 
-
-
-
-
-
-
+// @0x60ED10
+void UIScanClass::Unknown_60ED10(PlayerObjectRelationshipChangeEvent *event, ClientObjectClass *object)
+{
+	FAIL_IF(object != Peek_Object()) return;
+	Unknown_60EFE0(object);
+}
 
 
 
@@ -886,7 +886,7 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 **
 **	The client's object runs 0x60D750-~0x610560 (__FILE__ 0xB8899C). Rebuilt for the POC's scanner (the radar panel and
 **	the target box at the lower right): the constructor, the slots and 0x60E540; the threat object's 0x60ED60 / 0x60FEE0
-**	and 0x60E6A0 / 0x60ED10 are not rebuilt yet. Blank lines keep the asserts on their client lines.
+**	and 0x60E6A0 are not rebuilt yet (TL1 added 0x60ED10, 0x60ED60). Blank lines keep the asserts on their client lines.
 **
 **	TL1 (2026-11-08): 0x60EFE0 (the con line's colour: exact only with the gutter set named and its Target copied) and
 **	0x60F1A0 (the threat's interrupt message, the faction and tech-level lines; functional) are rebuilt between
