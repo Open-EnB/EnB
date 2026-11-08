@@ -2092,30 +2092,30 @@ void SClient::Unknown_744C10()
 
 
 
-// NOT EXACT: shape (explain.py; 35 masked rows): the client lays the chat panel's false call last and jumps to it from both tests; four forms (attempts.py show 0x744E70)
+
 // 0x744E70
 void SClient::Unknown_744E70(bool arg)
 {
-	if ((CurrentView != NULL && CurrentView == Unknown135C) || arg) {
-		if (ChatPanel && ChatPanel->Unknown138) {
-			ChatPanel->Unknown138->Unknown_AC(false);
-		}
-		return;
-	}
-
-	ClientObjectClass *target = MainView->Unknown_5C();
+	if (!(CurrentView != NULL && CurrentView == Unknown135C) && !arg) {
+		ClientObjectClass *target = MainView->Unknown_5C();
 
 
 
-	FAIL_IF(!target) return;
-	if (target->Type == 1) {
-		if (ChatPanel && ChatPanel->Unknown138) {
-			ChatPanel->Unknown138->Unknown_AC(true);
-		}
-		return;
-	}
-	ActionPacketClass packet(AvatarID, 2, target->Get_Game_ID(), 0);
-	Send_Packet(&packet);
+
+
+
+
+
+
+		FAIL_IF(!target) return;
+		if (target->Type == 1) {
+			if (ChatPanel && ChatPanel->Unknown138) {
+				ChatPanel->Unknown138->Unknown_AC(true);
+			} return; } int id = target->Get_Game_ID();
+		int avatar = AvatarID;
+		Send_Packet(&ActionPacketClass(avatar, 2, id, 0));
+		return; } if (ChatPanel && ChatPanel->Unknown138) {
+		ChatPanel->Unknown138->Unknown_AC(false); }
 }
 
 

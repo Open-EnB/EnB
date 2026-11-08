@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-725 entries in 207 files.
+724 entries in 207 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -250,7 +250,6 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:1079` | `SClient::Unknown_7436A0` | marker | NOT EXACT: inline budget (explain.py: 731 instructions, the client's about twice as many): the client inlines more of std::string's construction (the last three key names copied in place) and its five camera blocks (0x744D80's body); first round 0x7436A0 (Do_Frame: an event no dispatcher took; the module 'sclient' keys, registered on the first call) |
 | `app/client/sclient.cpp:1301` | `SClient::Unknown_745750` | marker | NOT EXACT: shape (explain.py: 25 calls, the client 20; 283 instructions, 234): the client inlines the first two lists' First_Valid and Remove's next-valid helper for the objects (0x7559E0 out of line for the effects), ours calls GenericList::First_Valid 0x71BCC0 out of line 0x745750 (SERVER_HANDOFF 58: the sector's objects, effects and third-list records go, then the +0x1394 values) |
 | `app/client/sclient.cpp:2062` | `SClient::Unknown_744C10` | marker | NOT EXACT: shape (explain.py): the client keeps the chase module in ecx for the +0x34 test and zeroes the argument before the FAIL_IFs (attempts.py show 0x744C10) 0x744C10 |
-| `app/client/sclient.cpp:2095` | `SClient::Unknown_744E70` | marker | NOT EXACT: shape (explain.py; 35 masked rows): the client lays the chat panel's false call last and jumps to it from both tests; four forms (attempts.py show 0x744E70) 0x744E70 |
 | `app/client/sclient.cpp:4261` | `SClient::Unknown_74C3B0` | marker | NOT EXACT: inline budget (explain.py: 11 calls, the client 7): ours inlines the hash table's resize 0x759660 into operator[] (and so std::__stl_next_prime), the client calls it and its bucket helper 0x756D10 |
 | `app/client/sclient.cpp:4307` | `SClient::Unknown_74C8D0` | marker | NOT EXACT: inline budget (explain.py frame, 31 masked rows): the client calls hash_map::find out of line (0x756820, the key in the argument slot) where ours inlines it, as itself or through 0x74C840; two forms 0x74C8D0 (0x74C840 for the named object's GameID) |
 | `app/client/sclient.cpp:4800` | `SClient::Unknown_74EDB0` | marker | NOT EXACT: shape (explain.py: 503 instructions, the client 508; 131 masked rows, 25 with registers masked): the client saves ebp with ebx in the prologue and takes each c_str() before the player id; two forms (the flag declared first gains 5 rows) 0x74EDB0 (Do_Frame, after 0x7429B0): the guild confirmations' answers to the server |
