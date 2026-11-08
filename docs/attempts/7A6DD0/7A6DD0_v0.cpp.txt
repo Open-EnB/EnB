@@ -1,0 +1,16 @@
+static inline bool Clear_Picked(GalaxyMapRenderClass *render)
+{
+	return render->Unknown_7A9840();
+}
+
+void GalaxyMapRenderClass::Unknown_7A6DD0()
+{
+	FAIL_IF(!HomeSectorRObj) { return; }
+	if (HomeSectorRObj->Peek_Scene()) { HomeSectorRObj->Remove(); }
+	Unknown_7A7D70(Clear_Picked(this));
+	Remove_Items(Systems);
+	Remove_Items(Sectors);
+	Remove_Items(Gates);
+	Scene = NULL;
+	Camera = NULL;
+}
