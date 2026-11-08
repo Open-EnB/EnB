@@ -193,6 +193,64 @@ void MainViewSceneClass::Apply_Projectors(CameraClass * camera)
 	}
 }
 
+#include "..\..\ww3d2\coltest.h"
+#include "..\..\ww3d2\inttest.h"
+#include "..\..\wwmath\wwmath.h"
+
+// @0x75FB00
+// NOT EXACT: field-offset (explain.py; 0.59): register allocation, not fields: the corner loop keeps one pointer into points (the client two, &points[n].X and .Y) and spills count into the 'to' slot, so to / from swap esi / edi through the rest
+void MainViewSceneClass::Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship)
+{
+	Vector3 points[16];
+	int count = 0;
+	for (int i = -1; i <= 1; i += 2) {
+		for (int j = -1; j <= 1; j += 2) {
+			for (int k = -1; k <= 1; k += 2) {
+				float params[3];
+				params[0] = (float)i;
+				params[1] = (float)j;
+				params[2] = (float)k;
+				to.Compute_Point(params, &points[count++]);
+				from.Compute_Point(params, &points[count++]);
+			}
+		}
+	}
+	AABoxClass box(points, 16);
+	AABoxIntersectionTestClass aabox_test(box, COLLISION_TYPE_3);
+	OBBoxCollisionTestClass obbox_test(to, move, result, COLLISION_TYPE_3);
+
+	RefMultiListIterator<RenderObjClass> it(&UnknownDC);
+	if (ship) {
+		for (it.First(); !it.Is_Done(); it.Next()) {
+			RenderObjClass *obj = it.Peek_Obj();
+			if ((obj != ignore && obj->Intersect_AABox(aabox_test)) || obj->Class_ID() == RenderObjClass::CLASSID_LAND) {
+				obj->Cast_OBBox(obbox_test);
+			}
+		}
+	} else {
+		for (it.First(); !it.Is_Done(); it.Next()) {
+			RenderObjClass *obj = it.Peek_Obj();
+			if (obj != ignore && obj->Intersect_AABox(aabox_test)) {
+				Vector3 center;
+				Matrix3D::Inverse_Transform_Vector(obj->Get_Transform(), from.Center, &center);
+				float radius = from.Extent.Length();
+				AABoxClass obj_box;
+				obj->Get_Obj_Space_Bounding_Box(obj_box);
+				obj_box.Extent.X += radius;
+				obj_box.Extent.Y += radius;
+				obj_box.Extent.Z += radius;
+				if (WWMath::Fabs(center.X - obj_box.Center.X) <= obj_box.Extent.X &&
+					WWMath::Fabs(center.Y - obj_box.Center.Y) <= obj_box.Extent.Y &&
+					WWMath::Fabs(center.Z - obj_box.Center.Z) <= obj_box.Extent.Z) {
+					obj->Cast_OBBox(obbox_test);
+				}
+			} else if (obj->Class_ID() == RenderObjClass::CLASSID_LAND) {
+				obj->Cast_OBBox(obbox_test);
+			}
+		}
+	}
+}
+
 /*
 ** Reconstruction notes (WE5, WE7, 2026-11-07)
 **
@@ -203,8 +261,12 @@ void MainViewSceneClass::Apply_Projectors(CameraClass * camera)
 ** render-state tracks (0x10001) over one into +0xDC. Create_Peek is RefCountPtr's out-of-line friend 0x760290.
 ** Remove_Render_Object holds the file's one assert (line 106). Apply_Projectors 0x75F8B0 (the +0x68 slot, RH1) runs
 ** ProjSceneClass's, then hands every dynamic and static texture projector, updated for the camera, to the land
-** (Clear_Unknown1218 / Add_Unknown1218; Create_Peek<TexProjectClass> is 0x7602F0). Not built: 0x75FB00
-** (camera_manager.cpp's box sweep), outside the claims.
+** (Clear_Unknown1218 / Add_Unknown1218; Create_Peek<TexProjectClass> is 0x7602F0). 0x75FB00 (RH2;
+** camera_manager.cpp's 0x7998B0 and camctrl_takeoff.cpp's 0x796920) sweeps an oriented box from 'from' to 'to': the
+** 16 corners of both boxes (OBBoxClass::Compute_Point) bound an AABoxClass (its points constructor, which spends the
+** inline budget so that the box's implicit copy constructor stays out of line, 0x7601B0, as in the client), then every
+** +0xDC object but 'ignore' whose Intersect_AABox passes, and the land always, gets Cast_OBBox; without 'ship' the
+** object must also hold from's centre within its object-space box grown by from's extent length.
 ** 0x75F690 gives each 'plt' model in the +0xA8 list its day / night phase (unknown_75b7b0.cpp's 0x75B8F0) from the
 ** sun direction and the camera position; 0x75F700 sets every colour key but the last of each particle emitter in the
 ** +0xC0 list to the given colour, the last to black.

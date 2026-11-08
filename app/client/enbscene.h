@@ -19,6 +19,9 @@
 
 class LandClass;
 class CameraClass;
+class OBBoxClass;
+class Vector3;
+struct CastResultStruct;
 
 class MainViewSceneClass : public ProjSceneClass	// NAME 1: neutral (D10): mainview.cpp's scene
 {
@@ -33,6 +36,7 @@ public:
 
 	void Unknown_75F690(const Vector3 &sun, const Vector3 &camera);		// 0x75F690 (mainview.cpp's Update, space mode)  // NAME 1 [sun, camera]: what Update passes
 	void Unknown_75F700(const Vector3 &color);								// 0x75F700 (mainview.cpp's Update, planet mode)  // NAME 1 [color]: what Update passes
+	void Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship);	// 0x75FB00 (camera_manager.cpp's 0x7998B0 and camctrl_takeoff.cpp's 0x796920: casts the box through the +0xDC objects)  // NAME 1 [to, from, move, result, ignore, ship]: what 0x7998B0 passes
 
 	RefMultiListClass<RenderObjClass>	UnknownA8;		// +0xA8 the 'plt' models  // NAME 1: neutral (D10)
 	RefMultiListClass<RenderObjClass>	UnknownC0;		// +0xC0 the 'clouds'  // NAME 1: neutral (D10)
