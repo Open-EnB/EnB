@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1608 |
-| 2 | describes what the code does | 3757 |
-| 1 | neutral placeholder | 18877 |
+| 2 | describes what the code does | 3761 |
+| 1 | neutral placeholder | 18913 |
 
 ## For review (score 3 and below)
 
@@ -2929,22 +2929,24 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7E7A70` | `app/client/emote_data.h:28` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7700` | `app/client/emote_data.h:29` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/emote_data.h:31` | untagged neutral name (D10) |
-| 1 | `obj, color` | `app/client/enbscene.cpp:13` | neutral (D10) |
-| 1 | `Unknown_75F750` | `app/client/enbscene.cpp:13` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `app/client/enbscene.cpp:28` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/client/enbscene.cpp:29` | untagged neutral name (D10) |
-| 1 | `UnknownDC` | `app/client/enbscene.cpp:30` | untagged neutral name (D10) |
+| 1 | `obj, color` | `app/client/enbscene.cpp:16` | neutral (D10) |
+| 1 | `Unknown_75F750` | `app/client/enbscene.cpp:16` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/enbscene.cpp:31` | untagged neutral name (D10) |
+| 1 | `UnknownC0` | `app/client/enbscene.cpp:32` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/enbscene.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_75F690` | `app/client/enbscene.cpp:122` | untagged neutral name (D10) |
 | 1 | `Unknown_75B8F0` | `app/client/enbscene.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_75F700` | `app/client/enbscene.cpp:131` | untagged neutral name (D10) |
+| 1 | `Clear_Unknown1218` | `app/client/enbscene.cpp:176` | untagged neutral name (D10) |
+| 1 | `Add_Unknown1218` | `app/client/enbscene.cpp:183` | untagged neutral name (D10) |
 | 1 | `MainViewSceneClass` | `app/client/enbscene.h:23` | neutral (D10): mainview.cpp's scene |
-| 1 | `sun, camera` | `app/client/enbscene.h:35` | what Update passes |
-| 1 | `Unknown_75F690` | `app/client/enbscene.h:35` | untagged neutral name (D10) |
-| 1 | `color` | `app/client/enbscene.h:36` | what Update passes |
-| 1 | `Unknown_75F700` | `app/client/enbscene.h:36` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `app/client/enbscene.h:38` | neutral (D10) |
-| 1 | `UnknownC0` | `app/client/enbscene.h:39` | neutral (D10) |
-| 1 | `UnknownDC` | `app/client/enbscene.h:41` | neutral (D10) |
+| 1 | `sun, camera` | `app/client/enbscene.h:34` | what Update passes |
+| 1 | `Unknown_75F690` | `app/client/enbscene.h:34` | untagged neutral name (D10) |
+| 1 | `color` | `app/client/enbscene.h:35` | what Update passes |
+| 1 | `Unknown_75F700` | `app/client/enbscene.h:35` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/enbscene.h:37` | neutral (D10) |
+| 1 | `UnknownC0` | `app/client/enbscene.h:38` | neutral (D10) |
+| 1 | `UnknownDC` | `app/client/enbscene.h:40` | neutral (D10) |
 | 1 | `Unknown67D360Class` | `app/client/env_map_manager.cpp:21` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `app/client/env_map_manager.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/env_map_manager.cpp:63` | untagged neutral name (D10) |
@@ -17911,6 +17913,44 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C` | `app/shared/rs_eff_p.cpp:276` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/shared/rs_eff_p.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/shared/rs_eff_p.cpp:286` | untagged neutral name (D10) |
+| 1 | `Unknown4596A0Class` | `app/shared/rs_hanim.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/shared/rs_hanim.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/shared/rs_hanim.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/shared/rs_hanim.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_45A7E0` | `app/shared/rs_hanim.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/shared/rs_hanim.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/shared/rs_hanim.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/shared/rs_hanim.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown_460710` | `app/shared/rs_hanim.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_4584B0` | `app/shared/rs_hanim.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/shared/rs_hanim.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/shared/rs_hanim.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown_457E10` | `app/shared/rs_hanim.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `app/shared/rs_hanim.cpp:231` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/shared/rs_hanim.cpp:234` | untagged neutral name (D10) |
+| 1 | `Unknown_457E90` | `app/shared/rs_hanim.cpp:236` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/shared/rs_hanim.cpp:242` | untagged neutral name (D10) |
+| 1 | `Unknown_462180` | `app/shared/rs_hanim.cpp:245` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/shared/rs_hanim.cpp:249` | untagged neutral name (D10) |
+| 1 | `Unknown4596A0Class` | `app/shared/rs_hanim.h:17` | neutral (D10) |
+| 1 | `list, source` | `app/shared/rs_hanim.h:21` | neutral |
+| 1 | `Unknown_04` | `app/shared/rs_hanim.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/shared/rs_hanim.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/shared/rs_hanim.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/shared/rs_hanim.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/shared/rs_hanim.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/shared/rs_hanim.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/shared/rs_hanim.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_44` | `app/shared/rs_hanim.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/shared/rs_hanim.h:31` | untagged neutral name (D10) |
+| 1 | `Get_HAnim_Name` | `app/shared/rs_hanim.h:32` | after HAnimName |
+| 1 | `Get_HAnim_Suffix` | `app/shared/rs_hanim.h:33` | after HAnimSuffix |
+| 1 | `Get_Next_Render_State` | `app/shared/rs_hanim.h:34` | the assert's NextRenderState |
+| 1 | `Combo` | `app/shared/rs_hanim.h:36` | neutral |
+| 1 | `NextID` | `app/shared/rs_hanim.h:37` | after NextRenderState |
+| 1 | `HTree` | `app/shared/rs_hanim.h:41` | neutral |
+| 1 | `Unknown58` | `app/shared/rs_hanim.h:42` | neutral (D10) |
+| 1 | `Unknown5C` | `app/shared/rs_hanim.h:43` | neutral (D10) |
 | 1 | `Unknown_Debug_Print` | `app/shared/rs_list.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown45C430Class` | `app/shared/rs_list.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC0A0` | `app/shared/rs_list.cpp:19` | untagged neutral name (D10) |
@@ -18090,14 +18130,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/shared/rs_track.h:44` | untagged neutral name (D10) |
 | 1 | `seconds` | `app/shared/rs_track.h:45` | neutral |
 | 1 | `Unknown_34` | `app/shared/rs_track.h:45` | untagged neutral name (D10) |
-| 1 | `a` | `app/shared/rs_track.h:46` | neutral |
+| 1 | `owner` | `app/shared/rs_track.h:46` | neutral |
 | 1 | `Unknown_38` | `app/shared/rs_track.h:46` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/shared/rs_track.h:47` | neutral (D10) |
 | 1 | `scale, hsv` | `app/shared/rs_track.h:48` | what the asset manager's Unknown_78 takes |
 | 1 | `Unknown_40` | `app/shared/rs_track.h:48` | untagged neutral name (D10) |
-| 1 | `arg` | `app/shared/rs_track.h:49` | neutral |
+| 1 | `seconds` | `app/shared/rs_track.h:49` | neutral |
 | 1 | `Unknown_44` | `app/shared/rs_track.h:49` | untagged neutral name (D10) |
-| 1 | `arg` | `app/shared/rs_track.h:50` | neutral |
+| 1 | `seconds` | `app/shared/rs_track.h:50` | neutral |
 | 1 | `Unknown_48` | `app/shared/rs_track.h:50` | untagged neutral name (D10) |
 | 1 | `Unknown_457E10` | `app/shared/rs_track.h:51` | neutral (D10) |
 | 1 | `Unknown_457E90` | `app/shared/rs_track.h:52` | neutral (D10) |
@@ -18206,81 +18246,78 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_458AE0` | `app/shared/rs_track.h:193` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/shared/rs_track.h:195` | neutral (D10) |
 | 1 | `Unknown48` | `app/shared/rs_track.h:196` | neutral (D10) |
-| 1 | `Unknown4596A0Class` | `app/shared/rs_track.h:203` | neutral (D10); rs.ini TYPE 'anim' (rs_hanim.cpp, 0x60 bytes) |
-| 1 | `anim, suffix, next_id, combo` | `app/shared/rs_track.h:206` | rs_list.cpp's keys |
-| 1 | `Unknown2C` | `app/shared/rs_track.h:211` | neutral (D10) |
-| 1 | `Unknown45A090Class` | `app/shared/rs_track.h:213` | neutral (D10); rs.ini TYPE 'link' (0x2C bytes) |
-| 1 | `Unknown45F390Class` | `app/shared/rs_track.h:221` | neutral (D10); rs.ini TYPE 'sound' (0x3C bytes) |
-| 1 | `sound, message` | `app/shared/rs_track.h:224` | rs_list.cpp's keys |
-| 1 | `Unknown2C` | `app/shared/rs_track.h:229` | neutral (D10) |
-| 1 | `Unknown458C10Class` | `app/shared/rs_track.h:232` | neutral (D10); rs.ini TYPE 'effect_pass' (rs_eff_p.cpp, 0x34 bytes; the client's debug text names it RenderStateEffectPassClass) |
-| 1 | `two_sided, hidden, texture, a, b, shader` | `app/shared/rs_track.h:235` | rs_list.cpp's keys |
-| 1 | `mapper` | `app/shared/rs_track.h:243` | what rs_list.cpp hands it |
-| 1 | `Unknown_459120` | `app/shared/rs_track.h:243` | untagged neutral name (D10) |
-| 1 | `Unknown_459170` | `app/shared/rs_track.h:244` | untagged neutral name (D10) |
-| 1 | `Unknown4591A0Class` | `app/shared/rs_track.h:251` | neutral (D10); rs_eff_p.cpp |
-| 1 | `Unknown_4C` | `app/shared/rs_track.h:261` | untagged neutral name (D10) |
-| 1 | `Unknown_459630` | `app/shared/rs_track.h:263` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `app/shared/rs_track.h:272` | neutral (D10) |
-| 1 | `Unknown45D840Class` | `app/shared/rs_track.h:275` | neutral (D10); rs.ini TYPE 'message' |
-| 1 | `message` | `app/shared/rs_track.h:278` | the key |
-| 1 | `Unknown45D9E0Class` | `app/shared/rs_track.h:290` | neutral (D10) |
-| 1 | `owner` | `app/shared/rs_track.h:293` | neutral; NAME 2 [def, manager]: the base's (int as RsTrackClass::Unknown_462470 passes them) |
-| 1 | `Unknown45DC80Class` | `app/shared/rs_track.h:301` | neutral (D10) |
-| 1 | `owner, cull, a` | `app/shared/rs_track.h:304` | neutral |
-| 1 | `rinfo` | `app/shared/rs_track.h:311` | the Render argument |
-| 1 | `Unknown_45DFC0` | `app/shared/rs_track.h:311` | untagged neutral name (D10) |
-| 1 | `rinfo` | `app/shared/rs_track.h:312` | the Render argument |
-| 1 | `Unknown_45E030` | `app/shared/rs_track.h:312` | untagged neutral name (D10) |
-| 1 | `list` | `app/shared/rs_track.h:323` | neutral |
-| 1 | `list, scale, hsv` | `app/shared/rs_track.h:324` | what 0x6F51D0 passes |
-| 1 | `arg` | `app/shared/rs_track.h:391` | neutral |
-| 1 | `Unknown_1C4` | `app/shared/rs_track.h:391` | untagged neutral name (D10) |
-| 1 | `Unknown_1C8` | `app/shared/rs_track.h:392` | neutral (D10) |
-| 1 | `state, robj` | `app/shared/rs_track.h:393` | neutral |
-| 1 | `Unknown_1CC` | `app/shared/rs_track.h:393` | untagged neutral name (D10) |
-| 1 | `arg .. arg2` | `app/shared/rs_track.h:394` | neutral |
-| 1 | `Unknown_1D0` | `app/shared/rs_track.h:394` | untagged neutral name (D10) |
-| 1 | `a, b, c` | `app/shared/rs_track.h:395` | neutral |
-| 1 | `Unknown_1D4` | `app/shared/rs_track.h:395` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/shared/rs_track.h:396` | neutral |
-| 1 | `Unknown_1D8` | `app/shared/rs_track.h:396` | untagged neutral name (D10) |
-| 1 | `robj` | `app/shared/rs_track.h:398` | neutral |
-| 1 | `Unknown_460260` | `app/shared/rs_track.h:398` | untagged neutral name (D10) |
-| 1 | `Unknown_460410` | `app/shared/rs_track.h:399` | neutral (D10) |
-| 1 | `state, depth` | `app/shared/rs_track.h:400` | neutral |
-| 1 | `Unknown_460440` | `app/shared/rs_track.h:400` | untagged neutral name (D10) |
-| 1 | `Unknown_4604D0` | `app/shared/rs_track.h:401` | untagged neutral name (D10) |
-| 1 | `arg` | `app/shared/rs_track.h:402` | neutral |
-| 1 | `Unknown_4605A0` | `app/shared/rs_track.h:402` | untagged neutral name (D10) |
-| 1 | `arg` | `app/shared/rs_track.h:403` | neutral |
-| 1 | `Unknown_4605E0` | `app/shared/rs_track.h:403` | untagged neutral name (D10) |
-| 1 | `state, depth` | `app/shared/rs_track.h:404` | neutral |
-| 1 | `Unknown_460710` | `app/shared/rs_track.h:404` | untagged neutral name (D10) |
-| 1 | `Unknown_460780` | `app/shared/rs_track.h:405` | untagged neutral name (D10) |
-| 1 | `Unknown_460810` | `app/shared/rs_track.h:406` | neutral (D10) |
-| 1 | `Unknown_460850` | `app/shared/rs_track.h:407` | untagged neutral name (D10) |
-| 1 | `Unknown_460880` | `app/shared/rs_track.h:408` | untagged neutral name (D10) |
-| 1 | `Unknown_460BC0` | `app/shared/rs_track.h:409` | neutral (D10) |
-| 1 | `robj, bone_path` | `app/shared/rs_track.h:410` | neutral |
-| 1 | `Unknown_461D60` | `app/shared/rs_track.h:410` | untagged neutral name (D10) |
-| 1 | `data` | `app/shared/rs_track.h:411` | neutral |
-| 1 | `Unknown_462180` | `app/shared/rs_track.h:411` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/shared/rs_track.h:412` | neutral |
-| 1 | `Unknown_462470` | `app/shared/rs_track.h:412` | untagged neutral name (D10) |
-| 1 | `a` | `app/shared/rs_track.h:413` | neutral |
-| 1 | `Unknown_462530` | `app/shared/rs_track.h:413` | untagged neutral name (D10) |
-| 1 | `Unknown_462610` | `app/shared/rs_track.h:414` | neutral (D10) |
-| 1 | `Unknown_462650` | `app/shared/rs_track.h:415` | neutral (D10) |
-| 1 | `Unknown_462690` | `app/shared/rs_track.h:416` | neutral (D10) |
-| 1 | `Unknown8C` | `app/shared/rs_track.h:420` | neutral (D10) |
-| 1 | `UnknownC0` | `app/shared/rs_track.h:422` | neutral (D10) |
-| 1 | `UnknownC4` | `app/shared/rs_track.h:423` | neutral (D10) |
-| 1 | `UnknownC8` | `app/shared/rs_track.h:424` | neutral (D10) |
-| 1 | `UnknownCC` | `app/shared/rs_track.h:425` | neutral (D10) |
-| 1 | `UnknownD4` | `app/shared/rs_track.h:427` | neutral (D10) |
-| 1 | `UnknownD8` | `app/shared/rs_track.h:428` | neutral (D10) |
-| 1 | `UnknownE8` | `app/shared/rs_track.h:429` | neutral (D10) |
+| 1 | `Unknown45A090Class` | `app/shared/rs_track.h:203` | neutral (D10); rs.ini TYPE 'link' (0x2C bytes) |
+| 1 | `Unknown45F390Class` | `app/shared/rs_track.h:211` | neutral (D10); rs.ini TYPE 'sound' (0x3C bytes) |
+| 1 | `sound, message` | `app/shared/rs_track.h:214` | rs_list.cpp's keys |
+| 1 | `Unknown2C` | `app/shared/rs_track.h:219` | neutral (D10) |
+| 1 | `Unknown458C10Class` | `app/shared/rs_track.h:222` | neutral (D10); rs.ini TYPE 'effect_pass' (rs_eff_p.cpp, 0x34 bytes; the client's debug text names it RenderStateEffectPassClass) |
+| 1 | `two_sided, hidden, texture, a, b, shader` | `app/shared/rs_track.h:225` | rs_list.cpp's keys |
+| 1 | `mapper` | `app/shared/rs_track.h:233` | what rs_list.cpp hands it |
+| 1 | `Unknown_459120` | `app/shared/rs_track.h:233` | untagged neutral name (D10) |
+| 1 | `Unknown_459170` | `app/shared/rs_track.h:234` | untagged neutral name (D10) |
+| 1 | `Unknown4591A0Class` | `app/shared/rs_track.h:241` | neutral (D10); rs_eff_p.cpp |
+| 1 | `Unknown_4C` | `app/shared/rs_track.h:251` | untagged neutral name (D10) |
+| 1 | `Unknown_459630` | `app/shared/rs_track.h:253` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `app/shared/rs_track.h:262` | neutral (D10) |
+| 1 | `Unknown45D840Class` | `app/shared/rs_track.h:265` | neutral (D10); rs.ini TYPE 'message' |
+| 1 | `message` | `app/shared/rs_track.h:268` | the key |
+| 1 | `Unknown45D9E0Class` | `app/shared/rs_track.h:280` | neutral (D10) |
+| 1 | `owner` | `app/shared/rs_track.h:283` | neutral; NAME 2 [def, manager]: the base's (int as RsTrackClass::Unknown_462470 passes them) |
+| 1 | `Unknown45DC80Class` | `app/shared/rs_track.h:291` | neutral (D10) |
+| 1 | `owner, cull, a` | `app/shared/rs_track.h:294` | neutral |
+| 1 | `rinfo` | `app/shared/rs_track.h:301` | the Render argument |
+| 1 | `Unknown_45DFC0` | `app/shared/rs_track.h:301` | untagged neutral name (D10) |
+| 1 | `rinfo` | `app/shared/rs_track.h:302` | the Render argument |
+| 1 | `Unknown_45E030` | `app/shared/rs_track.h:302` | untagged neutral name (D10) |
+| 1 | `list` | `app/shared/rs_track.h:313` | neutral |
+| 1 | `list, scale, hsv` | `app/shared/rs_track.h:314` | what 0x6F51D0 passes |
+| 1 | `arg` | `app/shared/rs_track.h:381` | neutral |
+| 1 | `Unknown_1C4` | `app/shared/rs_track.h:381` | untagged neutral name (D10) |
+| 1 | `Unknown_1C8` | `app/shared/rs_track.h:382` | neutral (D10) |
+| 1 | `state, robj` | `app/shared/rs_track.h:383` | neutral |
+| 1 | `Unknown_1CC` | `app/shared/rs_track.h:383` | untagged neutral name (D10) |
+| 1 | `arg .. arg2` | `app/shared/rs_track.h:384` | neutral |
+| 1 | `Unknown_1D0` | `app/shared/rs_track.h:384` | untagged neutral name (D10) |
+| 1 | `a, b, c` | `app/shared/rs_track.h:385` | neutral |
+| 1 | `Unknown_1D4` | `app/shared/rs_track.h:385` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/shared/rs_track.h:386` | neutral |
+| 1 | `Unknown_1D8` | `app/shared/rs_track.h:386` | untagged neutral name (D10) |
+| 1 | `robj` | `app/shared/rs_track.h:388` | neutral |
+| 1 | `Unknown_460260` | `app/shared/rs_track.h:388` | untagged neutral name (D10) |
+| 1 | `Unknown_460410` | `app/shared/rs_track.h:389` | neutral (D10) |
+| 1 | `state, depth` | `app/shared/rs_track.h:390` | neutral |
+| 1 | `Unknown_460440` | `app/shared/rs_track.h:390` | untagged neutral name (D10) |
+| 1 | `Unknown_4604D0` | `app/shared/rs_track.h:391` | untagged neutral name (D10) |
+| 1 | `seconds` | `app/shared/rs_track.h:392` | neutral |
+| 1 | `Unknown_4605A0` | `app/shared/rs_track.h:392` | untagged neutral name (D10) |
+| 1 | `seconds` | `app/shared/rs_track.h:393` | neutral |
+| 1 | `Unknown_4605E0` | `app/shared/rs_track.h:393` | untagged neutral name (D10) |
+| 1 | `state, depth` | `app/shared/rs_track.h:394` | neutral |
+| 1 | `Unknown_460710` | `app/shared/rs_track.h:394` | untagged neutral name (D10) |
+| 1 | `Unknown_460780` | `app/shared/rs_track.h:395` | untagged neutral name (D10) |
+| 1 | `Unknown_460810` | `app/shared/rs_track.h:396` | neutral (D10) |
+| 1 | `Unknown_460850` | `app/shared/rs_track.h:397` | untagged neutral name (D10) |
+| 1 | `Unknown_460880` | `app/shared/rs_track.h:398` | untagged neutral name (D10) |
+| 1 | `Unknown_460BC0` | `app/shared/rs_track.h:399` | neutral (D10) |
+| 1 | `robj, bone_path` | `app/shared/rs_track.h:400` | neutral |
+| 1 | `Unknown_461D60` | `app/shared/rs_track.h:400` | untagged neutral name (D10) |
+| 1 | `data` | `app/shared/rs_track.h:401` | neutral |
+| 1 | `Unknown_462180` | `app/shared/rs_track.h:401` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/shared/rs_track.h:402` | neutral |
+| 1 | `Unknown_462470` | `app/shared/rs_track.h:402` | untagged neutral name (D10) |
+| 1 | `a` | `app/shared/rs_track.h:403` | neutral |
+| 1 | `Unknown_462530` | `app/shared/rs_track.h:403` | untagged neutral name (D10) |
+| 1 | `Unknown_462610` | `app/shared/rs_track.h:404` | neutral (D10) |
+| 1 | `Unknown_462650` | `app/shared/rs_track.h:405` | neutral (D10) |
+| 1 | `Unknown_462690` | `app/shared/rs_track.h:406` | neutral (D10) |
+| 1 | `Unknown8C` | `app/shared/rs_track.h:410` | neutral (D10) |
+| 1 | `UnknownC0` | `app/shared/rs_track.h:412` | neutral (D10) |
+| 1 | `UnknownC4` | `app/shared/rs_track.h:413` | neutral (D10) |
+| 1 | `UnknownC8` | `app/shared/rs_track.h:414` | neutral (D10) |
+| 1 | `UnknownCC` | `app/shared/rs_track.h:415` | neutral (D10) |
+| 1 | `UnknownD4` | `app/shared/rs_track.h:417` | neutral (D10) |
+| 1 | `UnknownD8` | `app/shared/rs_track.h:418` | neutral (D10) |
+| 1 | `UnknownE8` | `app/shared/rs_track.h:419` | neutral (D10) |
 | 1 | `Unknown_BE56D8` | `app/shared/shipcust_desc.cpp:15` | 0xBE56D8, each race's two default settings (filled at run time) |
 | 1 | `Unknown_B75D28` | `app/shared/shipcust_desc.cpp:17` | 0xB75D28, the hull style per race and profession |
 | 1 | `Unknown_B75D4C` | `app/shared/shipcust_desc.cpp:18` | 0xB75D4C, the wing style per race and profession |
@@ -18537,13 +18574,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:242` | untagged neutral name (D10) |
 | 1 | `Unknown_56CE40` | `programs/clientpoc/poc_world.cpp:245` | untagged neutral name (D10) |
 | 1 | `Unknown_56CEC0` | `programs/clientpoc/poc_world.cpp:246` | untagged neutral name (D10) |
-| 1 | `Unknown4596A0Class` | `programs/clientpoc/poc_world.cpp:259` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `programs/clientpoc/poc_world.cpp:263` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `programs/clientpoc/poc_world.cpp:266` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `programs/clientpoc/poc_world.cpp:267` | untagged neutral name (D10) |
-| 1 | `Unknown45A090Class` | `programs/clientpoc/poc_world.cpp:269` | untagged neutral name (D10) |
-| 1 | `Unknown45F390Class` | `programs/clientpoc/poc_world.cpp:278` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:290` | untagged neutral name (D10) |
+| 1 | `Unknown45A090Class` | `programs/clientpoc/poc_world.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `programs/clientpoc/poc_world.cpp:265` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `programs/clientpoc/poc_world.cpp:266` | untagged neutral name (D10) |
+| 1 | `Unknown45F390Class` | `programs/clientpoc/poc_world.cpp:268` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `programs/clientpoc/poc_world.cpp:272` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:280` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
@@ -22361,6 +22397,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CallbackBox` | `app/shared/px_wrapper.h:64` | in the list with Unknown0D |
 | 2 | `Set_Offset` | `app/shared/ro_offset.h:23` | the offset it stores, and the class's name |
 | 2 | `Offset` | `app/shared/ro_offset.h:25` | the class's name; Set_Transform and Set_Position add it |
+| 2 | `hAnimName` | `app/shared/rs_hanim.h:20` | the assert's text; NAME 1 [suffix, next_id, combo]: rs_list.cpp's keys |
+| 2 | `NextRenderState` | `app/shared/rs_hanim.h:38` | the assert's text |
+| 2 | `HAnimName` | `app/shared/rs_hanim.h:39` | the assert's text |
+| 2 | `HAnimSuffix` | `app/shared/rs_hanim.h:40` | the assert's text |
 | 2 | `rs_robj.cpp` | `app/shared/rs_robj.cpp:19` | RsTrackClass::Class_ID |
 | 2 | `RenderStateClass` | `app/shared/rs_track.h:27` | rs_track.cpp's assert names State and Get_Render_State_List() |
 | 2 | `Peek_Render_Object` | `app/shared/rs_track.h:40` | the assert 'Peek_Render_Object()' at rs_track.cpp line 236 |
@@ -22380,10 +22420,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `RenderObjName` | `app/shared/rs_track.h:172` | the asserts' text |
 | 2 | `RenderObj` | `app/shared/rs_track.h:173` | the asserts' text |
 | 2 | `NextRenderState` | `app/shared/rs_track.h:177` | the assert's text |
-| 2 | `Message` | `app/shared/rs_track.h:285` | rs.ini's MESSAGE |
-| 2 | `Owner` | `app/shared/rs_track.h:299` | what it points at |
-| 2 | `ProjectorList` | `app/shared/rs_track.h:314` | what it holds |
-| 2 | `Owner` | `app/shared/rs_track.h:315` | what it points at |
+| 2 | `Message` | `app/shared/rs_track.h:275` | rs.ini's MESSAGE |
+| 2 | `Owner` | `app/shared/rs_track.h:289` | what it points at |
+| 2 | `ProjectorList` | `app/shared/rs_track.h:304` | what it holds |
+| 2 | `Owner` | `app/shared/rs_track.h:305` | what it points at |
 | 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:44` | the parts' key 'Settings%d' |
 | 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:61` | the description's key 'PartAttributes%d' |
 | 2 | `Write_Short` | `app/shared/shipcust_desc.h:87` | what it does |
@@ -24245,7 +24285,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RS_MUTABLE_FLAG_MASK` | `app/shared/rs_track.h:21` | the asserts' text |
 | 3 | `RS_THREAD_FLAG_MASK` | `app/shared/rs_track.h:22` | the asserts' text (the loader thread's bits 12 / 13) |
 | 3 | `RS_DATA_PRESENT` | `app/shared/rs_track.h:23` | rs_robj.cpp's assert text (Test_Flag(RS_DATA_PRESENT): bit 9, 0x200, set with the model) |
-| 3 | `RsTrackClass` | `app/shared/rs_track.h:320` | class-from-file (D24) for app\shared\rs_track.cpp |
+| 3 | `RsTrackClass` | `app/shared/rs_track.h:310` | class-from-file (D24) for app\shared\rs_track.cpp |
 | 3 | `shipcust_desc.h` | `app/shared/shipcust_desc.h:20` | header name assumed from the client's shipcust_desc.cpp |
 | 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:72` | by convention (D24) from the client's shipcust_desc.cpp |
 | 3 | `split_string.h` | `app/shared/split_string.h:18` | header name assumed from the client's split_string.cpp |
