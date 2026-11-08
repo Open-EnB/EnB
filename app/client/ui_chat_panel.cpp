@@ -1212,7 +1212,7 @@ bool UIChatPanelClass::Unknown_567540(int arg)
 			std::list<std::string> names;
 			for (int i = 0; i < 5; i++) {
 				if (Unknown188[i] == "") break;
-				names.push_back(Unknown188[i]);
+				names.insert(names.end(), Unknown188[i]);
 				count++;
 			}
 			if (count) {
