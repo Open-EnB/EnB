@@ -41,7 +41,6 @@ void Unknown_7CA2D0Class::Unknown_7CB610(const char *url)
 }
 
 // @0x7CB6F0
-// NOT EXACT: shape (0.66: the client cross-jumps the CreateThread tails one instruction later)
 void Unknown_7CA2D0Class::Unknown_7CB6F0(int force)
 {
 	if (Unknown50.length() == 0) {
@@ -80,18 +79,21 @@ void Unknown_7CA2D0Class::Unknown_7CB6F0(int force)
 		Unknown48 = NULL;
 		Unknown4C = 0;
 	} else {
-		DWORD id;
 		if (Unknown44 != 0 && Unknown44 - now > 0x80000000) {
+			DWORD id;
 			Unknown4C = 4;
 			Unknown48 = CreateThread(NULL, 0, Unknown_7CB8F0, this, 0, &id);
 		} else if (Unknown40 - now > 0x80000000) {
+			DWORD id;
 			Unknown4C = 2;
 			Unknown48 = CreateThread(NULL, 0, Unknown_7CB8F0, this, 0, &id);
 		} else if ((char)force) {
 			if (Unknown3C != 0 && Unknown3C - now > 0x80000000) {
+				DWORD id;
 				Unknown4C = 3;
 				Unknown48 = CreateThread(NULL, 0, Unknown_7CB8F0, this, 0, &id);
 			} else if (Unknown38 - now > 0x80000000) {
+				DWORD id;
 				Unknown4C = 1;
 				Unknown48 = CreateThread(NULL, 0, Unknown_7CB8F0, this, 0, &id);
 			}
