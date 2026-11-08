@@ -27,6 +27,9 @@ public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
+	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C(); virtual void Unknown_40();
+	virtual void Unknown_44(int arg);					// +0x44 (the starbase interface's destructor passes its +0x190's +0x90)  // NAME 1 [arg]: neutral
 };
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, as ui_login.cpp's
@@ -136,6 +139,69 @@ UIStarbaseClass::UIStarbaseClass(UIViewClass *view, LayerClass *layer, int index
 		Unknown_Model()->Add_Sub_Object(UnknownBC.Peek());
 	}
 }
+
+#pragma auto_inline(off)
+
+// NOT EXACT: register-only residue in the body (every vtable load of its own statements in eax where the client's is in edx and the
+// reverse; the members' destructors after it match), objdiff 0.82 counting the unrelocated jumps
+// 0x633B50
+UIStarbaseClass::~UIStarbaseClass()
+{
+	int i;
+	if (Unknown190) {
+		Client->Unknown_44(Unknown190->Unknown90);
+		delete Unknown190;
+		Unknown190 = NULL;
+	}
+	UIStarbaseClass::Unknown_5C();
+	Unknown1F8 = NULL;
+	UnknownB4 = NULL;
+	InterfaceMesh->Unknown_5B9930(-1);
+	if (UnknownBC) {
+		UnknownBC->Remove();
+		UnknownBC = NULL;
+	}
+	delete UnknownC0.D;
+	if (Unknown180) {
+		GadgetClass::Destroy(Unknown180);
+		Unknown180 = NULL;
+	}
+	if (Unknown184) {
+		Unknown184->Remove();
+		Unknown184 = NULL;
+	}
+	for (i = 0; i < 14; i++) {
+		delete Unknown13C[i];
+	}
+	for (i = 0; i < 4; i++) {
+		if (Unknown128[i]) {
+			Unknown128[i]->Remove();
+			Unknown128[i] = NULL;
+		}
+	}
+	for (i = 0; i < 4; i++) {
+		if (Unknown108[i]) {
+			Unknown108[i]->Remove();
+			Unknown108[i] = NULL;
+		}
+	}
+	std::list<RefCountPtr<RenderObjClass> >::iterator it;
+	for (it = Unknown194.begin(); it != Unknown194.end(); it++) {
+		RefCountPtr<RenderObjClass> robj = *it;
+		InterfaceMesh->Peek_Object()->Remove_Sub_Object(robj.Peek());
+		robj->Remove();
+	}
+	Unknown194.clear();
+	for (it = Unknown1A0.begin(); it != Unknown1A0.end(); it++) {
+		RefCountPtr<RenderObjClass> robj = *it;
+		InterfaceMesh->Peek_Object()->Remove_Sub_Object(robj.Peek());
+		robj->Set_Animation();
+		robj->Remove();
+	}
+	Unknown1A0.clear();
+}
+
+#pragma auto_inline(on)
 
 // NOT EXACT: register-only residue at the top (the client loads +0xB0 into eax before Room, a's chain through
 // eax / ecx; ours through ecx / edx) and in the inlined 0x640CC0 loop (eax / edx swapped); 42 rows. The budget

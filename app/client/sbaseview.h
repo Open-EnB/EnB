@@ -50,15 +50,46 @@ struct UIStarbaseUnknownD4Equal {};	// NAME 1: neutral (D10): the key test
 class UIStarbaseUnknownD4TableClass	// NAME 1: neutral (D10)
 {
 public:
+	struct NodeStruct { NodeStruct *Next; };	// the SGI table's _Node (its value unknown)  // NAME 1: neutral (D10)
 	UIStarbaseUnknownD4TableClass(unsigned int n, const UIStarbaseUnknownD4Hash &hf, const UIStarbaseUnknownD4Equal &eql);	// 0x643C20  // NAME 1 [n, hf, eql]: the SGI table's
-	char Unknown00[0x18];	// +0x00
+	~UIStarbaseUnknownD4TableClass() { clear(); }	// as SGI's (the map's implicit destructor 0x633AC0 inlines it all; 0x633B50 calls clear 0x644AE0 and the vector's 0x643ED0)
+	void clear()	// 0x644AE0 (SGI's)
+	{
+		for (unsigned int i = 0; i < Buckets.size(); ++i) {
+			NodeStruct *cur = Buckets[i];
+			while (cur != 0) {
+				NodeStruct *next = cur->Next;
+				operator delete(cur);
+				cur = next;
+			}
+			Buckets[i] = 0;
+		}
+		NumElements = 0;
+	}
+	char Unknown00[4];	// +0x00 (the hasher, key test and key getter bytes)
+	std::vector<NodeStruct *> Buckets;	// +0x04 (SGI's _M_buckets)  // NAME 1: neutral (D10)
+	unsigned int NumElements;	// +0x14 (SGI's _M_num_elements)  // NAME 1: neutral (D10)
 };
 class UIStarbaseUnknownD4Class	// NAME 1: neutral (D10)
 {
 public:
 	explicit UIStarbaseUnknownD4Class(unsigned int n) : Table(n, UIStarbaseUnknownD4Hash(), UIStarbaseUnknownD4Equal()) {}	// NAME 1 [n]: the SGI map's
-	~UIStarbaseUnknownD4Class();	// 0x633AC0
 	UIStarbaseUnknownD4TableClass Table;	// +0x00  // NAME 1: neutral (D10)
+};
+// What the starbase interface's +0xCC and +0x13C point to (ui_starbase.cpp's class with the destructor 0x632E50: RefCountPtrs at +0x04, +0x0C, ...)
+class UIStarbaseUnknownCCClass	// NAME 1: neutral (D10)
+{
+public:
+	~UIStarbaseUnknownCCClass();	// 0x632E50 (not rebuilt)
+	char Unknown00[0x14];	// +0x00
+};
+// What the starbase interface's +0x190 points to (a virtual destructor; its +0x90 goes to the client's slot +0x44)
+class UIStarbaseUnknown190Class	// NAME 1: neutral (D10)
+{
+public:
+	virtual ~UIStarbaseUnknown190Class();	// +0x00
+	char Unknown04[0x90 - 0x04];	// +0x04
+	int Unknown90;	// +0x90 (0x633B50 hands it to the client's slot +0x44)
 };
 
 // ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
@@ -70,7 +101,7 @@ public:
 	void Unknown_63CF30(int avatar_id, int new_room);	// 0x63CF30 (STARBASE_AVATAR_ROOM_UPDATE 160)  // NAME 1 [avatar_id, new_room]: the packet's fields
 	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);	// 0x63E5C0 (STARBASE_AVATAR_UPDATE 158)  // NAME 1 [avatar_id, orient, position, action]: the packet's fields
 	void Unknown_6435E0();	// 0x6435E0 (ui_avatar_cust.cpp 0x54EC30, once the new look is sent)
-	virtual ~UIStarbaseClass();	// +0x00 0x633B50 (deleting 0x633A90; not rebuilt)
+	virtual ~UIStarbaseClass();	// +0x00 0x633B50 (deleting 0x633A90)
 	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60();	// +0x54 0x634140, +0x58 0x6366A0, +0x5C 0x636D50, +0x60 0x638390 (the client's overrides, table 0xAF836C: declared so the constructor's table doesn't emit the base's inline defaults; not rebuilt)
 	virtual bool Unknown_68(int key); virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager);	// +0x68 0x638500, +0x70 0x637130, +0x74 0x637A90 (not rebuilt)  // NAME 1 [key, manager]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x638FF0 (not rebuilt)  // NAME 1 [view, arg]: InterfaceClass's
@@ -84,7 +115,7 @@ public:
 	UIStarbaseUnknownB4Struct *UnknownB4;	// +0xB4 (0x640D80: its bytes +0x0A / +0x0B; the constructor's 0x698730 of the room's key)
 	int UnknownB8;	// +0xB8
 	RefCountPtr<RenderObjClass> UnknownBC;	// +0xBC (the constructor's '%sextra_%s' model, added to the mesh's model)
-	struct UnknownC0Struct { UnknownC0Struct() : A(-1), B(-1), C(-1), D(0), E(0) {} int A, B, C, D, E; } UnknownC0;	// +0xC0 (-1, -1, -1, 0, 0: as a struct with its own constructor its stores follow the table's arguments, as the client's; five ints in the list come before them)  // NAME 1: neutral (D10)
+	struct UnknownC0Struct { UnknownC0Struct() : A(-1), B(-1), C(-1), D(0), E(0) {} int A, B, C; UIStarbaseUnknownCCClass *D; int E; } UnknownC0;	// +0xC0 (-1, -1, -1, 0, 0: as a struct with its own constructor its stores follow the table's arguments, as the client's; five ints in the list come before them)  // NAME 1: neutral (D10)
 	UIStarbaseUnknownD4Class UnknownD4;	// +0xD4 (100 buckets)
 	std::list<int> UnknownEC;	// +0xEC (destructor 0x6439E0: plain elements)  // NAME 1: neutral (D10): element type unknown
 	int UnknownF8[4];	// +0xF8
@@ -92,12 +123,12 @@ public:
 	int Unknown118[4];	// +0x118
 	RefCountPtr<RenderObjClass> Unknown128[4];	// +0x128
 	bool Unknown138[4];	// +0x138
-	int Unknown13C[14];	// +0x13C
+	UIStarbaseUnknownCCClass *Unknown13C[14];	// +0x13C (the destructor deletes them)
 	std::list<unsigned int> Unknown174;	// +0x174 (destructor 0x643A50: plain elements, another type than +0xEC's)  // NAME 1: neutral (D10): element type unknown
-	int Unknown180;	// +0x180
+	GadgetClass *Unknown180;	// +0x180 (the destructor's GadgetClass::Destroy)
 	RefCountPtr<RenderObjClass> Unknown184, Unknown188;	// +0x184
 	bool Unknown18C;	// +0x18C (SClient 0x74D950 sets the starbase view's +0x174's)
-	int Unknown190;	// +0x190
+	UIStarbaseUnknown190Class *Unknown190;	// +0x190 (the destructor deletes it)
 	std::list<RefCountPtr<RenderObjClass> > Unknown194, Unknown1A0;	// +0x194 (made with NULL: list(0), insert 0x644070; destructor 0x643AC0)
 	int Unknown1AC;	// +0x1AC
 	bool Unknown1B0, Unknown1B1, Unknown1B2, Unknown1B3;	// +0x1B0
