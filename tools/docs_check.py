@@ -6,11 +6,18 @@
 
 * every relative link in the Markdown files (README, CONTRIBUTING, CLAUDE.md, docs/, the tools'
   READMEs, .claude/skills) resolves to a file or directory in the checkout;
-* every stored text file is LF (D147, .gitattributes `* text=auto eol=lf`), unless marked -text.
+* every stored text file is LF (D147, .gitattributes `* text=auto eol=lf`), unless marked -text;
+* docs/data/attempts.csv parses, every row has the header's fields, no field spans lines, and no two
+  rows share (date, address). The file merges by line union (.gitattributes `merge=union`), so a row
+  changed on both sides of a merge comes out twice; this is where that is caught. attempts.py record
+  refuses a (date, address) already logged, so a duplicate is always a merge's. The pairs below were
+  logged twice the same day before that rule (2026-11-07) and are allowed.
 
 Moved out of the working notes (.work/audit/check.py) so CI can run it. Standard library only.
 """
 import argparse
+import csv
+import io
 import os
 import re
 import subprocess
@@ -75,6 +82,44 @@ def check_links(files):
     return bad
 
 
+ATTEMPTS = 'docs/data/attempts.csv'
+# (date, address) logged twice before attempts.py refused it (2026-11-07): distinct attempts, not merge copies
+ATTEMPTS_TWICE = {
+    ('2026-10-25 20:12', '0x9182C0'), ('2026-10-28', '0x716140'), ('2026-10-28', '0x716220'),
+    ('2026-10-28', '0x716760'), ('2026-10-28', '0x7168A0'), ('2026-10-28', '0x717CC0'),
+    ('2026-10-31', '0x6120E0'), ('2026-10-31', '0x612430'), ('2026-10-31 20:10', '0x8099B0'),
+    ('2026-11-06', '0x5D8E90'), ('2026-11-06', '0x5D9410'), ('2026-11-06', '0x5D9610'),
+    ('2026-11-06', '0x5D9D10'), ('2026-11-06', '0x5DA600'), ('2026-11-06', '0x5DAB50'),
+    ('2026-11-06', '0x5D9100'), ('2026-11-06', '0x5DA0D0'),
+}
+
+
+def check_attempts(files):
+    """attempts.csv merges by union (item 1 of docs/pipeline-plan.md): it must still parse, keep one
+    record per line, and hold no (date, address) twice outside ATTEMPTS_TWICE."""
+    if ATTEMPTS not in files:
+        return []
+    text = read(ATTEMPTS).decode('utf-8')
+    if '<<<<<<<' in text or '>>>>>>>' in text:
+        return ['%s: conflict markers' % ATTEMPTS]
+    rows = list(csv.reader(io.StringIO(text, newline='')))
+    if not rows:
+        return ['%s: empty' % ATTEMPTS]
+    head, bad, seen = rows[0], [], {}
+    for n, r in enumerate(rows[1:], 2):
+        if len(r) != len(head):
+            bad.append('%s: record %d has %d fields, the header %d' % (ATTEMPTS, n, len(r), len(head)))
+            continue
+        if any(c in f for f in r for c in '\r\n'):
+            bad.append('%s: record %d has a field spanning lines (union merges need one record per line)' % (ATTEMPTS, n))
+        key = (r[0], r[1])
+        if key in seen and key not in ATTEMPTS_TWICE:
+            bad.append('%s: records %d and %d share date %s and address %s (a row changed on both sides of a '
+                       'merge? keep one)' % (ATTEMPTS, seen[key], n, r[0], r[1]))
+        seen.setdefault(key, n)
+    return bad
+
+
 def sizes():
     """Bytes a builder reads at start-up, by kind (docs/builders.md section 1)."""
     def section(path, head, level):
@@ -100,7 +145,7 @@ def main():
     ap.add_argument('--sizes', action='store_true', help='print the builders\' startup-set sizes')
     a = ap.parse_args()
     files = tracked()
-    problems = check_endings(files) + check_links(files)
+    problems = check_endings(files) + check_links(files) + check_attempts(files)
     for p in problems:
         print(p)
     print('docs_check: %d files, %d problem(s)' % (len(files), len(problems)))
