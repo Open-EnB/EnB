@@ -7,6 +7,22 @@
 
 #include "ui_chat_window.h"
 
+class HAnimComboClass;			// hanim.h's
+class HAnimComboDataClass;		// hanim.h's
+class ResizeGadgetClass;		// gd_resize.h's
+
+// One of the window's two resize handles (0x14 bytes, at +0xF0 and +0x104; destructor 0x573430, inline in 0x572040)
+struct ChatWinSplitResizeStruct	// NAME 1: neutral (D10)
+{
+	ChatWinSplitResizeStruct() : Unknown00(NULL), Unknown04(NULL), Unknown08(-1), Unknown0C(0), Unknown10(0) {}
+	inline ~ChatWinSplitResizeStruct();					// 0x573430 (ui_chat_window_split.cpp)
+	HAnimComboDataClass *Unknown00;						// +0x00 (the handle's animation data)
+	ResizeGadgetClass *Unknown04;						// +0x04 (the handle's resize gadget)
+	int Unknown08;										// +0x08 (-1: the saved value)
+	int Unknown0C;										// +0x0C
+	int Unknown10;										// +0x10
+};
+
 // The split chat window (0x120 bytes; constructor 0x571F00, table 0xAF052C: slots +0x00 0x572010, +0x54 0x5723B0,
 // +0x58 0x572DE0, +0x5C 0x572E00, +0x60 0x572E20, +0x68 0x572EE0, +0xA8 0x573220)
 class UIChatWindowSplitClass : public ChatWindowInterface	// NAME 3: class-from-file (D24) for app\client\ui_chat_window_split.cpp
@@ -22,17 +38,9 @@ public:
 	virtual void Unknown_A8();							// +0xA8 0x573220
 
 	int UnknownE8;										// +0xE8 (the kind: 0 'ChatWinSplit_None', 1 'ChatWinSplit_Vert', 2 'ChatWinSplit_Horz')
-	int UnknownEC;										// +0xEC
-	int UnknownF0;										// +0xF0
-	int UnknownF4;										// +0xF4
-	int UnknownF8;										// +0xF8 (-1)
-	int UnknownFC;										// +0xFC
-	int Unknown100;										// +0x100
-	int Unknown104;										// +0x104
-	int Unknown108;										// +0x108
-	int Unknown10C;										// +0x10C (-1)
-	int Unknown110;										// +0x110
-	int Unknown114;										// +0x114
+	HAnimComboClass *UnknownEC;							// +0xEC (the frame's animation combo: the two resize animations)
+	ChatWinSplitResizeStruct UnknownF0;					// +0xF0 (the size: saved as the option '<prefix>Size')
+	ChatWinSplitResizeStruct Unknown104;				// +0x104 (the split: saved as the option '<prefix>Split')
 	bool Unknown118;									// +0x118 (the kind is 2)
 	const char *Unknown11C;								// +0x11C (the kind's model name)
 };

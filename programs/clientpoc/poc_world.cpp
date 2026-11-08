@@ -216,20 +216,9 @@ UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((Li
 	STUB_CALLED("POC UIChatReplyListClass: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-// The split chat window (ui_chat_window_split.cpp, not rebuilt): the real ChatWindowInterface (ui_chat_window.cpp)
-// with a set-up that loads the kind's model (0x5723B0's first steps: slot +0x98 with 0xB7D938's names, the base's
+// The split chat window (ui_chat_window_split.cpp: its constructor, destructor and slots +0x58 / +0x5C are rebuilt):
+// the client's slots +0x60, +0x68, +0xA8 stand in as the base's, and a set-up that loads the kind's model (0x5723B0's first steps: slot +0x98 with 0xB7D938's names, the base's
 // set-up, slot +0xA0 with one window, two when split) and leaves the frame's resize gadgets out
-UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit, int kind) :
-	ChatWindowInterface(client, history, edit)
-{
-	STUB_CALLED("POC UIChatWindowSplitClass: the chat window without its split");
-	UnknownE8 = kind;
-	UnknownEC = UnknownF0 = UnknownF4 = UnknownFC = Unknown100 = Unknown104 = Unknown108 = Unknown110 = Unknown114 = 0;
-	UnknownF8 = Unknown10C = -1;
-	Unknown118 = (kind == 2);
-	Unknown11C = NULL;
-}
-UIChatWindowSplitClass::~UIChatWindowSplitClass() {}
 void UIChatWindowSplitClass::Unknown_54()
 {
 	static const char *models[] = { "tsi05f", "tsi05d", "tsi05e" };
@@ -237,8 +226,6 @@ void UIChatWindowSplitClass::Unknown_54()
 	ChatWindowInterface::Unknown_54();
 	Unknown_A0((UnknownE8 != 0) ? 2 : 1);
 }
-void UIChatWindowSplitClass::Unknown_58() { ChatWindowInterface::Unknown_58(); }
-void UIChatWindowSplitClass::Unknown_5C() { ChatWindowInterface::Unknown_5C(); }
 void UIChatWindowSplitClass::Unknown_60() { ChatWindowInterface::Unknown_60(); }
 bool UIChatWindowSplitClass::Unknown_68(int key) { return(ChatWindowInterface::Unknown_68(key)); }
 void UIChatWindowSplitClass::Unknown_A8() { ChatWindowInterface::Unknown_A8(); }
