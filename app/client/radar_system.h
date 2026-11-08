@@ -23,7 +23,7 @@ class SClient;
 class GutterRadarClass;
 class NavListBuilderClass;
 class NavigationListClass;
-class PDAInterfaceUnknownA0Class;
+class StarmapPipClass;
 class RadarSystemClass;
 class RadarSystemDataCacheClass;
 class RefCountClass;
@@ -49,7 +49,7 @@ public:
 	void Unknown_7BCA40(bool arg);						// 0x7BCA40 (the main view's slot +0x18): both paths cleared  // NAME 1 [arg]: never read
 	bool Unknown_7BD980();								// 0x7BD980: the warp path is built
 	const NavigationListClass &Unknown_7BD960();		// 0x7BD960
-	void Unknown_7BCA70(GutterRadarClass *object, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame)  // NAME 2 [object, arg, scene]: the gutter, the starmap, the scene
+	void Unknown_7BCA70(GutterRadarClass *object, StarmapPipClass *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame)  // NAME 2 [object, arg, scene]: the gutter, the starmap, the scene
 
 	ClientObjectClass *Unknown_7BD4C0();				// 0x7BD4C0: the next object on the starmap after the target
 	ClientObjectClass *Unknown_7BD5D0();				// 0x7BD5D0: the one before it

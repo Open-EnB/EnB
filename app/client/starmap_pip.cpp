@@ -3,6 +3,7 @@
 #include <string.h>
 #include <string>
 #include "starmap_pip.h"
+#include "radar_system.h"
 #include "sclient.h"
 #include "client.h"
 #include "co.h"
@@ -14,13 +15,16 @@
 #include "local_interface_sort.h"
 #include "intrface.h"
 #include "starmap_pip_support.h"
+#include "targeting.h"
+#include "..\audio\soundlib.h"
+#include "..\common\unknown_navlist.h"
 #include "..\shared\g_assert.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\..\ww3d2\rendobj.h"
 #include "..\..\ww3d2\scene.h"
 #include "wwmath.h"
 
-// NOT EXACT: written from the pseudocode (D64), functional
+
 // @0x7BF930
 StarmapPipClass::StarmapPipClass(SClient *client) :
 	MapPipClass(client, true),
@@ -34,10 +38,9 @@ StarmapPipClass::StarmapPipClass(SClient *client) :
 	Unknown70(0.0f),
 	Unknown74(0.0f, 0.0f),
 	Unknown7C(0.0f, 0.0f),
-	Unknown84(0),
-	Unknown88(0),
-	Unknown8C(NULL),
-	Unknown90(NULL),
+	Unknown84(0.0f, 0.0f),
+	TargetPath(NULL),
+	WarpPath(NULL),
 	Unknown94(-1),
 	Unknown98(-1),
 	Unknown9C(0),
@@ -49,8 +52,8 @@ StarmapPipClass::StarmapPipClass(SClient *client) :
 	Label(0)
 {
 	Unknown_BE67BC->Load("fc_radar.ini");
-	Unknown8C = new Unknown_7B97F0Class(Client, 0.75f, 1, Vector3(0.0f, 0.8f, 0.0f), 0.5f);
-	Unknown90 = new Unknown_7B97F0Class(Client, 0.75f, 2, Vector3(0.8f, 0.0f, 0.0f), 0.5f);
+	TargetPath = new Unknown_7B97F0Class(Client, 0.75f, 1, Vector3(0.0f, 0.8f, 0.0f), 0.5f);
+	WarpPath = new Unknown_7B97F0Class(Client, 0.75f, 2, Vector3(0.8f, 0.0f, 0.0f), 0.5f);
 	UnknownA0 = new Unknown_7C3220Class(Scene, false, 4);
 	UnknownA4 = new Unknown_7C3220Class(Scene, true, 4);
 	XPos = Create_NEW(new FontSys("STARMAP_X_POS", 0, 0));
@@ -60,7 +63,7 @@ StarmapPipClass::StarmapPipClass(SClient *client) :
 	Label = OptionClass::Instance->Get_Int("Starmap_Label");
 }
 
-// NOT EXACT: written from the pseudocode (D64), functional
+
 // @0x7BFF20
 StarmapPipClass::~StarmapPipClass()
 {
@@ -73,18 +76,15 @@ StarmapPipClass::~StarmapPipClass()
 		option->Set_Value(Label);
 	}
 	OptionClass::Instance->Save();
-	for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
-		delete *it;
-	}
-	Labels.clear();
+	Unknown_7C2280();
 	delete UnknownA0;
 	UnknownA0 = NULL;
 	delete UnknownA4;
 	UnknownA4 = NULL;
-	delete Unknown8C;
-	Unknown8C = NULL;
-	delete Unknown90;
-	Unknown90 = NULL;
+	delete TargetPath;
+	TargetPath = NULL;
+	delete WarpPath;
+	WarpPath = NULL;
 	Unknown_BE67BC->Unload("fc_radar.ini");
 }
 
@@ -105,12 +105,12 @@ void StarmapPipClass::Unknown_1C(int arg)
 void StarmapPipClass::Unknown_20(int arg)
 {
 	Unknown60 = Client->AvatarID;
-	if (arg && Unknown50 && Mult != 0.5f) {
+	if (arg && Unknown50) {
 		Unknown_Set_Mult(0.5f);
 	}
 }
 
-// NOT EXACT: written from the pseudocode (D64), functional
+
 // @0x7C0330
 void StarmapPipClass::Unknown_24(int arg)
 {
@@ -144,22 +144,19 @@ void StarmapPipClass::Unknown_24(int arg)
 
 // 0x7C0440 (FAIL_IF 'MouseTarget' on 283), 0x7C0620 ('!sdata' 361, '!co' 364) and 0x7C0910 are not rebuilt yet.
 
-// NOT EXACT: written from the pseudocode (D64), functional
+
 // @0x7C0AF0
 bool StarmapPipClass::Unknown_0C(bool on)
 {
 	if (on) {
 		Unknown60 = Client->AvatarID;
-		return(MapPipClass::Unknown_0C(on));
+	} else {
+		Unknown_7C2280();
 	}
-	for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
-		delete *it;
-	}
-	Labels.clear();
 	return(MapPipClass::Unknown_0C(on));
 }
 
-// NOT EXACT: written from the pseudocode (D64), functional
+
 // @0x7C0BC0
 bool StarmapPipClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, const RefCountPtr<RenderObjClass> &vp, int arg)
 {
@@ -189,7 +186,7 @@ bool StarmapPipClass::Unknown_10(const RefCountPtr<RenderObjClass> &vp)
 	return(true);
 }
 
-// NOT EXACT: written from the pseudocode (D64), functional
+
 // @0x7C0D40
 bool StarmapPipClass::Unknown_08()
 {
@@ -200,7 +197,7 @@ bool StarmapPipClass::Unknown_08()
 	return(true);
 }
 
-// NOT EXACT: written from the pseudocode (D64), functional
+
 // @0x7C0D70
 void StarmapPipClass::Unknown_14()
 {
@@ -222,9 +219,16 @@ void StarmapPipClass::Unknown_14()
 	Labels.clear();
 }
 
-// 0x7C0EA0 and 0x7C0EE0 ('!WarpPath' 644) .. 0x7C1C50 ('CurMult < WWMATH_EPSILON' 1157) are not rebuilt yet,
-// but for the inline below: 0x7C0260, 0x7C1120, 0x7C1510 and 0x7C1A90 expand it (FAIL_IF on 1039).
 
+// @0x7C0EA0
+void StarmapPipClass::Unknown_7C0EA0(bool on)
+{
+	if (on) {
+		Unknown60 = Client->AvatarID;
+		return;
+	}
+	Unknown60 = 0;
+}
 
 
 
@@ -633,6 +637,22 @@ void StarmapPipClass::Unknown_14()
 
 
 
+// @0x7C0EE0
+NavigationListClass *StarmapPipClass::Unknown_7C0EE0()
+{
+	NavigationListClass *list;
+	FAIL_IF(!WarpPath) return(NULL);
+	FAIL_IF(!TargetPath) return(NULL);
+	list = WarpPath->List;
+	if (list && list->Get(-1)) {
+		return(list);
+	}
+	list = TargetPath->List;
+	if (list && list->Get(-1)) {
+		return(list);
+	}
+	return(NULL);
+}
 
 
 
@@ -650,11 +670,28 @@ void StarmapPipClass::Unknown_14()
 
 
 
+// @0x7C0FA0
+bool StarmapPipClass::Unknown_7C0FA0()
+{
+	if (Unknown50) {
+		RadarSystemClass *radar = ((SClient *)Client)->MainView->Radar;
+		FAIL_IF(!radar) return(false);
+		ClientObjectClass *hover = radar->Hover;
+		if (hover && hover->Get_Game_ID() != Client->AvatarID) {
+			TargetingClass *targeting = ((SClient *)Client)->Targeting;
 
 
 
 
 
+			FAIL_IF(!targeting) return(false);
+			targeting->Select_And_Set_Filter(hover);
+			SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -667,6 +704,16 @@ void StarmapPipClass::Unknown_14()
 
 
 
+// @0x7C1060
+bool StarmapPipClass::Unknown_7C1060()
+{
+	if (!Unknown50) {
+		return(false);
+	}
+	RadarSystemClass *radar = ((SClient *)Client)->MainView->Radar;
+	FAIL_IF(!radar) return(false);
+	return((ClientObjectClass *)radar->Hover != NULL);
+}
 
 
 
@@ -681,12 +728,63 @@ void StarmapPipClass::Unknown_14()
 
 
 
+// @0x7C10D0
+bool StarmapPipClass::Unknown_7C10D0()
+{
+	RadarSystemClass *radar = ((SClient *)Client)->MainView->Radar;
+	FAIL_IF(!radar) return(false);
+	ClientObjectClass *hover = radar->Hover;
+	if (hover) {
+		Unknown60 = hover->Get_Game_ID();
+		return(true);
+	}
+	return(false);
+}
 
 
+// @0x7C1120
+void StarmapPipClass::Unknown_7C1120(float arg)
+{
+	if (Unknown50) {
+		float mult = (Mult + Mult) * arg + Mult;
+		if (mult < 0.5f) {
+			mult = 0.5f;
+		}
+		Unknown_Set_Mult(mult);
+	}
+}
 
+// 0x7C1200 (gd_starmap.cpp's) is not rebuilt yet.
 
 
+// @0x7C1280
+void StarmapPipClass::Unknown_7C1280(const Vector2 &position, float radius)
+{
+	bool changed = false;
+	if (position.X - radius < Unknown74.X) {
+		Unknown74.X = position.X - radius;
+		changed = true;
+	}
+	if (Unknown7C.X < position.X + radius) {
+		Unknown7C.X = position.X + radius;
+		changed = true;
+	}
+	if (position.Y - radius < Unknown74.Y) {
+		Unknown74.Y = position.Y - radius;
+		changed = true;
+	}
+	if (Unknown7C.Y < position.Y + radius) {
+		Unknown7C.Y = position.Y + radius;
+		changed = true;
+	}
+	if (changed) {
+		Unknown84.Set(Unknown7C.X - Unknown74.X, Unknown7C.Y - Unknown74.Y);
+		Unknown51 = true;
+	}
+}
 
+// 0x7C1350 .. 0x7C1770 are not rebuilt yet, but for the inline below:
+// 0x7C0260, 0x7C1120, 0x7C1510 and 0x7C1A90 expand it (FAIL_IF on 1039).
 
 
 
@@ -935,162 +1033,64 @@ void StarmapPipClass::Unknown_14()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// NOT EXACT: written from the pseudocode (D64), functional
 inline void StarmapPipClass::Unknown_Set_Mult(float mult)
 {
+	if (Mult == mult) return;
 	FAIL_IF(CurMult < WWMATH_EPSILON) {
 		CurMult = 1.0f;
 	}
-	float x = Unknown68.X / CurMult;
-	float y = Unknown68.Y / CurMult;
+	Vector2 scale(Unknown68.X / CurMult, Unknown68.Y / CurMult);
 	Mult = mult;
 	CurMult = Unknown54 * mult;
-	Unknown_7C1770(x, y);
+	Unknown_7C1770(scale.X, scale.Y);
+}
+
+
+// @0x7C1A90
+void StarmapPipClass::Unknown_7C1A90(float mult)
+{
+	if (Unknown50) {
+		if (mult < 0.5f) {
+			mult = 0.5f;
+		}
+		Unknown_Set_Mult(mult);
+	}
+}
+
+
+
+
+
+
+
+inline void StarmapPipClass::Unknown_Set_54(float value)
+{
+	if (Unknown54 == value) return;
+	FAIL_IF(CurMult < WWMATH_EPSILON) {
+		CurMult = 1.0f;
+	}
+	Vector2 scale(Unknown68.X / CurMult, Unknown68.Y / CurMult);
+	Unknown54 = value;
+	CurMult = Mult * value;
+	Unknown_7C1770(scale.X, scale.Y);
+}
+
+
+// @0x7C1B70
+void StarmapPipClass::Unknown_7C1B70(float value)
+{
+	if (Unknown50) {
+		Unknown_Set_54(value);
+	}
+}
+
+// @0x7C1C30
+void StarmapPipClass::Unknown_7C1C30()
+{
+	CurMult = Mult * Unknown54;
 }
 
 // 0x7C1C50 ('CurMult < WWMATH_EPSILON' 1157) is not rebuilt yet.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1172,7 +1172,17 @@ inline void StarmapPipClass::Unknown_Set_Mult(float mult)
 void StarmapPipClass::Unknown_7C2060(int mode)
 {
 	ShowCoords = mode;
-	if (Interface && mode > 0 && mode < 3) {
+	if (!Interface) {
+		if (XPos->Peek_Scene()) {
+			XPos->Remove();
+		}
+		if (YPos->Peek_Scene()) {
+			YPos->Remove();
+		}
+		if (ZPos->Peek_Scene()) {
+			ZPos->Remove();
+		}
+	} else if (mode > 0 && mode <= 2) {
 		InterfaceSortClass sort(Interface.Peek());
 		if (!XPos->Peek_Scene()) {
 			XPos->Add((SceneClass *)Interface->Unknown44);
@@ -1183,25 +1193,41 @@ void StarmapPipClass::Unknown_7C2060(int mode)
 		if (!ZPos->Peek_Scene()) {
 			ZPos->Add((SceneClass *)Interface->Unknown44);
 		}
-		return;
-	}
-	if (XPos->Peek_Scene()) {
-		XPos->Remove();
-	}
-	if (YPos->Peek_Scene()) {
-		YPos->Remove();
-	}
-	if (ZPos->Peek_Scene()) {
-		ZPos->Remove();
-	}
-	if (Interface) {
+	} else {
+		if (XPos->Peek_Scene()) {
+			XPos->Remove();
+		}
+		if (YPos->Peek_Scene()) {
+			YPos->Remove();
+		}
+		if (ZPos->Peek_Scene()) {
+			ZPos->Remove();
+		}
 		ShowCoords = 0;
 	}
 }
 
-// 0x7C2280, 0x7C2340 .. 0x7C2D30, 0x7C2DA0 (the labels' vector clear) .. 0x7C30E0 are not rebuilt yet.
+// @0x7C2280
+void StarmapPipClass::Unknown_7C2280()
+{
+	for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
+		delete *it;
+	}
+	Labels.clear();
+}
 
-// NOT EXACT: written from the pseudocode (D64), functional
+// 0x7C2340 and 0x7C2850 are not rebuilt yet.
+
+// @0x7C2D30
+void StarmapPipClass::Unknown_7C2D30()
+{
+	TargetPath->Unknown_7B9CD0();
+	WarpPath->Unknown_7B9CD0();
+}
+
+// 0x7C2DA0 (the labels' vector clear) .. 0x7C30E0 are not rebuilt yet.
+
+
 // @0x7C3220
 Unknown_7C3220Class::Unknown_7C3220Class(const RefCountPtr<SceneClass> &scene, bool arg, int type) :
 	ObjectID(0),
@@ -1210,6 +1236,16 @@ Unknown_7C3220Class::Unknown_7C3220Class(const RefCountPtr<SceneClass> &scene, b
 {
 	Unknown_BE67BC->Load("fc_radar.ini");
 	switch (type) {
+		case 4:
+			Text = Create_NEW(new FontSys("RADAR_NAME", 0, 0));
+			Text->Set_Sort_Level(arg ? 1 : 2);
+			Text->Unknown_6CE910(!arg);
+			break;
+		case 3:
+			Text = Create_NEW(new FontSys("RADAR_JUMPSTART", 0, 0));
+			Text->Set_Sort_Level(3);
+			Text->Unknown_6D8A80(true);
+			break;
 		case 0:
 			Text = Create_NEW(new FontSys("RADAR_GROUP", 0, 0));
 			Text->Set_Sort_Level(4);
@@ -1222,20 +1258,10 @@ Unknown_7C3220Class::Unknown_7C3220Class(const RefCountPtr<SceneClass> &scene, b
 			Text = Create_NEW(new FontSys("RADAR_OBJECT", 0, 0));
 			Text->Set_Sort_Level(6);
 			break;
-		case 3:
-			Text = Create_NEW(new FontSys("RADAR_JUMPSTART", 0, 0));
-			Text->Set_Sort_Level(3);
-			Text->Unknown_6D8A80(true);
-			break;
-		case 4:
-			Text = Create_NEW(new FontSys("RADAR_NAME", 0, 0));
-			Text->Set_Sort_Level(arg ? 1 : 2);
-			Text->Unknown_6CE910(!arg);
-			break;
 	}
 }
 
-// NOT EXACT: written from the pseudocode (D64), functional
+
 // @0x7C3720
 Unknown_7C3220Class::~Unknown_7C3220Class()
 {
@@ -1248,34 +1274,32 @@ Unknown_7C3220Class::~Unknown_7C3220Class()
 // @0x7C3830
 void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 {
-	if (!co) {
+	if (co) {
+		unsigned id = co->Get_Game_ID();
+		std::string name("");
+		co->Unknown_6FF7A0(name);
+		if (ObjectID != id || strcmp(Text->Unknown_6D87D0(), name.c_str()) != 0) {
+			ObjectID = id;
+			if (name.compare("Unknown") == 0 && Name.length()) {
+				name = Name;
+			}
+			Text->Change_Text(name.c_str(), 0);
+			if (!Text->Peek_Scene()) {
+				Text->Add(Scene.Peek());
+			}
+		}
 		if (ObjectID) {
-			ObjectID = 0;
-			Text->Remove();
+			StarmapDataClass *sdata = Get_Starmap_Data(co, false);
+			if (!sdata) {
+				ObjectID = 0;
+				Text->Remove();
+			} else {
+				Text->Set_Position(sdata->Get_Position());
+			}
 		}
-		return;
-	}
-	unsigned id = co->Get_Game_ID();
-	std::string name("");
-	co->Unknown_6FF7A0(name);
-	if (ObjectID != id || strcmp(Text->Unknown_6D87D0(), name.c_str()) != 0) {
-		ObjectID = id;
-		if (name.compare("Unknown") == 0 && Name.length()) {
-			name = Name;
-		}
-		Text->Change_Text(name.c_str(), 0);
-		if (!Text->Peek_Scene()) {
-			Text->Add(Scene.Peek());
-		}
-	}
-	if (ObjectID) {
-		StarmapDataClass *sdata = Get_Starmap_Data(co, false);
-		if (!sdata) {
-			ObjectID = 0;
-			Text->Remove();
-		} else {
-			Text->Set_Position(sdata->Get_Position());
-		}
+	} else if (ObjectID) {
+		ObjectID = 0;
+		Text->Remove();
 	}
 }
 
@@ -1290,9 +1314,16 @@ void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 **	the slots' messages (0xB9F50C-0xB9F5D8). 'Starmap_Label' 0xB9F31C is pooled with an earlier object's.
 **	0x7C3830 ends the claim; 0x7C3A90 (triage's hint for the end) is not settled.
 **
-**	The FAIL_IF on 1039 sits in an inline the client expands in 0x7C0260, 0x7C1120, 0x7C1510 and 0x7C1A90
-**	(Unknown_Set_Mult here), so VC6 inlined it from a definition later in the file.
+**	The FAIL_IFs on 1039 and 1069 sit in inlines the client expands (1039: 0x7C0260, 0x7C1120, 0x7C1510, 0x7C1A90;
+**	1069: 0x7C1510, 0x7C1B70): Unknown_Set_Mult and Unknown_Set_54 here, defined where their lines put them, after
+**	their first callers (VC6 inlines them from the later definition). 0x7C2280 (no caller) is the labels' delete
+**	that 0x7C0AF0 and the destructor expand; 0x7C0D70 has the loop written out (that form is the exact one there).
+**	+0x84 is a Vector2: as two ints the constructor's 'or ecx,-1' moved one store earlier.
 **
-**	NOT EXACT (D64): every function marked, written from the pseudocode, functional. Not rebuilt: 0x7C0440,
-**	0x7C0620, 0x7C0910, 0x7C0EA0-0x7C1C50, 0x7C2280-0x7C30E0 (the POC and clienttest get them from stubs).
+**	Exact: 0x7BF930, 0x7BFF20, 0x7C01C0, 0x7C0240, 0x7C0330, 0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0,
+**	0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1280, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C2280, 0x7C2D30,
+**	0x7C3220, 0x7C3720. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
+**	int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order).
+**	Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1350-0x7C1770, 0x7C1C50, 0x7C2340, 0x7C2850,
+**	0x7C2DA0-0x7C30E0 (the POC and clienttest get them from generated stubs).
 */

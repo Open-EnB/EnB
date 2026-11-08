@@ -45,7 +45,7 @@ class Font3DInstanceClass;
 class FileClass;
 class RefCountClass;
 class LayerClass;
-class PDAInterfaceUnknownA0Class;	// NAME 1: neutral (D10): what the PDA's +0xA8 object's 0x7C8DB0 returns (its +0xA0)
+class StarmapPipClass;	// starmap_pip.h: what the PDA's +0xA8 object's 0x7C8DB0 returns (its +0xA0)
 // what 0x49F200 returns (the referral rewards), as far as SClient 0x751460 calls it: 0x49F300 gives one entry per
 // point to spend, 12 bytes each
 struct BuddyRewardStruct	// NAME 2: what 0x751460 sums from it
@@ -335,7 +335,7 @@ public:
 	void Unknown_7BD920(int index);						// 0x7BD920 (cpacket.cpp: WARP_INDEX 156)  // NAME 1 [index]: the packet's Index
 	void Unknown_7BD6E0(ClientObjectClass *target);	// 0x7BD6E0 (the main view's 0x513630 / 0x512400: the target)  // NAME 1 [target]: what 0x512400 passes
 	void Unknown_7BCA40(bool arg); bool Unknown_7BD980(); const class NavigationListClass &Unknown_7BD960();	// 0x7BCA40 (the main view's slot +0x18); 0x7BD980: the warp path is built, 0x7BD960 the path (ui_cpit.cpp's warp button 0x583250)  // NAME 1 [arg]: neutral
-	void Unknown_7BCA70(GutterRadarClass *object, PDAInterfaceUnknownA0Class *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
+	void Unknown_7BCA70(GutterRadarClass *object, StarmapPipClass *arg, const RefCountPtr<RefCountClass> &scene);	// 0x7BCA70 (the main view's 0x512A00, every frame; the scene's RefCountPtr: VC6 binds Create_Peek(SceneClass *) to 0x50BA60's RefCountPtr<RefCountClass>, and a named RefCountPtr<SceneClass> adds a frame slot the client lacks)  // NAME 1 [object, arg, scene]: what 0x512A00 passes
 
 	char Unknown00[0x4D]; bool Unknown4D; char Unknown4E[0x50 - 0x4E];	// +0x4D: names of the objects under the mouse ('/art name', 0x74ABC0)
 };
@@ -345,7 +345,7 @@ public:
 class PDAInterfaceUnknownA8Class	// NAME 1: neutral (D10)
 {
 public:
-	PDAInterfaceUnknownA0Class *Unknown_7C8DB0(bool on);	// 0x7C8DB0 (its +0xA0, or NULL when its +0x7C is set and +0xA0's 0x693040 says no)  // NAME 1 [on]: what 0x512A00 passes
+	StarmapPipClass *Unknown_7C8DB0(bool on);	// 0x7C8DB0 (its +0xA0, or NULL when its +0x7C is set and +0xA0's 0x693040 says no)  // NAME 1 [on]: what 0x512A00 passes
 };
 
 #ifndef PDAINT_H	// pdaint.cpp's PDA (SClient +0x1284; Init news it, 0xC0 bytes), as far as SClient and the main view's 0x512A00 use it (pdaint.h's class where it comes first)

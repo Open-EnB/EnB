@@ -13,6 +13,7 @@
 #include "radar_system_data_cache.h"
 #include "nav_list_builder.h"
 #include "map_pip.h"
+#include "starmap_pip.h"
 #include "option.h"
 #include "targeting.h"
 #include "wwmath.h"
@@ -24,14 +25,13 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_template.h"
 
-// starmap_pip.cpp's window (what the PDA's 0x7C8DB0 returns), not rebuilt
-class PDAInterfaceUnknownA0Class : public MapPipClass	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass *mouse_target);	// 0x7C0440  // NAME 2 [hover, mouse_target]: its G_ASSERT
-	void Unknown_7C0620(RadarSystemDataCacheClass *entry);	// 0x7C0620  // NAME 2 [entry]: as the gutter's Update
-	void Unknown_7C0910(ClientObjectClass *target, NavListBuilderClass *warp_path, NavListBuilderClass *target_path);	// 0x7C0910  // NAME 2 [target, warp_path, target_path]: what it receives
-};
+// starmap_pip.cpp's window (what the PDA's 0x7C8DB0 returns): starmap_pip.h's StarmapPipClass
+
+
+
+
+
+
 
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as avatar_pip.cpp's
 
@@ -85,7 +85,7 @@ void RadarSystemClass::Unknown_7BCA40(bool arg)
 
 // NOT EXACT: register (ours keeps a zero register and this in edi; the client gutter in ebx, starmap in edi, this in ebp)
 // @0x7BCA70
-void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, PDAInterfaceUnknownA0Class *starmap, const RefCountPtr<RefCountClass> &scene)
+void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *gutter, StarmapPipClass *starmap, const RefCountPtr<RefCountClass> &scene)
 {
 	GutterCount = 0;
 	if (!gutter && !starmap) {
