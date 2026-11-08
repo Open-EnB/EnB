@@ -100,15 +100,15 @@ void StarmapPipClass::Unknown_1C(int arg)
 	Unknown_7C2060(ShowCoords + 1);
 }
 
-// NOT EXACT: written from the pseudocode (D64), functional
 // @0x7C0260
 void StarmapPipClass::Unknown_20(int arg)
 {
 	Unknown60 = Client->AvatarID;
-	if (arg && Unknown50) {
+	if ((char)arg && Unknown50) {
 		Unknown_Set_ScaleMult(0.5f);
 	}
 }
+
 
 
 // @0x7C0330
@@ -1270,7 +1270,6 @@ Unknown_7C3220Class::~Unknown_7C3220Class()
 	Unknown_BE67BC->Unload("fc_radar.ini");
 }
 
-// NOT EXACT: written from the pseudocode (D64), functional
 // @0x7C3830
 void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 {
@@ -1290,11 +1289,11 @@ void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 		}
 		if (ObjectID) {
 			StarmapDataClass *sdata = Get_Starmap_Data(co, false);
-			if (!sdata) {
+			if (sdata) {
+				Text->Set_Position(sdata->Get_Position());
+			} else {
 				ObjectID = 0;
 				Text->Remove();
-			} else {
-				Text->Set_Position(sdata->Get_Position());
 			}
 		}
 	} else if (ObjectID) {
@@ -1302,6 +1301,7 @@ void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 		Text->Remove();
 	}
 }
+
 
 // @0x7C3A90
 void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int bottom)
