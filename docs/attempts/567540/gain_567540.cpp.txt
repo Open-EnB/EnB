@@ -1,0 +1,25 @@
+// gains 0x42C4E0, loses nothing (RT1 2026-11-08, try --fit): 11-01 Batch variant v2 of UIChatPanelClass::Unknown_567540, lines 1205-1227 of app/client/ui_chat_panel.cpp at 2c2c7fff
+// idea: Write the push as `names.insert(names.end(), ...)` so the expansion is one layer shallower, the budget is spent differently and _Buynode is left called.
+bool UIChatPanelClass::Unknown_567540(int arg)
+{
+	if (!Unknown1E8->Is_Active()) {
+		Unknown1EC = arg;
+		if (arg) {
+			int count = 0;
+			Unknown1F0 = false;
+			std::list<std::string> names;
+			for (int i = 0; i < 5; i++) {
+				if (Unknown188[i] == "") break;
+				names.insert(names.end(), Unknown188[i]);
+				count++;
+			}
+			if (count) {
+				((UIChatReplyListClass *)Unknown1E8)->Unknown_56EED0(names, Unknown1EC);
+				Unknown1E8->Unknown_58();
+				return(true);
+			}
+			Client->As_Space_Client()->Unknown_74D990(17, "Unable to reply - no one to reply to.", 0);
+		}
+	}
+	return(false);
+}
