@@ -58,8 +58,7 @@ def measure(importer, n, orig):
     finally:
         with open(CPP, 'wb') as f:
             f.write(orig)
-        importer._release_lock()
-        importer._lock_held = False
+        importer.release_lock()
 
 
 def windows(ok):
