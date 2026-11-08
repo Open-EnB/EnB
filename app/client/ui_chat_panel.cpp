@@ -191,7 +191,7 @@ class Unknown65BFD0Class { public: Unknown65BFD0Class(LineDisplayClientClass *cl
 // NOT EXACT: functional (WE1): the first compile of the constructor, not yet aligned
 // 0x561DD0
 ChatPanelInterface::ChatPanelInterface(SClient *client) :
-	UIChatPanelBaseClass(client),
+	ChatPanelUIBase(client),
 	UnknownA0(0),
 	UnknownD8(NULL),
 	UnknownDC(NULL),
@@ -505,7 +505,7 @@ void ChatPanelInterface::Unknown_58()
 	InterfaceSortScopeClass sort(this);
 	Unknown110->Unknown_7E36B0(Client->As_Space_Client(), Unknown_497300(UnknownA4[5]->Peek_Unknown30()), 0);
 	ChatInt->Unknown_58();
-	UIChatPanelBaseClass::Unknown_58();
+	ChatPanelUIBase::Unknown_58();
 	UIViewClass *view = View;
 	Unknown1E8->Unknown_7C(view, 0);
 }

@@ -5,7 +5,7 @@
   "0x474080"
  ],
  "copy": "reconstructed",
- "description": "UIChatPanelBaseClass, the chat panel's base (ui_chat_panel_base.cpp's __FILE__ 0xB7D504; client 0x56D280-0x56E2A0): the constructor, destructor, slots +0x58, +0x88, +0x8C, +0x98 and the button and slider helpers so far",
+ "description": "ChatPanelUIBase, the chat panel's base (ui_chat_panel_base.cpp's __FILE__ 0xB7D504; client 0x56D280-0x56E2A0): the constructor, destructor, slots +0x58, +0x88, +0x8C, +0x98 and the button and slider helpers so far",
  "expected": {},
  "in_tree": [
   "0x42A820",

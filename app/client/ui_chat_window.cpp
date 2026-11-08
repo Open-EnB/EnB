@@ -56,7 +56,7 @@ inline ChatWinStruct::~ChatWinStruct()
 
 // 0x56F420
 ChatWindowInterface::ChatWindowInterface(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit) :
-	UIChatPanelBaseClass(client),
+	ChatPanelUIBase(client),
 	ChatHistory(history),
 	UnknownA4(edit),
 	UnknownDC(NULL),
@@ -147,7 +147,7 @@ void ChatWindowInterface::Unknown_54()
 // 0x56F9F0
 bool ChatWindowInterface::Unknown_98(const char *name, const char *ini)
 {
-	if (!UIChatPanelBaseClass::Unknown_98(name, ini)) return(false);
+	if (!ChatPanelUIBase::Unknown_98(name, ini)) return(false);
 	DestBttnText = Create_NEW(new FontSys("Chat_Dest_Bttn", 0, NULL));
 	Viewport.TLBone = InterfaceMesh->Get_Bone_Index("chat_vp_tl");
 	Viewport.BRBone = InterfaceMesh->Get_Bone_Index("chat_vp_br");
@@ -231,7 +231,7 @@ void ChatWindowInterface::Unknown_58()
 		Unknown_5715F0(true, true);
 		Unknown_571470(true);
 	}
-	UIChatPanelBaseClass::Unknown_58();
+	ChatPanelUIBase::Unknown_58();
 }
 
 // 0x570210

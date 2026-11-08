@@ -23,7 +23,7 @@ public:
 class PopupBrowserSettingsClass { public: void Unknown_7CB240(int a); };	// NAME 1 [PopupBrowserSettingsClass, a]: as ui_registration.cpp's
 
 // The pop-up browser panel ('fc_jweb01.ini', 'JWEB01'; table 0xAF59F8), declared as far as its rebuilt members use it
-class UIPopupBrowserClass : public UIChatPanelBaseClass	// NAME 3: class-from-file (D24) for ui_popup_browser.cpp
+class UIPopupBrowserClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for ui_popup_browser.cpp
 {
 public:
 	UIPopupBrowserClass(SClient *client, int browser_id, const char *title, const char *url = NULL);	// 0x5DAE90  // NAME 1 [client, browser_id, title, url]: neutral
@@ -45,7 +45,7 @@ public:
 // NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it)
 // @0x5DAE90
 UIPopupBrowserClass::UIPopupBrowserClass(SClient *client, int browser_id, const char *title, const char *url) :
-	UIChatPanelBaseClass(client)
+	ChatPanelUIBase(client)
 {
 	Url.size(); Url.size();		// dead reads: spend the inline budget toward the client's out-of-line _Tidy
 	((int *)Unknown70)[1] = 1;
@@ -83,7 +83,7 @@ void UIPopupBrowserClass::Unknown_54()
 void UIPopupBrowserClass::Unknown_58()
 {
 	if (!Active) {
-		UIChatPanelBaseClass::Unknown_58();
+		ChatPanelUIBase::Unknown_58();
 		((LineDisplayClientClass *)Client)->As_Space_Client()->Mouse->Unknown_5153B0();
 	}
 }

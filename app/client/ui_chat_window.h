@@ -39,7 +39,7 @@ struct ChatWinStruct : public ChatViewportStruct	// NAME 1: neutral (D10)
 
 // The chat window (0xE8 bytes; constructor 0x56F420, destructor 0x56F560, table 0xAF0390); the chat panel's ChatInt
 // holds the split window derived from it (ui_chat_window_split.cpp, 0x571F00)
-class ChatWindowInterface : public UIChatPanelBaseClass	// NAME 5: the client's RTTI (.?AVChatWindowInterface@@ 0xB7D3E0, the Sender_Type of the callback table 0xAEFFF8 and of 0x570390's emit): the assert's 'ChatInt'
+class ChatWindowInterface : public ChatPanelUIBase	// NAME 5: the client's RTTI (.?AVChatWindowInterface@@ 0xB7D3E0, the Sender_Type of the callback table 0xAEFFF8 and of 0x570390's emit): the assert's 'ChatInt'
 {
 public:
 	ChatWindowInterface(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit);	// 0x56F420  // NAME 3 [history]: the asserts' ChatHistory; NAME 1 [client, edit]: neutral

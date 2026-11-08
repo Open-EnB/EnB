@@ -354,4 +354,11 @@ Where the client's names disagree with these conventions, the client's are used;
   `Class` suffix: was `UIChatPanelClass` (NAME 3, D24), NAME 5, in every file's local view of it, clienttest's stub and
   expected trace and the POC. The chat window is `ChatWindowInterface` (`.?AVChatWindowInterface@@` 0xB7D3E0; was
   `UIChatIntClass`). Their base `UIChatPanelBaseClass` is `ChatPanelUIBase` in the same RTTI
-  (`MemberCallback<MovableUIBackGadget, ChatPanelUIBase, ...>`), not renamed yet.
+  (`MemberCallback<MovableUIBackGadget, ChatPanelUIBase, ...>`), renamed by SY1 (next entry).
+* **ChatPanelUIBase (2026-11-08, SY1, P-RN1-2):** the client's RTTI names the base of the chat panel, the chat window,
+  the friends, player options, popup browser and starbase lights windows `ChatPanelUIBase` (the receiver in
+  `MemberCallback<MovableUIBackGadget, ChatPanelUIBase, ...>`, type descriptor 0xB7D5E8, file offset 0x77D5F0: it is
+  returned by 0x56DF50, a slot of the callback table 0xAF0174 that the class's own destructor 0x56D330 (exact) stores
+  with `this` as receiver and 0x56DEE0 as method; no `.?AV` descriptor of its own), without a `Class`
+  suffix: was `UIChatPanelBaseClass` (NAME 3, D24), NAME 5. The files keep their names: ui_chat_panel_base.cpp is the
+  client's own file name (its asserts' `__FILE__` 0xB7D504), not derived from the class.

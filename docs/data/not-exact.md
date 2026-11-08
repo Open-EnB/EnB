@@ -346,7 +346,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:1314` | `ChatPanelInterface::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |
 | `app/client/ui_chat_panel.cpp:1987` | `ChatPanelInterface::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
 | `app/client/ui_chat_panel.cpp:2382` | `ChatPanelInterface::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
-| `app/client/ui_chat_panel_base.cpp:90` | `UIChatPanelBaseClass::Unknown_56D510` | marker | NOT EXACT: functional (WE1) 0x56D510 |
+| `app/client/ui_chat_panel_base.cpp:90` | `ChatPanelUIBase::Unknown_56D510` | marker | NOT EXACT: functional (WE1) 0x56D510 |
 | `app/client/ui_chat_window.cpp:170` | `ChatWindowInterface::Unknown_A0` | marker | NOT EXACT: functional (CW2): frame 0x54 vs the client's 0x50 and the history loop (0.40) |
 | `app/client/ui_chat_window.cpp:246` | `ChatWindowInterface::Unknown_7C` | marker | NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (eax / edx swapped; 0.81) |
 | `app/client/ui_chat_window.cpp:351` | `ChatWindowInterface::Unknown_A4` | marker | NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first; frame 8 vs 0xC; 0.61) |

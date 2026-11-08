@@ -21,7 +21,7 @@ class OptionFontInterfaceEvent;
 
 enum { NUM_COMBO = 5 };	// NAME 3: the assert's
 
-#include "ui_chat_panel_base.h"	// UIChatPanelBaseClass (moved out of this header for ui_chat_window.h)
+#include "ui_chat_panel_base.h"	// ChatPanelUIBase (moved out of this header for ui_chat_window.h)
 
 // The base of the windows the panel holds (ChatInt, +0xF8, +0x104): an int at +0x98 (0x565F80: set, the window closed)
 class UIChatPanelWindowClass : public InterfaceClass	// NAME 1: neutral (D10)
@@ -38,7 +38,7 @@ public:
 #include "ui_chat_window_split.h"
 
 // The chat panel (SClient +0x127C; 0x268 bytes, constructor 0x561DD0, table 0xAEFF1C)
-class ChatPanelInterface : public UIChatPanelBaseClass	// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408)
+class ChatPanelInterface : public ChatPanelUIBase	// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408)
 {
 public:
 	ChatPanelInterface(SClient *client);					// 0x561DD0

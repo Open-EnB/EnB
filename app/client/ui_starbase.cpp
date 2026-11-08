@@ -337,7 +337,7 @@ struct UIStarbaseLightsGadgetHolderStruct	// NAME 1: neutral (D10)
 // 0xAF8610; no caller of the constructor in the client: a debug panel). Its texts are 'near_light02a',
 // 'far_light02a', 'Int_light02a', 'Fill_light02a' and 'GO_light02a' in the 'fa_light02a.ini' model (0x646360).
 // Declared as far as this file's functions use it (interim placement in this file, D137).
-class UIStarbaseLightsClass : public UIChatPanelBaseClass	// NAME 1: neutral, after its model's 'light02a' names
+class UIStarbaseLightsClass : public ChatPanelUIBase	// NAME 1: neutral, after its model's 'light02a' names
 {
 public:
 	UIStarbaseLightsClass(SClient *client);				// 0x646170  // NAME 1 [client]: the base's
@@ -356,7 +356,7 @@ public:
 	void Unknown_647B30();								// 0x647B30 (the colour pad dragged)
 	void Unknown_647F30(Vector3 point);					// 0x647F30 (the pull placed at a pad point, the colour read)  // NAME 1 [point]: neutral
 
-	// The base's +0x84 model as the font manager takes it (UIChatPanelBaseClass declares it a plain pointer)
+	// The base's +0x84 model as the font manager takes it (ChatPanelUIBase declares it a plain pointer)
 	const RefCountPtr<RenderObjClass> &Model() { return(*(const RefCountPtr<RenderObjClass> *)&Unknown84); }	// NAME 1 [Model]: neutral
 
 	GadgetClass *UnknownA0[6];							// +0xA0 (the buttons exit, save, light00-03: 0x646360; the constructor clears them with one memset)
@@ -382,7 +382,7 @@ public:
 
 // 0x646170
 UIStarbaseLightsClass::UIStarbaseLightsClass(SClient *client) :
-	UIChatPanelBaseClass(client),
+	ChatPanelUIBase(client),
 	UnknownD8(NULL),
 	Starbase(NULL),
 	UnknownE0(0),
@@ -464,7 +464,7 @@ void UIStarbaseLightsClass::Unknown_54()
 void UIStarbaseLightsClass::Unknown_58()
 {
 	if (!Active) {
-		UIChatPanelBaseClass::Unknown_58();
+		ChatPanelUIBase::Unknown_58();
 		UnknownE0 = 0;
 		Starbase = ((SBaseViewClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown135C)->Get_Starbase().Peek();
 		Starbase->Unknown_640D80(&UnknownE4, &UnknownE8, &UnknownEC);

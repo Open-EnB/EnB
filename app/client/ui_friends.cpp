@@ -48,7 +48,7 @@ void UIFriendsClass::Unknown_58()
 {
 	if (!Is_Active()) {
 		InterfaceSortScopeClass sort(this);
-		UIChatPanelBaseClass::Unknown_58();
+		ChatPanelUIBase::Unknown_58();
 		std::vector<UIFriendsPlayerInfoClass *>::iterator it;
 		for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
 			delete *it;

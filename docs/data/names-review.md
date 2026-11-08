@@ -7,9 +7,9 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 179 |
+| 5 | the client names it | 180 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
-| 3 | by convention from a client-named file or sibling | 1627 |
+| 3 | by convention from a client-named file or sibling | 1626 |
 | 2 | describes what the code does | 3778 |
 | 1 | neutral placeholder | 19429 |
 
@@ -13148,7 +13148,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5A40` | `app/client/ui_playeropt.cpp:450` | untagged neutral name (D10) |
 | 1 | `Unknown_5DAD50` | `app/client/ui_playeropt.cpp:460` | untagged neutral name (D10) |
 | 1 | `ui_playeropt.h` | `app/client/ui_playeropt.h:4` | provisional header name for ui_playeropt.cpp |
-| 1 | `client` | `app/client/ui_playeropt.h:23` | UIChatPanelBaseClass's |
+| 1 | `client` | `app/client/ui_playeropt.h:23` | ChatPanelUIBase's |
 | 1 | `Unknown_54` | `app/client/ui_playeropt.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_playeropt.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_playeropt.h:27` | untagged neutral name (D10) |
@@ -23748,7 +23748,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `manager` | `app/client/ui_chat_panel.h:53` | the FAIL_IF's |
 | 3 | `chat_int` | `app/client/ui_chat_panel.h:103` | the FAIL_IF's; NAME 1 [event]: neutral |
 | 3 | `ChatInt` | `app/client/ui_chat_panel.h:132` | the assert's 'ChatInt.Peek()' |
-| 3 | `UIChatPanelBaseClass` | `app/client/ui_chat_panel_base.h:17` | class-from-file (D24) for app\client\ui_chat_panel_base.cpp |
 | 3 | `Interface_Mesh` | `app/client/ui_chat_panel_base.h:37` | ui_chat_window.cpp's assert '!Interface_Mesh()' (0x56F780) |
 | 3 | `As_Space_Client` | `app/client/ui_chat_window.cpp:38` | ui_manu.cpp's FAIL_IF's |
 | 3 | `TLBone` | `app/client/ui_chat_window.h:28` | the assert's 'chat_win->TLBone' |

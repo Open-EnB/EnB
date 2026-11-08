@@ -35,7 +35,7 @@ static const char *Unknown_B84594[] = { "exit", "button01", "button02", "button0
 
 // 0x5D8C40
 UIPlayerOptClass::UIPlayerOptClass(SClient *client) :
-	UIChatPanelBaseClass(client),
+	ChatPanelUIBase(client),
 	Slider(NULL),
 	Top(0),
 	Selection(-1),
@@ -92,7 +92,7 @@ void UIPlayerOptClass::Unknown_58()
 {
 	if (!Is_Active()) {
 		InterfaceSortScopeClass sort(this);
-		UIChatPanelBaseClass::Unknown_58();
+		ChatPanelUIBase::Unknown_58();
 		Unknown_5D9BB0();
 		Unknown_5D9C70();
 		Top = -1;
