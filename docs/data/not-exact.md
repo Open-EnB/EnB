@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-708 entries in 203 files.
+707 entries in 203 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -165,7 +165,6 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_render.cpp:569` | `GalaxyMapRenderClass::Unknown_7A7D70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:823` | `GalaxyMapRenderClass::Unknown_7A8B70` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:925` | `GalaxyMapRenderClass::Unknown_7A9500` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1080` | `GalaxyMapRenderMeshClass::Intersect` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1187` | `GalaxyMapRenderSystemClass::~GalaxyMapRenderSystemClass` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1370` | `GalaxyMapRenderSectorClass::Unknown_7AB6D0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1507` | `GalaxyMapRenderSectorClass::Unknown_7AC130` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
