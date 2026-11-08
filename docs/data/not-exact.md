@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-702 entries in 201 files.
+708 entries in 202 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -226,6 +226,12 @@ edit the comments in the code, not this file.
 | `app/client/nlp.cpp:460` | `PlayerNLPClass::Unknown_78F050` | marker | NOT EXACT: functional for POC (D64), shape (a merged or split tail) |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
+| `app/client/pdaint.cpp:66` | `PDAInterfaceClass::Unknown_54` | mention | NOT EXACT: registers (the client keeps this in ebp and pushes ebx late: 0.58)) |
+| `app/client/pdaint.cpp:208` | `PDAInterfaceClass::Unknown_68` | mention | NOT EXACT: shape (the chat window block, the sound tail and the cases' order: 0.17)) |
+| `app/client/pdaint.cpp:530` | `PDAInterfaceClass::Unknown_695780` | mention | NOT EXACT: shape (the client's FAIL_IF returns share one tail: 0.15)) |
+| `app/client/pdaint.cpp:603` | `PDAInterfaceClass::Unknown_695A00` | mention | NOT EXACT: shape (cases 1 and 3 jump to the common return-true tail: 0.36)) |
+| `app/client/pdaint.cpp:650` | `PDAInterfaceClass::Unknown_695CE0` | mention | NOT EXACT: the last return (the client tests +0xB0 in eax with no xor: 0.70)) |
+| `app/client/pdaint.cpp:747` | `PDAInterfaceClass::Unknown_695FE0` | mention | NOT EXACT: block order (the client puts the off branch's own return first: 0.59)) |
 | `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |
 | `app/client/postate.cpp:1012` | `Unknown717010Class::Unknown_7179A0` | marker | NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0) |
 | `app/client/postate.cpp:1163` | `Unknown718510Class::Unknown_08` | marker | NOT EXACT: shape (17 rows: the client's first Normalize and the up-vector cross product load their operands in another order; five forms; attempts.py show 0x718830) |

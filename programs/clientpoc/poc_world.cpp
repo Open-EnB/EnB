@@ -22,14 +22,7 @@ UIHotKeysClass::UIHotKeysClass(SClient *client) : InterfaceClass((LineDisplayCli
 	STUB_CALLED("POC UIHotKeysClass: an empty InterfaceClass");
 }
 
-// ---------------------------------------------------------------- pdaint.cpp (0x693140, table 0xAFD148): 0xC0 bytes
-PDAInterfaceClass::PDAInterfaceClass(SClient *client) : InterfaceClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC PDAInterfaceClass: an empty InterfaceClass");
-	memset(Unknown84, 0, sizeof(Unknown84));
-	UnknownA8 = NULL;
-	memset(UnknownAC, 0, sizeof(UnknownAC));
-}
+// pdaint.cpp's PDA is real app code since PD1 (pdaint.cpp); its windows' stand-ins are in poc_world3.cpp.
 
 // ---------------------------------------------------------------- bridge (0x53B040): 0xC4 bytes, zero
 class BridgeInterfaceClass

@@ -123,7 +123,7 @@ public:
 	std::string Unknown_5682C0();						// 0x5682C0: +0x214
 	std::string Unknown_568440();						// 0x568440: +0x204
 	void Unknown_5685C0();								// 0x5685C0: the +0xF8 window released
-	void Unknown_568690();								// 0x568690: the +0x104 window released
+	void Unknown_568690(); RefCountPtr<UIChatPanelWindowClass> Unknown_694AA0() { return(Unknown104); }	// 0x568690: the +0x104 window released; 0x694AA0 (inline, out of line in pdaint.cpp's object): +0x104
 	int Unknown_5688E0(void **list);				// 0x5688E0: the count of a NULL-terminated list  // NAME 1 [list]: neutral
 	void Unknown_568910();								// 0x568910: the combo released
 	void Unknown_568950();								// 0x568950: the five combos rebuilt, the combo released

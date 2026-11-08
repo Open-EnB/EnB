@@ -348,21 +348,21 @@ public:
 	PDAInterfaceUnknownA0Class *Unknown_7C8DB0(bool on);	// 0x7C8DB0 (its +0xA0, or NULL when its +0x7C is set and +0xA0's 0x693040 says no)  // NAME 1 [on]: what 0x512A00 passes
 };
 
-// pdaint.cpp's PDA (SClient +0x1284; Init news it, 0xC0 bytes), as far as SClient and the main view's 0x512A00 use it
+#ifndef PDAINT_H	// pdaint.cpp's PDA (SClient +0x1284; Init news it, 0xC0 bytes), as far as SClient and the main view's 0x512A00 use it (pdaint.h's class where it comes first)
 class PDAInterfaceClass : public InterfaceClass
 {
 public:
 	PDAInterfaceClass(SClient *client);					// 0x693140
 	void Unknown_695F40();								// 0x695F40 (SClient 0x742530, ui_chat_panel.cpp, on every change of view)
 	void Unknown_695FE0(bool on);						// 0x695FE0 (the starbase view's 0x69CDE0 passes true)  // NAME 1 [on]: neutral
-	bool Unknown_695780(bool arg);						// 0x695780 (ui_ptrade.cpp's slot +0x58 passes false: the trade window's +0xDC)  // NAME 1 [arg]: neutral
-	void Unknown_695A00(int unknown1, int unknown2);	// 0x695A00 (ui_cinfo.cpp's key 4 passes 2, 1)  // NAME 1 [unknown1, unknown2]: neutral
+	bool Unknown_695780(int index);						// 0x695780 (ui_ptrade.cpp's slot +0x58 passes false: the trade window's +0xDC)  // NAME 1 [index]: neutral (pdaint.h)
+	bool Unknown_695A00(int index, bool arg);	// 0x695A00 (ui_cinfo.cpp's key 4 passes 2, 1)  // NAME 1 [index, arg]: neutral (pdaint.h)
 
 	char Unknown84[0xA8 - 0x84];
 	PDAInterfaceUnknownA8Class *UnknownA8;				// +0xA8 (0x512A00 calls its 0x7C8DB0)
 	char UnknownAC[0xC0 - 0xAC];
 };
-
+#endif
 // ui_scan.cpp's scanner (the cockpit's +0xD4): ui_scan.h
 class UIScanClass;
 
