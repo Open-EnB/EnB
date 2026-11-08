@@ -4,10 +4,10 @@ Functions named so far, by region and by the kind of evidence. "Exact" means pro
 
 | Region | Functions found | Named | Exact | vtable | strings | Named bytes (approx.) |
 |---|---|---|---|---|---|---|
-| app (E&B, 0x401000-0x8C1B50) | 18690 | 12934 | 12725 | 181 | 28 | 2029 KB |
-| libraries (0x8C1B50-end) | 11127 | 6614 | 6580 | 26 | 8 | 1299 KB |
+| app (E&B, 0x401000-0x8C1B50) | 18690 | 12972 | 12724 | 220 | 28 | 2062 KB |
+| libraries (0x8C1B50-end) | 11127 | 6615 | 6580 | 27 | 8 | 1300 KB |
 
-Functions first named through vtables in this run: 215.
+Functions first named through vtables in this run: 256.
 
 The library region also holds about 640 KB of linker padding and compiler-generated exception-handling stubs (docs/library-matching.md §3.7), which are not functions to name.
 

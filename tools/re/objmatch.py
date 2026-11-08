@@ -543,10 +543,14 @@ def run_self_names(img, objs, known, thunk):
                 v = thunk.get(v, v)
                 if owners.get(v) and norm(slot) not in owners[v]:
                     continue
+                if len(symbol_addresses().get(norm(slot), ())) > 1 or len(symbol_addresses().get(slot, ())) > 1:
+                    continue    # symbols.json has the symbol at several addresses: which one is this table's?
                 out.setdefault(slot, set()).add(v)
                 if slot.startswith(('??_E', '??_G')):
                     out.setdefault(('??_G' if slot[3] == 'E' else '??_E') + slot[4:], set()).add(v)
-    return out
+    # a self name is one address: a symbol named at several (two classes of one name, aux_roots' and
+    # delta.cpp's DeltaCompoundClass; KVAccessorClass<unsigned> tables) names none of them
+    return {k: v for k, v in out.items() if len(v) == 1}
 
 
 def match_objects(img, paths, region=None, callers=False):
@@ -915,6 +919,9 @@ def short_known(img, shorts, text, base, known, thunk, called, vptrs, claimed, f
                 n = slot[4:] if slot.startswith(('??_E', '??_G')) else slot
                 if owners.get(v) and n not in owners[v]:
                     continue        # symbols.json names another function there
+                if known.get(slot) and v not in known[slot]:
+                    continue        # the slot's symbol is known elsewhere: our table differs from the client's
+                    # here (ChatPanelInterface's +0x64 is its own empty 0x563260, ours inherits 0x5156B0)
                 slot_of[slot][v].add(kind)
     for name, addrs in called.items():
         for a in addrs:
