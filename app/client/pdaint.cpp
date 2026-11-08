@@ -146,7 +146,7 @@ void PDAInterfaceClass::Unknown_60()
 		FAIL_IF(!Get_Client()) return;
 		SClient *client = Get_Client()->As_Space_Client();
 		if (Experience) {
-			if (Experience->Unknown04 != Get_Client()->Unknown_28()) {
+			if (Experience->Get_Unknown04() != Get_Client()->Unknown_28()) {
 				Experience->Unknown_08(Get_Client()->Unknown_28());
 			}
 			Experience->Unknown_10();

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1608 |
 | 2 | describes what the code does | 3757 |
-| 1 | neutral placeholder | 18856 |
+| 1 | neutral placeholder | 18857 |
 
 ## For review (score 3 and below)
 
@@ -5498,7 +5498,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_686DD0` | `app/client/pdaint.cpp:107` | untagged neutral name (D10) |
 | 1 | `Unknown_58CF60` | `app/client/pdaint.cpp:110` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/pdaint.cpp:143` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/pdaint.cpp:149` | untagged neutral name (D10) |
+| 1 | `Get_Unknown04` | `app/client/pdaint.cpp:149` | untagged neutral name (D10) |
 | 1 | `UnknownB0` | `app/client/pdaint.cpp:154` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/pdaint.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_695780` | `app/client/pdaint.cpp:159` | untagged neutral name (D10) |
@@ -5551,45 +5551,46 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/pdaint.h:65` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/pdaint.h:66` | untagged neutral name (D10) |
 | 1 | `Unknown_58CF60` | `app/client/pdaint.h:67` | untagged neutral name (D10) |
+| 1 | `Get_Unknown04` | `app/client/pdaint.h:69` | neutral |
 | 1 | `Unknown04` | `app/client/pdaint.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/pdaint.h:70` | untagged neutral name (D10) |
-| 1 | `NUM_BUTTONS` | `app/client/pdaint.h:79` | the set-up's loop over 0xB90A38 |
-| 1 | `client` | `app/client/pdaint.h:80` | neutral |
-| 1 | `Unknown_54` | `app/client/pdaint.h:82` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/pdaint.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/pdaint.h:84` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/pdaint.h:85` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/pdaint.h:86` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/pdaint.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/pdaint.h:87` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/pdaint.h:88` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/pdaint.h:89` | InterfaceClass's |
-| 1 | `Unknown_7C` | `app/client/pdaint.h:89` | untagged neutral name (D10) |
-| 1 | `Unknown_695630` | `app/client/pdaint.h:90` | untagged neutral name (D10) |
-| 1 | `Unknown_695680` | `app/client/pdaint.h:91` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/pdaint.h:92` | neutral |
-| 1 | `Unknown_6956C0` | `app/client/pdaint.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/pdaint.h:71` | untagged neutral name (D10) |
+| 1 | `NUM_BUTTONS` | `app/client/pdaint.h:80` | the set-up's loop over 0xB90A38 |
+| 1 | `client` | `app/client/pdaint.h:81` | neutral |
+| 1 | `Unknown_54` | `app/client/pdaint.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/pdaint.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/pdaint.h:85` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/pdaint.h:86` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/pdaint.h:87` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/pdaint.h:87` | untagged neutral name (D10) |
+| 1 | `Unknown_70` | `app/client/pdaint.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/pdaint.h:89` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/pdaint.h:90` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/pdaint.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown_695630` | `app/client/pdaint.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown_695680` | `app/client/pdaint.h:92` | untagged neutral name (D10) |
 | 1 | `index` | `app/client/pdaint.h:93` | neutral |
-| 1 | `Unknown_695780` | `app/client/pdaint.h:93` | untagged neutral name (D10) |
-| 1 | `index, arg` | `app/client/pdaint.h:94` | neutral |
-| 1 | `Unknown_695A00` | `app/client/pdaint.h:94` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/pdaint.h:95` | neutral |
-| 1 | `Unknown_695C50` | `app/client/pdaint.h:95` | untagged neutral name (D10) |
-| 1 | `Unknown_695CE0` | `app/client/pdaint.h:96` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/pdaint.h:97` | neutral |
-| 1 | `Unknown_695D70` | `app/client/pdaint.h:97` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/pdaint.h:98` | neutral |
-| 1 | `Unknown_695DC0` | `app/client/pdaint.h:98` | untagged neutral name (D10) |
-| 1 | `Unknown_695E10` | `app/client/pdaint.h:99` | untagged neutral name (D10) |
-| 1 | `Unknown_695F40` | `app/client/pdaint.h:100` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/pdaint.h:101` | neutral |
-| 1 | `Unknown_695FE0` | `app/client/pdaint.h:101` | untagged neutral name (D10) |
-| 1 | `Buttons` | `app/client/pdaint.h:104` | neutral |
-| 1 | `InterfaceMesh` | `app/client/pdaint.h:105` | as ui_starmap.h's |
-| 1 | `Starmap` | `app/client/pdaint.h:110` | its class's |
-| 1 | `UnknownB0` | `app/client/pdaint.h:112` | untagged neutral name (D10) |
-| 1 | `Experience` | `app/client/pdaint.h:113` | its file's |
-| 1 | `UnknownBC` | `app/client/pdaint.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown_6956C0` | `app/client/pdaint.h:93` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/pdaint.h:94` | neutral |
+| 1 | `Unknown_695780` | `app/client/pdaint.h:94` | untagged neutral name (D10) |
+| 1 | `index, arg` | `app/client/pdaint.h:95` | neutral |
+| 1 | `Unknown_695A00` | `app/client/pdaint.h:95` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/pdaint.h:96` | neutral |
+| 1 | `Unknown_695C50` | `app/client/pdaint.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown_695CE0` | `app/client/pdaint.h:97` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/pdaint.h:98` | neutral |
+| 1 | `Unknown_695D70` | `app/client/pdaint.h:98` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/pdaint.h:99` | neutral |
+| 1 | `Unknown_695DC0` | `app/client/pdaint.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown_695E10` | `app/client/pdaint.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown_695F40` | `app/client/pdaint.h:101` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/pdaint.h:102` | neutral |
+| 1 | `Unknown_695FE0` | `app/client/pdaint.h:102` | untagged neutral name (D10) |
+| 1 | `Buttons` | `app/client/pdaint.h:105` | neutral |
+| 1 | `InterfaceMesh` | `app/client/pdaint.h:106` | as ui_starmap.h's |
+| 1 | `Starmap` | `app/client/pdaint.h:111` | its class's |
+| 1 | `UnknownB0` | `app/client/pdaint.h:113` | untagged neutral name (D10) |
+| 1 | `Experience` | `app/client/pdaint.h:114` | its file's |
+| 1 | `UnknownBC` | `app/client/pdaint.h:116` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/pip_scene.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/client/pip_scene.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_65B7E0` | `app/client/pip_scene.cpp:30` | untagged neutral name (D10) |
@@ -19873,11 +19874,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/option.h:128` | what it holds |
 | 2 | `CharacterID` | `app/client/option.h:129` | what it holds |
 | 2 | `num_items, num_slots` | `app/client/pdaint.h:28` | 0x695E10's FAIL_IFs; NAME 1 [type]: neutral |
-| 2 | `Equipment` | `app/client/pdaint.h:106` | its key's |
-| 2 | `Cargo` | `app/client/pdaint.h:107` | its key's |
-| 2 | `Vault` | `app/client/pdaint.h:108` | its key's |
-| 2 | `Character` | `app/client/pdaint.h:109` | its key's |
-| 2 | `Ping` | `app/client/pdaint.h:114` | its key's |
+| 2 | `Equipment` | `app/client/pdaint.h:107` | its key's |
+| 2 | `Cargo` | `app/client/pdaint.h:108` | its key's |
+| 2 | `Vault` | `app/client/pdaint.h:109` | its key's |
+| 2 | `Character` | `app/client/pdaint.h:110` | its key's |
+| 2 | `Ping` | `app/client/pdaint.h:115` | its key's |
 | 2 | `vp` | `app/client/pip_scene.h:36` | the FAIL_IF's  // NAME 1 [arg]: neutral (true: the 'tl' / 'br' bones, false: the bounding box) |
 | 2 | `view` | `app/client/pip_scene.h:37` | the FAIL_IF's  // NAME 1 [arg1, arg2]: neutral |
 | 2 | `View` | `app/client/pip_scene.h:46` | the FAIL_IF's '!view' |
@@ -22920,12 +22921,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `OptionClass` | `app/client/option.h:90` | by convention (D24) from the client's file option.cpp (WinMain's 'options manager') |
 | 3 | `As_Space_Client` | `app/client/pdaint.cpp:30` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `BridgeInterfaceClass` | `app/client/pdaint.cpp:36` | class-from-file (D24) for bridge_int.cpp |
-| 3 | `PDAInterfaceClass` | `app/client/pdaint.h:76` | class-from-file (D24) for app\Client\pdaint.cpp |
-| 3 | `manager` | `app/client/pdaint.h:87` | the FAIL_IF's |
+| 3 | `PDAInterfaceClass` | `app/client/pdaint.h:77` | class-from-file (D24) for app\Client\pdaint.cpp |
 | 3 | `manager` | `app/client/pdaint.h:88` | the FAIL_IF's |
-| 3 | `num_items, num_slots` | `app/client/pdaint.h:99` | the FAIL_IFs'; NAME 1 [type]: neutral |
-| 3 | `Get_Client` | `app/client/pdaint.h:102` | the FAIL_IFs' |
-| 3 | `OpenedCargoInterface` | `app/client/pdaint.h:111` | the assert's |
+| 3 | `manager` | `app/client/pdaint.h:89` | the FAIL_IF's |
+| 3 | `num_items, num_slots` | `app/client/pdaint.h:100` | the FAIL_IFs'; NAME 1 [type]: neutral |
+| 3 | `Get_Client` | `app/client/pdaint.h:103` | the FAIL_IFs' |
+| 3 | `OpenedCargoInterface` | `app/client/pdaint.h:112` | the assert's |
 | 3 | `pip_scene.h` | `app/client/pip_scene.h:16` | header name assumed from the client's pip_scene.cpp |
 | 3 | `PipSceneClass` | `app/client/pip_scene.h:30` | class-from-file (D24) for app\client\pip_scene.cpp |
 | 3 | `postate.h` | `app/client/postate.h:18` | header name assumed from the client's postate.cpp |

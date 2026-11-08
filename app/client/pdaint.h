@@ -66,6 +66,7 @@ public:
 	virtual void Unknown_10();							// +0x10 (every frame)
 	void Unknown_58CF60();								// 0x58CF60 (before its delete)
 
+	int Get_Unknown04() { return(Unknown04); }			// (inline: 0x693CA0 loads +0x04 before the client's slot +0x28 call)  // NAME 1: neutral
 	int Unknown04;										// +0x04
 	char Unknown08[0x28 - 0x08];
 };
