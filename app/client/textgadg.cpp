@@ -352,7 +352,7 @@ TextGadgetClass::TextGadgetClass(InterfaceClass *iface, int length, const char *
 			model = model->Get_Container();
 		}
 	}
-	Text = Create_NEW(new FontSys(string_name, (int)model, 0));
+	Text = Create_NEW(new FontSys(string_name, model, 0));
 	RenderObjClass *sub = model->Get_Sub_Object_By_Name(Text->Info.Attach);
 	Box = sub->Get_Bounding_Box();
 	sub->Release_Ref();

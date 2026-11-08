@@ -222,8 +222,8 @@ void UIScanClass::Unknown_54()
 
 
 	G_ASSERT(robj);
-	ConFont = Create_Get(new FontSys("MFD_CON", (int)robj, NULL));
-	FactionFont = Create_Get(new FontSys("MFD_FACTION", (int)robj, NULL));
+	ConFont = Create_Get(new FontSys("MFD_CON", robj, NULL));
+	FactionFont = Create_Get(new FontSys("MFD_FACTION", robj, NULL));
 	int level = robj->Get_Sort_Level();
 	int sort = 8;
 	if (level == 0) {
@@ -617,7 +617,7 @@ void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
 			InterruptInfo->AbilityName = "Unknown Skill";
 		}
 		if (!InterruptInfo->Unknown14) {
-			InterruptInfo->Unknown14 = Create_Get(new FontSys("MFD_INTERRUPT", (int)robj, NULL));
+			InterruptInfo->Unknown14 = Create_Get(new FontSys("MFD_INTERRUPT", robj, NULL));
 			InterruptInfo->Unknown14->Set_Sort_Level(8);
 		}
 		InterruptInfo->Unknown14->Change_Text(InterruptInfo->AbilityName.c_str(), 0);

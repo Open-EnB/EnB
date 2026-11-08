@@ -9,12 +9,12 @@
 #include "hanim.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-// fontmanager.h's text object, as far as this file calls it (fontmanager.h clashes with tsk_game.h through sclient.h)
-class FontSys	// NAME 5 [FontSys]: fontmanager.h's (the client's name)
-{
-public:
-	void Change_Text(const char *text, int unknown);	// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'  // NAME 3: the client's label
-};
+#include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
+
+
+
+
+
 
 // gadget.cpp's gadget, as far as this file calls it (the list's rows, the text field)
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp

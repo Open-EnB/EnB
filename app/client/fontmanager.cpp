@@ -14,9 +14,9 @@ ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 		FontStringStruct *def = it->second;
 		if (stricmp(def->RenderObj, Name) == 0) {
 			if (def->StringID[0] == 'W') {
-				Unknown_6CF930(def, (int)object);
+				Unknown_6CF930(def, object);
 			} else {
-				Unknown_6D1220(new FontSys(*def, (unsigned int)Id, 0));
+				Unknown_6D1220(new FontSys(*def, Id, 0));
 			}
 		}
 	}
@@ -27,7 +27,7 @@ ManagedFontClass::ManagedFontClass(const char *name, int unknown)
 	FontStringStruct *def = Unknown_BE67B8->Find_String(name);
 	Styles.clear();
 	if (def) {
-		Unknown_6CF930(def, unknown);
+		Unknown_6CF930(def, (RenderObjClass *)unknown);
 	}
 }
 
@@ -41,9 +41,9 @@ ManagedFontClass::~ManagedFontClass()
 }
 
 
-void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, int unknown)
+void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, RenderObjClass *object)
 {
-	RenderObjClass *object = (RenderObjClass *)unknown;
+
 	float width = 640.0f;
 	int box_height = 0;
 	if (def->Text.Is_Empty()) {
@@ -80,7 +80,7 @@ void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, int unknown)
 		FontStringStruct copy(*def);
 		copy.Unknown04 = id;
 		copy.Text = split.Get(i);
-		FontSys *style = new FontSys(copy, (unsigned int)Id, 0);
+		FontSys *style = new FontSys(copy, Id, 0);
 		style->Unknown26C = (int)((i * def->TimeSpacing + def->Wait) * 1000.0f);
 		style->Unknown47C.Y += i * def->Spacing * font_height;
 		style->Unknown470 = style->Unknown47C;
@@ -187,7 +187,7 @@ void ManagedFontClass::Unknown_6D0A70(const char *name, const char *text)
 		it = next;
 	}
 	def.Text = text;
-	Unknown_6CF930(&def, (int)Id);
+	Unknown_6CF930(&def, Id);
 }
 
 // NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv)

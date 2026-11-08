@@ -16,7 +16,7 @@
 #include "wwprofile.h"
 
 // NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched
-FontSys::FontSys(const char *name, int object, const char *text) :
+FontSys::FontSys(const char *name, RenderObjClass *object, const char *text) :
 	DynamicMeshClass(2, 4),
 	Font(NULL)
 {
@@ -37,7 +37,7 @@ FontSys::FontSys(const char *name, int object, const char *text) :
 }
 
 // NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched
-FontSys::FontSys(FontStringStruct def, unsigned int object, const char *text) :
+FontSys::FontSys(FontStringStruct def, RenderObjClass *object, const char *text) :
 	DynamicMeshClass(2, 4),
 	Font(NULL)
 {
@@ -63,12 +63,12 @@ void FontSys::Unknown_6D5140()
 
 // NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4
 // (from Colors, 10 when none) added by TXT1
-void FontSys::Unknown_6D5170(int object)
+void FontSys::Unknown_6D5170(RenderObjClass *object)
 {
 	int i;
 	Unknown4DC = 1.0f;
 	Unknown4E0 = 1.0f;
-	Object = (RenderObjClass *)object;
+	Object = object;
 	Unknown300 = true;
 	Unknown301 = false;
 	Unknown402 = false;

@@ -58,8 +58,8 @@ public:
 class FontSys : public DynamicMeshClass  // NAME 5: the client's (Get_Name 0x67EF20 "FontSys", the profile labels 'FontSys::Change_Text' / 'FontSys::Update_Text'; 0x4E8 bytes; 0x6D47C0 builds the DynamicMeshClass(2, 4) base, vtable 0xAFECB4)
 {
 public:
-	FontSys(const char *name, int object, const char *text);	// 0x6D47C0: the string template named name (FontDatabaseClass::Find_String)  // NAME 1 [object]: neutral (D10)
-	FontSys(FontStringStruct def, unsigned int object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
+	FontSys(const char *name, RenderObjClass *object, const char *text);	// 0x6D47C0: the string template named name (FontDatabaseClass::Find_String)  // NAME 1 [object]: neutral (D10)
+	FontSys(FontStringStruct def, RenderObjClass *object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
 	~FontSys() { REF_PTR_RELEASE(Font); }						// 0x67F230 (inline: emitted in chat_window.cpp's object); 0x6D4C40 its deleting form
 
 	virtual int Class_ID(void) const { return 0x1000D; }					// 0x67EF00  // NAME 2: RenderObjClass's
@@ -73,7 +73,7 @@ public:
 	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const;	// 0x6D5B90  // NAME 2: RenderObjClass's
 	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const;		// 0x6D5C10: the text rectangle +0x420 on a 640 x 480 screen, placed by Info.Justify  // NAME 2: RenderObjClass's
 
-	void Unknown_6D5170(int object);										// 0x6D5170: the set-up both constructors end with  // NAME 1 [Unknown_6D5170, object]: neutral (D10)
+	void Unknown_6D5170(RenderObjClass *object);										// 0x6D5170: the set-up both constructors end with  // NAME 1 [Unknown_6D5170, object]: neutral (D10)
 	void Unknown_6D6390();													// 0x6D6390  // NAME 1 [Unknown_6D6390]: neutral (D10)
 	void Update_Text(bool unknown);										// 0x6D64C0: the client's profile label 'FontSys::Update_Text'  // NAME 3: the client's label; NAME 1 [unknown]: neutral (D10)
 	void Set_Color(const Vector3 &color) { Unknown494.Color = color; Unknown4A4 = Unknown494; }	// inlined in 0x6D10B0  // NAME 2: describes what it does
@@ -178,7 +178,7 @@ class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per
 public:
 	ManagedFontClass(RenderObjClass *object);							// 0x6CE990: the render object's styles from the font database
 	ManagedFontClass(const char *name, int unknown);						// 0x6CF520 (no caller), inlined in 0x6D1FD0  // NAME 1 [unknown]: neutral (D10)
-	void Unknown_6CF930(FontStringStruct *def, int unknown);				// 0x6CF930: a 'W' template's lines as styles (unknown is the render object)  // NAME 1 [Unknown_6CF930]: neutral (D10)
+	void Unknown_6CF930(FontStringStruct *def, RenderObjClass *object);				// 0x6CF930: a 'W' template's lines as styles on the render object  // NAME 1 [Unknown_6CF930, object]: neutral (D10)
 	~ManagedFontClass();												// 0x6CF730
 	void Unknown_All_Styles(int index, float time);					// 0x6D0950, inlined in 0x6D1C10 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
 	void Unknown_Set_Styles(int value);									// 0x6D0710, inlined in 0x6D28C0 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_Set_Styles]: neutral (D10)
