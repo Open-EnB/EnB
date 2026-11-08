@@ -5,11 +5,15 @@
                                                addresses in the comment / the function's name (Unknown_XXXXXX, _XXXXXX),
                                                symbols.json and attempts.csv names, then (at build) the best-matching
                                                candidate of the file; the entries that do not resolve are listed by reason
-                                               in pick-report.txt
+                                               in pick-report.txt; --exclude-sent RUN drops the entries an earlier
+                                               run already sent (its requests/r*.jsonl), --add FILE puts back the ones
+                                               a rerun list names (rerun.json: [{address, file, func, clue}])
     python variants.py build [--round 1|2]     compile the tracked files as they are, then write one request per function
                                                (source, declarations, both disassemblies, explain.py's class, workflow.md
                                                3.1 bullets) -> .work/variants/requests/rN.jsonl; prints the cost estimate
-                                               (counts tokens for a few requests; --count-all for every one)
+                                               (counts tokens for a few requests; --count-all for every one);
+                                               --clues FILE (rerun.json, or {address: text}) adds "Earlier attempts
+                                               found: ..." to those functions' requests
     python variants.py submit [--round N] [--dry]   the Batch API, key from ENB_ANTHROPIC_API_KEY; batch id appended to
                                                .work/variants/batches.json at once
     python variants.py fetch                   ended batches: raw results unchanged in .work/variants/raw/, tokens and
@@ -78,6 +82,8 @@ MAX_FUNC_BYTES = 450
 MAX_EXTENT_LINES = 2500
 TRIM_TOKENS = 60000
 MIN_SIM = 0.15
+FIT = False                          # try --fit: shrink longer variants to the line count (fit_lines)
+KEEP_LOSERS = False                  # try --keep-losers: keep the objects of variants that lose other pairs
 CLASS_WORDS = ('register', 'shape', 'inline budget', 'inline-budget', 'scheduling', 'order')
 
 SCHEMA = {
@@ -245,11 +251,52 @@ def resolve_all(app):
     return picks, unresolved
 
 
+def load_clues(path):
+    """{address: clue text} from a rerun list ([{address, clue, ...}]) or a plain {address: text} map."""
+    if not path:
+        return {}
+    d = json.load(open(path, encoding='utf-8'))
+    rows = d.items() if isinstance(d, dict) else ((r['address'], r.get('clue', '')) for r in d)
+    return {k.upper().replace('0X', '0x'): (v if isinstance(v, str) else v.get('clue', '')) for k, v in rows}
+
+
+def exclude_sent(picks, run, add=None):
+    """Drop the picks an earlier run (.work/variants/RUN) already sent, matched by address or by (file, function);
+    the entries of the rerun list `add` stay (and are added from that run's pick.json if today's pick lost them)."""
+    d = os.path.join(ROOT, '.work', 'variants', run)
+    sent = set()
+    for f in sorted(os.listdir(os.path.join(d, 'requests'))):
+        for l in open(os.path.join(d, 'requests', f), encoding='utf-8'):
+            sent.add('0x' + json.loads(l)['custom_id'][3:].upper())
+    old = {p['address']: p for p in json.load(open(os.path.join(d, 'pick.json'), encoding='utf-8')) if p.get('address')}
+    sentff = {(old[x]['file'], old[x]['func']) for x in sent if x in old}
+    keep = set(load_clues(add))
+    out, gone = [], 0
+    for p in picks:
+        a = p.get('address')
+        if (a in sent or (p['file'], p['func']) in sentff) and a not in keep:
+            hit = None if a in sent else next((x for x in keep if x in old and (old[x]['file'], old[x]['func']) ==
+                                               (p['file'], p['func'])), None)
+            if hit is None:
+                gone += 1
+                continue
+            p = dict(p, address=hit, size=old[hit]['size'], via='address')
+        out.append(p)
+    have = {p.get('address') for p in out}
+    for x in keep:
+        if x not in have and x in old:
+            out.append(old[x])
+    print(f'{gone} entries already sent by run {run} dropped; {len(keep)} rerun entries kept ({len(out)} picks)')
+    return out
+
+
 def cmd_pick(a):
     os.makedirs(OUT, exist_ok=True)
     if a.all:
         import appfile
         picks, unresolved = resolve_all(appfile.App())
+        if a.exclude_sent:
+            picks = exclude_sent(picks, a.exclude_sent, a.add)
         json.dump(picks, open(PICK, 'w', encoding='utf-8', newline='\n'), indent=1)
         why = collections.Counter(w.split(' (')[0].split(':')[0] for _, w in unresolved)
         lines = [f'{len(picks)} of {len(picks) + len(unresolved)} entries resolve '
@@ -544,7 +591,7 @@ def trim_diff(table, ctx_before=40, after=600):
     return '\n'.join(rows[lo:hi]), note
 
 
-def user_text(p, base_info, img, names, round2=None):
+def user_text(p, base_info, img, names, round2=None, clue=None):
     lines = read_lines(p['file'])
     ext = function_extent(lines, p['line'], p['func'])
     if not ext:
@@ -564,6 +611,8 @@ def user_text(p, base_info, img, names, round2=None):
     odis = our_dis(best)
     dtab = diff_table(best)
     tail = []
+    if clue:
+        tail.append(f"Earlier attempts found: {clue}")
     if round2:
         tail.append(f"ROUND 2. Round 1 tried several variants; the closest was this one (similarity {round2['similarity']}, "
                     f"idea: {round2['idea']}):\n```cpp\n{round2['code']}\n```\nIts diff against the client "
@@ -646,6 +695,7 @@ def cmd_build(a):
         picks = [p for p in picks if p['address'] in prev
                  and not any(v.get('exact') for v in prev[p['address']]['variants'])
                  and max((v.get('similarity') or 0 for v in prev[p['address']]['variants']), default=0) >= 0.6]
+    clues = load_clues(a.clues)
     objs = baseline(picks, a.workers)
     base, rows, skipped, resolved = {}, [], [], []
     for p in picks:
@@ -683,7 +733,7 @@ def cmd_build(a):
             vs = [v for v in prev[p['address']]['variants'] if v.get('similarity') is not None]
             top = max(vs, key=lambda v: v['similarity'])
             r2 = {'similarity': top['similarity'], 'idea': top['idea'], 'code': top['code'], 'diff': top.get('diff', '')}
-        t = user_text(p, info, img, names, r2)
+        t = user_text(p, info, img, names, r2, clues.get(p['address']))
         if not t:
             skipped.append(f'{tag}: function extent not found')
             continue
@@ -899,6 +949,33 @@ def answers(rnd):
 
 # ---------------------------------------------------------------- try
 
+def fit_lines(new, n):
+    """try --fit: a variant still longer than the definition it replaces is shrunk to n lines, so later asserts keep
+    their __LINE__: whole-line // comments go first, then a line that is only '{' joins the line above, then the
+    shortest neighbouring pair of code lines is joined (never a preprocessor line or one ending in a // comment)."""
+    new = list(new)
+    k = len(new) - 1
+    while len(new) > n and k > 0:
+        if new[k].strip().startswith('//'):
+            new.pop(k)
+        k -= 1
+    k = len(new) - 1
+    while len(new) > n and k > 0:
+        if new[k].strip() == '{' and not new[k - 1].lstrip().startswith('#') and '//' not in new[k - 1]:
+            new[k - 1] = new[k - 1].rstrip() + ' {'
+            new.pop(k)
+        k -= 1
+    while len(new) > n:
+        ok = [i for i in range(1, len(new) - 1) if not new[i].lstrip().startswith('#')
+              and not new[i - 1].lstrip().startswith('#') and '//' not in new[i - 1]]
+        if not ok:
+            break
+        i = min(ok, key=lambda i: len(new[i - 1]) + len(new[i]))
+        new[i - 1] = new[i - 1].rstrip() + ' ' + new[i].strip()
+        new.pop(i)
+    return new
+
+
 def splice(rel, line, func, code):
     lines = read_lines(rel)
     ext = function_extent(lines, line, func)
@@ -907,6 +984,8 @@ def splice(rel, line, func, code):
     n = ext[1] - ext[0] + 1
     while len(new) > n and '' in [x.strip() for x in new]:
         new.pop([x.strip() for x in new].index(''))
+    if FIT and len(new) > n:
+        new = fit_lines(new, n)
     new += [''] * (n - len(new))
     return '\n'.join(lines[:ext[0]] + new + lines[ext[1] + 1:])
 
@@ -961,8 +1040,9 @@ def try_one(img, addr, p, b, variants, rnd, tag):
             row['errors'] = [l for l in log.splitlines()
                              if os.path.basename(drafts[k]) in l and ' error ' in l][:3]
         rows.append(row)
+    keep = {f'{stem}_v{k}.obj'.lower() for k, r in enumerate(rows) if r.get('lost')} if KEEP_LOSERS else set()
     for f in os.listdir(os.path.join(d, 'obj')):          # the objects are scratch; keep the disk small
-        if f.lower().endswith('.obj'):
+        if f.lower().endswith('.obj') and f.lower() not in keep:
             os.remove(os.path.join(d, 'obj', f))
     return {'file': p['file'], 'func': p['func'], 'class': p['class'], 'baseline': b['similarity'], 'round': rnd,
             'variants': rows}
@@ -975,7 +1055,7 @@ def run_worker(a, wid):
     base = json.load(open(BASE, encoding='utf-8'))
     if a.round == 2 and os.path.exists(BASE.replace('.json', '2.json')):
         base.update(json.load(open(BASE.replace('.json', '2.json'), encoding='utf-8')))
-    ans = answers(a.round)
+    ans = load_answers(a)
     only = {x.lower() for x in a.only} if a.only else None
     jobs = [cid for cid in sorted(ans) if not only or ('0x' + cid[3:]).lower() in only]
     img = appfile.App().img
@@ -1015,6 +1095,14 @@ def run_worker(a, wid):
         release(names)
 
 
+def load_answers(a):
+    """The variants to try: the fetched batches of the round, or --answers FILE ({custom_id: [{idea, code}]}, e.g.
+    an earlier run's variants re-tried against today's tree)."""
+    if a.answers:
+        return json.load(open(a.answers, encoding='utf-8'))
+    return answers(a.round)
+
+
 def merge_results(rnd):
     """results.d/rN_*.json into results.json (round 2 appends to round 1's variants; a round merges once)."""
     results = json.load(open(RESULTS, encoding='utf-8')) if os.path.exists(RESULTS) else {}
@@ -1039,9 +1127,11 @@ def merge_results(rnd):
 def cmd_try(a):
     import subprocess
     os.makedirs(RESD, exist_ok=True)
+    global KEEP_LOSERS, FIT
+    KEEP_LOSERS, FIT = bool(a.keep_losers), bool(a.fit)
     if a.worker is not None:
         return run_worker(a, a.worker)
-    ans = answers(a.round)
+    ans = load_answers(a)
     total = len([c for c in ans if ans[c]])
     done = sum(1 for f in os.listdir(RESD) if f.startswith(f'r{a.round}_') and f.endswith('.json'))
     if a.status:
@@ -1055,7 +1145,9 @@ def cmd_try(a):
     k = max(1, a.pool or 1)
     print(f'{time.strftime("%H:%M:%S")} try round {a.round}: {total - done} of {total} functions to do on {k} VM(s)', flush=True)
     t0 = time.time()
-    extra = ['--round', str(a.round)] + (['--only'] + a.only if a.only else [])
+    extra = (['--round', str(a.round)] + (['--only'] + a.only if a.only else [])
+             + (['--answers', a.answers] if a.answers else []) + (['--keep-losers'] if a.keep_losers else [])
+             + (['--fit'] if a.fit else []))
     procs = [subprocess.Popen([sys.executable, os.path.abspath(__file__), 'try'] + RUNARG + extra + ['--worker', str(i)])
              for i in range(k)]
     for pr in procs:
@@ -1094,9 +1186,12 @@ def main():
     p = sub.add_parser('pick', parents=[runp])
     p.add_argument('--count', type=int, default=50)
     p.add_argument('--all', action='store_true', help='every resolvable not-exact.md entry (D185)')
+    p.add_argument('--exclude-sent', metavar='RUN', help='with --all: drop the functions run RUN already sent')
+    p.add_argument('--add', metavar='FILE', help='with --exclude-sent: keep the functions this rerun list names')
     p = sub.add_parser('build', parents=[runp])
     p.add_argument('--round', type=int, default=1)
     p.add_argument('--count-all', action='store_true')
+    p.add_argument('--clues', metavar='FILE', help='rerun list or {address: text}: "Earlier attempts found: ..." per function')
     p.add_argument('--workers', type=int, default=2, help='VMs for the baseline compiles')
     p = sub.add_parser('submit', parents=[runp])
     p.add_argument('--round', type=int, default=1)
@@ -1108,6 +1203,9 @@ def main():
     p.add_argument('--only', nargs='*')
     p.add_argument('--pool', type=int, help='K worker processes, one VM each (unattended; resumes from results.d)')
     p.add_argument('--status', action='store_true')
+    p.add_argument('--fit', action='store_true', help='shrink a variant longer than the definition to its line count')
+    p.add_argument('--keep-losers', action='store_true', help='keep the objects of variants that lose other exact pairs')
+    p.add_argument('--answers', help='variants from this JSON file ({custom_id: [{idea, code}]}) instead of the fetched batches')
     p.add_argument('--worker', type=int, help=argparse.SUPPRESS)
     p = sub.add_parser('_baseline', parents=[runp])
     p.add_argument('files', nargs='+')
