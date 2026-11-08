@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "HtmlViewClass (NAME 3, D24 from htmlview.cpp), the view: its wwlib Surface, loader, ArrayList<HtmlBlockClass *> blocks, the 0x210-byte links, url (0x138 bytes), with HtmlLoaderClass and the list element stand-ins (NAME 1), HV2"
+}

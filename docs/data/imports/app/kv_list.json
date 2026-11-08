@@ -1,0 +1,68 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B250",
+  "0x42B2F0",
+  "0x4B7E00",
+  "0x4B7E30"
+ ],
+ "copy": "reconstructed",
+ "description": "KVListClass, client 0x4B62B0-0x4B6D90 with the index's instances to 0x4B7E30: Add 0x4B6760, the lookups and Keep_Only 0x4B6DC0, asserts on the client's lines 23-113 (D25); NOT EXACT: the destructor 0x4B6520 and Get_Value_String 0x4B6B60",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CD30",
+  "0x42DB00",
+  "0x441480",
+  "0x4B62B0",
+  "0x4B6520",
+  "0x4B66D0",
+  "0x4B6760",
+  "0x4B6970",
+  "0x4B69A0",
+  "0x4B6A80",
+  "0x4B6BF0",
+  "0x4B6CE0",
+  "0x4B6DC0",
+  "0x4B6FF0",
+  "0x4B70F0",
+  "0x4B7130",
+  "0x4B73D0",
+  "0x4B73F0",
+  "0x4B7420",
+  "0x4B76C0",
+  "0x4B7840",
+  "0x4B7870",
+  "0x4B79A0",
+  "0x4B7B30",
+  "0x4B7B60",
+  "0x4B7B80",
+  "0x4B7D80",
+  "0x4B7DE0"
+ ],
+ "merged": [],
+ "name": "shared/kv_list.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CD30",
+  "0x42DB00",
+  "0x441480",
+  "0x4B73D0",
+  "0x4B7B60",
+  "0x4B7DE0"
+ ],
+ "short_known": [
+  "0x4B73D0",
+  "0x4B7B60",
+  "0x4B7DE0"
+ ],
+ "tiebreak": [
+  "0x4B7D80"
+ ]
+}

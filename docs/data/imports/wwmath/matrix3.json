@@ -1,0 +1,38 @@
+{
+ "ambiguous": [
+  "0x8C3AA0",
+  "0x8C3B20"
+ ],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 17,
+  "R": 17,
+  "Z": 17
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x8C36E0",
+  "0x8C3740",
+  "0x8C37A0",
+  "0x8C3800",
+  "0x8C3860",
+  "0x8C38C0",
+  "0x8C3920",
+  "0x8C3980",
+  "0x8C39E0",
+  "0x8C3A40",
+  "0x8C3BA0",
+  "0x8C3CF0",
+  "0x8C3DE0",
+  "0x8C3ED0",
+  "0x8C4020",
+  "0x8C41D0"
+ ],
+ "merged": [],
+ "name": "matrix3.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

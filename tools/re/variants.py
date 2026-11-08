@@ -131,7 +131,7 @@ def not_exact_rows():
 def candidates():
     import appfile
     app = appfile.App()
-    imp = json.load(open(os.path.join(ROOT, 'docs', 'data', 'imports.json'), encoding='utf-8'))['app']['files']
+    imp = __import__('ledger').load()['app']['files']
     intree = {int(a, 16) for v in imp.values() for a in v['in_tree']}
     seen, out = set(), []
     bs = chr(92)
@@ -185,7 +185,7 @@ def resolve_all(app):
     tree. A pick with address None has `cands` (a short list) and is resolved at build by the best match of the
     compiled function (fuzzy_pick). unresolved is [(row, reason)]."""
     import csv
-    imp = json.load(open(os.path.join(ROOT, 'docs', 'data', 'imports.json'), encoding='utf-8'))['app']['files']
+    imp = __import__('ledger').load()['app']['files']
     intree = {int(a, 16) for v in imp.values() for a in v['in_tree']}
     byname = collections.defaultdict(set)
     for x in json.load(open(os.path.join(ROOT, 'docs', 'data', 'symbols.json'), encoding='utf-8')):

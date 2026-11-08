@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ScriptedMovieViewerSettingsStruct, the viewer settings (0x1C bytes: constructor 0x490900, destructor 0x4909A0, INI loader 0x4909D0; its first member the scene light, a LightClass; PROVISIONAL, D137: its file is not known), as far as scriptedmovie.cpp's view and sbaseview.cpp's starbase view (+0x68, SBV's SBaseViewUnknown68Class) use it (SB2)"
+}

@@ -11,7 +11,7 @@ function and inlining it in another. This lists, in the file's address range (th
 function docs/data/app-functions.json attributes to it), each verified function start (D27) with
   - no `call` / `jmp rel32` to it or to its incremental-link thunk anywhere in .text, and
   - no dword holding its address or its thunk's in .rdata / .data (vtables, tables),
-that is not yet in the tree (neither in_tree nor ambiguous in docs/data/imports.json; --all shows those too).
+that is not yet in the tree (neither in_tree nor ambiguous in the ledger docs/data/imports; --all shows those too).
 
 One line per address: address, size (to the next start), `text-ref` when .text holds its address as a
 dword (push offset, a function pointer: it has a user, so it is not a missing-caller case) and

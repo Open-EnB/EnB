@@ -1,0 +1,57 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "opcode 189 (CTA_RESPONSE) written by hand (builder P4, 4 of 4 exact); packet classes (opcode 188) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+ "expected": {},
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x86F070",
+  "0x86F0C0",
+  "0x86F0F0",
+  "0x86F1C0",
+  "0x86F1E0",
+  "0x86F2C0",
+  "0x86F2E0",
+  "0x86F320",
+  "0x86F370",
+  "0x86F390",
+  "0x86F3C0",
+  "0x86F490",
+  "0x86F4B0",
+  "0x86F590",
+  "0x86F5B0"
+ ],
+ "merged": [],
+ "name": "packets/pkcta_request.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x86F370",
+  "0x86F490"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x86F1C0",
+  "0x86F2C0",
+  "0x86F370",
+  "0x86F490",
+  "0x86F590"
+ ]
+}

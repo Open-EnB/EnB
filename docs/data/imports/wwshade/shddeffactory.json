@@ -1,0 +1,18 @@
+{
+ "ambiguous": [],
+ "copy": "Z",
+ "expected": {
+  "Z": 0
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0xA0FE90",
+  "0xA0FEB0",
+  "0xA0FED0"
+ ],
+ "merged": [],
+ "name": "shddeffactory.cpp",
+ "short_known": [
+  "0xA0FED0"
+ ]
+}

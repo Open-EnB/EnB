@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "E&B's assert macros G_ASSERT (0x4E9410) and FAIL_IF (0x4E9450); the header's name is unknown (its object, in app\\shared between event.cpp and ini_manager.cpp, has no __FILE__ string): neutral (D10)"
+}

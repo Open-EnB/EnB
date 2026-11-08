@@ -1,0 +1,52 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 3,
+  "R": 5,
+  "Z": 5
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x909500",
+  "0x9DA8C0",
+  "0xA02860",
+  "0xA02880",
+  "0xA02890",
+  "0xA028B0",
+  "0xA028C0",
+  "0xA028D0",
+  "0xA028E0",
+  "0xA028F0",
+  "0xA02930",
+  "0xA02A90",
+  "0xA02AF0",
+  "0xA02BA0",
+  "0xA02BC0",
+  "0xA02C20"
+ ],
+ "merged": [],
+ "name": "sound3dhandle.cpp",
+ "shared": [
+  "0x42F250",
+  "0x909500",
+  "0x9DA8C0",
+  "0xA02880",
+  "0xA02890",
+  "0xA028B0",
+  "0xA028C0",
+  "0xA028D0",
+  "0xA028E0"
+ ],
+ "short_known": [
+  "0xA02880",
+  "0xA02890",
+  "0xA028B0",
+  "0xA028C0",
+  "0xA028D0",
+  "0xA028E0",
+  "0xA02C20"
+ ]
+}

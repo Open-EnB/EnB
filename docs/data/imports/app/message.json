@@ -1,0 +1,29 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "the message reporters 0x4BBED0-0x4BC460 (levels 1-0x20, WWPROFILE labels 'Message_Debug'...), their common path 0x4BC5A0 and the server's accessors 0x4BBE90 / 0x4BBEB0 (D137 provisional)",
+ "expected": {},
+ "in_tree": [
+  "0x444160",
+  "0x4BBE90",
+  "0x4BBEB0",
+  "0x4BBED0",
+  "0x4BC000",
+  "0x4BC130",
+  "0x4BC260",
+  "0x4BC3A0",
+  "0x4BC460",
+  "0x4BC5A0",
+  "0x4BC8F0",
+  "0x4BC9B0"
+ ],
+ "merged": [],
+ "name": "shared/message.cpp",
+ "shared": [
+  "0x444160"
+ ],
+ "short_known": [
+  "0x4BBE90",
+  "0x4BBEB0"
+ ]
+}

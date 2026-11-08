@@ -1,0 +1,19 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 1,
+  "R": 4,
+  "Z": 4
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9E6450",
+  "0x9E64B0",
+  "0x9E64E0",
+  "0x9E6510"
+ ],
+ "merged": [],
+ "name": "xpipe.cpp"
+}

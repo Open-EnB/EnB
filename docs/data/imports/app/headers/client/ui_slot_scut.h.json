@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "SlotDataShortcutInterface's declaration and, as far as ui_slot_scut.cpp calls them, SlotDataClass, its render, its gadget and SlotDataInterface (interim placement, D137; the header's name follows ui_slot_scut.cpp's __FILE__ 0xB8A74C) (SL1)"
+}

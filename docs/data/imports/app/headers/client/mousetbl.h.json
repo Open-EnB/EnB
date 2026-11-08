@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the mouse cursor table's declarations (MCURSOR_MAX, MouseCursorStruct, the table 0xBE7C70, the loader 0x7228C0 / unloader 0x723150) shared by mousetbl.cpp and smouse.cpp; PROVISIONAL header name (D137) (KRN2)"
+}

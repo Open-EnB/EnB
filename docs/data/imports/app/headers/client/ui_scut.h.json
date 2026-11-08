@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIScutClass, ui_scut.cpp's shortcut bars (the cockpit's +0xDC; 0xB8 bytes, tables 0xAF73D8 / 0xAF73CC / 0xAF73C0; the client's file per its asserts, this header's name provisional), laid out from the constructor 0x610570 / destructor 0x610800 over sclient.h's Unknown5BB320Class, with the bar UIScutBarClass (0x58 bytes, 0x610F80) on the listener base UnknownAEEA88Class (table 0xAEEA88, interim placement, D137); moved out of ui_cpit.h (SC2)"
+}

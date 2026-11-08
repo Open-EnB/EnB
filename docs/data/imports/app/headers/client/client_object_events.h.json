@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "PlayerObjectRelationshipChangeEvent and ClientGroupEvent, moved from co.cpp and ui_group.cpp for radar_data.cpp (neutral header name, D137) (RD1)"
+}

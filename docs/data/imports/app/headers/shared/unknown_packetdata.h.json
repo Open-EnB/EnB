@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the login data objects' two interfaces, wire 0xAEB9EC and key/value 0xAEADC8 (PROVISIONAL file name, D10; from tsk_login.h, D90 9b), and the KV encoder's typed adds, declared"
+}

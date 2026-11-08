@@ -1,0 +1,29 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "R",
+ "expected": {
+  "G": 5,
+  "R": 7,
+  "Z": 9
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x909500",
+  "0x96F060",
+  "0x96F0C0",
+  "0x96F180",
+  "0x96F530",
+  "0x96F590",
+  "0x96F620",
+  "0x96F6C0",
+  "0x96F700"
+ ],
+ "merged": [],
+ "name": "predlod.cpp",
+ "shared": [
+  "0x42F250",
+  "0x909500"
+ ]
+}

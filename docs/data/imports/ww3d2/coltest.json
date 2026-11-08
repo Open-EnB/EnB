@@ -1,0 +1,29 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 10,
+  "R": 11,
+  "Z": 10
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x92D920",
+  "0x92D9A0",
+  "0x92DB30",
+  "0x92DBD0",
+  "0x92DCD0",
+  "0x92DF40",
+  "0x92E240",
+  "0x92E2F0",
+  "0x92E430",
+  "0x92E580"
+ ],
+ "merged": [],
+ "name": "coltest.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

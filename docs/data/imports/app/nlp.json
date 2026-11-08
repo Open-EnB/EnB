@@ -1,0 +1,30 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "client 0x78E190-0x78F700 (the asserts' __FILE__ nlp.cpp, lines 413, 454, 708): the lexicon (NLPLexiconClass), PlayerNLPClass (vtable 0xB04A2C) with the text parser 0x78F050; NOT EXACT functional for the POC (D64) where marked",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x78E2C0",
+  "0x78E2F0",
+  "0x78E870",
+  "0x78E8A0",
+  "0x78E8F0",
+  "0x78E980",
+  "0x78EB50",
+  "0x78EB80",
+  "0x78EC00",
+  "0x78ECC0",
+  "0x78EE00",
+  "0x78EEF0",
+  "0x78F640",
+  "0x78F690"
+ ],
+ "merged": [],
+ "name": "client/nlp.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "CircBuffClass (descriptive, D24; members from the asserts): the ring buffer of bytes, the client's layout (0x18 bytes)"
+}

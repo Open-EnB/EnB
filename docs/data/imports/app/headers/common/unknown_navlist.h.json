@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "PROVISIONAL file name: NavigationListClass (0x18 bytes: a vector of nav ids, a cursor) and the music type lookups; rebuilt in unknown_navlist.cpp"
+}

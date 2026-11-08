@@ -1,0 +1,33 @@
+{
+ "ambiguous": [
+  "0x45CB00",
+  "0x45CDC0",
+  "0x494680",
+  "0x8D54B0",
+  "0x9921D0"
+ ],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 3,
+  "R": 3,
+  "Z": 3
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x4627A0",
+  "0x966160"
+ ],
+ "merged": [],
+ "name": "vehiclecurve.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40",
+  "0x4627A0"
+ ],
+ "short_known": [
+  "0x4627A0"
+ ]
+}

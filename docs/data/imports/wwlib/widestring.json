@@ -1,0 +1,29 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 1,
+  "R": 9,
+  "Z": 6
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9C9B60",
+  "0x9CEFF0",
+  "0x9E5820",
+  "0x9E5920",
+  "0x9E5990",
+  "0x9E5A10",
+  "0x9E5AA0",
+  "0x9E5BB0",
+  "0x9E5CD0",
+  "0x9E5DA0"
+ ],
+ "merged": [],
+ "name": "widestring.cpp",
+ "shared": [
+  "0x9C9B60",
+  "0x9CEFF0"
+ ]
+}

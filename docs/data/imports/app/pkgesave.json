@@ -1,0 +1,55 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "opcodes 30027 and 30028 (send-only), client 0x861DB0-0x862320, the client's file (its asserts' __FILE__; renamed from pkunknown_861db0 under D95(c)): written by hand (builders P5, A-opus)",
+ "expected": {},
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x861DB0",
+  "0x861DF0",
+  "0x861E20",
+  "0x861E60",
+  "0x861E80",
+  "0x861F10",
+  "0x861F30",
+  "0x861F80",
+  "0x862040",
+  "0x862070",
+  "0x862180",
+  "0x8621B0",
+  "0x8622A0",
+  "0x8622C0",
+  "0x862300"
+ ],
+ "merged": [],
+ "name": "packets/gameedit/pkgesave.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x861E60"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x861E60",
+  "0x861F10",
+  "0x8622A0",
+  "0x862300"
+ ]
+}

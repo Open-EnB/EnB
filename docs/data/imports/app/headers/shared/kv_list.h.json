@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "KVListClass (D24): the pairs in order and a key index, SGI STL's hash_map (libs/sgistl, D87) at +0x10"
+}

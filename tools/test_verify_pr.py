@@ -21,7 +21,7 @@ class Gate(unittest.TestCase):
     def test_sources_docs_and_data_pass(self):
         self.assertEqual(verify_pr.needs_approval([
             'app/client/co.cpp', 'app/client/co.h', 'wwlib/vector.inl', 'libs/wwonline/wlib/wstring.cpp',
-            'docs/workflow.md', 'README.md', 'docs/data/imports.json', 'tests/clienttest/data/basset.ini']), [])
+            'docs/workflow.md', 'README.md', 'docs/data/imports/app/co.json', 'tests/clienttest/data/basset.ini']), [])
 
     def test_anything_that_runs_on_the_host_is_gated(self):
         paths = ['tools/vc6/importer.py', 'tools/re/helper.cpp', '.github/workflows/checks.yml',
@@ -147,7 +147,7 @@ class Landing(unittest.TestCase):
 
     def test_what_lands_by_itself(self):
         ok = lambda p: any(rx.search(p) for rx in verify_watch.BOT_FILES)  # noqa: E731
-        self.assertTrue(ok('app/client/co.cpp') and ok('docs/data/imports.json') and ok('wwlib/vector.h'))
+        self.assertTrue(ok('app/client/co.cpp') and ok('docs/data/imports/app/headers/client/co.h.json') and ok('wwlib/vector.h'))
         self.assertFalse(ok('docs/workflow.md') or ok('tools/vc6/importer.py') or ok('.github/x.h'))
 
 

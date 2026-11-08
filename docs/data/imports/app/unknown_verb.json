@@ -1,0 +1,9 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "PROVISIONAL file name (D10): the verbs' names (VerbEnum), client 0x84C450-0x84C5A2, its own object between vendor_defs.cpp's and weapontype.cpp's data (builder NW4, 2 of 3 exact; Value_To_String 0x84C470 NOT EXACT)",
+ "expected": {},
+ "in_tree": [],
+ "merged": [],
+ "name": "common/unknown_verb.cpp"
+}

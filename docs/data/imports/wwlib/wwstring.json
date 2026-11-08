@@ -1,0 +1,29 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 0,
+  "R": 9,
+  "Z": 4
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x48E910",
+  "0x9CEFF0",
+  "0x9CF040",
+  "0x9CF2B0",
+  "0x9CF2D0",
+  "0x9CF3D0",
+  "0x9CF4B0",
+  "0x9CF530",
+  "0x9CF640",
+  "0x9CF750"
+ ],
+ "merged": [],
+ "name": "wwstring.cpp",
+ "shared": [
+  "0x48E910",
+  "0x9CEFF0"
+ ]
+}

@@ -1,0 +1,26 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 2,
+  "R": 3,
+  "Z": 2
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x9AF0F0",
+  "0x9AF110",
+  "0x9AF1E0",
+  "0x9AF380"
+ ],
+ "merged": [],
+ "name": "missingtexture.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x9AF0F0"
+ ]
+}

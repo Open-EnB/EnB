@@ -45,7 +45,7 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/gaps-*.md](data/) and `gaps-*-classified.md` | each library's functions that aren't byte-exact, located, and split into linked / unlinked | `gaps.py`, `classify_gaps.py` |
 | [data/funcmatch.md](data/funcmatch.md), [data/funcmatch.json](data/funcmatch.json) | client functions matched to EA functions | `funcmatch.py` |
 | [data/app-functions.json](data/app-functions.json) | the app region's functions with addresses, sizes and names | `tools/re/app_inventory.py` |
-| [data/imports.json](data/imports.json) | per library file: origin, in-tree state, exact addresses (feeds imports.md) | `importer.py` |
+| [data/imports/](data/imports/) | the ledger, one JSON shard per library source file: origin, in-tree state, exact addresses, the description of a file written from the client (feeds imports.md) | `verify.py`, `ledger.py` |
 | [data/packet-factory.txt](data/packet-factory.txt) | the packet factory's cases (opcode, class, size, constructor) | `pkfactory.py` |
 | [data/vtables-ww3d2.json](data/vtables-ww3d2.json) | WW3D2 class vtables in the client | `vtables.py` (unverified) |
 | [data/not-exact.md](data/not-exact.md) | functions marked `// NOT EXACT:` in the tree (D64) | `names.py` |

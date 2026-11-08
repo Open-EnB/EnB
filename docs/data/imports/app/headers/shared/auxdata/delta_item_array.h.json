@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "DeltaItemArrayClass<T> (D24; M1.3): count compound fields T(name); the client's __FILE__ '..\\shared/auxdata/delta_item_array.h', its assert on line 60 (D25, 0x701D70); the loop's branch layout differs (Harvestable 0x6F9ED0)"
+}

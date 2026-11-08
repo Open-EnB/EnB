@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the UDP socket CordMgr and CordCon use (CordCon::Udp_): forwards to WWOnline's wnet udp.h (libs\\wwonline\\wnet, E&B's 0x2C-byte UDP, client 0x8BF990-0x8C0620) and undefines its close / read / write macros (CordCon's members); the capture harness defines the members as its replay socket (M1.4)"
+}

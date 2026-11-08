@@ -1,0 +1,33 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "SoundManagerClass (0x340 bytes: 16 std::deque queues of nstrdup'd names, 16 AudibleSoundClass pointers; NUM_CHANNELS from the asserts), client 0x75AB10-0x75B460 (__FILE__ 0xB9AE38): the constructor, destructor, 0x75AE30, 0x75B0D0, 0x75B170, 0x75B2B0, 0x75B320, all byte-exact (STB)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x740AE0",
+  "0x75AB10",
+  "0x75AB70",
+  "0x75AC50",
+  "0x75AE30",
+  "0x75B0D0",
+  "0x75B170",
+  "0x75B2B0",
+  "0x75B320",
+  "0x75B4F0",
+  "0x75B6B0",
+  "0x75B740"
+ ],
+ "merged": [],
+ "name": "client/sound_manager.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "tiebreak": [
+  "0x75B4F0",
+  "0x75B6B0",
+  "0x75B740"
+ ]
+}

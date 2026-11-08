@@ -1,0 +1,28 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 2,
+  "R": 9,
+  "Z": 2
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9CEFF0",
+  "0x9D0F10",
+  "0x9D0F50",
+  "0x9D0FF0",
+  "0x9D1020",
+  "0x9D1040",
+  "0x9D1160",
+  "0x9D1270",
+  "0x9D13A0",
+  "0x9D1430"
+ ],
+ "merged": [],
+ "name": "multilist.cpp",
+ "shared": [
+  "0x9CEFF0"
+ ]
+}

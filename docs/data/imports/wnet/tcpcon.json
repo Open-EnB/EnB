@@ -1,0 +1,32 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "E&B's TCPCon (0x8BBA70-0x8BCA50) on the plan of Renegade's RenegadeGR tcpcon.cpp, written from the client: an OutputDevice over two TCPQueues, a CritSec taken when Locking_ is set, the peer's address cached, TCPMgr::CONNRESET ending reads and writes; E&B's pumpReads, peekRead / endPeekRead, setLocking and print. All 18 functions byte-exact (RenegadeGR's own matches none)",
+ "expected": {
+  "R": 0,
+  "Z": 0
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x8B4450",
+  "0x8BBA70",
+  "0x8BBC60",
+  "0x8BBC90",
+  "0x8BBE40",
+  "0x8BBF00",
+  "0x8BBFA0",
+  "0x8BC040",
+  "0x8BC170",
+  "0x8BC280",
+  "0x8BC4F0",
+  "0x8BC600",
+  "0x8BC680",
+  "0x8BC6A0",
+  "0x8BC710",
+  "0x8BC7D0",
+  "0x8BC8C0",
+  "0x8BC980"
+ ],
+ "merged": [],
+ "name": "tcpcon.cpp"
+}

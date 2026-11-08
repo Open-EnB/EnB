@@ -1,0 +1,25 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 2,
+  "R": 2,
+  "Z": 2
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0xA03C30",
+  "0xA03C50",
+  "0xA03C80"
+ ],
+ "merged": [],
+ "name": "persistfactory.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0xA03C80"
+ ]
+}

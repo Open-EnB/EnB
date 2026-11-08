@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ProjectorManagerClass (D24, class-from-file for proj_man.cpp; 0x74 bytes, vtable 0xAEA74C, ctor 0x491DD0, dtor 0x492020) and StaticShadowTexMgrClass (Renegade's, a RefCountClass in E&B; vtable 0xAEA68C), ProjectorCasterClass / ProjectionDefClass / CasterTexProjectClass / ProjectorReceiverClass (the casters and receivers rs_proj_sup.cpp derives from): E&B's copy of Renegade's PhysicsSceneClass projector members (wwphys/pscene.h)"
+}

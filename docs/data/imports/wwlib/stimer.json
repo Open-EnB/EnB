@@ -1,0 +1,15 @@
+{
+ "ambiguous": [
+  "0x9E9A70"
+ ],
+ "copy": "R",
+ "expected": {
+  "G": 0,
+  "R": 0,
+  "Z": 0
+ },
+ "headers_from": null,
+ "in_tree": [],
+ "merged": [],
+ "name": "stimer.cpp"
+}

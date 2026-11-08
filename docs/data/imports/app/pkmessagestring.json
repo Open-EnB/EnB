@@ -1,0 +1,50 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "opcode 29's object, 0x89E110-0x89E5B0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 7 of 7 exact in appfile.py match",
+ "expected": {},
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x89E120",
+  "0x89E190",
+  "0x89E1B0",
+  "0x89E1D0",
+  "0x89E200",
+  "0x89E310",
+  "0x89E3E0",
+  "0x89E420",
+  "0x89E500",
+  "0x89E520"
+ ],
+ "merged": [],
+ "name": "packets/pkmessagestring.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x89E190",
+  "0x89E1B0"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x89E190",
+  "0x89E1B0",
+  "0x89E500"
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "R",
+ "expected": {
+  "G": 1,
+  "R": 13,
+  "Z": 15
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x48CA70",
+  "0x48E910",
+  "0x510BE0",
+  "0x510CC0",
+  "0x9AF3F0",
+  "0x9AF580",
+  "0x9AF8B0",
+  "0x9AF970",
+  "0x9AFD70",
+  "0x9AFDC0",
+  "0x9AFE80",
+  "0x9AFE90",
+  "0x9AFEC0",
+  "0x9AFEF0",
+  "0x9B0000",
+  "0x9B00D0",
+  "0x9B1620",
+  "0x9B17D0",
+  "0x9B18C0",
+  "0x9B1A70",
+  "0x9B1C20",
+  "0x9B1DC0",
+  "0x9B1EB0",
+  "0x9B2510",
+  "0x9B2540"
+ ],
+ "merged": [],
+ "name": "dx8caps.cpp",
+ "shared": [
+  "0x42F250",
+  "0x48CA70",
+  "0x48E910",
+  "0x510BE0",
+  "0x510CC0"
+ ]
+}

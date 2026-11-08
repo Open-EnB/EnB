@@ -1,0 +1,41 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "R",
+ "expected": {
+  "G": 4,
+  "R": 8,
+  "Z": 10
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x48F3A0",
+  "0x48FFB0",
+  "0x490150",
+  "0x4902D0",
+  "0x4904B0",
+  "0x9A0870",
+  "0x9A0AB0",
+  "0x9A0AE0",
+  "0x9A0B00",
+  "0x9A0B20",
+  "0x9A0B40",
+  "0x9A0B50",
+  "0x9A0B80",
+  "0x9A0CA0",
+  "0x9A0D30",
+  "0x9A1AB0",
+  "0x9A2050"
+ ],
+ "merged": [],
+ "name": "ddsfile.cpp",
+ "shared": [
+  "0x42F250",
+  "0x48F3A0",
+  "0x48FFB0",
+  "0x490150",
+  "0x4902D0",
+  "0x4904B0"
+ ]
+}

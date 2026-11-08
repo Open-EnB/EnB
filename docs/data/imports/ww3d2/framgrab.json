@@ -1,0 +1,23 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 8,
+  "R": 8,
+  "Z": 8
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x99AB70",
+  "0x99AE40",
+  "0x99AEC0",
+  "0x99AF30",
+  "0x99AF90",
+  "0x99B000",
+  "0x99B070",
+  "0x99B0E0"
+ ],
+ "merged": [],
+ "name": "framgrab.cpp"
+}

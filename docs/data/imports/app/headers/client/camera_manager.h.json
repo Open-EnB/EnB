@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "CameraManagerClass's declaration, the controllers' base and ChaseCameraModuleClass as far as the manager uses them; D24 header name from camera_manager.cpp's __FILE__ (CM1)"
+}

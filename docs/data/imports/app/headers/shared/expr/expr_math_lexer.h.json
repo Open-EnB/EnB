@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ExprMathTokenClass (0x14 bytes; its functions in expr_math_token.cpp), the lexer interface (vtable 0xAEBB00, seven slots) and the matcher interface (0xAEBB30); interim header (D137), NAME 3 (EX1, EX3)"
+}

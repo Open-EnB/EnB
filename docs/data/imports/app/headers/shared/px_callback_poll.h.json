@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "PxPollCallback / PxPollAccurateCallback (SPHERE / VOLUME, the FAIL_IFs' names), px_callback_poll.cpp's polling callbacks; provisional class and header names"
+}

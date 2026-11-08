@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIAnalyzeClass, ui_analyze.cpp's analysis window (0x11C bytes, tables 0xAEF120 / 0xAEF114 / 0xAEF108; the client's file per its asserts, this header's name provisional), laid out from the constructor 0x5435D0 / destructor 0x5437C0 (AN1), over sclient.h's Unknown5BB320Class (second constructor 0x5BB250)"
+}

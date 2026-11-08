@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "its class (the avatar's +0xE8, opcodes 94 / 95's Print; pkmessagechatstream.h includes it)"
+}

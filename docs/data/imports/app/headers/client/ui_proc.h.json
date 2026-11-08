@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIProcClass (NAME 3, D24 from ui_proc.cpp) and its six subclasses as ui_mesh.cpp inlines and emits them; ui_proc.cpp itself not rebuilt; header PROVISIONAL (D137), UM1"
+}

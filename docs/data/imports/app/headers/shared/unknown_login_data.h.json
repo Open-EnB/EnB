@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "TicketClass (0x48 bytes, vtable 0xB0C608) and LoginCharacterClass, the 0x90-byte character slot (vtables 0xB0C560 / 0xB0C55C; members named by its visitor's keys) (PROVISIONAL file name, D10; from tsk_game.h and tsk_login.h, D90 9b)"
+}

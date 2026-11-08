@@ -1,0 +1,57 @@
+{
+ "ambiguous": [
+  "0x42AAE0",
+  "0x42AFF0",
+  "0x42B2F0",
+  "0x4333D0",
+  "0x436420",
+  "0x436730",
+  "0x451060",
+  "0x451370",
+  "0x4513D0"
+ ],
+ "copy": "reconstructed",
+ "description": "NavListBuilderClass (D24): the constructor, destructor, 0x7B7C80 and Clear of the object at 0x7B7BF0 (the client's __FILE__ 0xB9EE4C, FAIL_IF '!from' at line 150); the rest is not rebuilt (GR2)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x4A0B70",
+  "0x7B7BA0",
+  "0x7B7BF0",
+  "0x7B7C30",
+  "0x7B7C60",
+  "0x7B7C80",
+  "0x7B7EF0",
+  "0x7B81E0",
+  "0x7B8210",
+  "0x7B8510",
+  "0x7B8880",
+  "0x7B8BF0",
+  "0x7B8E40",
+  "0x7B8E90",
+  "0x7B8ED0",
+  "0x7B8F10",
+  "0x7B8F50",
+  "0x7B91F0",
+  "0x7B9240",
+  "0x7B9280",
+  "0x7B95B0",
+  "0x7B96A0",
+  "0x7B9780"
+ ],
+ "merged": [],
+ "name": "client/nav_list_builder.cpp",
+ "shared": [
+  "0x42F250",
+  "0x4A0B70",
+  "0x7B9280"
+ ],
+ "short_known": [
+  "0x4A0B70",
+  "0x7B7C60",
+  "0x7B9280"
+ ],
+ "tiebreak": [
+  "0x7B9780"
+ ]
+}

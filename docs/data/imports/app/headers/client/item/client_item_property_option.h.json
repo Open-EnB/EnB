@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ClientItemPropertyOptionClass (NAME 2), an item's option property (its FAIL_IFs' __FILE__ 0xB78A58, lines 70 / 71): partial, interim (D137), only the sort key at +0x08 and operator< 0x536E20 that ui_item_examination_options.cpp's sort uses; IE1"
+}

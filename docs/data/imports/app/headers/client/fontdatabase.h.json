@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "FontDatabaseClass (D24, 0xBE67B8): fontsys.ini's INIT sections by resolution, the font files (AllFonts), the fonts in use (Font[MAXFONTS], Font32Class through RefCountPtr), the Colors / Effects / Strings SGI hash_maps (D87) and their templates; FontStringFilesClass (0xBE67BC), the counted string files"
+}

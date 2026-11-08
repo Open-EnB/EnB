@@ -1,0 +1,40 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 8,
+  "R": 13,
+  "Z": 13
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x4418E0",
+  "0x48C500",
+  "0x48CA70",
+  "0x48E910",
+  "0x510CC0",
+  "0x919CF0",
+  "0x9D0720",
+  "0x9D0770",
+  "0x9D0780",
+  "0x9D07B0",
+  "0x9D07D0",
+  "0x9D0810",
+  "0x9D0890",
+  "0x9D0900",
+  "0x9D0AD0",
+  "0x9D0C60",
+  "0x9D0EC0"
+ ],
+ "merged": [],
+ "name": "ffactory.cpp",
+ "shared": [
+  "0x4418E0",
+  "0x48C500",
+  "0x48CA70",
+  "0x48E910",
+  "0x510CC0",
+  "0x919CF0"
+ ]
+}

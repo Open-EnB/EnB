@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the in-process transport (descriptive names, D24): the memory connection (vtable 0xB087D4), its pipes, the memory listener (0xB08818 / 0xB08814) and the registry by port"
+}

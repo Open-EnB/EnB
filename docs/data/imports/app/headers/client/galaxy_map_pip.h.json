@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "GalaxyMapPipClass's declaration (D24 header name from galaxy_map_pip.cpp's __FILE__; table 0xAEEE94, 0x11C bytes), with galaxy_map_render.cpp's and galaxy_map_focal_point.cpp's classes as far as it calls them (GP1)"
+}

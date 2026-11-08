@@ -1,0 +1,31 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "Z": 5
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0xA08C90",
+  "0xA08CC0",
+  "0xA08D00",
+  "0xA08D10",
+  "0xA08D30",
+  "0xA08D50",
+  "0xA08D70",
+  "0xA08DB0",
+  "0xA08DD0",
+  "0xA08E20"
+ ],
+ "merged": [],
+ "name": "shddefmanager.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0xA08D00",
+  "0xA08D10"
+ ]
+}

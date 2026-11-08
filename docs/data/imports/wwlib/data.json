@@ -1,0 +1,25 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 4,
+  "R": 7,
+  "Z": 7
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x9E88A0",
+  "0x9E88E0",
+  "0x9E8A00",
+  "0x9E8B20",
+  "0x9E8B60",
+  "0x9E8BA0"
+ ],
+ "merged": [],
+ "name": "data.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

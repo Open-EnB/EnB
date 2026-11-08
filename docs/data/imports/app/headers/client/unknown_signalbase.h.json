@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "SignalBaseClass (the client's RTTI: the scope of the MemberCallback type names, 0xB7C068 / 0xB817B0 and ~20 more) and its MemberCallback<SENDER, OBJECT, FUNC, EVENT> template over a neutral base CallbackClass (vtable 0xAEDB58): the windows' gadget-event callbacks, out of line in ui_avsel.cpp's window (0x560250-0x5603AB) and ui_login.cpp's (0x5AF7F0-0x5AF94B); neutral header name, interim placement (D137), LG4"
+}

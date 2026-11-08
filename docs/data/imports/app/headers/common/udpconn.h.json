@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UDPConnection (vtable 0xB088F4, 0xD0 bytes, the client's layout), its channel key, the CordMgr pump task (vtable 0xB0889C), UDPConnectionManager (0xB08934) and the listener (0xB08958): descriptive names (D24)"
+}

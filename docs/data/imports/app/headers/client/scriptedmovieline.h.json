@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ScriptedMovieLineClass, one line of the scripted movie's script (0x0C bytes: the frame, the text, the cursor; ScriptedMovieParamsClass merged into it, the dispatcher 0x803310 passing the line to 0x7FFD30); moved out of sclient.h (LC1, D137); the header's name provisional (NAME 1)"
+}

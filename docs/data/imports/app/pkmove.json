@@ -1,0 +1,48 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "opcode 20's object, 0x89D040-0x89D2E0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 5 of 5 exact in appfile.py match",
+ "expected": {},
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x581610",
+  "0x89D070",
+  "0x89D0C0",
+  "0x89D0E0",
+  "0x89D110",
+  "0x89D1B0",
+  "0x89D280",
+  "0x89D2A0"
+ ],
+ "merged": [],
+ "name": "packets/pkmove.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x581610",
+  "0x89D0C0"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x581610",
+  "0x89D0C0",
+  "0x89D280"
+ ]
+}

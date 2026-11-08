@@ -1,0 +1,31 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 11,
+  "R": 11,
+  "Z": 11
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x9E8BE0",
+  "0x9E8D80",
+  "0x9E8E00",
+  "0x9E8ED0",
+  "0x9E9030",
+  "0x9E90F0",
+  "0x9E9150",
+  "0x9E9220",
+  "0x9E92A0",
+  "0x9E9350",
+  "0x9E9370",
+  "0x9E9390"
+ ],
+ "merged": [],
+ "name": "ddraw.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

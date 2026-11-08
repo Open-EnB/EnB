@@ -1,0 +1,23 @@
+{
+ "ambiguous": [
+  "0x42B2F0",
+  "0x46BE90",
+  "0x474080"
+ ],
+ "copy": "reconstructed",
+ "description": "the starbase avatar, client 0x78A910-0x78BEA0 (PROVISIONAL file, D137: no __FILE__; after avatar.cpp's object, its own copy of the skeleton-name table 0xB9D55C): so far 0x78B810, 0x78BA20, 0x78BB60, exact; the class declared in the .cpp only (TG3)",
+ "expected": {},
+ "in_tree": [
+  "0x42A100",
+  "0x42F250",
+  "0x78B810",
+  "0x78BA20",
+  "0x78BB60"
+ ],
+ "merged": [],
+ "name": "client/unknown_78a910.cpp",
+ "shared": [
+  "0x42A100",
+  "0x42F250"
+ ]
+}

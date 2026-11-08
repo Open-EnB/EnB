@@ -1,7 +1,8 @@
 """Transition shim (docs/pipeline-plan.md 3.3): importer.py was split into
 
     libdefs.py   the libraries, flags, include paths, dest(), lib_of, NOT_LINKED, APP_LIBS
-    ledger.py    load / save the ledger (docs/data/imports), RECONSTRUCTED, load_state / save_state
+    ledger.py    load / save the sharded ledger (docs/data/imports), RECONSTRUCTED (computed from the
+                 shards' descriptions), load_state / save_state, export / split
     verify.py    `python verify.py [--lib L] [--pool K] ...`: compile, byte-match, record
     report.py    `python report.py`: docs/imports.md
     vc6lock.py   the importer lock, the agent and its scratch folder WORK, pool_lease
@@ -40,9 +41,7 @@ def main():
     if cmd == 'verify':
         _verify.main(rest)
     else:
-        if rest:
-            raise SystemExit('report takes no options')
-        _report.main()
+        _report.main(rest)
 
 
 if __name__ == '__main__':

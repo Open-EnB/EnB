@@ -1,0 +1,32 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 5,
+  "R": 8,
+  "Z": 7
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x9A5FB0",
+  "0x9A64B0",
+  "0x9A6520",
+  "0x9A6550",
+  "0x9A6560",
+  "0x9A65C0",
+  "0x9A69F0",
+  "0x9A6B20"
+ ],
+ "merged": [],
+ "name": "metalmap.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40"
+ ],
+ "short_known": [
+  "0x9A6550"
+ ]
+}

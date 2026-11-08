@@ -1,0 +1,32 @@
+{
+ "ambiguous": [
+  "0x45CB00",
+  "0x45CB40",
+  "0x45CBE0",
+  "0x45CCE0",
+  "0x45CDC0",
+  "0x45CF20",
+  "0x48A7F0",
+  "0x48A960",
+  "0x48AB30",
+  "0x98FBC0",
+  "0x98FD10",
+  "0x98FEA0"
+ ],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 1,
+  "R": 1,
+  "Z": 1
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250"
+ ],
+ "merged": [],
+ "name": "msgloop.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "ambiguous": [
+  "0x9D3DE0",
+  "0x9D41C0"
+ ],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 4,
+  "R": 16,
+  "Z": 16
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x9D3E40",
+  "0x9D3ED0",
+  "0x9D3F80",
+  "0x9D4010",
+  "0x9D4070",
+  "0x9D40E0",
+  "0x9D4150",
+  "0x9D4310",
+  "0x9D4370",
+  "0x9D43D0",
+  "0x9D43F0",
+  "0x9D4400",
+  "0x9D4430",
+  "0x9D44A0",
+  "0x9D4540"
+ ],
+ "merged": [],
+ "name": "chunkio.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

@@ -28,7 +28,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
 PAIRS_CMP = os.path.join(REPO, 'tools', 'vc6', 'pairs_cmp.py')
 POOL = os.path.join(REPO, 'tools', 'vc6', 'pool.py')
-IMPORTS = os.path.join(REPO, 'docs', 'data', 'imports.json')
+LEDGER = os.path.join(REPO, 'tools', 'vc6', 'ledger.py')   # HEAD's ledger shards -> one snapshot file
 
 
 # ---------------------------------------------------------------- usage
@@ -79,9 +79,11 @@ def pool():
 
 # --------------------------------------------------------------- health
 def health(baseline):
-    """HEAD's imports.json parses; the pairs lost outright against the baseline (rename moves excluded)."""
-    head = subprocess.run(['git', 'show', 'HEAD:docs/data/imports.json'], cwd=REPO,
-                          capture_output=True, text=True).stdout
+    """HEAD's ledger parses (every shard); the pairs lost outright against the baseline (rename moves excluded)."""
+    tmp = os.path.join(REPO, '.work', 'imports.head.json')
+    r = subprocess.run([sys.executable, LEDGER, 'export', '--rev', 'HEAD', '-o', tmp], cwd=REPO,
+                       capture_output=True, text=True)
+    head = io.open(tmp, encoding='utf-8').read() if r.returncode == 0 and os.path.exists(tmp) else ''
     try:
         json.loads(head)
         parses = True
@@ -89,8 +91,6 @@ def health(baseline):
         parses = False
     lost_outright, gained_n = None, None
     if baseline and parses:
-        tmp = os.path.join(REPO, '.work', 'imports.head.json')
-        io.open(tmp, 'w', encoding='utf-8', newline='').write(head)
         out = subprocess.run([sys.executable, PAIRS_CMP, baseline, tmp], cwd=REPO,
                              capture_output=True, text=True).stdout
         # one labelled list per line; D166 added `gained tie-break` and the `lost tie-break ...` lines
@@ -192,7 +192,7 @@ def heartbeat(a):
     lines = usage_lines(rows)
     lines.append('memory      free %.1f GB of %.1f GB; pool %d running, %d leased; builders running %d'
                  % (fgb, tgb, running, leased, a.builders))
-    lines.append('HEAD        imports.json %s; gained %s vs baseline; lost outright %s'
+    lines.append('HEAD        ledger %s; gained %s vs baseline; lost outright %s'
                  % ('parses' if parses else 'DOES NOT PARSE', gained_n, lost))
     lines.append('rates       weekly %.2f %%/h, session %.2f %%/h per builder (%s)'
                  % (weekly_rate, session_rate, rate_src))
@@ -225,7 +225,7 @@ def main():
     hb = sub.add_parser('heartbeat')
     hb.add_argument('--plan', required=True)
     hb.add_argument('--builders', type=int, required=True, help='builders running now')
-    hb.add_argument('--baseline', default=None, help="the run's baseline imports.json for pairs_cmp")
+    hb.add_argument('--baseline', default=None, help="the run's baseline (.work/imports.<sha>.json, ledger.py export --rev) for pairs_cmp")
     hb.add_argument('--accept', default=None,
                     help='comma-separated addresses whose loss the user accepted (D66), not counted as lost')
     hb.add_argument('--handoff', default=None, help='HH:MM when the handoff must be written')
@@ -247,7 +247,7 @@ def main():
             print('%-12s %-8s %s' % (name, state, who or 'free'))
     elif a.cmd == 'health':
         parses, g, lost = health(a.baseline)
-        print('imports.json %s; gained %s; lost outright %s' % ('parses' if parses else 'DOES NOT PARSE', g, lost))
+        print('ledger %s; gained %s; lost outright %s' % ('parses' if parses else 'DOES NOT PARSE', g, lost))
     elif a.cmd == 'heartbeat':
         heartbeat(a)
     else:

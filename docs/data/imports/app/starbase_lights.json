@@ -1,0 +1,17 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "Unknown_764480Class, the starbase lights manager (0x10 bytes: an INIClass member at +0x00, 'starbase_lights.ini'), client 0x764480-0x764519: the constructor, the destructor 0x7644F0 and the setter 0x764510 of 0xBE82D0 (PROVISIONAL file name after its INI file, D137) (STB2)",
+ "expected": {},
+ "in_tree": [
+  "0x764480",
+  "0x7644F0",
+  "0x764510"
+ ],
+ "merged": [],
+ "name": "client/starbase_lights.cpp",
+ "short_known": [
+  "0x7644F0",
+  "0x764510"
+ ]
+}

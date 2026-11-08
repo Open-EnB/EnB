@@ -1,0 +1,32 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 1,
+  "R": 3,
+  "Z": 5
+ },
+ "headers_from": "Z",
+ "in_tree": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0x92E620",
+  "0x92E650",
+  "0x92E6C0",
+  "0x92E720",
+  "0x92E800",
+  "0x92E840",
+  "0x92E860",
+  "0x92E890",
+  "0x92E8C0"
+ ],
+ "merged": [],
+ "name": "matpass.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30"
+ ]
+}

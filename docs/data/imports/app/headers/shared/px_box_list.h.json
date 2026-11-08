@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "PxBoxList / PxOwnerList, px_box_list.cpp's boxes keeping what overlaps them (the vectors Boxes / Owners are the asserts' names); provisional class and header names"
+}

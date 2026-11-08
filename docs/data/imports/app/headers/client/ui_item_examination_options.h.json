@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIItemExaminationOptionsClass (the item examination window's options panel, 0x80 bytes, constructor 0x5352D0) and UIItemExaminationOptionClass (one option's row, 0x74 bytes, constructor 0x535CB0), declared only as far as the rebuilt functions use them; neutral header name; IE1"
+}

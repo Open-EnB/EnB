@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the key names (PROVISIONAL file name, D10: the object has no __FILE__; linked between inpdsp.cpp and input.cpp): name <-> code lookups on two SGI hash_maps (D87)"
+}

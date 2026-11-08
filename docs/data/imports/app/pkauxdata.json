@@ -1,0 +1,65 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "the aux data packets (opcodes 27 and 28 over it), client 0x876D30-0x877340: written by hand (builder P), 7 of 8 functions exact in appfile.py match (Print NOT EXACT: register order); the file name provisional (NAME 1)",
+ "expected": {},
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x876D30",
+  "0x876E00",
+  "0x876E20",
+  "0x876E40",
+  "0x876E60",
+  "0x876E90",
+  "0x876F60",
+  "0x876FA0",
+  "0x877080",
+  "0x8770A0",
+  "0x8770E0",
+  "0x8771C0",
+  "0x8771E0",
+  "0x877200",
+  "0x877230",
+  "0x877300"
+ ],
+ "merged": [],
+ "name": "packets/pkauxdata.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x876E00",
+  "0x876E20",
+  "0x876E40",
+  "0x8771C0",
+  "0x8771E0"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x876E00",
+  "0x876E20",
+  "0x876E40",
+  "0x877080",
+  "0x8771C0",
+  "0x8771E0"
+ ],
+ "tiebreak": [
+  "0x877300"
+ ]
+}

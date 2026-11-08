@@ -1,0 +1,29 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 0,
+  "R": 0,
+  "Z": 6
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x494E50",
+  "0x6DACC0",
+  "0x909500",
+  "0x97CF10",
+  "0x97CF70",
+  "0x97CFF0",
+  "0x97D060",
+  "0x97D0A0"
+ ],
+ "merged": [],
+ "name": "static_sort_list.cpp",
+ "shared": [
+  "0x42F250",
+  "0x494E50",
+  "0x909500"
+ ]
+}

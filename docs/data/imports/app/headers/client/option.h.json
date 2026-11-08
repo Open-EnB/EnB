@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "OptionClass (D24, WinMain's options manager 0xBE8B38) and its five option structs: five SGI hash_maps by value type (libs/sgistl, D87)"
+}

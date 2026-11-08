@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "VC6's #import output for E&B's own release\\BrowserEngine.dll (sha256 1b14db3c...; not in the repository), included by dx8webbrowser.cpp instead of the #import; E&B's interface has CreateBrowser's querydata and Zero Hour's lacks it"
+}

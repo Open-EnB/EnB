@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "CFactionDatabaseClass (D24): the factions' Name and Description from cfaction_t.ini in a static SGI hash_map<std::string> _Factions (libs/sgistl, D87)"
+}

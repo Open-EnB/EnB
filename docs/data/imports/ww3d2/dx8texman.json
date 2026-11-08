@@ -1,0 +1,30 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 3,
+  "R": 3,
+  "Z": 4
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x995B40",
+  "0x995B80",
+  "0x995BD0",
+  "0x995C00",
+  "0x995C20",
+  "0x995C70",
+  "0x995CB0",
+  "0x995CE0"
+ ],
+ "merged": [],
+ "name": "dx8texman.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x995C00"
+ ]
+}

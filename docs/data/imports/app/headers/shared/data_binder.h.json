@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "DataBinderClass<KEY> (D24): a registry of data objects of any type bound to a key, one SGI hash_map<KEY, T *> per type in a hash_map<std::string, void *> keyed by typeid(T *).name() (libs/sgistl, D87); asserts on the client's lines 99 / 101 (D25)"
+}

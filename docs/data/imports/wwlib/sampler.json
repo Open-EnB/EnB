@@ -1,0 +1,45 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 6,
+  "R": 6,
+  "Z": 6
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x483760",
+  "0x483780",
+  "0x9D39F0",
+  "0x9D3A10",
+  "0x9D3A20",
+  "0x9D3A40",
+  "0x9D3A70",
+  "0x9D3AB0",
+  "0x9D3AF0",
+  "0x9D3B10",
+  "0x9D3B30",
+  "0x9D3BB0",
+  "0x9D3BF0",
+  "0x9D3C30",
+  "0x9D3C50",
+  "0x9D3C70",
+  "0x9D3CF0",
+  "0x9D3D10",
+  "0x9D3D20",
+  "0x9D3D40"
+ ],
+ "merged": [],
+ "name": "sampler.cpp",
+ "shared": [
+  "0x483760",
+  "0x9D3A10",
+  "0x9D3D10"
+ ],
+ "short_known": [
+  "0x483760",
+  "0x9D3A10",
+  "0x9D3D10"
+ ]
+}

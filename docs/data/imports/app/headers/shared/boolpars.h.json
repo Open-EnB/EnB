@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "BoolParserClass (D24), its expression, node and value classes; the evaluators an SGI hash_map<std::string, BoolEvaluatorClass *> (libs/sgistl, D87)"
+}

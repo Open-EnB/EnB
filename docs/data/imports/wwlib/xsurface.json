@@ -1,0 +1,47 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 24,
+  "R": 24,
+  "Z": 24
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9DBB30",
+  "0x9DBB60",
+  "0x9DBEB0",
+  "0x9DBEE0",
+  "0x9DBF80",
+  "0x9DBFD0",
+  "0x9DC030",
+  "0x9DC060",
+  "0x9DC2E0",
+  "0x9DC320",
+  "0x9DC380",
+  "0x9DC4C0",
+  "0x9DC4F0",
+  "0x9DC670",
+  "0x9DC9E0",
+  "0x9DCA30",
+  "0x9DCB90",
+  "0x9DCBF0",
+  "0x9DCC90",
+  "0x9DCCB0",
+  "0x9DCCD0",
+  "0x9DCD00",
+  "0x9DCD20",
+  "0x9DCD50",
+  "0x9DCD70",
+  "0x9DCDA0",
+  "0x9DCDC0",
+  "0x9DCDF0",
+  "0x9DCE10"
+ ],
+ "merged": [],
+ "name": "xsurface.cpp",
+ "shared": [
+  "0x9DCE10"
+ ]
+}

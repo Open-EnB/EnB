@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "TutorialLineStruct, TutorialStepStruct and TutorialManagerClass (D24): tutorialdef.ini's TUTORIAL-n steps in an SGI hash_map<std::string, TutorialStepStruct *> (libs/sgistl, D87), the completed tutorials in a std::list<char *>"
+}

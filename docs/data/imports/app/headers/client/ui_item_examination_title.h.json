@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIItemExaminationTitleClass (the item examination window's title panel 'TITLE_IEI00', 0x70 bytes, table 0xAEE818); header name from ui_item_examination_title.cpp, NAME 3 (IE2)"
+}

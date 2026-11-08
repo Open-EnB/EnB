@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "TextBaseGadgetClass (table 0xAFD980) and TextGadgetClass (table 0xAFDA10, 0x80 bytes), textgadg.cpp's (__FILE__ 0xB91874; D24 header name): the edit boxes of the login screen; the flag constants 0xB08CAC-0xB08CC4 (extern) (GAD3)"
+}

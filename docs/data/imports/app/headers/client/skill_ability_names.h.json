@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the abilities' structs and functions (header name assumed from skill_ability_names.cpp's __FILE__ 0xBA7A18) (SD1)"
+}

@@ -1,0 +1,22 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 1,
+  "R": 4,
+  "Z": 1
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9FB7D0",
+  "0x9FB810",
+  "0x9FB850",
+  "0x9FB890",
+  "0x9FB8D0",
+  "0x9FB9C0",
+  "0x9FBA30"
+ ],
+ "merged": [],
+ "name": "Threads.cpp"
+}

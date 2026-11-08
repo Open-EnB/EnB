@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "CordCon (client names: the profile labels, 'Udp_'), CordChannelClass and CordMessageClass (descriptive, D24): the EA-UDP connection, its channels and message records (M1.4)"
+}

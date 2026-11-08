@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UICpitClass, ui_cpit.cpp's cockpit interface (the main view's +0x1D0; 0x178 bytes, tables 0xAF0CFC / 0xAF0CF0 / 0xAF0CE4; the client's file per its asserts, this header's name provisional), laid out from the constructor 0x57D830 / destructor 0x57EB80 over Unknown5BB320Class (sclient.h, moved from ui_group.h: D137), with its two object watchers (tables 0xAF0DBC / 0xAF0DA8) on the watched-pointer base UnknownObjectWatchClass (interim placement, D137); moved out of sclient.h (CP1)"
+}

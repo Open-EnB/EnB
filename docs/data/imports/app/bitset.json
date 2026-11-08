@@ -1,0 +1,25 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "BitSetClass (D24), client 0x4A47B0-0x4A4C4B: 12 functions, the asserts on the client's lines (D25)",
+ "expected": {},
+ "in_tree": [
+  "0x4A47B0",
+  "0x4A4870",
+  "0x4A4960",
+  "0x4A4980",
+  "0x4A49C0",
+  "0x4A4A30",
+  "0x4A4AA0",
+  "0x4A4B10",
+  "0x4A4B80",
+  "0x4A4BB0",
+  "0x4A4C00",
+  "0x4A4C30"
+ ],
+ "merged": [],
+ "name": "shared/auxdata/bitset.cpp",
+ "short_known": [
+  "0x4A4960"
+ ]
+}

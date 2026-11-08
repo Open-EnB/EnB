@@ -1,0 +1,31 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 4,
+  "R": 9,
+  "Z": 4
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x964E20",
+  "0x964F30",
+  "0x964F80",
+  "0x964FB0",
+  "0x965010",
+  "0x965020",
+  "0x965130",
+  "0x965250",
+  "0x965270"
+ ],
+ "merged": [],
+ "name": "projector.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x965010"
+ ]
+}

@@ -1,0 +1,31 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "Z": 2
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0xA08E70",
+  "0xA08EE0",
+  "0xA08F00",
+  "0xA08F60",
+  "0xA08F70"
+ ],
+ "merged": [],
+ "name": "shdinterface.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0xA08F70"
+ ],
+ "short_known": [
+  "0xA08F60",
+  "0xA08F70"
+ ]
+}

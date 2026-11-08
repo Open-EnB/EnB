@@ -1,0 +1,16 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 1,
+  "R": 1,
+  "Z": 1
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9D05B0"
+ ],
+ "merged": [],
+ "name": "nstrdup.cpp"
+}

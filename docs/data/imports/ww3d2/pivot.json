@@ -1,0 +1,21 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 1,
+  "R": 3,
+  "Z": 1
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x9C5070",
+  "0x9C5120"
+ ],
+ "merged": [],
+ "name": "pivot.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

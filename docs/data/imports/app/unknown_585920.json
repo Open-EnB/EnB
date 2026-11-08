@@ -1,0 +1,30 @@
+{
+ "ambiguous": [
+  "0x46BE90",
+  "0x474080"
+ ],
+ "copy": "reconstructed",
+ "description": "interim placement (D137): the avatar window's pull (0x585920, 0x585950, 0x5859A0) and choice (0x585C90, 0x585CC0) helpers, functional, under ui_avatr.cpp's stand-in names (CRE1)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x585920",
+  "0x585950",
+  "0x5859A0",
+  "0x585B50",
+  "0x585BF0",
+  "0x585C90",
+  "0x585CC0",
+  "0x585CF0",
+  "0x585D10",
+  "0x5860B0"
+ ],
+ "merged": [],
+ "name": "client/unknown_585920.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x585CF0"
+ ]
+}

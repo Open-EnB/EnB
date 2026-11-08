@@ -1,0 +1,45 @@
+{
+ "ambiguous": [
+  "0x931490"
+ ],
+ "best": "Z",
+ "copy": "R",
+ "expected": {
+  "G": 7,
+  "R": 9,
+  "Z": 10
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x9BE7E0",
+  "0x9BE830",
+  "0x9BE890",
+  "0x9BE930",
+  "0x9BE950",
+  "0x9BEA80",
+  "0x9BEA90",
+  "0x9BEAB0",
+  "0x9BEB00",
+  "0x9BEB20",
+  "0x9C2380",
+  "0x9C2390",
+  "0x9C2B50"
+ ],
+ "merged": [
+  {
+   "copy": "Z",
+   "function": "SegLineRendererClass::Set_Texture_Tile_Factor"
+  }
+ ],
+ "name": "seglinerenderer.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40",
+  "0x9C2380"
+ ],
+ "short_known": [
+  "0x9C2380"
+ ]
+}

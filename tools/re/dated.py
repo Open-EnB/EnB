@@ -6,7 +6,7 @@ Per comment: lib, file, line (in the first copy that has it, Z > G > R), copies 
 (normalised YYYY-MM-DD), author, band against D9 (pre = before 06/27/02, mid = 06/27/02..08/04/02,
 post = 08/05/02 and later), enclosing function ("^Name" = the comment sits just above Name), whether
 the tree's file has the comment text, whether the tree's function body equals that copy's, and the
-function's state in docs/data/imports.json (exact = one of the file's in_tree addresses carries the
+function's state in the ledger docs/data/imports (exact = one of the file's in_tree addresses carries the
 name) or gaps-LIB.json (gap@ADDR sim)."""
 import datetime
 import json
@@ -152,7 +152,8 @@ def main():
     args = sys.argv[1:]
     md = args[args.index('--md') + 1] if '--md' in args else None
     js = args[args.index('--json') + 1] if '--json' in args else None
-    imports = json.load(open(os.path.join(DATA, 'imports.json')))
+    import ledger
+    imports = ledger.load()
     names = load_names()
     global NAMES_OBJ
     np_ = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'names.json')

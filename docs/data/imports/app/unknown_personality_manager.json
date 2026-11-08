@@ -1,0 +1,25 @@
+{
+ "ambiguous": [
+  "0x42A900",
+  "0x42AAE0",
+  "0x42AFF0",
+  "0x4333D0",
+  "0x436730"
+ ],
+ "copy": "reconstructed",
+ "description": "client 0x790560-0x7912E0 (PROVISIONAL file name, D10): the personality manager (0xBE856C, WinMain makes it) and its std::vector instances; NOT EXACT functional for the POC (D64) where marked",
+ "expected": {},
+ "in_tree": [
+  "0x790870",
+  "0x790940",
+  "0x790C70",
+  "0x790D00",
+  "0x790DE0",
+  "0x790E70"
+ ],
+ "merged": [],
+ "name": "client/unknown_personality_manager.cpp",
+ "short_known": [
+  "0x790940"
+ ]
+}

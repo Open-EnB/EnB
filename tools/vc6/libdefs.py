@@ -55,17 +55,17 @@ LIB_TREE = {'wlib': r'libs\wwonline\wlib', 'wnet': r'libs\wwonline\wnet'}
 LATE_INCLUDE_LIBS = ('wlib', 'wnet', 'binkmovie')
 HEADER_EXT = ('.h', '.hpp', '.inl')
 
-# Non-EA libraries (D23): E&B's own code, which no EA copy has. Every file is in RECONSTRUCTED
-# (written from the client, docs/workflow.md "Adding an app file"). The directory mirrors E&B's
+# Non-EA libraries (D23): E&B's own code, which no EA copy has. Every file is in RECONSTRUCTED: a ledger
+# shard with a `description` (ledger.py; written from the client, docs/workflow.md "Adding an app file"). The directory mirrors E&B's
 # e:\build\beta\G\<lib>\... (A1: the repository root stands for G\, directories in lower case), so
-# the file names in RECONSTRUCTED and imports.json are paths relative to <lib> with '/'
+# the file names in RECONSTRUCTED and the ledger are paths relative to <lib> with '/'
 # (`shared/auxdata/bitset.cpp`); file keys stay the base name (key_of), so two .cpp files of one
 # such library may not share a base name (load_state refuses it). Per library: the defines
 # (vc6's, with NDEBUG, D61: E&B's G_ASSERT/FAIL_IF don't test it), the client range verify searches (the
 # app region, docs/binary.md; objmatch region) and the __FILE__ root: the sources are named to cl
 # under e:\build\beta\G (vc6.compile_sources source_alias), so __FILE__ is the client's string.
 # Their state entry (base 'reconstructed', no evidence totals) is derived from RECONSTRUCTED by
-# load_state; plan, assemble and refine leave them alone. Not in LIBS (the EA libraries), so the
+# ledger.load_state. Not in LIBS (the EA libraries), so the
 # libraries' include paths don't see them.
 APP_LIBS = {
     'app': {'defines': list(vc6.DEFAULT_DEFINES) + ['ENABLE_WWPROFILE'],   # D74

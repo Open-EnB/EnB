@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ClientTaskClass (D24 after its profile label 'ClientTask'), vtable 0xB03FF4, 0xA8 bytes; TicketClass (0x48 bytes) and what tsk_game.cpp calls, declared only"
+}

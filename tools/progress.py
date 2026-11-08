@@ -6,7 +6,7 @@
     python tools/progress.py --print              # numbers only, no files written
     python tools/progress.py --history --rebuild  # recompute every day of the history
 
-Reads committed data only (never client.exe, the VMs or the toolchain): docs/data/imports.json,
+Reads committed data only (never client.exe, the VMs or the toolchain): the ledger docs/data/imports,
 app-functions.json, symbols.json, bytematch-*.json, gaps-*.json, not-exact.md, docs/binary.md,
 stubs/*.cpp, and the C++ sources for the name census (tools/re/declcensus.py).
 
@@ -17,7 +17,7 @@ to the first):
   linker      the incremental-link thunk table, the int3 padding, and the compiler's exception
               handling stubs (docs/library-matching.md section 3.7, docs/coverage.md): output of
               the toolchain, not source. The EH stubs come back when the code is rebuilt and linked.
-  exact       a function proven byte for byte: a (file, address) pair in imports.json (D80 ties
+  exact       a function proven byte for byte: a (file, address) pair in the ledger (D80 ties
               included), or one of D54's `multiple` exact functions (the identical copies)
   NOT EXACT   functions written functionally (docs/data/not-exact.md, D64); an entry's address comes
               from symbols.json by name, else from its neighbours in the same source file
@@ -82,7 +82,7 @@ THIRD_PARTY = ('libcmt', 'libcpmt', 'comsupp', 'd3dx8')
 LIBS = ('app', 'binkmovie', 'wlib', 'wnet', 'ww3d2', 'wwaudio', 'wwdebug', 'wwlib', 'wwmath', 'wwsaveload',
         'wwshade')
 # the executable in address order (docs/binary.md section 2; the runs of proven functions in
-# docs/data/bytematch-*.json and imports.json draw the boundaries between libraries)
+# docs/data/bytematch-*.json and the ledger draw the boundaries between libraries)
 REGIONS = [
     ('app (E&B)', 0x401000, LIB_START),
     ('wwmath', LIB_START, 0x8E3690),
@@ -149,6 +149,15 @@ class Src:
         except ValueError:
             return default
 
+    def ledger(self):
+        """The ledger as imports.json's dict (tools/vc6/ledger.py: the shards, or imports.json before the split)."""
+        sys.path.insert(0, os.path.join(ROOT, 'tools', 'vc6'))
+        import ledger
+        try:
+            return ledger.load(self.ref, repo=ROOT)
+        except SystemExit:
+            return {}
+
     def ls(self, prefix):
         if self._ls is None:
             if self.ref is None:
@@ -205,7 +214,7 @@ class Tables:
         for e in src.json(DATA + '/funcmatch.json', []) or []:
             if isinstance(e, dict) and e.get('client'):
                 starts.add(hexint(e['client']))
-        imp = src.json(DATA + '/imports.json', {}) or {}
+        imp = src.ledger()
         for lib in imp.values():
             for v in lib.get('files', {}).values():
                 for a in v.get('in_tree', []) + v.get('ambiguous', []):
@@ -239,7 +248,7 @@ class Sets:
 
     def __init__(self, src):
         self.src = src
-        imp = src.json(DATA + '/imports.json', {}) or {}
+        imp = src.ledger()
         self.exact, self.amb, self.pairs = set(), set(), 0
         self.fn_by_lib = {}
         self.file_exact = {}                  # source path -> sorted exact addresses

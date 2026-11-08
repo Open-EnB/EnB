@@ -1,0 +1,40 @@
+{
+ "ambiguous": [
+  "0x42B2F0",
+  "0x499720",
+  "0x4A91B0"
+ ],
+ "copy": "reconstructed",
+ "description": "CameraController05Class (NAME 1, neutral), the camera manager's state-5 controller (landing; table 0xB04D4C, 0x18 bytes) and the declaration of 0x79C4A0's module (PROVISIONAL placement), client 0x793910-0x7944FF (__FILE__ 0xB9E374, asserts on lines 68-120; ending with <string>'s initialiser 0x7944E0); 0x793CE0 functional, not exact (CC1)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x7923E0",
+  "0x792410",
+  "0x792430",
+  "0x792460",
+  "0x793920",
+  "0x7939C0",
+  "0x7939E0",
+  "0x793A10",
+  "0x793A90",
+  "0x793BC0",
+  "0x793C40"
+ ],
+ "merged": [],
+ "name": "client/camctrl_land.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40",
+  "0x7923E0",
+  "0x792410",
+  "0x792430",
+  "0x792460",
+  "0x7939C0"
+ ],
+ "short_known": [
+  "0x792410",
+  "0x7939C0"
+ ]
+}

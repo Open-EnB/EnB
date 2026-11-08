@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ClientClass (D24 after client.cpp), the client base SClient and the movie client derive from: vtable 0xB02D7C (23 slots), 0x1150 bytes packed to 4, four wwlib HashListClass object lists (kernel-map-step9.md 2.1, D90 9c)"
+}

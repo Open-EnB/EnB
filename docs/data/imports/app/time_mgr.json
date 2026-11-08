@@ -1,0 +1,15 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "TimeMgrClass (D24 class-from-file; the client's __FILE__ 0xBA7EA4, its assert on line 33; object from 0x8190D0, after skillnam.cpp's <string> initialiser) (SN1)",
+ "expected": {},
+ "in_tree": [
+  "0x8190D0",
+  "0x819140",
+  "0x8191B0",
+  "0x8191E0",
+  "0x819280"
+ ],
+ "merged": [],
+ "name": "client/time_mgr.cpp"
+}

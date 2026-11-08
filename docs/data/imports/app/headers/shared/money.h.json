@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "MoneyClass (D24), only what delta_money.cpp uses: 8 bytes, 8-aligned; operator!= (DeltaTemplateClass<MoneyClass>::Set_Value)"
+}

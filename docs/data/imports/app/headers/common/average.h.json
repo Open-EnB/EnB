@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "AverageClass (D24, after the client's average.h, assert l.98): a running average over one-second samples, inline (the destructor 0x824C30)"
+}

@@ -1,0 +1,42 @@
+{
+ "ambiguous": [
+  "0x42FC60",
+  "0x42FE90",
+  "0x430090",
+  "0x4301A0",
+  "0x430260",
+  "0x430340",
+  "0x91F640",
+  "0x91F760",
+  "0x91F860",
+  "0x91F8E0",
+  "0x91F970"
+ ],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 0,
+  "R": 1,
+  "Z": 0
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x683D20",
+  "0x683DD0",
+  "0x683DF0",
+  "0x9CEFF0"
+ ],
+ "merged": [],
+ "name": "tagblock.cpp",
+ "shared": [
+  "0x683D20",
+  "0x683DD0",
+  "0x683DF0",
+  "0x9CEFF0"
+ ],
+ "short_known": [
+  "0x683D20",
+  "0x683DD0",
+  "0x683DF0"
+ ]
+}

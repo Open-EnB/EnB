@@ -1,0 +1,54 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 9,
+  "R": 12,
+  "Z": 15
+ },
+ "headers_from": "Z",
+ "in_tree": [
+  "0x42F250",
+  "0x48E910",
+  "0x909500",
+  "0x91D880",
+  "0x91D8A0",
+  "0x964810",
+  "0x964860",
+  "0x964930",
+  "0x964980",
+  "0x964A30",
+  "0x964AE0",
+  "0x964B90",
+  "0x964BB0",
+  "0x964BE0",
+  "0x964C40",
+  "0x964C70",
+  "0x964D40",
+  "0x964D60",
+  "0x964D70",
+  "0x964DA0",
+  "0x964DC0",
+  "0x964E10"
+ ],
+ "merged": [
+  {
+   "copy": "R",
+   "function": "HAnimManagerClass::~HAnimManagerClass"
+  }
+ ],
+ "name": "hanimmgr.cpp",
+ "shared": [
+  "0x42F250",
+  "0x48E910",
+  "0x909500",
+  "0x91D880",
+  "0x91D8A0",
+  "0x964D40",
+  "0x964D60"
+ ],
+ "short_known": [
+  "0x964D60"
+ ]
+}

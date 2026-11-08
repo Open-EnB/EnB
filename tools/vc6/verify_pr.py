@@ -6,14 +6,14 @@
    data: nothing of the PR is checked out in this tree.
 2. Gate: every file the PR changes must be one a verify only reads or sends to a build VM's compiler
    (C/C++ sources and headers outside tools/ and .github/, documentation, docs/data). Anything else (Python,
-   scripts, workflows, importer.py's patch tables, .def files...) would run on this host: the run is refused
+   scripts, workflows, libdefs.py's library table, .def files...) would run on this host: the run is refused
    until the maintainer has read the PR and passes --approved (the label `verify-approved` once the runner
    does this, step 3).
 3. A detached worktree .work/wt/prPR.vf at the test merge (wt.py's furnish: the shared lock, pool and hosts),
    where the libraries the PR touches (wt.py's libs_touched: their directories, EA headers -> app too,
-   importer.py lines naming a library, imports.json blocks that changed; plus --lib) are verified on K pool VMs
-   (`importer.py verify`; no replay since the freeze, D211: the libraries are plain source).
-4. Pairs: the verified imports.json against master's record (lost, and of those the D66 moves and the lost
+   libdefs.py / importer.py lines naming a library, ledger shards that changed; plus --lib) are verified on K
+   pool VMs (`verify.py`; no replay since the freeze, D211: the libraries are plain source).
+4. Pairs: the verified ledger (docs/data/imports, ledger.py) against master's record (lost, and of those the D66 moves and the lost
    outright) and against the PR's own record (equal: the PR records what the verify gives). The `// NOT EXACT`
    markers in the sources before and after.
 5. Verdict `success` only when nothing is lost (or every loss is a D66 move, its address held by another file,
@@ -46,6 +46,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import wt  # noqa: E402
+import ledger  # noqa: E402
 import pairs_cmp  # noqa: E402
 
 ROOT = wt.ROOT
@@ -65,6 +66,24 @@ READ_ONLY = [re.compile(p, re.I) for p in (
     r'^docs/data/',
     r'^tests/.*\.(ini|txt)$',
 )]
+
+
+def rewritten_files(vf):
+    """(rewritten, removed): the tracked files the verify changed in vf, plus new ledger shards; the shards it
+    deleted (a file the state no longer has)."""
+    rewritten, removed = [], []
+    for line in wt.git('status', '--porcelain', '--untracked-files=all', '--no-renames', cwd=vf).splitlines():
+        code, p = line[:2], line[3:].strip().strip('"')
+        if not p:
+            continue
+        if code == '??':
+            if p.startswith(wt.IMPORTS + '/'):
+                rewritten.append(p)
+        elif 'D' in code:
+            removed.append(p)
+        else:
+            rewritten.append(p)
+    return sorted(rewritten), sorted(removed)
 
 
 def gh(*args):
@@ -252,30 +271,30 @@ def main():
     try:
         libs = wt.libs_touched(old, merge, a.lib)
         res['libs'] = libs
-        before = wt.pairs_of(wt.blob(f'{old}:{wt.IMPORTS}'))
-        cand = wt.pairs_of(wt.blob(f'{merge}:{wt.IMPORTS}'))
+        before = wt.pairs_of(ledger.load(old, repo=ROOT))
+        cand = wt.pairs_of(ledger.load(merge, repo=ROOT))
         verified = cand
         if libs:
             print(f'verify --lib {" ".join(libs)} --pool {a.pool} in {vf} (log {vf}.verify.log)', flush=True)
-            args = [sys.executable, 'tools/vc6/importer.py', 'verify', '--pool', str(a.pool)]
+            args = [sys.executable, *wt.tool(vf, 'verify.py', 'verify'), '--pool', str(a.pool)]
             for lib in libs:
                 args += ['--lib', lib]
             rc, tail = wt.run_logged(args, vf, vf + '.verify.log')
             if rc:
-                res['reasons'].append(f'importer.py verify failed ({rc}): {" / ".join(tail)}')
+                res['reasons'].append(f'verify.py failed ({rc}): {" / ".join(tail)}')
                 finish('failure', 'verify failed (compile errors?); see the log on the maintainer\'s host')
-            with open(os.path.join(vf, *wt.IMPORTS.split('/')), encoding='utf-8') as f:
-                verified = wt.pairs_of(f.read())
-            # the files the verify rewrote (imports.json, imports.md, ...): verify_watch.py lands them with the PR
+            verified = wt.pairs_of(ledger.load(None, repo=vf))
+            # the files the verify rewrote (ledger shards, imports.md, ...): verify_watch.py lands them with the PR
             keep = os.path.join(OUT, f'{rec}.files')
             if os.path.isdir(keep):
                 shutil.rmtree(keep)
-            rewritten = [p for p in wt.git('diff', '--name-only', cwd=vf).splitlines() if p]
+            rewritten, removed = rewritten_files(vf)
             for p in rewritten:
                 dst = os.path.join(keep, *p.split('/'))
                 os.makedirs(os.path.dirname(dst), exist_ok=True)
                 shutil.copyfile(os.path.join(vf, *p.split('/')), dst)
             res['rewritten'] = rewritten
+            res['removed'] = removed
         else:
             print('no library touched: nothing to compile')
         gained, lost = sorted(verified - before), sorted(before - verified)
@@ -298,7 +317,7 @@ def main():
                                                          f'`/accept-d66 {head[:7]}`'))
         res['record_differs'] = bool(libs) and verified != cand
         if res['record_differs']:
-            why = (f'the PR\'s imports.json records other pairs than the verify gives (verify only '
+            why = (f'the PR\'s ledger records other pairs than the verify gives (verify only '
                    f'{len(verified - cand)}, record only {len(cand - verified)})')
             if maint:
                 res['reasons'].append(why + ': commit the verified record')

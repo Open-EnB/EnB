@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIItemExaminationClass (D24, the item examination window, 0xDC bytes, tables 0xAEE2C8 / 0xAEE2BC / 0xAEE2B0 / 0xAEE298) and its title, description and specials panels (interim, D137); header name provisional, NAME 1 (IE2)"
+}

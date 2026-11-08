@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ExprLexerMatchListClass (D24, class-from-file; 8 bytes, vtable 0xAEBBD0: the token tree's Begin) and the tree's node (a flag and an SGI hash_map<char, node *>); header name assumed, NAME 3 (EX3)"
+}

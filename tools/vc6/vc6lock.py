@@ -51,7 +51,7 @@ if _AGENT:
 WORK = _scratch(_AGENT)
 os.makedirs(WORK, exist_ok=True)
 
-# One importer at a time: every run that writes WORK or imports.json (verify, and the
+# One importer at a time: every run that writes WORK or the ledger (verify, and the
 # tryv2/tryvariants/trydiff scripts through compile_and_match and ledger.save) holds
 # .work/locks/importer.lock from its first write until the process exits. A second run waits up
 # to --lock-wait seconds (ENB_LOCK_WAIT, default 600), then exits non-zero. A lock whose process

@@ -1,0 +1,38 @@
+{
+ "ambiguous": [
+  "0x76FE80"
+ ],
+ "copy": "reconstructed",
+ "description": "HtmlBlockClass (client 0x76F0F0-0x76FFCF: its members 0x76F0F0-0x76FE60, then the ArrayList copies 0x76FE80-0x76FEE0, a run of template copies that ends the object before htmlview.cpp's 0x76FFD0; claims 0x76EB70-0x770640); every written function exact, HV2",
+ "expected": {},
+ "in_tree": [
+  "0x76F0F0",
+  "0x76F2B0",
+  "0x76F3A0",
+  "0x76F3D0",
+  "0x76F710",
+  "0x76F8F0",
+  "0x76F920",
+  "0x76F950",
+  "0x76F9C0",
+  "0x76FA30",
+  "0x76FA60",
+  "0x76FBD0",
+  "0x76FCE0",
+  "0x76FD10",
+  "0x76FD40",
+  "0x76FD70",
+  "0x76FDA0",
+  "0x76FDC0",
+  "0x76FDE0",
+  "0x76FE10",
+  "0x76FE40",
+  "0x76FE60",
+  "0x76FEE0"
+ ],
+ "merged": [],
+ "name": "client/html/unknown_htmlblock.cpp",
+ "tiebreak": [
+  "0x76FEE0"
+ ]
+}

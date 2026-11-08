@@ -1,0 +1,32 @@
+{
+ "ambiguous": [],
+ "best": "reconstructed",
+ "copy": "reconstructed",
+ "description": "E&B's baseline JPEG writer (client 0x9E3850-0x9E531E, between srandom.cpp and realcrc.cpp; WW3D::Make_Screen_Shot's 'jpg' format), written from the client: three one-component scans, a direct 8x8 DCT, E&B's quantization tables, the standard Huffman tables; no EA copy has it. File PROVISIONAL (D137: no __FILE__)",
+ "expected": {},
+ "headers_from": null,
+ "in_tree": [
+  "0x9E3EC0",
+  "0x9E3FB0",
+  "0x9E4090",
+  "0x9E40E0",
+  "0x9E4110",
+  "0x9E41A0",
+  "0x9E42D0",
+  "0x9E4300",
+  "0x9E4360",
+  "0x9E43A0",
+  "0x9E4580",
+  "0x9E4F10",
+  "0x9E4F30",
+  "0x9E4FC0",
+  "0x9E5020",
+  "0x9E50A0",
+  "0x9E5120",
+  "0x9E5180",
+  "0x9E52C0",
+  "0x9E5310"
+ ],
+ "merged": [],
+ "name": "unknown_jpeg.cpp"
+}

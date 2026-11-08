@@ -1,0 +1,50 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "client 0x78F700-0x790560 after nlp.cpp (PROVISIONAL file name, D10; a separate file from nlp.cpp and the manager's: the client inlines none of its functions there): a personality's data loaded from personalities\\PersonalityNN.ini, the personality file; NOT EXACT functional for the POC (D64) where marked",
+ "expected": {},
+ "in_tree": [
+  "0x78F730",
+  "0x78F750",
+  "0x78F770",
+  "0x78F790",
+  "0x78F7B0",
+  "0x78F7D0",
+  "0x78F7F0",
+  "0x78F810",
+  "0x78F830",
+  "0x78F9F0",
+  "0x78FAB0",
+  "0x78FB30",
+  "0x78FBB0",
+  "0x78FC20",
+  "0x790190",
+  "0x7901C0",
+  "0x790260",
+  "0x790320"
+ ],
+ "merged": [],
+ "name": "client/unknown_personality.cpp",
+ "shared": [
+  "0x78F730",
+  "0x78F750",
+  "0x78F770",
+  "0x78F790",
+  "0x78F7B0",
+  "0x78F7D0",
+  "0x78F7F0",
+  "0x78F810",
+  "0x78F830"
+ ],
+ "short_known": [
+  "0x78F730",
+  "0x78F750",
+  "0x78F770",
+  "0x78F790",
+  "0x78F7B0",
+  "0x78F7D0",
+  "0x78F7F0",
+  "0x78F810",
+  "0x78F830"
+ ]
+}

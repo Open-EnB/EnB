@@ -1,0 +1,16 @@
+{
+ "ambiguous": [
+  "0x4F5E90"
+ ],
+ "copy": "reconstructed",
+ "description": "ScriptedMovieLineClass (client 0x7FFC50-0x7FFE9F, the object between option.cpp's and scriptedmovie.cpp's, after the screen fade / letterbox object; no __FILE__, the file name provisional, NAME 1; placement D137): constructor 0x7FFC50, destructor 0x7FFC70, 0x7FFCB0, 0x7FFD30, 0x7FFDC0, all exact (LC1)",
+ "expected": {},
+ "in_tree": [
+  "0x7FFC70",
+  "0x7FFCB0",
+  "0x7FFD30",
+  "0x7FFDC0"
+ ],
+ "merged": [],
+ "name": "client/scriptedmovieline.cpp"
+}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "SBaseViewClass, sbaseview.cpp's starbase view (SClient +0x135C), with the interfaces it holds (UIJobsClass, UIStarbaseClass, the +0x19C / +0x1A0 classes), declared as far as cpacket.cpp calls them; moved out of cpacket.cpp (CP1, P-SC1-1), the header's name provisional"
+}

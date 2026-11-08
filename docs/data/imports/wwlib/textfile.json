@@ -1,0 +1,36 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 1,
+  "R": 3,
+  "Z": 3
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x48E910",
+  "0x510CC0",
+  "0x683D20",
+  "0x683DD0",
+  "0x683DF0",
+  "0x9E5E50",
+  "0x9E5E80",
+  "0x9E5EB0",
+  "0x9E6120"
+ ],
+ "merged": [],
+ "name": "textfile.cpp",
+ "shared": [
+  "0x48E910",
+  "0x510CC0",
+  "0x683D20",
+  "0x683DD0",
+  "0x683DF0"
+ ],
+ "short_known": [
+  "0x683D20",
+  "0x683DD0",
+  "0x683DF0"
+ ]
+}

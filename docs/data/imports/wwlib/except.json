@@ -1,0 +1,41 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 0,
+  "R": 9,
+  "Z": 9
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9CCC80",
+  "0x9CCC90",
+  "0x9CCCD0",
+  "0x9CCD20",
+  "0x9CCD50",
+  "0x9CE430",
+  "0x9CE540",
+  "0x9CE670",
+  "0x9CE710",
+  "0x9CE750",
+  "0x9CE830",
+  "0x9CE910",
+  "0x9CEA50",
+  "0x9CEA80",
+  "0x9CEAA0",
+  "0x9CEAE0",
+  "0x9CEB90",
+  "0x9CEBC0",
+  "0x9CEC00",
+  "0x9CEC20",
+  "0x9CECD0",
+  "0x9CED00",
+  "0x9CED50"
+ ],
+ "merged": [],
+ "name": "Except.cpp",
+ "short_known": [
+  "0x9CCC80"
+ ]
+}

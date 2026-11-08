@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "postate.cpp's positional states (ClientObjectClass +0x98, co.h's Unknown98Class): the forwarding state 0xB026EC, type 1 0xB02728, the extrapolator base 0xB027A0 with types 3 0xB027DC, 5 0xB02818, 11 0xB028F0, 8 0xB02854, 4 0xB028A4, 12 0xB0292C, 14 0xB02A00, 15 0xB02A40, 9 0xB02764 and 13 0xB029C0 (layouts from the constructors 0x714870-0x715CF0)"
+}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "DeltaClass (vtable 0xAEAD70, size 0x84; ctor 0x4A4D40) and DeltaCompoundClass (vtable 0xAEABE4, size 0x9C): layout from the constructors and delta.cpp; the visitor's Add_String 0x4B48A0 (delta_string.cpp's Unknown_00); DeltaVisitorClass::Visit_Children 0x4B0860 (declared; its object is not attributed)"
+}

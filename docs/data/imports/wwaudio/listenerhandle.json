@@ -1,0 +1,49 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 3,
+  "R": 3,
+  "Z": 3
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x909500",
+  "0x9DA8C0",
+  "0xA02880",
+  "0xA02890",
+  "0xA028B0",
+  "0xA028C0",
+  "0xA028D0",
+  "0xA028E0",
+  "0xA029F0",
+  "0xA02A00"
+ ],
+ "merged": [],
+ "name": "listenerhandle.cpp",
+ "shared": [
+  "0x42F250",
+  "0x909500",
+  "0x9DA8C0",
+  "0xA02880",
+  "0xA02890",
+  "0xA028B0",
+  "0xA028C0",
+  "0xA028D0",
+  "0xA028E0",
+  "0xA029F0",
+  "0xA02A00"
+ ],
+ "short_known": [
+  "0xA02880",
+  "0xA02890",
+  "0xA028B0",
+  "0xA028C0",
+  "0xA028D0",
+  "0xA028E0",
+  "0xA029F0",
+  "0xA02A00"
+ ]
+}

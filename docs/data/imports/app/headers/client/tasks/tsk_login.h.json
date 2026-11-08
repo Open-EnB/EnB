@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "LoginTaskClass (the client's name: the asserts), vtable 0xB040D4 (29 slots), 0x1148 bytes, members traced as far as the rebuilt functions use them; CharacterViewClass (charview.cpp) declared only"
+}

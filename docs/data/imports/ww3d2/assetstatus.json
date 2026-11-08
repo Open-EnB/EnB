@@ -1,0 +1,45 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 0,
+  "R": 15,
+  "Z": 15
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x48C500",
+  "0x48E910",
+  "0x48E940",
+  "0x909500",
+  "0x9A6BD0",
+  "0x9A6C10",
+  "0x9A6C70",
+  "0x9A6CA0",
+  "0x9A6CF0",
+  "0x9A6F10",
+  "0x9A7110",
+  "0x9A7310",
+  "0x9A7510",
+  "0x9A7700",
+  "0x9A78F0",
+  "0x9A7AE0",
+  "0x9A7B60",
+  "0x9A7DF0"
+ ],
+ "merged": [],
+ "name": "assetstatus.cpp",
+ "shared": [
+  "0x42F250",
+  "0x48C500",
+  "0x48E910",
+  "0x48E940",
+  "0x909500"
+ ],
+ "tiebreak": [
+  "0x9A7B60",
+  "0x9A7DF0"
+ ]
+}

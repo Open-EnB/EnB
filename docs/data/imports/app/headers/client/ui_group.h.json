@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIGroupClass, ui_group.cpp's group window (the main view's +0x1D8; 0xF4 bytes, table 0xAF1C34; the client's file per its asserts, this header's name provisional), laid out from the constructor 0x593BD0 / destructor 0x593D70 (UG1), over its interface base Unknown5BB320Class (constructor 0x5BB320, file unknown; interim placement, D137), with the member class UIGroupMemberClass (0x54 bytes) and the +0xE8 object; moved out of cpacket.cpp (HN2)"
+}

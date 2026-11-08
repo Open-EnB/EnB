@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the connection base (vtable 0xB0850C), the forwarding wrapper (0xB08590, its constructor's assert on line 74) and the peek connection (0xB0854C), the stream connection (vtable 0xB085F4, the {size, opcode, payload} framing) and ConnectionManager; descriptive names (D24), the client's layout and slot order (docs/kernel-map.md 4)"
+}

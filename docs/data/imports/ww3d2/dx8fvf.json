@@ -1,0 +1,23 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "Z",
+ "expected": {
+  "G": 1,
+  "R": 1,
+  "Z": 1
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x48CA70",
+  "0x48E910",
+  "0x9BA5D0",
+  "0x9BA6B0"
+ ],
+ "merged": [],
+ "name": "dx8fvf.cpp",
+ "shared": [
+  "0x48CA70",
+  "0x48E910"
+ ]
+}

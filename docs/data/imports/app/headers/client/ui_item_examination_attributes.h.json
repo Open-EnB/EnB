@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIItemExaminationAttributesClass (the item examination window's attributes panel 'ITEM_EXAMINATION_ATTRIBUTES', 0x7C bytes, constructor 0x532BA0) and UIItemExaminationAttributeClass (one attribute's row, 0x6C bytes, constructor 0x533450), declared only as far as the rebuilt functions use them; file name assumed from the window section (interim, D137); IE1"
+}

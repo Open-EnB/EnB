@@ -1,0 +1,41 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0",
+  "0x46BE90",
+  "0x474080"
+ ],
+ "copy": "reconstructed",
+ "description": "ui_item_examination_title.cpp (the client's __FILE__ 0xB78C04, 0x53A2F0's FAIL_IFs lines 87-107; the title panel's code before it taken as this file's): the constructor 0x539980, destructor 0x539E80 (deleting 0x539E50), Clear 0x539F70, Set_Name 0x53A0A0, Set_Icon 0x53A2C0 and Set_Subtitles 0x53A2F0 (IE2)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CF30",
+  "0x42D050",
+  "0x42F250",
+  "0x45CC10",
+  "0x539950",
+  "0x539980",
+  "0x539E50",
+  "0x539E80",
+  "0x539F70",
+  "0x53A0A0",
+  "0x53A2C0",
+  "0x53A2F0"
+ ],
+ "merged": [],
+ "name": "client/ui_item_examination_title.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CF30",
+  "0x42D050",
+  "0x42F250",
+  "0x45CC10"
+ ]
+}

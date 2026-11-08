@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the two percentage helpers option.cpp uses (0x7F8410 / 0x7F8480), their FAIL_IFs on the client's lines 86 and 93 (D25)"
+}

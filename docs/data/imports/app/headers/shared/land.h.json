@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "LandClass (the client's \"(LandClass*)obj\"; vtable 0xAE8994; PROVISIONAL file name): the terrain render object and its decorations (M2.4); the client's 0x1228-byte layout from its ctor 0x468E90 and dtor 0x46A480"
+}

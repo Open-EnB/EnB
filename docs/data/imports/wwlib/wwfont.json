@@ -1,0 +1,32 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 12,
+  "R": 12,
+  "Z": 12
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x683290",
+  "0x9DB110",
+  "0x9DB170",
+  "0x9DB190",
+  "0x9DB1C0",
+  "0x9DB1F0",
+  "0x9DB250",
+  "0x9DB270",
+  "0x9DB290",
+  "0x9DB2C0",
+  "0x9DB2F0",
+  "0x9DB340",
+  "0x9DB390"
+ ],
+ "merged": [],
+ "name": "wwfont.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

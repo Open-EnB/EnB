@@ -11,7 +11,7 @@ new: `git worktree add .work/wt/NAME -b wt/NAME BASE` (default HEAD); NTFS junct
   .work/pool, .work/pseudo to the main tree's (one importer lock, one VM pool, Ghidra's saved
   pseudocode); copies .work/vc6_hosts.json, .work/harness/*.dgram and build/*/*.lib except app's
   (udpreplay needs app.lib: `build.py build --lib app --allow-dirty` in the worktree); records BASE in
-  .work/wt/NAME.base. importer.py run inside the worktree takes NAME as its agent (scratch under
+  .work/wt/NAME.base. verify.py run inside the worktree takes NAME as its agent (scratch under
   the worktree's .work/NAME/tmp): `new` checks that.
 
 bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss rule below holds, never
@@ -20,17 +20,16 @@ bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss
   2. TARGET at the recorded base (or an ancestor of the branch): fast-forward to the branch tip;
      else cherry-pick them, in a scratch worktree .work/wt/NAME.bo at TARGET, where conflicts in
      docs/data/attempts.csv are resolved by the union of the rows, names-review.md / not-exact.md
-     are regenerated (tools/re/names.py) and any other conflict (imports.json included) refuses;
-  3. the libraries the commits touched (their directories, EA headers -> app as well, importer.py
-     lines naming a library, imports.json blocks that changed; plus --lib) are verified there:
-     `importer.py verify --lib ... --pool K` (no replay since the freeze, D211: the libraries are plain source);
-  4. pairs: the verified imports.json against TARGET's (the loss rule) and against the candidate's own
+     are regenerated (tools/re/names.py) and any other conflict (a ledger shard included) refuses;
+  3. the libraries the commits touched (their directories, EA headers -> app as well, libdefs.py or
+     importer.py lines naming a library, ledger shards that changed; plus --lib) are verified there:
+     `verify.py --lib ... --pool K` (no replay since the freeze, D211: the libraries are plain source);
+  4. pairs: the verified ledger against TARGET's (the loss rule) and against the candidate's own
      record (equal: the commits record what the verify gives); with no library touched, the
      candidate's record against TARGET's;
   5. landing: under the importer lock, the worktree that has TARGET checked out (the main tree for
      master) gets each changed path 3-way merged with its uncommitted copy (git merge-file; attempts.csv
-     by row union; an imports.json conflict on count lines only keeps the working copy's counts; any
-     other conflict refuses), then `update-ref refs/heads/TARGET NEW OLD` (compare-and-swap), then the merged files
+     by row union; any other conflict, a ledger shard's included, refuses), then `update-ref refs/heads/TARGET NEW OLD` (compare-and-swap), then the merged files
      are written and their index entries reset to the new HEAD.
   --dry stops before landing; --keep keeps the scratch worktree; logs go to .work/wt/NAME.bo.*.log.
   Every importer call waits --lock-wait seconds (3000) for the lock.
@@ -47,12 +46,13 @@ Batch form (two or more branches, a range, or --batch-name; D202): one verify ov
      default batch-FIRST-LAST). Commits patch-equivalent to what is already there are skipped, as is any that comes
      out empty. A builder based on another's branch brings its own commits only: `A..B` for wt/A..wt/B, or plain B
      when .work/wt/B.base records that base (a base not on TARGET is pointed out).
-  2. conflicts: GENERATED take TARGET's side (regenerated below); attempts.csv keeps both sides' rows; importer.py
-     keeps both sides where both only add lines, and only if the result compiles. Anything else stops with the file
+  2. conflicts: GENERATED take TARGET's side (regenerated below; a ledger shard keeps the branch's `description`
+     when only the branch changed it); attempts.csv keeps both sides' rows; libdefs.py and importer.py
+     keep both sides where both only add lines, and only if the result compiles. Anything else stops with the file
      and the commit named, TARGET untouched, the scratch worktree left mid-pick: finish the pick by hand and rerun the
      same command with --resume, or `wt.py remove N` to drop it.
-  3. `importer.py verify` once (the libraries the batch touches, plus --lib); every library's `in tree:` line must be
-     in the log. The loss rule. `report`, names.py, notexact.py; the regenerated files are committed with a generated
+  3. `verify.py` once (the libraries the batch touches, plus --lib); every library's `in tree:` line must be
+     in the log. The loss rule. report.py, names.py, notexact.py; the regenerated files are committed with a generated
      subject and --trailer (default the newest Co-Authored-By on TARGET).
   4. landing: the worktree holding TARGET must have no tracked file modified (.claude/settings.json aside, unless the
      batch changes it): checked at the start and again under the lock. TARGET moves by compare-and-swap, so a TARGET
@@ -85,6 +85,7 @@ import warnings
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import commit_rows as cr  # noqa: E402
+import ledger  # noqa: E402
 import pairs_cmp  # noqa: E402
 
 
@@ -100,11 +101,25 @@ def _main_root():
 ROOT = _main_root()
 WTDIR = os.path.join(ROOT, '.work', 'wt')
 JUNCTIONS = ('locks', 'pool', 'pseudo')
-IMPORTS = 'docs/data/imports.json'
+IMPORTS = ledger.REL                                    # docs/data/imports: one shard per source file
+OLD_IMPORTS = ledger.OLD_REL                            # the single file before the split
 ATTEMPTS = 'docs/data/attempts.csv'
 NAMES_OUT = ('docs/data/names-review.md', 'docs/data/not-exact.md')
 IMPORTER = 'tools/vc6/importer.py'
-GENERATED = (IMPORTS, *NAMES_OUT, 'docs/imports.md')    # rewritten by verify, report, names.py, notexact.py
+LIBDEFS = 'tools/vc6/libdefs.py'
+DEFS = (LIBDEFS, IMPORTER)                              # Python files that name libraries (add-only union)
+GENERATED = (OLD_IMPORTS, *NAMES_OUT, 'docs/imports.md')    # rewritten by verify, report, names.py, notexact.py
+
+
+def generated(p):
+    """A file verify, report, names.py or notexact.py rewrites: GENERATED or a ledger shard."""
+    return p in GENERATED or p.startswith(IMPORTS + '/')
+
+
+def tool(bo, new, old):
+    """tools/vc6/NEW in the worktree bo, or OLD (importer.py's form) when bo predates the split."""
+    return (['tools/vc6/' + new] if os.path.exists(os.path.join(bo, 'tools', 'vc6', new))
+            else [IMPORTER, old])
 CORRECTIONS = 'docs/data/accepted-corrections.json'
 TRACKED_ELSEWHERE = '.claude/settings.json'             # tracked, the maintainer's (never blocks a batch by itself)
 LOCK = os.path.join(ROOT, '.work', 'locks', 'importer.lock')
@@ -113,7 +128,6 @@ LIB_TOP = {'app': 'app', 'binkmovie': 'binkmovie', 'ww3d2': 'ww3d2', 'wwaudio': 
            'wwlib': 'wwlib', 'wwmath': 'wwmath', 'wwsaveload': 'wwsaveload', 'wwshade': 'wwshade',
            'libs/wwonline/wlib': 'wlib', 'libs/wwonline/wnet': 'wnet'}
 EA_LIBS = {'binkmovie', 'ww3d2', 'wwaudio', 'wwdebug', 'wwlib', 'wwmath', 'wwsaveload', 'wwshade', 'wlib', 'wnet'}
-COUNT_LINE = re.compile(r'^\s*"(ambiguous_total|in_tree_total)": \d+,?\s*$')
 
 
 def git(*args, cwd=ROOT, check=True, inp=None, env=None):
@@ -317,9 +331,10 @@ def cmd_list(a):
 
 # ---------------------------------------------------------------- bring-over
 
-def pairs_of(text):
-    """(lib, file, address) triples of an imports.json text (pairs_cmp.py's set)."""
-    data = json.loads(text) if text else {}
+def pairs_of(data):
+    """(lib, file, address) triples of a ledger (ledger.load's dict, or a single-file JSON text; pairs_cmp.py's set)."""
+    if not isinstance(data, dict):
+        data = json.loads(data) if data else {}
     out = set()
     for lib, entry in data.items():
         for f, v in entry.get('files', {}).items():
@@ -358,15 +373,21 @@ def libs_touched(old, new, extra):
                     libs.add('app')         # the app includes the EA headers (ref_ptr.h)
         if p.startswith(('stubs/', 'app/')):
             libs.add('app')
-    if 'tools/vc6/importer.py' in names:
-        d = git('diff', '-U0', old, new, '--', 'tools/vc6/importer.py')
+    for defs in DEFS:
+        if defs not in names:
+            continue
+        d = git('diff', '-U0', old, new, '--', defs)
         changed = '\n'.join(l for l in d.splitlines() if l[:1] in '+-' and not l.startswith(('+++', '---')))
         for top, lib in LIB_TOP.items():
             if re.search(r"(?i)(?<![\w/])(%s)[/\\]|'%s'" % (re.escape(top.split('/')[-1]), lib), changed):
                 libs.add(lib)
-    a, b = blob(f'{old}:{IMPORTS}'), blob(f'{new}:{IMPORTS}')
-    if a != b:
-        ja, jb = json.loads(a or '{}'), json.loads(b or '{}')
+    # the ledger: a changed file block or header shard (library.json is the verify's own record)
+    for p in names:
+        parts = p.split('/')
+        if p.startswith(IMPORTS + '/') and len(parts) > 4 and parts[4] != ledger.LIBRARY:
+            libs.add(parts[3])
+    if OLD_IMPORTS in names:                    # across the split, or between two revisions before it
+        ja, jb = ledger.load(old, repo=ROOT), ledger.load(new, repo=ROOT)
         for lib in set(ja) | set(jb):
             if ja.get(lib, {}).get('files') != jb.get(lib, {}).get('files'):
                 libs.add(lib)
@@ -451,7 +472,7 @@ def _pid_alive(pid):
 
 
 def hold_lock(wait=900):
-    """importer.py's lock (same file and format), so no verify rewrites imports.json while landing."""
+    """vc6lock.py's importer lock (same file and format), so no verify rewrites the ledger while landing."""
     me = {'agent': 'wt.py bring-over', 'host': socket.gethostname(), 'pid': os.getpid(),
           'cmd': ' '.join(sys.argv), 'start': time.time()}
     limit, said = time.time() + wait, None
@@ -520,26 +541,7 @@ def merge_work(wt, path, old, new):
         out = r.stdout.decode('utf-8', 'surrogateescape')
     if r.returncode == 0:
         return out
-    if r.returncode < 0 or path != IMPORTS:
-        return ('conflict', f'{r.returncode} conflicting hunk(s) with the uncommitted copy')
-    res, mode, ours, theirs = [], None, [], []     # imports.json: count lines keep the working copy's
-    for line in out.splitlines(keepends=True):
-        if line.startswith('<<<<<<< '):
-            mode, ours, theirs = 'o', [], []
-        elif line.startswith('=======') and mode == 'o':
-            mode = 't'
-        elif line.startswith('>>>>>>> ') and mode == 't':
-            if not all(COUNT_LINE.match(x) for x in ours + theirs):
-                return ('conflict', 'imports.json conflicts with the uncommitted copy beyond count lines')
-            res.extend(ours)
-            mode = None
-        elif mode == 'o':
-            ours.append(line)
-        elif mode == 't':
-            theirs.append(line)
-        else:
-            res.append(line)
-    return ''.join(res)
+    return ('conflict', f'{r.returncode} conflicting hunk(s) with the uncommitted copy')
 
 
 def target_holders(target):
@@ -619,8 +621,8 @@ def corrections_at(rev_):
 
 
 def judge_losses(before, after, target, old, what):
-    """D202 on two imports.json texts: exits naming the addresses lost outright; else pairs_cmp's dict."""
-    r = pairs_cmp.compare(json.loads(before or '{}'), json.loads(after or '{}'), corrections_at(old))
+    """D202 on two ledgers (ledger.load's dicts): exits naming the addresses lost outright; else pairs_cmp's dict."""
+    r = pairs_cmp.compare(before or {}, after or {}, corrections_at(old))
     if r['lost_outright']:
         where = [x for x in r['lost'] if x[2] in set(r['lost_outright'])]
         sys.exit(f'wt: {what} loses {len(r["lost_outright"])} address(es) outright against {target}: '
@@ -656,7 +658,7 @@ def check_builders(names):
         if git('symbolic-ref', '-q', 'HEAD', cwd=path, check=False).stdout.decode().strip() != 'refs/heads/wt/' + name:
             continue
         dirty = dirty_tracked(path)
-        other = [p for p in dirty if p not in GENERATED]
+        other = [p for p in dirty if not generated(p)]
         if other:
             sys.exit(f'wt: {path} has uncommitted changes outside the generated files: {other[:10]}: commit or drop '
                      f'them first; nothing done')
@@ -671,9 +673,9 @@ def verify_finished(log, libs):
 
 
 def run_verify(a, bo, libs, target):
-    """importer.py verify in bo, with the long lock wait; exits unless it ran to its last line."""
+    """verify.py in bo, with the long lock wait; exits unless it ran to its last line."""
     print(f'verify --lib {" ".join(libs)} --pool {a.pool} in {bo} (log {bo}.verify.log)', flush=True)
-    args = [sys.executable, IMPORTER, 'verify', '--pool', str(a.pool), '--lock-wait', str(a.lock_wait)]
+    args = [sys.executable, *tool(bo, 'verify.py', 'verify'), '--pool', str(a.pool), '--lock-wait', str(a.lock_wait)]
     for lib in libs:
         args += ['--lib', lib]
     rc, tail = run_logged(args, bo, bo + '.verify.log')
@@ -684,7 +686,7 @@ def run_verify(a, bo, libs, target):
         sys.exit(f'wt: verify did not finish {short}: {tail}; {target} untouched')
 
 
-def add_only_union(base, ours, theirs):
+def add_only_union(base, ours, theirs, name=IMPORTER):
     """(text, None) keeping both sides of a 3-way merge in which both sides only add lines, or (None, why). What git
     merges by itself stays merged; a line both sides added once; the result has to compile."""
     if base is None or ours is None or theirs is None:
@@ -726,10 +728,29 @@ def add_only_union(base, ours, theirs):
     try:
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
-            compile(text, IMPORTER, 'exec')
+            compile(text, name, 'exec')
     except (SyntaxError, ValueError) as e:
         return None, f'the union does not compile ({e})'
     return text, None
+
+
+def shard_union(base, ours, theirs):
+    """A conflicted ledger shard in a batch: (None, None) to take the target's side (the verify rewrites its pairs),
+    or (text, None) when only the branch changed its `description` (kept: no verify writes it), or (None, why)
+    when both sides changed it."""
+    try:
+        b, o, t = (json.loads(x) if x else {} for x in (base, ours, theirs))
+    except ValueError:
+        return None, 'not JSON'
+    bd, od, td = b.get('description'), o.get('description'), t.get('description')
+    if td == bd or td == od:
+        return None, None
+    if od != bd:
+        return None, 'both sides changed its description'
+    if not o:
+        return None, None
+    o['description'] = td
+    return ledger.dumps(o), None
 
 
 def stage_text(bo, path, text):
@@ -742,20 +763,30 @@ def stage_text(bo, path, text):
 def resolve_batch(bo, conflicted, log):
     """Resolve what D202 lets a batch resolve; returns (file, why) of the first conflict it can't, or None."""
     for p in conflicted:
-        if p not in GENERATED and p != ATTEMPTS and p != IMPORTER:
+        if not generated(p) and p != ATTEMPTS and p not in DEFS:
             return p, 'not a generated or row file'
-    union = None
-    if IMPORTER in conflicted:
-        union, why = add_only_union(blob(':1:' + IMPORTER, bo), blob(':2:' + IMPORTER, bo), blob(':3:' + IMPORTER, bo))
-        if why:
-            return IMPORTER, why
+    union = {}
+    for p in DEFS:
+        if p in conflicted:
+            union[p], why = add_only_union(blob(':1:' + p, bo), blob(':2:' + p, bo), blob(':3:' + p, bo), p)
+            if why:
+                return p, why
+    shard = {}
+    for p in conflicted:
+        if p.startswith(IMPORTS + '/'):
+            shard[p], why = shard_union(blob(':1:' + p, bo), blob(':2:' + p, bo), blob(':3:' + p, bo))
+            if why:
+                return p, why
     for p in conflicted:
         if p == ATTEMPTS:
             stage_text(bo, p, union_rows(blob(':1:' + p, bo), blob(':2:' + p, bo) or '', blob(':3:' + p, bo) or ''))
             log.write('  attempts.csv: both sides\' rows\n')
-        elif p == IMPORTER:
-            stage_text(bo, p, union)
-            log.write('  importer.py: both sides\' added lines, compiles\n')
+        elif p in union:
+            stage_text(bo, p, union[p])
+            log.write(f'  {p}: both sides\' added lines, compiles\n')
+        elif shard.get(p) is not None:
+            stage_text(bo, p, shard[p])
+            log.write(f'  {p}: the target\'s side, the branch\'s description (pairs regenerated later)\n')
         else:
             git('checkout', '--ours', '--', p, cwd=bo)
             git('add', '--', p, cwd=bo)
@@ -829,16 +860,17 @@ def pick_batch(bo, specs, state, log):
 
 def regen_and_commit(a, bo, labels, res, target, old):
     """report, names.py, notexact.py, and the regenerated files committed; exits on anything else changed."""
-    steps = [('report', [IMPORTER, 'report', '--lock-wait', str(a.lock_wait)]),
+    steps = [('report', tool(bo, 'report.py', 'report')),
              ('names', ['tools/re/names.py']), ('notexact', ['tools/re/notexact.py'])]
     for tag, args in steps:
         rc, tail = run_logged([sys.executable, *args], bo, f'{bo}.{tag}.log')
         if rc or any('giving up' in t for t in tail):
             sys.exit(f'wt: {tag}: {tail}; {target} untouched')
-    other = [p for p in dirty_tracked(bo) if p not in GENERATED]
+    other = [p for p in dirty_tracked(bo) if not generated(p)]
     if other:
         sys.exit(f'wt: regenerating changed other files as well: {other[:10]}; {target} untouched')
-    git('add', '--', *GENERATED, cwd=bo)
+    git('add', '-A', '--', *[g for g in (IMPORTS, *GENERATED) if os.path.exists(os.path.join(bo, *g.split('/')))],
+        cwd=bo)
     if not git('diff', '--cached', '--name-only', cwd=bo).strip():
         print('the regenerated files equal the commits\' own')
         return
@@ -916,9 +948,7 @@ def cmd_batch(a):
             run_verify(a, bo, libs, a.target)
         else:
             print('no library touched: no verify; pairs from the records')
-        with open(os.path.join(bo, *IMPORTS.split('/')), encoding='utf-8') as f:
-            after = f.read()
-        res = judge_losses(blob(f'{old}:{IMPORTS}'), after, a.target, old, 'the batch')
+        res = judge_losses(ledger.load(old, repo=ROOT), ledger.load(None, repo=bo), a.target, old, 'the batch')
         regen_and_commit(a, bo, labels, res, a.target, old)
         new = rev('HEAD', cwd=bo)
         say_losses(res)
@@ -983,15 +1013,14 @@ def cmd_bring_over(a):
             print(f'nothing to bring over: every commit of {branch} was already on {a.target}')
             return
         libs = libs_touched(old, new, a.lib)
-        before_text, cand_text = blob(f'{old}:{IMPORTS}'), blob(f'{new}:{IMPORTS}')
-        cand = pairs_of(cand_text)
-        res = judge_losses(before_text, cand_text, a.target, old, 'the branch\'s imports.json record')
+        before, cand_rec = ledger.load(old, repo=ROOT), ledger.load(new, repo=ROOT)
+        cand = pairs_of(cand_rec)
+        res = judge_losses(before, cand_rec, a.target, old, 'the branch\'s ledger record')
         if libs:
             run_verify(a, bo, libs, a.target)
-            with open(os.path.join(bo, *IMPORTS.split('/')), encoding='utf-8') as f:
-                verified_text = f.read()
-            verified = pairs_of(verified_text)
-            res = judge_losses(before_text, verified_text, a.target, old, 'the verify')
+            verified_rec = ledger.load(None, repo=bo)
+            verified = pairs_of(verified_rec)
+            res = judge_losses(before, verified_rec, a.target, old, 'the verify')
             if verified != cand:
                 sys.exit(f'wt: the commits record other pairs than the verify gives (verify-only '
                          f'{sorted(verified - cand)[:5]}, record-only {sorted(cand - verified)[:5]}): commit '

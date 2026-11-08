@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RadarDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x7C bytes)"
+}

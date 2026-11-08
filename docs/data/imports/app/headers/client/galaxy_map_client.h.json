@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "GalaxyMapClientClass (D24, 0xCC bytes, vtable 0xB057E8): galaxy_map.h's map plus the galaxy_map_c.ini scales, the explored bits and the Show All option (interim header name, D137)"
+}

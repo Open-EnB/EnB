@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "VendorTypeEnum / AmbientTypeEnum (the client's Type_Name strings) and the converters of vendor_defs.cpp (header name assumed)"
+}

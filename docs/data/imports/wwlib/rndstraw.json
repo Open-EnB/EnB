@@ -1,0 +1,21 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 0,
+  "R": 1,
+  "Z": 1
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x9308B0"
+ ],
+ "merged": [],
+ "name": "rndstraw.cpp",
+ "shared": [
+  "0x42F250",
+  "0x9308B0"
+ ]
+}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "AttribDirCollective (D24) with its value functions (average, smallest, largest) and the function mod; members and destinations in SGI hash_maps (D87)"
+}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "LinearBufferClass (D24), size 0x1C: Buffer, Size, Capacity, GrowBy, Pos, OwnsBuffer (linearbu.cpp's asserts and code)"
+}

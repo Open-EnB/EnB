@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "BuffGadgetClass, BuffInfoStruct, BuffElementStruct and the 0x671300 gadget's declaration (D24 header name from gd_buffgadg.cpp's __FILE__; the client holds no string of it) (GADG)"
+}

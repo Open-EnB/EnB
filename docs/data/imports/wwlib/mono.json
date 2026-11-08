@@ -1,0 +1,31 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 16,
+  "R": 16,
+  "Z": 16
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9DE640",
+  "0x9DE680",
+  "0x9DE6B0",
+  "0x9DE6E0",
+  "0x9DE740",
+  "0x9DE790",
+  "0x9DE7C0",
+  "0x9DE820",
+  "0x9DE850",
+  "0x9DE8D0",
+  "0x9DE960",
+  "0x9DE9A0",
+  "0x9DE9E0",
+  "0x9DEA80",
+  "0x9DEB30",
+  "0x9DEB80"
+ ],
+ "merged": [],
+ "name": "mono.cpp"
+}

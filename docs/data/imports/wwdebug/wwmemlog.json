@@ -1,0 +1,61 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "Z",
+ "expected": {
+  "G": 11,
+  "R": 15,
+  "Z": 14
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x909500",
+  "0x9ED150",
+  "0x9ED1A0",
+  "0x9ED200",
+  "0x9ED260",
+  "0x9ED2C0",
+  "0x9ED3D0",
+  "0x9ED4B0",
+  "0x9ED4D0",
+  "0x9ED540",
+  "0x9ED620",
+  "0x9ED700",
+  "0x9ED820",
+  "0x9ED870",
+  "0x9ED9B0",
+  "0x9EDB50",
+  "0x9EDB80",
+  "0x9EDCA0",
+  "0x9EDDC0",
+  "0x9EDE10",
+  "0x9EDEB0",
+  "0x9EDED0",
+  "0x9EDF20",
+  "0x9EE0E0",
+  "0x9EE120",
+  "0x9EE1D0",
+  "0x9EE200",
+  "0x9EE240",
+  "0x9EE260",
+  "0x9EE3A0",
+  "0x9EE3C0",
+  "0x9EE5E0",
+  "0x9EE610",
+  "0x9EE620",
+  "0x9EE650",
+  "0x9EE6A0",
+  "0x9EE6F0"
+ ],
+ "merged": [],
+ "name": "wwmemlog.cpp",
+ "shared": [
+  "0x42F250",
+  "0x909500",
+  "0x9EE610"
+ ],
+ "short_known": [
+  "0x9EE610"
+ ]
+}

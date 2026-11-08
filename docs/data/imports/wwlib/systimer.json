@@ -1,0 +1,17 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 2,
+  "R": 2,
+  "Z": 2
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9E7BF0",
+  "0x9E7C10"
+ ],
+ "merged": [],
+ "name": "systimer.cpp"
+}

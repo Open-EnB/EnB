@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "gd_uiback.cpp's classes (D24 header name from its __FILE__; the client holds no string of it; also UIBackGadget, 0x674260's base of MovableUIBackGadget, D208) (GD1, GD3)"
+}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "hash<RenderObjClass *> (the key's address, as co_data.h's), shared by interface_static_sort_list.h and fontmanager.h (P-FU1-2; D137 interim header, ours)"
+}

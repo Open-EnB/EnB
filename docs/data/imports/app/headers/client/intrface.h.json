@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "InterfaceClass (D24 from intrface.cpp's __FILE__; the client holds no string of the header): the UI kit's interface base, gclass.cpp's class over the inline two-table base, intrface.cpp's members +0x40..+0x80 (View, Active, PartialDeactivatedGadget by their asserts); one class for sclient.h's UIUnknownBaseClass / UIInterfaceBaseClass and ui_line_display.h's GClassUnknownClass / InterfaceClass (UI1, P-LD4-1)"
+}

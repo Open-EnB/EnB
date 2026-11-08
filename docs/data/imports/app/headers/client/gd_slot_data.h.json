@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "gd_slot_data.cpp's gadgets and a stand-in for the slot interface (ui_slot_data.cpp), D24 header name from gd_slot_data.cpp's __FILE__ (GS1)"
+}
