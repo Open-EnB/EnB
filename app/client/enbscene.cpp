@@ -6,6 +6,9 @@
 #include "..\..\ww3d2\rendobj.h"
 #include "..\..\ww3d2\part_emt.h"
 #include "..\shared\land.h"
+#include "..\shared\proj_man.h"
+#include "..\..\ww3d2\texproject.h"
+#include "..\..\ww3d2\camera.h"
 #include "..\shared\rs_track.h"
 #include "..\shared\g_assert.h"
 #include "unknown_75b7b0.h"
@@ -56,9 +59,6 @@ void MainViewSceneClass::Add_Render_Object(RenderObjClass * obj)
 		}
 	}
 }
-
-
-
 
 
 
@@ -166,6 +166,33 @@ static void Unknown_75F750(RenderObjClass *obj, const Vector3 &color)
 	}
 }
 
+// @0x75F8B0
+// NOT EXACT: field-offset (explain.py; 0.78): the client addresses the projector lists' heads from the manager (+0x60 / +0x64, +0x48 / +0x4C), ours from the list (add 0x5C, +4 / +8), and copies the camera's transform in another order
+void MainViewSceneClass::Apply_Projectors(CameraClass * camera)
+{
+	if (ProjectorManager != NULL) {
+		ProjSceneClass::Apply_Projectors(camera);
+		if (Land != NULL) {
+			Land->Clear_Unknown1218();
+			Matrix3D tm = camera->Get_Transform();
+			TexProjListIterator dynamic_it(&ProjectorManager->DynamicProjectorList);
+			for (; !dynamic_it.Is_Done(); dynamic_it.Next()) {
+				TexProjectClass *projector = dynamic_it.Peek_Obj();
+				projector->Pre_Render_Update(tm);
+				RefCountPtr<TexProjectClass> ptr = Create_Peek(projector);
+				Land->Add_Unknown1218(ptr);
+			}
+			TexProjListIterator static_it(&ProjectorManager->StaticProjectorList);
+			for (; !static_it.Is_Done(); static_it.Next()) {
+				TexProjectClass *projector = static_it.Peek_Obj();
+				projector->Pre_Render_Update(tm);
+				RefCountPtr<TexProjectClass> ptr = Create_Peek(projector);
+				Land->Add_Unknown1218(ptr);
+			}
+		}
+	}
+}
+
 /*
 ** Reconstruction notes (WE5, WE7, 2026-11-07)
 **
@@ -174,8 +201,10 @@ static void Unknown_75F750(RenderObjClass *obj, const Vector3 &color)
 ** call its Add / Remove_Render_Object and Remove_All_Render_Objects. Add_Render_Object sorts by name and class:
 ** 'plt' models into +0xA8, 'clouds' into +0xC0, the land (Class_ID 0x23) into Land and +0xDC, meshes, HLODs and the
 ** render-state tracks (0x10001) over one into +0xDC. Create_Peek is RefCountPtr's out-of-line friend 0x760290.
-** Remove_Render_Object holds the file's one assert (line 106). Not built: 0x75F8B0 (the +0x68 slot: Apply_Projectors
-** and the land's texture projectors) and 0x75FB00 (camera_manager.cpp's box sweep), outside this item's claim.
+** Remove_Render_Object holds the file's one assert (line 106). Apply_Projectors 0x75F8B0 (the +0x68 slot, RH1) runs
+** ProjSceneClass's, then hands every dynamic and static texture projector, updated for the camera, to the land
+** (Clear_Unknown1218 / Add_Unknown1218; Create_Peek<TexProjectClass> is 0x7602F0). Not built: 0x75FB00
+** (camera_manager.cpp's box sweep), outside the claims.
 ** 0x75F690 gives each 'plt' model in the +0xA8 list its day / night phase (unknown_75b7b0.cpp's 0x75B8F0) from the
 ** sun direction and the camera position; 0x75F700 sets every colour key but the last of each particle emitter in the
 ** +0xC0 list to the given colour, the last to black.

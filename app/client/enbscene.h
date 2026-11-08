@@ -29,8 +29,7 @@ public:
 	virtual void	Add_Render_Object(RenderObjClass * obj);				// +0x0C 0x75F180
 	virtual void	Remove_Render_Object(RenderObjClass * obj);			// +0x10 0x75F440
 	virtual void	Remove_All_Render_Objects(void);							// +0x60 0x75F560
-	// +0x68 the client's 0x75F8B0 (ProjSceneClass's Apply_Projectors, then the land's projectors): not built yet,
-	// so the slot stays ProjSceneClass's (no land in space)
+	virtual void	Apply_Projectors(CameraClass * camera);				// +0x68 0x75F8B0 (ProjSceneClass's, then the land's projectors)
 
 	void Unknown_75F690(const Vector3 &sun, const Vector3 &camera);		// 0x75F690 (mainview.cpp's Update, space mode)  // NAME 1 [sun, camera]: what Update passes
 	void Unknown_75F700(const Vector3 &color);								// 0x75F700 (mainview.cpp's Update, planet mode)  // NAME 1 [color]: what Update passes
