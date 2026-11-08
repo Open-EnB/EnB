@@ -1,10 +1,8 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x430450",
   "0x5419E0",
-  "0x541A10",
-  "0x6B55D0"
+  "0x541A10"
  ],
  "copy": "reconstructed",
  "description": "ViewClass (view.cpp's __FILE__; client 0x6B4480-0x6B4AD0 and its SList<> instances): UIViewClass's base, the input dispatcher +0x04 and the interface objects' SList +0x08; the asserts on the client's lines 40 / 78 / 106 / 113 (LD4)",
@@ -45,7 +43,9 @@
   "0x6B5490",
   "0x6B5550",
   "0x6B5570",
-  "0x6B55A0"
+  "0x6B55A0",
+  "0x6B55D0",
+  "0x6B5620"
  ],
  "merged": [],
  "name": "client/view.cpp",

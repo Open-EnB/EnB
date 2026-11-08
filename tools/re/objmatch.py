@@ -42,7 +42,16 @@ address (inpdsp's 0x42A900, 0x42AAE0 lost). It runs only when D80 and the self n
 nothing more; its credits feed D80's next round. A survivor the object's own exact functions
 contradict is not inside (P-CGP-1): when their relocated calls to the symbol reach other addresses
 only, the symbol is there, not at the survivor (two same-bytes COMDATs of one object would otherwise
-both propose one address and neither be credited).
+both propose one address and neither be credited). In the range round (not D115's) the range is also
+widened over the spots where `initialiser_targets` locates the object's own `_$E` static initialisers and
+their atexit functions (D209, P-IR3-1 as narrowed by NM1, V7d; D80 amended 2026-11-08), so a tie lying
+among them is inside, with three guards, because a header static's initialiser has hundreds of
+byte-identical copies (533 of the guard-0xC416FC one) and the one found in a window is often the
+neighbour's: (a) a spot two objects locate widens neither; (b) no widening that brings a second copy of
+one of the object's still-tied `_$E` functions into the range; (c) in the app region only, a spot below
+the range must start a zero-separated run of the client's CRT initialiser table (.CRT$XCU, merged into
+.data: the longest run of zero or .text dwords, `xcu_previous`), which lists each object's initialisers
+in link order. USE_XCU switches (c).
 
 Such a COMDAT is `shared` (D183's guard): set on each holder's exact result; importer.py lists it in
 the file's `shared` list. A shared result is not placement evidence: a D166 caller tie-break that
@@ -669,6 +678,34 @@ def match_objects(img, paths, region=None, callers=False):
                                 wide[id(obj)] = (min(wlo, a), max(whi, a))
                                 grown = True
                 ranges = wide
+            if phase == 'range':
+                # D209 (IR3): the object's static initialisers (and their atexit functions) located by
+                # initialiser_targets inside the range widen it, so a tie lying among them is inside
+                located = collections.defaultdict(set)
+                initialiser_targets(results, pending, ranges, text, start, known, thunk, located)
+                # P-IR3-1 narrowed (NM1): (a) a spot two objects locate is a copy, evidence for neither; (b) a
+                # widening that takes in a second copy of one of the object's tied initialisers over-reaches
+                finders = collections.defaultdict(set)
+                for key, spots in located.items():
+                    for a in spots:
+                        finders[a].add(key)
+                tied = collections.defaultdict(list)
+                for r, obj, sec, s, length, hits in pending:
+                    if id(r) not in done and generated(r['symbol']):
+                        tied[id(obj)].append(hits)
+                xprev = xcu_previous(img) if USE_XCU and region else {}   # the table marks TU boundaries (zero slots) only in the app stretch
+                for key, spots in located.items():
+                    if any(len(finders[a]) > 1 for a in spots):
+                        continue
+                    lo, hi = ranges[key]
+                    nlo, nhi = min(lo, min(spots)), max(hi, max(spots))
+                    if any(sum(nlo <= h <= nhi for h in hits) >= 2 and
+                           sum(nlo <= h <= nhi for h in hits) > sum(lo <= h <= hi for h in hits)
+                           for hits in tied[key]):
+                        continue
+                    if any(a < lo and a in xprev and xprev[a] and xprev[a] not in spots for a in spots):
+                        continue
+                    ranges[key] = (nlo, nhi)
             registered = initialiser_targets(results, pending, ranges, text, start, known, thunk) if phase == 'init' else {}
             if phase == 'short':
                 # D188: a short function at an address the run knows independently of its bytes
@@ -1128,7 +1165,7 @@ def caller_tiebreak(img, results, pending, claimed, text, base, thunk, known=Non
     return credited
 
 
-def initialiser_targets(results, pending, ranges, text, base, known, thunk):
+def initialiser_targets(results, pending, ranges, text, base, known, thunk, located=None):
     """D115: {symbol: {addresses}} of the functions the objects' rebuilt static initialisers call or
     register. A `_$E` initialiser is usually too short to match (`short`), so it is located by its
     links instead: a pattern hit inside the object's range (widened by RANGE_GAP) where every relocated
@@ -1210,6 +1247,7 @@ def initialiser_targets(results, pending, ranges, text, base, known, thunk):
                     continue
                 conf, links, opens = c
                 ok = True
+                spots = [h]
                 for ln, la in links.items():
                     lc = check(defs[ln], la)
                     if lc is None:
@@ -1220,12 +1258,43 @@ def initialiser_targets(results, pending, ranges, text, base, known, thunk):
                         ok = False      # the static's address differs between the two
                         break
                     opens = opens + lc[2]
+                    spots.append(la)
                 if ok:
-                    good.append(opens)
+                    good.append((opens, spots))
             if len(good) == 1:
-                for sym, t in good[0]:
+                for sym, t in good[0][0]:
                     out[sym].add(t)
+                if located is not None:
+                    located[key].update(good[0][1])
     return out
+
+
+USE_XCU = True
+_xcu = {}
+
+
+def xcu_previous(img):
+    """{initialiser address: the value of the slot before it} of the CRT initialiser table (.CRT$XCU, merged into
+    .data: the longest run of dwords that are 0 or .text addresses)."""
+    if 'prev' not in _xcu:
+        ts, te, _ = img.section('.text')
+        ds, de, raw = img.section('.data')
+        vals = struct.unpack_from('<%dI' % (min(de - ds, len(img.data) - raw) // 4), img.data, raw)
+        best, cur, nz, bnz = (0, 0), 0, 0, 0
+        for i, v in enumerate(vals):
+            if v == 0 or ts <= v < te:
+                cur += 1
+                nz += v != 0
+                if nz > bnz:
+                    best, bnz = (i - cur + 1, i + 1), nz
+            else:
+                cur, nz = 0, 0
+        prev = {}
+        for i in range(best[0] + 1, best[1]):
+            if vals[i]:
+                prev.setdefault(vals[i], vals[i - 1])
+        _xcu['prev'] = prev
+    return _xcu['prev']
 
 
 RANGE_GAP = 0x1000   # D114(b): how far beyond its own range an object's lone (or D183 shared) exact COMDAT may lie

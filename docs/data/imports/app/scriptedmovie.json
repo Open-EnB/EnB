@@ -1,15 +1,13 @@
 {
  "ambiguous": [
   "0x42A900",
-  "0x42B2F0",
   "0x436980",
   "0x43D2A0",
   "0x4668F0",
   "0x46BE90",
   "0x474080",
   "0x499720",
-  "0x4A91B0",
-  "0x62A5D0"
+  "0x4A91B0"
  ],
  "copy": "reconstructed",
  "description": "ScriptedMovieViewClass (scriptedmovie.cpp's __FILE__; client 0x7FFEA0-0x80A730, 254 asserts): short members and script commands, the asserts on the client's lines 832 / 855 / 877 / 1178 (D25), UI1; the constructor 0x8000C0, the destructor 0x8008B0 and the rest not yet",
@@ -138,6 +136,8 @@
   "0x80B060",
   "0x80B090",
   "0x80B0D0",
+  "0x80B100",
+  "0x80B130",
   "0x899D40",
   "0x899DB0"
  ],
@@ -208,8 +208,6 @@
  ],
  "tiebreak": [
   "0x62A5D0",
-  "0x80B030",
-  "0x80B060",
-  "0x80B0D0"
+  "0x80B060"
  ]
 }

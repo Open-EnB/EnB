@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "InvTransactionClass (D24 class-from-file), one move of inventory items (the client's __FILE__ 0xB90764, asserts on lines 123-276; object from 0x690880, after inv_trade_render.cpp's initialiser 0x690850) (IR2)",
  "expected": {},
@@ -15,6 +13,7 @@
   "0x52B310",
   "0x52B330",
   "0x52B350",
+  "0x690850",
   "0x690880",
   "0x6908E0",
   "0x690F80",

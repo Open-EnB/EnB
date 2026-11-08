@@ -1,7 +1,6 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42B2F0",
   "0x434070",
   "0x444190",
   "0x46BE90",
@@ -92,7 +91,9 @@
   "0x56C0C0",
   "0x56C6A0",
   "0x56C730",
-  "0x56C7B0"
+  "0x56C7B0",
+  "0x56CCB0",
+  "0x56D1D0"
  ],
  "merged": [],
  "name": "client/ui_chat_panel.cpp",

@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (D10, D137): the EULA / ROC dialog helper Unknown_847D20 (0x847D20 exact) and its dialog procedure Unknown_847FE0 (0x847FE0, NOT EXACT: inline-budget), client 0x847D20-0x8480C0 in app\\common after optdlg.cpp and before pal_mgr.cpp",
@@ -9,7 +8,8 @@
  "in_tree": [
   "0x42A970",
   "0x42AB30",
-  "0x847D20"
+  "0x847D20",
+  "0x848100"
  ],
  "merged": [],
  "name": "common/unknown_847d20.cpp",

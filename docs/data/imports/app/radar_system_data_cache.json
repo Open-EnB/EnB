@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RadarSystemDataCacheClass (D24), one object's cached view for a radar pass (the client's __FILE__ 0xB9F32C, FAIL_IFs at lines 93-208; 0x7BDFC0-0x7BE590) (GR2)",
  "expected": {},
@@ -19,7 +17,8 @@
   "0x7BE300",
   "0x7BE350",
   "0x7BE520",
-  "0x7BE560"
+  "0x7BE560",
+  "0x7BE5D0"
  ],
  "merged": [],
  "name": "client/radar_system_data_cache.cpp",

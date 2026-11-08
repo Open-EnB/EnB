@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the 'sound' render state (rs.ini TYPE 'sound', vtable 0xAE821C, 0x3C bytes, derived from the message state), client 0x45F390-0x45FD27 between rs_robj.cpp and rs_track.cpp; no __FILE__ string: directory from its neighbours, name neutral (D10)",
  "expected": {},
@@ -31,6 +29,7 @@
   "0x45FB10",
   "0x45FB40",
   "0x45FC50",
+  "0x45FD70",
   "0x491830",
   "0x494CC0"
  ],

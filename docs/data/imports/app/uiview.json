@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x46BE90",
   "0x474080"
  ],
@@ -43,7 +42,8 @@
   "0x65B7E0",
   "0x65B810",
   "0x65B8B0",
-  "0x65B8D0"
+  "0x65B8D0",
+  "0x65B900"
  ],
  "merged": [],
  "name": "client/uiview.cpp",
