@@ -262,7 +262,8 @@ def load_clues(path):
 
 def exclude_sent(picks, run, add=None):
     """Drop the picks an earlier run (.work/variants/RUN) already sent, matched by address or by (file, function);
-    the entries of the rerun list `add` stay (and are added from that run's pick.json if today's pick lost them)."""
+    the entries of the rerun list `add` stay; one that today's pick no longer resolves is named and left out (the old
+    pick's line numbers would be stale)."""
     d = os.path.join(ROOT, '.work', 'variants', run)
     sent = set()
     for f in sorted(os.listdir(os.path.join(d, 'requests'))):
@@ -283,10 +284,10 @@ def exclude_sent(picks, run, add=None):
             p = dict(p, address=hit, size=old[hit]['size'], via='address')
         out.append(p)
     have = {p.get('address') for p in out}
-    for x in keep:
-        if x not in have and x in old:
-            out.append(old[x])
-    print(f'{gone} entries already sent by run {run} dropped; {len(keep)} rerun entries kept ({len(out)} picks)')
+    lost = sorted(x for x in keep if x not in have)
+    if lost:
+        print(f'rerun entries today\'s pick does not resolve (left out): {" ".join(lost)}')
+    print(f'{gone} entries already sent by run {run} dropped; {len(keep) - len(lost)} rerun entries kept ({len(out)} picks)')
     return out
 
 
