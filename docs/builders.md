@@ -81,6 +81,9 @@ shared file (`tools/vc6/libdefs.py`, app headers, `stubs/*`, `docs/data/*`, `doc
 goes through `python tools/vc6/commit_mine.py MSGFILE SPEC.json` (your whole files, your ledger shards (`--file`, header shards
 included) and your rows of attempts.csv / not-exact.md / names-review.md; it lands by compare-and-swap). Never `git reset`,
 `commit --amend` or `commit-tree` to repair a sweep: report it.
+Before reporting a branch finished, `python tools/vc6/standins.py check` in your worktree (seconds): a function you
+rebuilt that a hand stand-in still defines refuses the landing; delete the stand-in in your branch (workflow.md §3,
+"A landed app definition collides with stand-ins").
 Commit each finished, working piece right away: one imperative subject stating the evidence or
 gain (see `git log`), counts before -> after; end the message with the `Co-Authored-By` line your
 harness gives you (D71).

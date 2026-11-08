@@ -37,6 +37,10 @@ bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss
      candidate's record against TARGET's. When step 2 took a generated file's TARGET side: no record
      check; report, names.py, notexact.py (app_inventory.py for its files) and a commit of the
      regenerated files instead (the batch form's regen_and_commit);
+  4a. stand-ins (pipeline-plan §4 item 6a, always, seconds): standins.py check over TARGET..the candidate (the
+     verified ledger's new app pairs too) refuses a function defined anew in app/ that a hand stand-in still defines
+     (programs/clientpoc/poc_standins.cpp, poc_world*.cpp, poc_gadget_*.cpp, stubs/app_stubs.cpp,
+     tests/clienttest/client_stubs.cpp), naming symbol and file:line; the batch form runs it too, after its verify;
   5. landing: under the importer lock, the worktree that has TARGET checked out (the main tree for
      master) gets each changed path 3-way merged with its uncommitted copy (git merge-file; attempts.csv
      by row union; any other conflict, a ledger shard's included, refuses), then `update-ref refs/heads/TARGET NEW OLD` (compare-and-swap), then the merged files
@@ -66,7 +70,7 @@ Batch form (two or more branches, a range, or --batch-name; D202): one verify ov
      same command with --resume, or `wt.py remove N` to drop it.
   3. `verify.py` once (the libraries the batch touches, plus --lib); every library's `in tree:` line must be
      in the log. The loss rule. report.py, names.py, notexact.py; the regenerated files are committed with a generated
-     subject and --trailer (default the newest Co-Authored-By on TARGET).
+     subject and --trailer (default the newest Co-Authored-By on TARGET). The stand-in check (single form's 4a).
   4. landing: the worktree holding TARGET must have no tracked file modified (.claude/settings.json aside, unless the
      batch changes it): checked at the start and again under the lock. TARGET moves by compare-and-swap; a TARGET
      that moved during the verify is handled as in the single form's step 5 (unrelated commits: replayed onto;
@@ -127,6 +131,7 @@ sys.path.insert(0, HERE)
 import commit_rows as cr  # noqa: E402
 import ledger  # noqa: E402
 import pairs_cmp  # noqa: E402
+import standins  # noqa: E402
 
 
 def _main_root():
@@ -883,6 +888,17 @@ def say_losses(r):
               f'/accept-d66 (D202)')
 
 
+def standin_gate(old, new, old_ledger, new_ledger, target):
+    """Pipeline-plan §4 item 6a: exits when OLD..NEW defines anew in app/ a function a hand stand-in still defines
+    (standins.py; the new app pairs of NEW_LEDGER over OLD_LEDGER named by symbols.json as well)."""
+    found, notes = standins.check(ROOT, old, new, old_ledger, new_ledger)
+    for n in notes:
+        print('stand-ins: note:', n)
+    if found:
+        sys.exit('wt: ' + '\n'.join(standins.report(found)) + f'\nwt: refused; {target} untouched')
+    print('stand-ins: no collision')
+
+
 def check_builders(names):
     """Exits on a modified non-generated tracked file in a builder's worktree; generated leftovers are only named
     (the landing reads the branch: nothing is checked out, so nothing can be discarded)."""
@@ -1223,6 +1239,7 @@ def cmd_batch(a):
                                               f'over all of them', res), a.target, old, state.get('took', ()))
         new = rev('HEAD', cwd=bo)
         say_losses(res)
+        standin_gate(old, new, ledger.load(old, repo=ROOT), ledger.load(new, repo=ROOT), a.target)
         if a.dry:
             print(f'--dry: would land {old[:9]} -> {new[:9]} on {a.target}')
             return
@@ -1291,9 +1308,10 @@ def cmd_bring_over(a):
         before, cand_rec = ledger.load(old, repo=ROOT), ledger.load(new, repo=ROOT)
         cand = pairs_of(cand_rec)
         res = judge_losses(before, cand_rec, a.target, old, 'the branch\'s ledger record')
+        after_rec = cand_rec
         if libs:
             run_verify(a, bo, libs, a.target)
-            verified_rec = ledger.load(None, repo=bo)
+            verified_rec = after_rec = ledger.load(None, repo=bo)
             verified = pairs_of(verified_rec)
             res = judge_losses(before, verified_rec, a.target, old, 'the verify')
             if verified != cand and not took:
@@ -1310,6 +1328,7 @@ def cmd_bring_over(a):
                                                    f'regenerated', res), a.target, old, took)
             new = rev('HEAD', cwd=bo)
         say_losses(res)
+        standin_gate(old, new, before, after_rec, a.target)
         if a.dry:
             print(f'--dry: would land {old[:9]} -> {new[:9]} on {a.target}')
             return
