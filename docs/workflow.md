@@ -924,7 +924,7 @@ unless `--lever` cites a new row of this table.
 * **The verify service judges a PR with master's tools and master's accepted-corrections.json (2026-11-05 evening, PR #163):** a PR's own objmatch change or corrections entry does not count for it, an outright loss passes no command and the ruleset has no bypass. A false pair a PR exposes needs its corrections entry merged first (PR #164); a coordinator's in-run `--accept` is not that ruling.
 * **Landing builders' new files (2026-11-04 night run):** registering a new file in importer.py (`RECONSTRUCTED`)
   can add pairs, so re-verify and commit docs/data/imports.json with it (bring-over refuses a branch whose record
-  differs from its verify). bring-over refuses a branch with merge commits: `tools/agy/rebase_gen.sh ID run/<date> BASELINE` rebases it (the merge
+  differs from its verify). bring-over refuses a branch with merge commits: `wt.py rebase ID --onto run/<date>` rebases it (the merge
   dropped). appfile.py's definition regex reads `static void (Name)(` as a function named `void` (harmless; verify is right).
 
 * **Other builders' verifies replace `%TEMP%\enb_import\verify-app`** (2026-10-31, TK12): a new file's .obj can vanish
@@ -1462,18 +1462,18 @@ unless `--lever` cites a new row of this table.
   before landing, or bring-over refuses ("the commits record other pairs"). poc_check.sh's LOG must be an absolute path.
 * **Coordinator merges (2026-11-03 afternoon run):** never resolve a C++ source conflict by keeping both sides (it
   duplicated gd_slider's code: 3 lost outright, caught by the verify); append-append of new functions is the one safe
-  case. `tools/agy/rebase_gen.sh` takes the run's imports.json and re-verifies only app: a library's new file then drops
-  out of the record (verify --lib reads its file list from imports.json): verify that library too. `symbols.py` needs
+  case. `tools/agy/rebase_gen.sh` once re-verified only app (a library's new file dropped out of the record); it is
+  now `wt.py rebase`, which verifies every library the branch touches. `symbols.py` needs
   `--objs` for every verify-* folder and a good symbols.json as its input (it reads its own output: a gutted one cost 16
   pairs, a weak one moved template twins). TaskStop of a background shell leaves its child processes (two redo
   scripts ran in one worktree): check Win32_Process before restarting. A worktree reset onto a new base needs its wt
   base file updated, or bring-over refuses 'merge commits'.
 * **`wt.py bring-over` lands on master by default (2026-11-02 evening run):** pass `--target run/<date>`; without it, it
   compared against a stale local master and refused (3 'lost' pairs that were master's age, not the builder's).
-* **bring-over refuses a cherry-pick with generated-file conflicts (2026-11-02 evening run):** two builders from the same
-  base both rewrite imports.json / names-review.md; rebase the worktree branch, take the run's side of each generated
-  file, regenerate (names.py, notexact.py, verify --lib app --pool 1, report), continue, bring over:
-  `tools/agy/rebase_gen.sh ID run/<date>` (attempts.csv: both sides' rows).
+* **Generated files are regenerated, never merged (2026-11-02 evening run; tools since 2026-11-07):** on a conflict
+  bring-over (single and batch) and `wt.py rebase ID [--onto B]` take the target's side, then verify, report, names.py,
+  notexact.py and commit the result (attempts.csv: both sides' rows). Never rebase a worktree by hand (WE8: no
+  regeneration); `wt.py rebase` stops on any other conflict and prints how to finish (`--continue`) or abort.
 
 * **`attempts.py record`:** `--forms` is a count, the forms' text goes in `--evidence`, and `--blocker` takes only
   the listed classes (`order`, `inline-budget`, ...) (2026-10-31, TK5).
@@ -1509,8 +1509,8 @@ unless `--lever` cites a new row of this table.
 * **names.py files a NOT EXACT marker under the next function when a static helper's signature spans two lines**
   (2026-10-28, LD3: 0x47C6A0's marker shows under Build_Decorations). `attempts.py record` takes an integer
   `--forms` and only its fixed `--blocker` list.
-* **`wt.py bring-over` refusing on an imports.json conflict** (2026-10-28, LD2): `git rebase master` in the
-  worktree, take master's imports.json, re-verify, union attempts.csv, run names.py, `git rebase --continue`.
+* **`wt.py bring-over` refusing on an imports.json conflict** (2026-10-28, LD2): now `wt.py rebase NAME --onto
+  master` (takes master's side, re-verifies, unions attempts.csv, regenerates, commits).
 * **After a bring-over, `git rebase master` in the worktree can conflict on names-review.md:** `git rebase --skip`
   drops the commit that already landed; "master moved while landing": rerun (2026-10-28, EF2).
 * **When master moves every few minutes, `wt.py bring-over` keeps conflicting on imports.json** (2026-10-28, DM1):

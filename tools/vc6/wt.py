@@ -5,6 +5,7 @@
     python tools/vc6/wt.py bring-over NAME [--target BRANCH] [--lib X ...] [--pool K] [--dry] [--keep]
     python tools/vc6/wt.py bring-over A B..C D [--batch-name N] [--target BRANCH] [--lib X ...] [--pool K] [--trailer T]
                                       [--dry] [--picks-only] [--resume] [--keep]
+    python tools/vc6/wt.py rebase NAME [--onto BRANCH] [--continue] [--lib X ...] [--pool K] [--trailer T]
     python tools/vc6/wt.py remove NAME [--delete-branch] [--force]
 
 new: `git worktree add .work/wt/NAME -b wt/NAME BASE` (default HEAD); NTFS junctions .work/locks,
@@ -18,15 +19,17 @@ bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss
   touching TARGET otherwise:
   1. the commits of wt/NAME not yet on TARGET (patch-equivalent ones skipped, merges refused);
   2. TARGET at the recorded base (or an ancestor of the branch): fast-forward to the branch tip;
-     else cherry-pick them, in a scratch worktree .work/wt/NAME.bo at TARGET, where conflicts in
-     docs/data/attempts.csv are resolved by the union of the rows, names-review.md / not-exact.md
-     are regenerated (tools/re/names.py) and any other conflict (a ledger shard included) refuses;
+     else cherry-pick them, in a scratch worktree .work/wt/NAME.bo at TARGET, conflicts resolved as in
+     the batch form (step 2 there: generated files take TARGET's side, attempts.csv both sides' rows);
+     any other conflict refuses (`wt.py rebase NAME --onto TARGET` then stops on it for the builder);
   3. the libraries the commits touched (their directories, EA headers -> app as well, libdefs.py or
      importer.py lines naming a library, ledger shards that changed; plus --lib) are verified there:
      `verify.py --lib ... --pool K` (no replay since the freeze, D211: the libraries are plain source);
   4. pairs: the verified ledger against TARGET's (the loss rule) and against the candidate's own
      record (equal: the commits record what the verify gives); with no library touched, the
-     candidate's record against TARGET's;
+     candidate's record against TARGET's. When step 2 took a generated file's TARGET side: no record
+     check; report, names.py, notexact.py (app_inventory.py for its files) and a commit of the
+     regenerated files instead (the batch form's regen_and_commit);
   5. landing: under the importer lock, the worktree that has TARGET checked out (the main tree for
      master) gets each changed path 3-way merged with its uncommitted copy (git merge-file; attempts.csv
      by row union; any other conflict, a ledger shard's included, refuses), then `update-ref refs/heads/TARGET NEW OLD` (compare-and-swap), then the merged files
@@ -59,6 +62,23 @@ Batch form (two or more branches, a range, or --batch-name; D202): one verify ov
      that moved during the verify is refused and named as well; rerun.
   --picks-only stops after step 1 (no verify); --dry stops before step 4; the scratch worktree goes unless --keep or
   a conflict stopped the batch. Logs: .work/wt/N.bo.*.log.
+
+Generated files (GENERATED, ledger shards; pipeline-plan §4 item 2): never merged. On a conflict wt.py takes the
+  target's side and regenerates: verify (the touched libraries' shards), report.py (imports.md), names.py
+  (names-review.md, not-exact.md), notexact.py, app_inventory.py (app-inventory.md, app-functions.json, only when one
+  of them conflicted); coverage.md takes the target's side until symbols.py's next run (it needs every library's
+  verify objects). No git merge driver: it would need per-clone config and does not run on GitHub.
+
+rebase: a builder's own worktree .work/wt/NAME (wt/NAME checked out, nothing modified but generated files, which
+  are dropped): `git rebase` onto --onto (default the run branch wt/NAME was based on: the run/* branch holding the
+  recorded base, the main tree's current one first; else the main tree's run branch). Each conflict: generated files
+  take the onto side, attempts.csv both sides' rows, libdefs.py/importer.py both sides' added lines (the batch's
+  resolve_batch); anything else stops the rebase there, file named, with the commands to finish it (resolve, `git
+  add`, `wt.py rebase NAME --continue`) or abort it (`git rebase --abort`); state in .work/wt/NAME.rebase. Then:
+  verify of the libraries the branch's own commits touch (--pool K), report, names.py, notexact.py, and the
+  regenerated files committed ("Record the verified pairs of wt/NAME after rebasing it onto ..."); the base record
+  becomes the onto commit. A loss outright against the onto branch is printed, not refused (bring-over refuses it).
+  No hand rebases: they skip the regeneration (WE8). tools/agy/rebase_gen.sh is this plus a bring-over.
 
 remove: removes every junction inside the worktree first (rmdir, never a recursive delete through
   one), then `git worktree remove --force`, prune, the .base record; --delete-branch deletes wt/NAME.
@@ -108,11 +128,17 @@ NAMES_OUT = ('docs/data/names-review.md', 'docs/data/not-exact.md')
 IMPORTER = 'tools/vc6/importer.py'
 LIBDEFS = 'tools/vc6/libdefs.py'
 DEFS = (LIBDEFS, IMPORTER)                              # Python files that name libraries (add-only union)
-GENERATED = (OLD_IMPORTS, *NAMES_OUT, 'docs/imports.md')    # rewritten by verify, report, names.py, notexact.py
+# written from client.exe by app_inventory.py (cheap: rerun when it conflicted) and symbols.py (coverage.md: with
+# symbols.json, from every library's verify objects; a conflict takes the target's side until the next regeneration)
+APP_INV = ('docs/app-inventory.md', 'docs/data/app-functions.json')
+COVERAGE = 'docs/coverage.md'
+GENERATED = (OLD_IMPORTS, *NAMES_OUT, 'docs/imports.md', *APP_INV, COVERAGE)
+# the rule (pipeline-plan §4 item 2): a conflict in any of them takes either side (wt.py: the target's), then the
+# file is regenerated: verify (shards of the touched libraries), report.py, names.py, notexact.py, app_inventory.py
 
 
 def generated(p):
-    """A file verify, report, names.py or notexact.py rewrites: GENERATED or a ledger shard."""
+    """A file a generator rewrites: GENERATED or a ledger shard."""
     return p in GENERATED or p.startswith(IMPORTS + '/')
 
 
@@ -130,19 +156,20 @@ LIB_TOP = {'app': 'app', 'binkmovie': 'binkmovie', 'ww3d2': 'ww3d2', 'wwaudio': 
 EA_LIBS = {'binkmovie', 'ww3d2', 'wwaudio', 'wwdebug', 'wwlib', 'wwmath', 'wwsaveload', 'wwshade', 'wlib', 'wnet'}
 
 
-def git(*args, cwd=ROOT, check=True, inp=None, env=None):
-    """git's stdout as text (bytes when inp is bytes)."""
+def git(*args, cwd=None, check=True, inp=None, env=None):
+    """git's stdout as text (bytes when inp is bytes). cwd: default the main tree."""
+    cwd = ROOT if cwd is None else cwd
     r = subprocess.run(['git', *args], cwd=cwd, input=inp, capture_output=True, env=env)
     if check and r.returncode:
         sys.exit(f'wt: git {" ".join(args)} (in {cwd}): {r.stderr.decode(errors="replace").strip()}')
     return r if not check else r.stdout.decode('utf-8', 'surrogateescape')
 
 
-def ok(*args, cwd=ROOT):
-    return subprocess.run(['git', *args], cwd=cwd, capture_output=True).returncode == 0
+def ok(*args, cwd=None):
+    return subprocess.run(['git', *args], cwd=ROOT if cwd is None else cwd, capture_output=True).returncode == 0
 
 
-def rev(r, cwd=ROOT):
+def rev(r, cwd=None):
     return git('rev-parse', '--verify', '-q', r + '^{commit}', cwd=cwd).strip()
 
 
@@ -281,8 +308,9 @@ def cmd_remove(a):
     if os.path.isdir(bo):
         drop_worktree(bo)
         print(f'removed {bo}')
-    if os.path.exists(bo + '.state'):
-        os.remove(bo + '.state')
+    for f in (bo + '.state', path + '.rebase'):
+        if os.path.exists(f):
+            os.remove(f)
     if os.path.exists(base_file(a.name)):
         os.remove(base_file(a.name))
     if a.delete_branch and ok('rev-parse', '--verify', '-q', 'refs/heads/wt/' + a.name):
@@ -343,7 +371,7 @@ def pairs_of(data):
     return out
 
 
-def blob(spec, cwd=ROOT):
+def blob(spec, cwd=None):
     r = git('cat-file', 'blob', spec, cwd=cwd, check=False)
     return r.stdout.decode('utf-8', 'surrogateescape') if r.returncode == 0 else None
 
@@ -401,8 +429,10 @@ def run_logged(args, cwd, log, env=None):
     return r.returncode, tail
 
 
-def cherry_pick(bo, commits, log):
-    """Cherry-pick commits in the scratch worktree; resolve the row files; None or the refusal."""
+def cherry_pick(bo, commits, log, took):
+    """Cherry-pick commits in the scratch worktree, conflicts resolved as in a batch (resolve_batch: generated files
+    take the target's side and are added to TOOK, to be regenerated; attempts.csv by row union); None or the
+    refusal."""
     env = dict(os.environ, GIT_EDITOR='true')
     touched_names = False
     for c in commits:
@@ -418,27 +448,11 @@ def cherry_pick(bo, commits, log):
             git('cherry-pick', '--skip', cwd=bo, env=env)       # empty once applied: already there
             log.write('  empty, skipped\n')
             continue
-        other = [p for p in conflicted if p != ATTEMPTS and p not in NAMES_OUT]
-        if other:
+        stop = resolve_batch(bo, conflicted, log, took) if conflicted else None
+        if stop:
             git('cherry-pick', '--abort', cwd=bo, check=False)
-            return f'cherry-pick of {subj} conflicts in {", ".join(other)} (refused; rebase the branch by hand)'
-        if ATTEMPTS in conflicted:
-            merged = union_rows(blob(':1:' + ATTEMPTS, bo), blob(':2:' + ATTEMPTS, bo) or '',
-                                blob(':3:' + ATTEMPTS, bo) or '')
-            sha = git('hash-object', '-w', '--no-filters', '--stdin', cwd=bo,
-                      inp=merged.encode('utf-8', 'surrogateescape')).strip()
-            git('update-index', '--cacheinfo', f'100644,{sha},{ATTEMPTS}', cwd=bo)
-            git('checkout-index', '-f', '--', ATTEMPTS, cwd=bo)
-            log.write('  attempts.csv: rows unioned\n')
-        names = [p for p in conflicted if p in NAMES_OUT]
-        if names:
-            git('checkout', '--ours', '--', *names, cwd=bo)
-            rc, tail = run_logged([sys.executable, 'tools/re/names.py'], bo, log.name + '.names')
-            if rc:
-                git('cherry-pick', '--abort', cwd=bo, check=False)
-                return f'names.py failed while resolving {subj}: {tail}'
-            git('add', '--', *NAMES_OUT, cwd=bo)
-            log.write('  names-review.md / not-exact.md regenerated\n')
+            return (f'cherry-pick of {subj} conflicts in {stop[0]} ({stop[1]}; refused: `wt.py rebase '
+                    f'NAME --onto TARGET` in the builder\'s worktree stops there for the builder to resolve)')
         if not git('diff', '--cached', '--name-only', 'HEAD', cwd=bo).strip():
             git('cherry-pick', '--skip', cwd=bo, env=env)       # the resolution left nothing new
             log.write('  empty after resolution, skipped\n')
@@ -447,7 +461,7 @@ def cherry_pick(bo, commits, log):
         if r.returncode:
             git('cherry-pick', '--abort', cwd=bo, check=False)
             return f'cherry-pick --continue of {subj}: {r.stderr.decode(errors="replace").strip()[-300:]}'
-    if touched_names:
+    if touched_names and not took:          # with TOOK, regen_and_commit regenerates them after the verify
         rc, tail = run_logged([sys.executable, 'tools/re/names.py'], bo, log.name + '.names')
         if rc:
             return f'names.py failed: {tail}'
@@ -760,8 +774,10 @@ def stage_text(bo, path, text):
     git('checkout-index', '-f', '--', path, cwd=bo)
 
 
-def resolve_batch(bo, conflicted, log):
-    """Resolve what D202 lets a batch resolve; returns (file, why) of the first conflict it can't, or None."""
+def resolve_batch(bo, conflicted, log, took=None):
+    """Resolve what D202 lets a batch resolve (also a single bring-over's pick and `rebase`: in both, the index's
+    stage 2 is the target's side); returns (file, why) of the first conflict it can't, or None. TOOK (a set) gains
+    every generated file resolved, which the caller regenerates."""
     for p in conflicted:
         if not generated(p) and p != ATTEMPTS and p not in DEFS:
             return p, 'not a generated or row file'
@@ -787,10 +803,15 @@ def resolve_batch(bo, conflicted, log):
         elif shard.get(p) is not None:
             stage_text(bo, p, shard[p])
             log.write(f'  {p}: the target\'s side, the branch\'s description (pairs regenerated later)\n')
+        elif blob(':2:' + p, bo) is None:
+            git('rm', '-q', '--', p, cwd=bo)                # deleted on the target's side
+            log.write(f'  {p}: the target\'s side (deleted)\n')
         else:
             git('checkout', '--ours', '--', p, cwd=bo)
             git('add', '--', p, cwd=bo)
             log.write(f'  {p}: the target\'s side (regenerated later)\n')
+        if took is not None and generated(p):
+            took.add(p)
     return None
 
 
@@ -839,7 +860,9 @@ def pick_batch(bo, specs, state, log):
             log.write(f'cherry-pick {label} {subj}: {r.returncode}\n')
             if r.returncode:
                 conflicted = git('diff', '--name-only', '--diff-filter=U', cwd=bo).splitlines()
-                stop = resolve_batch(bo, conflicted, log) if conflicted else None
+                took = set(state.get('took', []))
+                stop = resolve_batch(bo, conflicted, log, took) if conflicted else None
+                state['took'] = sorted(took)
                 if stop:
                     state['done'] = sorted(done | {c})      # --resume: the person finishes this one
                     with open(bo + '.state', 'w', newline='\n') as f:
@@ -858,10 +881,25 @@ def pick_batch(bo, specs, state, log):
     return None
 
 
-def regen_and_commit(a, bo, labels, res, target, old):
-    """report, names.py, notexact.py, and the regenerated files committed; exits on anything else changed."""
+def record_subject(what, res):
+    """The generated commit's message: WHAT (e.g. 'of A, B after landing them together: one verify over all of
+    them'), then the pairs."""
+    lost = len(res.get('lost_outright', []))
+    return (f'Record the verified pairs {what}, no source change, {len(res["gained"]) + len(res["gained_tiebreak"])} '
+            f'gained, {len(res["moves"])} D66 moves, {lost} lost outright')
+
+
+def regen_and_commit(a, bo, subject, target, old, took=()):
+    """report, names.py, notexact.py (app_inventory.py when TOOK holds one of its files), and the regenerated files
+    committed with SUBJECT and a.trailer (default the newest Co-Authored-By below OLD); exits on anything else
+    changed. TARGET only names what stays untouched in the messages."""
     steps = [('report', tool(bo, 'report.py', 'report')),
              ('names', ['tools/re/names.py']), ('notexact', ['tools/re/notexact.py'])]
+    if set(APP_INV) & set(took):
+        steps.append(('appinv', ['tools/re/app_inventory.py']))
+    if COVERAGE in took:
+        print(f'note: {COVERAGE} took {target}\'s side; symbols.py rewrites it with symbols.json (every library\'s '
+              f'verify objects) at the next regeneration')
     for tag, args in steps:
         rc, tail = run_logged([sys.executable, *args], bo, f'{bo}.{tag}.log')
         if rc or any('giving up' in t for t in tail):
@@ -880,9 +918,7 @@ def regen_and_commit(a, bo, labels, res, target, old):
             if line.strip():
                 trailer = line.strip()
                 break
-    msg = (f'Record the verified pairs of {", ".join(labels)} after landing them together: one verify over all of '
-           f'them, no source change, {len(res["gained"]) + len(res["gained_tiebreak"])} gained, {len(res["moves"])} '
-           f'D66 moves, 0 lost outright\n')
+    msg = subject + '\n'
     if trailer:
         msg += f'\n{trailer}\n'
     git('commit', '-q', '-F', '-', cwd=bo, inp=msg.encode())
@@ -949,7 +985,8 @@ def cmd_batch(a):
         else:
             print('no library touched: no verify; pairs from the records')
         res = judge_losses(ledger.load(old, repo=ROOT), ledger.load(None, repo=bo), a.target, old, 'the batch')
-        regen_and_commit(a, bo, labels, res, a.target, old)
+        regen_and_commit(a, bo, record_subject(f'of {", ".join(labels)} after landing them together: one verify '
+                                              f'over all of them', res), a.target, old, state.get('took', ()))
         new = rev('HEAD', cwd=bo)
         say_losses(res)
         if a.dry:
@@ -997,6 +1034,7 @@ def cmd_bring_over(a):
     git('worktree', 'add', '--detach', bo, tip if ff else old)
     furnish(bo, libs=False, pseudo=False)
     why = None
+    took = set()                # generated files whose conflicts took the target's side (regenerated below)
     try:
         with open(logp, 'w', newline='\n', encoding='utf-8') as log:
             if ff:
@@ -1005,7 +1043,7 @@ def cmd_bring_over(a):
             else:
                 if old != base:
                     print(f'{a.target} moved past the base ({base[:9]} -> {old[:9]}): cherry-picking')
-                why = cherry_pick(bo, commits, log)
+                why = cherry_pick(bo, commits, log, took)
         if why:
             sys.exit(f'wt: {why}; {a.target} untouched (log {logp})')
         new = rev('HEAD', cwd=bo)
@@ -1021,12 +1059,19 @@ def cmd_bring_over(a):
             verified_rec = ledger.load(None, repo=bo)
             verified = pairs_of(verified_rec)
             res = judge_losses(before, verified_rec, a.target, old, 'the verify')
-            if verified != cand:
+            if verified != cand and not took:
                 sys.exit(f'wt: the commits record other pairs than the verify gives (verify-only '
                          f'{sorted(verified - cand)[:5]}, record-only {sorted(cand - verified)[:5]}): commit '
                          f'the verified record in the branch and rerun; {a.target} untouched')
         else:
             print('no library touched: no verify; pairs from the records')
+        if took:        # generated conflicts took the target's side: regenerate them and commit the result
+            print(f'generated-file conflicts took {a.target}\'s side: {", ".join(sorted(took)[:8])}'
+                  + (' ...' if len(took) > 8 else '') + '; regenerating')
+            regen_and_commit(a, bo, record_subject(f'of wt/{a.name} after bringing it over onto {a.target}: its '
+                                                   f'generated-file conflicts took {a.target}\'s side and were '
+                                                   f'regenerated', res), a.target, old, took)
+            new = rev('HEAD', cwd=bo)
         say_losses(res)
         if a.dry:
             print(f'--dry: would land {old[:9]} -> {new[:9]} on {a.target}')
@@ -1044,6 +1089,158 @@ def cmd_bring_over(a):
     finally:
         if not a.keep and os.path.isdir(bo):
             drop_worktree(bo)
+
+
+# ---------------------------------------------------------------- rebase
+
+def read_text(path):
+    with open(path, encoding='utf-8') as f:
+        return f.read()
+
+
+def current_branch(cwd=None):
+    return git('symbolic-ref', '-q', '--short', 'HEAD', cwd=cwd, check=False).stdout.decode().strip()
+
+
+def run_branch_of(name):
+    """The run branch wt/NAME was based on: a run/* branch holding its recorded base (the main tree's current
+    branch first, else the newest), else the main tree's current branch when it is a run branch."""
+    cur = current_branch()
+    base = read_text(base_file(name)).strip() if os.path.exists(base_file(name)) else None
+    if base and ok('cat-file', '-e', base + '^{commit}'):
+        holders = git('for-each-ref', '--sort=-committerdate', '--format=%(refname:short)', '--contains', base,
+                      'refs/heads/run/').split()
+        if cur in holders:
+            return cur
+        if holders:
+            return holders[0]
+    if cur.startswith('run/'):
+        return cur
+    sys.exit(f'wt: no run branch holds the base of {name} ({(base or "none recorded")[:9]}) and the main tree is on '
+             f'{cur or "a detached HEAD"}: pass --onto BRANCH')
+
+
+def rebase_in_progress(path):
+    for d in ('rebase-merge', 'rebase-apply'):
+        p = git('rev-parse', '--git-path', d, cwd=path).strip()
+        if os.path.isdir(p if os.path.isabs(p) else os.path.join(path, p)):
+            return True
+    return False
+
+
+def unmerged(path):
+    return sorted(set(git('diff', '--name-only', '--diff-filter=U', cwd=path).splitlines()))
+
+
+def rebase_steps(path, log, took, start=None):
+    """Drive a rebase in PATH to its end, each conflict resolved by resolve_batch (generated files: the target's
+    side, into TOOK; attempts.csv: both sides' rows; libdefs.py / importer.py: both sides' added lines). START: the
+    `git rebase` arguments that begin it (None: carry on with the one in progress). None when it finished, else
+    (file, why) with the rebase left stopped there."""
+    env = dict(os.environ, GIT_EDITOR='true')
+    if start:
+        r = git('rebase', *start, cwd=path, check=False, env=env)
+        log.write(f'git rebase {" ".join(start)}: {r.returncode}\n')
+        if r.returncode and not rebase_in_progress(path):
+            return '-', r.stderr.decode(errors='replace').strip()[-300:]
+    while rebase_in_progress(path):
+        conflicted = unmerged(path)
+        if conflicted:
+            stop = resolve_batch(path, conflicted, log, took)
+            if stop:
+                return stop
+        head = rev('HEAD', cwd=path)
+        staged = git('diff', '--cached', '--name-only', 'HEAD', cwd=path).strip()
+        r = git('rebase', '--continue' if staged else '--skip', cwd=path, check=False, env=env)
+        log.write(f'git rebase {"--continue" if staged else "--skip"}: {r.returncode}\n')
+        if r.returncode and rebase_in_progress(path) and not unmerged(path) and rev('HEAD', cwd=path) == head:
+            return '-', r.stderr.decode(errors='replace').strip()[-300:]
+    return None
+
+
+def regenerate_rebased(a, path, st):
+    """After `rebase`: verify the libraries the branch's own commits touch (--pool K), report, names.py, notexact.py,
+    and the generated files committed (subject like the batch form's)."""
+    onto, name = st['onto_sha'], a.name
+    target = f'wt/{name} (rebased; its generated files not yet regenerated)'
+    libs = libs_touched(onto, rev('HEAD', cwd=path), a.lib)
+    if libs:
+        run_verify(a, path, libs, target)
+    else:
+        print('no library touched: no verify')
+    res = pairs_cmp.compare(ledger.load(onto, repo=ROOT) or {}, ledger.load(None, repo=path) or {},
+                            corrections_at(onto))
+    if res['lost_outright']:
+        print(f'WARNING: against {st["onto"]} the branch loses {len(res["lost_outright"])} address(es) outright: '
+              f'{res["lost_outright"][:20]}; a bring-over would refuse it')
+    regen_and_commit(a, path, record_subject(f'of wt/{name} after rebasing it onto {st["onto"]} {onto[:9]}: '
+                                             f'generated files regenerated, not merged', res),
+                     target, onto, st['took'])
+
+
+def cmd_rebase(a):
+    """wt.py rebase NAME [--onto B] [--continue]: see the module docstring."""
+    check_name(a.name)
+    path, branch = wt_path(a.name), 'wt/' + a.name
+    statef, logp = path + '.rebase', path + '.rebase.log'
+    if not os.path.isdir(path):
+        sys.exit(f'wt: no worktree at {path}')
+    me = os.path.join(ROOT, 'tools', 'vc6', 'wt.py')
+    if a.cont:
+        if not os.path.exists(statef):
+            sys.exit(f'wt: nothing to continue ({statef} missing): `wt.py rebase {a.name}` starts one')
+        st = json.loads(read_text(statef))
+        start = None
+        if not rebase_in_progress(path) and not ok('merge-base', '--is-ancestor', st['onto_sha'], 'HEAD', cwd=path):
+            os.remove(statef)
+            sys.exit(f'wt: {branch} does not contain {st["onto"]} {st["onto_sha"][:9]} (the rebase was aborted?): '
+                     f'start again with `wt.py rebase {a.name}`')
+    else:
+        if rebase_in_progress(path):
+            sys.exit(f'wt: a rebase is in progress in {path}: `python {me} rebase {a.name} --continue` after resolving '
+                     f'it, or `git -C {path} rebase --abort`')
+        if current_branch(path) != branch:
+            sys.exit(f'wt: {path} is not on {branch}')
+        dirty = dirty_tracked(path)
+        other = [p for p in dirty if not generated(p)]
+        if other:
+            sys.exit(f'wt: {path} has uncommitted changes outside the generated files: {other[:10]}: commit or drop '
+                     f'them first; nothing done')
+        if dirty:
+            git('checkout', 'HEAD', '--', *dirty, cwd=path)
+            print(f'generated leftovers dropped (regenerated below): {", ".join(dirty)}')
+        onto_name = a.onto or run_branch_of(a.name)
+        st = {'onto': onto_name, 'onto_sha': rev(onto_name), 'old': rev('HEAD', cwd=path), 'took': []}
+        if ok('merge-base', '--is-ancestor', st['onto_sha'], st['old']):
+            print(f'{branch} already contains {onto_name} {st["onto_sha"][:9]}: nothing to rebase')
+            return
+        # item 4 (stacked branches) adds an upstream here: ['--onto', onto, PARENT_TIP] replays the child's own commits
+        start = [st['onto_sha']]
+        print(f'rebasing {branch} {st["old"][:9]} onto {onto_name} {st["onto_sha"][:9]} (log {logp})', flush=True)
+    with open(logp, 'a', newline='\n', encoding='utf-8') as log:
+        took = set(st['took'])
+        stop = rebase_steps(path, log, took, start)
+        st['took'] = sorted(took)
+    with open(statef, 'w', newline='\n') as f:
+        json.dump(st, f)
+    if stop:
+        at = git('log', '-1', '--format=%h %s', 'REBASE_HEAD', cwd=path, check=False).stdout.decode().strip()[:90]
+        file_ = stop[0]
+        sys.exit(f'wt: the rebase of {branch} onto {st["onto"]} stopped at {at or "?"}: '
+                 + (f'conflict in {file_} ({stop[1]})' if file_ != '-' else stop[1]) + '\n'
+                 f'finish it:  resolve {file_ if file_ != "-" else "it"} in {path}, then\n'
+                 + (f'            git -C {path} add {file_}\n' if file_ != '-' else '')
+                 + f'            python {me} rebase {a.name} --continue   (the same resolution for the rest, then the '
+                 f'regeneration)\n'
+                 f'or give up: git -C {path} rebase --abort   ({branch} back at {st["old"][:9]})')
+    print(f'rebased: {branch} {st["old"][:9]} -> {rev("HEAD", cwd=path)[:9]} on {st["onto"]}'
+          + (f'; generated conflicts took its side: {", ".join(st["took"][:8])}' if st['took'] else ''), flush=True)
+    regenerate_rebased(a, path, st)
+    os.remove(statef)
+    with open(base_file(a.name), 'w', newline='\n') as f:
+        f.write(st['onto_sha'] + '\n')
+    print(f'done: {branch} at {rev("HEAD", cwd=path)[:9]} '
+          f'({git("log", "-1", "--format=%s", "HEAD", cwd=path).strip()[:80]}); base recorded {st["onto_sha"][:9]}')
 
 
 def main():
@@ -1067,13 +1264,23 @@ def main():
     p.add_argument('--no-replay', action='store_true', help='ignored: no replay since the freeze (D211)')
     p.add_argument('--dry', action='store_true', help='stop before landing')
     p.add_argument('--keep', action='store_true', help='keep the scratch worktree NAME.bo')
+    p = sub.add_parser('rebase')
+    p.add_argument('name')
+    p.add_argument('--onto', help='the branch to rebase onto (default the run branch wt/NAME was based on)')
+    p.add_argument('--continue', dest='cont', action='store_true',
+                   help='carry on after resolving a conflict the rebase stopped at (then the regeneration)')
+    p.add_argument('--lib', action='append', default=[], help='verify this library as well (repeatable)')
+    p.add_argument('--pool', type=int, default=1)
+    p.add_argument('--lock-wait', type=int, default=3000, help='seconds each importer call waits for the lock')
+    p.add_argument('--trailer', help='the generated commit\'s trailer line (default the newest on the onto branch)')
     p = sub.add_parser('remove')
     p.add_argument('name')
     p.add_argument('--delete-branch', action='store_true')
     p.add_argument('--force', action='store_true', help='remove a worktree with uncommitted changes')
     a = ap.parse_args()
     os.makedirs(WTDIR, exist_ok=True)
-    {'new': cmd_new, 'list': cmd_list, 'bring-over': cmd_bring_over, 'remove': cmd_remove}[a.cmd](a)
+    {'new': cmd_new, 'list': cmd_list, 'bring-over': cmd_bring_over, 'rebase': cmd_rebase,
+     'remove': cmd_remove}[a.cmd](a)
 
 
 if __name__ == '__main__':

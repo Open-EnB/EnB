@@ -134,8 +134,9 @@ Gemini 3.8 Flash (high) through the Antigravity CLI runs on the user's Google su
   reset. Quotas are per model: Flash only (Opus through agy ran out in one short item).
 - **Memory and VMs** count as for any builder (3-4 at a time on this host); each works in its own `wt.py` worktree.
 - **Each exit:** log `result.usage` (never the builder's own token figure), land with `wt.py bring-over ID --target
-  run/<date>` (several finished at once: `wt.py bring-over A B C --target run/<date>`, one verify; or
-  `tools/agy/rebase_gen.sh` for generated-file conflicts), run the heartbeat; after POC code lands, the POC
+  run/<date>` (several finished at once: `wt.py bring-over A B C --target run/<date>`, one verify;
+  both resolve and regenerate generated-file conflicts; another file's conflict: `wt.py rebase ID`, which stops on it
+  for the builder), run the heartbeat; after POC code lands, the POC
   check is yours (`tools/agy/poc_check.sh`): builders' own POC runs crash at startup and prove nothing.
 - **Briefs** name every WinMain stand-in that opens a dialog (0x847D20, 0x846C90) and say it stays (D69).
 
