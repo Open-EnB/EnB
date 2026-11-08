@@ -65,7 +65,7 @@ ChatWindowInterface::ChatWindowInterface(SClient *client, Unknown67D430Class *hi
 	Unknown_BE67BC->Load("fc_chat.ini");
 }
 
-// 0x56F560  // NOT EXACT: functional (CW2): the client calls the vector's empty _Destroy 0x571DE0 out of line, ours inlines it; one register later (0.58)
+// 0x56F560
 ChatWindowInterface::~ChatWindowInterface()
 {
 	Unknown64.Unknown_687150(UnknownA4);
@@ -77,7 +77,7 @@ ChatWindowInterface::~ChatWindowInterface()
 	for (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {
 		delete *it;
 	}
-	ChatWindows.erase(ChatWindows.begin(), ChatWindows.end());
+	ChatWindows.clear();
 	Unknown_BE67BC->Unload("fc_chat.ini");
 }
 
@@ -167,7 +167,7 @@ bool ChatWindowInterface::Unknown_98(const char *name, const char *ini)
 
 
 
-// 0x56FD30  // NOT EXACT: functional (CW2): frame 0x54 vs the client's 0x50 and reserve's _Destroy inlined (0.56)
+// 0x56FD30  // NOT EXACT: functional (CW2): frame 0x54 vs the client's 0x50 and the history loop (0.40)
 void ChatWindowInterface::Unknown_A0(unsigned int count)
 {
 	FAIL_IF(!ChatWindows.empty()) return;
@@ -201,9 +201,9 @@ void ChatWindowInterface::Unknown_A0(unsigned int count)
 	}
 	Unknown_A4();
 	ChatHistory->Unknown_67D660(count);
-	for (unsigned int index = 0; ; index++) {
+	for (unsigned int index = 0; ; ) {
 		int window;
-		const Unknown67D430EntryStruct &entry = ChatHistory->Unknown_67D980(index, &window);
+		const Unknown67D430EntryStruct &entry = ChatHistory->Unknown_67D980(index++, &window);
 		if (entry.Text.length() == 0) break;
 		if (window < 0) continue;
 		ChatWindowClass *chat_win = Unknown_571810(window);
@@ -348,14 +348,14 @@ void ChatWindowInterface::Unknown_74(ControlKeysManager *manager)
 	manager->Remove_Keys((ControlKeyListClass *)&Unknown4C, std::string("Toggle Chat Window"), 0);
 }
 
-// 0x570CD0  // NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first; frame 8 vs 0xC; 0.57)
+// 0x570CD0  // NOT EXACT: functional (CW2): the inlined 0x571A70's RectClass stores (the client stores Bottom first; frame 8 vs 0xC; 0.61)
 void ChatWindowInterface::Unknown_A4()
 {
 	Unknown_571A70(&Viewport);
 	Unknown_571470(true);
 	for (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {
-		Unknown_571A70(*it);
-		(*it)->ChatWindow->Unknown_6804E0((*it)->Rect);
+		ChatWinStruct *chat_win = *it; Unknown_571A70(chat_win);
+		chat_win->ChatWindow->Unknown_6804E0(chat_win->Rect);
 	}
 }
 
@@ -365,7 +365,7 @@ void ChatWindowInterface::Unknown_CC()
 	Unknown_571A70(&Viewport);
 	Unknown_571470(true);
 	for (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {
-		(*it)->ChatWindow->Unknown_680700(false);
+		ChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_680700(false);
 	}
 }
 
@@ -400,7 +400,7 @@ void ChatWindowInterface::Unknown_AC(const char *text)
 
 
 
-// 0x570FF0  // NOT EXACT: functional (CW2): the inlined 0x5719A0 (0.66)
+// 0x570FF0  // NOT EXACT: functional (CW2): the inlined 0x5719A0 (0.66; exact with 0x5719A0 as Vector3 &f(Vector3 &color, entry), which inlines vector::size 0x571B70 into 0x56FD30: proposal)
 void ChatWindowInterface::Unknown_B0()
 {
 	FAIL_IF(!ChatHistory) return;
@@ -426,11 +426,11 @@ void ChatWindowInterface::Unknown_B4(const char *text)
 	DestBttnText->Change_Text(text, 0);
 }
 
-// 0x5711C0  // NOT EXACT: functional (CW2): the window's table in edx, the client's in eax (0.84)
+// 0x5711C0
 bool ChatWindowInterface::Unknown_B8(int key)
 {
 	for (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {
-		(*it)->ChatWindow->Unknown_14((const char *)key);
+		ChatWinStruct *chat_win = *it; chat_win->ChatWindow->Unknown_14((const char *)key);
 	}
 	return(false);
 }
@@ -452,15 +452,15 @@ bool ChatWindowInterface::Unknown_B8(int key)
 
 
 
-// 0x571210  // NOT EXACT: functional (CW2): written from the pseudocode, not aligned (0.76)
+// 0x571210  // NOT EXACT: functional (CW2): the client tests the first name before taking its address (je before lea edi; 0.84)
 void ChatWindowInterface::Unknown_A8()
 {
-	const char *names[] = { "NEW_FRAME01", "center bar", NULL };
 	UnknownE4 = !UnknownE4;
-	for (const char **name = names; *name != NULL; name++) {
+	const char *names[] = { "NEW_FRAME01", "center bar", NULL };
+	for (const char **name = names; *name != NULL; ) {
 		RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name(*name));
 		if (robj) robj->Set_Hidden(UnknownE4);
-	}
+		name++; }
 	int bar = 0;
 	for (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {
 		ChatWinStruct *window = *it;
@@ -604,7 +604,7 @@ void ChatWindowInterface::Unknown_C8(int pages, unsigned int index)
 
 
 
-// 0x5719A0  // NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (the client has one, uncalled)
+// 0x5719A0  // NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (exact as Vector3 &f(Vector3 &color, entry): proposal)
 inline Vector3 ChatWindowInterface::Unknown_5719A0(const Unknown67D430EntryStruct &entry)
 {
 	int type = entry.Get_Type();

@@ -1,0 +1,19 @@
+// CW2 2026-11-08: the form that makes 0x5719A0 (out of line) and 0x570FF0 exact. Not kept: 0x56FD30 then inlines
+// reserve's vector::size, so its out-of-line copy 0x571B70 (exact before) is lost. Net +1 with one loss: the user's call.
+// ui_chat_window.h:
+//	Vector3 &Unknown_5719A0(Vector3 &color, const Unknown67D430EntryStruct &entry);
+// ui_chat_window.cpp, the callers (0x56FD30 l.221, 0x570FF0 l.416):
+//	Vector3 color; chat_win->Unknown_0C(Unknown_5719A0(color, entry), entry.Text);
+//	Vector3 color; chat_win->Unknown_08(Unknown_5719A0(color, entry), entry.Text);
+// 0x5719A0 (no inline keyword):
+Vector3 &ChatWindowInterface::Unknown_5719A0(Vector3 &color, const Unknown67D430EntryStruct &entry)
+{
+	int type = entry.Get_Type();
+	color.Set(1.0f, 1.0f, 1.0f); LineDisplayClientClass *client = Client;
+	FAIL_IF(!client) return(color);
+	SClient *sclient = client->As_Space_Client();
+
+	FAIL_IF(!sclient) return(color);
+	color = sclient->Unknown13CC.Unknown_765DF0(type);
+	return(color);
+}
