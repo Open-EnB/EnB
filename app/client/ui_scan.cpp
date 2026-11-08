@@ -47,7 +47,7 @@ UIScanClass::UIScanClass(UIViewClass *view, LayerClass *layer) :
 	memset(Buttons, 0, sizeof(Buttons));
 }
 
-// NOT EXACT: the target's watch (Remove, the signal map's 0x610460 / 0x4F98D0 inline) and the threat object's inline destructor (WE9: functional)
+// (exact with the threat's +0x14 / +0x30 as RefCountPtr members and a plain 'delete Threat', its null test the delete's own; TL1)
 // @0x60DF90
 UIScanClass::~UIScanClass()
 {
@@ -55,10 +55,10 @@ UIScanClass::~UIScanClass()
 		Unknown_4F7EF0().Remove(Object, this, &UIScanClass::Unknown_60ED10, PlayerObjectRelationshipChangeEvent());
 	}
 	REF_PTR_RELEASE(Verb);
-	if (Threat != NULL) {
-		delete Threat;
-	}
+	delete Threat;
 	Threat = NULL;
+
+
 	if (UIMesh != NULL) {
 		delete UIMesh;
 		UIMesh = NULL;
