@@ -198,7 +198,7 @@ void MainViewSceneClass::Apply_Projectors(CameraClass * camera)
 #include "..\..\wwmath\wwmath.h"
 
 // @0x75FB00
-// NOT EXACT: field-offset (explain.py; 0.59): register allocation, not fields: the corner loop keeps one pointer into points (the client two, &points[n].X and .Y) and spills count into the 'to' slot, so to / from swap esi / edi through the rest
+// NOT EXACT: field-offset (explain.py; 0.84): FP operand order only: the client evaluates the inlined Matrix3::Rotate_Vector rows (Compute_Point) and Matrix3D::Inverse_Transform_Vector in another order than the tree's wwmath forms
 void MainViewSceneClass::Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship)
 {
 	Vector3 points[16];
@@ -210,8 +210,10 @@ void MainViewSceneClass::Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &
 				params[0] = (float)i;
 				params[1] = (float)j;
 				params[2] = (float)k;
-				to.Compute_Point(params, &points[count++]);
-				from.Compute_Point(params, &points[count++]);
+				to.Compute_Point(params, &points[count]);
+				count++;
+				from.Compute_Point(params, &points[count]);
+				count++;
 			}
 		}
 	}
