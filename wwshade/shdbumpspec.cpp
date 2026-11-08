@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -243,3 +243,12 @@ ShdInterfaceClass* ShdBumpSpecDefClass::Create() const
 	return NULL;
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdbumpspec.cpp (frozen 2026-11-07 from importer.py)
+// EnB: ShdBumpSpecDefClass::ShdBumpSpecDefClass (line 77 at the freeze): E&B's definitions start Ambient at 0,0,0:
+//       ShdBumpSpecDefClass() 0xA0BCF0 (+0x20..0x28 zero)
+// EnB: ShdBumpSpecDefClass::ShdBumpSpecDefClass (line 98 at the freeze): ShdBumpSpecDefClass(const&) 0xA0BDE0: copy
+//       constructor initialises the members to the defaults and assigns them from that in its body (as
+//       ShdSimpleDefClass's)
+// EnB: ShdBumpSpecDefClass::Init (line 200 at the freeze): E&B's bump specular shader always uses its DX6 version:
+//       ShdBumpSpecDefClass::Init 0xA0C3B0 sets SHDVER_6 (0xC40730 = 1) and jumps to Shd6BumpSpecClass::Init

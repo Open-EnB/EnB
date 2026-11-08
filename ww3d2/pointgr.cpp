@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1477,3 +1477,15 @@ void PointGroupClass::_Shutdown(void)
 }
 
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's pointgr.cpp (frozen 2026-11-07 from importer.py)
+// EnB: PointGroupClass::Render (lines 724, 856 at the freeze): PointGroupClass::Render (0x954960) transforms the
+//       points by the first three rows of the view matrix times the transform (Matrix3D operator* at 0x9554D6, then
+//       Matrix3D * Vector3 per point into transformed_loc); the rest of the function is still a near-miss (block-scope
+//       stack slots placed differently)
+// EnB: PointGroupClass::Render (line 850 at the freeze): PointGroupClass::Render (0x954960) transforms the points by
+//       the first three rows of the view matrix times the transform (Matrix3D operator* at 0x9554D6, then Matrix3D *
+//       Vector3 per point into transformed_loc). view3d reads view[r].X..W (one inline Matrix4::operator[] per element,
+//       not the two of view[r][c]): with the 24 extra inline calls the VC6 budget still inlines Vector4() in the
+//       Transpose of the last Set_Transform, where the client calls it through ??_H (0x955DB2), and every stack slot
+//       moves (byte-exact with the member form)

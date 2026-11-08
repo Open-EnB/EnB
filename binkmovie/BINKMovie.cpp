@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -356,3 +356,9 @@ bool BINKMovieClass::Is_Complete()
 	return (Bink->FrameNum>=Bink->Frames);
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's BINKMovie.cpp (frozen 2026-11-07 from importer.py)
+// EnB: BINKMovieClass::BINKMovieClass (line 180 at the freeze): E&B's WW3D2 is Zero Hour's here: MipCountType is a
+//       file-scope enum in texture.h (not TextureClass's)
+// EnB: BINKMovieClass::Render (line 292 at the freeze): E&B's WW3D2 is Zero Hour's here:
+//       TextureClass::Peek_D3D_Texture (texture.h), Renegade's Peek_DX8_Texture

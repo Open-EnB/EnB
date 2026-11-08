@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -158,3 +158,7 @@ void BlowStraw::Key(void const * key, int length)
 		BF->Submit_Key(key, length);
 	}
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's blwstraw.cpp (frozen 2026-11-07 from importer.py)
+// EnB: imported from Renegade (not by byte-match evidence; EXTRA_FILES): BlowStraw for pkstraw.cpp; R = Z but for the
+//       banner

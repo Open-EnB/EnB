@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -838,3 +838,13 @@ Wtime &Wtime::operator = (const uint32 other)
   usec=0;
   return *this;
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's wtime.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 79 at the freeze: E&B's msleep 0x8B8270 (between Wtime::Update 0x8B8220 and ParseDate 0x8B8330): select(0,
+//       0, 0, 0, {msec / 1000, msec % 1000 * 1000}); TCPCon's destructor, close and setBufferedWrites call it with 1
+//       (0x8BBCF1, 0x8BBE72, 0x8BBFDA); matchbot's matcher.cpp calls msleep(1), EA's copy has no definition
+// EnB: Line 89 at the freeze: E&B's 0x8B82E0 (between msleep 0x8B8270 and ParseDate 0x8B8330): select(0, 0, 0, 0, {x /
+//       1000000, x % 1000000}) (`imul 0x431BDE83; sar 0x12`, `idiv 0xF4240`); no caller in the client
+// EnB: Line 410 at the freeze: E&B's 0x8B94C0 (`sec += x`, ret 4) and 0x8B94E0 (usec + x: sec += sum / 1000000, usec =
+//       sum % 1000000, unsigned `mul 0x431BDE83; shr 0x12` / `div 0xF4240`), between SetUsec 0x8B94A0 and Set 0x8B9520;
+//       no callers in the client

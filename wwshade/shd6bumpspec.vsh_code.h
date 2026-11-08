@@ -158,3 +158,7 @@ DWORD shd6bumpspec_vsh_code[]={
 0x3572202c,	0x3572202c,	0x6c756d0a,	0x2e357220,	0x72202c77,	0x72202c35,	0x6d0a0a35,	0x72206c75,
 0x63202c39,	0x5d30325b,	0x3572202c,	0x6d0a772e,	0x6f206c75,	0x202c3144,	0x202c3972,	0x36325b63,
 0x6f6d0a5d,	0x546f2076,	0x76202c30,	0x00000a33,	0x00000000};
+
+// Earth & Beyond client (reconstruction): shd6bumpspec.vsh_code.h (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): shd6bumpspec_vsh_code, client .data 0xBCD08C-0xBCD51F
+//       (Shd6BumpSpecClass::Init 0xA12C10)

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -72,3 +72,7 @@ void SHD_Register_Loader()
 	WW3DAssetManager::Get_Instance()->Register_Prototype_Loader(&_ShdMeshLoader);
 //	WW3DAssetManager::Get_Instance()->Register_Prototype_Loader(&_ShdMeshLegacyLoader);
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdlib.cpp (frozen 2026-11-07 from importer.py)
+// EnB: SHD_Register_Loader (line 74 at the freeze): SHD_Register_Loader registers only _ShdMeshLoader (0xA07D30: one
+//       Register_Prototype_Loader call)

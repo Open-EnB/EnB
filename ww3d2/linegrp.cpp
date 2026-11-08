@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -508,3 +508,17 @@ void LineGroupClass::Unknown_Set_Transforms(const Matrix4 & view, const Matrix3D
 		DX8Wrapper::Set_Transform(D3DTS_WORLD, identity);
 	}
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's linegrp.cpp (frozen 2026-11-07 from importer.py)
+// EnB: LineGroupClass::Render (line 228 at the freeze): LineGroupClass::Render's transform argument (the body that
+//       uses it is not rebuilt yet)
+// EnB: LineGroupClass::Render (lines 275, 285, 310, 316 at the freeze): LineGroupClass::Render as E&B has it
+//       (0x97BAF0): a local copy of the offsets; Renegade's index and vertex blocks moved into members (0x97C1D0 ret 4,
+//       0x97C360 ret 8); the transform setup (0x97C900 ret 0xC) sets WORLD to the object's transform and turns the
+//       offsets by the transpose of Matrix3(view) * Matrix3(transform) (0x8C3AE0, 0x8C3AA0) for world-space lines, or
+//       sets VIEW and WORLD to a static identity; defined after Get_Polygon_Count (0x97C1B0) in the client's order
+// EnB: LineGroupClass::Get_Polygon_Count (line 343 at the freeze): LineGroupClass::Render as E&B has it (0x97BAF0): a
+//       local copy of the offsets; Renegade's index and vertex blocks moved into members (0x97C1D0 ret 4, 0x97C360 ret
+//       8); the transform setup (0x97C900 ret 0xC) sets WORLD to the object's transform and turns the offsets by the
+//       transpose of Matrix3(view) * Matrix3(transform) (0x8C3AE0, 0x8C3AA0) for world-space lines, or sets VIEW and
+//       WORLD to a static identity; defined after Get_Polygon_Count (0x97C1B0) in the client's order

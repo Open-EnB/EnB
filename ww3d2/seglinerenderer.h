@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -207,3 +207,12 @@ inline void SegLineRendererClass::Set_UV_Offset_Rate(const Vector2 &rate)
 
 #endif //SEGLINERENDERER_H
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's seglinerenderer.h (frozen 2026-11-07 from importer.py)
+// EnB: class implements (line 124 at the freeze): Zero Hour's per-point colours argument:
+//       SegmentedLineClass::Render_Seg_Line 0x969C50 and Render 0x9695A0 push a sixth argument 0 to
+//       SegLineRendererClass::Render 0x9BEB20
+// EnB: class implements (line 128 at the freeze): SegLineRendererClass::Scale, as in Zero Hour (0x9C2B50, called by
+//       ParticleBufferClass::Scale at 0x95E936)
+// EnB: class implements (line 135 at the freeze): Zero Hour's per-point diffuse: subdivision_util 0x9C2390 takes
+//       base_diffuse and subdiv_diffuse

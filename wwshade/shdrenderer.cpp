@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -484,3 +484,95 @@ void ShdDX8RendererNodeClass::Apply_Shared_Shader_Settings(int pass)
 	SubMesh->Peek_Shader()->Apply_Shared(pass, *RenderInfo);
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdrenderer.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 60 at the freeze: E&B's earlier renderer: no RendererListContainerClass; MeshContainerClass keeps a
+//       visible list per pass (0x68 bytes, 0xA08005; dtor 0xA08130 deletes the nodes), Register_Mesh only creates the
+//       node (0xA081D0), Add_Visible_Node (0xA08240) and Flush (0xA08270); the node ctor builds the vertex streams,
+//       then the index buffer of all polygons (0xA082D0); Render links the node (0xA08750); Flush without skin or
+//       sorting, light environment only recorded, render info handed to DX8Wrapper (0xA08790);
+//       Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin temp buffers (the file's only
+//       static is in shdloader, 0xA08B10)
+// EnB: ShdRendererClass::Init_Shaders (line 91 at the freeze): E&B's earlier renderer: no RendererListContainerClass;
+//       MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor 0xA08130 deletes the nodes),
+//       Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and Flush (0xA08270); the node ctor
+//       builds the vertex streams, then the index buffer of all polygons (0xA082D0); Render links the node (0xA08750);
+//       Flush without skin or sorting, light environment only recorded, render info handed to DX8Wrapper (0xA08790);
+//       Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin temp buffers (the file's only
+//       static is in shdloader, 0xA08B10)
+// EnB: ShdRendererClass::Shutdown_Shaders (line 116 at the freeze): E&B's earlier renderer: no
+//       RendererListContainerClass; MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor
+//       0xA08130 deletes the nodes), Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and
+//       Flush (0xA08270); the node ctor builds the vertex streams, then the index buffer of all polygons (0xA082D0);
+//       Render links the node (0xA08750); Flush without skin or sorting, light environment only recorded, render info
+//       handed to DX8Wrapper (0xA08790); Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin
+//       temp buffers (the file's only static is in shdloader, 0xA08B10)
+// EnB: class ShdDX8RendererClass (lines 128, 133 at the freeze): E&B's earlier renderer: no
+//       RendererListContainerClass; MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor
+//       0xA08130 deletes the nodes), Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and
+//       Flush (0xA08270); the node ctor builds the vertex streams, then the index buffer of all polygons (0xA082D0);
+//       Render links the node (0xA08750); Flush without skin or sorting, light environment only recorded, render info
+//       handed to DX8Wrapper (0xA08790); Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin
+//       temp buffers (the file's only static is in shdloader, 0xA08B10)
+// EnB: class ShdDX8RendererNodeClass (line 149 at the freeze): E&B's earlier renderer: no RendererListContainerClass;
+//       MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor 0xA08130 deletes the nodes),
+//       Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and Flush (0xA08270); the node ctor
+//       builds the vertex streams, then the index buffer of all polygons (0xA082D0); Render links the node (0xA08750);
+//       Flush without skin or sorting, light environment only recorded, render info handed to DX8Wrapper (0xA08790);
+//       Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin temp buffers (the file's only
+//       static is in shdloader, 0xA08B10)
+// EnB: ShdDX8RendererClass::~ShdDX8RendererClass (line 187 at the freeze): E&B's earlier renderer: no
+//       RendererListContainerClass; MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor
+//       0xA08130 deletes the nodes), Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and
+//       Flush (0xA08270); the node ctor builds the vertex streams, then the index buffer of all polygons (0xA082D0);
+//       Render links the node (0xA08750); Flush without skin or sorting, light environment only recorded, render info
+//       handed to DX8Wrapper (0xA08790); Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin
+//       temp buffers (the file's only static is in shdloader, 0xA08B10)
+// EnB: ShdDX8RendererClass::Flush (line 215 at the freeze): The client's ShdDX8RendererClass::Flush (0xA08060) calls
+//       Invalidate_Cached_Render_States (0x921C20), Apply_Default_State (0x9270D0), then Apply_Render_State_Changes
+//       (0x9254A0)
+// EnB: ShdDX8RendererClass::Flush (line 215 at the freeze): wwshade is built with ENABLE_WWPROFILE
+//       (ShdMeshClass::Render 0xA09430 opens a WWProfileSampleClass), but E&B's ShdDX8RendererClass::Flush 0xA08060 has
+//       no sampler: it starts with Invalidate_Cached_Render_States
+// EnB: ShdDX8RendererClass::MeshContainerClass::~MeshContainerClass (line 246 at the freeze): E&B's earlier renderer:
+//       no RendererListContainerClass; MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor
+//       0xA08130 deletes the nodes), Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and
+//       Flush (0xA08270); the node ctor builds the vertex streams, then the index buffer of all polygons (0xA082D0);
+//       Render links the node (0xA08750); Flush without skin or sorting, light environment only recorded, render info
+//       handed to DX8Wrapper (0xA08790); Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin
+//       temp buffers (the file's only static is in shdloader, 0xA08B10)
+// EnB: ShdDX8RendererClass::MeshContainerClass::Register_Mesh (line 263 at the freeze): E&B's earlier renderer: no
+//       RendererListContainerClass; MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor
+//       0xA08130 deletes the nodes), Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and
+//       Flush (0xA08270); the node ctor builds the vertex streams, then the index buffer of all polygons (0xA082D0);
+//       Render links the node (0xA08750); Flush without skin or sorting, light environment only recorded, render info
+//       handed to DX8Wrapper (0xA08790); Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin
+//       temp buffers (the file's only static is in shdloader, 0xA08B10)
+// EnB: ShdDX8RendererClass::MeshContainerClass::Flush (line 286 at the freeze): E&B's earlier renderer: no
+//       RendererListContainerClass; MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor
+//       0xA08130 deletes the nodes), Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and
+//       Flush (0xA08270); the node ctor builds the vertex streams, then the index buffer of all polygons (0xA082D0);
+//       Render links the node (0xA08750); Flush without skin or sorting, light environment only recorded, render info
+//       handed to DX8Wrapper (0xA08790); Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin
+//       temp buffers (the file's only static is in shdloader, 0xA08B10)
+// EnB: ShdDX8RendererNodeClass::ShdDX8RendererNodeClass (lines 332, 363, 381 at the freeze): E&B's earlier renderer:
+//       no RendererListContainerClass; MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor
+//       0xA08130 deletes the nodes), Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and
+//       Flush (0xA08270); the node ctor builds the vertex streams, then the index buffer of all polygons (0xA082D0);
+//       Render links the node (0xA08750); Flush without skin or sorting, light environment only recorded, render info
+//       handed to DX8Wrapper (0xA08790); Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin
+//       temp buffers (the file's only static is in shdloader, 0xA08B10)
+// EnB: ShdDX8RendererNodeClass::Render (line 440 at the freeze): E&B's earlier renderer: no
+//       RendererListContainerClass; MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor
+//       0xA08130 deletes the nodes), Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and
+//       Flush (0xA08270); the node ctor builds the vertex streams, then the index buffer of all polygons (0xA082D0);
+//       Render links the node (0xA08750); Flush without skin or sorting, light environment only recorded, render info
+//       handed to DX8Wrapper (0xA08790); Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin
+//       temp buffers (the file's only static is in shdloader, 0xA08B10)
+// EnB: ShdDX8RendererNodeClass::Flush (lines 456, 464 at the freeze): E&B's earlier renderer: no
+//       RendererListContainerClass; MeshContainerClass keeps a visible list per pass (0x68 bytes, 0xA08005; dtor
+//       0xA08130 deletes the nodes), Register_Mesh only creates the node (0xA081D0), Add_Visible_Node (0xA08240) and
+//       Flush (0xA08270); the node ctor builds the vertex streams, then the index buffer of all polygons (0xA082D0);
+//       Render links the node (0xA08750); Flush without skin or sorting, light environment only recorded, render info
+//       handed to DX8Wrapper (0xA08790); Apply_Shared_Shader_Settings(pass) from the default state (0xA08A20); no skin
+//       temp buffers (the file's only static is in shdloader, 0xA08B10)

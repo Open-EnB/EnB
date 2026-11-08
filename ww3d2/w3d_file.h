@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -2245,3 +2245,8 @@ struct W3dShdSubMeshHeaderStruct
 
 
 #endif // W3D_FILE_H
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's w3d_file.h (frozen 2026-11-07 from importer.py)
+// EnB: struct W3dEmitterExtraInfoStruct (line 1801 at the freeze): W3dEmitterExtraInfoStruct (Zero Hour's) keeps its
+//       40 bytes, but E&B uses the byte after FutureStartTime as a flag (set by ParticleEmitterDefClass's extra
+//       virtual, vtable slot 19 at 0x914520; passed to every emitter the definition creates); named UnknownFlag

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -502,3 +502,10 @@ protected:
 
 
 #endif //__SOUNDOBJ_H
+
+// Earth & Beyond client (reconstruction): changes to Renegade's AudibleSound.h (frozen 2026-11-07 from importer.py)
+// EnB: class AudibleSoundClass (line 204 at the freeze): AudibleSoundClass::Update_Volume 0x9F7910 (vtable slot 54)
+//       passes +0x6C (m_RealVolume) to Set_Volume
+// EnB: class AudibleSoundClass (line 379 at the freeze): AudibleSoundClass has two E&B ints after m_LoopsLeft (+0x7C,
+//       +0x80; every later member is 8 bytes later in the client), set to 4 and -1 by both constructors (client
+//       0x9FCA50, 0x9FCE60) and not copied by operator=. Meaning not known: named m_Unknown7C, m_Unknown80

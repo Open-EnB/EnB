@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -243,3 +243,21 @@ class TextureLoadTaskClass : public TextureLoadTaskListNodeClass
 
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's textureloader.h (frozen 2026-11-07 from importer.py)
+// EnB: class TextureLoader (line 36 at the freeze): TextureLoader::_UnknownInvalidationTime (E&B, name not known,
+//       D10): a global at 0xC01290 the application sets (0x80055E: 300000 ms; 0x800DCE)
+// EnB: class TextureLoader (line 47 at the freeze): Load_Thumbnail takes the HSV shift, as Zero Hour's (byte-exact at
+//       0x948DC0)
+// EnB: class TextureLoader (lines 55, 61, 66, 82 at the freeze): Zero Hour's 06/27/02 'texture class abstraction': the
+//       loader works on TextureBaseClass (the rest of E&B's loader is Renegade's: its task lists and
+//       Validate_Texture_Size match Renegade's bytes, and its load task has no vtable, unlike Zero Hour's 08/05/02 cube
+//       and volume tasks)
+// EnB: class TextureLoadTaskClass (lines 181, 185, 201, 226 at the freeze): Zero Hour's 06/27/02 'texture class
+//       abstraction': the loader works on TextureBaseClass (the rest of E&B's loader is Renegade's: its task lists and
+//       Validate_Texture_Size match Renegade's bytes, and its load task has no vtable, unlike Zero Hour's 08/05/02 cube
+//       and volume tasks)
+// EnB: class TextureLoadTaskClass (line 233 at the freeze): the load task carries the texture's HSV shift, as Zero
+//       Hour's (TextureBaseClass has HSVShift at +0x20, and Load_Thumbnail takes it)
+// EnB: class TextureLoadTaskClass (line 236 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero Hour's
+//       texture API (ww3dformat.h), as in Zero Hour's copy of this file

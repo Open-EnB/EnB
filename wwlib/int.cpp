@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -51,3 +51,7 @@ bignum bignum::Remainder;
 BigInt Generate_Prime(RandomNumberGenerator & rng, int pbits, BigInt const * dummy);
 #endif
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's int.cpp (frozen 2026-11-07 from importer.py)
+// EnB: imported from Renegade (not by byte-match evidence; EXTRA_FILES): Int<64> statics (Error, Carry, Borrow,
+//       Remainder) for pk.cpp; R = Z but for the banner

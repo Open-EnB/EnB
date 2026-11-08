@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -573,3 +573,20 @@ void TCPMgr::pumpConnections(void)
 
 
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's tcpmgr.cpp (frozen 2026-11-07 from importer.py)
+// EnB: TCPMgr::TCPMgr (line 26 at the freeze): E&B TCPMgr::TCPMgr 0x8BCA50: mov [eax+0x24], 1
+// EnB: TCPMgr::~TCPMgr (line 29 at the freeze): wnet is built with /GX (TCPMgr::wait 0x8BDA80 has an EH frame for its
+//       Wtime locals), yet E&B's ~TCPMgr 0x8BCA90 has none: the three ArrayList members' destructors inlined without
+//       unwind states. VC6 /GX gives exactly that for a destructor declared throw() (without it: an EH frame with
+//       states 1, 0, -1). The form is the compiler's evidence, not a source line
+// EnB: TCPMgr::getListener (line 83 at the freeze): E&B getListener 0x8BCE70: cmp [eax+4], ebx; je; test ebx, ebx; jne
+// EnB: Line 202 at the freeze: E&B cancelConnect 0x8BD940: the handle at +0x10 of the 0x24-byte record, closesocket,
+//       remove inlined
+// EnB: TCPMgr::getStatus (line 317 at the freeze): getStatus 0x8BDD40: WSAECONNRESET and WSAENOTCONN give CONNRESET
+//       (-16), after WSAEBADF
+// EnB: TCPMgr::getConnection (line 426 at the freeze): E&B getConnection 0x8BDF80: cmp eax, 2; je; cmp eax, -1; jne
+// EnB: TCPMgr::getConnection (line 436 at the freeze): E&B getConnection 0x8BDF80: no Sleep(100); state -1 gives *conn
+//       = 0
+// EnB: TCPMgr::pumpConnections (line 468 at the freeze): E&B pumpConnections 0x8BE270: select (write / except sets,
+//       zero timeout) for a pending connect, state -1 on except, CONNREFUSED / TIMEDOUT / CONNRESET

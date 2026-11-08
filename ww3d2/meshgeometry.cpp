@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -2042,3 +2042,11 @@ void MeshGeometryClass::Scale(const Vector3 &sc)
 		}
 	}
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's meshgeometry.cpp (frozen 2026-11-07 from importer.py)
+// EnB: MeshGeometryClass::operator= (line 219 at the freeze): Zero Hour's MeshGeometryClass::operator=: 0x92A200
+//       releases CullTree and clones the source's (new of 0x1C bytes)
+// EnB: MeshGeometryClass::cast_ray_brute_force (line 1114 at the freeze): MeshGeometryClass::cast_ray_brute_force is
+//       Zero Hour's (sets hit only when Collide returns true): 0x92BD40
+// EnB: MeshGeometryClass::Scale (line 2026 at the freeze): MeshGeometryClass::Scale is Zero Hour's: 0x92D460 rebuilds
+//       the cull tree after scaling (copies and scales it when the scale is uniform, else Generate_Culling_Tree)

@@ -76,3 +76,7 @@ private:
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): unknown_jpeg.h (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): its two classes, JPEGWriterClass and JPEGBitBufferClass (NAME 2);
+//       PROVISIONAL (D137)

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -150,3 +150,7 @@ protected:
 
 
 #endif //SHDCUBEMAP_H
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdcubemap.h (frozen 2026-11-07 from importer.py)
+// EnB: class Shd6CubeMapClass (line 144 at the freeze): E&B's cube map shader keeps a D3D cube texture
+//       (Shd6CubeMapClass dtor 0xA0AEC0 calls Texture->Release(); Apply_Instance 0xA0B040 sets it on the device)

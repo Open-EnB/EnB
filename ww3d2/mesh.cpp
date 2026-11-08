@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1489,3 +1489,46 @@ int MeshClass::Unknown_Virtual_113(void)
 
 
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's mesh.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 146 at the freeze: no user lighting or unregistering in MeshClass: constructors 0x93E920/0x93EA50,
+//       operator= 0x93EAF0, destructor 0x93E990 and Free 0x93ECB0 (Model and DecalMesh only); Render 0x93F390 uses the
+//       model's renderers (Model+0x84) and registers through Model->Register_For_Rendering; Unknown_Virtual_113
+//       0x941310 returns 0x750; the user-lighting functions are not in the client
+// EnB: MeshClass::MeshClass (lines 167, 193 at the freeze): no user lighting or unregistering in MeshClass:
+//       constructors 0x93E920/0x93EA50, operator= 0x93EAF0, destructor 0x93E990 and Free 0x93ECB0 (Model and DecalMesh
+//       only); Render 0x93F390 uses the model's renderers (Model+0x84) and registers through
+//       Model->Register_For_Rendering; Unknown_Virtual_113 0x941310 returns 0x750; the user-lighting functions are not
+//       in the client
+// EnB: MeshClass::operator= (lines 215, 223 at the freeze): no user lighting or unregistering in MeshClass:
+//       constructors 0x93E920/0x93EA50, operator= 0x93EAF0, destructor 0x93E990 and Free 0x93ECB0 (Model and DecalMesh
+//       only); Render 0x93F390 uses the model's renderers (Model+0x84) and registers through
+//       Model->Register_For_Rendering; Unknown_Virtual_113 0x941310 returns 0x750; the user-lighting functions are not
+//       in the client
+// EnB: MeshClass::~MeshClass (line 242 at the freeze): no user lighting or unregistering in MeshClass: constructors
+//       0x93E920/0x93EA50, operator= 0x93EAF0, destructor 0x93E990 and Free 0x93ECB0 (Model and DecalMesh only); Render
+//       0x93F390 uses the model's renderers (Model+0x84) and registers through Model->Register_For_Rendering;
+//       Unknown_Virtual_113 0x941310 returns 0x750; the user-lighting functions are not in the client
+// EnB: MeshClass::Free (line 284 at the freeze): no user lighting or unregistering in MeshClass: constructors
+//       0x93E920/0x93EA50, operator= 0x93EAF0, destructor 0x93E990 and Free 0x93ECB0 (Model and DecalMesh only); Render
+//       0x93F390 uses the model's renderers (Model+0x84) and registers through Model->Register_For_Rendering;
+//       Unknown_Virtual_113 0x941310 returns 0x750; the user-lighting functions are not in the client
+// EnB: MeshClass::Render (lines 703, 705, 715, 738 at the freeze): no user lighting or unregistering in MeshClass:
+//       constructors 0x93E920/0x93EA50, operator= 0x93EAF0, destructor 0x93E990 and Free 0x93ECB0 (Model and DecalMesh
+//       only); Render 0x93F390 uses the model's renderers (Model+0x84) and registers through
+//       Model->Register_For_Rendering; Unknown_Virtual_113 0x941310 returns 0x750; the user-lighting functions are not
+//       in the client
+// EnB: MeshClass::Render_Material_Pass (lines 830, 901, 924 at the freeze): no user lighting or unregistering in
+//       MeshClass: constructors 0x93E920/0x93EA50, operator= 0x93EAF0, destructor 0x93E990 and Free 0x93ECB0 (Model and
+//       DecalMesh only); Render 0x93F390 uses the model's renderers (Model+0x84) and registers through
+//       Model->Register_For_Rendering; Unknown_Virtual_113 0x941310 returns 0x750; the user-lighting functions are not
+//       in the client
+// EnB: MeshClass::Make_Unique (line 1032 at the freeze): Zero Hour's MeshClass::Make_Unique(bool force_meshmdl_clone):
+//       0x940300 tests the argument when the model has one reference
+// EnB: MeshClass::Cast_Ray (line 1129 at the freeze): MeshClass::Cast_Ray 0x940530: no IgnoreTranslucentMeshes test
+//       (collision type, then Is_Animation_Hidden, then StartBad)
+// EnB: MeshClass::Unknown_Virtual_113 (lines 1479, 1481 at the freeze): no user lighting or unregistering in
+//       MeshClass: constructors 0x93E920/0x93EA50, operator= 0x93EAF0, destructor 0x93E990 and Free 0x93ECB0 (Model and
+//       DecalMesh only); Render 0x93F390 uses the model's renderers (Model+0x84) and registers through
+//       Model->Register_For_Rendering; Unknown_Virtual_113 0x941310 returns 0x750; the user-lighting functions are not
+//       in the client

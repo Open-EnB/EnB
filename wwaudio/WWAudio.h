@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -736,3 +736,14 @@ public: bool m_Unknown19A5; private:	// E&B: sounds started while set are queued
 
 
 #endif //__WWAUDIO_H
+
+// Earth & Beyond client (reconstruction): changes to Renegade's WWAudio.h (frozen 2026-11-07 from importer.py)
+// EnB: class WWAudioClass (line 330 at the freeze): WWAudioClass::Unknown_Resume_All 0x9F4720 (name not known, D10):
+//       an E&B method called from the app (0x5AD123, 0x744852)
+// EnB: class WWAudioClass (line 554 at the freeze): WWAudioClass::Unknown_Count_Instances 0x9F1090 (name not known,
+//       D10): an E&B method between Reprioritize_Playlist and On_Frame_Update, called by Reprioritize_Playlist
+//       (0x9F1048)
+// EnB: class WWAudioClass (line 733 at the freeze): WWAudioClass: two bools after m_ForceDisable (+0x19A4): +0x19A5
+//       read by AudibleSoundClass::Play 0x9FD419 and cleared by 0x9F4720; +0x19A6 tested by the volume setters
+//       (0x9F2244, 0x9F22F4, 0x9F23A4, 0x9F2484) and set by Temp_Disable_Audio 0x9F4C50; +0x19A5 public, as SClient
+//       code writes it directly (WE1)

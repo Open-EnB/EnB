@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -306,3 +306,13 @@ static char *Eat_Spaces(char *string)
     retval++;
   return(retval);
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's configfile.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 57 at the freeze: E&B's configfile.cpp has neither MDC's section list nor its writer: readFile 0x8B2810
+//       keeps only the current section name ('[]' clears it), and stores an empty value as it is; a non-empty one loses
+//       its trailing spaces and a trailing backslash joins the next line (strip it, fgets, Eat_Spaces, operator+=
+//       0x8B6640, truncate '\r' '\n' '#'); 0x8B2690 (no caller, between ~ConfigFile 0x8B24B0 and readFile) is lock
+//       0x8B4330, Dictionary::clear inlined, unlock 0x8B4350
+// EnB: Line 285 at the freeze: MDC's later additions (setString, setInt, removeEntry, writeFile) are not in the
+//       client: its configfile object runs from the constructor 0x8B23C0 to getInt(char *, sint16 &) 0x8B3830, then the
+//       Dictionary templates

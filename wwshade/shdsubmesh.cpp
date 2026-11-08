@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -583,3 +583,29 @@ WW3DErrorType ShdSubMeshClass::read_shader(ChunkLoadClass& cload)
 
 	return WW3D_ERROR_OK;
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdsubmesh.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Lines 42, 120, 478 at the freeze: E&B's earlier ShdSubMeshClass (0xA0DCE0-0xA0EC30): no
+//       Define_FVF/Init_From_Legacy_Mesh_Model/Get_Deformed_Vertices, Load_W3D without the legacy test (0xA0E040),
+//       read_chunks without the vertex-influence chunk (jump table 0xB40-0xB4B, 0xA0E310), read_shader keeps the
+//       definition (0xA0EA70)
+// EnB: ShdSubMeshClass::ShdSubMeshClass (lines 62, 76 at the freeze): E&B's earlier ShdSubMeshClass
+//       (0xA0DCE0-0xA0EC30): no Define_FVF/Init_From_Legacy_Mesh_Model/Get_Deformed_Vertices, Load_W3D without the
+//       legacy test (0xA0E040), read_chunks without the vertex-influence chunk (jump table 0xB40-0xB4B, 0xA0E310),
+//       read_shader keeps the definition (0xA0EA70)
+// EnB: ShdSubMeshClass::operator= (line 89 at the freeze): E&B's earlier ShdSubMeshClass (0xA0DCE0-0xA0EC30): no
+//       Define_FVF/Init_From_Legacy_Mesh_Model/Get_Deformed_Vertices, Load_W3D without the legacy test (0xA0E040),
+//       read_chunks without the vertex-influence chunk (jump table 0xB40-0xB4B, 0xA0E310), read_shader keeps the
+//       definition (0xA0EA70)
+// EnB: ShdSubMeshClass::Load_W3D (line 166 at the freeze): E&B's earlier ShdSubMeshClass (0xA0DCE0-0xA0EC30): no
+//       Define_FVF/Init_From_Legacy_Mesh_Model/Get_Deformed_Vertices, Load_W3D without the legacy test (0xA0E040),
+//       read_chunks without the vertex-influence chunk (jump table 0xB40-0xB4B, 0xA0E310), read_shader keeps the
+//       definition (0xA0EA70)
+// EnB: ShdSubMeshClass::read_chunks (line 207 at the freeze): E&B's earlier ShdSubMeshClass (0xA0DCE0-0xA0EC30): no
+//       Define_FVF/Init_From_Legacy_Mesh_Model/Get_Deformed_Vertices, Load_W3D without the legacy test (0xA0E040),
+//       read_chunks without the vertex-influence chunk (jump table 0xB40-0xB4B, 0xA0E310), read_shader keeps the
+//       definition (0xA0EA70)
+// EnB: ShdSubMeshClass::read_shader (line 584 at the freeze): E&B's earlier ShdSubMeshClass (0xA0DCE0-0xA0EC30): no
+//       Define_FVF/Init_From_Legacy_Mesh_Model/Get_Deformed_Vertices, Load_W3D without the legacy test (0xA0E040),
+//       read_chunks without the vertex-influence chunk (jump table 0xB40-0xB4B, 0xA0E310), read_shader keeps the
+//       definition (0xA0EA70)

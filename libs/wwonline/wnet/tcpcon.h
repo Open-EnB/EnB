@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -84,3 +84,7 @@ class TCPCon : public OutputDevice  // E&B: the base RenegadeGR commented out (0
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): tcpcon.h (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): E&B's TCPCon class (0x7C bytes: the constructor 0x8BBA70's stores) on
+//       RenegadeGR's tcpcon.h

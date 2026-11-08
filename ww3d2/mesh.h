@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -213,3 +213,10 @@ void Set_MeshModel_Flag(RenderObjClass *robj, int flag, int onoff);
 
 #endif /*MESH_H*/
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's mesh.h (frozen 2026-11-07 from importer.py)
+// EnB: class MeshClass (line 167 at the freeze): Zero Hour's MeshClass::Make_Unique(bool force_meshmdl_clone):
+//       0x940300 tests the argument when the model has one reference
+// EnB: class MeshClass (lines 173, 183, 186, 196 at the freeze): E&B's MeshClass has no user lighting and no polygon
+//       renderer list: Clone 0x93ED00 allocates 0xA8 bytes, the copy constructor 0x93EA50 ends at IsDisabledByDebugger
+//       (0xA4); its vtable 0xB111A4 has one virtual of its own (slot 113, 0x941310) after RenderObjClass's 113

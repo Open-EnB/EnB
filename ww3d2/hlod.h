@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -386,3 +386,9 @@ extern HLodLoaderClass			_HLodLoader;
 
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's hlod.h (frozen 2026-11-07 from importer.py)
+// EnB: class HLodClass (lines 119, 228 at the freeze): E&B's HLodClass has Zero Hour's virtual Add_Lod_Model after
+//       Get_Additional_Model_Bone: the client vtable 0xB1327C has 133 slots, slot 128 is 0x98F920 (the add-model body,
+//       without Zero Hour's gth bone-index check), and Include_NULL_Lod 0x98D510 calls Is_NULL_Lod_Included through
+//       +0x204

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -396,3 +396,9 @@ public:
 extern DazzleLoaderClass		_DazzleLoader;
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's dazzle.h (frozen 2026-11-07 from importer.py)
+// EnB: class DazzlePrototypeClass (lines 366, 371 at the freeze): E&B's DazzlePrototypeClass is Renegade's: its vtable
+//       0xB12598 has four slots (scalar deleting dtor 0x96EF00, Get_Name 0x96EEE0, Get_Class_ID 0x96EEF0, Create
+//       0x96ED00; no ZH DeleteSelf), and the scalar deleting dtor stores the class's own vptr before freeing Name (a
+//       user-declared destructor)

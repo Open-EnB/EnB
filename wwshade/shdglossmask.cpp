@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -364,3 +364,17 @@ void Shd6GlossMaskClass::Copy_Vertex_Stream
 	}
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdglossmask.cpp (frozen 2026-11-07 from importer.py)
+// EnB: ShdGlossMaskDefClass::ShdGlossMaskDefClass (line 73 at the freeze): E&B's definitions start Ambient at 0,0,0:
+//       ShdGlossMaskDefClass() 0xA0C680 (+0x1C..0x24 zero)
+// EnB: ShdGlossMaskDefClass::ShdGlossMaskDefClass (line 86 at the freeze): ShdGlossMaskDefClass(const&) 0xA0C740: copy
+//       constructor initialises the members to the defaults and assigns them from that in its body (as
+//       ShdSimpleDefClass's)
+// EnB: Shd6GlossMaskClass::Shd6GlossMaskClass (line 187 at the freeze): base ctor without class id (ShdInterfaceClass
+//       ctor 0xA08E70 takes only def)
+// EnB: Shd6GlossMaskClass::Apply_Shared (line 279 at the freeze): E&B's light setup for the fixed function shaders
+//       (0xA0FC60, after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared
+//       0xA0AF40, Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910)
+// EnB: Shd6GlossMaskClass::Apply_Instance (line 295 at the freeze): Shd6GlossMaskClass::Apply_Instance 0xA0CF10 sets
+//       only the textures; the material is set in Apply_Shared 0xA0CD90

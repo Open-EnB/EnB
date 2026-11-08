@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -155,3 +155,8 @@ protected:
 };
 
 #endif //SHDSUBMESH_H
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdsubmesh.h (frozen 2026-11-07 from importer.py)
+// EnB: class ShdSubMeshClass (lines 87, 98, 105, 127 at the freeze): E&B's earlier ShdSubMeshClass: Shader at +0xA4
+//       right after SxT (read_shader 0xA0EA97), no visible-polygon range or sorting flag, no legacy conversion or skin
+//       deformation, no vertex-influence chunk (shdsubmesh.obj 0xA0DCE0-0xA0EC30)

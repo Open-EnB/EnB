@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -705,3 +705,19 @@ Xtime &Xtime::operator = (const time_t other)
   addSeconds(other);
   return *this;
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's xtime.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Get_Date_From_Day (line 88 at the freeze): with wstypes.h on WWLib's bittype.h (sint32 long) getYDay's and
+//       getTime's `int year` no longer binds to `sint32 &` (C2664); the year is an int as getTime's own parameter. Same
+//       code: none of the three matches the client yet
+// EnB: Xtime::Xtime (line 230 at the freeze): as xtime.h: E&B's copy constructor takes a const reference (0x8BA420)
+// EnB: Line 250 at the freeze: 0x8BA510: `mov edx, [ecx+4]; imul 0x10624DD3; sar edx, 6` (msec_ / 1000, signed), day_
+//       * 86400 through a lea chain, `lea eax, [edx + ecx - 0x79747C00]` (719528 days)
+// EnB: Line 271 at the freeze: E&B's 0x8BA5F0 (between addSeconds 0x8BA550 and normalize 0x8BA680): day_ += x /
+//       86400000, msec_ += x % 86400000 (`idiv 0x5265C00`), then normalize inlined; no caller in the client
+// EnB: Line 327 at the freeze: the client's xtime object has no FormatTime, ParseDate or Print*: update 0x8BA6F0 ends
+//       at 0x8BA7CA and getDay 0x8BA810 follows (wtime.cpp's FormatTime 0x8B8780 is Wtime's)
+// EnB: Line 391 at the freeze: nor getYDay: setTime 0x8BA940 is followed by getTime 0x8BAA50, which inlines
+//       Get_Date_From_Day (its only caller once getYDay is gone; the static is not emitted)
+// EnB: Xtime::getTime (line 413 at the freeze): E&B's getTime 0x8BAA50 stops the month search on
+//       DaysAtMonth[isleap][i] > dayofyear (`cmp [eax], edi; jg`), matchbot's on >= (`jge`)

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1752,3 +1752,7 @@ void SphereMeshClass::Free(void)
 
 // EOF - sphereobj.cpp
 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's sphereobj.cpp (frozen 2026-11-07 from importer.py)
+// EnB: SphereRenderObjClass::Init_Material (line 366 at the freeze): SphereRenderObjClass::Init_Material (0x90BF80):
+//       E&B keeps backface culling on; the shader is the alpha preset unchanged (0x90C037)

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -65,3 +65,8 @@ class ConfigFile
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's configfile.h (frozen 2026-11-07 from importer.py)
+// EnB: class ConfigFile (line 56 at the freeze): the client's ConfigFile is Dictionary_ (0x34 bytes) then Critsec_ at
+//       +0x34 (the constructor 0x8B23C0 builds the table, then calls CritSec's constructor 0x8B42F0): no sectionList
+//       and none of MDC's writers; clear 0x8B2690 added

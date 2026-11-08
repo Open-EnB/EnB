@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -89,3 +89,10 @@ protected:
 #endif
 
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's projector.h (frozen 2026-11-07 from importer.py)
+// EnB: class which (line 73 at the freeze): Zero Hour's ProjectorClass::Peek_Mapper (06/26/02 KM projector.h), used by
+//       wwshade's Shd8BumpDiffClass/Shd8BumpSpecClass::Setup_Self_Shadow_Info: 0xA126D0 copies
+//       [[[mesh+0xA4]+0xC8]+0x14], 16 DWORDs (ShdMeshClass::Texture_Projector, ProjectorClass::Mapper at +0xC8,
+//       MatrixMapperClass::ViewToTexture at +0x14), as
+//       Peek_Texture_Projector()->Peek_Mapper()->Get_Texture_Transform(); inline, no other code changes

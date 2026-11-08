@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -148,3 +148,10 @@ void ShareBufferClass<T>::Clear(void)
 
 
 #endif // SHAREBUF_H
+
+// Earth & Beyond client (reconstruction): changes to Renegade's sharebuf.h (frozen 2026-11-07 from importer.py)
+// EnB: class for (line 54 at the freeze): ShareBufferClass also has Zero Hour's constructor taking a memory-tag
+//       argument, ignored in a release build (Zero Hour only stores it in debug builds), so Zero Hour code that passes
+//       it compiles beside Renegade code that doesn't. A separate overload, not a default argument: a default would add
+//       a push to every existing call. Renegade's class otherwise (no W3DMPO base)
+// EnB: ShareBufferClass (line 96 at the freeze): its definition (the same body as the one-argument constructor)

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -154,3 +154,10 @@ protected:
 
 #endif //LIGHTENVIRONMENT_H
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's lightenvironment.h (frozen 2026-11-07 from importer.py)
+// EnB: class represents (lines 93, 149 at the freeze): Zero Hour's fill light (06/27/02 KM), without Generals'
+//       point-light fields: LightEnvironmentClass is 0x148 bytes (ShdDX8RendererNodeClass::Render 0xA08769 copies 0x52
+//       dwords), the ctor 0x9853B0 zeroes FillIntensity at +0x144
+// EnB: class represents (line 111 at the freeze): Zero Hour's Get_Max_Lights, used by ShdHWVertexShader::Light
+//       (0xA0F610; its other overload 0xA0FC20 is Zero Hour's byte for byte)

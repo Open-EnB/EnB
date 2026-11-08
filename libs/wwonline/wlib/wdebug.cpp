@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -168,3 +168,37 @@ void MsgManager::createStreamers(void)
   if (error_streamer==NULL)
     error_streamer=new Streamer;
 }   
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's wdebug.cpp (frozen 2026-11-07 from importer.py)
+// EnB: imported from Zero Hour (not by byte-match evidence; EXTRA_FILES): MsgManager's streams and DebugLibSemaphore
+//       (client 0x8B5510-0x8B5D0A) for E&B's INFMSG (cordcon.cpp, cordmgr.cpp: infoStream 0x8B5B90); E&B's revision
+//       (pointer streamers, a CritSec) is in WWONLINE_PATCHES
+// EnB: Lines 29, 33, 37, 41 at the freeze: E&B's MsgManager 0x8B5560-0x8B5BD5: the four streamers are pointers
+//       (0xBF527C, 0xBF5288, 0xBF5294, 0xBF52A0), created on first use by 0x8B5BF0 (new 0x50 + Streamer::Streamer
+//       0x8B4F60), which every set*Stream calls before DEBUGLOCK; `new ostream(streamer)` takes the pointer (0xA40EBD);
+//       no dynamic initialiser but DebugLibSemaphore's (0x8B5510)
+// EnB: MsgManager::setAllStreams (line 57 at the freeze): E&B's MsgManager 0x8B5560-0x8B5BD5: the four streamers are
+//       pointers (0xBF527C, 0xBF5288, 0xBF5294, 0xBF52A0), created on first use by 0x8B5BF0 (new 0x50 +
+//       Streamer::Streamer 0x8B4F60), which every set*Stream calls before DEBUGLOCK; `new ostream(streamer)` takes the
+//       pointer (0xA40EBD); no dynamic initialiser but DebugLibSemaphore's (0x8B5510)
+// EnB: MsgManager::setDebugStream (line 81 at the freeze): E&B's wdebug.cpp has no ReplaceAllStreams: setAllStreams
+//       0x8B5560 is followed by setDebugStream 0x8B57B0 (a Sem4 Wait / Post in matchbot)
+// EnB: MsgManager::setDebugStream (line 86 at the freeze): E&B's MsgManager 0x8B5560-0x8B5BD5: the four streamers are
+//       pointers (0xBF527C, 0xBF5288, 0xBF5294, 0xBF52A0), created on first use by 0x8B5BF0 (new 0x50 +
+//       Streamer::Streamer 0x8B4F60), which every set*Stream calls before DEBUGLOCK; `new ostream(streamer)` takes the
+//       pointer (0xA40EBD); no dynamic initialiser but DebugLibSemaphore's (0x8B5510)
+// EnB: MsgManager::setInfoStream (line 100 at the freeze): E&B's MsgManager 0x8B5560-0x8B5BD5: the four streamers are
+//       pointers (0xBF527C, 0xBF5288, 0xBF5294, 0xBF52A0), created on first use by 0x8B5BF0 (new 0x50 +
+//       Streamer::Streamer 0x8B4F60), which every set*Stream calls before DEBUGLOCK; `new ostream(streamer)` takes the
+//       pointer (0xA40EBD); no dynamic initialiser but DebugLibSemaphore's (0x8B5510)
+// EnB: MsgManager::setWarnStream (line 114 at the freeze): E&B's MsgManager 0x8B5560-0x8B5BD5: the four streamers are
+//       pointers (0xBF527C, 0xBF5288, 0xBF5294, 0xBF52A0), created on first use by 0x8B5BF0 (new 0x50 +
+//       Streamer::Streamer 0x8B4F60), which every set*Stream calls before DEBUGLOCK; `new ostream(streamer)` takes the
+//       pointer (0xA40EBD); no dynamic initialiser but DebugLibSemaphore's (0x8B5510)
+// EnB: MsgManager::setErrorStream (line 128 at the freeze): E&B's MsgManager 0x8B5560-0x8B5BD5: the four streamers are
+//       pointers (0xBF527C, 0xBF5288, 0xBF5294, 0xBF52A0), created on first use by 0x8B5BF0 (new 0x50 +
+//       Streamer::Streamer 0x8B4F60), which every set*Stream calls before DEBUGLOCK; `new ostream(streamer)` takes the
+//       pointer (0xA40EBD); no dynamic initialiser but DebugLibSemaphore's (0x8B5510)
+// EnB: MsgManager::errorStream (line 157 at the freeze): 0x8B5BF0 (after errorStream 0x8B5BD0, reached through an
+//       incremental thunk: a member, not a static): each streamer pointer, if NULL, gets new Streamer (0x50 bytes,
+//       Streamer::Streamer 0x8B4F60), in the order debug, info, warn, error

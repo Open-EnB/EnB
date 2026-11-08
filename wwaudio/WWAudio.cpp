@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -3957,3 +3957,49 @@ void WWAudioClass::Load_Default_Volume (int &defaultmusicvolume, int &defaultsou
 
 
 		
+
+// Earth & Beyond client (reconstruction): changes to Renegade's WWAudio.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 62 at the freeze: (the argv.h include, under the same '#ifdef G_CODE_BASE')
+// EnB: WWAudioClass::WWAudioClass (line 172 at the freeze): WWAudioClass::WWAudioClass 0x9EE9B0 zeroes bytes +0x19A5
+//       and +0x19A6 after AudioIni (0x9EEC2E, 0x9EEC34)
+// EnB: WWAudioClass::Add_To_Playlist (line 1381 at the freeze): WWAudioClass::Add_To_Playlist 0x9F0D90: when the sound
+//       is already in the playlist and m_CompletedSounds (+0x13C) is not empty, E&B removes it from m_CompletedSounds
+//       (search loop 0x9F0E39, Delete(index) 0x9F0E59)
+// EnB: WWAudioClass::Reprioritize_Playlist (line 1497 at the freeze): WWAudioClass::Reprioritize_Playlist 0x9F0FE0:
+//       E&B gives the handle only to a sound with fewer than m_Unknown7C (+0x7C, loaded at 0x9F1042) instances holding
+//       sample handles (Unknown_Count_Instances, 0x9F1048)
+// EnB: WWAudioClass::Reprioritize_Playlist (line 1505 at the freeze): (the same: the nested block)
+// EnB: Line 1522 at the freeze: WWAudioClass::Unknown_Count_Instances 0x9F1090: counts the 2D or 3D sample handles (by
+//       the sound's class id) whose sound (Miles user data) has the same m_Unknown80, when that is not -1
+// EnB: WWAudioClass::On_Frame_Update (line 1615 at the freeze): WWAudioClass::On_Frame_Update 0x9F1150 calls
+//       SoundSceneObjClass::Unknown_Flush_Release_List (0xA01300) after the playlist loop (0x9F11CA)
+// EnB: WWAudioClass::Get_2D_Sample (line 1711 at the freeze): WWAudioClass::Get_2D_Sample 0x9F1360: E&B limits the
+//       sounds of one kind (m_Unknown80) holding handles to m_Unknown7C: it counts them and their lowest runtime
+//       priority while scanning every handle (the scan no longer stops at the first free one), and at the limit steals
+//       that sound's handle (or gives none). Only sound effects give up a handle; a sound that is not a sound effect
+//       starts from priority 99999.9
+// EnB: WWAudioClass::Get_3D_Sample (line 1815 at the freeze): WWAudioClass::Get_3D_Sample 0x9F15E0: the same instance
+//       limit (no sound-effect test)
+// EnB: WWAudioClass::Build_3D_Driver_List (line 1942 at the freeze): WWAudioClass::Build_3D_Driver_List 0x9F1850 tries
+//       the 3D providers in the order D3DSOUND, EAX, PSEUDO, A3D, DOLBY (Find_3D_Device arguments 1, 2, 5, 3, 6 at
+//       0x9F1935..0x9F19B8)
+// EnB: WWAudioClass::Set_Dialog_Volume (line 2368 at the freeze): WWAudioClass::Set_Dialog_Volume 0x9F2240 returns at
+//       once while +0x19A6 is set
+// EnB: WWAudioClass::Set_Cinematic_Volume (line 2397 at the freeze): WWAudioClass::Set_Cinematic_Volume 0x9F22F0
+//       returns at once while +0x19A6 is set
+// EnB: WWAudioClass::Set_Sound_Effects_Volume (line 2428 at the freeze): WWAudioClass::Set_Sound_Effects_Volume
+//       0x9F23A0 returns at once while +0x19A6 is set
+// EnB: WWAudioClass::Set_Music_Volume (line 2449 at the freeze): WWAudioClass::Set_Music_Volume 0x9F2480 returns at
+//       once while +0x19A6 is set
+// EnB: WWAudioClass::Is_Disabled (line 2526 at the freeze): WWAudioClass::Is_Disabled 0x9F26A0 checks the -NOAUDIO
+//       command-line argument (ArgvClass at 0x9F26BE, '-NOAUDIO' 0xBCB534): the '#ifdef G_CODE_BASE' code is compiled
+//       in E&B. Is_Disabled is then no longer inlined, which the Create_*, Initialize, Simple_Play_2D_Sound_Effect and
+//       background music functions need
+// EnB: WWAudioClass::Shutdown (line 2665 at the freeze): WWAudioClass::Shutdown 0x9F2940 calls
+//       SoundSceneObjClass::Unknown_Flush_Release_List (0x9F29F6) between Flush_Scene and Flush_Cache
+// EnB: Line 3606 at the freeze: WWAudioClass::Unknown_Resume_All 0x9F4720, between Set_Active_Sound_Page 0x9F4690 and
+//       Fade_Non_Dialog_In 0x9F4770: clears +0x19A5 and calls Resume (slot 39) on every sound of the current page's
+//       playlist
+// EnB: WWAudioClass::Temp_Disable_Audio (line 3922 at the freeze): WWAudioClass::Temp_Disable_Audio 0x9F4C50: E&B's
+//       sets the sound effect, music and dialog volumes to 0 (inlined, each guarded by +0x19A6) and then sets +0x19A6;
+//       off only clears it

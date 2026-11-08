@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1279,3 +1279,20 @@ bool RenderObjClass::Load (ChunkLoadClass &cload)
 	return true;
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's rendobj.cpp (frozen 2026-11-07 from importer.py)
+// EnB: RenderObjClass::RenderObjClass (lines 168, 195 at the freeze): both constructors clear the render hook
+// EnB: RenderObjClass::Remove_Sub_Objects_From_Bone (line 582 at the freeze): and the overload itself, from Zero Hour
+// EnB: Line 597 at the freeze: the named version calls it (Zero Hour)
+// EnB: class RenderObjPersistFactoryClass (line 1167 at the freeze): RenderObjPersistFactoryClass::Save 0x942CF0
+//       writes no user-lighting chunk, Load 0x942B20 creates the object after the chunk loop (Generals' factory); the
+//       user-lighting functions are not in the client
+// EnB: RenderObjPersistFactoryClass::Load (lines 1184, 1191, 1199, 1209, 1219 at the freeze):
+//       RenderObjPersistFactoryClass::Save 0x942CF0 writes no user-lighting chunk, Load 0x942B20 creates the object
+//       after the chunk loop (Generals' factory); the user-lighting functions are not in the client
+// EnB: RenderObjPersistFactoryClass::Save (line 1252 at the freeze): RenderObjPersistFactoryClass::Save 0x942CF0
+//       writes no user-lighting chunk, Load 0x942B20 creates the object after the chunk loop (Generals' factory); the
+//       user-lighting functions are not in the client
+// EnB: Line 1282 at the freeze: RenderObjPersistFactoryClass::Save 0x942CF0 writes no user-lighting chunk, Load
+//       0x942B20 creates the object after the chunk loop (Generals' factory); the user-lighting functions are not in
+//       the client

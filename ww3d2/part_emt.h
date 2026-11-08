@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -370,3 +370,20 @@ class ParticleEmitterClass : public RenderObjClass
 #endif // PART_EMT_H
 
 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's part_emt.h (frozen 2026-11-07 from importer.py)
+// EnB: class ParticleEmitterClass (line 124 at the freeze): ParticleEmitterClass (Zero Hour's) takes one more
+//       constructor argument, a bool after line_props (the client's constructor, 0x97D180, ends `ret 0x78`), kept in
+//       UnknownFlag
+// EnB: class ParticleEmitterClass (line 148 at the freeze): ParticleEmitterClass's vtable 0xB12CD8 slots 20 / 21
+//       (0xB12D28 / 0xB12D2C) hold its own Set_Transform 0x97DD90 and Set_Position 0x97DDC0, not RenderObjClass's
+// EnB: class ParticleEmitterClass (line 179 at the freeze): ParticleEmitterClass::Unknown_Get_Position (E&B, name not
+//       known, D10): called by ParticleBufferClass::Render_Line (0x95E290)
+// EnB: class ParticleEmitterClass (line 247 at the freeze): E&B keeps the future start time in the emitter (ms), not
+//       in the buffer as Zero Hour does
+// EnB: class ParticleEmitterClass (line 322 at the freeze): ParticleEmitterClass: E&B's emitter-space emission (names
+//       not known, D10): Create_New_Particles and Initialize_Particle without the emitter transform (0x97EB80,
+//       0x97ECB0), used by Emit when UnknownFlag is set
+// EnB: class ParticleEmitterClass (line 349 at the freeze): FutureStartTime (+0xF4): the constructor stores
+//       future_start * 1000 there; Reset() starts EmitRemain from it
+// EnB: class ParticleEmitterClass (line 357 at the freeze): UnknownFlag (+0xFD), copied by the copy constructor

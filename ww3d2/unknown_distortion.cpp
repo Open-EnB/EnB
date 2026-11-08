@@ -316,3 +316,8 @@ void UnknownRippleClass::Unknown_Distort(Vector2 & uv, UnknownDistortionClass * 
 	uv += Vector2((float)exp(-r2 * Unknown08) * WWMath::Sin(angle) * Unknown10,
 		WWMath::Sin(angle) * Unknown10 * expf(-r2 * Unknown08));
 }
+
+// Earth & Beyond client (reconstruction): unknown_distortion.cpp (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): E&B's screen-distortion module (D19; client 0x995D20-0x998200, between
+//       dx8texman.cpp and boxrobj.cpp), written from the client: the per-frame list, the distortion render object and
+//       the ripple function; names neutral (D10)

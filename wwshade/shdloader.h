@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -56,3 +56,7 @@ public:
 extern ShdMeshLoaderClass			_ShdMeshLoader;
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdloader.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 56 at the freeze: one prototype loader (vtable 0xB16ABC: Chunk_Type 0xA08C60, Load_W3D 0xA08B70; one
+//       static, 0xC406C8): no ShdMeshLegacyLoaderClass

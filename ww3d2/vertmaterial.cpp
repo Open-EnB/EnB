@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1021,3 +1021,10 @@ VertexMaterialClass * VertexMaterialClass::Get_Preset(PresetType type)
 	Presets[type]->Add_Ref();
 	return Presets[type];
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's vertmaterial.cpp (frozen 2026-11-07 from importer.py)
+// EnB: VertexMaterialClass::Load_W3D (lines 617, 625, 676, 795, 803, 850 at the freeze): VertexMaterialClass::Load_W3D
+//       (0x92F2A0) keeps Renegade's single function but builds Zero Hour's mappers: the WS environment mappers from the
+//       Args INI (WSEnvMapperClass(ini, section, stage) 0x936070, called for both WS cases of each stage) and Zero
+//       Hour's GRID_WS cases (0x130000/0x140000, 0x1300/0x1400; GridWSClassicEnvironmentMapperClass 0x93A010,
+//       GridWSEnvironmentMapperClass 0x93A9C0)

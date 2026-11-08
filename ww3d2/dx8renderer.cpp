@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -2086,3 +2086,82 @@ void DX8MeshRendererClass::Invalidate()
 
 
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's dx8renderer.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 77 at the freeze: Generals' per-model registration in a _RegisteredMeshList (0xC07618): Register_Mesh_Type
+//       0x97AC10 (keeping Renegade's sort-level test), Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler
+//       removal), Add_Rigid_Mesh_To_Container 0x97AE50, Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0,
+//       ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: DX8TextureCategoryClass::DX8TextureCategoryClass (line 205 at the freeze): dx8renderer keeps 2 texture stages
+//       through MeshMatDescClass::MAX_TEX_STAGES, as Zero Hour changed it when MAX_TEXTURE_STAGES became 8 (its own
+//       copy's comment); with MAX_TEXTURE_STAGES there, 11 dx8renderer functions stop matching
+// EnB: DX8TextureCategoryClass::~DX8TextureCategoryClass (line 218 at the freeze): Generals' per-model registration in
+//       a _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level test),
+//       Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container 0x97AE50,
+//       Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: DX8TextureCategoryClass::~DX8TextureCategoryClass (line 220 at the freeze): dx8renderer keeps 2 texture stages
+//       through MeshMatDescClass::MAX_TEX_STAGES, as Zero Hour changed it when MAX_TEXTURE_STAGES became 8 (its own
+//       copy's comment); with MAX_TEXTURE_STAGES there, 11 dx8renderer functions stop matching
+// EnB: DX8TextureCategoryClass::Log (line 356 at the freeze): dx8renderer keeps 2 texture stages through
+//       MeshMatDescClass::MAX_TEX_STAGES, as Zero Hour changed it when MAX_TEXTURE_STAGES became 8 (its own copy's
+//       comment); with MAX_TEXTURE_STAGES there, 11 dx8renderer functions stop matching
+// EnB: DX8FVFCategoryContainer::Define_FVF (lines 680, 690 at the freeze): Generals' per-model registration in a
+//       _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level test),
+//       Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container 0x97AE50,
+//       Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: DX8RigidFVFCategoryContainer::Render (line 791 at the freeze): E&B's DX8RigidFVFCategoryContainer::Render has
+//       Zero Hour's z-bias calls commented out (HY: 'The Z-biasing was causing more problems than they solved'):
+//       0x9789F0 never calls Set_DX8_ZBias
+// EnB: class Vertex_Split_Table (lines 835, 973 at the freeze): Generals' per-model registration in a
+//       _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level test),
+//       Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container 0x97AE50,
+//       Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: Vertex_Split_Table::Vertex_Split_Table (lines 843, 845, 849 at the freeze): Generals' per-model registration in
+//       a _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level test),
+//       Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container 0x97AE50,
+//       Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: Vertex_Split_Table::Get_Color_Array (line 897 at the freeze): Generals' per-model registration in a
+//       _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level test),
+//       Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container 0x97AE50,
+//       Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: DX8RigidFVFCategoryContainer::Add_Mesh (lines 981, 983, 985 at the freeze): Generals' per-model registration in
+//       a _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level test),
+//       Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container 0x97AE50,
+//       Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: DX8FVFCategoryContainer::Generate_Texture_Categories (line 1212 at the freeze): dx8renderer keeps 2 texture
+//       stages through MeshMatDescClass::MAX_TEX_STAGES, as Zero Hour changed it when MAX_TEXTURE_STAGES became 8 (its
+//       own copy's comment); with MAX_TEXTURE_STAGES there, 11 dx8renderer functions stop matching
+// EnB: DX8SkinFVFCategoryContainer::Add_Mesh (lines 1426, 1428 at the freeze): Generals' per-model registration in a
+//       _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level test),
+//       Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container 0x97AE50,
+//       Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: DX8TextureCategoryClass::Add_Mesh (lines 1511, 1550 at the freeze): Generals' per-model registration in a
+//       _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level test),
+//       Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container 0x97AE50,
+//       Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: DX8TextureCategoryClass::Render (line 1618 at the freeze): dx8renderer keeps 2 texture stages through
+//       MeshMatDescClass::MAX_TEX_STAGES, as Zero Hour changed it when MAX_TEXTURE_STAGES became 8 (its own copy's
+//       comment); with MAX_TEXTURE_STAGES there, 11 dx8renderer functions stop matching
+// EnB: Add_Rigid_Mesh_To_Container (lines 1823, 1827, 1833, 1841 at the freeze): Generals' per-model registration in a
+//       _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level test),
+//       Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container 0x97AE50,
+//       Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: DX8MeshRendererClass::Unregister_Mesh_Type (lines 1846, 1848, 1851, 1854 at the freeze): Generals' per-model
+//       registration in a _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level
+//       test), Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container
+//       0x97AE50, Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate
+//       0x97B2D0
+// EnB: DX8MeshRendererClass::Register_Mesh_Type (lines 1862, 1865, 1882, 1890, 1894, 1899, 1904, 1915, 1927, 1933 at
+//       the freeze): Generals' per-model registration in a _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10
+//       (keeping Renegade's sort-level test), Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal),
+//       Add_Rigid_Mesh_To_Container 0x97AE50, Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass
+//       0x9775E0, Invalidate 0x97B2D0
+// EnB: DX8MeshRendererClass::Invalidate (line 2067 at the freeze): Generals' per-model registration in a
+//       _RegisteredMeshList (0xC07618): Register_Mesh_Type 0x97AC10 (keeping Renegade's sort-level test),
+//       Unregister_Mesh_Type 0x97ABA0 (keeping Renegade's gap-filler removal), Add_Rigid_Mesh_To_Container 0x97AE50,
+//       Define_FVF 0x978820, Add_Mesh 0x978B70/0x979BC0, ~DX8TextureCategoryClass 0x9775E0, Invalidate 0x97B2D0
+// EnB: DX8FVFCategoryContainer::Find_Matching_Texture_Category: from Zero Hour's dx8renderer.cpp (byte match)
+// EnB: DX8FVFCategoryContainer::Insert_To_Texture_Category: from Zero Hour's dx8renderer.cpp (byte match)
+// EnB: DX8MeshRendererClass::Init: from Zero Hour's dx8renderer.cpp (byte match)
+// EnB: Textures_Material_And_Shader_Booking_Struct::Add_Textures_Material_And_Shader: from Zero Hour's dx8renderer.cpp
+//       (byte match)

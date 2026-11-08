@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1609,3 +1609,88 @@ unsigned int TextureLoadTaskClass::Get_Locked_Surface_Pitch(unsigned int level) 
 	WWASSERT(LockedSurfacePtr[level]);
 	return LockedSurfacePitch[level];
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's textureloader.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 42 at the freeze: E&B's TextureLoader::Request_Background_Loading 0x9493F0 and Request_Foreground_Loading
+//       0x949550 open with Zero Hour's WWPROFILE samples (they push 'TextureLoader::Request_Background_Loading()'
+//       0xBBB0B0 and 'TextureLoader::Request_Foreground_Loading()' 0xBBB0DC)
+// EnB: Line 45 at the freeze: TextureLoader::_UnknownInvalidationTime: zeroed by Init (0x948C5B) and passed to
+//       Invalidate_Old_Unused_Textures by Update (0x949B60) and by the copy of Update inlined in
+//       Flush_Pending_Load_Tasks (0x949968)
+// EnB: Load_Compressed_Texture (lines 224, 245 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero Hour's
+//       texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: TextureLoader::Init (line 304 at the freeze): TextureLoader::_UnknownInvalidationTime: zeroed by Init
+//       (0x948C5B) and passed to Invalidate_Old_Unused_Textures by Update (0x949B60) and by the copy of Update inlined
+//       in Flush_Pending_Load_Tasks (0x949968)
+// EnB: TextureLoader::Load_Thumbnail (line 367 at the freeze): Zero Hour's Load_Thumbnail, verbatim: the HSV shift
+//       applied to the first level, and the lookup through Peek_Thumbnail_Instance_From_Any_Manager (byte-exact at
+//       0x948DC0)
+// EnB: TextureLoader::Load_Thumbnail (lines 395, 455 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero
+//       Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: TextureLoader::Load_Surface_Immediate (line 483 at the freeze): MipCountType and MIP_LEVELS_* are global in
+//       Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: TextureLoader::Request_Thumbnail (line 582 at the freeze): the loader works on TextureBaseClass (Zero Hour's
+//       06/27/02 texture class abstraction; see textureloader.h)
+// EnB: TextureLoader::Request_Thumbnail (line 590 at the freeze): Zero Hour's TextureBaseClass::Peek_D3D_Texture
+//       (Renegade: Peek_DX8_Texture)
+// EnB: TextureLoader::Request_Background_Loading (line 623 at the freeze): the loader works on TextureBaseClass (Zero
+//       Hour's 06/27/02 texture class abstraction; see textureloader.h)
+// EnB: TextureLoader::Request_Background_Loading (line 625 at the freeze): E&B's
+//       TextureLoader::Request_Background_Loading 0x9493F0 and Request_Foreground_Loading 0x949550 open with Zero
+//       Hour's WWPROFILE samples (they push 'TextureLoader::Request_Background_Loading()' 0xBBB0B0 and
+//       'TextureLoader::Request_Foreground_Loading()' 0xBBB0DC)
+// EnB: TextureLoader::Request_Foreground_Loading (line 654 at the freeze): the loader works on TextureBaseClass (Zero
+//       Hour's 06/27/02 texture class abstraction; see textureloader.h)
+// EnB: TextureLoader::Request_Foreground_Loading (line 656 at the freeze): E&B's
+//       TextureLoader::Request_Background_Loading 0x9493F0 and Request_Foreground_Loading 0x949550 open with Zero
+//       Hour's WWPROFILE samples (they push 'TextureLoader::Request_Background_Loading()' 0xBBB0B0 and
+//       'TextureLoader::Request_Foreground_Loading()' 0xBBB0DC)
+// EnB: TextureLoader::Update (line 826 at the freeze): TextureLoader::_UnknownInvalidationTime: zeroed by Init
+//       (0x948C5B) and passed to Invalidate_Old_Unused_Textures by Update (0x949B60) and by the copy of Update inlined
+//       in Flush_Pending_Load_Tasks (0x949968)
+// EnB: TextureLoader::Load_Thumbnail (line 903 at the freeze): the loader works on TextureBaseClass (Zero Hour's
+//       06/27/02 texture class abstraction; see textureloader.h)
+// EnB: TextureLoader::Load_Thumbnail (line 909 at the freeze): passes the HSV shift (Zero Hour's line; Zero Hour's
+//       Get_Asset_Type check below it is from the 08/05/02 redesign)
+// EnB: TextureLoadTaskClass::TextureLoadTaskClass (line 965 at the freeze): Zero Hour's TextureLoadTaskClass
+//       constructor zeroes HSVShift (+0x28..+0x30): inlined in TextureLoadTaskClass::Create 0x94A120
+// EnB: TextureLoadTaskClass::TextureLoadTaskClass (line 972 at the freeze): MipCountType and MIP_LEVELS_* are global
+//       in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: TextureLoadTaskClass::Create (line 985 at the freeze): the loader works on TextureBaseClass (Zero Hour's
+//       06/27/02 texture class abstraction; see textureloader.h)
+// EnB: TextureLoadTaskClass::Init (line 1020 at the freeze): the loader works on TextureBaseClass (Zero Hour's
+//       06/27/02 texture class abstraction; see textureloader.h)
+// EnB: TextureLoadTaskClass::Init (line 1037 at the freeze): the format comes from the TextureClass behind the base
+//       (Zero Hour's lines)
+// EnB: TextureLoadTaskClass::Init (line 1051 at the freeze): the load task carries the texture's HSV shift, as Zero
+//       Hour's (TextureBaseClass has HSVShift at +0x20, and Load_Thumbnail takes it)
+// EnB: TextureLoadTaskClass::Init (line 1055 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero Hour's
+//       texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: TextureLoadTaskClass::Deinit (line 1082 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero Hour's
+//       texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: TextureLoadTaskClass::Apply (line 1215 at the freeze): E&B's TextureLoadTaskClass::Apply checks the locked
+//       surfaces up to MIP_LEVELS_MAX, as Deinit does (no code in release; inline-budget evidence only): with the EA
+//       loop to MipLevelCount VC6 calls Apply in Process_Foreground_Load's STATE_LOAD_MIPMAP case and inlines Destroy's
+//       Push_Front there; the client 0x949C60 inlines Apply (0x949D7B) and jumps to the high-priority path's Destroy
+//       (0x949DA3). Any lighter loop does the same; this is the form the file already uses
+// EnB: Get_Texture_Information (line 1226 at the freeze): Get_Texture_Information takes the texture's path as a const
+//       StringClass & (0x94A890 passes it on to Peek_Thumbnail_Instance_From_Any_Manager; Begin_Compressed_Load
+//       0x94A6F0 and Begin_Uncompressed_Load 0x94AA80 push the string's address); Begin_Uncompressed_Load takes the
+//       already valid dest_format when Format is unknown (0x94AB03). The out-of-line StringClass::operator= copy
+//       (0x48CA70) this file emitted is still matched in 18 other files
+// EnB: Get_Texture_Information (line 1234 at the freeze): E&B's thumbnails are Zero Hour's: one lookup across all
+//       managers (the client calls it, 0x91AD40, from Load_Thumbnail, the TextureClass constructor and here)
+// EnB: TextureLoadTaskClass::Begin_Compressed_Load (line 1349 at the freeze): MipCountType and MIP_LEVELS_* are global
+//       in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: TextureLoadTaskClass::Begin_Uncompressed_Load (line 1389 at the freeze): Get_Texture_Information takes the
+//       texture's path as a const StringClass & (0x94A890 passes it on to Peek_Thumbnail_Instance_From_Any_Manager;
+//       Begin_Compressed_Load 0x94A6F0 and Begin_Uncompressed_Load 0x94AA80 push the string's address);
+//       Begin_Uncompressed_Load takes the already valid dest_format when Format is unknown (0x94AB03). The out-of-line
+//       StringClass::operator= copy (0x48CA70) this file emitted is still matched in 18 other files
+// EnB: TextureLoadTaskClass::Load_Compressed_Mipmap (line 1466 at the freeze): E&B's Load_Compressed_Mipmap passes the
+//       task's HSVShift to Copy_Level_To_Surface (Zero Hour's argument; not its Reduction pre-loop): 0x94AC00 pushes
+//       &HSVShift (+0x28) where the default would build a zero Vector3
+// EnB: TextureLoadTaskClass::Load_Uncompressed_Mipmap (lines 1516, 1541, 1569 at the freeze): E&B's
+//       Load_Uncompressed_Mipmap applies the task's HSV shift once (Zero Hour's hsv_shift local, cleared after the
+//       first copy; not its Reduction pre-loop): 0x94ACC0 copies HSVShift (+0x28..+0x30) into a local, passes it to
+//       Copy_Image and zeroes it afterwards

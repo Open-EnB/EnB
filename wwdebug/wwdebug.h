@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -177,3 +177,9 @@ void					WWDebug_DBWin32_Message_Handler( const char * message);
 #endif
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's wwdebug.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 108 at the freeze: Zero Hour's wwdebug.h includes Generals' GameEngine debug.h; gamedebug.h gives the
+//       release build's definitions of the macros it uses (all compile to nothing)
+// EnB: WWDEBUG_BREAK (line 148 at the freeze): C-equivalent comment for the inline assembly above this line
+//       (conventions.md, Inline assembly; was annotations.py)

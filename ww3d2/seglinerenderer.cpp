@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1280,3 +1280,31 @@ void SegLineRendererClass::Scale(float scale)
 
 
 #endif //0
+
+// Earth & Beyond client (reconstruction): changes to Renegade's seglinerenderer.cpp (frozen 2026-11-07 from importer.py)
+// EnB: SegLineRendererClass::Render (line 210 at the freeze): Zero Hour's per-point colours argument (unused here):
+//       SegLineRendererClass::Render 0x9BEB20 takes six arguments
+// EnB: SegLineRendererClass::Render (lines 253, 279 at the freeze): SegLineRendererClass::Render 0x9BEB20: the client
+//       builds view2 and modelview once before the chunk loop (Zero Hour builds them in every chunk); inside the loop
+//       VC6 hoists twelve &transform[i][j] addresses into stack slots and keeps the transform reference alive, outside
+//       it copies B's column into the dead parameter slot: byte-exact with them outside
+// EnB: SegLineRendererClass::Render (lines 326, 329, 334, 383, 486, 493, 503, 510, 551, 558, 603, 610, 615, 774, 841,
+//       868, 884, 928, 935, 989, 996, 1025, 1054 at the freeze): Zero Hour's per-point diffuse in SegLineRendererClass
+//       (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's base_diffuse/subdiv_diffuse arguments and the
+//       stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame 0x4CC); Render 0x9BEB20 interpolates the
+//       intersections' RGBA into the vertices (Convert_Color); without Zero Hour's vertex-buffer cache (the
+//       constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its Equal_Within_Epsilon nudge, its rgba modulate test,
+//       its hoisted FVF offsets and floorf (Render not byte-exact)
+// EnB: SegLineRendererClass::Render (lines 329, 1096, 1099, 1101 at the freeze): SegLineRendererClass::Render 0x9BEB20
+//       as the client has it (neutral, D66): the subdivision gets &rgbas[chidx] with no null test (0x9BF368: shl/add,
+//       no branch), and Zero Hour's modulate test (rgba_all and a second value tested, one Get_Preset call for both
+//       arms at 0x9C1F6D) without the per-vertex rgba fill loop
+// EnB: SegLineRendererClass::subdivision_util (lines 1177, 1193, 1211, 1227, 1245, 1261 at the freeze): Zero Hour's
+//       per-point diffuse in SegLineRendererClass (E&B): subdivision_util 0x9C2390 is byte-exact with Zero Hour's
+//       base_diffuse/subdiv_diffuse arguments and the stack entries' StartDiffuse/EndDiffuse (0x48 bytes each, frame
+//       0x4CC); Render 0x9BEB20 interpolates the intersections' RGBA into the vertices (Convert_Color); without Zero
+//       Hour's vertex-buffer cache (the constructors 0x9BE7E0/0x9BE830 have no m_vertexBuffer), its
+//       Equal_Within_Epsilon nudge, its rgba modulate test, its hoisted FVF offsets and floorf (Render not byte-exact)
+// EnB: SegLineRendererClass::Scale (line 1274 at the freeze): SegLineRendererClass::Scale, as in Zero Hour (0x9C2B50,
+//       after subdivision_util)
+// EnB: SegLineRendererClass::Set_Texture_Tile_Factor: from Zero Hour's seglinerenderer.cpp (byte match)

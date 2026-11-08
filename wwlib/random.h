@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -266,3 +266,10 @@ int Pick_Random_Number(T & generator, int minval, int maxval)
 }
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's random.h (frozen 2026-11-07 from importer.py)
+// EnB: Pick_Random_Number (line 238 at the freeze): E&B's Pick_Random_Number works in unsigned arithmetic and guards
+//       the full-range mask: all four operator()(min, max) at 0x9D0000, 0x9D0180, 0x9D02B0, 0x9D0510 compare unsigned
+//       (jbe/ja) and reload an all-ones mask when the shift leaves none (variant A in .work/random)
+// EnB: Pick_Random_Number (line 248 at the freeze): the mask, unsigned, all ones when the range needs every bit
+// EnB: Pick_Random_Number (line 256 at the freeze): and the pick, compared unsigned with the magnitude

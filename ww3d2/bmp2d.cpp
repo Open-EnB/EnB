@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -293,3 +293,27 @@ RenderObjClass * Bitmap2DObjClass::Clone(void) const
 {
 	return NEW_REF( Bitmap2DObjClass, (*this));
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's bmp2d.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 41 at the freeze: Bitmap2DObjClass 0x974CD0: include textureloader.h for Request_Foreground_Loading
+// EnB: Line 43 at the freeze: Bitmap2DObjClass 0x974420: include assetmgr.h for WW3DAssetManager::Get_Texture
+// EnB: Bitmap2DObjClass::Bitmap2DObjClass (line 71 at the freeze): Bitmap2DObjClass::Bitmap2DObjClass(const char
+//       *,...) 0x974420: E&B's filename ctor loads the image as a texture through the asset manager (0x974469:
+//       [0xBFAEE0] vtable +0x30 with (filename, 1, 0, 1)), requests foreground loading when uninitialised (0x949550),
+//       takes surface level 0 (0x94BB50) and falls back to a 32x32 surface of Get_Valid_Texture_Format(R8G8B8, true)
+//       (0x9689A0, 0x94D590)
+// EnB: Bitmap2DObjClass::Bitmap2DObjClass (line 166 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero
+//       Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file; the addressing modes were set through
+//       the texture's TextureFilterClass (Get_Filter()), as Zero Hour's texture API had them; TEXTURE_FILTER_PATCHES
+//       (0b8f6ce, D9) later replaced TextureFilterClass with TextureClass's own filter members
+// EnB: Bitmap2DObjClass::Bitmap2DObjClass (line 167 at the freeze): D9: E&B has no TextureFilterClass (Zero Hour's
+//       08/05/02 KM 'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter members
+//       and accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at
+//       TextureClass offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter
+//       0x94CC30/0x94CC60/0x94CC90 are inside texture.obj, and the client has no out-of-line TextureFilterClass
+//       constructor or Apply
+// EnB: Bitmap2DObjClass::Bitmap2DObjClass (line 197 at the freeze): Bitmap2DObjClass::Bitmap2DObjClass 0x974420:
+//       releases the texture before the surface (0x974AF2, 0x974B03)
+// EnB: Bitmap2DObjClass::Bitmap2DObjClass (line 225 at the freeze): Bitmap2DObjClass::Bitmap2DObjClass 0x974CD0:
+//       request foreground loading if uninitialized so texture format has alpha and dimensions are valid before shader
+//       selection

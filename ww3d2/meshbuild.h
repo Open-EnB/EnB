@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -377,3 +377,8 @@ inline const MeshBuilderClass::MeshStatsStruct & MeshBuilderClass::Get_Mesh_Stat
 }
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's meshbuild.h (frozen 2026-11-07 from importer.py)
+// EnB: class will (line 99 at the freeze): MeshBuilderClass::MAX_STAGES is 8 in E&B, as in Zero Hour (Renegade and
+//       Generals: 2). Found from VertexMaterialClass: E&B's CRCDirty is at +0x6C, 0x30 bytes later than with 2 stages
+//       (Mapper[] and UVSource[] are sized by it)

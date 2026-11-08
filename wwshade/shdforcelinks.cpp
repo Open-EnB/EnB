@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -59,3 +59,10 @@ void SHD_Force_Links ()
 
 	return ;
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdforcelinks.cpp (frozen 2026-11-07 from importer.py)
+// EnB: imported from Zero Hour (not by byte-match evidence; EXTRA_FILES): SHD_Force_Links (client 0xA08C70) for
+//       shdrenderer.cpp; Z only
+// EnB: SHD_Force_Links (line 59 at the freeze): no LegacyW3D shader in the client (shdlegacyw3d.cpp is NOT_LINKED):
+//       SHD_Force_Links 0xA08C70 calls four force-link functions and tail-jumps to a fifth (0xA0D240, 0xA0C630,
+//       0xA0BC80, 0xA0B300, 0xA0A7F0)

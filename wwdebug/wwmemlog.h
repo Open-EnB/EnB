@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -196,3 +196,9 @@ public:
 
 
 #endif //WWMEMLOG_H
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's wwmemlog.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 75 at the freeze: E&B's memory log has 23 categories: WWMemoryLogClass::Get_Log (inlined in
+//       Get_Current_Allocated_Memory 0x9ED700) news a 0xCC-byte MemLogClass and clears 0x17 counters, and the category
+//       name table at 0xBCB228 lists 23 names, BINK then ClientObject, Effects, Prototypes, MakeUnique, Meshes,
+//       Particles (no "<undefined>" padding)

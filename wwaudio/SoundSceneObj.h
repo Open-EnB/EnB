@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -306,3 +306,11 @@ SoundSceneObjClass::Remove_Callback (void)
 
 #endif //__SOUND_SCENE_OBJ_H
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's SoundSceneObj.h (frozen 2026-11-07 from importer.py)
+// EnB: class SoundSceneObjClass (line 204 at the freeze): SoundSceneObjClass: E&B's deferred release (names not known,
+//       D10). A critical section at 0xC40590 and a DynamicVectorClass of RefCountClass pointers at 0xC40598
+//       (initialisers 0xA001B0, 0xA001F0; guarded destructors 0xA001D0, 0xA00230, bits 2 and 4 after m_IDListMutex's
+//       bit 1); Unknown_Release_Later 0xA01280 queues an object, Unknown_Flush_Release_List 0xA01300 releases and
+//       empties the queue (called by WWAudioClass::On_Frame_Update 0x9F11CA and 0x9F29F6)
+// EnB: class SoundSceneObjClass (line 224 at the freeze): (the same)

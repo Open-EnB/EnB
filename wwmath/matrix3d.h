@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1788,3 +1788,9 @@ WWINLINE void Matrix3D::mulVector3Array(Vector3* inout, int count) const
 }
 
 #endif /* MATRIX3D_H */
+
+// Earth & Beyond client (reconstruction): changes to Renegade's matrix3d.h (frozen 2026-11-07 from importer.py)
+// EnB: class is (line 338 at the freeze): Zero Hour's Matrix3D helpers (preMul, postMul, mul, mulVector3,
+//       mulVector3Array), without Zero Hour's ALLOW_TEMPORARIES rework of the operators (E&B's operator code is
+//       Renegade's). Zero Hour's streak.cpp, whose functions match the client, uses them
+// EnB: submul (line 1639 at the freeze): their definitions, verbatim from Zero Hour

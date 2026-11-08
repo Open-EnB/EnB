@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -128,3 +128,8 @@ inline TextureClass * MaterialPassClass::Peek_Texture(int stage) const
 
 
 #endif // MATPASS_H
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's matpass.h (frozen 2026-11-07 from importer.py)
+// EnB: class wraps (line 85 at the freeze): E&B's MaterialPassClass::Install_Materials is not virtual and there is no
+//       UnInstall_Materials (Renegade's, not Zero Hour's MW change): MeshClass::Render_Material_Pass 0x93F620 calls
+//       0x92E720 directly, and 0x92E720 is in no vtable the client stores

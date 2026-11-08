@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -255,3 +255,9 @@ public:
 
 
 #endif //DX8VERTEXBUFFER_H
+
+// Earth & Beyond client (reconstruction): changes to Renegade's dx8vertexbuffer.h (frozen 2026-11-07 from importer.py)
+// EnB: class wraps (lines 84, 214 at the freeze): Zero Hour's 06/26/02 vertex size for non-FVF buffers: the client's
+//       DX8VertexBufferClass(FVF, count, usage, vertex_size) at 0x94F330 (ret 0x10) builds new FVFInfoClass(FVF,
+//       vertex_size) (0x9BA5D0); ShdDX8RendererNodeClass's constructor (0xA084BE) calls it with FVF 0. Without Zero
+//       Hour's W3DMPO base and W3DNEW

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1024,3 +1024,54 @@ ParticleEmitterClass::Add_Dependencies_To_List
 	RenderObjClass::Add_Dependencies_To_List (file_list, textures_only);
 	return ;
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's part_emt.cpp (frozen 2026-11-07 from importer.py)
+// EnB: ParticleEmitterClass::ParticleEmitterClass (line 82 at the freeze): the extra constructor argument
+// EnB: ParticleEmitterClass::ParticleEmitterClass (line 109 at the freeze): the constructor initialises
+//       FutureStartTime and UnknownFlag
+// EnB: ParticleEmitterClass::ParticleEmitterClass (lines 109, 116 at the freeze): ParticleEmitterClass as E&B has it:
+//       the constructor (0x97D180) keeps FutureStartTime at 0 unless future_start > 0 and starts EmitRemain from it
+//       after VelRand->Scale (0x97D368); Emit (0x97E330) emits in emitter space when UnknownFlag (+0xFD) is set
+//       (0x97EB80, 0x97ECB0; profile name 'ParticleEmitter::Emit'); Create_New_Particles (0x97E530) multiplies by
+//       1/frametime and lerps the origin by value; Build_Definition (0x97EDE0) passes UnknownFlag on after the shader
+//       (slot 0x4C)
+// EnB: ParticleEmitterClass::ParticleEmitterClass (line 127 at the freeze): the buffer is not given the future start
+//       time (E&B's buffer has no FutureStartTime)
+// EnB: ParticleEmitterClass::ParticleEmitterClass (line 158 at the freeze): the copy constructor copies them
+// EnB: ParticleEmitterClass::Create_From_Definition (line 223 at the freeze): Renegade's texture API (MIP_LEVELS_ALL
+//       is TextureClass's)
+// EnB: ParticleEmitterClass::Create_From_Definition (line 223 at the freeze): MipCountType and MIP_LEVELS_* are global
+//       in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: ParticleEmitterClass::Create_From_Definition (line 288 at the freeze): Create_From_Definition passes the
+//       definition's flag
+// EnB: Line 327 at the freeze: ParticleEmitterClass::Set_Transform 0x97DD90 / Set_Position 0x97DDC0 (after Restart
+//       0x97DCD0): call RenderObjClass's (0x941C20 / 0x941CF0), then, when the byte at +0xFD (UnknownFlag) is set, the
+//       buffer's (+0xF8) vtable slot 20 / 21 with the same argument
+// EnB: ParticleEmitterClass::On_Frame_Update (line 382 at the freeze): WW3D2 is built with ENABLE_WWPROFILE, but E&B's
+//       ParticleEmitterClass::On_Frame_Update 0x97DEF0 has no sampler (no EH frame; it starts with the Active test)
+// EnB: ParticleEmitterClass::Reset (line 432 at the freeze): Reset() starts EmitRemain from FutureStartTime (the
+//       client loads +0xF4 there)
+// EnB: Line 518 at the freeze: ParticleEmitterClass::Unknown_Get_Position (0x97E260, between Get_Velocity_Random and
+//       Set_Base_Velocity): the origin when UnknownFlag (+0xFD) is set, Get_Position() otherwise; nothing for a NULL
+//       pointer
+// EnB: ParticleEmitterClass::Emit (lines 552, 559 at the freeze): ParticleEmitterClass as E&B has it: the constructor
+//       (0x97D180) keeps FutureStartTime at 0 unless future_start > 0 and starts EmitRemain from it after
+//       VelRand->Scale (0x97D368); Emit (0x97E330) emits in emitter space when UnknownFlag (+0xFD) is set (0x97EB80,
+//       0x97ECB0; profile name 'ParticleEmitter::Emit'); Create_New_Particles (0x97E530) multiplies by 1/frametime and
+//       lerps the origin by value; Build_Definition (0x97EDE0) passes UnknownFlag on after the shader (slot 0x4C)
+// EnB: ParticleEmitterClass::Create_New_Particles (lines 632, 645, 659 at the freeze): ParticleEmitterClass as E&B has
+//       it: the constructor (0x97D180) keeps FutureStartTime at 0 unless future_start > 0 and starts EmitRemain from it
+//       after VelRand->Scale (0x97D368); Emit (0x97E330) emits in emitter space when UnknownFlag (+0xFD) is set
+//       (0x97EB80, 0x97ECB0; profile name 'ParticleEmitter::Emit'); Create_New_Particles (0x97E530) multiplies by
+//       1/frametime and lerps the origin by value; Build_Definition (0x97EDE0) passes UnknownFlag on after the shader
+//       (slot 0x4C)
+// EnB: Line 748 at the freeze: ParticleEmitterClass as E&B has it: the constructor (0x97D180) keeps FutureStartTime at
+//       0 unless future_start > 0 and starts EmitRemain from it after VelRand->Scale (0x97D368); Emit (0x97E330) emits
+//       in emitter space when UnknownFlag (+0xFD) is set (0x97EB80, 0x97ECB0; profile name 'ParticleEmitter::Emit');
+//       Create_New_Particles (0x97E530) multiplies by 1/frametime and lerps the origin by value; Build_Definition
+//       (0x97EDE0) passes UnknownFlag on after the shader (slot 0x4C)
+// EnB: ParticleEmitterClass::Build_Definition (line 869 at the freeze): ParticleEmitterClass as E&B has it: the
+//       constructor (0x97D180) keeps FutureStartTime at 0 unless future_start > 0 and starts EmitRemain from it after
+//       VelRand->Scale (0x97D368); Emit (0x97E330) emits in emitter space when UnknownFlag (+0xFD) is set (0x97EB80,
+//       0x97ECB0; profile name 'ParticleEmitter::Emit'); Create_New_Particles (0x97E530) multiplies by 1/frametime and
+//       lerps the origin by value; Build_Definition (0x97EDE0) passes UnknownFlag on after the shader (slot 0x4C)

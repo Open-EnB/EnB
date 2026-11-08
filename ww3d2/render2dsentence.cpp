@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1593,3 +1593,13 @@ FontCharsClass::Free_Character_Arrays (void)
 	return ;
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's render2dsentence.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Render2DSentenceClass::Find_Row_Start (line 315 at the freeze): E&B's Find_Row_Start 0x9A86D0 and
+//       Get_Formatted_Text_Extents 0x9A89D0 have no DX8Wrapper::Is_Initted test (Render, Get_Text_Extents and
+//       Build_Sentence keep theirs): neither reads IsInitted
+// EnB: Render2DSentenceClass::Get_Formatted_Text_Extents (line 390 at the freeze): E&B's Find_Row_Start 0x9A86D0 and
+//       Get_Formatted_Text_Extents 0x9A89D0 have no DX8Wrapper::Is_Initted test (Render, Get_Text_Extents and
+//       Build_Sentence keep theirs): neither reads IsInitted
+// EnB: Render2DSentenceClass::Build_Textures (line 543 at the freeze): MipCountType and MIP_LEVELS_* are global in
+//       Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file

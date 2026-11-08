@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -133,3 +133,7 @@ private:
 
 
 #endif //__ANIMATEDSOUNDMGR_H
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's animatedsoundmgr.h (frozen 2026-11-07 from importer.py)
+// EnB: struct AnimSoundInfo (line 95 at the freeze): E&B's AnimSoundInfo has no IsStop flag: the constructor inlined
+//       in Initialize 0x909540 zeroes Frame and Is2D (+8) only

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1395,3 +1395,8 @@ long Targa_Error_Handler(long load_err,const char* filename)
 	}
 	return load_err;
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's TARGA.CPP (frozen 2026-11-07 from importer.py)
+// EnB: imported from Renegade (not by byte-match evidence; EXTRA_FILES): Targa (ww3d2's texture loader, thumbnails,
+//       Make_Screen_Shot). Renegade's, not Zero Hour's: the client's Targa::YFlip (0x9D33D0, called by
+//       WW3D::Make_Screen_Shot 0x9182C0) is the byte-swap loop, not ZH's asm _swapBytes

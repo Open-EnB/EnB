@@ -73,3 +73,6 @@ void Unknown_Add_To_Distortion_List(UnknownDistortionClass * obj);
 void Unknown_Render_Distortion_List(CameraClass & camera);
 
 #endif // UNKNOWN_DISTORTION_H
+
+// Earth & Beyond client (reconstruction): unknown_distortion.h (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): its classes (D19, D10)

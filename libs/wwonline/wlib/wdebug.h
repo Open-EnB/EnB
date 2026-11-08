@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -318,3 +318,17 @@ class MsgManager
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's wdebug.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 56 at the freeze: E&B's DebugLibSemaphore 0xBF5258 is a CritSec: its dynamic initialiser 0x8B5510 calls
+//       CritSec::CritSec 0x8B42F0 (atexit ~CritSec 0x8B4310), INFMSG locks it with CritSec::lock 0x8B4330
+// EnB: Lines 84, 103 at the freeze: E&B's INFMSG, as the client compiles it in cordcon.cpp (pumpClose 0x850260:
+//       time(0), gmtime, strftime(timebuf, 0x50, '%m/%d/%y %H:%M:%S' 0xBA1354), CritSec::lock 0x8B4330 on
+//       DebugLibSemaphore 0xBF5258, MsgManager::infoStream 0x8B5B90 twice, 'INF ' << timebuf << ' [' << __FILE__ << ' '
+//       << __LINE__ << '] ' << X << endl, CritSec::unlock 0x8B4350); matchbot's formats an Xtime less TimezoneOffset;
+//       the buffer stays char[40] (pumpClose's frame 0x60: the timebuf at +0x18, the CordMessageClass at +0x40, exact
+//       only so)
+// EnB: class MsgManager (line 301 at the freeze): E&B's wdebug.cpp has no ReplaceAllStreams (setAllStreams 0x8B5560,
+//       then setDebugStream 0x8B57B0)
+// EnB: class MsgManager (line 315 at the freeze): 0x8B5BF0, called through an incremental thunk by the five set*Stream
+//       functions: E&B creates the streamers on first use
