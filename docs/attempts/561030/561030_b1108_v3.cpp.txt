@@ -1,0 +1,63 @@
+// b1108 variant v3: Use the auto_inline(off) helper and declare y before x to match both the out-of-line find and the client's float slot layout.
+#pragma auto_inline(off)
+static DeltaBuffsClass *Find_Buff_Array(DeltaCompoundClass *aux, NameClass &name)
+{
+	return Unknown_Find_Field<DeltaBuffsClass>(aux, name);
+}
+#pragma auto_inline(on)
+
+void UIBuffClass::Unknown_561030()
+{
+	ClientObjectClass *avatar = ((ClientClass *)Client)->Get_Avatar();
+	if (avatar && avatar->AuxData) {
+		float y, x;
+		Unknown_42ECF0(&x, &y);
+		NameClass name("BuffArray");
+		DeltaBuffsClass *buffs = Find_Buff_Array((DeltaCompoundClass *)avatar->AuxData, name);
+		if (!buffs || buffs->Unknown70 <= 1) {
+			buffs = NULL;
+		}
+		bool shown = false;
+		if (buffs) {
+			for (int slot = 0; slot < MAX_BUFFS; slot++) {
+				DeltaBuffClass *buff = (DeltaBuffClass *)buffs->Children[slot];
+				if (buff->Unknown70 > 1) {
+					const char *type = buff->BuffType.Get();
+					if (strcmp(type, "") == 0) {
+						Unknown_560FA0(slot);
+					} else if (BuffTable[slot] && BuffTable[slot]->BuffInfo && strcmp(BuffTable[slot]->BuffInfo->Type, type) == 0) {
+						BuffInfoStruct info;
+						Unknown_5615C0(info, buff);
+						Unknown_560BC0(info, slot);
+					} else {
+						Unknown_560FA0(slot);
+						BuffInfoStruct info;
+						Unknown_5615C0(info, buff);
+						Unknown_560D20(type, info, slot);
+					}
+				}
+			}
+		}
+		for (int i = 0; i < MAX_BUFFS; i++) {
+			if (BuffTable[i]) {
+				if (BuffTable[i]->Unknown_666470()) {
+					Unknown_560FA0(i);
+				} else if (!BuffTable[i]->Unknown84 && BuffTable[i]->Unknown64) {
+					View->Unknown30->Unknown_6AB8C0();
+					BuffTable[i]->Unknown_6664E0(true);
+				} else if (BuffTable[i]->Unknown84 && !BuffTable[i]->Unknown_30(x, y)) {
+					BuffTable[i]->Unknown_6664E0(false);
+				}
+				if (BuffTable[i]) {
+					BuffTable[i]->Unknown_AC();
+					BuffTable[i]->Unknown_671630();
+				}
+				shown = true;
+			}
+		}
+		RefCountPtr<RenderObjClass> frame = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("frame"));
+		if (frame) {
+			frame->Set_Hidden(!shown);
+		}
+	}
+}

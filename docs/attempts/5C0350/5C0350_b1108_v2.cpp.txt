@@ -1,0 +1,27 @@
+// b1108 variant v2: Nest each success path inside its guard (positive tests) with the return("") written after each nested block, so the failure tails come in source order and are not merged.
+std::string UIMFDExtendedContextHarvestableClass::Get_Line_Text(unsigned int line_index)
+{
+	FAIL_IF(line_index >= CurrentIndexMap.size())
+		return("");
+	int slot = CurrentIndexMap[line_index];
+	if (slot != -1) {
+		int id = Peek.Get_ID(slot);
+		if (id != -2) {
+			if (id != -1) {
+				InvDataPeekItemStruct *item = Peek.Get_Item(slot, true);
+				FAIL_IF(0 == item)
+					return("");
+				int quantity = Peek.Get_Quantity(slot);
+				if (quantity != 0) {
+					char text[128];
+					sprintf(text, "%s (%d)", item->Name.c_str(), quantity);
+					return(std::string(text));
+				}
+				return("");
+			}
+			return("");
+		}
+		return("");
+	}
+	return("");
+}
