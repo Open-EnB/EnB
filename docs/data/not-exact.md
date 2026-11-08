@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-725 entries in 206 files.
+726 entries in 206 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -303,9 +303,10 @@ edit the comments in the code, not this file.
 | `app/client/starmap_data.cpp:231` | `StarmapDataClass::Create_Mesh` | marker | NOT EXACT: frame and registers (the client keeps 0 in ebx and is_ship on the stack, the old transform above the rotation) @0x7BEF50 |
 | `app/client/starmap_pip.cpp:103` | `StarmapPipClass::Unknown_20` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C0260 |
 | `app/client/starmap_pip.cpp:173` | `StarmapPipClass::Unknown_10` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C0C80 |
+| `app/client/starmap_pip.cpp:968` | `Unknown_491550` | marker | NOT EXACT: stack (the client keeps diff at +0x24 and t at +0x1C, the other way round: 0.88) |
 | `app/client/starmap_pip.cpp:1170` | `StarmapPipClass::Unknown_7C2060` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C2060 |
 | `app/client/starmap_pip.cpp:1273` | `Unknown_7C3220Class::Unknown_7C3830` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C3830 |
-| `app/client/starmap_pip.cpp:1325` | `Unknown_7C3220Class::Unknown_7C3830` | mention | NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order). Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1350-0x7C1770, 0x7C1C50, 0x7C2340, 0x7C2850, 0x7C2DA0-0x7C30E0 (the POC and clienttest get them from generated stubs). |
+| `app/client/starmap_pip.cpp:1325` | `Unknown_7C3220Class::Unknown_7C3830` | mention | NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order), 0x7C1770 (two stack slots swapped; it copies +0x68 as a Vector3, Unknown68 and Unknown70 look like one Vector3). Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1510, 0x7C1C50, 0x7C2340, 0x7C2850, ... |
 | `app/client/target_reticle.cpp:107` | `TargetReticleClass::Update` | marker | NOT EXACT: 0x7C5690, register rotation only (13 rows at the inlined time == LastTime: eax / ecx for ecx / eax, edx / eax for ecx / eax, eax for ecx at LastValue); same length (1990 bytes) @0x7C5690 |
 | `app/client/tasks/settings_store.cpp:10` | `Unknown_7CA2D0Class::Unknown_7CA2D0Class` | marker | NOT EXACT: shape (functional for the POC: the client's constructor also sets the two vtables, counts itself in a global, and fills the browser descriptors at +0x70 ('SUPPORT', 'PRIVACY', ... with their http://support.net-7.org URLs); only the state the login path reads is set here: the empty strings and map, the URL-check deadlines) |
 | `app/client/tasks/settings_store.cpp:30` | `Unknown_7CA2D0` | marker | NOT EXACT: schedule (the client runs the constructor through a jump thunk and registers the destructor thunk with atexit) |
