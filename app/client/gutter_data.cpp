@@ -77,7 +77,7 @@ GutterDataClass::GutterDataClass(ClientObjectClass *co) :
 	Unknown_495FD0(Get_Icon_RObj().Peek(), icon.Peek(), 0);
 }
 
-// NOT EXACT: register (this in esi and spilled, the client ebx, frame 4 bytes less; the shape is the client's)
+
 // @0x7B50D0
 void GutterDataClass::Update_Name_Label(ClientObjectClass *co)
 {
@@ -95,26 +95,26 @@ void GutterDataClass::Update_Name_Label(ClientObjectClass *co)
 		co->Unknown_6FF7A0(text);
 		text += level;
 		NameLabel = Create_NEW(new FontSys("RADAR_NAME", 0, text.c_str()));
-	} else {
-		if (co->Unknown174 > 0.0f) {
-			NameLabel->Change_Text("\"....................\"", 0);
-			NameLabel->Unknown_6D8A80(true);
-		} else {
-			if (co->Unknown_6FFC80(text)) {
-				text += level;
-			} else if (strcmp(NameLabel->Unknown_6D87D0(), "\"....................\"") == 0) {
-				co->Unknown_6FF7A0(text);
-				text += level;
-			} else {
-				goto done;
-			}
-			NameLabel->Change_Text(text.c_str(), 0);
-			NameLabel->Unknown_6D8A80(false);
-		}
+	} else if (co->Unknown174 > 0.0f) {
+		NameLabel->Change_Text("\"....................\"", 0);
+		NameLabel->Unknown_6D8A80(true);
+	} else if (co->Unknown_6FFC80(text)) {
+		text += level;
+		NameLabel->Change_Text(text.c_str(), 0);
+		NameLabel->Unknown_6D8A80(false);
+	} else if (strcmp(NameLabel->Unknown_6D87D0(), "\"....................\"") == 0) {
+		co->Unknown_6FF7A0(text);
+		text += level;
+		NameLabel->Change_Text(text.c_str(), 0);
+		NameLabel->Unknown_6D8A80(false);
 	}
-done:
-	;
 }
+
+
+
+
+
+
 
 // NOT EXACT: tail merge and register (the client keeps the first Set_Color's first stores and jumps to the third; this in esi, ours edi)
 // @0x7B54E0
