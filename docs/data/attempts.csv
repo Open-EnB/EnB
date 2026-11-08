@@ -2314,3 +2314,7 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-07,0x60E300,UIScanClass::Unknown_68,app/client/ui_scan.cpp,app,partial,0.51,1,layout,first functional draft (key tests' block layout) (WE9),,opus
 2026-11-07,0x60E480,UIScanClass::Unknown_60,app/client/ui_scan.cpp,app,partial,0.68,1,source,first functional draft (WE9),,opus
 2026-11-07 12:08,0x5DAE90,UIPopupBrowserClass::UIPopupBrowserClass,app/client/ui_popup_browser.cpp,app,partial,0.52,,inline-budget,client calls Url's _Tidy(false) out of line; ours expands it,,
+2026-11-08 01:34,0x64B6E0,UITalkTreeClass::UITalkTreeClass,app/client/ui_talkt.cpp,app,partial,0.87,6,order,"UITalkTreeClass ctor: identical 101 instructions; rep stosd setup (Buttons fill) scheduled before +0x174 stores in ours, after +0x17c in client",,gemini-3.8-flash
+2026-11-08 01:34,0x64D770,UITalkTreeClass::Unknown_60,app/client/ui_talkt.cpp,app,partial,0.82,4,inline-budget,"int id=sclient->Unknown1138 fixed frame/regs; only erase's max_size differs (out of line in client, inlined in ours)",,gemini-3.8-flash
+2026-11-08 01:35,0x64E7A0,UITalkTreeClass::Unknown_64E7A0,app/client/ui_talkt.cpp,app,partial,0.81,7,register,Set_Center(Vector2(...)) temporary fixes frame; left: bit test and Create_Get reg order,,gemini-3.8-flash
+2026-11-08 01:35,0x64C8D0,UITalkTreeClass::Unknown_5C,app/client/ui_talkt.cpp,app,partial,0.57,4,inline-budget,"int id=sclient->Unknown1138 before packet tested; dropped similarity 0.59 -> 0.57, blocked on out-of-line _Eos/_Tidy",,gemini-3.8-flash
