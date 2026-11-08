@@ -1740,14 +1740,14 @@ void Unknown_80F220(RenderObjClass *model, std::vector<ColorizationRegionStruct>
 
 int Unknown_810CF0(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);
 inline void ClientObjectClass::Unknown_Damage_Reset() { if ((Unknown_6F58B0() || Unknown_6F5880()) && RenderObject) { int levels[4]; for (int i = 0; i < 4; i++) levels[i] = 1; Unknown_810750(RenderObject, 0); Unknown150 = Unknown_810CF0(RenderObject, levels, 1, Client, GameID, Unknown150); UnknownFC = false; for (int j = 0; j < 4; j++) Unknown104[j] = 1; Unknown104[4] = 1; } }
-// NOT EXACT: inline budget (the client calls Colorization.size() 0x700E30, the IsOrganic find 0x705450, the fourth 0x6F5140 and the RefCountPtr assignments 0x4153B6 out of line, ours inlines them; the client holds the 1 in edi; attempts.py show 0x6FCB70)
+// NOT EXACT: inline budget (the client calls the IsOrganic find 0x705450, the fourth 0x6F5140 and the RefCountPtr assignments 0x4153B6 out of line, ours inlines them; the client holds the 1 in edi; attempts.py show 0x6FCB70)
 // 0x6FCB70 (Set_Model and SUBPARTS 0x6FEF70 call it last): the damage state reset, the sphere, the colorization,
 // then for an organic type 0 or 1 that isn't IsOrganic the six bone models (+0x158) from base assets 0x618 / 0x617 / 0x73F, hidden
 void ClientObjectClass::Unknown_6FCB70()
 {
 	Unknown_Damage_Reset();
 	Unknown_6FED30();
-	if (Colorization.size() && RenderObject) Unknown_80F220(RenderObject, Colorization);
+	if (!Colorization.empty() && RenderObject) Unknown_80F220(RenderObject, Colorization);
 	SClient *sclient = (SClient *)Client->Unknown_18(); if (sclient && sclient->AvatarID == GameID) sclient->Unknown_74D950();
 	if (Unknown_6F5A10()) {
 		NameClass name("IsOrganic");
