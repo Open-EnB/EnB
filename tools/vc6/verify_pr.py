@@ -12,12 +12,12 @@
 3. A detached worktree .work/wt/prPR.vf at the test merge (wt.py's furnish: the shared lock, pool and hosts),
    where the libraries the PR touches (wt.py's libs_touched: their directories, EA headers -> app too,
    importer.py lines naming a library, imports.json blocks that changed; plus --lib) are verified on K pool VMs
-   (`importer.py verify`), then `importer.py replay` (the tree equals what importer.py's records produce).
+   (`importer.py verify`; no replay since the freeze, D211: the libraries are plain source).
 4. Pairs: the verified imports.json against master's record (lost, and of those the D66 moves and the lost
    outright) and against the PR's own record (equal: the PR records what the verify gives). The `// NOT EXACT`
    markers in the sources before and after.
 5. Verdict `success` only when nothing is lost (or every loss is a D66 move, its address held by another file,
-   and a maintainer accepted them: a comment `/accept-d66 SHA` naming the head, or --accept-d66), replay is clean and, for a maintainer's PR (merged as it is),
+   and a maintainer accepted them: a comment `/accept-d66 SHA` naming the head, or --accept-d66) and, for a maintainer's PR (merged as it is),
    the record equals the verify; a contributor's PR lands through verify_watch.py, which carries the files the
    verify rewrote (.work/verify/prPR.files/), so a contributor without VC6 need not commit them. Posted as
    the commit status `vc6-verify` on the PR's head and as one PR comment (updated in place on reruns), and
@@ -174,7 +174,7 @@ def main():
     ap.add_argument('--no-post', action='store_true')
     ap.add_argument('--keep', action='store_true', help='keep the worktree')
     ap.add_argument('--lib', action='append', default=[])
-    ap.add_argument('--no-replay', action='store_true')
+    ap.add_argument('--no-replay', action='store_true', help='ignored: no replay since the freeze (D211)')
     ap.add_argument('--accept-d66', action='store_true',
                     help='the maintainer accepts the PR\'s D66 moves (as a comment `/accept-d66 SHA` does)')
     a = ap.parse_args()
@@ -276,12 +276,6 @@ def main():
                 os.makedirs(os.path.dirname(dst), exist_ok=True)
                 shutil.copyfile(os.path.join(vf, *p.split('/')), dst)
             res['rewritten'] = rewritten
-            if not a.no_replay:
-                print('replay', flush=True)
-                rc, tail = wt.run_logged([sys.executable, 'tools/vc6/importer.py', 'replay'], vf, vf + '.replay.log')
-                if rc or not any(': 0 problems, 0 files differ' in t for t in tail):
-                    res['reasons'].append('importer.py replay differs: a library file changed outside importer.py\'s '
-                                          f'records ({" / ".join(tail)})')
         else:
             print('no library touched: nothing to compile')
         gained, lost = sorted(verified - before), sorted(before - verified)

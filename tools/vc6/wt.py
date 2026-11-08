@@ -2,9 +2,9 @@
 
     python tools/vc6/wt.py new NAME [--base REV]
     python tools/vc6/wt.py list
-    python tools/vc6/wt.py bring-over NAME [--target BRANCH] [--lib X ...] [--pool K] [--no-replay] [--dry] [--keep]
+    python tools/vc6/wt.py bring-over NAME [--target BRANCH] [--lib X ...] [--pool K] [--dry] [--keep]
     python tools/vc6/wt.py bring-over A B..C D [--batch-name N] [--target BRANCH] [--lib X ...] [--pool K] [--trailer T]
-                                      [--no-replay] [--dry] [--picks-only] [--resume] [--keep]
+                                      [--dry] [--picks-only] [--resume] [--keep]
     python tools/vc6/wt.py remove NAME [--delete-branch] [--force]
 
 new: `git worktree add .work/wt/NAME -b wt/NAME BASE` (default HEAD); NTFS junctions .work/locks,
@@ -23,7 +23,7 @@ bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss
      are regenerated (tools/re/names.py) and any other conflict (imports.json included) refuses;
   3. the libraries the commits touched (their directories, EA headers -> app as well, importer.py
      lines naming a library, imports.json blocks that changed; plus --lib) are verified there:
-     `importer.py verify --lib ... --pool K`, then `importer.py replay` (0 problems, 0 files differ);
+     `importer.py verify --lib ... --pool K` (no replay since the freeze, D211: the libraries are plain source);
   4. pairs: the verified imports.json against TARGET's (the loss rule) and against the candidate's own
      record (equal: the commits record what the verify gives); with no library touched, the
      candidate's record against TARGET's;
@@ -53,7 +53,7 @@ Batch form (two or more branches, a range, or --batch-name; D202): one verify ov
      same command with --resume, or `wt.py remove N` to drop it.
   3. `importer.py verify` once (the libraries the batch touches, plus --lib); every library's `in tree:` line must be
      in the log. The loss rule. `report`, names.py, notexact.py; the regenerated files are committed with a generated
-     subject and --trailer (default the newest Co-Authored-By on TARGET); `replay`: 0 problems, 0 files differ.
+     subject and --trailer (default the newest Co-Authored-By on TARGET).
   4. landing: the worktree holding TARGET must have no tracked file modified (.claude/settings.json aside, unless the
      batch changes it): checked at the start and again under the lock. TARGET moves by compare-and-swap, so a TARGET
      that moved during the verify is refused and named as well; rerun.
@@ -684,13 +684,6 @@ def run_verify(a, bo, libs, target):
         sys.exit(f'wt: verify did not finish {short}: {tail}; {target} untouched')
 
 
-def run_replay(a, bo, target):
-    print('replay', flush=True)
-    rc, tail = run_logged([sys.executable, IMPORTER, 'replay', '--lock-wait', str(a.lock_wait)], bo, bo + '.replay.log')
-    if rc or not any(': 0 problems, 0 files differ' in t for t in tail):
-        sys.exit(f'wt: replay: {tail}; {target} untouched')
-
-
 def add_only_union(base, ours, theirs):
     """(text, None) keeping both sides of a 3-way merge in which both sides only add lines, or (None, why). What git
     merges by itself stays merged; a line both sides added once; the result has to compile."""
@@ -927,11 +920,6 @@ def cmd_batch(a):
             after = f.read()
         res = judge_losses(blob(f'{old}:{IMPORTS}'), after, a.target, old, 'the batch')
         regen_and_commit(a, bo, labels, res, a.target, old)
-        if not a.no_replay:
-            run_replay(a, bo, a.target)
-            other = dirty_tracked(bo)
-            if other:
-                sys.exit(f'wt: replay left changes: {other[:10]}; {a.target} untouched')
         new = rev('HEAD', cwd=bo)
         say_losses(res)
         if a.dry:
@@ -1008,8 +996,6 @@ def cmd_bring_over(a):
                 sys.exit(f'wt: the commits record other pairs than the verify gives (verify-only '
                          f'{sorted(verified - cand)[:5]}, record-only {sorted(cand - verified)[:5]}): commit '
                          f'the verified record in the branch and rerun; {a.target} untouched')
-            if not a.no_replay:
-                run_replay(a, bo, a.target)
         else:
             print('no library touched: no verify; pairs from the records')
         say_losses(res)
@@ -1049,7 +1035,7 @@ def main():
     p.add_argument('--lock-wait', type=int, default=3000, help='seconds each importer call waits for the lock')
     p.add_argument('--lib', action='append', default=[], help='verify this library as well (repeatable)')
     p.add_argument('--pool', type=int, default=1)
-    p.add_argument('--no-replay', action='store_true')
+    p.add_argument('--no-replay', action='store_true', help='ignored: no replay since the freeze (D211)')
     p.add_argument('--dry', action='store_true', help='stop before landing')
     p.add_argument('--keep', action='store_true', help='keep the scratch worktree NAME.bo')
     p = sub.add_parser('remove')
