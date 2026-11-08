@@ -2661,37 +2661,6 @@ written but not byte-exact, with its cause: `docs/data/not-exact.md`; every aban
 LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a new §3.1 lever). The items
 below name only the work items, the blocked work, the leads and the queues.
 
-* **Leads of 2026-11-08b:** SY1: ChatPanelUIBase's +0x9C is a MovableUIBackGadget * and 0x56DEE0's slot takes (MovableUIBackGadgetMoved *, MovableUIBackGadget *) by the mangled callback type (our source: DestroyGadgetEvent *, GadgetClass *, an `int Unknown9C`); 0x56D970 connects it. The POC replay (WE1's input) crashes after world entry in ViewClass::Unknown_14+0x44 reading 0x88 (SClient::Do_Frame -> MainViewClass::Unknown_14), with the baseline exe too; replay the POC once for the chat panel's real handler registration (P-OM1-1). Batch b1108's leads (attempts.csv): 0x510D40 (frame: only the DynamicIBAccessClass slot differs), 0x5913E0 (inline the list clear, keep 0x592350 out of line), 0x561030 (auxdata.h's Unknown_Find_Field<DeltaBuffsClass> out of line by the inline budget, not a forwarder), 0x788900 / 0x6A7730 (shape, 0.59), 0x6CE4E0, and RT1's 33 only-closer stashes; D185's helper-copy cases 0x44E470, 0x500760, 0x584690, 0x5B1ED0. 0x56C180's NOT EXACT note predates the SignalMap retype: re-check. ChatPanelInterface's own empty +0x64 0x563260 could be defined in ui_chat_panel.cpp (net-0 lines). SY1: aux_roots' Write<B00A00> / <B016DC> names at 0x706FF0 / 0x703F40 look swapped (pairs the same either way).
-* **Decisions of 2026-11-07 to carry out:** D206 (KVEncoderClass, with aux_roots' next repad). CameraManagerClass's former stand-in callers in co.cpp / cpacket.cpp / ui_cpit.cpp / ui_verb.cpp could take the real member names, as ctrngadg.cpp did (CM2).
-* **inv_render and neighbours' near misses (IR2):** 0x68C6B0, 0x68F510 (inline-budget), 0x68CCC0, 0x68E360 (register), 0x68FE10, 0x690AA0, 0x690D20 (order): attempts.csv; don't spend heavily. Stand-ins left in the new files: `Unknown66CC00Class` (HUD gadget), `Unknown688830Class`, `Item` (inv_data).
-* **Near misses of 2026-11-06 (attempts.csv):** ui_talkt 0x64B6E0, 0x64C8D0, 0x64CC90, 0x64D400, 0x64D770, 0x64E7A0 (0x64D770 and 0x64E7A0 have better draft forms, TK1's rows); gd_text_editor 0x671CB0, 0x6732F0, 0x6735A0; ui_mfd 0x5BECF0, 0x5BCE50, 0x5BD540, 0x5BDC20, 0x5BDDF0, 0x5BDED0, 0x5BE120; ui_mfd_extended_context_harvestable 0x5C0350; ui_mfdm 0x5C25C0; ui_slot_scut 0x6309F0 (about 300 forms: stop); ui_verb 0x658C90 (about 80 forms); galaxy_map_pip 0x5404E0.
-* **TR1's rest:** 0x7C5690 TargetReticleClass::Update NOT EXACT (register, parked at about 30 forms; its 16 no-code finds are not the client's source). skill_render.cpp's `Unknown744FE0Class` stand-in can call SClient::Get_Target. Select_Next_Target's callers 0x59DB10, 0x60E300 don't call it from the tree yet. `Unknown_466920Class` (Line3DClass with a sort level, ctor 0x466920, table 0xAE8754) stays under a D137 mark in starmap_pip_support.h until its file is known.
-* **Interim placements of 2026-11-06 (D137):** delta_visitor.cpp (KV2), unknown_45d840.cpp, unknown_763e00.cpp/.h (RS1), cammod.cpp, camctrl.h, unknown_798ae0.cpp, unknown_7979a0.cpp (CM1), ui_proc.h, observer.h (UP1; the .cpp names are the client's), TimeMgrClass (SN1, D24 NAME 3), DeltaVisitorClass::Visit_Children 0x4B0860 left in unknown_root.cpp (moving it loses 0x4A46F0), kv_encoder.cpp, kv_acc.cpp, kv_acc_string.h, kv_acc_time.h, kv_time_adds.cpp (no `__FILE__`; KVFilterEncoderClass's 0x4B5AD0-0x4B5D70 belong in kv_encoder_base.cpp's object by position, `<string>` initialiser at 0x4B5E80), 0x7BE5A0 as closing radar_system_data_cache.cpp and the PermStringInitClass static at 0x7BB180's owner (position and shape only, RD1), starmap_data.cpp's local `RObj2Texture` stand-in, ui_registration.h's classes under `__UI_REGISTRATION_MEMBERS` (they left the .cpp to hold the ctor's assert on line 369), slot_data.h's name (RTTI's class, link order only; ui_slot_scut.h and three others keep SlotDataClass stand-ins), skill_ability_names' `Unknown_815320`-style free functions, radar_system.h against sclient.h's same-layout stand-in, radar_system.cpp's `PDAInterfaceUnknownA0Class : MapPipClass` (base unverified), targeting.cpp's name (no client string; the asserts say 'targeting'; sorts between target_reticle and ui_starmap), 0x68FB60 / 0x68FC80 at inv_render.cpp's end (P-IR2-1), unknown_67d430.* (no __FILE__), unknown_671300.h, ro_offset.cpp, ro_proxy.h's name, unknown_45a090.cpp and unknown_45f390.cpp (the 'link' and 'sound' render states; rs_link.cpp / rs_sound.cpp would fit the link order: no client string), ui_mfd_extended_context.cpp's name (NAME 1), target_generator_summary.cpp's name, the Unknown_B0804C tooltip width in gd_attrb_skills.cpp, ui_starmap.h's StarmapPipClass.
-* **chat_window / chat_window_history's rest (CH2; drafts in `.work/ch2/client/`):** NOT EXACT 0x67E670, 0x67F7F0, 0x6804E0, 0x6812C0, 0x6821F0, 0x682770 (attempts.csv; closest 0x6821F0: count's slot and the out-of-line size() 0x6829C0). `FontSys::Font` (+0x24C) should be `RefCountPtr<Font32Class>` (0x67E71F handles it as a ref pointer; chat_window.cpp casts for now). `unknown_67d430.*` is interim (D137): no `__FILE__`.
-* **ui_registration's rest (RG1):** 0x5FBD30 (Next, 17 KB) and 0x600000 (reply handler, 14 KB): no exact prospect, write them only if the registration flow is wanted; the likely yield is the out-of-line STL copies at 0x604xxx-0x60Cxxx, which need the real 0xF4-byte entry type (dtor 0x449CC0). The screen doesn't work yet: Sub14C's slots 0x7DFED0-0x7E15B0 are stubs and the 0xB08C90-range flags may read 0. Function starts for 0x5EED20-0x5EF070's `$E` initialisers would let them count (D99). 16 NOT EXACT, attempts.csv.
-* **Tonight's parked near misses (attempts.csv):** gutter_radar 0x7B71D0, 0x7B75E0; gutter_data 0x7B54E0, 0x7B63C0; radar_system 0x7BCA70 (barely tried), 0x7BE3A0; skill_data 0x6A4C20, 0x6A4F40; skill_data_peek 0x6A5730; slot_data 0x6A7730, 0x6A7860; target_generator_summary 0x84BE60.
-* **Near misses of RD1 and KV1 (attempts.csv):** radar_data 0x7BB570 (0.54, register; the most bytes left, case 1 and case 0's copy registers are the lead), 0x7BBC00 (0.76, inline-budget); starmap_data 0x7BEF50 (0.50, register); nav_list_builder 0x7B7EF0 (0.84, order); kv_encoder 0x4B5D70 (0.43, inline-budget; 0x4B5E40 and 0x4B5E60 stay unbuilt with it). Not rebuilt: 0x4973E0, 0x4976B0, 0x497700 (RObj2Texture); 0x832010, 0x79B6B0 declared only.
-* **POC world entry (WE1's path; run `clientpoc.py replay --input .work/WE1/input.txt --seconds 140 --shots 1` with `D3D8SHOT_EVERY=2000 D3D8SHOT_MAX=500`; in-world frames from ~280000):** the POC enters the sector and draws the backdrop, the orbitals, the player's ship as retail's, lit by the real lights, under the cockpit HUD with the radar panel (ui_scan.cpp). Open (retail ~170 draws per frame, the POC ~114 at WE9; WE7's `.work/we7/drawsum.py`): the chat window's split class's set-up 0x5723B0 (0x81D bytes, G_ASSERT 'anim' ll.129 / 136; still the POC's stand-in) and its NOT EXACT dtor 0x572040 (inline-budget; a 0.77 form with dead reads stashed) and 0x572EE0 (0.56); ChatWindowInterface's NOT EXACT (attempts.csv, CW2); the chat reply list 0x56E2A0 (fc_symbolchat.ini: likely ui_symbolchat.cpp) and the combo box's ctor 0x5789E0 / 0x5790C0 / 0x578210 / 0x579DC0 / 0x57A060 / 0x5689D0; the PDA's NOT EXACT 0x693E70, 0x695780, 0x695A00, 0x695FE0 and its windows' stand-ins (poc_world3.cpp: equipment, cargo, vault, experience; poc_world4.cpp: character and star map set-ups' classes, GadgetPipSceneClass 0x66ACE0, GadgetStarmapClass 0x7B4700); starmap_pip.cpp's rest (0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1C50, 0x7C2340, 0x7C2850, 0x7C2DA0-0x7C30E0; NOT EXACT 0x7C0C80, 0x7C1770 (frame, 0.88: retry the slot order now that +0x68 is a Vector3), 0x7C2060, 0x7C3830) and sclient.h's +0xA8 as UIStarmapClass (mainview including ui_starmap.h lost 0x512A00 / 0x514960: read its objdiff first); ui_scan's 0x60ECD0 and 0x610370 (inline-budget; a delta_template.h edit costs aux_roots' 8 pairs), UIScanThreatClass::Unknown_Refresh (declared, inline in 0x60DF90 / 0x60F1A0), NOT EXACT 0x60E300, 0x60E580, 0x60D8D0, 0x60E6A0, 0x60F1A0; the target lines need a replay that selects a target; Jupiter needs its CREATE + PLANET_POSITIONAL_UPDATE in antprox's replay (antprox repo); the render states: rs_list's twins 0x45A750 / 0x45A7E0; enbscene's NOT EXACT 0x75F8B0 (field-offset) and 0x75FB00 (FP order); camera_manager.cpp / camctrl_takeoff.cpp's local MainViewSceneClass -> enbscene.h where lines hold; the stand-ins listed in poc_world.cpp / poc_world2.cpp / poc_world3.cpp / poc_world4.cpp / poc_gadget_*.cpp. Evidence-backed cleanups: the 0x755AF0-0x755C30 COMDAT copies are sclient.cpp's, tied to SClient::Init 0x741180 (NOT EXACT).
-* **Near misses and leads of 2026-11-07 (day; attempts.csv):** cammod_chase 0x79BFC0 (0.42, inline-budget), unknown_79c8e0 0x79C970 (0.52, shape), orbitalmanager 0x4F2CB0 (0.53, order), 0x4F45A0 (0.57, layout), unknown_75b7b0 0x75B8F0 (0.83, order), 0x75BB50 (0.37, inline-budget), client_lego_root 0x732880 (0.86, shape), ui_starbase money 0x4F0320 / 0x4F0780, ui_popup_browser's ctor, the camctrl stubs of states 3, 7, 9 (A5, functional). Leads: UIStarbaseClass's destructor 0x633B50 (NOT EXACT, register 0.82: eax / edx swapped from the +0x190 delete on; SB2) and UIStarbaseUnknownCCClass's destructor 0x632E50 (declared only); LegoClass::Unknown_3C to `const std::string &` at the next symbols.py refresh (WE8: loses 0x72CBF0 now); the enum-statics header 0xBE3B44 / 0xC416A8 / 0xC41658 (0x68FAE0, 0x54B6F0; NM1); unknown_78a910.cpp's ctor 0x78A910 and 0x78ACE0-0x78B660 (A8 stopped on the agy quota).
-* **Near misses of 2026-11-07 (attempts.csv):** galaxy_map_render 0x7A8B70 (inline-budget; holds 0x7B18A0-0x7B1EC0's 11 template members), 0x7A6DD0, 0x7AA660, 0x7ADFC0, 0x7AB6D0, 0x7AC130, 0x7AD090, 0x7AF400 / 0x7AF4A0 (inline-budget), 0x7A72C0 (register: fdivrp), 0x7A7560, 0x7A7D70 (field-offset), 0x7A83D0, 0x7AD5B0 (frame, untried), 0x7AD850 (blocked: colour part only); galaxy_map_robj 0x7B2B30 (register), 0x7B43F0 (order); ui_mesh 0x5B8330, 0x5B8850, 0x5B8EE0, 0x5B8FF0; ui_proc 0x5DD3C0 (order 0.81); rs_list 0x45AB20, 0x45AD90, 0x45B550; accel 0x4990C0 (shape); camera_manager 0x79B4F0, 0x799E40 (frame), 0x7998B0 (order); cammod_chase 0x79BFC0; unknown_7979a0 0x797B50, 0x7981B0, 0x798570, 0x7987F0; WE1's functional 0x561DD0, 0x56D510, 0x5629E0, 0x744690. Unplaced: 0x8192C0, 0x819420 (after time_mgr.cpp), 0x5DCB50-0x5DCBE0 (a gauge object before ui_proc.cpp).
-* **antprox's build table calls 249f8524 EA's last client (D199):** it is EA's 82663b2f plus Net-7's URL edits; correct the label in the AntaresProxy repo, and add 82663b2f if EA's exe should be recognised.
-* **symbols.json / ghidra_symbols.py keep 15 old D198 names** (and vtable 0xAFB5F4 reads `??_7Unknown_675120Class@@6B@`: it is UIBackGadget's, D208): run `symbols.py` with every library's `--objs` at the next refresh (without them it rewrites the file wholesale).
-* **ui_manu `_Unknown_BE5C20` (datacmp, D201):** 104 bytes in our .data, first byte 5; the client's 0xBE5C20 is outside its raw data (BSS), so it holds nothing initialised there: either that symbol is not at that address, or the object initialises what the client sets at run time. Less certain than the two constants datacmp found first (fixed).
-* **The rest of the static table audit (`tools/re/datacmp.py`, D201: run when wanted):** 739 of 932 symbols compared at its first full run, 193 not placed (`--list-unplaced`); left: 4-byte scalars (BridgeNear / BridgeFar, ...), constants read only by non-exact functions, tables the compiler inlined or emitted no symbol for, 8 masked pointers in 7 tables (ui_attrb 0xB79F04, ui_analyze 0xB7967C, ui_manu 0xB81868, ...).
-
-* **The triage plan's runs (D163; the log entry of 2026-10-31 15:40).** `.work/triage/plan.md` (rerun `triage.py
-  plan` after each run): 33 runs of 3+ neighbouring functions with no pair and one suggested file (2026-11-06 evening), 10 agreeing
-  with both neighbours (the hint's file was right 23 of 23 in TG1 / TG2's six; the 2026-11-05 night run found it wrong for
-  ui_item_examination's panels; on 2026-11-06 the file was right more often than its boundaries, see that entry), 16 naming a file not
-  in the tree (optdlg 0x846D10 is the one left by size); 2,735 template
-  instances; 379 library kinds in the app range to check against gaps. Each run is a bounded builder item: claim the
-  bare range (`run_branch.py claim 0xLO-0xHI`). The table is tracked in `docs/data/triage.*` (D172). The $200's
-  remaining ~$156 is D163 part (3)'s overflow capacity.
-* **symbols.json:** the next full regeneration (workflow.md §3.4, every `lost outright` checked against the client's
-  vtable layout first) also renews the 2026-11-03 renames' long functions (still under `ControlKeysManagerClass`
-  mangled names; they match by bytes). SY1's lead: D100's range (and the self name) could reject a `??_G` / `??_E`
-  whose vtable's slot count differs from the object's `??_7` (it would have avoided 0x723AB0).
-
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with
    `python tools/run_branch.py start` (coordinator-pacing skill).
@@ -2983,6 +2952,48 @@ below name only the work items, the blocked work, the leads and the queues.
      spacing temporaries.
    * Blocked: 0x42C330 waits for 0x7D3CC0's file (the account / subscription XML reader 0x7C9000-0x7E3000, between
      ui_starmap.cpp and avatar_pip.cpp, no __FILE__: a provisional file, D137, when someone builds it).
+   * SY1 / chat panel (ChatPanelUIBase): +0x9C is a MovableUIBackGadget * and 0x56DEE0's slot takes
+     (MovableUIBackGadgetMoved *, MovableUIBackGadget *) by the mangled callback type (our source: DestroyGadgetEvent *,
+     GadgetClass *, an `int Unknown9C`); 0x56D970 connects it. The POC replay (WE1's input) crashes after world entry in
+     ViewClass::Unknown_14+0x44 reading 0x88 (SClient::Do_Frame -> MainViewClass::Unknown_14), with the baseline exe
+     too; replay the POC once for the chat panel's real handler registration (P-OM1-1). Batch b1108's leads
+     (attempts.csv): 0x510D40 (frame: only the DynamicIBAccessClass slot differs), 0x5913E0 (inline the list clear, keep
+     0x592350 out of line), 0x561030 (auxdata.h's Unknown_Find_Field<DeltaBuffsClass> out of line by the inline budget,
+     not a forwarder), 0x788900 / 0x6A7730 (shape, 0.59), 0x6CE4E0, and RT1's 33 only-closer stashes; D185's helper-copy
+     cases 0x44E470, 0x500760, 0x584690, 0x5B1ED0. 0x56C180's NOT EXACT note predates the SignalMap retype: re-check.
+     ChatPanelInterface's own empty +0x64 0x563260 could be defined in ui_chat_panel.cpp (net-0 lines). SY1: aux_roots'
+     Write<B00A00> / <B016DC> names at 0x706FF0 / 0x703F40 look swapped (pairs the same either way).
+   * Decisions to carry out: D206 (KVEncoderClass, with aux_roots' next repad). CameraManagerClass's former stand-in
+     callers in co.cpp / cpacket.cpp / ui_cpit.cpp / ui_verb.cpp could take the real member names, as ctrngadg.cpp did
+     (CM2).
+   * ui_registration.cpp (RG1): 0x5FBD30 (Next, 17 KB) and 0x600000 (reply handler, 14 KB): no exact prospect, write
+     them only if the registration flow is wanted; the likely yield is the out-of-line STL copies at 0x604xxx-0x60Cxxx,
+     which need the real 0xF4-byte entry type (dtor 0x449CC0). The screen doesn't work yet: Sub14C's slots
+     0x7DFED0-0x7E15B0 are stubs and the 0xB08C90-range flags may read 0. Function starts for 0x5EED20-0x5EF070's `$E`
+     initialisers would let them count (D99). 16 NOT EXACT (attempts.csv).
+   * target_reticle / skill_render (TR1): skill_render.cpp's `Unknown744FE0Class` stand-in can call SClient::Get_Target.
+     Select_Next_Target's callers 0x59DB10, 0x60E300 don't call it from the tree yet. `Unknown_466920Class` (Line3DClass
+     with a sort level, ctor 0x466920, table 0xAE8754) stays under a D137 mark in starmap_pip_support.h until its file
+     is known.
+   * Ui_starbase money 0x4F0320 / 0x4F0780, ui_popup_browser's ctor, the camctrl stubs of states 3, 7, 9 (A5,
+     functional). Leads: UIStarbaseClass's destructor 0x633B50 (NOT EXACT, register 0.82: eax / edx swapped from the
+     +0x190 delete on; SB2) and UIStarbaseUnknownCCClass's destructor 0x632E50 (declared only); LegoClass::Unknown_3C to
+     `const std::string &` at the next symbols.py refresh (WE8: loses 0x72CBF0 now); the enum-statics header 0xBE3B44 /
+     0xC416A8 / 0xC41658 (0x68FAE0, 0x54B6F0; NM1); unknown_78a910.cpp's ctor 0x78A910 and 0x78ACE0-0x78B660 (A8 stopped
+     on the agy quota).
+   * radar_data / kv_encoder, not rebuilt (RD1, KV1): 0x4973E0, 0x4976B0, 0x497700 (RObj2Texture); 0x832010, 0x79B6B0
+     declared only.
+   * Functional, unplaced (WE1; from the near-miss pass): 0x561DD0, 0x56D510, 0x5629E0, 0x744690 (WE1's functional);
+     unplaced: 0x8192C0, 0x819420 (after time_mgr.cpp), 0x5DCB50-0x5DCBE0 (a gauge object before ui_proc.cpp).
+   * The triage plan's runs (D163; the log entry of 2026-10-31 15:40): `.work/triage/plan.md` (rerun `triage.py plan`
+     after each run): 33 runs of 3+ neighbouring functions with no pair and one suggested file, 10 agreeing with both
+     neighbours (the hint's file was right 23 of 23 in TG1 / TG2's six; the 2026-11-05 night run found it wrong for
+     ui_item_examination's panels; on 2026-11-06 the file was right more often than its boundaries, see that entry), 16
+     naming a file not in the tree (optdlg 0x846D10 is the one left by size); 2,735 template instances; 379 library
+     kinds in the app range to check against gaps. Each run is a bounded builder item: claim the bare range
+     (`run_branch.py claim 0xLO-0xHI`). The table is tracked in `docs/data/triage.*` (D172). The $200's
+   * chat_window / chat_window_history (CH2): `FontSys::Font` (+0x24C) should be `RefCountPtr<Font32Class>` (0x67E71F
+     handles it as a ref pointer; chat_window.cpp casts for now). `unknown_67d430.*` is interim (D137): no `__FILE__`.
 
 2. **Step 9 (D90)**, left in its files (history: the log entries of 2026-10-28 and 2026-10-29):
    * co.cpp: the thunks 0x70E2A0-0x70E2D0 (too short for verify to count); type 28's aim 0x70E850 (frame / shape);
@@ -3044,6 +3055,27 @@ below name only the work items, the blocked work, the leads and the queues.
      sbaseview.cpp (leads 0x6A0590, +0x184..+0x1A0 as interface RefCountPtrs; 0x69F710 order);
      scriptedmovie.cpp (the dtor 0x8008B0, the loader 0x8099B0, 0x8059A0 shape, 0x8020B0: its D185 variant needs a
      fake derived struct).
+   * POC world entry (WE1's path; run `clientpoc.py replay --input .work/WE1/input.txt --seconds 140 --shots 1` with
+     `D3D8SHOT_EVERY=2000 D3D8SHOT_MAX=500`; in-world frames from ~280000): the POC enters the sector and draws the
+     backdrop, the orbitals, the player's ship as retail's, lit by the real lights, under the cockpit HUD with the radar
+     panel (ui_scan.cpp). Open (retail ~170 draws per frame, the POC ~114 at WE9; WE7's `.work/we7/drawsum.py`): the
+     chat window's split class's set-up 0x5723B0 (0x81D bytes, G_ASSERT 'anim' ll.129 / 136; still the POC's stand-in)
+     and its NOT EXACT dtor 0x572040 (inline-budget; a 0.77 form with dead reads stashed) and 0x572EE0 (0.56);
+     ChatWindowInterface's NOT EXACT (attempts.csv, CW2); the chat reply list 0x56E2A0 (fc_symbolchat.ini: likely
+     ui_symbolchat.cpp) and the combo box's ctor 0x5789E0 / 0x5790C0 / 0x578210 / 0x579DC0 / 0x57A060 / 0x5689D0; the
+     PDA's NOT EXACT 0x693E70, 0x695780, 0x695A00, 0x695FE0 and its windows' stand-ins (poc_world3.cpp: equipment,
+     cargo, vault, experience; poc_world4.cpp: character and star map set-ups' classes, GadgetPipSceneClass 0x66ACE0,
+     GadgetStarmapClass 0x7B4700); starmap_pip.cpp's rest (0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1C50, 0x7C2340,
+     0x7C2850, 0x7C2DA0-0x7C30E0; NOT EXACT 0x7C0C80, 0x7C1770 (frame, 0.88: retry the slot order now that +0x68 is a
+     Vector3), 0x7C2060, 0x7C3830) and sclient.h's +0xA8 as UIStarmapClass (mainview including ui_starmap.h lost
+     0x512A00 / 0x514960: read its objdiff first); ui_scan's 0x60ECD0 and 0x610370 (inline-budget; a delta_template.h
+     edit costs aux_roots' 8 pairs), UIScanThreatClass::Unknown_Refresh (declared, inline in 0x60DF90 / 0x60F1A0), NOT
+     EXACT 0x60E300, 0x60E580, 0x60D8D0, 0x60E6A0, 0x60F1A0; the target lines need a replay that selects a target;
+     Jupiter needs its CREATE + PLANET_POSITIONAL_UPDATE in antprox's replay (antprox repo); the render states:
+     rs_list's twins 0x45A750 / 0x45A7E0; enbscene's NOT EXACT 0x75F8B0 (field-offset) and 0x75FB00 (FP order);
+     camera_manager.cpp / camctrl_takeoff.cpp's local MainViewSceneClass -> enbscene.h where lines hold; the stand-ins
+     listed in poc_world.cpp / poc_world2.cpp / poc_world3.cpp / poc_world4.cpp / poc_gadget_*.cpp. Evidence-backed
+     cleanups: the 0x755AF0-0x755C30 COMDAT copies are sclient.cpp's, tied to SClient::Init 0x741180 (NOT EXACT).
 
 6. **Step 8's tail:** at LIMIT (Rate Count, the UDP constructor 0x82CBF0 register, Listen 0x82A470 register: try
    tonight's thin-forwarder / `it._Inc()` levers first) or in the Fable queue (TimedLog 0x824540).
@@ -3073,6 +3105,22 @@ below name only the work items, the blocked work, the leads and the queues.
    its own statics, no __FILE__; NAME 1); from the 2026-11-02 runs: unknown_6ca0c0.cpp / unknown_6cce60.cpp (font
    layout), unknown_msgbox.cpp, unknown_51c800.cpp, unknown_515640.cpp, unknown_458710.cpp, unknown_45e3f0.cpp,
    unknown_message.cpp / _record / _server / _filter (and Unknown_4BE9D0 in the filter's), mousetbl.h, enbassetmgr.h.
+   Added by later runs: delta_visitor.cpp (KV2), unknown_45d840.cpp, unknown_763e00.cpp/.h (RS1), cammod.cpp, camctrl.h,
+   unknown_798ae0.cpp, unknown_7979a0.cpp (CM1), ui_proc.h, observer.h (UP1; the .cpp names are the client's),
+   TimeMgrClass (SN1, D24 NAME 3), DeltaVisitorClass::Visit_Children 0x4B0860 left in unknown_root.cpp (moving it loses
+   0x4A46F0), kv_encoder.cpp, kv_acc.cpp, kv_acc_string.h, kv_acc_time.h, kv_time_adds.cpp (no `__FILE__`;
+   KVFilterEncoderClass's 0x4B5AD0-0x4B5D70 belong in kv_encoder_base.cpp's object by position, `<string>` initialiser
+   at 0x4B5E80), 0x7BE5A0 as closing radar_system_data_cache.cpp and the PermStringInitClass static at 0x7BB180's owner
+   (position and shape only, RD1), starmap_data.cpp's local `RObj2Texture` stand-in, ui_registration.h's classes under
+   `__UI_REGISTRATION_MEMBERS` (they left the .cpp to hold the ctor's assert on line 369), slot_data.h's name (RTTI's
+   class, link order only; ui_slot_scut.h and three others keep SlotDataClass stand-ins), skill_ability_names'
+   `Unknown_815320`-style free functions, radar_system.h against sclient.h's same-layout stand-in, radar_system.cpp's
+   `PDAInterfaceUnknownA0Class : MapPipClass` (base unverified), targeting.cpp's name (no client string; the asserts say
+   'targeting'; sorts between target_reticle and ui_starmap), 0x68FB60 / 0x68FC80 at inv_render.cpp's end (P-IR2-1),
+   unknown_67d430.* (no __FILE__), unknown_671300.h, ro_offset.cpp, ro_proxy.h's name, unknown_45a090.cpp and
+   unknown_45f390.cpp (the 'link' and 'sound' render states; rs_link.cpp / rs_sound.cpp would fit the link order: no
+   client string), ui_mfd_extended_context.cpp's name (NAME 1), target_generator_summary.cpp's name, the Unknown_B0804C
+   tooltip width in gd_attrb_skills.cpp, ui_starmap.h's StarmapPipClass.
 
 9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
@@ -3080,6 +3128,21 @@ below name only the work items, the blocked work, the leads and the queues.
    imports.json's maps sorted); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
    (H17's race); gen_stubs' by-value returns (P-T18-2); H16's `.work/h16/fm_gen.py` / `commit_h16.py` pattern for
    generated files.
+   Data and generated files: symbols.json / ghidra_symbols.py keep 15 old D198 names (and vtable 0xAFB5F4 reads
+   `??_7Unknown_675120Class@@6B@`: it is UIBackGadget's, D208): run `symbols.py` with every library's `--objs` at the
+   next refresh (without them it rewrites the file wholesale).
+   symbols.json: the next full regeneration (workflow.md §3.4, every `lost outright` checked against the client's vtable
+   layout first) also renews the 2026-11-03 renames' long functions (still under `ControlKeysManagerClass` mangled
+   names; they match by bytes). SY1's lead: D100's range (and the self name) could reject a `??_G` / `??_E` whose
+   vtable's slot count differs from the object's `??_7` (it would have avoided 0x723AB0).
+   datacmp (`tools/re/datacmp.py`, D201): ui_manu `_Unknown_BE5C20`: 104 bytes in our .data, first byte 5; the client's
+   0xBE5C20 is outside its raw data (BSS), so it holds nothing initialised there: either that symbol is not at that
+   address, or the object initialises what the client sets at run time. Less certain than the two constants datacmp
+   found first (fixed).
+   The rest of the static table audit (`tools/re/datacmp.py`, D201: run when wanted): 739 of 932 symbols compared at its
+   first full run, 193 not placed (`--list-unplaced`); left: 4-byte scalars (BridgeNear / BridgeFar, ...), constants
+   read only by non-exact functions, tables the compiler inlined or emitted no symbol for, 8 masked pointers in 7 tables
+   (ui_attrb 0xB79F04, ui_analyze 0xB7967C, ui_manu 0xB81868, ...).
 
 10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): fontdatabase's Set_Font 0x6C38F0
    register, Load 0x6C52B0 frame; the inlined StringClass::operator+=(TCHAR)'s base / index swap (LIMIT REACHED; lead:
@@ -3092,11 +3155,51 @@ below name only the work items, the blocked work, the leads and the queues.
    / 0x7CAD00 (E&B's `querydata`); P-H11-2 (the _Instances destructor frees nodes without element destructors: leave
    unbuilt until another SGI user shows it); `selfname` into imports.json only when something needs it (D88 row);
    same-shape template instances stay `multiple` until their relocation targets have names in symbols.json (P9).
+   * Near misses by file (attempts.csv rows; the parenthesis is the closeness where recorded and the cause):
+     - accel 0x4990C0 (shape)
+     - camera_manager 0x79B4F0, 0x799E40 (frame), 0x7998B0 (order)
+     - cammod_chase 0x79BFC0 (0.42, inline-budget)
+     - chat_window / chat_window_history (CH2; drafts in `.work/ch2/client/`): 0x67E670, 0x67F7F0, 0x6804E0, 0x6812C0,
+       0x6821F0, 0x682770 (attempts.csv; closest 0x6821F0: count's slot and the out-of-line size() 0x6829C0).
+     - client_lego_root 0x732880 (0.86, shape)
+     - galaxy_map_pip 0x5404E0
+     - galaxy_map_render 0x7A8B70 (inline-budget; holds 0x7B18A0-0x7B1EC0's 11 template members), 0x7A6DD0, 0x7AA660,
+       0x7ADFC0, 0x7AB6D0, 0x7AC130, 0x7AD090, 0x7AF400 / 0x7AF4A0 (inline-budget), 0x7A72C0 (register: fdivrp),
+       0x7A7560, 0x7A7D70 (field-offset), 0x7A83D0, 0x7AD5B0 (frame, untried), 0x7AD850 (blocked: colour part only)
+     - galaxy_map_robj 0x7B2B30 (register), 0x7B43F0 (order)
+     - gd_text_editor 0x671CB0, 0x6732F0, 0x6735A0
+     - gutter_data 0x7B54E0, 0x7B63C0; gutter_radar 0x7B71D0, 0x7B75E0
+     - inv_render and neighbours (IR2; don't spend heavily): 0x68C6B0, 0x68F510 (inline-budget), 0x68CCC0, 0x68E360
+       (register), 0x68FE10, 0x690AA0, 0x690D20 (order). Stand-ins left in the new files: `Unknown66CC00Class` (HUD
+       gadget), `Unknown688830Class`, `Item` (inv_data)
+     - kv_encoder 0x4B5D70 (0.43, inline-budget; 0x4B5E40 and 0x4B5E60 stay unbuilt with it)
+     - nav_list_builder 0x7B7EF0 (0.84, order)
+     - orbitalmanager 0x4F2CB0 (0.53, order), 0x4F45A0 (0.57, layout)
+     - radar_data 0x7BB570 (0.54, register; the most bytes left, case 1 and case 0's copy registers are the lead),
+       0x7BBC00 (0.76, inline-budget)
+     - radar_system 0x7BCA70 (barely tried), 0x7BE3A0
+     - rs_list 0x45AB20, 0x45AD90, 0x45B550
+     - skill_data 0x6A4C20, 0x6A4F40; skill_data_peek 0x6A5730; slot_data 0x6A7730, 0x6A7860
+     - starmap_data 0x7BEF50 (0.50, register)
+     - target_generator_summary 0x84BE60
+     - target_reticle 0x7C5690 TargetReticleClass::Update (register, parked at about 30 forms; its 16 no-code finds are
+       not the client's source)
+     - ui_mesh 0x5B8330, 0x5B8850, 0x5B8EE0, 0x5B8FF0
+     - ui_mfd 0x5BECF0, 0x5BCE50, 0x5BD540, 0x5BDC20, 0x5BDDF0, 0x5BDED0, 0x5BE120; ui_mfd_extended_context_harvestable
+       0x5C0350; ui_mfdm 0x5C25C0
+     - ui_proc 0x5DD3C0 (order 0.81)
+     - ui_slot_scut 0x6309F0 (about 300 forms: stop); ui_verb 0x658C90 (about 80 forms)
+     - ui_talkt 0x64B6E0, 0x64C8D0, 0x64CC90, 0x64D400, 0x64D770, 0x64E7A0 (0x64D770 and 0x64E7A0 have better draft
+       forms, TK1's rows)
+     - unknown_75b7b0 0x75B8F0 (0.83, order), 0x75BB50 (0.37, inline-budget); unknown_79c8e0 0x79C970 (0.52, shape);
+       unknown_7979a0 0x797B50, 0x7981B0, 0x798570, 0x7987F0
 
 11. **Reminders:** D7's (revisit byte-exactness of E&B's code with the user if it becomes too costly;
    `docs/data/not-exact.md` shows how much functional code waits); which bool-return form gives a bare
    `setcc al` without the `xor`; the inline budget blocks most parked UI rows: a study of VC6's /Ob2 budget (F8 /
    IB3's levers, workflow.md §3.1) is the shared lead.
+   antprox's build table (AntaresProxy repo) calls 249f8524 EA's last client (D199): it is EA's 82663b2f plus Net-7's
+   URL edits; correct the label there, and add 82663b2f if EA's exe should be recognised.
 
 12. **The 2026-10-30 night's files**, left in each: rs_track.cpp's ctors 0x45FDA0 / 0x45FFB0 (order), 0x460E80;
    proj_man's 0x493620 (one register row). ui_group.cpp: 0x5946D0, 0x595530, 0x596770,

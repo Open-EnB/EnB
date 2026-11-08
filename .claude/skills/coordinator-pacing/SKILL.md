@@ -101,7 +101,9 @@ Rerun `python .claude/skills/coordinator-pacing/scripts/burnrate.py` from the re
 - In the same pass, prune progress.md §4 (Next steps): delete each item the report completes, and cut a part-done
   item down to what is left (its remaining addresses / functions). Never annotate an item as done ("made exact
   tonight", "done in run X"): what landed belongs in the plan log and the handoff's log entry, not in §4. Add the
-  report's new leads to §4 only as open work. No builder edits progress.md during a run, so this is safe at any time.
+  report's new leads to §4 only as open work, each filed under its numbered category (near misses in "Parked
+  leftovers", interim placements in "Provisional placements", tool items in "Tools", the rest in "Work items" under its
+  file), never as a dated or per-run bullet ("Leads of <run>", "Near misses of <date>"). No builder edits progress.md during a run, so this is safe at any time.
 
 ## Draining to a handoff
 
