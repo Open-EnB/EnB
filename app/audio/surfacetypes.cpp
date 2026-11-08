@@ -19,7 +19,6 @@ public:
 static char *SoundWalking[SURFACE_TYPE_MAX];	// 0xBDAC84  // NAME 2: what it holds
 static char *SoundRunning[SURFACE_TYPE_MAX];	// 0xBDAD04  // NAME 2: what it holds
 
-// NOT EXACT: frame (0.51, sub esp 0x90 vs 0x8c)
 // @0x442650
 void Unknown_442650()							// NAME 1 [Unknown_442650]: 0x442650, surfacetypes.cpp's loader
 {
@@ -27,8 +26,8 @@ void Unknown_442650()							// NAME 1 [Unknown_442650]: 0x442650, surfacetypes.c
 	memset(SoundWalking, 0, sizeof(SoundWalking));
 
 	file_auto_ptr file(_TheFileFactory, "footsteps.ini");
-	int surfacetype = 0;
 	INIClass *ini = new SoundINIClass(*file);
+	int surfacetype = 0;
 
 
 
@@ -59,7 +58,8 @@ void Unknown_442650()							// NAME 1 [Unknown_442650]: 0x442650, surfacetypes.c
 
 
 
-	for (INISection *section = ini->Get_Section_List().First_Valid(); section != NULL; section = section->Next_Valid()) {
+
+	for (INISection *section = ini->Get_Section_List().First_Valid(); section != NULL; section = section->Next_Valid(), surfacetype++) {
 		const char *name = section->Section;
 		if (name[0] != 0) {
 			G_ASSERT(surfacetype < SURFACE_TYPE_MAX);
@@ -75,7 +75,7 @@ void Unknown_442650()							// NAME 1 [Unknown_442650]: 0x442650, surfacetypes.c
 		}
 
 
-		surfacetype++;
+
 	}
 	G_ASSERT(surfacetype == SURFACE_TYPE_MAX);
 	delete ini;
