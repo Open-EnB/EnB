@@ -18,9 +18,9 @@ struct ChatWinSplitResizeStruct	// NAME 1: neutral (D10)
 	inline ~ChatWinSplitResizeStruct();					// 0x573430 (ui_chat_window_split.cpp)
 	HAnimComboDataClass *Unknown00;						// +0x00 (the handle's animation data)
 	ResizeGadgetClass *Unknown04;						// +0x04 (the handle's resize gadget)
-	int Unknown08;										// +0x08 (-1: the saved value)
+	unsigned int Unknown08;								// +0x08 (-1: the saved value; 0x5732A0 sets the animation's frame to it)
 	int Unknown0C;										// +0x0C
-	int Unknown10;										// +0x10
+	unsigned int Unknown10;								// +0x10 (0x5732A0's upper bound for +0x08)
 };
 
 // The split chat window (0x120 bytes; constructor 0x571F00, table 0xAF052C: slots +0x00 0x572010, +0x54 0x5723B0,
@@ -35,14 +35,16 @@ public:
 	virtual void Unknown_5C();							// +0x5C 0x572E00
 	virtual void Unknown_60();							// +0x60 0x572E20
 	virtual bool Unknown_68(int key);					// +0x68 0x572EE0
-	virtual void Unknown_A8();							// +0xA8 0x573220
+	virtual void Unknown_A8();							// +0xA8 0x573220 (the base's, then the resize gadgets shown or hidden with the frame)
+
+	void Unknown_5732A0(unsigned int size, unsigned int split);	// 0x5732A0 (FAIL_IF '!AnimCombo' l.331: the two values clamped, the animations' frames set)  // NAME 1 [size, split]: the options they are saved as
 
 	int UnknownE8;										// +0xE8 (the kind: 0 'ChatWinSplit_None', 1 'ChatWinSplit_Vert', 2 'ChatWinSplit_Horz')
 	HAnimComboClass *UnknownEC;							// +0xEC (the frame's animation combo: the two resize animations)
 	ChatWinSplitResizeStruct UnknownF0;					// +0xF0 (the size: saved as the option '<prefix>Size')
 	ChatWinSplitResizeStruct Unknown104;				// +0x104 (the split: saved as the option '<prefix>Split')
 	bool Unknown118;									// +0x118 (the kind is 2)
-	const char *Unknown11C;								// +0x11C (the kind's model name)
+	const char *Unknown11C;								// +0x11C (the options' name prefix: 'ChatWinSplit_None' / '_Vert' / '_Horz' by the kind)
 };
 
 #endif
