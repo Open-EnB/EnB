@@ -33,7 +33,10 @@ bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss
   5. landing: under the importer lock, the worktree that has TARGET checked out (the main tree for
      master) gets each changed path 3-way merged with its uncommitted copy (git merge-file; attempts.csv
      by row union; any other conflict, a ledger shard's included, refuses), then `update-ref refs/heads/TARGET NEW OLD` (compare-and-swap), then the merged files
-     are written and their index entries reset to the new HEAD.
+     are written and their index entries reset to the new HEAD. TARGET moved past OLD meanwhile (pipeline-plan §4
+     item 3; a coordinator's commit): when those commits touch none of the paths the landing's commits touch and no
+     generated file, the landing's commits are replayed onto TARGET's tip (plumbing on a temporary index; no verify:
+     nothing it verified changed) and the compare-and-swap retried; otherwise it refuses naming the overlapping paths.
   --dry stops before landing; --keep keeps the scratch worktree; logs go to .work/wt/NAME.bo.*.log.
   Every importer call waits --lock-wait seconds (3000) for the lock.
 
@@ -58,8 +61,9 @@ Batch form (two or more branches, a range, or --batch-name; D202): one verify ov
      in the log. The loss rule. report.py, names.py, notexact.py; the regenerated files are committed with a generated
      subject and --trailer (default the newest Co-Authored-By on TARGET).
   4. landing: the worktree holding TARGET must have no tracked file modified (.claude/settings.json aside, unless the
-     batch changes it): checked at the start and again under the lock. TARGET moves by compare-and-swap, so a TARGET
-     that moved during the verify is refused and named as well; rerun.
+     batch changes it): checked at the start and again under the lock. TARGET moves by compare-and-swap; a TARGET
+     that moved during the verify is handled as in the single form's step 5 (unrelated commits: replayed onto;
+     shared paths or generated files: refused, named; rerun).
   --picks-only stops after step 1 (no verify); --dry stops before step 4; the scratch worktree goes unless --keep or
   a conflict stopped the batch. Logs: .work/wt/N.bo.*.log.
 
@@ -616,7 +620,9 @@ def hold_lock(wait=900):
 
 def release_lock():
     try:
-        if json.load(open(LOCK)).get('pid') == os.getpid():
+        with open(LOCK) as f:
+            mine = json.load(f).get('pid') == os.getpid()
+        if mine:
             os.remove(LOCK)
     except (OSError, ValueError):
         pass
@@ -678,28 +684,100 @@ def dirty_target(target, changing=()):
     return '; '.join(bad) or None
 
 
+def touched_by(lo, hi):
+    """Every path a commit in LO..HI touches (per commit: a change made and undone still counts)."""
+    out = git('log', '--no-renames', '--format=', '--name-only', f'{lo}..{hi}')
+    return {p for p in out.splitlines() if p.strip()}
+
+
+def replay(old, new, onto):
+    """NEW's commits above OLD rebuilt on ONTO (plumbing, no worktree: a temporary index holds ONTO's tree and each
+    commit's own changes are applied to it); authors and messages kept. Only for paths ONTO's commits since OLD left
+    alone, so no commit can conflict. The new tip."""
+    commits = git('rev-list', '--reverse', '--topo-order', f'{old}..{new}').split()
+    if git('rev-list', '--merges', f'{old}..{new}').strip():
+        raise ValueError(f'{new[:9]} has merge commits above {old[:9]}')
+    with tempfile.TemporaryDirectory(dir=WTDIR) as td:
+        env = dict(os.environ, GIT_INDEX_FILE=os.path.join(td, 'index'))
+        git('read-tree', onto, env=env)
+        parent = onto
+        for c in commits:
+            info = []
+            f = git('diff-tree', '-r', '--no-renames', '--no-commit-id', '--raw', '-z', c + '^', c).split('\0')[:-1]
+            for meta, path in zip(f[0::2], f[1::2]):        # -z: ':MODE MODE SHA SHA S' NUL path NUL
+                _, mode, _, sha, status = meta.lstrip(':').split(' ')
+                info.append(f'0 {"0" * 40}\t{path}' if status == 'D' else f'{mode} {sha}\t{path}')
+            if info:
+                git('update-index', '--index-info', env=env, inp=('\n'.join(info) + '\n').encode('utf-8', 'surrogateescape'))
+            tree = git('write-tree', env=env).strip()
+            raw = git('cat-file', 'commit', c).encode('utf-8', 'surrogateescape')
+            head, _, msg = raw.partition(b'\n\n')
+            author = [l for l in head.split(b'\n') if l.startswith(b'author ')][0][len(b'author '):].decode(
+                'utf-8', 'surrogateescape')
+            m = re.fullmatch(r'(.*) <(.*)> (\S+ \S+)', author)
+            cenv = dict(os.environ, GIT_AUTHOR_NAME=m.group(1), GIT_AUTHOR_EMAIL=m.group(2), GIT_AUTHOR_DATE=m.group(3))
+            parent = git('commit-tree', tree, '-p', parent, '-F', '-', env=cenv, inp=msg).strip()
+        return parent
+
+
+def land_onto(target, old, new, now):
+    """(NEW replayed onto NOW, None) when TARGET's commits OLD..NOW touch no path NEW's commits touch and no generated
+    file; else (None, why naming the overlapping paths)."""
+    if not ok('merge-base', '--is-ancestor', old, now):
+        return None, f'{target} moved to {now[:9]}, which does not contain {old[:9]} (rewritten?); nothing landed'
+    theirs, mine = touched_by(old, now), touched_by(old, new)
+    shared = sorted(theirs & mine)
+    gen = sorted(p for p in theirs - mine if generated(p))
+    n = git('rev-list', '--count', f'{old}..{now}').strip()
+    if shared or gen:
+        what = '; '.join(x for x in (shared and 'paths this landing changes as well: ' + ', '.join(shared[:10]),
+                                     gen and 'generated files: ' + ', '.join(gen[:10])) if x)
+        return None, (f'{target} moved {old[:9]} -> {now[:9]} while landing ({n} commit(s)) and they touch {what}; '
+                      f'nothing landed, rerun')
+    try:
+        tip = replay(old, new, now)
+    except ValueError as e:
+        return None, f'{target} moved {old[:9]} -> {now[:9]} while landing and {e}; nothing landed, rerun'
+    print(f'{target} moved {old[:9]} -> {now[:9]} while landing ({n} commit(s), touching none of the landing\'s paths '
+          f'and no generated file): the landing replayed onto it, {new[:9]} -> {tip[:9]}', flush=True)
+    return tip, None
+
+
 def land(target, old, new, wait=900, refuse_dirty=False):
-    """Compare-and-swap TARGET from OLD to NEW and bring the worktree that has it checked out along."""
+    """Compare-and-swap TARGET from OLD to NEW and bring the worktree that has it checked out along. When TARGET
+    moved past OLD meanwhile by commits unrelated to the landing (land_onto), NEW's commits are replayed onto it
+    first. (why, landed tip): why None when it landed."""
     holder = target_holders(target)
     hold_lock(wait)
     try:
-        plan = {}
-        paths = git('diff', '--name-only', '--no-renames', old, new).splitlines()
-        if refuse_dirty:
-            d = dirty_target(target, paths)
-            if d:
-                return f'{target} is dirty, not fast-forwarded ({d}); nothing landed'
-        for wt in holder:
-            for p in paths:
-                m = merge_work(wt, p, old, new)
-                if isinstance(m, tuple):
-                    return f'{os.path.relpath(os.path.join(wt, p), ROOT)}: {m[1]}; nothing landed'
-                if m != 'same':
-                    plan[(wt, p)] = m
-        r = git('update-ref', '-m', 'wt.py bring-over', 'refs/heads/' + target, new, old, check=False)
-        if r.returncode:
-            now = git('rev-parse', 'refs/heads/' + target).strip()
-            return f'{target} moved to {now[:9]} while landing (built on {old[:9]}); nothing landed, rerun'
+        base, tip = old, new
+        for _ in range(5):              # a plain `git commit` on TARGET doesn't take the lock: re-check each time
+            now = rev('refs/heads/' + target)
+            if now != base:
+                tip, why = land_onto(target, old, new, now)
+                if why:
+                    return why, None
+                base = now
+            plan = {}
+            paths = git('diff', '--name-only', '--no-renames', base, tip).splitlines()
+            if refuse_dirty:
+                d = dirty_target(target, paths)
+                if d:
+                    return f'{target} is dirty, not fast-forwarded ({d}); nothing landed', None
+            for wt in holder:
+                for p in paths:
+                    m = merge_work(wt, p, base, tip)
+                    if isinstance(m, tuple):
+                        return f'{os.path.relpath(os.path.join(wt, p), ROOT)}: {m[1]}; nothing landed', None
+                    if m != 'same':
+                        plan[(wt, p)] = m
+            r = git('update-ref', '-m', 'wt.py bring-over', 'refs/heads/' + target, tip, base, check=False)
+            if r.returncode == 0:
+                break
+        else:
+            now = rev('refs/heads/' + target)
+            return f'{target} kept moving while landing (now {now[:9]}, built on {old[:9]}); nothing landed, rerun', None
+        new, old = tip, base
         for (wt, p), text in plan.items():
             full = os.path.join(wt, p)
             if text is None:
@@ -711,7 +789,7 @@ def land(target, old, new, wait=900, refuse_dirty=False):
             os.makedirs(os.path.dirname(full), exist_ok=True)
             with open(full, 'wb') as f:
                 f.write(data)
-        for wt in holder:
+        for wt in holder if paths else ():
             for _ in range(5):
                 r = git('reset', '-q', new, '--', *paths, cwd=wt, check=False)
                 if r.returncode in (0, 1):
@@ -719,7 +797,7 @@ def land(target, old, new, wait=900, refuse_dirty=False):
                 time.sleep(2)
             print(f'{os.path.relpath(wt, ROOT) if wt != ROOT else "main tree"}: '
                   f'{sum(1 for k in plan if k[0] == wt)} file(s) written, index entries of {len(paths)} reset')
-        return None
+        return None, new
     finally:
         release_lock()
 
@@ -1046,7 +1124,8 @@ def cmd_batch(a):
             sys.exit(f'wt: {bo} has uncommitted changes: {dirty_tracked(bo)[:10]}')
         old = state['old']
         if rev(tref) != old:
-            sys.exit(f'wt: {a.target} moved ({old[:9]} -> {rev(tref)[:9]}) since the batch began: remove {name} and rerun')
+            print(f'note: {a.target} moved ({old[:9]} -> {rev(tref)[:9]}) since the batch began: the landing replays '
+                  f'onto it if those commits touch none of the batch\'s paths and no generated file, else refuses')
     else:
         if os.path.isdir(bo):
             sys.exit(f'wt: {bo} exists (a stopped batch?): --resume after finishing its pick, or `wt.py remove {name}`')
@@ -1088,14 +1167,11 @@ def cmd_batch(a):
         if a.dry:
             print(f'--dry: would land {old[:9]} -> {new[:9]} on {a.target}')
             return
-        now = rev(tref)
-        if now != old:
-            sys.exit(f'wt: {a.target} moved ({old[:9]} -> {now[:9]}) during the batch, not fast-forwarded; rerun')
-        why = land(a.target, old, new, a.lock_wait, refuse_dirty=True)
+        why, landed = land(a.target, old, new, a.lock_wait, refuse_dirty=True)
         if why:
             sys.exit(f'wt: {why}')
-        print(f'landed: {a.target} {old[:9]} -> {new[:9]}')
-        print(git('log', '--format=  %h %s', f'{old}..{new}').rstrip()[:2000])
+        print(f'landed: {a.target} {old[:9]} -> {landed[:9]}')
+        print(git('log', '--format=  %h %s', f'{old}..{landed}').rstrip()[:2000])
     finally:
         if not keep and os.path.isdir(bo):
             drop_worktree(bo)
@@ -1172,12 +1248,12 @@ def cmd_bring_over(a):
         if a.dry:
             print(f'--dry: would land {old[:9]} -> {new[:9]} on {a.target}')
             return
-        why = land(a.target, old, new, a.lock_wait)
+        why, landed = land(a.target, old, new, a.lock_wait)
         if why:
             sys.exit(f'wt: {why}')
-        print(f'landed: {a.target} {old[:9]} -> {new[:9]}')
-        print(git('log', '--format=  %h %s', f'{old}..{new}').rstrip()[:2000])
-        if ff and new == tip:
+        print(f'landed: {a.target} {old[:9]} -> {landed[:9]}')
+        print(git('log', '--format=  %h %s', f'{old}..{landed}').rstrip()[:2000])
+        if ff and landed == tip:
             with open(base_file(a.name), 'w', newline='\n') as f:
                 f.write(new + '\n')
         else:

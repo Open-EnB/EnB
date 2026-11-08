@@ -241,5 +241,64 @@ class Unlanded(GitRepo):
         self.assertIn('A work', out)
 
 
+class Land(GitRepo):
+    """Item 3: a landing tolerates commits on the target that touch none of its paths and no generated file."""
+
+    def setUp(self):
+        super().setUp()
+        locks = os.path.join(self.root, '.work', 'locks')
+        os.makedirs(locks)
+        old = wt.LOCK
+        wt.LOCK = os.path.join(locks, 'importer.lock')
+        self.addCleanup(setattr, wt, 'LOCK', old)
+        commit(self.root, 'notes', **{'notes_dot_txt': 'n1\n'})
+        self.old = run(self.root, 'rev-parse', 'HEAD')
+        p = self.worktree('T')
+        run(p, 'reset', '-q', '--hard', self.old)
+        commit(p, 'builder 1', **{'src_dot_txt': 's1\ns2\ns3\nmine\n'})
+        self.new = commit(p, 'builder 2', **{'lib/b_dot_txt': 'b\n'})
+
+    def land(self, refuse_dirty=False):
+        with redirect_stdout(io.StringIO()) as out:
+            why, landed = wt.land('run/x', self.old, self.new, wait=1, refuse_dirty=refuse_dirty)
+        return why, landed, out.getvalue()
+
+    def test_unrelated_commit_lands_both(self):
+        theirs = commit(self.root, 'coordinator', **{'other_dot_txt': 'o\n'})
+        write(self.root, 'notes.txt', 'n1\nuncommitted\n')         # the coordinator's edit survives the landing
+        why, landed, out = self.land()
+        self.assertIsNone(why)
+        self.assertIn('replayed', out)
+        self.assertEqual(run(self.root, 'rev-parse', 'run/x'), landed)
+        self.assertEqual(run(self.root, 'rev-parse', 'run/x~2'), theirs)
+        self.assertEqual(run(self.root, 'log', '--format=%s', '-3', 'run/x').splitlines(),
+                         ['builder 2', 'builder 1', 'coordinator'])
+        self.assertEqual(run(self.root, 'show', 'run/x:other.txt'), 'o')
+        self.assertEqual(run(self.root, 'show', 'run/x:lib/b.txt'), 'b')
+        self.assertEqual(rd(os.path.join(self.root, 'src.txt')), 's1\ns2\ns3\nmine\n')
+        self.assertEqual(rd(os.path.join(self.root, 'notes.txt')), 'n1\nuncommitted\n')
+        self.assertEqual(run(self.root, 'status', '--porcelain', '-uno'), 'M notes.txt')
+
+    def test_not_moved_fast_forwards(self):
+        why, landed, out = self.land()
+        self.assertIsNone(why)
+        self.assertEqual(landed, self.new)
+        self.assertNotIn('replayed', out)
+
+    def test_shared_path_refused(self):
+        theirs = commit(self.root, 'coordinator', **{'src_dot_txt': 's1\ns2\ns3\n\ntheirs\n', 'other_dot_txt': 'o\n'})
+        why, landed, _ = self.land()
+        self.assertIn('src.txt', why)
+        self.assertNotIn('other.txt', why)
+        self.assertIsNone(landed)
+        self.assertEqual(run(self.root, 'rev-parse', 'run/x'), theirs)
+
+    def test_generated_file_refused(self):
+        theirs = commit(self.root, 'regenerated', **{'docs/imports_dot_md': 'R\n'})
+        why, landed, _ = self.land(refuse_dirty=True)
+        self.assertIn('generated files: docs/imports.md', why)
+        self.assertEqual(run(self.root, 'rev-parse', 'run/x'), theirs)
+
+
 if __name__ == '__main__':
     unittest.main()

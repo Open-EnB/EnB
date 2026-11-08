@@ -1456,7 +1456,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.8 Git, docs and scripting hygiene
 
-* **Landing in a busy run (2026-11-07):** no run-branch commit while a landing runs (it refuses: "moved while landing"); a branch
+* **Landing in a busy run (2026-11-07):** a run-branch commit made while a landing runs is replayed under (wt.py lands
+  on top of it) when it touches none of the landing's paths and no generated file; one touching those still refuses
+  ("moved ... while landing ... and they touch <paths>": rerun); a branch
   based on another builder's unlanded branch re-carries those commits after they land under new hashes: `git rebase --onto
   run/<date> <old base tip>` its own commits only; after resolving generated conflicts by hand, regenerate (verify, report, names.py)
   before landing, or bring-over refuses ("the commits record other pairs"). poc_check.sh's LOG must be an absolute path.
@@ -1512,7 +1514,8 @@ unless `--lever` cites a new row of this table.
 * **`wt.py bring-over` refusing on an imports.json conflict** (2026-10-28, LD2): now `wt.py rebase NAME --onto
   master` (takes master's side, re-verifies, unions attempts.csv, regenerates, commits).
 * **After a bring-over, `git rebase master` in the worktree can conflict on names-review.md:** `git rebase --skip`
-  drops the commit that already landed; "master moved while landing": rerun (2026-10-28, EF2).
+  drops the commit that already landed; "master moved ... while landing" (its new commits touch the landing's paths or a
+  generated file; unrelated ones are landed on top of): rerun (2026-10-28, EF2).
 * **When master moves every few minutes, `wt.py bring-over` keeps conflicting on imports.json** (2026-10-28, DM1):
   verify in the worktree, then commit_mine from the main tree with the whole file and its imports entry copied
   over (`commit_rows.set_entries`; `.work/dm1/land.sh`).
