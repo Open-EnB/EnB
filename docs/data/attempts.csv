@@ -2323,3 +2323,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-08 01:56,0x5C2470,,app/client/ui_mfdm.cpp,app,exact,,,,conditioned pointer release and nulling inside if,,Gemini 3.8 Flash (High)
 2026-11-08 01:56,0x5BDC20,,app/client/ui_mfd.cpp,app,partial,,,field-offset,tried inlining Vector3 sub and reversing radius terms; Target evaluated first (2 rows field-offset),,Gemini 3.8 Flash (High)
 2026-11-08 01:56,0x5BDDF0,,app/client/ui_mfd.cpp,app,partial,,,frame,reusing single Matrix3D local across Self and Target headings leaves sub esp 0x60 (9 rows frame),,Gemini 3.8 Flash (High)
+2026-11-08 01:49,0x45C430,,app/shared/rs_list.cpp,app,exact,1.00,2,inline-budget,exact: #pragma auto_inline(off) around Unknown_45B990 keeps it out of line as called by Unknown_00,,Gemini 3.8 Flash (High)

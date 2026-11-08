@@ -638,7 +638,7 @@ RenderStateClass *RenderStateListClass::Unknown_45B550(const char *filename, int
 
 
 
-
+#pragma auto_inline(off)
 // 0x45B990
 RenderStateClass *RenderStateListClass::Unknown_45B990(INIClass &ini, const char *section, int id)
 {
@@ -656,7 +656,7 @@ RenderStateClass *RenderStateListClass::Unknown_45B990(INIClass &ini, const char
 	G_ASSERT(0);
 	return(NULL);
 }
-
+#pragma auto_inline(on)
 // 0x45BAB0
 RenderStateClass *RenderStateListClass::Unknown_45BAB0(int id, int link_id, unsigned int flags, const char *name, int next_id, float duration, const char *bone, int message)
 {
@@ -767,7 +767,6 @@ RenderStateListClass::~RenderStateListClass()
 }
 
 // 0x45C430
-// NOT EXACT: inlining (0.62): the client calls the effect pass maker 0x45B990 out of line; ours inlines it
 int Unknown45C430Class::Unknown_00(RenderStateListClass *list, INIClass &ini, const char *section, const char *type, int index)
 {
 	int id = ini.Get_Int(section, "ID", index);
@@ -868,5 +867,5 @@ void RenderStateListClass::Unknown_04(float scale, float *hsv)
 ** NOT EXACT (functional, D64): 0x45AB20 and 0x45BC30 (the float DURATION's store is scheduled before the next push
 ** in the client), 0x45AD90 (register allocation: the client keeps 0 in ebp from the start, one more local),
 ** 0x45B550 (the SHADER switch: the client's jump table starts at 0 with case 0 on the default's code; ours
-** subtracts 1), 0x45C430 (the client calls the effect pass maker 0x45B990 out of line; ours inlines it).
+** subtracts 1).
 */
