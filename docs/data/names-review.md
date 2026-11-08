@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 174 |
+| 5 | the client names it | 175 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1623 |
-| 2 | describes what the code does | 3762 |
-| 1 | neutral placeholder | 19119 |
+| 2 | describes what the code does | 3763 |
+| 1 | neutral placeholder | 19148 |
 
 ## For review (score 3 and below)
 
@@ -2939,14 +2939,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_75F700` | `app/client/enbscene.cpp:131` | untagged neutral name (D10) |
 | 1 | `Clear_Unknown1218` | `app/client/enbscene.cpp:176` | untagged neutral name (D10) |
 | 1 | `Add_Unknown1218` | `app/client/enbscene.cpp:183` | untagged neutral name (D10) |
-| 1 | `MainViewSceneClass` | `app/client/enbscene.h:23` | neutral (D10): mainview.cpp's scene |
-| 1 | `sun, camera` | `app/client/enbscene.h:34` | what Update passes |
-| 1 | `Unknown_75F690` | `app/client/enbscene.h:34` | untagged neutral name (D10) |
-| 1 | `color` | `app/client/enbscene.h:35` | what Update passes |
-| 1 | `Unknown_75F700` | `app/client/enbscene.h:35` | untagged neutral name (D10) |
-| 1 | `UnknownA8` | `app/client/enbscene.h:37` | neutral (D10) |
-| 1 | `UnknownC0` | `app/client/enbscene.h:38` | neutral (D10) |
-| 1 | `UnknownDC` | `app/client/enbscene.h:40` | neutral (D10) |
+| 1 | `Unknown_75FB00` | `app/client/enbscene.cpp:202` | untagged neutral name (D10) |
+| 1 | `MainViewSceneClass` | `app/client/enbscene.h:26` | neutral (D10): mainview.cpp's scene |
+| 1 | `sun, camera` | `app/client/enbscene.h:37` | what Update passes |
+| 1 | `Unknown_75F690` | `app/client/enbscene.h:37` | untagged neutral name (D10) |
+| 1 | `color` | `app/client/enbscene.h:38` | what Update passes |
+| 1 | `Unknown_75F700` | `app/client/enbscene.h:38` | untagged neutral name (D10) |
+| 1 | `to, from, move, result, ignore, ship` | `app/client/enbscene.h:39` | what 0x7998B0 passes |
+| 1 | `Unknown_75FB00` | `app/client/enbscene.h:39` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/enbscene.h:41` | neutral (D10) |
+| 1 | `UnknownC0` | `app/client/enbscene.h:42` | neutral (D10) |
+| 1 | `UnknownDC` | `app/client/enbscene.h:44` | neutral (D10) |
 | 1 | `Unknown67D360Class` | `app/client/env_map_manager.cpp:21` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `app/client/env_map_manager.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/env_map_manager.cpp:63` | untagged neutral name (D10) |
@@ -13764,62 +13767,78 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Field` | `app/client/ui_scan.cpp:544` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_scan.cpp:544` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Changed_Field` | `app/client/ui_scan.cpp:545` | neutral (D10) |
+| 1 | `Unknown_496AE0` | `app/client/ui_scan.cpp:548` | untagged neutral name (D10) |
+| 1 | `robj, sort_level, dec_if_match` | `app/client/ui_scan.cpp:549` | ui_cpit.cpp's |
+| 1 | `Unknown_496730` | `app/client/ui_scan.cpp:549` | untagged neutral name (D10) |
+| 1 | `Unknown_60E6A0` | `app/client/ui_scan.cpp:559` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/ui_scan.cpp:573` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_scan.cpp:574` | untagged neutral name (D10) |
+| 1 | `Unknown_Clear` | `app/client/ui_scan.cpp:579` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/ui_scan.cpp:580` | untagged neutral name (D10) |
+| 1 | `Unknown59E2C0Class` | `app/client/ui_scan.cpp:580` | untagged neutral name (D10) |
+| 1 | `Unknown_59E600` | `app/client/ui_scan.cpp:587` | untagged neutral name (D10) |
+| 1 | `Unknown_60EC70` | `app/client/ui_scan.cpp:588` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/ui_scan.cpp:588` | untagged neutral name (D10) |
+| 1 | `Unknown_60ECA0` | `app/client/ui_scan.cpp:591` | untagged neutral name (D10) |
+| 1 | `Unknown` | `app/client/ui_scan.cpp:617` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_scan.cpp:619` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/ui_scan.cpp:633` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE7D0` | `app/client/ui_scan.cpp:690` | untagged neutral name (D10) |
 | 1 | `Unknown_70B0A0` | `app/client/ui_scan.cpp:724` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/ui_scan.cpp:762` | untagged neutral name (D10) |
-| 1 | `Unknown_60E6A0` | `app/client/ui_scan.cpp:764` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ui_scan.cpp:770` | untagged neutral name (D10) |
-| 1 | `Unknown18` | `app/client/ui_scan.cpp:771` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/ui_scan.cpp:772` | untagged neutral name (D10) |
-| 1 | `Unknown10BC` | `app/client/ui_scan.cpp:772` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/ui_scan.cpp:811` | untagged neutral name (D10) |
 | 1 | `Unknown_Refresh` | `app/client/ui_scan.cpp:814` | untagged neutral name (D10) |
 | 1 | `Unknown40` | `app/client/ui_scan.cpp:819` | untagged neutral name (D10) |
 | 1 | `Unknown_Update` | `app/client/ui_scan.cpp:820` | untagged neutral name (D10) |
 | 1 | `ui_scan.h` | `app/client/ui_scan.h:3` | provisional header name for ui_scan.cpp |
-| 1 | `Unknown59E2C0Class` | `app/client/ui_scan.h:15` | neutral (D10) |
-| 1 | `Unknown_04` | `app/client/ui_scan.h:19` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_scan.h:19` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_scan.h:19` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_scan.h:20` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/ui_scan.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/ui_scan.h:23` | untagged neutral name (D10) |
-| 1 | `Unknown3C` | `app/client/ui_scan.h:24` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `app/client/ui_scan.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/ui_scan.h:26` | untagged neutral name (D10) |
-| 1 | `UIScanThreatClass` | `app/client/ui_scan.h:37` | neutral (D10) |
-| 1 | `Unknown18` | `app/client/ui_scan.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/ui_scan.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown28` | `app/client/ui_scan.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/ui_scan.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_60FEE0` | `app/client/ui_scan.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown_Update` | `app/client/ui_scan.h:43` | neutral (D10) |
-| 1 | `Unknown_Refresh` | `app/client/ui_scan.h:44` | neutral (D10) |
-| 1 | `std:` | `app/client/ui_scan.h:47` | neutral |
-| 1 | `Unknown14` | `app/client/ui_scan.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/ui_scan.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/ui_scan.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown5BE980Class` | `app/client/ui_scan.h:60` | untagged neutral name (D10) |
-| 1 | `view, layer` | `app/client/ui_scan.h:63` | what 0x57DD20 passes |
-| 1 | `Unknown_54` | `app/client/ui_scan.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_scan.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_scan.h:67` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_scan.h:68` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_scan.h:69` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ui_scan.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown_Watch_0C` | `app/client/ui_scan.h:71` | untagged neutral name (D10) |
-| 1 | `target, assessment, sound, level` | `app/client/ui_scan.h:73` | what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel) |
-| 1 | `Unknown_60E540` | `app/client/ui_scan.h:73` | untagged neutral name (D10) |
-| 1 | `target, assessment, sound, level` | `app/client/ui_scan.h:74` | 0x60E540's |
-| 1 | `Unknown_60ED60` | `app/client/ui_scan.h:74` | untagged neutral name (D10) |
-| 1 | `Unknown_60E6A0` | `app/client/ui_scan.h:75` | untagged neutral name (D10) |
-| 1 | `Unknown_60ED10` | `app/client/ui_scan.h:76` | untagged neutral name (D10) |
-| 1 | `Unknown_60EFE0` | `app/client/ui_scan.h:77` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_scan.h:78` | neutral |
-| 1 | `Unknown_60F1A0` | `app/client/ui_scan.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown198` | `app/client/ui_scan.h:86` | untagged neutral name (D10) |
-| 1 | `Threat` | `app/client/ui_scan.h:88` | neutral |
-| 1 | `Unknown1A4` | `app/client/ui_scan.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown59E2C0Class` | `app/client/ui_scan.h:19` | neutral (D10) |
+| 1 | `robj, layer, owner, object, unknown` | `app/client/ui_scan.h:22` | what 0x60E6A0 passes |
+| 1 | `Unknown_04` | `app/client/ui_scan.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_scan.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_scan.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_scan.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_59E600` | `app/client/ui_scan.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_59E970` | `app/client/ui_scan.h:27` | untagged neutral name (D10) |
+| 1 | `time` | `app/client/ui_scan.h:28` | neutral |
+| 1 | `Unknown_60EC70` | `app/client/ui_scan.h:28` | untagged neutral name (D10) |
+| 1 | `time` | `app/client/ui_scan.h:29` | neutral |
+| 1 | `Unknown_60ECA0` | `app/client/ui_scan.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_scan.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown28` | `app/client/ui_scan.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_scan.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/ui_scan.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/ui_scan.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/ui_scan.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_scan.h:37` | untagged neutral name (D10) |
+| 1 | `UIScanThreatClass` | `app/client/ui_scan.h:49` | neutral (D10) |
+| 1 | `Unknown18` | `app/client/ui_scan.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/ui_scan.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/ui_scan.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_60FEE0` | `app/client/ui_scan.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_Update` | `app/client/ui_scan.h:55` | neutral (D10) |
+| 1 | `Unknown_Clear` | `app/client/ui_scan.h:56` | neutral (D10) |
+| 1 | `Unknown_Refresh` | `app/client/ui_scan.h:67` | neutral (D10) |
+| 1 | `Unknown14` | `app/client/ui_scan.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_scan.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown5BE980Class` | `app/client/ui_scan.h:83` | untagged neutral name (D10) |
+| 1 | `view, layer` | `app/client/ui_scan.h:86` | what 0x57DD20 passes |
+| 1 | `Unknown_54` | `app/client/ui_scan.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_scan.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_scan.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_scan.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_scan.h:92` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_scan.h:93` | untagged neutral name (D10) |
+| 1 | `Unknown_Watch_0C` | `app/client/ui_scan.h:94` | untagged neutral name (D10) |
+| 1 | `target, assessment, sound, level` | `app/client/ui_scan.h:96` | what the main view's 0x512400 passes (TargetThreat, TargetThreatSound, TargetThreatLevel) |
+| 1 | `Unknown_60E540` | `app/client/ui_scan.h:96` | untagged neutral name (D10) |
+| 1 | `target, assessment, sound, level` | `app/client/ui_scan.h:97` | 0x60E540's |
+| 1 | `Unknown_60ED60` | `app/client/ui_scan.h:97` | untagged neutral name (D10) |
+| 1 | `Unknown_60E6A0` | `app/client/ui_scan.h:98` | untagged neutral name (D10) |
+| 1 | `Unknown_60ED10` | `app/client/ui_scan.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown_60EFE0` | `app/client/ui_scan.h:100` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_scan.h:101` | neutral |
+| 1 | `Unknown_60F1A0` | `app/client/ui_scan.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown198` | `app/client/ui_scan.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown1A4` | `app/client/ui_scan.h:112` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_scut.cpp:17` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_scut.cpp:34` | untagged neutral name (D10) |
@@ -18424,78 +18443,77 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_458AE0` | `app/shared/rs_track.h:193` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/shared/rs_track.h:195` | neutral (D10) |
 | 1 | `Unknown48` | `app/shared/rs_track.h:196` | neutral (D10) |
-| 1 | `Unknown45A090Class` | `app/shared/rs_track.h:203` | neutral (D10); rs.ini TYPE 'link' (0x2C bytes) |
-| 1 | `Unknown45F390Class` | `app/shared/rs_track.h:211` | neutral (D10); rs.ini TYPE 'sound' (0x3C bytes) |
-| 1 | `sound, message` | `app/shared/rs_track.h:214` | rs_list.cpp's keys |
-| 1 | `Unknown2C` | `app/shared/rs_track.h:219` | neutral (D10) |
-| 1 | `Unknown458C10Class` | `app/shared/rs_track.h:222` | neutral (D10); rs.ini TYPE 'effect_pass' (rs_eff_p.cpp, 0x34 bytes; the client's debug text names it RenderStateEffectPassClass) |
-| 1 | `two_sided, hidden, texture, a, b, shader` | `app/shared/rs_track.h:225` | rs_list.cpp's keys |
-| 1 | `mapper` | `app/shared/rs_track.h:233` | what rs_list.cpp hands it |
-| 1 | `Unknown_459120` | `app/shared/rs_track.h:233` | untagged neutral name (D10) |
-| 1 | `Unknown_459170` | `app/shared/rs_track.h:234` | untagged neutral name (D10) |
-| 1 | `Unknown4591A0Class` | `app/shared/rs_track.h:241` | neutral (D10); rs_eff_p.cpp |
-| 1 | `Unknown_4C` | `app/shared/rs_track.h:251` | untagged neutral name (D10) |
-| 1 | `Unknown_459630` | `app/shared/rs_track.h:253` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `app/shared/rs_track.h:262` | neutral (D10) |
-| 1 | `Unknown45D840Class` | `app/shared/rs_track.h:265` | neutral (D10); rs.ini TYPE 'message' |
-| 1 | `message` | `app/shared/rs_track.h:268` | the key |
-| 1 | `Unknown45D9E0Class` | `app/shared/rs_track.h:280` | neutral (D10) |
-| 1 | `owner` | `app/shared/rs_track.h:283` | neutral; NAME 2 [def, manager]: the base's (int as RsTrackClass::Unknown_462470 passes them) |
-| 1 | `Unknown45DC80Class` | `app/shared/rs_track.h:291` | neutral (D10) |
-| 1 | `owner, cull, a` | `app/shared/rs_track.h:294` | neutral |
-| 1 | `rinfo` | `app/shared/rs_track.h:301` | the Render argument |
-| 1 | `Unknown_45DFC0` | `app/shared/rs_track.h:301` | untagged neutral name (D10) |
-| 1 | `rinfo` | `app/shared/rs_track.h:302` | the Render argument |
-| 1 | `Unknown_45E030` | `app/shared/rs_track.h:302` | untagged neutral name (D10) |
-| 1 | `list` | `app/shared/rs_track.h:313` | neutral |
-| 1 | `list, scale, hsv` | `app/shared/rs_track.h:314` | what 0x6F51D0 passes |
-| 1 | `arg` | `app/shared/rs_track.h:381` | neutral |
-| 1 | `Unknown_1C4` | `app/shared/rs_track.h:381` | untagged neutral name (D10) |
-| 1 | `Unknown_1C8` | `app/shared/rs_track.h:382` | neutral (D10) |
-| 1 | `state, robj` | `app/shared/rs_track.h:383` | neutral |
-| 1 | `Unknown_1CC` | `app/shared/rs_track.h:383` | untagged neutral name (D10) |
-| 1 | `arg .. arg2` | `app/shared/rs_track.h:384` | neutral |
-| 1 | `Unknown_1D0` | `app/shared/rs_track.h:384` | untagged neutral name (D10) |
-| 1 | `a, b, c` | `app/shared/rs_track.h:385` | neutral |
-| 1 | `Unknown_1D4` | `app/shared/rs_track.h:385` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/shared/rs_track.h:386` | neutral |
-| 1 | `Unknown_1D8` | `app/shared/rs_track.h:386` | untagged neutral name (D10) |
-| 1 | `robj` | `app/shared/rs_track.h:388` | neutral |
-| 1 | `Unknown_460260` | `app/shared/rs_track.h:388` | untagged neutral name (D10) |
-| 1 | `Unknown_460410` | `app/shared/rs_track.h:389` | neutral (D10) |
-| 1 | `state, depth` | `app/shared/rs_track.h:390` | neutral |
-| 1 | `Unknown_460440` | `app/shared/rs_track.h:390` | untagged neutral name (D10) |
-| 1 | `Unknown_4604D0` | `app/shared/rs_track.h:391` | untagged neutral name (D10) |
-| 1 | `seconds` | `app/shared/rs_track.h:392` | neutral |
-| 1 | `Unknown_4605A0` | `app/shared/rs_track.h:392` | untagged neutral name (D10) |
-| 1 | `seconds` | `app/shared/rs_track.h:393` | neutral |
-| 1 | `Unknown_4605E0` | `app/shared/rs_track.h:393` | untagged neutral name (D10) |
-| 1 | `state, depth` | `app/shared/rs_track.h:394` | neutral |
-| 1 | `Unknown_460710` | `app/shared/rs_track.h:394` | untagged neutral name (D10) |
-| 1 | `Unknown_460780` | `app/shared/rs_track.h:395` | untagged neutral name (D10) |
-| 1 | `Unknown_460810` | `app/shared/rs_track.h:396` | neutral (D10) |
-| 1 | `Unknown_460850` | `app/shared/rs_track.h:397` | untagged neutral name (D10) |
-| 1 | `Unknown_460880` | `app/shared/rs_track.h:398` | untagged neutral name (D10) |
-| 1 | `Unknown_460BC0` | `app/shared/rs_track.h:399` | neutral (D10) |
-| 1 | `robj, bone_path` | `app/shared/rs_track.h:400` | neutral |
-| 1 | `Unknown_461D60` | `app/shared/rs_track.h:400` | untagged neutral name (D10) |
-| 1 | `data` | `app/shared/rs_track.h:401` | neutral |
-| 1 | `Unknown_462180` | `app/shared/rs_track.h:401` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/shared/rs_track.h:402` | neutral |
-| 1 | `Unknown_462470` | `app/shared/rs_track.h:402` | untagged neutral name (D10) |
-| 1 | `a` | `app/shared/rs_track.h:403` | neutral |
-| 1 | `Unknown_462530` | `app/shared/rs_track.h:403` | untagged neutral name (D10) |
-| 1 | `Unknown_462610` | `app/shared/rs_track.h:404` | neutral (D10) |
-| 1 | `Unknown_462650` | `app/shared/rs_track.h:405` | neutral (D10) |
-| 1 | `Unknown_462690` | `app/shared/rs_track.h:406` | neutral (D10) |
-| 1 | `Unknown8C` | `app/shared/rs_track.h:410` | neutral (D10) |
-| 1 | `UnknownC0` | `app/shared/rs_track.h:412` | neutral (D10) |
-| 1 | `UnknownC4` | `app/shared/rs_track.h:413` | neutral (D10) |
-| 1 | `UnknownC8` | `app/shared/rs_track.h:414` | neutral (D10) |
-| 1 | `UnknownCC` | `app/shared/rs_track.h:415` | neutral (D10) |
-| 1 | `UnknownD4` | `app/shared/rs_track.h:417` | neutral (D10) |
-| 1 | `UnknownD8` | `app/shared/rs_track.h:418` | neutral (D10) |
-| 1 | `UnknownE8` | `app/shared/rs_track.h:419` | neutral (D10) |
+| 1 | `Unknown45F390Class` | `app/shared/rs_track.h:203` | neutral (D10); rs.ini TYPE 'sound' (0x3C bytes) |
+| 1 | `sound, message` | `app/shared/rs_track.h:206` | rs_list.cpp's keys |
+| 1 | `Unknown2C` | `app/shared/rs_track.h:211` | neutral (D10) |
+| 1 | `Unknown458C10Class` | `app/shared/rs_track.h:214` | neutral (D10); rs.ini TYPE 'effect_pass' (rs_eff_p.cpp, 0x34 bytes; the client's debug text names it RenderStateEffectPassClass) |
+| 1 | `two_sided, hidden, texture, a, b, shader` | `app/shared/rs_track.h:217` | rs_list.cpp's keys |
+| 1 | `mapper` | `app/shared/rs_track.h:225` | what rs_list.cpp hands it |
+| 1 | `Unknown_459120` | `app/shared/rs_track.h:225` | untagged neutral name (D10) |
+| 1 | `Unknown_459170` | `app/shared/rs_track.h:226` | untagged neutral name (D10) |
+| 1 | `Unknown4591A0Class` | `app/shared/rs_track.h:233` | neutral (D10); rs_eff_p.cpp |
+| 1 | `Unknown_4C` | `app/shared/rs_track.h:243` | untagged neutral name (D10) |
+| 1 | `Unknown_459630` | `app/shared/rs_track.h:245` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `app/shared/rs_track.h:254` | neutral (D10) |
+| 1 | `Unknown45D840Class` | `app/shared/rs_track.h:257` | neutral (D10); rs.ini TYPE 'message' |
+| 1 | `message` | `app/shared/rs_track.h:260` | the key |
+| 1 | `Unknown45D9E0Class` | `app/shared/rs_track.h:272` | neutral (D10) |
+| 1 | `owner` | `app/shared/rs_track.h:275` | neutral; NAME 2 [def, manager]: the base's (int as RsTrackClass::Unknown_462470 passes them) |
+| 1 | `Unknown45DC80Class` | `app/shared/rs_track.h:283` | neutral (D10) |
+| 1 | `owner, cull, a` | `app/shared/rs_track.h:286` | neutral |
+| 1 | `rinfo` | `app/shared/rs_track.h:293` | the Render argument |
+| 1 | `Unknown_45DFC0` | `app/shared/rs_track.h:293` | untagged neutral name (D10) |
+| 1 | `rinfo` | `app/shared/rs_track.h:294` | the Render argument |
+| 1 | `Unknown_45E030` | `app/shared/rs_track.h:294` | untagged neutral name (D10) |
+| 1 | `list` | `app/shared/rs_track.h:305` | neutral |
+| 1 | `list, scale, hsv` | `app/shared/rs_track.h:306` | what 0x6F51D0 passes |
+| 1 | `arg` | `app/shared/rs_track.h:373` | neutral |
+| 1 | `Unknown_1C4` | `app/shared/rs_track.h:373` | untagged neutral name (D10) |
+| 1 | `Unknown_1C8` | `app/shared/rs_track.h:374` | neutral (D10) |
+| 1 | `state, robj` | `app/shared/rs_track.h:375` | neutral |
+| 1 | `Unknown_1CC` | `app/shared/rs_track.h:375` | untagged neutral name (D10) |
+| 1 | `arg .. arg2` | `app/shared/rs_track.h:376` | neutral |
+| 1 | `Unknown_1D0` | `app/shared/rs_track.h:376` | untagged neutral name (D10) |
+| 1 | `a, b, c` | `app/shared/rs_track.h:377` | neutral |
+| 1 | `Unknown_1D4` | `app/shared/rs_track.h:377` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/shared/rs_track.h:378` | neutral |
+| 1 | `Unknown_1D8` | `app/shared/rs_track.h:378` | untagged neutral name (D10) |
+| 1 | `robj` | `app/shared/rs_track.h:380` | neutral |
+| 1 | `Unknown_460260` | `app/shared/rs_track.h:380` | untagged neutral name (D10) |
+| 1 | `Unknown_460410` | `app/shared/rs_track.h:381` | neutral (D10) |
+| 1 | `state, depth` | `app/shared/rs_track.h:382` | neutral |
+| 1 | `Unknown_460440` | `app/shared/rs_track.h:382` | untagged neutral name (D10) |
+| 1 | `Unknown_4604D0` | `app/shared/rs_track.h:383` | untagged neutral name (D10) |
+| 1 | `seconds` | `app/shared/rs_track.h:384` | neutral |
+| 1 | `Unknown_4605A0` | `app/shared/rs_track.h:384` | untagged neutral name (D10) |
+| 1 | `seconds` | `app/shared/rs_track.h:385` | neutral |
+| 1 | `Unknown_4605E0` | `app/shared/rs_track.h:385` | untagged neutral name (D10) |
+| 1 | `state, depth` | `app/shared/rs_track.h:386` | neutral |
+| 1 | `Unknown_460710` | `app/shared/rs_track.h:386` | untagged neutral name (D10) |
+| 1 | `Unknown_460780` | `app/shared/rs_track.h:387` | untagged neutral name (D10) |
+| 1 | `Unknown_460810` | `app/shared/rs_track.h:388` | neutral (D10) |
+| 1 | `Unknown_460850` | `app/shared/rs_track.h:389` | untagged neutral name (D10) |
+| 1 | `Unknown_460880` | `app/shared/rs_track.h:390` | untagged neutral name (D10) |
+| 1 | `Unknown_460BC0` | `app/shared/rs_track.h:391` | neutral (D10) |
+| 1 | `robj, bone_path` | `app/shared/rs_track.h:392` | neutral |
+| 1 | `Unknown_461D60` | `app/shared/rs_track.h:392` | untagged neutral name (D10) |
+| 1 | `data` | `app/shared/rs_track.h:393` | neutral |
+| 1 | `Unknown_462180` | `app/shared/rs_track.h:393` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/shared/rs_track.h:394` | neutral |
+| 1 | `Unknown_462470` | `app/shared/rs_track.h:394` | untagged neutral name (D10) |
+| 1 | `a` | `app/shared/rs_track.h:395` | neutral |
+| 1 | `Unknown_462530` | `app/shared/rs_track.h:395` | untagged neutral name (D10) |
+| 1 | `Unknown_462610` | `app/shared/rs_track.h:396` | neutral (D10) |
+| 1 | `Unknown_462650` | `app/shared/rs_track.h:397` | neutral (D10) |
+| 1 | `Unknown_462690` | `app/shared/rs_track.h:398` | neutral (D10) |
+| 1 | `Unknown8C` | `app/shared/rs_track.h:402` | neutral (D10) |
+| 1 | `UnknownC0` | `app/shared/rs_track.h:404` | neutral (D10) |
+| 1 | `UnknownC4` | `app/shared/rs_track.h:405` | neutral (D10) |
+| 1 | `UnknownC8` | `app/shared/rs_track.h:406` | neutral (D10) |
+| 1 | `UnknownCC` | `app/shared/rs_track.h:407` | neutral (D10) |
+| 1 | `UnknownD4` | `app/shared/rs_track.h:409` | neutral (D10) |
+| 1 | `UnknownD8` | `app/shared/rs_track.h:410` | neutral (D10) |
+| 1 | `UnknownE8` | `app/shared/rs_track.h:411` | neutral (D10) |
 | 1 | `Unknown_BE56D8` | `app/shared/shipcust_desc.cpp:15` | 0xBE56D8, each race's two default settings (filled at run time) |
 | 1 | `Unknown_B75D28` | `app/shared/shipcust_desc.cpp:17` | 0xB75D28, the hull style per race and profession |
 | 1 | `Unknown_B75D4C` | `app/shared/shipcust_desc.cpp:18` | 0xB75D4C, the wing style per race and profession |
@@ -18539,6 +18557,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_457E90` | `app/shared/unknown_458710.cpp:93` | untagged neutral name (D10) |
 | 1 | `Unknown_461D60` | `app/shared/unknown_458710.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/shared/unknown_458710.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown45A090Class` | `app/shared/unknown_45a090.cpp:3` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/shared/unknown_45a090.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/shared/unknown_45a090.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/shared/unknown_45a090.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_458010` | `app/shared/unknown_45a090.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/shared/unknown_45a090.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_457E10` | `app/shared/unknown_45a090.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown45A090Class` | `app/shared/unknown_45a090.h:13` | neutral (D10) |
+| 1 | `list, source` | `app/shared/unknown_45a090.h:17` | neutral |
+| 1 | `Unknown_04` | `app/shared/unknown_45a090.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/shared/unknown_45a090.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/shared/unknown_45a090.h:21` | untagged neutral name (D10) |
 | 1 | `Unknown45D840Class` | `app/shared/unknown_45d840.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/shared/unknown_45d840.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/shared/unknown_45d840.cpp:31` | untagged neutral name (D10) |
@@ -18780,12 +18810,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:335` | untagged neutral name (D10) |
 | 1 | `Unknown_56CE40` | `programs/clientpoc/poc_world.cpp:338` | untagged neutral name (D10) |
 | 1 | `Unknown_56CEC0` | `programs/clientpoc/poc_world.cpp:339` | untagged neutral name (D10) |
-| 1 | `Unknown45A090Class` | `programs/clientpoc/poc_world.cpp:352` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `programs/clientpoc/poc_world.cpp:358` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `programs/clientpoc/poc_world.cpp:359` | untagged neutral name (D10) |
-| 1 | `Unknown45F390Class` | `programs/clientpoc/poc_world.cpp:361` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `programs/clientpoc/poc_world.cpp:365` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:373` | untagged neutral name (D10) |
+| 1 | `Unknown45F390Class` | `programs/clientpoc/poc_world.cpp:352` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `programs/clientpoc/poc_world.cpp:356` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `programs/clientpoc/poc_world.cpp:359` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `programs/clientpoc/poc_world.cpp:360` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:364` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
@@ -20823,19 +20852,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `UIMesh` | `app/client/ui_proc.h:26` | the FAIL_IFs' 'uimesh' |
 | 2 | `UIMesh` | `app/client/ui_proc_impl.h:32` | the FAIL_IFs' 'uimesh' |
 | 2 | `UIScanButtonNames` | `app/client/ui_scan.cpp:34` | what it holds |
-| 2 | `owner` | `app/client/ui_scan.h:40` | what it holds |
-| 2 | `Owner` | `app/client/ui_scan.h:46` | what it holds |
-| 2 | `key` | `app/client/ui_scan.h:69` | InterfaceClass's |
-| 2 | `object` | `app/client/ui_scan.h:70` | UIMFDClass's |
-| 2 | `object` | `app/client/ui_scan.h:75` | what 0x60F1A0 passes |
-| 2 | `event, object` | `app/client/ui_scan.h:76` | the event's type |
-| 2 | `object` | `app/client/ui_scan.h:77` | what 0x60E580 passes |
-| 2 | `Create_Mesh` | `app/client/ui_scan.h:79` | what it does |
-| 2 | `Get_Targeting` | `app/client/ui_scan.h:82` | what it returns |
-| 2 | `Buttons` | `app/client/ui_scan.h:85` | what it holds |
-| 2 | `Verb` | `app/client/ui_scan.h:87` | what it holds |
-| 2 | `ConFont` | `app/client/ui_scan.h:90` | what it holds |
-| 2 | `FactionFont` | `app/client/ui_scan.h:91` | what it holds |
+| 2 | `owner` | `app/client/ui_scan.h:52` | what it holds |
+| 2 | `Owner` | `app/client/ui_scan.h:69` | what it holds |
+| 2 | `std:` | `app/client/ui_scan.h:70` | what it holds |
+| 2 | `key` | `app/client/ui_scan.h:92` | InterfaceClass's |
+| 2 | `object` | `app/client/ui_scan.h:93` | UIMFDClass's |
+| 2 | `object` | `app/client/ui_scan.h:98` | what 0x60F1A0 passes |
+| 2 | `event, object` | `app/client/ui_scan.h:99` | the event's type |
+| 2 | `object` | `app/client/ui_scan.h:100` | what 0x60E580 passes |
+| 2 | `Create_Mesh` | `app/client/ui_scan.h:102` | what it does |
+| 2 | `Get_Targeting` | `app/client/ui_scan.h:105` | what it returns |
+| 2 | `Buttons` | `app/client/ui_scan.h:108` | what it holds |
+| 2 | `Verb` | `app/client/ui_scan.h:110` | what it holds |
+| 2 | `ConFont` | `app/client/ui_scan.h:113` | what it holds |
+| 2 | `FactionFont` | `app/client/ui_scan.h:114` | what it holds |
 | 2 | `FontStringFilesClass` | `app/client/ui_scut.cpp:15` | fontdatabase.h's |
 | 2 | `UIScutBankGadgetClass` | `app/client/ui_scut.cpp:98` | its 'bank_%d' model |
 | 2 | `Group` | `app/client/ui_scut.cpp:107` | what it holds |
@@ -22627,10 +22657,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `RenderObjName` | `app/shared/rs_track.h:172` | the asserts' text |
 | 2 | `RenderObj` | `app/shared/rs_track.h:173` | the asserts' text |
 | 2 | `NextRenderState` | `app/shared/rs_track.h:177` | the assert's text |
-| 2 | `Message` | `app/shared/rs_track.h:275` | rs.ini's MESSAGE |
-| 2 | `Owner` | `app/shared/rs_track.h:289` | what it points at |
-| 2 | `ProjectorList` | `app/shared/rs_track.h:304` | what it holds |
-| 2 | `Owner` | `app/shared/rs_track.h:305` | what it points at |
+| 2 | `Message` | `app/shared/rs_track.h:267` | rs.ini's MESSAGE |
+| 2 | `Owner` | `app/shared/rs_track.h:281` | what it points at |
+| 2 | `ProjectorList` | `app/shared/rs_track.h:296` | what it holds |
+| 2 | `Owner` | `app/shared/rs_track.h:297` | what it points at |
 | 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:44` | the parts' key 'Settings%d' |
 | 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:61` | the description's key 'PartAttributes%d' |
 | 2 | `Write_Short` | `app/shared/shipcust_desc.h:87` | what it does |
@@ -23558,9 +23588,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `AvatarPipClass` | `app/client/ui_ptrade.cpp:46` | class-from-file (D24) for app\client\avatar_pip.cpp |
 | 3 | `ui_registration.h` | `app/client/ui_registration.h:16` | header name assumed from ui_registration.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_scan.cpp:27` | the FAIL_IF's |
-| 3 | `UIScanClass` | `app/client/ui_scan.h:60` | class-from-file (D24) for ui_scan.cpp |
-| 3 | `Peek_Object` | `app/client/ui_scan.h:80` | the FAIL_IF's |
-| 3 | `Get_Client` | `app/client/ui_scan.h:81` | the FAIL_IF's |
+| 3 | `UIScanClass` | `app/client/ui_scan.h:83` | class-from-file (D24) for ui_scan.cpp |
+| 3 | `Peek_Object` | `app/client/ui_scan.h:103` | the FAIL_IF's |
+| 3 | `Get_Client` | `app/client/ui_scan.h:104` | the FAIL_IF's |
 | 3 | `FontManagerClass` | `app/client/ui_scut.cpp:16` | fontmanager.h's |
 | 3 | `GadgetClass` | `app/client/ui_scut.cpp:31` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `Owner` | `app/client/ui_scut.cpp:89` | the assert's |
@@ -24507,7 +24537,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RS_MUTABLE_FLAG_MASK` | `app/shared/rs_track.h:21` | the asserts' text |
 | 3 | `RS_THREAD_FLAG_MASK` | `app/shared/rs_track.h:22` | the asserts' text (the loader thread's bits 12 / 13) |
 | 3 | `RS_DATA_PRESENT` | `app/shared/rs_track.h:23` | rs_robj.cpp's assert text (Test_Flag(RS_DATA_PRESENT): bit 9, 0x200, set with the model) |
-| 3 | `RsTrackClass` | `app/shared/rs_track.h:310` | class-from-file (D24) for app\shared\rs_track.cpp |
+| 3 | `RsTrackClass` | `app/shared/rs_track.h:302` | class-from-file (D24) for app\shared\rs_track.cpp |
 | 3 | `shipcust_desc.h` | `app/shared/shipcust_desc.h:20` | header name assumed from the client's shipcust_desc.cpp |
 | 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:72` | by convention (D24) from the client's shipcust_desc.cpp |
 | 3 | `split_string.h` | `app/shared/split_string.h:18` | header name assumed from the client's split_string.cpp |
