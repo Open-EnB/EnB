@@ -1,7 +1,6 @@
 // Earth & Beyond client (reconstruction): app\shared\rs_list.cpp, client 0x45A2B0-0x45C9D9 and its template copies
 // to 0x45D820 (__FILE__ e:\build\beta\G\app\shared\rs_list.cpp in its asserts, lines 198 / 215 / 226 / 625 / 656).
-// The render state list: built from rs.ini's '<n>' sections (RST_ flags, then one state per '<n>\STATE<i>',
-// made by TYPE through the state maker 0xBDC0A0). Notes at the end.
+// The render state list: built from rs.ini's '<n>' sections (RST_ flags, then one state per '<n>\STATE<i>', made by TYPE through the state maker 0xBDC0A0). Notes at the end.
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -14,6 +13,7 @@
 #include "mapper.h"
 #include "..\shared\g_assert.h"
 #include "unknown_45a090.h"
+#include "unknown_45f390.h"
 void Unknown_Debug_Print(const char *text);			// 0x509E30 (dbgmgr.cpp, D38)
 
 Unknown45C430Class Unknown_BDC0A0;

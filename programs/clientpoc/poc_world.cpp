@@ -346,18 +346,9 @@ void UnknownEventDispatcherClass::Unknown_56CEC0(ChatWindowInterface *sender, UI
 }
 
 // ---------------------------------------------------------------- the render states rs_list.cpp makes from files not in the tree yet
-// ('sound'): a plain state that does nothing when activated (unknown_45a090.cpp's 'link' state is rebuilt in app.lib)
+// (unknown_45a090.cpp's 'link' state and unknown_45f390.cpp's 'sound' state are rebuilt in app.lib)
 #include "..\\..\\app\\shared\\rs_track.h"
 #include "shader.h"
-Unknown45F390Class::Unknown45F390Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message) :
-	RenderStateClass(list, id, link_id, flags)
-{
-	STUB_CALLED("POC Unknown45F390Class ('sound' state): does nothing");
-	memset(Unknown2C, 0, sizeof(Unknown2C));
-}
-Unknown45F390Class::~Unknown45F390Class() {}
-RenderStateClass *Unknown45F390Class::Unknown_04(RenderStateListClass *list) { return(new Unknown45F390Class(list, ID, LinkID, Flags, NULL, 0)); }
-void Unknown45F390Class::Unknown_14(RsTrackClass *owner) {}
 
 // (rs_eff_p.cpp's 'effect_pass' state 0x458C10 is rebuilt in app.lib)
 

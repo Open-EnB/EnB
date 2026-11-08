@@ -200,16 +200,6 @@ public:
 // (interim, D137: their files are not in the tree yet)
 class ShaderClass;
 class TextureMapperClass;
-class Unknown45F390Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'sound' (0x3C bytes)
-{
-public:
-	Unknown45F390Class(RenderStateListClass *list, int id, int link_id, unsigned int flags, const char *sound, int message);	// 0x45F390  // NAME 1 [sound, message]: rs_list.cpp's keys
-	virtual ~Unknown45F390Class();
-	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);
-	virtual void Unknown_14(RsTrackClass *owner);
-
-	char Unknown2C[0x3C - 0x2C];									// NAME 1: neutral (D10)
-};
 class MaterialPassClass;
 class Unknown458C10Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'effect_pass' (rs_eff_p.cpp, 0x34 bytes; the client's debug text names it RenderStateEffectPassClass)
 {
