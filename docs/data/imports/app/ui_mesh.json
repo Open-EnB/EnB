@@ -129,9 +129,6 @@
   "0x5BA500",
   "0x5BAC90"
  ],
- "shared_callers": [
-  "0x5BA500"
- ],
  "short_known": [
   "0x5B8B00",
   "0x5B92B0",
@@ -142,8 +139,5 @@
   "0x5B9790",
   "0x5BA460",
   "0x5BAC90"
- ],
- "tiebreak": [
-  "0x5BA500"
  ]
 }

@@ -51,7 +51,13 @@ neighbour's: (a) a spot two objects locate widens neither; (b) no widening that 
 one of the object's still-tied `_$E` functions into the range; (c) in the app region only, a spot below
 the range must start a zero-separated run of the client's CRT initialiser table (.CRT$XCU, merged into
 .data: the longest run of zero or .text dwords, `xcu_previous`), which lists each object's initialisers
-in link order. USE_XCU switches (c).
+in link order. USE_XCU switches (c). When several symbols propose one address in the range round,
+the one whose own evidence there is strictly the strongest is credited and the others stay tied
+(P-CW1-1, 2026-11-08; `range_evidence`, compared as a tuple): first whether the client names the
+address with the symbol itself (D88 / D171's self names, or an exact function's call or reference to
+the symbol reaches it), then how many of its calls go to functions of the object's own code (not
+COMDATs) and land inside the object's range there; a tie at the top, or no evidence, still drops them
+all. USE_RANGE_EVIDENCE switches it.
 
 Such a COMDAT is `shared` (D183's guard): set on each holder's exact result; importer.py lists it in
 the file's `shared` list. A shared result is not placement evidence: a D166 caller tie-break that
@@ -757,9 +763,24 @@ def match_objects(img, paths, region=None, callers=False):
             by_addr = collections.defaultdict(set)
             for (r, *_), a in proposals:
                 by_addr[a].add(r['symbol'])
+            winner = {}
+            if phase == 'range' and USE_RANGE_EVIDENCE:
+                # P-CW1-1: several symbols proposing one address in the range round: the one whose own evidence
+                # there is strictly the strongest is credited (range_evidence), the others stay tied
+                best = collections.defaultdict(dict)
+                for item, a in proposals:
+                    if len(by_addr[a]) > 1:
+                        r, obj, sec, s, length, hits = item
+                        e = range_evidence(obj, sec, s, length, text, start, a, ranges.get(id(obj)), thunk,
+                                           names.get(r['symbol'], ()), known.get(r['symbol'], ()))
+                        best[a][r['symbol']] = max(best[a].get(r['symbol'], (False, 0)), e)
+                for a, ev in best.items():
+                    top = max(ev.values())
+                    if top > (False, 0) and sum(e == top for e in ev.values()) == 1:
+                        winner[a] = next(k for k, e in ev.items() if e == top)
             for item, a in proposals:
                 r, obj, sec, s, length, hits = item
-                if len(by_addr[a]) > 1 or claimed[a] - {r['symbol']}:
+                if len(by_addr[a]) > 1 and winner.get(a) != r['symbol'] or claimed[a] - {r['symbol']}:
                     continue
                 r['status'] = 'exact'
                 r['addresses'] = [f'0x{a:06X}']
@@ -1295,6 +1316,31 @@ def xcu_previous(img):
                 prev.setdefault(vals[i], vals[i - 1])
         _xcu['prev'] = prev
     return _xcu['prev']
+
+
+USE_RANGE_EVIDENCE = True
+
+
+def range_evidence(obj, sec, start, length, text, base, a, rng, thunk, own_names, own_known):
+    """P-CW1-1: (named, own calls) of a range-round proposal at `a`, compared as a tuple. `named`: the client
+    names `a` with the function's own symbol (symbols.json or a vtable slot the run learned: D88 / D171's self
+    names; or an exact function's call or reference to the symbol reaches `a`). `own calls`: how many of its
+    relative calls / jumps go to a function defined in the object's own code (not a COMDAT: the linker keeps
+    it with this object) and, at `a`, land inside the object's range (`rng`). A COMDAT copy calling another
+    COMDAT has neither."""
+    named = a in own_names or a in own_known
+    calls = 0
+    if rng:
+        o = a - base
+        for k, n, typ, sym, addend in obj.reloc_targets(sec, start, length):
+            if typ != 0x14 or n != 4 or sym is None or sym['section'] <= 0 or (sym['type'] >> 4) != 2 \
+                    or not obj.own(sym['section'] - 1) or o + k + 4 > len(text):
+                continue
+            t = a + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]
+            t = thunk.get(t, t) & 0xFFFFFFFF
+            if rng[0] <= t <= rng[1]:
+                calls += 1
+    return (named, calls)
 
 
 RANGE_GAP = 0x1000   # D114(b): how far beyond its own range an object's lone (or D183 shared) exact COMDAT may lie
