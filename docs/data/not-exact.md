@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-706 entries in 202 files.
+708 entries in 203 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -358,10 +358,11 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:521` | `UIChatPanelClass::Unknown_60` | marker | NOT EXACT: register (the client copies the lag light's table pointer to edx for Is_Hidden, ebx in ours; then eax / edx swapped at As_Space_Client); 0x56C0C0 is out of line through auto_inline(off), as the client 0x5630B0 |
 | `app/client/ui_chat_panel.cpp:558` | `UIChatPanelClass::Unknown_68` | marker | NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240) 0x563280 |
 | `app/client/ui_chat_panel.cpp:640` | `UIChatPanelClass::Unknown_563910` | marker | NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8) 0x563910 |
-| `app/client/ui_chat_panel.cpp:838` | `UIChatPanelClass::Unknown_565390` | marker | NOT EXACT: inline-budget (the client keeps string::compare and assign out of line in the two searches and the label copy; 396 instructions vs 328) 0x565390 |
-| `app/client/ui_chat_panel.cpp:1093` | `UIChatPanelClass::Unknown_567540` | marker | NOT EXACT: inline-budget (the client calls string::compare and list::_Buynode out of line; 183 instructions vs 141) 0x567540 |
-| `app/client/ui_chat_panel.cpp:1119` | `UIChatPanelClass::Unknown_567760` | marker | NOT EXACT: inline-budget (the client calls string::assign(const char *, size_t) out of line for +0x248, ours inlines it with _Grow; frame 0x40 vs 0x44; calling 0x565C40 instead does not change it) 0x567760 |
-| `app/client/ui_chat_panel.cpp:1204` | `UIChatPanelClass::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |
+| `app/client/ui_chat_panel.cpp:830` | `UIChatPanelClass::Unknown_5646A0` | marker | NOT EXACT: functional (CW1): written from the disassembly, not aligned (the client inlines one of the string copies the others call) 0x5646A0: talk on channel 'channel' (0..5 the channels, 6..8 the +0x158 names, 9 the reply name); false, with the reason on the chat, when there is no one there (Guild / Group: the channel stays as it was) |
+| `app/client/ui_chat_panel.cpp:948` | `UIChatPanelClass::Unknown_565390` | marker | NOT EXACT: inline-budget (the client keeps string::compare and assign out of line in the two searches and the label copy; 396 instructions vs 328) 0x565390 |
+| `app/client/ui_chat_panel.cpp:1203` | `UIChatPanelClass::Unknown_567540` | marker | NOT EXACT: inline-budget (the client calls string::compare and list::_Buynode out of line; 183 instructions vs 141) 0x567540 |
+| `app/client/ui_chat_panel.cpp:1229` | `UIChatPanelClass::Unknown_567760` | marker | NOT EXACT: inline-budget (the client calls string::assign(const char *, size_t) out of line for +0x248, ours inlines it with _Grow; frame 0x40 vs 0x44; calling 0x565C40 instead does not change it) 0x567760 |
+| `app/client/ui_chat_panel.cpp:1314` | `UIChatPanelClass::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |
 | `app/client/ui_chat_panel.cpp:1987` | `UIChatPanelClass::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
 | `app/client/ui_chat_panel.cpp:2382` | `UIChatPanelClass::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
 | `app/client/ui_chat_panel_base.cpp:31` | `UIChatPanelBaseClass::~UIChatPanelBaseClass` | marker | NOT EXACT: functional (WE1) 0x56D330 |
@@ -373,6 +374,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_class.cpp:155` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot) @0x574710 |
 | `app/client/ui_class.cpp:489` | `ClassSelectInterface::Unknown_575D50` | marker | NOT EXACT: order (0.91: the client reads the gender through CharacterView + 0x88 after Unknown8C) @0x575D50 |
 | `app/client/ui_class.cpp:1117` | `ClassSelectInterface::Unknown_576AC0` | marker | NOT EXACT: inline-budget (0.80: ours inlines all 18 dialog names' string assigns, the client calls the last one out of line; two dead size() reads at the top gave 0.84 and the client's 17, then the register order of the 0x67B390 call and the identity matrix stores were left) @0x576AC0 |
+| `app/client/ui_combobox.cpp:219` | `UIComboBoxClass::Unknown_57B000` | marker | NOT EXACT: inline-budget (the client expands the item's string constructor, _Tidy and _Grow, where ours calls assign; and compares the cap the other way round) 0x57B000 |
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |
