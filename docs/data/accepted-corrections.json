@@ -120,6 +120,14 @@
    "moved_to": null,
    "decision": "D203",
    "note": "vector destructor hanging on 0x7B7EF0; D203 (the user, on P-RS1-1): exact only with the exact text of the headers nav_list_builder.cpp includes; a near miss, not a pair to protect: other work editing those headers may drop it (attempts.csv row)."
+  },
+  {
+   "address": "0x68FAE0",
+   "lib": "app",
+   "file": "inv_render",
+   "moved_to": null,
+   "decision": "D209",
+   "note": "P-IR3-1 (b), approved by the user 2026-11-08: the loss accepted under D66 when 0x68FB60 / 0x68FC50 / 0x68FC80 move to inv_trade_render.cpp (wt/OM1 a4d2f0de). Lead: the header of the enum statics 0xBE3B44 / 0xC416A8 / 0xC41658."
   }
  ]
 }
