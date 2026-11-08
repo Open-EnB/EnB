@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1631 |
 | 2 | describes what the code does | 3778 |
-| 1 | neutral placeholder | 19430 |
+| 1 | neutral placeholder | 19440 |
 
 ## For review (score 3 and below)
 
@@ -10780,30 +10780,56 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownD8` | `app/client/ui_chat_window.h:83` | untagged neutral name (D10) |
 | 1 | `UnknownDC` | `app/client/ui_chat_window.h:84` | untagged neutral name (D10) |
 | 1 | `UnknownE4` | `app/client/ui_chat_window.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F34` | `app/client/ui_chat_window_split.cpp:10` | neutral (D10) |
+| 1 | `Unknown84` | `app/client/ui_chat_window_split.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown67D430Class` | `app/client/ui_chat_window_split.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown65BFD0Class` | `app/client/ui_chat_window_split.cpp:14` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/ui_chat_window_split.cpp:16` | untagged neutral name (D10) |
+| 1 | `UnknownEC` | `app/client/ui_chat_window_split.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/ui_chat_window_split.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_chat_window_split.cpp:19` | untagged neutral name (D10) |
+| 1 | `UnknownF0` | `app/client/ui_chat_window_split.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_chat_window_split.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown104` | `app/client/ui_chat_window_split.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ui_chat_window_split.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_chat_window_split.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_chat_window_split.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_chat_window_split.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_chat_window_split.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/ui_chat_window_split.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_5732A0` | `app/client/ui_chat_window_split.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/ui_chat_window_split.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_chat_window_split.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_chat_window_split.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/ui_chat_window_split.cpp:180` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/ui_chat_window_split.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_chat_window_split.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_chat_window_split.cpp:332` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_chat_window_split.cpp:352` | untagged neutral name (D10) |
 | 1 | `ui_chat_window_split.h` | `app/client/ui_chat_window_split.h:5` | provisional header name for ui_chat_window_split.cpp |
-| 1 | `client, history, edit, kind` | `app/client/ui_chat_window_split.h:15` | what 0x56C180 passes |
-| 1 | `Unknown67D430Class` | `app/client/ui_chat_window_split.h:15` | untagged neutral name (D10) |
-| 1 | `Unknown65BFD0Class` | `app/client/ui_chat_window_split.h:15` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_chat_window_split.h:17` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_chat_window_split.h:18` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_chat_window_split.h:19` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_chat_window_split.h:20` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_chat_window_split.h:21` | untagged neutral name (D10) |
-| 1 | `Unknown_A8` | `app/client/ui_chat_window_split.h:22` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `app/client/ui_chat_window_split.h:24` | untagged neutral name (D10) |
-| 1 | `UnknownEC` | `app/client/ui_chat_window_split.h:25` | untagged neutral name (D10) |
-| 1 | `UnknownF0` | `app/client/ui_chat_window_split.h:26` | untagged neutral name (D10) |
-| 1 | `UnknownF4` | `app/client/ui_chat_window_split.h:27` | untagged neutral name (D10) |
-| 1 | `UnknownF8` | `app/client/ui_chat_window_split.h:28` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `app/client/ui_chat_window_split.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown100` | `app/client/ui_chat_window_split.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown104` | `app/client/ui_chat_window_split.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown108` | `app/client/ui_chat_window_split.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `app/client/ui_chat_window_split.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `app/client/ui_chat_window_split.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `app/client/ui_chat_window_split.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown118` | `app/client/ui_chat_window_split.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/ui_chat_window_split.h:37` | untagged neutral name (D10) |
+| 1 | `ChatWinSplitResizeStruct` | `app/client/ui_chat_window_split.h:15` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_chat_window_split.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_chat_window_split.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_chat_window_split.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_chat_window_split.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_chat_window_split.h:17` | untagged neutral name (D10) |
+| 1 | `client, history, edit, kind` | `app/client/ui_chat_window_split.h:31` | what 0x56C180 passes |
+| 1 | `Unknown67D430Class` | `app/client/ui_chat_window_split.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown65BFD0Class` | `app/client/ui_chat_window_split.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_chat_window_split.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_chat_window_split.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_chat_window_split.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_chat_window_split.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_chat_window_split.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/ui_chat_window_split.h:38` | untagged neutral name (D10) |
+| 1 | `size, split` | `app/client/ui_chat_window_split.h:40` | the options they are saved as |
+| 1 | `Unknown_5732A0` | `app/client/ui_chat_window_split.h:40` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/ui_chat_window_split.h:42` | untagged neutral name (D10) |
+| 1 | `UnknownEC` | `app/client/ui_chat_window_split.h:43` | untagged neutral name (D10) |
+| 1 | `UnknownF0` | `app/client/ui_chat_window_split.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown104` | `app/client/ui_chat_window_split.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown118` | `app/client/ui_chat_window_split.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_chat_window_split.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_cinfo.cpp:17` | 0xBE67C4 |
 | 1 | `LineDisplayClientClass` | `app/client/ui_cinfo.cpp:20` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_cinfo.cpp:23` | untagged neutral name (D10) |
@@ -19058,39 +19084,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0AC` | `programs/clientpoc/poc_world.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown5B7AB0Class` | `programs/clientpoc/poc_world.cpp:191` | untagged neutral name (D10) |
 | 1 | `Unknown_79B9E0` | `programs/clientpoc/poc_world.cpp:200` | untagged neutral name (D10) |
-| 1 | `Unknown67D430Class` | `programs/clientpoc/poc_world.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown65BFD0Class` | `programs/clientpoc/poc_world.cpp:222` | untagged neutral name (D10) |
-| 1 | `UnknownE8` | `programs/clientpoc/poc_world.cpp:226` | untagged neutral name (D10) |
-| 1 | `UnknownEC` | `programs/clientpoc/poc_world.cpp:227` | untagged neutral name (D10) |
-| 1 | `UnknownF0` | `programs/clientpoc/poc_world.cpp:227` | untagged neutral name (D10) |
-| 1 | `UnknownF4` | `programs/clientpoc/poc_world.cpp:227` | untagged neutral name (D10) |
-| 1 | `UnknownFC` | `programs/clientpoc/poc_world.cpp:227` | untagged neutral name (D10) |
-| 1 | `Unknown100` | `programs/clientpoc/poc_world.cpp:227` | untagged neutral name (D10) |
-| 1 | `Unknown104` | `programs/clientpoc/poc_world.cpp:227` | untagged neutral name (D10) |
-| 1 | `Unknown108` | `programs/clientpoc/poc_world.cpp:227` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `programs/clientpoc/poc_world.cpp:227` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `programs/clientpoc/poc_world.cpp:227` | untagged neutral name (D10) |
-| 1 | `UnknownF8` | `programs/clientpoc/poc_world.cpp:228` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `programs/clientpoc/poc_world.cpp:228` | untagged neutral name (D10) |
-| 1 | `Unknown118` | `programs/clientpoc/poc_world.cpp:229` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `programs/clientpoc/poc_world.cpp:230` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `programs/clientpoc/poc_world.cpp:236` | untagged neutral name (D10) |
-| 1 | `Unknown_A0` | `programs/clientpoc/poc_world.cpp:238` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `programs/clientpoc/poc_world.cpp:243` | untagged neutral name (D10) |
-| 1 | `Unknown_A8` | `programs/clientpoc/poc_world.cpp:244` | untagged neutral name (D10) |
-| 1 | `Unknown764FD0Class` | `programs/clientpoc/poc_world.cpp:248` | untagged neutral name (D10) |
-| 1 | `Unknown_765DF0` | `programs/clientpoc/poc_world.cpp:248` | untagged neutral name (D10) |
-| 1 | `Unknown_74D990` | `programs/clientpoc/poc_world.cpp:256` | untagged neutral name (D10) |
-| 1 | `Unknown_563760` | `programs/clientpoc/poc_world.cpp:271` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:278` | untagged neutral name (D10) |
-| 1 | `Unknown_65E7C0` | `programs/clientpoc/poc_world.cpp:300` | untagged neutral name (D10) |
-| 1 | `Unknown_65EBF0` | `programs/clientpoc/poc_world.cpp:301` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `programs/clientpoc/poc_world.cpp:302` | untagged neutral name (D10) |
-| 1 | `Unknown_5689D0` | `programs/clientpoc/poc_world.cpp:321` | untagged neutral name (D10) |
-| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:335` | untagged neutral name (D10) |
-| 1 | `Unknown_56CE40` | `programs/clientpoc/poc_world.cpp:338` | untagged neutral name (D10) |
-| 1 | `Unknown_56CEC0` | `programs/clientpoc/poc_world.cpp:339` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:355` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `programs/clientpoc/poc_world.cpp:224` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `programs/clientpoc/poc_world.cpp:224` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `programs/clientpoc/poc_world.cpp:226` | untagged neutral name (D10) |
+| 1 | `Unknown764FD0Class` | `programs/clientpoc/poc_world.cpp:231` | untagged neutral name (D10) |
+| 1 | `Unknown_765DF0` | `programs/clientpoc/poc_world.cpp:231` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `programs/clientpoc/poc_world.cpp:239` | untagged neutral name (D10) |
+| 1 | `Unknown_563760` | `programs/clientpoc/poc_world.cpp:254` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:261` | untagged neutral name (D10) |
+| 1 | `Unknown65BFD0Class` | `programs/clientpoc/poc_world.cpp:279` | untagged neutral name (D10) |
+| 1 | `Unknown_65E7C0` | `programs/clientpoc/poc_world.cpp:283` | untagged neutral name (D10) |
+| 1 | `Unknown_65EBF0` | `programs/clientpoc/poc_world.cpp:284` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `programs/clientpoc/poc_world.cpp:285` | untagged neutral name (D10) |
+| 1 | `Unknown_5689D0` | `programs/clientpoc/poc_world.cpp:304` | untagged neutral name (D10) |
+| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown_56CE40` | `programs/clientpoc/poc_world.cpp:321` | untagged neutral name (D10) |
+| 1 | `Unknown_56CEC0` | `programs/clientpoc/poc_world.cpp:322` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:338` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
@@ -23766,7 +23776,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ChatHistory` | `app/client/ui_chat_window.h:77` | the assert's '!ChatHistory' |
 | 3 | `std:` | `app/client/ui_chat_window.h:79` | the assert's '!ChatWindows.empty()' |
 | 3 | `DestBttnText` | `app/client/ui_chat_window.h:85` | the assert's '!DestBttnText' |
-| 3 | `UIChatWindowSplitClass` | `app/client/ui_chat_window_split.h:12` | class-from-file (D24) for app\client\ui_chat_window_split.cpp |
+| 3 | `UIChatWindowSplitClass` | `app/client/ui_chat_window_split.h:28` | class-from-file (D24) for app\client\ui_chat_window_split.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_cinfo.cpp:25` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UICinfoClass` | `app/client/ui_cinfo.h:15` | class-from-file (D24) for app\Client\ui_cinfo.cpp |
 | 3 | `Get_Client` | `app/client/ui_cinfo.h:31` | the FAIL_IF's |
