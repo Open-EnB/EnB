@@ -279,7 +279,7 @@ int SBaseViewClass::Unknown_0C(bool on)
 // the client reads these through inline functions: as plain member reads 0x69C8F0 loads them in another order
 inline unsigned Unknown_Avatar_ID(SClient *client) { return(((ClientClass *)((ClientClass *)client)->Unknown_18())->AvatarID); }	// NAME 1: neutral (D10), as ui_cpit.cpp's
 inline int Unknown_1134(SClient *client) { return(client->Unknown1134); }	// NAME 1: neutral (D10)
-inline int Unknown_84(UIStarbaseClass *starbase) { return(starbase->Unknown84); }	// NAME 1: neutral (D10)
+inline int Unknown_84(UIStarbaseClass *starbase) { return((int)starbase->InterfaceMesh); }	// NAME 1: neutral (D10)
 
 // 0x69C8F0: the base's frame, then the talk interface's choice, the pending view change, the sounds, the trade
 // and the group window
