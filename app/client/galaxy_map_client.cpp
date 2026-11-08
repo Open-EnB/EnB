@@ -190,14 +190,14 @@ void GalaxyMapClientClass::Unknown_7A52F0(LinearBufferClass &buffer)
 	Version++;
 }
 
-// 0x7A5400  NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400)
+// 0x7A5400
 bool GalaxyMapClientClass::Unknown_7A5400(const RefCountPtr<GalaxyMapSectorClass> &sector)
 {
 
 
 	FAIL_IF(!sector) return(false);
 	if (Unknown80 == NULL) return(false);
-	return(Unknown80->Is_Set(sector.Peek()->GalaxyMapID));
+	int id = sector.Peek()->GalaxyMapID;	return(Unknown80->Is_Set(id));
 }
 
 // 0x7A5470

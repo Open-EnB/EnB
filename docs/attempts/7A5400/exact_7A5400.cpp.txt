@@ -1,0 +1,9 @@
+// exact form (RT1, 2026-11-08): the 11-01 Batch variant v1 in the tree layout
+bool GalaxyMapClientClass::Unknown_7A5400(const RefCountPtr<GalaxyMapSectorClass> &sector)
+{
+
+
+	FAIL_IF(!sector) return(false);
+	if (Unknown80 == NULL) return(false);
+	int id = sector.Peek()->GalaxyMapID;	return(Unknown80->Is_Set(id));
+}

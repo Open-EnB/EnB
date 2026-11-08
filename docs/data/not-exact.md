@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-728 entries in 207 files.
+725 entries in 207 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -87,7 +87,6 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:373` | `SimplePositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the Is_Valid chain is the client's now; left: the clock drift's divisor converted once and the count kept in ecx, where the client converts +0x10CC again and rereads +0x10D0; attempts.py show 0x733DC0) 0x733DC0 |
 | `app/client/cpacket.cpp:403` | `AdvancedPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the lag average's divisor converted once, the state pointer not in ebp; the Is_Valid chain and size are the client's; attempts.py show 0x734130) 0x734130 |
 | `app/client/cpacket.cpp:1341` | `SetClientTimePacketClass::Process_Packet` | marker | NOT EXACT: shape (the __int64 sums and differences in other registers and order; frame and size as the client's; attempts.py show 0x737960) 0x737960 (placed after SPLINE 0x737C10 so that no assert line moves) |
-| `app/client/cpacket.cpp:1707` | `DamagePacketClass::Process_Packet` | marker | NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 24 forms; attempts.py show 0x738970) 0x738970 |
 | `app/client/cpacket.cpp:2314` | `StarbaseAvatarUpdatePacketClass::Process_Packet` | marker | NOT EXACT: register-only (this in edi, the interface in esi: the client has them the other way round; attempts.py show 0x73A9F0) 0x73A9F0 |
 | `app/client/cpacket.cpp:2488` | `ClientChatEventPacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150) 0x73B150 |
 | `app/client/cpacket.cpp:2845` | `ClientChatListPacketClass::Process_Packet` | marker | NOT EXACT: shape (the cases' early returns: the client jumps from each to the one exit, ours repeats the profile tail per case; the profile flag in al, sclient in ebx; attempts.py show 0x73CC90) 0x73CC90 |
@@ -111,7 +110,6 @@ edit the comments in the code, not this file.
 | `app/client/extrap.cpp:774` | `Unknown710110Class::Set_Motion` | marker | NOT EXACT: 0x7102B0 shape: the client keeps Unknown3C on the stack past the flag store (fst) and negates the acceleration before the multiply (fchs, both branches' fmul merged); here the flag store comes first and -a * 10000 folds |
 | `app/client/extrap.cpp:827` | `Unknown710530Class::Unknown710530Class` | marker | NOT EXACT: 0x710530 shape: the speed block as Set_Motion 0x7102B0's (the flag store before the fst, the negation folded) |
 | `app/client/extrap.cpp:897` | `Unknown710530Class::Unknown_08` | marker | NOT EXACT: 0x710A20 order: the turn's spill to the stack and the operand order of three products differ (the client stores the turn once and reloads it) |
-| `app/client/extrap.cpp:1457` | `Unknown7125F0Class::Unknown_1C` | marker | NOT EXACT: 0x712780 shape: the client's speed is (s - s) * t + s of EndState's speed alone (its other slot reused for t), a form that folds here |
 | `app/client/extrap.cpp:1668` | `Unknown713520Class::Unknown_1C` | marker | NOT EXACT: 0x713670 inline budget: the client calls Rotate_Z(-angle) out of line (0x577940), this file inlines it |
 | `app/client/extrap.cpp:1821` | `Unknown713D70Class::Unknown713D70Class` | marker | NOT EXACT: 0x713D70 scheduling: the epilogue's load of the saved EH link comes after `pop edi` in the client, before the last stores here |
 | `app/client/extrap.cpp:1859` | `Unknown713D70Class::Unknown_7140E0` | marker | NOT EXACT: 0x7140E0 order: the translation's stores, the roll's push and the state's vtable load are scheduled differently |
@@ -156,7 +154,6 @@ edit the comments in the code, not this file.
 | `app/client/gadget.cpp:438` | `GadgetClass::Process_Input` | marker | NOT EXACT: shape (written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the manager's gadgets: the held gadget first, then every gadget under the pointer) |
 | `app/client/gadget.cpp:1032` | `GadgetClass::Unknown_6609A0` | marker | NOT EXACT: shape (written from the client's 0x6609A0 for the proof-of-concept client: the flash's frame, a one-second pulse unless the gadget is held under the pointer) |
 | `app/client/galaxy_map_client.cpp:176` | `GalaxyMapClientClass::Unknown_7A52F0` | mention | NOT EXACT: the client keeps 0 in ebp and loads buffer.Buffer after new (register / order; attempts.py show 0x7A52F0) |
-| `app/client/galaxy_map_client.cpp:193` | `GalaxyMapClientClass::Unknown_7A5400` | mention | NOT EXACT: the sector's GalaxyMapID lands in edx, the client's in eax (register; attempts.py show 0x7A5400) |
 | `app/client/galaxy_map_pip.cpp:407` | `GalaxyMapPipClass::Unknown_5404E0` | marker | NOT EXACT: only UnknownRTTIClass::Cast: the client calls it out of line here, ours expands it, and one register follows (see notes) @0x5404E0 |
 | `app/client/galaxy_map_render.cpp:128` | `Create_Item` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:208` | `Find_Nearest` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
