@@ -1958,10 +1958,11 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 {
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	float slow = time * 0.3f;
+	float fast = time * 2.0f;
 	if (Unknown2D4 != NULL) {
-		Matrix3D tm = Unknown2D4->Get_Transform();
+		Vector3 pos = Unknown2D4->Get_Transform().Get_Translation();
 		if (Desc.Parts[Unknown30C].Settings[Unknown310].Metal == METAL_CHROME) {
-			Unknown244[0].Rotate_Y(time);
+			Unknown244[0].Rotate_Y(fast);
 		} else {
 			Unknown244[0].Rotate_Y(slow);
 		}
@@ -1969,16 +1970,14 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown244[0]);
 		Matrix3D newtm(Unknown244[0]);
-		newtm[0][3] = tm[0][3];
-		newtm[1][3] = tm[1][3];
-		newtm[2][3] = tm[2][3];
+		newtm.Set_Translation(pos);
 		Unknown2D4->Set_Transform(newtm);
 		Gadgets[0x11].Gadget->Unknown_6608F0();
 	}
 	if (Unknown2D8 != NULL) {
 		Matrix3D tm = Unknown2D8->Get_Transform();
 		if (Desc.Parts[Unknown30C].Settings[Unknown310].Metal == METAL_BRONZE) {
-			Unknown244[1].Rotate_Y(time);
+			Unknown244[1].Rotate_Y(fast);
 		} else {
 			Unknown244[1].Rotate_Y(slow);
 		}
@@ -1986,16 +1985,14 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown244[1]);
 		Matrix3D newtm(Unknown244[1]);
-		newtm[0][3] = tm[0][3];
-		newtm[1][3] = tm[1][3];
-		newtm[2][3] = tm[2][3];
+		newtm.Set_Translation(tm.Get_Translation());
 		Unknown2D8->Set_Transform(newtm);
 		Gadgets[0x12].Gadget->Unknown_6608F0();
 	}
 	if (Unknown2DC != NULL) {
 		Matrix3D tm = Unknown2DC->Get_Transform();
 		if (Desc.Parts[Unknown30C].Settings[Unknown310].Metal == METAL_COPPER) {
-			Unknown244[2].Rotate_Y(time);
+			Unknown244[2].Rotate_Y(fast);
 		} else {
 			Unknown244[2].Rotate_Y(slow);
 		}
@@ -2003,13 +2000,16 @@ void StarbaseShipCustomizeInterface::Unknown_61DF80()
 		InterfaceMesh->Peek_Object()->Capture_Bone(bone);
 		InterfaceMesh->Peek_Object()->Control_Bone(bone, Unknown244[2]);
 		Matrix3D newtm(Unknown244[2]);
-		newtm[0][3] = tm[0][3];
-		newtm[1][3] = tm[1][3];
-		newtm[2][3] = tm[2][3];
+		newtm.Set_Translation(tm.Get_Translation());
 		Unknown2DC->Set_Transform(newtm);
 		Gadgets[0x13].Gadget->Unknown_6608F0();
 	}
 }
+
+
+
+
+
 
 // @0x61E730
 void StarbaseShipCustomizeInterface::Unknown_61E730(FlashingGadgetEvent *event, GadgetClass *sender)
