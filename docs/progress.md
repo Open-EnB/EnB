@@ -4,17 +4,19 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
-### 2026-11-08 (13:35 PST, day, 2026-11-08b): P-IR3-1, P-CW1-1..3 carried out; a second Batch API round (b1108) applied; ChatPanelUIBase; the symbols.json regeneration held back (it loses two pairs); +191 pairs over the run's baseline, 0 lost outright
+### 2026-11-08 (13:35 PST, day, 2026-11-08b): P-IR3-1, P-CW1-1..3 carried out; a second Batch API round (b1108) applied; ChatPanelUIBase; symbols.json regenerated with two tools fixes; +247 pairs over the run's baseline, 0 lost outright
 
 - **Run** run/2026-11-08b (PR #176), coordinator Opus 5.5 on the subscription, base 05a28def (#175 merged), baseline
   `.work/imports.05a28def.json`, plan `.work/run-2026-11-08b/plan.md`. The user (09:00): P-IR3-1 as recommended (V7d +
   (b)), P-CW1-1, P-CW1-2, P-CW1-3 approved (D212-D215); P-SB1-1 is the coordinator's call (D137: kept as proposed, the +0xD4
   stand-in stays until 0x633B50); P-CW2-1 not decided; then a single Batch API round on the $67 left (D216). Weekly usage
   71 % -> 73 %. Builders, all Opus: OM1, CW4, RT1, RN1, VB1, VB2, VB3, SY1 (~1.7M tokens together).
-- **HEAD against the baseline:** gained 187 + 4 tie-break, 0 lost outright; 3 D66 moves (0x68FB60 / 0x68FC50 / 0x68FC80
-  inv_render -> inv_trade_render, D209 (b)); 4 shared holders less (0x68FC30 inv_render; 0x4B5740 chat_window_history;
-  0x42A970 / 0x42D050 ui_chat_panel_base: each still held by many files); 0x68FAE0's loss accepted (D209, in
-  accepted-corrections.json, dde0c7d0). The merge needs the maintainer's `/accept-d66` on the head.
+- **HEAD against the baseline:** gained 243 + 4 tie-break, 0 lost outright; 6 D66 moves (0x68FB60 / 0x68FC50 / 0x68FC80
+  inv_render -> inv_trade_render, D209 (b); 0x4A8600 delta_time, 0x4F7700 / 0x4F7750 shipcust_desc -> aux_roots, with
+  the symbols fixes); 6 shared holders less (0x68FC30 inv_render; 0x4B5740 chat_window_history; 0x42A970 / 0x42D050
+  ui_chat_panel_base; 0x4B2AA0 kv_encoder; 0x703F40 sclient: each still held by other files); 0x68FAE0's loss accepted
+  (D209 / D212: accepted-corrections.json, landed first as PR #177 because verify_pr.py reads the list from master). The
+  merge needs the maintainer's `/accept-d66` on the head.
 - **objmatch (OM1):** V7d (fb07b848, +35: app 28, ww3d2 4, wnet / wwaudio / wwmath 1; none of the unnarrowed rule's false
   gains came back); P-CW1-1 as two rules: the strongest of several range proposers (9c6cac86, +9, decided by the self-name
   test) and the refutation of a proposer whose call into its own object lands on other bytes (f69ae7e4, 0 / 0); with them
@@ -38,18 +40,22 @@ Newest first within each section. Dates are when the entry was written.
   Vector3() at that address), 0x576AC0, 0x561030), gains that drop the function's own similarity by more than 0.1
   (0x7AD090, 0x75B8F0, 0x75FB00, 0x534CA0, 0x5C0350, 0x80CA30), and 0x5913E0 (its gain lost 0x592350 in the full verify).
   API credit left: about $31 (to 11-28).
-- **symbols.json (SY1, P-RN1-1): not landed.** Regenerated in wt/SY1 (8e32dd68) from all 11 libraries' verify objects as
-  71314026: 26,931 -> 35,758 (207 names gone: 202 newer names at the same address, 12 corrections,
-  .work/sy1/symdiff.log). The landing's verify then lost 0x5156B0 (a COMDAT held by ~25 files) and 0x466BA0
-  (starmap_pip_support) outright: objmatch's self-name tie-break (D88, D213) reads symbols.json, and SY1 verified only
-  before regenerating. Only the rename (706e01e8) landed. `.work/pseudo` was refreshed from the new symbols (`--all`,
-  29,804 of 29,817; `--check` 0): its names run ahead of the tracked symbols.json.
-- **Harness (D182):** at cffba3c0 and at 32893875: clienttest 103 / 103 equal to expected.txt (2658 lines); udpreplay
+- **symbols.json (SY1, P-RN1-1; 62f3a30b, tools):** the first regeneration (4cad4d7a, kept in history) lost 0x5156B0
+  (InterfaceClass::Unknown_64, ~40 files) and 0x466BA0 outright in the landing's verify: SY1 had verified only before
+  regenerating. Causes: symbols.py placed tables by slot alignment where an exact function's vptr store says otherwise
+  (StarmapPipSupportClass at 0xAE8754, not 0xB06D60; also DeltaTemplateClass<B00A00>, DeltaCompoundClass, LightClass,
+  DynamicMeshClass, DynamicWindowRenderObjectClass); objmatch's short_known took ChatPanelInterface's own empty +0x64
+  (0x563260) as a second address of ?Unknown_64@InterfaceClass; and a symbol at several client functions (two classes of
+  one name; linker-folded addresses, D193) got a self name. Fixes: symbols.py places a table by the vptr stores and gives
+  no `proof` at such symbols; objmatch skips a vtable slot whose symbol is known at another address and keeps self names
+  with one address only (as its docstring said). symbols.json 26,931 -> 36,217; all 11 libraries verified after it:
+  +56, 0 lost outright (3 moves, 2 shared holders less, above). `.work/pseudo` refreshed (`--all`, `--check` 0).
+- **Harness (D182):** at cffba3c0, 32893875 and 62f3a30b: clienttest 103 / 103 equal to expected.txt (2658 lines); udpreplay
   alex3 26336 of 26465, 7 of 8; handshakes 54. The POC was not replayed this run (P-OM1-1: the chat panel now registers
   its handler 0x56C730 for real); CW4's replay crashes after world entry in ViewClass::Unknown_14+0x44 (0x88), as the
   baseline exe does (§4).
-- **Records:** traps in workflow.md §3.3, §3.4, §3.6, §3.7. The earlier plan-log times before 11:42 were estimates.
-- **Waiting on the user:** `/accept-d66` on PR #176's head; the merge. P-CW2-1 (0x56FD30 0.545 -> 0.606 in b1108, not
+- **Records:** traps in workflow.md §3.3, §3.4, §3.6, §3.7, §3.8. The earlier plan-log times before 11:42 were estimates.
+- **Waiting on the user:** `/accept-d66` on PR #176's head (6 moves, 6 shared holders less); the merge. P-CW2-1 (0x56FD30 0.545 -> 0.606 in b1108, not
   exact).
 - **Next session:** §4: SY1's retype lead (+0x9C MovableUIBackGadget*, 0x56DEE0's MovableUIBackGadgetMoved), the POC's
   world-entry crash, then the batch's leads (0x510D40 frame, 0x5913E0, 0x561030).
@@ -2655,8 +2661,7 @@ written but not byte-exact, with its cause: `docs/data/not-exact.md`; every aban
 LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a new §3.1 lever). The items
 below name only the work items, the blocked work, the leads and the queues.
 
-* **symbols.json regeneration (P-RN1-1, wt/SY1 8e32dd68):** find why the regenerated names lose 0x5156B0 and 0x466BA0 in objmatch's self-name tie-break (which symbol the new file gives those addresses, or a second address under the same mangled name), fix the generator or the tie-break, then land it with a full verify after regenerating.
-* **Leads of 2026-11-08b:** SY1: ChatPanelUIBase's +0x9C is a MovableUIBackGadget * and 0x56DEE0's slot takes (MovableUIBackGadgetMoved *, MovableUIBackGadget *) by the mangled callback type (our source: DestroyGadgetEvent *, GadgetClass *, an `int Unknown9C`); 0x56D970 connects it. The POC replay (WE1's input) crashes after world entry in ViewClass::Unknown_14+0x44 reading 0x88 (SClient::Do_Frame -> MainViewClass::Unknown_14), with the baseline exe too; replay the POC once for the chat panel's real handler registration (P-OM1-1). Batch b1108's leads (attempts.csv): 0x510D40 (frame: only the DynamicIBAccessClass slot differs), 0x5913E0 (inline the list clear, keep 0x592350 out of line), 0x561030 (auxdata.h's Unknown_Find_Field<DeltaBuffsClass> out of line by the inline budget, not a forwarder), 0x788900 / 0x6A7730 (shape, 0.59), 0x6CE4E0, and RT1's 33 only-closer stashes; D185's helper-copy cases 0x44E470, 0x500760, 0x584690, 0x5B1ED0. 0x56C180's NOT EXACT note predates the SignalMap retype: re-check.
+* **Leads of 2026-11-08b:** SY1: ChatPanelUIBase's +0x9C is a MovableUIBackGadget * and 0x56DEE0's slot takes (MovableUIBackGadgetMoved *, MovableUIBackGadget *) by the mangled callback type (our source: DestroyGadgetEvent *, GadgetClass *, an `int Unknown9C`); 0x56D970 connects it. The POC replay (WE1's input) crashes after world entry in ViewClass::Unknown_14+0x44 reading 0x88 (SClient::Do_Frame -> MainViewClass::Unknown_14), with the baseline exe too; replay the POC once for the chat panel's real handler registration (P-OM1-1). Batch b1108's leads (attempts.csv): 0x510D40 (frame: only the DynamicIBAccessClass slot differs), 0x5913E0 (inline the list clear, keep 0x592350 out of line), 0x561030 (auxdata.h's Unknown_Find_Field<DeltaBuffsClass> out of line by the inline budget, not a forwarder), 0x788900 / 0x6A7730 (shape, 0.59), 0x6CE4E0, and RT1's 33 only-closer stashes; D185's helper-copy cases 0x44E470, 0x500760, 0x584690, 0x5B1ED0. 0x56C180's NOT EXACT note predates the SignalMap retype: re-check. ChatPanelInterface's own empty +0x64 0x563260 could be defined in ui_chat_panel.cpp (net-0 lines). SY1: aux_roots' Write<B00A00> / <B016DC> names at 0x706FF0 / 0x703F40 look swapped (pairs the same either way).
 * **Decisions of 2026-11-07 to carry out:** D206 (KVEncoderClass, with aux_roots' next repad). CameraManagerClass's former stand-in callers in co.cpp / cpacket.cpp / ui_cpit.cpp / ui_verb.cpp could take the real member names, as ctrngadg.cpp did (CM2).
 * **inv_render and neighbours' near misses (IR2):** 0x68C6B0, 0x68F510 (inline-budget), 0x68CCC0, 0x68E360 (register), 0x68FE10, 0x690AA0, 0x690D20 (order): attempts.csv; don't spend heavily. Stand-ins left in the new files: `Unknown66CC00Class` (HUD gadget), `Unknown688830Class`, `Item` (inv_data).
 * **Near misses of 2026-11-06 (attempts.csv):** ui_talkt 0x64B6E0, 0x64C8D0, 0x64CC90, 0x64D400, 0x64D770, 0x64E7A0 (0x64D770 and 0x64E7A0 have better draft forms, TK1's rows); gd_text_editor 0x671CB0, 0x6732F0, 0x6735A0; ui_mfd 0x5BECF0, 0x5BCE50, 0x5BD540, 0x5BDC20, 0x5BDDF0, 0x5BDED0, 0x5BE120; ui_mfd_extended_context_harvestable 0x5C0350; ui_mfdm 0x5C25C0; ui_slot_scut 0x6309F0 (about 300 forms: stop); ui_verb 0x658C90 (about 80 forms); galaxy_map_pip 0x5404E0.
