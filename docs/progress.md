@@ -2589,7 +2589,6 @@ written but not byte-exact, with its cause: `docs/data/not-exact.md`; every aban
 LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a new §3.1 lever). The items
 below name only the work items, the blocked work, the leads and the queues.
 
-* **Unlanded branches (`python tools/vc6/wt.py list --unlanded`, 2026-11-08):** CC1, HF2, RS1, pins: land each (`wt.py rebase`, then bring-over) or record why it is dropped.
 * **Decisions of 2026-11-07 to carry out:** D206 (KVEncoderClass, with aux_roots' next repad). D209's measurement is P-IR3-1 (§3). CameraManagerClass's former stand-in callers in co.cpp / cpacket.cpp / ui_cpit.cpp / ui_verb.cpp could take the real member names, as ctrngadg.cpp did (CM2).
 * **inv_render and neighbours' near misses (IR2):** 0x68C6B0, 0x68F510 (inline-budget), 0x68CCC0, 0x68E360 (register), 0x68FE10, 0x690AA0, 0x690D20 (order): attempts.csv; don't spend heavily. Stand-ins left in the new files: `Unknown66CC00Class` (HUD gadget), `Unknown688830Class`, `Item` (inv_data).
 * **Near misses of 2026-11-06 (attempts.csv):** ui_talkt 0x64B6E0, 0x64C8D0, 0x64CC90, 0x64D400, 0x64D770, 0x64DF80, 0x64E7A0 (0x64D770 and 0x64E7A0 have better draft forms, TK1's rows); gd_text_editor 0x671CB0, 0x672120, 0x6732F0, 0x6735A0; ui_mfd 0x5BECF0, 0x5BCE50, 0x5BD540, 0x5BDC20, 0x5BDDF0, 0x5BDED0, 0x5BE120; ui_mfd_extended_context_harvestable 0x5C0350; ui_mfdm 0x5C2470, 0x5C25C0; ui_slot_scut 0x6309F0 (about 300 forms: stop); ui_verb 0x658C90 (about 80 forms); galaxy_map_pip 0x5404E0.
