@@ -200,14 +200,6 @@ public:
 // (interim, D137: their files are not in the tree yet)
 class ShaderClass;
 class TextureMapperClass;
-class Unknown45A090Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'link' (0x2C bytes)
-{
-public:
-	Unknown45A090Class(RenderStateListClass *list, int id, int link_id, unsigned int flags);	// 0x45A090
-	virtual ~Unknown45A090Class();
-	virtual RenderStateClass *Unknown_04(RenderStateListClass *list);
-	virtual void Unknown_14(RsTrackClass *owner);
-};
 class Unknown45F390Class : public RenderStateClass	// NAME 1: neutral (D10); rs.ini TYPE 'sound' (0x3C bytes)
 {
 public:
