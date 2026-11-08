@@ -1,7 +1,5 @@
 {
  "ambiguous": [
-  "0x42A900",
-  "0x42AAE0",
   "0x42AFF0",
   "0x4333D0",
   "0x436730"
@@ -15,11 +13,19 @@
   "0x790C70",
   "0x790D00",
   "0x790DE0",
-  "0x790E70"
+  "0x790E70",
+  "0x790EE0",
+  "0x7911D0",
+  "0x791210",
+  "0x791240"
  ],
  "merged": [],
  "name": "client/unknown_personality_manager.cpp",
+ "shared": [
+  "0x791240"
+ ],
  "short_known": [
-  "0x790940"
+  "0x790940",
+  "0x791240"
  ]
 }

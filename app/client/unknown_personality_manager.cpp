@@ -133,15 +133,15 @@ int Unknown_790560Class::Unknown_790E70(const char *filename)
 	return(-1);
 }
 
+
 // 0x790EE0
-// NOT EXACT: functional for POC (D64), shape (push_back's inlined insert)
 bool Unknown_790560Class::Unknown_790EE0(const char *filename)
 {
 	Unknown_790260Class *personality = new Unknown_790260Class(filename);
-	if (personality == NULL) {
-		return(false);
+	if (personality != NULL) {
+		Personalities.push_back(personality);
+		return(true);
 	}
-	Personalities.push_back(personality);
-	return(true);
+	return(false);
 }
 
