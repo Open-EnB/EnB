@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIManuClass, ui_manu.cpp's manufacturing window (0xBC4 bytes, tables 0xAF2D4C / 0xAF2D40 / 0xAF2D34; the client's file per its asserts, this header's name provisional), laid out from the constructor 0x5AFA00 / destructor 0x5AFCD0 (MU1), over sclient.h's Unknown5BB320Class (second constructor 0x5BB250)"
+}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "PARTIAL: the packet base class (vtable 0xAEDE88, 10 slots; its inline defaults on the client's lines 483-502), the message header, the raw message (0x22C bytes) with pk.cpp's helpers, the factory 0x8696C0 declared (defined by the program until it is rebuilt)"
+}

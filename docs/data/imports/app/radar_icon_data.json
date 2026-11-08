@@ -1,0 +1,35 @@
+{
+ "ambiguous": [
+  "0x42B2F0",
+  "0x46BE90",
+  "0x474080"
+ ],
+ "copy": "reconstructed",
+ "description": "RadarIconDataClass (D24), the base of the gutter and starmap data (the client's __FILE__ 0xB9F220, FAIL_IFs at lines 64-138; 0x7BC040-0x7BC6D0, ended by <string>'s initialiser 0x7BC6F0) (GR2)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x79D130",
+  "0x7BC040",
+  "0x7BC0D0",
+  "0x7BC100",
+  "0x7BC1F0",
+  "0x7BC260",
+  "0x7BC2B0",
+  "0x7BC2E0",
+  "0x7BC320",
+  "0x7BC5C0",
+  "0x7BC5E0",
+  "0x7BC6D0"
+ ],
+ "merged": [],
+ "name": "client/radar_icon_data.cpp",
+ "shared": [
+  "0x42F250",
+  "0x79D130"
+ ],
+ "short_known": [
+  "0x79D130",
+  "0x7BC6D0"
+ ]
+}

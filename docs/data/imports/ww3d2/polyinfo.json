@@ -1,0 +1,22 @@
+{
+ "ambiguous": [
+  "0x931490"
+ ],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 1,
+  "R": 2,
+  "Z": 1
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0xA039E0"
+ ],
+ "merged": [],
+ "name": "polyinfo.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

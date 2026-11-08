@@ -1,0 +1,20 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 2,
+  "R": 5,
+  "Z": 5
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9EE7A0",
+  "0x9EE830",
+  "0x9EE880",
+  "0x9EE8D0",
+  "0x9EE920"
+ ],
+ "merged": [],
+ "name": "wwdebug.cpp"
+}

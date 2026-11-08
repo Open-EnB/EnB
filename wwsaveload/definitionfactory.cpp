@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -62,3 +62,7 @@ DefinitionFactoryClass::~DefinitionFactoryClass (void)
 	DefinitionFactoryMgrClass::Unregister_Factory (this);
 	return ;
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's definitionfactory.cpp (frozen 2026-11-07 from importer.py)
+// EnB: imported from Zero Hour (not by byte-match evidence; EXTRA_FILES): DefinitionFactoryClass ctor/dtor
+//       (twiddler.cpp, wwaudio); R = G = Z but for the banner

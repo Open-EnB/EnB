@@ -1,0 +1,19 @@
+{
+ "ambiguous": [],
+ "copy": "R",
+ "expected": {
+  "R": 3
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0xA17250",
+  "0xA17280",
+  "0xA17290",
+  "0xA172B0"
+ ],
+ "merged": [],
+ "name": "subtitle.cpp",
+ "short_known": [
+  "0xA17280"
+ ]
+}

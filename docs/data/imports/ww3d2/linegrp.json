@@ -1,0 +1,50 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 0,
+  "R": 12,
+  "Z": 10
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x97B6D0",
+  "0x97B730",
+  "0x97B750",
+  "0x97B820",
+  "0x97B940",
+  "0x97B960",
+  "0x97B980",
+  "0x97B9A0",
+  "0x97B9C0",
+  "0x97B9E0",
+  "0x97BA00",
+  "0x97BA20",
+  "0x97BA50",
+  "0x97BA60",
+  "0x97BA90",
+  "0x97BAA0",
+  "0x97BAB0",
+  "0x97BAC0",
+  "0x97BAD0",
+  "0x97BAF0",
+  "0x97C1B0",
+  "0x97C1D0",
+  "0x97C360",
+  "0x97C900"
+ ],
+ "merged": [],
+ "name": "linegrp.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x97B940",
+  "0x97B9E0",
+  "0x97BA00",
+  "0x97BAA0",
+  "0x97BAD0"
+ ]
+}

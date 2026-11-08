@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "StarLayerClass (0x20 bytes) and StarFieldClass (RenderObjClass, 0xA4 bytes, vtable 0xAEA258; descriptive names, D24): the star field from stars.ini (M2.4)"
+}

@@ -1,0 +1,19 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 4,
+  "R": 4,
+  "Z": 4
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9E93B0",
+  "0x9E9450",
+  "0x9E94D0",
+  "0x9E9620"
+ ],
+ "merged": [],
+ "name": "sha.cpp"
+}

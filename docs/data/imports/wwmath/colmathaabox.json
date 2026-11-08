@@ -1,0 +1,28 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 7,
+  "R": 9,
+  "Z": 8
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x8E22D0",
+  "0x8E2380",
+  "0x8E2450",
+  "0x8E2830",
+  "0x8E28E0",
+  "0x8E2B60",
+  "0x8E2DF0"
+ ],
+ "merged": [],
+ "name": "colmathaabox.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40"
+ ]
+}

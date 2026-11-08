@@ -1,0 +1,17 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 2,
+  "R": 2,
+  "Z": 2
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x8C1F10",
+  "0x8C1FC0"
+ ],
+ "merged": [],
+ "name": "wwmath.cpp"
+}

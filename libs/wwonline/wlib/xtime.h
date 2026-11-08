@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -144,3 +144,16 @@ class Xtime
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's xtime.h (frozen 2026-11-07 from importer.py)
+// EnB: class Xtime (line 60 at the freeze): E&B's CordCon code copies const Xtimes (CordStatsClass::Update 0x85C0D0,
+//       Allow 0x85C430 take `const Xtime &now` and copy it); matchbot's copy constructor takes a non-const reference.
+//       Same code (0x8BA420)
+// EnB: class Xtime (line 63 at the freeze): E&B's addition 0x8BA510 (between ~Xtime 0x8BA4F0 and addSeconds 0x8BA550):
+//       day_ * 86400 + msec_ / 1000 - 719528 * 86400 (0x79747C00), the time_t of the time; CordStatsClass::Allow
+//       0x85C430 calls it
+// EnB: class Xtime (line 67 at the freeze): E&B's addMsec 0x8BA5F0
+// EnB: class Xtime (line 92 at the freeze): not in the client's xtime object (update 0x8BA6F0 is followed by getDay
+//       0x8BA810)
+// EnB: class Xtime (line 101 at the freeze): not in the client's xtime object (setTime 0x8BA940 is followed by getTime
+//       0x8BAA50)

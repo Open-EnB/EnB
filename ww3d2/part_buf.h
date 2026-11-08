@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -463,3 +463,12 @@ class ParticleBufferClass : public RenderObjClass
 
 #endif // PART_BUF_H
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's part_buf.h (frozen 2026-11-07 from importer.py)
+// EnB: struct NewParticleStruct (line 65 at the freeze): NewParticleStruct has Zero Hour's GroupID (E&B's emitter,
+//       Zero Hour's code, sets it)
+// EnB: class ParticleBufferClass (line 167 at the freeze): Zero Hour's Set_Current_GroupID
+// EnB: class ParticleBufferClass (line 407 at the freeze): ParticleBufferClass has Zero Hour's line-group members: the
+//       GroupID buffer pointer after APT (every member from PingPongPosition, +0x204, is 4 bytes later in the client)
+//       and CurrentGroupID at the end; not Zero Hour's FutureStartTime (members before +0x204 don't move)
+// EnB: class ParticleBufferClass (line 440 at the freeze): CurrentGroupID at the end

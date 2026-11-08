@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1404,3 +1404,92 @@ WWINLINE RenderStateStruct& RenderStateStruct::operator= (const RenderStateStruc
 
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's dx8wrapper.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 73 at the freeze: Zero Hour's 06/27/02 additions (its 'KJM' blocks: render to shadow-buffer texture,
+//       shader system updates), which E&B has; the rest of E&B's DX8Wrapper is Renegade's (its render state, device and
+//       index-buffer code match Renegade's bytes). Its constant limits (Zero Hour's values; MAX_TEXTURE_STAGES is set
+//       to Zero Hour's 8 in WWSHADE_API_PATCHES)
+// EnB: Line 73 at the freeze: Zero Hour's MAX_TEXTURE_STAGES=8: the client's render_state.Textures runs
+//       0xBFFC88-0xBFFCA8 (8 pointers, Lights follow at 0xBFFCA8, Set_Light_Environment 0x9265CB),
+//       Invalidate_Cached_Render_States (0x921C20) fills 0x100 dwords of TextureStageStates (8x32), ShdSubMeshClass
+//       keeps UV[8] at +0x74 (ShdDX8RendererNodeClass constructor, 0xA083BE)
+// EnB: Line 76 at the freeze: Zero Hour's two vertex streams: the client's Set_Vertex_Buffer(vb, stream) at 0x924E20
+//       keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at 0xBFFECC (vba_offset 0xBFFED8, vba_count
+//       0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer per stream
+// EnB: Line 90 at the freeze: Forward declaration for Zero Hour's Render_Info
+// EnB: Line 96 at the freeze: (ZTextureClass, Zero Hour)
+// EnB: Line 110 at the freeze: D9: Zero Hour's draw-call counter macro (DX8Wrapper::draw_calls), used by Draw 0x9252A0
+//       and Draw_Sorting_IB_VB 0x925070
+// EnB: struct RenderStateStruct (lines 145, 150 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream
+// EnB: class DX8Wrapper (line 220 at the freeze): E&B: a public DX8Wrapper function at 0x921C50 (between
+//       Invalidate_Cached_Render_States and Do_Onetime_Device_Dependent_Shutdowns), called from ww3d.obj 0x9179D0
+// EnB: class DX8Wrapper (line 239 at the freeze): Zero Hour's two vertex streams: the client's Set_Vertex_Buffer(vb,
+//       stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at 0xBFFECC (vba_offset
+//       0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer per stream
+// EnB: class DX8Wrapper (line 277 at the freeze): The client's Set_Light_Environment (0x926460) takes a second
+//       argument (E&B's; no EA copy has it): it always stores light_env in Zero Hour's Light_Environment (0xC00648) and
+//       sets the device lights only when the flag is set; mesh (0x93F639) and dx8renderer (0x97A32D) pass 1,
+//       ShdDX8RendererNodeClass::Flush (0xA089C2) passes 0. The body is otherwise Renegade's. Parameter name unknown
+//       (D10)
+// EnB: class DX8Wrapper (lines 318, 321 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero Hour's
+//       texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: class DX8Wrapper (line 322 at the freeze): Zero Hour's _Create_DX8_ZTexture (byte-exact at 0x925DD0)
+// EnB: class DX8Wrapper (line 365 at the freeze): Zero Hour's draw-call statistics (Reset/Begin/End_Statistics
+//       byte-exact at 0x924680..0x924730)
+// EnB: class DX8Wrapper (line 412 at the freeze): Zero Hour's render target with a depth buffer (0x926C40)
+// EnB: class DX8Wrapper (line 415 at the freeze): Zero Hour's 06/27/02 additions (its 'KJM' blocks: render to
+//       shadow-buffer texture, shader system updates), which E&B has; the rest of E&B's DX8Wrapper is Renegade's (its
+//       render state, device and index-buffer code match Renegade's bytes): the depth-map and shader interface
+//       (Set_Pixel_Shader, Set_Vertex_Shader_Constant, Set_Pixel_Shader_Constant byte-exact at 0x927610..0x9276A0)
+// EnB: class DX8Wrapper (line 434 at the freeze): Zero Hour's Apply_Default_State: the client's at 0x9270D0 (ZENABLE,
+//       SHADEMODE GOURAUD, ZWRITEENABLE, ALPHATESTENABLE 0, SRCBLEND ONE..., 0x680 bytes of shader constants), called
+//       by ShdDX8RendererClass::Flush (0xA08060)
+// EnB: class DX8Wrapper (line 435 at the freeze): Invalidate_Cached_Render_States public, as in Zero Hour (called by
+//       ShdDX8RendererClass::Flush, 0xA08060)
+// EnB: class DX8Wrapper (line 444 at the freeze): Zero Hour's Set_Ambient/Get_Ambient: WW3D::Render (0x917E2F) stores
+//       the scene ambient in Ambient_Color (0xC00530) before D3DRS_AMBIENT; ShdHWVertexShader::Light (0xA0F7D4) reads
+//       it
+// EnB: class DX8Wrapper (line 444 at the freeze): Zero Hour's Render_Info (0xC0064C), set by
+//       ShdDX8RendererNodeClass::Flush (0xA089D9) before Apply_Instance; the setter is E&B's (no EA copy has one), name
+//       unknown (D10)
+// EnB: class DX8Wrapper (line 496 at the freeze): Invalidate_Cached_Render_States is public in Zero Hour
+//       (ShdDX8RendererClass::Flush, 0xA08060, calls it); moved below
+// EnB: class DX8Wrapper (line 543 at the freeze): D9: E&B keeps Zero Hour's transform cache with the compare live
+//       (Zero Hour has it under #if 0): _Set_DX8_Transform(Matrix4) 0x983FE0 calls Matrix4 operator!= (0x8DEEC0) on m
+//       and DX8Transforms[transform] (0xBFAFB8 + transform*64) before copying and SetTransform;
+//       Apply_Render_State_Changes 0x9254A0 inlines it for the world and view matrices
+// EnB: class DX8Wrapper (line 567 at the freeze): (their state)
+// EnB: class DX8Wrapper (line 576 at the freeze): Zero Hour's Light_Environment (0xC00648) and Render_Info (0xC0064C)
+// EnB: class DX8Wrapper (line 582 at the freeze): Zero Hour's Ambient_Color (client 0xC00530)
+// EnB: class DX8Wrapper (line 598 at the freeze): (the draw-call counter)
+// EnB: class DX8Wrapper (line 611 at the freeze): the current depth buffer, released by Zero Hour's Set_Render_Target
+//       (0x926AD0, 0x926C40)
+// EnB: Line 628 at the freeze: Zero Hour's inline shader setters, verbatim
+// EnB: DX8Wrapper::Set_Vertex_Shader (line 632 at the freeze): Set_Vertex_Shader keeps its redundancy check in the
+//       client (out-of-line copy 0x9275E0: compares Vertex_Shader 0xC00640 before SetVertexShader), before Zero Hour's
+//       (gth) #if 0
+// EnB: Line 669 at the freeze: Zero Hour's Set_Ambient (inlined in WW3D::Render at 0x917E2F: Ambient_Color 0xC00530,
+//       then D3DRS_AMBIENT)
+// EnB: DX8Wrapper::_Set_DX8_Transform (line 680 at the freeze): D9: E&B keeps Zero Hour's transform cache with the
+//       compare live (Zero Hour has it under #if 0): _Set_DX8_Transform(Matrix4) 0x983FE0 calls Matrix4 operator!=
+//       (0x8DEEC0) on m and DX8Transforms[transform] (0xBFAFB8 + transform*64) before copying and SetTransform;
+//       Apply_Render_State_Changes 0x9254A0 inlines it for the world and view matrices
+// EnB: DX8Wrapper::Convert_Color (line 900 at the freeze): C-equivalent comment for the inline assembly above this
+//       line (conventions.md, Inline assembly; was annotations.py)
+// EnB: DX8Wrapper::Clamp_Color (line 986 at the freeze): C-equivalent comment for the inline assembly above this line
+//       (conventions.md, Inline assembly; was annotations.py)
+// EnB: DX8Wrapper::Set_Render_State (line 1275 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream (Set_Render_State, Release_Render_State and RenderStateStruct as Zero Hour's)
+// EnB: DX8Wrapper::Release_Render_State (line 1326 at the freeze): E&B's DX8Wrapper::Release_Render_State releases
+//       textures up to the device's texture stages: the copy in the sorting renderer, 0x984740, loops to CurrentCaps
+//       +0x124 (Get_Max_Textures_Per_Pass)
+// EnB: RenderStateStruct::operator= (line 1393 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream

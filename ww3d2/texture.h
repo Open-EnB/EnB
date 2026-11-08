@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -412,3 +412,61 @@ TextureClass *Load_Texture(ChunkLoadClass & cload);
 void Save_Texture(TextureClass * texture, ChunkSaveClass & csave);
 
 #endif //TEXTURE_H
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's texture.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 57 at the freeze: D9: E&B has no TextureFilterClass (Zero Hour's 08/05/02 KM 'Texture filter class
+//       abstraction' redesign); its TextureClass keeps Renegade's five filter members and accessors: the four
+//       constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at TextureClass offsets,
+//       Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter 0x94CC30/0x94CC60/0x94CC90 are
+//       inside texture.obj, and the client has no out-of-line TextureFilterClass constructor or Apply
+// EnB: Line 84 at the freeze: no cube or volume texture classes: no vtables for them in the client (0xB119A0:
+//       TextureBaseClass, DX8TextureTrackerClass, TextureClass, DX8ZTextureTrackerClass, ZTextureClass, then
+//       SurfaceClass), and nothing calls D3DXCreateCubeTexture/D3DXCreateVolumeTexture
+// EnB: class TextureBaseClass (line 92 at the freeze): Renegade's friend DX8TextureManagerClass, for Release_Textures'
+//       direct D3DTexture access (0x995C70)
+// EnB: enum PoolType (line 101 at the freeze): no TexAssetType: Get_Asset_Type is not virtual in E&B (TextureBaseClass
+//       vtable at 0xB119D0 has 6 slots: Delete_This, the destructor, Init, Apply_New_Surface, Apply, As_TextureClass)
+// EnB: class TextureBaseClass (line 110 at the freeze): the constructor takes 5 arguments, no 'reducible' (0x94B020
+//       ends ret 0x14)
+// EnB: class TextureBaseClass (line 113 at the freeze): (no Get_Asset_Type)
+// EnB: class TextureBaseClass (line 147 at the freeze): Get_Texture_Memory_Usage is not a virtual of the base class
+//       (the vtable has no slot for it)
+// EnB: class TextureBaseClass (line 151 at the freeze): no IsReducible (LOD reduction came with the 08/05/02 redesign)
+// EnB: class TextureBaseClass (line 168 at the freeze): E&B: Peek_D3D_Base_Texture is inline in the header:
+//       DX8Wrapper::Create_Render_Target 0x926790/0x9268C0 reads [tex+0x34] (D3DTexture) where an out-of-line accessor
+//       would be a call
+// EnB: class TextureBaseClass (line 181 at the freeze): E&B's texture memory usage is one non-virtual TextureBaseClass
+//       function (0x94C1D0, after Set_HSV_Shift 0x94C150, called by Log_Textures/Log_All_Textures): Renegade's and
+//       Generals' form, the same body on both sides of an Initialized test (Calculate_Texture_Memory_Usage inlined
+//       twice; the vtables at 0xB119A0 have no slot for it)
+// EnB: class TextureBaseClass (line 199 at the freeze): TextureBaseClass::Unknown_Get_Textures_Applied_Last_Frame
+//       (E&B, name not known, D10; called by the app at 0x53EC23 and 0x6A1317)
+// EnB: class TextureBaseClass (line 208 at the freeze): no cube or volume casts: As_TextureClass is the base's last
+//       slot (0xB119E4)
+// EnB: class TextureBaseClass (line 210 at the freeze): (no cube or volume textures)
+// EnB: class TextureBaseClass (line 222 at the freeze): no IsReducible: the four bools fill +0xC..+0xF and
+//       InactivationTime is at +0x10 (TextureBaseClass constructor 0x94B020; D3DTexture at +0x34, Zero Hour +0x38)
+// EnB: class TextureBaseClass (line 238 at the freeze): required because TextureClass(IDirect3DBaseTexture8*) writes
+//       D3DTexture (+0x34) directly, as the client's constructor does (0x94B660, 5534f64); TextureClass::Apply 0x94BC80
+//       also passes it itself; access only, layout unchanged
+// EnB: class TextureBaseClass (line 256 at the freeze): (no cube or volume load tasks)
+// EnB: class TextureClass (lines 278, 341, 372 at the freeze): D9: E&B has no TextureFilterClass (Zero Hour's 08/05/02
+//       KM 'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter members and
+//       accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at TextureClass
+//       offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter 0x94CC30/0x94CC60/0x94CC90
+//       are inside texture.obj, and the client has no out-of-line TextureFilterClass constructor or Apply
+// EnB: class TextureClass (line 307 at the freeze): TextureClass(width, height, format, mip, pool, rendertarget): 6
+//       arguments, no allow_reduction (0x94B240 ends ret 0x18)
+// EnB: class TextureClass (line 319 at the freeze): TextureClass(name, full_path, mip, format, allow_compression): 5
+//       arguments, no allow_reduction (0x94B3D0 ends ret 0x14)
+// EnB: class TextureClass (line 329 at the freeze): no constructor for cube and volume textures, and no virtual
+//       Get_Asset_Type
+// EnB: class TextureClass (line 365 at the freeze): not virtual: TextureClass's vtable (0xB119F0) is Delete_This,
+//       destructor, Init, Apply_New_Surface, Apply, As_TextureClass
+// EnB: class TextureClass (line 366 at the freeze): TextureClass uses TextureBaseClass's Get_Texture_Memory_Usage
+//       (0x94C1D0)
+// EnB: class ZTextureClass (line 393 at the freeze): ZTextureClass: no Get_Asset_Type either
+// EnB: class ZTextureClass (line 403 at the freeze): not virtual: ZTextureClass's vtable (0xB11A10) has 6 slots, the
+//       last the base's As_TextureClass (0x94B190)
+// EnB: class ZTextureClass (line 408 at the freeze): no CubeTextureClass or VolumeTextureClass (08/05/02 redesign; see
+//       above)

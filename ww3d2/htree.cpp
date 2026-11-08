@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1078,3 +1078,8 @@ HTreeClass * HTreeClass::Create_Interpolated(const HTreeClass * tree_base,
 	return new_tree;
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's htree.cpp (frozen 2026-11-07 from importer.py)
+// EnB: HTreeClass::Alter_Avatar_HTree (line 921 at the freeze): E&B has Zero Hour's HTreeClass::Alter_Avatar_HTree:
+//       0x98A2D0 (between Get_Bone_Control and Create_Morphed) compares pivot names with its flip list (' RIGHTFOREARM'
+//       0xBBB670, ' LEFTFOREARM' 0xBBB654, 'RIGHTFINGERS' 0xBBB62C)

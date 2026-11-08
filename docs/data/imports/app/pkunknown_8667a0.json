@@ -1,0 +1,46 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "packet classes (opcode 116) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+ "expected": {},
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x866820",
+  "0x866850",
+  "0x866870",
+  "0x866930",
+  "0x866A20",
+  "0x866A40",
+  "0x866A60"
+ ],
+ "merged": [],
+ "name": "packets/pkunknown_8667a0.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x866850"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x866850",
+  "0x866A20",
+  "0x866A40"
+ ]
+}

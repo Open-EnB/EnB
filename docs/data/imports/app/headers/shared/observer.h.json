@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "SubjectClass (NAME 1), observer.cpp's 0x18-byte subject (DynamicVectorClass<ObserverClass *>: 0x49E890 / 0x49E950 / 0x49EAB0), UIMeshClass's base at +0x04; observer.cpp not rebuilt; header PROVISIONAL (D137), UM1"
+}

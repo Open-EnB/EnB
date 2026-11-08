@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UILineDisplayClass (D24), the line display screen on intrface.cpp's base (declared as far as the file needs it, D10): ephemeral.ini's entries and fc_line_display.ini's STR-n text objects in SGI hash_maps (libs/sgistl, D87)"
+}

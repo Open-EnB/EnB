@@ -1,0 +1,28 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 10,
+  "R": 10,
+  "Z": 10
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x9E8200",
+  "0x9E8250",
+  "0x9E8280",
+  "0x9E82B0",
+  "0x9E82D0",
+  "0x9E8300",
+  "0x9E8350",
+  "0x9E8390",
+  "0x9E83E0"
+ ],
+ "merged": [],
+ "name": "palette.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

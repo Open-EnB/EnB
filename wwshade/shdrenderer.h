@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -143,3 +143,11 @@ private:
 };
 
 #endif //SHDRENDERER_H
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdrenderer.h (frozen 2026-11-07 from importer.py)
+// EnB: Lines 52, 60 at the freeze: E&B's earlier renderer node: MultiListObjectClass only (node ctor 0xA082D0 sets the
+//       list node at +4 and vtable 0xB16AA8; no reference count, list containers or sorting), virtuals
+//       Render/Flush/Apply_Shared_Shader_Settings(pass) (vtable 0xB16A98)
+// EnB: class ShdRendererNodeClass (line 77 at the freeze): E&B's earlier renderer node: MultiListObjectClass only
+//       (node ctor 0xA082D0 sets the list node at +4 and vtable 0xB16AA8; no reference count, list containers or
+//       sorting), virtuals Render/Flush/Apply_Shared_Shader_Settings(pass) (vtable 0xB16A98)

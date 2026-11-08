@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1323,3 +1323,11 @@ bool Is_Trying_To_Exit(void)
 
 
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's Except.cpp (frozen 2026-11-07 from importer.py)
+// EnB: _purecall (line 183 at the freeze): C-equivalent comment for the inline assembly above this line
+//       (conventions.md, Inline assembly; was annotations.py)
+// EnB: Dump_Exception_Info (line 641 at the freeze): C-equivalent comment for the inline assembly above this line
+//       (conventions.md, Inline assembly; was annotations.py)
+// EnB: Stack_Walk (line 1248 at the freeze): C-equivalent comment for the inline assembly above this line
+//       (conventions.md, Inline assembly; was annotations.py)

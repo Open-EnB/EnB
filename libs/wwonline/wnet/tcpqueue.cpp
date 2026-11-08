@@ -221,3 +221,7 @@ sint32 TCPQueue::add(IN uint8 *buffer, sint32 length)
   } while (length);
   return(retval);
 }
+
+// Earth & Beyond client (reconstruction): tcpqueue.cpp (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): E&B's TCPQueue (0x8BE860-0x8BF5F0, the client's file of that name, by
+//       __FILE__): bytes in 1024-byte buffers, a spare list; its FAIL_IFs on the client's lines; no EA copy has it

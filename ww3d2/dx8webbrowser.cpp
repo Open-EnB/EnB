@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -241,3 +241,16 @@ void	DX8WebBrowser::Navigate(const char* browsername, const char* url)
 }
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's dx8webbrowser.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 43 at the freeze: the #import of BrowserEngine.DLL becomes an #include of the headers VC6 generates from
+//       E&B's own release\BrowserEngine.dll (sha256 1b14db3c...): the client's DX8WebBrowser functions
+//       0x920230-0x920C20 use its interface (IFEBrowserEngine2 GUID ee883b17-0778-4b18-a12b-e44c0d298412)
+// EnB: DX8WebBrowser::Initialize (line 62 at the freeze): DX8WebBrowser::Initialize (0x920240) loads BrowserEngine.DLL
+//       and calls its DllRegisterServer every time, with no first CreateInstance: hr starts as S_FALSE (1) and only the
+//       CreateInstance after the registration sets it
+// EnB: DX8WebBrowser::CreateBrowser (line 175 at the freeze): DX8WebBrowser::CreateBrowser (0x9205C0) takes a tenth
+//       argument, passed as the last BSTR of E&B's IFEBrowserEngine2::CreateBrowser (querydata in E&B's type library)
+// EnB: DX8WebBrowser::CreateBrowser (line 181 at the freeze): DX8WebBrowser::CreateBrowser (0x9205C0) replaces a NULL
+//       tenth argument with "" (0xBDA908) and builds a named _bstr_t of it (inline ctor, copied by value into the call)
+//       before the url temporary

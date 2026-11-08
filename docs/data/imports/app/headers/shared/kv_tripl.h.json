@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "KVTripleClass (three fixed strings, 0x340 bytes) and KVTripleListClass (D24): the triples in order (V) and a key index, SGI STL's hash_map<std::string> (libs/sgistl, D87) at +0x10; Get's assert on the client's line 92"
+}

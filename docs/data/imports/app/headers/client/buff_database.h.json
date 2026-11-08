@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "BuffDefStruct and BuffDatabaseClass (D24): buffdef.ini's BUFF-n sections in an SGI hash_map<std::string, BuffDefStruct *> (libs/sgistl, D87)"
+}

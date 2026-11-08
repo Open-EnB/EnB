@@ -1,0 +1,50 @@
+{
+ "ambiguous": [
+  "0x8DF3B0"
+ ],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 7,
+  "R": 13,
+  "Z": 13
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0x45E1D0",
+  "0x4627A0",
+  "0x8DEF20",
+  "0x8DEF60",
+  "0x8DEFD0",
+  "0x8DF030",
+  "0x8DF0F0",
+  "0x8DF160",
+  "0x8DF1C0",
+  "0x8DF2A0",
+  "0x8DF430",
+  "0x8DF460",
+  "0x8DF4A0",
+  "0x8DF6B0",
+  "0x8DF750",
+  "0x8DF850",
+  "0x8DF8E0",
+  "0x8DF920",
+  "0x8DF960"
+ ],
+ "merged": [],
+ "name": "lookuptable.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0x4627A0",
+  "0x8DF960"
+ ],
+ "short_known": [
+  "0x4627A0",
+  "0x8DF960"
+ ]
+}

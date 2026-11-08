@@ -20,7 +20,7 @@ happens. It holds the importer lock (it edits tree files): don't run it from a s
 the lock, and not while another builder verifies the same files.
 
 Use it before `tryvariants.py` (one file, one library, no subdirectories) whenever a form spans
-a header and its .cpp or two app files; then record the winner (addpatch.py or the app file
+a header and its .cpp or two app files; then record the winner (edit the file, with its end-of-file `// EnB:` entry, or the app file
 itself) and run a full verify, since a header or inline change can affect other files. Promoted
 from builder step 8's .work/step8b/tryv2.py (2026-10-26).
 """

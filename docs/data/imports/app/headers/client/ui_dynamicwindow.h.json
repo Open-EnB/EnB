@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIDynamicWindowClass (D24, ui_dynamicwindow.cpp's screen, 0xAC bytes, constructor 0x589D30) and its gadget side UIDynamicWindowUnknown84Class (+0x84, table 0xAF1380); declarations only; header name provisional, NAME 1 (IE2)"
+}

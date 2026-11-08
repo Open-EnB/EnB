@@ -1,0 +1,44 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 12,
+  "R": 18,
+  "Z": 20
+ },
+ "headers_from": "Z",
+ "in_tree": [
+  "0x42F250",
+  "0x9B4B30",
+  "0x9B4B50",
+  "0x9B4BD0",
+  "0x9B4C20",
+  "0x9B4CA0",
+  "0x9B4E50",
+  "0x9B4EA0",
+  "0x9B5060",
+  "0x9B52A0",
+  "0x9B5590",
+  "0x9B57C0",
+  "0x9B5860",
+  "0x9B5930",
+  "0x9B5AA0",
+  "0x9B5AE0",
+  "0x9B5B20",
+  "0x9B5B30",
+  "0x9B5B70",
+  "0x9B5BE0",
+  "0x9B5C50",
+  "0x9B5D00",
+  "0x9B5E90"
+ ],
+ "merged": [],
+ "name": "aabtreebuilder.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x9B5B20"
+ ]
+}

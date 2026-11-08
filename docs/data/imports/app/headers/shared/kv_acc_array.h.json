@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "KVArrayAccessorClass<T> (D24 from the asserts' __FILE__ ..\\shared/kv_acc_array.h): a StringValueClass over an array, the values joined by a separator; avatar_desc.cpp's float instance 0x4C3110-0x4C3BE0; the asserts on the client's lines 66, 72, 93"
+}

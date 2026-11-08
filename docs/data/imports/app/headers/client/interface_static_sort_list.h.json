@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "InterfaceStaticSortListClass (D24 from interface_static_sort_list.cpp's __FILE__; the client holds no string of the header): the inline constructor 0x6DA930 and InterfaceRenderClass's destructors 0x6DAD10 / 0x6DAD40 (interface_scene.cpp's object) (UI)"
+}

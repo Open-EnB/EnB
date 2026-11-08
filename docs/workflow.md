@@ -8,14 +8,17 @@ described in docs/toolchain.md §1.
 
 | What | Where | How to recreate |
 |---|---|---|
-| Byte-match evidence for every EA copy (R/G/Z), needed by `importer.py refine` and `assemble` (`--evidence`) | `.work/bm2` (git-ignored) | `tools/vc6/bytematch_all.sh` (all three copies, each against its own libraries; `RAD` points at `SDK\radtools\include_enb`, written by `tools/vc6/sdk_patch.py`) |
-| The tree's own compiled objects, read by `gaps.py`, `layoutdiff.py`, `vtables.py`, `symbols.py` | `%TEMP%\enb_import\verify-<lib>` | `python tools/vc6/importer.py verify` |
+| Byte-match evidence for every EA copy (R/G/Z); reference only since the freeze (D211), no tool takes it as input | `.work/bm2` (git-ignored) | `tools/vc6/bytematch_all.sh` (all three copies, each against its own libraries; `RAD` points at `SDK\radtools\include_enb`, written by `tools/vc6/sdk_patch.py`) |
+| The tree's own compiled objects, read by `gaps.py`, `layoutdiff.py`, `vtables.py`, `symbols.py` | `%TEMP%\enb_import\verify-<lib>` | `python tools/vc6/verify.py` |
 | The build VMs' addresses | `.work/vc6_hosts.json` | `python tools/vc6/vc6.py discover` (after the VMs restart: DHCP) |
-| Scratch scripts, backups of `importer.py` and `imports.json`, logs | `.work/` | disposable |
-| The importer lock: one run at a time of `importer.py` (every command), `trial.py`, `tryvariants.py`, `trydiff.py` (and anything calling `importer.compile_and_match`/`save_state`), held until the process exits; JSON with agent (`ENB_AGENT`, else user@host), pid, command, start. A second run prints `importer in use by ...` and waits `--lock-wait` s (env `ENB_LOCK_WAIT`, default 600), then exits 1; a dead holder (same host) or one older than 4 h is taken over | `.work/locks/importer.lock` | nothing to do: removed at exit; if a run dies it is taken over by the next one (delete it by hand only if no importer is running) |
+| Scratch scripts, ledger snapshots (`ledger.py export -o .work/...`), logs | `.work/` | disposable |
+| The importer lock: one run at a time of `verify.py`, `report.py`, `tryvariants.py`, `trydiff.py` (and anything calling `verify.compile_and_match`/`ledger.save_state`; `vc6lock.py`), held until the process exits; JSON with agent (`ENB_AGENT`, else user@host), pid, command, start. A second run prints `importer in use by ...` and waits `--lock-wait` s (env `ENB_LOCK_WAIT`, default 600), then exits 1; a dead holder (same host) or one older than 4 h is taken over | `.work/locks/importer.lock` | nothing to do: removed at exit; if a run dies it is taken over by the next one (delete it by hand only if no importer is running) |
 
-`.work/` holds nothing that the repository depends on. Every kept change lives in the tree and
-in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
+`.work/` holds nothing that the repository depends on. Every kept change lives in the tree. In an
+EA-derived file it is also described in the file's end-of-file `// EnB:` block (D211;
+conventions.md, "E&B changes to an EA-derived file"). What matches is the ledger `docs/data/imports/`
+(`tools/vc6/ledger.py`: one JSON shard per source file, which also holds a reconstructed file's
+description, `RECONSTRUCTED`).
 
 ## 2. The loop for one fix
 
@@ -32,15 +35,17 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
    or virtual. Unknown E&B additions get neutral names in the library's own style (`UnknownXX`;
    `m_UnknownXX` in WWAudio, whose members are `m_`-prefixed: conventions.md §1), with the evidence
    in a comment.
-3. **Write it as a patch** (old text, new text, reason with the client address) in a spec file in
-   `.work/`, and apply it with `tools/vc6/addpatch.py --block NAME SPEC.py`: it applies it to the
-   tree file and records it in that `importer.py` block (the current block for wwshade's WW3D2:
-   `WWSHADE_API_PATCHES`). Write the spec with a file tool, not a shell heredoc: escapes such as
-   `\t`, `\r\n` and `\x` get mangled by the shell. Every anchor must occur exactly once. To find
+3. **Edit the file directly** (D211), with a file tool, not a shell heredoc (escapes such as
+   `\t`, `\r\n` and `\x` get mangled by the shell). Then add an entry to the file's end-of-file
+   block: `// EnB:`, the function or declaration, what changed, the client address
+   (conventions.md, "E&B changes to an EA-derived file"). A file changed for the first time gets
+   the block and the banner note: `**	Modified for the Earth & Beyond client reconstruction: each
+   change is recorded at the end of this file.` replaces the bare `**` line under EA's copyright,
+   one line for one. Never put a comment line above code in an EA-derived file (§3.0). To find
    one function's form quickly, try variants first: `tools/vc6/tryvariants.py LIB FILE V.py`.
 4. **Check.**
-   * Save `docs/data/imports.json` first.
-   * Run `importer.py verify --lib ...` for every library that includes the changed header.
+   * Save the ledger first: `python tools/vc6/ledger.py export -o .work/<item>/before.json`.
+   * Run `verify.py --lib ...` for every library that includes the changed header.
      WWLib headers reach every library. Add `--pool K` to build on K VMs leased from
      `tools/vc6/pool.py` instead of the default host (the hosts in `.work/vc6_hosts.json`;
      released at the end; toolchain.md §1.3).
@@ -49,19 +54,16 @@ in `tools/vc6/importer.py` (`PATCHES`, `APPENDS`, `NEW_FILES`, `RECONSTRUCTED`).
 5. **Keep or drop.**
    * Keep the change only if it gains and loses nothing. Any accepted loss must be written down,
      in the commit message and in docs/library-matching.md.
-   * Then run `importer.py report` and `importer.py replay` (it must report 0 differences),
-     commit, and add a row to docs/library-matching.md §3.6.1.
-6. **Then refine.** `importer.py refine --evidence .work/bm2 --lib L --file F.cpp` often
-   splices in the other copy's functions once the header fits.
+   * Then run `report.py` and commit.
 
 Counting: the "in tree" totals that verify prints count each client function once. The
-`(file, address)` pairs in `imports.json` also include app-region duplicates (inline functions
+`(file, address)` pairs in the ledger also include app-region duplicates (inline functions
 compiled into E&B's objects), so they run higher.
 
 ### 2.1 Adding an app file (E&B's own code, D23)
 
-E&B's files are the importer's non-EA library `app` (`APP_LIBS` in importer.py): no EA copy,
-every file in `RECONSTRUCTED`, under `app/` as in `e:\build\beta\G\app\...` (A1, lower-case
+E&B's files are the non-EA library `app` (`APP_LIBS` in libdefs.py): no EA copy,
+every file in `RECONSTRUCTED` (a ledger shard with a `description`), under `app/` as in `e:\build\beta\G\app\...` (A1, lower-case
 directories).
 
 1. **Draft.** `python tools/re/appfile.py show app\shared\auxdata\x.cpp` gives the window, its
@@ -74,12 +76,14 @@ directories).
    lines, comments; no `#line`, D25), so little fits above the first assert: put the
    reconstruction notes at the end of the file (as bitset.cpp does) and check with
    `grep -n 'G_ASSERT\|FAIL_IF'`. The assert macros: `#include "..\g_assert.h"` (relative).
-3. **Record.** Add `('app', 'shared/auxdata/x.cpp')` and its header to `RECONSTRUCTED` with the
-   evidence (lower-case paths with `/`); `load_state` makes the state entry from them. Two app
-   `.cpp` files may not share a base name (it is the file key; `load_state` refuses it).
-4. **Verify** as in §2: `importer.py verify --lib app` (`/MT /W3 /O2 /Ob2 /GX`, `NDEBUG`
+3. **Record.** `python tools/vc6/ledger.py describe app shared/auxdata/x.cpp "EVIDENCE"`, and the
+   same for its header (lower-case paths with `/`): the shards `docs/data/imports/app/x.json` and
+   `docs/data/imports/app/headers/shared/auxdata/x.h.json` hold the description (`RECONSTRUCTED`);
+   verify fills in the rest (`ledger.load_state` makes the state entry from the descriptions). Two app
+   `.cpp` files may not share a base name (it is the file key; `describe` and `load_state` refuse it).
+4. **Verify** as in §2: `verify.py --lib app` (`/MT /W3 /O2 /Ob2 /GX`, `NDEBUG`
    defined: D61, G_ASSERT / FAIL_IF don't depend on it; matched within 0x401000-0x8C1B50 only),
-   `tools/vc6/pairs_cmp.py`, `report`, `replay`, commit. Functions
+   `tools/vc6/pairs_cmp.py`, `report.py`, commit. Functions
    too short to search for (objmatch `short`: bitset's 10-byte destructor) aren't counted by verify:
    show them with `appfile.py match` on a copy with markers on the blank lines before each
    function (so no assert moves; `.work/night/item10/mark.py`, untracked, historical), and say so
@@ -115,19 +119,24 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 * **Before changing a member's type, grep the other builders' working copies, not only HEAD** (2026-10-29, HL3):
   "nothing outside fontdatabase.* reads BoxOffset" was true at HEAD but not in the shared tree (LS1's uncommitted
   fontmanager.cpp read `def->BoxOffset[0]`).
-* **`assemble` is not a rebuild; `replay` is.** `assemble` restarts every library from its base
-  copy, dropping every later decision: never on a tree with work in it (`git checkout -- <lib>`
-  restores it). `replay` rebuilds `.work/replay` from the EA copies plus `imports.json` and compares
-  (no VM, seconds): before committing it must report 0 differences; fix the record, not the tree.
-  Stop chained commands on a replay failure.
+* **No comment line above code in an EA-derived file (D211).** The asserts (`WWASSERT`,
+  `WWDEBUG_SAY`, `FAIL_IF`) compile `__LINE__`: a line added above them moves it, and the pair is
+  lost (WE6 lost 0x8444C0 that way). Describe the change in the file's end-of-file `// EnB:` block;
+  the banner note replaces the bare `**` line under EA's copyright, one line for one.
+* **A gain with no text change is not a gain (2026-11-07).** A full `importer.py verify` once
+  credited 10 extra pairs (wwaudio/sound3dhandle, `ListenerHandleClass` methods
+  0xA029B0-0xA02C00) with no source change; a rerun gave the baseline again. Rerun the verify
+  before keeping such a gain. Likewise a single-file trial (`zhall.py`, `tryv2.py`, the retired
+  `importer.py refine`) can report +1 for an address another file already holds: refine's
+  single-file gains were nothing in a full verify. Confirm with a full library verify.
 * **Pair sets, not totals, against the session's baseline** (`tools/vc6/pairs_cmp.py`). Out-of-line
   copies of inline functions (`Set_Texture` 0x47F3F0, `Set_DX8_Light` 0x984090) come and go with
   their callers' inlining: a loss against the last step needn't be one against the baseline.
-* **The importer lock** (§1). A script holding it that starts `importer.py`, `trial.py`,
+* **The importer lock** (§1). A script holding it that starts `importer.py`,
   `tryvariants.py` or `trydiff.py` as a child deadlocks: start children from an unlocked parent
-  (as `trial_all.py`) or call in-process. `tools/vc6/zhall.py` holds it ~15 min (ww3d2); read-only
+  or call in-process. `tools/vc6/zhall.py` holds it ~15 min (ww3d2); read-only
   `objdiff.py` still works. A killed run or a transient `PermissionError` on a tree write leaves a
-  spliced file: `git status`, restore, delete the lock.
+  half-written file: `git status`, restore, delete the lock.
 * **Shared tree: never wait for a clean tree** (it deadlocked two builders for an hour). Keep the
   other's work out of your verify: untracked files aren't compiled unless importer.py lists them,
   tracked edits and uncommitted importer.py entries are (2 encode.cpp gains showed in another's
@@ -152,7 +161,7 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 * **`git add` by name,** never `-A` or `.`: the tree holds other builders' files.
 * **Heredoc Python mangles regex escapes silently** (2026-11-01, NW2): `\\b` / `\\1` in a heredoc-written regex deleted the names it should have kept and the variant failed to compile. Use the Write tool, as §1 says.
 * **Daylight saving** (2026-11-01): at 02:00 PDT the clock fell back to 01:00 PST mid-run; `date` jumps back an hour, so stop times read against it run an hour longer in real time. Give stop times with the zone.
-* **Shared-tree hazards (2026-11-01 day run):** another builder overwrote an uncommitted ui_login.cpp edit within minutes (TG): commit each verified edit at once. A verify run while someone's widely included header is half-edited writes losses for every file into the working imports.json (1024 errors, 5,358 functions; GC, CV, FNT1): read verify's last-line error count and `compile_errors` before pairs_cmp or `commit_mine --file`, and restore from a known-good snapshot plus HEAD's entries (`.work/gc/merge_imports.py`). Stop chained commands on a replay mismatch (TG). Bash heredocs keep mangling escapes: `'\\0'` became NUL bytes in a .cpp, `'\\r\\n'` became `\r`, backslash paths halved, `IFS=:` split C++ `::` names, and Python's default text mode writes CRLF (`tools/eol.py fix`): use the Write / Edit tools and `chr(92)` (TG, LINK, CT2, LG, MC).
+* **Shared-tree hazards (2026-11-01 day run):** another builder overwrote an uncommitted ui_login.cpp edit within minutes (TG): commit each verified edit at once. A verify run while someone's widely included header is half-edited writes losses for every file into the working imports.json (1024 errors, 5,358 functions; GC, CV, FNT1): read verify's last-line error count and `compile_errors` before pairs_cmp or `commit_mine --file`, and restore from a known-good snapshot plus HEAD's entries (`.work/gc/merge_imports.py`). Bash heredocs keep mangling escapes: `'\\0'` became NUL bytes in a .cpp, `'\\r\\n'` became `\r`, backslash paths halved, `IFS=:` split C++ `::` names, and Python's default text mode writes CRLF (`tools/eol.py fix`): use the Write / Edit tools and `chr(92)` (TG, LINK, CT2, LG, MC).
 * **Host memory (2026-11-02 run):** `pool.py lease` (and `appfile.py --pool`) exits at once with no VM when the host is short of memory, it does not wait: retry in a loop (sleep 45-60 s) until the output holds an IP (25 minutes on 2026-11-01 with four headless builders, a variants.py job and five VMs on 32 GB). Claude Code's memory reaper kills background shells (a coordinator's `run_in_background` launchers; builders' lease-wait loops); a process started detached (PowerShell Start-Process) survives. Headless builders: at most 2-3 at once on this host.
 
 * **Heredoc and `sed`/`printf` mangle backslashes again (2026-11-02 night run, VC, GAD3, MSG2, DBG, DISP, LF):** a heredoc turned `\v` / `\t` / `\n` / `\r\n` in include paths and client path strings into control characters (rs.cpp failed to compile for ~3 min for everyone; `sed a\` in Git Bash too). Write files with the Write tool; client paths in importer.py `RECONSTRUCTED` need doubled backslashes (`\\b`, DG).
@@ -859,7 +868,7 @@ unless `--lever` cites a new row of this table.
 * **`importer.py verify` without `--lock-wait` (2026-11-06, SG1):** it gives up when another builder holds the lock and leaves imports.json as it was, so a following pairs_cmp silently reads stale data: check verify's last line first.
 * **Hoisting, x87 stores, setters and friends (2026-11-06, ST1):** VC6 hoists common code out of if/else arms and merges tails: a `fld Frame` before the branch and `push ecx; fstp [esp]` before a `cmp` are plain arms with the call repeated in each; a shared float local gives different code (0x7C8980). `fld m; fst [tmp]; mov eax,[tmp]; fstp m` around an inlined setter comes from an inline accessor returning float: `Set_Frame(Get_Frame())` (0x7C8980, 0x7C6BF0). A frame 0xC larger than expected with z unused is `Matrix3D tm = ...; Vector3 pos = tm.Get_Translation();` (0x7C8490). An eax / edx rotation that diverges after a store came from an inline setter: `opt->Set_Value(x)` against `opt->Value = x` (0x7C6700). Create_Peek(this) on a derived class needs RefCountPtr<Derived> instantiated first (`enum { X = sizeof(RefCountPtr<UIStarmapClass>) };`), or the friend resolves to the base's and the COMDAT goes missing (0x7C81F0). A by-value parameter added to a shared header needs a forward declaration, or files that don't include the type lose all their pairs.
 * **Overrides on a stand-in base; small float forms (2026-11-06, PS1):** a class deriving from a stand-in base must declare every override the client's table has: without Get / Set_Sort_Level, D188's vtable slots gave two addresses for RenderObjClass::Get_Sort_Level and avatar, land, rs_track and stars lost 0x462FF0 / 0x463010 with no change to their code. If unrelated files lose short pairs, run `vtables.py --seed C=ADDR --list` on the new object first. Four floats loaded in reverse (fld, fld, fld, then stores) mean `RectClass::Set(l,t,r,b)`. `Vector2::Set(x, y)` stores directly where `= Vector2(x, y)` goes through a temp. A double literal `0.5 / x * y` assigned to a float gives `fdivr qword`. asserts.txt can attribute an assert to the preceding __FILE__ (0xB9F7AC is target_find.cpp's, not starmap_pip_support.cpp's): check the pushed __FILE__ with `client.py refs`.
-* **`importer.py` commands that give up on the lock (2026-11-06, PS1, CH1):** `report` and `replay` exit 0 after "still held; giving up"; `verify` leaves imports.json stale, so under a queue a landing is refused with "the commits record other pairs than the verify gives". Pass `--lock-wait 3000` (`wt.py bring-over` and `tools/agy/rebase_gen.sh` do); a refused landing's cure is `wt.py bring-over ID --batch-name N` (it commits the verified record).
+* **`importer.py` commands that give up on the lock (2026-11-06, PS1, CH1):** `report` exits 0 after "still held; giving up"; `verify` leaves imports.json stale, so under a queue a landing is refused with "the commits record other pairs than the verify gives". Pass `--lock-wait 3000` (`wt.py bring-over` and `tools/agy/rebase_gen.sh` do); a refused landing's cure is `wt.py bring-over ID --batch-name N` (it commits the verified record).
 * **Forms from gd_attrb_skills and ui_verb (2026-11-06, AS1, VB2):** assert lines running backwards against execution are each the else of its if: `if (x) {...} else { G_ASSERT(x); }` (0x663DF0). `fild dword ptr [rdata]` holding a constant is an extern const int defined after its use; a literal and an int local both fold (0x664D5B). `mov ebx,[this+N]` before a branch, later `add ebx,0x50`, is a reference local `T &data = *ptr;` (0x663BE0). A pointer walked in a guarded loop, with `lea` after the empty test and `mov eax,ebx; add ebx,4`, is `array[i++]->f()` by index (0x6647F0). Consecutive assert lines with a store between them go on one line: `X = ...; G_ASSERT(X);`. A stack buffer of 0x84 bytes with a pushed size of 0x80 is `char x[129]` (0x659710, 0x659010). `Buttons.clear()` lets an uncalled function at VC6's auto-inline limit inline into its caller where `erase(begin, end)` stops it (0x659870). A find taking its value by value is `std::find_if` with a one-field predicate struct; `std::find` takes `const T &` (0x659F80). Inline accessors on every read spend enough budget to push a find out of line where dead `size()` calls barely did (0x658430). `sete cl; mov [slot],cl; mov edx,[slot]; and edx,0xff` is a named bool local passed as an int (0x658430: that alone made 1698 bytes exact).
 * **Forms from the MFD objects (2026-11-06, MM1):** a named local fixes a 3-register rotation (eax / ecx / edx): `DeltaSkillClass *skill`, `UIMFDClass *owner = Owner`, or an inline accessor around `co->Client` made 0x5BF790, 0x5C0D30, 0x5BFB00 and 0x5C1220 exact at once: sweep these first. A `static inline` wrapper around `vector::erase(begin, end)` or `list::clear()` puts exactly one more callee out of line (`std::copy`, `iterator++`). Temporaries share stack slots with named locals, named locals don't share with each other: a frame too small by a matrix or vector means a named copy (`Matrix3D light_tm = camera`). A scheduling difference on a constant can be a sub-object: `Vector2 Size(-1, -1)` instead of two floats (0x5C2000). `objdiff` / `appfile --diff` hide literal differences behind relocations and masks: "none" with no visible rows means compare raw bytes (`.work/pk2/patcmp.py`): 0x3DCCCCCB against 0x3DCCCCCC was the whole of 0x5C2920.
 * **Tail merges and values through sub-objects (2026-11-06, GS1, SK1):** a client `push A; jmp; push B; common pushes; call` is an if/else with the whole call in both arms (0x670890); a `push ebx` of a parameter just compared with a constant has the call after the if/else, because repeating it in the arms, or an early return, folds the constant (0x670AB0, 0x6A7020). `add ecx,0x50` after the argument load with `xor ecx,ecx` on a null path is an inline member on the returned class calling the sub-object's method (`p->Get_Level(x)`); `p->base_member.F(x)` gives `lea ecx,[eax+0x50]` (0x6A6EC0). The order of the high words in `add` / `adc` over two values returned through hidden pointers comes from `operator+` on the value class, with a `__int64 now` local before the calls (0x6A6550). .rdata literals descend in order of first use, so the highest address gives a switch's first source arm (0x6A7150). When the first assert sits on a low line, stand-ins must fit above it: one line each.
@@ -872,7 +881,7 @@ unless `--lever` cites a new row of this table.
 * **Transform through Get_Transform (2026-11-06, RO1):** a render object read as `Transform` (no `mov edx,[esi]; call [edx+0x4C]` in the client) must not use Get_Transform(), which validates through slot +0x4C; ProxyRObj::Render does use it, so check each function. Set_Offset 0x47F860 is exact only as `Vector3 pos(offset); pos += Transform.Get_Translation();`.
 * **An exact result can depend on the include list (2026-11-06, SR1):** a function exact under `appfile.py match` can be non-exact under verify: in 0x6A7C00 two reloads swapped because verify's include list has `SDK\directx8\include`, which appfile's automatic list omits. Check with objmatch on `.work/<agent>/tmp/enb_import/verify-app/X.obj`; a fast sweep under verify's real compile: `vc6.compile_sources` with `importer.tree_includes()` and `source_alias`, then objmatch (~3 s per form, `.work/sr1/vsweep3.py`). Include order was the lever (`assetmgr.h` first), and it is fragile: changing that file's includes can bring the swap back. Never wrap `importer.py` in `timeout`: it orphans a VM lease named importer-PID (release with `pool.py release --agent importer-PID`).
 * **Doubled tests and folded constants (2026-11-06, TK1):** `RefCountPtr` members written `p = NULL` inline a check; the client's doubled test is `if (p) { p = NULL; }` (0x64B940). `(int)(x * 2 * 0.95f)` folds the constants; the client's `fadd st0,st0; fmul` comes from a float local first: `float w = x * 2; (int)(w * 0.95f)` (0x64BCA0). `Responses.clear()` against `erase(begin, end)` decides whether a struct's implicit operator= goes out of line (0x64CC90). Spend sensitivity is non-local: a no-code spend before a second append pushed the first append's _Eos out of line (0x64D400). `explain.py` on a draft with an assert prints "relocation: string differs" (the draft's own __FILE__) and hides the real class. `appfile.py match` for an app/client draft needs the draft inside app/client with auto -I, `--pool` and `-D ENABLE_WWPROFILE`; under .work it fails with C1083.
-* **A queued `importer.py report` or `replay` loads importer.py when it starts, not when it gets the lock (2026-11-06, SE1):** a file added to RECONSTRUCTED while it waits is left out with no warning, though imports.json is read fresh: rerun after editing importer.py. `.assign(p)` against `= p` moves an inline budget limit by one call: an out-of-line destructor at one return can tail-merge with the last return's copy (0x84B360). With no markers in a file, `appfile.py match --diff NAME` prints nothing; `objdiff.py OBJ MANGLED ADDR` works.
+* **A queued `importer.py report` loads importer.py when it starts, not when it gets the lock (2026-11-06, SE1):** a file added to RECONSTRUCTED while it waits is left out with no warning, though imports.json is read fresh: rerun after editing importer.py. `.assign(p)` against `= p` moves an inline budget limit by one call: an out-of-line destructor at one return can tail-merge with the last return's copy (0x84B360). With no markers in a file, `appfile.py match --diff NAME` prints nothing; `objdiff.py OBJ MANGLED ADDR` works.
 * **Arm order and unsigned tests (2026-11-06, CH2):** Ghidra's `if (x == 0)` can invert the source's arms: 0x6818C0 went from 0.40 to exact as `if (Split) {loop} else {single}`. `History.push_back(x)` gives the out-of-line insert(it, x) (0x682A20); `insert(end(), x)` inlines down to insert(end, 1, x). `test r,r; jbe` is an unsigned `x > 0`; `!= 0` gives `je` (0x682080). `mov eax,[ecx]; ret` at 0x680DD0 is RefCountPtr::operator-> out of line. `appfile.py match` overwrites .work/<id>/appfile/obj when another draft runs: copy the .obj before objdiff. Chain a tree writer and verify with `&&`: a failed writer leaves verify compiling new headers with old sources.
 * **A combined batch can flip a function with no related source change (2026-11-06, LB1, 0x597080):** one new member declaration in a widely included header was enough for an order-only swap (D18, D28). Try swapping the compare's operands at the mismatch, and test the form across several header states with dummy declarations. `appfile.py match` can disagree with verify on such noise (its `-I auto` includes and missing `source_alias`): for a loss only verify shows, compile with verify's includes, defines, flags and alias (`.work/lb1/one.py`).
 * **Allocator slots and later helpers (2026-11-06, IR1):** 0x68BF10 copies its allocator from the bool argument's own slot: `Unknown44("All", *(std::allocator<char> *)&arg)` reproduces it, a form that matches, not evidence of the source. A non-static helper defined later in the file (0x68FA30) keeps its out-of-line copy and still inlines into an earlier function with its FAIL_IF folded.
@@ -913,10 +922,9 @@ unless `--lever` cites a new row of this table.
   after adding code to it. A comment edited after verify can shift a `__LINE__` assert (WE6's lost 0x8444C0): grep FAIL_IF lines first.
 * **A shared `<string>` initialiser left unpaired is a range question, not a missing include (2026-11-05 evening, SC4, D196):** every `<string>` includer has a byte-identical guarded initialiser of `std::ctype<unsigned short>::id` (guard 0xC416FC, atexit 0x42B320): check the .obj for its `_$E` before editing includes. `importer.py verify --lib a,b` silently verifies nothing: repeat `--lib` per library. A bare `verify` without `--pool` while another agent holds the importer lock falls through to stale hosts (ssh timeouts, nothing done): use `--pool K`.
 * **The verify service judges a PR with master's tools and master's accepted-corrections.json (2026-11-05 evening, PR #163):** a PR's own objmatch change or corrections entry does not count for it, an outright loss passes no command and the ruleset has no bypass. A false pair a PR exposes needs its corrections entry merged first (PR #164); a coordinator's in-run `--accept` is not that ruling.
-* **Landing builders' new files (2026-11-04 night run):** a new file not registered in importer.py (`NEW_FILES` /
-  `RECONSTRUCTED`) fails `wt.py bring-over`'s replay check ("only in repository"); registering it can add pairs, so
-  re-verify and commit docs/data/imports.json with it (bring-over refuses a branch whose record differs from its verify).
-  bring-over refuses a branch with merge commits: `tools/agy/rebase_gen.sh ID run/<date> BASELINE` rebases it (the merge
+* **Landing builders' new files (2026-11-04 night run):** registering a new file in importer.py (`RECONSTRUCTED`)
+  can add pairs, so re-verify and commit docs/data/imports.json with it (bring-over refuses a branch whose record
+  differs from its verify). bring-over refuses a branch with merge commits: `wt.py rebase ID --onto run/<date>` rebases it (the merge
   dropped). appfile.py's definition regex reads `static void (Name)(` as a function named `void` (harmless; verify is right).
 
 * **Other builders' verifies replace `%TEMP%\enb_import\verify-app`** (2026-10-31, TK12): a new file's .obj can vanish
@@ -927,8 +935,8 @@ unless `--lever` cites a new row of this table.
   file is exact at (nothing may hold the address as data; the linker's merged copy with callers everywhere stays
   ambiguous). The pair is in `in_tree` and the file's `tiebreak` list. It exists only in verify/`compile_and_match`
   (`match_objects(callers=True)`), not in `appfile.py match` or `objmatch.py`: a draft check can miss it, and losing
-  its caller's pair loses it too (`pairs_cmp.py` names that D66 (vii)). Anything that rewrites a file's `in_tree` without verify (refine's
-  `cur`) can leave `tiebreak` stale: verify afterwards. pairs_cmp's "with its caller" is approximate (another pair of
+  its caller's pair loses it too (`pairs_cmp.py` names that D66 (vii)). Anything that rewrites a file's `in_tree` without verify
+  can leave `tiebreak` stale: verify afterwards. pairs_cmp's "with its caller" is approximate (another pair of
   the same file lost too; it sees no call edges). Readers of pairs_cmp's output parse one labelled list per line
   (`gained tie-break` and the `lost tie-break` lines follow `gained` / `lost`): pacing.py's two-line regex broke.
 * **D174's caller tie-break extensions** (2026-11-01, TB1; `objmatch.caller_tiebreak`): the copies need not be
@@ -967,13 +975,11 @@ unless `--lever` cites a new row of this table.
   repaired in 361a0ec0). `--refresh-totals` copies `in_tree_total` from the working imports.json, another builder's
   uncommitted gains included (LD8's 8d47d1ed recorded 4,791; SM1's 3271dea7 accounted for it).
 * **Header origins live in `imports.json`'s `headers` map** (`headers_from`: swapped with the
-  file). `trial.py` and refine update both; a hand-made header change must update `headers`.
-* **Refine** checks only its file (splices aren't checked elsewhere): verify the affected
-  libraries. It pairs by name (Renegade's `TextureClass::Apply_Null` is ZH's
-  `TextureBaseClass::Apply_Null`: never spliced) and can't add a function (`PATCHES`).
-* **Refine can undo an E&B patch through a twin:** it put ZH's `ShdBumpSpecDefClass::Init` over
-  E&B's DX6-only one (it matches Bump Diffuse's 0xA0B9B0). Check each new pair's address belongs to
-  the file (`client.py name`); else revert the file and its `imports.json` entry.
+  file). A header change must update `headers` (history: the import's copy swaps set both).
+* **A function taken from another EA copy can undo an E&B change through a twin:** ZH's
+  `ShdBumpSpecDefClass::Init` once replaced E&B's DX6-only one (it matches Bump Diffuse's 0xA0B9B0).
+  Check each new pair's address belongs to the file (`client.py name`); else revert the file and
+  its `imports.json` entry.
 * **A twin is not a match.** `new`-and-construct functions (`MeshClass::Clone` 0x93ED00,
   `ShdMeshClass::Clone`) match across libraries: a "loss" in another library's region may still be
   matched in its own (`imports.json`).
@@ -983,28 +989,19 @@ unless `--lever` cites a new row of this table.
   too-short functions never count: show them with `objdiff.py` / `appfile.py match` in the commit.
 * **COMDAT duplicates (D20):** a dropped `(file, 0x6CF410/0x909500/...)` pair matched elsewhere is
   no loss; name it in the commit.
-* **Patch anchors.** A patch for one copy's file fails on another's (`assemble`: "no longer
-  applies"); one whose anchor a later block rewrites (`WWSHADE_API_PATCHES`,
-  `TEXTURE_FILTER_PATCHES`) fails in replay: put it in that block.
 * **`verify` keeps only the first 50 compile errors:** a library losing functions with no error for
   that file means a loud file (a whole-file swap) hid them. Fix it first.
 * **A "none" for a callee proves nothing** (targets are masked): follow the client's call first
   (ZH's `Peek_Thumbnail_Instance_From_Any_Manager`, 0x91AD40).
 * **Low evidence can be the copy's own headers:** ZH's `mapper.cpp` matched 2 in `.work/bm2`, +56
-  in the tree. Read the client's vtable (`vtables.py --seed`) and `trial.py` before "X without Y".
+  in the tree. Read the client's vtable (`vtables.py --seed`) before "X without Y".
 * **Library flags (D12).** wwshade `/GX /Ob1`, the other EA libraries `/Ob2` without `/GX`
   (library-matching.md §3.5), app `/GX` (D23). Signs: EH prologs (`push -1; push handler; mov eax,
   fs:[0]`) only in the client, or a file's callers all calling what ours inlines. Compile with
   `importer.compile_and_match`, not `vc6.py` defaults; give new flags to `bytematch_all.sh`.
-* **`bytematch_all.sh .work/bm2`:** without it, output goes to `%TEMP%\enb_bytematch` and refine
-  reads stale evidence; then `refresh_expected.py .work/bm2 LIB`.
-* **Many hunks: edit first, generate the spec after** (`tools/vc6/mkspec.py` from `git diff`, then
-  `git checkout`, `addpatch.py`, `cmp` against a backup); cut mechanical edits with difflib,
-  widening context until unique (`.work/night/item6f/spec.py`, untracked, historical).
 
 * **`appfile.py match` on a draft:** A draft placed next to its
-  original (so relative includes resolve) leaves a `<dir>/obj/` folder: delete it before replay.
-  `tools/vc6/mkspec.py` splits paths as `lib/file` and fails on `libs/wwonline/...`.
+  original (so relative includes resolve) leaves a `<dir>/obj/` folder: delete it before committing.
 
 * **Compare against HEAD's imports.json, not a saved working copy:** another builder's verify rewrites the
   working copy with your uncommitted tree already in it (`git show HEAD:docs/data/imports.json` is the before-copy;
@@ -1032,8 +1029,7 @@ unless `--lever` cites a new row of this table.
   returns true are not in the switch, so pk_classes.h does not list them: find them by unmatched objects.
 * **Between a worktree merge and commit_mine another builder's verify can rewrite imports.json** (569503f, e4896de):
   check HEAD's in_tree for your files after every commit.
-* **A command chain that commits after `replay` must stop on "N files differ"** (L3 committed through it; the
-  difference was another builder's untracked files). Draft `obj/` folders left under app/ are reported by replay.
+* **Draft `obj/` folders left under app/** are not compiled but end up in a careless `git add`: delete them.
 * **D66(i) in practice:** a rewrite that stops emitting an inline COMDAT copy drops that (file, address) pair while
   the address stays matched elsewhere (land's 0x447C40 / 0x47F300 / 0x7F0EC0, 01ac8b7): name them in the commit.
 
@@ -1059,7 +1055,7 @@ unless `--lever` cites a new row of this table.
   ini_manager.cpp: removing them, or an explicit instantiation in their place, changes VC6's code for the table's
   other members and loses 13 pairs (QT1, 2026-10-30). A file's canary function
   (client_lego_impl: the bone map constructor 0x72D5F0) flips with the file's contents: check it each verify.
-* A tryv2 PermissionError (a concurrent replay) leaves a variant in the tree
+* A tryv2 PermissionError (a concurrent tree reader) leaves a variant in the tree
   file: regenerate it. Verifies made while other builders' files fail to compile add COMDAT instances to your
   file's ambiguous list.
 * **A generated docs/data file committed whole by another builder brings back rows you removed** (T10's c9f7c26 to
@@ -1101,7 +1097,7 @@ unless `--lever` cites a new row of this table.
   proofs (AR1): check every `lost outright` against the client's vtable layout (slot count, slot 0's thunk) before
   calling it a loss. symbols.py without `--objs` reads no objects: copy every library's verify-* folder and pass each.
 * **Shared tree, 2026-11-01 night run:** a builder's uncommitted header is compiled into the others' verifies and recorded as their gains (f343bc6a recorded ~CordMgr before NW6's arraylist.h landed; HEAD was inconsistent ~10 minutes). A HEAD that briefly does not compile shows as many losses in a worktree verify: read `compile_errors` before pairs_cmp (NW6). With `ENB_AGENT` set, verify writes its objects under `.work/<agent>/tmp/enb_import/verify-<lib>`; `%TEMP%\enb_import` may hold another builder's stale objects (NW4). A file's dynamic initialisers (`$E` symbols, <string>'s guard, PermStringInit) are not counted by verify: D99 rows (NW5). Tools' function starts lack file-local statics stored without a thunk (appfile reported 0x77A5B0 PREFIX, its size running on to 0x77A710; verify still counted it; HV1).
-* **Matching tools (2026-11-01 day run):** appfile.py sees a `// @0x` marker only within 5 lines above the definition, with only blank or `//` lines between (a `/* */` block or a `#pragma` hides it or is read as the name; NW, FNT1, HV); appfile.py match resolves a header's relative includes from the tree (edit the tree header; MC); drafts including wwstring.h need `-I auto` (INP); tryvariants.py can't take an app file in a subdirectory (SORT1); a variant at another line differs only in its FAIL_IF / G_ASSERT `push <line>` (FNT1). `attempts.py check` flags any address named in a comment; `record --forms` takes a count, text in `--evidence` (NW, SORT1). The first patch of a new EXTRA_FILES wlib file loses the banner's line 4 (CC2). commit_mine's whole-file docs/library-matching.md swept another builder's row (c70265fb): use a hunk key (UI). **Byte-exact matching doesn't check which global a relocation names**: combo_ffactory matched while asking the wrong factory and the POC recursed (LINK): run the program.
+* **Matching tools (2026-11-01 day run):** appfile.py sees a `// @0x` marker only within 5 lines above the definition, with only blank or `//` lines between (a `/* */` block or a `#pragma` hides it or is read as the name; NW, FNT1, HV); appfile.py match resolves a header's relative includes from the tree (edit the tree header; MC); drafts including wwstring.h need `-I auto` (INP); tryvariants.py can't take an app file in a subdirectory (SORT1); a variant at another line differs only in its FAIL_IF / G_ASSERT `push <line>` (FNT1). `attempts.py check` flags any address named in a comment; `record --forms` takes a count, text in `--evidence` (NW, SORT1). commit_mine's whole-file docs/library-matching.md swept another builder's row (c70265fb): use a hunk key (UI). **Byte-exact matching doesn't check which global a relocation names**: combo_ffactory matched while asking the wrong factory and the POC recursed (LINK): run the program.
 * **Pairs (2026-11-01 day run, late reports):** a new file that instantiates another file's inline COMDATs makes them "held by two objects", and D114(b) then stops widening the other object's range: its range-credited COMDATs near the boundary are lost outright. Name them in tools/re/symbols_named.json from structural evidence (the unwind funclets' `add ecx, member; jmp`), then `symbols.py --apply-named` (IS; P-IS-1). appfile.py match needs `ENB_AGENT=<you>` (it writes to the shared .work/appfile/ otherwise) and, for client files, `-I app/client -I libs/sgistl -I wwlib -I wwmath -I ww3d2 -I wwdebug -I wwsaveload -I wwaudio -I app/shared`; it says PREFIX when the client's size includes int3 padding (verify still counts it). mark.py's NAME=ADDR can't name `operator=` (BTN). The Edit tool can add or drop a trailing blank line: grep the FAIL_IF / G_ASSERT lines against HEAD after a line-keeping edit (LS: -6 pairs); with a pinned assert line (D25) pay for each added function with padding lines in the same script (FS). A friend `Create_Peek(T*)` inside RefCountPtr<T> resolves only once RefCountPtr<T> is instantiated: declare the named local first (IS).
 * **Shared COMDATs (2026-11-01 evening run, IS1):** crediting a COMDAT two objects hold to every holder's range lets the later object's range reach over the first object's code (the linker keeps the copy with the object it meets first); the two objects' tied template instances then propose one address and both lose it. Widen only the nearest holder (P-IS-2). `importer.py verify --pool K` exits when the host has under 4 GB free beyond the VMs it would start: use `--pool` = the VMs already running. `wt.py bring-over NAME` lands on local master by default: in a run, pass `--target run/<date>` (the coordinator, 2026-11-01).
 * **Variants (2026-11-01 evening run, D184 pilot):** a variant that changes a function's line count moves every later `__LINE__` (G_ASSERT / FAIL_IF) in the file: it can look exact and lose later functions (Set_Debug_Mode: -4); `variants.py try` pads or trims each variant to the original line count, and a function can go exact by its assert's line alone (0x7381C0). `try` compares one object's exact set by address: a filter, never verify or pairs_cmp.
@@ -1161,7 +1157,7 @@ unless `--lever` cites a new row of this table.
 * **The VM's `e:\build\beta\G` junction pointed at the last worktree that compiled on it** (H7, 2026-10-27): a
   main-tree verify then compiled another builder's worktree and new files failed with C1083. vc6.py makes the
   junction again on every compile since 096a45b; earlier results from a shared VM were suspect.
-* **Pool contention, 2026-11-01 night run (9-10 builders on 7 VMs):** `importer.py verify --pool 1` and `appfile.py --pool` exit at once with "pool cap: 7 VMs exist" when every VM is leased, and `pool.py lease` can print it while `list` shows a free VM (a race): retry in a loop (`.work/gm2/retry.sh`, `.work/nw6/v5.sh`). A `pool.py lease` process held `.work/pool/leases.lock` 15 minutes (01:37-01:52) and blocked every lease and release until the 900 s stale takeover; check `pool.py list` and the lock's holder before assuming a hung VM. A failed lease whose last line is exported unchecked falls back to the stale VM in `.work/vc6_hosts.json` (ssh timeout; LG3). Lock waits ran 20-30 minutes: `--lock-wait 3600` on verify / replay. With the lock busy, a scratch copy compiles alone on a leased VM in ~20 s (`.work/nw5/mc.sh`: vc6.py compile with the library's flags; Git Bash needs `MSYS_NO_PATHCONV=1` or `/nologo` becomes a path).
+* **Pool contention, 2026-11-01 night run (9-10 builders on 7 VMs):** `importer.py verify --pool 1` and `appfile.py --pool` exit at once with "pool cap: 7 VMs exist" when every VM is leased, and `pool.py lease` can print it while `list` shows a free VM (a race): retry in a loop (`.work/gm2/retry.sh`, `.work/nw6/v5.sh`). A `pool.py lease` process held `.work/pool/leases.lock` 15 minutes (01:37-01:52) and blocked every lease and release until the 900 s stale takeover; check `pool.py list` and the lock's holder before assuming a hung VM. A failed lease whose last line is exported unchecked falls back to the stale VM in `.work/vc6_hosts.json` (ssh timeout; LG3). Lock waits ran 20-30 minutes: `--lock-wait 3600` on verify. With the lock busy, a scratch copy compiles alone on a leased VM in ~20 s (`.work/nw5/mc.sh`: vc6.py compile with the library's flags; Git Bash needs `MSYS_NO_PATHCONV=1` or `/nologo` becomes a path).
 * **Pool (2026-11-01 day run):** appfile.py --pool exits at once on "host memory ... not starting" instead of waiting (retry after minutes; HV); `timeout N` around `importer.py verify` kills it while it waits on the lock (LG); subprocess `bash` can resolve to WSL's bash (empty output): use Git's bash.exe by full path (NW).
 * **pool.py release --agent (2026-11-05 night run, CS13):** it releases every VM leased under that agent: not while your own POC build holds a lease.
 
@@ -1289,6 +1285,10 @@ unless `--lever` cites a new row of this table.
 * **A landed app definition collides with stand-ins in three places** (HF1, HF2): programs/clientpoc/poc_standins.cpp /
   poc_world*.cpp, stubs/app_stubs.cpp and tests/clienttest/client_stubs.cpp; and new callers can make app.lib pull an object that
   clienttest also compiles itself (shiputils, ui_talkt): LNK2005 in clienttest with a clean verify. Grep all three, link both programs.
+  `python tools/vc6/standins.py check` finds the first kind in seconds (wt.py bring-over refuses on it); a stand-in that
+  must stay (the app object is never pulled) gets `// standins: keep (why)` on or just above its line. The second kind
+  needs the link: `python tools/vc6/linkgate.py check` (bring-over runs it; an unresolved symbol outside
+  tools/vc6/link_baseline.json refuses too).
 * **A test's stand-in goes stale when app code is pointed at a library symbol (kerneltest, 2026-11-04):** c759a57b
   replaced kernel.cpp's `Unknown_BFAEE0` with `WW3DAssetManager::Get_Instance()`; kerneltest.cpp still defined the old
   global, so the link pulled ww3d2.lib(assetmgr.obj) and, a chain later, ww3d.obj, which clashes with taskstest.cpp's
@@ -1455,35 +1455,35 @@ unless `--lever` cites a new row of this table.
 * **Git Bash rewrites a leading `//` in an argument (2026-11-06, GP1):** a `// @0xADDR` argument arrived as `/ @...`; use `MSYS_NO_PATHCONV=1` with `C:/` script paths.
 * **`build.py link`'s summary and `attempts.py check`'s noise (2026-11-06, MF1):** `build.py link` prints "clientpoc: exe NOT written; 569 unresolved" and still deploys an exe built with generated stand-ins: read the 'deployed' line, not that summary. `attempts.py check FILE` also flags functions compiled into the file through headers (0x726100 ClientClass for ui_mfd.cpp).
 * **clienttest after app code lands (2026-11-06, HF1):** when a stand-in's class becomes real (VerbManagerClass, verbmanager.h), one C2027 in clienttest.cpp or client_stubs.cpp gives ~600 unresolved and LNK2005 lines: read the `cl:` lines first. A stand-in for a function in an app.lib member other code already pulls in (ui_verb.obj) gives LNK2005: compile the real file into clienttest with the function renamed (`clienttest.py`'s APP list, shiputils' precedent). A fresh worktree has no `build/art/MSS32.DLL`: `clienttest.py run` then says "wrote no trace (exit 3221225781)", 0xC0000135.
-* **Scratch tests of landing tools (2026-11-06, LD1, DC1):** `replay` compares EA library sources with importer.py, so a comment-only test commit in `wwdebug/` is refused as "files differ": put test commits outside library directories. A wait loop on a landing's verify log hangs if the batch stops at a conflict first: also check the process is alive. `tools/re/datacmp.py --objs` takes a `C:/` path on Windows Python, not `/c/...`. The Write tool can create CRLF, and an inline Python replace with `\\0` put a real NUL in a script: `ast.parse` after patching one that way.
+* **Scratch tests of landing tools (2026-11-06, LD1, DC1):** put test commits outside library directories (a comment line in an EA-derived file moves `__LINE__`, §3.0). A wait loop on a landing's verify log hangs if the batch stops at a conflict first: also check the process is alive. `tools/re/datacmp.py --objs` takes a `C:/` path on Windows Python, not `/c/...`. The Write tool can create CRLF, and an inline Python replace with `\\0` put a real NUL in a script: `ast.parse` after patching one that way.
 * **Reading a kerneltest build failure (2026-11-06, KT1):** a compile error in taskstest.cpp shows up as hundreds of unrelated unresolved symbols and LNK2005 lines, all fallout (the BINKMovie ones were): read the `cl:` lines first (`grep -v unresolved`). A worktree has no build/, so pass the main tree's as `--out`. `pool.py lease` and `release` both take `--agent NAME`; a bare IP released nothing.
 
 ### 3.8 Git, docs and scripting hygiene
 
-* **Landing in a busy run (2026-11-07):** no run-branch commit while a landing runs (it refuses: "moved while landing"); a branch
-  based on another builder's unlanded branch re-carries those commits after they land under new hashes: `git rebase --onto
-  run/<date> <old base tip>` its own commits only; after resolving generated conflicts by hand, regenerate (verify, report, names.py)
-  before landing, or bring-over refuses ("the commits record other pairs"). poc_check.sh's LOG must be an absolute path.
+* **Landing in a busy run (2026-11-07):** a run-branch commit made while a landing runs is replayed under (wt.py lands
+  on top of it) when it touches none of the landing's paths and no generated file; one touching those still refuses
+  ("moved ... while landing ... and they touch <paths>": rerun). A branch on another builder's unlanded branch: make it
+  with `wt.py new C --base wt/P` (records P); land P first or `bring-over P C` in that order; after P lands `wt.py list`
+  says "parent landed: rebase" and `wt.py rebase C` replays C's own commits only (no hand `git rebase --onto`: it skips
+  the regeneration, and bring-over refuses "the commits record other pairs"). poc_check.sh's LOG must be an absolute path.
 * **Coordinator merges (2026-11-03 afternoon run):** never resolve a C++ source conflict by keeping both sides (it
   duplicated gd_slider's code: 3 lost outright, caught by the verify); append-append of new functions is the one safe
-  case. `tools/agy/rebase_gen.sh` takes the run's imports.json and re-verifies only app: a library's new file then drops
-  out of the record (verify --lib reads its file list from imports.json): verify that library too. `symbols.py` needs
+  case. `tools/agy/rebase_gen.sh` once re-verified only app (a library's new file dropped out of the record); it is
+  now `wt.py rebase`, which verifies every library the branch touches. `symbols.py` needs
   `--objs` for every verify-* folder and a good symbols.json as its input (it reads its own output: a gutted one cost 16
   pairs, a weak one moved template twins). TaskStop of a background shell leaves its child processes (two redo
   scripts ran in one worktree): check Win32_Process before restarting. A worktree reset onto a new base needs its wt
   base file updated, or bring-over refuses 'merge commits'.
 * **`wt.py bring-over` lands on master by default (2026-11-02 evening run):** pass `--target run/<date>`; without it, it
   compared against a stale local master and refused (3 'lost' pairs that were master's age, not the builder's).
-* **bring-over refuses a cherry-pick with generated-file conflicts (2026-11-02 evening run):** two builders from the same
-  base both rewrite imports.json / names-review.md; rebase the worktree branch, take the run's side of each generated
-  file, regenerate (names.py, notexact.py, verify --lib app --pool 1, report), continue, bring over:
-  `tools/agy/rebase_gen.sh ID run/<date>` (attempts.csv: both sides' rows).
+* **Generated files are regenerated, never merged (2026-11-02 evening run; tools since 2026-11-07):** on a conflict
+  bring-over (single and batch) and `wt.py rebase ID [--onto B]` take the target's side, then verify, report, names.py,
+  notexact.py and commit the result (attempts.csv: both sides' rows). Never rebase a worktree by hand (WE8: no
+  regeneration); `wt.py rebase` stops on any other conflict and prints how to finish (`--continue`) or abort.
 
 * **`attempts.py record`:** `--forms` is a count, the forms' text goes in `--evidence`, and `--blocker` takes only
   the listed classes (`order`, `inline-budget`, ...) (2026-10-31, TK5).
-* **`addpatch.py` appends to an existing (lib, file) entry, so the new importer.py lines do not contain the file
-  name** (2026-10-31, TK7): commit_mine's hunk keys must match the new patch text (an address or symbol), or importer.py
-  is left behind. commit_mine skips imports.json's library totals without `--refresh-totals` (which takes other
+* **commit_mine skips imports.json's library totals** (2026-10-31, TK7): commit_mine skips imports.json's library totals without `--refresh-totals` (which takes other
   builders' counts too): the coordinator refreshes totals at the quiet tree.
 * **`attempts.py record` in a shell loop with `set -- $a` cuts a symbol at its first space** (2026-10-31, TK4):
   quote each field or call it once per row.
@@ -1498,7 +1498,7 @@ unless `--lever` cites a new row of this table.
 * **Git Bash turns a `'// 0x...'` argument into a path** (2026-10-28, PX2): prefix the command with
   `MSYS_NO_PATHCONV=1`.
 * **`wt.py remove` deletes the worktree's `.work/` scratch** (2026-10-28, MV2): keep scripts you want in the main
-  tree's `.work/`. Export `ENB_VC6_HOSTS` in the same Bash call as every `build.py build`, or it compiles on
+  tree's `.work/`. It refuses a branch with unlanded commits (A1) unless `--force`; `wt.py list --unlanded` lists them. Export `ENB_VC6_HOSTS` in the same Bash call as every `build.py build`, or it compiles on
   whichever VM vc6_hosts.json names (possibly another builder's lease).
 * **`build.py` lists files with `git ls-files`** (2026-10-28, DO1): in a worktree a new file needs only `git add`
   before `build.py build --allow-dirty` (LD3's "commit first" is the stricter form).
@@ -1515,17 +1515,18 @@ unless `--lever` cites a new row of this table.
 * **names.py files a NOT EXACT marker under the next function when a static helper's signature spans two lines**
   (2026-10-28, LD3: 0x47C6A0's marker shows under Build_Decorations). `attempts.py record` takes an integer
   `--forms` and only its fixed `--blocker` list.
-* **`wt.py bring-over` refusing on an imports.json conflict** (2026-10-28, LD2): `git rebase master` in the
-  worktree, take master's imports.json, re-verify, union attempts.csv, run names.py, `git rebase --continue`.
+* **`wt.py bring-over` refusing on an imports.json conflict** (2026-10-28, LD2): now `wt.py rebase NAME --onto
+  master` (takes master's side, re-verifies, unions attempts.csv, regenerates, commits).
 * **After a bring-over, `git rebase master` in the worktree can conflict on names-review.md:** `git rebase --skip`
-  drops the commit that already landed; "master moved while landing": rerun (2026-10-28, EF2).
+  drops the commit that already landed; "master moved ... while landing" (its new commits touch the landing's paths or a
+  generated file; unrelated ones are landed on top of): rerun (2026-10-28, EF2).
 * **When master moves every few minutes, `wt.py bring-over` keeps conflicting on imports.json** (2026-10-28, DM1):
   verify in the worktree, then commit_mine from the main tree with the whole file and its imports entry copied
   over (`commit_rows.set_entries`; `.work/dm1/land.sh`).
 * **`wt.py bring-over` refuses an imports.json cherry-pick conflict when master has moved** (2026-10-28, HX1):
   recreate the commit in a fresh worktree from master (`cherry-pick -n`, take HEAD's imports.json, re-verify).
 * **tryv2 refuses an anchor that occurs twice** (co.cpp's two IsInPVP finds); a long experiment script that holds
-  the importer lock for 10+ minutes blocks others' report and replay: release it between variants (2026-10-28, IB1).
+  the importer lock for 10+ minutes blocks others' verify and report: release it between variants (2026-10-28, IB1).
 * **tryvariants.py only sees a library folder's top level** (`app/packets/x.cpp` can't be tried; `.work/pk1/tv.py`
   and `hv.py` can); **build.py compiles tracked files only** (a new app file is harness-tested after its commit, or
   with `--allow-dirty` and a private `--out`) (2026-10-28, PK1).
@@ -1577,7 +1578,7 @@ unless `--lever` cites a new row of this table.
 * **A rename across our files must leave an imported library's own names alone (2026-10-30, D159):** app code
   reaches into imported classes by their names (soundlib.cpp's `using AudibleSoundClass::m_Unknown7C`, WWAudio's
   `m_` style); renaming `m_UnknownXX` in app/ broke it (12 compile errors in the verify, soundlib's pairs lost).
-  Check every renamed name against the libraries' headers, and run a full verify, not just replay.
+  Check every renamed name against the libraries' headers, and run a full verify.
 * **commit_mine and worktrees, 2026-11-01 night run:** commit_mine's `-U0` hunks merge adjacent added lines across builders: a library-matching.md row, an imports.md line, a RECONSTRUCTED entry or (with `--path` / `"whole"`) every attempts row of the file next to another builder's uncommitted one travels with yours. Put new rows somewhere other than next to another builder's (CC1, NW4, NW6, LG1). `wt.py bring-over NAME` always lands branch `wt/NAME`, `--dry` still runs the full verify, and bring-over refuses while names-review.md or library-matching.md has another builder's uncommitted hunk (commit_mine from the main tree gets around it; NW3, NW6). Never chain a `cp` into the tree after a script that can fail with `;` or `||`: make each step depend on its exit code (CC2).
 
 * **Stand-ins and staged stubs, later round (2026-11-02 night run, EAM 9fe25fe0, LF round 2):** a gen stand-in for a data pointer is NULL, so newly real code that dereferences it crashes the POC: use the tree's symbol instead (EAM, `Unknown_C006A0` / DX8Wrapper::CurrentCaps). clienttest stages udpreplay's stub files: when a stub function became real, strip it from the staged stub or the link has it twice (LF round 2).
@@ -1599,20 +1600,19 @@ unless `--lever` cites a new row of this table.
 * **POC replay read-outs (2026-11-06, the coordinator):** `poc_check.sh` with CHECK_HARNESS=1 runs clienttest with no lease and it fails at once with FileNotFoundError: lease first and set ENB_VC6_HOST(S). `--shots` counts Presents, and the menus run at about 7,000 a second (1,800 to 2,300 averaged over a run): for character select in the 44 s input3-quit replay use about 290000, not 2400. `client exit: still running when this run killed it` was printed on two runs whose antprox logged `Client exited` right after the quit click; the third run of the same input said `exited by itself`: read antprox's time before calling it a hang.
 * **A failed helper's pipe (2026-11-06, SD1):** `pad.py | tail -0` killed the script with a closed pipe and a commit went in with `// @0x` markers. `pseudocode.py` drops call arguments in long functions (0x600000, 0x5FBD30, RG1): `client.py dis` with the pushes is the check. `attempts.py record`: `--forms` is an int, `--blocker` an enum.
 * **Runner scripts (2026-11-06, RD1):** `subprocess.run(['bash', ...])` from Windows Python can pick another bash than Git's and fail in seconds, leaving the old log in place, so a sweep looks like identical results: use the full path to Git's bash.exe. Never hard-code a leased VM's IP in a runner: a new lease can return another VM, and a stray compile lands on a VM someone else may hold. Importer text written from a bash heredoc loses its doubled backslashes (KV1): the Write tool only.
-* **POC world runs and landings (2026-11-07, WE1, RS1, CS1, coordinator):** a call to a function gen_stubs could not write (a struct by value, `std::vector<struct>`, a Matrix3D return, a non-const global object, a constructor taking a class by value) jumps to 0x400000 and the header's `pop edx` eats the return address: match the link log's unresolved list to the objects (`.work/WE1/coffsyms.py`), hand-write the stand-in. Name POC crash stacks from the worktree's own clientpoc.map (`__validdrive+0x...` is the map's CRT tail). The world frame: `D3D8SHOT_EVERY=2000 D3D8SHOT_MAX=500` with `--shots 1`, keep the highest frame. A real app function clienttest reaches needs its data in the harness (CM1's 0x79B2B0 and CS1's 0x799E40 dereferenced a NULL CameraManager). VC6's decorated name of a static data member encodes its access. A library header edit (wwaudio/WWAudio.h) fails bring-over's replay: it goes in importer.py's PATCHES. A builder based on another builder's unlanded branch: land it with `ONTO=<that branch's old tip> sh .work/coord/rebase_onto.sh ID run/<date> BASELINE` (only its own commits), or a net-diff commit on a fresh worktree when its own commits conflict with what landed since. The importer lock is shared by every worktree: `--lock-wait 3000`. `cat > /dev/null` in a Bash call waits on stdin; Git Bash has no `pgrep`; MSYS rewrites `'// @0x'` arguments (`MSYS_NO_PATHCONV=1`).
+* **POC world runs and landings (2026-11-07, WE1, RS1, CS1, coordinator):** a call to a function gen_stubs could not write (a struct by value, `std::vector<struct>`, a Matrix3D return, a non-const global object, a constructor taking a class by value) jumps to 0x400000 and the header's `pop edx` eats the return address: match the link log's unresolved list to the objects (`.work/WE1/coffsyms.py`), hand-write the stand-in. Name POC crash stacks from the worktree's own clientpoc.map (`__validdrive+0x...` is the map's CRT tail). The world frame: `D3D8SHOT_EVERY=2000 D3D8SHOT_MAX=500` with `--shots 1`, keep the highest frame. A real app function clienttest reaches needs its data in the harness (CM1's 0x79B2B0 and CS1's 0x799E40 dereferenced a NULL CameraManager). VC6's decorated name of a static data member encodes its access. A library header edit (wwaudio/WWAudio.h) gets its `// EnB:` entry in that file's end-of-file block (D211). A builder based on another builder's unlanded branch: `wt.py new ID --base wt/OTHER`, then §3.8's stacked-branch rule (`wt.py rebase ID` after OTHER lands; the old `ONTO=... rebase_onto.sh` is no longer needed), or a net-diff commit on a fresh worktree when its own commits conflict with what landed since. The importer lock is shared by every worktree: `--lock-wait 3000`. `cat > /dev/null` in a Bash call waits on stdin; Git Bash has no `pgrep`; MSYS rewrites `'// @0x'` arguments (`MSYS_NO_PATHCONV=1`).
 
 ### 3.9 Library-specific
 
 * **wlib (wwonline) (2026-10-31, TK4):** Renegade's `Code\Tools\RenegadeGR\wtime.cpp` is the client's revision
   (no localtime_r wrapper, no "aa" format), not matchbot's: look for older per-file copies in RenegadeGR before
-  patching matchbot's. wlib is built with /GX (`LIB_FLAGS['wlib']`, +17 across wtime / configfile / monod / streamer /
+  changing matchbot's. wlib is built with /GX (`LIB_FLAGS['wlib']`, +17 across wtime / configfile / monod / streamer /
   xtime): in VC6 a by-value return of a class with a destructor leaves a construction flag (`push ecx; mov [esp+8],0`)
   even without an EH frame, a cheap sign of /GX. `tools/re/names.py` does not scan libs/wwonline (its NAME tags miss
   names-review.md).
-  (TK7) wstring.cpp's and configfile.cpp's client revision is E&B's own, patched onto matchbot's in WWONLINE_PATCHES
+  (TK7) wstring.cpp's and configfile.cpp's client revision is E&B's own, matchbot's with E&B's changes (its `// EnB:` block)
   (RenegadeGR has neither; matchbot, mangler and Renegade's Tools\wlib are one text; its tell: no Joe Howes / MDC
-  additions). The first patch of a wlib file loses the "Modified for..." banner (line 4) and replay reports "content
-  differs": copy it from `.work/replay`. gaps.py pairs wlib's configfile wrongly (the client's object is 0x8B23C0-
+  additions). gaps.py pairs wlib's configfile wrongly (the client's object is 0x8B23C0-
   0x8B3E70: ctor, dtor, clear, readFile, enumerate, getString x2, getInt x4): confirm with `client.py callers`. A static
   helper whose last caller is one function gets inlined (Get_Date_From_Day into getTime once getYDay is gone).
 * **cordcon's header-field reads go through Cord_Get_Small / Cord_Get_Seq** (2026-10-31, TK17), out of line but

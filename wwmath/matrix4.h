@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -846,3 +846,15 @@ WWINLINE void	Matrix4::Transform_Vector(const Matrix4 & A,const Vector4 & in,Vec
 typedef Matrix4 Matrix4x4;
 
 #endif /*MATRIX4_H*/
+
+// Earth & Beyond client (reconstruction): changes to Renegade's matrix4.h (frozen 2026-11-07 from importer.py)
+// EnB: class Matrix4 (lines 84, 93 at the freeze): Zero Hour's 16-float Matrix4 constructor and Init (NH, 11/06/2001:
+//       older than E&B's WW3D2), used by Zero Hour's mapper.cpp, whose texture-matrix mappers the client has
+//       (ScaleTextureMapperClass::Apply 0x9322F0 calls Calculate_Texture_Matrix, vtable slot 8, then sets
+//       D3DTS_TEXTURE0+Stage)
+// EnB: Lines 264, 338 at the freeze: Zero Hour's 16-float Matrix4 constructor and Init (NH, 11/06/2001: older than
+//       E&B's WW3D2), used by Zero Hour's mapper.cpp, whose texture-matrix mappers the client has
+//       (ScaleTextureMapperClass::Apply 0x9322F0 calls Calculate_Texture_Matrix, vtable slot 8, then sets
+//       D3DTS_TEXTURE0+Stage)
+// EnB: Line 844 at the freeze: Matrix4x4 (Zero Hour's name for Matrix4) as an alias, for the Zero Hour code imported
+//       beside Renegade's WWMath; E&B's own name for the class is not known

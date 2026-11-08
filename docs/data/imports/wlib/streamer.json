@@ -1,0 +1,24 @@
+{
+ "ambiguous": [],
+ "copy": "Z",
+ "expected": {
+  "Z": 6
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x8B4F60",
+  "0x8B4F90",
+  "0x8B4FC0",
+  "0x8B5040",
+  "0x8B5060",
+  "0x8B5100",
+  "0x8B51D0",
+  "0x8B51F0",
+  "0x8B5280"
+ ],
+ "merged": [],
+ "name": "streamer.cpp",
+ "short_known": [
+  "0x8B51D0"
+ ]
+}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "DynObj (the client's name, its profile strings; vtable 0xAE796C, 42 slots, the inline ones 0x44B1F0-0x44B740); provisional header name; moved out of co_subtypes.h"
+}

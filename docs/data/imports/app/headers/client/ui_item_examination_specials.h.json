@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIItemExaminationSpecialsClass (the item examination window's specials panel 'ITEM_EXAMINATION_SPECIALS', 0x7C bytes, table 0xAEE718) and its row UIItemExaminationSpecialClass (0x6C bytes); header name assumed, interim (D137) (IE2)"
+}

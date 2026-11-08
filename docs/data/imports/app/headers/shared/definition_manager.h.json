@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "DefinitionManagerClass<T> and DefinitionRefCount<T> (D24): a reference-counting cache of named definitions in an SGI hash_map (libs/sgistl, D87); asserts on the client's lines 105 / 119 / 133 / 146 / 212 (D25)"
+}

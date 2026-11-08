@@ -1,0 +1,32 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "PROVISIONAL file name (D137): CameraController02Class, the camera manager's state-2 controller (table 0xB05268, 0x1C bytes), client 0x7979A0-0x798ACF (no __FILE__ or assert; after camctrl_tractor.cpp's <string> initialiser 0x797970, ending with its own at 0x798AB0); 0x797B50 NOT EXACT (CS1); 0x7981B0, 0x798570, 0x7987F0 not rebuilt (CM1)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x7923E0",
+  "0x792410",
+  "0x792430",
+  "0x792460",
+  "0x7979A0",
+  "0x797A60",
+  "0x797A90",
+  "0x797B10",
+  "0x798130"
+ ],
+ "merged": [],
+ "name": "client/unknown_7979a0.cpp",
+ "shared": [
+  "0x42F250",
+  "0x7923E0",
+  "0x792410",
+  "0x792430",
+  "0x792460"
+ ],
+ "short_known": [
+  "0x792410"
+ ]
+}

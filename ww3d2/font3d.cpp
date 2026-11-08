@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -424,3 +424,7 @@ float	Font3DInstanceClass::String_Width( const char *test_str )
 	return width;
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's font3d.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Font3DDataClass::Load_Font_Image (line 336 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero
+//       Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file

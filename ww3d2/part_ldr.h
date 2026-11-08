@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -380,3 +380,10 @@ extern ParticleEmitterLoaderClass	_ParticleEmitterLoader;
 
 
 #endif //__PART_EMT_LDR_H
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's part_ldr.h (frozen 2026-11-07 from importer.py)
+// EnB: class ParticleEmitterDefClass (line 147 at the freeze): and a getter
+//       (ParticleEmitterClass::Create_From_Definition reads the byte and tests it)
+// EnB: class ParticleEmitterDefClass (line 164 at the freeze): ParticleEmitterDefClass has an extra virtual after
+//       Set_Future_Start_Time (the client's vtable at 0xB10920, slot 19) setting the flag: named Set_Unknown_Flag. A
+//       bool argument stored as `? 1 : 0` into a uint8 reproduces the client's test/setne

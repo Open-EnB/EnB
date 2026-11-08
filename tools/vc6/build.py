@@ -2,7 +2,7 @@
 
     python tools/vc6/build.py [--pool K] [--lib X]... [--out DIR] [--allow-dirty]
     python tools/vc6/build.py unresolved [--out DIR] [--report FILE]
-    python tools/vc6/build.py link [--program vidtest|clientpoc] [--pool K] [--out DIR]
+    python tools/vc6/build.py link [--program vidtest|clientpoc] [--pool K] [--out DIR] [--no-deploy]
 
 `build` (the default command) compiles every committed source file of each library (git
 ls-files; NOT_LINKED files stay out), not only the ones that match, with the flags, defines,
@@ -536,9 +536,10 @@ UNRES = re.compile(r'error LNK20(?:01|19): unresolved external symbol (?:"([^"]*
                    r'(?: referenced in function (?:"[^"]*" \((\S+?)\)|(\S+)))?')
 
 
-def link_program(name, out):
+def link_program(name, out, deploy=True):
     """link_one; for a program with gen_stubs (clientpoc), a second link with a generated stand-in for
-    every symbol the first left unresolved; then the copy into its deploy directory."""
+    every symbol the first left unresolved; then the copy into its deploy directory (not with deploy=False:
+    wt.py's link check, linkgate.py)."""
     prog = PROGRAMS[name]
     if not prog.get('gen_stubs'):
         return link_one(name, out)
@@ -574,7 +575,7 @@ def link_program(name, out):
             # summary lists them); write them by hand in the program's directory
             summary = link_one(name, out, extra_srcs=[gen], extra_objs=objs, force=True)
     exe = os.path.join(dst, name + '.exe')
-    if prog.get('deploy') and summary['exe'] and os.path.normcase(os.path.abspath(out)) == os.path.normcase(os.path.abspath(os.path.join(REPO, 'build'))):
+    if deploy and prog.get('deploy') and summary['exe'] and os.path.normcase(os.path.abspath(out)) == os.path.normcase(os.path.abspath(os.path.join(REPO, 'build'))):
         import shutil
         base = os.path.join(prog['deploy'], prog.get('deploy_name', name))
         shutil.copy2(exe, base + '.exe')
@@ -722,6 +723,7 @@ def main():
     ap.add_argument('--report', default=os.path.join(REPO, '.work', 'milestones', 'l1', 'unresolved.txt'))
     ap.add_argument('--pool', type=int, metavar='K', help='lease K VMs from pool.py, release after')
     ap.add_argument('--holder-pid', type=int)
+    ap.add_argument('--no-deploy', action='store_true', help='link: leave the deploy directory (the POC\'s release folder) alone')
     ap.add_argument('--allow-dirty', action='store_true',
                     help='build even if a library has uncommitted changes')
     ap.add_argument('--root', help=rootguard.HELP)
@@ -735,10 +737,10 @@ def main():
         if a.pool:
             with I.pool_lease(a.pool, a.holder_pid):
                 for p in progs:
-                    link_program(p, a.out)
+                    link_program(p, a.out, not a.no_deploy)
         else:
             for p in progs:
-                link_program(p, a.out)
+                link_program(p, a.out, not a.no_deploy)
         return
     libs = a.lib or ORDER
     changed = dirty(libs)

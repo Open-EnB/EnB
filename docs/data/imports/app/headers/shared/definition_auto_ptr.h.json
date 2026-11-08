@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "DefinitionAutoPtr<T>: a definition acquired from a DefinitionManagerClass; the FAIL_IFs on the client's lines 119 / 120 (D25)"
+}

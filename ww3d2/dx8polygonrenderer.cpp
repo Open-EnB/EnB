@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -110,3 +110,11 @@ void DX8PolygonRendererClass::Log()
 */	WWDEBUG_SAY((work));
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's dx8polygonrenderer.cpp (frozen 2026-11-07 from importer.py)
+// EnB: DX8PolygonRendererClass::DX8PolygonRendererClass (lines 49, 55, 65, 68, 70, 79 at the freeze): constructors
+//       0x9C4820/0x9C48C0 add the renderer to MeshModelClass+0x84 (Generals' mmc, without Generals' pass: six
+//       arguments, ret 0x18); Log 0x9C4940 names the model
+// EnB: DX8PolygonRendererClass::Log (line 99 at the freeze): constructors 0x9C4820/0x9C48C0 add the renderer to
+//       MeshModelClass+0x84 (Generals' mmc, without Generals' pass: six arguments, ret 0x18); Log 0x9C4940 names the
+//       model

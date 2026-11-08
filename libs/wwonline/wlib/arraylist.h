@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -734,3 +734,26 @@ bit8 ArrayList<T>::shrinkVector(void)
 
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's arraylist.h (frozen 2026-11-07 from importer.py)
+// EnB: class T> (line 75 at the freeze): E&B's ArrayList::addMany (Renegade's Tools\wlib declares addMany(T *, pos,
+//       howmany); its 2025 body is a guess): ArrayList<char>::addMany 0x778590 (htmlview.cpp's template copy, called by
+//       0x770860 to append the terminating NUL; inlined there for the data): FALSE for howmany <= 0, pos clamped to
+//       0..Entries_, growVector(howmany) while Entries_+howmany >= Slots_, memmove, placement new at Vector_+(pos+i),
+//       TRUE
+// EnB: class T> (line 125 at the freeze): E&B's ArrayList grows by a count: growVector(howmany) makes room for
+//       Entries_+howmany ((Entries_+howmany)*2 slots); TCPMgr's ArrayList<PendingConn>::growVector 0x8BE7A0 is out of
+//       line with the argument (`add eax, [esp+8]; cmp eax, Slots_`, `ret 4`, its callers in 0x8BD240 push 1), and
+//       add's two inlined calls test Entries_+1 (`inc eax`, 0x8BF620, TCPQueue::add 0x8BF1C0)
+// EnB: Line 254 at the freeze: E&B's ArrayList::addMany (Renegade's Tools\wlib declares addMany(T *, pos, howmany);
+//       its 2025 body is a guess): ArrayList<char>::addMany 0x778590 (htmlview.cpp's template copy, called by 0x770860
+//       to append the terminating NUL; inlined there for the data): FALSE for howmany <= 0, pos clamped to 0..Entries_,
+//       growVector(howmany) while Entries_+howmany >= Slots_, memmove, placement new at Vector_+(pos+i), TRUE
+// EnB: Line 609 at the freeze: E&B's ArrayList::getPointer sets *node to NULL on a miss: every inlined call selects 0
+//       for an index out of range (`xor eax, eax`: removeListener 0x8BCD10, getListener 0x8BCE70, getConnection
+//       0x8BDF80, pumpConnections 0x8BE270, cordmgr.cpp, unknown_htmlattrib.cpp's Get / Pop), formerly written at each
+//       call site; pairs unchanged (D66's neutral-fidelity clause)
+// EnB: growVector (line 665 at the freeze): E&B's ArrayList grows by a count: growVector(howmany) makes room for
+//       Entries_+howmany ((Entries_+howmany)*2 slots); TCPMgr's ArrayList<PendingConn>::growVector 0x8BE7A0 is out of
+//       line with the argument (`add eax, [esp+8]; cmp eax, Slots_`, `ret 4`, its callers in 0x8BD240 push 1), and
+//       add's two inlined calls test Entries_+1 (`inc eax`, 0x8BF620, TCPQueue::add 0x8BF1C0)

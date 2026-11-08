@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "PxEnd / PxBox / PxList, the proximity system's sweep and prune (PxBox and PxList the client's names, their profile and debug strings); provisional header name"
+}

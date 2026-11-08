@@ -488,3 +488,9 @@ int TCPCon::print(IN char *str, int len)
 {
   return(write((IN uint8 *)str,len,0));
 }
+
+// Earth & Beyond client (reconstruction): tcpcon.cpp (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): E&B's TCPCon (0x8BBA70-0x8BCA50) on the plan of Renegade's RenegadeGR
+//       tcpcon.cpp, written from the client: an OutputDevice over two TCPQueues, a CritSec taken when Locking_ is set,
+//       the peer's address cached, TCPMgr::CONNRESET ending reads and writes; E&B's pumpReads, peekRead / endPeekRead,
+//       setLocking and print. All 18 functions byte-exact (RenegadeGR's own matches none)

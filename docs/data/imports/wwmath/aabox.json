@@ -1,0 +1,22 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 4,
+  "R": 4,
+  "Z": 4
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x8E2EE0",
+  "0x8E2F60",
+  "0x8E2F80"
+ ],
+ "merged": [],
+ "name": "aabox.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

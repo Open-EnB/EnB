@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1581,3 +1581,15 @@ const char * HTreeIterator::Current_Item_Name(void)
 }
 
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's assetmgr.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 114 at the freeze: Zero Hour's 07/01/02 KM "Shader library integration": E&B's WW3DAssetManager ctor ends
+//       its loader list with SHD_REG_LOADER (0x91C4E3 calls SHD_Register_Loader 0xA07D30) before allocating the hash
+//       table
+// EnB: WW3DAssetManager::WW3DAssetManager (line 228 at the freeze): Zero Hour's 07/01/02 KM "Shader library
+//       integration": E&B's WW3DAssetManager ctor ends its loader list with SHD_REG_LOADER (0x91C4E3 calls
+//       SHD_Register_Loader 0xA07D30) before allocating the hash table
+// EnB: Log_Textures (line 307 at the freeze): Zero Hour's TextureBaseClass::Peek_D3D_Texture (Renegade:
+//       Peek_DX8_Texture)
+// EnB: WW3DAssetManager::Get_Texture (lines 947, 957 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero
+//       Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file

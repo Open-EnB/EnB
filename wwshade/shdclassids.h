@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -69,3 +69,8 @@ enum
 
 
 #endif //SHDCLASSIDS_H
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdclassids.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 54 at the freeze: no LegacyW3D shader: ShdRendererClass::Init_Shaders 0xA07E00 loops class ids 1..5,
+//       MeshCategories has 6 entries (0xA07EC2), SHD_Force_Links 0xA08C70 links 5 shaders; shddump.h's Shader_ClassIDs
+//       ends at CUBEMAP

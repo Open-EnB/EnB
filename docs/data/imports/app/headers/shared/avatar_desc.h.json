@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "AvatarDescClass (D24, by convention from avatar_desc.cpp): the avatar's description, 0x10C bytes, vtables 0xAEB9D0 / 0xAEB9CC, members named by its visitor's keys (from tsk_login.h's LoginUnknown350Class, D90 9b)"
+}

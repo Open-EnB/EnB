@@ -1,0 +1,22 @@
+{
+ "ambiguous": [
+  "0x42B2F0",
+  "0x46BE90",
+  "0x474080"
+ ],
+ "copy": "reconstructed",
+ "description": "PROVISIONAL file name (D137): the base-asset lego factory 0x7294D0 (co.cpp's SUBPARTS 0x6FEF70, 0x732880) and the model lookup 0x729770 with its {asset id, model} struct (destructor 0x729740, static's atexit 0x729970), client 0x7294D0-0x7299C8 (no __FILE__ or assert; after client.cpp's HashListClass instances, before client_lego_impl.cpp's 0x729B00) (WE6)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x7294D0",
+  "0x729740",
+  "0x729770"
+ ],
+ "merged": [],
+ "name": "client/unknown_7294d0.cpp",
+ "shared": [
+  "0x42F250",
+  "0x729740"
+ ]
+}

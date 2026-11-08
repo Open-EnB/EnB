@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "GadgetClass (the client's RTTI), gadget.cpp's (__FILE__ 0xB8C9F4): table 0xAF9AF0, the constructor 0x65ED50's members, the one-line slots 0x50A8C0-0x50AAC0, the flash and the events (DestroyGadgetEvent, FlashingGadgetEvent, GadgetGroupToFrontEvent: RTTI); a provisional header name after gadget.cpp, NAME 3 (UI)"
+}

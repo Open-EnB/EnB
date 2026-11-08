@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -441,3 +441,48 @@ void UDP::Clear_Accounting_Callback(void)
 {
   accountingCallback=NULL;
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's udp.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 19 at the freeze: udp.cpp's object ends with <string>'s guarded static (0x8C0660: `mov cl, [0xC416FC]`,
+//       atexit 0x42B320, the end of every <string> includer) and a PermStringInitClass static (0x8C0690: `mov ecx,
+//       0xBF52C8`, PermStringInitClass 0x4AE1E0, atexit 0x8C06C0 -> ~PermStringInitClass), its data right after the
+//       accounting callback 0xBF52C4, before unknown_login_data.cpp 0x8C06E0; permstr.h's `static PermStringInitClass
+//       PermStringInit` is the one such static
+// EnB: Line 27 at the freeze: constructor 0x8BF990: the list, fd = 0, the second socket 0, myIP 0xDEADBEEF, myPort
+//       0xDEAD, WSAStartup(0x101, &wsadata) (0x190-byte local); destructor 0x8BFA10: Close inlined (closesocket if fd,
+//       fd = 0), WSACleanup, closesocket(+4) if set, then the list's destructor
+// EnB: UDP::Bind (line 80 at the freeze): Bind 0x8BFB70 closes a previous socket (`if (fd) closesocket(fd); fd = 0`,
+//       Close inlined) between filling addr and socket()
+// EnB: Line 115 at the freeze: Close 0x8BFCA0 (no caller; inlined into the destructor and Bind); getLocalAddr 0x8BFCD0
+//       returns `mov al, 1` (TRUE: matchbot's OK is 0); SetBlocking 0x8BFD00 takes the socket as a second argument
+//       (`cmp eax, -1; jne; mov eax, [ecx]`)
+// EnB: UDP::Write (line 162 at the freeze): D64: Write 0x8BFD50 is functional, not byte-exact yet (NOT EXACT note)
+// EnB: UDP::Write (line 162 at the freeze): Write 0x8BFD50 is byte-exact now (its NOT EXACT note goes)
+// EnB: UDP::Write (line 176 at the freeze): Write 0x8BFD50: sendto again while GetStatus is INTR (`cmp eax, -0xA; jne;
+//       jmp` back to the sendto), then the accounting callback (out = 1, len, IP, port in host order) when sent
+// EnB: UDP::Write (line 179 at the freeze): Write 0x8BFD50: the sent case first (`cmp esi, -1; jne` to the accounting
+//       call after the loop's `jmp`), then retval = -1 and GetStatus (`cmp eax, -0xA; jne` out, `jmp` back to the
+//       sendto)
+// EnB: UDP::Read (line 193 at the freeze): Read 0x8BFE30 is byte-exact now (its NOT EXACT note goes)
+// EnB: UDP::Read (line 200 at the freeze): Read 0x8BFE30: clears from->sin_addr first; reads into a local sockaddr_in
+//       when from is NULL; the accounting callback (out = 0, the length, ntohl(addr), ntohs(port)) for a positive
+//       length; then GetStatus, and on an error with from: a CONNRESET (-16) keeps *from in the list (0x8C0060's
+//       push_back inlined, std::_Construct 0x8C0620 out of line), and an AGAIN / WOULDBLOCK / CONNRESET / CONNREFUSED
+//       with a non-empty list pops its front into *from and returns 0
+// EnB: UDP::Read (line 226 at the freeze): Read 0x8BFE30: two separate tests, each with retval == -1 and from (the
+//       client re-tests all four codes after the push_back: `mov eax, [esp+0x28]; cmp eax, -5 ... cmp eax, -0x10`), and
+//       retval = 0 for a handed-out peer (one epilogue)
+// EnB: Line 247 at the freeze: AddReset 0x8C0060 (list push_back; no caller but Read's inlined copy) and the empty
+//       0x8C00E0 after ClearStatus 0x8C0040 (both `ret`, neither called: which is ClearStatus is taken from matchbot's
+//       order)
+// EnB: UDP::GetStatus (line 273 at the freeze): GetStatus 0x8C0100: WSAECONNRESET -> CONNRESET (-16) after WSAEBADF,
+//       else UNKNOWN
+// EnB: UDP::SetInputBuffer (line 384 at the freeze): SetInputBuffer 0x8C04C0 / SetOutputBuffer 0x8C0500:
+//       setsockopt(fd, SOL_SOCKET, SO_RCVBUF 0x1002 / SO_SNDBUF 0x1001, &bytes, 4) == 0 on Windows too (matchbot: FALSE
+//       on Windows); CordMgr calls both with 0x8000 (0x856F20)
+// EnB: UDP::SetInputBuffer (line 393 at the freeze): SetInputBuffer 0x8C04C0 / SetOutputBuffer 0x8C0500 on Windows too
+//       (see above)
+// EnB: UDP::SetOutputBuffer (line 408 at the freeze): GetInputBuffer 0x8C0540 / GetOutputBuffer 0x8C0590:
+//       getsockopt(fd, SOL_SOCKET, SO_RCVBUF / SO_SNDBUF, &arg, &len) on Windows too (no caller in the client);
+//       Set_Accounting_Callback 0x8C05E0 / Clear_Accounting_Callback 0x8C0600 (store / clear 0xBF52C4) at the end of
+//       the object

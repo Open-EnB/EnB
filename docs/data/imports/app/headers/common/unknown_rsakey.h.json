@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "PROVISIONAL file name (D10, D86): RSAKeyClass, the 0x900-byte RSA key of tcpconn.cpp's listener (+0x18) and CordMgr (+0x5C), inline in both"
+}

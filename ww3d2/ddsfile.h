@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -229,3 +229,13 @@ public:
 // ----------------------------------------------------------------------------
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's ddsfile.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 28 at the freeze: Zero Hour's HSV shift when copying a DDS level (Copy_Level_To_Surface byte-exact at
+//       0x9A0CA0); the rest of E&B's DDSFileClass is Renegade's (no volume or cube members: Renegade's destructor,
+//       Get_Memory_Pointer, Get_Level_Size and Get_Pixel match)
+// EnB: class DDSFileClass (lines 200, 207 at the freeze): Zero Hour's HSV shift when copying a DDS level
+//       (Copy_Level_To_Surface byte-exact at 0x9A0CA0); the rest of E&B's DDSFileClass is Renegade's (no volume or cube
+//       members: Renegade's destructor, Get_Memory_Pointer, Get_Level_Size and Get_Pixel match)
+// EnB: class DDSFileClass (line 222 at the freeze): Zero Hour's Get_4x4_Block, which recolours the block by the HSV
+//       shift (Copy_Level_To_Surface passes it)

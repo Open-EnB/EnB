@@ -1,0 +1,25 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 9,
+  "R": 9,
+  "Z": 9
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9E53F0",
+  "0x9E5430",
+  "0x9E5450",
+  "0x9E5470",
+  "0x9E54B0",
+  "0x9E5520",
+  "0x9E5570",
+  "0x9E5590",
+  "0x9E5600",
+  "0x9E5640"
+ ],
+ "merged": [],
+ "name": "hash.cpp"
+}

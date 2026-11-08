@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -823,3 +823,42 @@ Sound3DClass::Set_Miles_Handle (MILES_HANDLE handle)
 
 	return ;
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's Sound3D.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 56 at the freeze: (its definition)
+// EnB: Sound3DClass::Sound3DClass (lines 85, 107 at the freeze): both constructors zero m_Unknown148
+// EnB: Sound3DClass::Sound3DClass (lines 88, 110 at the freeze): and m_Unknown160 to m_Unknown16C
+// EnB: Sound3DClass::On_Frame_Update (line 182 at the freeze): Sound3DClass::On_Frame_Update 0x9F7E80: E&B takes the
+//       Miles lock, re-enables the auto-velocity block (Renegade's '#if 0'), gated by the flag at 0xC404F8 (0x9F7EFD),
+//       and passes the elapsed time to Set_Velocity (call [vtbl+0x184], two arguments); then Update_Miles_Transform
+//       (0x9F8680) always, after Update_Edge_Volume
+// EnB: Sound3DClass::Update_Edge_Volume (line 261 at the freeze): Sound3DClass::Update_Edge_Volume 0x9F8180 restores
+//       the full volume inside the falloff start (Internal_Set_Volume(m_RealVolume) at 0x9F8337)
+// EnB: Sound3DClass::Set_Transform (line 283 at the freeze): Sound3DClass::Set_Transform 0x9F8350: E&B no longer
+//       copies m_Transform to m_PrevTransform (On_Frame_Update does) nor calls Update_Miles_Transform (On_Frame_Update
+//       does): one Matrix3D copy before Set_Dirty (0x9F8412), and the function ends after the initialisation test
+// EnB: Sound3DClass::Set_Listener_Transform (line 305 at the freeze): Sound3DClass::Set_Listener_Transform 0x9F84A0:
+//       when the Doppler flag (0xC404F8) and auto-calc are set, E&B stores the listener's velocity per ms in
+//       m_Unknown148 (0x9F8519..0x9F852D), timed with m_Unknown160 (at least 1 ms; 0x9F856C..0x9F85D9); no
+//       Update_Miles_Transform (On_Frame_Update calls it now). The != keeps operator== out of line (0x9F8630, called at
+//       0x9F84B4)
+// EnB: Sound3DClass::Update_Miles_Transform (line 340 at the freeze): Sound3DClass::Update_Miles_Transform 0x9F8680
+//       takes the Miles lock (AIL_lock 0x9F8686, AIL_unlock 0x9F874A)
+// EnB: Sound3DClass::Set_Position (line 390 at the freeze): Sound3DClass::Set_Position 0x9F8760 takes the Miles lock
+//       (AIL_lock 0x9F8766, AIL_unlock 0x9F890E)
+// EnB: Sound3DClass::Set_Position (line 411 at the freeze): Sound3DClass::Set_Position 0x9F8760 no longer passes the
+//       position to Miles (On_Frame_Update's Update_Miles_Transform does): nothing after the initialisation test but
+//       the unlock
+// EnB: Line 422 at the freeze: (Set_Velocity's constants, defined before it)
+// EnB: Sound3DClass::Set_Velocity (line 430 at the freeze): (the definition: the same)
+// EnB: Sound3DClass::Set_Velocity (line 434 at the freeze): Sound3DClass::Set_Velocity 0x9F8920: E&B's Doppler effect.
+//       The velocity relative to the listener (minus m_Unknown148) is normalized and dotted with the direction to the
+//       listener; the relative velocity scaled by that is smoothed against the previous one (0.85, 0xB15864), scaled by
+//       m_Unknown16C; its length (at most 3.4, 0xB15A3C) gives the pitch 3.4/(3.4 -+ speed), moved at most
+//       elapsed*0.05/33.3 (0xB15A38) from Get_Pitch_Factor (vtbl+0x104) and clamped to [m_Unknown164, m_Unknown168]
+//       before Set_Pitch_Factor (vtbl+0x108). The three constants are named (not folded: 1.0-0.85 is computed at
+//       0x9F8B52); their names are not known
+// EnB: Sound3DClass::Set_DropOff_Radius (line 505 at the freeze): Sound3DClass::Set_DropOff_Radius 0x9F8D00 takes the
+//       Miles lock (AIL_lock 0x9F8D03)
+// EnB: Sound3DClass::Set_Max_Vol_Radius (line 529 at the freeze): Sound3DClass::Set_Max_Vol_Radius 0x9F8D70 takes the
+//       Miles lock

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "StrEditClass (D24 from stredit.cpp's __FILE__; its asserts name String, MaxLen, StrLen; 0x20 bytes, constructor 0x84AA10): the text gadgets' edit buffer, as far as textgadg.cpp uses it (GAD3)"
+}

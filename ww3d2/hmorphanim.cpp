@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -740,3 +740,6 @@ void HMorphAnimClass::Release_Keys(void)
 	// update the framecount as 0
 	FrameCount = 0;
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's hmorphanim.cpp (frozen 2026-11-07 from importer.py)
+// EnB: HMorphAnimClass::Create_New_Morph: from Zero Hour's hmorphanim.cpp (byte match)

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RaceType / RaceBitFieldType (the client's Type_Name strings) and the converters of race.cpp (header name assumed)"
+}

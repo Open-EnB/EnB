@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -278,3 +278,7 @@ void Shd6BumpSpecClass::Copy_Vertex_Stream
 	}
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shd6bumpspec.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Shd6BumpSpecClass::Shd6BumpSpecClass (line 57 at the freeze): base ctor without class id: the constructor
+//       0xA12AD0 (0xA12AF4) pushes only def for ShdInterfaceClass::ShdInterfaceClass 0xA08E70 (ret 4)

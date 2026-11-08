@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1061,3 +1061,17 @@ void Animatable3DObjClass::Set_HTree(HTreeClass * new_htree)
 
 
 // EOF - animobj.cpp
+
+// Earth & Beyond client (reconstruction): changes to Renegade's animobj.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Animatable3DObjClass::Set_Animation (lines 479, 529, 569 at the freeze): E&B's Set_Animation overloads look up
+//       each motion's embedded-sound bone (Zero Hour's): 0x9C5980, 0x9C5A80 and 0x9C5BB0 call
+//       AnimatedSoundMgrClass::Get_Embedded_Sound_Name 0x909D30, then Get_Bone_Index and
+//       HAnimClass::Set_Embedded_Sound_Bone_Index; not Zero Hour's srj frameRateMultiplier/animDirection stores
+// EnB: Animatable3DObjClass::Update_Sub_Object_Transforms (lines 794, 806, 810, 828 at the freeze): E&B triggers
+//       embedded sounds at the sound bone's transform (Zero Hour's): Update_Sub_Object_Transforms 0x9C5DD0 calls
+//       Get_Embedded_Sound_Bone_Index (vtable +0x58) after each Has_Embedded_Sounds (+0x50) and passes HTree's bone
+//       transform to Trigger_Sound 0x909F90
+// EnB: Animatable3DObjClass::Single_Anim_Progress (line 1003 at the freeze): E&B's Single_Anim_Progress restores
+//       PrevFrame when the frame didn't change (Zero Hour's), but calls Compute_Current_Frame without Zero Hour's
+//       direction argument: 0x9C63A0 saves PrevFrame, compares the new Frame with it (fcomp/test ah,0x40) and writes
+//       the saved value back; inlined in Render 0x9C5700 and Special_Render 0x9C57B0

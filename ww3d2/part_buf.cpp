@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -3522,3 +3522,39 @@ ShaderClass ParticleBufferClass::Get_Shader (void) const
 	WWASSERT(0);
 	return ShaderClass::_PresetOpaqueShader;
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's part_buf.cpp (frozen 2026-11-07 from importer.py)
+// EnB: ParticleBufferClass::ParticleBufferClass (lines 180, 187, 305, 397, 682 at the freeze): ParticleBufferClass has
+//       Zero Hour's line groups: GroupID initialised, allocated (both constructors 0x95BA90/0x95C360: new
+//       ShareBufferClass<unsigned char> into +0x204) and released (destructor 0x95D430), CurrentGroupID zeroed
+//       (+0x2B4), Get_New_Particles (0x962070) storing each particle's group, Zero Hour's Render_Line (0x95DDE0:
+//       per-group runs with colours); E&B takes the line's end point from the emitter's Unknown_Get_Position (0x95E290)
+//       into a zeroed vector
+// EnB: ParticleBufferClass::~ParticleBufferClass (line 757 at the freeze): ParticleBufferClass has Zero Hour's line
+//       groups: GroupID initialised, allocated (both constructors 0x95BA90/0x95C360: new ShareBufferClass<unsigned
+//       char> into +0x204) and released (destructor 0x95D430), CurrentGroupID zeroed (+0x2B4), Get_New_Particles
+//       (0x962070) storing each particle's group, Zero Hour's Render_Line (0x95DDE0: per-group runs with colours); E&B
+//       takes the line's end point from the emitter's Unknown_Get_Position (0x95E290) into a zeroed vector
+// EnB: ParticleBufferClass::Render_Particles (line 963 at the freeze): ParticleBufferClass::Render_Particles passes
+//       its Transform to PointGroupClass::Render (0x95DDC6)
+// EnB: ParticleBufferClass::Render_Line (lines 969, 980, 984, 1008, 1017, 1027, 1034, 1048 at the freeze):
+//       ParticleBufferClass has Zero Hour's line groups: GroupID initialised, allocated (both constructors
+//       0x95BA90/0x95C360: new ShareBufferClass<unsigned char> into +0x204) and released (destructor 0x95D430),
+//       CurrentGroupID zeroed (+0x2B4), Get_New_Particles (0x962070) storing each particle's group, Zero Hour's
+//       Render_Line (0x95DDE0: per-group runs with colours); E&B takes the line's end point from the emitter's
+//       Unknown_Get_Position (0x95E290) into a zeroed vector
+// EnB: ParticleBufferClass::Render_Line_Group (line 1156 at the freeze): ParticleBufferClass::Render_Line_Group passes
+//       its Transform to LineGroupClass::Render (0x95E885)
+// EnB: ParticleBufferClass::Scale (lines 1166, 1179, 1184 at the freeze): ParticleBufferClass:
+//       Update_Cached_Bounding_Volumes (0x960DB0) transforms the sphere centre and the box by Get_Transform() (E&B: the
+//       particles may be in emitter space; two virtual calls, AABoxClass::Transform's Transform_Center_Extent_AABox at
+//       0x960EED), radius first; Scale is Zero Hour's (0x95E8B0: the no-keyframe case, LineRenderer->Scale, Accel)
+// EnB: ParticleBufferClass::Update_Cached_Bounding_Volumes (lines 2467, 2470 at the freeze): ParticleBufferClass:
+//       Update_Cached_Bounding_Volumes (0x960DB0) transforms the sphere centre and the box by Get_Transform() (E&B: the
+//       particles may be in emitter space; two virtual calls, AABoxClass::Transform's Transform_Center_Extent_AABox at
+//       0x960EED), radius first; Scale is Zero Hour's (0x95E8B0: the no-keyframe case, LineRenderer->Scale, Accel)
+// EnB: ParticleBufferClass::Get_New_Particles (lines 2847, 2880 at the freeze): ParticleBufferClass has Zero Hour's
+//       line groups: GroupID initialised, allocated (both constructors 0x95BA90/0x95C360: new ShareBufferClass<unsigned
+//       char> into +0x204) and released (destructor 0x95D430), CurrentGroupID zeroed (+0x2B4), Get_New_Particles
+//       (0x962070) storing each particle's group, Zero Hour's Render_Line (0x95DDE0: per-group runs with colours); E&B
+//       takes the line's end point from the emitter's Unknown_Get_Position (0x95E290) into a zeroed vector

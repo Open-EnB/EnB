@@ -1,0 +1,31 @@
+{
+ "ambiguous": [
+  "0x474560",
+  "0x931490"
+ ],
+ "best": "G",
+ "copy": "G",
+ "expected": {
+  "G": 7,
+  "R": 0,
+  "Z": 3
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x9BE7E0",
+  "0x9BE830",
+  "0x9BE890",
+  "0x9BE950",
+  "0x9BEA80",
+  "0x9BEA90",
+  "0x9BEB00"
+ ],
+ "merged": [],
+ "name": "streakRender.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40"
+ ]
+}

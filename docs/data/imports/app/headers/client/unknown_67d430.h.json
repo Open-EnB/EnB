@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "a ring of chat messages with a colour per type (0x70 bytes); neutral header name (D10)"
+}

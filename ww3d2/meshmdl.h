@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -356,3 +356,11 @@ public:
 
 #endif
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's meshmdl.h (frozen 2026-11-07 from importer.py)
+// EnB: class is (line 211 at the freeze): MeshModelClass::Peek_FVF_Category_Container 0x9589A0: Generals' declaration
+// EnB: class is (line 287 at the freeze): Zero Hour's MeshModelClass::modify_for_overbright: 0x9BD3A0 turns primary
+//       gradient MODULATE (1) into 5 (and ah,0xF7; or ah,0x14) in the single shader and the shader arrays
+// EnB: class is (line 303 at the freeze): MeshModelClass keeps the PolygonRendererList member Renegade's later
+//       revision removed (Generals and Zero Hour have it after MatInfo): GapFiller is 24 bytes (a MultiListClass) later
+//       in the client

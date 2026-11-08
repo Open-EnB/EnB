@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -984,3 +984,9 @@ bool MeshMatDescClass::Do_Mappers_Need_Normals(void)
 
 	return false;
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's meshmatdesc.cpp (frozen 2026-11-07 from importer.py)
+// EnB: MeshMatDescClass::Post_Load_Process (line 856 at the freeze): E&B's MeshMatDescClass::Post_Load_Process is Zero
+//       Hour's: 0x9475E0 has no BUMPENV kill-pass code (no DX8Wrapper caps reads; ZH comments it out under HY's 'Earth
+//       and beyond uses a different fallback' note) and no Renegade b_wire/razorw.tga hack (no
+//       strstr/stricmp/Get_Name), yet keeps the parent parameter (ret 8)

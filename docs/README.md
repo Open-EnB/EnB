@@ -21,6 +21,7 @@
 | [vidtest.md](vidtest.md) | VIDTEST.EXE's functional spec: program flow, scenes, tests and results.ini, E&B scene classes, library API, function table (M2.0) |
 | [CSC.md](CSC.md) | The Character and Starship Creator (2002-09-13): what it tells us about the client, its program flow, and whether the tree could rebuild it |
 | [builders.md](builders.md) | Builder subagents: startup set per kind, rules, models (D72), report format |
+| [pipeline-plan.md](pipeline-plan.md) | Plan of 2026-11-07: the integration pipeline's failures and tooling, the EA libraries' freeze as plain source, importer.py's split and the sharded ledger; builder-side integration and the spread rule recorded for later |
 | [decode-path.md](decode-path.md) | The client's AUX_DATA decode path, function by function (M1.1) |
 | [packet-flow.md](packet-flow.md) | From a received packet to the object model (2026-10-28): the Process_Packet dispatch and the frame it runs in, the client base's object tables, ClientObjectClass (bases, layout, vtable), create / find / update / remove, how AUX_DATA deltas and positional states reach an object, the object-affecting opcodes with handler addresses and rebuild states, a worked example, an unblock order |
 | [setup-vc6.md](setup-vc6.md) | Setting up the VC6 SP4 build VM and the pool's base: requirements, the one-script route (`tools/vc6/setup/New-BuildVM.ps1`), the manual route, renewing the Windows evaluation, how the file-copy install was derived (D146) |
@@ -44,7 +45,7 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/gaps-*.md](data/) and `gaps-*-classified.md` | each library's functions that aren't byte-exact, located, and split into linked / unlinked | `gaps.py`, `classify_gaps.py` |
 | [data/funcmatch.md](data/funcmatch.md), [data/funcmatch.json](data/funcmatch.json) | client functions matched to EA functions | `funcmatch.py` |
 | [data/app-functions.json](data/app-functions.json) | the app region's functions with addresses, sizes and names | `tools/re/app_inventory.py` |
-| [data/imports.json](data/imports.json) | per library file: origin, in-tree state, exact addresses (feeds imports.md) | `importer.py` |
+| [data/imports/](data/imports/) | the ledger, one JSON shard per library source file: origin, in-tree state, exact addresses, the description of a file written from the client (feeds imports.md) | `verify.py`, `ledger.py` |
 | [data/packet-factory.txt](data/packet-factory.txt) | the packet factory's cases (opcode, class, size, constructor) | `pkfactory.py` |
 | [data/vtables-ww3d2.json](data/vtables-ww3d2.json) | WW3D2 class vtables in the client | `vtables.py` (unverified) |
 | [data/not-exact.md](data/not-exact.md) | functions marked `// NOT EXACT:` in the tree (D64) | `names.py` |

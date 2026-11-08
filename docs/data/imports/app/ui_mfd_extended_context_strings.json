@@ -1,0 +1,40 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42A900",
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "UIMFDExtendedContextStringsClass (D24 class-from-file), client 0x5C1090-~0x5C1F80 (__FILE__ 0xB824BC) (MM1)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42F250",
+  "0x45CC10",
+  "0x5C1090",
+  "0x5C10E0",
+  "0x5C1110",
+  "0x5C1220",
+  "0x5C1670",
+  "0x5C17D0",
+  "0x5C18F0",
+  "0x5C1970",
+  "0x5C1B30",
+  "0x5C1BE0",
+  "0x5C1C20",
+  "0x5C1C40",
+  "0x5C1EE0",
+  "0x5C1F20"
+ ],
+ "merged": [],
+ "name": "client/ui_mfd_extended_context_strings.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42F250",
+  "0x45CC10",
+  "0x5C1C20"
+ ],
+ "short_known": [
+  "0x5C1C20"
+ ]
+}

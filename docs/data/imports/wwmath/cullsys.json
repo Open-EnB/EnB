@@ -1,0 +1,41 @@
+{
+ "ambiguous": [
+  "0x8C8EC0"
+ ],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 5,
+  "R": 5,
+  "Z": 6
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0x8C8D70",
+  "0x8C8DA0",
+  "0x8C8DD0",
+  "0x8C8E40",
+  "0x8C8E60",
+  "0x8C8E70",
+  "0x8C8E80",
+  "0x8C8EA0",
+  "0x8C8EB0",
+  "0x8C8F10",
+  "0x8C8F20"
+ ],
+ "merged": [],
+ "name": "cullsys.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30"
+ ],
+ "short_known": [
+  "0x8C8EA0",
+  "0x8C8EB0",
+  "0x8C8F10"
+ ]
+}

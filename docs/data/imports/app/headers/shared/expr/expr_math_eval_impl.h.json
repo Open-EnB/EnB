@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the evaluation tree's templates (the client's __FILE__ of the FAIL_IFs 'right == 0', lines 175 190): the node interface (0xAEBC58 for float), constants, variables, the binary base (0xAEBC44), the operators and their groups; NAME 3 (EX4)"
+}

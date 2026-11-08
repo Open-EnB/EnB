@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "LookupTableClass and its continuous / floor / ceiling / closest / interpolated tables, LookupTableSetClass (the tables of an ini by section name in an SGI hash_map, libs/sgistl, D87) and LookupTableManagerClass (D24): reference counted (ref_ptr.h)"
+}

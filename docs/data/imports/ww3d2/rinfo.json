@@ -1,0 +1,33 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 1,
+  "R": 1,
+  "Z": 1
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x930F80",
+  "0x930FC0",
+  "0x930FD0",
+  "0x931010",
+  "0x931050",
+  "0x931060",
+  "0x931070",
+  "0x9310A0",
+  "0x9310B0"
+ ],
+ "merged": [],
+ "name": "rinfo.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x930FC0",
+  "0x931050",
+  "0x931060"
+ ]
+}

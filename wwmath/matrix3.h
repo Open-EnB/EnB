@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1031,3 +1031,7 @@ WWINLINE void Matrix3::Rotate_AABox_Extent(const Vector3 & extent,Vector3 * set_
 typedef Matrix3 Matrix3x3;
 
 #endif /*Matrix3_H*/
+
+// Earth & Beyond client (reconstruction): changes to Renegade's matrix3.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 1029 at the freeze: Matrix3x3 (Zero Hour's name for Matrix3) as an alias, for the Zero Hour code imported
+//       beside Renegade's WWMath

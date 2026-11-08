@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "InitialKey / InitialKeyBuilt statics added; Prepare_Key_8bytes/16bytes removed"
+}

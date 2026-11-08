@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -377,3 +377,25 @@ void LightEnvironmentClass::Calculate_Fill_Light(void)
 	Add_Fill_Light();
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's lightenvironment.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Lines 44, 296 at the freeze: Zero Hour's fill light: Add_Fill_Light 0x985790 (without the later near-black
+//       test), Calculate_Fill_Light 0x985840, Pre_Render_Update 0x985660 (calls it first, no ambient clamp;
+//       OutputLightStruct::Init's direction guard inlined), Add_Light 0x985430 (sorted insertion, FillIntensity
+//       scaling; no near-black test, no point lights)
+// EnB: LightEnvironmentClass::OutputLightStruct::Init (line 178 at the freeze): Zero Hour's fill light: Add_Fill_Light
+//       0x985790 (without the later near-black test), Calculate_Fill_Light 0x985840, Pre_Render_Update 0x985660 (calls
+//       it first, no ambient clamp; OutputLightStruct::Init's direction guard inlined), Add_Light 0x985430 (sorted
+//       insertion, FillIntensity scaling; no near-black test, no point lights)
+// EnB: LightEnvironmentClass::LightEnvironmentClass (line 196 at the freeze): Zero Hour's fill light: Add_Fill_Light
+//       0x985790 (without the later near-black test), Calculate_Fill_Light 0x985840, Pre_Render_Update 0x985660 (calls
+//       it first, no ambient clamp; OutputLightStruct::Init's direction guard inlined), Add_Light 0x985430 (sorted
+//       insertion, FillIntensity scaling; no near-black test, no point lights)
+// EnB: LightEnvironmentClass::Add_Light (lines 222, 236 at the freeze): Zero Hour's fill light: Add_Fill_Light
+//       0x985790 (without the later near-black test), Calculate_Fill_Light 0x985840, Pre_Render_Update 0x985660 (calls
+//       it first, no ambient clamp; OutputLightStruct::Init's direction guard inlined), Add_Light 0x985430 (sorted
+//       insertion, FillIntensity scaling; no near-black test, no point lights)
+// EnB: LightEnvironmentClass::Pre_Render_Update (line 275 at the freeze): Zero Hour's fill light: Add_Fill_Light
+//       0x985790 (without the later near-black test), Calculate_Fill_Light 0x985840, Pre_Render_Update 0x985660 (calls
+//       it first, no ambient clamp; OutputLightStruct::Init's direction guard inlined), Add_Light 0x985430 (sorted
+//       insertion, FillIntensity scaling; no near-black test, no point lights)

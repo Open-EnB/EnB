@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "GutterDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x2C bytes)"
+}

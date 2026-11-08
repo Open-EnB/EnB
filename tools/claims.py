@@ -12,7 +12,7 @@
 UNIT is one source file's window, `app\\client\\eff_o.cpp` (the client's __FILE__ path, `/` works too), a
 range inside it, `app\\client\\cpacket.cpp 0x5A1000-0x5A3F00`, or a bare range `0x7D3CC0-0x7D5000` for code no
 file is attributed yet. A claim covers the functions of docs/data/app-functions.json in it that are not yet
-exact (neither `in_tree` nor `ambiguous` in docs/data/imports.json), at most CAP of them. Two claims conflict when
+exact (neither `in_tree` nor `ambiguous` in the ledger docs/data/imports), at most CAP of them. Two claims conflict when
 they share a function. A claim says which functions you rebuild, not which files you may edit.
 
 A claim is a GitHub issue titled `claim: UNIT` (the issue form, or `claim` here). The Action runs `reconcile`
@@ -48,7 +48,7 @@ import time
 
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 APP_FUNCTIONS = os.path.join(ROOT, 'docs', 'data', 'app-functions.json')
-IMPORTS = os.path.join(ROOT, 'docs', 'data', 'imports.json')
+IMPORTS = None                  # the ledger (docs/data/imports, tools/vc6/ledger.py); a path or revision for tests
 
 CAP = 30
 NOPR_H = 8
@@ -97,8 +97,9 @@ class Index:
         for v in self.by_file.values():
             v.sort()
         self.done = set()
-        with open(imports, encoding='utf-8') as fh:
-            libs = json.load(fh)
+        sys.path.insert(0, os.path.join(ROOT, 'tools', 'vc6'))
+        import ledger
+        libs = ledger.load(imports, repo=ROOT)
         for lib in libs.values():
             for rec in lib.get('files', {}).values():
                 for key in ('in_tree', 'ambiguous'):

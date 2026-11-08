@@ -1,0 +1,34 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "PROVISIONAL file name (D10): the registry of memory listeners by port, client 0x827560-0x828A00 (after memconn.cpp's template instances; memconn.cpp calls it out of line)",
+ "expected": {},
+ "in_tree": [
+  "0x827560",
+  "0x8275D0",
+  "0x827700",
+  "0x8277C0",
+  "0x827840",
+  "0x827A80",
+  "0x827B40",
+  "0x827C20",
+  "0x827C40",
+  "0x827F10",
+  "0x8283E0",
+  "0x828430",
+  "0x828740",
+  "0x828780",
+  "0x828800",
+  "0x828830",
+  "0x8288B0",
+  "0x8288E0",
+  "0x828920",
+  "0x8289A0",
+  "0x828A10"
+ ],
+ "merged": [],
+ "name": "common/unknown_memregistry.cpp",
+ "tiebreak": [
+  "0x828A10"
+ ]
+}

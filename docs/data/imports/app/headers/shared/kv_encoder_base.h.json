@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "KVEncoderBaseClass (D24; vtable 0xAEB62C, size 0x0C: Data, the pair list) and its Data (0x3C bytes: PrefixList and FlagList from the asserts, Flags, two strings); Add_Value<T> (inlined in 0x4A6930)"
+}

@@ -1,0 +1,19 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "PROVISIONAL file name (D10): the bytes-per-second average (Unknown_RateClass), client 0x820830-0x820AF7",
+ "expected": {},
+ "in_tree": [
+  "0x820830",
+  "0x820860",
+  "0x820880",
+  "0x820950",
+  "0x820A20",
+  "0x820A70"
+ ],
+ "merged": [],
+ "name": "common/unknown_rate.cpp",
+ "short_known": [
+  "0x820860"
+ ]
+}

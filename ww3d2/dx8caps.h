@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -315,3 +315,23 @@ private:
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's dx8caps.h (frozen 2026-11-07 from importer.py)
+// EnB: enum DeviceTypeMatrox (line 184 at the freeze): E&B knows Zero Hour's Matrox Parhelia devices: the client's
+//       Matrox name table (0xBC4BE0) ends with 'Parhelia AGP 8X' (0xBC4C94), and Get_Matrox_Device 0x9AFDC0 maps
+//       0x0527/0x0528
+// EnB: class DX8Caps (line 220 at the freeze): Zero Hour's accessors for them
+// EnB: class DX8Caps (line 242 at the freeze): and Zero Hour's Get_Pixel_Shader_Major_Version (Renegade's is misspelt
+//       Majon) and Support_Depth_Stencil_Format
+// EnB: class DX8Caps (line 242 at the freeze): Zero Hour's Get_Pixel_Shader_Minor_Version reads PixelShaderVersion
+//       (Renegade's reads the vertex shader's): ShdBumpDiffDefClass::Init 0xA0B9B0 and ShdBumpSpecDefClass::Init take
+//       major and minor from the same field, +0x12C
+// EnB: class DX8Caps (line 276 at the freeze): E&B's Compute_Caps has Zero Hour's point-sprite, ModAlphaAddClr, Dot3
+//       and cubemap flags with their logs ('ModAlphaAddClr support: %s' 0xBC5294, 'Dot3 support: %s' 0xBC5280) and
+//       calls Check_Depth_Stencil_Support 0x9B1C20 ('Supports depth stencil format: %s' 0xBC54FC) after
+//       Check_Render_To_Texture_Support; there is no Check_Maximum_Texture_Support call (0x9B0160)
+// EnB: class DX8Caps (line 294 at the freeze): DX8Caps has Zero Hour's twelve extra capability flags
+//       (SupportDepthStencilFormat[8] before SupportZBias; SupportModAlphaAddClr, SupportDot3, SupportPointSprites,
+//       SupportCubemaps after SupportAnisotropicFiltering): every member from VertexShaderVersion is 12 bytes later in
+//       the client, DeviceId too, so not Zero Hour's MaxSimultaneousTextures. Accessors as Zero Hour's
+// EnB: class DX8Caps (line 297 at the freeze): the four flags after SupportAnisotropicFiltering

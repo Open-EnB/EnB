@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -200,3 +200,9 @@ void DX8TextureManagerClass::Recreate_Textures()
 	}
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's dx8texman.cpp (frozen 2026-11-07 from importer.py)
+// EnB: DX8TextureManagerClass::Release_Textures (line 165 at the freeze): E&B's
+//       DX8TextureManagerClass::Release_Textures 0x995C70 releases each tracked texture's D3DTexture inline under a
+//       NULL test and clears it (no Set_D3D_Base_Texture call, no LastAccessed store), Renegade's direct access with
+//       ZH's tracker classes

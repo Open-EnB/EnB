@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "interim header (D137): the 0x671300 gadget (table 0xAFB278, the code in gd_text_editor.cpp's object) and uvcontrl.cpp's class as far as it calls it, for its users (TE1)"
+}

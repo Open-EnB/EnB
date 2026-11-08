@@ -1,0 +1,25 @@
+{
+ "ambiguous": [
+  "0x42B2F0",
+  "0x5419E0",
+  "0x541A10"
+ ],
+ "copy": "reconstructed",
+ "description": "InterfaceSortClass (local_interface_sort.h), client 0x6E0E80-0x6E18B0 of 0x6E0E80-0x6E2280 (__FILE__ 0xB92C00, asserts on the client's lines 61-153, D25): the sort scope over an interface (its top interface's sort mode picks the current, the front or the back list), a sort list, an interface scene, a scene, a view or a render object, and its destructor (LS)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x6E1090",
+  "0x6E1200",
+  "0x6E1390",
+  "0x6E1560",
+  "0x6E1730",
+  "0x6E18B0",
+  "0x6E1940"
+ ],
+ "merged": [],
+ "name": "client/local_interface_sort.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the galaxy map's data objects (the client's galaxy_map.h, asserts l.161 '!Is_In_Galaxy_Map()', l.180 / l.185 the GalaxyMapID setters): the base (vtable 0xB08B74) and the system (0xB08B44, 0x40 bytes), as far as galaxy_map.cpp's 0x837C10-0x837C70 need them (TK12, claim #112); the map's layout (AllData, the four hash maps) for the lookups 0x8378B0-0x837B30 (TK16); the map's vtable 0xB08B38 (Clear), MaxDataObjects +0x74; the sector (0xB08BA4, 0x34 bytes), gate (0xB08BD4, 0x18) and starbase (0xB08C04, 0x28) classes (GM1); the iterators over Systems / Sectors / Gates / Starbases (GM2)"
+}

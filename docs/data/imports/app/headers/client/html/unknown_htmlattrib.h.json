@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "HtmlAttributeStackClass (NAME 2), htmlview's per-key value stacks (0x38 bytes: a wlib Dictionary<Wstring, ArrayList<Wstring> >; the view keeps two, +0x28 / +0x60), and Get_Mime_Type; file name neutral (no __FILE__; interim placement, D137), HV1"
+}

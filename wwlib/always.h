@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -181,3 +181,7 @@ template <class T> T max(T a,T b)
 #define W3DMPO_GLUE(ARGCLASS)
 class W3DMPO { };
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's always.h (frozen 2026-11-07 from importer.py)
+// EnB: the lines from "EnB import" to the end were appended (APPENDS): Zero Hour's allocation macros (W3DNEW,
+//       W3DMPO_GLUE, W3DMPO) in their release form, appended for the Zero Hour files built against Renegade's always.h

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "CREATE 4's object subclasses (D122, provisional name): type 24's base 0x70DBC0 (ClientObjectClass plus dynamic_obj.h's DynObj), type 24 0x70E2E0 (0x224 bytes) and type 28 0x70E5A0 (0x1D4 bytes); moved out of co.h"
+}

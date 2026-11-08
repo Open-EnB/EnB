@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -216,3 +216,11 @@ private:
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's pointgr.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 52 at the freeze: PointGroupClass::Render takes the object's transform (E&B): 0x954960 ends ret 8;
+//       ParticleBufferClass::Render_Particles (0x95DDC6) pushes &Transform (+0x1C), the two app callers (0x481D08,
+//       0x6BAE8C) push static matrices
+// EnB: class PointGroupClass (line 123 at the freeze): PointGroupClass::Render takes the object's transform (E&B):
+//       0x954960 ends ret 8; ParticleBufferClass::Render_Particles (0x95DDC6) pushes &Transform (+0x1C), the two app
+//       callers (0x481D08, 0x6BAE8C) push static matrices

@@ -1,0 +1,31 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 0,
+  "R": 2,
+  "Z": 2
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x909500",
+  "0x9CEFF0",
+  "0x9DAC10",
+  "0x9DAC40",
+  "0x9DACE0",
+  "0x9DAD20",
+  "0x9DAD60",
+  "0x9DADA0",
+  "0x9DAE10",
+  "0x9DAF60"
+ ],
+ "merged": [],
+ "name": "FastAllocator.cpp",
+ "shared": [
+  "0x42F250",
+  "0x909500",
+  "0x9CEFF0"
+ ]
+}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "StringValueClass (the string accessor, vtable 0xAEB150) and KVPairStringClass's declaration (vtable 0xAEB810, size 0x14; ctor 0x4B7FC0: 'key && accessor')"
+}

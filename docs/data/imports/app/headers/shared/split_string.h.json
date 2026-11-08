@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "SplitStringClass (D24, 0x28 bytes, vtable 0xAECB9C): a text split into lines no wider than a width"
+}

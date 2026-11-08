@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "HtmlBlockClass (NAME 2), htmlview's layout box (0x1C8 bytes: paddings, owner, ArrayList<HtmlItemStruct *> items, ArrayList<HtmlBlockClass *> children, parent, two HtmlAttributeStackClass +0x28 / +0x60, position, size, cursor) and HtmlItemStruct (0x50); file name neutral (no __FILE__; interim placement, D137), HV2"
+}

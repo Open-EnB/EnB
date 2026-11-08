@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -420,3 +420,15 @@ void MetalMapManagerClass::initialize_metal_params(int map_count, MetalParams *m
 		}
 	}
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's metalmap.cpp (frozen 2026-11-07 from importer.py)
+// EnB: MetalMapManagerClass::MetalMapManagerClass (line 144 at the freeze): MipCountType and MIP_LEVELS_* are global
+//       in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file; the addressing modes were set
+//       through the texture's TextureFilterClass (Get_Filter()), as Zero Hour's texture API had them;
+//       TEXTURE_FILTER_PATCHES (0b8f6ce, D9) later replaced TextureFilterClass with TextureClass's own filter members
+// EnB: MetalMapManagerClass::MetalMapManagerClass (line 145 at the freeze): D9: E&B has no TextureFilterClass (Zero
+//       Hour's 08/05/02 KM 'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter
+//       members and accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at
+//       TextureClass offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter
+//       0x94CC30/0x94CC60/0x94CC90 are inside texture.obj, and the client has no out-of-line TextureFilterClass
+//       constructor or Apply

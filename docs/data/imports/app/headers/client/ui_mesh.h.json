@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIMeshClass (NAME 3, D24 from ui_mesh.cpp), moved out of sclient.h: SubjectClass at +0x04, the model +0x1C (the asserts' InterfaceMesh), the gadget SList +0x20, the HAnimComboClass +0x2C, the running and per-channel process lists; header PROVISIONAL (D137), UM1"
+}

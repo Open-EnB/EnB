@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1136,3 +1136,24 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 	}
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's dx8caps.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 197 at the freeze: E&B knows Zero Hour's Matrox Parhelia devices: the client's Matrox name table
+//       (0xBC4BE0) ends with 'Parhelia AGP 8X' (0xBC4C94), and Get_Matrox_Device 0x9AFDC0 maps 0x0527/0x0528
+// EnB: DX8Caps::Get_Matrox_Device (line 429 at the freeze): E&B knows Zero Hour's Matrox Parhelia devices: the
+//       client's Matrox name table (0xBC4BE0) ends with 'Parhelia AGP 8X' (0xBC4C94), and Get_Matrox_Device 0x9AFDC0
+//       maps 0x0527/0x0528
+// EnB: DX8Caps::Compute_Caps (lines 624, 628, 638, 644 at the freeze): E&B's Compute_Caps has Zero Hour's
+//       point-sprite, ModAlphaAddClr, Dot3 and cubemap flags with their logs ('ModAlphaAddClr support: %s' 0xBC5294,
+//       'Dot3 support: %s' 0xBC5280) and calls Check_Depth_Stencil_Support 0x9B1C20 ('Supports depth stencil format:
+//       %s' 0xBC54FC) after Check_Render_To_Texture_Support; there is no Check_Maximum_Texture_Support call (0x9B0160)
+// EnB: Line 674 at the freeze: E&B's Compute_Caps has Zero Hour's point-sprite, ModAlphaAddClr, Dot3 and cubemap flags
+//       with their logs ('ModAlphaAddClr support: %s' 0xBC5294, 'Dot3 support: %s' 0xBC5280) and calls
+//       Check_Depth_Stencil_Support 0x9B1C20 ('Supports depth stencil format: %s' 0xBC54FC) after
+//       Check_Render_To_Texture_Support; there is no Check_Maximum_Texture_Support call (0x9B0160)
+// EnB: DX8Caps::Vendor_Specific_Hacks (lines 1012, 1039, 1062 at the freeze): E&B's Vendor_Specific_Hacks 0x9B2540:
+//       its log strings (0xBC570C..0xBC5A20) have Zero Hour's Matrox G400/G550 and ATI Rage 128 ModAlphaAddClr lines,
+//       no 'Disabling multitexturing on ATI Rage 128 Pro GL' (Zero Hour's 'E&B requires multitexturing' change) and no
+//       GeForce2 MX limit
+// EnB: DX8Caps::Vendor_Specific_Hacks (line 1114 at the freeze): E&B logs 'Disabling distortion effects on PowerVR
+//       Kyro cards' and clears +0x121 (SupportCubemaps) before IsFogAllowed (0x9B2DA0..0x9B2DD3)

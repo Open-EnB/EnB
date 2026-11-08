@@ -23,7 +23,7 @@ A maintainer's own PRs (author association OWNER or MEMBER: the org's people) ar
 
 Landing (a contributor's PR; a maintainer's own PRs are merged by the maintainer as they are). A contributor
 without VC6 cannot commit the verified record, so the PR is not merged as it is: its landing is one commit on
-master, GitHub's test merge's tree plus the files the verify rewrote (imports.json, ...), authored by the PR's
+master, GitHub's test merge's tree plus the files the verify rewrote (ledger shards, ...), authored by the PR's
 author (other authors as Co-authored-by), pushed as the branch `verified/prN` and opened as a landing PR that
 names the original and copies its `Claims #N` lines (so the claims land). The landing carries the original's
 vc6-verify result; once the hosted `checks` pass on it, the next pass rebase-merges it (one commit, author
@@ -163,6 +163,15 @@ def landable(rec, head, master):
     return None
 
 
+def files_said(rec):
+    """The files the verify rewrote, for a message: the ledger's shards counted, the rest named."""
+    shards = [p for p in rec.get('rewritten', []) + rec.get('removed', []) if p.startswith(wt.IMPORTS + '/')]
+    rest = [p for p in rec.get('rewritten', []) if not p.startswith(wt.IMPORTS + '/')] + \
+        [p + ' (removed)' for p in rec.get('removed', []) if not p.startswith(wt.IMPORTS + '/')]
+    said = ([f'{len(shards)} ledger shard(s) under {wt.IMPORTS}'] if shards else []) + rest
+    return ', '.join(said) or 'none'
+
+
 def landing_commit(n, rec, title, master):
     """The landing commit (not pushed): the test merge's tree plus the files the verify rewrote, on MASTER."""
     merge, head = rec['merge'], rec['head']
@@ -175,6 +184,8 @@ def landing_commit(n, rec, title, master):
     for p in rec.get('rewritten', []):
         blob = wt.git('hash-object', '-w', os.path.join(keep, *p.split('/'))).strip()
         wt.git('update-index', '--add', '--cacheinfo', f'100644,{blob},{p}', env=env)
+    for p in rec.get('removed', []):
+        wt.git('update-index', '--force-remove', '--', p, env=env)
     tree = wt.git('write-tree', env=env).strip()
     authors = []
     for line in wt.git('log', '--format=%an%x00%ae', f'{master}..{head}').splitlines():
@@ -183,7 +194,7 @@ def landing_commit(n, rec, title, master):
     name, email = (authors[-1] if authors else 'unknown\0unknown').split('\0')
     co = [a.split('\0') for a in authors[:-1]]
     commits = wt.git('log', '--reverse', '--format=* %h %s', f'{master}..{head}').strip()
-    rewritten = ', '.join(rec.get('rewritten', [])) or 'none'
+    rewritten = files_said(rec)
     msg = (f'{title} (#{n})\n\n{rec["summary"]}. Landed from #{n} by the verify service: GitHub\'s test merge '
            f'{merge[:9]} verified on master {master[:9]} (tools/vc6/verify_pr.py), with the files the verify '
            f'rewrote: {rewritten}.\n\nThe pull request\'s commits:\n{commits}\n')
@@ -206,7 +217,7 @@ def open_landing(r, p, rec, master, dry=False):
     sha = landing_commit(n, rec, p['title'], master)
     claims = sorted({int(x) for x in CLAIMS_REF.findall(p.get('body') or '')})
     body = (f'Lands #{n} by @{p["user"]["login"]} as one commit: its content plus the files the verify rewrote '
-            f'({", ".join(rec.get("rewritten", [])) or "none"}), so a contributor without VC6 need not commit them '
+            f'({files_said(rec)}), so a contributor without VC6 need not commit them '
             f'(docs/github-plan.md 4.5.5).\n\nvc6-verify of #{n}: {rec["summary"]}.\n\n'
             + ''.join(f'Claims #{c}\n' for c in claims)
             + '\nOpened by `tools/vc6/verify_watch.py`; merged by it once `checks` pass.')

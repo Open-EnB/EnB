@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -446,3 +446,37 @@ struct RenderStatistics
 
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's ww3d.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 61 at the freeze: E&B's WW3D keeps its static sort lists in Zero Hour's StaticSortListClass objects: Init
+//       0x917660 news a DefaultStaticSortListClass (0x324 bytes, ctor 0x97CF10) into DefaultStaticSortLists 0xBFAE68
+//       and CurrentStaticSortLists 0xBFAE6C, Shutdown deletes it through its virtual destructor,
+//       Render_And_Clear_Static_Sort_Lists (inlined in Render 0x917C80) calls CurrentStaticSortLists slot 2,
+//       Override_Current_Static_Sort_Lists 0x919070 takes one pointer and ignores NULL
+// EnB: class WW3D (line 176 at the freeze): E&B's WW3D::Make_Screen_Shot takes three arguments: the app calls 0x9182C0
+//       with a name, 1.3f and 0/1/2 (0x767E65, 0x743A85, 0x7ECBCB; cdecl, add esp 0xC), and the client switches on the
+//       third for 'tga'/'bmp'/'jpg' (0x9182C0-0x918300). The body stays Renegade's (NOT EXACT, parked: attempts.py show
+//       0x9182C0)
+// EnB: class WW3D (line 204 at the freeze): Zero Hour's: Enable_Large_Texture_Extra_Reduction 0x918DA0 and
+//       Is_Large_Texture_Extra_Reduction_Enabled 0x918E60 follow Get_Texture_Reduction 0x918D90 (no
+//       Get_Texture_Min_Dimension); Get_Reduction 0x94BC20 calls it
+// EnB: class WW3D (line 206 at the freeze): E&B: a WW3D function at 0x9179D0 (between Registry_Load_Render_Device
+//       0x9179A0 and _Invalidate_Mesh_Cache 0x9179E0), called from the app at 0x4439B6
+// EnB: class WW3D (lines 278, 344 at the freeze): Zero Hour's WW3D::OverbrightModifyOnLoad: 0xBFAE52, defined right
+//       after MungeSortOnLoad (0xBFAE51), read by post_process 0x9BCDDE
+// EnB: class WW3D (line 288 at the freeze): E&B's WW3D keeps its static sort lists in Zero Hour's StaticSortListClass
+//       objects: Init 0x917660 news a DefaultStaticSortListClass (0x324 bytes, ctor 0x97CF10) into
+//       DefaultStaticSortLists 0xBFAE68 and CurrentStaticSortLists 0xBFAE6C, Shutdown deletes it through its virtual
+//       destructor, Render_And_Clear_Static_Sort_Lists (inlined in Render 0x917C80) calls CurrentStaticSortLists slot
+//       2, Override_Current_Static_Sort_Lists 0x919070 takes one pointer and ignores NULL
+// EnB: class WW3D (line 290 at the freeze): E&B's WW3D has Zero Hour's Set_Gamma(float gamma,float bright,float
+//       contrast,bool calibrate=true): 0x919090 (?Set_Gamma@WW3D@@SAXMMM_N@Z, after Render_And_Clear_Static_Sort_Lists
+//       0x919020) pushes 1 for DX8Wrapper::Set_Gamma's uselimit and calls 0x926E80; Renegade's ww3d.cpp has no
+//       Set_Gamma (callers 0x5146D0, 0x442AC0)
+// EnB: class WW3D (line 385 at the freeze): E&B's WW3D keeps its static sort lists in Zero Hour's StaticSortListClass
+//       objects: Init 0x917660 news a DefaultStaticSortListClass (0x324 bytes, ctor 0x97CF10) into
+//       DefaultStaticSortLists 0xBFAE68 and CurrentStaticSortLists 0xBFAE6C, Shutdown deletes it through its virtual
+//       destructor, Render_And_Clear_Static_Sort_Lists (inlined in Render 0x917C80) calls CurrentStaticSortLists slot
+//       2, Override_Current_Static_Sort_Lists 0x919070 takes one pointer and ignores NULL; Renegade's
+//       MinStaticSortLevel/MaxStaticSortLevel stay declared (unused, not defined): dropping them shifts
+//       meshmatdesc.cpp's symbol-count noise (loses 0x946EB0, 0x947490)

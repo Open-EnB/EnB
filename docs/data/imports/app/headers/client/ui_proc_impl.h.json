@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ui_proc.h as its own .cpp needs it, with ui_proc.h's guard so the shared header keeps the text nav_list_builder.cpp 0x7B7EF0 needs (RS1): UIProcClass (NAME 3, D24 from ui_proc.cpp), the event record and its subclasses: the animation process (table 0xAF5D94, constructors 0x5DCD20 / 0x5DCF00, its members from the FAIL_IFs) and five more as ui_mesh.cpp inlines them; header PROVISIONAL (D137), UM1, UP1"
+}

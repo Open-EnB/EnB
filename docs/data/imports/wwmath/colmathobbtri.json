@@ -1,0 +1,32 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 11,
+  "R": 12,
+  "Z": 11
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x4481E0",
+  "0x8CCBE0",
+  "0x8CF4D0",
+  "0x8CF690",
+  "0x8CF760",
+  "0x8D02A0",
+  "0x8D02E0",
+  "0x8D0510",
+  "0x8D0740",
+  "0x8D1BA0"
+ ],
+ "merged": [],
+ "name": "colmathobbtri.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40",
+  "0x4481E0"
+ ]
+}

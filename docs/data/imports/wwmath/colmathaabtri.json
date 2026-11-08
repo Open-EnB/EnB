@@ -1,0 +1,26 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 5,
+  "R": 6,
+  "Z": 5
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x4481E0",
+  "0x8C9BD0",
+  "0x8CBC00",
+  "0x8CBD30"
+ ],
+ "merged": [],
+ "name": "colmathaabtri.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40",
+  "0x4481E0"
+ ]
+}

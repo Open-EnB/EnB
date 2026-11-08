@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "extrap.cpp's state nodes: the client's StateNode (vtable 0xB02398; its asserts 'Bad function call! StateNode::Set_Motion()' / '... End_Tilt()'), the nodes 0xB02364-0xB02628 and the motion objects 0xB02400 / 0xB02480 / 0xB025FC (layouts from the constructors 0x70F250-0x714340); moved out of postate.h"
+}

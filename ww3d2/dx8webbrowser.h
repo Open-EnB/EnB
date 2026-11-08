@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -91,3 +91,7 @@ private:
 #endif
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Generals's dx8webbrowser.h (frozen 2026-11-07 from importer.py)
+// EnB: class DX8WebBrowser (line 75 at the freeze): DX8WebBrowser::CreateBrowser (0x9205C0) takes a tenth argument
+//       (querydata, after E&B's type library)

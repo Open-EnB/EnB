@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "SoundDefClass and SoundLibraryClass (D24): sounds.ini's definitions in an SGI hash_map<std::string, SoundDefClass *> (libs/sgistl, D87), WWAudio's 2D / 3D sounds, the dialog channel (_NextDialogDef / _NextDialogName from the client's assert)"
+}

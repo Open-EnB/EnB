@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "what uiview.cpp's UIViewClass (sclient.h) makes and calls: the 2-D scene (interface_scene.h, included), GadgetListManagerClass (0x6611B0), the +0x30 object (0x6AB320); PROVISIONAL file name after uiview.cpp (LD4)"
+}

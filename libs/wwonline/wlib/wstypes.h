@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -117,3 +117,11 @@ typedef double             float64;
 #endif  
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's wstypes.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 95 at the freeze: E&B's udpconn.cpp (0x82C5E0-0x82E020) uses wlib's CritSec (0x8B4330 / 0x8B4350) and
+//       inlines wlib's Dictionary in one file with WWLib's WWProfile (0x444160), and CordCon inlines wlib's ArrayList
+//       beside WWLib's pools, so the two sets of typedefs met in one file (matchbot's char / int / unsigned int
+//       redefine bittype.h's: C2371); wlib takes WWLib's, so that sint32 means one type in wlib's objects and the app's
+//       (their mangled names agree)
+// EnB: Line 102 at the freeze: as sint8: bittype.h's sint32 / uint32

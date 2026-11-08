@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "Font32Class (D24, paired with font32bit.cpp; 0xD30 bytes, vtables 0xAFE94C / 0xAFE940): a wwlib FontClass and RefCountClass over a SurfaceClass font image, Renegade's Font3DDataClass tables (FNT1)"
+}

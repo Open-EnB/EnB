@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -161,3 +161,9 @@ private:
 
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's rinfo.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 57 at the freeze: RenderInfoClass has Zero Hour's Texture_Projector after light_environment (not its three
+//       alpha overrides): the client's constructor (0x930F80) zeroes one more member, and every member from +0x14 is 4
+//       bytes later (SpecialRenderInfoClass's own from 0x124)
+// EnB: class contains (line 103 at the freeze): the member

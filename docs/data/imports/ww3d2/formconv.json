@@ -1,0 +1,20 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 2,
+  "R": 2,
+  "Z": 5
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x995960",
+  "0x995980",
+  "0x9959E0",
+  "0x995A00",
+  "0x995A20"
+ ],
+ "merged": [],
+ "name": "formconv.cpp"
+}

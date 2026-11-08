@@ -1,0 +1,30 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "the object 0x451C00-0x452130 after px_callback_accurate.cpp (its guarded <string> static 0x451BD0; no __FILE__, neutral name D10): PxBoxCallback 0x451C30-0x452130",
+ "expected": {},
+ "in_tree": [
+  "0x44E170",
+  "0x451C30",
+  "0x451D40",
+  "0x451D70",
+  "0x451DA0",
+  "0x451EB0",
+  "0x451FE0",
+  "0x452000",
+  "0x452020",
+  "0x4520A0",
+  "0x4520D0",
+  "0x452100",
+  "0x452130"
+ ],
+ "merged": [],
+ "name": "shared/unknown_px_callbacks.cpp",
+ "shared": [
+  "0x44E170",
+  "0x452130"
+ ],
+ "short_known": [
+  "0x452130"
+ ]
+}

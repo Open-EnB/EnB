@@ -4,6 +4,9 @@ Goal: find the code in client.exe that EA has published (Renegade, Generals, Zer
 import it instead of reverse engineering it. This page is the method, the results so far, and
 the plan for importing.
 
+This is the history of the import. Its machinery (`importer.py` PATCHES, assemble, refine, replay) is
+retired: the libraries are now plain source (§7).
+
 ## 1. Sources
 
 | Copy | Tag | Repository | Commit | Libraries used for matching |
@@ -774,3 +777,16 @@ EA's code is GPL v3 with additional terms (modified versions must be marked as s
 identified as the original; no use of EA's trademarks beyond attribution). Anything that
 includes it is GPL v3 too, and so is this repository (decision D1 in
 [progress.md](progress.md)).
+
+## 7. The freeze (D211, 2026-11-07)
+
+The import machinery this page describes is retired. A final refine pass found nothing to keep:
+its 3 ww3d2 proposals were single-file artifacts (0 gained in a full verify). The EA-derived
+libraries (ww3d2, wwlib, wwmath, wwdebug, wwsaveload, wwaudio, wwshade, binkmovie,
+libs/wwonline/wlib and wnet) are now plain source. Each of the 202 changed files records its E&B
+changes in one end-of-file block whose entries start `// EnB:` (commit 952f432f), so
+`grep -rn '// EnB:'` lists them all. PATCHES, APPENDS, NEW_FILES, EXTRA_FILES and the commands
+plan, assemble, add, replay and refine were deleted (323f258d); `importer.py` keeps `verify` and
+`report`. A library fix is now a direct edit plus its `// EnB:` entry (workflow.md §2). EA's
+copies at `C:\EnBDevelopment\EA` and `imports.json`'s `copy`, `best` and `merged` fields stay as
+provenance. The plan: [pipeline-plan.md](pipeline-plan.md) §3.2.

@@ -1,0 +1,18 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "the MoneyClass packet-data wrapper's object, 0x873A00-0x873AE0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+ "expected": {},
+ "in_tree": [
+  "0x873A00",
+  "0x873A40",
+  "0x873A90"
+ ],
+ "merged": [],
+ "name": "packets/pkunknown_873a00.cpp",
+ "short_known": [
+  "0x873A90"
+ ]
+}

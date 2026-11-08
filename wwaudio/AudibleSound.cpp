@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -2077,3 +2077,11 @@ AudibleSoundClass::Load (ChunkLoadClass &cload)
 
 	return true;
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's AudibleSound.cpp (frozen 2026-11-07 from importer.py)
+// EnB: AudibleSoundClass::AudibleSoundClass (lines 159, 201 at the freeze): both constructors initialise them
+// EnB: AudibleSoundClass::operator= (line 267 at the freeze): AudibleSoundClass::operator= 0x9FD090 copies +0x7C and
+//       +0x80 after m_LoopsLeft (0x9FD0C8..0x9FD0D4)
+// EnB: AudibleSoundClass::Play (line 482 at the freeze): AudibleSoundClass::Play 0x9FD3E0: while WWAudioClass +0x19A5
+//       is set (0x9FD419) and the type is not music (+0x48), adds the sound to the playlist as STATE_PAUSED (0x9FD430),
+//       resets the timestamp and loop count, zeroes the position and returns true

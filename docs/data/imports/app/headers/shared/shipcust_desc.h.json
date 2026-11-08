@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ShipCustDescClass (D24, by convention from shipcust_desc.cpp; 0x160 bytes, vtables 0xAF78A0 / 0xAF789C), its four parts ShipCustPartClass (0x44) of two ShipCustSettingsClass (0x20): members named by the visitors' keys (from tsk_login.h's LoginUnknown88C/44/20Class, D90 9b)"
+}

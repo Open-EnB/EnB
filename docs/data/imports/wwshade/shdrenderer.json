@@ -1,0 +1,56 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "Z": 7
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0xA07D50",
+  "0xA07D60",
+  "0xA07D80",
+  "0xA07D90",
+  "0xA07E00",
+  "0xA07E40",
+  "0xA07E60",
+  "0xA07EA0",
+  "0xA07F10",
+  "0xA07F30",
+  "0xA07FD0",
+  "0xA08060",
+  "0xA080A0",
+  "0xA08110",
+  "0xA08130",
+  "0xA081D0",
+  "0xA08240",
+  "0xA08270",
+  "0xA082D0",
+  "0xA085F0",
+  "0xA08600",
+  "0xA08620",
+  "0xA08640",
+  "0xA08750",
+  "0xA08790",
+  "0xA08A20",
+  "0xA08A50",
+  "0xA08A80",
+  "0xA08AF0"
+ ],
+ "merged": [],
+ "name": "shdrenderer.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0xA085F0"
+ ],
+ "short_known": [
+  "0xA07D50",
+  "0xA07D80",
+  "0xA085F0"
+ ]
+}

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -535,3 +535,11 @@ void AnimatedSoundMgrClass::Set_Sound_Library(SoundLibraryBridgeClass* library)
 {
 	SoundLibrary = library;
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's animatedsoundmgr.cpp (frozen 2026-11-07 from importer.py)
+// EnB: AnimatedSoundMgrClass::Initialize (lines 339, 356 at the freeze): E&B parses animated sounds in the form Zero
+//       Hour comments out: Initialize 0x909540 takes an entry only for 2 or 3 parameters (cmp 2 / jl, cmp 3 / jg) and
+//       sets Is2D only when the third one's atoi is 2 (0x909A17..0x909A33); no Is_In_Param_List "2D"/"STOP" checks, no
+//       IsStop store
+// EnB: AnimatedSoundMgrClass::Trigger_Sound (line 507 at the freeze): E&B's Trigger_Sound 0x909F90 only plays the
+//       sound (2D through bridge slot 1, 3D through slot 0): no IsStop test or Stop_Playing_Audio call

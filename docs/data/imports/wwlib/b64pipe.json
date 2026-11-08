@@ -1,0 +1,17 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 2,
+  "R": 2,
+  "Z": 2
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9E6720",
+  "0x9E68B0"
+ ],
+ "merged": [],
+ "name": "b64pipe.cpp"
+}

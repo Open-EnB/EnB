@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RsTrackClass (D24, class-from-file for rs_track.cpp; 0x100 bytes, vtable 0xAE8294, Class_ID 0x10001), with rs_list.cpp's RenderStateClass / RenderStateListClass and proj_man's two helpers declared as far as it uses them (interim, D137); co.cpp and cpacket.cpp include it in place of their own declarations"
+}

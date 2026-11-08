@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -760,3 +760,9 @@ void ThumbnailManagerClass::Deinit()
 		GlobalThumbnailManager=NULL;
 	}
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's texturethumbnail.cpp (frozen 2026-11-07 from importer.py)
+// EnB: ThumbnailManagerClass::Load (lines 299, 389 at the freeze): (Load: the same)
+// EnB: ThumbnailManagerClass::Save (lines 398, 480 at the freeze): E&B loads and writes its thumbnail files ('#if 0'
+//       is Generals' change, jba): the client's destructor calls Save (0x91A730, byte-exact once Save isn't empty and
+//       inlined)

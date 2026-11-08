@@ -46,3 +46,6 @@ class TCPQueue  // NAME 1 [tcpqueue.cpp]: the file's name
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): tcpqueue.h (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): TCPQueue and its buffer record (names neutral but Queue, D56)

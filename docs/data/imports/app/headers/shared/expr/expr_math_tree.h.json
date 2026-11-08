@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the expression tree: the node ExprMathTreeClass (0xAEC0FC, the root: no base vtable store), the binary and unary nodes (0xAEC108, 0xAEC114), the visitor interface, the two printers and the token collector (0xAEC120); header name assumed, NAME 3 (EX1, EX2)"
+}

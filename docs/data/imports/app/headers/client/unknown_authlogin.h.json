@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "EA.Com's login component as the client uses it (PROVISIONAL file name, D10): kcom's factory and IAuthLoginClass (authlogin.dll, tools/vc6/authlogin.def), AuthLoginResponseClass (0x38 bytes; kernel-map-step9.md 4)"
+}

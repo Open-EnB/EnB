@@ -12,7 +12,9 @@ REGION = {'app': (0x401000, 0x8C1B50)}
 def key_of(f):
     return os.path.splitext(os.path.basename(f))[0].lower()
 
-state = json.load(open(os.path.join(ROOT, 'docs/data/imports.json')))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'vc6'))
+import ledger  # noqa: E402
+state = ledger.load(None, repo=ROOT)
 libs = [l for l in state if os.path.isdir(os.path.join(WORK, f'verify-{l}'))]
 img = om.ClientImage()
 

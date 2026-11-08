@@ -1,0 +1,17 @@
+{
+ "ambiguous": [],
+ "copy": "Z",
+ "expected": {
+  "Z": 3
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x8B4370",
+  "0x8B43E0",
+  "0x8B4410",
+  "0x8B4450",
+  "0x8B4480"
+ ],
+ "merged": [],
+ "name": "monod.cpp"
+}

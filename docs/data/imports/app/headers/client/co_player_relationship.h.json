@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the gutter colour structs, moved from co_player_relationship.cpp for radar_data.h (D24 header name) (RD1)"
+}

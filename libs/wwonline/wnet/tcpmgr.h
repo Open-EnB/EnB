@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -163,3 +163,20 @@ class TCPMgr {
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's tcpmgr.h (frozen 2026-11-07 from importer.py)
+// EnB: class TCPMgr (line 73 at the freeze): E&B's pending connects have a fourth state, -1: pumpConnections 0x8BE270
+//       stores it (`mov [esi+0x14], 0xFFFFFFFF`) after closesocket on an except set or CONNREFUSED / TIMEDOUT /
+//       CONNRESET, getConnection 0x8BDF80 returns such an entry (`cmp eax, -1; jne`) with *conn NULL; named instead of
+//       tcpmgr.cpp's FAILED casts (P-NW2-1)
+// EnB: enum STATUS (line 98 at the freeze): E&B's STATUS has a -16 (CONNRESET): getStatus 0x8BDD40 returns it for
+//       WSAECONNRESET (0x2746) and WSAENOTCONN (0x2749); TCPCon's read 0x8BC280, normalWrite 0x8BC170 and pumpReads
+//       0x8BC4F0 end quietly on it, isConnected 0x8BC8C0 treats it as closed
+// EnB: class TCPMgr (line 110 at the freeze): wnet is built with /GX (TCPMgr::wait 0x8BDA80 has an EH frame for its
+//       Wtime locals), yet E&B's ~TCPMgr 0x8BCA90 has none: the three ArrayList members' destructors inlined without
+//       unwind states. VC6 /GX gives exactly that for a destructor declared throw() (without it: an EH frame with
+//       states 1, 0, -1). The form is the compiler's evidence, not a source line
+// EnB: class TCPMgr (line 121 at the freeze): E&B's addition 0x8BD940 (after getIncomingConnection 0x8BD910): finds
+//       the pending connection whose handle (+0x10 of its 0x24-byte record) is the argument, closes its socket and
+//       removes it (ArrayList remove inlined); tcpconn.cpp's destructor 0x828EC0 and Disconnect 0x829960 call it with
+//       their handle (+0x28)

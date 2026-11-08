@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the input layer (input.cpp): the event queue (KeyQueueClass over InputQueueClass, 0x420 bytes), the keyboard and mouse handlers' bases and their DIRECTX_* null classes, the globals (the client's assert string names input.h; D10 names)"
+}

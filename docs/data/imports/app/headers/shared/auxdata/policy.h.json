@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "policy.cpp's declarations (name assumed from policy.cpp, M1.3): the conditions (RefCountClass, vtables 0xAEACD4, 0xAEB324), PolicyRuleClass (0x44), PolicyRuleSetClass (vtable 0xAEACB4), CompiledPolicyClass, PolicyStateClass (0x14), PolicyClass (0x18)"
+}

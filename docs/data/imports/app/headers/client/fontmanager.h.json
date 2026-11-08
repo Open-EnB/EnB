@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "FontManagerClass (D24, 0x1C bytes, 0xBE67C4): the fonts by id (an SGI hash_map, D87) and the debug font (RefCountPtr); the font (0x24 bytes) and the debug font's class (a DynamicMeshClass, 0x4E8 bytes) declared only"
+}

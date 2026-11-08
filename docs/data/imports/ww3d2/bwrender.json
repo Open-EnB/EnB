@@ -1,0 +1,23 @@
+{
+ "ambiguous": [
+  "0x9BE190",
+  "0x9BE220"
+ ],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 5,
+  "R": 5,
+  "Z": 5
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9BE1C0",
+  "0x9BE2D0",
+  "0x9BE300",
+  "0x9BE480",
+  "0x9BE600"
+ ],
+ "merged": [],
+ "name": "bwrender.cpp"
+}

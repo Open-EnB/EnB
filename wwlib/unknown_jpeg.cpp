@@ -647,3 +647,9 @@ int JPEGBitBufferClass::Length(void)
 	}
 	return length;
 }
+
+// Earth & Beyond client (reconstruction): unknown_jpeg.cpp (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): E&B's baseline JPEG writer (client 0x9E3850-0x9E531E, between
+//       srandom.cpp and realcrc.cpp; WW3D::Make_Screen_Shot's 'jpg' format), written from the client: three
+//       one-component scans, a direct 8x8 DCT, E&B's quantization tables, the standard Huffman tables; no EA copy has
+//       it. File PROVISIONAL (D137: no __FILE__)

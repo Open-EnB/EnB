@@ -1,0 +1,55 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "packet classes (opcode 134, 135) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
+ "expected": {},
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x5C6880",
+  "0x5C68A0",
+  "0x89C640",
+  "0x89C690",
+  "0x89C6C0",
+  "0x89C760",
+  "0x89C830",
+  "0x89C850",
+  "0x89C880",
+  "0x89C8D0",
+  "0x89C900",
+  "0x89C9A0",
+  "0x89CA70",
+  "0x89CA90"
+ ],
+ "merged": [],
+ "name": "packets/pkmissionforfeit.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x5C6880",
+  "0x5C68A0"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x5C6880",
+  "0x5C68A0",
+  "0x89C830",
+  "0x89CA70"
+ ]
+}

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -672,3 +672,13 @@ RenderObjClass * SimpleSceneIterator::Current_Item(void)
 {
 	return RobjIterator.Peek_Obj();
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's scene.cpp (frozen 2026-11-07 from importer.py)
+// EnB: SceneClass::Render (lines 211, 242 at the freeze): E&B's SceneClass::Render calls Zero Hour's
+//       Pre_Render_Processing (vtable +0x54) first and Post_Render_Processing (+0x58) last (0x965460)
+// EnB: SimpleSceneClass::Visibility_Check (line 468 at the freeze): E&B's RenderObjClass has Zero Hour's
+//       IGNORE_LOD_COST bit (0x8000) and accessors: SimpleSceneClass::Visibility_Check 0x965F40 skips Prepare_LOD when
+//       Bits (+0x18) bit 15 is set
+// EnB: SimpleSceneClass::Customized_Render (line 579 at the freeze): E&B's SimpleSceneClass::Customized_Render goes
+//       through the object's render hook (Zero Hour's; not its light-environment change): 0x9661C0 tests RenderHook
+//       (+0x88), calls Pre_Render (slot 1), Render only if it returns true, then Post_Render (slot 2)

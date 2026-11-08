@@ -1,0 +1,23 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "AuthLoginResponseClass, client 0x792040-0x7922F0 (PROVISIONAL file name, D10: the unattributed run after nlp.cpp, no __FILE__): the constructor 0x792040 and Get_Error_Text 0x7922B0 with its table 0xB9DC90; exact",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A970",
+  "0x42AB30",
+  "0x792040",
+  "0x7922B0"
+ ],
+ "merged": [],
+ "name": "client/unknown_authlogin.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A970",
+  "0x42AB30"
+ ]
+}

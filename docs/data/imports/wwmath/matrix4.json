@@ -1,0 +1,24 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 4,
+  "R": 4,
+  "Z": 6
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x8DE8F0",
+  "0x8DEB10",
+  "0x8DECC0",
+  "0x8DEE60",
+  "0x8DEEC0"
+ ],
+ "merged": [],
+ "name": "matrix4.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

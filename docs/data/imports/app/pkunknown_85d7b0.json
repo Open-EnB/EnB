@@ -1,0 +1,47 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "the send-only opcode 30003's object, 0x85D7B0-0x85DA70 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
+ "expected": {},
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x85D7B0",
+  "0x85D800",
+  "0x85D830",
+  "0x85D850",
+  "0x85D910",
+  "0x85D9F0",
+  "0x85DA10",
+  "0x85DA50"
+ ],
+ "merged": [],
+ "name": "packets/pkunknown_85d7b0.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x85D830"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x85D830",
+  "0x85D9F0",
+  "0x85DA50"
+ ]
+}

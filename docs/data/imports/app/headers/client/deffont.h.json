@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "deffont.cpp's data and functions (PROVISIONAL header name: the client names only deffont.cpp): the built-in font, FontData / FontNames, fontpal.pcx's Palette, Remaps / RemapSizes, the converter, the default palette 0xB8F870 (FNT1)"
+}

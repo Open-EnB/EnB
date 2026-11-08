@@ -1,0 +1,35 @@
+{
+ "ambiguous": [],
+ "copy": "R",
+ "expected": {
+  "R": 11
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0xA17300",
+  "0xA17340",
+  "0xA175C0",
+  "0xA17690",
+  "0xA177C0",
+  "0xA17820",
+  "0xA17880",
+  "0xA17950",
+  "0xA17970",
+  "0xA17990",
+  "0xA17A20",
+  "0xA17AB0",
+  "0xA17AE0",
+  "0xA17B00",
+  "0xA17B40",
+  "0xA17BF0",
+  "0xA17C20",
+  "0xA17C70",
+  "0xA17D20",
+  "0xA17D50",
+  "0xA17D90",
+  "0xA17DB0",
+  "0xA17E00"
+ ],
+ "merged": [],
+ "name": "subtitleparser.cpp"
+}

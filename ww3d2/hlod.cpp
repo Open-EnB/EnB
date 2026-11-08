@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -3632,3 +3632,21 @@ void HLodClass::Set_Hidden(int onoff)
 	return ;
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's hlod.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Lines 118, 3496 at the freeze: E&B's HLodClass has Zero Hour's virtual Add_Lod_Model after
+//       Get_Additional_Model_Bone: the client vtable 0xB1327C has 133 slots, slot 128 is 0x98F920 (the add-model body,
+//       without Zero Hour's gth bone-index check), and Include_NULL_Lod 0x98D510 calls Is_NULL_Lod_Included through
+//       +0x204
+// EnB: HLodClass::HLodClass (lines 1037, 1046, 1119, 1205 at the freeze): E&B's HLodClass has Zero Hour's virtual
+//       Add_Lod_Model after Get_Additional_Model_Bone: the client vtable 0xB1327C has 133 slots, slot 128 is 0x98F920
+//       (the add-model body, without Zero Hour's gth bone-index check), and Include_NULL_Lod 0x98D510 calls
+//       Is_NULL_Lod_Included through +0x204
+// EnB: HLodClass::Include_NULL_Lod (line 2016 at the freeze): E&B's HLodClass has Zero Hour's virtual Add_Lod_Model
+//       after Get_Additional_Model_Bone: the client vtable 0xB1327C has 133 slots, slot 128 is 0x98F920 (the add-model
+//       body, without Zero Hour's gth bone-index check), and Include_NULL_Lod 0x98D510 calls Is_NULL_Lod_Included
+//       through +0x204
+// EnB: HLodClass::Add_Lod_Model (line 3507 at the freeze): E&B's HLodClass has Zero Hour's virtual Add_Lod_Model after
+//       Get_Additional_Model_Bone: the client vtable 0xB1327C has 133 slots, slot 128 is 0x98F920 (the add-model body,
+//       without Zero Hour's gth bone-index check), and Include_NULL_Lod 0x98D510 calls Is_NULL_Lod_Included through
+//       +0x204

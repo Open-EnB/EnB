@@ -1,0 +1,24 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "the object 0x4FA8F0-0x4FAC0F after split_string.cpp (its guarded static 0x4FABF0; no __FILE__, neutral name D10, placement provisional D137): FontSplitStringClass, all exact (LS1)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x4FA8F0",
+  "0x4FA9C0",
+  "0x4FA9F0",
+  "0x4FAAC0",
+  "0x4FAB30",
+  "0x4FAB70",
+  "0x4FABB0"
+ ],
+ "merged": [],
+ "name": "shared/unknown_font_split_string.cpp",
+ "shared": [
+  "0x42F250",
+  "0x4FABB0"
+ ]
+}

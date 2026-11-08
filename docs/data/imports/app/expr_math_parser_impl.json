@@ -1,0 +1,63 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0",
+  "0x42CA60"
+ ],
+ "copy": "reconstructed",
+ "description": "expr_math_parser_impl.cpp (the client's __FILE__; FAIL_IF lines 15 38 39 74, G_ASSERT 84), client 0x4D0AC0-0x4D22B0: Add_Group, Parse, Parse_Unary, Parse_Binary, Parse_Primary, Is_Operator, Peek and the vector<GroupStruct> instances exact; NOT EXACT: Add_Similar 0x4D0DF0, Parse_Level 0x4D10E0 (EX1)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D050",
+  "0x42D120",
+  "0x42DB80",
+  "0x432C30",
+  "0x433700",
+  "0x433A10",
+  "0x4B5740",
+  "0x4D0AC0",
+  "0x4D0D70",
+  "0x4D10A0",
+  "0x4D13E0",
+  "0x4D1600",
+  "0x4D18A0",
+  "0x4D19E0",
+  "0x4D1AC0",
+  "0x4D1B60",
+  "0x4D1BA0",
+  "0x4D1F90",
+  "0x4D2050",
+  "0x4D2270",
+  "0x4D2290",
+  "0x4D22B0"
+ ],
+ "merged": [],
+ "name": "shared/expr/expr_math_parser_impl.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D050",
+  "0x42D120",
+  "0x42DB80",
+  "0x432C30",
+  "0x433700",
+  "0x433A10",
+  "0x4B5740",
+  "0x4D2290",
+  "0x4D22B0"
+ ],
+ "short_known": [
+  "0x42D120",
+  "0x4D2290"
+ ]
+}

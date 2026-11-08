@@ -1,0 +1,49 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "px_callback_poll.cpp, client 0x452780-0x453740 (its __FILE__; FAIL_IFs lines 216 / 223): PxPollCallback (PxWrapper's loose box) and PxPollAccurateCallback: constructors, Process, On_Enter / On_Exit, Clone, Attach / Detach, Update, Add_Filter, Set_Radius / Set_Extent",
+ "expected": {},
+ "in_tree": [
+  "0x44E170",
+  "0x452780",
+  "0x4528B0",
+  "0x4528E0",
+  "0x452960",
+  "0x452AA0",
+  "0x452AF0",
+  "0x452B40",
+  "0x452BB0",
+  "0x452D10",
+  "0x452D30",
+  "0x452D50",
+  "0x452DE0",
+  "0x452E10",
+  "0x452F80",
+  "0x452FB0",
+  "0x453030",
+  "0x4531A0",
+  "0x453320",
+  "0x4534A0",
+  "0x453660",
+  "0x4536B0",
+  "0x453700",
+  "0x453710",
+  "0x453720",
+  "0x453730"
+ ],
+ "merged": [],
+ "name": "shared/px_callback_poll.cpp",
+ "shared": [
+  "0x44E170",
+  "0x453700",
+  "0x453710",
+  "0x453720",
+  "0x453730"
+ ],
+ "short_known": [
+  "0x453700",
+  "0x453710",
+  "0x453720",
+  "0x453730"
+ ]
+}

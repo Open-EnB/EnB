@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ControlKeysManager's key definitions (D10, D24): the definition holder ControlKeyDefClass (the client's DefPtr) and what it points at, declared as far as the rebuilt functions need"
+}

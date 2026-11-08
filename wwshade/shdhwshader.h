@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -133,3 +133,8 @@ public:
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdhwshader.h (frozen 2026-11-07 from importer.py)
+// EnB: class ShdHWVertexShader (line 118 at the freeze): E&B's light setup for the fixed function shaders (0xA0FC60,
+//       after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared 0xA0AF40,
+//       Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910)

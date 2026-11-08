@@ -1,0 +1,40 @@
+{
+ "ambiguous": [
+  "0x42B2F0",
+  "0x4ACBB0"
+ ],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 13,
+  "R": 13,
+  "Z": 13
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42C4E0",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D050",
+  "0x42D120",
+  "0x42DB80",
+  "0x42F250",
+  "0x47CE60",
+  "0x4B53D0",
+  "0x4B56B0",
+  "0x909500"
+ ],
+ "merged": [],
+ "name": "w3d_dep.cpp",
+ "shared": [
+  "0x42D120",
+  "0x42F250",
+  "0x909500"
+ ],
+ "short_known": [
+  "0x42D120"
+ ]
+}

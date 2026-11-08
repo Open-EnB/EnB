@@ -1,0 +1,26 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 4,
+  "R": 4,
+  "Z": 4
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9C9760",
+  "0x9E6560",
+  "0x9E65A0",
+  "0x9E65F0",
+  "0x9E6610"
+ ],
+ "merged": [],
+ "name": "pipe.cpp",
+ "shared": [
+  "0x9C9760"
+ ],
+ "short_known": [
+  "0x9C9760"
+ ]
+}

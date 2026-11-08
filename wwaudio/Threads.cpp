@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -315,3 +315,10 @@ WWAudioThreadsClass::End_Modify_List (void)
 	return ;
 }
 */
+
+// Earth & Beyond client (reconstruction): changes to Renegade's Threads.cpp (frozen 2026-11-07 from importer.py)
+// EnB: WWAudioThreadsClass::Delayed_Release_Thread_Proc (line 217 at the freeze):
+//       WWAudioThreadsClass::Delayed_Release_Thread_Proc 0x9FBA30 skips a pass while AIL_background() is true
+//       (0x9FBA63) and holds AIL_lock_mutex (0x9FBA7F) inside the list lock
+// EnB: WWAudioThreadsClass::Delayed_Release_Thread_Proc (line 263 at the freeze): (AIL_unlock_mutex at 0x9FBB1D,
+//       before the list lock is released)

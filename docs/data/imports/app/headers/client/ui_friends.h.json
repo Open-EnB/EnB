@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIFriendsClass (D24, ui_friends.cpp's friends window over ui_chat_panel_base.cpp's UIChatPanelBaseClass, 0x14C bytes, constructor 0x58F210, destructor 0x58F450, table 0xAF1AD4) and the players it lists (UIFriendsPlayerInfoClass, 0x20 bytes); declared as far as ui_friends.cpp's rebuilt functions use it; header name provisional (FR1)"
+}

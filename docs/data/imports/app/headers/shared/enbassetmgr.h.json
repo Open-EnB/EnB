@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "E&B's asset manager's class ENBAssetManager (UnknownBDADC0Class until P-MC-3) and Unknown_BDADC0 0xBDADC0, shared by enbassetmgr.cpp, main_client.cpp, display.cpp, co.cpp, eff_o.cpp, scriptedmovie.cpp, rs_robj.cpp (kernel.cpp keeps its own view); PROVISIONAL header name (D137) (EAM)"
+}

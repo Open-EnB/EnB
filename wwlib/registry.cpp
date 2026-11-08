@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -783,3 +783,7 @@ void RegistryClass::Delete_Registry_Tree(char *path)
 
 
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's registry.cpp (frozen 2026-11-07 from importer.py)
+// EnB: RegistryClass::RegistryClass (line 64 at the freeze): client 0x9D1500
+// EnB: RegistryClass::Unknown_Open_Key (line 106 at the freeze): client 0x9D1600

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -223,3 +223,8 @@ rc4_loop:
 	Key.X = x;
 	Key.Y = y;
 }
+
+// Earth & Beyond client (reconstruction): rc4.cpp (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): E&B's RC4Class: a runtime-built initial key, the 8- and 16-byte key
+//       setups inlined into Prepare_Key, inline assembly in the 16-byte setup and RC4(); Print_State and operator= are
+//       Zero Hour's. All 5 functions byte-exact (docs/library-matching.md §3.6)

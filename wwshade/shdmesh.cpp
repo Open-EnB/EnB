@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -626,3 +626,19 @@ ShdSubMeshClass * ShdMeshClass::Peek_Sub_Mesh(int i) const
 	return SubMeshes[i].Mesh;
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdmesh.cpp (frozen 2026-11-07 from importer.py)
+// EnB: ShdMeshClass::Cast_Ray (line 222 at the freeze): ShdMeshClass::Cast_Ray as the client has it (0xA09580): tests
+//       the ray's byte at +0x40 (Renegade's IgnoreTranslucentMeshes) before Is_Translucent; the client has no Zero Hour
+//       CheckTranslucent
+// EnB: ShdMeshClass::Update_Cached_Bounding_Volumes (line 442 at the freeze):
+//       ShdMeshClass::Update_Cached_Bounding_Volumes 0xA09ED0 transforms the centre into temporaries with no aliasing
+//       test: operator *, as MeshClass's (ww3d2/mesh.cpp), not Transform_Vector
+// EnB: Line 515 at the freeze: ShdMeshClass::Load_W3D ends with the collision type and hidden bit (0xA0A380: no
+//       cast-shadow or translucency loops); no Init_From_Legacy_Mesh
+// EnB: ShdMeshClass::Load_W3D (line 542 at the freeze): ShdMeshClass::Load_W3D 0xA0A380 assigns the name inline
+//       (StringClass::operator= at 0xA0A3E2), no virtual Set_Name call
+// EnB: ShdMeshClass::Load_W3D (line 603 at the freeze): ShdMeshClass::Load_W3D 0xA0A380 does not name its sub-meshes:
+//       ssmesh->Load_W3D (0xA0A60A) is followed by i++ (0xA0A60D); its frame is one StringClass smaller (0x16C)
+// EnB: ShdMeshClass::Load_W3D (line 614 at the freeze): ShdMeshClass::Load_W3D ends with the collision type and hidden
+//       bit (0xA0A380: no cast-shadow or translucency loops); no Init_From_Legacy_Mesh

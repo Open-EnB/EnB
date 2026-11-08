@@ -1,0 +1,20 @@
+{
+ "ambiguous": [],
+ "copy": "Z",
+ "expected": {
+  "G": 0,
+  "R": 0,
+  "Z": 0
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0xA06000",
+  "0xA06020",
+  "0xA06050"
+ ],
+ "merged": [],
+ "name": "definitionfactory.cpp",
+ "short_known": [
+  "0xA06050"
+ ]
+}

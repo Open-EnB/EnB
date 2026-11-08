@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -730,3 +730,27 @@ void SortingRendererClass::Deinit()
 	temp_index_array_count=0;
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Renegade's sortingrenderer.cpp (frozen 2026-11-07 from importer.py)
+// EnB: SortingRendererClass::Insert_Triangles (lines 318, 326 at the freeze): Zero Hour's two vertex streams: the
+//       client's Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and
+//       vertex_buffer_types[2] at 0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush
+//       (0xA08790) sets one buffer per stream
+// EnB: Release_Refs (line 398 at the freeze): Zero Hour's two vertex streams: the client's Set_Vertex_Buffer(vb,
+//       stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at 0xBFFECC (vba_offset
+//       0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer per stream
+// EnB: Release_Refs (line 404 at the freeze): The stream loop's int i (Zero Hour's) is reused by the texture loop, as
+//       in Zero Hour; VC6 leaks for-loop variables, so a second declaration does not compile
+// EnB: Release_Refs (line 404 at the freeze): E&B's sorting Release_Refs releases textures up to the device's texture
+//       stages (Zero Hour's): 0x983300 loops to CurrentCaps (0xC006A0) +0x124, Get_Max_Textures_Per_Pass
+// EnB: Apply_Render_State (line 451 at the freeze): E&B's sorting Apply_Render_State sets textures up to the device's
+//       texture stages (Zero Hour's loop; lights and transforms stay in Renegade's order): 0x983BF0 compares the stage
+//       with CurrentCaps (0xC006A0) +0x124
+// EnB: SortingRendererClass::Flush_Sorting_Pool (line 517 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream
+// EnB: SortingRendererClass::Flush (line 664 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream

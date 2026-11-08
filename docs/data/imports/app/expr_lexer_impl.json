@@ -1,0 +1,57 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "expr_lexer_impl.cpp (the client's __FILE__; FAIL_IF lines 34 101), client 0x4C4980-0x4C569F: ExprLexerImplClass's constructor, destructors, Add_Matcher and six virtuals, ~ExprMathLexerClass, ~ExprMathTokenClass and the vector<pair<int, ExprLexerMatchClass *> > instances, all exact (EX3)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x4C4980",
+  "0x4C4AE0",
+  "0x4C4B10",
+  "0x4C4B40",
+  "0x4C4CA0",
+  "0x4C4CF0",
+  "0x4C4F60",
+  "0x4C50F0",
+  "0x4C5110",
+  "0x4C5150",
+  "0x4C5410",
+  "0x4C5530",
+  "0x4C5560",
+  "0x4C55A0",
+  "0x4C55C0",
+  "0x4C5610",
+  "0x4C5650"
+ ],
+ "merged": [],
+ "name": "shared/expr/expr_lexer_impl.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x4C55A0"
+ ],
+ "short_known": [
+  "0x42D120",
+  "0x4C50F0",
+  "0x4C55A0"
+ ],
+ "tiebreak": [
+  "0x4C55C0",
+  "0x4C5610",
+  "0x4C5650"
+ ]
+}

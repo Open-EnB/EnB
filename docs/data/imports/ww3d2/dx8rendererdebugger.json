@@ -1,0 +1,33 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 0,
+  "R": 3,
+  "Z": 2
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x48E910",
+  "0x510CC0",
+  "0x9C4A20",
+  "0x9C4CF0",
+  "0x9C4DF0",
+  "0x9C4E70",
+  "0x9C4EF0",
+  "0x9C4F90",
+  "0x9C5030"
+ ],
+ "merged": [],
+ "name": "dx8rendererdebugger.cpp",
+ "shared": [
+  "0x42F250",
+  "0x48E910",
+  "0x510CC0"
+ ],
+ "tiebreak": [
+  "0x9C5030"
+ ]
+}

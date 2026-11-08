@@ -1,0 +1,21 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "reconstructed",
+ "description": "E&B's RC4Class: a runtime-built initial key, the 8- and 16-byte key setups inlined into Prepare_Key, inline assembly in the 16-byte setup and RC4(); Print_State and operator= are Zero Hour's. All 5 functions byte-exact (docs/library-matching.md \u00a73.6)",
+ "expected": {
+  "G": 0,
+  "R": 0,
+  "Z": 2
+ },
+ "headers_from": "Z",
+ "in_tree": [
+  "0x9E0210",
+  "0x9E0250",
+  "0x9E0290",
+  "0x9E03B0",
+  "0x9E0420"
+ ],
+ "merged": [],
+ "name": "rc4.cpp"
+}

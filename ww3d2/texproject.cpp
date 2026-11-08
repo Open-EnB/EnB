@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1388,3 +1388,22 @@ void TexProjectClass::Update_WS_Bounding_Volume(void)
 	Set_Cull_Box(AABoxClass(WorldBoundingVolume.Center,extent));
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's texproject.cpp (frozen 2026-11-07 from importer.py)
+// EnB: TexProjectClass::Init_Multiplicative (line 579 at the freeze): D9: E&B has no TextureFilterClass (Zero Hour's
+//       08/05/02 KM 'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter members
+//       and accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at
+//       TextureClass offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter
+//       0x94CC30/0x94CC60/0x94CC90 are inside texture.obj, and the client has no out-of-line TextureFilterClass
+//       constructor or Apply
+// EnB: TexProjectClass::Init_Additive (line 681 at the freeze): D9: E&B has no TextureFilterClass (Zero Hour's
+//       08/05/02 KM 'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter members
+//       and accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at
+//       TextureClass offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter
+//       0x94CC30/0x94CC60/0x94CC90 are inside texture.obj, and the client has no out-of-line TextureFilterClass
+//       constructor or Apply
+// EnB: TexProjectClass::Set_Texture (line 736 at the freeze): D9: E&B has no TextureFilterClass (Zero Hour's 08/05/02
+//       KM 'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter members and
+//       accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at TextureClass
+//       offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter 0x94CC30/0x94CC60/0x94CC90
+//       are inside texture.obj, and the client has no out-of-line TextureFilterClass constructor or Apply

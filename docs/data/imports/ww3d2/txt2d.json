@@ -1,0 +1,19 @@
+{
+ "ambiguous": [],
+ "best": "G",
+ "copy": "G",
+ "expected": {
+  "G": 1,
+  "R": 0,
+  "Z": 1
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250"
+ ],
+ "merged": [],
+ "name": "txt2d.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

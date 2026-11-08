@@ -53,7 +53,7 @@ class LossRule(unittest.TestCase):
         self.addCleanup(setattr, wt, 'corrections_at', wt_corr)
 
     def judge(self, a, b):
-        return wt.judge_losses(json.dumps(a), json.dumps(b), 'T', 'old', 'test')
+        return wt.judge_losses(a, b, 'T', 'old', 'test')
 
     def test_move_lands(self):
         r = self.judge(rec(f1=['0x1'], f2=[]), rec(f1=[], f2=['0x1']))
@@ -71,6 +71,31 @@ class LossRule(unittest.TestCase):
         self.assertEqual(r['lost_outright'], ['0x1'])
         self.assertEqual(len(r['lost']), 2)
         self.assertEqual(r['gained'], [('app', 'f2', '0x2'), ('app', 'f3', '0x3')])
+
+
+class LedgerShards(unittest.TestCase):
+    def test_generated(self):
+        self.assertTrue(wt.generated('docs/data/imports/app/co.json'))
+        self.assertTrue(wt.generated('docs/imports.md'))
+        self.assertFalse(wt.generated('app/client/co.cpp'))
+
+    def test_shard_union_takes_target_pairs(self):
+        b = json.dumps({'in_tree': ['0x1'], 'description': 'd'})
+        o = json.dumps({'in_tree': ['0x2'], 'description': 'd'})
+        t = json.dumps({'in_tree': ['0x3'], 'description': 'd'})
+        self.assertEqual(wt.shard_union(b, o, t), (None, None))
+
+    def test_shard_union_keeps_branch_description(self):
+        b = json.dumps({'in_tree': ['0x1'], 'description': 'd'})
+        o = json.dumps({'in_tree': ['0x2'], 'description': 'd'})
+        t = json.dumps({'in_tree': ['0x3'], 'description': 'new'})
+        text, why = wt.shard_union(b, o, t)
+        self.assertIsNone(why)
+        self.assertEqual(json.loads(text), {'in_tree': ['0x2'], 'description': 'new'})
+
+    def test_shard_union_both_descriptions_refuse(self):
+        b, o, t = (json.dumps({'description': x}) for x in ('d', 'o', 't'))
+        self.assertIsNotNone(wt.shard_union(b, o, t)[1])
 
 
 if __name__ == '__main__':

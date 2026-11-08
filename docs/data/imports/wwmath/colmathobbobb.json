@@ -1,0 +1,35 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 11,
+  "R": 16,
+  "Z": 14
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x8C43E0",
+  "0x8C4F60",
+  "0x8C5020",
+  "0x8C50D0",
+  "0x8C51A0",
+  "0x8C5300",
+  "0x8C5460",
+  "0x8C6FD0",
+  "0x8C7100",
+  "0x8C72F0",
+  "0x8C74E0",
+  "0x8C8880",
+  "0x8C89B0",
+  "0x8C8B90"
+ ],
+ "merged": [],
+ "name": "colmathobbobb.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40"
+ ]
+}

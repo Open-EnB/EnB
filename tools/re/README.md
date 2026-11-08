@@ -73,7 +73,7 @@ python objmatch.py -q --json run.json obj/*.obj
 python matchreport.py --title WWLib --out ../../docs/data/bytematch-wwlib R=renegade.json Z=zerohour.json
 ```
 
-The build-VM tools (`vc6.py`, `pool.py`, `importer.py`, `build.py`, `trial*.py`, `pairs_cmp.py` and the
+The build-VM tools (`vc6.py`, `pool.py`, `verify.py`, `build.py`, `tryv2.py`, `pairs_cmp.py` and the
 rest) are indexed in [../vc6/README.md](../vc6/README.md).
 
 `variants.py` (D184, P-API-5 (b)): the Batch API variant pilot for NOT EXACT functions. `pick` (functions of

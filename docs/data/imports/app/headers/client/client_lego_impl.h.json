@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ClientLegoImplClass (D24, 0xA0 bytes, vtables 0xB02F1C / 0xB02F10), its abstract bases, the bone map, knob, orphan and child records (D10 names); the tables are SGI hash_maps (D87)"
+}

@@ -1,0 +1,39 @@
+{
+ "ambiguous": [
+  "0x42A900",
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "LookupClass's index accessors 0x4AC850, 0x4AC8D0, 0x4AC960, asserts on the client's lines 67, 78 and 90 (D25); Find 0x4AC9F0 (line 104; the map keyed by the interned name, _Lbound 0x4AD240); the constructor 0x4AC250 and its LookupBuilderClass (vtable 0xAEB318: Visit 0x4AC3B0 / 0x4AC560), the map's _Insert 0x4ACF30",
+ "expected": {},
+ "in_tree": [
+  "0x4A5A30",
+  "0x4A5F00",
+  "0x4A5FD0",
+  "0x4AC250",
+  "0x4AC3B0",
+  "0x4AC560",
+  "0x4AC720",
+  "0x4AC850",
+  "0x4AC8D0",
+  "0x4AC960",
+  "0x4AC9F0",
+  "0x4ACBB0",
+  "0x4ACC60",
+  "0x4ACF00",
+  "0x4ACF30",
+  "0x4AD240",
+  "0x4AD280",
+  "0x4AD300"
+ ],
+ "merged": [],
+ "name": "shared/auxdata/lookup.cpp",
+ "shared": [
+  "0x4A5A30",
+  "0x4A5F00",
+  "0x4A5FD0"
+ ],
+ "tiebreak": [
+  "0x4AD300"
+ ]
+}

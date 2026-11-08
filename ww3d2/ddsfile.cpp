@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -820,3 +820,19 @@ bool DDSFileClass::Get_4x4_Block(
 	return false;
 
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's ddsfile.cpp (frozen 2026-11-07 from importer.py)
+// EnB: DDSFileClass::DDSFileClass (line 56 at the freeze): E&B's DDSFileClass ctor 0x9A0870 tests the file calls: Open
+//       is called twice and the second result tested (0x9A0907, 0x9A0912 je 0x9A0A97), Read(header,4) tested
+//       (0x9A093B), and a zero read of the surface description takes the error path (0x9A0952 cmp ebx, ebp)
+// EnB: DDSFileClass::Load (lines 190, 211 at the freeze): E&B's DDSFileClass::Load has Zero Hour's size guards:
+//       0x9A0B80 returns false when the data size is 0 (je after the size computation) and allocates only below
+//       0x80000000
+// EnB: Line 225 at the freeze: Zero Hour's colour helpers for recolouring DXT blocks, placed as in Zero Hour's file
+// EnB: DDSFileClass::Copy_Level_To_Surface (lines 253, 287 at the freeze): Zero Hour's HSV shift when copying a DDS
+//       level (Copy_Level_To_Surface byte-exact at 0x9A0CA0); the rest of E&B's DDSFileClass is Renegade's (no volume
+//       or cube members: Renegade's destructor, Get_Memory_Pointer, Get_Level_Size and Get_Pixel match): Zero Hour's
+//       definition, verbatim
+// EnB: Line 425 at the freeze: moved above Copy_Level_To_Surface, which now uses it (as in Zero Hour's file)
+// EnB: DDSFileClass::Get_4x4_Block (line 607 at the freeze): Zero Hour's Get_4x4_Block, which recolours the block by
+//       the HSV shift (Copy_Level_To_Surface passes it), verbatim

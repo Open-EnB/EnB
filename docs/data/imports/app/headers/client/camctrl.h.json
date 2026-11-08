@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "PROVISIONAL (D137): CameraControllerClass, the camera controllers' base (table 0xB04B40; its code 0x7923E0-0x792460 before camctrl_dock.cpp's, not rebuilt) (CM1)"
+}

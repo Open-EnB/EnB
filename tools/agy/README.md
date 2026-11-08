@@ -8,7 +8,7 @@ Claude builders. Not Opus through agy: its per-model quota ran out after one 8-m
 |---|---|
 | `launch.sh ID [MODEL] [TIMEOUT]` | one headless builder in worktree `.work/wt/ID`; `RUN_DIR` names the run folder with `brief-ID.md` and `common.md`; stream to `ID.jsonl`, start / exit in `ID.err` |
 | `poc_check.sh NAME COMMIT [LOG]` | the coordinator's POC run at a commit (a worktree, app build, clientpoc link, 40 s run); `CHECK_HARNESS=1` adds clienttest and udpreplay |
-| `rebase_gen.sh ID run/<date> [BASELINE]` | lands a worktree whose bring-over hit generated-file conflicts |
+| `rebase_gen.sh ID run/<date> [BASELINE]` | `wt.py rebase ID --onto run/<date>` then `wt.py bring-over` (bring-over alone now resolves generated-file conflicts) |
 
 A run (the coordinator-pacing skill's "agy builders" section has the pacing):
 
@@ -20,6 +20,6 @@ A run (the coordinator-pacing skill's "agy builders" section has the pacing):
    launcher avoids the auto-mode check's refusals).
 3. At its exit: the report is the last line's `result.response`, the cost `result.usage.total_tokens`; then
    `python tools/vc6/wt.py bring-over ID --target run/<date> --pool 1` (without `--target` it lands on master), or
-   `rebase_gen.sh` when it refuses for generated files.
+   `wt.py rebase ID --onto run/<date>` when it refuses for another file's conflict (the builder resolves it).
 4. The builders' POC runs crash in WW3D::Set_Gamma (a process agy starts gets no usable D3D device): run
    `poc_check.sh` yourself after landing POC code, and with `CHECK_HARNESS=1` before the handoff.

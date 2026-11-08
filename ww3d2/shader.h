@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -481,3 +481,13 @@ inline void ShaderClass::Reset()
 }
 
 #endif //SHADER_H
+
+// Earth & Beyond client (reconstruction): changes to Renegade's shader.h (frozen 2026-11-07 from importer.py)
+// EnB: enum DetailColorFuncType (line 147 at the freeze): E&B's ShaderClass has Zero Hour's detail color modes and
+//       GRADIENT_MODULATE2X (5) in place of Renegade's GRADIENT_DOTPRODUCT3: ShaderClass::Apply 0x93B510 switches
+//       detail color modes 9-12 and maps primary gradient 5 to D3DTOP_MODULATE/MODULATE2X by (TextureOpCaps & 5)
+// EnB: enum PriGradientType (line 196 at the freeze): E&B's ShaderClass has Zero Hour's detail color modes and
+//       GRADIENT_MODULATE2X (5) in place of Renegade's GRADIENT_DOTPRODUCT3: ShaderClass::Apply 0x93B510 switches
+//       detail color modes 9-12 and maps primary gradient 5 to D3DTOP_MODULATE/MODULATE2X by (TextureOpCaps & 5)
+// EnB: enum StaticSortCategoryType (line 228 at the freeze): Zero Hour's SSCAT_SCREEN static sort category (src ONE,
+//       dest ONE_MINUS_SRC_COLOR): ShaderClass::Get_SS_Category (0x93CE00) and Guess_Sort_Level (0x93CE90) test for it

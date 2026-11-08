@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "its class and LoginTicketInfoClass (pk_classes.h and tsk_login.h include it)"
+}

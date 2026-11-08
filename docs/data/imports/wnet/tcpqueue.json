@@ -1,0 +1,34 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "E&B's TCPQueue (0x8BE860-0x8BF5F0, the client's file of that name, by __FILE__): bytes in 1024-byte buffers, a spare list; its FAIL_IFs on the client's lines; no EA copy has it",
+ "expected": {
+  "R": 0,
+  "Z": 0
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x8BE860",
+  "0x8BE890",
+  "0x8BE980",
+  "0x8BEA10",
+  "0x8BEA30",
+  "0x8BEAC0",
+  "0x8BED40",
+  "0x8BF1C0",
+  "0x8BF5F0",
+  "0x8BF620",
+  "0x8BF7E0",
+  "0x8BF8D0"
+ ],
+ "merged": [],
+ "name": "tcpqueue.cpp",
+ "short_known": [
+  "0x8BEA10"
+ ],
+ "tiebreak": [
+  "0x8BF620",
+  "0x8BF7E0",
+  "0x8BF8D0"
+ ]
+}

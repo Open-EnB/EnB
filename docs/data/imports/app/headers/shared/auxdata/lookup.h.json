@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "LookupClass (D24), only what delta.cpp uses: ctor 0x4AC250, a vector at +0 and a map at +0x10 (size 0x20), element types placeholders"
+}

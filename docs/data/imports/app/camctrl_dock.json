@@ -1,0 +1,37 @@
+{
+ "ambiguous": [
+  "0x42B2F0",
+  "0x499720"
+ ],
+ "copy": "reconstructed",
+ "description": "CameraController06Class (NAME 1, neutral), the camera manager's state-6 controller (docking; table 0xB04B1C, 0x1C bytes), client 0x792310-0x7930CF (__FILE__ 0xB9E248, asserts on lines 109-258; ending with <string>'s initialiser 0x7930B0); 0x792750 functional, not exact (CC1)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x792320",
+  "0x7923E0",
+  "0x792410",
+  "0x792430",
+  "0x792460",
+  "0x792490",
+  "0x7924B0",
+  "0x7924E0",
+  "0x792560",
+  "0x792590",
+  "0x7926B0"
+ ],
+ "merged": [],
+ "name": "client/camctrl_dock.cpp",
+ "shared": [
+  "0x42F250",
+  "0x7923E0",
+  "0x792410",
+  "0x792430",
+  "0x792460",
+  "0x792490"
+ ],
+ "short_known": [
+  "0x792410",
+  "0x792490"
+ ]
+}

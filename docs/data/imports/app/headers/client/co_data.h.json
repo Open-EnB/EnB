@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ClientObjectDataClass (vtable 0xB056CC, 8 bytes) and the per-type access to the client objects' radar, gutter, starmap, navigation and emote data through data_binder.h, keyed by the object"
+}

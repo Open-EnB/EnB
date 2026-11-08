@@ -1,0 +1,32 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 4,
+  "R": 4,
+  "Z": 4
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x4627A0",
+  "0x4627C0",
+  "0xA07A50",
+  "0xA07A70",
+  "0xA07A80",
+  "0xA07AB0"
+ ],
+ "merged": [],
+ "name": "saveloadsubsystem.cpp",
+ "shared": [
+  "0x42F250",
+  "0x4627A0",
+  "0x4627C0",
+  "0xA07A70"
+ ],
+ "short_known": [
+  "0x4627A0",
+  "0xA07A70"
+ ]
+}

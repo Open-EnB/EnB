@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1160,3 +1160,8 @@ bool ShaderClass::Is_Backface_Culling_Inverted(void)
 {
 	return (_PolygonCullMode == D3DCULL_CCW);
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's shader.cpp (frozen 2026-11-07 from importer.py)
+// EnB: ShaderClass::Apply (line 486 at the freeze): ShaderClass::Apply is Zero Hour's (0x93B510)
+// EnB: ShaderClass::Get_SS_Category: from Zero Hour's shader.cpp (byte match)
+// EnB: ShaderClass::Guess_Sort_Level: from Zero Hour's shader.cpp (byte match)

@@ -1,0 +1,46 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "opcode 99's object, 0x877C50-0x878000 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 6 of 6 exact in appfile.py match",
+ "expected": {},
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x877C80",
+  "0x877D20",
+  "0x877D40",
+  "0x877D70",
+  "0x877E40",
+  "0x877E80",
+  "0x877F60",
+  "0x877F80"
+ ],
+ "merged": [],
+ "name": "packets/pkunknown_877c80.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x877D20"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x877D20",
+  "0x877F60"
+ ]
+}

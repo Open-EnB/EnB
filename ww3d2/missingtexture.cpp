@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1967,3 +1967,7 @@ unsigned missing_image_color_values[]={
 0xa2a2a2,0xffffff,0xd1d1d1,0x272727,0xffffff,0x000000,0x787878,0xffffff,
 0xd0d0d0,0xa2a2a2,0xaeaeae,0xeaeaea,0xffffff,0xffffff,0xfdfdfd,0xffffff,
 0xffffff,0xffffff,0xffffff,};
+
+// Earth & Beyond client (reconstruction): changes to Renegade's missingtexture.cpp (frozen 2026-11-07 from importer.py)
+// EnB: MissingTexture::_Init (line 68 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero Hour's texture
+//       API (ww3dformat.h), as in Zero Hour's copy of this file

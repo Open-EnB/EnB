@@ -1,0 +1,26 @@
+{
+ "ambiguous": [],
+ "best": "G",
+ "copy": "R",
+ "expected": {
+  "G": 4,
+  "R": 3,
+  "Z": 4
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x45E1D0",
+  "0x9C4820",
+  "0x9C4880",
+  "0x9C48C0",
+  "0x9C4920",
+  "0x9C4940"
+ ],
+ "merged": [],
+ "name": "dx8polygonrenderer.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45E1D0"
+ ]
+}

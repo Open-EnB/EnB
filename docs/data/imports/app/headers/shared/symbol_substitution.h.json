@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "SymbolSubstitutionClass (D24), named symbols in an SGI hash_map<std::string, std::string> (libs/sgistl, D87), and the $name$ substitution"
+}

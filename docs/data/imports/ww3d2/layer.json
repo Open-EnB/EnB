@@ -1,0 +1,31 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 2,
+  "R": 10,
+  "Z": 10
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x457FA0",
+  "0x967880",
+  "0x9678B0",
+  "0x967930",
+  "0x9679A0",
+  "0x9679F0",
+  "0x967A50",
+  "0x967AC0",
+  "0x967AF0",
+  "0x967B10",
+  "0x967B40",
+  "0x967B60"
+ ],
+ "merged": [],
+ "name": "layer.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

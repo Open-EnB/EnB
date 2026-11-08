@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the aux data's type test (D24 class name; __FILE__ ..\\shared/auxdata/rtti.h, G_ASSERT 'b' on the client's line 32): UnknownRTTIClass<T>::Cast, out of line at 0x5469C0 (DeltaStringClass) and 0x709B30 (the GuildRank class, global 0xC4158C), inlined elsewhere; Unknown_Find_Field<C> calls it"
+}

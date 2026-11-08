@@ -19,6 +19,46 @@
    "length": 42
   }
  },
+ "0x4627A0": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "PostLoadableClass::On_Post_Load",
+   "symbol": "?On_Post_Load@PostLoadableClass@@UAEXXZ",
+   "length": 1
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "PostLoadableClass::On_Post_Load",
+   "symbol": "?On_Post_Load@PostLoadableClass@@UAEXXZ",
+   "length": 1
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "PostLoadableClass::On_Post_Load",
+   "symbol": "?On_Post_Load@PostLoadableClass@@UAEXXZ",
+   "length": 1
+  }
+ },
+ "0x4627C0": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "PostLoadableClass::scalar deleting dtor",
+   "symbol": "??_GPostLoadableClass@@UAEPAXI@Z",
+   "length": 32
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "PostLoadableClass::scalar deleting dtor",
+   "symbol": "??_GPostLoadableClass@@UAEPAXI@Z",
+   "length": 32
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "PostLoadableClass::scalar deleting dtor",
+   "symbol": "??_GPostLoadableClass@@UAEPAXI@Z",
+   "length": 32
+  }
+ },
  "0x48C500": {
   "R": {
    "object": "parameter.obj",
@@ -57,6 +97,26 @@
    "function": "StringClass::operator=",
    "symbol": "??4StringClass@@QAEABV0@PBD@Z",
    "length": 88
+  }
+ },
+ "0x48E910": {
+  "R": {
+   "object": "parameter.obj",
+   "function": "StringClass::Store_Length",
+   "symbol": "?Store_Length@StringClass@@AAEXH@Z",
+   "length": 22
+  },
+  "G": {
+   "object": "parameter.obj",
+   "function": "StringClass::Store_Length",
+   "symbol": "?Store_Length@StringClass@@AAEXH@Z",
+   "length": 22
+  },
+  "Z": {
+   "object": "parameter.obj",
+   "function": "StringClass::Store_Length",
+   "symbol": "?Store_Length@StringClass@@AAEXH@Z",
+   "length": 22
   }
  },
  "0x48E940": {
@@ -139,6 +199,30 @@
    "length": 49
   }
  },
+ "0x941930": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "PersistClass::Save",
+   "symbol": "?Save@PersistClass@@UAE_NAAVChunkSaveClass@@@Z",
+   "length": 5
+  }
+ },
+ "0x941940": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "PersistClass::Load",
+   "symbol": "?Load@PersistClass@@UAE_NAAVChunkLoadClass@@@Z",
+   "length": 5
+  }
+ },
+ "0x941950": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "PersistClass::scalar deleting dtor",
+   "symbol": "??_GPersistClass@@UAEPAXI@Z",
+   "length": 32
+  }
+ },
  "0x9CEFF0": {
   "R": {
    "object": "saveload.obj",
@@ -167,12 +251,188 @@
    "length": 94
   }
  },
+ "0x9EE0E0": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "??8?$VectorClass@H@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@H@@UBE_NABV0@@Z",
+   "length": 62
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "??8?$VectorClass@H@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@H@@UBE_NABV0@@Z",
+   "length": 62
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "??8?$VectorClass@H@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@H@@UBE_NABV0@@Z",
+   "length": 62
+  }
+ },
+ "0x9EE120": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "?Resize@?$VectorClass@H@@UAE_NHPBH@Z",
+   "symbol": "?Resize@?$VectorClass@H@@UAE_NHPBH@Z",
+   "length": 174
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "?Resize@?$VectorClass@H@@UAE_NHPBH@Z",
+   "symbol": "?Resize@?$VectorClass@H@@UAE_NHPBH@Z",
+   "length": 174
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "?Resize@?$VectorClass@H@@UAE_NHPBH@Z",
+   "symbol": "?Resize@?$VectorClass@H@@UAE_NHPBH@Z",
+   "length": 174
+  }
+ },
+ "0x9EE1D0": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "?Clear@?$VectorClass@H@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@H@@UAEXXZ",
+   "length": 39
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "?Clear@?$VectorClass@H@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@H@@UAEXXZ",
+   "length": 39
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "?Clear@?$VectorClass@H@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@H@@UAEXXZ",
+   "length": 39
+  }
+ },
+ "0x9EE200": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$VectorClass@H@@UAEHABH@Z",
+   "symbol": "?ID@?$VectorClass@H@@UAEHABH@Z",
+   "length": 51
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$VectorClass@H@@UAEHABH@Z",
+   "symbol": "?ID@?$VectorClass@H@@UAEHABH@Z",
+   "length": 51
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$VectorClass@H@@UAEHABH@Z",
+   "symbol": "?ID@?$VectorClass@H@@UAEHABH@Z",
+   "length": 51
+  }
+ },
+ "0x9EE240": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$VectorClass@H@@UAEHPBH@Z",
+   "symbol": "?ID@?$VectorClass@H@@UAEHPBH@Z",
+   "length": 27
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$VectorClass@H@@UAEHPBH@Z",
+   "symbol": "?ID@?$VectorClass@H@@UAEHPBH@Z",
+   "length": 27
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$VectorClass@H@@UAEHPBH@Z",
+   "symbol": "?ID@?$VectorClass@H@@UAEHPBH@Z",
+   "length": 27
+  }
+ },
+ "0x9EE650": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "??_G?$VectorClass@H@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@H@@UAEPAXI@Z",
+   "length": 73
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "??_G?$VectorClass@H@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@H@@UAEPAXI@Z",
+   "length": 73
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "??_G?$VectorClass@H@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@H@@UAEPAXI@Z",
+   "length": 73
+  }
+ },
+ "0x9FE490": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "EditableClass::Get_Parameter_Count",
+   "symbol": "?Get_Parameter_Count@EditableClass@@UBEHXZ",
+   "length": 3
+  }
+ },
+ "0x9FE4A0": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "EditableClass::Lock_Parameter",
+   "symbol": "?Lock_Parameter@EditableClass@@UAEPAVParameterClass@@H@Z",
+   "length": 5
+  }
+ },
+ "0x9FE4B0": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "EditableClass::Unlock_Parameter",
+   "symbol": "?Unlock_Parameter@EditableClass@@UAEXH@Z",
+   "length": 3
+  }
+ },
  "0x9FE4C0": {
   "Z": {
    "object": "twiddler.obj",
    "function": "DefinitionClass::scalar deleting dtor",
    "symbol": "??_GDefinitionClass@@UAEPAXI@Z",
    "length": 53
+  }
+ },
+ "0x9FE500": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "DefinitionClass::Get_Name",
+   "symbol": "?Get_Name@DefinitionClass@@UBEPBDXZ",
+   "length": 4
+  }
+ },
+ "0x9FE510": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "DefinitionClass::Set_Name",
+   "symbol": "?Set_Name@DefinitionClass@@UAEXPBD@Z",
+   "length": 80
+  }
+ },
+ "0x9FE560": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "DefinitionClass::Get_ID",
+   "symbol": "?Get_ID@DefinitionClass@@UBEKXZ",
+   "length": 4
+  }
+ },
+ "0x9FE570": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "DefinitionClass::Is_Valid_Config",
+   "symbol": "?Is_Valid_Config@DefinitionClass@@UAE_NAAVStringClass@@@Z",
+   "length": 5
   }
  },
  "0xA03C30": {
@@ -195,12 +455,72 @@
    "length": 29
   }
  },
+ "0xA03C50": {
+  "R": {
+   "object": "persistfactory.obj",
+   "function": "PersistFactoryClass::scalar deleting dtor",
+   "symbol": "??_GPersistFactoryClass@@UAEPAXI@Z",
+   "length": 41
+  },
+  "G": {
+   "object": "persistfactory.obj",
+   "function": "PersistFactoryClass::scalar deleting dtor",
+   "symbol": "??_GPersistFactoryClass@@UAEPAXI@Z",
+   "length": 41
+  },
+  "Z": {
+   "object": "persistfactory.obj",
+   "function": "PersistFactoryClass::scalar deleting dtor",
+   "symbol": "??_GPersistFactoryClass@@UAEPAXI@Z",
+   "length": 41
+  }
+ },
+ "0xA03C80": {
+  "R": {
+   "object": "persistfactory.obj",
+   "function": "PersistFactoryClass::~PersistFactoryClass",
+   "symbol": "??1PersistFactoryClass@@UAE@XZ",
+   "length": 14
+  },
+  "G": {
+   "object": "persistfactory.obj",
+   "function": "PersistFactoryClass::~PersistFactoryClass",
+   "symbol": "??1PersistFactoryClass@@UAE@XZ",
+   "length": 14
+  },
+  "Z": {
+   "object": "persistfactory.obj",
+   "function": "PersistFactoryClass::~PersistFactoryClass",
+   "symbol": "??1PersistFactoryClass@@UAE@XZ",
+   "length": 14
+  }
+ },
  "0xA03CC0": {
   "R": {
    "object": "saveload.obj",
    "function": "$E19",
    "symbol": "_$E19",
    "length": 113
+  }
+ },
+ "0xA03D60": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "$E25",
+   "symbol": "_$E25",
+   "length": 31
+  },
+  "G": {
+   "object": "saveload.obj",
+   "function": "$E19",
+   "symbol": "_$E19",
+   "length": 31
+  },
+  "Z": {
+   "object": "saveload.obj",
+   "function": "$E26",
+   "symbol": "_$E26",
+   "length": 31
   }
  },
  "0xA03D80": {
@@ -325,6 +645,242 @@
    "function": "SaveLoadSystemClass::Register_Pointer",
    "symbol": "?Register_Pointer@SaveLoadSystemClass@@SAXPAX0@Z",
    "length": 21
+  }
+ },
+ "0xA04400": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "??_G?$SList@VPostLoadableClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$SList@VPostLoadableClass@@@@UAEPAXI@Z",
+   "length": 105
+  }
+ },
+ "0xA04470": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Add_Head@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "symbol": "?Add_Head@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "length": 109
+  },
+  "G": {
+   "object": "saveload.obj",
+   "function": "?Add_Head@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "symbol": "?Add_Head@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "length": 109
+  },
+  "Z": {
+   "object": "saveload.obj",
+   "function": "?Add_Head@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "symbol": "?Add_Head@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "length": 109
+  }
+ },
+ "0xA044E0": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Add_Head@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@@Z",
+   "symbol": "?Add_Head@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@@Z",
+   "length": 233
+  }
+ },
+ "0xA045D0": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Add_Tail@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "symbol": "?Add_Tail@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "length": 46
+  },
+  "G": {
+   "object": "saveload.obj",
+   "function": "?Add_Tail@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "symbol": "?Add_Tail@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "length": 46
+  },
+  "Z": {
+   "object": "saveload.obj",
+   "function": "?Add_Tail@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "symbol": "?Add_Tail@?$SList@VPostLoadableClass@@@@UAE_NAAV1@@Z",
+   "length": 46
+  }
+ },
+ "0xA04600": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Add_Tail@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@@Z",
+   "symbol": "?Add_Tail@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@@Z",
+   "length": 243
+  }
+ },
+ "0xA04700": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Remove_Head@?$SList@VPostLoadableClass@@@@UAEPAVPostLoadableClass@@XZ",
+   "symbol": "?Remove_Head@?$SList@VPostLoadableClass@@@@UAEPAVPostLoadableClass@@XZ",
+   "length": 81
+  }
+ },
+ "0xA04760": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Remove_Tail@?$SList@VPostLoadableClass@@@@UAEPAVPostLoadableClass@@XZ",
+   "symbol": "?Remove_Tail@?$SList@VPostLoadableClass@@@@UAEPAVPostLoadableClass@@XZ",
+   "length": 31
+  },
+  "G": {
+   "object": "saveload.obj",
+   "function": "?Remove_Tail@?$SList@VPostLoadableClass@@@@UAEPAVPostLoadableClass@@XZ",
+   "symbol": "?Remove_Tail@?$SList@VPostLoadableClass@@@@UAEPAVPostLoadableClass@@XZ",
+   "length": 31
+  },
+  "Z": {
+   "object": "saveload.obj",
+   "function": "?Remove_Tail@?$SList@VPostLoadableClass@@@@UAEPAVPostLoadableClass@@XZ",
+   "symbol": "?Remove_Tail@?$SList@VPostLoadableClass@@@@UAEPAVPostLoadableClass@@XZ",
+   "length": 31
+  }
+ },
+ "0xA04780": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Remove@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@@Z",
+   "symbol": "?Remove@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@@Z",
+   "length": 144
+  }
+ },
+ "0xA04810": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Remove_All@?$SList@VPostLoadableClass@@@@UAEXXZ",
+   "symbol": "?Remove_All@?$SList@VPostLoadableClass@@@@UAEXXZ",
+   "length": 88
+  }
+ },
+ "0xA04870": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Insert_Before@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@0@Z",
+   "symbol": "?Insert_Before@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@0@Z",
+   "length": 129
+  },
+  "Z": {
+   "object": "saveload.obj",
+   "function": "?Insert_Before@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@0@Z",
+   "symbol": "?Insert_Before@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@0@Z",
+   "length": 129
+  }
+ },
+ "0xA04900": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Insert_After@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@0@Z",
+   "symbol": "?Insert_After@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@0@Z",
+   "length": 137
+  },
+  "Z": {
+   "object": "saveload.obj",
+   "function": "?Insert_After@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@0@Z",
+   "symbol": "?Insert_After@?$SList@VPostLoadableClass@@@@UAE_NPAVPostLoadableClass@@0@Z",
+   "length": 137
+  }
+ },
+ "0xA04990": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Is_Empty@?$SList@VPostLoadableClass@@@@UBE_NXZ",
+   "symbol": "?Is_Empty@?$SList@VPostLoadableClass@@@@UBE_NXZ",
+   "length": 9
+  },
+  "G": {
+   "object": "saveload.obj",
+   "function": "?Is_Empty@?$SList@VPostLoadableClass@@@@UBE_NXZ",
+   "symbol": "?Is_Empty@?$SList@VPostLoadableClass@@@@UBE_NXZ",
+   "length": 9
+  },
+  "Z": {
+   "object": "saveload.obj",
+   "function": "?Is_Empty@?$SList@VPostLoadableClass@@@@UBE_NXZ",
+   "symbol": "?Is_Empty@?$SList@VPostLoadableClass@@@@UBE_NXZ",
+   "length": 9
+  }
+ },
+ "0xA049A0": {
+  "R": {
+   "object": "saveload.obj",
+   "function": "?Get_Count@?$SList@VPostLoadableClass@@@@UBEJXZ",
+   "symbol": "?Get_Count@?$SList@VPostLoadableClass@@@@UBEJXZ",
+   "length": 17
+  },
+  "G": {
+   "object": "saveload.obj",
+   "function": "?Get_Count@?$SList@VPostLoadableClass@@@@UBEJXZ",
+   "symbol": "?Get_Count@?$SList@VPostLoadableClass@@@@UBEJXZ",
+   "length": 17
+  },
+  "Z": {
+   "object": "saveload.obj",
+   "function": "?Get_Count@?$SList@VPostLoadableClass@@@@UBEJXZ",
+   "symbol": "?Get_Count@?$SList@VPostLoadableClass@@@@UBEJXZ",
+   "length": 17
+  }
+ },
+ "0xA049E0": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "DefinitionMgrClass::Name",
+   "symbol": "?Name@DefinitionMgrClass@@MBEPBDXZ",
+   "length": 6
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "DefinitionMgrClass::Name",
+   "symbol": "?Name@DefinitionMgrClass@@MBEPBDXZ",
+   "length": 6
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "DefinitionMgrClass::Name",
+   "symbol": "?Name@DefinitionMgrClass@@MBEPBDXZ",
+   "length": 6
+  }
+ },
+ "0xA049F0": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "DefinitionMgrClass::Chunk_ID",
+   "symbol": "?Chunk_ID@DefinitionMgrClass@@UBEKXZ",
+   "length": 6
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "DefinitionMgrClass::Chunk_ID",
+   "symbol": "?Chunk_ID@DefinitionMgrClass@@UBEKXZ",
+   "length": 6
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "DefinitionMgrClass::Chunk_ID",
+   "symbol": "?Chunk_ID@DefinitionMgrClass@@UBEKXZ",
+   "length": 6
+  }
+ },
+ "0xA04A00": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "DefinitionMgrClass::Contains_Data",
+   "symbol": "?Contains_Data@DefinitionMgrClass@@MBE_NXZ",
+   "length": 3
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "DefinitionMgrClass::Contains_Data",
+   "symbol": "?Contains_Data@DefinitionMgrClass@@MBE_NXZ",
+   "length": 3
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "DefinitionMgrClass::Contains_Data",
+   "symbol": "?Contains_Data@DefinitionMgrClass@@MBE_NXZ",
+   "length": 3
   }
  },
  "0xA04A50": {
@@ -531,6 +1087,294 @@
    "function": "DefinitionMgrClass::fnCompareDefinitionsCallback",
    "symbol": "?fnCompareDefinitionsCallback@DefinitionMgrClass@@CAHPBX0@Z",
    "length": 68
+  }
+ },
+ "0xA05960": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "?Clear@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "length": 42
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "?Clear@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "length": 42
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "?Clear@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "length": 42
+  }
+ },
+ "0xA05990": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "length": 27
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "length": 27
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "length": 27
+  }
+ },
+ "0xA059B0": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "??8?$VectorClass@PAVDefinitionClass@@@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@PAVDefinitionClass@@@@UBE_NABV0@@Z",
+   "length": 62
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "??8?$VectorClass@PAVDefinitionClass@@@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@PAVDefinitionClass@@@@UBE_NABV0@@Z",
+   "length": 62
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "??8?$VectorClass@PAVDefinitionClass@@@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@PAVDefinitionClass@@@@UBE_NABV0@@Z",
+   "length": 62
+  }
+ },
+ "0xA059F0": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "?Resize@?$DynamicVectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "symbol": "?Resize@?$DynamicVectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "length": 176
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "?Resize@?$DynamicVectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "symbol": "?Resize@?$DynamicVectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "length": 176
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "?Resize@?$DynamicVectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "symbol": "?Resize@?$DynamicVectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "length": 176
+  }
+ },
+ "0xA05AA0": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "length": 38
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "length": 38
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "length": 38
+  }
+ },
+ "0xA05AD0": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "Entry::vector deleting dtor",
+   "symbol": "??_EEntry@?$HashTemplateClass@VStringClass@@PAV?$DynamicVectorClass@PAVDefinitionClass@@@@@@QAEPAXI@Z",
+   "length": 101
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "Entry::vector deleting dtor",
+   "symbol": "??_EEntry@?$HashTemplateClass@VStringClass@@PAV?$DynamicVectorClass@PAVDefinitionClass@@@@@@QAEPAXI@Z",
+   "length": 101
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "Entry::vector deleting dtor",
+   "symbol": "??_EEntry@?$HashTemplateClass@VStringClass@@PAV?$DynamicVectorClass@PAVDefinitionClass@@@@@@QAEPAXI@Z",
+   "length": 101
+  }
+ },
+ "0xA05B40": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "??_G?$DynamicVectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "??_G?$DynamicVectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "??_G?$DynamicVectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "length": 73
+  }
+ },
+ "0xA05B90": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "?Resize@?$VectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "symbol": "?Resize@?$VectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "length": 174
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "?Resize@?$VectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "symbol": "?Resize@?$VectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "length": 174
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "?Resize@?$VectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "symbol": "?Resize@?$VectorClass@PAVDefinitionClass@@@@UAE_NHPBQAVDefinitionClass@@@Z",
+   "length": 174
+  }
+ },
+ "0xA05C40": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "?Clear@?$VectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "length": 39
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "?Clear@?$VectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "length": 39
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "?Clear@?$VectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@PAVDefinitionClass@@@@UAEXXZ",
+   "length": 39
+  }
+ },
+ "0xA05C70": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "length": 51
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "length": 51
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHABQAVDefinitionClass@@@Z",
+   "length": 51
+  }
+ },
+ "0xA05CB0": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "length": 27
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "length": 27
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "symbol": "?ID@?$VectorClass@PAVDefinitionClass@@@@UAEHPBQAVDefinitionClass@@@Z",
+   "length": 27
+  }
+ },
+ "0xA05CD0": {
+  "R": {
+   "object": "definitionmgr.obj",
+   "function": "??_G?$VectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "G": {
+   "object": "definitionmgr.obj",
+   "function": "??_G?$VectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "Z": {
+   "object": "definitionmgr.obj",
+   "function": "??_G?$VectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@PAVDefinitionClass@@@@UAEPAXI@Z",
+   "length": 73
+  }
+ },
+ "0xA06000": {
+  "R": {
+   "object": "definitionfactory.obj",
+   "function": "DefinitionFactoryClass::DefinitionFactoryClass",
+   "symbol": "??0DefinitionFactoryClass@@QAE@XZ",
+   "length": 30
+  },
+  "G": {
+   "object": "definitionfactory.obj",
+   "function": "DefinitionFactoryClass::DefinitionFactoryClass",
+   "symbol": "??0DefinitionFactoryClass@@QAE@XZ",
+   "length": 30
+  },
+  "Z": {
+   "object": "definitionfactory.obj",
+   "function": "DefinitionFactoryClass::DefinitionFactoryClass",
+   "symbol": "??0DefinitionFactoryClass@@QAE@XZ",
+   "length": 30
+  }
+ },
+ "0xA06020": {
+  "R": {
+   "object": "definitionfactory.obj",
+   "function": "DefinitionFactoryClass::scalar deleting dtor",
+   "symbol": "??_GDefinitionFactoryClass@@UAEPAXI@Z",
+   "length": 41
+  },
+  "G": {
+   "object": "definitionfactory.obj",
+   "function": "DefinitionFactoryClass::scalar deleting dtor",
+   "symbol": "??_GDefinitionFactoryClass@@UAEPAXI@Z",
+   "length": 41
+  },
+  "Z": {
+   "object": "definitionfactory.obj",
+   "function": "DefinitionFactoryClass::scalar deleting dtor",
+   "symbol": "??_GDefinitionFactoryClass@@UAEPAXI@Z",
+   "length": 41
+  }
+ },
+ "0xA06050": {
+  "Z": {
+   "object": "definitionfactory.obj",
+   "function": "DefinitionFactoryClass::~DefinitionFactoryClass",
+   "symbol": "??1DefinitionFactoryClass@@UAE@XZ",
+   "length": 14
   }
  },
  "0xA06060": {
@@ -767,6 +1611,106 @@
    "length": 29
   }
  },
+ "0xA06630": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 42
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 42
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 42
+  }
+ },
+ "0xA06660": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 27
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 27
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 27
+  }
+ },
+ "0xA06680": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 42
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 42
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 42
+  }
+ },
+ "0xA066B0": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 27
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 27
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 27
+  }
+ },
+ "0xA066D0": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "??8?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "length": 82
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "??8?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "length": 82
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "??8?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "length": 82
+  }
+ },
  "0xA06730": {
   "R": {
    "object": "pointerremap.obj",
@@ -785,6 +1729,66 @@
    "function": "?Resize@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAE_NHPBUPtrPairStruct@PointerRemapClass@@@Z",
    "length": 208
+  }
+ },
+ "0xA06800": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 39
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 39
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 39
+  }
+ },
+ "0xA06830": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 70
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 70
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 70
+  }
+ },
+ "0xA06880": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 27
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 27
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 27
   }
  },
  "0xA068A0": {
@@ -807,6 +1811,46 @@
    "length": 214
   }
  },
+ "0xA06980": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 54
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 54
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEHABUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 54
+  }
+ },
+ "0xA069C0": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "??8?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "length": 62
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "??8?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "length": 62
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "??8?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "symbol": "??8?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UBE_NABV0@@Z",
+   "length": 62
+  }
+ },
  "0xA06A00": {
   "R": {
    "object": "pointerremap.obj",
@@ -827,6 +1871,66 @@
    "length": 196
   }
  },
+ "0xA06AD0": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 39
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 39
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?Clear@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "symbol": "?Clear@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEXXZ",
+   "length": 39
+  }
+ },
+ "0xA06B00": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 51
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 51
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 51
+  }
+ },
+ "0xA06B40": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 27
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 27
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHPBUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 27
+  }
+ },
  "0xA06B60": {
   "R": {
    "object": "pointerremap.obj",
@@ -845,6 +1949,126 @@
    "function": "?Resize@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "symbol": "?Resize@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAE_NHPBUPtrRemapStruct@PointerRemapClass@@@Z",
    "length": 202
+  }
+ },
+ "0xA06C30": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 38
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 38
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "symbol": "?ID@?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEHABUPtrRemapStruct@PointerRemapClass@@@Z",
+   "length": 38
+  }
+ },
+ "0xA06C60": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  }
+ },
+ "0xA06CB0": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@UPtrPairStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  }
+ },
+ "0xA06D00": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$VectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  }
+ },
+ "0xA06D50": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "??_G?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@UPtrRemapStruct@PointerRemapClass@@@@UAEPAXI@Z",
+   "length": 73
+  }
+ },
+ "0xA06DA0": {
+  "R": {
+   "object": "pointerremap.obj",
+   "function": "??0?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@QAE@HPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "??0?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@QAE@HPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 114
+  },
+  "G": {
+   "object": "pointerremap.obj",
+   "function": "??0?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@QAE@HPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "??0?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@QAE@HPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 114
+  },
+  "Z": {
+   "object": "pointerremap.obj",
+   "function": "??0?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@QAE@HPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "symbol": "??0?$VectorClass@UPtrPairStruct@PointerRemapClass@@@@QAE@HPBUPtrPairStruct@PointerRemapClass@@@Z",
+   "length": 114
   }
  },
  "0xA06E20": {
@@ -941,12 +2165,64 @@
    "length": 135
   }
  },
+ "0xA070A0": {
+  "R": {
+   "object": "saveloadstatus.obj",
+   "function": "SaveLoadStatus::Inc_Status_Count",
+   "symbol": "?Inc_Status_Count@SaveLoadStatus@@YAXXZ",
+   "length": 7
+  }
+ },
+ "0xA07140": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "??_G?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UAEPAXI@Z",
+   "symbol": "??_G?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UAEPAXI@Z",
+   "length": 30
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "??_G?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UAEPAXI@Z",
+   "symbol": "??_G?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UAEPAXI@Z",
+   "length": 30
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "??_G?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UAEPAXI@Z",
+   "symbol": "??_G?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UAEPAXI@Z",
+   "length": 30
+  }
+ },
  "0xA07160": {
   "Z": {
    "object": "twiddler.obj",
    "function": "TwiddlerClass::TwiddlerClass",
    "symbol": "??0TwiddlerClass@@QAE@XZ",
    "length": 118
+  }
+ },
+ "0xA071E0": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "TwiddlerClass::Get_Class_ID",
+   "symbol": "?Get_Class_ID@TwiddlerClass@@UBEKXZ",
+   "length": 6
+  }
+ },
+ "0xA071F0": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "TwiddlerClass::Get_Indirect_Class_ID",
+   "symbol": "?Get_Indirect_Class_ID@TwiddlerClass@@UBEKXZ",
+   "length": 4
+  }
+ },
+ "0xA07200": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "TwiddlerClass::Set_Indirect_Class_ID",
+   "symbol": "?Set_Indirect_Class_ID@TwiddlerClass@@UAEXK@Z",
+   "length": 10
   }
  },
  "0xA07210": {
@@ -981,6 +2257,14 @@
    "length": 25
   }
  },
+ "0xA07390": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "TwiddlerClass::Get_Factory",
+   "symbol": "?Get_Factory@TwiddlerClass@@UBEABVPersistFactoryClass@@XZ",
+   "length": 6
+  }
+ },
  "0xA073A0": {
   "Z": {
    "object": "twiddler.obj",
@@ -1013,6 +2297,114 @@
    "length": 191
   }
  },
+ "0xA076B0": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "?Clear@?$DynamicVectorClass@H@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@H@@UAEXXZ",
+   "length": 42
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "?Clear@?$DynamicVectorClass@H@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@H@@UAEXXZ",
+   "length": 42
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "?Clear@?$DynamicVectorClass@H@@UAEXXZ",
+   "symbol": "?Clear@?$DynamicVectorClass@H@@UAEXXZ",
+   "length": 42
+  }
+ },
+ "0xA076E0": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$DynamicVectorClass@H@@UAEHPBH@Z",
+   "symbol": "?ID@?$DynamicVectorClass@H@@UAEHPBH@Z",
+   "length": 27
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$DynamicVectorClass@H@@UAEHPBH@Z",
+   "symbol": "?ID@?$DynamicVectorClass@H@@UAEHPBH@Z",
+   "length": 27
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$DynamicVectorClass@H@@UAEHPBH@Z",
+   "symbol": "?ID@?$DynamicVectorClass@H@@UAEHPBH@Z",
+   "length": 27
+  }
+ },
+ "0xA07710": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "?Chunk_ID@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEKXZ",
+   "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEKXZ",
+   "length": 6
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "?Chunk_ID@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEKXZ",
+   "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEKXZ",
+   "length": 6
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "?Chunk_ID@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEKXZ",
+   "symbol": "?Chunk_ID@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEKXZ",
+   "length": 6
+  }
+ },
+ "0xA07720": {
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "??_G?$SimpleDefinitionFactoryClass@VTwiddlerClass@@$0OAAA@$1?TwiddlerClassName@@3PADA@@UAEPAXI@Z",
+   "symbol": "??_G?$SimpleDefinitionFactoryClass@VTwiddlerClass@@$0OAAA@$1?TwiddlerClassName@@3PADA@@UAEPAXI@Z",
+   "length": 30
+  }
+ },
+ "0xA07740": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "?Resize@?$DynamicVectorClass@H@@UAE_NHPBH@Z",
+   "symbol": "?Resize@?$DynamicVectorClass@H@@UAE_NHPBH@Z",
+   "length": 176
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "?Resize@?$DynamicVectorClass@H@@UAE_NHPBH@Z",
+   "symbol": "?Resize@?$DynamicVectorClass@H@@UAE_NHPBH@Z",
+   "length": 176
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "?Resize@?$DynamicVectorClass@H@@UAE_NHPBH@Z",
+   "symbol": "?Resize@?$DynamicVectorClass@H@@UAE_NHPBH@Z",
+   "length": 176
+  }
+ },
+ "0xA077F0": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$DynamicVectorClass@H@@UAEHABH@Z",
+   "symbol": "?ID@?$DynamicVectorClass@H@@UAEHABH@Z",
+   "length": 38
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$DynamicVectorClass@H@@UAEHABH@Z",
+   "symbol": "?ID@?$DynamicVectorClass@H@@UAEHABH@Z",
+   "length": 38
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "?ID@?$DynamicVectorClass@H@@UAEHABH@Z",
+   "symbol": "?ID@?$DynamicVectorClass@H@@UAEHABH@Z",
+   "length": 38
+  }
+ },
  "0xA07820": {
   "Z": {
    "object": "twiddler.obj",
@@ -1027,6 +2419,46 @@
    "function": "?Load@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "symbol": "?Load@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEPAVPersistClass@@AAVChunkLoadClass@@@Z",
    "length": 212
+  }
+ },
+ "0xA079B0": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "?Save@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
+   "symbol": "?Save@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
+   "length": 79
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "?Save@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
+   "symbol": "?Save@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
+   "length": 79
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "?Save@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
+   "symbol": "?Save@?$SimplePersistFactoryClass@VTwiddlerClass@@$0BAC@@@UBEXAAVChunkSaveClass@@PAVPersistClass@@@Z",
+   "length": 79
+  }
+ },
+ "0xA07A00": {
+  "R": {
+   "object": "twiddler.obj",
+   "function": "??_G?$DynamicVectorClass@H@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@H@@UAEPAXI@Z",
+   "length": 73
+  },
+  "G": {
+   "object": "twiddler.obj",
+   "function": "??_G?$DynamicVectorClass@H@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@H@@UAEPAXI@Z",
+   "length": 73
+  },
+  "Z": {
+   "object": "twiddler.obj",
+   "function": "??_G?$DynamicVectorClass@H@@UAEPAXI@Z",
+   "symbol": "??_G?$DynamicVectorClass@H@@UAEPAXI@Z",
+   "length": 73
   }
  },
  "0xA07A50": {
@@ -1047,6 +2479,26 @@
    "function": "SaveLoadSubSystemClass::SaveLoadSubSystemClass",
    "symbol": "??0SaveLoadSubSystemClass@@QAE@XZ",
    "length": 30
+  }
+ },
+ "0xA07A70": {
+  "R": {
+   "object": "saveloadsubsystem.obj",
+   "function": "SaveLoadSubSystemClass::Contains_Data",
+   "symbol": "?Contains_Data@SaveLoadSubSystemClass@@MBE_NXZ",
+   "length": 3
+  },
+  "G": {
+   "object": "saveloadsubsystem.obj",
+   "function": "SaveLoadSubSystemClass::Contains_Data",
+   "symbol": "?Contains_Data@SaveLoadSubSystemClass@@MBE_NXZ",
+   "length": 3
+  },
+  "Z": {
+   "object": "saveloadsubsystem.obj",
+   "function": "SaveLoadSubSystemClass::Contains_Data",
+   "symbol": "?Contains_Data@SaveLoadSubSystemClass@@MBE_NXZ",
+   "length": 3
   }
  },
  "0xA07A80": {
@@ -1087,6 +2539,46 @@
    "function": "SaveLoadSubSystemClass::~SaveLoadSubSystemClass",
    "symbol": "??1SaveLoadSubSystemClass@@UAE@XZ",
    "length": 26
+  }
+ },
+ "0xA07AD0": {
+  "R": {
+   "object": "definitionfactorymgr.obj",
+   "function": "DefinitionFactoryMgrClass::Find_Factory",
+   "symbol": "?Find_Factory@DefinitionFactoryMgrClass@@SAPAVDefinitionFactoryClass@@K@Z",
+   "length": 45
+  },
+  "G": {
+   "object": "definitionfactorymgr.obj",
+   "function": "DefinitionFactoryMgrClass::Find_Factory",
+   "symbol": "?Find_Factory@DefinitionFactoryMgrClass@@SAPAVDefinitionFactoryClass@@K@Z",
+   "length": 45
+  },
+  "Z": {
+   "object": "definitionfactorymgr.obj",
+   "function": "DefinitionFactoryMgrClass::Find_Factory",
+   "symbol": "?Find_Factory@DefinitionFactoryMgrClass@@SAPAVDefinitionFactoryClass@@K@Z",
+   "length": 45
+  }
+ },
+ "0xA07B00": {
+  "R": {
+   "object": "definitionfactorymgr.obj",
+   "function": "DefinitionFactoryMgrClass::Find_Factory",
+   "symbol": "?Find_Factory@DefinitionFactoryMgrClass@@SAPAVDefinitionFactoryClass@@PBD@Z",
+   "length": 55
+  },
+  "G": {
+   "object": "definitionfactorymgr.obj",
+   "function": "DefinitionFactoryMgrClass::Find_Factory",
+   "symbol": "?Find_Factory@DefinitionFactoryMgrClass@@SAPAVDefinitionFactoryClass@@PBD@Z",
+   "length": 55
+  },
+  "Z": {
+   "object": "definitionfactorymgr.obj",
+   "function": "DefinitionFactoryMgrClass::Find_Factory",
+   "symbol": "?Find_Factory@DefinitionFactoryMgrClass@@SAPAVDefinitionFactoryClass@@PBD@Z",
+   "length": 55
   }
  },
  "0xA07B40": {

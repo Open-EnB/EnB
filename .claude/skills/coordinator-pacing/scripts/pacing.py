@@ -9,7 +9,8 @@
             [--weekly-rate 2.0] [--session-rate 4.0] [--floor-gb 3] [--gb-per-builder 2] [--no-log]
 
 `usage` reads the account's windows with the local Claude Code login token (the same numbers as /usage).
-`heartbeat` prints usage, free memory, the pool, HEAD's health and the number of builders that may be
+`heartbeat` prints usage, free memory, the pool, HEAD's health, the unlanded wt/* branches (`wt.py list --unlanded`'s
+first line) and the number of builders that may be
 launched now, and appends one line to the plan's log (unless --no-log). The projection uses the burn rate
 observed between the previous heartbeat line in the plan and now when there is one, else the --*-rate
 defaults (percent of the window per hour per Opus builder).
@@ -28,7 +29,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..'))
 PAIRS_CMP = os.path.join(REPO, 'tools', 'vc6', 'pairs_cmp.py')
 POOL = os.path.join(REPO, 'tools', 'vc6', 'pool.py')
-IMPORTS = os.path.join(REPO, 'docs', 'data', 'imports.json')
+LEDGER = os.path.join(REPO, 'tools', 'vc6', 'ledger.py')   # HEAD's ledger shards -> one snapshot file
 
 
 # ---------------------------------------------------------------- usage
@@ -79,9 +80,11 @@ def pool():
 
 # --------------------------------------------------------------- health
 def health(baseline):
-    """HEAD's imports.json parses; the pairs lost outright against the baseline (rename moves excluded)."""
-    head = subprocess.run(['git', 'show', 'HEAD:docs/data/imports.json'], cwd=REPO,
-                          capture_output=True, text=True).stdout
+    """HEAD's ledger parses (every shard); the pairs lost outright against the baseline (rename moves excluded)."""
+    tmp = os.path.join(REPO, '.work', 'imports.head.json')
+    r = subprocess.run([sys.executable, LEDGER, 'export', '--rev', 'HEAD', '-o', tmp], cwd=REPO,
+                       capture_output=True, text=True)
+    head = io.open(tmp, encoding='utf-8').read() if r.returncode == 0 and os.path.exists(tmp) else ''
     try:
         json.loads(head)
         parses = True
@@ -89,8 +92,6 @@ def health(baseline):
         parses = False
     lost_outright, gained_n = None, None
     if baseline and parses:
-        tmp = os.path.join(REPO, '.work', 'imports.head.json')
-        io.open(tmp, 'w', encoding='utf-8', newline='').write(head)
         out = subprocess.run([sys.executable, PAIRS_CMP, baseline, tmp], cwd=REPO,
                              capture_output=True, text=True).stdout
         # one labelled list per line; D166 added `gained tie-break` and the `lost tie-break ...` lines
@@ -136,6 +137,16 @@ def parse_hhmm(s):
     if t < datetime.now():
         t += timedelta(days=1)
     return t
+
+
+def unlanded():
+    """`wt.py list --unlanded`'s first line: the wt/* branches with commits on neither master nor a run branch."""
+    try:
+        sys.path.insert(0, os.path.join(REPO, 'tools', 'vc6'))
+        import wt
+        return wt.unlanded_line(wt.unlanded_branches())
+    except (Exception, SystemExit) as e:    # wt exits through sys.exit on a git error: never stop the heartbeat
+        return 'unlanded    ? (%s)' % (str(e)[:120] or type(e).__name__)
 
 
 def heartbeat(a):
@@ -192,7 +203,7 @@ def heartbeat(a):
     lines = usage_lines(rows)
     lines.append('memory      free %.1f GB of %.1f GB; pool %d running, %d leased; builders running %d'
                  % (fgb, tgb, running, leased, a.builders))
-    lines.append('HEAD        imports.json %s; gained %s vs baseline; lost outright %s'
+    lines.append('HEAD        ledger %s; gained %s vs baseline; lost outright %s'
                  % ('parses' if parses else 'DOES NOT PARSE', gained_n, lost))
     lines.append('rates       weekly %.2f %%/h, session %.2f %%/h per builder (%s)'
                  % (weekly_rate, session_rate, rate_src))
@@ -202,6 +213,7 @@ def heartbeat(a):
     lines.append('allowance   launch %d more (memory allows %d, usage allows %d)' % (allow, allow_mem, allow_use))
     if not parses or lost:
         lines.append('ACTION      HEAD is unhealthy: fix before any launch')
+    lines.append(unlanded())
     print('\n'.join(lines))
 
     if a.plan and not a.no_log:
@@ -225,7 +237,7 @@ def main():
     hb = sub.add_parser('heartbeat')
     hb.add_argument('--plan', required=True)
     hb.add_argument('--builders', type=int, required=True, help='builders running now')
-    hb.add_argument('--baseline', default=None, help="the run's baseline imports.json for pairs_cmp")
+    hb.add_argument('--baseline', default=None, help="the run's baseline (.work/imports.<sha>.json, ledger.py export --rev) for pairs_cmp")
     hb.add_argument('--accept', default=None,
                     help='comma-separated addresses whose loss the user accepted (D66), not counted as lost')
     hb.add_argument('--handoff', default=None, help='HH:MM when the handoff must be written')
@@ -247,7 +259,7 @@ def main():
             print('%-12s %-8s %s' % (name, state, who or 'free'))
     elif a.cmd == 'health':
         parses, g, lost = health(a.baseline)
-        print('imports.json %s; gained %s; lost outright %s' % ('parses' if parses else 'DOES NOT PARSE', g, lost))
+        print('ledger %s; gained %s; lost outright %s' % ('parses' if parses else 'DOES NOT PARSE', g, lost))
     elif a.cmd == 'heartbeat':
         heartbeat(a)
     else:

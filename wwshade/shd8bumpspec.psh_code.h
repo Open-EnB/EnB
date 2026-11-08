@@ -52,3 +52,7 @@ DWORD shd8bumpspec_psh_code[]={
 0x0a0a3074,	0x20646461,	0x202c3072,	0x202c3072,	0x0a0a3172,	0x2064616d,	0x202c3072,	0x202c3174,
 0x612e3076,	0x3072202c,	0x6d0a0a0a,	0x735f6c75,	0x72207461,	0x74202c31,	0x2c612e31,	0x0a307420,
 0x64616d0a,	0x2c307220,	0x2c327420,	0x2c317220,	0x0a307220,	0x00000000,	0x00000000};
+
+// Earth & Beyond client (reconstruction): shd8bumpspec.psh_code.h (frozen 2026-11-07 from importer.py)
+// EnB: written from the client (RECONSTRUCTED): shd8bumpspec_psh_code, client .data 0xBCE3F0-0xBCE4CB
+//       (Shd8BumpSpecClass::Init 0xA147A0)

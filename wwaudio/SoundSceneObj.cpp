@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -535,3 +535,12 @@ SoundSceneObjClass::Unknown_Flush_Release_List (void)
 	m_UnknownReleaseList.Reset_Active ();
 	return ;
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's SoundSceneObj.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 69 at the freeze: (the same: defined after m_IDListMutex, the critical section first)
+// EnB: SoundSceneObjClass::~SoundSceneObjClass (line 141 at the freeze): SoundSceneObjClass::~SoundSceneObjClass
+//       0xA00460 queues m_UserObj (0xA004C0) and m_AttachedObject (0xA00522) for a deferred release under the lock at
+//       0xC40590 instead of releasing them
+// EnB: Line 503 at the freeze: SoundSceneObjClass::Unknown_Release_Later 0xA01280 and Unknown_Flush_Release_List
+//       0xA01300, after Find_Sound_Object 0xA011E0: the flush releases each queued object, clears its slot and sets the
+//       count to 0 (0xA0134F)

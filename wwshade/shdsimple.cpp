@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -324,3 +324,15 @@ void Shd6SimpleClass::Copy_Vertex_Stream
 	}
 }
 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's shdsimple.cpp (frozen 2026-11-07 from importer.py)
+// EnB: ShdSimpleDefClass::ShdSimpleDefClass (line 72 at the freeze): E&B's definitions start Ambient at 0,0,0:
+//       ShdSimpleDefClass() 0xA0D290 (+0x1C..0x24 zero)
+// EnB: Shd6SimpleClass::Shd6SimpleClass (line 180 at the freeze): base ctor without class id (Shd6SimpleClass ctor
+//       0xA0D780)
+// EnB: Shd6SimpleClass::Apply_Shared (line 244 at the freeze): E&B's light setup for the fixed function shaders
+//       (0xA0FC60, after Light in shdhwshader.obj; name not known), called at the end of Shd6CubeMapClass::Apply_Shared
+//       0xA0AF40, Shd6SimpleClass and Shd6GlossMaskClass::Apply_Shared (0xA0CD90, 0xA0D910); E&B sets the material
+//       here, not in Apply_Instance (0xA0DA00 only sets the texture)
+// EnB: Shd6SimpleClass::Apply_Instance (line 254 at the freeze): Shd6SimpleClass::Apply_Instance 0xA0DA00 only sets
+//       the texture; the material is set in Apply_Shared 0xA0D910

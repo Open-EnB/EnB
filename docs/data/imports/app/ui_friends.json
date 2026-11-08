@@ -1,0 +1,73 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0",
+  "0x444190"
+ ],
+ "copy": "reconstructed",
+ "description": "ui_friends.cpp (the client's __FILE__ 0xB7F3D0; client 0x58F090-0x5928AF by its asserts (lines 586-722) and its string order, after ui_faction_panel.cpp, before ui_group.cpp): so far 0x5908B0-0x59102F, the players' list rebuilt and sorted, the rows lit, a row clicked, a symbol sent (FR1)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42C4E0",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D050",
+  "0x42D120",
+  "0x42F250",
+  "0x432B80",
+  "0x433A10",
+  "0x58F0F0",
+  "0x58FDD0",
+  "0x58FF00",
+  "0x590430",
+  "0x590480",
+  "0x590500",
+  "0x590550",
+  "0x5906C0",
+  "0x590780",
+  "0x590810",
+  "0x590C40",
+  "0x590C70",
+  "0x591030",
+  "0x5910D0",
+  "0x591350",
+  "0x5916B0",
+  "0x591880",
+  "0x591EE0",
+  "0x592090",
+  "0x592150",
+  "0x5922E0",
+  "0x592350",
+  "0x5923A0",
+  "0x592640",
+  "0x592690",
+  "0x592710",
+  "0x592780"
+ ],
+ "merged": [],
+ "name": "client/ui_friends.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42C4E0",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D050",
+  "0x42D120",
+  "0x42F250",
+  "0x432B80",
+  "0x433A10"
+ ],
+ "short_known": [
+  "0x42D120"
+ ],
+ "tiebreak": [
+  "0x592780"
+ ]
+}

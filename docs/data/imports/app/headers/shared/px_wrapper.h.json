@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "PxWrapper (the client's name, 0x456B60's profile strings) and the other px_*.cpp classes it uses (PxObject; not rebuilt, declared as far as px_wrapper.cpp uses them); provisional header name"
+}

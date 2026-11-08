@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -272,3 +272,9 @@ protected:
 };
 
 #endif 
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's hanim.h (frozen 2026-11-07 from importer.py)
+// EnB: class for (line 117 at the freeze): E&B's HAnimClass has no Class_ID virtual (Generals' addition): the client's
+//       HRawAnimClass 0xB14480 and HCompressedAnimClass 0xB144E8 vtables have 23 slots with Has_Embedded_Sounds
+//       0x987000 (tests EmbeddedSoundBoneIndex >= 0) right after Has_Visibility, and Set_Animation 0x9C5980 calls
+//       Set_Embedded_Sound_Bone_Index through slot 0x54

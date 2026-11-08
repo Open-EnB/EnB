@@ -44,7 +44,7 @@ python .claude/skills/coordinator-pacing/scripts/pacing.py heartbeat --plan .wor
 2026-10-27), so they do not block launches; any other loss sets the allowance to 0.
 
 It prints and logs: both usage windows with reset times; host free memory, the pool's running and leased VMs;
-whether HEAD's imports.json parses and which addresses are lost outright against the baseline (pairs that
+whether HEAD's ledger (docs/data/imports) parses and which addresses are lost outright against the baseline (pairs that
 reappear under another file are rename moves, D95(c), not losses); the burn rate observed since the previous
 heartbeat line (per builder, per hour), or the defaults when there is none; the projection at the handoff time
 with the builders running now; and the allowance: how many more builders may start.
@@ -57,7 +57,7 @@ The rules behind the allowance (defaults in the script, all overridable):
   and 4 % of the session window per hour. Launch only while the projection at the handoff stays under the cap
   (92 %). Never launch under 5 % of the week. Seven Opus builders burned about 1 % of the session window per
   minute at their heaviest; the observed rate in the log is the better guide once two heartbeats exist.
-- **Health:** no launch while HEAD's imports.json does not parse or an address is lost outright. Fix first
+- **Health:** no launch while HEAD's ledger does not parse or an address is lost outright. Fix first
   (usually a builder's commit script: see workflow.md §3.8).
 - **Harness check (D182):** at a heartbeat after any landed commit that rebuilds a file clienttest or udpreplay links
   (app code under app/, wlib / wnet, their stubs), run them at HEAD on a quiet copy: a worktree at HEAD (`python
@@ -105,7 +105,9 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
   (the Write tool, never a heredoc) with slots for the last results; run them after the final report.
 - Then: `python tools/vc6/pool.py stop-idle --minutes 0`, `python tools/harness/clientpoc.py clean --all` (POC
   instances; a running client's is kept), `git status` clean except `.claude/settings.json`,
-  HEAD's imports.json parses, delete the heartbeat cron, log the end with the final usage figures.
+  HEAD's ledger parses, `python tools/vc6/wt.py list --unlanded` is empty, or each one is named in the log with
+  why (the heartbeat's `unlanded` line counts them; `wt.py remove` refuses such a branch without `--force`), delete
+  the heartbeat cron, log the end with the final usage figures.
 - Claims: `python tools/run_branch.py release <builder id>` (or `release UNIT`) for each claim whose builder
   brought nothing in; the others end when the run's PR merges. An old issue claim: `release N` (it drops the
   `Claims #N` line too). At handoff `run_branch.py ready --summary FILE
@@ -114,7 +116,7 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
   (tools/progress.py), takes the PR out of draft; the verify service verifies it and the maintainer merges it.
 - Cleanup, once no builder is running (at handoff, and again at the next run's start, after the previous PR merged):
   `python tools/run_branch.py cleanup` deletes the local branches and worktrees whose every commit is already in
-  origin/master (merged, or the same patch), keeps and lists the ones with commits of their own (say in the log
+  origin/master (merged, or landed by wt.py's test: same author time, author and subject, or the same patch), keeps and lists the ones with commits of their own (say in the log
   which, and why they are kept), fast-forwards local master and lists remote branches other than master and the
   current run's (GitHub deletes a merged PR's branch; a leftover one is deleted with the user's say-so). Never
   while a builder works: a fresh builder worktree with no commits yet looks merged.
@@ -134,8 +136,9 @@ Gemini 3.8 Flash (high) through the Antigravity CLI runs on the user's Google su
   reset. Quotas are per model: Flash only (Opus through agy ran out in one short item).
 - **Memory and VMs** count as for any builder (3-4 at a time on this host); each works in its own `wt.py` worktree.
 - **Each exit:** log `result.usage` (never the builder's own token figure), land with `wt.py bring-over ID --target
-  run/<date>` (several finished at once: `wt.py bring-over A B C --target run/<date>`, one verify; or
-  `tools/agy/rebase_gen.sh` for generated-file conflicts), run the heartbeat; after POC code lands, the POC
+  run/<date>` (several finished at once: `wt.py bring-over A B C --target run/<date>`, one verify;
+  both resolve and regenerate generated-file conflicts; another file's conflict: `wt.py rebase ID`, which stops on it
+  for the builder), run the heartbeat; after POC code lands, the POC
   check is yours (`tools/agy/poc_check.sh`): builders' own POC runs crash at startup and prove nothing.
 - **Briefs** name every WinMain stand-in that opens a dialog (0x847D20, 0x846C90) and say it stays (D69).
 

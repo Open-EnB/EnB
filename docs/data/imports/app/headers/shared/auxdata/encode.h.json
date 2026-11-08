@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "encode.cpp's declarations (name assumed: the root's codec select 0x4A3FA0, in another object, uses RecordCodec and Get_Tree_Codec): the codecs (vtables 0xAEB29C, 0xAEB2AC/0xAEB2A0), the field lists (pool 0xBE3AE8), the records (vtables 0xAEB2E4, 0xAEB2C4, 0xAEB2D4; pools 0xBE3AD0, 0xBE3AB8), RecordTableClass, the update collector (vtable 0xAEB290)"
+}

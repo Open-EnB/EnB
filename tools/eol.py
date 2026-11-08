@@ -6,7 +6,7 @@ that are not.
     python tools/eol.py fix [PATH...]       rewrite them with LF (CRLF -> LF; a lone CR is reported, not changed)
 
 Git normalizes what it stores, so a CRLF working file never reaches a commit; but until it is fixed,
-byte comparisons (importer.py replay) and edit scripts' anchors see the CRs. Windows tools that write
+byte comparisons and edit scripts' anchors see the CRs. Windows tools that write
 CRLF: Python's text mode without newline='\\n', some editors. Files marked -text in .gitattributes
 (docs/data/asserts.txt) are skipped. Standard library only.
 """

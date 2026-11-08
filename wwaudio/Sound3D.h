@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -207,3 +207,26 @@ class Sound3DClass : public AudibleSoundClass
 
 
 #endif //__SOUND3DOBJ_H
+
+// Earth & Beyond client (reconstruction): changes to Renegade's Sound3D.h (frozen 2026-11-07 from importer.py)
+// EnB: class Sound3DClass (line 68 at the freeze): Sound3DClass::_UnknownDopplerFlag (name not known, D10): the byte
+//       at 0xC404F8, tested by On_Frame_Update (0x9F7EFD) and Set_Listener_Transform (0x9F84C5), written by the app
+//       from 'Doppler_Enabled' (0x51461C)
+// EnB: class Sound3DClass (line 130 at the freeze): Sound3DClass::Set_Velocity 0x9F8920 takes a second float (ret 8;
+//       [ebp+0xC] read at 0x9F8C69, scaled by 0.05/33.3), and Sound3DClass::On_Frame_Update 0x9F7E80 passes the elapsed
+//       time (call [vtbl+0x184] with two arguments). So the one-argument Set_Velocity of SoundPseudo3DClass and
+//       Listener3DClass no longer override it: SoundPseudo3DClass's vtable 0xB15EE4 keeps 0x9F8920 in slot 97 and has
+//       the empty one-argument virtual (0x9FFA90, ret 4) as its first own slot (105); Listener3DClass's vtable 0xB163D0
+//       has it (0xA02DE0, ret 4) as its last slot (121), after Set_Sample_Playback_Rate
+// EnB: class Sound3DClass (line 197 at the freeze): Sound3DClass has E&B fields: 12 bytes after m_CurrentVelocity
+//       (+0x148) and four ints after m_LastUpdate (+0x160 to +0x16C), all zeroed by the constructors (client 0x9F76A0,
+//       0x9F7C90, 0x9F9220) and not copied by operator=. Meaning not known: m_Unknown148 (a Vector3 by size),
+//       m_Unknown160 to m_Unknown16C
+// EnB: class Sound3DClass (line 198 at the freeze): Sound3DClass::Set_Listener_Transform 0x9F84A0 stores the listener
+//       translation change per ms in +0x148; Set_Velocity 0x9F8920 subtracts it
+// EnB: class Sound3DClass (line 201 at the freeze): the four ints at the end
+// EnB: class Sound3DClass (line 202 at the freeze): (comment only: Set_Listener_Transform 0x9F84A0 times the listener
+//       velocity with +0x160)
+// EnB: class Sound3DClass (line 203 at the freeze): Sound3DClass +0x164, +0x168, +0x16C are floats: Set_Velocity
+//       0x9F8920 compares the pitch with +0x164 and +0x168 (fcomp at 0x9F8CAD, 0x9F8CC8) and multiplies the velocity by
+//       +0x16C (fld at 0x9F8BC5)

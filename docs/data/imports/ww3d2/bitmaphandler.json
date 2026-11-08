@@ -1,0 +1,36 @@
+{
+ "ambiguous": [],
+ "best": "Z",
+ "copy": "Z",
+ "expected": {
+  "G": 1,
+  "R": 1,
+  "Z": 7
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x42F250",
+  "0x48F3A0",
+  "0x48FFB0",
+  "0x490150",
+  "0x4902D0",
+  "0x4904B0",
+  "0x99B190",
+  "0x99B1A0",
+  "0x99B250",
+  "0x99C510"
+ ],
+ "merged": [],
+ "name": "bitmaphandler.cpp",
+ "shared": [
+  "0x42F250",
+  "0x48F3A0",
+  "0x48FFB0",
+  "0x490150",
+  "0x4902D0",
+  "0x4904B0"
+ ],
+ "short_known": [
+  "0x99B190"
+ ]
+}

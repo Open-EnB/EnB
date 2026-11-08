@@ -1,0 +1,51 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "the height field, client 0x4634A0-0x465D30 (PROVISIONAL file name), functional from VIDTEST 0x402420/0x4026B0/0x402AE0 (NOT EXACT, D42; M2.4)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x4634A0",
+  "0x463790",
+  "0x4637C0",
+  "0x463BF0",
+  "0x463C80",
+  "0x463CD0",
+  "0x463D20",
+  "0x463D90",
+  "0x463E00",
+  "0x463E70",
+  "0x464600",
+  "0x465030",
+  "0x465D30",
+  "0x466140",
+  "0x466180",
+  "0x4663E0",
+  "0x466780",
+  "0x4667B0",
+  "0x4667D0",
+  "0x466820",
+  "0x466860",
+  "0x4668A0",
+  "0x4668F0"
+ ],
+ "merged": [],
+ "name": "shared/heightfield.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40",
+  "0x4663E0",
+  "0x4667B0",
+  "0x4667D0"
+ ],
+ "shared_callers": [
+  "0x4668F0"
+ ],
+ "short_known": [
+  "0x4667B0"
+ ],
+ "tiebreak": [
+  "0x4668F0"
+ ]
+}

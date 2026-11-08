@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -124,3 +124,16 @@ class UDP
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's udp.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 55 at the freeze: E&B's UDP is 0x2C bytes (CordMgr news 0x2C before the constructor, 0x856EF4): fd +0, a
+//       second socket +4 that only the destructor 0x8BFA10 touches (closesocket if set), myIP +8 / myPort +0xC
+//       (getLocalAddr 0x8BFCD0, Bind 0x8BFB70), addr +0x10, a std::list<sockaddr_in> +0x20 (allocator byte +0x20, head
+//       +0x24, size +0x28: constructor 0x8BF990's 0x18-byte head node, Read 0x8BFE30's push_back / pop_front); the
+//       accounting callback is one static (0xBF52C4, Write 0x8BFD50 / Read 0x8BFE30)
+// EnB: enum sockStat (line 92 at the freeze): GetStatus 0x8C0100 maps WSAECONNRESET (10054) to -16 after WSAEBADF
+//       (`sub eax, 0x2746; neg; sbb; and 0xF; add -0x10`); SetBlocking 0x8BFD00 takes a socket (-1: fd) and has no
+//       caller in udp.cpp but Bind's inlined copy: public; Close 0x8BFCA0 (between Bind and getLocalAddr), AddReset
+//       0x8C0060 and an empty member 0x8C00E0 (after ClearStatus 0x8C0040, before GetStatus) have no caller in the
+//       client; Set_Accounting_Callback 0x8C05E0 / Clear_Accounting_Callback 0x8C0600 (bandwidthaccounting.cpp's
+//       constructor 0x84C795 / destructor 0x84C868): app/wwudp/udp.h's declarations, same mangled names

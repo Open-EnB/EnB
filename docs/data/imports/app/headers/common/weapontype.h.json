@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "WeaponType (WEAPON_TYPE_FIRST / MAX_TYPE_WEAPON) and the converters of weapontype.cpp (header name assumed)"
+}

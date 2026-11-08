@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -552,3 +552,11 @@ void VectorProcessorClass::Power(float *dst, float *src, const float pow, const 
 	for (int i=0; i<count; i++)
 		dst[i]=powf(src[i],pow);
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's vp.cpp (frozen 2026-11-07 from importer.py)
+// EnB: BROADCAST(XMM, (line 51 at the freeze): C-equivalent comment for the inline assembly above this line
+//       (conventions.md, Inline assembly; was annotations.py)
+// EnB: VectorProcessorClass::Prefetch (line 71 at the freeze): C-equivalent comment for the inline assembly above this
+//       line (conventions.md, Inline assembly; was annotations.py)
+// EnB: VectorProcessorClass::Transform (line 90 at the freeze): C-equivalent comment for the inline assembly above
+//       this line (conventions.md, Inline assembly; was annotations.py)

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ui_registration's demo/registration checks and helpers (provisional header name after ui_registration.cpp, NAME 3; main_client.cpp includes it), RG1 (2026-11-06): RegistrationInterface's classes under __UI_REGISTRATION_MEMBERS"
+}

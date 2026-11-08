@@ -1,0 +1,30 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "smouse.cpp (__FILE__ 0xB76820): the software mouse (tsk_login.h's LoginUnknown18Class, 0x30 bytes), client 0x514FE0-0x5155D5 (FAIL_IFs on the client's lines 267, 269, 278, D25), NOT EXACT (D64, functional for the POC); the views' defaults before it and the interface defaults 0x515690-0x515750 not yet (ACT)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x514FE0",
+  "0x515030",
+  "0x515080",
+  "0x515120",
+  "0x515320",
+  "0x515340",
+  "0x5153B0",
+  "0x515400",
+  "0x515440",
+  "0x515510",
+  "0x5155A0"
+ ],
+ "merged": [],
+ "name": "client/smouse.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x515320"
+ ]
+}

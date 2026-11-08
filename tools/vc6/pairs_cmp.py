@@ -1,12 +1,15 @@
-"""Compare the sets of (library, file, address) pairs of two saved docs/data/imports.json copies.
+"""Compare the sets of (library, file, address) pairs of two ledgers (docs/data/imports).
 
 The fix loop (docs/workflow.md) keeps a change only if it gains pairs and loses none, and totals
 hide swaps, so the check is on the sets themselves. A pair is one client function address that a
-library file reproduces byte for byte (the file's `in_tree` list in imports.json).
+library file reproduces byte for byte (the file's `in_tree` list in its ledger shard).
 
-    cp docs/data/imports.json .work/imports.before.json
-    ... change the tree, run  python tools/vc6/importer.py verify --lib LIB --pool K ...
-    python tools/vc6/pairs_cmp.py .work/imports.before.json docs/data/imports.json
+    python tools/vc6/ledger.py export -o .work/imports.before.json
+    ... change the tree, run  python tools/vc6/verify.py --lib LIB --pool K ...
+    python tools/vc6/pairs_cmp.py .work/imports.before.json docs/data/imports
+
+A and B are each a shard directory, a single-file snapshot (ledger.py export; the old imports.json)
+or a git revision (ledger.load).
 
 Prints `gained [...]` (in B, not in A) and `lost [...]` (in A, not in B). Each entry is
 (lib, file, address). A pair found by D166's caller tie-break (the file's `tiebreak` list, also in
@@ -41,13 +44,15 @@ ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 CORRECTIONS = os.path.join(ROOT, 'docs', 'data', 'accepted-corrections.json')
 
 
-def load(path):
-    with open(path, encoding="utf-8") as f:
-        return json.load(f)
+def load(src):
+    """A ledger as imports.json's dict: a shard directory, a snapshot file or a git revision."""
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import ledger
+    return ledger.load(src)
 
 
 def pairs(data, key='in_tree'):
-    """All (lib, file, address) triples of an imports.json (`in_tree`, or the `tiebreak` list)."""
+    """All (lib, file, address) triples of a ledger (`in_tree`, or the `tiebreak` list)."""
     out = set()
     for lib, entry in data.items():
         for f, v in entry.get('files', {}).items():
@@ -97,7 +102,7 @@ def split_corrections(lost, gained, corrections):
 
 
 def compare(da, db, corrections=None):
-    """Every list main prints, from two loaded imports.json copies, as a dict. `lost` is lost_outright's pairs, the
+    """Every list main prints, from two loaded ledgers, as a dict. `lost` is lost_outright's pairs, the
     moves and the shared holders together; corrections: the accepted list to judge by (default the file's)."""
     ta, tb = pairs(da, 'tiebreak'), pairs(db, 'tiebreak')
     a, b = pairs(da) - ta, pairs(db) - tb          # plain pairs

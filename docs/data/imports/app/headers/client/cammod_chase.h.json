@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ChaseCameraModuleClass's declaration, D24 header name from cammod_chase.cpp's __FILE__; its +0x24 is accel.h's AccelClass (CM1)"
+}

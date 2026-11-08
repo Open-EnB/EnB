@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UniqueDesignIDLookupClass (D24), ids of named designs from an ini section in an SGI hash_map<std::string, int> (libs/sgistl, D87)"
+}

@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -626,3 +626,25 @@ void Wstring::strgrow(int length)
     return;
   }
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's wstring.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Wstring::Wstring (line 52 at the freeze): E&B's copy constructor 0x8B5E30 takes strlen(other.str)+1 once (esi),
+//       allocates it + 0x20 and copies that many bytes (`mov ecx, esi; rep movsd` after reloading other.str), no second
+//       strlen; operator+ 0x8B6870 / 0x8B6A90 inline it the same way
+// EnB: Wstring::clear (line 269 at the freeze): E&B's clear 0x8B6EB0 and ~Wstring 0x8B5EC0 delete str without testing
+//       it (`mov eax, [esi]; push eax; call delete`), and replace 0x8B7230's inlined destructor of its local the same
+// EnB: Wstring::setSize (line 278 at the freeze): E&B's setSize 0x8B6EE0 returns for a size of 0 too (`test ebx, ebx;
+//       ... jle`), matchbot's only below 0 (`jl`)
+// EnB: Line 406 at the freeze: E&B's 0x8B7520 (after replace 0x8B7230): get(), then strchr(src, c) until NULL or the
+//       end, storing the second character at each hit; returns 1 (`mov al, 1; ret 8`). htmlview.cpp's 0x7759E0 calls it
+//       with ('\n', ' '), ('\r', ' '), ('\t', ' ') before replace("&nbsp;", ...)
+// EnB: Wstring::set (line 423 at the freeze): E&B's set(char *) 0x8B7570 takes the length once (strlen(s)+1 in ebp),
+//       grows by it and copies that many bytes (`mov ecx, ebp; rep movsd`), no second strlen as strcpy would; with
+//       strgrow inlined it is the client's form, and the constructor 0x8B5DB0, operator= 0x8B6100 / 0x8B61D0, insert
+//       0x8B7070, replace 0x8B7230, getToken 0x8B7C60 and getLine 0x8B7EB0 inline it the same way
+// EnB: Line 430 at the freeze: E&B's three after set(char *) 0x8B7570: 0x8B7640 is set(char *) inlined on other.get()
+//       (str, or "" when NULL), returning 1; 0x8B7730 and 0x8B7800 are the same two bodies with no result (no `mov al,
+//       1`), `ret 4`; none has a caller
+// EnB: Wstring::toLower (line 500 at the freeze): E&B's toLower 0x8B79E0 and toUpper 0x8B7A50 count with a signed
+//       index (`test edi, edi; jle`, `cmp esi, edi; jl`), matchbot's with uint32 (`jbe` / `jb`)
+// EnB: Wstring::toUpper (line 515 at the freeze): as toLower: toUpper 0x8B7A50 counts with a signed index

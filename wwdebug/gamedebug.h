@@ -19,3 +19,6 @@
 #define END_PROFILE(uniqueid, msg, howoftentolog, howoftentoreset)
 
 #endif // __GAMEDEBUG_H
+
+// Earth & Beyond client (reconstruction): gamedebug.h (frozen 2026-11-07 from importer.py)
+// EnB: a new file (NEW_FILES), written for the reconstruction; its own header says why

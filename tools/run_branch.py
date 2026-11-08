@@ -24,7 +24,7 @@
                                                           local master, list leftover remote branches
 
 Run start: master is verified by construction (every PR passes vc6-verify), so the run's baseline is
-origin/master's imports.json. The PR opens as a draft at once, so the run's claims have a home: they are lines
+origin/master's ledger (`ledger.py export --rev`, .work/imports.<sha>.json). The PR opens as a draft at once, so the run's claims have a home: they are lines
 in its body (claims.py's run-claims block, `claim: UNIT (BUILDER, MODEL)`), live while the PR is open (draft or
 not) and ended by its merge or close; no issues, no bot comments, no emails. The Claims Action reads them on
 every edit of the body and refuses any contributor's claim that overlaps them. Push at heartbeats that brought
@@ -42,6 +42,9 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import claims as C  # noqa: E402
+
+sys.path.insert(0, os.path.join(HERE, 'vc6'))
+import wt  # noqa: E402  (own_commits, drop_worktree: one test of 'landed' for cleanup and wt.py)
 
 ROOT = os.path.normpath(os.path.join(HERE, '..'))
 SUMMARY =re.compile(r'<!-- run-summary -->.*?<!-- /run-summary -->', re.S)
@@ -127,8 +130,11 @@ def cmd_start(a):
         git('commit', '-q', '--allow-empty', '-m', msg)
         print(f'{b}: empty commit `Start run {b[4:]}` (the draft PR needs one)')
     base = os.path.join(ROOT, '.work', f'imports.{git("rev-parse", "--short", "origin/master")}.json')
-    with open(base, 'w', encoding='utf-8', newline='\n') as f:
-        f.write(git('show', 'origin/master:docs/data/imports.json') + '\n')
+    # the single-file snapshot of master's ledger (ledger.py export --rev; pacing.py --baseline, pairs_cmp.py)
+    r = subprocess.run([sys.executable, os.path.join(ROOT, 'tools', 'vc6', 'ledger.py'), 'export', '--rev', 'origin/master',
+                        '-o', base], cwd=ROOT)
+    if r.returncode:
+        sys.exit('run_branch: ledger.py export of origin/master failed')
     print(f'baseline: {os.path.relpath(base, ROOT)} (coordinator-pacing --baseline)')
     push = subprocess.run(['git', 'push', '-u', 'origin', b], cwd=ROOT)
     if push.returncode:
@@ -299,7 +305,8 @@ def cmd_status(a):
 
 
 def cmd_cleanup(a):
-    """Local branches whose every commit is in origin/master (merged, or the same patch by `git cherry`) are deleted
+    """Local branches whose every commit is in origin/master (merged, or landed by wt.own_commits: the same
+    author time, author and subject, or the same patch by `git cherry`, or generated files only) are deleted
     with their worktrees; branches with commits of their own are kept and listed; local master is fast-forwarded;
     remote branches other than master and the current run's are listed (GitHub deletes a merged PR's branch)."""
     git('fetch', '-q', '--prune', 'origin')
@@ -313,7 +320,7 @@ def cmd_cleanup(a):
     for b in git('for-each-ref', '--format=%(refname:short)', 'refs/heads/').split():
         if b in (cur, 'master'):
             continue
-        own = [l for l in git('cherry', 'origin/master', b).splitlines() if l.startswith('+')]
+        own = wt.own_commits('refs/heads/' + b, ['refs/remotes/origin/master'], ROOT)
         if own:
             kept.append(f'{b} ({len(own)} commit(s) of its own)')
             continue
@@ -322,7 +329,7 @@ def cmd_cleanup(a):
                 kept.append(f'{b} (its worktree {trees[b]} has uncommitted changes)')
                 continue
             if not a.dry:
-                git('worktree', 'remove', trees[b])
+                wt.drop_worktree(trees[b])      # junctions first: never through .work/pseudo
         if not a.dry:
             git('branch', '-D', b)
         gone.append(b)

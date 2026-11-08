@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -3994,3 +3994,156 @@ const char* DX8Wrapper::Get_DX8_Blend_Op_Name(unsigned value)
 	default							: return "UNKNOWN";
 	}
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's dx8wrapper.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Line 77 at the freeze: D9: E&B's WW3D2 was built with USE_WWSHADE (SHD_Init 0xA07CE0, SHD_Shutdown 0xA07CF0
+//       called from dx8wrapper); Zero Hour's dx8wrapper.cpp includes shdlib.h
+// EnB: Line 78 at the freeze: D9: End_Scene 0x924890 calls DX8WebBrowser::Render(0) (0x920590, in dx8webbrowser.obj's
+//       range before dx8wrapper.obj), as Zero Hour; Zero Hour's dx8wrapper.cpp includes dx8webbrowser.h
+// EnB: Line 105 at the freeze: Zero Hour's 06/27/02 additions (see dx8wrapper.h): their statics (the two Vector4
+//       arrays' initialisers are byte-exact, 0x920D70 and 0x920E70)
+// EnB: Line 114 at the freeze: Zero Hour's Light_Environment (0xC00648) and Render_Info (0xC0064C)
+// EnB: Line 119 at the freeze: Zero Hour's Ambient_Color (client 0xC00530)
+// EnB: Line 128 at the freeze: D9: E&B keeps Zero Hour's transform cache with the compare live (Zero Hour has it under
+//       #if 0): _Set_DX8_Transform(Matrix4) 0x983FE0 calls Matrix4 operator!= (0x8DEEC0) on m and
+//       DX8Transforms[transform] (0xBFAFB8 + transform*64) before copying and SetTransform; Apply_Render_State_Changes
+//       0x9254A0 inlines it for the world and view matrices
+// EnB: Line 136 at the freeze: (the current depth buffer)
+// EnB: Line 149 at the freeze: (the draw-call counter)
+// EnB: Line 176 at the freeze: (and its last-frame copy)
+// EnB: DX8Wrapper::Init (line 234 at the freeze): D9: DX8Wrapper::Init 0x9211C0 as Zero Hour's (the zeroing memsets of
+//       textures, render and stage states, shader constants, render_state and Shadow_Map; Direct3DCreate8Ptr==NULL
+//       returns false), without DX8Wrapper_IsWindowed, and clearing TextureStageStates for 32 entries only (rep stosd
+//       ecx=0x20)
+// EnB: DX8Wrapper::Shutdown (line 340 at the freeze): D9: Shutdown 0x9213C0 releases Textures[] up to
+//       CurrentCaps->Get_Max_Textures_Per_Pass() ([CurrentCaps+0x124], tested for NULL first), as Zero Hour
+// EnB: DX8Wrapper::Do_Onetime_Device_Dependent_Inits (line 376 at the freeze): the default filters were initialised
+//       through TextureFilterClass::_Init_Filters, as in Zero Hour's texture API (and Zero Hour's copy);
+//       TEXTURE_FILTER_PATCHES (0b8f6ce, D9) later replaced TextureFilterClass with TextureClass's own filter members
+// EnB: DX8Wrapper::Do_Onetime_Device_Dependent_Inits (line 376 at the freeze): D9: E&B has no TextureFilterClass (Zero
+//       Hour's 08/05/02 KM 'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter
+//       members and accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at
+//       TextureClass offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter
+//       0x94CC30/0x94CC60/0x94CC90 are inside texture.obj, and the client has no out-of-line TextureFilterClass
+//       constructor or Apply
+// EnB: DX8Wrapper::Do_Onetime_Device_Dependent_Inits (line 378 at the freeze): D9: SHD_INIT after
+//       TheDX8MeshRenderer.Init (call 0xA07CE0 at 0x921551, Do_Onetime_Device_Dependent_Inits 0x9214B0), as Zero Hour
+// EnB: DX8Wrapper::Invalidate_Cached_Render_States (line 421 at the freeze): D9: Invalidate_Cached_Render_States
+//       0x921C20 fills RenderStates and TextureStageStates (0x100 dwords each) and sets ShaderClass's dirty byte; no
+//       Textures[a]=NULL
+// EnB: Line 425 at the freeze: E&B: 0x921C50 returns true unless the device is lost; if TestCooperativeLevel (vtable
+//       +0xC) says D3DERR_DEVICENOTRESET it inlines Reset_Device and clears IsDeviceLost (0xC005EC) when a second test
+//       succeeds. No EA copy has it; neutral name (D10)
+// EnB: DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns (line 449 at the freeze): Zero Hour's two vertex streams: the
+//       client's Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and
+//       vertex_buffer_types[2] at 0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush
+//       (0xA08790) sets one buffer per stream
+// EnB: DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns (line 457 at the freeze): The stream loop's int i (Zero
+//       Hour's) is reused by the texture loop, as in Zero Hour; VC6 leaks for-loop variables, so a second declaration
+//       does not compile
+// EnB: DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns (line 457 at the freeze): D9:
+//       Do_Onetime_Device_Dependent_Shutdowns 0x921DA0 loops render_state.Textures to
+//       CurrentCaps->Get_Max_Textures_Per_Pass() (cmp edi,[eax+0x124] each pass), as Zero Hour
+// EnB: DX8Wrapper::Do_Onetime_Device_Dependent_Shutdowns (line 467 at the freeze): D9: SHD_SHUTDOWN between
+//       BoxRenderObjClass::Shutdown and TheDX8MeshRenderer.Shutdown (call 0xA07CF0 at 0x921E90), as Zero Hour
+// EnB: DX8Wrapper::Create_Device (line 480 at the freeze): E&B's DX8Wrapper::Create_Device is Zero Hour's without
+//       DX8Wrapper_PreserveFPU: 0x921EF0 stores the vertex processing type in Vertex_Processing_Behavior 0xC00650
+//       ((HWTL ? 0x60 : 0) + 0x20, no FPU_PRESERVE test), sets _DX8SingleThreaded 0xC006A8=1, builds no local DX8Caps
+//       (no ATI lockable back buffer), and returns false when the first CreateDevice fails with other formats (ZH's
+//       else branch)
+// EnB: DX8Wrapper::Reset_Device (line 603 at the freeze): D9: Reset_Device as E&B inlines it into Flip_To_Primary
+//       0x924AE0, Set_Swap_Interval 0x923450, Set_Device_Resolution 0x923820 and the E&B device-restore function
+//       0x921C50: both vertex streams cleared, SHD_SHUTDOWN_SHADERS (ShdRendererClass::Shutdown_Shaders via 0xA07D10)
+//       after Release_Textures, Reset without Zero Hour's TestCooperativeLevel test, SHD_INIT_SHADERS (0xA07D00) right
+//       after Reset, then the shader constants zeroed (0x180 and 0x20 dwords at 0xBFFEF0, 0xBFAF38) and
+//       Recreate_Textures unconditionally (no reload_assets)
+// EnB: DX8Wrapper::Release_Device (line 638 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream
+// EnB: DX8Wrapper::Reset_Statistics (line 1499 at the freeze): Zero Hour's Reset_Statistics, which counts draw calls
+//       too (byte-exact; Renegade's isn't)
+// EnB: DX8Wrapper::Begin_Statistics (line 1525 at the freeze): Zero Hour's Begin_Statistics, which counts draw calls
+//       too (byte-exact; Renegade's isn't)
+// EnB: DX8Wrapper::End_Statistics (line 1539 at the freeze): Zero Hour's End_Statistics, which counts draw calls too
+//       (byte-exact; Renegade's isn't)
+// EnB: DX8Wrapper::Get_Last_Frame_DX8_Calls (line 1550 at the freeze): (its accessor, Zero Hour)
+// EnB: DX8Wrapper::End_Scene (line 1571 at the freeze): D9/E&B: End_Scene 0x924890: Zero Hour's
+//       DX8WebBrowser::Render(0) and Get_Max_Textures_Per_Pass loop, no ATI back-buffer lock; on a failed Present it
+//       sets IsDeviceLost and inlines Unknown_Restore_Device (Reset_Device two levels deep: Set_Index_Buffer and
+//       Invalidate_Cached_Render_States stay calls, 0x92496B, 0x9249C7), then sleeps 200 ms while still lost
+// EnB: DX8Wrapper::Clear (line 1660 at the freeze): D9: Clear 0x924CC0 reads the stencil format from
+//       GetDepthStencilSurface (vtable +0x84) and its GetDesc, counting the call, as Zero Hour; E&B keeps the
+//       5-argument form (no dest_alpha; Convert_Color(color,0))
+// EnB: DX8Wrapper::Set_Vertex_Buffer (line 1709 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream; a NULL buffer marks its own stream's type invalid (0x924E99), not the index buffer's as in Renegade
+// EnB: DX8Wrapper::Set_Vertex_Buffer (line 1761 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream; the client's Set_Vertex_Buffer(DynamicVBAccessClass) (0x924F60) first releases stream 1 with
+//       Set_Vertex_Buffer(NULL, 1)
+// EnB: DX8Wrapper::Draw_Sorting_IB_VB (lines 1810, 1817 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream
+// EnB: DX8Wrapper::Draw_Sorting_IB_VB (line 1833 at the freeze): D9: Draw_Sorting_IB_VB 0x925070 sets the FVF as
+//       vertex shader only when non-zero (test eax,eax at 0x925134), as Zero Hour
+// EnB: DX8Wrapper::Draw_Sorting_IB_VB (line 1870 at the freeze): D9: Draw_Sorting_IB_VB 0x925070 counts the draw call
+//       before DrawIndexedPrimitive (0x925226), as Zero Hour
+// EnB: DX8Wrapper::Draw (lines 1957, 1960, 1969 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream
+// EnB: DX8Wrapper::Draw (line 1977 at the freeze): D9: Draw 0x9252A0 counts the draw call (inc of draw_calls at
+//       0x925379) before DrawIndexedPrimitive, as Zero Hour; no DrawPolygonLowBoundLimit test
+// EnB: DX8Wrapper::Apply_Render_State_Changes (line 2076 at the freeze): D9: Apply_Render_State_Changes 0x9254A0 as
+//       Zero Hour's (textures to CurrentCaps->Get_Max_Textures_Per_Pass(), its SNAPSHOT_SAYs, which steer VC6's
+//       inlining), except that the FVF vertex shader is set with a bare SetVertexShader call (0x9258A0: no
+//       Vertex_Shader test or store); Set_Vertex_Shader itself keeps its cache (dropping it there loses 0x9270D0,
+//       0x9275E0 and three wwshade functions)
+// EnB: DX8Wrapper::Apply_Render_State_Changes (line 2157 at the freeze): Zero Hour's two vertex streams: the client's
+//       Set_Vertex_Buffer(vb, stream) at 0x924E20 keeps vertex_buffers[2] at 0xBFFEE0 and vertex_buffer_types[2] at
+//       0xBFFECC (vba_offset 0xBFFED8, vba_count 0xBFFEDA); ShdDX8RendererNodeClass::Flush (0xA08790) sets one buffer
+//       per stream (Apply_Render_State_Changes sets each stream; an FVF buffer sets its FVF through Set_Vertex_Shader)
+// EnB: DX8Wrapper::_Create_DX8_Texture (lines 2222, 2352, 2395, 2417 at the freeze): MipCountType and MIP_LEVELS_* are
+//       global in Zero Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: DX8Wrapper::_Create_DX8_Texture (line 2294 at the freeze): D9, E&B: _Create_DX8_Texture 0x925980 creates a
+//       non-square, non-render-target texture with IDirect3DDevice8::CreateTexture (vtable +0x50, 0x925B11) and only a
+//       square one with D3DXCreateTexture (cmp width,height; je at 0x925B08); no EA copy has this
+// EnB: DX8Wrapper::_Create_DX8_ZTexture (line 2425 at the freeze): Zero Hour's _Create_DX8_ZTexture, verbatim
+//       (byte-exact at 0x925DD0)
+// EnB: DX8Wrapper::_Update_Texture (line 2589 at the freeze): the D3D texture is TextureBaseClass's private member;
+//       Zero Hour's copy uses Peek_D3D_Base_Texture
+// EnB: DX8Wrapper::Set_Light_Environment (line 2679 at the freeze): The client's Set_Light_Environment (0x926460)
+//       takes a second argument (E&B's; no EA copy has it): it always stores light_env in Zero Hour's Light_Environment
+//       (0xC00648) and sets the device lights only when the flag is set; mesh (0x93F639) and dx8renderer (0x97A32D)
+//       pass 1, ShdDX8RendererNodeClass::Flush (0xA089C2) passes 0. The body is otherwise Renegade's. Parameter name
+//       unknown (D10)
+// EnB: DX8Wrapper::Create_Render_Target (line 2785 at the freeze): MipCountType and MIP_LEVELS_* are global in Zero
+//       Hour's texture API (ww3dformat.h), as in Zero Hour's copy of this file
+// EnB: DX8Wrapper::Create_Render_Target (line 2789 at the freeze): Zero Hour's TextureBaseClass::Peek_D3D_Texture
+//       (Renegade: Peek_DX8_Texture)
+// EnB: Line 2809 at the freeze: Zero Hour's 06/27/02 additions (see dx8wrapper.h): a render target with a depth buffer
+//       (Create_Render_Target, Set_Render_Target_With_Z), verbatim
+// EnB: DX8Wrapper::Set_Render_Target_With_Z (line 2912 at the freeze): D9: Set_Render_Target_With_Z 0x926A20 (called
+//       by TexProjectClass::Compute_Texture 0x93DF4F) passes use_default_depth_buffer=false (push 0) when there is no
+//       ztexture
+// EnB: DX8Wrapper::Set_Render_Target (line 2947 at the freeze): Zero Hour's Set_Render_Target(IDirect3DSwapChain8 *)
+// EnB: DX8Wrapper::Set_Render_Target (line 2952 at the freeze): Zero Hour's Set_Render_Target(IDirect3DSurface8 *,
+//       bool), which also releases the current depth buffer (byte-exact at 0x926AD0), and its overload taking a depth
+//       buffer (0x926C40)
+// EnB: DX8Wrapper::Set_Gamma (line 3263 at the freeze): E&B: Set_Gamma 0x926E80 uses the device's SetGammaRamp only in
+//       full screen: tests [CurrentCaps+0xDE] (Support_Gamma) and then IsWindowed (0xC0063D, as Flip_To_Primary
+//       0x924AE0 reads it) before the GDI fallback; no EA copy has the IsWindowed test
+// EnB: Line 3276 at the freeze: Zero Hour's Apply_Default_State, the client's 0x9270D0
+// EnB: DX8Wrapper::Apply_Default_State (line 3282 at the freeze): Apply_Default_State without Zero Hour's opening
+//       SNAPSHOT_SAY: with it VC6 inlines one more Set_DX8_Render_State (ZFUNC) and one fewer Set_Texture than the
+//       client's 0x9270D0; without it the function is byte-exact
+// EnB: DX8Wrapper::Apply_Default_State (line 3402 at the freeze): Apply_Default_State as the client has it (0x927546):
+//       Set_Material(NULL) (its out-of-line copy 0x47F470), no VertexMaterialClass::Apply_Null and no loop clearing
+//       four lights (Zero Hour's later form)
+// EnB: DX8Wrapper::Apply_Default_State (line 3415 at the freeze): Apply_Default_State as the client has it: it ends
+//       after Set_Pixel_Shader (0x9275C2), without ShaderClass::Invalidate
+// EnB: DX8Wrapper::_Create_DX8_Surface: from Zero Hour's dx8wrapper.cpp (byte match)

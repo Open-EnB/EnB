@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "GClass (the client's RTTI; table 0xAEAAD8, 0x38 bytes) over two one-slot-table bases (0xAEAB48, 0xAEAB3C), TargetChangeEvent (RTTI); Get_Target_Node / Get_Targeting_List from gclass.cpp's asserts; header name assumed from gclass.cpp (D57)"
+}

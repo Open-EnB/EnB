@@ -7,7 +7,8 @@
     python attempts.py list [--status X] [--lib L] [--blocker B]
     python attempts.py check PATH... [--since "YYYY-MM-DD HH:MM"] [--ack ADDR...]
 
-Rows go to docs/data/attempts.csv (tracked; written only by this tool): date, address, symbol,
+Rows go to docs/data/attempts.csv (tracked; written only by this tool; merged by line union, so one
+row per (date, address): record refuses a second, and docs_check.py flags one a merge made): date, address, symbol,
 file (repository-relative), library (from the file: `app` for app/..., else the file's directory),
 status, score (objdiff similarity or masked fraction, 0..1), forms tried, blocker family, evidence,
 stash, model. Statuses: `exact` (solved: keep the row, it says which form won), `partial` (still
@@ -149,6 +150,9 @@ def cmd_record(a):
            'forms': '' if a.forms is None else str(a.forms), 'blocker': a.blocker,
            'evidence': (a.evidence or '').replace('\r', ' ').replace('\n', ' '),
            'stash': stash(addr, a.stash), 'model': a.model or os.environ.get('ENB_MODEL', '')}
+    # one row per (date, address): docs_check.py reads a second as a union merge's copy (.gitattributes)
+    if any(r['date'] == row['date'] and r['address'] == addr for r in load()):
+        raise SystemExit(f"{addr} already has a row dated {row['date']}: give --date with the time (YYYY-MM-DD HH:MM)")
     append(row)
     print(f"recorded {addr} {row['symbol']} {row['status']} ({len(load())} rows)")
 

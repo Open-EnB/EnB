@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -419,3 +419,14 @@ bool operator !=(DummyPtrType * dummy, const RefCountPtr<RHS> & rhs)
 
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's ref_ptr.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 195 at the freeze: E&B's ref_ptr.h is 15 lines shorter than Renegade's before operator*: the client's only
+//       ref_ptr.h assert ('0 != Referent', the call near 0x532726) carries line 356 where Renegade's and Generals'
+//       carry 371 (Zero Hour 374); none of the EA copies has E&B's layout. Comment-only: drops the last usage example
+//       from the prose header so the assert lands on 356 (F7 2026-10-27, D111)
+// EnB: T::RefCountPtr (line 242 at the freeze): E&B's ref_ptr.h differs from Renegade's revision 3: the client has no
+//       'dummy == 0' string at all, and its only ref_ptr.h assert ('0 != Referent', operator*, 0x532726) is on line 356
+//       where Renegade's is 371. With the assert, every RefCountPtr(NULL) spends the caller's inline budget on an
+//       expansion that folds away: client_lego_impl's Find 0x72ABB0 exact only without it (the client inlines the
+//       split's string destructor at its last two returns, F6 2026-10-27)

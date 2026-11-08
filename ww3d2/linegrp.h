@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -144,3 +144,15 @@ protected:
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's linegrp.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 52 at the freeze: LineGroupClass::Render takes the object's transform (E&B): 0x97BAF0 ends ret 8 and
+//       passes it to an E&B member (0x97C900, not rebuilt yet); callers ParticleBufferClass::Render_Line_Group
+//       (0x95E885, &Transform) and the app (0x6BAEDF)
+// EnB: Line 53 at the freeze: LineGroupClass: E&B's Render helpers (names not known, D10): transform setup 0x97C900,
+//       index fill 0x97C1D0, vertex fill 0x97C360
+// EnB: class LineGroupClass (line 113 at the freeze): LineGroupClass::Render takes the object's transform (E&B):
+//       0x97BAF0 ends ret 8 and passes it to an E&B member (0x97C900, not rebuilt yet); callers
+//       ParticleBufferClass::Render_Line_Group (0x95E885, &Transform) and the app (0x6BAEDF)
+// EnB: class LineGroupClass (line 118 at the freeze): LineGroupClass: E&B's Render helpers (names not known, D10):
+//       transform setup 0x97C900, index fill 0x97C1D0, vertex fill 0x97C360

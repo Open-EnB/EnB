@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the task kernel (KernelClass, the task base TaskClass, KernelEventClass: descriptive names, the client's layout and slot order, docs/kernel-map.md)"
+}

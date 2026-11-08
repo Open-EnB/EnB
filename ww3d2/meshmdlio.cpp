@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -2735,3 +2735,13 @@ WW3DErrorType MeshModelClass::write_stage_texcoords(ChunkSaveClass & csave,MeshS
 }
 
 #endif // 0 (disabled mesh saving code)
+
+// Earth & Beyond client (reconstruction): changes to Renegade's meshmdlio.cpp (frozen 2026-11-07 from importer.py)
+// EnB: MeshModelClass::post_process (lines 1606, 1633 at the freeze): E&B's MeshModelClass::post_process is Zero
+//       Hour's: 0x9BCC40 releases CullTree for SKIN meshes (+0x70) first and ends with the overbright modify (tests
+//       WW3D 0xBFAE52, the bool after MungeSortOnLoad 0xBFAE51, then calls modify_for_overbright 0x9BD3A0)
+// EnB: MeshModelClass::compute_static_sort_levels (lines 1761, 1780 at the freeze):
+//       MeshModelClass::compute_static_sort_levels 0x9BD260: Zero Hour's screen-blend case (case 8 -> SORT_LEVEL_BIN2)
+// EnB: MeshModelClass::modify_for_overbright (line 1790 at the freeze): Zero Hour's
+//       MeshModelClass::modify_for_overbright: 0x9BD3A0 turns primary gradient MODULATE (1) into 5 (and ah,0xF7; or
+//       ah,0x14) in the single shader and the shader arrays

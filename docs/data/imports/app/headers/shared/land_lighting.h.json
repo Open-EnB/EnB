@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "LandLightingStruct (VIDTEST's name; 0x30 bytes), out of land.h so that sclient.h holds it as the main view's +0x178..+0x1A4 (the constructor 0x50B360's defaults, Update 0x50F1B0; P-MV2-1, LD4); PROVISIONAL file name"
+}

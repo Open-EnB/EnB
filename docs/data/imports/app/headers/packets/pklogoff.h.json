@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the log-off packets' classes (pk_classes.h includes it: tools/re/pkclasses.py)"
+}

@@ -1,0 +1,34 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "MenuTask, client 0x76BC50-0x76BF2F (kernel-map.md 6, step 7): the object has no __FILE__, the name sorts between tsk_login.cpp and tsk_movie.cpp (the link order; NAME 1); exact",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x76BC50",
+  "0x76BC80",
+  "0x76BCA0",
+  "0x76BCC0",
+  "0x76BCF0",
+  "0x76BD10",
+  "0x76BD30",
+  "0x76BD70",
+  "0x76BDB0"
+ ],
+ "merged": [],
+ "name": "client/tasks/tsk_menu.cpp",
+ "shared": [
+  "0x42F250",
+  "0x76BC80",
+  "0x76BCA0",
+  "0x76BCF0"
+ ],
+ "short_known": [
+  "0x76BC80",
+  "0x76BCA0",
+  "0x76BCF0",
+  "0x76BD10"
+ ]
+}

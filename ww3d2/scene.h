@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -267,3 +267,10 @@ protected:
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's scene.h (frozen 2026-11-07 from importer.py)
+// EnB: class SceneClass (line 99 at the freeze): SceneClass has Zero Hour's scene IDs: Get_Scene_ID() const (returns
+//       SCENE_ID_SCENE) right after the destructor, as in the client's vtable (0xB120FC, slot 2). Zero Hour's virtual
+//       Render is not in the client
+// EnB: class which (line 228 at the freeze): SimpleSceneClass::Get_Scene_ID() (not const, so a new virtual, not an
+//       override: as in Zero Hour) returns SCENE_ID_SIMPLE (the client's slot 23 returns 1)

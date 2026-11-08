@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "SubPartsPacket and SubPartStruct (D24 header name; pk_classes.h includes it)"
+}

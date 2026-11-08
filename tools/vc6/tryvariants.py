@@ -8,7 +8,7 @@ big file) first as it is, then once per variant, and each variant's byte-exact c
 are compared with the unmodified file's. The tree file is restored afterwards, whatever happens.
 
 Use it to find the form of one function quickly (e.g. which SNAPSHOT_SAY changes VC6's inlining,
-workflow.md §3); then record the winner with addpatch.py and run a full verify, since a header
+workflow.md §3); then record the winner (edit the file and add its `// EnB:` entry) and run a full verify, since a header
 or inline change can affect other files.
 """
 import os

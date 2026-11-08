@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "MainViewSceneClass (the main view's scene, 0xF4 bytes, vtable 0xB03D3C; WE7): a ProjSceneClass with the 'plt' (+0xA8), 'clouds' (+0xC0) and land / mesh (+0xDC) lists and Land (+0xD8, the assert's)"
+}

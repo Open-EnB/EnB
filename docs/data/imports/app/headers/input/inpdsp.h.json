@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the input dispatcher (LoginUnknown0CClass, 0x18 bytes: an SGI hash_map from an event's key to a stack of InputRecordStruct, D87), its records and their RefCountClass action (D10 names); tsk_login.h keeps an opaque declaration (P-H18-1)"
+}

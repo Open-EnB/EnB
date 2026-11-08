@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the key/value pairs' value <-> text conversions (name assumed from strconv_lib.cpp, D57): the bool, int, float and unsigned int ones the pairs share (unknown_strconv.cpp's) and their type names"
+}

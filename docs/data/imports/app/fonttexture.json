@@ -1,0 +1,16 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "the font texture holder's destructor 0x6D8C50 and 0x6D8DC0 (the text into the texture in strips; __FILE__ 0xB92870, FAIL_IF lines 92 / 114 / 116, D25); NOT EXACT (D64, functional for the POC, TXT1); constructor 0x6D8B90 still in fontsys.cpp (D137)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250"
+ ],
+ "merged": [],
+ "name": "client/fonttexture.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

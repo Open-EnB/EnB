@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ProjSceneClass (D24, class-from-file for projscen.cpp; 0xA8 bytes, vtable 0xAEA790, ctor 0x494EE0, dtor 0x494F50): the SimpleSceneClass with projectors and receiver culling systems the main view's scene derives from (0x75ECF0)"
+}

@@ -32,7 +32,7 @@ references (read from client.exe: Ghidra shortens its string labels), its caller
 names and files, the nearest functions with a known file before and after it, and its own file where its
 assert or its neighbours give one (app-functions.json). The system prompt (cached) holds the task, the
 kinds and the catalogue of source files the client is built from. `calib` is about 300 functions already
-byte-exact (imports.json pairs, the runtime libraries' byte matches) plus two known template instances,
+byte-exact (the ledger's pairs, the runtime libraries' byte matches) plus two known template instances,
 decompiled into .work/triage/calib_pseudo/ with their own names, their class and `__FILE__` strings removed,
 and without neighbours or files: what the model gets from the code alone. custom_id is fn-ADDR; each
 request carries a hash of its input, and `build` reports how many changed since the last build.
@@ -127,12 +127,19 @@ def key(va):
     return f'{va:08X}'
 
 
+def _ledger():
+    """The ledger as imports.json's dict (tools/vc6/ledger.py)."""
+    sys.path.insert(0, os.path.join(ROOT, 'tools', 'vc6'))
+    import ledger
+    return ledger.load()
+
+
 def load_pairs():
-    """{address: (lib, file)} from imports.json (exact pairs) and the runtime libraries' byte matches."""
+    """{address: (lib, file)} from the ledger (exact pairs) and the runtime libraries' byte matches."""
     sys.path.insert(0, os.path.join(ROOT, 'tools', 'vc6'))
     import wt  # noqa: E402
     out = {}
-    for lib, f, a in sorted(wt.pairs_of(open(os.path.join(DATA, 'imports.json'), encoding='utf-8').read())):
+    for lib, f, a in sorted(wt.pairs_of(wt.ledger.load())):
         out.setdefault(int(a, 16), (lib, f))       # an address two files hold (D20): the first, always the same
     for lib in RUNTIME:
         path = os.path.join(DATA, f'bytematch-{lib}.json')
@@ -143,9 +150,9 @@ def load_pairs():
 
 
 def shared_pairs():
-    """D183: {address: {file}} of the shared pairs (imports.json files' `shared` lists)."""
+    """D183: {address: {file}} of the shared pairs (the ledger files' `shared` lists)."""
     out = collections.defaultdict(set)
-    for lib, entry in json.load(open(os.path.join(DATA, 'imports.json'), encoding='utf-8')).items():
+    for lib, entry in _ledger().items():
         for f, v in entry.get('files', {}).items():
             for a in v.get('shared', []):
                 out[int(a, 16)].add(f if lib == 'app' else f'{lib}/{f}')
@@ -181,7 +188,7 @@ def catalogue(pairs):
         d, _, f = p.replace('/', '\\').rpartition('\\')
         dirs[d.lower()].add(f.lower())
     have = {stem(f) for fs in dirs.values() for f in fs}
-    for lib, entry in json.load(open(os.path.join(DATA, 'imports.json'), encoding='utf-8')).items():
+    for lib, entry in _ledger().items():
         if lib != 'app':
             dirs[lib].update(f.lower() for f, v in entry.get('files', {}).items()
                              if v.get('in_tree') and f.lower() not in have)
@@ -694,7 +701,7 @@ def cmd_calib(a):
     sys.path.insert(0, os.path.join(ROOT, 'tools', 'vc6'))
     import wt  # noqa: E402
     holders = collections.defaultdict(set)              # an address two files hold (D20): either is right
-    for lib, f, x in wt.pairs_of(open(os.path.join(DATA, 'imports.json'), encoding='utf-8').read()):
+    for lib, f, x in wt.pairs_of(wt.ledger.load()):
         holders[int(x, 16)].add(f.lower())
     n = kind_ok = file_conf = file_ok = lib_ok = missing = 0
     per = collections.defaultdict(lambda: [0, 0])

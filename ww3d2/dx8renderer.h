@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -353,3 +353,26 @@ protected:
 extern DX8MeshRendererClass TheDX8MeshRenderer;
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's dx8renderer.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 55 at the freeze: dx8renderer keeps 2 texture stages through MeshMatDescClass::MAX_TEX_STAGES, as Zero
+//       Hour changed it when MAX_TEXTURE_STAGES became 8 (its own copy's comment); with MAX_TEXTURE_STAGES there, 11
+//       dx8renderer functions stop matching
+// EnB: Lines 56, 300 at the freeze: Generals' per-model registration: Register_Mesh_Type 0x97AC10 and
+//       Unregister_Mesh_Type 0x97ABA0 take the model, Define_FVF 0x978820 two arguments, Add_Mesh 0x978B70/0x979BC0 the
+//       model; no MeshRegKeyStruct table (DX8MeshRendererClass 0x97A9D0)
+// EnB: class is (line 85 at the freeze): dx8renderer keeps 2 texture stages through MeshMatDescClass::MAX_TEX_STAGES,
+//       as Zero Hour changed it when MAX_TEXTURE_STAGES became 8 (its own copy's comment); with MAX_TEXTURE_STAGES
+//       there, 11 dx8renderer functions stop matching
+// EnB: class DX8FVFCategoryContainer (lines 184, 203 at the freeze): Generals' per-model registration:
+//       Register_Mesh_Type 0x97AC10 and Unregister_Mesh_Type 0x97ABA0 take the model, Define_FVF 0x978820 two
+//       arguments, Add_Mesh 0x978B70/0x979BC0 the model; no MeshRegKeyStruct table (DX8MeshRendererClass 0x97A9D0)
+// EnB: class DX8RigidFVFCategoryContainer (line 241 at the freeze): Generals' per-model registration:
+//       Register_Mesh_Type 0x97AC10 and Unregister_Mesh_Type 0x97ABA0 take the model, Define_FVF 0x978820 two
+//       arguments, Add_Mesh 0x978B70/0x979BC0 the model; no MeshRegKeyStruct table (DX8MeshRendererClass 0x97A9D0)
+// EnB: class DX8SkinFVFCategoryContainer (line 277 at the freeze): Generals' per-model registration:
+//       Register_Mesh_Type 0x97AC10 and Unregister_Mesh_Type 0x97ABA0 take the model, Define_FVF 0x978820 two
+//       arguments, Add_Mesh 0x978B70/0x979BC0 the model; no MeshRegKeyStruct table (DX8MeshRendererClass 0x97A9D0)
+// EnB: class called (lines 326, 351 at the freeze): Generals' per-model registration: Register_Mesh_Type 0x97AC10 and
+//       Unregister_Mesh_Type 0x97ABA0 take the model, Define_FVF 0x978820 two arguments, Add_Mesh 0x978B70/0x979BC0 the
+//       model; no MeshRegKeyStruct table (DX8MeshRendererClass 0x97A9D0)

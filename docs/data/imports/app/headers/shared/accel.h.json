@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "AccelClass (D24, the header's name by convention from accel.cpp; 0x10 bytes, no vtable; the pair type name \"AccelClass\" in kv_encoder.cpp)"
+}

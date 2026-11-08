@@ -1,0 +1,26 @@
+{
+ "ambiguous": [],
+ "copy": "Z",
+ "expected": {
+  "Z": 3
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x8B23C0",
+  "0x8B24B0",
+  "0x8B2690",
+  "0x8B2810",
+  "0x8B30E0",
+  "0x8B3240",
+  "0x8B33D0",
+  "0x8B35B0",
+  "0x8B3650",
+  "0x8B3830",
+  "0x8B38D0",
+  "0x8B3940",
+  "0x8B3AB0",
+  "0x8B3B50"
+ ],
+ "merged": [],
+ "name": "configfile.cpp"
+}

@@ -1,0 +1,18 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 3,
+  "R": 3,
+  "Z": 3
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9E8450",
+  "0x9E84E0",
+  "0x9E8530"
+ ],
+ "merged": [],
+ "name": "hsv.cpp"
+}

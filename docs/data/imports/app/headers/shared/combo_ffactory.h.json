@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ComboFileFactoryClass (D24), a FileFactoryClass over a directory and its *.MIX files, MixMap an SGI hash_map<std::string, MixFileFactoryClass *> (libs/sgistl, D87)"
+}

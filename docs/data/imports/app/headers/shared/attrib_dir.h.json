@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "AttribDir, AttributeInfo (the client's names), their mods, callbacks, shadow and iterator lists (D24): named attributes in an SGI hash_map (libs/sgistl, D87)"
+}

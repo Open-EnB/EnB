@@ -22,14 +22,15 @@ D23-D25, D54, D56, D62, D66, D69) are one table row each in progress.md §2; rea
 ## 2. Rules
 
 **Verification (CLAUDE.md, D66).** Library or app code changes are kept only if the set of
-`(file, address)` pairs gains and loses nothing: save `docs/data/imports.json`, run
-`importer.py verify --lib X [--pool K]`, compare with `tools/vc6/pairs_cmp.py`; then `report`,
-`replay` (0 differences), the §3.6.1 row in `docs/library-matching.md`, commit. D66 names the
+`(file, address)` pairs gains and loses nothing: save the ledger (`ledger.py export -o .work/<item>/before.json`), run
+`verify.py --lib X [--pool K]`, compare with `tools/vc6/pairs_cmp.py`; then `report.py`, commit. A change to an EA-derived file is a
+direct edit plus its entry in the file's end-of-file `// EnB:` block, never a comment line above code
+(D211; conventions.md, "E&B changes to an EA-derived file"). D66 names the
 three kinds of non-loss (say which in the commit); any other loss waits for the user.
 
 **Shared tree (D62).** Other builders may be working in the same tree. Their changes must not be
-*compiled* into your verify: their untracked files aren't, unless `importer.py` lists them; check
-`git diff` of shared files (importer.py, app headers, `stubs/app_stubs.cpp`, `docs/data/`). Commit
+*compiled* into your verify: their untracked files aren't, unless the ledger lists them; check
+`git diff` of shared files (libdefs.py, app headers, `stubs/app_stubs.cpp`, `docs/data/`). Commit
 only your own hunks; keep the uncommitted window short (edit, verify, commit). Never wait for the
 other's tree to be clean: that deadlocked two builders for an hour. `index.lock` on commit: wait
 and retry. The importer lock serialises `verify`.
@@ -60,7 +61,7 @@ but byte-identical to the client (objdiff 0 rows) gets an exact row (D99). Befor
 LIMIT REACHED, its second round includes a tryv2 sweep of loop forms in the inlined helpers it calls (D98).
 
 **Build VMs (D30, D31).** Lease from the pool (`python tools/vc6/pool.py lease ...`, or
-`importer.py verify --pool K`); release everything you leased before you finish. Never use the
+`verify.py --pool K`); release everything you leased before you finish. Never use the
 base image. VMs are addressed by IP (clones share a computer name).
 
 **POC instances.** Run the POC client only through `clientpoc.py run|replay --instance NAME` (your builder id),
@@ -70,16 +71,19 @@ release exe is shared and any build may sit there), then `clientpoc.py replay --
 Before you report, delete yours:
 `python tools/harness/clientpoc.py clean --instance NAME` (your shots stay in .work/poc/shots).
 
-**Git.** Never `importer.py assemble`; never push (the coordinator pushes the run branch, D148); never `git reset --hard`, `git checkout -- .`
+**Git.** Never push (the coordinator pushes the run branch, D148); never `git reset --hard`, `git checkout -- .`
 or `git clean` on anything you didn't create. `git add` only your files, by name (never `-A` or
 `.`; `.claude/settings.json` stays out). **The index is shared with the other builders**: a bare
 `git commit` takes whatever they have staged, and a path commit (`git commit -- <files>`) takes the
 whole working-tree copy of a shared file, other builders' uncommitted hunks included. So: files
 only you touch, `git add <files> && git commit -- <the same files>`; any commit that includes a
-shared file (`tools/vc6/importer.py`, app headers, `stubs/*`, `docs/data/*`, `docs/library-matching.md`)
-goes through `python tools/vc6/commit_mine.py MSGFILE SPEC.json` (your whole files, your imports.json entries (`--file`, headers rows
+shared file (`tools/vc6/libdefs.py`, app headers, `stubs/*`, `docs/data/*`, `docs/library-matching.md`)
+goes through `python tools/vc6/commit_mine.py MSGFILE SPEC.json` (your whole files, your ledger shards (`--file`, header shards
 included) and your rows of attempts.csv / not-exact.md / names-review.md; it lands by compare-and-swap). Never `git reset`,
 `commit --amend` or `commit-tree` to repair a sweep: report it.
+Before reporting a branch finished, `python tools/vc6/standins.py check` in your worktree (seconds): a function you
+rebuilt that a hand stand-in still defines refuses the landing; delete the stand-in in your branch (workflow.md §3,
+"A landed app definition collides with stand-ins").
 Commit each finished, working piece right away: one imperative subject stating the evidence or
 gain (see `git log`), counts before -> after; end the message with the `Co-Authored-By` line your
 harness gives you (D71).

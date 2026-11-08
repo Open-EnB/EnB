@@ -2,19 +2,19 @@
 
 Each EA copy compiled with VC6 SP4 (`C:/Program Files/Git/MT /W3 /O2 /Ob2`); every function searched for in client.exe with relocated fields masked (tools/re/objmatch.py). Only functions found exactly once are counted.
 
-Client functions explained: **80**. R: 49, G: 41, Z: 75; found only in R: 5, G: 0, Z: 31.
+Client functions explained: **169**. R: 122, G: 105, Z: 157; found only in R: 12, G: 0, Z: 47.
 
 | File | R exact/functions | G exact/functions | Z exact/functions | only R | only G | only Z |
 |---|---|---|---|---|---|---|
 | definition.obj | 3/8 | 3/8 | 8/8 | 0 | 0 | 5 |
-| definitionfactory.obj | 0/3 | 0/3 | 0/3 | 0 | 0 | 0 |
-| definitionfactorymgr.obj | 3/10 | 3/10 | 3/10 | 0 | 0 | 0 |
-| definitionmgr.obj | 11/49 | 11/50 | 25/49 | 0 | 2 | 14 |
-| parameter.obj | 7/293 | 7/293 | 7/299 | 0 | 0 | 0 |
-| persistfactory.obj | 2/4 | 2/4 | 2/4 | 0 | 0 | 0 |
-| pointerremap.obj | 16/35 | 15/35 | 16/35 | 0 | 0 | 0 |
-| saveload.obj | 11/39 | 6/38 | 6/39 | 5 | 0 | 0 |
-| saveloadstatus.obj | 6/11 | 5/8 | 6/11 | 0 | 0 | 0 |
-| saveloadsubsystem.obj | 4/7 | 4/7 | 4/7 | 0 | 0 | 0 |
-| twiddler.obj | 3/54 | 3/54 | 15/54 | 0 | 0 | 12 |
+| definitionfactory.obj | 2/3 | 2/3 | 3/3 | 0 | 0 | 1 |
+| definitionfactorymgr.obj | 5/10 | 5/10 | 5/10 | 0 | 0 | 0 |
+| definitionmgr.obj | 28/49 | 28/50 | 42/49 | 0 | 2 | 14 |
+| parameter.obj | 8/293 | 8/293 | 8/299 | 0 | 0 | 0 |
+| persistfactory.obj | 4/4 | 4/4 | 4/4 | 0 | 0 | 0 |
+| pointerremap.obj | 35/35 | 34/35 | 35/35 | 0 | 0 | 0 |
+| saveload.obj | 25/39 | 12/38 | 14/39 | 11 | 0 | 0 |
+| saveloadstatus.obj | 7/11 | 5/8 | 6/11 | 1 | 0 | 0 |
+| saveloadsubsystem.obj | 7/7 | 7/7 | 7/7 | 0 | 0 | 0 |
+| twiddler.obj | 19/54 | 19/54 | 46/54 | 0 | 0 | 27 |
 | wwsaveload.obj | 1/3 | 1/3 | 1/3 | 0 | 0 | 0 |

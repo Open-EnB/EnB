@@ -11,3 +11,7 @@
 
 # generated from the client's strings, which hold lone CRs: stored byte for byte
 docs/data/asserts.txt -text
+
+# the attempt log is append-only (tools/re/attempts.py): both sides' new rows are kept, no conflict.
+# A row changed on both sides comes out twice; tools/docs_check.py catches that.
+docs/data/attempts.csv merge=union

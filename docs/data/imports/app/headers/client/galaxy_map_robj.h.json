@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "GalaxyMapRObjClass (table 0xB05A44, 0x120 bytes) and GalaxyMapLineRObjClass (0xB05CAC, 0xFC bytes), galaxy_map_robj.cpp's classes (D24 provisional header name from its __FILE__; galaxy_map_render.h includes it in place of GM3's stand-ins) (GM4)"
+}

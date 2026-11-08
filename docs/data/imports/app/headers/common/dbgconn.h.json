@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "dbgconn.cpp's packet logs and the statistics wrapper (constructors 0x823F70 / 0x824540 / 0x8250B0 and sizes), for Add_Connection 0x822CC0; the wrapper's counts per packet name (PacketStatsStruct, 0x18 bytes)"
+}

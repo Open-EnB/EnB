@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ProfessionType / ProfessionBitFieldType (the client's Type_Name strings) and the converters of prof.cpp (header name assumed)"
+}

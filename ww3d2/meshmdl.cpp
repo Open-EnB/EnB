@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -892,3 +892,39 @@ void MeshModelClass::Init_For_NPatch_Rendering()
 
 	if (GapFiller) GapFiller->Shrink_Buffers();
 }
+
+// Earth & Beyond client (reconstruction): changes to Renegade's meshmdl.cpp (frozen 2026-11-07 from importer.py)
+// EnB: MeshModelClass::~MeshModelClass (line 107 at the freeze): the model owns its polygon renderers (Zero Hour's):
+//       ~MeshModelClass 0x958510 and Reset 0x9586B0 unregister it (Reset deletes the gap filler first),
+//       Register_For_Rendering 0x958750 ends by registering it
+// EnB: MeshModelClass::operator= (line 124 at the freeze): the model owns its polygon renderers (Zero Hour's):
+//       ~MeshModelClass 0x958510 and Reset 0x9586B0 unregister it (Reset deletes the gap filler first),
+//       Register_For_Rendering 0x958750 ends by registering it
+// EnB: MeshModelClass::operator= (line 139 at the freeze): MeshModelClass::operator= is Zero Hour's (0x9585C0)
+// EnB: MeshModelClass::Reset (lines 156, 164, 175 at the freeze): the model owns its polygon renderers (Zero Hour's):
+//       ~MeshModelClass 0x958510 and Reset 0x9586B0 unregister it (Reset deletes the gap filler first),
+//       Register_For_Rendering 0x958750 ends by registering it
+// EnB: MeshModelClass::Register_For_Rendering (line 200 at the freeze): the model owns its polygon renderers (Zero
+//       Hour's): ~MeshModelClass 0x958510 and Reset 0x9586B0 unregister it (Reset deletes the gap filler first),
+//       Register_For_Rendering 0x958750 ends by registering it
+// EnB: MeshModelClass::Replace_Texture (line 206 at the freeze): MeshModelClass::Replace_Texture 0x9587E0 is live in
+//       E&B (called by MeshClass::Replace_Texture 0x9402D0 and the app, 0x48D57E): Generals' body, not Renegade's #if 0
+// EnB: MeshModelClass::Replace_Texture (line 230 at the freeze): MeshModelClass::Replace_Texture 0x9587E0: end of the
+//       former #if 0
+// EnB: MeshModelClass::Replace_VertexMaterial (line 234 at the freeze): MeshModelClass::Replace_VertexMaterial
+//       0x9588D0 is live in E&B (called by MeshClass::Replace_VertexMaterial 0x9402F0): Generals' body
+// EnB: MeshModelClass::Replace_VertexMaterial (line 257 at the freeze): MeshModelClass::Peek_FVF_Category_Container
+//       0x9589A0 (Generals' meshmdl.cpp, after Replace_VertexMaterial): the polygon renderer list's head's texture
+//       category's container, NULL for an empty list
+// EnB: MeshModelClass::Enable_Alternate_Material_Description (line 463 at the freeze):
+//       MeshModelClass::Enable_Alternate_Material_Description is Zero Hour's: 0x9598A0 also runs the overbright modify
+//       (WW3D 0xBFAE52, modify_for_overbright 0x9BD3A0) after the static sort levels
+// EnB: GapFillerClass::GapFillerClass (lines 588, 620 at the freeze): E&B's gap filler holds no reference to its mesh
+//       model (Zero Hour's DMS fix): the constructors 0x959A80 and 0x959C00 store mmc without Add_Ref, the destructor
+//       0x959DB0 ends without releasing it
+// EnB: GapFillerClass::~GapFillerClass (line 692 at the freeze): E&B's gap filler holds no reference to its mesh model
+//       (Zero Hour's DMS fix): the constructors 0x959A80 and 0x959C00 store mmc without Add_Ref, the destructor
+//       0x959DB0 ends without releasing it
+// EnB: MeshModelClass::Init_For_NPatch_Rendering (line 789 at the freeze): E&B's Init_For_NPatch_Rendering starts with
+//       Zero Hour's two early returns: 0x95A200 tests DX8Wrapper's current caps (SupportNPatches, +0xDF) and the
+//       ALLOW_NPATCHES flag (0x10000) before GapFiller

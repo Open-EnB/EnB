@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "eff_o.cpp's effect object: the base EffectObjectClass (vtable 0xB0002C, 0x80 bytes, layout from the constructor 0x6E6710), its base UnknownAF0DD0Class (0xAF0DD0); client.h's partial declaration steps aside when EFF_O_H is defined"
+}

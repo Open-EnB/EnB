@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ClientObjectClass (the RTTI's name), co.cpp's client object (0x188 bytes, vtables 0xB0070C / 0xB006F4) on its bases client.cpp's UnknownB02C90Class and ww3d2's MultiFixedPoolDecalSystemClass, its members typed from the constructor 0x6F2820; the positional state Unknown98Class (vtable 0xB00768) and the default state UnknownB006B8Class; CREATE 4's subclasses for types 24 (0x70E2E0 over 0x70DBC0, 0x224 bytes) and 28 (0x70E5A0, 0x1D4 bytes), declared as far as CREATE calls them"
+}

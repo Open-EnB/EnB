@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -593,3 +593,33 @@ WWINLINE bool RenderObjClass::Is_Transform_Identity_No_Validity_Check() const
 
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's rendobj.h (frozen 2026-11-07 from importer.py)
+// EnB: Line 134 at the freeze: RenderObjClass has Zero Hour's render hook (RenderHookClass, the RenderHook member at
+//       the end of the class, Get/Set_Render_Hook, deleted in the destructor) but not Zero Hour's
+//       ObjectScale/ObjectColor. Found from the +4 shift of every member after 0x88 in HLodClass, SphereRenderObjClass,
+//       RingRenderObjClass, ... (tools/re/layoutdiff.py)
+// EnB: class RenderObjClass (line 196 at the freeze): E&B's class IDs end as Zero Hour's: ShdMeshClass::Class_ID
+//       (0xA0A7E0, in the table with ShdMeshClass::Render) returns 0x24, CLASSID_LAND + 1, where Renegade has
+//       CLASSID_RENEGADE_TERRAIN (unused in the libraries)
+// EnB: class RenderObjClass (line 203 at the freeze): the destructor deletes the render hook
+// EnB: class RenderObjClass (line 274 at the freeze): RenderObjClass's vtable as in the client (113 slots, at
+//       0xAE84F8; tools/re/vtables.py): Zero Hour's Remove_Sub_Objects_From_Bone(int) overload (slot 35, 0x941F90; VC6
+//       lists overloads in reverse declaration order)
+// EnB: class RenderObjClass (line 393 at the freeze): render hook accessors
+// EnB: class RenderObjClass (line 419 at the freeze): Renegade's four user-lighting functions are not virtual (Zero
+//       Hour removed them; the client's vtable has no slots for them); kept as plain functions so Renegade's mesh and
+//       renderer code still compiles
+// EnB: class RenderObjClass (line 420 at the freeze): Set_Has_User_Lighting not virtual
+// EnB: class RenderObjClass (line 436 at the freeze): Zero Hour's self-shadow accessors, used by ShdMeshClass::Render
+//       (0xA09430)
+// EnB: class RenderObjClass (lines 437, 476 at the freeze): E&B's RenderObjClass has Zero Hour's IGNORE_LOD_COST bit
+//       (0x8000) and accessors: SimpleSceneClass::Visibility_Check 0x965F40 skips Prepare_LOD when Bits (+0x18) bit 15
+//       is set
+// EnB: class RenderObjClass (line 451 at the freeze): Save_User_Lighting not virtual
+// EnB: class RenderObjClass (line 451 at the freeze): Load_User_Lighting not virtual
+// EnB: class RenderObjClass (lines 451, 463 at the freeze): no user-lighting persistence in RenderObjClass (as
+//       Generals): the client has none of Save_User_Lighting, Load_User_Lighting or their sub-object helpers
+// EnB: class RenderObjClass (line 480 at the freeze): Zero Hour's IS_SELF_SHADOWED bit: ShdMeshClass::Render
+//       (0xA09430) sets and clears 0x80000 in Bits (+0x18)
+// EnB: class RenderObjClass (line 496 at the freeze): the render hook member

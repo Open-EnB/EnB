@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**	Modified for the Earth & Beyond client reconstruction: tools/vc6/importer.py records each change.
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -1574,3 +1574,102 @@ unsigned ZTextureClass::Get_Texture_Memory_Usage() const
 	}
 	return size;
 }
+
+// Earth & Beyond client (reconstruction): changes to Zero Hour's texture.cpp (frozen 2026-11-07 from importer.py)
+// EnB: Lines 75, 188 at the freeze: TextureBaseClass::Invalidate_Old_Unused_Textures (0x94B770): E&B keeps last
+//       frame's TexturesAppliedPerFrame (0xC01294) and zeroes the count before the thumbnail test;
+//       Unknown_Get_Textures_Applied_Last_Frame (0x94B910, too short for byte matching) returns it
+// EnB: TextureBaseClass::TextureBaseClass (line 89 at the freeze): the base constructor has no 'reducible' argument
+//       (0x94B020 ends ret 0x14)
+// EnB: TextureBaseClass::TextureBaseClass (line 98 at the freeze): no IsReducible (see texture.h)
+// EnB: TextureBaseClass::Invalidate_Old_Unused_Textures (lines 144, 154 at the freeze):
+//       TextureBaseClass::Invalidate_Old_Unused_Textures (0x94B770): E&B keeps last frame's TexturesAppliedPerFrame
+//       (0xC01294) and zeroes the count before the thumbnail test; Unknown_Get_Textures_Applied_Last_Frame (0x94B910,
+//       too short for byte matching) returns it
+// EnB: TextureBaseClass::Invalidate (lines 204, 218 at the freeze): TextureBaseClass::Invalidate as E&B has it
+//       (0x94BA10, inlined in Set_HSV_Shift 0x94C150): the inactivation-time extension of the commented-out
+//       'battlefield version' first (0x94BA13), then the thumbnail task tested before the load task (0x94BA3A)
+// EnB: TextureBaseClass::Invalidate (line 271 at the freeze): TextureBaseClass::Peek_D3D_Base_Texture does not set
+//       LastAccessed in E&B: its inlined copies in ZTextureClass::Apply (0x94D190), TextureClass::Init (0x94B920),
+//       Get_Surface_Level (0x94BB50) and Get_D3D_Surface_Level (0x94BBB0) read the texture pointer only
+// EnB: Line 273 at the freeze: E&B: Peek_D3D_Base_Texture defined inline in texture.h (see there)
+// EnB: TextureBaseClass::Get_Reduction (line 389 at the freeze): Renegade's TextureClass::Get_Reduction body: no
+//       minimum size and no 'large texture extra reduction' (WW3D::Is_Large_Texture_Extra_Reduction_Enabled is Zero
+//       Hour's; E&B's WW3D is Renegade's)
+// EnB: TextureBaseClass::Get_Reduction (line 389 at the freeze): Zero Hour's body: the client's Get_Reduction 0x94BC20
+//       tests Width/Height (+0x2C/+0x30) against 32 and 256 and calls Is_Large_Texture_Extra_Reduction_Enabled 0x918E60
+// EnB: Line 425 at the freeze: E&B's texture memory usage is one non-virtual TextureBaseClass function (0x94C1D0,
+//       after Set_HSV_Shift 0x94C150, called by Log_Textures/Log_All_Textures): Renegade's and Generals' form, the same
+//       body on both sides of an Initialized test (Calculate_Texture_Memory_Usage inlined twice; the vtables at
+//       0xB119A0 have no slot for it)
+// EnB: TextureBaseClass::_Get_Total_Locked_Surface_Size (line 467 at the freeze): TextureClass* (Renegade's form):
+//       Get_Texture_Memory_Usage is TextureClass's, not a virtual of the base
+// EnB: TextureBaseClass::_Get_Total_Texture_Size (line 489 at the freeze): TextureClass* (Renegade's form):
+//       Get_Texture_Memory_Usage is TextureClass's, not a virtual of the base
+// EnB: TextureBaseClass::_Get_Total_Lightmap_Texture_Size (line 511 at the freeze): TextureClass* (Renegade's form):
+//       Get_Texture_Memory_Usage is TextureClass's, not a virtual of the base
+// EnB: TextureBaseClass::_Get_Total_Procedural_Texture_Size (line 534 at the freeze): TextureClass* (Renegade's form):
+//       Get_Texture_Memory_Usage is TextureClass's, not a virtual of the base
+// EnB: Line 630 at the freeze: E&B compiles Set_Mip_Mapping in texture.cpp: its out-of-line copy is at 0x94CA20,
+//       inside texture.obj's range (after _Get_Total_Locked_Surface_Count 0x94C980, before _Init_Filters 0x94CA30), and
+//       Load_Texture 0x94CCC0 and the name constructor 0x94B3D0 inline it. The rest of the filter code is the user's
+//       call (proposal, 2026-10-24)
+// EnB: Lines 630, 1137 at the freeze: D9: E&B has no TextureFilterClass (Zero Hour's 08/05/02 KM 'Texture filter class
+//       abstraction' redesign); its TextureClass keeps Renegade's five filter members and accessors: the four
+//       constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at TextureClass offsets,
+//       Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter 0x94CC30/0x94CC60/0x94CC90 are
+//       inside texture.obj, and the client has no out-of-line TextureFilterClass constructor or Apply
+// EnB: TextureClass::Set_Mip_Mapping (lines 636, 644 at the freeze): D9: E&B has no TextureFilterClass (Zero Hour's
+//       08/05/02 KM 'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter members
+//       and accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at
+//       TextureClass offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter
+//       0x94CC30/0x94CC60/0x94CC90 are inside texture.obj, and the client has no out-of-line TextureFilterClass
+//       constructor or Apply
+// EnB: TextureClass::TextureClass (line 799 at the freeze): no allow_reduction (0x94B240 ends ret 0x18)
+// EnB: TextureClass::TextureClass (lines 802, 875, 910, 926, 972, 1017 at the freeze): D9: E&B has no
+//       TextureFilterClass (Zero Hour's 08/05/02 KM 'Texture filter class abstraction' redesign); its TextureClass
+//       keeps Renegade's five filter members and accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0,
+//       0x94B660 store Min/Mag/Mip/U/V at TextureClass offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and
+//       _Set_Default_*_Filter 0x94CC30/0x94CC60/0x94CC90 are inside texture.obj, and the client has no out-of-line
+//       TextureFilterClass constructor or Apply
+// EnB: TextureClass::TextureClass (line 810 at the freeze): no IsReducible (see texture.h): the constructor (0x94B240)
+//       sets only Initialized (+0xC) and IsProcedural (+0xF)
+// EnB: TextureClass::TextureClass (line 872 at the freeze): no allow_reduction (0x94B3D0 ends ret 0x14)
+// EnB: TextureClass::TextureClass (lines 883, 980, 1025 at the freeze): no IsReducible (see texture.h)
+// EnB: TextureClass::TextureClass (line 1026 at the freeze): E&B's TextureClass(IDirect3DBaseTexture8*) 0x94B660
+//       stores d3d_texture to D3DTexture (+0x34) and calls its AddRef, as Renegade's constructor does; Zero Hour's
+//       Set_D3D_Base_Texture would also release the old texture and set LastAccessed (+0x1C)
+// EnB: TextureClass::Apply_New_Surface (line 1122 at the freeze): TextureClass::Apply_New_Surface 0x94C090 calls
+//       GetSurfaceLevel on the argument (esi), not on the reloaded D3DTexture (twin of ZTextureClass's: objmatch finds
+//       both exactly at 0x94C090 and 0x94D1F0, so neither is counted)
+// EnB: Line 1136 at the freeze: the [stage][filter] tables TextureClass::Apply 0x94BC80 reads (defined in
+//       texturefilter.cpp)
+// EnB: TextureClass::Apply (lines 1147, 1199 at the freeze): E&B's TextureClass::Apply 0x94BC80: Zero Hour's
+//       commented-out 'battlefield' initialisation, enabled and gated on DX8Wrapper::_Is_Triangle_Draw_Enabled
+//       (0xBB9C40) and WW3D::Get_Thumbnail_Enabled (0xBB9654) with MAX_TEXTURES_APPLIED_PER_FRAME (cmp [0xC01418],2),
+//       Load_Locked_Surface inlined; Set_DX8_Texture(stage, D3DTexture) and the filter states set directly (inlined,
+//       [stage][filter] tables 0xC01318/0xC01398/0xC01298) as Renegade does: Zero Hour's TextureFilterClass::Apply is
+//       its 08/05/02 redesign. The direct D3DTexture read and the accessors are what keeps VC6's inline budget as the
+//       client's (WWProfileSampleClass ctor 0x94C000 out of line, dtor inline)
+// EnB: TextureClass::Apply (lines 1208, 1212, 1214, 1218, 1224, 1226, 1230 at the freeze): D9: E&B has no
+//       TextureFilterClass (Zero Hour's 08/05/02 KM 'Texture filter class abstraction' redesign); its TextureClass
+//       keeps Renegade's five filter members and accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0,
+//       0x94B660 store Min/Mag/Mip/U/V at TextureClass offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and
+//       _Set_Default_*_Filter 0x94CC30/0x94CC60/0x94CC90 are inside texture.obj, and the client has no out-of-line
+//       TextureFilterClass constructor or Apply
+// EnB: Line 1287 at the freeze: TextureClass uses TextureBaseClass's Get_Texture_Memory_Usage (0x94C1D0)
+// EnB: Load_Texture (lines 1392, 1395, 1397 at the freeze): D9: E&B has no TextureFilterClass (Zero Hour's 08/05/02 KM
+//       'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter members and
+//       accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at TextureClass
+//       offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter 0x94CC30/0x94CC60/0x94CC90
+//       are inside texture.obj, and the client has no out-of-line TextureFilterClass constructor or Apply
+// EnB: setup_texture_attributes (line 1416 at the freeze): D9: E&B has no TextureFilterClass (Zero Hour's 08/05/02 KM
+//       'Texture filter class abstraction' redesign); its TextureClass keeps Renegade's five filter members and
+//       accessors: the four constructors 0x94B240, 0x94B3D0, 0x94B5B0, 0x94B660 store Min/Mag/Mip/U/V at TextureClass
+//       offsets, Set_Mip_Mapping 0x94CA20, _Init_Filters 0x94CA30 and _Set_Default_*_Filter 0x94CC30/0x94CC60/0x94CC90
+//       are inside texture.obj, and the client has no out-of-line TextureFilterClass constructor or Apply
+// EnB: ZTextureClass::ZTextureClass (line 1494 at the freeze): no IsReducible (see texture.h)
+// EnB: ZTextureClass::Apply_New_Surface (line 1529 at the freeze): ZTextureClass::Apply_New_Surface 0x94D1F0: the same
+//       as TextureClass's (argument in esi, no Peek_D3D_Texture reload)
+// EnB: ZTextureClass::Get_Texture_Memory_Usage (line 1576 at the freeze): no CubeTextureClass or VolumeTextureClass
+//       (see texture.h)

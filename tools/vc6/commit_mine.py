@@ -1,13 +1,13 @@
 """Commit only your own hunks when the git index is shared with other builders (D62, D112(2)).
 
     python tools/vc6/commit_mine.py MSGFILE [SPEC.json] [--base REV] [--file NAME ...] [--addr ADDR ...]
-                                    [--path FILE ...] [--refresh-totals] [--dry]
+                                    [--path FILE ...] [--library-files] [--dry]
 
 A bare `git commit` takes whatever the other builders have staged, and `git commit -- <paths>` takes
 the whole working-tree copy of a shared file (importer.py, an app header, docs/data/*) including their
 uncommitted hunks. This script builds the commit in a private index instead (one per run): it reads
 BASE (default HEAD) into it, adds the `whole` paths as they are in the working tree, applies only the
-matching hunks of each `hunks` path, edits the row files and imports.json as below, writes the tree,
+matching hunks of each `hunks` path, takes ledger shards and edits the row files as below, writes the tree,
 and moves the branch with a compare-and-swap: `git commit-tree TREE -p OLD` then
 `git update-ref <branch> NEW OLD`, OLD being the HEAD the commit was built on. When another commit
 landed in between, it rebuilds once on the new HEAD and retries, then fails loudly; it never moves
@@ -20,15 +20,15 @@ SPEC.json (optional when --file / --refresh-totals / --addr say everything):
      "addrs": ["0x72ABB0"], "files": ["app/client/client_lego_impl.cpp"]}
 A hunk of `git diff -U0 BASE -- path` is yours when any of its +/- lines contains one of the keys.
 
-docs/data/imports.json is edited by entry, not hunk:
-  * `--file NAME` (repeatable), or a `hunks` key of imports.json that is a file-block name, makes the
-    `"NAME": {` entry of a library's "files" map equal to the working copy's (inserted, replaced or
-    removed), so another builder's adjacent new block never travels. It also takes the "headers" map
-    rows whose stem is NAME's or its block's file stem (`"packets/pkfindmember.h": "reconstructed"`
-    for pkfindmember); a NAME that is itself a header key (`--file packets/x.h`) takes that row.
-  * `--refresh-totals` takes every library's count lines (ambiguous_total, in_tree_total, totals)
-    from the working copy; otherwise hunks with "in_tree_total" are dropped (every verify rewrites them).
-  * other imports.json keys keep the keyword-hunk behaviour.
+The ledger (docs/data/imports, one shard per source file, ledger.py) is taken by whole shard:
+  * `--file NAME` (repeatable), or a key of a `hunks` entry for docs/data/imports (or the old name
+    docs/data/imports.json), takes the shard <lib>/NAME.json of every library that has it, in the base
+    or the working copy, as the working copy has it (added, replaced or removed). It also takes the
+    header shards <lib>/headers/H.json whose stem is NAME's or its block's file stem
+    (headers/packets/pkfindmember.h.json for pkfindmember); a NAME that is itself a header
+    (`--file packets/x.h`) takes that header's shard. A shard path in "whole" is taken as it is.
+  * `--library-files` takes every library's library.json (base, totals, compile_errors) from the
+    working copy. The counts (in_tree_total, ambiguous_total) are computed, never stored.
 docs/data/attempts.csv, not-exact.md and names-review.md are edited by row: the committed file is
 BASE's plus or minus only the caller's rows (an attempts.csv row whose address or file is the
 caller's; a .md row whose path is one of the caller's files), so neighbours' adjacent rows never
@@ -51,9 +51,11 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import commit_rows as cr  # noqa: E402
+import ledger  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-IMPORTS = 'docs/data/imports.json'
+IMPORTS = ledger.REL                    # docs/data/imports
+OLD_IMPORTS = ledger.OLD_REL            # its single-file form before the split (hunks keys still accepted)
 HUNK = re.compile(r'^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@(.*)$')
 
 
@@ -131,10 +133,7 @@ def caller_set(spec, a, base_imports, work_imports, blocks):
     for keys in spec.get('hunks', {}).values():
         addrs |= {k for k in keys if re.fullmatch(r'0x[0-9A-Fa-f]{6,8}', k)}
     files = set(a.path) | set(spec.get('files', [])) | set(spec.get('whole', []))
-    for text in (base_imports, work_imports):
-        if not text:
-            continue
-        d = json.loads(text)
+    for d in (base_imports, work_imports):
         for lib, name in blocks:
             ent = d.get(lib, {}).get('files', {}).get(name)
             if ent:
@@ -151,13 +150,13 @@ def stem(p):
     return os.path.splitext(os.path.basename(p))[0].lower()
 
 
-def resolve_names(names, base_t, work_t):
+def resolve_names(names, base_d, work_d):
     """(file blocks, header rows) as (lib, key) pairs for the caller's --file NAMEs."""
     blocks, headers = [], []
     maps = {}
-    for t in (base_t, work_t):
-        if t:
-            for lib, v in json.loads(t).items():
+    for d in (base_d, work_d):
+        if d:
+            for lib, v in d.items():
                 if isinstance(v, dict):
                     m = maps.setdefault(lib, {'files': {}, 'headers': set()})
                     m['files'].update(v.get('files', {}))
@@ -185,17 +184,10 @@ def build(git, a, spec, base):
     for p in paths:
         git('add', '--', p)
     hunk_specs = {p: k for p, k in spec.get('hunks', {}).items() if p not in cr.ROW_FILES}
-    base_imp, work_imp = git.blob(f'{base}:{IMPORTS}'), git.work(IMPORTS)
+    base_imp, work_imp = ledger.load(base, repo=ROOT), ledger.load(None, repo=ROOT)
     names = list(a.file)
-    if IMPORTS in hunk_specs:
-        bl, wl = base_imp.splitlines(), work_imp.splitlines()
-        for k in hunk_specs[IMPORTS]:
-            pat = re.compile(r'^   ' + re.escape(json.dumps(k)) + r': \{$')
-            if any(pat.match(x) for x in bl) or any(pat.match(x) for x in wl):
-                names.append(k)
-        hunk_specs[IMPORTS] = [k for k in hunk_specs[IMPORTS] if k not in names]
-        if not hunk_specs[IMPORTS]:
-            del hunk_specs[IMPORTS]
+    for p in (IMPORTS, IMPORTS + '/', OLD_IMPORTS):
+        names += hunk_specs.pop(p, [])
     blocks, headers = resolve_names(names, base_imp, work_imp)
     for p, keys in hunk_specs.items():
         paths.append(p)
@@ -209,11 +201,6 @@ def build(git, a, spec, base):
                 head.append(line)
             else:
                 cur.append(line)
-        if p == IMPORTS and not any('in_tree_total' in k for k in keys):
-            n = len(hunks)
-            hunks = [h for h in hunks if not any('"in_tree_total"' in x for x in h[1:] if x[:1] in '+-')]
-            if n != len(hunks):
-                print(f'{p}: dropped {n - len(hunks)} in_tree_total hunk(s)')
         keep = [h for h in hunks if any(k in ''.join(x for x in h[1:] if x[:1] in '+-') for k in keys)]
         print(f'{p}: {len(keep)} of {len(hunks)} hunks are yours')
         if a.dry:
@@ -222,24 +209,24 @@ def build(git, a, spec, base):
         if keep:
             patch = ''.join(head) + ''.join(''.join(h) for h in renumber(keep))
             git('apply', '--cached', '--unidiff-zero', '-', inp=patch.encode('utf-8', 'surrogateescape'))
-    # imports.json: file blocks, header rows, totals
-    if blocks or headers or a.refresh_totals:
-        cur = git.blob(f':{IMPORTS}')
-        changes = []
-        try:
-            for mapname, sel in (('files', blocks), ('headers', headers)):
-                for lib in sorted({lib for lib, _ in sel}):
-                    cur, ch = cr.set_entries(cur, work_imp, lib, mapname, [k for l2, k in sel if l2 == lib])
-                    changes += [f'{lib}.{mapname} {c}' for c in ch]
-            if a.refresh_totals:
-                cur, ch = cr.set_totals(cur, work_imp)
-                changes += ch
-        except ValueError as e:
-            sys.exit(f'{IMPORTS}: {e}')
-        print(f'{IMPORTS}: {len(changes)} entr{"y" if len(changes) == 1 else "ies"} taken: {", ".join(changes) or "none"}')
-        if changes:
-            git.put(IMPORTS, cur, base)
-            paths.append(IMPORTS)
+    # the ledger: whole shards (file blocks, header rows, library.json)
+    shards = [f'{IMPORTS}/{lib}/{k}.json' for lib, k in blocks] + \
+        [f'{IMPORTS}/{lib}/{ledger.HEADERS}/{h}.json' for lib, h in headers]
+    if a.library_files:
+        shards += [f'{IMPORTS}/{lib}/{ledger.LIBRARY}' for lib in sorted(set(base_imp) | set(work_imp))]
+    changes = []
+    for p in shards:
+        in_base = bool(git.text('ls-tree', base, '--', p).strip())
+        if os.path.exists(os.path.join(ROOT, *p.split('/'))):
+            if git.work(p) != git.blob(f'{base}:{p}'):
+                git('add', '--', p)
+                changes.append(p[len(IMPORTS) + 1:] + (' (changed)' if in_base else ' (added)'))
+        elif in_base:
+            git('update-index', '--force-remove', '--', p)
+            changes.append(p[len(IMPORTS) + 1:] + ' (removed)')
+        paths.append(p)
+    if shards:
+        print(f'{IMPORTS}: {len(changes)} shard(s) taken: {", ".join(changes) or "none"}')
     # row files
     addrs, files = caller_set(spec, a, base_imp, work_imp, blocks + headers)
     owned = cr.owner(addrs, files)
@@ -272,10 +259,11 @@ def main():
     ap.add_argument('msgfile')
     ap.add_argument('spec', nargs='?')
     ap.add_argument('--base', help='build on this revision instead of HEAD (no rebuild on a race)')
-    ap.add_argument('--file', action='append', default=[], help='imports.json file block or header row to take (repeatable)')
+    ap.add_argument('--file', action='append', default=[], help='ledger shard to take: a file block or header (repeatable)')
     ap.add_argument('--addr', action='append', default=[], help='an address whose attempts.csv rows are yours (repeatable)')
     ap.add_argument('--path', action='append', default=[], help='a source path whose rows are yours (repeatable)')
-    ap.add_argument('--refresh-totals', action='store_true', help="take imports.json's count lines from the working copy")
+    ap.add_argument('--library-files', '--refresh-totals', dest='library_files', action='store_true',
+                    help="take every library's library.json (base, totals, compile_errors) from the working copy")
     ap.add_argument('--dry', action='store_true', help='show the choices and stop before committing')
     a = ap.parse_args()
     spec = json.load(open(a.spec)) if a.spec else {}

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "DeltaArrayClass<T> (D24; M1.3): count DeltaTemplateClass<T> fields named \"%d\" made with one value; the client's __FILE__ '..\\shared/auxdata/delta_array.h', its assert on line 71 (D25, 0x703550)"
+}

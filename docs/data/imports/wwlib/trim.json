@@ -1,0 +1,17 @@
+{
+ "ambiguous": [],
+ "best": "R",
+ "copy": "R",
+ "expected": {
+  "G": 0,
+  "R": 2,
+  "Z": 2
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x9DB030",
+  "0x9DB0A0"
+ ],
+ "merged": [],
+ "name": "trim.cpp"
+}
