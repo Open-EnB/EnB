@@ -11,13 +11,13 @@
 
 class ClientObjectClass;
 
-#include "sclient.h"	// (0x744FE0; this file's class below keeps the slot +0x28 and the time at +0x10BC, which sclient.h does not hold)
-class Unknown744FE0Class { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual ClientObjectClass *Unknown_28(); char Unknown04[0x10BC - 4]; unsigned int Unknown10BC; };	// NAME 1: neutral (D10)
+#include "sclient.h"	// (0x744FE0 Get_Target, the slot +0x28 Get_Avatar, the client clock +0x10BC)
+
 // skill_data.cpp's list (gd_attrb_skills.cpp's SkillDataClass): its bases sit at +0x50 and +0xB0 (the `add ecx, 0x50` after the arguments)
 struct UnknownDurationSum { UnknownDurationSum(__int64 v) : Value(v) {} UnknownDurationSum operator+(const UnknownDurationSum &r) const { return(UnknownDurationSum(Value + r.Value)); } __int64 Value; };	// (added with a member operator, 0x6A6550; duration.h's class has none yet)  // NAME 2: describes what it does
 class SkillDataPeekClass { public: bool Unknown_6A5470(int skill); int Get_Level(int skill); DurationClass Get_Recycle_Time(int skill); DurationClass Get_Last_Activation(int skill); char Unknown00[0x60]; };	// NAME 1: neutral (D10), as gd_attrb_skills.cpp's; NAME 1 [skill]: neutral
 enum TargetGeneratorSummaryBF; enum GameActionValidityBitFlag; class SkillAbilityDataPeekClass { public: TargetGeneratorSummaryBF Get_Targets(int ability); int Get_Range(int ability); GameActionValidityBitFlag Get_Validity(int ability); };	// NAME 1: neutral (D10); NAME 1 [ability]: neutral
-class Unknown6A7A00Base { public: char Unknown00[0x20]; Unknown744FE0Class *Unknown20; char Unknown24[0x2C]; };	// NAME 1: neutral (D10)
+class Unknown6A7A00Base { public: char Unknown00[0x20]; SClient *Unknown20; char Unknown24[0x2C]; };	// NAME 1: neutral (D10)
 class SkillDataClass : public Unknown6A7A00Base, public SkillDataPeekClass, public SkillAbilityDataPeekClass { public: int Get_Level(int skill) { return(SkillDataPeekClass::Get_Level(skill)); } int Get_Skill_Powerup_Ability_Number(); float Unknown_6A4C20(); };	// NAME 1: neutral (D10); NAME 2 [Get_Level]: 0x6A54B0's result is compared with the abilities' levels; NAME 1 [skill]: neutral
 class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual SkillDataClass *Unknown_14(); };	// NAME 3: its local sd (0x6A7310)
 // gd_gauge.cpp's gauge (ui_faction.cpp's), shortcut_range_gauge.cpp's
@@ -199,12 +199,12 @@ void SkillRenderClass::Unknown_2C(bool force)
 			return;
 	}
 
-	Unknown744FE0Class *sclient = Unknown_6A7310()->Unknown20;
+	SClient *sclient = Unknown_6A7310()->Unknown20;
 
 	FAIL_IF(!sclient) return;
-	ClientObjectClass *a = ((SClient *)sclient)->Get_Target();
+	ClientObjectClass *a = sclient->Get_Target();
 	if (a) {
-		ClientObjectClass *b = sclient->Unknown_28();
+		ClientObjectClass *b = sclient->Get_Avatar();
 		if (b) {
 			Unknown4C = Unknown_7E6060(a, b);
 		}
@@ -230,7 +230,7 @@ void SkillRenderClass::Unknown_2C(bool force)
 		Unknown48->Unknown_6A4020(Unknown4C, range, (flags & 0x3F8) ? 0 : (((flags2 & 0x34) != 0) ? 2 : 0), true);
 	}
 
-	__int64 now = sclient->Unknown10BC;
+	__int64 now = (unsigned int)sclient->Unknown10BC;
 	bool ready = (((const UnknownDurationSum &)skill.Get_Recycle_Time(slot) + (const UnknownDurationSum &)skill.Get_Last_Activation(slot)).Value <= now);
 	if (force || flags != Unknown54 || Unknown58 != ready) {
 		Unknown_6A73C0((flags & 0x170) != 0, WrongTargetTypeIndicator);
