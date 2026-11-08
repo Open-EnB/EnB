@@ -23,7 +23,7 @@
 #include "..\..\ww3d2\rendobj.h"
 #include "..\..\ww3d2\scene.h"
 #include "wwmath.h"
-
+#include "..\..\ww3d2\camera.h"
 
 // @0x7BF930
 StarmapPipClass::StarmapPipClass(SClient *client) :
@@ -783,7 +783,7 @@ void StarmapPipClass::Unknown_7C1280(const Vector3 &position, float radius)
 	}
 }
 
-// 0x7C1510 and 0x7C1770 are not rebuilt yet. For the inline below:
+// 0x7C1510 is not rebuilt yet. For the inline below:
 // 0x7C0260, 0x7C1120, 0x7C1510 and 0x7C1A90 expand it (FAIL_IF on 1039).
 
 
@@ -965,6 +965,30 @@ bool StarmapPipClass::Unknown_7C1350()
 
 
 
+// NOT EXACT: stack (the client keeps diff at +0x24 and t at +0x1C, the other way round: 0.88)
+void Unknown_491550(float *x, float *y);			// 0x491550 (scales by the device resolution; its file is not known)  // NAME 1: neutral (D10)
+#pragma auto_inline(off)
+// @0x7C1770
+void StarmapPipClass::Unknown_7C1770(float x, float y)
+{
+	if (Unknown50) {
+		FAIL_IF(!Camera) return;
+		x = WWMath::Clamp(x, Unknown74.X, Unknown7C.X);
+		y = WWMath::Clamp(y, Unknown74.Y, Unknown7C.Y);
+		Unknown68.X = x * CurMult;
+		Unknown68.Y = y * CurMult;
+		Vector3 pos = *(Vector3 *)&Unknown68;
+		Unknown_491550(&pos.X, &pos.Y);
+		Camera->Set_Position(pos);
+		int left = (int)(pos.X - ViewportSize.X * 0.5f);
+		int top = (int)(ViewportSize.Y * 0.5f + pos.Y);
+		int right = (int)(ViewportSize.X * 0.5f + pos.X);
+		int bottom = (int)(pos.Y - ViewportSize.Y * 0.5f);
+		UnknownA0->Unknown_7C3A90(left, top, right, bottom);
+		UnknownA4->Unknown_7C3A90(left, top, right, bottom);
+		for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
+			(*it)->Unknown_7C3A90(left, top, right, bottom);
+		}
 
 
 
@@ -979,40 +1003,16 @@ bool StarmapPipClass::Unknown_7C1350()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		FAIL_IF(Mult < WWMATH_EPSILON) return;
+		Vector2 range = Unknown84 * 3.0f;
+		Vector2 min = Unknown84 / Mult;
+		Vector2 diff = range - min;
+		Vector2 t((x - Unknown74.X) / Unknown84.X, (Unknown7C.Y - y) / Unknown84.Y);
+		Unknown48->Unknown_7C3CA0(range.X, min.X, diff.X * t.X, true);
+		Unknown4C->Unknown_7C3CA0(range.Y, min.Y, t.Y * diff.Y, false);
+	}
+}
+#pragma auto_inline(on)
 
 
 
@@ -1323,7 +1323,7 @@ void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 **	Exact: 0x7BF930, 0x7BFF20, 0x7C01C0, 0x7C0240, 0x7C0330, 0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0,
 **	0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1280, 0x7C1350, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C2280, 0x7C2D30,
 **	0x7C3220, 0x7C3720. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
-**	int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order).
-**	Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1510, 0x7C1770, 0x7C1C50, 0x7C2340, 0x7C2850,
+**	int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order), 0x7C1770 (two stack slots swapped; it copies +0x68 as a Vector3, Unknown68 and Unknown70 look like one Vector3).
+**	Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1510, 0x7C1C50, 0x7C2340, 0x7C2850,
 **	0x7C2DA0-0x7C30E0 (the POC and clienttest get them from generated stubs).
 */

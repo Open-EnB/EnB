@@ -63,6 +63,7 @@ class Unknown_7C3220Class  // NAME 1: neutral (D10)
 public:
 	Unknown_7C3220Class(const RefCountPtr<SceneClass> &scene, bool arg, int type);	// 0x7C3220 (type 0..4: RADAR_GROUP, _PLAYER, _OBJECT, _JUMPSTART, _NAME)  // NAME 1 [scene, arg, type]: what it does with them
 	~Unknown_7C3220Class();								// 0x7C3720
+	void Unknown_7C3A90(int left, int top, int right, int bottom);	// 0x7C3A90 (Text's 0x6D88F0 rectangle; 0x7C1770)  // NAME 1 [left, top, right, bottom]: FontSys 0x6D88F0's
 	void Unknown_7C3830(ClientObjectClass *co);			// 0x7C3830 (NULL: the label off)  // NAME 2 [co]: the client's usual name
 
 	unsigned ObjectID;									// +0x00 (the object's +0x90)  // NAME 2: what it holds
