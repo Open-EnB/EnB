@@ -338,7 +338,7 @@ ClientObjectClass *RadarSystemClass::Unknown_7BD5D0()
 	return(NULL);
 }
 
-// NOT EXACT: order (the client loads the view mode into eax before the compare; ours compares the member)
+
 // @0x7BD6E0
 void RadarSystemClass::Unknown_7BD6E0(ClientObjectClass *target)
 {
@@ -382,12 +382,12 @@ void RadarSystemClass::Unknown_7BD6E0(ClientObjectClass *target)
 			gdata->Set_Click_Indicator(false, NULL);
 		}
 		if (!TargetPath->Contains(((ClientObjectClass *)Target)->Get_Game_ID(), true)) {
-			ClientObjectClass *to = Target;
-			if (Client->Get_Mode() == 1) {
-				if (!WarpPath->Unknown_7B7C80(Client->Get_Avatar(), to)) {
+			int mode = Client->Get_Mode();
+			if (mode == 1) {
+				if (!WarpPath->Unknown_7B7C80(Client->Get_Avatar(), Target)) {
 					SoundLibraryClass::Play_2D_Sound("starmap_path_statement_1.wav", 2);
 				}
-			} else if (!WarpPath->Unknown_7B7EF0(ScanRange, Client->Get_Avatar(), to)) {
+			} else if (!WarpPath->Unknown_7B7EF0(ScanRange, Client->Get_Avatar(), Target)) {
 				SoundLibraryClass::Play_2D_Sound("starmap_path_statement_1.wav", 2);
 			}
 		}
