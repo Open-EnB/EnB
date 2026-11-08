@@ -64,7 +64,7 @@ void Unknown_75BB50(RenderObjClass *obj, float phase)
 			for (int stage = 0; stage < MeshMatDescClass::MAX_TEX_STAGES; stage++) {
 				TextureClass *texture = model->Peek_Single_Texture(pass, stage);
 				if (texture) {
-					StringClass name((const char *)texture->Get_Texture_Name());
+					StringClass name(texture->Get_Texture_Name());
 					strlwr(name.Peek_Buffer());
 					if (strncmp(name, "plt_dn", 6) == 0) {
 						TextureMapperClass *mapper = model->Peek_Single_Material(pass)->Peek_Mapper(stage);
