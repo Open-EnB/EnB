@@ -47,7 +47,7 @@ bool SClient::Unknown_744B60() { Trace("stub SClient::Unknown_744B60 -> %d", Stu
 void SClient::Unknown_74C530(unsigned id) { Trace("stub SClient::Unknown_74C530 %u", id); }
 void SClient::Unknown_74B680(int a, int starbase_id) { Trace("stub SClient::Unknown_74B680 %d %d", a, starbase_id); }
 void SClient::Unknown_74BA30(int a, int starbase_id, int mode) { Trace("stub SClient::Unknown_74BA30 %d %d %d", a, starbase_id, mode); }
-void SClient::Unknown_74D990(int color, char *text, int a)
+void SClient::Unknown_74D990(int color, char *text, int a)	// standins: keep (CW1): sclient.cpp now defines it, but clienttest does not link sclient.obj and expected.txt records the chat lines through this trace
 {
 	// MESSAGE_TIME's lines carry the local time: the trace keeps the text up to it
 	std::string t(text ? text : "(null)");
