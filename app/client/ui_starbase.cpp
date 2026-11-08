@@ -203,16 +203,11 @@ UIStarbaseClass::~UIStarbaseClass()
 
 #pragma auto_inline(on)
 
-// NOT EXACT: register-only residue at the top (the client loads +0xB0 into eax before Room, a's chain through
-// eax / ecx; ours through ecx / edx) and in the inlined 0x640CC0 loop (eax / edx swapped); 42 rows. The budget
-// forms that reach the client's out-of-line calls (0x6443C0 erase, 0x644180 insert, 0x6444A0 insert(n)) and ??_H:
-// 0x640CC0 inlined (it has no caller of its own), with clear() in it, Unknown_Kind() for c, and while (true)
-// (do / while and for (;;) rotate the loop)
 // 0x640810
 void UIStarbaseClass::Unknown_640810()
 {
 	int i = 0;
-	int a = UnknownB0->Unknown1B4->Unknown18;
+	int a = Unknown_Info()->Unknown18;
 	int room = Room;
 	int c = Unknown_Kind();
 	Unknown_640CC0();
@@ -342,7 +337,7 @@ struct UIStarbaseLightsGadgetHolderStruct	// NAME 1: neutral (D10)
 // 0xAF8610; no caller of the constructor in the client: a debug panel). Its texts are 'near_light02a',
 // 'far_light02a', 'Int_light02a', 'Fill_light02a' and 'GO_light02a' in the 'fa_light02a.ini' model (0x646360).
 // Declared as far as this file's functions use it (interim placement in this file, D137).
-class UIStarbaseLightsClass : public UIChatPanelBaseClass	// NAME 1: neutral, after its model's 'light02a' names
+class UIStarbaseLightsClass : public ChatPanelUIBase	// NAME 1: neutral, after its model's 'light02a' names
 {
 public:
 	UIStarbaseLightsClass(SClient *client);				// 0x646170  // NAME 1 [client]: the base's
@@ -361,7 +356,7 @@ public:
 	void Unknown_647B30();								// 0x647B30 (the colour pad dragged)
 	void Unknown_647F30(Vector3 point);					// 0x647F30 (the pull placed at a pad point, the colour read)  // NAME 1 [point]: neutral
 
-	// The base's +0x84 model as the font manager takes it (UIChatPanelBaseClass declares it a plain pointer)
+	// The base's +0x84 model as the font manager takes it (ChatPanelUIBase declares it a plain pointer)
 	const RefCountPtr<RenderObjClass> &Model() { return(*(const RefCountPtr<RenderObjClass> *)&Unknown84); }	// NAME 1 [Model]: neutral
 
 	GadgetClass *UnknownA0[6];							// +0xA0 (the buttons exit, save, light00-03: 0x646360; the constructor clears them with one memset)
@@ -387,7 +382,7 @@ public:
 
 // 0x646170
 UIStarbaseLightsClass::UIStarbaseLightsClass(SClient *client) :
-	UIChatPanelBaseClass(client),
+	ChatPanelUIBase(client),
 	UnknownD8(NULL),
 	Starbase(NULL),
 	UnknownE0(0),
@@ -469,7 +464,7 @@ void UIStarbaseLightsClass::Unknown_54()
 void UIStarbaseLightsClass::Unknown_58()
 {
 	if (!Active) {
-		UIChatPanelBaseClass::Unknown_58();
+		ChatPanelUIBase::Unknown_58();
 		UnknownE0 = 0;
 		Starbase = ((SBaseViewClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown135C)->Get_Starbase().Peek();
 		Starbase->Unknown_640D80(&UnknownE4, &UnknownE8, &UnknownEC);

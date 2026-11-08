@@ -1,0 +1,26 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x56B700 UIChatPanelClass::Unknown_56B700, similarity 0.585 vs the tree's 0.354; not exact.
+// idea: Build the name in a block-scoped default-constructed string assigned from channel->Name, so the client's call sequence appears: an out-of-line _Tidy, an inline assign(const char*) with _Grow, assign(str,0,npos), and a _Tidy(true) destructor; the loop uses an int index for the signed jl.
+void UIChatPanelClass::Unknown_56B700()
+{
+	OptionClass *options = OptionClass::Instance;
+	if (options) {
+		for (int i = 0; i < 17; i++) {
+			ChatChannelStruct *channel = &Unknown_B7C530[i];
+			if (channel->Name && atoi(channel->Number) == 5 && options->Get_Bool(channel->Option)) {
+				ClientChatRequestPacketClass packet(6, ((ClientClass *)Client)->Unknown1138);
+				{
+					std::string name;
+					name = channel->Name;
+					packet.Unknown14 = name;
+				}
+				packet.Unknown24 = std::string(" ");
+				((ClientClass *)Client)->Send_Packet(&packet);
+			}
+		}
+		if (options->Get_Bool("RestrictedStatus")) {
+			((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1C, ((ClientClass *)Client)->Unknown1138));
+		} else {
+			((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1D, ((ClientClass *)Client)->Unknown1138));
+		}
+	}
+}

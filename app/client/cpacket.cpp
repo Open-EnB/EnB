@@ -1704,7 +1704,7 @@ public:
 
 	char Unknown04[0xF0 - 0x04];
 };
-// NOT EXACT: frame (the same 487 instructions; the client gives the locals other stack slots: time, inflicted, mainview, avatar_id, type ascending; 24 forms; attempts.py show 0x738970)
+
 // 0x738970
 bool DamagePacketClass::Process_Packet(void *instance)
 {
@@ -1773,7 +1773,7 @@ bool DamagePacketClass::Process_Packet(void *instance)
 	}
 	if (Victim == avatar_id) {
 		if (sclient->MainView->Cpit) {
-			sclient->MainView->Cpit->Unknown_583DC0(damage_text, header_text, inflicted, type == 4);
+			bool emp = (type == 4); sclient->MainView->Cpit->Unknown_583DC0(damage_text, header_text, inflicted, emp);
 		}
 	} else if (Source == avatar_id) {
 		if (damage_text) {
@@ -2311,7 +2311,6 @@ bool NotifyEmotePacketClass::Process_Packet(void *instance)
 	emote->Unknown_7E6650(Emote);
 	return(true);
 }
-// NOT EXACT: register-only (this in edi, the interface in esi: the client has them the other way round; attempts.py show 0x73A9F0)
 // 0x73A9F0
 bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -2319,7 +2318,8 @@ bool StarbaseAvatarUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	if (!sclient->Unknown135C) return(true);
 	UIStarbaseClass *starbase = ((SBaseViewClass *)sclient->Unknown135C)->Get_Starbase().Peek();
-	if (!starbase || starbase->Room != Room || !starbase->Active) return(true);
+	int room;
+	if (!starbase || (room = starbase->Room) != Room || !starbase->Active) return(true);
 	starbase->Unknown_63E5C0(AvatarID, Orient, &Vector3(Unknown14, Unknown18, Unknown1C), ActionFlag);
 	return(true);
 }
@@ -2455,7 +2455,7 @@ public:
 };
 
 // The chat panel (ui_chat_panel.cpp; constructor 0x561DD0, 0x268 bytes), as far as CLIENT_CHAT_EVENT 165 uses it
-class UIChatPanelClass	// NAME 3: class-from-file (D24) for app\client\ui_chat_panel.cpp
+class ChatPanelInterface	// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408)
 {
 public:
 	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (CLIENT_CHAT_EVENT 165: the sender's game id, 0)  // NAME 1 [id, flag]: what it gets
@@ -2506,7 +2506,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 			}
 		}
 	}
-	UIChatPanelClass *panel = sclient->ChatPanel.Peek();
+	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (!panel) return(true);
 	UIChatPanelUnknownD8Class *d8 = panel->UnknownD8;
 	UIFriendsClass *friends = panel->Friends;
@@ -2815,7 +2815,7 @@ bool FindMemberPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("FindMemberPacketClass::Process_Packet(void * instance)");
 	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
-	UIChatPanelClass *panel = sclient->ChatPanel.Peek();
+	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (panel == NULL || panel->Get_UnknownF8() == NULL) return(true);
 	UIChatPanelUnknownF890Class *find = panel->Get_UnknownF8()->Unknown_90();
 	if (!find) return(true);
@@ -2849,7 +2849,7 @@ bool ClientChatListPacketClass::Process_Packet(void *instance)
 	WWPROFILE("ClientChatListPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
-	UIChatPanelClass *panel = sclient->ChatPanel.Peek();
+	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (!panel) return(true);
 	switch (Unknown0C) {
 		case 0: {
@@ -2940,7 +2940,7 @@ bool ClientChatErrorPacketClass::Process_Packet(void *instance)
 	WWPROFILE("ClientChatErrorPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!sclient) return(true);
-	UIChatPanelClass *panel = sclient->ChatPanel.Peek();
+	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (!panel) return(true);
 	const char *name = Unknown14.c_str();
 	const char *channel = Unknown24.c_str();

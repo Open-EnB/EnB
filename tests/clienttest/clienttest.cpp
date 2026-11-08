@@ -1777,11 +1777,11 @@ static void Test_Chat(SClient *client)
 	client->Unknown135C = saved_view;
 	*(void **)(main + 0x1E4) = saved_trade;
 
-	// NOTE_CONTENT 184 (its handler prints through SClient::Print and 0x74D990: the stubs trace them)
+	// NOTE_CONTENT 184 (its handler prints through SClient::Print and the real 0x74D990: the stubs trace the line display and the chat panel)
 	int before = Lines;
 	NoteContentPacketClass note(0, "alex", "first line\r\nsecond line\r\n\r\nthird");
 	note.Process_Packet(client);
-	Check(Lines - before == 5, "NOTE_CONTENT 184: 'From:', 'Sent:' and the note's three lines");
+	Check(Lines - before == 10, "NOTE_CONTENT 184: 'From:', 'Sent:' and the note's three lines, each (type 6) on the line display and the chat panel");
 
 	// MESSAGE_CHATSTREAM 95: no avatar for ship 12345
 	before = Lines;

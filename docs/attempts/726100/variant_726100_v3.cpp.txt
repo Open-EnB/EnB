@@ -1,0 +1,51 @@
+// D185 variant v3 (applied 2026-11-08, RT1): Keep the explicit empty-string temporaries but pass 'Null Item' as an implicit conversion, so the three temporaries differ in form; this may change the slot assignment and how much inline budget each one costs.
+ClientClass::ClientClass() :
+	Px(NULL),
+	PxProcess(NULL),
+	DebugMode(false),
+	Unknown11(false),
+	Kernel(NULL),
+	Unknown10BC(0),
+	Unknown10C0(0),
+	Unknown10C8(0),
+	Unknown10CC(32),
+	Unknown10D0(0),
+	Unknown10D4(-2500.0f),
+	Unknown10D8(2500.0f),
+	Unknown10DC(-1000000.0f),
+	Unknown10E0(-1000000.0f),
+	Unknown10E4(1000000.0f),
+	Unknown10E8(1000000.0f),
+	Unknown10EC(0),
+	Unknown10F0(0),
+	Unknown10F4(0),
+	Unknown10F8(false),
+	Unknown10F9(false),
+	Unknown10FA(false),
+	Unknown10FC(10000.0f),
+	Unknown1100(10000.0f),
+	Unknown1104(1.2217305f),
+	Unknown1108(true),
+	Unknown110C(0),
+	Unknown1110(1.0f),
+	Unknown1114(1.0f),
+	Unknown1128(0),
+	AvatarID(0),
+	ShipID(0),
+	Unknown1134(0),
+	Unknown1138(0),
+	Unknown113C(0),
+	ObjectsChanged(false),
+	Unknown1144(0),
+	Splines(NULL)
+{
+	srand(timeGetTime());
+	Unknown1138 = rand();
+	Connection = new PeekConnectionClass(new NullConnectionClass);
+	Unknown18 = new Unknown763E00Class;
+	Px = new PxList;
+	PxProcess = new PxProcessClass;
+	Splines = new SplineDatabaseClass(NULL);
+	Splines->Load("splines.wsd");
+	Unknown831340List.Add(new Unknown831340Class(-1, -1, -1, RefCountPtr<ItemBaseInfoClass>(), -1, -1, -1, 0, 0, 1, 0, 0, "Null Item", std::string(""), std::string("")), -1);
+}

@@ -1,0 +1,76 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x453F10 PxCollision::Unknown_453F10, similarity 0.884 vs the tree's 0.701; not exact.
+// idea: Write the edge products scalar-first (`abox.Extent.Y * axis[0][1]`), so VC6 loads the extent before multiplying as the client's rows 2 and 3 do, and drop the named `delta` temporary so the dot product reads pos[other] first.
+bool PxCollision::Unknown_453F10(const Vector3 &apos, const Vector3 &bpos)
+{
+	Matrix3D atm = A->Unknown_Dyn3C();
+	Matrix3D btm = B->Unknown_Dyn3C();
+	AABoxClass abox = A->Unknown_Dyn7C();
+	AABoxClass bbox = B->Unknown_Dyn7C();
+	int self = 0;
+	int other = 1;
+	Vector3 pos[2];
+	Vector3 extent[2];
+	Vector3 axis[2][3];
+	Vector3 edge[2][3];
+	extent[0] = abox.Extent;
+	extent[1] = bbox.Extent;
+	pos[0] = apos;
+	pos[1] = bpos;
+	axis[0][0] = atm.Get_X_Vector();
+	axis[0][1] = atm.Get_Y_Vector();
+	axis[0][2] = atm.Get_Z_Vector();
+	axis[1][0] = btm.Get_X_Vector();
+	axis[1][1] = btm.Get_Y_Vector();
+	axis[1][2] = btm.Get_Z_Vector();
+	edge[0][0] = abox.Extent.X * axis[0][0];
+	edge[0][1] = abox.Extent.Y * axis[0][1];
+	edge[0][2] = abox.Extent.Z * axis[0][2];
+	edge[1][0] = bbox.Extent.X * axis[1][0];
+	edge[1][1] = bbox.Extent.Y * axis[1][1];
+	edge[1][2] = bbox.Extent.Z * axis[1][2];
+	float best = 100000.0f;
+	for (int i = 0; i < 2; i++) {
+		if (i == 1) {
+			self = 1;
+			other = 0;
+		}
+		for (int j = 0; j < 3; j++) {
+			Vector3 n = axis[self][j];
+			float d = (pos[other] - pos[self]) * n;
+			Vector3 p = pos[other];
+			if (d >= 0.0f) {
+				d = -d;
+			} else {
+				n = -n;
+			}
+			float depth = d + extent[self][j];
+			for (int k = 0; k < 3; k++) {
+				Vector3 e = edge[other][k];
+				float t = e * n;
+				if (t < 0.0f) {
+					depth -= t;
+					p += e;
+				} else {
+					depth += t;
+					p -= e;
+				}
+			}
+			if (depth < 0.0f) {
+				return(false);
+			}
+			if (depth < best) {
+				best = depth;
+				Unknown14 = p;
+				Unknown20 = false;
+				if (i) {
+					Unknown08 = -n;
+					Unknown24 = depth;
+				} else {
+					Unknown08 = n;
+					Unknown24 = depth;
+				}
+			}
+		}
+	}
+	return(true);
+}

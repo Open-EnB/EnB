@@ -180,8 +180,6 @@ void LegoIdentifierClass::Set_Name(const std::string &name)
 }
 
 // 0x844ED0
-// NOT EXACT: inline-budget (explain.py), 0.79: the client keeps the vtable pointer in edi and the name in ebp (ours swapped) and gives
-// the Rest path its own destructor tail (the second identifier's destructor out of line); four forms (WE6)
 LegoSplitStruct::LegoSplitStruct(const LegoIdentifierClass &base, const LegoIdentifierClass &id) :
 	State(2)
 {
@@ -198,17 +196,19 @@ LegoSplitStruct::LegoSplitStruct(const LegoIdentifierClass &base, const LegoIden
 	}
 	if (b.Get_Count()) {
 		State = 2;
-	} else if (!i.Get_Count()) {
-		State = 3;
-	} else {
-		Name = i.Pop_Root();
-		if (!i.Get_Count()) {
-			State = 0;
-		} else {
-			Rest.BoneNameChain = i.BoneNameChain;
-			State = 1;
-		}
+		return;
 	}
+	if (!i.Get_Count()) {
+		State = 3;
+		return;
+	}
+	Name = i.Pop_Root();
+	if (!i.Get_Count()) {
+		State = 0;
+		return;
+	}
+	Rest.BoneNameChain = i.BoneNameChain;
+	State = 1;
 }
 
 // 0x8451A0

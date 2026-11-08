@@ -1454,7 +1454,7 @@ Unknown7125F0Class::~Unknown7125F0Class()
 
 
 
-// NOT EXACT: 0x712780 shape: the client's speed is (s - s) * t + s of EndState's speed alone (its other slot reused for t), a form that folds here
+// 0x712780
 void Unknown7125F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
 {
 	if (time <= StartTime) {
@@ -1473,7 +1473,7 @@ void Unknown7125F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 
 
 
-	float end_speed, start_speed;
+	float start_speed, end_speed;
 	Vector3 start_position, start_velocity, start_rotrate;
 	Vector3 end_position, end_velocity, end_rotrate;
 	Quaternion start_orientation, end_orientation;
@@ -1490,12 +1490,12 @@ void Unknown7125F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 		} else {
 			Slerp(*orientation, start_orientation, end_orientation, t);
 		}
-	}
-	if (velocity) {
+	} if (velocity) {
 		Vector3::Lerp(start_velocity, end_velocity, t, velocity);
 	}
 	if (speed) {
-		*speed = WWMath::Lerp(start_speed, end_speed, t);
+		float s0 = end_speed, s1 = end_speed;	// the client lerps EndState's speed to itself: (s - s) * t + s
+		*speed = WWMath::Lerp(s0, s1, t);
 	}
 	if (rotrate) {
 		Vector3::Lerp(start_rotrate, end_rotrate, t, rotrate);

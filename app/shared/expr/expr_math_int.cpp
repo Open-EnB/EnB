@@ -48,7 +48,7 @@ ExprMathIntFactoryClass::ExprMathIntFactoryClass(unsigned int flags) :
 }
 
 
-// NOT EXACT: 0x4CBCD0 similarity 0.77: float's register choice, and the client inlines more of the groups' assignments
+
 // @0x4CBCD0
 ExprMathIntFactoryClass::PtrType ExprMathIntFactoryClass::Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 {
@@ -56,36 +56,36 @@ ExprMathIntFactoryClass::PtrType ExprMathIntFactoryClass::Create_Binary(const st
 		return Create_NEW((ExprMathEvalClass<int> *)new ExprMathIntModuloClass(left, right));
 	}
 	PtrType result;
-	if (m_flags & 1) {
-		if (result = ExprMathArithmeticOpsClass<int>::Create_Binary(name, left, right)) {
-			return result;
-		}
-
+	if ((m_flags & 1) && (result = ExprMathArithmeticOpsClass<int>::Create_Binary(name, left, right))) {
+		return result;
 	}
-	if (m_flags & 4) {
-		if (result = ExprMathBitwiseOpsClass<int>::Create_Binary(name, left, right)) {
-			return result;
-		}
 
-	}
-	if (m_flags & 0x10) {
-		if (result = ExprMathFunctionOpsClass<int>::Create_Binary(name, left, right)) {
-			return result;
-		}
 
-	}
-	if (m_flags & 2) {
-		if (result = ExprMathCompareOpsClass<int>::Create_Binary(name, left, right)) {
-			return result;
-		}
 
+	if ((m_flags & 4) && (result = ExprMathBitwiseOpsClass<int>::Create_Binary(name, left, right))) {
+		return result;
 	}
-	if (m_flags & 8) {
-		if (result = ExprMathLogicOpsClass<int>::Create_Binary(name, left, right)) {
-			return result;
-		}
 
+
+
+	if ((m_flags & 0x10) && (result = ExprMathFunctionOpsClass<int>::Create_Binary(name, left, right))) {
+		return result;
 	}
+
+
+
+	if ((m_flags & 2) && (result = ExprMathCompareOpsClass<int>::Create_Binary(name, left, right))) {
+		return result;
+	}
+
+
+
+	if ((m_flags & 8) && (result = ExprMathLogicOpsClass<int>::Create_Binary(name, left, right))) {
+		return result;
+	}
+
+
+
 	return NULL;
 }
 

@@ -1751,19 +1751,25 @@ void AvatarCreationInterface::Unknown_55A060(Vector2 uv)
 	}
 }
 
-// NOT EXACT: functional (D64), from the client's 0x55A1F0 (a pull dragged: 0 the body's (+0x160: the blend
+// From the client's 0x55A1F0 (a pull dragged: 0 the body's (+0x160: the blend
 // weights, 0x55A060), 1 the head's (+0x16C: +0x170 / +0x174, then 0x55B540); its marker on the window model's bone)
 // 0x55A1F0
 void AvatarCreationInterface::Unknown_55A1F0(int arg)
 {
-	UIAvatrPullClass *pull = (arg == 0) ? Unknown160 : Unknown16C;
+	UIAvatrPullClass *pull;
+	if (arg == 0) {
+		pull = Unknown160;
+	} else {
+		pull = Unknown16C;
+	}
 
-	if (((Unknown_671300Class *)pull->Gadget)->Unknown64) {
+	if (((Unknown_671300Class *)pull->Gadget)->Unknown64 != 0) {
 		pull->Unknown08 = true;
 	}
-	if ((((Unknown_671300Class *)pull->Gadget)->Unknown64 || ((Unknown_671300Class *)pull->Gadget)->Unknown65) && pull->Unknown08) {
+	Unknown_671300Class *gadget = (Unknown_671300Class *)pull->Gadget;
+	if ((gadget->Unknown64 || gadget->Unknown65) && pull->Unknown08) {
 		AABoxClass box;
-		pull->Gadget->Unknown_64(box);
+		gadget->Unknown_64(box);
 		float x;
 		float y; float top, left, width, height;
 		Unknown_42ECF0(&x, &y);
@@ -1926,12 +1932,6 @@ void AvatarCreationInterface::Unknown_55BFB0()
 		height->Change_Text(text, 0);
 	}
 }
-
-
-
-
-
-
 
 
 

@@ -1,0 +1,20 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x70B450 Unknown_70B450, similarity 0.532 vs the tree's 0.469; not exact.
+// idea: Move the seven-type test into a file-static inline predicate; the extra inline layer spends budget before the string ctor, so its assign is called out of line as in the client.
+static inline bool Is_Unrelated_Type(ClientObjectClass *object)
+{
+	switch (object->Type) {
+		case 0: case 1: case 2: case 11: case 12: case 28: case 33:
+			return(true);
+	}
+	return(false);
+}
+
+bool Unknown_70B450(SClient *client, ClientObjectClass *object, GutterColorSetStruct &colors)
+{
+	if (Is_Unrelated_Type(object)) {
+		return(false);
+	}
+	static GutterColorSetStruct neutral = Unknown_70ADF0(std::string("Neutral"));
+	colors = neutral;
+	return(true);
+}

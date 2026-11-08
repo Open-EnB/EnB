@@ -45,7 +45,7 @@ check Remove_Effects 41: NULL: ok
 stub EffectObjectClass::~EffectObjectClass 40
 stub EffectObjectClass::~EffectObjectClass 40
 == (2) DEBUG and the redirect
-stub SClient::Unknown_74D990 0x17 'Debug mode turned ON.' 0
+stub ChatPanelInterface::Unknown_563760 0x17 'Debug mode turned ON.'
 check Set_Debug_Mode true before the redirect (the do-nothing connection): ok
 step: connecting to 127.0.0.1 on port 7000
 memconn is_listening 7000
@@ -58,13 +58,13 @@ check Set_Avatar_ID 1000 returns the old id 0: ok
 check Set_Avatar_ID sends DEBUG {1000, 0x21, 0}: ok
 check Get_Avatar is object 1000: ok
 sent DEBUG (26) size 16: e80300001e00000000000000
-stub SClient::Unknown_74D990 0x17 'Debug mode turned OFF.' 0
+stub ChatPanelInterface::Unknown_563760 0x17 'Debug mode turned OFF.'
   parsed back: Debug {GameID=1000 Command=Toggle_invulnerability,Buff_skills UserData=0}
 check Set_Debug_Mode false sends DEBUG {1000, 0x1E, 0}: ok
-stub SClient::Unknown_74D990 0x17 'Debug mode turned OFF.' 0
+stub ChatPanelInterface::Unknown_563760 0x17 'Debug mode turned OFF.'
 check Set_Debug_Mode false again sends nothing: ok
 sent DEBUG (26) size 16: e80300001e00000001000000
-stub SClient::Unknown_74D990 0x17 'Debug mode turned ON.' 0
+stub ChatPanelInterface::Unknown_563760 0x17 'Debug mode turned ON.'
 check Toggle_Debug_Mode returns true: ok
   parsed back: Debug {GameID=1000 Command=Toggle_invulnerability,Buff_skills UserData=1}
 check Toggle_Debug_Mode sends DEBUG {1000, 0x1E, 1}: ok
@@ -310,7 +310,7 @@ messages 1000
 stub TaskClass::Is_Focused -> 1
 msg 1 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
 loadingview 0C 1
-stub SClient::Unknown_74D990 0x17 'rtt = 4291038945  correction = 2140340121' 0
+stub ChatPanelInterface::Unknown_563760 0x17 'rtt = 4291038945  correction = 2140340121'
 msg 2 ITEM_BASE (37) size 126: cpacket.cpp's handler
 stub Unknown831340Class::Unknown831340Class 7745 'Aquitaine Dark Matter' type 13
 msg 3 ITEM_BASE (37) size 178: cpacket.cpp's handler
@@ -1814,20 +1814,20 @@ loadingview render object released
 sent REQUEST_TIME (68) size 8: 00000000
 sent START_ACK (6) size 8: 8a460000
 msg 754 MESSAGE_STRING (29) size 58: cpacket.cpp's handler
-stub SClient::Unknown_74D990 0x0 'We have entered Glory's Orbit (Beta Hydri System).' 0
+stub ChatPanelInterface::Unknown_563760 0x0 'COMPUTER: We have entered Glory's Orbit (Beta Hydri System).'
 msg 755 CAMERA_CONTROL (146) size 12: cpacket.cpp's handler
 msg 756 CLIENT_CHAT_EVENT (165) size 49: cpacket.cpp's handler
 msg 757 AUX_DATA (27) size 81: cpacket.cpp's handler
 msg 758 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
-stub SClient::Unknown_74D990 0x17 'rtt = 4291033018  correction = 2140343229' 0
+stub ChatPanelInterface::Unknown_563760 0x17 'rtt = 4291033018  correction = 2140343229'
 state CLIENT_SET_TIME correction 2140343229 rtt -3934278
 msg 759 CLIENT_CHAT_EVENT (165) size 76: cpacket.cpp's handler
 stub Unknown764FD0Class::Unknown_765DF0 12
-stub SClient::Unknown_74D990 0xC '[Market] Snaggletoof: *erupts in laughter*' 0
+stub ChatPanelInterface::Unknown_563760 0xC '[Market] Snaggletoof: *erupts in laughter*'
 msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
 msg 761 CLIENT_CHAT_EVENT (165) size 99: cpacket.cpp's handler
 stub Unknown764FD0Class::Unknown_765DF0 12
-stub SClient::Unknown_74D990 0xC '[Market] Heckitty: Think I feel my life expectancy rising already :D' 0
+stub ChatPanelInterface::Unknown_563760 0xC '[Market] Heckitty: Think I feel my life expectancy rising already :D'
 msg 762 OBJECT_EFFECT (9) size 23: cpacket.cpp's handler
 stub Unknown_6E9490 desc 214 effect 48901062 duration 0 time 1967671 scale 1.00 hsv (60.00 0.00 0.00) 1.00 -1 0
 stub Unknown6E9490TargetClass::Unknown_28 48900994
@@ -1881,17 +1881,17 @@ stub EffectObjectClass::Unknown_6E6E30 48901060
 msg 772 GALAXY_MAP (151) size 59: cpacket.cpp's handler
 fail_if !map (line 2358)
 msg 773 MESSAGE_STRING (29) size 53: cpacket.cpp's handler
-stub SClient::Unknown_74D990 0x0 'Pehuo bestows a lesser psionic shield on you.' 0
+stub ChatPanelInterface::Unknown_563760 0x0 'COMPUTER: Pehuo bestows a lesser psionic shield on you.'
 msg 774 MESSAGE_STRING (29) size 44: cpacket.cpp's handler
-stub SClient::Unknown_74D990 0x0 'You steel yourself against psionics.' 0
+stub ChatPanelInterface::Unknown_563760 0x0 'COMPUTER: You steel yourself against psionics.'
 msg 775 MESSAGE_STRING (29) size 36: cpacket.cpp's handler
-stub SClient::Unknown_74D990 0x0 'Your hull takes less damage.' 0
+stub ChatPanelInterface::Unknown_563760 0x0 'COMPUTER: Your hull takes less damage.'
 msg 776 MESSAGE_STRING (29) size 46: cpacket.cpp's handler
-stub SClient::Unknown_74D990 0x0 'Your shield begins to recharge faster.' 0
+stub ChatPanelInterface::Unknown_563760 0x0 'COMPUTER: Your shield begins to recharge faster.'
 msg 777 MESSAGE_STRING (29) size 34: cpacket.cpp's handler
-stub SClient::Unknown_74D990 0x0 'Sai'li's Circle installed.' 0
+stub ChatPanelInterface::Unknown_563760 0x0 'COMPUTER: Sai'li's Circle installed.'
 msg 778 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
-stub SClient::Unknown_74D990 0x17 'rtt = 4291026440  correction = 2140347096' 0
+stub ChatPanelInterface::Unknown_563760 0x17 'rtt = 4291026440  correction = 2140347096'
 state CLIENT_SET_TIME correction 2140347096 rtt -3940856
 msg 779 AUX_DATA (27) size 38: cpacket.cpp's handler
 msg 780 AUX_DATA (27) size 43: cpacket.cpp's handler
@@ -1941,7 +1941,7 @@ msg 808 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 809 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 810 CLIENT_CHAT_EVENT (165) size 61: cpacket.cpp's handler
 stub Unknown764FD0Class::Unknown_765DF0 12
-stub SClient::Unknown_74D990 0xC '[Market] Stormp: hard to say >>>' 0
+stub ChatPanelInterface::Unknown_563760 0xC '[Market] Stormp: hard to say >>>'
 msg 811 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 207
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -2577,12 +2577,17 @@ stub SClient::Unknown_744B60 -> 1
 assert 0 (line 524)
 trade calls (starbase): +58 640110(8) 40(0) 40(0) 40(0) 40(0) 640110(0) 
 check TRADE 31 docked: the starbase view's +0x1A4 and the starbase interface's 0x640110(8) / (0); its count back to 5: ok
-stub SClient::Unknown_74D990 0x6 'From: alex' 0
-stub SClient::Unknown_74D990 0x6 'Sent: (the date)' 0
-stub SClient::Unknown_74D990 0x6 'first line' 0
-stub SClient::Unknown_74D990 0x6 'second line' 0
-stub SClient::Unknown_74D990 0x6 'third' 0
-check NOTE_CONTENT 184: 'From:', 'Sent:' and the note's three lines: ok
+stub UILineDisplayClass::Add_Line_3 'From: alex' 3000 'MessageLine'
+stub ChatPanelInterface::Unknown_563760 0x6 'TIP: From: alex'
+stub UILineDisplayClass::Add_Line_3 'Sent: (the date)' 3000 'MessageLine'
+stub ChatPanelInterface::Unknown_563760 0x6 'TIP: Sent: (the date)'
+stub UILineDisplayClass::Add_Line_3 'first line' 3000 'MessageLine'
+stub ChatPanelInterface::Unknown_563760 0x6 'TIP: first line'
+stub UILineDisplayClass::Add_Line_3 'second line' 3000 'MessageLine'
+stub ChatPanelInterface::Unknown_563760 0x6 'TIP: second line'
+stub UILineDisplayClass::Add_Line_3 'third' 3000 'MessageLine'
+stub ChatPanelInterface::Unknown_563760 0x6 'TIP: third'
+check NOTE_CONTENT 184: 'From:', 'Sent:' and the note's three lines, each (type 6) on the line display and the chat panel: ok
 check MESSAGE_CHATSTREAM 95 with no avatar for its ShipID: nothing happens: ok
 check FIND_MEMBER 83 without a chat panel: nothing called: ok
 find calls: 59A400(1 players) 
@@ -2600,43 +2605,43 @@ check GUILD_MESSAGE_SECTOR 208: the type's text with OtherName and GuildName sub
 check GUILD_MESSAGE_SECTOR 208: the sound asked for each type, played (asked again) for type 3 only: ok
 == (4l) CLIENT_CHAT_LIST 164, CLIENT_CHAT_ERROR 166, GUILD_SIMPLE_SECTOR_CLIENT 204
 check CLIENT_CHAT_LIST 164 without a chat panel: nothing: ok
-stub SClient::Unknown_74D990 0x17 'Friends:' 0
-stub SClient::Unknown_74D990 0x17 'Alex' 0
-stub SClient::Unknown_74D990 0x17 'Bea' 0
-stub SClient::Unknown_74D990 0x17 'Ignored:' 0
-stub SClient::Unknown_74D990 0x17 'Alex' 0
-stub SClient::Unknown_74D990 0x17 'Bea' 0
-stub SClient::Unknown_74D990 0x17 'Members of channel Sector 1:' 0
-stub SClient::Unknown_74D990 0x17 'Alex' 0
-stub SClient::Unknown_74D990 0x17 'Bea' 0
-stub SClient::Unknown_74D990 0x17 'Active channels:' 0
-stub SClient::Unknown_74D990 0x17 'Alex' 0
-stub SClient::Unknown_74D990 0x17 'Bea' 0
-stub SClient::Unknown_74D990 0x17 'Ignored:' 0
-stub SClient::Unknown_74D990 0x17 '<none>' 0
+stub ChatPanelInterface::Unknown_563760 0x17 'Friends:'
+stub ChatPanelInterface::Unknown_563760 0x17 'Alex'
+stub ChatPanelInterface::Unknown_563760 0x17 'Bea'
+stub ChatPanelInterface::Unknown_563760 0x17 'Ignored:'
+stub ChatPanelInterface::Unknown_563760 0x17 'Alex'
+stub ChatPanelInterface::Unknown_563760 0x17 'Bea'
+stub ChatPanelInterface::Unknown_563760 0x17 'Members of channel Sector 1:'
+stub ChatPanelInterface::Unknown_563760 0x17 'Alex'
+stub ChatPanelInterface::Unknown_563760 0x17 'Bea'
+stub ChatPanelInterface::Unknown_563760 0x17 'Active channels:'
+stub ChatPanelInterface::Unknown_563760 0x17 'Alex'
+stub ChatPanelInterface::Unknown_563760 0x17 'Bea'
+stub ChatPanelInterface::Unknown_563760 0x17 'Ignored:'
+stub ChatPanelInterface::Unknown_563760 0x17 '<none>'
 fail_if player_list_size != location_list_size (line 610)
-stub SClient::Unknown_74D990 0x17 'Active channels:' 0
-stub SClient::Unknown_74D990 0x17 'Alex' 0
-stub SClient::Unknown_74D990 0x17 'Bea' 0
+stub ChatPanelInterface::Unknown_563760 0x17 'Active channels:'
+stub ChatPanelInterface::Unknown_563760 0x17 'Alex'
+stub ChatPanelInterface::Unknown_563760 0x17 'Bea'
 list calls: 5DA600(2) 5E8E30-0(2) 5E8E30-1(2) 5E5D70(2) 
 check CLIENT_CHAT_LIST 164: friends, ignore, channel lists to the panel's members (type 3 with +0xA0 1 printed instead): ok
-stub SClient::Unknown_74D990 0x13 'Could not speak on Sector 1. (error 5)' 0
-stub SClient::Unknown_74D990 0x13 'Could not broadcast to Alex. (error 5)' 0
-stub SClient::Unknown_74D990 0x13 'Could not speak locally. (error 5)' 0
-stub SClient::Unknown_74D990 0x13 'Could not broadcast to all. (error 5)' 0
-stub SClient::Unknown_74D990 0x13 'Could not add Alex to your friend list. (error 5)' 0
-stub SClient::Unknown_74D990 0x13 'Could not invite Alex to Sector 1. (error 5)' 0
-stub SClient::Unknown_74D990 0x13 'Could not ban Bea from Sector 1. (error 5)' 0
-stub SClient::Unknown_74D990 0x13 'Could not gag Alex on Sector 1. (error 5)' 0
-stub SClient::Unknown_74D990 0x13 'Could not set access on channel Sector 1. (error 5)' 0
-stub SClient::Unknown_74D990 0x13 'You do not have permission to GM Gag' 0
-stub SClient::Unknown_74D990 0x13 'ERROR: error handling unknown request 25 (error 5)' 0
-stub SClient::Unknown_74D990 0x13 'Chat disabled. You have been gagged by a GM' 0
-stub SClient::Unknown_74D990 0x13 'Message sent to all users.' 0
-stub SClient::Unknown_74D990 0x13 'Removed channel Sector 1.' 0
-stub SClient::Unknown_74D990 0x13 'Kicked Alex from channel Sector 1.' 0
-stub SClient::Unknown_74D990 0x13 'Set channel Sector 1 access to Bea.' 0
-stub SClient::Unknown_74D990 0x13 'A password has been set for channel Sector 1.' 0
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Could not speak on Sector 1. (error 5)'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Could not broadcast to Alex. (error 5)'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Could not speak locally. (error 5)'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Could not broadcast to all. (error 5)'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Could not add Alex to your friend list. (error 5)'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Could not invite Alex to Sector 1. (error 5)'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Could not ban Bea from Sector 1. (error 5)'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Could not gag Alex on Sector 1. (error 5)'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Could not set access on channel Sector 1. (error 5)'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: You do not have permission to GM Gag'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: ERROR: error handling unknown request 25 (error 5)'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Chat disabled. You have been gagged by a GM'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Message sent to all users.'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Removed channel Sector 1.'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Kicked Alex from channel Sector 1.'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: Set channel Sector 1 access to Bea.'
+stub ChatPanelInterface::Unknown_563760 0x13 'SYSTEM: A password has been set for channel Sector 1.'
 check CLIENT_CHAT_ERROR 166 success: five lines (the sound for 22 is soundlib.cpp's real Play_2D_Sound now: no stand-in line), type 4 none: ok
 msg 1 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler
 msg 2 GUILD_SIMPLE_SECTOR_CLIENT (204) size 14: cpacket.cpp's handler

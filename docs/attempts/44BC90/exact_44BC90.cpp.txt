@@ -1,0 +1,25 @@
+// exact form (RT1, 2026-11-08): the 11-01 Batch variant v9 (component stores through references) in the tree layout, the loop FAIL_IF on line 252
+void PxBox::Set_Corners(const Vector3 &low, const Vector3 &high)
+{
+	FAIL_IF(!low.Is_Valid()) return;
+	FAIL_IF(!high.Is_Valid()) return;
+
+	Vector3 new_low = low;
+	Vector3 new_high = high;
+	for (int i = 0; i < 3; i++) {
+
+
+		FAIL_IF(new_low[i] > new_high[i]) {
+			float temp = new_low[i];
+			new_low[i] = new_high[i];
+			new_high[i] = temp;
+		}
+	}
+
+	if (List) {
+		List->Set_Corners(this, new_low, new_high);
+	} else {
+		Vector3 &lp = Low->Pos; lp.X = new_low.X; lp.Y = new_low.Y; lp.Z = new_low.Z;
+		Vector3 &hp = High->Pos; hp.X = new_high.X; hp.Y = new_high.Y; hp.Z = new_high.Z;
+	}
+}

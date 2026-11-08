@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the cockpit's full-screen camera gadget (its assert names e:\\build\\beta\\G\\app\\client\\ctrngadg.cpp, 0xB76294): constructor 0x50A850, the table 0xAECDE4's deleting destructor 0x50AAE0 / destructor 0x50AB10, the hit test 0x50AB30 and the event slot 0x50ABC0 (NOT EXACT), its value holder's destructor 0x50B2C0 and the static initialisers 0x50B2E0-0x50B340; GadgetClass's one-line slots 0x50A8C0-0x50AAC0 are emitted in its object",
  "expected": {},
@@ -27,7 +25,8 @@
   "0x50AAC0",
   "0x50AAE0",
   "0x50AB10",
-  "0x50AB30"
+  "0x50AB30",
+  "0x50B2E0"
  ],
  "merged": [],
  "name": "client/ctrngadg.cpp",

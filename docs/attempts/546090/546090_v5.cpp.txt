@@ -1,0 +1,29 @@
+static inline DeltaStringClass *Find_Failure(DeltaCompoundClass *aux, NameClass &name)
+{
+	if (!aux) {
+		return NULL;
+	}
+	DeltaStringClass *failure = Unknown_Find_Field<DeltaStringClass>(aux, name);
+	if (!failure) {
+		return NULL;
+	}
+	return failure;
+}
+
+void UIAnalyzeClass::Unknown_546090()
+{
+	NameClass name("FailureMessage");
+	DeltaStringClass *failure = Find_Failure(Unknown10C, name);
+	if (failure && failure->Unknown70) {
+		if (strcmp(failure->Get(), "") != 0) {
+			Unknown_544C50(7, true, failure->Get());
+			Unknown114 = Unknown_AEF0EC;
+			if (Unknown0D8) {
+				Unknown0D8->Unknown_62F5B0(false);
+			}
+			if (Unknown0DC) {
+				Unknown0DC->Unknown_62F5B0(false);
+			}
+		}
+	}
+}

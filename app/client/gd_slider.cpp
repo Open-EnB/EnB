@@ -726,7 +726,7 @@ void GadgetSlider::Unknown_A4(float val, bool arg2)
 
 
 
-// NOT EXACT: frame (similarity 0.58): the client keeps the low bone's X on the FPU stack, ours spills it (0x1C frame vs 0x18)
+
 // @0x66FD80
 bool GadgetSlider::Unknown_66FD80(bool force)
 {
@@ -743,8 +743,8 @@ bool GadgetSlider::Unknown_66FD80(bool force)
 	MaxBonePos = max_pos;
 	if (IsHorizontal) {
 		UnknownA0 = min_pos.Y;
-		UnknownA4 = Vector2(WWMath::Min(min_pos.X, max_pos.X), min_pos.Y - Unknown80 * 0.5f);
-		UnknownAC = Vector2(WWMath::Max(min_pos.X, max_pos.X), Unknown80 * 0.5f + UnknownA0);
+		UnknownA4.Set(WWMath::Min(min_pos.X, max_pos.X), min_pos.Y - Unknown80 * 0.5f);
+		UnknownAC.Set(WWMath::Max(min_pos.X, max_pos.X), Unknown80 * 0.5f + UnknownA0);
 		UnknownB4 = UnknownA4.X + Unknown80;
 		UnknownB8 = UnknownAC.X - Unknown80;
 		UnknownBC = UnknownB8 - UnknownB4;
@@ -758,8 +758,8 @@ bool GadgetSlider::Unknown_66FD80(bool force)
 		MaxArrow->Set_Position(Vector3(UnknownB8 + Unknown80, UnknownA0, 0.0f));
 	} else {
 		UnknownA0 = min_pos.X;
-		UnknownA4 = Vector2(min_pos.X - Unknown80 * 0.5f, WWMath::Min(min_pos.Y, max_pos.Y));
-		UnknownAC = Vector2(Unknown80 * 0.5f + UnknownA0, WWMath::Max(min_pos.Y, max_pos.Y));
+		UnknownA4.Set(min_pos.X - Unknown80 * 0.5f, WWMath::Min(min_pos.Y, max_pos.Y));
+		UnknownAC.Set(Unknown80 * 0.5f + UnknownA0, WWMath::Max(min_pos.Y, max_pos.Y));
 		UnknownB4 = UnknownAC.Y - Unknown80;
 		UnknownB8 = UnknownA4.Y + Unknown80;
 		UnknownBC = UnknownB4 - UnknownB8;
@@ -917,8 +917,8 @@ void GadgetSlider::Unknown_670440()
 **	code reads (fild), not folded: defined here, after their uses. gadget.cpp's last input event 0xBE5EB0 is no longer
 **	static (0x66EF00 reads its key: 0x101 / 0x102 are the wheel's).
 **	0x66EE20 (+0x8C): byte-exact with the base call in an if / else (the client cross-jumps the two calls).
-**	+0xA4 and +0xAC are Vector2s (0x66FD80 stores each through a Vector2 temporary: 0.51 -> 0.58; the constructor stays exact).
-**	NOT EXACT (D64): 0x66FD80 (0.58).
+**	+0xA4 and +0xAC are Vector2s (0x66FD80 sets each with Vector2::Set, no temporary: exact, Batch API run b1108).
+**	0x66FD80 is exact.
 */
 
 const int Unknown_B8D430 = 500;

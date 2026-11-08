@@ -1,0 +1,16 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x500760 UniqueDesignIDLookupClass::Add_Identifier, similarity 0.558 vs the tree's 0.491; not exact.
+// idea: Early return in the found branch, with the find call written directly in the condition instead of through a named local iterator. The iterator becomes a compiler temporary, while the duplicated destructor path still spends the budget.
+void UniqueDesignIDLookupClass::Add_Identifier(int id, const std::string &identifier)
+{
+	std::string key(identifier);
+	std::transform(key.begin(), key.end(), key.begin(), tolower);
+	std::stringstream stream;
+	stream << id;
+	std::hash_map<std::string, int>::iterator find_result;
+	if ((find_result = Map.find(key)) != Map.end()) {
+		G_ASSERT(identifier == find_result->first);
+		return;
+	}
+	INI.Put_String(Section.c_str(), stream.str().c_str(), key.c_str());
+	Map[identifier] = id;
+}

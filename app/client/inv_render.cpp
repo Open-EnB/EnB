@@ -1108,26 +1108,10 @@ const char *Get_Roman_Numeral(int value)
 	return(_RomanNumerals[value]);
 }
 
-// inv_trade_render.cpp's by the client's objects; here until the user's call on 0x68FAE0 (D66, P-IR2-1)
-// 0x68FB60
-InvTradeRenderClass::InvTradeRenderClass() :
-	InvRenderClass(true),
-	DescriptionGroup(0)
-{
-	Unknown_BE67BC->Load("fa_ce02a.ini");
-}
-
-// 0x68FC80
-InvTradeRenderClass::~InvTradeRenderClass()
-{
-	DescriptionGroup = 0;
-	Unknown_BE67BC->Unload("fa_ce02a.ini");
-}
-
 /*
 **	Reconstruction notes. The client's file per its asserts ('e:\build\beta\G\app\Client\inv_render.cpp' at 0xB90220;
 **	lines 119-1107), its object 0x68BF10-0x68FB4A: `<string>`'s initialiser and its atexit (0x68FB10, 0x68FB40) end it.
-**	0x68FB60 on is inv_trade_render.cpp's (0x68FE10 has its __FILE__); its constructor and destructor stay below for now (D66, P-IR2-1).
+**	0x68FB60 on is inv_trade_render.cpp's (0x68FE10 has its __FILE__), where its constructor and destructor now are (D209, P-IR3-1 (b)).
 **	0x68BF10 copies its allocator from the argument's own slot (`mov al,[esp+0x28]`), then tests that byte: hence the cast
 **	in Unknown44's initialiser, and no stack slot of the temporary. Get_Roman_Numeral (0x68FA30) sits on the asserts' lines and inlines
 **	into the earlier 0x68D700, where `value > 0` folds the first FAIL_IF away (line 1106 has no string reference there).
@@ -1136,5 +1120,7 @@ InvTradeRenderClass::~InvTradeRenderClass()
 **	declared base (D137) is not ClientItemPropertyVisitorClass, whose table 0x68C5A0 does not store: hence the cast in Route.
 **	Accessors matter here: VC6's inline budget in the long functions moved to the client's only with Get_Slot, Get_Type, Get_Name (0x68CCC0)
 **	and Get_Filter (0x68EB10, exact): without them the early compares and appends inline where the client calls them.
-**	The statics with the empty destructors 0x68EAC0, 0x68FA10: Unknown68E360Class. 0x68FAA0 and 0x68FAE0 are another header's initialisers, not rebuilt.
+**	The statics with the empty destructors 0x68EAC0, 0x68FA10: Unknown68E360Class. 0x68FAA0 and 0x68FAE0 are another header's initialisers, not rebuilt
+**	(0x68FAE0 was credited by the range while 0x68FB60 / 0x68FC80 sat here; its loss is the user's (D209, P-IR3-1 (b)). Lead: the
+**	header of the enum statics 0xBE3B44 / 0xC416A8 / 0xC41658).
 */

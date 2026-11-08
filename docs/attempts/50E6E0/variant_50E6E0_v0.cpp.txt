@@ -1,0 +1,52 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x50E6E0 MainViewClass::Render_Planet_Mode, similarity 0.826 vs the tree's 0.669; not exact.
+// idea: Put the Unknown10FA-set case first (`if (Client->Unknown10FA) {...} else {...}`). VC6 then emits that branch first, and the inline budget is spent on its 50D1E0 expansion first, so Get_Depth_Range is inlined there and called out of line in the later copies, as in the client.
+WW3DErrorType MainViewClass::Render_Planet_Mode(float znear, float zfar)
+{
+	WWPROFILE("MainView::Render_Planet_Mode");
+	Vector3 position = Camera->Get_Position();
+	bool under = false;
+	if (Land) {
+		under = Land->Has_Sea() && Land->Get_Sea_Level() > position.Z;
+		Update(Camera, under);
+	}
+	WW3DErrorType error = WW3D::Begin_Render(!Client->Unknown10FA, true);
+	if (error != WW3D_ERROR_OK) {
+		return(error);
+	}
+	DazzleRenderObjClass::Set_Current_Dazzle_Layer(DazzleLayer);
+	Unknown_50CC10(); float cost = PredictiveLODOptimizerClass::Get_Total_Cost();
+	PredictiveLODOptimizerClass::Clear();
+	float old_near, old_far;
+	Camera->Get_Clip_Planes(old_near, old_far);
+	float near2, far2;
+	Unknown_50CCF0(&near2, &far2);
+	Camera->Set_Clip_Planes(near2, far2);
+	Unknown11C->Visibility_Check(Camera);
+	Camera->Set_Clip_Planes(znear, zfar);
+	Scene->Visibility_Check(Camera);
+	Camera->Set_Clip_Planes(old_near, old_far);
+	float budget = (float)LandPolyBudget - cost;
+	if (budget <= 0.0f) budget = 0.0f;
+	PredictiveLODOptimizerClass::Optimize_LODs(budget);
+	if (Client->Unknown10FA) {
+		if (!under) {
+			Unknown_50D060();
+			Unknown_50D1E0();
+			Unknown_50CE00(near2, far2);
+		}
+	} else {
+		if (Unknown16C.Length2() < 0.3f && !under) {
+			Unknown_50D1E0();
+		}
+		Unknown_50CE00(near2, far2);
+		if (!under) {
+			Unknown_50CF70();
+			Unknown_50D060();
+		}
+	}
+	Unknown_50D310(znear, zfar);
+	Unknown_50D430(near2, far2);
+	Unknown_50D520();
+	WW3D::End_Render(true);
+	return(WW3D_ERROR_OK);
+}

@@ -1,0 +1,25 @@
+// exact (RT1 2026-11-08, try --fit with asserts aligned): 11-01 Batch variant v11 of SClient::Unknown_744E70, lines 2097-2119 of app/client/sclient.cpp at run/2026-11-08b 2c2c7fff
+// idea: Keep round 1's structure and padded FAIL_IF line. Read both AvatarID and the game id into locals (AvatarID first), so the constructor arguments come from registers loaded before the pushes, as in the client.
+void SClient::Unknown_744E70(bool arg)
+{
+	if (!(CurrentView != NULL && CurrentView == Unknown135C) && !arg) {
+		ClientObjectClass *target = MainView->Unknown_5C();
+
+
+
+
+
+
+
+
+
+		FAIL_IF(!target) return;
+		if (target->Type == 1) {
+			if (ChatPanel && ChatPanel->Unknown138) {
+				ChatPanel->Unknown138->Unknown_AC(true);
+			} return; } int id = target->Get_Game_ID();
+		int avatar = AvatarID;
+		Send_Packet(&ActionPacketClass(avatar, 2, id, 0));
+		return; } if (ChatPanel && ChatPanel->Unknown138) {
+		ChatPanel->Unknown138->Unknown_AC(false); }
+}

@@ -29,31 +29,31 @@ void SlotDataClass::Unknown_Watch_0C()
 	Unknown_6A7AB0().emit(this, SlotDataEventDataChange(2));
 }
 
-// NOT EXACT: shape, the client lays out the second emit before the shared failure exit (three forms of the branches)
+// NOT EXACT: shape (0.59: the client lays out the second emit before the shared failure exit; this form makes the copy 0x6A7860 inlines exact)
 // 0x6A7730
 bool SlotDataClass::Unknown_6A7730()
 {
+	bool result = false;
 	if (AuxData) {
-		if (!Unknown_18()) {
-			goto failed;
-		}
+		result = Unknown_18();
 	} else {
 		AuxData = Unknown_1C();
-		if (!AuxData) {
-			goto failed;
+		if (AuxData) {
+			result = true;
 		}
 	}
-	if (Unknown_20()) {
-		Unknown_6A7AB0().emit(this, SlotDataEventDataChange(2));
-		return(true);
+	if (result) {
+		if (Unknown_20()) {
+			Unknown_6A7AB0().emit(this, SlotDataEventDataChange(2));
+		} else {
+			Unknown_6A7AB0().emit(this, SlotDataEventDataChange(1));
+		}
 	}
-	Unknown_6A7AB0().emit(this, SlotDataEventDataChange(1));
-	return(true);
-failed:
-	return(false);
+	return(result);
 }
 
-// NOT EXACT: inlines 0x6A7730, the same shape
+
+
 // 0x6A7860
 void SlotDataClass::Unknown_6A7860()
 {

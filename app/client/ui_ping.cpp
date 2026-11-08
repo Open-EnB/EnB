@@ -333,7 +333,7 @@ void UIPingClass::Unknown_5D85B0()
 **	Notes (PG1, 2026-11-06)
 **
 **	The object: the asserts' __FILE__ (0xB84560) in 0x5D85B0; the constructor 0x5D7630 loads 'fc_ping.ini' and the
-**	destructor 0x5D7A00 unloads it; the next object starts at 0x5D8C40 (a UIChatPanelBaseClass constructor). Compiler
+**	destructor 0x5D7A00 unloads it; the next object starts at 0x5D8C40 (a ChatPanelUIBase constructor). Compiler
 **	output in the range: the deleting destructor 0x5D79D0, RefCountPtr's out-of-line default constructor 0x5D8BD0
 **	(the eh vector constructor's element) and the table thunks 0x5D8C20 / 0x5D8C30.
 **

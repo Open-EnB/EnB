@@ -77,8 +77,8 @@ TextureClass *Unknown_4960C0(RenderObjClass *robj, int index)	// NAME 1 [Unknown
 	}
 	return tex;
 }
+
 // 0x496110
-// NOT EXACT: shape
 bool Unknown_496110(RenderObjClass *robj, float r, float g, float b)	// NAME 1 [Unknown_496110, robj, r, g, b]: neutral (D10)
 {
 	if (robj == NULL) {
@@ -96,30 +96,30 @@ bool Unknown_496110(RenderObjClass *robj, float r, float g, float b)	// NAME 1 [
 			}
 		}
 		matinfo->Release_Ref();
-		return res;
-	}
-	int count = robj->Get_Num_Sub_Objects();
-	for (int i = 0; i < count; i++) {
-		RenderObjClass *sub = robj->Get_Sub_Object(i);
-		if (Unknown_496110(sub, r, g, b) || res) {
-			res = true;
-		}
-		if (sub != NULL) {
-			sub->Release_Ref();
+	} else {
+		int count = robj->Get_Num_Sub_Objects();
+		for (int i = 0; i < count; i++) {
+			RenderObjClass *sub = robj->Get_Sub_Object(i);
+			bool ok = Unknown_496110(sub, r, g, b);
+			res = res || ok;
+			if (sub != NULL) {
+				sub->Release_Ref();
+			}
 		}
 	}
 	return res;
 }
+
+
 // 0x496240
-// NOT EXACT: shape
 bool Unknown_496240(RenderObjClass *robj, float opacity)	// NAME 1 [Unknown_496240, robj, opacity]: neutral (D10)
 {
 	if (robj == NULL) {
 		return false;
 	}
+	bool res = false;
 	MaterialInfoClass *matinfo = robj->Get_Material_Info();
 	if (matinfo != NULL) {
-		bool res = false;
 		for (int i = 0; i < matinfo->Vertex_Material_Count(); i++) {
 			VertexMaterialClass *vmat = matinfo->Get_Vertex_Material(i);
 			if (vmat != NULL) {
@@ -129,23 +129,23 @@ bool Unknown_496240(RenderObjClass *robj, float opacity)	// NAME 1 [Unknown_4962
 			}
 		}
 		matinfo->Release_Ref();
-		return res;
-	}
-	bool res = false;
-	int count = robj->Get_Num_Sub_Objects();
-	for (int i = 0; i < count; i++) {
-		RenderObjClass *sub = robj->Get_Sub_Object(i);
-		if (Unknown_496240(sub, opacity) || res) {
-			res = true;
-		}
-		if (sub != NULL) {
-			sub->Release_Ref();
+	} else {
+		int count = robj->Get_Num_Sub_Objects();
+		for (int i = 0; i < count; i++) {
+			RenderObjClass *sub = robj->Get_Sub_Object(i);
+			bool r = Unknown_496240(sub, opacity);
+			res = res || r;
+			if (sub != NULL) {
+				sub->Release_Ref();
+			}
 		}
 	}
 	return res;
 }
+
+
+
 // 0x496360
-// NOT EXACT: shape
 bool Unknown_496360(RenderObjClass *robj, float r, float g, float b)	// NAME 1 [Unknown_496360, robj, r, g, b]: neutral (D10)
 {
 	if (robj == NULL) {
@@ -154,8 +154,7 @@ bool Unknown_496360(RenderObjClass *robj, float r, float g, float b)	// NAME 1 [
 	bool res = false;
 	MaterialInfoClass *matinfo = robj->Get_Material_Info();
 	if (matinfo != NULL) {
-		int count = matinfo->Vertex_Material_Count();
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < matinfo->Vertex_Material_Count(); i++) {
 			VertexMaterialClass *vmat = matinfo->Get_Vertex_Material(i);
 			if (vmat != NULL) {
 				vmat->Set_Diffuse(r, g, b);
@@ -164,22 +163,23 @@ bool Unknown_496360(RenderObjClass *robj, float r, float g, float b)	// NAME 1 [
 			}
 		}
 		matinfo->Release_Ref();
-		return res;
-	}
-	int count = robj->Get_Num_Sub_Objects();
-	for (int i = 0; i < count; i++) {
-		RenderObjClass *sub = robj->Get_Sub_Object(i);
-		if (Unknown_496360(sub, r, g, b)) {
-			res = true;
-		}
-		if (sub != NULL) {
-			sub->Release_Ref();
+	} else {
+		int count = robj->Get_Num_Sub_Objects();
+		for (int i = 0; i < count; i++) {
+			RenderObjClass *sub = robj->Get_Sub_Object(i);
+			bool ok = Unknown_496360(sub, r, g, b);
+			res = res || ok;
+			if (sub != NULL) {
+				sub->Release_Ref();
+			}
 		}
 	}
 	return res;
 }
+
+
+
 // 0x496490
-// NOT EXACT: shape
 bool Unknown_496490(RenderObjClass *robj, bool half)	// NAME 1 [Unknown_496490, robj, half]: neutral (D10)
 {
 	if (robj == NULL) {
@@ -188,8 +188,7 @@ bool Unknown_496490(RenderObjClass *robj, bool half)	// NAME 1 [Unknown_496490, 
 	bool res = false;
 	MaterialInfoClass *matinfo = robj->Get_Material_Info();
 	if (matinfo != NULL) {
-		int count = matinfo->Vertex_Material_Count();
-		for (int i = 0; i < count; i++) {
+		for (int i = 0; i < matinfo->Vertex_Material_Count(); i++) {
 			VertexMaterialClass *vmat = matinfo->Get_Vertex_Material(i);
 			if (vmat != NULL) {
 				Vector3 diff;
@@ -205,20 +204,21 @@ bool Unknown_496490(RenderObjClass *robj, bool half)	// NAME 1 [Unknown_496490, 
 			}
 		}
 		matinfo->Release_Ref();
-		return res;
-	}
-	int count = robj->Get_Num_Sub_Objects();
-	for (int i = 0; i < count; i++) {
-		RenderObjClass *sub = robj->Get_Sub_Object(i);
-		if (Unknown_496490(sub, half)) {
-			res = true;
-		}
-		if (sub != NULL) {
-			sub->Release_Ref();
+	} else {
+		int count = robj->Get_Num_Sub_Objects();
+		for (int i = 0; i < count; i++) {
+			RenderObjClass *sub = robj->Get_Sub_Object(i);
+			bool ok = Unknown_496490(sub, half);
+			res = res || ok;
+			if (sub != NULL) {
+				sub->Release_Ref();
+			}
 		}
 	}
 	return res;
 }
+
+
 
 // 0x496620
 bool Unknown_496620(RenderObjClass *robj)	// NAME 1 [Unknown_496620, robj]: neutral (D10)
@@ -354,20 +354,45 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique)	// NAME 1 [
 		}
 	}
 }
+// (included here, not at the top, so the FAIL_IFs above keep the client's __LINE__)
+#include "texture.h"
+#include "textureloader.h"
+#include "surfaceclass.h"
+// @0x496C00: the colour of the model's first texture at (u, v), u and v 0..1; black when it can't
+void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color)	// NAME 1 [Unknown_496C00, robj, u, v, color]: neutral (D10)
+{
+	MaterialInfoClass *material = robj->Get_Material_Info();
+	FAIL_IF(!material) { color->Set(0.0f, 0.0f, 0.0f); return; }
+	TextureClass *tex = material->Peek_Texture(0);
+	FAIL_IF(!tex) {
+		color->Set(0.0f, 0.0f, 0.0f);
+		material->Release_Ref();
+		return;
+	}
+	if (!tex->Is_Initialized()) TextureLoader::Request_Foreground_Loading(tex);
+	SurfaceClass *surf = tex->Get_Surface_Level(0);
+	FAIL_IF(!surf) {
+		color->Set(0.0f, 0.0f, 0.0f);
+		material->Release_Ref();
+		return;
+	}
+	SurfaceClass::SurfaceDescription desc;
+	surf->Get_Description(desc);
+	surf->Get_Pixel(*color, (int)(desc.Width * u), (int)(desc.Height * v));
+	surf->Release_Ref();
+	material->Release_Ref();
+}
 
+#include "ref_ptr.h"
 // 0x496DB0: every LOD level to its highest (Get_LOD_Count - 1), each sub-object's too (avatar.cpp's body 0x77E9D0,
 // ui_class.cpp's 0x577B80)
-// NOT EXACT: functional for POC (D64), inline-budget (the client's RefCountPtr 0x474080 for each sub-object)
 void Unknown_496DB0(RenderObjClass *robj)	// NAME 1 [Unknown_496DB0, robj]: neutral (D10)
 {
 	robj->Set_LOD_Level(robj->Get_LOD_Count() - 1);
 	int count = robj->Get_Num_Sub_Objects();
 	for (int i = 0; i < count; i++) {
-		RenderObjClass *sub = robj->Get_Sub_Object(i);
-		Unknown_496DB0(sub);
-		if (sub) {
-			sub->Release_Ref();
-		}
+		RefCountPtr<RenderObjClass> sub = Create_Get(robj->Get_Sub_Object(i));
+		Unknown_496DB0(sub.Peek());
 	}
 }
 
@@ -391,43 +416,6 @@ void Unknown_497240(RenderObjClass *robj, bool on)	// NAME 1 [Unknown_497240, ro
 	}
 }
 
-// (included here, not at the top, so the FAIL_IFs above keep the client's __LINE__)
-#include "texture.h"
-#include "textureloader.h"
-#include "surfaceclass.h"
-
-// NOT EXACT: functional (D64), from the pseudocode and the disassembly: the colour of the model's first texture
-// at (u, v), u and v 0..1 (FAIL_IFs '!material' l.365, l.367, '!surf' l.374); black when it can't
-// @0x496C00
-void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color)	// NAME 1 [Unknown_496C00, robj, u, v, color]: neutral (D10)
-{
-	MaterialInfoClass *material = robj->Get_Material_Info();
-	FAIL_IF(!material) {
-		color->Set(0.0f, 0.0f, 0.0f);
-		return;
-	}
-	TextureClass *texture = material->Peek_Texture(0);
-	FAIL_IF(!texture) {
-		color->Set(0.0f, 0.0f, 0.0f);
-		material->Release_Ref();
-		return;
-	}
-	if (!texture->Is_Initialized()) {
-		TextureLoader::Request_Foreground_Loading(texture);
-	}
-	SurfaceClass *surf = texture->Get_Surface_Level(0);
-	FAIL_IF(!surf) {
-		color->Set(0.0f, 0.0f, 0.0f);
-		material->Release_Ref();
-		return;
-	}
-	SurfaceClass::SurfaceDescription desc;
-	surf->Get_Description(desc);
-	surf->Get_Pixel(*color, (int)(desc.Width * u), (int)(desc.Height * v));
-	surf->Release_Ref();
-	material->Release_Ref();
-}
-
 /*
 **	Reconstruction notes (MSG2, 2026-11-02; rof; pick)
 **
@@ -435,14 +423,16 @@ void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color)	// N
 **	model helpers 0x496110 / 0x496240 / ... the pick 0x496960). Rebuilt:
 **	- 0x495FD0 (exact)
 **	- 0x4960C0 (exact)
-**	- 0x496110 (functional: shape)
-**	- 0x496240 (functional: shape)
-**	- 0x496360 (functional: shape)
-**	- 0x496490 (functional: shape)
+**	- 0x496110 (exact: the sub-object loop in an else, res = res || ok; Batch API run b1108)
+**	- 0x496240 (exact: the same form, res declared first)
+**	- 0x496360 (exact: the same form, the material count read in the loop test)
+**	- 0x496490 (exact: the same form as 0x496360)
 **	- 0x496620 (exact)
 **	- 0x496730 (exact)
 **	- 0x4967F0 (functional: shape)
 **	- 0x496960 (exact)
 **	- 0x496AE0 (exact)
+**	- 0x496C00 (exact: in the client's order after 0x496AE0, its FAIL_IFs on lines 365 / 367 / 374, the client's '!tex')
+**	- 0x496DB0 (exact: each sub-object through RefCountPtr's Create_Get, 0x474080 out of line)
 **	- 0x497240 (exact)
 */

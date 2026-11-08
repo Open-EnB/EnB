@@ -21,7 +21,7 @@ class OptionFontInterfaceEvent;
 
 enum { NUM_COMBO = 5 };	// NAME 3: the assert's
 
-#include "ui_chat_panel_base.h"	// UIChatPanelBaseClass (moved out of this header for ui_chat_window.h)
+#include "ui_chat_panel_base.h"	// ChatPanelUIBase (moved out of this header for ui_chat_window.h)
 
 // The base of the windows the panel holds (ChatInt, +0xF8, +0x104): an int at +0x98 (0x565F80: set, the window closed)
 class UIChatPanelWindowClass : public InterfaceClass	// NAME 1: neutral (D10)
@@ -38,11 +38,11 @@ public:
 #include "ui_chat_window_split.h"
 
 // The chat panel (SClient +0x127C; 0x268 bytes, constructor 0x561DD0, table 0xAEFF1C)
-class UIChatPanelClass : public UIChatPanelBaseClass	// NAME 3: class-from-file (D24) for app\client\ui_chat_panel.cpp
+class ChatPanelInterface : public ChatPanelUIBase	// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408)
 {
 public:
-	UIChatPanelClass(SClient *client);					// 0x561DD0
-	virtual ~UIChatPanelClass();						// 0x562410
+	ChatPanelInterface(SClient *client);					// 0x561DD0
+	virtual ~ChatPanelInterface();						// 0x562410
 	virtual void Unknown_54();							// 0x5629E0 (the set-up)
 	virtual void Unknown_58();							// 0x562F50 (the pip set, the chat window and the reply list activated)
 	virtual void Unknown_5C();							// 0x563060 (the combo released, the chat window deactivated)
@@ -100,8 +100,8 @@ public:
 	void Unknown_56C180(int window);					// 0x56C180  // NAME 1 [window]: neutral
 	void Unknown_56C6A0();								// 0x56C6A0: the chat window's handler removed, the window released
 	void Unknown_56C7E0();								// 0x56C7E0 (request 12: the chat font settings)
-	void Unknown_56C730(const ChatWindowInterfaceEvent &event, ChatWindowInterface *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
-	void Unknown_56C7B0(const OptionFontInterfaceEvent &event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
+	void Unknown_56C730(ChatWindowInterfaceEvent *event, ChatWindowInterface *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
+	void Unknown_56C7B0(OptionFontInterfaceEvent *event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
 
 	int UnknownA0;										// +0xA0
 	GadgetClass *UnknownA4[7];							// +0xA4 (the constructor clears all seven)

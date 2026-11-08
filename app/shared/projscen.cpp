@@ -349,7 +349,6 @@ void ProjSceneClass::Delete_Dynamic_Culling_System(void)
 }
 
 // @0x495990
-// NOT EXACT: register-only residue in the second list's constructor (client lea ecx / lea edx, xor eax; here lea eax / lea ecx); attempts.csv
 void ProjSceneClass::Apply_Projectors(CameraClass * camera)
 {
 	if (ProjectorManager == NULL) return;
@@ -361,8 +360,9 @@ void ProjSceneClass::Apply_Projectors(CameraClass * camera)
 		for (ProjectorReceiverCullClass * obj = DynamicCullingSystem->Get_First_Collected_Object();
 			obj != NULL;
 			obj = DynamicCullingSystem->Get_Next_Collected_Object(obj)) {
-			if (obj->Receiver != NULL) {
-				dynamic_receivers.Add(obj->Receiver);
+			ProjectorReceiverClass * receiver = obj->Receiver;
+			if (receiver != NULL) {
+				dynamic_receivers.Add(receiver);
 			}
 		}
 	}
@@ -373,8 +373,9 @@ void ProjSceneClass::Apply_Projectors(CameraClass * camera)
 		for (ProjectorReceiverCullClass * obj = StaticCullingSystem->Get_First_Collected_Object();
 			obj != NULL;
 			obj = StaticCullingSystem->Get_Next_Collected_Object(obj)) {
-			if (obj->Receiver != NULL) {
-				static_receivers.Add(obj->Receiver);
+			ProjectorReceiverClass * receiver = obj->Receiver;
+			if (receiver != NULL) {
+				static_receivers.Add(receiver);
 			}
 		}
 	}

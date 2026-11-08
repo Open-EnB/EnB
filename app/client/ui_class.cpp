@@ -486,11 +486,11 @@ void ClassSelectInterface::Unknown_575CD0()
 }
 
 
-// NOT EXACT: order (0.91: the client reads the gender through CharacterView + 0x88 after Unknown8C)
 // @0x575D50
 void ClassSelectInterface::Unknown_575D50()
 {
-	CharacterView->Unknown088 = AvatarDescClass(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession, CharacterView->Unknown088.Gender);
+	AvatarDescClass *desc = &CharacterView->Unknown088;
+	CharacterView->Unknown088 = AvatarDescClass(Unknown_B7DB60[Unknown8C].Race, Unknown_B7DB60[Unknown8C].Profession, desc->Gender);
 }
 
 

@@ -17,12 +17,11 @@ extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as
 static const char Unknown_B9D668[5] = { 7, 15, 30, 45, 60 };	// NAME 1 [Unknown_B9D668]: neutral (D10)
 
 // 0x78E190: the path of fname in dir, unless fname already holds dir
-// NOT EXACT: functional for POC (D64), order-only (the same instructions in another order)
 void Unknown_78E190(char *path, const char *dir, const char *fname, const char *ext)	// NAME 1: neutral (D10)
 {
+	const char *d = dir;
 	if (dir != NULL) {
 		char buffer[256];
-		const char *d = dir;
 		if (dir[strlen(dir) - 1] != '\\') {
 			strcpy(buffer, dir);
 			strcat(buffer, "\\");
@@ -35,6 +34,7 @@ void Unknown_78E190(char *path, const char *dir, const char *fname, const char *
 	}
 	_makepath(path, NULL, dir, fname, ext);
 }
+
 
 // 0x78E2C0
 void Unknown_78E2C0(char *path, const char *fname)	// NAME 1: neutral (D10)
@@ -223,17 +223,16 @@ void PlayerNLPClass::Unknown_78ECC0()
 }
 
 // 0x78ED30
-// NOT EXACT: functional for POC (D64), shape (the loops' guards: ours merges the second guard into its loop)
 const char *PlayerNLPClass::Unknown_78ED30(const char *text, const char *end)
 {
 	if (!Initialized) {
 		Unknown_78E2F0("NLP not intialized!\n");
 		return(NULL);
 	}
+	const char *p = text;
 	if (*text == '\0') {
 		return(NULL);
 	}
-	const char *p = text;
 	while (p < end) {
 		char c = tolower(*p);
 		if (c == '\0' || c == ' ' || c == '.' || c == '!' || c == '?' || c == ',') {
@@ -241,15 +240,16 @@ const char *PlayerNLPClass::Unknown_78ED30(const char *text, const char *end)
 		}
 		p++;
 	}
-	if (*p != '\0' && p < end) {
-		while (*p != '\0') {
+	if (*p != '\0') {
+		while (p < end) {
+			if (*p == '\0') {
+				break;
+			}
 			char c = tolower(*p);
 			if (c != '\0' && c != ' ') {
 				break;
 			}
-			if (++p >= end) {
-				break;
-			}
+			p++;
 		}
 	}
 	if (p != text && *p != '\0') {

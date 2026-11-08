@@ -1,0 +1,39 @@
+float GalaxyMapRenderGateClass::Unknown_7AD090(bool hide_inter, bool hide_intra, bool place)
+{
+	float angle = 0.0f;
+	Peek_RObj();
+	GalaxyMapLineRObjClass *line = (GalaxyMapLineRObjClass *)Line.Peek();
+	FAIL_IF(!line) { return(angle); }
+	if (Intra) {
+		line->Hidden = (hide_intra == false);
+	} else {
+		line->Hidden = (hide_inter == false);
+	}
+	RefCountPtr<FontSys> name = To->Name;
+	if (place) {
+		Vector3 a;
+		Vector3 b;
+		From->Get_Position(a);
+		To->Get_Position(b);
+		Vector3 d = b - a;
+		d.Normalize();
+		Matrix3D tm(a);
+		tm.Rotate_Z(d.Y, d.X);
+		angle = tm.Get_Z_Rotation();
+		if (fabs(angle) > 1.5707964f) {
+			tm.Rotate_Z(WWMATH_PI);
+			tm.Translate_X(-2.0f);
+			name->Set_Justify(0, 4);
+		} else {
+			tm.Translate_X(2.0f);
+			name->Set_Justify(0, 3);
+		}
+		name->Set_Transform(tm);
+		Vector3 color; name->Set_Color(To->Unknown_7ABA70(color, false));
+		if (!name->Peek_Scene()) { name->Add(Line->Peek_Scene()); }
+		name->Unknown_6CE7D0(0);
+	} else {
+		name->Unknown_6CE7D0(2);
+	}
+	return(angle);
+}

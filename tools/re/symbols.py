@@ -45,6 +45,40 @@ NAMED = os.path.join(HERE, 'symbols_named.json')
 LIB_START = 0x8C1B50
 
 
+def vptr_stores(img, objs, results):
+    """{vtable symbol: {client addresses}} that the exact functions' vptr stores give (a constructor or
+    destructor writing `??_7X` at its exact address: the client's own word for where X's table is, D188's
+    `vptr`). Objects whose basename two folders share are left out (results name objects by basename)."""
+    exact = {}
+    for r in results:
+        if r['status'] == 'exact':
+            exact.setdefault((r['object'], r['symbol']), int(r['addresses'][0], 16))
+    names = [os.path.basename(p) for p in objs]
+    out = {}
+    for p in objs:
+        b = os.path.basename(p)
+        if names.count(b) != 1:
+            continue
+        try:
+            obj = CoffObject(p)
+            funcs = obj.functions()
+        except Exception:
+            continue
+        for name, sec, s, e in funcs:
+            a = exact.get((b, name))
+            if a is None:
+                continue
+            for k, n, typ, sym, addend in obj.reloc_targets(sec, s, e - s):
+                if n != 4 or typ != 0x06 or sym is None or not sym['name'].startswith('??_7'):
+                    continue
+                o = img.offset(a + k)
+                if o is None:
+                    continue
+                v = (struct.unpack_from('<I', img.data, o)[0] - struct.unpack('<I', addend)[0]) & 0xFFFFFFFF
+                out.setdefault(sym['name'], set()).add(v)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--objs', action='append', default=[], help='object directories (vtables, exact names)')
@@ -117,9 +151,12 @@ def main():
     # ... and the given objects (the repository's own compiled libraries)
     objs = [p for d in a.objs for p in sorted(glob.glob(os.path.join(d, '*.obj')))]
     known = {}
-    for r in match_objects(img, objs) if objs else []:
+    results = match_objects(img, objs) if objs else []
+    at = {}
+    for r in results:
         if r['status'] == 'exact':
             addr = int(r['addresses'][0], 16)
+            at.setdefault(addr, set()).add(r['symbol'])
             put(addr, r['symbol'], 'function', 'exact', r['length'])
             known.setdefault(r['symbol'], addr)
     for addr, e in syms.items():
@@ -136,9 +173,19 @@ def main():
         except Exception:
             continue
     vt_named = 0
+    stores = vptr_stores(img, objs, results)
     for vt, slots in tables.items():
         base, score, score_own, rarest = find_in_client(img, slots, known, rdata, vt[4:].split('@@')[0])
-        if not base or score < 2 or not confident(score_own, rarest):
+        # an exact function's vptr store places the table outright (D188's `vptr`); the slot alignment can
+        # prefer another class's table with the same inherited slots (StarmapPipSupportClass's RefCountClass
+        # table is 0xB06D60, where its exact constructor stores it, not 0xAE8754 with no slot of its own;
+        # DeltaTemplateClass<UnknownB00A00Type>'s is 0xB00A00, not 0xB016DC)
+        st = stores.get(vt, set())
+        if len(st) == 1:
+            base = next(iter(st))
+        elif st and base not in st:
+            continue
+        elif not base or score < 2 or not confident(score_own, rarest):
             continue
         stored = vptr_stored(img, [base + 4 * k for k in range(-4, 5)])
         if stored and base not in stored:
@@ -162,6 +209,23 @@ def main():
                 if target not in syms:
                     vt_named += 1
                 put(target, s, 'function', 'vtable')
+
+    # D88's self name assumes one address per symbol: a symbol exact at several addresses (a class two
+    # files define, aux_roots' DeltaCompoundClass 0x7058C0 and 0x4A3CD0; template callbacks whose bytes
+    # are alike) gives no self name, so a vtable slot's proof on one copy is not kept
+    where = {}
+    for addr, e in syms.items():
+        if e['kind'] == 'function':
+            where.setdefault(e['symbol'], []).append(addr)
+    for sym, addrs in where.items():
+        if len(addrs) > 1:
+            for addr in addrs:
+                syms[addr].pop('proof', None)
+    # ... nor does an address the objects credit to several symbols (D193's linker-folded COMDATs: radar's and
+    # ui_scan's Event_Type callbacks are one function 0x6101C0): the one name kept there is not the others' denial
+    for addr, names in at.items():
+        if len(names) > 1 and addr in syms:
+            syms[addr].pop('proof', None)
 
     # 3. named by hand, with evidence
     put_named()

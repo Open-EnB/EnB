@@ -1,0 +1,29 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x5B67C0 UIManuClass::Unknown_5B67C0, similarity 0.597 vs the tree's 0.506; not exact.
+// idea: Cache `ClientClass *client` in a local declared before the packet, so the Unknown1138 load goes through ecx before the constructor's `lea`; also use the `&&` form for the last button.
+void UIManuClass::Unknown_5B67C0(int tech_level, bool on, int source)
+{
+	FAIL_IF(tech_level < 1 || tech_level >= NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS) return;
+	bool changed = Unknown11C[tech_level - 1].Gadget->Checked != on;
+	if (changed) {
+
+
+
+
+
+
+		G_ASSERT(source != USER_INPUT);
+		Unknown11C[tech_level - 1].Gadget->Unknown_7E8030(on);
+	}
+	if (source == USER_INPUT) {
+		unsigned int bit = 1 << (tech_level - 1);
+		ManufactureTechLevelFilterPacketClass packet(((ClientClass *)Client)->Unknown1138, on, bit);
+		ClientClass *client = (ClientClass *)Client;
+		client->Send_Packet(&packet);
+		Unknown0BC0++;
+		if (Unknown0BC0 > Unknown_B8183C) {
+			Unknown_5B6D30();
+			Unknown_5B6CA0();
+		}
+	}
+	Unknown11C[NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS - 1].Gadget->Unknown_7E8030(on && Unknown_All_Levels_Checked());
+}

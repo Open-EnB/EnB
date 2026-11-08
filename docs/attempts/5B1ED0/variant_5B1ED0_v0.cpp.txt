@@ -1,0 +1,17 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x5B1ED0 UIManuClass::Unknown_5B1ED0, similarity 0.365 vs the tree's 0.293; not exact.
+// idea: Drop the caller's redundant `list->Unknown70` test: the client tests +0x70 inside each inlined valid-find and then only `if (list)`, and the smaller caller expression changes what the expansion spends.
+void UIManuClass::Unknown_5B1ED0(int row)
+{
+	if (Unknown0B94 != 0 && row < Unknown0B94 && Unknown0B98 == 3) {
+		int pick = Unknown0B90 + row;
+		Unknown0B80[3] = pick;
+		if (pick >= 0) {
+			UIManuListClass *list = Unknown_Get_List();
+			if (list) {
+				Unknown_5B39B0(((UIManuEntryClass *)list->Children[pick])->Unknown1A8);
+			}
+		}
+		Unknown_5B2230();
+		Unknown_5B2480();
+	}
+}

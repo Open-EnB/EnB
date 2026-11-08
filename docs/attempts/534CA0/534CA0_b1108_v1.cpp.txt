@@ -1,0 +1,11 @@
+// b1108 variant v1: Use a named Vector2 local plus several dead `Description.size()` reads, since budget spend is non-monotonic in the count, to push _Eos back out of line.
+UIItemExaminationDescriptionClass::UIItemExaminationDescriptionClass() :
+	DynamicWindowBackgroundClass("ITEM_EXAMINATION_DESCRIPTION", 0x16)
+{
+	Description.size();
+	Description.size();
+	Description.size();
+	Vector2 size(150.0f, 60.0f);
+	Text = DynamicWindowMultiLineTextClass::Create("DETAILS00_IEI00", size, 0x56);
+	Set_Contents(Text);
+}

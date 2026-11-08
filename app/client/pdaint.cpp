@@ -63,7 +63,7 @@ PDAInterfaceClass::PDAInterfaceClass(SClient *client) :
 	}
 }
 
-// 0x693230 (NOT EXACT: registers (the client keeps this in ebp and pushes ebx late: 0.58))
+// 0x693230
 void PDAInterfaceClass::Unknown_54()
 {
 	InterfaceMesh = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("TSI14A"));
@@ -83,22 +83,22 @@ void PDAInterfaceClass::Unknown_54()
 	Starmap = Create_NEW(new UIStarmapClass(client));
 	Starmap->Unknown_54();
 
-	ButtonGadgetClass **button = Buttons;
-	int id = 0;
-	for (const char **name = PDAButtonNames; name < &PDAButtonNames[NUM_BUTTONS]; name++) {
-		RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(*name);
+	for (int i = 0; i < NUM_BUTTONS; i++) {
+		RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(PDAButtonNames[i]);
 		Unknown_496AE0(robj, 0);
-		*button = new ButtonGadgetClass(robj, 0x55, 3);
+		Buttons[i] = new ButtonGadgetClass(robj, 0x55, 3);
 		robj->Release_Ref();
-		Unknown64.Unknown_6870E0(*button, ++id, NULL, 1, 0);
-		GadgetClass::Set_Tooltip(*button, "UI_CPIT", *name);
-		button++;
+		Unknown64.Unknown_6870E0(Buttons[i], i + 1, NULL, 1, 0);
+		GadgetClass::Set_Tooltip(Buttons[i], "UI_CPIT", PDAButtonNames[i]);
 	}
 
 	Unknown64.Unknown_6870E0(new UIBackGadget(InterfaceMesh), 0xE, View, 1, 0);
 	Experience = new Unknown58C450Class(InterfaceMesh.Peek(), this);
 	Unknown_10();
 }
+
+
+
 
 // 0x693950
 PDAInterfaceClass::~PDAInterfaceClass()
@@ -196,7 +196,7 @@ void PDAInterfaceClass::Unknown_60()
 }
 
 // the chat panel's window (0x694AA0) put away when a PDA window opens (inlined in each of 0x693E70's cases)
-inline void PDA_Close_Chat_Window(UIChatPanelClass *chat)	// NAME 1: neutral (D10)
+inline void PDA_Close_Chat_Window(ChatPanelInterface *chat)	// NAME 1: neutral (D10)
 {
 	if (chat->Unknown_694AA0()) {
 		RefCountPtr<UIChatPanelWindowClass> window = chat->Unknown_694AA0();
@@ -211,7 +211,7 @@ bool PDAInterfaceClass::Unknown_68(int key)
 	if (!UnknownBC) {
 		return(true);
 	}
-	UIChatPanelClass *chat = Get_Client()->As_Space_Client()->ChatPanel.Peek();
+	ChatPanelInterface *chat = Get_Client()->As_Space_Client()->ChatPanel.Peek();
 	SClient *client = Get_Client()->As_Space_Client();
 	const char *sound;
 	switch (key) {
@@ -647,7 +647,7 @@ bool PDAInterfaceClass::Unknown_695C50(int index)
 	return(false);
 }
 
-// 0x695CE0 (NOT EXACT: the last return (the client tests +0xB0 in eax with no xor: 0.70))
+// 0x695CE0
 bool PDAInterfaceClass::Unknown_695CE0()
 {
 	if (Cargo && Cargo->Is_Active()) {
@@ -665,7 +665,7 @@ bool PDAInterfaceClass::Unknown_695CE0()
 	if (Starmap && Starmap->Is_Active()) {
 		return(true);
 	}
-	return(UnknownB0.Peek() != NULL);
+	return(UnknownB0.Peek() ? true : false);
 }
 
 // 0x695D70
@@ -766,7 +766,7 @@ void PDAInterfaceClass::Unknown_695FE0(bool on)
 **	and 0x695E10 (710, 711); the constructor 0x693140 sets the table 0xAFD148 whose slots are this file's functions.
 **	SClient::Init news it (0xC0 bytes, +0x1284).
 **
-**	Output in the range besides these: the deleting destructor 0x693200, UIChatPanelClass's inline 0x694AA0 and
+**	Output in the range besides these: the deleting destructor 0x693200, ChatPanelInterface's inline 0x694AA0 and
 **	the Create_NEW instantiations 0x696030 / 0x6960A0 / 0x696110 / 0x696180 / 0x6961F0 / 0x696260.
 **
 **	The windows' slots called here are InterfaceClass's (+0x54 set-up, +0x58 on, +0x5C off, +0x7C onto a view);

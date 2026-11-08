@@ -1,0 +1,27 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x567540 UIChatPanelClass::Unknown_567540, similarity 0.239 vs the tree's 0.165; not exact.
+// idea: Use a single exit through a `result` flag so both list destructor paths share one return, changing how the destructor's inline expansions are costed.
+bool UIChatPanelClass::Unknown_567540(int arg)
+{
+	bool result = false;
+	if (!Unknown1E8->Is_Active()) {
+		Unknown1EC = arg;
+		if (arg) {
+			int count = 0;
+			Unknown1F0 = false;
+			std::list<std::string> names;
+			for (int i = 0; i < 5; i++) {
+				if (Unknown188[i] == "") break;
+				names.push_back(Unknown188[i]);
+				count++;
+			}
+			if (count) {
+				((UIChatReplyListClass *)Unknown1E8)->Unknown_56EED0(names, Unknown1EC);
+				Unknown1E8->Unknown_58();
+				result = true;
+			} else {
+				Client->As_Space_Client()->Unknown_74D990(17, "Unable to reply - no one to reply to.", 0);
+			}
+		}
+	}
+	return(result);
+}

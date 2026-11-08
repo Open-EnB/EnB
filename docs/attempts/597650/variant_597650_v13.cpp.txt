@@ -1,0 +1,43 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x597650 UIGroupClass::Unknown_597650, similarity 0.756 vs the tree's 0.657; not exact.
+// idea: Use template helpers on the view for the Active test, the question call and the Unknown_5C close, so each Unknown34 access is a separate inline expression off View; the client re-reads Unknown34 at every site.
+template <class V> static inline bool Question_Active(V *view)
+{
+	return view->Unknown34->Is_Active();
+}
+
+template <class V> static inline int Ask_Question(V *view, const char *name)
+{
+	return view->Unknown34->Unknown_5890B0(name);
+}
+
+template <class V> static inline void Close_Question(V *view)
+{
+	view->Unknown34->Unknown_5C();
+}
+
+void UIGroupClass::Unknown_597650()
+{
+	if (Question_Active(View)) {
+		int button = Ask_Question(View, "GROUP_INVITE");
+		if (button) {
+			if (button == 1) {
+				((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 11, ((ClientClass *)Client)->AvatarID, 0));
+			} else if (button == 2) {
+				((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 12, ((ClientClass *)Client)->AvatarID, 0));
+			}
+			Close_Question(View);
+		}
+		button = Ask_Question(View, "GROUP_LEAVE");
+		if (button) {
+			if (button == 1) {
+				if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D690()) {
+					((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 13, ((ClientClass *)Client)->AvatarID, 0));
+				} else {
+					((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 14, ((ClientClass *)Client)->AvatarID, 0));
+				}
+				SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			}
+			Close_Question(View);
+		}
+	}
+}

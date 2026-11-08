@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "UIPlayerOptClass (D24, ui_playeropt.cpp's player options window over ui_chat_panel_base.cpp's UIChatPanelBaseClass, 0x114 bytes, constructor 0x5D8C40, destructor 0x5D8E90, tables 0xAF58B0 / 0xAF58A4 / 0xAF5898); header name provisional (CP1)"
+ "description": "UIPlayerOptClass (D24, ui_playeropt.cpp's player options window over ui_chat_panel_base.cpp's ChatPanelUIBase, 0x114 bytes, constructor 0x5D8C40, destructor 0x5D8E90, tables 0xAF58B0 / 0xAF58A4 / 0xAF5898); header name provisional (CP1)"
 }

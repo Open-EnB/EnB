@@ -1,0 +1,24 @@
+void Unknown_75B8F0(RenderObjClass *obj, const Vector3 &sun, const Vector3 &camera)
+{
+	if (obj) {
+		StringClass name(obj->Get_Name(), true);
+		strlwr(name.Peek_Buffer());
+		if (strncmp(name, "plt", 3) == 0) {
+			Vector3 dir = camera - obj->Get_Position();
+			dir.Normalize();
+			Vector3 cross = Vector3::Cross_Product(dir, sun);
+			float sine = cross.Length();
+			float cosine = dir.Y * sun.Y + dir.X * sun.X + dir.Z * sun.Z;
+			if (cross.Z < 0.0f) {
+				sine = -sine;
+			}
+			float angle = WWMath::Atan2(sine, cosine);
+			if (angle < 0.0f) {
+				angle += (2.0f * WWMATH_PI);
+			}
+			float phase = 1.0f - angle * (1.0f / (2.0f * WWMATH_PI));
+			cross.Length2();
+			Unknown_75BB50(obj, phase);
+		}
+	}
+}

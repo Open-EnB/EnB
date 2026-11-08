@@ -56,7 +56,7 @@ inline ChatWinStruct::~ChatWinStruct()
 
 // 0x56F420
 ChatWindowInterface::ChatWindowInterface(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit) :
-	UIChatPanelBaseClass(client),
+	ChatPanelUIBase(client),
 	ChatHistory(history),
 	UnknownA4(edit),
 	UnknownDC(NULL),
@@ -144,11 +144,10 @@ void ChatWindowInterface::Unknown_54()
 
 
 
-
-// 0x56F9F0  // NOT EXACT: functional (CW2): ours keeps 0 in ebx for the FontSys arguments and the null tests, the client pushes constants (0.55)
+// 0x56F9F0
 bool ChatWindowInterface::Unknown_98(const char *name, const char *ini)
 {
-	if (!UIChatPanelBaseClass::Unknown_98(name, ini)) return(false);
+	if (!ChatPanelUIBase::Unknown_98(name, ini)) return(false);
 	DestBttnText = Create_NEW(new FontSys("Chat_Dest_Bttn", 0, NULL));
 	Viewport.TLBone = InterfaceMesh->Get_Bone_Index("chat_vp_tl");
 	Viewport.BRBone = InterfaceMesh->Get_Bone_Index("chat_vp_br");
@@ -157,7 +156,8 @@ bool ChatWindowInterface::Unknown_98(const char *name, const char *ini)
 	if (dest_box) {
 		UnknownDC = new ButtonGadgetClass(dest_box.Peek(), 0x55, 3);
 		Unknown64.Unknown_6870E0(UnknownDC, 1, View, true, true);
-		InterfaceMesh->Add_Sub_Object_To_Bone(DestBttnText.Peek(), InterfaceMesh->Get_Sub_Object_Bone_Index(dest_box.Peek()));
+		int bone = InterfaceMesh->Get_Sub_Object_Bone_Index(dest_box.Peek());
+		InterfaceMesh->Add_Sub_Object_To_Bone(DestBttnText.Peek(), bone);
 		UnknownDC->Unknown_98(DestBttnText.Peek());
 	} else {
 		G_ASSERT(false);
@@ -231,7 +231,7 @@ void ChatWindowInterface::Unknown_58()
 		Unknown_5715F0(true, true);
 		Unknown_571470(true);
 	}
-	UIChatPanelBaseClass::Unknown_58();
+	ChatPanelUIBase::Unknown_58();
 }
 
 // 0x570210
@@ -450,17 +450,17 @@ bool ChatWindowInterface::Unknown_B8(int key)
 
 
 
-
-
-// 0x571210  // NOT EXACT: functional (CW2): the client tests the first name before taking its address (je before lea edi; 0.84)
+// 0x571210
 void ChatWindowInterface::Unknown_A8()
 {
 	UnknownE4 = !UnknownE4;
 	const char *names[] = { "NEW_FRAME01", "center bar", NULL };
-	for (const char **name = names; *name != NULL; ) {
-		RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name(*name));
-		if (robj) robj->Set_Hidden(UnknownE4);
-		name++; }
+	if (names[0] != NULL) {
+		const char **name = names; do {
+			RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name(*name));
+			if (robj) robj->Set_Hidden(UnknownE4);
+			name++; } while (*name != NULL);
+	}
 	int bar = 0;
 	for (std::vector<ChatWinStruct *>::iterator it = ChatWindows.begin(); it != ChatWindows.end(); it++) {
 		ChatWinStruct *window = *it;

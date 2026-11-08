@@ -1,0 +1,55 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x5B4B10 UIManuClass::Unknown_5B4B10, similarity 0.588 vs the tree's 0.521; not exact.
+// idea: Use Unknown_Find_Field with a by-hand Unknown70 test for both NegotiatedCost and ExpectedQuality (the two out-of-line finds in the client) and Unknown_Find_Valid for the rest. Both out-of-line sites then share one form, and min/max go through the comma form.
+void UIManuClass::Unknown_5B4B10()
+{
+	MoneyClass cost;
+	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Unknown0BA0, NameClass("NegotiatedCost"));
+	if (negotiated && negotiated->Unknown70) {
+		cost = negotiated->Value;
+	}
+	Unknown_5B1AF0(1, true, cost.Unknown_4F00C0(false).c_str());
+
+	DeltaTemplateClass<float> *min = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MinimumQuality"));
+	DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MaximumQuality"));
+	DeltaTemplateClass<float> *expected = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("ExpectedQuality"));
+	DeltaTemplateClass<float> *valid_expected = (expected && expected->Unknown70) ? expected : NULL;
+
+	char text[64];
+	float min_quality;
+	float max_quality;
+	if (min && max && (min_quality = min->Value, max_quality = max->Value, min_quality != -1.0f && max_quality != -1.0f)) {
+		FAIL_IF(min_quality < 0.0f) min_quality = 0.0f;
+		FAIL_IF(max_quality > 3.0f) max_quality = 3.0f;
+		FAIL_IF(min_quality > max_quality) min_quality = max_quality;
+		if (min_quality == max_quality) {
+			sprintf(text, "%2.0f", min_quality * 100.0f);
+		} else {
+			sprintf(text, "%2.0f%%-%2.0f%%", min_quality * 100.0f, max_quality * 100.0f);
+		}
+	} else {
+		strcpy(text, Unknown_B81880[2]);
+	}
+	Unknown_5B1AF0(2, true, text);
+
+	if (valid_expected) {
+		float expected_quality = valid_expected->Value;
+		if (expected_quality == -1.0f) {
+			sprintf(text, Unknown_B81880[2]);
+		} else {
+			FAIL_IF(expected_quality < 0.0f) expected_quality = 0.0f;
+			FAIL_IF(expected_quality > 3.0f) expected_quality = 3.0f;
+			sprintf(text, "%2.0f", expected_quality * 100.0f);
+		}
+	} else {
+		strcpy(text, Unknown_B81880[2]);
+	}
+	Unknown_5B1AF0(3, true, text);
+
+	UIManuTechLevelFilterClass *filter = Unknown_Find_Valid<UIManuTechLevelFilterClass>((DeltaCompoundClass *)Unknown0BA0, NameClass("TechLevelFilterBitfield"));
+	if (filter) {
+		int bits = filter->Value;
+		for (int i = 1; i < 10; i++) {
+			Unknown_5B67C0(i, (bits & (1 << (i - 1))) != 0, 1);
+		}
+	}
+}

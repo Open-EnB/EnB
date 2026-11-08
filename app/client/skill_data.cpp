@@ -99,11 +99,11 @@ float SkillDataClass::Unknown_6A4C20()
 	FAIL_IF(!Get_Client()) return(0.0f);
 	unsigned int start = Get_Skill_Powerup_Start();
 	unsigned int end = Get_Skill_Powerup_End();
-	unsigned int now = ((UnknownClientTime *)Client)->Time;
-	if (now < end && start < now) {
-		return((float)(now - start) / (int)(end - start));
-	}
-	return(0.0f);
+	unsigned int now = ((UnknownClientTime *)Get_Client())->Time;
+	if (now >= end) return(0.0f);
+	if (now <= start) return(0.0f);
+	float elapsed = (float)(now - start);
+	return(elapsed / (end - start));
 }
 
 // 0x6A4EA0
@@ -156,13 +156,13 @@ bool SkillDataClass::Unknown_20()
 	for (int skill = 0; skill < num_skills; skill++) {
 		SkillLevelAvailabilityStruct &available = Skills.Get_Availability(skill);
 		int index;
-		if (available.I00 == 0 || available.I00 == 1) {
-			index = -1;
-			Unknown30.push_back(index);
-		} else {
+		if (available.I00 != 0 && available.I00 != 1) {
 			index = Unknown40.size();
 			Unknown30.push_back(index);
 			Unknown40.push_back(skill);
+		} else {
+			index = -1;
+			Unknown30.push_back(index);
 		}
 	}
 	return(true);

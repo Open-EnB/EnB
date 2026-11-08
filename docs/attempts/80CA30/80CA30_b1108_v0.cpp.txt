@@ -1,0 +1,29 @@
+// b1108 variant v0: Call the class's own zoom member Unknown_80E190 (defined later in the file, so /Ob2 can inline it) instead of the file-static Unknown_Zoom; its clamp and locals should give the client's 0x48 frame and its min/max placement on the FPU stack.
+void ShipPipClass::Unknown_84(const RefCountPtr<RenderObjClass> &model)
+{
+	if (Unknown054) {
+		FloatParent->Remove_Sub_Objects_From_Bone("NewShipScale");
+		Unknown054 = NULL;
+	}
+	Unknown054 = model;
+	SphereClass sphere = Unknown054->Get_Bounding_Sphere();
+	Unknown058 = sphere.Center;
+	float radius = sphere.Radius;
+	Unknown0AC = radius * Unknown0F0;
+	float nearest = radius * Unknown0EC;
+	if (Type == 0) {
+		Unknown0B0 = nearest;
+	} else {
+		Unknown0B0 = nearest;
+	}
+	if (Unknown0B4 < Unknown0B0) {
+		Unknown_80E190(Unknown0B0 - Unknown0B4);
+	}
+	if (Unknown0B4 > Unknown0AC) {
+		Unknown_80E190(Unknown0AC - Unknown0B4);
+	}
+	Matrix3D identity(true);
+	Unknown054->Set_Transform(identity);
+	FloatParent->Add_Sub_Object_To_Bone(Unknown054.Peek(), "NewShipScale");
+	Unknown_90();
+}

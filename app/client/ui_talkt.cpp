@@ -396,10 +396,10 @@ void UITalkTreeClass::Unknown_90(TalkTreePacketClass *packet)
 	if (!Active && !ActiveUI) {
 		Unknown_58();
 	}
-	Unknown_Clear(Responses);
+	Responses.clear();
 	packet->Swap_Responses(Responses);
 	NPCSplit->Split(packet->NPCSay.c_str(), (float)NPCLineWidth, 0);
-	Unknown_64E640();
+	if (NPCSpeechHandle) { NPCSpeechHandle->Stop(true); NPCSpeechHandle = NULL; } SpeechFile.erase();	// Unknown_64E640, written inline
 	SpeechFile = packet->NPCSoundFileName;
 	Unknown_64DB20(true);
 }
@@ -744,7 +744,6 @@ bool UITalkTreeClass::Unknown_64DD50()
 	return(shown);
 }
 
-// NOT EXACT: 0x64DF80 (Unknown_64DF80: registers, _Eos out of line in the client)
 bool UITalkTreeClass::Unknown_64DF80(bool clear)
 {
 	int count = clear ? 0 : Responses.size();
@@ -774,10 +773,11 @@ bool UITalkTreeClass::Unknown_64DF80(bool clear)
 
 
 
+
 		FAIL_IF(!font) continue;
 		if (lp < count) {
-			const std::string &response = Responses[lp].Text;
-			FontSplitStringClass split(*(const RefCountPtr<Font32Class> *)&font->Font, response.c_str(), (float)PlayerLineWidth, 0);
+			TalkTreeResponseStruct &entry = Responses[lp];
+			FontSplitStringClass split(*(const RefCountPtr<Font32Class> *)&font->Font, entry.Text.c_str(), (float)PlayerLineWidth, 0);
 			std::string text(split.Get(0));
 			if (split.Count() > 1) {
 				Unknown16C[lp] = true;

@@ -48,7 +48,7 @@ void UIFriendsClass::Unknown_58()
 {
 	if (!Is_Active()) {
 		InterfaceSortScopeClass sort(this);
-		UIChatPanelBaseClass::Unknown_58();
+		ChatPanelUIBase::Unknown_58();
 		std::vector<UIFriendsPlayerInfoClass *>::iterator it;
 		for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
 			delete *it;
@@ -244,21 +244,21 @@ void UIFriendsClass::Unknown_590C70()
 	}
 }
 
-// NOT EXACT: register allocation (the client loads Top into ecx and forms Top + index with lea after the size; edx / eax swapped for the two slot +0x40 calls)
+
 // 0x590DB0
 void UIFriendsClass::Unknown_590DB0(int index)
 {
 	if (index >= 0 && index < 7) {
 		int size = PlayersInfo.size();
-		int selection = index + Top;
-		if (selection < size) {
-			if (Selection == selection && Unknown0F0[index]->Is_Unknown2C_00()) {
+		if (Top + index < size) {
+			int selection = Top + index;
+			if (Selection == selection && Unknown0F0[index]->Is_Unknown2C_00())
 				Unknown_591EE0();
-				return;
+			else {
+				Selection = selection;
+				Unknown0D0[2]->Unknown_40(true);
+				Unknown0D0[4]->Unknown_40(true);
 			}
-			Selection = selection;
-			Unknown0D0[2]->Unknown_40(true);
-			Unknown0D0[4]->Unknown_40(true);
 		}
 	}
 }
@@ -640,13 +640,13 @@ void UIFriendsClass::Unknown_591880(std::string name)
 	Unknown_590550();
 }
 
-// NOT EXACT: inline budget (the client calls the name's _Tidy(false) out of line in its default constructor; ours expands it)
 // 0x591A30
 void UIFriendsClass::Unknown_591A30()
 {
 	SClient *sclient = Client->As_Space_Client();
 	ClientObjectClass *target;
 	if (!sclient->Unknown_744B60() && sclient && sclient->MainView && (target = sclient->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
+		PlayersInfo.size(); PlayersInfo.size();		// dead reads: spend the inline budget so the name's _Tidy(false) stays out of line, as in the client
 		std::string name;
 		target->Get_Name(name);
 		int id = ((ClientClass *)Client)->Unknown1138;
@@ -714,7 +714,7 @@ void UIFriendsClass::Unknown_591EE0()
 	SClient *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 
-	UIChatPanelClass *cpanel = sclient->ChatPanel.Peek();
+	ChatPanelInterface *cpanel = sclient->ChatPanel.Peek();
 	FAIL_IF(!cpanel) return;
 
 

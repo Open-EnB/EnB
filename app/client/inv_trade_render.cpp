@@ -19,20 +19,20 @@ extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 
-// 0x68FB60 and 0x68FC80 stay at the end of inv_render.cpp for now: see the notes
+// 0x68FB60
+InvTradeRenderClass::InvTradeRenderClass() :
+	InvRenderClass(true),
+	DescriptionGroup(0)
+{
+	Unknown_BE67BC->Load("fa_ce02a.ini");
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x68FC80
+InvTradeRenderClass::~InvTradeRenderClass()
+{
+	DescriptionGroup = 0;
+	Unknown_BE67BC->Unload("fa_ce02a.ini");
+}
 
 
 
@@ -189,6 +189,6 @@ void InvTradeRenderClass::Unknown_6902E0(RenderObjClass *robj, int index, const 
 /*
 **	Reconstruction notes. The client's file per its asserts ('e:\build\beta\G\app\Client\inv_trade_render.cpp' at 0xB905A8; lines
 **	115-185), its object from 0x68FB60: inv_render.cpp's ends at 0x68FB4A, `<string>`'s initialiser. The class name is D24's, from the file.
-**	The constructor 0x68FB60 and destructor 0x68FC80 belong here; moved, 0x68FAE0 (inv_render's header initialiser, credited by the object's range, D100)
-**	falls out of that range and is lost outright: P-IR2-1, for the user (D66).
+**	The constructor 0x68FB60 and destructor 0x68FC80 moved here from inv_render.cpp (D209, P-IR3-1 (b)): 0x68FAE0 (inv_render's header
+**	initialiser, credited by inv_render's range, D100) fell out of that range and is lost outright, accepted by the user under D66.
 */

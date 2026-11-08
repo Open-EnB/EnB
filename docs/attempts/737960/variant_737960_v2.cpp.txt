@@ -1,0 +1,28 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x737960 SetClientTimePacketClass::Process_Packet, similarity 0.439 vs the tree's 0.36; not exact.
+// idea: Declare the __int64 copies in the client's load order (server_received, client_received, client_sent, server_sent), so the allocator assigns eax/edx/ecx/edi and the stack slots as in the client.
+extern unsigned int Unknown_BE71D4;	// 0xBE71D4 (postate.cpp: the state blend time; CLIENT_SET_TIME 52 stores the round trip time in it)
+bool SetClientTimePacketClass::Process_Packet(void *instance)
+{
+	WWPROFILE("SetClientTimePacketClass::Process_Packet()");
+	SClient *sclient = (SClient *)instance;
+	__int64 server_received = ServerReceived;
+	__int64 client_received = ClientReceived;
+	__int64 client_sent = ClientSent;
+	__int64 server_sent = ServerSent;
+	__int64 client_total = client_received + client_sent;
+	__int64 server_total = server_sent + server_received;
+	__int64 client_time = client_received - client_sent;
+	__int64 server_time = server_sent - server_received;
+	DurationClass rtt(client_time - server_time);
+	__int64 correction = (server_total - client_total) / 2;
+	Unknown_BE71D4 = rtt.As_Int();
+	sclient->Unknown10C0 = correction;
+	sclient->Unknown10D0 = 0;
+	sclient->Unknown10C8 = 0;
+	if (sclient->DebugMode) {
+		char buffer[256];
+		sprintf(buffer, "rtt = %u  correction = %d", rtt.As_Int(), sclient->Unknown10C0.As_Int());
+		sclient->Unknown_74D990(0x17, buffer, 0);
+	}
+	return(true);
+}

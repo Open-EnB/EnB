@@ -1,0 +1,45 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x750C20 SClient::Unknown_750C20, similarity 0.615 vs the tree's 0.547; not exact.
+// idea: Combine all three changes: a time accumulator, an AvatarID local before the lego test, and no view local, so the client's eax accumulator, its hoisted AvatarID load and its spilled view temporary all appear together.
+void SClient::Unknown_750C20(int index)
+{
+	int duration = Unknown_BE7D80[index].Duration; int desc_id = Unknown_BE7D80[index].DescID; float distance = Unknown_BE7D80[index].Distance;
+	LegoIdentifierClass lego(Unknown_BE7D80[index].Lego);
+	unsigned count = Unknown_BE7D80[index].Count; int interval = Unknown_BE7D80[index].Interval; bool target = Unknown_BE7D80[index].Target;
+	float scale = Unknown_BE7D80[index].Scale; Vector3 hsv_shift = Unknown_BE7D80[index].HSVShift; float speedup = Unknown_BE7D80[index].Speedup;
+	int delay = Unknown_BE7D80[index].Delay; const char *name = Unknown_BE7D80[index].Name;
+	Matrix3D tm = Get_Avatar()->Unknown_28(true);
+	Vector3 position = tm.Get_Translation() + tm.Get_X_Vector() * distance;
+	int time = 0;
+	for (unsigned i = 0; i < count; i++) {
+		EffectObjectClass *effect = Unknown_6E9490(desc_id, 0, duration, time - delay + Unknown10BC, this, scale, hsv_shift, speedup, -1, 0);
+		if (effect) {
+			UnknownB00060EffectClass *unary = effect->Unknown_10();
+			if (unary) {
+				unary->Unknown_28(AvatarID);
+			} else {
+				UnknownB0009CEffectClass *binary = effect->Unknown_14();
+				if (binary) {
+					if (target) {
+						binary->Unknown_34(AvatarID);
+						binary->Unknown_30(position);
+					} else {
+						unsigned id = AvatarID;
+						if (!lego.Is_Empty()) {
+							binary->Unknown_2C(id, lego);
+						} else {
+							binary->Unknown_28(id);
+						}
+						binary->Unknown_38(position);
+					}
+				}
+			}
+			Add_Effect(effect, (int)MainView->Unknown_64(), MainView->Unknown_7C());
+		}
+		time += interval;
+	}
+	if (count > 1) {
+		Print(0x17, "Playing effect #%i: %s (volley of %i).", desc_id, name, count);
+	} else {
+		Print(0x17, "Playing effect #%i: %s.", desc_id, name);
+	}
+}

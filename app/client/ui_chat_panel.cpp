@@ -95,22 +95,22 @@ static ChatChannelStruct Unknown_B7C530[17] = {	// NAME 1: neutral (D10): 17 ent
 // What the +0xF8 window's events carry (an empty type: 0x5685C0 passes one to name the handler)
 class OptionFontInterfaceEvent {};	// NAME 5: the client's RTTI (.?AVOptionFontInterfaceEvent@@ 0xB7D3B0, the Event_Type of the callback table 0xAEFFDC, whose sender is .?AVOptionFontInterface@@)
 
-// The chat window's event handler object (0x10 bytes, constructor 0x56D0F0): the receiver and its member
-class UIChatIntHandlerClass	// NAME 1: neutral (D10)
-{
-public:
-	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *));	// 0x56D0F0  // NAME 1 [receiver, handler]: what 0x56C180 passes
-	char Unknown00[0x10];
-};
 
-// The interface event dispatcher (0x540A20 returns its function-local static at 0xBE5AF0), as far as this file calls
-// it: its member templates take the sender, the receiver, the handler and a sample of the event type
-class UnknownEventDispatcherClass	// NAME 1: neutral (D10)
+
+
+
+
+
+
+// The interface event dispatcher (0x540A20 returns its function-local static at 0xBE5AF0): intrface.cpp's signal map. Add news a
+// SignalBaseClass::MemberCallback (its constructor 0x56D0F0); Remove builds one on the stack and disconnects it (0x56CE40, 0x56CEC0)
+class UnknownEventDispatcherClass : public SignalMap	// NAME 1: neutral (D10)
 {
 public:
-	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &type);	// 0x56CE40 (the handler removed)  // NAME 1 [sender, receiver, handler, type]: what 0x5685C0 passes
-	void Unknown_4F9740(InterfaceClass *sender, UIChatIntHandlerClass *handler);	// 0x4F9740 (the handler added)  // NAME 1 [sender, handler]: what 0x56C180 passes
-	void Unknown_56CEC0(ChatWindowInterface *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &type);	// 0x56CEC0 (the handler removed)  // NAME 1 [sender, receiver, handler, type]: what 0x56C6A0 passes
+	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }	// 0x4F9740 (the client's 'SignalMap::connect')
+	template <class SENDER, class OBJECT, class EVENT> void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *)) { Add(sender, new SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function)); }
+	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }	// 0x4F98D0 (the client's 'SignalMap::disconnect')
+	template <class SENDER, class OBJECT, class EVENT> void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event) { Remove(sender, SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function)); }	// 0x56CE40, 0x56CEC0
 };
 UnknownEventDispatcherClass *Unknown_540A20();			// 0x540A20 (intrface.cpp)  // NAME 1: neutral (D10)
 
@@ -190,8 +190,8 @@ class Unknown65BFD0Class { public: Unknown65BFD0Class(LineDisplayClientClass *cl
 
 // NOT EXACT: functional (WE1): the first compile of the constructor, not yet aligned
 // 0x561DD0
-UIChatPanelClass::UIChatPanelClass(SClient *client) :
-	UIChatPanelBaseClass(client),
+ChatPanelInterface::ChatPanelInterface(SClient *client) :
+	ChatPanelUIBase(client),
 	UnknownA0(0),
 	UnknownD8(NULL),
 	UnknownDC(NULL),
@@ -457,7 +457,7 @@ UIChatPanelClass::UIChatPanelClass(SClient *client) :
 
 // NOT EXACT: functional (WE1): from the pseudocode, not aligned; the tooltips' sort order (0x65FFC0) and the button text's slot +0x168 are left out
 // 0x5629E0
-void UIChatPanelClass::Unknown_54()
+void ChatPanelInterface::Unknown_54()
 {
 	static const char *const buttons[6] = { "RESIZE_MAX00", "RESIZE_MIN00", "GIZMO_EXPAND", "B05", "AVATAR_THEM", "FRAME_DETAIL_MI" };	// 0xB7C284
 	static const char *const texts[6] = { NULL, NULL, NULL, "message_TSI05B", NULL, NULL };	// 0xB7C268
@@ -500,18 +500,18 @@ void UIChatPanelClass::Unknown_54()
 }
 
 // 0x562F50
-void UIChatPanelClass::Unknown_58()
+void ChatPanelInterface::Unknown_58()
 {
 	InterfaceSortScopeClass sort(this);
 	Unknown110->Unknown_7E36B0(Client->As_Space_Client(), Unknown_497300(UnknownA4[5]->Peek_Unknown30()), 0);
 	ChatInt->Unknown_58();
-	UIChatPanelBaseClass::Unknown_58();
+	ChatPanelUIBase::Unknown_58();
 	UIViewClass *view = View;
 	Unknown1E8->Unknown_7C(view, 0);
 }
 
 // 0x563060
-void UIChatPanelClass::Unknown_5C()
+void ChatPanelInterface::Unknown_5C()
 {
 	if (UnknownD4) UnknownD4 = NULL;
 	ChatInt->Unknown_5C();
@@ -520,7 +520,7 @@ void UIChatPanelClass::Unknown_5C()
 
 // NOT EXACT: register (the client copies the lag light's table pointer to edx for Is_Hidden, ebx in ours; then eax / edx swapped at As_Space_Client); 0x56C0C0 is out of line through auto_inline(off), as the client
 // 0x5630B0
-void UIChatPanelClass::Unknown_60()
+void ChatPanelInterface::Unknown_60()
 {
 	Unknown_566AF0();
 	Unknown_565F80();
@@ -557,7 +557,7 @@ void UIChatPanelClass::Unknown_60()
 
 // NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240)
 // 0x563280
-bool UIChatPanelClass::Unknown_68(int key)
+bool ChatPanelInterface::Unknown_68(int key)
 {
 	SClient *sclient = Client->As_Space_Client();
 	bool modifier = (Unknown_BE5F34 & 0x70) != 0;
@@ -612,7 +612,7 @@ bool UIChatPanelClass::Unknown_68(int key)
 }
 
 // 0x563620
-void UIChatPanelClass::Unknown_7C(UIViewClass *view, bool arg)
+void ChatPanelInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (View != view) {
 		InterfaceSortScopeClass sort(this);
@@ -631,7 +631,7 @@ void UIChatPanelClass::Unknown_7C(UIViewClass *view, bool arg)
 }
 
 // 0x5638E0
-bool UIChatPanelClass::Unknown_5638E0(int key)
+bool ChatPanelInterface::Unknown_5638E0(int key)
 {
 	if (!ChatInt) return(false);
 	return(ChatInt->Unknown_B8(key));
@@ -639,7 +639,7 @@ bool UIChatPanelClass::Unknown_5638E0(int key)
 
 // NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8)
 // 0x563910
-void UIChatPanelClass::Unknown_563910(unsigned id, bool flag)
+void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 {
 	SClient *sclient = Client->As_Space_Client();
 	if (sclient->Unknown_744B60()) return;
@@ -679,7 +679,7 @@ void UIChatPanelClass::Unknown_563910(unsigned id, bool flag)
 }
 
 // 0x563C50
-void UIChatPanelClass::Unknown_563C50()
+void ChatPanelInterface::Unknown_563C50()
 {
 	SClient *sclient = Client->As_Space_Client();
 	RefCountPtr<AvatarPipUnknown2CClass> object = Unknown110->Unknown2C;
@@ -704,7 +704,7 @@ void UIChatPanelClass::Unknown_563C50()
 }
 
 // 0x563DC0
-void UIChatPanelClass::Unknown_563DC0(bool on)
+void ChatPanelInterface::Unknown_563DC0(bool on)
 {
 	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", Peek_Unknown84()));
 	FAIL_IF(!font) return;
@@ -731,7 +731,7 @@ void UIChatPanelClass::Unknown_563DC0(bool on)
 }
 
 // 0x564030
-void UIChatPanelClass::Unknown_564030(bool on)
+void ChatPanelInterface::Unknown_564030(bool on)
 {
 	Unknown120 = on;
 	if (on) {
@@ -775,7 +775,7 @@ void UIChatPanelClass::Unknown_564030(bool on)
 
 
 // 0x564150
-void UIChatPanelClass::Unknown_564150(bool on)
+void ChatPanelInterface::Unknown_564150(bool on)
 {
 	RefCountPtr<RenderObjClass> big_robj = Create_Get(Unknown84->Get_Sub_Object_By_Name("FRAME_DETAIL"));
 	RefCountPtr<RenderObjClass> bigbutframe = Create_Get(Unknown84->Get_Sub_Object_By_Name("RESIZE_MIN01"));
@@ -791,7 +791,7 @@ void UIChatPanelClass::Unknown_564150(bool on)
 
 
 // 0x564400
-void UIChatPanelClass::Unknown_564400(bool on)
+void ChatPanelInterface::Unknown_564400(bool on)
 {
 	RefCountPtr<RenderObjClass> small_robj = Create_Get(Unknown84->Get_Sub_Object_By_Name("FRAME_DETAIL_MI"));
 	RefCountPtr<RenderObjClass> smallbutframe = Create_Get(Unknown84->Get_Sub_Object_By_Name("RESIZE_MAX01"));
@@ -807,7 +807,7 @@ void UIChatPanelClass::Unknown_564400(bool on)
 
 // 0x563760 (SClient's 0x74D990): a chat line, logged to chat.log ('**' while the panel is inactive), kept in the
 // history (+0x13C) and shown by the chat window
-void UIChatPanelClass::Unknown_563760(int type, const std::string &text)
+void ChatPanelInterface::Unknown_563760(int type, const std::string &text)
 {
 	if (text.length()) {
 		static RawFileClass log;
@@ -830,7 +830,7 @@ void UIChatPanelClass::Unknown_563760(int type, const std::string &text)
 // NOT EXACT: functional (CW1): written from the disassembly, not aligned (the client inlines one of the string copies the others call)
 // 0x5646A0: talk on channel 'channel' (0..5 the channels, 6..8 the +0x158 names, 9 the reply name); false, with the
 // reason on the chat, when there is no one there (Guild / Group: the channel stays as it was)
-bool UIChatPanelClass::Unknown_5646A0(int channel)
+bool ChatPanelInterface::Unknown_5646A0(int channel)
 {
 	SClient *sclient = Client->As_Space_Client();
 	int old = Unknown148;
@@ -916,20 +916,20 @@ bool UIChatPanelClass::Unknown_5646A0(int channel)
 }
 
 // 0x564F50
-void UIChatPanelClass::Unknown_564F50()
+void ChatPanelInterface::Unknown_564F50()
 {
 	Unknown204 = Unknown1F4;
 	Unknown_5646A0(Unknown144);
 }
 
 // 0x565100
-void UIChatPanelClass::Unknown_565100()
+void ChatPanelInterface::Unknown_565100()
 {
 	Unknown_5646A0(Unknown14C);
 }
 
 // 0x565120
-void UIChatPanelClass::Unknown_565120()
+void ChatPanelInterface::Unknown_565120()
 {
 	SClient *sclient = Client->As_Space_Client();
 	Unknown228.clear();
@@ -947,7 +947,7 @@ void UIChatPanelClass::Unknown_565120()
 
 // NOT EXACT: inline-budget (the client keeps string::compare and assign out of line in the two searches and the label copy; 396 instructions vs 328)
 // 0x565390
-void UIChatPanelClass::Unknown_565390(bool back)
+void ChatPanelInterface::Unknown_565390(bool back)
 {
 	int count = Unknown228.size();
 	if (count == 0) return;
@@ -1011,7 +1011,7 @@ found:
 }
 
 // 0x5658B0
-void UIChatPanelClass::Unknown_5658B0(const char *name)
+void ChatPanelInterface::Unknown_5658B0(const char *name)
 {
 	for (int i = 0; i < 3; i++) {
 		if (strcmp(Unknown158[i].c_str(), name) == 0) {
@@ -1029,27 +1029,27 @@ void UIChatPanelClass::Unknown_5658B0(const char *name)
 }
 
 // 0x565BA0
-const char *UIChatPanelClass::Unknown_565BA0()
+const char *ChatPanelInterface::Unknown_565BA0()
 {
 	return(Unknown248.c_str());
 }
 
 // 0x565BC0
-const char *UIChatPanelClass::Unknown_565BC0()
+const char *ChatPanelInterface::Unknown_565BC0()
 {
 	if (Unknown148 >= 6 && Unknown148 < 10) return(Unknown158[Unknown148 - 6].c_str());
 	return(NULL);
 }
 
 // 0x565C00
-const char *UIChatPanelClass::Unknown_565C00()
+const char *ChatPanelInterface::Unknown_565C00()
 {
 	if (Unknown150 >= 0 && Unknown150 < 5) return(Unknown188[Unknown150].c_str());
 	return(NULL);
 }
 
 // 0x565C40
-void UIChatPanelClass::Unknown_565C40(int index)
+void ChatPanelInterface::Unknown_565C40(int index)
 {
 	Unknown150 = index;
 	Unknown148 = 9;
@@ -1063,7 +1063,7 @@ void UIChatPanelClass::Unknown_565C40(int index)
 }
 
 // 0x565D80
-void UIChatPanelClass::Unknown_565D80(const char *name)
+void ChatPanelInterface::Unknown_565D80(const char *name)
 {
 	Unknown1D8 = name;
 	for (int i = 0; i < 5; i++) {
@@ -1084,14 +1084,14 @@ void UIChatPanelClass::Unknown_565D80(const char *name)
 }
 
 // 0x565F30
-void UIChatPanelClass::Unknown_565F30(int arg)
+void ChatPanelInterface::Unknown_565F30(int arg)
 {
 	Unknown108 = arg;
 	if (arg == 1) Unknown10C = true;
 }
 
 // 0x565F80
-void UIChatPanelClass::Unknown_565F80()
+void ChatPanelInterface::Unknown_565F80()
 {
 	if (Unknown104 && Unknown104->Unknown98) {
 		Unknown104->Unknown_7C(NULL, 0);
@@ -1155,7 +1155,7 @@ void UIChatPanelClass::Unknown_565F80()
 }
 
 // 0x566AF0
-void UIChatPanelClass::Unknown_566AF0()
+void ChatPanelInterface::Unknown_566AF0()
 {
 	if (UnknownF8 && UnknownF8->Unknown98) Unknown_5685C0();
 	if (UnknownF8) return;
@@ -1202,7 +1202,7 @@ void UIChatPanelClass::Unknown_566AF0()
 
 // NOT EXACT: inline-budget (the client calls string::compare and list::_Buynode out of line; 183 instructions vs 141)
 // 0x567540
-bool UIChatPanelClass::Unknown_567540(int arg)
+bool ChatPanelInterface::Unknown_567540(int arg)
 {
 	if (!Unknown1E8->Is_Active()) {
 		Unknown1EC = arg;
@@ -1212,7 +1212,7 @@ bool UIChatPanelClass::Unknown_567540(int arg)
 			std::list<std::string> names;
 			for (int i = 0; i < 5; i++) {
 				if (Unknown188[i] == "") break;
-				names.push_back(Unknown188[i]);
+				names.insert(names.end(), Unknown188[i]);
 				count++;
 			}
 			if (count) {
@@ -1228,7 +1228,7 @@ bool UIChatPanelClass::Unknown_567540(int arg)
 
 // NOT EXACT: inline-budget (the client calls string::assign(const char *, size_t) out of line for +0x248, ours inlines it with _Grow; frame 0x40 vs 0x44; calling 0x565C40 instead does not change it)
 // 0x567760
-void UIChatPanelClass::Unknown_567760()
+void ChatPanelInterface::Unknown_567760()
 {
 	if (Unknown1E8->Is_Active()) {
 		int index = ((UIChatReplyListClass *)Unknown1E8)->Unknown_56EFB0();
@@ -1262,7 +1262,7 @@ void UIChatPanelClass::Unknown_567760()
 }
 
 // 0x567930
-void UIChatPanelClass::Unknown_567930(int channel)
+void ChatPanelInterface::Unknown_567930(int channel)
 {
 	Unknown144 = channel;
 	IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
@@ -1270,7 +1270,7 @@ void UIChatPanelClass::Unknown_567930(int channel)
 }
 
 // 0x567970
-bool UIChatPanelClass::Unknown_567970()
+bool ChatPanelInterface::Unknown_567970()
 {
 	if (Unknown1E8 && Unknown1E8->Is_Active()) return(true);
 	return(false);
@@ -1278,7 +1278,7 @@ bool UIChatPanelClass::Unknown_567970()
 
 
 // 0x5679A0
-void UIChatPanelClass::Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag)
+void ChatPanelInterface::Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag)
 {
 	switch (event) {
 		case 9:
@@ -1313,7 +1313,7 @@ void UIChatPanelClass::Unknown_5679A0(int event, const std::string &channel, con
 
 // NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169)
 // 0x567DF0
-void UIChatPanelClass::Unknown_567DF0(int code)
+void ChatPanelInterface::Unknown_567DF0(int code)
 {
 	switch (code) {
 		case 12:
@@ -1339,7 +1339,7 @@ void UIChatPanelClass::Unknown_567DF0(int code)
 }
 
 // 0x5680B0
-void UIChatPanelClass::Unknown_5680B0(const std::string &name)
+void ChatPanelInterface::Unknown_5680B0(const std::string &name)
 {
 	if (Unknown214 == name) return;
 	Unknown214 = name;
@@ -1348,24 +1348,24 @@ void UIChatPanelClass::Unknown_5680B0(const std::string &name)
 }
 
 // 0x5682C0
-std::string UIChatPanelClass::Unknown_5682C0()
+std::string ChatPanelInterface::Unknown_5682C0()
 {
 	return(Unknown214);
 }
 
 // 0x568440
-std::string UIChatPanelClass::Unknown_568440()
+std::string ChatPanelInterface::Unknown_568440()
 {
 	return(Unknown204);
 }
 
 #pragma auto_inline(off)	// the client calls 0x5685C0 out of line (0x56C0C0, slot +0x68)
 // 0x5685C0
-void UIChatPanelClass::Unknown_5685C0()
+void ChatPanelInterface::Unknown_5685C0()
 {
 	if (UnknownF8) {
 		if (Unknown10D) {
-			Unknown_540A20()->Unknown_56CE40(UnknownF8.Peek(), this, &UIChatPanelClass::Unknown_56C7B0, OptionFontInterfaceEvent());
+			Unknown_540A20()->Remove((InterfaceClass *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0, OptionFontInterfaceEvent());
 			Unknown10D = false;
 		}
 		UnknownF8->Unknown_7C(NULL, 0);
@@ -1381,7 +1381,7 @@ void UIChatPanelClass::Unknown_5685C0()
 #pragma auto_inline(on)
 
 // 0x568690
-void UIChatPanelClass::Unknown_568690()
+void ChatPanelInterface::Unknown_568690()
 {
 	if (Unknown104) {
 		Unknown104->Unknown_7C(NULL, 0);
@@ -1391,7 +1391,7 @@ void UIChatPanelClass::Unknown_568690()
 }
 
 // 0x5688E0
-int UIChatPanelClass::Unknown_5688E0(void **list)
+int ChatPanelInterface::Unknown_5688E0(void **list)
 {
 	int count = 0;
 	while (list[count]) count++;
@@ -1399,13 +1399,13 @@ int UIChatPanelClass::Unknown_5688E0(void **list)
 }
 
 // 0x568910
-void UIChatPanelClass::Unknown_568910()
+void ChatPanelInterface::Unknown_568910()
 {
 	if (UnknownD4) UnknownD4 = NULL;
 }
 
 // 0x568950
-void UIChatPanelClass::Unknown_568950()
+void ChatPanelInterface::Unknown_568950()
 {
 	Unknown_5689D0(0);
 	Unknown_5689D0(1);
@@ -1974,7 +1974,7 @@ void UIChatPanelClass::Unknown_568950()
 
 
 // 0x5698F0
-void UIChatPanelClass::Unknown_5698F0(int id)
+void ChatPanelInterface::Unknown_5698F0(int id)
 {
 	int index = id - 8;
 	FAIL_IF((index < 0) || (index >= NUM_COMBO)) return;
@@ -1986,7 +1986,7 @@ void UIChatPanelClass::Unknown_5698F0(int id)
 
 // NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178)
 // 0x56B700
-void UIChatPanelClass::Unknown_56B700()
+void ChatPanelInterface::Unknown_56B700()
 {
 	OptionClass *options = OptionClass::Instance;
 	if (options) {
@@ -2007,7 +2007,7 @@ void UIChatPanelClass::Unknown_56B700()
 }
 
 // 0x56BA40
-void UIChatPanelClass::Unknown_56BA40(bool on)
+void ChatPanelInterface::Unknown_56BA40(bool on)
 {
 	Unknown25C = on;
 	Unknown260 = 0;
@@ -2015,7 +2015,7 @@ void UIChatPanelClass::Unknown_56BA40(bool on)
 }
 
 // 0x56BA80
-bool UIChatPanelClass::Unknown_56BA80()
+bool ChatPanelInterface::Unknown_56BA80()
 {
 	return(Unknown25C);
 }
@@ -2287,7 +2287,7 @@ bool UIChatPanelClass::Unknown_56BA80()
 
 
 // 0x56BAA0
-void UIChatPanelClass::Unknown_56BAA0(bool show, const char *text)
+void ChatPanelInterface::Unknown_56BAA0(bool show, const char *text)
 {
 	if (!UnknownA4[4]) return;
 	UnknownA4[4]->Unknown_40(show);
@@ -2303,7 +2303,7 @@ void UIChatPanelClass::Unknown_56BAA0(bool show, const char *text)
 
 
 // 0x56BC10
-void UIChatPanelClass::Unknown_70(ControlKeysManager *manager)
+void ChatPanelInterface::Unknown_70(ControlKeysManager *manager)
 {
 
 	FAIL_IF(!manager) return;
@@ -2311,7 +2311,7 @@ void UIChatPanelClass::Unknown_70(ControlKeysManager *manager)
 }
 
 // 0x56BD80
-void UIChatPanelClass::Unknown_74(ControlKeysManager *manager)
+void ChatPanelInterface::Unknown_74(ControlKeysManager *manager)
 {
 
 	FAIL_IF(!manager) return;
@@ -2320,7 +2320,7 @@ void UIChatPanelClass::Unknown_74(ControlKeysManager *manager)
 
 
 // 0x56BEF0
-void UIChatPanelClass::Unknown_56BEF0()
+void ChatPanelInterface::Unknown_56BEF0()
 {
 	SClient *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
@@ -2357,7 +2357,7 @@ void UIChatPanelClass::Unknown_56BEF0()
 
 #pragma auto_inline(off)	// the client calls 0x56C0C0 out of line (slot +0x60, slot +0x68)
 // 0x56C0C0
-void UIChatPanelClass::Unknown_56C0C0()
+void ChatPanelInterface::Unknown_56C0C0()
 {
 	unsigned int window = Unknown134;
 	if (window == 0) {
@@ -2381,11 +2381,11 @@ void UIChatPanelClass::Unknown_56C0C0()
 
 // NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346)
 // 0x56C180
-void UIChatPanelClass::Unknown_56C180(int window)
+void ChatPanelInterface::Unknown_56C180(int window)
 {
 	bool active = Active;
 	if (ChatInt) {
-		Unknown_540A20()->Unknown_56CEC0(ChatInt.Peek(), this, &UIChatPanelClass::Unknown_56C730, ChatWindowInterfaceEvent());
+		Unknown_540A20()->Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
 		ChatInt->Unknown_7C(NULL, 0);
 		ChatInt = NULL;
 	}
@@ -2407,7 +2407,7 @@ void UIChatPanelClass::Unknown_56C180(int window)
 	}
 	if (ChatInt) {
 		UnknownEventDispatcherClass *dispatcher = Unknown_540A20();
-		dispatcher->Unknown_4F9740(ChatInt.Peek(), new UIChatIntHandlerClass(this, &UIChatPanelClass::Unknown_56C730));
+		dispatcher->Add(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730);
 		ChatInt->Unknown_5417D0(this);
 		ChatInt->Unknown_54();
 		ChatInt->Unknown_7C(View, active);
@@ -2425,10 +2425,10 @@ void UIChatPanelClass::Unknown_56C180(int window)
 }
 
 // 0x56C6A0
-void UIChatPanelClass::Unknown_56C6A0()
+void ChatPanelInterface::Unknown_56C6A0()
 {
 	if (ChatInt) {
-		Unknown_540A20()->Unknown_56CEC0(ChatInt.Peek(), this, &UIChatPanelClass::Unknown_56C730, ChatWindowInterfaceEvent());
+		Unknown_540A20()->Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
 		ChatInt->Unknown_7C(NULL, 0);
 		ChatInt = NULL;
 	}
@@ -2436,10 +2436,10 @@ void UIChatPanelClass::Unknown_56C6A0()
 
 
 // 0x56C730
-void UIChatPanelClass::Unknown_56C730(const ChatWindowInterfaceEvent &event, ChatWindowInterface *chat_int)
+void ChatPanelInterface::Unknown_56C730(ChatWindowInterfaceEvent *event, ChatWindowInterface *chat_int)
 {
 	FAIL_IF(chat_int != ChatInt.Peek()) return;
-	if (event.Unknown00 == 1) {
+	if (event->Unknown00 == 1) {
 		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
 		Unknown_565120();
 		Unknown_565390(0);
@@ -2447,7 +2447,7 @@ void UIChatPanelClass::Unknown_56C730(const ChatWindowInterfaceEvent &event, Cha
 }
 
 // 0x56C7B0
-void UIChatPanelClass::Unknown_56C7B0(const OptionFontInterfaceEvent &event, InterfaceClass *sender)
+void ChatPanelInterface::Unknown_56C7B0(OptionFontInterfaceEvent *event, InterfaceClass *sender)
 {
 	if (sender == UnknownF8.Peek() && ChatInt) ChatInt->Unknown_571430();
 }
@@ -2469,10 +2469,13 @@ void UIChatPanelClass::Unknown_56C7B0(const OptionFontInterfaceEvent &event, Int
 ** under ui_buff.cpp: they are this file's (0x5629FC reads fa_tsi05b.ini; the NUM_COMBO assert passes this file's
 ** __FILE__).
 **
-** Handlers: the chat window's and the +0xF8 window's events are routed through intrface.cpp's dispatcher (0x540A20
-** returns a function-local static); its member templates (0x56CE40 / 0x56CEC0 remove, 0x4F9740 adds a 0x10-byte
-** handler object, 0x56D0F0) are declared here as plain members, which compile to the same calls. The handler's last
-** argument is a sample of the event type: a zeroed ChatWindowInterfaceEvent, an empty OptionFontInterfaceEvent.
+** Handlers: the chat window's and the +0xF8 window's events are routed through intrface.cpp's signal map (0x540A20
+** returns a function-local static SignalMap), with SignalMap's member templates as intrface.cpp declares them (OM1,
+** P-CW1-1): Add news a SignalBaseClass::MemberCallback (0x10 bytes, its constructor 0x56D0F0) and connects it
+** (0x4F9740); Remove (0x56CE40, 0x56CEC0) builds one on the stack and disconnects it (0x4F98D0). The handlers take
+** the event by pointer, as MemberCallback::Call passes it; the last argument of Remove is a sample of the event type
+** (a zeroed ChatWindowInterfaceEvent, an empty OptionFontInterfaceEvent). The callbacks' ??_G copies are
+** byte-identical to the panel's own ??_G 0x562410: objmatch's range round tells them apart by their callees (P-CW1-1).
 **
 ** Levers that made functions exact: inline accessors for the font owner (+0x84) and the gadget's +0x30 (0x563DC0,
 ** 0x56BAA0, 0x562F50), a local for View (0x562F50), the branch order that gives the client's EH states (0x563910,

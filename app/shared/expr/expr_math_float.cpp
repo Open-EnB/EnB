@@ -59,7 +59,6 @@ ExprMathFloatFactoryClass::ExprMathFloatFactoryClass(unsigned int flags) :
 }
 
 
-// NOT EXACT: 0x4C7D80 similarity 0.56: this and name in swapped registers (esi / edi), ebx not kept as 0 past ^ and %
 // @0x4C7D80
 ExprMathFloatFactoryClass::PtrType ExprMathFloatFactoryClass::Create_Binary(const std::string &name, const PtrType &left, const PtrType &right)
 {
@@ -70,29 +69,17 @@ ExprMathFloatFactoryClass::PtrType ExprMathFloatFactoryClass::Create_Binary(cons
 		return Create_NEW((ExprMathEvalClass<float> *)new ExprMathFloatModuloClass(left, right));
 	}
 	PtrType result;
-	if (m_flags & 1) {
-		if (result = ExprMathArithmeticOpsClass<float>::Create_Binary(name, left, right)) {
-			return result;
-		}
-
+	if ((m_flags & 1) && (result = ExprMathArithmeticOpsClass<float>::Create_Binary(name, left, right))) {
+		return result;
 	}
-	if (m_flags & 0x10) {
-		if (result = ExprMathFunctionOpsClass<float>::Create_Binary(name, left, right)) {
-			return result;
-		}
-
+	if ((m_flags & 0x10) && (result = ExprMathFunctionOpsClass<float>::Create_Binary(name, left, right))) {
+		return result;
 	}
-	if (m_flags & 2) {
-		if (result = ExprMathCompareOpsClass<float>::Create_Binary(name, left, right)) {
-			return result;
-		}
-
+	if ((m_flags & 2) && (result = ExprMathCompareOpsClass<float>::Create_Binary(name, left, right))) {
+		return result;
 	}
-	if (m_flags & 8) {
-		if (result = ExprMathLogicOpsClass<float>::Create_Binary(name, left, right)) {
-			return result;
-		}
-
+	if ((m_flags & 8) && (result = ExprMathLogicOpsClass<float>::Create_Binary(name, left, right))) {
+		return result;
 	}
 	return NULL;
 }

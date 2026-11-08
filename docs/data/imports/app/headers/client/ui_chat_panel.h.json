@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "UIChatPanelClass, ui_chat_panel.cpp's chat panel (SClient +0x127C; 0x268 bytes, table 0xAEFF1C; the client's file per its asserts, this header's name provisional), laid out from the constructor 0x561DD0 and its functions, over ui_chat_panel_base.cpp's UIChatPanelBaseClass (constructor 0x56D280, table 0xAF00B4; interim placement here, D137) (CH1)"
+ "description": "ChatPanelInterface, ui_chat_panel.cpp's chat panel (SClient +0x127C; 0x268 bytes, table 0xAEFF1C; the client's file per its asserts, this header's name provisional), laid out from the constructor 0x561DD0 and its functions, over ui_chat_panel_base.cpp's ChatPanelUIBase (constructor 0x56D280, table 0xAF00B4; interim placement here, D137) (CH1)"
 }

@@ -1,0 +1,42 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x50D520 MainViewClass::Unknown_50D520, similarity 0.4 vs the tree's 0.35; not exact.
+// idea: Use the Matrix3x3 rotation, and cache Client in a local read before the Format arguments so VC6 loads +0x4c first, as the client does.
+void MainViewClass::Unknown_50D520()
+{
+	SClient *sclient = (SClient *)Client->Unknown_18();
+	BridgeInterfaceClass *bridge = sclient->BridgeInterface;
+	if (bridge && bridge->Unknown14) {
+		CameraClass *camera = Camera;
+		float old_near, old_far; camera->Get_Clip_Planes(old_near, old_far);
+		float zmin, zmax; camera->Get_Depth_Range(&zmin, &zmax);
+		Matrix3D tm = camera->Get_Transform();
+		camera->Set_Depth_Range(0.0f, 0.95f);
+		camera->Set_Clip_Planes(BridgeNear, BridgeFar);
+		camera->Set_Transform(bridge->Unknown28);
+		Matrix3x3 rot(tm);
+		for (int i = 0; i < 4; i++) {
+			LightClass *light = Unknown154[i].Peek();
+			*light = *Unknown144[i].Peek();
+			Vector3 dir; light->Get_Spot_Direction(dir);
+			light->Set_Spot_Direction(rot * dir);
+		}
+		Unknown120->Set_Ambient_Light(Scene->Get_Ambient_Light());
+		WW3D::Render(Unknown120, camera, false, true, Vector3(0.0f, 0.0f, 0.0f));
+		camera->Set_Transform(tm);
+		camera->Set_Clip_Planes(old_near, old_far);
+		camera->Set_Depth_Range(zmin, zmax);
+	}
+	((InterfaceSceneClass *)Unknown1C)->Render_With_PIP_Scenes(Unknown20);
+	WW3D::Render(Unknown24, Unknown28, false, false, Vector3(0.0f, 0.0f, 0.0f));
+	if (Client->Unknown05) {
+		sclient->Unknown_750260(0);
+		Unknown_510440();
+		if (sclient->Unknown14EC == 1) {
+			StringClass text;
+			int star_budget = Client->StarBudget;
+			text.Format("PB=%d SB=%d LB=%d LOD=%d\n", PolyBudget, star_budget, LandPolyBudget, LandLOD);
+			sclient->Text->Draw_Text(text, 0xFFFF0000);
+		}
+		sclient->Text->Render();
+	}
+	sclient->Text->Reset();
+}

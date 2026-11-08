@@ -3090,7 +3090,7 @@ char *SplineEntryClass::Pack(char *buffer)
 
 
 
-// NOT EXACT: shape (written from the pseudocode: the case layout and the read pointer)
+
 void SplineEntryClass::Unpack(char **buffer)
 {
 	unsigned char *p = (unsigned char *)*buffer;
@@ -3104,125 +3104,125 @@ void SplineEntryClass::Unpack(char **buffer)
 	}
 	Type = type;
 	switch (type) {
-
-
-
-
-
-
-
-
-
 		case SplineDatabaseClass::TYPE_LINEAR:
 		{
 			Curve = new LinearCurve1DClass;
 			if (Curve == NULL) {
+
+
+
+
+
+
+
+
+
 				G_ASSERT(false);
 			}
-			Curve->Set_Looping(*p != 0);
+			Curve->Set_Looping(*(bool *)p);
 			p++;
 			int count = *(int *)p;
 			p += 4;
-			for (; count != 0; count--) {
+			while (count--) {
 				float point = *(float *)p;
-				float t = *(float *)(p + 4);
-				p += 8;
+				p += 4;
+				float t = *(float *)p;
+				p += 4;
 				Curve->Add_Key(point, t, 0);
 			}
 			break;
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		case SplineDatabaseClass::TYPE_HERMITE:
 		{
 			Curve = new CatmullRomSpline1DClass;
 			if (Curve == NULL) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				G_ASSERT(false);
 			}
-			Curve->Set_Looping(*p != 0);
+			Curve->Set_Looping(*(bool *)p);
 			p++;
 			int count = *(int *)p;
 			p += 4;
-			for (; count != 0; count--) {
+			while (count--) {
 				float point = *(float *)p;
-				float t = *(float *)(p + 4);
-				p += 8;
+				p += 4;
+				float t = *(float *)p;
+				p += 4;
 				Curve->Add_Key(point, t, 0);
 			}
 			break;
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		case SplineDatabaseClass::TYPE_COLOR:
+			RedKey = *(unsigned int *)p;
+			p += 4;
+			GreenKey = *(unsigned int *)p;
+			p += 4;
+			BlueKey = *(unsigned int *)p;
+			p += 4;
+			break;
 		case SplineDatabaseClass::TYPE_BLEND:
+		{
 			Curve = new CatmullRomSpline1DClass;
 			if (Curve == NULL) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				G_ASSERT(false);
 				return;
 			}
-			Curve->Add_Key(*(float *)p, 0.5f, 0);
-			AlphaKey = *(unsigned int *)(p + 4);
-			BetaKey = *(unsigned int *)(p + 8);
-			p += 12;
+			float value = *(float *)p;
+			p += 4;
+			Curve->Add_Key(value, 0.5f, 0);
+			AlphaKey = *(unsigned int *)p;
+			p += 4;
+			BetaKey = *(unsigned int *)p;
+			p += 4;
 			break;
-		case SplineDatabaseClass::TYPE_COLOR:
-			RedKey = *(unsigned int *)p;
-			GreenKey = *(unsigned int *)(p + 4);
-			BlueKey = *(unsigned int *)(p + 8);
-			p += 12;
-			break;
-
-
-
-
-
+		}
 		default:
+
+
+
+
+
+
+
 			G_ASSERT(false);
 			break;
 	}

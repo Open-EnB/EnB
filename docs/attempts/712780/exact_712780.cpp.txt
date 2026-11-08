@@ -1,0 +1,47 @@
+// exact form (RT1, 2026-11-08): the 11-01 Batch variant v6 in the tree layout
+void Unknown7125F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
+{
+	if (time <= StartTime) {
+		G_ASSERT(StartState);
+		StartState->Unknown_1C(time, position, orientation, velocity, speed, rotrate, unknown);
+		return;
+	}
+
+
+	if (time >= EndTime) {
+		G_ASSERT(EndState);
+		EndState->Unknown_1C(time, position, orientation, velocity, speed, rotrate, unknown);
+		return;
+	}
+
+
+
+
+	float start_speed, end_speed;
+	Vector3 start_position, start_velocity, start_rotrate;
+	Vector3 end_position, end_velocity, end_rotrate;
+	Quaternion start_orientation, end_orientation;
+	G_ASSERT(StartState && EndState);
+	StartState->Unknown_1C(time, position ? &start_position : 0, orientation ? &start_orientation : 0, velocity ? &start_velocity : 0, speed ? &start_speed : 0, rotrate ? &start_rotrate : 0, unknown);
+	EndState->Unknown_1C(time, position ? &end_position : 0, orientation ? &end_orientation : 0, velocity ? &end_velocity : 0, speed ? &end_speed : 0, rotrate ? &end_rotrate : 0, unknown);
+	float t = (float)(time - StartTime) / (float)(EndTime - StartTime);
+	if (position) {
+		Vector3::Lerp(start_position, end_position, t, position);
+	}
+	if (orientation) {
+		if (Equal_Within_Epsilon(start_orientation, end_orientation, 0.0001f)) {
+			*orientation = start_orientation;
+		} else {
+			Slerp(*orientation, start_orientation, end_orientation, t);
+		}
+	} if (velocity) {
+		Vector3::Lerp(start_velocity, end_velocity, t, velocity);
+	}
+	if (speed) {
+		float s0 = end_speed, s1 = end_speed;	// the client lerps EndState's speed to itself: (s - s) * t + s
+		*speed = WWMath::Lerp(s0, s1, t);
+	}
+	if (rotrate) {
+		Vector3::Lerp(start_rotrate, end_rotrate, t, rotrate);
+	}
+}

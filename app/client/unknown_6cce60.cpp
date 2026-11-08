@@ -45,7 +45,7 @@ void FontSys::Unknown_6CCE60()
 		Unknown274[2] = 0;
 	}
 	if (Unknown254[1] > 0 && --Unknown254[1] == 0) {
-		FontColorStruct *color = Colors[Unknown44C];
+		FontColorStruct *&color = Colors[Unknown44C];
 		float *rgb = (float *)&Unknown4A4;	// floats r, g, b, a (fontsys.cpp's 0x6D5170)
 		rgb[0] = (float)color->RGB.X * 0.00392156f;
 		rgb[1] = (float)color->RGB.Y * 0.00392156f;
@@ -63,10 +63,11 @@ void FontSys::Unknown_6CCE60()
 		if (Unknown406) {
 			text += "...";
 		}
+		text.Get_Buffer(text.Get_Length());
 		*(int *)((char *)Font + 0xD28) = *(int *)((char *)Font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
 		Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
-		Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(text);
-		Unknown2C8 = Unknown420[3] = Font->Get_Height();
+		Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(text);
+		Unknown420[3] = Unknown2C8 = Font->Get_Height();
 	}
 }
 

@@ -14,11 +14,11 @@ class DestroyGadgetEvent;
 
 // ui_chat_panel_base.cpp's class (0xA0 bytes; constructor 0x56D280 (the client to 0x540D30), destructor 0x56D300,
 // table 0xAF00B4), as far as the chat panel and the chat window use it
-class UIChatPanelBaseClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_chat_panel_base.cpp
+class ChatPanelUIBase : public InterfaceClass	// NAME 5: the client's RTTI (the receiver in MemberCallback<MovableUIBackGadget, ChatPanelUIBase, ...> 0xB7D5E8: the typeid slot 0x56DF50 of the callback table 0xAF0174 that this class's destructor 0x56D330 builds with this as receiver and 0x56DEE0 as method)
 {
 public:
-	UIChatPanelBaseClass(SClient *client);				// 0x56D280  // NAME 1 [client]: what 0x561DD0 passes
-	virtual ~UIChatPanelBaseClass();					// 0x56D330 (deleting 0x56D300; out of line: ui_starbase.cpp's lights panel 0x646290 calls it)
+	ChatPanelUIBase(SClient *client);				// 0x56D280  // NAME 1 [client]: what 0x561DD0 passes
+	virtual ~ChatPanelUIBase();					// 0x56D330 (deleting 0x56D300; out of line: ui_starbase.cpp's lights panel 0x646290 calls it)
 	virtual void Unknown_58();							// +0x58 0x56D4F0
 	virtual void Unknown_88(const RefCountPtr<RenderObjClass> &robj, const char *bone_name);	// +0x88 0x56DD80 (FAIL_IF '!robj', the assert's bone_name)
 	virtual void Unknown_8C(const RefCountPtr<RenderObjClass> &robj);	// +0x8C 0x56DE60 (FAIL_IF 'robj.Peek() != InterfaceMesh->Get_Container()')
@@ -28,7 +28,7 @@ public:
 	virtual void Unknown_9C() {}						// +0x9C 0x5623F0
 
 	GadgetClass *Unknown_56D510(int id, const char *button, const char *text);	// 0x56D510 (the lights panel's 0x646360: a button by its model's name, with its text)  // NAME 1 [id, button, text]: what 0x646360 passes
-	GadgetSlider *Unknown_56D8D0(int id, int unknown);	// 0x56D8D0 (0x646360: its four sliders, ids 8-11)  // NAME 1 [id, unknown]: neutral
+	GadgetSlider *Unknown_56D8D0(int id, bool unknown);	// 0x56D8D0 (0x646360: its four sliders, ids 8-11; unknown is GadgetSlider's bool: the client pushes the argument's dword as loaded)  // NAME 1 [id, unknown]: neutral
 	void Unknown_56DEE0(DestroyGadgetEvent *event, GadgetClass *sender);	// 0x56DEE0 (the handler of +0x9C's destruction: slot +0x9C)  // NAME 1 [event, sender]: what the signal passes
 	void Unknown_56D970(int id, const Vector3 &offset);	// 0x56D970 (G_ASSERT 'MovableBackGadget'; 0x646360 passes 1 and a zero vector)  // NAME 1 [id, offset]: neutral
 

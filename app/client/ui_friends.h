@@ -27,7 +27,7 @@ public:
 
 // ui_friends.cpp's friends window (0x14C bytes; constructor 0x58F210 over ui_chat_panel_base.cpp's 0x56D280,
 // destructor 0x58F450, table 0xAF1AD4)
-class UIFriendsClass : public UIChatPanelBaseClass	// NAME 3: class-from-file (D24) for app\client\ui_friends.cpp
+class UIFriendsClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for app\client\ui_friends.cpp
 {
 public:
 	void Unknown_5908B0();								// 0x5908B0: PlayersInfo rebuilt from +0xC4, sorted (by name, or by location with 'offline' last)

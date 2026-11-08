@@ -98,7 +98,7 @@ void ChatWindowHistoryClass::Unknown_6818C0()
 	}
 }
 
-// NOT EXACT: registers and frame 8 smaller: the client keeps History at ebx + 4 without an esi base; functional
+// 0x681DB0
 void ChatWindowHistoryClass::Unknown_681DB0()
 {
 	std::vector< RefCountPtr<ChatLineClass> > old;
@@ -109,7 +109,7 @@ void ChatWindowHistoryClass::Unknown_681DB0()
 		if ((*it)->Is_Last()) {
 			RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, text, (*it)->Color, true, true));
 			line->Set_Bit_3();
-			History.insert(History.end(), 1, line);
+			History.push_back(line);
 			text.erase();
 		}
 	}

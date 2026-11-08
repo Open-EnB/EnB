@@ -1,0 +1,27 @@
+static inline void Cpit_Push_Effect(std::list<RenderObjClass *> &list, RenderObjClass *const &obj)
+{
+	list.push_back(obj);
+}
+
+void UICpitClass::Unknown_583DC0(Unknown6D47C0Class *text, Unknown6D47C0Class *header, int inflicted, bool emp)
+{
+	if (text) {
+		if (emp) {
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)text, "reactor_bar0");
+		} else {
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)text, "shield_bar0");
+		}
+		Cpit_Push_Effect(Unknown158, *(RenderObjClass **)&text);
+	}
+	if (header) {
+		if (emp) {
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)header, "reactor_bar0");
+		} else {
+			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone((RenderObjClass *)header, "shield_bar0");
+		}
+		Cpit_Push_Effect(Unknown158, *(RenderObjClass **)&header);
+		if (inflicted == 3) {
+			SoundManager->Unknown_75B0D0(Unknown_BE5BD0.c_str(), 1);
+		}
+	}
+}

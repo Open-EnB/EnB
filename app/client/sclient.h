@@ -86,7 +86,7 @@ class WWProfileIterator;
 class Render2DTextClass;
 class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
 class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes)
-class UIChatPanelClass;			// NAME 3: class-from-file (D24) for ui_chat_panel.cpp (constructor 0x561DD0, 0x268 bytes)
+class ChatPanelInterface;			// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408); ui_chat_panel.cpp's (constructor 0x561DD0, 0x268 bytes)
 class UIGroupClass;			// NAME 3: class-from-file (D24) for ui_group.cpp (the main view's +0x1D8; cpacket.cpp: CLIENT_CHAT_EVENT 165)
 class UILineDisplayClass;		// NAME 3: class-from-file (D24) for ui_line_display.cpp (constructor 0x5A5410, 0x100 bytes)
 class PDAInterfaceClass;		// NAME 3: class-from-file (D24) for pdaint.cpp (constructor 0x693140, 0xC0 bytes)
@@ -1068,7 +1068,7 @@ public:
 	LoginUnknown0CClass *Unknown1270;					// +0x1270 Init: the input dispatcher (inpdsp.cpp)
 	LoginUnknown18Class *Mouse;					// +0x1274 Init: the software mouse (0x514FE0)
 	int Unknown1278;									// +0x1278
-	RefCountPtr<UIChatPanelClass> ChatPanel;			// +0x127C Init (the reference count at +0x3C)  // NAME 3: its file's
+	RefCountPtr<ChatPanelInterface> ChatPanel;			// +0x127C Init (the reference count at +0x3C)  // NAME 3: its file's
 	UILineDisplayClass *LineDisplay;					// +0x1280 Init  // NAME 3: its file's
 	PDAInterfaceClass *PDAInterface;					// +0x1284 Init  // NAME 3: its file's
 	int Unknown1288;									// +0x1288

@@ -1,0 +1,26 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x468760 LandUnknown466BE0Class::Unknown_468760, similarity 0.495 vs the tree's 0.25; not exact.
+// idea: Keep the same paired if/else per axis, but compute lo and hi as six scalar floats instead of two Vector3 temporaries, so the slot layout can match the client's frame.
+int LandUnknown466BE0Class::Unknown_468760(const Vector3 &center, const Vector3 &extent)
+{
+	float lox = center.X - extent.X;
+	float loy = center.Y - extent.Y;
+	float loz = center.Z - extent.Z;
+	float hix = center.X + extent.X;
+	float hiy = extent.Y + center.Y;
+	float hiz = extent.Z + center.Z;
+	for (int i = 0; i < 4; i++) {
+		const D3DXPLANE &p = Planes[i];
+		float nx, ny, nz, fx, fy, fz;
+		if (p.a >= 0.0f) { nx = lox; fx = hix; } else { nx = hix; fx = lox; }
+		if (p.b >= 0.0f) { ny = loy; fy = hiy; } else { ny = hiy; fy = loy; }
+		if (p.c >= 0.0f) { nz = loz; fz = hiz; } else { nz = hiz; fz = loz; }
+		float d = p.d;
+		if (nz * p.c + nx * p.a + ny * p.b + d > 0.0f) {
+			return 0;
+		}
+		if (fz * p.c + fx * p.a + fy * p.b + d >= 0.0f) {
+			return 1;
+		}
+	}
+	return 2;
+}

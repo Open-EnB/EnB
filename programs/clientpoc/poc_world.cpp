@@ -234,26 +234,6 @@ Vector3 Unknown764FD0Class::Unknown_765DF0(int index)
 	return(Vector3(1.0f, 1.0f, 1.0f));
 }
 
-// SClient 0x74D990 (parked, docs/attempts/74D990: clienttest's trace stub collides with the real one): the chat
-// line with its type's prefix onto the chat panel (0x563760), as the stash has it, without its sounds and line display
-void SClient::Unknown_74D990(int color, char *text, int a)
-{
-	if (!text || !*text) return;
-	UIChatPanelClass *chatpanel = ChatPanel.Peek();
-	if (!chatpanel) return;
-	std::string line("");
-	if (!(char)a) {
-		if (color == 0 || color == 17) line = "COMPUTER: ";
-		else if (color == 6) line = "TIP: ";
-		else if (color == 21) line = "WARNING: ";
-		else if (color == 19) line = "SYSTEM: ";
-		else if (color == 20 || color == 1 || color == 18) line = "OUTDATED MESSAGE TYPE: ";
-	}
-	if (color == 22) return;
-	line += text;
-	chatpanel->Unknown_563760(color, line);
-}
-
 // FontSys 0x6CE420 (unknown_6cce60.cpp's object, not rebuilt): the client's code, the text from a format into Change_Text
 // (a generated stub left the chat window's lines, the inventory counts and the mission texts empty)
 #include <stdarg.h>
@@ -301,31 +281,15 @@ UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, Rende
 	STUB_CALLED("POC UIComboBoxClass: an empty window");
 	memset((char *)this + sizeof(InterfaceClass), 0, sizeof(UIComboBoxClass) - sizeof(InterfaceClass));	// the real 0x57B440 (slot +0x7C) reads the drop-down state +0xC8
 }
-void UIChatPanelClass::Unknown_5689D0(int index)
+void ChatPanelInterface::Unknown_5689D0(int index)
 {
 	Combo[index] = Create_NEW(new UIComboBoxClass(this, NULL, NULL, NULL, 0, 0, 0, 0, 0));
 }
-class OptionFontInterfaceEvent {};
-class UIChatIntHandlerClass
+class UnknownEventDispatcherClass;
+UnknownEventDispatcherClass *Unknown_540A20()	// 0x540A20 (intrface.cpp's function-local static SignalMap 0xBE5AF0): a real map, ui_chat_panel.cpp connects to it
 {
-public:
-	UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *));
-};
-UIChatIntHandlerClass::UIChatIntHandlerClass(UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *))
-{
-	STUB_CALLED("POC UIChatIntHandlerClass: nothing");
-}
-class UnknownEventDispatcherClass
-{
-public:
-	void Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &type);
-	void Unknown_56CEC0(ChatWindowInterface *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &type);
-};
-void UnknownEventDispatcherClass::Unknown_56CE40(InterfaceClass *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const OptionFontInterfaceEvent &, InterfaceClass *), const OptionFontInterfaceEvent &type)
-{
-}
-void UnknownEventDispatcherClass::Unknown_56CEC0(ChatWindowInterface *sender, UIChatPanelClass *receiver, void (UIChatPanelClass::*handler)(const ChatWindowInterfaceEvent &, ChatWindowInterface *), const ChatWindowInterfaceEvent &type)
-{
+	static SignalMap map;
+	return((UnknownEventDispatcherClass *)&map);
 }
 
 // ---------------------------------------------------------------- the render states rs_list.cpp makes from files not in the tree yet

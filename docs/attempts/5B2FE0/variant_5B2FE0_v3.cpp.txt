@@ -1,0 +1,32 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x5B2FE0 UIManuClass::Unknown_5B2FE0, similarity 0.798 vs the tree's 0.715; not exact.
+// idea: Hold the space client in a local, read after the item id, so VC6 keeps the id in edi across the virtual call as the client does; the helper with multiple returns sends the Cast out of line.
+static UIManuCategoriesClass *Manu_Find_Valid_Categories(void *aux, const NameClass &name)
+{
+	UIManuCategoriesClass *categories = Unknown_Find_Field<UIManuCategoriesClass>((DeltaCompoundClass *)aux, name);
+	if (!categories) {
+		return NULL;
+	}
+	if (!categories->Unknown70) {
+		return NULL;
+	}
+	return categories;
+}
+
+void UIManuClass::Unknown_5B2FE0()
+{
+	if (Unknown0B98 == 3) {
+		int a = Unknown0B80[0];
+		int b = Unknown0B80[1];
+		int c = Unknown0B80[2];
+		NameClass name("PrimaryCategories");
+		UIManuCategoriesClass *categories = Manu_Find_Valid_Categories(Unknown0BA0, name);
+		if (categories) {
+			int id = ((UIManuNodeClass *)categories)->Unknown084[a]->Unknown1A8[b]->Unknown230[c]->Unknown1A8;
+			int player = Client->As_Space_Client()->Unknown1138;
+			((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacket_122Class(player, id));
+			Unknown_5B2B40();
+			Unknown0BAD = false;
+			Unknown_5B6CA0();
+		}
+	}
+}

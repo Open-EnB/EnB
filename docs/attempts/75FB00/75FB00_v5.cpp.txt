@@ -1,0 +1,63 @@
+void MainViewSceneClass::Unknown_75FB00(const OBBoxClass &to, const OBBoxClass &from, const Vector3 &move, CastResultStruct *result, RenderObjClass *ignore, bool ship)
+{
+	Vector3 points[16];
+	int count = 0;
+	for (int i = -1; i <= 1; i += 2) {
+		for (int j = -1; j <= 1; j += 2) {
+			for (int k = -1; k <= 1; k += 2) {
+				float params[3];
+				params[0] = (float)i;
+				params[1] = (float)j;
+				params[2] = (float)k;
+				to.Compute_Point(params, &points[count]);
+				count++;
+				from.Compute_Point(params, &points[count]);
+				count++;
+			}
+		}
+	}
+	AABoxClass box(points, 16);
+	AABoxIntersectionTestClass aabox_test(box, COLLISION_TYPE_3);
+	OBBoxCollisionTestClass obbox_test(to, move, result, COLLISION_TYPE_3);
+
+	RefMultiListIterator<RenderObjClass> it(&UnknownDC);
+	if (ship) {
+		for (it.First(); !it.Is_Done(); it.Next()) {
+			RenderObjClass *obj = it.Peek_Obj();
+			if ((obj != ignore && obj->Intersect_AABox(aabox_test)) || obj->Class_ID() == RenderObjClass::CLASSID_LAND) {
+				obj->Cast_OBBox(obbox_test);
+			}
+		}
+	} else {
+		for (it.First(); !it.Is_Done(); it.Next()) {
+			RenderObjClass *obj = it.Peek_Obj();
+			if (obj != ignore && obj->Intersect_AABox(aabox_test)) {
+				const Matrix3D &tm = obj->Get_Transform();
+				Vector3 center;
+				Vector3 tmp;
+				const Vector3 *in = &from.Center;
+				if (in == &center) {
+					tmp = *in;
+					in = &tmp;
+				}
+				Vector3 d(in->X - tm[0][3], in->Y - tm[1][3], in->Z - tm[2][3]);
+				center.X = d.Z * tm[2][0] + d.Y * tm[1][0] + d.X * tm[0][0];
+				center.Y = d.X * tm[0][1] + d.Z * tm[2][1] + d.Y * tm[1][1];
+				center.Z = d.X * tm[0][2] + d.Z * tm[2][2] + d.Y * tm[1][2];
+				float radius = from.Extent.Length();
+				AABoxClass obj_box;
+				obj->Get_Obj_Space_Bounding_Box(obj_box);
+				obj_box.Extent.X += radius;
+				obj_box.Extent.Y += radius;
+				obj_box.Extent.Z += radius;
+				if (WWMath::Fabs(center.X - obj_box.Center.X) <= obj_box.Extent.X &&
+					WWMath::Fabs(center.Y - obj_box.Center.Y) <= obj_box.Extent.Y &&
+					WWMath::Fabs(center.Z - obj_box.Center.Z) <= obj_box.Extent.Z) {
+					obj->Cast_OBBox(obbox_test);
+				}
+			} else if (obj->Class_ID() == RenderObjClass::CLASSID_LAND) {
+				obj->Cast_OBBox(obbox_test);
+			}
+		}
+	}
+}

@@ -237,8 +237,8 @@ void PxBox::Set_Test_Mask(int test, int mask)
 
 
 
+
 // 0x44BC90
-// NOT EXACT: inline budget (the client inlines Is_Valid_Float for low.Y and high.Y too; attempts.py show 0x44BC90)
 void PxBox::Set_Corners(const Vector3 &low, const Vector3 &high)
 {
 	FAIL_IF(!low.Is_Valid()) return;
@@ -259,8 +259,8 @@ void PxBox::Set_Corners(const Vector3 &low, const Vector3 &high)
 	if (List) {
 		List->Set_Corners(this, new_low, new_high);
 	} else {
-		Low->Pos = new_low;
-		High->Pos = new_high;
+		Vector3 &lp = Low->Pos; lp.X = new_low.X; lp.Y = new_low.Y; lp.Z = new_low.Z;
+		Vector3 &hp = High->Pos; hp.X = new_high.X; hp.Y = new_high.Y; hp.Z = new_high.Z;
 	}
 }
 

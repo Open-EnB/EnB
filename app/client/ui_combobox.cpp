@@ -216,13 +216,13 @@ void UIComboBoxClass::Unknown_57A330()
 	drop->Release_Ref();
 }
 
-// NOT EXACT: inline-budget (the client expands the item's string constructor, _Tidy and _Grow, where ours calls assign; and compares the cap the other way round)
+// NOT EXACT: inline-budget (the client expands the item's string constructor, _Tidy and _Grow, where ours calls assign)
 // 0x57B000
 void UIComboBoxClass::Unknown_57B000(const char *text)
 {
 	Unknown0B8++;
-	Unknown0B8 = min(Unknown0B8, Unknown0B4);
-	Items.push_back(std::string(text));
+	Unknown0B8 = min(Unknown0B4, Unknown0B8);
+	Items.insert(Items.end(), 1, std::string(text));
 	if (Items.size() == 1) {
 		Selected = 0;
 		Unknown_Show_Selected();

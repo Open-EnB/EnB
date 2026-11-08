@@ -173,7 +173,7 @@ void CameraManagerClass::Unknown_799610(const Vector3 &pos, const Quaternion &ro
 		Orientation = q;
 	}
 }
-// NOT EXACT: 0x7998B0 (Center.X of the shifted box: the client adds the translation before the two zero products, ours after; Y and Z match)
+
 // 0x7998B0
 void CameraManagerClass::Unknown_7998B0(int id)
 {
@@ -195,7 +195,8 @@ void CameraManagerClass::Unknown_7998B0(int id)
 		OBBoxClass box = cam->Get_Near_Clip_Bounding_Box();
 		OBBoxClass moved;
 		Vector3 delta = Position - object->Unknown_24();
-		Matrix3D shift(true);
+		Matrix3D shift;
+		shift.Make_Identity();
 		shift.Set_Translation(-delta);
 		OBBoxClass::Transform(shift, box, &moved);
 		CastResultStruct result;
@@ -217,7 +218,6 @@ void CameraManagerClass::Unknown_7998B0(int id)
 		}
 	}
 }
-
 
 
 

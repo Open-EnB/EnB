@@ -1,0 +1,44 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x78D480 CharacterCreatorClass::Unknown_78D480, similarity 0.887 vs the tree's 0.833; not exact.
+// idea: Keep the first byte in an int local and add it post-incremented (sum += value++), so i is only a trip counter and VC6 emits the client's down-counting ecx loop.
+static inline int Creator_Byte_Sum(unsigned char *data, unsigned int length)
+{
+	int sum = 0;
+	int value = *data;
+	for (unsigned int i = 0; i < length; i++) {
+		sum += value++;
+	}
+	return sum;
+}
+
+void CharacterCreatorClass::Unknown_78D480(int slot, LoginCharacterClass *character, AvatarDescClass *avatar, ShipCustDescClass *ship, LoginNameDataClass *name)
+{
+	int size = avatar->Get_Short_Size() + ship->Get_Short_Size() + name->Get_Size();
+	LinearBufferClass buffer(size, 0x400);
+	StringClass path;
+	RawFileClass file;
+
+	*character = LoginCharacterClass();
+	if (Get_File_Name(slot, path)) {
+		file.Open(path, RawFileClass::READ);
+		if (file.Is_Open()) {
+			int checksum;
+			if (file.Read(&checksum, 4)) {
+				unsigned char *data = new unsigned char[size];
+				if (file.Read(data, size)) {
+					if (checksum == Creator_Byte_Sum(data, size)) {
+						character->ID = -1;
+						character->Galaxy_ID = -1;
+						buffer.Write(data, size);
+						buffer.Seek(0);
+						avatar->Read_Short(&buffer);
+						ship->Read_Short(&buffer);
+						name->Read(&buffer);
+						ship->Tech_Level = 0;
+					}
+				}
+				delete [] data;
+			}
+			file.Close();
+		}
+	}
+}

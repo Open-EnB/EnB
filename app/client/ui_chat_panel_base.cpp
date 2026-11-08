@@ -20,7 +20,7 @@ extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 #define InterfaceMesh Unknown84		// the asserts' name for +0x84 (the header's Unknown84 serves the files that read it)
 
 // 0x56D280
-UIChatPanelBaseClass::UIChatPanelBaseClass(SClient *client) :
+ChatPanelUIBase::ChatPanelUIBase(SClient *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	InterfaceMesh(NULL),
 	Unknown98(0),
@@ -28,24 +28,24 @@ UIChatPanelBaseClass::UIChatPanelBaseClass(SClient *client) :
 {
 }
 
-// NOT EXACT: functional (WE1)
 // 0x56D330
-UIChatPanelBaseClass::~UIChatPanelBaseClass()
+ChatPanelUIBase::~ChatPanelUIBase()
 {
 	if (Unknown9C != NULL) {
-		GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)Unknown9C, this, &UIChatPanelBaseClass::Unknown_56DEE0, DestroyGadgetEvent());
+		GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)Unknown9C, this, &ChatPanelUIBase::Unknown_56DEE0, DestroyGadgetEvent());
 	}
 	const char *name = Unknown88.c_str();
-	Unknown_BE67C4->Remove(InterfaceMesh.Peek());
-	Unknown_BE67BC->Unload(name);
+	if (name != NULL) {
+		Unknown_BE67C4->Remove(InterfaceMesh.Peek());
+		Unknown_BE67BC->Unload(name);
+	}
 	if (InterfaceMesh->Get_Container() != NULL) {
 		InterfaceMesh->Remove();
 	}
-	Unknown88.erase();
 }
 
 // 0x56D4F0
-void UIChatPanelBaseClass::Unknown_58()
+void ChatPanelUIBase::Unknown_58()
 {
 	Unknown98 = 0;
 	InterfaceClass::Unknown_58();
@@ -89,7 +89,7 @@ void UIChatPanelBaseClass::Unknown_58()
 
 // NOT EXACT: functional (WE1)
 // 0x56D510
-GadgetClass *UIChatPanelBaseClass::Unknown_56D510(int id, const char *bttn_name, const char *text)
+GadgetClass *ChatPanelUIBase::Unknown_56D510(int id, const char *bttn_name, const char *text)
 {
 	FAIL_IF(!bttn_name || !*bttn_name) return(NULL);
 
@@ -122,9 +122,8 @@ GadgetClass *UIChatPanelBaseClass::Unknown_56D510(int id, const char *bttn_name,
 
 
 
-// NOT EXACT: functional (WE1)
 // 0x56D8D0
-GadgetSlider *UIChatPanelBaseClass::Unknown_56D8D0(int id, int unknown)
+GadgetSlider *ChatPanelUIBase::Unknown_56D8D0(int id, bool unknown)
 {
 	GadgetSlider *gadget = new GadgetSlider(unknown, 0);
 	Unknown64.Unknown_6870E0(gadget, id, View, true, false);
@@ -154,27 +153,28 @@ GadgetSlider *UIChatPanelBaseClass::Unknown_56D8D0(int id, int unknown)
 
 
 
-// NOT EXACT: functional (WE1)
+
+
 // 0x56DB20
-bool UIChatPanelBaseClass::Unknown_98(const char *name, const char *ini)
+bool ChatPanelUIBase::Unknown_98(const char *name, const char *ini)
 {
 	InterfaceMesh = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(name));
 	FAIL_IF(!InterfaceMesh) return(false);
 	if (InterfaceMesh->Get_Container() == NULL && InterfaceMesh->Peek_Scene() == NULL) {
 		Unknown58.Unknown_686CC0(InterfaceMesh.Peek(), NULL);
 	}
-	if (ini == NULL) {
-		return(true);
+	if (ini != NULL) {
+		Unknown88 = ini;
+		Unknown_BE67BC->Load(ini);
+		Unknown_BE67C4->Add(InterfaceMesh.Peek());
 	}
-	Unknown88 = ini;
-	Unknown_BE67BC->Load(ini);
-	Unknown_BE67C4->Add(InterfaceMesh.Peek());
 	return(true);
 }
 
 
+
 // 0x56DD80
-void UIChatPanelBaseClass::Unknown_88(const RefCountPtr<RenderObjClass> &robj, const char *bone_name)
+void ChatPanelUIBase::Unknown_88(const RefCountPtr<RenderObjClass> &robj, const char *bone_name)
 {
 	FAIL_IF(!robj) return;
 	FAIL_IF(!bone_name || !*bone_name) return;
@@ -190,7 +190,7 @@ void UIChatPanelBaseClass::Unknown_88(const RefCountPtr<RenderObjClass> &robj, c
 	G_ASSERT(bone_idx);
 }
 // 0x56DE60
-void UIChatPanelBaseClass::Unknown_8C(const RefCountPtr<RenderObjClass> &robj)
+void ChatPanelUIBase::Unknown_8C(const RefCountPtr<RenderObjClass> &robj)
 {
 	FAIL_IF(robj.Peek() != InterfaceMesh->Get_Container()) return;
 	InterfaceMesh->Remove();
@@ -198,7 +198,7 @@ void UIChatPanelBaseClass::Unknown_8C(const RefCountPtr<RenderObjClass> &robj)
 }
 
 // 0x56DEE0
-void UIChatPanelBaseClass::Unknown_56DEE0(DestroyGadgetEvent *event, GadgetClass *sender)
+void ChatPanelUIBase::Unknown_56DEE0(DestroyGadgetEvent *event, GadgetClass *sender)
 {
 	if (sender == (GadgetClass *)Unknown9C) {
 		Unknown_9C();

@@ -1,0 +1,127 @@
+// D185 variant re-tried on 2026-11-08 (RT1, variants.py try --fit): 0x70F630 Unknown70F4F0Class::Unknown_1C, similarity 0.673 vs the tree's 0.403; not exact.
+// idea: Restore the line layout, drop the redundant `if (*next)` and write the interpolated position per component with WWMath::Lerp instead of the Vector3::Lerp helper call, trimming inline budget so the remaining Is_Valid_Float sites inline as in the client.
+void Unknown70F4F0Class::Unknown_1C(int time, Vector3 *position, Quaternion *orientation, Vector3 *velocity, float *speed, Vector3 *rotrate, bool unknown)
+{
+	Unknown710030Class *motion;
+	if (unknown) {
+		if (Unknown0C != 0 && Unknown0C->Time <= (unsigned int)time) {
+			motion = Unknown0C;
+		} else {
+			delete Unknown0C;
+			Unknown0C = Current->Unknown_0C();
+			motion = Unknown0C;
+		}
+	} else {
+		motion = Current;
+	}
+	unsigned int remainder = (time - motion->Time) % 100;
+	if (remainder == 0) {
+		motion->Unknown_04(time);
+		if (position) {
+			*position = motion->Unknown_10()->Get_Translation();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			G_ASSERT(position->Is_Valid());
+		}
+		if (orientation) {
+			*orientation = Build_Quaternion(*motion->Unknown_10());
+
+
+			G_ASSERT(orientation->Is_Valid());
+		}
+		if (velocity) {
+			*velocity = motion->Unknown_14() * 0.01f;
+
+
+			G_ASSERT(velocity->Is_Valid());
+		}
+		if (speed) {
+			*speed = motion->Unknown_18() * 0.01f;
+
+
+			G_ASSERT(WWMath::Is_Valid_Float(*speed));
+		}
+		if (rotrate) {
+			*rotrate = motion->Unknown_1C() * 0.01f;
+
+			G_ASSERT(rotrate->Is_Valid());
+		}
+		return;
+	}
+	unsigned int before = time - remainder;
+	unsigned int after = before + 100;
+	motion->Unknown_04(before);
+	Unknown710030Class **next = unknown ? &Unknown10 : &Unknown08;
+	if (*next == 0 || (*next)->Time != after) {
+		delete *next;
+		*next = motion->Unknown_0C();
+		(*next)->Unknown_04(after);
+	}
+	float t = remainder * 0.01f;
+	if (position) {
+		Vector3 start_vector = motion->Unknown_10()->Get_Translation();
+		Vector3 end_vector = (*next)->Unknown_10()->Get_Translation();
+		position->X = WWMath::Lerp(start_vector.X, end_vector.X, t);
+		position->Y = WWMath::Lerp(start_vector.Y, end_vector.Y, t);
+		position->Z = WWMath::Lerp(start_vector.Z, end_vector.Z, t);
+
+
+
+
+
+
+
+		G_ASSERT(position->Is_Valid());
+	}
+	if (orientation) {
+		Quaternion start = Build_Quaternion(*motion->Unknown_10());
+		Quaternion end = Build_Quaternion(*(*next)->Unknown_10());
+		if (Equal_Within_Epsilon(start, end, 0.0001f)) *orientation = start;
+		else Slerp(*orientation, start, end, t);
+
+		G_ASSERT(orientation->Is_Valid());
+	}
+	if (velocity) {
+		Vector3 start_vector = motion->Unknown_14();
+		Vector3 end_vector = (*next)->Unknown_14();
+		velocity->X = WWMath::Lerp(start_vector.X, end_vector.X, t) * 0.01f;
+		velocity->Y = WWMath::Lerp(start_vector.Y, end_vector.Y, t) * 0.01f;
+		velocity->Z = WWMath::Lerp(start_vector.Z, end_vector.Z, t) * 0.01f;
+
+		G_ASSERT(velocity->Is_Valid());
+	}
+	if (speed) {
+		float start = motion->Unknown_18();
+		float end = (*next)->Unknown_18();
+		*speed = WWMath::Lerp(start, end, t) * 0.01f;
+
+
+
+		G_ASSERT(WWMath::Is_Valid_Float(*speed));
+	}
+	if (rotrate) {
+		Vector3 start_vector = motion->Unknown_1C();
+		Vector3 end_vector = (*next)->Unknown_1C();
+		rotrate->X = WWMath::Lerp(start_vector.X, end_vector.X, t) * 0.01f;
+		rotrate->Y = WWMath::Lerp(start_vector.Y, end_vector.Y, t) * 0.01f;
+		rotrate->Z = WWMath::Lerp(start_vector.Z, end_vector.Z, t) * 0.01f;
+		G_ASSERT(rotrate->Is_Valid());
+	}
+}
