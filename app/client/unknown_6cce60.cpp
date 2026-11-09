@@ -74,7 +74,7 @@ void FontSys::Unknown_6CCE60()
 // 0x6CD180: true while the pointer is over the text (+0x250 1: inside the screen rectangle +0x430; 2: inside the text's
 // box, its half size plus Info.BoxOffset, placed by Info.Justify); counts the frames in +0x290 and plays Info.SoundOver
 // on the first.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180)
+// Exact: each branch has its own success tail (the client inlines the last Play copy further), a Vector3 sum for the box centre.
 bool FontSys::Unknown_6CD180()
 {
 	if (Unknown440 != 1 || Unknown250 == 0 || !Unknown4E4) {
@@ -88,32 +88,32 @@ bool FontSys::Unknown_6CD180()
 	x = (float)Width * x - (float)(Width / 2);
 	y = (float)(Height / 2) - (float)Height * y;
 	if (Unknown250 == 1) {
-		if (!((float)Unknown430[3] * sy < y) || !((float)Unknown430[2] * sy > y) ||
-			!((float)Unknown430[0] * sx < x) || !((float)Unknown430[1] * sx > x)) {
-			Unknown274[7] = 0;
-			return false;
+		if ((float)Unknown430[3] * sy < y && (float)Unknown430[2] * sy > y &&
+			(float)Unknown430[0] * sx < x && (float)Unknown430[1] * sx > x) {
+			if (++Unknown274[7] == 1) {
+				if (Unknown300) {
+					Unknown_BE67B4->Play(Info.SoundOver);
+				}
+				Unknown274[1] = 0;
+			}
+			return true;
 		}
 	} else {
-		int half_x = (int)((float)(Unknown2C4 / 2) + Info.BoxOffset[0]);
-		int half_y = (int)((float)(Unknown2C8 / 2) + Info.BoxOffset[1]);
-		int a = half_x;
-		int b = half_y;
+		int a = (int)((float)(Unknown2C4 / 2) + Info.BoxOffset[0]);
+		int b = (int)((float)(Unknown2C8 / 2) + Info.BoxOffset[1]);
 		if (Info.Rotate90) {
-			a = half_y;
-			b = half_x;
+			int t = b;
+			b = a;
+			a = t;
 		}
-		float px;
-		float py;
+		Vector3 pos;
 		if (Unknown302) {
-			px = Unknown464[0] + Unknown47C.X;
-			py = Unknown464[1] + Unknown47C.Y;
+			pos = Unknown464 + Unknown47C;
 		} else {
-			Vector3 pos = Get_Position();
-			px = pos.X + Unknown47C.X;
-			py = Unknown47C.Y + pos.Y;
+			pos = Get_Position() + Unknown47C;
 		}
-		px *= sx;
-		py *= sy;
+		pos.X *= sx;
+		pos.Y *= sy;
 		if (Info.Justify[0] == 1) {
 			y = (float)b + y;
 		} else if (Info.Justify[0] == 2) {
@@ -124,61 +124,57 @@ bool FontSys::Unknown_6CD180()
 		} else if (Info.Justify[1] == 4) {
 			x = (float)a + x;
 		}
-		if (!(py - (float)b < y) || !(y < py + (float)b) || !(px - (float)a < x) || !(px + (float)a > x)) {
-			Unknown274[7] = 0;
-			return false;
+		if (pos.Y - (float)b < y && y < pos.Y + (float)b && pos.X - (float)a < x && pos.X + (float)a > x) {
+			if (++Unknown274[7] == 1) {
+				if (Unknown300) {
+					Unknown_BE67B4->Play(Info.SoundOver);
+				}
+				Unknown274[1] = 0;
+			}
+			return true;
 		}
 	}
-	if (++Unknown274[7] != 1) {
-		return true;
-	}
-	if (Unknown300) {
-		Unknown_BE67B4->Play(Info.SoundOver);
-	}
-	Unknown274[1] = 0;
-	return true;
+	Unknown274[7] = 0;
+	return false;
 }
 
 // 0x6CD6F0: true while the click effects run (+0x294 ms, from Info.TriggerTime): +0x250 2 starts them on button 1 down
 // over the text (0x6CD180's +0x290), 1 while +0x301 is set; the start resets the timers and plays Info.SoundClick.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD6F0)
+// NOT EXACT: order-only (attempts.csv): the client computes the memset address before its count (every memset of +0x303 here)
 bool FontSys::Unknown_6CD6F0()
 {
 	if (Unknown440 != 1) {
 		return false;
 	}
-	int mode = Unknown250;
-	if (mode == 0) {
+	if (Unknown250 == 0) {
 		return false;
 	}
-	if (mode == 2 && Unknown274[8] > 0) {
+	if (Unknown250 == 2 && Unknown274[8] > 0) {
 		return true;
 	}
-	if (mode == 1 && Unknown274[8] > 0) {
+	if (Unknown250 == 1 && Unknown274[8] > 0) {
 		if (Unknown301) {
 			return true;
 		}
 		Unknown274[8] = 0;
 		return false;
 	}
-	if (!(mode == 1 && Unknown301)) {
-		if (mode != 2 || !Unknown_42EC60(1, 0) || Unknown274[7] <= 0) {
-			return false;
+	if ((Unknown250 == 1 && Unknown301) || (Unknown250 == 2 && Unknown_42EC60(1, 0) && Unknown274[7] > 0)) {
+		Unknown274[8] = (int)(Info.TriggerTime * 1000.0f);
+		Unknown270 = 0;
+		Unknown274[0] = 0;
+		Unknown274[9] = 0;
+		Unknown274[10] = 0;
+		Unknown274[1] = 0;
+		Unknown414 = 0;
+		Unknown404 = false;
+		memset(Unknown303, 0, sizeof(Unknown303));
+		if (Unknown300) {
+			Unknown_BE67B4->Play(Info.SoundClick);
 		}
+		return true;
 	}
-	Unknown274[8] = (int)(Info.TriggerTime * 1000.0f);
-	Unknown270 = 0;
-	Unknown274[0] = 0;
-	Unknown274[9] = 0;
-	Unknown274[10] = 0;
-	Unknown274[1] = 0;
-	Unknown414 = 0;
-	Unknown404 = false;
-	memset(Unknown303, 0, sizeof(Unknown303));
-	if (Unknown300) {
-		Unknown_BE67B4->Play(Info.SoundClick);
-	}
-	return true;
+	return false;
 }
 
 // 0x6CD950: EffectTriggered[index] runs for time seconds (+0x2A4.., ms; the index clamped to 0..3 for the timer
