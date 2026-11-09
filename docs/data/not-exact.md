@@ -133,9 +133,9 @@ edit the comments in the code, not this file.
 | `app/client/fontsys.cpp:64` | `FontSys::Unknown_6D5170` | marker | NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object's inline would, and stores +0x430 / +0x4C5 after the resolution call's arguments; the colours from TXT1 |
 | `app/client/fontsys.cpp:182` | `FontSys::Set_Container` | marker | NOT EXACT: register (attempts.csv): the client keeps i in ebp and spills this across the loop (14 rows) |
 | `app/client/fontsys.cpp:239` | `FontSys::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
-| `app/client/fontsys.cpp:346` | `FontSys::Unknown_6D60C0` | marker | NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:396` | `FontSys::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:932` | `FontSys::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
+| `app/client/fontsys.cpp:346` | `FontSys::Unknown_6D60C0` | marker | NOT EXACT: inline-budget (attempts.csv): the client's first Play copy calls Get_Length / Store_Length out of line, its second operator= |
+| `app/client/fontsys.cpp:399` | `FontSys::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:935` | `FontSys::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:19` | `Unknown_6D8B90Class::Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:31` | `Unknown_6D8B90Class::~Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8C50) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:104` | `Unknown_6D8B90Class::Unknown_6D8DC0` | marker | NOT EXACT: written from the client's code (0x6D8DC0) for the POC, not yet matched |
