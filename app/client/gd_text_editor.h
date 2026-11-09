@@ -57,6 +57,7 @@ public:
 	bool Unknown_6732A0();								// 0x6732A0 (the other held gadgets released, then held)
 	void Unknown_6732F0(float x, float y);				// 0x6732F0 (the cursor to a point)  // NAME 1 [x, y]: the base's
 	bool Unknown_6735A0(float x, float y);				// 0x6735A0 (the point on the current view's interface)  // NAME 1 [x, y]: the base's
+	void Set_Unknown60(bool on) { Unknown60 = on; }		// (ui_log.cpp's 0x5ABCC0: the inline's cost keeps its first string's assign out of line)  // NAME 1: neutral (D10)
 
 	bool Unknown60;										// +0x60 (true: a first text, cleared at the first focus)
 	StrEditClass *Edit;									// +0x64  // NAME 2: what it holds

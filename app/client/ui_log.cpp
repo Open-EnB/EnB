@@ -260,22 +260,22 @@ void UILogClass::Insert_Date()
 	Unknown0C8 = true;
 }
 
-// NOT EXACT: the lines appended (the client inlines append's _Grow / copy / _Eos at both sites) (0x5ABCC0)
 // 0x5ABCC0
 void UILogClass::Load_Page()
 {
 	std::string text("<blank>");
-	Editor->Unknown60 = true;
+	Editor->Set_Unknown60(true);
 	char name[0x40];
 	_snprintf(name, sizeof(name), "player%d_log-%d.ini", OptionClass::Instance->Get_Character_ID(), Page);
 	INIClass ini(name);
 	int count = ini.Get_Int("NUM_LINES", "LINES", 0);
-	for (int i = 0; i < count; i++) {
+	int i = 0;
+	while (i < count) {
 		char key[0x40];
 		_snprintf(key, sizeof(key), "LINE-%04d", i);
 		StringClass line;
 		ini.Get_String(line, key, "TEXT", "");
-		Editor->Unknown60 = false;
+		Editor->Set_Unknown60(false);
 		if (i == 0) {
 			text = line;
 		} else {
@@ -284,6 +284,7 @@ void UILogClass::Load_Page()
 		if (i != count - 1) {
 			text += "\n";
 		}
+		i++;
 	}
 	Editor->Set_Text(Unescape(text));
 	Editor->Unknown_672A60();
