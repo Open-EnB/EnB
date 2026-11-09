@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-680 entries in 203 files.
+688 entries in 204 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -485,6 +485,14 @@ edit the comments in the code, not this file.
 | `app/client/unknown_7979a0.cpp:262` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT (CS1); the module's placements |
 | `app/client/unknown_7979a0.cpp:263` | `CameraController02Class::Unknown_7987F0` | mention | NOT EXACT from the pseudocode (CS1). |
 | `app/client/unknown_79c8e0.cpp:20` | `CameraModule79C8E0Class::Unknown_08` | marker | NOT EXACT: shape (0.52: the client's Normalize of the direction stores the difference first, the cross products load in another order) |
+| `app/client/unknown_7cef30.cpp:379` | `RegistrationUnknown1ACClass::Unknown_7D4E30` | marker | NOT EXACT: inline budget (0.56: the client calls more of the request's string helpers out of line) |
+| `app/client/unknown_7cef30.cpp:408` | `RegistrationUnknown1ACClass::Unknown_7D5600` | marker | NOT EXACT: inline budget (0.50: as 0x7D4E30) |
+| `app/client/unknown_7cef30.cpp:444` | `RegistrationUnknown1ACClass::Unknown_7D6180` | marker | NOT EXACT: shape (0.26: functional from the disassembly; the client inlines other string helpers) |
+| `app/client/unknown_7cef30.cpp:479` | `RegistrationUnknown1ACClass::Unknown_7D6A60` | marker | NOT EXACT: inline budget (0.71: the client calls the request's destructor 0x7D4D60 out of line) |
+| `app/client/unknown_7cef30.cpp:601` | `RegistrationUnknown1ACClass::Unknown_7D9790` | marker | NOT EXACT: frame (0.60: the request's allocator bytes come from other argument slots; the optional keys tested with strlen) |
+| `app/client/unknown_7cef30.cpp:651` | `RegistrationUnknown1ACClass::Unknown_7DA760` | marker | NOT EXACT: register-only (0.65: the client keeps '&' in bl, ours 0 in ebx) |
+| `app/client/unknown_7cef30.cpp:671` | `RegistrationUnknown1ACClass::Unknown_7DAD50` | marker | NOT EXACT: inline budget (0.71: the client calls the request's destructor 0x7D4D60 out of line) |
+| `app/client/unknown_7cef30.cpp:687` | `RegistrationUnknown1ACClass::Unknown_7DB2D0` | marker | NOT EXACT: inline budget (0.71: the client calls the request's destructor 0x7D4D60 out of line) |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |
