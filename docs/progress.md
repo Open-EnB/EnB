@@ -2749,12 +2749,6 @@ below name only the work items, the blocked work, the leads and the queues.
      trace differs from expected.txt by 94 lines (the real effect code finds no effect database: fail_if !effect
      l.615, !Camera l.154). Give clienttest an effect database or the effects a camera (or a reviewed expected.txt),
      then `wt.py bring-over SC1`. P-W2-1 retries after it.
-   * wt/SC1 (2026-11-08c) waits to land, verified (+6 addresses, 0x752170's loss accepted as D217): Player's aux tree
-     compiled in sclient.cpp makes 0x7551D0 / 0x753C60 exact, and the testeffects loader 0x74CA90 is functional. Its
-     loader links eff_o.obj into clienttest: 9269739c drops the colliding stand-ins and clienttest exits 0, but the
-     trace differs from expected.txt by 94 lines (the real effect code finds no effect database: fail_if !effect
-     l.615, !Camera l.154). Give clienttest an effect database or the effects a camera (or a reviewed expected.txt),
-     then `wt.py bring-over SC1`. P-W2-1 retries after it.
    * SClient's aux code (SCI, 2026-11-04): Player's dtor 0x7551D0 (0.91) and RPGInfo's 0x753C60 are order-only: exact in a
      draft where Race / Profession are `DeltaTemplateClass<int>`, but the client emits the enum instances' dtors (0x753C20 /
      0x753C40) before them, because its object 0x751BE0-0x75A4E0 holds SClient's aux functions (0x7518A0, 0x7555B0,
