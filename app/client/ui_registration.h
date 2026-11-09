@@ -70,14 +70,14 @@ public:
 	virtual float Slot5(const char *path, int index, const char *name);	// 0x7E09F0
 	virtual int Slot6(const char *path);	// 0x7E0A80
 	virtual void Slot7();	// 0x7E0BC0
-	virtual void Slot8();	// 0x7E1200
+	virtual int Slot8(const char *path, const char *name, int index, int unknown);	// 0x7E1200
 	virtual void Slot9();	// 0x7E1940
 	virtual int Slot11();	// 0x7E1C60
 	virtual const char *Slot12(int arg);	// 0x7E1C80
 	virtual bool Slot13(SubsRequestClass *request, int callback);	// 0x7E1290
 	virtual void Slot14();	// 0x7E1A20
 	virtual std::string Slot15();	// 0x7E1310
-	virtual void Slot16();	// 0x7E15B0
+	virtual std::string Slot16();	// 0x7E15B0
 	virtual void Unknown_5F00C0();	// 0x7DFED0
 	virtual void Unknown_5F00E0();	// 0x7E0030
 	virtual void Unknown_5F0100();	// 0x7E0050
@@ -107,13 +107,6 @@ struct RegistrationTextStruct  // NAME 1 [RegistrationTextStruct]: neutral (D10)
 	int Unknown08;
 	int Unknown0C;
 	int Unknown10;
-};
-
-// The 0x14-byte entries of the interface's vector +0x5A8 (0x5F9A90 hands their text to the combo box 0x22)
-struct RegistrationUnknown5A8Struct  // NAME 1 [RegistrationUnknown5A8Struct]: neutral (D10)
-{
-	int Unknown00;
-	std::string Unknown04;		// +0x04: the text
 };
 
 // The 0x14-byte entries of the interface's vector +0x88 (0x5F8FD0 reads them from [CardPrefixes]; their operator= is 0x4450B0)

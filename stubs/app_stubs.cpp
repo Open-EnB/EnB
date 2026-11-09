@@ -163,45 +163,6 @@ char *Manufacturing_Mode_Name(char *buffer, int len, int mode)
 	return strncpy(buffer, (mode >= 0 && mode < 4) ? names[mode] : "error", len);
 }
 
-// ------------------------------------------------------------------------- ui_registration.cpp's reply source
-
-// 0x7D1AC0: what ui_registration.cpp's 0x5FB9F0 asks +0x1AC for, returned by value (gen_stubs skips those);
-// the struct as ui_registration.cpp declares it
-struct RegistrationErrorStruct
-{
-	std::string Unknown00;
-	short Unknown10;
-	std::string Unknown14;
-	std::string Unknown24;
-};
-
-// 0x7D3570: the 0x5C-byte entries ui_registration.cpp's 0x5FA5F0 sorts, returned in a vector by value
-struct RegistrationUnknown578Struct
-{
-	std::string Unknown00;
-	std::string Unknown10;
-	int Unknown20;
-	std::string Unknown24;
-	std::string Unknown34;
-	int Unknown44;
-	int Unknown48;
-	std::vector<int> Unknown4C;
-};
-
-class RegistrationUnknown1ACClass
-{
-public:
-	RegistrationErrorStruct Unknown_7D1AC0();
-};
-
-RegistrationErrorStruct RegistrationUnknown1ACClass::Unknown_7D1AC0()
-{
-	STUB_CALLED("RegistrationUnknown1ACClass::Unknown_7D1AC0 (0x7D1AC0)");
-	RegistrationErrorStruct error;
-	error.Unknown10 = -1;
-	return error;
-}
-
 // ------------------------------------------------------------------------- the warp camera's placements (unknown_7979a0.cpp)
 
 // 0xBDB1C0: a global Random4Class with seed 0x1105 (its initialiser 0x444240; its home file is unknown). Data, so it

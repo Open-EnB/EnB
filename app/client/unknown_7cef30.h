@@ -18,7 +18,7 @@ public:
 	virtual float Slot5(const char *path, int index, const char *name) = 0;  // NAME 1 [Slot5]: slot 0x14, the reply value at path[index]/name as a float (0x7D0BE0's 'pricing-option-price'; 0x7E09F0)
 	virtual int Slot6(const char *path) = 0;  // NAME 1 [Slot6]: slot 0x18, how many nodes path has (0x7D3570; 0x7E0A80)
 	virtual void Slot7() = 0;
-	virtual void Slot8() = 0;
+	virtual int Slot8(const char *path, const char *name, int index, int unknown) = 0;  // NAME 1 [Slot8]: slot 0x20, an attribute of path[index] as a number (0x7D4530's 'type'; 0x7E1200)
 	virtual void Slot9() = 0;
 	virtual std::string Slot10() { return std::string(""); }  // NAME 1 [Slot10]: slot 0x28, 0x5F0170
 	virtual int Slot11() = 0;  // NAME 1 [Slot11]: slot 0x2C (0x5FB950 hands its result to slot 0x30)
@@ -26,7 +26,7 @@ public:
 	virtual bool Slot13(SubsRequestClass *request, int callback) = 0;  // NAME 1 [Slot13, request, callback]: slot 0x34, sends the request (the request functions' last call; 0x7E1290)
 	virtual void Slot14() {}  // NAME 1 [Slot14]: slot 0x38, 0x5F0280
 	virtual std::string Slot15() { return std::string(""); }  // NAME 1 [Slot15]: slot 0x3C, 0x5F02A0
-	virtual void Slot16() = 0;
+	virtual std::string Slot16() = 0;  // NAME 1 [Slot16]: slot 0x40, the reply's root element (0x7D1AC0: "" when there is none; 0x7E15B0)
 };
 
 // The second base at +0x84 (table 0xAF7184 while constructing: destructor 0x5F00A0 / 0x5F0120, three empty slots
@@ -92,6 +92,7 @@ struct RegistrationUnknown3C4Struct  // NAME 1 [RegistrationUnknown3C4Struct]: n
 struct SubsBundleStruct  // NAME 1 [SubsBundleStruct]: the reply's 'bundle' elements
 {
 	SubsBundleStruct() : BundleId(""), BundleDescription(""), BundleName(""), BundleType(0), BundleStatus(0) {}
+	~SubsBundleStruct();	// 0x60A3E0 (byte-identical copies; defined between 0x7D3960 and 0x7D3CC0: see the .cpp)
 	std::string BundleId;			// +0x00 'bundle-id'
 	std::string BundleDescription;	// +0x10 'bundle-description'
 	std::string BundleName;			// +0x20 'bundle-name'
@@ -157,6 +158,23 @@ struct RegistrationUnknown568Struct  // NAME 1 [RegistrationUnknown568Struct]: n
 	std::vector<SubsCouponStruct> Coupons;	// +0xE4 'coupon-list/coupon'
 };
 
+// The 0x14-byte entries of the interface's vector +0x5A8 (0x5F9A90 hands their text to the combo box 0x22): the
+// 'credit-card' types 0x7D4530 reads
+struct RegistrationUnknown5A8Struct  // NAME 1 [RegistrationUnknown5A8Struct]: neutral (D10)
+{
+	int Unknown00;				// +0x00: the 'type' attribute
+	std::string Unknown04;		// +0x04: the text
+};
+
+// The 'login-reply' (0x30 bytes; 0x7D1620 reads it, 0x7D3000 returns it)
+struct SubsLoginStruct  // NAME 1 [SubsLoginStruct]: the reply's 'login-reply'
+{
+	SubsLoginStruct() : Lkey(""), ProfileId(""), ExpirationDate("") {}
+	std::string Lkey;				// +0x00 'lkey'
+	std::string ProfileId;			// +0x10 'profile-id'
+	std::string ExpirationDate;		// +0x20 'entitlement-expiration-date'
+};
+
 // What the interface holds at +0x1AC (the function-static 0xBDA960: 0x5FB9F0 / 0x600000 ask it for the reply)
 class RegistrationUnknown1ACClass  // NAME 1 [RegistrationUnknown1ACClass]: neutral (D10)
 {
@@ -166,14 +184,38 @@ public:
 	static void Unknown_7CF190();					// 0x7CF190 (clears its globals; the constructor's and 0x5F1660's)
 	static void Unknown_7CEF30(Sub14CClass *a, const char *url, const char *page, const char *version, RegistrationCallbackClass *callback);	// 0x7CEF30 (the constructor; cdecl: static)  // NAME 1 [a, url, page, version, callback]: the [Connection] keys
 	RegistrationErrorStruct Unknown_7D1AC0();	// 0x7D1AC0 (the reply's '/status', '/message', '/url')
+	void Unknown_7CF3E0(RegistrationUnknown3C4Struct *info, const char *path, int index);	// 0x7CF3E0 (one 'account-info')
+	RegistrationUnknown3C4Struct Unknown_7D21C0();	// 0x7D21C0 (the 'get-acctinfo' reply and its alt names; 0x600000; copy constructor 0x7D2690)
 	void Unknown_7CFEA0(RegistrationUnknown578Struct *entry, const char *path, int index);	// 0x7CFEA0 (one 'pricing-selection')  // NAME 1 [entry, path, index]: what they are
 	void Unknown_7D0350(SubsBundleStruct *bundle, const char *path, int index);	// 0x7D0350 (one 'bundle')
 	void Unknown_7D0610(SubsGameFeatureStruct *feature, const char *path, int index);	// 0x7D0610 (one 'game-feature')
 	void Unknown_7D0930(SubsCouponStruct *coupon, const char *path, int index);	// 0x7D0930 (one 'coupon')
 	void Unknown_7D0BE0(SubsPricingOptionStruct *option, const char *path, int index);	// 0x7D0BE0 (one 'pricing-option')
+	void Unknown_7D18A0(RegistrationUnknown5A8Struct *entry, const char *path, int index);	// 0x7D18A0 (one 'credit-card': 'type' and the text)
+	void Unknown_7D1620(SubsLoginStruct *login, const char *path, int index);	// 0x7D1620 (one 'login-reply'; no callers)
+	SubsLoginStruct Unknown_7D3000();	// 0x7D3000 (the 'login-reply'; no callers)
 	void Unknown_7D1060(RegistrationUnknown568Struct *info, const char *path, int index);	// 0x7D1060 (one 'subscription-info')  // NAME 1 [bundle, feature, coupon, option, info]: what they are
 	std::vector<RegistrationUnknown578Struct> Unknown_7D3570();	// 0x7D3570 (0x5FA0B0, 0x5FA5F0, 0x600000)
+	std::vector<SubsBundleStruct> Unknown_7D3960();	// 0x7D3960 (the 'bundle' lists; no callers)
 	std::vector<RegistrationUnknown568Struct> Unknown_7D3CC0();	// 0x7D3CC0 (the 'subscription-info' list; 0x600000)
+	std::vector<RegistrationUnknown5A8Struct> Unknown_7D4530();	// 0x7D4530 (the 'credit-card' types; 0x600000)
+	bool Unknown_7D47F0(const char *a, const char *b, const char *c, int callback);	// 0x7D47F0 ('getAcctInfo')
+	bool Unknown_7D5CE0(const char *a, const char *b, int callback);	// 0x7D5CE0 ('getBillingInfo')
+	bool Unknown_7D6A60(const char *a, const char *b, const char *c, bool d, int callback);	// 0x7D6A60 ('changePassword')
+	bool Unknown_7D6FE0(const char *a, int callback);	// 0x7D6FE0 ('sendPassword')
+	bool Unknown_7D7480(const char *a, int callback);	// 0x7D7480 ('sendScreenname')
+	bool Unknown_7D7920(const char *a, const char *b, int callback);	// 0x7D7920 ('authAOLScreenName')
+	bool Unknown_7D7E10(const char *a, const char *b, const char *c, int callback);	// 0x7D7E10 ('login')
+	bool Unknown_7D8380(const char *a, const char *b, const char *c, int callback);	// 0x7D8380 ('isPayingSubscriber')
+	bool Unknown_7D88C0(const char *a, int callback);	// 0x7D88C0 ('getPricingSelection')
+	bool Unknown_7D8D60(const char *a, const char *b, const char *c, int callback);	// 0x7D8D60 ('getPricingSelectionsByBundle')
+	bool Unknown_7D92A0(const char *a, const char *b, int callback);	// 0x7D92A0 ('getPricingSelectionsByCode')
+	bool Unknown_7D9E20(const char *a, int callback);	// 0x7D9E20 ('getActiveBundles')
+	bool Unknown_7DA2C0(const char *a, int callback);	// 0x7DA2C0 ('getAllBundlesByGame')
+	bool Unknown_7DA760(const char *a, const char *b, const char *c, const char *d, int callback);	// 0x7DA760 ('getSubscriptionInfo')
+	bool Unknown_7DAD50(const char *a, const char *b, const char *c, bool d, int callback);	// 0x7DAD50 ('suspendEntitlement')
+	bool Unknown_7DB2D0(const char *a, const char *b, const char *c, bool d, int callback);	// 0x7DB2D0 ('stopBilling')
+	bool Unknown_7DB850(const char *a, const char *b, const char *c, int callback);	// 0x7DB850 ('getCreditCardTypeList')  // NAME 1 [a, b, c, d, callback]: neutral (the keys they fill)
 	bool Unknown_7D4E30(const char *a, const char *b, RegistrationUnknown3C4Struct *info, const char *c, bool d, int e, int f);	// 0x7D4E30 ('addAcctInfo')  // NAME 1 [a, b, info, c, d, e, f]: neutral
 	bool Unknown_7D5600(const char *a, const char *b, RegistrationUnknown3C4Struct *info, bool d, int e);	// 0x7D5600  // NAME 1 [a, b, info, d, e]: neutral
 	bool Unknown_7D9790(const char *a, const char *b, const char *c, int payment_type, const char *code, const char *gt_pricing, const char *gt_code, bool send_email, int f);	// 0x7D9790 ('payment_type' itoa, 'gt_pricing_selection_id', 'gt_validation_code', 'send_email')  // NAME 1 [a, b, c, payment_type, code, gt_pricing, gt_code, send_email, f]: the request keys they fill
@@ -187,7 +229,7 @@ class SubsRequestClass  // NAME 1 [SubsRequestClass]: the 'subs-interface' repli
 {
 public:
 	SubsRequestClass(const char *url, const char *page, const char *version, bool a = true, bool b = false);	// 0x7DBDA0  // NAME 1 [url, page, version, a, b]: 0x7CEF30's arguments
-	SubsRequestClass(const std::string &url, const std::string &page, const std::string &version, bool a = true, bool b = false);	// 0x7DC0B0
+	SubsRequestClass(const std::string &url, const std::string &page, const std::string &version, bool a = true, bool b = false);	// 0x7DC0B0 (inline: the request functions expand it)
 	virtual ~SubsRequestClass() {}	// 0x7D4D60
 
 	void Add_Param(const char *name, const char *value);	// 0x7DC420 ('&' between, '=')  // NAME 1 [Add_Param, name, value]: what it does
