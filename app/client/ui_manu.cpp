@@ -80,9 +80,9 @@ public:
 	char Unknown0D8[0x128 - 0xD8];						// +0xD8
 };
 
-// ui_mesh.cpp's and pdaint.cpp's functions this file calls that sclient.h does not declare yet
-class UIManuMeshClass { public: void Unknown_5B9930(int arg); };	// NAME 1: neutral (D10): UIMeshClass's 0x5B9930 (the destructor passes -1)  // NAME 1 [arg]: neutral
-class UIManuPDAClass { public: void Unknown_695A00(int a, int b); bool Unknown_695780(bool arg); };	// NAME 1: neutral (D10): PDAInterfaceClass's 0x695A00 (slot +0x5C passes 0, 1)  // NAME 1 [a, b]: neutral
+
+
+
 
 // The names of the window's texts (0xB81868)
 static const char *Unknown_B81868[] = { "Go_tsm01a", "Cost_tsm01a", "Quality_Range_tsm01a", "Expected_Quality_tsm01a", "Result_tsm01a", "" };	// NAME 1: neutral (D10)
@@ -143,7 +143,7 @@ UIManuClass::~UIManuClass()
 	if (Unknown0B0) {
 		Unknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);
 	}
-	((UIManuMeshClass *)InterfaceMesh)->Unknown_5B9930(-1);
+	InterfaceMesh->Unknown_5B9930(-1);
 	Unknown0B4 = NULL;
 	Unknown0B8 = NULL;
 	Unknown0BC = NULL;
@@ -186,13 +186,13 @@ public:
 	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::Unknown_18; SClient's returns itself)  // NAME 3: the FAIL_IF's
 };
 
-// SClient's functions this file calls that sclient.h does not declare yet
-class UIManuSClientClass	// NAME 1: neutral (D10): SClient, as far as this file calls it
-{
-public:
-	void Unknown_744560(int arg);						// 0x744560 (slot +0x5C passes 0x18)  // NAME 1 [arg]: neutral
-	void Unknown_74D990(int color, const char *text, int a);	// 0x74D990 (as sclient.h's)  // NAME 1 [color, text, a]: as sclient.h's
-};
+
+
+
+
+
+
+
 
 // 0x5B0B40
 void UIManuClass::Unknown_7C(UIViewClass *view, bool arg)
@@ -226,7 +226,7 @@ void UIManuClass::Unknown_58()
 	if (State == UI_CLOSED) {
 		UIManuScopeClass scope(this);
 		State = UI_OPEN;
-		Unknown0BAC = ((UIManuPDAClass *)sclient->PDAInterface)->Unknown_695780(false);
+		Unknown0BAC = sclient->PDAInterface->Unknown_695780(false);
 		Unknown0B98 = -1;
 		Unknown_5B6CA0();
 		for (int j = 0; j < 4; j++) {
@@ -262,7 +262,7 @@ void UIManuClass::Unknown_58()
 		Unknown_5B2480();
 		Unknown_5B2BD0(true);
 		Unknown_5B2230();
-		((UIManuSClientClass *)sclient)->Unknown_744560(0x17);
+		sclient->Unknown_744560(0x17);
 	}
 }
 
@@ -279,12 +279,12 @@ void UIManuClass::Unknown_5C()
 	Unknown0B8->Unknown_5C();
 	Unknown0BC->Unknown_5C();
 	if (Unknown0BAC) {
-		((UIManuPDAClass *)sclient->PDAInterface)->Unknown_695A00(0, 1);
+		sclient->PDAInterface->Unknown_695A00(0, 1);
 	}
 	Unknown0BA0 = 0;
 	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 	Unknown5BB320Class::Unknown_5C();
-	((UIManuSClientClass *)sclient)->Unknown_744560(0x18);
+	sclient->Unknown_744560(0x18);
 	for (int i = 0; i < 10; i++) {
 		if (Unknown16C[i]) {
 			Unknown16C[i]->Change_Text("", 0);
@@ -1833,7 +1833,7 @@ void UIManuClass::Unknown_5B6D30()
 {
 	FAIL_IF(!Client) return;
 	FAIL_IF(!Client->As_Space_Client()) return;
-	((UIManuSClientClass *)Client->As_Space_Client())->Unknown_74D990(17, "Warning: Exceeded filter request count.  Please wait.", 0);
+	Client->As_Space_Client()->Unknown_74D990(17, (char *)"Warning: Exceeded filter request count.  Please wait.", 0);
 }
 
 /*
