@@ -641,7 +641,7 @@ bool UIManuClass::Unknown_68(int key)
 
 
 
-
+template<class C> inline C *Unknown_Manu_Raw_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Manu_Raw(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Manu_Raw_Field<C>(root, name)); }	// NAME 1: neutral (D10): auxdata.h's find through two inline layers (ui_analyze.cpp's form): out of line as the client in 0x5B5320 (0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0), 0x5B4B10 (0x5466A0) and 0x5B2480 (0x5465C0)
 
 
 // 0x5B1AF0
@@ -782,7 +782,7 @@ void UIManuClass::Unknown_5B2230()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls the 'Validity' find out of line, 0x5465C0; the inlined copies of 0x5B1AF0 load the mesh and the name in each other's registers) (0x5B2480)
+// NOT EXACT: register (the 'Validity' find out of line as the client, 0x5465C0, through two inline layers; the inlined copies of 0x5B1AF0 load the mesh and the name in each other's registers) (0x5B2480)
 void UIManuClass::Unknown_5B2480()
 {
 	RefCountPtr<FontSys> go;
@@ -797,8 +797,8 @@ void UIManuClass::Unknown_5B2480()
 		}
 	}
 	go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], InterfaceMesh->Peek_Mesh_Object()));
-	NameClass name("Validity");
-	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, name);
+
+	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0BA0, "Validity");
 	bool valid = (validity && validity->Unknown70 && validity->Value == 13) ? true : false;
 	if (Unknown0BA4 == 0 && valid) {
 		Unknown0CC[6]->Unknown_40(true);
@@ -1448,11 +1448,11 @@ public:
 };
 int UIManuTechLevelFilterClass::UnknownGlobal;
 
-// NOT EXACT: inline budget (the client calls the NegotiatedCost and ExpectedQuality finds out of line, 0x5466A0 / 0x546710, and the TechLevelFilterBitfield Cast, 0x5B7300; ours inlines them) (0x5B4B10)
+// NOT EXACT: frame (the NegotiatedCost and ExpectedQuality finds out of line as the client, 0x5466A0 / 0x546710, through two inline layers, and the Casts as the client's; the stack slots differ) (0x5B4B10)
 void UIManuClass::Unknown_5B4B10()
 {
 	MoneyClass cost;
-	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Unknown0BA0, NameClass("NegotiatedCost"));
+	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >(Unknown0BA0, "NegotiatedCost");
 	if (negotiated && negotiated->Unknown70) {
 		cost = negotiated->Value;
 	}
@@ -1460,7 +1460,7 @@ void UIManuClass::Unknown_5B4B10()
 
 	DeltaTemplateClass<float> *min = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MinimumQuality"));
 	DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MaximumQuality"));
-	DeltaTemplateClass<float> *expected = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("ExpectedQuality"));
+	DeltaTemplateClass<float> *expected = Unknown_Find_Valid<DeltaTemplateClass<float> >(Unknown0BA0, "ExpectedQuality");
 
 
 
@@ -1559,9 +1559,9 @@ static std::string Unknown_5B6060(int validity)	// NAME 1: neutral (D10)  // NAM
 	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)&validity);	// not the client's: a dead find (root NULL, unreachable: no code) spends the inline budget the client spent (D130), so the first case calls _Eos out of line as the client's
 }
 
-// NOT EXACT: inline budget (the client calls all seven finds out of line, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours inlines them, and six dead finds (D130) move none) (0x5B5320)
+// NOT EXACT: inline budget (the seven finds out of line as the client through two inline layers, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours still inlines 0x5B2F20, which the client calls) (0x5B5320)
 void UIManuClass::Unknown_5B5320()
-{		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, NameClass("Validity"));
+{		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0BA0, "Validity");
 	if (validity && validity->Unknown70 > 1) {
 		std::string reason = Unknown_5B6060(validity->Value);
 		if (reason.length() && !Unknown0BB4) {
@@ -1571,18 +1571,18 @@ void UIManuClass::Unknown_5B5320()
 		}
 	}
 
-	MoneyClass cost;		DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Unknown0BA0, NameClass("NegotiatedCost"));
+	MoneyClass cost;		DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >(Unknown0BA0, "NegotiatedCost");
 	if (negotiated && negotiated->Unknown70 > 1) {
 		cost = negotiated->Value;
 		Unknown_5B1AF0(1, true, cost.Unknown_4F00C0(false).c_str());
 	}
-		DeltaTemplateClass<float> *min = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MinimumQuality"));
+		DeltaTemplateClass<float> *min = Unknown_Manu_Raw<DeltaTemplateClass<float> >(Unknown0BA0, "MinimumQuality");
 	if (min && min->Unknown70 <= 1) {
 		min = NULL;
-	}		DeltaTemplateClass<float> *max = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MaximumQuality"));
+	}		DeltaTemplateClass<float> *max = Unknown_Manu_Raw<DeltaTemplateClass<float> >(Unknown0BA0, "MaximumQuality");
 	if (max && max->Unknown70 <= 1) {
 		max = NULL;
-	}		DeltaTemplateClass<float> *expected = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("ExpectedQuality"));
+	}		DeltaTemplateClass<float> *expected = Unknown_Manu_Raw<DeltaTemplateClass<float> >(Unknown0BA0, "ExpectedQuality");
 	if (expected && expected->Unknown70 <= 1) {
 		expected = NULL;
 	}
@@ -1648,14 +1648,14 @@ void UIManuClass::Unknown_5B5320()
 		}
 		Unknown_5B1AF0(3, true, text);
 	}
-		UIManuTechLevelFilterClass *filter = Unknown_Find_Field<UIManuTechLevelFilterClass>((DeltaCompoundClass *)Unknown0BA0, NameClass("TechLevelFilterBitfield"));
+		UIManuTechLevelFilterClass *filter = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0BA0, "TechLevelFilterBitfield");
 	if (filter && filter->Unknown70 > 1) {
 		for (int i = 1; i < 10; i++) {
 			Unknown_5B67C0(i, (filter->Value & (1 << (i - 1))) != 0, 1);
 		}
 	}
 
-	if (Unknown0BAD) {				UIManuListClass *list = Unknown_Find_Field<UIManuListClass>((DeltaCompoundClass *)Unknown0BA0, NameClass("PreviousAttempts"));
+	if (Unknown0BAD) {				UIManuListClass *list = Unknown_Manu_Raw<UIManuListClass>(Unknown0BA0, "PreviousAttempts");
 		if (list && list->Unknown70 > 1) {
 			Unknown_5B3260(list);
 		}

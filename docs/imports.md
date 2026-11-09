@@ -1440,7 +1440,7 @@ Base copy: reconstructed. Headers: 480 from reconstructed.
 | client/ui_jobs.cpp | reconstructed | 79 | 5 | - | - | - |  |
 | client/ui_line_display.cpp | reconstructed | 98 | 7 | - | - | - |  |
 | client/ui_login.cpp | reconstructed | 59 | 4 | - | - | - |  |
-| client/ui_manu.cpp | reconstructed | 81 | 6 | - | - | - |  |
+| client/ui_manu.cpp | reconstructed | 84 | 6 | - | - | - |  |
 | client/ui_mesh.cpp | reconstructed | 98 | 4 | - | - | - |  |
 | client/ui_mfd.cpp | reconstructed | 95 | 3 | - | - | - |  |
 | client/ui_mfd_extended_context.cpp | reconstructed | 8 | 2 | - | - | - |  |
