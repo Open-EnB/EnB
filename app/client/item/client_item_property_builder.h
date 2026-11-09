@@ -9,6 +9,7 @@
 #include "client_item_property_special.h"
 #include "client_item_property_attribute.h"
 #include "client_item_property_attribute_distance.h"
+#include "client_item_property_attribute_string.h"
 #include "client_item_property_attribute_seconds.h"
 #include "client_item_property_attribute_percent.h"
 #include "client_item_property_attribute_integer.h"
@@ -159,12 +160,10 @@ RefCountPtr<ClientItemPropertySpecialMakerClass> Unknown_52C770(const std::strin
 
 // The attributes and requirements 0x522860 makes (their files are not rebuilt)
 enum { MODE_NONE_BF = 0 };																				// the mode flags' none (G_ASSERT 'mode_flags != MODE_NONE_BF')  // NAME 3: the client's assert
-class ClientItemPropertyAttributeStringClass : public ClientItemPropertyAttributeClass {};				// NAME 3: client_item_property_attribute_string.cpp's
 class ClientItemPropertySpecialLevelRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_level_requirement.cpp's
 class ClientItemPropertySpecialProfessionRequirementClass : public ClientItemPropertySpecialClass {};	// NAME 3: client_item_property_special_profession_requirement.cpp's
 class ClientItemPropertySpecialRaceRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_race_requirement.cpp's
 class ClientItemPropertySpecialSkillRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_skill_requirement.cpp's
-RefCountPtr<ClientItemPropertyAttributeStringClass> Unknown_521560(int sort, const std::string &label, const std::string &units, const std::string &tooltip, int unknown, const std::string &value);	// 0x521560  // NAME 1: neutral (D10); NAME 1 [sort, label, units, tooltip, unknown, value]
 RefCountPtr<ClientItemPropertySpecialLevelRequirementClass> Unknown_530530(SClient *space_client, int kind, int level);	// 0x530530 (kind 0 combat, 1 explore, 2 trade, 3 total)  // NAME 1: neutral (D10); NAME 1 [kind, level]
 RefCountPtr<ClientItemPropertySpecialProfessionRequirementClass> Unknown_52CF90(SClient *space_client, int profession);	// 0x52CF90  // NAME 1: neutral (D10); NAME 1 [profession]
 RefCountPtr<ClientItemPropertySpecialRaceRequirementClass> Unknown_52DB60(SClient *space_client, int unknown, int race);	// 0x52DB60 (attributes 18, 17)  // NAME 1: neutral (D10); NAME 1 [race]

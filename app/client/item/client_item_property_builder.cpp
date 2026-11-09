@@ -173,7 +173,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			G_ASSERT(ok);
-			RefCountPtr<ClientItemPropertyAttributeClass> property = Unknown_521560(10, "Ammo", "", "Ammunition required for this weapon", 0, ammo);
+			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeStringClass::Create(10, "Ammo", "", "Ammunition required for this weapon", 0, ammo);
 			router.Route(property);
 			break;
 		}
@@ -742,7 +742,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				if (mode_flags & 4) modes.push_back("Dismantle");
 				if (mode_flags & 8) modes.push_back("Refining");
 				std::string text = Unknown_4FB5B0(modes, ", ");
-				RefCountPtr<ClientItemPropertyAttributeClass> property = Unknown_521560(6, "Mode", "", "Which activities this Override item benefits", 0, text);
+				RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeStringClass::Create(6, "Mode", "", "Which activities this Override item benefits", 0, text);
 				router.Route(property);
 			}
 			break;
