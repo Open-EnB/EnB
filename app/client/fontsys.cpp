@@ -277,14 +277,14 @@ void FontSys::Unknown_6D5D40()
 	}
 }
 
-// NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched
+// 0x6D6390: the text printed, sized and shown; +0x408 says it is the blank " " (the constructors' default)
 void FontSys::Unknown_6D6390()
 {
 	const char *text = Info.Text;
-	Unknown408 = (strcmp(text, " ") == 0);
+	if (strcmp(text, " ") == 0) Unknown408 = true; else Unknown408 = false;
 	Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
-	Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(text);
-	Unknown2C8 = Unknown420[3] = Font->Get_Height();
+	Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(text);
+	Unknown420[3] = Unknown2C8 = Font->Get_Height();
 	Update_Text(false);
 	if (Object != NULL && Info.Attach.Get_Length() > 0) {
 		Object->Add_Sub_Object_To_Bone(this, Info.Attach);

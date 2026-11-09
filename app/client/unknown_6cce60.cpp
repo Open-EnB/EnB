@@ -268,11 +268,11 @@ static inline void Print_Text(FontSys *f)	// NAME 1 [Print_Text]: what it does
 	f->Unknown4C5 = false;
 }
 
-// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'. The new text (NULL is "") into +0x2F0 and Info.Text,
+// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'. The new text (NULL or empty is " ") into +0x2F0 and Info.Text,
 // rendered into +0x2D0's texture when it changed, the text rectangle from the font. With unknown set the effects
 // start over (1: every effect state reset first; else, with EffectOff effects, the style only goes to state 2: the
 // off effects run first); without it the text is replaced in place (the position x back to +0x470's).
-// NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first "" assignment and
+// NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first " " assignment and
 // hoists three member loads above stores (27 masked rows)
 void FontSys::Change_Text(const char *text, int unknown)
 {
@@ -280,12 +280,12 @@ void FontSys::Change_Text(const char *text, int unknown)
 	if (unknown == 0) {
 		Invalidate_Cached_Bounding_Volumes();
 		if (text == NULL) {
-			Unknown2F0 = "";
+			Unknown2F0 = " ";
 			Print_Text(this);
 		} else if (Unknown2F0 != text) {
 			Unknown2F0 = text;
 			if (Unknown2F0.Is_Empty()) {
-				Unknown2F0 = "";
+				Unknown2F0 = " ";
 			}
 			Print_Text(this);
 		}
@@ -298,12 +298,12 @@ void FontSys::Change_Text(const char *text, int unknown)
 		Invalidate_Cached_Bounding_Volumes();
 		Unknown404 = false;
 		if (text == NULL) {
-			Unknown2F0 = "";
+			Unknown2F0 = " ";
 		} else {
 			Unknown2F0 = text;
 		}
 		if (Unknown2F0.Is_Empty()) {
-			Unknown2F0 = "";
+			Unknown2F0 = " ";
 		}
 		if ((Effects[2][0] == NULL && Effects[2][1] == NULL && Effects[2][2] == NULL) || unknown == 1) {
 			if (unknown == 1) {
@@ -362,7 +362,7 @@ void FontSys::Change_Text(const char *text, int unknown)
 		Unknown270 = 0;
 		Unknown274[0] = 0;
 	}
-	if (strcmp(Unknown2F0, "") == 0) {
+	if (strcmp(Unknown2F0, " ") == 0) {
 		Unknown408 = true;
 	} else {
 		Unknown408 = false;

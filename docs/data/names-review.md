@@ -3105,7 +3105,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Unknown98` | `app/client/fontdatabase.cpp:1068` | untagged neutral name (D10) |
 | 1 | `Unknown_6C47B0` | `app/client/fontdatabase.cpp:1093` | untagged neutral name (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.cpp:1118` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/fontdatabase.cpp:1157` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/fontdatabase.cpp:1159` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/fontdatabase.h:66` | neutral (D10) |
 | 1 | `DefaultUnknown98` | `app/client/fontdatabase.h:70` | neutral (D10) |
 | 1 | `Unknown04` | `app/client/fontdatabase.h:147` | neutral (D10) |
