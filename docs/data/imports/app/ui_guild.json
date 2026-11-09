@@ -1,10 +1,12 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42B2F0"
+  "0x42B2F0",
+  "0x436420",
+  "0x4A0B20"
  ],
  "copy": "reconstructed",
- "description": "UIGuildClass, the guild window (no __FILE__; file name provisional, D137: the tooltip section 'UI_GUILD', the model 'tsi35a'; client 0x8192C0-0x81C5FF after time_mgr.cpp's end 0x8192A7, data 0xBA7F10-0xBA81FF; ui_friends.cpp's twin): so far the printf helper 0x8192C0 and the list helpers / chat commands 0x81AA50-0x81C5E0 but 0x81AEB0 / 0x81BA60; not yet the constructor 0x819420, the destructor 0x8196D0, slots +0x54-+0x68, 0x81C060-0x81C380 (TM1)",
+ "description": "UIGuildClass, the guild window (no __FILE__; file name provisional, D137: the tooltip section 'UI_GUILD', the model 'tsi35a'; client 0x8192C0-0x81E02F after time_mgr.cpp's end 0x8192A7, data 0xBA7F10-0xBA81FF; ui_friends.cpp's twin): so far the printf helper 0x8192C0, the list helpers and chat commands 0x81AA50-0x81D130; NOT EXACT 0x81AEB0, 0x81CB90; not yet the constructor 0x819420, the destructor 0x8196D0, slots +0x54-+0x68, 0x81C380 (TM1)",
  "expected": {},
  "in_tree": [
   "0x42A820",
@@ -13,8 +15,13 @@
   "0x42AB30",
   "0x42CAB0",
   "0x42CD30",
+  "0x42D050",
   "0x42D120",
+  "0x42DB80",
   "0x42F250",
+  "0x47CE60",
+  "0x4C39B0",
+  "0x4E2C00",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -29,15 +36,21 @@
   "0x81AB50",
   "0x81ABA0",
   "0x81AC90",
+  "0x81AD50",
   "0x81AD80",
   "0x81AE10",
   "0x81B350",
   "0x81B3F0",
   "0x81B610",
+  "0x81BA60",
   "0x81BF40",
   "0x81BFD0",
   "0x81C040",
-  "0x81C5E0"
+  "0x81C5E0",
+  "0x81C930",
+  "0x81D130",
+  "0x81D5A0",
+  "0x81D640"
  ],
  "merged": [],
  "name": "client/ui_guild.cpp",
@@ -48,8 +61,13 @@
   "0x42AB30",
   "0x42CAB0",
   "0x42CD30",
+  "0x42D050",
   "0x42D120",
+  "0x42DB80",
   "0x42F250",
+  "0x47CE60",
+  "0x4C39B0",
+  "0x4E2C00",
   "0x52B210",
   "0x52B240",
   "0x52B270",
@@ -66,5 +84,8 @@
   "0x52B310",
   "0x52B330",
   "0x81C040"
+ ],
+ "tiebreak": [
+  "0x81D640"
  ]
 }

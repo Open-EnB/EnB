@@ -32,7 +32,7 @@ public:
 extern const int Unknown_B08C98;			// 0xB08C98 (4)  // NAME 1: neutral (D10)
 extern const int Unknown_B08CA8;			// 0xB08CA8 (0x40)  // NAME 1: neutral (D10)
 
-// 0x8192C0: a printf into a std::string (not placed yet)
+// 0x8192C0: a printf into a std::string (ui_guild.cpp's)
 std::string Unknown_8192C0(const char *format, ...);	// NAME 1: neutral (D10)
 
 // The log book: a page of free text per character and page number, saved as player%d_log-%d.ini (0xCC bytes;

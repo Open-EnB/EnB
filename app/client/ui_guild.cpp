@@ -1,11 +1,12 @@
-// Earth & Beyond client (reconstruction): app\client\ui_guild.cpp, the guild window (no __FILE__; client 0x8192C0-0x81C5FF
-// after time_mgr.cpp's end 0x8192A7, its data 0xBA7F10-0xBA81FF after time_mgr.cpp's __FILE__). So far the list helpers and
-// the chat commands (TM1); not yet: the constructor 0x819420, the destructor 0x8196D0, the slots +0x54-+0x68, 0x81AEB0,
-// 0x81BA60, 0x81C060, 0x81C1F0, 0x81C380. Notes at the end.
+// Earth & Beyond client (reconstruction): app\client\ui_guild.cpp, the guild window (no __FILE__; client 0x8192C0-0x81E02F
+// after time_mgr.cpp's end 0x8192A7, its data 0xBA7F10-0xBA81FF after time_mgr.cpp's __FILE__). So far the printf helper,
+// the list helpers and the chat commands (TM1); not yet: the constructor 0x819420, the destructor 0x8196D0, the slots
+// +0x54-+0x68, 0x81C380 and its helper 0x81D290. Notes at the end.
 // PLACEMENT: provisional (D137): the file name from the tooltip section 'UI_GUILD' (the windows' UI_<file> pattern) and the model 'tsi35a'; a __FILE__ or an assert would place it
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
+#include <wchar.h>
 #include <string>
 #include <vector>
 #include <list>
@@ -23,6 +24,7 @@
 class UIGuildMemberClass	// NAME 1: neutral, after ui_friends.h's UIFriendsPlayerInfoClass
 {
 public:
+	UIGuildMemberClass() : Name(""), Location("") {}	// (inline: 0x81AEB0, 0x81C380)
 	~UIGuildMemberClass() {}							// 0x81AD80 (inline, called out of line; deleting 0x81AD50)
 	std::string Name;									// +0x00 (the rows' 'name%02d_TSI35a')  // NAME 2: its style's
 	std::string Location;								// +0x10 ('LOCATION%02d_TSI35a'; '(offline)')  // NAME 2: its style's
@@ -39,12 +41,16 @@ public:
 	void Unknown_81ABA0();								// 0x81ABA0 (the rows from Top)
 	void Unknown_81AC90();								// 0x81AC90 (the members deleted, the vector emptied)
 	void Unknown_81AE10();								// 0x81AE10 (the list's members deleted, the list emptied)
+	void Unknown_81AEB0();								// 0x81AEB0 (the vector rebuilt from the list, '(offline)' last, by name; the selection kept by name)
 	void Unknown_81B350();								// 0x81B350 (the rows under the pointer or selected lit)
 	void Unknown_81B3F0(int index);						// 0x81B3F0 (a row clicked: its name copied, the buttons updated)  // NAME 1 [index]: neutral
 	void Unknown_81B610(int key);						// 0x81B610 (the selected member's /gc remove, promote, demote, contributions)  // NAME 1 [key]: slot +0x68's
 	void Unknown_81BA60(bool on);						// 0x81BA60 (the buttons' slot +0x40 and tooltips by the rank's rights)  // NAME 1 [on]: neutral
 	void Unknown_81BF40();								// 0x81BF40 ('/gc list all')
+	int Unknown_81C930(std::string rank);				// 0x81C930 (a rank name's number: the rank names' vector)  // NAME 1 [rank]: neutral
 	void Unknown_81BFD0();								// 0x81BFD0 (the rank names requested)
+	void Unknown_81CB90();								// 0x81CB90 (slot +0x60: an entry answered, its /gc recruit, tag, message, stats or create sent)
+	void Unknown_81D130();								// 0x81D130 (no caller: every member's '/gc contributions')
 	void Unknown_81C5E0(int rights, int unknown1, int unknown2, int unknown3);	// 0x81C5E0 (sclient.cpp: the rank's rights and limits)  // NAME 1 [rights, unknown1-3]: neutral
 
 	GadgetSlider *Slider;								// +0xA0  // NAME 1: as ui_friends.h's
@@ -74,6 +80,9 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
+
+// The buttons' tooltips (0xBA7F10)
+static const char *Unknown_BA7F10[13] = { "EXIT", "RECRUIT", "REMOVE", "PROMOTE", "DEMOTE", "DISBAND", "TAG", "MESSAGE", "MAKE_PUBLIC", "MAKE_PRIVATE", "LEAVE", "CONTRIBUTION", "STATS" };	// NAME 1: neutral (D10)
 
 // 0x8192C0
 std::string Unknown_8192C0(const char *format, ...)	// NAME 1: neutral (D10): ui_log.cpp and the guild windows' printf into a std::string
@@ -164,6 +173,61 @@ void UIGuildClass::Unknown_81AE10()
 	Unknown0DC.clear();
 }
 
+// NOT EXACT: scheduling only (the client computes the vector's address for the inlined clean-up's erase before saving edi) (0x81AEB0)
+// 0x81AEB0
+void UIGuildClass::Unknown_81AEB0()
+{
+	Unknown_81AC90();
+	for (std::list<UIGuildMemberClass *>::iterator node = Unknown0DC.begin(); node != Unknown0DC.end(); node++) {
+		UIGuildMemberClass *info = *node;
+		std::vector<UIGuildMemberClass *>::iterator pos;
+		for (pos = Unknown0CC.begin(); pos != Unknown0CC.end(); pos++) {
+			UIGuildMemberClass *other = *pos;
+			bool offline = strstr(info->Location.c_str(), "(offline)") != NULL;
+			bool other_offline = strstr(other->Location.c_str(), "(offline)") != NULL;
+			if (offline == false && other_offline == true) {
+				break;
+			}
+			if (offline == true && other_offline == false) {
+				continue;
+			}
+			if (wcscoll((const wchar_t *)info->Name.c_str(), (const wchar_t *)other->Name.c_str()) < 0) {
+				break;
+			}
+		}
+		UIGuildMemberClass *member = new UIGuildMemberClass();
+		member->Name = info->Name;
+		member->Location = info->Location;
+		Unknown0CC.insert(pos, member);
+	}
+	if (Unknown0AC.size() != 0) {
+		int i = 0;
+		for (;;) {
+			if (i < (int)Unknown0CC.size()) {
+				if (Unknown0AC == Unknown0CC[i]->Name) {
+					Selection = i;
+					break;
+				}
+				i++;
+			} else {
+				Unknown0AC = "";
+				Selection = -1;
+				break;
+			}
+		}
+	} else {
+		Selection = -1;
+	}
+	int last = Unknown0CC.size() - 1;
+	Top = (Top < last) ? Top : last;
+	Unknown_81AAD0(Unknown0CC.size());
+	Unknown0E8[3]->Unknown_40(false);
+	Unknown0E8[4]->Unknown_40(false);
+	Unknown0E8[2]->Unknown_40(false);
+	Unknown0E8[6]->Unknown_40(false);
+	Unknown0E8[11]->Unknown_40(false);
+}
+
 // 0x81B350
 void UIGuildClass::Unknown_81B350()
 {
@@ -216,6 +280,54 @@ void UIGuildClass::Unknown_81B610(int key)
 	}
 }
 
+// 0x81BA60
+void UIGuildClass::Unknown_81BA60(bool on)
+{
+	int i;
+	for (i = 0; i < 13; i++) {
+		if (Unknown0E8[i]) {
+			Unknown0E8[i]->Unknown_40(on);
+			if (on) {
+				GadgetClass::Set_Tooltip(Unknown0E8[i], "UI_GUILD", Unknown_BA7F10[i]);
+			} else {
+				Unknown0E8[i]->Set_Unknown14(NULL);
+			}
+		}
+	}
+	for (i = 0; i < 7; i++) {
+		if (Unknown11C[i]) {
+			Unknown11C[i]->Unknown_40(on);
+		}
+	}
+	if (on && Client->As_Space_Client()->Unknown_728300()) {
+		Unknown0E8[12]->Unknown_40(Unknown170 & 1);
+		Unknown0E8[10]->Unknown_40((Unknown170 >> 2) & 1);
+		Unknown0E8[1]->Unknown_40((Unknown170 >> 3) & 1);
+		Unknown0E8[2]->Unknown_40((Unknown170 >> 4) & 1);
+		Unknown0E8[7]->Unknown_40((Unknown170 >> 5) & 1);
+		Unknown0E8[5]->Unknown_40((Unknown170 >> 8) & 1);
+		Unknown0E8[8]->Unknown_40((Unknown170 >> 10) & 1);
+		Unknown0E8[9]->Unknown_40((Unknown170 >> 11) & 1);
+	}
+	if (Selection < 0) {
+		Unknown0E8[2]->Unknown_40(false);
+		Unknown0E8[3]->Unknown_40(false);
+		Unknown0E8[4]->Unknown_40(false);
+		Unknown0E8[6]->Unknown_40(false);
+		Unknown0E8[11]->Unknown_40(false);
+		Unknown_81ABA0();
+		return;
+	}
+	int rank = Unknown_81C930(Unknown0CC[Selection]->Location);
+	int own = Client->As_Space_Client()->Unknown_728370();
+	Unknown0E8[3]->Unknown_40(rank < Unknown174 && rank < own);
+	Unknown0E8[2]->Unknown_40(rank <= Unknown178 && rank <= own);
+	Unknown0E8[4]->Unknown_40(rank > Unknown17C && rank < own);
+	Unknown0E8[6]->Unknown_40((Unknown170 >> 9) & 1);
+	Unknown0E8[11]->Unknown_40((Unknown170 >> 1) & 1);
+	Unknown_81ABA0();
+}
+
 // 0x81BF40
 void UIGuildClass::Unknown_81BF40()
 {
@@ -238,6 +350,73 @@ void UIGuildClass::Unknown_81C5E0(int rights, int unknown1, int unknown2, int un
 	Unknown_81BA60(true);
 }
 
+// 0x81C930
+int UIGuildClass::Unknown_81C930(std::string rank)
+{
+	if (Unknown180.size() == 0) {
+		return(0);
+	}
+	std::string name = rank.substr(1, rank.find("\"", 1) - 1);
+	for (int i = 0; i < (int)Unknown180.size(); i++) {
+		if (name == Unknown180[i].Name) {
+			return(Unknown180[i].Rank);
+		}
+	}
+	return(-1);
+}
+
+// NOT EXACT: registers only (the stats case's c_str in ecx, ours eax) (0x81CB90)
+// 0x81CB90
+void UIGuildClass::Unknown_81CB90()
+{
+	RefCountPtr<UIPTradeCreditsClass> entry;
+	if (Unknown0BC[2] && Unknown0BC[2]->Active) {
+		entry = Unknown0BC[2];
+	} else if (Unknown0BC[1] && Unknown0BC[1]->Active) {
+		entry = Unknown0BC[1];
+	}
+	int state;
+	if (entry && (state = entry->Unknown_64A220()) != 0) {
+		if (state == 2) {
+			switch (Unknown0C8) {
+				case 2:
+				((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc recruit %s", entry->Unknown_64A240()).c_str(), 3, NULL));
+					break;
+				case 13:
+				((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc stats %s", entry->Unknown_64A240()).c_str(), 3, NULL));
+					if (Unknown0BC[0]->Active) {
+						Unknown0BC[0]->Unknown_5C();
+					}
+					break;
+				case 8:
+				((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc message %s", entry->Unknown_64A240()).c_str(), 3, NULL));
+					break;
+				case 7:
+				((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc tag %s \"%s\"", Unknown0CC[Selection]->Name.c_str(), entry->Unknown_64A240()).c_str(), 3, NULL));
+					break;
+				case 24:
+				((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc create %s", entry->Unknown_64A240()).c_str(), 3, NULL));
+					break;
+			}
+		}
+		entry->Unknown_5C();
+		if (Unknown0C8 == 24) {
+			Unknown_5C();
+			Unknown98 = 1;
+		} else {
+			Unknown_81BA60(true);
+		}
+	}
+}
+
+// 0x81D130
+void UIGuildClass::Unknown_81D130()
+{
+	for (int i = 0; i < (int)Unknown0CC.size(); i++) {
+		((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc contributions %s", Unknown0CC[i]->Name.c_str()).c_str(), 3, NULL));
+	}
+}
+
 /*
 **	Reconstruction notes (TM1, 2026-11-09)
 **
@@ -245,6 +424,7 @@ void UIGuildClass::Unknown_81C5E0(int rights, int unknown1, int unknown2, int un
 **	window 0x81CB90 too: it may be a header's inline vararg function emitted here), the constructor 0x819420, the deleting
 **	destructor 0x8196A0, the destructor 0x8196D0, the slots +0x54 0x8199F0, +0x58 0x819FB0, +0x5C 0x81A200, +0x60 0x81A330,
 **	+0x68 0x81A420, +0x7C 0x81AA50, the list helpers to 0x81C5E0, with the member's destructor 0x81AD80 (deleting 0x81AD50),
-**	the rank packet's destructor 0x81C040 and the vectors' insert helpers 0x81C060 / 0x81C1F0. The guild list window
-**	('UI_GUILD_LIST', 'tsi36a') follows; verbmanager.cpp's __FILE__ comes after its data.
+**	the rank packet's destructor 0x81C040, the vectors' insert helpers 0x81C060 / 0x81C1F0, the rank lookup 0x81C930, the
+**	entries' answers 0x81CB90 (slot +0x60's) and 0x81D130 (no caller), then the templates to the deleting destructor's
+**	adjustor entry 0x81E010 (table 0xB08198). The guild list window ('UI_GUILD_LIST', 'tsi36a') follows.
 */
