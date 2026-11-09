@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 174 |
+| 5 | the client names it | 176 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1674 |
-| 2 | describes what the code does | 3893 |
-| 1 | neutral placeholder | 21313 |
+| 3 | by convention from a client-named file or sibling | 1676 |
+| 2 | describes what the code does | 3894 |
+| 1 | neutral placeholder | 21380 |
 
 ## For review (score 3 and below)
 
@@ -14504,6 +14504,73 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64A240` | `app/client/ui_ptrade.cpp:462` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_ptrade.cpp:474` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/ui_ptrade.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_radio_entry.cpp:17` | neutral (D10) |
+| 1 | `Unknown_B853D0` | `app/client/ui_radio_entry.cpp:20` | neutral (D10) |
+| 1 | `UnknownAC` | `app/client/ui_radio_entry.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_radio_entry.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_radio_entry.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_radio_entry.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_56D510` | `app/client/ui_radio_entry.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `app/client/ui_radio_entry.cpp:47` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/ui_radio_entry.cpp:49` | neutral (D10); a local as the client's registers (0x5E63C0 exact) |
+| 1 | `Unknown5C` | `app/client/ui_radio_entry.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_radio_entry.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_radio_entry.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_radio_entry.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_radio_entry.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown_56D970` | `app/client/ui_radio_entry.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_5E6BA0` | `app/client/ui_radio_entry.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_radio_entry.cpp:67` | untagged neutral name (D10) |
+| 1 | `sort` | `app/client/ui_radio_entry.cpp:70` | neutral (D10) |
+| 1 | `Unknown_66C360` | `app/client/ui_radio_entry.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_radio_entry.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_radio_entry.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_6AAD10` | `app/client/ui_radio_entry.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown39` | `app/client/ui_radio_entry.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_5E6A20` | `app/client/ui_radio_entry.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_radio_entry.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_radio_entry.cpp:138` | untagged neutral name (D10) |
+| 1 | `sclient` | `app/client/ui_radio_entry.cpp:184` | neutral (D10) |
+| 1 | `Unknown_18` | `app/client/ui_radio_entry.cpp:184` | untagged neutral name (D10) |
+| 1 | `chat` | `app/client/ui_radio_entry.cpp:185` | neutral (D10) |
+| 1 | `Unknown_565F60` | `app/client/ui_radio_entry.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown_5E6EC0` | `app/client/ui_radio_entry.cpp:198` | untagged neutral name (D10) |
+| 1 | `Unknown_5E70A0` | `app/client/ui_radio_entry.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_5E6B10` | `app/client/ui_radio_entry.cpp:216` | untagged neutral name (D10) |
+| 1 | `title` | `app/client/ui_radio_entry.cpp:226` | neutral (D10) |
+| 1 | `password` | `app/client/ui_radio_entry.cpp:227` | neutral (D10) |
+| 1 | `verify` | `app/client/ui_radio_entry.cpp:228` | neutral (D10) |
+| 1 | `font` | `app/client/ui_radio_entry.cpp:229` | neutral (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_radio_entry.cpp:233` | untagged neutral name (D10) |
+| 1 | `sclient` | `app/client/ui_radio_entry.cpp:255` | neutral (D10) |
+| 1 | `chat` | `app/client/ui_radio_entry.cpp:256` | neutral (D10) |
+| 1 | `id` | `app/client/ui_radio_entry.cpp:257` | neutral (D10) |
+| 1 | `Unknown1138` | `app/client/ui_radio_entry.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_radio_entry.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown_5682C0` | `app/client/ui_radio_entry.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_radio_entry.cpp:260` | untagged neutral name (D10) |
+| 1 | `sclient` | `app/client/ui_radio_entry.cpp:302` | neutral (D10) |
+| 1 | `chat` | `app/client/ui_radio_entry.cpp:303` | neutral (D10) |
+| 1 | `id` | `app/client/ui_radio_entry.cpp:305` | neutral (D10) |
+| 1 | `title` | `app/client/ui_radio_entry.cpp:314` | neutral (D10) |
+| 1 | `font` | `app/client/ui_radio_entry.cpp:315` | neutral (D10) |
+| 1 | `Unknown5E6290Class` | `app/client/ui_radio_entry.cpp:333` | untagged neutral name (D10) |
+| 1 | `client, state` | `app/client/ui_radio_entry.h:17` | what the members hold |
+| 1 | `Unknown_54` | `app/client/ui_radio_entry.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_radio_entry.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_radio_entry.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_radio_entry.h:22` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_radio_entry.h:23` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_radio_entry.h:23` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_radio_entry.h:24` | what 0x5E6840 passes |
+| 1 | `Unknown_5E6A20` | `app/client/ui_radio_entry.h:24` | untagged neutral name (D10) |
+| 1 | `font, text` | `app/client/ui_radio_entry.h:25` | neutral |
+| 1 | `Unknown_5E6B10` | `app/client/ui_radio_entry.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_5E6BA0` | `app/client/ui_radio_entry.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_5E6EC0` | `app/client/ui_radio_entry.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_5E70A0` | `app/client/ui_radio_entry.h:28` | untagged neutral name (D10) |
+| 1 | `State` | `app/client/ui_radio_entry.h:30` | neutral (D10) |
+| 1 | `UnknownAC` | `app/client/ui_radio_entry.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_radio_join.cpp:16` | neutral (D10) |
 | 1 | `Unknown_B08C98` | `app/client/ui_radio_join.cpp:17` | neutral (D10) |
 | 1 | `Unknown_B08CA8` | `app/client/ui_radio_join.cpp:18` | neutral (D10) |
@@ -23121,6 +23188,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Checks` | `app/client/ui_option_check.h:28` | what they are |
 | 2 | `UIMesh` | `app/client/ui_proc.h:26` | the FAIL_IFs' 'uimesh' |
 | 2 | `UIMesh` | `app/client/ui_proc_impl.h:32` | the FAIL_IFs' 'uimesh' |
+| 2 | `Buttons` | `app/client/ui_radio_entry.h:34` | what they are |
 | 2 | `Buttons` | `app/client/ui_radio_join.h:31` | what they are |
 | 2 | `Buttons` | `app/client/ui_radio_main.h:31` | what they are |
 | 2 | `Refinery_Player_Id` | `app/client/ui_refinery.cpp:150` | the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id) |
@@ -25918,6 +25986,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `EndFrame` | `app/client/ui_proc_impl.h:63` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_ptrade.cpp:32` | ui_manu.cpp's FAIL_IF's |
 | 3 | `AvatarPipClass` | `app/client/ui_ptrade.cpp:46` | class-from-file (D24) for app\client\avatar_pip.cpp |
+| 3 | `ui_radio_entry.h` | `app/client/ui_radio_entry.h:4` | header name assumed from the client's ui_radio_entry.cpp |
+| 3 | `UIRadioEntryClass` | `app/client/ui_radio_entry.h:14` | class-from-file (D24) for app\client\ui_radio_entry.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_refinery.cpp:30` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UI_CLOSED` | `app/client/ui_refinery.cpp:50` | the assert's |
 | 3 | `UIRefineryClass` | `app/client/ui_refinery.h:29` | class-from-file (D24) for app\client\ui_refinery.cpp |
