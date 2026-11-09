@@ -7,14 +7,14 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-675 entries in 203 files.
+676 entries in 203 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/audio/soundlib.cpp:157` | `SoundDefClass::SoundDefClass` | marker | NOT EXACT: inline budget (explain.py: 66 calls vs 67), reserve inlines size() and calls _Destroy where the client calls size() and inlines _Destroy; one more string destructor called |
 | `app/client/aux_roots.cpp:2` | `UnknownCOClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Unknown_Hex_String` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
-| `app/client/aux_roots_send.h:3` | `Type_Name` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
+| `app/client/aux_roots_send.h:4` | `Type_Name` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
 | `app/client/avatar.cpp:1196` | `CharacterViewAvatarClass::Unknown_780810` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's vector insert and 0x780AC0 copies) |
 | `app/client/avatar.cpp:1310` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
 | `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
@@ -229,6 +229,7 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:2062` | `SClient::Unknown_744C10` | marker | NOT EXACT: shape (explain.py): the client keeps the chase module in ecx for the +0x34 test and zeroes the argument before the FAIL_IFs (attempts.py show 0x744C10) 0x744C10 |
 | `app/client/sclient.cpp:4261` | `SClient::Unknown_74C3B0` | marker | NOT EXACT: inline budget (explain.py: 11 calls, the client 7): ours inlines the hash table's resize 0x759660 into operator[] (and so std::__stl_next_prime), the client calls it and its bucket helper 0x756D10 |
 | `app/client/sclient.cpp:4307` | `SClient::Unknown_74C8D0` | marker | NOT EXACT: inline budget (explain.py frame, 31 masked rows): the client calls hash_map::find out of line (0x756820, the key in the argument slot) where ours inlines it, as itself or through 0x74C840; two forms 0x74C8D0 (0x74C840 for the named object's GameID) |
+| `app/client/sclient.cpp:4373` | `Unknown_74CA90` | marker | NOT EXACT: functional, from the disassembly (first round, SC1): the INI accessors, the volley defaults and the record copy 0x74CA90 (Load_INIs: testeffects.ini): one record per section but [Defaults], each entry from the section or [Defaults]; a zero duration is the distance over effect.ini's AmmoSpeed of its EFFECT-<descid>\Weapon Usage section |
 | `app/client/sclient.cpp:4800` | `SClient::Unknown_74EDB0` | marker | NOT EXACT: shape (explain.py: 503 instructions, the client 508; 131 masked rows, 25 with registers masked): the client saves ebp with ebx in the prologue and takes each c_str() before the player id; two forms (the flag declared first gains 5 rows) 0x74EDB0 (Do_Frame, after 0x7429B0): the guild confirmations' answers to the server |
 | `app/client/sclient.cpp:4973` | `SClient::Unknown_74F5C0` | marker | NOT EXACT: shape (explain.py: 272 instructions, the client 270, 10 masked rows): the client loads AvatarID before testing button == 1 and keeps this in esi; three forms (one 0x750210 per branch and the named queues gained the rest) 0x74F5C0 (Do_Frame, after 0x751660): the answer to the confirmed-action dialog (0x74E710's type 0) goes to the server and the offer leaves both queues |
 | `app/client/sclient.cpp:5178` | `SClient::Unknown_750800` | marker | NOT EXACT: frame (explain.py: 145 instructions, the client 146; its frame 4 bytes larger): the client keeps the chat panel in a named local ([esp+0x18]) and tests it before taking the queues; as a local (ChatPanel.Peek()) VC6 inlines pop_front / erase (169 instructions); three forms 0x750800 (the chat panel's 0x563280, its message button): yes to the oldest type 1 offer, then the button goes |
