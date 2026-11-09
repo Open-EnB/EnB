@@ -25,6 +25,7 @@ std::hash_map<std::string, KeyIdStruct> ControlKeysManager::_KeyIds;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultPSW;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultSIM;
 std::vector<KeyMappingStruct> ControlKeysManager::_DefaultUser;
+#include "sclient.h"	// Init reads the ticket's character id (SClient +0x12E8)
 
 
 
@@ -58,8 +59,7 @@ std::vector<KeyMappingStruct> ControlKeysManager::_DefaultUser;
 
 
 
-
-bool ControlKeysManager::Create(ControlKeysSClientClass *client)
+bool ControlKeysManager::Create(SClient *client)
 {
 	FAIL_IF(!client) return false;
 
@@ -73,14 +73,14 @@ bool ControlKeysManager::Create(ControlKeysSClientClass *client)
 
 
 
-bool ControlKeysManager::Destroy(ControlKeysSClientClass *client)
+bool ControlKeysManager::Destroy(SClient *client)
 {
 	std::hash_map<unsigned int, ControlKeysManager>::iterator manager_it = _Instances.find((unsigned int)client);
 	FAIL_IF(manager_it == _Instances.end()) return false;
 	return true;
 }
 
-ControlKeysManager *ControlKeysManager::Get(ControlKeysSClientClass *client)
+ControlKeysManager *ControlKeysManager::Get(SClient *client)
 {
 	std::hash_map<unsigned int, ControlKeysManager>::iterator manager_it = _Instances.find((unsigned int)client);
 	if (manager_it == _Instances.end()) return NULL;
@@ -113,7 +113,7 @@ bool ControlKeysManager::Register_Key(const std::string &module_name, const std:
 
 
 // 0x71A100: exact once 0x71A190 calls find out of line (it is then called, not inlined)
-int ControlKeysManager::Get_Key_Id(ControlKeysSClientClass *client, const std::string &module_name, const ControlKeyValueStruct &key)
+int ControlKeysManager::Get_Key_Id(SClient *client, const std::string &module_name, const ControlKeyValueStruct &key)
 {
 	ControlKeysManager *keys_manager = Get(client); FAIL_IF(!keys_manager) return -1;
 	return Get_Key_Id(keys_manager, module_name, key);
@@ -152,7 +152,7 @@ ControlKeysManager::ControlKeysManager() :
 
 
 
-void ControlKeysManager::Init(ControlKeysSClientClass *sclient)
+void ControlKeysManager::Init(SClient *sclient)
 {
 	if (!_NumKeyDefs) {
 		G_ASSERT(_DefaultPSW.empty());
@@ -165,7 +165,7 @@ void ControlKeysManager::Init(ControlKeysSClientClass *sclient)
 
 	FAIL_IF(!sclient) return;
 	Client = sclient;
-	Unknown_8B44E0(sclient->Unknown12E8, PlayerID);
+	Unknown_8B44E0(sclient->Ticket.Character_ID, PlayerID);
 	Load_Keys(&UserKeys, PlayerID);
 	Build_Keys_Map();
 	Copy_Keys(&RestoreKeys, UserKeys);

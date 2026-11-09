@@ -1097,7 +1097,7 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 			ControlKeysManager::Register_Key(module, "Next Camera", 5);
 			ControlKeysManager::Register_Key(module, "Prev Camera", 6);
 		}
-		int key = ControlKeysManager::Get_Key_Id((ControlKeysSClientClass *)this, module, *(ControlKeyValueStruct *)&event);
+		int key = ControlKeysManager::Get_Key_Id(this, module, *(ControlKeyValueStruct *)&event);
 		switch (key) {
 			case -1:
 				break;
