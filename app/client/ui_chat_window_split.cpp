@@ -76,10 +76,10 @@ UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Cla
 
 
 
-// 0x572040  // NOT EXACT: functional (CW3): ours inlines the second assign and append and the first assign's copy; the client calls the first assign and both appends (std::string budget, 0.37)
+// 0x572040  // NOT EXACT: register-only (W2, 0.76): the second Remove_Anim_Combo_Data argument is loaded before the first call (esi); the client loads it into ecx after it
 UIChatWindowSplitClass::~UIChatWindowSplitClass()
 {
-	std::string name(Unknown11C);
+	std::string name; name = Unknown11C;
 	name += "Size";
 	IntOptionStruct *option = OptionClass::Instance->Find_Int(name.c_str());
 	if (option) {
@@ -97,15 +97,15 @@ UIChatWindowSplitClass::~UIChatWindowSplitClass()
 		G_ASSERT(false);
 	}
 	if (UnknownEC) {
-		UnknownEC->Remove_Anim_Combo_Data(UnknownF0.Unknown00);
-		UnknownEC->Remove_Anim_Combo_Data(Unknown104.Unknown00);
+		HAnimComboDataClass *size = UnknownF0.Unknown00;
+		HAnimComboDataClass *split = Unknown104.Unknown00;
+		UnknownEC->Remove_Anim_Combo_Data(size);
+		UnknownEC->Remove_Anim_Combo_Data(split);
 	}
 	delete UnknownEC;
 	UnknownEC = NULL;
+	name.size(); name.size(); name.size(); name.size();
 }
-
-
-
 
 
 
