@@ -60,7 +60,7 @@ class FontSys : public DynamicMeshClass  // NAME 5: the client's (Get_Name 0x67E
 public:
 	FontSys(const char *name, RenderObjClass *object, const char *text);	// 0x6D47C0: the string template named name (FontDatabaseClass::Find_String)  // NAME 1 [object]: neutral (D10)
 	FontSys(FontStringStruct def, RenderObjClass *object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
-	~FontSys() {}	// 0x67F230 is the implicit one (no vptr stores, Font released as a member: EH state 1), 0x6D4C40 its deleting form; implicit here it is exact but sclient.cpp loses 0x74D990 (attempts 0x67F230, D203)
+	// ~FontSys: implicit, 0x67F230 (no vptr stores, Font released as a member: EH state 1), 0x6D4C40 its deleting form
 
 	virtual int Class_ID(void) const { return 0x1000D; }					// 0x67EF00  // NAME 2: RenderObjClass's
 	virtual const char *Get_Name(void) const { return "FontSys"; }		// 0x67EF20  // NAME 2: RenderObjClass's
