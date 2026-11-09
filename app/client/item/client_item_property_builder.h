@@ -7,6 +7,8 @@
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "client_item_property_special.h"
+#include "client_item_property_attribute.h"
+#include "..\..\ww3d2\texture.h"
 #include <string>
 #include <vector>
 
@@ -53,6 +55,7 @@ class ItemTemplateInfoClass : public RefCountClass  // NAME 2: the FAIL_IFs '!te
 public:
 	const ItemEffectDescriptionClass &Get_Unknown40() const { return(Unknown40); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
 	const ItemEffectDescriptionClass &Get_Unknown68() const { return(Unknown68); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
+	bool Unknown_840A20(int id, int &value);															// 0x840A20  // NAME 1: neutral (D10); NAME 1 [id, value]
 	char Unknown08[0x40 - 0x08];
 	ItemEffectDescriptionClass Unknown40;																// +0x40  // NAME 1: neutral
 	char Unknown64[0x68 - 0x64];
@@ -83,7 +86,16 @@ class Unknown688830Item  // NAME 1: neutral (D10)
 {
 public:
 	const RefCountPtr<ItemTemplateInfoClass> &Get_Template_Info() const { return(TemplateInfo); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
-	char Unknown00[0x58];
+	TextureClass *Unknown_831840();																		// 0x831840 (its +0x10, with a reference)  // NAME 1: neutral (D10)
+	char Unknown00[0x08];
+	int Unknown08;																						// +0x08 (0x529810's)  // NAME 1: neutral
+	char Unknown0C[0x14 - 0x0C];
+	std::string Name;																					// +0x14 (0x52A360's)  // NAME 2: inv_render.cpp's Get_Name
+	std::string Description;																			// +0x24 (0x529AE0's)  // NAME 2: what 0x521C10 makes of it
+	std::string Unknown34;																				// +0x34 (0x52C770's, flag true)  // NAME 1: neutral
+	char Unknown44[0x48 - 0x44];
+	int Unknown48;																						// +0x48 (0x52FFB0 / 0x530070's)  // NAME 1: neutral
+	char Unknown4C[0x58 - 0x4C];
 	ItemFlagsStruct Flags;																				// +0x58  // NAME 2: the specials 0x5285A0 makes of them
 	RefCountPtr<ItemTemplateInfoClass> TemplateInfo;													// +0x5C  // NAME 2: the FAIL_IFs '!template_info'
 };
@@ -94,6 +106,9 @@ class InvDataPeekClass  // NAME 3: D24 class-from-file for inv_data_peek.cpp
 public:
 	std::string Unknown_68A270(int slot);																// 0x68A270  // NAME 1: neutral (D10); NAME 1 [slot]
 	std::string Unknown_68A450(int slot);																// 0x68A450  // NAME 1: neutral (D10)
+	std::string Unknown_68A8C0(int slot);																// 0x68A8C0 (FAIL_IF '!encoded_info_delta_string')  // NAME 1: neutral (D10)
+	float Unknown_68A010(int slot);																		// 0x68A010 (the quality, -1: none)  // NAME 1: neutral (D10)
+	float Unknown_689F90(int slot);																		// 0x689F90 (the structure, -1: none)  // NAME 1: neutral (D10)
 };
 
 class InvDataClass : public RefCountClass  // NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
@@ -109,6 +124,24 @@ RefCountPtr<ClientItemPropertySpecialEffectClass> Unknown_52B840(const ItemEffec
 // A flag as a special property (its file is not rebuilt)
 class ClientItemPropertySpecialFlagClass : public ClientItemPropertySpecialClass {};  // NAME 1: neutral (D10)
 RefCountPtr<ClientItemPropertySpecialFlagClass> Unknown_52F9E0(int sort, const std::string &label, const std::string &tooltip, int unknown, bool flag);	// 0x52F9E0  // NAME 1: neutral (D10); NAME 1 [sort, label, tooltip, unknown, flag]
+
+// The properties 0x521C10 makes (their files are not rebuilt; each Create allocates the property and hands it to Create_NEW)
+class ClientItemPropertyNameClass : public ClientItemPropertyClass {};									// table 0xAEDDA0 (visitor slot +0x1C)  // NAME 1: neutral (D10)
+class ClientItemPropertyUnknown529810Class : public ClientItemPropertyClass {};						// table 0xAEDD58 (visitor slot +0x14)  // NAME 1: neutral (D10)
+class ClientItemPropertyIconClass : public ClientItemPropertyClass { public: RefCountPtr<TextureClass> IconTexture; };									// table 0xAEDD88 (visitor slot +0x18)  // NAME 3: client_item_property_icon.cpp's; IconTexture +0x08 (0x52A0B0), NAME 2
+class ClientItemPropertyDescriptionClass : public ClientItemPropertyClass {};							// table 0xAEDD70 (visitor slot +0x0C)  // NAME 1: neutral (D10)
+class ClientItemPropertyAttributePercentClass : public ClientItemPropertyAttributeClass {};			// table 0xAEDC7C  // NAME 3: client_item_property_attribute_percent.cpp's
+class ClientItemPropertySpecialMakerClass : public ClientItemPropertySpecialClass {};					// table 0xAEDF00  // NAME 3: client_item_property_special_maker.cpp's
+class ClientItemPropertySpecialUnknown52FFB0Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
+class ClientItemPropertySpecialUnknown530070Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
+RefCountPtr<ClientItemPropertyNameClass> Unknown_52A360(const std::string &name);						// 0x52A360  // NAME 1: neutral (D10); NAME 1 [name]
+RefCountPtr<ClientItemPropertyUnknown529810Class> Unknown_529810(int id);								// 0x529810  // NAME 1: neutral (D10); NAME 1 [id]
+RefCountPtr<ClientItemPropertyIconClass> Unknown_529FC0(const RefCountPtr<TextureClass> &icon_texture);	// 0x529FC0 (FAIL_IF '!icon_texture')  // NAME 1: neutral (D10)
+RefCountPtr<ClientItemPropertySpecialUnknown52FFB0Class> Unknown_52FFB0(int unknown, int value, int id);	// 0x52FFB0  // NAME 1: neutral (D10); NAME 1 [unknown, value, id]
+RefCountPtr<ClientItemPropertySpecialUnknown530070Class> Unknown_530070(int unknown, int id);			// 0x530070  // NAME 1: neutral (D10); NAME 1 [unknown, id]
+RefCountPtr<ClientItemPropertyDescriptionClass> Unknown_529AE0(const std::string &description);		// 0x529AE0  // NAME 1: neutral (D10); NAME 1 [description]
+RefCountPtr<ClientItemPropertyAttributePercentClass> Unknown_520B20(int sort, const std::string &label, const std::string &tooltip, float min, float max, float value, int level);	// 0x520B20 (FAIL_IFs 'label.empty()', 'tooltip.empty()')  // NAME 1: neutral (D10); NAME 1 [sort, min, max, value, level]
+RefCountPtr<ClientItemPropertySpecialMakerClass> Unknown_52C770(const std::string &maker, bool flag);	// 0x52C770  // NAME 1: neutral (D10); NAME 1 [maker, flag]
 
 // What hands an item's properties to a router (16 bytes on the caller's stack: the item examination window's slot +0x94
 // 0x532640, inv_render.cpp's 0x68C3E0 and 0x68C6B0)

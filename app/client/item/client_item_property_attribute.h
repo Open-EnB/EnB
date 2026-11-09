@@ -19,6 +19,7 @@
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\..\shared\g_assert.h"
+#include "..\ui_item_examination_property_router.h"
 
 
 
@@ -63,8 +64,7 @@
 
 
 
-
-class ClientItemPropertyAttributeClass : public RefCountClass  // NAME 2 [ClientItemPropertyAttributeClass]: class from file (D24), client_item_property_attribute.h
+class ClientItemPropertyAttributeClass : public ClientItemPropertyClass  // NAME 2 [ClientItemPropertyAttributeClass]: class from file (D24), client_item_property_attribute.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route)
 {
 public:
 	int Unknown08;																			// +0x08 (operator< compares it)  // NAME 1 [Unknown08]: neutral (D10)
