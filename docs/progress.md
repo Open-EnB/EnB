@@ -4,6 +4,24 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-09 (09:30 PST, morning): P-XR2-1 carried out on XP SP3's msxml.dll (D222); D218-D221 recorded
+
+- **The user's decisions on last night's proposals:** P-IP1-1 yes (D218), P-IP1-2 yes (D219), P-IB2-2 no (D220),
+  P-FN1-1 no for now (D221), with fontsys 0x6CE4E0 / 0x6CD6F0 and ui_mfd 0x5BF350 (two-layer form only) first in §4
+  (item 00). D218 / D219 are not carried out yet (§4, client_item_property_builder.cpp).
+- **P-XR2-1 (D222, c26bd2a9):** msxml.dll 8.00.7002.0 extracted from the user's Windows XP SP3 ISO
+  (`I386\MSXML.DL_`, 7z + expand.exe; `.work/msxml/xp_sp3/`, also msxml2.dll 8.30 / msxml3.dll 8.90, never in the tree);
+  VC6's `#import "msxml.dll"` on a pool VM (`.work/msxml/gentlh.py`), placed whole as app/client/msxml.tlh / .tli
+  (`place.py`), namespace MSXML2 -> MSXML in unknown_7dfed0.*. Evidence (`.work/msxml/guids.py`): client.exe holds
+  MSXML 2.0's DOMDocument CLSID 2933BF90 (0xBA0F90) and IIDs 2933BF80 / 81 / 82 / 83 / 8B, none of MSXML 3.0's; the
+  hand-cut msxml3 header had compiled F6D90F11 (a different object than retail, invisible to pairs); the new object holds
+  2933BF90. verify app against HEAD: 0 gained, 0 lost (0x5FA5F0 kept with the whole header); linkgate passed. Not run:
+  the POC through the registration screen, clienttest's harness (D182).
+- **Aside:** linkgate reports `Sub14CImplClass::Slot15` now resolved in the POC's baseline (likely XR2's, not this
+  change); `linkgate.py check --write-baseline` drops it.
+- **Trap filed** (workflow.md §3.1): `#import` the client's own type library, found by its GUIDs. Heredocs mangle
+  backslashes in Python (CLAUDE.md's rule, hit again): write `.work/` scripts with the editor.
+
 ### 2026-11-09 (05:00 PST, night, 2026-11-08d): the inline-budget rule measured and applied; client_item_property_builder and the item property files, the subs-interface account client and the registration reader over MSXML, ui_jobs, ui_trade, ui_log, ui_guild and ui_guild_list new; 0x752170 back (D217); +735 pairs over the run's baseline, 0 lost outright beyond D66 (vi)'s 0x604150
 
 - **Run** run/2026-11-08d (PR #180), coordinator Opus 5.5 on the subscription, base 3869e813 (#178 / #179 merged), baseline
@@ -3106,7 +3124,9 @@ below name only the work items, the blocked work, the leads and the queues.
    * ui_guild.cpp (provisional): 0x81C380 (the member list rebuilt from a vector of strings) and its string helper
      0x81D290 (calls 0x4FB810 / 0x4FC990).
    * client_item_property_builder.cpp: 0x522860 / 0x521C10 / 0x527F40 (NOT EXACT); ui_item_examination's router /
-     builder stand-ins (need P-IP1-1: UISlotInfoItemClass unified with InvDataClass). client_item_property_attribute.h:
+     builder stand-ins (need D218 carried out first: UISlotInfoItem = InvDataClass, UISlotInfoItemUnknown54Class =
+     InvDataPeekClass in shared headers, ui_item_examination and inv_render onto them); D219: ItemTemplateInfoClass merged
+     into ItemBaseInfoClass (pkitemba.h). client_item_property_attribute.h:
      the client's inline code the tree lacks (13 functions, 18 asserts, used by its includers); the visitor's slot +0x20
      takes a ClientItemPropertyClass * (the base's Accept passes `this`: retype with symbols_named.json `replaces` rows);
      0x51F8E0 (7 bytes, no callers, stores RefCountClass's vtable, between dynamic_window_vertical and the base: an
