@@ -87,7 +87,7 @@ int BuffInfoStruct::Get_Active_Count() const
 
 
 
-// NOT EXACT: register (the static element's zero expiry: the client stores ebx twice, ours a second zeroed register; one instruction)
+// (exact since 0x665940's expiry goes through DurationClass(__int64): the static element's zero expiry stores ebx twice)
 // 0x6656A0
 const BuffElementStruct &BuffInfoStruct::Get_Element(unsigned int index) const
 {
@@ -98,11 +98,11 @@ const BuffElementStruct &BuffInfoStruct::Get_Element(unsigned int index) const
 	return Elements[index];
 }
 
-// NOT EXACT: inline budget (the client calls basic_string::assign for both members, ours inlines it: 52 vs 115 instructions)
-// 0x665940
+// 0x665940 (one dead read in the body: the copies' assign out of line as the client's; the expiry through DurationClass(__int64) for its store order)
 BuffElementStruct::BuffElementStruct(const std::string &source_entity, const std::string &source_object, int magnitude, const DurationClass &expiration_time, bool is_active) :
-	SourceEntity(source_entity), SourceObject(source_object), ExpirationTime(expiration_time), Magnitude(magnitude), IsActive(is_active)
+	SourceEntity(source_entity), SourceObject(source_object), ExpirationTime(expiration_time.Time), Magnitude(magnitude), IsActive(is_active)
 {
+	SourceEntity.size();
 }
 
 // The elements' order (0x667950): the active first, then the larger magnitude, the later expiry, the names
