@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1642 |
 | 2 | describes what the code does | 3822 |
-| 1 | neutral placeholder | 20474 |
+| 1 | neutral placeholder | 20475 |
 
 ## For review (score 3 and below)
 
@@ -5100,6 +5100,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `State` | `app/client/inv_transaction.h:33` | what it holds |
 | 1 | `ToInv` | `app/client/inv_transaction.h:40` | the packet's constructor |
 | 1 | `ToSlot` | `app/client/inv_transaction.h:41` | the packet's constructor |
+| 1 | `Unknown_20` | `app/client/item/client_item_property.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/item/client_item_property_attribute.h:70` | neutral (D10) |
 | 1 | `Unknown688830Item` | `app/client/item/client_item_property_builder.cpp:5` | untagged neutral name (D10) |
 | 1 | `Unknown_521C10` | `app/client/item/client_item_property_builder.cpp:19` | untagged neutral name (D10) |
