@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1655 |
 | 2 | describes what the code does | 3826 |
-| 1 | neutral placeholder | 20652 |
+| 1 | neutral placeholder | 20653 |
 
 ## For review (score 3 and below)
 
@@ -16562,32 +16562,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown302` | `app/client/unknown_6cce60.cpp:110` | untagged neutral name (D10) |
 | 1 | `Unknown464` | `app/client/unknown_6cce60.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown47C` | `app/client/unknown_6cce60.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD6F0` | `app/client/unknown_6cce60.cpp:144` | untagged neutral name (D10) |
-| 1 | `Unknown301` | `app/client/unknown_6cce60.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown270` | `app/client/unknown_6cce60.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown414` | `app/client/unknown_6cce60.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown404` | `app/client/unknown_6cce60.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD6F0` | `app/client/unknown_6cce60.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown301` | `app/client/unknown_6cce60.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown270` | `app/client/unknown_6cce60.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown414` | `app/client/unknown_6cce60.cpp:168` | untagged neutral name (D10) |
+| 1 | `Unknown404` | `app/client/unknown_6cce60.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown303` | `app/client/unknown_6cce60.cpp:171` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD950` | `app/client/unknown_6cce60.cpp:183` | untagged neutral name (D10) |
-| 1 | `Unknown_6CDAB0` | `app/client/unknown_6cce60.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown2F4` | `app/client/unknown_6cce60.cpp:229` | untagged neutral name (D10) |
-| 1 | `Unknown494` | `app/client/unknown_6cce60.cpp:236` | untagged neutral name (D10) |
-| 1 | `Print_Text` | `app/client/unknown_6cce60.cpp:260` | what it does |
-| 1 | `Unknown2F0` | `app/client/unknown_6cce60.cpp:263` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/unknown_6cce60.cpp:264` | untagged neutral name (D10) |
-| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:291` | untagged neutral name (D10) |
-| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:292` | untagged neutral name (D10) |
-| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:306` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/unknown_6cce60.cpp:314` | untagged neutral name (D10) |
-| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:315` | untagged neutral name (D10) |
-| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:320` | untagged neutral name (D10) |
-| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:353` | untagged neutral name (D10) |
-| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:362` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE4E0` | `app/client/unknown_6cce60.cpp:371` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/unknown_6cce60.cpp:385` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE7D0` | `app/client/unknown_6cce60.cpp:397` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:404` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:416` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD950` | `app/client/unknown_6cce60.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown_6CDAB0` | `app/client/unknown_6cce60.cpp:224` | untagged neutral name (D10) |
+| 1 | `Unknown2F4` | `app/client/unknown_6cce60.cpp:231` | untagged neutral name (D10) |
+| 1 | `Unknown494` | `app/client/unknown_6cce60.cpp:238` | untagged neutral name (D10) |
+| 1 | `Print_Text` | `app/client/unknown_6cce60.cpp:264` | what it does |
+| 1 | `Unknown2F0` | `app/client/unknown_6cce60.cpp:267` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/unknown_6cce60.cpp:268` | untagged neutral name (D10) |
+| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:295` | untagged neutral name (D10) |
+| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:310` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/unknown_6cce60.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:326` | untagged neutral name (D10) |
+| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:359` | untagged neutral name (D10) |
+| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:368` | untagged neutral name (D10) |
+| 1 | `Clip_Text` | `app/client/unknown_6cce60.cpp:378` | what it does |
+| 1 | `Unknown_6CE4E0` | `app/client/unknown_6cce60.cpp:385` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/unknown_6cce60.cpp:397` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE7D0` | `app/client/unknown_6cce60.cpp:409` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:416` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:428` | untagged neutral name (D10) |
 | 1 | `Unknown729990Struct` | `app/client/unknown_7294d0.cpp:8` | neutral (D10) |
 | 1 | `client, base_asset, scale` | `app/client/unknown_7294d0.cpp:17` | what 0x7294D0 passes |
 | 1 | `Unknown_729770` | `app/client/unknown_7294d0.cpp:17` | untagged neutral name (D10) |
