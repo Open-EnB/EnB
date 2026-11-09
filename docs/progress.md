@@ -3059,6 +3059,11 @@ below name only the work items, the blocked work, the leads and the queues.
      0x51F8E0 (7 bytes, no callers, stores RefCountClass's vtable, between dynamic_window_vertical and the base: an
      out-of-line inline destructor copy of one of the two).
    * ui_jobs.cpp: 0x5A3FB0 (the client expands the job's delete and list::erase three inline levels down).
+   * ui_trade.cpp: the insertion sort 0x653450 (by price or by name; inline-budget 0.23, stash docs/attempts/0x653450/:
+     ours makes 41 calls against the client's 31, compare which before trying assign forms); the hash-set users
+     0x652030 / 0x6522D0 (likely an SGI hash container local's dtor) / 0x652670; the ctor 0x650560, Init 0x650A40,
+     0x651390, 0x651830; 0x651F60 (register 0.68: the client pushes a zeroed edx twice on the -1 call).
+     ui_talkt.cpp's own UITradeClass stand-in (over Unknown5BB320Class) retypes onto ui_trade.h at its next edit.
    * ui_cpit.cpp: 0x584000's expansions in 0x5821C0 (needs F) and 0x5806E0's last two sites (the client keeps their
      finds / Casts out of line); 0x57D6C0.
    * The inline-budget census (any file): its `o` entries in small callers, lever (a) or (b) (workflow.md §3.1; lab paths
@@ -3203,7 +3208,9 @@ below name only the work items, the blocked work, the leads and the queues.
    'UI_GUILD_LIST', object 0x81E030-0x81F0FF), client_item_property_unknown_529810 / _description / _name /
    _option_auto_fire.cpp (IP2: the property classes 0x529810-0x52B380 without a `__FILE__`), client_item_property.cpp /
    _attribute.cpp / _attribute_distance / _float / _integer / _percent / _seconds / _string.cpp (IP3: 0x51F900-0x521B1F,
-   no asserts).
+   no asserts), ui_trade.h's Unknown59F3D0Class (TR1: ui_inv.cpp's base, ctor 0x59F3D0, 0xD0
+   bytes; the same class as pdaint.h's PDAInventoryWindowClass: merge both into one ui_inv base header at the next
+   ui_inv edit).
 
 9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
