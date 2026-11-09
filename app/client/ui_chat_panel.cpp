@@ -142,15 +142,15 @@ public:
 };
 class Unknown5CE240Class : public UIChatPanelWindowClass { public: Unknown5CE240Class(SClient *client); char Unknown9C[0xC0 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CE240, 0xC0 bytes (request 1)
 class Unknown5CE700Class : public UIChatPanelWindowClass { public: Unknown5CE700Class(SClient *client, int a); char Unknown9C[0xB8 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CE700, 0xB8 bytes (request 2)  // NAME 1 [a]: neutral
-class Unknown5C9910Class : public UIChatPanelWindowClass { public: Unknown5C9910Class(SClient *client, int a, int b); char Unknown9C[0xE4 - 0x9C]; };	// NAME 1: neutral (D10): 0x5C9910, 0xE4 bytes (requests 3, 4)  // NAME 1 [a, b]: neutral
+#include "ui_option_check.h"	// UIOptionCheckClass (0x5C9910, 0xE4 bytes: requests 3, 4)
 class Unknown5CEDD0Class : public UIChatPanelWindowClass { public: Unknown5CEDD0Class(SClient *client, int a, int b); char Unknown9C[0xE4 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CEDD0, 0xE4 bytes (requests 5-7)  // NAME 1 [a, b]: neutral
 class Unknown5CA010Class : public UIChatPanelWindowClass { public: Unknown5CA010Class(SClient *client, int a); char Unknown9C[0x1B0 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CA010, 0x1B0 bytes (request 8)  // NAME 1 [a]: neutral
-class Unknown5C8870Class : public UIChatPanelWindowClass { public: Unknown5C8870Class(SClient *client, int a); char Unknown9C[0xAC - 0x9C]; };	// NAME 1: neutral (D10): 0x5C8870, 0xAC bytes (requests 9, 10)  // NAME 1 [a]: neutral
+#include "ui_option_account.h"	// UIOptionAccountClass (0x5C8870, 0xAC bytes: requests 9, 10)
 
-class Unknown5E9410Class : public UIChatPanelWindowClass { public: Unknown5E9410Class(SClient *client, int mode, std::string channel); char Unknown9C[0xC4 - 0x9C]; };	// NAME 1: neutral (D10): 0x5E9410, 0xC4 bytes (0x566AF0's requests 1, 2, 5, 8: a mode and a channel)  // NAME 1 [mode, channel]: what 0x566AF0 passes
-class Unknown5EAB40Class : public UIChatPanelWindowClass { public: Unknown5EAB40Class(SClient *client, int a); char Unknown9C[0xBC - 0x9C]; };	// NAME 1: neutral (D10): 0x5EAB40, 0xBC bytes (requests 3, 4)  // NAME 1 [a]: neutral
-class Unknown5E6290Class : public UIChatPanelWindowClass { public: Unknown5E6290Class(SClient *client, int a); char Unknown9C[0xC4 - 0x9C]; };	// NAME 1: neutral (D10): 0x5E6290, 0xC4 bytes (requests 6, 7, 9)  // NAME 1 [a]: neutral
-class Unknown5E4160Class : public UIChatPanelWindowClass { public: Unknown5E4160Class(SClient *client); char Unknown9C[0x11C - 0x9C]; };	// NAME 1: neutral (D10): 0x5E4160, 0x11C bytes (request 10, kept at +0xE8 too)
+#include "ui_radio_main.h"	// UIRadioMainClass (0x5E9410, 0xC4 bytes: 0x566AF0's requests 1, 2, 5, 8: a state and a channel)
+#include "ui_radio_join.h"	// UIRadioJoinClass (0x5EAB40, 0xBC bytes: requests 3, 4)
+#include "ui_radio_entry.h"	// UIRadioEntryClass (0x5E6290, 0xC4 bytes: requests 6, 7, 9)
+#include "ui_radio_admin.h"	// UIRadioAdminClass (0x5E4160, 0x11C bytes: request 10, kept at +0xE8 too)
 
 // pdaint.cpp's PDA (SClient +0x1284), as far as 0x565F80 calls it
 class UIChatPanelPDAClass { public: void Unknown_695F40(); };	// NAME 1: neutral (D10): 0x695F40
@@ -1107,10 +1107,10 @@ void ChatPanelInterface::Unknown_565F80()
 			Unknown104 = Create_Get(new Unknown5CE700Class(Client->As_Space_Client(), 1));
 			break;
 		case 3:
-			Unknown104 = Create_Get(new Unknown5C9910Class(Client->As_Space_Client(), 0, 0));
+			Unknown104 = Create_Get((UIChatPanelWindowClass *)new UIOptionCheckClass(Client->As_Space_Client(), 0, 0));
 			break;
 		case 4:
-			Unknown104 = Create_Get(new Unknown5C9910Class(Client->As_Space_Client(), 1, 0));
+			Unknown104 = Create_Get((UIChatPanelWindowClass *)new UIOptionCheckClass(Client->As_Space_Client(), 1, 0));
 			break;
 		case 5:
 			if (Unknown10C) {
@@ -1129,10 +1129,10 @@ void ChatPanelInterface::Unknown_565F80()
 			Unknown104 = Create_Get(new Unknown5CA010Class(Client->As_Space_Client(), 0));
 			break;
 		case 9:
-			Unknown104 = Create_Get(new Unknown5C8870Class(Client->As_Space_Client(), 0));
+			Unknown104 = Create_Get((UIChatPanelWindowClass *)new UIOptionAccountClass(Client->As_Space_Client(), 0));
 			break;
 		case 10:
-			Unknown104 = Create_Get(new Unknown5C8870Class(Client->As_Space_Client(), 1));
+			Unknown104 = Create_Get((UIChatPanelWindowClass *)new UIOptionAccountClass(Client->As_Space_Client(), 1));
 			break;
 		case 11:
 			if (!Unknown_7CA2D0()->Unknown34) {
@@ -1162,34 +1162,34 @@ void ChatPanelInterface::Unknown_566AF0()
 	if (!UnknownFC) return;
 	switch (UnknownFC) {
 		case 1:
-			UnknownF8 = Create_Get(new Unknown5E9410Class(Client->As_Space_Client(), 0, Unknown214));
+			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioMainClass(Client->As_Space_Client(), 0, Unknown214));
 			break;
 		case 2:
-			UnknownF8 = Create_Get(new Unknown5E9410Class(Client->As_Space_Client(), 1, ""));
+			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioMainClass(Client->As_Space_Client(), 1, ""));
 			break;
 		case 3:
-			UnknownF8 = Create_Get(new Unknown5EAB40Class(Client->As_Space_Client(), 0));
+			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioJoinClass(Client->As_Space_Client(), 0));
 			break;
 		case 4:
-			UnknownF8 = Create_Get(new Unknown5EAB40Class(Client->As_Space_Client(), 1));
+			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioJoinClass(Client->As_Space_Client(), 1));
 			break;
 		case 5:
-			UnknownF8 = Create_Get(new Unknown5E9410Class(Client->As_Space_Client(), 2, ""));
+			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioMainClass(Client->As_Space_Client(), 2, ""));
 			break;
 		case 6:
-			UnknownF8 = Create_Get(new Unknown5E6290Class(Client->As_Space_Client(), 0));
+			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioEntryClass(Client->As_Space_Client(), 0));
 			break;
 		case 7:
-			UnknownF8 = Create_Get(new Unknown5E6290Class(Client->As_Space_Client(), 1));
+			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioEntryClass(Client->As_Space_Client(), 1));
 			break;
 		case 8:
-			UnknownF8 = Create_Get(new Unknown5E9410Class(Client->As_Space_Client(), 3, Unknown_5682C0()));
+			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioMainClass(Client->As_Space_Client(), 3, Unknown_5682C0()));
 			break;
 		case 9:
-			UnknownF8 = Create_Get(new Unknown5E6290Class(Client->As_Space_Client(), 2));
+			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioEntryClass(Client->As_Space_Client(), 2));
 			break;
 		case 10:
-			UnknownF8 = Create_Get(new Unknown5E4160Class(Client->As_Space_Client()));
+			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioAdminClass(Client->As_Space_Client()));
 			UnknownE8 = UnknownF8.Peek();
 			break;
 	}
