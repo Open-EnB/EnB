@@ -28,6 +28,7 @@ class ShipRecustomizationCostClass;
 class RecustomizationCostClass;
 class LayerClass;
 class CharacterViewAvatarClass;
+class Unknown78A910AvatarClass;	// NAME 1: neutral (D10)
 
 class SBaseViewClass;
 class LightClass;
@@ -83,7 +84,8 @@ public:
 	~UIStarbaseUnknownCCClass();	// 0x632E50 (not rebuilt)
 	int Unknown00;					// +0x00  // NAME 1: neutral
 	RefCountPtr<CharacterViewAvatarClass> Avatar;	// +0x04 (0x63BDB0 / 0x63C080 / 0x63D2F0)  // NAME 1: what it holds
-	char Unknown08[0x14 - 0x08];	// +0x08
+	RefCountPtr<Unknown78A910AvatarClass> Unknown08;	// +0x08 (0x63D2F0)  // NAME 1: neutral
+	char Unknown0C[0x14 - 0x0C];	// +0x0C
 };
 // What the starbase interface's +0x190 points to (a virtual destructor; its +0x90 goes to the client's slot +0x44)
 class UIStarbaseUnknown190Class	// NAME 1: neutral (D10)

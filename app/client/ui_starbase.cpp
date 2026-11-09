@@ -51,6 +51,13 @@ public:
 	void Unknown_762940(const Vector3 &color);			// 0x762940 (its +0xA0: the ambient colour)  // NAME 1 [color]: what 0x640E90 passes
 };
 
+// The starbase avatar (unknown_78a910.cpp's Unknown78A910AvatarClass)
+class Unknown78A910AvatarClass : public CharacterViewAvatarClass	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_78B570(bool b);						// 0x78B570  // NAME 1 [b]: neutral
+};
+
 // The four rooms (the constructor's index): the key 0x698730 looks up (0xB8A870), the room's model part (0xB8A880),
 // and the race letters by the starbase's column +0x18 (0xB8A950)
 static int Unknown_B8A870[4] = { 0, 1, 3, 2 };	// NAME 1: neutral (D10)
@@ -248,6 +255,102 @@ void UIStarbaseClass::Unknown_63BDB0(const Matrix3D &transform)
 	UnknownC0.E = 0x40;
 	Unknown_63E2B0();
 	Unknown1B4 = 0.0f;
+}
+
+// 0x63C080
+// @0x0063C080
+void UIStarbaseClass::Unknown_63C080(const char *name, bool a, bool b)
+{
+	Matrix3D tm;
+	if (!UnknownC0.D->Avatar) {
+		return;
+	}
+	UnknownC0.D->Avatar->Remove();
+	UnknownC0.D->Avatar = NULL;
+	unsigned int id = ((LineDisplayClientClass *)Client)->AvatarID;
+	UnknownC0.D->Avatar = Create_NEW((CharacterViewAvatarClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_74C7B0(id));
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(UnknownC0.D->Avatar.Peek());
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(UnknownC0.D->Avatar.Peek());
+	UnknownB0->Unknown_69DC80(UnknownC0.D->Avatar, name, b);
+	if (a) {
+		UnknownB0->Unknown_69E510(UnknownC0.D->Avatar->Unknown_787A90());
+	} else {
+		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, 1);
+	}
+	UnknownC0.D->Avatar->Unknown_77E3D0(1);
+	UnknownC0.D->Avatar->Unknown230 = false;
+	UnknownC0.D->Avatar->Unknown36C = true;
+	UnknownC0.D->Avatar->Unknown_785F20(true);
+	UnknownC0.D->Avatar->BodyObj->Set_LOD_Bias(100.0f);
+	UnknownC0.D->Avatar->Unknown_786E60();
+	Unknown_640F50(UnknownC0.D->Avatar.Peek());
+	if (UnknownC0.D->Avatar != NULL) {
+		UnknownC0.D->Avatar->Unknown_786E60();
+	}
+	Unknown214 = false;
+	Unknown215 = false;
+	Unknown216 = false;
+	Unknown217 = false;
+	Unknown218 = false;
+	Unknown219 = false;
+	Unknown21A = false;
+	Unknown1B3 = false;
+	if (Unknown_42EC60(2, 0)) {
+		Unknown21A = true;
+	}
+	UnknownB0->Unknown_6A2430(&Unknown214, &Unknown215, &Unknown216, &Unknown217, &Unknown1B3);
+	if (Unknown1B3 && UnknownC0.D != NULL) {
+		UnknownC0.D->Avatar->Unknown_786B60(false);
+	}
+	tm = UnknownC0.D->Avatar->Unknown330;
+	Unknown1EC = tm.Get_Translation();
+	if (b) {
+		if (!UnknownB0->Unknown_69CBE0()) {
+			UnknownC0.E = 0;
+			Unknown_63E2B0();
+		}
+	} else {
+		UnknownB0->Unknown_69CBE0();
+		UnknownC0.E = 0x40;
+		Unknown_63E2B0();
+	}
+	Unknown1B4 = 0.0f;
+}
+
+// 0x63D2F0
+// @0x0063D2F0
+void UIStarbaseClass::Unknown_63D2F0(int index)
+{
+	if (Unknown13C[index]->Avatar != NULL) {
+		Matrix3D tm1 = Unknown13C[index]->Avatar->Get_Transform();
+		Matrix3D tm2 = UnknownC0.D->Avatar->Get_Transform();
+		Vector3 diff = tm2.Get_Translation() - tm1.Get_Translation();
+		diff.Normalize();
+		Vector3 z = tm2.Get_Z_Vector();
+		Vector3 cross = Vector3::Cross_Product(z, diff);
+		tm1.Set(diff, cross, z, tm1.Get_Translation());
+		Unknown13C[index]->Avatar->Unknown_788700(tm1);
+		tm2.Set(-diff, -cross, z, tm2.Get_Translation());
+		UnknownC0.D->Avatar->Unknown_788700(tm2);
+		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787450(Unknown13C[index]->Avatar.Peek()), 1, 1);
+		Unknown1FC = true;
+	}
+	if (Unknown13C[index]->Unknown08 != NULL) {
+		Unknown13C[index]->Unknown08->Unknown_78A080();
+		Unknown13C[index]->Unknown08->Unknown_78B570(false);
+		Matrix3D tm1 = Unknown13C[index]->Unknown08->Get_Transform();
+		Matrix3D tm2 = UnknownC0.D->Avatar->Get_Transform();
+		Vector3 diff = tm2.Get_Translation() - tm1.Get_Translation();
+		diff.Normalize();
+		Vector3 z = tm2.Get_Z_Vector();
+		Vector3 cross = Vector3::Cross_Product(z, diff);
+		tm1.Set(diff, cross, z, tm1.Get_Translation());
+		Unknown13C[index]->Unknown08->Unknown_788700(tm1);
+		tm2.Set(-diff, -cross, z, tm2.Get_Translation());
+		UnknownC0.D->Avatar->Unknown_788700(tm2);
+		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787450(Unknown13C[index]->Unknown08.Peek()), 1, 1);
+		Unknown1FC = true;
+	}
 }
 
 #pragma auto_inline(on)
