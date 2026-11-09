@@ -162,7 +162,6 @@ void ChatWindowHistoryClass::Unknown_0C(const Vector3 &color, const std::string 
 	ChatWindowHistoryClass::Unknown_08(color, text);
 }
 
-// NOT EXACT: slots and registers: count in the text parameter's slot, i in ebx; the loop's index test calls size() out of line (0x6824F0)
 int ChatWindowHistoryClass::Unknown_08(const Vector3 &color, const std::string &text)
 {
 	if (text.empty()) {
@@ -177,6 +176,7 @@ int ChatWindowHistoryClass::Unknown_08(const Vector3 &color, const std::string &
 		History.push_back(line);
 		Unknown_682730(History.size() - Unknown48 - 1)->Set_Bit_3();
 	} else {
+		History.size(); History.size();
 		for (int i = 0; i < count; i++) {
 			RefCountPtr<ChatLineClass> line = Create_NEW(new ChatLineClass(Unknown58++, Splitter.Get(i), color, i == 0, i + 1 == count));
 			History.push_back(line);
@@ -194,6 +194,7 @@ int ChatWindowHistoryClass::Unknown_08(const Vector3 &color, const std::string &
 		}
 	}
 	unsigned int keep = Unknown44 > Unknown48 ? Unknown44 : Unknown48;
+	History.size(); History.size();
 	while (History.size() > keep) {
 		std::vector< RefCountPtr<ChatLineClass> >::iterator it = History.begin();
 		while (!(*it)->Is_Last()) {
@@ -219,7 +220,6 @@ const RefCountPtr<ChatLineClass> &ChatWindowHistoryClass::Unknown_682770(unsigne
 		return NullLine;
 	}
 	std::vector< RefCountPtr<ChatLineClass> >::iterator it = History.end() - 1;
-
 
 
 
@@ -450,4 +450,7 @@ bool ChatWindowHistoryClass::Unknown_14(const char *command)
 **	Reconstruction notes (client.exe, the object 0x6812A0-0x6831CF; vtable 0xAFC180).
 **	The client's __FILE__ 0xB8DBA8 is used by 0x682770 (lines 412 and 418), which walks this class's vector at +8 (the assert's
 **	History) and returns its +0x40. The vtable's slots: 0x681610 (deleting), 0x6817E0, 0x6821F0, 0x6821C0, 0x682080, 0x6828D0.
+**	Slot +0x08 0x6821F0 (W2, 2026-11-08): two dead History.size() reads before the split lines' loop and two before the trim
+**	loop spend the inline budget as the client did: the loop's Unknown_682730 calls size() out of line (0x6829C0) and erase
+**	destroys through the scalar deleting destructor 0x683160 with 0.
 */
