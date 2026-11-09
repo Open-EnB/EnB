@@ -466,7 +466,7 @@ InvDataClass *UIInvClass::Unknown_59FE10()
 
 
 
-// NOT EXACT: 0.60: the client keeps the slot in edi and the button test in the event's argument slot, this the gadget in edi (register allocation; the parameter not shadowed: the same)
+// NOT EXACT: 0.62: the client keeps the slot in edi and the button test in the event's argument slot, this the gadget in edi and a frame slot (register allocation; tried: no shadowed parameter, the event's bit as a bitfield)
 // 0x59FE30
 bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *event, unsigned int mask)
 {
@@ -485,8 +485,7 @@ bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *
 		UIInvGadgetClass *gadget = (UIInvGadgetClass *)slot_gadget;
 		FAIL_IF(!gadget->As_SlotDataShortcutGadget()) return(false);
 		if (down) {
-			EquipUsePacketClass packet(((ClientClass *)Client)->ShipID, InvType, slot);
-			((ClientClass *)Client)->Send_Packet(&packet);
+			((ClientClass *)Client)->Send_Packet(&EquipUsePacketClass(((ClientClass *)Client)->ShipID, InvType, slot));
 		}
 		return(true);
 	}
@@ -510,6 +509,7 @@ bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *
 	}
 	return(false);
 }
+
 
 
 
@@ -756,8 +756,7 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 				sclient->Unknown_74D990(0x11, "Cannot perform action while incapacitated.", 0);
 				return(true);
 			}
-			EquipUsePacketClass packet(sclient->ShipID, InvType, from_slot);
-			sclient->Send_Packet(&packet);
+			sclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));
 			return(true);
 		}
 		int mode = SlotDrag->Unknown1C;
@@ -845,6 +844,7 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 	}
 	return(!Is_Busy());
 }
+
 
 
 
