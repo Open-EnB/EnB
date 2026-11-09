@@ -10,6 +10,7 @@
 #include <vector>
 #include <list>
 #include "ui_chat_panel.h"
+#include "ui_guild_list.h"	// UIGuildListClass: the guild list window (the window's +0xBC)
 #include "sclient.h"
 #include "gadget.h"
 #include "gd_slider.h"
@@ -30,18 +31,6 @@ public:
 	~UIGuildMemberClass() {}							// 0x81AD80 (inline, called out of line; deleting 0x81AD50)
 	std::string Name;									// +0x00 (the rows' 'name%02d_TSI35a')  // NAME 2: its style's
 	std::string Location;								// +0x10 ('LOCATION%02d_TSI35a'; '(offline)')  // NAME 2: its style's
-};
-
-// The guild list window ('UI_GUILD_LIST', 'tsi36a': 0xE8 bytes, constructor 0x81E030; the next object), as far as
-// the guild window uses it
-class UIGuildListClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltip section 'UI_GUILD_LIST'
-{
-public:
-	UIGuildListClass(SClient *client);					// 0x81E030  // NAME 1 [client]: ChatPanelUIBase's
-	int Unknown0A0;										// +0xA0
-	int Unknown0A4;										// +0xA4
-	int Unknown0A8;										// +0xA8 (the guild window's slot +0x60: 1 or 2 closes it)
-	char Unknown0AC[0xE8 - 0xAC];						// +0xAC
 };
 
 // The guild window (0x190 bytes; constructor 0x819420 over ui_chat_panel_base.cpp's 0x56D280, destructor 0x8196D0,

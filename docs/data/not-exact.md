@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-695 entries in 208 files.
+696 entries in 209 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -384,10 +384,11 @@ edit the comments in the code, not this file.
 | `app/client/ui_group.cpp:1256` | `UIGroupClass::Unknown_596770` | marker | NOT EXACT: inline budget (the client calls auxdata.h's find 0x5927E0 out of line in both branches yet still calls vector::size 0x598920 and the temporary string's _Tidy out of line; a find wrapper sends the find out but frees the budget, 0.45-0.60) |
 | `app/client/ui_group.cpp:1529` | `UIGroupClass::Unknown_597650` | marker | NOT EXACT: register (the client tests View->Unknown34's Active in cl and reads the pointer again for 0x5890B0; Get_Unknown34() / Is_Active() tried) |
 | `app/client/ui_group.cpp:1749` | `UIGroupClass::Unknown_597E40` | marker | NOT EXACT: inline budget (D130: needs 13 dead reads, over the limit of 6; the client calls rtti.h's cast 0x598D80 out of line at the last two lookups) |
-| `app/client/ui_guild.cpp:199` | `UIGuildClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase out of line; ours expands it) and one register (0x819FB0) 0x819FB0 |
-| `app/client/ui_guild.cpp:263` | `UIGuildClass::Unknown_68` | marker | NOT EXACT: inline budget (the inlined row click 0x81B3F0 expands the name's _Eos, the client calls it) (0x81A420) 0x81A420 |
-| `app/client/ui_guild.cpp:414` | `UIGuildClass::Unknown_81AEB0` | marker | NOT EXACT: scheduling only (the client computes the vector's address for the inlined clean-up's erase before saving edi) (0x81AEB0) 0x81AEB0 |
-| `app/client/ui_guild.cpp:606` | `UIGuildClass::Unknown_81CB90` | marker | NOT EXACT: registers only (the stats case's c_str in ecx, ours eax) (0x81CB90) 0x81CB90 |
+| `app/client/ui_guild.cpp:188` | `UIGuildClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase out of line; ours expands it) and one register (0x819FB0) 0x819FB0 |
+| `app/client/ui_guild.cpp:252` | `UIGuildClass::Unknown_68` | marker | NOT EXACT: inline budget (the inlined row click 0x81B3F0 expands the name's _Eos, the client calls it) (0x81A420) 0x81A420 |
+| `app/client/ui_guild.cpp:403` | `UIGuildClass::Unknown_81AEB0` | marker | NOT EXACT: scheduling only (the client computes the vector's address for the inlined clean-up's erase before saving edi) (0x81AEB0) 0x81AEB0 |
+| `app/client/ui_guild.cpp:595` | `UIGuildClass::Unknown_81CB90` | marker | NOT EXACT: registers only (the stats case's c_str in ecx, ours eax) (0x81CB90) 0x81CB90 |
+| `app/client/ui_guild_list.cpp:38` | `UIGuildListClass::~UIGuildListClass` | marker | NOT EXACT: register allocation only (this in edi and the loops in esi; the client swaps them) (0x81E1E0) 0x81E1E0 |
 | `app/client/ui_item_examination_description.cpp:3` | `UIItemExaminationDescriptionClass::UIItemExaminationDescriptionClass` | marker | NOT EXACT: frame (explain.py): 0x24 bytes in the client, 0x2C here (the Vector2 temporary gets its own slot and its stores come after the string's); a named Vector2 local gives the client's frame but inlines the second string's _Eos (attempts.csv 0x534CA0) |
 | `app/client/ui_item_examination_description.cpp:39` | `UIItemExaminationDescriptionClass::Set_Description` | mention | NOT EXACT), the destructor 0x534F80 (deleting 0x534F50), Clear 0x535060 and Set_Description 0x5351D0 exact; its guarded initialiser 0x5352A0 is byte-identical to ui_item_examination.cpp's 0x532B40, which takes the pair. |
 | `app/client/ui_jobs.cpp:821` | `UIJobsClass::Unknown_5A3FB0` | marker | NOT EXACT: inline budget (0x5A4430 inlined with Unknown_Remove_Job inside it: the client expands its delete to 0x5A2250 + operator delete and inlines the list's erase, ours calls the scalar deleting destructor and erase; attempts.csv) (0x5A3FB0) @0x5A3FB0 |
