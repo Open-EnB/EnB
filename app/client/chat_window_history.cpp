@@ -2,7 +2,6 @@
 #include "..\shared\g_assert.h"
 #include <string.h>
 
-// NOT EXACT: Text's copy is inlined here; the client calls string's copy constructor (0x681400), and everything after it shifts
 ChatWindowHistoryClass::ChatWindowHistoryClass(int unknown) :
 	Splitter(RefCountPtr<Font32Class>(), NULL, 0.0f, 0),
 	Unknown44(unknown),
@@ -13,6 +12,7 @@ ChatWindowHistoryClass::ChatWindowHistoryClass(int unknown) :
 	Unknown58(0),
 	Unknown5C(false)
 {
+	History.size(); History.size();
 	NullLine = Create_NEW(new ChatLineClass(-1, "", Vector3(0.0f, 0.0f, 0.0f), true, true));
 	NullLine->Null = true;
 	Splitter.Set_Trim_Lines(false);
@@ -452,5 +452,6 @@ bool ChatWindowHistoryClass::Unknown_14(const char *command)
 **	History) and returns its +0x40. The vtable's slots: 0x681610 (deleting), 0x6817E0, 0x6821F0, 0x6821C0, 0x682080, 0x6828D0.
 **	Slot +0x08 0x6821F0 (W2, 2026-11-08): two dead History.size() reads before the split lines' loop and two before the trim
 **	loop spend the inline budget as the client did: the loop's Unknown_682730 calls size() out of line (0x6829C0) and erase
-**	destroys through the scalar deleting destructor 0x683160 with 0.
+**	destroys through the scalar deleting destructor 0x683160 with 0. The constructor 0x6812C0 likewise: two dead reads
+**	first, and NullLine's Text is copied by string's copy constructor out of line (0x681400) as the client's.
 */

@@ -247,14 +247,14 @@ bool ChatWindowClass::Unknown_04(unsigned int max_lines, unsigned int width)
 	return changed;
 }
 
-// NOT EXACT: the clamp of `spaces` only: the client tests spaces < 1 twice (0x67E78C, 0x67E79D); VC6 folds the second here
+// The clamp is macro-style, 8 / width in each arm: the client tests it against 1 twice (0x67E78C, 0x67E79D)
 void ChatWindowClass::Unknown_67E670()
 {
 	RefCountPtr<ChatFontSys> font = Create_NEW(new ChatFontSys(Name.c_str()));
 	Font = *(const RefCountPtr<Font32Class> *)&font->Font;  // FontSys::Font is held like a RefCountPtr here (0x67E71F)
 	int width = (int)(Font->Get_Char_Width(' ', 640.0f) < 1.0f ? 1.0f : Font->Get_Char_Width(' ', 640.0f));
-	int spaces = 8 / width;
-	int count = (unsigned int)(spaces < 1 ? 1 : spaces) > 3 ? 3 : (spaces >= 1 ? spaces : 1);
+	int count = (unsigned int)(8 / width < 1 ? 1 : 8 / width) > 3 ?
+		3 : (8 / width < 1 ? 1 : 8 / width);
 	memset(UnknownBC, ' ', count);
 	UnknownBC[count] = 0;
 	Set_Font(Font);
@@ -500,13 +500,13 @@ bool ChatFontSys::Unknown_680320(const char *indent, RefCountPtr<SceneClass> sce
 	}
 	return changed;
 }
-// NOT EXACT: the height is kept in two stack slots in the client (fst [esp+0xC]; fstp [esp+8], frame 4 larger); the rest is the client form
+// The height and the count are each Top - Bottom: the client stores both (fst [esp+0xC]; fstp [esp+8])
 void ChatWindowClass::Unknown_6804E0(const RectClass &rect)
 {
 	Rect = rect;
 	float line_height = Font->Get_Line_Height(480.0f);
 	float height = Rect.Top - Rect.Bottom;
-	float count = height;
+	float count = Rect.Top - Rect.Bottom;
 	int lines = 1;
 	LineHeight = line_height;
 	if (count > 0.0f && line_height > 0.0001f) {
