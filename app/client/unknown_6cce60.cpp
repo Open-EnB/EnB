@@ -373,7 +373,15 @@ void FontSys::Change_Text(const char *text, int unknown)
 
 // 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text printed again with it (with
 // "..." while +0x406 says the line is clipped); the effects SWITCH / REVERT (0x6CA0C0) call it.
-// NOT EXACT: inline-budget (attempts.csv): the client calls operator+= ("...") out of line; the stores are its order
+// The "..." through an inline layer with the +0x406 test inside: one level deeper, VC6's budget calls operator+=
+// out of line as the client does (dead spenders at the top level never do: they drop the copy's operator= instead)
+static inline void Clip_Text(FontSys *f, StringClass &text)	// NAME 1 [Clip_Text]: what it does
+{
+	if (f->Unknown406) {
+		text += "...";
+	}
+}
+
 void FontSys::Unknown_6CE4E0(int font_index)
 {
 	FontIndex = font_index;
@@ -384,9 +392,7 @@ void FontSys::Unknown_6CE4E0(int font_index)
 		FontIndex = 1;
 	}
 	StringClass text(Info.Text);
-	if (Unknown406) {
-		text += "...";
-	}
+	Clip_Text(this, text);
 	char *buffer = text.Get_Buffer(Unknown2F0.Get_Length());
 	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
 	Font = font->font32Ptr;
