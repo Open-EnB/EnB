@@ -29,37 +29,7 @@ bool Unknown_5FAE70();
 
 #ifdef __UI_REGISTRATION_MEMBERS
 // ui_registration.cpp's classes (provisional place, D137: only that file sees them)
-class Sub14CClass {  // NAME 1 [Sub14CClass]: vtable 0xAF7130 (0x5F03B0, _purecall, the shared 0x5F0170 / 0x5F0280 / 0x5F02A0)
-public:
-	virtual ~Sub14CClass() {}
-	virtual void Slot1() = 0;
-	virtual void Slot2() = 0;
-	virtual void Slot3() = 0;
-	virtual void Slot4() = 0;
-	virtual void Slot5() = 0;
-	virtual void Slot6() = 0;
-	virtual void Slot7() = 0;
-	virtual void Slot8() = 0;
-	virtual void Slot9() = 0;
-	virtual std::string Slot10() { return std::string(""); }  // NAME 1 [Slot10]: slot 0x28, 0x5F0170
-	virtual int Slot11() = 0;  // NAME 1 [Slot11]: slot 0x2C (0x5FB950 hands its result to slot 0x30)
-	virtual const char *Slot12(int arg) = 0;  // NAME 1 [Slot12]: slot 0x30
-	virtual void Slot13() = 0;
-	virtual void Slot14() {}  // NAME 1 [Slot14]: slot 0x38, 0x5F0280
-	virtual std::string Slot15() { return std::string(""); }  // NAME 1 [Slot15]: slot 0x3C, 0x5F02A0
-	virtual void Slot16() = 0;
-};
-
-// The second base at +0x84 (table 0xAF7184 while constructing: destructor 0x5F00A0 / 0x5F0120, three empty slots
-// 0x5F00C0 / 0x5F00E0 / 0x5F0100; the interface's table 0xAF6FF4 overrides them with 0x600000 / 0x5FB950 / 0x5FB9F0)
-class RegistrationCallbackClass  // NAME 1 [RegistrationCallbackClass]: neutral (D10): the server's replies reach the screen through it
-{
-public:
-	virtual ~RegistrationCallbackClass() {}
-	virtual void Unknown_5F00C0() {}
-	virtual void Unknown_5F00E0() {}
-	virtual void Unknown_5F0100() {}
-};
+#include "unknown_7cef30.h"
 
 // What the implementation holds at +0x18 (0x48 bytes: table 0xB073C8, a second 0xB073B0 at +4; 0x7E1E40 / 0x7E1F10)
 class Sub14CUnknown18Class  // NAME 1 [Sub14CUnknown18Class]: neutral (D10)
@@ -95,7 +65,7 @@ public:
 	virtual ~Sub14CImplClass() { Slot2(); }
 	virtual void Slot1();	// 0x7E0070
 	virtual void Slot2();	// 0x7E0180
-	virtual void Slot3();	// 0x7E01B0
+	virtual std::string Slot3(const char *path, int index, const char *name);	// 0x7E01B0
 	virtual void Slot4();	// 0x7E0960
 	virtual void Slot5();	// 0x7E09F0
 	virtual void Slot6();	// 0x7E0A80
@@ -104,7 +74,7 @@ public:
 	virtual void Slot9();	// 0x7E1940
 	virtual int Slot11();	// 0x7E1C60
 	virtual const char *Slot12(int arg);	// 0x7E1C80
-	virtual void Slot13();	// 0x7E1290
+	virtual bool Slot13(SubsRequestClass *request, int callback);	// 0x7E1290
 	virtual void Slot14();	// 0x7E1A20
 	virtual std::string Slot15();	// 0x7E1310
 	virtual void Slot16();	// 0x7E15B0
@@ -117,16 +87,6 @@ public:
 	Sub14CUnknown10Ptr Unknown10;	// +0x10
 	int Unknown14;			// +0x14
 	Sub14CUnknown18Class Unknown18;	// +0x18
-};
-
-// What the reply reader 0x7D1AC0 returns (0x5FB9F0 assigns it member by member to +0x390)
-struct RegistrationErrorStruct  // NAME 1 [RegistrationErrorStruct]: neutral (D10)
-{
-	RegistrationErrorStruct() : Unknown10(0) {}
-	std::string Unknown00;		// +0x00
-	short Unknown10;			// +0x10: the error number ('%s\n(%d)'; -1: none)
-	std::string Unknown14;		// +0x14: the error text
-	std::string Unknown24;		// +0x24
 };
 
 class RegistrationInterface;  // NAME 1 [RegistrationInterface]: provisional (D137)
@@ -156,23 +116,6 @@ struct RegistrationUnknown5A8Struct  // NAME 1 [RegistrationUnknown5A8Struct]: n
 	std::string Unknown04;		// +0x04: the text
 };
 
-// The 0x5C-byte entries of the interface's vector +0x578 (0x5F9C90 shows the ones whose id list holds +0x38C)
-struct RegistrationUnknown578Struct  // NAME 1 [RegistrationUnknown578Struct]: neutral (D10)
-{
-	RegistrationUnknown578Struct() : Unknown00(""), Unknown10(""), Unknown20(0), Unknown24(""), Unknown34(""), Unknown44(0), Unknown48(0) {}
-	std::string Unknown00;		// +0x00 (0x5FA900: 0x7D9790's third string)
-	std::string Unknown10;		// +0x10
-	int Unknown20;				// +0x20
-	std::string Unknown24;		// +0x24: the text handed to the combo box
-	std::string Unknown34;		// +0x34
-	int Unknown44;				// +0x44
-	int Unknown48;				// +0x48: the sort key (0x60BCF0)
-	std::vector<int> Unknown4C;	// +0x4C: the ids it applies to
-
-	// 0x60BCF0 (std::sort's in 0x5FA5F0, by value: it destroys its copy)
-	bool operator<(RegistrationUnknown578Struct other) const { return Unknown48 < other.Unknown48; }
-};
-
 // The 0x14-byte entries of the interface's vector +0x88 (0x5F8FD0 reads them from [CardPrefixes]; their operator= is 0x4450B0)
 struct RegistrationCardPrefixStruct  // NAME 1 [RegistrationCardPrefixStruct]: the INI keys card%02dprefix / card%02did
 {
@@ -180,27 +123,6 @@ struct RegistrationCardPrefixStruct  // NAME 1 [RegistrationCardPrefixStruct]: t
 	int Id;						// +0x10: card%02did  // NAME 1 [Id]: the INI key
 
 	bool Is_Prefix_Of(const char *text) const;	// 0x5F2950  // NAME 1 [Is_Prefix_Of, text]: what it does
-};
-
-// The account details the interface holds at +0x3C4 (0xB4 bytes; the constructor 0x5EF0B0, 0x600000's copy from
-// 0x7D21C0; 0x7D4E30 reads +0x58, +0x60, +0x70, +0x7C..+0x7E, +0x90, +0x91)
-struct RegistrationUnknown3C4Struct  // NAME 1 [RegistrationUnknown3C4Struct]: neutral (D10)
-{
-	RegistrationUnknown3C4Struct() : Unknown50(0x41), Unknown54(0), Unknown58(0), Unknown7C(0), Unknown7D(0), Unknown7E(0), Unknown90(0), Unknown91(0) {}
-	std::string Unknown00[5];	// +0x00
-	int Unknown50;				// +0x50 (+0x414): 'A'
-	int Unknown54;				// +0x54
-	int Unknown58;				// +0x58
-	std::string Unknown5C;		// +0x5C
-	std::string Unknown6C;		// +0x6C
-	char Unknown7C;				// +0x7C: the day of the month (the constructor)
-	char Unknown7D;				// +0x7D: the month (from 1)
-	short Unknown7E;			// +0x7E: the year
-	std::string Unknown80;		// +0x80 (+0x444 in the interface): 'US' when empty (0x5FA900)
-	bool Unknown90;				// +0x90
-	bool Unknown91;				// +0x91
-	std::string Unknown94;		// +0x94
-	std::string UnknownA4;		// +0xA4
 };
 
 // What the interface holds at +0x478 (0xE8 bytes; destructor 0x5F0CC0)
@@ -230,24 +152,6 @@ struct RegistrationUnknown568Struct  // NAME 1 [RegistrationUnknown568Struct]: n
 	~RegistrationUnknown568Struct();
 	char Unknown00[0xF4];
 };
-
-// What the interface holds at +0x1AC (the function-static 0xBDA960: 0x5FB9F0 / 0x600000 ask it for the reply)
-class RegistrationUnknown1ACClass  // NAME 1 [RegistrationUnknown1ACClass]: neutral (D10)
-{
-public:
-	RegistrationUnknown1ACClass() : Unknown04(0) {}
-	virtual ~RegistrationUnknown1ACClass() { Unknown_7CF190(); }	// 0x5F0680; the atexit 0x5F0660
-	static void Unknown_7CF190();					// 0x7CF190 (clears its globals; the constructor's and 0x5F1660's)
-	void Unknown_7CEF30(Sub14CClass *a, const char *url, const char *page, const char *version, RegistrationCallbackClass *callback);	// 0x7CEF30 (the constructor)  // NAME 1 [a, url, page, version, callback]: the [Connection] keys
-	RegistrationErrorStruct Unknown_7D1AC0();	// 0x7D1AC0 (the reply's '/status', '/message', '/url')
-	std::vector<RegistrationUnknown578Struct> Unknown_7D3570();	// 0x7D3570 (0x5FA0B0, 0x5FA5F0, 0x600000)
-	bool Unknown_7D4E30(const char *a, const char *b, RegistrationUnknown3C4Struct *info, const char *c, bool d, int e, int f);	// 0x7D4E30 ('addAcctInfo')  // NAME 1 [a, b, info, c, d, e, f]: neutral
-	bool Unknown_7D5600(const char *a, const char *b, RegistrationUnknown3C4Struct *info, bool d, int e);	// 0x7D5600  // NAME 1 [a, b, info, d, e]: neutral
-	bool Unknown_7D9790(const char *a, const char *b, const char *c, int payment_type, const char *code, const char *gt_pricing, const char *gt_code, bool send_email, int f);	// 0x7D9790 ('payment_type' itoa, 'gt_pricing_selection_id', 'gt_validation_code', 'send_email')  // NAME 1 [a, b, c, payment_type, code, gt_pricing, gt_code, send_email, f]: the request keys they fill
-
-	char Unknown04;
-};
-
 
 // The buttons' map value (0x18 bytes: 0x5F2B20 fills it, 0x5F3470 / 0x5F1A10 pick by the group +0x12)
 struct RegistrationButtonStruct  // NAME 1 [RegistrationButtonStruct]: neutral (D10)

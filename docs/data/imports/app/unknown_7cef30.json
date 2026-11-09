@@ -1,0 +1,45 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "the account server's 'subs-interface' requests and replies (client 0x7CECC0-0x7DFE70: globals, 0x7CEF30 / 0x7CF190, SubsRequestClass 0x7D4D60-0x7DC8F0). File PROVISIONAL (D137: no __FILE__ or assert)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x4407B0",
+  "0x4E2CC0",
+  "0x7CECF0",
+  "0x7CEDB0",
+  "0x7CEE70",
+  "0x7CEF30",
+  "0x7CF190",
+  "0x7D4D60",
+  "0x7D4E00",
+  "0x7DBDA0",
+  "0x7DC420"
+ ],
+ "merged": [],
+ "name": "client/unknown_7cef30.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x4407B0",
+  "0x4E2CC0"
+ ],
+ "short_known": [
+  "0x42D120"
+ ]
+}
