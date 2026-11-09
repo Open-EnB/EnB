@@ -2017,21 +2017,22 @@ void UICpitClass::Unknown_5845A0()
 }
 
 // 0x584690: the incapacitance details (INCAPACITANCE_DETAILS 144) onto the +0xE0 question, shown
-// NOT EXACT: inline budget (the client calls the vectors' erase out of line, 0x4FC7C0; ours expands it)
+// clear() and push_back: the client's erase 0x4FC7C0 and insert(it, x) sit one layer down, out of line (the last
+// two push_backs' insert inlined to insert(it, 1, x))
 void UICpitClass::Unknown_584690(IncapacitanceDetailsPacket *packet)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
 	if (sclient && sclient->BridgeInterface) sclient->BridgeInterface->Unknown_53B770();
 	std::vector<std::string> first;
 	std::vector<std::string> second;
-	first.erase(first.begin(), first.end());
-	second.erase(second.begin(), second.end());
-	first.insert(first.end(), packet->Unknown138);
-	first.insert(first.end(), packet->Unknown148);
-	first.insert(first.end(), packet->Unknown158);
-	second.insert(second.end(), packet->Unknown168);
-	second.insert(second.end(), 1, packet->Unknown178);
-	second.insert(second.end(), 1, packet->Unknown188);
+	first.clear();
+	second.clear();
+	first.push_back(packet->Unknown138);
+	first.push_back(packet->Unknown148);
+	first.push_back(packet->Unknown158);
+	second.push_back(packet->Unknown168);
+	second.push_back(packet->Unknown178);
+	second.push_back(packet->Unknown188);
 	Unknown0E0->Unknown_552FC0(&packet->Desc);
 	Unknown0E0->Unknown_553370(packet->Unknown128);
 	Unknown0E0->Unknown_553500(first);
@@ -2039,7 +2040,6 @@ void UICpitClass::Unknown_584690(IncapacitanceDetailsPacket *packet)
 	Unknown0E0->Unknown_58();
 	Unknown0E4 = true;
 }
-
 
 
 
