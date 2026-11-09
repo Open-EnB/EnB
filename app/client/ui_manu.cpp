@@ -255,7 +255,7 @@ void UIManuClass::Unknown_58()
 		Unknown5BB320Class::Unknown_58();
 		ClientObjectClass *target = Client->As_Space_Client()->Unknown_74BF80();
 		if (target) {
-			Unknown0BA0 = target->AuxData;
+			Unknown0BA0 = (DeltaCompoundClass *)target->AuxData;
 		}
 		Unknown_5B4B10();
 		Unknown_5B3E00();
@@ -391,7 +391,7 @@ int UIManuComponentsClass::UnknownGlobal;
 bool Unknown_846210(int validity);						// 0x846210: the attempt succeeded (the 'Validity' value)  // NAME 1 [validity]: neutral
 static const char *Unknown_B81880[] = { "Manufacturing Target", "Attempt Succeeded", "N/A", " " };	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
-
+template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_analyze.cpp's (two inline layers: the client's finds 0x546780 / 0x5467F0 out of line in 0x5B4680)
 // NOT EXACT: frame (sub esp 0xAC vs the client's 0x9C: the client keeps the 0x10-byte key event in another local's slot; the instructions otherwise the same, 741 = 741; a named event in its own block, the name block, the buffer's block: no) (0x5AFFC0)
 void UIManuClass::Unknown_54()
 {
@@ -1249,15 +1249,13 @@ void UIManuClass::Unknown_5B42F0(int level)
 	}
 }
 
-// NOT EXACT: inline budget (the client calls both finds out of line, 0x546780 / 0x5467F0) (0x5B4680)
+// The finds through Unknown_Find_Valid (two inline layers, above): out of line as the client's (0x5B4680)
 void UIManuClass::Unknown_5B4680()
 {
-	NameClass name("CurrentItemCategory");
-	UIManuCurrentCategoryClass *current = Unknown_Find_Field<UIManuCurrentCategoryClass>((DeltaCompoundClass *)Unknown0BA0, name);
-	if (current && current->Unknown70) {
-		NameClass categories_name("PrimaryCategories");
-		UIManuCategoriesClass *categories = Unknown_Find_Field<UIManuCategoriesClass>((DeltaCompoundClass *)Unknown0BA0, categories_name);
-		if (categories && categories->Unknown70) {
+	UIManuCurrentCategoryClass *current = Unknown_Find_Valid<UIManuCurrentCategoryClass>(Unknown0BA0, "CurrentItemCategory");
+	if (current) {
+		UIManuCategoriesClass *categories = Unknown_Find_Valid<UIManuCategoriesClass>(Unknown0BA0, "PrimaryCategories");
+		if (categories) {
 			UIManuNodeClass *tree = (UIManuNodeClass *)categories;
 			for (unsigned int a = 0; a < tree->Unknown084.size(); a++) {
 				UIManuLevel1Class *level1 = tree->Unknown084[a];
@@ -1279,6 +1277,8 @@ void UIManuClass::Unknown_5B4680()
 		}
 	}
 }
+
+
 
 // NOT EXACT: register (as 0x5B2480) (0x5B4850)
 void UIManuClass::Unknown_5B4850()
