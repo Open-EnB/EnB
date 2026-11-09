@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1618 |
 | 2 | describes what the code does | 3792 |
-| 1 | neutral placeholder | 19607 |
+| 1 | neutral placeholder | 19628 |
 
 ## For review (score 3 and below)
 
@@ -16324,51 +16324,72 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `MemoryServerClass` | `app/common/memconn.h:71` | describes what it is |
 | 1 | `MemoryListenerClass` | `app/common/memconn.h:78` | describes what it is |
 | 1 | `MemoryConnectionFactoryClass` | `app/common/memconn.h:97` | describes what it is |
-| 1 | `OptionChoiceStruct` | `app/common/optdlg.cpp:16` | neutral (D10) |
-| 1 | `Display` | `app/common/optdlg.cpp:18` | neutral |
-| 1 | `Value` | `app/common/optdlg.cpp:19` | neutral |
-| 1 | `OptionControlStruct` | `app/common/optdlg.cpp:22` | neutral (D10) |
-| 1 | `Id` | `app/common/optdlg.cpp:24` | neutral |
-| 1 | `Name` | `app/common/optdlg.cpp:25` | neutral |
-| 1 | `Type` | `app/common/optdlg.cpp:26` | neutral |
-| 1 | `Choices` | `app/common/optdlg.cpp:27` | neutral |
-| 1 | `OptionPageStruct` | `app/common/optdlg.cpp:31` | neutral (D10) |
-| 1 | `Name` | `app/common/optdlg.cpp:33` | neutral |
-| 1 | `Id` | `app/common/optdlg.cpp:34` | neutral |
-| 1 | `Proc` | `app/common/optdlg.cpp:35` | neutral |
-| 1 | `Window` | `app/common/optdlg.cpp:36` | neutral |
-| 1 | `Unknown_847630` | `app/common/optdlg.cpp:39` | the Account page's procedure |
-| 1 | `Unknown_BAF730` | `app/common/optdlg.cpp:41` | neutral (D10), the page table |
-| 1 | `Unknown_BAF740` | `app/common/optdlg.cpp:45` | neutral (D10) |
-| 1 | `Unknown_BAF748` | `app/common/optdlg.cpp:47` | neutral (D10), the Account page's controls |
-| 1 | `Unknown_846D10` | `app/common/optdlg.cpp:53` | neutral (D10), one control set from startup.arg's options  // NAME 1 [control, dialog]: neutral |
-| 1 | `Unknown_846B80` | `app/common/optdlg.cpp:56` | neutral (D10), the folder browser's callback (BFFM_INITIALIZED selects the folder lpData names) |
-| 1 | `path` | `app/common/optdlg.cpp:59` | neutral |
-| 1 | `Unknown_846CD0` | `app/common/optdlg.cpp:72` | neutral (D10), a page's controls set (the page procedures inline it)  // NAME 1 [controls, dialog]: neutral |
-| 1 | `value` | `app/common/optdlg.cpp:91` | neutral |
-| 1 | `text` | `app/common/optdlg.cpp:93` | neutral |
-| 1 | `value` | `app/common/optdlg.cpp:98` | neutral |
-| 1 | `found` | `app/common/optdlg.cpp:101` | neutral |
-| 1 | `index` | `app/common/optdlg.cpp:118` | neutral |
-| 1 | `Unknown_846FC0` | `app/common/optdlg.cpp:128` | neutral (D10), a page's controls into the options and the file  // NAME 1 [controls, file, dialog]: neutral |
-| 1 | `control` | `app/common/optdlg.cpp:131` | neutral |
-| 1 | `text` | `app/common/optdlg.cpp:146` | neutral |
-| 1 | `selection` | `app/common/optdlg.cpp:157` | neutral |
-| 1 | `last` | `app/common/optdlg.cpp:158` | neutral |
-| 1 | `text` | `app/common/optdlg.cpp:163` | neutral |
-| 1 | `text` | `app/common/optdlg.cpp:169` | neutral |
-| 1 | `value` | `app/common/optdlg.cpp:177` | neutral |
-| 1 | `Unknown_8472E0` | `app/common/optdlg.cpp:191` | neutral (D10), the options dialog's procedure (0x846C90's DialogBoxParam) |
-| 1 | `item` | `app/common/optdlg.cpp:199` | neutral |
-| 1 | `page` | `app/common/optdlg.cpp:204` | neutral |
-| 1 | `dialog_rect` | `app/common/optdlg.cpp:206` | neutral |
-| 1 | `tab_rect` | `app/common/optdlg.cpp:207` | neutral |
-| 1 | `header` | `app/common/optdlg.cpp:225` | neutral |
-| 1 | `selection` | `app/common/optdlg.cpp:227` | neutral |
-| 1 | `file` | `app/common/optdlg.cpp:243` | neutral |
-| 1 | `fp` | `app/common/optdlg.cpp:244` | neutral |
-| 1 | `controls` | `app/common/optdlg.cpp:265` | neutral |
-| 1 | `Unknown_847CD0` | `app/common/optdlg.cpp:278` | neutral (D10), a page's control by its dialog item (NULL past the table's end)  // NAME 1 [id, controls]: neutral |
+| 1 | `OptionChoiceStruct` | `app/common/optdlg.cpp:19` | neutral (D10) |
+| 1 | `Display` | `app/common/optdlg.cpp:21` | neutral |
+| 1 | `Value` | `app/common/optdlg.cpp:22` | neutral |
+| 1 | `OptionControlStruct` | `app/common/optdlg.cpp:25` | neutral (D10) |
+| 1 | `Id` | `app/common/optdlg.cpp:27` | neutral |
+| 1 | `Name` | `app/common/optdlg.cpp:28` | neutral |
+| 1 | `Type` | `app/common/optdlg.cpp:29` | neutral |
+| 1 | `Choices` | `app/common/optdlg.cpp:30` | neutral |
+| 1 | `OptionPageStruct` | `app/common/optdlg.cpp:34` | neutral (D10) |
+| 1 | `Name` | `app/common/optdlg.cpp:36` | neutral |
+| 1 | `Id` | `app/common/optdlg.cpp:37` | neutral |
+| 1 | `Proc` | `app/common/optdlg.cpp:38` | neutral |
+| 1 | `Window` | `app/common/optdlg.cpp:39` | neutral |
+| 1 | `Unknown_847630` | `app/common/optdlg.cpp:42` | the Account page's procedure |
+| 1 | `Unknown_BAF730` | `app/common/optdlg.cpp:44` | neutral (D10), the page table |
+| 1 | `Unknown_BAF740` | `app/common/optdlg.cpp:48` | neutral (D10) |
+| 1 | `Unknown_BAF748` | `app/common/optdlg.cpp:50` | neutral (D10), the Account page's controls |
+| 1 | `Unknown_BF35AC` | `app/common/optdlg.cpp:56` | neutral (D10), the servers from servers.ini (0x8476C0) |
+| 1 | `Unknown_BAF838` | `app/common/optdlg.cpp:58` | neutral (D10), the server page's controls (0x8476C0) |
+| 1 | `Unknown_BAFB58` | `app/common/optdlg.cpp:71` | neutral (D10), the 0x847BB0 page's controls |
+| 1 | `Unknown_BAFD88` | `app/common/optdlg.cpp:81` | neutral (D10), -PROTOCOL's choices |
+| 1 | `Unknown_BAFDB0` | `app/common/optdlg.cpp:89` | neutral (D10), the 0x847C40 page's controls |
+| 1 | `Unknown_846D10` | `app/common/optdlg.cpp:103` | neutral (D10), one control set from startup.arg's options  // NAME 1 [control, dialog]: neutral |
+| 1 | `Unknown_846B80` | `app/common/optdlg.cpp:106` | neutral (D10), the folder browser's callback (BFFM_INITIALIZED selects the folder lpData names) |
+| 1 | `path` | `app/common/optdlg.cpp:109` | neutral |
+| 1 | `Unknown_846CD0` | `app/common/optdlg.cpp:122` | neutral (D10), a page's controls set (the page procedures inline it)  // NAME 1 [controls, dialog]: neutral |
+| 1 | `value` | `app/common/optdlg.cpp:142` | neutral |
+| 1 | `text` | `app/common/optdlg.cpp:144` | neutral |
+| 1 | `value` | `app/common/optdlg.cpp:149` | neutral |
+| 1 | `found` | `app/common/optdlg.cpp:152` | neutral |
+| 1 | `index` | `app/common/optdlg.cpp:169` | neutral |
+| 1 | `Unknown_846FC0` | `app/common/optdlg.cpp:180` | neutral (D10), a page's controls into the options and the file  // NAME 1 [controls, file, dialog]: neutral |
+| 1 | `control` | `app/common/optdlg.cpp:183` | neutral |
+| 1 | `text` | `app/common/optdlg.cpp:198` | neutral |
+| 1 | `selection` | `app/common/optdlg.cpp:209` | neutral |
+| 1 | `last` | `app/common/optdlg.cpp:210` | neutral |
+| 1 | `text` | `app/common/optdlg.cpp:215` | neutral |
+| 1 | `text` | `app/common/optdlg.cpp:221` | neutral |
+| 1 | `value` | `app/common/optdlg.cpp:229` | neutral |
+| 1 | `Unknown_8472E0` | `app/common/optdlg.cpp:243` | neutral (D10), the options dialog's procedure (0x846C90's DialogBoxParam) |
+| 1 | `item` | `app/common/optdlg.cpp:251` | neutral |
+| 1 | `page` | `app/common/optdlg.cpp:256` | neutral |
+| 1 | `dialog_rect` | `app/common/optdlg.cpp:258` | neutral |
+| 1 | `tab_rect` | `app/common/optdlg.cpp:259` | neutral |
+| 1 | `header` | `app/common/optdlg.cpp:277` | neutral |
+| 1 | `selection` | `app/common/optdlg.cpp:279` | neutral |
+| 1 | `file` | `app/common/optdlg.cpp:295` | neutral |
+| 1 | `fp` | `app/common/optdlg.cpp:296` | neutral |
+| 1 | `controls` | `app/common/optdlg.cpp:317` | neutral |
+| 1 | `Unknown_8476C0` | `app/common/optdlg.cpp:491` | neutral (D10), the server page's procedure (servers.ini's list for -SERVER_ADDR) |
+| 1 | `entry` | `app/common/optdlg.cpp:499` | neutral |
+| 1 | `value` | `app/common/optdlg.cpp:500` | neutral |
+| 1 | `count` | `app/common/optdlg.cpp:501` | neutral |
+| 1 | `name` | `app/common/optdlg.cpp:519` | neutral |
+| 1 | `address` | `app/common/optdlg.cpp:520` | neutral |
+| 1 | `controls` | `app/common/optdlg.cpp:530` | neutral |
+| 1 | `list` | `app/common/optdlg.cpp:537` | neutral |
+| 1 | `path` | `app/common/optdlg.cpp:547` | neutral |
+| 1 | `info` | `app/common/optdlg.cpp:550` | neutral |
+| 1 | `pidl` | `app/common/optdlg.cpp:558` | neutral |
+| 1 | `shell_malloc` | `app/common/optdlg.cpp:561` | neutral |
+| 1 | `Unknown_847BB0` | `app/common/optdlg.cpp:585` | neutral (D10), the -ORACLE / -PROXY_ADDR page's procedure (in no page table) |
+| 1 | `controls` | `app/common/optdlg.cpp:590` | neutral |
+| 1 | `Unknown_847C40` | `app/common/optdlg.cpp:604` | neutral (D10), the -NOSTARTUPMOVIE / -PROTOCOL page's procedure (in no page table) |
+| 1 | `controls` | `app/common/optdlg.cpp:609` | neutral |
+| 1 | `Unknown_847CD0` | `app/common/optdlg.cpp:622` | neutral (D10), a page's control by its dialog item (NULL past the table's end)  // NAME 1 [id, controls]: neutral |
 | 1 | `ProfessionNames` | `app/common/prof.cpp:10` | what it holds |
 | 1 | `RaceNames` | `app/common/race.cpp:10` | what it holds |
 | 1 | `Unknown_42EB80` | `app/common/stredit.cpp:277` | untagged neutral name (D10) |

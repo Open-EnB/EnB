@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-682 entries in 203 files.
+685 entries in 203 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -523,8 +523,11 @@ edit the comments in the code, not this file.
 | `app/common/lego_identifier.cpp:170` | `LegoIdentifierClass::Set_Name` | marker | NOT EXACT: 0x844CD0, registers (attempts.py show 0x844CD0) |
 | `app/common/lego_identifier.cpp:228` | `LegoSplitStruct::Is_Invalid` | mention | NOT EXACT 0.79); its Is_Invalid 0x8451A0 (exact) is placed here provisionally (D137): the 20-byte function at this object's end, before manufacturing_defs.cpp. * Written by builder P4 (2026-10-26) for the object-to-object effects (pkpointeffect.cpp, opcodes 11-14), which send an identifier's name and set one from the received string. |
 | `app/common/optdlg.cpp:4` | `Unknown_847630` | mention | NOT EXACT). Notes at the end. |
-| `app/common/optdlg.cpp:126` | `Unknown_846FC0` | marker | NOT EXACT: functional (D64), register 0.66: case 2 keeps the choices in edi where the client keeps the dialog and copies the name pointer (lea edi, [esi]); the client's 260-byte buffers and order are reproduced |
-| `app/common/optdlg.cpp:258` | `Unknown_847630` | marker | NOT EXACT: functional (D64), 0.77: the inlined 0x846CD0's first test; the client loads the first Type into ecx and the table into eax before comparing, this compares memory (0x847BB0 / 0x847C40 have the client's same shape) |
+| `app/common/optdlg.cpp:178` | `Unknown_846FC0` | marker | NOT EXACT: functional (D64), register 0.66: case 2 keeps the choices in edi where the client keeps the dialog and copies the name pointer (lea edi, [esi]); the client's 260-byte buffers and order are reproduced |
+| `app/common/optdlg.cpp:310` | `Unknown_847630` | marker | NOT EXACT: functional (D64), 0.77: the inlined 0x846CD0's first test; the client loads the first Type into ecx and the table into eax before comparing, this compares memory (0x847BB0 / 0x847C40 have the client's same shape) |
+| `app/common/optdlg.cpp:489` | `Unknown_8476C0` | marker | NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test (the client loads the first Type into ecx and the table into eax before comparing); the rest, servers.ini's list and the folder browser, is the client's |
+| `app/common/optdlg.cpp:584` | `Unknown_847BB0` | marker | NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test |
+| `app/common/optdlg.cpp:603` | `Unknown_847C40` | marker | NOT EXACT: functional (D64), as 0x847630: the inlined 0x846CD0's first test |
 | `app/common/stredit.cpp:21` | `StrEditClass::StrEditClass` | mention | NOT EXACT for it. <string>'s guarded initialiser at 0x84B330 ends the object (workflow.md 3.3): the client's next function, 0x84B360 ("Effect Radius : %d"), is another file's. |
 | `app/common/stredit.cpp:190` | `StrEditClass::Process_Key` | marker | NOT EXACT: the modifier bits (0.58): the client tests the event's flags as bit-fields, see the notes |
 | `app/common/target_generator_summary.cpp:92` | `String_To_Value` | marker | NOT EXACT: inline-budget (the temporary string's _Eos stays out of line in the client, and value lives in ebx) |
