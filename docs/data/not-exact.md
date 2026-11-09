@@ -478,7 +478,7 @@ edit the comments in the code, not this file.
 | `app/client/unknown_6cce60.cpp:182` | `FontSys::Unknown_6CD950` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD950) |
 | `app/client/unknown_6cce60.cpp:221` | `FontSys::Unknown_6CDAB0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDAB0) |
 | `app/client/unknown_6cce60.cpp:271` | `FontSys::Change_Text` | marker | NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first " " assignment and hoists three member loads above stores (27 masked rows) |
-| `app/client/unknown_6cce60.cpp:370` | `FontSys::Unknown_6CE4E0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0) |
+| `app/client/unknown_6cce60.cpp:370` | `FontSys::Unknown_6CE4E0` | marker | NOT EXACT: inline-budget (attempts.csv): the client calls operator+= ("...") out of line; the stores are its order |
 | `app/client/unknown_6cce60.cpp:396` | `FontSys::Unknown_6CE7D0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0) |
 | `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
 | `app/client/unknown_75b7b0.cpp:57` | `Unknown_75BB50` | marker | NOT EXACT: functional (D64), 0.37: ours calls StringClass::operator= where the client inlines it, so the registers differ (WE5) @0x75BB50 |

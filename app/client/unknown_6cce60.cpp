@@ -367,7 +367,7 @@ void FontSys::Change_Text(const char *text, int unknown)
 
 // 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text printed again with it (with
 // "..." while +0x406 says the line is clipped); the effects SWITCH / REVERT (0x6CA0C0) call it.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0)
+// NOT EXACT: inline-budget (attempts.csv): the client calls operator+= ("...") out of line; the stores are its order
 void FontSys::Unknown_6CE4E0(int font_index)
 {
 	FontIndex = font_index;
@@ -386,8 +386,8 @@ void FontSys::Unknown_6CE4E0(int font_index)
 	Font = font->font32Ptr;
 	Reset_XSpacing(Font.Peek());
 	Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, buffer, 0);
-	Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(buffer);
-	Unknown2C8 = Unknown420[3] = Font->Get_Height();
+	Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(buffer);
+	Unknown420[3] = Unknown2C8 = Font->Get_Height();
 	Unknown4C5 = false;
 }
 
