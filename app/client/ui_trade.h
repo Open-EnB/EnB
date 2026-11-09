@@ -5,6 +5,7 @@
 #define UI_TRADE_H
 
 #include <vector>
+#include "pdaint.h"			// (before sclient.h: its PDAInterfaceClass)
 #include "sclient.h"
 #include "..\shared\money.h"
 #include "..\..\wwlib\ref_ptr.h"
@@ -26,6 +27,7 @@ public:
 	virtual void Unknown_B8(); virtual void Unknown_BC(); virtual void Unknown_C0(); virtual void Unknown_C4();
 	virtual void Unknown_C8();							// +0xC8 (the trade window calls it after setting +0xB4 to -1)
 	InvDataClass *Unknown_59FE10();						// 0x59FE10 (SlotData's slot +0x10)
+	void Unknown_5A02E0(bool arg);						// 0x5A02E0 (the trade window's 0x652FF0 passes true)  // NAME 1 [arg]: neutral
 
 	char Unknown84[0x98 - 0x84];						// +0x84
 	SlotDataClass *SlotData;							// +0x98 (0x62DE80's class's FAIL_IF '!SlotData')  // NAME 3: the FAIL_IF's
@@ -43,7 +45,11 @@ public:
 	void Unknown_652360();								// 0x652360 (FAIL_IFs '!bttn' l.674, '!font' l.680: the six category buttons)
 	void Unknown_652450(bool force);					// 0x652450 (FAIL_IF '!font' l.699: the credits text)  // NAME 1 [force]: neutral
 	void Unknown_652BA0(bool arg, bool significant);	// 0x652BA0 (the loss warning box, +0x174 3 with arg, else 2)  // NAME 1 [arg, significant]: neutral
+	void Unknown_652C60();								// 0x652C60 (the whole stack's sale asked, +0x174 4)
 	void Unknown_652E70();								// 0x652E70 (the 'BUY_CONFIRMATION' box closed, +0x174 0)
+	bool Unknown_652EB0();								// 0x652EB0 (the cargo window's slot holds an item, or +0x174 is 1)
+	void Unknown_652FF0();								// 0x652FF0 (the box's answer: by +0x174)
+	void Unknown_6531F0(bool arg);						// 0x6531F0 (the sale's loss warning)  // NAME 1 [arg]: neutral
 	void Unknown_653450();
 	RenderObjClass *Get_Unknown0D0() { return(Unknown0D0); }	// (inline: 0x652450's register)  // NAME 1: neutral (D10)								// 0x653450 (FAIL_IFs '!button' l.911, '!sd_render' l.914, '!trade_render' l.917)
 
@@ -59,7 +65,7 @@ public:
 	MoneyClass Money;									// +0x148 (the credits shown; 0xFFFFFFFF without the field)  // NAME 2: what it holds
 	std::vector<int> Unknown150;						// +0x150  // NAME 1: neutral (D10)
 	int Unknown160;										// +0x160
-	int Unknown164;										// +0x164 (a reference-counted object: 0x653B90's, asserted l.106 'PDA')
+	RefCountPtr<PDAInterfaceClass> PDA;					// +0x164 (0x653B90's, the client's +0x1284; G_ASSERT 'PDA' l.106)  // NAME 3: the assert's
 	int Unknown168;										// +0x168
 	int Unknown16C;										// +0x16C
 	int Unknown170;										// +0x170 (-1)
