@@ -1141,8 +1141,8 @@
  },
  {
   "address": "0x706DF0",
-  "symbol": "?Unknown_00@?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEXPAVKVEncoderClass@@@Z",
-  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "the client's vtable 0xB016DC holds it at +0x00 (0xB00A00's slot is 0x703D50): the UnknownB016DCType instance (K2 2026-11-08); DeltaChildVisitorClass renamed KVEncoderClass (D206)",
   "replaces": "?Unknown_00@?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
  },
  {
@@ -1181,5 +1181,29 @@
   "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
   "kind": "vtable",
   "replaces": "??_7DeltaChildVisitorClass@@6B@"
+ },
+ {
+  "address": "0x703F40",
+  "symbol": "?Write@?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "the client's vtable 0xB00A00 holds it at +0x30 (0xB016DC's slot is 0x706FF0); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
+  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
+  "address": "0x706FF0",
+  "symbol": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "the client's vtable 0xB016DC holds it at +0x30 (0xB00A00's slot is 0x703F40); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
+  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
+  "address": "0x700CB0",
+  "symbol": "??_G?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEPAXI@Z",
+  "evidence": "the client's vtable 0xB00A00 holds it at +0x04 (0xB016DC's slot is 0x706730); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
+  "replaces": "??_G?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x706730",
+  "symbol": "??_G?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEPAXI@Z",
+  "evidence": "the client's vtable 0xB016DC holds it at +0x04 (0xB00A00's slot is 0x700CB0); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
+  "replaces": "??_G?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEPAXI@Z"
  }
 ]
