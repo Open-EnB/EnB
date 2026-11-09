@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-695 entries in 207 files.
+695 entries in 208 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -368,8 +368,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |
-| `app/client/ui_cpit.cpp:1253` | `UICpitClass::Unknown_5821C0` | marker | NOT EXACT: written from the client (the finds' out-of-line casts and the expanded 0x584000 follow the client's inline budget) |
-| `app/client/ui_cpit.cpp:1733` | `UICpitClass::Unknown_583790` | marker | NOT EXACT: inline budget (the client calls the IsAutoFollowing Cast out of line, 0x584FF0; then the packets' client loads in other registers) |
+| `app/client/ui_cpit.cpp:1278` | `UICpitClass::Unknown_5821C0` | marker | NOT EXACT: written from the client (its expanded 0x584000 calls the find out of line, ours inlines it) |
 | `app/client/ui_cpit.cpp:1866` | `UICpitClass::Unknown_583DC0` | marker | NOT EXACT: inline budget (the client calls the list's _Construct out of line, 0x584F90, and keeps emp in bl; ours expands it) |
 | `app/client/ui_cpit.cpp:2020` | `UICpitClass::Unknown_584690` | marker | NOT EXACT: inline budget (the client calls the vectors' erase out of line, 0x4FC7C0; ours expands it) |
 | `app/client/ui_faction.cpp:230` | `UIFactionClass::Unknown_58DC20` | marker | NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump) |
@@ -441,7 +440,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_scan.cpp:68` | `UIScanClass::Unknown_54` | marker | NOT EXACT: functional (WE9; similarity 0.59): the verb window's and the fonts' set-up order and registers @0x60D8D0 |
 | `app/client/ui_scan.cpp:305` | `UIScanClass::Unknown_68` | marker | NOT EXACT: register (TL1; similarity 0.54, WE9's 0.51): the client keeps the key's slot for next and this in ecx, tests the key as -5 then dec, dec @0x60E300 |
 | `app/client/ui_scan.cpp:500` | `UIScanClass::Unknown_88` | marker | NOT EXACT: order (WE9; similarity 0.85): the client builds the old target's Remove arguments before calling 0x4F7EF0, ours after @0x60E580 |
-| `app/client/ui_scan.cpp:555` | `UIScanClass::Unknown_60E6A0` | marker | NOT EXACT: inline-budget (TL2; similarity 0.43): the client calls the three finds (0x610290, 0x514BD0) out of line and assigns the cleared name through assign(const char *, size_type) out of line, and reads the time through 0x60ECD0 (the time field's value; a Get_Value declared in delta_template.h costs aux_roots 8 pairs); ours inlines them, its registers differ @0x60E6A0 |
+| `app/client/ui_scan.cpp:555` | `UIScanClass::Unknown_60E6A0` | marker | NOT EXACT: inline-budget (IB2; similarity 0.53): the finds out of line as the client (0x610290, 0x514BD0) through two inline layers, and with them the cleared name's assign(const char *, size_type) (0x42D050); the client also reads the time through 0x60ECD0 (the time field's value; a Get_Value declared in delta_template.h costs aux_roots 8 pairs); ours inlines that read; registers differ @0x60E6A0 |
 | `app/client/ui_scan.cpp:746` | `UIScanClass::Unknown_60F1A0` | marker | NOT EXACT: frame / order (IB2; similarity 0.66): the Reputation finds out of line as the client (0x610370) through two inline layers typed <DeltaCompoundClass>; the client tail-merges only cases 2 and 5 @0x60F1A0 |
 | `app/client/ui_scut.cpp:379` | `UIScutBarClass::UIScutBarClass` | marker | NOT EXACT: register (ecx / edx swapped around the 0x6870E0 and bank constructor arguments) |
 | `app/client/ui_scut.cpp:485` | `UIScutBarClass::Unknown_611300` | marker | NOT EXACT: register (the allocator byte through al, FirstId + lp in edi; the call structure is the client's) |
@@ -500,6 +499,7 @@ edit the comments in the code, not this file.
 | `app/client/unknown_7cef30.cpp:651` | `RegistrationUnknown1ACClass::Unknown_7DA760` | marker | NOT EXACT: register-only (0.65: the client keeps '&' in bl, ours 0 in ebx) |
 | `app/client/unknown_7cef30.cpp:671` | `RegistrationUnknown1ACClass::Unknown_7DAD50` | marker | NOT EXACT: inline budget (0.71: the client calls the request's destructor 0x7D4D60 out of line) |
 | `app/client/unknown_7cef30.cpp:687` | `RegistrationUnknown1ACClass::Unknown_7DB2D0` | marker | NOT EXACT: inline budget (0.71: the client calls the request's destructor 0x7D4D60 out of line) |
+| `app/client/unknown_7e1e40.cpp:24` | `Sub14CUnknown18Class::~Sub14CUnknown18Class` | marker | NOT EXACT: the client's has an EH frame (states 1, 0 around the _bstr_t members' destruction); /GX gives none here (/EHa gives it, and an EH frame in the constructor the client lacks) |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |
