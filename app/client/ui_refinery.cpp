@@ -51,8 +51,8 @@ enum
 	UI_OPEN = 2											// (slot +0x58 sets it)  // NAME 1: neutral (D10)
 };
 
-// The window's buttons (0xB85C3C: slot +0x54's ids 1..3), the names of its texts (0xB85C48) and its messages (0xB85C60)
-static const char *Unknown_B85C3C[] = { "exit", "go", "r_stack" };	// NAME 1: neutral (D10)
+// The window's buttons (0xB85C38: slot +0x54's ids 1..3), the names of its texts (0xB85C48) and its messages (0xB85C60)
+static const char *Unknown_B85C38[] = { "not used", "exit", "go", "r_stack" };	// NAME 1: neutral (D10)
 static const char *Unknown_B85C48[] = { "Credits_TSM03a", "Go_TSM03a", "Stack_TSM03a", "Cost_TSM03a", "Result_TSM03a", "" };	// NAME 1: neutral (D10)
 static const char *Unknown_B85C60[] = { "Refining Resource", "Attempt Succeeded" };	// NAME 1: neutral (D10)
 
@@ -100,11 +100,11 @@ UIRefineryClass::~UIRefineryClass()
 	Unknown_BE67BC->Unload("FA_TSM03A.INI");
 }
 
-// NOT EXACT: order (the first loop: the client loads the names table pointer before the gadget pointer, ours after) (0x5EBC30)
+// @0x5EBC30
 void UIRefineryClass::Unknown_54()
 {
-	for (int id = 1; id <= 3; id++) {
-		RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B85C3C[id - 1]));
+	for (int id = 1; id < 4; id++) {
+		RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(Unknown_B85C38[id]));
 		if (robj) {
 			Unknown_496AE0(robj.Peek(), 0);
 			Unknown0BC[id] = new ButtonGadgetClass(robj.Peek(), Layer, 0x55, 3);
@@ -149,9 +149,10 @@ void UIRefineryClass::Unknown_7C(UIViewClass *view, bool arg)
 
 static inline int Refinery_Player_Id(SClient *sclient) { return sclient->Unknown1138; }  // NAME 2: the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id)
 
-// NOT EXACT: inline budget (the client calls 0x5ED310 out of line after the inlined 0x5ED230; the rows' loop evaluates the style's arguments in another order) (0x5EC270)
+// @0x5EC270
 void UIRefineryClass::Unknown_58()
 {
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// not the client's (D130): dead finds spending the inline budget the client spent (it calls 0x5ED310 out of line here; 2 are not enough)
 	SClient *sclient = Client->As_Space_Client();
 	((ClientClass *)Client)->Send_Packet(&ManufactureItemCatagoryPacketClass(Refinery_Player_Id(sclient), 4));
 	if (State == UI_CLOSED) {
@@ -280,9 +281,10 @@ slider:
 	Unknown5BB320Class::Unknown_60();
 }
 
-// NOT EXACT: inline budget (the client calls the inlined 0x5ECCE0's Cast out of line) (0x5EC990)
+// @0x5EC990
 bool UIRefineryClass::Unknown_68(int key)
 {
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// not the client's (D130): dead finds spending the inline budget the client spent (its inlined 0x5ECCE0 calls the Cast out of line; 3 are not enough)
 	if (Unknown0AF4 != 0.0f) {
 		return(true);
 	}
@@ -318,8 +320,6 @@ bool UIRefineryClass::Unknown_68(int key)
 	}
 	return(false);
 }
-
-
 
 
 
