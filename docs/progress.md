@@ -2942,6 +2942,13 @@ below name only the work items, the blocked work, the leads and the queues.
      row. Lead (tools): a vtable-slot pairing for the operator classes' byte-identical dtors / deleting dtors (~60 addresses
      in 0x4C9EC0-0x4CAC60 and 0x4CE2A0-0x4CF500, "multiple" today). Interim names (D137): expr_lexer_matchers.cpp,
      expr_math_token.cpp, the expr_math_float / int headers.
+   * **From the 2026-11-09 day run (RF1):** the chat-channel window 0x5E9910-0x5EB7B0 ('title_Cht01',
+     ClientChatRequestPacketClass; between ui_radio_entry.cpp and ui_refinery.cpp, file name unknown: 0x5E9BB0 1.3 KB,
+     0x5EB2F0 1.2 KB, 0x5EA260 3 callers) as its own file; sbaseview.h's SBaseViewUnknown184Class -> `class
+     UIRefineryClass;` with the SEND_SYMBOL_PAD sweep in the same change (a plain forward declaration gained 0x702240 and
+     lost 0x758210), then drop sbaseview.cpp case 5's cast; ui_refinery near misses 0x5EDCC0 (0.77, inline-budget: the
+     'NegotiatedCost' Cast out of line), 0x5ECEF0 (0.76, register / flag-test order), 0x5EDFD0 (0.38, a probe reached
+     0.48), 0x5EE460 (0.34, register, ui_manu 0x5B5CD0's residue).
    * **From the 2026-11-09 day run (MT1, FN4):** the options' 'opt06a' channels page from its ctor 0x5C8DB0 (follows
      ui_option_account.cpp's pattern); InvDataPeekClass is still declared separately in
      ui_mfd_extended_context_harvestable.h, client_item_property_builder.h and ui_trade.cpp: include inv_data_peek.h
