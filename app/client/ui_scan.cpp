@@ -539,7 +539,7 @@ UIScanThreatClass::~UIScanThreatClass()
 #include "cfaction_database.h"
 #include <stdio.h>
 #include "co_player_relationship.h"
-// A field under root that is set (+0x70), else NULL; and one changed since (+0x70 above 1): ui_faction.cpp's
+template<class C> inline C *Unknown_Scan_Find_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Changed_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70 > 1) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Changed(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Scan_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form) send 0x60F1A0's Reputation finds out of line as the client (0x610370); below, a field under root that is set (+0x70), else NULL; and one changed since (+0x70 above 1): ui_faction.cpp's
 template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
 { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }
 template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
@@ -743,7 +743,7 @@ inline TargetingClass *UIScanClass::Get_Targeting()
 
 
 
-// NOT EXACT: inline-budget (TL1; similarity 0.65): the client calls the Reputation find out of line (0x610370; an explicit instantiation here does not move it), tail-merges only cases 2 and 5
+// NOT EXACT: frame / order (IB2; similarity 0.66): the Reputation finds out of line as the client (0x610370) through two inline layers typed <DeltaCompoundClass>; the client tail-merges only cases 2 and 5
 // @0x60F1A0
 void UIScanClass::Unknown_60F1A0(bool arg)
 {
@@ -838,8 +838,8 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 		FAIL_IF(!aux_data) return;
 
 		DeltaReputationClass *reputation = (!arg && !expired) ?
-			Unknown_Find_Changed_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation") :
-			Unknown_Find_Set_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
+			(DeltaReputationClass *)Unknown_Scan_Changed<DeltaCompoundClass>((DeltaCompoundClass *)aux_data, "Reputation") :
+			(DeltaReputationClass *)Unknown_Scan_Find<DeltaCompoundClass>((DeltaCompoundClass *)aux_data, "Reputation");
 
 
 		if (reputation) {
