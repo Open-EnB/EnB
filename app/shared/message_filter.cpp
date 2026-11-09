@@ -5,7 +5,7 @@
 #include <string.h>
 #include "..\..\libs\wwonline\wlib\configfile.h"
 #include <ctype.h>
-#include <string>
+#include "unknown_4be9d0.h"
 
 // PLACEMENT: provisional (D137): see message.h; its own object because the server
 // (message_server.cpp) calls its constructor 0x4BDFE0 and destructor 0x4BE060 instead of inlining them

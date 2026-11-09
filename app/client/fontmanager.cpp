@@ -22,12 +22,12 @@ ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 	}
 }
 
-ManagedFontClass::ManagedFontClass(const char *name, int unknown)
+ManagedFontClass::ManagedFontClass(const char *name, RenderObjClass *object)
 {
 	FontStringStruct *def = Unknown_BE67B8->Find_String(name);
 	Styles.clear();
 	if (def) {
-		Unknown_6CF930(def, (RenderObjClass *)unknown);
+		Unknown_6CF930(def, object);
 	}
 }
 
@@ -439,9 +439,9 @@ void FontManagerClass::Add(const RefCountPtr<RenderObjClass> &object)
 	Add(object.Peek());
 }
 
-ManagedFontClass *FontManagerClass::Create(const char *name, int unknown)
+ManagedFontClass *FontManagerClass::Create(const char *name, RenderObjClass *object)
 {
-	ManagedFontClass *font = new ManagedFontClass(name, unknown);
+	ManagedFontClass *font = new ManagedFontClass(name, object);
 	Add(font);
 	return font;
 }

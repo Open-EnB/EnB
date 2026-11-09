@@ -746,7 +746,7 @@ void AvatarDescClass::Load_Defaults(int type, const char *name)
 }
 
 
-std::string Unknown_4BE9D0(const char *name);	// NAME 1 [Unknown_4BE9D0]: 0x4BE9D0, a name turned into another (kv_util.cpp's run)
+#include "unknown_4be9d0.h"	// 0x4BE9D0, a name turned into another (kv_util.cpp's run)
 char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
 
 // 0x4C1020

@@ -177,7 +177,7 @@ class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per
 {
 public:
 	ManagedFontClass(RenderObjClass *object);							// 0x6CE990: the render object's styles from the font database
-	ManagedFontClass(const char *name, int unknown);						// 0x6CF520 (no caller), inlined in 0x6D1FD0  // NAME 1 [unknown]: neutral (D10)
+	ManagedFontClass(const char *name, RenderObjClass *object);					// 0x6CF520 (no caller), inlined in 0x6D1FD0  // NAME 2 [object]: the render object Unknown_6CF930 gets
 	void Unknown_6CF930(FontStringStruct *def, RenderObjClass *object);				// 0x6CF930: a 'W' template's lines as styles on the render object  // NAME 1 [Unknown_6CF930, object]: neutral (D10)
 	~ManagedFontClass();												// 0x6CF730
 	void Unknown_All_Styles(int index, float time);					// 0x6D0950, inlined in 0x6D1C10 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
@@ -210,7 +210,7 @@ public:
 	void Unknown_6D1C10(int index, float time);					// 0x6D1C10: each font's 0x6CD950  // NAME 1 [Unknown_6D1C10]: neutral (D10)
 	void Add(RenderObjClass *object);										// 0x6D1D80: a new font for the render object, under its address  // NAME 2: describes what it does
 	void Add(const RefCountPtr<RenderObjClass> &object);					// 0x6D1FB0  // NAME 2: describes what it does
-	ManagedFontClass *Create(const char *name, int unknown);			// 0x6D1FD0: a font from the font database, added under its id  // NAME 2: describes what it does
+	ManagedFontClass *Create(const char *name, RenderObjClass *object);			// 0x6D1FD0: a font from the font database, added under its id  // NAME 2: describes what it does
 	void Remove(RenderObjClass *object);										// 0x6D2220  // NAME 2: describes what it does
 	void Unknown_6D2310(const RefCountPtr<RenderObjClass> &object);						// 0x6D2310: Remove through a reference (a screen's member)  // NAME 1 [Unknown_6D2310]: neutral (D10)
 	void Unknown_6D2400(RenderObjClass *object);								// 0x6D2400  // NAME 1 [Unknown_6D2400]: neutral (D10)
