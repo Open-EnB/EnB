@@ -775,9 +775,10 @@ enum AuxRootsSymbolPadType { %s };	// NAME 1: a build aid (HX1)
 # DeltaItemArrayClass<DeltaFactionClass>'s constructor 0x758210 (Reputation's) compiles in sclient.cpp and is
 # exact only in a window of its declaration count (.work/sc1/scsweep.py: 33-37 since the testeffects.ini
 # loader 0x74CA90 joined sclient.cpp; there sclient's shared copy of 0x702240 is out of its window, aux_roots keeps it).
-# It moves sclient's 0x74D990 too (defined after aux_roots_send.h): 45-50 hold 0x758210, 0x74D990 and 0x702240 since
-# UnknownCOClass joined co.h and sclient.cpp includes control_keys_manager.h at its top (PH1, .work/ph1/sweep.py sc).
-SEND_SYMBOL_PAD = 48
+# It moves sclient's 0x74D990 too (defined after aux_roots_send.h): 38-43 hold 0x758210, 0x74D990 and 0x702240 since
+# UnknownCOClass joined co.h, sclient.cpp includes control_keys_manager.h at its top and SB3 changed sbaseview.h
+# (PH1, .work/ph1/sweep.py sc).
+SEND_SYMBOL_PAD = 40
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)
