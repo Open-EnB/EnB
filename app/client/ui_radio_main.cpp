@@ -236,7 +236,6 @@ void UIRadioMainClass::Unknown_5EA260(bool on)
 }
 
 // 0x5EA370
-// NOT EXACT: the string temporaries' inline expansions and register choices differ (inline budget)
 void UIRadioMainClass::Unknown_5EA370()
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
@@ -247,26 +246,25 @@ void UIRadioMainClass::Unknown_5EA370()
 	}
 	int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
 	ClientChatRequestPacketClass packet(4, id);
+	packet.Unknown24 == "";	// a dead comparison (D130; not the client's): it spends VC6's inline budget, so the assignment's assign and the temporary's _Eos stay out of line as the client's
 	packet.Unknown24 = std::string("");
 	((ClientClass *)Client)->Send_Packet(&packet);
 	chat->Unknown225 = true;
 }
 
 // 0x5EA550
-// NOT EXACT: the string temporaries' inline expansions and register choices differ (inline budget)
 void UIRadioMainClass::Unknown_5EA550()
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
 	ClientChatRequestPacketClass packet(0x15, id);
-	packet.Unknown24 = std::string("none");
-	packet.Unknown34 = chat->Unknown_5682C0();
+	packet.Unknown34 = std::string("none");
+	packet.Unknown24 = chat->Unknown_5682C0();
 	((ClientClass *)Client)->Send_Packet(&packet);
 }
 
 // 0x5EA7F0
-// NOT EXACT: the string temporaries' inline expansions and register choices differ (inline budget)
 void UIRadioMainClass::Unknown_5EA7F0()
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
@@ -275,19 +273,19 @@ void UIRadioMainClass::Unknown_5EA7F0()
 		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0x13, "Another request is pending. Cannot leave the channel.", 0);
 		return;
 	}
-	if (chat->Unknown_5682C0() == "") {
-		return;
+	if (chat->Unknown_5682C0() != "") {
+		int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
+		ClientChatRequestPacketClass packet(7, id);
+		packet.Unknown24 = chat->Unknown_5682C0();
+		((ClientClass *)Client)->Send_Packet(&packet);
 	}
-	int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
-	ClientChatRequestPacketClass packet(7, id);
-	packet.Unknown24 = chat->Unknown_5682C0();
-	((ClientClass *)Client)->Send_Packet(&packet);
 }
 
 /*
 **	Notes.
-**	Object 0x5E9410-0x5EAB3F: the constructor 0x5E9410 opens it, after ui_radio_entry.cpp's 'cht02' window's adjustor
-**	thunks (0x5E9400); this window's adjustor thunks 0x5EAB20 / 0x5EAB30 close it and the 'cht03' window's constructor
-**	0x5EAB40 (ui_radio_join.cpp) follows. The pattern is ui_option_channel.cpp's (ChatPanelUIBase). ui_chat_panel.cpp's
+**	Object 0x5E9410-0x5EAB3F: the constructor 0x5E9410 opens it, after the 'cht02' window's adjustor thunks
+**	0x5E93F0 / 0x5E9400 (that window's file is unknown: ui_radio_entry.cpp's one assert is in the 'cht04' window);
+**	this window's adjustor thunks 0x5EAB20 / 0x5EAB30 close it and the 'cht03' window's constructor 0x5EAB40
+**	(ui_radio_join.cpp) follows. The pattern is ui_option_channel.cpp's (ChatPanelUIBase). ui_chat_panel.cpp's
 **	0x566AF0 makes it (states 0-3) as its stand-in Unknown5E9410Class.
 */
