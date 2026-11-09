@@ -555,6 +555,9 @@ void ChatPanelInterface::Unknown_60()
 	if (changed) Unknown_5689D0(0);
 }
 
+// 0x563260
+void ChatPanelInterface::Unknown_64() {}
+
 // NOT EXACT: inline-budget (in the inlined 0x5698F0 the client calls RefCountPtr's operator=(NULL) 0x56CC30 out of line and inlines the copy; ours the reverse; 249 instructions vs 240)
 // 0x563280
 bool ChatPanelInterface::Unknown_68(int key)
@@ -610,7 +613,6 @@ bool ChatPanelInterface::Unknown_68(int key)
 	}
 	return(false);
 }
-
 // 0x563620
 void ChatPanelInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
@@ -629,14 +631,12 @@ void ChatPanelInterface::Unknown_7C(UIViewClass *view, bool arg)
 		}
 	}
 }
-
 // 0x5638E0
 bool ChatPanelInterface::Unknown_5638E0(int key)
 {
 	if (!ChatInt) return(false);
 	return(ChatInt->Unknown_B8(key));
 }
-
 // NOT EXACT: inline-budget (the second branch's name copy: the client inlines assign with _Grow out of line, ours expands _Grow; frame 0xC vs 8)
 // 0x563910
 void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
