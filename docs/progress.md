@@ -2942,9 +2942,10 @@ below name only the work items, the blocked work, the leads and the queues.
      row. Lead (tools): a vtable-slot pairing for the operator classes' byte-identical dtors / deleting dtors (~60 addresses
      in 0x4C9EC0-0x4CAC60 and 0x4CE2A0-0x4CF500, "multiple" today). Interim names (D137): expr_lexer_matchers.cpp,
      expr_math_token.cpp, the expr_math_float / int headers.
-   * **From the 2026-11-09 day run (CH1, CW1):** the chat windows' inline-budget near misses share one blocker: the
-     client calls the vector's erase 0x4FC7C0 out of line (dtors 0x5E76B0 / 0x5E4300, also the list's erase(first,
-     last); 0x5E8240, 0x5E4F10; ui_cpit's too): one form keeping it out of line may fix four or five; 0x5E85F0
+   * **From the 2026-11-09 day run (CH1, CW1, EB1):** the unwritten callers of vector<string>::erase 0x4FC7C0, to start
+     from EB1's rule (workflow.md §3.1): the string-split helper 0x4FC2F0 (lego_identifier), ui_chat_window's dtor
+     0x562440, ui_combobox 0x578D50, sclient 0x74DFF0; other sorted-insert loops with `it++` (ui_guild's member lists,
+     ui_friends) may want `++it`; chat window near misses 0x5E85F0
      (basic_string::erase out of line in operator='s self-assign branch), 0x5E5360 (cases 5 / 6 expansion and frame);
      ui_chat_panel.cpp's and cpacket.cpp's local stand-ins onto the real chat window headers (ui_radio_main.h,
      ui_radio_join.h, ui_radio_list.h, ui_radio_admin.h), one verified step each: ui_chat_panel's Unknown5E9410Class /
