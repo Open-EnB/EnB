@@ -1,7 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_guild.cpp, the guild window (no __FILE__; client 0x8192C0-0x81E02F
 // after time_mgr.cpp's end 0x8192A7, its data 0xBA7F10-0xBA81FF after time_mgr.cpp's __FILE__). So far the printf helper,
-// the list helpers and the chat commands (TM1); not yet: the constructor 0x819420, the destructor 0x8196D0, the slots
-// +0x54-+0x68, 0x81C380 and its helper 0x81D290. Notes at the end.
+// the window, its list helpers and chat commands (TM1); not yet: 0x81C380 and its helper 0x81D290. Notes at the end.
 // PLACEMENT: provisional (D137): the file name from the tooltip section 'UI_GUILD' (the windows' UI_<file> pattern) and the model 'tsi35a'; a __FILE__ or an assert would place it
 #include <stdio.h>
 #include <stdarg.h>
@@ -19,6 +18,9 @@
 #include "..\input\input.h"
 #include "..\packets\pkclientchat.h"
 #include "..\packets\pkguildranknamesrequestclient.h"
+#include "gd_robj.h"
+#include "rendobj.h"
+#include "..\audio\soundlib.h"
 
 // One member of the list (0x20 bytes; the window's +0xCC and +0xDC hold them)
 class UIGuildMemberClass	// NAME 1: neutral, after ui_friends.h's UIFriendsPlayerInfoClass
@@ -30,11 +32,30 @@ public:
 	std::string Location;								// +0x10 ('LOCATION%02d_TSI35a'; '(offline)')  // NAME 2: its style's
 };
 
+// The guild list window ('UI_GUILD_LIST', 'tsi36a': 0xE8 bytes, constructor 0x81E030; the next object), as far as
+// the guild window uses it
+class UIGuildListClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltip section 'UI_GUILD_LIST'
+{
+public:
+	UIGuildListClass(SClient *client);					// 0x81E030  // NAME 1 [client]: ChatPanelUIBase's
+	int Unknown0A0;										// +0xA0
+	int Unknown0A4;										// +0xA4
+	int Unknown0A8;										// +0xA8 (the guild window's slot +0x60: 1 or 2 closes it)
+	char Unknown0AC[0xE8 - 0xAC];						// +0xAC
+};
+
 // The guild window (0x190 bytes; constructor 0x819420 over ui_chat_panel_base.cpp's 0x56D280, destructor 0x8196D0,
 // tables 0xB081A4 / 0xB08198 / 0xB0818C), ui_friends.cpp's twin; declared as far as the rebuilt functions use it
 class UIGuildClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltip section 'UI_GUILD'
 {
 public:
+	UIGuildClass(SClient *client);						// 0x819420  // NAME 1 [client]: ChatPanelUIBase's
+	virtual ~UIGuildClass();							// 0x8196D0 (deleting 0x8196A0)
+	virtual void Unknown_54();							// +0x54 0x8199F0 ('tsi35a', 'fa_tsi35a.ini': the buttons, the rows, the list window and the two entries, the slider)
+	virtual void Unknown_58();							// +0x58 0x819FB0 (activated: the lists emptied; the rank names and the list requested, or 'Create a new Guild')
+	virtual void Unknown_5C();							// +0x5C 0x81A200 (deactivated: the buttons off, the lists emptied)
+	virtual void Unknown_60();							// +0x60 0x81A330 (every frame: the slider, the rows, the entries; closed when out of a guild)
+	virtual bool Unknown_68(int key);					// +0x68 0x81A420 (the buttons 1-13, the rows 15-21)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x81AA50 (the three entries moved too)  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_81AAD0(int count);						// 0x81AAD0 (the slider over count rows, 7 shown)  // NAME 1 [count]: neutral
 	void Unknown_81AB50();								// 0x81AB50 (Top from the slider's value; the rows refreshed when it moved)
@@ -57,8 +78,10 @@ public:
 	int Top;											// +0xA4 (the first row's index: the slider's value)  // NAME 1: as ui_friends.h's
 	int Selection;										// +0xA8 (-1 from the constructor)  // NAME 1: as ui_friends.h's
 	std::string Unknown0AC;								// +0xAC (the selected member's name)
-	RefCountPtr<UIPTradeCreditsClass> Unknown0BC[3];	// +0xBC the text entries (ui_ptrade.cpp's credits entry)
-	int Unknown0C8;										// +0xC8
+	RefCountPtr<UIGuildListClass> Unknown0BC;			// +0xBC the guild list window
+	RefCountPtr<UIPTradeCreditsClass> Unknown0C0;		// +0xC0 the long text entry (ui_ptrade.cpp's credits entry: 2, 0xFE: the message, the guild name)
+	RefCountPtr<UIPTradeCreditsClass> Unknown0C4;		// +0xC4 the short one (1, 0x14: a member's name, the tag)
+	int Unknown0C8;										// +0xC8 the key the entries answer (2, 7, 8, 13, 24)
 	std::vector<UIGuildMemberClass *> Unknown0CC;		// +0xCC the members, sorted
 	std::list<UIGuildMemberClass *> Unknown0DC;			// +0xDC the members as received
 	GadgetClass *Unknown0E8[13];						// +0xE8 the buttons
@@ -101,18 +124,233 @@ static inline void Unknown_Delete_Member(UIGuildMemberClass *member)	// NAME 1 [
 	delete member;
 }
 
+extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
+
+// The buttons' models (0xBA7ED8)
+static const char *Unknown_BA7ED8[13] = { "EXIT", "Recruit", "Remove", "Promote", "Demote", "Disband", "Tag", "Message", "Public", "Private", "Leave", "Contributions", "ShowStats" };	// NAME 1: neutral (D10)
+
+// 0x819420
+UIGuildClass::UIGuildClass(SClient *client) :
+	ChatPanelUIBase(client),
+	Slider(NULL),
+	Top(0),
+	Selection(-1),
+	Unknown0AC(""),
+	Unknown0C8(0),
+	Unknown0CC(),
+	Unknown0DC(),
+	Unknown170(0),
+	Unknown174(-1),
+	Unknown178(-1),
+	Unknown17C(-1),
+	Unknown180()
+{
+	memset(Unknown0E8, 0, sizeof(Unknown0E8));
+	memset(Unknown11C, 0, sizeof(Unknown11C));
+	for (int i = 0; i < 7; i++) {
+		Unknown138[i] = NULL;
+		Unknown154[i] = NULL;
+	}
+}
+
+// 0x8196D0
+UIGuildClass::~UIGuildClass()
+{
+	Unknown0BC = NULL;
+	Unknown0C0 = NULL;
+	Unknown0C4 = NULL;
+	Unknown_5C();
+	if (Slider) {
+		Slider->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);
+	}
+}
+
+// 0x8199F0
+void UIGuildClass::Unknown_54()
+{
+	if (Unknown_98("tsi35a", "fa_tsi35a.ini")) {
+		int i;
+		for (i = 0; i < 13; i++) {
+			Unknown0E8[i] = Unknown_56D510(i + 1, Unknown_BA7ED8[i], NULL);
+			GadgetClass::Set_Tooltip(Unknown0E8[i], "UI_GUILD", Unknown_BA7F10[i]);
+		}
+		for (i = 0; i < 7; i++) {
+			char name[0x20];
+			_snprintf(name, sizeof(name), "NAME%02d", i);
+			Unknown11C[i] = Unknown_56D510(i + 15, name, NULL);
+			Unknown11C[i]->Unknown2C_0A = true;
+			Unknown138[i] = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_8192C0("name%02d_TSI35a", i).c_str(), Peek_Unknown84()));
+			Unknown154[i] = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_8192C0("LOCATION%02d_TSI35a", i).c_str(), Peek_Unknown84()));
+		}
+		Unknown0BC = Create_Get(new UIGuildListClass(Client->As_Space_Client()));
+		Unknown0BC->Unknown_54();
+		Unknown0C0 = Create_Get(new UIPTradeCreditsClass(Client->As_Space_Client(), 2, 0xFE));
+		Unknown0C0->Unknown_54();
+		Unknown0C0->Unknown0AC[0xCD - 0xAC] = false;
+		Unknown0C4 = Create_Get(new UIPTradeCreditsClass(Client->As_Space_Client(), 1, 0x14));
+		Unknown0C4->Unknown_54();
+		Unknown0C4->Unknown0AC[0xCD - 0xAC] = true;
+		Slider = Unknown_56D8D0(0x17, 0);
+		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
+		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
+	}
+}
+
+// NOT EXACT: inline budget (the client calls the vector's erase out of line; ours expands it) and one register (0x819FB0)
+// 0x819FB0
+void UIGuildClass::Unknown_58()
+{
+	if (!Is_Active()) {
+		ChatPanelUIBase::Unknown_58();
+		std::vector<UIGuildMemberClass *>::iterator it;
+		for (it = Unknown0CC.begin(); it != Unknown0CC.end(); it++) {
+			Unknown_Delete_Member(*it);
+		}
+		Unknown0CC.erase(Unknown0CC.begin(), Unknown0CC.end());
+		Unknown_81AE10();
+		Selection = -1;
+		Top = -1;
+		Unknown_81AAD0(0);
+		Unknown0AC = "";
+		if (Unknown0E8[0]) {
+			((RObjGadgetClass *)Unknown0E8[0])->Unknown_66C360();
+		}
+		if (!Client->As_Space_Client()->Unknown_728300()) {
+			Unknown0C0->Unknown_64A270("Create a new Guild");
+			Unknown0C0->Unknown_58();
+			Unknown0C0->Unknown_64A2B0("");
+			Unknown0C8 = 24;
+			Unknown_81BA60(false);
+			Unknown84->Set_Hidden(true);
+			return;
+		}
+		Unknown_81BFD0();
+		Unknown_81BF40();
+		Unknown_81BA60(true);
+	}
+}
+
+// 0x81A200
+void UIGuildClass::Unknown_5C()
+{
+	if (Active) {
+		Unknown_81BA60(false);
+		Unknown_81AC90();
+		Unknown_81AE10();
+		InterfaceClass::Unknown_5C();
+	}
+}
+
+// 0x81A330
+void UIGuildClass::Unknown_60()
+{
+	Unknown_81AB50();
+	Unknown_81B350();
+	Unknown_81CB90();
+	if (Client->As_Space_Client()->Unknown_728300() && Unknown0BC && Unknown0BC->Active) {
+		if (Unknown0BC->Unknown0A8 == 1) {
+			Unknown0BC->Unknown_5C();
+		} else if (Unknown0BC->Unknown0A8 == 2) {
+			Unknown0BC->Unknown_5C();
+		}
+	}
+	if (!Unknown84->Is_Hidden() && !Client->As_Space_Client()->Unknown_728300()) {
+		Unknown_5C();
+		Unknown98 = 1;
+	}
+}
+
+// NOT EXACT: inline budget (the inlined row click 0x81B3F0 expands the name's _Eos, the client calls it) (0x81A420)
+// 0x81A420
+bool UIGuildClass::Unknown_68(int key)
+{
+	switch (key) {
+		case 1:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown_5C();
+			Unknown98 = 1;
+			return(true);
+		case 2:
+			Unknown0C8 = 2;
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown0C4->Unknown_64A270("Recruit Member");
+			Unknown0C4->Unknown_58();
+			Unknown0C4->Unknown_64A2B0("");
+			Unknown_81BA60(false);
+			return(true);
+		case 8:
+			Unknown0C8 = 8;
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown0C0->Unknown_64A270("Enter Guild Message");
+			Unknown0C0->Unknown_58();
+			Unknown0C0->Unknown_64A2B0("");
+			Unknown_81BA60(false);
+			return(true);
+		case 13:
+			Unknown0C8 = 13;
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown0C0->Unknown_64A270("Enter Guild Name");
+			Unknown0C0->Unknown_58();
+			Unknown0C0->Unknown_64A2B0("");
+			Unknown_81BA60(false);
+			return(true);
+		case 7:
+			Unknown0C8 = 7;
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown0C4->Unknown_64A270("Set Member Tag");
+			Unknown0C4->Unknown_58();
+			Unknown0C4->Unknown_64A2B0("");
+			Unknown_81BA60(false);
+			return(true);
+		case 3:
+		case 4:
+		case 5:
+		case 12:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown_81B610(key);
+			return(true);
+		case 11:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), "/gc leave", 3, NULL));
+			return(true);
+		case 6:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), "/gc disband", 3, NULL));
+			return(true);
+		case 9:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), "/gc publicstats on", 3, NULL));
+			return(true);
+		case 10:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), "/gc publicstats off", 3, NULL));
+			return(true);
+		case 15:
+		case 16:
+		case 17:
+		case 18:
+		case 19:
+		case 20:
+		case 21:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown_81B3F0(key - 15);
+			return(true);
+	}
+	return(false);
+}
+
 // 0x81AA50
 void UIGuildClass::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (View != view) {
-		if (Unknown0BC[0]) {
-			Unknown0BC[0]->Unknown_7C(view, false);
+		if (Unknown0BC) {
+			Unknown0BC->Unknown_7C(view, false);
 		}
-		if (Unknown0BC[1]) {
-			Unknown0BC[1]->Unknown_7C(view, false);
+		if (Unknown0C0) {
+			Unknown0C0->Unknown_7C(view, false);
 		}
-		if (Unknown0BC[2]) {
-			Unknown0BC[2]->Unknown_7C(view, false);
+		if (Unknown0C4) {
+			Unknown0C4->Unknown_7C(view, false);
 		}
 		InterfaceClass::Unknown_7C(view, arg);
 	}
@@ -272,8 +510,8 @@ void UIGuildClass::Unknown_81B610(int key)
 				break;
 			case 12:
 				((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc contributions %s", name.c_str()).c_str(), 3, NULL));
-				if (Unknown0BC[0]->Active) {
-					Unknown0BC[0]->Unknown_5C();
+				if (Unknown0BC->Active) {
+					Unknown0BC->Unknown_5C();
 				}
 				break;
 		}
@@ -370,10 +608,10 @@ int UIGuildClass::Unknown_81C930(std::string rank)
 void UIGuildClass::Unknown_81CB90()
 {
 	RefCountPtr<UIPTradeCreditsClass> entry;
-	if (Unknown0BC[2] && Unknown0BC[2]->Active) {
-		entry = Unknown0BC[2];
-	} else if (Unknown0BC[1] && Unknown0BC[1]->Active) {
-		entry = Unknown0BC[1];
+	if (Unknown0C4 && Unknown0C4->Active) {
+		entry = Unknown0C4;
+	} else if (Unknown0C0 && Unknown0C0->Active) {
+		entry = Unknown0C0;
 	}
 	int state;
 	if (entry && (state = entry->Unknown_64A220()) != 0) {
@@ -384,8 +622,8 @@ void UIGuildClass::Unknown_81CB90()
 					break;
 				case 13:
 				((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc stats %s", entry->Unknown_64A240()).c_str(), 3, NULL));
-					if (Unknown0BC[0]->Active) {
-						Unknown0BC[0]->Unknown_5C();
+					if (Unknown0BC->Active) {
+						Unknown0BC->Unknown_5C();
 					}
 					break;
 				case 8:

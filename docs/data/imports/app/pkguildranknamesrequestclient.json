@@ -28,6 +28,7 @@
   "0x52B330",
   "0x52B350",
   "0x81C040",
+  "0x81D720",
   "0x88BEA0",
   "0x88BED0",
   "0x88C000",
@@ -88,7 +89,8 @@
   "0x88E580",
   "0x88E6F0",
   "0x88E7C0",
-  "0x88E7F0"
+  "0x88E7F0",
+  "0x88E840"
  ],
  "merged": [],
  "name": "packets/pkguildranknamesrequestclient.cpp",
@@ -113,7 +115,9 @@
   "0x52B330",
   "0x52B350",
   "0x81C040",
-  "0x88D6F0"
+  "0x81D720",
+  "0x88D6F0",
+  "0x88E840"
  ],
  "short_known": [
   "0x42D120",
