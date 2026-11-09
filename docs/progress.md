@@ -4,6 +4,66 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-08 (18:40 PST, evening, 2026-11-08c): D206 carried out; event.cpp and unknown_78a910.cpp whole, optdlg.cpp started, ui_attrb's attributes panel; section 4 audited and refiled; the real burn rate; +189 pairs over the run's baseline, 0 lost outright
+
+- **Run** run/2026-11-08c (PR #178), coordinator Opus 5.5 on the subscription, base 3c0af6d0 (#176 merged), baseline
+  `.work/imports.3c0af6d0.json`, plan `.work/run-2026-11-08c/plan.md`. The user: weekly usage to ~80 % by 20:00 (a
+  target), agy may spend its whole Gemini 5-hour window, no API-key builders; land the items already in §4 and prune its
+  stale ones. Weekly usage 73 % -> 77 %; agy's Gemini 5h window 100 % -> 15 % remaining. Builders: Opus K1, C1, W1,
+  C2, K2, AT3, W2, SC1, OD1, G3F, LV1, OD2, AT4, LV2 (~2.9M tokens together); Flash (agy) G1-G7 (~8.3M stream tokens);
+  Sonnet S4A (the §4 audit), RF1 (the refile), PF1 (pacing.py), SF1 (SC1's clienttest stand-ins).
+- **HEAD against the baseline:** gained 179 + 10 tie-break (98 shared, 22 D188 shorts), 0 lost outright; 4 shared holders less (each still held by other files: D66 (i) / (v)), no moves. Two accepted losses, recorded in accepted-corrections.json (PR #179 to
+  master, cherry-picked onto the run so bring-over accepts them): 0x752170 (D217, P-SC1-1, the user: a byte-identical
+  copy constructor aux_roots held only by the range tie-break; it applies when wt/SC1 lands, see below) and 0x5495A0
+  (D66 (vi), the coordinator: two byte-identical static initialisers in the client's ui_attrb object, ours now credited
+  to 0x548190). #179 merges before #178.
+- **The burn rate (the user's question):** the skill's 2 % of the week per Opus builder-hour came from one run on
+  2026-10-27; 22 runs' heartbeat lines (2026-10-30..11-08b) give 0.47 % per builder-hour with the coordinator included
+  (`scripts/burnrate.py`; a fit gives the coordinator ~0.6 %/h, each builder ~0.1 %/h, loosely). pacing.py's default is now
+  0.5 (29164c62); its projection read 0 % whenever the usage reply had only the weekly window (fixed, 5b0e11bf). This
+  run: ~1 % per hour with 4-7 Opus builders.
+- **§4 (the user):** S4A's audit found ~26 entries already done by 11-07 / 11-08 commits that no log entry named; removed
+  after checking each in the ledger's in_tree lists (a02949ef): 0x55A1F0, 0x590DB0, 0x591A30, 0x4C7D80, 0x4CBCD0,
+  0x442650, 0x4BCD30, 0x66FD80, 0x575D50, 0x77D7F0, 0x77D9F0, 0x495990, 0x5B9410, 0x814430 / 0x814620 / 0x814A30 /
+  0x815720, 0x693230, TE1's 0x673EE0 / 0x84BCB0 / 0x84BDF0 / 0x84BE40 / 0x84C060, ro_funcs 0x495FD0-0x496620,
+  starmap_pip's 0x7C3A90. Absence from not-exact.md is not proof (CH2's six had no marker and weren't paired). The 19
+  dated per-run bullets above the numbered categories were refiled into them (b8d040d1, every address / D / P / file
+  token kept), and the coordinator-pacing skill now says to file leads under their category.
+- **Decisions carried out:** D206 (K1, 9022414b): DeltaChildVisitorClass -> KVEncoderClass with the client's pure slots
+  (vtable 0xAEB460; the bodies are KVFilterEncoderClass's, 0xAEB6B8), aux_roots repadded (52, the only pad with 6 / 6),
+  +1. CM2 was already done by D204.
+- **New and finished files:** event.cpp (G3 drafted on agy, G3F finished: Listener / Subject 0x4E81B0-0x4E8E40 all exact,
+  +24 with 8 tie-breaks); unknown_78a910.cpp's ctor / dtor / 0x78ACE0-0x78B660 all exact (OD1, +104); optdlg.cpp new
+  (OD1 / OD2, the client's `__FILE__`): 0x846B80, 0x846CD0, 0x846D10, 0x8472E0, 0x847CD0 exact; 0x846FC0 (register),
+  0x847630 (shape, 30 forms: its first test holds 0x847BB0 / 0x847C40 too), 0x8476C0 mapped, not written. WinMain's
+  stand-ins 0x846C90 / 0x847D20 untouched (D69). ui_attrb's attributes panel Unknown546A80Class (AT3: 16 of 18 exact,
+  +25; ui_attrb_skills.cpp on ui_attrb.h, AT4).
+- **Near misses closed:** chat window split set-up 0x5723B0 rebuilt (register, 2 rows; POC stand-in gone) and 0x572EE0
+  exact (W1); chat_window / _history 0x6821F0, 0x67E670, 0x6804E0, 0x6812C0 exact and FontSys::Font a
+  RefCountPtr<Font32Class> (W2, +9); ui_starbase 0x63BDB0 (G4), 0x63C080 / 0x63D2F0 (G7), 0x646A00 (LV1); gd_buffgadg
+  0x665940 / 0x6656A0 (LV1); ui_avatr 0x5582A0 (G5); 0x563260 (K2), 6 D99 rows (G1), 0x6F36F0 D99 (K2).
+- **Not landed: wt/SC1** (verified, D217 accepted by the user): Player's aux tree compiled in sclient.cpp (D137 interim,
+  auxroots.py SEND_HEADER_ROOTS; SYMBOL_PAD 7, SEND_SYMBOL_PAD 35) makes Player's dtor 0x7551D0 and RPGInfo's 0x753C60
+  exact; the testeffects loader 0x74CA90 functional. Its loader links eff_o.obj into clienttest: SF1's 9269739c drops
+  the colliding stand-ins and clienttest exits 0, but the trace differs from expected.txt by 94 lines (the real effect
+  code finds no effect database), so D182 holds it: §4 has the next step.
+- **Stand-ins and headers (0 / 0):** C1: TR1's skill_render / inv_render, LineDisplayWrapClass -> FontSplitStringClass,
+  fontmanager.h in nine views, FontSys ctors take RenderObjClass *; C2: unknown_4be9d0.h, P-MU1-2, P-H11-1 in part, rs.h
+  and rs_proj_sup.h, ui_popupmsg.h, ui_cpit on ui_scan.h; K2: aux_roots' Write / deleting pairs swapped by the client's
+  vtables (+1), the root object from 0x4A3B40, srctree.py files asserts by the nearest `__FILE__` (249 rows),
+  Unknown10BC unsigned. Not held: P-H13-2 and P-H11-1's rest (lose aux_roots ctors and sclient 0x74D990; one quiet-queue
+  pad round), the strconv move (no pad 6 / 6: left where they are, the coordinator's call), P-H9-3 (its text is lost).
+- **Open for the user:** P-W2-1 (held at the user's word: FontSys's implicit destructor +4 against sclient 0x74D990).
+- **Throughput:** the importer lock is global and not FIFO: with 6-9 builders verifies waited 20-50 minutes, three agy
+  builders timed out in the queue (G3 / G4 / G5; their work was saved: G3F finished event.cpp, G4 / G5's commits landed
+  and their unverified edits are patches in the run folder), and two batch landings gave up before `--lock-wait 6000`.
+  More than ~5 builders adds queue time, not landings.
+- **Harness (D182):** at 51c9c526 (everything landed but G6 / LV2's attempts rows): the POC runs its videos and exits 0; clienttest 103 checks, 0 failed, trace equal to expected.txt (2,658 lines); udpreplay alex3 exit 0; handshakes 54 / 54.
+- **Traps filed** (workflow.md §3.1, §3.3, §3.4, §3.6): dead size() reads and default-construct-then-assign; VC6's loop
+  rewrites; inline copies in definition order and the explicit empty destructor's vptr stores; sclient 0x74D990's pad
+  sensitivity; the lock (`--lock-wait 6000`, ENB_LOCK_WAIT for auxpad), accepted losses on the target branch, shared
+  verify scratch, renames alone changing pairs; appfile.py's marker, stdin, include and line-count quirks.
+
 ### 2026-11-08 (13:35 PST, day, 2026-11-08b): P-IR3-1, P-CW1-1..3 carried out; a second Batch API round (b1108) applied; ChatPanelUIBase; symbols.json regenerated with two tools fixes; +247 pairs over the run's baseline, 0 lost outright
 
 - **Run** run/2026-11-08b (PR #176), coordinator Opus 5.5 on the subscription, base 05a28def (#175 merged), baseline
@@ -2683,6 +2743,18 @@ below name only the work items, the blocked work, the leads and the queues.
    * From the 2026-10-31 t4 run (TK14): ui_avatr.cpp (19 pairs): the window's vtable 0xAEF9BC holds 0x554D60 at +0x60
      and 0x554E80 at +0x68, InterfaceClass's Unknown_60 / Unknown_68: declare them as those overrides if 0x554E80's
      functional rebuild (2026-11-04) does not, then rerun every marker; its functions toward exact: the POC creation item.
+   * wt/SC1 (2026-11-08c) waits to land, verified (+6 addresses, 0x752170's loss accepted as D217): Player's aux tree
+     compiled in sclient.cpp makes 0x7551D0 / 0x753C60 exact, and the testeffects loader 0x74CA90 is functional. Its
+     loader links eff_o.obj into clienttest: 9269739c drops the colliding stand-ins and clienttest exits 0, but the
+     trace differs from expected.txt by 94 lines (the real effect code finds no effect database: fail_if !effect
+     l.615, !Camera l.154). Give clienttest an effect database or the effects a camera (or a reviewed expected.txt),
+     then `wt.py bring-over SC1`. P-W2-1 retries after it.
+   * wt/SC1 (2026-11-08c) waits to land, verified (+6 addresses, 0x752170's loss accepted as D217): Player's aux tree
+     compiled in sclient.cpp makes 0x7551D0 / 0x753C60 exact, and the testeffects loader 0x74CA90 is functional. Its
+     loader links eff_o.obj into clienttest: 9269739c drops the colliding stand-ins and clienttest exits 0, but the
+     trace differs from expected.txt by 94 lines (the real effect code finds no effect database: fail_if !effect
+     l.615, !Camera l.154). Give clienttest an effect database or the effects a camera (or a reviewed expected.txt),
+     then `wt.py bring-over SC1`. P-W2-1 retries after it.
    * SClient's aux code (SCI, 2026-11-04): Player's dtor 0x7551D0 (0.91) and RPGInfo's 0x753C60 are order-only: exact in a
      draft where Race / Profession are `DeltaTemplateClass<int>`, but the client emits the enum instances' dtors (0x753C20 /
      0x753C40) before them, because its object 0x751BE0-0x75A4E0 holds SClient's aux functions (0x7518A0, 0x7555B0,
