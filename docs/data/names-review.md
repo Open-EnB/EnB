@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 176 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1676 |
+| 3 | by convention from a client-named file or sibling | 1677 |
 | 2 | describes what the code does | 3896 |
-| 1 | neutral placeholder | 21581 |
+| 1 | neutral placeholder | 21579 |
 
 ## For review (score 3 and below)
 
@@ -2462,7 +2462,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown14` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
 | 1 | `Unknown_63CF30` | `app/client/cpacket.cpp:2338` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownD8Class` | `app/client/cpacket.cpp:2413` | neutral (D10) |
 | 1 | `name` | `app/client/cpacket.cpp:2416` | the event's Unknown54 |
 | 1 | `Unknown_5DA780` | `app/client/cpacket.cpp:2416` | untagged neutral name (D10) |
 | 1 | `name` | `app/client/cpacket.cpp:2417` | the event's Unknown54; 0x5DA600 (CLIENT_CHAT_LIST 164 type 1: the ignore list)  // NAME 1 [names]: the packet's Unknown20 |
@@ -2473,14 +2472,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `name` | `app/client/cpacket.cpp:2424` | the event's Unknown54; 0x5913E0 (CLIENT_CHAT_LIST 164 type 0: the friends list)  // NAME 1 [names, others]: the packet's Unknown20, Unknown30 |
 | 1 | `Unknown_5913E0` | `app/client/cpacket.cpp:2424` | untagged neutral name (D10) |
 | 1 | `Unknown_591880` | `app/client/cpacket.cpp:2424` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownE4Class` | `app/client/cpacket.cpp:2428` | neutral (D10) |
-| 1 | `name, flag` | `app/client/cpacket.cpp:2431` | neutral |
+| 1 | `UIRadioListClass` | `app/client/cpacket.cpp:2428` | neutral, after the window's lists (ui_radio_list.h's) |
+| 1 | `state, name` | `app/client/cpacket.cpp:2431` | neutral |
 | 1 | `Unknown_5E8FF0` | `app/client/cpacket.cpp:2431` | untagged neutral name (D10) |
-| 1 | `name, flag` | `app/client/cpacket.cpp:2432` | neutral; 0x5E8E30 (CLIENT_CHAT_LIST 164 types 2 / 3 with +0xA0 1 / 0)  // NAME 1 [names, flag]: what the handler passes |
+| 1 | `state, name, names` | `app/client/cpacket.cpp:2432` | neutral |
 | 1 | `Unknown_5E8E30` | `app/client/cpacket.cpp:2432` | untagged neutral name (D10) |
 | 1 | `Unknown_5E9160` | `app/client/cpacket.cpp:2432` | untagged neutral name (D10) |
-| 1 | `UnknownA0` | `app/client/cpacket.cpp:2435` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownE8Class` | `app/client/cpacket.cpp:2439` | neutral (D10) |
+| 1 | `State` | `app/client/cpacket.cpp:2435` | neutral (D10) |
+| 1 | `UIRadioAdminClass` | `app/client/cpacket.cpp:2439` | neutral, after its tooltips' section 'UI_RADIO_ADMIN' (ui_radio_admin.h's) |
 | 1 | `name` | `app/client/cpacket.cpp:2442` | neutral |
 | 1 | `Unknown_5E5EF0` | `app/client/cpacket.cpp:2442` | untagged neutral name (D10) |
 | 1 | `name` | `app/client/cpacket.cpp:2443` | neutral; 0x5E5D70 (CLIENT_CHAT_LIST 164 type 2 otherwise)  // NAME 1 [names]: the packet's Unknown20 |
@@ -10619,14 +10618,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown9C` | `app/client/ui_chat_panel.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown5CE240Class` | `app/client/ui_chat_panel.cpp:143` | neutral (D10): 0x5CE240, 0xC0 bytes (request 1) |
 | 1 | `Unknown5CE700Class` | `app/client/ui_chat_panel.cpp:144` | neutral (D10): 0x5CE700, 0xB8 bytes (request 2)  // NAME 1 [a]: neutral |
-| 1 | `Unknown5C9910Class` | `app/client/ui_chat_panel.cpp:145` | neutral (D10): 0x5C9910, 0xE4 bytes (requests 3, 4)  // NAME 1 [a, b]: neutral |
 | 1 | `Unknown5CEDD0Class` | `app/client/ui_chat_panel.cpp:146` | neutral (D10): 0x5CEDD0, 0xE4 bytes (requests 5-7)  // NAME 1 [a, b]: neutral |
 | 1 | `Unknown5CA010Class` | `app/client/ui_chat_panel.cpp:147` | neutral (D10): 0x5CA010, 0x1B0 bytes (request 8)  // NAME 1 [a]: neutral |
-| 1 | `Unknown5C8870Class` | `app/client/ui_chat_panel.cpp:148` | neutral (D10): 0x5C8870, 0xAC bytes (requests 9, 10)  // NAME 1 [a]: neutral |
-| 1 | `Unknown5E9410Class` | `app/client/ui_chat_panel.cpp:150` | neutral (D10): 0x5E9410, 0xC4 bytes (0x566AF0's requests 1, 2, 5, 8: a mode and a channel)  // NAME 1 [mode, channel]: what 0x566AF0 passes |
-| 1 | `Unknown5EAB40Class` | `app/client/ui_chat_panel.cpp:151` | neutral (D10): 0x5EAB40, 0xBC bytes (requests 3, 4)  // NAME 1 [a]: neutral |
-| 1 | `Unknown5E6290Class` | `app/client/ui_chat_panel.cpp:152` | neutral (D10): 0x5E6290, 0xC4 bytes (requests 6, 7, 9)  // NAME 1 [a]: neutral |
-| 1 | `Unknown5E4160Class` | `app/client/ui_chat_panel.cpp:153` | neutral (D10): 0x5E4160, 0x11C bytes (request 10, kept at +0xE8 too) |
 | 1 | `UIChatPanelPDAClass` | `app/client/ui_chat_panel.cpp:156` | neutral (D10): 0x695F40 |
 | 1 | `Unknown_695F40` | `app/client/ui_chat_panel.cpp:156` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/ui_chat_panel.cpp:163` | untagged neutral name (D10) |
@@ -21148,15 +21141,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08C90` | `programs/clientpoc/poc_data.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C94` | `programs/clientpoc/poc_data.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C98` | `programs/clientpoc/poc_data.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CA0` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB4` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C9C` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CA8` | `programs/clientpoc/poc_data.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CA0` | `programs/clientpoc/poc_data.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB4` | `programs/clientpoc/poc_data.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C9C` | `programs/clientpoc/poc_data.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `programs/clientpoc/poc_data.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB0` | `programs/clientpoc/poc_data.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `programs/clientpoc/poc_data.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CBC` | `programs/clientpoc/poc_data.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `programs/clientpoc/poc_data.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_NN` | `programs/clientpoc/poc_gadget_real.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `programs/clientpoc/poc_gadget_real.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `programs/clientpoc/poc_gadget_real.cpp:51` | untagged neutral name (D10) |
@@ -21480,22 +21474,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_83D900` | `tests/clienttest/clienttest.cpp:1910` | untagged neutral name (D10) |
 | 1 | `Unknown_83D970` | `tests/clienttest/clienttest.cpp:1912` | untagged neutral name (D10) |
 | 1 | `Unknown119C` | `tests/clienttest/clienttest.cpp:1943` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownD8Class` | `tests/clienttest/clienttest.cpp:1975` | untagged neutral name (D10) |
 | 1 | `Unknown_5DA600` | `tests/clienttest/clienttest.cpp:1975` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownE4Class` | `tests/clienttest/clienttest.cpp:1976` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA780` | `tests/clienttest/clienttest.cpp:1975` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA8C0` | `tests/clienttest/clienttest.cpp:1975` | untagged neutral name (D10) |
 | 1 | `Unknown_5E8E30` | `tests/clienttest/clienttest.cpp:1976` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownE8Class` | `tests/clienttest/clienttest.cpp:1977` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8FF0` | `tests/clienttest/clienttest.cpp:1976` | untagged neutral name (D10) |
+| 1 | `Unknown_5E9160` | `tests/clienttest/clienttest.cpp:1976` | untagged neutral name (D10) |
 | 1 | `Unknown_5E5D70` | `tests/clienttest/clienttest.cpp:1977` | untagged neutral name (D10) |
-| 1 | `Unknown_830AA0` | `tests/clienttest/clienttest.cpp:1983` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `tests/clienttest/clienttest.cpp:1995` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `tests/clienttest/clienttest.cpp:2004` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `tests/clienttest/clienttest.cpp:2024` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `tests/clienttest/clienttest.cpp:2025` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `tests/clienttest/clienttest.cpp:2026` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `tests/clienttest/clienttest.cpp:2029` | untagged neutral name (D10) |
-| 1 | `LoginUnknown18Class` | `tests/clienttest/clienttest.cpp:2195` | untagged neutral name (D10) |
-| 1 | `SClientUnknown12C4Class` | `tests/clienttest/clienttest.cpp:2198` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `tests/clienttest/clienttest.cpp:2199` | untagged neutral name (D10) |
+| 1 | `Unknown_5E5EF0` | `tests/clienttest/clienttest.cpp:1977` | untagged neutral name (D10) |
+| 1 | `Unknown_5E6030` | `tests/clienttest/clienttest.cpp:1977` | untagged neutral name (D10) |
+| 1 | `Unknown_830AA0` | `tests/clienttest/clienttest.cpp:1991` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `tests/clienttest/clienttest.cpp:2003` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `tests/clienttest/clienttest.cpp:2012` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `tests/clienttest/clienttest.cpp:2032` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `tests/clienttest/clienttest.cpp:2033` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `tests/clienttest/clienttest.cpp:2034` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `tests/clienttest/clienttest.cpp:2037` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `tests/clienttest/clienttest.cpp:2203` | untagged neutral name (D10) |
+| 1 | `SClientUnknown12C4Class` | `tests/clienttest/clienttest.cpp:2206` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `tests/clienttest/clienttest.cpp:2207` | untagged neutral name (D10) |
 | 1 | `Unknown_58A580` | `tests/clienttest/pda_stubs.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown688830Class` | `tests/clienttest/pda_stubs.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_68A720` | `tests/clienttest/pda_stubs.cpp:20` | untagged neutral name (D10) |
@@ -21506,15 +21503,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08C90` | `tests/clienttest/ui_avsel_stubs.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C94` | `tests/clienttest/ui_avsel_stubs.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C98` | `tests/clienttest/ui_avsel_stubs.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CA0` | `tests/clienttest/ui_avsel_stubs.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB4` | `tests/clienttest/ui_avsel_stubs.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_B08C9C` | `tests/clienttest/ui_avsel_stubs.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CAC` | `tests/clienttest/ui_avsel_stubs.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB0` | `tests/clienttest/ui_avsel_stubs.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CB8` | `tests/clienttest/ui_avsel_stubs.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CBC` | `tests/clienttest/ui_avsel_stubs.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC0` | `tests/clienttest/ui_avsel_stubs.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_B08CC4` | `tests/clienttest/ui_avsel_stubs.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CA8` | `tests/clienttest/ui_avsel_stubs.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CA0` | `tests/clienttest/ui_avsel_stubs.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB4` | `tests/clienttest/ui_avsel_stubs.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_B08C9C` | `tests/clienttest/ui_avsel_stubs.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CAC` | `tests/clienttest/ui_avsel_stubs.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB0` | `tests/clienttest/ui_avsel_stubs.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CB8` | `tests/clienttest/ui_avsel_stubs.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CBC` | `tests/clienttest/ui_avsel_stubs.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC0` | `tests/clienttest/ui_avsel_stubs.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_B08CC4` | `tests/clienttest/ui_avsel_stubs.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `tests/clienttest/ui_login_stubs.cpp:17` | untagged neutral name (D10) |
 | 1 | `UnknownEventDispatcherClass` | `tests/clienttest/ui_stubs.cpp:51` | untagged neutral name (D10) |
 | 1 | `Unknown_540A20` | `tests/clienttest/ui_stubs.cpp:52` | untagged neutral name (D10) |
@@ -25584,6 +25582,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GadgetClass` | `app/client/cpacket.cpp:1818` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `GadgetListManagerClass` | `app/client/cpacket.cpp:1831` | class-from-file (D24) for app\client\gadget_list_manager.cpp (its FAIL_IF '!Manager' on this) |
 | 3 | `name` | `app/client/cpacket.cpp:1834` | its FAIL_IF's |
+| 3 | `UIPlayerOptClass` | `app/client/cpacket.cpp:2413` | class-from-file (D24) for app\client\ui_playeropt.cpp (ui_playeropt.h's) |
 | 3 | `UIFriendsClass` | `app/client/cpacket.cpp:2420` | class-from-file (D24) for app\client\ui_friends.cpp |
 | 3 | `Friends` | `app/client/cpacket.cpp:2467` | its methods' file |
 | 3 | `UIGroupFindClass` | `app/client/cpacket.cpp:2481` | class-from-file (D24) for app\client\ui_groupfind.cpp  // NAME 1 [packet]: the handler's packet |

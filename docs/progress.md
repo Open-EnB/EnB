@@ -2947,11 +2947,12 @@ below name only the work items, the blocked work, the leads and the queues.
      0x562440, ui_combobox 0x578D50, sclient 0x74DFF0; other sorted-insert loops with `it++` (ui_guild's member lists,
      ui_friends) may want `++it`; chat window near misses 0x5E85F0
      (basic_string::erase out of line in operator='s self-assign branch), 0x5E5360 (cases 5 / 6 expansion and frame);
-     ui_chat_panel.cpp's and cpacket.cpp's local stand-ins onto the real chat window headers (ui_radio_main.h,
-     ui_radio_join.h, ui_radio_list.h, ui_radio_admin.h), one verified step each: ui_chat_panel's Unknown5E9410Class /
-     Unknown5EAB40Class (its lines 150-151, 1165-1186); cpacket's UIChatPanelUnknownE4Class declares 0x5E8E30 / 0x5E8FF0
-     / 0x5E9160 as (names, flag) where the client's are (int state, vector / string): maybe why 0x73CC90 / 0x73B150 are
-     NOT EXACT; 0x5EB2F0 (0.51, inline-budget:
+     UIChatPanelWindowClass retired for ChatPanelUIBase (both hold the int at +0x98; the client has one Create_Get
+     0x56CCB0 for the window base): removes ui_chat_panel.cpp's casts, renames 0x56CCB0 and pdaint's 0x694AA0, the five
+     remaining stand-ins (5DAE90, 5CE240, 5CE700, 5CEDD0, 5CA010: no headers yet) pad from 0xA0; a ui_chat_panel.h edit,
+     so with the sclient pad sweep (0x74D990 / 0x758210 / 0x702240) and the POC's POC_WINDOW_CTOR (SW1); cpacket
+     0x73CC90 (0.73, 328 vs 327 instructions: the FAIL_IF and !panel returns keep their own profile tails, CP2 / FU1's
+     shape), 0x73B150 (0.42, the range ctor 0x73F680 out of line); 0x569A00 (0x5C8DB0's caller) unwritten; 0x5EB2F0 (0.51, inline-budget:
      the client's three std::string(const char *) temporaries call _Tidy(false) out of line and inline assign(s, n));
      symbols.json's name for the thunk 0x4105DC ('DynamicScreenMeshClass::Set_Aspect') is wrong: it is
      ChatPanelInterface::Unknown_565F60's.
