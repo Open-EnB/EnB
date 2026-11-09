@@ -577,10 +577,12 @@ void UIAnalyzeClass::Unknown_545610()
 	Unknown0FC[0]->Set_Hidden(true);
 	Unknown0FC[1]->Set_Hidden(true);
 	Unknown0FC[2]->Set_Hidden(true);
-	UIAnalyzeValidityClass *validity = Unknown_Find_Field<UIAnalyzeValidityClass>(Unknown10C, NameClass("Validity"));
+	NameClass name("Validity");
+	UIAnalyzeValidityClass *validity = Unknown_Find_Field<UIAnalyzeValidityClass>(Unknown10C, name);
 	if (validity && validity->Unknown70) {
 		bool analyze;
-		UIAnalyzeModeClass *mode = Unknown_Find_Field<UIAnalyzeModeClass>(Unknown10C, NameClass("Mode"));
+		NameClass mode_name("Mode");
+		UIAnalyzeModeClass *mode = Unknown_Find_Field<UIAnalyzeModeClass>(Unknown10C, mode_name);
 		if (mode && mode->Unknown70 && mode->Value == 2) {
 			analyze = true;
 			Unknown_544C50(8, true, Unknown_B796A8[11]);
