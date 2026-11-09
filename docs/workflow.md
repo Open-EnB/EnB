@@ -1147,6 +1147,12 @@ unless `--lever` cites a new row of this table.
 * **The importer lock is global and not first-come-first-served (2026-11-08c):** every worktree's verify, report.py, auxpad sweep and bring-over takes the same lock; with 6-9 builders a verify waited 20-50 minutes and the default 600 s wait gave up. Pass `--lock-wait 6000` to verify and to `wt.py bring-over`, set ENB_LOCK_WAIT for auxpad.py (no `--pool`; it leases itself and fails at once on low memory), iterate with the lock-free `appfile.py match FILE --pool`, and run the full verify once per batch of gains. agy builders' 75-minute timeout expired in the queue three times (G3, G4, G5).
 * **An accepted loss must be on the target branch (2026-11-08c):** `wt.py bring-over` reads accepted-corrections.json at the target's tip, so cherry-pick the correction onto the run branch before the landing, as well as opening its PR to master (verify_pr reads master's).
 * **verify-<lib> scratch is shared (2026-11-08c, K1):** `%TEMP%\enb_import\verify-<lib>` is written by every worktree's verify: copy your objects out at once before vtables.py or objdiff. A symbols_named.json rename alone can change pairs (K2: sclient 0x706FF0): rerun the verify before keeping such a gain (§3.0).
+* **sclient's SEND_SYMBOL_PAD moves with its headers (2026-11-08c evening, PH1):** after SC1 sclient.cpp's padded
+constructors (0x758210, 0x702240) and 0x74D990 hang on aux_roots_send.h's SEND_SYMBOL_PAD, whose window shifts with any
+header sclient.cpp includes (sbaseview.h, fontmanager.h moved it 35 -> 40 -> 51); aux_roots.cpp's SYMBOL_PAD window is
+the single value 16. Re-sweep after every landing that touches such a header (PH1's lock-free sweep: ~3 minutes); the
+pad cycles mod 64. Single-file compiles of sclient / aux_roots show a constant set of false losses: compare pads with
+each other and decide with the full verify. Builders branched before such a landing must rebase and re-sweep.
 
 ### 3.5 Build VMs and vc6.py
 
@@ -1490,6 +1496,11 @@ unless `--lever` cites a new row of this table.
 * **Reading a kerneltest build failure (2026-11-06, KT1):** a compile error in taskstest.cpp shows up as hundreds of unrelated unresolved symbols and LNK2005 lines, all fallout (the BINKMovie ones were): read the `cl:` lines first (`grep -v unresolved`). A worktree has no build/, so pass the main tree's as `--out`. `pool.py lease` and `release` both take `--agent NAME`; a bare IP released nothing.
 * **Worktree POC and clienttest runs (2026-11-08 night run, PD1, TL1):** a worktree has no build/art or build/d3d8shot: copy both in before `clientpoc.py replay --exe <worktree>...` (a missing d3d8.dll otherwise), and build/art/MSS32.DLL before clienttest (exit 0xC0000135). `appfile.py match` draft copies under `.work/<id>/m/` resolve their includes and compile, so forms can be tried while a verify runs on the tree; `--diff` on a tree file itself prints nothing (only `// @0xADDR` markers count): copy it there and rewrite the marker (SB2). A generated stub for FontSys 0x6CE420 (vsnprintf, then Change_Text) leaves every formatted text in the POC empty (chat lines, inventory counts): CW2's poc_world.cpp stand-in fills them. WE1's replay never selects a target: the target lines (ui_scan 0x60F1A0) need a replay with a targetable object.
 * **clienttest in a builder worktree and its seams (2026-11-08b, CW4, VB2, RN1):** a fresh worktree needs `build.py build --lib app` there (build/app/app.lib) and MSS32.DLL at `<worktree>\build\art\MSS32.DLL`, else 0xC0000135 and no trace. To redirect a call made inside one app object instead of stubbing the caller (which collides with the real definition), add `#define NAME Clienttest_NAME` to that file's wrapper in clienttest.py and define the renamed method in client_stubs.cpp (sclient's Unknown_563760). The coordinator's harness check needs `ENB_VC6_HOSTS` from a pool lease: without it the builds fail and clienttest runs a stale exe.
+* **clienttest and real effect code (2026-11-08c evening, HF1):** once app.lib's eff_o.obj links in, clienttest needs
+tests/clienttest/data/effect.ini (EA's shipped EFFECT sections for the descs a session asks for, and their links) and
+eff_ base assets in basset.ini, numbered from 1001 so other models keep their numbers; concrete effect classes not yet
+rebuilt need stand-ins on their real ends. A fresh worktree's clienttest exits 0xC0000135 until build/art/MSS32.DLL
+is copied in. bring-over's report.py step ignores --lock-wait: set ENB_LOCK_WAIT=6000 too.
 
 ### 3.8 Git, docs and scripting hygiene
 
