@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1634 |
-| 2 | describes what the code does | 3803 |
-| 1 | neutral placeholder | 19959 |
+| 3 | by convention from a client-named file or sibling | 1638 |
+| 2 | describes what the code does | 3808 |
+| 1 | neutral placeholder | 20123 |
 
 ## For review (score 3 and below)
 
@@ -6318,15 +6318,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SBaseViewUnknown184Class` | `app/client/sbaseview.h:171` | neutral (D10): the starbase view's +0x184 (0x69F8F0 case 5: 0x5EB810, 0xB08 bytes; 'TSM03A')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
 | 1 | `SBaseViewUnknown188Class` | `app/client/sbaseview.h:172` | neutral (D10): the starbase view's +0x188 (0x69F8F0 case 6: 0x5435D0, 0x11C bytes; 'FA_TSM02A.INI')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
 | 1 | `SBaseViewUnknown198Class` | `app/client/sbaseview.h:173` | neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes |
-| 1 | `client` | `app/client/sbaseview.h:181` | what 0x69F8F0 passes |
-| 1 | `packet` | `app/client/sbaseview.h:182` | the handler's packet |
-| 1 | `Unknown_5A3BC0` | `app/client/sbaseview.h:182` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:183` | the handler's packet |
-| 1 | `Unknown_5A3F10` | `app/client/sbaseview.h:183` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/sbaseview.h:184` | the handler's packet |
-| 1 | `Unknown_5A3FB0` | `app/client/sbaseview.h:184` | untagged neutral name (D10) |
-| 1 | `job_id` | `app/client/sbaseview.h:185` | the packet's JobID |
-| 1 | `Unknown_5A4430` | `app/client/sbaseview.h:185` | untagged neutral name (D10) |
 | 1 | `SBaseViewUnknown698730Struct` | `app/client/sbaseview.h:191` | neutral (D10): what 0x698730 finds (0x6A2120 tests +0x0A / +0x0B) |
 | 1 | `SBaseViewUnknown1B4Class` | `app/client/sbaseview.h:192` | neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4; the view's destructor 0x69B0C0 deletes it through 0x698370); 0x698730: a hash lookup by key; +0x18 the column of 0x6A2120's model names (0..9)  // NAME 1 [key]: neutral |
 | 1 | `Unknown_698730` | `app/client/sbaseview.h:192` | untagged neutral name (D10) |
@@ -12354,6 +12345,179 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_49E210` | `app/client/ui_item_examination_title.h:50` | untagged neutral name (D10) |
 | 1 | `std:` | `app/client/ui_item_examination_title.h:51` | neutral (D10); NAME 1 [type]: neutral |
 | 1 | `Unknown_7EB4D0` | `app/client/ui_item_examination_title.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_jobs.cpp:20` | neutral (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/ui_jobs.cpp:23` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_jobs.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_jobs.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_jobs.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_jobs.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_jobs.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_jobs.cpp:27` | untagged neutral name (D10) |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_jobs.cpp:31` | as ui_manu.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/ui_jobs.cpp:31` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/ui_jobs.cpp:32` | as ui_avatr.cpp's |
+| 1 | `Unknown_497300` | `app/client/ui_jobs.cpp:32` | untagged neutral name (D10) |
+| 1 | `UIJobsKeyEventStruct` | `app/client/ui_jobs.cpp:35` | neutral (D10): kernel.h's input event |
+| 1 | `key` | `app/client/ui_jobs.cpp:37` | neutral |
+| 1 | `Unknown02` | `app/client/ui_jobs.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_jobs.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_jobs.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_jobs.cpp:37` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_jobs.cpp:38` | neutral (D10) |
+| 1 | `UI_OPEN` | `app/client/ui_jobs.cpp:48` | neutral (D10) |
+| 1 | `Unknown_B8077C` | `app/client/ui_jobs.cpp:52` | neutral (D10) |
+| 1 | `Unknown_B807A8` | `app/client/ui_jobs.cpp:53` | neutral (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_jobs.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_jobs.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_jobs.cpp:59` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_jobs.cpp:60` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_jobs.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_jobs.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_jobs.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_jobs.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_jobs.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_jobs.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown0D8` | `app/client/ui_jobs.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_jobs.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/ui_jobs.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown1EC` | `app/client/ui_jobs.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_jobs.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3930` | `app/client/ui_jobs.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_jobs.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_jobs.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_jobs.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_jobs.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_jobs.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_5BB4F0` | `app/client/ui_jobs.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_jobs.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown14C` | `app/client/ui_jobs.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_jobs.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_jobs.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_jobs.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_jobs.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_jobs.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_jobs.cpp:166` | untagged neutral name (D10) |
+| 1 | `Unknown_5A32B0` | `app/client/ui_jobs.cpp:176` | untagged neutral name (D10) |
+| 1 | `Unknown135C` | `app/client/ui_jobs.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC40` | `app/client/ui_jobs.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3090` | `app/client/ui_jobs.cpp:182` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3890` | `app/client/ui_jobs.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_744560` | `app/client/ui_jobs.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3440` | `app/client/ui_jobs.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_jobs.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC60` | `app/client/ui_jobs.cpp:197` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_jobs.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3400` | `app/client/ui_jobs.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_jobs.cpp:214` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_jobs.cpp:220` | untagged neutral name (D10) |
+| 1 | `Unknown_69F440` | `app/client/ui_jobs.cpp:220` | untagged neutral name (D10) |
+| 1 | `Unknown_5A2A30` | `app/client/ui_jobs.cpp:235` | untagged neutral name (D10) |
+| 1 | `Unknown_5A2C50` | `app/client/ui_jobs.cpp:236` | untagged neutral name (D10) |
+| 1 | `Unknown_5A2730` | `app/client/ui_jobs.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown_5A36F0` | `app/client/ui_jobs.cpp:251` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_jobs.cpp:360` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3240` | `app/client/ui_jobs.cpp:364` | untagged neutral name (D10) |
+| 1 | `Unknown_5A2900` | `app/client/ui_jobs.cpp:377` | untagged neutral name (D10) |
+| 1 | `Unknown_5A2AA0` | `app/client/ui_jobs.cpp:399` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_jobs.cpp:408` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_jobs.cpp:420` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_jobs.cpp:424` | untagged neutral name (D10) |
+| 1 | `Unknown_5A37D0` | `app/client/ui_jobs.cpp:443` | untagged neutral name (D10) |
+| 1 | `Unknown0EC` | `app/client/ui_jobs.cpp:444` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ui_jobs.cpp:446` | untagged neutral name (D10) |
+| 1 | `Unknown_5A2FB0` | `app/client/ui_jobs.cpp:486` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_jobs.cpp:489` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3390` | `app/client/ui_jobs.cpp:539` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_jobs.cpp:549` | untagged neutral name (D10) |
+| 1 | `Unknown_5A45A0` | `app/client/ui_jobs.cpp:572` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0B` | `app/client/ui_jobs.cpp:574` | untagged neutral name (D10) |
+| 1 | `Unknown_6603A0` | `app/client/ui_jobs.cpp:575` | untagged neutral name (D10) |
+| 1 | `Unknown_6607D0` | `app/client/ui_jobs.cpp:578` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3AF0` | `app/client/ui_jobs.cpp:593` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_jobs.cpp:634` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3BC0` | `app/client/ui_jobs.cpp:658` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_jobs.cpp:664` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/ui_jobs.cpp:667` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/ui_jobs.cpp:668` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3F10` | `app/client/ui_jobs.cpp:676` | untagged neutral name (D10) |
+| 1 | `Unknown_Remove_Job` | `app/client/ui_jobs.cpp:805` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3FB0` | `app/client/ui_jobs.cpp:823` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/ui_jobs.cpp:832` | untagged neutral name (D10) |
+| 1 | `Unknown_5A4430` | `app/client/ui_jobs.cpp:860` | untagged neutral name (D10) |
+| 1 | `ui_jobs.h` | `app/client/ui_jobs.h:4` | provisional header name for ui_jobs.cpp |
+| 1 | `UIJobsInvClass` | `app/client/ui_jobs.h:22` | neutral (D10) |
+| 1 | `client, model, count, format, unknown` | `app/client/ui_jobs.h:25` | as ui_manu.h's |
+| 1 | `Unknown84` | `app/client/ui_jobs.h:27` | untagged neutral name (D10) |
+| 1 | `UIJobsInfoStruct` | `app/client/ui_jobs.h:31` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_jobs.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_jobs.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_jobs.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_jobs.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_jobs.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/ui_jobs.h:33` | untagged neutral name (D10) |
+| 1 | `UIJobsRowStruct` | `app/client/ui_jobs.h:46` | neutral (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_jobs.h:58` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_jobs.h:61` | what 0x69F8F0 passes |
+| 1 | `Unknown_54` | `app/client/ui_jobs.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_jobs.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_jobs.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_jobs.h:66` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_jobs.h:67` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_jobs.h:67` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_jobs.h:68` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_jobs.h:68` | untagged neutral name (D10) |
+| 1 | `row` | `app/client/ui_jobs.h:69` | neutral |
+| 1 | `Unknown_5A2730` | `app/client/ui_jobs.h:69` | untagged neutral name (D10) |
+| 1 | `index, show, text` | `app/client/ui_jobs.h:70` | as ui_manu.cpp's 0x5B1AF0 |
+| 1 | `Unknown_5A2900` | `app/client/ui_jobs.h:70` | untagged neutral name (D10) |
+| 1 | `column` | `app/client/ui_jobs.h:71` | neutral |
+| 1 | `Unknown_5A2A30` | `app/client/ui_jobs.h:71` | untagged neutral name (D10) |
+| 1 | `a, b, column` | `app/client/ui_jobs.h:72` | neutral |
+| 1 | `Unknown_5A2AA0` | `app/client/ui_jobs.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown_5A2C50` | `app/client/ui_jobs.h:73` | untagged neutral name (D10) |
+| 1 | `row` | `app/client/ui_jobs.h:74` | neutral |
+| 1 | `Unknown_5A2FB0` | `app/client/ui_jobs.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3090` | `app/client/ui_jobs.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3240` | `app/client/ui_jobs.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown_5A32B0` | `app/client/ui_jobs.h:77` | untagged neutral name (D10) |
+| 1 | `count` | `app/client/ui_jobs.h:78` | neutral |
+| 1 | `Unknown_5A3390` | `app/client/ui_jobs.h:78` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3400` | `app/client/ui_jobs.h:79` | untagged neutral name (D10) |
+| 1 | `category` | `app/client/ui_jobs.h:80` | neutral |
+| 1 | `Unknown_5A3440` | `app/client/ui_jobs.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_5A36F0` | `app/client/ui_jobs.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown_5A37D0` | `app/client/ui_jobs.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3890` | `app/client/ui_jobs.h:83` | untagged neutral name (D10) |
+| 1 | `title, detail, item` | `app/client/ui_jobs.h:84` | neutral |
+| 1 | `Unknown_5A3930` | `app/client/ui_jobs.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown_5A3AF0` | `app/client/ui_jobs.h:85` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/ui_jobs.h:86` | the handler's packet |
+| 1 | `Unknown_5A3BC0` | `app/client/ui_jobs.h:86` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/ui_jobs.h:87` | the handler's packet |
+| 1 | `Unknown_5A3F10` | `app/client/ui_jobs.h:87` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/ui_jobs.h:88` | the handler's packet |
+| 1 | `Unknown_5A3FB0` | `app/client/ui_jobs.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown_Remove_Job` | `app/client/ui_jobs.h:89` | neutral (D10)  // NAME 1 [job_id]: neutral |
+| 1 | `job_id` | `app/client/ui_jobs.h:90` | the packet's JobID |
+| 1 | `Unknown_5A4430` | `app/client/ui_jobs.h:90` | untagged neutral name (D10) |
+| 1 | `category` | `app/client/ui_jobs.h:91` | neutral |
+| 1 | `Unknown_5A45A0` | `app/client/ui_jobs.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_jobs.h:93` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_jobs.h:94` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_jobs.h:95` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_jobs.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_jobs.h:98` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_jobs.h:99` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_jobs.h:100` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_jobs.h:101` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_jobs.h:102` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_jobs.h:103` | untagged neutral name (D10) |
+| 1 | `Unknown0D8` | `app/client/ui_jobs.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown0EC` | `app/client/ui_jobs.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown0F8` | `app/client/ui_jobs.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/ui_jobs.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown14C` | `app/client/ui_jobs.h:109` | untagged neutral name (D10) |
+| 1 | `Unknown1EC` | `app/client/ui_jobs.h:110` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/ui_line_display.cpp:11` | neutral (D10): the random generator the fonts are picked with |
 | 1 | `Unknown_BE67BC` | `app/client/ui_line_display.cpp:14` | neutral (D10); sclient.h declares it so |
 | 1 | `LineDisplayUnknown138Class` | `app/client/ui_line_display.cpp:28` | neutral (D10) |
@@ -21560,6 +21724,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `UIItemExaminationSpecialClass` | `app/client/ui_item_examination_specials.h:29` | as the attributes panel's row |
 | 2 | `UIItemExaminationSpecialsClass` | `app/client/ui_item_examination_specials.h:40` | from 'ITEM_EXAMINATION_SPECIALS', as UIItemExaminationOptionsClass |
 | 2 | `UIItemExaminationTitleClass` | `app/client/ui_item_examination_title.h:32` | its text 'TITLE_IEI00' and ui_item_examination_title.cpp |
+| 2 | `Jobs_Player_Id` | `app/client/ui_jobs.cpp:163` | the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id) |
+| 2 | `Type` | `app/client/ui_jobs.h:50` | its style's name |
+| 2 | `Level` | `app/client/ui_jobs.h:51` | its style's name |
+| 2 | `Sponsor` | `app/client/ui_jobs.h:52` | its style's name |
+| 2 | `Reward` | `app/client/ui_jobs.h:53` | its style's name |
 | 2 | `Push_Line` | `app/client/ui_line_display.cpp:312` | what it does; the dead size() read spends the inline budget the client spends (workflow.md §3.3, the find-if-set wrapper's reads) |
 | 2 | `EphemeralStruct` | `app/client/ui_line_display.h:39` | what it holds (the ini's section name) |
 | 2 | `std:` | `app/client/ui_line_display.h:42` | describes what it does |
@@ -24105,7 +24274,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `rect3d.h` | `app/client/rect3d.h:18` | the header of rect3d.cpp |
 | 3 | `UITalkTreeSpaceClass` | `app/client/sbaseview.cpp:40` | class-from-file (D24) for ui_talkt_space.cpp |
 | 3 | `UIStarbaseClass` | `app/client/sbaseview.h:104` | class-from-file (D24) for app\client\ui_starbase.cpp |
-| 3 | `UIJobsClass` | `app/client/sbaseview.h:178` | class-from-file (D24) for app\client\ui_jobs.cpp |
 | 3 | `SBaseViewClass` | `app/client/sbaseview.h:222` | class-from-file (D24) for app\client\sbaseview.cpp |
 | 3 | `ViewRObjs` | `app/client/sbaseview.h:299` | the assert's 'ViewRObjs[type]' |
 | 3 | `PTrade` | `app/client/sbaseview.h:307` | its class's file (ui_ptrade.cpp) |
@@ -24372,6 +24540,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `property` | `app/client/ui_item_examination_property_router.h:54` | the FAIL_IF's; NAME 1 [Route]: the file's |
 | 3 | `UIItemExaminationPropertyRouterClass` | `app/client/ui_item_examination_property_router.h:57` | class-from-file (D24) for ui_item_examination_property_router.cpp |
 | 3 | `ui_item_examination_title.h` | `app/client/ui_item_examination_title.h:6` | header name assumed from the client's ui_item_examination_title.cpp |
+| 3 | `As_Space_Client` | `app/client/ui_jobs.cpp:28` | ui_manu.cpp's FAIL_IF's |
+| 3 | `UI_CLOSED` | `app/client/ui_jobs.cpp:47` | the assert's |
+| 3 | `UIJobsClass` | `app/client/ui_jobs.h:58` | class-from-file (D24) for app\client\ui_jobs.cpp |
+| 3 | `State` | `app/client/ui_jobs.h:97` | the assert's |
+| 3 | `std:` | `app/client/ui_jobs.h:105` | the FAIL_IF's |
 | 3 | `ui_line_display.h` | `app/client/ui_line_display.h:20` | header name assumed from the client's ui_line_display.cpp |
 | 3 | `UILineDisplayClass` | `app/client/ui_line_display.h:76` | by convention (D24) from the client's ui_line_display.cpp (table 0xAF2930) |
 | 3 | `EnvironmentMapManagerClass` | `app/client/ui_login.cpp:211` | by convention (D24) from the client's env_map_manager.cpp |
