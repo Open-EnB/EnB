@@ -2949,10 +2949,13 @@ below name only the work items, the blocked work, the leads and the queues.
      lost 0x758210), then drop sbaseview.cpp case 5's cast; ui_refinery near misses 0x5EDCC0 (0.77, inline-budget: the
      'NegotiatedCost' Cast out of line), 0x5ECEF0 (0.76, register / flag-test order), 0x5EDFD0 (0.38, a probe reached
      0.48), 0x5EE460 (0.34, register, ui_manu 0x5B5CD0's residue).
-   * **From the 2026-11-09 day run (MT1, FN4):** the options' 'opt06a' channels page from its ctor 0x5C8DB0 (follows
-     ui_option_account.cpp's pattern); InvDataPeekClass is still declared separately in
-     ui_mfd_extended_context_harvestable.h, client_item_property_builder.h and ui_trade.cpp: include inv_data_peek.h
-     instead (one verified step); ui_mount Build 0x5C77A0 (0.53, inline-budget: rtti.h's Cast out of line in the client,
+   * **From the 2026-11-09 day run (OP1):** the options' next page from 0x5CA010 (0x1B0 bytes, request 8), after
+     ui_option_check.cpp; ui_chat_panel.cpp's local Unknown5C8870Class / Unknown5C9910Class onto ui_option_account.h /
+     ui_option_check.h (ctor (client, page, mode)), and 0x5C8DB0's caller 0x569B5A (in 0x569A00) onto
+     ui_option_channel.h; ui_chat_panel's ChatChannelStruct initialiser 0x568700 (reads the channel-name globals
+     0xBA8C20-0xBA8C50); ui_chat_panel 0x56B700's NOT EXACT may be request 6's fields (the client: channel in Unknown24,
+     " " in Unknown34; ours Unknown14 / Unknown24).
+   * **From the 2026-11-09 day run (MT1, FN4):** ui_mount Build 0x5C77A0 (0.53, inline-budget: rtti.h's Cast out of line in the client,
      frame 0x164 vs 0x1A8) and the uncalled lookup 0x5C8710 (0.58, order); fontsys 0x6CCE60 (Update_Text's countdowns,
      0.48, no attempts yet).
    * **Font types:** Font32Class's XSpacing / MinSpacing reachable; unknown_6ca0c0.cpp and unknown_6cce60.cpp merged
@@ -3293,7 +3296,8 @@ below name only the work items, the blocked work, the leads and the queues.
    no asserts), ui_trade.h's Unknown59F3D0Class (TR1: ui_inv.cpp's base, ctor 0x59F3D0, 0xD0
    bytes; the same class as pdaint.h's PDAInventoryWindowClass: merge both into one ui_inv base header at the next
    ui_inv edit; ui_mount.h includes ui_trade.h for it, MT1), ui_option_account.cpp / .h (MT1: the options' account
-   page 'opt05a', UIOptionAccountClass, no string names the file).
+   page 'opt05a', UIOptionAccountClass, no string names the file), ui_option_channel.cpp / .h ('opt06a') and
+   ui_option_check.cpp / .h ('opt03a') (OP1: named after the tooltip sections UI_OPTION_CHANNEL / UI_OPTION_CHECK).
 
 9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
