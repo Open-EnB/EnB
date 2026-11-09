@@ -92,7 +92,7 @@ UIMFDExtendedContextHarvestableClass::UIMFDExtendedContextHarvestableClass(Clien
 	Peek(Unknown_Client(co), "HarvestableResources", false),
 	UnknownB4(false)
 {
-	Peek.Attach(co->AuxData);
+	Peek.Attach((DeltaCompoundClass *)co->AuxData);
 	Create_Fonts();
 	Unknown_Clear(Slots);
 	unsigned int count = Peek.Count;
@@ -196,7 +196,7 @@ std::string UIMFDExtendedContextHarvestableClass::Get_Line_Text(unsigned int lin
 	if (slot == -1) {
 		return("");
 	}
-	int id = Peek.Get_ID(slot);
+	int id = Peek.Get_Item_Template_ID(slot);
 	if (id == -2) {
 		return("");
 	}
@@ -208,7 +208,7 @@ std::string UIMFDExtendedContextHarvestableClass::Get_Line_Text(unsigned int lin
 
 	FAIL_IF(0 == item)
 		return("");
-	int quantity = Peek.Get_Quantity(slot);
+	int quantity = Peek.Get_Stack_Count(slot);
 	if (quantity == 0) {
 		return("");
 	}
@@ -222,7 +222,7 @@ std::string UIMFDExtendedContextHarvestableClass::Get_Line_Text(unsigned int lin
 // 0x5C0750
 bool UIMFDExtendedContextHarvestableClass::Has_Contents(unsigned int slot)
 {
-	int id = Peek.Get_ID(slot);
+	int id = Peek.Get_Item_Template_ID(slot);
 	if (id == -2) {
 		return(false);
 	}
@@ -234,7 +234,7 @@ bool UIMFDExtendedContextHarvestableClass::Has_Contents(unsigned int slot)
 
 	FAIL_IF(0 == item)
 		return(false);
-	return(Peek.Get_Quantity(slot) > 0);
+	return(Peek.Get_Stack_Count(slot) > 0);
 }
 
 static inline void Unknown_Clear(std::vector<int> &v) { v.erase(v.begin(), v.end()); }	// NAME 1: neutral (D10): keeps std::copy out of line, as the client has it

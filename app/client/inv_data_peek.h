@@ -212,6 +212,7 @@ protected:
 		return(def);
 	}
 
+public:	// ui_mfd_extended_context_harvestable.cpp reads Count
 	ClientClass *Owner;									// +0x00 the constructor's argument  // NAME 2: describes what it does
 	NameClass Name;										// +0x04 the list's name  // NAME 2: describes what it does
 	DeltaCompoundClass *List;							// +0x38 what Name finds under Attach's root  // NAME 2: describes what it does

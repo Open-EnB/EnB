@@ -26,7 +26,7 @@ void ClientItemPropertyBuilderClass::Build(UIItemExaminationPropertyRouterBaseCl
 // NOT EXACT: 0x521C10 (frame layout: the same code, but four strings and three RefCountPtrs sit in other stack slots; and the level requirement reads &Item->TemplateInfo then its Referent where ours folds [eax+0x5C])
 void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRouterBaseClass &router)
 {
-	std::string maker = Data->Unknown_688830()->Unknown_68A8C0(Slot);	// NAME 1 [maker, name, maker2, value, quality, level, structure, tooltip]: neutral
+	std::string maker = Data->Unknown_688830()->Get_Builder_Name(Slot);	// NAME 1 [maker, name, maker2, value, quality, level, structure, tooltip]: neutral
 	std::string name = Item->Name;
 	std::string maker2 = Item->Unknown34;
 	router.Route(ClientItemPropertyNameClass::Create(name));
@@ -39,7 +39,7 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 		router.Route(Unknown_530070(Item->Unknown48, Item->Unknown08));
 	}
 	router.Route(ClientItemPropertyDescriptionClass::Create(Item->Description));
-	float quality = Data->Unknown_688830()->Unknown_68A010(Slot);
+	float quality = Data->Unknown_688830()->Get_Quality(Slot);
 	if (quality != -1.0f) {
 		int level;
 		if (quality < 1.0f) {
@@ -51,7 +51,7 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 		}
 		RefCountPtr<ClientItemPropertyAttributeClass> quality_property = ClientItemPropertyAttributePercentClass::Create(0, "Quality", "Quality of this item compared to others of its kind", 0.0f, 1.0f, quality, level);	// NAME 1 [quality_property, structure_property]: neutral
 		router.Route(quality_property);
-		float structure = Data->Unknown_688830()->Unknown_689F90(Slot);
+		float structure = Data->Unknown_688830()->Get_Structure(Slot);
 		if (structure != -1.0f) {
 			std::string tooltip;
 			if (structure >= 1.0f) {
@@ -82,7 +82,7 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 // NOT EXACT: 0x522860 (functional, 0.61: the same calls, strings and asserts in order; the frame is 0xC smaller, VC6 inlines string assigns in other cases, and case 35 releases its property through the RefCountPtr the flags use, 0x529130)
 void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRouterBaseClass &router)
 {
-	Data->Unknown_688830()->Unknown_68A010(Slot);
+	Data->Unknown_688830()->Get_Quality(Slot);
 	const RefCountPtr<ItemTemplateInfoClass> &template_info = Item->Get_Template_Info();	// NAME 1 [info, count, i, ok, base, actual, level and the cases' locals]: neutral
 
 
@@ -154,7 +154,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 	FAIL_IF(!template_info) return;
 	RefCountPtr<ItemTemplateInfoClass> info = Create_NEW(new ItemTemplateInfoClass);
-	info->Unknown_8417B0(Data->Unknown_688830()->Unknown_68A090(Slot));
+	info->Unknown_8417B0(Data->Unknown_688830()->Get_Instance_Info(Slot));
 	unsigned int count = template_info->Unknown_83FE00();
 	for (unsigned int i = 0; i < count; i++) {
 		int id = template_info->Unknown_840940(i);
@@ -817,13 +817,13 @@ void ClientItemPropertyBuilderClass::Unknown_527F40(UIItemExaminationPropertyRou
 
 	FAIL_IF(!template_info) return;
 	ItemEffectDescriptionClass effects = template_info->Get_Unknown40();	// NAME 1 [effects, delta, effects2, delta2]: neutral
-	std::string delta = Data->Unknown_688830()->Unknown_68A270(Slot);
+	std::string delta = Data->Unknown_688830()->Get_Instance_Activated_Effect_Info(Slot);
 	if (!delta.empty()) {
 		effects.Unknown_83E5F0(delta);
 	}
 	Unknown_528460(router, effects.Get_Effects());
 	ItemEffectDescriptionClass effects2 = template_info->Get_Unknown68();
-	std::string delta2 = Data->Unknown_688830()->Unknown_68A450(Slot);
+	std::string delta2 = Data->Unknown_688830()->Get_Instance_Equip_Effect_Info(Slot);
 	if (!delta2.empty()) {
 		effects2.Unknown_83E5F0(delta2);
 	}

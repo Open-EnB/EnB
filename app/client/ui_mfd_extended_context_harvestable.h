@@ -6,32 +6,15 @@
 #include <list>
 #include <vector>
 #include "ui_mfd_extended_context_strings.h"
+#include "inv_data_peek.h"	// InvDataPeekClass (Peek)
 
 class ClientClass;
 
-// What the client's inv_data_peek.cpp / .h give for one slot's item (only its name is read here)
+// What inv_data_peek.h's Get_Item gives for one slot (only its name is read here)
 struct InvDataPeekItemStruct	// NAME 1: neutral (D10)
 {
 	char Unknown00[0x14];
 	std::string Name;									// +0x14  // NAME 2: '%s (%d)'
-};
-
-// The inventory array a panel reads (0x84 bytes; inv_data_peek.cpp is not rebuilt yet: declared as far as this file calls it)
-class InvDataPeekClass	// NAME 3: D24 class-from-file for inv_data_peek.cpp
-{
-public:
-	InvDataPeekClass(ClientClass *client, const char *name, bool flag);	// 0x689A80  // NAME 1 [client, name, flag]: what it does with them
-	~InvDataPeekClass();								// 0x689AD0
-	void Attach(char *aux_data);						// 0x689AF0  // NAME 1: neutral (D10)
-	bool Changed();										// 0x689C30  // NAME 2: what it returns
-	bool Slot_Changed(unsigned int slot);				// 0x689C60  // NAME 2: what it returns
-	int Get_ID(unsigned int slot);						// 0x689CA0 (-1, -2: none)  // NAME 2: what it returns
-	InvDataPeekItemStruct *Get_Item(unsigned int slot, bool flag);	// 0x68AAA0  // NAME 2: what it returns
-	int Get_Quantity(unsigned int slot);				// 0x689D20  // NAME 2: '%s (%d)'
-
-	char Unknown00[0x44];
-	unsigned int Count;									// +0x44  // NAME 2: what it counts
-	char Unknown48[0x3C];
 };
 
 // The panel of a harvestable object's contents (0xE4 bytes, vtable 0xAF3934; 'TEXT%02d_HARV' from 'fa_harvesting.ini')
