@@ -185,7 +185,7 @@ void UIBuffClass::Unknown_560FA0(int slot)
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (the pointer's position, 0..1; as gadget.cpp declares it)  // NAME 1 [x, y]: neutral
 
 enum { MAX_BUFF_ELEMENTS = 5 };	// NAME 3: the assert's (the ship's BuffArray.N.Elements count)
-
+template<class C> inline C *Unknown_Find_Aux_Field(ClientObjectClass *object, const char *name) { NameClass n(name); DeltaCompoundClass *r = (DeltaCompoundClass *)object->AuxData; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Find_Aux(ClientObjectClass *object, const char *name) { return(Unknown_Find_Aux_Field<C>(object, name)); }	// NAME 1: neutral (D10): two inline layers (as ui_analyze.cpp's): the client's find 0x561C40 out of line in 0x561030
 // 0x5615C0: the ship's DeltaBuffClass to a BuffInfoStruct (static: called directly)
 // NOT EXACT: inline-budget (the client calls string::assign out of line for the first two strings, inlines the third)
 static void Unknown_5615C0(BuffInfoStruct &info, DeltaBuffClass *buff)	// NAME 1 [Unknown_5615C0, info, buff]: neutral (D10)
@@ -210,17 +210,17 @@ static void Unknown_5615C0(BuffInfoStruct &info, DeltaBuffClass *buff)	// NAME 1
 	info.Sort_Elements();
 }
 
+
 // 0x561030: the ship's BuffArray to the slots (a new buff made, a changed one updated, an emptied one taken off), then
 // each gadget's state, and the mesh's 'frame' hidden without buffs (slot +0x60)
-// NOT EXACT: inline-budget (the client calls auxdata.h's find out of line, 0x561C40, and ~vector 0x561B80 on the new-buff path)
+// NOT EXACT: inline-budget (the client calls ~vector 0x561B80 out of line on the new-buff path; the find 0x561C40 matches)
 void UIBuffClass::Unknown_561030()
 {
 	ClientObjectClass *avatar = ((ClientClass *)Client)->Get_Avatar();
 	if (avatar && avatar->AuxData) {
 		float x, y;
 		Unknown_42ECF0(&x, &y);
-		NameClass name("BuffArray");
-		DeltaBuffsClass *buffs = Unknown_Find_Field<DeltaBuffsClass>((DeltaCompoundClass *)avatar->AuxData, name);
+		DeltaBuffsClass *buffs = Unknown_Find_Aux<DeltaBuffsClass>(avatar, "BuffArray");
 		if (!buffs || buffs->Unknown70 <= 1) {
 			buffs = NULL;
 		}
