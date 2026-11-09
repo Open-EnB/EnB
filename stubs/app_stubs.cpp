@@ -163,30 +163,6 @@ char *Manufacturing_Mode_Name(char *buffer, int len, int mode)
 	return strncpy(buffer, (mode >= 0 && mode < 4) ? names[mode] : "error", len);
 }
 
-// ------------------------------------------------------------------------- the registration XML reader (Sub14CImplClass)
-
-// Slots 0x0C (0x7E01B0) and 0x40 (0x7E15B0) return a std::string by value, which gen_stubs.py --link skips (a bare
-// declaration: only the class name and the virtual signatures reach the mangled names; unknown_7cef30.h's Sub14CClass)
-class SubsRequestClass;
-class Sub14CImplClass
-{
-public:
-	virtual std::string Slot3(const char *path, int index, const char *name);
-	virtual std::string Slot16();
-};
-
-std::string Sub14CImplClass::Slot3(const char *path, int index, const char *name)
-{
-	STUB_CALLED("Sub14CImplClass::Slot3 (0x7E01B0)");
-	return std::string("");
-}
-
-std::string Sub14CImplClass::Slot16()
-{
-	STUB_CALLED("Sub14CImplClass::Slot16 (0x7E15B0)");
-	return std::string("");
-}
-
 // ------------------------------------------------------------------------- the warp camera's placements (unknown_7979a0.cpp)
 
 // 0xBDB1C0: a global Random4Class with seed 0x1105 (its initialiser 0x444240; its home file is unknown). Data, so it

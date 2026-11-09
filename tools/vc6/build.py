@@ -68,7 +68,8 @@ VC_LIB = r'C:\Program Files (x86)\Microsoft Visual Studio\VC98\Lib'
 SYS_LIBS = ['LIBCMT.LIB', 'LIBCPMT.LIB', 'OLDNAMES.LIB', 'KERNEL32.LIB', 'USER32.LIB', 'GDI32.LIB',
             'ADVAPI32.LIB', 'OLE32.LIB', 'OLEAUT32.LIB', 'UUID.LIB', 'WINMM.LIB', 'WS2_32.LIB',
             'sdk:d3d8.lib', 'sdk:d3dx8.lib', 'sdk:dxguid.lib',
-            'VFW32.LIB', 'COMSUPP.LIB', 'sdk:ddraw.lib']     # D50 (L2)
+            'VFW32.LIB', 'COMSUPP.LIB', 'sdk:ddraw.lib',     # D50 (L2)
+            'URLMON.LIB']     # the client imports urlmon.dll (CreateURLMoniker: unknown_7e1e40.cpp)
 SYS_LIBS_EXTRA = ['IMM32.LIB', 'VERSION.LIB', 'SHELL32.LIB', 'COMCTL32.LIB', 'COMDLG32.LIB',
                   'WSOCK32.LIB', 'MSACM32.LIB', 'sdk:dsound.lib',
                   'sdk:dinput8.lib', 'sdk:dxerr8.lib', 'sdk:d3dx.lib']
@@ -529,6 +530,7 @@ LINK_LIBS = ['app', 'wwshade', 'ww3d2', 'wwaudio', 'wwsaveload', 'wwmath', 'wwli
 LINK_SYS = ['LIBCMT.LIB', 'LIBCPMT.LIB', 'OLDNAMES.LIB', 'KERNEL32.LIB', 'USER32.LIB', 'GDI32.LIB',
             'ADVAPI32.LIB', 'OLE32.LIB', 'OLEAUT32.LIB', 'UUID.LIB', 'WINMM.LIB', 'WS2_32.LIB',
             'VFW32.LIB', 'COMSUPP.LIB',                                   # D50
+            'URLMON.LIB',                                                 # the client imports urlmon.dll (unknown_7e1e40.cpp)
             'sdk:d3d8.lib', 'sdk:d3dx8.lib', 'sdk:dxguid.lib', 'sdk:ddraw.lib']
 # VC6 quotes C++ symbols as `"demangled text" (?mangled@@...)` and C ones as a bare `_name`; the mangled
 # name is the key (group 1 or 3), the demangled text (group 2) is only for the printed summary.

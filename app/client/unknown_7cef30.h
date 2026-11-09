@@ -17,9 +17,9 @@ public:
 	virtual int Slot4(const char *path, int index, const char *name) = 0;  // NAME 1 [Slot4]: slot 0x10, the reply value at path[index]/name as a number (0x7CFEA0's 'pricing-selection-type'; 0x7E0960)
 	virtual float Slot5(const char *path, int index, const char *name) = 0;  // NAME 1 [Slot5]: slot 0x14, the reply value at path[index]/name as a float (0x7D0BE0's 'pricing-option-price'; 0x7E09F0)
 	virtual int Slot6(const char *path) = 0;  // NAME 1 [Slot6]: slot 0x18, how many nodes path has (0x7D3570; 0x7E0A80)
-	virtual void Slot7() = 0;
-	virtual int Slot8(const char *path, const char *name, int index, int unknown) = 0;  // NAME 1 [Slot8]: slot 0x20, an attribute of path[index] as a number (0x7D4530's 'type'; 0x7E1200)
-	virtual void Slot9() = 0;
+	virtual std::string Slot7(const char *path, const char *name, int index, const char *element) = 0;  // NAME 1 [Slot7, element]: slot 0x1C, attribute name of path[index] (or of its child element) as a string (0x7E0BC0)
+	virtual int Slot8(const char *path, const char *name, int index, const char *element) = 0;  // NAME 1 [Slot8]: slot 0x20, an attribute of path[index] as a number (0x7D4530's 'type'; 0x7E1200)
+	virtual int Slot9() = 0;  // NAME 1 [Slot9]: slot 0x24, the parse error's code (0 when parsed; 0x7E1940)
 	virtual std::string Slot10() { return std::string(""); }  // NAME 1 [Slot10]: slot 0x28, 0x5F0170
 	virtual int Slot11() = 0;  // NAME 1 [Slot11]: slot 0x2C (0x5FB950 hands its result to slot 0x30)
 	virtual const char *Slot12(int arg) = 0;  // NAME 1 [Slot12]: slot 0x30

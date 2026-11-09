@@ -31,63 +31,7 @@ bool Unknown_5FAE70();
 // ui_registration.cpp's classes (provisional place, D137: only that file sees them)
 #include "unknown_7cef30.h"
 
-// What the implementation holds at +0x18 (0x48 bytes: table 0xB073C8, a second 0xB073B0 at +4; 0x7E1E40 / 0x7E1F10)
-class Sub14CUnknown18Class  // NAME 1 [Sub14CUnknown18Class]: neutral (D10)
-{
-public:
-	Sub14CUnknown18Class();		// 0x7E1E40
-	~Sub14CUnknown18Class();	// 0x7E1F10
-	char Unknown00[0x48];
-};
-
-// What the implementation holds at +0x10: released through slot +0x08 (0x7E0070 fills it from a COM call)
-class Sub14CUnknown10Class  // NAME 1 [Sub14CUnknown10Class]: neutral (D10)
-{
-public:
-	virtual long __stdcall Slot0() = 0;
-	virtual unsigned long __stdcall Slot1() = 0;
-	virtual unsigned long __stdcall Release() = 0;
-};
-
-struct Sub14CUnknown10Ptr  // NAME 1 [Sub14CUnknown10Ptr]: neutral (D10): 0x5F0590's own EH state around the release
-{
-	Sub14CUnknown10Ptr() : Pointer(0) {}
-	~Sub14CUnknown10Ptr() { if (Pointer) Pointer->Release(); }
-	Sub14CUnknown10Class *Pointer;  // NAME 1 [Pointer]: neutral
-};
-
-// The implementation at +0x14C (0x60 bytes; tables 0xAF70DC / 0xAF70C8, destructor 0x5F0590, deleting 0x5F0630).
-// Slots 0x7E0070-0x7E15B0, 0x7DFED0-0x7E0050 live in their own object.
-class Sub14CImplClass : public Sub14CClass, public RegistrationCallbackClass  // NAME 1 [Sub14CImplClass]: neutral (D10)
-{
-public:
-	Sub14CImplClass() : Unknown08(0), Unknown14(0) { Slot1(); }
-	virtual ~Sub14CImplClass() { Slot2(); }
-	virtual void Slot1();	// 0x7E0070
-	virtual void Slot2();	// 0x7E0180
-	virtual std::string Slot3(const char *path, int index, const char *name);	// 0x7E01B0
-	virtual int Slot4(const char *path, int index, const char *name);	// 0x7E0960
-	virtual float Slot5(const char *path, int index, const char *name);	// 0x7E09F0
-	virtual int Slot6(const char *path);	// 0x7E0A80
-	virtual void Slot7();	// 0x7E0BC0
-	virtual int Slot8(const char *path, const char *name, int index, int unknown);	// 0x7E1200
-	virtual void Slot9();	// 0x7E1940
-	virtual int Slot11();	// 0x7E1C60
-	virtual const char *Slot12(int arg);	// 0x7E1C80
-	virtual bool Slot13(SubsRequestClass *request, int callback);	// 0x7E1290
-	virtual void Slot14();	// 0x7E1A20
-	virtual std::string Slot15();	// 0x7E1310
-	virtual std::string Slot16();	// 0x7E15B0
-	virtual void Unknown_5F00C0();	// 0x7DFED0
-	virtual void Unknown_5F00E0();	// 0x7E0030
-	virtual void Unknown_5F0100();	// 0x7E0050
-
-	int Unknown08;			// +0x08
-	int Unknown0C;			// +0x0C
-	Sub14CUnknown10Ptr Unknown10;	// +0x10
-	int Unknown14;			// +0x14
-	Sub14CUnknown18Class Unknown18;	// +0x18
-};
+#include "unknown_7dfed0.h"
 
 class RegistrationInterface;  // NAME 1 [RegistrationInterface]: provisional (D137)
 
