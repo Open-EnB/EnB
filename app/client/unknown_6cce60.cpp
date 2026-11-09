@@ -405,23 +405,39 @@ void FontSys::Unknown_6CE4E0(int font_index)
 
 // 0x6CE7D0: the style restarted in state unknown (+0x440: 0 the EffectOn effects, 1 EffectConst, 2 EffectOff): the
 // clocks and effect states cleared, the text placed again (0x6D5D40) and its rectangle reset to the text's size.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0)
 void FontSys::Unknown_6CE7D0(int unknown)
 {
 	int i;
 	Unknown440 = unknown;
 	Unknown26C = 0;
 	Unknown270 = 0;
-	for (i = 0; i < 16; i++) Unknown274[i] = 0;
+	Unknown274[0] = 0;
+	Unknown274[1] = 0;
+	Unknown274[2] = 0;
+	Unknown274[3] = 0;
+	Unknown274[4] = 0;
+	Unknown274[5] = 0;
+	Unknown274[6] = 0;
+	Unknown274[7] = 0;
+	Unknown274[8] = 0;
+	Unknown274[9] = 0;
+	Unknown274[10] = 0;
+	Unknown274[11] = 0;
+	for (i = 0; i < 4; i++) Unknown274[12 + i] = 0;
 	Unknown_6D5D40();
-	Unknown420[3] = Unknown2C8;
 	Unknown420[0] = 0;
 	Unknown420[1] = Unknown2C4;
 	Unknown420[2] = 0;
+	Unknown420[3] = Unknown2C8;
 	Unknown404 = false;
 	Unknown414 = 0;
 	for (i = 0; i < 0xFF; i++) Unknown303[i] = 0;
-	for (i = 0; i < 6; i++) Unknown254[i] = 0;
+	Unknown254[0] = 0;
+	Unknown254[1] = 0;
+	Unknown254[2] = 0;
+	Unknown254[3] = 0;
+	Unknown254[4] = 0;
+	Unknown254[5] = 0;
 }
 
 // 0x6CE910: on while the box has the focus (Unknown44C: which of Colors the text uses); a change redraws the text.
@@ -447,4 +463,7 @@ void FontSys::Unknown_6CE910(bool on)
 **	mouse-over frames, +0x294 = Unknown274[8] the click time left).
 **	Forms: +0x303 is cleared by a byte loop everywhere (VC6 turns it into the rep stosd / stosw / stosb with the
 **	lea edi first, as the client has it; memset puts the lea after the count): 0x6CD6F0 and 0x6CDAB0 exact.
+**	0x6CE7D0: Unknown274[0..11] and Unknown254 are cleared one store each (a loop of 16 or 6 becomes rep stosd),
+**	the four timers +0x2A4 (Unknown274[12..15]) by a loop of their own, which VC6 unrolls with a second zero
+**	register (ecx), as the client has it; Unknown420 is written in index order (any other order moves the loads).
 */
