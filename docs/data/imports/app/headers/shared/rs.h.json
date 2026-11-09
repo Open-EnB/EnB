@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: RenderStateClass (rs.cpp 0x457B60-0x4586F0) and the RS_* flag masks rs.cpp's and rs_robj.cpp's asserts name, moved out of rs_track.h; header name provisional (D137)"
+}

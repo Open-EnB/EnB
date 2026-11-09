@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: rs_proj_sup.cpp's projector caster 0x45D9E0 (vtable 0xAE80B0) and receiver 0x45DC80 (vtable 0xAE80EC), moved out of rs_track.h; the caster's constructor takes ProjectionDefClass * / ProjectorManagerClass *; header name provisional (D137)"
+}
