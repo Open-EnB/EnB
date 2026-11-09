@@ -1,8 +1,8 @@
 0xB6E5D4	e:\build\beta\G\app\input\inpdsp.cpp	rec->Action
 0xB6E5E8	e:\build\beta\G\app\input\inpdsp.cpp	i->second
 0xB6E760	e:\build\beta\G\app\input\inpdsp.cpp	Keypad .
-0xB6E9F0	e:\build\beta\G\app\input\input.cpp	(TrackMouseCounter >= 0) && (TrackMouseCounter <= 1)
-0xB6EB08	e:\build\beta\G\app\input\w32kbd.cpp	Mouse == NULL
+0xB6E9F0	e:\build\beta\G\app\input\input.h	(TrackMouseCounter >= 0) && (TrackMouseCounter <= 1)
+0xB6EB08	e:\build\beta\G\app\input\w32mouse.cpp	Mouse == NULL
 0xB6EB6C	e:\build\beta\G\app\input\w32mouse.cpp	Win32MouseHandlerClass: releasing mouse input.
 
 0xB6EBD0	e:\build\beta\G\app\input\w32mouse.cpp	Win32MouseHandlerClass: capturing mouse input.
@@ -11,9 +11,9 @@
 
 0xB6EC88	e:\build\beta\G\app\input\w32mouse.cpp	Destination.MP3
 0xB6ECB4	e:\build\beta\G\app\input\w32mouse.cpp	ambient.ini
-0xB6ECD0	e:\build\beta\G\app\input\w32mouse.cpp	num_channels <= 0
-0xB6ECE8	e:\build\beta\G\app\input\w32mouse.cpp	RandomSounds != NULL
-0xB6ED04	e:\build\beta\G\app\input\w32mouse.cpp	LoopingSounds != NULL
+0xB6ECD0	e:\build\beta\G\app\Audio\ambientsoundmanager.cpp	num_channels <= 0
+0xB6ECE8	e:\build\beta\G\app\Audio\ambientsoundmanager.cpp	RandomSounds != NULL
+0xB6ED04	e:\build\beta\G\app\Audio\ambientsoundmanager.cpp	LoopingSounds != NULL
 0xB6ED6C	e:\build\beta\G\app\Audio\ambientsoundmanager.cpp	channel >= NumChannels
 0xB6ED88	e:\build\beta\G\app\Audio\ambientsoundmanager.cpp	bone_name == NULL
 0xB6EDA0	e:\build\beta\G\app\Audio\ambientsoundmanager.cpp	rendobj == NULL
@@ -24,26 +24,26 @@
 0xB6EE14	e:\build\beta\G\app\Audio\ambientsoundmanager.cpp	CurrentChannel >= NumChannels
 0xB6EEA8	e:\build\beta\G\app\Audio\ambientsoundmanager.cpp	bridgesounds.ini
 0xB6EF28	e:\build\beta\G\app\Audio\ambientsoundmanager.cpp	ini == NULL
-0xB6EFB8	e:\build\beta\G\app\Audio\musiccomponent.cpp	musictheme->Get_Num_Components()
-0xB6EFE0	e:\build\beta\G\app\Audio\musiccomponent.cpp	musictheme == NULL
+0xB6EFB8	e:\build\beta\G\app\Audio\musiclist.cpp	musictheme->Get_Num_Components()
+0xB6EFE0	e:\build\beta\G\app\Audio\musiclist.cpp	musictheme == NULL
 0xB6F028	e:\build\beta\G\app\Audio\musiclist.cpp	CurrentComponent < theme.size()
 0xB6F050	e:\build\beta\G\app\Audio\musiclist.cpp	Music == NULL
 0xB6F060	e:\build\beta\G\app\Audio\musiclist.cpp	component < theme.size()
 0xB6F080	e:\build\beta\G\app\Audio\musiclist.cpp	component >= 0
-0xB6F094	e:\build\beta\G\app\Audio\musiclist.cpp	music.ini
+0xB6F094	e:\build\beta\G\app\Audio\musicmanager.cpp	music.ini
 0xB6F0F0	e:\build\beta\G\app\Audio\musicmanager.cpp	strcmp("None", temp) != 0
 0xB6F268	e:\build\beta\G\app\Audio\musicmanager.cpp	MusicINI->Is_Loaded()
 0xB6F284	e:\build\beta\G\app\Audio\musicmanager.cpp	(CurrentMusicType >= NUM_MUSIC_THEME_TYPES) || (CurrentMusicType < 0)
 0xB6F37C	e:\build\beta\G\app\Audio\musictheme.cpp	sectorsounds%d.ini
-0xB6F394	e:\build\beta\G\app\Audio\musictheme.cpp	ini->Section_Present(section_name) == false
+0xB6F394	e:\build\beta\G\app\Audio\sectorsound.cpp	ini->Section_Present(section_name) == false
 0xB6F5E8	e:\build\beta\G\app\Audio\soundlib.cpp	sounds.ini
 0xB6F634	e:\build\beta\G\app\Audio\soundlib.cpp	(_NextDialogDef == NULL) && (_NextDialogName == NULL)
-0xB6F78C	e:\build\beta\G\app\Audio\soundlib.cpp	obj == NULL
-0xB6F79C	e:\build\beta\G\app\Audio\soundlib.cpp	mesh == NULL
+0xB6F78C	e:\build\beta\G\app\Audio\starbasesound.cpp	obj == NULL
+0xB6F79C	e:\build\beta\G\app\Audio\starbasesound.cpp	mesh == NULL
 0xB6F7E0	e:\build\beta\G\app\Audio\starbasesound.cpp	starbasesounds%d.ini
-0xB6F920	e:\build\beta\G\app\Audio\starbasesound.cpp	surfacetype == SURFACE_TYPE_MAX
+0xB6F920	e:\build\beta\G\app\Audio\surfacetypes.cpp	surfacetype == SURFACE_TYPE_MAX
 0xB6F9C4	e:\build\beta\G\app\Audio\surfacetypes.cpp	footsteps.ini
-0xB6FA94	e:\build\beta\G\app\display\display.cpp	Instance == NULL
+0xB6FA94	e:\build\beta\G\app\kernel\kernel.cpp	Instance == NULL
 0xB6FAEC	e:\build\beta\G\app\kernel\kernel.cpp	Pending_Delete->Shutdown()
 0xB6FB0C	e:\build\beta\G\app\kernel\kernel.cpp	Background_Task->Run()
 0xB6FB28	e:\build\beta\G\app\kernel\kernel.cpp	Current_Task->Render()
@@ -53,34 +53,34 @@
 0xB703E4	e:\build\beta\G\app\main\main_client.cpp	Earth & Beyond is already running.
 0xB7043C	e:\build\beta\G\app\main\main_client.cpp	Main.cpp: deactivating kernel rendering.
 0xB70470	e:\build\beta\G\app\main\main_client.cpp	Main.cpp: activating kernel rendering.
-0xB7059C	e:\build\beta\G\app\main\main_client.cpp	y_axis.Z < 0.0001f
-0xB705E4	e:\build\beta\G\app\shared\fp_ita.cpp	proxim.Get_Avoidance()
-0xB7062C	e:\build\beta\G\app\shared\fp_tt.cpp	ProximityObject->Is_In_List()
-0xB706E0	e:\build\beta\G\app\shared\dynamic_obj.cpp	!(low && high)
+0xB7059C	e:\build\beta\G\app\shared\fp_ita.cpp	y_axis.Z < 0.0001f
+0xB705E4	e:\build\beta\G\app\shared\fp_tt.cpp	proxim.Get_Avoidance()
+0xB7062C	e:\build\beta\G\app\shared\dynamic_obj.cpp	ProximityObject->Is_In_List()
+0xB706E0	e:\build\beta\G\app\shared\px.cpp	!(low && high)
 0xB70794	e:\build\beta\G\app\shared\px.cpp	!high.Is_Valid()
 0xB707A8	e:\build\beta\G\app\shared\px.cpp	!low.Is_Valid()
 0xB707CC	e:\build\beta\G\app\shared\px.cpp	box->List
 0xB707F4	e:\build\beta\G\app\shared\px.cpp	box->List != this
-0xB708A0	e:\build\beta\G\app\shared\px.cpp	(it != Boxes.end()) && (*it == box)
+0xB708A0	e:\build\beta\G\app\shared\px_box_list.cpp	(it != Boxes.end()) && (*it == box)
 0xB70900	e:\build\beta\G\app\shared\px_box_list.cpp	(it == Boxes.end()) || (*it != box)
 0xB7092C	e:\build\beta\G\app\shared\px_box_list.cpp	(it != Owners.end()) && (*it == owner)
 0xB7095C	e:\build\beta\G\app\shared\px_box_list.cpp	(it == Owners.end()) || (*it != owner)
-0xB7098C	e:\build\beta\G\app\shared\px_box_list.cpp	it == Active.end() || it->Object != object
-0xB709C0	e:\build\beta\G\app\shared\px_box_list.cpp	it == Overlaps.end()
-0xB70A1C	e:\build\beta\G\app\shared\px_callback_accurate.cpp	Type != SPHERE
+0xB7098C	e:\build\beta\G\app\shared\px_callback_accurate.cpp	it == Active.end() || it->Object != object
+0xB709C0	e:\build\beta\G\app\shared\px_callback_accurate.cpp	it == Overlaps.end()
+0xB70A1C	e:\build\beta\G\app\shared\px_callback_poll.cpp	Type != SPHERE
 0xB70A6C	e:\build\beta\G\app\shared\px_callback_poll.cpp	Type != VOLUME
 0xB70B48	e:\build\beta\G\app\shared\px_callback_type.cpp	index >= sizeof(_EventStrings) / sizeof(_EventStrings[0])
-0xB70BB8	e:\build\beta\G\app\shared\px_callback_type.cpp	!(aobj_coll_rep || bobj_coll_rep)
-0xB70C14	e:\build\beta\G\app\shared\px_collision.cpp	Next || Prev
+0xB70BB8	e:\build\beta\G\app\shared\px_collision.cpp	!(aobj_coll_rep || bobj_coll_rep)
+0xB70C14	e:\build\beta\G\app\shared\px_process.cpp	Next || Prev
 0xB70C58	e:\build\beta\G\app\shared\px_process.cpp	Root.Next != &Root
 0xB70C70	e:\build\beta\G\app\shared\px_process.cpp	node->Next || node->Prev
 0xB70C98	e:\build\beta\G\app\shared\px_process.cpp	node->Next == 0 || node->Prev == 0
 0xB70D98	e:\build\beta\G\app\shared\px_wrapper.cpp	!pos.Is_Valid()
-0xB71100	e:\build\beta\G\app\shared\rs_hanim.cpp	state->Is_Enabled()
+0xB71100	e:\build\beta\G\app\shared\rs_list.cpp	state->Is_Enabled()
 0xB711A8	e:\build\beta\G\app\shared\rs_list.cpp	RenderStateEffectPassClass::Two-sided is set, and hidden is not.
-0xB71324	e:\build\beta\G\app\shared\rs_list.cpp	CullObject != 0
-0xB71368	e:\build\beta\G\app\shared\proj_man.h	texProject != NULL
-0xB713C4	e:\build\beta\G\app\shared\rs_proj_sup.cpp	((RenderObj == 0) && !Test_Flag(RS_DATA_PRESENT) && RenderObjName !=0 && strlen(RenderObjName) > 0) || ((RenderObj != 0) && Test_Flag(RS_DATA_PRESENT))
+0xB71324	e:\build\beta\G\app\shared\proj_man.h	CullObject != 0
+0xB71368	e:\build\beta\G\app\shared\rs_proj_sup.cpp	texProject != NULL
+0xB713C4	e:\build\beta\G\app\shared\rs_robj.cpp	((RenderObj == 0) && !Test_Flag(RS_DATA_PRESENT) && RenderObjName !=0 && strlen(RenderObjName) > 0) || ((RenderObj != 0) && Test_Flag(RS_DATA_PRESENT))
 0xB7145C	e:\build\beta\G\app\shared\rs_proj_sup.cpp	RG_REGDATA.INI
 0xB714B8	e:\build\beta\G\app\shared\rs_robj.cpp	RenderObj != 0
 0xB714E8	e:\build\beta\G\app\shared\rs_robj.cpp	RenderObj == 0
@@ -88,13 +88,13 @@
 0xB7159C	e:\build\beta\G\app\shared\rs_track.cpp	robj->Get_Num_Sub_Objects_On_Bone(idx) <= 1
 0xB715E8	e:\build\beta\G\app\shared\rs_track.cpp	CullingObject != 0
 0xB71A70	e:\build\beta\G\app\Client\ui_registration.cpp	decoration.ini
-0xB71B98	e:\build\beta\G\app\shared\ro_proxy.cpp	(array_index >= 0) && ((array_index + 1) < Size)
+0xB71B98	e:\build\beta\G\app\shared\spline.inl	(array_index >= 0) && ((array_index + 1) < Size)
 0xB71CE0	e:\build\beta\G\app\shared\stars.cpp	stars.ini
 0xB71D30	e:\build\beta\G\app\shared\spline.cpp	Size >= 2
-0xB71D70	e:\build\beta\G\app\shared\spline.cpp	spline_name != NULL
-0xB71E18	e:\build\beta\G\app\shared\spline.h	resolution >= 0
-0xB71EBC	e:\build\beta\G\app\shared\spline.h	name != NULL
-0xB721AC	e:\build\beta\G\app\shared\enbassetmgr.cpp	Peek_Shadow_Texture(obj_type_id,orientation) == NULL
+0xB71D70	e:\build\beta\G\app\shared\spln_db.cpp	spline_name != NULL
+0xB71E18	e:\build\beta\G\app\shared\spln_db.cpp	resolution >= 0
+0xB71EBC	e:\build\beta\G\app\shared\spln_db.cpp	name != NULL
+0xB721AC	e:\build\beta\G\app\shared\proj_man.cpp	Peek_Shadow_Texture(obj_type_id,orientation) == NULL
 0xB7221C	e:\build\beta\G\app\shared\proj_man.cpp	ShadowBlobTexture != NULL
 0xB7223C	e:\build\beta\G\app\shared\proj_man.cpp	shadow.tga
 0xB7224C	e:\build\beta\G\app\shared\proj_man.cpp	!StaticProjectorList.Is_In_List(newprojector)
@@ -105,11 +105,11 @@
 0xB723B4	e:\build\beta\G\app\shared\proj_man.cpp	set_vector != NULL
 0xB723CC	e:\build\beta\G\app\shared\proj_man.cpp	texmgr != NULL
 0xB723E0	e:\build\beta\G\app\shared\proj_man.cpp	shadow_cam != NULL
-0xB724B8	e:\build\beta\G\app\shared\projscen.cpp	robj->Class_ID()==RenderObjClass::CLASSID_MESH
+0xB724B8	e:\build\beta\G\app\shared\ro_funcs.cpp	robj->Class_ID()==RenderObjClass::CLASSID_MESH
 0xB7252C	e:\build\beta\G\app\shared\ro_funcs.cpp	!layer.Peek_Camera()
 0xB72548	e:\build\beta\G\app\shared\ro_funcs.cpp	!layer.Peek_Scene()
-0xB725BC	e:\build\beta\G\app\shared\ro_funcs.cpp	pcount == 0
-0xB726B4	e:\build\beta\G\app\shared\accel.cpp	TreeRoot != NULL
+0xB725BC	e:\build\beta\G\app\shared\segline_create.cpp	pcount == 0
+0xB726B4	e:\build\beta\G\app\shared\boolpars.cpp	TreeRoot != NULL
 0xB72700	e:\build\beta\G\app\shared\boolpars.cpp	(p != NULL)
 0xB72718	e:\build\beta\G\app\shared\boolpars.cpp	(param_list != NULL)
 0xB72734	e:\build\beta\G\app\shared\boolpars.cpp	(str != NULL)
@@ -122,18 +122,18 @@
 0xB72AC8	e:\build\beta\G\app\shared\damtype.cpp	volatility < 0.0f
 0xB72B44	e:\build\beta\G\app\shared\damtype.cpp	a >= DAMTYPE_COUNT
 0xB72B74	e:\build\beta\G\app\shared\damtype.cpp	damage_type >=DAMTYPE_COUNT
-0xB72C38	e:\build\beta\G\app\shared\damtype.cpp	num > Observers.Count()
+0xB72C38	e:\build\beta\G\app\shared\observer.cpp	num > Observers.Count()
 0xB72CC4	e:\build\beta\G\app\shared\observer.cpp	referral.ini
 0xB72D34	e:\build\beta\G\app\shared\selector.cpp	chances[i] >= 0.0f && chances[i] <= 1.0f
 0xB72D68	e:\build\beta\G\app\shared\selector.cpp	TriggerCount.size() == chances.size()
 0xB72D98	e:\build\beta\G\app\shared\selector.cpp	TriggerCount.size() == Countdown.size()
 0xB72DC8	e:\build\beta\G\app\shared\selector.cpp	chances[i] >= 1.0f
-0xB72E28	e:\build\beta\G\app\shared\timer_manager.cpp	mapper->Mapper_ID() != mapper_id
-0xB72EE8	e:\build\beta\G\app\shared\uvcontrl.cpp	Get_Targeting_List() != NULL
+0xB72E28	e:\build\beta\G\app\shared\uvcontrl.cpp	mapper->Mapper_ID() != mapper_id
+0xB72EE8	e:\build\beta\G\app\shared\gclass.cpp	Get_Targeting_List() != NULL
 0xB73060	e:\build\beta\G\app\shared\auxdata\bitset.cpp	Buffer && pos >= 0 && pos < NumBits
 0xB7308C	e:\build\beta\G\app\shared\auxdata\bitset.cpp	pos >= 0 && pos < NumBits
-0xB7315C	..\shared/duration.h	value >= 0.0f
-0xB7316C	..\shared/duration.h	value <= 1.0f
+0xB7315C	e:\build\beta\G\app\shared\auxdata\delta_interpolator.cpp	value >= 0.0f
+0xB7316C	e:\build\beta\G\app\shared\auxdata\delta_interpolator.cpp	value <= 1.0f
 0xB731C4	e:\build\beta\G\app\shared\auxdata\delta_interpolator.cpp	time >= LastTime
 0xB733C0	e:\build\beta\G\app\shared\auxdata\encode.cpp	Records[id] == 0
 0xB733D4	e:\build\beta\G\app\shared\auxdata\encode.cpp	( (b[1] && b[2]) || (b[2] && b[3]) || (b[1] && b[3] ) ) == false
@@ -145,14 +145,14 @@
 0xB734D4	e:\build\beta\G\app\shared\auxdata\linearbu.cpp	size >= 0
 0xB734E4	e:\build\beta\G\app\shared\auxdata\linearbu.cpp	capacity >= 0
 0xB73548	e:\build\beta\G\app\shared\auxdata\lookup.cpp	!name.Is_Wildcard()
-0xB73568	e:\build\beta\G\app\shared\auxdata\lookup.cpp	Count+1 <= MAX_NAME_LENGTH
-0xB73588	e:\build\beta\G\app\shared\auxdata\lookup.cpp	name != cur
+0xB73568	e:\build\beta\G\app\shared\auxdata\name.cpp	Count+1 <= MAX_NAME_LENGTH
+0xB73588	e:\build\beta\G\app\shared\auxdata\name.cpp	name != cur
 0xB735CC	e:\build\beta\G\app\shared\auxdata\name.cpp	Count + rhs.Count <= MAX_NAME_LENGTH
-0xB73604	e:\build\beta\G\app\shared\auxdata\name.cpp	s_Table == 0
+0xB73604	e:\build\beta\G\app\shared\auxdata\permstr.cpp	s_Table == 0
 0xB7364C	e:\build\beta\G\app\shared\auxdata\permstr.cpp	s_Table != 0
 0xB7365C	e:\build\beta\G\app\shared\auxdata\permstr.cpp	PermString: %d slots, %d entries, %d occupied, %d max chain.
 
-0xB736A8	e:\build\beta\G\app\shared\auxdata\permstr.cpp	action == EXCLUDE || action == INCLUDE || action == REDUNDANT
+0xB736A8	e:\build\beta\G\app\shared\auxdata\policy.cpp	action == EXCLUDE || action == INCLUDE || action == REDUNDANT
 0xB73730	e:\build\beta\G\app\shared\auxdata\policy.cpp	current->RuleSet == mod->RuleSet
 0xB73758	e:\build\beta\G\app\shared\auxdata\policy.cpp	id >= 0 && id < Size
 0xB73774	e:\build\beta\G\app\shared\auxdata\policy.cpp	PolicyHead == 0
@@ -161,23 +161,23 @@
 0xB738B4	e:\build\beta\G\app\shared\kv_encoder_base.cpp	Data->PrefixList.size() > 0
 0xB73914	e:\build\beta\G\app\shared\kv_list.cpp	key && buf
 0xB73924	e:\build\beta\G\app\shared\kv_list.cpp	key && value
-0xB73964	e:\build\beta\G\app\shared\kv_pair.cpp	key && accessor
+0xB73964	e:\build\beta\G\app\shared\kv_pair_string.cpp	key && accessor
 0xB73A18	e:\build\beta\G\app\shared\kv_tripl.cpp	index < V.size()
-0xB73B3C	e:\build\beta\G\app\shared\kv_list.h	strnicmp(section_base, buffer, base_len) == 0
+0xB73B3C	e:\build\beta\G\app\shared\kv_util.cpp	strnicmp(section_base, buffer, base_len) == 0
 0xB741F4	e:\build\beta\G\app\shared\avatar_desc.cpp	avatardef.ini file not found
 0xB74218	e:\build\beta\G\app\shared\avatar_desc.cpp	avatardef.ini
-0xB7441C	e:\build\beta\G\app\shared\avatar_desc.cpp	strchr(buffer, Separator) == 0
+0xB7441C	..\shared/kv_acc_array.h	strchr(buffer, Separator) == 0
 0xB74464	..\shared/kv_acc_array.h	index >= Capacity
-0xB74494	..\shared/kv_acc_array.h	type <= HIGHWATER
-0xB74624	e:\build\beta\G\app\shared\expr\expr_math_float.cpp	right == 0
+0xB74494	e:\build\beta\G\app\shared\chat_edit_stream.cpp	type <= HIGHWATER
+0xB74624	e:\build\beta\G\app\shared\expr\expr_math_eval_impl.h	right == 0
 0xB748BC	e:\build\beta\G\app\shared\expr\expr_math_parser_impl.cpp	level <= (int)m_groups.size()
-0xB749F4	e:\build\beta\G\app\shared\expr\expr_math_tree.cpp	!name || !mod
+0xB749F4	e:\build\beta\G\app\shared\attrib_dir.cpp	!name || !mod
 0xB74A70	e:\build\beta\G\app\shared\attrib_dir.cpp	iter.Is_Done()
 0xB74A84	e:\build\beta\G\app\shared\attrib_dir.cpp	!name || !cb
 0xB74AD4	e:\build\beta\G\app\shared\attrib_dir.cpp	!src|| !dst
 0xB74B04	e:\build\beta\G\app\shared\attrib_dir.cpp	!src || !dst
 0xB74C18	e:\build\beta\G\app\shared\attrib_dir.cpp	MapCur == MapEnd
-0xB74C38	e:\build\beta\G\app\shared\attrib_dir.cpp	find == Values.end()
+0xB74C38	e:\build\beta\G\app\shared\attrib_dir_collective.cpp	find == Values.end()
 0xB74CB8	e:\build\beta\G\app\shared\attrib_dir_collective.cpp	!Members.empty()
 0xB74CCC	e:\build\beta\G\app\shared\attrib_dir_collective.cpp	find != DestinationAttributes.end()
 0xB74CF8	e:\build\beta\G\app\shared\attrib_dir_collective.cpp	find != Members.end()
@@ -192,35 +192,35 @@
 0xB75028	e:\build\beta\G\app\shared\event.cpp	!Data || !l
 0xB75038	e:\build\beta\G\app\shared\event.cpp	find_result == Data->Listeners.end()
 0xB75064	e:\build\beta\G\app\shared\event.cpp	!l->Is_Subject(this)
-0xB750EC	e:\build\beta\G\app\shared\event.cpp	!Definitions.size()
-0xB75104	e:\build\beta\G\app\shared\event.cpp	drc->RefCount
+0xB750EC	e:\build\beta\G\app\shared\definition_manager.h	!Definitions.size()
+0xB75104	e:\build\beta\G\app\shared\definition_manager.h	drc->RefCount
 0xB75150	e:\build\beta\G\app\shared\definition_manager.h	.ini
-0xB751AC	e:\build\beta\G\app\shared\ini_manager.cpp	DefinitionName.size()
-0xB75210	e:\build\beta\G\app\shared\definition_auto_ptr.h	ref_it == Definitions.end()
-0xB75234	e:\build\beta\G\app\shared\definition_auto_ptr.h	p.second
-0xB75318	e:\build\beta\G\app\shared\definition_auto_ptr.h	interpolate->Lookup(index) == interpolated_output[sample_index]
-0xB75364	e:\build\beta\G\app\shared\definition_auto_ptr.h	closest->Lookup(index) == closest_output[sample_index]
-0xB753A8	e:\build\beta\G\app\shared\definition_auto_ptr.h	ceiling->Lookup(index) == ceiling_output[sample_index]
-0xB753EC	e:\build\beta\G\app\shared\definition_auto_ptr.h	floor->Lookup(index) == floor_output[sample_index]
+0xB751AC	e:\build\beta\G\app\shared\definition_auto_ptr.h	DefinitionName.size()
+0xB75210	e:\build\beta\G\app\shared\definition_manager.h	ref_it == Definitions.end()
+0xB75234	e:\build\beta\G\app\shared\definition_manager.h	p.second
+0xB75318	e:\build\beta\G\app\shared\lookup_table.cpp	interpolate->Lookup(index) == interpolated_output[sample_index]
+0xB75364	e:\build\beta\G\app\shared\lookup_table.cpp	closest->Lookup(index) == closest_output[sample_index]
+0xB753A8	e:\build\beta\G\app\shared\lookup_table.cpp	ceiling->Lookup(index) == ceiling_output[sample_index]
+0xB753EC	e:\build\beta\G\app\shared\lookup_table.cpp	floor->Lookup(index) == floor_output[sample_index]
 0xB754BC	e:\build\beta\G\app\shared\lookup_table.cpp	!type_entry->Entry
 0xB754E4	e:\build\beta\G\app\shared\lookup_table.cpp	!ini.Load(filename.c_str())
 0xB75508	e:\build\beta\G\app\shared\lookup_table.cpp	find == Tables.end()
 0xB75588	e:\build\beta\G\app\shared\lookup_table.cpp	strings.empty()
 0xB7559C	e:\build\beta\G\app\shared\lookup_table.cpp	current_value == previous_value
-0xB755DC	e:\build\beta\G\app\shared\lookup_table.cpp	price_per_unit <= 0.0f
+0xB755DC	e:\build\beta\G\app\shared\money.cpp	price_per_unit <= 0.0f
 0xB75624	e:\build\beta\G\app\shared\money.cpp	price_per_unit.Amount <= 0
 0xB75644	e:\build\beta\G\app\shared\money.cpp	!money.Amount
 0xB758FC	e:\build\beta\G\app\shared\opposed_roll_odds.cpp	SkyIntensity.Sun
 0xB75924	e:\build\beta\G\app\shared\opposed_roll_odds.cpp	LightIntensity.Sun
-0xB75990	e:\build\beta\G\app\shared\opposed_roll_odds.cpp	orb->Object
+0xB75990	e:\build\beta\G\app\shared\orbitalmanager.cpp	orb->Object
 0xB75A18	e:\build\beta\G\app\shared\orbitalmanager.cpp	ORBITAL%3.3d
 0xB75A48	e:\build\beta\G\app\shared\orbitalmanager.cpp	SkyEmissive.Default
 0xB75A6C	e:\build\beta\G\app\shared\orbitalmanager.cpp	SkyColor.Earth
 0xB75A9C	e:\build\beta\G\app\shared\orbitalmanager.cpp	LightColor.Earth
 0xB75AC0	e:\build\beta\G\app\shared\orbitalmanager.cpp	light_sector%04d.ini
-0xB76090	e:\build\beta\G\app\shared\duration.h	RemainingTime.Get() < 0
-0xB760E8	e:\build\beta\G\app\shared\time_string_format.cpp	*entry->Value == '~'
-0xB76104	e:\build\beta\G\app\shared\time_string_format.cpp	!INI.Load(filename.c_str())
+0xB76090	e:\build\beta\G\app\shared\time_string_format.cpp	RemainingTime.Get() < 0
+0xB760E8	e:\build\beta\G\app\shared\unique_design_id_lookup.cpp	*entry->Value == '~'
+0xB76104	e:\build\beta\G\app\shared\unique_design_id_lookup.cpp	!INI.Load(filename.c_str())
 0xB7616C	e:\build\beta\G\app\shared\unique_design_id_lookup.cpp	find_result == Map.end()
 0xB7618C	e:\build\beta\G\app\shared\unique_design_id_lookup.cpp	identifier == find_result->first
 0xB76220	e:\build\beta\G\app\dbgmgr\dbgmgr.cpp	Get_Allocate_Count() == Get_Free_Count()
@@ -237,16 +237,16 @@
 0xB76640	e:\build\beta\G\app\client\mainview.cpp	orbital%04d.ini
 0xB76654	e:\build\beta\G\app\client\mainview.cpp	land%04d.dcb
 0xB766A4	e:\build\beta\G\app\client\mainview.cpp	NULL==Land
-0xB766C0	e:\build\beta\G\app\client\mainview.cpp	land%04d.ini
+0xB766C0	e:\build\beta\G\app\Client\ui_mfd_extended_context_strings.cpp	land%04d.ini
 0xB766D0	e:\build\beta\G\app\client\mainview.cpp	Land!=NULL
 0xB766F8	e:\build\beta\G\app\client\mainview.cpp	gas%04d.ini
 0xB76708	e:\build\beta\G\app\client\mainview.cpp	Get_Client()->Get_Mode() == newmode
 0xB76850	e:\build\beta\G\app\Client\smouse.cpp	DragObject != drag
 0xB76870	e:\build\beta\G\app\Client\smouse.cpp	dynawin.ini
-0xB76880	e:\build\beta\G\app\Client\smouse.cpp	AnimMax.J >= 0
-0xB76894	e:\build\beta\G\app\Client\smouse.cpp	AnimMax.I >= 0
-0xB768A8	e:\build\beta\G\app\Client\smouse.cpp	AnimMin.J >= 0
-0xB768BC	e:\build\beta\G\app\Client\smouse.cpp	AnimMin.I >= 0
+0xB76880	e:\build\beta\G\app\Client\dynamic_window_background.cpp	AnimMax.J >= 0
+0xB76894	e:\build\beta\G\app\Client\dynamic_window_background.cpp	AnimMax.I >= 0
+0xB768A8	e:\build\beta\G\app\Client\dynamic_window_background.cpp	AnimMin.J >= 0
+0xB768BC	e:\build\beta\G\app\Client\dynamic_window_background.cpp	AnimMin.I >= 0
 0xB76978	e:\build\beta\G\app\Client\dynamic_window_background.cpp	AnimationData && !AnimationData->MeshName.empty()
 0xB769B4	e:\build\beta\G\app\Client\dynamic_window_background.cpp	contents_min_size.Y <= 0.0f
 0xB769D8	e:\build\beta\G\app\Client\dynamic_window_background.cpp	contents_min_size.X <= 0.0f
@@ -261,22 +261,22 @@
 0xB76CEC	e:\build\beta\G\app\Client\dynamic_window_multi_line_text.cpp	CharacterHeight <= 0
 0xB76D08	e:\build\beta\G\app\Client\dynamic_window_multi_line_text.cpp	TopLineIndex <= 0
 0xB76D20	e:\build\beta\G\app\Client\dynamic_window_multi_line_text.cpp	Lines.size() > TopLineIndex + DisplayedLines
-0xB76E00	e:\build\beta\G\app\Client\dynamic_window_text.cpp	render_objects.empty()
+0xB76E00	e:\build\beta\G\app\Client\dynamic_window_toggle.cpp	render_objects.empty()
 0xB76E5C	e:\build\beta\G\app\Client\dynamic_window_toggle.cpp	StateRenderObjects.empty()
 0xB76E7C	e:\build\beta\G\app\Client\dynamic_window_toggle.cpp	state >= StateRenderObjects.size()
 0xB7705C	e:\build\beta\G\app\Client\dynamic_window_vertical.cpp	tooltip.empty()
 0xB77070	e:\build\beta\G\app\Client\dynamic_window_vertical.cpp	label.empty()
-0xB770E4	e:\build\beta\G\app\Client\item\client_item_property_attribute_distance.cpp	units.empty()
+0xB770E4	e:\build\beta\G\app\Client\item\client_item_property_attribute_float.cpp	units.empty()
 0xB772EC	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	This item is no longer operational and must be repaired.
 0xB77330	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	This item has been severely damaged but is still functioning.
 0xB7737C	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	This item has taken damage but is still functioning.
 0xB773BC	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	This item is functioning perfectly.
 0xB77440	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	Improvement in chances for a Critical Success when used.
 0xB7749C	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	Improvement in Build/Refine ability when used.
-0xB77548	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	mode_flags != MODE_NONE_BF
+0xB77548	e:\build\beta\G\app\Client\item\client_item_property_builder.cpp	mode_flags != MODE_NONE_BF
 0xB77578	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	How fast engine will drain reactor when in free warp (warping with no target.)
 0xB775E0	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	Shows how fast the ship will travel while warping with this engine equipped.
-0xB7763C	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	trade_level_required <= 0
+0xB7763C	e:\build\beta\G\app\Client\item\client_item_property_builder.cpp	trade_level_required <= 0
 0xB77664	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	Higher thrust values will increase the ship's maximum speed.
 0xB776BC	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	Specifies an increased distance that an NPC will notice the player when engine is equipped.
 0xB7772C	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	The amount of shield energy regenerated per second.
@@ -285,11 +285,11 @@
 0xB77874	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	The number of seconds that must elapse between activations.
 0xB778C8	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	The amount of energy regenerated per second.
 0xB77908	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	The maximum targeting range of the item.
-0xB779C4	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	total_level_required <= 0
-0xB779E4	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	explore_level_required <= 0
+0xB779C4	e:\build\beta\G\app\Client\item\client_item_property_builder.cpp	total_level_required <= 0
+0xB779E4	e:\build\beta\G\app\Client\item\client_item_property_builder.cpp	explore_level_required <= 0
 0xB77A6C	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	Radius of effect.
 0xB77A94	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	Range of effect.
-0xB77AD8	e:\build\beta\G\app\Client\item\client_item_property_attribute_string.cpp	combat_level_required <= 0
+0xB77AD8	e:\build\beta\G\app\Client\item\client_item_property_builder.cpp	combat_level_required <= 0
 0xB77BA8	e:\build\beta\G\app\Client\item\client_item_property_builder.cpp	This item cannot be analyzed or manufactured.
 0xB77BF4	e:\build\beta\G\app\Client\item\client_item_property_builder.cpp	This item cannot be destroyed.
 0xB77C2C	e:\build\beta\G\app\Client\item\client_item_property_builder.cpp	This item cannot be placed in storage.
@@ -318,14 +318,14 @@
 0xB783B0	e:\build\beta\G\app\Client\item\client_item_property_special_race_requirement.cpp	You must have this skill level to equip this item.
 0xB783F0	e:\build\beta\G\app\Client\item\client_item_property_special_race_requirement.cpp	You must have this skill level to activate this item.
 0xB784AC	e:\build\beta\G\app\Client\item\client_item_property_special_skill_requirement.cpp	skill_index >= (int)skills_aux_data->Get_Size()
-0xB78510	e:\build\beta\G\app\Client\item\client_item_property_special_skill_requirement.cpp	RPGInfo.Skills
+0xB78510	e:\build\beta\G\app\Client\ui_mfd_extended_context_harvestable.cpp	RPGInfo.Skills
 0xB7855C	..\shared/auxdata/rtti.h	 to use this item.
 0xB78598	..\shared/auxdata/rtti.h	You must be this level to use.
 0xB78670	e:\build\beta\G\app\Client\item\client_item_property_special_level_requirement.cpp	RPGInfo.
 0xB786C0	e:\build\beta\G\app\Client\item\client_item_property_special_level_requirement.cpp	if_x.tga
 0xB7871C	e:\build\beta\G\app\Client\ui_item_examination.cpp	FA_IEI00.INI
-0xB78748	e:\build\beta\G\app\Client\ui_item_examination.cpp	0 != Referent
-0xB78784	..\..\wwlib\ref_ptr.h	State != UI_CLOSED
+0xB78748	..\..\wwlib\ref_ptr.h	0 != Referent
+0xB78784	e:\build\beta\G\app\Client\ui_item_examination.cpp	State != UI_CLOSED
 0xB78928	e:\build\beta\G\app\Client\item/client_item_property_attribute.h	if_check_on.tga
 0xB7893C	e:\build\beta\G\app\Client\item/client_item_property_attribute.h	if_check_off.tga
 0xB78E64	e:\build\beta\G\app\Client\bridge_int.cpp	Client == NULL
@@ -333,7 +333,7 @@
 0xB790D4	e:\build\beta\G\app\client\frameint.cpp	Frame Rate = %4.0f
 0xB79110	e:\build\beta\G\app\client\frameint.cpp	FPS = %4.0f
 
-0xB79260	e:\build\beta\G\app\client\frameint.cpp	fc_radar.ini
+0xB79260	e:\build\beta\G\app\Client\galaxy_map_render.cpp	fc_radar.ini
 0xB79318	e:\build\beta\G\app\client\galaxy_map_pip.cpp	Galaxymap PIP will now show only areas that you have explored.
 0xB79364	e:\build\beta\G\app\client\galaxy_map_pip.cpp	Galaxymap PIP will now show the whole galaxy.
 0xB797E0	e:\build\beta\G\app\Client\ship_equip_pip.cpp	Attempt Failed.  Item Damaged
@@ -342,7 +342,7 @@
 0xB799B0	e:\build\beta\G\app\Client\ui_analyze.cpp	TSM02A.OVER
 0xB799C0	e:\build\beta\G\app\Client\ui_analyze.cpp	TSM02A.RESULT
 0xB799D0	e:\build\beta\G\app\Client\ui_analyze.cpp	TSM02A.E%02d
-0xB79A3C	e:\build\beta\G\app\Client\../packets/pk.h	failure_1.wav
+0xB79A3C	e:\build\beta\G\app\Client\ui_analyze.cpp	failure_1.wav
 0xB79A4C	e:\build\beta\G\app\Client\../packets/pk.h	success_1.wav
 0xB79A68	e:\build\beta\G\app\Client\../packets/pk.h	analyze_1.wav
 0xB79A78	e:\build\beta\G\app\Client\../packets/pk.h	Roll_Select02b.wav
@@ -355,11 +355,11 @@
 0xB79C3C	e:\build\beta\G\app\Client\../packets/pk.h	Insufficient credits to analyze or dismantle item.
 0xB79CD4	e:\build\beta\G\app\Client\../packets/pk.h	IM_%d.tga
 0xB79CEC	e:\build\beta\G\app\Client\../packets/pk.h	IM_%d%d.tga
-0xB79D08	e:\build\beta\G\app\Client\../packets/pk.h	IM_%d%d%d.tga
+0xB79D08	e:\build\beta\G\app\Client\ui_manu_util.cpp	IM_%d%d%d.tga
 0xB79D2C	e:\build\beta\G\app\Client\../packets/pk.h	fa_att.ini
 0xB79E60	e:\build\beta\G\app\Client\ui_attrb.cpp	RPGInfo.ExploreLevel
 0xB79E88	e:\build\beta\G\app\Client\ui_attrb.cpp	RPGInfo.TradeLevel
-0xB79EB0	e:\build\beta\G\app\Client\ui_attrb.cpp	RPGInfo.CombatLevel
+0xB79EB0	e:\build\beta\G\app\client\sclient.cpp	RPGInfo.CombatLevel
 0xB79F90	e:\build\beta\G\app\Client\ui_attrb.cpp	fa_tsi12c.ini
 0xB7A054	e:\build\beta\G\app\Client\ui_attrb.cpp	skill_train_1.wav
 0xB7A194	e:\build\beta\G\app\Client\ui_attrb.cpp	You have already attained the maximum level for this skill.
@@ -370,7 +370,7 @@ Please try again later.
 0xB7A9CC	e:\build\beta\G\app\Client\ui_attrb_skills.cpp	fa_buy_avatar00.ini
 0xB7A9FC	e:\build\beta\G\app\Client\ui_attrb_skills.cpp	fa_avatar_color.tga
 0xB7AA14	e:\build\beta\G\app\Client\ui_attrb_skills.cpp	fa_skin_color.tga
-0xB7AA68	..\packets/pk.h	ButtonClick02.wav
+0xB7AA68	e:\build\beta\G\app\Client\ui_scan.cpp	ButtonClick02.wav
 0xB7AC30	e:\build\beta\G\app\Client\ui_avatar_cust.cpp	Total changes cost %s credits. Proceed with update?
 0xB7AEA4	e:\build\beta\G\app\Client\ui_avatar_cust.cpp	fc_TLI01A.ini
 0xB7AF18	e:\build\beta\G\app\Client\ui_avatar_dialog.cpp	message_1.wav
@@ -419,7 +419,7 @@ Are you sure you want to quit the registration process?
 0xB7CCEC	e:\build\beta\G\app\Client\ui_buff.cpp	fa_tsi05b.ini
 0xB7CCFC	e:\build\beta\G\app\Client\ui_buff.cpp	TextClick03.wav
 0xB7CD10	e:\build\beta\G\app\Client\ui_buff.cpp	SR_scifielectronic42.wav
-0xB7CD30	e:\build\beta\G\app\Client\ui_buff.cpp	(index < 0) || (index >= NUM_COMBO)
+0xB7CD30	e:\build\beta\G\app\Client\ui_chat_panel.cpp	(index < 0) || (index >= NUM_COMBO)
 0xB7CDEC	e:\build\beta\G\app\Client\ui_chat_panel.cpp	chat.log
 0xB7CE10	e:\build\beta\G\app\Client\ui_chat_panel.cpp	vidscreen_1.wav
 0xB7CE24	e:\build\beta\G\app\Client\ui_chat_panel.cpp	TextClick01.wav
@@ -500,7 +500,7 @@ Please enter your billing information below.
 0xB7F070	e:\build\beta\G\app\Client\ui_experience.cpp	Progress: %1.2f%%
 0xB7F088	e:\build\beta\G\app\Client\ui_experience.cpp	RPGInfo.CombatExp
 0xB7F0A4	e:\build\beta\G\app\Client\ui_experience.cpp	fa_tsi30a.ini
-0xB7F0D4	e:\build\beta\G\app\Client\ui_experience.cpp	I_blank_SEL.tga
+0xB7F0D4	e:\build\beta\G\app\Client\ui_missn.cpp	I_blank_SEL.tga
 0xB7F164	e:\build\beta\G\app\Client\ui_faction.cpp	Reaction : %1.1f
 0xB7F384	e:\build\beta\G\app\Client\ui_faction_panel.cpp	fa_tsi28a.ini
 0xB7F3A0	e:\build\beta\G\app\Client\ui_faction_panel.cpp	Selection < 0 || Selection >= list_size
@@ -516,12 +516,12 @@ Please enter your billing information below.
 0xB7FA4C	e:\build\beta\G\app\Client\ui_group.cpp	it == Members.end()
 0xB7FAE0	e:\build\beta\G\app\Client\ui_group.cpp	symbol_chat_1.wav
 0xB7FC6C	e:\build\beta\G\app\Client\ui_group.cpp	fa_tsi25a.ini
-0xB7FC7C	e:\build\beta\G\app\Client\ui_group.cpp	index >= (int)PlayersInfo.size()
+0xB7FC7C	e:\build\beta\G\app\Client\ui_groupfind.cpp	index >= (int)PlayersInfo.size()
 0xB7FCD8	e:\build\beta\G\app\Client\ui_groupfind.cpp	prof >= MAX_PLAYER_PROFESSIONS
 0xB7FD00	e:\build\beta\G\app\Client\ui_groupfind.cpp	race >= NUMBER_PLAYER_RACES
 0xB7FF8C	e:\build\beta\G\app\Client\ui_groupfind.cpp	fa_tsi24a.ini
 0xB7FFF0	e:\build\beta\G\app\Client\ui_groupopt.cpp	!sclient->AuxData
-0xB80078	e:\build\beta\G\app\Client\ui_hdamg.cpp	index < Items.size()
+0xB80078	..\shared/auxdata/delta_array.h	index < Items.size()
 0xB802BC	e:\build\beta\G\app\Client\ui_hot_keys.cpp	fa_founders00a.ini
 0xB803E0	e:\build\beta\G\app\Client\ui_inv.cpp	fc_inv.ini
 0xB803F0	e:\build\beta\G\app\Client\ui_inv.cpp	InvType != INV_NONE
@@ -581,8 +581,8 @@ Do you wish to proceed?
 0xB81DE8	e:\build\beta\G\app\Client\ui_manu.cpp	!Client->As_Space_Client()
 0xB81E08	e:\build\beta\G\app\Client\ui_manu.cpp	source != USER_INPUT
 0xB81E24	e:\build\beta\G\app\Client\ui_manu.cpp	tech_level < 1 || tech_level >= NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS
-0xB81E98	e:\build\beta\G\app\Client\ui_manu.cpp	category >= 0
-0xB81EA8	e:\build\beta\G\app\Client\ui_manu.cpp	primary >= 0
+0xB81E98	e:\build\beta\G\app\Client\ui_manu_util.cpp	category >= 0
+0xB81EA8	e:\build\beta\G\app\Client\ui_manu_util.cpp	primary >= 0
 0xB81EF8	e:\build\beta\G\app\Client\ui_manu_util.cpp	MU01A.OPTION5
 0xB81F08	e:\build\beta\G\app\Client\ui_manu_util.cpp	MU01A.OPTION4
 0xB81F18	e:\build\beta\G\app\Client\ui_manu_util.cpp	MU01A.OPTION3
@@ -595,24 +595,24 @@ Do you wish to proceed?
 0xB81F8C	e:\build\beta\G\app\Client\ui_manu_util.cpp	mu01a.mu01-o3
 0xB81F9C	e:\build\beta\G\app\Client\ui_manu_util.cpp	mu01a.mu01-o2
 0xB81FAC	e:\build\beta\G\app\Client\ui_manu_util.cpp	mu01a.mu01-o1
-0xB81FBC	e:\build\beta\G\app\Client\ui_manu_util.cpp	(InterfaceMesh != 0) && "Can't find mesh"
+0xB81FBC	e:\build\beta\G\app\Client\ui_mesh.cpp	(InterfaceMesh != 0) && "Can't find mesh"
 0xB82150	e:\build\beta\G\app\Client\ui_mesh.cpp	fc_mfd.ini
 0xB821C0	e:\build\beta\G\app\Client\ui_mfd.cpp	0 == monitor
 0xB821D0	e:\build\beta\G\app\Client\ui_mfd.cpp	targety1.wav
 0xB82234	e:\build\beta\G\app\Client\ui_mfd.cpp	per.IsFloat
 0xB82244	e:\build\beta\G\app\Client\ui_mfd.cpp	max.IsInt
 0xB822B8	..\shared/auxdata/delta_interpolator.h	fa_harvesting.ini
-0xB822D0	..\shared/auxdata/delta_interpolator.h	0 == harvestable_aux_data
-0xB822F0	..\shared/auxdata/delta_interpolator.h	0 == co->AuxData
-0xB82304	..\shared/auxdata/delta_interpolator.h	0 == skills
-0xB82314	..\shared/auxdata/delta_interpolator.h	0 == avatar_aux_data
-0xB82330	..\shared/auxdata/delta_interpolator.h	0 == player
-0xB82340	..\shared/auxdata/delta_interpolator.h	-1 == prospect_skill_index
+0xB822D0	e:\build\beta\G\app\Client\ui_mfd_extended_context_harvestable.cpp	0 == harvestable_aux_data
+0xB822F0	e:\build\beta\G\app\Client\ui_mfd_extended_context_harvestable.cpp	0 == co->AuxData
+0xB82304	e:\build\beta\G\app\Client\ui_mfd_extended_context_harvestable.cpp	0 == skills
+0xB82314	e:\build\beta\G\app\Client\ui_mfd_extended_context_harvestable.cpp	0 == avatar_aux_data
+0xB82330	e:\build\beta\G\app\Client\ui_mfd_extended_context_harvestable.cpp	0 == player
+0xB82340	e:\build\beta\G\app\Client\ui_mfd_extended_context_harvestable.cpp	-1 == prospect_skill_index
 0xB8236C	..\shared/auxdata/delta_interpolator.h	0 == co
 0xB823C8	e:\build\beta\G\app\Client\ui_mfd_extended_context_harvestable.cpp	0 == item
 0xB823E4	e:\build\beta\G\app\Client\ui_mfd_extended_context_harvestable.cpp	CurrentIndexMap.size() == PreviousIndexMap.size()
 0xB82420	e:\build\beta\G\app\Client\ui_mfd_extended_context_harvestable.cpp	line_index >= CurrentIndexMap.size()
-0xB824AC	e:\build\beta\G\app\Client\ui_mfd_extended_context.h	0 != fontbase
+0xB824AC	e:\build\beta\G\app\Client\ui_mfd_extended_context_strings.cpp	0 != fontbase
 0xB82508	e:\build\beta\G\app\Client\ui_mfd_extended_context_strings.cpp	0 == font
 0xB82514	e:\build\beta\G\app\Client\ui_mfd_extended_context_strings.cpp	0 != scene
 0xB82524	e:\build\beta\G\app\Client\ui_mfd_extended_context_strings.cpp	Fonts.size() == StringEmpty.size()
@@ -633,7 +633,7 @@ Do you wish to proceed?
 0xB830EC	e:\build\beta\G\app\Client\ui_option_control_keys.cpp	keys_it == CurrentKeys.end()
 0xB83110	e:\build\beta\G\app\Client\ui_option_control_keys.cpp	Ctrl, Alt, and Shift cannot be used alone.  They can be used as modifiers to other keys.
 0xB83288	e:\build\beta\G\app\Client\ui_option_control_keys.cpp	!sclient->CurrentView
-0xB833B4	e:\build\beta\G\app\Client\ui_option_control_keys.cpp	FontNames.empty()
+0xB833B4	e:\build\beta\G\app\Client\ui_option_font.cpp	FontNames.empty()
 0xB8340C	e:\build\beta\G\app\Client\ui_option_font.cpp	fc_option_font.ini
 0xB83458	e:\build\beta\G\app\Client\ui_option_font.cpp	Scale Font (%1.1f)
 0xB835DC	e:\build\beta\G\app\Client\ui_option_font.cpp	fa_opt01a.ini
@@ -654,19 +654,19 @@ Do you wish to proceed?
 0xB84044	e:\build\beta\G\app\Client\ui_petition_avatar_pip.cpp	Petition canceled.
 0xB8405C	e:\build\beta\G\app\Client\ui_petition_avatar_pip.cpp	choice == USER_SELECT_NO
 0xB84250	e:\build\beta\G\app\Client\ui_petition_entry.cpp	fa_hsi04a.ini
-0xB84264	e:\build\beta\G\app\Client\ui_petition_entry.cpp	choice == USER_SELECT_OK
+0xB84264	e:\build\beta\G\app\Client\ui_petition_player_entry.cpp	choice == USER_SELECT_OK
 0xB84384	e:\build\beta\G\app\Client\ui_petition_player_entry.cpp	fa_hsi03a.ini
 0xB84450	e:\build\beta\G\app\Client\ui_petition_stuck.cpp	fc_ping.ini
-0xB844DC	e:\build\beta\G\app\Client\ui_petition_stuck.cpp	PctLoss:  %.2f
-0xB844F0	e:\build\beta\G\app\Client\ui_petition_stuck.cpp	WinUsed:  %.2f
-0xB84504	e:\build\beta\G\app\Client\ui_petition_stuck.cpp	WinSize:  %.2f
-0xB84518	e:\build\beta\G\app\Client\ui_petition_stuck.cpp	Rtt:      %.2f
-0xB8452C	e:\build\beta\G\app\Client\ui_petition_stuck.cpp	Recv:     %.2f
-0xB8454C	e:\build\beta\G\app\Client\ui_petition_stuck.cpp	Send:     %.2f
+0xB844DC	e:\build\beta\G\app\Client\ui_ping.cpp	PctLoss:  %.2f
+0xB844F0	e:\build\beta\G\app\Client\ui_ping.cpp	WinUsed:  %.2f
+0xB84504	e:\build\beta\G\app\Client\ui_ping.cpp	WinSize:  %.2f
+0xB84518	e:\build\beta\G\app\Client\ui_ping.cpp	Rtt:      %.2f
+0xB8452C	e:\build\beta\G\app\Client\ui_ping.cpp	Recv:     %.2f
+0xB8454C	e:\build\beta\G\app\Client\ui_ping.cpp	Send:     %.2f
 0xB845F4	e:\build\beta\G\app\Client\ui_ping.cpp	fa_tsi27a.ini
 0xB8469C	e:\build\beta\G\app\Client\ui_popup_browser.cpp	fc_jweb01.ini
 0xB84934	e:\build\beta\G\app\Client\ui_popup_browser.cpp	end_screen00.ini
-0xB84984	e:\build\beta\G\app\Client\ui_popup_browser.cpp	site >= 0 && site < NUM_SITES
+0xB84984	e:\build\beta\G\app\Client\ui_popupmsg.cpp	site >= 0 && site < NUM_SITES
 0xB84AB4	e:\build\beta\G\app\Client\ui_popupmsg.cpp	TALK_%s_ENERGY_LOW_1.wav
 0xB84B68	e:\build\beta\G\app\Client\ui_proc.cpp	Cycle && DeleteSelf
 0xB84BD4	e:\build\beta\G\app\Client\ui_proc.cpp	Facing not implemented.
@@ -688,7 +688,7 @@ Do you wish to proceed?
 0xB851A4	e:\build\beta\G\app\Client\ui_ptrade.cpp	TRADE00A.X%02d
 0xB851B8	e:\build\beta\G\app\Client\ui_ptrade.cpp	TRADE00A.C%02d
 0xB85298	e:\build\beta\G\app\Client\ui_ptrade.cpp	Trading has successfully completed.
-0xB85308	e:\build\beta\G\app\Client\ui_ptrade.cpp	Inventory.PlayerTrade
+0xB85308	e:\build\beta\G\app\Client\inv_data.cpp	Inventory.PlayerTrade
 0xB85324	e:\build\beta\G\app\Client\ui_ptrade.cpp	Insufficient credits.
 0xB853C0	e:\build\beta\G\app\Client\ui_ptrade.cpp	cht05.ini
 0xB85448	e:\build\beta\G\app\Client\ui_ptrade.cpp	cht04.ini
@@ -696,7 +696,7 @@ Do you wish to proceed?
 0xB85488	e:\build\beta\G\app\Client\ui_ptrade.cpp	The password you entered is not correct. Please try reentering the password again.
 0xB85588	e:\build\beta\G\app\Client\ui_ptrade.cpp	You have entered invalid passwords. Please try re-entering them again.
 0xB85600	e:\build\beta\G\app\Client\ui_ptrade.cpp	The passwords did not match. Please try re-entering them again.
-0xB85668	e:\build\beta\G\app\Client\ui_ptrade.cpp	!PasswordGadget || !ConfirmGadget
+0xB85668	e:\build\beta\G\app\Client\ui_radio_entry.cpp	!PasswordGadget || !ConfirmGadget
 0xB856FC	e:\build\beta\G\app\Client\ui_radio_entry.cpp	cht02.ini
 0xB857A4	e:\build\beta\G\app\Client\ui_radio_entry.cpp	cht01.ini
 0xB857BC	e:\build\beta\G\app\Client\ui_radio_entry.cpp	You are the first person in channel %s. Do you wish to create a password?
@@ -846,7 +846,7 @@ combination is not valid.
 0xB892BC	e:\build\beta\G\app\Client\ui_scut_gadgets.cpp	fa_fe02a.ini
 0xB892D4	e:\build\beta\G\app\Client\ui_scut_gadgets.cpp	co0102nw_gd.tga
 0xB892E8	e:\build\beta\G\app\Client\ui_scut_gadgets.cpp	co0102nw.tga
-0xB89340	e:\build\beta\G\app\Client\ui_scut_gadgets.cpp	ShardSelection < 0 || ShardSelection >= (int)SortedGalaxies.size()
+0xB89340	e:\build\beta\G\app\Client\ui_shard.cpp	ShardSelection < 0 || ShardSelection >= (int)SortedGalaxies.size()
 0xB89430	e:\build\beta\G\app\Client\ui_shard.cpp	FE02A.FE02A-2
 0xB895B4	e:\build\beta\G\app\Client\ui_shard.cpp	fa_buy_ship04.ini
 0xB895DC	e:\build\beta\G\app\Client\ui_shard.cpp	fa_buy_ship03.ini
@@ -862,7 +862,7 @@ combination is not valid.
 0xB89D74	e:\build\beta\G\app\Client\ui_ship_cust.cpp	fa_ship03.ini
 0xB89D90	e:\build\beta\G\app\Client\ui_ship_cust.cpp	fa_ship02.ini
 0xB89DAC	e:\build\beta\G\app\Client\ui_ship_cust.cpp	fa_ship01.ini
-0xB89DC8	e:\build\beta\G\app\Client\ui_ship_cust.cpp	environmentmapmanager != NULL
+0xB89DC8	e:\build\beta\G\app\Client\ui_shipcust.cpp	environmentmapmanager != NULL
 0xB89E20	e:\build\beta\G\app\Client\ui_shipcust.cpp	decalmaterialmanager != NULL
 0xB89E84	e:\build\beta\G\app\Client\ui_shipcust.cpp	1492_00_303se.mp3
 0xB89E9C	e:\build\beta\G\app\Client\ui_shipcust.cpp	1492_00_302se.mp3
@@ -879,7 +879,7 @@ combination is not valid.
 0xB8A554	e:\build\beta\G\app\Client\ui_slot_data.cpp	(VisibleButtons % notch_size) != 0
 0xB8A580	e:\build\beta\G\app\Client\ui_slot_data.cpp	notch_size == 0
 0xB8A5A4	e:\build\beta\G\app\Client\ui_slot_data.cpp	idx >= Buttons.size()
-0xB8A6BC	e:\build\beta\G\app\Client\ui_slot_data.cpp	this == _ActiveInterface
+0xB8A6BC	e:\build\beta\G\app\Client\ui_slot_info.cpp	this == _ActiveInterface
 0xB8A710	e:\build\beta\G\app\Client\ui_slot_info.cpp	_ActiveInterface != this
 0xB8AC5C	e:\build\beta\G\app\Client\ui_slot_scut.cpp	Sorry, no Member Names were found for the E-Mail address.  Please double-check the E-Mail address you entered.
 0xB8B040	e:\build\beta\G\app\Client\ui_slot_scut.cpp	progen_station_door_1.wav
@@ -895,7 +895,7 @@ combination is not valid.
 0xB8B1AC	e:\build\beta\G\app\Client\ui_slot_scut.cpp	VENDOR_DEF.DAT
 0xB8B1C0	e:\build\beta\G\app\Client\ui_slot_scut.cpp	MAIN_DECK_DEF.DAT
 0xB8B1D8	e:\build\beta\G\app\Client\ui_slot_scut.cpp	HANGER_DEF.DAT
-0xB8B21C	e:\build\beta\G\app\Client\ui_slot_scut.cpp	!Avatar && !AmbientAvatar
+0xB8B21C	e:\build\beta\G\app\Client\ui_starbase.cpp	!Avatar && !AmbientAvatar
 0xB8B490	e:\build\beta\G\app\Client\ui_starbase.cpp	vb_blackmkt.vb_blackmkt-2
 0xB8B510	e:\build\beta\G\app\Client\ui_starbase.cpp	vb_blackmkt.vb_blackmkt-1
 0xB8B648	e:\build\beta\G\app\Client\ui_starbase.cpp	facility < 0 || facility >= MAX_FACILITY
@@ -919,8 +919,8 @@ combination is not valid.
 0xB8C1E0	..\shared\auxdata/auxdata.h	IF_NONE.TGA
 0xB8C1F0	..\shared\auxdata/auxdata.h	IF_PLUS.TGA
 0xB8C200	..\shared\auxdata/auxdata.h	IF_MINUS.TGA
-0xB8C210	..\shared\auxdata/auxdata.h	line->String
-0xB8C220	..\shared\auxdata/auxdata.h	mesh.Get_Bone_Index(name)
+0xB8C210	e:\build\beta\G\app\Client\ui_treem.cpp	line->String
+0xB8C220	e:\build\beta\G\app\Client\ui_treem.cpp	mesh.Get_Bone_Index(name)
 0xB8C278	e:\build\beta\G\app\Client\ui_treem.cpp	item->Level + 1 == next->Level
 0xB8C2A0	e:\build\beta\G\app\Client\ui_treem.cpp	prev->Level + 1 == item->Level
 0xB8C2C8	e:\build\beta\G\app\Client\ui_treem.cpp	item->Level == next->Level
@@ -934,10 +934,10 @@ combination is not valid.
 0xB8C598	e:\build\beta\G\app\Client\ui_verb.cpp	FA_JWEB00.INI
 0xB8C610	e:\build\beta\G\app\Client\uiview.cpp	height == 0.0f
 0xB8C624	e:\build\beta\G\app\Client\uiview.cpp	width == 0.0f
-0xB8C63C	e:\build\beta\G\app\Client\uiview.cpp	outer.Y + outer.Height >= inner.Y + inner.Height
-0xB8C678	e:\build\beta\G\app\Client\uiview.cpp	outer.X + outer.Width >= inner.X + inner.Width
-0xB8C6B0	e:\build\beta\G\app\Client\uiview.cpp	outer.Y <= inner.Y
-0xB8C6C8	e:\build\beta\G\app\Client\uiview.cpp	outer.X <= inner.X
+0xB8C63C	e:\build\beta\G\app\Client\camctl.cpp	outer.Y + outer.Height >= inner.Y + inner.Height
+0xB8C678	e:\build\beta\G\app\Client\camctl.cpp	outer.X + outer.Width >= inner.X + inner.Width
+0xB8C6B0	e:\build\beta\G\app\Client\camctl.cpp	outer.Y <= inner.Y
+0xB8C6C8	e:\build\beta\G\app\Client\camctl.cpp	outer.X <= inner.X
 0xB8C724	e:\build\beta\G\app\Client\camctl.cpp	chat.ini
 0xB8C848	e:\build\beta\G\app\Client\camctl.cpp	Not monitoring any public channels.
 0xB8C874	e:\build\beta\G\app\Client\camctl.cpp	Not subscribed to any channels.
@@ -949,7 +949,7 @@ combination is not valid.
 0xB8CAE4	e:\build\beta\G\app\client\gadget.cpp	*sticky == NULL
 0xB8CAF8	e:\build\beta\G\app\client\gadget.cpp	warning: tried to release sticky, but belonged to another gadget.
 0xB8CB48	e:\build\beta\G\app\client\gadget.cpp	*sticky == this
-0xB8CB64	e:\build\beta\G\app\client\gadget.cpp	GroupLists.empty()
+0xB8CB64	e:\build\beta\G\app\Client\gadget_list_manager.cpp	GroupLists.empty()
 0xB8CBBC	e:\build\beta\G\app\Client\gadget_list_manager.cpp	(*it) == gadget
 0xB8CBD0	e:\build\beta\G\app\Client\gadget_list_manager.cpp	size != list->size()
 0xB8CD38	e:\build\beta\G\app\Client\gd_attrb_skills.cpp	lp >= MAX_SKILLS
@@ -958,25 +958,25 @@ combination is not valid.
 0xB8CE2C	e:\build\beta\G\app\Client\gd_attrb_skills.cpp	I_BLANK_SEL.tga
 0xB8CE40	e:\build\beta\G\app\Client\gd_attrb_skills.cpp	IF_DOT01.tga
 0xB8CE50	e:\build\beta\G\app\Client\gd_attrb_skills.cpp	IF_DOT00.tga
-0xB8CED0	e:\build\beta\G\app\Client\gd_attrb_skills.cpp	index >= Elements.size()
-0xB8D05C	e:\build\beta\G\app\Client\gd_gauge.h	!Current.Gauge
+0xB8CED0	e:\build\beta\G\app\Client\gd_buffgadg.cpp	index >= Elements.size()
+0xB8D05C	e:\build\beta\G\app\Client\gd_gauge.cpp	!Current.Gauge
 0xB8D0CC	e:\build\beta\G\app\Client\gd_inv_slider.cpp	VisibleNotches <= 0
 0xB8D0E4	e:\build\beta\G\app\Client\gd_inv_slider.cpp	SlotsPerNotch <= 0
-0xB8D198	e:\build\beta\G\app\Client\gd_inv_slider.cpp	!Text && "KeyPressGadget::Set_Text() must be called first!"
+0xB8D198	e:\build\beta\G\app\Client\gd_key_press.cpp	!Text && "KeyPressGadget::Set_Text() must be called first!"
 0xB8D2C8	e:\build\beta\G\app\Client\gd_pip_scene.cpp	!PIPScene->Peek_Client()
 0xB8D4D4	e:\build\beta\G\app\Client\gd_ship_equip_pip.cpp	slider_vert.slider_vert-1
 0xB8D51C	e:\build\beta\G\app\Client\gd_ship_equip_pip.cpp	slider_hor.slider_hor-1
 0xB8D610	e:\build\beta\G\app\Client\gd_slider.cpp	slider_bar_1.wav
 0xB8D7BC	e:\build\beta\G\app\Client\gd_uisld.cpp	SR_rollover14b.wav
-0xB8D7D4	e:\build\beta\G\app\Client\gd_uisld.cpp	(group >= 0) && (group < 256)
+0xB8D7D4	e:\build\beta\G\app\Client\acticon.cpp	(group >= 0) && (group < 256)
 0xB8D90C	e:\build\beta\G\app\Client\buff_database.cpp	buffdef.ini file not found
 0xB8D92C	e:\build\beta\G\app\Client\buff_database.cpp	buffdef.ini
 0xB8D940	e:\build\beta\G\app\Client\buff_database.cpp	envmaps.ini
 0xB8D950	e:\build\beta\G\app\Client\buff_database.cpp	fe_music.mp3
-0xB8D974	e:\build\beta\G\app\Client\buff_database.cpp	mode < CHARACTER_POPUP_MESSAGE || mode >= CHARACTER_LASTVIEWMODE
+0xB8D974	e:\build\beta\G\app\Client\charview.cpp	mode < CHARACTER_POPUP_MESSAGE || mode >= CHARACTER_LASTVIEWMODE
 0xB8DAFC	e:\build\beta\G\app\Client\chat_window.cpp	chat_line->Is_Null()
-0xB8DB78	e:\build\beta\G\app\Client\chat_window.cpp	it == History.begin()
-0xB8DB94	e:\build\beta\G\app\Client\chat_window.cpp	(*it)->Is_Last()
+0xB8DB78	e:\build\beta\G\app\Client\chat_window_history.cpp	it == History.begin()
+0xB8DB94	e:\build\beta\G\app\Client\chat_window_history.cpp	(*it)->Is_Last()
 0xB8F79C	e:\build\beta\G\app\Client\chat_window_history.cpp	Small_ft.fnt
 0xB8F7AC	e:\build\beta\G\app\Client\chat_window_history.cpp	spac11_4.fnt
 0xB8F7BC	e:\build\beta\G\app\Client\chat_window_history.cpp	spac8_3.fnt
@@ -1011,15 +1011,15 @@ combination is not valid.
 0xB904F8	e:\build\beta\G\app\Client\inv_render.cpp	icon_red.tga
 0xB9056C	e:\build\beta\G\app\Client\inv_render.cpp	Range: %.2fk / %.2fk
 
-0xB9071C	e:\build\beta\G\app\Client\inv_trade_render.cpp	from_inv == INV_NONE
-0xB90738	e:\build\beta\G\app\Client\inv_trade_render.cpp	!all && (num == MAX_ITEMS)
-0xB90758	e:\build\beta\G\app\Client\inv_trade_render.cpp	num == 0
+0xB9071C	e:\build\beta\G\app\Client\inv_transaction.cpp	from_inv == INV_NONE
+0xB90738	e:\build\beta\G\app\Client\inv_transaction.cpp	!all && (num == MAX_ITEMS)
+0xB90758	e:\build\beta\G\app\Client\inv_transaction.cpp	num == 0
 0xB90880	e:\build\beta\G\app\Client\loadingview.cpp	galaxy_map_c.ini
 0xB90950	e:\build\beta\G\app\Client\loadingview.cpp	fc_map_load00.INI
 0xB90978	e:\build\beta\G\app\Client\loadingview.cpp	fc_map_load00.ini
-0xB909B4	e:\build\beta\G\app\Client\loadingview.cpp	iface_ptr->Is_Active()
+0xB909B4	e:\build\beta\G\app\Client\map_pip.cpp	iface_ptr->Is_Active()
 0xB90B4C	e:\build\beta\G\app\Client\pdaint.cpp	pt_missions.ini
-0xB90B60	e:\build\beta\G\app\Client\pdaint.cpp	idx >= 0
+0xB90B60	e:\build\beta\G\app\client\pt_data.cpp	idx >= 0
 0xB90BC8	e:\build\beta\G\app\client\pt_data.cpp	pt_news.ini
 0xB90BE8	e:\build\beta\G\app\client\pt_data.cpp	pt_people.ini
 0xB90EB0	e:\build\beta\G\app\Client\sbase_info.cpp	room == 0
@@ -1042,7 +1042,7 @@ combination is not valid.
 0xB9158C	e:\build\beta\G\app\Client\skill_render.cpp	string.empty()
 0xB915A8	e:\build\beta\G\app\Client\skill_render.cpp	!s_ability.NumActivatable
 0xB91624	e:\build\beta\G\app\Client\skill_render.cpp	icon_mask.tga
-0xB91644	e:\build\beta\G\app\Client\skill_render.cpp	!loaded || (Container == loaded)
+0xB91644	e:\build\beta\G\app\Client\slot_data_render.cpp	!loaded || (Container == loaded)
 0xB9166C	e:\build\beta\G\app\Client\skill_render.cpp	BLANK4.TGA
 0xB916C0	e:\build\beta\G\app\Client\slot_data_render.cpp	robj->Peek_Scene()
 0xB916EC	e:\build\beta\G\app\Client\slot_data_render.cpp	*serial_string != '<'
@@ -1061,11 +1061,11 @@ combination is not valid.
 0xB91B0C	e:\build\beta\G\app\Client\tutorial_manager.cpp	tutorialdef.ini file not found
 0xB91B34	e:\build\beta\G\app\Client\tutorial_manager.cpp	tutorialdef.ini
 0xB91B6C	e:\build\beta\G\app\Client\tutorial_manager.cpp	tutorial.dat
-0xB91CE8	e:\build\beta\G\app\Client\user_click_indicator.cpp	!InterfaceObjects.Head()
-0xB91DC0	e:\build\beta\G\app\client\../packets/pk.h	y >= 0.0f && y <= 1.0f
-0xB91DDC	e:\build\beta\G\app\client\../packets/pk.h	x >= 0.0f && x <= 1.0f
-0xB91DF8	e:\build\beta\G\app\client\../packets/pk.h	Currently_Open == false
-0xB91E14	e:\build\beta\G\app\client\../packets/pk.h	File_Stream_Ptr == NULL
+0xB91CE8	e:\build\beta\G\app\client\view.cpp	!InterfaceObjects.Head()
+0xB91DC0	e:\build\beta\G\app\client\viewbttn.cpp	y >= 0.0f && y <= 1.0f
+0xB91DDC	e:\build\beta\G\app\client\viewbttn.cpp	x >= 0.0f && x <= 1.0f
+0xB91DF8	e:\build\beta\G\app\Client\wnd_file.cpp	Currently_Open == false
+0xB91E14	e:\build\beta\G\app\Client\wnd_file.cpp	File_Stream_Ptr == NULL
 0xB91E60	e:\build\beta\G\app\Client\wnd_file.cpp	test == 0
 0xB91E6C	e:\build\beta\G\app\Client\wnd_file.cpp	File_Stream_Ptr != NULL
 0xB91EB0	e:\build\beta\G\app\Client\wnd_file.cpp	file_name != NULL
@@ -1085,14 +1085,14 @@ combination is not valid.
 0xB926F0	e:\build\beta\G\app\Client\fontdatabase.cpp	fields != 3
 0xB9270C	e:\build\beta\G\app\Client\fontdatabase.cpp	fdb->Find_Font_File_Index(font_name) < 0
 0xB92740	e:\build\beta\G\app\Client\fontdatabase.cpp	idx >= MAXFONTS
-0xB927D0	e:\build\beta\G\app\Client\fontmanager.cpp	SortLevel == SORT_LEVEL_NONE || !Model->Get_Flag(MeshGeometryClass::SORT)
-0xB92858	e:\build\beta\G\app\Client\fontsys.cpp	fh <= 0
-0xB92864	e:\build\beta\G\app\Client\fontsys.cpp	fw <= 0
-0xB9292C	e:\build\beta\G\app\Client\interface_scene.cpp	PIPPolyBudget <= WWMATH_EPSILON
-0xB92954	e:\build\beta\G\app\Client\interface_scene.cpp	PIPScenes.empty()
-0xB9296C	e:\build\beta\G\app\Client\interface_scene.cpp	RenderObjMap.empty()
-0xB92988	e:\build\beta\G\app\Client\interface_scene.cpp	InterfaceMap.empty()
-0xB929A4	e:\build\beta\G\app\Client\interface_scene.cpp	InterfaceVector.size() == 2
+0xB927D0	e:\build\beta\G\app\Client\fontsys.cpp	SortLevel == SORT_LEVEL_NONE || !Model->Get_Flag(MeshGeometryClass::SORT)
+0xB92858	e:\build\beta\G\app\Client\fonttexture.cpp	fh <= 0
+0xB92864	e:\build\beta\G\app\Client\fonttexture.cpp	fw <= 0
+0xB9292C	e:\build\beta\G\app\Client\interface_static_sort_list.cpp	PIPPolyBudget <= WWMATH_EPSILON
+0xB92954	e:\build\beta\G\app\Client\interface_static_sort_list.cpp	PIPScenes.empty()
+0xB9296C	e:\build\beta\G\app\Client\interface_static_sort_list.cpp	RenderObjMap.empty()
+0xB92988	e:\build\beta\G\app\Client\interface_static_sort_list.cpp	InterfaceMap.empty()
+0xB929A4	e:\build\beta\G\app\Client\interface_static_sort_list.cpp	InterfaceVector.size() == 2
 0xB92A24	e:\build\beta\G\app\Client\interface_static_sort_list.cpp	InterfaceMap.find(ui) != InterfaceMap.end()
 0xB92A58	e:\build\beta\G\app\Client\interface_static_sort_list.cpp	(*InterfaceVector.rbegin()) == FrontInterface
 0xB92AA0	e:\build\beta\G\app\Client\interface_static_sort_list.cpp	imt_it == InterfaceMap.end()
@@ -1113,18 +1113,18 @@ combination is not valid.
 0xB93404	e:\build\beta\G\app\Client\eff_o.cpp	speedup <= 0.0f
 0xB9367C	e:\build\beta\G\app\Client\eff_o.cpp	missingtexture.tga
 0xB93694	e:\build\beta\G\app\Client\eff_o.cpp	No Swatch specified in effect.ini for PassEffect %d
-0xB938AC	e:\build\beta\G\app\Client\eff_o.cpp	ForwardVelocity < 0.01f
+0xB938AC	e:\build\beta\G\app\Client\eff_particlejet.cpp	ForwardVelocity < 0.01f
 0xB93988	e:\build\beta\G\app\Client\eff_robj.cpp	RObj->Get_Scene() == NULL
-0xB939AC	e:\build\beta\G\app\Client\eff_robj.cpp	duration != 0.0f
-0xB939C0	e:\build\beta\G\app\Client\eff_robj.cpp	duration != INFINITE_DURATION
+0xB939AC	e:\build\beta\G\app\Client\eff_seek.cpp	duration != 0.0f
+0xB939C0	e:\build\beta\G\app\Client\eff_seek.cpp	duration != INFINITE_DURATION
 0xB93A14	e:\build\beta\G\app\Client\eff_seek.cpp	duration == INFINITE_DURATION || duration == 0
 0xB93A4C	e:\build\beta\G\app\Client\eff_seek.cpp	MaxErrorDist < 0.0f
 0xB93B04	e:\build\beta\G\app\Client\eff_seek.cpp	spin.wav
 0xB93B10	e:\build\beta\G\app\Client\eff_seek.cpp	roll.wav
 0xB93B1C	e:\build\beta\G\app\Client\eff_seek.cpp	loop.wav
 0xB93B28	e:\build\beta\G\app\Client\eff_seek.cpp	wave.wav
-0xB93B60	e:\build\beta\G\app\Client\eff_seek.cpp	radius < 0.0f
-0xB93B70	e:\build\beta\G\app\Client\eff_seek.cpp	Scale <= 0.0f
+0xB93B60	e:\build\beta\G\app\Client\co.cpp	radius < 0.0f
+0xB93B70	e:\build\beta\G\app\Client\co.cpp	Scale <= 0.0f
 0xB93BCC	e:\build\beta\G\app\Client\co.cpp	cbasset.ini
 0xB93BDC	e:\build\beta\G\app\Client\co.cpp	RenderObject != 0
 0xB93BF4	e:\build\beta\G\app\Client\co.cpp	Player Pos(%6.1f,%6.1f,%3.1f) 
@@ -1135,9 +1135,9 @@ combination is not valid.
 0xB94180	..\shared/auxdata/delta_item_array.h	Warp target reached.
 0xB9419C	..\shared/auxdata/delta_item_array.h	Warp target lost.
 0xB941B4	..\shared/auxdata/delta_item_array.h	Warp failed - local gravity interference.
-0xB941E8	..\shared/auxdata/delta_item_array.h	num_pools != NUM_DAMAGE_POOLS
+0xB941E8	e:\build\beta\G\app\Client\co.cpp	num_pools != NUM_DAMAGE_POOLS
 0xB94268	..\shared/auxdata/delta_item_array.h	imploop1.wav
-0xB944B8	..\shared/auxdata/delta_template.h	color_1_result && color_2_result
+0xB944B8	e:\build\beta\G\app\Client\co_player_relationship.cpp	color_1_result && color_2_result
 0xB94738	e:\build\beta\G\app\Client\extrap.cpp	rotrate->Is_Valid()
 0xB94778	e:\build\beta\G\app\Client\extrap.cpp	velocity->Is_Valid()
 0xB94794	e:\build\beta\G\app\Client\extrap.cpp	orientation->Is_Valid()
@@ -1148,7 +1148,7 @@ combination is not valid.
 0xB94848	e:\build\beta\G\app\Client\extrap.cpp	time >= StartTime && time <= EndTime
 0xB94874	e:\build\beta\G\app\Client\extrap.cpp	start_speed * end_speed >= 0.0f
 0xB948E4	e:\build\beta\G\app\Client\postate.cpp	*move_direction == 0
-0xB94914	e:\build\beta\G\app\Client\postate.cpp	manager_it != _Instances.end()
+0xB94914	e:\build\beta\G\app\Client\control_keys_manager.cpp	manager_it != _Instances.end()
 0xB9497C	e:\build\beta\G\app\Client\control_keys_manager.cpp	manager_it == _Instances.end()
 0xB949A4	e:\build\beta\G\app\Client\control_keys_manager.cpp	!key_id_ref.ModuleName.empty()
 0xB949CC	e:\build\beta\G\app\Client\control_keys_manager.cpp	key_id == -1
@@ -1198,20 +1198,20 @@ combination is not valid.
 0xB94F84	e:\build\beta\G\app\Client\mousetbl.cpp	arrow_blank.tga
 0xB94FB8	e:\build\beta\G\app\Client\mousetbl.cpp	splines.wsd
 0xB94FF8	e:\build\beta\G\app\client\client.cpp	ObjectList.Find(object->Get_Game_ID())
-0xB9507C	e:\build\beta\G\app\client\client.cpp	!_Global_Bone_Maps.empty()
+0xB9507C	e:\build\beta\G\app\Client\client_lego_impl.cpp	!_Global_Bone_Maps.empty()
 0xB95100	e:\build\beta\G\app\Client\client_lego_impl.cpp	Children.empty() && Orphans.empty()
 0xB9512C	e:\build\beta\G\app\Client\client_lego_impl.cpp	split.Is_Invalid()
 0xB95180	e:\build\beta\G\app\Client\client_lego_impl.cpp	child_find == Children.end()
 0xB951A4	e:\build\beta\G\app\Client\client_lego_impl.cpp	bone_index <= 0
 0xB951B8	e:\build\beta\G\app\Client\client_lego_impl.cpp	!bone_name_string.Peek_Buffer()
-0xB95210	e:\build\beta\G\app\Client\client_lego_impl.cpp	client_object.AuxData
+0xB95210	e:\build\beta\G\app\Client\client_lego_root.cpp	client_object.AuxData
 0xB95268	e:\build\beta\G\app\Client\client_lego_root.cpp	!AuxData->Is_Valid()
 0xB95290	e:\build\beta\G\app\Client\client_lego_root.cpp	aux_data_index >= AuxData->Attachments.Get_Size()
-0xB9554C	..\shared\duration.h	!(Position.Is_Valid() && Orientation.Is_Valid() && Velocity.Is_Valid())
-0xB955E4	..\shared\duration.h	!(Position.Is_Valid() && Orientation.Is_Valid() && WWMath::Is_Valid_Float(CurrentSpeed) && ImpartedVelocity.Is_Valid())
-0xB956F4	..\shared\duration.h	obj->Is_Component()
-0xB95F20	..\shared\duration.h	Name == inode->Get()->Get_Name()
-0xB95F48	..\shared\duration.h	ItemType == inode->Get()->Get_Item_Type()
+0xB9554C	e:\build\beta\G\app\client\cpacket.cpp	!(Position.Is_Valid() && Orientation.Is_Valid() && Velocity.Is_Valid())
+0xB955E4	e:\build\beta\G\app\client\cpacket.cpp	!(Position.Is_Valid() && Orientation.Is_Valid() && WWMath::Is_Valid_Float(CurrentSpeed) && ImpartedVelocity.Is_Valid())
+0xB956F4	e:\build\beta\G\app\client\cpacket.cpp	obj->Is_Component()
+0xB95F20	e:\build\beta\G\app\client\cpacket.cpp	Name == inode->Get()->Get_Name()
+0xB95F48	e:\build\beta\G\app\client\cpacket.cpp	ItemType == inode->Get()->Get_Item_Type()
 0xB96E48	..\shared\duration.h	All players may see you on their Friends List.
 0xB96E80	..\shared\duration.h	Only members of your Friends List may see if you are online.
 0xB96EEC	..\shared\duration.h	[%s] New Channel Created.
@@ -1257,9 +1257,9 @@ combination is not valid.
 0xB97930	..\shared\duration.h	Could not speak on %s. (%s)
 0xB97954	..\shared\duration.h	Could not speak locally. (%s)
 0xB97978	..\shared\duration.h	Chat disabled. You have been gagged by a GM
-0xB97A04	..\shared\duration.h	!sclient->MainView
+0xB97A04	e:\build\beta\G\app\client\cpacket.cpp	!sclient->MainView
 0xB97E34	..\shared\duration.h	. Do you accept?
-0xB97FD8	..\shared\duration.h	sclient == 0
+0xB97FD8	e:\build\beta\G\app\client\cpacket.cpp	sclient == 0
 0xB98514	..\shared\duration.h	/chat tell PERSON TEXT...
 0xB9853C	..\shared\duration.h	megan_wlc.wav
 0xB9854C	..\shared\duration.h	gutter_color.ini
@@ -1271,7 +1271,7 @@ combination is not valid.
 0xB985D0	..\shared\duration.h	action.ini
 0xB985E0	..\shared\duration.h	font_med10.tga
 0xB98604	..\shared\duration.h	proj_dec.ini
-0xB98614	..\shared\duration.h	rs.ini
+0xB98614	e:\build\beta\G\app\Client\mclient.cpp	rs.ini
 0xB9861C	..\shared\duration.h	metals.ini
 0xB986DC	e:\build\beta\G\app\client\sclient.cpp	Lost connection to server.
 0xB98710	e:\build\beta\G\app\client\sclient.cpp	Debug mode turned %s.
@@ -1379,25 +1379,25 @@ combination is not valid.
 0xB9A4E4	e:\build\beta\G\app\client\sclient.cpp	chat_panel->Is_Message_Button_Showing() && confirmedlist.empty()
 0xB9A640	e:\build\beta\G\app\client\sclient.cpp	WWAudioClass::Get_Instance()->Get_2D_Sample_Count() != 16
 0xB9A688	e:\build\beta\G\app\client\sclient.cpp	WWAudioClass::Get_Instance()->Get_2D_Sample_Count() != WWAudioClass::Get_Instance()->Get_3D_Sample_Count()
-0xB9AD74	e:\build\beta\G\app\client\sclient.cpp	cameramode >=0 && cameramode < CameraModeCount
+0xB9AD74	e:\build\beta\G\app\Client\soptions.cpp	cameramode >=0 && cameramode < CameraModeCount
 0xB9ADDC	e:\build\beta\G\app\Client\soptions.cpp	CameraModeCount <= (unsigned int)CameraModes.Length()
-0xB9AE1C	e:\build\beta\G\app\Client\soptions.cpp	channel >= NUM_CHANNELS
-0xB9AE78	e:\build\beta\G\app\Client\sound_manager.cpp	No Swatch specified in decal_swatches.ini for swatch decal %d
+0xB9AE1C	e:\build\beta\G\app\Client\sound_manager.cpp	channel >= NUM_CHANNELS
+0xB9AE78	e:\build\beta\G\app\Client\decal.cpp	No Swatch specified in decal_swatches.ini for swatch decal %d
 0xB9B004	e:\build\beta\G\app\Client\decal.cpp	i - SECRET_DECALS > (int) SecretTextureArray.size()
 0xB9B044	e:\build\beta\G\app\Client\decal.cpp	i >= (int)TextureArray.size() || i < -(int)SwatchArray.size()
-0xB9B0E0	e:\build\beta\G\app\Client\enbdazzle.cpp	Land.Peek() == (LandClass*)obj
-0xB9B138	e:\build\beta\G\app\Client\enbscene.cpp	!BaseGridTextures.back().Surface
+0xB9B0E0	e:\build\beta\G\app\Client\enbscene.cpp	Land.Peek() == (LandClass*)obj
+0xB9B138	e:\build\beta\G\app\Client\env_map_manager.cpp	!BaseGridTextures.back().Surface
 0xB9B170	e:\build\beta\G\app\Client\enbscene.cpp	missing_texture.tga
-0xB9B198	e:\build\beta\G\app\Client\enbscene.cpp	!env_map_ini_filename || !env_map_ini_filename[0]
+0xB9B198	e:\build\beta\G\app\Client\env_map_manager.cpp	!env_map_ini_filename || !env_map_ini_filename[0]
 0xB9B20C	e:\build\beta\G\app\Client\env_map_manager.cpp	width != (int)base_desc.Width || height != (int)base_desc.Height || size != 3
 0xB9B27C	e:\build\beta\G\app\Client\env_map_manager.cpp	reflection_desc.Width * 2 != base_desc.Width || reflection_desc.Height * 2 != base_desc.Height
 0xB9B300	e:\build\beta\G\app\Client\env_map_manager.cpp	width != (int)reflection_desc.Width / 2 || height != (int)reflection_desc.Height / 2 || size != 3
 0xB9B378	e:\build\beta\G\app\Client\env_map_manager.cpp	width != (int)reflection_desc.Width || height != (int)reflection_desc.Height || size != 3
-0xB9B42C	e:\build\beta\G\app\Client\env_map_manager.cpp	asset.Texture
-0xB9B43C	e:\build\beta\G\app\Client\env_map_manager.cpp	asset.BaseSize > 0.0f
+0xB9B42C	e:\build\beta\G\app\Client\proj_decal_manager.cpp	asset.Texture
+0xB9B43C	e:\build\beta\G\app\Client\proj_decal_manager.cpp	asset.BaseSize > 0.0f
 0xB9B4C8	e:\build\beta\G\app\Client\proj_decal_manager.cpp	proj_decal.ProjDecalAssetID >= (int)ProjectedDecalAssetTable.size()
 0xB9B530	e:\build\beta\G\app\Client\proj_decal_manager.cpp	starbase_lights.ini
-0xB9B79C	e:\build\beta\G\app\Client\proj_decal_manager.cpp	kernel && ticket
+0xB9B79C	e:\build\beta\G\app\Client\tasks\tsk_game.cpp	kernel && ticket
 0xB9B81C	e:\build\beta\G\app\Client\tasks\tsk_game.cpp	Master connection died!  About to reconnect....
 0xB9B858	e:\build\beta\G\app\Client\tasks\tsk_game.cpp	Mode == MODE_JOIN
 0xB9B898	e:\build\beta\G\app\Client\tasks\tsk_game.cpp	Master connection FAILED.
@@ -1422,19 +1422,19 @@ combination is not valid.
 0xB9BC58	.\../packets/pk.h	The galaxy this character resides on is currently unavailable.  Please try again later.
 0xB9BDCC	.\../packets/pk.h	Couldn't connect to the server, try again later.
 0xB9BE08	.\../packets/pk.h	Connection to the global server failed.
-0xB9BE38	.\../packets/pk.h	Connecting to server...
+0xB9BE38	e:\build\beta\G\app\Client\tasks\tsk_login.cpp	Connecting to server...
 0xB9BEA0	.\../packets/pk.h	LoginTask: removing self.
 0xB9BEC0	.\../packets/pk.h	LoginTask: Request Character List.
 0xB9BEF4	.\../packets/pk.h	LoginTask: Create new temporary character.
 0xB9BF28	.\../packets/pk.h	Couldn't create character for fast start.
 0xB9BF5C	.\../packets/pk.h	LoginTask: Error creating temporary character.
 0xB9BF94	.\../packets/pk.h	LoginTask: New character approved. Shutting down login server.
-0xB9BFE0	.\../packets/pk.h	sizeof(EATicket) > strlen(response.Get_Ticket()) + 1
+0xB9BFE0	e:\build\beta\G\app\Client\tasks\tsk_login.cpp	sizeof(EATicket) > strlen(response.Get_Ticket()) + 1
 0xB9C300	.\../packets/pk.h	play.net-7.org
 0xB9C30F	.\../packets/pk.h	m,auth.west.ea.com,www.ea.com
 0xB9C350	.\../packets/pk.h	ini.Is_Loaded()
-0xB9C364	.\../packets/pk.h	iauth && kcom::ResultSucceeded(kr)
-0xB9C3F4	.\../packets/pk.h	Got the avatar list packet.
+0xB9C364	e:\build\beta\G\app\Client\tasks\tsk_login.cpp	iauth && kcom::ResultSucceeded(kr)
+0xB9C3F4	e:\build\beta\G\app\Client\tasks\tsk_login.cpp	Got the avatar list packet.
 0xB9C418	.\../packets/pk.h	Error: You have not been authorized to play this character.
 0xB9C498	.\../packets/pk.h	Error: This galaxy is full, please select another character.
 0xB9C538	.\../packets/pk.h	Error: Your client is out of date. Please run the patch utility.
@@ -1460,8 +1460,8 @@ combination is not valid.
 0xB9CCA4	e:\build\beta\G\app\Client\html\htmlview.cpp	p.%s
 0xB9CCBC	e:\build\beta\G\app\Client\html\htmlview.cpp	p.left
 0xB9CD20	e:\build\beta\G\app\Client\html\htmlview.cpp	.gif
-0xB9CE34	e:\build\beta\G\app\Client\html\htmlview.cpp	weights[i]>=0.0f && weights[i]<=1.0f
-0xB9CE60	e:\build\beta\G\app\Client\html\htmlview.cpp	PlayerNLP != 0
+0xB9CE34	e:\build\beta\G\app\Client\avatar.cpp	weights[i]>=0.0f && weights[i]<=1.0f
+0xB9CE60	e:\build\beta\G\app\Client\avatar.cpp	PlayerNLP != 0
 0xB9D0C8	e:\build\beta\G\app\Client\avatar.cpp	!HeadSource || !BodyObj
 0xB9D1B0	e:\build\beta\G\app\Client\avatar.cpp	!BodyObj || !BodySource
 0xB9D1F4	e:\build\beta\G\app\Client\avatar.cpp	HeadObj == 0 || HeadSource == 0
@@ -1483,15 +1483,15 @@ combination is not valid.
 0xB9E2C8	e:\build\beta\G\app\Client\camctrl_dock.cpp	dock.ini
 0xB9E314	e:\build\beta\G\app\Client\camctrl_emote.cpp	!Client->Get_Avatar()
 0xB9E418	e:\build\beta\G\app\Client\camctrl_pland.cpp	landingpattern.ini
-0xB9E58C	e:\build\beta\G\app\Client\camctrl_tractor.cpp	Controllers.size() == STATE_LAST_CONTROLLER
+0xB9E58C	e:\build\beta\G\app\Client\camera_manager.cpp	Controllers.size() == STATE_LAST_CONTROLLER
 0xB9E5F8	e:\build\beta\G\app\Client\camera_manager.cpp	id == -1
 0xB9E60C	e:\build\beta\G\app\Client\camera_manager.cpp	!Client->MainView
 0xB9E634	e:\build\beta\G\app\Client\camera_manager.cpp	new_state == State
-0xB9E734	e:\build\beta\G\app\client\co_data.cpp	it != value_map->end()
+0xB9E734	..\shared/data_binder.h	it != value_map->end()
 0xB9E9CC	e:\build\beta\G\app\Client\galaxy_map_render.cpp	it == container.end()
-0xB9EA2C	e:\build\beta\G\app\Client\galaxy_map_render.h	scale.Z < WWMATH_EPSILON
-0xB9EA4C	e:\build\beta\G\app\Client\galaxy_map_render.h	scale.Y < WWMATH_EPSILON
-0xB9EA6C	e:\build\beta\G\app\Client\galaxy_map_render.h	scale.X < WWMATH_EPSILON
+0xB9EA2C	e:\build\beta\G\app\Client\galaxy_map_render.cpp	scale.Z < WWMATH_EPSILON
+0xB9EA4C	e:\build\beta\G\app\Client\galaxy_map_render.cpp	scale.Y < WWMATH_EPSILON
+0xB9EA6C	e:\build\beta\G\app\Client\galaxy_map_render.cpp	scale.X < WWMATH_EPSILON
 0xB9EB2C	e:\build\beta\G\app\Client\galaxy_map_render.h	sm_system00.tga
 0xB9ECC8	e:\build\beta\G\app\client\gutter_data.cpp	g_build.tga
 0xB9ECD8	e:\build\beta\G\app\client\gutter_data.cpp	g_deco.tga
@@ -1508,17 +1508,17 @@ combination is not valid.
 0xB9ED84	e:\build\beta\G\app\client\gutter_data.cpp	g_pc.tga
 0xB9ED90	e:\build\beta\G\app\client\gutter_data.cpp	g_npc.tga
 0xB9ED9C	e:\build\beta\G\app\client\gutter_data.cpp	g_dead.tga
-0xB9EDC0	e:\build\beta\G\app\client\gutter_data.cpp	!Client->Mouse
+0xB9EDC0	e:\build\beta\G\app\client\gutter_radar.cpp	!Client->Mouse
 0xB9EE88	e:\build\beta\G\app\client\nav_list_builder.cpp	nav_points.size() < 2
 0xB9EEB8	e:\build\beta\G\app\client\nav_list_builder.cpp	!nav_points.empty()
 0xB9EED0	e:\build\beta\G\app\client\nav_list_builder.cpp	link.Node == from
 0xB9EEE8	e:\build\beta\G\app\client\nav_list_builder.cpp	!result.empty()
-0xB9EF00	e:\build\beta\G\app\client\nav_list_builder.cpp	object_list.size() == 1
-0xB9EF1C	e:\build\beta\G\app\client\nav_list_builder.cpp	line == Lines.end()
+0xB9EF00	e:\build\beta\G\app\client\nav_list_line_draw.cpp	object_list.size() == 1
+0xB9EF1C	e:\build\beta\G\app\client\nav_list_line_draw.cpp	line == Lines.end()
 0xB9EF50	e:\build\beta\G\app\client\nav_list_builder.cpp	starmap_build_1.wav
 0xB9EF68	e:\build\beta\G\app\client\nav_list_builder.cpp	starmap_build_destination_1.wav
-0xB9F010	e:\build\beta\G\app\client\navigation_data.cpp	!ViewportSize.Y
-0xB9F024	e:\build\beta\G\app\client\navigation_data.cpp	!ViewportSize.X
+0xB9F010	e:\build\beta\G\app\client\pip_scene.cpp	!ViewportSize.Y
+0xB9F024	e:\build\beta\G\app\client\pip_scene.cpp	!ViewportSize.X
 0xB9F0A4	e:\build\beta\G\app\client\radar_data.cpp	object != Peek_Client_Object()
 0xB9F258	e:\build\beta\G\app\client\radar_icon_data.cpp	!rdata || !VMat
 0xB9F2DC	e:\build\beta\G\app\client\radar_system.cpp	starmap_path_statement_1.wav
@@ -1532,7 +1532,7 @@ combination is not valid.
 0xB9F6E0	e:\build\beta\G\app\client\starmap_pip.cpp	Z: %5.2f
 0xB9F6EC	e:\build\beta\G\app\client\starmap_pip.cpp	Y: %5.2f
 0xB9F6F8	e:\build\beta\G\app\client\starmap_pip.cpp	X: %5.2f
-0xB9F7AC	e:\build\beta\G\app\client\starmap_pip_support.cpp	idx >= MAX_VISIBLE_GROUP_MEMBERS
+0xB9F7AC	e:\build\beta\G\app\Client\target_find.cpp	idx >= MAX_VISIBLE_GROUP_MEMBERS
 0xB9F978	e:\build\beta\G\app\client\target_reticle.cpp	fa_tsi26a.ini
 0xB9FD8C	e:\build\beta\G\app\client\target_reticle.cpp	tsi26a.tsi26a-1
 0xBA083C	e:\build\beta\G\app\client\ui_starmap.cpp	NO DOCTYPE Specification.
@@ -1550,18 +1550,18 @@ combination is not valid.
 0xBA1188	e:\build\beta\G\app\client\ui_starmap.cpp	Connecting...
 0xBA1198	e:\build\beta\G\app\client\ui_starmap.cpp	Finding resource...
 0xBA11B0	e:\build\beta\G\app\client\ui_starmap.cpp	Server redirecting client...
-0xBA125C	e:\build\beta\G\app\client\ui_starmap.cpp	!Client->CurrentView
+0xBA125C	e:\build\beta\G\app\Client\avatar_pip.cpp	!Client->CurrentView
 0xBA12C8	e:\build\beta\G\app\Client\avatar_pip.cpp	cfaction_t.ini
-0xBA12DC	e:\build\beta\G\app\Client\avatar_pip.cpp	it == _Factions.end()
+0xBA12DC	e:\build\beta\G\app\Client\cfaction_database.cpp	it == _Factions.end()
 0xBA1334	e:\build\beta\G\app\Client\cfaction_database.cpp	enb_client.log
-0xBA1404	e:\build\beta\G\app\Client\distance_calc_client.cpp	Peek_Client_Object()->PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL
-0xBA147C	e:\build\beta\G\app\Client\distance_calc_client.cpp	!Peek_Client_Object()->PositionalState
+0xBA1404	e:\build\beta\G\app\Client\emote_data.cpp	Peek_Client_Object()->PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL
+0xBA147C	e:\build\beta\G\app\Client\emote_data.cpp	!Peek_Client_Object()->PositionalState
 0xBA156C	e:\build\beta\G\app\Client\emote_data.cpp	nebula.ini
-0xBA157C	e:\build\beta\G\app\Client\emote_data.cpp	TempRoomPtrs[bidx]->BoundaryMesh == NULL
-0xBA15C0	e:\build\beta\G\app\Client\emote_data.cpp	hlod->Get_Lod_Count() == 1
+0xBA157C	e:\build\beta\G\app\Client\influence.cpp	TempRoomPtrs[bidx]->BoundaryMesh == NULL
+0xBA15C0	e:\build\beta\G\app\Client\influence.cpp	hlod->Get_Lod_Count() == 1
 0xBA1630	e:\build\beta\G\app\Client\influence.cpp	im_0.tga
 0xBA163C	e:\build\beta\G\app\Client\influence.cpp	im_1.tga
-0xBA1648	e:\build\beta\G\app\Client\influence.cpp	im_default.tga
+0xBA1648	e:\build\beta\G\app\Client\manufacturing_category_ui_util.cpp	im_default.tga
 0xBA16A8	e:\build\beta\G\app\Client\manufacturing_category_ui_util.cpp	im_14.tga
 0xBA16B4	e:\build\beta\G\app\Client\manufacturing_category_ui_util.cpp	im_13.tga
 0xBA16C0	e:\build\beta\G\app\Client\manufacturing_category_ui_util.cpp	im_12.tga
@@ -1603,10 +1603,10 @@ combination is not valid.
 0xBA1C38	e:\build\beta\G\app\Client\meshsnd.cpp	 at(%1.1f,%1.1f,%1.1f->%1.1f,%1.1f,%1.1f)
 0xBA1ED8	e:\build\beta\G\app\Client\mv3dsnd.cpp	movie3d.ini
 0xBA1F94	e:\build\beta\G\app\Client\mv3dview.cpp	str && *str
-0xBA2238	e:\build\beta\G\app\Client\mv3dview.cpp	max == min
+0xBA2238	..\shared/graphics_settings.h	max == min
 0xBA23D8	e:\build\beta\G\app\Client\option.cpp	options.ini
 0xBA244C	e:\build\beta\G\app\Client\option.cpp	font12x16.tga
-0xBA245C	e:\build\beta\G\app\Client\option.cpp	sclient->EnvironmentMapManager
+0xBA245C	e:\build\beta\G\app\Client\scriptedmovie.cpp	sclient->EnvironmentMapManager
 0xBA24F0	e:\build\beta\G\app\Client\scriptedmovie.cpp	(*itor4).RenderObject
 0xBA250C	e:\build\beta\G\app\Client\scriptedmovie.cpp	BoneClientObjectList[i].RenderObject
 0xBA2608	e:\build\beta\G\app\Client\scriptedmovie.cpp	ScriptedScene == NULL
@@ -1751,7 +1751,7 @@ combination is not valid.
 0xBA72DC	e:\build\beta\G\app\Client\scriptedmovie.cpp	value == true
 0xBA72EC	e:\build\beta\G\app\Client\scriptedmovie.cpp	(param == NULL) && "User error: Hide_Object: Need slot number"
 0xBA7410	e:\build\beta\G\app\Client\scriptedmovie.cpp	((total_count + count) < size) && "Missing carriage return?????"
-0xBA7508	e:\build\beta\G\app\Client\ship_pip.cpp	slot_id >= MAX_NUM_DECAL_SLOTS
+0xBA7508	e:\build\beta\G\app\Client\shiputils.cpp	slot_id >= MAX_NUM_DECAL_SLOTS
 0xBA757C	e:\build\beta\G\app\Client\shiputils.cpp	vmat_count != minfo->Vertex_Material_Count()
 0xBA75D8	e:\build\beta\G\app\Client\shiputils.cpp	metal_equivalent_rgbs.ini
 0xBA75F8	e:\build\beta\G\app\Client\shiputils.cpp	current_region >= reg_mat_defs.size()
@@ -1780,23 +1780,23 @@ Range: %0.2fk units
 
 
 0xBA7BD0	e:\build\beta\G\app\Client\skill_ability_names.cpp	Error: Invalid skill index.
-0xBA7C50	e:\build\beta\G\app\Client\skill_ability_names.cpp	(unsigned) char_tmpl >= NUM_CHAR_TEMPLATES
+0xBA7C50	e:\build\beta\G\app\Client\skillnam.cpp	(unsigned) char_tmpl >= NUM_CHAR_TEMPLATES
 0xBA7CB0	e:\build\beta\G\app\Client\skill_ability_names.cpp	Skill level description not available.
 0xBA7CEC	e:\build\beta\G\app\Client\skill_ability_names.cpp	You have achieved the highest level for this skill.
 0xBA7D98	e:\build\beta\G\app\Client\skill_ability_names.cpp	skill_.tga
-0xBA7DA8	e:\build\beta\G\app\Client\skill_ability_names.cpp	skill_index == skill_index_2
-0xBA7DCC	e:\build\beta\G\app\Client\skill_ability_names.cpp	entrycount == 0
-0xBA7DE0	e:\build\beta\G\app\Client\skill_ability_names.cpp	0 == section
+0xBA7DA8	e:\build\beta\G\app\Client\skillnam.cpp	skill_index == skill_index_2
+0xBA7DCC	e:\build\beta\G\app\Client\skillnam.cpp	entrycount == 0
+0xBA7DE0	e:\build\beta\G\app\Client\skillnam.cpp	0 == section
 0xBA7E44	e:\build\beta\G\app\Client\skillnam.cpp	index >= _AllSkills.size()
 0xBA7E7C	e:\build\beta\G\app\Client\skillnam.cpp	idx >= Ranges.size()
 0xBA806C	e:\build\beta\G\app\Client\time_mgr.cpp	fa_tsi35a.ini
 0xBA8258	e:\build\beta\G\app\Client\time_mgr.cpp	fa_tsi36a.ini
-0xBA8384	e:\build\beta\G\app\Client\verbmanager.cpp	Network_INI.Is_Loaded()
+0xBA8384	e:\build\beta\G\app\Common\connect.cpp	Network_INI.Is_Loaded()
 0xBA83A0	e:\build\beta\G\app\Client\verbmanager.cpp	network.ini
-0xBA84AC	e:\build\beta\G\app\Common\connect.h	retval == testpacket
+0xBA84AC	e:\build\beta\G\app\Common\connect.cpp	retval == testpacket
 0xBA850C	e:\build\beta\G\app\Common\connect.h	ConnectionManager: port %hd is not available.
-0xBA85C4	e:\build\beta\G\app\Common\connect.h	bytes_written == bytes_from_transport
-0xBA85F4	e:\build\beta\G\app\Common\connect.h	readbytes == bytes
+0xBA85C4	e:\build\beta\G\app\Common\connect.cpp	bytes_written == bytes_from_transport
+0xBA85F4	e:\build\beta\G\app\Common\connect.cpp	readbytes == bytes
 0xBA8788	e:\build\beta\G\app\Common\memconn.cpp	p1 && p2
 0xBA8794	e:\build\beta\G\app\Common\memconn.cpp	c1 && c2
 0xBA87B4	e:\build\beta\G\app\Common\memconn.cpp	PortNumber == 0
@@ -1812,21 +1812,21 @@ Range: %0.2fk units
 0xBA88EC	e:\build\beta\G\app\Common\tcpconn.cpp	Socket != INVALID_SOCKET
 0xBA895C	e:\build\beta\G\app\Common\udpconn.cpp	packet->Header.Size > UDP_DATABUFFER_SIZE
 0xBA89B8	e:\build\beta\G\app\Common\udpconn.cpp	default.tga
-0xBA8AAC	e:\build\beta\G\app\Common\udpconn.cpp	(unsigned int)prof >= MAX_PLAYER_PROFESSIONS
-0xBA8AE4	e:\build\beta\G\app\Common\udpconn.cpp	(unsigned int)race >= NUMBER_PLAYER_RACES
+0xBA8AAC	e:\build\beta\G\app\Common\chartemplate.cpp	(unsigned int)prof >= MAX_PLAYER_PROFESSIONS
+0xBA8AE4	e:\build\beta\G\app\Common\chartemplate.cpp	(unsigned int)race >= NUMBER_PLAYER_RACES
 0xBA8B4C	e:\build\beta\G\app\Common\chartemplate.cpp	(unsigned int)template_idx >= NUM_CHAR_TEMPLATES
 0xBA8B88	e:\build\beta\G\app\Common\chartemplate.cpp	chartemplate.ini
 0xBA8B9C	e:\build\beta\G\app\Common\chartemplate.cpp	!StartingAffiliation.empty()
 0xBA8BDC	e:\build\beta\G\app\Common\chartemplate.cpp	(unsigned int)index >= NUM_CHAR_TEMPLATES
-0xBA8FE8	e:\build\beta\G\app\Common\chartemplate.cpp	str.Event != event
-0xBA9018	e:\build\beta\G\app\Common\chartemplate.cpp	(size_t)event >= n
+0xBA8FE8	e:\build\beta\G\app\Common\chat_defs.cpp	str.Event != event
+0xBA9018	e:\build\beta\G\app\Common\chat_defs.cpp	(size_t)event >= n
 0xBA919C	e:\build\beta\G\app\Common\chat_defs.cpp	str.Error != error
 0xBA91C8	e:\build\beta\G\app\Common\chat_defs.cpp	(size_t)error >= n
-0xBA91E0	e:\build\beta\G\app\Common\chat_defs.cpp	BytesUsed >= 0
+0xBA91E0	e:\build\beta\G\app\Common\circbuff.cpp	BytesUsed >= 0
 0xBA9224	e:\build\beta\G\app\Common\circbuff.cpp	BytesUsed <= BufferSize
 0xBA9280	e:\build\beta\G\app\Common\circbuff.cpp	BLANK.TGA
-0xBA941C	e:\build\beta\G\app\Common\color_common.cpp	match_end == std::string::npos
-0xBA9444	e:\build\beta\G\app\Common\color_common.cpp	match_start == std::string::npos
+0xBA941C	e:\build\beta\G\app\common\effect_description.cpp	match_end == std::string::npos
+0xBA9444	e:\build\beta\G\app\common\effect_description.cpp	match_start == std::string::npos
 0xBA94A8	e:\build\beta\G\app\common\effect_description.cpp	value_iterator == values.end()
 0xBA94D0	e:\build\beta\G\app\common\effect_description.cpp	value_iterator != values.end()
 0xBA94F8	e:\build\beta\G\app\common\effect_description.cpp	0.1f
@@ -1834,11 +1834,11 @@ Range: %0.2fk units
 0xBA9528	e:\build\beta\G\app\common\effect_description.cpp	description_value_strings.size() == DescriptionValues.size()
 0xBA9574	e:\build\beta\G\app\common\effect_description.cpp	name_value_strings.size() == NameValues.size()
 0xBA95AC	e:\build\beta\G\app\common\effect_description.cpp	name_and_description.size() != 2
-0xBA9650	e:\build\beta\G\app\common\effect_description.cpp	reaction >= MOB_REACTION_COUNT
+0xBA9650	e:\build\beta\G\app\Common\faction_and_reputation.cpp	reaction >= MOB_REACTION_COUNT
 0xBA96D8	e:\build\beta\G\app\Common\faction_and_reputation.cpp	reaction >= NPC_REACTION_COUNT
-0xBA9748	e:\build\beta\G\app\Common\faction_and_reputation.cpp	GalaxyMapID != NOT_IN_GALAXY_MAP
-0xBA97A0	e:\build\beta\G\app\common\galaxy_map.h	AllData[id] == 0
-0xBA97B4	e:\build\beta\G\app\common\galaxy_map.h	(int)id >= MaxDataObjects
+0xBA9748	e:\build\beta\G\app\common\galaxy_map.h	GalaxyMapID != NOT_IN_GALAXY_MAP
+0xBA97A0	e:\build\beta\G\app\common\galaxy_map.cpp	AllData[id] == 0
+0xBA97B4	e:\build\beta\G\app\common\galaxy_map.cpp	(int)id >= MaxDataObjects
 0xBA9808	e:\build\beta\G\app\common\galaxy_map.cpp	GalaxyMapID == NOT_IN_GALAXY_MAP
 0xBA9830	e:\build\beta\G\app\common\galaxy_map.cpp	starbase_it == Starbases.end()
 0xBA9858	e:\build\beta\G\app\common\galaxy_map.cpp	gate_it == Gates.end()
@@ -1891,10 +1891,10 @@ Range: %0.2fk units
 0xBADE90	e:\build\beta\G\app\Common\guild_defs.cpp	Guild : Not implemented yet.
 0xBADEB4	e:\build\beta\G\app\Common\guild_defs.cpp	Guild : You must be in a guild to issue this command.
 0xBADF78	e:\build\beta\G\app\Common\guild_defs.cpp	Guild : Internal error while processing that command.
-0xBAE03C	e:\build\beta\G\app\Common\guild_defs.cpp	message_type >= GMSG_MAX
-0xBAE124	e:\build\beta\G\app\Common\guild_strings.cpp	idx >= num_states
-0xBAE184	e:\build\beta\G\app\Common\interrupt_defs.cpp	summary_strings.size() == Effects.size()
-0xBAE200	e:\build\beta\G\app\common\item_effect_description.cpp	FieldTypes[lp] != FT_NONE
+0xBAE03C	e:\build\beta\G\app\Common\guild_strings.cpp	message_type >= GMSG_MAX
+0xBAE124	e:\build\beta\G\app\Common\interrupt_defs.cpp	idx >= num_states
+0xBAE184	e:\build\beta\G\app\common\item_effect_description.cpp	summary_strings.size() == Effects.size()
+0xBAE200	e:\build\beta\G\app\Common\item_info.cpp	FieldTypes[lp] != FT_NONE
 0xBAE254	e:\build\beta\G\app\Common\item_info.cpp	!_ItemField.Is_Int(iteminfo)
 0xBAE278	e:\build\beta\G\app\Common\item_info.cpp	!_ItemField.Is_Float(iteminfo)
 0xBAE2A0	e:\build\beta\G\app\Common\item_info.cpp	!_ItemField.Is_String(iteminfo)
@@ -1929,45 +1929,45 @@ Range: %0.2fk units
 0xBAECAC	e:\build\beta\G\app\Common\itemtype.cpp	a <= ITEMSORT_NAME_ASC
 0xBAED10	e:\build\beta\G\app\Common\lego_identifier.cpp	!BoneNameChain.empty()
 0xBAED2C	e:\build\beta\G\app\Common\lego_identifier.cpp	!BoneNameChain.size()
-0xBAF428	e:\build\beta\G\app\Common\lego_identifier.cpp	i >= sizeof(_TypeDef) / sizeof(MfgTypeStruct)
+0xBAF428	e:\build\beta\G\app\Common\manufacturing_defs.cpp	i >= sizeof(_TypeDef) / sizeof(MfgTypeStruct)
 0xBAF4A8	e:\build\beta\G\app\Common\manufacturing_defs.cpp	i >= sizeof(_CategoryDef) / sizeof(MfgCategoryStruct)
 0xBAF4E8	e:\build\beta\G\app\Common\manufacturing_defs.cpp	i >= sizeof(_SubCategoryDef) / sizeof(MfgSubCategoryStruct)
 0xBAF530	e:\build\beta\G\app\Common\manufacturing_defs.cpp	mode < MODE_NONE || mode > MODE_DISMANTLE
 0xBAF568	e:\build\beta\G\app\Common\manufacturing_defs.cpp	validity < MANUFACTURING_VALIDITY_START || validity > MANUFACTURING_VALIDITY_COUNT
 0xBAF5CC	e:\build\beta\G\app\Common\manufacturing_defs.cpp	difficulty < MANUFACTURING_DIFFICULTY_INVALID || difficulty >= NUM_MANUFACTURING_DIFFICULTY
-0xBAF6B8	e:\build\beta\G\app\Common\manufacturing_defs.cpp	v >= NAV_TYPE_COUNT
-0xBAF6DC	e:\build\beta\G\app\Common\manufacturing_defs.cpp	v <= NAV_TYPE_INVALID
+0xBAF6B8	e:\build\beta\G\app\common\nav_type_enum.cpp	v >= NAV_TYPE_COUNT
+0xBAF6DC	e:\build\beta\G\app\common\nav_type_enum.cpp	v <= NAV_TYPE_INVALID
 0xBB0324	e:\build\beta\G\app\common\nav_type_enum.cpp	startup.arg
 0xBB0420	e:\build\beta\G\app\Common\optdlg.cpp	servers.ini
 0xBB0440	e:\build\beta\G\app\Common\optdlg.cpp	palette_secret.ini
 0xBB0458	e:\build\beta\G\app\Common\optdlg.cpp	palette_public.ini
-0xBB0478	e:\build\beta\G\app\Common\optdlg.cpp	targa.Header.PixelDepth != 24
-0xBB049C	e:\build\beta\G\app\Common\optdlg.cpp	TARGA_ERROR_HANDLER(targa.Load(filename, TGAF_IMAGE, false),filename)
-0xBB04F0	e:\build\beta\G\app\Common\optdlg.cpp	TARGA_ERROR_HANDLER(targa.Open(filename, TGA_READMODE),filename)
+0xBB0478	e:\build\beta\G\app\Common\pal_mgr.cpp	targa.Header.PixelDepth != 24
+0xBB049C	e:\build\beta\G\app\Common\pal_mgr.cpp	TARGA_ERROR_HANDLER(targa.Load(filename, TGAF_IMAGE, false),filename)
+0xBB04F0	e:\build\beta\G\app\Common\pal_mgr.cpp	TARGA_ERROR_HANDLER(targa.Open(filename, TGA_READMODE),filename)
 0xBB0570	e:\build\beta\G\app\Common\pal_mgr.cpp	palette > (int) Public_Palettes.size()
 0xBB05B8	e:\build\beta\G\app\Common\pal_mgr.cpp	palette > (int) Secret_Palettes.size()
 0xBB071C	e:\build\beta\G\app\Common\prof.cpp	L_P1_64.TGA
 0xBB072C	e:\build\beta\G\app\Common\prof.cpp	L_J1_64.TGA
 0xBB073C	e:\build\beta\G\app\Common\prof.cpp	L_T1_64.TGA
-0xBB0A28	e:\build\beta\G\app\Common\race.cpp	Costs.Per_Cost[slot] == 0
+0xBB0A28	e:\build\beta\G\app\Common\recustomization_cost.cpp	Costs.Per_Cost[slot] == 0
 0xBB0B50	e:\build\beta\G\app\Common\sector_types.cpp	s < SECTOR_SPACE || s >= SECTOR_COUNT
-0xBB0BCC	e:\build\beta\G\app\Common\sector_types.cpp	class_qualification >= sizeof(_ClassQualificationNames)/sizeof(const char *)
-0xBB0E18	e:\build\beta\G\app\Common\skill_level_availability.cpp	r >= STARBASE_ROOM_NUM
-0xBB0E34	e:\build\beta\G\app\Common\skill_level_availability.cpp	r <= STARBASE_ROOM_INVALID
+0xBB0BCC	e:\build\beta\G\app\Common\skill_level_availability.cpp	class_qualification >= sizeof(_ClassQualificationNames)/sizeof(const char *)
+0xBB0E18	e:\build\beta\G\app\Common\starbase_defs.cpp	r >= STARBASE_ROOM_NUM
+0xBB0E34	e:\build\beta\G\app\Common\starbase_defs.cpp	r <= STARBASE_ROOM_INVALID
 0xBB0EA8	e:\build\beta\G\app\Common\starbase_defs.cpp	r >= STARBASE_FACILITY_NUM
 0xBB0EC8	e:\build\beta\G\app\Common\starbase_defs.cpp	r <= STARBASE_FACILITY_INVALID
 0xBB0F10	e:\build\beta\G\app\Common\starbase_defs.cpp	r >= STARBASE_ROOM_DECORATION_NUM
 0xBB0F38	e:\build\beta\G\app\Common\starbase_defs.cpp	r <= STARBASE_ROOM_DECORATION_INVALID
 0xBB0F7C	e:\build\beta\G\app\Common\starbase_defs.cpp	r >= STARBASE_ART_NUM
 0xBB0F98	e:\build\beta\G\app\Common\starbase_defs.cpp	r <= STARBASE_ART_INVALID
-0xBB0FB8	e:\build\beta\G\app\Common\starbase_defs.cpp	String[MaxLen + 1] == STRING_CHECK_VALUE
+0xBB0FB8	e:\build\beta\G\app\common\stredit.cpp	String[MaxLen + 1] == STRING_CHECK_VALUE
 0xBB101C	e:\build\beta\G\app\common\stredit.cpp	StrLen == (int)strlen(String)
-0xBB1158	e:\build\beta\G\app\common\stredit.cpp	r >= VENDOR_TYPE_NUM
-0xBB1174	e:\build\beta\G\app\common\stredit.cpp	r <= VENDOR_TYPE_INVALID
+0xBB1158	e:\build\beta\G\app\Common\vendor_defs.cpp	r >= VENDOR_TYPE_NUM
+0xBB1174	e:\build\beta\G\app\Common\vendor_defs.cpp	r <= VENDOR_TYPE_INVALID
 0xBB11DC	e:\build\beta\G\app\Common\vendor_defs.cpp	r >= AMBIENT_TYPE_NUM
 0xBB11F8	e:\build\beta\G\app\Common\vendor_defs.cpp	r <= AMBIENT_TYPE_INVALID
 0xBB13B0	e:\build\beta\G\app\Common\weapontype.cpp	a >= MAX_TYPE_WEAPON
-0xBB17D8	e:\build\beta\G\app\wwudp\bandwidthaccounting.cpp	All data sent, queueing close packet.
+0xBB17D8	e:\build\beta\G\app\wwudp\cordcon.cpp	All data sent, queueing close packet.
 0xBB1848	e:\build\beta\G\app\wwudp\cordcon.cpp	This isn't good... waiting for an ACK on a non-existant msg....
 0xBB18BC	e:\build\beta\G\app\wwudp\cordcon.cpp	Udp_ == NULL
 0xBB19B4	e:\build\beta\G\app\wwudp\cordcon.cpp	CordCon::pumpInternal Udp_->Write
@@ -1991,23 +1991,23 @@ Range: %0.2fk units
 0xBB2A8C	e:\build\beta\G\app\Packets\gameedit\pkgespwn.cpp	Error: This customer account is already in use.
 0xBB2AC8	e:\build\beta\G\app\Packets\gameedit\pkgespwn.cpp	Error: Your password was incorrect.
 0xBB2AF4	e:\build\beta\G\app\Packets\gameedit\pkgespwn.cpp	Error: Customer name doesn't exist in the database.
-0xBB2F28	e:\build\beta\G\app\packets\pk.h	len <= 0
-0xBB3398	e:\build\beta\G\app\Packets\pk_player_object_relationship.cpp	index >= SubParts.size()
-0xBB3E1C	e:\build\beta\G\app\Packets\pk_sub_parts.cpp	DebugIdx >= 0 && DebugIdx < label_count
-0xBB44D0	e:\build\beta\G\app\packets\pkdebug.cpp	NumPlayers == (int)PlayerList.size()
-0xBB45B8	e:\build\beta\G\app\Packets\pkfindmember.cpp	flags <= 255
-0xBB45F8	e:\build\beta\G\app\Packets\pkfindmember.cpp	flag_max <= 32
+0xBB2F28	e:\build\beta\G\app\packets\pk.cpp	len <= 0
+0xBB3398	e:\build\beta\G\app\Packets\pk_sub_parts.cpp	index >= SubParts.size()
+0xBB3E1C	e:\build\beta\G\app\packets\pkdebug.cpp	DebugIdx >= 0 && DebugIdx < label_count
+0xBB44D0	e:\build\beta\G\app\Packets\pkfindmember.cpp	NumPlayers == (int)PlayerList.size()
+0xBB45B8	e:\build\beta\G\app\Packets\pkflag.cpp	flags <= 255
+0xBB45F8	e:\build\beta\G\app\Packets\pkflag.cpp	flag_max <= 32
 0xBB527C	e:\build\beta\G\app\Packets\pkjoblist.cpp	!Title || !Description
-0xBB64FC	e:\build\beta\G\app\Packets\pkjoblist.cpp	Name && Account
-0xBB6510	e:\build\beta\G\app\Packets\pkjoblist.cpp	name && account
-0xBB6744	e:\build\beta\G\app\Packets\pktask.cpp	vel.Is_Valid()
-0xBB6758	e:\build\beta\G\app\Packets\pktask.cpp	orient.Is_Valid()
+0xBB64FC	e:\build\beta\G\app\Packets\pktask.cpp	Name && Account
+0xBB6510	e:\build\beta\G\app\Packets\pktask.cpp	name && account
+0xBB6744	e:\build\beta\G\app\packets\pkupdate.cpp	vel.Is_Valid()
+0xBB6758	e:\build\beta\G\app\packets\pkupdate.cpp	orient.Is_Valid()
 0xBB67A4	e:\build\beta\G\app\packets\pkupdate.cpp	Velocity.Is_Valid()
 0xBB67BC	e:\build\beta\G\app\packets\pkupdate.cpp	Orientation.Is_Valid()
 0xBB67D8	e:\build\beta\G\app\packets\pkupdate.cpp	Position.Is_Valid()
 0xBB69C0	e:\build\beta\G\app\packets\pkupdate.cpp	imparted_velocity.Is_Valid()
 0xBB6B34	e:\build\beta\G\app\packets\pkupdate.cpp	ImpartedVelocity.Is_Valid()
-0xBB6FF8	e:\build\beta\G\app\packets\pkupdate.cpp	Get_Internal_Server_Protocol() == NULL
+0xBB6FF8	e:\build\beta\G\app\shared\message\msgserv.cpp	Get_Internal_Server_Protocol() == NULL
 0xBB753C	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	vecptr == 0
 0xBB754C	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Queue.length()==0
 0xBB95FC	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	w3danimsound.ini
@@ -2033,7 +2033,7 @@ id              = id of texture. Use with command 'flash_texture [id]'
 Tried to read %d bytes, got %d. (SurfDesc.size=%d)
 
 0xBBB9F0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	!m%02d.tga
-0xBC5520	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Vertex shader version: %d.%d, pixel shader version: %d.%d
+0xBC5520	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Vertex shader version: %d.%d, pixel shader version: %d.%d
 
 0xBC560C	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	pmx2hal.dll
 0xBC5618	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	ati3drai.dll
@@ -2045,45 +2045,45 @@ Tried to read %d bytes, got %d. (SurfDesc.size=%d)
 0xBC5670	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	nvdd32.dll
 0xBC567C	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	nv4_disp.dll
 0xBC568C	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	nv4.dll
-0xBC5A20	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Disabling DXT1 support on NVidia hardware.
+0xBC5A20	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Disabling DXT1 support on NVidia hardware.
 
-0xBC5A50	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	NVidia Driver reported N-Patch support, disabling.
+0xBC5A50	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	NVidia Driver reported N-Patch support, disabling.
 
 0xBC5D74	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	id: %5.5d mesh: %s %d polys, %d verts
 0xBC61B0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Duplicate CRC in INI file.
-0xBC62F0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: ?????
+0xBC62F0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: ?????
 Description: Unknown exception.
-0xBC6324	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_STACK_OVERFLOW
+0xBC6324	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_STACK_OVERFLOW
 Description: The thread used up its stack.
-0xBC6378	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_SINGLE_STEP
+0xBC6378	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_SINGLE_STEP
 Description: A trace trap or other single-instruction mechanism signaled that one instruction has been executed.
-0xBC6410	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_PRIV_INSTRUCTION
+0xBC6410	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_PRIV_INSTRUCTION
 Description: The thread tried to execute an instruction whose operation is not allowed in the current machine mode.
-0xBC64B0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_NONCONTINUABLE_EXCEPTION
+0xBC64B0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_NONCONTINUABLE_EXCEPTION
 Description: The thread tried to continue execution after a noncontinuable exception occurred.
-0xBC6624	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_INT_OVERFLOW
+0xBC6624	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_INT_OVERFLOW
 Description: The result of an integer operation caused a carry out of the most significant bit of the result.
-0xBC66B8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_INT_DIVIDE_BY_ZERO
+0xBC66B8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_INT_DIVIDE_BY_ZERO
 Description: The thread tried to divide an integer value by an integer divisor of zero.
-0xBC6848	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_ILLEGAL_INSTRUCTION
+0xBC6848	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_ILLEGAL_INSTRUCTION
 Description:	The thread tried to execute an invalid instruction.
-0xBC68B8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_UNDERFLOW
+0xBC68B8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_UNDERFLOW
 Description:	The exponent of a floating-point operation is less than the magnitude allowed by the corresponding type.
-0xBC6954	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_STACK_CHECK
+0xBC6954	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_STACK_CHECK
 Description: The stack overflowed or underflowed as the result of a floating-point operation.
-0xBC69DC	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_OVERFLOW
+0xBC69DC	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_OVERFLOW
 Description: The exponent of a floating-point operation is greater than the magnitude allowed by the corresponding type.
-0xBC6A7C	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_INVALID_OPERATION
+0xBC6A7C	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_INVALID_OPERATION
 Description: Some strange unknown floating point operation was attempted.
-0xBC6AF4	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_INEXACT_RESULT
+0xBC6AF4	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_INEXACT_RESULT
 Description: The result of a floating-point operation cannot be represented exactly as a decimal fraction.
-0xBC6B8C	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_DIVIDE_BY_ZERO
+0xBC6B8C	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_FLT_DIVIDE_BY_ZERO
 Description: The thread tried to divide a floating-point value by a floating-point divisor of zero.
-0xBC6E04	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_BREAKPOINT
+0xBC6E04	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_BREAKPOINT
 Description: A breakpoint was encountered.
-0xBC6E54	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_ARRAY_BOUNDS_EXCEEDED
+0xBC6E54	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_ARRAY_BOUNDS_EXCEEDED
 Description: The thread tried to access an array element that is out of bounds and the underlying hardware supports bounds checking.
-0xBC6F08	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_ACCESS_VIOLATION
+0xBC6F08	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Error code: EXCEPTION_ACCESS_VIOLATION
 Description: The thread tried to read from or write to a virtual address for which it does not have the appropriate access.
 0xBC70CC	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Stack dump...
 
@@ -2091,16 +2091,16 @@ Description: The thread tried to read from or write to a virtual address for whi
 
 0xBC72D8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Register dump...
 
-0xBC73A4	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	
-  Stack walk...
+0xBC73A4	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	
+  Stack walk...
 
 0xBC73B8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Stack walk...
 
 0xBC73C8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Exception Handler: context->Eip is bad code pointer
 
-0xBC74C0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	was read from.
+0xBC74C0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	was read from.
 
-0xBC74D4	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	was written to.
+0xBC74D4	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	was written to.
 
 0xBC763C	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Exception Handler: Unable to load IMAGEHLP.DLL
 
@@ -2112,20 +2112,20 @@ Description: The thread tried to read from or write to a virtual address for whi
 0xBC8798	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Windows 95B OSR 2.1 final OEM
 0xBC87C0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Windows 95B OSR 2.1 final Update
 0xBC87EC	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Windows 95B OSR 2.0 final OEM
-0xBC8CB4	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Ext. CPU Feature bits: 0x%x
+0xBC8CB4	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Ext. CPU Feature bits: 0x%x
 
-0xBC8EB8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Operating system build: %d.%d.%d
+0xBC8EB8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Operating system build: %d.%d.%d
 
-0xBC8EDC	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Operating system version %d.%d
+0xBC8EDC	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Operating system version %d.%d
 
 0xBC8F00	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Windows 3.1
 0xBC8FB8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	MAKEMIX.MIX
 0xBCAFC4	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	DDRAW.DLL Error code = %08X
 0xBCB018	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	In Get_Free_Video_Memory. About to return %d bytes
 0xBCB0C8	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	FRAME: %d %2.2f %s 
-0xBCB0F0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Total frames: %d, average frame time: %fms
-All frames taking more than twice the average frame time are marked with keyword SPIKE.
-
+0xBCB0F0	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	Total frames: %d, average frame time: %fms
+All frames taking more than twice the average frame time are marked with keyword SPIKE.
+
 
 0xBCB180	e:\build\beta\G\libs\wwonline\wnet\tcpqueue.cpp	IN TOTAL %s took %d.%3.3d s, did %d memory allocations of %d bytes
 
