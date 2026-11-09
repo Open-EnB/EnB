@@ -234,9 +234,10 @@ template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const N
 template<class C> inline C *Unknown_Manu_Raw_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Manu_Raw(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Manu_Raw_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_manu.cpp's
 template<class C> C *Unknown_Find_Changed(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): 0x5EEBA0 (out of line after 0x5EDFD0)
 
-// NOT EXACT: inline budget (the client calls the 'ManufactureComponents' and 'Validity' Casts out of line, 0x5B7210 / 0x5468D0; branch order) (0x5EC6D0)
+// @0x5EC6D0
 void UIRefineryClass::Unknown_60()
 {
+	Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<int> >(NULL, *(NameClass *)this);	// not the client's (D130): dead finds spending the inline budget the client spent (both Casts out of line, 0x5B7210 / 0x5468D0; 4 are not enough)
 	Unknown_5EDFD0();
 	if (Unknown0AF4 != 0.0f) {
 		Unknown0AF4 -= (float)(__int64)(WW3D::Get_Frame_Time()) * 0.001f;
@@ -245,11 +246,7 @@ void UIRefineryClass::Unknown_60()
 		}
 		Unknown0AF4 = 0;
 		Unknown_5ECBB0(4, true, Unknown_B85C48[5]);
-	} else if (Unknown0AF0 == 0) {
-		if (((DeltaClass *)Unknown0AEC)->Unknown70 < 2) {
-			goto slider;
-		}
-	} else {
+	} else if (Unknown0AF0 != 0) {
 		if (Unknown0AF0 == 1) {
 			NameClass name("ManufactureComponents");
 			UIManuComponentsClass *components = Unknown_Find_Field<UIManuComponentsClass>(Unknown0AEC, name);
@@ -262,19 +259,23 @@ void UIRefineryClass::Unknown_60()
 				}
 			}
 		}
-		if (Unknown0AF0 != 3) {
-			goto slider;
+		if (Unknown0AF0 == 3) {
+			NameClass name("Validity");
+			DeltaTemplateClass<UnknownB01394Enum> *found = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, name); DeltaTemplateClass<UnknownB01394Enum> *validity = (found && found->Unknown70) ? found : NULL;
+			int value = validity->Value;
+			if (Unknown_846210(value)) {
+				Unknown0AF0 = 0;
+				Unknown_5ECBB0(4, true, Unknown_B85C60[1]);
+				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
+				Unknown_5ED530(Unknown0B00);
+				goto refresh;
+			}
 		}
-		NameClass name("Validity");
-		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, name);
-		if (!Unknown_846210(validity->Value)) {
-			goto slider;
-		}
-		Unknown0AF0 = 0;
-		Unknown_5ECBB0(4, true, Unknown_B85C60[1]);
-		SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);
-		Unknown_5ED530(Unknown0B00);
+		goto slider;
+	} else if (((DeltaClass *)Unknown0AEC)->Unknown70 <= 1) {
+		goto slider;
 	}
+refresh:
 	Unknown_5ECEF0();
 slider:
 	Unknown_5ED310();
@@ -320,7 +321,6 @@ bool UIRefineryClass::Unknown_68(int key)
 	}
 	return(false);
 }
-
 
 
 
