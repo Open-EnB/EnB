@@ -142,7 +142,7 @@ public:
 	void Add(DeltaClass *child);														// 0x4A5670  // NAME 2: describes what it does
 	LookupClass *Get_Lookup();															// 0x4A5510  // NAME 2: after the asserts' Lookup
 	// 0x4A3FA0: one byte picks the decoder (0 the record form, else the tree form, encode.cpp).
-	// Defined in the root's object 0x4A3990-0x4A4780 (unknown_root.cpp, UnknownRootClass's, derived
+	// Defined in the root's object 0x4A3B40-0x4A4780 (unknown_root.cpp, UnknownRootClass's, derived
 	// from this one); which class the client declared it in isn't known
 	bool Decode(LinearBufferClass &buf, const DurationClass &base);  // NAME 2: describes what it does
 

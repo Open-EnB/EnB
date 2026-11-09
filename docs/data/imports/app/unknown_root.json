@@ -3,7 +3,7 @@
   "0x42B2F0"
  ],
  "copy": "reconstructed",
- "description": "the root's object 0x4A3990-0x4A4780 (no assert, no __FILE__: PROVISIONAL file name, M1.3): the clock 0x4A3B40, the root's constructor 0x4A3BD0 and destructor 0x4A3D30, DeltaCompoundClass::Decode 0x4A3FA0; DeltaVisitorClass::Visit_Children 0x4B0860 (another unattributed object); the root encode 0x4A3D50; the second root class UnknownSendRootClass (vtable 0xAEAC40): ctor 0x4A3FF0, dtor 0x4A4590, Encode_Changes 0x4A4660, Unknown_48 0x4A40B0 (not exact) with its policy classes (vtables 0xAEACC0, 0xAEACA8, 0xAEAC9C: 0x4A42D0-0x4A4780 are their methods and ref_ptr.h's instances, compiler-generated)",
+ "description": "the root's object 0x4A3B40-0x4A4780 (strconv_lib.cpp ends at 0x4A3B10) (no assert, no __FILE__: PROVISIONAL file name, M1.3): the clock 0x4A3B40, the root's constructor 0x4A3BD0 and destructor 0x4A3D30, DeltaCompoundClass::Decode 0x4A3FA0; DeltaVisitorClass::Visit_Children 0x4B0860 (another unattributed object); the root encode 0x4A3D50; the second root class UnknownSendRootClass (vtable 0xAEAC40): ctor 0x4A3FF0, dtor 0x4A4590, Encode_Changes 0x4A4660, Unknown_48 0x4A40B0 (not exact) with its policy classes (vtables 0xAEACC0, 0xAEACA8, 0xAEAC9C: 0x4A42D0-0x4A4780 are their methods and ref_ptr.h's instances, compiler-generated)",
  "expected": {},
  "in_tree": [
   "0x45CC10",
