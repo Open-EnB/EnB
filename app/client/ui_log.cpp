@@ -32,6 +32,12 @@ public:
 extern const int Unknown_B08C98;			// 0xB08C98 (4)  // NAME 1: neutral (D10)
 extern const int Unknown_B08CA8;			// 0xB08CA8 (0x40)  // NAME 1: neutral (D10)
 
+// OptionClass's +0x78 (the character's id, private there): read here so option.h stays as sclient.cpp's pad window needs it
+static inline int Unknown_Character_ID()	// NAME 1: neutral (D10)
+{
+	return(*(int *)((char *)OptionClass::Instance + 0x78));
+}
+
 // 0x8192C0: a printf into a std::string (ui_guild.cpp's)
 std::string Unknown_8192C0(const char *format, ...);	// NAME 1: neutral (D10)
 
@@ -266,7 +272,7 @@ void UILogClass::Load_Page()
 	std::string text("<blank>");
 	Editor->Set_Unknown60(true);
 	char name[0x40];
-	_snprintf(name, sizeof(name), "player%d_log-%d.ini", OptionClass::Instance->Get_Character_ID(), Page);
+	_snprintf(name, sizeof(name), "player%d_log-%d.ini", Unknown_Character_ID(), Page);
 	INIClass ini(name);
 	int count = ini.Get_Int("NUM_LINES", "LINES", 0);
 	int i = 0;
@@ -321,7 +327,7 @@ void UILogClass::Save_Page()
 		return;
 	}
 	char name[0x40];
-	_snprintf(name, sizeof(name), "player%d_log-%d.ini", OptionClass::Instance->Get_Character_ID(), Page);
+	_snprintf(name, sizeof(name), "player%d_log-%d.ini", Unknown_Character_ID(), Page);
 	INIClass ini(name);
 	int count = lines.size();
 	ini.Put_Int("NUM_LINES", "LINES", count, 0);

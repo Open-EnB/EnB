@@ -118,8 +118,6 @@ public:
 	Vector3 Get_Default_Vector3(const char *name);			// 0x7F9920  // NAME 2: what it does
 	std::string Get_Default_String(const char *name);		// 0x7F9970  // NAME 2: what it does
 
-	int Get_Character_ID() { return(CharacterID); }		// (ui_log.cpp's ini names, 0x5ABCC0 / 0x5AC0D0)  // NAME 2: what it returns
-
 	static OptionClass *Instance;							// 0xBE8B38  // NAME 2: what it holds
 
 private:

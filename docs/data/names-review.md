@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1640 |
-| 2 | describes what the code does | 3819 |
-| 1 | neutral placeholder | 20274 |
+| 2 | describes what the code does | 3818 |
+| 1 | neutral placeholder | 20275 |
 
 ## For review (score 3 and below)
 
@@ -12683,42 +12683,43 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/ui_log.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C98` | `app/client/ui_log.cpp:32` | neutral (D10) |
 | 1 | `Unknown_B08CA8` | `app/client/ui_log.cpp:33` | neutral (D10) |
-| 1 | `std:` | `app/client/ui_log.cpp:36` | neutral (D10) |
-| 1 | `Unknown_8192C0` | `app/client/ui_log.cpp:36` | untagged neutral name (D10) |
-| 1 | `UILogClass` | `app/client/ui_log.cpp:40` | neutral, after its tooltip section 'UI_LOG' |
-| 1 | `client` | `app/client/ui_log.cpp:43` | ChatPanelUIBase's |
-| 1 | `Unknown_54` | `app/client/ui_log.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_log.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_log.cpp:47` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/ui_log.cpp:48` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/ui_log.cpp:48` | untagged neutral name (D10) |
-| 1 | `Buttons` | `app/client/ui_log.cpp:57` | neutral |
-| 1 | `Slider` | `app/client/ui_log.cpp:58` | neutral |
-| 1 | `Editor` | `app/client/ui_log.cpp:59` | neutral |
-| 1 | `PageEntry` | `app/client/ui_log.cpp:60` | neutral |
-| 1 | `Unknown0C8` | `app/client/ui_log.cpp:62` | untagged neutral name (D10) |
-| 1 | `Unknown0C9` | `app/client/ui_log.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown_B80F58` | `app/client/ui_log.cpp:67` | neutral (D10) |
-| 1 | `Unknown_B80F74` | `app/client/ui_log.cpp:68` | neutral (D10) |
-| 1 | `Unknown_98` | `app/client/ui_log.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_56D510` | `app/client/ui_log.cpp:105` | untagged neutral name (D10) |
-| 1 | `Unknown_56D970` | `app/client/ui_log.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown_66E460` | `app/client/ui_log.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_log.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown_66FA90` | `app/client/ui_log.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/ui_log.cpp:119` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/ui_log.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown_6870E0` | `app/client/ui_log.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown_672AD0` | `app/client/ui_log.cpp:142` | untagged neutral name (D10) |
-| 1 | `Unknown_6AAD10` | `app/client/ui_log.cpp:143` | untagged neutral name (D10) |
-| 1 | `Unknown_6732A0` | `app/client/ui_log.cpp:144` | untagged neutral name (D10) |
-| 1 | `Unknown_66C360` | `app/client/ui_log.cpp:145` | untagged neutral name (D10) |
-| 1 | `Unknown_672A60` | `app/client/ui_log.cpp:147` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_log.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_log.cpp:178` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/ui_log.cpp:179` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/ui_log.cpp:201` | untagged neutral name (D10) |
-| 1 | `Set_Unknown60` | `app/client/ui_log.cpp:267` | untagged neutral name (D10) |
+| 1 | `Unknown_Character_ID` | `app/client/ui_log.cpp:36` | neutral (D10) |
+| 1 | `std:` | `app/client/ui_log.cpp:42` | neutral (D10) |
+| 1 | `Unknown_8192C0` | `app/client/ui_log.cpp:42` | untagged neutral name (D10) |
+| 1 | `UILogClass` | `app/client/ui_log.cpp:46` | neutral, after its tooltip section 'UI_LOG' |
+| 1 | `client` | `app/client/ui_log.cpp:49` | ChatPanelUIBase's |
+| 1 | `Unknown_54` | `app/client/ui_log.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_log.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_log.cpp:53` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_log.cpp:54` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_log.cpp:54` | untagged neutral name (D10) |
+| 1 | `Buttons` | `app/client/ui_log.cpp:63` | neutral |
+| 1 | `Slider` | `app/client/ui_log.cpp:64` | neutral |
+| 1 | `Editor` | `app/client/ui_log.cpp:65` | neutral |
+| 1 | `PageEntry` | `app/client/ui_log.cpp:66` | neutral |
+| 1 | `Unknown0C8` | `app/client/ui_log.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown0C9` | `app/client/ui_log.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_B80F58` | `app/client/ui_log.cpp:73` | neutral (D10) |
+| 1 | `Unknown_B80F74` | `app/client/ui_log.cpp:74` | neutral (D10) |
+| 1 | `Unknown_98` | `app/client/ui_log.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_56D510` | `app/client/ui_log.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_56D970` | `app/client/ui_log.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_log.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_log.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_log.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/ui_log.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_log.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_log.cpp:128` | untagged neutral name (D10) |
+| 1 | `Unknown_672AD0` | `app/client/ui_log.cpp:148` | untagged neutral name (D10) |
+| 1 | `Unknown_6AAD10` | `app/client/ui_log.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_6732A0` | `app/client/ui_log.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/ui_log.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_672A60` | `app/client/ui_log.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_log.cpp:157` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_log.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_log.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/ui_log.cpp:207` | untagged neutral name (D10) |
+| 1 | `Set_Unknown60` | `app/client/ui_log.cpp:273` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_login.cpp:49` | 0xBE67C4 |
 | 1 | `Unknown_B08CC4` | `app/client/ui_login.cpp:87` | neutral (D10): what the text gadgets get |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_login.cpp:97` | as eff_o.cpp's |
@@ -21298,14 +21299,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Default_Float` | `app/client/option.h:117` | what it does |
 | 2 | `Get_Default_Vector3` | `app/client/option.h:118` | what it does |
 | 2 | `std:` | `app/client/option.h:119` | what it does |
-| 2 | `Get_Character_ID` | `app/client/option.h:121` | what it returns |
-| 2 | `Instance` | `app/client/option.h:123` | what it holds |
+| 2 | `Instance` | `app/client/option.h:121` | what it holds |
+| 2 | `std:` | `app/client/option.h:124` | what it holds |
+| 2 | `std:` | `app/client/option.h:125` | what it holds |
 | 2 | `std:` | `app/client/option.h:126` | what it holds |
 | 2 | `std:` | `app/client/option.h:127` | what it holds |
 | 2 | `std:` | `app/client/option.h:128` | what it holds |
-| 2 | `std:` | `app/client/option.h:129` | what it holds |
-| 2 | `std:` | `app/client/option.h:130` | what it holds |
-| 2 | `CharacterID` | `app/client/option.h:131` | what it holds |
+| 2 | `CharacterID` | `app/client/option.h:129` | what it holds |
 | 2 | `num_items, num_slots` | `app/client/pdaint.h:28` | 0x695E10's FAIL_IFs; NAME 1 [type]: neutral |
 | 2 | `Equipment` | `app/client/pdaint.h:107` | its key's |
 | 2 | `Cargo` | `app/client/pdaint.h:108` | its key's |
@@ -21918,14 +21918,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/ui_line_display.h:112` | describes what it holds |
 | 2 | `std:` | `app/client/ui_line_display.h:113` | describes what it holds |
 | 2 | `std:` | `app/client/ui_line_display.h:114` | describes what it holds |
-| 2 | `Previous_Page` | `app/client/ui_log.cpp:49` | what it does |
-| 2 | `Next_Page` | `app/client/ui_log.cpp:50` | what it does |
-| 2 | `Insert_Date` | `app/client/ui_log.cpp:51` | what it does |
-| 2 | `Load_Page` | `app/client/ui_log.cpp:52` | what it does |
-| 2 | `Save_Page` | `app/client/ui_log.cpp:53` | what it does |
-| 2 | `std:` | `app/client/ui_log.cpp:54` | what it does; NAME 1 [text]: neutral |
-| 2 | `std:` | `app/client/ui_log.cpp:55` | what it does; NAME 1 [text]: neutral |
-| 2 | `Page` | `app/client/ui_log.cpp:61` | what it holds |
+| 2 | `Previous_Page` | `app/client/ui_log.cpp:55` | what it does |
+| 2 | `Next_Page` | `app/client/ui_log.cpp:56` | what it does |
+| 2 | `Insert_Date` | `app/client/ui_log.cpp:57` | what it does |
+| 2 | `Load_Page` | `app/client/ui_log.cpp:58` | what it does |
+| 2 | `Save_Page` | `app/client/ui_log.cpp:59` | what it does |
+| 2 | `std:` | `app/client/ui_log.cpp:60` | what it does; NAME 1 [text]: neutral |
+| 2 | `std:` | `app/client/ui_log.cpp:61` | what it does; NAME 1 [text]: neutral |
+| 2 | `Page` | `app/client/ui_log.cpp:67` | what it holds |
 | 2 | `Layer` | `app/client/ui_login.cpp:265` | what it holds |
 | 2 | `Manu_Player_Id` | `app/client/ui_manu.cpp:269` | the player id read as the client's inline accessor |
 | 2 | `Checked` | `app/client/ui_manu.cpp:308` | what 0x7E8030 sets |
