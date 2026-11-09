@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1638 |
 | 2 | describes what the code does | 3808 |
-| 1 | neutral placeholder | 20123 |
+| 1 | neutral placeholder | 20134 |
 
 ## For review (score 3 and below)
 
@@ -8395,6 +8395,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `robj, make_geometry_unique` | `app/client/target_reticle.cpp:22` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/target_reticle.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6060` | `app/client/target_reticle.cpp:23` | neutral (D10) |
+| 1 | `Find_L2` | `app/client/target_reticle.cpp:26` | neutral (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/target_reticle.cpp:26` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/target_reticle.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/target_reticle.cpp:273` | untagged neutral name (D10) |
@@ -9137,10 +9138,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown64` | `app/client/ui_attrb_skills.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_attrb_skills.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown_62F4D0` | `app/client/ui_attrb_skills.cpp:161` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Set_Field` | `app/client/ui_attrb_skills.cpp:179` | neutral (D10) |
+| 1 | `Unknown_Find_Set_Field_Inner` | `app/client/ui_attrb_skills.cpp:179` | neutral (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_attrb_skills.cpp:179` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_attrb_skills.cpp:179` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Changed_Field` | `app/client/ui_attrb_skills.cpp:180` | neutral (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_attrb_skills.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Changed_Field_Inner` | `app/client/ui_attrb_skills.cpp:180` | neutral (D10) |
+| 1 | `Unknown_Find_Changed_Field` | `app/client/ui_attrb_skills.cpp:180` | untagged neutral name (D10) |
 | 1 | `Unknown_54A640` | `app/client/ui_attrb_skills.cpp:183` | untagged neutral name (D10) |
 | 1 | `Unknown_54B400` | `app/client/ui_attrb_skills.cpp:202` | untagged neutral name (D10) |
 | 1 | `Unknown_54A860` | `app/client/ui_attrb_skills.cpp:211` | untagged neutral name (D10) |
@@ -12889,6 +12892,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B1ED0` | `app/client/ui_manu.cpp:574` | untagged neutral name (D10) |
 | 1 | `Unknown_5B2060` | `app/client/ui_manu.cpp:582` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3A70` | `app/client/ui_manu.cpp:609` | untagged neutral name (D10) |
+| 1 | `Unknown_Manu_Raw_Field` | `app/client/ui_manu.cpp:644` | neutral (D10): auxdata.h's find through two inline layers (ui_analyze.cpp's form): out of line as the client in 0x5B5320 (0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0), 0x5B4B10 (0x5466A0) and 0x5B2480 (0x5465C0) |
+| 1 | `Unknown_Manu_Raw` | `app/client/ui_manu.cpp:644` | untagged neutral name (D10) |
 | 1 | `Unknown_5B2B40` | `app/client/ui_manu.cpp:660` | untagged neutral name (D10) |
 | 1 | `Unknown4E4` | `app/client/ui_manu.cpp:674` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3260` | `app/client/ui_manu.cpp:686` | untagged neutral name (D10) |
@@ -13226,6 +13231,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/client/ui_mfd.cpp:684` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/ui_mfd.cpp:688` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_mfd.cpp:697` | untagged neutral name (D10) |
+| 1 | `Unknown_MFD_Field` | `app/client/ui_mfd.cpp:885` | neutral (D10): two inline layers (ui_analyze.cpp's form): the find 0x5BF2B0 out of line in 0x5BDED0 as the client |
+| 1 | `Unknown_MFD_Find` | `app/client/ui_mfd.cpp:885` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/ui_mfd.cpp:894` | untagged neutral name (D10) |
 | 1 | `Unknown5BE4F0Class` | `app/client/ui_mfd.cpp:942` | untagged neutral name (D10) |
 | 1 | `Unknown5C3030Class` | `app/client/ui_mfd.cpp:950` | untagged neutral name (D10) |
@@ -14361,9 +14368,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_60FEE0` | `app/client/ui_scan.cpp:509` | untagged neutral name (D10) |
 | 1 | `Unknown_60EFE0` | `app/client/ui_scan.cpp:515` | untagged neutral name (D10) |
 | 1 | `Unknown_84` | `app/client/ui_scan.cpp:518` | untagged neutral name (D10) |
+| 1 | `Unknown_Scan_Find_Field` | `app/client/ui_scan.cpp:542` | neutral (D10): two inline layers (ui_analyze.cpp's form) send 0x60F1A0's Reputation finds out of line as the client (0x610370); below, a field under root that is set (+0x70), else NULL; and one changed since (+0x70 above 1): ui_faction.cpp's |
+| 1 | `Unknown_Find_Field` | `app/client/ui_scan.cpp:542` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_scan.cpp:542` | untagged neutral name (D10) |
+| 1 | `Unknown_Scan_Find` | `app/client/ui_scan.cpp:542` | untagged neutral name (D10) |
+| 1 | `Unknown_Scan_Changed_Field` | `app/client/ui_scan.cpp:542` | untagged neutral name (D10) |
+| 1 | `Unknown_Scan_Changed` | `app/client/ui_scan.cpp:542` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Set_Field` | `app/client/ui_scan.cpp:543` | neutral (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_scan.cpp:544` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_scan.cpp:544` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Changed_Field` | `app/client/ui_scan.cpp:545` | neutral (D10) |
 | 1 | `Unknown_496AE0` | `app/client/ui_scan.cpp:548` | untagged neutral name (D10) |
 | 1 | `robj, sort_level, dec_if_match` | `app/client/ui_scan.cpp:549` | ui_cpit.cpp's |
