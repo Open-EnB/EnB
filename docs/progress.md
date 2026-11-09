@@ -3051,17 +3051,18 @@ below name only the work items, the blocked work, the leads and the queues.
    * ui_registration.cpp: the reply handler 0x600000 (14 KB; every reply getter it calls exists; writing it shifts the
      `__LINE__` of every later assert: a session of its own).
    * ui_guild.cpp (provisional): 0x81C380 (the member list rebuilt from a vector of strings) and its string helper
-     0x81D290 (calls 0x4FB810 / 0x4FC990); the guild list window from 0x81E030 ('UI_GUILD_LIST', 0xE8 bytes).
-   * client_item_property_builder.cpp: 0x522860 / 0x521C10 / 0x527F40 (NOT EXACT); the property classes from 0x529810
-     (separate objects: icon.cpp's +0x08 is a RefCountPtr<TextureClass>, while ui_item_examination_title.h assumes a
-     std::string).
+     0x81D290 (calls 0x4FB810 / 0x4FC990).
+   * client_item_property_builder.cpp: 0x522860 / 0x521C10 / 0x527F40 (NOT EXACT). The base ClientItemPropertyClass
+     0x51F900-0x51F9xx (likely client_item_property.cpp, not started); ui_item_examination's router / builder stand-ins
+     (need P-IP1-1: UISlotInfoItemClass unified with InvDataClass).
    * ui_jobs.cpp: 0x5A3FB0 (the client expands the job's delete and list::erase three inline levels down).
    * ui_cpit.cpp: 0x584000's expansions in 0x5821C0 (needs F) and 0x5806E0's last two sites (the client keeps their
      finds / Casts out of line); 0x57D6C0.
    * The inline-budget census (any file): its `o` entries in small callers, lever (a) or (b) (workflow.md §3.1; lab paths
      under Tools).
-   * fontsys.cpp: 0x6CE4E0 / 0x6CD180 / 0x6CD6F0 (Change_Text's 2C4-before-424 store order and " " literal) and Update_Text
-     0x6D64C0 (the client calls Convert_Color_Clamp and ShaderClass::Reset where ours calls Clamp_Color).
+   * fontsys.cpp: 0x6CE4E0 (Change_Text's store order, 0.58: operator+= out of line) and Update_Text 0x6D64C0 (a round of
+     its own, Fable-eligible per D72: the client calls Convert_Color_Clamp and ShaderClass::Reset where ours calls
+     Clamp_Color); 0x6D60C0 (spend a little budget between the two Play copies).
    * sclient.cpp: 0x74CA90 / 0x741180 / 0x755600 (above); unknown_7cef30.cpp: the request readers 0x7D6A60 / 0x7DAD50 /
      0x7DB2D0 (Parked leftovers).
 
@@ -3195,7 +3196,9 @@ below name only the work items, the blocked work, the leads and the queues.
    subs-interface account client, RegistrationUnknown1ACClass, object 0x7CECC0-0x7DFE70), unknown_7dfed0.cpp / .h (XR2:
    Sub14CImplClass, the registration reader over MSXML), unknown_7e1e40.cpp / .h (XR2: Sub14CUnknown18Class, the reply
    download; the account / subscription XML reader range 0x7C9000-0x7E3000 between ui_starmap.cpp and avatar_pip.cpp), ui_log.cpp ('UI_LOG', the log book window) and ui_guild.cpp ('UI_GUILD'), both TM1's, ui_jobs.h (JB1:
-   UIJobsClass over Unknown5BB320Class, interim), client_item_property_builder.h (IP1).
+   UIJobsClass over Unknown5BB320Class, interim), client_item_property_builder.h (IP1), ui_guild_list.cpp / .h (GL1:
+   'UI_GUILD_LIST', object 0x81E030-0x81F0FF), client_item_property_unknown_529810 / _description / _name /
+   _option_auto_fire.cpp (IP2: the property classes 0x529810-0x52B380 without a `__FILE__`).
 
 9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
@@ -3279,12 +3282,13 @@ below name only the work items, the blocked work, the leads and the queues.
        0x7DA760 (0.66, register), 0x7D4E30 (0.56), 0x7D5600 (0.50), 0x7D9790 (0.60, frame), 0x7D6180 (0.26, shape);
        unknown_7e1e40 0x7E1F10 (frame: the EH states around the _bstr_t members, six forms)
      - ui_jobs 0x5A3FB0 (0.53, 14 forms: inline-budget / shape)
-     - ui_log 0x5AB030 / 0x5ABB10 (register); ui_guild 0x81AEB0 (order), 0x81CB90 (register), 0x819FB0 / 0x81A420
+     - ui_log 0x5AB030 / 0x5ABB10 (register); ui_guild 0x81AEB0 (order), 0x819FB0 / 0x81A420
        (inline-budget)
      - ui_cpit 0x5821C0 (0.62), 0x5806E0 (0.66, whole-function budget), 0x57D6C0 (0.58); ui_manu 0x5B5320 (0.50),
        0x5B4B10 (0.59), 0x5B2480 (0.72); ui_mfd 0x5BDED0 (0.74)
      - fontsys 0x6D47C0 (register, 1 row), 0x6D4C70 (order, 4 rows), 0x6D0A70 (inline-budget), 0x6D5C10 (FPU copy),
-       0x6D60C0; 0x6C2890 / 0x6C2A10 parked (FN1)
+       0x6D60C0; 0x6C2890 / 0x6C2A10 parked (FN1); 0x6CD6F0 (order only: the client's lea edi comes before the count
+       in every +0x303 memset, FN2)
 
 11. **Reminders:** D7's (revisit byte-exactness of E&B's code with the user if it becomes too costly;
    `docs/data/not-exact.md` shows how much functional code waits); which bool-return form gives a bare
