@@ -32,7 +32,7 @@
 #include "ini.h"	// INIClass (the lights loader 0x6A0590)
 // the +0x70 scene (0xC8 bytes, constructor 0x761C80; 0x69B5E0 sets its ambient light)
 class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnknown70Class(); char Unknown98[0xC8 - 0x98]; };	// NAME 1: neutral (D10)
-
+#include "ui_refinery.h"	// UIRefineryClass (+0x184, 0x69F8F0)
 float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAME 1 [Unknown_77B7D0, t]: neutral (D10)
 SBaseViewUnknown1B4Class *Unknown_6987A0(LoungeNPCPacketClass *packet);	// 0x6987A0 (sbase_info.cpp)  // NAME 1 [packet]: what 0x6A0FD0 passes
 
@@ -1039,7 +1039,7 @@ void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 	switch (type) {
 		case 5:
 			if (!Unknown184) {
-				Unknown184 = Create_Get(new SBaseViewUnknown184Class(this, Unknown7C));
+				Unknown184 = Create_Get((SBaseViewUnknown184Class *)(InterfaceClass *)new UIRefineryClass(this, *Unknown7C));	// (ui_refinery.h; sbaseview.h keeps its stand-in type: sclient.cpp's pad, RF1)
 				Unknown184->Unknown_54();
 				Unknown_6B4940(Unknown184.Peek());
 				Unknown184->Unknown_58();
