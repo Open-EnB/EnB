@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1657 |
-| 2 | describes what the code does | 3886 |
-| 1 | neutral placeholder | 20753 |
+| 3 | by convention from a client-named file or sibling | 1661 |
+| 2 | describes what the code does | 3889 |
+| 1 | neutral placeholder | 20926 |
 
 ## For review (score 3 and below)
 
@@ -14256,6 +14256,179 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64A240` | `app/client/ui_ptrade.cpp:462` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_ptrade.cpp:474` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/ui_ptrade.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_refinery.cpp:22` | neutral (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/ui_refinery.cpp:25` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_refinery.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_refinery.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_refinery.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_refinery.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_refinery.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_refinery.cpp:29` | untagged neutral name (D10) |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_refinery.cpp:33` | as ui_manu.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/ui_refinery.cpp:33` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/ui_refinery.cpp:34` | as ui_avatr.cpp's |
+| 1 | `Unknown_497300` | `app/client/ui_refinery.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `app/client/ui_refinery.cpp:35` | neutral placeholder (D10) |
+| 1 | `UIRefineryKeyEventStruct` | `app/client/ui_refinery.cpp:38` | neutral (D10): kernel.h's input event |
+| 1 | `key` | `app/client/ui_refinery.cpp:40` | neutral |
+| 1 | `Unknown02` | `app/client/ui_refinery.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_refinery.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_refinery.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_refinery.cpp:40` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_refinery.cpp:41` | neutral (D10) |
+| 1 | `UI_OPEN` | `app/client/ui_refinery.cpp:51` | neutral (D10) |
+| 1 | `Unknown_B85C38` | `app/client/ui_refinery.cpp:55` | neutral (D10) |
+| 1 | `Unknown_B85C48` | `app/client/ui_refinery.cpp:56` | neutral (D10) |
+| 1 | `Unknown_B85C60` | `app/client/ui_refinery.cpp:57` | neutral (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_refinery.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_refinery.cpp:62` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_refinery.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_refinery.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_refinery.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown0AE0` | `app/client/ui_refinery.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown0AE4` | `app/client/ui_refinery.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown0AEC` | `app/client/ui_refinery.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown0AF0` | `app/client/ui_refinery.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown0AF4` | `app/client/ui_refinery.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown0AF8` | `app/client/ui_refinery.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown0AFC` | `app/client/ui_refinery.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown0AFD` | `app/client/ui_refinery.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown0B00` | `app/client/ui_refinery.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown0B04` | `app/client/ui_refinery.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown0B05` | `app/client/ui_refinery.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_refinery.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_refinery.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown0F4` | `app/client/ui_refinery.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_refinery.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown8EC` | `app/client/ui_refinery.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_refinery.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_refinery.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_refinery.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_refinery.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_refinery.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_5BB4F0` | `app/client/ui_refinery.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_refinery.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_refinery.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_refinery.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_refinery.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_refinery.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown_695780` | `app/client/ui_refinery.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED230` | `app/client/ui_refinery.cpp:162` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC40` | `app/client/ui_refinery.cpp:171` | untagged neutral name (D10) |
+| 1 | `Unknown_5EDCC0` | `app/client/ui_refinery.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown_74BF80` | `app/client/ui_refinery.cpp:176` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED440` | `app/client/ui_refinery.cpp:180` | untagged neutral name (D10) |
+| 1 | `Unknown_5ECEF0` | `app/client/ui_refinery.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown_5ECE20` | `app/client/ui_refinery.cpp:182` | untagged neutral name (D10) |
+| 1 | `Unknown_744560` | `app/client/ui_refinery.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_refinery.cpp:188` | untagged neutral name (D10) |
+| 1 | `Unknown_69DC60` | `app/client/ui_refinery.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_695A00` | `app/client/ui_refinery.cpp:198` | untagged neutral name (D10) |
+| 1 | `UIManuEntryClass` | `app/client/ui_refinery.cpp:207` | neutral (D10): as ui_manu.cpp's |
+| 1 | `Unknown09C` | `app/client/ui_refinery.cpp:210` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/ui_refinery.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/ui_refinery.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown1A8` | `app/client/ui_refinery.cpp:213` | untagged neutral name (D10) |
+| 1 | `UIManuListClass` | `app/client/ui_refinery.cpp:215` | neutral (D10): as ui_manu.cpp's ('KnownFormula') |
+| 1 | `UnknownGlobal` | `app/client/ui_refinery.cpp:218` | untagged neutral name (D10) |
+| 1 | `UIManuComponentsClass` | `app/client/ui_refinery.cpp:220` | neutral (D10): as ui_manu.cpp's ('ManufactureComponents', 'ManufactureTarget') |
+| 1 | `UIManuTechLevelFilterClass` | `app/client/ui_refinery.cpp:225` | neutral (D10): as ui_manu.cpp's (here 'AdditionalIterations') |
+| 1 | `validity` | `app/client/ui_refinery.cpp:232` | neutral |
+| 1 | `Unknown_846210` | `app/client/ui_refinery.cpp:232` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_refinery.cpp:233` | neutral (D10): as ui_manu.cpp's |
+| 1 | `Unknown70` | `app/client/ui_refinery.cpp:233` | untagged neutral name (D10) |
+| 1 | `Unknown_Manu_Raw_Field` | `app/client/ui_refinery.cpp:234` | neutral (D10): as ui_manu.cpp's |
+| 1 | `Unknown_Manu_Raw` | `app/client/ui_refinery.cpp:234` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Changed` | `app/client/ui_refinery.cpp:235` | neutral (D10): 0x5EEBA0 (out of line after 0x5EDFD0) |
+| 1 | `Unknown_60` | `app/client/ui_refinery.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown_5EDFD0` | `app/client/ui_refinery.cpp:241` | untagged neutral name (D10) |
+| 1 | `Unknown_5ECBB0` | `app/client/ui_refinery.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown_5B8DF0` | `app/client/ui_refinery.cpp:257` | untagged neutral name (D10) |
+| 1 | `UnknownB01394Enum` | `app/client/ui_refinery.cpp:264` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED530` | `app/client/ui_refinery.cpp:270` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED310` | `app/client/ui_refinery.cpp:281` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_refinery.cpp:286` | untagged neutral name (D10) |
+| 1 | `Unknown_69F440` | `app/client/ui_refinery.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown_5ECCE0` | `app/client/ui_refinery.cpp:309` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED5F0` | `app/client/ui_refinery.cpp:314` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED800` | `app/client/ui_refinery.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED470` | `app/client/ui_refinery.cpp:400` | untagged neutral name (D10) |
+| 1 | `Unknown_5ECDD0` | `app/client/ui_refinery.cpp:407` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_refinery.cpp:410` | untagged neutral name (D10) |
+| 1 | `Unknown4E4` | `app/client/ui_refinery.cpp:429` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_refinery.cpp:458` | untagged neutral name (D10) |
+| 1 | `Unknown_Set_2FC` | `app/client/ui_refinery.cpp:459` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_refinery.cpp:483` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED2A0` | `app/client/ui_refinery.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED350` | `app/client/ui_refinery.cpp:505` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_refinery.cpp:512` | untagged neutral name (D10) |
+| 1 | `Unknown_5EDA10` | `app/client/ui_refinery.cpp:585` | untagged neutral name (D10) |
+| 1 | `Unknown_4F00C0` | `app/client/ui_refinery.cpp:625` | untagged neutral name (D10) |
+| 1 | `Unknown_5EE7F0` | `app/client/ui_refinery.cpp:634` | untagged neutral name (D10) |
+| 1 | `Unknown_5EE460` | `app/client/ui_refinery.cpp:635` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/ui_refinery.cpp:649` | untagged neutral name (D10) |
+| 1 | `UIManuItemTemplateClass` | `app/client/ui_refinery.cpp:676` | neutral (D10): as ui_manu.cpp's |
+| 1 | `Unknown00` | `app/client/ui_refinery.cpp:676` | untagged neutral name (D10) |
+| 1 | `Unknown_8318B0` | `app/client/ui_refinery.cpp:677` | neutral (D10)  // NAME 3 [item_template_id]: the FAIL_IF's |
+| 1 | `std:` | `app/client/ui_refinery.cpp:688` | neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs' |
+| 1 | `Unknown` | `app/client/ui_refinery.cpp:690` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_refinery.cpp:708` | neutral (D10)  // NAME 1 [validity]: the 'Validity' value |
+| 1 | `ui_refinery.h` | `app/client/ui_refinery.h:4` | provisional header name for ui_refinery.cpp |
+| 1 | `UIRefineryInvClass` | `app/client/ui_refinery.h:19` | neutral (D10) |
+| 1 | `client, model, count, format, unknown` | `app/client/ui_refinery.h:22` | as ui_manu.h's |
+| 1 | `Unknown84` | `app/client/ui_refinery.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_refinery.h:29` | untagged neutral name (D10) |
+| 1 | `view, layer` | `app/client/ui_refinery.h:32` | what 0x69F8F0 passes (as ui_manu.h's) |
+| 1 | `Unknown_54` | `app/client/ui_refinery.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_refinery.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_refinery.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_refinery.h:37` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_refinery.h:38` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_refinery.h:38` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_refinery.h:39` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_refinery.h:39` | untagged neutral name (D10) |
+| 1 | `index, show, text` | `app/client/ui_refinery.h:40` | as ui_manu.h's 0x5B1AF0 |
+| 1 | `Unknown_5ECBB0` | `app/client/ui_refinery.h:40` | untagged neutral name (D10) |
+| 1 | `row` | `app/client/ui_refinery.h:41` | neutral |
+| 1 | `Unknown_5ECCE0` | `app/client/ui_refinery.h:41` | untagged neutral name (D10) |
+| 1 | `row` | `app/client/ui_refinery.h:42` | neutral |
+| 1 | `Unknown_5ECDD0` | `app/client/ui_refinery.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_5ECE20` | `app/client/ui_refinery.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_5ECEF0` | `app/client/ui_refinery.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED230` | `app/client/ui_refinery.h:45` | untagged neutral name (D10) |
+| 1 | `top` | `app/client/ui_refinery.h:46` | neutral |
+| 1 | `Unknown_5ED2A0` | `app/client/ui_refinery.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED310` | `app/client/ui_refinery.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED350` | `app/client/ui_refinery.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED440` | `app/client/ui_refinery.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED470` | `app/client/ui_refinery.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED530` | `app/client/ui_refinery.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED5F0` | `app/client/ui_refinery.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_5ED800` | `app/client/ui_refinery.h:53` | untagged neutral name (D10) |
+| 1 | `list` | `app/client/ui_refinery.h:54` | neutral |
+| 1 | `Unknown_5EDA10` | `app/client/ui_refinery.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_5EDCC0` | `app/client/ui_refinery.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_5EDFD0` | `app/client/ui_refinery.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_refinery.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_refinery.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_refinery.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_refinery.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_refinery.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_refinery.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown0F4` | `app/client/ui_refinery.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_refinery.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown8EC` | `app/client/ui_refinery.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown0AE0` | `app/client/ui_refinery.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown0AE4` | `app/client/ui_refinery.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown0AEC` | `app/client/ui_refinery.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown0AF0` | `app/client/ui_refinery.h:71` | untagged neutral name (D10) |
+| 1 | `Unknown0AF4` | `app/client/ui_refinery.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown0AF8` | `app/client/ui_refinery.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown0AFC` | `app/client/ui_refinery.h:74` | untagged neutral name (D10) |
+| 1 | `Unknown0AFD` | `app/client/ui_refinery.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown0B00` | `app/client/ui_refinery.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown0B04` | `app/client/ui_refinery.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown0B05` | `app/client/ui_refinery.h:78` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_registration.cpp:38` | 0xBE67C4 |
 | 1 | `Unknown_B08C90` | `app/client/ui_registration.cpp:41` | 0xB08C90 (textgadg.h's flags) |
 | 1 | `Unknown_B08C94` | `app/client/ui_registration.cpp:42` | 0xB08C94 (textgadg.h's flags) |
@@ -22559,6 +22732,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Buttons` | `app/client/ui_option_account.h:21` | what they are |
 | 2 | `UIMesh` | `app/client/ui_proc.h:26` | the FAIL_IFs' 'uimesh' |
 | 2 | `UIMesh` | `app/client/ui_proc_impl.h:32` | the FAIL_IFs' 'uimesh' |
+| 2 | `Refinery_Player_Id` | `app/client/ui_refinery.cpp:150` | the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id) |
+| 2 | `Value` | `app/client/ui_refinery.cpp:229` | what it holds |
+| 2 | `item_id` | `app/client/ui_refinery.h:51` | the packet's ItemID |
 | 2 | `UIScanButtonNames` | `app/client/ui_scan.cpp:34` | what it holds |
 | 2 | `owner` | `app/client/ui_scan.h:52` | what it holds |
 | 2 | `Owner` | `app/client/ui_scan.h:70` | what it holds |
@@ -25342,6 +25518,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `EndFrame` | `app/client/ui_proc_impl.h:63` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_ptrade.cpp:32` | ui_manu.cpp's FAIL_IF's |
 | 3 | `AvatarPipClass` | `app/client/ui_ptrade.cpp:46` | class-from-file (D24) for app\client\avatar_pip.cpp |
+| 3 | `As_Space_Client` | `app/client/ui_refinery.cpp:30` | ui_manu.cpp's FAIL_IF's |
+| 3 | `UI_CLOSED` | `app/client/ui_refinery.cpp:50` | the assert's |
+| 3 | `UIRefineryClass` | `app/client/ui_refinery.h:29` | class-from-file (D24) for app\client\ui_refinery.cpp |
+| 3 | `State` | `app/client/ui_refinery.h:69` | the assert's |
 | 3 | `ui_registration.h` | `app/client/ui_registration.h:16` | header name assumed from ui_registration.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_scan.cpp:27` | the FAIL_IF's |
 | 3 | `Get_Interface` | `app/client/ui_scan.h:54` | the assert's |
