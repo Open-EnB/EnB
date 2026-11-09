@@ -35,7 +35,6 @@ UIGuildListClass::UIGuildListClass(SClient *client) :
 	}
 }
 
-// NOT EXACT: register allocation only (this in edi and the loops in esi; the client swaps them) (0x81E1E0)
 // 0x81E1E0
 UIGuildListClass::~UIGuildListClass()
 {
@@ -85,7 +84,7 @@ void UIGuildListClass::Unknown_58()
 // 0x81E770
 void UIGuildListClass::Unknown_5C()
 {
-	if (Active) {
+	if (Is_Active()) {
 		Unknown0A8 = 0;
 		Unknown_81EC50(false);
 		Unknown_81EB90();
