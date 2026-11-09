@@ -393,7 +393,7 @@ void TextGadgetClass::Unknown_6AAD10()
 	bool changed = Changed;
 	Changed = false;
 	if (changed) {
-		Font32Class *&font = Text->Font;
+		RefCountPtr<Font32Class> &font = Text->Font;
 		G_ASSERT(font);
 		if (font == NULL) {
 			return;
@@ -536,7 +536,7 @@ void TextGadgetClass::Unknown_28(LayerClass *layer)
 
 
 
-char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&font, int &cp)
+char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, RefCountPtr<Font32Class> &font, int &cp)
 {
 	FAIL_IF(pwidth <= 0.0f) {
 		pwidth = 1.0f;

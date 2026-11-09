@@ -178,7 +178,7 @@ void TextEditorGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 		}
 		RefCountPtr<FontSys> first = Create_Get(new FontSys(Font.c_str(), top, NULL));
 		Lines.push_back(first);
-		Split->Set_Font(*(RefCountPtr<Font32Class> *)&first->Font);
+		Split->Set_Font(first->Font);
 		float width = 0;
 		height = 0;
 		first->Unknown_6D5B10(width, height);

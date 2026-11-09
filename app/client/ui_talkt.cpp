@@ -170,7 +170,7 @@ void UITalkTreeClass::Unknown_54()
 
 		G_ASSERT(NPCLines[lp]);
 	}
-	NPCSplit = new FontSplitStringClass(*(const RefCountPtr<Font32Class> *)&NPCLines[0]->Font);
+	NPCSplit = new FontSplitStringClass(NPCLines[0]->Font);
 	for (int i = 0; i < ANSWER_COUNT; i++) {
 		sprintf(name, "ANSWER%02d", i);
 		Buttons[i + 1] = new ButtonGadgetClass(InterfaceMesh, name, 0x55, 4);
@@ -777,7 +777,7 @@ bool UITalkTreeClass::Unknown_64DF80(bool clear)
 		FAIL_IF(!font) continue;
 		if (lp < count) {
 			TalkTreeResponseStruct &entry = Responses[lp];
-			FontSplitStringClass split(*(const RefCountPtr<Font32Class> *)&font->Font, entry.Text.c_str(), (float)PlayerLineWidth, 0);
+			FontSplitStringClass split(font->Font, entry.Text.c_str(), (float)PlayerLineWidth, 0);
 			std::string text(split.Get(0));
 			if (split.Count() > 1) {
 				Unknown16C[lp] = true;
@@ -884,7 +884,7 @@ void UITalkTreeClass::Unknown_64E7A0()
 
 
 	FAIL_IF(!font) return;
-	FontSplitStringClass split(*(const RefCountPtr<Font32Class> *)&font->Font, Responses[Unknown174].Text.c_str(), (float)PlayerLineWidth, 0);
+	FontSplitStringClass split(font->Font, Responses[Unknown174].Text.c_str(), (float)PlayerLineWidth, 0);
 	int count = split.Count();
 	for (int i = 0; i < count; i++) {
 		if (!font) {

@@ -169,7 +169,7 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	memset(Unknown303, 0, sizeof(Unknown303));
 	Unknown414 = 0;
 	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
-	REF_PTR_SET(Font, font->font32Ptr.Peek());
+	Font = font->font32Ptr;
 	Underline = Info.Underline;
 	if (Info.Underline) {
 		Unknown2E0.Unknown_6D8DC0(&Font, "_", 0);
@@ -441,7 +441,7 @@ void FontSys::Update_Text(bool unknown)
 				if (Unknown406) {
 					text += "...";
 				}
-				*(int *)((char *)Font + 0xD28) = *(int *)((char *)Font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
+				*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
 				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
 				Unknown2C4 = Font->String_Pixel_Width(text);
 				Unknown2C8 = Font->Get_Height();

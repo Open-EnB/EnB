@@ -1,0 +1,301 @@
+diff --git a/app/client/chat_window.cpp b/app/client/chat_window.cpp
+index 925b1436..15493da5 100644
+--- a/app/client/chat_window.cpp
++++ b/app/client/chat_window.cpp
+@@ -251,7 +251,7 @@ bool ChatWindowClass::Unknown_04(unsigned int max_lines, unsigned int width)
+ void ChatWindowClass::Unknown_67E670()
+ {
+ 	RefCountPtr<ChatFontSys> font = Create_NEW(new ChatFontSys(Name.c_str()));
+-	Font = *(const RefCountPtr<Font32Class> *)&font->Font;  // FontSys::Font is held like a RefCountPtr here (0x67E71F)
++	Font = font->Font;
+ 	int width = (int)(Font->Get_Char_Width(' ', 640.0f) < 1.0f ? 1.0f : Font->Get_Char_Width(' ', 640.0f));
+ 	int count = (unsigned int)(8 / width < 1 ? 1 : 8 / width) > 3 ?
+ 		3 : (8 / width < 1 ? 1 : 8 / width);
+diff --git a/app/client/dynamic_window_multi_line_text.cpp b/app/client/dynamic_window_multi_line_text.cpp
+index d13271b5..7a036e04 100644
+--- a/app/client/dynamic_window_multi_line_text.cpp
++++ b/app/client/dynamic_window_multi_line_text.cpp
+@@ -326,7 +326,7 @@ void DynamicWindowMultiLineTextClass::Split_Lines(float width)
+ 
+ 	FAIL_IF(CharacterHeight <= 0) return;
+ 
+-	FontSplitStringClass split(*(const RefCountPtr<Font32Class> *)&SampleFont->Font, Text.c_str(), width, 0);
++	FontSplitStringClass split(SampleFont->Font, Text.c_str(), width, 0);
+ 	split.Split(Text.c_str(), width, 0);
+ 	int count = split.Count();
+ 	DisplayedLines = count;
+diff --git a/app/client/fontmanager.h b/app/client/fontmanager.h
+index 4d2e02e2..6320031f 100644
+--- a/app/client/fontmanager.h
++++ b/app/client/fontmanager.h
+@@ -44,7 +44,7 @@ class Unknown_6D8B90Class  // NAME 1 [Unknown_6D8B90Class]: neutral (D10): 16 by
+ public:
+ 	Unknown_6D8B90Class();												// 0x6D8B90
+ 	~Unknown_6D8B90Class();												// 0x6D8C50
+-	bool Unknown_6D8DC0(Font32Class **font, const char *text, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
++	bool Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const char *text, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
+ 
+ 	int Size;															// +0x00: 0x20  // NAME 2: what the constructor gives the texture
+ 	char *Unknown04;														// +0x04: the text last printed (nstrdup; 0x6D8DC0, 0x6D8C50)  // NAME 1: neutral (D10)
+@@ -60,7 +60,7 @@ class FontSys : public DynamicMeshClass  // NAME 5: the client's (Get_Name 0x67E
+ public:
+ 	FontSys(const char *name, RenderObjClass *object, const char *text);	// 0x6D47C0: the string template named name (FontDatabaseClass::Find_String)  // NAME 1 [object]: neutral (D10)
+ 	FontSys(FontStringStruct def, RenderObjClass *object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
+-	~FontSys() { REF_PTR_RELEASE(Font); }						// 0x67F230 (inline: emitted in chat_window.cpp's object); 0x6D4C40 its deleting form
++	// ~FontSys is implicit: 0x67F230 (emitted in chat_window.cpp's object; no vtable stores, Font released as a member), 0x6D4C40 its deleting form
+ 
+ 	virtual int Class_ID(void) const { return 0x1000D; }					// 0x67EF00  // NAME 2: RenderObjClass's
+ 	virtual const char *Get_Name(void) const { return "FontSys"; }		// 0x67EF20  // NAME 2: RenderObjClass's
+@@ -108,7 +108,7 @@ public:
+ 	FontColorStruct *Colors[2];											// +0x1E0: Info.Color's two (FontDatabaseClass::Find_Color; the second defaults to the first, 0x6D5170)  // NAME 2: what 0x6D5170 stores
+ 	FontEffectStruct *Effects[6][4];									// +0x1E8: Info's six effect lists (EffectOn ... EffectTriggered) found by name (0x6D5170)  // NAME 2: what 0x6D5170 stores
+ 	RenderObjClass *Object;												// +0x248: the constructors' object, the model the text attaches to (Info.Attach: 0x6D5D40, 0x6D6390)  // NAME 2: what the constructors pass
+-	Font32Class *Font;													// +0x24C (textgadg.cpp's G_ASSERT 'font'; its widths at 640)  // NAME 3: the assert's
++	RefCountPtr<Font32Class> Font;										// +0x24C (textgadg.cpp's G_ASSERT 'font'; its widths at 640; a member with a destructor: 0x67F230's EH state 1)  // NAME 3: the assert's
+ 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
+ 	int Unknown254[6];													// +0x254: zeroed by 0x6D5170  // NAME 1: neutral (D10)
+ 	int Unknown26C;														// +0x26C: 0x6CF930 sets it per line (ftol)  // NAME 1: neutral (D10)
+diff --git a/app/client/fontsys.cpp b/app/client/fontsys.cpp
+index 78168bb9..e03a96c6 100644
+--- a/app/client/fontsys.cpp
++++ b/app/client/fontsys.cpp
+@@ -169,7 +169,7 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
+ 	memset(Unknown303, 0, sizeof(Unknown303));
+ 	Unknown414 = 0;
+ 	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
+-	REF_PTR_SET(Font, font->font32Ptr.Peek());
++	Font = font->font32Ptr;
+ 	Underline = Info.Underline;
+ 	if (Info.Underline) {
+ 		Unknown2E0.Unknown_6D8DC0(&Font, "_", 0);
+@@ -441,7 +441,7 @@ void FontSys::Update_Text(bool unknown)
+ 				if (Unknown406) {
+ 					text += "...";
+ 				}
+-				*(int *)((char *)Font + 0xD28) = *(int *)((char *)Font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
++				*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
+ 				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
+ 				Unknown2C4 = Font->String_Pixel_Width(text);
+ 				Unknown2C8 = Font->Get_Height();
+diff --git a/app/client/fonttexture.cpp b/app/client/fonttexture.cpp
+index 59f5c7a3..b7b3c50a 100644
+--- a/app/client/fonttexture.cpp
++++ b/app/client/fonttexture.cpp
+@@ -102,11 +102,11 @@ Unknown_6D8B90Class::~Unknown_6D8B90Class()
+ // one font height apart (Update_Text draws one quad per strip). Nothing to do (false) when the text, the font and
+ // unknown are the same as last time. With unknown set the texture is POT(height * unknown) square, unknown strips.
+ // NOT EXACT: written from the client's code (0x6D8DC0) for the POC, not yet matched
+-bool Unknown_6D8B90Class::Unknown_6D8DC0(Font32Class **font, const char *str, int unknown)
++bool Unknown_6D8B90Class::Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const char *str, int unknown)
+ {
+ 	FAIL_IF(!str) str = "";
+ 	if (Texture != NULL && Unknown04 != NULL && str != NULL) {
+-		if (strcmp(Unknown04, str) == 0 && Unknown08 == *font && unknown == 0) {
++		if (strcmp(Unknown04, str) == 0 && Unknown08 == font->Peek() && unknown == 0) {
+ 			return false;
+ 		}
+ 	}
+@@ -119,7 +119,7 @@ bool Unknown_6D8B90Class::Unknown_6D8DC0(Font32Class **font, const char *str, in
+ 	if (Unknown08 != NULL) {
+ 		Unknown08->Release_Ref();
+ 	}
+-	Unknown08 = *font;
++	Unknown08 = font->Peek();
+ 	Unknown04 = nstrdup(str);
+ 	int fw = (*font)->String_Pixel_Width(str);
+ 
+diff --git a/app/client/gd_text_editor.cpp b/app/client/gd_text_editor.cpp
+index 666b50d8..36dba6e4 100644
+--- a/app/client/gd_text_editor.cpp
++++ b/app/client/gd_text_editor.cpp
+@@ -178,7 +178,7 @@ void TextEditorGadgetClass::Set_Render_Obj(RenderObjClass *robj)
+ 		}
+ 		RefCountPtr<FontSys> first = Create_Get(new FontSys(Font.c_str(), top, NULL));
+ 		Lines.push_back(first);
+-		Split->Set_Font(*(RefCountPtr<Font32Class> *)&first->Font);
++		Split->Set_Font(first->Font);
+ 		float width = 0;
+ 		height = 0;
+ 		first->Unknown_6D5B10(width, height);
+diff --git a/app/client/shiputils.cpp b/app/client/shiputils.cpp
+index 3b0979df..308443a3 100644
+--- a/app/client/shiputils.cpp
++++ b/app/client/shiputils.cpp
+@@ -297,7 +297,7 @@ void Unknown_80FF20(RenderObjClass *robj, const char *name, float *rgb)
+ 
+ 	FAIL_IF(font_32bit.Peek()->Get_Height() != 16) return;
+ 	Unknown_6D8B90Class *text = new Unknown_6D8B90Class;
+-	text->Unknown_6D8DC0((Font32Class **)&font_32bit, name, 4);
++	text->Unknown_6D8DC0(&font_32bit, name, 4);
+ 	TextureClass *name_texture = text->Texture;
+ 
+ 
+diff --git a/app/client/textgadg.cpp b/app/client/textgadg.cpp
+index 97286574..b52da03a 100644
+--- a/app/client/textgadg.cpp
++++ b/app/client/textgadg.cpp
+@@ -393,7 +393,7 @@ void TextGadgetClass::Unknown_6AAD10()
+ 	bool changed = Changed;
+ 	Changed = false;
+ 	if (changed) {
+-		Font32Class *&font = Text->Font;
++		RefCountPtr<Font32Class> &font = Text->Font;
+ 		G_ASSERT(font);
+ 		if (font == NULL) {
+ 			return;
+@@ -536,7 +536,7 @@ void TextGadgetClass::Unknown_28(LayerClass *layer)
+ 
+ 
+ 
+-char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, Font32Class *&font, int &cp)
++char *TextGadgetClass::Unknown_6AB190(char *string, float pwidth, RefCountPtr<Font32Class> &font, int &cp)
+ {
+ 	FAIL_IF(pwidth <= 0.0f) {
+ 		pwidth = 1.0f;
+diff --git a/app/client/textgadg.h b/app/client/textgadg.h
+index 1807a6ec..131f15b3 100644
+--- a/app/client/textgadg.h
++++ b/app/client/textgadg.h
+@@ -76,7 +76,7 @@ public:
+ 	virtual void Unknown_74(bool on);									// +0x74 0x6AACD0 (off: the cursor hidden)  // NAME 1 [on]: neutral
+ 
+ 	void Unknown_6AAD10();												// 0x6AAD10 (every frame: G_ASSERT 'font', FAIL_IF 'max >= 255': the text redrawn, the cursor blinked)
+-	static char *Unknown_6AB190(char *string, float pwidth, Font32Class *&font, int &cp);	// 0x6AB190 (FAIL_IF 'pwidth <= 0.0f', G_ASSERT 'cp >= 0': the string clipped to the width around the cursor)  // NAME 3 [pwidth, cp]: the asserts'; NAME 1 [string, font]: neutral
++	static char *Unknown_6AB190(char *string, float pwidth, RefCountPtr<Font32Class> &font, int &cp);	// 0x6AB190 (FAIL_IF 'pwidth <= 0.0f', G_ASSERT 'cp >= 0': the string clipped to the width around the cursor)  // NAME 3 [pwidth, cp]: the asserts'; NAME 1 [string, font]: neutral
+ 
+ 	RefCountPtr<FontSys> Text;									// +0x44 (0x4E8 bytes, 0x6D47C0: string_name's style on the model)  // NAME 2: what it draws
+ 	RefCountPtr<RenderObjClass> Model;									// +0x48  // NAME 2: the constructor's model
+diff --git a/app/client/tooltip.cpp b/app/client/tooltip.cpp
+index 37107f78..4461a2e3 100644
+--- a/app/client/tooltip.cpp
++++ b/app/client/tooltip.cpp
+@@ -318,7 +318,7 @@ void UIViewUnknown30Class::Unknown_6ABC60()
+ 	if (Unknown0C || CurGadget == NULL || View == NULL) {
+ 		return;
+ 	}
+-	FontSplitStringClass split(*(RefCountPtr<Font32Class> *)&Lines[0]->Font);
++	FontSplitStringClass split(Lines[0]->Font);
+ 	int width = 100;
+ 	const char *text = Unknown0E ? CurGadget->Unknown24 : CurGadget->Get_Unknown14();
+ 	int lines;
+diff --git a/app/client/ui_line_display.cpp b/app/client/ui_line_display.cpp
+index 6d16b949..83126605 100644
+--- a/app/client/ui_line_display.cpp
++++ b/app/client/ui_line_display.cpp
+@@ -479,7 +479,7 @@ void UILineDisplayClass::Add_Line(const char *text, int display_time, const char
+ 	}
+ 	RefCountPtr<LineDisplayTextClass> font_text = Find_Text(font);
+ 	if (font_text) {
+-		FontSplitStringClass *wrap = new FontSplitStringClass(*(const RefCountPtr<Font32Class> *)&font_text->Font);
++		FontSplitStringClass *wrap = new FontSplitStringClass(font_text->Font);
+ 		wrap->Split(text, 575.0f, 0);
+ 		int count = wrap->Count();
+ 		if (!count) {
+diff --git a/app/client/ui_talkt.cpp b/app/client/ui_talkt.cpp
+index 5b2ba090..8b6ac5b9 100644
+--- a/app/client/ui_talkt.cpp
++++ b/app/client/ui_talkt.cpp
+@@ -170,7 +170,7 @@ void UITalkTreeClass::Unknown_54()
+ 
+ 		G_ASSERT(NPCLines[lp]);
+ 	}
+-	NPCSplit = new FontSplitStringClass(*(const RefCountPtr<Font32Class> *)&NPCLines[0]->Font);
++	NPCSplit = new FontSplitStringClass(NPCLines[0]->Font);
+ 	for (int i = 0; i < ANSWER_COUNT; i++) {
+ 		sprintf(name, "ANSWER%02d", i);
+ 		Buttons[i + 1] = new ButtonGadgetClass(InterfaceMesh, name, 0x55, 4);
+@@ -777,7 +777,7 @@ bool UITalkTreeClass::Unknown_64DF80(bool clear)
+ 		FAIL_IF(!font) continue;
+ 		if (lp < count) {
+ 			TalkTreeResponseStruct &entry = Responses[lp];
+-			FontSplitStringClass split(*(const RefCountPtr<Font32Class> *)&font->Font, entry.Text.c_str(), (float)PlayerLineWidth, 0);
++			FontSplitStringClass split(font->Font, entry.Text.c_str(), (float)PlayerLineWidth, 0);
+ 			std::string text(split.Get(0));
+ 			if (split.Count() > 1) {
+ 				Unknown16C[lp] = true;
+@@ -884,7 +884,7 @@ void UITalkTreeClass::Unknown_64E7A0()
+ 
+ 
+ 	FAIL_IF(!font) return;
+-	FontSplitStringClass split(*(const RefCountPtr<Font32Class> *)&font->Font, Responses[Unknown174].Text.c_str(), (float)PlayerLineWidth, 0);
++	FontSplitStringClass split(font->Font, Responses[Unknown174].Text.c_str(), (float)PlayerLineWidth, 0);
+ 	int count = split.Count();
+ 	for (int i = 0; i < count; i++) {
+ 		if (!font) {
+diff --git a/app/client/unknown_6ca0c0.cpp b/app/client/unknown_6ca0c0.cpp
+index 6fc4a9a0..90efed0e 100644
+--- a/app/client/unknown_6ca0c0.cpp
++++ b/app/client/unknown_6ca0c0.cpp
+@@ -67,7 +67,7 @@ struct Font32SpacingAccess : public Font32Class
+ static void Rebuild_Texture(FontSys *style, StringClass &text, bool reset_spacing)
+ {
+ 	if (reset_spacing) {
+-		Font32SpacingAccess::Reset_XSpacing(style->Font);
++		Font32SpacingAccess::Reset_XSpacing(style->Font.Peek());
+ 	}
+ 	style->Unknown4C4 = style->Unknown2D0.Unknown_6D8DC0(&style->Font, text, 0);
+ }
+diff --git a/app/client/unknown_6cce60.cpp b/app/client/unknown_6cce60.cpp
+index 96dac1d1..19cdfd50 100644
+--- a/app/client/unknown_6cce60.cpp
++++ b/app/client/unknown_6cce60.cpp
+@@ -64,7 +64,7 @@ void FontSys::Unknown_6CCE60()
+ 			text += "...";
+ 		}
+ 		text.Get_Buffer(text.Get_Length());
+-		*(int *)((char *)Font + 0xD28) = *(int *)((char *)Font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
++		*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
+ 		Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
+ 		Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(text);
+ 		Unknown420[3] = Unknown2C8 = Font->Get_Height();
+@@ -309,7 +309,7 @@ void FontSys::Change_Text(const char *text, int unknown)
+ 			Unknown440 = 0;
+ 			if (Info.Text != (const char *)Unknown2F0) {
+ 				Info.Text = Unknown2F0;
+-				Reset_XSpacing(Font);
++				Reset_XSpacing(Font.Peek());
+ 				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
+ 				Unknown4C5 = false;
+ 			}
+@@ -330,7 +330,7 @@ void FontSys::Change_Text(const char *text, int unknown)
+ 		Invalidate_Cached_Bounding_Volumes();
+ 		if (text == NULL) {
+ 			Unknown2F0 = "";
+-			Reset_XSpacing(Font);
++			Reset_XSpacing(Font.Peek());
+ 			Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
+ 			Unknown4C5 = false;
+ 		} else if (Unknown2F0 != text) {
+@@ -338,7 +338,7 @@ void FontSys::Change_Text(const char *text, int unknown)
+ 			if (Unknown2F0.Is_Empty()) {
+ 				Unknown2F0 = "";
+ 			}
+-			Reset_XSpacing(Font);
++			Reset_XSpacing(Font.Peek());
+ 			Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
+ 			Unknown4C5 = false;
+ 		}
+@@ -369,8 +369,8 @@ void FontSys::Unknown_6CE4E0(int font_index)
+ 	}
+ 	char *buffer = text.Get_Buffer(Unknown2F0.Get_Length());
+ 	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
+-	REF_PTR_SET(Font, font->font32Ptr.Peek());
+-	Reset_XSpacing(Font);
++	Font = font->font32Ptr;
++	Reset_XSpacing(Font.Peek());
+ 	Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, buffer, 0);
+ 	Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(buffer);
+ 	Unknown2C8 = Unknown420[3] = Font->Get_Height();
+diff --git a/app/client/unknown_msgbox.cpp b/app/client/unknown_msgbox.cpp
+index abebc04e..5d2bdd53 100644
+--- a/app/client/unknown_msgbox.cpp
++++ b/app/client/unknown_msgbox.cpp
+@@ -346,7 +346,7 @@ RefCountPtr<FontSys> Unknown_589CA0(const RefCountPtr<RenderObjClass> &robj)	//
+ void ViewUnknown34Class::Unknown_588DC0(const char *text, int width)
+ {
+ 	RefCountPtr<FontSys> first = Unknown_589CA0(((DynamicWindowRenderObjectClass *)Headers[0])->Get_Render_Object());
+-	RefCountPtr<Font32Class> *font = (RefCountPtr<Font32Class> *)&first->Font;	// (FontSys::Font held as a RefCountPtr: the client loads the font before the text through a local)
++	RefCountPtr<Font32Class> *font = &first->Font;	// (FontSys::Font held as a RefCountPtr: the client loads the font before the text through a local)
+ 	FontSplitStringClass split(*font, text, (float)width, 0);
+ 	INIClass ini("dialogbox.ini");
+ 	unsigned int count = min(split.Count(), (unsigned int)MaxLines);

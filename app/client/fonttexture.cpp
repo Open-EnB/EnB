@@ -102,11 +102,11 @@ Unknown_6D8B90Class::~Unknown_6D8B90Class()
 // one font height apart (Update_Text draws one quad per strip). Nothing to do (false) when the text, the font and
 // unknown are the same as last time. With unknown set the texture is POT(height * unknown) square, unknown strips.
 // NOT EXACT: written from the client's code (0x6D8DC0) for the POC, not yet matched
-bool Unknown_6D8B90Class::Unknown_6D8DC0(Font32Class **font, const char *str, int unknown)
+bool Unknown_6D8B90Class::Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const char *str, int unknown)
 {
 	FAIL_IF(!str) str = "";
 	if (Texture != NULL && Unknown04 != NULL && str != NULL) {
-		if (strcmp(Unknown04, str) == 0 && Unknown08 == *font && unknown == 0) {
+		if (strcmp(Unknown04, str) == 0 && Unknown08 == font->Peek() && unknown == 0) {
 			return false;
 		}
 	}
@@ -119,7 +119,7 @@ bool Unknown_6D8B90Class::Unknown_6D8DC0(Font32Class **font, const char *str, in
 	if (Unknown08 != NULL) {
 		Unknown08->Release_Ref();
 	}
-	Unknown08 = *font;
+	Unknown08 = font->Peek();
 	Unknown04 = nstrdup(str);
 	int fw = (*font)->String_Pixel_Width(str);
 

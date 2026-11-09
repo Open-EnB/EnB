@@ -251,7 +251,7 @@ bool ChatWindowClass::Unknown_04(unsigned int max_lines, unsigned int width)
 void ChatWindowClass::Unknown_67E670()
 {
 	RefCountPtr<ChatFontSys> font = Create_NEW(new ChatFontSys(Name.c_str()));
-	Font = *(const RefCountPtr<Font32Class> *)&font->Font;  // FontSys::Font is held like a RefCountPtr here (0x67E71F)
+	Font = font->Font;
 	int width = (int)(Font->Get_Char_Width(' ', 640.0f) < 1.0f ? 1.0f : Font->Get_Char_Width(' ', 640.0f));
 	int count = (unsigned int)(8 / width < 1 ? 1 : 8 / width) > 3 ?
 		3 : (8 / width < 1 ? 1 : 8 / width);

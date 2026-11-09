@@ -479,7 +479,7 @@ void UILineDisplayClass::Add_Line(const char *text, int display_time, const char
 	}
 	RefCountPtr<LineDisplayTextClass> font_text = Find_Text(font);
 	if (font_text) {
-		FontSplitStringClass *wrap = new FontSplitStringClass(*(const RefCountPtr<Font32Class> *)&font_text->Font);
+		FontSplitStringClass *wrap = new FontSplitStringClass(font_text->Font);
 		wrap->Split(text, 575.0f, 0);
 		int count = wrap->Count();
 		if (!count) {
