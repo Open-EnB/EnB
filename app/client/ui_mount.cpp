@@ -259,7 +259,7 @@ void UIMountClass::Toggle()
 
 
 
-// NOT EXACT: functional, from the pseudocode (D64)
+// NOT EXACT: functional, from the pseudocode (D64); 0.53: the client calls rtti.h's Cast out of line (0x5469C0, 0x5C8780, 0x5C87D0), this inlines it; the frame is 0x1A8 against 0x164
 // 0x5C77A0
 void UIMountClass::Build()
 {
@@ -270,27 +270,29 @@ void UIMountClass::Build()
 
 	FAIL_IF(!cobj) return;
 
-
-	FAIL_IF(!cobj->AuxData) return;
 	DeltaCompoundClass *auxdata = (DeltaCompoundClass *)cobj->AuxData;
-	DeltaStringClass *model_name = Unknown_Find_Field<DeltaStringClass>(auxdata, NameClass("Inventory.EquipMountModel"));
+	FAIL_IF(!auxdata) return;
+	NameClass model_field("Inventory.EquipMountModel");  // NAME 1: neutral (D10)
+	DeltaStringClass *model_name = Unknown_Find_Field<DeltaStringClass>(auxdata, model_field);
 	if (!model_name || !model_name->Unknown70) return;
-	DeltaArrayClass<UnknownB016DCType> *mounts = Unknown_Find_Field<DeltaArrayClass<UnknownB016DCType> >(auxdata, NameClass("Inventory.Mounts"));
+	const char *model_file = model_name->Get();  // NAME 1: neutral (D10)
+	NameClass mounts_field("Inventory.Mounts");  // NAME 1: neutral (D10)
+	DeltaArrayClass<UnknownB016DCType> *mounts = Unknown_Find_Field<DeltaArrayClass<UnknownB016DCType> >(auxdata, mounts_field);
 	if (!mounts || !mounts->Unknown70) return;
-	DeltaItemArrayClass<DeltaStringClass> *bone_names = Unknown_Find_Field<DeltaItemArrayClass<DeltaStringClass> >(auxdata, NameClass("Inventory.MountBoneNames"));
+	NameClass bones_field("Inventory.MountBoneNames");  // NAME 1: neutral (D10)
+	DeltaItemArrayClass<DeltaStringClass> *bone_names = Unknown_Find_Field<DeltaItemArrayClass<DeltaStringClass> >(auxdata, bones_field);
 	if (!bone_names || !bone_names->Unknown70) return;
 
-	WW3DAssetManager *assets = WW3DAssetManager::Get_Instance();
-	Model = AssetManager->Create_Render_Obj(model_name->Get());
+	Model = AssetManager->Create_Render_Obj(model_file);
 	if (!Model) {
-		AssetManager->Load_3D_Assets(model_name->Get());
-		Model = AssetManager->Create_Render_Obj(model_name->Get());
+		AssetManager->Load_3D_Assets(model_file);
+		Model = AssetManager->Create_Render_Obj(model_file);
 		if (!Model) return;
 	}
-	if (!Unknown402) {
-		Model->Set_Transform(UnknownBF9330);
-	} else {
+	if (Unknown402) {
 		Model->Set_Transform(UnknownBF92D0);
+	} else {
+		Model->Set_Transform(UnknownBF9330);
 	}
 	int bone = Model->Get_Bone_Index("VP_TL");
 	if (!bone) return;
@@ -304,7 +306,7 @@ void UIMountClass::Build()
 	float step = 256.0f;
 	Matrix3D tm(1);
 	Vector3 dest;
-	do {
+	while (fabs(step) > 0.5) {
 		bool inside = false;
 		tm.Translate_Z(step);
 		Camera->Set_Transform(tm);
@@ -314,20 +316,18 @@ void UIMountClass::Build()
 		if ((step > 0.0f) == inside) {
 			step *= -0.5f;
 		}
-	} while (fabs(step) > 0.5f);
+	}
 
 	int count = mounts->Children.size();
 	float button_w = -1.0f;
 	float button_h = -1.0f;
-	Vector2 vmin, vmax;
-	Camera->Get_Viewport(vmin, vmax);
+	const ViewportClass &vp = Camera->Get_Viewport();
+	Vector2 vmin = vp.Min;
+	Vector2 vmax = vp.Max;
 	float min_x = 0.0f;
 	float min_y = 0.0f;
 	float max_x = 0.0f;
 	float max_y = 0.0f;
-
-
-
 
 
 
@@ -416,11 +416,11 @@ void UIMountClass::Build()
 		p.Y = screen.Y;
 		if (screen.X < min_x) min_x = screen.X; else if (screen.X > max_x) max_x = screen.X;
 		if (screen.Y < min_y) min_y = screen.Y; else if (screen.Y > max_y) max_y = screen.Y;
-		p.Button = assets->Create_Render_Obj("Equipbtn");
+		p.Button = WW3DAssetManager::Get_Instance()->Create_Render_Obj("Equipbtn");
 		Unknown_496AE0(p.Button, false);
 		p.Bttn = p.Button->Get_Sub_Object_By_Name("bttn");
 		p.Unknown0C = p.Button->Get_Sub_Object_Bone_Index(p.Bttn);
-		p.MntPoint = assets->Create_Render_Obj("MntPoint");
+		p.MntPoint = WW3DAssetManager::Get_Instance()->Create_Render_Obj("MntPoint");
 		p.MntPoint->Set_Position(point);
 		p.Name = new FontSys("MOUNT_NAME", 0, Unknown_843440(mount->I00));
 		p.Button->Add_Sub_Object_To_Bone(p.Name, "frame");
@@ -511,10 +511,30 @@ void UIMountClass::Clear()
 	Distance = -1.0f;
 }
 
+
+// A mount's bits as the two-digit name of its art (no caller in the client)
+struct UnknownB829E0Struct { const char *Name; int Bits; };	// NAME 1: neutral (D10)
+UnknownB829E0Struct UnknownB829E0[] = {	// 0xB829E0  // NAME 1: neutral (D10)
+	{ "00", 0 }, { "02", 0x20809 }, { "01", 0x1C002 }, { "03", 0x1C022 }, { "07", 0x40 }, { "06", 0x80 }, { "05", 0x100 },
+	{ 0, 0 }
+};
+
+// NOT EXACT: 0.58: the client sets the table pointer after the first name's null test, this before it (scheduling; 4 loop forms)
+// 0x5C8710
+const char *Unknown_5C8710(int bits)	// NAME 1: neutral (D10); NAME 1 [bits]: what the table holds
+{
+	const char *name = UnknownB829E0[0].Name;	// NAME 1: neutral (D10)
+	for (UnknownB829E0Struct *e = UnknownB829E0; name; name = (++e)->Name) {
+		if (bits == e->Bits) return(name);
+		if (!bits) break;
+	}
+	return(0);
+}
+
 /*
 **	Notes.
 **	Object 0x5C7360-0x5C885F: opened by permstr.h's PermStringInit (0x5C7360, its atexit 0x5C7390), closed by the
 **	adjustor thunks 0x5C8850 / 0x5C8860 of the second and third tables. 0x5C8780 and 0x5C87D0 are rtti.h's Cast for
-**	the Mounts and MountBoneNames arrays, out of line. 0x5C8710 (no caller: a name-to-bits table at 0xB829E0, "00",
-**	"02" 0x20809, ...) is not rebuilt. The inline Is_Shown / Show / Hide are emitted with 0x58B680's file.
+**	the Mounts and MountBoneNames arrays, out of line. 0x5C8710 has no caller (the table 0xB829E0, "00",
+**	"02" 0x20809, ...). The inline Is_Shown / Show / Hide are emitted with 0x58B680's file.
 */

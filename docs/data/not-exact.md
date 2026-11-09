@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-695 entries in 211 files.
+696 entries in 211 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -430,7 +430,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_mfdm.cpp:155` | `UIMFDPIPItemClass::Unknown_08` | marker | NOT EXACT: 0x5C25C0: one pop scheduled after a load (order) 0x5C25C0 |
 | `app/client/ui_missn.cpp:514` | `UIMissnClass::Unknown_5C5DB0` | marker | NOT EXACT: register (similarity 0.58: the client keeps this in ebp, spilled, and the mission in ebx, spilled to new_mission's slot; edi is pushed only around the text; the dead reads at the end bring the appends' inline / out-of-line mix to the client's: 9 append calls, the loop's inline) |
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
-| `app/client/ui_mount.cpp:262` | `UIMountClass::Build` | marker | NOT EXACT: functional, from the pseudocode (D64) 0x5C77A0 |
+| `app/client/ui_mount.cpp:262` | `UIMountClass::Build` | marker | NOT EXACT: functional, from the pseudocode (D64); 0.53: the client calls rtti.h's Cast out of line (0x5469C0, 0x5C8780, 0x5C87D0), this inlines it; the frame is 0x1A8 against 0x164 0x5C77A0 |
+| `app/client/ui_mount.cpp:522` | `Unknown_5C8710` | marker | NOT EXACT: 0.58: the client sets the table pointer after the first name's null test, this before it (scheduling; 4 loop forms) 0x5C8710 |
 | `app/client/ui_playeropt.cpp:220` | `UIPlayerOptClass::Unknown_5D9D10` | marker | NOT EXACT: inline budget (0.63: the client keeps the inner name copy's destructor inline at the loop's end and calls it only on the break, ours merges both into one call; the two string copies' stack slots are swapped) 0x5D9D10 |
 | `app/client/ui_popup_browser.cpp:45` | `UIPopupBrowserClass::UIPopupBrowserClass` | marker | NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it) @0x5DAE90 |
 | `app/client/ui_popup_browser.cpp:76` | `UIPopupBrowserClass::Unknown_54` | marker | NOT EXACT: stub @0x5DB2D0 |

@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1657 |
 | 2 | describes what the code does | 3885 |
-| 1 | neutral placeholder | 20706 |
+| 1 | neutral placeholder | 20714 |
 
 ## For review (score 3 and below)
 
@@ -13796,12 +13796,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/ui_mount.cpp:75` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/ui_mount.cpp:200` | untagged neutral name (D10) |
 | 1 | `Unknown88` | `app/client/ui_mount.cpp:202` | untagged neutral name (D10) |
+| 1 | `model_field` | `app/client/ui_mount.cpp:275` | neutral (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_mount.cpp:276` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_mount.cpp:277` | untagged neutral name (D10) |
-| 1 | `UnknownB016DCType` | `app/client/ui_mount.cpp:278` | untagged neutral name (D10) |
+| 1 | `model_file` | `app/client/ui_mount.cpp:278` | neutral (D10) |
+| 1 | `mounts_field` | `app/client/ui_mount.cpp:279` | neutral (D10) |
+| 1 | `UnknownB016DCType` | `app/client/ui_mount.cpp:280` | untagged neutral name (D10) |
+| 1 | `bones_field` | `app/client/ui_mount.cpp:282` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/ui_mount.cpp:422` | untagged neutral name (D10) |
 | 1 | `Unknown_BC` | `app/client/ui_mount.cpp:473` | untagged neutral name (D10) |
 | 1 | `Unknown_AC` | `app/client/ui_mount.cpp:475` | untagged neutral name (D10) |
+| 1 | `UnknownB829E0Struct` | `app/client/ui_mount.cpp:516` | neutral (D10) |
+| 1 | `UnknownB829E0` | `app/client/ui_mount.cpp:517` | neutral (D10) |
+| 1 | `Unknown_5C8710` | `app/client/ui_mount.cpp:524` | neutral (D10); NAME 1 [bits]: what the table holds |
+| 1 | `name` | `app/client/ui_mount.cpp:526` | neutral (D10) |
 | 1 | `ui_mount.h` | `app/client/ui_mount.h:4` | provisional header name for ui_mount.cpp |
 | 1 | `UIMountPointStruct` | `app/client/ui_mount.h:13` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/ui_mount.h:18` | neutral (D10) |
