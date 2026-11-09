@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: provisional header (D137) of ui_slot_data.cpp's UISlotDataClass (the client's file per its asserts), the slot windows' base, laid out from the constructor 0x62DE80 as far as ui_inv.cpp uses it; its functions are not rebuilt (UI1)"
+}

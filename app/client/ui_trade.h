@@ -6,7 +6,7 @@
 
 #include <vector>
 #include <string>
-#include "pdaint.h"			// (before sclient.h: its PDAInterfaceClass)
+#include "pdaint.h"			// (before sclient.h: its PDAInterfaceClass; ui_inv.h's UIInvClass)
 #include "sclient.h"
 #include "..\shared\money.h"
 #include "..\..\wwlib\ref_ptr.h"
@@ -17,36 +17,8 @@ class RenderObjClass;
 class SlotDataClass;			// slot_data.h's (the base's +0x98)
 class InvDataClass;				// client_item_property_builder.h's (the base's 0x59FE10)
 
-// ui_inv.cpp's slot window base (0xD0 bytes, constructor 0x59F3D0 over the slot windows' base 0x62DE80; tables 0xAF252C /
-// 0xAF2520 / 0xAF2514), as far as ui_trade.cpp calls it
-class Unknown59F3D0Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown59F3D0Class(SClient *client, int kind);		// 0x59F3D0 (the trade window passes 7 into +0xBC)  // NAME 1 [client, kind]: neutral
-	virtual ~Unknown59F3D0Class();						// 0x59F940 (ui_mount.cpp's destructor calls it)
-	virtual void Unknown_54();							// 0x59F470 (ui_mount.cpp's 0x5C74A0 calls it)
-	virtual void Unknown_58();							// 0x62E7C0 (0x62DE80's class's; ui_mount.cpp's 0x5C7570 calls it)
-	virtual void Unknown_5C();							// 0x59FD70 (ui_mount.cpp's 0x5C7600 calls it)
-	virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90(); virtual void Unknown_94();
-	virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0(); virtual void Unknown_A4();
-	virtual void Unknown_A8(); virtual void Unknown_AC(RenderObjClass *robj, int arg); virtual void Unknown_B0(); virtual void Unknown_B4();	// NAME 1 [robj, arg]: Unknown_AC's, neutral (ui_mount.cpp passes a button's sub-object and 0)
-	virtual void Unknown_B8(); virtual void Unknown_BC(); virtual void Unknown_C0(); virtual void Unknown_C4();
-	virtual void Unknown_C8();							// +0xC8 (the trade window calls it after setting +0xB4 to -1)
-	virtual void Unknown_CC(); virtual void Unknown_D0();	// +0xCC, +0xD0 (the table's last two: 0x62E580, 0x62E5B0; ui_mount.cpp's own begin at +0xD4)
-	InvDataClass *Unknown_59FE10();						// 0x59FE10 (SlotData's slot +0x10)
-	void Unknown_5A00C0(int *count, std::string *name);	// 0x5A00C0 (the trade window's 0x652890: the count and the name of the buy)  // NAME 1 [count, name]: what 0x652890 prints
-	void Unknown_5A02E0(bool arg);						// 0x5A02E0 (the trade window's 0x652FF0 passes true)  // NAME 1 [arg]: neutral
-
-	char Unknown84[0x88 - 0x84];						// +0x84
-	std::vector<SlotDataGadgetClass *> Unknown88;		// +0x88 (the slots' gadgets: the trade window's 0x652890 reads 0..4 as '!bttn')  // NAME 1: neutral (D10)
-	SlotDataClass *SlotData;							// +0x98 (0x62DE80's class's FAIL_IF '!SlotData')  // NAME 3: the FAIL_IF's
-	char Unknown9C[0xB4 - 0x9C];						// +0x9C
-	int UnknownB4;										// +0xB4 (the trade window sets -1 before slot +0xC8)
-	char UnknownB8[0xD0 - 0xB8];						// +0xB8 (+0xBC the constructor's kind)
-};
-
 // The trade window (0x190 bytes, tables 0xAF8F70 / 0xAF8F64 / 0xAF8F58; 'fa_ce02a.ini'; ui_talkt.cpp makes it)
-class UITradeClass : public Unknown59F3D0Class  // NAME 3: class-from-file (D24) for ui_trade.cpp
+class UITradeClass : public UIInvClass  // NAME 3: class-from-file (D24) for ui_trade.cpp
 {
 public:
 	UITradeClass(SClient *client);						// 0x650560

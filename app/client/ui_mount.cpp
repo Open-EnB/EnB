@@ -31,7 +31,7 @@ extern Matrix3D UnknownBF92D0;	// 0xBF92D0 (the model's transform with +0x402)  
 
 // 0x5C73B0
 UIMountClass::UIMountClass(SClient *client, CameraClass *camera, int kind, int unused) :
-	Unknown59F3D0Class(client, kind),
+	UIInvClass(client, kind),
 	Camera(camera),
 	Model(0),
 	Distance(-1.0f),
@@ -48,7 +48,7 @@ UIMountClass::UIMountClass(SClient *client, CameraClass *camera, int kind, int u
 // 0x5C74A0
 void UIMountClass::Unknown_54()
 {
-	Unknown59F3D0Class::Unknown_54();
+	UIInvClass::Unknown_54();
 	Build();
 }
 
@@ -67,7 +67,7 @@ void UIMountClass::Unknown_58()
 	Build();
 	if (Built) {
 		Shown = false;
-		Unknown59F3D0Class::Unknown_58();
+		UIInvClass::Unknown_58();
 	}
 }
 
@@ -75,7 +75,7 @@ void UIMountClass::Unknown_58()
 void UIMountClass::Unknown_5C()
 {
 	Hide();
-	Unknown59F3D0Class::Unknown_5C();
+	UIInvClass::Unknown_5C();
 }
 
 

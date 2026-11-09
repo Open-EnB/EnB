@@ -4,7 +4,8 @@
 #ifndef UI_MOUNT_H  // NAME 1 [ui_mount.h]: provisional header name for ui_mount.cpp
 #define UI_MOUNT_H
 
-#include "ui_trade.h"		// Unknown59F3D0Class, ui_inv.cpp's slot window base (interim, D137)
+#include "ui_inv.h"		// UIInvClass, ui_inv.cpp's inventory window base
+#include "sclient.h"
 
 class CameraClass;
 class RenderObjClass;
@@ -26,7 +27,7 @@ struct UIMountPointStruct	// NAME 1: neutral (D10)
 
 // The mount points window (0x404 bytes, tables 0xAF3DE8 / 0xAF3DDC / 0xAF3DD0; 0x58B680 makes it): the player ship's
 // mount bones (Inventory.MountBoneNames on Inventory.EquipMountModel) projected through the camera, a button at each
-class UIMountClass : public Unknown59F3D0Class  // NAME 3: class-from-file (D24) for ui_mount.cpp
+class UIMountClass : public UIInvClass  // NAME 3: class-from-file (D24) for ui_mount.cpp
 {
 public:
 	UIMountClass(SClient *client, CameraClass *camera, int kind, int unused);	// 0x5C73B0 (deleting 0x5C7470; 0x58B680 passes 0 last)  // NAME 1 [client, camera, kind, unused]: what it does with them

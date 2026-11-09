@@ -15,32 +15,24 @@
 #include "..\..\app\client\sclient.h"
 
 // ---------------------------------------------------------------- the equipment window (0x5D10C0): 0x154 bytes
-Unknown5D10C0Class::Unknown5D10C0Class(SClient *client) : PDAInventoryWindowClass((LineDisplayClientClass *)client)
+Unknown5D10C0Class::Unknown5D10C0Class(SClient *client) : UIInvClass((LineDisplayClientClass *)client)
 {
 	STUB_CALLED("POC Unknown5D10C0Class (the PDA's equipment window): an empty InterfaceClass");
-	memset(Unknown84, 0, sizeof(Unknown84));
+	memset(UnknownD0, 0, sizeof(UnknownD0));
 }
 
 // ---------------------------------------------------------------- the cargo window (0x5CF9B0): 0x10C bytes
-Unknown5CF9B0Class::Unknown5CF9B0Class(SClient *client, PDAInterfaceClass *pda) : PDAInventoryWindowClass((LineDisplayClientClass *)client)
+Unknown5CF9B0Class::Unknown5CF9B0Class(SClient *client, PDAInterfaceClass *pda) : UIInvClass((LineDisplayClientClass *)client)
 {
 	STUB_CALLED("POC Unknown5CF9B0Class (the PDA's cargo window): an empty InterfaceClass");
-	memset(Unknown84, 0, sizeof(Unknown84));
+	memset(UnknownD0, 0, sizeof(UnknownD0));
 }
 
 // ---------------------------------------------------------------- the vault window (0x656FF0): 0xFC bytes
-Unknown656FF0Class::Unknown656FF0Class(SClient *client) : PDAInventoryWindowClass((LineDisplayClientClass *)client)
+Unknown656FF0Class::Unknown656FF0Class(SClient *client) : UIInvClass((LineDisplayClientClass *)client)
 {
 	STUB_CALLED("POC Unknown656FF0Class (the PDA's vault window): an empty InterfaceClass");
-	memset(Unknown84, 0, sizeof(Unknown84));
-}
-
-// ---------------------------------------------------------------- 0x5A0450 (ui_inv.cpp): no items
-void PDAInventoryWindowClass::Unknown_5A0450(int type, int *num_items, int *num_slots)
-{
-	STUB_CALLED("POC PDAInventoryWindowClass::Unknown_5A0450 (0x5A0450): no items");
-	*num_items = 0;
-	*num_slots = 0;
+	memset(UnknownD0, 0, sizeof(UnknownD0));
 }
 
 // ---------------------------------------------------------------- the experience display (0x58C450): 0x28 bytes, nothing shown
