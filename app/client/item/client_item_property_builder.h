@@ -138,6 +138,7 @@ class InvDataClass : public RefCountClass  // NAME 3: Peek_Inv_Data, inv_data's 
 {
 public:
 	InvDataPeekClass *Unknown_688830();																	// 0x688830 (+0x54)  // NAME 1: neutral (D10)
+	void Unknown_688870(unsigned int mask, void *unknown);												// 0x688870 (ui_trade.cpp: a category's bit, 0 for all)  // NAME 1 [mask, unknown]: neutral
 	char Unknown08[0x50 - 0x08];
 	int Unknown50;																						// +0x50 (0x522860 routes 0x52AD00's property when 2)  // NAME 1: neutral
 };
