@@ -37,15 +37,11 @@ UIRadioAdminClass::UIRadioAdminClass(SClient *client) :
 }
 
 // 0x5E4300
-// NOT EXACT: inline budget (the client calls the vector's erase 0x4FC7C0 and the list's erase(first, last) out of line; ours expands both)
+// the deactivation through Unknown_5C, as ui_playeropt.cpp's: the client's vector and list erase calls sit one
+// layer down (Unknown_5C -> the clear helper -> clear), out of line
 UIRadioAdminClass::~UIRadioAdminClass()
 {
-	if (Active) {
-		Unknown_5E5A40(false);
-		Names.erase(Names.begin(), Names.end());
-		Unknown0BC.erase(Unknown0BC.begin(), Unknown0BC.end());
-		InterfaceClass::Unknown_5C();
-	}
+	Unknown_5C();
 	if (Slider) {
 		Slider->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);
 	}
@@ -187,10 +183,11 @@ void UIRadioAdminClass::Unknown_5E4E70()
 }
 
 // 0x5E4F10
-// NOT EXACT: inline budget (the client calls the vector's erase 0x4FC7C0 out of line; ours expands it)
+// NOT EXACT: the erase 0x4FC7C0 call matches through the clear helper; the inner loop's 'other' string
+// is destroyed inline in the client (_Tidy expanded), ours calls _Tidy, and the two strings' stack slots swap
 void UIRadioAdminClass::Unknown_5E4F10()
 {
-	Names.erase(Names.begin(), Names.end());
+	Unknown_5E4DB0();
 	for (std::list<std::string>::iterator it = Unknown0BC.begin(); it != Unknown0BC.end(); it++) {
 		std::string name = *it;	// NAME 1: neutral (D10)
 		std::vector<std::string>::iterator pos;
