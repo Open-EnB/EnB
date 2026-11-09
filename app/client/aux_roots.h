@@ -101,7 +101,7 @@ inline const char *Type_Name(UnknownB013ECEnum *) { return "int"; }
 bool String_To_Value(const char *text, UnknownB013ECEnum *value);	// 0x8458C0
 char *Value_To_String(char *buf, int size, UnknownB013ECEnum value);	// 0x845910
 // NAME 1: the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#)
-struct UnknownB016DCType { int I00; int I04; int I08; UnknownB016DCType() : I00(-1), I04(-1), I08(-1) {} };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29)
+struct UnknownB016DCType { int I00; int I04; int I08; UnknownB016DCType() : I00(-1), I04(-1), I08(-1) {} UnknownB016DCType(const UnknownB016DCType &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; } };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29); copy constructor folded with UnknownB00A00Type's (sclient 0x751BE0 calls it at 0x752170)
 inline bool operator!=(const UnknownB016DCType &a, const UnknownB016DCType &b) { return memcmp(&a, &b, sizeof(a)) != 0; }
 inline const char *Type_Name(UnknownB016DCType *) { return "UnknownB016DCType"; }
 inline char *Value_To_String(char *buf, int size, const UnknownB016DCType &value) { return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }
