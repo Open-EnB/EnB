@@ -2740,14 +2740,14 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D215 | 2026-11-08 | P-CW1-3, the user: UIChatPanelClass -> ChatPanelInterface, UIChatIntClass -> ChatWindowInterface everywhere (the client's MemberCallback RTTI, 0xB7D308 / 0xB7D408; af0f630d) | user |
 | D216 | 2026-11-08 | P-API-5 (b) again, the user: one single Batch API round (claude-opus-5-5) on the $67 left: today's NOT EXACT functions not sent on 11-01 plus the re-runs RT1's re-test justified, each with its clue (`variants.py pick --exclude-sent / --add`, `build --clues`); results applied by builders through verify / pairs_cmp (D66). b1108: 313 requests, $35.76 | user |
 | D217 | 2026-11-08 | P-SC1-1, the user: accept the loss of 0x752170 (UnknownB00A00Type's copy constructor, byte-identical at 0x499720 / 0x661D70 / 0x752170, held by aux_roots only through the range tie-break) and land SC1's placement of Player's aux tree in sclient.cpp (D137 interim; 0x7551D0 / 0x753C60 exact). Recorded in accepted-corrections.json (PR #179). It returns when sclient's 0x751BE0 is exact. 0x752170 pairs again (run 2026-11-08d, SC2 43ae9d86: 0x751BE0 exact). | user |
+| D218 | 2026-11-09 | P-IP1-1, the user: as recommended: shared headers make UISlotInfoItem = InvDataClass and UISlotInfoItemUnknown54Class = InvDataPeekClass; ui_item_examination and inv_render move onto the real classes (0x521B80 pairs through the tie-break until then). Not yet carried out. | user |
+| D219 | 2026-11-09 | P-IP1-2, the user: as recommended: merge ItemTemplateInfoClass into ItemBaseInfoClass (pkitemba.h); client_item_property_builder.cpp treats them as one class (attribute ids 1-37, flags at +0x58). Not yet carried out. | user |
+| D220 | 2026-11-09 | P-IB2-2, the user: no, as recommended: ui_mfd keeps the client's two-layer find; 0x5BF350 stays not exact rather than gained by a one-layer form the client does not have. | user |
+| D221 | 2026-11-09 | P-FN1-1, the user: no for now, as recommended: no FontSys sub-object for +0x2B4..+0x2CC on access patterns alone; revisit once 0x6CE4E0 and 0x6CD6F0 are exact (0x6CD180 is, FN2). The user put both at the top of §4 for the next session. | user |
+| D222 | 2026-11-09 | P-XR2-1, the user: instead of the hand-cut msxml3.tlh / .tli, VC6's whole #import output of msxml.dll, MSXML 2.0's type library, extracted from the Windows XP SP3 ISO's I386\MSXML.DL_ (8.00.7002.0; the DLL stays in `.work/msxml/xp_sp3/`, never in the tree): app/client/msxml.tlh / .tli, namespace MSXML. The client's .rdata holds this library's DOMDocument CLSID 2933BF90 (0xBA0F90) and IIDs 2933BF80 / 81 / 82 / 83 / 8B and none of MSXML 3.0's; the hand-cut header had compiled msxml3's DOMDocument CLSID F6D90F11 (a functional difference pairs cannot see). verify: app 0 gained, 0 lost against HEAD (0x5FA5F0 kept); linkgate passed; the object holds 2933BF90. Scripts `.work/msxml/`. | user |
 
 ## 3. Open decisions
 
-* **P-XR2-1** (2026-11-09, XR2; recommend yes): keep the hand-cut msxml3.tlh / .tli (the DOM core only: the full header loses ui_registration 0x5FA5F0 by moving register allocation in the translation unit); regenerate it from the msxml.dll the client's era shipped (MSXML 2.0) if a copy turns up, and re-verify.
-* **P-IB2-2** (2026-11-09, IB2; recommend no): ui_mfd's one-layer find would gain 0x5BF350, but by a form the client does not have (the client's two-layer shape stays out of reach there): keep the two-layer form.
-* **P-FN1-1** (2026-11-09, FN1; recommend no for now): give FontSys a sub-object for +0x2B4..+0x2CC (the fields Change_Text and the Update_Text family touch together); the evidence is only access patterns, so wait for 0x6CE4E0 / 0x6CD180 / 0x6CD6F0 (FN2).
-* **P-IP1-2** (2026-11-09, IP1; recommend yes): merge ItemTemplateInfoClass into ItemBaseInfoClass (pkitemba.h): client_item_property_builder.cpp's code treats them as one class (the attribute ids 1-37 and the flags at +0x58 sit on it).
-* **P-IP1-1** (2026-11-09, IP1; recommend yes): shared headers: UISlotInfoItem = InvDataClass and UISlotInfoItemUnknown54Class = InvDataPeekClass; callers ui_item_examination and inv_render move onto the real class (0x521B80 pairs through the tie-break meanwhile).
 * **P-CW2-1** (2026-11-08, CW2; recommend not yet): the form stashed in docs/attempts/5719A0 (`Vector3 &f(Vector3 &color, entry)`) makes 0x5719A0 and 0x570FF0 exact but loses 0x571B70 (vector::size, then inlined into 0x56FD30): net +1 with one loss. Retry once 0x56FD30 is exact. (2026-11-08b: b1108 sent 0x56FD30, best variant 0.606 against 0.545, not exact.)
 * **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
 * **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
@@ -2789,6 +2789,11 @@ client's own code: [kernel-map.md](kernel-map.md) §6 and, for step 9's dependen
 written but not byte-exact, with its cause: `docs/data/not-exact.md`; every abandoned attempt, its blocker and
 LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a new §3.1 lever). The items
 below name only the work items, the blocked work, the leads and the queues.
+
+00. **First, next session (the user, 2026-11-09):** (a) fontsys.cpp's 0x6CE4E0 (Change_Text's store order, 0.58:
+   operator+= out of line) and 0x6CD6F0 (order only: the client's lea edi before the count) to exact, then D221's
+   question again: a FontSys sub-object for +0x2B4..+0x2CC? (b) ui_mfd 0x5BF350 in the client's two-layer find (D220:
+   never the one-layer form), with workflow.md §3.1's inline-budget levers.
 
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with

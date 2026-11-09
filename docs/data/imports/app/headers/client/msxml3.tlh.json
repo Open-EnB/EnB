@@ -1,4 +1,0 @@
-{
- "copy": "reconstructed",
- "description": "VC6's #import output for msxml3.dll (DOMDocument CLSID 2933BF90, the IXMLDOM* IIDs as the client's .rdata 0xBA0F78-0xBA1008), included instead of the #import"
-}
