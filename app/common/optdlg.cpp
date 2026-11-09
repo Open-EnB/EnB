@@ -1,9 +1,11 @@
 // Earth & Beyond client (reconstruction): app\Common\optdlg.cpp, the options dialog (WinMain's -MENU, 0x846C90:
 // a tab control 0x3FB with one page per entry of the page table, each page a table of controls set from and saved
-// to startup.arg). So far 0x846CD0, 0x846D10 and the dialog procedure 0x8472E0 (exact), 0x846FC0 and the Account page's
-// procedure 0x847630 (OD1; NOT EXACT). Notes at the end.
+// to startup.arg). So far the folder browser's callback 0x846B80, 0x846CD0, 0x846D10, the dialog procedure 0x8472E0 and
+// 0x847CD0 (exact), 0x846FC0 and the Account page's procedure 0x847630 (NOT EXACT). Notes at the end.
 #include "wwlib/win.h"
 #include <commctrl.h>
+#include <shlobj.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include "argv.h"
@@ -49,6 +51,22 @@ static OptionControlStruct Unknown_BAF748[] = {	// NAME 1 [Unknown_BAF748]: neut
 };
 
 static void Unknown_846D10(OptionControlStruct *control, HWND dialog);	// NAME 1 [Unknown_846D10]: neutral (D10), one control set from startup.arg's options  // NAME 1 [control, dialog]: neutral
+
+// 0x846B80
+int CALLBACK Unknown_846B80(HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)	// NAME 1 [Unknown_846B80]: neutral (D10), the folder browser's callback (BFFM_INITIALIZED selects the folder lpData names)
+{
+	if (uMsg == BFFM_INITIALIZED) {
+		char path[256];										// NAME 1 [path]: neutral
+		strcpy(path, (const char *)lpData);
+		while (strlen(path) != 0 && !isgraph(path[strlen(path) - 1])) {
+			path[strlen(path) - 1] = '\0';
+		}
+		if (strlen(path) != 0) {
+			SendMessage(hwnd, BFFM_SETSELECTION, TRUE, (LPARAM)path);
+		}
+	}
+	return 0;
+}
 
 // 0x846CD0
 void Unknown_846CD0(OptionControlStruct *controls, HWND dialog)	// NAME 1 [Unknown_846CD0]: neutral (D10), a page's controls set (the page procedures inline it)  // NAME 1 [controls, dialog]: neutral
@@ -256,6 +274,21 @@ static BOOL CALLBACK Unknown_847630(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM 
 	return FALSE;
 }
 
+// 0x847CD0
+OptionControlStruct *Unknown_847CD0(int id, OptionControlStruct *controls)	// NAME 1 [Unknown_847CD0]: neutral (D10), a page's control by its dialog item (NULL past the table's end)  // NAME 1 [id, controls]: neutral
+{
+	int i = 0;
+	while (true) {
+		if (controls[i].Id == -1 || controls[i].Type == 3) {
+			return NULL;
+		}
+		if (controls[i].Id == id) {
+			return &controls[i];
+		}
+		i++;
+	}
+}
+
 /*
 **	Reconstruction notes (optdlg.cpp)
 **
@@ -269,5 +302,7 @@ static BOOL CALLBACK Unknown_847630(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM 
 **	* 0x8472E0: the pages are loops over the one-entry page table; WM_INITDIALOG's loop survives (i in ebx) only with
 **	  ShowWindow's two calls written as if / else (the ternary folds the loop away), and WM_NOTIFY's folded loop
 **	  compares the selection with the index (cmp eax, ebx) only as 'selection != i'. The TCITEM's text before its mask.
+**	* 0x847CD0's loop is top-tested (jmp back, the NULL return last) only as 'while (true)'; 'for (;;)', a goto
+**	  or a condition in the loop head rotate it.
 **	* 0x7E8 is the private message that makes a page write its controls (0x8472E0's IDOK, lParam the open file).
 */
