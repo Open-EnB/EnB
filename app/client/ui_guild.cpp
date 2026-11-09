@@ -59,6 +59,8 @@ public:
 	void Unknown_81BF40();								// 0x81BF40 ('/gc list all')
 	int Unknown_81C930(std::string rank);				// 0x81C930 (a rank name's number: the rank names' vector)  // NAME 1 [rank]: neutral
 	void Unknown_81BFD0();								// 0x81BFD0 (the rank names requested)
+	void Unknown_81C060(std::vector<std::string> lines);	// 0x81C060 (sclient.cpp 0x74DFF0: lines added to the list window while it is active)  // NAME 1 [lines]: neutral
+	void Unknown_81C1F0(std::vector<std::string> lines);	// 0x81C1F0 (the list window activated, its lines replaced)  // NAME 1 [lines]: neutral
 	void Unknown_81CB90();								// 0x81CB90 (slot +0x60: an entry answered, its /gc recruit, tag, message, stats or create sent)
 	void Unknown_81D130();								// 0x81D130 (no caller: every member's '/gc contributions')
 	void Unknown_81C5E0(int rights, int unknown1, int unknown2, int unknown3);	// 0x81C5E0 (sclient.cpp: the rank's rights and limits)  // NAME 1 [rights, unknown1-3]: neutral
@@ -499,7 +501,7 @@ void UIGuildClass::Unknown_81B610(int key)
 				break;
 			case 12:
 				((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc contributions %s", name.c_str()).c_str(), 3, NULL));
-				if (Unknown0BC->Active) {
+				if (Unknown0BC->Is_Active()) {
 					Unknown0BC->Unknown_5C();
 				}
 				break;
@@ -567,6 +569,23 @@ void UIGuildClass::Unknown_81BFD0()
 	((ClientClass *)Client)->Send_Packet(&GuildRankNamesRequestClientPacketClass(((ClientClass *)Client)->Get_Avatar_ID()));
 }
 
+// 0x81C060
+void UIGuildClass::Unknown_81C060(std::vector<std::string> lines)
+{
+	if (Unknown0BC->Is_Active()) {
+		Unknown0BC->Unknown_81EC90(lines);
+	}
+}
+
+// 0x81C1F0
+void UIGuildClass::Unknown_81C1F0(std::vector<std::string> lines)
+{
+	if (!Unknown0BC->Is_Active()) {
+		Unknown0BC->Unknown_58();
+	}
+	Unknown0BC->Unknown_81EEA0(lines);
+}
+
 // 0x81C5E0
 void UIGuildClass::Unknown_81C5E0(int rights, int unknown1, int unknown2, int unknown3)
 {
@@ -592,7 +611,6 @@ int UIGuildClass::Unknown_81C930(std::string rank)
 	return(-1);
 }
 
-// NOT EXACT: registers only (the stats case's c_str in ecx, ours eax) (0x81CB90)
 // 0x81CB90
 void UIGuildClass::Unknown_81CB90()
 {
@@ -611,7 +629,7 @@ void UIGuildClass::Unknown_81CB90()
 					break;
 				case 13:
 				((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc stats %s", entry->Unknown_64A240()).c_str(), 3, NULL));
-					if (Unknown0BC->Active) {
+					if (Unknown0BC->Is_Active()) {
 						Unknown0BC->Unknown_5C();
 					}
 					break;
@@ -651,7 +669,7 @@ void UIGuildClass::Unknown_81D130()
 **	window 0x81CB90 too: it may be a header's inline vararg function emitted here), the constructor 0x819420, the deleting
 **	destructor 0x8196A0, the destructor 0x8196D0, the slots +0x54 0x8199F0, +0x58 0x819FB0, +0x5C 0x81A200, +0x60 0x81A330,
 **	+0x68 0x81A420, +0x7C 0x81AA50, the list helpers to 0x81C5E0, with the member's destructor 0x81AD80 (deleting 0x81AD50),
-**	the rank packet's destructor 0x81C040, the vectors' insert helpers 0x81C060 / 0x81C1F0, the rank lookup 0x81C930, the
+**	the rank packet's destructor 0x81C040, the list window's forwards 0x81C060 / 0x81C1F0 (GL1), the rank lookup 0x81C930, the
 **	entries' answers 0x81CB90 (slot +0x60's) and 0x81D130 (no caller), then the templates to the deleting destructor's
 **	adjustor entry 0x81E010 (table 0xB08198). The guild list window ('UI_GUILD_LIST', 'tsi36a') follows.
 */
