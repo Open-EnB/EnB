@@ -1728,9 +1728,10 @@ void UICpitClass::Unknown_583510()
 	Unknown0C0->Unknown_671630();
 	Unknown0C4->Unknown_671630();
 }
-
+template<class C> inline C *Unknown_Find_Changed_Field(char *const &root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>((DeltaCompoundClass *)root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10); the root by reference: 0x583790 reads it after the NameClass
+template<class C> inline C *Unknown_Find_Changed(char *const &root, const char *name) { return(Unknown_Find_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10)
 // 0x583790: the throttle (+0xB8) and reverse (+0xBC) buttons
-// NOT EXACT: inline budget (the client calls the IsAutoFollowing Cast out of line, 0x584FF0; then the packets' client loads in other registers)
+// The IsAutoFollowing find through two inline layers, the root by reference: its Cast out of line as the client's (0x584FF0)
 void UICpitClass::Unknown_583790()
 {
 	if (!Unknown0B8->Unknown_60() && !Unknown0BC->Unknown_60()) return;
@@ -1739,9 +1740,8 @@ void UICpitClass::Unknown_583790()
 	ClientObjectClass *avatar = sclient->Get_Avatar();
 	if (!avatar) return;
 	if (!avatar->AuxData) return;
-	NameClass name("IsAutoFollowing");
-	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
-	if (t && t->Unknown70 > 1) {
+	DeltaTemplateClass<bool> *t = Unknown_Find_Changed<DeltaTemplateClass<bool> >(avatar->AuxData, "IsAutoFollowing");
+	if (t) {
 		Unknown0B8->Unknown_671740(false, 0);
 		Unknown0BC->Unknown_671740(false, 0);
 		Unknown144 = 0;
