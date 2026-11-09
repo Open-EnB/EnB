@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-684 entries in 203 files.
+682 entries in 202 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -461,7 +461,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:1668` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
 | `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
-| `app/client/ui_starbase.cpp:155` | `UIStarbaseClass::~UIStarbaseClass` | marker | NOT EXACT: register-only residue in the body (every vtable load of its own statements in eax where the client's is in edx and the reverse; the members' destructors after it match), objdiff 0.82 counting the unrelocated jumps 0x633B50 |
 | `app/client/ui_talkt.cpp:68` | `UITalkTreeClass::UITalkTreeClass` | marker | NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup) |
 | `app/client/ui_talkt.cpp:287` | `UITalkTreeClass::Unknown_5C` | marker | NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client) |
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
@@ -626,7 +625,6 @@ edit the comments in the code, not this file.
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/message_filter.cpp:60` | `MessageFilterClass::Unknown_4BE2C0` | marker | NOT EXACT: shape (explain.py: 14 masked rows; 0.80): register allocation only: the client keeps pass in bl (with its stack home) after the module test, ours reloads it from the stack; every call and branch is the client's (25 forms tried: helpers, loop and test forms, bool, early returns) |
 | `app/shared/money.cpp:46` | `MoneyClass::Div` | marker | NOT EXACT: shape: 1 masked rows differ; no simpler class fits |
-| `app/shared/money.cpp:175` | `std::istream &operator>>` | marker | NOT EXACT: inline-budget: 16 calls in ours, 17 in the client; 5 callees only in the client: ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z |
 | `app/shared/orbitalmanager.cpp:164` | `OrbitalObject::Update` | marker | NOT EXACT: the first rotation's sin / cos order and the temporaries' stack slots differ (similarity 0.53) |
 | `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57) |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
