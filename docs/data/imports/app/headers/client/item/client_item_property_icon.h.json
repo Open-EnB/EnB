@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ClientItemPropertyIconClass's declarations (header name assumed from client_item_property_icon.cpp, NAME 3); IconTexture +0x08 a RefCountPtr<TextureClass> (0x52A0B0's AddRef; 0x51A190 reads it as a texture)"
+}

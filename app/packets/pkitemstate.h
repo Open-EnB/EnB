@@ -22,6 +22,7 @@
 class ItemStatePacketClass : public PacketClass  // NAME 2: Net-7's opcode name ITEM_STATE (the Net-7 opcode table; no structure check)
 {
 public:
+	ItemStatePacketClass(int id, int inventory, int slot, int state, bool bool_val);	// 0x895C00 (the auto fire option 0x52B160)  // NAME 1 [id, inventory, slot, state, bool_val]: the members'
 	ItemStatePacketClass(RawPacketClass *raw);	// 0x895CA0
 	virtual RawPacketClass *Build();	// +0x04 0x895D70
 	virtual bool Process_Packet(void *client);	// +0x08 0x867D70 (clientstub.cpp l.59)

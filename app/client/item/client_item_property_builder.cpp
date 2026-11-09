@@ -29,16 +29,16 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 	std::string maker = Data->Unknown_688830()->Unknown_68A8C0(Slot);	// NAME 1 [maker, name, maker2, value, quality, level, structure, tooltip]: neutral
 	std::string name = Item->Name;
 	std::string maker2 = Item->Unknown34;
-	router.Route(Unknown_52A360(name));
-	router.Route(Unknown_529810(Item->Unknown08));
-	router.Route(Unknown_529FC0(Create_Get(Item->Unknown_831840())));
+	router.Route(ClientItemPropertyNameClass::Create(name));
+	router.Route(ClientItemPropertyUnknown529810Class::Create(Item->Unknown08));
+	router.Route(ClientItemPropertyIconClass::Create(Create_Get(Item->Unknown_831840())));
 	int value = 0;
 	if (Item->Get_Template_Info()->Unknown_840A20(6, value)) {
 		router.Route(Unknown_52FFB0(Item->Unknown48, value, Item->Unknown08));
 	} else {
 		router.Route(Unknown_530070(Item->Unknown48, Item->Unknown08));
 	}
-	router.Route(Unknown_529AE0(Item->Description));
+	router.Route(ClientItemPropertyDescriptionClass::Create(Item->Description));
 	float quality = Data->Unknown_688830()->Unknown_68A010(Slot);
 	if (quality != -1.0f) {
 		int level;
@@ -179,7 +179,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 		}
 		case 2:
 			if (Data->Unknown50 == 2) {
-				RefCountPtr<ClientItemPropertyOptionClass> property = Unknown_52AD00(SpaceClient, Data, Slot);
+				RefCountPtr<ClientItemPropertyOptionClass> property = ClientItemPropertyOptionAutoFireClass::Create(SpaceClient, Data, Slot);
 				router.Route(property);
 			}
 			break;

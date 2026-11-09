@@ -9,6 +9,11 @@
 #include "client_item_property_special.h"
 #include "client_item_property_attribute.h"
 #include "client_item_property_option.h"
+#include "client_item_property_icon.h"
+#include "client_item_property_name.h"
+#include "client_item_property_description.h"
+#include "client_item_property_unknown_529810.h"
+#include "client_item_property_option_auto_fire.h"
 #include "..\..\ww3d2\texture.h"
 #include <string>
 #include <vector>
@@ -117,6 +122,7 @@ public:
 	std::string Unknown_68A270(int slot);																// 0x68A270  // NAME 1: neutral (D10); NAME 1 [slot]
 	std::string Unknown_68A450(int slot);																// 0x68A450  // NAME 1: neutral (D10)
 	std::string Unknown_68A090(int slot);																// 0x68A090 (the slot's attribute delta)  // NAME 1: neutral (D10)
+	unsigned int Unknown_68A840(int slot);																// 0x68A840 (the slot's flags: 0x2000 auto fire)  // NAME 1: neutral (D10)
 	std::string Unknown_68A8C0(int slot);																// 0x68A8C0 (FAIL_IF '!encoded_info_delta_string')  // NAME 1: neutral (D10)
 	float Unknown_68A010(int slot);																		// 0x68A010 (the quality, -1: none)  // NAME 1: neutral (D10)
 	float Unknown_689F90(int slot);																		// 0x689F90 (the structure, -1: none)  // NAME 1: neutral (D10)
@@ -139,20 +145,12 @@ class ClientItemPropertySpecialFlagClass : public ClientItemPropertySpecialClass
 RefCountPtr<ClientItemPropertySpecialFlagClass> Unknown_52F9E0(int sort, const std::string &label, const std::string &tooltip, int unknown, bool flag);	// 0x52F9E0  // NAME 1: neutral (D10); NAME 1 [sort, label, tooltip, unknown, flag]
 
 // The properties 0x521C10 makes (their files are not rebuilt; each Create allocates the property and hands it to Create_NEW)
-class ClientItemPropertyNameClass : public ClientItemPropertyClass {};									// table 0xAEDDA0 (visitor slot +0x1C)  // NAME 1: neutral (D10)
-class ClientItemPropertyUnknown529810Class : public ClientItemPropertyClass {};						// table 0xAEDD58 (visitor slot +0x14)  // NAME 1: neutral (D10)
-class ClientItemPropertyIconClass : public ClientItemPropertyClass { public: RefCountPtr<TextureClass> IconTexture; };									// table 0xAEDD88 (visitor slot +0x18)  // NAME 3: client_item_property_icon.cpp's; IconTexture +0x08 (0x52A0B0), NAME 2
-class ClientItemPropertyDescriptionClass : public ClientItemPropertyClass {};							// table 0xAEDD70 (visitor slot +0x0C)  // NAME 1: neutral (D10)
 class ClientItemPropertyAttributePercentClass : public ClientItemPropertyAttributeClass {};			// table 0xAEDC7C  // NAME 3: client_item_property_attribute_percent.cpp's
 class ClientItemPropertySpecialMakerClass : public ClientItemPropertySpecialClass {};					// table 0xAEDF00  // NAME 3: client_item_property_special_maker.cpp's
 class ClientItemPropertySpecialUnknown52FFB0Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
 class ClientItemPropertySpecialUnknown530070Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
-RefCountPtr<ClientItemPropertyNameClass> Unknown_52A360(const std::string &name);						// 0x52A360  // NAME 1: neutral (D10); NAME 1 [name]
-RefCountPtr<ClientItemPropertyUnknown529810Class> Unknown_529810(int id);								// 0x529810  // NAME 1: neutral (D10); NAME 1 [id]
-RefCountPtr<ClientItemPropertyIconClass> Unknown_529FC0(const RefCountPtr<TextureClass> &icon_texture);	// 0x529FC0 (FAIL_IF '!icon_texture')  // NAME 1: neutral (D10)
 RefCountPtr<ClientItemPropertySpecialUnknown52FFB0Class> Unknown_52FFB0(int unknown, int value, int id);	// 0x52FFB0  // NAME 1: neutral (D10); NAME 1 [unknown, value, id]
 RefCountPtr<ClientItemPropertySpecialUnknown530070Class> Unknown_530070(int unknown, int id);			// 0x530070  // NAME 1: neutral (D10); NAME 1 [unknown, id]
-RefCountPtr<ClientItemPropertyDescriptionClass> Unknown_529AE0(const std::string &description);		// 0x529AE0  // NAME 1: neutral (D10); NAME 1 [description]
 RefCountPtr<ClientItemPropertyAttributePercentClass> Unknown_520B20(int sort, const std::string &label, const std::string &tooltip, float min, float max, float value, int level);	// 0x520B20 (FAIL_IFs 'label.empty()', 'tooltip.empty()')  // NAME 1: neutral (D10); NAME 1 [sort, min, max, value, level]
 RefCountPtr<ClientItemPropertySpecialMakerClass> Unknown_52C770(const std::string &maker, bool flag);	// 0x52C770  // NAME 1: neutral (D10); NAME 1 [maker, flag]
 
@@ -167,7 +165,6 @@ class ClientItemPropertySpecialLevelRequirementClass : public ClientItemProperty
 class ClientItemPropertySpecialProfessionRequirementClass : public ClientItemPropertySpecialClass {};	// NAME 3: client_item_property_special_profession_requirement.cpp's
 class ClientItemPropertySpecialRaceRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_race_requirement.cpp's
 class ClientItemPropertySpecialSkillRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_skill_requirement.cpp's
-class ClientItemPropertyUnknown52AD00Class : public ClientItemPropertyOptionClass {};						// NAME 1: neutral (D10)
 RefCountPtr<ClientItemPropertyAttributeStringClass> Unknown_521560(int sort, const std::string &label, const std::string &units, const std::string &tooltip, int unknown, const std::string &value);	// 0x521560  // NAME 1: neutral (D10); NAME 1 [sort, label, units, tooltip, unknown, value]
 RefCountPtr<ClientItemPropertyAttributeIntegerClass> Unknown_520790(int sort, const std::string &label, const std::string &units, const std::string &tooltip, int unknown, int base, int actual, int level);	// 0x520790  // NAME 1: neutral (D10); NAME 1 [base, actual, level]
 RefCountPtr<ClientItemPropertyAttributeFloatClass> Unknown_5203D0(int sort, const std::string &label, const std::string &units, const std::string &tooltip, int unknown, float base, float actual, int level);	// 0x5203D0  // NAME 1: neutral (D10)
@@ -177,7 +174,6 @@ RefCountPtr<ClientItemPropertySpecialLevelRequirementClass> Unknown_530530(SClie
 RefCountPtr<ClientItemPropertySpecialProfessionRequirementClass> Unknown_52CF90(SClient *space_client, int profession);	// 0x52CF90  // NAME 1: neutral (D10); NAME 1 [profession]
 RefCountPtr<ClientItemPropertySpecialRaceRequirementClass> Unknown_52DB60(SClient *space_client, int unknown, int race);	// 0x52DB60 (attributes 18, 17)  // NAME 1: neutral (D10); NAME 1 [race]
 RefCountPtr<ClientItemPropertySpecialSkillRequirementClass> Unknown_52E760(SClient *space_client, const std::string &skill, int level, bool flag);	// 0x52E760  // NAME 1: neutral (D10); NAME 1 [skill, flag]
-RefCountPtr<ClientItemPropertyUnknown52AD00Class> Unknown_52AD00(SClient *space_client, const RefCountPtr<InvDataClass> &data, int slot);	// 0x52AD00  // NAME 1: neutral (D10)
 std::string Unknown_4FB5B0(const std::vector<std::string> &strings, const std::string &separator);	// 0x4FB5B0 (joins: the mode names with ", ")  // NAME 1: neutral (D10); NAME 1 [strings, separator]
 
 // What hands an item's properties to a router (16 bytes on the caller's stack: the item examination window's slot +0x94

@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1640 |
-| 2 | describes what the code does | 3818 |
-| 1 | neutral placeholder | 20429 |
+| 3 | by convention from a client-named file or sibling | 1642 |
+| 2 | describes what the code does | 3822 |
+| 1 | neutral placeholder | 20474 |
 
 ## For review (score 3 and below)
 
@@ -2665,7 +2665,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LayoutPosition` | `app/client/dynamic_window_horizontal.h:66` | Layout's |
 | 1 | `Scene` | `app/client/dynamic_window_horizontal.h:69` | Peek_Scene's |
 | 1 | `dynamic_window_icon.h` | `app/client/dynamic_window_icon.h:4` | provisional header name for dynamic_window_icon.cpp |
-| 1 | `Unknown_519FE0` | `app/client/dynamic_window_icon.h:15` | neutral (D10); NAME 1 [texture_name]: as Create's |
+| 1 | `Unknown_519FE0` | `app/client/dynamic_window_icon.h:16` | neutral (D10); NAME 1 [texture]: neutral |
 | 1 | `Unknown78` | `app/client/dynamic_window_multi_line_text.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5A80` | `app/client/dynamic_window_multi_line_text.cpp:63` | untagged neutral name (D10) |
 | 1 | `font_name, sample_font, min_size, flags` | `app/client/dynamic_window_multi_line_text.h:29` | the FAIL_IFs'; Set_Min_Size's; the base's |
@@ -4921,6 +4921,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_18` | `app/client/inv_render.cpp:35` | untagged neutral name (D10) |
 | 1 | `_Unknown_BE6588` | `app/client/inv_render.cpp:43` | neutral (D10) |
 | 1 | `Unknown68C5D0Class` | `app/client/inv_render.cpp:45` | neutral (D10): table 0xAFCC74, the visitor with empty slots |
+| 1 | `ClientItemPropertyUnknown529810Class` | `app/client/inv_render.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/inv_render.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/inv_render.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown68C5A0Class` | `app/client/inv_render.cpp:59` | neutral (D10): tables 0xAFCC68, 0xAFCC3C |
@@ -5109,16 +5110,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_688830` | `app/client/item/client_item_property_builder.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_68A8C0` | `app/client/item/client_item_property_builder.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/item/client_item_property_builder.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_52A360` | `app/client/item/client_item_property_builder.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_529810` | `app/client/item/client_item_property_builder.cpp:33` | untagged neutral name (D10) |
+| 1 | `ClientItemPropertyUnknown529810Class` | `app/client/item/client_item_property_builder.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/item/client_item_property_builder.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_529FC0` | `app/client/item/client_item_property_builder.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_831840` | `app/client/item/client_item_property_builder.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_840A20` | `app/client/item/client_item_property_builder.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_52FFB0` | `app/client/item/client_item_property_builder.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown48` | `app/client/item/client_item_property_builder.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_530070` | `app/client/item/client_item_property_builder.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_529AE0` | `app/client/item/client_item_property_builder.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_68A010` | `app/client/item/client_item_property_builder.cpp:42` | untagged neutral name (D10) |
 | 1 | `quality_property, structure_property` | `app/client/item/client_item_property_builder.cpp:52` | neutral |
 | 1 | `Unknown_520B20` | `app/client/item/client_item_property_builder.cpp:52` | untagged neutral name (D10) |
@@ -5132,7 +5130,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_840980` | `app/client/item/client_item_property_builder.cpp:172` | untagged neutral name (D10) |
 | 1 | `Unknown_521560` | `app/client/item/client_item_property_builder.cpp:176` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/item/client_item_property_builder.cpp:181` | untagged neutral name (D10) |
-| 1 | `Unknown_52AD00` | `app/client/item/client_item_property_builder.cpp:182` | untagged neutral name (D10) |
 | 1 | `Unknown_52CF90` | `app/client/item/client_item_property_builder.cpp:190` | untagged neutral name (D10) |
 | 1 | `Unknown_530530` | `app/client/item/client_item_property_builder.cpp:211` | untagged neutral name (D10) |
 | 1 | `Unknown_83FD60` | `app/client/item/client_item_property_builder.cpp:223` | untagged neutral name (D10) |
@@ -5158,114 +5155,169 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `flags, special` | `app/client/item/client_item_property_builder.cpp:845` | neutral |
 | 1 | `Unknown_52F9E0` | `app/client/item/client_item_property_builder.cpp:847` | untagged neutral name (D10) |
 | 1 | `client_item_property_builder.h` | `app/client/item/client_item_property_builder.h:4` | header name assumed from the client's client_item_property_builder.cpp |
-| 1 | `ItemEffectClass` | `app/client/item/client_item_property_builder.h:23` | neutral (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:26` | neutral (D10) |
-| 1 | `Unknown_833D00` | `app/client/item/client_item_property_builder.h:26` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:27` | neutral (D10) |
-| 1 | `Unknown_833D40` | `app/client/item/client_item_property_builder.h:27` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:29` | neutral |
-| 1 | `Unknown00` | `app/client/item/client_item_property_builder.h:29` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:30` | neutral |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:31` | neutral |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:32` | neutral |
-| 1 | `Unknown30` | `app/client/item/client_item_property_builder.h:32` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:33` | neutral |
-| 1 | `Unknown50` | `app/client/item/client_item_property_builder.h:34` | neutral |
-| 1 | `Unknown54` | `app/client/item/client_item_property_builder.h:35` | neutral |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:42` | neutral |
-| 1 | `Unknown_83E5F0` | `app/client/item/client_item_property_builder.h:43` | neutral (D10); NAME 1 [delta]: what it gets |
-| 1 | `Unknown10` | `app/client/item/client_item_property_builder.h:46` | neutral |
-| 1 | `Unknown14` | `app/client/item/client_item_property_builder.h:47` | neutral |
-| 1 | `Unknown18` | `app/client/item/client_item_property_builder.h:48` | neutral |
-| 1 | `Unknown1C` | `app/client/item/client_item_property_builder.h:49` | neutral |
-| 1 | `Unknown20` | `app/client/item/client_item_property_builder.h:50` | neutral |
-| 1 | `Get_Unknown40` | `app/client/item/client_item_property_builder.h:57` | neutral (D10); an inline layer the client spends budget on |
-| 1 | `Get_Unknown68` | `app/client/item/client_item_property_builder.h:58` | neutral (D10); an inline layer the client spends budget on |
-| 1 | `Unknown_8417B0` | `app/client/item/client_item_property_builder.h:60` | neutral (D10); NAME 1 [delta] |
-| 1 | `Unknown_83FE00` | `app/client/item/client_item_property_builder.h:61` | neutral (D10) |
-| 1 | `Unknown_840940` | `app/client/item/client_item_property_builder.h:62` | neutral (D10); NAME 1 [index] |
-| 1 | `Unknown_83FD60` | `app/client/item/client_item_property_builder.h:63` | neutral (D10) |
-| 1 | `Unknown_840A20` | `app/client/item/client_item_property_builder.h:64` | neutral (D10); NAME 1 [id, value] |
-| 1 | `Unknown_840AC0` | `app/client/item/client_item_property_builder.h:65` | neutral (D10) |
-| 1 | `Unknown_840980` | `app/client/item/client_item_property_builder.h:66` | neutral (D10) |
-| 1 | `Unknown_8409D0` | `app/client/item/client_item_property_builder.h:67` | neutral (D10) |
-| 1 | `Unknown40` | `app/client/item/client_item_property_builder.h:69` | neutral |
-| 1 | `Unknown64` | `app/client/item/client_item_property_builder.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/item/client_item_property_builder.h:71` | neutral |
-| 1 | `Unknown8C` | `app/client/item/client_item_property_builder.h:72` | untagged neutral name (D10) |
-| 1 | `ItemFlagsStruct` | `app/client/item/client_item_property_builder.h:76` | neutral (D10) |
-| 1 | `Is_NotTradable` | `app/client/item/client_item_property_builder.h:78` | neutral (D10); an inline layer the client spends budget on |
-| 1 | `Is_Temporary` | `app/client/item/client_item_property_builder.h:79` | neutral (D10); an inline layer the client spends budget on |
-| 1 | `Is_Unique` | `app/client/item/client_item_property_builder.h:80` | neutral (D10); an inline layer the client spends budget on |
-| 1 | `Is_NotStorable` | `app/client/item/client_item_property_builder.h:81` | neutral (D10); an inline layer the client spends budget on |
-| 1 | `Is_NotDestroyable` | `app/client/item/client_item_property_builder.h:82` | neutral (D10); an inline layer the client spends budget on |
-| 1 | `Is_NotManufacturable` | `app/client/item/client_item_property_builder.h:83` | neutral (D10); an inline layer the client spends budget on |
-| 1 | `Unknown5` | `app/client/item/client_item_property_builder.h:89` | neutral |
-| 1 | `Unknown6` | `app/client/item/client_item_property_builder.h:90` | neutral |
-| 1 | `Unknown688830Item` | `app/client/item/client_item_property_builder.h:95` | neutral (D10) |
-| 1 | `Get_Template_Info` | `app/client/item/client_item_property_builder.h:98` | neutral (D10); an inline layer the client spends budget on |
-| 1 | `Unknown_831840` | `app/client/item/client_item_property_builder.h:99` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/item/client_item_property_builder.h:101` | neutral |
-| 1 | `Unknown0C` | `app/client/item/client_item_property_builder.h:102` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:105` | neutral |
-| 1 | `Unknown34` | `app/client/item/client_item_property_builder.h:105` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/item/client_item_property_builder.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/item/client_item_property_builder.h:107` | neutral |
-| 1 | `Unknown4C` | `app/client/item/client_item_property_builder.h:108` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:117` | neutral (D10); NAME 1 [slot] |
-| 1 | `Unknown_68A270` | `app/client/item/client_item_property_builder.h:117` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:118` | neutral (D10) |
-| 1 | `Unknown_68A450` | `app/client/item/client_item_property_builder.h:118` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:119` | neutral (D10) |
-| 1 | `Unknown_68A090` | `app/client/item/client_item_property_builder.h:119` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:120` | neutral (D10) |
-| 1 | `Unknown_68A8C0` | `app/client/item/client_item_property_builder.h:120` | untagged neutral name (D10) |
-| 1 | `Unknown_68A010` | `app/client/item/client_item_property_builder.h:121` | neutral (D10) |
-| 1 | `Unknown_689F90` | `app/client/item/client_item_property_builder.h:122` | neutral (D10) |
-| 1 | `Unknown_688830` | `app/client/item/client_item_property_builder.h:128` | neutral (D10) |
-| 1 | `Unknown50` | `app/client/item/client_item_property_builder.h:130` | neutral |
-| 1 | `ClientItemPropertySpecialEffectClass` | `app/client/item/client_item_property_builder.h:134` | neutral (D10) |
-| 1 | `Unknown_52B840` | `app/client/item/client_item_property_builder.h:135` | neutral (D10); NAME 1 [effect] |
-| 1 | `ClientItemPropertySpecialFlagClass` | `app/client/item/client_item_property_builder.h:138` | neutral (D10) |
-| 1 | `Unknown_52F9E0` | `app/client/item/client_item_property_builder.h:139` | neutral (D10); NAME 1 [sort, label, tooltip, unknown, flag] |
-| 1 | `ClientItemPropertyNameClass` | `app/client/item/client_item_property_builder.h:142` | neutral (D10) |
-| 1 | `ClientItemPropertyUnknown529810Class` | `app/client/item/client_item_property_builder.h:143` | neutral (D10) |
-| 1 | `ClientItemPropertyDescriptionClass` | `app/client/item/client_item_property_builder.h:145` | neutral (D10) |
-| 1 | `ClientItemPropertySpecialUnknown52FFB0Class` | `app/client/item/client_item_property_builder.h:148` | neutral (D10) |
-| 1 | `ClientItemPropertySpecialUnknown530070Class` | `app/client/item/client_item_property_builder.h:149` | neutral (D10) |
-| 1 | `Unknown_52A360` | `app/client/item/client_item_property_builder.h:150` | neutral (D10); NAME 1 [name] |
-| 1 | `Unknown_529810` | `app/client/item/client_item_property_builder.h:151` | neutral (D10); NAME 1 [id] |
-| 1 | `Unknown_529FC0` | `app/client/item/client_item_property_builder.h:152` | neutral (D10) |
-| 1 | `Unknown_52FFB0` | `app/client/item/client_item_property_builder.h:153` | neutral (D10); NAME 1 [unknown, value, id] |
-| 1 | `Unknown_530070` | `app/client/item/client_item_property_builder.h:154` | neutral (D10); NAME 1 [unknown, id] |
-| 1 | `Unknown_529AE0` | `app/client/item/client_item_property_builder.h:155` | neutral (D10); NAME 1 [description] |
-| 1 | `Unknown_520B20` | `app/client/item/client_item_property_builder.h:156` | neutral (D10); NAME 1 [sort, min, max, value, level] |
-| 1 | `Unknown_52C770` | `app/client/item/client_item_property_builder.h:157` | neutral (D10); NAME 1 [maker, flag] |
-| 1 | `ClientItemPropertyUnknown52AD00Class` | `app/client/item/client_item_property_builder.h:170` | neutral (D10) |
-| 1 | `Unknown_521560` | `app/client/item/client_item_property_builder.h:171` | neutral (D10); NAME 1 [sort, label, units, tooltip, unknown, value] |
-| 1 | `Unknown_520790` | `app/client/item/client_item_property_builder.h:172` | neutral (D10); NAME 1 [base, actual, level] |
-| 1 | `Unknown_5203D0` | `app/client/item/client_item_property_builder.h:173` | neutral (D10) |
-| 1 | `Unknown_51FEA0` | `app/client/item/client_item_property_builder.h:174` | neutral (D10) |
-| 1 | `Unknown_521050` | `app/client/item/client_item_property_builder.h:175` | neutral (D10) |
-| 1 | `Unknown_530530` | `app/client/item/client_item_property_builder.h:176` | neutral (D10); NAME 1 [kind, level] |
-| 1 | `Unknown_52CF90` | `app/client/item/client_item_property_builder.h:177` | neutral (D10); NAME 1 [profession] |
-| 1 | `Unknown_52DB60` | `app/client/item/client_item_property_builder.h:178` | neutral (D10); NAME 1 [race] |
-| 1 | `Unknown_52E760` | `app/client/item/client_item_property_builder.h:179` | neutral (D10); NAME 1 [skill, flag] |
-| 1 | `Unknown_52AD00` | `app/client/item/client_item_property_builder.h:180` | neutral (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_builder.h:181` | neutral (D10); NAME 1 [strings, separator] |
-| 1 | `Unknown_4FB5B0` | `app/client/item/client_item_property_builder.h:181` | untagged neutral name (D10) |
-| 1 | `space_client, item, data, slot` | `app/client/item/client_item_property_builder.h:188` | neutral |
-| 1 | `Unknown_521C10` | `app/client/item/client_item_property_builder.h:193` | neutral (D10) |
-| 1 | `Unknown_522860` | `app/client/item/client_item_property_builder.h:194` | neutral (D10) |
-| 1 | `Unknown_527F40` | `app/client/item/client_item_property_builder.h:195` | neutral (D10) |
-| 1 | `Unknown_5285A0` | `app/client/item/client_item_property_builder.h:196` | neutral (D10) |
-| 1 | `Unknown_528460` | `app/client/item/client_item_property_builder.h:197` | neutral (D10); NAME 1 [effects] |
-| 1 | `SpaceClient` | `app/client/item/client_item_property_builder.h:199` | neutral |
-| 1 | `Item` | `app/client/item/client_item_property_builder.h:200` | neutral |
-| 1 | `Data` | `app/client/item/client_item_property_builder.h:201` | neutral |
-| 1 | `Slot` | `app/client/item/client_item_property_builder.h:202` | neutral |
-| 1 | `Unknown08` | `app/client/item/client_item_property_option.h:65` | neutral (D10) |
+| 1 | `ItemEffectClass` | `app/client/item/client_item_property_builder.h:28` | neutral (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:31` | neutral (D10) |
+| 1 | `Unknown_833D00` | `app/client/item/client_item_property_builder.h:31` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:32` | neutral (D10) |
+| 1 | `Unknown_833D40` | `app/client/item/client_item_property_builder.h:32` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:34` | neutral |
+| 1 | `Unknown00` | `app/client/item/client_item_property_builder.h:34` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:35` | neutral |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:36` | neutral |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:37` | neutral |
+| 1 | `Unknown30` | `app/client/item/client_item_property_builder.h:37` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:38` | neutral |
+| 1 | `Unknown50` | `app/client/item/client_item_property_builder.h:39` | neutral |
+| 1 | `Unknown54` | `app/client/item/client_item_property_builder.h:40` | neutral |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:47` | neutral |
+| 1 | `Unknown_83E5F0` | `app/client/item/client_item_property_builder.h:48` | neutral (D10); NAME 1 [delta]: what it gets |
+| 1 | `Unknown10` | `app/client/item/client_item_property_builder.h:51` | neutral |
+| 1 | `Unknown14` | `app/client/item/client_item_property_builder.h:52` | neutral |
+| 1 | `Unknown18` | `app/client/item/client_item_property_builder.h:53` | neutral |
+| 1 | `Unknown1C` | `app/client/item/client_item_property_builder.h:54` | neutral |
+| 1 | `Unknown20` | `app/client/item/client_item_property_builder.h:55` | neutral |
+| 1 | `Get_Unknown40` | `app/client/item/client_item_property_builder.h:62` | neutral (D10); an inline layer the client spends budget on |
+| 1 | `Get_Unknown68` | `app/client/item/client_item_property_builder.h:63` | neutral (D10); an inline layer the client spends budget on |
+| 1 | `Unknown_8417B0` | `app/client/item/client_item_property_builder.h:65` | neutral (D10); NAME 1 [delta] |
+| 1 | `Unknown_83FE00` | `app/client/item/client_item_property_builder.h:66` | neutral (D10) |
+| 1 | `Unknown_840940` | `app/client/item/client_item_property_builder.h:67` | neutral (D10); NAME 1 [index] |
+| 1 | `Unknown_83FD60` | `app/client/item/client_item_property_builder.h:68` | neutral (D10) |
+| 1 | `Unknown_840A20` | `app/client/item/client_item_property_builder.h:69` | neutral (D10); NAME 1 [id, value] |
+| 1 | `Unknown_840AC0` | `app/client/item/client_item_property_builder.h:70` | neutral (D10) |
+| 1 | `Unknown_840980` | `app/client/item/client_item_property_builder.h:71` | neutral (D10) |
+| 1 | `Unknown_8409D0` | `app/client/item/client_item_property_builder.h:72` | neutral (D10) |
+| 1 | `Unknown40` | `app/client/item/client_item_property_builder.h:74` | neutral |
+| 1 | `Unknown64` | `app/client/item/client_item_property_builder.h:75` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/item/client_item_property_builder.h:76` | neutral |
+| 1 | `Unknown8C` | `app/client/item/client_item_property_builder.h:77` | untagged neutral name (D10) |
+| 1 | `ItemFlagsStruct` | `app/client/item/client_item_property_builder.h:81` | neutral (D10) |
+| 1 | `Is_NotTradable` | `app/client/item/client_item_property_builder.h:83` | neutral (D10); an inline layer the client spends budget on |
+| 1 | `Is_Temporary` | `app/client/item/client_item_property_builder.h:84` | neutral (D10); an inline layer the client spends budget on |
+| 1 | `Is_Unique` | `app/client/item/client_item_property_builder.h:85` | neutral (D10); an inline layer the client spends budget on |
+| 1 | `Is_NotStorable` | `app/client/item/client_item_property_builder.h:86` | neutral (D10); an inline layer the client spends budget on |
+| 1 | `Is_NotDestroyable` | `app/client/item/client_item_property_builder.h:87` | neutral (D10); an inline layer the client spends budget on |
+| 1 | `Is_NotManufacturable` | `app/client/item/client_item_property_builder.h:88` | neutral (D10); an inline layer the client spends budget on |
+| 1 | `Unknown5` | `app/client/item/client_item_property_builder.h:94` | neutral |
+| 1 | `Unknown6` | `app/client/item/client_item_property_builder.h:95` | neutral |
+| 1 | `Unknown688830Item` | `app/client/item/client_item_property_builder.h:100` | neutral (D10) |
+| 1 | `Get_Template_Info` | `app/client/item/client_item_property_builder.h:103` | neutral (D10); an inline layer the client spends budget on |
+| 1 | `Unknown_831840` | `app/client/item/client_item_property_builder.h:104` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/item/client_item_property_builder.h:106` | neutral |
+| 1 | `Unknown0C` | `app/client/item/client_item_property_builder.h:107` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:110` | neutral |
+| 1 | `Unknown34` | `app/client/item/client_item_property_builder.h:110` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/item/client_item_property_builder.h:111` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/item/client_item_property_builder.h:112` | neutral |
+| 1 | `Unknown4C` | `app/client/item/client_item_property_builder.h:113` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:122` | neutral (D10); NAME 1 [slot] |
+| 1 | `Unknown_68A270` | `app/client/item/client_item_property_builder.h:122` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:123` | neutral (D10) |
+| 1 | `Unknown_68A450` | `app/client/item/client_item_property_builder.h:123` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:124` | neutral (D10) |
+| 1 | `Unknown_68A090` | `app/client/item/client_item_property_builder.h:124` | untagged neutral name (D10) |
+| 1 | `Unknown_68A840` | `app/client/item/client_item_property_builder.h:125` | neutral (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:126` | neutral (D10) |
+| 1 | `Unknown_68A8C0` | `app/client/item/client_item_property_builder.h:126` | untagged neutral name (D10) |
+| 1 | `Unknown_68A010` | `app/client/item/client_item_property_builder.h:127` | neutral (D10) |
+| 1 | `Unknown_689F90` | `app/client/item/client_item_property_builder.h:128` | neutral (D10) |
+| 1 | `Unknown_688830` | `app/client/item/client_item_property_builder.h:134` | neutral (D10) |
+| 1 | `Unknown50` | `app/client/item/client_item_property_builder.h:136` | neutral |
+| 1 | `ClientItemPropertySpecialEffectClass` | `app/client/item/client_item_property_builder.h:140` | neutral (D10) |
+| 1 | `Unknown_52B840` | `app/client/item/client_item_property_builder.h:141` | neutral (D10); NAME 1 [effect] |
+| 1 | `ClientItemPropertySpecialFlagClass` | `app/client/item/client_item_property_builder.h:144` | neutral (D10) |
+| 1 | `Unknown_52F9E0` | `app/client/item/client_item_property_builder.h:145` | neutral (D10); NAME 1 [sort, label, tooltip, unknown, flag] |
+| 1 | `ClientItemPropertySpecialUnknown52FFB0Class` | `app/client/item/client_item_property_builder.h:150` | neutral (D10) |
+| 1 | `ClientItemPropertySpecialUnknown530070Class` | `app/client/item/client_item_property_builder.h:151` | neutral (D10) |
+| 1 | `Unknown_52FFB0` | `app/client/item/client_item_property_builder.h:152` | neutral (D10); NAME 1 [unknown, value, id] |
+| 1 | `Unknown_530070` | `app/client/item/client_item_property_builder.h:153` | neutral (D10); NAME 1 [unknown, id] |
+| 1 | `Unknown_520B20` | `app/client/item/client_item_property_builder.h:154` | neutral (D10); NAME 1 [sort, min, max, value, level] |
+| 1 | `Unknown_52C770` | `app/client/item/client_item_property_builder.h:155` | neutral (D10); NAME 1 [maker, flag] |
+| 1 | `Unknown_521560` | `app/client/item/client_item_property_builder.h:168` | neutral (D10); NAME 1 [sort, label, units, tooltip, unknown, value] |
+| 1 | `Unknown_520790` | `app/client/item/client_item_property_builder.h:169` | neutral (D10); NAME 1 [base, actual, level] |
+| 1 | `Unknown_5203D0` | `app/client/item/client_item_property_builder.h:170` | neutral (D10) |
+| 1 | `Unknown_51FEA0` | `app/client/item/client_item_property_builder.h:171` | neutral (D10) |
+| 1 | `Unknown_521050` | `app/client/item/client_item_property_builder.h:172` | neutral (D10) |
+| 1 | `Unknown_530530` | `app/client/item/client_item_property_builder.h:173` | neutral (D10); NAME 1 [kind, level] |
+| 1 | `Unknown_52CF90` | `app/client/item/client_item_property_builder.h:174` | neutral (D10); NAME 1 [profession] |
+| 1 | `Unknown_52DB60` | `app/client/item/client_item_property_builder.h:175` | neutral (D10); NAME 1 [race] |
+| 1 | `Unknown_52E760` | `app/client/item/client_item_property_builder.h:176` | neutral (D10); NAME 1 [skill, flag] |
+| 1 | `std:` | `app/client/item/client_item_property_builder.h:177` | neutral (D10); NAME 1 [strings, separator] |
+| 1 | `Unknown_4FB5B0` | `app/client/item/client_item_property_builder.h:177` | untagged neutral name (D10) |
+| 1 | `space_client, item, data, slot` | `app/client/item/client_item_property_builder.h:184` | neutral |
+| 1 | `Unknown_521C10` | `app/client/item/client_item_property_builder.h:189` | neutral (D10) |
+| 1 | `Unknown_522860` | `app/client/item/client_item_property_builder.h:190` | neutral (D10) |
+| 1 | `Unknown_527F40` | `app/client/item/client_item_property_builder.h:191` | neutral (D10) |
+| 1 | `Unknown_5285A0` | `app/client/item/client_item_property_builder.h:192` | neutral (D10) |
+| 1 | `Unknown_528460` | `app/client/item/client_item_property_builder.h:193` | neutral (D10); NAME 1 [effects] |
+| 1 | `SpaceClient` | `app/client/item/client_item_property_builder.h:195` | neutral |
+| 1 | `Item` | `app/client/item/client_item_property_builder.h:196` | neutral |
+| 1 | `Data` | `app/client/item/client_item_property_builder.h:197` | neutral |
+| 1 | `Slot` | `app/client/item/client_item_property_builder.h:198` | neutral |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_description.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_description.cpp:22` | untagged neutral name (D10) |
+| 1 | `client_item_property_description.h` | `app/client/item/client_item_property_description.h:15` | provisional (D137), after client_item_property_icon.cpp |
+| 1 | `ClientItemPropertyDescriptionClass` | `app/client/item/client_item_property_description.h:23` | provisional (D137), class-from-file for the provisional client_item_property_description.cpp |
+| 1 | `Create, description` | `app/client/item/client_item_property_description.h:26` | as the icon's |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_description.h:30` | neutral (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_description.h:31` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_description.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_icon.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_icon.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/item/client_item_property_icon.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_icon.h:33` | neutral (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_icon.h:34` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_icon.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_name.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_name.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/item/client_item_property_name.cpp:29` | untagged neutral name (D10) |
+| 1 | `client_item_property_name.h` | `app/client/item/client_item_property_name.h:15` | provisional (D137), after client_item_property_icon.cpp |
+| 1 | `ClientItemPropertyNameClass` | `app/client/item/client_item_property_name.h:23` | provisional (D137), class-from-file for the provisional client_item_property_name.cpp |
+| 1 | `Create, name` | `app/client/item/client_item_property_name.h:26` | as the icon's |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_name.h:30` | neutral (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_name.h:31` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_name.h:31` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_name.h:34` | what it returns |
+| 1 | `Unknown08` | `app/client/item/client_item_property_option.cpp:4` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_option.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/client/item/client_item_property_option.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_option.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_00` | `app/client/item/client_item_property_option.cpp:26` | untagged neutral name (D10) |
+| 1 | `sort, label, tooltip, unknown` | `app/client/item/client_item_property_option.h:54` | what the auto fire option passes (1, 'Auto Fire', its tooltip, 0) |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_option.h:56` | neutral (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_option.h:57` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_option.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/item/client_item_property_option.h:59` | neutral (D10) |
+| 1 | `Unknown_18` | `app/client/item/client_item_property_option.h:60` | neutral (D10); NAME 1 [value] |
+| 1 | `Unknown08` | `app/client/item/client_item_property_option.h:62` | neutral (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_option.h:63` | 'Auto Fire' |
+| 1 | `std:` | `app/client/item/client_item_property_option.h:64` | the auto fire option's tooltip text |
+| 1 | `Unknown2C` | `app/client/item/client_item_property_option.h:65` | neutral |
+| 1 | `Get_Ship_ID` | `app/client/item/client_item_property_option_auto_fire.cpp:6` | as Get_Avatar_ID |
+| 1 | `Unknown_14` | `app/client/item/client_item_property_option_auto_fire.cpp:25` | untagged neutral name (D10) |
+| 1 | `peek` | `app/client/item/client_item_property_option_auto_fire.cpp:27` | neutral |
+| 1 | `Unknown_688830` | `app/client/item/client_item_property_option_auto_fire.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_68A840` | `app/client/item/client_item_property_option_auto_fire.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/item/client_item_property_option_auto_fire.cpp:31` | untagged neutral name (D10) |
+| 1 | `client_item_property_option_auto_fire.h` | `app/client/item/client_item_property_option_auto_fire.h:15` | provisional (D137) |
+| 1 | `Create` | `app/client/item/client_item_property_option_auto_fire.h:28` | as the icon's; NAME 1 [space_client, data, slot]: the builder's |
+| 1 | `Unknown_14` | `app/client/item/client_item_property_option_auto_fire.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/item/client_item_property_option_auto_fire.h:33` | untagged neutral name (D10) |
+| 1 | `SpaceClient` | `app/client/item/client_item_property_option_auto_fire.h:35` | neutral |
+| 1 | `Data` | `app/client/item/client_item_property_option_auto_fire.h:36` | neutral |
+| 1 | `Slot` | `app/client/item/client_item_property_option_auto_fire.h:37` | neutral |
 | 1 | `Unknown08` | `app/client/item/client_item_property_special.h:79` | neutral (D10) |
+| 1 | `ClientItemPropertyUnknown529810Class` | `app/client/item/client_item_property_unknown_529810.cpp:3` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/item/client_item_property_unknown_529810.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_unknown_529810.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_unknown_529810.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/item/client_item_property_unknown_529810.cpp:29` | untagged neutral name (D10) |
+| 1 | `client_item_property_unknown_529810.h` | `app/client/item/client_item_property_unknown_529810.h:15` | provisional (D137), neutral |
+| 1 | `ClientItemPropertyUnknown529810Class` | `app/client/item/client_item_property_unknown_529810.h:23` | neutral (D10) |
+| 1 | `Create, id` | `app/client/item/client_item_property_unknown_529810.h:26` | as the icon's; neutral |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_unknown_529810.h:30` | neutral (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_unknown_529810.h:31` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_unknown_529810.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/item/client_item_property_unknown_529810.h:34` | neutral |
 | 1 | `Unknown_BE67C4` | `app/client/loadingview.cpp:15` | neutral (D10) |
 | 1 | `Unknown7B3E30Class` | `app/client/loadingview.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/loadingview.cpp:46` | untagged neutral name (D10) |
@@ -12420,12 +12472,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Rebuild` | `app/client/ui_item_examination_options.h:47` | empties the panel, adds the frame and one row per option |
 | 1 | `Clear` | `app/client/ui_item_examination_options.h:48` | removes the rows and drops the options |
 | 1 | `Listener` | `app/client/ui_item_examination_options.h:51` | passed to each row |
-| 1 | `UIItemExaminationDescriptionPropertyStruct` | `app/client/ui_item_examination_property_router.cpp:7` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/ui_item_examination_property_router.cpp:7` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/ui_item_examination_property_router.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/ui_item_examination_property_router.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/ui_item_examination_property_router.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_item_examination_property_router.cpp:72` | untagged neutral name (D10) |
+| 1 | `ClientItemPropertyUnknown529810Class` | `app/client/ui_item_examination_property_router.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/ui_item_examination_property_router.cpp:76` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_item_examination_property_router.cpp:81` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/ui_item_examination_property_router.cpp:86` | untagged neutral name (D10) |
@@ -12434,38 +12484,38 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_00` | `app/client/ui_item_examination_property_router.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_94` | `app/client/ui_item_examination_property_router.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown537830Class` | `app/client/ui_item_examination_property_router.cpp:115` | untagged neutral name (D10) |
-| 1 | `UIItemExaminationDescriptionPropertyStruct` | `app/client/ui_item_examination_property_router.h:22` | neutral (D10): +0x08 the description's text |
-| 1 | `ClientItemPropertyClass` | `app/client/ui_item_examination_property_router.h:26` | neutral (D10): the item property files' common base, interim |
-| 1 | `Unknown_08` | `app/client/ui_item_examination_property_router.h:29` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_item_examination_property_router.h:30` | neutral (D10) |
-| 1 | `Accept, visitor` | `app/client/ui_item_examination_property_router.h:31` | what the router passes |
-| 1 | `ClientItemPropertyVisitorClass` | `app/client/ui_item_examination_property_router.h:35` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/ui_item_examination_property_router.h:38` | neutral (D10); NAME 1 [property]: neutral |
-| 1 | `Unknown_04` | `app/client/ui_item_examination_property_router.h:39` | neutral (D10) |
-| 1 | `Unknown_08` | `app/client/ui_item_examination_property_router.h:40` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_item_examination_property_router.h:41` | neutral (D10) |
-| 1 | `Unknown_10` | `app/client/ui_item_examination_property_router.h:42` | neutral (D10) |
-| 1 | `Unknown_14` | `app/client/ui_item_examination_property_router.h:43` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_item_examination_property_router.h:44` | neutral (D10) |
-| 1 | `Unknown_1C` | `app/client/ui_item_examination_property_router.h:45` | neutral (D10) |
-| 1 | `Unknown_20` | `app/client/ui_item_examination_property_router.h:46` | neutral (D10) |
-| 1 | `UIItemExaminationPropertyRouterBaseClass` | `app/client/ui_item_examination_property_router.h:50` | neutral (D10) |
-| 1 | `Clear` | `app/client/ui_item_examination_property_router.h:53` | what it does |
-| 1 | `title, attributes, specials, options, description` | `app/client/ui_item_examination_property_router.h:60` | the panels |
-| 1 | `Unknown_00` | `app/client/ui_item_examination_property_router.h:64` | neutral (D10) |
-| 1 | `Unknown_04` | `app/client/ui_item_examination_property_router.h:65` | neutral (D10) |
-| 1 | `Unknown_08` | `app/client/ui_item_examination_property_router.h:66` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_item_examination_property_router.h:67` | neutral (D10) |
-| 1 | `Unknown_10` | `app/client/ui_item_examination_property_router.h:68` | neutral (D10) |
-| 1 | `Unknown_14` | `app/client/ui_item_examination_property_router.h:69` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_item_examination_property_router.h:70` | neutral (D10) |
-| 1 | `Unknown_1C` | `app/client/ui_item_examination_property_router.h:71` | neutral (D10) |
-| 1 | `Unknown_20` | `app/client/ui_item_examination_property_router.h:72` | neutral (D10) |
-| 1 | `Title` | `app/client/ui_item_examination_property_router.h:75` | the panel |
-| 1 | `Attributes` | `app/client/ui_item_examination_property_router.h:76` | the panel |
-| 1 | `Specials` | `app/client/ui_item_examination_property_router.h:77` | the panel |
-| 1 | `Options` | `app/client/ui_item_examination_property_router.h:78` | the panel |
-| 1 | `Description` | `app/client/ui_item_examination_property_router.h:79` | the panel |
+| 1 | `ClientItemPropertyUnknown529810Class` | `app/client/ui_item_examination_property_router.h:24` | untagged neutral name (D10) |
+| 1 | `ClientItemPropertyClass` | `app/client/ui_item_examination_property_router.h:28` | neutral (D10): the item property files' common base, interim |
+| 1 | `Unknown_08` | `app/client/ui_item_examination_property_router.h:33` | neutral (D10) |
+| 1 | `std:` | `app/client/ui_item_examination_property_router.h:34` | neutral (D10) |
+| 1 | `Accept, visitor` | `app/client/ui_item_examination_property_router.h:35` | what the router passes |
+| 1 | `ClientItemPropertyVisitorClass` | `app/client/ui_item_examination_property_router.h:39` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_item_examination_property_router.h:42` | neutral (D10); NAME 1 [property]: neutral |
+| 1 | `Unknown_04` | `app/client/ui_item_examination_property_router.h:43` | neutral (D10) |
+| 1 | `Unknown_08` | `app/client/ui_item_examination_property_router.h:44` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_item_examination_property_router.h:45` | neutral (D10) |
+| 1 | `Unknown_10` | `app/client/ui_item_examination_property_router.h:46` | neutral (D10) |
+| 1 | `Unknown_14` | `app/client/ui_item_examination_property_router.h:47` | neutral (D10) |
+| 1 | `Unknown_18` | `app/client/ui_item_examination_property_router.h:48` | neutral (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_item_examination_property_router.h:49` | neutral (D10) |
+| 1 | `Unknown_20` | `app/client/ui_item_examination_property_router.h:50` | neutral (D10) |
+| 1 | `UIItemExaminationPropertyRouterBaseClass` | `app/client/ui_item_examination_property_router.h:54` | neutral (D10) |
+| 1 | `Clear` | `app/client/ui_item_examination_property_router.h:57` | what it does |
+| 1 | `title, attributes, specials, options, description` | `app/client/ui_item_examination_property_router.h:64` | the panels |
+| 1 | `Unknown_00` | `app/client/ui_item_examination_property_router.h:68` | neutral (D10) |
+| 1 | `Unknown_04` | `app/client/ui_item_examination_property_router.h:69` | neutral (D10) |
+| 1 | `Unknown_08` | `app/client/ui_item_examination_property_router.h:70` | neutral (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_item_examination_property_router.h:71` | neutral (D10) |
+| 1 | `Unknown_10` | `app/client/ui_item_examination_property_router.h:72` | neutral (D10) |
+| 1 | `Unknown_14` | `app/client/ui_item_examination_property_router.h:73` | neutral (D10) |
+| 1 | `Unknown_18` | `app/client/ui_item_examination_property_router.h:74` | neutral (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_item_examination_property_router.h:75` | neutral (D10) |
+| 1 | `Unknown_20` | `app/client/ui_item_examination_property_router.h:76` | neutral (D10) |
+| 1 | `Title` | `app/client/ui_item_examination_property_router.h:79` | the panel |
+| 1 | `Attributes` | `app/client/ui_item_examination_property_router.h:80` | the panel |
+| 1 | `Specials` | `app/client/ui_item_examination_property_router.h:81` | the panel |
+| 1 | `Options` | `app/client/ui_item_examination_property_router.h:82` | the panel |
+| 1 | `Description` | `app/client/ui_item_examination_property_router.h:83` | the panel |
 | 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_specials.cpp:6` | untagged neutral name (D10) |
 | 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_specials.h:27` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_item_examination_specials.h:36` | neutral (D10) |
@@ -12478,18 +12528,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `icon_name` | `app/client/ui_item_examination_title.cpp:10` | neutral |
 | 1 | `Unknown_7EA190` | `app/client/ui_item_examination_title.cpp:10` | untagged neutral name (D10) |
 | 1 | `column` | `app/client/ui_item_examination_title.cpp:13` | neutral |
-| 1 | `Unknown_53A140` | `app/client/ui_item_examination_title.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown_519FE0` | `app/client/ui_item_examination_title.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/ui_item_examination_title.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_530310` | `app/client/ui_item_examination_title.cpp:89` | untagged neutral name (D10) |
 | 1 | `damage` | `app/client/ui_item_examination_title.cpp:90` | neutral |
 | 1 | `Unknown_49E210` | `app/client/ui_item_examination_title.cpp:90` | untagged neutral name (D10) |
 | 1 | `type` | `app/client/ui_item_examination_title.cpp:105` | neutral |
 | 1 | `Unknown_7EB4D0` | `app/client/ui_item_examination_title.cpp:105` | untagged neutral name (D10) |
-| 1 | `UIItemExaminationTitleNameClass` | `app/client/ui_item_examination_title.h:16` | neutral (D10): 0x53A140 (the name's text, by value) |
-| 1 | `Unknown_53A140` | `app/client/ui_item_examination_title.h:16` | untagged neutral name (D10) |
-| 1 | `UIItemExaminationTitleIconStruct` | `app/client/ui_item_examination_title.h:17` | neutral (D10): +0x08 the icon's texture name |
-| 1 | `Unknown08` | `app/client/ui_item_examination_title.h:17` | untagged neutral name (D10) |
 | 1 | `UIItemExaminationTitleSubtitlesClass` | `app/client/ui_item_examination_title.h:18` | neutral (D10): what slot +0x10 of the filler passes (0x530310 is in the item property files) |
 | 1 | `Unknown_530310` | `app/client/ui_item_examination_title.h:21` | neutral (D10) |
 | 1 | `Get_Level` | `app/client/ui_item_examination_title.h:22` | the member it returns |
@@ -17991,7 +18035,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown30` | `app/packets/pkitemba.h:58` | untagged neutral name (D10) |
 | 1 | `Unknown40` | `app/packets/pkitemba.h:59` | untagged neutral name (D10) |
 | 1 | `pkitemstate` | `app/packets/pkitemstate.h:16` | provisional, pk + its first named class's name |
-| 1 | `Unknown17` | `app/packets/pkitemstate.h:36` | untagged neutral name (D10) |
+| 1 | `id, inventory, slot, state, bool_val` | `app/packets/pkitemstate.h:25` | the members' |
+| 1 | `Unknown17` | `app/packets/pkitemstate.h:37` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/packets/pkjoblist.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/packets/pkjoblist.cpp:21` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/packets/pkjoblist.cpp:22` | untagged neutral name (D10) |
@@ -20806,7 +20851,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DynamicWindowBackgroundClass` | `app/client/dynamic_window_background.h:54` | class from file (D24) |
 | 2 | `Or_Flags` | `app/client/dynamic_window_horizontal.cpp:82` | what it does (D185 variant: the returned copy keeps the client's second register) |
 | 2 | `DynamicWindowHorizontalClass` | `app/client/dynamic_window_horizontal.h:21` | class from file (D24), dynamic_window_horizontal.cpp |
-| 2 | `texture_name` | `app/client/dynamic_window_icon.h:14` | the FAIL_IF's; NAME 1 [Create, size, flags]: as DynamicWindowTextClass's |
+| 2 | `texture_name` | `app/client/dynamic_window_icon.h:15` | the FAIL_IF's; NAME 1 [Create, size, flags]: as DynamicWindowTextClass's |
 | 2 | `DynamicWindowMultiLineTextClass` | `app/client/dynamic_window_multi_line_text.h:26` | class from file (D24) |
 | 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:73` | class from file (D24), dynamic_window_render_object.cpp |
 | 2 | `DynamicWindowTextClass` | `app/client/dynamic_window_text.h:23` | class from file (D24) |
@@ -21330,21 +21375,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CountText` | `app/client/inv_render.h:48` | its string template |
 | 2 | `WrongTargetTypeIndicator` | `app/client/inv_render.h:84` | skill_render.cpp's, same model |
 | 2 | `ClientItemPropertyAttributeClass` | `app/client/item/client_item_property_attribute.h:67` | class from file (D24), client_item_property_attribute.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route) |
-| 2 | `ItemEffectDescriptionClass` | `app/client/item/client_item_property_builder.h:39` | item_effect_description.cpp's 0x83E5F0 |
-| 2 | `std:` | `app/client/item/client_item_property_builder.h:45` | what it holds |
-| 2 | `ItemTemplateInfoClass` | `app/client/item/client_item_property_builder.h:54` | the FAIL_IFs '!template_info' |
-| 2 | `NotTradable` | `app/client/item/client_item_property_builder.h:84` | its label |
-| 2 | `Temporary` | `app/client/item/client_item_property_builder.h:85` | its label |
-| 2 | `Unique` | `app/client/item/client_item_property_builder.h:86` | its label |
-| 2 | `NotStorable` | `app/client/item/client_item_property_builder.h:87` | its label |
-| 2 | `NotDestroyable` | `app/client/item/client_item_property_builder.h:88` | its label |
-| 2 | `NotManufacturable` | `app/client/item/client_item_property_builder.h:91` | its label |
-| 2 | `std:` | `app/client/item/client_item_property_builder.h:103` | inv_render.cpp's Get_Name |
-| 2 | `std:` | `app/client/item/client_item_property_builder.h:104` | what 0x521C10 makes of it |
-| 2 | `Flags` | `app/client/item/client_item_property_builder.h:109` | the specials 0x5285A0 makes of them |
-| 2 | `TemplateInfo` | `app/client/item/client_item_property_builder.h:110` | the FAIL_IFs '!template_info' |
-| 2 | `Build` | `app/client/item/client_item_property_builder.h:190` | what it does; NAME 1 [router]: what it gets |
-| 2 | `ClientItemPropertyOptionClass` | `app/client/item/client_item_property_option.h:62` | class from file (D24), client_item_property_option.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route) |
+| 2 | `ItemEffectDescriptionClass` | `app/client/item/client_item_property_builder.h:44` | item_effect_description.cpp's 0x83E5F0 |
+| 2 | `std:` | `app/client/item/client_item_property_builder.h:50` | what it holds |
+| 2 | `ItemTemplateInfoClass` | `app/client/item/client_item_property_builder.h:59` | the FAIL_IFs '!template_info' |
+| 2 | `NotTradable` | `app/client/item/client_item_property_builder.h:89` | its label |
+| 2 | `Temporary` | `app/client/item/client_item_property_builder.h:90` | its label |
+| 2 | `Unique` | `app/client/item/client_item_property_builder.h:91` | its label |
+| 2 | `NotStorable` | `app/client/item/client_item_property_builder.h:92` | its label |
+| 2 | `NotDestroyable` | `app/client/item/client_item_property_builder.h:93` | its label |
+| 2 | `NotManufacturable` | `app/client/item/client_item_property_builder.h:96` | its label |
+| 2 | `std:` | `app/client/item/client_item_property_builder.h:108` | inv_render.cpp's Get_Name |
+| 2 | `std:` | `app/client/item/client_item_property_builder.h:109` | what 0x521C10 makes of it |
+| 2 | `Flags` | `app/client/item/client_item_property_builder.h:114` | the specials 0x5285A0 makes of them |
+| 2 | `TemplateInfo` | `app/client/item/client_item_property_builder.h:115` | the FAIL_IFs '!template_info' |
+| 2 | `Build` | `app/client/item/client_item_property_builder.h:186` | what it does; NAME 1 [router]: what it gets |
+| 2 | `Description` | `app/client/item/client_item_property_description.h:34` | what it holds (the item's +0x24) |
+| 2 | `IconTexture` | `app/client/item/client_item_property_icon.h:37` | the FAIL_IF's icon_texture |
+| 2 | `Name` | `app/client/item/client_item_property_name.h:36` | what it holds (the item's Name, +0x14) |
+| 2 | `ClientItemPropertyOptionClass` | `app/client/item/client_item_property_option.h:51` | class from file (D24), client_item_property_option.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route) |
+| 2 | `ClientItemPropertyOptionAutoFireClass` | `app/client/item/client_item_property_option_auto_fire.h:25` | its label 'Auto Fire' |
 | 2 | `ClientItemPropertySpecialClass` | `app/client/item/client_item_property_special.h:76` | class from file (D24), client_item_property_special.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route) |
 | 2 | `x10000` | `app/client/local_interface_sort.cpp:11` | the FAIL_IFs' |
 | 2 | `ui` | `app/client/local_interface_sort.h:32` | the FAIL_IF's |
@@ -24365,7 +24414,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `dynamic_window_background.h` | `app/client/dynamic_window_background.h:17` | header name assumed from the client's dynamic_window_background.cpp |
 | 3 | `dynamic_window_class.h` | `app/client/dynamic_window_class.h:18` | header name assumed from the client's dynamic_window_class.cpp |
 | 3 | `dynamic_window_horizontal.h` | `app/client/dynamic_window_horizontal.h:15` | header name assumed from the client's dynamic_window_horizontal.cpp |
-| 3 | `DynamicWindowIconClass` | `app/client/dynamic_window_icon.h:11` | class-from-file (D24) for dynamic_window_icon.cpp (base interim: what DynamicWindowGadgetClass takes) |
+| 3 | `DynamicWindowIconClass` | `app/client/dynamic_window_icon.h:12` | class-from-file (D24) for dynamic_window_icon.cpp (base interim: what DynamicWindowGadgetClass takes) |
 | 3 | `dynamic_window_multi_line_text.h` | `app/client/dynamic_window_multi_line_text.h:17` | header name assumed from the client's dynamic_window_multi_line_text.cpp |
 | 3 | `dynamic_window_render_object.h` | `app/client/dynamic_window_render_object.h:23` | header name assumed from the client's dynamic_window_render_object.cpp |
 | 3 | `dynamic_window_text.h` | `app/client/dynamic_window_text.h:15` | header name assumed from the client's dynamic_window_text.cpp |
@@ -24531,22 +24580,24 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `FromInv` | `app/client/inv_transaction.h:38` | the FAIL_IF's from_inv |
 | 3 | `FromSlot` | `app/client/inv_transaction.h:39` | the FAIL_IF's from_slot |
 | 3 | `client_item_property_attribute.h` | `app/client/item/client_item_property_attribute.h:16` | the client's __FILE__ 0xB7883C |
-| 3 | `InvDataPeekClass` | `app/client/item/client_item_property_builder.h:114` | D24 class-from-file for inv_data_peek.cpp |
-| 3 | `InvDataClass` | `app/client/item/client_item_property_builder.h:125` | Peek_Inv_Data, inv_data's __FILE__ 0xB90004 |
-| 3 | `ClientItemPropertyIconClass` | `app/client/item/client_item_property_builder.h:144` | client_item_property_icon.cpp's; IconTexture +0x08 (0x52A0B0), NAME 2 |
-| 3 | `ClientItemPropertyAttributePercentClass` | `app/client/item/client_item_property_builder.h:146` | client_item_property_attribute_percent.cpp's |
-| 3 | `ClientItemPropertySpecialMakerClass` | `app/client/item/client_item_property_builder.h:147` | client_item_property_special_maker.cpp's |
-| 3 | `MODE_NONE_BF` | `app/client/item/client_item_property_builder.h:160` | the client's assert |
-| 3 | `ClientItemPropertyAttributeStringClass` | `app/client/item/client_item_property_builder.h:161` | client_item_property_attribute_string.cpp's |
-| 3 | `ClientItemPropertyAttributeIntegerClass` | `app/client/item/client_item_property_builder.h:162` | client_item_property_attribute_integer.cpp's |
-| 3 | `ClientItemPropertyAttributeFloatClass` | `app/client/item/client_item_property_builder.h:163` | client_item_property_attribute_float.cpp's |
-| 3 | `ClientItemPropertyAttributeDistanceClass` | `app/client/item/client_item_property_builder.h:164` | client_item_property_attribute_distance.cpp's |
-| 3 | `ClientItemPropertyAttributeSecondsClass` | `app/client/item/client_item_property_builder.h:165` | client_item_property_attribute_seconds.cpp's |
-| 3 | `ClientItemPropertySpecialLevelRequirementClass` | `app/client/item/client_item_property_builder.h:166` | client_item_property_special_level_requirement.cpp's |
-| 3 | `ClientItemPropertySpecialProfessionRequirementClass` | `app/client/item/client_item_property_builder.h:167` | client_item_property_special_profession_requirement.cpp's |
-| 3 | `ClientItemPropertySpecialRaceRequirementClass` | `app/client/item/client_item_property_builder.h:168` | client_item_property_special_race_requirement.cpp's |
-| 3 | `ClientItemPropertySpecialSkillRequirementClass` | `app/client/item/client_item_property_builder.h:169` | client_item_property_special_skill_requirement.cpp's |
-| 3 | `ClientItemPropertyBuilderClass` | `app/client/item/client_item_property_builder.h:185` | class-from-file (D24) for client_item_property_builder.cpp |
+| 3 | `InvDataPeekClass` | `app/client/item/client_item_property_builder.h:119` | D24 class-from-file for inv_data_peek.cpp |
+| 3 | `InvDataClass` | `app/client/item/client_item_property_builder.h:131` | Peek_Inv_Data, inv_data's __FILE__ 0xB90004 |
+| 3 | `ClientItemPropertyAttributePercentClass` | `app/client/item/client_item_property_builder.h:148` | client_item_property_attribute_percent.cpp's |
+| 3 | `ClientItemPropertySpecialMakerClass` | `app/client/item/client_item_property_builder.h:149` | client_item_property_special_maker.cpp's |
+| 3 | `MODE_NONE_BF` | `app/client/item/client_item_property_builder.h:158` | the client's assert |
+| 3 | `ClientItemPropertyAttributeStringClass` | `app/client/item/client_item_property_builder.h:159` | client_item_property_attribute_string.cpp's |
+| 3 | `ClientItemPropertyAttributeIntegerClass` | `app/client/item/client_item_property_builder.h:160` | client_item_property_attribute_integer.cpp's |
+| 3 | `ClientItemPropertyAttributeFloatClass` | `app/client/item/client_item_property_builder.h:161` | client_item_property_attribute_float.cpp's |
+| 3 | `ClientItemPropertyAttributeDistanceClass` | `app/client/item/client_item_property_builder.h:162` | client_item_property_attribute_distance.cpp's |
+| 3 | `ClientItemPropertyAttributeSecondsClass` | `app/client/item/client_item_property_builder.h:163` | client_item_property_attribute_seconds.cpp's |
+| 3 | `ClientItemPropertySpecialLevelRequirementClass` | `app/client/item/client_item_property_builder.h:164` | client_item_property_special_level_requirement.cpp's |
+| 3 | `ClientItemPropertySpecialProfessionRequirementClass` | `app/client/item/client_item_property_builder.h:165` | client_item_property_special_profession_requirement.cpp's |
+| 3 | `ClientItemPropertySpecialRaceRequirementClass` | `app/client/item/client_item_property_builder.h:166` | client_item_property_special_race_requirement.cpp's |
+| 3 | `ClientItemPropertySpecialSkillRequirementClass` | `app/client/item/client_item_property_builder.h:167` | client_item_property_special_skill_requirement.cpp's |
+| 3 | `ClientItemPropertyBuilderClass` | `app/client/item/client_item_property_builder.h:181` | class-from-file (D24) for client_item_property_builder.cpp |
+| 3 | `client_item_property_icon.h` | `app/client/item/client_item_property_icon.h:17` | header name assumed from the client's client_item_property_icon.cpp |
+| 3 | `ClientItemPropertyIconClass` | `app/client/item/client_item_property_icon.h:26` | class-from-file (D24) for client_item_property_icon.cpp |
+| 3 | `icon_texture` | `app/client/item/client_item_property_icon.h:29` | the FAIL_IF's; NAME 1 [Create]: what it does |
 | 3 | `client_item_property_option.h` | `app/client/item/client_item_property_option.h:16` | the client's __FILE__ 0xB78A58 |
 | 3 | `client_item_property_special.h` | `app/client/item/client_item_property_special.h:16` | the client's __FILE__ 0xB78B68 |
 | 3 | `local_interface_sort.h` | `app/client/local_interface_sort.h:17` | header name assumed from the client's local_interface_sort.cpp |
@@ -24854,8 +24905,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `CloseButton` | `app/client/ui_item_examination.h:44` | the assert's |
 | 3 | `ui_item_examination_options.h` | `app/client/ui_item_examination_options.h:16` | header name assumed from the client's ui_item_examination_options.cpp |
 | 3 | `ui_item_examination_property_router.h` | `app/client/ui_item_examination_property_router.h:5` | header name assumed from the client's ui_item_examination_property_router.cpp |
-| 3 | `property` | `app/client/ui_item_examination_property_router.h:54` | the FAIL_IF's; NAME 1 [Route]: the file's |
-| 3 | `UIItemExaminationPropertyRouterClass` | `app/client/ui_item_examination_property_router.h:57` | class-from-file (D24) for ui_item_examination_property_router.cpp |
+| 3 | `property` | `app/client/ui_item_examination_property_router.h:58` | the FAIL_IF's; NAME 1 [Route]: the file's |
+| 3 | `UIItemExaminationPropertyRouterClass` | `app/client/ui_item_examination_property_router.h:61` | class-from-file (D24) for ui_item_examination_property_router.cpp |
 | 3 | `ui_item_examination_title.h` | `app/client/ui_item_examination_title.h:6` | header name assumed from the client's ui_item_examination_title.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_jobs.cpp:28` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UI_CLOSED` | `app/client/ui_jobs.cpp:47` | the assert's |
@@ -25383,11 +25434,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `EffectUsage` | `app/packets/pkitemba.h:65` | the client's Print text 'EffectUsage=' |
 | 3 | `Flags` | `app/packets/pkitemba.h:66` | the client's Print text 'Flags=' |
 | 3 | `Info` | `app/packets/pkitemba.h:67` | the client's FAIL_IF '!Info' |
-| 3 | `ID` | `app/packets/pkitemstate.h:31` | the client's Print text 'ID=' |
-| 3 | `State` | `app/packets/pkitemstate.h:32` | the client's Print text 'State=' |
-| 3 | `BoolVal` | `app/packets/pkitemstate.h:33` | the client's Print text 'BoolVal=' |
-| 3 | `Inventory` | `app/packets/pkitemstate.h:34` | the client's Print text 'Inventory=' |
-| 3 | `Slot` | `app/packets/pkitemstate.h:35` | the client's Print text 'Slot=' |
+| 3 | `ID` | `app/packets/pkitemstate.h:32` | the client's Print text 'ID=' |
+| 3 | `State` | `app/packets/pkitemstate.h:33` | the client's Print text 'State=' |
+| 3 | `BoolVal` | `app/packets/pkitemstate.h:34` | the client's Print text 'BoolVal=' |
+| 3 | `Inventory` | `app/packets/pkitemstate.h:35` | the client's Print text 'Inventory=' |
+| 3 | `Slot` | `app/packets/pkitemstate.h:36` | the client's Print text 'Slot=' |
 | 3 | `JobListPacketClass` | `app/packets/pkjoblist.h:35` | the client's Print text 'JobList' |
 | 3 | `JobDescriptionPacketClass` | `app/packets/pkjoblist.h:53` | the client's Print text 'JobDescription' and FAIL_IF '!Title \|\| !Description' |
 | 3 | `JobID` | `app/packets/pkjoblist.h:64` | the client's Print text 'JobID:' |
