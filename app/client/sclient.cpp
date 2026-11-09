@@ -4357,7 +4357,54 @@ void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree)
 
 
 
+#include "inisup.h"
+#include "..\common\lego_identifier.h"
+// One record of testeffects.ini (0x64 bytes; 0x74CA90 loads them, the destructor 0x74D550 is the implicit one)
+struct TestEffectStruct	// NAME 2: testeffects.ini's record
+{
+	int Duration; int DescID; float Distance;	// +0x00 the factory's duration, +0x04 its descriptor, +0x08 how far ahead of the avatar  // NAME 1 [Duration, DescID, Distance]: what 0x750C20 does with them
+	LegoIdentifierClass Lego;	// +0x0C the source's lego (0x6E8170)  // NAME 1: what it is
+	unsigned Count; int Interval; bool Target; float Scale; Vector3 HSVShift; float Speedup; int Delay;	// +0x20 the volley, +0x24 its spacing, +0x28 the avatar is the target, +0x2C .. +0x3C the factory's, +0x40 subtracted from the start  // NAME 1 [Count, Interval, Target, Scale, HSVShift, Speedup, Delay]: what 0x750C20 does with them
+	char Name[0x20];	// +0x44 the message's %s  // NAME 1: what 0x750C20 prints
+};
+extern std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80: testeffects.ini's records (0x74CA90)  // NAME 1: neutral (D10)
+char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
 
+// NOT EXACT: functional, from the disassembly (first round, SC1): the INI accessors, the volley defaults and the record copy
+// 0x74CA90 (Load_INIs: testeffects.ini): one record per section but [Defaults], each entry from the section or [Defaults];
+// a zero duration is the distance over effect.ini's AmmoSpeed of its EFFECT-<descid>\Weapon Usage section
+void Unknown_74CA90(const char *filename)
+{
+	INIClass ini;
+	ini.Load(filename);
+	INIClass *effects = Unknown_6EA550();
+	for (INISection *section = ini.Get_Section_List().First_Valid(); section != NULL; section = section->Next_Valid()) {
+		TestEffectStruct record;
+		if (strncmp(section->Section, "Defaults", 8) == 0) {
+			continue;
+		}
+		record.DescID = ini.Get_Int((ini.Is_Present(section->Section, "descid") ? section->Section : "Defaults"), "descid", 0);
+		char usage[256];
+		sprintf(usage, "EFFECT-%d\\Weapon Usage", record.DescID);
+		record.Distance = ini.Get_Float((ini.Is_Present(section->Section, "distance") ? section->Section : "Defaults"), "distance", 1000.0f);
+		float f_duration = ini.Get_Float((ini.Is_Present(section->Section, "duration") ? section->Section : "Defaults"), "duration", 0.0f);
+		FAIL_IF(f_duration < 0.0f) f_duration = 0.0f;
+		if (f_duration == 0.0f && effects->Is_Present(usage, "AmmoSpeed")) {
+			float speed = effects->Get_Float(usage, "AmmoSpeed", 1.0f);
+			if (speed < 1.0f) {
+				speed = 1.0f;
+			}
+			f_duration = record.Distance / speed;
+		}
+		record.Duration = (int)(f_duration * 1000.0f);
+		StringClass lego_name;
+		ini.Get_String(lego_name, (ini.Is_Present(section->Section, "knob") ? section->Section : "Defaults"), "knob", "");
+		const char *lego = lego_name;
+		if (lego != NULL) {
+			record.Lego = std::string(lego);
+		}
+		record.Count = ini.Get_Int((ini.Is_Present(section->Section, "volley") ? section->Section : "Defaults"), "volley", 1);
+		float f_intra_volley_delay = effects->Get_Float(usage, "IntravolleyDelay", 0.0f);
 
 
 
@@ -4376,6 +4423,14 @@ void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree)
 
 
 
+		FAIL_IF(f_intra_volley_delay < 0.0f) f_intra_volley_delay = 0.0f;
+		record.Interval = (int)(f_intra_volley_delay * 1000.0f);
+		record.Target = ini.Get_Bool((ini.Is_Present(section->Section, "playertarget") ? section->Section : "Defaults"), "playertarget", false);
+		record.Scale = ini.Get_Float((ini.Is_Present(section->Section, "scale") ? section->Section : "Defaults"), "scale", 1.0f);
+		TPoint3D<float> hsv = ini.Get_Point((ini.Is_Present(section->Section, "hsv_shift") ? section->Section : "Defaults"), "hsv_shift", TPoint3D<float>(0.0f, 0.0f, 0.0f));
+		record.HSVShift.Set(hsv.X, hsv.Y, hsv.Z);
+		record.Speedup = ini.Get_Float((ini.Is_Present(section->Section, "speedup") ? section->Section : "Defaults"), "speedup", 1.0f);
+		float f_advance = ini.Get_Float((ini.Is_Present(section->Section, "advance") ? section->Section : "Defaults"), "advance", 0.0f);
 
 
 
@@ -4411,31 +4466,12 @@ void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		FAIL_IF(f_advance < 0.0f) f_advance = 0.0f;
+		record.Delay = (int)(f_advance * 1000.0f);
+		Unknown_4A1590(record.Name, sizeof(record.Name), section->Section);
+		Unknown_BE7D80.push_back(record);
+	}
+}
 
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
@@ -4459,42 +4495,6 @@ bool SClient::Unknown_74D690()
 	NameClass name("GroupInfo"); DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(AuxData, name);
 	return(group && group->Unknown70 && group->IsGroupLeader.Value);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -5267,16 +5267,16 @@ bool SClient::Unknown_750B60()
 }
 
 
-#include "..\common\lego_identifier.h"
-// One record of testeffects.ini (0x64 bytes; 0x74CA90 loads them, the destructor 0x74D550 is the implicit one)
-struct TestEffectStruct	// NAME 2: testeffects.ini's record
-{
-	int Duration; int DescID; float Distance;	// +0x00 the factory's duration, +0x04 its descriptor, +0x08 how far ahead of the avatar  // NAME 1 [Duration, DescID, Distance]: what 0x750C20 does with them
-	LegoIdentifierClass Lego;	// +0x0C the source's lego (0x6E8170)  // NAME 1: what it is
-	unsigned Count; int Interval; bool Target; float Scale; Vector3 HSVShift; float Speedup; int Delay;	// +0x20 the volley, +0x24 its spacing, +0x28 the avatar is the target, +0x2C .. +0x3C the factory's, +0x40 subtracted from the start  // NAME 1 [Count, Interval, Target, Scale, HSVShift, Speedup, Delay]: what 0x750C20 does with them
-	char Name[0x20];	// +0x44 the message's %s  // NAME 1: what 0x750C20 prints
-};
-extern std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80: testeffects.ini's records (0x74CA90)  // NAME 1: neutral (D10)
+
+
+
+
+
+
+
+
+
+
 // NOT EXACT: field offset (explain.py; really stack slots and registers, 137 masked rows of 209): the client keeps the effect in ebp and the binary end in esi (ours the other way), hoists AvatarID before the lego test and gives the record's copies other slots; two forms (an int time accumulator, then i * interval: the start's order and the guarded induction variable matched)
 // 0x750C20 (no caller references it; debug): testeffects.ini's record INDEX played Count times, Interval apart, from or to the avatar and the point Distance ahead of it, and said in the chat panel
 void SClient::Unknown_750C20(int index)
