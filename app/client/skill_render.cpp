@@ -230,7 +230,7 @@ void SkillRenderClass::Unknown_2C(bool force)
 		Unknown48->Unknown_6A4020(Unknown4C, range, (flags & 0x3F8) ? 0 : (((flags2 & 0x34) != 0) ? 2 : 0), true);
 	}
 
-	__int64 now = (unsigned int)sclient->Unknown10BC;
+	__int64 now = sclient->Unknown10BC;
 	bool ready = (((const UnknownDurationSum &)skill.Get_Recycle_Time(slot) + (const UnknownDurationSum &)skill.Get_Last_Activation(slot)).Value <= now);
 	if (force || flags != Unknown54 || Unknown58 != ready) {
 		Unknown_6A73C0((flags & 0x170) != 0, WrongTargetTypeIndicator);
