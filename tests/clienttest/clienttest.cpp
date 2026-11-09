@@ -322,7 +322,7 @@ const char *Aux_Root_Name(const void *root)
 }
 // co.cpp's constructor asks aux_roots.cpp's factory 0x6F6000 for the object's root (aux_roots.obj and the roots'
 // code stay out): the types the factory gives a root (packet-flow.md 2.4) get the harness's, the others none
-UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int type, int)
+UnknownRootClass *ClientObjectClass::Unknown_Create_Aux_Root(int type, int)
 {
 	switch (type) {
 		case 0: case 1: case 3: case 4: case 8: case 11: case 12: case 25: case 34: case 37: case 38: case 39: case 41:

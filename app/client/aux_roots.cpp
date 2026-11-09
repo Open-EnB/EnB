@@ -2,13 +2,14 @@
 // The aux-data roots' constructors and the CREATE factory (M1.3, D43). NOT EXACT (D42): functional.
 // NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0)
 #include "aux_roots.h"
+#include "co.h"	// ClientObjectClass: the factory 0x6F6000 is its member
 
 int DeltaElementsClass::UnknownGlobal;
 
 int DeltaBuffsClass::UnknownGlobal;
 
 // the CREATE factory (0x6F6000)
-UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int type, int unknown)
+UnknownRootClass *ClientObjectClass::Unknown_Create_Aux_Root(int type, int unknown)
 {
 	switch (type) {
 		case 0:
@@ -116,4 +117,4 @@ DeltaElementClass::DeltaElementClass(const char *name) :
 
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
-enum AuxRootsSymbolPadType { AUX_ROOTS_PAD_00, AUX_ROOTS_PAD_01, AUX_ROOTS_PAD_02, AUX_ROOTS_PAD_03, AUX_ROOTS_PAD_04, AUX_ROOTS_PAD_05, AUX_ROOTS_PAD_06 };	// NAME 1: a build aid (HX1)
+enum AuxRootsSymbolPadType { AUX_ROOTS_PAD_00, AUX_ROOTS_PAD_01, AUX_ROOTS_PAD_02, AUX_ROOTS_PAD_03, AUX_ROOTS_PAD_04, AUX_ROOTS_PAD_05, AUX_ROOTS_PAD_06, AUX_ROOTS_PAD_07, AUX_ROOTS_PAD_08, AUX_ROOTS_PAD_09, AUX_ROOTS_PAD_10, AUX_ROOTS_PAD_11, AUX_ROOTS_PAD_12, AUX_ROOTS_PAD_13, AUX_ROOTS_PAD_14, AUX_ROOTS_PAD_15 };	// NAME 1: a build aid (HX1)

@@ -1030,7 +1030,7 @@ Base copy: reconstructed. Headers: 477 from reconstructed.
 | shared/accel.cpp | reconstructed | 13 | 0 | - | - | - |  |
 | shared/attrib_dir.cpp | reconstructed | 123 | 5 | - | - | - |  |
 | shared/attrib_dir_collective.cpp | reconstructed | 104 | 4 | - | - | - |  |
-| client/aux_roots.cpp | reconstructed | 429 | 5 | - | - | - |  |
+| client/aux_roots.cpp | reconstructed | 430 | 5 | - | - | - |  |
 | client/avatar.cpp | reconstructed | 221 | 7 | - | - | - |  |
 | shared/avatar_desc.cpp | reconstructed | 74 | 2 | - | - | - |  |
 | client/avatar_pip.cpp | reconstructed | 12 | 7 | - | - | - |  |

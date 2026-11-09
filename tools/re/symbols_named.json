@@ -1205,5 +1205,11 @@
   "symbol": "??_G?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEPAXI@Z",
   "evidence": "the client's vtable 0xB016DC holds it at +0x04 (0xB00A00's slot is 0x700CB0); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
   "replaces": "??_G?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x6F6000",
+  "symbol": "?Unknown_Create_Aux_Root@ClientObjectClass@@QAEPAVUnknownRootClass@@HH@Z",
+  "evidence": "the CREATE factory is ClientObjectClass's member (co.h; co.cpp's constructor 0x6F2820 calls it with the object in ecx): aux_roots.h's UnknownCOClass merged into co.h (P-H13-2, C2 2026-11-08)",
+  "replaces": "?Unknown_Create_Aux_Root@UnknownCOClass@@QAEPAVUnknownRootClass@@HH@Z"
  }
 ]

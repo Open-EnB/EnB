@@ -26,7 +26,7 @@
 #include "verbmanager.h"
 #include "fontdatabase.h"		// FontStringFilesClass at 0xBE67BC: Init loads the default string files (P-H12-3)
 // Callees in files that aren't rebuilt (cdecl, declared here as far as SClient calls them)
-void Unknown_719E10(SClient *client);					// 0x719E10 (control_keys_manager.cpp): the destructor's
+#include "control_keys_manager.h"						// ControlKeysManager::Create / Destroy (0x719D50 / 0x719E10): Init's and the destructor's
 #include "mousetbl.h"									// Unknown_7228C0 / Unknown_723150 (0x7228C0 / 0x723150): the cursor table's loader / unloader
 														// (as tsk_login.cpp)
 void Unknown_6766E0(const char *ini);					// 0x6766E0: 'action.ini'
@@ -294,7 +294,7 @@ extern RectClass Unknown_C07550;						// NAME 1: neutral (D10): the text's coord
 // (Init, Shutdown and Do_Frame push PxProcess on px_process.h's PxProcessClass::Push 0x455D10 and pop it with
 // PxProcessClass::Pop 0x455F60)
 void Unknown_6E6A90(EffectObjectClass *effect);			// 0x6E6A90 (eff_o.cpp): Shutdown, per effect left
-void Unknown_719D50(SClient *client);					// 0x719D50 (control_keys_manager.cpp): Init's
+
 
 static int INIUsers;									// 0xBE81C0: Load_INIs / Unload_INIs  // NAME 2: what it counts
 
@@ -370,7 +370,7 @@ SClient::SClient(ClientTaskClass *task) :
 // 0x740BB0
 SClient::~SClient()
 {
-	Unknown_719E10(this);
+	ControlKeysManager::Destroy(this);
 	if (Unknown1334) delete Unknown1334;
 	Unknown1334 = NULL;
 	if (EnvironmentMapManager) delete EnvironmentMapManager;
@@ -421,7 +421,7 @@ void SClient::Init()
 	Unknown1270 = new LoginUnknown0CClass;
 	Unknown_7451D0();
 	Load_INIs();
-	Unknown_719D50(this);
+	ControlKeysManager::Create(this);
 	Mouse = new LoginUnknown18Class((int)this);
 	Mouse->Unknown_515120(2);
 	ChatPanel = Create_NEW(new ChatPanelInterface(this));
@@ -1075,7 +1075,7 @@ void SClient::Process_AI()
 
 #include "option.h"
 #include "..\packets\pkmove.h"
-#include "control_keys_manager.h"
+
 // NOT EXACT: inline budget (explain.py: 731 instructions, the client's about twice as many): the client inlines more of std::string's construction (the last three key names copied in place) and its five camera blocks (0x744D80's body); first round
 // 0x7436A0 (Do_Frame: an event no dispatcher took; the module 'sclient' keys, registered on the first call)
 bool SClient::Unknown_7436A0(KernelEventClass event)
