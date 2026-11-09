@@ -168,12 +168,12 @@ extern GadgetClass *Unknown_BE5F24;					// NAME 1 [Unknown_BE5F24]: 0xBE5F24 (0x
 extern GadgetClass *Unknown_BE5F28;					// NAME 1 [Unknown_BE5F28]: 0xBE5F28
 
 
-// fontmanager.h's FontManagerClass at 0xBE67C4 (its header cannot be included next to sclient.h: workflow.md 3.3)
-class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 3: the client's profile label 'FontSys::Change_Text' (0x6CDBC0)  // NAME 1 [text, unknown]: as loadingview.cpp's
-class FontManagerClass { public: void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 1: neutral (D10): fontmanager.h's Get_Style  // NAME 1 [name, object]: as loadingview.cpp's
+#include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
+
+
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC (sclient.h declares the pointer), as ui_avatr.cpp does
-class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
+
 extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10) (tsk_login.cpp's); the constructor clears it, the destructor sets it
 
 // The gadget events' callbacks (SignalBaseClass's, unknown_signalbase.h: vtable 0xAEDB58)

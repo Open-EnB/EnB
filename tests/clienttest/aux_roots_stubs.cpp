@@ -5,7 +5,5 @@
 // Init does not run here; the classes are declared only as far as their names (this file sees no aux_roots.h).
 #include "clienttest.h"
 
-class DeltaPlayerClass { public: DeltaPlayerClass(); };
-DeltaPlayerClass::DeltaPlayerClass() { Trace("stub DeltaPlayerClass::DeltaPlayerClass (0x752510, Init: not run)"); }
 class DeltaItemClass { public: DeltaItemClass(const char *name); };
 DeltaItemClass::DeltaItemClass(const char *) { Trace("stub DeltaItemClass::DeltaItemClass (0x6FA150, Init: not run)"); }

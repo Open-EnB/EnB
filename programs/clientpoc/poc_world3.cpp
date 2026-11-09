@@ -44,7 +44,7 @@ void PDAInventoryWindowClass::Unknown_5A0450(int type, int *num_items, int *num_
 }
 
 // ---------------------------------------------------------------- the experience display (0x58C450): 0x28 bytes, nothing shown
-Unknown58C450Class::Unknown58C450Class(RenderObjClass *mesh, PDAInterfaceClass *pda)
+Unknown58C450Class::Unknown58C450Class(RenderObjClass *mesh, InterfaceClass *parent)
 {
 	STUB_CALLED("POC Unknown58C450Class (the PDA's experience display): nothing shown");
 	Unknown04 = 0;

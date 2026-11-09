@@ -37,7 +37,7 @@ void DeltaClass::Unknown_20()
 	}
 }
 
-void DeltaClass::Unknown_00(DeltaChildVisitorClass *)
+void DeltaClass::Unknown_00(KVEncoderClass *)
 {
 }
 
@@ -230,7 +230,7 @@ LookupClass *DeltaCompoundClass::Get_Lookup()
 }
 
 
-void DeltaCompoundClass::Unknown_00(DeltaChildVisitorClass *visitor)
+void DeltaCompoundClass::Unknown_00(KVEncoderClass *visitor)
 {
 	int count = Children.size();
 	for (int i = 0; i < count; i++) {

@@ -114,7 +114,7 @@ ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id)
 	Unknown178(0.0f, 0.0f, 0.0f),
 	Unknown184(true)
 {
-	AuxData = (char *)((UnknownCOClass *)this)->Unknown_Create_Aux_Root(type, id);
+	AuxData = (char *)Unknown_Create_Aux_Root(type, id);
 	Unknown98 = new UnknownB006B8Class;
 	Node.Set(this);
 	UnknownB4 = Unknown_731FA0(this);
@@ -2668,7 +2668,7 @@ void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 **	+0xE8-+0xF4 0 (the sphere), +0xF8 0, +0xFC false, +0x100 -1, +0x118-+0x124 0, +0x128 false, the
 **	RelationshipClass at +0x12C (0x848C80), 0x498C10 at +0x134, +0x144 0, +0x148 -1, +0x14C-+0x154 0, six
 **	RefCountPtr at +0x158 (vector constructor 0x5464F0 / 0x4740B0), +0x170 false, +0x174-+0x180 0,
-**	+0x184 true; then the two vtables, AuxData = UnknownCOClass's Unknown_Create_Aux_Root(type, id),
+**	+0x184 true; then the two vtables, AuxData = the factory Unknown_Create_Aux_Root(type, id),
 **	+0x98 = new Unknown98Class (4 bytes, vtable 0xB006B8), +0x70 = this, +0xB4 = 0x731FA0(...) (a
 **	RefCountPtr assignment), 0x498F00 at +0x134 with a radius from the floats 0xB93AD8-0xB93AE4 by type,
 **	+0x104-+0x114 = 1 and the six RefCountPtrs cleared. The destructor 0x6F2FE0 has 7 EH states and

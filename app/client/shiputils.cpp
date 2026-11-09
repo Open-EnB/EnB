@@ -297,7 +297,7 @@ void Unknown_80FF20(RenderObjClass *robj, const char *name, float *rgb)
 
 	FAIL_IF(font_32bit.Peek()->Get_Height() != 16) return;
 	Unknown_6D8B90Class *text = new Unknown_6D8B90Class;
-	text->Unknown_6D8DC0((Font32Class **)&font_32bit, name, 4);
+	text->Unknown_6D8DC0(&font_32bit, name, 4);
 	TextureClass *name_texture = text->Texture;
 
 

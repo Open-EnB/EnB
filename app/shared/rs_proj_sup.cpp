@@ -6,8 +6,8 @@
 **
 **	The projector support of the render-state tracks (RsTrackClass): a projector caster that casts
 **	its track's current model as a shadow, and a projector receiver the projectors land on, which
-**	pushes their material passes around the track's render. Both are declared in rs_track.h for now
-**	(interim, D137); their bases are proj_man.h's ProjectorCasterClass / ProjectorReceiverClass.
+**	pushes their material passes around the track's render. Both are declared in rs_proj_sup.h
+**	(PROVISIONAL name, D137); their bases are proj_man.h's ProjectorCasterClass / ProjectorReceiverClass.
 */
 #include "rs_track.h"
 #include "rinfo.h"
@@ -15,8 +15,8 @@
 #include "..\shared\g_assert.h"
 
 // @0x45D9E0
-Unknown45D9E0Class::Unknown45D9E0Class(RsTrackClass *owner, int def, int manager) :
-	ProjectorCasterClass((owner->Unknown8C & 0x80) != 0, (ProjectionDefClass *)def, (ProjectorManagerClass *)manager),
+Unknown45D9E0Class::Unknown45D9E0Class(RsTrackClass *owner, ProjectionDefClass *def, ProjectorManagerClass *manager) :
+	ProjectorCasterClass((owner->Unknown8C & 0x80) != 0, def, manager),
 	Owner(owner)
 {
 	Create_Projection();

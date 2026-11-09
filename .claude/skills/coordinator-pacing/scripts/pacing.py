@@ -6,7 +6,7 @@
     python .claude/skills/coordinator-pacing/scripts/pacing.py health [--baseline IMPORTS.json]
     python .claude/skills/coordinator-pacing/scripts/pacing.py heartbeat --plan PLAN.md --builders N
             [--baseline IMPORTS.json] [--handoff HH:MM] [--cap 92] [--floor-weekly 5]
-            [--weekly-rate 2.0] [--session-rate 4.0] [--floor-gb 3] [--gb-per-builder 2] [--no-log]
+            [--weekly-rate 0.5] [--session-rate 4.0] [--floor-gb 3] [--gb-per-builder 2] [--no-log]
 
 `usage` reads the account's windows with the local Claude Code login token (the same numbers as /usage).
 `heartbeat` prints usage, free memory, the pool, HEAD's health, the unlanded wt/* branches (`wt.py list --unlanded`'s
@@ -155,9 +155,10 @@ def heartbeat(a):
     by_kind = {k: (u, r, t) for k, u, r, t in rows}
     sess = by_kind.get('five_hour') or by_kind.get('session')
     week = by_kind.get('seven_day') or by_kind.get('weekly_all')
-    if sess is None or week is None:
-        # fall back to the first two rows in the order the API gives them
-        sess, week = (rows[0][1:], rows[1][1:]) if len(rows) >= 2 else ((0, 100, now), (0, 100, now))
+    if week is None:
+        week = rows[-1][1:] if rows else (0, 100, now)    # no named weekly row: the last one the API gives
+    if sess is not None and sess is week:
+        sess = None
     fgb, tgb = free_gb()
     vms = pool()
     running = sum(1 for v in vms if v[1] == 'Running')
@@ -174,24 +175,26 @@ def heartbeat(a):
         hours = (now - prev[0]).total_seconds() / 3600.0
         if hours >= 0.25:
             wr = (week[0] - prev[2]) / hours / a.builders
-            sr = (sess[0] - prev[1]) / hours / a.builders
+            sr = (sess[0] - prev[1]) / hours / a.builders if sess else session_rate
             if wr > 0 and sr > 0:
                 weekly_rate, session_rate, rate_src = wr, sr, 'observed since %s' % prev[0].strftime('%H:%M')
 
     handoff = parse_hhmm(a.handoff) if a.handoff else None
     horizon_w = min(handoff, week[2]) if handoff else week[2]
-    horizon_s = min(handoff, sess[2]) if handoff else sess[2]
     hw = max(0.0, (horizon_w - now).total_seconds() / 3600.0)
-    hs = max(0.0, (horizon_s - now).total_seconds() / 3600.0)
+    hs = None    # no session window reported: n/a, never constrains
+    if sess:
+        horizon_s = min(handoff, sess[2]) if handoff else sess[2]
+        hs = max(0.0, (horizon_s - now).total_seconds() / 3600.0)
 
     def projected(n):
-        return (week[0] + n * weekly_rate * hw, sess[0] + n * session_rate * hs)
+        return (week[0] + n * weekly_rate * hw, sess[0] + n * session_rate * hs if sess else None)
 
     allow_mem = max(0, int((fgb - a.floor_gb) // a.gb_per_builder))
     allow_use = 0
     while allow_use < 12:
         pw, ps_ = projected(a.builders + allow_use + 1)
-        if pw > a.cap or ps_ > a.cap:
+        if pw > a.cap or (ps_ is not None and ps_ > a.cap):
             break
         allow_use += 1
     if week[1] < a.floor_weekly:
@@ -208,8 +211,9 @@ def heartbeat(a):
     lines.append('rates       weekly %.2f %%/h, session %.2f %%/h per builder (%s)'
                  % (weekly_rate, session_rate, rate_src))
     pw, ps_ = projected(a.builders)
-    lines.append('projection  with %d builders to %s: weekly %.0f%%, session %.0f%% (cap %d%%)'
-                 % (a.builders, (handoff or horizon_w).strftime('%H:%M'), pw, ps_, a.cap))
+    lines.append('projection  with %d builders to %s: weekly %.0f%%, session %s (cap %d%%)'
+                 % (a.builders, (handoff or horizon_w).strftime('%H:%M'), pw,
+                    'n/a' if ps_ is None else '%.0f%%' % ps_, a.cap))
     lines.append('allowance   launch %d more (memory allows %d, usage allows %d)' % (allow, allow_mem, allow_use))
     if not parses or lost:
         lines.append('ACTION      HEAD is unhealthy: fix before any launch')
@@ -243,7 +247,7 @@ def main():
     hb.add_argument('--handoff', default=None, help='HH:MM when the handoff must be written')
     hb.add_argument('--cap', type=float, default=92.0, help='max projected %% of either window at the handoff')
     hb.add_argument('--floor-weekly', type=float, default=5.0, help='never launch under this %% of the week')
-    hb.add_argument('--weekly-rate', type=float, default=2.0, help='%% of the week per hour per Opus builder')
+    hb.add_argument('--weekly-rate', type=float, default=0.5, help='%% of the week per hour per Opus builder')
     hb.add_argument('--session-rate', type=float, default=4.0, help='%% of the session per hour per Opus builder')
     hb.add_argument('--floor-gb', type=float, default=3.0)
     hb.add_argument('--gb-per-builder', type=float, default=2.0)

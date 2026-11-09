@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): the aux-data root's object, PROVISIONAL file name (M1.3).
 // Notes at the end of the file.
-// NAME 1 [unknown_root.cpp]: provisional file name: the object 0x4A3990-0x4A4780 has no assert and no __FILE__
+// NAME 1 [unknown_root.cpp]: provisional file name: the object 0x4A3B40-0x4A4780 has no assert and no __FILE__
 #include <windows.h>
 #include <mmsystem.h>
 #include "unknown_root.h"
@@ -150,7 +150,7 @@ void DeltaVisitorClass::Visit_Children(DeltaCompoundClass *delta)
 /*
 **	Reconstruction notes
 **
-**	client.exe 0x4A3990-0x4A4780 (no assert, no __FILE__: the file name is provisional, as
+**	client.exe 0x4A3B40-0x4A4780 (no assert, no __FILE__: the file name is provisional, as
 **	unknown_root.cpp; the user decides the name). Rebuilt here:
 **	* Unknown_Get_Ticks 0x4A3B40, the aux-data clock (TicksFirst 0xB72FF8, TicksStart 0xBE3A6C).
 **	* UnknownRootClass (vtable 0xAEAB88, size 0xA0): constructor 0x4A3BD0 (int, name: the int at
@@ -163,8 +163,8 @@ void DeltaVisitorClass::Visit_Children(DeltaCompoundClass *delta)
 **	vtable 0xAEABE4 and deleting destructor 0x4A3CD0 (emitted here first: compiler-generated).
 **
 **	Not rebuilt:
-**	* 0x4A3990-0x4A3B10: value conversions (sscanf of 12 floats into a 3x4 matrix, __int64 text
-**	  conversions through 0x8B44E0 / 0x8B44C0): strconv_lib.h's, inlined or instanced here?
+**	* (0x4A3990-0x4A3B10, the Matrix3D and __int64 conversions, are strconv_lib.cpp's, which
+**	  ends there: this object starts at the clock 0x4A3B40.)
 **	* 0x4A3D50, the root's encode (the update collector 0x4A8AF0 / 0x4A8B40, RecordTableClass or
 **	  DeltaListSetClass, whichever is smaller: Unknown_Sum < 4 * (ids) + 12 gives the tree form),
 **	  needs the collector (encode.cpp's 0x4A8990-0x4A8FC0, not rebuilt).

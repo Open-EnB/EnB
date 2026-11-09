@@ -53,6 +53,7 @@
 #include <set>
 #include <list>
 #include "clienttest.h"
+#include "..\..\..\app\client\eff_o.h"	// the real effect object (eff_o.cpp is in the link), before client.h declares its short form
 #include "..\..\..\app\kernel\kernel.h"
 #include "..\..\..\app\input\input.h"
 #include "..\..\..\app\client\sclient.h"
@@ -90,6 +91,7 @@ class FontSys : public RefCountClass {};	// ui_line_display.h's text objects, co
 #include "..\..\..\app\client\extrap.h"
 #include "..\..\..\app\shared\px_wrapper.h"
 #include "rendobj.h"
+#include "segline.h"
 #include "..\..\..\app\shared\stars.h"
 
 static FILE *Out;
@@ -256,8 +258,8 @@ public:
 	virtual void S34() {} virtual void S38() {} virtual void S3C() {} virtual void S40() {}
 	virtual void S44() {} virtual void S48() {} virtual void S4C() {} virtual void *S50() { return(Fake_Interface_Scene); }
 	virtual void S54() {} virtual void S58() {} virtual void S5C() {} virtual void S60() {}
-	virtual int S64() { Trace("mainview 64"); return(Path_Views ? (int)&Fake_View64 : 0x64); } virtual void S68() {} virtual void S6C() {} virtual void S70() {}
-	virtual void S74() {} virtual void S78() {} virtual int S7C() { Trace("mainview 7C"); return(Path_Views ? (int)Fake_Camera : 0x7C); }	// +0x64 / +0x7C: OBJECT_EFFECT 9's Add_Effect arguments; in (4) Process_AI's objects (Path_Views)
+	virtual int S64() { Trace("mainview 64"); return((int)&Fake_View64); } virtual void S68() {} virtual void S6C() {} virtual void S70() {}
+	virtual void S74() {} virtual void S78() {} virtual int S7C() { Trace("mainview 7C"); return((int)Fake_Camera); }	// +0x64 / +0x7C: the effect packets' Add_Effect arguments (the real effect keeps references to both); Process_AI's objects in (4)
 	virtual void Add_Object(ClientObjectClass *object) { Trace("mainview add %u", object->Get_Game_ID()); }			// +0x80
 	virtual void Remove_Object(ClientObjectClass *object) { Trace("mainview remove %u", object->Get_Game_ID()); }	// +0x84
 	char Unknown04[0x1EC - 0x04];
@@ -320,7 +322,7 @@ const char *Aux_Root_Name(const void *root)
 }
 // co.cpp's constructor asks aux_roots.cpp's factory 0x6F6000 for the object's root (aux_roots.obj and the roots'
 // code stay out): the types the factory gives a root (packet-flow.md 2.4) get the harness's, the others none
-UnknownRootClass *UnknownCOClass::Unknown_Create_Aux_Root(int type, int)
+UnknownRootClass *ClientObjectClass::Unknown_Create_Aux_Root(int type, int)
 {
 	switch (type) {
 		case 0: case 1: case 3: case 4: case 8: case 11: case 12: case 25: case 34: case 37: case 38: case 39: case 41:
@@ -352,17 +354,23 @@ ENBAssetManager *AssetManager = 0;	// 0xBDADC0 (main sets it)
 
 static int Models_Made = 0;
 static int Models_Alive = 0;
+static int Effect_Models_Made = 0;	// the effects' models (NAME eff_...: effect.ini's base assets), numbered 1001... apart from the rest
 static std::vector<int> Deleted_Models;	// the numbers of the models deleted
 class FakeModelClass : public RenderObjClass
 {
 public:
-	FakeModelClass(const char *name) : Number(++Models_Made), Transforms(0), Bones(0), LastTransform(true)
+	FakeModelClass(const char *name) : Effect(strncmp(name, "eff_", 4) == 0), Transforms(0), Bones(0), LastTransform(true)
 	{
+		Number = Effect ? 1000 + ++Effect_Models_Made : ++Models_Made;
 		strncpy(Name, name, sizeof(Name) - 1);
 		Name[sizeof(Name) - 1] = 0;
-		Models_Alive++;
+		if (!Effect) Models_Alive++;
 	}
-	virtual ~FakeModelClass() { Trace("model %d '%s' deleted", Number, Name); Models_Alive--; Deleted_Models.push_back(Number); }
+	virtual ~FakeModelClass()
+	{
+		Trace("model %d '%s' deleted", Number, Name);
+		if (!Effect) { Models_Alive--; Deleted_Models.push_back(Number); }
+	}
 	virtual RenderObjClass *Clone() const { return(0); }
 	virtual int Class_ID() const { return(strncmp(Name, "rs_", 3) == 0 ? 0x10001 : CLASSID_UNKNOWN); }
 	virtual const char *Get_Name() const { return(Name); }
@@ -398,6 +406,7 @@ public:
 		Trace("model %d Add_Sub_Object_To_Bone '%s' bone %d", Number, sub ? sub->Get_Name() : "(null)", bone);
 		return(0);
 	}
+	bool Effect;		// an effect's model (not counted in Models_Alive)
 	int Number;
 	int Transforms;		// Set_Transform calls
 	int Bones;			// Add_Sub_Object_To_Bone calls
@@ -431,6 +440,11 @@ public:
 	{
 		std::string file = std::string(name) + ".w3d";
 		for (size_t i = 0; i < Files.size(); i++) {
+			if (stricmp(Files[i].c_str(), file.c_str()) == 0 && strncmp(name, "eff_segline", 11) == 0) {
+				SegmentedLineClass *line = new SegmentedLineClass;	// ww3d2's (a line effect's base asset: 0x6EAC50 wants CLASSID_SEGLINE)
+				Trace("asset manager +0x78 '%s' scale %g -> a segmented line", name, scale);
+				return(line);
+			}
 			if (stricmp(Files[i].c_str(), file.c_str()) == 0) {
 				FakeModelClass *model = new FakeModelClass(name);
 				Trace("asset manager +0x78 '%s' scale %g hsv (%g %g %g) -> model %d", name, scale, hsv[0], hsv[1], hsv[2], model->Number);
@@ -467,13 +481,70 @@ static ClientObjectClass *New_Object(unsigned id)
 	return object;
 }
 
+// eff_o.cpp's real effect base is abstract (Unknown_24 is _purecall): the lists only need an object
+class Test_Effect_Class : public EffectObjectClass
+{
+public:
+	Test_Effect_Class(unsigned id) : EffectObjectClass(The_Client, id, 0, 0, 0) {}	// (the client: the per-frame update 0x6E6AD0 reads its clock)
+	virtual void Unknown_24(int) {}
+};
+
 static EffectObjectClass *New_Effect(unsigned id)
 {
-	EffectObjectClass *effect = new EffectObjectClass;
-	effect->ID = id;
-	effect->Node.Set(effect);		// eff_o.cpp's, likewise
+	EffectObjectClass *effect = new Test_Effect_Class(id);	// the real constructor 0x6E6710 (members zeroed, Node set)
 	return effect;
 }
+
+// The concrete effects eff_o.cpp's factory 0x6E9490 makes for clienttest's effect.ini (tests/clienttest/data): their
+// files (eff_robj.cpp, the warp's, eff_line.cpp) are not rebuilt, so these stand in for the constructors the helpers
+// call. Each is built as the client's is, on the real end its constructor calls (client.py dis: 0x6EEEA0 calls the
+// unary end's 0x6E7540, 0x6F25A0 calls 0x6EEEA0, 0x6E5040 the binary end's 0x6E7D70), so the packets' slot +0x10 /
+// +0x14 calls and the per-frame update run eff_o.cpp's real slots; each keeps a reference to its render object
+// (the helper releases its own after the constructor) at the end of the client's size.
+class Unknown6EEEA0EffectClass : public UnknownB00060EffectClass	// RObjEffect (0xDC bytes: the unary end's 0xD8, then its model)
+{
+public:
+	Unknown6EEEA0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj);
+	virtual ~Unknown6EEEA0EffectClass() { REF_PTR_RELEASE(Model); }
+	virtual void Unknown_24(int next);
+	RenderObjClass *Model;
+};
+Unknown6EEEA0EffectClass::Unknown6EEEA0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj) :
+	UnknownB00060EffectClass(client, id, start_time, duration, cycle_time), Model(robj)
+{
+	if (Model) Model->Add_Ref();
+	Trace("stub Unknown6EEEA0EffectClass %u start %u duration %d cycle %u model '%s'", id, start_time, (int)duration, cycle_time, robj ? robj->Get_Name() : "(null)");
+}
+void Unknown6EEEA0EffectClass::Unknown_24(int next) { Trace("stub Unknown6EEEA0EffectClass::Unknown_24 %u %d", ID, next); }
+class Unknown6F25A0EffectClass : public Unknown6EEEA0EffectClass	// WarpEffect (0xE0 bytes)
+{
+public:
+	Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj);
+	virtual void Unknown_24(int next);
+	char Unknown_DC[4];
+};
+Unknown6F25A0EffectClass::Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj) :
+	Unknown6EEEA0EffectClass(client, id, start_time, duration, cycle_time, robj)
+{
+	Trace("stub Unknown6F25A0EffectClass %u", id);
+}
+void Unknown6F25A0EffectClass::Unknown_24(int next) { Trace("stub Unknown6F25A0EffectClass::Unknown_24 %u %d", ID, next); }
+class Unknown6E5040EffectClass : public UnknownB0009CEffectClass	// LineEffect (0x114 bytes)
+{
+public:
+	Unknown6E5040EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, SegmentedLineClass *line, float start_offset, float end_offset, int grow_time, int shrink_time, float grow_accel, float shrink_accel, float tiling_min_length);
+	virtual ~Unknown6E5040EffectClass() { REF_PTR_RELEASE(Line); }
+	virtual void Unknown_24(int next);
+	char Pad[0x110 - sizeof(UnknownB0009CEffectClass)];
+	SegmentedLineClass *Line;
+};
+Unknown6E5040EffectClass::Unknown6E5040EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, SegmentedLineClass *line, float, float, int grow_time, int shrink_time, float, float, float) :
+	UnknownB0009CEffectClass(client, id, start_time, duration, cycle_time), Line(line)
+{
+	if (Line) Line->Add_Ref();
+	Trace("stub Unknown6E5040EffectClass %u start %u duration %d grow %d shrink %d line class %d", id, start_time, (int)duration, grow_time, shrink_time, line ? line->Class_ID() : -1);
+}
+void Unknown6E5040EffectClass::Unknown_24(int next) { Trace("stub Unknown6E5040EffectClass::Unknown_24 %u %d", ID, next); }
 
 // ------------------------------------------------------------------------- the memory connection
 
@@ -657,9 +728,9 @@ static void Test_Lists(SClient *client)
 	EffectObjectClass *e1 = New_Effect(40);
 	EffectObjectClass *e2 = New_Effect(40);
 	EffectObjectClass *e3 = New_Effect(40 + 257);
-	client->Add_Effect(e1, 1, 2);
-	client->Add_Effect(e2, 3, 4);
-	client->Add_Effect(e3, 5, 6);
+	client->Add_Effect(e1, (int)&Fake_View64, (int)Fake_Camera);
+	client->Add_Effect(e2, (int)&Fake_View64, (int)Fake_Camera);
+	client->Add_Effect(e3, (int)&Fake_View64, (int)Fake_Camera);
 	Check(client->Get_Effect(40 + 257) == e3, "Get_Effect 297");
 	Check(client->Find_Effect(40) == e1 || client->Find_Effect(40) == e2, "Find_Effect 40 finds one of the two");
 	EffectObjectClass *last = client->Remove_Effects(40);

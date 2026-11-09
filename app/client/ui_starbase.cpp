@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__
-// 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x633010-0x648340 by its asserts and its string order).
+// 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x632E50-0x648340 by its asserts, its string order and ui_slot_scut.cpp's end).
 // So far the starbase interface's constructor 0x6333E0 (SB1), its lights helpers 0x640CC0-0x640F30 and the starbase lights panel (the class below,
 // 0x646170-0x648238), ST1; the file's own functions with their asserts (lines 368-4180) lie around them in the client.
 #include <stdio.h>
@@ -19,6 +19,7 @@
 #include "starbase_lights.h"
 #include "..\audio\soundlib.h"
 #include "control_keys_manager.h"
+#include "avatar.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -30,6 +31,8 @@ public:
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C(); virtual void Unknown_40();
 	virtual void Unknown_44(int arg);					// +0x44 (the starbase interface's destructor passes its +0x190's +0x90)  // NAME 1 [arg]: neutral
+	char Unknown04[0x112C - 0x04];
+	unsigned int AvatarID;								// +0x112C (client.h's ClientClass::AvatarID)  // NAME 3: client.h's
 };
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, as ui_login.cpp's
@@ -37,13 +40,22 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, a
 void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [robj, u, v, color]: as ui_avatar_cust.cpp's
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (the pointer, 0..1)  // NAME 1 [x, y]: as ui_avatar_cust.cpp's
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_avatar_cust.cpp's
+bool Unknown_42EC60(int button, int arg);		// 0x42EC60 (input.cpp: a button or key down)  // NAME 1 [button, arg]: neutral
 
 // The starbase view's +0x70 scene (sbaseview.cpp's SBaseViewUnknown70Class), as far as the starbase interface calls it
-class UIStarbaseSceneClass	// NAME 1: neutral (D10)
+class UIStarbaseSceneClass : public SceneClass	// NAME 1: neutral (D10)
 {
 public:
+	void Unknown_7621A0(RenderObjClass *obj);			// 0x7621A0  // NAME 1 [obj]: neutral
 	void Unknown_762920(float fill);					// 0x762920 (its +0xAC)  // NAME 1 [fill]: what 0x640EC0 passes
 	void Unknown_762940(const Vector3 &color);			// 0x762940 (its +0xA0: the ambient colour)  // NAME 1 [color]: what 0x640E90 passes
+};
+
+// The starbase avatar (unknown_78a910.cpp's Unknown78A910AvatarClass)
+class Unknown78A910AvatarClass : public CharacterViewAvatarClass	// NAME 1: neutral (D10)
+{
+public:
+	void Unknown_78B570(bool b);						// 0x78B570  // NAME 1 [b]: neutral
 };
 
 // The four rooms (the constructor's index): the key 0x698730 looks up (0xB8A870), the room's model part (0xB8A880),
@@ -62,6 +74,28 @@ struct UIStarbaseKeyEventStruct	// NAME 1: neutral (D10)
 	float Unknown08;									// +0x08
 	int Unknown0C;										// +0x0C
 };
+
+// @0x00632E50
+UIStarbaseUnknownCCClass::~UIStarbaseUnknownCCClass()
+{
+	if (Avatar) {
+		Avatar->Unknown_788EF0();
+		Avatar->Remove();
+		Avatar = NULL;
+	}
+	if (Unknown0C) {
+		Unknown0C->Remove();
+		Unknown0C = NULL;
+	}
+	if (Unknown10) {
+		Unknown10->Remove();
+		Unknown10 = NULL;
+	}
+	if (Unknown14) {
+		GadgetClass::Destroy(Unknown14);
+		Unknown14 = NULL;
+	}
+}
 
 inline SBaseViewUnknown1B4Class *UIStarbaseClass::Unknown_Info() { return(UnknownB0->Unknown1B4); }
 // 0x6333E0
@@ -87,9 +121,7 @@ UIStarbaseClass::UIStarbaseClass(UIViewClass *view, LayerClass *layer, int index
 	Unknown1B3(false),
 	Unknown1B4(-1.0f),
 	Unknown1B8(0.5f),
-	Unknown1EC(0),
-	Unknown1F0(0),
-	Unknown1F4(0),
+	Unknown1EC(0.0f, 0.0f, 0.0f),
 	Unknown1F8(NULL),
 	Unknown1FC(false),
 	Unknown1FD(false),
@@ -142,14 +174,12 @@ UIStarbaseClass::UIStarbaseClass(UIViewClass *view, LayerClass *layer, int index
 
 #pragma auto_inline(off)
 
-// NOT EXACT: register-only residue in the body (every vtable load of its own statements in eax where the client's is in edx and the
-// reverse; the members' destructors after it match), objdiff 0.82 counting the unrelocated jumps
-// 0x633B50
+// @0x00633B50
 UIStarbaseClass::~UIStarbaseClass()
 {
 	int i;
 	if (Unknown190) {
-		Client->Unknown_44(Unknown190->Unknown90);
+		Client->Unknown_44(Unknown190->Get_Unknown90());
 		delete Unknown190;
 		Unknown190 = NULL;
 	}
@@ -199,6 +229,148 @@ UIStarbaseClass::~UIStarbaseClass()
 		robj->Remove();
 	}
 	Unknown1A0.clear();
+}
+
+// 0x63BDB0
+// @0x0063BDB0
+void UIStarbaseClass::Unknown_63BDB0(const Matrix3D &transform)
+{
+	Matrix3D tm;
+	if (!UnknownC0.D->Avatar) {
+		return;
+	}
+	UnknownC0.D->Avatar->Remove();
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(UnknownC0.D->Avatar.Peek());
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(UnknownC0.D->Avatar.Peek());
+	UnknownB0->Unknown_69DFC0(UnknownC0.D->Avatar, transform, false);
+	UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, 1);
+	UnknownC0.D->Avatar->Unknown_77E3D0(1);
+	UnknownC0.D->Avatar->Unknown230 = false;
+	UnknownC0.D->Avatar->Unknown36C = true;
+	UnknownC0.D->Avatar->Unknown_785F20(true);
+	UnknownC0.D->Avatar->BodyObj->Set_LOD_Bias(100.0f);
+	UnknownC0.D->Avatar->Unknown_786E60();
+	Unknown_640F50(UnknownC0.D->Avatar.Peek());
+	if (UnknownC0.D->Avatar != NULL) {
+		UnknownC0.D->Avatar->Unknown_786E60();
+	}
+	Unknown214 = false;
+	Unknown215 = false;
+	Unknown216 = false;
+	Unknown217 = false;
+	Unknown218 = false;
+	Unknown219 = false;
+	Unknown21A = false;
+	Unknown1B3 = false;
+	if (Unknown_42EC60(2, 0)) {
+		Unknown21A = true;
+	}
+	UnknownB0->Unknown_6A2430(&Unknown214, &Unknown215, &Unknown216, &Unknown217, &Unknown1B3);
+	if (Unknown1B3 && UnknownC0.D != NULL) {
+		UnknownC0.D->Avatar->Unknown_786B60(false);
+	}
+	tm = UnknownC0.D->Avatar->Unknown330;
+	Unknown1EC = tm.Get_Translation();
+	UnknownB0->Unknown_69CBE0();
+	UnknownC0.E = 0x40;
+	Unknown_63E2B0();
+	Unknown1B4 = 0.0f;
+}
+
+// 0x63C080
+// @0x0063C080
+void UIStarbaseClass::Unknown_63C080(const char *name, bool a, bool b)
+{
+	Matrix3D tm;
+	if (!UnknownC0.D->Avatar) {
+		return;
+	}
+	UnknownC0.D->Avatar->Remove();
+	UnknownC0.D->Avatar = NULL;
+	unsigned int id = ((LineDisplayClientClass *)Client)->AvatarID;
+	UnknownC0.D->Avatar = Create_NEW((CharacterViewAvatarClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_74C7B0(id));
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(UnknownC0.D->Avatar.Peek());
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(UnknownC0.D->Avatar.Peek());
+	UnknownB0->Unknown_69DC80(UnknownC0.D->Avatar, name, b);
+	if (a) {
+		UnknownB0->Unknown_69E510(UnknownC0.D->Avatar->Unknown_787A90());
+	} else {
+		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, 1);
+	}
+	UnknownC0.D->Avatar->Unknown_77E3D0(1);
+	UnknownC0.D->Avatar->Unknown230 = false;
+	UnknownC0.D->Avatar->Unknown36C = true;
+	UnknownC0.D->Avatar->Unknown_785F20(true);
+	UnknownC0.D->Avatar->BodyObj->Set_LOD_Bias(100.0f);
+	UnknownC0.D->Avatar->Unknown_786E60();
+	Unknown_640F50(UnknownC0.D->Avatar.Peek());
+	if (UnknownC0.D->Avatar != NULL) {
+		UnknownC0.D->Avatar->Unknown_786E60();
+	}
+	Unknown214 = false;
+	Unknown215 = false;
+	Unknown216 = false;
+	Unknown217 = false;
+	Unknown218 = false;
+	Unknown219 = false;
+	Unknown21A = false;
+	Unknown1B3 = false;
+	if (Unknown_42EC60(2, 0)) {
+		Unknown21A = true;
+	}
+	UnknownB0->Unknown_6A2430(&Unknown214, &Unknown215, &Unknown216, &Unknown217, &Unknown1B3);
+	if (Unknown1B3 && UnknownC0.D != NULL) {
+		UnknownC0.D->Avatar->Unknown_786B60(false);
+	}
+	tm = UnknownC0.D->Avatar->Unknown330;
+	Unknown1EC = tm.Get_Translation();
+	if (b) {
+		if (!UnknownB0->Unknown_69CBE0()) {
+			UnknownC0.E = 0;
+			Unknown_63E2B0();
+		}
+	} else {
+		UnknownB0->Unknown_69CBE0();
+		UnknownC0.E = 0x40;
+		Unknown_63E2B0();
+	}
+	Unknown1B4 = 0.0f;
+}
+
+// 0x63D2F0
+// @0x0063D2F0
+void UIStarbaseClass::Unknown_63D2F0(int index)
+{
+	if (Unknown13C[index]->Avatar != NULL) {
+		Matrix3D tm1 = Unknown13C[index]->Avatar->Get_Transform();
+		Matrix3D tm2 = UnknownC0.D->Avatar->Get_Transform();
+		Vector3 diff = tm2.Get_Translation() - tm1.Get_Translation();
+		diff.Normalize();
+		Vector3 z = tm2.Get_Z_Vector();
+		Vector3 cross = Vector3::Cross_Product(z, diff);
+		tm1.Set(diff, cross, z, tm1.Get_Translation());
+		Unknown13C[index]->Avatar->Unknown_788700(tm1);
+		tm2.Set(-diff, -cross, z, tm2.Get_Translation());
+		UnknownC0.D->Avatar->Unknown_788700(tm2);
+		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787450(Unknown13C[index]->Avatar.Peek()), 1, 1);
+		Unknown1FC = true;
+	}
+	if (Unknown13C[index]->Unknown08 != NULL) {
+		Unknown13C[index]->Unknown08->Unknown_78A080();
+		Unknown13C[index]->Unknown08->Unknown_78B570(false);
+		Matrix3D tm1 = Unknown13C[index]->Unknown08->Get_Transform();
+		Matrix3D tm2 = UnknownC0.D->Avatar->Get_Transform();
+		Vector3 diff = tm2.Get_Translation() - tm1.Get_Translation();
+		diff.Normalize();
+		Vector3 z = tm2.Get_Z_Vector();
+		Vector3 cross = Vector3::Cross_Product(z, diff);
+		tm1.Set(diff, cross, z, tm1.Get_Translation());
+		Unknown13C[index]->Unknown08->Unknown_788700(tm1);
+		tm2.Set(-diff, -cross, z, tm2.Get_Translation());
+		UnknownC0.D->Avatar->Unknown_788700(tm2);
+		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787450(Unknown13C[index]->Unknown08.Peek()), 1, 1);
+		Unknown1FC = true;
+	}
 }
 
 #pragma auto_inline(on)
@@ -546,14 +718,11 @@ void UIStarbaseLightsClass::Unknown_646940()
 	Fill = 0.75f;
 }
 
-// NOT EXACT: inline-budget (the client keeps the temporary vector's _Destroy 0x644410 out of line, ours inlines it)
-// and the far attenuation range: the client copies the two floats with mov, as Zero Hour's light.h overload
-// Get_Far_Attenuation_Range(float &, float &) gives (tested with an equivalent helper); this tree's light.h has
-// only the double & one, whose fld / fstp is kept here
 // 0x646A00
 void UIStarbaseLightsClass::Unknown_646A00()
 {
 	Unknown_BE82D0->Unknown_764530();
+	Lights.size();		// dead read: spends the inline budget so the temporary's _Destroy is called out of line (0x644410) as the client's
 	Lights = Starbase->Unknown_640DF0();
 	UnknownF4 = Lights.size();
 	int i;
@@ -562,11 +731,7 @@ void UIStarbaseLightsClass::Unknown_646A00()
 		light->Get_Ambient(&AmbientColor);
 		light->Get_Diffuse(&Color[i]);
 		Intensity[i] = light->Get_Intensity();
-		double start;
-		double end;
-		light->Get_Far_Attenuation_Range(start, end);
-		Atten[i].X = start;
-		Atten[i].Y = end;
+		light->Get_Far_Attenuation_Range(Atten[i].X, Atten[i].Y);
 	}
 	Fill = Unknown_BE82D0->Unknown_764EA0(UnknownE4, UnknownE8, UnknownEC);
 	AmbientColor = Unknown_BE82D0->Unknown_764CF0(UnknownE4, UnknownE8, UnknownEC);

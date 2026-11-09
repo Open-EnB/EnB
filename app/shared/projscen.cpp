@@ -177,7 +177,7 @@ void ProjSceneClass::Create_Projectors(RenderObjClass * obj)
 		if (track->Unknown8C & 0x20) {
 			Unknown45D9E0Class * shadowSource = track->UnknownC8;
 			if (shadowSource == NULL) {
-				track->Unknown_462470((int)ProjectionDef, (int)ProjectorManager);
+				track->Unknown_462470(ProjectionDef, ProjectorManager);
 				shadowSource = track->UnknownC8;
 
 

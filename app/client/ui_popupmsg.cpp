@@ -60,25 +60,25 @@ class PopupSettingsClass { public: void Unknown_7CB2E0(const char *url, int a); 
 
 #define NUM_SITES 6										// NAME 3: the G_ASSERT's
 
-// The end screen (0xD4 bytes, tables 0xAF5B70 / 0xAF5B64 / 0xAF5B58; charview.cpp's 0x679160 makes it for mode 0)
-class Unknown5DB670InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): charview.cpp's
-{
-public:
-	Unknown5DB670InterfaceClass(UIViewClass *view, LayerClass *layer);	// 0x5DB670  // NAME 1 [view, layer]: as LoginInterface's
-	virtual ~Unknown5DB670InterfaceClass();				// 0x5DB9F0 (slot 0x5DB9C0)
-	virtual void Unknown_60();							// 0x5DBB70 (every frame: the 30 second count down)
-	virtual bool Unknown_68(int key);					// 0x5DBD00 (the buttons: 1-6 a site, 7 exit)
-	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x5DBB00 (the model off the old view's scene, onto the new)
-	void Unknown_5DBD50(int site);						// 0x5DBD50: the site's page opened  // NAME 1 [site]: the G_ASSERT's
-	const char *Get_Site_URL(int site);					// 0x5DBEB0 (G_ASSERT 'site >= 0 && site < NUM_SITES')  // NAME 1: what it returns; NAME 3 [site]: the G_ASSERT's
+#include "ui_popupmsg.h"	// the end screen (Unknown5DB670InterfaceClass)
 
-	LayerClass Layer;									// +0x84 (a copy of the constructor's layer)  // NAME 1: what it holds
-	LoginTaskClass *Task;								// +0xA8 (the character view's +0x14's slot +0x08)  // NAME 1: as LoginInterface's
-	CharacterViewClass *CharacterView;					// +0xAC (the view's slot +0x28)  // NAME 1: as LoginInterface's
-	RefCountPtr<RenderObjClass> Model;					// +0xB0 ('end_screen00')  // NAME 1: what it holds
-	float Unknown0B4;									// +0xB4 (seconds shown; -1 before the first frame)
-	GadgetClass *Buttons[7];							// +0xB8 ('logo00' .. 'exit')  // NAME 1: neutral (D10)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 static const char *Unknown_B846BC[] = { "logo00", "logo01", "logo02", "logo03", "logo04", "ebweb", "exit" };	// NAME 1: neutral (D10)
 static const char *Unknown_B846DC[NUM_SITES] = {	// NAME 1: neutral (D10)
@@ -216,5 +216,5 @@ const char *Unknown5DB670InterfaceClass::Get_Site_URL(int site)
 **	Every function of the window is here and exact. Forms: slot +0x68 is a switch whose cases 1-6 fall through into
 **	7's exit (if / else forms branch the other way round); the site's URL is copied into a StringClass (its
 **	Is_Empty against the null char); the frame's text style is held through Create_Peek (0x546510, out of line).
-**	The class is declared here only; charview.cpp declares the constructor's view of it (D137: no header yet).
+**	The class is declared in ui_popupmsg.h (PROVISIONAL name, D137); charview.cpp includes it.
 */

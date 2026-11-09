@@ -31,19 +31,11 @@ check 262 added back, found: ok
 check Set_Ship_ID 1000: Get_Ship is object 1000: ok
 check Set_Ship_ID 4 returns 1000; no object 4: ok
 check Unknown_728370 asks the ship's 0x6FFF50: ok
-stub EffectObjectClass::Unknown_6E74B0 40 1
-stub EffectObjectClass::Unknown_6E6ED0 40 2
-stub EffectObjectClass::Unknown_6E74B0 40 3
-stub EffectObjectClass::Unknown_6E6ED0 40 4
-stub EffectObjectClass::Unknown_6E74B0 297 5
-stub EffectObjectClass::Unknown_6E6ED0 297 6
 check Get_Effect 297: ok
 check Find_Effect 40 finds one of the two: ok
 check Remove_Effects 40 takes both, returns the last: ok
 check 297 left: ok
 check Remove_Effects 41: NULL: ok
-stub EffectObjectClass::~EffectObjectClass 40
-stub EffectObjectClass::~EffectObjectClass 40
 == (2) DEBUG and the redirect
 stub ChatPanelInterface::Unknown_563760 0x17 'Debug mode turned ON.'
 check Set_Debug_Mode true before the redirect (the do-nothing connection): ok
@@ -135,8 +127,6 @@ model Set_Transform (0, 0, 0)
 camera controller +0x08
 mainview 7C
 model Set_Transform (0, 0, 0)
-stub EffectObjectClass::Unknown_6E6AD0 297
-stub Unknown_6E6A90 297
 gen MainViewUnknown138Class::Unknown_53DFB0
 gen MainViewUnknown138Class::Unknown_53E030
 mainview 1DC's +0x8C 0
@@ -779,19 +769,15 @@ mainview add 38962
 msg 236 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
 msg 237 ACTIVATE_RENDER_STATE (48) size 12: cpacket.cpp's handler
 msg 238 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 20313 effect 39020 duration 0 time 1954979 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490TargetClass::Unknown_28 38962
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 39020 100
-stub EffectObjectClass::Unknown_6E6ED0 39020 124
 msg 239 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 20362 effect 39021 duration 0 time 1954979 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490TargetClass::Unknown_28 38962
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 39021 100
-stub EffectObjectClass::Unknown_6E6ED0 39021 124
 msg 240 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 241 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
 msg 242 AUX_DATA (27) size 29: cpacket.cpp's handler
@@ -1347,12 +1333,10 @@ asset manager +0x78 'planet_466' scale 0.1 hsv (0 0 0) -> model 141
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38970
 msg 500 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 20282 effect 39023 duration 0 time 1954979 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490TargetClass::Unknown_28 38970
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 39023 100
-stub EffectObjectClass::Unknown_6E6ED0 39023 124
 msg 501 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 502 PLANET_POSITIONAL_UPDATE (63) size 52: cpacket.cpp's handler
 msg 503 AUX_DATA (27) size 21: cpacket.cpp's handler
@@ -1378,12 +1362,10 @@ asset manager Create_Render_Obj 'missing' -> model 144
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 38969
 msg 514 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 20407 effect 39022 duration 0 time 1954979 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490TargetClass::Unknown_28 38969
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 39022 100
-stub EffectObjectClass::Unknown_6E6ED0 39022 124
 msg 515 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 516 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 517 AUX_DATA (27) size 22: cpacket.cpp's handler
@@ -1829,55 +1811,65 @@ msg 761 CLIENT_CHAT_EVENT (165) size 99: cpacket.cpp's handler
 stub Unknown764FD0Class::Unknown_765DF0 12
 stub ChatPanelInterface::Unknown_563760 0xC '[Market] Heckitty: Think I feel my life expectancy rising already :D'
 msg 762 OBJECT_EFFECT (9) size 23: cpacket.cpp's handler
-stub Unknown_6E9490 desc 214 effect 48901062 duration 0 time 1967671 scale 1.00 hsv (60.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490TargetClass::Unknown_28 48900994
+asset manager +0x78 'eff_1160': not loaded
+asset manager Load_3D_Assets 'eff_1160.w3d'
+asset manager +0x78 'eff_1160' scale 1 hsv (60 0 0) -> model 1001
+stub Unknown6EEEA0EffectClass 48901062 start 1967671 duration 550 cycle 550 model 'eff_1160'
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 48901062 100
-stub EffectObjectClass::Unknown_6E6ED0 48901062 124
 msg 763 OBJECT_TO_OBJECT_EFFECT (11) size 25: cpacket.cpp's handler
-stub Unknown_6E9490 desc 664 effect 48901063 duration 0 time 1967671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490BinaryClass::Unknown_28 source 48887635
-stub Unknown6E9490BinaryClass::Unknown_34 target 48900994
-stub Unknown6E9490BinaryClass::Unknown_6E82A0 0 0 (0, 0, 0) flags 0x0
+asset manager +0x78 'eff_segline_1091': not loaded
+asset manager Load_3D_Assets 'eff_segline_1091.w3d'
+asset manager +0x78 'eff_segline_1091' scale 1 -> a segmented line
+stub Unknown6E5040EffectClass 48901063 start 1967671 duration 1000 grow 250 shrink 0 line class 28
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 48901063 100
-stub EffectObjectClass::Unknown_6E6ED0 48901063 124
 msg 764 AUX_DATA (27) size 100: cpacket.cpp's handler
 msg 765 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 530 effect 48901075 duration 0 time 1972671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490TargetClass::Unknown_28 48900994
+asset manager +0x78 'eff_1075': not loaded
+asset manager Load_3D_Assets 'eff_1075.w3d'
+asset manager +0x78 'eff_1075' scale 1 hsv (0 0 0) -> model 1002
+stub Unknown6EEEA0EffectClass 48901075 start 1972671 duration 1419 cycle 0 model 'eff_1075'
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 48901075 100
-stub EffectObjectClass::Unknown_6E6ED0 48901075 124
 msg 766 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 564 effect 48901076 duration 0 time 1972671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490TargetClass::Unknown_28 48900994
+asset manager +0x78 'eff_1770': not loaded
+asset manager Load_3D_Assets 'eff_1770.w3d'
+asset manager +0x78 'eff_1770' scale 1 hsv (0 0 0) -> model 1003
+stub Unknown6EEEA0EffectClass 48901076 start 1972671 duration 2000 cycle 2000 model 'eff_1770'
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 48901076 100
-stub EffectObjectClass::Unknown_6E6ED0 48901076 124
 msg 767 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 553 effect 48901077 duration 0 time 1972671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490TargetClass::Unknown_28 48900994
+asset manager +0x78 'eff_GE_EN_buff01': not loaded
+asset manager Load_3D_Assets 'eff_GE_EN_buff01.w3d'
+asset manager +0x78 'eff_GE_EN_buff01' scale 1 hsv (0 0 0) -> model 1004
+stub Unknown6EEEA0EffectClass 48901077 start 1972671 duration 3000 cycle 1000 model 'eff_GE_EN_buff01'
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 48901077 100
-stub EffectObjectClass::Unknown_6E6ED0 48901077 124
 msg 768 AUX_DATA (27) size 35: cpacket.cpp's handler
 msg 769 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
 gen SClientUnknown1394Class::SClientUnknown1394Class
 msg 770 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 727 effect 48901060 duration 0 time 1965671 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490TargetClass::Unknown_28 48887635
+asset manager +0x78 'eff_1870': not loaded
+asset manager Load_3D_Assets 'eff_1870.w3d'
+asset manager +0x78 'eff_1870' scale 1 hsv (0 0 0) -> model 1005
+stub Unknown6EEEA0EffectClass 48901060 start 1965671 duration -1 cycle 0 model 'eff_1870'
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 48901060 100
-stub EffectObjectClass::Unknown_6E6ED0 48901060 124
 msg 771 REMOVE_EFFECT (15) size 8: cpacket.cpp's handler
-stub EffectObjectClass::Unknown_6E6E30 48901060
 msg 772 GALAXY_MAP (151) size 59: cpacket.cpp's handler
 fail_if !map (line 2358)
 msg 773 MESSAGE_STRING (29) size 53: cpacket.cpp's handler
@@ -1908,12 +1900,15 @@ msg 790 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 791 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 792 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 793 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
-stub Unknown_6E9490 desc 23 effect 48901090 duration 0 time 1977404 scale 1.00 hsv (0.00 0.00 0.00) 1.00 -1 0
-stub Unknown6E9490TargetClass::Unknown_28 48900994
+asset manager +0x78 'eff_wrp01': not loaded
+asset manager Load_3D_Assets 'eff_wrp01.w3d'
+asset manager +0x78 'eff_wrp01' scale 1 hsv (0 0 0) -> model 1006
+stub Unknown6EEEA0EffectClass 48901090 start 1977404 duration -1 cycle 0 model 'eff_wrp01'
+stub Unknown6F25A0EffectClass 48901090
+stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
+stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
 mainview 64
-stub EffectObjectClass::Unknown_6E74B0 48901090 100
-stub EffectObjectClass::Unknown_6E6ED0 48901090 124
 msg 794 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 795 ADVANCED_POSITIONAL_UPDATE (62) size 50: cpacket.cpp's handler
 msg 796 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler

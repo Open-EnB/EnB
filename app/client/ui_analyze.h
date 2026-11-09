@@ -16,6 +16,7 @@ class DeltaCompoundClass;	// the item's aux data (+0x10C)
 class UIAnalyzeInvClass : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
+	UIAnalyzeInvClass(SClient *client, RenderObjClass *model, int count, const char *format, int unknown);	// 0x59EDC0 (slot +0x54: 6 'TSM02A.E%02d' 12, 1 'TSM02A.RESULT' 13, 1 'TSM02A.OVER' 14)  // NAME 1 [client, model, count, format, unknown]: as ui_manu.h's
 	void Unknown_62F5B0(bool on);						// 0x62F5B0 (0x546090 passes false)  // NAME 1 [on]: neutral
 
 	char Unknown84[0xE0 - 0x84];						// +0x84
@@ -34,13 +35,14 @@ class UIAnalyzeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24
 public:
 	UIAnalyzeClass(SBaseViewClass *view, const LayerClass &layer);	// 0x5435D0 (0x11C bytes: sbaseview.cpp's 0x69F8F0 case 6)  // NAME 1 [view, layer]: as ui_manu.cpp's
 	virtual ~UIAnalyzeClass();							// 0x5437C0 (G_ASSERT 'State == UI_CLOSED', l.116; deleting 0x543790)
-	virtual void Unknown_54();							// 0x5439F0 (not rebuilt yet)
+	virtual void Unknown_54();							// 0x5439F0 (the buttons, the three sub-windows, the icons)
 	virtual void Unknown_58();							// 0x544090
 	virtual void Unknown_5C();							// 0x544270
-	virtual void Unknown_60();							// 0x5443F0 (not rebuilt yet)
+	virtual void Unknown_60();							// 0x5443F0 (the result shown when the attempt ends)
 	virtual bool Unknown_68(int key);					// 0x544BB0  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x544020 (InterfaceClass's, then the three sub-windows')  // NAME 1 [view, arg]: InterfaceClass's
 	void Unknown_544D80();								// 0x544D80: the cost and probability texts
+	void Unknown_545190();								// 0x545190: the cost and probability texts as they change, the 'Validity' message
 	void Unknown_545610();								// 0x545610 ('Validity', 'Mode')
 	void Unknown_5458B0();								// 0x5458B0: the analysis started (key 5)
 	void Unknown_544C50(int index, bool show, const char *text);	// 0x544C50 (FAIL_IF '!font', l.483): a text set and shown (as ui_manu.cpp's 0x5B1AF0)  // NAME 1 [index, show, text]: neutral

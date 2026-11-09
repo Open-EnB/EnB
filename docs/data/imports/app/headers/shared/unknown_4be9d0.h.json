@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: 0x4BE9D0's declaration (message_filter.cpp's definition, provisional D137) in a header of its own: <string> in message.h costs message_server.cpp's 0x4BCB50"
+}

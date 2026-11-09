@@ -138,6 +138,7 @@ public:
 	void Unknown_788890();								// 0x788890 (the path's first goal off)
 	void Unknown_788900();								// 0x788900 (the movement flags toward the path's first goal)
 	void Unknown_7897D0();								// 0x7897D0 (the teleport effect's time)
+	void Unknown_78A080();								// 0x78A080  // NAME 1: neutral
 	void Unknown_781EA0();								// 0x781EA0 (the idle: breathe / bored / sit_breathe; sets +0x220)
 	std::string Unknown_781D10(int anim);				// 0x781D10 ('%s.ABANIM%02d-%02d': skeleton, personality, anim)  // NAME 1 [anim]: neutral
 	void Unknown_782CA0();								// 0x782CA0 (the face animation's brow and blink keys over the gesture animation)

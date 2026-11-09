@@ -326,7 +326,7 @@ void DynamicWindowMultiLineTextClass::Split_Lines(float width)
 
 	FAIL_IF(CharacterHeight <= 0) return;
 
-	FontSplitStringClass split(*(const RefCountPtr<Font32Class> *)&SampleFont->Font, Text.c_str(), width, 0);
+	FontSplitStringClass split(SampleFont->Font, Text.c_str(), width, 0);
 	split.Split(Text.c_str(), width, 0);
 	int count = split.Count();
 	DisplayedLines = count;

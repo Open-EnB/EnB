@@ -2,7 +2,7 @@
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	// NAME 1 [unknown_root.h]: provisional file name, the object has no __FILE__
-**	Original location: unknown (PROVISIONAL name, M1.3: the object 0x4A3990-0x4A4780 between
+**	Original location: unknown (PROVISIONAL name, M1.3: the object 0x4A3B40-0x4A4780 between
 **	strconv_lib.cpp and bitset.cpp holds no assert and no __FILE__; renaming it later is fine)
 **
 **	The aux-data root: the DeltaCompoundClass every root tree (Ship, Player, ... in co.cpp) derives

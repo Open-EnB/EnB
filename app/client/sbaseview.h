@@ -28,6 +28,7 @@ class ShipRecustomizationCostClass;
 class RecustomizationCostClass;
 class LayerClass;
 class CharacterViewAvatarClass;
+class Unknown78A910AvatarClass;	// NAME 1: neutral (D10)
 
 class SBaseViewClass;
 class LightClass;
@@ -80,8 +81,14 @@ public:
 class UIStarbaseUnknownCCClass	// NAME 1: neutral (D10)
 {
 public:
-	~UIStarbaseUnknownCCClass();	// 0x632E50 (not rebuilt)
-	char Unknown00[0x14];	// +0x00
+	~UIStarbaseUnknownCCClass();	// 0x632E50
+	int Unknown00;					// +0x00  // NAME 1: neutral
+	RefCountPtr<CharacterViewAvatarClass> Avatar;	// +0x04 (0x63BDB0 / 0x63C080 / 0x63D2F0)  // NAME 1: what it holds
+	RefCountPtr<Unknown78A910AvatarClass> Unknown08;	// +0x08 (0x63D2F0)  // NAME 1: neutral
+	RefCountPtr<RenderObjClass> Unknown0C, Unknown10;	// +0x0C (the destructor removes both)
+	GadgetClass *Unknown14;			// +0x14 (the destructor's GadgetClass::Destroy)
+	char Unknown18[0x24 - 0x18];	// +0x18
+	std::string Unknown24;			// +0x24 (the destructor's inlined _Tidy of +0x28; the size past +0x34 is unknown)
 };
 // What the starbase interface's +0x190 points to (a virtual destructor; its +0x90 goes to the client's slot +0x44)
 class UIStarbaseUnknown190Class	// NAME 1: neutral (D10)
@@ -90,6 +97,7 @@ public:
 	virtual ~UIStarbaseUnknown190Class();	// +0x00
 	char Unknown04[0x90 - 0x04];	// +0x04
 	int Unknown90;	// +0x90 (0x633B50 hands it to the client's slot +0x44)
+	int Get_Unknown90() { return(Unknown90); }	// inline (0x633B50: read through a getter, its vtable loads take the client's eax / edx; read directly they swap)  // NAME 1: neutral (D10)
 };
 
 // ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
@@ -134,7 +142,7 @@ public:
 	bool Unknown1B0, Unknown1B1, Unknown1B2, Unknown1B3;	// +0x1B0
 	float Unknown1B4, Unknown1B8;	// +0x1B4 (-1, 0.5)
 	char Unknown1BC[0x1EC - 0x1BC];	// +0x1BC (not set by the constructor)
-	int Unknown1EC, Unknown1F0, Unknown1F4;	// +0x1EC
+	Vector3 Unknown1EC;	// +0x1EC
 	RefCountPtr<InterfaceClass> Unknown1F8;	// +0x1F8 (destructor 0x643BA0: a reference count at +0x38, an interface)  // NAME 1: neutral (D10): the interface's class unknown
 	bool Unknown1FC, Unknown1FD, Unknown1FE, Unknown1FF, Unknown200, Unknown201;	// +0x1FC
 	std::vector<LightClass *> Lights;	// +0x204 (0x640CC0 removes and releases them; 0x640DF0 hands a copy to the lights panel; destructor 0x643BE0)  // NAME 1: neutral
@@ -149,6 +157,11 @@ public:
 	void Unknown_640D80(int *a, int *b, int *c); void Unknown_640F10();	// 0x640D80 (+0xB0's +0x1B4's +0x18, Room, 1..3 from +0xB4); 0x640F10 (empty: ret); the lights panel's 0x6466F0 / 0x6467B0  // NAME 1 [a, b, c]: neutral
 	std::vector<LightClass *> Unknown_640DF0();	// 0x640DF0 (a copy of the vector at +0x204: the lights panel's 0x646A00)
 	void Unknown_640E90(const Vector3 &color); void Unknown_640EC0(float fill); void Unknown_640EF0(int index); void Unknown_640F30(int index, float range);	// 0x640E90 / 0x640EC0 (+0xB0's +0x70's 0x762940 / 0x762920); 0x640EF0 / 0x640F30 (empty: ret 4 / ret 8); the lights panel's 0x646F70 / 0x6474C0 pass them  // NAME 1 [fill, index, range]: what 0x646F70 passes
+	void Unknown_63BDB0(const Matrix3D &transform);	// 0x63BDB0  // NAME 1 [transform]: what 0x6435E0 / 0x6390A0 pass
+	void Unknown_63C080(const char *name, bool a, bool b);	// 0x63C080  // NAME 1 [name, a, b]: what 0x6366A0 / 0x6390A0 pass
+	void Unknown_63D2F0(int index);					// 0x63D2F0  // NAME 1 [index]: neutral
+	void Unknown_63E2B0();							// 0x63E2B0
+	void Unknown_640F50(CharacterViewAvatarClass *avatar);	// 0x640F50  // NAME 1 [avatar]: neutral
 };
 
 // ui_ptrade.cpp's player trade interface UIPTradeClass (the starbase view's +0x1A4): sclient.h (the main view's +0x1E4)

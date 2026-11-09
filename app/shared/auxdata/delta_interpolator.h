@@ -26,7 +26,7 @@ class DeltaInterpolatorClass : public DeltaCompoundClass  // NAME 3: by conventi
 {
 public:
 	DeltaInterpolatorClass(const char *name);											// 0x4A6110
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor);					// +0x00 0x4A6930
+	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 0x4A6930
 	virtual void Unknown_3C(DeltaClass *delta);									// +0x3C 0x4A68E0
 
 	float Get_Change() const;																// 0x4A6360  // NAME 2: describes what it does

@@ -27,7 +27,7 @@ public:
 	DeltaTemplateClass(const char *name, const MoneyClass &value = MoneyClass());	// 0x4A7080
 	virtual ~DeltaTemplateClass();											// 0x4A7100
 
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor);					// +0x00
+	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00
 	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C 0x4A7470
 	virtual bool Write(LinearBufferClass &buf);				// +0x30 0x4A74F0
 

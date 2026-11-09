@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "ui_cpit.h"
-class UIScanClass : public InterfaceClass { public: UIScanClass(UIViewClass *view, LayerClass *layer); char Unknown84[0x88 - 0x84]; ClientObjectClass *Unknown88; char Unknown8C[0x1B0 - 0x8C]; };	// 0x60D800: ui_scan.h's, as far as this file calls it (ui_scan.h reaches fontmanager.h, which can't be included here: see below); +0x88 is UIMFDClass's watched Object
+#include "ui_scan.h"	// UIScanClass (0x60D800): +0x88 is UIMFDClass's watched Object (UnknownObjectWatchClass at +0x84)
 #include "client.h"
 #include "..\packets\pkaction.h"
 #include "..\packets\pkskillstringrq.h"
@@ -19,20 +19,20 @@ class UIScanClass : public InterfaceClass { public: UIScanClass(UIViewClass *vie
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 #include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
-// fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
-// file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
-class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontSys : public RenderObjClass	// NAME 5 [FontSys]: fontmanager.h's (the client's name) (a DynamicMeshClass there, 0x4E8 bytes)
-{
-public:
-	char Unknown_Pad[0x2FC - sizeof(RenderObjClass)];
-	float Unknown2FC;									// +0x2FC (0x5845A0: 1, or 0.5 while the warp button is off)
-	char Unknown300[0x4C5 - 0x300];
-	bool Unknown4C5;									// +0x4C5 (0x5845A0 clears it)
-	void Change_Text(const char *text, int unknown);	// 0x6CDBC0 (fontmanager.h's)  // NAME 3: the client's label
-	void Unknown_6CE910(int on);						// 0x6CE910 (0x5821C0: 1 past the speed limit)  // NAME 1 [on]: neutral
-};
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
+#include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // The asset manager (*0xBFAEE0)
@@ -1050,9 +1050,9 @@ bool UICpitClass::Unknown_68(int key)
 // 0x581670: every frame (the base's slot +0x60 last)
 void UICpitClass::Unknown_60()
 {
-	if (HulkWatch && HulkWatch != Scan->Unknown88) Unknown_582070();
+	if (HulkWatch && HulkWatch != Scan->Object) Unknown_582070();
 	ClientObjectClass *current_harvestable = CurrentHarvestable;
-	if (current_harvestable && current_harvestable != Scan->Unknown88) {
+	if (current_harvestable && current_harvestable != Scan->Object) {
 		((ClientClass *)Client)->Send_Packet(&ActionPacketClass(Unknown_Avatar_ID(Client), 17, current_harvestable->Get_Game_ID(), 0));
 		CurrentHarvestable = NULL;
 	}
@@ -1182,7 +1182,7 @@ void UICpitClass::Unknown_581CE0(InterfaceClass *ui)
 void UICpitClass::Unknown_581E60()
 {
 	if (HulkWatch) { Unknown_582070(); return; }
-	ClientObjectClass *current_target = Scan->Unknown88;
+	ClientObjectClass *current_target = Scan->Object;
 
 
 	FAIL_IF(!current_target) return;
@@ -1192,7 +1192,7 @@ void UICpitClass::Unknown_581E60()
 void UICpitClass::Unknown_581F90(ClientObjectClass *hulk)
 {
 	FAIL_IF(!hulk) return;
-	ClientObjectClass *current_target = Scan->Unknown88;
+	ClientObjectClass *current_target = Scan->Object;
 
 	FAIL_IF(!current_target) return;
 	if (hulk == current_target) {
@@ -1225,7 +1225,7 @@ void UICpitClass::Unknown_5820C0(bool on)
 {
 	if (on) {
 		G_ASSERT(CurrentHarvestable == 0);
-		CurrentHarvestable = Scan->Unknown88;
+		CurrentHarvestable = Scan->Object;
 		G_ASSERT(CurrentHarvestable != 0);
 		Unknown0CC->Unknown_58();
 	} else {
@@ -2008,9 +2008,9 @@ void UICpitClass::Unknown_5845A0()
 	if (style) {
 		FontSys *font;
 		if (Unknown0B4->Unknown_60()) {
-			(font = style.Peek())->Unknown2FC = 1.0f;
+			(font = style.Peek())->Unknown2F4[2] = 1.0f;
 		} else {
-			(font = style.Peek())->Unknown2FC = 0.5f;
+			(font = style.Peek())->Unknown2F4[2] = 0.5f;
 		}
 		font->Unknown4C5 = false;
 	}

@@ -53,7 +53,8 @@ The rules behind the allowance (defaults in the script, all overridable):
 
 - **Memory:** one more builder per 2 GB free above a 3 GB floor. A stopped clone starts on lease and takes its
   startup memory, so count it before it exists.
-- **Usage:** a builder costs about 2 % of the week per hour (Opus; Sonnet about a fifth, Haiku a twentieth),
+- **Usage:** a builder costs about 0.5 % of the week per hour, the coordinator's own burn included (Opus; Sonnet
+  about a fifth, Haiku a twentieth; measured below),
   and 4 % of the session window per hour. Launch only while the projection at the handoff stays under the cap
   (92 %). Never launch under 5 % of the week. Seven Opus builders burned about 1 % of the session window per
   minute at their heaviest; the observed rate in the log is the better guide once two heartbeats exist.
@@ -66,8 +67,13 @@ The rules behind the allowance (defaults in the script, all overridable):
   `udpreplay.py build`, `run alex3`, `handshake` (54/54). Log the result; a failure is a health item: give it to one bounded
   builder (Sonnet: tests/ stand-ins only, never app code) before the next launches. Always once more before the handoff.
 
-Observed on 2026-10-27: seven builders at a time on a seven-VM pool left 3 to 4 GB free on the host;
-usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the item.
+Observed on 2026-10-27: seven builders at a time on a seven-VM pool left 3 to 4 GB free on the host.
+Usage, measured 2026-11-08 over every Claude-builder run's heartbeat lines 2026-10-30..11-08b (`scripts/burnrate.py`,
+agy / API runs left out): 106 h, 223 builder-hours, 104 % of the week, so **0.47 % per builder-hour with the
+coordinator included** (runs 0.34-0.63 %). A fit splitting the two gives the coordinator ~0.6 %/h and each builder
+~0.1 %/h, loosely (whole-percent readings, coordinator and builders always overlap): extra builders cost less than
+the all-in rate. The single 2026-10-27 run's 1.3-2.5 % was the old default and overstated it about fourfold.
+Rerun `python .claude/skills/coordinator-pacing/scripts/burnrate.py` from the repo root to refresh the figure.
 
 ## Launching
 
@@ -95,7 +101,9 @@ usage ran 1.3 to 2.5 % of the week per hour per Opus builder depending on the it
 - In the same pass, prune progress.md §4 (Next steps): delete each item the report completes, and cut a part-done
   item down to what is left (its remaining addresses / functions). Never annotate an item as done ("made exact
   tonight", "done in run X"): what landed belongs in the plan log and the handoff's log entry, not in §4. Add the
-  report's new leads to §4 only as open work. No builder edits progress.md during a run, so this is safe at any time.
+  report's new leads to §4 only as open work, each filed under its numbered category (near misses in "Parked
+  leftovers", interim placements in "Provisional placements", tool items in "Tools", the rest in "Work items" under its
+  file), never as a dated or per-run bullet ("Leads of <run>", "Near misses of <date>"). No builder edits progress.md during a run, so this is safe at any time.
 
 ## Draining to a handoff
 

@@ -64,7 +64,7 @@ void FontSys::Unknown_6CCE60()
 			text += "...";
 		}
 		text.Get_Buffer(text.Get_Length());
-		*(int *)((char *)Font + 0xD28) = *(int *)((char *)Font + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
+		*(int *)((char *)Font.Peek() + 0xD28) = *(int *)((char *)Font.Peek() + 0xD2C);	// Font->XSpacing = Font->MinSpacing (protected in font32bit.h)
 		Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
 		Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(text);
 		Unknown420[3] = Unknown2C8 = Font->Get_Height();
@@ -309,7 +309,7 @@ void FontSys::Change_Text(const char *text, int unknown)
 			Unknown440 = 0;
 			if (Info.Text != (const char *)Unknown2F0) {
 				Info.Text = Unknown2F0;
-				Reset_XSpacing(Font);
+				Reset_XSpacing(Font.Peek());
 				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
 				Unknown4C5 = false;
 			}
@@ -330,7 +330,7 @@ void FontSys::Change_Text(const char *text, int unknown)
 		Invalidate_Cached_Bounding_Volumes();
 		if (text == NULL) {
 			Unknown2F0 = "";
-			Reset_XSpacing(Font);
+			Reset_XSpacing(Font.Peek());
 			Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
 			Unknown4C5 = false;
 		} else if (Unknown2F0 != text) {
@@ -338,7 +338,7 @@ void FontSys::Change_Text(const char *text, int unknown)
 			if (Unknown2F0.Is_Empty()) {
 				Unknown2F0 = "";
 			}
-			Reset_XSpacing(Font);
+			Reset_XSpacing(Font.Peek());
 			Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
 			Unknown4C5 = false;
 		}
@@ -369,8 +369,8 @@ void FontSys::Unknown_6CE4E0(int font_index)
 	}
 	char *buffer = text.Get_Buffer(Unknown2F0.Get_Length());
 	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
-	REF_PTR_SET(Font, font->font32Ptr.Peek());
-	Reset_XSpacing(Font);
+	Font = font->font32Ptr;
+	Reset_XSpacing(Font.Peek());
 	Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, buffer, 0);
 	Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(buffer);
 	Unknown2C8 = Unknown420[3] = Font->Get_Height();

@@ -32,7 +32,7 @@ DeltaTemplateClass<MoneyClass>::DeltaTemplateClass(const char *name, const Money
 }
 
 DeltaTemplateClass<MoneyClass>::~DeltaTemplateClass() {}
-void DeltaTemplateClass<MoneyClass>::Unknown_00(DeltaChildVisitorClass *visitor) { visitor->Add_Value(Unknown80, Name.Get_String(), new DeltaTemplateAccessorClass<MoneyClass>(this)); }
+void DeltaTemplateClass<MoneyClass>::Unknown_00(KVEncoderClass *visitor) { visitor->Add_Value(Unknown80, Name.Get_String(), new DeltaTemplateAccessorClass<MoneyClass>(this)); }
 
 
 

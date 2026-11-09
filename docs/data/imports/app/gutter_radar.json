@@ -12,7 +12,8 @@
   "0x7B6BD0",
   "0x7B6D80",
   "0x7B6E40",
-  "0x7B7040"
+  "0x7B7040",
+  "0x7B71D0"
  ],
  "merged": [],
  "name": "client/gutter_radar.cpp",

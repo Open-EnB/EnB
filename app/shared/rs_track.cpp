@@ -1252,13 +1252,13 @@ void RsTrackClass::Control_Bone(int bindex, const Matrix3D &objtm, bool world_sp
 }
 
 // 0x462470
-void RsTrackClass::Unknown_462470(int a, int b)
+void RsTrackClass::Unknown_462470(ProjectionDefClass *def, ProjectorManagerClass *manager)
 {
 	if (UnknownC8 != NULL) {
 		UnknownC8->Release_Ref();
 		UnknownC8 = NULL;
 	}
-	UnknownC8 = new Unknown45D9E0Class(this, a, b);
+	UnknownC8 = new Unknown45D9E0Class(this, def, manager);
 }
 
 

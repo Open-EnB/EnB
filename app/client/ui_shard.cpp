@@ -43,7 +43,7 @@ struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp)
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
-std::string Unknown_4BE9D0(const char *name);			// 0x4BE9D0 (avatar_desc.cpp's): a name turned into another
+#include "..\shared\unknown_4be9d0.h"	// 0x4BE9D0: a name turned into another
 
 static const char *Unknown_B8901C[] = { "button_shard00", "button_shard01", "button_shard02", "button_shard03", "button_shard04", "button_shard05", "skip", "name", "button_cancel", "exit" };	// NAME 1: neutral (D10)
 static const char *Unknown_B89048[] = { "Galaxy00_fe02a", "Galaxy01_fe02a", "Galaxy02_fe02a", "Galaxy03_fe02a", "Galaxy04_fe02a", "Galaxy05_fe02a", "Skip_fe02a", "Name_fe02a", "Accept_fe02a", "Back_fe02a" };	// NAME 1: neutral (D10)

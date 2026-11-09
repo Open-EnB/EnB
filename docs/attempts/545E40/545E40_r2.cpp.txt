@@ -1,0 +1,32 @@
+template<class C> static inline C *Unknown_Find_Root_Field(DeltaCompoundClass *root, NameClass &name) { if (!root) return(NULL); C *t = Unknown_Find_Field<C>(root, name); if (!t) return(NULL); return(t); }	// NAME 1: neutral (D10): the find with its own root test (0x546090 calls the Cast out of line inside it, as the client)  // NAME 1 [root, name]: neutral
+template<class C> static inline C *Unknown_Find_Root_Field2(DeltaCompoundClass *root, NameClass &name) { return(Unknown_Find_Root_Field<C>(root, name)); }
+template<class C> static inline C *Unknown_Find_Plain(DeltaCompoundClass *root, NameClass &name) { return(Unknown_Find_Field<C>(root, name)); }
+// @0x545E40
+void UIAnalyzeClass::Unknown_545E40()
+{
+	NameClass name("CurrentItemCategory");
+	DeltaTemplateClass<UnknownB0122CEnum> *current = Unknown_Find_Root_Field2<DeltaTemplateClass<UnknownB0122CEnum> >(Unknown10C, name);
+	if (current && current->Unknown70) {
+		NameClass categories_name("PrimaryCategories");
+		DeltaItemArrayClass<DeltaPrimaryCategoryClass> *categories = Unknown_Find_Root_Field2<DeltaItemArrayClass<DeltaPrimaryCategoryClass> >(Unknown10C, categories_name);
+		if (categories && categories->Unknown70) {
+			for (unsigned int a = 0; a < categories->Children.size(); a++) {
+				DeltaPrimaryCategoryClass *primary = (DeltaPrimaryCategoryClass *)categories->Children[a];
+				for (unsigned int b = 0; b < primary->Categories.Children.size(); b++) {
+					DeltaCategoryClass *category = (DeltaCategoryClass *)primary->Categories.Children[b];
+					for (unsigned int c = 0; c < category->Subcategories.Children.size(); c++) {
+						if (current->Value == ((DeltaSubCategoryClass *)category->Subcategories.Children[c])->ID.Value) {
+							Unknown_5461C0(0, a, -1, -1);
+							Unknown_5461C0(1, a, b, -1);
+							Unknown_5461C0(2, a, b, c);
+							return;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+#pragma auto_inline(off)
+// @0x546000

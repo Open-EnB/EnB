@@ -58,7 +58,7 @@ public:
 class Unknown58C450Class	// NAME 1: neutral (D10)
 {
 public:
-	Unknown58C450Class(RenderObjClass *mesh, class PDAInterfaceClass *pda);	// 0x58C450  // NAME 1 [mesh, pda]: what 0x693230 passes
+	Unknown58C450Class(RenderObjClass *mesh, InterfaceClass *parent);	// 0x58C450 (the PDA, 0x693230; ui_attrb.cpp's panel, 0x546DD0)  // NAME 1 [mesh, parent]: what its callers pass
 	virtual ~Unknown58C450Class();
 	virtual void Unknown_04();
 	virtual void Unknown_08(int value);					// +0x08  // NAME 1 [value]: neutral

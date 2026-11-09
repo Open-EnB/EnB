@@ -31,7 +31,7 @@ public:
 	// fields' are out of line (0x4A8150, 0x4A7080: see the extern template below)
 	DeltaTemplateClass(const char *name, const T &value = T());
 
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor);					// +0x00 (float: 0x4A6C90)
+	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 (float: 0x4A6C90)
 	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C (float: 0x4A6DF0)
 	virtual bool Write(LinearBufferClass &buf);				// +0x30 (float: 0x4A6E60)
 
@@ -126,7 +126,7 @@ public:
 	DeltaTemplateClass<T> *Owner;		// +0x04  // NAME 2: describes what it does
 };
 
-template<class T> void DeltaTemplateClass<T>::Unknown_00(DeltaChildVisitorClass *visitor)
+template<class T> void DeltaTemplateClass<T>::Unknown_00(KVEncoderClass *visitor)
 {
 	visitor->Add_Value(Unknown80, Name.Get_String(), new DeltaTemplateAccessorClass<T>(this));
 }

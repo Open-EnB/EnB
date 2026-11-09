@@ -7,7 +7,7 @@
 #include <string.h>
 #include "..\shared\g_assert.h"
 
-static char *RaceNames[] = { "Terran", "Jenquai", "Progen", "Vrix", "Grey", "Dark Vrix", "Elendri", "Game", "Other" };	// 0xBB06E0  // NAME 1: what it holds
+char *RaceNames[] = { "Terran", "Jenquai", "Progen", "Vrix", "Grey", "Dark Vrix", "Elendri", "Game", "Other" };	// 0xBB06E0 (extern: ui_attrb.cpp's 0x547570 indexes it)  // NAME 1: what it holds
 
 // 0x848FF0
 const char *Type_Name(RaceType)

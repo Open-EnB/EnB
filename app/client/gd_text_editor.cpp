@@ -176,9 +176,9 @@ void TextEditorGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 		if (top == NULL) {
 			top = object;
 		}
-		RefCountPtr<FontSys> first = Create_Get(new FontSys(Font.c_str(), (int)top, NULL));
+		RefCountPtr<FontSys> first = Create_Get(new FontSys(Font.c_str(), top, NULL));
 		Lines.push_back(first);
-		Split->Set_Font(*(RefCountPtr<Font32Class> *)&first->Font);
+		Split->Set_Font(first->Font);
 		float width = 0;
 		height = 0;
 		first->Unknown_6D5B10(width, height);
@@ -194,7 +194,7 @@ void TextEditorGadgetClass::Set_Render_Obj(RenderObjClass *robj)
 		first->Unknown47C.X = 0;
 		first->Unknown47C.Y = 0;
 		for (int i = 0; i < rows - 1; i++) {
-			first = Create_Get(new FontSys(Font.c_str(), (int)top, NULL));
+			first = Create_Get(new FontSys(Font.c_str(), top, NULL));
 			Lines.insert(Lines.end(), 1, first);
 			y -= height;
 			first->Unknown47C.X = 0;

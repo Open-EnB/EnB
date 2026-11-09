@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: the end screen Unknown5DB670InterfaceClass (ui_popupmsg.cpp 0x5DB670-0x5DBEB0, 0xD4 bytes), moved out of ui_popupmsg.cpp; charview.cpp includes it for mode 0; header name provisional (D137)"
+}

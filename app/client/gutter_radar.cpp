@@ -161,7 +161,6 @@ void GutterRadarClass::Clear_Mouse_Target()
 }
 
 // @0x7B71D0
-// NOT EXACT: FPU order (the client keeps 1/z on the stack past the size's last use, fmul st(1) and a later fstp st(0); ours fmulp)
 bool GutterRadarClass::Project(const Vector3 &pos, float radius)
 {
 	bool on_screen = false;
@@ -203,7 +202,8 @@ bool GutterRadarClass::Project(const Vector3 &pos, float radius)
 	}
 	Position.X += 0.5f;
 	Position.Y += 0.5f;
-	float size = WWMath::Fabs((float)(-((view.X + radius) * inv_z)) * x_scale - x);
+	double term = -((view.X + radius) * inv_z);
+	float size = WWMath::Fabs(term * x_scale - x);
 	Size = size;
 	if (!on_screen) {
 		float over_x = 0.0f;

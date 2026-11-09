@@ -170,9 +170,8 @@ bool operator>=(const MoneyClass &a, const MoneyClass &b)
 	return(a.Unknown00 >= b.Unknown00);
 }
 
-// 0x4F0780
+// 0x4F0780 (the early return gives the client's out-of-line _Eos in the '-' append: one more inlined string destructor spends the budget)
 // @0x4F0780
-// NOT EXACT: inline-budget: 16 calls in ours, 17 in the client; 5 callees only in the client: ?_Eos@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AAEXI@Z
 std::istream &operator>>(std::istream &is, MoneyClass &money)
 {
 	std::string str;
@@ -187,15 +186,15 @@ std::istream &operator>>(std::istream &is, MoneyClass &money)
 		if (str.size()) {
 			is.putback('-');
 		}
-	} else {
-		while (isdigit(ch)) {
-			str += ch;
-			ch = 0;
-			is >> ch;
-		}
-		is.putback(ch);
-		money = Unknown_4F0080(str);
+		return is;
 	}
+	while (isdigit(ch)) {
+		str += ch;
+		ch = 0;
+		is >> ch;
+	}
+	is.putback(ch);
+	money = Unknown_4F0080(str);
 	return is;
 }
 
@@ -236,6 +235,6 @@ char *Value_To_String(char *buf, int size, MoneyClass value)	// NAME 2: describe
 **	  order is unique_design_id_lookup.cpp, beginning at 0x4F0E10 (basic_istream<char>::ipfx).
 **	* 0x4F0320 (MoneyClass::Div) matches with 0.99 similarity (1 masked row difference: client has an
 **	  uneliminated dead store to stack before __alldiv call).
-**	* 0x4F0780 (operator>>) matches all structure and length (480 bytes); differs only in standard library
-**	  string inlining budget for _Eos.
+**	* 0x4F0780 (operator>>): with the non-digit case returning early (its own string destructor) the
+**	  '-' append calls _Eos out of line, as the client's; with one return at the end both appends inline it.
 */

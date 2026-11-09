@@ -67,7 +67,7 @@ struct Font32SpacingAccess : public Font32Class
 static void Rebuild_Texture(FontSys *style, StringClass &text, bool reset_spacing)
 {
 	if (reset_spacing) {
-		Font32SpacingAccess::Reset_XSpacing(style->Font);
+		Font32SpacingAccess::Reset_XSpacing(style->Font.Peek());
 	}
 	style->Unknown4C4 = style->Unknown2D0.Unknown_6D8DC0(&style->Font, text, 0);
 }

@@ -89,21 +89,21 @@ public:
 };
 #include "..\audio\soundlib.h"
 int Unknown_82F350(int race, int prof);				// chartemplate.cpp's 0x82F350 (race and profession to the class index)  // NAME 1: neutral (D10), as chartemplate.cpp's
-// The skill panel (+0xFC; 0xDC bytes, constructor 0x5482B0), as far as this file calls it
-class Unknown548D60Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown548D60Class(SClient *client);				// 0x5482B0 (Init makes it)  // NAME 1 [client]: as UIBioClass's
-	void Unknown_548D60(SkillDataClass *list, int skill, int index);	// 0x548D60 (the selected skill)  // NAME 1 [list, skill, index]: neutral
-	char Unknown84[0xDC - 0x84];						// +0x84
-};
-// The panel at +0xC0 (0xB0 bytes, constructor 0x546A80), as far as this file calls it
-class Unknown546A80Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown546A80Class(SClient *client, RefCountPtr<RenderObjClass> &mesh);	// 0x546A80 (Init passes the tab's mesh)  // NAME 1 [client, mesh]: what Init passes
-	char Unknown84[0xB0 - 0x84];						// +0x84
-};
+#include "ui_attrb.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include "assetmgr.h"
 #include "gd_robj.h"
 #include "unknown_675120.h"

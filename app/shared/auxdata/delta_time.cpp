@@ -81,7 +81,7 @@ public:
 
 static KVAccessorClass<unsigned int> *Make_Accessor(DurationClass *duration);  // NAME 2: describes what it does
 
-template<> void DeltaTemplateClass<DurationClass>::Unknown_00(DeltaChildVisitorClass *visitor)
+template<> void DeltaTemplateClass<DurationClass>::Unknown_00(KVEncoderClass *visitor)
 {
 	visitor->Add_Value(Unknown80, Name.Get_String(), Make_Accessor(&Value));
 }

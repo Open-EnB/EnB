@@ -298,9 +298,9 @@ int AvatarDescClass::Get_Short_Size()
 }
 
 // 0x4BFED0
-void AvatarDescClass::Unknown_00(DeltaChildVisitorClass *object)
+void AvatarDescClass::Unknown_00(KVEncoderClass *object)
 {
-	DeltaChildVisitorClass *visitor = object;
+	KVEncoderClass *visitor = object;
 
 	visitor->Add(0x3FF, "avatar_first_name", First_Name, sizeof(First_Name));
 	visitor->Add(0x3FF, "avatar_last_name", Last_Name, sizeof(Last_Name));
@@ -746,7 +746,7 @@ void AvatarDescClass::Load_Defaults(int type, const char *name)
 }
 
 
-std::string Unknown_4BE9D0(const char *name);	// NAME 1 [Unknown_4BE9D0]: 0x4BE9D0, a name turned into another (kv_util.cpp's run)
+#include "unknown_4be9d0.h"	// 0x4BE9D0, a name turned into another (kv_util.cpp's run)
 char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
 
 // 0x4C1020

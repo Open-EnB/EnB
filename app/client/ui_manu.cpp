@@ -13,24 +13,24 @@
 #include "texture.h"
 #include "textureloader.h"
 
-// fontmanager.h's text object and FontManagerClass at 0xBE67C4, fontdatabase.h's FontStringFilesClass at 0xBE67BC, as far as
-// this file calls them (as ui_group.cpp declares them: neither header can be included next to sclient.h)
-class FontSys : public RenderObjClass	// NAME 5 [FontSys]: fontmanager.h's (the client's name)
-{
-public:
-	void Unknown_6CDBC0(const char *text, int unknown);	// 0x6CDBC0: the text set  // NAME 1 [text, unknown]: what this file passes
-	void Unknown_6CE910(bool on);						// 0x6CE910: highlighted  // NAME 1 [on]: neutral
+#include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 
-	char Unknown_Pad[0x2FC - sizeof(RenderObjClass)];
-	float Unknown2FC;									// +0x2FC (0x5B3A70: 0.33f)
-	char Unknown300[0x4C5 - 0x300];						// +0x300
-	bool Unknown4C5;									// +0x4C5 (0x5B3A70: false)
-	char Unknown4C6[0x4E4 - 0x4C6];						// +0x4C6
-	bool Unknown4E4;									// +0x4E4 (0x5B2230: set on the level 3 rows)
-	void Unknown_Set_2FC(float value) { Unknown2FC = value; Unknown4C5 = false; }	// (inline: the go button's brightness in 0x5B2480 / 0x5B4850)  // NAME 1: neutral (D10)
-};
-class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
@@ -80,9 +80,9 @@ public:
 	char Unknown0D8[0x128 - 0xD8];						// +0xD8
 };
 
-// ui_mesh.cpp's and pdaint.cpp's functions this file calls that sclient.h does not declare yet
-class UIManuMeshClass { public: void Unknown_5B9930(int arg); };	// NAME 1: neutral (D10): UIMeshClass's 0x5B9930 (the destructor passes -1)  // NAME 1 [arg]: neutral
-class UIManuPDAClass { public: void Unknown_695A00(int a, int b); bool Unknown_695780(bool arg); };	// NAME 1: neutral (D10): PDAInterfaceClass's 0x695A00 (slot +0x5C passes 0, 1)  // NAME 1 [a, b]: neutral
+
+
+
 
 // The names of the window's texts (0xB81868)
 static const char *Unknown_B81868[] = { "Go_tsm01a", "Cost_tsm01a", "Quality_Range_tsm01a", "Expected_Quality_tsm01a", "Result_tsm01a", "" };	// NAME 1: neutral (D10)
@@ -143,7 +143,7 @@ UIManuClass::~UIManuClass()
 	if (Unknown0B0) {
 		Unknown0B0->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);
 	}
-	((UIManuMeshClass *)InterfaceMesh)->Unknown_5B9930(-1);
+	InterfaceMesh->Unknown_5B9930(-1);
 	Unknown0B4 = NULL;
 	Unknown0B8 = NULL;
 	Unknown0BC = NULL;
@@ -186,13 +186,13 @@ public:
 	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::Unknown_18; SClient's returns itself)  // NAME 3: the FAIL_IF's
 };
 
-// SClient's functions this file calls that sclient.h does not declare yet
-class UIManuSClientClass	// NAME 1: neutral (D10): SClient, as far as this file calls it
-{
-public:
-	void Unknown_744560(int arg);						// 0x744560 (slot +0x5C passes 0x18)  // NAME 1 [arg]: neutral
-	void Unknown_74D990(int color, const char *text, int a);	// 0x74D990 (as sclient.h's)  // NAME 1 [color, text, a]: as sclient.h's
-};
+
+
+
+
+
+
+
 
 // 0x5B0B40
 void UIManuClass::Unknown_7C(UIViewClass *view, bool arg)
@@ -226,7 +226,7 @@ void UIManuClass::Unknown_58()
 	if (State == UI_CLOSED) {
 		UIManuScopeClass scope(this);
 		State = UI_OPEN;
-		Unknown0BAC = ((UIManuPDAClass *)sclient->PDAInterface)->Unknown_695780(false);
+		Unknown0BAC = sclient->PDAInterface->Unknown_695780(false);
 		Unknown0B98 = -1;
 		Unknown_5B6CA0();
 		for (int j = 0; j < 4; j++) {
@@ -243,10 +243,10 @@ void UIManuClass::Unknown_58()
 			sprintf(buffer, "desc%02d_tsm01a", i);
 			Unknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
 			Unknown16C[i]->Set_Sort_Level(Unknown0E8[i]->Unknown30->Get_Sort_Level() + 1);
-			Unknown16C[i]->Unknown_6CDBC0("", 0);
+			Unknown16C[i]->Change_Text("", 0);
 			sprintf(buffer, "var%02d_tsm01a", i);
 			Unknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
-			Unknown194[i]->Unknown_6CDBC0("", 0);
+			Unknown194[i]->Change_Text("", 0);
 		}
 		Unknown0AC->Unknown_69DC40();
 		Unknown0B4->Unknown_58();
@@ -262,7 +262,7 @@ void UIManuClass::Unknown_58()
 		Unknown_5B2480();
 		Unknown_5B2BD0(true);
 		Unknown_5B2230();
-		((UIManuSClientClass *)sclient)->Unknown_744560(0x17);
+		sclient->Unknown_744560(0x17);
 	}
 }
 
@@ -279,18 +279,18 @@ void UIManuClass::Unknown_5C()
 	Unknown0B8->Unknown_5C();
 	Unknown0BC->Unknown_5C();
 	if (Unknown0BAC) {
-		((UIManuPDAClass *)sclient->PDAInterface)->Unknown_695A00(0, 1);
+		sclient->PDAInterface->Unknown_695A00(0, 1);
 	}
 	Unknown0BA0 = 0;
 	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Mesh_Object());
 	Unknown5BB320Class::Unknown_5C();
-	((UIManuSClientClass *)sclient)->Unknown_744560(0x18);
+	sclient->Unknown_744560(0x18);
 	for (int i = 0; i < 10; i++) {
 		if (Unknown16C[i]) {
-			Unknown16C[i]->Unknown_6CDBC0("", 0);
+			Unknown16C[i]->Change_Text("", 0);
 		}
 		if (Unknown194[i]) {
-			Unknown194[i]->Unknown_6CDBC0("", 0);
+			Unknown194[i]->Change_Text("", 0);
 		}
 	}
 }
@@ -368,13 +368,13 @@ public:
 	static int UnknownGlobal;							// the per-class global at +0x04 (0xC4162C)
 };
 int UIManuCategoriesClass::UnknownGlobal;
-class UIManuValidityClass : public DeltaClass	// NAME 1: neutral (D10): 'Validity' (13 when the item can be made)
-{
-public:
-	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41640)
-	int Value;											// +0x84  // NAME 2: what it holds
-};
-int UIManuValidityClass::UnknownGlobal;
+#include "aux_roots.h"				// (after auxdata.h, as ui_cpit.cpp): 'Validity' is DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB01394Enum> (0xC41640)
+
+
+
+
+
+
 class UIManuCurrentCategoryClass : public DeltaClass	// NAME 1: neutral (D10): 'CurrentItemCategory' (an item id)
 {
 public:
@@ -508,7 +508,7 @@ void UIManuClass::Unknown_60()
 		}
 		if (Unknown0BA4 == 2) {
 			NameClass name("Validity");
-			UIManuValidityClass *validity = Unknown_Find_Valid<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, name);
+			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, name);
 			if (Unknown_846210(validity->Value)) {
 				Unknown0BA4 = 0;
 				Unknown_5B1AF0(4, true, Unknown_B81880[1]);
@@ -649,7 +649,7 @@ void UIManuClass::Unknown_5B1AF0(int index, bool show, const char *text)
 {
 	const char *name = Unknown_B81868[index]; RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, InterfaceMesh->Peek_Mesh_Object()));
 	FAIL_IF(!font) return;
-	font->Unknown_6CDBC0(text, 0);
+	font->Change_Text(text, 0);
 	font->Set_Hidden(!show);
 }
 
@@ -758,9 +758,9 @@ void UIManuClass::Unknown_5B2230()
 				char name[64];
 				char text[64];
 				Unknown_5B2A80(name, text, Unknown0B90 + row);
-				Unknown16C[row]->Unknown_6CDBC0(name, 0);
+				Unknown16C[row]->Change_Text(name, 0);
 				Unknown16C[row]->Unknown4E4 = true;
-				Unknown194[row]->Unknown_6CDBC0(text, 0);
+				Unknown194[row]->Change_Text(text, 0);
 				Unknown_5B21A0(row);
 			}
 			for (int i = 0; i < 3; i++) {
@@ -770,7 +770,7 @@ void UIManuClass::Unknown_5B2230()
 		}
 		for (int row = 0; row < 10; row++) {
 			Unknown16C[row]->Unknown4E4 = false;
-			Unknown16C[row]->Unknown_6CDBC0("", 0);
+			Unknown16C[row]->Change_Text("", 0);
 		}
 		for (int i = 0; i < 3; i++) {
 			if (i == Unknown0B98) {
@@ -798,7 +798,7 @@ void UIManuClass::Unknown_5B2480()
 	}
 	go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], InterfaceMesh->Peek_Mesh_Object()));
 	NameClass name("Validity");
-	UIManuValidityClass *validity = Unknown_Find_Field<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, name);
+	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, name);
 	bool valid = (validity && validity->Unknown70 && validity->Value == 13) ? true : false;
 	if (Unknown0BA4 == 0 && valid) {
 		Unknown0CC[6]->Unknown_40(true);
@@ -1062,7 +1062,7 @@ void UIManuClass::Unknown_5B3A70()
 		}
 		Unknown0CC[6]->Unknown_40(false);
 		FontSys *style = Unknown_BE67C4->Get_Style(Unknown_B81868[0], InterfaceMesh->Peek_Mesh_Object());
-		style->Unknown2FC = 0.33f;
+		style->Unknown2F4[2] = 0.33f;
 		style->Unknown4C5 = false;
 	}
 }
@@ -1437,7 +1437,7 @@ inline bool UIManuClass::Unknown_All_Levels_Checked()
 
 
 // The money and float fields 0x5B4B10 / 0x5B5320 read (here, not at the top: the asserts sit on the client's lines)
-#include "aux_roots.h"				// (after auxdata.h, as ui_cpit.cpp)
+
 
 // 'TechLevelFilterBitfield' (bit n - 1 set: tech level n shown)
 class UIManuTechLevelFilterClass : public DeltaClass	// NAME 1: neutral (D10)
@@ -1561,7 +1561,7 @@ static std::string Unknown_5B6060(int validity)	// NAME 1: neutral (D10)  // NAM
 
 // NOT EXACT: inline budget (the client calls all seven finds out of line, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours inlines them, and six dead finds (D130) move none) (0x5B5320)
 void UIManuClass::Unknown_5B5320()
-{		UIManuValidityClass *validity = Unknown_Find_Field<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, NameClass("Validity"));
+{		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, NameClass("Validity"));
 	if (validity && validity->Unknown70 > 1) {
 		std::string reason = Unknown_5B6060(validity->Value);
 		if (reason.length() && !Unknown0BB4) {
@@ -1833,7 +1833,7 @@ void UIManuClass::Unknown_5B6D30()
 {
 	FAIL_IF(!Client) return;
 	FAIL_IF(!Client->As_Space_Client()) return;
-	((UIManuSClientClass *)Client->As_Space_Client())->Unknown_74D990(17, "Warning: Exceeded filter request count.  Please wait.", 0);
+	Client->As_Space_Client()->Unknown_74D990(17, (char *)"Warning: Exceeded filter request count.  Please wait.", 0);
 }
 
 /*

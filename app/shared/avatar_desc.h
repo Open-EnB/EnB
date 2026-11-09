@@ -38,7 +38,7 @@ public:
 	virtual bool Write_Short(LinearBufferClass *buffer);	// +0x0C 0x4BF930: without +0x0C and the string  // NAME 2: what it does
 	virtual bool Read_Short(LinearBufferClass *buffer);	// +0x10 0x4BFBF0  // NAME 2: what it does
 	virtual int Get_Short_Size();						// +0x14 0x4BFEB0  // NAME 2: what it does
-	virtual void Unknown_00(DeltaChildVisitorClass *visitor);				// second table +0x00 0x4BFED0 (a LoginKVVisitorClass)
+	virtual void Unknown_00(KVEncoderClass *visitor);				// second table +0x00 0x4BFED0 (a LoginKVVisitorClass)
 
 	void Clear(int type);								// 0x4C0310  // NAME 2: what it does
 	bool Is_Valid();									// 0x4C0580: a type is set  // NAME 2: what it does

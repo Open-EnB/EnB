@@ -114,9 +114,9 @@ int LoginCharacterClass::Get_Size()
 }
 
 // 0x8C0AE0
-void LoginCharacterClass::Unknown_00(DeltaChildVisitorClass *object)
+void LoginCharacterClass::Unknown_00(KVEncoderClass *object)
 {
-	DeltaChildVisitorClass *visitor = object;
+	KVEncoderClass *visitor = object;
 
 	visitor->Add(0x3FF, "slot", &Slot);
 	visitor->Add(0x3FF, "sector", &Sector);

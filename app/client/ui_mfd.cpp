@@ -202,7 +202,7 @@ void UIMFDClass::Unknown_54()
 		const int _ssize = sizeof(fontname);
 		fontname[_ssize - 1] = 0;
 		sprintf(fontname, "MFD_INFO_VALUE_%02d", i);
-		Lines[i].Font = new FontSys(fontname, (int)RObj, NULL);
+		Lines[i].Font = new FontSys(fontname, RObj, NULL);
 
 
 

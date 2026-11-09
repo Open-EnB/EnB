@@ -16,9 +16,9 @@
 // inv_data.cpp's, as far as this file calls it
 class Unknown688830Item { public: int Get_Type() { return(Unknown0C); } const std::string &Get_Name() { return(Unknown14); } TextureClass *Unknown_831840(); char Unknown00[4]; int Unknown04; int Unknown08; int Unknown0C; char Unknown10[4]; std::string Unknown14; char Unknown24[0x48 - 0x24]; int Unknown48; char Unknown4C[4]; int Unknown50; char Unknown54[4]; int Unknown58; };	// NAME 1: neutral (D10)
 class Unknown688830Class { public: Unknown688830Item *Unknown_68AAA0(int slot, bool flag); int Unknown_689CA0(int slot); bool Unknown_689C30(); int Unknown_689D20(int id); unsigned Unknown_68A840(int slot); unsigned Unknown_68A6E0(int slot); unsigned Unknown_68A6B0(int slot); unsigned Unknown_68A680(int slot); float Unknown_68A630(int slot); float Unknown_68A7C0(int slot); DurationClass Unknown_68A720(int slot); float Unknown_689F90(int slot); float Unknown_68A010(int slot); float Unknown_689F10(int slot); MoneyClass Unknown_689DA0(int slot); int Unknown_68AC50(int slot); char Unknown00[0x80]; int Unknown80; };	// NAME 1: neutral (D10); NAME 1 [slot, flag]: neutral
-class ClientObjectClass { public: bool Unknown_6F5A10(); bool Unknown_6F5A40(); };	// co.h's, as far as this file calls it
+#include "sclient.h"	// SClient (Get_Target 0x744FE0, the slot +0x28 Get_Avatar, the clock +0x10BC) and co.h's ClientObjectClass
 float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// NAME 1: neutral (D10); NAME 1 [a, b]: neutral
-class SClient { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual ClientObjectClass *Unknown_28(); ClientObjectClass *Unknown_744FE0(); char Unknown04[0x10BC - 4]; unsigned int Unknown10BC; };	// sclient.cpp's, as skill_render.cpp's Unknown744FE0Class
+
 class LineDisplayClientClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual SClient *As_Space_Client(); };	// NAME 1: neutral (D10), as ui_cinfo.cpp declares it
 struct InvDataBaseStruct { virtual void Unknown_00(); char Unknown04[0x18 - 4]; };	// NAME 1: neutral (D10); ui_slot_info.h's UISlotInfoItemBaseStruct
 class InvDataClass : public InvDataBaseStruct, public RefCountClass { public: LineDisplayClientClass *Get_Client() { return(Client); } Unknown688830Class *Unknown_688830(); Unknown688830Class *Unknown_688850(); int Unknown_6A7990(); int Unknown_6A7A00(int index); LineDisplayClientClass *Client; };	// NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004; Client: the FAIL_IF at line 182
@@ -652,9 +652,9 @@ void Unknown68DC20Class::Unknown_2C(bool force)
 		}
 		return;
 	}
-	ClientObjectClass *target = sclient->Unknown_744FE0();
+	ClientObjectClass *target = sclient->Get_Target();
 	if (target) {
-		ClientObjectClass *self = sclient->Unknown_28();
+		ClientObjectClass *self = sclient->Get_Avatar();
 		if (self) {
 			Unknown74 = Unknown_7E6060(target, self);
 		}

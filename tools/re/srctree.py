@@ -43,9 +43,12 @@ def main():
         f.write('\n'.join(rtti) + '\n')
 
     # Assert expressions sit next to the __FILE__ string of their source file. Record the most
-    # recent path seen (string order follows object order) so each expression has a home.
+    # recent path seen (string order follows object order) so each expression has a home. An
+    # expression can come before its file's path (px.cpp's '!(low && high)' 0xB706E0 precedes
+    # px.cpp's path, so string order filed it under dynamic_obj.cpp): where the code that pushes the
+    # expression pushes a source path within a few bytes, that path wins.
     current = None
-    rows = []
+    found = []
     for va in sorted(strings):
         s = strings[va]
         if SOURCE.search(s) and '\\' in s:
@@ -54,7 +57,20 @@ def main():
         if current and ASSERT_LIKE.search(s) and ' ' not in s.strip()[:1] and len(s) < 200 \
                 and not s.startswith(('%', 'http')) and re.search(r'[A-Za-z_]\w*', s):
             if re.fullmatch(r'[\w\s()!<>=&|.\->\[\]*+,:/"\'?~^%]+', s):
-                rows.append(f'0x{va:06X}\t{current}\t{s}')
+                found.append((va, current, s))
+    path_at = {va: s for va, s in strings.items() if SOURCE.search(s) and '\\' in s}
+    refs = img.dword_refs([va for va, _, _ in found])
+    rows = []
+    for va, current, s in found:
+        near = set()
+        for ref in refs.get(va, []):
+            for d in range(-24, 25):
+                p = img.u32(ref + d)
+                if p in path_at:
+                    near.add(path_at[p])
+        if len(near) == 1:
+            current = near.pop()
+        rows.append(f'0x{va:06X}\t{current}\t{s}')
     with open(os.path.join(DATA, 'asserts.txt'), 'w', newline='\n') as f:
         f.write('\n'.join(rows) + '\n')
 

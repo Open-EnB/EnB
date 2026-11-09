@@ -14,10 +14,10 @@
 #include "..\..\wwlib\nstrdup.h"
 #include "..\packets\pkcta_request.h"
 #include "..\packets\pkrequesttarget.h"
-// fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
-class FontSys : public RenderObjClass { public: void Change_Text(const char *text, int unknown); };	// NAME 5 [FontSys]: fontmanager.h's (the client's name) (a DynamicMeshClass there)
-class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontManagerClass { public: void Add(RenderObjClass *object); void Remove(RenderObjClass *object); FontSys *Get_Style(const char *name, RenderObjClass *object); };	// NAME 3: fontmanager.h's
+#include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
+
+
+
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - sizeof(RefCountClass)]; char Name[1]; };	// NAME 1: neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC)
 // gadget.cpp's gadget, as far as the group window calls it (the formation buttons, the members' buttons)

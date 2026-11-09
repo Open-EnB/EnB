@@ -62,19 +62,19 @@ public:
 	virtual LineDisplaySClientClass *Unknown_18();			// +0x18: the sclient
 };
 
-// The text wrapper Add_Line splits a text with (0x2C bytes, constructor 0x4FA8F0)
-class LineDisplayWrapClass  // NAME 1: neutral (D10)
-{
-public:
-	LineDisplayWrapClass(void *font, int unknown1, int unknown2, int unknown3);	// 0x4FA8F0
-	virtual ~LineDisplayWrapClass();
-	void Unknown_4F9D90(const char *text, float width, int unknown);			// 0x4F9D90: Add_Line passes 575
-	int Unknown_4FA710();														// 0x4FA710: the number of lines
-	const char *Unknown_4FA740(int index);										// 0x4FA740: one line
+#include "..\shared\unknown_font_split_string.h"	// FontSplitStringClass: the text wrapper Add_Line splits a text with (0x2C bytes, constructor 0x4FA8F0)
 
-private:
-	char Unknown04[0x2C - 0x04];
-};
+
+
+
+
+
+
+
+
+
+
+
 
 // What slot +0x60 builds around the text's +0x34 call (local_interface_sort.cpp's 0x6E1090 / 0x6E18B0)
 #include "local_interface_sort.h"	// InterfaceSortClass (0x6E0E80-0x6E18B0) and the windows' scope 0x541980
@@ -479,9 +479,9 @@ void UILineDisplayClass::Add_Line(const char *text, int display_time, const char
 	}
 	RefCountPtr<LineDisplayTextClass> font_text = Find_Text(font);
 	if (font_text) {
-		LineDisplayWrapClass *wrap = new LineDisplayWrapClass(&font_text->Font, 0, 0, 0);
-		wrap->Unknown_4F9D90(text, 575.0f, 0);
-		int count = wrap->Unknown_4FA710();
+		FontSplitStringClass *wrap = new FontSplitStringClass(font_text->Font);
+		wrap->Split(text, 575.0f, 0);
+		int count = wrap->Count();
 		if (!count) {
 			return;
 		}
@@ -490,7 +490,7 @@ void UILineDisplayClass::Add_Line(const char *text, int display_time, const char
 			pos++;
 		}
 		for (int index = count - 1; index >= 0; index--) {
-			const char *line_text = wrap->Unknown_4FA740(index);
+			const char *line_text = wrap->Get(index);
 			if (line_text) {
 				LineDisplayLineStruct *line = new LineDisplayLineStruct;
 				line->Font = font;

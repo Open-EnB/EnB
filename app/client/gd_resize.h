@@ -30,6 +30,8 @@ public:
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x66BB10 (FAIL_IF '!Peek_Render_Obj()' l.64: the drag)  // NAME 1 [event, x, y, mask]: the base's
 	virtual void Unknown_40(bool on);									// +0x40 0x66BD60 (hidden while off)  // NAME 1 [on]: the base's
 	void Unknown_66BDA0();												// 0x66BDA0 (+0x60 from the model's position)
+	void Set_Unknown70(float x, float y) { Unknown70.X = x; Unknown70.Y = y; }	// inline (ui_chat_window_split.cpp's set-up 0x5723B0 stores off the gadget)  // NAME 1: neutral (D10)
+	void Set_Unknown78(float x, float y) { Unknown78.X = x; Unknown78.Y = y; }	// inline (as Set_Unknown70)  // NAME 1: neutral (D10)
 
 	Vector2 Unknown60;													// +0x60: the origin (the model's x, y; 0x66BDA0)  // NAME 1: neutral (D10)
 	Vector2 Unknown68;													// +0x68: the pointer from the origin, clamped to +0x70 .. +0x78  // NAME 1: neutral (D10)

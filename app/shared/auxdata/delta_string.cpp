@@ -157,7 +157,7 @@ public:
 	DeltaStringClass *Owner;		// +0x04  // NAME 2: describes what it does
 };
 
-void DeltaStringClass::Unknown_00(DeltaChildVisitorClass *visitor)
+void DeltaStringClass::Unknown_00(KVEncoderClass *visitor)
 {
 	visitor->Add_String(Unknown80, Name.Get_String(), new DeltaStringValueClass(this));
 }

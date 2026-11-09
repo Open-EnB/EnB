@@ -44,7 +44,7 @@ class Unknown_6D8B90Class  // NAME 1 [Unknown_6D8B90Class]: neutral (D10): 16 by
 public:
 	Unknown_6D8B90Class();												// 0x6D8B90
 	~Unknown_6D8B90Class();												// 0x6D8C50
-	bool Unknown_6D8DC0(Font32Class **font, const char *text, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
+	bool Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const char *text, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
 
 	int Size;															// +0x00: 0x20  // NAME 2: what the constructor gives the texture
 	char *Unknown04;														// +0x04: the text last printed (nstrdup; 0x6D8DC0, 0x6D8C50)  // NAME 1: neutral (D10)
@@ -58,9 +58,9 @@ public:
 class FontSys : public DynamicMeshClass  // NAME 5: the client's (Get_Name 0x67EF20 "FontSys", the profile labels 'FontSys::Change_Text' / 'FontSys::Update_Text'; 0x4E8 bytes; 0x6D47C0 builds the DynamicMeshClass(2, 4) base, vtable 0xAFECB4)
 {
 public:
-	FontSys(const char *name, int object, const char *text);	// 0x6D47C0: the string template named name (FontDatabaseClass::Find_String)  // NAME 1 [object]: neutral (D10)
-	FontSys(FontStringStruct def, unsigned int object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
-	~FontSys() { REF_PTR_RELEASE(Font); }						// 0x67F230 (inline: emitted in chat_window.cpp's object); 0x6D4C40 its deleting form
+	FontSys(const char *name, RenderObjClass *object, const char *text);	// 0x6D47C0: the string template named name (FontDatabaseClass::Find_String)  // NAME 1 [object]: neutral (D10)
+	FontSys(FontStringStruct def, RenderObjClass *object, const char *text);	// 0x6D4C70: from a string template (0x6CE990)  // NAME 1 [def, object]: neutral (D10)
+	// ~FontSys: implicit, 0x67F230 (no vptr stores, Font released as a member: EH state 1), 0x6D4C40 its deleting form
 
 	virtual int Class_ID(void) const { return 0x1000D; }					// 0x67EF00  // NAME 2: RenderObjClass's
 	virtual const char *Get_Name(void) const { return "FontSys"; }		// 0x67EF20  // NAME 2: RenderObjClass's
@@ -73,7 +73,7 @@ public:
 	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const;	// 0x6D5B90  // NAME 2: RenderObjClass's
 	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const;		// 0x6D5C10: the text rectangle +0x420 on a 640 x 480 screen, placed by Info.Justify  // NAME 2: RenderObjClass's
 
-	void Unknown_6D5170(int object);										// 0x6D5170: the set-up both constructors end with  // NAME 1 [Unknown_6D5170, object]: neutral (D10)
+	void Unknown_6D5170(RenderObjClass *object);										// 0x6D5170: the set-up both constructors end with  // NAME 1 [Unknown_6D5170, object]: neutral (D10)
 	void Unknown_6D6390();													// 0x6D6390  // NAME 1 [Unknown_6D6390]: neutral (D10)
 	void Update_Text(bool unknown);										// 0x6D64C0: the client's profile label 'FontSys::Update_Text'  // NAME 3: the client's label; NAME 1 [unknown]: neutral (D10)
 	void Set_Color(const Vector3 &color) { Unknown494.Color = color; Unknown4A4 = Unknown494; }	// inlined in 0x6D10B0  // NAME 2: describes what it does
@@ -108,7 +108,7 @@ public:
 	FontColorStruct *Colors[2];											// +0x1E0: Info.Color's two (FontDatabaseClass::Find_Color; the second defaults to the first, 0x6D5170)  // NAME 2: what 0x6D5170 stores
 	FontEffectStruct *Effects[6][4];									// +0x1E8: Info's six effect lists (EffectOn ... EffectTriggered) found by name (0x6D5170)  // NAME 2: what 0x6D5170 stores
 	RenderObjClass *Object;												// +0x248: the constructors' object, the model the text attaches to (Info.Attach: 0x6D5D40, 0x6D6390)  // NAME 2: what the constructors pass
-	Font32Class *Font;													// +0x24C (textgadg.cpp's G_ASSERT 'font'; its widths at 640)  // NAME 3: the assert's
+	RefCountPtr<Font32Class> Font;										// +0x24C (textgadg.cpp's G_ASSERT 'font'; its widths at 640; a member with a destructor: 0x67F230's EH state 1)  // NAME 3: the assert's
 	int Unknown250;														// +0x250: 0x6D28C0 sets it in every style of a font  // NAME 1: neutral (D10)
 	int Unknown254[6];													// +0x254: zeroed by 0x6D5170  // NAME 1: neutral (D10)
 	int Unknown26C;														// +0x26C: 0x6CF930 sets it per line (ftol)  // NAME 1: neutral (D10)
@@ -177,8 +177,8 @@ class ManagedFontClass  // NAME 2 [ManagedFontClass]: what the manager holds per
 {
 public:
 	ManagedFontClass(RenderObjClass *object);							// 0x6CE990: the render object's styles from the font database
-	ManagedFontClass(const char *name, int unknown);						// 0x6CF520 (no caller), inlined in 0x6D1FD0  // NAME 1 [unknown]: neutral (D10)
-	void Unknown_6CF930(FontStringStruct *def, int unknown);				// 0x6CF930: a 'W' template's lines as styles (unknown is the render object)  // NAME 1 [Unknown_6CF930]: neutral (D10)
+	ManagedFontClass(const char *name, RenderObjClass *object);					// 0x6CF520 (no caller), inlined in 0x6D1FD0  // NAME 2 [object]: the render object Unknown_6CF930 gets
+	void Unknown_6CF930(FontStringStruct *def, RenderObjClass *object);				// 0x6CF930: a 'W' template's lines as styles on the render object  // NAME 1 [Unknown_6CF930, object]: neutral (D10)
 	~ManagedFontClass();												// 0x6CF730
 	void Unknown_All_Styles(int index, float time);					// 0x6D0950, inlined in 0x6D1C10 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_All_Styles]: neutral (D10)
 	void Unknown_Set_Styles(int value);									// 0x6D0710, inlined in 0x6D28C0 (its own begin / ++ called out of line there)  // NAME 1 [Unknown_Set_Styles]: neutral (D10)
@@ -210,7 +210,7 @@ public:
 	void Unknown_6D1C10(int index, float time);					// 0x6D1C10: each font's 0x6CD950  // NAME 1 [Unknown_6D1C10]: neutral (D10)
 	void Add(RenderObjClass *object);										// 0x6D1D80: a new font for the render object, under its address  // NAME 2: describes what it does
 	void Add(const RefCountPtr<RenderObjClass> &object);					// 0x6D1FB0  // NAME 2: describes what it does
-	ManagedFontClass *Create(const char *name, int unknown);			// 0x6D1FD0: a font from the font database, added under its id  // NAME 2: describes what it does
+	ManagedFontClass *Create(const char *name, RenderObjClass *object);			// 0x6D1FD0: a font from the font database, added under its id  // NAME 2: describes what it does
 	void Remove(RenderObjClass *object);										// 0x6D2220  // NAME 2: describes what it does
 	void Unknown_6D2310(const RefCountPtr<RenderObjClass> &object);						// 0x6D2310: Remove through a reference (a screen's member)  // NAME 1 [Unknown_6D2310]: neutral (D10)
 	void Unknown_6D2400(RenderObjClass *object);								// 0x6D2400  // NAME 1 [Unknown_6D2400]: neutral (D10)

@@ -43,9 +43,9 @@
  },
  {
   "address": "0x7054C0",
-  "symbol": "?Unknown_00@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEXPAVKVEncoderClass@@@Z",
   "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string (tools/re/auxroots.py CLIENT_TYPES, AR2 2026-10-31)",
-  "replaces": "?Unknown_00@?$DeltaTemplateClass@UUnknownB01A40Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@UProjectedDecalClass@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
  },
  {
   "address": "0x705640",
@@ -706,9 +706,9 @@
  },
  {
   "address": "0x757990",
-  "symbol": "?Unknown_00@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAEXPAVDeltaChildVisitorClass@@@Z",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAEXPAVKVEncoderClass@@@Z",
   "evidence": "the generated value type renamed after its KVPair's Get_Type_Name string 'SkillLevelAvailabilityStruct' (0x759CE0; tools/re/auxroots.py CLIENT_TYPES, AUXR 2026-11-04)",
-  "replaces": "?Unknown_00@?$DeltaTemplateClass@UUnknownB03694Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@USkillLevelAvailabilityStruct@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
  },
  {
   "address": "0x757B00",
@@ -904,5 +904,312 @@
   "symbol": "?Unknown_4605E0@RsTrackClass@@QAEXHM@Z",
   "evidence": "RsTrackClass::Unknown_4605E0 passes its second argument on to the state's float slot +0x48 unconverted; retyped from int (RH1, 2026-11-08)",
   "replaces": "?Unknown_4605E0@RsTrackClass@@QAEXHH@Z"
+ },
+ {
+  "address": "0x4A4E10",
+  "symbol": "?Unknown_00@DeltaClass@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@DeltaClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x4A55D0",
+  "symbol": "?Unknown_00@DeltaCompoundClass@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@DeltaCompoundClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x4A6930",
+  "symbol": "?Unknown_00@DeltaInterpolatorClass@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@DeltaInterpolatorClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x4A6C90",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@M@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@M@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x4A71E0",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@VMoneyClass@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@VMoneyClass@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x4A7E60",
+  "symbol": "?Unknown_00@DeltaStringClass@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@DeltaStringClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x4A8330",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@VDurationClass@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@VDurationClass@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x4B1790",
+  "symbol": "??0KVEncoderClass@@QAE@PAVKVListClass@@HPBD@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "??0DeltaChildVisitorClass@@QAE@PAVKVListClass@@HPBD@Z"
+ },
+ {
+  "address": "0x4B17D0",
+  "symbol": "??_GKVEncoderClass@@UAEPAXI@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "??_GDeltaChildVisitorClass@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x4B1800",
+  "symbol": "??1KVEncoderClass@@UAE@XZ",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "??1DeltaChildVisitorClass@@UAE@XZ"
+ },
+ {
+  "address": "0x4B1820",
+  "symbol": "?Add_Child@KVEncoderClass@@UAEXHPBDPAVDeltaInterfaceClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Add_Child@DeltaChildVisitorClass@@UAEXHPBDPAVDeltaInterfaceClass@@@Z"
+ },
+ {
+  "address": "0x4B18C0",
+  "symbol": "?Add_Vector3@KVFilterEncoderClass@@UAEXHPBDPAVVector3@@@Z",
+  "evidence": "a body of KVFilterEncoderClass vtable 0xAEB6B8 slot (D206; KVEncoderClass 0xAEB460 holds _purecall there)",
+  "replaces": "?Add_Vector3@DeltaChildVisitorClass@@QAEXHPBDPAVVector3@@@Z"
+ },
+ {
+  "address": "0x4B18F0",
+  "symbol": "?Add_Matrix3D@KVFilterEncoderClass@@UAEXHPBDPAVMatrix3D@@@Z",
+  "evidence": "a body of KVFilterEncoderClass vtable 0xAEB6B8 slot (D206; KVEncoderClass 0xAEB460 holds _purecall there)",
+  "replaces": "?Add_Matrix3D@DeltaChildVisitorClass@@QAEXHPBDPAVMatrix3D@@@Z"
+ },
+ {
+  "address": "0x4B1920",
+  "symbol": "?Add_Accel@KVFilterEncoderClass@@UAEXHPBDPAVAccelClass@@@Z",
+  "evidence": "a body of KVFilterEncoderClass vtable 0xAEB6B8 slot (D206; KVEncoderClass 0xAEB460 holds _purecall there)",
+  "replaces": "?Add_Accel@DeltaChildVisitorClass@@QAEXHPBDPAVAccelClass@@@Z"
+ },
+ {
+  "address": "0x4B1950",
+  "symbol": "?Add_Vector3_Frame@KVFilterEncoderClass@@UAEXHPBDPAVVector3@@@Z",
+  "evidence": "a body of KVFilterEncoderClass vtable 0xAEB6B8 slot (D206; KVEncoderClass 0xAEB460 holds _purecall there)",
+  "replaces": "?Add_Vector3_Frame@DeltaChildVisitorClass@@QAEXHPBDPAVVector3@@@Z"
+ },
+ {
+  "address": "0x4B1AE0",
+  "symbol": "?Add_Matrix3D_Frame@KVFilterEncoderClass@@UAEXHPBDPAVMatrix3D@@@Z",
+  "evidence": "a body of KVFilterEncoderClass vtable 0xAEB6B8 slot (D206; KVEncoderClass 0xAEB460 holds _purecall there)",
+  "replaces": "?Add_Matrix3D_Frame@DeltaChildVisitorClass@@QAEXHPBDPAVMatrix3D@@@Z"
+ },
+ {
+  "address": "0x4B1CC0",
+  "symbol": "?Add_Vector3_Elements@KVEncoderClass@@QAEXHPBDPAVVector3@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Add_Vector3_Elements@DeltaChildVisitorClass@@QAEXHPBDPAVVector3@@@Z"
+ },
+ {
+  "address": "0x4B1D40",
+  "symbol": "?Add_Matrix3D_Elements@KVEncoderClass@@QAEXHPBDPAVMatrix3D@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Add_Matrix3D_Elements@DeltaChildVisitorClass@@QAEXHPBDPAVMatrix3D@@@Z"
+ },
+ {
+  "address": "0x4B1DC0",
+  "symbol": "?Add_Accel_Elements@KVEncoderClass@@QAEXHPBDPAVAccelClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Add_Accel_Elements@DeltaChildVisitorClass@@QAEXHPBDPAVAccelClass@@@Z"
+ },
+ {
+  "address": "0x4B1E60",
+  "symbol": "?Add_Vector3_Elements_Frame@KVEncoderClass@@QAEXHPBDPAVVector3@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Add_Vector3_Elements_Frame@DeltaChildVisitorClass@@QAEXHPBDPAVVector3@@@Z"
+ },
+ {
+  "address": "0x4B2210",
+  "symbol": "?Add_Matrix3D_Elements_Frame@KVEncoderClass@@QAEXHPBDPAVMatrix3D@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Add_Matrix3D_Elements_Frame@DeltaChildVisitorClass@@QAEXHPBDPAVMatrix3D@@@Z"
+ },
+ {
+  "address": "0x4BFED0",
+  "symbol": "?Unknown_00@AvatarDescClass@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@AvatarDescClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x4F6750",
+  "symbol": "?Unknown_00@ShipCustDescClass@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@ShipCustDescClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x4F6890",
+  "symbol": "?Unknown_00@ShipCustPartClass@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@ShipCustPartClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x4F6900",
+  "symbol": "?Unknown_00@ShipCustSettingsClass@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@ShipCustSettingsClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x701290",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@H@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@H@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x702A10",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4EffectGeneratorUsageBF@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4EffectGeneratorUsageBF@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x702C30",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4TargetGeneratorSummaryBF@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4TargetGeneratorSummaryBF@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x702E50",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4GameActionValidityBitFlag@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4GameActionValidityBitFlag@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x703070",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4ItemStateEnum@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4ItemStateEnum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x703330",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@_N@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@_N@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x703B30",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4GuildRankType@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4GuildRankType@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x703F90",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4InterruptStateType@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4InterruptStateType@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x7041B0",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4WW3DLightAttenuationType@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4WW3DLightAttenuationType@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x7043D0",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB0122CEnum@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB0122CEnum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x704A90",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB013ECEnum@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB013ECEnum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x704CB0",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB01394Enum@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB01394Enum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x704ED0",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB0133CEnum@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB0133CEnum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x705230",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB011D4Enum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x706DF0",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "the client's vtable 0xB016DC holds it at +0x00 (0xB00A00's slot is 0x703D50): the UnknownB016DCType instance (K2 2026-11-08); DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x757770",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4HullPreviewStatusEnum@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4HullPreviewStatusEnum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x757BF0",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB035E0Enum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x757E10",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB03588Enum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x758610",
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0x8C0AE0",
+  "symbol": "?Unknown_00@LoginCharacterClass@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "replaces": "?Unknown_00@LoginCharacterClass@@UAEXPAVDeltaChildVisitorClass@@@Z"
+ },
+ {
+  "address": "0xAEB460",
+  "symbol": "??_7KVEncoderClass@@6B@",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
+  "kind": "vtable",
+  "replaces": "??_7DeltaChildVisitorClass@@6B@"
+ },
+ {
+  "address": "0x703F40",
+  "symbol": "?Write@?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "the client's vtable 0xB00A00 holds it at +0x30 (0xB016DC's slot is 0x706FF0); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
+  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
+  "address": "0x706FF0",
+  "symbol": "?Write@?$DeltaTemplateClass@UUnknownB016DCType@@@@UAE_NAAVLinearBufferClass@@@Z",
+  "evidence": "the client's vtable 0xB016DC holds it at +0x30 (0xB00A00's slot is 0x703F40); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
+  "replaces": "?Write@?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAE_NAAVLinearBufferClass@@@Z"
+ },
+ {
+  "address": "0x700CB0",
+  "symbol": "??_G?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEPAXI@Z",
+  "evidence": "the client's vtable 0xB00A00 holds it at +0x04 (0xB016DC's slot is 0x706730); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
+  "replaces": "??_G?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x706730",
+  "symbol": "??_G?$DeltaTemplateClass@UUnknownB016DCType@@@@UAEPAXI@Z",
+  "evidence": "the client's vtable 0xB016DC holds it at +0x04 (0xB00A00's slot is 0x700CB0); the two instances' bodies are identical (12-byte values), so objmatch's exact name went to the other instance (SY1's lead, K2 2026-11-08)",
+  "replaces": "??_G?$DeltaTemplateClass@UUnknownB00A00Type@@@@UAEPAXI@Z"
+ },
+ {
+  "address": "0x6F6000",
+  "symbol": "?Unknown_Create_Aux_Root@ClientObjectClass@@QAEPAVUnknownRootClass@@HH@Z",
+  "evidence": "the CREATE factory is ClientObjectClass's member (co.h; co.cpp's constructor 0x6F2820 calls it with the object in ecx): aux_roots.h's UnknownCOClass merged into co.h (P-H13-2, C2 2026-11-08)",
+  "replaces": "?Unknown_Create_Aux_Root@UnknownCOClass@@QAEPAVUnknownRootClass@@HH@Z"
  }
 ]

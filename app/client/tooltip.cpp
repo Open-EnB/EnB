@@ -318,7 +318,7 @@ void UIViewUnknown30Class::Unknown_6ABC60()
 	if (Unknown0C || CurGadget == NULL || View == NULL) {
 		return;
 	}
-	FontSplitStringClass split(*(RefCountPtr<Font32Class> *)&Lines[0]->Font);
+	FontSplitStringClass split(Lines[0]->Font);
 	int width = 100;
 	const char *text = Unknown0E ? CurGadget->Unknown24 : CurGadget->Get_Unknown14();
 	int lines;

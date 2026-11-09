@@ -112,13 +112,7 @@ KernelEventClass Unknown_65F780(void *) { Trace("stub Unknown_65F780"); return(K
 
 // ------------------------------------------------------------------------- eff_o.cpp's effect, the third list's records
 
-EffectObjectClass::~EffectObjectClass() { Trace("stub EffectObjectClass::~EffectObjectClass %u", ID); }
-void EffectObjectClass::Unknown_6E74B0(int arg) { Trace("stub EffectObjectClass::Unknown_6E74B0 %u %d", ID, arg); }
-void EffectObjectClass::Unknown_6E6ED0(int arg) { Trace("stub EffectObjectClass::Unknown_6E6ED0 %u %d", ID, arg); }
-void EffectObjectClass::Unknown_6E6E30() { Trace("stub EffectObjectClass::Unknown_6E6E30 %u", ID); }
-// eff_o.cpp (app.lib) defines these since EF1; standing in here keeps eff_o.obj, and its real slots, out
-void Unknown_6E6A90(EffectObjectClass *effect) { Trace("stub Unknown_6E6A90 %u", effect->ID); }
-bool EffectObjectClass::Unknown_6E6AD0() { Trace("stub EffectObjectClass::Unknown_6E6AD0 %u", ID); return(false); }
+// eff_o.cpp (app.lib) defines EffectObjectClass's members and UnknownB0009CEffectClass's Unknown_28 / _30 / _38 since EF1; no stand-ins here
 Unknown86CRecordClass::~Unknown86CRecordClass() { Trace("stub Unknown86CRecordClass::~Unknown86CRecordClass %u", ID); }
 
 // ------------------------------------------------------------------------- ClientClass's members (client.h)
@@ -203,6 +197,8 @@ int DeltaBuffsClass::UnknownGlobal;
 #include "..\..\..\app\client\postate.h"
 // client.cpp's mount buffer insert 0x725E70 (not rebuilt; Add reaches it since f384d62, a nested struct gen_stubs.py cannot write)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) { Trace("stub UnknownB02C90Class::BufferStruct::Insert %d", index); }
+// eff_o.cpp (real code, in the link since the testeffects.ini loader) calls it; co.cpp is not in the harness
+Matrix3D UnknownB02C90Class::Unknown_725AD0() { Trace("stub UnknownB02C90Class::Unknown_725AD0"); return(Matrix3D(1)); }
 
 // and its colorization of a new model (co.cpp's 0x6FCB70: a vector by reference gen_stubs.py cannot write)
 void Unknown_80F220(RenderObjClass *, std::vector<ColorizationRegionStruct> &regions)
@@ -214,96 +210,8 @@ void Unknown_80F220(RenderObjClass *, std::vector<ColorizationRegionStruct> &reg
 
 // ------------------------------------------------------------------------- eff_o.cpp's effect factory (OBJECT_EFFECT 9)
 
-// declared as cpacket.cpp declares them; the factory's effect has a target end that logs the object's id
-class Unknown6E9490TargetClass
-{
-public:
-	virtual void Unknown_00();
-	virtual void Unknown_04();
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28(int game_id);
-	virtual void Unknown_2C(const Matrix3D &transform);
-};
-void Unknown6E9490TargetClass::Unknown_00() {}
-void Unknown6E9490TargetClass::Unknown_04() {}
-void Unknown6E9490TargetClass::Unknown_08() {}
-void Unknown6E9490TargetClass::Unknown_0C() {}
-void Unknown6E9490TargetClass::Unknown_10() {}
-void Unknown6E9490TargetClass::Unknown_14() {}
-void Unknown6E9490TargetClass::Unknown_18() {}
-void Unknown6E9490TargetClass::Unknown_1C() {}
-void Unknown6E9490TargetClass::Unknown_20() {}
-void Unknown6E9490TargetClass::Unknown_24() {}
-void Unknown6E9490TargetClass::Unknown_28(int game_id) { Trace("stub Unknown6E9490TargetClass::Unknown_28 %d", game_id); }
-void Unknown6E9490TargetClass::Unknown_2C(const Matrix3D &tm) { Trace("stub Unknown6E9490TargetClass::Unknown_2C at (%g, %g, %g)", tm[0][3], tm[1][3], tm[2][3]); }
-static Unknown6E9490TargetClass The_Effect_Target;
-// the binary end (OBJECT_TO_OBJECT_EFFECT 11 to the linked 14), standing in for eff_o.h's (its slots, Flags and
-// positions at the same offsets): logs the ids, the positions and the offset
-class UnknownB0009CEffectClass
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24();
-	virtual void Unknown_28(int source_game_id);
-	virtual void Unknown_2C(int source_game_id, const LegoIdentifierClass &source_lego);
-	virtual void Unknown_30(const Vector3 &position);
-	virtual void Unknown_34(int target_game_id);
-	virtual void Unknown_38(const Vector3 &position);
-	void Unknown_6E82A0(short unknown36, short unknown34, Vector3 target_offset);
-	char Unknown04[0x7C - 0x04];
-	unsigned Flags;
-	char Unknown80[0xA8 - 0x80];
-	Vector3 SourcePosition;
-	Vector3 TargetPosition;
-};
-void UnknownB0009CEffectClass::Unknown_00() {}
-void UnknownB0009CEffectClass::Unknown_04() {}
-void UnknownB0009CEffectClass::Unknown_08() {}
-void UnknownB0009CEffectClass::Unknown_0C() {}
-void UnknownB0009CEffectClass::Unknown_10() {}
-void UnknownB0009CEffectClass::Unknown_14() {}
-void UnknownB0009CEffectClass::Unknown_18() {}
-void UnknownB0009CEffectClass::Unknown_1C() {}
-void UnknownB0009CEffectClass::Unknown_20() {}
-void UnknownB0009CEffectClass::Unknown_24() {}
-void UnknownB0009CEffectClass::Unknown_28(int id) { Trace("stub Unknown6E9490BinaryClass::Unknown_28 source %d", id); }
-void UnknownB0009CEffectClass::Unknown_2C(int id, const LegoIdentifierClass &) { Trace("stub Unknown6E9490BinaryClass::Unknown_2C source %d with a lego", id); }
-void UnknownB0009CEffectClass::Unknown_30(const Vector3 &p) { Trace("stub Unknown6E9490BinaryClass::Unknown_30 (%g, %g, %g)", p.X, p.Y, p.Z); SourcePosition = p; }
-void UnknownB0009CEffectClass::Unknown_34(int id) { Trace("stub Unknown6E9490BinaryClass::Unknown_34 target %d", id); }
-void UnknownB0009CEffectClass::Unknown_38(const Vector3 &p) { Trace("stub Unknown6E9490BinaryClass::Unknown_38 (%g, %g, %g)", p.X, p.Y, p.Z); TargetPosition = p; }
-void UnknownB0009CEffectClass::Unknown_6E82A0(short a, short b, Vector3 o) { Trace("stub Unknown6E9490BinaryClass::Unknown_6E82A0 %d %d (%g, %g, %g) flags 0x%X", a, b, o.X, o.Y, o.Z, Flags); }
-static UnknownB0009CEffectClass The_Effect_Binary;
-class Unknown6E9490EffectClass : public EffectObjectClass
-{
-public:
-	virtual void Unknown_04();
-	virtual Vector3 Unknown_08(const Vector3 &position);
-	virtual void Unknown_0C();
-	virtual Unknown6E9490TargetClass *Unknown_10();
-	virtual UnknownB0009CEffectClass *Unknown_14();
-};
-void Unknown6E9490EffectClass::Unknown_04() {}
-Vector3 Unknown6E9490EffectClass::Unknown_08(const Vector3 &) { return(Vector3(0, 0, 0)); }
-void Unknown6E9490EffectClass::Unknown_0C() {}
-Unknown6E9490TargetClass *Unknown6E9490EffectClass::Unknown_10() { return(&The_Effect_Target); }
-UnknownB0009CEffectClass *Unknown6E9490EffectClass::Unknown_14() { return(&The_Effect_Binary); }
-// eff_o.h's declaration (cpacket.cpp's handlers and co.cpp's warp state)
-EffectObjectClass *Unknown_6E9490(int desc_id, unsigned effect_id, unsigned duration, unsigned time, ClientClass *, float scale, const Vector3 &hsv_shift, float a, int b, bool c)
-{
-	Trace("stub Unknown_6E9490 desc %d effect %d duration %d time %d scale %.2f hsv (%.2f %.2f %.2f) %.2f %d %d", desc_id, (int)effect_id,
-		(int)duration, (int)time, scale, hsv_shift.X, hsv_shift.Y, hsv_shift.Z, a, b, (int)c);
-	Unknown6E9490EffectClass *effect = new Unknown6E9490EffectClass;
-	effect->ID = effect_id;
-	effect->Node.Set(effect);
-	return(effect);
-}
+// Unknown_6E9490 and the unary / binary ends are eff_o.cpp's real ones (app.lib); the concrete effects the
+// factory makes are clienttest.cpp's stand-ins, and effect.ini is the fixture in tests/clienttest/data
 
 // ------------------------------------------------------------------------- control_keys_manager.cpp's key reader
 
