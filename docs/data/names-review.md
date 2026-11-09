@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1655 |
-| 2 | describes what the code does | 3826 |
-| 1 | neutral placeholder | 20653 |
+| 3 | by convention from a client-named file or sibling | 1656 |
+| 2 | describes what the code does | 3864 |
+| 1 | neutral placeholder | 20668 |
 
 ## For review (score 3 and below)
 
@@ -4822,6 +4822,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_687360` | `app/client/intrlist.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/intrlist.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/intrlist.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_8318B0` | `app/client/inv_data_peek.cpp:12` | neutral (D10); NAME 3 [item_template_id]: ui_manu.cpp's |
+| 1 | `mounts_name` | `app/client/inv_data_peek.cpp:101` | neutral (D10) |
+| 1 | `UnknownB016DCType` | `app/client/inv_data_peek.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/inv_data_peek.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/inv_data_peek.cpp:103` | untagged neutral name (D10) |
+| 1 | `UnknownRTTIClass` | `app/client/inv_data_peek.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/inv_data_peek.cpp:245` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/client/inv_data_peek.cpp:245` | untagged neutral name (D10) |
+| 1 | `UnknownB016DCType` | `app/client/inv_data_peek.h:60` | untagged neutral name (D10) |
+| 1 | `Get_Mount_I00` | `app/client/inv_data_peek.h:61` | neutral (D10), as UnknownB016DCType's member |
+| 1 | `Get_Mount_I08` | `app/client/inv_data_peek.h:62` | neutral (D10), as UnknownB016DCType's member |
+| 1 | `Get_Mount_I04` | `app/client/inv_data_peek.h:63` | neutral (D10), as UnknownB016DCType's member |
+| 1 | `Unknown04` | `app/client/inv_data_peek.h:192` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/client/inv_data_peek.h:192` | untagged neutral name (D10) |
+| 1 | `find` | `app/client/inv_data_peek.h:208` | neutral (D10): the assert's text |
 | 1 | `Unknown688830Item` | `app/client/inv_manu_render.cpp:12` | neutral (D10) |
 | 1 | `Unknown_831840` | `app/client/inv_manu_render.cpp:12` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/inv_manu_render.cpp:12` | untagged neutral name (D10) |
@@ -18734,7 +18749,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown98` | `app/shared/auxdata/delta.h:125` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/shared/auxdata/delta.h:127` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/shared/auxdata/delta.h:140` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_array.h:31` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/shared/auxdata/delta_array.h:35` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/auxdata/delta_array.h:63` | untagged neutral name (D10) |
 | 1 | `UnknownTime` | `app/shared/auxdata/delta_interpolator.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown24C` | `app/shared/auxdata/delta_interpolator.cpp:17` | untagged neutral name (D10) |
@@ -21548,6 +21563,43 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `key_manager` | `app/client/intrface.h:130` | the FAIL_IF's; NAME 1 [event]: neutral |
 | 2 | `Get_View` | `app/client/intrface.h:134` | what it returns |
 | 2 | `Peek_Scene` | `app/client/intrface.h:135` | what 0x692E00 does with it |
+| 2 | `ItemFieldNames` | `app/client/inv_data_peek.cpp:7` | describes what it does |
+| 2 | `client, name, mounts` | `app/client/inv_data_peek.h:34` | what it does with them |
+| 2 | `Attach` | `app/client/inv_data_peek.h:36` | describes what it does |
+| 2 | `Changed` | `app/client/inv_data_peek.h:38` | what it returns |
+| 2 | `Slot_Changed` | `app/client/inv_data_peek.h:39` | what it returns |
+| 2 | `Get_Item_Template_ID` | `app/client/inv_data_peek.h:41` | the client's field name (0xB8FEB4) |
+| 2 | `Get_Stack_Count` | `app/client/inv_data_peek.h:42` | the client's field name (0xB8FEB4) |
+| 2 | `Get_Price` | `app/client/inv_data_peek.h:43` | the client's field name (0xB8FEB4) |
+| 2 | `Get_Ave_Cost` | `app/client/inv_data_peek.h:44` | the client's field name (0xB8FEB4) |
+| 2 | `Get_Structure` | `app/client/inv_data_peek.h:45` | the client's field name (0xB8FEB4) |
+| 2 | `Get_Quality` | `app/client/inv_data_peek.h:46` | the client's field name (0xB8FEB4) |
+| 2 | `std:` | `app/client/inv_data_peek.h:47` | the client's field name (0xB8FEB4) |
+| 2 | `std:` | `app/client/inv_data_peek.h:48` | the client's field name (0xB8FEB4) |
+| 2 | `std:` | `app/client/inv_data_peek.h:49` | the client's field name (0xB8FEB4) |
+| 2 | `Get_Effect_Range` | `app/client/inv_data_peek.h:50` | the client's field names (Effects.Range) |
+| 2 | `Get_Effect_Usage` | `app/client/inv_data_peek.h:51` | the client's field names (Effects.Usage) |
+| 2 | `Get_Effect_Targets` | `app/client/inv_data_peek.h:52` | the client's field names (Effects.Targets) |
+| 2 | `Get_Effect_Validity` | `app/client/inv_data_peek.h:53` | the client's field names (Effects.Validity) |
+| 2 | `Get_Ready_Time` | `app/client/inv_data_peek.h:54` | the client's field name (0xB8FEB4) |
+| 2 | `Get_Target_Range` | `app/client/inv_data_peek.h:55` | the client's field name (0xB8FEB4) |
+| 2 | `Get_Item_State` | `app/client/inv_data_peek.h:56` | the client's field name (0xB8FEB4) |
+| 2 | `std:` | `app/client/inv_data_peek.h:57` | the client's field name (0xB8FEB4) |
+| 2 | `Get_Item` | `app/client/inv_data_peek.h:58` | what it returns |
+| 2 | `Get_Mount` | `app/client/inv_data_peek.h:60` | the field Inventory.Mounts |
+| 2 | `Get_Slot` | `app/client/inv_data_peek.h:66` | describes what it does |
+| 2 | `Get_Field` | `app/client/inv_data_peek.h:67` | describes what it does |
+| 2 | `Update_Fields` | `app/client/inv_data_peek.h:68` | describes what it does |
+| 2 | `Peek_Value` | `app/client/inv_data_peek.h:188` | describes what it does |
+| 2 | `Peek_Object` | `app/client/inv_data_peek.h:201` | describes what it does |
+| 2 | `Owner` | `app/client/inv_data_peek.h:215` | describes what it does |
+| 2 | `Name` | `app/client/inv_data_peek.h:216` | describes what it does |
+| 2 | `List` | `app/client/inv_data_peek.h:217` | describes what it does |
+| 2 | `HasMounts` | `app/client/inv_data_peek.h:218` | describes what it does |
+| 2 | `Mounts` | `app/client/inv_data_peek.h:219` | the field's name |
+| 2 | `Count` | `app/client/inv_data_peek.h:220` | describes what it does |
+| 2 | `Fields` | `app/client/inv_data_peek.h:221` | describes what it does |
+| 2 | `Status` | `app/client/inv_data_peek.h:222` | describes what it does |
 | 2 | `LevelText` | `app/client/inv_manu_render.h:37` | its string template |
 | 2 | `space_client` | `app/client/inv_render.cpp:183` | its slot |
 | 2 | `LevelText` | `app/client/inv_render.h:47` | its string template |
@@ -23428,6 +23480,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Lookup` | `app/shared/auxdata/delta.h:143` | after the asserts' Lookup |
 | 2 | `Decode` | `app/shared/auxdata/delta.h:147` | describes what it does |
 | 2 | `Children` | `app/shared/auxdata/delta.h:149` | describes what it does |
+| 2 | `Get_Value` | `app/shared/auxdata/delta_array.h:32` | describes what it does |
 | 2 | `DeltaInterpolatorValueClass` | `app/shared/auxdata/delta_interpolator.cpp:177` | describes what it does |
 | 2 | `Owner` | `app/shared/auxdata/delta_interpolator.cpp:185` | describes what it does |
 | 2 | `Value` | `app/shared/auxdata/delta_interpolator.cpp:186` | describes what it does |
@@ -24731,6 +24784,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Active` | `app/client/intrface.h:157` | the FAIL_IF's |
 | 3 | `PartialDeactivatedGadget` | `app/client/intrface.h:158` | the assert's |
 | 3 | `View` | `app/client/intrlist.cpp:18` | the FAIL_IF's |
+| 3 | `InvDataPeekClass` | `app/client/inv_data_peek.h:31` | by convention (D24) from the client's file inv_data_peek.cpp |
 | 3 | `InvDataClass` | `app/client/inv_manu_render.cpp:14` | Peek_Inv_Data, inv_data's __FILE__ 0xB90004 |
 | 3 | `SlotDataClass` | `app/client/inv_manu_render.cpp:15` | slot_data_render.h's |
 | 3 | `InvManuRenderClass` | `app/client/inv_manu_render.h:23` | class-from-file (D24) for app\Client\inv_manu_render.cpp |
@@ -25979,7 +26033,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `delta.h` | `app/shared/auxdata/delta.h:19` | header name assumed from the client's delta.cpp |
 | 3 | `DeltaClass` | `app/shared/auxdata/delta.h:87` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaBase) |
 | 3 | `DeltaCompoundClass` | `app/shared/auxdata/delta.h:122` | by convention (D24) from the client's file delta.cpp (D37; earlier research notes: DeltaCompound) |
-| 3 | `DeltaArrayClass` | `app/shared/auxdata/delta_array.h:25` | by convention (D24) from the client's file delta_array.h |
+| 3 | `DeltaArrayClass` | `app/shared/auxdata/delta_array.h:26` | by convention (D24) from the client's file delta_array.h |
 | 3 | `DeltaInterpolatorClass` | `app/shared/auxdata/delta_interpolator.h:25` | by convention (D24) from the client's file delta_interpolator.cpp (D59) |
 | 3 | `DeltaItemArrayClass` | `app/shared/auxdata/delta_item_array.h:25` | by convention (D24) from the client's file delta_item_array.h |
 | 3 | `delta_string.h` | `app/shared/auxdata/delta_string.h:18` | header name assumed from the client's delta_string.cpp |
