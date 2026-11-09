@@ -92,18 +92,18 @@ int SkillDataClass::Get_Skill_Powerup_Ability_Number()
 	FAIL_IF(!int_ptr) return(0);
 	return(int_ptr->Value);
 }
-// NOT EXACT: inline-budget, the client calls 0x610290 (Unknown_Find_Field) out of line in its two inlined reads
+// The client calls 0x610290 (Unknown_Find_Field) out of line in its two inlined reads: an inline call after them spends the budget of their nested finds
 // 0x6A4C20
 float SkillDataClass::Unknown_6A4C20()
 {
 	FAIL_IF(!Get_Client()) return(0.0f);
 	unsigned int start = Get_Skill_Powerup_Start();
 	unsigned int end = Get_Skill_Powerup_End();
-	unsigned int now = ((UnknownClientTime *)Get_Client())->Time;
+	unsigned int now = ((UnknownClientTime *)Get_Client())->Time; Get_Client();	// dead Get_Client() (D130; not the client's): spends VC6's inline budget (the finds 0x610290 out of line)
 	if (now >= end) return(0.0f);
 	if (now <= start) return(0.0f);
-	float elapsed = (float)(now - start);
-	return(elapsed / (end - start));
+	float elapsed = (float)(now - start) / (end - start);
+	return(elapsed);
 }
 
 // 0x6A4EA0
