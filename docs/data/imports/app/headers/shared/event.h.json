@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "Listener and Subject declarations and the Event forward declaration (the header's name by convention from event.cpp, D24)"
+}
