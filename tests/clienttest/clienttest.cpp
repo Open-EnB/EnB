@@ -53,6 +53,7 @@
 #include <set>
 #include <list>
 #include "clienttest.h"
+#include "..\..\..\app\client\eff_o.h"\t// the real effect object (eff_o.cpp is in the link), before client.h declares its short form
 #include "..\..\..\app\kernel\kernel.h"
 #include "..\..\..\app\input\input.h"
 #include "..\..\..\app\client\sclient.h"
@@ -467,11 +468,17 @@ static ClientObjectClass *New_Object(unsigned id)
 	return object;
 }
 
+// eff_o.cpp's real effect base is abstract (Unknown_24 is _purecall): the lists only need an object
+class Test_Effect_Class : public EffectObjectClass
+{
+public:
+	Test_Effect_Class(unsigned id) : EffectObjectClass(0, id, 0, 0, 0) {}
+	virtual void Unknown_24(int) {}
+};
+
 static EffectObjectClass *New_Effect(unsigned id)
 {
-	EffectObjectClass *effect = new EffectObjectClass;
-	effect->ID = id;
-	effect->Node.Set(effect);		// eff_o.cpp's, likewise
+	EffectObjectClass *effect = new Test_Effect_Class(id);	// the real constructor 0x6E6710 (members zeroed, Node set)
 	return effect;
 }
 
@@ -657,9 +664,9 @@ static void Test_Lists(SClient *client)
 	EffectObjectClass *e1 = New_Effect(40);
 	EffectObjectClass *e2 = New_Effect(40);
 	EffectObjectClass *e3 = New_Effect(40 + 257);
-	client->Add_Effect(e1, 1, 2);
-	client->Add_Effect(e2, 3, 4);
-	client->Add_Effect(e3, 5, 6);
+	client->Add_Effect(e1, 0, 0);
+	client->Add_Effect(e2, 0, 0);
+	client->Add_Effect(e3, 0, 0);
 	Check(client->Get_Effect(40 + 257) == e3, "Get_Effect 297");
 	Check(client->Find_Effect(40) == e1 || client->Find_Effect(40) == e2, "Find_Effect 40 finds one of the two");
 	EffectObjectClass *last = client->Remove_Effects(40);
