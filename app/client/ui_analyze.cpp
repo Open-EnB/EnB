@@ -63,20 +63,20 @@ class UIAnalyzeKeysClass { public: void Unknown_721E60(const UIAnalyzeKeyEventSt
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
 
 // The item's fields this file reads (as ui_manu.cpp's)
-class UIAnalyzeValidityClass : public DeltaClass	// NAME 1: neutral (D10): 'Validity' (13 when the item can be analyzed)
-{
-public:
-	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41640)
-	int Value;											// +0x84  // NAME 2: what it holds
-};
-int UIAnalyzeValidityClass::UnknownGlobal;
-class UIAnalyzeModeClass : public DeltaClass	// NAME 1: neutral (D10): 'Mode' (2 analyze, 3 dismantle)
-{
-public:
-	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41634)
-	int Value;											// +0x84  // NAME 2: what it holds
-};
-int UIAnalyzeModeClass::UnknownGlobal;
+// 'Validity': DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB01394Enum> (aux_roots.h; its per-class global 0xC41640)
+
+template<class C> static inline C *Unknown_Find_Root_Field(DeltaCompoundClass *root, NameClass &name) { if (!root) return(NULL); C *t = Unknown_Find_Field<C>(root, name); if (!t) return(NULL); return(t); }	// NAME 1: neutral (D10): the find with its own root test (0x546090 calls the Cast out of line inside it, as the client)  // NAME 1 [root, name]: neutral
+
+
+
+
+// 'Mode': DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB013ECEnum> (aux_roots.h; its per-class global 0xC41634)
+
+
+
+
+
+
 
 // @0x5435D0
 UIAnalyzeClass::UIAnalyzeClass(SBaseViewClass *view, const LayerClass &layer) :
@@ -330,7 +330,7 @@ void UIAnalyzeClass::Unknown_60()
 					Unknown0DC->Unknown_62F5B0(true);
 				}
 			}
-			UIAnalyzeValidityClass *validity = Unknown_Find_Field<UIAnalyzeValidityClass>(Unknown10C, NameClass("Validity"));
+			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, NameClass("Validity"));
 			if (validity && validity->Unknown70 && validity->Value == 15) {
 				((ClientClass *)Client)->Send_Packet(&ManufactureActionPacketClass(((SClient *)Client)->Unknown1138, 1));
 			}
@@ -340,12 +340,12 @@ void UIAnalyzeClass::Unknown_60()
 			Unknown_545610();
 		}
 	} else {
-		UIAnalyzeValidityClass *validity = Unknown_Find_Field<UIAnalyzeValidityClass>(Unknown10C, NameClass("Validity"));
+		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, NameClass("Validity"));
 		if (validity && validity->Unknown70 && validity->Value != 13) {
 			Unknown110 = false;
 			Unknown114 = Unknown_AEF0EC;
 			Unknown_545610();
-			UIAnalyzeModeClass *mode = Unknown_Find_Field<UIAnalyzeModeClass>(Unknown10C, NameClass("Mode"));
+			DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, NameClass("Mode"));
 			if (mode && mode->Unknown70) {
 				bool analyze = mode->Value == 2;
 				const char *result = NULL;
@@ -392,7 +392,7 @@ void UIAnalyzeClass::Unknown_60()
 			}
 		}
 	}
-	UIAnalyzeValidityClass *validity = Unknown_Find_Field<UIAnalyzeValidityClass>(Unknown10C, NameClass("Validity"));
+	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, NameClass("Validity"));
 	if (validity && validity->Unknown70 > 1) {
 		Unknown_545610();
 		Unknown_546090();
@@ -533,7 +533,7 @@ void UIAnalyzeClass::Unknown_545190()
 		sprintf(text, "%1.0f%%", critical_probability->Value * 100.0f);
 		Unknown_544C50(5, true, text);
 	}
-	UIAnalyzeValidityClass *validity = Unknown_Find_Field<UIAnalyzeValidityClass>(Unknown10C, NameClass("Validity"));
+	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, NameClass("Validity"));
 	if (validity && validity->Unknown70 > 1) {
 		const char *message = NULL;
 		switch (validity->Value) {
@@ -578,11 +578,11 @@ void UIAnalyzeClass::Unknown_545610()
 	Unknown0FC[1]->Set_Hidden(true);
 	Unknown0FC[2]->Set_Hidden(true);
 	NameClass name("Validity");
-	UIAnalyzeValidityClass *validity = Unknown_Find_Field<UIAnalyzeValidityClass>(Unknown10C, name);
+	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown10C, name);
 	if (validity && validity->Unknown70) {
 		bool analyze;
 		NameClass mode_name("Mode");
-		UIAnalyzeModeClass *mode = Unknown_Find_Field<UIAnalyzeModeClass>(Unknown10C, mode_name);
+		DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, mode_name);
 		if (mode && mode->Unknown70 && mode->Value == 2) {
 			analyze = true;
 			Unknown_544C50(8, true, Unknown_B796A8[11]);
@@ -624,7 +624,7 @@ void UIAnalyzeClass::Unknown_5458B0()
 	if (Unknown0DC) {
 		Unknown0DC->Unknown_62F5B0(false);
 	}
-	UIAnalyzeModeClass *mode = Unknown_Find_Field<UIAnalyzeModeClass>(Unknown10C, NameClass("Mode"));
+	DeltaTemplateClass<UnknownB013ECEnum> *mode = Unknown_Find_Field<DeltaTemplateClass<UnknownB013ECEnum> >(Unknown10C, NameClass("Mode"));
 	if (mode && mode->Unknown70) {
 		if (mode->Value == 2) {
 			Unknown_544C50(6, true, Unknown_B796A8[0]);
@@ -696,12 +696,12 @@ void UIAnalyzeClass::Unknown_546000()
 }
 #pragma auto_inline(on)
 
-// NOT EXACT: inline budget (the client calls UnknownRTTIClass<DeltaStringClass>::Cast out of line; a #pragma inline_depth(1) at the file's end makes it exact but costs 0x5461C0) (0x546090)
+// 0x546090 finds through Unknown_Find_Root_Field (the file's top): the client's Cast out of line inside the inlined find
 // @0x546090
 void UIAnalyzeClass::Unknown_546090()
 {
 	NameClass name("FailureMessage");
-	DeltaStringClass *failure = Unknown_Find_Field<DeltaStringClass>(Unknown10C, name);
+	DeltaStringClass *failure = Unknown_Find_Root_Field<DeltaStringClass>(Unknown10C, name);
 	if (failure && failure->Unknown70) {
 		if (strcmp(failure->Get(), "") != 0) {
 			Unknown_544C50(7, true, failure->Get());
@@ -760,8 +760,8 @@ void UIAnalyzeClass::Unknown_5461C0(int level, int a, int b, int c)
 // and the text helper 0x544C50 on its line (483); the destructor 0x5437C0 on its G_ASSERT's line 116.
 // AN2 (2026-11-08): slots +0x54 0x5439F0 and +0x60 0x5443F0 (its default G_ASSERT on line 381) and the text and
 // validity functions 0x544D80-0x5458B0 written (functional, NOT EXACT); the functions now in the client's order.
-// The 'Validity' / 'Mode' fields are local classes over their per-class globals (0xC41640 / 0xC41634), as
-// ui_manu.cpp's UIManuValidityClass. 0x545D30 repeats 0x546000's six hides (the client inlines them there but calls 0x546000 out of line
+// The 'Validity' / 'Mode' fields are DeltaManufacturingLabClass's own types (aux_roots.h; per-class globals 0xC41640 /
+// 0xC41634, VM1: ui_manu.cpp shares the Cast 0x5468D0). 0x545D30 repeats 0x546000's six hides (the client inlines them there but calls 0x546000 out of line
 // from slot +0x5C; auto_inline(off) around 0x546000 gives both). UIAnalyzeClass is laid out from the constructor. The client calls the finds of
 // 'CurrentItemCategory' / 'PrimaryCategories' out of line (0x546780 / 0x5467F0, Unknown_Find_Field over aux_roots.h's
 // own types: ui_manu.cpp's 0x5B4680 calls the same copies, so it uses the same types) and inlines the 'FailureMessage'

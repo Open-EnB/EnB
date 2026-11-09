@@ -368,13 +368,13 @@ public:
 	static int UnknownGlobal;							// the per-class global at +0x04 (0xC4162C)
 };
 int UIManuCategoriesClass::UnknownGlobal;
-class UIManuValidityClass : public DeltaClass	// NAME 1: neutral (D10): 'Validity' (13 when the item can be made)
-{
-public:
-	static int UnknownGlobal;							// the per-class global at +0x04 (0xC41640)
-	int Value;											// +0x84  // NAME 2: what it holds
-};
-int UIManuValidityClass::UnknownGlobal;
+#include "aux_roots.h"				// (after auxdata.h, as ui_cpit.cpp): 'Validity' is DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB01394Enum> (0xC41640)
+
+
+
+
+
+
 class UIManuCurrentCategoryClass : public DeltaClass	// NAME 1: neutral (D10): 'CurrentItemCategory' (an item id)
 {
 public:
@@ -508,7 +508,7 @@ void UIManuClass::Unknown_60()
 		}
 		if (Unknown0BA4 == 2) {
 			NameClass name("Validity");
-			UIManuValidityClass *validity = Unknown_Find_Valid<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, name);
+			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, name);
 			if (Unknown_846210(validity->Value)) {
 				Unknown0BA4 = 0;
 				Unknown_5B1AF0(4, true, Unknown_B81880[1]);
@@ -798,7 +798,7 @@ void UIManuClass::Unknown_5B2480()
 	}
 	go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], InterfaceMesh->Peek_Mesh_Object()));
 	NameClass name("Validity");
-	UIManuValidityClass *validity = Unknown_Find_Field<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, name);
+	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, name);
 	bool valid = (validity && validity->Unknown70 && validity->Value == 13) ? true : false;
 	if (Unknown0BA4 == 0 && valid) {
 		Unknown0CC[6]->Unknown_40(true);
@@ -1437,7 +1437,7 @@ inline bool UIManuClass::Unknown_All_Levels_Checked()
 
 
 // The money and float fields 0x5B4B10 / 0x5B5320 read (here, not at the top: the asserts sit on the client's lines)
-#include "aux_roots.h"				// (after auxdata.h, as ui_cpit.cpp)
+
 
 // 'TechLevelFilterBitfield' (bit n - 1 set: tech level n shown)
 class UIManuTechLevelFilterClass : public DeltaClass	// NAME 1: neutral (D10)
@@ -1561,7 +1561,7 @@ static std::string Unknown_5B6060(int validity)	// NAME 1: neutral (D10)  // NAM
 
 // NOT EXACT: inline budget (the client calls all seven finds out of line, 0x5465C0 / 0x5466A0 / 0x546710 / 0x5B7130 / 0x5B6DB0; ours inlines them, and six dead finds (D130) move none) (0x5B5320)
 void UIManuClass::Unknown_5B5320()
-{		UIManuValidityClass *validity = Unknown_Find_Field<UIManuValidityClass>((DeltaCompoundClass *)Unknown0BA0, NameClass("Validity"));
+{		DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, NameClass("Validity"));
 	if (validity && validity->Unknown70 > 1) {
 		std::string reason = Unknown_5B6060(validity->Value);
 		if (reason.length() && !Unknown0BB4) {
