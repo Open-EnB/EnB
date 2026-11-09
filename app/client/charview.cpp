@@ -80,12 +80,12 @@ public:
 	LoginInterface(UIViewClass *view, LayerClass *layer);	// 0x5ACB80
 	char Unknown84[0xDC - 0x84];
 };
-class Unknown5DB670InterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): mode 0 CHARACTER_POPUP_MESSAGE
-{
-public:
-	Unknown5DB670InterfaceClass(UIViewClass *view, LayerClass *layer);	// 0x5DB670  // NAME 1 [view, layer]: as LoginInterface's
-	char Unknown84[0xD4 - 0x84];
-};
+#include "ui_popupmsg.h"	// mode 0 CHARACTER_POPUP_MESSAGE: the end screen (0x5DB670)
+
+
+
+
+
 #include "ui_class.h"
 #include "ui_shipcust.h"
 
