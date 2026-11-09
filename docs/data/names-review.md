@@ -16668,27 +16668,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown414` | `app/client/unknown_6cce60.cpp:168` | untagged neutral name (D10) |
 | 1 | `Unknown404` | `app/client/unknown_6cce60.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown303` | `app/client/unknown_6cce60.cpp:171` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD950` | `app/client/unknown_6cce60.cpp:184` | untagged neutral name (D10) |
-| 1 | `Unknown_6CDAB0` | `app/client/unknown_6cce60.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown2F4` | `app/client/unknown_6cce60.cpp:231` | untagged neutral name (D10) |
-| 1 | `Unknown494` | `app/client/unknown_6cce60.cpp:238` | untagged neutral name (D10) |
-| 1 | `Print_Text` | `app/client/unknown_6cce60.cpp:264` | what it does |
-| 1 | `Unknown2F0` | `app/client/unknown_6cce60.cpp:267` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/unknown_6cce60.cpp:268` | untagged neutral name (D10) |
-| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:295` | untagged neutral name (D10) |
-| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:296` | untagged neutral name (D10) |
-| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:310` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `app/client/unknown_6cce60.cpp:318` | untagged neutral name (D10) |
-| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:319` | untagged neutral name (D10) |
-| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:326` | untagged neutral name (D10) |
-| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:359` | untagged neutral name (D10) |
-| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:368` | untagged neutral name (D10) |
-| 1 | `Clip_Text` | `app/client/unknown_6cce60.cpp:378` | what it does |
-| 1 | `Unknown_6CE4E0` | `app/client/unknown_6cce60.cpp:385` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/unknown_6cce60.cpp:397` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD950` | `app/client/unknown_6cce60.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown_6CDAB0` | `app/client/unknown_6cce60.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown2F4` | `app/client/unknown_6cce60.cpp:232` | untagged neutral name (D10) |
+| 1 | `Unknown494` | `app/client/unknown_6cce60.cpp:239` | untagged neutral name (D10) |
+| 1 | `Print_Text` | `app/client/unknown_6cce60.cpp:265` | what it does |
+| 1 | `Unknown2F0` | `app/client/unknown_6cce60.cpp:268` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/unknown_6cce60.cpp:269` | untagged neutral name (D10) |
+| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:297` | untagged neutral name (D10) |
+| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:311` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/unknown_6cce60.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:320` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:327` | untagged neutral name (D10) |
+| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:360` | untagged neutral name (D10) |
+| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:369` | untagged neutral name (D10) |
+| 1 | `Clip_Text` | `app/client/unknown_6cce60.cpp:379` | what it does |
+| 1 | `Unknown_6CE4E0` | `app/client/unknown_6cce60.cpp:386` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/unknown_6cce60.cpp:398` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE7D0` | `app/client/unknown_6cce60.cpp:409` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:416` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:428` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:428` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:445` | untagged neutral name (D10) |
 | 1 | `Unknown729990Struct` | `app/client/unknown_7294d0.cpp:8` | neutral (D10) |
 | 1 | `client, base_asset, scale` | `app/client/unknown_7294d0.cpp:17` | what 0x7294D0 passes |
 | 1 | `Unknown_729770` | `app/client/unknown_7294d0.cpp:17` | untagged neutral name (D10) |
