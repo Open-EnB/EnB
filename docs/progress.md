@@ -3052,9 +3052,12 @@ below name only the work items, the blocked work, the leads and the queues.
      `__LINE__` of every later assert: a session of its own).
    * ui_guild.cpp (provisional): 0x81C380 (the member list rebuilt from a vector of strings) and its string helper
      0x81D290 (calls 0x4FB810 / 0x4FC990).
-   * client_item_property_builder.cpp: 0x522860 / 0x521C10 / 0x527F40 (NOT EXACT). The base ClientItemPropertyClass
-     0x51F900-0x51F9xx (likely client_item_property.cpp, not started); ui_item_examination's router / builder stand-ins
-     (need P-IP1-1: UISlotInfoItemClass unified with InvDataClass).
+   * client_item_property_builder.cpp: 0x522860 / 0x521C10 / 0x527F40 (NOT EXACT); ui_item_examination's router /
+     builder stand-ins (need P-IP1-1: UISlotInfoItemClass unified with InvDataClass). client_item_property_attribute.h:
+     the client's inline code the tree lacks (13 functions, 18 asserts, used by its includers); the visitor's slot +0x20
+     takes a ClientItemPropertyClass * (the base's Accept passes `this`: retype with symbols_named.json `replaces` rows);
+     0x51F8E0 (7 bytes, no callers, stores RefCountClass's vtable, between dynamic_window_vertical and the base: an
+     out-of-line inline destructor copy of one of the two).
    * ui_jobs.cpp: 0x5A3FB0 (the client expands the job's delete and list::erase three inline levels down).
    * ui_cpit.cpp: 0x584000's expansions in 0x5821C0 (needs F) and 0x5806E0's last two sites (the client keeps their
      finds / Casts out of line); 0x57D6C0.
@@ -3198,7 +3201,9 @@ below name only the work items, the blocked work, the leads and the queues.
    download; the account / subscription XML reader range 0x7C9000-0x7E3000 between ui_starmap.cpp and avatar_pip.cpp), ui_log.cpp ('UI_LOG', the log book window) and ui_guild.cpp ('UI_GUILD'), both TM1's, ui_jobs.h (JB1:
    UIJobsClass over Unknown5BB320Class, interim), client_item_property_builder.h (IP1), ui_guild_list.cpp / .h (GL1:
    'UI_GUILD_LIST', object 0x81E030-0x81F0FF), client_item_property_unknown_529810 / _description / _name /
-   _option_auto_fire.cpp (IP2: the property classes 0x529810-0x52B380 without a `__FILE__`).
+   _option_auto_fire.cpp (IP2: the property classes 0x529810-0x52B380 without a `__FILE__`), client_item_property.cpp /
+   _attribute.cpp / _attribute_distance / _float / _integer / _percent / _seconds / _string.cpp (IP3: 0x51F900-0x521B1F,
+   no asserts).
 
 9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
