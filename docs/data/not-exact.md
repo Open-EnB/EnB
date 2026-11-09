@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-683 entries in 203 files.
+680 entries in 203 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -131,13 +131,11 @@ edit the comments in the code, not this file.
 | `app/client/fontsys.cpp:18` | `FontSys::FontSys` | marker | NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:39` | `FontSys::FontSys` | marker | NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched |
 | `app/client/fontsys.cpp:64` | `FontSys::Unknown_6D5170` | marker | NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object's inline would, and stores +0x430 / +0x4C5 after the resolution call's arguments; the colours from TXT1 |
-| `app/client/fontsys.cpp:182` | `FontSys::Set_Container` | marker | NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched |
-| `app/client/fontsys.cpp:231` | `FontSys::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
-| `app/client/fontsys.cpp:256` | `FontSys::Unknown_6D5D40` | marker | NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched |
-| `app/client/fontsys.cpp:280` | `FontSys::Unknown_6D6390` | marker | NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched |
-| `app/client/fontsys.cpp:338` | `FontSys::Unknown_6D60C0` | marker | NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:388` | `FontSys::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:924` | `FontSys::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
+| `app/client/fontsys.cpp:182` | `FontSys::Set_Container` | marker | NOT EXACT: register (attempts.csv): the client keeps i in ebp and spills this across the loop (14 rows) |
+| `app/client/fontsys.cpp:239` | `FontSys::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
+| `app/client/fontsys.cpp:346` | `FontSys::Unknown_6D60C0` | marker | NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:396` | `FontSys::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:932` | `FontSys::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:19` | `Unknown_6D8B90Class::Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8B90) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:31` | `Unknown_6D8B90Class::~Unknown_6D8B90Class` | marker | NOT EXACT: written from the client's code (0x6D8C50) for the POC, not yet matched |
 | `app/client/fonttexture.cpp:104` | `Unknown_6D8B90Class::Unknown_6D8DC0` | marker | NOT EXACT: written from the client's code (0x6D8DC0) for the POC, not yet matched |
@@ -475,7 +473,7 @@ edit the comments in the code, not this file.
 | `app/client/unknown_6cce60.cpp:144` | `FontSys::Unknown_6CD6F0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD6F0) |
 | `app/client/unknown_6cce60.cpp:186` | `FontSys::Unknown_6CD950` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD950) |
 | `app/client/unknown_6cce60.cpp:225` | `FontSys::Unknown_6CDAB0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDAB0) |
-| `app/client/unknown_6cce60.cpp:275` | `FontSys::Change_Text` | marker | NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first "" assignment and hoists three member loads above stores (27 masked rows) |
+| `app/client/unknown_6cce60.cpp:275` | `FontSys::Change_Text` | marker | NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first " " assignment and hoists three member loads above stores (27 masked rows) |
 | `app/client/unknown_6cce60.cpp:374` | `FontSys::Unknown_6CE4E0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0) |
 | `app/client/unknown_6cce60.cpp:400` | `FontSys::Unknown_6CE7D0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0) |
 | `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
@@ -490,9 +488,8 @@ edit the comments in the code, not this file.
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |
-| `app/client/unknown_fontsound.cpp:9` | `Unknown_6BCFB0Class::Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) the client's has an EH frame with no state stores around the same seven stores |
-| `app/client/unknown_fontsound.cpp:14` | `Unknown_6BCFB0Class::~Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) Clear's loop as `while (--index >= 0)` (dec / js, 0.80); the client has no state -1 store before the member's destructor |
-| `app/client/unknown_fontsound.cpp:33` | `Unknown_6BCFB0Class::Play` | marker | NOT EXACT: (D64) the client stores Duration before the fcomp of seconds and places the Add branch after the epilogue; this form schedules the store after it (0.81) |
+| `app/client/unknown_fontsound.cpp:10` | `Unknown_6BCFB0Class::Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) the client's has an EH frame with no state stores around the same seven stores |
+| `app/client/unknown_fontsound.cpp:15` | `Unknown_6BCFB0Class::~Unknown_6BCFB0Class` | marker | NOT EXACT: (D64) Clear's loop as `while (--index >= 0)` (dec / js, 0.80); the client has no state -1 store before the member's destructor |
 | `app/client/unknown_personality.cpp:12` | `Unknown_78F700Class::~Unknown_78F700Class` | marker | NOT EXACT: functional for POC (D64), frame (the client's has an EH frame: a member or base with a destructor not known yet) |
 | `app/client/unknown_personality.cpp:77` | `Unknown_78F700Class::Load` | marker | NOT EXACT: functional for POC (D64), inline-budget (ours inlines 0x7901C0 differently) |
 | `app/client/unknown_personality.cpp:173` | `Unknown_790260Class::Unknown_790360` | marker | NOT EXACT: functional for POC (D64), field-offset (the client inlines the delete of a failed load: the destructor) |

@@ -8,10 +8,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | Score | Meaning | Names |
 |---|---|---|
 | 5 | the client names it | 174 |
-| 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
+| 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1634 |
 | 2 | describes what the code does | 3803 |
-| 1 | neutral placeholder | 19800 |
+| 1 | neutral placeholder | 19803 |
 
 ## For review (score 3 and below)
 
@@ -59,18 +59,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB035E0Enum` | `app/client/aux_roots.h:143` | the value type of the leaf vtable 0xB035E0 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB03970Enum` | `app/client/aux_roots.h:154` | the value type of the leaf vtable 0xB03970 (no name in the client, Net-7 or C#) |
 | 1 | `Unknown9C` | `app/client/aux_roots.h:181` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown04` | `app/client/aux_roots.h:383` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `app/client/aux_roots.h:383` | untagged neutral name (D10) |
-| 1 | `UnknownRootClass` | `app/client/aux_roots.h:489` | untagged neutral name (D10) |
-| 1 | `Unknown2390` | `app/client/aux_roots.h:538` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown2394` | `app/client/aux_roots.h:539` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown2398` | `app/client/aux_roots.h:540` | neutral (D10): a member, not a field of the tree |
-| 1 | `UnknownSendRootClass` | `app/client/aux_roots.h:883` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/aux_roots.h:935` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/aux_roots.h:937` | untagged neutral name (D10) |
-| 1 | `Unknown420` | `app/client/aux_roots.h:946` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown424` | `app/client/aux_roots.h:947` | neutral (D10): a member, not a field of the tree |
-| 1 | `Unknown428` | `app/client/aux_roots.h:948` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown04` | `app/client/aux_roots.h:363` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `app/client/aux_roots.h:363` | untagged neutral name (D10) |
+| 1 | `UnknownRootClass` | `app/client/aux_roots.h:469` | untagged neutral name (D10) |
+| 1 | `Unknown2390` | `app/client/aux_roots.h:518` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown2394` | `app/client/aux_roots.h:519` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown2398` | `app/client/aux_roots.h:520` | neutral (D10): a member, not a field of the tree |
+| 1 | `UnknownSendRootClass` | `app/client/aux_roots.h:863` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/aux_roots.h:915` | untagged neutral name (D10) |
+| 1 | `Unknown_48` | `app/client/aux_roots.h:917` | untagged neutral name (D10) |
+| 1 | `Unknown420` | `app/client/aux_roots.h:926` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown424` | `app/client/aux_roots.h:927` | neutral (D10): a member, not a field of the tree |
+| 1 | `Unknown428` | `app/client/aux_roots.h:928` | neutral (D10): a member, not a field of the tree |
 | 1 | `aux_roots_send.h` | `app/client/aux_roots_send.h:5` | provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
 | 1 | `UnknownSendRootClass` | `app/client/aux_roots_send.h:24` | untagged neutral name (D10) |
 | 1 | `Unknown_48` | `app/client/aux_roots_send.h:44` | untagged neutral name (D10) |
@@ -3325,28 +3325,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown44C` | `app/client/fontsys.cpp:138` | untagged neutral name (D10) |
 | 1 | `Unknown494` | `app/client/fontsys.cpp:144` | untagged neutral name (D10) |
 | 1 | `Unknown4B4` | `app/client/fontsys.cpp:145` | untagged neutral name (D10) |
-| 1 | `Unknown4A4` | `app/client/fontsys.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown4A4` | `app/client/fontsys.cpp:152` | untagged neutral name (D10) |
 | 1 | `Unknown303` | `app/client/fontsys.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown414` | `app/client/fontsys.cpp:170` | untagged neutral name (D10) |
 | 1 | `Unknown2E0` | `app/client/fontsys.cpp:175` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8DC0` | `app/client/fontsys.cpp:175` | untagged neutral name (D10) |
 | 1 | `Unknown4E4` | `app/client/fontsys.cpp:178` | untagged neutral name (D10) |
 | 1 | `Unknown4E6` | `app/client/fontsys.cpp:179` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5A80` | `app/client/fontsys.cpp:214` | untagged neutral name (D10) |
-| 1 | `Unknown4C4` | `app/client/fontsys.cpp:285` | untagged neutral name (D10) |
-| 1 | `Unknown2D0` | `app/client/fontsys.cpp:285` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B4` | `app/client/fontsys.cpp:296` | neutral (D10): FontSys's sounds (main_client.cpp declares it so) |
-| 1 | `Unknown_6BCFB0Class` | `app/client/fontsys.cpp:296` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5F40` | `app/client/fontsys.cpp:299` | untagged neutral name (D10) |
-| 1 | `Unknown_6D60C0` | `app/client/fontsys.cpp:339` | untagged neutral name (D10) |
-| 1 | `Unknown464` | `app/client/fontsys.cpp:414` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:454` | untagged neutral name (D10) |
-| 1 | `Unknown_6CA0C0` | `app/client/fontsys.cpp:455` | untagged neutral name (D10) |
-| 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:457` | untagged neutral name (D10) |
-| 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:493` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8650` | `app/client/fontsys.cpp:959` | untagged neutral name (D10) |
-| 1 | `Unknown_6D87D0` | `app/client/fontsys.cpp:971` | untagged neutral name (D10) |
-| 1 | `Unknown_6D88F0` | `app/client/fontsys.cpp:996` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5A80` | `app/client/fontsys.cpp:222` | untagged neutral name (D10) |
+| 1 | `Unknown4C4` | `app/client/fontsys.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown2D0` | `app/client/fontsys.cpp:293` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B4` | `app/client/fontsys.cpp:304` | neutral (D10): FontSys's sounds (main_client.cpp declares it so) |
+| 1 | `Unknown_6BCFB0Class` | `app/client/fontsys.cpp:304` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5F40` | `app/client/fontsys.cpp:307` | untagged neutral name (D10) |
+| 1 | `Unknown_6D60C0` | `app/client/fontsys.cpp:347` | untagged neutral name (D10) |
+| 1 | `Unknown464` | `app/client/fontsys.cpp:422` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD180` | `app/client/fontsys.cpp:462` | untagged neutral name (D10) |
+| 1 | `Unknown_6CA0C0` | `app/client/fontsys.cpp:463` | untagged neutral name (D10) |
+| 1 | `Unknown_6CD6F0` | `app/client/fontsys.cpp:465` | untagged neutral name (D10) |
+| 1 | `Unknown_6CCE60` | `app/client/fontsys.cpp:501` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8650` | `app/client/fontsys.cpp:967` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/fontsys.cpp:979` | untagged neutral name (D10) |
+| 1 | `Unknown_6D88F0` | `app/client/fontsys.cpp:1004` | untagged neutral name (D10) |
 | 1 | `InterfaceSortClass` | `app/client/fontsys_cursor.cpp:8` | neutral (D10) |
 | 1 | `iface` | `app/client/fontsys_cursor.cpp:11` | neutral |
 | 1 | `Unknown00` | `app/client/fontsys_cursor.cpp:14` | untagged neutral name (D10) |
@@ -16018,20 +16018,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6CDAB0` | `app/client/unknown_6cce60.cpp:226` | untagged neutral name (D10) |
 | 1 | `Unknown2F4` | `app/client/unknown_6cce60.cpp:233` | untagged neutral name (D10) |
 | 1 | `Unknown494` | `app/client/unknown_6cce60.cpp:240` | untagged neutral name (D10) |
-| 1 | `Unknown2F0` | `app/client/unknown_6cce60.cpp:274` | untagged neutral name (D10) |
-| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:284` | untagged neutral name (D10) |
-| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:292` | untagged neutral name (D10) |
-| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:304` | untagged neutral name (D10) |
-| 1 | `Unknown4C5` | `app/client/unknown_6cce60.cpp:314` | untagged neutral name (D10) |
-| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:322` | untagged neutral name (D10) |
-| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:348` | untagged neutral name (D10) |
-| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:349` | untagged neutral name (D10) |
-| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:351` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE4E0` | `app/client/unknown_6cce60.cpp:357` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/unknown_6cce60.cpp:371` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE7D0` | `app/client/unknown_6cce60.cpp:383` | untagged neutral name (D10) |
-| 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:390` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:402` | untagged neutral name (D10) |
+| 1 | `Print_Text` | `app/client/unknown_6cce60.cpp:264` | what it does |
+| 1 | `Unknown2F0` | `app/client/unknown_6cce60.cpp:267` | untagged neutral name (D10) |
+| 1 | `Unknown4C5` | `app/client/unknown_6cce60.cpp:268` | untagged neutral name (D10) |
+| 1 | `Unknown470` | `app/client/unknown_6cce60.cpp:295` | untagged neutral name (D10) |
+| 1 | `Unknown458` | `app/client/unknown_6cce60.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown444` | `app/client/unknown_6cce60.cpp:310` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/unknown_6cce60.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown4B4` | `app/client/unknown_6cce60.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown26C` | `app/client/unknown_6cce60.cpp:324` | untagged neutral name (D10) |
+| 1 | `Unknown405` | `app/client/unknown_6cce60.cpp:357` | untagged neutral name (D10) |
+| 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:366` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE4E0` | `app/client/unknown_6cce60.cpp:375` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67B8` | `app/client/unknown_6cce60.cpp:389` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE7D0` | `app/client/unknown_6cce60.cpp:401` | untagged neutral name (D10) |
+| 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:408` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:420` | untagged neutral name (D10) |
 | 1 | `Unknown729990Struct` | `app/client/unknown_7294d0.cpp:8` | neutral (D10) |
 | 1 | `client, base_asset, scale` | `app/client/unknown_7294d0.cpp:17` | what 0x7294D0 passes |
 | 1 | `Unknown_729770` | `app/client/unknown_7294d0.cpp:17` | untagged neutral name (D10) |
@@ -16229,9 +16231,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_78D8A0` | `app/client/unknown_creator.h:46` | untagged neutral name (D10) |
 | 1 | `Unknown_78DAF0` | `app/client/unknown_creator.h:47` | untagged neutral name (D10) |
 | 1 | `Unknown_78D450` | `app/client/unknown_creator.h:54` | neutral (D10) |
-| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.cpp:10` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/unknown_fontsound.h:16` | untagged neutral name (D10) |
-| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.h:25` | neutral (D10), as app/main declares it |
+| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.cpp:11` | untagged neutral name (D10) |
+| 1 | `entry` | `app/client/unknown_fontsound.cpp:36` | what it holds |
+| 1 | `Unknown00` | `app/client/unknown_fontsound.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown_6BCFB0Class` | `app/client/unknown_fontsound.h:26` | neutral (D10), as app/main declares it |
 | 1 | `Unknown_7E5F70` | `app/client/unknown_log.cpp:10` | neutral (D10) |
 | 1 | `Unknown_Log` | `app/client/unknown_log.cpp:16` | neutral (D10) |
 | 1 | `Unknown_7E5F70` | `app/client/unknown_log.h:6` | neutral (D10); resets enb_client.log |
@@ -21658,14 +21661,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CharacterCreatorClass` | `app/client/unknown_creator.h:41` | its folder and registry key, 'Character and Starship Creator' |
 | 2 | `Get_File_Name` | `app/client/unknown_creator.h:49` | what it does |
 | 2 | `Make_Folder` | `app/client/unknown_creator.h:55` | what it does |
-| 2 | `PlayingSoundStruct` | `app/client/unknown_fontsound.h:14` | a FontSys sound and its time left (fontdatabase.h's FontSoundStruct is the ini entry: ID / Vol / Dur, Play's arguments) |
-| 2 | `Sound` | `app/client/unknown_fontsound.h:17` | WWAudioClass::Create_Sound_Effect's result |
-| 2 | `Duration` | `app/client/unknown_fontsound.h:18` | milliseconds left (60000 or more: no limit) |
-| 2 | `Time` | `app/client/unknown_fontsound.h:19` | timeGetTime of the last update |
-| 2 | `Clear` | `app/client/unknown_fontsound.h:31` | 0x6BD190, no caller |
-| 2 | `Play` | `app/client/unknown_fontsound.h:32` | 0x6BD270 (FontSys 0x6CD180 / 0x6CD6F0 / 0x6D60C0) |
-| 2 | `Update` | `app/client/unknown_fontsound.h:33` | 0x6BD420 (FontSys 0x6D64C0) |
-| 2 | `Remove` | `app/client/unknown_fontsound.h:34` | 0x6BD530, no caller |
+| 2 | `PlayingSoundStruct` | `app/client/unknown_fontsound.h:15` | a FontSys sound and its time left (fontdatabase.h's FontSoundStruct is the ini entry: ID / Vol / Dur, Play's arguments) |
+| 2 | `Sound` | `app/client/unknown_fontsound.h:18` | WWAudioClass::Create_Sound_Effect's result |
+| 2 | `Duration` | `app/client/unknown_fontsound.h:19` | milliseconds left (60000 or more: no limit) |
+| 2 | `Time` | `app/client/unknown_fontsound.h:20` | timeGetTime of the last update |
+| 2 | `Clear` | `app/client/unknown_fontsound.h:32` | 0x6BD190, no caller |
+| 2 | `Play` | `app/client/unknown_fontsound.h:33` | 0x6BD270 (FontSys 0x6CD180 / 0x6CD6F0 / 0x6D60C0; the ini entry by value, as the callers copy it) |
+| 2 | `Update` | `app/client/unknown_fontsound.h:34` | 0x6BD420 (FontSys 0x6D64C0) |
+| 2 | `Remove` | `app/client/unknown_fontsound.h:35` | 0x6BD530, no caller |
 | 2 | `MoodStruct` | `app/client/unknown_personality.h:23` | the INI section 'MOOD-%d' |
 | 2 | `MoodName` | `app/client/unknown_personality.h:26` | the INI key |
 | 2 | `MoodNumber` | `app/client/unknown_personality.h:27` | the INI key |
@@ -23623,19 +23626,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `soundlib.h` | `app/audio/soundlib.h:21` | header name assumed from the client's soundlib.cpp |
 | 3 | `SoundDefClass` | `app/audio/soundlib.h:35` | from the client's _NextDialogDef (0x68 bytes) |
 | 3 | `SoundLibraryClass` | `app/audio/soundlib.h:71` | from the client's soundlib.cpp ('sound library' in the start-up messages) |
-| 3 | `DeltaElementsClass` | `app/client/aux_roots.h:377` | Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5) |
-| 3 | `DeltaBuffsClass` | `app/client/aux_roots.h:417` | Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15) |
-| 3 | `DeltaShipClass` | `app/client/aux_roots.h:488` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
-| 3 | `DeltaComponentClass` | `app/client/aux_roots.h:560` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaLightClass` | `app/client/aux_roots.h:570` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaDecorationClass` | `app/client/aux_roots.h:586` | the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaHarvestableClass` | `app/client/aux_roots.h:598` | the client's root string "Harvestable", Westwood XxxClass (D24); structure = Net-7 AuxHarvestable / C# HarvestableObject (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours) |
-| 3 | `DeltaManufacturingLabClass` | `app/client/aux_roots.h:677` | the client's root string "ManufacturingLab", Westwood XxxClass (D24); structure = Net-7 AuxManufacturingIndex / C# ManufacturingLabObject (C# fields = ours (same names, same order); Net-7 Construct 21 children = ours) |
-| 3 | `DeltaPlayerClass` | `app/client/aux_roots.h:882` | the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours) |
-| 3 | `DeltaHulkClass` | `app/client/aux_roots.h:909` | the client's root string "Hulk", Westwood XxxClass (D24); structure = Net-7 AuxHulkIndex / C# HulkObject (C# fields = ours (same names, same order); Net-7 Construct 8 children = ours) |
-| 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:954` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:970` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
-| 3 | `DeltaStargateClass` | `app/client/aux_roots.h:986` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaElementsClass` | `app/client/aux_roots.h:357` | Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5) |
+| 3 | `DeltaBuffsClass` | `app/client/aux_roots.h:397` | Net-7 AuxBuffs at the same place in the tree, its child count differs (Net-7 Construct 16 children != ours 15) |
+| 3 | `DeltaShipClass` | `app/client/aux_roots.h:468` | the client's root string "Ship", Westwood XxxClass (D24); structure = Net-7 AuxShipIndex / C# ShipObject (C# fields = ours (same names, same order); Net-7 Construct 58 children = ours) |
+| 3 | `DeltaComponentClass` | `app/client/aux_roots.h:540` | the client's root string "Component", Westwood XxxClass (D24); structure = C# ComponentObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaLightClass` | `app/client/aux_roots.h:550` | the client's root string "Light", Westwood XxxClass (D24); structure = C# LightObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaDecorationClass` | `app/client/aux_roots.h:566` | the client's root string "Decoration", Westwood XxxClass (D24); structure = C# DecorationObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaHarvestableClass` | `app/client/aux_roots.h:578` | the client's root string "Harvestable", Westwood XxxClass (D24); structure = Net-7 AuxHarvestable / C# HarvestableObject (C# fields = ours (same names, same order); Net-7 Construct 4 children = ours) |
+| 3 | `DeltaManufacturingLabClass` | `app/client/aux_roots.h:657` | the client's root string "ManufacturingLab", Westwood XxxClass (D24); structure = Net-7 AuxManufacturingIndex / C# ManufacturingLabObject (C# fields = ours (same names, same order); Net-7 Construct 21 children = ours) |
+| 3 | `DeltaPlayerClass` | `app/client/aux_roots.h:862` | the client's root string "Player", Westwood XxxClass (D24); structure = Net-7 AuxPlayerIndex / C# PilotData (C# fields = ours (same names, same order); Net-7 Construct 18 children = ours) |
+| 3 | `DeltaHulkClass` | `app/client/aux_roots.h:889` | the client's root string "Hulk", Westwood XxxClass (D24); structure = Net-7 AuxHulkIndex / C# HulkObject (C# fields = ours (same names, same order); Net-7 Construct 8 children = ours) |
+| 3 | `DeltaPlanetClass` | `app/client/aux_roots.h:934` | the client's root string "Planet", Westwood XxxClass (D24); structure = C# PlanetObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaStarbaseClass` | `app/client/aux_roots.h:950` | the client's root string "Starbase", Westwood XxxClass (D24); structure = C# StarbaseObject (C# fields = ours (same names, same order)) |
+| 3 | `DeltaStargateClass` | `app/client/aux_roots.h:966` | the client's root string "Stargate", Westwood XxxClass (D24); structure = C# StargateObject (C# fields = ours (same names, same order)) |
 | 3 | `DeltaHullClass` | `app/client/aux_roots_send.h:23` | the client's root string "Hull", Westwood XxxClass (D24); structure = - (no match) |
 | 3 | `avatar_pip.h` | `app/client/avatar_pip.h:18` | header name assumed from the client's avatar_pip.cpp |
 | 3 | `AvatarPipClass` | `app/client/avatar_pip.h:35` | class-from-file (D24) for app\client\avatar_pip.cpp |
