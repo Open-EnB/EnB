@@ -182,17 +182,18 @@ void UIRadioListClass::Unknown_5E81A0()
 }
 
 // 0x5E8240
-// NOT EXACT: the erase 0x4FC7C0 call matches through the clear helper; the inner loop's 'other' string
-// is destroyed inline in the client (_Tidy expanded), ours calls _Tidy, and the two strings' stack slots swap
+// the client's loop form: ++ on the list iterator, the wcscoll result in a named int (with it++ and the
+// test inline, the inner copy's destructor is merged into one _Tidy call and the copies' slots swap)
 void UIRadioListClass::Unknown_5E8240()
 {
 	Unknown_5E80E0();
-	for (std::list<std::string>::iterator it = Unknown0C0.begin(); it != Unknown0C0.end(); it++) {
+	for (std::list<std::string>::iterator it = Unknown0C0.begin(); it != Unknown0C0.end(); ++it) {
 		std::string name = *it;	// NAME 1: neutral (D10)
 		std::vector<std::string>::iterator pos;
 		for (pos = Names.begin(); pos != Names.end(); pos++) {
 			std::string other = *pos;	// NAME 1: neutral (D10)
-			if (wcscoll((const wchar_t *)name.c_str(), (const wchar_t *)other.c_str()) < 0) {
+			int result = wcscoll((const wchar_t *)name.c_str(), (const wchar_t *)other.c_str());
+			if (result < 0) {
 				break;
 			}
 		}
