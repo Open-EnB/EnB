@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-685 entries in 203 files.
+686 entries in 203 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -187,8 +187,9 @@ edit the comments in the code, not this file.
 | `app/client/inv_transaction.cpp:118` | `InvTransactionClass::Unknown_690AA0` | marker | NOT EXACT: 0x690AA0, 17 rows: register, and the client keeps State = 2 before the else 0x690AA0 |
 | `app/client/inv_transaction.cpp:170` | `InvTransactionClass::Unknown_690D20` | marker | NOT EXACT: 0x690D20, 20 rows: register and order of the packet's arguments 0x690D20 |
 | `app/client/item/client_item_property_builder.cpp:26` | `ClientItemPropertyBuilderClass::Unknown_521C10` | marker | NOT EXACT: 0x521C10 (frame layout: the same code, but four strings and three RefCountPtrs sit in other stack slots; and the level requirement reads &Item->TemplateInfo then its Referent where ours folds [eax+0x5C]) |
-| `app/client/item/client_item_property_builder.cpp:814` | `ClientItemPropertyBuilderClass::Unknown_527F40` | marker | NOT EXACT: 0x527F40 (inline budget: the client calls the RefCountPtr copies in the inlined 0x528460 out of line, two of which this inlines; frame 0x78 against 0x80) |
-| `app/client/item/client_item_property_builder.cpp:880` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT. The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). Not yet here: 0x522860 (17,780 bytes, the asserts at lines 155-796: the item type's attributes and requirements). |
+| `app/client/item/client_item_property_builder.cpp:82` | `ClientItemPropertyBuilderClass::Unknown_522860` | marker | NOT EXACT: 0x522860 (functional, 0.61: the same calls, strings and asserts in order; the frame is 0xC smaller, VC6 inlines string assigns in other cases, and case 35 releases its property through the RefCountPtr the flags use, 0x529130) |
+| `app/client/item/client_item_property_builder.cpp:812` | `ClientItemPropertyBuilderClass::Unknown_527F40` | marker | NOT EXACT: 0x527F40 (0.78: the same code; the client pushes esi at entry, ours after the FAIL_IF, and its frame is 8 bytes bigger) |
+| `app/client/item/client_item_property_builder.cpp:883` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT. The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). |
 | `app/client/local_interface_sort.cpp:56` | `InterfaceSortClass::InterfaceSortClass` | marker | NOT EXACT: inline-budget (0.48; the client's case 2 calls RefCountPtr's assignment out of line, 0x6B55D0, EH state 5) 0x6E0E80 |
 | `app/client/mainview.cpp:157` | `MainViewClass::MainViewClass` | marker | NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360 |
 | `app/client/mainview.cpp:487` | `MainViewClass::Unknown_50D060` | marker | NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060 |
