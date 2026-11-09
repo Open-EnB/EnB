@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1642 |
+| 3 | by convention from a client-named file or sibling | 1647 |
 | 2 | describes what the code does | 3822 |
-| 1 | neutral placeholder | 20475 |
+| 1 | neutral placeholder | 20495 |
 
 ## For review (score 3 and below)
 
@@ -5101,7 +5101,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ToInv` | `app/client/inv_transaction.h:40` | the packet's constructor |
 | 1 | `ToSlot` | `app/client/inv_transaction.h:41` | the packet's constructor |
 | 1 | `Unknown_20` | `app/client/item/client_item_property.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/item/client_item_property_attribute.h:70` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/item/client_item_property_attribute.cpp:4` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/item/client_item_property_attribute.cpp:6` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/item/client_item_property_attribute.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `app/client/item/client_item_property_attribute.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_attribute.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_attribute.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/item/client_item_property_attribute.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_attribute.h:61` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_attribute.h:63` | neutral (D10) |
+| 1 | `Unknown_14` | `app/client/item/client_item_property_attribute.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/item/client_item_property_attribute.h:65` | neutral (D10) |
+| 1 | `std:` | `app/client/item/client_item_property_attribute.h:67` | neutral (D10) |
+| 1 | `Unknown1C` | `app/client/item/client_item_property_attribute.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/client/item/client_item_property_attribute.h:69` | neutral (D10) |
+| 1 | `Unknown40` | `app/client/item/client_item_property_attribute.h:70` | neutral (D10) |
+| 1 | `Unknown_14` | `app/client/item/client_item_property_attribute_distance.cpp:46` | untagged neutral name (D10) |
+| 1 | `Create` | `app/client/item/client_item_property_attribute_distance.h:25` | as the icon's; NAME 3 [label, tooltip]: the FAIL_IFs'; NAME 1 [sort, unknown, base, actual, level]: the builder's |
+| 1 | `std:` | `app/client/item/client_item_property_attribute_distance.h:29` | neutral (D10) |
+| 1 | `Unknown_14` | `app/client/item/client_item_property_attribute_distance.h:29` | untagged neutral name (D10) |
+| 1 | `Base` | `app/client/item/client_item_property_attribute_distance.h:31` | the builder's base |
+| 1 | `Actual` | `app/client/item/client_item_property_attribute_distance.h:32` | the builder's actual |
 | 1 | `Unknown688830Item` | `app/client/item/client_item_property_builder.cpp:5` | untagged neutral name (D10) |
 | 1 | `Unknown_521C10` | `app/client/item/client_item_property_builder.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_522860` | `app/client/item/client_item_property_builder.cpp:20` | untagged neutral name (D10) |
@@ -21375,7 +21395,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LevelText` | `app/client/inv_render.h:47` | its string template |
 | 2 | `CountText` | `app/client/inv_render.h:48` | its string template |
 | 2 | `WrongTargetTypeIndicator` | `app/client/inv_render.h:84` | skill_render.cpp's, same model |
-| 2 | `ClientItemPropertyAttributeClass` | `app/client/item/client_item_property_attribute.h:67` | class from file (D24), client_item_property_attribute.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route) |
+| 2 | `ClientItemPropertyAttributeClass` | `app/client/item/client_item_property_attribute.h:55` | class from file (D24), client_item_property_attribute.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route); table 0xAEDC08, 0x44 bytes |
 | 2 | `ItemEffectDescriptionClass` | `app/client/item/client_item_property_builder.h:44` | item_effect_description.cpp's 0x83E5F0 |
 | 2 | `std:` | `app/client/item/client_item_property_builder.h:50` | what it holds |
 | 2 | `ItemTemplateInfoClass` | `app/client/item/client_item_property_builder.h:59` | the FAIL_IFs '!template_info' |
@@ -24580,7 +24600,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Num` | `app/client/inv_transaction.h:37` | the FAIL_IF's num |
 | 3 | `FromInv` | `app/client/inv_transaction.h:38` | the FAIL_IF's from_inv |
 | 3 | `FromSlot` | `app/client/inv_transaction.h:39` | the FAIL_IF's from_slot |
-| 3 | `client_item_property_attribute.h` | `app/client/item/client_item_property_attribute.h:16` | the client's __FILE__ 0xB7883C |
+| 3 | `client_item_property_attribute.h` | `app/client/item/client_item_property_attribute.h:17` | the client's __FILE__ 0xB7883C |
+| 3 | `label, tooltip` | `app/client/item/client_item_property_attribute.h:58` | the subclasses' FAIL_IFs; NAME 1 [sort, units, unknown, level]: as client_item_property_builder.h names its subclasses' Create |
+| 3 | `std:` | `app/client/item/client_item_property_attribute.h:66` | the subclasses' FAIL_IF 'label.empty()' |
+| 3 | `std:` | `app/client/item/client_item_property_attribute.h:68` | the subclasses' FAIL_IF 'tooltip.empty()' |
+| 3 | `client_item_property_attribute_distance.h` | `app/client/item/client_item_property_attribute_distance.h:14` | assumed from the client's client_item_property_attribute_distance.cpp |
+| 3 | `ClientItemPropertyAttributeDistanceClass` | `app/client/item/client_item_property_attribute_distance.h:22` | class-from-file (D24) for client_item_property_attribute_distance.cpp |
 | 3 | `InvDataPeekClass` | `app/client/item/client_item_property_builder.h:119` | D24 class-from-file for inv_data_peek.cpp |
 | 3 | `InvDataClass` | `app/client/item/client_item_property_builder.h:131` | Peek_Inv_Data, inv_data's __FILE__ 0xB90004 |
 | 3 | `ClientItemPropertyAttributePercentClass` | `app/client/item/client_item_property_builder.h:148` | client_item_property_attribute_percent.cpp's |
