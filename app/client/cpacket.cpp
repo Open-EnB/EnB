@@ -2409,8 +2409,8 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-// What the chat panel's +0xD8 points to, as far as CLIENT_CHAT_EVENT 165 calls it
-class UIChatPanelUnknownD8Class	// NAME 1: neutral (D10)
+// ui_playeropt.cpp's ignore list (the chat panel's +0xD8), as far as CLIENT_CHAT_LIST 164 / CLIENT_CHAT_EVENT 165 call it (ui_playeropt.h)
+class UIPlayerOptClass	// NAME 3: class-from-file (D24) for app\client\ui_playeropt.cpp (ui_playeropt.h's)
 {
 public:
 	void Unknown_5DA780(std::string name);				// 0x5DA780 (CLIENT_CHAT_EVENT 165, event 19 'is now ignoring')  // NAME 1 [name]: the event's Unknown54
@@ -2463,7 +2463,7 @@ public:
 	void Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag);	// 0x5679A0 (CLIENT_CHAT_EVENT 165, events 7, 8, 9, 23, 24)  // NAME 1 [event, channel, name, flag]: what the handler passes
 
 	char Unknown00[0xD8];
-	UIChatPanelUnknownD8Class *UnknownD8;				// +0xD8
+	UIPlayerOptClass *UnknownD8;				// +0xD8
 	UIFriendsClass *Friends;							// +0xDC (ui_friends.cpp's 0x5916B0 / 0x591880)  // NAME 3: its methods' file
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0
 	UIRadioListClass *UnknownE4;				// +0xE4
@@ -2508,7 +2508,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 	}
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (!panel) return(true);
-	UIChatPanelUnknownD8Class *d8 = panel->UnknownD8;
+	UIPlayerOptClass *d8 = panel->UnknownD8;
 	UIFriendsClass *friends = panel->Friends;
 	UIRadioListClass *e4 = panel->UnknownE4;
 	UIRadioAdminClass *e8 = panel->UnknownE8;
@@ -2856,7 +2856,7 @@ bool ClientChatListPacketClass::Process_Packet(void *instance)
 			UIFriendsClass *friends = panel->Friends; if (friends) { friends->Unknown_5913E0(Unknown20, Unknown30); return(true); } }
 			break;
 		case 1: {
-			UIChatPanelUnknownD8Class *d8 = panel->UnknownD8; if (d8) { d8->Unknown_5DA600(Unknown20); return(true); } }
+			UIPlayerOptClass *d8 = panel->UnknownD8; if (d8) { d8->Unknown_5DA600(Unknown20); return(true); } }
 			break;
 		case 3: {
 			UIRadioListClass *e4 = panel->UnknownE4; if (e4 && e4->State == 0) { e4->Unknown_5E8E30(0, Unknown20); return(true); } }
