@@ -20,6 +20,8 @@
 enum RaceType {};			// NAME 3: the client's Type_Name 'RaceType'
 enum RaceBitFieldType {};	// NAME 3: the client's Type_Name 'RaceBitFieldType'
 
+extern char *RaceNames[];											// 0xBB06E0: Terran .. Other (ui_attrb.cpp's 0x547570 indexes it by race)
+
 const char *Type_Name(RaceType value);								// 0x848FF0
 bool String_To_Value(const char *text, RaceType *value);			// 0x849010
 char *Value_To_String(char *buf, int size, RaceType value);		// 0x849060
