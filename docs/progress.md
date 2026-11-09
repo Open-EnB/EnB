@@ -4,6 +4,38 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-09 (15:10 PST, day): §4 item 00 done (fontsys 0x6CE4E0 / 0x6CD6F0, ui_mfd 0x5BF350 exact; D221 revisited as P-FN3-1); twelve new window files (inv_data_peek, ui_mount, ui_option_account / _channel / _check, ui_refinery, ui_inv, ui_radio_main / _join / _entry / _list / _admin); +576 pairs over the run's baseline, 0 lost outright
+
+- **Run** run/2026-11-09 (PR #182), coordinator Opus 5.5 on the subscription, base f0a28c6f (#180 merged) with c26bd2a9 /
+  b983c485 cherry-picked (82210501, ca8f529b), baseline `.work/imports.f0a28c6f.json`, plan `.work/run-2026-11-09/plan.md`.
+  The user: weekly usage at least 90 % by 16:00 (+/-1), subscription only, §4 item 00 first, then items that unlock stuck
+  work or large unexplored functions with many callers, hourly heartbeats, no blocking questions. Weekly usage 86 % ->
+  90 % (15:03). Builders (all Opus): FN3, FN4, MF1, RF1, MT1, OP1, UI1, CH1, CW1, EB1, SW1 (~3.5M tokens together). Burn: about 1 %
+  of the week per hour with 2-3 builders and the coordinator (86 % flat for the first 70 minutes).
+- **HEAD against the baseline:** gained 576 (364 shared), 0 lost outright, 0 moves; two addresses lost a shared holder,
+  each still held by other files (D66 (i)): ui_cpit 0x6B2070 / 0x73F950 (EB1; cpacket and lego_identifier hold
+  0x73F950); the PR needs the maintainer's /accept-d66 (D202). It touches Python (tools/harness/clienttest.py, SW1): it
+  also needs /verify-approved. Every landing passed wt.py's link checks; D182's harness after each (clienttest 103 checks, 0 failed,
+  trace equal; udpreplay alex3 as before; handshake 54); the POC at 33403b0b ran 40 s to the intro movie (startup only).
+- **Item 00 (the user's):** FN3: 0x6CD6F0 and 0x6CDAB0 exact (the +0x303 clear as a byte loop: lea-first rep stos),
+  0x6CE4E0 exact through a file-local inline layer Clip_Text (kept, the coordinator: the client's out-of-line += shows the
+  deeper level, ~20 budget forms failed, D220's two-layer precedent); D221's evidence: still no sub-object (P-FN3-1, §3).
+  FN4: 0x6CE7D0 exact, 0x6CD950 0.59 -> 0.71 (register, parked). MF1: ui_mfd Set_SP_Percent 0x5BE120 and Cast 0x5BF350
+  exact in the two-layer find (DurationClass assigned, not constructed: a user operator= as a zero-code spender).
+- **New files** (the 2026-11-08d ranking's top untouched pieces, then their neighbours): inv_data_peek.cpp (client
+  asserts, +27; 0x68AFF0's 19 callers), ui_mount.cpp (+33), ui_option_account.cpp (+32) (MT1); ui_refinery.cpp (client
+  assert, 29 exact, +72; RF1); ui_option_channel.cpp (+44), ui_option_check.cpp (+34), InvDataPeekClass declared once
+  (OP1); ui_inv.cpp (client __FILE__, +61) with ui_inv.h's UIInvClass replacing ui_trade.h's / pdaint.h's two stand-ins
+  and ui_slot_data.h's base (UI1); ui_radio_main.cpp / ui_radio_join.cpp (+91, CH1); ui_radio_entry.cpp (client FAIL_IF,
+  16/16), ui_radio_list.cpp, ui_radio_admin.cpp (+163, CW1). Provisional names (D137) are in §4 item 8.
+- **EB1 (the shared vector-erase blocker):** the client's vector<string>::erase 0x4FC7C0 call sits one inline layer below the call site (dtor -> own Unknown_5C -> clear helper -> clear(); push_back; ++it in sorted-insert loops): chat window dtors 0x5E76B0 / 0x5E4300, 0x5E8240 / 0x5E4F10, ui_cpit 0x584690 (parked since 10-31), ui_playeropt 0x5D9D10 exact, +11.
+- **SW1 (the chat stand-ins onto the real headers):** ui_chat_panel.cpp's six window stand-ins and cpacket.cpp's three replaced by the real classes (UIRadioMain / Join / Entry / Admin / List, UIOptionCheck / Account, UIPlayerOpt) with the client's signatures; the POC and clienttest links kept (clienttest.py, poc_data.cpp, ui_avsel_stubs.cpp); 0 gained, 0 lost; cpacket 0x73CC90 0.48 -> 0.73.
+- **Claims Action:** pull_request_target runs end in startup_failure since 2026-11-09 16:02Z, so a merged run PR's claims
+  stay live until the hourly schedule or a manual `gh workflow run claims.yml` reconciles (09:10 today: #180's 39). §4 item 9.
+- **Traps filed** (workflow.md §3.1, §3.3): fill and layer forms (FN3), assignment as a spender (MF1), loop / clamp / while
+  forms (FN4, MT1), delta_array.h reaches aux_roots.h (MT1), spender and table forms (RF1), stopping an appfile loop
+  (RF1), option page forms (OP1), include lines, temporaries and mangled names (UI1), chat window forms (CH1, CW1).
+
 ### 2026-11-09 (09:30 PST, morning): P-XR2-1 carried out on XP SP3's msxml.dll (D222); D218-D221 recorded
 
 - **The user's decisions on last night's proposals:** P-IP1-1 yes (D218), P-IP1-2 yes (D219), P-IB2-2 no (D220),
@@ -3319,7 +3351,9 @@ below name only the work items, the blocked work, the leads and the queues.
    Channel') (CH1: no asserts in either), ui_radio_list.cpp / .h ('cht02') and ui_radio_admin.cpp / .h ('cht05',
    'UI_RADIO_ADMIN') (CW1: no strings name them).
 
-9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
+9. **Tools:** the Claims Action's pull_request_target runs fail at startup (since 2026-11-09 16:02Z): a merged run
+   PR's claims stay live until a schedule / manual run reconciles (`gh workflow run claims.yml`); find the cause
+   (`gh run view` of a failed run). P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
    P9's worktree scripts (`.work/p9/wt.py`'s leftovers, `checks.sh`, `commit_wt.py`; commit_json.py must keep
    imports.json's maps sorted); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
