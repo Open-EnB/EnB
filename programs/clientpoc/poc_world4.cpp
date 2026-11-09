@@ -31,19 +31,6 @@ Unknown62D1F0Class::~Unknown62D1F0Class()
 {
 }
 
-// ---------------------------------------------------------------- the attributes tab's panel at +0xC0 (0x546A80; ui_attrb_skills.cpp's view): 0xB0 bytes
-class Unknown546A80Class : public InterfaceClass
-{
-public:
-	Unknown546A80Class(SClient *client, RefCountPtr<RenderObjClass> &mesh);
-	char Unknown84[0xB0 - 0x84];
-};
-Unknown546A80Class::Unknown546A80Class(SClient *client, RefCountPtr<RenderObjClass> &mesh) : InterfaceClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC Unknown546A80Class (the attributes tab's panel): an empty InterfaceClass");
-	memset(Unknown84, 0, sizeof(Unknown84));
-}
-
 // ---------------------------------------------------------------- ui_faction_panel.cpp's panel (0x58EB50; ui_faction.cpp's view): 200 bytes
 class Unknown58EB50Class : public Unknown5BB320Class
 {
