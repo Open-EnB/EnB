@@ -424,8 +424,8 @@ public:
 	bool Unknown1C7;									// +0x1C7
 	bool Unknown1C8;									// +0x1C8
 	bool Unknown1C9;									// +0x1C9
-	char Unknown1CA[0x2C8 - 0x1CA];						// +0x1CA (+0x1CC an AvatarDescClass, 0x10C bytes: its string at +0x2C8)
-	std::string Unknown2C8;								// +0x2C8 (the destructor's)
+	char Unknown1CA[2];									// +0x1CA
+	AvatarDescClass Unknown1CC;							// +0x1CC
 	bool Unknown2D8;									// +0x2D8
 	UIAvatrUnknown2ECStruct *Unknown2DC;				// +0x2DC (0x559F30 deletes the seven)
 	UIAvatrUnknown2ECStruct *Unknown2E0;				// +0x2E0
@@ -498,7 +498,7 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	Unknown1C7 = false;
 	Unknown1C8 = false;
 	Unknown1C9 = false;
-	::new ((void *)((char *)this + 0x1CC)) AvatarDescClass;
+
 	Unknown2D8 = false;
 	Unknown2DC = NULL;
 	Unknown2E0 = NULL;
@@ -1543,29 +1543,29 @@ void AvatarCreationInterface::Unknown_55B9A0(int arg)
 	}
 	desc->Unknown_780810(Unknown08C->Peek_Unknown3A4());
 }
-
-// NOT EXACT: functional (D64), from the client's 0x5582A0 (the gender button: the offsets saved for the old
+// 0x5582A0 (the gender button: the offsets saved for the old
 // gender; the other gender's avatar kept at +0x1CC comes back (+0x2D8), or the first time a copy of this one
 // in the other gender with the palettes' default colours; the old description is then kept at +0x1CC)
-// 0x5582A0
+//
 void AvatarCreationInterface::Unknown_5582A0()
 {
 	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown08C->Peek_Model());
 	RefCountPtr<CharacterViewAvatarClass> desc = Create_Peek(Unknown08C->Peek_Unknown194());
 	AvatarDescClass old(desc->Desc);
 	Unknown08C->Unknown_67C270(Unknown184, 7, old.Gender);
-	Unknown08C->Unknown_67C310(&Unknown164, old.Gender);
-	Unknown08C->Unknown_67C380((Vector3 *)&Unknown170, old.Gender);
+	Vector2 *v164 = &Unknown164;
+	Unknown08C->Unknown_67C310(v164, old.Gender);
+	Vector3 *v170 = (Vector3 *)&Unknown170;
+	Unknown08C->Unknown_67C380(v170, old.Gender);
 	desc->Desc.Gender = (desc->Desc.Gender == 0);
 	Unknown_55AFD0();
-	AvatarDescClass *kept = (AvatarDescClass *)((char *)this + 0x1CC);
 	if (Unknown2D8) {
 		Unknown08C->Unknown_67A3F0();
-		Unknown08C->Unknown_67A440(kept, false);
+		Unknown08C->Unknown_67A440(&Unknown1CC, false);
 		Unknown_559900();
-		Unknown08C->Unknown_67C200(Unknown184, 7, kept->Gender);
-		Unknown08C->Unknown_67C2E0(&Unknown164, kept->Gender);
-		Unknown08C->Unknown_67C340((Vector3 *)&Unknown170, kept->Gender);
+		Unknown08C->Unknown_67C200(Unknown184, 7, Unknown1CC.Gender);
+		Unknown08C->Unknown_67C2E0(v164, Unknown1CC.Gender);
+		Unknown08C->Unknown_67C340(v170, Unknown1CC.Gender);
 	} else {
 		AvatarDescClass copy(desc->Desc);
 		Unknown08C->Unknown_67A3F0();
@@ -1580,13 +1580,13 @@ void AvatarCreationInterface::Unknown_5582A0()
 		Unknown_557950(4, 1, 0);
 		Unknown_557950(5, 1, 0);
 		Unknown_557950(6, 1, 0);
-		Unknown164.X = 0.5f;
-		Unknown164.Y = 0.5f;
-		Unknown170 = 0.5f;
-		Unknown174 = 0.5f;
-		Unknown178 = 1.0f;
+		v164->X = 0.5f;
+		v164->Y = 0.5f;
+		v170->X = 0.5f;
+		v170->Y = 0.5f;
+		v170->Z = 1.0f;
 	}
-	*kept = old;
+	Unknown1CC = old;
 	Unknown2D8 = true;
 	Unknown_559350();
 	RefCountPtr<CharacterViewAvatarClass> avatar = Create_Peek(Unknown08C->Peek_Unknown194());
