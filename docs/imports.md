@@ -1063,7 +1063,7 @@ Base copy: reconstructed. Headers: 478 from reconstructed.
 | client/chat_window_history.cpp | reconstructed | 40 | 4 | - | - | - |  |
 | common/circbuff.cpp | reconstructed | 12 | 0 | - | - | - |  |
 | client/client.cpp | reconstructed | 89 | 3 | - | - | - |  |
-| client/item/client_item_property_builder.cpp | reconstructed | 21 | 8 | - | - | - |  |
+| client/item/client_item_property_builder.cpp | reconstructed | 24 | 9 | - | - | - |  |
 | client/client_lego_impl.cpp | reconstructed | 138 | 7 | - | - | - |  |
 | client/client_lego_root.cpp | reconstructed | 26 | 4 | - | - | - |  |
 | packets/clientstub.cpp | reconstructed | 150 | 1 | - | - | - |  |
