@@ -106,6 +106,11 @@ def build(out):
                 # the real 0x74D990 runs; its chat line to the panel (0x563760, ui_chat_panel.obj's real one) goes to
                 # client_stubs.cpp's trace instead (the fake panel has no history or window)
                 f.write('#define Unknown_563760 Clienttest_Unknown_563760\n')
+            if p.endswith('cpacket.cpp'):
+                # cpacket.cpp's chat list windows (ui_radio_list.cpp / ui_radio_admin.cpp, which ui_chat_panel.obj pulls
+                # in) go to clienttest.cpp's logging copies: the fake panel's +0xE4 / +0xE8 are not real windows
+                f.write('#define UIRadioListClass Clienttest_UIRadioListClass\n'
+                        '#define UIRadioAdminClass Clienttest_UIRadioAdminClass\n')
             if p.endswith('ui_verb.cpp'):
                 f.write('#define Unknown_658F40 Real_Unknown_658F40\n')
             if p.endswith('ui_talkt.cpp'):

@@ -1973,13 +1973,19 @@ static void Test_Guild(SClient *client, FakeMainViewClass *main_view)
 // case (code 0) a line for types 3 / 5 / 20 / 21 / 22, both in colour 0x13. 204: a question per Type to 0x74E580.
 static FakeMainViewClass *Test_Main_View = 0;
 class UIChatPanelUnknownD8Class { public: void Unknown_5DA600(std::vector<std::string> names); };
-class UIChatPanelUnknownE4Class { public: void Unknown_5E8E30(std::vector<std::string> names, bool flag); };
-class UIChatPanelUnknownE8Class { public: void Unknown_5E5D70(std::vector<std::string> names); };
+class Clienttest_UIRadioListClass { public: void Unknown_5E8E30(int state, std::vector<std::string> names); void Unknown_5E8FF0(int state, std::string name); void Unknown_5E9160(int state, std::string name); };
+class Clienttest_UIRadioAdminClass { public: void Unknown_5E5D70(std::vector<std::string> names); void Unknown_5E5EF0(std::string name); void Unknown_5E6030(std::string name); };
 static std::string List_Log;
 static void List_Add(const char *who, const std::vector<std::string> &names) { char b[64]; sprintf(b, "%s(%d) ", who, (int)names.size()); List_Log += b; }
 void UIChatPanelUnknownD8Class::Unknown_5DA600(std::vector<std::string> names) { List_Add("5DA600", names); }
-void UIChatPanelUnknownE4Class::Unknown_5E8E30(std::vector<std::string> names, bool flag) { List_Add(flag ? "5E8E30-1" : "5E8E30-0", names); }
-void UIChatPanelUnknownE8Class::Unknown_5E5D70(std::vector<std::string> names) { List_Add("5E5D70", names); }
+void Clienttest_UIRadioListClass::Unknown_5E8E30(int state, std::vector<std::string> names) { List_Add(state ? "5E8E30-1" : "5E8E30-0", names); }
+void Clienttest_UIRadioAdminClass::Unknown_5E5D70(std::vector<std::string> names) { List_Add("5E5D70", names); }
+// CLIENT_CHAT_EVENT 165's calls of the same two windows (clienttest.py renames cpacket.cpp's UIRadioListClass /
+// UIRadioAdminClass to these: ui_chat_panel.obj pulls the real ones in)
+void Clienttest_UIRadioListClass::Unknown_5E8FF0(int state, std::string name) { Trace("stub Clienttest_UIRadioListClass::Unknown_5E8FF0 %d '%s'", state, name.c_str()); }
+void Clienttest_UIRadioListClass::Unknown_5E9160(int state, std::string name) { Trace("stub Clienttest_UIRadioListClass::Unknown_5E9160 %d '%s'", state, name.c_str()); }
+void Clienttest_UIRadioAdminClass::Unknown_5E5EF0(std::string name) { Trace("stub Clienttest_UIRadioAdminClass::Unknown_5E5EF0 '%s'", name.c_str()); }
+void Clienttest_UIRadioAdminClass::Unknown_5E6030(std::string name) { Trace("stub Clienttest_UIRadioAdminClass::Unknown_5E6030 '%s'", name.c_str()); }
 void Unknown_830AA0(char *buffer, int size, int code) { _snprintf(buffer, size, code == 99 ? "is_gagged" : "error %d", code); }
 
 static void Test_Chat_Lists(SClient *client)
