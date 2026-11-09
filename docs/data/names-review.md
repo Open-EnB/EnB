@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1657 |
-| 2 | describes what the code does | 3885 |
-| 1 | neutral placeholder | 20714 |
+| 2 | describes what the code does | 3886 |
+| 1 | neutral placeholder | 20753 |
 
 ## For review (score 3 and below)
 
@@ -13821,6 +13821,45 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown3F4` | `app/client/ui_mount.h:46` | neutral (D10) |
 | 1 | `Unknown401` | `app/client/ui_mount.h:50` | neutral (D10) |
 | 1 | `Unknown402` | `app/client/ui_mount.h:51` | neutral (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_option_account.cpp:13` | 0xBE67C4, as ui_login.cpp's |
+| 1 | `Unknown_B82B7C` | `app/client/ui_option_account.cpp:16` | neutral (D10) |
+| 1 | `Unknown_B82B88` | `app/client/ui_option_account.cpp:17` | neutral (D10) |
+| 1 | `UIOptionAccountKeyEventStruct` | `app/client/ui_option_account.cpp:20` | neutral (D10) |
+| 1 | `key` | `app/client/ui_option_account.cpp:22` | neutral |
+| 1 | `Unknown02` | `app/client/ui_option_account.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_option_account.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_option_account.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_option_account.cpp:22` | untagged neutral name (D10) |
+| 1 | `Key` | `app/client/ui_option_account.cpp:23` | neutral (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_option_account.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_option_account.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_option_account.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_56D510` | `app/client/ui_option_account.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_56D970` | `app/client/ui_option_account.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_5C8B90` | `app/client/ui_option_account.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_option_account.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_option_account.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_option_account.cpp:77` | untagged neutral name (D10) |
+| 1 | `sclient` | `app/client/ui_option_account.cpp:79` | neutral (D10) |
+| 1 | `Unknown_18` | `app/client/ui_option_account.cpp:79` | untagged neutral name (D10) |
+| 1 | `chat` | `app/client/ui_option_account.cpp:80` | neutral (D10) |
+| 1 | `Unknown98` | `app/client/ui_option_account.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_565F30` | `app/client/ui_option_account.cpp:91` | untagged neutral name (D10) |
+| 1 | `title` | `app/client/ui_option_account.cpp:104` | neutral (D10) |
+| 1 | `Unknown_6D2700` | `app/client/ui_option_account.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_option_account.cpp:104` | untagged neutral name (D10) |
+| 1 | `font` | `app/client/ui_option_account.cpp:106` | neutral (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_option_account.cpp:107` | untagged neutral name (D10) |
+| 1 | `ui_option_account.h` | `app/client/ui_option_account.h:4` | provisional header name |
+| 1 | `UIOptionAccountClass` | `app/client/ui_option_account.h:10` | neutral, after its tooltips' section 'UI_OPTION_ACCOUNT' |
+| 1 | `client, mode` | `app/client/ui_option_account.h:13` | what it does with them |
+| 1 | `Unknown_54` | `app/client/ui_option_account.h:15` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_option_account.h:16` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_option_account.h:17` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_option_account.h:18` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_option_account.h:18` | untagged neutral name (D10) |
+| 1 | `Unknown_5C8B90` | `app/client/ui_option_account.h:19` | untagged neutral name (D10) |
+| 1 | `Mode` | `app/client/ui_option_account.h:22` | neutral (D10) |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_ping.cpp:23` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_ping.cpp:23` | untagged neutral name (D10) |
 | 1 | `robj, a, b, c` | `app/client/ui_ping.cpp:24` | neutral |
@@ -22517,6 +22556,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Distance` | `app/client/ui_mount.h:48` | describes what it holds |
 | 2 | `Built` | `app/client/ui_mount.h:49` | describes what it holds |
 | 2 | `Shown` | `app/client/ui_mount.h:52` | describes what it holds |
+| 2 | `Buttons` | `app/client/ui_option_account.h:21` | what they are |
 | 2 | `UIMesh` | `app/client/ui_proc.h:26` | the FAIL_IFs' 'uimesh' |
 | 2 | `UIMesh` | `app/client/ui_proc_impl.h:32` | the FAIL_IFs' 'uimesh' |
 | 2 | `UIScanButtonNames` | `app/client/ui_scan.cpp:34` | what it holds |
