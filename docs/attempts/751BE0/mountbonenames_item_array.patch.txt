@@ -1,0 +1,129 @@
+diff --git a/app/client/aux_roots.cpp b/app/client/aux_roots.cpp
+index 68be2a7c..5da2f39b 100644
+--- a/app/client/aux_roots.cpp
++++ b/app/client/aux_roots.cpp
+@@ -117,4 +117,4 @@ DeltaElementClass::DeltaElementClass(const char *name) :
+ 
+ // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
+ // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
+-enum AuxRootsSymbolPadType { AUX_ROOTS_PAD_00, AUX_ROOTS_PAD_01, AUX_ROOTS_PAD_02, AUX_ROOTS_PAD_03, AUX_ROOTS_PAD_04, AUX_ROOTS_PAD_05, AUX_ROOTS_PAD_06, AUX_ROOTS_PAD_07, AUX_ROOTS_PAD_08, AUX_ROOTS_PAD_09, AUX_ROOTS_PAD_10, AUX_ROOTS_PAD_11, AUX_ROOTS_PAD_12, AUX_ROOTS_PAD_13, AUX_ROOTS_PAD_14, AUX_ROOTS_PAD_15 };	// NAME 1: a build aid (HX1)
++enum AuxRootsSymbolPadType { AUX_ROOTS_PAD_00, AUX_ROOTS_PAD_01, AUX_ROOTS_PAD_02, AUX_ROOTS_PAD_03, AUX_ROOTS_PAD_04, AUX_ROOTS_PAD_05, AUX_ROOTS_PAD_06, AUX_ROOTS_PAD_07, AUX_ROOTS_PAD_08, AUX_ROOTS_PAD_09, AUX_ROOTS_PAD_10, AUX_ROOTS_PAD_11, AUX_ROOTS_PAD_12, AUX_ROOTS_PAD_13, AUX_ROOTS_PAD_14, AUX_ROOTS_PAD_15, AUX_ROOTS_PAD_16, AUX_ROOTS_PAD_17, AUX_ROOTS_PAD_18, AUX_ROOTS_PAD_19, AUX_ROOTS_PAD_20, AUX_ROOTS_PAD_21, AUX_ROOTS_PAD_22, AUX_ROOTS_PAD_23, AUX_ROOTS_PAD_24, AUX_ROOTS_PAD_25, AUX_ROOTS_PAD_26, AUX_ROOTS_PAD_27, AUX_ROOTS_PAD_28, AUX_ROOTS_PAD_29, AUX_ROOTS_PAD_30, AUX_ROOTS_PAD_31, AUX_ROOTS_PAD_32, AUX_ROOTS_PAD_33, AUX_ROOTS_PAD_34, AUX_ROOTS_PAD_35, AUX_ROOTS_PAD_36, AUX_ROOTS_PAD_37, AUX_ROOTS_PAD_38, AUX_ROOTS_PAD_39, AUX_ROOTS_PAD_40, AUX_ROOTS_PAD_41, AUX_ROOTS_PAD_42, AUX_ROOTS_PAD_43, AUX_ROOTS_PAD_44, AUX_ROOTS_PAD_45, AUX_ROOTS_PAD_46, AUX_ROOTS_PAD_47, AUX_ROOTS_PAD_48, AUX_ROOTS_PAD_49, AUX_ROOTS_PAD_50, AUX_ROOTS_PAD_51, AUX_ROOTS_PAD_52 };	// NAME 1: a build aid (HX1)
+diff --git a/app/client/aux_roots.h b/app/client/aux_roots.h
+index 3401e700..c09eeaaf 100644
+--- a/app/client/aux_roots.h
++++ b/app/client/aux_roots.h
+@@ -101,7 +101,7 @@ inline const char *Type_Name(UnknownB013ECEnum *) { return "int"; }
+ bool String_To_Value(const char *text, UnknownB013ECEnum *value);	// 0x8458C0
+ char *Value_To_String(char *buf, int size, UnknownB013ECEnum value);	// 0x845910
+ // NAME 1: the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#)
+-struct UnknownB016DCType { int I00; int I04; int I08; UnknownB016DCType() : I00(-1), I04(-1), I08(-1) {} UnknownB016DCType(const UnknownB016DCType &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; } };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29); copy constructor folded with UnknownB00A00Type's (sclient 0x751BE0 calls it at 0x752170)
++struct UnknownB016DCType { int I00; int I04; int I08; UnknownB016DCType() : I00(-1), I04(-1), I08(-1) {} UnknownB016DCType(const UnknownB016DCType &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; } };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29); the copy constructor is the client's: sclient's 0x751BE0 calls it out of line (0x752170, folded with UnknownB00A00Type's)
+ inline bool operator!=(const UnknownB016DCType &a, const UnknownB016DCType &b) { return memcmp(&a, &b, sizeof(a)) != 0; }
+ inline const char *Type_Name(UnknownB016DCType *) { return "UnknownB016DCType"; }
+ inline char *Value_To_String(char *buf, int size, const UnknownB016DCType &value) { return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }
+@@ -185,26 +185,6 @@ public:
+ 	DeltaTemplateClass<float> Damage;	// +0x238
+ };
+ 
+-// vtable 0xB00E9C: an array of DeltaStringClass (e.g. Ship.Inventory.MountBoneNames, 20 elements)
+-// NAME 4: Net-7 AuxMountBoneNames confirmed by structure (Net-7 Construct 20 children = ours)
+-class DeltaMountBoneNamesClass : public DeltaCompoundClass
+-{
+-public:
+-	DeltaMountBoneNamesClass(const char *name, int count) : DeltaCompoundClass(name)
+-	{
+-		for (int i = 0; i < count; i++) {
+-			char item_name[16];
+-			sprintf(item_name, "%d", i);
+-			DeltaStringClass *item = new DeltaStringClass(item_name, "");
+-			if (item == 0) {
+-				G_ASSERT(item);
+-				break;
+-			}
+-			Add(item);
+-		}
+-	}
+-};
+-
+ // vtable 0xB0111C (e.g. Ship.Inventory.Cargo.N)
+ // NAME 4: Net-7 AuxItem confirmed by structure (C# fields = ours (same names, same order); Net-7 Construct 10 children = ours); C# Item
+ class DeltaItemClass : public DeltaCompoundClass
+@@ -307,7 +287,7 @@ public:
+ 	DeltaTemplateClass<int> CargoSpace;	// +0x9C
+ 	DeltaStringClass EquipMountModel;	// +0x124
+ 	DeltaArrayClass<UnknownB016DCType> Mounts;	// +0x1AC
+-	DeltaMountBoneNamesClass MountBoneNames;	// +0x248
++	DeltaItemArrayClass<DeltaStringClass> MountBoneNames;	// +0x248
+ 	DeltaTemplateClass<int> FutureWeapons;	// +0x2E4
+ 	DeltaTemplateClass<int> FutureDevices;	// +0x36C
+ 	DeltaItemArrayClass<DeltaItemClass> Cargo;	// +0x3F4
+diff --git a/app/client/aux_roots_send.h b/app/client/aux_roots_send.h
+index e0fd1656..4778c7ad 100644
+--- a/app/client/aux_roots_send.h
++++ b/app/client/aux_roots_send.h
+@@ -269,6 +269,6 @@ DeltaPlayerClass::DeltaPlayerClass() :
+ 
+ // VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
+ // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
+-enum AuxRootsSendSymbolPadType { AUX_ROOTS_SEND_PAD_00, AUX_ROOTS_SEND_PAD_01, AUX_ROOTS_SEND_PAD_02, AUX_ROOTS_SEND_PAD_03, AUX_ROOTS_SEND_PAD_04, AUX_ROOTS_SEND_PAD_05, AUX_ROOTS_SEND_PAD_06, AUX_ROOTS_SEND_PAD_07, AUX_ROOTS_SEND_PAD_08, AUX_ROOTS_SEND_PAD_09, AUX_ROOTS_SEND_PAD_10, AUX_ROOTS_SEND_PAD_11, AUX_ROOTS_SEND_PAD_12, AUX_ROOTS_SEND_PAD_13, AUX_ROOTS_SEND_PAD_14, AUX_ROOTS_SEND_PAD_15, AUX_ROOTS_SEND_PAD_16, AUX_ROOTS_SEND_PAD_17, AUX_ROOTS_SEND_PAD_18, AUX_ROOTS_SEND_PAD_19, AUX_ROOTS_SEND_PAD_20, AUX_ROOTS_SEND_PAD_21, AUX_ROOTS_SEND_PAD_22, AUX_ROOTS_SEND_PAD_23, AUX_ROOTS_SEND_PAD_24, AUX_ROOTS_SEND_PAD_25, AUX_ROOTS_SEND_PAD_26, AUX_ROOTS_SEND_PAD_27, AUX_ROOTS_SEND_PAD_28, AUX_ROOTS_SEND_PAD_29, AUX_ROOTS_SEND_PAD_30, AUX_ROOTS_SEND_PAD_31, AUX_ROOTS_SEND_PAD_32, AUX_ROOTS_SEND_PAD_33, AUX_ROOTS_SEND_PAD_34, AUX_ROOTS_SEND_PAD_35, AUX_ROOTS_SEND_PAD_36, AUX_ROOTS_SEND_PAD_37, AUX_ROOTS_SEND_PAD_38, AUX_ROOTS_SEND_PAD_39, AUX_ROOTS_SEND_PAD_40, AUX_ROOTS_SEND_PAD_41, AUX_ROOTS_SEND_PAD_42, AUX_ROOTS_SEND_PAD_43, AUX_ROOTS_SEND_PAD_44, AUX_ROOTS_SEND_PAD_45, AUX_ROOTS_SEND_PAD_46, AUX_ROOTS_SEND_PAD_47, AUX_ROOTS_SEND_PAD_48, AUX_ROOTS_SEND_PAD_49, AUX_ROOTS_SEND_PAD_50 };	// NAME 1: a build aid (SC1)
++enum AuxRootsSendSymbolPadType { AUX_ROOTS_SEND_PAD_00, AUX_ROOTS_SEND_PAD_01, AUX_ROOTS_SEND_PAD_02, AUX_ROOTS_SEND_PAD_03, AUX_ROOTS_SEND_PAD_04, AUX_ROOTS_SEND_PAD_05, AUX_ROOTS_SEND_PAD_06, AUX_ROOTS_SEND_PAD_07, AUX_ROOTS_SEND_PAD_08, AUX_ROOTS_SEND_PAD_09, AUX_ROOTS_SEND_PAD_10, AUX_ROOTS_SEND_PAD_11, AUX_ROOTS_SEND_PAD_12, AUX_ROOTS_SEND_PAD_13, AUX_ROOTS_SEND_PAD_14, AUX_ROOTS_SEND_PAD_15, AUX_ROOTS_SEND_PAD_16, AUX_ROOTS_SEND_PAD_17, AUX_ROOTS_SEND_PAD_18, AUX_ROOTS_SEND_PAD_19, AUX_ROOTS_SEND_PAD_20, AUX_ROOTS_SEND_PAD_21, AUX_ROOTS_SEND_PAD_22, AUX_ROOTS_SEND_PAD_23, AUX_ROOTS_SEND_PAD_24, AUX_ROOTS_SEND_PAD_25, AUX_ROOTS_SEND_PAD_26, AUX_ROOTS_SEND_PAD_27, AUX_ROOTS_SEND_PAD_28, AUX_ROOTS_SEND_PAD_29, AUX_ROOTS_SEND_PAD_30, AUX_ROOTS_SEND_PAD_31, AUX_ROOTS_SEND_PAD_32, AUX_ROOTS_SEND_PAD_33, AUX_ROOTS_SEND_PAD_34, AUX_ROOTS_SEND_PAD_35, AUX_ROOTS_SEND_PAD_36, AUX_ROOTS_SEND_PAD_37, AUX_ROOTS_SEND_PAD_38, AUX_ROOTS_SEND_PAD_39 };	// NAME 1: a build aid (SC1)
+ 
+ #endif //__AUX_ROOTS_SEND_H
+diff --git a/app/shared/auxdata/delta_string.h b/app/shared/auxdata/delta_string.h
+index 03a58744..ef809633 100644
+--- a/app/shared/auxdata/delta_string.h
++++ b/app/shared/auxdata/delta_string.h
+@@ -25,7 +25,7 @@
+ class DeltaStringClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta_string.cpp
+ {
+ public:
+-	DeltaStringClass(const char *name, const char *string);					// 0x4A78F0
++	DeltaStringClass(const char *name, const char *string = "");			// 0x4A78F0 (the default: DeltaItemArrayClass<DeltaStringClass>, 0x701B60)
+ 	virtual ~DeltaStringClass();														// +0x04 0x4A79E0
+ 	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 0x4A7E60
+ 	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C 0x4A7CA0
+diff --git a/tools/re/auxroots.py b/tools/re/auxroots.py
+index 9843127c..f41c6787 100644
+--- a/tools/re/auxroots.py
++++ b/tools/re/auxroots.py
+@@ -118,8 +118,9 @@ BLOB_FORMS = {
+                'float F00; float F04; float F08; int I0C; float F10; NAME() : F00(1.0f), F04(0.0f), F08(0.0f), I0C(-1), F10(0.0f) {} '
+                'NAME(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; } '
+                'NAME &operator=(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; return *this; }'),
+-    0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29)',
+-               'int I00; int I04; int I08; NAME() : I00(-1), I04(-1), I08(-1) {}'),
++    0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29); the copy constructor is the client\'s: sclient\'s 0x751BE0 calls it out of line (0x752170, folded with UnknownB00A00Type\'s)',
++               'int I00; int I04; int I08; NAME() : I00(-1), I04(-1), I08(-1) {} '
++               'NAME(const NAME &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; }'),
+     0xB03694: ('16 bytes, zeroed (0x757B00)',
+                'int I00; int I04; int I08; int I0C; NAME() : I00(0), I04(0), I08(0), I0C(0) {}'),
+ }
+@@ -387,6 +388,10 @@ class Gen:
+                 inst = f'DeltaArrayClass<{ecls[len("DeltaTemplateClass<"):-1]}>'
+             elif el['type'] == 'struct' and ecls != 'DeltaInterpolatorClass' and el.get('mask') is None:
+                 inst = f'DeltaItemArrayClass<{ecls}>'
++            elif ecls == 'DeltaStringClass' and el.get('mask') is None:
++                # string elements too (0xB00E9C, MountBoneNames: 0x701B60 asserts in delta_item_array.h, line 60,
++                # and builds DeltaStringClass(name, ""), delta_string.h's default; 0x6F8880 inlines its destructor)
++                inst = 'DeltaItemArrayClass<DeltaStringClass>'
+             if inst is not None and vt in ARRAY_DERIVED:
+                 # a class of its own derived from the template instance (see ARRAY_DERIVED)
+                 base_vt, base_ctor = ARRAY_DERIVED[vt]
+@@ -764,7 +769,7 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data,
+ # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
+ # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
+ # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
+-SYMBOL_PAD = 16
++SYMBOL_PAD = 53
+ PAD = '''
+ // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
+ // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
+@@ -779,7 +784,7 @@ enum AuxRootsSymbolPadType { %s };	// NAME 1: a build aid (HX1)
+ # UnknownCOClass joined co.h, sclient.cpp includes control_keys_manager.h at its top, SB3 changed sbaseview.h and
+ # WF1 made FontSys's destructor implicit
+ # (PH1, .work/ph1/sweep.py sc).
+-SEND_SYMBOL_PAD = 51
++SEND_SYMBOL_PAD = 40
+ SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
+ // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
+ enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)
