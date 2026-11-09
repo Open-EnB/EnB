@@ -7,6 +7,7 @@
 #include "..\..\wwlib\wwstring.h"
 
 class AudibleSoundClass;
+struct FontSoundStruct;	// fontdatabase.h
 
 /*
 **	One playing sound (new'd, 0x10 bytes).
@@ -29,7 +30,7 @@ class Unknown_6BCFB0Class															// NAME 1 [Unknown_6BCFB0Class]: neutral
 		~Unknown_6BCFB0Class(void);											// 0x6BD060
 
 		void Clear(void);															// NAME 2 [Clear]: 0x6BD190, no caller
-		void Play(StringClass name, float volume, float seconds);					// NAME 2 [Play]: 0x6BD270 (FontSys 0x6CD180 / 0x6CD6F0 / 0x6D60C0)
+		void Play(FontSoundStruct entry);											// NAME 2 [Play]: 0x6BD270 (FontSys 0x6CD180 / 0x6CD6F0 / 0x6D60C0; the ini entry by value, as the callers copy it)
 		void Update(void);															// NAME 2 [Update]: 0x6BD420 (FontSys 0x6D64C0)
 		void Remove(PlayingSoundStruct * sound);										// NAME 2 [Remove]: 0x6BD530, no caller
 

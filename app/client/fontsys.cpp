@@ -179,12 +179,10 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	Unknown4E6 = false;
 }
 
-// NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched
+// NOT EXACT: register (attempts.csv): the client keeps i in ebp and spills this across the loop (14 rows)
 void FontSys::Set_Container(RenderObjClass *con)
 {
-	if (con == NULL) {
-		Set_Sort_Level(SORT_LEVEL_NONE);
-	} else {
+	if (con != NULL) {
 		int level = con->Get_Sort_Level();
 		int count = con->Get_Num_Sub_Objects();
 		for (int i = 0; i < count; i++) {
@@ -199,12 +197,22 @@ void FontSys::Set_Container(RenderObjClass *con)
 				sub->Release_Ref();
 			}
 		}
-		if (level != SORT_LEVEL_NONE) {
-			Set_Sort_Level(level == 1 ? 1 : level - 1);
-			Disable_Sort();
-			RenderObjClass::Set_Container(con);
-			return;
+		switch (level) {
+			case SORT_LEVEL_NONE:
+				break;
+			case 1:
+				Set_Sort_Level(1);
+				Disable_Sort();
+				RenderObjClass::Set_Container(con);
+				return;
+			default:
+				Set_Sort_Level(level - 1);
+				Disable_Sort();
+				RenderObjClass::Set_Container(con);
+				return;
 		}
+	} else {
+		Set_Sort_Level(SORT_LEVEL_NONE);
 	}
 	Enable_Sort();
 	RenderObjClass::Set_Container(con);
@@ -253,19 +261,19 @@ void FontSys::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 	box.Extent.Z = 0.0f;
 }
 
-// NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched
+// 0x6D5D40: the screen rectangle +0x430 from the attach bone's box (clamped to 640 x 480 about the centre)
 void FontSys::Unknown_6D5D40()
 {
 	if (Object != NULL) {
 		RenderObjClass *sub = Object->Get_Sub_Object_By_Name(Info.Attach);
 		if (sub != NULL) {
-			Vector3 pos = sub->Get_Position();
-			const AABoxClass &box = sub->Get_Bounding_Box();
+			sub->Get_Position();
+			AABoxClass box = sub->Get_Bounding_Box();
 			int value = (int)(box.Center.X - box.Extent.X + Info.BoxOffset[0]);
 			Unknown430[0] = value < -320 ? -320 : (value > 320 ? 320 : value);
 			value = (int)(box.Center.X + box.Extent.X - Info.BoxOffset[0]);
 			Unknown430[1] = value < -320 ? -320 : (value > 320 ? 320 : value);
-			value = (int)(box.Extent.Y + box.Center.Y - Info.BoxOffset[1]);
+			value = (int)(box.Center.Y + box.Extent.Y - Info.BoxOffset[1]);
 			Unknown430[2] = value < -240 ? -240 : (value > 240 ? 240 : value);
 			value = (int)(box.Center.Y - box.Extent.Y + Info.BoxOffset[1]);
 			Unknown430[3] = value < -240 ? -240 : (value > 240 ? 240 : value);
@@ -360,12 +368,12 @@ bool FontSys::Unknown_6D60C0()
 		Unknown26C = 0;
 		Unknown274[1] = 0;
 		if (Unknown440 == 0 && Unknown300) {
-			Unknown_BE67B4->Play(Info.SoundOn.ID, Info.SoundOn.Vol, Info.SoundOn.Dur);
+			Unknown_BE67B4->Play(Info.SoundOn);
 		}
 		return false;
 	}
 	if (Unknown440 == 0 && Unknown270 == 0 && Unknown300) {
-		Unknown_BE67B4->Play(Info.SoundOn.ID, Info.SoundOn.Vol, Info.SoundOn.Dur);
+		Unknown_BE67B4->Play(Info.SoundOn);
 	}
 	if (Unknown274[6] != 0) {
 		Unknown274[0] = Unknown270;

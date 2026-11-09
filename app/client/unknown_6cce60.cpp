@@ -133,7 +133,7 @@ bool FontSys::Unknown_6CD180()
 		return true;
 	}
 	if (Unknown300) {
-		Unknown_BE67B4->Play(Info.SoundOver.ID, Info.SoundOver.Vol, Info.SoundOver.Dur);
+		Unknown_BE67B4->Play(Info.SoundOver);
 	}
 	Unknown274[1] = 0;
 	return true;
@@ -176,7 +176,7 @@ bool FontSys::Unknown_6CD6F0()
 	Unknown404 = false;
 	memset(Unknown303, 0, sizeof(Unknown303));
 	if (Unknown300) {
-		Unknown_BE67B4->Play(Info.SoundClick.ID, Info.SoundClick.Vol, Info.SoundClick.Dur);
+		Unknown_BE67B4->Play(Info.SoundClick);
 	}
 	return true;
 }
