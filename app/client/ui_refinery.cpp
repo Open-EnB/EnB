@@ -432,20 +432,16 @@ void UIRefineryClass::Unknown_5ECE20()
 	}
 }
 
-// NOT EXACT: from pseudocode (0x5465C0 / 0x5B7130 finds; not compared in detail) (0x5ECEF0)
+// NOT EXACT: register (the 'AdditionalIterations' pointer kept in ecx and its local, the two flags' tests in another order; 0x5465C0 / 0x5B7130 out of line as the client) (0x5ECEF0)
 void UIRefineryClass::Unknown_5ECEF0()
 {
 	RefCountPtr<FontSys> go;
 	go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B85C48[1], InterfaceMesh->Peek_Mesh_Object()));
 	RefCountPtr<FontSys> stack = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B85C48[2], InterfaceMesh->Peek_Mesh_Object()));
-	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, "Validity");
-	if (!validity || !validity->Unknown70) {
-		validity = NULL;
-	}
-	UIManuTechLevelFilterClass *iterations = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0AEC, "AdditionalIterations");
-	if (!iterations || !iterations->Unknown70) {
-		iterations = NULL;
-	}
+	DeltaTemplateClass<UnknownB01394Enum> *v = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, "Validity");
+	DeltaTemplateClass<UnknownB01394Enum> *validity = (v && v->Unknown70) ? v : NULL;
+	UIManuTechLevelFilterClass *n = Unknown_Manu_Raw<UIManuTechLevelFilterClass>(Unknown0AEC, "AdditionalIterations");
+	UIManuTechLevelFilterClass *iterations = (n && n->Unknown70) ? n : NULL;
 	bool can_go;
 	bool can_stack;
 	if (validity && validity->Value == 13) {
@@ -469,7 +465,7 @@ void UIRefineryClass::Unknown_5ECEF0()
 	if (can_stack) {
 		Unknown0BC[3]->Unknown_40(true);
 		stack->Unknown_Set_2FC(1.0f);
-		char text[96];
+		char text[52];
 		sprintf(text, "Refine %d", iterations->Value + 1);
 		stack->Change_Text(text, 0);
 	} else {
@@ -618,18 +614,17 @@ void UIRefineryClass::Unknown_5EDA10(UIManuListClass *list)
 	Unknown0B04 = (list != NULL);
 }
 
-// NOT EXACT: from pseudocode (the 0x5ECBB0 copies inlined; not compared in detail) (0x5EDCC0)
+// NOT EXACT: inline budget (the client calls the 'NegotiatedCost' Cast out of line; the 'Money' find out of line as the client; dead finds before it push the 0x5ECBB0 copies out too) (0x5EDCC0)
 void UIRefineryClass::Unknown_5EDCC0()
 {
 	MoneyClass credits;
-	DeltaTemplateClass<MoneyClass> *money = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, NameClass("Money"));
+	DeltaTemplateClass<MoneyClass> *money = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, "Money");
 	if (money && money->Unknown70) {
 		credits = money->Value;
 	}
 	Unknown_5ECBB0(0, true, credits.Unknown_4F00C0(false).c_str());
 	MoneyClass cost;
-	NameClass name("NegotiatedCost");
-	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, name);
+	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, NameClass("NegotiatedCost"));
 	if (negotiated && negotiated->Unknown70) {
 		cost = negotiated->Value;
 	}
@@ -639,31 +634,34 @@ void UIRefineryClass::Unknown_5EDCC0()
 static std::string Unknown_5EE7F0(int validity);
 static std::string Unknown_5EE460(DeltaCompoundClass *auxdata, LineDisplayClientClass *client);
 
-// NOT EXACT: from ui_manu.cpp's 0x5B5320 and the pseudocode (not compared in detail) (0x5EDFD0)
+// NOT EXACT: inline budget (the client calls all three finds' Unknown_Find_Field out of line, 0x5465C0 / 0x417D82, with the name in the caller; ours calls the inline layer out of line, or inlines the find; frame 0xBC vs 0xEC) (0x5EDFD0)
 void UIRefineryClass::Unknown_5EDFD0()
 {
 	DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Manu_Raw<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, "Validity");
 	if (validity && validity->Unknown70 > 1) {
 		std::string reason = Unknown_5EE7F0(validity->Value);
 		if (reason.length()) {
-			if (!Unknown0B05) {
+			if (Unknown0B05) {
+				Unknown0AF8 = -1;
+			} else {
 				std::string item = Unknown_5EE460(Unknown0AEC, Client);
 				std::string message = "Unable to create " + item + std::string(". ") + reason + ".";
 				Client->As_Space_Client()->Unknown_74D990(0x11, (char *)message.c_str(), 0);
-			} else {
-				Unknown0AF8 = -1;
 			}
 		}
 	}
-	NameClass money_name("Money");
-	DeltaTemplateClass<MoneyClass> *money = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, money_name);
+
+	MoneyClass credits;
+	DeltaTemplateClass<MoneyClass> *money = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, "Money");
 	if (money && money->Unknown70 > 1) {
-		Unknown_5ECBB0(0, true, money->Value.Unknown_4F00C0(false).c_str());
+		credits = money->Value;
+		Unknown_5ECBB0(0, true, credits.Unknown_4F00C0(false).c_str());
 	}
-	NameClass cost_name("NegotiatedCost");
-	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, cost_name);
+	MoneyClass cost;
+	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, "NegotiatedCost");
 	if (negotiated && negotiated->Unknown70 > 1) {
-		Unknown_5ECBB0(3, true, negotiated->Value.Unknown_4F00C0(false).c_str());
+		cost = negotiated->Value;
+		Unknown_5ECBB0(3, true, cost.Unknown_4F00C0(false).c_str());
 	}
 	UIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, NameClass("KnownFormula"));
 	if (list) {
@@ -684,7 +682,9 @@ UIManuItemTemplateClass *Unknown_8318B0(int item_template_id, LineDisplayClientC
 
 
 
-// NOT EXACT: from ui_manu.cpp's 0x5B5CD0 (not compared in detail) (0x5EE460)
+
+
+// NOT EXACT: register (ebx / ebp swapped and the static's _Eos inlined, as ui_manu.cpp's 0x5B5CD0) (0x5EE460)
 static std::string Unknown_5EE460(DeltaCompoundClass *auxdata, LineDisplayClientClass *client)	// NAME 1: neutral (D10)  // NAME 3 [auxdata, client]: the FAIL_IFs'
 {
 	static std::string unknown_item("Unknown Item");
