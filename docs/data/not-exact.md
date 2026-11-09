@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-691 entries in 209 files.
+690 entries in 209 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -421,7 +421,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_mfd.cpp:675` | `UIMFDClass::Set_ETA` | marker | NOT EXACT: 0x5BDC20, the two positions' frame slots are swapped (register/frame only) |
 | `app/client/ui_mfd.cpp:702` | `UIMFDClass::Set_Same_Dir` | marker | NOT EXACT: 0x5BDDF0, the first matrix is read through eax where the client reads its slot (frame) |
 | `app/client/ui_mfd.cpp:713` | `UIMFDClass::Set_SP_Cur` | marker | NOT EXACT: 0x5BDED0, inline budget: the ShieldPercent find out of line as the client (0x5BF2B0); the client also calls Set_SP_Max's float Cast out of line |
-| `app/client/ui_mfd.cpp:886` | `UIMFDClass::Set_SP_Percent` | marker | NOT EXACT: 0x5BE120, inline budget: the client calls Cast 0x5BF350 out of line where ours inlines it |
 | `app/client/ui_mfd.cpp:985` | `Unknown5BE980Class::Unknown_90` | marker | NOT EXACT: 0x5BECF0, the case block's first load of each line's Font comes before the 'lea' ([esi+0x128]) where the client loads it after the stores ([edi+0x40]); the duplicated default and the zero in ebx do match (attempts.csv) |
 | `app/client/ui_mfd_extended_context_harvestable.cpp:189` | `UIMFDExtendedContextHarvestableClass::Get_Line_Text` | marker | NOT EXACT: 0x5C0350: VC6 merges the five return("") tails; the client repeats each in place and keeps 0 in ebp 0x5C0350 |
 | `app/client/ui_mfdm.cpp:155` | `UIMFDPIPItemClass::Unknown_08` | marker | NOT EXACT: 0x5C25C0: one pop scheduled after a load (order) 0x5C25C0 |

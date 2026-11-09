@@ -2809,9 +2809,6 @@ written but not byte-exact, with its cause: `docs/data/not-exact.md`; every aban
 LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a new §3.1 lever). The items
 below name only the work items, the blocked work, the leads and the queues.
 
-00. **First (the user, 2026-11-09):** D221's sub-object question is P-FN3-1 (§3). ui_mfd 0x5BF350 in the client's two-layer find (D220:
-   never the one-layer form), with workflow.md §3.1's inline-budget levers.
-
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
    outside contributor, then the public switch: [github-plan.md](github-plan.md) §4.5.7. Runs start with
    `python tools/run_branch.py start` (coordinator-pacing skill).
@@ -3351,7 +3348,7 @@ below name only the work items, the blocked work, the leads and the queues.
      - target_reticle 0x7C5690 TargetReticleClass::Update (register, parked at about 30 forms; its 16 no-code finds are
        not the client's source)
      - ui_mesh 0x5B8330, 0x5B8850, 0x5B8EE0, 0x5B8FF0
-     - ui_mfd 0x5BECF0, 0x5BCE50, 0x5BD540, 0x5BDC20, 0x5BDDF0, 0x5BDED0, 0x5BE120; ui_mfd_extended_context_harvestable
+     - ui_mfd 0x5BECF0, 0x5BCE50, 0x5BD540, 0x5BDC20, 0x5BDDF0, 0x5BDED0; ui_mfd_extended_context_harvestable
        0x5C0350; ui_mfdm 0x5C25C0
      - ui_proc 0x5DD3C0 (order 0.81)
      - ui_slot_scut 0x6309F0 (about 300 forms: stop); ui_verb 0x658C90 (about 80 forms)
@@ -3369,10 +3366,12 @@ below name only the work items, the blocked work, the leads and the queues.
      - ui_log 0x5AB030 / 0x5ABB10 (register); ui_guild 0x81AEB0 (order), 0x819FB0 / 0x81A420
        (inline-budget)
      - ui_cpit 0x5821C0 (0.62), 0x5806E0 (0.66, whole-function budget), 0x57D6C0 (0.58); ui_manu 0x5B5320 (0.50),
-       0x5B4B10 (0.59), 0x5B2480 (0.72); ui_mfd 0x5BDED0 (0.74)
+       0x5B4B10 (0.59), 0x5B2480 (0.72); ui_mfd 0x5BDED0 (0.74: Set_SP_Max's Cast<float> out of line needs a
+       spender after the MaxShieldPower find that keeps 0x5BE330 exact, e.g. NameClass assigned if it has a user
+       operator=; MF1's six forms listed), 0x5BD540 (0.72: ours emits Unknown_MFD_Field / DeltaInterpolatorClass::
+       Get_Value copies the client lacks)
      - fontsys 0x6D47C0 (register, 1 row), 0x6D4C70 (order, 4 rows), 0x6D0A70 (inline-budget), 0x6D5C10 (FPU copy),
-       0x6D60C0; 0x6C2890 / 0x6C2A10 parked (FN1); 0x6CD6F0 (order only: the client's lea edi comes before the count
-       in every +0x303 memset, FN2)
+       0x6D60C0; 0x6C2890 / 0x6C2A10 parked (FN1)
 
 11. **Reminders:** D7's (revisit byte-exactness of E&B's code with the user if it becomes too costly;
    `docs/data/not-exact.md` shows how much functional code waits); which bool-return form gives a bare
