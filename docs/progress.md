@@ -2942,11 +2942,15 @@ below name only the work items, the blocked work, the leads and the queues.
      row. Lead (tools): a vtable-slot pairing for the operator classes' byte-identical dtors / deleting dtors (~60 addresses
      in 0x4C9EC0-0x4CAC60 and 0x4CE2A0-0x4CF500, "multiple" today). Interim names (D137): expr_lexer_matchers.cpp,
      expr_math_token.cpp, the expr_math_float / int headers.
-   * **From the 2026-11-09 day run (CH1):** the chat windows before ui_radio_main.cpp, each its own object (closed by
-     its adjustor thunks): 'cht02' the channel list 0x5E7500-0x5E940F; 'cht04' the password entry 0x5E6290-0x5E74FF,
-     the real ui_radio_entry.cpp (its assert '!PasswordGadget || !ConfirmGadget'); 'cht05' the channel admin
-     ('UI_RADIO_ADMIN') from about 0x5E3F00; ui_chat_panel.cpp's local Unknown5E9410Class / Unknown5EAB40Class (its
-     lines 150-151, 1165-1186) onto ui_radio_main.h / ui_radio_join.h, one verified step; 0x5EB2F0 (0.51, inline-budget:
+   * **From the 2026-11-09 day run (CH1, CW1):** the chat windows' inline-budget near misses share one blocker: the
+     client calls the vector's erase 0x4FC7C0 out of line (dtors 0x5E76B0 / 0x5E4300, also the list's erase(first,
+     last); 0x5E8240, 0x5E4F10; ui_cpit's too): one form keeping it out of line may fix four or five; 0x5E85F0
+     (basic_string::erase out of line in operator='s self-assign branch), 0x5E5360 (cases 5 / 6 expansion and frame);
+     ui_chat_panel.cpp's and cpacket.cpp's local stand-ins onto the real chat window headers (ui_radio_main.h,
+     ui_radio_join.h, ui_radio_list.h, ui_radio_admin.h), one verified step each: ui_chat_panel's Unknown5E9410Class /
+     Unknown5EAB40Class (its lines 150-151, 1165-1186); cpacket's UIChatPanelUnknownE4Class declares 0x5E8E30 / 0x5E8FF0
+     / 0x5E9160 as (names, flag) where the client's are (int state, vector / string): maybe why 0x73CC90 / 0x73B150 are
+     NOT EXACT; 0x5EB2F0 (0.51, inline-budget:
      the client's three std::string(const char *) temporaries call _Tidy(false) out of line and inline assign(s, n));
      symbols.json's name for the thunk 0x4105DC ('DynamicScreenMeshClass::Set_Aspect') is wrong: it is
      ChatPanelInterface::Unknown_565F60's.
@@ -3310,7 +3314,8 @@ below name only the work items, the blocked work, the leads and the queues.
    page 'opt05a', UIOptionAccountClass, no string names the file), ui_option_channel.cpp / .h ('opt06a') and
    ui_option_check.cpp / .h ('opt03a') (OP1: named after the tooltip sections UI_OPTION_CHANNEL / UI_OPTION_CHECK),
    ui_radio_main.cpp / .h ('cht01', tooltip 'UI_RADIO_MAIN') and ui_radio_join.cpp / .h ('cht03', 'Join Private
-   Channel') (CH1: no asserts in either).
+   Channel') (CH1: no asserts in either), ui_radio_list.cpp / .h ('cht02') and ui_radio_admin.cpp / .h ('cht05',
+   'UI_RADIO_ADMIN') (CW1: no strings name them).
 
 9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
