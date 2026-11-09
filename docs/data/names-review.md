@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1618 |
-| 2 | describes what the code does | 3792 |
+| 2 | describes what the code does | 3789 |
 | 1 | neutral placeholder | 19628 |
 
 ## For review (score 3 and below)
@@ -8680,9 +8680,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_721E60` | `app/client/ui_analyze.cpp:62` | untagged neutral name (D10) |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_analyze.cpp:63` | as ui_manu.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_analyze.cpp:63` | untagged neutral name (D10) |
-| 1 | `UIAnalyzeValidityClass` | `app/client/ui_analyze.cpp:66` | neutral (D10): 'Validity' (13 when the item can be analyzed) |
-| 1 | `UnknownGlobal` | `app/client/ui_analyze.cpp:69` | untagged neutral name (D10) |
-| 1 | `UIAnalyzeModeClass` | `app/client/ui_analyze.cpp:73` | neutral (D10): 'Mode' (2 analyze, 3 dismantle) |
+| 1 | `Unknown_Find_Root_Field` | `app/client/ui_analyze.cpp:68` | neutral (D10): the find with its own root test (0x546090 calls the Cast out of line inside it, as the client)  // NAME 1 [root, name]: neutral |
+| 1 | `Unknown_Find_Field` | `app/client/ui_analyze.cpp:68` | untagged neutral name (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_analyze.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown0AC` | `app/client/ui_analyze.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown0D0` | `app/client/ui_analyze.cpp:85` | untagged neutral name (D10) |
@@ -8716,8 +8715,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_545190` | `app/client/ui_analyze.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_544C50` | `app/client/ui_analyze.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown_62F5B0` | `app/client/ui_analyze.cpp:327` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_analyze.cpp:333` | untagged neutral name (D10) |
+| 1 | `UnknownB01394Enum` | `app/client/ui_analyze.cpp:333` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_analyze.cpp:334` | untagged neutral name (D10) |
+| 1 | `UnknownB013ECEnum` | `app/client/ui_analyze.cpp:348` | untagged neutral name (D10) |
 | 1 | `Unknown_545E40` | `app/client/ui_analyze.cpp:388` | untagged neutral name (D10) |
 | 1 | `Unknown_546090` | `app/client/ui_analyze.cpp:398` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_analyze.cpp:404` | untagged neutral name (D10) |
@@ -12525,7 +12525,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIManuListClass` | `app/client/ui_manu.cpp:359` | neutral (D10) |
 | 1 | `UnknownGlobal` | `app/client/ui_manu.cpp:362` | untagged neutral name (D10) |
 | 1 | `UIManuCategoriesClass` | `app/client/ui_manu.cpp:365` | neutral (D10): 'PrimaryCategories' (the tree UIManuNodeClass reads) |
-| 1 | `UIManuValidityClass` | `app/client/ui_manu.cpp:371` | neutral (D10): 'Validity' (13 when the item can be made) |
 | 1 | `UIManuCurrentCategoryClass` | `app/client/ui_manu.cpp:378` | neutral (D10): 'CurrentItemCategory' (an item id) |
 | 1 | `UIManuComponentsClass` | `app/client/ui_manu.cpp:385` | neutral (D10): 'ManufactureComponents' (its global is the item arrays', 0xC41624) |
 | 1 | `validity` | `app/client/ui_manu.cpp:391` | neutral |
@@ -12547,6 +12546,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B4680` | `app/client/ui_manu.cpp:498` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8DF0` | `app/client/ui_manu.cpp:501` | untagged neutral name (D10) |
 | 1 | `Unknown_62F5B0` | `app/client/ui_manu.cpp:505` | untagged neutral name (D10) |
+| 1 | `UnknownB01394Enum` | `app/client/ui_manu.cpp:511` | untagged neutral name (D10) |
 | 1 | `Unknown_5B3640` | `app/client/ui_manu.cpp:517` | untagged neutral name (D10) |
 | 1 | `Unknown_5B39B0` | `app/client/ui_manu.cpp:519` | untagged neutral name (D10) |
 | 1 | `Unknown_5B7880` | `app/client/ui_manu.cpp:534` | untagged neutral name (D10) |
@@ -21168,8 +21168,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CurrentStep` | `app/client/tutorial_manager.h:87` | describes what it holds |
 | 2 | `CurrentLine` | `app/client/tutorial_manager.h:88` | describes what it holds |
 | 2 | `LastFinished` | `app/client/tutorial_manager.h:89` | describes what it holds |
-| 2 | `Value` | `app/client/ui_analyze.cpp:70` | what it holds |
-| 2 | `Value` | `app/client/ui_analyze.cpp:77` | what it holds |
 | 2 | `Analyze_Player_Id` | `app/client/ui_analyze.cpp:163` | the player id read as an inline accessor (as ui_manu.cpp's Manu_Player_Id) |
 | 2 | `Get_Avatar` | `app/client/ui_attrb.cpp:98` | ClientClass's slot +0x28 |
 | 2 | `Layer` | `app/client/ui_attrb_skills.h:99` | what it is |
@@ -21257,7 +21255,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Checked` | `app/client/ui_manu.cpp:308` | what 0x7E8030 sets |
 | 2 | `Owner` | `app/client/ui_manu.cpp:326` | what it holds |
 | 2 | `Owner` | `app/client/ui_manu.cpp:342` | what it holds |
-| 2 | `Value` | `app/client/ui_manu.cpp:375` | what it holds |
 | 2 | `Value` | `app/client/ui_manu.cpp:382` | what it holds |
 | 2 | `Value` | `app/client/ui_manu.cpp:1447` | what it holds |
 | 2 | `Gadgets` | `app/client/ui_manu.h:30` | what it holds |

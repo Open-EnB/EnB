@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-685 entries in 203 files.
+684 entries in 203 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -303,8 +303,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_analyze.cpp:568` | `UIAnalyzeClass::Unknown_545610` | marker | NOT EXACT: inline budget (the client calls the 'Validity' and 'Mode' Casts out of line, 0x5468D0 / 0x546920; #pragma inline_depth(1) at the file's end does that but costs 0x5437C0, 0x5439F0 and 0x544C50) (0x545610) @0x545610 |
 | `app/client/ui_analyze.cpp:615` | `UIAnalyzeClass::Unknown_5458B0` | marker | NOT EXACT: inline budget (the client calls the 'Mode' find out of line, 0x546630, and the last text of key 5's dismantle branch, 0x544C50) (0x5458B0) @0x5458B0 |
 | `app/client/ui_analyze.cpp:658` | `UIAnalyzeClass::Unknown_545E40` | marker | NOT EXACT: inline budget (the client calls both finds out of line, 0x546780 / 0x5467F0, as ui_manu.cpp's 0x5B4680) (0x545E40) @0x545E40 |
-| `app/client/ui_analyze.cpp:699` | `UIAnalyzeClass::Unknown_546090` | marker | NOT EXACT: inline budget (the client calls UnknownRTTIClass<DeltaStringClass>::Cast out of line; a #pragma inline_depth(1) at the file's end makes it exact but costs 0x5461C0) (0x546090) @0x546090 |
-| `app/client/ui_analyze.cpp:762` | `UIAnalyzeClass::Unknown_5461C0` | mention | NOT EXACT); the functions now in the client's order. The 'Validity' / 'Mode' fields are local classes over their per-class globals (0xC41640 / 0xC41634), as ui_manu.cpp's UIManuValidityClass. 0x545D30 repeats 0x546000's six hides (the client inlines them there but calls 0x546000 out of line from slot +0x5C; auto_inline(off) around 0x546000 gives both). UIAnalyzeClass is laid out from the construct... |
+| `app/client/ui_analyze.cpp:762` | `UIAnalyzeClass::Unknown_5461C0` | mention | NOT EXACT); the functions now in the client's order. The 'Validity' / 'Mode' fields are DeltaManufacturingLabClass's own types (aux_roots.h; per-class globals 0xC41640 / 0xC41634, VM1: ui_manu.cpp shares the Cast 0x5468D0). 0x545D30 repeats 0x546000's six hides (the client inlines them there but calls 0x546000 out of line from slot +0x5C; auto_inline(off) around 0x546000 gives both). UIAnalyzeClas... |
 | `app/client/ui_attrb.cpp:315` | `Unknown546A80Class::Unknown_547C20` | marker | NOT EXACT: layout (similarity 0.61: the client keeps the valid branch's null merge, xor eax / test eax, where ours threads it; the logic is the client's; attempts.csv) @0x547C20 |
 | `app/client/ui_attrb.cpp:395` | `Unknown546A80Class::Unknown_547FD0` | marker | NOT EXACT: inline budget (similarity 0.48: the client calls only the valid branch's cast out of line, and keeps its null merge unthreaded as 0x547C20; the logic is the client's; attempts.csv) @0x547FD0 |
 | `app/client/ui_attrb.cpp:483` | `Unknown548D60Class::Unknown_548D60` | marker | NOT EXACT: field-offset (explain.py; a register choice: the title's colour: ours holds the style in ecx and &+0x494 in eax, the client the other way round, with the ecx / eax / edx choices after it; flags, branches and calls as the client's) (0x548D60) @0x548D60 |
