@@ -883,7 +883,6 @@ void UIMFDClass::Set_SP_Cur(UIMFDValueStruct &value)
 	}
 }
 template<class C> inline C *Unknown_MFD_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_MFD_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_MFD_Field<C>(root, name)); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form): the find 0x5BF2B0 out of line in 0x5BDED0 as the client
-// NOT EXACT: 0x5BE120, inline budget: the client calls Cast 0x5BF350 out of line where ours inlines it
 void UIMFDClass::Set_SP_Percent(UIMFDValueStruct &value, bool as_float)
 {
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)value.Target->AuxData;
@@ -891,7 +890,8 @@ void UIMFDClass::Set_SP_Percent(UIMFDValueStruct &value, bool as_float)
 
 		DeltaInterpolatorClass *percent = Unknown_MFD_Find<DeltaInterpolatorClass>(aux, "ShieldPercent");
 		if (percent != NULL) {
-			DurationClass time((unsigned)value.Target->Client->Unknown10BC);
+			DurationClass time;
+			time = DurationClass((unsigned)value.Target->Client->Unknown10BC);	// assigned, not constructed: the inline operator= spends the budget that sends Cast 0x5BF350 out of line as the client
 			if (as_float) {
 				value.Float = percent->Get_Value(time);
 				value.Flags |= 8;
