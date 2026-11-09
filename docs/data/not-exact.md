@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-686 entries in 203 files.
+683 entries in 203 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -272,7 +272,6 @@ edit the comments in the code, not this file.
 | `app/client/signal_map.cpp:155` | `SignalMap::connect` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:166` | `SignalMap::disconnect` | marker | NOT EXACT: functional (shape) |
 | `app/client/signal_map.cpp:190` | `SignalMap::emit` | marker | NOT EXACT: functional (shape) |
-| `app/client/skill_data.cpp:95` | `SkillDataClass::Unknown_6A4C20` | marker | NOT EXACT: inline-budget, the client calls 0x610290 (Unknown_Find_Field) out of line in its two inlined reads 0x6A4C20 |
 | `app/client/skill_data.cpp:144` | `SkillDataClass::Unknown_20` | marker | NOT EXACT: inline-budget, the client inlines only the -1 push_back and calls 0x4A0880 for the other two 0x6A4F40 |
 | `app/client/skill_data_peek.cpp:149` | `SkillDataPeekClass::Get_Affiliations` | marker | NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return) 0x6A5730 |
 | `app/client/slot_data.cpp:32` | `SlotDataClass::Unknown_6A7730` | marker | NOT EXACT: shape (0.59: the client lays out the second emit before the shared failure exit; this form makes the copy 0x6A7860 inlines exact) 0x6A7730 |
@@ -306,7 +305,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_analyze.cpp:515` | `UIAnalyzeClass::Unknown_545190` | marker | NOT EXACT: inline budget (the client calls all four finds out of line, the 0x417D82 / 0x4138E0 thunks and 0x5465C0, as ui_manu.cpp's 0x5B5320; ours inlines them) (0x545190) @0x545190 |
 | `app/client/ui_analyze.cpp:568` | `UIAnalyzeClass::Unknown_545610` | marker | NOT EXACT: inline budget (the client calls the 'Validity' and 'Mode' Casts out of line, 0x5468D0 / 0x546920; #pragma inline_depth(1) at the file's end does that but costs 0x5437C0, 0x5439F0 and 0x544C50) (0x545610) @0x545610 |
 | `app/client/ui_analyze.cpp:615` | `UIAnalyzeClass::Unknown_5458B0` | marker | NOT EXACT: inline budget (the client calls the 'Mode' find out of line, 0x546630, and the last text of key 5's dismantle branch, 0x544C50) (0x5458B0) @0x5458B0 |
-| `app/client/ui_analyze.cpp:658` | `UIAnalyzeClass::Unknown_545E40` | marker | NOT EXACT: inline budget (the client calls both finds out of line, 0x546780 / 0x5467F0, as ui_manu.cpp's 0x5B4680) (0x545E40) @0x545E40 |
 | `app/client/ui_analyze.cpp:762` | `UIAnalyzeClass::Unknown_5461C0` | mention | NOT EXACT); the functions now in the client's order. The 'Validity' / 'Mode' fields are DeltaManufacturingLabClass's own types (aux_roots.h; per-class globals 0xC41640 / 0xC41634, VM1: ui_manu.cpp shares the Cast 0x5468D0). 0x545D30 repeats 0x546000's six hides (the client inlines them there but calls 0x546000 out of line from slot +0x5C; auto_inline(off) around 0x546000 gives both). UIAnalyzeClas... |
 | `app/client/ui_attrb.cpp:315` | `Unknown546A80Class::Unknown_547C20` | marker | NOT EXACT: layout (similarity 0.61: the client keeps the valid branch's null merge, xor eax / test eax, where ours threads it; the logic is the client's; attempts.csv) @0x547C20 |
 | `app/client/ui_attrb.cpp:395` | `Unknown546A80Class::Unknown_547FD0` | marker | NOT EXACT: inline budget (similarity 0.48: the client calls only the valid branch's cast out of line, and keeps its null merge unthreaded as 0x547C20; the logic is the client's; attempts.csv) @0x547FD0 |
@@ -406,7 +404,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_manu.cpp:1005` | `UIManuClass::Unknown_5B3640` | marker | NOT EXACT: inline budget (the client calls rtti.h's Cast out of line, 0x5B7260, in both finds; registers) (0x5B3640) |
 | `app/client/ui_manu.cpp:1029` | `UIManuClass::Unknown_5B3850` | marker | NOT EXACT: inline budget (as 0x5B1ED0) (0x5B3850) |
 | `app/client/ui_manu.cpp:1115` | `UIManuClass::Unknown_5B3E00` | marker | NOT EXACT: inline budget (the client calls the find, 0x5B3CA0 and 0x5B3D70 out of line) (0x5B3E00) |
-| `app/client/ui_manu.cpp:1252` | `UIManuClass::Unknown_5B4680` | marker | NOT EXACT: inline budget (the client calls both finds out of line, 0x546780 / 0x5467F0) (0x5B4680) |
 | `app/client/ui_manu.cpp:1283` | `UIManuClass::Unknown_5B4850` | marker | NOT EXACT: register (as 0x5B2480) (0x5B4850) |
 | `app/client/ui_manu.cpp:1451` | `UIManuClass::Unknown_5B4B10` | marker | NOT EXACT: inline budget (the client calls the NegotiatedCost and ExpectedQuality finds out of line, 0x5466A0 / 0x546710, and the TechLevelFilterBitfield Cast, 0x5B7300; ours inlines them) (0x5B4B10) |
 | `app/client/ui_manu.cpp:1513` | `Unknown_5B5CD0` | marker | NOT EXACT: inline budget (the client calls std::string's _Eos out of line in the static's constructor; ours inlines it) (0x5B5CD0) |

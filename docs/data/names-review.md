@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 35 |
 | 3 | by convention from a client-named file or sibling | 1634 |
 | 2 | describes what the code does | 3803 |
-| 1 | neutral placeholder | 19795 |
+| 1 | neutral placeholder | 19800 |
 
 ## For review (score 3 and below)
 
@@ -8846,6 +8846,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496AE0` | `app/client/ui_analyze.cpp:63` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Root_Field` | `app/client/ui_analyze.cpp:68` | neutral (D10): the find with its own root test (0x546090 calls the Cast out of line inside it, as the client)  // NAME 1 [root, name]: neutral |
 | 1 | `Unknown_Find_Field` | `app/client/ui_analyze.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid_Field` | `app/client/ui_analyze.cpp:70` | neutral (D10)  // NAME 1 [root, name, n, r, t]: neutral |
+| 1 | `Unknown70` | `app/client/ui_analyze.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_analyze.cpp:71` | neutral (D10)  // NAME 1 [root, name]: neutral |
 | 1 | `Unknown5BB320Class` | `app/client/ui_analyze.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown0AC` | `app/client/ui_analyze.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown0D0` | `app/client/ui_analyze.cpp:85` | untagged neutral name (D10) |
@@ -8880,7 +8883,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_544C50` | `app/client/ui_analyze.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown_62F5B0` | `app/client/ui_analyze.cpp:327` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `app/client/ui_analyze.cpp:333` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_analyze.cpp:334` | untagged neutral name (D10) |
 | 1 | `UnknownB013ECEnum` | `app/client/ui_analyze.cpp:348` | untagged neutral name (D10) |
 | 1 | `Unknown_545E40` | `app/client/ui_analyze.cpp:388` | untagged neutral name (D10) |
 | 1 | `Unknown_546090` | `app/client/ui_analyze.cpp:398` | untagged neutral name (D10) |
@@ -8891,8 +8893,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4F00C0` | `app/client/ui_analyze.cpp:497` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_analyze.cpp:563` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ui_analyze.cpp:574` | untagged neutral name (D10) |
-| 1 | `UnknownB0122CEnum` | `app/client/ui_analyze.cpp:663` | untagged neutral name (D10) |
-| 1 | `Unknown_5461C0` | `app/client/ui_analyze.cpp:674` | untagged neutral name (D10) |
+| 1 | `UnknownB0122CEnum` | `app/client/ui_analyze.cpp:662` | untagged neutral name (D10) |
+| 1 | `Unknown_5461C0` | `app/client/ui_analyze.cpp:672` | untagged neutral name (D10) |
 | 1 | `Unknown2C_06` | `app/client/ui_analyze.cpp:738` | untagged neutral name (D10) |
 | 1 | `ui_analyze.h` | `app/client/ui_analyze.h:3` | provisional header name for ui_analyze.cpp |
 | 1 | `UIAnalyzeInvClass` | `app/client/ui_analyze.h:16` | neutral (D10) |
@@ -10462,9 +10464,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_687150` | `app/client/ui_buff.cpp:162` | untagged neutral name (D10) |
 | 1 | `x, y` | `app/client/ui_buff.cpp:185` | neutral |
 | 1 | `Unknown_42ECF0` | `app/client/ui_buff.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Aux_Field` | `app/client/ui_buff.cpp:188` | neutral (D10): two inline layers (as ui_analyze.cpp's): the client's find 0x561C40 out of line in 0x561030 |
+| 1 | `Unknown_Find_Field` | `app/client/ui_buff.cpp:188` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Aux` | `app/client/ui_buff.cpp:188` | untagged neutral name (D10) |
 | 1 | `Unknown_5615C0, info, buff` | `app/client/ui_buff.cpp:191` | neutral (D10) |
 | 1 | `Unknown_5615C0` | `app/client/ui_buff.cpp:191` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/ui_buff.cpp:223` | untagged neutral name (D10) |
 | 1 | `Unknown_666470` | `app/client/ui_buff.cpp:250` | untagged neutral name (D10) |
 | 1 | `Unknown84` | `app/client/ui_buff.cpp:252` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/ui_buff.cpp:253` | untagged neutral name (D10) |
@@ -12697,6 +12701,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Valid` | `app/client/ui_manu.cpp:393` | neutral (D10): as co.cpp's |
 | 1 | `Unknown_Find_Field` | `app/client/ui_manu.cpp:393` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_manu.cpp:393` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid_Field` | `app/client/ui_manu.cpp:394` | neutral (D10): as ui_analyze.cpp's (two inline layers: the client's finds 0x546780 / 0x5467F0 out of line in 0x5B4680) |
 | 1 | `Unknown64` | `app/client/ui_manu.cpp:403` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_manu.cpp:403` | untagged neutral name (D10) |
 | 1 | `Unknown_5BB4F0` | `app/client/ui_manu.cpp:404` | untagged neutral name (D10) |
