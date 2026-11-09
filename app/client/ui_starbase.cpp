@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__
-// 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x633010-0x648340 by its asserts and its string order).
+// 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x632E50-0x648340 by its asserts, its string order and ui_slot_scut.cpp's end).
 // So far the starbase interface's constructor 0x6333E0 (SB1), its lights helpers 0x640CC0-0x640F30 and the starbase lights panel (the class below,
 // 0x646170-0x648238), ST1; the file's own functions with their asserts (lines 368-4180) lie around them in the client.
 #include <stdio.h>
@@ -74,6 +74,28 @@ struct UIStarbaseKeyEventStruct	// NAME 1: neutral (D10)
 	float Unknown08;									// +0x08
 	int Unknown0C;										// +0x0C
 };
+
+// @0x00632E50
+UIStarbaseUnknownCCClass::~UIStarbaseUnknownCCClass()
+{
+	if (Avatar) {
+		Avatar->Unknown_788EF0();
+		Avatar->Remove();
+		Avatar = NULL;
+	}
+	if (Unknown0C) {
+		Unknown0C->Remove();
+		Unknown0C = NULL;
+	}
+	if (Unknown10) {
+		Unknown10->Remove();
+		Unknown10 = NULL;
+	}
+	if (Unknown14) {
+		GadgetClass::Destroy(Unknown14);
+		Unknown14 = NULL;
+	}
+}
 
 inline SBaseViewUnknown1B4Class *UIStarbaseClass::Unknown_Info() { return(UnknownB0->Unknown1B4); }
 // 0x6333E0
@@ -152,14 +174,12 @@ UIStarbaseClass::UIStarbaseClass(UIViewClass *view, LayerClass *layer, int index
 
 #pragma auto_inline(off)
 
-// NOT EXACT: register-only residue in the body (every vtable load of its own statements in eax where the client's is in edx and the
-// reverse; the members' destructors after it match), objdiff 0.82 counting the unrelocated jumps
-// 0x633B50
+// @0x00633B50
 UIStarbaseClass::~UIStarbaseClass()
 {
 	int i;
 	if (Unknown190) {
-		Client->Unknown_44(Unknown190->Unknown90);
+		Client->Unknown_44(Unknown190->Get_Unknown90());
 		delete Unknown190;
 		Unknown190 = NULL;
 	}

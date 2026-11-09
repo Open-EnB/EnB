@@ -81,11 +81,14 @@ public:
 class UIStarbaseUnknownCCClass	// NAME 1: neutral (D10)
 {
 public:
-	~UIStarbaseUnknownCCClass();	// 0x632E50 (not rebuilt)
+	~UIStarbaseUnknownCCClass();	// 0x632E50
 	int Unknown00;					// +0x00  // NAME 1: neutral
 	RefCountPtr<CharacterViewAvatarClass> Avatar;	// +0x04 (0x63BDB0 / 0x63C080 / 0x63D2F0)  // NAME 1: what it holds
 	RefCountPtr<Unknown78A910AvatarClass> Unknown08;	// +0x08 (0x63D2F0)  // NAME 1: neutral
-	char Unknown0C[0x14 - 0x0C];	// +0x0C
+	RefCountPtr<RenderObjClass> Unknown0C, Unknown10;	// +0x0C (the destructor removes both)
+	GadgetClass *Unknown14;			// +0x14 (the destructor's GadgetClass::Destroy)
+	char Unknown18[0x24 - 0x18];	// +0x18
+	std::string Unknown24;			// +0x24 (the destructor's inlined _Tidy of +0x28; the size past +0x34 is unknown)
 };
 // What the starbase interface's +0x190 points to (a virtual destructor; its +0x90 goes to the client's slot +0x44)
 class UIStarbaseUnknown190Class	// NAME 1: neutral (D10)
@@ -94,6 +97,7 @@ public:
 	virtual ~UIStarbaseUnknown190Class();	// +0x00
 	char Unknown04[0x90 - 0x04];	// +0x04
 	int Unknown90;	// +0x90 (0x633B50 hands it to the client's slot +0x44)
+	int Get_Unknown90() { return(Unknown90); }	// inline (0x633B50: read through a getter, its vtable loads take the client's eax / edx; read directly they swap)  // NAME 1: neutral (D10)
 };
 
 // ui_starbase.cpp's starbase interface (the starbase view's +0x60), declared as far as the starbase avatar packets call it
