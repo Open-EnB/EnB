@@ -175,6 +175,30 @@ struct SubsLoginStruct  // NAME 1 [SubsLoginStruct]: the reply's 'login-reply'
 	std::string ExpirationDate;		// +0x20 'entitlement-expiration-date'
 };
 
+// The billing record (0xF0 bytes: the interface's +0x478..+0x567; 0x7CF880 reads it, 0x7D28B0 returns it (copy
+// constructor 0x7D2C70), 0x7D6180 sends it; destructor 0x5F0CC0)
+struct RegistrationUnknown478Struct  // NAME 1 [RegistrationUnknown478Struct]: neutral (D10)
+{
+	RegistrationUnknown478Struct() : Unknown00(0), UnknownE8(0), UnknownEC(0) {}
+	int Unknown00;				// +0x00 'billing-id'
+	std::string Unknown04;		// +0x04 'first-name'
+	std::string Unknown14;		// +0x14 'last-name'
+	std::string Unknown24;		// +0x24 'address'
+	std::string Unknown34;		// +0x34 'address2'
+	std::string Unknown44;		// +0x44 'city'
+	std::string Unknown54;		// +0x54 'state-province'
+	std::string Unknown64;		// +0x64 'country'
+	std::string Unknown74;		// +0x74 'postal-code'
+	std::string Unknown84;		// +0x84 'phone'
+	RegistrationUnknown5A8Struct Unknown94;	// +0x94 'cc-type'
+	std::string UnknownA8;		// +0xA8 'cc-number'
+	std::string UnknownB8;		// +0xB8 'issuer'
+	std::string UnknownC8;		// +0xC8 'start-month'
+	std::string UnknownD8;		// +0xD8 'start-year'
+	int UnknownE8;				// +0xE8 'expire-month'
+	int UnknownEC;				// +0xEC 'expire-year'
+};
+
 // What the interface holds at +0x1AC (the function-static 0xBDA960: 0x5FB9F0 / 0x600000 ask it for the reply)
 class RegistrationUnknown1ACClass  // NAME 1 [RegistrationUnknown1ACClass]: neutral (D10)
 {
@@ -186,6 +210,9 @@ public:
 	RegistrationErrorStruct Unknown_7D1AC0();	// 0x7D1AC0 (the reply's '/status', '/message', '/url')
 	void Unknown_7CF3E0(RegistrationUnknown3C4Struct *info, const char *path, int index);	// 0x7CF3E0 (one 'account-info')
 	RegistrationUnknown3C4Struct Unknown_7D21C0();	// 0x7D21C0 (the 'get-acctinfo' reply and its alt names; 0x600000; copy constructor 0x7D2690)
+	void Unknown_7CF880(RegistrationUnknown478Struct *info, const char *path, int index);	// 0x7CF880 (one 'billing-info')
+	RegistrationUnknown478Struct Unknown_7D28B0();	// 0x7D28B0 (the 'get-billing-info' reply; 0x600000)
+	bool Unknown_7D6180(const char *a, const char *b, RegistrationUnknown478Struct *info, bool d, int callback);	// 0x7D6180 ('updateBillingInfo'; 0x600000)
 	void Unknown_7CFEA0(RegistrationUnknown578Struct *entry, const char *path, int index);	// 0x7CFEA0 (one 'pricing-selection')  // NAME 1 [entry, path, index]: what they are
 	void Unknown_7D0350(SubsBundleStruct *bundle, const char *path, int index);	// 0x7D0350 (one 'bundle')
 	void Unknown_7D0610(SubsGameFeatureStruct *feature, const char *path, int index);	// 0x7D0610 (one 'game-feature')

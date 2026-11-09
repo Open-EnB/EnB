@@ -52,6 +52,30 @@ void RegistrationUnknown1ACClass::Unknown_7CF3E0(RegistrationUnknown3C4Struct *i
 	info->UnknownA4 = Unknown_BE8AD8->Slot3(path, index, "long-screenname");
 }
 
+void RegistrationUnknown1ACClass::Unknown_7CF880(RegistrationUnknown478Struct *info, const char *path, int index)
+{
+	if (Unknown_BE8AD8 == NULL) {
+		return;
+	}
+	info->Unknown00 = Unknown_BE8AD8->Slot4(path, index, "billing-id");
+	info->Unknown04 = Unknown_BE8AD8->Slot3(path, index, "first-name");
+	info->Unknown14 = Unknown_BE8AD8->Slot3(path, index, "last-name");
+	info->Unknown24 = Unknown_BE8AD8->Slot3(path, index, "address");
+	info->Unknown34 = Unknown_BE8AD8->Slot3(path, index, "address2");
+	info->Unknown44 = Unknown_BE8AD8->Slot3(path, index, "city");
+	info->Unknown54 = Unknown_BE8AD8->Slot3(path, index, "state-province");
+	info->Unknown64 = Unknown_BE8AD8->Slot3(path, index, "country");
+	info->Unknown74 = Unknown_BE8AD8->Slot3(path, index, "postal-code");
+	info->Unknown84 = Unknown_BE8AD8->Slot3(path, index, "phone");
+	info->Unknown94.Unknown00 = Unknown_BE8AD8->Slot4(path, index, "cc-type");
+	info->UnknownA8 = Unknown_BE8AD8->Slot3(path, index, "cc-number");
+	info->UnknownE8 = Unknown_BE8AD8->Slot4(path, index, "expire-month");
+	info->UnknownEC = Unknown_BE8AD8->Slot4(path, index, "expire-year");
+	info->UnknownC8 = (char)Unknown_BE8AD8->Slot4(path, index, "start-month");
+	info->UnknownD8 = (char)Unknown_BE8AD8->Slot4(path, index, "start-year");
+	info->UnknownB8 = (char)Unknown_BE8AD8->Slot4(path, index, "issuer");
+}
+
 void RegistrationUnknown1ACClass::Unknown_7CFEA0(RegistrationUnknown578Struct *entry, const char *path, int index)
 {
 	if (Unknown_BE8AD8 == NULL) {
@@ -211,6 +235,13 @@ RegistrationUnknown3C4Struct RegistrationUnknown1ACClass::Unknown_7D21C0()
 	for (int i = 0; i < 5; i++) {
 		info.Unknown00[i] = Unknown_BE8AD8->Slot3("/subs-interface-reply/add-acctinfo-reply/alt-name-list/alt-name", i, NULL);
 	}
+	return info;
+}
+
+RegistrationUnknown478Struct RegistrationUnknown1ACClass::Unknown_7D28B0()
+{
+	RegistrationUnknown478Struct info;
+	Unknown_7CF880(&info, "/subs-interface-reply/get-billing-info-reply/billing-info", 0);
 	return info;
 }
 
@@ -399,6 +430,41 @@ bool RegistrationUnknown1ACClass::Unknown_7D5CE0(const char *a, const char *b, i
 	request.Add_Param("methodCall", "getBillingInfo");
 	request.Add_Param("screenname", a);
 	request.Add_Param("password", b);
+	return Unknown_BE8AD8->Slot13(&request, callback);
+}
+
+// NOT EXACT: shape (0.26: functional from the disassembly; the client inlines other string helpers)
+bool RegistrationUnknown1ACClass::Unknown_7D6180(const char *a, const char *b, RegistrationUnknown478Struct *info, bool d, int callback)
+{
+	if (Unknown_BE8AD8 == NULL) {
+		return false;
+	}
+	SubsRequestClass request(Unknown_BE8AC0, Unknown_BE8AB0, Unknown_BE8AA0);
+	request.Add_Param("methodCall", "updateBillingInfo");
+	request.Add_Param("screenname", a);
+	request.Add_Param("password", b);
+	request.Add_Param("send-email", d);
+	request.Add_Param("first-name", info->Unknown04.c_str());
+	request.Add_Param("last-name", info->Unknown14.c_str());
+	request.Add_Param("address", info->Unknown24.c_str());
+	request.Add_Param("address2", info->Unknown34.c_str());
+	request.Add_Param("city", info->Unknown44.c_str());
+	request.Add_Param("state-province", info->Unknown54.c_str());
+	request.Add_Param("country", info->Unknown64.substr(0, 2).c_str());
+	request.Add_Param("phone", info->Unknown84.c_str());
+	request.Add_Param("postal-code", info->Unknown74.c_str());
+	request.Add_Param("cc-type", info->Unknown94.Unknown00);
+	request.Add_Param("cc-number", info->UnknownA8.c_str());
+	request.Add_Param("expire-month", info->UnknownE8);
+	request.Add_Param("expire-year", info->UnknownEC);
+	if (info->UnknownB8 != "") {
+		request.Add_Param("issuer", info->UnknownB8.c_str());
+	}
+	if (info->UnknownD8 != "" && info->UnknownC8 != "") {
+		request.Add_Param("start-year", info->UnknownD8.c_str());
+		request.Add_Param("start-month", info->UnknownC8.c_str());
+	}
+	request.Add_Param("skin", "eb");
 	return Unknown_BE8AD8->Slot13(&request, callback);
 }
 
@@ -692,7 +758,7 @@ void SubsRequestClass::Add_Param(const char *name, bool value)
 ** - 0x7CEF30 (cdecl, so static) / 0x7CF190: set / clear the globals (url, page, version, the reader, the callback).
 ** - 0x7CF3E0-0x7D18A0: reply readers, each filling one record from the reader (slot 0x0C a string, 0x10 an int, 0x14 a
 **   float at path[index]/name; 0x18 counts path's nodes): account info 0x7CF3E0 ('user-status' ... into
-**   RegistrationUnknown3C4Struct), billing 0x7CF880 (not written), pricing selection 0x7CFEA0, bundle
+**   RegistrationUnknown3C4Struct), billing 0x7CF880, pricing selection 0x7CFEA0, bundle
 **   0x7D0350, game feature 0x7D0610, coupon 0x7D0930, pricing option 0x7D0BE0, subscription 0x7D1060, login 0x7D1620
 **   ('lkey'), credit card type 0x7D18A0 ('type').
 ** - 0x7D1AC0: the reply's '/status', '/message', '/url', '/@dtdversion' under the root element (slot 0x40), else

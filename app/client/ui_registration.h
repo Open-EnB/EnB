@@ -118,27 +118,6 @@ struct RegistrationCardPrefixStruct  // NAME 1 [RegistrationCardPrefixStruct]: t
 	bool Is_Prefix_Of(const char *text) const;	// 0x5F2950  // NAME 1 [Is_Prefix_Of, text]: what it does
 };
 
-// What the interface holds at +0x478 (0xE8 bytes; destructor 0x5F0CC0)
-struct RegistrationUnknown478Struct  // NAME 1 [RegistrationUnknown478Struct]: neutral (D10)
-{
-	RegistrationUnknown478Struct() : Unknown00(0) {}
-	int Unknown00;				// +0x00
-	std::string Unknown04;		// +0x04
-	std::string Unknown14;		// +0x14
-	std::string Unknown24;		// +0x24
-	std::string Unknown34;		// +0x34
-	std::string Unknown44;		// +0x44
-	std::string Unknown54;		// +0x54
-	std::string Unknown64;		// +0x64
-	std::string Unknown74;		// +0x74
-	std::string Unknown84;		// +0x84
-	RegistrationUnknown5A8Struct Unknown94;	// +0x94 (implicit constructor 0x5F03E0, destructor 0x5F0410)
-	std::string UnknownA8;		// +0xA8
-	std::string UnknownB8;		// +0xB8
-	std::string UnknownC8;		// +0xC8
-	std::string UnknownD8;		// +0xD8
-};
-
 // The buttons' map value (0x18 bytes: 0x5F2B20 fills it, 0x5F3470 / 0x5F1A10 pick by the group +0x12)
 struct RegistrationButtonStruct  // NAME 1 [RegistrationButtonStruct]: neutral (D10)
 {
@@ -236,9 +215,7 @@ public:
 	int Unknown38C;				// +0x38C: the id 0x5F9C90 looks for
 	RegistrationErrorStruct Unknown390;	// +0x390 (0x5FB9F0 fills it from the reply)
 	RegistrationUnknown3C4Struct Unknown3C4;	// +0x3C4 (0x5FA900 hands its address to 0x7D4E30 / 0x7D5600)
-	RegistrationUnknown478Struct Unknown478;	// +0x478
-	int Unknown560;				// +0x560
-	int Unknown564;				// +0x564
+	RegistrationUnknown478Struct Unknown478;	// +0x478: the billing record (0xF0 bytes, to +0x568)
 	std::vector<RegistrationUnknown568Struct> Unknown568;	// +0x568
 	std::vector<RegistrationUnknown578Struct> Unknown578;	// +0x578 (0x5F9C90)
 	std::vector<RegistrationUnknown578Struct> Unknown588;	// +0x588: what 0x7D3570 returns, sorted by +0x48 (0x5FA5F0)

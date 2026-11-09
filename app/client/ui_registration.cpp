@@ -332,9 +332,9 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	Unknown26C(8),
 	Unknown384(0),
 	Unknown388(0),
-	Unknown38C(2),
-	Unknown560(0),
-	Unknown564(0)
+	Unknown38C(2)
+	// +0x560 / +0x564 are Unknown478.UnknownE8 / UnknownEC: its constructor zeroes them
+
 {
 	if (mode == 3) {
 		UnknownD4 = 0x17;
@@ -1514,13 +1514,13 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				}
 				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
 				Unknown108[0x14].Combo->Unknown_57B1D0(RegistrationMonths);
-				Unknown108[0x14].Combo->Unknown_57AC70(Unknown560 < 1 ? 0 : Unknown560 - 1);
+				Unknown108[0x14].Combo->Unknown_57AC70(Unknown478.UnknownE8 < 1 ? 0 : Unknown478.UnknownE8 - 1);
 				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
 				Unknown_5F98C0(Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);
-				if (Unknown564 < 1) {
+				if (Unknown478.UnknownEC < 1) {
 					Unknown108[0x16].Combo->Unknown_57AC70(0);
 				} else {
-					_snprintf(buffer, 5, "%d", Unknown564);
+					_snprintf(buffer, 5, "%d", Unknown478.UnknownEC);
 					Unknown108[0x16].Combo->Unknown_57AD50(buffer);
 				}
 				Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D3", !Unknown1CD ? "\nPlease enter your billing information below." : "The information below is for Identification/Age verification purposes only.  YOU WILL NOT BE BILLED!");
@@ -1717,13 +1717,13 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				}
 				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
 				Unknown108[0x14].Combo->Unknown_57B1D0(RegistrationMonths);
-				Unknown108[0x14].Combo->Unknown_57AC70(Unknown560 < 1 ? 0 : Unknown560 - 1);
+				Unknown108[0x14].Combo->Unknown_57AC70(Unknown478.UnknownE8 < 1 ? 0 : Unknown478.UnknownE8 - 1);
 				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
 				Unknown_5F98C0(Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);
-				if (Unknown564 < 1) {
+				if (Unknown478.UnknownEC < 1) {
 					Unknown108[0x16].Combo->Unknown_57AC70(0);
 				} else {
-					_snprintf(buffer, 5, "%d", Unknown564);
+					_snprintf(buffer, 5, "%d", Unknown478.UnknownEC);
 					Unknown108[0x16].Combo->Unknown_57AD50(buffer);
 				}
 				Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D4", !Unknown1CD ? "\nPlease enter your billing information below." : "The information below is for Identification/Age verification purposes only.  YOU WILL NOT BE BILLED!");
