@@ -4,6 +4,54 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-09 (05:00 PST, night, 2026-11-08d): the inline-budget rule measured and applied; client_item_property_builder and the item property files, the subs-interface account client and the registration reader over MSXML, ui_jobs, ui_trade, ui_log, ui_guild and ui_guild_list new; 0x752170 back (D217); +735 pairs over the run's baseline, 0 lost outright beyond D66 (vi)'s 0x604150
+
+- **Run** run/2026-11-08d (PR #180), coordinator Opus 5.5 on the subscription, base 3869e813 (#178 / #179 merged), baseline
+  `.work/imports.3869e813.json`, plan `.work/run-2026-11-08d/plan.md`. The user: weekly usage at least 84 % by 07:00 (a floor,
+  slightly over fine), subscription only (no agy, no API-key builders), items that unlock stuck work or large unexplored
+  functions with many callers, hourly heartbeats, no blocking questions. Weekly usage 78 % -> 86 % (04:50). Builders (all
+  Opus): SC2, IP1, XR1, FN1, IB1, JB1, TM1, IB2, XR2, CP2, GL1, FN2, IP2, IP3, TR1 (~5.3M tokens together); Sonnet: the item ranking
+  (109k), DOC (the traps / §3 / §4 pass, 104k).
+- **HEAD against the baseline:** gained 735 (338 shared) + 18 tie-break, 0 lost outright, 0 moves; 6 addresses lost a shared holder, each still held by another file (D66 (i)): 0x6CF410 (fontsys / unknown_6cce60; fontmanager, assetmgr, dazzle, rendobj hold it), 0x702240 (sclient; aux_roots), 0x585040 (skill_data, ui_scan; ui_cpit), 0x546710 (ui_mfd; ui_cpit, ui_manu, ui_scan), 0x818E90 (ui_registration; skillnam), 0x5469C0 (ui_scan; co, ui_analyze, ui_attrb, ui_starmap). One accepted loss in accepted-corrections.json (PR #181 to master,
+  cherry-picked onto the run): 0x604150 (D66 (vi), the coordinator: ui_registration's ~_com_ptr_t<IXMLDOMDocument> is
+  byte-identical to the client's own 0x7E1CA0 / 0x7E1CF0, now emitted by unknown_7dfed0). #181 merges before #180. The PR needs the maintainer's /accept-d66 for the six shared-holder rows (D202).
+- **The ranking (the user's two criteria):** a scan of client.exe's direct call sites over the 3,727 app functions not in
+  the tree (712 KB) ranked them by size x callers and grouped them by client file; §4 gave the unlock leads (.work/log/a5.log,
+  a6.log). Tonight took the top of both lists.
+- **The inline-budget rule (IB1, then IB2 / CP2 applied it):** each caller has its own budget, raised by its own non-inline
+  code; a callee costs its source size (dead code included); top-level sites spend it in source order; inline calls after a
+  site take that site's nested budget. Two levers reproduce the client's out-of-line finds (two inline layers with the
+  NameClass in the inner one; one inline call after an inlined helper); Casts need the root by `char *const &`. Lab and
+  census in `.work/ib1/`, IB2's variant runner `.work/ib2/vr.py`; workflow.md §3.1 has the rule. Exact by it: ui_analyze
+  0x545E40, ui_manu 0x5B4680, skill_data 0x6A4C20, ui_cpit 0x583790, find / Cast copies in ui_buff, ui_scan, ui_mfd,
+  ui_manu, ui_cpit; P-IB2-1 (ui_scan 0x60E6A0) carried out once ui_cpit held 0x585040; D130 dead spenders in 0x7C5690 /
+  0x54A640 replaced by the lever.
+- **New files:** client_item_property_builder.cpp (IP1, the client's `__FILE__`; 0x522860, the biggest unbuilt function, 17.8 KB,
+  written functional with its 37 asserts in order; the property types and attribute ids are in the plan log);
+  unknown_7cef30.cpp (XR1, provisional: the 'subs-interface' account-server client, 21 methodCall requests, +129);
+  unknown_7dfed0.cpp (XR2, provisional: the registration reader over MSXML's DOMDocument, all 18 slots exact; msxml3.tlh /
+  .tli cut to the DOM core, P-XR2-1) and unknown_7e1e40.cpp (the reply download over URL monikers, 23 of 24; build.py links
+  URLMON.LIB); ui_jobs.cpp (JB1, `__FILE__`, 29 of 30); ui_log.cpp and ui_guild.cpp (TM1, provisional: 'UI_LOG' / 'UI_GUILD';
+  the brief's "ui_login rest" and "time_mgr tail" were neither); ui_guild_list.cpp (GL1, provisional, 15 of 16).
+- **Unlocked:** 0x752170 pairs again (SC2: UnknownB016DCType's copy constructor, MountBoneNames as DeltaItemArrayClass
+  <DeltaStringClass>: 0x751BE0, 0x6F8880 and five more; aux_roots repadded SYMBOL_PAD 58, SEND_SYMBOL_PAD 40, auxroots.py
+  DEF_ORDER); 0x42C330 and 0x7D3CC0 (XR1); the Sub14C stand-ins gone (XR2); FontSys's " " literal (FN1: 0x6D6390 exact and
+  Change_Text's five sites, a functional fix for the POC), Play by value (+14 in unknown_fontsound).
+- **Late items (03:00-05:30):** GL1: ui_guild_list.cpp 16 of 16 and ui_guild's 0x81C060 / 0x81C1F0 / 0x81CB90 (an Active
+  test through the inline Is_Active() fixed three register swaps); IP2: the property files 0x529810-0x52B38F (icon by its
+  `__FILE__`, its +0x08 a RefCountPtr<TextureClass>; option, name, description, auto fire), every own function exact, +94;
+  IP3: the property base ClientItemPropertyClass and the attribute base with its six subclasses 0x51F900-0x521B1F, all exact
+  or tie-break, +86 with shared; FN2: 0x6CD180 exact and a real bug fixed (FontSys's own Bits +0x2BC shadowed
+  RenderObjClass::Bits in 0x6D60C0: the POC wrote the wrong field); TR1: ui_trade.cpp (`__FILE__`), 9 of 14, its base
+  Unknown59F3D0Class = ui_inv.cpp's base (interim, merge with PDAInventoryWindowClass).
+- **Burn rate:** 78 % -> 86 % over 9.3 h with 1-5 Opus builders (~0.8 %/h all in; ~2 %/h for the first hour with five
+  builders and the ranking, ~0.5 %/h with two). The handoff drafts and §4 / traps pass went to one Sonnet agent.
+- **Harness (D182):** at 95917583 (everything landed): clienttest 103 checks, 0 failed, trace equal to expected.txt (2,653 lines); udpreplay alex3 exit 0; handshakes 54 / 54 (also at 89a50e0c and a245e9a2).
+- **Traps filed** (workflow.md §3.1-§3.8): the inline-budget rule; ctor / dtor and EH-state forms; argument and loop forms;
+  two objects when one class inlines what another calls; large #import headers; gen_stubs and by-value std::string returns;
+  pad windows (appfile vs the importer path; a header member for one caller moves sclient's window); appfile's overload and
+  marker quirks; MSYS `//` arguments.
+
 ### 2026-11-08 (20:25 PST, evening, 2026-11-08c): D206 carried out; event.cpp and unknown_78a910.cpp whole, optdlg.cpp written, ui_attrb's attributes panel, Player's aux tree in sclient.cpp (D217) with clienttest's effect database, P-H13-2; section 4 audited and refiled; the real burn rate; +320 pairs and 10 tie-break over the run's baseline, 0 lost outright
 
 - **Run** run/2026-11-08c (PR #178), coordinator Opus 5.5 on the subscription, base 3c0af6d0 (#176 merged), baseline
