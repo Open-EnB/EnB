@@ -2766,6 +2766,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-FN3-1** (2026-11-09, FN3; D221 revisited, recommend still no): no FontSys sub-object for +0x2B4..+0x2CC. 0x6CE4E0 and 0x6CD6F0 became exact without one. A byte scan of 0x6C0000-0x6E0000 (`.work/fn3/scan2b4.py`) finds the range's address taken only in the constructor 0x6D5170 (`lea edi, [esi+0x2B4]`, edi..edi+0xC pushed to WW3D::Get_Device_Resolution, then +0x2C4 / +0x2C8 / Scale stored); no call passes it as `this`, nothing copies it as a block, and every other function (Render, Change_Text, 0x6CE4E0, Update_Text, 0x6CE7D0) uses the fields one by one. Revisit with a sub-object whose inline init is that block when 0x6D5170 is worked (fontmanager.h, with the sclient pad check 0x74D990 / 0x758210 / 0x702240).
 * **P-CW2-1** (2026-11-08, CW2; recommend not yet): the form stashed in docs/attempts/5719A0 (`Vector3 &f(Vector3 &color, entry)`) makes 0x5719A0 and 0x570FF0 exact but loses 0x571B70 (vector::size, then inlined into 0x56FD30): net +1 with one loss. Retry once 0x56FD30 is exact. (2026-11-08b: b1108 sent 0x56FD30, best variant 0.606 against 0.545, not exact.)
 * **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
 * **P-API-5** (2026-11-01, coordinator; the user's ~$160 of API credits over the next 28 days; recommend (a) + (b), not (d)):
@@ -2808,9 +2809,7 @@ written but not byte-exact, with its cause: `docs/data/not-exact.md`; every aban
 LIMIT REACHED: `python tools/re/attempts.py list|show` (a parked row waits for a new §3.1 lever). The items
 below name only the work items, the blocked work, the leads and the queues.
 
-00. **First, next session (the user, 2026-11-09):** (a) fontsys.cpp's 0x6CE4E0 (Change_Text's store order, 0.58:
-   operator+= out of line) and 0x6CD6F0 (order only: the client's lea edi before the count) to exact, then D221's
-   question again: a FontSys sub-object for +0x2B4..+0x2CC? (b) ui_mfd 0x5BF350 in the client's two-layer find (D220:
+00. **First (the user, 2026-11-09):** D221's sub-object question is P-FN3-1 (§3). ui_mfd 0x5BF350 in the client's two-layer find (D220:
    never the one-layer form), with workflow.md §3.1's inline-budget levers.
 
 0. **GitHub (P-GH-10):** the claims and verify service are live on master; the rehearsal waits for the first
