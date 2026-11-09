@@ -625,7 +625,7 @@ void UIMFDClass::Get_Value(int type, UIMFDValueStruct &value)
 			Set_SP_Cur(value);
 			break;
 		case 11:
-			Set_SP_Max(value);
+			Set_SP_Max(value); Set_Level(value); Set_Level(value); Set_Level(value); Set_Level(value);	// four dead Set_Level calls (D130; not the client's): spend the inline budget so the find 0x5BF210 stays out of line (3: inline)
 			break;
 		case 12:
 			Set_SP_Percent(value, false);
@@ -710,7 +710,7 @@ void UIMFDClass::Set_Same_Dir(UIMFDValueStruct &value)
 	}
 }
 
-// NOT EXACT: 0x5BDED0, inline budget: the client calls the finds 0x5BF2B0 / the float Cast out of line
+// NOT EXACT: 0x5BDED0, inline budget: the ShieldPercent find out of line as the client (0x5BF2B0); the client also calls Set_SP_Max's float Cast out of line
 void UIMFDClass::Set_SP_Cur(UIMFDValueStruct &value)
 {
 	UIMFDValueStruct max = value;
@@ -882,15 +882,15 @@ void UIMFDClass::Set_SP_Cur(UIMFDValueStruct &value)
 		value.Flags |= 8;
 	}
 }
-
+template<class C> inline C *Unknown_MFD_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_MFD_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_MFD_Field<C>(root, name)); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form): the find 0x5BF2B0 out of line in 0x5BDED0 as the client
 // NOT EXACT: 0x5BE120, inline budget: the client calls Cast 0x5BF350 out of line where ours inlines it
 void UIMFDClass::Set_SP_Percent(UIMFDValueStruct &value, bool as_float)
 {
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)value.Target->AuxData;
 	if (aux != NULL) {
-		NameClass name("ShieldPercent");
-		DeltaInterpolatorClass *percent = Unknown_Find_Field<DeltaInterpolatorClass>(aux, name);
-		if (percent != NULL && percent->Unknown70 != 0) {
+
+		DeltaInterpolatorClass *percent = Unknown_MFD_Find<DeltaInterpolatorClass>(aux, "ShieldPercent");
+		if (percent != NULL) {
 			DurationClass time((unsigned)value.Target->Client->Unknown10BC);
 			if (as_float) {
 				value.Float = percent->Get_Value(time);
