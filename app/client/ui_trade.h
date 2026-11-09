@@ -23,11 +23,16 @@ class Unknown59F3D0Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown59F3D0Class(SClient *client, int kind);		// 0x59F3D0 (the trade window passes 7 into +0xBC)  // NAME 1 [client, kind]: neutral
+	virtual ~Unknown59F3D0Class();						// 0x59F940 (ui_mount.cpp's destructor calls it)
+	virtual void Unknown_54();							// 0x59F470 (ui_mount.cpp's 0x5C74A0 calls it)
+	virtual void Unknown_58();							// 0x62E7C0 (0x62DE80's class's; ui_mount.cpp's 0x5C7570 calls it)
+	virtual void Unknown_5C();							// 0x59FD70 (ui_mount.cpp's 0x5C7600 calls it)
 	virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90(); virtual void Unknown_94();
 	virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0(); virtual void Unknown_A4();
-	virtual void Unknown_A8(); virtual void Unknown_AC(); virtual void Unknown_B0(); virtual void Unknown_B4();
+	virtual void Unknown_A8(); virtual void Unknown_AC(RenderObjClass *robj, int arg); virtual void Unknown_B0(); virtual void Unknown_B4();	// NAME 1 [robj, arg]: Unknown_AC's, neutral (ui_mount.cpp passes a button's sub-object and 0)
 	virtual void Unknown_B8(); virtual void Unknown_BC(); virtual void Unknown_C0(); virtual void Unknown_C4();
 	virtual void Unknown_C8();							// +0xC8 (the trade window calls it after setting +0xB4 to -1)
+	virtual void Unknown_CC(); virtual void Unknown_D0();	// +0xCC, +0xD0 (the table's last two: 0x62E580, 0x62E5B0; ui_mount.cpp's own begin at +0xD4)
 	InvDataClass *Unknown_59FE10();						// 0x59FE10 (SlotData's slot +0x10)
 	void Unknown_5A00C0(int *count, std::string *name);	// 0x5A00C0 (the trade window's 0x652890: the count and the name of the buy)  // NAME 1 [count, name]: what 0x652890 prints
 	void Unknown_5A02E0(bool arg);						// 0x5A02E0 (the trade window's 0x652FF0 passes true)  // NAME 1 [arg]: neutral

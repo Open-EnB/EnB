@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 174 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1656 |
-| 2 | describes what the code does | 3864 |
-| 1 | neutral placeholder | 20668 |
+| 3 | by convention from a client-named file or sibling | 1657 |
+| 2 | describes what the code does | 3885 |
+| 1 | neutral placeholder | 20706 |
 
 ## For review (score 3 and below)
 
@@ -13781,6 +13781,38 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownC0` | `app/client/ui_missn.h:49` | untagged neutral name (D10) |
 | 1 | `UnknownC4` | `app/client/ui_missn.h:50` | untagged neutral name (D10) |
 | 1 | `UnknownD8` | `app/client/ui_missn.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_496AE0` | `app/client/ui_mount.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_843440` | `app/client/ui_mount.cpp:19` | neutral (D10); NAME 1 [mount_type]: what it is given |
+| 1 | `Unknown6DF890Class` | `app/client/ui_mount.cpp:22` | neutral (D10) |
+| 1 | `color, from, to, width` | `app/client/ui_mount.cpp:25` | what Build passes |
+| 1 | `Unknown00` | `app/client/ui_mount.cpp:26` | untagged neutral name (D10) |
+| 1 | `UnknownBF9330` | `app/client/ui_mount.cpp:29` | neutral (D10) |
+| 1 | `UnknownBF92D0` | `app/client/ui_mount.cpp:30` | neutral (D10) |
+| 1 | `Unknown59F3D0Class` | `app/client/ui_mount.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown401` | `app/client/ui_mount.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown402` | `app/client/ui_mount.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_mount.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_mount.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_mount.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/ui_mount.cpp:200` | untagged neutral name (D10) |
+| 1 | `Unknown88` | `app/client/ui_mount.cpp:202` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_mount.cpp:276` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_mount.cpp:277` | untagged neutral name (D10) |
+| 1 | `UnknownB016DCType` | `app/client/ui_mount.cpp:278` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_mount.cpp:422` | untagged neutral name (D10) |
+| 1 | `Unknown_BC` | `app/client/ui_mount.cpp:473` | untagged neutral name (D10) |
+| 1 | `Unknown_AC` | `app/client/ui_mount.cpp:475` | untagged neutral name (D10) |
+| 1 | `ui_mount.h` | `app/client/ui_mount.h:4` | provisional header name for ui_mount.cpp |
+| 1 | `UIMountPointStruct` | `app/client/ui_mount.h:13` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/ui_mount.h:18` | neutral (D10) |
+| 1 | `Unknown59F3D0Class` | `app/client/ui_mount.h:29` | untagged neutral name (D10) |
+| 1 | `client, camera, kind, unused` | `app/client/ui_mount.h:32` | what it does with them |
+| 1 | `Unknown_54` | `app/client/ui_mount.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_mount.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_mount.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown3F4` | `app/client/ui_mount.h:46` | neutral (D10) |
+| 1 | `Unknown401` | `app/client/ui_mount.h:50` | neutral (D10) |
+| 1 | `Unknown402` | `app/client/ui_mount.h:51` | neutral (D10) |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_ping.cpp:23` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_ping.cpp:23` | untagged neutral name (D10) |
 | 1 | `robj, a, b, c` | `app/client/ui_ping.cpp:24` | neutral |
@@ -16216,70 +16248,76 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ui_trade.h` | `app/client/ui_trade.h:4` | provisional header name for ui_trade.cpp |
 | 1 | `Unknown59F3D0Class` | `app/client/ui_trade.h:22` | neutral (D10) |
 | 1 | `client, kind` | `app/client/ui_trade.h:25` | neutral |
-| 1 | `Unknown_88` | `app/client/ui_trade.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_trade.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ui_trade.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `app/client/ui_trade.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `app/client/ui_trade.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_9C` | `app/client/ui_trade.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_A0` | `app/client/ui_trade.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/ui_trade.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_A8` | `app/client/ui_trade.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown_AC` | `app/client/ui_trade.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown_B0` | `app/client/ui_trade.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown_B4` | `app/client/ui_trade.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown_B8` | `app/client/ui_trade.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown_BC` | `app/client/ui_trade.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown_C0` | `app/client/ui_trade.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown_C4` | `app/client/ui_trade.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown_C8` | `app/client/ui_trade.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown_59FE10` | `app/client/ui_trade.h:31` | untagged neutral name (D10) |
-| 1 | `count, name` | `app/client/ui_trade.h:32` | what 0x652890 prints |
-| 1 | `Unknown_5A00C0` | `app/client/ui_trade.h:32` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_trade.h:33` | neutral |
-| 1 | `Unknown_5A02E0` | `app/client/ui_trade.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_trade.h:35` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_trade.h:36` | neutral (D10) |
-| 1 | `Unknown88` | `app/client/ui_trade.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `app/client/ui_trade.h:38` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/ui_trade.h:39` | untagged neutral name (D10) |
-| 1 | `UnknownB8` | `app/client/ui_trade.h:40` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_trade.h:48` | neutral |
-| 1 | `Unknown_651F60` | `app/client/ui_trade.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_652360` | `app/client/ui_trade.h:49` | untagged neutral name (D10) |
-| 1 | `force` | `app/client/ui_trade.h:50` | neutral |
-| 1 | `Unknown_652450` | `app/client/ui_trade.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown_652890` | `app/client/ui_trade.h:51` | untagged neutral name (D10) |
-| 1 | `arg, significant` | `app/client/ui_trade.h:52` | neutral |
-| 1 | `Unknown_652BA0` | `app/client/ui_trade.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown_652C60` | `app/client/ui_trade.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_652E70` | `app/client/ui_trade.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown_652EB0` | `app/client/ui_trade.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown_652FF0` | `app/client/ui_trade.h:56` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_trade.h:57` | neutral |
-| 1 | `Unknown_6531F0` | `app/client/ui_trade.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown_653450` | `app/client/ui_trade.h:58` | untagged neutral name (D10) |
-| 1 | `Get_Unknown0D0` | `app/client/ui_trade.h:59` | neutral (D10)								// 0x653450 (FAIL_IFs '!button' l.911, '!sd_render' l.914, '!trade_render' l.917) |
-| 1 | `Unknown0D0` | `app/client/ui_trade.h:61` | neutral (D10) |
-| 1 | `Unknown0D4` | `app/client/ui_trade.h:62` | neutral (D10) |
-| 1 | `Unknown108` | `app/client/ui_trade.h:63` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/ui_trade.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/client/ui_trade.h:65` | neutral (D10) |
-| 1 | `Unknown138` | `app/client/ui_trade.h:66` | neutral (D10) |
-| 1 | `Unknown13C` | `app/client/ui_trade.h:67` | neutral (D10) |
-| 1 | `Unknown140` | `app/client/ui_trade.h:68` | untagged neutral name (D10) |
-| 1 | `Unknown144` | `app/client/ui_trade.h:69` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_trade.h:71` | neutral (D10) |
-| 1 | `Unknown150` | `app/client/ui_trade.h:71` | untagged neutral name (D10) |
-| 1 | `Unknown160` | `app/client/ui_trade.h:72` | untagged neutral name (D10) |
-| 1 | `Unknown168` | `app/client/ui_trade.h:74` | untagged neutral name (D10) |
-| 1 | `Unknown16C` | `app/client/ui_trade.h:75` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/ui_trade.h:76` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/ui_trade.h:77` | neutral (D10) |
-| 1 | `Unknown178` | `app/client/ui_trade.h:78` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_trade.h:79` | neutral (D10) |
-| 1 | `Unknown17C` | `app/client/ui_trade.h:79` | untagged neutral name (D10) |
-| 1 | `Unknown18C` | `app/client/ui_trade.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_trade.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_trade.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_trade.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_trade.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_trade.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_trade.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_trade.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_trade.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/ui_trade.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_A0` | `app/client/ui_trade.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_trade.h:31` | untagged neutral name (D10) |
+| 1 | `robj, arg` | `app/client/ui_trade.h:32` | Unknown_AC's, neutral (ui_mount.cpp passes a button's sub-object and 0) |
+| 1 | `Unknown_A8` | `app/client/ui_trade.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_AC` | `app/client/ui_trade.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_trade.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B4` | `app/client/ui_trade.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_B8` | `app/client/ui_trade.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_BC` | `app/client/ui_trade.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_C0` | `app/client/ui_trade.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_C4` | `app/client/ui_trade.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_C8` | `app/client/ui_trade.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_CC` | `app/client/ui_trade.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_D0` | `app/client/ui_trade.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_59FE10` | `app/client/ui_trade.h:36` | untagged neutral name (D10) |
+| 1 | `count, name` | `app/client/ui_trade.h:37` | what 0x652890 prints |
+| 1 | `Unknown_5A00C0` | `app/client/ui_trade.h:37` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_trade.h:38` | neutral |
+| 1 | `Unknown_5A02E0` | `app/client/ui_trade.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_trade.h:40` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_trade.h:41` | neutral (D10) |
+| 1 | `Unknown88` | `app/client/ui_trade.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown9C` | `app/client/ui_trade.h:43` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/ui_trade.h:44` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/ui_trade.h:45` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_trade.h:53` | neutral |
+| 1 | `Unknown_651F60` | `app/client/ui_trade.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_652360` | `app/client/ui_trade.h:54` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/ui_trade.h:55` | neutral |
+| 1 | `Unknown_652450` | `app/client/ui_trade.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_652890` | `app/client/ui_trade.h:56` | untagged neutral name (D10) |
+| 1 | `arg, significant` | `app/client/ui_trade.h:57` | neutral |
+| 1 | `Unknown_652BA0` | `app/client/ui_trade.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_652C60` | `app/client/ui_trade.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown_652E70` | `app/client/ui_trade.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_652EB0` | `app/client/ui_trade.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_652FF0` | `app/client/ui_trade.h:61` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_trade.h:62` | neutral |
+| 1 | `Unknown_6531F0` | `app/client/ui_trade.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown_653450` | `app/client/ui_trade.h:63` | untagged neutral name (D10) |
+| 1 | `Get_Unknown0D0` | `app/client/ui_trade.h:64` | neutral (D10)								// 0x653450 (FAIL_IFs '!button' l.911, '!sd_render' l.914, '!trade_render' l.917) |
+| 1 | `Unknown0D0` | `app/client/ui_trade.h:66` | neutral (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_trade.h:67` | neutral (D10) |
+| 1 | `Unknown108` | `app/client/ui_trade.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_trade.h:69` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/ui_trade.h:70` | neutral (D10) |
+| 1 | `Unknown138` | `app/client/ui_trade.h:71` | neutral (D10) |
+| 1 | `Unknown13C` | `app/client/ui_trade.h:72` | neutral (D10) |
+| 1 | `Unknown140` | `app/client/ui_trade.h:73` | untagged neutral name (D10) |
+| 1 | `Unknown144` | `app/client/ui_trade.h:74` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_trade.h:76` | neutral (D10) |
+| 1 | `Unknown150` | `app/client/ui_trade.h:76` | untagged neutral name (D10) |
+| 1 | `Unknown160` | `app/client/ui_trade.h:77` | untagged neutral name (D10) |
+| 1 | `Unknown168` | `app/client/ui_trade.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown16C` | `app/client/ui_trade.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/ui_trade.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/ui_trade.h:82` | neutral (D10) |
+| 1 | `Unknown178` | `app/client/ui_trade.h:83` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_trade.h:84` | neutral (D10) |
+| 1 | `Unknown17C` | `app/client/ui_trade.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown18C` | `app/client/ui_trade.h:85` | untagged neutral name (D10) |
 | 1 | `robj, arg` | `app/client/ui_verb.cpp:21` | what ui_group.cpp passes |
 | 1 | `Unknown_496AE0` | `app/client/ui_verb.cpp:21` | untagged neutral name (D10) |
 | 1 | `UIVerbButtonMatchStruct` | `app/client/ui_verb.cpp:34` | neutral (D10) |
@@ -22450,6 +22488,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Axis` | `app/client/ui_mfdm.h:108` | what it holds |
 | 2 | `Position` | `app/client/ui_mfdm.h:109` | what it holds |
 | 2 | `MissionStartTimeGreater` | `app/client/ui_missn.cpp:302` | describes what it does |
+| 2 | `Button` | `app/client/ui_mount.h:15` | the model's name |
+| 2 | `Bttn` | `app/client/ui_mount.h:16` | its name |
+| 2 | `MntPoint` | `app/client/ui_mount.h:17` | the model's name |
+| 2 | `Name` | `app/client/ui_mount.h:19` | its string |
+| 2 | `X` | `app/client/ui_mount.h:20` | describes what it holds |
+| 2 | `Y` | `app/client/ui_mount.h:21` | describes what it holds |
+| 2 | `PointX` | `app/client/ui_mount.h:22` | describes what it holds |
+| 2 | `PointY` | `app/client/ui_mount.h:23` | describes what it holds |
+| 2 | `Line` | `app/client/ui_mount.h:24` | describes what it is |
+| 2 | `Is_Shown` | `app/client/ui_mount.h:37` | what it returns |
+| 2 | `Show` | `app/client/ui_mount.h:38` | what it does |
+| 2 | `Hide` | `app/client/ui_mount.h:39` | what it does |
+| 2 | `Toggle` | `app/client/ui_mount.h:40` | what it does |
+| 2 | `Build` | `app/client/ui_mount.h:41` | what it does |
+| 2 | `Clear` | `app/client/ui_mount.h:42` | what it does |
+| 2 | `Camera` | `app/client/ui_mount.h:44` | what it is |
+| 2 | `Points` | `app/client/ui_mount.h:45` | what they are |
+| 2 | `Model` | `app/client/ui_mount.h:47` | the field's name |
+| 2 | `Distance` | `app/client/ui_mount.h:48` | describes what it holds |
+| 2 | `Built` | `app/client/ui_mount.h:49` | describes what it holds |
+| 2 | `Shown` | `app/client/ui_mount.h:52` | describes what it holds |
 | 2 | `UIMesh` | `app/client/ui_proc.h:26` | the FAIL_IFs' 'uimesh' |
 | 2 | `UIMesh` | `app/client/ui_proc_impl.h:32` | the FAIL_IFs' 'uimesh' |
 | 2 | `UIScanButtonNames` | `app/client/ui_scan.cpp:34` | what it holds |
@@ -22549,7 +22608,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `avatar` | `app/client/ui_talkt_space.cpp:136` | the PIP's +0x2C avatar |
 | 2 | `std:` | `app/client/ui_talkt_space.cpp:137` | what Get_Full_Name fills |
 | 2 | `std:` | `app/client/ui_trade.cpp:33` | as ui_mfd_extended_context_harvestable.h's |
-| 2 | `Money` | `app/client/ui_trade.h:70` | what it holds |
+| 2 | `Money` | `app/client/ui_trade.h:75` | what it holds |
 | 2 | `type` | `app/client/ui_verb.cpp:36` | Verb_Type's |
 | 2 | `Type` | `app/client/ui_verb.cpp:38` | what it holds |
 | 2 | `Set_Verb` | `app/client/ui_verb.h:28` | what it does |
@@ -25212,6 +25271,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SelectedBttnTexture` | `app/client/ui_missn.h:46` | the G_ASSERT's (l.151) |
 | 3 | `CurrentMission` | `app/client/ui_missn.h:51` | the G_ASSERT's (l.688) |
 | 3 | `CurrentMissions` | `app/client/ui_missn.h:52` | the G_ASSERT's (l.689) |
+| 3 | `UIMountClass` | `app/client/ui_mount.h:29` | class-from-file (D24) for ui_mount.cpp |
 | 3 | `UIPingClass` | `app/client/ui_ping.h:19` | class-from-file (D24) for app\Client\ui_ping.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_playeropt.cpp:28` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UIPlayerOptClass` | `app/client/ui_playeropt.h:20` | class-from-file (D24) for app\client\ui_playeropt.cpp |
@@ -25323,9 +25383,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UITalkTreeSpaceClass` | `app/client/ui_talkt_space.h:10` | class-from-file (D24) for app\client\ui_talkt_space.cpp |
 | 3 | `AvatarPIP` | `app/client/ui_talkt_space.h:22` | the FAIL_IF's 'AvatarPIP' (0x64F430, l.102) |
 | 3 | `As_Space_Client` | `app/client/ui_trade.cpp:44` | ui_manu.cpp's FAIL_IF's |
-| 3 | `SlotData` | `app/client/ui_trade.h:37` | the FAIL_IF's |
-| 3 | `UITradeClass` | `app/client/ui_trade.h:44` | class-from-file (D24) for ui_trade.cpp |
-| 3 | `PDA` | `app/client/ui_trade.h:73` | the assert's |
+| 3 | `SlotData` | `app/client/ui_trade.h:42` | the FAIL_IF's |
+| 3 | `UITradeClass` | `app/client/ui_trade.h:49` | class-from-file (D24) for ui_trade.cpp |
+| 3 | `PDA` | `app/client/ui_trade.h:78` | the assert's |
 | 3 | `ui_verb.h` | `app/client/ui_verb.h:7` | the header of ui_verb.cpp (the client's __FILE__ 0xB8C43C) |
 | 3 | `UIVerbClass` | `app/client/ui_verb.h:39` | class-from-file (D24) for ui_verb.cpp |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |
