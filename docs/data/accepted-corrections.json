@@ -128,6 +128,22 @@
    "moved_to": null,
    "decision": "D209",
    "note": "P-IR3-1 (b), approved by the user 2026-11-08: the loss accepted under D66 when 0x68FB60 / 0x68FC50 / 0x68FC80 move to inv_trade_render.cpp (wt/OM1 a4d2f0de). Lead: the header of the enum statics 0xBE3B44 / 0xC416A8 / 0xC41658."
+  },
+  {
+   "address": "0x752170",
+   "lib": "app",
+   "file": "aux_roots",
+   "moved_to": null,
+   "decision": "D217",
+   "note": "P-SC1-1, approved by the user 2026-11-08: UnknownB00A00Type's copy constructor, byte-identical at 0x499720 / 0x661D70 / 0x752170, held by aux_roots only through the range tie-break; ambiguous once Player's aux tree compiles in sclient.cpp (wt/SC1 100f21b5: 0x7551D0 / 0x753C60 exact). Returns when sclient's 0x751BE0 (DeltaShipInvClass's out-of-line copy) is exact."
+  },
+  {
+   "address": "0x5495A0",
+   "lib": "app",
+   "file": "ui_attrb",
+   "moved_to": null,
+   "decision": "D66",
+   "note": "D66 (vi), run 2026-11-08c (AT3 92f5ce95): the client's ui_attrb object holds two byte-identical static guard / atexit initialisers, 0x548190 (unreferenced) and 0x5495A0 (in the initialiser table); our one copy is now credited to 0x548190."
   }
  ]
 }
