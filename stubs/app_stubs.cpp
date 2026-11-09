@@ -192,14 +192,7 @@ class RegistrationUnknown1ACClass
 {
 public:
 	RegistrationErrorStruct Unknown_7D1AC0();
-	std::vector<RegistrationUnknown578Struct> Unknown_7D3570();
 };
-
-std::vector<RegistrationUnknown578Struct> RegistrationUnknown1ACClass::Unknown_7D3570()
-{
-	STUB_CALLED("RegistrationUnknown1ACClass::Unknown_7D3570 (0x7D3570)");
-	return std::vector<RegistrationUnknown578Struct>();
-}
 
 RegistrationErrorStruct RegistrationUnknown1ACClass::Unknown_7D1AC0()
 {

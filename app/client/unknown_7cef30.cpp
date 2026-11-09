@@ -1,6 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\unknown_7cef30.cpp, PROVISIONAL file name (D137; notes at the end)
 #include "unknown_7cef30.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 std::string Unknown_BE8AA0;
 std::string Unknown_BE8AB0;
@@ -23,6 +24,156 @@ void RegistrationUnknown1ACClass::Unknown_7CF190()
 	Unknown_BE8AC0 = "";
 	Unknown_BE8AB0 = "";
 	Unknown_BE8AA0 = "";
+}
+
+void RegistrationUnknown1ACClass::Unknown_7CFEA0(RegistrationUnknown578Struct *entry, const char *path, int index)
+{
+	if (Unknown_BE8AD8 == NULL) {
+		return;
+	}
+	entry->Unknown00 = Unknown_BE8AD8->Slot3(path, index, "pricing-selection-id");
+	entry->Unknown10 = Unknown_BE8AD8->Slot3(path, index, "pricing-selection-primary-bundle-id");
+	entry->Unknown20 = Unknown_BE8AD8->Slot4(path, index, "pricing-selection-type");
+	entry->Unknown24 = Unknown_BE8AD8->Slot3(path, index, "pricing-selection-name");
+	entry->Unknown34 = Unknown_BE8AD8->Slot3(path, index, "pricing-selection-desc");
+	entry->Unknown44 = Unknown_BE8AD8->Slot4(path, index, "pricing-selection-access-level");
+	entry->Unknown48 = Unknown_BE8AD8->Slot4(path, index, "pricing-selection-display-order");
+	char list[1024];
+	_snprintf(list, sizeof(list), "%s[%d]/payment-type-list", path, index);
+	int count = Unknown_BE8AD8->Slot6(list);
+	for (int i = 0; i < count; i++) {
+		int type = Unknown_BE8AD8->Slot4(list, i, "payment-type");
+		entry->Unknown4C.push_back(type);
+	}
+}
+
+void RegistrationUnknown1ACClass::Unknown_7D0350(SubsBundleStruct *bundle, const char *path, int index)
+{
+	if (Unknown_BE8AD8 == NULL) {
+		return;
+	}
+	bundle->BundleId = Unknown_BE8AD8->Slot3(path, index, "bundle-id");
+	bundle->BundleType = Unknown_BE8AD8->Slot4(path, index, "bundle-type");
+	bundle->BundleStatus = Unknown_BE8AD8->Slot4(path, index, "bundle-status");
+	bundle->BundleName = Unknown_BE8AD8->Slot3(path, index, "bundle-name");
+	bundle->BundleDescription = Unknown_BE8AD8->Slot3(path, index, "bundle-description");
+}
+
+void RegistrationUnknown1ACClass::Unknown_7D0610(SubsGameFeatureStruct *feature, const char *path, int index)
+{
+	if (Unknown_BE8AD8 == NULL) {
+		return;
+	}
+	feature->GameFeatureId = Unknown_BE8AD8->Slot4(path, index, "game-feature-id");
+	feature->GameId = Unknown_BE8AD8->Slot3(path, index, "game-id");
+	feature->Name = Unknown_BE8AD8->Slot3(path, index, "game-feature-name");
+	feature->Description = Unknown_BE8AD8->Slot3(path, index, "game-feature-description");
+	feature->Type = Unknown_BE8AD8->Slot4(path, index, "game-feature-type");
+	feature->Requirements = Unknown_BE8AD8->Slot4(path, index, "game-feature-requirements");
+	feature->Url = Unknown_BE8AD8->Slot3(path, index, "game-feature-url");
+}
+
+void RegistrationUnknown1ACClass::Unknown_7D0930(SubsCouponStruct *coupon, const char *path, int index)
+{
+	if (Unknown_BE8AD8 == NULL) {
+		return;
+	}
+	coupon->CouponId = Unknown_BE8AD8->Slot4(path, index, "coupon-id");
+	coupon->NextBillDate = Unknown_BE8AD8->Slot3(path, index, "coupon-next-bill-date");
+	coupon->RolloverDate = Unknown_BE8AD8->Slot3(path, index, "coupon-rollover-date");
+	coupon->Source = Unknown_BE8AD8->Slot4(path, index, "coupon-source");
+	coupon->Status = Unknown_BE8AD8->Slot4(path, index, "coupon-status");
+	coupon->StatusReasonCode = Unknown_BE8AD8->Slot4(path, index, "coupon-status-reason-code");
+}
+
+void RegistrationUnknown1ACClass::Unknown_7D0BE0(SubsPricingOptionStruct *option, const char *path, int index)
+{
+	if (Unknown_BE8AD8 == NULL) {
+		return;
+	}
+	option->BundleId = Unknown_BE8AD8->Slot3(path, index, "bundle-id");
+	option->PricingOptionId = Unknown_BE8AD8->Slot3(path, index, "pricing-option-id");
+	option->LinkedId = Unknown_BE8AD8->Slot3(path, index, "pricing-option-linked-id");
+	option->Type = Unknown_BE8AD8->Slot4(path, index, "pricing-option-type");
+	option->Name = Unknown_BE8AD8->Slot3(path, index, "pricing-option-name");
+	option->Description = Unknown_BE8AD8->Slot3(path, index, "pricing-option-description");
+	option->ChainDesc = Unknown_BE8AD8->Slot3(path, index, "pricing-option-chain-desc");
+	option->Value = Unknown_BE8AD8->Slot4(path, index, "pricing-option-value");
+	option->Price = Unknown_BE8AD8->Slot5(path, index, "pricing-option-price");
+	option->Units = Unknown_BE8AD8->Slot4(path, index, "pricing-option-units");
+	option->ExpirationDate = Unknown_BE8AD8->Slot3(path, index, "pricing-option-expiration-date");
+	option->RecurringCycles = Unknown_BE8AD8->Slot4(path, index, "pricing-option-recurring-cycles");
+}
+
+void RegistrationUnknown1ACClass::Unknown_7D1060(RegistrationUnknown568Struct *info, const char *path, int index)
+{
+	if (Unknown_BE8AD8 == NULL) {
+		return;
+	}
+	info->EntitlementStatus = Unknown_BE8AD8->Slot4(path, index, "entitlement-status");
+	info->EntitlementStatusReason = Unknown_BE8AD8->Slot4(path, index, "entitlement-status-reason");
+	info->EntitlementSuspendDate = Unknown_BE8AD8->Slot3(path, index, "entitlement-suspend-date");
+	Unknown_7D0350(&info->Bundle, (std::string(path) + "/bundle").c_str(), index);
+	Unknown_7D0BE0(&info->PricingOption, (std::string(path) + "/pricing-option").c_str(), index);
+	char list[1024];
+	_snprintf(list, sizeof(list), "%s[%d]/game-feature-list/game-feature", path, index);
+	int count = Unknown_BE8AD8->Slot6(list);
+	for (int i = 0; i < count; i++) {
+		SubsGameFeatureStruct feature;
+		Unknown_7D0610(&feature, list, i);
+		info->GameFeatures.push_back(feature);
+	}
+	_snprintf(list, sizeof(list), "%s[%d]/coupon-list/coupon", path, index);
+	count = Unknown_BE8AD8->Slot6(list);
+	for (int j = 0; j < count; j++) {
+		SubsCouponStruct coupon;
+		Unknown_7D0930(&coupon, list, j);
+		info->Coupons.push_back(coupon);
+	}
+}
+
+std::vector<RegistrationUnknown578Struct> RegistrationUnknown1ACClass::Unknown_7D3570()
+{
+	std::vector<RegistrationUnknown578Struct> list;
+	if (Unknown_BE8AD8 == NULL) {
+		return list;
+	}
+	const char *path = "/subs-interface-reply/get-pricing-selection-reply/pricing-selection";
+	int count = Unknown_BE8AD8->Slot6(path);
+	if (count == 0) {
+		path = "/subs-interface-reply/get-pricing-selections-by-bundle-reply/pricing-selection-list/pricing-selection";
+		count = Unknown_BE8AD8->Slot6(path);
+		if (count == 0) {
+			path = "/subs-interface-reply/get-pricing-selections-by-code-reply/pricing-selection-list/pricing-selection";
+			count = Unknown_BE8AD8->Slot6(path);
+			if (count == 0) {
+				return list;
+			}
+		}
+	}
+	for (int i = 0; i < count; i++) {
+		RegistrationUnknown578Struct entry;
+		Unknown_7CFEA0(&entry, path, i);
+		list.push_back(entry);
+	}
+	return list;
+}
+
+// NOT EXACT: EH states (0.73: the client destroys the record's bundle strings under one state, ours one each)
+std::vector<RegistrationUnknown568Struct> RegistrationUnknown1ACClass::Unknown_7D3CC0()
+{
+	std::vector<RegistrationUnknown568Struct> list;
+	if (Unknown_BE8AD8 == NULL) {
+		return list;
+	}
+	const char *path = "/subs-interface-reply/get-subscription-info-reply/subscription-info-list/subscription-info";
+	int count = Unknown_BE8AD8->Slot6(path);
+	for (int i = 0; i < count; i++) {
+		RegistrationUnknown568Struct info;
+		Unknown_7D1060(&info, path, i);
+		list.push_back(info);
+	}
+	return list;
 }
 
 SubsRequestClass::SubsRequestClass(const char *url, const char *page, const char *version, bool a, bool b) :

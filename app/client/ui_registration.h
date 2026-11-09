@@ -66,9 +66,9 @@ public:
 	virtual void Slot1();	// 0x7E0070
 	virtual void Slot2();	// 0x7E0180
 	virtual std::string Slot3(const char *path, int index, const char *name);	// 0x7E01B0
-	virtual void Slot4();	// 0x7E0960
-	virtual void Slot5();	// 0x7E09F0
-	virtual void Slot6();	// 0x7E0A80
+	virtual int Slot4(const char *path, int index, const char *name);	// 0x7E0960
+	virtual float Slot5(const char *path, int index, const char *name);	// 0x7E09F0
+	virtual int Slot6(const char *path);	// 0x7E0A80
 	virtual void Slot7();	// 0x7E0BC0
 	virtual void Slot8();	// 0x7E1200
 	virtual void Slot9();	// 0x7E1940
@@ -144,13 +144,6 @@ struct RegistrationUnknown478Struct  // NAME 1 [RegistrationUnknown478Struct]: n
 	std::string UnknownB8;		// +0xB8
 	std::string UnknownC8;		// +0xC8
 	std::string UnknownD8;		// +0xD8
-};
-
-// The 0xF4-byte entries of the interface's vector +0x568 (destructor 0x449CC0, not this object's; nothing here reads them)
-struct RegistrationUnknown568Struct  // NAME 1 [RegistrationUnknown568Struct]: neutral (D10)
-{
-	~RegistrationUnknown568Struct();
-	char Unknown00[0xF4];
 };
 
 // The buttons' map value (0x18 bytes: 0x5F2B20 fills it, 0x5F3470 / 0x5F1A10 pick by the group +0x12)
