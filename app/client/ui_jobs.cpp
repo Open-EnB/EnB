@@ -801,24 +801,24 @@ void UIJobsClass::Unknown_5A3F10(JobDescriptionPacketClass *packet)
 
 
 
+// (inline in 0x5A3FB0 and 0x5A4430: no copy of its own in the client)
+inline void UIJobsClass::Unknown_Remove_Job(int job_id)
+{
+	for (std::list<UIJobsInfoStruct *>::iterator it = Unknown0EC.begin(); it != Unknown0EC.end(); ++it) {
+		UIJobsInfoStruct *job = *it;
+		if (job->Unknown44 == job_id) {
+			if (Unknown0D0 == job_id) {
+				Unknown0CC = -1;
+				Unknown0D0 = 0;
+			}
+			delete job;
+			Unknown0EC.erase(it++);
+			break;
+		}
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// NOT EXACT: inline budget (the client calls the job's destructor 0x5A2250, the iterator's ++ 0x5A4A50 and the first 0x5A3AF0 out of line; ours expands them) (0x5A3FB0)
+// NOT EXACT: inline budget (0x5A4430 inlined with Unknown_Remove_Job inside it: the client expands its delete to 0x5A2250 + operator delete and inlines the list's erase, ours calls the scalar deleting destructor and erase; attempts.csv) (0x5A3FB0)
 // @0x5A3FB0
 void UIJobsClass::Unknown_5A3FB0(JobAcceptReplyPacketClass *packet)
 {
@@ -857,16 +857,16 @@ void UIJobsClass::Unknown_5A3FB0(JobAcceptReplyPacketClass *packet)
 			break;
 	}
 	if (packet->AcceptStatus == 0 || packet->AcceptStatus == 1) {
-		for (std::list<UIJobsInfoStruct *>::iterator it = Unknown0EC.begin(); it != Unknown0EC.end(); it++) {
-			if ((*it)->Unknown44 == Unknown0D0) {
-				Unknown0CC = -1;
-				Unknown0D0 = 0;
-				delete *it;
-				Unknown0EC.erase(it++);
-				break;
-			}
-		}
-		Unknown_5A3AF0();
+		Unknown_5A4430(Unknown0D0);
+
+
+
+
+
+
+
+
+
 		Unknown0CC = -1;
 		Unknown0D0 = 0;
 	}
@@ -877,20 +877,20 @@ void UIJobsClass::Unknown_5A3FB0(JobAcceptReplyPacketClass *packet)
 // @0x5A4430
 void UIJobsClass::Unknown_5A4430(int job_id)
 {
-	for (std::list<UIJobsInfoStruct *>::iterator it = Unknown0EC.begin(); it != Unknown0EC.end(); it++) {
-		UIJobsInfoStruct *job = *it;
-		if (job->Unknown44 == job_id) {
-			if (Unknown0D0 == job_id) {
-				Unknown0CC = -1;
-				Unknown0D0 = 0;
-			}
-			delete job;
-			Unknown0EC.erase(it);
-			break;
-		}
-	}
+	Unknown_Remove_Job(job_id);
 	Unknown_5A3AF0();
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

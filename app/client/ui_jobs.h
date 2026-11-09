@@ -86,6 +86,7 @@ public:
 	void Unknown_5A3BC0(JobListPacketClass *packet);	// 0x5A3BC0 (JOB_LIST 147)  // NAME 1 [packet]: the handler's packet
 	void Unknown_5A3F10(JobDescriptionPacketClass *packet);	// 0x5A3F10 (JOB_DESCRIPTION 148)  // NAME 1 [packet]: the handler's packet
 	void Unknown_5A3FB0(JobAcceptReplyPacketClass *packet);	// 0x5A3FB0 (JOB_ACCEPT_REPLY 150; FAIL_IF '!jobtitle', l.826)  // NAME 1 [packet]: the handler's packet
+	void Unknown_Remove_Job(int job_id);					// (inline in 0x5A3FB0 / 0x5A4430) the job taken out of the list  // NAME 1: neutral (D10)  // NAME 1 [job_id]: neutral
 	void Unknown_5A4430(int job_id);					// 0x5A4430 (JOB_DELETE 149)  // NAME 1 [job_id]: the packet's JobID
 	static int Unknown_5A45A0(int category);			// 0x5A45A0 (cdecl; G_ASSERT(0), l.921): the category's button  // NAME 1 [category]: neutral
 
