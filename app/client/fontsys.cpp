@@ -341,9 +341,9 @@ void FontSys::Unknown_6D5F40(ShaderClass &shader)
 	shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
 }
 
-// 0x6D60C0: the delay before the text shows (+0x26C ms, counted in +0x270); true while it lasts. Plays Info.SoundOn
-// when it ends (or at once without one) unless +0x440 says otherwise.
-// NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched
+// 0x6D60C0: the delay before the text shows (+0x26C ms, counted in +0x270); true while it lasts. Plays Info.SoundOn when it ends
+// (or at once without one) unless +0x440 says otherwise. The hidden bit is RenderObjClass's (+0x18; FontSys's Bits +0x2BC shadows it).
+// NOT EXACT: inline-budget (attempts.csv): the client's first Play copy calls Get_Length / Store_Length out of line, its second operator=
 bool FontSys::Unknown_6D60C0()
 {
 	if (Unknown274[6] == 0) {
@@ -351,20 +351,23 @@ bool FontSys::Unknown_6D60C0()
 		return false;
 	}
 	int frame = WW3D::Get_Frame_Time();
-	if (Unknown270 < Unknown26C) {
-		Unknown274[0] = Unknown270;
-		Bits &= ~IS_NOT_HIDDEN;
-		Unknown270 += frame;
-		if (Unknown270 < Unknown26C) {
+	int time = Unknown270;
+	int delay = Unknown26C;
+	if (time < delay) {
+		Unknown274[0] = time;
+		time += frame;
+		RenderObjClass::Bits &= ~IS_NOT_HIDDEN;
+		Unknown270 = time;
+		if (time < delay) {
 			return true;
 		}
 	}
-	if (Unknown26C > 0) {
+	if (delay > 0) {
 		if (Unknown300) {
-			Bits |= IS_NOT_HIDDEN;
+			RenderObjClass::Set_Hidden(false);
 		}
-		Unknown270 -= Unknown26C;
-		Unknown274[0] -= Unknown26C;
+		Unknown270 = time - delay;
+		Unknown274[0] -= delay;
 		Unknown26C = 0;
 		Unknown274[1] = 0;
 		if (Unknown440 == 0 && Unknown300) {
@@ -372,14 +375,14 @@ bool FontSys::Unknown_6D60C0()
 		}
 		return false;
 	}
-	if (Unknown440 == 0 && Unknown270 == 0 && Unknown300) {
+	if (Unknown440 == 0 && time == 0 && Unknown300) {
 		Unknown_BE67B4->Play(Info.SoundOn);
 	}
 	if (Unknown274[6] != 0) {
 		Unknown274[0] = Unknown270;
 		Unknown270 += frame;
-		Unknown274[1]++;
 		Unknown274[3] += frame;
+		Unknown274[1]++;
 	}
 	return false;
 }
