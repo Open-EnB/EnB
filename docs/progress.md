@@ -2942,6 +2942,12 @@ below name only the work items, the blocked work, the leads and the queues.
      row. Lead (tools): a vtable-slot pairing for the operator classes' byte-identical dtors / deleting dtors (~60 addresses
      in 0x4C9EC0-0x4CAC60 and 0x4CE2A0-0x4CF500, "multiple" today). Interim names (D137): expr_lexer_matchers.cpp,
      expr_math_token.cpp, the expr_math_float / int headers.
+   * **From the 2026-11-09 day run (MT1, FN4):** the options' 'opt06a' channels page from its ctor 0x5C8DB0 (follows
+     ui_option_account.cpp's pattern); InvDataPeekClass is still declared separately in
+     ui_mfd_extended_context_harvestable.h, client_item_property_builder.h and ui_trade.cpp: include inv_data_peek.h
+     instead (one verified step); ui_mount Build 0x5C77A0 (0.53, inline-budget: rtti.h's Cast out of line in the client,
+     frame 0x164 vs 0x1A8) and the uncalled lookup 0x5C8710 (0.58, order); fontsys 0x6CCE60 (Update_Text's countdowns,
+     0.48, no attempts yet).
    * **Font types:** Font32Class's XSpacing / MinSpacing reachable; unknown_6ca0c0.cpp and unknown_6cce60.cpp merged
      when evidence names the object (D137); FontSys::Font +0x24C as `RefCountPtr<Font32Class>` (0x588DC0 passes
      its address as one); sclient.h's `SClientFontDatabaseClass::Unknown_6C52B0(int)` is
@@ -3279,7 +3285,8 @@ below name only the work items, the blocked work, the leads and the queues.
    _attribute.cpp / _attribute_distance / _float / _integer / _percent / _seconds / _string.cpp (IP3: 0x51F900-0x521B1F,
    no asserts), ui_trade.h's Unknown59F3D0Class (TR1: ui_inv.cpp's base, ctor 0x59F3D0, 0xD0
    bytes; the same class as pdaint.h's PDAInventoryWindowClass: merge both into one ui_inv base header at the next
-   ui_inv edit).
+   ui_inv edit; ui_mount.h includes ui_trade.h for it, MT1), ui_option_account.cpp / .h (MT1: the options' account
+   page 'opt05a', UIOptionAccountClass, no string names the file).
 
 9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
@@ -3307,7 +3314,10 @@ below name only the work items, the blocked work, the leads and the queues.
    read only by non-exact functions, tables the compiler inlined or emitted no symbol for, 8 masked pointers in 7 tables
    (ui_attrb 0xB79F04, ui_analyze 0xB7967C, ui_manu 0xB81868, ...).
 
-10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): fontdatabase's Set_Font 0x6C38F0
+10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): inv_data_peek 0x68A090 / 0x68A270 /
+   0x68A450 / 0x68A8C0 (register: the failure path's inlined string ctor `[ecx+ebx]` vs `[ebx+ecx]`, skill_data_peek
+   0x6A5730's residue); fontsys 0x6CD950 (0.71, register: index edi / slot ebp swapped by every clamp form, ~120 forms; a
+   copy at the top fixes the registers but hoists the mov); fontdatabase's Set_Font 0x6C38F0
    register, Load 0x6C52B0 frame; the inlined StringClass::operator+=(TCHAR)'s base / index swap (LIMIT REACHED; lead:
    how the client's wwstring.h writes `m_Buffer[cur_len] = ch`); SoundDefClass 0x43D3E0; attrib_dir's Notify 0x4D71D0, Unlock
    0x4D8690, Attach_Mod 0x4D6820 / 0x4D4810; spln_db's Create_Hermite / Create_Color 0x485C10 / 0x487400 (only the
