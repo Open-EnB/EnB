@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UIJobsClass, ui_jobs.cpp's job board window (0x1F8 bytes, tables 0xAF27E4 / 0xAF27D8 / 0xAF27CC; the client's file per its asserts, this header's name provisional), its job and row structs (0x48 / 0x10 bytes) and ui_inv.cpp's interface as it calls it, laid out from the constructor 0x5A1170 / destructor 0x5A1540 (JB1), over sclient.h's Unknown5BB320Class; moved out of sbaseview.h"
+}
