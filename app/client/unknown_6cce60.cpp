@@ -140,7 +140,6 @@ bool FontSys::Unknown_6CD180()
 
 // 0x6CD6F0: true while the click effects run (+0x294 ms, from Info.TriggerTime): +0x250 2 starts them on button 1 down
 // over the text (0x6CD180's +0x290), 1 while +0x301 is set; the start resets the timers and plays Info.SoundClick.
-// NOT EXACT: order-only (attempts.csv): the client computes the memset address before its count (every memset of +0x303 here)
 bool FontSys::Unknown_6CD6F0()
 {
 	if (Unknown440 != 1) {
@@ -168,7 +167,9 @@ bool FontSys::Unknown_6CD6F0()
 		Unknown274[1] = 0;
 		Unknown414 = 0;
 		Unknown404 = false;
-		memset(Unknown303, 0, sizeof(Unknown303));
+		for (int i = 0; i < 0xFF; i++) {
+			Unknown303[i] = 0;
+		}
 		if (Unknown300) {
 			Unknown_BE67B4->Play(Info.SoundClick);
 		}
@@ -205,7 +206,9 @@ void FontSys::Unknown_6CD950(int index, float time)
 			Unknown274[0] = 0;
 			Unknown414 = 0;
 			Unknown404 = false;
-			memset(Unknown303, 0, sizeof(Unknown303));
+			for (slot = 0; slot < 0xFF; slot++) {
+				Unknown303[slot] = 0;
+			}
 			break;
 		case 19:	// SWITCH
 			Unknown274[9] = 0;
@@ -218,7 +221,6 @@ void FontSys::Unknown_6CD950(int index, float time)
 
 // 0x6CDAB0: an EffectOn effect's starting state, for Change_Text (ROTATE turns the y scale over, FADE starts at its
 // Initial alpha, RANDLETTER clears the shown letters, SCROLL puts the text back at Info.Offset, SCALE starts at Initial).
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDAB0)
 void FontSys::Unknown_6CDAB0(FontEffectStruct *effect)
 {
 	if (effect == NULL) {
@@ -243,7 +245,9 @@ void FontSys::Unknown_6CDAB0(FontEffectStruct *effect)
 		case 5:		// RANDLETTER
 			Unknown270 = 0;
 			Unknown414 = 0;
-			memset(Unknown303, 0, sizeof(Unknown303));
+			{
+				for (int i = 0; i < 0xFF; i++) Unknown303[i] = 0;
+			}
 			break;
 	}
 }
@@ -316,7 +320,9 @@ void FontSys::Change_Text(const char *text, int unknown)
 					Unknown4B4.Unknown0C = 1.0f;
 					Unknown4A4 = Unknown494;
 				}
-				memset(Unknown303, 0, sizeof(Unknown303));
+				for (int j = 0; j < 0xFF; j++) {
+					Unknown303[j] = 0;
+				}
 				Unknown26C = 0;
 				Unknown270 = 0;
 				Unknown274[0] = 0;
@@ -408,7 +414,7 @@ void FontSys::Unknown_6CE7D0(int unknown)
 	Unknown420[2] = 0;
 	Unknown404 = false;
 	Unknown414 = 0;
-	memset(Unknown303, 0, sizeof(Unknown303));
+	for (i = 0; i < 0xFF; i++) Unknown303[i] = 0;
 	for (i = 0; i < 6; i++) Unknown254[i] = 0;
 }
 
@@ -433,4 +439,6 @@ void FontSys::Unknown_6CE910(bool on)
 **	the client's FontSys code spans two objects or one large one); no __FILE__ or string ties them yet.
 **	The +0x254 .. +0x29C words are fontmanager.h's Unknown254[6] / Unknown274[16] (+0x290 = Unknown274[7] the
 **	mouse-over frames, +0x294 = Unknown274[8] the click time left).
+**	Forms: +0x303 is cleared by a byte loop everywhere (VC6 turns it into the rep stosd / stosw / stosb with the
+**	lea edi first, as the client has it; memset puts the lea after the count): 0x6CD6F0 and 0x6CDAB0 exact.
 */
