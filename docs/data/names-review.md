@@ -11675,15 +11675,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown6D47C0Class` | `app/client/ui_cpit.cpp:1867` | untagged neutral name (D10) |
 | 1 | `Unknown2F4` | `app/client/ui_cpit.cpp:2011` | untagged neutral name (D10) |
 | 1 | `Unknown4C5` | `app/client/ui_cpit.cpp:2015` | untagged neutral name (D10) |
-| 1 | `Unknown_584690` | `app/client/ui_cpit.cpp:2021` | untagged neutral name (D10) |
-| 1 | `Unknown168` | `app/client/ui_cpit.cpp:2032` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/client/ui_cpit.cpp:2033` | untagged neutral name (D10) |
-| 1 | `Unknown188` | `app/client/ui_cpit.cpp:2034` | untagged neutral name (D10) |
-| 1 | `Unknown_552FC0` | `app/client/ui_cpit.cpp:2035` | untagged neutral name (D10) |
-| 1 | `Unknown_553370` | `app/client/ui_cpit.cpp:2036` | untagged neutral name (D10) |
-| 1 | `Unknown128` | `app/client/ui_cpit.cpp:2036` | untagged neutral name (D10) |
-| 1 | `Unknown_553500` | `app/client/ui_cpit.cpp:2037` | untagged neutral name (D10) |
-| 1 | `Unknown_5537A0` | `app/client/ui_cpit.cpp:2038` | untagged neutral name (D10) |
+| 1 | `Unknown_584690` | `app/client/ui_cpit.cpp:2022` | untagged neutral name (D10) |
+| 1 | `Unknown168` | `app/client/ui_cpit.cpp:2033` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/client/ui_cpit.cpp:2034` | untagged neutral name (D10) |
+| 1 | `Unknown188` | `app/client/ui_cpit.cpp:2035` | untagged neutral name (D10) |
+| 1 | `Unknown_552FC0` | `app/client/ui_cpit.cpp:2036` | untagged neutral name (D10) |
+| 1 | `Unknown_553370` | `app/client/ui_cpit.cpp:2037` | untagged neutral name (D10) |
+| 1 | `Unknown128` | `app/client/ui_cpit.cpp:2037` | untagged neutral name (D10) |
+| 1 | `Unknown_553500` | `app/client/ui_cpit.cpp:2038` | untagged neutral name (D10) |
+| 1 | `Unknown_5537A0` | `app/client/ui_cpit.cpp:2039` | untagged neutral name (D10) |
 | 1 | `Unknown_584A20` | `app/client/ui_cpit.cpp:2057` | untagged neutral name (D10) |
 | 1 | `Unknown_584A60` | `app/client/ui_cpit.cpp:2066` | untagged neutral name (D10) |
 | 1 | `Unknown_Watch_0C` | `app/client/ui_cpit.cpp:2077` | untagged neutral name (D10) |
@@ -14208,13 +14208,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_66FD80` | `app/client/ui_playeropt.cpp:190` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_playeropt.cpp:200` | untagged neutral name (D10) |
 | 1 | `Unknown_5D9D10` | `app/client/ui_playeropt.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECF0` | `app/client/ui_playeropt.cpp:247` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ui_playeropt.cpp:249` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/ui_playeropt.cpp:250` | untagged neutral name (D10) |
-| 1 | `Unknown_64A220` | `app/client/ui_playeropt.cpp:272` | untagged neutral name (D10) |
-| 1 | `Unknown_64A240` | `app/client/ui_playeropt.cpp:275` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/ui_playeropt.cpp:276` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ui_playeropt.cpp:278` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/client/ui_playeropt.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_playeropt.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_playeropt.cpp:251` | untagged neutral name (D10) |
+| 1 | `Unknown_64A220` | `app/client/ui_playeropt.cpp:273` | untagged neutral name (D10) |
+| 1 | `Unknown_64A240` | `app/client/ui_playeropt.cpp:276` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/ui_playeropt.cpp:277` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_playeropt.cpp:279` | untagged neutral name (D10) |
 | 1 | `Unknown_5DA600` | `app/client/ui_playeropt.cpp:412` | untagged neutral name (D10) |
 | 1 | `Unknown_5DA780` | `app/client/ui_playeropt.cpp:424` | untagged neutral name (D10) |
 | 1 | `Unknown_5DA8C0` | `app/client/ui_playeropt.cpp:432` | untagged neutral name (D10) |
@@ -14508,65 +14508,65 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `x, y` | `app/client/ui_radio_admin.cpp:20` | neutral |
 | 1 | `Unknown_42ECF0` | `app/client/ui_radio_admin.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_B85344` | `app/client/ui_radio_admin.cpp:23` | neutral (D10) |
-| 1 | `Unknown_5E5A40` | `app/client/ui_radio_admin.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_radio_admin.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_radio_admin.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown_66E460` | `app/client/ui_radio_admin.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_radio_admin.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `app/client/ui_radio_admin.cpp:57` | untagged neutral name (D10) |
-| 1 | `Unknown_56D510` | `app/client/ui_radio_admin.cpp:60` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/ui_radio_admin.cpp:64` | neutral (D10) |
-| 1 | `Unknown2C_0A` | `app/client/ui_radio_admin.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown_56D8D0` | `app/client/ui_radio_admin.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_radio_admin.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown_56D970` | `app/client/ui_radio_admin.cpp:73` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_radio_admin.cpp:78` | untagged neutral name (D10) |
-| 1 | `sort` | `app/client/ui_radio_admin.cpp:81` | neutral (D10) |
-| 1 | `Unknown_5E4DB0` | `app/client/ui_radio_admin.cpp:83` | untagged neutral name (D10) |
-| 1 | `Unknown_5E4E70` | `app/client/ui_radio_admin.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown_5E4C60` | `app/client/ui_radio_admin.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown_5E5B10` | `app/client/ui_radio_admin.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown_66C360` | `app/client/ui_radio_admin.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_radio_admin.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown_5E4CD0` | `app/client/ui_radio_admin.cpp:109` | untagged neutral name (D10) |
-| 1 | `Unknown_5E5200` | `app/client/ui_radio_admin.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_radio_admin.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/ui_radio_admin.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown_5E5360` | `app/client/ui_radio_admin.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown_5E5290` | `app/client/ui_radio_admin.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown_66FA90` | `app/client/ui_radio_admin.cpp:148` | untagged neutral name (D10) |
-| 1 | `top` | `app/client/ui_radio_admin.cpp:155` | neutral (D10) |
-| 1 | `Unknown_5E4D10` | `app/client/ui_radio_admin.cpp:158` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_radio_admin.cpp:166` | neutral (D10) |
-| 1 | `Unknown_40` | `app/client/ui_radio_admin.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown_5E4F10` | `app/client/ui_radio_admin.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_radio_admin.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_radio_admin.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_radio_admin.cpp:51` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_radio_admin.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_56D510` | `app/client/ui_radio_admin.cpp:56` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/ui_radio_admin.cpp:60` | neutral (D10) |
+| 1 | `Unknown2C_0A` | `app/client/ui_radio_admin.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_56D8D0` | `app/client/ui_radio_admin.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_radio_admin.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_56D970` | `app/client/ui_radio_admin.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_radio_admin.cpp:74` | untagged neutral name (D10) |
+| 1 | `sort` | `app/client/ui_radio_admin.cpp:77` | neutral (D10) |
+| 1 | `Unknown_5E4DB0` | `app/client/ui_radio_admin.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_5E4E70` | `app/client/ui_radio_admin.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_5E4C60` | `app/client/ui_radio_admin.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_5E5B10` | `app/client/ui_radio_admin.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_5E5A40` | `app/client/ui_radio_admin.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/ui_radio_admin.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_radio_admin.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_5E4CD0` | `app/client/ui_radio_admin.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_5E5200` | `app/client/ui_radio_admin.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_radio_admin.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_radio_admin.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_5E5360` | `app/client/ui_radio_admin.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_5E5290` | `app/client/ui_radio_admin.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_radio_admin.cpp:144` | untagged neutral name (D10) |
+| 1 | `top` | `app/client/ui_radio_admin.cpp:151` | neutral (D10) |
+| 1 | `Unknown_5E4D10` | `app/client/ui_radio_admin.cpp:154` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_radio_admin.cpp:162` | neutral (D10) |
+| 1 | `Unknown_40` | `app/client/ui_radio_admin.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_radio_admin.cpp:182` | untagged neutral name (D10) |
+| 1 | `Unknown_5E4F10` | `app/client/ui_radio_admin.cpp:188` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_radio_admin.cpp:192` | neutral (D10) |
 | 1 | `std:` | `app/client/ui_radio_admin.cpp:195` | neutral (D10) |
-| 1 | `std:` | `app/client/ui_radio_admin.cpp:198` | neutral (D10) |
-| 1 | `Unknown_30` | `app/client/ui_radio_admin.cpp:222` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/ui_radio_admin.cpp:223` | untagged neutral name (D10) |
-| 1 | `sclient` | `app/client/ui_radio_admin.cpp:235` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_radio_admin.cpp:235` | untagged neutral name (D10) |
-| 1 | `chat` | `app/client/ui_radio_admin.cpp:236` | neutral (D10) |
-| 1 | `Unknown224` | `app/client/ui_radio_admin.cpp:237` | untagged neutral name (D10) |
-| 1 | `sclient` | `app/client/ui_radio_admin.cpp:254` | neutral (D10) |
-| 1 | `chat` | `app/client/ui_radio_admin.cpp:255` | neutral (D10) |
-| 1 | `id` | `app/client/ui_radio_admin.cpp:259` | neutral (D10) |
-| 1 | `Unknown1138` | `app/client/ui_radio_admin.cpp:259` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/ui_radio_admin.cpp:261` | untagged neutral name (D10) |
-| 1 | `Unknown_5682C0` | `app/client/ui_radio_admin.cpp:261` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/ui_radio_admin.cpp:262` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/ui_radio_admin.cpp:268` | neutral (D10) |
-| 1 | `id` | `app/client/ui_radio_admin.cpp:277` | neutral (D10) |
-| 1 | `id` | `app/client/ui_radio_admin.cpp:286` | neutral (D10) |
-| 1 | `id` | `app/client/ui_radio_admin.cpp:295` | neutral (D10) |
-| 1 | `sclient` | `app/client/ui_radio_admin.cpp:331` | neutral (D10) |
-| 1 | `chat` | `app/client/ui_radio_admin.cpp:332` | neutral (D10) |
-| 1 | `id` | `app/client/ui_radio_admin.cpp:333` | neutral (D10) |
-| 1 | `Unknown_5E5D70` | `app/client/ui_radio_admin.cpp:340` | untagged neutral name (D10) |
-| 1 | `Unknown_5E5EF0` | `app/client/ui_radio_admin.cpp:352` | untagged neutral name (D10) |
-| 1 | `Unknown_5E6030` | `app/client/ui_radio_admin.cpp:360` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_radio_admin.cpp:363` | neutral (D10) |
-| 1 | `Unknown5E4160Class` | `app/client/ui_radio_admin.cpp:377` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_radio_admin.cpp:220` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_radio_admin.cpp:221` | untagged neutral name (D10) |
+| 1 | `sclient` | `app/client/ui_radio_admin.cpp:233` | neutral (D10) |
+| 1 | `Unknown_18` | `app/client/ui_radio_admin.cpp:233` | untagged neutral name (D10) |
+| 1 | `chat` | `app/client/ui_radio_admin.cpp:234` | neutral (D10) |
+| 1 | `Unknown224` | `app/client/ui_radio_admin.cpp:235` | untagged neutral name (D10) |
+| 1 | `sclient` | `app/client/ui_radio_admin.cpp:252` | neutral (D10) |
+| 1 | `chat` | `app/client/ui_radio_admin.cpp:253` | neutral (D10) |
+| 1 | `id` | `app/client/ui_radio_admin.cpp:257` | neutral (D10) |
+| 1 | `Unknown1138` | `app/client/ui_radio_admin.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_radio_admin.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown_5682C0` | `app/client/ui_radio_admin.cpp:259` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_radio_admin.cpp:260` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/ui_radio_admin.cpp:266` | neutral (D10) |
+| 1 | `id` | `app/client/ui_radio_admin.cpp:275` | neutral (D10) |
+| 1 | `id` | `app/client/ui_radio_admin.cpp:284` | neutral (D10) |
+| 1 | `id` | `app/client/ui_radio_admin.cpp:293` | neutral (D10) |
+| 1 | `sclient` | `app/client/ui_radio_admin.cpp:329` | neutral (D10) |
+| 1 | `chat` | `app/client/ui_radio_admin.cpp:330` | neutral (D10) |
+| 1 | `id` | `app/client/ui_radio_admin.cpp:331` | neutral (D10) |
+| 1 | `Unknown_5E5D70` | `app/client/ui_radio_admin.cpp:338` | untagged neutral name (D10) |
+| 1 | `Unknown_5E5EF0` | `app/client/ui_radio_admin.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown_5E6030` | `app/client/ui_radio_admin.cpp:358` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_radio_admin.cpp:361` | neutral (D10) |
+| 1 | `Unknown5E4160Class` | `app/client/ui_radio_admin.cpp:375` | untagged neutral name (D10) |
 | 1 | `ui_radio_admin.h` | `app/client/ui_radio_admin.h:4` | provisional header name, after the tooltips' section 'UI_RADIO_ADMIN' |
 | 1 | `UIRadioAdminClass` | `app/client/ui_radio_admin.h:16` | neutral, after its tooltips' section 'UI_RADIO_ADMIN' |
 | 1 | `client` | `app/client/ui_radio_admin.h:19` | as the other windows' |
@@ -14736,64 +14736,64 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `x, y` | `app/client/ui_radio_list.cpp:20` | neutral |
 | 1 | `Unknown_42ECF0` | `app/client/ui_radio_list.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_B856CC` | `app/client/ui_radio_list.cpp:23` | neutral (D10) |
-| 1 | `Unknown_5E8860` | `app/client/ui_radio_list.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_radio_list.cpp:48` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_radio_list.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown_66E460` | `app/client/ui_radio_list.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_radio_list.cpp:57` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `app/client/ui_radio_list.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown_56D510` | `app/client/ui_radio_list.cpp:62` | untagged neutral name (D10) |
-| 1 | `name` | `app/client/ui_radio_list.cpp:65` | neutral (D10) |
-| 1 | `Unknown2C_0A` | `app/client/ui_radio_list.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown_5E8C20` | `app/client/ui_radio_list.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown_56D8D0` | `app/client/ui_radio_list.cpp:73` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_radio_list.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown_56D970` | `app/client/ui_radio_list.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_radio_list.cpp:80` | untagged neutral name (D10) |
-| 1 | `sort` | `app/client/ui_radio_list.cpp:83` | neutral (D10) |
-| 1 | `Unknown_5E80E0` | `app/client/ui_radio_list.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown_5E81A0` | `app/client/ui_radio_list.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown_5E7F90` | `app/client/ui_radio_list.cpp:88` | untagged neutral name (D10) |
-| 1 | `Unknown_5E8930` | `app/client/ui_radio_list.cpp:89` | untagged neutral name (D10) |
-| 1 | `Unknown_5E8040` | `app/client/ui_radio_list.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown_66C360` | `app/client/ui_radio_list.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_radio_list.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown_5E8000` | `app/client/ui_radio_list.cpp:112` | untagged neutral name (D10) |
-| 1 | `Unknown_5E84F0` | `app/client/ui_radio_list.cpp:113` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_radio_list.cpp:117` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/ui_radio_list.cpp:123` | untagged neutral name (D10) |
-| 1 | `Unknown_5E85F0` | `app/client/ui_radio_list.cpp:128` | untagged neutral name (D10) |
-| 1 | `Unknown_5E8580` | `app/client/ui_radio_list.cpp:138` | untagged neutral name (D10) |
-| 1 | `Unknown_66FA90` | `app/client/ui_radio_list.cpp:147` | untagged neutral name (D10) |
-| 1 | `top` | `app/client/ui_radio_list.cpp:154` | neutral (D10) |
-| 1 | `index` | `app/client/ui_radio_list.cpp:165` | neutral (D10) |
-| 1 | `Unknown_40` | `app/client/ui_radio_list.cpp:168` | untagged neutral name (D10) |
-| 1 | `Unknown_5E8240` | `app/client/ui_radio_list.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_radio_list.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_radio_list.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_radio_list.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_radio_list.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_56D510` | `app/client/ui_radio_list.cpp:58` | untagged neutral name (D10) |
+| 1 | `name` | `app/client/ui_radio_list.cpp:61` | neutral (D10) |
+| 1 | `Unknown2C_0A` | `app/client/ui_radio_list.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8C20` | `app/client/ui_radio_list.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_56D8D0` | `app/client/ui_radio_list.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_radio_list.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_56D970` | `app/client/ui_radio_list.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_radio_list.cpp:76` | untagged neutral name (D10) |
+| 1 | `sort` | `app/client/ui_radio_list.cpp:79` | neutral (D10) |
+| 1 | `Unknown_5E80E0` | `app/client/ui_radio_list.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_5E81A0` | `app/client/ui_radio_list.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_5E7F90` | `app/client/ui_radio_list.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8930` | `app/client/ui_radio_list.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8860` | `app/client/ui_radio_list.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8040` | `app/client/ui_radio_list.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/ui_radio_list.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_radio_list.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8000` | `app/client/ui_radio_list.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_5E84F0` | `app/client/ui_radio_list.cpp:109` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_radio_list.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/ui_radio_list.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_5E85F0` | `app/client/ui_radio_list.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8580` | `app/client/ui_radio_list.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_radio_list.cpp:143` | untagged neutral name (D10) |
+| 1 | `top` | `app/client/ui_radio_list.cpp:150` | neutral (D10) |
+| 1 | `index` | `app/client/ui_radio_list.cpp:161` | neutral (D10) |
+| 1 | `Unknown_40` | `app/client/ui_radio_list.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_radio_list.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8240` | `app/client/ui_radio_list.cpp:187` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_radio_list.cpp:191` | neutral (D10) |
 | 1 | `std:` | `app/client/ui_radio_list.cpp:194` | neutral (D10) |
-| 1 | `std:` | `app/client/ui_radio_list.cpp:197` | neutral (D10) |
-| 1 | `Unknown_30` | `app/client/ui_radio_list.cpp:217` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/ui_radio_list.cpp:218` | untagged neutral name (D10) |
-| 1 | `sclient` | `app/client/ui_radio_list.cpp:240` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_radio_list.cpp:240` | untagged neutral name (D10) |
-| 1 | `chat` | `app/client/ui_radio_list.cpp:241` | neutral (D10) |
-| 1 | `id` | `app/client/ui_radio_list.cpp:248` | neutral (D10) |
-| 1 | `Unknown1138` | `app/client/ui_radio_list.cpp:248` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/ui_radio_list.cpp:250` | untagged neutral name (D10) |
-| 1 | `Unknown_565F60` | `app/client/ui_radio_list.cpp:257` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_radio_list.cpp:291` | untagged neutral name (D10) |
-| 1 | `sclient` | `app/client/ui_radio_list.cpp:300` | neutral (D10) |
-| 1 | `chat` | `app/client/ui_radio_list.cpp:301` | neutral (D10) |
-| 1 | `id` | `app/client/ui_radio_list.cpp:303` | neutral (D10) |
-| 1 | `Unknown_5682C0` | `app/client/ui_radio_list.cpp:305` | untagged neutral name (D10) |
-| 1 | `id` | `app/client/ui_radio_list.cpp:308` | neutral (D10) |
-| 1 | `title` | `app/client/ui_radio_list.cpp:318` | neutral (D10) |
-| 1 | `button1` | `app/client/ui_radio_list.cpp:319` | neutral (D10) |
-| 1 | `button2` | `app/client/ui_radio_list.cpp:320` | neutral (D10) |
-| 1 | `Unknown_5E8E30` | `app/client/ui_radio_list.cpp:348` | untagged neutral name (D10) |
-| 1 | `Unknown_5E8FF0` | `app/client/ui_radio_list.cpp:363` | untagged neutral name (D10) |
-| 1 | `Unknown_5E9160` | `app/client/ui_radio_list.cpp:374` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_radio_list.cpp:380` | neutral (D10) |
-| 1 | `UIChatPanelUnknownE4Class` | `app/client/ui_radio_list.cpp:395` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_radio_list.cpp:215` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_radio_list.cpp:216` | untagged neutral name (D10) |
+| 1 | `sclient` | `app/client/ui_radio_list.cpp:238` | neutral (D10) |
+| 1 | `Unknown_18` | `app/client/ui_radio_list.cpp:238` | untagged neutral name (D10) |
+| 1 | `chat` | `app/client/ui_radio_list.cpp:239` | neutral (D10) |
+| 1 | `id` | `app/client/ui_radio_list.cpp:246` | neutral (D10) |
+| 1 | `Unknown1138` | `app/client/ui_radio_list.cpp:246` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_radio_list.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown_565F60` | `app/client/ui_radio_list.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_radio_list.cpp:289` | untagged neutral name (D10) |
+| 1 | `sclient` | `app/client/ui_radio_list.cpp:298` | neutral (D10) |
+| 1 | `chat` | `app/client/ui_radio_list.cpp:299` | neutral (D10) |
+| 1 | `id` | `app/client/ui_radio_list.cpp:301` | neutral (D10) |
+| 1 | `Unknown_5682C0` | `app/client/ui_radio_list.cpp:303` | untagged neutral name (D10) |
+| 1 | `id` | `app/client/ui_radio_list.cpp:306` | neutral (D10) |
+| 1 | `title` | `app/client/ui_radio_list.cpp:316` | neutral (D10) |
+| 1 | `button1` | `app/client/ui_radio_list.cpp:317` | neutral (D10) |
+| 1 | `button2` | `app/client/ui_radio_list.cpp:318` | neutral (D10) |
+| 1 | `Unknown_5E8E30` | `app/client/ui_radio_list.cpp:346` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8FF0` | `app/client/ui_radio_list.cpp:361` | untagged neutral name (D10) |
+| 1 | `Unknown_5E9160` | `app/client/ui_radio_list.cpp:372` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_radio_list.cpp:378` | neutral (D10) |
+| 1 | `UIChatPanelUnknownE4Class` | `app/client/ui_radio_list.cpp:393` | untagged neutral name (D10) |
 | 1 | `ui_radio_list.h` | `app/client/ui_radio_list.h:4` | provisional header name, after the window's lists |
 | 1 | `UIRadioListClass` | `app/client/ui_radio_list.h:16` | neutral, after the window's lists |
 | 1 | `client, state` | `app/client/ui_radio_list.h:19` | what the members hold |

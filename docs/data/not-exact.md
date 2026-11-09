@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-709 entries in 216 files.
+703 entries in 215 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -374,7 +374,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |
 | `app/client/ui_cpit.cpp:1278` | `UICpitClass::Unknown_5821C0` | marker | NOT EXACT: written from the client (its expanded 0x584000 calls the find out of line, ours inlines it) |
 | `app/client/ui_cpit.cpp:1866` | `UICpitClass::Unknown_583DC0` | marker | NOT EXACT: inline budget (the client calls the list's _Construct out of line, 0x584F90, and keeps emp in bl; ours expands it) |
-| `app/client/ui_cpit.cpp:2020` | `UICpitClass::Unknown_584690` | marker | NOT EXACT: inline budget (the client calls the vectors' erase out of line, 0x4FC7C0; ours expands it) |
 | `app/client/ui_faction.cpp:230` | `UIFactionClass::Unknown_58DC20` | marker | NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump) |
 | `app/client/ui_friends.cpp:45` | `UIFriendsClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase, the list's begin and erase out of line and expands the list's ??_G; ours the reverse) 0x58FBA0 |
 | `app/client/ui_friends.cpp:183` | `UIFriendsClass::Unknown_5908B0` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14) 0x5908B0 |
@@ -435,18 +434,13 @@ edit the comments in the code, not this file.
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
 | `app/client/ui_mount.cpp:262` | `UIMountClass::Build` | marker | NOT EXACT: functional, from the pseudocode (D64); 0.53: the client calls rtti.h's Cast out of line (0x5469C0, 0x5C8780, 0x5C87D0), this inlines it; the frame is 0x1A8 against 0x164 0x5C77A0 |
 | `app/client/ui_mount.cpp:522` | `Unknown_5C8710` | marker | NOT EXACT: 0.58: the client sets the table pointer after the first name's null test, this before it (scheduling; 4 loop forms) 0x5C8710 |
-| `app/client/ui_playeropt.cpp:220` | `UIPlayerOptClass::Unknown_5D9D10` | marker | NOT EXACT: inline budget (0.63: the client keeps the inner name copy's destructor inline at the loop's end and calls it only on the break, ours merges both into one call; the two string copies' stack slots are swapped) 0x5D9D10 |
 | `app/client/ui_popup_browser.cpp:45` | `UIPopupBrowserClass::UIPopupBrowserClass` | marker | NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it) @0x5DAE90 |
 | `app/client/ui_popup_browser.cpp:76` | `UIPopupBrowserClass::Unknown_54` | marker | NOT EXACT: stub @0x5DB2D0 |
 | `app/client/ui_proc.cpp:126` | `UIProc5DCD20Class::Unknown_08` | marker | NOT EXACT: 0x5DD3C0 (0.81): block order, the cycle wrap's EndFrame arm sits after the return in the client (attempts.csv) @0x5DD3C0 |
 | `app/client/ui_ptrade.cpp:239` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
-| `app/client/ui_radio_admin.cpp:40` | `UIRadioAdminClass::~UIRadioAdminClass` | marker | NOT EXACT: inline budget (the client calls the vector's erase 0x4FC7C0 and the list's erase(first, last) out of line; ours expands both) |
-| `app/client/ui_radio_admin.cpp:190` | `UIRadioAdminClass::Unknown_5E4F10` | marker | NOT EXACT: inline budget (the client calls the vector's erase 0x4FC7C0 out of line; ours expands it) |
-| `app/client/ui_radio_admin.cpp:248` | `UIRadioAdminClass::Unknown_5E5360` | marker | NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets) |
+| `app/client/ui_radio_admin.cpp:246` | `UIRadioAdminClass::Unknown_5E5360` | marker | NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets) |
 | `app/client/ui_radio_join.cpp:161` | `UIRadioJoinClass::Unknown_5EB2F0` | marker | NOT EXACT: the string temporaries' inline expansions and register choices differ (inline budget) |
-| `app/client/ui_radio_list.cpp:42` | `UIRadioListClass::~UIRadioListClass` | marker | NOT EXACT: inline budget (the client calls the vector's erase 0x4FC7C0 and the list's erase(first, last) out of line; ours expands both) |
-| `app/client/ui_radio_list.cpp:189` | `UIRadioListClass::Unknown_5E8240` | marker | NOT EXACT: inline budget (the client calls the vector's erase 0x4FC7C0 out of line; ours expands it) |
-| `app/client/ui_radio_list.cpp:237` | `UIRadioListClass::Unknown_5E85F0` | marker | NOT EXACT: inline budget (the client calls basic_string::erase out of line in the assignment's self-assign branch; ours expands it) |
+| `app/client/ui_radio_list.cpp:235` | `UIRadioListClass::Unknown_5E85F0` | marker | NOT EXACT: inline budget (the client calls basic_string::erase out of line in the assignment's self-assign branch; ours expands it) |
 | `app/client/ui_refinery.cpp:435` | `UIRefineryClass::Unknown_5ECEF0` | marker | NOT EXACT: register (the 'AdditionalIterations' pointer kept in ecx and its local, the two flags' tests in another order; 0x5465C0 / 0x5B7130 out of line as the client) (0x5ECEF0) |
 | `app/client/ui_refinery.cpp:617` | `UIRefineryClass::Unknown_5EDCC0` | marker | NOT EXACT: inline budget (the client calls the 'NegotiatedCost' Cast out of line; the 'Money' find out of line as the client; dead finds before it push the 0x5ECBB0 copies out too) (0x5EDCC0) |
 | `app/client/ui_refinery.cpp:637` | `UIRefineryClass::Unknown_5EDFD0` | marker | NOT EXACT: inline budget (the client calls all three finds' Unknown_Find_Field out of line, 0x5465C0 / 0x417D82, with the name in the caller; ours calls the inline layer out of line, or inlines the find; frame 0xBC vs 0xEC) (0x5EDFD0) |
