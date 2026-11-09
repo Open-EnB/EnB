@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\Common\optdlg.cpp, the options dialog (WinMain's -MENU, 0x846C90:
 // a tab control 0x3FB with one page per entry of the page table, each page a table of controls set from and saved
-// to startup.arg). So far 0x846CD0 / 0x846D10 (exact), 0x846FC0, the dialog procedure 0x8472E0 and the Account page's
+// to startup.arg). So far 0x846CD0, 0x846D10 and the dialog procedure 0x8472E0 (exact), 0x846FC0 and the Account page's
 // procedure 0x847630 (OD1; NOT EXACT). Notes at the end.
 #include "wwlib/win.h"
 #include <commctrl.h>
@@ -170,8 +170,6 @@ static void Unknown_846FC0(OptionControlStruct *controls, FILE *file, HWND dialo
 }
 
 // 0x8472E0
-// NOT EXACT: functional (D64), 0.50: the client keeps WM_INITDIALOG's one-page loop (i in ebx, the function's zero
-// register); VC6 folds every loop form tried (for, do-while, counter at the top, int / unsigned)
 BOOL CALLBACK Unknown_8472E0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)	// NAME 1 [Unknown_8472E0]: neutral (D10), the options dialog's procedure (0x846C90's DialogBoxParam)
 {
 	ArgvClass argv(false, true);
@@ -181,9 +179,9 @@ BOOL CALLBACK Unknown_8472E0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			argv.Load_File(Unknown_BAF740);
 			for (unsigned i = 0; i < sizeof(Unknown_BAF730) / sizeof(Unknown_BAF730[0]); i++) {
 				TCITEM item;							// NAME 1 [item]: neutral
-				item.mask = TCIF_TEXT;
 				item.pszText = (char *)Unknown_BAF730[i].Name;
 				item.cchTextMax = strlen(Unknown_BAF730[i].Name);
+				item.mask = TCIF_TEXT;
 				SendDlgItemMessage(hDlg, 0x3FB, TCM_INSERTITEM, i, (LPARAM)&item);
 				HWND page = CreateDialogParam(ProgramInstance, MAKEINTRESOURCE(Unknown_BAF730[i].Id), hDlg, Unknown_BAF730[i].Proc, 0);	// NAME 1 [page]: neutral
 				Unknown_BAF730[i].Window = page;
@@ -192,7 +190,11 @@ BOOL CALLBACK Unknown_8472E0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				GetWindowRect(hDlg, &dialog_rect);
 				GetWindowRect(GetDlgItem(hDlg, 0x3FB), &tab_rect);
 				SetWindowPos(page, NULL, tab_rect.left - dialog_rect.left, tab_rect.top - dialog_rect.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
-				ShowWindow(page, (i == 0) ? SW_SHOW : SW_HIDE);
+				if (i == 0) {
+					ShowWindow(page, SW_SHOW);
+				} else {
+					ShowWindow(page, SW_HIDE);
+				}
 			}
 			return TRUE;
 		}
@@ -204,10 +206,13 @@ BOOL CALLBACK Unknown_8472E0(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 			NMHDR header = *(NMHDR *)lParam;			// NAME 1 [header]: neutral
 			if (header.code == TCN_SELCHANGE) {
-				if (TabCtrl_GetCurSel(GetDlgItem(hDlg, 0x3FB))) {
-					ShowWindow(Unknown_BAF730[0].Window, SW_HIDE);
-				} else {
-					ShowWindow(Unknown_BAF730[0].Window, SW_SHOWNORMAL);
+				int selection = TabCtrl_GetCurSel(GetDlgItem(hDlg, 0x3FB));	// NAME 1 [selection]: neutral
+				for (unsigned i = 0; i < sizeof(Unknown_BAF730) / sizeof(Unknown_BAF730[0]); i++) {
+					if (selection != (int)i) {
+						ShowWindow(Unknown_BAF730[i].Window, SW_HIDE);
+					} else {
+						ShowWindow(Unknown_BAF730[i].Window, SW_SHOWNORMAL);
+					}
 				}
 			}
 			return TRUE;
@@ -261,5 +266,8 @@ static BOOL CALLBACK Unknown_847630(HWND hDlg, UINT uMsg, WPARAM wParam, LPARAM 
 **	  by the page procedures (0x847630). 0x8476C0 onwards are not rebuilt: its asserts must keep lines 498 / 514.
 **	* Data: the page table 0xBAF730 ({ "Account", 111, 0x847630, NULL }), the file name 0xBAF740, the Account page's
 **	  controls 0xBAF748 (-LOGIN 1000, -PASSWORD 1001); 0xBAF838 on are the other pages' tables (not declared yet).
+**	* 0x8472E0: the pages are loops over the one-entry page table; WM_INITDIALOG's loop survives (i in ebx) only with
+**	  ShowWindow's two calls written as if / else (the ternary folds the loop away), and WM_NOTIFY's folded loop
+**	  compares the selection with the index (cmp eax, ebx) only as 'selection != i'. The TCITEM's text before its mask.
 **	* 0x7E8 is the private message that makes a page write its controls (0x8472E0's IDOK, lParam the open file).
 */

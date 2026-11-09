@@ -5,7 +5,8 @@
  "expected": {},
  "in_tree": [
   "0x846CD0",
-  "0x846D10"
+  "0x846D10",
+  "0x8472E0"
  ],
  "merged": [],
  "name": "common/optdlg.cpp"
