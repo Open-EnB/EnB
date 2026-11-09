@@ -199,6 +199,14 @@ struct RegistrationUnknown478Struct  // NAME 1 [RegistrationUnknown478Struct]: n
 	int UnknownEC;				// +0xEC 'expire-year'
 };
 
+// The 'is-paying-subscriber-reply' (0x7D33D0 returns it; the empty destructor 0x7D3550, its unwind's)
+struct SubsPayingStruct  // NAME 1 [SubsPayingStruct]: the reply's 'paying-subscriber'
+{
+	SubsPayingStruct() : PayingSubscriber(false) {}
+	~SubsPayingStruct() {}
+	bool PayingSubscriber;			// 'paying-subscriber' starts with 'T' / 't'
+};
+
 // What the interface holds at +0x1AC (the function-static 0xBDA960: 0x5FB9F0 / 0x600000 ask it for the reply)
 class RegistrationUnknown1ACClass  // NAME 1 [RegistrationUnknown1ACClass]: neutral (D10)
 {
@@ -221,6 +229,7 @@ public:
 	void Unknown_7D18A0(RegistrationUnknown5A8Struct *entry, const char *path, int index);	// 0x7D18A0 (one 'credit-card': 'type' and the text)
 	void Unknown_7D1620(SubsLoginStruct *login, const char *path, int index);	// 0x7D1620 (one 'login-reply'; no callers)
 	SubsLoginStruct Unknown_7D3000();	// 0x7D3000 (the 'login-reply'; no callers)
+	SubsPayingStruct Unknown_7D33D0();	// 0x7D33D0 (the 'is-paying-subscriber-reply'; no callers)
 	void Unknown_7D1060(RegistrationUnknown568Struct *info, const char *path, int index);	// 0x7D1060 (one 'subscription-info')  // NAME 1 [bundle, feature, coupon, option, info]: what they are
 	std::vector<RegistrationUnknown578Struct> Unknown_7D3570();	// 0x7D3570 (0x5FA0B0, 0x5FA5F0, 0x600000)
 	std::vector<SubsBundleStruct> Unknown_7D3960();	// 0x7D3960 (the 'bundle' lists; no callers)
@@ -262,6 +271,7 @@ public:
 	void Add_Param(const char *name, const char *value);	// 0x7DC420 ('&' between, '=')  // NAME 1 [Add_Param, name, value]: what it does
 	void Add_Param(const char *name, int value);			// 0x7DC6D0 (itoa)
 	void Add_Param(const char *name, bool value);			// 0x7DC8F0 ('1' / '0')
+	void Add_Param(const char *name, const std::string &value) { Add_Param(name, value.c_str()); }	// inline only (0x7DC6D0 / 0x7DC8F0 expand it)
 
 	bool Unknown04;			// +0x04
 	bool Unknown05;			// +0x05

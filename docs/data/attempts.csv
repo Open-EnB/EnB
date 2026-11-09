@@ -2599,3 +2599,6 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-08 22:56,0x7D5600,,app/client/unknown_7cef30.cpp,app,partial,0.50,1,inline-budget,as 0x7D4E30,,opus
 2026-11-08 22:56,0x7D33D0,,app/client/unknown_7cef30.cpp,app,partial,0.54,1,shape,not in the tree: struct { bool } by value with text[0] == 'T' || 't' gave 0.54 (no callers),,opus
 2026-11-08 23:18,0x7D6180,,app/client/unknown_7cef30.cpp,app,partial,0.26,1,shape,"functional from the disassembly (keys and the billing record's offsets right); the client inlines compare(0,len,s,n) for start-year/start-month and other string helpers",,opus
+2026-11-08 23:27,0x7DC6D0,,app/client/unknown_7cef30.cpp,app,exact,,,,"exact: Add_Param(name, std::string(...)) on a temporary, through an inline Add_Param(const char *, const std::string &)",,opus
+2026-11-08 23:27,0x7DC8F0,,app/client/unknown_7cef30.cpp,app,exact,,,,"exact: Add_Param(name, std::string(...)) on a temporary, through an inline Add_Param(const char *, const std::string &)",,opus
+2026-11-08 23:27,0x7D33D0,,app/client/unknown_7cef30.cpp,app,exact,,,,"exact: SubsPayingStruct with an empty user destructor (0x7D3550, the unwind's)",,opus

@@ -252,6 +252,14 @@ SubsLoginStruct RegistrationUnknown1ACClass::Unknown_7D3000()
 	return login;
 }
 
+SubsPayingStruct RegistrationUnknown1ACClass::Unknown_7D33D0()
+{
+	SubsPayingStruct paying;
+	std::string text = Unknown_BE8AD8->Slot3("/subs-interface-reply/is-paying-subscriber-reply", 0, "paying-subscriber");
+	paying.PayingSubscriber = (text[0] == 'T' || text[0] == 't');
+	return paying;
+}
+
 std::vector<RegistrationUnknown578Struct> RegistrationUnknown1ACClass::Unknown_7D3570()
 {
 	std::vector<RegistrationUnknown578Struct> list;
@@ -733,19 +741,15 @@ void SubsRequestClass::Add_Param(const char *name, const char *value)
 	Query += value;
 }
 
-// NOT EXACT: inline budget (0.40: the client inlines the string's _Eos, and the buffer is larger)
 void SubsRequestClass::Add_Param(const char *name, int value)
 {
 	char buffer[52];
-	std::string text(itoa(value, buffer, 10));
-	Add_Param(name, text.c_str());
+	Add_Param(name, std::string(itoa(value, buffer, 10)));
 }
 
-// NOT EXACT: inline budget (0.35: the client inlines the string's _Eos and the last append)
 void SubsRequestClass::Add_Param(const char *name, bool value)
 {
-	std::string text(value ? "1" : "0");
-	Add_Param(name, text.c_str());
+	Add_Param(name, std::string(value ? "1" : "0"));
 }
 
 /*
@@ -764,7 +768,8 @@ void SubsRequestClass::Add_Param(const char *name, bool value)
 ** - 0x7D1AC0: the reply's '/status', '/message', '/url', '/@dtdversion' under the root element (slot 0x40), else
 **   'NO DOCTYPE Specification.' and -1.
 ** - 0x7D21C0-0x7D4530: the '/subs-interface-reply/...' readers: get-acctinfo 0x7D21C0 (with the alt-name list 0x7D2690),
-**   billing 0x7D28B0 (0x7D2C70), login 0x7D3000, is-paying-subscriber 0x7D33D0 (no callers: 'T' / 't'), pricing
+**   billing 0x7D28B0 (0x7D2C70), login 0x7D3000, is-paying-subscriber 0x7D33D0 (no callers: 'T' / 't'; the
+**   empty ~SubsPayingStruct 0x7D3550 is its unwind's), pricing
 **   selections 0x7D3570, bundles 0x7D3960, subscription info 0x7D3CC0, credit card types 0x7D4530; between them
 **   ~SubsLoginStruct 0x7D3300 (0x7D3000's unwind calls it) and the records' constructors 0x7D4010 / 0x7D4370.
 ** - 0x7D47F0-0x7DB850: one request function per 'methodCall': a SubsRequestClass on the stack from the globals (the
