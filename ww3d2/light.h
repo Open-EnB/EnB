@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -118,6 +118,7 @@ public:
 
 	void						Set_Far_Attenuation_Range(double fStart, double fEnd)				{ FarAttenStart = fStart; FarAttenEnd = fEnd; }
 	void						Get_Far_Attenuation_Range(double& fStart, double& fEnd) const	{ fStart = FarAttenStart; fEnd = FarAttenEnd; }
+	void						Get_Far_Attenuation_Range(float & fStart, float & fEnd) const	{ fStart = FarAttenStart; fEnd = FarAttenEnd; }
 	void						Set_Near_Attenuation_Range(double nStart, double nEnd)			{ NearAttenStart = nStart; NearAttenEnd = nEnd; }
 	void						Get_Near_Attenuation_Range(double& nStart, double& nEnd)	const	{ nStart = NearAttenStart; nEnd = NearAttenEnd; }
 	float						Get_Attenuation_Range(void) const										{ return FarAttenEnd; } 
@@ -184,3 +185,8 @@ protected:
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's light.h
+// EnB: LightClass::Get_Far_Attenuation_Range(float &, float &) (line 121): added, as Zero Hour's (GeneralsMD)
+//       light.h has it: ui_starbase.cpp's 0x646A00 copies the two floats with mov straight into its Vector3, which
+//       only the float & overload gives (the double & one goes through fld / fstp)
