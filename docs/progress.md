@@ -2942,9 +2942,15 @@ below name only the work items, the blocked work, the leads and the queues.
      row. Lead (tools): a vtable-slot pairing for the operator classes' byte-identical dtors / deleting dtors (~60 addresses
      in 0x4C9EC0-0x4CAC60 and 0x4CE2A0-0x4CF500, "multiple" today). Interim names (D137): expr_lexer_matchers.cpp,
      expr_math_token.cpp, the expr_math_float / int headers.
-   * **From the 2026-11-09 day run (RF1):** the chat-channel window 0x5E9910-0x5EB7B0 ('title_Cht01',
-     ClientChatRequestPacketClass; between ui_radio_entry.cpp and ui_refinery.cpp, file name unknown: 0x5E9BB0 1.3 KB,
-     0x5EB2F0 1.2 KB, 0x5EA260 3 callers) as its own file; sbaseview.h's SBaseViewUnknown184Class -> `class
+   * **From the 2026-11-09 day run (CH1):** the chat windows before ui_radio_main.cpp, each its own object (closed by
+     its adjustor thunks): 'cht02' the channel list 0x5E7500-0x5E940F; 'cht04' the password entry 0x5E6290-0x5E74FF,
+     the real ui_radio_entry.cpp (its assert '!PasswordGadget || !ConfirmGadget'); 'cht05' the channel admin
+     ('UI_RADIO_ADMIN') from about 0x5E3F00; ui_chat_panel.cpp's local Unknown5E9410Class / Unknown5EAB40Class (its
+     lines 150-151, 1165-1186) onto ui_radio_main.h / ui_radio_join.h, one verified step; 0x5EB2F0 (0.51, inline-budget:
+     the client's three std::string(const char *) temporaries call _Tidy(false) out of line and inline assign(s, n));
+     symbols.json's name for the thunk 0x4105DC ('DynamicScreenMeshClass::Set_Aspect') is wrong: it is
+     ChatPanelInterface::Unknown_565F60's.
+   * **From the 2026-11-09 day run (RF1):** sbaseview.h's SBaseViewUnknown184Class -> `class
      UIRefineryClass;` with the SEND_SYMBOL_PAD sweep in the same change (a plain forward declaration gained 0x702240 and
      lost 0x758210), then drop sbaseview.cpp case 5's cast; ui_refinery near misses 0x5EDCC0 (0.77, inline-budget: the
      'NegotiatedCost' Cast out of line), 0x5ECEF0 (0.76, register / flag-test order), 0x5EDFD0 (0.38, a probe reached
@@ -3302,7 +3308,9 @@ below name only the work items, the blocked work, the leads and the queues.
    UISlotDataClass 0x62DE80, declared only; ui_attrb_skills.h's Unknown62D1F0Class may move onto it),
    ui_option_account.cpp / .h (MT1: the options' account
    page 'opt05a', UIOptionAccountClass, no string names the file), ui_option_channel.cpp / .h ('opt06a') and
-   ui_option_check.cpp / .h ('opt03a') (OP1: named after the tooltip sections UI_OPTION_CHANNEL / UI_OPTION_CHECK).
+   ui_option_check.cpp / .h ('opt03a') (OP1: named after the tooltip sections UI_OPTION_CHANNEL / UI_OPTION_CHECK),
+   ui_radio_main.cpp / .h ('cht01', tooltip 'UI_RADIO_MAIN') and ui_radio_join.cpp / .h ('cht03', 'Join Private
+   Channel') (CH1: no asserts in either).
 
 9. **Tools:** P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
