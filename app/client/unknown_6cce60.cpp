@@ -180,7 +180,8 @@ bool FontSys::Unknown_6CD6F0()
 
 // 0x6CD950: EffectTriggered[index] runs for time seconds (+0x2A4.., ms; the index clamped to 0..3 for the timer
 // only, as the client does) and the state its effect type keeps is reset.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD950)
+// NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape; VC6 gives
+// the clamped slot edi and index ebp, the client the reverse (0x6CD950)
 void FontSys::Unknown_6CD950(int index, float time)
 {
 	int slot = index < 0 ? 0 : (index > 3 ? 3 : index);
@@ -190,6 +191,12 @@ void FontSys::Unknown_6CD950(int index, float time)
 		return;
 	}
 	switch (effect->EffectType) {
+		case 20:	// STRETCH
+			Unknown274[10] = 0;
+			break;
+		case 19:	// SWITCH
+			Unknown274[9] = 0;
+			break;
 		case 1:		// PULSE
 			Unknown274[3] = 0;
 			break;
@@ -209,12 +216,6 @@ void FontSys::Unknown_6CD950(int index, float time)
 			for (slot = 0; slot < 0xFF; slot++) {
 				Unknown303[slot] = 0;
 			}
-			break;
-		case 19:	// SWITCH
-			Unknown274[9] = 0;
-			break;
-		case 20:	// STRETCH
-			Unknown274[10] = 0;
 			break;
 	}
 }
