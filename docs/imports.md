@@ -1428,7 +1428,7 @@ Base copy: reconstructed. Headers: 480 from reconstructed.
 | client/ui_cinfo.cpp | reconstructed | 36 | 3 | - | - | - |  |
 | client/ui_class.cpp | reconstructed | 68 | 4 | - | - | - |  |
 | client/ui_combobox.cpp | reconstructed | 25 | 2 | - | - | - |  |
-| client/ui_cpit.cpp | reconstructed | 98 | 5 | - | - | - |  |
+| client/ui_cpit.cpp | reconstructed | 101 | 5 | - | - | - |  |
 | client/ui_faction.cpp | reconstructed | 67 | 5 | - | - | - |  |
 | client/ui_friends.cpp | reconstructed | 42 | 2 | - | - | - |  |
 | client/ui_group.cpp | reconstructed | 90 | 6 | - | - | - |  |
