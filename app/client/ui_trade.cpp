@@ -8,7 +8,10 @@
 #include "gd_robj.h"
 #include "unknown_675120.h"
 #include "fontmanager.h"
+#include "gd_slot_data.h"
+#include "inv_trade_render.h"
 #include "option.h"
+#include "slot_data.h"
 #include "item\client_item_property_builder.h"
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\lookup.h"
@@ -20,6 +23,7 @@ extern const char *Unknown_BAE854[];		// 0xBAE854: the categories' names ('Devic
 bool operator!=(const MoneyClass &a, const MoneyClass &b);	// money.cpp's (out of line, ??9@YA_NABVMoneyClass@@0@Z)  // NAME 1 [a, b]: neutral
 bool operator<(const MoneyClass &a, const MoneyClass &b);	// money.cpp's (out of line, ??M@YA_NABVMoneyClass@@0@Z)  // NAME 1 [a, b]: neutral
 MoneyClass operator*(const MoneyClass &a, float b);			// money.cpp's (out of line, ??D@YA?AVMoneyClass@@ABV0@M@Z)  // NAME 1 [a, b]: neutral
+MoneyClass operator*(float a, const MoneyClass &b);			// money.cpp's (out of line, ??D@YA?AVMoneyClass@@MABV0@@Z)  // NAME 1 [a, b]: neutral
 MoneyClass operator+(const MoneyClass &a, const MoneyClass &b);	// money.cpp's (out of line, ??H@YA?AVMoneyClass@@ABV0@0@Z)  // NAME 1 [a, b]: neutral
 struct InvDataPeekItemStruct	// NAME 1: neutral (D10): as far as this file reads it (ui_mfd_extended_context_harvestable.h's +0x14 Name)
 {
@@ -39,10 +43,6 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
-
-
-
-
 
 
 
@@ -721,31 +721,31 @@ void UITradeClass::Unknown_652450(bool force)
 
 
 
+// @0x652890
+void UITradeClass::Unknown_652890()
+{
+	if ((unsigned int)Unknown170 < 5) {
+		SlotDataGadgetClass *bttn = Unknown88[Unknown170];
+		FAIL_IF(!bttn) return;
 
+		SlotDataRenderClass *sd_render = bttn->SlotRender;
+		FAIL_IF(!sd_render) return;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		InvTradeRenderClass *trade_render = (InvTradeRenderClass *)sd_render->Unknown_24();
+		FAIL_IF(!trade_render) return;
+		InvDataPeekClass *peek = trade_render->Peek_Inv_Data()->Unknown_688830();
+		int slot = trade_render->Unknown20;
+		MoneyClass price = peek->Unknown_689DA0(slot);
+		std::string name("");
+		int count;
+		Unknown_5A00C0(&count, &name);
+		MoneyClass total = (float)count * price;
+		char text[128];
+		_snprintf(text, sizeof(text), "Confirm purchase of %d %s for %s credits?", count, name.c_str(), total.Unknown_4F00C0(true).c_str());
+		Get_View()->Get_Unknown34()->Unknown_588A70("BUY_CONFIRMATION", false, text, 320, false, false);
+		Unknown174 = 1;
+	}
+}
 
 
 
@@ -896,10 +896,10 @@ void UITradeClass::Unknown_6531F0(bool arg)
 
 /*
 ** Reconstruction notes (TR1, 2026-11-09)
-** The trade window's functions in the client's order, as far as rebuilt: 0x651F60, 0x652360, 0x652450, 0x652BA0,
+** The trade window's functions in the client's order, as far as rebuilt: 0x651F60, 0x652360, 0x652450, 0x652890, 0x652BA0,
 ** 0x652C60, 0x652E70, 0x652EB0, 0x652FF0, 0x6531F0. The constructor 0x650560 (G_ASSERT 'PDA' l.106), Init 0x650A40
-** (l.137-199), 0x651390 (l.247), 0x651830 (l.466), the hash-set users 0x652030 / 0x6522D0 / 0x652670, 0x652890
-** (l.729-735), 0x653450 (l.911-917) and the rest of 0x650490-0x653AE5 are not rebuilt yet; their lines are kept blank.
+** (l.137-199), 0x651390 (l.247), 0x651830 (l.466), the hash-set users 0x652030 / 0x6522D0 / 0x652670, 0x653450
+** (l.911-917) and the rest of 0x650490-0x653AE5 are not rebuilt yet; their lines are kept blank.
 ** Forms: the box is reached through Get_View()->Get_Unknown34() (the client reads it into eax first); 0x652EB0 stays
 ** out of line in 0x652FF0 / 0x6531F0 only with its item through named locals (a shorter source is inlined); 0x652FF0
 ** closes the box on its own when 0x652EB0 fails; 0x652C60 sets +0x174 before its total.

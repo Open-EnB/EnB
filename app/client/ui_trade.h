@@ -5,12 +5,14 @@
 #define UI_TRADE_H
 
 #include <vector>
+#include <string>
 #include "pdaint.h"			// (before sclient.h: its PDAInterfaceClass)
 #include "sclient.h"
 #include "..\shared\money.h"
 #include "..\..\wwlib\ref_ptr.h"
 
 class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xD4)
+class SlotDataGadgetClass;		// gd_slot_data.h's slot gadgets (the base's +0x88)
 class RenderObjClass;
 class SlotDataClass;			// slot_data.h's (the base's +0x98)
 class InvDataClass;				// client_item_property_builder.h's (the base's 0x59FE10)
@@ -27,9 +29,11 @@ public:
 	virtual void Unknown_B8(); virtual void Unknown_BC(); virtual void Unknown_C0(); virtual void Unknown_C4();
 	virtual void Unknown_C8();							// +0xC8 (the trade window calls it after setting +0xB4 to -1)
 	InvDataClass *Unknown_59FE10();						// 0x59FE10 (SlotData's slot +0x10)
+	void Unknown_5A00C0(int *count, std::string *name);	// 0x5A00C0 (the trade window's 0x652890: the count and the name of the buy)  // NAME 1 [count, name]: what 0x652890 prints
 	void Unknown_5A02E0(bool arg);						// 0x5A02E0 (the trade window's 0x652FF0 passes true)  // NAME 1 [arg]: neutral
 
-	char Unknown84[0x98 - 0x84];						// +0x84
+	char Unknown84[0x88 - 0x84];						// +0x84
+	std::vector<SlotDataGadgetClass *> Unknown88;		// +0x88 (the slots' gadgets: the trade window's 0x652890 reads 0..4 as '!bttn')  // NAME 1: neutral (D10)
 	SlotDataClass *SlotData;							// +0x98 (0x62DE80's class's FAIL_IF '!SlotData')  // NAME 3: the FAIL_IF's
 	char Unknown9C[0xB4 - 0x9C];						// +0x9C
 	int UnknownB4;										// +0xB4 (the trade window sets -1 before slot +0xC8)
@@ -44,6 +48,7 @@ public:
 	void Unknown_651F60(int index);						// 0x651F60 (the category: clamped to the shown ones, -2 none)  // NAME 1 [index]: neutral
 	void Unknown_652360();								// 0x652360 (FAIL_IFs '!bttn' l.674, '!font' l.680: the six category buttons)
 	void Unknown_652450(bool force);					// 0x652450 (FAIL_IF '!font' l.699: the credits text)  // NAME 1 [force]: neutral
+	void Unknown_652890();								// 0x652890 (FAIL_IFs '!bttn' l.729, '!sd_render' l.732, '!trade_render' l.735: the purchase asked, +0x174 1)
 	void Unknown_652BA0(bool arg, bool significant);	// 0x652BA0 (the loss warning box, +0x174 3 with arg, else 2)  // NAME 1 [arg, significant]: neutral
 	void Unknown_652C60();								// 0x652C60 (the whole stack's sale asked, +0x174 4)
 	void Unknown_652E70();								// 0x652E70 (the 'BUY_CONFIRMATION' box closed, +0x174 0)
