@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-677 entries in 202 files.
+673 entries in 202 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -42,12 +42,8 @@ edit the comments in the code, not this file.
 | `app/client/camera_manager.cpp:706` | `CameraManagerClass::Unknown_79B6B0` | mention | NOT EXACT (CS1, 2026-11-07). 0x799E40's inlining: 0x79B330 inline for its first 17 requests and 0x799DA0 for 23 sites only with 0x79B330 written without a bit local (with it, the requests 15 and 16 lose theirs to the budget); the 'bit' local form is exact out of line too. 0x7998B0's shifted box needs Set_Translation (Matrix3D(-delta) copies through the FPU). |
 | `app/client/cammod_chase.cpp:145` | `ChaseCameraModuleClass::Unknown_79BFC0` | marker | NOT EXACT: inline budget (0.42: the client inlines Translate_Z and computes Normalize's Length2 twice; ours calls Translate_Z) |
 | `app/client/cammod_chase.h:30` | `?` | mention | NOT EXACT) // NAME 2 [des_quat, des_pos, obj]: its FAIL_IFs |
-| `app/client/chat_window.cpp:250` | `ChatWindowClass::Unknown_67E670` | marker | NOT EXACT: the clamp of `spaces` only: the client tests spaces < 1 twice (0x67E78C, 0x67E79D); VC6 folds the second here |
 | `app/client/chat_window.cpp:299` | `ChatWindowClass::Unknown_67F7F0` | marker | NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy) |
-| `app/client/chat_window.cpp:503` | `ChatWindowClass::Unknown_6804E0` | marker | NOT EXACT: the height is kept in two stack slots in the client (fst [esp+0xC]; fstp [esp+8], frame 4 larger); the rest is the client form |
-| `app/client/chat_window_history.cpp:5` | `ChatWindowHistoryClass::ChatWindowHistoryClass` | marker | NOT EXACT: Text's copy is inlined here; the client calls string's copy constructor (0x681400), and everything after it shifts |
-| `app/client/chat_window_history.cpp:165` | `ChatWindowHistoryClass::Unknown_08` | marker | NOT EXACT: slots and registers: count in the text parameter's slot, i in ebx; the loop's index test calls size() out of line (0x6824F0) |
-| `app/client/chat_window_history.cpp:215` | `ChatWindowHistoryClass::Unknown_682770` | marker | NOT EXACT: the walk back: the client keeps the mask 2 in al and an unrotated loop (0x6827BB); this rotates it |
+| `app/client/chat_window_history.cpp:216` | `ChatWindowHistoryClass::Unknown_682770` | marker | NOT EXACT: the walk back: the client keeps the mask 2 in al and an unrotated loop (0x6827BB); this rotates it |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; six forms; 'Null Item' passed as a plain literal brings out the client's three string COMDATs 0x729260..0x7292D0; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
@@ -356,7 +352,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_window.cpp:509` | `ChatWindowInterface::Unknown_5715F0` | marker | NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (0.71) |
 | `app/client/ui_chat_window.cpp:607` | `ChatWindowInterface::Unknown_5719A0` | marker | NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (exact as Vector3 &f(Vector3 &color, entry): proposal) |
 | `app/client/ui_chat_window.cpp:622` | `ChatWindowInterface::Unknown_571A70` | marker | NOT EXACT: functional (CW2): defined inline so its callers inline it as the client's do; no out-of-line copy (the client has one, uncalled) |
-| `app/client/ui_chat_window_split.cpp:79` | `UIChatWindowSplitClass::~UIChatWindowSplitClass` | marker | NOT EXACT: functional (CW3): ours inlines the second assign and append and the first assign's copy; the client calls the first assign and both appends (std::string budget, 0.37) |
+| `app/client/ui_chat_window_split.cpp:79` | `UIChatWindowSplitClass::~UIChatWindowSplitClass` | marker | NOT EXACT: register-only (W2, 0.76): the second Remove_Anim_Combo_Data argument is loaded before the first call (esi); the client loads it into ecx after it |
 | `app/client/ui_chat_window_split.cpp:114` | `UIChatWindowSplitClass::Unknown_54` | marker | NOT EXACT: register-only (W1): the last Release_Ref's vtable goes through edx where the client uses eax; every other byte is the client's |
 | `app/client/ui_cinfo.cpp:224` | `UICinfoClass::Unknown_573E80` | marker | NOT EXACT: register (the menu fonts' Get_Style arguments load in another register order; 0x5741A0's loop inlined three times) |
 | `app/client/ui_cinfo.cpp:278` | `UICinfoClass::Unknown_5741A0` | marker | NOT EXACT: register (this and the index swap ebx / edi; four loop forms tried) |

@@ -1450,13 +1450,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownA4` | `app/client/chat_window.h:94` | neutral (D10) |
 | 1 | `UnknownA8` | `app/client/chat_window.h:95` | neutral (D10) |
 | 1 | `UnknownBC` | `app/client/chat_window.h:97` | neutral (D10) |
-| 1 | `Unknown44` | `app/client/chat_window_history.cpp:8` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/client/chat_window_history.cpp:9` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/client/chat_window_history.cpp:10` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/chat_window_history.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/chat_window_history.cpp:12` | untagged neutral name (D10) |
-| 1 | `Unknown58` | `app/client/chat_window_history.cpp:13` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/chat_window_history.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/chat_window_history.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/chat_window_history.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/chat_window_history.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/chat_window_history.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/chat_window_history.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown58` | `app/client/chat_window_history.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown5C` | `app/client/chat_window_history.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_681DB0` | `app/client/chat_window_history.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_6818C0` | `app/client/chat_window_history.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/chat_window_history.cpp:36` | untagged neutral name (D10) |
@@ -1464,8 +1464,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_10` | `app/client/chat_window_history.cpp:118` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/chat_window_history.cpp:159` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/chat_window_history.cpp:162` | untagged neutral name (D10) |
-| 1 | `Unknown_682730` | `app/client/chat_window_history.cpp:178` | untagged neutral name (D10) |
-| 1 | `Unknown_682770` | `app/client/chat_window_history.cpp:216` | untagged neutral name (D10) |
+| 1 | `Unknown_682730` | `app/client/chat_window_history.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_682770` | `app/client/chat_window_history.cpp:217` | untagged neutral name (D10) |
 | 1 | `Unknown_682840` | `app/client/chat_window_history.cpp:429` | untagged neutral name (D10) |
 | 1 | `Unknown_682880` | `app/client/chat_window_history.cpp:434` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/chat_window_history.cpp:440` | untagged neutral name (D10) |
