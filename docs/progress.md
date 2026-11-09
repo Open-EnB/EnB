@@ -2949,6 +2949,11 @@ below name only the work items, the blocked work, the leads and the queues.
      lost 0x758210), then drop sbaseview.cpp case 5's cast; ui_refinery near misses 0x5EDCC0 (0.77, inline-budget: the
      'NegotiatedCost' Cast out of line), 0x5ECEF0 (0.76, register / flag-test order), 0x5EDFD0 (0.38, a probe reached
      0.48), 0x5EE460 (0.34, register, ui_manu 0x5B5CD0's residue).
+   * **From the 2026-11-09 day run (UI1):** the rest of ui_inv.cpp: 0x59E970-0x59F2C0, three window classes over
+     UIInvClass (vtables 0xAF2414 / 0xAF2644, a `vector<RenderObjClass*>` at +0xD4, a shared inline Add at line 108 with
+     the '!robj' FAIL_IF, slot +0x54 0x59F2C0) and their vector helpers 0x5A0FC0-0x5A1060; near misses 0x59FE30 (0.62,
+     register), 0x5A0740 (0.37, shape: the client's returns share one `mov al,1` exit; a form stashed), 0x5A0D00 (0.58,
+     register).
    * **From the 2026-11-09 day run (OP1):** the options' next page from 0x5CA010 (0x1B0 bytes, request 8), after
      ui_option_check.cpp; ui_chat_panel.cpp's local Unknown5C8870Class / Unknown5C9910Class onto ui_option_account.h /
      ui_option_check.h (ctor (client, page, mode)), and 0x5C8DB0's caller 0x569B5A (in 0x569A00) onto
@@ -3293,9 +3298,9 @@ below name only the work items, the blocked work, the leads and the queues.
    'UI_GUILD_LIST', object 0x81E030-0x81F0FF), client_item_property_unknown_529810 / _description / _name /
    _option_auto_fire.cpp (IP2: the property classes 0x529810-0x52B380 without a `__FILE__`), client_item_property.cpp /
    _attribute.cpp / _attribute_distance / _float / _integer / _percent / _seconds / _string.cpp (IP3: 0x51F900-0x521B1F,
-   no asserts), ui_trade.h's Unknown59F3D0Class (TR1: ui_inv.cpp's base, ctor 0x59F3D0, 0xD0
-   bytes; the same class as pdaint.h's PDAInventoryWindowClass: merge both into one ui_inv base header at the next
-   ui_inv edit; ui_mount.h includes ui_trade.h for it, MT1), ui_option_account.cpp / .h (MT1: the options' account
+   no asserts), ui_inv.h (UI1: UIInvClass, named from the file, D24; no RTTI) and ui_slot_data.h (UI1: its base
+   UISlotDataClass 0x62DE80, declared only; ui_attrb_skills.h's Unknown62D1F0Class may move onto it),
+   ui_option_account.cpp / .h (MT1: the options' account
    page 'opt05a', UIOptionAccountClass, no string names the file), ui_option_channel.cpp / .h ('opt06a') and
    ui_option_check.cpp / .h ('opt03a') (OP1: named after the tooltip sections UI_OPTION_CHANNEL / UI_OPTION_CHECK).
 
