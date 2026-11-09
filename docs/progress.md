@@ -2666,12 +2666,6 @@ below name only the work items, the blocked work, the leads and the queues.
    `python tools/run_branch.py start` (coordinator-pacing skill).
 
 1. **Work items** (each at its file's next edit, unless it says otherwise):
-   * fontdatabase.cpp's stand-in FontTextFileClass is SplitStringClass and ui_line_display.cpp's LineDisplayWrapClass
-     is FontSplitStringClass; 0x4FA8F0's 9 other callers and Set_Font 0x4FAAC0's 2 can include
-     unknown_font_split_string.h.
-   * FontSys's local views (loadingview, sbaseview, ui_avatar_cust, ui_avatr, ui_chat_panel, ui_combobox, ui_cpit,
-     ui_group, ui_manu: `class FontSys : public RenderObjClass`, the real one a DynamicMeshClass) can include
-     fontmanager.h at their file's next edit (P-FU1-1's merge; the names agree since 2026-11-03).
    * Merges into real headers: P-H9-3 /
      P-H11-1 / P-H13-2 (stand-in names and twins switched to the real headers); P-MU1-2 (SClient 0x744560, PDAInterfaceClass 0x695A00 /
      0x695780, UIMeshClass 0x5B9930 declared in their headers instead of ui_manu.cpp's local cast classes); an
@@ -2680,8 +2674,9 @@ below name only the work items, the blocked work, the leads and the queues.
      and the RS_* masks (now in rs_track.h); ui_popupmsg.h once ui_popupmsg.cpp's lines can be held (a 21-line class
      before an assert); Unknown_4BE9D0 in a small header of its own (in unknown_message.h, `<string>` costs
      unknown_message_server's 0x4BCB50).
-   * Types: FontSys's constructors 0x6D47C0 / 0x6D4C70 and ManagedFontClass::Unknown_6CF930 still take the render object
-     as an integer (fontmanager.cpp casts ManagedFontClass::Id for them since P-FU1-2); P-SM1-2 (OrbitalManager's ctor takes a
+   * Types: ManagedFontClass(const char *, int) and FontManagerClass::Create(name, int) could take `RenderObjClass *`
+     as FontSys's constructors do; ClientClass::Unknown10BC is probably unsigned (the client zero-extends it at
+     0x6A6550 / 0x6A6840; skill_render.cpp casts it); P-SM1-2 (OrbitalManager's ctor takes a
      shared callback base and ClientClass). strconv (STRC, 2026-11-04): unknown_root.cpp (~line 166) and the importer's
      unknown_root evidence still give the root object 0x4A3990-0x4A3B10 (strconv_lib.cpp's now: the root starts at 0x4A3B40;
      D57's range likewise); the char / long / __int64 / Vector3 conversions are declared where used (avatar_desc.cpp,
@@ -2963,16 +2958,12 @@ below name only the work items, the blocked work, the leads and the queues.
      cases 0x44E470, 0x500760, 0x584690, 0x5B1ED0. 0x56C180's NOT EXACT note predates the SignalMap retype: re-check.
      ChatPanelInterface's own empty +0x64 0x563260 could be defined in ui_chat_panel.cpp (net-0 lines). SY1: aux_roots'
      Write<B00A00> / <B016DC> names at 0x706FF0 / 0x703F40 look swapped (pairs the same either way).
-   * Decisions to carry out: D206 (KVEncoderClass, with aux_roots' next repad). CameraManagerClass's former stand-in
-     callers in co.cpp / cpacket.cpp / ui_cpit.cpp / ui_verb.cpp could take the real member names, as ctrngadg.cpp did
-     (CM2).
    * ui_registration.cpp (RG1): 0x5FBD30 (Next, 17 KB) and 0x600000 (reply handler, 14 KB): no exact prospect, write
      them only if the registration flow is wanted; the likely yield is the out-of-line STL copies at 0x604xxx-0x60Cxxx,
      which need the real 0xF4-byte entry type (dtor 0x449CC0). The screen doesn't work yet: Sub14C's slots
      0x7DFED0-0x7E15B0 are stubs and the 0xB08C90-range flags may read 0. Function starts for 0x5EED20-0x5EF070's `$E`
      initialisers would let them count (D99). 16 NOT EXACT (attempts.csv).
-   * target_reticle / skill_render (TR1): skill_render.cpp's `Unknown744FE0Class` stand-in can call SClient::Get_Target.
-     Select_Next_Target's callers 0x59DB10, 0x60E300 don't call it from the tree yet. `Unknown_466920Class` (Line3DClass
+   * target_reticle / skill_render (TR1): Select_Next_Target's caller 0x59DB10 has no source in the tree yet. `Unknown_466920Class` (Line3DClass
      with a sort level, ctor 0x466920, table 0xAE8754) stays under a D137 mark in starmap_pip_support.h until its file
      is known.
    * Ui_starbase money 0x4F0320 / 0x4F0780, ui_popup_browser's ctor, the camctrl stubs of states 3, 7, 9 (A5,
@@ -3059,8 +3050,8 @@ below name only the work items, the blocked work, the leads and the queues.
      `D3D8SHOT_EVERY=2000 D3D8SHOT_MAX=500`; in-world frames from ~280000): the POC enters the sector and draws the
      backdrop, the orbitals, the player's ship as retail's, lit by the real lights, under the cockpit HUD with the radar
      panel (ui_scan.cpp). Open (retail ~170 draws per frame, the POC ~114 at WE9; WE7's `.work/we7/drawsum.py`): the
-     chat window's split class's set-up 0x5723B0 (0x81D bytes, G_ASSERT 'anim' ll.129 / 136; still the POC's stand-in)
-     and its NOT EXACT dtor 0x572040 (inline-budget; a 0.77 form with dead reads stashed) and 0x572EE0 (0.56);
+     chat window's split class's NOT EXACT set-up 0x5723B0 (register-only, 2 rows) and dtor 0x572040 (inline-budget;
+     a 0.77 form with dead reads stashed);
      ChatWindowInterface's NOT EXACT (attempts.csv, CW2); the chat reply list 0x56E2A0 (fc_symbolchat.ini: likely
      ui_symbolchat.cpp) and the combo box's ctor 0x5789E0 / 0x5790C0 / 0x578210 / 0x579DC0 / 0x57A060 / 0x5689D0; the
      PDA's NOT EXACT 0x693E70, 0x695780, 0x695A00, 0x695FE0 and its windows' stand-ins (poc_world3.cpp: equipment,
