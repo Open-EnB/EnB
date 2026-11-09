@@ -130,7 +130,7 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/fontsys.cpp:18` | `FontSys::FontSys` | marker | NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched |
 | `app/client/fontsys.cpp:39` | `FontSys::FontSys` | marker | NOT EXACT: written from the client's code (0x6D4C70) for the POC, not yet matched |
-| `app/client/fontsys.cpp:64` | `FontSys::Unknown_6D5170` | marker | NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4 (from Colors, 10 when none) added by TXT1 |
+| `app/client/fontsys.cpp:64` | `FontSys::Unknown_6D5170` | marker | NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object's inline would, and stores +0x430 / +0x4C5 after the resolution call's arguments; the colours from TXT1 |
 | `app/client/fontsys.cpp:182` | `FontSys::Set_Container` | marker | NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched |
 | `app/client/fontsys.cpp:231` | `FontSys::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
 | `app/client/fontsys.cpp:256` | `FontSys::Unknown_6D5D40` | marker | NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched |
@@ -475,9 +475,9 @@ edit the comments in the code, not this file.
 | `app/client/unknown_6cce60.cpp:144` | `FontSys::Unknown_6CD6F0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD6F0) |
 | `app/client/unknown_6cce60.cpp:186` | `FontSys::Unknown_6CD950` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD950) |
 | `app/client/unknown_6cce60.cpp:225` | `FontSys::Unknown_6CDAB0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDAB0) |
-| `app/client/unknown_6cce60.cpp:266` | `FontSys::Change_Text` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDBC0) |
-| `app/client/unknown_6cce60.cpp:356` | `FontSys::Unknown_6CE4E0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0) |
-| `app/client/unknown_6cce60.cpp:382` | `FontSys::Unknown_6CE7D0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0) |
+| `app/client/unknown_6cce60.cpp:275` | `FontSys::Change_Text` | marker | NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first "" assignment and hoists three member loads above stores (27 masked rows) |
+| `app/client/unknown_6cce60.cpp:374` | `FontSys::Unknown_6CE4E0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0) |
+| `app/client/unknown_6cce60.cpp:400` | `FontSys::Unknown_6CE7D0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0) |
 | `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
 | `app/client/unknown_75b7b0.cpp:57` | `Unknown_75BB50` | marker | NOT EXACT: functional (D64), 0.37: ours calls StringClass::operator= where the client inlines it, so the registers differ (WE5) @0x75BB50 |
 | `app/client/unknown_7979a0.cpp:43` | `CameraController02Class::Unknown_08` | marker | NOT EXACT: 0x797B50 (case 0 tests Flags bit 0 from the bit-1 test's register where the client reloads it (test byte ptr), and the switch's blocks for cases 3 / 4 come in another order) 0x797B50 |

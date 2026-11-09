@@ -61,8 +61,8 @@ void FontSys::Unknown_6D5140()
 	Release_Ref();
 }
 
-// NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4
-// (from Colors, 10 when none) added by TXT1
+// NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object's
+// inline would, and stores +0x430 / +0x4C5 after the resolution call's arguments; the colours from TXT1
 void FontSys::Unknown_6D5170(RenderObjClass *object)
 {
 	int i;
@@ -122,15 +122,15 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	Scale = 1.0f;
 	Unknown26C = 0;
 	Unknown270 = 0;
-	for (i = 0; i < 16; i++) Unknown274[i] = 0;
-	for (i = 0; i < 6; i++) Unknown254[i] = 0;
+	Unknown274[0] = 0; Unknown274[1] = 0; Unknown274[2] = 0; Unknown274[3] = 0; Unknown274[4] = 0; Unknown274[5] = 0; Unknown274[6] = 0; Unknown274[7] = 0; Unknown274[8] = 0; Unknown274[9] = 0; Unknown274[10] = 0; Unknown274[11] = 0;
+	for (i = 0; i < 4; i++) Unknown274[12 + i] = 0; Unknown254[0] = 0; Unknown254[1] = 0; Unknown254[2] = 0; Unknown254[3] = 0; Unknown254[4] = 0; Unknown254[5] = 0;
 	for (i = 0; i < 4; i++) {
-		Effects[0][i] = Unknown_BE67B8->Find_Effect(Info.EffectOn[i]);
-		Effects[1][i] = Unknown_BE67B8->Find_Effect(Info.EffectConst[i]);
-		Effects[2][i] = Unknown_BE67B8->Find_Effect(Info.EffectOff[i]);
-		Effects[3][i] = Unknown_BE67B8->Find_Effect(Info.MouseOver[i]);
-		Effects[4][i] = Unknown_BE67B8->Find_Effect(Info.MouseClick[i]);
-		Effects[5][i] = Unknown_BE67B8->Find_Effect(Info.EffectTriggered[i]);
+		Effects[0][i] = Unknown_BE67B8->Find_Effect(Info.EffectOn[i].Get_Buffer(Info.EffectOn[i].Get_Length()));
+		Effects[1][i] = Unknown_BE67B8->Find_Effect(Info.EffectConst[i].Get_Buffer(Info.EffectConst[i].Get_Length()));
+		Effects[2][i] = Unknown_BE67B8->Find_Effect(Info.EffectOff[i].Get_Buffer(Info.EffectOff[i].Get_Length()));
+		Effects[3][i] = Unknown_BE67B8->Find_Effect(Info.MouseOver[i].Get_Buffer(Info.MouseOver[i].Get_Length()));
+		Effects[4][i] = Unknown_BE67B8->Find_Effect(Info.MouseClick[i].Get_Buffer(Info.MouseClick[i].Get_Length()));
+		Effects[5][i] = Unknown_BE67B8->Find_Effect(Info.EffectTriggered[i].Get_Buffer(Info.EffectTriggered[i].Get_Length()));
 	}
 	if (Effects[0][0] == NULL && Effects[0][1] == NULL && Effects[0][2] == NULL) {
 		Unknown440 = 1;
@@ -143,7 +143,19 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	}
 	float *color = (float *)&Unknown494;	// floats r, g, b, a (TXT1: Update_Text reads them so)
 	float *second = (float *)&Unknown4B4;
-	if (Colors[0] == NULL) {
+	if (Colors[0] != NULL) {
+		const int *rgb = (const int *)Colors[0];	// FontColorStruct (fontdatabase.cpp): +4 / +8 / +0xC r, g, b
+		color[0] = (float)rgb[1] * 0.00392156f;
+		color[1] = (float)rgb[2] * 0.00392156f;
+		color[2] = (float)rgb[3] * 0.00392156f;
+		color[3] = 1.0f;
+		Unknown4A4 = Unknown494;
+		rgb = (const int *)Colors[1];
+		second[0] = (float)rgb[1] * 0.00392156f;
+		second[1] = (float)rgb[2] * 0.00392156f;
+		second[2] = (float)rgb[3] * 0.00392156f;
+		second[3] = 1.0f;
+	} else {
 		color[0] = 10.0f;
 		color[1] = 10.0f;
 		color[2] = 10.0f;
@@ -153,18 +165,6 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 		second[1] = 0.0f;
 		second[2] = 0.0f;
 		second[3] = 1.0f;
-	} else {
-		const int *rgb = (const int *)Colors[0];	// FontColorStruct (fontdatabase.cpp): +4 / +8 / +0xC r, g, b
-		color[0] = (float)rgb[1] * 0.00392156f;
-		color[1] = (float)rgb[2] * 0.00392156f;
-		color[3] = 1.0f;
-		color[2] = (float)rgb[3] * 0.00392156f;
-		Unknown4A4 = Unknown494;
-		rgb = (const int *)Colors[1];
-		second[0] = (float)rgb[1] * 0.00392156f;
-		second[1] = (float)rgb[2] * 0.00392156f;
-		second[3] = 1.0f;
-		second[2] = (float)rgb[3] * 0.00392156f;
 	}
 	memset(Unknown303, 0, sizeof(Unknown303));
 	Unknown414 = 0;

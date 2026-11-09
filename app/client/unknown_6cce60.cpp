@@ -259,15 +259,42 @@ static inline void Reset_XSpacing(Font32Class *font)
 	*(int *)((char *)font + 0xD28) = *(int *)((char *)font + 0xD2C);
 }
 
+// The text printed into +0x2D0's texture again (Change_Text's three sites): as a helper, Change_Text's effects-branch
+// Info.Text copy calls Store_Length out of line as the client's does (FN1)
+static inline void Print_Text(FontSys *f)	// NAME 1 [Print_Text]: what it does
+{
+	Reset_XSpacing(f->Font.Peek());
+	f->Unknown4C4 = f->Unknown2D0.Unknown_6D8DC0(&f->Font, f->Unknown2F0, 0);
+	f->Unknown4C5 = false;
+}
+
 // 0x6CDBC0: the client's profile label 'FontSys::Change_Text'. The new text (NULL is "") into +0x2F0 and Info.Text,
 // rendered into +0x2D0's texture when it changed, the text rectangle from the font. With unknown set the effects
 // start over (1: every effect state reset first; else, with EffectOff effects, the style only goes to state 2: the
 // off effects run first); without it the text is replaced in place (the position x back to +0x470's).
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDBC0)
+// NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first "" assignment and
+// hoists three member loads above stores (27 masked rows)
 void FontSys::Change_Text(const char *text, int unknown)
 {
 	WWPROFILE("FontSys::Change_Text");
-	if (unknown) {
+	if (unknown == 0) {
+		Invalidate_Cached_Bounding_Volumes();
+		if (text == NULL) {
+			Unknown2F0 = "";
+			Print_Text(this);
+		} else if (Unknown2F0 != text) {
+			Unknown2F0 = text;
+			if (Unknown2F0.Is_Empty()) {
+				Unknown2F0 = "";
+			}
+			Print_Text(this);
+		}
+		Info.Text = Unknown2F0;
+		Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(Unknown2F0);
+		Unknown420[3] = Unknown2C8 = Font->Get_Height();
+		Unknown47C.X = Unknown470.X;
+		Unknown458 = 0;
+	} else {
 		Invalidate_Cached_Bounding_Volumes();
 		Unknown404 = false;
 		if (text == NULL) {
@@ -278,9 +305,8 @@ void FontSys::Change_Text(const char *text, int unknown)
 		if (Unknown2F0.Is_Empty()) {
 			Unknown2F0 = "";
 		}
-		if (unknown == 1 || (Effects[2][0] == NULL && Effects[2][1] == NULL && Effects[2][2] == NULL)) {
+		if ((Effects[2][0] == NULL && Effects[2][1] == NULL && Effects[2][2] == NULL) || unknown == 1) {
 			if (unknown == 1) {
-				int i;
 				Unknown444 = 0;
 				Unknown2F4[0] = 1.0f;
 				Unknown2F4[1] = -1.0f;
@@ -288,33 +314,42 @@ void FontSys::Change_Text(const char *text, int unknown)
 				Unknown488[1] = 0;
 				Unknown488[2] = 0;
 				if (Colors[0] != NULL) {
-					float *color = (float *)&Unknown494;
-					float *second = (float *)&Unknown4B4;
-					color[3] = 1.0f;
-					color[0] = (float)Colors[0]->RGB.X * 0.00392156f;
-					color[1] = (float)Colors[0]->RGB.Y * 0.00392156f;
-					color[2] = (float)Colors[0]->RGB.Z * 0.00392156f;
-					second[3] = 1.0f;
-					second[0] = (float)Colors[1]->RGB.X * 0.00392156f;
-					second[1] = (float)Colors[1]->RGB.Y * 0.00392156f;
-					second[2] = (float)Colors[1]->RGB.Z * 0.00392156f;
+					Unknown494.Color.Set((float)Colors[0]->RGB.X * 0.00392156f, (float)Colors[0]->RGB.Y * 0.00392156f, (float)Colors[0]->RGB.Z * 0.00392156f);
+					Unknown494.Unknown0C = 1.0f;
+					Unknown4B4.Color.Set((float)Colors[1]->RGB.X * 0.00392156f, (float)Colors[1]->RGB.Y * 0.00392156f, (float)Colors[1]->RGB.Z * 0.00392156f);
+					Unknown4B4.Unknown0C = 1.0f;
 					Unknown4A4 = Unknown494;
 				}
 				memset(Unknown303, 0, sizeof(Unknown303));
 				Unknown26C = 0;
 				Unknown270 = 0;
-				for (i = 0; i < 16; i++) Unknown274[i] = 0;
-				for (i = 0; i < 6; i++) Unknown254[i] = 0;
+				Unknown274[0] = 0;
+				Unknown274[1] = 0;
+				Unknown274[2] = 0;
+				Unknown274[3] = 0;
+				Unknown274[4] = 0;
+				Unknown274[5] = 0;
+				Unknown274[6] = 0;
+				Unknown274[7] = 0;
+				Unknown274[8] = 0;
+				Unknown274[9] = 0;
+				Unknown274[10] = 0;
+				Unknown274[11] = 0;
+				for (int k = 0; k < 4; k++) Unknown274[12 + k] = 0;
+				Unknown254[0] = 0;
+				Unknown254[1] = 0;
+				Unknown254[2] = 0;
+				Unknown254[3] = 0;
+				Unknown254[4] = 0;
+				Unknown254[5] = 0;
 			}
 			Unknown440 = 0;
 			if (Info.Text != (const char *)Unknown2F0) {
 				Info.Text = Unknown2F0;
-				Reset_XSpacing(Font.Peek());
-				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
-				Unknown4C5 = false;
+				Print_Text(this);
 			}
-			Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(Unknown2F0);
-			Unknown2C8 = Unknown420[3] = Font->Get_Height();
+			Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(Unknown2F0);
+			Unknown420[3] = Unknown2C8 = Font->Get_Height();
 			for (int i = 0; i < 4; i++) {
 				Unknown_6CDAB0(Effects[0][i]);
 			}
@@ -326,29 +361,12 @@ void FontSys::Change_Text(const char *text, int unknown)
 		Unknown274[2] = 0;
 		Unknown270 = 0;
 		Unknown274[0] = 0;
-	} else {
-		Invalidate_Cached_Bounding_Volumes();
-		if (text == NULL) {
-			Unknown2F0 = "";
-			Reset_XSpacing(Font.Peek());
-			Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
-			Unknown4C5 = false;
-		} else if (Unknown2F0 != text) {
-			Unknown2F0 = text;
-			if (Unknown2F0.Is_Empty()) {
-				Unknown2F0 = "";
-			}
-			Reset_XSpacing(Font.Peek());
-			Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
-			Unknown4C5 = false;
-		}
-		Info.Text = Unknown2F0;
-		Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(Unknown2F0);
-		Unknown2C8 = Unknown420[3] = Font->Get_Height();
-		Unknown47C.X = Unknown470.X;
-		Unknown458 = 0;
 	}
-	Unknown408 = (Unknown2F0 == "");
+	if (strcmp(Unknown2F0, "") == 0) {
+		Unknown408 = true;
+	} else {
+		Unknown408 = false;
+	}
 }
 
 // 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text printed again with it (with
