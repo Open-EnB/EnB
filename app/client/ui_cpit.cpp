@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "ui_cpit.h"
-class UIScanClass : public InterfaceClass { public: UIScanClass(UIViewClass *view, LayerClass *layer); char Unknown84[0x88 - 0x84]; ClientObjectClass *Unknown88; char Unknown8C[0x1B0 - 0x8C]; };	// 0x60D800: ui_scan.h's, as far as this file calls it (ui_scan.h reaches fontmanager.h, which can't be included here: see below); +0x88 is UIMFDClass's watched Object
+#include "ui_scan.h"	// UIScanClass (0x60D800): +0x88 is UIMFDClass's watched Object (UnknownObjectWatchClass at +0x84)
 #include "client.h"
 #include "..\packets\pkaction.h"
 #include "..\packets\pkskillstringrq.h"
@@ -1050,9 +1050,9 @@ bool UICpitClass::Unknown_68(int key)
 // 0x581670: every frame (the base's slot +0x60 last)
 void UICpitClass::Unknown_60()
 {
-	if (HulkWatch && HulkWatch != Scan->Unknown88) Unknown_582070();
+	if (HulkWatch && HulkWatch != Scan->Object) Unknown_582070();
 	ClientObjectClass *current_harvestable = CurrentHarvestable;
-	if (current_harvestable && current_harvestable != Scan->Unknown88) {
+	if (current_harvestable && current_harvestable != Scan->Object) {
 		((ClientClass *)Client)->Send_Packet(&ActionPacketClass(Unknown_Avatar_ID(Client), 17, current_harvestable->Get_Game_ID(), 0));
 		CurrentHarvestable = NULL;
 	}
@@ -1182,7 +1182,7 @@ void UICpitClass::Unknown_581CE0(InterfaceClass *ui)
 void UICpitClass::Unknown_581E60()
 {
 	if (HulkWatch) { Unknown_582070(); return; }
-	ClientObjectClass *current_target = Scan->Unknown88;
+	ClientObjectClass *current_target = Scan->Object;
 
 
 	FAIL_IF(!current_target) return;
@@ -1192,7 +1192,7 @@ void UICpitClass::Unknown_581E60()
 void UICpitClass::Unknown_581F90(ClientObjectClass *hulk)
 {
 	FAIL_IF(!hulk) return;
-	ClientObjectClass *current_target = Scan->Unknown88;
+	ClientObjectClass *current_target = Scan->Object;
 
 	FAIL_IF(!current_target) return;
 	if (hulk == current_target) {
@@ -1225,7 +1225,7 @@ void UICpitClass::Unknown_5820C0(bool on)
 {
 	if (on) {
 		G_ASSERT(CurrentHarvestable == 0);
-		CurrentHarvestable = Scan->Unknown88;
+		CurrentHarvestable = Scan->Object;
 		G_ASSERT(CurrentHarvestable != 0);
 		Unknown0CC->Unknown_58();
 	} else {
