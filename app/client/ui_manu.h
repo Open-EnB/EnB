@@ -11,7 +11,7 @@ class UIManuCheckButtonClass;	// the check buttons (the tech level filters at +0
 class FontSys;		// fontmanager.h's text objects (+0x16C, +0x194)
 class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xAC)
 class GadgetSlider;	// gd_slider.cpp's slider (+0xB0)
-
+class DeltaCompoundClass;
 class UIManuClass;
 class UIManuListClass;		// a formula list of the target item's aux data
 class NameClass;
@@ -166,7 +166,7 @@ public:
 	int Unknown0B94;									// +0xB94 the entries in the list
 	int Unknown0B98;									// +0xB98 the current level (-1 for none; 3 the items)
 	int State;											// +0xB9C (UI_CLOSED when shut)  // NAME 3: the assert's
-	void *Unknown0BA0;									// +0xBA0: the target item's aux data (a DeltaCompoundClass)
+	DeltaCompoundClass *Unknown0BA0;					// +0xBA0: the target item's aux data
 	int Unknown0BA4;									// +0xBA4 (1 while an item id is pending)
 	float Unknown0BA8;									// +0xBA8 (0x5B3A70: 1.0f)
 	bool Unknown0BAC;									// +0xBAC

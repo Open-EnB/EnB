@@ -1,0 +1,43 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "ClientItemPropertyAttributeClass (D24 class-from-file of client_item_property_attribute.h, __FILE__ 0xB7883C), the attribute properties' base (table 0xAEDC08, 0x44 bytes), client 0x51F9C0-0x51FE8F: ctor 0x51F9C0, dtors 0x51FBD0 / 0x51FBA0, slots 0x51FCB0 / 0x51FCD0 / 0x51FE50, <string>'s guarded static 0x51FE70; no assert, file name provisional (D137)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x45CC10",
+  "0x4B5740",
+  "0x51F9C0",
+  "0x51FBA0",
+  "0x51FBD0",
+  "0x51FCB0",
+  "0x51FCD0",
+  "0x51FE50"
+ ],
+ "merged": [],
+ "name": "client/item/client_item_property_attribute.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x45CC10",
+  "0x4B5740"
+ ],
+ "short_known": [
+  "0x42D120",
+  "0x51FCB0"
+ ]
+}

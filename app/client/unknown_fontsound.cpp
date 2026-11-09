@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <mmsystem.h>
 #include "unknown_fontsound.h"
+#include "fontdatabase.h"
 #include "..\..\wwaudio\WWAudio.h"
 #include "..\..\wwaudio\AudibleSound.h"
 #include <string.h>
@@ -30,21 +31,21 @@ void Unknown_6BCFB0Class::Clear(void)
 	Sounds.Reset_Active();
 }
 
-// NOT EXACT: (D64) the client stores Duration before the fcomp of seconds and places the Add branch after the
-// epilogue; this form schedules the store after it (0.81)
-void Unknown_6BCFB0Class::Play(StringClass name, float volume, float seconds)
+// The ini entry by value (FontSys's callers copy-construct a FontSoundStruct into the argument area, FN1); with the
+// struct the Duration store and the Add branch fall where the client's do
+void Unknown_6BCFB0Class::Play(FontSoundStruct entry)	// NAME 1 [entry]: what it holds
 {
-	if (strlen(name) != 0) {
+	if (strlen(entry.ID) != 0) {
 		PlayingSoundStruct * sound = new PlayingSoundStruct;
 		if (sound != NULL) {
-			sound->Sound = WWAudioClass::Get_Instance()->Create_Sound_Effect(name);
+			sound->Sound = WWAudioClass::Get_Instance()->Create_Sound_Effect(entry.ID);
 			if (sound->Sound != NULL) {
 				sound->Sound->Set_Priority(0.5f);
 				sound->Sound->Set_Loop_Count(1);
-				sound->Sound->Set_Volume(volume);
+				sound->Sound->Set_Volume(entry.Vol);
 				sound->Sound->Play();
-				sound->Duration = seconds * 1000.0f;
-				if (seconds < 0.0f) {
+				sound->Duration = entry.Dur * 1000.0f;
+				if (entry.Dur < 0.0f) {
 					sound->Sound->Release_Ref();
 					sound->Sound = NULL;
 				} else {

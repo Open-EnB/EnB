@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the 'subs-interface' classes (Sub14CClass, RegistrationUnknown1ACClass, SubsRequestClass), moved from ui_registration.h. File PROVISIONAL (D137)"
+}

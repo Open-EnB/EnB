@@ -22,8 +22,8 @@
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// 0x7E6060 (distance_calc_client.cpp's)  // NAME 1: neutral (D10)
 
-// (a codeless layer: with the no-code finds in Update it keeps this find out of line, 0x5BF2B0, and Get_Value inlined, as the client has them)
-static inline DeltaInterpolatorClass *Find_L1(DeltaCompoundClass *aux, const NameClass &name) { return(Unknown_Find_Field<DeltaInterpolatorClass>(aux, name)); }
+// (two inline layers, NameClass and the root copy in the inner one (ui_analyze.cpp's form): Update calls the find out of line, 0x5BF2B0, and inlines Get_Value, as the client)
+static inline DeltaInterpolatorClass *Find_L2(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; DeltaInterpolatorClass *t = Unknown_Find_Field<DeltaInterpolatorClass>(r, n); return(t); } static inline DeltaInterpolatorClass *Find_L1(DeltaCompoundClass *const &root, const char *name) { return(Find_L2(root, name)); }	// NAME 1: neutral (D10)
 // The four corners' bones and sub-objects in hud01a, the client's 0xB9F818
 static const char *Corner_Names[TargetReticleClass::CORNER_COUNT] = { "UL", "UR", "BR", "BL" };	// NAME 2: what it holds
 
@@ -267,9 +267,9 @@ void TargetReticleClass::Update(const Vector3 &pos, float size)
 		float shield = -1.0f;
 		DeltaCompoundClass *aux = (DeltaCompoundClass *)ClientObject->AuxData;
 		if (aux != NULL) {
-			NameClass name("ShieldPercent");
-			Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); Unknown_Find_Field<DeltaInterpolatorClass>(NULL, name); 
-			DeltaInterpolatorClass *percent = Find_L1(aux, name);
+
+
+			DeltaInterpolatorClass *percent = Find_L1(aux, "ShieldPercent");
 			if (percent != NULL && percent->Unknown70 != 0) {
 				shield = percent->Get_Value(DurationClass((unsigned)Client->Unknown10BC));
 			}
@@ -354,6 +354,6 @@ void TargetReticleClass::Set_Client_Object(ClientObjectClass *co)
 **
 **	Forms the bytes decide (Update): the 4.0f added between the two floor calls (width's fadd before height's floor); -480.0f
 **	kept apart from the + 240.0f (one expression folds to 240 - 480 * y); Justify's copy through to_justify, with [0] written
-**	first in the source and the client loading [1] first; the 16 no-code finds (16..24 give the same code, 28 and up push other
-**	callees out of line). The dead finds spend VC6's inline budget and are not the client's source.
+**	first in the source and the client loading [1] first; the ShieldPercent find through two inline layers (IB2:
+**	they replace the 16 dead no-code finds this file had, D130; same code).
 */

@@ -25,7 +25,7 @@
 class DeltaStringClass : public DeltaClass  // NAME 3: by convention (D24) from the client's file delta_string.cpp
 {
 public:
-	DeltaStringClass(const char *name, const char *string);					// 0x4A78F0
+	DeltaStringClass(const char *name, const char *string = "");			// 0x4A78F0 (the default: DeltaItemArrayClass<DeltaStringClass>, 0x701B60)
 	virtual ~DeltaStringClass();														// +0x04 0x4A79E0
 	virtual void Unknown_00(KVEncoderClass *visitor);					// +0x00 0x4A7E60
 	virtual bool Read(LinearBufferClass &buf, const DurationClass &base);	// +0x2C 0x4A7CA0

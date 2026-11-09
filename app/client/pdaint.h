@@ -25,6 +25,8 @@ public:
 #ifdef POC_WINDOW_CTOR
 	PDAInventoryWindowClass(LineDisplayClientClass *client) : InterfaceClass(client) {}
 #endif
+	class InvDataClass *Unknown_59FE10();				// 0x59FE10 (ui_inv.cpp: SlotData's slot +0x10; ui_trade.cpp calls it on the cargo window)
+	void Unknown_5A03B0(bool arg);						// 0x5A03B0 (ui_inv.cpp; ui_trade.cpp's 0x652FF0 passes false, true)  // NAME 1 [arg]: neutral
 	void Unknown_5A0450(int type, int *num_items, int *num_slots);	// 0x5A0450 (ui_inv.cpp; 0x695E10 adds the three)  // NAME 2 [num_items, num_slots]: 0x695E10's FAIL_IFs; NAME 1 [type]: neutral
 };
 
@@ -42,7 +44,9 @@ class Unknown5CF9B0Class : public PDAInventoryWindowClass	// NAME 1: neutral (D1
 public:
 	Unknown5CF9B0Class(SClient *client, class PDAInterfaceClass *pda);	// 0x5CF9B0  // NAME 1 [client, pda]: neutral
 	void Unknown_5D0A20(bool on);						// 0x5D0A20 (0x695DC0)  // NAME 1 [on]: neutral
-	char Unknown84[0x10C - 0x84];
+	char Unknown84[0xB4 - 0x84];
+	int UnknownB4;										// +0xB4 (ui_trade.cpp's 0x652EB0: the selected slot, -1 none)  // NAME 1: neutral (D10)
+	char UnknownB8[0x10C - 0xB8];
 };
 
 // The vault window (0xFC bytes, constructor 0x656FF0; the key 'Vault', window 3)

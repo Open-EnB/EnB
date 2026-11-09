@@ -61,8 +61,8 @@ void FontSys::Unknown_6D5140()
 	Release_Ref();
 }
 
-// NOT EXACT: written from the client's code (0x6D5170) for the POC, not yet matched; the colours +0x494 / +0x4A4 / +0x4B4
-// (from Colors, 10 when none) added by TXT1
+// NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object's
+// inline would, and stores +0x430 / +0x4C5 after the resolution call's arguments; the colours from TXT1
 void FontSys::Unknown_6D5170(RenderObjClass *object)
 {
 	int i;
@@ -122,15 +122,15 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	Scale = 1.0f;
 	Unknown26C = 0;
 	Unknown270 = 0;
-	for (i = 0; i < 16; i++) Unknown274[i] = 0;
-	for (i = 0; i < 6; i++) Unknown254[i] = 0;
+	Unknown274[0] = 0; Unknown274[1] = 0; Unknown274[2] = 0; Unknown274[3] = 0; Unknown274[4] = 0; Unknown274[5] = 0; Unknown274[6] = 0; Unknown274[7] = 0; Unknown274[8] = 0; Unknown274[9] = 0; Unknown274[10] = 0; Unknown274[11] = 0;
+	for (i = 0; i < 4; i++) Unknown274[12 + i] = 0; Unknown254[0] = 0; Unknown254[1] = 0; Unknown254[2] = 0; Unknown254[3] = 0; Unknown254[4] = 0; Unknown254[5] = 0;
 	for (i = 0; i < 4; i++) {
-		Effects[0][i] = Unknown_BE67B8->Find_Effect(Info.EffectOn[i]);
-		Effects[1][i] = Unknown_BE67B8->Find_Effect(Info.EffectConst[i]);
-		Effects[2][i] = Unknown_BE67B8->Find_Effect(Info.EffectOff[i]);
-		Effects[3][i] = Unknown_BE67B8->Find_Effect(Info.MouseOver[i]);
-		Effects[4][i] = Unknown_BE67B8->Find_Effect(Info.MouseClick[i]);
-		Effects[5][i] = Unknown_BE67B8->Find_Effect(Info.EffectTriggered[i]);
+		Effects[0][i] = Unknown_BE67B8->Find_Effect(Info.EffectOn[i].Get_Buffer(Info.EffectOn[i].Get_Length()));
+		Effects[1][i] = Unknown_BE67B8->Find_Effect(Info.EffectConst[i].Get_Buffer(Info.EffectConst[i].Get_Length()));
+		Effects[2][i] = Unknown_BE67B8->Find_Effect(Info.EffectOff[i].Get_Buffer(Info.EffectOff[i].Get_Length()));
+		Effects[3][i] = Unknown_BE67B8->Find_Effect(Info.MouseOver[i].Get_Buffer(Info.MouseOver[i].Get_Length()));
+		Effects[4][i] = Unknown_BE67B8->Find_Effect(Info.MouseClick[i].Get_Buffer(Info.MouseClick[i].Get_Length()));
+		Effects[5][i] = Unknown_BE67B8->Find_Effect(Info.EffectTriggered[i].Get_Buffer(Info.EffectTriggered[i].Get_Length()));
 	}
 	if (Effects[0][0] == NULL && Effects[0][1] == NULL && Effects[0][2] == NULL) {
 		Unknown440 = 1;
@@ -143,7 +143,19 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	}
 	float *color = (float *)&Unknown494;	// floats r, g, b, a (TXT1: Update_Text reads them so)
 	float *second = (float *)&Unknown4B4;
-	if (Colors[0] == NULL) {
+	if (Colors[0] != NULL) {
+		const int *rgb = (const int *)Colors[0];	// FontColorStruct (fontdatabase.cpp): +4 / +8 / +0xC r, g, b
+		color[0] = (float)rgb[1] * 0.00392156f;
+		color[1] = (float)rgb[2] * 0.00392156f;
+		color[2] = (float)rgb[3] * 0.00392156f;
+		color[3] = 1.0f;
+		Unknown4A4 = Unknown494;
+		rgb = (const int *)Colors[1];
+		second[0] = (float)rgb[1] * 0.00392156f;
+		second[1] = (float)rgb[2] * 0.00392156f;
+		second[2] = (float)rgb[3] * 0.00392156f;
+		second[3] = 1.0f;
+	} else {
 		color[0] = 10.0f;
 		color[1] = 10.0f;
 		color[2] = 10.0f;
@@ -153,18 +165,6 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 		second[1] = 0.0f;
 		second[2] = 0.0f;
 		second[3] = 1.0f;
-	} else {
-		const int *rgb = (const int *)Colors[0];	// FontColorStruct (fontdatabase.cpp): +4 / +8 / +0xC r, g, b
-		color[0] = (float)rgb[1] * 0.00392156f;
-		color[1] = (float)rgb[2] * 0.00392156f;
-		color[3] = 1.0f;
-		color[2] = (float)rgb[3] * 0.00392156f;
-		Unknown4A4 = Unknown494;
-		rgb = (const int *)Colors[1];
-		second[0] = (float)rgb[1] * 0.00392156f;
-		second[1] = (float)rgb[2] * 0.00392156f;
-		second[3] = 1.0f;
-		second[2] = (float)rgb[3] * 0.00392156f;
 	}
 	memset(Unknown303, 0, sizeof(Unknown303));
 	Unknown414 = 0;
@@ -179,12 +179,10 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	Unknown4E6 = false;
 }
 
-// NOT EXACT: written from the client's code (0x6D5920) for the POC, not yet matched
+// NOT EXACT: register (attempts.csv): the client keeps i in ebp and spills this across the loop (14 rows)
 void FontSys::Set_Container(RenderObjClass *con)
 {
-	if (con == NULL) {
-		Set_Sort_Level(SORT_LEVEL_NONE);
-	} else {
+	if (con != NULL) {
 		int level = con->Get_Sort_Level();
 		int count = con->Get_Num_Sub_Objects();
 		for (int i = 0; i < count; i++) {
@@ -199,12 +197,22 @@ void FontSys::Set_Container(RenderObjClass *con)
 				sub->Release_Ref();
 			}
 		}
-		if (level != SORT_LEVEL_NONE) {
-			Set_Sort_Level(level == 1 ? 1 : level - 1);
-			Disable_Sort();
-			RenderObjClass::Set_Container(con);
-			return;
+		switch (level) {
+			case SORT_LEVEL_NONE:
+				break;
+			case 1:
+				Set_Sort_Level(1);
+				Disable_Sort();
+				RenderObjClass::Set_Container(con);
+				return;
+			default:
+				Set_Sort_Level(level - 1);
+				Disable_Sort();
+				RenderObjClass::Set_Container(con);
+				return;
 		}
+	} else {
+		Set_Sort_Level(SORT_LEVEL_NONE);
 	}
 	Enable_Sort();
 	RenderObjClass::Set_Container(con);
@@ -253,19 +261,19 @@ void FontSys::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 	box.Extent.Z = 0.0f;
 }
 
-// NOT EXACT: written from the client's code (0x6D5D40) for the POC, not yet matched
+// 0x6D5D40: the screen rectangle +0x430 from the attach bone's box (clamped to 640 x 480 about the centre)
 void FontSys::Unknown_6D5D40()
 {
 	if (Object != NULL) {
 		RenderObjClass *sub = Object->Get_Sub_Object_By_Name(Info.Attach);
 		if (sub != NULL) {
-			Vector3 pos = sub->Get_Position();
-			const AABoxClass &box = sub->Get_Bounding_Box();
+			sub->Get_Position();
+			AABoxClass box = sub->Get_Bounding_Box();
 			int value = (int)(box.Center.X - box.Extent.X + Info.BoxOffset[0]);
 			Unknown430[0] = value < -320 ? -320 : (value > 320 ? 320 : value);
 			value = (int)(box.Center.X + box.Extent.X - Info.BoxOffset[0]);
 			Unknown430[1] = value < -320 ? -320 : (value > 320 ? 320 : value);
-			value = (int)(box.Extent.Y + box.Center.Y - Info.BoxOffset[1]);
+			value = (int)(box.Center.Y + box.Extent.Y - Info.BoxOffset[1]);
 			Unknown430[2] = value < -240 ? -240 : (value > 240 ? 240 : value);
 			value = (int)(box.Center.Y - box.Extent.Y + Info.BoxOffset[1]);
 			Unknown430[3] = value < -240 ? -240 : (value > 240 ? 240 : value);
@@ -277,14 +285,14 @@ void FontSys::Unknown_6D5D40()
 	}
 }
 
-// NOT EXACT: written from the client's code (0x6D6390) for the POC, not yet matched
+// 0x6D6390: the text printed, sized and shown; +0x408 says it is the blank " " (the constructors' default)
 void FontSys::Unknown_6D6390()
 {
 	const char *text = Info.Text;
-	Unknown408 = (strcmp(text, " ") == 0);
+	if (strcmp(text, " ") == 0) Unknown408 = true; else Unknown408 = false;
 	Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, text, 0);
-	Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(text);
-	Unknown2C8 = Unknown420[3] = Font->Get_Height();
+	Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(text);
+	Unknown420[3] = Unknown2C8 = Font->Get_Height();
 	Update_Text(false);
 	if (Object != NULL && Info.Attach.Get_Length() > 0) {
 		Object->Add_Sub_Object_To_Bone(this, Info.Attach);
@@ -333,9 +341,9 @@ void FontSys::Unknown_6D5F40(ShaderClass &shader)
 	shader.Set_Depth_Compare(ShaderClass::PASS_ALWAYS);
 }
 
-// 0x6D60C0: the delay before the text shows (+0x26C ms, counted in +0x270); true while it lasts. Plays Info.SoundOn
-// when it ends (or at once without one) unless +0x440 says otherwise.
-// NOT EXACT: written from the client's code (0x6D60C0) for the POC, not yet matched
+// 0x6D60C0: the delay before the text shows (+0x26C ms, counted in +0x270); true while it lasts. Plays Info.SoundOn when it ends
+// (or at once without one) unless +0x440 says otherwise. The hidden bit is RenderObjClass's (+0x18; FontSys's Bits +0x2BC shadows it).
+// NOT EXACT: inline-budget (attempts.csv): the client's first Play copy calls Get_Length / Store_Length out of line, its second operator=
 bool FontSys::Unknown_6D60C0()
 {
 	if (Unknown274[6] == 0) {
@@ -343,35 +351,38 @@ bool FontSys::Unknown_6D60C0()
 		return false;
 	}
 	int frame = WW3D::Get_Frame_Time();
-	if (Unknown270 < Unknown26C) {
-		Unknown274[0] = Unknown270;
-		Bits &= ~IS_NOT_HIDDEN;
-		Unknown270 += frame;
-		if (Unknown270 < Unknown26C) {
+	int time = Unknown270;
+	int delay = Unknown26C;
+	if (time < delay) {
+		Unknown274[0] = time;
+		time += frame;
+		RenderObjClass::Bits &= ~IS_NOT_HIDDEN;
+		Unknown270 = time;
+		if (time < delay) {
 			return true;
 		}
 	}
-	if (Unknown26C > 0) {
+	if (delay > 0) {
 		if (Unknown300) {
-			Bits |= IS_NOT_HIDDEN;
+			RenderObjClass::Set_Hidden(false);
 		}
-		Unknown270 -= Unknown26C;
-		Unknown274[0] -= Unknown26C;
+		Unknown270 = time - delay;
+		Unknown274[0] -= delay;
 		Unknown26C = 0;
 		Unknown274[1] = 0;
 		if (Unknown440 == 0 && Unknown300) {
-			Unknown_BE67B4->Play(Info.SoundOn.ID, Info.SoundOn.Vol, Info.SoundOn.Dur);
+			Unknown_BE67B4->Play(Info.SoundOn);
 		}
 		return false;
 	}
-	if (Unknown440 == 0 && Unknown270 == 0 && Unknown300) {
-		Unknown_BE67B4->Play(Info.SoundOn.ID, Info.SoundOn.Vol, Info.SoundOn.Dur);
+	if (Unknown440 == 0 && time == 0 && Unknown300) {
+		Unknown_BE67B4->Play(Info.SoundOn);
 	}
 	if (Unknown274[6] != 0) {
 		Unknown274[0] = Unknown270;
 		Unknown270 += frame;
-		Unknown274[1]++;
 		Unknown274[3] += frame;
+		Unknown274[1]++;
 	}
 	return false;
 }

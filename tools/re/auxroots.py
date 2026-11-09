@@ -118,8 +118,9 @@ BLOB_FORMS = {
                'float F00; float F04; float F08; int I0C; float F10; NAME() : F00(1.0f), F04(0.0f), F08(0.0f), I0C(-1), F10(0.0f) {} '
                'NAME(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; } '
                'NAME &operator=(const NAME &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; return *this; }'),
-    0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29)',
-               'int I00; int I04; int I08; NAME() : I00(-1), I04(-1), I08(-1) {}'),
+    0xB016DC: ('12 bytes, constructed {-1, -1, -1} (the Mounts elements\' default, Ship 0x6F6E29); the copy constructor is the client\'s: sclient\'s 0x751BE0 calls it out of line (0x752170, folded with UnknownB00A00Type\'s)',
+               'int I00; int I04; int I08; NAME() : I00(-1), I04(-1), I08(-1) {} '
+               'NAME(const NAME &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; }'),
     0xB03694: ('16 bytes, zeroed (0x757B00)',
                'int I00; int I04; int I08; int I0C; NAME() : I00(0), I04(0), I08(0), I0C(0) {}'),
 }
@@ -387,6 +388,10 @@ class Gen:
                 inst = f'DeltaArrayClass<{ecls[len("DeltaTemplateClass<"):-1]}>'
             elif el['type'] == 'struct' and ecls != 'DeltaInterpolatorClass' and el.get('mask') is None:
                 inst = f'DeltaItemArrayClass<{ecls}>'
+            elif ecls == 'DeltaStringClass' and el.get('mask') is None:
+                # string elements too (0xB00E9C, MountBoneNames: 0x701B60 asserts in delta_item_array.h, line 60,
+                # and builds DeltaStringClass(name, ""), delta_string.h's default; 0x6F8880 inlines its destructor)
+                inst = 'DeltaItemArrayClass<DeltaStringClass>'
             if inst is not None and vt in ARRAY_DERIVED:
                 # a class of its own derived from the template instance (see ARRAY_DERIVED)
                 base_vt, base_ctor = ARRAY_DERIVED[vt]
@@ -419,8 +424,6 @@ class Gen:
                      '\t\t\tif (item == 0) {', '\t\t\t\tG_ASSERT(item);', '\t\t\t\tbreak;', '\t\t\t}']
             if el.get('mask') is not None:
                 lines.append(f'\t\t\titem->Unknown80 = 0x{el["mask"]:X};')
-            # (a do-while here, as delta_item_array.h's, and an out-of-line constructor (0x701B60)
-            # gain 0x7014B0 and 0x7045F0 but lose 0x6FB1E0: VC6's inlining elsewhere in the file moves)
             lines += ['\t\t\tAdd(item);', '\t\t}', '\t}', '};']
             self.decl[vt] = '\n'.join(lines)
             self.order.append(vt)
@@ -764,7 +767,12 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 16
+SYMBOL_PAD = 58
+# Definition order in aux_roots.cpp, a second lever (SC2, 2026-11-08d): with DeltaItemArrayClass<DeltaStringClass>
+# (MountBoneNames) instantiated, no pad holds the six with the client's address order (0x7014B0 and 0x7045F0
+# share only 57..59, where 0x6FB1E0 fails); PrimaryCategory's inline constructor (0x6FB1E0) defined last moves
+# its window alone, and 57..59 hold all of them. Address -> the sort key used instead (not the client's order).
+DEF_ORDER = {0x6FB1E0: 0x707431}
 PAD = '''
 // VC6 symbol pad (not the client's code): the constructors above match only when the count of the
 // declarations this file sees falls in a window of a cycle of 64 (tools/re/auxroots.py SYMBOL_PAD)
@@ -779,7 +787,7 @@ enum AuxRootsSymbolPadType { %s };	// NAME 1: a build aid (HX1)
 # UnknownCOClass joined co.h, sclient.cpp includes control_keys_manager.h at its top, SB3 changed sbaseview.h and
 # WF1 made FontSys's destructor implicit
 # (PH1, .work/ph1/sweep.py sc).
-SEND_SYMBOL_PAD = 51
+SEND_SYMBOL_PAD = 40
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)
@@ -871,7 +879,7 @@ def generate(doc, out_dir):
         '%(inline_roots)s', ''.join(text + '\n\n' for _, text in sorted(inline_roots)))
     # the client's order (its objects compile in address order: VC6's inlining depends on what came before)
     ctors += g.nested + [(0x6F8C70, SHIP_ADD), (0x6F6000, FACTORY.replace('%(cases)s', '\n'.join(cases)))]
-    c = SOURCE.replace('%(ctors)s', '\n\n'.join(text for _, text in sorted(ctors, key=lambda x: x[0])))
+    c = SOURCE.replace('%(ctors)s', '\n\n'.join(text for _, text in sorted(ctors, key=lambda x: DEF_ORDER.get(x[0], x[0]))))
     pad = PAD % ', '.join(f'AUX_ROOTS_PAD_{i:02d}' for i in range(SYMBOL_PAD)) if SYMBOL_PAD else ''
     c = c.replace('%(pad)s', pad)
     os.makedirs(out_dir, exist_ok=True)

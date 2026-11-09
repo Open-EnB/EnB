@@ -173,18 +173,18 @@ class SBaseViewUnknown188Class : public InterfaceClass { public: SBaseViewUnknow
 class SBaseViewUnknown198Class : public InterfaceClass { public: SBaseViewUnknown198Class(SClient *client); char Unknown84[0xB8 - 0x84]; };	// NAME 1: neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes
 class UIManuClass;	// ui_manu.h: the starbase view's +0x18C (0x69F8F0 case 7: 0x5AFA00)
 
-// ui_jobs.cpp's interface (an InterfaceClass: its reference count at +0x3C) and sbaseview.cpp's view
-// (SClient +0x135C; LOUNGE_NPC 82 calls its 0x6A0FD0) that holds it, declared as far as the job packets call them
-class UIJobsClass : public InterfaceClass	// NAME 3: class-from-file (D24) for app\client\ui_jobs.cpp
-{
-public:
-	UIJobsClass(SClient *client);	// 0x5A1170 (0x1F8 bytes; the starbase view's 0x69F8F0, case 8)  // NAME 1 [client]: what 0x69F8F0 passes
-	void Unknown_5A3BC0(JobListPacketClass *packet);	// 0x5A3BC0 (JOB_LIST 147)  // NAME 1 [packet]: the handler's packet
-	void Unknown_5A3F10(JobDescriptionPacketClass *packet);	// 0x5A3F10 (JOB_DESCRIPTION 148)  // NAME 1 [packet]: the handler's packet
-	void Unknown_5A3FB0(JobAcceptReplyPacketClass *packet);	// 0x5A3FB0 (JOB_ACCEPT_REPLY 150)  // NAME 1 [packet]: the handler's packet
-	void Unknown_5A4430(int job_id);	// 0x5A4430 (JOB_DELETE 149)  // NAME 1 [job_id]: the packet's JobID
-	char Unknown84[0x1F8 - 0x84];	// +0x84
-};
+// ui_jobs.cpp's job board window UIJobsClass (the view's +0x194; 0x1F8 bytes): ui_jobs.h. The view below (SClient
+// +0x135C; LOUNGE_NPC 82 calls its 0x6A0FD0) holds it
+#include "ui_jobs.h"
+
+
+
+
+
+
+
+
+
 class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp declares it)
 // ScriptedMovieViewerSettingsStruct (the view's +0x68): unknown_490900.h
 // ui_talkt.cpp's talk tree UITalkTreeClass (the view's +0x190): sclient.h

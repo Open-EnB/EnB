@@ -539,7 +539,7 @@ UIScanThreatClass::~UIScanThreatClass()
 #include "cfaction_database.h"
 #include <stdio.h>
 #include "co_player_relationship.h"
-// A field under root that is set (+0x70), else NULL; and one changed since (+0x70 above 1): ui_faction.cpp's
+template<class C> inline C *Unknown_Scan_Find_Field(char *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = (DeltaCompoundClass *)root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(char *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Find_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Find(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Scan_Find_Field<C>(root, name)); } template<class C> inline C *Unknown_Scan_Changed_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70 > 1) return(t); return(NULL); } template<class C> inline C *Unknown_Scan_Changed(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Scan_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10): two inline layers (ui_analyze.cpp's form) send the finds out of line as the client (0x60E6A0, the char * root: 0x610290 / 0x514BD0; 0x60F1A0: 0x610370); below, a field under root that is set (+0x70), else NULL; and one changed since (+0x70 above 1): ui_faction.cpp's
 template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
 { C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }
 template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name)	// NAME 1: neutral (D10)
@@ -552,9 +552,9 @@ template DeltaTemplateClass<DurationClass> *Unknown_Find_Field<DeltaTemplateClas
 template DeltaStringClass *Unknown_Find_Field<DeltaStringClass>(DeltaCompoundClass *root, const NameClass &name);	// (instantiated here, under auto_inline(off): the client calls it out of line, 0x514BD0)
 // The interrupt display: the 'tsi08c' model on the scanner's 'BONE_INTER' bone, its progress display (+0x2C) and
 // the ability's name on 'MFD_INTERRUPT'; the faction line hidden meanwhile
-// NOT EXACT: inline-budget (TL2; similarity 0.43): the client calls the three finds (0x610290, 0x514BD0) out of line and
-// assigns the cleared name through assign(const char *, size_type) out of line, and reads the time through 0x60ECD0 (the
-// time field's value; a Get_Value declared in delta_template.h costs aux_roots 8 pairs); ours inlines them, its registers differ
+// NOT EXACT: inline-budget (IB2; similarity 0.53): the finds out of line as the client (0x610290, 0x514BD0) through two inline
+// layers, and with them the cleared name's assign(const char *, size_type) (0x42D050); the client also reads the time through 0x60ECD0 (the
+// time field's value; a Get_Value declared in delta_template.h costs aux_roots 8 pairs); ours inlines that read; registers differ
 // @0x60E6A0
 void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
 {
@@ -586,7 +586,7 @@ void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
 		if (!target || !target->AuxData) return;
 		InterruptInfo->Unknown2C->Unknown_59E600();
 		InterruptInfo->Unknown2C->Unknown_60EC70(DurationClass((unsigned int)((ClientClass *)Client)->Unknown10BC));
-		DeltaTemplateClass<DurationClass> *time = Unknown_Find_Set_Field<DeltaTemplateClass<DurationClass> >((DeltaCompoundClass *)target->AuxData, "InterruptibleActivationTime");
+		DeltaTemplateClass<DurationClass> *time = Unknown_Scan_Find<DeltaTemplateClass<DurationClass> >(target->AuxData, "InterruptibleActivationTime");
 		if (time) {
 			InterruptInfo->Unknown2C->Unknown_60ECA0(time->Value);
 		}
@@ -610,7 +610,7 @@ void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
 
 
 		G_ASSERT(robj);
-		DeltaStringClass *name = Unknown_Find_Set_Field<DeltaStringClass>((DeltaCompoundClass *)object->AuxData, "InterruptibleAbilityName");
+		DeltaStringClass *name = Unknown_Scan_Find<DeltaStringClass>(object->AuxData, "InterruptibleAbilityName");
 		if (name) {
 			InterruptInfo->AbilityName = name->String;
 		} else {
@@ -743,7 +743,7 @@ inline TargetingClass *UIScanClass::Get_Targeting()
 
 
 
-// NOT EXACT: inline-budget (TL1; similarity 0.65): the client calls the Reputation find out of line (0x610370; an explicit instantiation here does not move it), tail-merges only cases 2 and 5
+// NOT EXACT: frame / order (IB2; similarity 0.66): the Reputation finds out of line as the client (0x610370) through two inline layers typed <DeltaCompoundClass>; the client tail-merges only cases 2 and 5
 // @0x60F1A0
 void UIScanClass::Unknown_60F1A0(bool arg)
 {
@@ -838,8 +838,8 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 		FAIL_IF(!aux_data) return;
 
 		DeltaReputationClass *reputation = (!arg && !expired) ?
-			Unknown_Find_Changed_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation") :
-			Unknown_Find_Set_Field<DeltaReputationClass>((DeltaCompoundClass *)aux_data, "Reputation");
+			(DeltaReputationClass *)Unknown_Scan_Changed<DeltaCompoundClass>((DeltaCompoundClass *)aux_data, "Reputation") :
+			(DeltaReputationClass *)Unknown_Scan_Find<DeltaCompoundClass>((DeltaCompoundClass *)aux_data, "Reputation");
 
 
 		if (reputation) {

@@ -170,6 +170,9 @@ public:
 	void Unknown_588870();								// 0x588870 (UIViewClass's +0x14 0x65B470: the HTML box's browser)
 	void Unknown_588A70(const char *type, bool follow_mouse, const char *text, int width, bool hide_on_key, bool flush);	// 0x588A70 (102 callers; GROUP 30, DIALOG 98: "GROUP_INVITE", "OK", "YES_NO", "OK_CANCEL", "server_message")  // NAME 1 [type, follow_mouse, text, width, hide_on_key, flush]: what the function does with them
 	bool Is_HTML() { return stricmp(Type, "HTML") == 0; }	// (LoginTaskClass::Run: inline, the client computes the name in eax)  // NAME 1: what it tests
+#ifdef __UI_TRADE_MEMBERS	// ui_trade.cpp only: a declaration sclient.cpp sees moves its pad window (0x74D990, workflow.md 3.4)
+	void Unknown_5896C0(const char *type);				// 0x5896C0 (ui_trade.cpp: the 'BUY_CONFIRMATION' box closed)  // NAME 1 [type]: 0x588A70's
+#endif
 	int Unknown_5890B0(const char *button);				// 0x5890B0 (SClient::Do_Frame passes NULL after 'Lost connection to server.'; tsk_login.h: the button pressed)  // NAME 2 [button]: tsk_login.h's
 	// (+0x04..+0x50: gclass.h's GClass slots)
 	virtual void Unknown_58();							// +0x58 0x588480 (shown, when it has options)

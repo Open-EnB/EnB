@@ -74,7 +74,7 @@ void FontSys::Unknown_6CCE60()
 // 0x6CD180: true while the pointer is over the text (+0x250 1: inside the screen rectangle +0x430; 2: inside the text's
 // box, its half size plus Info.BoxOffset, placed by Info.Justify); counts the frames in +0x290 and plays Info.SoundOver
 // on the first.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD180)
+// Exact: each branch has its own success tail (the client inlines the last Play copy further), a Vector3 sum for the box centre.
 bool FontSys::Unknown_6CD180()
 {
 	if (Unknown440 != 1 || Unknown250 == 0 || !Unknown4E4) {
@@ -88,32 +88,32 @@ bool FontSys::Unknown_6CD180()
 	x = (float)Width * x - (float)(Width / 2);
 	y = (float)(Height / 2) - (float)Height * y;
 	if (Unknown250 == 1) {
-		if (!((float)Unknown430[3] * sy < y) || !((float)Unknown430[2] * sy > y) ||
-			!((float)Unknown430[0] * sx < x) || !((float)Unknown430[1] * sx > x)) {
-			Unknown274[7] = 0;
-			return false;
+		if ((float)Unknown430[3] * sy < y && (float)Unknown430[2] * sy > y &&
+			(float)Unknown430[0] * sx < x && (float)Unknown430[1] * sx > x) {
+			if (++Unknown274[7] == 1) {
+				if (Unknown300) {
+					Unknown_BE67B4->Play(Info.SoundOver);
+				}
+				Unknown274[1] = 0;
+			}
+			return true;
 		}
 	} else {
-		int half_x = (int)((float)(Unknown2C4 / 2) + Info.BoxOffset[0]);
-		int half_y = (int)((float)(Unknown2C8 / 2) + Info.BoxOffset[1]);
-		int a = half_x;
-		int b = half_y;
+		int a = (int)((float)(Unknown2C4 / 2) + Info.BoxOffset[0]);
+		int b = (int)((float)(Unknown2C8 / 2) + Info.BoxOffset[1]);
 		if (Info.Rotate90) {
-			a = half_y;
-			b = half_x;
+			int t = b;
+			b = a;
+			a = t;
 		}
-		float px;
-		float py;
+		Vector3 pos;
 		if (Unknown302) {
-			px = Unknown464[0] + Unknown47C.X;
-			py = Unknown464[1] + Unknown47C.Y;
+			pos = Unknown464 + Unknown47C;
 		} else {
-			Vector3 pos = Get_Position();
-			px = pos.X + Unknown47C.X;
-			py = Unknown47C.Y + pos.Y;
+			pos = Get_Position() + Unknown47C;
 		}
-		px *= sx;
-		py *= sy;
+		pos.X *= sx;
+		pos.Y *= sy;
 		if (Info.Justify[0] == 1) {
 			y = (float)b + y;
 		} else if (Info.Justify[0] == 2) {
@@ -124,61 +124,57 @@ bool FontSys::Unknown_6CD180()
 		} else if (Info.Justify[1] == 4) {
 			x = (float)a + x;
 		}
-		if (!(py - (float)b < y) || !(y < py + (float)b) || !(px - (float)a < x) || !(px + (float)a > x)) {
-			Unknown274[7] = 0;
-			return false;
+		if (pos.Y - (float)b < y && y < pos.Y + (float)b && pos.X - (float)a < x && pos.X + (float)a > x) {
+			if (++Unknown274[7] == 1) {
+				if (Unknown300) {
+					Unknown_BE67B4->Play(Info.SoundOver);
+				}
+				Unknown274[1] = 0;
+			}
+			return true;
 		}
 	}
-	if (++Unknown274[7] != 1) {
-		return true;
-	}
-	if (Unknown300) {
-		Unknown_BE67B4->Play(Info.SoundOver.ID, Info.SoundOver.Vol, Info.SoundOver.Dur);
-	}
-	Unknown274[1] = 0;
-	return true;
+	Unknown274[7] = 0;
+	return false;
 }
 
 // 0x6CD6F0: true while the click effects run (+0x294 ms, from Info.TriggerTime): +0x250 2 starts them on button 1 down
 // over the text (0x6CD180's +0x290), 1 while +0x301 is set; the start resets the timers and plays Info.SoundClick.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD6F0)
+// NOT EXACT: order-only (attempts.csv): the client computes the memset address before its count (every memset of +0x303 here)
 bool FontSys::Unknown_6CD6F0()
 {
 	if (Unknown440 != 1) {
 		return false;
 	}
-	int mode = Unknown250;
-	if (mode == 0) {
+	if (Unknown250 == 0) {
 		return false;
 	}
-	if (mode == 2 && Unknown274[8] > 0) {
+	if (Unknown250 == 2 && Unknown274[8] > 0) {
 		return true;
 	}
-	if (mode == 1 && Unknown274[8] > 0) {
+	if (Unknown250 == 1 && Unknown274[8] > 0) {
 		if (Unknown301) {
 			return true;
 		}
 		Unknown274[8] = 0;
 		return false;
 	}
-	if (!(mode == 1 && Unknown301)) {
-		if (mode != 2 || !Unknown_42EC60(1, 0) || Unknown274[7] <= 0) {
-			return false;
+	if ((Unknown250 == 1 && Unknown301) || (Unknown250 == 2 && Unknown_42EC60(1, 0) && Unknown274[7] > 0)) {
+		Unknown274[8] = (int)(Info.TriggerTime * 1000.0f);
+		Unknown270 = 0;
+		Unknown274[0] = 0;
+		Unknown274[9] = 0;
+		Unknown274[10] = 0;
+		Unknown274[1] = 0;
+		Unknown414 = 0;
+		Unknown404 = false;
+		memset(Unknown303, 0, sizeof(Unknown303));
+		if (Unknown300) {
+			Unknown_BE67B4->Play(Info.SoundClick);
 		}
+		return true;
 	}
-	Unknown274[8] = (int)(Info.TriggerTime * 1000.0f);
-	Unknown270 = 0;
-	Unknown274[0] = 0;
-	Unknown274[9] = 0;
-	Unknown274[10] = 0;
-	Unknown274[1] = 0;
-	Unknown414 = 0;
-	Unknown404 = false;
-	memset(Unknown303, 0, sizeof(Unknown303));
-	if (Unknown300) {
-		Unknown_BE67B4->Play(Info.SoundClick.ID, Info.SoundClick.Vol, Info.SoundClick.Dur);
-	}
-	return true;
+	return false;
 }
 
 // 0x6CD950: EffectTriggered[index] runs for time seconds (+0x2A4.., ms; the index clamped to 0..3 for the timer
@@ -259,28 +255,54 @@ static inline void Reset_XSpacing(Font32Class *font)
 	*(int *)((char *)font + 0xD28) = *(int *)((char *)font + 0xD2C);
 }
 
-// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'. The new text (NULL is "") into +0x2F0 and Info.Text,
+// The text printed into +0x2D0's texture again (Change_Text's three sites): as a helper, Change_Text's effects-branch
+// Info.Text copy calls Store_Length out of line as the client's does (FN1)
+static inline void Print_Text(FontSys *f)	// NAME 1 [Print_Text]: what it does
+{
+	Reset_XSpacing(f->Font.Peek());
+	f->Unknown4C4 = f->Unknown2D0.Unknown_6D8DC0(&f->Font, f->Unknown2F0, 0);
+	f->Unknown4C5 = false;
+}
+
+// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'. The new text (NULL or empty is " ") into +0x2F0 and Info.Text,
 // rendered into +0x2D0's texture when it changed, the text rectangle from the font. With unknown set the effects
 // start over (1: every effect state reset first; else, with EffectOff effects, the style only goes to state 2: the
 // off effects run first); without it the text is replaced in place (the position x back to +0x470's).
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDBC0)
+// NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first " " assignment and
+// hoists three member loads above stores (27 masked rows)
 void FontSys::Change_Text(const char *text, int unknown)
 {
 	WWPROFILE("FontSys::Change_Text");
-	if (unknown) {
+	if (unknown == 0) {
+		Invalidate_Cached_Bounding_Volumes();
+		if (text == NULL) {
+			Unknown2F0 = " ";
+			Print_Text(this);
+		} else if (Unknown2F0 != text) {
+			Unknown2F0 = text;
+			if (Unknown2F0.Is_Empty()) {
+				Unknown2F0 = " ";
+			}
+			Print_Text(this);
+		}
+		Info.Text = Unknown2F0;
+		Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(Unknown2F0);
+		Unknown420[3] = Unknown2C8 = Font->Get_Height();
+		Unknown47C.X = Unknown470.X;
+		Unknown458 = 0;
+	} else {
 		Invalidate_Cached_Bounding_Volumes();
 		Unknown404 = false;
 		if (text == NULL) {
-			Unknown2F0 = "";
+			Unknown2F0 = " ";
 		} else {
 			Unknown2F0 = text;
 		}
 		if (Unknown2F0.Is_Empty()) {
-			Unknown2F0 = "";
+			Unknown2F0 = " ";
 		}
-		if (unknown == 1 || (Effects[2][0] == NULL && Effects[2][1] == NULL && Effects[2][2] == NULL)) {
+		if ((Effects[2][0] == NULL && Effects[2][1] == NULL && Effects[2][2] == NULL) || unknown == 1) {
 			if (unknown == 1) {
-				int i;
 				Unknown444 = 0;
 				Unknown2F4[0] = 1.0f;
 				Unknown2F4[1] = -1.0f;
@@ -288,33 +310,42 @@ void FontSys::Change_Text(const char *text, int unknown)
 				Unknown488[1] = 0;
 				Unknown488[2] = 0;
 				if (Colors[0] != NULL) {
-					float *color = (float *)&Unknown494;
-					float *second = (float *)&Unknown4B4;
-					color[3] = 1.0f;
-					color[0] = (float)Colors[0]->RGB.X * 0.00392156f;
-					color[1] = (float)Colors[0]->RGB.Y * 0.00392156f;
-					color[2] = (float)Colors[0]->RGB.Z * 0.00392156f;
-					second[3] = 1.0f;
-					second[0] = (float)Colors[1]->RGB.X * 0.00392156f;
-					second[1] = (float)Colors[1]->RGB.Y * 0.00392156f;
-					second[2] = (float)Colors[1]->RGB.Z * 0.00392156f;
+					Unknown494.Color.Set((float)Colors[0]->RGB.X * 0.00392156f, (float)Colors[0]->RGB.Y * 0.00392156f, (float)Colors[0]->RGB.Z * 0.00392156f);
+					Unknown494.Unknown0C = 1.0f;
+					Unknown4B4.Color.Set((float)Colors[1]->RGB.X * 0.00392156f, (float)Colors[1]->RGB.Y * 0.00392156f, (float)Colors[1]->RGB.Z * 0.00392156f);
+					Unknown4B4.Unknown0C = 1.0f;
 					Unknown4A4 = Unknown494;
 				}
 				memset(Unknown303, 0, sizeof(Unknown303));
 				Unknown26C = 0;
 				Unknown270 = 0;
-				for (i = 0; i < 16; i++) Unknown274[i] = 0;
-				for (i = 0; i < 6; i++) Unknown254[i] = 0;
+				Unknown274[0] = 0;
+				Unknown274[1] = 0;
+				Unknown274[2] = 0;
+				Unknown274[3] = 0;
+				Unknown274[4] = 0;
+				Unknown274[5] = 0;
+				Unknown274[6] = 0;
+				Unknown274[7] = 0;
+				Unknown274[8] = 0;
+				Unknown274[9] = 0;
+				Unknown274[10] = 0;
+				Unknown274[11] = 0;
+				for (int k = 0; k < 4; k++) Unknown274[12 + k] = 0;
+				Unknown254[0] = 0;
+				Unknown254[1] = 0;
+				Unknown254[2] = 0;
+				Unknown254[3] = 0;
+				Unknown254[4] = 0;
+				Unknown254[5] = 0;
 			}
 			Unknown440 = 0;
 			if (Info.Text != (const char *)Unknown2F0) {
 				Info.Text = Unknown2F0;
-				Reset_XSpacing(Font.Peek());
-				Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
-				Unknown4C5 = false;
+				Print_Text(this);
 			}
-			Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(Unknown2F0);
-			Unknown2C8 = Unknown420[3] = Font->Get_Height();
+			Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(Unknown2F0);
+			Unknown420[3] = Unknown2C8 = Font->Get_Height();
 			for (int i = 0; i < 4; i++) {
 				Unknown_6CDAB0(Effects[0][i]);
 			}
@@ -326,34 +357,17 @@ void FontSys::Change_Text(const char *text, int unknown)
 		Unknown274[2] = 0;
 		Unknown270 = 0;
 		Unknown274[0] = 0;
-	} else {
-		Invalidate_Cached_Bounding_Volumes();
-		if (text == NULL) {
-			Unknown2F0 = "";
-			Reset_XSpacing(Font.Peek());
-			Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
-			Unknown4C5 = false;
-		} else if (Unknown2F0 != text) {
-			Unknown2F0 = text;
-			if (Unknown2F0.Is_Empty()) {
-				Unknown2F0 = "";
-			}
-			Reset_XSpacing(Font.Peek());
-			Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, Unknown2F0, 0);
-			Unknown4C5 = false;
-		}
-		Info.Text = Unknown2F0;
-		Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(Unknown2F0);
-		Unknown2C8 = Unknown420[3] = Font->Get_Height();
-		Unknown47C.X = Unknown470.X;
-		Unknown458 = 0;
 	}
-	Unknown408 = (Unknown2F0 == "");
+	if (strcmp(Unknown2F0, " ") == 0) {
+		Unknown408 = true;
+	} else {
+		Unknown408 = false;
+	}
 }
 
 // 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text printed again with it (with
 // "..." while +0x406 says the line is clipped); the effects SWITCH / REVERT (0x6CA0C0) call it.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE4E0)
+// NOT EXACT: inline-budget (attempts.csv): the client calls operator+= ("...") out of line; the stores are its order
 void FontSys::Unknown_6CE4E0(int font_index)
 {
 	FontIndex = font_index;
@@ -372,8 +386,8 @@ void FontSys::Unknown_6CE4E0(int font_index)
 	Font = font->font32Ptr;
 	Reset_XSpacing(Font.Peek());
 	Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, buffer, 0);
-	Unknown2C4 = Unknown420[1] = Font->String_Pixel_Width(buffer);
-	Unknown2C8 = Unknown420[3] = Font->Get_Height();
+	Unknown420[1] = Unknown2C4 = Font->String_Pixel_Width(buffer);
+	Unknown420[3] = Unknown2C8 = Font->Get_Height();
 	Unknown4C5 = false;
 }
 

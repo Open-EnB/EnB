@@ -13,8 +13,8 @@
 #include <string>
 
 // What the title's slots get (the filler 0x537830's slots +0x08 / +0x0C pass them on)
-class UIItemExaminationTitleNameClass { public: std::string Unknown_53A140() const; };	// NAME 1: neutral (D10): 0x53A140 (the name's text, by value)
-struct UIItemExaminationTitleIconStruct { char Unknown00[8]; std::string Unknown08; };	// NAME 1: neutral (D10): +0x08 the icon's texture name
+#include "item\client_item_property_name.h"
+#include "item\client_item_property_icon.h"
 class UIItemExaminationTitleSubtitlesClass  // NAME 1: neutral (D10): what slot +0x10 of the filler passes (0x530310 is in the item property files)
 {
 public:
@@ -36,8 +36,8 @@ public:
 	virtual ~UIItemExaminationTitleClass();													// +0x04 0x539E80 (deleting 0x539E50)
 
 	void Clear();																			// 0x539F70 (the name emptied, the subtitles removed)  // NAME 1 [Clear]: as the options panel's
-	void Set_Name(const UIItemExaminationTitleNameClass &name);								// 0x53A0A0  // NAME 1 [Set_Name, name]: what it does
-	void Set_Icon(const UIItemExaminationTitleIconStruct &icon);							// 0x53A2C0  // NAME 1 [Set_Icon, icon]: what it does
+	void Set_Name(const ClientItemPropertyNameClass &name);								// 0x53A0A0  // NAME 1 [Set_Name, name]: what it does
+	void Set_Icon(const ClientItemPropertyIconClass &icon);							// 0x53A2C0  // NAME 1 [Set_Icon, icon]: what it does
 	void Set_Subtitles(const UIItemExaminationTitleSubtitlesClass &info);					// 0x53A2F0 (FAIL_IFs '!text')  // NAME 1 [Set_Subtitles, info]: what it does
 
 protected:

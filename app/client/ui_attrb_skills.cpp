@@ -175,9 +175,9 @@ void UIAttrbSkillsClass::Unknown_54()
 
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"				// (after auxdata.h, as ui_buff.cpp)
-// auxdata.h's find, set (+0x70) or changed since (+0x70 above 1), else NULL; the dead size() read spends the inline budget so the find is called out of line, as the client's (ui_missn.cpp's 0x5C4C90 needs six)
-template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70) ? t : NULL); }	// NAME 1: neutral (D10)
-template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); C *t = Unknown_Find_Field<C>(root, name); return((t && t->Unknown70 > 1) ? t : NULL); }	// NAME 1: neutral (D10)
+// auxdata.h's find, set (+0x70) or changed since (+0x70 above 1), else NULL, through two inline layers (NameClass and the root copy inner, ui_analyze.cpp's form; IB2: in place of a dead size() read): the find is called out of line, as the client's
+template<class C> inline C *Unknown_Find_Set_Field_Inner(DeltaCompoundClass * root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return((t && t->Unknown70) ? t : NULL); } template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass * root, const char *name) { return(Unknown_Find_Set_Field_Inner<C>(root, name)); }	// NAME 1: neutral (D10)
+template<class C> inline C *Unknown_Find_Changed_Field_Inner(DeltaCompoundClass * root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); return((t && t->Unknown70 > 1) ? t : NULL); } template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass * root, const char *name) { return(Unknown_Find_Changed_Field_Inner<C>(root, name)); }	// NAME 1: neutral (D10)
 // 0x54A640
 // NOT EXACT: frame (similarity 0.68: the client's frame is 0x54, one NameClass slot shared by the two finds and the font in arg's slot; this keeps two NameClass slots and the font apart, 0x8C; the code is the client's)
 void UIAttrbSkillsClass::Unknown_54A640(bool arg)
@@ -185,9 +185,9 @@ void UIAttrbSkillsClass::Unknown_54A640(bool arg)
 	DeltaCompoundClass *aux_data = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
 	DeltaTemplateClass<int> *points;
 	if (arg) {
-		NameClass name("RPGInfo.SkillPoints"); points = Unknown_Find_Set_Field<DeltaTemplateClass<int> >(aux_data, name);
+		points = Unknown_Find_Set_Field<DeltaTemplateClass<int> >(aux_data, "RPGInfo.SkillPoints");
 	} else {
-		NameClass name("RPGInfo.SkillPoints"); points = Unknown_Find_Changed_Field<DeltaTemplateClass<int> >(aux_data, name);
+		points = Unknown_Find_Changed_Field<DeltaTemplateClass<int> >(aux_data, "RPGInfo.SkillPoints");
 	}
 	if (!points) return;
 

@@ -31,10 +31,6 @@ extern const int Unknown_B08C94 = 0x2;
 extern const int Unknown_B08C98 = 0x4;
 extern const int Unknown_B08CA0 = 0x10;
 extern const int Unknown_B08CB4 = 0x200;
-// Sub14CImplClass::Slot15 (0x7E1310) returns a std::string by value, which gen_stubs.py --link skips
-// (a bare declaration: only the class name and the virtual signature reach the mangled name; ui_registration.h needs half the UI headers)
-class Sub14CImplClass { public: virtual std::string Slot15(); };
-std::string Sub14CImplClass::Slot15() { Trace("stub Sub14CImplClass::Slot15 (0x7E1310)"); return std::string(""); }
 extern const int Unknown_B08C9C = 0x8;		// ui_shard's name gadget flag (4f8d4698), as programs/clientpoc/poc_data.cpp
 extern const int Unknown_B08CAC = 0x80;
 extern const int Unknown_B08CB0 = 0x100;

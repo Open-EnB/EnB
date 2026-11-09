@@ -66,9 +66,9 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 // 'Validity': DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB01394Enum> (aux_roots.h; its per-class global 0xC41640)
 
 template<class C> static inline C *Unknown_Find_Root_Field(DeltaCompoundClass *root, NameClass &name) { if (!root) return(NULL); C *t = Unknown_Find_Field<C>(root, name); if (!t) return(NULL); return(t); }	// NAME 1: neutral (D10): the find with its own root test (0x546090 calls the Cast out of line inside it, as the client)  // NAME 1 [root, name]: neutral
-
-
-
+// The field if it is set, else NULL, through two inline layers: with them the client's finds 0x546780 / 0x5467F0 stay out of line in 0x545E40 (the root copied after the NameClass: the client's registers; IB1)
+template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)  // NAME 1 [root, name, n, r, t]: neutral
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10)  // NAME 1 [root, name]: neutral
 
 // 'Mode': DeltaManufacturingLabClass's DeltaTemplateClass<UnknownB013ECEnum> (aux_roots.h; its per-class global 0xC41634)
 
@@ -655,16 +655,14 @@ void UIAnalyzeClass::Unknown_545D30()
 	Unknown0FC[2]->Set_Hidden(true);
 }
 
-// NOT EXACT: inline budget (the client calls both finds out of line, 0x546780 / 0x5467F0, as ui_manu.cpp's 0x5B4680) (0x545E40)
+// The finds through Unknown_Find_Valid (two inline layers, the file's top): out of line as the client's
 // @0x545E40
 void UIAnalyzeClass::Unknown_545E40()
 {
-	NameClass name("CurrentItemCategory");
-	DeltaTemplateClass<UnknownB0122CEnum> *current = Unknown_Find_Field<DeltaTemplateClass<UnknownB0122CEnum> >(Unknown10C, name);
-	if (current && current->Unknown70) {
-		NameClass categories_name("PrimaryCategories");
-		DeltaItemArrayClass<DeltaPrimaryCategoryClass> *categories = Unknown_Find_Field<DeltaItemArrayClass<DeltaPrimaryCategoryClass> >(Unknown10C, categories_name);
-		if (categories && categories->Unknown70) {
+	DeltaTemplateClass<UnknownB0122CEnum> *current = Unknown_Find_Valid<DeltaTemplateClass<UnknownB0122CEnum> >(Unknown10C, "CurrentItemCategory");
+	if (current) {
+		DeltaItemArrayClass<DeltaPrimaryCategoryClass> *categories = Unknown_Find_Valid<DeltaItemArrayClass<DeltaPrimaryCategoryClass> >(Unknown10C, "PrimaryCategories");
+		if (categories) {
 			for (unsigned int a = 0; a < categories->Children.size(); a++) {
 				DeltaPrimaryCategoryClass *primary = (DeltaPrimaryCategoryClass *)categories->Children[a];
 				for (unsigned int b = 0; b < primary->Categories.Children.size(); b++) {
@@ -682,6 +680,8 @@ void UIAnalyzeClass::Unknown_545E40()
 		}
 	}
 }
+
+
 
 #pragma auto_inline(off)
 // @0x546000

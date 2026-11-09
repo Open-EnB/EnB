@@ -30,14 +30,14 @@ void UIItemExaminationTitleClass::Clear()
 	Subtitles->Remove_All_Children(true);
 }
 
-void UIItemExaminationTitleClass::Set_Name(const UIItemExaminationTitleNameClass &name)
+void UIItemExaminationTitleClass::Set_Name(const ClientItemPropertyNameClass &name)
 {
-	Text->Set_Text(name.Unknown_53A140());
+	Text->Set_Text(name.Get_Name());
 }
 
-void UIItemExaminationTitleClass::Set_Icon(const UIItemExaminationTitleIconStruct &icon)
+void UIItemExaminationTitleClass::Set_Icon(const ClientItemPropertyIconClass &icon)
 {
-	Icon->Unknown_519FE0(icon.Unknown08);
+	Icon->Unknown_519FE0(icon.IconTexture);
 }
 
 

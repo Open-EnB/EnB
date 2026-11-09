@@ -695,7 +695,7 @@ void UICpitClass::Unknown_74(ControlKeysManager *manager)
 
 
 
-
+template<class C> inline C *Unknown_Find_Set_Field(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), as ui_scan.cpp's; 0x584000: its expansions call the find (0x5806E0, two) or the Cast (0x5821C0) out of line
 
 // 0x5806E0: the steering keys (the client's key ids 2 .. 21; 0x48, 0x4B .. 0x4E taken, others not)
 // NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast)
@@ -1249,24 +1249,42 @@ public:
 	void Unknown_53B740();								// 0x53B740 (0x5821C0: waiting for the warp)
 };
 
+// auxdata.h's find through two inline layers, the NameClass built in the inner one: set (+0x70), or changed since (+0x70
+// above 1), else NULL. 0x5821C0's copies call the Casts out of line as the client's (0x546970, 0x584FF0, 0x531590, 0x585040)
+template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10)
+{
+	NameClass n(name);
+	C *t = Unknown_Find_Field<C>(root, n);
+	if (t && t->Unknown70) return(t);
+	return(NULL);
+}
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10), as ui_attrb.cpp's
+{
+	return(Unknown_Find_Valid_Field<C>(root, name));
+}
+template<class C> inline C *Unknown_Find_Changed_Field(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10)
+{
+	NameClass n(name);
+	C *t = Unknown_Find_Field<C>(root, n);
+	if (t && t->Unknown70 > 1) return(t);
+	return(NULL);
+}
+template<class C> inline C *Unknown_Find_Changed(DeltaCompoundClass *root, const char *name)	// NAME 1: neutral (D10), as ui_attrb.cpp's
+{
+	return(Unknown_Find_Changed_Field<C>(root, name));
+}
+
 // 0x5821C0: the warp button's state from the avatar's aux data, the throttle lights and the speed display (slot +0x60)
-// NOT EXACT: written from the client (the finds' out-of-line casts and the expanded 0x584000 follow the client's inline budget)
+// NOT EXACT: written from the client (its expanded 0x584000 calls the find out of line, ours inlines it)
 void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 {
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)avatar->AuxData;
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
 	{
-		NameClass name("MaxSpeed");
-		DeltaTemplateClass<float> *max_speed = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name);
-		if (max_speed && max_speed->Unknown70 <= 1) max_speed = NULL;
-		name = NameClass("LockSpeed");
-		DeltaTemplateClass<bool> *lock_speed = Unknown_Find_Field<DeltaTemplateClass<bool> >(aux, name);
-		if (lock_speed && lock_speed->Unknown70 <= 1) lock_speed = NULL;
+		DeltaTemplateClass<float> *max_speed = Unknown_Find_Changed<DeltaTemplateClass<float> >(aux, "MaxSpeed");
+		DeltaTemplateClass<bool> *lock_speed = Unknown_Find_Changed<DeltaTemplateClass<bool> >(aux, "LockSpeed");
 		if (max_speed || lock_speed) {
 			if (max_speed && !lock_speed) {
-				NameClass lock_name("LockSpeed");
-				lock_speed = Unknown_Find_Field<DeltaTemplateClass<bool> >(aux, lock_name);
-				if (lock_speed && !lock_speed->Unknown70) lock_speed = NULL;
+				lock_speed = Unknown_Find_Valid<DeltaTemplateClass<bool> >(aux, "LockSpeed");
 			}
 			bool engine = Unknown_584000(true);
 			bool locked = lock_speed ? lock_speed->Value : false;
@@ -1279,9 +1297,8 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 		}
 	}
 	{
-		NameClass name("LockOrient");
-		DeltaTemplateClass<bool> *lock_orient = Unknown_Find_Field<DeltaTemplateClass<bool> >(aux, name);
-		if (lock_orient && lock_orient->Unknown70 > 1) {
+		DeltaTemplateClass<bool> *lock_orient = Unknown_Find_Changed<DeltaTemplateClass<bool> >(aux, "LockOrient");
+		if (lock_orient) {
 			if (lock_orient->Value) {
 				Unknown0C0->Unknown_40(0);
 				Unknown0C4->Unknown_40(0);
@@ -1317,13 +1334,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 		Unknown_5845A0();
 	} else {
 		{
-			NameClass name("WarpAvailable");
-			DeltaTemplateClass<int> *warp = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, name);
-			if (Unknown13E) {
-				if (warp && !warp->Unknown70) warp = NULL;
-			} else {
-				if (warp && warp->Unknown70 <= 1) warp = NULL;
-			}
+			DeltaTemplateClass<int> *warp = Unknown13E ? Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "WarpAvailable") : Unknown_Find_Changed<DeltaTemplateClass<int> >(aux, "WarpAvailable");
 			if (warp) {
 				const char *text;
 				if (warp->Value == 2) {
@@ -1340,13 +1351,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 			}
 		}
 		{
-			NameClass name("PrivateWarpState");
-			DeltaTemplateClass<int> *state = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, name);
-			if (Unknown13E) {
-				if (state && !state->Unknown70) state = NULL;
-			} else {
-				if (state && state->Unknown70 <= 1) state = NULL;
-			}
+			DeltaTemplateClass<int> *state = Unknown13E ? Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "PrivateWarpState") : Unknown_Find_Changed<DeltaTemplateClass<int> >(aux, "PrivateWarpState");
 			if (state) {
 				switch (state->Value) {
 					case 0:
@@ -1357,9 +1362,8 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						} else {
 							Unknown0B4->Unknown_40(0);
 							Unknown_5845A0();
-							NameClass warp_name("WarpAvailable");
-							DeltaTemplateClass<int> *warp = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, warp_name);
-							if (warp && warp->Unknown70 && warp->Value == 1) {
+							DeltaTemplateClass<int> *warp = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, "WarpAvailable");
+							if (warp && warp->Value == 1) {
 								GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "NO_WARP");
 							} else {
 								GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "CANNOT_WARP");
@@ -1386,9 +1390,8 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						Unknown0B4->Unknown_40(0);
 						Unknown_5845A0();
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_WAIT");
-						NameClass time_name("WarpTriggerTime");
-						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Field<DeltaTemplateClass<DurationClass> >(aux, time_name);
-						if (time && time->Unknown70) Unknown0B4->Unknown_676190(4, time->Value.As_Int());
+						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
+						if (time) Unknown0B4->Unknown_676190(4, time->Value.As_Int());
 						Unknown0B4->Unknown_A4(0);
 						SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
 						if (client && client->BridgeInterface) client->BridgeInterface->Unknown_53B740();
@@ -1398,9 +1401,8 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 					case 1:
 					{
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_DONE");
-						NameClass time_name("WarpTriggerTime");
-						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Field<DeltaTemplateClass<DurationClass> >(aux, time_name);
-						if (time && time->Unknown70) Unknown0B4->Unknown_676190(1, time->Value.As_Int());
+						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
+						if (time) Unknown0B4->Unknown_676190(1, time->Value.As_Int());
 						Unknown0B4->Unknown_A4(0);
 						break;
 					}
@@ -1447,18 +1449,16 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 	}
 	Unknown_673EE0Class *gadget;
 	if (Unknown144 == 1 || Unknown144 == 3) {
-		NameClass name("MaxSpeed");
-		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name);
-		if (!t || !t->Unknown70) return;
+		DeltaTemplateClass<float> *t = Unknown_Find_Valid<DeltaTemplateClass<float> >(aux, "MaxSpeed");
+		if (!t) return;
 		if (!(t->Value * 0.99f < speed)) {
 			((FontSys *)Unknown154)->Unknown_6CE910(0);
 			return;
 		}
 		gadget = Unknown0B8;
 	} else if (Unknown144 == 2 || Unknown144 == 4) {
-		NameClass name("MinSpeed");
-		DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, name);
-		if (!t || !t->Unknown70) return;
+		DeltaTemplateClass<float> *t = Unknown_Find_Valid<DeltaTemplateClass<float> >(aux, "MinSpeed");
+		if (!t) return;
 		if (!(t->Value * 0.99f > speed)) {
 			((FontSys *)Unknown154)->Unknown_6CE910(0);
 			return;
@@ -1728,9 +1728,10 @@ void UICpitClass::Unknown_583510()
 	Unknown0C0->Unknown_671630();
 	Unknown0C4->Unknown_671630();
 }
-
+template<class C> inline C *Unknown_Find_Changed_Field(char *const &root, const char *name) { NameClass n(name); C *t = Unknown_Find_Field<C>((DeltaCompoundClass *)root, n); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10); the root by reference: 0x583790 reads it after the NameClass
+template<class C> inline C *Unknown_Find_Changed(char *const &root, const char *name) { return(Unknown_Find_Changed_Field<C>(root, name)); }	// NAME 1: neutral (D10)
 // 0x583790: the throttle (+0xB8) and reverse (+0xBC) buttons
-// NOT EXACT: inline budget (the client calls the IsAutoFollowing Cast out of line, 0x584FF0; then the packets' client loads in other registers)
+// The IsAutoFollowing find through two inline layers, the root by reference: its Cast out of line as the client's (0x584FF0)
 void UICpitClass::Unknown_583790()
 {
 	if (!Unknown0B8->Unknown_60() && !Unknown0BC->Unknown_60()) return;
@@ -1739,9 +1740,8 @@ void UICpitClass::Unknown_583790()
 	ClientObjectClass *avatar = sclient->Get_Avatar();
 	if (!avatar) return;
 	if (!avatar->AuxData) return;
-	NameClass name("IsAutoFollowing");
-	DeltaTemplateClass<bool> *t = Unknown_Find_Field<DeltaTemplateClass<bool> >((DeltaCompoundClass *)avatar->AuxData, name);
-	if (t && t->Unknown70 > 1) {
+	DeltaTemplateClass<bool> *t = Unknown_Find_Changed<DeltaTemplateClass<bool> >(avatar->AuxData, "IsAutoFollowing");
+	if (t) {
 		Unknown0B8->Unknown_671740(false, 0);
 		Unknown0BC->Unknown_671740(false, 0);
 		Unknown144 = 0;
@@ -1922,8 +1922,8 @@ bool UICpitClass::Unknown_584000(bool report)
 	if (!avatar) return(false);
 	if (!avatar->AuxData) return(false);
 	NameClass name("MaxSpeed");
-	DeltaTemplateClass<float> *t = Unknown_Find_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);
-	bool ok = (t && t->Unknown70 && t->Value != 0.0f);
+	DeltaTemplateClass<float> *t = Unknown_Find_Set_Field<DeltaTemplateClass<float> >((DeltaCompoundClass *)avatar->AuxData, name);
+	bool ok = (t && t->Value != 0.0f);
 	if (!ok) {
 		if (report) sclient->Unknown_74D990(17, "Engine unavailable. Please wait.", 0);
 		return(false);

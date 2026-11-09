@@ -7,6 +7,7 @@
 
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
+#include <string>
 
 class ClientItemPropertyOptionClass;
 class ClientItemPropertyAttributeClass;
@@ -15,19 +16,22 @@ class UIItemExaminationAttributesClass;
 class UIItemExaminationSpecialsClass;
 class UIItemExaminationOptionsClass;
 class UIItemExaminationDescriptionClass;
-class UIItemExaminationTitleNameClass;
-struct UIItemExaminationTitleIconStruct;
+class ClientItemPropertyNameClass;
+class ClientItemPropertyIconClass;
 class UIItemExaminationTitleSubtitlesClass;
 class ClientItemPropertySpecialClass;
-struct UIItemExaminationDescriptionPropertyStruct;	// NAME 1: neutral (D10): +0x08 the description's text
+class ClientItemPropertyDescriptionClass;
+class ClientItemPropertyUnknown529810Class;
 class ClientItemPropertyVisitorClass;
 
 // An item's property as the router sees it: slot +0x10 hands it to a visitor (interim, D137)
 class ClientItemPropertyClass : public RefCountClass  // NAME 1: neutral (D10): the item property files' common base, interim
 {
 public:
-	virtual void Unknown_08();																// NAME 1: neutral (D10)
-	virtual void Unknown_0C();																// NAME 1: neutral (D10)
+	ClientItemPropertyClass();															// 0x51F900 (table 0xAEDBF0)
+	virtual ~ClientItemPropertyClass();													// 0x51F950 (deleting 0x51F920)
+	virtual int Unknown_08() = 0;														// +0x08 (pure in 0xAEDBF0)  // NAME 1: neutral (D10)
+	virtual std::string Unknown_0C() = 0;												// +0x0C (pure in 0xAEDBF0; the tooltip's key: 'category tooltip', 'description', 'name tooltip')  // NAME 1: neutral (D10)
 	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10  // NAME 1 [Accept, visitor]: what the router passes
 };
 
@@ -38,11 +42,11 @@ public:
 	virtual void Unknown_00(ClientItemPropertyOptionClass *property);						// +0x00 (0x530490)  // NAME 1: neutral (D10); NAME 1 [property]: neutral
 	virtual void Unknown_04(ClientItemPropertySpecialClass *property);				// +0x04 (0x530470)  // NAME 1: neutral (D10)
 	virtual void Unknown_08(ClientItemPropertyAttributeClass *property);					// +0x08 (0x530450)  // NAME 1: neutral (D10)
-	virtual void Unknown_0C(UIItemExaminationDescriptionPropertyStruct *property);			// +0x0C (0x530430)  // NAME 1: neutral (D10)
+	virtual void Unknown_0C(ClientItemPropertyDescriptionClass *property);				// +0x0C (0x530430)  // NAME 1: neutral (D10)
 	virtual void Unknown_10(UIItemExaminationTitleSubtitlesClass *property);				// +0x10 (0x530410)  // NAME 1: neutral (D10)
-	virtual void Unknown_14(void *property);												// +0x14 (0x5303F0)  // NAME 1: neutral (D10)
-	virtual void Unknown_18(UIItemExaminationTitleIconStruct *property);					// +0x18 (0x5303D0)  // NAME 1: neutral (D10)
-	virtual void Unknown_1C(UIItemExaminationTitleNameClass *property);					// +0x1C (0x5303B0)  // NAME 1: neutral (D10)
+	virtual void Unknown_14(ClientItemPropertyUnknown529810Class *property);				// +0x14 (0x5303F0)  // NAME 1: neutral (D10)
+	virtual void Unknown_18(ClientItemPropertyIconClass *property);					// +0x18 (0x5303D0)  // NAME 1: neutral (D10)
+	virtual void Unknown_1C(ClientItemPropertyNameClass *property);						// +0x1C (0x5303B0)  // NAME 1: neutral (D10)
 	virtual void Unknown_20(void *property);												// +0x20 (0x530390)  // NAME 1: neutral (D10)
 };
 
@@ -64,11 +68,11 @@ public:
 	virtual void Unknown_00(ClientItemPropertyOptionClass *property);						// 0x537A80 (the options panel)  // NAME 1: neutral (D10)
 	virtual void Unknown_04(ClientItemPropertySpecialClass *property);				// 0x537A60 (the specials panel)  // NAME 1: neutral (D10)
 	virtual void Unknown_08(ClientItemPropertyAttributeClass *property);					// 0x537A40 (the attributes panel)  // NAME 1: neutral (D10)
-	virtual void Unknown_0C(UIItemExaminationDescriptionPropertyStruct *property);			// 0x537A10 (the description)  // NAME 1: neutral (D10)
+	virtual void Unknown_0C(ClientItemPropertyDescriptionClass *property);				// 0x537A10 (the description)  // NAME 1: neutral (D10)
 	virtual void Unknown_10(UIItemExaminationTitleSubtitlesClass *property);				// 0x5379F0 (the title's subtitles)  // NAME 1: neutral (D10)
-	virtual void Unknown_14(void *property);												// 0x5379B0 (nothing)  // NAME 1: neutral (D10)
-	virtual void Unknown_18(UIItemExaminationTitleIconStruct *property);					// 0x5379D0 (the title's icon)  // NAME 1: neutral (D10)
-	virtual void Unknown_1C(UIItemExaminationTitleNameClass *property);					// 0x537990 (the title's name)  // NAME 1: neutral (D10)
+	virtual void Unknown_14(ClientItemPropertyUnknown529810Class *property);				// 0x5379B0 (nothing)  // NAME 1: neutral (D10)
+	virtual void Unknown_18(ClientItemPropertyIconClass *property);					// 0x5379D0 (the title's icon)  // NAME 1: neutral (D10)
+	virtual void Unknown_1C(ClientItemPropertyNameClass *property);						// 0x537990 (the title's name)  // NAME 1: neutral (D10)
 	virtual void Unknown_20(void *property);												// 0x537960 (G_ASSERT '0')  // NAME 1: neutral (D10)
 
 protected:

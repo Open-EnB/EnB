@@ -1143,20 +1143,20 @@ FontStringFileStruct *FontStringFilesClass::Find(const char *name)
 	return it == Files.end() ? NULL : (*it).second;
 }
 
-// NOT EXACT: frame: 0x50 vs 0x40, the inlined Find's key temporary has its own slot (the client's shares the operator[] pair's); 199 = 199 instructions
+// NOT EXACT: frame: 0x50 vs 0x40 (the stack slots), nothing else once they are masked (FN1: the found branch first); 199 = 199 instructions
 void FontStringFilesClass::Load(const char *name)
 {
 	if (name == NULL || *name == 0) return;
 	std::string key = Lower(name);
 	FontStringFileStruct *file = Find(key.c_str());
-	if (file == NULL) {
+	if (file != NULL) {
+		file->Count++;
+	} else {
 		file = new FontStringFileStruct;
 		file->Name = key;
 		file->Count = 1;
 		Files[file->Name.c_str()] = file;
 		Unknown_BE67B8->Unknown_6C1500(file->Name.c_str());
-	} else {
-		file->Count++;
 	}
 }
 

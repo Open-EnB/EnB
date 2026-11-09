@@ -48,11 +48,11 @@ public:
 	virtual void Unknown_00(ClientItemPropertyOptionClass *property) {}						// +0x00 0x68C580
 	virtual void Unknown_04(ClientItemPropertySpecialClass *property) {}					// +0x04 0x68C5D0
 	virtual void Unknown_08(ClientItemPropertyAttributeClass *property) {}					// +0x08 0x68C560
-	virtual void Unknown_0C(UIItemExaminationDescriptionPropertyStruct *property) {}		// +0x0C 0x68C540
+	virtual void Unknown_0C(ClientItemPropertyDescriptionClass *property) {}			// +0x0C 0x68C540
 	virtual void Unknown_10(UIItemExaminationTitleSubtitlesClass *property) {}				// +0x10 0x68C520
-	virtual void Unknown_14(void *property) {}												// +0x14 0x68C500
-	virtual void Unknown_18(UIItemExaminationTitleIconStruct *property) {}					// +0x18 0x68C4E0
-	virtual void Unknown_1C(UIItemExaminationTitleNameClass *property) {}					// +0x1C 0x68C4C0
+	virtual void Unknown_14(ClientItemPropertyUnknown529810Class *property) {}				// +0x14 0x68C500
+	virtual void Unknown_18(ClientItemPropertyIconClass *property) {}					// +0x18 0x68C4E0
+	virtual void Unknown_1C(ClientItemPropertyNameClass *property) {}						// +0x1C 0x68C4C0
 	virtual void Unknown_20(void *property) {}												// +0x20 0x68C4A0
 };
 

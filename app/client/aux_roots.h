@@ -101,7 +101,7 @@ inline const char *Type_Name(UnknownB013ECEnum *) { return "int"; }
 bool String_To_Value(const char *text, UnknownB013ECEnum *value);	// 0x8458C0
 char *Value_To_String(char *buf, int size, UnknownB013ECEnum value);	// 0x845910
 // NAME 1: the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#)
-struct UnknownB016DCType { int I00; int I04; int I08; UnknownB016DCType() : I00(-1), I04(-1), I08(-1) {} };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29)
+struct UnknownB016DCType { int I00; int I04; int I08; UnknownB016DCType() : I00(-1), I04(-1), I08(-1) {} UnknownB016DCType(const UnknownB016DCType &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; } };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29); the copy constructor is the client's: sclient's 0x751BE0 calls it out of line (0x752170, folded with UnknownB00A00Type's)
 inline bool operator!=(const UnknownB016DCType &a, const UnknownB016DCType &b) { return memcmp(&a, &b, sizeof(a)) != 0; }
 inline const char *Type_Name(UnknownB016DCType *) { return "UnknownB016DCType"; }
 inline char *Value_To_String(char *buf, int size, const UnknownB016DCType &value) { return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }
@@ -183,26 +183,6 @@ public:
 	DeltaTemplateClass<float> ForceY;	// +0x128
 	DeltaTemplateClass<float> ForceZ;	// +0x1B0
 	DeltaTemplateClass<float> Damage;	// +0x238
-};
-
-// vtable 0xB00E9C: an array of DeltaStringClass (e.g. Ship.Inventory.MountBoneNames, 20 elements)
-// NAME 4: Net-7 AuxMountBoneNames confirmed by structure (Net-7 Construct 20 children = ours)
-class DeltaMountBoneNamesClass : public DeltaCompoundClass
-{
-public:
-	DeltaMountBoneNamesClass(const char *name, int count) : DeltaCompoundClass(name)
-	{
-		for (int i = 0; i < count; i++) {
-			char item_name[16];
-			sprintf(item_name, "%d", i);
-			DeltaStringClass *item = new DeltaStringClass(item_name, "");
-			if (item == 0) {
-				G_ASSERT(item);
-				break;
-			}
-			Add(item);
-		}
-	}
 };
 
 // vtable 0xB0111C (e.g. Ship.Inventory.Cargo.N)
@@ -307,7 +287,7 @@ public:
 	DeltaTemplateClass<int> CargoSpace;	// +0x9C
 	DeltaStringClass EquipMountModel;	// +0x124
 	DeltaArrayClass<UnknownB016DCType> Mounts;	// +0x1AC
-	DeltaMountBoneNamesClass MountBoneNames;	// +0x248
+	DeltaItemArrayClass<DeltaStringClass> MountBoneNames;	// +0x248
 	DeltaTemplateClass<int> FutureWeapons;	// +0x2E4
 	DeltaTemplateClass<int> FutureDevices;	// +0x36C
 	DeltaItemArrayClass<DeltaItemClass> Cargo;	// +0x3F4

@@ -4,7 +4,7 @@
 #include "ui_item_examination_attributes.h"
 #include "ui_item_examination_options.h"
 
-struct UIItemExaminationDescriptionPropertyStruct { char Unknown00[8]; std::string Unknown08; };	// NAME 1: neutral (D10)
+#include "item\client_item_property_description.h"
 
 
 UIItemExaminationPropertyRouterClass::UIItemExaminationPropertyRouterClass(UIItemExaminationTitleClass &title, UIItemExaminationAttributesClass &attributes, UIItemExaminationSpecialsClass &specials, UIItemExaminationOptionsClass &options, UIItemExaminationDescriptionClass &description) :
@@ -64,16 +64,16 @@ void UIItemExaminationPropertyRouterClass::Unknown_20(void *property)
 	G_ASSERT(0);
 }
 
-void UIItemExaminationPropertyRouterClass::Unknown_1C(UIItemExaminationTitleNameClass *property)
+void UIItemExaminationPropertyRouterClass::Unknown_1C(ClientItemPropertyNameClass *property)
 {
 	Title.Set_Name(*property);
 }
 
-void UIItemExaminationPropertyRouterClass::Unknown_14(void *property)
+void UIItemExaminationPropertyRouterClass::Unknown_14(ClientItemPropertyUnknown529810Class *property)
 {
 }
 
-void UIItemExaminationPropertyRouterClass::Unknown_18(UIItemExaminationTitleIconStruct *property)
+void UIItemExaminationPropertyRouterClass::Unknown_18(ClientItemPropertyIconClass *property)
 {
 	Title.Set_Icon(*property);
 }
@@ -83,9 +83,9 @@ void UIItemExaminationPropertyRouterClass::Unknown_10(UIItemExaminationTitleSubt
 	Title.Set_Subtitles(*property);
 }
 
-void UIItemExaminationPropertyRouterClass::Unknown_0C(UIItemExaminationDescriptionPropertyStruct *property)
+void UIItemExaminationPropertyRouterClass::Unknown_0C(ClientItemPropertyDescriptionClass *property)
 {
-	Description.Set_Description(property->Unknown08);
+	Description.Set_Description(property->Description);
 }
 
 void UIItemExaminationPropertyRouterClass::Unknown_08(ClientItemPropertyAttributeClass *property)

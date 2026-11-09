@@ -1211,5 +1211,61 @@
   "symbol": "?Unknown_Create_Aux_Root@ClientObjectClass@@QAEPAVUnknownRootClass@@HH@Z",
   "evidence": "the CREATE factory is ClientObjectClass's member (co.h; co.cpp's constructor 0x6F2820 calls it with the object in ecx): aux_roots.h's UnknownCOClass merged into co.h (P-H13-2, C2 2026-11-08)",
   "replaces": "?Unknown_Create_Aux_Root@UnknownCOClass@@QAEPAVUnknownRootClass@@HH@Z"
+ },
+ {
+  "address": "0x5379B0",
+  "symbol": "?Unknown_14@UIItemExaminationPropertyRouterClass@@UAEXPAVClientItemPropertyUnknown529810Class@@@Z",
+  "evidence": "the visitor slot retyped to the item property class the client passes (IP2, run 2026-11-08d: the property files 0x529810-0x52A82F, their Accept slots)",
+  "kind": "function",
+  "replaces": "?Unknown_14@UIItemExaminationPropertyRouterClass@@UAEXPAX@Z"
+ },
+ {
+  "address": "0x537990",
+  "symbol": "?Unknown_1C@UIItemExaminationPropertyRouterClass@@UAEXPAVClientItemPropertyNameClass@@@Z",
+  "evidence": "the visitor slot retyped to the item property class the client passes (IP2, run 2026-11-08d: the property files 0x529810-0x52A82F, their Accept slots)",
+  "kind": "function",
+  "replaces": "?Unknown_1C@UIItemExaminationPropertyRouterClass@@UAEXPAVUIItemExaminationTitleNameClass@@@Z"
+ },
+ {
+  "address": "0x5379D0",
+  "symbol": "?Unknown_18@UIItemExaminationPropertyRouterClass@@UAEXPAVClientItemPropertyIconClass@@@Z",
+  "evidence": "the visitor slot retyped to the item property class the client passes (IP2, run 2026-11-08d: the property files 0x529810-0x52A82F, their Accept slots)",
+  "kind": "function",
+  "replaces": "?Unknown_18@UIItemExaminationPropertyRouterClass@@UAEXPAUUIItemExaminationTitleIconStruct@@@Z"
+ },
+ {
+  "address": "0x537A10",
+  "symbol": "?Unknown_0C@UIItemExaminationPropertyRouterClass@@UAEXPAVClientItemPropertyDescriptionClass@@@Z",
+  "evidence": "the visitor slot retyped to the item property class the client passes (IP2, run 2026-11-08d: the property files 0x529810-0x52A82F, their Accept slots)",
+  "kind": "function",
+  "replaces": "?Unknown_0C@UIItemExaminationPropertyRouterClass@@UAEXPAUUIItemExaminationDescriptionPropertyStruct@@@Z"
+ },
+ {
+  "address": "0x68C4C0",
+  "symbol": "?Unknown_1C@Unknown68C5D0Class@@UAEXPAVClientItemPropertyNameClass@@@Z",
+  "evidence": "the visitor slot retyped to the item property class the client passes (IP2, run 2026-11-08d: the property files 0x529810-0x52A82F, their Accept slots)",
+  "kind": "function",
+  "replaces": "?Unknown_1C@Unknown68C5D0Class@@UAEXPAVUIItemExaminationTitleNameClass@@@Z"
+ },
+ {
+  "address": "0x68C4E0",
+  "symbol": "?Unknown_18@Unknown68C5D0Class@@UAEXPAVClientItemPropertyIconClass@@@Z",
+  "evidence": "the visitor slot retyped to the item property class the client passes (IP2, run 2026-11-08d: the property files 0x529810-0x52A82F, their Accept slots)",
+  "kind": "function",
+  "replaces": "?Unknown_18@Unknown68C5D0Class@@UAEXPAUUIItemExaminationTitleIconStruct@@@Z"
+ },
+ {
+  "address": "0x68C500",
+  "symbol": "?Unknown_14@Unknown68C5D0Class@@UAEXPAVClientItemPropertyUnknown529810Class@@@Z",
+  "evidence": "the visitor slot retyped to the item property class the client passes (IP2, run 2026-11-08d: the property files 0x529810-0x52A82F, their Accept slots)",
+  "kind": "function",
+  "replaces": "?Unknown_14@Unknown68C5D0Class@@UAEXPAX@Z"
+ },
+ {
+  "address": "0x68C540",
+  "symbol": "?Unknown_0C@Unknown68C5D0Class@@UAEXPAVClientItemPropertyDescriptionClass@@@Z",
+  "evidence": "the visitor slot retyped to the item property class the client passes (IP2, run 2026-11-08d: the property files 0x529810-0x52A82F, their Accept slots)",
+  "kind": "function",
+  "replaces": "?Unknown_0C@Unknown68C5D0Class@@UAEXPAUUIItemExaminationDescriptionPropertyStruct@@@Z"
  }
 ]

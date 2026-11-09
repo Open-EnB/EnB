@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: provisional header (D137) of ui_trade.cpp's UITradeClass over ui_inv.cpp's 0x59F3D0 base, laid out from the constructor 0x650560 (TR1)"
+}
