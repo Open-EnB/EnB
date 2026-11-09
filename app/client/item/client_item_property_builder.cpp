@@ -247,7 +247,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 					level = 0;
 				}
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = Unknown_51FEA0(10, "Effect Range", "Range of effect.", 1, base, actual, level);
+			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(10, "Effect Range", "Range of effect.", 1, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -264,7 +264,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 					level = 0;
 				}
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = Unknown_51FEA0(10, "Effect Radius", "Radius of effect.", 1, base, actual, level);
+			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(10, "Effect Radius", "Radius of effect.", 1, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -433,7 +433,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 					level = 0;
 				}
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = Unknown_51FEA0(6, "Range", "The maximum targeting range of the item.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(6, "Range", "The maximum targeting range of the item.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}
@@ -638,7 +638,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			} else if (base < actual) {
 				level = 0;
 			}
-			RefCountPtr<ClientItemPropertyAttributeClass> property = Unknown_51FEA0(6, "Signature", "Specifies an increased distance that an NPC will notice the player when engine is equipped.", 0, base, actual, level);
+			RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeDistanceClass::Create(6, "Signature", "Specifies an increased distance that an NPC will notice the player when engine is equipped.", 0, base, actual, level);
 			router.Route(property);
 			break;
 		}

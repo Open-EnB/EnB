@@ -8,6 +8,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "client_item_property_special.h"
 #include "client_item_property_attribute.h"
+#include "client_item_property_attribute_distance.h"
 #include "client_item_property_option.h"
 #include "client_item_property_icon.h"
 #include "client_item_property_name.h"
@@ -159,7 +160,6 @@ enum { MODE_NONE_BF = 0 };																				// the mode flags' none (G_ASSERT 
 class ClientItemPropertyAttributeStringClass : public ClientItemPropertyAttributeClass {};				// NAME 3: client_item_property_attribute_string.cpp's
 class ClientItemPropertyAttributeIntegerClass : public ClientItemPropertyAttributeClass {};			// NAME 3: client_item_property_attribute_integer.cpp's
 class ClientItemPropertyAttributeFloatClass : public ClientItemPropertyAttributeClass {};				// NAME 3: client_item_property_attribute_float.cpp's
-class ClientItemPropertyAttributeDistanceClass : public ClientItemPropertyAttributeClass {};			// NAME 3: client_item_property_attribute_distance.cpp's
 class ClientItemPropertyAttributeSecondsClass : public ClientItemPropertyAttributeClass {};			// NAME 3: client_item_property_attribute_seconds.cpp's
 class ClientItemPropertySpecialLevelRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_level_requirement.cpp's
 class ClientItemPropertySpecialProfessionRequirementClass : public ClientItemPropertySpecialClass {};	// NAME 3: client_item_property_special_profession_requirement.cpp's
@@ -168,7 +168,6 @@ class ClientItemPropertySpecialSkillRequirementClass : public ClientItemProperty
 RefCountPtr<ClientItemPropertyAttributeStringClass> Unknown_521560(int sort, const std::string &label, const std::string &units, const std::string &tooltip, int unknown, const std::string &value);	// 0x521560  // NAME 1: neutral (D10); NAME 1 [sort, label, units, tooltip, unknown, value]
 RefCountPtr<ClientItemPropertyAttributeIntegerClass> Unknown_520790(int sort, const std::string &label, const std::string &units, const std::string &tooltip, int unknown, int base, int actual, int level);	// 0x520790  // NAME 1: neutral (D10); NAME 1 [base, actual, level]
 RefCountPtr<ClientItemPropertyAttributeFloatClass> Unknown_5203D0(int sort, const std::string &label, const std::string &units, const std::string &tooltip, int unknown, float base, float actual, int level);	// 0x5203D0  // NAME 1: neutral (D10)
-RefCountPtr<ClientItemPropertyAttributeDistanceClass> Unknown_51FEA0(int sort, const std::string &label, const std::string &tooltip, int unknown, int base, int actual, int level);	// 0x51FEA0  // NAME 1: neutral (D10)
 RefCountPtr<ClientItemPropertyAttributeSecondsClass> Unknown_521050(int sort, const std::string &label, const std::string &tooltip, int unknown, float base, float actual, int level);	// 0x521050  // NAME 1: neutral (D10)
 RefCountPtr<ClientItemPropertySpecialLevelRequirementClass> Unknown_530530(SClient *space_client, int kind, int level);	// 0x530530 (kind 0 combat, 1 explore, 2 trade, 3 total)  // NAME 1: neutral (D10); NAME 1 [kind, level]
 RefCountPtr<ClientItemPropertySpecialProfessionRequirementClass> Unknown_52CF90(SClient *space_client, int profession);	// 0x52CF90  // NAME 1: neutral (D10); NAME 1 [profession]
