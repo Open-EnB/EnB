@@ -256,7 +256,7 @@ RObjGadgetClass *SlotDataShortcutInterface::Unknown_0C(int slot)
 	FAIL_IF(!slot_render) return(NULL);
 	slot_render->Unknown_40(slot);
 	LayerClass layer((SceneClass *)view->Unknown_50(), (CameraClass *)view->Unknown_54());
-	return(new SlotDataShortcutGadgetClass(SlotIFace, slot_render.Peek(), layer));
+	return(new SlotDataShortcutGadgetClass((SlotDataIFaceClass *)SlotIFace, slot_render.Peek(), &layer));
 }
 
 // @0x631270
@@ -276,7 +276,7 @@ RObjGadgetClass *SlotDataShortcutInterface::Unknown_14(const char *key)
 	FAIL_IF(!slot_render) return(NULL);
 	if (!slot_render->Unknown_10(key)) return(NULL);
 	LayerClass layer((SceneClass *)view->Unknown_50(), (CameraClass *)view->Unknown_54());
-	return(new SlotDataShortcutGadgetClass(SlotIFace, slot_render.Peek(), layer));
+	return(new SlotDataShortcutGadgetClass((SlotDataIFaceClass *)SlotIFace, slot_render.Peek(), &layer));
 }
 
 // @0x631540

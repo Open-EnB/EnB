@@ -6,7 +6,7 @@
 **
 **	gd_slot_data.cpp's gadgets: a slot on a screen, over a model gadget without a scene (Unknown_675120Class),
 **	drawn by its SlotRender (slot_data_render.cpp) and reporting its events to its SlotIFace (ui_slot_data.cpp's
-**	screen). SlotDataGadgetClass: table 0xAFB0CC, 0x6C bytes, constructor 0x670650; Unknown_670E30Class adds a
+**	screen). SlotDataGadgetClass: table 0xAFB0CC, 0x6C bytes, constructor 0x670650; SlotDataShortcutGadgetClass adds a
 **	shortcut bar's hold on the slot: table 0xAFB1A4, 0x70 bytes, constructor 0x670E30. Notes in gd_slot_data.cpp.
 */
 
@@ -23,7 +23,7 @@
 #include <string>
 
 class SlotDataGadgetClass;
-class Unknown_670E30Class;
+class SlotDataShortcutGadgetClass;
 class UIScutBarClass;
 
 // What a slot reports to (ui_slot_data.cpp's screen, not in the tree yet): one slot used
@@ -57,7 +57,7 @@ public:
 	virtual void Unknown_90(class TextureClass *texture);				// +0x90 0x670D20 (G_ASSERT 'false')
 	virtual Vector3 Unknown_9C();										// +0x9C 0x670D50 (the base's, darkened when the render says so)
 	virtual Vector3 Unknown_A0();										// +0xA0 0x670DE0
-	virtual Unknown_670E30Class *Unknown_A4() { return(NULL); }			// +0xA4 0x670760
+	virtual SlotDataShortcutGadgetClass *Unknown_A4() { return(NULL); }			// +0xA4 0x670760
 	virtual void Unknown_A8(bool arg);									// +0xA8 0x670CB0 (the render's +0x2C)  // NAME 1 [arg]: neutral
 	virtual void Unknown_AC(int slot);									// +0xAC 0x670890 (the render's +0x40, the tooltip)  // NAME 1 [slot]: as the render's
 
@@ -70,17 +70,17 @@ public:
 	bool Unknown68;														// +0x68 (true; 0x670C90: the report to SlotIFace on or off)
 };
 
-class Unknown_670E30Class : public SlotDataGadgetClass  // NAME 1: neutral (D10)
+class SlotDataShortcutGadgetClass : public SlotDataGadgetClass  // NAME 3: ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (its +0xA4 returns this)
 {
 public:
-	Unknown_670E30Class(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30  // NAME 1 [layer]: what slot +0x28 takes
-	virtual ~Unknown_670E30Class() {}									// +0x00 0x670F70 (deleting 0x670F40)
+	SlotDataShortcutGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30  // NAME 1 [layer]: what slot +0x28 takes
+	virtual ~SlotDataShortcutGadgetClass() {}									// +0x00 0x670F70 (deleting 0x670F40)
 	virtual void Unknown_04();											// +0x04 0x671050 (off its shortcut bar)
 	virtual void Unknown_7C(int arg);									// +0x7C 0x671090 (ShortcutOwner set)  // NAME 1 [arg]: the base's
 	virtual void Unknown_80(int arg);									// +0x80 0x671110 (ShortcutOwner cleared)  // NAME 1 [arg]: the base's
 	virtual void Unknown_84(int arg);									// +0x84 0x671150 ('scut_gadg': its tooltip from the render)  // NAME 1 [arg]: the base's
 	virtual bool Unknown_88() { return(ShortcutOwner != NULL); }		// +0x88 0x670F20
-	virtual Unknown_670E30Class *Unknown_A4() { return(this); }			// +0xA4 0x670F00
+	virtual SlotDataShortcutGadgetClass *Unknown_A4() { return(this); }			// +0xA4 0x670F00
 
 	UIScutBarClass *ShortcutOwner;										// +0x6C  // NAME 3: the asserts'
 };

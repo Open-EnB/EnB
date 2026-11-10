@@ -289,7 +289,7 @@ Vector3 SlotDataGadgetClass::Unknown_A0()
 
 
 
-Unknown_670E30Class::Unknown_670E30Class(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer) :
+SlotDataShortcutGadgetClass::SlotDataShortcutGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer) :
 	SlotDataGadgetClass(slot_iface, slot_render),
 	ShortcutOwner(NULL)
 {
@@ -305,7 +305,7 @@ Unknown_670E30Class::Unknown_670E30Class(SlotDataIFaceClass *slot_iface, SlotDat
 
 
 
-void Unknown_670E30Class::Unknown_04()
+void SlotDataShortcutGadgetClass::Unknown_04()
 {
 	if (ShortcutOwner) {
 		ShortcutOwner->Unknown_611E20(this);
@@ -319,7 +319,7 @@ void Unknown_670E30Class::Unknown_04()
 
 
 
-void Unknown_670E30Class::Unknown_7C(int arg)
+void SlotDataShortcutGadgetClass::Unknown_7C(int arg)
 {
 	G_ASSERT(!ShortcutOwner);
 	ShortcutOwner = (UIScutBarClass *)arg;
@@ -334,7 +334,7 @@ void Unknown_670E30Class::Unknown_7C(int arg)
 
 
 
-void Unknown_670E30Class::Unknown_80(int arg)
+void SlotDataShortcutGadgetClass::Unknown_80(int arg)
 {
 	G_ASSERT(ShortcutOwner);
 	ShortcutOwner = NULL;
@@ -345,7 +345,7 @@ void Unknown_670E30Class::Unknown_80(int arg)
 
 
 
-void Unknown_670E30Class::Unknown_84(int arg)
+void SlotDataShortcutGadgetClass::Unknown_84(int arg)
 {
 	GadgetClass *scut_gadg = (GadgetClass *)arg;
 	FAIL_IF(!scut_gadg) return;

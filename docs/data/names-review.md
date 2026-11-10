@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 181 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1732 |
-| 2 | describes what the code does | 3934 |
-| 1 | neutral placeholder | 22241 |
+| 3 | by convention from a client-named file or sibling | 1733 |
+| 2 | describes what the code does | 3933 |
+| 1 | neutral placeholder | 22239 |
 
 ## For review (score 3 and below)
 
@@ -4476,7 +4476,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_9C` | `app/client/gd_slot_data.cpp:268` | untagged neutral name (D10) |
 | 1 | `Unknown_38` | `app/client/gd_slot_data.cpp:271` | untagged neutral name (D10) |
 | 1 | `Unknown_A0` | `app/client/gd_slot_data.cpp:279` | untagged neutral name (D10) |
-| 1 | `Unknown_670E30Class` | `app/client/gd_slot_data.cpp:292` | untagged neutral name (D10) |
 | 1 | `Unknown_6A8EC0` | `app/client/gd_slot_data.cpp:298` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/gd_slot_data.cpp:308` | untagged neutral name (D10) |
 | 1 | `Unknown_611E20` | `app/client/gd_slot_data.cpp:311` | untagged neutral name (D10) |
@@ -4539,7 +4538,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `on` | `app/client/gd_slot_data.h:66` | neutral |
 | 1 | `Unknown_670C90` | `app/client/gd_slot_data.h:66` | untagged neutral name (D10) |
 | 1 | `Unknown68` | `app/client/gd_slot_data.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown_670E30Class` | `app/client/gd_slot_data.h:73` | neutral (D10) |
 | 1 | `layer` | `app/client/gd_slot_data.h:76` | what slot +0x28 takes |
 | 1 | `arg` | `app/client/gd_slot_data.h:79` | the base's |
 | 1 | `arg` | `app/client/gd_slot_data.h:80` | the base's |
@@ -17155,42 +17153,42 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/ui_slot_scut.cpp:263` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/ui_slot_scut.cpp:304` | untagged neutral name (D10) |
 | 1 | `Unknown_94` | `app/client/ui_slot_scut.cpp:307` | untagged neutral name (D10) |
-| 1 | `Unknown_6A7AB0` | `app/client/ui_slot_scut.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown_6A7990` | `app/client/ui_slot_scut.h:24` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_slot_scut.h:25` | neutral |
-| 1 | `Unknown_6A7A00` | `app/client/ui_slot_scut.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/ui_slot_scut.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/ui_slot_scut.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_slot_scut.h:35` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_slot_scut.h:36` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_slot_scut.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/ui_slot_scut.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_slot_scut.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/ui_slot_scut.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/ui_slot_scut.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/ui_slot_scut.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/ui_slot_scut.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/ui_slot_scut.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ui_slot_scut.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/ui_slot_scut.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/client/ui_slot_scut.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/client/ui_slot_scut.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_slot_scut.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown6A90A0Interface` | `app/client/ui_slot_scut.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_6A90A0` | `app/client/ui_slot_scut.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/ui_slot_scut.h:58` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_slot_scut.h:59` | neutral |
-| 1 | `Unknown_A8` | `app/client/ui_slot_scut.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown_670910` | `app/client/ui_slot_scut.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `app/client/ui_slot_scut.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/ui_slot_scut.h:71` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ui_slot_scut.h:78` | untagged neutral name (D10) |
-| 1 | `Unknown_8C` | `app/client/ui_slot_scut.h:79` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ui_slot_scut.h:80` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `app/client/ui_slot_scut.h:81` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `app/client/ui_slot_scut.h:82` | untagged neutral name (D10) |
-| 1 | `Unknown_9C` | `app/client/ui_slot_scut.h:83` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `app/client/ui_slot_scut.h:86` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7AB0` | `app/client/ui_slot_scut.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7990` | `app/client/ui_slot_scut.h:25` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_slot_scut.h:26` | neutral |
+| 1 | `Unknown_6A7A00` | `app/client/ui_slot_scut.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ui_slot_scut.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_slot_scut.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_slot_scut.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_slot_scut.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_slot_scut.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_slot_scut.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_slot_scut.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/ui_slot_scut.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_20` | `app/client/ui_slot_scut.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_slot_scut.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/ui_slot_scut.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/ui_slot_scut.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_slot_scut.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/ui_slot_scut.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_38` | `app/client/ui_slot_scut.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_3C` | `app/client/ui_slot_scut.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_slot_scut.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown6A90A0Interface` | `app/client/ui_slot_scut.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_6A90A0` | `app/client/ui_slot_scut.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_slot_scut.h:59` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_slot_scut.h:60` | neutral |
+| 1 | `Unknown_A8` | `app/client/ui_slot_scut.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_670910` | `app/client/ui_slot_scut.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/ui_slot_scut.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/ui_slot_scut.h:72` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_slot_scut.h:79` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_slot_scut.h:80` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_slot_scut.h:81` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_slot_scut.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_slot_scut.h:83` | untagged neutral name (D10) |
+| 1 | `Unknown_9C` | `app/client/ui_slot_scut.h:84` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/ui_slot_scut.h:87` | untagged neutral name (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/ui_starbase.cpp:30` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_starbase.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_starbase.cpp:33` | untagged neutral name (D10) |
@@ -24141,20 +24139,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `slot` | `app/client/ui_slot_data.cpp:64` | as ui_slot_scut.h's |
 | 2 | `gadget, key` | `app/client/ui_slot_data.cpp:65` | as ui_slot_scut.h's |
 | 2 | `Slot_Data_Changed` | `app/client/ui_slot_data.h:62` | as ui_slot_scut.cpp's; NAME 3 [event, slot_data]: the FAIL_IFs' |
-| 2 | `SlotDataRenderClass` | `app/client/ui_slot_scut.h:32` | slot_data_render.cpp's file, the asserts' 'slot_render' |
-| 2 | `key` | `app/client/ui_slot_scut.h:36` | what 0x614FB0 makes of it |
-| 2 | `key` | `app/client/ui_slot_scut.h:37` | the FAIL_IF's |
-| 2 | `slot` | `app/client/ui_slot_scut.h:49` | what 0x62DA30 passes |
-| 2 | `SlotDataGadgetClass` | `app/client/ui_slot_scut.h:55` | gd_slot_data.cpp's file, the asserts' 'sdata_gadg' |
-| 2 | `slot_iface, slot_render, layer` | `app/client/ui_slot_scut.h:70` | what this file passes |
-| 2 | `slot` | `app/client/ui_slot_scut.h:83` | what they pass; NAME 1 [arg]: neutral |
-| 2 | `Set_UI` | `app/client/ui_slot_scut.h:97` | the base's |
-| 2 | `slot` | `app/client/ui_slot_scut.h:98` | what the render's slot +0x40 gets |
-| 2 | `gadget, key` | `app/client/ui_slot_scut.h:99` | the base's |
-| 2 | `Slot_Data_Changed` | `app/client/ui_slot_scut.h:103` | what it does; NAME 2 [event, slot_data]: the callback's types |
-| 2 | `Update` | `app/client/ui_slot_scut.h:104` | what it does; NAME 3 [slotdata]: the FAIL_IF's |
-| 2 | `Updated` | `app/client/ui_slot_scut.h:107` | what it holds |
-| 2 | `std:` | `app/client/ui_slot_scut.h:108` | what it holds |
+| 2 | `SlotDataRenderClass` | `app/client/ui_slot_scut.h:33` | slot_data_render.cpp's file, the asserts' 'slot_render' |
+| 2 | `key` | `app/client/ui_slot_scut.h:37` | what 0x614FB0 makes of it |
+| 2 | `key` | `app/client/ui_slot_scut.h:38` | the FAIL_IF's |
+| 2 | `slot` | `app/client/ui_slot_scut.h:50` | what 0x62DA30 passes |
+| 2 | `SlotDataGadgetClass` | `app/client/ui_slot_scut.h:56` | gd_slot_data.cpp's file, the asserts' 'sdata_gadg' |
+| 2 | `slot` | `app/client/ui_slot_scut.h:84` | what they pass; NAME 1 [arg]: neutral |
+| 2 | `Set_UI` | `app/client/ui_slot_scut.h:98` | the base's |
+| 2 | `slot` | `app/client/ui_slot_scut.h:99` | what the render's slot +0x40 gets |
+| 2 | `gadget, key` | `app/client/ui_slot_scut.h:100` | the base's |
+| 2 | `Slot_Data_Changed` | `app/client/ui_slot_scut.h:104` | what it does; NAME 2 [event, slot_data]: the callback's types |
+| 2 | `Update` | `app/client/ui_slot_scut.h:105` | what it does; NAME 3 [slotdata]: the FAIL_IF's |
+| 2 | `Updated` | `app/client/ui_slot_scut.h:108` | what it holds |
+| 2 | `std:` | `app/client/ui_slot_scut.h:109` | what it holds |
 | 2 | `vp` | `app/client/ui_starmap.cpp:56` | map_pip.h's |
 | 2 | `key` | `app/client/ui_starmap.h:41` | InterfaceClass's |
 | 2 | `Get_Frame` | `app/client/ui_starmap.h:45` | what it does |
@@ -26433,6 +26430,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SlotDataGadgetClass` | `app/client/gd_slot_data.h:46` | class-from-file (D24) for app\Client\gd_slot_data.cpp |
 | 3 | `SlotIFace` | `app/client/gd_slot_data.h:68` | the asserts' |
 | 3 | `SlotRender` | `app/client/gd_slot_data.h:69` | the asserts' |
+| 3 | `SlotDataShortcutGadgetClass` | `app/client/gd_slot_data.h:73` | ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (its +0xA4 returns this) |
 | 3 | `ShortcutOwner` | `app/client/gd_slot_data.h:85` | the asserts' |
 | 3 | `TextEditorGadgetClass` | `app/client/gd_text_editor.h:29` | class-from-file (D24) for app\Client\gd_text_editor.cpp |
 | 3 | `Slider` | `app/client/gd_text_editor.h:73` | the FAIL_IF's |
@@ -27000,12 +26998,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UISlotInfoClass::_ActiveInterface` | `app/client/ui_slot_info.cpp:22` | the asserts' '_ActiveInterface' |
 | 3 | `UISlotInfoClass` | `app/client/ui_slot_info.h:20` | class-from-file (D24) for app\Client\ui_slot_info.cpp |
 | 3 | `_ActiveInterface` | `app/client/ui_slot_info.h:35` | the asserts' |
-| 3 | `SlotRender` | `app/client/ui_slot_scut.h:63` | the FAIL_IF's |
-| 3 | `SlotDataShortcutGadgetClass` | `app/client/ui_slot_scut.h:67` | ui_inv.cpp's assert 'As_SlotDataShortcutGadget' |
-| 3 | `SlotData` | `app/client/ui_slot_scut.h:87` | the FAIL_IF's |
-| 3 | `slot_iface` | `app/client/ui_slot_scut.h:95` | the FAIL_IF's; NAME 2 [name, sclient]: the base's |
-| 3 | `key` | `app/client/ui_slot_scut.h:100` | the FAIL_IF's |
-| 3 | `SlotIFace` | `app/client/ui_slot_scut.h:106` | the FAIL_IF's |
+| 3 | `SlotRender` | `app/client/ui_slot_scut.h:64` | the FAIL_IF's |
+| 3 | `SlotDataShortcutGadgetClass` | `app/client/ui_slot_scut.h:68` | ui_inv.cpp's assert 'As_SlotDataShortcutGadget' |
+| 3 | `SlotData` | `app/client/ui_slot_scut.h:88` | the FAIL_IF's |
+| 3 | `slot_iface` | `app/client/ui_slot_scut.h:96` | the FAIL_IF's; NAME 2 [name, sclient]: the base's |
+| 3 | `key` | `app/client/ui_slot_scut.h:101` | the FAIL_IF's |
+| 3 | `SlotIFace` | `app/client/ui_slot_scut.h:107` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_starbase.cpp:35` | ui_manu.cpp's FAIL_IF's |
 | 3 | `AvatarID` | `app/client/ui_starbase.cpp:40` | client.h's |
 | 3 | `ui_starmap.h` | `app/client/ui_starmap.h:15` | header name assumed from the client's ui_starmap.cpp |

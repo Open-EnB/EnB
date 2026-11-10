@@ -1297,5 +1297,23 @@
   "symbol": "?Unknown_64@SlotDataInterface@@UAEXXZ",
   "evidence": "SK1 2026-11-09: ui_attrb_skills.h's flattened skill base (Unknown62D1F0Class) is ui_skills.cpp's UISkillsClass over ui_slot_data.cpp's SlotDataInterface (the client's RTTI MemberCallback<SlotDataClass, SlotDataInterface, ...>); the inline slot is the table's (0xAF7F5C / 0xAF7DBC)",
   "replaces": "?Unknown_64@Unknown62D1F0Class@@UAEXXZ"
+ },
+ {
+  "address": "0x670760",
+  "symbol": "?Unknown_A4@SlotDataGadgetClass@@UAEPAVSlotDataShortcutGadgetClass@@XZ",
+  "evidence": "SG1 2026-11-10: gd_slot_data.cpp's 0x670E30 class (table 0xAFB1A4) is the client's SlotDataShortcutGadgetClass (ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()', its +0xA4 returns this); renamed from Unknown_670E30Class",
+  "replaces": "?Unknown_A4@SlotDataGadgetClass@@UAEPAVUnknown_670E30Class@@XZ"
+ },
+ {
+  "address": "0x670F00",
+  "symbol": "?Unknown_A4@SlotDataShortcutGadgetClass@@UAEPAV1@XZ",
+  "evidence": "SG1 2026-11-10: gd_slot_data.cpp's 0x670E30 class (table 0xAFB1A4) is the client's SlotDataShortcutGadgetClass (ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()', its +0xA4 returns this); renamed from Unknown_670E30Class",
+  "replaces": "?Unknown_A4@Unknown_670E30Class@@UAEPAV1@XZ"
+ },
+ {
+  "address": "0x670F20",
+  "symbol": "?Unknown_88@SlotDataShortcutGadgetClass@@UAE_NXZ",
+  "evidence": "SG1 2026-11-10: gd_slot_data.cpp's 0x670E30 class (table 0xAFB1A4) is the client's SlotDataShortcutGadgetClass (ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()', its +0xA4 returns this); renamed from Unknown_670E30Class",
+  "replaces": "?Unknown_88@Unknown_670E30Class@@UAE_NXZ"
  }
 ]

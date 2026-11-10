@@ -11,6 +11,7 @@
 #include "ui_scut_gadgets.h"
 
 class SlotDataInterface;
+class SlotDataIFaceClass;
 
 // The event the slot data signals (the client's RTTI, 0xB8A690)
 class SlotDataEventDataChange {};	// NAME 5: the client's RTTI
@@ -67,7 +68,7 @@ public:
 class SlotDataShortcutGadgetClass : public SlotDataGadgetClass	// NAME 3: ui_inv.cpp's assert 'As_SlotDataShortcutGadget'
 {
 public:
-	SlotDataShortcutGadgetClass(SlotDataInterface *slot_iface, SlotDataRenderClass *slot_render, const LayerClass &layer);	// 0x670E30  // NAME 2 [slot_iface, slot_render, layer]: what this file passes
+	SlotDataShortcutGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30 (gd_slot_data.h's, which this declaration must match)
 	char Unknown68[0x70 - 0x68];
 };
 
