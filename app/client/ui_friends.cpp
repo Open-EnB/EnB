@@ -132,7 +132,7 @@ void UIFriendsClass::Unknown_54()
 		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
 		Unknown0B0 = Create_Get(new UIPTradeCreditsClass(Client->As_Space_Client(), 1, 0x14));
 		Unknown0B0->Unknown_54();
-		Unknown0B0->Unknown0AC[0xCD - 0xAC] = true;
+		Unknown0B0->Unknown0CD = true;
 		Unknown0B0->Unknown_64A270("Friend Player");
 		GadgetClass::Set_Tooltip(Unknown0D0[1], "UI_FRIEND", "ADD_PLAYER");
 		GadgetClass::Set_Tooltip(Unknown0D0[2], "UI_FRIEND", "REMOVE_PLAYER");
