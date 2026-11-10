@@ -114,7 +114,7 @@ struct UIInvViewUnknown44Struct	// NAME 1: neutral (D10): the view's slot +0x44,
 
 // 0x59F3D0
 UIInvClass::UIInvClass(SClient *client, int kind) :
-	UISlotDataClass(client),
+	SlotDataInterface(client),
 	Kind(kind),
 	InvType(INV_NONE),
 	InvTransaction(NULL),
@@ -304,7 +304,7 @@ void UIInvClass::Unknown_54()
 			break;
 	}
 	G_ASSERT(InvType != INV_NONE);
-	UISlotDataClass::Unknown_54();
+	SlotDataInterface::Unknown_54();
 	if (UnknownC8) {
 		Unknown_62E150();
 	}
@@ -379,7 +379,7 @@ void UIInvClass::Unknown_A4(std::string &name, int index, int arg)
 // 0x59FD00
 void UIInvClass::Unknown_7C(UIViewClass *view, bool arg)
 {
-	UISlotDataClass::Unknown_7C(view, arg);
+	SlotDataInterface::Unknown_7C(view, arg);
 	FAIL_IF(!InvTransaction) return;
 	InvTransaction->Unknown_6908E0((Unknown6908E0Class *)view);
 }
@@ -388,13 +388,13 @@ void UIInvClass::Unknown_7C(UIViewClass *view, bool arg)
 void UIInvClass::Unknown_5C()
 {
 	InvTransaction->Unknown_690FA0();
-	UISlotDataClass::Unknown_5C();
+	SlotDataInterface::Unknown_5C();
 }
 
 // 0x59FDA0
 void UIInvClass::Unknown_60()
 {
-	UISlotDataClass::Unknown_60();
+	SlotDataInterface::Unknown_60();
 	if (Is_Busy()) {
 		InvTransaction->Unknown_690D20();
 		if (!Is_Busy()) {
@@ -478,7 +478,7 @@ bool UIInvClass::Unknown_98(SlotDataGadgetClass *slot_gadget, KernelEventClass *
 			case 0:
 			case 2:
 				SlotDrag->Unknown_0C();
-				return(UISlotDataClass::Unknown_98(slot_gadget, event, mask));
+				return(SlotDataInterface::Unknown_98(slot_gadget, event, mask));
 		}
 	}
 	if (mask & 0x1000) {

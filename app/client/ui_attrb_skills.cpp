@@ -45,7 +45,7 @@ public:
 
 // 0x549640
 UIAttrbSkillsClass::UIAttrbSkillsClass(SClient *client) :
-	Unknown62D1F0Class(client),
+	UISkillsClass(client),
 	UnknownD4(NULL),
 	UnknownD8(NULL),
 	UnknownDC(NULL),
@@ -159,7 +159,7 @@ void UIAttrbSkillsClass::Unknown_54()
 
 	RefCountPtr<RenderObjClass> frame = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("new_frame"));
 	Unknown_62F4D0(frame, 0x138C);
-	Unknown62D1F0Class::Unknown_54();
+	UISkillsClass::Unknown_54();
 }
 
 
@@ -222,7 +222,7 @@ void UIAttrbSkillsClass::Unknown_54ACE0()
 {
 	bool active = Active;
 	if (active) {
-		Unknown62D1F0Class::Unknown_5C();
+		UISkillsClass::Unknown_5C();
 	}
 	Unknown_54B050();
 	unsigned id = ((ClientClass *)Client)->AvatarID; Unknown77E3F0Class *avatar = Client->As_Space_Client()->Unknown_74C840(id);
@@ -238,7 +238,7 @@ void UIAttrbSkillsClass::Unknown_54ACE0()
 			UnknownC4.push_back(gadget);
 		}
 		if (active) {
-			Unknown62D1F0Class::Unknown_58();
+			UISkillsClass::Unknown_58();
 		}
 	}
 }
@@ -422,7 +422,7 @@ void UIAttrbSkillsClass::Unknown_58()
 {
 	if (!Active) {
 		InterfaceSortScopeClass sort(this);
-		Unknown62D1F0Class::Unknown_58();
+		UISkillsClass::Unknown_58();
 		if (!Unknown_62D710()->Unknown_6A7990()) {
 			Unknown_62D710()->Unknown_6A7860();
 		}
@@ -476,7 +476,7 @@ bool UIAttrbSkillsClass::Unknown_68(int key)
 				return(true);
 			}
 	}
-	return(Unknown62D1F0Class::Unknown_68(key));
+	return(UISkillsClass::Unknown_68(key));
 }
 
 #pragma auto_inline(off)		// (the destructor calls it out of line: VC6 would inline it)
@@ -601,14 +601,14 @@ void UIAttrbSkillsClass::Unknown_5C()
 	if (Active) {
 		UnknownFC->Unknown_5C();
 		UnknownC0->Unknown_5C();
-		Unknown62D1F0Class::Unknown_5C();
+		UISkillsClass::Unknown_5C();
 	}
 }
 
 // 0x54A400
 void UIAttrbSkillsClass::Unknown_60()
 {
-	Unknown62D1F0Class::Unknown_60();
+	UISkillsClass::Unknown_60();
 	Unknown_54B140();
 	int value = UnknownE4 ? UnknownD4->Value : UnknownD8->Value;
 	if (UnknownE8 != value) {
@@ -631,7 +631,7 @@ void UIAttrbSkillsClass::Unknown_7C(UIViewClass *view, bool arg)
 	}
 	UnknownFC->Unknown_7C(view, false);
 	UnknownC0->Unknown_7C(view, false);
-	Unknown62D1F0Class::Unknown_7C(view, arg);
+	UISkillsClass::Unknown_7C(view, arg);
 }
 
 // 0x54ABE0

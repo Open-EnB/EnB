@@ -725,7 +725,7 @@ void UITradeClass::Unknown_652450(bool force)
 void UITradeClass::Unknown_652890()
 {
 	if ((unsigned int)Unknown170 < 5) {
-		SlotDataGadgetClass *bttn = Unknown88[Unknown170];
+		SlotDataGadgetClass *bttn = Buttons[Unknown170];
 		FAIL_IF(!bttn) return;
 
 		SlotDataRenderClass *sd_render = bttn->SlotRender;

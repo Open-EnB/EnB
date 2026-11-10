@@ -199,7 +199,7 @@ void UIMountClass::Toggle()
 		FAIL_IF(!View) return;
 		SceneClass *scene = (SceneClass *)View->Unknown_50();
 		FAIL_IF(!scene) return;
-		for (i = 0; i < (int)Unknown88.size(); i++) {
+		for (i = 0; i < (int)Buttons.size(); i++) {
 			UIMountPointStruct &p = Points[i];
 			if (p.Button) p.Button->Add(scene);
 			if (p.MntPoint) p.MntPoint->Add(scene);
@@ -208,7 +208,7 @@ void UIMountClass::Toggle()
 		Shown = true;
 		return;
 	}
-	for (i = 0; i < (int)Unknown88.size(); i++) {
+	for (i = 0; i < (int)Buttons.size(); i++) {
 		UIMountPointStruct &p = Points[i];
 		if (p.Button) p.Button->Remove();
 		if (p.MntPoint) p.MntPoint->Remove();
@@ -481,7 +481,7 @@ void UIMountClass::Build()
 void UIMountClass::Clear()
 {
 	Hide();
-	for (int i = 0; i < (int)Unknown88.size(); i++) {
+	for (int i = 0; i < (int)Buttons.size(); i++) {
 		UIMountPointStruct &p = Points[i];
 		if (p.Name) {
 			p.Bttn->Remove_Sub_Object(p.Name);

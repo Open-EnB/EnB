@@ -20,7 +20,7 @@ class UIStarmapClass;		// ui_starmap.h's star map window (0x7C63D0)
 class UIPingClass;			// ui_ping.h's ping window (0x5D7630)
 
 #ifdef POC_WINDOW_CTOR	// the POC (poc_world3.cpp) keeps InterfaceClass's own slots for its empty windows
-#define POC_INV_WINDOW_SLOTS virtual void Unknown_54() { InterfaceClass::Unknown_54(); } virtual void Unknown_58() { InterfaceClass::Unknown_58(); } virtual void Unknown_5C() { InterfaceClass::Unknown_5C(); } virtual void Unknown_60() { InterfaceClass::Unknown_60(); } virtual void Unknown_7C(UIViewClass *view, bool arg) { InterfaceClass::Unknown_7C(view, arg); }
+#define POC_INV_WINDOW_SLOTS virtual void Unknown_54() { InterfaceClass::Unknown_54(); } virtual void Unknown_58() { InterfaceClass::Unknown_58(); } virtual void Unknown_5C() { InterfaceClass::Unknown_5C(); } virtual void Unknown_60() { InterfaceClass::Unknown_60(); } virtual void Unknown_64() { InterfaceClass::Unknown_64(); } virtual bool Unknown_68(int key) { return(InterfaceClass::Unknown_68(key)); } virtual void Unknown_7C(UIViewClass *view, bool arg) { InterfaceClass::Unknown_7C(view, arg); }
 #else
 #define POC_INV_WINDOW_SLOTS
 #endif

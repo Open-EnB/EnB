@@ -192,3 +192,21 @@ Vector3 Unknown_764480Class::Unknown_764CF0(int a, int b, int c)
 	STUB_CALLED("Unknown_764480Class::Unknown_764CF0 (0x764CF0)");
 	return Vector3(0.5f, 0.5f, 0.5f);
 }
+
+// ui_item_examination_title.cpp's names (not rebuilt; gen_stubs skips a by-value std::string), linked since
+// ui_slot_info.cpp's 0x630280 news the item examination window
+std::string Unknown_7EA190(int id)
+{
+	STUB_CALLED("Unknown_7EA190 (0x7EA190): no icon");
+	return std::string();
+}
+std::string Unknown_49E210(int damage_type)
+{
+	STUB_CALLED("Unknown_49E210 (0x49E210): no damage type name");
+	return std::string();
+}
+std::string Unknown_7EB4D0(int type)
+{
+	STUB_CALLED("Unknown_7EB4D0 (0x7EB4D0): no item type name");
+	return std::string();
+}

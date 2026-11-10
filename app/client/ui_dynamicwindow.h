@@ -42,6 +42,7 @@ public:
 	void Add_Element(const RefCountPtr<DynamicWindowElementClass> &element, int row_index);	// 0x58A950 (FAIL_IF '!MainWindow'; MainWindow's Add_Element)  // NAME 1 [Add_Element, element, row_index]: DynamicWindowClass's
 	void Remove_All(bool recursive);														// 0x58A9A0 (FAIL_IF '!MainWindow'; MainWindow's Remove_All)  // NAME 1 [Remove_All, recursive]: DynamicWindowClass's
 	void Unknown_58A580(Vector2 position);													// 0x58A580 (ui_starmap.cpp's 0x7C8490)  // NAME 2 [position]: what the caller passes
+	void Get_Center(Vector2 &center);														// 0x58A640 (MainWindow's; ui_slot_info.cpp's 0x630070)  // NAME 2 [Get_Center, center]: DynamicWindowClass's
 	void Unknown_58ADA0();																	// 0x58ADA0 (FAIL_IF 'Is_Active()')  // NAME 1: neutral (D10)
 
 	RefCountPtr<DynamicWindowClass> MainWindow;												// +0x88 (FAIL_IF '!MainWindow')  // NAME 3: the FAIL_IF's

@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_slot_info.h, the slot information screens' base (the client's
 // ui_slot_info.cpp, 'e:\build\beta\G\app\Client\ui_slot_info.cpp' at 0xB8A6DC; this header's name is provisional,
-// NAME 1). Declarations only, laid out from the constructor 0x62FDF0 (its code is not in the tree yet).
+// NAME 1). Laid out from the constructor 0x62FDF0; its code in ui_slot_info.cpp (SK1, 2026-11-09).
 #ifndef UI_SLOT_INFO_H  // NAME 1 [ui_slot_info.h]: provisional header name for ui_slot_info.cpp
 #define UI_SLOT_INFO_H
 
@@ -29,7 +29,14 @@ public:
 	virtual UISlotInfoItemClass *Unknown_90() = 0;											// +0x90  // NAME 1: neutral (D10)
 	virtual bool Unknown_94() = 0;															// +0x94  // NAME 1: neutral (D10)
 
+	bool Unknown_630070(UIViewClass *view, int slot, bool a, bool b);						// 0x630070 (the slot's information shown beside it; SlotDataInterface's 0x62E8B0)  // NAME 1 [view, slot, a, b]: what 0x62E8B0 passes
+
 	int UnknownAC;																			// +0xAC (0x68AAA0's slot)  // NAME 1: neutral (D10)
+	static UISlotInfoClass *_ActiveInterface;												// 0xBE5E5C (the one shown)  // NAME 3: the asserts'
 };
+
+class SClient;
+class SlotDataClass;
+UISlotInfoClass *Unknown_630280(SClient *client, SlotDataClass *slot_data);			// 0x630280 (G_ASSERT 'false' l.252: an item's examination window or a skill's information window)  // NAME 1 [client, slot_data]: what SlotDataInterface's 0x62DF90 passes
 
 #endif

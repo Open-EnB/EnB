@@ -18,12 +18,12 @@ class InvDataClass;				// client_item_property_builder.h's (0x59FE10)
 // ui_inv.cpp's inventory window (0xD0 bytes, constructor 0x59F3D0, destructor 0x59F940 (deleting 0x59F440); tables
 // 0xAF252C / 0xAF2520 / 0xAF2514): the base of the trade window (ui_trade.cpp), the mount points window (ui_mount.cpp)
 // and the PDA's cargo, equipment and vault windows (pdaint.h)
-class UIInvClass : public UISlotDataClass	// NAME 3: class-from-file (D24) for app\Client\ui_inv.cpp
+class UIInvClass : public SlotDataInterface	// NAME 3: class-from-file (D24) for app\Client\ui_inv.cpp
 {
 public:
 	enum { INV_NONE = 0, INV_VENDOR = 4 };				// InvType's (G_ASSERTs 'InvType != INV_NONE' l.306, 'InvType == INV_VENDOR' l.543 / 570)  // NAME 3: the asserts'
 #ifdef POC_WINDOW_CTOR
-	UIInvClass(LineDisplayClientClass *client) : UISlotDataClass(client), Kind(0), InvType(0), InvTransaction(0), UnknownC8(0), Name(0) {}	// (the POC's empty windows, poc_world3.cpp)
+	UIInvClass(LineDisplayClientClass *client) : SlotDataInterface(client), Kind(0), InvType(0), InvTransaction(0), UnknownC8(0), Name(0) {}	// (the POC's empty windows, poc_world3.cpp)
 #endif
 	UIInvClass(SClient *client, int kind);				// 0x59F3D0 (the kind into +0xBC: the trade window passes 7)  // NAME 1 [client]: neutral; NAME 2 [kind]: what it chooses
 	virtual ~UIInvClass();								// 0x59F940 (deleting 0x59F440)
