@@ -13,20 +13,11 @@ class DynamicWindowClass;
 class Vector2;
 class DynamicWindowElementClass;
 
-// The window's gadget side at +0x84 (table 0xAF1380: the destructor 0x58A030 / deleting 0x58A050 and four pure slots).
-// The panels get it as their listener (ui_item_examination_options.cpp's rows)
-class UIDynamicWindowUnknown84Class  // NAME 1: neutral (D10)
-{
-public:
-	virtual ~UIDynamicWindowUnknown84Class() {}											// 0x58A030 (deleting 0x58A050)
-	virtual GadgetClass *Unknown84_04() = 0;													// +0x04 (0x58AA40: +0x8C, the main gadget)  // NAME 1: neutral (D10)
-	virtual void Unknown84_08(GadgetClass *gadget, int arg1, int arg2) = 0;					// +0x08 (0x58AA60: FAIL_IF 'Is_Active()', '!gadget')  // NAME 1 [gadget, arg1, arg2]: neutral
-	virtual void Unknown84_0C(GadgetClass *gadget) = 0;										// +0x0C (0x58AD00: out of the gadget list)  // NAME 1 [gadget]: neutral
-	virtual int Unknown84_10() = 0;															// +0x10 (0x58AD80: +0x90, the next id)  // NAME 1: neutral (D10)
-};
+// The window's gadget side at +0x84 (table 0xAF1380): GadgetCollectionInterface
+#include "gadget_collection_interface.h"
 
 // ui_dynamicwindow.cpp's screen (0xAC bytes; tables 0xAF12DC / 0xAF12D0 / 0xAF12C4 / 0xAF12AC)
-class UIDynamicWindowClass : public InterfaceClass, public UIDynamicWindowUnknown84Class  // NAME 3: class-from-file (D24) for app\Client\ui_dynamicwindow.cpp
+class UIDynamicWindowClass : public InterfaceClass, public GadgetCollectionInterface  // NAME 3: class-from-file (D24) for app\Client\ui_dynamicwindow.cpp
 {
 public:
 	UIDynamicWindowClass(LineDisplayClientClass *client, const char *name, int flags);		// 0x589D30 (InterfaceClass 0x540D30; a 'STANDARD_BLANK_WINDOW' without a name)  // NAME 1 [client, name, flags]: what it passes on

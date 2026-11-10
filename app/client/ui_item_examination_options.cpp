@@ -3,7 +3,7 @@
 #include "..\shared\g_assert.h"
 #include <algorithm>
 
-UIItemExaminationOptionsClass::UIItemExaminationOptionsClass(UIDynamicWindowUnknown84Class *listener) :
+UIItemExaminationOptionsClass::UIItemExaminationOptionsClass(GadgetCollectionInterface *listener) :
 	DynamicWindowVerticalClass(0x82),
 	Listener(listener)
 {

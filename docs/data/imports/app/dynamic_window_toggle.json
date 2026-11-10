@@ -1,0 +1,63 @@
+{
+ "ambiguous": [
+  "0x46BE90",
+  "0x474000",
+  "0x474080",
+  "0x474450",
+  "0x474480",
+  "0x483600",
+  "0x497350"
+ ],
+ "copy": "reconstructed",
+ "description": "ToggleButtonDynamicWindow (the client's RTTI), a dynamic window's toggle button: one model per state, the next on each click of its DynamicElementGadgetClass (table 0xAEDAE4, 0x74 bytes), client 0x51D790-0x51EADF (__FILE__ 0xB76E1C, FAIL_IF 'size.X <= 0 || size.Y <= 0' on the client's line 34, D25): the two Create 0x51D790 / 0x51DB50, the destructor 0x51E0F0, Set_State 0x51E250, the two Create_Render_Object 0x51E2C0 / 0x51E3D0, the gadget event 0x51E730; NOT EXACT (D64): the constructor 0x51DEB0 (inline budget) (DW1)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0x4740E0",
+  "0x497330",
+  "0x51A4F0",
+  "0x51D790",
+  "0x51DB50",
+  "0x51E0C0",
+  "0x51E0F0",
+  "0x51E220",
+  "0x51E250",
+  "0x51E2C0",
+  "0x51E3D0",
+  "0x51E730",
+  "0x51E830",
+  "0x51E890",
+  "0x51E8E0",
+  "0x51E900",
+  "0x51E980",
+  "0x51E9A0",
+  "0x51E9C0",
+  "0x51E9E0",
+  "0x51EA50",
+  "0x51EA80",
+  "0x51EAB0"
+ ],
+ "merged": [],
+ "name": "client/dynamic_window_toggle.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0x4740E0",
+  "0x497330",
+  "0x51A4F0",
+  "0x51E220",
+  "0x51E8E0",
+  "0x51E980",
+  "0x51E9A0",
+  "0x51E9C0"
+ ],
+ "short_known": [
+  "0x51E8E0",
+  "0x51E980",
+  "0x51E9A0",
+  "0x51E9C0"
+ ]
+}

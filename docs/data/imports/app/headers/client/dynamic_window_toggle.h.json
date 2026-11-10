@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "ToggleButtonDynamicWindow's header (name assumed from dynamic_window_toggle.cpp) with ToggleButtonStateEvent (the client's RTTI) (DW1)"
+}

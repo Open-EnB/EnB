@@ -24,12 +24,12 @@
 #include "item/client_item_property_attribute.h"
 #include <vector>
 
-class UIDynamicWindowUnknown84Class;
+class GadgetCollectionInterface;
 
 class UIItemExaminationAttributeClass : public DynamicWindowHorizontalClass  // NAME 2 [UIItemExaminationAttributeClass]: from 'ATTRIBUTE00_IEI00', as UIItemExaminationOptionClass
 {
 public:
-	UIItemExaminationAttributeClass(const RefCountPtr<ClientItemPropertyAttributeClass> &attribute, UIDynamicWindowUnknown84Class *listener);	// 0x533450  // NAME 1 [attribute, listener]
+	UIItemExaminationAttributeClass(const RefCountPtr<ClientItemPropertyAttributeClass> &attribute, GadgetCollectionInterface *listener);	// 0x533450  // NAME 1 [attribute, listener]
 	virtual ~UIItemExaminationAttributeClass();
 
 protected:
@@ -40,7 +40,7 @@ protected:
 class UIItemExaminationAttributesClass : public DynamicWindowBackgroundClass  // NAME 2 [UIItemExaminationAttributesClass]: from 'ITEM_EXAMINATION_ATTRIBUTES', as UIItemExaminationOptionsClass
 {
 public:
-	UIItemExaminationAttributesClass(UIDynamicWindowUnknown84Class *listener);		// 0x532BA0  // NAME 1 [listener]
+	UIItemExaminationAttributesClass(GadgetCollectionInterface *listener);		// 0x532BA0  // NAME 1 [listener]
 	virtual ~UIItemExaminationAttributesClass();											// +0x04 0x533000 (deleting 0x532FD0)
 
 	void Add_Attribute(ClientItemPropertyAttributeClass *attribute);						// 0x5331B0  // NAME 1 [Add_Attribute, attribute]: appends to Attributes
@@ -48,7 +48,7 @@ public:
 	void Clear();																			// 0x5333B0  // NAME 1 [Clear]: as the options panel's
 
 protected:
-	UIDynamicWindowUnknown84Class *Listener;											// +0x64  // NAME 1 [Listener]: passed to each row
+	GadgetCollectionInterface *Listener;											// +0x64  // NAME 1 [Listener]: passed to each row
 	std::vector< RefCountPtr<ClientItemPropertyAttributeClass> > Attributes;				// +0x68  // NAME 1 [Attributes]
 	RefCountPtr<DynamicWindowVerticalClass> List;											// +0x78 (the rows)  // NAME 1 [List]
 };

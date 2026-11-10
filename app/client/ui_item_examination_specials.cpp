@@ -3,7 +3,7 @@
 #include "..\shared\g_assert.h"
 #include <algorithm>
 
-UIItemExaminationSpecialsClass::UIItemExaminationSpecialsClass(UIDynamicWindowUnknown84Class *listener) :
+UIItemExaminationSpecialsClass::UIItemExaminationSpecialsClass(GadgetCollectionInterface *listener) :
 	DynamicWindowBackgroundClass("ITEM_EXAMINATION_SPECIALS", 6),
 	Listener(listener)
 {

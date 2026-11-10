@@ -24,12 +24,12 @@
 #include "item/client_item_property_special.h"
 #include <vector>
 
-class UIDynamicWindowUnknown84Class;
+class GadgetCollectionInterface;
 
 class UIItemExaminationSpecialClass : public DynamicWindowHorizontalClass  // NAME 2 [UIItemExaminationSpecialClass]: as the attributes panel's row
 {
 public:
-	UIItemExaminationSpecialClass(const RefCountPtr<ClientItemPropertySpecialClass> &special, UIDynamicWindowUnknown84Class *listener);	// 0x538350  // NAME 1 [special, listener]
+	UIItemExaminationSpecialClass(const RefCountPtr<ClientItemPropertySpecialClass> &special, GadgetCollectionInterface *listener);	// 0x538350  // NAME 1 [special, listener]
 	virtual ~UIItemExaminationSpecialClass();
 
 protected:
@@ -40,7 +40,7 @@ protected:
 class UIItemExaminationSpecialsClass : public DynamicWindowBackgroundClass  // NAME 2 [UIItemExaminationSpecialsClass]: from 'ITEM_EXAMINATION_SPECIALS', as UIItemExaminationOptionsClass
 {
 public:
-	UIItemExaminationSpecialsClass(UIDynamicWindowUnknown84Class *listener);		// 0x537AD0  // NAME 1 [listener]
+	UIItemExaminationSpecialsClass(GadgetCollectionInterface *listener);		// 0x537AD0  // NAME 1 [listener]
 	virtual ~UIItemExaminationSpecialsClass();											// +0x04 0x537F00 (deleting 0x537ED0)
 
 	void Add_Special(ClientItemPropertySpecialClass *special);						// 0x5380B0  // NAME 1 [Add_Special, special]: appends to Specials
@@ -48,7 +48,7 @@ public:
 	void Clear();																			// 0x5382B0  // NAME 1 [Clear]: as the options panel's
 
 protected:
-	UIDynamicWindowUnknown84Class *Listener;											// +0x64  // NAME 1 [Listener]: passed to each row
+	GadgetCollectionInterface *Listener;											// +0x64  // NAME 1 [Listener]: passed to each row
 	std::vector< RefCountPtr<ClientItemPropertySpecialClass> > Specials;				// +0x68  // NAME 1 [Specials]
 	RefCountPtr<DynamicWindowVerticalClass> List;											// +0x78 (the rows)  // NAME 1 [List]
 };
