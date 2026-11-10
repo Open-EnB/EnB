@@ -309,20 +309,20 @@ void SlotDataInterface::Unknown_64()
 }
 
 // 0x62E8B0
-// NOT EXACT: functional (D64), from the pseudocode
 bool SlotDataInterface::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *event, unsigned int mask)
 {
-	if ((mask & 0xF0) && event->Up) {
-		if (Unknown_A0(gadget)) {
-			Unknown9C->Unknown_630070(View, gadget->Unknown_670910(), true, false);
+	bool right = (mask & 0xF0) != 0;
+	if (right) {
+		bool up = event->Up;
+		if (up && Unknown_A0(gadget)) {
+			UIViewClass *view = View;
+			Unknown9C->Unknown_630070(view, gadget->Unknown_670910(), true, false);
 			Client->As_Space_Client()->Unknown_744560(0xE);
 			return(true);
 		}
 	}
 	return(false);
 }
-
-
 
 
 
