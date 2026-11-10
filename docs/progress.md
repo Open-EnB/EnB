@@ -40,7 +40,7 @@ Newest first within each section. Dates are when the entry was written.
   +0xB8 / +0xF8 / +0x118 gadgets, +0xD4 SGI hash stand-in), pkstarbase_avatar_change.h ctor 0x8A3600, clienttest.py #defines and
   clienttest.cpp fakes renamed (Python: the PR needs /verify-approved).
 - **SEND_SYMBOL_PAD tonight:** 40 -> 12 (PD1: `#include "gadget.h"` in sclient.cpp, window 9..14) -> 37 (SB1's sbaseview.h,
-  window 36..38) -> 41 (AV1's sclient.h names, 40..42) -> 43 (TX1, 42..44) -> 30 (PW1) -> 47 (GS1, window 46..49). Every edit to a
+  window 36..38) -> 41 (AV1's sclient.h names, 40..42) -> 43 (TX1, 42..44) -> 30 (GS1: ui_scut.h dropping its duplicate 0x5417D0, window 29..31) -> 47 (GS1's 0x744560, window 46..49). Every edit to a
   header sclient.cpp includes moves the window; the bring-over refused SB1 once (cherry-picked onto the next head it lost sclient
   0x758210 outright), CE1's chatgadg.cpp (not included by sclient.cpp) needed no change. IN1's "byte-identical twin" reading of
   the 0x758210 loss was wrong (0x218 B vs 0x702240's 0x31C B). The sweep script
