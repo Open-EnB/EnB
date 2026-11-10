@@ -25,16 +25,17 @@
 #include <vector>
 
 class GadgetCollectionInterface;
+class DynamicElementGadgetClass;
 
 class UIItemExaminationAttributeClass : public DynamicWindowHorizontalClass  // NAME 2 [UIItemExaminationAttributeClass]: from 'ATTRIBUTE00_IEI00', as UIItemExaminationOptionClass
 {
 public:
 	UIItemExaminationAttributeClass(const RefCountPtr<ClientItemPropertyAttributeClass> &attribute, GadgetCollectionInterface *listener);	// 0x533450  // NAME 1 [attribute, listener]
-	virtual ~UIItemExaminationAttributeClass();
+	virtual ~UIItemExaminationAttributeClass();												// +0x04 0x533AC0 (deleting 0x533A90)
 
 protected:
-	int Unknown64;																			// +0x64  // NAME 1 [Unknown64]: neutral (D10)
-	int Unknown68;																			// +0x68  // NAME 1 [Unknown68]: neutral (D10)
+	GadgetCollectionInterface *Listener;													// +0x64 (takes the tooltip's gadget)  // NAME 1 [Listener]: as the panel's
+	DynamicElementGadgetClass *Gadget;														// +0x68 (the tooltip's, when there is one)  // NAME 1 [Gadget]: what it holds
 };
 
 class UIItemExaminationAttributesClass : public DynamicWindowBackgroundClass  // NAME 2 [UIItemExaminationAttributesClass]: from 'ITEM_EXAMINATION_ATTRIBUTES', as UIItemExaminationOptionsClass
