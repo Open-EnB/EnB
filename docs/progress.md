@@ -4,6 +4,59 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-10 (06:30 PST, night, 2026-11-09b): the world's windows react (mouse to gadgets, chat entry and keyboard, the PDA's character page like retail, cargo and equipment windows); +<PAIRS> pairs over the run's baseline, 0 lost outright beyond D66 (vi)'s 0x65B900
+
+- **Run** run/2026-11-09b (PR #183), coordinator Opus 5.5 on the subscription, base fecd64c8, baseline
+  `.work/imports.fecd64c8.json`, plan `.work/run-2026-11-09b/plan.md`. The user: first whatever blocks interacting with the
+  on-screen items after world entry (ship, chat windows, PDA visible but not clickable), then items that unlock stuck work or
+  large unexplored functions with many callers, weekly usage 100 % by 07:00, subscription only (no agy, no API-key builders),
+  hourly heartbeats, no blocking questions. Weekly usage 90 % -> <WEEKLY_END>. Builders (Opus): IN1 ~194k tokens, PD1 ~96k
+  (resumed twice for the pad sweeps), SB1 ~457k, SK1 ~450k, CE1 ~420k, AV1 ~150k, TX1 ~150k, PW1 ~400k, GS1 ~400k, ID1 ~250k,
+  <UV1>; Sonnet (D182 harness and POC checks): HC1, HC2, HC3.
+- **HEAD against the baseline:** <PAIRS_LINE>
+- **The in-world interaction chain** (each cause found by running the POC in the world and reading what the click or key
+  reached): IN1 found why nothing was clickable: sclient.cpp's Do_Frame 0x742B60 called GadgetClass::Process_Input 0x65F780
+  through a free declaration `Unknown_65F780`, which linked to a gen stand-in the POC had stubbed empty; PD1 applied it by name
+  (the user agreed: sclient.cpp includes gadget.h and calls GadgetClass::Process_Input; +1 shared pair, sclient 0x702240), with
+  the pad re-sweep. CE1: chatgadg.cpp ChatGadgetClass (0x65BFD0, 13 functions, client `__FILE__`): typed text shows in the chat
+  entry and the second Return sends CLIENT_CHAT_REQUEST 0x00A3 (+37); the POC's 0x42A1A0 stand-in returned no key for
+  control_keys.ini, so typed letters hit hotkeys. SK1: ui_skills.cpp (UISkillsClass, was Unknown62D1F0Class), ui_slot_data.cpp
+  (SlotDataInterface), ui_slot_info.cpp, drag_mouse.cpp (SMouseDragClass), drag_slot_data.cpp (+166): the PDA's character button
+  no longer crashes. AV1: SClientUnknown1394Class and Unknown77E3F0Class are both CharacterViewAvatarClass (ctor 0x77B870), the
+  avatar's +0xE8 is Unknown_ChatStreamClass (0x7817E0 rebuilt): the ui_attrb.cpp(237) assert is gone (+3). TX1: Do_Frame called
+  free `Unknown_918200`, a gen stub; the client calls WW3D::Sync there, so Get_Frame_Time stayed 0 in the world and every FontSys
+  WIPE / FADE effect froze at step 0: the character page's level, class, rank, credits and bar labels draw as retail's
+  (+1, ui_scut 0x612820; Set_Tooltip 0x65EFB0 / 0x65F340 and SoundLibraryClass::Apply_Volumes 0x43FD70 by name). GS1 swept the
+  free `Unknown_` declarations that link to gen stand-ins (in-world hits 48 -> 35, the POC link's gen stand-ins 408 -> 380):
+  SClient 0x743380 (keyboard events were dropped without a gadget source), 0x744B60, 0x744E50, 0x744560 (NOT EXACT) rebuilt,
+  unknown_764fd0.cpp (chat colours at SClient +0x13CC), about 25 call sites onto real names (+8). PW1: ui_pda_cargo.cpp
+  (UIPdaCargoClass), ui_pda_equip.cpp (UIPdaEquipClass), gd_inv_slider.cpp (+112): both windows open, Equip>> works. ID1:
+  inv_data.cpp / inv_data.h, InvDataClass 0x688410-0x689100 (exact but 0x688B90), its POC stand-in dropped, ui_inv /
+  inv_render / inv_manu_render / inv_trade_render / client_item_property_builder.h onto the real names (a stand-in class name
+  `Unknown688830Class` had linked a NULL gen stub that crashed the POC's cargo window) (+30). HC1 / HC2 / HC3 at the heads of
+  PD1, SK1 and GS1: the click toggles the chat split, the character window opens with its labels, the cargo and equipment windows
+  show Equip>> / Credits / Sort, typed text shows. The replay's cargo is empty (retail too), so slots stay empty.
+- **Other files:** SB1: ui_starbase.cpp's rest (+31; 21 functions exact in 0x633180-0x6437A1), sbaseview.h retypes (+0xEC list,
+  +0xB8 / +0xF8 / +0x118 gadgets, +0xD4 SGI hash stand-in), pkstarbase_avatar_change.h ctor 0x8A3600, clienttest.py #defines and
+  clienttest.cpp fakes renamed (Python: the PR needs /verify-approved).
+- **SEND_SYMBOL_PAD tonight:** 40 -> 12 (PD1: `#include "gadget.h"` in sclient.cpp, window 9..14) -> 37 (SB1's sbaseview.h,
+  window 36..38) -> 41 (AV1's sclient.h names, 40..42) -> 43 (TX1, 42..44) -> 30 (PW1) -> 47 (GS1, window 46..49). Every edit to a
+  header sclient.cpp includes moves the window; the bring-over refused SB1 once (cherry-picked onto the next head it lost sclient
+  0x758210 outright), CE1's chatgadg.cpp (not included by sclient.cpp) needed no change. IN1's "byte-identical twin" reading of
+  the 0x758210 loss was wrong (0x218 B vs 0x702240's 0x31C B). The sweep script
+  (`.work/wt/GS1/.work/gs1/sendpad_imp.py`) should move into tools/ (§4 item 9).
+- **D66 (vi):** CE1 loses uiview 0x65B900 (guarded atexit for 0x42B320) outright: the client's own chatgadg copy 0x65EC80 makes
+  it ambiguous; accepted-corrections.json carries the entry (751cf3e6; precedent 0x5495A0, 0x604150), so the PR needs the
+  maintainer's /accept-d66 (D202), and /verify-approved for clienttest.py.
+- **D182 harness:** HC1 (ae75446d), HC2 (79edb986), HC3 (99168736): clienttest 103 checks, 0 failed, exit 0, trace equal (2605
+  lines at HC3; GS1 updated expected.txt because the real code now runs); udpreplay alex3 as before (24771 equal in order),
+  handshake 54; the POC no CRASH / STUB_CALLED. Asserts seen every run: soundlib(838) x4, interface_static_sort_list(503) (GS1:
+  radar adds robjs before a current interface; harmless); new at HC3: dynamic_window_background.cpp(147) AnimationData x4; ID1:
+  Mounts inv_data_peek.cpp(104) on the equipment list. ID1 (and UV1) landed after HC3.
+- **Traps filed** (workflow.md §3.1, §3.3, §3.4, §3.7, §3.8): free `Unknown_<ADDR>` declarations and callers' local stand-in class
+  names link silently to gen stand-ins (the night's class), the SEND pad history and the re-sweep rule, D66 (vi) twins in
+  pairs_cmp, POC shot timing (IN1's ~59 frames/s against the virtual-time counts), tail padding and auto_inline forms.
+
 ### 2026-11-09 (15:10 PST, day): §4 item 00 done (fontsys 0x6CE4E0 / 0x6CD6F0, ui_mfd 0x5BF350 exact; D221 revisited as P-FN3-1); twelve new window files (inv_data_peek, ui_mount, ui_option_account / _channel / _check, ui_refinery, ui_inv, ui_radio_main / _join / _entry / _list / _admin); +576 pairs over the run's baseline, 0 lost outright
 
 - **Run** run/2026-11-09 (PR #182), coordinator Opus 5.5 on the subscription, base f0a28c6f (#180 merged) with c26bd2a9 /
@@ -2857,7 +2910,7 @@ below name only the work items, the blocked work, the leads and the queues.
      and 0x554E80 at +0x68, InterfaceClass's Unknown_60 / Unknown_68: declare them as those overrides if 0x554E80's
      functional rebuild (2026-11-04) does not, then rerun every marker; its functions toward exact: the POC creation item.
    * SClient's aux code (SCI, 2026-11-04): Player's aux tree compiles in sclient.cpp (D137 interim, SC1; auxroots.py
-     SEND_HEADER_ROOTS, DEF_ORDER, aux_roots.cpp SYMBOL_PAD 58 (window 57..59), aux_roots_send.h SEND_SYMBOL_PAD 40: each a narrow
+     SEND_HEADER_ROOTS, DEF_ORDER, aux_roots.cpp SYMBOL_PAD 58 (window 57..59), aux_roots_send.h SEND_SYMBOL_PAD 47 (window 46..49): each a narrow
      window, re-sweep with any header change, through the importer path: workflow.md 3.4).
      SClient::Init 0x741180 (inline budget 0.69; 0x758970 itself is exact now): the client calls RefCountPtr operator= 0x758970
      out of line in 0x74C9D0's else branch (stash docs/attempts/741180/); 0x755600 the same pattern (SC2 did not attempt either). Retyping PlayerVarAuxData loses 41 of cpacket.cpp's functions (aux_roots_send.h): dropped.
@@ -2865,7 +2918,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * The character info window (BIO / AVS2 / BF1, 2026-11-05): ui_cinfo.cpp's UICinfoClass (0x5734D0-0x5745AF, 12 exact;
      0x573E80 / 0x5741A0 NOT EXACT, register) makes four tabs: ui_bio.cpp's UIBioClass and 0x549640 (0x124, string
      ATTRIBUTES), 0x5C4170 (0xEC, MISSIONS), 0x58D080 (0xE4, FACTION_MENU), placed by TB1 (2026-11-05) as
-     ui_attrb_skills.cpp (0x549640-0x54B75F, UIAttrbSkillsClass over the interim skill base Unknown62D1F0Class, D137),
+     ui_attrb_skills.cpp (0x549640-0x54B75F, UIAttrbSkillsClass over UISkillsClass (ui_skills.cpp, SK1; was the interim skill base Unknown62D1F0Class)),
      ui_missn.cpp (0x5C4170-0x5C735F, UIMissnClass), ui_faction.cpp (0x58D080-0x58EB4F, UIFactionClass); round 2 by TB2 (+41). Left: attrb's
      Create_NEW copies 0x54B490 / 0x54B540 (Init 0x549AA0 calls them out of line; exact since AT1, but they are in none
      of the file's imports.json lists: probably byte-identical to other Create_NEW copies), 0x54A200 0.71 (register: ecx / edx
@@ -3207,6 +3260,17 @@ below name only the work items, the blocked work, the leads and the queues.
      Clamp_Color); 0x6D60C0 (spend a little budget between the two Play copies).
    * sclient.cpp: 0x74CA90 / 0x741180 / 0x755600 (above); unknown_7cef30.cpp: the request readers 0x7D6A60 / 0x7DAD50 /
      0x7DB2D0 (Parked leftovers).
+   * **From the 2026-11-09b night run (GS1, ID1, SB1, TX1, SK1, CE1):** gen stand-ins still hit in the world (35 at GS1's
+     close; list them with the POC's stubs.log `gen` lines against `client.py name`): uvcontrl.cpp's UVControllerClass (unless
+     UV1 landed), 0x53DFB0 / 0x53E030, BridgeInterfaceClass, acticon 0x6766E0, kv_util 0x4BB3F0, MusicManager / 0x74BFB0, the chat
+     colours 0x765540 / 0x765BE0 / 0x765E40, TX1's 0x58B160, 0x810CF0, 0x831950; StarbaseAvatarCreationInterface
+     (sbaseview.h's SBaseViewUnknown19CClass) into ui_avatar_cust.h (sclient.cpp includes it: the SEND pad sweep); the
+     0x42A410 key-binding writer's retype (ControlKeyComboStruct against KernelEventClass); ID1's item functions 0x8318B0 (the
+     template lookup), 0x831340 (ctor), 0x831840 (texture), the file after circbuff.cpp (0x831340-0x831950); the chat panel's
+     missing tabs and dynamic_window_background.cpp(147)'s AnimationData assert; money.cpp 0x4F00C0 (a hand stub groups
+     thousands in the POC) / 0x4FAEE0; SB1's next ui_starbase leads 0x63CA50 (needs the +0xCC ctor and operator[] 0x644A20),
+     0x63E930 / 0x63F490, 0x640360, 0x6417D0; CE1's ClientChatRequestPacketClass 0x878D90; symbols.json misnames 0x58A640
+     (it is UIDynamicWindowClass::Get_Center, SK1); antprox's replay does not echo CLIENT_CHAT_REQUEST 0x00A3 (antprox repo).
 
 2. **Step 9 (D90)**, left in its files (history: the log entries of 2026-10-28 and 2026-10-29):
    * co.cpp: the thunks 0x70E2A0-0x70E2D0 (too short for verify to count); type 28's aim 0x70E850 (frame / shape);
@@ -3276,9 +3340,14 @@ below name only the work items, the blocked work, the leads and the queues.
      a 0.77 form with dead reads stashed);
      ChatWindowInterface's NOT EXACT (attempts.csv, CW2); the chat reply list 0x56E2A0 (fc_symbolchat.ini: likely
      ui_symbolchat.cpp) and the combo box's ctor 0x5789E0 / 0x5790C0 / 0x578210 / 0x579DC0 / 0x57A060 / 0x5689D0; the
-     PDA's NOT EXACT 0x693E70, 0x695780, 0x695A00, 0x695FE0 and its windows' stand-ins (poc_world3.cpp: equipment,
-     cargo, vault, experience; poc_world4.cpp: character and star map set-ups' classes, GadgetPipSceneClass 0x66ACE0,
-     GadgetStarmapClass 0x7B4700); starmap_pip.cpp's rest (0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1C50, 0x7C2340,
+     PDA's NOT EXACT 0x693E70, 0x695780, 0x695A00, 0x695FE0 and its windows' stand-ins (poc_world3.cpp: vault, experience,
+     and PW1's D179 stand-ins under the cargo and equipment windows: DynamicWindowIconClass::Create 0x519A20, 0x51A9C0,
+     0x66CC00, combo 0x5789E0 / 0x57B480, ship PIP 0x541DE0 / 0x66DA50, stats 0x6A2ED0; poc_world4.cpp: the star map
+     set-up's class, GadgetPipSceneClass 0x66ACE0, GadgetStarmapClass 0x7B4700); in the world the chat panel's tabs are
+     missing and the chat text colour differs from retail's (red against green: SClient +0x13CC, 0x765540 / 0x765BE0 /
+     0x765E40), the cargo window shows no items (the replay's cargo is empty; items need 0x8318B0 / 0x831340 / 0x831840) and
+     drag is untested; asserts every run: soundlib(838) x4, interface_static_sort_list(503) once, dynamic_window_background.cpp(147)
+     AnimationData x4, Mounts inv_data_peek.cpp(104) on the equipment list; starmap_pip.cpp's rest (0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1C50, 0x7C2340,
      0x7C2850, 0x7C2DA0-0x7C30E0; NOT EXACT 0x7C0C80, 0x7C1770 (frame, 0.88: retry the slot order now that +0x68 is a
      Vector3), 0x7C2060, 0x7C3830) and sclient.h's +0xA8 as UIStarmapClass (mainview including ui_starmap.h lost
      0x512A00 / 0x514960: read its objdiff first); ui_scan's 0x60ECD0 and 0x610370 (inline-budget; a delta_template.h
@@ -3351,6 +3420,12 @@ below name only the work items, the blocked work, the leads and the queues.
    Channel') (CH1: no asserts in either), ui_radio_list.cpp / .h ('cht02') and ui_radio_admin.cpp / .h ('cht05',
    'UI_RADIO_ADMIN') (CW1: no strings name them).
 
+   From the 2026-11-09b night run: inv_data.cpp / .h (ID1: InvDataClass, client `__FILE__` 0xB8FDC4; the header placement is D137), ui_pda_cargo.h
+   and ui_pda_equip.h (PW1: the .cpps follow the client's `__FILE__`, the headers are D137), unknown_764fd0.cpp (GS1: the chat
+   colours at SClient +0x13CC, no `__FILE__`), gd_inv_slider.cpp's class Unknown669FB0Class (PW1: the name is interim),
+   drag_mouse.cpp (SMouseDragClass) and drag_slot_data.cpp, ui_skills.cpp, ui_slot_info.cpp (SK1: names to confirm at their next
+   edit; ui_slot_data.cpp's SlotDataInterface is RTTI), ui_slot_data.h (the UI1 entry above: now defined).
+
 9. **Tools:** the Claims Action's pull_request_target runs fail at startup (since 2026-11-09 16:02Z): a merged run
    PR's claims stay live until a schedule / manual run reconciles (`gh workflow run claims.yml`); find the cause
    (`gh run view` of a failed run). P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
@@ -3361,8 +3436,10 @@ below name only the work items, the blocked work, the leads and the queues.
    `.work/h16/fm_gen.py` / `commit_h16.py` pattern for generated files; promote the inline-budget lab (IB1's
    `.work/ib1/e1-e11.py` and `census.txt`, IB2's variant runner `.work/ib2/vr.py`: its marker insertion
    shifts `__LINE__`) into tools/re if the census walk goes on; auxroots.py's pad comment is stale (SYMBOL_PAD 58,
-   SEND_SYMBOL_PAD 40, DEF_ORDER); `appfile.py match` mixes overloads and its pad windows differ from the importer's
-   (workflow.md 3.4, 3.6).
+   SEND_SYMBOL_PAD 47, DEF_ORDER); `appfile.py match` mixes overloads and its pad windows differ from the importer's
+   (workflow.md 3.4, 3.6). A SEND_SYMBOL_PAD sweep step in wt.py / linkgate (GS1's `.work/wt/GS1/.work/gs1/sendpad_imp.py`
+   moved into tools/: the bring-over sweeps 0..63 when the diff touches a header sclient.cpp includes, ~5-10 min; 2026-11-09b
+   needed seven pad changes).
    Data and generated files: symbols.json / ghidra_symbols.py keep 15 old D198 names (and vtable 0xAFB5F4 reads
    `??_7Unknown_675120Class@@6B@`: it is UIBackGadget's, D208): run `symbols.py` with every library's `--objs` at the
    next refresh (without them it rewrites the file wholesale).
@@ -3447,6 +3524,13 @@ below name only the work items, the blocked work, the leads and the queues.
        Get_Value copies the client lacks)
      - fontsys 0x6D47C0 (register, 1 row), 0x6D4C70 (order, 4 rows), 0x6D0A70 (inline-budget), 0x6D5C10 (FPU copy),
        0x6D60C0; 0x6C2890 / 0x6C2A10 parked (FN1)
+   * Near misses from the 2026-11-09b night run (attempts.csv rows where recorded):
+     - ui_starbase (SB1) 0x641FA0 (0.80, register), 0x63E2B0 (0.72), 0x63A100 (0.63), 0x63E770 (0.57), 0x643DF0 (functional)
+     - chatgadg (CE1) 0x65BFD0, 0x65CCD0, 0x65DE90, 0x65E250, 0x65E5E0, 0x65E840
+     - ui_skills / ui_slot_data / drag (SK1) 0x62D730, 0x62DE80, 0x62E320, 0x630070, 0x684F20, 0x685060, 0x685380, 0x685500
+     - ui_pda_cargo / ui_pda_equip / gd_inv_slider (PW1): twelve (`attempts.py list`)
+     - inv_data (ID1) 0x688B90 (0.87, one load order)
+     - sclient (GS1) 0x744560 (NOT EXACT); Do_Frame 0x742B60 is still relocation-class (PD1's lead)
 
 11. **Reminders:** D7's (revisit byte-exactness of E&B's code with the user if it becomes too costly;
    `docs/data/not-exact.md` shows how much functional code waits); which bool-return form gives a bare
