@@ -178,7 +178,7 @@ public:
 public:
   pair<iterator, bool> insert(const value_type& __obj)
     {
-      pair<typename _Ht::iterator, bool> __p = _M_ht.insert_unique(__obj);
+      pair<_Ht::iterator, bool> __p = _M_ht.insert_unique(__obj);  /* VC6 (E&B, D87): no typename (C2899) */
       return pair<iterator,bool>(__p.first, __p.second);
     }
 #ifdef __STL_MEMBER_TEMPLATES
@@ -194,7 +194,7 @@ public:
 #endif /*__STL_MEMBER_TEMPLATES */
   pair<iterator, bool> insert_noresize(const value_type& __obj)
   {
-    pair<typename _Ht::iterator, bool> __p = 
+    pair<_Ht::iterator, bool> __p =  /* VC6 (E&B, D87): no typename (C2899) */ 
       _M_ht.insert_unique_noresize(__obj);
     return pair<iterator, bool>(__p.first, __p.second);
   }

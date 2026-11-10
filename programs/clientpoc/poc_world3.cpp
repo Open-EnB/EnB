@@ -105,42 +105,6 @@ void Unknown6A2ED0Class::Unknown_6A3C10()
 {
 }
 
-// ---------------------------------------------------------------- inv_data.cpp's inventory (0x688410, 0x18C bytes): an empty one
-// ui_inv.cpp's slot +0x88 (0x59FA00) news it for every inventory window's SlotData; declared as ui_inv.cpp declares it
-#include "..\..\app\client\slot_data.h"
-class DeltaCompoundClass;
-class Unknown688830Class;
-class InvDataClass : public SlotDataClass
-{
-public:
-	InvDataClass(int inv_type, SClient *client);
-	virtual InvDataClass *Unknown_10() { return(this); }	// +0x10 (the client's answers itself: ui_slot_info.cpp's 0x630280 makes the item window)
-	virtual bool Unknown_18();
-	virtual DeltaCompoundClass *Unknown_1C();
-	virtual bool Unknown_20();
-	Unknown688830Class *Unknown_688830();
-	Unknown688830Class *Unknown_688850();
-	int Unknown50;
-	char Unknown54[0x18C - 0x54];
-};
-InvDataClass::InvDataClass(int inv_type, SClient *client) : SlotDataClass(client), Unknown50(inv_type)
-{
-	STUB_CALLED("POC InvDataClass (0x688410, inv_data.cpp): an empty inventory");
-	memset(Unknown54, 0, sizeof(Unknown54));
-}
-bool InvDataClass::Unknown_18()
-{
-	return(false);
-}
-DeltaCompoundClass *InvDataClass::Unknown_1C()
-{
-	return(NULL);
-}
-bool InvDataClass::Unknown_20()
-{
-	return(false);
-}
-
 // ---------------------------------------------------------------- dynamic_window_icon.cpp's Create (0x519A20): a plain dynamic window, no texture
 // (the inventory windows' item examination window, ui_slot_info.cpp's 0x630280, makes its title's icon and close button with it)
 #include "..\..\app\client\dynamic_window_icon.h"
