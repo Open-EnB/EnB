@@ -68,7 +68,8 @@ public:
 };
 
 // The 0x60-byte objects of ClientClass's fourth list (constructor 0x831340, destructor 0x8316D0, after
-// circbuff.cpp; the constructor makes one named 'Null Item')
+// circbuff.cpp; the constructor makes one named 'Null Item'): the item templates (ui_manu.cpp's FAIL_IF '!item_template'
+// on 0x8318B0's result); rebuilt in app\common\item_template.cpp (PROVISIONAL file name, D137)
 class Unknown831340Class	// NAME 1: neutral (D10)
 {
 public:
@@ -79,11 +80,23 @@ public:
 	int Get_Item_Type() { return(ItemType); }			// (cpacket.cpp: ITEM_BASE 37's G_ASSERT 'ItemType == inode->Get()->Get_Item_Type()', l.1234)  // NAME 3: the assert's
 	const std::string &Get_Name() { return(Name); }		// (ITEM_BASE 37's G_ASSERT 'Name == inode->Get()->Get_Name()', l.1235)  // NAME 3: the assert's
 
-	char Unknown00[0x0C];
+	class TextureClass *Unknown_831840();				// 0x831840 (item_template.cpp): the icon's texture, else BLANK.TGA (inv_render.cpp's slot icons)
+
+	int ItemTemplateID;									// +0x00 the constructor's a (ITEM_BASE 37's ItemTemplateID; ClientClass's list key)  // NAME 3: the packet's Print text
+	int Category;										// +0x04 b  // NAME 3: ITEM_BASE 37's Print text 'Category='
+	int Subcategory;									// +0x08 c  // NAME 3: ITEM_BASE 37's Print text 'Subcategory='
 	int ItemType;										// +0x0C the constructor's g (ITEM_BASE 37 passes its ItemType)  // NAME 3: Get_Item_Type's
-	char Unknown10[0x14 - 0x10];
+	RenderObjClass *Icon;								// +0x10 a Bitmap2DObjClass of basset.ini's BASE-<f> 'Icon' (0 when f is -1)  // NAME 2: what it holds
 	std::string Name;									// +0x14 the constructor's name  // NAME 3: Get_Name's
-	char Unknown24[0x60 - 0x24];
+	std::string Unknown24;								// +0x24 m (ITEM_BASE 37's Unknown30)
+	std::string Unknown34;								// +0x34 n (ITEM_BASE 37's Unknown40)
+	int GameBasset;										// +0x44 e  // NAME 3: ITEM_BASE 37's Print text 'GameBasset='
+	int TechLevel;										// +0x48 h  // NAME 3: ITEM_BASE 37's Print text 'TechLevel='
+	int Cost;											// +0x4C i  // NAME 3: ITEM_BASE 37's Print text 'Cost='
+	int MaxStack;										// +0x50 j  // NAME 3: ITEM_BASE 37's Print text 'MaxStack='
+	unsigned int EffectUsage;							// +0x54 k  // NAME 3: ITEM_BASE 37's Print text 'EffectUsage='
+	int Flags;											// +0x58 l  // NAME 3: ITEM_BASE 37's Print text 'Flags='
+	RefCountPtr<ItemBaseInfoClass> Info;				// +0x5C d (a new one when d is empty)  // NAME 3: ITEM_BASE 37's FAIL_IF '!Info'
 };
 
 // px.cpp's PxList (0x34 bytes, constructor 0x44BE90, destructor 0x44BF00; app\shared\px.h)

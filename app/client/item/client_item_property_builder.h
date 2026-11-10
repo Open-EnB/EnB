@@ -108,7 +108,7 @@ class Unknown688830Item  // NAME 1: neutral (D10)
 {
 public:
 	const RefCountPtr<ItemTemplateInfoClass> &Get_Template_Info() const { return(TemplateInfo); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
-	TextureClass *Unknown_831840();																		// 0x831840 (its +0x10, with a reference)  // NAME 1: neutral (D10)
+	// (0x831840 is client.h's item template's Unknown_831840: callers cast)																		// 0x831840 (its +0x10, with a reference)  // NAME 1: neutral (D10)
 	char Unknown00[0x08];
 	int Unknown08;																						// +0x08 (0x529810's)  // NAME 1: neutral
 	char Unknown0C[0x14 - 0x0C];

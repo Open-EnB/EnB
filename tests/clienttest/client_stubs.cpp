@@ -114,13 +114,7 @@ Unknown86CRecordClass::~Unknown86CRecordClass() { Trace("stub Unknown86CRecordCl
 
 // ------------------------------------------------------------------------- ClientClass's members (client.h)
 
-// (ITEM_BASE 37 asserts on the item type and name of a template it has already: the stand-in keeps both)
-Unknown831340Class::Unknown831340Class(int a, int, int, const RefCountPtr<ItemBaseInfoClass> &, int, int, int g, int, int, int, int, int,
-	const std::string &name, const std::string &, const std::string &) : ItemType(g), Name(name)
-{
-	Trace("stub Unknown831340Class::Unknown831340Class %d '%s' type %d", a, name.c_str(), g);
-}
-Unknown831340Class::~Unknown831340Class() { Trace("stub Unknown831340Class::~Unknown831340Class"); }
+// Unknown831340Class (the item templates) is rebuilt in app\common\item_template.cpp (IT1): no stand-ins here
 
 // ------------------------------------------------------------------------- cpacket.cpp's callees in other files
 

@@ -1,0 +1,41 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x46BE90",
+  "0x474080"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: ClientClass's item templates (client.h's Unknown831340Class: constructor 0x831340, destructor 0x8316D0, the icon texture 0x831840), their lookup 0x8318B0 and the Mount transform parser 0x831950, client 0x831340-0x831A6F after circbuff.cpp; functional from pseudocode (NOT EXACT, D64); no __FILE__ in the window: PROVISIONAL file name (D137)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x42F250",
+  "0x831340",
+  "0x8316D0",
+  "0x831840",
+  "0x8318B0",
+  "0x831920",
+  "0x831950"
+ ],
+ "merged": [],
+ "name": "common/item_template.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x42D120"
+ ]
+}

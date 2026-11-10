@@ -14,7 +14,7 @@
 #include "ui_item_examination_property_router.h"
 
 #include "inv_data_peek.h"	// InvDataPeekClass (InvDataClass::Unknown_688830 / 688850)
-class Unknown688830Item { public: int Get_Type() { return(Unknown0C); } const std::string &Get_Name() { return(Unknown14); } TextureClass *Unknown_831840(); char Unknown00[4]; int Unknown04; int Unknown08; int Unknown0C; char Unknown10[4]; std::string Unknown14; char Unknown24[0x48 - 0x24]; int Unknown48; char Unknown4C[4]; int Unknown50; char Unknown54[4]; int Unknown58; };	// NAME 1: neutral (D10)
+class Unknown688830Item { public: int Get_Type() { return(Unknown0C); } const std::string &Get_Name() { return(Unknown14); } char Unknown00[4]; int Unknown04; int Unknown08; int Unknown0C; char Unknown10[4]; std::string Unknown14; char Unknown24[0x48 - 0x24]; int Unknown48; char Unknown4C[4]; int Unknown50; char Unknown54[4]; int Unknown58; };	// NAME 1: neutral (D10)
 typedef InvDataPeekClass Unknown688830Class;	// inv_data_peek.h's view of an inventory list, under this file's old name  // NAME 1: neutral (D10)
 #include "sclient.h"	// SClient (Get_Target 0x744FE0, the slot +0x28 Get_Avatar, the clock +0x10BC) and co.h's ClientObjectClass
 float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// NAME 1: neutral (D10); NAME 1 [a, b]: neutral
@@ -237,12 +237,12 @@ TextureClass *InvRenderClass::Unknown_34()
 		Unknown688830Class *data = Peek_Inv_Data()->Unknown_688850();
 		Unknown688830Item *item = (Unknown688830Item *)data->Get_Item(slot, false);
 		if (item) {
-			return(item->Unknown_831840());
+			return(((Unknown831340Class *)item)->Unknown_831840());
 		}
 		data = Peek_Inv_Data()->Unknown_688830();
 		item = (Unknown688830Item *)data->Get_Item(slot, false);
 		if (item) {
-			return(item->Unknown_831840());
+			return(((Unknown831340Class *)item)->Unknown_831840());
 		}
 	}
 	return(0);
