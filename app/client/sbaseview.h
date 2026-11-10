@@ -48,10 +48,35 @@ struct UIStarbaseUnknownB4Struct	// NAME 1: neutral (D10)
 // constructor into 0x6333E0 and calls _M_initialize_buckets out of line (its vector _Ucopy then duplicates 0x644430)
 struct UIStarbaseUnknownD4Hash {};	// NAME 1: neutral (D10): the hasher
 struct UIStarbaseUnknownD4Equal {};	// NAME 1: neutral (D10): the key test
+class UIStarbaseUnknownCCClass;
 class UIStarbaseUnknownD4TableClass	// NAME 1: neutral (D10)
 {
 public:
-	struct NodeStruct { NodeStruct *Next; };	// the SGI table's _Node (its value unknown)  // NAME 1: neutral (D10)
+	struct NodeStruct { NodeStruct *Next; unsigned int Key; UIStarbaseUnknownCCClass *Value; };	// the SGI table's _Node (0x641FA0: the key at +0x04, hashed as itself; the entry at +0x08)  // NAME 1: neutral (D10)
+	struct iterator	// SGI's _Hashtable_iterator, as far as 0x641FA0 walks it  // NAME 1: neutral (D10)
+	{
+		NodeStruct *Cur;	// SGI's _M_cur  // NAME 1: neutral (D10)
+		UIStarbaseUnknownD4TableClass *Table;	// SGI's _M_ht  // NAME 1: neutral (D10)
+		bool operator!=(const iterator &it) const { return(Cur != it.Cur); }
+		iterator &operator++()
+		{
+			const NodeStruct *old = Cur;
+			Cur = Cur->Next;
+			if (!Cur) {
+				unsigned int bucket = Table->Bucket_Of(old->Key);
+				while (!Cur && ++bucket < Table->Buckets.size()) {
+					Cur = Table->Buckets[bucket];
+				}
+			}
+			return(*this);
+		}
+		iterator operator++(int) { iterator tmp = *this; ++*this; return(tmp); }
+	};
+	iterator begin();	// 0x643DF0 (out of line)
+	iterator end() { iterator it; it.Cur = 0; it.Table = this; return(it); }
+	unsigned int Bucket_Of(unsigned int key) const { return(Bucket_Of_Key(key)); }	// SGI's _M_bkt_num (0x641FA0: the vector's size 0x644470 out of line, three layers down)  // NAME 1: neutral (D10)
+	unsigned int Bucket_Of_Key(unsigned int key) const { return(Bucket_Of_Key(key, Buckets.size())); }	// SGI's _M_bkt_num_key  // NAME 1: neutral (D10)
+	unsigned int Bucket_Of_Key(unsigned int key, unsigned int n) const { return(key % n); }	// SGI's _M_bkt_num_key (the hasher: the key itself)  // NAME 1: neutral (D10)
 	UIStarbaseUnknownD4TableClass(unsigned int n, const UIStarbaseUnknownD4Hash &hf, const UIStarbaseUnknownD4Equal &eql);	// 0x643C20  // NAME 1 [n, hf, eql]: the SGI table's
 	~UIStarbaseUnknownD4TableClass() { clear(); }	// as SGI's (the map's implicit destructor 0x633AC0 inlines it all; 0x633B50 calls clear 0x644AE0 and the vector's 0x643ED0)
 	void clear()	// 0x644AE0 (SGI's)
@@ -76,6 +101,8 @@ class UIStarbaseUnknownD4Class	// NAME 1: neutral (D10)
 public:
 	explicit UIStarbaseUnknownD4Class(unsigned int n) : Table(n, UIStarbaseUnknownD4Hash(), UIStarbaseUnknownD4Equal()) {}	// NAME 1 [n]: the SGI map's
 	UIStarbaseUnknownD4TableClass Table;	// +0x00  // NAME 1: neutral (D10)
+	UIStarbaseUnknownD4TableClass::iterator begin() { return(Table.begin()); }	// hash_map's (0x641FA0)
+	UIStarbaseUnknownD4TableClass::iterator end() { return(Table.end()); }	// hash_map's
 };
 // What the starbase interface's +0xCC and +0x13C point to (ui_starbase.cpp's class with the destructor 0x632E50: RefCountPtrs at +0x04, +0x0C, ...)
 class UIStarbaseUnknownCCClass	// NAME 1: neutral (D10)
@@ -89,6 +116,12 @@ public:
 	GadgetClass *Unknown14;			// +0x14 (the destructor's GadgetClass::Destroy)
 	char Unknown18[0x24 - 0x18];	// +0x18
 	std::string Unknown24;			// +0x24 (the destructor's inlined _Tidy of +0x28; the size past +0x34 is unknown)
+};
+// What the starbase interface's +0xEC list points to (8 bytes: 0x63CF30 makes them)
+struct UIStarbaseUnknownECStruct	// NAME 1: neutral (D10)
+{
+	int ID;							// +0x00 (an avatar id: 0x63E8F0, 0x63CF30)  // NAME 1: what it holds
+	float Time;						// +0x04 (0x63E770 adds the frame's seconds; past 10 the entry goes)  // NAME 1: what it holds
 };
 // What the starbase interface's +0x190 points to (a virtual destructor; its +0x90 goes to the client's slot +0x44)
 class UIStarbaseUnknown190Class	// NAME 1: neutral (D10)
@@ -125,10 +158,10 @@ public:
 	RefCountPtr<RenderObjClass> UnknownBC;	// +0xBC (the constructor's '%sextra_%s' model, added to the mesh's model)
 	struct UnknownC0Struct { UnknownC0Struct() : A(-1), B(-1), C(-1), D(0), E(0) {} int A, B, C; UIStarbaseUnknownCCClass *D; int E; } UnknownC0;	// +0xC0 (-1, -1, -1, 0, 0: as a struct with its own constructor its stores follow the table's arguments, as the client's; five ints in the list come before them)  // NAME 1: neutral (D10)
 	UIStarbaseUnknownD4Class UnknownD4;	// +0xD4 (100 buckets)
-	std::list<int> UnknownEC;	// +0xEC (destructor 0x6439E0: plain elements)  // NAME 1: neutral (D10): element type unknown
-	int UnknownF8[4];	// +0xF8
+	std::list<UIStarbaseUnknownECStruct *> UnknownEC;	// +0xEC (destructor 0x6439E0: plain elements; 0x63CF30 adds { id, 0 }, 0x63E770 ages them, 0x63E8F0 finds an id)  // NAME 1: neutral (D10)
+	GadgetClass *UnknownF8[4];	// +0xF8 (0x641FA0: gadgets with a model at +0x30)
 	RefCountPtr<RenderObjClass> Unknown108[4];	// +0x108 (vector constructor 0x5464F0 / 0x4740B0)
-	int Unknown118[4];	// +0x118
+	GadgetClass *Unknown118[4];	// +0x118 (0x641FA0: gadgets with a model at +0x30)
 	RefCountPtr<RenderObjClass> Unknown128[4];	// +0x128
 	bool Unknown138[4];	// +0x138
 	UIStarbaseUnknownCCClass *Unknown13C[14];	// +0x13C (the destructor deletes them)
@@ -162,6 +195,11 @@ public:
 	void Unknown_63D2F0(int index);					// 0x63D2F0  // NAME 1 [index]: neutral
 	void Unknown_63E2B0();							// 0x63E2B0
 	void Unknown_640F50(CharacterViewAvatarClass *avatar);	// 0x640F50  // NAME 1 [avatar]: neutral
+	void Unknown_63B5A0();	// 0x63B5A0 (the software mouse's cursor 2 unless the chat panel is busy; the text object hidden)
+	bool Unknown_63E8F0(int id);	// 0x63E8F0 (an entry of +0xEC with this id)  // NAME 1 [id]: neutral
+	void Unknown_641AB0();	// 0x641AB0 (+0x190 released, as the destructor)
+	void Unknown_641FA0();	// 0x641FA0 (the gadgets' distances from the avatar, 1..999; 0x63E2B0, 0x63FF80)
+	void Unknown_641B00(); void Unknown_641B70();	// 0x641B00 (+0x214..+0x21A, +0x1B3 cleared), 0x641B70 (refilled by the view's 0x6A2430): as 0x63BDB0 / 0x63C080 have them
 };
 
 // ui_ptrade.cpp's player trade interface UIPTradeClass (the starbase view's +0x1A4): sclient.h (the main view's +0x1E4)

@@ -17,11 +17,13 @@
 #define PKSTARBASE_AVATAR_CHANGE_H
 
 #include "pk.h"
+class Vector3;
 
 // opcode 157 (0x009D, STARBASE_AVATAR_CHANGE): vtable 0xB0B8F8, constructor 0x8A36B0, 0x28 bytes
 class Starbase_Avatar_ChangePacketClass : public PacketClass  // NAME 3: the client's Print text 'Starbase_Avatar_Change {' and the PacketClass convention
 {
 public:
+	Starbase_Avatar_ChangePacketClass(int avatar_id, int room_type, float orient, Vector3 *position, int action_flag);	// 0x8A3600 (ui_starbase.cpp 0x63E2B0 sends it)  // NAME 1 [avatar_id, room_type, orient, position, action_flag]: the fields'
 	Starbase_Avatar_ChangePacketClass(RawPacketClass *raw);	// 0x8A36B0
 	virtual RawPacketClass *Build();	// +0x04 0x8A37A0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868B50 (clientstub.cpp l.281)
