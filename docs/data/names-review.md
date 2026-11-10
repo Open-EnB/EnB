@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1733 |
 | 2 | describes what the code does | 3933 |
-| 1 | neutral placeholder | 22239 |
+| 1 | neutral placeholder | 22240 |
 
 ## For review (score 3 and below)
 
@@ -21800,11 +21800,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08CC4` | `programs/clientpoc/poc_data.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_NN` | `programs/clientpoc/poc_gadget_real.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `programs/clientpoc/poc_gadget_real.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `programs/clientpoc/poc_gadget_real.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `programs/clientpoc/poc_gadget_real.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `programs/clientpoc/poc_gadget_real.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown6D` | `programs/clientpoc/poc_gadget_real.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `programs/clientpoc/poc_gadget_real.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `programs/clientpoc/poc_gadget_real.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `programs/clientpoc/poc_gadget_real.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `programs/clientpoc/poc_gadget_real.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `programs/clientpoc/poc_gadget_real.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown6D` | `programs/clientpoc/poc_gadget_real.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `programs/clientpoc/poc_gadget_real.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `programs/clientpoc/poc_gadget_views.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `programs/clientpoc/poc_gadget_views.cpp:11` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `programs/clientpoc/poc_gadget_views.cpp:11` | untagged neutral name (D10) |
