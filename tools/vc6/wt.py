@@ -2,7 +2,7 @@
 
     python tools/vc6/wt.py new NAME [--base REV]
     python tools/vc6/wt.py list [--unlanded]
-    python tools/vc6/wt.py bring-over NAME [--target BRANCH] [--lib X ...] [--pool K] [--dry] [--keep] [--no-link]
+    python tools/vc6/wt.py bring-over NAME [--target BRANCH] [--lib X ...] [--pool K] [--dry] [--keep] [--no-link] [--sendpad]
     python tools/vc6/wt.py bring-over A B..C D [--batch-name N] [--target BRANCH] [--lib X ...] [--pool K] [--trailer T]
                                       [--dry] [--picks-only] [--resume] [--keep] [--no-link]
     python tools/vc6/wt.py rebase NAME [--onto BRANCH] [--continue] [--lib X ...] [--pool K] [--trailer T]
@@ -55,6 +55,8 @@ bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss
      item 3; a coordinator's commit): when those commits touch none of the paths the landing's commits touch and no
      generated file, the landing's commits are replayed onto TARGET's tip (plumbing on a temporary index; no verify:
      nothing it verified changed) and the compare-and-swap retried; otherwise it refuses naming the overlapping paths.
+  --sendpad: when the verify loses sclient.cpp pairs outright and the changes touch a header sclient.cpp includes,
+  tools/vc6/sendpad.py re-sweeps SEND_SYMBOL_PAD, the pad is committed and the verify runs once more (workflow.md 3.4).
   --dry stops before landing; --keep keeps the scratch worktree; logs go to .work/wt/NAME.bo.*.log.
   Every importer call waits --lock-wait seconds (3000) for the lock.
 
@@ -964,6 +966,50 @@ def run_verify(a, bo, libs, target):
     short = verify_finished(bo + '.verify.log', libs)
     if short:
         sys.exit(f'wt: verify did not finish {short}: {tail}; {target} untouched')
+    return sendpad_retune(a, bo, libs, target) if getattr(a, 'sendpad', False) else False
+
+
+def sendpad_retune(a, bo, libs, target):
+    """--sendpad (opt-in): when bo's changes touch a header sclient.cpp includes and the verify lost sclient.cpp pairs
+    outright against TARGET, sendpad.py (bo's copy) re-sweeps SEND_SYMBOL_PAD, the new pad is committed and the
+    verify runs once more. True when the pad was changed (the commits no longer record what the verify gives:
+    the caller regenerates). Nothing else is judged here; the caller's loss rule applies to the second verify."""
+    if 'app' not in libs:
+        return False
+    old = rev('refs/heads/' + target)
+    r = pairs_cmp.compare(ledger.load(old, repo=ROOT) or {}, ledger.load(None, repo=bo) or {}, corrections_at(old))
+    lost = {x[2] for x in r['lost'] if x[1] in ('sclient', 'sclient.cpp') and x[2] in set(r['lost_outright'])}
+    if not lost:
+        return False
+    paths = git('diff', '--name-only', old, 'HEAD', cwd=bo).split()
+    rc, out = run_logged([sys.executable, *tool(bo, 'sendpad.py', 'sendpad'), '--includes', *paths], bo,
+                         bo + '.sendpad-includes.log')
+    if rc:
+        print(f'sendpad: sclient.cpp lost {sorted(lost)} but no changed header is one it includes; pad not touched')
+        return False
+    print(f'sendpad: sclient.cpp lost {sorted(lost)} and the changes touch its headers: sweeping '
+          f'SEND_SYMBOL_PAD (log {bo}.sendpad.log)', flush=True)
+    rc, tail = run_logged([sys.executable, *tool(bo, 'sendpad.py', 'sendpad'), '--pool', str(a.pool),
+                           '--lock-wait', str(a.lock_wait)], bo, bo + '.sendpad.log')
+    print('  ' + ' '.join(tail[-1:]))
+    if rc:
+        sys.exit(f'wt: sendpad found no pad keeping sclient.cpp: {tail[-1:]}; {target} untouched')
+    if not dirty_tracked(bo):
+        return False
+    git('add', '--', 'app/client/aux_roots_send.h', cwd=bo)
+    msg = ('Retune SEND_SYMBOL_PAD for the changes this bring-over carries (wt.py --sendpad): ' + ' '.join(tail[-1:])
+           + '\n')
+    if getattr(a, 'trailer', None):
+        msg += '\n' + a.trailer + '\n'
+    git('commit', '-q', '-F', '-', cwd=bo, inp=msg.encode())
+    print(f'verify again --lib {" ".join(libs)} (log {bo}.verify2.log)', flush=True)
+    args = [sys.executable, *tool(bo, 'verify.py', 'verify'), '--pool', str(a.pool), '--lock-wait', str(a.lock_wait)]
+    for lib in libs:
+        args += ['--lib', lib]
+    rc, tail = run_logged(args, bo, bo + '.verify2.log')
+    if rc or verify_finished(bo + '.verify2.log', libs):
+        sys.exit(f'wt: the verify after the pad retune failed ({rc}): {tail}; {target} untouched')
+    return True
 
 
 def add_only_union(base, ours, theirs, name=IMPORTER):
@@ -1339,17 +1385,22 @@ def cmd_bring_over(a):
         cand = pairs_of(cand_rec)
         res = judge_losses(before, cand_rec, a.target, old, 'the branch\'s ledger record')
         after_rec = cand_rec
+        retuned = False
         if libs:
-            run_verify(a, bo, libs, a.target)
+            retuned = run_verify(a, bo, libs, a.target)
             verified_rec = after_rec = ledger.load(None, repo=bo)
             verified = pairs_of(verified_rec)
             res = judge_losses(before, verified_rec, a.target, old, 'the verify')
-            if verified != cand and not took:
+            if verified != cand and not took and not retuned:
                 sys.exit(f'wt: the commits record other pairs than the verify gives (verify-only '
                          f'{sorted(verified - cand)[:5]}, record-only {sorted(cand - verified)[:5]}): commit '
                          f'the verified record in the branch and rerun; {a.target} untouched')
         else:
             print('no library touched: no verify; pairs from the records')
+        if retuned:     # the SEND pad commit changed what the verify records: commit the verified record
+            regen_and_commit(a, bo, record_subject(f'of wt/{a.name} after the SEND_SYMBOL_PAD retune', res), a.target,
+                             old)
+            new = rev('HEAD', cwd=bo)
         if took:        # generated conflicts took the target's side: regenerate them and commit the result
             print(f'generated-file conflicts took {a.target}\'s side: {", ".join(sorted(took)[:8])}'
                   + (' ...' if len(took) > 8 else '') + '; regenerating')
@@ -1563,6 +1614,9 @@ def main():
     p.add_argument('--keep', action='store_true', help='keep the scratch worktree NAME.bo')
     p.add_argument('--no-link', action='store_true',
                    help='skip the link check (item 6b; doc-only or tools-only landings), with a warning')
+    p.add_argument('--sendpad', action='store_true',
+                   help='opt-in: when the verify loses sclient.cpp pairs and the changes touch a header sclient.cpp '
+                        'includes, re-sweep SEND_SYMBOL_PAD (sendpad.py), commit it and verify once more')
     p = sub.add_parser('rebase')
     p.add_argument('name')
     p.add_argument('--onto', help='the branch to rebase onto (default the run branch wt/NAME was based on)')
