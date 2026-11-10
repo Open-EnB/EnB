@@ -23,13 +23,13 @@
 char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10), as pkguildplayeronline.h  // NAME 1: neutral placeholder (D10)
 
 #define NUM_QUICK_MESSAGES 9	// the FAIL_IFs' constant (the keys 'Save / Send Quick Message 1..9')
-
+extern const int Unknown_B08CA8;	// 0xB08CA8 (0x40: StrEditClass's enter flag; the text gadgets' constants, textgadg.h)  // NAME 1: neutral (D10), as ui_log.cpp
 // The 'chatgadg' module's control keys (ControlKeysManager): the dynamic initialiser 0x65BEA0, atexit 0x65BF60
 static std::string ModuleName("chatgadg");	// 0xBE5E78  // NAME 1: neutral (D10): what it holds
 
 // 0x65BFD0  // NOT EXACT: functional (D64)
 ChatGadgetClass::ChatGadgetClass(LineDisplayClientClass *client) :
-	TextBaseGadgetClass(0xFF, 0x40, NULL),
+	TextBaseGadgetClass(0xFF, Unknown_B08CA8, NULL),
 	Client((ClientClass *)client),
 	HistoryNext(0),
 	HistoryIndex(0),
@@ -76,7 +76,7 @@ ChatGadgetClass::~ChatGadgetClass()
 	}
 }
 
-// 0x65CA10  // NOT EXACT: functional (D64)
+// 0x65CA10
 bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	SClient *sclient = (SClient *)Client->Unknown_18();
@@ -87,11 +87,11 @@ bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 		return(false);
 	}
 	if (!Active) {
-		if (!Unknown_65DE90(event)) {
-			return(false);
+		if (Unknown_65DE90(event)) {
+			GadgetClass::Unknown_2C(event, x, y, mask);
+			return(true);
 		}
-		GadgetClass::Unknown_2C(event, x, y, mask);
-		return(true);
+		return(false);
 	}
 	if (!event->Is_Up()) {
 		switch (event->Key) {
@@ -99,7 +99,7 @@ bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 				if (sclient != NULL && sclient->ChatPanel.Peek() != NULL) {
 					ChatPanelInterface *chatpanel = sclient->ChatPanel.Peek();
 					chatpanel->Unknown_565120();
-					if (event->Shift) {
+					if (event->Is_Shift()) {
 						chatpanel->Unknown_565390(true);
 					} else {
 						chatpanel->Unknown_565390(false);
@@ -653,19 +653,19 @@ bool ChatGadgetClass::Unknown_65E3E0(int index)
 	return(true);
 }
 
-// 0x65E520  // NOT EXACT: functional (D64)
+// 0x65E520
 bool ChatGadgetClass::Unknown_65E520()
 {
 	ClientObjectClass *avatar = Client->Get_Avatar();
-	if (avatar == NULL) {
-		return(false);
+	if (avatar != NULL) {
+		Matrix3D transform = avatar->Unknown_28(true); Vector3 position = transform.Get_Translation();
+		char text[0x100];
+		sprintf(text, "Position (%1.2f, %1.2f, %1.2f) ", position.X * 0.001f, position.Y * 0.001f, position.Z * 0.001f);
+		Edit->Insert(text);
+		Changed = true;
+		return(true);
 	}
-	Matrix3D transform = avatar->Unknown_28(true);
-	char text[0x100];
-	sprintf(text, "Position (%1.2f, %1.2f, %1.2f) ", transform[0][3] * 0.001f, transform[1][3] * 0.001f, transform[2][3] * 0.001f);
-	Edit->Insert(text);
-	Changed = true;
-	return(true);
+	return(false);
 }
 
 // 0x65E5E0  // NOT EXACT: functional (D64)
