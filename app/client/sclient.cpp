@@ -4496,19 +4496,19 @@ bool SClient::Unknown_74D690()
 	return(group && group->Unknown70 && group->IsGroupLeader.Value);
 }
 
+// NOT EXACT: inline budget (explain.py): the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line in auxdata.h's Unknown_Find_Field; here it is inlined (0x744560)
+#include "..\packets\pkuitrigger.h"						// UiTriggerPacketClass (UI_TRIGGER 101): 0x744560 (defined here, after auxdata.h: Unknown_Find_Field)
 
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x744560 (ui_cpit.cpp: 11 when the hulk is let in, 12 when it goes): a UI_TRIGGER packet with the avatar's id
+// when the player's ClientSendUITriggers field is set and positive
+void SClient::Unknown_744560(int arg)
+{
+	NameClass name("ClientSendUITriggers");
+	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+	if (t && t->Unknown70 && t->Value > 0) {
+		Send_Packet(&UiTriggerPacketClass(AvatarID, arg));
+	}
+}
 
 
 
