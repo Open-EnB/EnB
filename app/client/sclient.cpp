@@ -127,8 +127,8 @@ typedef char Unknown_RefCountPtr_Size[sizeof(RefCountPtr<RefCountClass>)];	// NA
 // the view at +0x135C, as far as 0x742530 reads it (its class unknown)
 class SClientUnknown135CViewClass : public UIViewClass { public: char Unknown4C[0x1A4 - 0x4C]; InterfaceClass *Unknown1A4; };	// NAME 1: neutral (D10)
 
-// What the chat panel's +0xE0 points to, as far as SClient calls it
-class UIChatPanelUnknownE0Class	// NAME 1: neutral (D10)
+// ui_guild.cpp's guild window (the chat panel's +0xE0; its class is declared in ui_guild.cpp), as far as SClient calls it
+class UIGuildClass	// NAME 1: neutral, after its tooltip section 'UI_GUILD' (ui_guild.cpp's)
 {
 public:
 	void Unknown_81BF40();								// 0x81BF40 (0x750210)
@@ -145,7 +145,7 @@ public:
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
 	void Unknown_565F30(int arg); void Unknown_56BAA0(bool show, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [show, text]: ui_chat_panel.h's
 	char Unknown84[0xE0 - 0x84];
-	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
+	UIGuildClass *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
 	char UnknownE4[0x138 - 0xE4];
 	UIChatPanelUnknown138Class *Unknown138;				// +0x138 (0x744E70 calls its slot +0xAC)
 	char Unknown13C[0x264 - 0x13C]; bool MessageButtonShowing; char Unknown265[3]; bool Is_Message_Button_Showing() { return(MessageButtonShowing); }	// +0x264 (0x74FEC0's FAIL_IF names the getter)  // NAME 2 [MessageButtonShowing]: its getter's
@@ -4722,7 +4722,7 @@ void SClient::Unknown_750210()
 	Unknown_74FA30();
 	Unknown_74FEC0();
 	if (ChatPanel) {
-		UIChatPanelUnknownE0Class *panel = ChatPanel->UnknownE0;
+		UIGuildClass *panel = ChatPanel->UnknownE0;
 		if (panel && panel->Unknown7C && Unknown_728300()) {
 			panel->Unknown_81BF40();
 		}
@@ -4910,7 +4910,7 @@ void SClient::Unknown_74EDB0()
 		dialog->Unknown_5C();
 	}
 	if (changed && ChatPanel) {
-		UIChatPanelUnknownE0Class *panel = ChatPanel->UnknownE0;
+		UIGuildClass *panel = ChatPanel->UnknownE0;
 		if (panel && panel->Unknown7C && Unknown_728300()) {
 			panel->Unknown_81BF40();
 		}

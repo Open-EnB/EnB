@@ -6748,7 +6748,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SClientUnknown135CViewClass` | `app/client/sclient.cpp:128` | neutral (D10) |
 | 1 | `Unknown4C` | `app/client/sclient.cpp:128` | untagged neutral name (D10) |
 | 1 | `Unknown1A4` | `app/client/sclient.cpp:128` | untagged neutral name (D10) |
-| 1 | `UIChatPanelUnknownE0Class` | `app/client/sclient.cpp:131` | neutral (D10) |
+| 1 | `UIGuildClass` | `app/client/sclient.cpp:131` | neutral, after its tooltip section 'UI_GUILD' (ui_guild.cpp's) |
 | 1 | `Unknown_81BF40` | `app/client/sclient.cpp:134` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/sclient.cpp:137` | untagged neutral name (D10) |
 | 1 | `Unknown_5685C0` | `app/client/sclient.cpp:143` | untagged neutral name (D10) |
