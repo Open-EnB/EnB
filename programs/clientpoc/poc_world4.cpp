@@ -170,34 +170,3 @@ bool UISkillInfoClass::Unknown_94()
 {
 	return(false);
 }
-
-// ---------------------------------------------------------------- drag_slot_data.cpp's drag of a slot (0x6851B0; ui_slot_data.cpp's +0xA0): 0x24 bytes
-class SlotDataRenderClass;
-class DragSlotDataClass
-{
-public:
-	DragSlotDataClass(SClient *client, SlotDataRenderClass *render);
-	virtual ~DragSlotDataClass();
-	virtual void Unknown_04();
-	virtual bool Unknown_08();
-	virtual void Unknown_0C();
-	char Unknown04[0x24 - 0x04];
-};
-DragSlotDataClass::DragSlotDataClass(SClient *client, SlotDataRenderClass *render)
-{
-	STUB_CALLED("POC DragSlotDataClass (a slot's drag): never dragged");
-	memset(Unknown04, 0, sizeof(Unknown04));
-}
-DragSlotDataClass::~DragSlotDataClass()
-{
-}
-void DragSlotDataClass::Unknown_04()
-{
-}
-bool DragSlotDataClass::Unknown_08()
-{
-	return(false);
-}
-void DragSlotDataClass::Unknown_0C()
-{
-}

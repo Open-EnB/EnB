@@ -1,0 +1,26 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: drag_slot_data.cpp, a slot window's drag DragSlotDataClass (the client's file per its asserts, 'e:\\build\\beta\\G\\app\\Client\\drag_slot_data.cpp' at 0xB8FC84), 0x6851B0-0x685680, from the pseudocode (SK1)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x6851B0",
+  "0x685290",
+  "0x6852C0",
+  "0x6852F0",
+  "0x685570",
+  "0x685610"
+ ],
+ "merged": [],
+ "name": "client/drag_slot_data.cpp",
+ "shared": [
+  "0x42F250",
+  "0x685290"
+ ],
+ "short_known": [
+  "0x685290"
+ ]
+}

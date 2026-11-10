@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: drag_slot_data.h, the client's own header name (its inline Begin's G_ASSERT 'false' at line 44, 0x685290), DragSlotDataClass laid out from the constructor 0x6851B0 (SK1)"
+}
