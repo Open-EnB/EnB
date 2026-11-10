@@ -58,7 +58,10 @@
   "0x536FF0",
   "0x537020",
   "0x537050",
-  "0x537080"
+  "0x537080",
+  "0x537170",
+  "0x537290",
+  "0x537670"
  ],
  "merged": [],
  "name": "client/ui_item_examination_options.cpp",

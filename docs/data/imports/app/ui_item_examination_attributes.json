@@ -40,7 +40,10 @@
   "0x534420",
   "0x534490",
   "0x5344C0",
-  "0x5344F0"
+  "0x5344F0",
+  "0x5345E0",
+  "0x534700",
+  "0x534AE0"
  ],
  "merged": [],
  "name": "client/ui_item_examination_attributes.cpp",

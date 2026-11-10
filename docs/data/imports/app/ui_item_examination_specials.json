@@ -37,7 +37,10 @@
   "0x5390D0",
   "0x539140",
   "0x539170",
-  "0x5391A0"
+  "0x5391A0",
+  "0x539290",
+  "0x5393B0",
+  "0x539790"
  ],
  "merged": [],
  "name": "client/ui_item_examination_specials.cpp",
