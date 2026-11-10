@@ -48,6 +48,9 @@ class UIScutProxyGadgetClass : public ButtonGadgetClass
 {
 public:
 	UIScutProxyGadgetClass(UIScutBarClass *owner, RenderObjClass *object, LayerClass *layer, int unknown, int index);
+	// +0xA4, the first slot past RObjGadgetClass's table (ui_scut.cpp's 0x611BD0 calls it for every shortcut it shows:
+	// without it the slot read past ButtonGadgetClass's table and called 0): only the shortcut kept
+	virtual void Unknown_A4(GadgetClass *gadget) { STUB_CALLED("POC UIScutProxyGadgetClass::Unknown_A4: the shortcut kept, not shown"); Unknown64 = gadget; }
 	GadgetClass *Unknown64; char Unknown68[0x6C - 0x68]; bool Unknown6C; char Unknown6D[0x78 - 0x6D];
 	UIScutBarClass *Owner; int Unknown7C;
 };
