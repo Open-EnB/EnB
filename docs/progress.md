@@ -3457,9 +3457,8 @@ below name only the work items, the blocked work, the leads and the queues.
    `.work/ib1/e1-e11.py` and `census.txt`, IB2's variant runner `.work/ib2/vr.py`: its marker insertion
    shifts `__LINE__`) into tools/re if the census walk goes on; auxroots.py's pad comment is stale (SYMBOL_PAD 58,
    SEND_SYMBOL_PAD 47, DEF_ORDER); `appfile.py match` mixes overloads and its pad windows differ from the importer's
-   (workflow.md 3.4, 3.6). A SEND_SYMBOL_PAD sweep step in wt.py / linkgate (GS1's `.work/wt/GS1/.work/gs1/sendpad_imp.py`
-   moved into tools/: the bring-over sweeps 0..63 when the diff touches a header sclient.cpp includes, ~5-10 min; 2026-11-09b
-   needed seven pad changes).
+   (workflow.md 3.4, 3.6). `wt.py bring-over --sendpad` (tools/vc6/sendpad.py) has not yet run on a real bring-over that loses sclient
+   pairs: check it at the first one; a cheaper pre-sweep of the current pad +-8 would cut its ~5 min.
    Data and generated files: symbols.json / ghidra_symbols.py keep 15 old D198 names (and vtable 0xAFB5F4 reads
    `??_7Unknown_675120Class@@6B@`: it is UIBackGadget's, D208): run `symbols.py` with every library's `--objs` at the
    next refresh (without them it rewrites the file wholesale).

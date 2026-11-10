@@ -1180,7 +1180,7 @@ unless `--lever` cites a new row of this table.
 * **sclient's SEND_SYMBOL_PAD moves with its headers (2026-11-08c evening, PH1):** after SC1 sclient.cpp's padded
 constructors (0x758210, 0x702240) and 0x74D990 hang on aux_roots_send.h's SEND_SYMBOL_PAD, whose window shifts with any
 header sclient.cpp includes (sbaseview.h, fontmanager.h moved it 35 -> 40 -> 51); aux_roots.cpp's SYMBOL_PAD window was
-the single value 16 (2026-11-09b GS1: SYMBOL_PAD 58, window 57..59; SEND_SYMBOL_PAD 4, window 1..7 since ST1). Re-sweep after every landing that touches such a header (PH1's lock-free sweep: ~3 minutes); the
+the single value 16 (2026-11-09b GS1: SYMBOL_PAD 58, window 57..59; SEND_SYMBOL_PAD 4, window 0..7 plus 62..63 (it wraps on 64; sendpad.py at 6609de65)). Re-sweep after every landing that touches such a header (PH1's lock-free sweep: ~3 minutes); the
 pad cycles mod 64. Single-file compiles of sclient / aux_roots show a constant set of false losses: compare pads with
 each other and decide with the full verify. Builders branched before such a landing must rebase and re-sweep.
 * **The SEND pad sweep is a tool (2026-11-10, SP1):** `python tools/vc6/sendpad.py --pool 1 --lock-wait 6000` does the 0..63 sweep through verify's path and leaves the pad in the middle of the window; `wt.py bring-over NAME --sendpad` runs it when the verify loses sclient.cpp pairs and the diff touches a header sclient.cpp includes (`sendpad.py --includes`). Its watch set is the pad-sensitive addresses the ledger records for sclient.cpp (0x744560 is not matched, so it is left out).
