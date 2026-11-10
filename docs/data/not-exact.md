@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-738 entries in 225 files.
+739 entries in 226 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -190,6 +190,7 @@ edit the comments in the code, not this file.
 | `app/client/html/htmlview.cpp:1486` | `HtmlViewClass::Hit_Test` | marker | NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin |
 | `app/client/html/htmlview.cpp:1644` | `Get_Value` | mention | NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text (one frame slot more than the client's), Draw_Item (the client saves ebx / esi after the Type test). |
 | `app/client/html/htmlview.cpp:1646` | `Get_Value` | mention | NOT EXACT (functional, D64, from the pseudocode): an if / else chain of tag names (p, font, br, a, title, i, b / strong, center, table, tr, td, h1-h4, /hN, body, hr, ul, li, img); <td> lays its cell out in a child block by recursing, and </td> returns the characters used. Its assert (body background with no link of that name) on line 926. Get_Value 0x7784D0 exact: defined after Draw_Line_24 under ... |
+| `app/client/inv_data.cpp:163` | `InvDataClass::Unknown_20` | marker | NOT EXACT: functional from the pseudocode (D64) 0x688B90 |
 | `app/client/inv_data_peek.cpp:155` | `InvDataPeekClass::Get_Instance_Info` | marker | NOT EXACT: the failure path's inlined string constructor has mov byte ptr [ecx + ebx], 0 where the client has [ebx + ecx] (register-only, as skill_data_peek's 0x6A5730) 0x68A090 |
 | `app/client/inv_data_peek.cpp:163` | `InvDataPeekClass::Get_Instance_Activated_Effect_Info` | marker | NOT EXACT: the failure path's inlined string constructor has mov byte ptr [ecx + ebx], 0 where the client has [ebx + ecx] (register-only, as skill_data_peek's 0x6A5730) 0x68A270 |
 | `app/client/inv_data_peek.cpp:171` | `InvDataPeekClass::Get_Instance_Equip_Effect_Info` | marker | NOT EXACT: the failure path's inlined string constructor has mov byte ptr [ecx + ebx], 0 where the client has [ebx + ecx] (register-only, as skill_data_peek's 0x6A5730) 0x68A450 |
