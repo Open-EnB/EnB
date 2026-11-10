@@ -59,7 +59,6 @@ extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 // The buttons' models and tooltips (0xB7F268)
 static const char *Unknown_B7F268[] = { "exit", "add", "remove", "add_target", "send_message", "name", "status", "add_group" };	// NAME 1: neutral (D10)
 
-// NOT EXACT: shape (explain.py): the client zeroes a stack slot before reading the list's allocator byte from it; registers otherwise
 // 0x58F210
 UIFriendsClass::UIFriendsClass(SClient *client) :
 	ChatPanelUIBase(client),
@@ -69,12 +68,12 @@ UIFriendsClass::UIFriendsClass(SClient *client) :
 	Unknown0AC(true),
 	Unknown0AD(false),
 	Unknown0AE(false),
-	PlayersInfo(0)
+	PlayersInfo(0),
+	Unknown0C4(0)
 {
 	memset(Unknown0D0, 0, sizeof(Unknown0D0));
 	memset(Unknown0F0, 0, sizeof(Unknown0F0));
-	Unknown10C[0] = NULL;
-	Unknown10C[1] = NULL;
+	memset(Unknown10C, 0, sizeof(Unknown10C));
 	for (int i = 0; i < 7; i++) {
 		Unknown114[i] = NULL;
 		Unknown130[i] = NULL;
@@ -232,22 +231,6 @@ bool UIFriendsClass::Unknown_68(int key)
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_591EE0();
 			return(true);
-		case 6:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			Unknown0AC = false;
-			Unknown_5908B0();
-			Unknown_590550();
-			return(true);
-		case 7:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			Unknown0AC = true;
-			Unknown_5908B0();
-			Unknown_590550();
-			return(true);
-		case 8:
-			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
-			Unknown_591C30();
-			return(true);
 		case 10:
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			Unknown10C[0]->Unknown_7E8030(true);
@@ -265,6 +248,22 @@ bool UIFriendsClass::Unknown_68(int key)
 				Unknown0AD = true;
 				((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1C, ((ClientClass *)Client)->Unknown1138));
 			}
+			return(true);
+		case 6:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown0AC = false;
+			Unknown_5908B0();
+			Unknown_590550();
+			return(true);
+		case 7:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown0AC = true;
+			Unknown_5908B0();
+			Unknown_590550();
+			return(true);
+		case 8:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown_591C30();
 			return(true);
 		case 13:
 		case 14:
@@ -440,11 +439,11 @@ void UIFriendsClass::Unknown_590DB0(int index)
 	}
 }
 
-// NOT EXACT: register allocation (the client holds this in ebx and 0 in ebp, ours the reverse)
+
 // 0x590E50
 void UIFriendsClass::Unknown_590E50()
 {
-	if (Unknown0B0 && Unknown0B0->Active) {
+	if (Unknown0B0.Peek() != NULL && Unknown0B0->Is_Active()) {
 		int state = Unknown0B0->Unknown_64A220();
 		if (state) {
 			int length;
@@ -478,6 +477,7 @@ void UIFriendsClass::Unknown_591030(bool on)
 		Unknown0D0[4]->Unknown_40(false);
 	}
 }
+
 
 
 
@@ -643,10 +643,8 @@ void UIFriendsClass::Unknown_591880(std::string name)
 // 0x591A30
 void UIFriendsClass::Unknown_591A30()
 {
-	SClient *sclient = Client->As_Space_Client();
-	ClientObjectClass *target;
-	if (!sclient->Unknown_744B60() && sclient && sclient->MainView && (target = sclient->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
-		PlayersInfo.size(); PlayersInfo.size();		// dead reads: spend the inline budget so the name's _Tidy(false) stays out of line, as in the client
+	ClientObjectClass *target = Unknown_592150();
+	if (target) {
 		std::string name;
 		target->Get_Name(name);
 		int id = ((ClientClass *)Client)->Unknown1138;
@@ -681,6 +679,8 @@ void UIFriendsClass::Unknown_591C30()
 		}
 	}
 }
+
+
 
 
 
