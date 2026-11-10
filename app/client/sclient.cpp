@@ -127,15 +127,15 @@ typedef char Unknown_RefCountPtr_Size[sizeof(RefCountPtr<RefCountClass>)];	// NA
 // the view at +0x135C, as far as 0x742530 reads it (its class unknown)
 class SClientUnknown135CViewClass : public UIViewClass { public: char Unknown4C[0x1A4 - 0x4C]; InterfaceClass *Unknown1A4; };	// NAME 1: neutral (D10)
 
-// ui_guild.cpp's guild window (the chat panel's +0xE0; its class is declared in ui_guild.cpp), as far as SClient calls it
-class UIGuildClass	// NAME 1: neutral, after its tooltip section 'UI_GUILD' (ui_guild.cpp's)
-{
-public:
-	void Unknown_81BF40();								// 0x81BF40 (0x750210)
+#include "ui_guild.h"	// UIGuildClass, the guild window (the chat panel's +0xE0): 0x750210's callers call 0x81BF40
 
-	char Unknown00[0x7C];
-	bool Unknown7C;										// +0x7C (tested before every call)
-};
+
+
+
+
+
+
+
 
 class ChatPanelInterface : public InterfaceClass
 {
@@ -4723,7 +4723,7 @@ void SClient::Unknown_750210()
 	Unknown_74FEC0();
 	if (ChatPanel) {
 		UIGuildClass *panel = ChatPanel->UnknownE0;
-		if (panel && panel->Unknown7C && Unknown_728300()) {
+		if (panel && panel->Active && Unknown_728300()) {
 			panel->Unknown_81BF40();
 		}
 	}
@@ -4911,7 +4911,7 @@ void SClient::Unknown_74EDB0()
 	}
 	if (changed && ChatPanel) {
 		UIGuildClass *panel = ChatPanel->UnknownE0;
-		if (panel && panel->Unknown7C && Unknown_728300()) {
+		if (panel && panel->Active && Unknown_728300()) {
 			panel->Unknown_81BF40();
 		}
 	}

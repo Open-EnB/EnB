@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: UIGuildClass's declaration (the guild window, 0x190 bytes), moved out of ui_guild.cpp for cpacket.cpp and sclient.cpp; header name provisional (NAME 1, D137). CP2, 2026-11-10."
+}

@@ -2416,12 +2416,12 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 #include "ui_radio_list.h"
 #include "ui_radio_admin.h"
 
-// ui_guild.cpp's guild window (the chat panel's +0xE0; its class is declared in ui_guild.cpp), as far as CLIENT_CHAT_EVENT 165 calls it
-class UIGuildClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltip section 'UI_GUILD' (ui_guild.cpp's)
-{
-public:
-	void Unknown_81BF40();								// 0x81BF40 ('/gc list all'; CLIENT_CHAT_EVENT 165 on 'guild', while the window is active)
-};
+#include "ui_guild.h"	// UIGuildClass, the guild window (the chat panel's +0xE0): CLIENT_CHAT_EVENT 165 calls 0x81BF40 on 'guild'
+
+
+
+
+
 
 // What the chat panel's +0xF8 window is, as far as FIND_MEMBER 83 calls its slot +0x90
 class UIChatPanelUnknownF890Class; class UIChatPanelUnknownF8Class : public InterfaceClass { public: virtual void Unknown_88(); virtual void Unknown_8C(); virtual UIChatPanelUnknownF890Class *Unknown_90(); };	// NAME 1: neutral (D10): the chat panel's +0xF8 (an InterfaceClass: the count at +0x3C; slot +0x90 FIND_MEMBER 83)
