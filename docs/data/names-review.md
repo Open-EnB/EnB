@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1705 |
 | 2 | describes what the code does | 3913 |
-| 1 | neutral placeholder | 21944 |
+| 1 | neutral placeholder | 21936 |
 
 ## For review (score 3 and below)
 
@@ -8625,7 +8625,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0C` | `app/client/tasks/tsk_game.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_6C47B0` | `app/client/tasks/tsk_game.cpp:66` | untagged neutral name (D10) |
-| 1 | `Unknown_43FD70` | `app/client/tasks/tsk_game.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.cpp:78` | untagged neutral name (D10) |
 | 1 | `Unknown_82E1D0` | `app/client/tasks/tsk_game.cpp:124` | untagged neutral name (D10) |
 | 1 | `Unknown_5FADE0` | `app/client/tasks/tsk_game.cpp:129` | untagged neutral name (D10) |
@@ -8649,7 +8648,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Log` | `app/client/tasks/tsk_game.h:78` | 0x7E5F90, the 'HANDOFF:INF' / 'LOGIN:INF' log |
 | 1 | `Unknown_82E1D0` | `app/client/tasks/tsk_game.h:79` | udpconn.cpp |
 | 1 | `Unknown_5FADE0` | `app/client/tasks/tsk_game.h:80` | ui_registration.cpp |
-| 1 | `Unknown_43FD70` | `app/client/tasks/tsk_game.h:81` | soundlib.cpp |
 | 1 | `Unknown_7CA2D0Class` | `app/client/tasks/tsk_game.h:82` | the settings store 0x7CA2D0 returns |
 | 1 | `Set_String` | `app/client/tasks/tsk_game.h:86` | what it does |
 | 1 | `Set_Int` | `app/client/tasks/tsk_game.h:87` | what it does |
@@ -12129,8 +12127,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown2C800` | `app/client/ui_group.cpp:49` | untagged neutral name (D10) |
 | 1 | `gadget` | `app/client/ui_group.cpp:51` | neutral |
 | 1 | `Unknown_65EED0` | `app/client/ui_group.cpp:51` | untagged neutral name (D10) |
-| 1 | `section, name` | `app/client/ui_group.cpp:52` | what this file passes |
-| 1 | `Unknown_65EFB0` | `app/client/ui_group.cpp:52` | untagged neutral name (D10) |
 | 1 | `UIGroupIconGadgetClass` | `app/client/ui_group.cpp:57` | neutral (D10) |
 | 1 | `Unknown30` | `app/client/ui_group.cpp:61` | untagged neutral name (D10) |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_group.cpp:71` | what the callers pass |
@@ -15773,10 +15769,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown20` | `app/client/ui_scut.cpp:57` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/client/ui_scut.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/ui_scut.cpp:59` | untagged neutral name (D10) |
-| 1 | `section, name` | `app/client/ui_scut.cpp:61` | ui_group.cpp's |
-| 1 | `Unknown_65EFB0` | `app/client/ui_scut.cpp:61` | untagged neutral name (D10) |
-| 1 | `gadget, section` | `app/client/ui_scut.cpp:62` | neutral |
-| 1 | `Unknown_65F340` | `app/client/ui_scut.cpp:62` | untagged neutral name (D10) |
 | 1 | `source, a, b` | `app/client/ui_scut.cpp:63` | neutral |
 | 1 | `Unknown_65F5F0` | `app/client/ui_scut.cpp:63` | untagged neutral name (D10) |
 | 1 | `key, arg` | `app/client/ui_scut.cpp:64` | neutral |

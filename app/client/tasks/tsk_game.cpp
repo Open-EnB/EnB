@@ -44,7 +44,7 @@ ClientTaskClass::~ClientTaskClass()
 	}
 }
 
-
+#include "..\..\audio\soundlib.h"	// SoundLibraryClass::Apply_Volumes 0x43FD70 (Init)
 
 
 
@@ -64,7 +64,7 @@ bool ClientTaskClass::Init(KernelClass *kernel, TicketClass *ticket, const std::
 	Ticket = Client->Ticket = *ticket;
 	OptionClass::Instance->Load(ticket->Character_ID, Client);
 	Unknown_BE67B8->Unknown_6C47B0();
-	Unknown_43FD70();
+	SoundLibraryClass::Apply_Volumes();
 	Client->Kernel = kernel;
 	Client->Init();
 	Address = address;

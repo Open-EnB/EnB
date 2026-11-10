@@ -47,7 +47,7 @@ public:
 	virtual void Unknown_80(UIScutBarClass *bar);		// +0x80 (0x611BD0: off the bar)  // NAME 1 [bar]: neutral
 	virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90();
 	virtual void Unknown_94(RenderObjClass *object);	// +0x94 0x66C000 (the bank's constructor: its 'bank_%d' model)  // NAME 1 [object]: ui_group.cpp's
-	virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0();
+	virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0(); static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...); static void Set_Tooltip_Name(GadgetClass *gadget, const char *format, ...);	// 0x65EFB0 / 0x65F340 (gadget.h)
 	virtual void Unknown_A4(GadgetClass *gadget);		// +0xA4 (the proxy buttons: the shortcut shown)  // NAME 1 [gadget]: neutral
 
 	char Unknown04[0x10 - 0x04];						// +0x04
@@ -58,8 +58,8 @@ public:
 	unsigned int Unknown2C;								// +0x2C (0x612820: bit 0x20)
 	char Unknown30[0x64 - 0x30];						// +0x30
 };
-void Unknown_65EFB0(GadgetClass *gadget, const char *section, const char *name);	// 0x65EFB0 (cdecl, gadget.cpp): the button's text from a string section  // NAME 1 [section, name]: ui_group.cpp's
-void Unknown_65F340(GadgetClass *gadget, const char *section);	// 0x65F340 (cdecl, gadget.cpp): the help section  // NAME 1 [gadget, section]: neutral
+
+
 GadgetClass *Unknown_65F5F0(int source, int a, int b);	// 0x65F5F0 (cdecl, gadget.cpp; SClient +0x1278, 1, 1)  // NAME 1 [source, a, b]: neutral
 bool Unknown_42EC60(int key, int arg);					// 0x42EC60 (cdecl: the input object *0xBDAA70's slot +0x0C; 0x610980 passes 0x12, 0)  // NAME 1 [key, arg]: neutral
 
@@ -401,7 +401,7 @@ UIScutBarClass::UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass
 		sprintf(name, "bttn_%d_%02d", bar, lp);
 		RenderObjClass *object = mesh->Unknown_5B8B40(name);
 		ProxyButtons[lp] = new UIScutProxyGadgetClass(this, object, layer, 0x55, lp);
-		Unknown_65EFB0(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
+		GadgetClass::Set_Tooltip(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
 		Get_Owner()->Unknown64.Unknown_6870E0(ProxyButtons[lp], FirstId + lp, Get_Owner()->View, 1, 0);
 		object->Release_Ref();
 	}
@@ -477,7 +477,7 @@ void UIScutBarClass::Unknown_6112B0()
 {
 	for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
 		FAIL_IF(!ProxyButtons[lp]) continue;
-		Unknown_65F340(ProxyButtons[lp], "UI_SCUT_SHORTCUTS");
+		GadgetClass::Set_Tooltip_Name(ProxyButtons[lp], "UI_SCUT_SHORTCUTS");
 	}
 }
 
@@ -614,7 +614,7 @@ bool UIScutBarClass::Unknown_611BD0(GadgetClass *gadget, int bttn_idx, int group
 	}
 	if (group == Group) {
 		ProxyButtons[bttn_idx]->Unknown_A4(gadget);
-		Unknown_65EFB0(ProxyButtons[bttn_idx], "UI_SCUT", "SHORTCUTS");
+		GadgetClass::Set_Tooltip(ProxyButtons[bttn_idx], "UI_SCUT", "SHORTCUTS");
 	}
 	if (show) {
 		Unknown_611F60(group);
@@ -721,7 +721,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 		Mesh->Peek_Object()->Set_Sub_Object_Transforms_Dirty(true);
 		for (lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
 			ProxyButtons[lp]->Unknown_A4(Shortcuts[Group][lp]);
-			Unknown_65EFB0(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
+			GadgetClass::Set_Tooltip(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
 		}
 	}
 	Bank->Unknown_40(groups > 1);
@@ -927,7 +927,7 @@ void UIScutBarClass::Unknown_00(void *source, int *event)
 		Mesh->Peek_Object()->Set_Sub_Object_Transforms_Dirty(true);
 		for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
 			ProxyButtons[lp]->Unknown_A4(Shortcuts[Group][lp]);
-			Unknown_65EFB0(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
+			GadgetClass::Set_Tooltip(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
 		}
 	}
 }
@@ -1015,7 +1015,7 @@ void UIScutBankGadgetClass::Unknown_612820(int num)
 	}
 	char name[32];
 	sprintf(name, "GROUP_%d", Group);
-	Unknown_65EFB0(this, "UI_SCUT", name);
+	GadgetClass::Set_Tooltip(this, "UI_SCUT", name);
 }
 
 /*
