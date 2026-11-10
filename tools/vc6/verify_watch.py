@@ -362,6 +362,9 @@ def once(dry=False):
                                  f'comments `/verify-approved {head[:7]}` to verify this commit.')
                     log(f'#{n}: gated, waiting for /verify-approved {head[:7]}')
                     continue
+                if rc == verify_pr.NO_MERGE:        # status pending, so the next pass runs it again
+                    log(f'#{n}: GitHub has no test merge yet; retrying next pass')
+                    continue
                 log(f'#{n}: verify_pr exit {rc} (0 success, 1 failure; .work/verify/pr{n}.run.log)')
                 rec = record(n)
             if maint or dry:
