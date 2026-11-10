@@ -243,29 +243,8 @@ void __cdecl FontSys::Unknown_6CE420(int unknown, const char *format, ...)
 	Change_Text(buffer, unknown);
 }
 
-// chatgadg.cpp's text entry (0x65BFD0, not rebuilt): a text gadget that holds no text, so the chat window's calls
-// through its table reach real code (a generated constructor leaves no table)
+// (chatgadg.cpp's text entry ChatGadgetClass 0x65BFD0 is rebuilt in app.lib)
 #include "..\..\app\client\textgadg.h"
-class Unknown65BFD0Class : public TextBaseGadgetClass
-{
-public:
-	Unknown65BFD0Class(LineDisplayClientClass *client);
-	void Unknown_65E7C0(const char *text);
-	void Unknown_65EBF0(char *buffer, int size, int &cursorpos, bool &insert);
-	char Unknown44[0x80 - 0x44];
-};
-Unknown65BFD0Class::Unknown65BFD0Class(LineDisplayClientClass *client) : TextBaseGadgetClass(0xFF, 0, NULL)
-{
-	STUB_CALLED("POC Unknown65BFD0Class (chatgadg.cpp's text entry): no text");
-	memset(Unknown44, 0, sizeof(Unknown44));
-}
-void Unknown65BFD0Class::Unknown_65E7C0(const char *text) {}
-void Unknown65BFD0Class::Unknown_65EBF0(char *buffer, int size, int &cursorpos, bool &insert)
-{
-	buffer[0] = 0;
-	cursorpos = 0;
-	insert = false;
-}
 UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c) : InterfaceClass(owner->Client)
 {
 	STUB_CALLED("POC UIComboBoxClass: an empty window");

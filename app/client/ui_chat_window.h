@@ -13,7 +13,7 @@ class TextCursorClass;			// fontsys_cursor.h's
 class ButtonGadgetClass;		// unknown_675120.h's
 class ChatWindowClass;			// chat_window.h's
 class Unknown67D430Class;		// unknown_67d430.h's: the chat panel's ring of chat lines (+0x13C)
-class Unknown65BFD0Class;		// chatgadg.cpp's text entry (0x80 bytes, constructor 0x65BFD0): the chat panel's +0x140
+class ChatGadgetClass;		// chatgadg.cpp's text entry (0x80 bytes, constructor 0x65BFD0): the chat panel's +0x140
 struct Unknown67D430EntryStruct;
 
 // What the chat window's events carry, as far as 0x56C730 reads it
@@ -42,7 +42,7 @@ struct ChatWinStruct : public ChatViewportStruct	// NAME 1: neutral (D10)
 class ChatWindowInterface : public ChatPanelUIBase	// NAME 5: the client's RTTI (.?AVChatWindowInterface@@ 0xB7D3E0, the Sender_Type of the callback table 0xAEFFF8 and of 0x570390's emit): the assert's 'ChatInt'
 {
 public:
-	ChatWindowInterface(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit);	// 0x56F420  // NAME 3 [history]: the asserts' ChatHistory; NAME 1 [client, edit]: neutral
+	ChatWindowInterface(SClient *client, Unknown67D430Class *history, ChatGadgetClass *edit);	// 0x56F420  // NAME 3 [history]: the asserts' ChatHistory; NAME 1 [client, edit]: neutral
 	virtual ~ChatWindowInterface();						// 0x56F560 (deleting 0x56F530)
 	virtual void Unknown_54();							// +0x54 0x56F780 (G_ASSERT '!Interface_Mesh()' l.119: the set-up)
 	virtual void Unknown_58();							// +0x58 0x5701C0 (activated)
@@ -56,7 +56,7 @@ public:
 	virtual void Unknown_A0(unsigned int count);		// +0xA0 0x56FD30 (the chat windows made, the ring's lines put in them)  // NAME 1 [count]: neutral
 	virtual void Unknown_A4();							// +0xA4 0x570CD0 (the viewports from the bones)
 	virtual void Unknown_A8();							// +0xA8 0x571210 (the frame shown or hidden)
-	virtual void Unknown_AC(const char *text);			// +0xAC 0x570F50 (the text entry's 0x65E7C0)  // NAME 1 [text]: neutral
+	virtual void Unknown_AC(bool reply);				// +0xAC 0x570F50 (the text entry's 0x65E7C0; sclient.cpp's 0x744E70 passes true for a reply)  // NAME 1 [reply]: as chatgadg.h
 	virtual void Unknown_B0();							// +0xB0 0x570FF0 (the ring's newest line shown)
 	virtual void Unknown_B4(const char *text);			// +0xB4 0x571170 (FAIL_IF '!DestBttnText' l.425: 0x565C40's 'To %s:')  // NAME 1 [text]: neutral
 	virtual bool Unknown_B8(int key);					// +0xB8 0x5711C0 (0x5638E0 hands slot +0x68's key on: each window's slot +0x14)  // NAME 1 [key]: what 0x5638E0 passes
@@ -66,7 +66,7 @@ public:
 	virtual void Unknown_C8(int pages, unsigned int index);	// +0xC8 0x571950 (scrolled back by pages)  // NAME 1 [pages, index]: neutral
 	virtual void Unknown_CC();							// +0xCC 0x570E40 (the viewport, the windows redrawn)
 
-	Unknown65BFD0Class *Unknown_570F20();				// 0x570F20 (0x63A100): the text entry while it has the focus
+	ChatGadgetClass *Unknown_570F20();				// 0x570F20 (0x63A100): the text entry while it has the focus
 	void Unknown_571430();								// 0x571430 (0x56C7B0, on the +0xF8 window's events)
 	void Unknown_571470(bool force);					// 0x571470: the entry's text into the line  // NAME 1 [force]: neutral
 	void Unknown_5715F0(bool on, bool force);			// 0x5715F0: the entry line shown or hidden  // NAME 1 [on, force]: neutral
@@ -75,7 +75,7 @@ public:
 	void Unknown_571A70(ChatViewportStruct *vp);		// 0x571A70 (FAIL_IF '!vp' l.625: the rectangle from the bones)  // NAME 3 [vp]: the FAIL_IF's
 
 	Unknown67D430Class *ChatHistory;					// +0xA0  // NAME 3: the assert's '!ChatHistory'
-	Unknown65BFD0Class *UnknownA4;						// +0xA4 (the text entry; the gadget 7)
+	ChatGadgetClass *UnknownA4;						// +0xA4 (the text entry; the gadget 7)
 	std::vector<ChatWinStruct *> ChatWindows;			// +0xA8  // NAME 3: the assert's '!ChatWindows.empty()'
 	RefCountPtr<FontSys> UnknownB8;						// +0xB8 ('Chat_Line': the entry's text)
 	ChatViewportStruct Viewport;						// +0xBC ('chat_vp_tl', 'chat_vp_br')  // NAME 1: neutral

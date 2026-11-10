@@ -16,11 +16,14 @@ class INIClass;
 
 // ---------------------------------------------------------------- input.cpp
 
-// 0x42A1A0: a key combination read from an ini entry; here none
+// 0x42A1A0: a key combination read from an ini entry: control_keys_manager.cpp's name for inpdsp.cpp's reader
+// (it declares the 16-byte result as a ControlKeyComboStruct); the real event, through poc_standins.cpp
+void Poc_Read_Ini_Key(INIClass &ini, const char *section, const char *entry, void *out);
 ControlKeyComboStruct Unknown_42A1A0(INIClass &ini, const char *section, const char *entry)
 {
-	STUB_CALLED("POC Unknown_42A1A0 (0x42A1A0, a key from an ini entry): none");
-	return ControlKeyComboStruct(0, 0);
+	ControlKeyComboStruct combo(0, 0);
+	Poc_Read_Ini_Key(ini, section, entry, &combo);
+	return combo;
 }
 
 // ---------------------------------------------------------------- shipcust_desc.cpp's defaults

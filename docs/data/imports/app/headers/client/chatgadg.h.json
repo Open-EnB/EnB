@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "chatgadg.h (no client string; name from ChatGadg.cpp): ChatGadgetClass, the chat panel's text entry (0x65BFD0, 0x80 bytes) over textgadg.h's TextBaseGadgetClass"
+}

@@ -182,7 +182,7 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (c
 // 0x65EFB0 is GadgetClass::Set_Tooltip (variadic as gadget.h declares it)
 
 
-class Unknown65BFD0Class { public: Unknown65BFD0Class(LineDisplayClientClass *client); char Unknown00[0x80]; };	// 0x65BFD0 (0x80 bytes, slot +0x54)  // NAME 1: neutral (D10)
+class ChatGadgetClass { public: ChatGadgetClass(LineDisplayClientClass *client); char Unknown00[0x80]; };	// 0x65BFD0 (chatgadg.h, 0x80 bytes, slot +0x54)
 #include "assetmgr.h"
 
 
@@ -488,7 +488,7 @@ void ChatPanelInterface::Unknown_54()
 	Unknown110 = new AvatarPipClass;
 	Unknown_563DC0(false);
 	Unknown13C = (int)new Unknown67D430Class(200);
-	Unknown140 = (int)new Unknown65BFD0Class(Client);
+	Unknown140 = (int)new ChatGadgetClass(Client);
 	Unknown_56C0C0();
 	Unknown144 = OptionClass::Instance->Get_Int("Chat_Default_Channel");
 	Unknown1F4 = OptionClass::Instance->Get_String("Channel_Label");
@@ -916,10 +916,10 @@ bool ChatPanelInterface::Unknown_5646A0(int channel)
 }
 
 // 0x564F50
-void ChatPanelInterface::Unknown_564F50()
+bool ChatPanelInterface::Unknown_564F50()
 {
 	Unknown204 = Unknown1F4;
-	Unknown_5646A0(Unknown144);
+	return(Unknown_5646A0(Unknown144));
 }
 
 // 0x565100
@@ -2392,13 +2392,13 @@ void ChatPanelInterface::Unknown_56C180(int window)
 	Unknown134 = window;
 	switch (window) {
 		case 1:
-			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (Unknown65BFD0Class *)Unknown140, 0));
+			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (ChatGadgetClass *)Unknown140, 0));
 			break;
 		case 2:
-			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (Unknown65BFD0Class *)Unknown140, 1));
+			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (ChatGadgetClass *)Unknown140, 1));
 			break;
 		case 3:
-			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (Unknown65BFD0Class *)Unknown140, 2));
+			ChatInt = Create_Get(new UIChatWindowSplitClass(Client->As_Space_Client(), (Unknown67D430Class *)Unknown13C, (ChatGadgetClass *)Unknown140, 2));
 			break;
 		default:
 			G_ASSERT(false);

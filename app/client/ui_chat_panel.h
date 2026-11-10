@@ -62,7 +62,7 @@ public:
 	void Unknown_564150(bool on);						// 0x564150 (FAIL_IFs '!big_robj', '!bigbutframe' ll.782 / 783)  // NAME 1 [on]: neutral
 	void Unknown_564400(bool on);						// 0x564400 (FAIL_IFs '!small_robj', '!smallbutframe' ll.798 / 799)  // NAME 1 [on]: neutral
 	bool Unknown_5646A0(int channel);					// 0x5646A0: talk on a channel (false, the reason on the chat, when no one is there)  // NAME 1 [channel]: neutral
-	void Unknown_564F50();								// 0x564F50 (0x65DE90): +0x1F4 copied to +0x204, 0x5646A0 on the default channel
+	bool Unknown_564F50();								// 0x564F50 (0x65DE90 tests its result): +0x1F4 copied to +0x204, 0x5646A0 on the default channel
 	void Unknown_565100();								// 0x565100: 0x5646A0 on +0x14C
 	void Unknown_565120();								// 0x565120
 	void Unknown_565390(bool back);						// 0x565390: the next (or with back the previous) channel of +0x228 at +0x238  // NAME 1 [back]: neutral
