@@ -1190,7 +1190,7 @@ void ChatPanelInterface::Unknown_566AF0()
 			break;
 		case 10:
 			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioAdminClass(Client->As_Space_Client()));
-			UnknownE8 = UnknownF8.Peek();
+			UnknownE8 = (UIRadioAdminClass *)UnknownF8.Peek();
 			break;
 	}
 	if (UnknownF8) {

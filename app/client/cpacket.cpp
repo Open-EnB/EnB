@@ -2409,68 +2409,68 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-// ui_playeropt.cpp's ignore list (the chat panel's +0xD8), as far as CLIENT_CHAT_LIST 164 / CLIENT_CHAT_EVENT 165 call it (ui_playeropt.h)
-class UIPlayerOptClass	// NAME 3: class-from-file (D24) for app\client\ui_playeropt.cpp (ui_playeropt.h's)
+// The chat panel (ui_chat_panel.h) and its windows, as far as CLIENT_CHAT_LIST 164 / CLIENT_CHAT_EVENT 165 call them: the
+// ignore list (+0xD8), the friends (+0xDC), the channel list (+0xE4) and the channel admin (+0xE8)
+#include "ui_playeropt.h"
+#include "ui_friends.h"
+#include "ui_radio_list.h"
+#include "ui_radio_admin.h"
+
+// ui_guild.cpp's guild window (the chat panel's +0xE0; its class is declared in ui_guild.cpp), as far as CLIENT_CHAT_EVENT 165 calls it
+class UIGuildClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltip section 'UI_GUILD' (ui_guild.cpp's)
 {
 public:
-	void Unknown_5DA780(std::string name);				// 0x5DA780 (CLIENT_CHAT_EVENT 165, event 19 'is now ignoring')  // NAME 1 [name]: the event's Unknown54
-	void Unknown_5DA600(std::vector<std::string> names); void Unknown_5DA8C0(std::string name);				// 0x5DA8C0 (CLIENT_CHAT_EVENT 165, event 20 'is no longer ignoring')  // NAME 1 [name]: the event's Unknown54; 0x5DA600 (CLIENT_CHAT_LIST 164 type 1: the ignore list)  // NAME 1 [names]: the packet's Unknown20
+	void Unknown_81BF40();								// 0x81BF40 ('/gc list all'; CLIENT_CHAT_EVENT 165 on 'guild', while the window is active)
 };
 
-class UIFriendsClass	// NAME 3: class-from-file (D24) for app\client\ui_friends.cpp
-{
-public:
-	void Unknown_5916B0(std::string name, std::string other);	// 0x5916B0 (CLIENT_CHAT_EVENT 165, event 21 'is now friends with')  // NAME 1 [name, other]: the event's Unknown54, Unknown64
-	void Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> others); void Unknown_591880(std::string name);				// 0x591880 (CLIENT_CHAT_EVENT 165, event 22 'is no longer friends with')  // NAME 1 [name]: the event's Unknown54; 0x5913E0 (CLIENT_CHAT_LIST 164 type 0: the friends list)  // NAME 1 [names, others]: the packet's Unknown20, Unknown30
-};
-
-// ui_radio_list.cpp's window (the chat panel's +0xE4), as far as CLIENT_CHAT_LIST 164 / CLIENT_CHAT_EVENT 165 call it (ui_radio_list.h)
-class UIRadioListClass	// NAME 1: neutral, after the window's lists (ui_radio_list.h's)
-{
-public:
-	void Unknown_5E8FF0(int state, std::string name);	// 0x5E8FF0 (CLIENT_CHAT_EVENT 165, event 7: the state pushed last)  // NAME 1 [state, name]: neutral
-	void Unknown_5E8E30(int state, std::vector<std::string> names); void Unknown_5E9160(int state, std::string name);	// 0x5E9160 (CLIENT_CHAT_EVENT 165, events 8, 16, 18); 0x5E8E30 (CLIENT_CHAT_LIST 164 types 3 / 2 for State 0 / 1)  // NAME 1 [state, name, names]: neutral
-
-	char Unknown00[0xA0];
-	int State;											// +0xA0 (0 the public channels, 1 the channel's members)  // NAME 1: neutral (D10)
-};
-
-// ui_radio_admin.cpp's window (the chat panel's +0xE8), as far as CLIENT_CHAT_LIST 164 / CLIENT_CHAT_EVENT 165 call it (ui_radio_admin.h)
-class UIRadioAdminClass	// NAME 1: neutral, after its tooltips' section 'UI_RADIO_ADMIN' (ui_radio_admin.h's)
-{
-public:
-	void Unknown_5E5EF0(std::string name);				// 0x5E5EF0 (CLIENT_CHAT_EVENT 165, event 7)  // NAME 1 [name]: neutral
-	void Unknown_5E5D70(std::vector<std::string> names); void Unknown_5E6030(std::string name);				// 0x5E6030 (CLIENT_CHAT_EVENT 165, events 8, 16, 18)  // NAME 1 [name]: neutral; 0x5E5D70 (CLIENT_CHAT_LIST 164 type 2 otherwise)  // NAME 1 [names]: the packet's Unknown20
-};
-
-// What the chat panel's +0xE0 points to (as sclient.cpp's view)
+// What the chat panel's +0xF8 window is, as far as FIND_MEMBER 83 calls its slot +0x90
 class UIChatPanelUnknownF890Class; class UIChatPanelUnknownF8Class : public InterfaceClass { public: virtual void Unknown_88(); virtual void Unknown_8C(); virtual UIChatPanelUnknownF890Class *Unknown_90(); };	// NAME 1: neutral (D10): the chat panel's +0xF8 (an InterfaceClass: the count at +0x3C; slot +0x90 FIND_MEMBER 83)
-class UIChatPanelUnknownE0Class	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_81BF40();								// 0x81BF40 (0x750210; CLIENT_CHAT_EVENT 165 on 'guild')
 
-	char Unknown00[0x7C];
-	bool Unknown7C;										// +0x7C (tested before every call)
-};
 
-// The chat panel (ui_chat_panel.cpp; constructor 0x561DD0, 0x268 bytes), as far as CLIENT_CHAT_EVENT 165 uses it
-class ChatPanelInterface	// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408)
-{
-public:
-	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (CLIENT_CHAT_EVENT 165: the sender's game id, 0)  // NAME 1 [id, flag]: what it gets
-	void Unknown_567DF0(int code); void Unknown_565D80(const char *name);				// 0x565D80 (CLIENT_CHAT_EVENT 165: the private sender)  // NAME 1 [name]: the event's Unknown14; 0x567DF0 (CLIENT_CHAT_ERROR 166 on entering a channel: the error code, or 2)
-	void Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag);	// 0x5679A0 (CLIENT_CHAT_EVENT 165, events 7, 8, 9, 23, 24)  // NAME 1 [event, channel, name, flag]: what the handler passes
 
-	char Unknown00[0xD8];
-	UIPlayerOptClass *UnknownD8;				// +0xD8
-	UIFriendsClass *Friends;							// +0xDC (ui_friends.cpp's 0x5916B0 / 0x591880)  // NAME 3: its methods' file
-	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0
-	UIRadioListClass *UnknownE4;				// +0xE4
-	UIRadioAdminClass *UnknownE8;				// +0xE8
-	char UnknownEC[0xF8 - 0xEC]; RefCountPtr<UIChatPanelUnknownF8Class> UnknownF8;	// +0xEC; +0xF8 (FIND_MEMBER 83)
-	RefCountPtr<UIChatPanelUnknownF8Class> Get_UnknownF8() { return(UnknownF8); }	// 0x739690 (out of line after FIND_MEMBER 83, the first caller)  // NAME 1: neutral (D10): the member it returns
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #include "ui_group.h"		// UIGroupClass (CLIENT_CHAT_EVENT 165)
 
@@ -2509,7 +2509,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (!panel) return(true);
 	UIPlayerOptClass *d8 = panel->UnknownD8;
-	UIFriendsClass *friends = panel->Friends;
+	UIFriendsClass *friends = panel->UnknownDC;
 	UIRadioListClass *e4 = panel->UnknownE4;
 	UIRadioAdminClass *e8 = panel->UnknownE8;
 	std::string channel(Unknown44);
@@ -2605,7 +2605,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 					e4->Unknown_5E8FF0(1, Get_Unknown14());
 				}
 				if (!stricmp(chan, "guild")) {
-					if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Unknown7C) {
+					if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Active) {
 						sclient->ChatPanel->UnknownE0->Unknown_81BF40();
 					}
 				}
@@ -2620,7 +2620,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 					e4->Unknown_5E9160(1, Get_Unknown14());
 				}
 				if (!stricmp(chan, "guild")) {
-					if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Unknown7C) {
+					if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Active) {
 						sclient->ChatPanel->UnknownE0->Unknown_81BF40();
 					}
 				}
@@ -2817,7 +2817,7 @@ bool FindMemberPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (panel == NULL || panel->Get_UnknownF8() == NULL) return(true);
-	UIChatPanelUnknownF890Class *find = panel->Get_UnknownF8()->Unknown_90();
+	UIChatPanelUnknownF890Class *find = ((UIChatPanelUnknownF8Class *)panel->Get_UnknownF8().Peek())->Unknown_90();
 	if (!find) return(true);
 	if (find->UnknownA8 && find->UnknownA8->Unknown7C) {
 		find->UnknownA8->Unknown_59A400(this);
@@ -2853,7 +2853,7 @@ bool ClientChatListPacketClass::Process_Packet(void *instance)
 	if (!panel) return(true);
 	switch (Unknown0C) {
 		case 0: {
-			UIFriendsClass *friends = panel->Friends; if (friends) { friends->Unknown_5913E0(Unknown20, Unknown30); return(true); } }
+			UIFriendsClass *friends = panel->UnknownDC; if (friends) { friends->Unknown_5913E0(Unknown20, Unknown30); return(true); } }
 			break;
 		case 1: {
 			UIPlayerOptClass *d8 = panel->UnknownD8; if (d8) { d8->Unknown_5DA600(Unknown20); return(true); } }
