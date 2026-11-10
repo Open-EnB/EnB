@@ -37,19 +37,19 @@ public:
 	virtual ClientObjectClass *Get_Ship();				// +0x30 (client.h's)  // NAME 2: ClientClass's slot +0x30
 };
 
-// NOT EXACT: functional from the pseudocode (D64)
+
 // 0x5D10C0
 UIPdaEquipClass::UIPdaEquipClass(SClient *client) :
 	UIInvClass(client, 11),
 	ShipPip(NULL),
+	Unknown124(0), Unknown128(0), Unknown12C(0), Unknown130(0), Unknown134(0), Unknown138(0), Unknown13C(0), Unknown140(0), Unknown144(0),
 	Stats(NULL),
 	Exit(NULL)
 {
-	for (int i = 0; i < 9; i++) {
-		Unknown124[i] = 0;
-	}
+	memset(Frames, 0, sizeof(Frames));
 	Unknown_BE67BC->Load("fa_tsi07a.ini");
 }
+
 
 
 

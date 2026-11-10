@@ -70,15 +70,15 @@ UIPdaCargoClass::UIPdaCargoClass(SClient *client, PDAInterfaceClass *pda) :
 	PDA(pda),
 	Slider(NULL),
 	SortIndex(0),
-	SortReverse(false)
+	SortReverse(false), FilterName("")
 {
 	for (int i = 0; i < NUM_BUTTONS; i++) {
 		Buttons5[i] = NULL;
 	}
-	if (OptionClass::Instance) {
-		SortIndex = OptionClass::Instance->Get_Bool("Inv_Sort_Cargo");
-		SortReverse = OptionClass::Instance->Get_Bool("Inv_Sort_Cargo_Reverse");
-		FilterName = OptionClass::Instance->Get_String("Inv_Filter_Cargo");
+	OptionClass *options = OptionClass::Instance; if (options) {
+		SortIndex = options->Get_Bool("Inv_Sort_Cargo");
+		SortReverse = options->Get_Bool("Inv_Sort_Cargo_Reverse");
+		FilterName = options->Get_String("Inv_Filter_Cargo");
 	}
 	Unknown_BE67BC->Load("fa_pdainv.ini");
 }

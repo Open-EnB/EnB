@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-735 entries in 224 files.
+734 entries in 224 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -449,7 +449,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_pda_cargo.cpp:216` | `UIPdaCargoClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0620 |
 | `app/client/ui_pda_cargo.cpp:293` | `UIPdaCargoClass::Unknown_5D0A50` | marker | NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits' 0x5D0A50 |
 | `app/client/ui_pda_cargo.cpp:319` | `UIPdaCargoClass::Unknown_5D0D20` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0D20 |
-| `app/client/ui_pda_equip.cpp:40` | `UIPdaEquipClass::UIPdaEquipClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D10C0 |
 | `app/client/ui_pda_equip.cpp:103` | `UIPdaEquipClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1250 |
 | `app/client/ui_pda_equip.cpp:158` | `UIPdaEquipClass::~UIPdaEquipClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1A00 |
 | `app/client/ui_pda_equip.cpp:217` | `UIPdaEquipClass::Unknown_58` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1CA0 |

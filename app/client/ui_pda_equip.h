@@ -84,7 +84,15 @@ public:
 	Unknown541DE0Class *ShipPip;						// +0xD4 (the ship's PIP)  // NAME 2: what it shows
 	std::vector<UnknownMountSlotStruct *> Mounts;		// +0xD8 (0x5D2C50: one per 'Inventory.Mounts' element)  // NAME 2: what it holds
 	RefCountPtr<RenderObjClass> Frames[NUM_FRAMES];		// +0xE8 ('w%02df' 0..5, 's%02df' 6..11, 'c%02df' 12..14: shown with a mount)  // NAME 2: what they are
-	int Unknown124[9];									// +0x124 (zeroed)  // NAME 1: neutral (D10)
+	int Unknown124;									// +0x124 (zeroed)  // NAME 1: neutral (D10)
+	int Unknown128;									// +0x128 (zeroed)  // NAME 1: neutral (D10)
+	int Unknown12C;									// +0x12C (zeroed)  // NAME 1: neutral (D10)
+	int Unknown130;									// +0x130 (zeroed)  // NAME 1: neutral (D10)
+	int Unknown134;									// +0x134 (zeroed)  // NAME 1: neutral (D10)
+	int Unknown138;									// +0x138 (zeroed)  // NAME 1: neutral (D10)
+	int Unknown13C;									// +0x13C (zeroed)  // NAME 1: neutral (D10)
+	int Unknown140;									// +0x140 (zeroed)  // NAME 1: neutral (D10)
+	int Unknown144;									// +0x144 (zeroed)  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> Unknown148;				// +0x148  // NAME 1: neutral (D10)
 	Unknown6A2ED0Class *Stats;							// +0x14C (the 'STATS_PANEL')  // NAME 2: its tooltip's
 	ButtonGadgetClass *Exit;							// +0x150 ('exit', gadget 17)  // NAME 2: its sub-object's name
