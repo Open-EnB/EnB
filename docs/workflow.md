@@ -179,6 +179,8 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **A shrunk callee gets inlined (2026-11-10, FR2):** removing dead reads from 0x591A30 made it small enough that 0x590020
+  inlined it and stopped matching; after shrinking a function, re-verify every caller in the file, not only the function.
 * **Adjacent scalar deletes (2026-11-02 evening run, EAM5):** VC6 /O2 merges the stack cleanups of consecutive `delete p;`
   calls (`add esp, 8`); the client's per-call `add esp, 4` comes from `if (p != NULL) delete p;`.
 
@@ -1240,6 +1242,9 @@ each other and decide with the full verify. Builders branched before such a land
 
 ### 3.6 RE tools, Ghidra and REA
 
+* **Tool paths (2026-11-10, FR2):** in Git Bash MSYS rewrites a `//` argument to `/` (`trim.py '// 0x...'` finds no
+  marker): prefix `MSYS_NO_PATHCONV=1`. tryvariants.py does not find app files in subdirectories: use tryv2.py with
+  `ENB_VC6_HOSTS` from `pool.py lease --agent ID`. A builder's verify objects are under `.work/<ID>/tmp/enb_import/verify-app/`.
 * **Never delete `.work/pseudo/` (2026-11-03, the user):** a plain `pseudocode.py` run decompiles only functions not
   yet exact in symbols.json, so the old "delete and rerun" refresh lost every file of a function that had become
   exact since (found when the P-API-5 (b) batch runs needed them); triage.py's `build` and appfile.py's drafts read

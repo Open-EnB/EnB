@@ -3022,11 +3022,12 @@ below name only the work items, the blocked work, the leads and the queues.
      +0xB0 takes RefCountPtr<UIPTradeCreditsClass> and ui_group.h's UISymbolChatClass loses Unknown_64A220 / Unknown_64A240
      (AP2, 2026-11-10); then 0x649890's own file (0x649890-0x64A2B0 on, six POC gen stand-ins). 0x5E1B80 / 0x5E1B90 are the previous file's.
      money.cpp's operators 0x4F0500 / 0x4F0700 / 0x4F0740 are stubs in clienttest / clientpoc until money.cpp links there.
-   * ui_friends.cpp (FR1, 2026-11-05 night; UIFriendsClass 0x14C over UIChatPanelBaseClass, 0x58F0F0-0x5921F0, 39 pairs): ctor
-     0x58F210 / dtor 0x58F450 not yet written (the vtable waits for an exact ctor), 0x58F6B0 (slot +0x54), 0x590020 (slot
-     +0x68, an 11-case key switch; callees 0x7E8030 / 0x64A2B0 unknown), 0x591C30 (GroupInfo lookup via 0x5927E0), 0x5921C0
-     on; NOT EXACT 0x5908B0 / 0x590E50 (register), 0x58FBA0 / 0x5913E0 (inline budget). cpacket.cpp's
-     stand-in `class UIFriendsClass` can include ui_friends.h (verify cpacket unchanged). ui_friends.h interim (NAME 1).
+   * ui_friends.cpp (FR1 / FR2; UIFriendsClass 0x14C over UIChatPanelBaseClass, 0x58F0F0-0x5921F0): NOT EXACT dtor 0x58F450
+     (inline budget: ours inlines 0x5906C0 inside the inlined slot +0x5C, the client calls it; 11 forms; 12 dead reads push it
+     out but lose 0x592300: try a deeper inline level for 0x5906C0's delete), 0x58FBA0 (the inlined player dtor's EH state
+     between its two strings: client 2, ours 1), 0x5908B0 (register, 6 loop forms), 0x5913E0 (inline budget). cpacket.cpp's
+     stand-in `class UIFriendsClass` waits for its stand-in ChatPanelInterface to go (ui_friends.h brings the real one).
+     ui_friends.h interim (NAME 1).
    * The item examination window (IE1 / IE2, 2026-11-05 night; ui_item_examination*.cpp, 0x531430-0x53AB4F): NOT EXACT the
      description ctor 0x534CA0 (frame 0x2C vs 0x24; a named Vector2 gets the frame but inlines the second string's `_Eos`),
      the attributes ctor 0x532BA0 / dtor 0x533000 forms in attempts.csv; title 0x53A140 (the name's std::string by value);
