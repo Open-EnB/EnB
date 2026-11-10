@@ -3014,13 +3014,13 @@ below name only the work items, the blocked work, the leads and the queues.
    * avatar_pip.cpp (AP1, 2026-11-05 night; AvatarPipClass 0x3C, 0x7E31B0-0x7E49AF): NOT EXACT 0x7E4520 (shape: the client
      converts `* 0.1f` before Get_Sort_Level), 0x7E3A20 0.83 (shape: the light translation folded into zeroed floats, a release
      tail-merge, Rotate_Y's operand order); the model carrier Unknown47FA70Class (ctor 0x47FA70, table 0xAE9D88; ro_proxy.cpp
-     by the triage, not in the tree). ui_chat_panel.cpp / ui_ptrade.cpp declare local AvatarPipClass stand-ins with wrong
-     signatures (0x7E36B0 returns bool, takes bool; 0x7E3A20 takes const char *, unsigned, CharacterViewAvatarClass *):
-     include avatar_pip.h, with a verify of both files.
+     by the triage, not in the tree).
    * ui_ptrade.cpp (PT1 / PT2, 2026-11-05 night; UIPTradeClass in sclient.h, interim D137, base Unknown5BB320Class, 0xE8): NOT
-     EXACT only 0x5E2CE0 (0.84, register: key 3 reads the client through edx, the client eax; 7 forms). ui_group.h's
-     UISymbolChatClass 0x64A220 / 0x64A240 read the 0x649890 'TRADE01A' object's +0xC0 (UIPTradeCreditsClass, 0xD0, in
-     sclient.h): check 0x64A480's base and size and merge the two declarations. 0x5E1B80 / 0x5E1B90 are the previous file's.
+     EXACT only 0x5E2CE0 (0.84, register: key 3 reads the client through edx, the client eax; 7 forms). UIPTradeCreditsClass
+     (0x649890 'TRADE01A', 0xD0 over Unknown5BB320Class, table 0xAF88BC, in sclient.h) is not UISymbolChatClass (0x64A480, 0xAC
+     over InterfaceClass): UIFriendsClass +0xB0 is the former (0x58F6B0: new(0xD0), 0x649890 at 0x58F947), so ui_friends.h's
+     +0xB0 takes RefCountPtr<UIPTradeCreditsClass> and ui_group.h's UISymbolChatClass loses Unknown_64A220 / Unknown_64A240
+     (AP2, 2026-11-10); then 0x649890's own file (0x649890-0x64A2B0 on, six POC gen stand-ins). 0x5E1B80 / 0x5E1B90 are the previous file's.
      money.cpp's operators 0x4F0500 / 0x4F0700 / 0x4F0740 are stubs in clienttest / clientpoc until money.cpp links there.
    * ui_friends.cpp (FR1, 2026-11-05 night; UIFriendsClass 0x14C over UIChatPanelBaseClass, 0x58F0F0-0x5921F0, 39 pairs): ctor
      0x58F210 / dtor 0x58F450 not yet written (the vtable waits for an exact ctor), 0x58F6B0 (slot +0x54), 0x590020 (slot
