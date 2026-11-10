@@ -9,7 +9,6 @@
 #include "..\..\stubs\stub_log.h"
 #include "..\..\app\client\sclient.h"
 #include "..\..\app\client\co.h"
-#include "..\..\app\client\gadget.h"
 
 // ---------------------------------------------------------------- 0x725E70: UnknownB02C90Class's buffer (client.cpp's Mount lines)
 void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &element, int index)
@@ -47,14 +46,6 @@ struct ColorizationRegionStruct;
 void Unknown_80F220(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions)
 {
 	STUB_CALLED("POC Unknown_80F220 (0x80F220, the ship's colours): nothing");
-}
-
-// ---------------------------------------------------------------- 0x65F780: sclient.cpp's Do_Frame declares the
-// gadgets' input pass as a free function; it is gadget.cpp's GadgetClass::Process_Input (tsk_login.cpp calls it by
-// that name), so the world's windows get the mouse as at login (was an empty event: nothing in the world took a click)
-KernelEventClass Unknown_65F780(void *unknown)
-{
-	return(GadgetClass::Process_Input((GadgetListManagerClass *)unknown));
 }
 
 // ---------------------------------------------------------------- the client's view of keys no gadget took: nothing

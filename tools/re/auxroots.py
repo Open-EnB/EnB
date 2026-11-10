@@ -786,8 +786,9 @@ enum AuxRootsSymbolPadType { %s };	// NAME 1: a build aid (HX1)
 # It moves sclient's 0x74D990 too (defined after aux_roots_send.h): 41-61 hold 0x758210, 0x74D990 and 0x702240 since
 # UnknownCOClass joined co.h, sclient.cpp includes control_keys_manager.h at its top, SB3 changed sbaseview.h and
 # WF1 made FontSys's destructor implicit
-# (PH1, .work/ph1/sweep.py sc).
-SEND_SYMBOL_PAD = 40
+# (PH1, .work/ph1/sweep.py sc). 2026-11-09b PD1: sclient.cpp including gadget.h (Do_Frame calls
+# GadgetClass::Process_Input by name) moved the window to 9-14 (importer path, .work/pd1/sendpad_imp.py).
+SEND_SYMBOL_PAD = 12
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)

@@ -1440,7 +1440,7 @@ Base copy: reconstructed. Headers: 510 from reconstructed.
 | shared/rs_robj.cpp | reconstructed | 27 | 0 | - | - | - |  |
 | shared/rs_track.cpp | reconstructed | 185 | 0 | - | - | - |  |
 | client/sbaseview.cpp | reconstructed | 113 | 7 | - | - | - |  |
-| client/sclient.cpp | reconstructed | 462 | 13 | - | - | - |  |
+| client/sclient.cpp | reconstructed | 463 | 13 | - | - | - |  |
 | client/scriptedmovie.cpp | reconstructed | 128 | 8 | - | - | - |  |
 | client/scriptedmovieline.cpp | reconstructed | 4 | 1 | - | - | - |  |
 | client/tasks/settings_store.cpp | reconstructed | 31 | 4 | - | - | - |  |
