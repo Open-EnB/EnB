@@ -165,6 +165,7 @@ public:
 	bool Unknown25C;									// +0x25C (the lag flag: 0x56BA40 / 0x56BA80)
 	float Unknown260;									// +0x260 (the lag light's blink time, 0x5630B0)
 	bool MessageButtonShowing;							// +0x264 (sclient.cpp's getter)  // NAME 2: its getter's
+	bool Is_Message_Button_Showing() { return(MessageButtonShowing); }	// (sclient.cpp 0x74FEC0's FAIL_IF names it)  // NAME 3: the FAIL_IF's
 	bool Unknown265;									// +0x265
 	bool Unknown266;									// +0x266
 	bool Unknown267;									// +0x267

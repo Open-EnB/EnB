@@ -137,19 +137,19 @@ class SClientUnknown135CViewClass : public UIViewClass { public: char Unknown4C[
 
 
 
-class ChatPanelInterface : public InterfaceClass
-{
-public:
-	ChatPanelInterface(SClient *client); void Unknown_5685C0(); void Unknown_568690();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
-	bool Unknown_56BA80(); void Unknown_563760(int type, const std::string &text);	// 0x563760 (0x74D990's chat line); 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
-	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
-	void Unknown_565F30(int arg); void Unknown_56BAA0(bool show, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [show, text]: ui_chat_panel.h's
-	char Unknown84[0xE0 - 0x84];
-	UIGuildClass *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
-	char UnknownE4[0x138 - 0xE4];
-	UIChatPanelUnknown138Class *Unknown138;				// +0x138 (0x744E70 calls its slot +0xAC)
-	char Unknown13C[0x264 - 0x13C]; bool MessageButtonShowing; char Unknown265[3]; bool Is_Message_Button_Showing() { return(MessageButtonShowing); }	// +0x264 (0x74FEC0's FAIL_IF names the getter)  // NAME 2 [MessageButtonShowing]: its getter's
-};
+#include "ui_chat_panel.h"	// ChatPanelInterface, the chat panel (SClient +0x127C)
+
+
+
+
+
+
+
+
+
+
+
+
 
 #include "fontmanager.h"	// FontSys: ui_line_display.h's text objects
 #include "ui_line_display.h"						// UILineDisplayClass (0x5A5410, 0x100 bytes; Init passes the SClient as its client)
@@ -2109,13 +2109,13 @@ void SClient::Unknown_744E70(bool arg)
 
 		FAIL_IF(!target) return;
 		if (target->Type == 1) {
-			if (ChatPanel && ChatPanel->Unknown138) {
-				ChatPanel->Unknown138->Unknown_AC(true);
+			if (ChatPanel && ChatPanel->ChatInt) {
+				ChatPanel->ChatInt->Unknown_AC(true);
 			} return; } int id = target->Get_Game_ID();
 		int avatar = AvatarID;
 		Send_Packet(&ActionPacketClass(avatar, 2, id, 0));
-		return; } if (ChatPanel && ChatPanel->Unknown138) {
-		ChatPanel->Unknown138->Unknown_AC(false); }
+		return; } if (ChatPanel && ChatPanel->ChatInt) {
+		ChatPanel->ChatInt->Unknown_AC(false); }
 }
 
 
