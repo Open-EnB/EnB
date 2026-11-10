@@ -12,7 +12,7 @@ class RenderObjClass;
 class GadgetClass;			// gadget.cpp's
 class GadgetSlider;			// gd_slider.h's
 
-class AvatarPipClass;		// avatar_pip.cpp's (the panel's +0x110; declared in ui_chat_panel.cpp)
+class AvatarPipClass;		// avatar_pip.h's (the panel's +0x110)
 
 #include "ui_combobox.h"	// UIComboBoxClass: the panel's combos (Combo[]; was UIChatComboClass, P-TG4-1)
 
