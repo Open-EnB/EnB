@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 181 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1721 |
+| 3 | by convention from a client-named file or sibling | 1722 |
 | 2 | describes what the code does | 3929 |
-| 1 | neutral placeholder | 22166 |
+| 1 | neutral placeholder | 22175 |
 
 ## For review (score 3 and below)
 
@@ -17912,32 +17912,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_40` | `app/client/unknown_66b770.h:27` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/unknown_66b770.h:29` | neutral (D10) |
 | 1 | `unknown_671300.h` | `app/client/unknown_671300.h:13` | neutral (D137) |
-| 1 | `unknown1, unknown2, unknown3` | `app/client/unknown_671300.h:24` | neutral |
-| 1 | `offset` | `app/client/unknown_671300.h:26` | what it sets |
-| 1 | `Unknown_4A13A0` | `app/client/unknown_671300.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/unknown_671300.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown08` | `app/client/unknown_671300.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown_671300Class` | `app/client/unknown_671300.h:34` | neutral (D10) |
-| 1 | `robj, unknown1, layer, unknown2, unknown3, unknown4` | `app/client/unknown_671300.h:37` | neutral, the base's |
-| 1 | `robj, unknown1, unknown2, unknown3, unknown4` | `app/client/unknown_671300.h:38` | neutral, the base's |
-| 1 | `event, x, y, mask` | `app/client/unknown_671300.h:40` | the base's |
-| 1 | `Unknown_2C` | `app/client/unknown_671300.h:40` | untagged neutral name (D10) |
-| 1 | `speed` | `app/client/unknown_671300.h:41` | what 0x6716B0 does with it |
-| 1 | `Unknown_A4` | `app/client/unknown_671300.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown_A8` | `app/client/unknown_671300.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown_AC` | `app/client/unknown_671300.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown_671630` | `app/client/unknown_671300.h:44` | untagged neutral name (D10) |
-| 1 | `on, speed` | `app/client/unknown_671300.h:45` | neutral |
-| 1 | `Unknown_671740` | `app/client/unknown_671300.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/unknown_671300.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown65` | `app/client/unknown_671300.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown66` | `app/client/unknown_671300.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/unknown_671300.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/unknown_671300.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/unknown_671300.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/unknown_671300.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/unknown_671300.h:54` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/unknown_671300.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown_671300Class` | `app/client/unknown_671300.h:21` | neutral (D10) |
+| 1 | `robj, unknown1, layer, unknown2, unknown3, unknown4` | `app/client/unknown_671300.h:24` | neutral, the base's |
+| 1 | `robj, unknown1, unknown2, unknown3, unknown4` | `app/client/unknown_671300.h:25` | neutral, the base's |
+| 1 | `event, x, y, mask` | `app/client/unknown_671300.h:27` | the base's |
+| 1 | `Unknown_2C` | `app/client/unknown_671300.h:27` | untagged neutral name (D10) |
+| 1 | `speed` | `app/client/unknown_671300.h:28` | what 0x6716B0 does with it |
+| 1 | `Unknown_A4` | `app/client/unknown_671300.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/unknown_671300.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_AC` | `app/client/unknown_671300.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_671630` | `app/client/unknown_671300.h:31` | untagged neutral name (D10) |
+| 1 | `on, speed` | `app/client/unknown_671300.h:32` | neutral |
+| 1 | `Unknown_671740` | `app/client/unknown_671300.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/unknown_671300.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown65` | `app/client/unknown_671300.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown66` | `app/client/unknown_671300.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/unknown_671300.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown6C` | `app/client/unknown_671300.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/unknown_671300.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/unknown_671300.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/client/unknown_671300.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/unknown_671300.h:42` | untagged neutral name (D10) |
 | 1 | `Unknown_675120Class` | `app/client/unknown_675120.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B40` | `app/client/unknown_675120.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown_66B770Class` | `app/client/unknown_675120.cpp:33` | untagged neutral name (D10) |
@@ -21669,6 +21664,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_456F60` | `app/shared/unknown_px_factories.cpp:114` | untagged neutral name (D10) |
 | 1 | `Unknown_457190` | `app/shared/unknown_px_factories.cpp:115` | untagged neutral name (D10) |
 | 1 | `unknown_strconv.cpp` | `app/shared/unknown_strconv.cpp:2` | INTERIM file name (D137): the object 0x4A30A0-0x4A3640 has no assert and no __FILE__ |
+| 1 | `Unknown4A0FB0Class` | `app/shared/uvcontrl.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_4A10D0` | `app/shared/uvcontrl.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_4A13A0` | `app/shared/uvcontrl.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown4A13F0Class` | `app/shared/uvcontrl.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1550` | `app/shared/uvcontrl.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_671300Class` | `app/shared/uvcontrl.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown4A0FB0Class` | `app/shared/uvcontrl.h:23` | neutral (D10) |
+| 1 | `robj, index, stage` | `app/shared/uvcontrl.h:26` | what they select; [mapper_id]: the FAIL_IF's |
+| 1 | `Unknown_4A10D0` | `app/shared/uvcontrl.h:28` | neutral |
+| 1 | `offset` | `app/shared/uvcontrl.h:41` | what it sets |
+| 1 | `Unknown_4A13A0` | `app/shared/uvcontrl.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown4A13F0Class` | `app/shared/uvcontrl.h:45` | neutral (D10) |
+| 1 | `frame` | `app/shared/uvcontrl.h:50` | what it sets |
+| 1 | `Unknown_4A1550` | `app/shared/uvcontrl.h:50` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/wwudp/bandwidthaccounting.cpp:31` | untagged neutral name (D10) |
 | 1 | `ExtraIn` | `app/wwudp/bandwidthaccounting.cpp:43` | +0x10 Record_In's third argument (0 from the callback) |
 | 1 | `ExtraOut` | `app/wwudp/bandwidthaccounting.cpp:44` | +0x14 |
@@ -26956,7 +26965,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ui_verb.h` | `app/client/ui_verb.h:7` | the header of ui_verb.cpp (the client's __FILE__ 0xB8C43C) |
 | 3 | `UIVerbClass` | `app/client/ui_verb.h:39` | class-from-file (D24) for ui_verb.cpp |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |
-| 3 | `UVControllerClass` | `app/client/unknown_671300.h:21` | class-from-file (D24) for app\shared\uvcontrl.cpp |
 | 3 | `SignalBaseClass` | `app/client/unknown_signalbase.h:10` | the client's RTTI (the scope of MemberCallback) |
 | 3 | `user_click_indicator.h` | `app/client/user_click_indicator.h:14` | header name assumed from the client's user_click_indicator.cpp |
 | 3 | `UserClickIndicatorClass` | `app/client/user_click_indicator.h:23` | class-from-file (D24) |
@@ -27831,5 +27839,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SymbolSubstitutionClass` | `app/shared/symbol_substitution.h:24` | by convention (D24) from the client's file symbol_substitution.cpp |
 | 3 | `unique_design_id_lookup.h` | `app/shared/unique_design_id_lookup.h:19` | header name assumed from the client's unique_design_id_lookup.cpp |
 | 3 | `UniqueDesignIDLookupClass` | `app/shared/unique_design_id_lookup.h:26` | by convention (D24) from the client's file unique_design_id_lookup.cpp (vtable 0xAECCF4) |
+| 3 | `uvcontrl.h` | `app/shared/uvcontrl.h:15` | header-from-file (D137) for app\shared\uvcontrl.cpp |
+| 3 | `UVControllerClass` | `app/shared/uvcontrl.h:36` | class-from-file (D24) for app\shared\uvcontrl.cpp |
 | 3 | `cordcon.h` | `app/wwudp/cordcon.h:41` | header name assumed from the client's cordcon.cpp |
 | 3 | `cordmgr.h` | `app/wwudp/cordmgr.h:27` | header name assumed from the client's cordmgr.cpp |
