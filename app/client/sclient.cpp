@@ -143,7 +143,7 @@ public:
 	ChatPanelInterface(SClient *client); void Unknown_5685C0(); void Unknown_568690();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
 	bool Unknown_56BA80(); void Unknown_563760(int type, const std::string &text);	// 0x563760 (0x74D990's chat line); 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
-	void Unknown_565F30(int arg); void Unknown_56BAA0(int a, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [a, text]: what 0x74E710 passes
+	void Unknown_565F30(int arg); void Unknown_56BAA0(bool show, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [show, text]: ui_chat_panel.h's
 	char Unknown84[0xE0 - 0x84];
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
 	char UnknownE4[0x138 - 0xE4];
@@ -1046,20 +1046,20 @@ void SClient::Process_AI()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma auto_inline(off)	// the client calls 0x743380 from Do_Frame
+// 0x743380 (Do_Frame without the +0x1278 gadget source: the input queue's event to the dispatchers, then the
+// scripted movie view or the key handler 0x7436A0)
+void SClient::Unknown_743380(KernelEventClass *event)
+{
+	if (!Unknown1270->Unknown_429A20(event) && (!CurrentView || !CurrentView->Get_Unknown04()->Unknown_429A20(event))) {
+		if (ScriptedMovieView) {
+			ScriptedMovieView->Unknown_802960(*event);
+		} else {
+			Unknown_7436A0(*event);
+		}
+	}
+}
+#pragma auto_inline(on)
 
 
 
@@ -2050,11 +2050,11 @@ bool SClient::Unknown_74D730()
 
 
 
-
-
-
-
-
+// 0x744B60 (cpacket.cpp: REMOVE 7, GROUP 30): the current view is the +0x135C one
+bool SClient::Unknown_744B60()
+{
+	if (CurrentView != NULL && CurrentView == Unknown135C) return(true); return(false);
+}
 
 
 
@@ -2081,11 +2081,11 @@ void SClient::Unknown_744C10()
 
 
 
-
-
-
-
-
+// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it)
+void SClient::Unknown_744E50(CameraModuleSignal *signal, CameraModuleClass *camera)
+{
+	Unknown_744C10();
+}
 
 
 

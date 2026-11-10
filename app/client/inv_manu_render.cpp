@@ -14,7 +14,7 @@ class Unknown688830Class { public: Unknown688830Item *Unknown_68AAA0(int slot, b
 class InvDataClass { public: Unknown688830Class *Unknown_688830(); Unknown688830Class *Unknown_688850(); };	// NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
 class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual InvDataClass *Unknown_10(); };	// NAME 3: slot_data_render.h's
 // ro_funcs.cpp's
-void Unknown_496730(RenderObjClass *robj, int a, bool b);	void Unknown_496AE0(RenderObjClass *robj, int a);	bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// NAME 1: neutral (D10); NAME 1 [robj, a, b, c]: neutral
+void Unknown_496730(RenderObjClass *robj, int a, bool b);	void Unknown_496AE0(RenderObjClass *robj, bool a);	bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// NAME 1: neutral (D10); NAME 1 [robj, a, b, c]: neutral
 const char *Get_Roman_Numeral(int value);	// inv_render.cpp's
 
 // 0x68B370

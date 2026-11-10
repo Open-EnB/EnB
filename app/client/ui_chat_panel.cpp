@@ -40,8 +40,8 @@ public:
 class AvatarPipClass	// NAME 3: class-from-file (D24) for app\client\avatar_pip.cpp
 {
 public:
-	void Unknown_7E36B0(SClient *client, const RefCountPtr<RenderObjClass> &robj, int arg);	// 0x7E36B0 (slot +0x58)  // NAME 1 [client, robj, arg]: what 0x562F50 passes
-	void Unknown_7E3A20(int a, unsigned id, int b);		// 0x7E3A20 (0x564030: 0, +0x118, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
+	bool Unknown_7E36B0(SClient *client, const RefCountPtr<RenderObjClass> &robj, bool arg);	// 0x7E36B0 (slot +0x58)  // NAME 1 [client, robj, arg]: what 0x562F50 passes
+	bool Unknown_7E3A20(const char *a, unsigned id, class CharacterViewAvatarClass *b);		// 0x7E3A20 (0x564030: 0, +0x118, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
 	void Unknown_7E4350();								// 0x7E4350
 
 	char Unknown00[0x2C];
@@ -153,7 +153,7 @@ class Unknown5CA010Class : public UIChatPanelWindowClass { public: Unknown5CA010
 #include "ui_radio_admin.h"	// UIRadioAdminClass (0x5E4160, 0x11C bytes: request 10, kept at +0xE8 too)
 
 // pdaint.cpp's PDA (SClient +0x1284), as far as 0x565F80 calls it
-class UIChatPanelPDAClass { public: void Unknown_695F40(); };	// NAME 1: neutral (D10): 0x695F40
+
 
 // gadget.cpp's gadget, as far as the chat panel calls it
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
@@ -172,7 +172,7 @@ public: static void Set_Tooltip(GadgetClass *gadget, const char *section, const 
 	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
 	virtual void Unknown_90(TextureClass *texture);		// +0x90 (0x56C180: the chat window's icon)  // NAME 1 [texture]: neutral
 
-	void Unknown_65F2D0(int arg);						// 0x65F2D0 (0x564400 passes 0)  // NAME 1 [arg]: neutral
+	void Set_Unknown14(const char *text);				// 0x65F2D0 (gadget.h; 0x564400 passes NULL)
 
 	char Unknown04[0x30 - 0x04];						// +0x04
 	RenderObjClass *Unknown30;							// +0x30 (slot +0x58 0x562F50 hands it to 0x497300)
@@ -724,7 +724,7 @@ void ChatPanelInterface::Unknown_563DC0(bool on)
 		Unknown114->Set_Hidden(true);
 		Unknown_564150(false);
 		Unknown_564400(false);
-		UnknownA4[5]->Unknown_65F2D0(0);
+		UnknownA4[5]->Set_Unknown14(NULL);
 		UnknownA4[5]->Unknown_40(false);
 		Unknown267 = false;
 	}
@@ -802,7 +802,7 @@ void ChatPanelInterface::Unknown_564400(bool on)
 	UnknownA4[1]->Unknown_8C(!on);
 	UnknownA4[1]->Unknown_40(on);
 	UnknownA4[5]->Unknown_40(!on);
-	if (on) UnknownA4[5]->Unknown_65F2D0(0);
+	if (on) UnknownA4[5]->Set_Unknown14(NULL);
 }
 
 // 0x563760 (SClient's 0x74D990): a chat line, logged to chat.log ('**' while the panel is inactive), kept in the
@@ -1149,7 +1149,7 @@ void ChatPanelInterface::Unknown_565F80()
 		Unknown104->Unknown_54();
 		Unknown104->Unknown_7C(View, 1);
 		SClient *sclient = Client->As_Space_Client();
-		if (sclient->PDAInterface) ((UIChatPanelPDAClass *)sclient->PDAInterface)->Unknown_695F40();
+		if (sclient->PDAInterface) sclient->PDAInterface->Unknown_695F40();
 	}
 	Unknown108 = 0;
 }

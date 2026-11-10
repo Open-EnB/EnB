@@ -117,8 +117,7 @@ aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
-gen Unknown_918200
-gen SClient::Unknown_743380
+the input dispatcher takes the frame's event
 msg 2 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
 model 1 Set_Transform (105, 210, 28)
 model Set_Transform (0, 0, 0)
@@ -134,7 +133,6 @@ mainview 64
 mainview 64's +0x24 0
 mainview 7C
 mainview 64
-gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 check Do_Frame returns 0 and sets the clock from Unknown_Get_Ticks: ok
 check SIMPLE_POSITIONAL_UPDATE 8 (time 1000) replaced it with the simple state (type 3): ok
@@ -165,7 +163,6 @@ mainview 64
 mainview 64's +0x24 0
 mainview 7C
 mainview 64
-gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 check a second SIMPLE packet (time 2000) updates the simple state in place: ok
 frame at 4500
@@ -188,7 +185,6 @@ mainview 64
 mainview 64's +0x24 0
 mainview 7C
 mainview 64
-gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
   model row 0: 1.0000 0.0000 0.0000 -50.0000
   model row 1: 0.0000 1.0000 0.0000 -15.0000
@@ -244,13 +240,11 @@ mainview 64
 mainview 64's +0x24 0
 mainview 7C
 mainview 64
-gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 check CHANGE_BASE_ASSET 38 (base asset 901, scale 1): the same object holds base asset 901's model (NAME ship_test2): ok
 check the old model was released and deleted: ok
 check at clock 5000 the new model follows the second packet: ok
 msg 5 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4000
 mainview remove 4000
 model 8 'ship_test2' deleted
@@ -285,12 +279,10 @@ check type 28's constructor (0x70E5A0): no target, no parent, no bone, +0x1D0 1.
 msg 3 SET_TARGET (25) size 12: cpacket.cpp's handler
 check SET_TARGET 25 (target 4100 for object 4200): type 28's 0x70E750 stores the target and clears +0x1D0: ok
 msg 4 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4100
 mainview remove 4100
 model 15 'ship_test' deleted
 msg 5 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4200
 mainview remove 4200
 model 16 'ship_test2' deleted
@@ -883,7 +875,6 @@ model 64 Set_LOD_Bias 1e+009
 msg 271 CLIENT_SHIP (71) size 8: cpacket.cpp's handler
 state ship id 48900994
 msg 272 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
-gen SClientUnknown1394Class::SClientUnknown1394Class
 gen BridgeInterfaceClass::Unknown_53B7A0
 msg 273 COLORIZATION (17) size 138: cpacket.cpp's handler
 msg 274 DECAL (16) size 58: cpacket.cpp's handler
@@ -1859,7 +1850,6 @@ mainview 7C
 mainview 64
 msg 768 AUX_DATA (27) size 35: cpacket.cpp's handler
 msg 769 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
-gen SClientUnknown1394Class::SClientUnknown1394Class
 msg 770 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
 asset manager +0x78 'eff_1870': not loaded
 asset manager Load_3D_Assets 'eff_1870.w3d'
@@ -2009,7 +1999,6 @@ msg 837 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 838 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 839 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 840 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 38957
 mainview remove 38957
 model 175 'missing' deleted
@@ -2134,7 +2123,6 @@ msg 897 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 898 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 899 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 900 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 39074
 mainview remove 39074
 model 21 'ship_14' deleted
@@ -2235,7 +2223,6 @@ msg 951 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 952 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 953 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 954 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 41213
 mainview remove 41213
 model 210 'ship_1028' deleted
@@ -2285,7 +2272,6 @@ msg 975 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 976 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 977 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 978 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 43912
 mainview remove 43912
 model 222 'ship_1028' deleted
@@ -2437,7 +2423,6 @@ check FORMATION 65 for the avatar 4302: the type-4 state (0x7171C0) with leader 
 msg 6 FORMATION_POSITIONAL_UPDATE (65) size 24: cpacket.cpp's handler
 check a second FORMATION 65 for 4301 updates its state in place (0x716220: a new extrapolator, the blend to the new node): ok
 msg 7 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4300
 mainview remove 4300
 model 261 'ship_test' deleted
@@ -2449,7 +2434,6 @@ model 265 'part_617' deleted
 model 266 'part_73f' deleted
 model 267 'part_73f' deleted
 msg 8 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4301
 mainview remove 4301
 model 268 'ship_test' deleted
@@ -2461,7 +2445,6 @@ model 272 'part_617' deleted
 model 273 'part_73f' deleted
 model 274 'part_73f' deleted
 msg 9 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4302
 mainview remove 4302
 model 275 'ship_test' deleted
@@ -2506,69 +2489,42 @@ recustomize calls: 551C40(cost) 6437A0(7, desc)
 check 129: +0x1A0's 0x61F250 gets the description, the costs and +0x1A4..+0x1B0; 131: +0x19C's 0x551C40 the costs; 133: the interface's 0x6437A0 its int 7 and the description: ok
 == (4h) GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235
 msg 1 ? (235) size 36: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 msg 2 ? (234) size 36: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 1
 GM calls: new 6B2460 +54 +7C(main view, 1) 6B3340(5, 2 strings, 'mission one') new 6AF220 +54 +7C(starbase view, 1) 6B09D0(6, 2 strings, 'mission one') 
 check GM_VIEW_MISSION_LOG 235 makes 0x6B2460's interface, loads it and opens it over the main view (0x744B60 false), then 0x6B3340(5, the strings); GM_EDIT_PLAYER_INVENTORY 234 the same with 0x6AF220 over the starbase view (0x744B60 true) and 0x6B09D0: ok
 == (4i) CTA_RESPONSE 189
 msg 1 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 fail_if !group_interface (line 3136)
 check CTA_RESPONSE 189 without a group interface: the FAIL_IF '!group_interface', nothing called: ok
 msg 2 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 fail_if !client (line 1753)
 msg 3 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 fail_if !client (line 1753)
 msg 4 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 msg 5 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 group calls: 
 check CTA_RESPONSE 189: type 14 clears +0x13C0 and calls 0x5981B0, 15 sets it and calls 0x598200(true), 17 passes AvatarID 9 to 0x5982A0, 13 nothing (the player leads no group: 0x74D690 false): ok
 == (4j) TRADE 31, NOTE_CONTENT 184, MESSAGE_CHATSTREAM 95, FIND_MEMBER 83
 msg 1 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 check TRADE 31 without a trade interface: nothing called: ok
 msg 2 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 check TRADE 31 type 0: +0x1134 = PartnerID 44: ok
 msg 3 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 msg 4 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 assert 0 (line 524)
 msg 5 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 assert 0 (line 524)
 msg 6 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 assert 0 (line 524)
 msg 7 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 assert 0 (line 524)
 msg 8 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 assert 0 (line 524)
 msg 9 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 trade calls (main view): +58 +5C 40(0) 40(0) 40(0) 40(0) [2 0 0] [2 1 0] [2 0 0] [2 0 1] [2 0 0] 
 check TRADE 31 in space: types 0-6 to the main view's trade interface (slots +0x58 / +0x5C; 0x5E3130: +0xD8 = 2, the buttons off; 0x5E2F70 / 0x5E3050: +0xDD / +0xDE), 7 ignored, +0x1134 cleared: ok
 msg 10 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 1
 msg 11 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 1
 assert 0 (line 524)
 trade calls (starbase): +58 640110(8) 40(0) 40(0) 40(0) 40(0) 640110(0) 
 check TRADE 31 docked: the starbase view's +0x1A4 and the starbase interface's 0x640110(8) / (0); its count back to 5: ok

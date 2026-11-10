@@ -57,6 +57,7 @@
 #include "..\..\..\app\kernel\kernel.h"
 #include "..\..\..\app\input\input.h"
 #include "..\..\..\app\client\sclient.h"
+#include "..\..\..\app\input\inpdsp.h"	// LoginUnknown0CClass, InputActionClass (Frame's dispatcher)
 #include "..\..\..\app\client\camera_manager.h"
 #include "..\..\..\app\client\option.h"
 #include <new>
@@ -97,7 +98,20 @@ class FontSys : public RefCountClass {};	// ui_line_display.h's text objects, co
 static FILE *Out;
 static int Lines = 0;
 static int Failures = 0;
-bool Stub_744B60 = false;
+// SClient::Unknown_744B60 (sclient.cpp, rebuilt): true when the current view is +0x135C; the tests set the view
+static UIViewClass *View_Before_744B60 = NULL;
+static bool Set_744B60 = false;
+static void Set_View_744B60(SClient *client, bool on)
+{
+	if (on) {
+		if (!Set_744B60) View_Before_744B60 = client->CurrentView;
+		Set_744B60 = true;
+		client->CurrentView = client->Unknown135C;
+	} else if (Set_744B60) {
+		client->CurrentView = View_Before_744B60;
+		Set_744B60 = false;
+	}
+}
 bool Stub_Focused = false;
 // TaskClass::Is_Focused is the real one (kernel.cpp): a fake task on a real KernelClass whose Current_Task is the fake
 // while Stub_Focused is set
@@ -1000,11 +1014,32 @@ static void Trace_Matrix(const char *what, const Matrix3D &tm)
 // (0x737400) then gives the object base asset 901's model, which the next frame moves; REMOVE 7 (0x7362F0)
 // deletes the object and its models. Do_Frame runs with what Init would have set (+0x1198 clear, the main view
 // current, a bridge interface whose +0x14 is 0) and puts it back afterwards.
+// Init's input dispatcher (+0x1270, inpdsp.cpp): Do_Frame's 0x743380 hands it the frame's event first; one record
+// for the empty event, whose action takes it (so the key handler 0x7436A0 is not reached)
+class FrameInputActionClass : public InputActionClass
+{
+public:
+	virtual bool Unknown_08(int data) { Trace("the input dispatcher takes the frame's event"); return(true); }
+};
+static LoginUnknown0CClass *Frame_Dispatcher()
+{
+	static LoginUnknown0CClass *dispatcher = NULL;
+	if (!dispatcher) {
+		dispatcher = new LoginUnknown0CClass;
+		KernelEventClass event;
+		dispatcher->Unknown_429AF0(&event, new FrameInputActionClass, 0, dispatcher);
+	}
+	return(dispatcher);
+}
 static int Frame(SClient *client, unsigned ticks, bool focused)
 {
 	Test_Ticks = ticks;
 	Trace("frame at %u%s", ticks, focused ? ", focused" : "");
-	return(client->Do_Frame(focused));
+	LoginUnknown0CClass *dispatcher = client->Unknown1270;
+	client->Unknown1270 = Frame_Dispatcher();
+	int result = client->Do_Frame(focused);
+	client->Unknown1270 = dispatcher;
+	return(result);
 }
 
 // The server's messages (pkcreate.cpp, pkchangebaseasset.cpp, pkremove.cpp: the raw constructors' order)
@@ -1650,13 +1685,13 @@ static void Test_GM(SClient *client)
 	strings.push_back("mission one");
 	strings.push_back("mission two");
 	GM_Log = "";
-	Stub_744B60 = false;
+	Set_View_744B60(client, false);
 	Memory->Incoming.push_back(Built_Message(&GMViewMissionLogPacketClass(5, strings)));
 	client->Process_Packets();
-	Stub_744B60 = true;
+	Set_View_744B60(client, true);
 	Memory->Incoming.push_back(Built_Message(&GMEditPlayerInventoryPacketClass(6, strings)));
 	client->Process_Packets();
-	Stub_744B60 = false;
+	Set_View_744B60(client, false);
 	Trace("GM calls: %s", GM_Log.c_str());
 	Check(GM_Log == "new 6B2460 +54 +7C(main view, 1) 6B3340(5, 2 strings, 'mission one') new 6AF220 +54 +7C(starbase view, 1) 6B09D0(6, 2 strings, 'mission one') ",
 		"GM_VIEW_MISSION_LOG 235 makes 0x6B2460's interface, loads it and opens it over the main view (0x744B60 false), then 0x6B3340(5, the strings); GM_EDIT_PLAYER_INVENTORY 234 the same with 0x6AF220 over the starbase view (0x744B60 true) and 0x6B09D0");
@@ -1835,8 +1870,8 @@ static void Test_Chat(SClient *client)
 	Check(Trade_Log == "+58 +5C 40(0) 40(0) 40(0) 40(0) [2 0 0] [2 1 0] [2 0 0] [2 0 1] [2 0 0] " && client->Unknown1134 == 0,
 		"TRADE 31 in space: types 0-6 to the main view's trade interface (slots +0x58 / +0x5C; 0x5E3130: +0xD8 = 2, the buttons off; 0x5E2F70 / 0x5E3050: +0xDD / +0xDE), 7 ignored, +0x1134 cleared");
 	Trade_Log = "";
-	Stub_744B60 = true;
 	client->Unknown135C = (UIViewClass *)fake_sbview;
+	Set_View_744B60(client, true);
 	Memory->Incoming.push_back(Trade_Message(45, 0));
 	Memory->Incoming.push_back(Trade_Message(45, 2));
 	client->Process_Packets();
@@ -1844,7 +1879,7 @@ static void Test_Chat(SClient *client)
 	Trace("trade calls (starbase): %s", Trade_Log.c_str());
 	Check(Trade_Log == "+58 640110(8) 40(0) 40(0) 40(0) 40(0) 640110(0) " && *(int *)((char *)fake_starbase + 0x3C) == 5,
 		"TRADE 31 docked: the starbase view's +0x1A4 and the starbase interface's 0x640110(8) / (0); its count back to 5");
-	Stub_744B60 = false;
+	Set_View_744B60(client, false);
 	client->Unknown135C = saved_view;
 	*(void **)(main + 0x1E4) = saved_trade;
 

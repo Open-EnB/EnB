@@ -52,7 +52,7 @@ public:
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C (InterfaceClass's)  // NAME 1 [view, arg]: InterfaceClass's
 	char Unknown04[0x38 - 0x04];
 	RefCountClass Ref;									// +0x38 (InterfaceClass's RefCountClass)  // NAME 1: neutral (D10)
-	void Unknown_630070(UIViewClass *view, int slot, bool a, bool b);	// 0x630070 (the slot's information shown)  // NAME 1 [view, slot, a, b]: what 0x62E8B0 passes
+	bool Unknown_630070(UIViewClass *view, int slot, bool a, bool b);	// 0x630070 (the slot's information shown)  // NAME 1 [view, slot, a, b]: what 0x62E8B0 passes
 };
 UISlotInfoClass *Unknown_630280(SClient *client, SlotDataClass *slot_data);	// 0x630280 (ui_slot_info.cpp: an item's examination or a skill's information)  // NAME 1 [client, slot_data]: what 0x62DF90 passes
 

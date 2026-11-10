@@ -47,7 +47,7 @@ public:
 	virtual void Unknown_80(UIScutBarClass *bar);		// +0x80 (0x611BD0: off the bar)  // NAME 1 [bar]: neutral
 	virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90();
 	virtual void Unknown_94(RenderObjClass *object);	// +0x94 0x66C000 (the bank's constructor: its 'bank_%d' model)  // NAME 1 [object]: ui_group.cpp's
-	virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0(); static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...); static void Set_Tooltip_Name(GadgetClass *gadget, const char *format, ...);	// 0x65EFB0 / 0x65F340 (gadget.h)
+	virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0(); static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...); static void Set_Tooltip_Name(GadgetClass *gadget, const char *format, ...); static GadgetClass *Unknown_65F5F0(class GadgetListManagerClass *manager, bool a, bool b);	// 0x65EFB0 / 0x65F340 (gadget.h)
 	virtual void Unknown_A4(GadgetClass *gadget);		// +0xA4 (the proxy buttons: the shortcut shown)  // NAME 1 [gadget]: neutral
 
 	char Unknown04[0x10 - 0x04];						// +0x04
@@ -60,7 +60,7 @@ public:
 };
 
 
-GadgetClass *Unknown_65F5F0(int source, int a, int b);	// 0x65F5F0 (cdecl, gadget.cpp; SClient +0x1278, 1, 1)  // NAME 1 [source, a, b]: neutral
+
 bool Unknown_42EC60(int key, int arg);					// 0x42EC60 (cdecl: the input object *0xBDAA70's slot +0x0C; 0x610980 passes 0x12, 0)  // NAME 1 [key, arg]: neutral
 
 // gadget.cpp's button gadget (100 bytes, constructor 0x675240, destructor 0x675350), the bank's base
@@ -847,7 +847,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 GadgetClass *Unknown_6123F0(UIViewClass *view)
 {
 	SClient *client = ((Unknown65B810ViewClass *)view->Unknown_20())->Client;
-	GadgetClass *gadget = Unknown_65F5F0(client->Unknown1278, 1, 1);
+	GadgetClass *gadget = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)client->Unknown1278, true, true);
 	if (gadget) {
 		return(gadget->Unknown_08());
 	}

@@ -37,7 +37,7 @@ public:
 	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
 	virtual void Unknown_84(); virtual void Unknown_88();
 	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
-	virtual void Unknown_90(); static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h)
+	virtual void Unknown_90(); static void Destroy(GadgetClass *gadget); static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h)
 	virtual void Unknown_94(RenderObjClass *object);	// +0x94 (0x598370: the formation model, or NULL)  // NAME 1 [object]: neutral
 	virtual void Unknown_98(FontSys *style);		// +0x98 (0x594040: the button's font style)  // NAME 1 [style]: neutral
 	void Unknown_6603A0(bool indicator, UIViewClass *view);	// 0x6603A0  // NAME 1 [indicator, view]: gadget.h's
@@ -48,7 +48,7 @@ public:
 	unsigned int Unknown2CLow : 11;						// +0x2C
 	unsigned int Unknown2C800 : 1;						// +0x2C bit 0x800 (0x598200 sets it with 0x6603A0, clears it with 0x6607D0)
 };
-void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
+
 
 
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
@@ -347,7 +347,7 @@ UIGroupMemberClass::~UIGroupMemberClass()
 	}
 	if (Unknown3C) {
 		Get_Interface()->Unknown64.Unknown_687150(Unknown3C);
-		Unknown_65EED0(Unknown3C);
+		GadgetClass::Destroy(Unknown3C);
 		Unknown3C = NULL;
 	}
 	if (Unknown38) {
@@ -403,22 +403,22 @@ void UIGroupMemberClass::Unknown_5934A0()
 	G_ASSERT(Get_Interface()->Is_Partially_Deactivated() || !Get_Interface()->Is_Active());
 	if (Unknown40) {
 		Get_Interface()->Unknown64.Unknown_687150(Unknown40);
-		Unknown_65EED0(Unknown40);
+		GadgetClass::Destroy(Unknown40);
 		Unknown40 = NULL;
 	}
 	if (Unknown44) {
 		Get_Interface()->Unknown64.Unknown_687150(Unknown44);
-		Unknown_65EED0(Unknown44);
+		GadgetClass::Destroy(Unknown44);
 		Unknown44 = NULL;
 	}
 	if (Unknown48) {
 		Get_Interface()->Unknown64.Unknown_687150(Unknown48);
-		Unknown_65EED0(Unknown48);
+		GadgetClass::Destroy(Unknown48);
 		Unknown48 = NULL;
 	}
 	if (Unknown4C) {
 		Get_Interface()->Unknown64.Unknown_687150(Unknown4C);
-		Unknown_65EED0(Unknown4C);
+		GadgetClass::Destroy(Unknown4C);
 		Unknown4C = NULL;
 	}
 	if (Unknown34) {
@@ -457,7 +457,7 @@ void UIGroupMemberClass::Unknown_5935C0()
 			Get_Interface()->Unknown_5C();
 			if (Unknown3C) {
 				Get_Interface()->Unknown64.Unknown_687150(Unknown3C);
-				Unknown_65EED0(Unknown3C);
+				GadgetClass::Destroy(Unknown3C);
 				Unknown3C = NULL;
 			}
 			if (Unknown38) {
@@ -502,7 +502,7 @@ bool UIGroupMemberClass::Unknown_593750()
 // 0x593790
 void UIGroupMemberClass::Unknown_593790()
 {
-	if (Unknown3C) { Get_Interface()->Unknown64.Unknown_687150(Unknown3C); Unknown_65EED0(Unknown3C); Unknown3C = NULL; }
+	if (Unknown3C) { Get_Interface()->Unknown64.Unknown_687150(Unknown3C); GadgetClass::Destroy(Unknown3C); Unknown3C = NULL; }
 	if (Unknown38) { Unknown38->Remove(); Unknown38 = NULL; }
 	if (Unknown2C) { Unknown2C->Unknown_5DCAE0(); delete Unknown2C; Unknown2C = NULL; }
 	Unknown30 = NULL;
@@ -546,7 +546,7 @@ void UIGroupMemberClass::Unknown_5938A0(const char *text, float time, int index)
 		if (Unknown28) { delete Unknown28; Unknown28 = NULL; }
 		Unknown28 = nstrdup(text);
 	}
-	if (Unknown3C) { Get_Interface()->Unknown64.Unknown_687150(Unknown3C); Unknown_65EED0(Unknown3C); Unknown3C = NULL; }
+	if (Unknown3C) { Get_Interface()->Unknown64.Unknown_687150(Unknown3C); GadgetClass::Destroy(Unknown3C); Unknown3C = NULL; }
 	if (Unknown38) { Unknown38->Remove(); Unknown38 = NULL; }
 	Unknown38 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown28));
 	if (Unknown38 != NULL && Unknown30 != NULL) {
@@ -619,7 +619,7 @@ UIGroupClass::~UIGroupClass()
 	Unknown_5C();
 	for (int i = 0; i < 9; i++) {
 		if (Unknown0C0[i]) {
-			Unknown_65EED0(Unknown0C0[i]);
+			GadgetClass::Destroy(Unknown0C0[i]);
 			Unknown0C0[i] = NULL;
 		}
 	}

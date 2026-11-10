@@ -16,7 +16,7 @@
 
 extern const int Unknown_B9F38C;	// the mesh's polys  // NAME 1: neutral
 extern const int Unknown_B9F390;	// the mesh's vertices  // NAME 1: neutral
-float Unknown_79B6B0();			// 0x79B6B0: a constant  // NAME 1: neutral
+class CameraManagerClass { public: static float Unknown_79B6B0(); };	// camera_manager.h's 0x79B6B0 (a constant), as far as this file calls it
 const char *Unknown_7BF4C0(ClientObjectClass *co);
 float Unknown_7BF630();
 
@@ -266,7 +266,7 @@ void StarmapDataClass::Create_Mesh()
 	robj->Set_Transform(rotation);
 	SphereClass sphere;
 	if (is_ship) {
-		float radius = Unknown_79B6B0();
+		float radius = CameraManagerClass::Unknown_79B6B0();
 		sphere.Center.Set(0, 0, 0);
 		sphere.Radius = radius * 0.70710677f * 1.5;
 	} else {

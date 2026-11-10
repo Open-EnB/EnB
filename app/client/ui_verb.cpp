@@ -18,7 +18,7 @@
 #include "verbmanager.h"
 #include "ui_verb.h"
 
-void Unknown_496AE0(RenderObjClass *robj, int arg);	// 0x496AE0  // NAME 1 [robj, arg]: what ui_group.cpp passes
+void Unknown_496AE0(RenderObjClass *robj, bool arg);	// 0x496AE0  // NAME 1 [robj, arg]: what ui_group.cpp passes
 
 #include "camera_manager.h"
 

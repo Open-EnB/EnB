@@ -27,8 +27,8 @@ class Unknown6A90A0Interface { public: virtual void Unknown_00(); virtual void U
 
 
 // ro_funcs.cpp's
-void Unknown_496AE0(RenderObjClass *robj, int a);	TextureClass *Unknown_4960C0(RenderObjClass *robj, int a);	// NAME 1: neutral (D10); NAME 1 [robj, a]: neutral
-void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int a);	void Unknown_496730(RenderObjClass *robj, int a, bool b);	// NAME 1: neutral (D10); NAME 1 [robj, texture, a, b]: neutral
+void Unknown_496AE0(RenderObjClass *robj, bool a);	TextureClass *Unknown_4960C0(RenderObjClass *robj, int a);	// NAME 1: neutral (D10); NAME 1 [robj, a]: neutral
+bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int a);	void Unknown_496730(RenderObjClass *robj, int a, bool b);	// NAME 1: neutral (D10); NAME 1 [robj, texture, a, b]: neutral
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// NAME 1: neutral (D10); NAME 1 [robj, a, b, c]: neutral
 
 void Unknown_6A93E0(const char *value, std::string &string);	const char *Unknown_6A9660(const char *serial_string, std::string &string);	// NAME 1: neutral (D10)
