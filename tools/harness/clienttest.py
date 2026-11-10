@@ -113,6 +113,9 @@ def build(out):
                 f.write('#define UIPlayerOptClass Clienttest_UIPlayerOptClass\n'
                         '#define UIRadioListClass Clienttest_UIRadioListClass\n'
                         '#define UIRadioAdminClass Clienttest_UIRadioAdminClass\n')
+                # the starbase interface's handlers (ui_starbase.obj, real since run 2026-11-09b, which the link pulls
+                # in) go to clienttest.cpp's logging copies: the fake view's +0x60 is no real interface
+                f.write(''.join('#define Unknown_%s Clienttest_Unknown_%s\n' % (a, a) for a in ('63CF30', '63E5C0', '6437A0', '640110')))
             if p.endswith('ui_verb.cpp'):
                 f.write('#define Unknown_658F40 Real_Unknown_658F40\n')
             if p.endswith('ui_talkt.cpp'):

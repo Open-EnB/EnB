@@ -4189,3 +4189,35 @@ void UIStarbaseClass::Unknown_6437A0(int unknown, AvatarDescClass *desc)
 		Unknown_63CA50(unknown, tm, flags);
 	}
 }
+
+// Out of line as the client's (auto-inlined into the callers above otherwise, though defined after them)
+#pragma auto_inline(off)
+// NOT EXACT: 0x643DF0, functional (the client's loop re-tests the vector's start each pass; SB1)
+// 0x643DF0 (SGI's hashtable::begin, out of line)
+UIStarbaseUnknownD4TableClass::iterator UIStarbaseUnknownD4TableClass::begin()
+{
+	for (unsigned int n = 0; n < Buckets.size(); ++n) {
+		if (Buckets[n]) {
+			iterator it;
+			it.Cur = Buckets[n];
+			it.Table = this;
+			return(it);
+		}
+	}
+	return(end());
+}
+
+// 0x643E60 (SGI's hashtable::find, out of line)
+UIStarbaseUnknownD4TableClass::iterator UIStarbaseUnknownD4TableClass::find(const unsigned int &key)
+{
+	unsigned int n = Bucket_Of_Key(key);
+	NodeStruct *first;
+	for (first = Buckets[n]; first && !(first->Key == key); first = first->Next) {
+	}
+	iterator it;
+	it.Cur = first;
+	it.Table = this;
+	return(it);
+}
+
+#pragma auto_inline(on)

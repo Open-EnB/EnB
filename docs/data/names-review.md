@@ -21548,10 +21548,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_658F40` | `tests/clienttest/clienttest.cpp:1424` | untagged neutral name (D10) |
 | 1 | `Unknown_81F780` | `tests/clienttest/clienttest.cpp:1428` | untagged neutral name (D10) |
 | 1 | `Unknown_81F890` | `tests/clienttest/clienttest.cpp:1451` | untagged neutral name (D10) |
-| 1 | `Unknown_63CF30` | `tests/clienttest/clienttest.cpp:1469` | untagged neutral name (D10) |
-| 1 | `Unknown_63E5C0` | `tests/clienttest/clienttest.cpp:1470` | untagged neutral name (D10) |
-| 1 | `Unknown_6437A0` | `tests/clienttest/clienttest.cpp:1471` | untagged neutral name (D10) |
-| 1 | `Unknown_640110` | `tests/clienttest/clienttest.cpp:1472` | untagged neutral name (D10) |
+| 1 | `Clienttest_Unknown_63CF30` | `tests/clienttest/clienttest.cpp:1469` | untagged neutral name (D10) |
+| 1 | `Clienttest_Unknown_63E5C0` | `tests/clienttest/clienttest.cpp:1470` | untagged neutral name (D10) |
+| 1 | `Clienttest_Unknown_6437A0` | `tests/clienttest/clienttest.cpp:1471` | untagged neutral name (D10) |
+| 1 | `Clienttest_Unknown_640110` | `tests/clienttest/clienttest.cpp:1472` | untagged neutral name (D10) |
 | 1 | `Unknown135C` | `tests/clienttest/clienttest.cpp:1515` | untagged neutral name (D10) |
 | 1 | `SBaseViewUnknown19CClass` | `tests/clienttest/clienttest.cpp:1555` | untagged neutral name (D10) |
 | 1 | `Unknown_551C40` | `tests/clienttest/clienttest.cpp:1555` | untagged neutral name (D10) |

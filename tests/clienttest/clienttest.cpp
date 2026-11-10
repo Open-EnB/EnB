@@ -1466,19 +1466,19 @@ static void Test_Verbs(SClient *client)
 class UIStarbaseClass
 {
 public:
-	void Unknown_63CF30(int avatar_id, int new_room);
-	void Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);
-	void Unknown_6437A0(int unknown, AvatarDescClass *desc);
-	void Unknown_640110(int state);
+	void Clienttest_Unknown_63CF30(int avatar_id, int new_room);
+	void Clienttest_Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action);
+	void Clienttest_Unknown_6437A0(int unknown, AvatarDescClass *desc);
+	void Clienttest_Unknown_640110(int state);
 };
 static std::string Starbase_Log;
-void UIStarbaseClass::Unknown_63CF30(int avatar_id, int new_room)
+void UIStarbaseClass::Clienttest_Unknown_63CF30(int avatar_id, int new_room)
 {
 	char b[64];
 	sprintf(b, "63CF30(%d, %d) ", avatar_id, new_room);
 	Starbase_Log += b;
 }
-void UIStarbaseClass::Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action)
+void UIStarbaseClass::Clienttest_Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action)
 {
 	char b[96];
 	sprintf(b, "63E5C0(%d, %g, (%g %g %g), %d) ", avatar_id, orient, position->X, position->Y, position->Z, action);
@@ -1555,7 +1555,7 @@ static void Test_Starbase(SClient *client)
 class SBaseViewUnknown19CClass { public: void Unknown_551C40(RecustomizationCostClass *cost); };
 static std::string Recustomize_Log;
 void SBaseViewUnknown19CClass::Unknown_551C40(RecustomizationCostClass *cost) { Recustomize_Log += cost ? "551C40(cost) " : "551C40(NULL) "; }
-void UIStarbaseClass::Unknown_6437A0(int unknown, AvatarDescClass *desc)
+void UIStarbaseClass::Clienttest_Unknown_6437A0(int unknown, AvatarDescClass *desc)
 {
 	char t[64];
 	sprintf(t, "6437A0(%d, %s) ", unknown, desc ? "desc" : "NULL");
@@ -1718,7 +1718,7 @@ static void Test_CTA(SClient *client)
 // MESSAGE_CHATSTREAM: no avatar for ShipID, nothing happens (0x74C840 finds none). FIND_MEMBER: the chat panel's
 // +0xF8 interface's slot +0x90 result's +0xA8 (ui_groupfind.cpp) gets the packet (0x59A400) when its +0x7C is set.
 static std::string Trade_Log;
-void UIStarbaseClass::Unknown_640110(int state) { char b[32]; sprintf(b, "640110(%d) ", state); Trade_Log += b; }
+void UIStarbaseClass::Clienttest_Unknown_640110(int state) { char b[32]; sprintf(b, "640110(%d) ", state); Trade_Log += b; }
 static void *Trade_Table[64];
 static void Trade_58_Slot() { Trade_Log += "+58 "; }
 static void Trade_5C_Slot() { Trade_Log += "+5C "; }
