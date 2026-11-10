@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-708 entries in 216 files.
+714 entries in 217 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -44,6 +44,12 @@ edit the comments in the code, not this file.
 | `app/client/cammod_chase.h:30` | `?` | mention | NOT EXACT) // NAME 2 [des_quat, des_pos, obj]: its FAIL_IFs |
 | `app/client/chat_window.cpp:299` | `ChatWindowClass::Unknown_67F7F0` | marker | NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy) |
 | `app/client/chat_window_history.cpp:216` | `ChatWindowHistoryClass::Unknown_682770` | marker | NOT EXACT: the walk back: the client keeps the mask 2 in al and an unrotated loop (0x6827BB); this rotates it |
+| `app/client/chatgadg.cpp:30` | `ChatGadgetClass::ChatGadgetClass` | marker | NOT EXACT: functional (D64) |
+| `app/client/chatgadg.cpp:306` | `ChatGadgetClass::Unknown_65CCD0` | marker | NOT EXACT: functional (D64) |
+| `app/client/chatgadg.cpp:470` | `ChatGadgetClass::Unknown_65DE90` | marker | NOT EXACT: functional (D64) |
+| `app/client/chatgadg.cpp:610` | `ChatGadgetClass::Unknown_65E250` | marker | NOT EXACT: functional (D64) |
+| `app/client/chatgadg.cpp:671` | `ChatGadgetClass::Unknown_65E5E0` | marker | NOT EXACT: functional (D64) |
+| `app/client/chatgadg.cpp:725` | `ChatGadgetClass::Unknown_65E840` | marker | NOT EXACT: functional (D64) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; six forms; 'Null Item' passed as a plain literal brings out the client's three string COMDATs 0x729260..0x7292D0; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |

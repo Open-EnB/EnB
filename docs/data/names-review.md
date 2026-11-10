@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 176 |
+| 5 | the client names it | 179 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1677 |
-| 2 | describes what the code does | 3896 |
-| 1 | neutral placeholder | 21672 |
+| 3 | by convention from a client-named file or sibling | 1679 |
+| 2 | describes what the code does | 3900 |
+| 1 | neutral placeholder | 21733 |
 
 ## For review (score 3 and below)
 
@@ -1493,6 +1493,72 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown54` | `app/client/chat_window_history.h:87` | neutral (D10) |
 | 1 | `Unknown58` | `app/client/chat_window_history.h:88` | neutral (D10) |
 | 1 | `Unknown5C` | `app/client/chat_window_history.h:89` | neutral (D10) |
+| 1 | `Unknown_8B44E0` | `app/client/chatgadg.cpp:23` | neutral placeholder (D10) |
+| 1 | `Unknown_B08CA8` | `app/client/chatgadg.cpp:26` | neutral (D10), as ui_log.cpp |
+| 1 | `std:` | `app/client/chatgadg.cpp:28` | neutral (D10): what it holds |
+| 1 | `Unknown7C` | `app/client/chatgadg.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/chatgadg.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/chatgadg.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/chatgadg.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_65DE90` | `app/client/chatgadg.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_565120` | `app/client/chatgadg.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_565390` | `app/client/chatgadg.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_65CCD0` | `app/client/chatgadg.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_74` | `app/client/chatgadg.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown148` | `app/client/chatgadg.cpp:314` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `app/client/chatgadg.cpp:321` | untagged neutral name (D10) |
+| 1 | `Unknown_74C840` | `app/client/chatgadg.cpp:328` | untagged neutral name (D10) |
+| 1 | `Unknown_781760` | `app/client/chatgadg.cpp:330` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/chatgadg.cpp:331` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/chatgadg.cpp:332` | untagged neutral name (D10) |
+| 1 | `Unknown_565BA0` | `app/client/chatgadg.cpp:332` | untagged neutral name (D10) |
+| 1 | `Unknown_878D90` | `app/client/chatgadg.cpp:333` | untagged neutral name (D10) |
+| 1 | `Unknown_ChatStreamClass` | `app/client/chatgadg.cpp:333` | untagged neutral name (D10) |
+| 1 | `Unknown77E3F0Class` | `app/client/chatgadg.cpp:333` | untagged neutral name (D10) |
+| 1 | `Unknown_7817E0` | `app/client/chatgadg.cpp:333` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/chatgadg.cpp:334` | untagged neutral name (D10) |
+| 1 | `Unknown_744B60` | `app/client/chatgadg.cpp:348` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/chatgadg.cpp:354` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/chatgadg.cpp:356` | untagged neutral name (D10) |
+| 1 | `Unknown_5682C0` | `app/client/chatgadg.cpp:386` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/chatgadg.cpp:387` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/chatgadg.cpp:390` | untagged neutral name (D10) |
+| 1 | `Unknown_568440` | `app/client/chatgadg.cpp:396` | untagged neutral name (D10) |
+| 1 | `Unknown_74D570` | `app/client/chatgadg.cpp:406` | untagged neutral name (D10) |
+| 1 | `Unknown_728300` | `app/client/chatgadg.cpp:414` | untagged neutral name (D10) |
+| 1 | `Unknown_564F50` | `app/client/chatgadg.cpp:485` | untagged neutral name (D10) |
+| 1 | `Unknown_5646A0` | `app/client/chatgadg.cpp:489` | untagged neutral name (D10) |
+| 1 | `Unknown3B` | `app/client/chatgadg.cpp:507` | untagged neutral name (D10) |
+| 1 | `Unknown_65E840` | `app/client/chatgadg.cpp:510` | untagged neutral name (D10) |
+| 1 | `Unknown_567540` | `app/client/chatgadg.cpp:522` | untagged neutral name (D10) |
+| 1 | `Unknown_65E5E0` | `app/client/chatgadg.cpp:525` | untagged neutral name (D10) |
+| 1 | `Unknown_65E520` | `app/client/chatgadg.cpp:529` | untagged neutral name (D10) |
+| 1 | `Unknown_65E3E0` | `app/client/chatgadg.cpp:534` | untagged neutral name (D10) |
+| 1 | `Unknown_65E250` | `app/client/chatgadg.cpp:546` | untagged neutral name (D10) |
+| 1 | `Unknown_28` | `app/client/chatgadg.cpp:661` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/chatgadg.cpp:676` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/chatgadg.cpp:681` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/chatgadg.cpp:682` | untagged neutral name (D10) |
+| 1 | `Unknown_65E7C0` | `app/client/chatgadg.cpp:703` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A40` | `app/client/chatgadg.cpp:734` | untagged neutral name (D10) |
+| 1 | `Unknown_5658B0` | `app/client/chatgadg.cpp:746` | untagged neutral name (D10) |
+| 1 | `Unknown_65EBF0` | `app/client/chatgadg.cpp:781` | untagged neutral name (D10) |
+| 1 | `Unknown_6AA340` | `app/client/chatgadg.cpp:785` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/chatgadg.h:32` | what ui_chat_panel.cpp passes |
+| 1 | `Unknown_2C` | `app/client/chatgadg.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_65CCD0` | `app/client/chatgadg.h:36` | untagged neutral name (D10) |
+| 1 | `event` | `app/client/chatgadg.h:37` | what slot +0x2C passes |
+| 1 | `Unknown_65DE90` | `app/client/chatgadg.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_65E250` | `app/client/chatgadg.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_65E3E0` | `app/client/chatgadg.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_65E520` | `app/client/chatgadg.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_65E5E0` | `app/client/chatgadg.h:41` | untagged neutral name (D10) |
+| 1 | `reply` | `app/client/chatgadg.h:42` | what 0x744E70's argument means |
+| 1 | `Unknown_65E7C0` | `app/client/chatgadg.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_65E840` | `app/client/chatgadg.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_65EBF0` | `app/client/chatgadg.h:44` | untagged neutral name (D10) |
+| 1 | `Client` | `app/client/chatgadg.h:46` | neutral (D10), as InterfaceClass's +0x40 |
+| 1 | `Unknown7C` | `app/client/chatgadg.h:51` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `app/client/client.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown11` | `app/client/client.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/client.cpp:27` | untagged neutral name (D10) |
@@ -10697,7 +10763,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Peek_Unknown30` | `app/client/ui_chat_panel.cpp:179` | neutral (D10) |
 | 1 | `robj` | `app/client/ui_chat_panel.cpp:181` | neutral |
 | 1 | `Unknown_497300` | `app/client/ui_chat_panel.cpp:181` | untagged neutral name (D10) |
-| 1 | `Unknown65BFD0Class` | `app/client/ui_chat_panel.cpp:185` | neutral (D10) |
 | 1 | `UnknownA0` | `app/client/ui_chat_panel.cpp:195` | untagged neutral name (D10) |
 | 1 | `UnknownD8` | `app/client/ui_chat_panel.cpp:196` | untagged neutral name (D10) |
 | 1 | `UnknownDC` | `app/client/ui_chat_panel.cpp:197` | untagged neutral name (D10) |
@@ -11020,8 +11085,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown88` | `app/client/ui_chat_panel_base.h:40` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/ui_chat_panel_base.h:41` | untagged neutral name (D10) |
 | 1 | `Unknown9C` | `app/client/ui_chat_panel_base.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown65BFD0Class` | `app/client/ui_chat_window.cpp:21` | neutral (D10) |
-| 1 | `text` | `app/client/ui_chat_window.cpp:24` | neutral |
+| 1 | `reply` | `app/client/ui_chat_window.cpp:24` | as chatgadg.h |
 | 1 | `Unknown_65E7C0` | `app/client/ui_chat_window.cpp:24` | untagged neutral name (D10) |
 | 1 | `buffer, size, cursorpos, insert` | `app/client/ui_chat_window.cpp:25` | what 0x571470 does with them |
 | 1 | `Unknown_65EBF0` | `app/client/ui_chat_window.cpp:25` | untagged neutral name (D10) |
@@ -11100,7 +11164,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_765DF0` | `app/client/ui_chat_window.cpp:616` | untagged neutral name (D10) |
 | 1 | `ui_chat_window.h` | `app/client/ui_chat_window.h:4` | provisional header name for ui_chat_window.cpp |
 | 1 | `Unknown67D430Class` | `app/client/ui_chat_window.h:15` | untagged neutral name (D10) |
-| 1 | `Unknown65BFD0Class` | `app/client/ui_chat_window.h:16` | untagged neutral name (D10) |
 | 1 | `Unknown67D430EntryStruct` | `app/client/ui_chat_window.h:17` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/ui_chat_window.h:20` | untagged neutral name (D10) |
 | 1 | `ChatViewportStruct` | `app/client/ui_chat_window.h:24` | neutral (D10) |
@@ -11122,7 +11185,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_A0` | `app/client/ui_chat_window.h:56` | untagged neutral name (D10) |
 | 1 | `Unknown_A4` | `app/client/ui_chat_window.h:57` | untagged neutral name (D10) |
 | 1 | `Unknown_A8` | `app/client/ui_chat_window.h:58` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/ui_chat_window.h:59` | neutral |
+| 1 | `reply` | `app/client/ui_chat_window.h:59` | as chatgadg.h |
 | 1 | `Unknown_AC` | `app/client/ui_chat_window.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown_B0` | `app/client/ui_chat_window.h:60` | untagged neutral name (D10) |
 | 1 | `text` | `app/client/ui_chat_window.h:61` | neutral |
@@ -11162,7 +11225,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496AE0` | `app/client/ui_chat_window_split.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_B7D938` | `app/client/ui_chat_window_split.cpp:14` | neutral (D10) |
 | 1 | `Unknown67D430Class` | `app/client/ui_chat_window_split.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown65BFD0Class` | `app/client/ui_chat_window_split.cpp:17` | untagged neutral name (D10) |
 | 1 | `UnknownE8` | `app/client/ui_chat_window_split.cpp:19` | untagged neutral name (D10) |
 | 1 | `UnknownEC` | `app/client/ui_chat_window_split.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown118` | `app/client/ui_chat_window_split.cpp:21` | untagged neutral name (D10) |
@@ -11202,7 +11264,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/client/ui_chat_window_split.h:17` | untagged neutral name (D10) |
 | 1 | `client, history, edit, kind` | `app/client/ui_chat_window_split.h:31` | what 0x56C180 passes |
 | 1 | `Unknown67D430Class` | `app/client/ui_chat_window_split.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown65BFD0Class` | `app/client/ui_chat_window_split.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_chat_window_split.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_chat_window_split.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_chat_window_split.h:35` | untagged neutral name (D10) |
@@ -18959,27 +19020,30 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown20` | `app/packets/pkclientchat.cpp:248` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/packets/pkclientchat.cpp:257` | untagged neutral name (D10) |
 | 1 | `pkclientchat` | `app/packets/pkclientchat.h:16` | provisional, pk + the object's chat classes (CLIENT_CHAT 51 first) |
-| 1 | `Unknown0C` | `app/packets/pkclientchat.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/packets/pkclientchat.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/packets/pkclientchat.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/packets/pkclientchat.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/packets/pkclientchat.h:61` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/packets/pkclientchat.h:62` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `app/packets/pkclientchat.h:63` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `app/packets/pkclientchat.h:64` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/packets/pkclientchat.h:85` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/packets/pkclientchat.h:86` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/packets/pkclientchat.h:87` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/packets/pkclientchat.h:88` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/packets/pkclientchat.h:89` | untagged neutral name (D10) |
-| 1 | `std:` | `app/packets/pkclientchat.h:91` | neutral (D10): the member it returns |
-| 1 | `Get_Unknown14` | `app/packets/pkclientchat.h:91` | untagged neutral name (D10) |
-| 1 | `std:` | `app/packets/pkclientchat.h:92` | neutral (D10): the member it returns |
-| 1 | `Get_Unknown54` | `app/packets/pkclientchat.h:92` | untagged neutral name (D10) |
-| 1 | `std:` | `app/packets/pkclientchat.h:93` | neutral (D10): the member it returns |
-| 1 | `Get_Unknown64` | `app/packets/pkclientchat.h:93` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/packets/pkclientchat.h:109` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/packets/pkclientchat.h:110` | untagged neutral name (D10) |
+| 1 | `stream` | `app/packets/pkclientchat.h:57` | what 0x65CCD0 passes |
+| 1 | `Unknown_878D90` | `app/packets/pkclientchat.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_ChatStreamClass` | `app/packets/pkclientchat.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/packets/pkclientchat.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/packets/pkclientchat.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/packets/pkclientchat.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/packets/pkclientchat.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/packets/pkclientchat.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/packets/pkclientchat.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/packets/pkclientchat.h:66` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/packets/pkclientchat.h:67` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/packets/pkclientchat.h:88` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/packets/pkclientchat.h:89` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/packets/pkclientchat.h:90` | untagged neutral name (D10) |
+| 1 | `Unknown78` | `app/packets/pkclientchat.h:91` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/packets/pkclientchat.h:92` | untagged neutral name (D10) |
+| 1 | `std:` | `app/packets/pkclientchat.h:94` | neutral (D10): the member it returns |
+| 1 | `Get_Unknown14` | `app/packets/pkclientchat.h:94` | untagged neutral name (D10) |
+| 1 | `std:` | `app/packets/pkclientchat.h:95` | neutral (D10): the member it returns |
+| 1 | `Get_Unknown54` | `app/packets/pkclientchat.h:95` | untagged neutral name (D10) |
+| 1 | `std:` | `app/packets/pkclientchat.h:96` | neutral (D10): the member it returns |
+| 1 | `Get_Unknown64` | `app/packets/pkclientchat.h:96` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/packets/pkclientchat.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/packets/pkclientchat.h:113` | untagged neutral name (D10) |
 | 1 | `pkclientship` | `app/packets/pkclientship.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown_14` | `app/packets/pkcolorization.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/packets/pkcolorization.cpp:20` | untagged neutral name (D10) |
@@ -21292,10 +21356,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_A4` | `programs/clientpoc/poc_gadget_views.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `programs/clientpoc/poc_gadget_views2.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `programs/clientpoc/poc_gadget_views2.cpp:6` | untagged neutral name (D10) |
-| 1 | `Unknown_42A1A0` | `programs/clientpoc/poc_link.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown_BE56D8` | `programs/clientpoc/poc_link.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_42A1A0` | `programs/clientpoc/poc_link.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_BE56D8` | `programs/clientpoc/poc_link.cpp:31` | untagged neutral name (D10) |
 | 1 | `Unknown_847D20` | `programs/clientpoc/poc_standins.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_846C90` | `programs/clientpoc/poc_standins.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_42A1A0` | `programs/clientpoc/poc_standins.cpp:65` | untagged neutral name (D10) |
 | 1 | `Unknown_497300` | `programs/clientpoc/poc_ui.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_760770` | `programs/clientpoc/poc_ui.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_67A250` | `programs/clientpoc/poc_ui.cpp:42` | untagged neutral name (D10) |
@@ -21357,14 +21422,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown764FD0Class` | `programs/clientpoc/poc_world.cpp:221` | untagged neutral name (D10) |
 | 1 | `Unknown_765DF0` | `programs/clientpoc/poc_world.cpp:221` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:231` | untagged neutral name (D10) |
-| 1 | `Unknown65BFD0Class` | `programs/clientpoc/poc_world.cpp:249` | untagged neutral name (D10) |
-| 1 | `Unknown_65E7C0` | `programs/clientpoc/poc_world.cpp:253` | untagged neutral name (D10) |
-| 1 | `Unknown_65EBF0` | `programs/clientpoc/poc_world.cpp:254` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `programs/clientpoc/poc_world.cpp:255` | untagged neutral name (D10) |
-| 1 | `Unknown_5689D0` | `programs/clientpoc/poc_world.cpp:274` | untagged neutral name (D10) |
-| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:278` | untagged neutral name (D10) |
-| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:279` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:292` | untagged neutral name (D10) |
+| 1 | `Unknown_5689D0` | `programs/clientpoc/poc_world.cpp:253` | untagged neutral name (D10) |
+| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:258` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:271` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
@@ -21851,6 +21912,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Font` | `app/client/chat_window_history.h:71` | calls the splitter's Set_Font |
 | 2 | `Splitter` | `app/client/chat_window_history.h:81` | its class |
 | 2 | `NullLine` | `app/client/chat_window_history.h:82` | 0x682770's not-found return |
+| 2 | `History` | `app/client/chatgadg.h:47` | what it holds |
+| 2 | `HistoryNext` | `app/client/chatgadg.h:48` | what it holds |
+| 2 | `HistoryIndex` | `app/client/chatgadg.h:49` | what it holds |
+| 2 | `QuickMessages` | `app/client/chatgadg.h:50` | what it holds |
 | 2 | `Node` | `app/client/client.h:52` | what it is |
 | 2 | `ID` | `app/client/client.h:54` | what it is |
 | 2 | `Node` | `app/client/client.h:65` | what it is |
@@ -25638,6 +25703,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Last` | `app/client/chat_window_history.h:51` | the assert's Is_Last |
 | 3 | `Null` | `app/client/chat_window_history.h:53` | the assert's Is_Null |
 | 3 | `ChatWindowHistoryClass` | `app/client/chat_window_history.h:59` | the file's name, its asserts' History |
+| 3 | `chatgadg.h` | `app/client/chatgadg.h:20` | header name assumed from the client's ChatGadg.cpp |
+| 3 | `ChatGadgetClass` | `app/client/chatgadg.h:29` | class-from-file (D24) for app\Client\ChatGadg.cpp |
 | 3 | `client.h` | `app/client/client.h:20` | header name assumed from the client's client.cpp |
 | 3 | `EffectObjectClass` | `app/client/client.h:43` | class-from-file (D24) for eff_o.cpp |
 | 3 | `Get_Item_Type` | `app/client/client.h:79` | the assert's |
