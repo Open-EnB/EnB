@@ -13,6 +13,7 @@
 #include "ui_scut_gadgets.h"
 #include "ui_scut.h"
 #include "local_interface_sort.h"
+#include "..\kernel\kernel.h"
 #include "..\shared\g_assert.h"
 
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_inv.cpp declares it)
@@ -33,6 +34,7 @@ public:
 	virtual void Unknown_04();
 	virtual bool Unknown_08();							// +0x08 (a drop onto a gadget)
 	virtual void Unknown_0C();							// +0x0C (the drag dropped)
+	char Unknown04[0x24 - 0x04];
 };
 
 // ui_slot_info.cpp's screen (+0x9C), as far as this file calls it
@@ -63,6 +65,7 @@ public:
 	virtual bool Unknown_10(RObjGadgetClass *gadget, std::string &key);	// +0x10 0x631540  // NAME 2 [gadget, key]: as ui_slot_scut.h's
 	virtual RObjGadgetClass *Unknown_14(const char *key);	// +0x14 0x631270  // NAME 3 [key]: as ui_slot_scut.h's
 	virtual int Unknown_18();							// +0x18 0x6315C0
+	char Unknown48[0x60 - 0x48];
 };
 
 // slot_data_render.cpp's factory, as it declares itself
@@ -98,7 +101,6 @@ SlotDataInterface::SlotDataInterface(UIViewClass *view, int unknown) :
 }
 
 // 0x62DE30
-// NOT EXACT: functional (D64), from the pseudocode
 bool SlotDataInterface::Unknown_9C(int slot, bool arg)
 {
 	return(false);
@@ -140,9 +142,7 @@ SlotDataInterface::SlotDataInterface(SClient *client) :
 
 
 
-
 // 0x62DF90
-// NOT EXACT: functional (D64), from the pseudocode
 void SlotDataInterface::Unknown_54()
 {
 	InterfaceClass::Unknown_54();
@@ -165,8 +165,8 @@ void SlotDataInterface::Unknown_54()
 
 
 
+
 // 0x62E150
-// NOT EXACT: functional (D64), from the pseudocode
 void SlotDataInterface::Unknown_62E150()
 {
 	FAIL_IF(ShortcutUI) return;
@@ -229,43 +229,45 @@ void SlotDataInterface::Unknown_D0()
 
 
 
+
 // 0x62E5D0
-// NOT EXACT: functional (D64), from the pseudocode
 void SlotDataInterface::Slot_Data_Changed(SlotDataEventDataChange *event, SlotDataClass *slot_data)
 {
 	FAIL_IF(!event) return;
 	FAIL_IF(SlotData != slot_data) return;
-	if (event->Value == 1) {
-		Unknown_D0();
-	} else if (event->Value == 2) {
-		Unknown_CC();
+	switch (event->Value) {
+		case 1:
+			Unknown_D0();
+			break;
+		case 2:
+			Unknown_CC();
+			break;
 	}
 }
 
 // 0x62E660
-// NOT EXACT: functional (D64), from the pseudocode
 void SlotDataInterface::Unknown_7C(UIViewClass *view, bool arg)
 {
-	if (View == view) {
-		InterfaceClass::Unknown_7C(view, arg);
-		return;
-	}
-	MainViewClass *main_view = Client->As_Space_Client()->MainView;
-	if (ShortcutUI) {
-		ShortcutUI->Clear_UI();
-	}
-	InterfaceClass::Unknown_7C(view, arg);
-	if (Unknown9C) {
-		Unknown9C->Unknown_7C(NULL, false);
-	}
-	if (ShortcutUI) {
-		if (!view) return;
-		if (view == main_view) {
-			ShortcutUI->Set_UI(Create_Peek((UIScutClass *)main_view->Unknown_514400()));
+	if (View != view) {
+		MainViewClass *main_view = Client->As_Space_Client()->MainView;
+		if (ShortcutUI) {
+			ShortcutUI->Clear_UI();
 		}
-	}
-	if (view) {
-		SlotData->Unknown_6A7860();
+		InterfaceClass::Unknown_7C(view, arg);
+		if (Unknown9C) {
+			Unknown9C->Unknown_7C(NULL, false);
+		}
+		if (ShortcutUI) {
+			if (!view) return;
+			if (view == main_view) {
+				ShortcutUI->Set_UI(Create_Peek((UIScutClass *)main_view->Unknown_514400()));
+			}
+		}
+		if (view) {
+			SlotData->Unknown_6A7860();
+		}
+	} else {
+		InterfaceClass::Unknown_7C(view, arg);
 	}
 }
 
@@ -310,7 +312,7 @@ void SlotDataInterface::Unknown_64()
 // NOT EXACT: functional (D64), from the pseudocode
 bool SlotDataInterface::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *event, unsigned int mask)
 {
-	if ((mask & 0xF0) && (((unsigned short *)event)[1] & 0x1000)) {
+	if ((mask & 0xF0) && event->Up) {
 		if (Unknown_A0(gadget)) {
 			Unknown9C->Unknown_630070(View, gadget->Unknown_670910(), true, false);
 			Client->As_Space_Client()->Unknown_744560(0xE);
@@ -444,14 +446,12 @@ bool SlotDataInterface::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass
 
 
 
-
 // 0x62E940
-// NOT EXACT: functional (D64), from the pseudocode
 bool SlotDataInterface::Unknown_62E940(unsigned int notches, unsigned int notch_size)
 {
 	FAIL_IF(notch_size == 0) return(false);
 	FAIL_IF((VisibleButtons % notch_size) != 0) return(false);
-	if (notches * notch_size - UnknownA8 != 0) {
+	if (notches * notch_size != UnknownA8) {
 		UnknownA8 = -1;
 		return(Unknown_62EAA0(notches, notch_size));
 	}
@@ -504,34 +504,34 @@ bool SlotDataInterface::Unknown_62E9E0(int notches, unsigned int notch_size)
 
 
 
+
 // 0x62EAA0
-// NOT EXACT: functional (D64), from the pseudocode
 bool SlotDataInterface::Unknown_62EAA0(unsigned int notches, unsigned int notch_size)
 {
 	FAIL_IF(notch_size == 0) return(false);
 	FAIL_IF((VisibleButtons % notch_size) != 0) return(false);
 	unsigned int visible = VisibleButtons / notch_size;
 	int top = UnknownA8;
-	unsigned int total = (SlotData->Unknown_6A7990() - 1 + (notch_size - top)) / notch_size;
-	if (visible < total) {
-		total -= visible;
-		if (notches > total) {
-			notches = total;
+	unsigned int rows = (SlotData->Unknown_6A7990() - 1 + (notch_size - top)) / notch_size;
+	if (rows > visible) {
+		rows -= visible;
+		if (notches >= rows) {
+			notches = rows;
 		}
 		if (top == -1) {
-			top = notches * notch_size;
+			UnknownA8 = notches * notch_size;
 		} else {
 			if (notches == 0) {
 				return(false);
 			}
-			top += notches * notch_size;
+			UnknownA8 = notches * notch_size + top;
 		}
-		UnknownA8 = top;
 		Unknown_B0();
 		return(true);
 	}
 	return(false);
 }
+
 
 
 
@@ -580,12 +580,12 @@ void SlotDataInterface::Unknown_B4(int slot, int index)
 }
 
 // 0x62ED40
-// NOT EXACT: functional (D64), from the pseudocode
 void SlotDataInterface::Unknown_B0()
 {
 	int count = Buttons.size();
 	for (int i = 0; i < count; i++) {
-		Unknown_B4(SlotData->Unknown_6A7A00(UnknownA8 + i), i);
+		int slot = SlotData->Unknown_6A7A00(UnknownA8 + i);
+		Unknown_B4(slot, i);
 	}
 	Unknown_C8();
 }

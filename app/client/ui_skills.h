@@ -27,7 +27,7 @@ public:
 	virtual SlotDataGadgetClass *Unknown_AC(RenderObjClass *robj, const int *slot);	// +0xAC 0x62D6A0 (G_ASSERT 'render' l.168: the base's, its render a skill list's)  // NAME 1 [robj, slot]: the base's
 	SkillDataClass *Unknown_62D710();					// 0x62D710 (SlotData's slot +0x14)
 	void Unknown_62D730(SlotDataGadgetClass *gadget);	// 0x62D730 (FAIL_IFs '!skill_render' l.193, '!data' l.195: the ability used)  // NAME 1 [gadget]: neutral
-	void Unknown_62D960(SlotDataGadgetClass *gadget);	// 0x62D960 (FAIL_IFs '!render' l.224, '!srender' l.227: a drag starts)  // NAME 1 [gadget]: neutral
+	void Unknown_62D960(SlotDataGadgetClass *gadget, KernelEventClass *event);	// 0x62D960 (FAIL_IFs '!render' l.224, '!srender' l.227: a drag starts; ret 8, the second unused)  // NAME 1 [gadget, event]: neutral
 	void Unknown_62DA30(SlotDataGadgetClass *gadget);	// 0x62DA30 (FAIL_IFs l.242 / 277: a drop, onto the shortcut bar)  // NAME 1 [gadget]: neutral
 };
 

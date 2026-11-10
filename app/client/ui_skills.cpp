@@ -12,6 +12,7 @@
 #include "ui_scut_gadgets.h"
 #include "..\packets\pkskill.h"
 #include "..\audio\soundlib.h"
+#include "..\kernel\kernel.h"
 #include "..\shared\g_assert.h"
 
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_inv.cpp declares it)
@@ -99,7 +100,7 @@ void UISkillsClass::Unknown_54()
 // NOT EXACT: functional (D64), from the pseudocode
 bool UISkillsClass::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *event, unsigned int mask)
 {
-	unsigned short flags = ((unsigned short *)event)[1];
+	unsigned short flags = event->Flags;
 	bool right = (mask & 0xF0) != 0;
 	if (!(flags & 0x1000)) {
 		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
@@ -123,7 +124,7 @@ bool UISkillsClass::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *ev
 				Unknown_62DA30(gadget);
 				return(true);
 			}
-			Unknown_62D960(gadget);
+			Unknown_62D960(gadget, event);
 		} else if (flags & 0x1000) {
 			Unknown_62D730((SlotDataGadgetClass *)gadget->Unknown_A4());
 			return(true);
@@ -131,7 +132,6 @@ bool UISkillsClass::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *ev
 	}
 	return(true);
 }
-
 
 
 
@@ -159,16 +159,13 @@ void UISkillsClass::Unknown_A4(std::string &name, int index, int arg)
 }
 
 
+
 // 0x62D6A0
-// NOT EXACT: functional (D64), from the pseudocode
 SlotDataGadgetClass *UISkillsClass::Unknown_AC(RenderObjClass *robj, const int *slot)
 {
 	SlotDataGadgetClass *gadget = SlotDataInterface::Unknown_AC(robj, slot);
 	SkillRenderClass *render = Unknown_6A7380(gadget);
-	G_ASSERT(render);
-	if (render) {
-		render->Unknown38 = 2;
-	}
+	if (render) render->Unknown38 = 2; else G_ASSERT(render);
 	return(gadget);
 }
 
@@ -177,6 +174,9 @@ SkillDataClass *UISkillsClass::Unknown_62D710()
 {
 	return(SlotData->Unknown_14());
 }
+
+
+
 
 
 
@@ -215,11 +215,11 @@ void UISkillsClass::Unknown_62D730(SlotDataGadgetClass *gadget)
 
 
 // 0x62D960
-// NOT EXACT: functional (D64), from the pseudocode
-void UISkillsClass::Unknown_62D960(SlotDataGadgetClass *gadget)
+void UISkillsClass::Unknown_62D960(SlotDataGadgetClass *gadget, KernelEventClass *event)
 {
 	if (((UISkillsViewUnknown44Struct *)View->Unknown_44())->Unknown2C == NULL) {
-		SlotDrag->Unknown_685500(gadget->Unknown_670910(), 1, false);
+		int slot = gadget->Unknown_670910();
+		SlotDrag->Unknown_685500(slot, 1, false);
 		SlotDataRenderClass *render = SlotDrag->Unknown18;
 		FAIL_IF(!render) return;
 		SkillRenderClass *srender = render->Unknown_20();

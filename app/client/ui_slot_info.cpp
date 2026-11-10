@@ -16,6 +16,7 @@ public:
 	UISkillInfoClass(LineDisplayClientClass *client, SkillDataClass *skill);	// 0x62B930  // NAME 1 [client, skill]: what 0x630280 passes
 	virtual UISlotInfoItemClass *Unknown_90();
 	virtual bool Unknown_94();
+	char UnknownB0[0xCC - 0xB0];
 };
 
 UISlotInfoClass *UISlotInfoClass::_ActiveInterface = NULL;	// 0xBE5E5C  // NAME 3: the asserts' '_ActiveInterface'
@@ -27,7 +28,6 @@ UISlotInfoClass::UISlotInfoClass(LineDisplayClientClass *client, const char *nam
 {
 	Unknown84_04()->Unknown_65FFA0(-1);
 }
-
 
 
 
@@ -237,8 +237,8 @@ bool UISlotInfoClass::Unknown_630070(UIViewClass *view, int slot, bool a, bool b
 
 
 
+
 // 0x630280
-// NOT EXACT: functional (D64), from the pseudocode
 UISlotInfoClass *Unknown_630280(SClient *client, SlotDataClass *slot_data)
 {
 	InvDataClass *inv = slot_data->Unknown_10();
