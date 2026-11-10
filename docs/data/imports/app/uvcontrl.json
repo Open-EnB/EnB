@@ -1,0 +1,26 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe 0x4A0FB0-0x4A157B: e:\\build\\beta\\G\\app\\shared\\uvcontrl.cpp (its FAIL_IFs, lines 99-165); a texture mapper controller base (RObj, Mapper), UVControllerClass (linear offset) and a grid mapper controller",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x4A0FB0",
+  "0x4A1000",
+  "0x4A1080",
+  "0x4A10D0",
+  "0x4A1240",
+  "0x4A1320",
+  "0x4A1350",
+  "0x4A13A0",
+  "0x4A13F0",
+  "0x4A14D0",
+  "0x4A1500",
+  "0x4A1550"
+ ],
+ "merged": [],
+ "name": "shared/uvcontrl.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}
