@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-736 entries in 224 files.
+735 entries in 224 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -446,7 +446,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_mount.cpp:522` | `Unknown_5C8710` | marker | NOT EXACT: 0.58: the client sets the table pointer after the first name's null test, this before it (scheduling; 4 loop forms) 0x5C8710 |
 | `app/client/ui_pda_cargo.cpp:66` | `UIPdaCargoClass::UIPdaCargoClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CF9B0 |
 | `app/client/ui_pda_cargo.cpp:112` | `UIPdaCargoClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CFE40 |
-| `app/client/ui_pda_cargo.cpp:180` | `UIPdaCargoClass::Unknown_58` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D03E0 |
 | `app/client/ui_pda_cargo.cpp:216` | `UIPdaCargoClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0620 |
 | `app/client/ui_pda_cargo.cpp:293` | `UIPdaCargoClass::Unknown_5D0A50` | marker | NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits' 0x5D0A50 |
 | `app/client/ui_pda_cargo.cpp:319` | `UIPdaCargoClass::Unknown_5D0D20` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0D20 |

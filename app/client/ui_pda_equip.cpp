@@ -275,13 +275,13 @@ void UIPdaEquipClass::Unknown_60()
 bool UIPdaEquipClass::Unknown_68(int key)
 {
 	FAIL_IF(!InterfaceMesh) return(false);
-	if (key == 0x10) {
-		Stats->Unknown_6A3C10();
-	} else if (key == 0x11) {
-		Client->As_Space_Client()->PDAInterface->Unknown_695A00(1, true);
-		return(true);
-	} else if (key != 0xFFF) {
-		return(UIInvClass::Unknown_68(key));
+	switch (key) {
+		case 0x10: Stats->Unknown_6A3C10(); break;
+		case 0x11:
+			Client->As_Space_Client()->PDAInterface->Unknown_695A00(1, true);
+			return(true);
+		case 0xFFF: break;
+		default: return(UIInvClass::Unknown_68(key));
 	}
 	return(true);
 }

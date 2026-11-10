@@ -177,7 +177,7 @@ void UIPdaCargoClass::Unknown_54()
 
 
 
-// NOT EXACT: functional from the pseudocode (D64)
+
 // 0x5D03E0
 void UIPdaCargoClass::Unknown_58()
 {
@@ -187,7 +187,7 @@ void UIPdaCargoClass::Unknown_58()
 	FAIL_IF(!sc) return;
 	if (!Active) {
 		InterfaceSortScopeClass scope(this);
-		float value = Slider->Value;
+		float value = Slider->Get_Value();
 		SlotDataInterface::Unknown_58();
 		Slider->Unknown_A4(value, false);
 		bool here = View == sc->Unknown135C;
