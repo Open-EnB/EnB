@@ -24,6 +24,7 @@
 #include "..\shared\g_assert.h"
 #include "..\packets\pkstarbase_avatar_change.h"
 #include "..\..\ww3d2\ww3d.h"
+#include "..\shared\message.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -37,8 +38,8 @@ public:
 	virtual void Unknown_44(int arg);					// +0x44 (the starbase interface's destructor passes its +0x190's +0x90)  // NAME 1 [arg]: neutral
 	char Unknown04[0x112C - 0x04];
 	unsigned int AvatarID;								// +0x112C (client.h's ClientClass::AvatarID)  // NAME 3: client.h's
+	unsigned int Get_Avatar_ID() { return(AvatarID); }	// client.h's
 };
-
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, as ui_login.cpp's
 
 void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [robj, u, v, color]: as ui_avatar_cust.cpp's
@@ -2825,6 +2826,26 @@ void UIStarbaseLightsClass::Unknown_648190()
 
 
 
+// 0x63D060
+void UIStarbaseClass::Unknown_63D060(unsigned int id)
+{
+	Unknown5BB320Class::Unknown_5C();
+	UIStarbaseUnknownD4TableClass::iterator it;
+	it = UnknownD4.find(id);
+	if (it.Cur) {
+		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+		if (savatar) {
+			Message_Info("Sbase", "", __FILE__, __LINE__, "(%s) Removing avatar %s from room %d", UnknownC0.D->Avatar->Desc.First_Name, savatar->Avatar->Desc.First_Name, Room);
+			savatar->Avatar->Unknown_788EF0();
+			if (savatar->Unknown14) {
+				Unknown64.Unknown_687150(savatar->Unknown14);
+			}
+			delete savatar;
+		}
+		UnknownD4.erase(id);
+	}
+	Unknown5BB320Class::Unknown_58();
+}
 
 
 
@@ -3039,107 +3060,21 @@ void UIStarbaseLightsClass::Unknown_648190()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x63E4B0
+void UIStarbaseClass::Unknown_63E4B0(int new_room, int old_room)
+{
+	int room = -1;
+	int old = -1;
+	if (new_room >= 0) {
+		room = new_room;
+	}
+	if (old_room >= 0) {
+		old = old_room;
+	}
+	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	client->Send_Packet(&Starbase_Room_ChangePacketClass(((LineDisplayClientClass *)Client)->Get_Avatar_ID(), room, old));
+	Message_Info("Sbase", "", __FILE__, __LINE__, "(%s) Changing room from %d to %d", UnknownC0.D->Avatar->Desc.First_Name, old, room);
+}
 
 
 
@@ -3886,6 +3821,71 @@ void UIStarbaseLightsClass::Unknown_648190()
 
 // The file's later functions, at their asserts' lines (FAIL_IF '!savatar' l.3995)
 
+// 0x63CF30
+void UIStarbaseClass::Unknown_63CF30(int avatar_id, int new_room)
+{
+	for (std::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin(); it != UnknownEC.end(); ++it) {
+		if (avatar_id == (*it)->ID) {
+			return;
+		}
+	}
+	UIStarbaseUnknownECStruct *entry = new UIStarbaseUnknownECStruct(avatar_id);
+	UnknownEC.push_back(entry);
+	if (Room == 0 && new_room == -1) {
+		UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(avatar_id);
+		if (found.Cur) {
+			UIStarbaseUnknownCCClass *savatar = found.Cur->Value;
+			if (savatar) {
+				savatar->Avatar->Unknown_788EF0();
+				savatar->Avatar->Unknown_7896B0(3);
+			}
+		}
+	}
+}
+
+// 0x63D1F0
+void UIStarbaseClass::Unknown_63D1F0(int id, Matrix3D transform, int flags)
+{
+	UIStarbaseUnknownD4TableClass::iterator it = UnknownD4.find(id);
+	if (it.Cur) {
+		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+		if (savatar) {
+			savatar->Avatar->Unknown_788730(transform, true);
+			savatar->Unknown18 = flags;
+			if (flags & 1) {
+				savatar->Avatar->Unknown_784F60(true);
+			} else {
+				savatar->Avatar->Unknown_784F60(false);
+			}
+		}
+	}
+}
+
+// 0x63E5C0
+void UIStarbaseClass::Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action)
+{
+	for (std::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin(); it != UnknownEC.end(); ++it) {
+		if (avatar_id == (*it)->ID) {
+			return;
+		}
+	}
+	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	if (client && client->AvatarID != avatar_id) {
+		Matrix3D tm(true);
+		tm.Rotate_Z(orient);
+		tm.Set_Translation(*position);
+		UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(avatar_id);
+		UIStarbaseUnknownCCClass *savatar = found.Cur ? found.Cur->Value : NULL;
+		if (!savatar) {
+			if (client->Unknown_74C960(avatar_id)) {
+				Unknown_63CA50(avatar_id, tm, action);
+			}
+		} else {
+			Unknown_63D1F0(avatar_id, tm, action);
+		}
+	}
+}
+
 // 0x63FF80
 void UIStarbaseClass::Unknown_63FF80()
 {
@@ -3931,7 +3931,7 @@ void UIStarbaseClass::Unknown_63E2B0()
 		if (Room >= 0) {
 			room = Room;
 		}
-		client->Send_Packet(&Starbase_Avatar_ChangePacketClass(((LineDisplayClientClass *)Client)->AvatarID, room, orient, &position, flags));
+		client->Send_Packet(&Starbase_Avatar_ChangePacketClass(((LineDisplayClientClass *)Client)->Get_Avatar_ID(), room, orient, &position, flags));
 		Unknown_641FA0();
 	}
 }

@@ -74,6 +74,35 @@ public:
 	};
 	iterator begin();	// 0x643DF0 (out of line)
 	iterator find(const unsigned int &key);	// 0x643E60 (out of line: 0x6437A0 passes an int, through a temporary)  // NAME 1 [key]: SGI's
+	unsigned int erase(const unsigned int &key)	// SGI's (inline in 0x63D060)  // NAME 1 [key]: SGI's
+	{
+		const unsigned int n = Bucket_Of_Key(key);
+		NodeStruct *first = Buckets[n];
+		unsigned int erased = 0;
+		if (first) {
+			NodeStruct *cur = first;
+			NodeStruct *next = cur->Next;
+			while (next) {
+				if (next->Key == key) {
+					cur->Next = next->Next;
+					operator delete(next);
+					next = cur->Next;
+					++erased;
+					--NumElements;
+				} else {
+					cur = next;
+					next = cur->Next;
+				}
+			}
+			if (first->Key == key) {
+				Buckets[n] = first->Next;
+				operator delete(first);
+				++erased;
+				--NumElements;
+			}
+		}
+		return(erased);
+	}
 	iterator end() { iterator it; it.Cur = 0; it.Table = this; return(it); }
 	unsigned int Bucket_Of(unsigned int key) const { return(Bucket_Of_Key(key)); }	// SGI's _M_bkt_num (0x641FA0: the vector's size 0x644470 out of line, three layers down)  // NAME 1: neutral (D10)
 	unsigned int Bucket_Of_Key(unsigned int key) const { return(Bucket_Of_Key(key, Buckets.size())); }	// SGI's _M_bkt_num_key  // NAME 1: neutral (D10)
@@ -105,6 +134,7 @@ public:
 	UIStarbaseUnknownD4TableClass::iterator begin() { return(Table.begin()); }	// hash_map's (0x641FA0)
 	UIStarbaseUnknownD4TableClass::iterator end() { return(Table.end()); }	// hash_map's
 	UIStarbaseUnknownD4TableClass::iterator find(const unsigned int &key) { return(Table.find(key)); }	// hash_map's (0x6437A0)  // NAME 1 [key]: SGI's
+	unsigned int erase(const unsigned int &key) { return(Table.erase(key)); }	// hash_map's (0x63D060)  // NAME 1 [key]: SGI's
 };
 // What the starbase interface's +0xCC and +0x13C point to (ui_starbase.cpp's class with the destructor 0x632E50: RefCountPtrs at +0x04, +0x0C, ...)
 class UIStarbaseUnknownCCClass	// NAME 1: neutral (D10)
@@ -124,6 +154,7 @@ public:
 // What the starbase interface's +0xEC list points to (8 bytes: 0x63CF30 makes them)
 struct UIStarbaseUnknownECStruct	// NAME 1: neutral (D10)
 {
+	UIStarbaseUnknownECStruct(int id) : ID(id), Time(0) {}	// (0x63CF30 inlines it)  // NAME 1 [id]: neutral
 	int ID;							// +0x00 (an avatar id: 0x63E8F0, 0x63CF30)  // NAME 1: what it holds
 	float Time;						// +0x04 (0x63E770 adds the frame's seconds; past 10 the entry goes)  // NAME 1: what it holds
 };
@@ -202,7 +233,9 @@ public:
 	void Unknown_63B5A0();	// 0x63B5A0 (the software mouse's cursor 2 unless the chat panel is busy; the text object hidden)
 	bool Unknown_63E8F0(int id);	// 0x63E8F0 (an entry of +0xEC with this id)  // NAME 1 [id]: neutral
 	void Unknown_641AB0();	// 0x641AB0 (+0x190 released, as the destructor)
-	void Unknown_63D060(int id);	// 0x63D060 ('(%s) Removing avatar %s from room %d')  // NAME 1 [id]: neutral
+	void Unknown_63D060(unsigned int id);	// 0x63D060 ('(%s) Removing avatar %s from room %d': its entry deleted and erased)  // NAME 1 [id]: neutral
+	void Unknown_63D1F0(int id, Matrix3D transform, int flags);	// 0x63D1F0 (0x63E5C0: a known avatar's new goal and flags)  // NAME 1 [id, transform, flags]: neutral
+	void Unknown_63E4B0(int new_room, int old_room);	// 0x63E4B0 (Starbase_Room_Change sent, '(%s) Changing room from %d to %d')  // NAME 1 [new_room, old_room]: the packet's
 	void Unknown_63CA50(int id, const Matrix3D &transform, int flags);	// 0x63CA50 ('(%s) Adding avatar %s in room %d')  // NAME 1 [id, transform, flags]: neutral
 	void Unknown_63FF80();	// 0x63FF80 (0x638390's frame: the distances every 0.5 s, the position resent every 0.5 s while moving)
 	void Unknown_641FA0();	// 0x641FA0 (the gadgets' distances from the avatar, 1..999; 0x63E2B0, 0x63FF80)
