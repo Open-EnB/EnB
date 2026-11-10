@@ -117,6 +117,11 @@ void Unknown5BB320Class::Unknown_5C()
 void Unknown5BB320Class::Unknown_60()
 {
 }
+// 0x5BB4F0: the client's code (a gadget onto the mesh's list, ui_mesh.cpp 0x5B99C0; was a do-nothing gen stand-in)
+void Unknown5BB320Class::Unknown_5BB4F0(GadgetClass *gadget)
+{
+	InterfaceMesh->Unknown_5B99C0(gadget);
+}
 void Unknown5BB320Class::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (view == NULL) {

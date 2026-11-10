@@ -48,9 +48,9 @@ public:
 	virtual void Unknown_3C();
 	virtual void Unknown_40(int slot);					// +0x40 (0x631000)  // NAME 2 [slot]: what 0x62DA30 passes
 
-	static SlotDataRenderClass *Unknown_6A90A0(int shortcut, SlotDataInterface *iface, int arg);	// 0x6A90A0 (FAIL_IF '!iface')  // NAME 3 [iface]: the FAIL_IF's; NAME 1 [shortcut, arg]: neutral
-};
 
+};
+class Unknown6A90A0Interface; SlotDataRenderClass *Unknown_6A90A0(int kind, Unknown6A90A0Interface *iface, RenderObjClass *robj);	// 0x6A90A0 (slot_data_render.cpp; FAIL_IF '!iface')
 // gd_slot_data.cpp's gadget, as far as this file calls it
 class SlotDataGadgetClass : public RObjGadgetClass	// NAME 2: gd_slot_data.cpp's file, the asserts' 'sdata_gadg'
 {

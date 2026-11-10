@@ -250,7 +250,7 @@ RObjGadgetClass *SlotDataShortcutInterface::Unknown_0C(int slot)
 
 
 	FAIL_IF(!view) return(NULL);
-	RefCountPtr<SlotDataRenderClass> slot_render = Create_NEW(SlotDataRenderClass::Unknown_6A90A0(1, SlotIFace, 0));
+	RefCountPtr<SlotDataRenderClass> slot_render = Create_NEW(Unknown_6A90A0(1, (Unknown6A90A0Interface *)SlotIFace, NULL));
 
 
 	FAIL_IF(!slot_render) return(NULL);
@@ -271,7 +271,7 @@ RObjGadgetClass *SlotDataShortcutInterface::Unknown_14(const char *key)
 	UIViewClass *view = SlotIFace->Get_View();
 
 	FAIL_IF(!view) return(NULL);
-	RefCountPtr<SlotDataRenderClass> slot_render = Create_NEW(SlotDataRenderClass::Unknown_6A90A0(1, SlotIFace, 0));
+	RefCountPtr<SlotDataRenderClass> slot_render = Create_NEW(Unknown_6A90A0(1, (Unknown6A90A0Interface *)SlotIFace, NULL));
 
 	FAIL_IF(!slot_render) return(NULL);
 	if (!slot_render->Unknown_10(key)) return(NULL);
