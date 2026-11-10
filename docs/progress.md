@@ -3023,7 +3023,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * From the 2026-11-01 night run (html, galaxy map; HV2, GM2): htmlview's parser 0x7710D0 (18 KB, assert line
      926, gap left for it; its template copies 0x778CF0-0x779120; frame 0x298 vs the client's 0x284 since D185's bef21977:
      find the inlined copies adding 0x14, then fix line 469's stale "0x27C" comment), Hit_Test 0x7772C0 0.77 (order) and
-     Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.3) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
+     Draw_Item 0x7767A0 0.72 (shrink-wrap, workflow.md §3.1.2) both at the D89 limit, Draw_Line_32 0x7778E0 parked (stash); 0x76EB70 (the font cache) is 0x76E9D0's object's; 0x77B760 /
      0x77B7D0 probably avatar.cpp's. galaxy_map's four iterator Next (0.75 register), galaxy_map_client 0x7A52F0 /
      0x7A5400; 0x7A8B70 (the galaxy map's renderer) walks the iterators.
    * ui_attrb.cpp (AT2, 2026-11-06 night; the client's own file, object 0x546A80-0x54962F): the attributes panel's NOT EXACT
@@ -3242,7 +3242,7 @@ below name only the work items, the blocked work, the leads and the queues.
      go exact with _M_initialize_buckets written out in sgistl's three-argument hashtable ctor (sgistl_adapt.py;
      `.work/tk5/sgistl_g.patch`: +19 and +11 tie-break) but lose 66 (the hashtable(n,hf,eql) copies inline into their
      class ctors; `.work/tk5/cmp_g.log`): a lead, not landable. delta_money 0x4A7120 / 0x4A71A0 exact as
-     delta_template.h members in a draft but cost aux_roots 6 (workflow.md 3.3).
+     delta_template.h members in a draft but cost aux_roots 6 (workflow.md §3.4).
    * sbaseview.cpp (SBV / SB2 / SB3 / SB4, 2026-11-05; Init 0x69B5E0, the switcher 0x69F8F0, 0x69F710 exact since SB4): NOT
      EXACT, parked with attempts rows: the lights loader 0x6A0590 0.72 (frame; lead: a file-static rotate writing Z, Y, X
      cut rows 119 -> 92; the client puts `up` at +0x34 and a scalar at +0x40, ours the other way round), 0x69D030 0.87

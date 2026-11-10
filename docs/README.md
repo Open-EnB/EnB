@@ -54,8 +54,8 @@ Generated data ([data/](data/); regenerate with the tools in `tools/re`):
 | [data/progress-history.csv](data/progress-history.csv) | one row per day: bytes of `.text` by state, exact functions, pairs, functions per library (measured on each day's last commit) | `tools/progress.py --history` |
 | [progress.svg](progress.svg), [progress_chart.svg](progress_chart.svg), [progress_map.svg](progress_map.svg) | the progress card, the history chart and the address map of `.text`, embedded in the README | `tools/progress.py` |
 
-Near misses: `tools/re/explain.py` classifies one (the classes and their levers: [workflow.md](workflow.md) §3.1's
-table, with the triage order and the two-attempt stop rule), `tools/vc6/flagsweep.py` rules compiler switches
+Near misses: `tools/re/explain.py` classifies one (the classes and their levers: [workflow.md](workflow.md) §3.1.2's
+symptom -> lever table; the triage order and the two-attempt stop rule are §3.1.1), `tools/vc6/flagsweep.py` rules compiler switches
 out, `tools/vc6/tryv2.py` / `tryvariants.py` try source forms.
 
 Tool documentation: [tools/re/README.md](../tools/re/README.md), [tools/vc6/README.md](../tools/vc6/README.md), [tools/harness/README.md](../tools/harness/README.md), [tools/agy/README.md](../tools/agy/README.md) (agy builders, D187).

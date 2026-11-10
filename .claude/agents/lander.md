@@ -20,9 +20,12 @@ step below does not behave as described (`grep -n` for the row; it is one long l
 2. `python tools/vc6/standins.py check --repo .work/wt/NAME` for each (seconds). Exit 1 is a refusal: report
    the symbol and the stand-in's file:line.
 3. Land, always with the target named (bring-over's default target is master, which is never yours):
-   `python tools/vc6/wt.py bring-over NAME [NAME ...] --target run/<date> --sendpad --lock-wait 6000
-   > .work/log/land-<first name>.log 2>&1; tail -25 .work/log/land-<first name>.log`
-   Two or more names land as one batch with one verify. Add `--no-link` only when every commit touches
+   `ENB_LOCK_WAIT=6000 python tools/vc6/wt.py bring-over NAME [NAME ...] --target run/<date> --sendpad
+   --lock-wait 6000 > .work/log/land-<first name>.log 2>&1; tail -25 .work/log/land-<first name>.log`
+   Run it as a background command (`run_in_background`) and wait for its exit notification: a verify outlasts
+   a foreground call's timeout, and a bring-over stopped that way keeps its python, the importer lock and its
+   lease. Never stop it; never start a second one. (`ENB_LOCK_WAIT` is for its report.py step, which ignores
+   `--lock-wait`.) Two or more names land as one batch with one verify. Add `--no-link` only when every commit touches
    docs/ or tools/ alone.
 4. A refusal: read the log's last lines, classify it (below), act only where the table says you may, and
    try again at most once per branch.
@@ -35,6 +38,10 @@ step below does not behave as described (`grep -n` for the row; it is one long l
 | Any other address lost outright | Report address, file and the branch that lost it. Never land it, never accept it |
 | A conflict in a file that is not generated (the scratch is left mid-pick) | `python tools/vc6/wt.py remove <batch>.bo` if the tool says the scratch remains, then report file and commit: the builder runs `wt.py rebase NAME` |
 | The link check (LNK2005, LNK1169, an unresolved symbol, a compile error) | Report the symbol or the first error line and the file: the builder fixes it in its branch |
+| "run moved while landing ... nothing landed, rerun" | Run it once more |
+| The commits record other pairs than the verify gives | Run it once more as a batch of one: `bring-over NAME --batch-name NAME --target run/<date>` |
+| The branch has merge commits | Report: the builder runs `wt.py rebase NAME --onto run/<date>` |
+| Another builder's uncommitted hunk in a shared doc (names-review.md, library-matching.md) stops it | Report the file and whose hunk; wait for nobody |
 | One branch of a batch is refused | Land the others as a batch without it, then report the refused one |
 
 ## Never

@@ -144,3 +144,7 @@ with a file tool, not a shell heredoc (escapes get mangled).
   client; `ENB_CHECKED=1 build.py --out build/chk` compiles them in. A checked build changes some
   mangled names (`private=public`): build every library the same way. A full build also compiles
   another builder's uncommitted libdefs.py entries.
+
+* **CI runs the tool tests on Linux.** A test that reaches a Windows-only call fails there though it
+  passes here (`wt.py new` furnishes junctions with `cmd /c mklink`, so tests calling it stub
+  `wt.furnish`, as tools/test_wt_git.py's Stacked test does): stub any `cmd`, `mklink` or VM call.

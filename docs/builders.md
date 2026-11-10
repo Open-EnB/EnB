@@ -12,9 +12,14 @@ everyone); the newest log entry of `docs/progress.md`; your item's own section i
 
 | Kind | Also read | About |
 |---|---|---|
-| **App code** (E&B's own files under `app/`) | workflow.md §2.1 (adding an app file), §3.1 VC6 forms, §3.2 templates, §3.3 app-code forms, §3.4 verify and pairs, §3.6 RE tools, and your subsystem's bullets in §3.9; conventions.md §1 | ~43 KB |
-| **Westwood library** (`ww3d2`, `wwlib`, ...) | workflow.md §3.1, §3.2 when templates are involved, §3.4, §3.5 build VMs, §3.6, and your library's bullets in §3.9; `docs/library-matching.md` §3.6.1 (your library's rows) | ~39 KB |
-| **Harness, test or program** (`tests/`, `programs/`, `tools/harness/`) | workflow.md §3.5, §3.7 programs and unattended runs, §3.8 hygiene; in `tools/harness/README.md` the rows and quirks of the tools you use (its protocol notes only when you touch the wire format) | ~35 KB |
+| **App code** (E&B's own files under `app/`) | workflow.md §2.1 (adding an app file), §3.1.1 (VC6: read first), §3.2 templates, §3.3.1 (app code: read first), §3.4 verify and pairs, §3.6 RE tools; conventions.md §1 | ~57 KB |
+| **Westwood library** (`ww3d2`, `wwlib`, ...) | workflow.md §3.1.1, §3.2 when templates are involved, §3.4, §3.5 build VMs, §3.6; `docs/library-matching.md` §3.6.1 (your library's rows) | ~45 KB |
+| **Harness, test or program** (`tests/`, `programs/`, `tools/harness/`) | workflow.md §3.5, §3.7 programs and unattended runs, §3.8 hygiene; in `tools/harness/README.md` the rows and quirks of the tools you use (its protocol notes only when you touch the wire format) | ~31 KB of workflow.md |
+
+Looked up, never read whole: workflow.md §3.1.2 (the symptom -> lever table and the lookup bullets under
+`explain.py`'s classes: `grep -n` the class or the symptom between `#### 3.1.2` and `### 3.2`), §3.3.2 (app-code
+forms by subsystem) and §3.9 (one `####` heading per file or library: grep the files you touch). Sizes measured
+2026-11-10 (D223); re-measure when a section grows by a third.
 
 `grep -n '^#' docs/workflow.md` gives the section lines. Decisions cited by a section (D9, D20,
 D23-D25, D54, D56, D62, D66, D69) are one table row each in progress.md §2; read those rows.

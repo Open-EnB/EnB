@@ -102,6 +102,14 @@ Rerun `python .claude/skills/coordinator-pacing/scripts/burnrate.py` from the re
 - When a report arrives: log the result line (pairs before and after, what is parked, proposals), file the
   levers and traps in workflow.md §3, open proposals for the user in progress.md §3, then run the heartbeat
   command again (the report changes the builder count and the memory).
+- Filing a trap (D223; the 2026-11-10 rewrite cut §3 from 332 KB to 196 KB, most of it repeats filed per run):
+  `grep -n` its key terms in workflow.md first. Already said: file nothing, or add the one missing fact to that
+  bullet. A VC6 form goes under its `explain.py` class in §3.1.2 (a table row or a bullet under 900 characters,
+  which `variants.py` cuts at); a one-file note under that file's `####` heading in §3.9; a landing, push, claim or
+  pacing trap in this skill, not in workflow.md. §3.0, §3.1.1 and §3.3.1 are every builder's startup reading: add
+  there only what a builder must know before its first edit. Write the rule, how to recognise the case and at most
+  one example: no run date, builder id, commit hash or pair count, and never a bullet titled after a run. A trap a
+  tool now refuses is one line naming the tool; a trap whose cause was fixed is deleted.
 - In the same pass, prune progress.md §4 (Next steps): delete each item the report completes, and cut a part-done
   item down to what is left (its remaining addresses / functions). Never annotate an item as done ("made exact
   tonight", "done in run X"): what landed belongs in the plan log and the handoff's log entry, not in §4. Add the
@@ -135,6 +143,75 @@ Rerun `python .claude/skills/coordinator-pacing/scripts/burnrate.py` from the re
 - If the user says to spend the quota before a reset, keep launching bounded items up to the allowance and
   let them run into the next window; the handoff then gets an addendum after the last report. If the user says
   nothing new starts, close the window at once and log it.
+
+## Landing and run-branch traps
+
+Landing and bring-over (the lander does the landing; these are what you see around it):
+- **A batch can lose a function no builder lost alone** (one new declaration in a widely included header flips
+  it): the landing's verify is the check that matters. D202: bring-over refuses an address lost outright; D66
+  moves and shared holders land, printed, and still need the maintainer's `/accept-d66`.
+- **If you run `wt.py bring-over` yourself, run it in the background**, never in a foreground call (a 600 s
+  timeout moved one to the background, and stopping that task left its python, the importer lock and lease
+  `importer-<pid>` running). Wait on the log's `landed:` line or `tasklist //FI "PID eq N"` (Git Bash can't see
+  Windows processes); a wait loop on the verify log hangs if the batch stops at a conflict. Its report.py step
+  ignores `--lock-wait`: set ENB_LOCK_WAIT=6000 too. `--dry` still runs the full verify.
+- **During a landing:** a second bring-over refuses cleanly ("run moved while landing ... nothing landed, rerun");
+  a run-branch commit made meanwhile is replayed under it when it touches none of the landing's paths and no
+  generated file, otherwise rerun. Read a landing's exit before removing its worktree: the branch survives, the
+  worktree's drafts do not.
+- **Landing from the main tree instead:** a D66(i) COMDAT move (P-CS1-2), a D119 ambiguity move (not
+  re-verified: no D119 handling found in wt.py) and a landing blocked by another builder's uncommitted hunk in
+  names-review.md or library-matching.md go through commit_mine from the main tree with the worktree-verified
+  shards (after a D119 move master's `in_tree_total` is one high until the next verify).
+- **docs/imports.md on HEAD can be stale:** `report.py` regenerates ~100 unrelated lines; builders leave it out,
+  you regenerate it.
+
+Stacked branches and merges:
+- **A builder on another's unlanded branch:** `wt.py new C --base wt/P`; land P first or `bring-over P C` in that
+  order (`A..B` for a range). After P lands, `wt.py list` says "parent landed: rebase" and `wt.py rebase C`
+  replays C's own commits (no hand `git rebase --onto`); when they conflict with what landed, make a net-diff
+  commit on a fresh worktree. A branch with merge commits is refused: `wt.py rebase ID --onto run/<date>`
+  (the merge is dropped); a worktree reset onto a new base needs its wt base file updated, or bring-over refuses
+  'merge commits'.
+- **Never resolve a C++ source conflict by keeping both sides** (it duplicated gd_slider's code); appended new
+  functions on both sides is the one safe case. `symbols.py` needs `--objs` for every verify-* folder and a good
+  symbols.json as input (it reads its own output); commit_mine's library totals: `--refresh-totals` at a quiet
+  tree.
+
+PRs and the verify service:
+- **A failed vc6-verify: check where and how often it ran before blaming the PR.** Two verifies of one PR at once
+  share `.work/wt/prN.vf`: the second drops the first's worktree mid-build and both fail (reported once; not
+  rechecked against verify_watch.py). verify_pr.py refuses to run off origin/master: run it from
+  `.work/wt/verifier`.
+- **A lease named `importer-<pid>` with no holder pid may be live** (the hosted verify: verify_watch.py ->
+  verify_pr.py -> verify): check the pid's command line (`tasklist`, `Get-CimInstance Win32_Process`) before
+  releasing a lease you did not take.
+
+Claims and briefs:
+- **`run_branch.py claim FILE` counts only functions its index thinks not exact** (a file came back "all exact"
+  with four NOT EXACT functions): claim near misses by address range. It can hang minutes after a GitHub API rate
+  limit ends; `claims.py check` shows the grant first. In PowerShell unquoted `0x...` arguments arrive as integers
+  (`.work/coord/claim_many.ps1` normalises them).
+- **Check a §4 item's addresses against the ledger and attempts.py before briefing it** (five items of one brief
+  were all done or at LIMIT).
+
+Stop times, launchers and POC checks:
+- **Stop times carry the zone** (the clock fell back an hour at 02:00 PDT on 2026-11-01; next change 2027-03-14).
+  Budget the importer lock's queue into them (agy's 75-minute timeout expired in it three times).
+- **Claude Code's memory reaper kills `run_in_background` launchers:** start headless builders detached
+  (PowerShell Start-Process). Burn-rate readings move in whole-percent steps: measure over an hour or more, not
+  5-15 minutes.
+- **`poc_check.sh NAME COMMIT LOG`:** LOG must be absolute (the script cds into .work/wt/NAME; leave it out for
+  .work/poc-check-NAME.log); a leftover `wt/NAME` branch stops it at once (`wt.py remove NAME --delete-branch`);
+  start it as a tracked background task (behind `&` it failed silently). With CHECK_HARNESS=1 it runs clienttest
+  and udpreplay: lease first and set ENB_VC6_HOST(S). `.work/coord/pocfull.sh` is the coordinator's (instance
+  coord). `clientpoc.py clean --all` / `--older HOURS` unlinks instances' junctions into ClientPOC\Data and keeps
+  an instance whose client.exe still runs. For character select in the 44 s input3-quit replay, shoot at ~290000
+  frames, not 2400 (menus run ~7,000 Presents a second).
+- **agy:** `--mode auto` is not available on the account (`--dangerously-skip-permissions` suffices); under Git
+  Bash set `MSYS_NO_PATHCONV=1` (also for `agy -p /usage`); agy runs its commands in PowerShell whatever the brief
+  says; the stream's `usage` is per turn: sum the lines for a running item. `tools/agy/launch.sh` wants `RUN_DIR`
+  relative to the repo.
 
 ## agy builders (D187)
 

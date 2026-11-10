@@ -176,7 +176,7 @@ def fmt(r):
 
 
 def limit_reached(rows):
-    """D89: why a function may not be retried without a new §3.1 lever, or '' when it may.
+    """D89: why a function may not be retried without a new §3.1.2 lever, or '' when it may.
 
     rows: every row of one address. A register-only or order-only residue after two rounds never gets a
     third by anyone; an inline-budget, frame or shape residue gets two Opus rounds and one Fable round.
