@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-722 entries in 222 files.
+736 entries in 224 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -444,6 +444,20 @@ edit the comments in the code, not this file.
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
 | `app/client/ui_mount.cpp:262` | `UIMountClass::Build` | marker | NOT EXACT: functional, from the pseudocode (D64); 0.53: the client calls rtti.h's Cast out of line (0x5469C0, 0x5C8780, 0x5C87D0), this inlines it; the frame is 0x1A8 against 0x164 0x5C77A0 |
 | `app/client/ui_mount.cpp:522` | `Unknown_5C8710` | marker | NOT EXACT: 0.58: the client sets the table pointer after the first name's null test, this before it (scheduling; 4 loop forms) 0x5C8710 |
+| `app/client/ui_pda_cargo.cpp:66` | `UIPdaCargoClass::UIPdaCargoClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CF9B0 |
+| `app/client/ui_pda_cargo.cpp:112` | `UIPdaCargoClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CFE40 |
+| `app/client/ui_pda_cargo.cpp:180` | `UIPdaCargoClass::Unknown_58` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D03E0 |
+| `app/client/ui_pda_cargo.cpp:216` | `UIPdaCargoClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0620 |
+| `app/client/ui_pda_cargo.cpp:293` | `UIPdaCargoClass::Unknown_5D0A50` | marker | NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits' 0x5D0A50 |
+| `app/client/ui_pda_cargo.cpp:319` | `UIPdaCargoClass::Unknown_5D0D20` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0D20 |
+| `app/client/ui_pda_equip.cpp:40` | `UIPdaEquipClass::UIPdaEquipClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D10C0 |
+| `app/client/ui_pda_equip.cpp:103` | `UIPdaEquipClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1250 |
+| `app/client/ui_pda_equip.cpp:158` | `UIPdaEquipClass::~UIPdaEquipClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1A00 |
+| `app/client/ui_pda_equip.cpp:217` | `UIPdaEquipClass::Unknown_58` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1CA0 |
+| `app/client/ui_pda_equip.cpp:273` | `UIPdaEquipClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2180 |
+| `app/client/ui_pda_equip.cpp:294` | `UIPdaEquipClass::Unknown_B0` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2210 |
+| `app/client/ui_pda_equip.cpp:398` | `UIPdaEquipClass::Unknown_A4` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2850 |
+| `app/client/ui_pda_equip.cpp:441` | `UIPdaEquipClass::Unknown_5D2C50` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2C50 |
 | `app/client/ui_popup_browser.cpp:45` | `UIPopupBrowserClass::UIPopupBrowserClass` | marker | NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it) @0x5DAE90 |
 | `app/client/ui_popup_browser.cpp:76` | `UIPopupBrowserClass::Unknown_54` | marker | NOT EXACT: stub @0x5DB2D0 |
 | `app/client/ui_proc.cpp:126` | `UIProc5DCD20Class::Unknown_08` | marker | NOT EXACT: 0x5DD3C0 (0.81): block order, the cycle wrap's EndFrame arm sits after the return in the client (attempts.csv) @0x5DD3C0 |

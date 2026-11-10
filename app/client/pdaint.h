@@ -9,6 +9,8 @@
 
 #include "intrface.h"
 #include "ui_inv.h"			// UIInvClass, the base of the cargo, equipment and vault windows
+#include "ui_pda_cargo.h"	// UIPdaCargoClass, the cargo window (window 0)
+#include "ui_pda_equip.h"	// UIPdaEquipClass, the equipment window (window 1)
 #include "..\..\wwlib\ref_ptr.h"
 
 class SClient;
@@ -24,25 +26,6 @@ class UIPingClass;			// ui_ping.h's ping window (0x5D7630)
 #else
 #define POC_INV_WINDOW_SLOTS
 #endif
-
-// The equipment window (0x154 bytes, constructor 0x5D10C0; the key 'Equipment', window 1)
-class Unknown5D10C0Class : public UIInvClass	// NAME 1: neutral (D10)
-{
-public:
-	POC_INV_WINDOW_SLOTS
-	Unknown5D10C0Class(SClient *client);				// 0x5D10C0  // NAME 1 [client]: neutral
-	char UnknownD0[0x154 - 0xD0];
-};
-
-// The cargo window (0x10C bytes, constructor 0x5CF9B0; the key 'Cargo', window 0)
-class Unknown5CF9B0Class : public UIInvClass	// NAME 1: neutral (D10)
-{
-public:
-	POC_INV_WINDOW_SLOTS
-	Unknown5CF9B0Class(SClient *client, class PDAInterfaceClass *pda);	// 0x5CF9B0  // NAME 1 [client, pda]: neutral
-	void Unknown_5D0A20(bool on);						// 0x5D0A20 (0x695DC0)  // NAME 1 [on]: neutral
-	char UnknownD0[0x10C - 0xD0];
-};
 
 // The vault window (0xFC bytes, constructor 0x656FF0; the key 'Vault', window 3)
 class Unknown656FF0Class : public UIInvClass	// NAME 1: neutral (D10)
@@ -88,8 +71,8 @@ public:
 	virtual void Unknown_70(ControlKeysManager *manager);	// +0x70 0x694BE0 (FAIL_IF '!manager')  // NAME 3 [manager]: the FAIL_IF's
 	virtual void Unknown_74(ControlKeysManager *manager);	// +0x74 0x695110 (FAIL_IF '!manager')  // NAME 3 [manager]: the FAIL_IF's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x694B10 (the windows onto the view)  // NAME 1 [view, arg]: InterfaceClass's
-	RefCountPtr<Unknown5CF9B0Class> Unknown_695630();	// 0x695630 (the cargo window when Active)
-	RefCountPtr<Unknown5CF9B0Class> Unknown_695680();	// 0x695680 (the cargo window)
+	RefCountPtr<UIPdaCargoClass> Unknown_695630();	// 0x695630 (the cargo window when Active)
+	RefCountPtr<UIPdaCargoClass> Unknown_695680();	// 0x695680 (the cargo window)
 	RefCountPtr<InterfaceClass> Unknown_6956C0(int index);	// 0x6956C0 (G_ASSERT 'false' past 4)  // NAME 1 [index]: neutral
 	bool Unknown_695780(int index);						// 0x695780 (asks for window 'index', the others closed)  // NAME 1 [index]: neutral
 	bool Unknown_695A00(int index, bool arg);			// 0x695A00 (closes window 'index')  // NAME 1 [index, arg]: neutral
@@ -104,8 +87,8 @@ public:
 
 	ButtonGadgetClass *Buttons[NUM_BUTTONS];			// +0x84 ('MAP_BUT', 'CHARACTER_BUT', 'SHIP_BUT', 'OPTIONS_BUT': gadgets 1..4)  // NAME 1: neutral
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0x94 ('TSI14A')  // NAME 1: as ui_starmap.h's
-	RefCountPtr<Unknown5D10C0Class> Equipment;			// +0x98 (window 1)  // NAME 2: its key's
-	RefCountPtr<Unknown5CF9B0Class> Cargo;				// +0x9C (window 0)  // NAME 2: its key's
+	RefCountPtr<UIPdaEquipClass> Equipment;			// +0x98 (window 1)  // NAME 2: its key's
+	RefCountPtr<UIPdaCargoClass> Cargo;				// +0x9C (window 0)  // NAME 2: its key's
 	RefCountPtr<Unknown656FF0Class> Vault;				// +0xA0 (window 3)  // NAME 2: its key's
 	RefCountPtr<UICinfoClass> Character;				// +0xA4 (window 2)  // NAME 2: its key's
 	RefCountPtr<UIStarmapClass> Starmap;				// +0xA8 (window 4; the main view's 0x512A00 calls its 0x7C8DB0)  // NAME 1: its class's

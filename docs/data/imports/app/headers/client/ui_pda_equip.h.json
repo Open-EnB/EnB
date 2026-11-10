@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "app\\client\\ui_pda_equip.h, provisional header name (NAME 1, D137) for ui_pda_equip.cpp's UIPdaEquipClass; holds the D137 interim declarations of 0x541DE0 / 0x6A2ED0 / 0x66DA50's classes"
+}
