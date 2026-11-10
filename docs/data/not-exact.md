@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-741 entries in 227 files.
+742 entries in 227 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -511,6 +511,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_slot_data.cpp:178` | `SlotDataInterface::~SlotDataInterface` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_info.cpp:135` | `UISlotInfoClass::Unknown_630070` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
+| `app/client/ui_starbase.cpp:673` | `UIStarbaseClass::Unknown_54` | marker | NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the '%s_%dmd' animated models 0x634140 |
 | `app/client/ui_starbase.cpp:1999` | `UIStarbaseClass::Unknown_63A100` | marker | NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1) 0x63A100 |
 | `app/client/ui_starbase.cpp:3862` | `UIStarbaseClass::Unknown_63E770` | marker | NOT EXACT: 0x63E770, functional (the client compares the found iterator with end() through an out-of-line 8-byte copy 0x6439B0, a const_iterator conversion the stand-in table lacks; SB1) 0x63E770 |
 | `app/client/ui_starbase.cpp:3917` | `UIStarbaseClass::Unknown_63E2B0` | marker | NOT EXACT: 0x63E2B0, functional (the flag test's own load of the avatar, the position's y / z through the matrix copy, the id's load order; SB1) 0x63E2B0 |

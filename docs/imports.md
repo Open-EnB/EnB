@@ -1479,7 +1479,7 @@ Base copy: reconstructed. Headers: 525 from reconstructed.
 | shared/rs_robj.cpp | reconstructed | 27 | 0 | - | - | - |  |
 | shared/rs_track.cpp | reconstructed | 185 | 0 | - | - | - |  |
 | client/sbaseview.cpp | reconstructed | 113 | 7 | - | - | - |  |
-| client/sclient.cpp | reconstructed | 468 | 13 | - | - | - |  |
+| client/sclient.cpp | reconstructed | 467 | 13 | - | - | - |  |
 | client/scriptedmovie.cpp | reconstructed | 128 | 8 | - | - | - |  |
 | client/scriptedmovieline.cpp | reconstructed | 4 | 1 | - | - | - |  |
 | client/tasks/settings_store.cpp | reconstructed | 31 | 4 | - | - | - |  |
@@ -1597,7 +1597,7 @@ Base copy: reconstructed. Headers: 525 from reconstructed.
 | client/ui_slot_data.cpp | reconstructed | 68 | 2 | - | - | - |  |
 | client/ui_slot_info.cpp | reconstructed | 32 | 1 | - | - | - |  |
 | client/ui_slot_scut.cpp | reconstructed | 39 | 1 | - | - | - |  |
-| client/ui_starbase.cpp | reconstructed | 115 | 6 | - | - | - |  |
+| client/ui_starbase.cpp | reconstructed | 126 | 7 | - | - | - |  |
 | client/ui_starmap.cpp | reconstructed | 44 | 6 | - | - | - |  |
 | client/ui_stringentry.cpp | reconstructed | 33 | 3 | - | - | - |  |
 | client/ui_talkt.cpp | reconstructed | 66 | 5 | - | - | - |  |
