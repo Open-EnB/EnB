@@ -780,7 +780,7 @@ extern SoundManagerClass *SoundManager;					// 0xBE82A4  // NAME 2: what it hold
 extern int Unknown_BE350C;								// NAME 1: neutral (D10): Do_Frame sets it to the base's toggled +0x1128 for the frame
 extern int Unknown_BE5F34;								// NAME 1: neutral (D10): Do_Frame takes up to 20 more events while it has 0x1100
 unsigned int Unknown_Get_Ticks();						// 0x4A3B40, the aux-data clock (unknown_root.h)
-void Unknown_918200(int ticks);							// 0x918200 (Do_Frame passes the new +0x10BC when focused)  // NAME 1 [ticks]: what it gets
+
 void Unknown_42EDB0();									// NAME 1 [Unknown_42EDB0]: neutral (D10) (input.cpp's neighbourhood), as tsk_login.cpp
 bool Unknown_42EA80(KernelEventClass *event);			// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp), as tsk_login.cpp
 void Unknown_42E8A0(KernelEventClass *event);			// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp), as tsk_login.cpp
@@ -833,7 +833,7 @@ int SClient::Do_Frame(bool focused)
 
 	// input
 	if (focused) {
-		Unknown_918200(Unknown10BC);
+		WW3D::Sync(Unknown10BC);
 		if (!LoadingView || !LoadingView->Unknown68) {
 			KernelEventClass event;
 			Unknown_42EDB0();

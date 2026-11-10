@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1705 |
 | 2 | describes what the code does | 3913 |
-| 1 | neutral placeholder | 21946 |
+| 1 | neutral placeholder | 21944 |
 
 ## For review (score 3 and below)
 
@@ -6813,8 +6813,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE350C` | `app/client/sclient.cpp:780` | neutral (D10): Do_Frame sets it to the base's toggled +0x1128 for the frame |
 | 1 | `Unknown_BE5F34` | `app/client/sclient.cpp:781` | neutral (D10): Do_Frame takes up to 20 more events while it has 0x1100 |
 | 1 | `Unknown_Get_Ticks` | `app/client/sclient.cpp:782` | untagged neutral name (D10) |
-| 1 | `ticks` | `app/client/sclient.cpp:783` | what it gets |
-| 1 | `Unknown_918200` | `app/client/sclient.cpp:783` | untagged neutral name (D10) |
 | 1 | `Unknown_42EDB0` | `app/client/sclient.cpp:784` | neutral (D10) (input.cpp's neighbourhood), as tsk_login.cpp |
 | 1 | `Unknown_42EA80` | `app/client/sclient.cpp:785` | the input queue's next event (input.cpp), as tsk_login.cpp |
 | 1 | `Unknown_42E8A0` | `app/client/sclient.cpp:786` | hands the event on (input.cpp), as tsk_login.cpp |
@@ -21686,22 +21684,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_90` | `programs/clientpoc/poc_world4.cpp:156` | untagged neutral name (D10) |
 | 1 | `Unknown_94` | `programs/clientpoc/poc_world4.cpp:157` | untagged neutral name (D10) |
 | 1 | `UnknownB0` | `programs/clientpoc/poc_world4.cpp:158` | untagged neutral name (D10) |
-| 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:45` | untagged neutral name (D10) |
-| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `stubs/app_stubs.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_8B44E0` | `stubs/app_stubs.cpp:100` | untagged neutral name (D10) |
-| 1 | `Unknown_8B44C0` | `stubs/app_stubs.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_4A1590` | `stubs/app_stubs.cpp:112` | untagged neutral name (D10) |
-| 1 | `Unknown_4FC2F0` | `stubs/app_stubs.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:170` | untagged neutral name (D10) |
-| 1 | `Unknown_82ECB0` | `stubs/app_stubs.cpp:174` | untagged neutral name (D10) |
-| 1 | `Unknown_764480Class` | `stubs/app_stubs.cpp:185` | untagged neutral name (D10) |
-| 1 | `Unknown_764AB0` | `stubs/app_stubs.cpp:185` | untagged neutral name (D10) |
-| 1 | `Unknown_764CF0` | `stubs/app_stubs.cpp:190` | untagged neutral name (D10) |
-| 1 | `Unknown_7EA190` | `stubs/app_stubs.cpp:198` | untagged neutral name (D10) |
-| 1 | `Unknown_49E210` | `stubs/app_stubs.cpp:203` | untagged neutral name (D10) |
-| 1 | `Unknown_7EB4D0` | `stubs/app_stubs.cpp:208` | untagged neutral name (D10) |
+| 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
+| 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `stubs/app_stubs.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_4F00C0` | `stubs/app_stubs.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_8B44E0` | `stubs/app_stubs.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_8B44C0` | `stubs/app_stubs.cpp:121` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1590` | `stubs/app_stubs.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_4FC2F0` | `stubs/app_stubs.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown_82ECB0` | `stubs/app_stubs.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown_764480Class` | `stubs/app_stubs.cpp:200` | untagged neutral name (D10) |
+| 1 | `Unknown_764AB0` | `stubs/app_stubs.cpp:200` | untagged neutral name (D10) |
+| 1 | `Unknown_764CF0` | `stubs/app_stubs.cpp:205` | untagged neutral name (D10) |
+| 1 | `Unknown_7EA190` | `stubs/app_stubs.cpp:213` | untagged neutral name (D10) |
+| 1 | `Unknown_49E210` | `stubs/app_stubs.cpp:218` | untagged neutral name (D10) |
+| 1 | `Unknown_7EB4D0` | `stubs/app_stubs.cpp:223` | untagged neutral name (D10) |
 | 1 | `UnknownB0122CEnum` | `stubs/aux_roots_stubs.cpp:68` | untagged neutral name (D10) |
 | 1 | `UnknownB0133CEnum` | `stubs/aux_roots_stubs.cpp:86` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `stubs/aux_roots_stubs.cpp:104` | untagged neutral name (D10) |
