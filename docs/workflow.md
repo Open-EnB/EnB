@@ -179,6 +179,9 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **Sort helpers and operator< (2026-11-10, IE3):** a sort's _Unguarded_insert / _Median / _Unguarded_partition that differ
+  from the client only by registers (esi / edi swapped, a zero cached in edi) came from `return lhs->K < rhs->K;`; reading both
+  keys into int locals first made all three property classes' sorts exact.
 * **A shrunk callee gets inlined (2026-11-10, FR2):** removing dead reads from 0x591A30 made it small enough that 0x590020
   inlined it and stopped matching; after shrinking a function, re-verify every caller in the file, not only the function.
 * **Adjacent scalar deletes (2026-11-02 evening run, EAM5):** VC6 /O2 merges the stack cleanups of consecutive `delete p;`
@@ -631,6 +634,14 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **struct vs class in a declaration (2026-11-10, SU1):** gen_stubs declares a stand-in's type as `class`; a header that
+  declares it `struct` mangles differently (PAU vs PAV) and the link check finds the call unresolved. gen_stubs also skips
+  functions returning std::string by value: give those an inline body or a hand stand-in.
+* **Inline ctors with RefCountPtr<T> members in a shared header (2026-11-10, SU1):** every includer where T is incomplete
+  fails (C2027 in ref_ptr.h); define the ctor in the one .cpp that uses it.
+* **Headers sclient.cpp includes and ui_chat_panel.h (2026-11-10, CP2):** such a header takes ChatPanelUIBase from
+  ui_chat_panel_base.h, not ui_chat_panel.h. SEND_SYMBOL_PAD moved 4 -> 8 -> 35 -> 13 -> ... with each include; its window can
+  split (25, then 34..36): always sweep 0..63, never a neighbourhood.
 * **Char-array member stand-ins break on retype (2026-11-10, TC1):** code that reached a stand-in's members through
   `->Unknown0AC[0xCD - 0xAC]` stops compiling once the real class replaces it; grep `->Unknown0..\[0x` before moving a class, in the run branch's
   head too (FR2's ui_friends.cpp line 135 still wrote one; TC1's own grep at its base could not see it).
@@ -1254,6 +1265,8 @@ each other and decide with the full verify. Builders branched before such a land
 
 ### 3.6 RE tools, Ghidra and REA
 
+* **appfile.py match --diff and demangled names (2026-11-10, IE3):** it prints nothing for a demangled name; use
+  `objdiff.py .work/<agent>/appfile/obj/X.obj MANGLED ADDR` (the mangled name from `objdiff.py --list`).
 * **Tool paths (2026-11-10, FR2):** in Git Bash MSYS rewrites a `//` argument to `/` (`trim.py '// 0x...'` finds no
   marker): prefix `MSYS_NO_PATHCONV=1`. tryvariants.py does not find app files in subdirectories: use tryv2.py with
   `ENB_VC6_HOSTS` from `pool.py lease --agent ID`. A builder's verify objects are under `.work/<ID>/tmp/enb_import/verify-app/`.
