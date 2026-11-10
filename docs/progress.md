@@ -4,6 +4,43 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-10 (13:30 PST, day): the week's last 4 %: ui_friends, ui_stringentry, the dynamic window toggle and the item examination rows, the chat panel stand-ins retired, sendpad.py; +178 pairs over the run's baseline, 0 lost outright
+
+- **Run** run/2026-11-10 (PR #185), coordinator Opus 5.5 on the subscription, base 041ad8cb, baseline `.work/imports.041ad8cb.json`,
+  plan `.work/run-2026-11-10/plan.md`. The user: open progress.md items until the week's usage is spent (96 % at 09:00, reset
+  12:00); at 10:40 "launch 2 more builders". Weekly 96 % -> 98 % at 11:14; the week reset at 12:00 (the old week ended at ~98-99 %);
+  no launches into the new week, the last builders finished in it (~1 %). Builders: Opus FR2 ~272k, TC1 ~206k, DW1 ~236k, AP2 ~97k,
+  CP2 ~230k, IE3 ~222k, SU1 ~305k; Sonnet SP1 ~107k, CA1 ~51k, HC1 ~52k.
+- **HEAD against the baseline:** gained 178, 0 lost outright (pacing.py heartbeat at 8155b207); every landing passed wt.py's
+  link checks.
+- **Files:** FR2: ui_friends.cpp's ctor 0x58F210, slots +0x54 0x58F6B0 / +0x68 0x590020 (the 11-case key switch), 0x590E50,
+  0x591C30 exact (+34); +0xB0 is a UIPTradeCreditsClass (AP2: 0x58F6B0's new(0xD0) and 0x649890), so ui_group.h's UISymbolChatClass
+  lost 0x64A220 / 0x64A240. TC1: app/client/ui_stringentry.cpp (UIPTradeCreditsClass 0x649890-0x64A32F, the text entry window
+  the guild / ignore / friends / trade windows use; file name from the tooltip section UI_STRINGENTRY; all 12 exact, +33), the class
+  out of sclient.h. DW1: dynamic_window_toggle.cpp (ToggleButtonDynamicWindow, client RTTI and __FILE__, 0x51D790-0x51EADF),
+  gd_dynamicelement.cpp (DynamicElementGadgetClass 0x6686F0, interim) and gadget_collection_interface.h (GadgetCollectionInterface /
+  GadgetEvent, RTTI; was UIDynamicWindowUnknown84Class): 13 of 14 exact (+49). IE3: the item examination rows on them (attributes,
+  options, specials: ctors, dtors, the toggle callback, MemberCallback slots, ToggleButtonStateEvent() 0x51E7F0, the three sorts):
+  all exact (+49). SU1: ui_starbase.cpp's Init 0x634140 (9.2 KB) functional, NOT EXACT 0.55 (frame 0x1D0 vs 0x1A0), with the window's layouts (+0xCC entries with their FontSys texts, +0x1F8 / +0xB8 local classes, +0xB4 NPC slot / terminal lookups, +0xBC ExtraBones NAME 3), the lights block moved to the file's end (the client's order), 0x636520 inline exact; its first bring-over was refused by the link check (a header struct against the gen stubs' class), fixed (+13).
+- **Stand-ins retired:** AP2: ui_chat_panel / ui_ptrade include avatar_pip.h. CP2: cpacket.cpp's ChatPanelInterface and four
+  chat window stand-ins onto ui_chat_panel.h / ui_friends.h / ui_playeropt.h / ui_radio_list.h / ui_radio_admin.h; ui_guild.h
+  (D137) for UIGuildClass (sclient's 0x81BF40 now links to ui_guild.cpp's real member); mainview.cpp's and sclient.cpp's
+  ChatPanelInterface stand-ins onto ui_chat_panel.h; sclient.h's UIChatPanelUnknown138Class deleted; 0 / 0 each, four
+  link_baseline symbols now resolved.
+- **Tools:** SP1: tools/vc6/sendpad.py (the SEND_SYMBOL_PAD sweep through verify's path, ~5 min for 0..63) and
+  `wt.py bring-over --sendpad` (opt-in; it ran on three bring-overs, none needed a retune: each builder had swept already).
+  SEND_SYMBOL_PAD today: 4 -> 56 (TC1) -> 13 (CP2) -> SU1's value. CA1: the Claims Action's startup failures were 11 runs on
+  2026-11-09 16:02Z-18:11Z only; no repository cause; §4 item 9 keeps a check at the next merge.
+- **D182 harness:** HC1 at 89be45e6 (FR2 landed): build 542 / 542, clienttest 103 checks, 0 failed, trace equal (2510 lines),
+  udpreplay alex3 24771 equal, handshake 54 / 54; no new asserts. HC2 at 8155b207 (the run's head): build 545 / 545, clienttest
+  103 checks, 0 failed, trace equal (2510), udpreplay alex3 24771 equal, handshake 54 / 54; no new asserts. The POC was not run
+  this run (tools/agy/poc_check.sh at the next run's start: TC1 / CP2 / SU1 changed POC-linked code).
+- **Traps filed** (workflow.md §3.1, §3.3, §3.4, §3.6): byte-array member stand-ins break on a retype (grep the run branch's head
+  too), struct vs class mangling against gen stubs, inline ctors with RefCountPtr members in shared headers, sendpad's watch set
+  from a ledger that already lost 0x758210, split pad windows, the templated disconnect, operator< int locals for sorts,
+  a shrunk callee getting inlined, MSYS `//` paths.
+- **Proposal (D137, the coordinator's call, not done):** rename UIPTradeCreditsClass to UIStringEntryClass in one cross-cutting pass.
+
 ### 2026-11-10 (06:30 PST, night, 2026-11-09b): the world's windows react (mouse to gadgets, chat entry and keyboard, the PDA's character page like retail, cargo and equipment windows); +416 pairs over the run's baseline, 0 lost outright beyond D66 (vi)'s 0x65B900
 
 - **Run** run/2026-11-09b (PR #183), coordinator Opus 5.5 on the subscription, base fecd64c8, baseline
