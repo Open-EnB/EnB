@@ -35,10 +35,11 @@ class LightClass;
 class FontSys;
 
 // What 0x698150 finds by an avatar slot (sbase_info.cpp's): the slot's NPC, as far as 0x634140 reads it
-struct UIStarbaseUnknownB4NPCStruct	// NAME 1: neutral (D10)
+class UIStarbaseUnknownB4NPCStruct	// NAME 1: neutral (D10) (a class: the stub generator declares classes)
 {
+public:
 	int Unknown_6976C0();	// 0x6976C0 (Unknown18 - 2 for 2..9, else -1: the VB_ model's index)
-	std::string Unknown_636520();	// 0x636520 (a copy of Unknown08)
+	std::string Unknown_636520() { return(Unknown08); }	// 0x636520 (a copy of Unknown08; out of line in the client, inline here: the stub generator skips std::string returns)
 	char Unknown00[0x08];	// +0x00
 	std::string Unknown08;	// +0x08 (0x636520)
 	int Unknown18;			// +0x18 (9: a VB_BLACKMKT model, no avatar; 2..8 an avatar with a VB_ model)
@@ -47,8 +48,9 @@ struct UIStarbaseUnknownB4NPCStruct	// NAME 1: neutral (D10)
 	char Unknown20[4];		// +0x20 (an AvatarDescClass: 0x634140 copies it)
 };
 // What 0x6980E0 finds by a terminal index (sbase_info.cpp's), as far as 0x634140 reads it
-struct UIStarbaseUnknownB4TerminalStruct	// NAME 1: neutral (D10)
+class UIStarbaseUnknownB4TerminalStruct	// NAME 1: neutral (D10)
 {
+public:
 	int Unknown00;			// +0x00
 	int Unknown04;			// +0x04 (the ico_ model's index, -1 none)
 };
