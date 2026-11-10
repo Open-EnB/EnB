@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 181 |
+| 5 | the client names it | 185 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1731 |
-| 2 | describes what the code does | 3934 |
-| 1 | neutral placeholder | 22265 |
+| 3 | by convention from a client-named file or sibling | 1733 |
+| 2 | describes what the code does | 3936 |
+| 1 | neutral placeholder | 22281 |
 
 ## For review (score 3 and below)
 
@@ -2791,6 +2791,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LayoutOffset` | `app/client/dynamic_window_render_object.h:112` | Layout's Fit_Size result |
 | 1 | `font, flags` | `app/client/dynamic_window_text.h:26` | 'Font'; the base's |
 | 1 | `Create, text` | `app/client/dynamic_window_text.h:29` | font_name the FAIL_IF's |
+| 1 | `Unknown84_10` | `app/client/dynamic_window_toggle.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown84_08` | `app/client/dynamic_window_toggle.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_4F7EF0` | `app/client/dynamic_window_toggle.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown84_0C` | `app/client/dynamic_window_toggle.cpp:94` | untagged neutral name (D10) |
+| 1 | `State` | `app/client/dynamic_window_toggle.h:32` | what it holds |
+| 1 | `Create, collection, flags` | `app/client/dynamic_window_toggle.h:38` | as DynamicWindowTextClass's; NAME 2 [texture_names, size]: the FAIL_IFs' |
+| 1 | `textures` | `app/client/dynamic_window_toggle.h:39` | the FAIL_IF's 'texture' |
+| 1 | `ButtonSize` | `app/client/dynamic_window_toggle.h:53` | what it holds |
+| 1 | `Collection` | `app/client/dynamic_window_toggle.h:54` | what it holds |
+| 1 | `Gadget` | `app/client/dynamic_window_toggle.h:57` | what it holds |
+| 1 | `GadgetId` | `app/client/dynamic_window_toggle.h:58` | what it holds |
 | 1 | `flags` | `app/client/dynamic_window_vertical.h:24` | +0x50 |
 | 1 | `MinSize` | `app/client/dynamic_window_vertical.h:59` | Set_Min_Size's |
 | 1 | `ContentSize` | `app/client/dynamic_window_vertical.h:60` | the widest child, the heights summed |
@@ -3646,6 +3657,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Interface` | `app/client/gadget.h:177` | neutral (D10) |
 | 1 | `Unknown_BE5F24` | `app/client/gadget.h:180` | neutral (D10) |
 | 1 | `Unknown_BE5F28` | `app/client/gadget.h:181` | neutral (D10) |
+| 1 | `gadget_collection_interface.h` | `app/client/gadget_collection_interface.h:3` | interim header name (D137) from the class |
+| 1 | `Id` | `app/client/gadget_collection_interface.h:12` | what it holds |
+| 1 | `Unknown84_04` | `app/client/gadget_collection_interface.h:22` | neutral (D10) |
+| 1 | `gadget, arg1, arg2` | `app/client/gadget_collection_interface.h:23` | neutral |
+| 1 | `Unknown84_08` | `app/client/gadget_collection_interface.h:23` | untagged neutral name (D10) |
+| 1 | `gadget` | `app/client/gadget_collection_interface.h:24` | neutral |
+| 1 | `Unknown84_0C` | `app/client/gadget_collection_interface.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown84_10` | `app/client/gadget_collection_interface.h:25` | neutral (D10) |
 | 1 | `Unknown0C` | `app/client/gadget_list_manager.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/gadget_list_manager.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown30` | `app/client/gadget_list_manager.cpp:11` | untagged neutral name (D10) |
@@ -4183,6 +4202,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BC` | `app/client/gd_buffgadg.h:79` | untagged neutral name (D10) |
 | 1 | `Unknown_C4` | `app/client/gd_buffgadg.h:81` | untagged neutral name (D10) |
 | 1 | `Client` | `app/client/gd_buffgadg.h:82` | its type |
+| 1 | `Unknown_30` | `app/client/gd_dynamicelement.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/gd_dynamicelement.cpp:24` | untagged neutral name (D10) |
+| 1 | `gd_dynamicelement.h` | `app/client/gd_dynamicelement.h:17` | interim header name (D137), see above |
+| 1 | `DynamicElementGadgetClass` | `app/client/gd_dynamicelement.h:25` | what it is (no RTTI, no string) |
+| 1 | `element` | `app/client/gd_dynamicelement.h:28` | what it holds |
+| 1 | `Unknown_30` | `app/client/gd_dynamicelement.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/gd_dynamicelement.h:31` | untagged neutral name (D10) |
+| 1 | `Element` | `app/client/gd_dynamicelement.h:34` | what it holds |
 | 1 | `robj, a, b, c` | `app/client/gd_dynamicwindow.cpp:8` | as ui_group.h |
 | 1 | `Unknown_496110` | `app/client/gd_dynamicwindow.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/gd_dynamicwindow.cpp:59` | untagged neutral name (D10) |
@@ -11950,32 +11977,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown170` | `app/client/ui_cpit.h:181` | untagged neutral name (D10) |
 | 1 | `Unknown174` | `app/client/ui_cpit.h:182` | untagged neutral name (D10) |
 | 1 | `ui_dynamicwindow.h` | `app/client/ui_dynamicwindow.h:4` | provisional header name for ui_dynamicwindow.cpp |
-| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_dynamicwindow.h:18` | neutral (D10) |
-| 1 | `Unknown84_04` | `app/client/ui_dynamicwindow.h:22` | neutral (D10) |
-| 1 | `gadget, arg1, arg2` | `app/client/ui_dynamicwindow.h:23` | neutral |
-| 1 | `gadget` | `app/client/ui_dynamicwindow.h:24` | neutral |
-| 1 | `Unknown84_10` | `app/client/ui_dynamicwindow.h:25` | neutral (D10) |
-| 1 | `client, name, flags` | `app/client/ui_dynamicwindow.h:32` | what it passes on |
-| 1 | `Unknown_58` | `app/client/ui_dynamicwindow.h:34` | neutral (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_dynamicwindow.h:35` | neutral (D10) |
-| 1 | `Unknown_60` | `app/client/ui_dynamicwindow.h:36` | neutral (D10) |
-| 1 | `key` | `app/client/ui_dynamicwindow.h:37` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/ui_dynamicwindow.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown84_04` | `app/client/ui_dynamicwindow.h:38` | neutral (D10) |
-| 1 | `Unknown84_08` | `app/client/ui_dynamicwindow.h:39` | neutral (D10) |
-| 1 | `Unknown84_0C` | `app/client/ui_dynamicwindow.h:40` | neutral (D10) |
-| 1 | `Unknown84_10` | `app/client/ui_dynamicwindow.h:41` | neutral (D10) |
-| 1 | `Add_Element, element, row_index` | `app/client/ui_dynamicwindow.h:42` | DynamicWindowClass's |
-| 1 | `Remove_All, recursive` | `app/client/ui_dynamicwindow.h:43` | DynamicWindowClass's |
-| 1 | `Unknown_58A580` | `app/client/ui_dynamicwindow.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown_58ADA0` | `app/client/ui_dynamicwindow.h:46` | neutral (D10) |
-| 1 | `Unknown8C` | `app/client/ui_dynamicwindow.h:49` | neutral (D10) |
-| 1 | `Unknown90` | `app/client/ui_dynamicwindow.h:50` | neutral (D10) |
-| 1 | `std:` | `app/client/ui_dynamicwindow.h:51` | neutral (D10) |
-| 1 | `Unknown94` | `app/client/ui_dynamicwindow.h:51` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/ui_dynamicwindow.h:52` | neutral (D10) |
-| 1 | `UnknownA8` | `app/client/ui_dynamicwindow.h:53` | neutral (D10) |
-| 1 | `UnknownA9` | `app/client/ui_dynamicwindow.h:54` | neutral (D10) |
+| 1 | `client, name, flags` | `app/client/ui_dynamicwindow.h:23` | what it passes on |
+| 1 | `Unknown_58` | `app/client/ui_dynamicwindow.h:25` | neutral (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_dynamicwindow.h:26` | neutral (D10) |
+| 1 | `Unknown_60` | `app/client/ui_dynamicwindow.h:27` | neutral (D10) |
+| 1 | `key` | `app/client/ui_dynamicwindow.h:28` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_dynamicwindow.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown84_04` | `app/client/ui_dynamicwindow.h:29` | neutral (D10) |
+| 1 | `Unknown84_08` | `app/client/ui_dynamicwindow.h:30` | neutral (D10) |
+| 1 | `Unknown84_0C` | `app/client/ui_dynamicwindow.h:31` | neutral (D10) |
+| 1 | `Unknown84_10` | `app/client/ui_dynamicwindow.h:32` | neutral (D10) |
+| 1 | `Add_Element, element, row_index` | `app/client/ui_dynamicwindow.h:33` | DynamicWindowClass's |
+| 1 | `Remove_All, recursive` | `app/client/ui_dynamicwindow.h:34` | DynamicWindowClass's |
+| 1 | `Unknown_58A580` | `app/client/ui_dynamicwindow.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_58ADA0` | `app/client/ui_dynamicwindow.h:37` | neutral (D10) |
+| 1 | `Unknown8C` | `app/client/ui_dynamicwindow.h:40` | neutral (D10) |
+| 1 | `Unknown90` | `app/client/ui_dynamicwindow.h:41` | neutral (D10) |
+| 1 | `std:` | `app/client/ui_dynamicwindow.h:42` | neutral (D10) |
+| 1 | `Unknown94` | `app/client/ui_dynamicwindow.h:42` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/ui_dynamicwindow.h:43` | neutral (D10) |
+| 1 | `UnknownA8` | `app/client/ui_dynamicwindow.h:44` | neutral (D10) |
+| 1 | `UnknownA9` | `app/client/ui_dynamicwindow.h:45` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_faction.cpp:22` | 0xBE67C4 |
 | 1 | `LineDisplayClientClass` | `app/client/ui_faction.cpp:25` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_faction.cpp:28` | untagged neutral name (D10) |
@@ -12803,8 +12825,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Specials` | `app/client/ui_item_examination.h:46` | neutral (D10) |
 | 1 | `Options` | `app/client/ui_item_examination.h:47` | neutral (D10) |
 | 1 | `Description` | `app/client/ui_item_examination.h:48` | neutral (D10) |
-| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_attributes.cpp:6` | untagged neutral name (D10) |
-| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_attributes.h:27` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_item_examination_attributes.h:36` | neutral (D10) |
 | 1 | `Unknown68` | `app/client/ui_item_examination_attributes.h:37` | neutral (D10) |
 | 1 | `Add_Attribute, attribute` | `app/client/ui_item_examination_attributes.h:46` | appends to Attributes |
@@ -12816,8 +12836,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set_Description, text` | `app/client/ui_item_examination_description.h:19` | what it does |
 | 1 | `Text` | `app/client/ui_item_examination_description.h:22` | what it holds |
 | 1 | `Description` | `app/client/ui_item_examination_description.h:23` | what it holds |
-| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_options.cpp:6` | untagged neutral name (D10) |
-| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_options.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_item_examination_options.h:34` | neutral (D10) |
 | 1 | `Unknown68` | `app/client/ui_item_examination_options.h:35` | neutral (D10) |
 | 1 | `Unknown6C` | `app/client/ui_item_examination_options.h:36` | neutral (D10) |
@@ -12870,8 +12888,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Specials` | `app/client/ui_item_examination_property_router.h:81` | the panel |
 | 1 | `Options` | `app/client/ui_item_examination_property_router.h:82` | the panel |
 | 1 | `Description` | `app/client/ui_item_examination_property_router.h:83` | the panel |
-| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_specials.cpp:6` | untagged neutral name (D10) |
-| 1 | `UIDynamicWindowUnknown84Class` | `app/client/ui_item_examination_specials.h:27` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_item_examination_specials.h:36` | neutral (D10) |
 | 1 | `Unknown68` | `app/client/ui_item_examination_specials.h:37` | neutral (D10) |
 | 1 | `Add_Special, special` | `app/client/ui_item_examination_specials.h:46` | appends to Specials |
@@ -22660,6 +22676,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DynamicWindowMultiLineTextClass` | `app/client/dynamic_window_multi_line_text.h:26` | class from file (D24) |
 | 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:73` | class from file (D24), dynamic_window_render_object.cpp |
 | 2 | `DynamicWindowTextClass` | `app/client/dynamic_window_text.h:23` | class from file (D24) |
+| 2 | `render_objects` | `app/client/dynamic_window_toggle.h:41` | Create's FAIL_IF |
+| 2 | `State` | `app/client/dynamic_window_toggle.h:55` | the FAIL_IF's 'state' |
 | 2 | `Or_Flags` | `app/client/dynamic_window_vertical.cpp:82` | what it does (D185 variant: the returned copy keeps the client's second register) |
 | 2 | `DynamicWindowVerticalClass` | `app/client/dynamic_window_vertical.h:21` | class from file (D24), dynamic_window_vertical.cpp |
 | 2 | `String_To_Value` | `app/client/eff_o.cpp:28` | as strconv_lib.h's pairs |
@@ -23901,8 +23919,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `owner` | `app/client/ui_cpit.h:65` | what it holds |
 | 2 | `Owner` | `app/client/ui_cpit.h:69` | what it holds |
 | 2 | `HulkWatch` | `app/client/ui_cpit.h:162` | what it holds |
-| 2 | `position` | `app/client/ui_dynamicwindow.h:44` | what the caller passes |
-| 2 | `Get_Center, center` | `app/client/ui_dynamicwindow.h:45` | DynamicWindowClass's |
+| 2 | `position` | `app/client/ui_dynamicwindow.h:35` | what the caller passes |
+| 2 | `Get_Center, center` | `app/client/ui_dynamicwindow.h:36` | DynamicWindowClass's |
 | 2 | `Checked` | `app/client/ui_friends.cpp:54` | what 0x7E8030 sets |
 | 2 | `UIFriendsPlayerInfoClass` | `app/client/ui_friends.h:20` | what PlayersInfo holds (the asserts' 'PlayersInfo', '!friend_info') |
 | 2 | `std:` | `app/client/ui_friends.h:26` | its style's |
@@ -26342,6 +26360,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `dynamic_window_multi_line_text.h` | `app/client/dynamic_window_multi_line_text.h:17` | header name assumed from the client's dynamic_window_multi_line_text.cpp |
 | 3 | `dynamic_window_render_object.h` | `app/client/dynamic_window_render_object.h:23` | header name assumed from the client's dynamic_window_render_object.cpp |
 | 3 | `dynamic_window_text.h` | `app/client/dynamic_window_text.h:15` | header name assumed from the client's dynamic_window_text.cpp |
+| 3 | `dynamic_window_toggle.h` | `app/client/dynamic_window_toggle.h:16` | header name assumed from the client's dynamic_window_toggle.cpp |
+| 3 | `std:` | `app/client/dynamic_window_toggle.h:56` | the FAIL_IF's |
 | 3 | `dynamic_window_vertical.h` | `app/client/dynamic_window_vertical.h:15` | header name assumed from the client's dynamic_window_vertical.cpp |
 | 3 | `eff_o.h` | `app/client/eff_o.h:23` | header name assumed from the client's eff_o.cpp |
 | 3 | `EffectObjectClass` | `app/client/eff_o.h:50` | class-from-file (D24) for eff_o.cpp |
@@ -26820,8 +26840,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `HulkUI` | `app/client/ui_cpit.h:152` | the assert's |
 | 3 | `Scan` | `app/client/ui_cpit.h:155` | its file's (ui_scan.cpp) |
 | 3 | `CurrentHarvestable` | `app/client/ui_cpit.h:163` | the asserts' |
-| 3 | `UIDynamicWindowClass` | `app/client/ui_dynamicwindow.h:29` | class-from-file (D24) for app\Client\ui_dynamicwindow.cpp |
-| 3 | `MainWindow` | `app/client/ui_dynamicwindow.h:48` | the FAIL_IF's |
+| 3 | `UIDynamicWindowClass` | `app/client/ui_dynamicwindow.h:20` | class-from-file (D24) for app\Client\ui_dynamicwindow.cpp |
+| 3 | `MainWindow` | `app/client/ui_dynamicwindow.h:39` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_faction.cpp:30` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIFactionClass` | `app/client/ui_faction.h:15` | class-from-file (D24) for app\Client\ui_faction.cpp |
 | 3 | `Get_Client` | `app/client/ui_faction.h:28` | the FAIL_IF's |

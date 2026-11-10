@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-740 entries in 226 files.
+741 entries in 227 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -101,6 +101,7 @@ edit the comments in the code, not this file.
 | `app/client/dynamic_window_multi_line_text.cpp:428` | `DynamicWindowMultiLineTextClass::Position_Lines` | mention | NOT EXACT (D64): the functions marked, written from the pseudocode, functional. |
 | `app/client/dynamic_window_render_object.cpp:32` | `DynamicWindowRenderObjectClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
 | `app/client/dynamic_window_render_object.cpp:51` | `DynamicWindowRenderObjectClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
+| `app/client/dynamic_window_toggle.cpp:73` | `ToggleButtonDynamicWindow::ToggleButtonDynamicWindow` | marker | NOT EXACT: 0.47, inline budget: the client calls the elements' RefCountPtr copy constructor out of line (0x51E950) in StateRenderObjects' copy, under its own EH state; ours inlines it |
 | `app/client/dynamic_window_vertical.cpp:101` | `DynamicWindowVerticalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/enbscene.cpp:170` | `MainViewSceneClass::Apply_Projectors` | marker | NOT EXACT: field-offset (explain.py; 0.78): the client addresses the projector lists' heads from the manager (+0x60 / +0x64, +0x48 / +0x4C), ours from the list (add 0x5C, +4 / +8), and copies the camera's transform in another order |
 | `app/client/enbscene.cpp:201` | `MainViewSceneClass::Unknown_75FB00` | marker | NOT EXACT: field-offset (explain.py; 0.84): FP operand order only: the client evaluates the inlined Matrix3::Rotate_Vector rows (Compute_Point) and Matrix3D::Inverse_Transform_Vector in another order than the tree's wwmath forms |
