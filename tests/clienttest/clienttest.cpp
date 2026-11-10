@@ -1586,10 +1586,10 @@ static void Test_Starbase(SClient *client)
 // (4g) the recustomize handlers from synthetic packets: RECUSTOMIZE_SHIP_START 129 (0x73F4B0) hands the ship's
 // description, the costs and four ints to the starbase view's +0x1A0 (0x61F250; FAIL_IF '!ship_ui' without one),
 // RECUSTOMIZE_AVATAR_START 131 (0x73F570) the costs to +0x19C (0x551C40; '!avatar_ui'), RECUSTOMIZE_AVATAR_UPDATE 133
-// (0x73F5F0) its int and the avatar description to the +0x60 interface (0x6437A0). Stand-ins record the calls.
-class SBaseViewUnknown19CClass { public: void Unknown_551C40(RecustomizationCostClass *cost); };
+// (0x73F5F0) its int and the avatar description to the +0x60 interface (0x6437A0). Stand-ins record the calls; 0x551C40 is
+// the real StarbaseAvatarCreationInterface method (ui_avatar_cust.h, app.lib(ui_avatar_cust.obj)): it copies the costs to the
+// window's +0x390 and sets +0x3CC, which the test reads back on a zeroed window of the class's size (0x3D0).
 static std::string Recustomize_Log;
-void SBaseViewUnknown19CClass::Unknown_551C40(RecustomizationCostClass *cost) { Recustomize_Log += cost ? "551C40(cost) " : "551C40(NULL) "; }
 void UIStarbaseClass::Clienttest_Unknown_6437A0(int unknown, AvatarDescClass *desc)
 {
 	char t[64];
@@ -1607,7 +1607,7 @@ static void Test_Recustomize(SClient *client)
 	UIViewClass *saved = client->Unknown135C;
 	static double fake_view[0x200 / 8];
 	static double fake_starbase[0x100 / 8];
-	static char fake_avatar_ui[4];
+	static double fake_avatar_ui[0x3D0 / 8];
 	char *view = (char *)fake_view;
 	*(int *)((char *)fake_starbase + 0x3C) = 5;
 	*(double **)(view + 0x60) = fake_starbase;
@@ -1626,8 +1626,10 @@ static void Test_Recustomize(SClient *client)
 	Check(Recustomize_Log == "", "129 and 131 without the view's +0x1A0 / +0x19C: the FAIL_IFs '!ship_ui', '!avatar_ui', nothing called");
 	// +0x1A0 stays clear from here: it is a StarbaseShipCustomizeInterface now (ui_ship_cust.h) and 0x61F250 is the real one,
 	// linked from app.lib(ui_ship_cust.obj), which needs the whole window; a 4-byte fake crashed it (0xC0000005)
-	*(char **)(view + 0x19C) = fake_avatar_ui;
+	*(double **)(view + 0x19C) = fake_avatar_ui;
 	avatar_start.Process_Packet(client);
+	if (((char *)fake_avatar_ui)[0x3CC])
+		Recustomize_Log += "551C40(cost) ";
 	Memory->Incoming.push_back(Built_Message(&RecustomizeAvatarUpdatePacketClass(7, AvatarDescClass())));
 	client->Process_Packets();
 	Trace("recustomize calls: %s", Recustomize_Log.c_str());

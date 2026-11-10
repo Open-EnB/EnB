@@ -792,8 +792,9 @@ enum AuxRootsSymbolPadType { %s };	// NAME 1: a build aid (HX1)
 # CharacterViewAvatarClass): 40-42 (and 21 alone; same sweep). TX1's WW3D::Sync by name in Do_Frame (was the gen
 # stand-in Unknown_918200): 42-44 (and 22-23; same sweep). GS1's sclient.cpp rebuilds (0x743380, 0x744B60, 0x744E50)
 # and ui_scut.h's duplicate 0x5417D0 gone: 29-31 (and 26; same sweep). GS1's 0x744560 (pkuitrigger.h after auxdata.h):
-# 46-49 (and 44; same sweep).
-SEND_SYMBOL_PAD = 47
+# 46-49 (and 44; same sweep). ST1's sbaseview.h retype (AvatarUI +0x19C onto ui_avatar_cust.h's
+# StarbaseAvatarCreationInterface, the stand-in class gone): 1-7 (and 62-63; .work/st1/sendpad_imp.py).
+SEND_SYMBOL_PAD = 4
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)

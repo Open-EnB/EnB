@@ -143,7 +143,7 @@ bool StartPacketClass::Process_Packet(void *instance)
 #include "..\packets\pkrecustomize.h"
 #include "sbaseview.h"		// the starbase view and the interfaces it holds (moved out of this file)
 #include "ui_ship_cust.h"	// its +0x1A0, StarbaseShipCustomizeInterface
-
+#include "ui_avatar_cust.h"	// its +0x19C, StarbaseAvatarCreationInterface
 
 
 
@@ -3433,10 +3433,10 @@ bool RecustomizeAvatarStartPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 
 	FAIL_IF(!sclient) return(true);
-	SBaseViewUnknown19CClass *avatar_ui = ((SBaseViewClass *)sclient->Unknown135C)->AvatarUI.Peek();
+	StarbaseAvatarCreationInterface *avatar_ui = ((SBaseViewClass *)sclient->Unknown135C)->AvatarUI.Peek();
 
 	FAIL_IF(!avatar_ui) return(true);
-	avatar_ui->Unknown_551C40(&Cost);
+	avatar_ui->Unknown_551C40(Cost);
 	return(true);
 }
 
