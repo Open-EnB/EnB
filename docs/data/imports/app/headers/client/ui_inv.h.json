@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: provisional header (D137) of ui_inv.cpp's UIInvClass (the client's file per its asserts at 0xB803B0), the inventory windows' base of the trade, mount points and PDA cargo / equipment / vault windows; laid out from the constructor 0x59F3D0, the destructor 0x59F940 and the set-up 0x59F470 (UI1)"
+}

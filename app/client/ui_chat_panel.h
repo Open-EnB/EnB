@@ -73,6 +73,7 @@ public:
 	void Unknown_565D80(const char *name);				// 0x565D80 (CLIENT_CHAT_EVENT 165: the private sender, first in the +0x188 names)  // NAME 1 [name]: cpacket.cpp's
 	void Unknown_5658B0(const char *name);				// 0x5658B0  // NAME 1 [name]: neutral
 	void Unknown_565F30(int arg);
+	void Unknown_565F60(int window);					// 0x565F60: +0xFC set (ui_radio_main.cpp's 0x5E9910: 2, 3, 9, 10)  // NAME 1 [window]: what +0xFC is
 	void Unknown_565F80();								// 0x565F80 (every frame): the window +0x108 asks for opened at +0x104
 	void Unknown_566AF0();								// 0x566AF0 (every frame): the window +0xFC asks for opened at +0xF8						// 0x565F30 (0x7436A0: Esc, 2)  // NAME 1 [arg]: what 0x7436A0 passes
 	void Unknown_567760();								// 0x567760: the reply list's pick

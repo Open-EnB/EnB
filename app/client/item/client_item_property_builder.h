@@ -23,6 +23,7 @@
 #include "..\..\ww3d2\texture.h"
 #include <string>
 #include <vector>
+#include "..\inv_data_peek.h"	// InvDataPeekClass (InvDataClass::Unknown_688830)
 
 class SClient;
 class UIItemExaminationPropertyRouterBaseClass;
@@ -121,25 +122,7 @@ public:
 	RefCountPtr<ItemTemplateInfoClass> TemplateInfo;													// +0x5C  // NAME 2: the FAIL_IFs '!template_info'
 };
 
-// inv_data_peek.cpp's (not rebuilt)
-struct InvDataPeekItemStruct;	// ui_mfd_extended_context_harvestable.h's
 class MoneyClass;
-class InvDataPeekClass  // NAME 3: D24 class-from-file for inv_data_peek.cpp
-{
-public:
-	std::string Unknown_68A270(int slot);																// 0x68A270  // NAME 1: neutral (D10); NAME 1 [slot]
-	std::string Unknown_68A450(int slot);																// 0x68A450  // NAME 1: neutral (D10)
-	std::string Unknown_68A090(int slot);																// 0x68A090 (the slot's attribute delta)  // NAME 1: neutral (D10)
-	InvDataPeekItemStruct *Get_Item(unsigned int slot, bool flag);								// 0x68AAA0 (as ui_mfd_extended_context_harvestable.h's)  // NAME 2: what it returns
-	MoneyClass Unknown_689DA0(int slot);																// 0x689DA0 (ui_trade.cpp: the slot's price)  // NAME 1: neutral (D10)
-	int Get_Quantity(unsigned int slot);																// 0x689D20 (as ui_mfd_extended_context_harvestable.h's)  // NAME 2: '%s (%d)'
-	float Unknown_689F10(int slot);																		// 0x689F10 (ui_trade.cpp: the slot's value)  // NAME 1: neutral (D10)
-	unsigned int Unknown_68A840(int slot);																// 0x68A840 (the slot's flags: 0x2000 auto fire)  // NAME 1: neutral (D10)
-	std::string Unknown_68A8C0(int slot);																// 0x68A8C0 (FAIL_IF '!encoded_info_delta_string')  // NAME 1: neutral (D10)
-	float Unknown_68A010(int slot);																		// 0x68A010 (the quality, -1: none)  // NAME 1: neutral (D10)
-	float Unknown_689F90(int slot);																		// 0x689F90 (the structure, -1: none)  // NAME 1: neutral (D10)
-};
-
 class InvDataClass : public RefCountClass  // NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
 {
 public:

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "app\\client\\ui_mount.h, provisional header name (NAME 1, D137) for ui_mount.cpp's UIMountClass; its inline Is_Shown / Show / Hide are 0x58B770 / 0x58B790 / 0x58B7C0"
+}

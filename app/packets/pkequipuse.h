@@ -23,6 +23,7 @@ class EquipUsePacketClass : public PacketClass  // NAME 2: Net-7's opcode name E
 {
 public:
 	EquipUsePacketClass(RawPacketClass *raw);	// 0x8AE8B0
+	EquipUsePacketClass(int game_id, int inventory, int slot);	// 0x8AE810 (ui_inv.cpp's 0x59FE30 / 0x5A0740: the client's ShipID, the window's InvType and the slot)  // NAME 3 [game_id, inventory, slot]: the Print text's fields
 	virtual RawPacketClass *Build();	// +0x04 0x8AE970
 	virtual bool Process_Packet(void *client);	// +0x08 0x867C80 (clientstub.cpp l.44)
 	virtual int Get_Data_Size();	// +0x0C 0x8AEA50

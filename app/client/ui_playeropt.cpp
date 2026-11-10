@@ -217,17 +217,18 @@ void UIPlayerOptClass::Unknown_5D9C70()
 	Unknown0C0.clear();
 }
 
-// NOT EXACT: inline budget (0.63: the client keeps the inner name copy's destructor inline at the loop's end and calls it only on the break, ours merges both into one call; the two string copies' stack slots are swapped)
+// the client's loop form: ++ on the list iterator, the wcscoll result in a named int (as ui_radio_list 0x5E8240)
 // 0x5D9D10
 void UIPlayerOptClass::Unknown_5D9D10()
 {
 	Unknown_5D9BB0();
-	for (std::list<std::string>::iterator node = Unknown0C0.begin(); node != Unknown0C0.end(); node++) {
+	for (std::list<std::string>::iterator node = Unknown0C0.begin(); node != Unknown0C0.end(); ++node) {
 		std::string name = *node;
 		std::vector<std::string>::iterator pos;
 		for (pos = Unknown0B0.begin(); pos != Unknown0B0.end(); pos++) {
 			std::string other = *pos;
-			if (wcscoll((const wchar_t *)name.c_str(), (const wchar_t *)other.c_str()) < 0) {
+			int result = wcscoll((const wchar_t *)name.c_str(), (const wchar_t *)other.c_str());
+			if (result < 0) {
 				break;
 			}
 		}
@@ -304,7 +305,6 @@ void UIPlayerOptClass::Unknown_5DA2B0(bool on)
 		Unknown0CC[2]->Unknown_40(false);
 	}
 }
-
 
 
 
@@ -495,7 +495,7 @@ ClientObjectClass *UIPlayerOptClass::Unknown_5DAD50()
 **	a list of names (requests 0x17, 10, 11); its text entry is ui_ptrade.cpp's credits entry (0x649890) asking
 **	'Ignore Player'. Compiler-generated: 0x5D8E60 (deleting destructor), 0x5DADC0, 0x5DAE40, 0x5DAE70, 0x5DAE80.
 **
-**	Every function is byte-exact but 0x5D9D10 (attempts.csv). The levers: the lists emptied with clear() in
+**	Every function is byte-exact. The levers: 0x5D9D10's loop with ++node and a named wcscoll result; the lists emptied with clear() in
 **	0x5D9BB0 / 0x5D9C70 (an extra inline level: the destructor's inlined slot +0x5C then calls the erases out of
 **	line); 0x5DA2B0 written with an early return, which the client never inlines; 0x5D9410 sending through
 **	0x5DA570 and 0x5DAB50 asking 0x5DAD50 (inlined helpers take the budget the client spent there); the model

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "VC6's #import output for msxml.dll, MSXML 2.0's type library, whole (XP SP3's 8.00.7002.0): DOMDocument CLSID 2933BF90 and the IXMLDOM* IIDs as the client's .rdata 0xBA0F78-0xBA1008; included instead of the #import"
+}

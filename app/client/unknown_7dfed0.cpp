@@ -31,7 +31,7 @@ void Sub14CImplClass::Unknown_5F0100()
 void Sub14CImplClass::Slot1()
 {
 	CoInitialize(NULL);
-	Unknown0C = Unknown10.CreateInstance(__uuidof(MSXML2::DOMDocument));
+	Unknown0C = Unknown10.CreateInstance(__uuidof(MSXML::DOMDocument));
 	if (SUCCEEDED(Unknown0C)) {
 		Unknown10->async = VARIANT_FALSE;
 		Unknown10->validateOnParse = VARIANT_FALSE;
@@ -47,13 +47,13 @@ void Sub14CImplClass::Slot2()
 std::string Sub14CImplClass::Slot3(const char *path, int index, const char *name)
 {
 	_bstr_t value("");
-	MSXML2::IXMLDOMNodeListPtr list = Unknown10->selectNodes(_bstr_t(path));
+	MSXML::IXMLDOMNodeListPtr list = Unknown10->selectNodes(_bstr_t(path));
 	if (list) {
-		MSXML2::IXMLDOMNodePtr node = list->Getitem(index);
+		MSXML::IXMLDOMNodePtr node = list->Getitem(index);
 		if (node) {
 			if (name != NULL) {
-				if (node->GetnodeType() == MSXML2::NODE_ELEMENT) {
-					MSXML2::IXMLDOMNodePtr child = node->selectSingleNode(_bstr_t(name));
+				if (node->GetnodeType() == MSXML::NODE_ELEMENT) {
+					MSXML::IXMLDOMNodePtr child = node->selectSingleNode(_bstr_t(name));
 					if (child) {
 						value = child->Gettext();
 					}
@@ -78,7 +78,7 @@ float Sub14CImplClass::Slot5(const char *path, int index, const char *name)
 
 int Sub14CImplClass::Slot6(const char *path)
 {
-	MSXML2::IXMLDOMNodeListPtr list = Unknown10->selectNodes(_bstr_t(path));
+	MSXML::IXMLDOMNodeListPtr list = Unknown10->selectNodes(_bstr_t(path));
 	int count = 0;
 	if (list != NULL) {
 		count = list->Getlength();
@@ -89,22 +89,22 @@ int Sub14CImplClass::Slot6(const char *path)
 std::string Sub14CImplClass::Slot7(const char *path, const char *name, int index, const char *element)
 {
 	_bstr_t value("");
-	MSXML2::IXMLDOMNodeListPtr list = Unknown10->selectNodes(_bstr_t(path));
+	MSXML::IXMLDOMNodeListPtr list = Unknown10->selectNodes(_bstr_t(path));
 	if (list) {
-		MSXML2::IXMLDOMNodePtr node = list->Getitem(index);
+		MSXML::IXMLDOMNodePtr node = list->Getitem(index);
 		if (node) {
 			if (element != NULL) {
-				if (node->GetnodeType() == MSXML2::NODE_ELEMENT) {
-					MSXML2::IXMLDOMNodePtr child = node->selectSingleNode(_bstr_t(element));
+				if (node->GetnodeType() == MSXML::NODE_ELEMENT) {
+					MSXML::IXMLDOMNodePtr child = node->selectSingleNode(_bstr_t(element));
 					if (child) {
-						MSXML2::IXMLDOMNamedNodeMapPtr attributes = child->Getattributes();
-						MSXML2::IXMLDOMNodePtr attribute = attributes->getNamedItem(_bstr_t(name));
+						MSXML::IXMLDOMNamedNodeMapPtr attributes = child->Getattributes();
+						MSXML::IXMLDOMNodePtr attribute = attributes->getNamedItem(_bstr_t(name));
 						value = attribute->Gettext();
 					}
 				}
 			} else {
-				MSXML2::IXMLDOMNamedNodeMapPtr attributes = node->Getattributes();
-				MSXML2::IXMLDOMNodePtr attribute = attributes->getNamedItem(_bstr_t(name));
+				MSXML::IXMLDOMNamedNodeMapPtr attributes = node->Getattributes();
+				MSXML::IXMLDOMNodePtr attribute = attributes->getNamedItem(_bstr_t(name));
 				value = attribute->Gettext();
 			}
 		}
@@ -135,7 +135,7 @@ std::string Sub14CImplClass::Slot15()
 std::string Sub14CImplClass::Slot16()
 {
 	std::string name = "";
-	MSXML2::IXMLDOMDocumentTypePtr type = Unknown10->Getdoctype();
+	MSXML::IXMLDOMDocumentTypePtr type = Unknown10->Getdoctype();
 	if (type != NULL) {
 		name = (const char *)type->Getname();
 	}
@@ -144,7 +144,7 @@ std::string Sub14CImplClass::Slot16()
 
 int Sub14CImplClass::Slot9()
 {
-	MSXML2::IXMLDOMParseError *error = NULL;
+	MSXML::IXMLDOMParseError *error = NULL;
 	long code = 0;
 	if (!Unknown10->Getparsed()) {
 		if (SUCCEEDED(Unknown10->get_parseError(&error)) && error != NULL) {
@@ -178,8 +178,8 @@ const char *Sub14CImplClass::Slot12(int arg)
 **
 ** The registration screen's reader (ui_registration.h's Sub14CImplClass at +0x14C): MSXML's DOMDocument
 ** (CLSID 2933BF90, the IIDs 2933BF80 / 81 / 82 / 83 / 8B in .rdata 0xBA0F78-0xBA1008) through #import's smart pointers
-** and wrappers: msxml3.tlh / msxml3.tli, VC6's #import output, stand in for the client's #import (its type library,
-** msxml.dll or msxml3.dll, is not known; the interfaces' slots used here are the same in both). No __FILE__ or assert:
+** and wrappers: msxml.tlh / msxml.tli, VC6's #import output of msxml.dll (MSXML 2.0's type library, whole; D222),
+** stand in for the client's #import: the client holds that library's CLSID and none of MSXML 3.0's. No __FILE__ or assert:
 ** the name is PROVISIONAL (D137), after its first function. Its out-of-line wrapper copies (0x7E04C0-0x7E1DF0: _bstr_t's
 ** reference counting, the selectNodes / selectSingleNode / Getitem / Gettext / Getattributes / getNamedItem /
 ** Getxml / Getdoctype / Getname / loadXML wrappers, _com_ptr_t's operator-> and destructors) come from those headers.

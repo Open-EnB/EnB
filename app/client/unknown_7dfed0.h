@@ -3,7 +3,7 @@
 #ifndef UNKNOWN_7DFED0_H  // NAME 1 [unknown_7dfed0.h]: PROVISIONAL (D137)
 #define UNKNOWN_7DFED0_H
 
-#include "msxml3.tlh"
+#include "msxml.tlh"
 #include "unknown_7cef30.h"
 #include "unknown_7e1e40.h"
 
@@ -35,7 +35,7 @@ public:
 
 	RegistrationCallbackClass *Unknown08;	// +0x08: slot 0x34's callback (the reply's notifications go on to it)
 	HRESULT Unknown0C;						// +0x0C: CreateInstance's result
-	MSXML2::IXMLDOMDocumentPtr Unknown10;	// +0x10: the reply document (DOMDocument)
+	MSXML::IXMLDOMDocumentPtr Unknown10;	// +0x10: the reply document (DOMDocument)
 	int Unknown14;							// +0x14
 	Sub14CUnknown18Class Unknown18;			// +0x18
 };

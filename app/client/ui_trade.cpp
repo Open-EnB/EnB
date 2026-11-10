@@ -735,7 +735,7 @@ void UITradeClass::Unknown_652890()
 		FAIL_IF(!trade_render) return;
 		InvDataPeekClass *peek = trade_render->Peek_Inv_Data()->Unknown_688830();
 		int slot = trade_render->Unknown20;
-		MoneyClass price = peek->Unknown_689DA0(slot);
+		MoneyClass price = peek->Get_Price(slot);
 		std::string name("");
 		int count;
 		Unknown_5A00C0(&count, &name);
@@ -786,8 +786,8 @@ void UITradeClass::Unknown_652C60()
 	if (cargo) {
 		int slot = cargo->UnknownB4;
 		InvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830();
-		MoneyClass price = peek->Unknown_689DA0(slot);
-		unsigned int count = peek->Get_Quantity(slot);
+		MoneyClass price = peek->Get_Price(slot);
+		unsigned int count = peek->Get_Stack_Count(slot);
 		MoneyClass extra;
 		total = price * (float)count + extra;
 	}
@@ -883,8 +883,8 @@ void UITradeClass::Unknown_6531F0(bool arg)
 	if (cargo) {
 		int slot = cargo->UnknownB4;
 		InvDataPeekClass *peek = cargo->Unknown_59FE10()->Unknown_688830();
-		MoneyClass price = peek->Unknown_689DA0(slot);
-		float value = peek->Unknown_689F10(slot);
+		MoneyClass price = peek->Get_Price(slot);
+		float value = peek->Get_Ave_Cost(slot);
 		if (peek->Get_Item(slot, false)->Unknown0C == 13 && operator<(price, MoneyClass((__int64)value))) {
 			bool significant = operator<(price, MoneyClass((__int64)(value * 0.5f)));
 			Unknown_652BA0(arg, significant);

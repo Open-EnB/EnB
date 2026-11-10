@@ -140,7 +140,6 @@ bool FontSys::Unknown_6CD180()
 
 // 0x6CD6F0: true while the click effects run (+0x294 ms, from Info.TriggerTime): +0x250 2 starts them on button 1 down
 // over the text (0x6CD180's +0x290), 1 while +0x301 is set; the start resets the timers and plays Info.SoundClick.
-// NOT EXACT: order-only (attempts.csv): the client computes the memset address before its count (every memset of +0x303 here)
 bool FontSys::Unknown_6CD6F0()
 {
 	if (Unknown440 != 1) {
@@ -168,7 +167,9 @@ bool FontSys::Unknown_6CD6F0()
 		Unknown274[1] = 0;
 		Unknown414 = 0;
 		Unknown404 = false;
-		memset(Unknown303, 0, sizeof(Unknown303));
+		for (int i = 0; i < 0xFF; i++) {
+			Unknown303[i] = 0;
+		}
 		if (Unknown300) {
 			Unknown_BE67B4->Play(Info.SoundClick);
 		}
@@ -179,7 +180,8 @@ bool FontSys::Unknown_6CD6F0()
 
 // 0x6CD950: EffectTriggered[index] runs for time seconds (+0x2A4.., ms; the index clamped to 0..3 for the timer
 // only, as the client does) and the state its effect type keeps is reset.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CD950)
+// NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape; VC6 gives
+// the clamped slot edi and index ebp, the client the reverse (0x6CD950)
 void FontSys::Unknown_6CD950(int index, float time)
 {
 	int slot = index < 0 ? 0 : (index > 3 ? 3 : index);
@@ -189,6 +191,12 @@ void FontSys::Unknown_6CD950(int index, float time)
 		return;
 	}
 	switch (effect->EffectType) {
+		case 20:	// STRETCH
+			Unknown274[10] = 0;
+			break;
+		case 19:	// SWITCH
+			Unknown274[9] = 0;
+			break;
 		case 1:		// PULSE
 			Unknown274[3] = 0;
 			break;
@@ -205,20 +213,15 @@ void FontSys::Unknown_6CD950(int index, float time)
 			Unknown274[0] = 0;
 			Unknown414 = 0;
 			Unknown404 = false;
-			memset(Unknown303, 0, sizeof(Unknown303));
-			break;
-		case 19:	// SWITCH
-			Unknown274[9] = 0;
-			break;
-		case 20:	// STRETCH
-			Unknown274[10] = 0;
+			for (slot = 0; slot < 0xFF; slot++) {
+				Unknown303[slot] = 0;
+			}
 			break;
 	}
 }
 
 // 0x6CDAB0: an EffectOn effect's starting state, for Change_Text (ROTATE turns the y scale over, FADE starts at its
 // Initial alpha, RANDLETTER clears the shown letters, SCROLL puts the text back at Info.Offset, SCALE starts at Initial).
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CDAB0)
 void FontSys::Unknown_6CDAB0(FontEffectStruct *effect)
 {
 	if (effect == NULL) {
@@ -243,7 +246,9 @@ void FontSys::Unknown_6CDAB0(FontEffectStruct *effect)
 		case 5:		// RANDLETTER
 			Unknown270 = 0;
 			Unknown414 = 0;
-			memset(Unknown303, 0, sizeof(Unknown303));
+			{
+				for (int i = 0; i < 0xFF; i++) Unknown303[i] = 0;
+			}
 			break;
 	}
 }
@@ -316,7 +321,9 @@ void FontSys::Change_Text(const char *text, int unknown)
 					Unknown4B4.Unknown0C = 1.0f;
 					Unknown4A4 = Unknown494;
 				}
-				memset(Unknown303, 0, sizeof(Unknown303));
+				for (int j = 0; j < 0xFF; j++) {
+					Unknown303[j] = 0;
+				}
 				Unknown26C = 0;
 				Unknown270 = 0;
 				Unknown274[0] = 0;
@@ -367,7 +374,15 @@ void FontSys::Change_Text(const char *text, int unknown)
 
 // 0x6CE4E0: the font set to Info.FontType[font_index] (clamped to 0..1) and the text printed again with it (with
 // "..." while +0x406 says the line is clipped); the effects SWITCH / REVERT (0x6CA0C0) call it.
-// NOT EXACT: inline-budget (attempts.csv): the client calls operator+= ("...") out of line; the stores are its order
+// The "..." through an inline layer with the +0x406 test inside: one level deeper, VC6's budget calls operator+=
+// out of line as the client does (dead spenders at the top level never do: they drop the copy's operator= instead)
+static inline void Clip_Text(FontSys *f, StringClass &text)	// NAME 1 [Clip_Text]: what it does
+{
+	if (f->Unknown406) {
+		text += "...";
+	}
+}
+
 void FontSys::Unknown_6CE4E0(int font_index)
 {
 	FontIndex = font_index;
@@ -378,9 +393,7 @@ void FontSys::Unknown_6CE4E0(int font_index)
 		FontIndex = 1;
 	}
 	StringClass text(Info.Text);
-	if (Unknown406) {
-		text += "...";
-	}
+	Clip_Text(this, text);
 	char *buffer = text.Get_Buffer(Unknown2F0.Get_Length());
 	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
 	Font = font->font32Ptr;
@@ -393,23 +406,39 @@ void FontSys::Unknown_6CE4E0(int font_index)
 
 // 0x6CE7D0: the style restarted in state unknown (+0x440: 0 the EffectOn effects, 1 EffectConst, 2 EffectOff): the
 // clocks and effect states cleared, the text placed again (0x6D5D40) and its rectangle reset to the text's size.
-// NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CE7D0)
 void FontSys::Unknown_6CE7D0(int unknown)
 {
 	int i;
 	Unknown440 = unknown;
 	Unknown26C = 0;
 	Unknown270 = 0;
-	for (i = 0; i < 16; i++) Unknown274[i] = 0;
+	Unknown274[0] = 0;
+	Unknown274[1] = 0;
+	Unknown274[2] = 0;
+	Unknown274[3] = 0;
+	Unknown274[4] = 0;
+	Unknown274[5] = 0;
+	Unknown274[6] = 0;
+	Unknown274[7] = 0;
+	Unknown274[8] = 0;
+	Unknown274[9] = 0;
+	Unknown274[10] = 0;
+	Unknown274[11] = 0;
+	for (i = 0; i < 4; i++) Unknown274[12 + i] = 0;
 	Unknown_6D5D40();
-	Unknown420[3] = Unknown2C8;
 	Unknown420[0] = 0;
 	Unknown420[1] = Unknown2C4;
 	Unknown420[2] = 0;
+	Unknown420[3] = Unknown2C8;
 	Unknown404 = false;
 	Unknown414 = 0;
-	memset(Unknown303, 0, sizeof(Unknown303));
-	for (i = 0; i < 6; i++) Unknown254[i] = 0;
+	for (i = 0; i < 0xFF; i++) Unknown303[i] = 0;
+	Unknown254[0] = 0;
+	Unknown254[1] = 0;
+	Unknown254[2] = 0;
+	Unknown254[3] = 0;
+	Unknown254[4] = 0;
+	Unknown254[5] = 0;
 }
 
 // 0x6CE910: on while the box has the focus (Unknown44C: which of Colors the text uses); a change redraws the text.
@@ -433,4 +462,9 @@ void FontSys::Unknown_6CE910(bool on)
 **	the client's FontSys code spans two objects or one large one); no __FILE__ or string ties them yet.
 **	The +0x254 .. +0x29C words are fontmanager.h's Unknown254[6] / Unknown274[16] (+0x290 = Unknown274[7] the
 **	mouse-over frames, +0x294 = Unknown274[8] the click time left).
+**	Forms: +0x303 is cleared by a byte loop everywhere (VC6 turns it into the rep stosd / stosw / stosb with the
+**	lea edi first, as the client has it; memset puts the lea after the count): 0x6CD6F0 and 0x6CDAB0 exact.
+**	0x6CE7D0: Unknown274[0..11] and Unknown254 are cleared one store each (a loop of 16 or 6 becomes rep stosd),
+**	the four timers +0x2A4 (Unknown274[12..15]) by a loop of their own, which VC6 unrolls with a second zero
+**	register (ecx), as the client has it; Unknown420 is written in index order (any other order moves the loads).
 */

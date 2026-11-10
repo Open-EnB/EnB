@@ -25,7 +25,7 @@ ClientItemPropertyOptionAutoFireClass::~ClientItemPropertyOptionAutoFireClass()
 bool ClientItemPropertyOptionAutoFireClass::Unknown_14()
 {
 	InvDataPeekClass *peek = Data->Unknown_688830();	// NAME 1 [peek]: neutral
-	return((peek->Unknown_68A840(Slot) & 0x2000) == 0x2000);
+	return((peek->Get_Item_State(Slot) & 0x2000) == 0x2000);
 }
 
 void ClientItemPropertyOptionAutoFireClass::Unknown_18(bool value)

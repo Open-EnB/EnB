@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "e:\\build\\beta\\G\\app\\Client\\inv_data_peek.h (the client's __FILE__ 0xB90004: G_ASSERT 'false' line 195 in Peek_Value, inlined in 0x689CA0 and others; 'find' line 209 in Peek_Object 0x689E20)"
+}

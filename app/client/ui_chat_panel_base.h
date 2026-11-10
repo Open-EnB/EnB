@@ -10,6 +10,7 @@
 class RenderObjClass;
 class GadgetClass;			// gadget.cpp's
 class GadgetSlider;			// gd_slider.h's
+class UIManuCheckButtonClass;	// ui_manu.cpp's check button
 class DestroyGadgetEvent;
 
 // ui_chat_panel_base.cpp's class (0xA0 bytes; constructor 0x56D280 (the client to 0x540D30), destructor 0x56D300,
@@ -28,6 +29,7 @@ public:
 	virtual void Unknown_9C() {}						// +0x9C 0x5623F0
 
 	GadgetClass *Unknown_56D510(int id, const char *button, const char *text);	// 0x56D510 (the lights panel's 0x646360: a button by its model's name, with its text)  // NAME 1 [id, button, text]: what 0x646360 passes
+	UIManuCheckButtonClass *Unknown_56D6F0(int id, const char *bttn_name, const char *text);	// 0x56D6F0 (FAIL_IF '!bttn_name || !*bttn_name', '!robj': a check button by its model's name, 0x7E7F20; ui_option_channel.cpp passes 'check%02d' and NULL)  // NAME 1 [id, text]: as 0x56D510's; NAME 3 [bttn_name]: the FAIL_IF's
 	GadgetSlider *Unknown_56D8D0(int id, bool unknown);	// 0x56D8D0 (0x646360: its four sliders, ids 8-11; unknown is GadgetSlider's bool: the client pushes the argument's dword as loaded)  // NAME 1 [id, unknown]: neutral
 	void Unknown_56DEE0(DestroyGadgetEvent *event, GadgetClass *sender);	// 0x56DEE0 (the handler of +0x9C's destruction: slot +0x9C)  // NAME 1 [event, sender]: what the signal passes
 	void Unknown_56D970(int id, const Vector3 &offset);	// 0x56D970 (G_ASSERT 'MovableBackGadget'; 0x646360 passes 1 and a zero vector)  // NAME 1 [id, offset]: neutral

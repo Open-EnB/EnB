@@ -1,0 +1,53 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "e:\\build\\beta\\G\\app\\Client\\inv_data_peek.cpp (the client's __FILE__ 0xB8FFCC: FAIL_IF / G_ASSERT lines 104-411 in 0x689AF0-0x68B0C0); InvDataPeekClass, a view of an inventory list's fourteen item fields (names table 0xB8FEB4) and Inventory.Mounts",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42D120",
+  "0x689A80",
+  "0x689AD0",
+  "0x689AF0",
+  "0x689C30",
+  "0x689C60",
+  "0x689CA0",
+  "0x689D20",
+  "0x689DA0",
+  "0x689E20",
+  "0x689F10",
+  "0x689F90",
+  "0x68A010",
+  "0x68A630",
+  "0x68A680",
+  "0x68A6B0",
+  "0x68A6E0",
+  "0x68A720",
+  "0x68A7C0",
+  "0x68A840",
+  "0x68AAA0",
+  "0x68AB80",
+  "0x68AC50",
+  "0x68AD80",
+  "0x68AE50",
+  "0x68AF20",
+  "0x68AFF0",
+  "0x68B0C0"
+ ],
+ "merged": [],
+ "name": "client/inv_data_peek.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42D120"
+ ],
+ "short_known": [
+  "0x42D120",
+  "0x689AD0"
+ ]
+}

@@ -2409,8 +2409,8 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 	return(true);
 }
 
-// What the chat panel's +0xD8 points to, as far as CLIENT_CHAT_EVENT 165 calls it
-class UIChatPanelUnknownD8Class	// NAME 1: neutral (D10)
+// ui_playeropt.cpp's ignore list (the chat panel's +0xD8), as far as CLIENT_CHAT_LIST 164 / CLIENT_CHAT_EVENT 165 call it (ui_playeropt.h)
+class UIPlayerOptClass	// NAME 3: class-from-file (D24) for app\client\ui_playeropt.cpp (ui_playeropt.h's)
 {
 public:
 	void Unknown_5DA780(std::string name);				// 0x5DA780 (CLIENT_CHAT_EVENT 165, event 19 'is now ignoring')  // NAME 1 [name]: the event's Unknown54
@@ -2424,19 +2424,19 @@ public:
 	void Unknown_5913E0(std::vector<std::string> names, std::vector<std::string> others); void Unknown_591880(std::string name);				// 0x591880 (CLIENT_CHAT_EVENT 165, event 22 'is no longer friends with')  // NAME 1 [name]: the event's Unknown54; 0x5913E0 (CLIENT_CHAT_LIST 164 type 0: the friends list)  // NAME 1 [names, others]: the packet's Unknown20, Unknown30
 };
 
-// What the chat panel's +0xE4 points to, as far as CLIENT_CHAT_EVENT 165 calls it
-class UIChatPanelUnknownE4Class	// NAME 1: neutral (D10)
+// ui_radio_list.cpp's window (the chat panel's +0xE4), as far as CLIENT_CHAT_LIST 164 / CLIENT_CHAT_EVENT 165 call it (ui_radio_list.h)
+class UIRadioListClass	// NAME 1: neutral, after the window's lists (ui_radio_list.h's)
 {
 public:
-	void Unknown_5E8FF0(std::string name, bool flag);	// 0x5E8FF0 (CLIENT_CHAT_EVENT 165, event 7, 1 last)  // NAME 1 [name, flag]: neutral
-	void Unknown_5E8E30(std::vector<std::string> names, bool flag); void Unknown_5E9160(std::string name, bool flag);	// 0x5E9160 (CLIENT_CHAT_EVENT 165, events 8, 16, 18, 1 last)  // NAME 1 [name, flag]: neutral; 0x5E8E30 (CLIENT_CHAT_LIST 164 types 2 / 3 with +0xA0 1 / 0)  // NAME 1 [names, flag]: what the handler passes
+	void Unknown_5E8FF0(int state, std::string name);	// 0x5E8FF0 (CLIENT_CHAT_EVENT 165, event 7: the state pushed last)  // NAME 1 [state, name]: neutral
+	void Unknown_5E8E30(int state, std::vector<std::string> names); void Unknown_5E9160(int state, std::string name);	// 0x5E9160 (CLIENT_CHAT_EVENT 165, events 8, 16, 18); 0x5E8E30 (CLIENT_CHAT_LIST 164 types 3 / 2 for State 0 / 1)  // NAME 1 [state, name, names]: neutral
 
 	char Unknown00[0xA0];
-	int UnknownA0;										// +0xA0 (events 16 and 18 test it for 1)
+	int State;											// +0xA0 (0 the public channels, 1 the channel's members)  // NAME 1: neutral (D10)
 };
 
-// What the chat panel's +0xE8 points to, as far as CLIENT_CHAT_EVENT 165 calls it
-class UIChatPanelUnknownE8Class	// NAME 1: neutral (D10)
+// ui_radio_admin.cpp's window (the chat panel's +0xE8), as far as CLIENT_CHAT_LIST 164 / CLIENT_CHAT_EVENT 165 call it (ui_radio_admin.h)
+class UIRadioAdminClass	// NAME 1: neutral, after its tooltips' section 'UI_RADIO_ADMIN' (ui_radio_admin.h's)
 {
 public:
 	void Unknown_5E5EF0(std::string name);				// 0x5E5EF0 (CLIENT_CHAT_EVENT 165, event 7)  // NAME 1 [name]: neutral
@@ -2463,11 +2463,11 @@ public:
 	void Unknown_5679A0(int event, const std::string &channel, const std::string &name, bool flag);	// 0x5679A0 (CLIENT_CHAT_EVENT 165, events 7, 8, 9, 23, 24)  // NAME 1 [event, channel, name, flag]: what the handler passes
 
 	char Unknown00[0xD8];
-	UIChatPanelUnknownD8Class *UnknownD8;				// +0xD8
+	UIPlayerOptClass *UnknownD8;				// +0xD8
 	UIFriendsClass *Friends;							// +0xDC (ui_friends.cpp's 0x5916B0 / 0x591880)  // NAME 3: its methods' file
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0
-	UIChatPanelUnknownE4Class *UnknownE4;				// +0xE4
-	UIChatPanelUnknownE8Class *UnknownE8;				// +0xE8
+	UIRadioListClass *UnknownE4;				// +0xE4
+	UIRadioAdminClass *UnknownE8;				// +0xE8
 	char UnknownEC[0xF8 - 0xEC]; RefCountPtr<UIChatPanelUnknownF8Class> UnknownF8;	// +0xEC; +0xF8 (FIND_MEMBER 83)
 	RefCountPtr<UIChatPanelUnknownF8Class> Get_UnknownF8() { return(UnknownF8); }	// 0x739690 (out of line after FIND_MEMBER 83, the first caller)  // NAME 1: neutral (D10): the member it returns
 };
@@ -2508,10 +2508,10 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 	}
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (!panel) return(true);
-	UIChatPanelUnknownD8Class *d8 = panel->UnknownD8;
+	UIPlayerOptClass *d8 = panel->UnknownD8;
 	UIFriendsClass *friends = panel->Friends;
-	UIChatPanelUnknownE4Class *e4 = panel->UnknownE4;
-	UIChatPanelUnknownE8Class *e8 = panel->UnknownE8;
+	UIRadioListClass *e4 = panel->UnknownE4;
+	UIRadioAdminClass *e8 = panel->UnknownE8;
 	std::string channel(Unknown44);
 	unsigned pos = channel.find('`');
 	if (pos != std::string::npos) channel.resize(pos);
@@ -2602,7 +2602,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 				if (e8) {
 					e8->Unknown_5E5EF0(Get_Unknown14());
 				} else if (e4) {
-					e4->Unknown_5E8FF0(Get_Unknown14(), true);
+					e4->Unknown_5E8FF0(1, Get_Unknown14());
 				}
 				if (!stricmp(chan, "guild")) {
 					if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Unknown7C) {
@@ -2617,7 +2617,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 				if (e8) {
 					e8->Unknown_5E6030(Get_Unknown14());
 				} else if (e4) {
-					e4->Unknown_5E9160(Get_Unknown14(), true);
+					e4->Unknown_5E9160(1, Get_Unknown14());
 				}
 				if (!stricmp(chan, "guild")) {
 					if (sclient->Unknown_728300() && sclient->ChatPanel && sclient->ChatPanel->UnknownE0 && sclient->ChatPanel->UnknownE0->Unknown7C) {
@@ -2651,8 +2651,8 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 			_snprintf(buffer, sizeof(buffer), "[%s] %s ungagged %s.", chan, from, text);
 			break;
 		case 16:
-			if (e4 && e4->UnknownA0 == 1) {
-				e4->Unknown_5E9160(Get_Unknown54(), true);
+			if (e4 && e4->State == 1) {
+				e4->Unknown_5E9160(1, Get_Unknown54());
 			}
 			if (e8) {
 				e8->Unknown_5E6030(Get_Unknown54());
@@ -2663,8 +2663,8 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 			_snprintf(buffer, sizeof(buffer), "[%s] %s unbanned %s.", chan, from, text);
 			break;
 		case 18:
-			if (e4 && e4->UnknownA0 == 1) {
-				e4->Unknown_5E9160(Get_Unknown54(), true);
+			if (e4 && e4->State == 1) {
+				e4->Unknown_5E9160(1, Get_Unknown54());
 			}
 			if (e8) {
 				e8->Unknown_5E6030(Get_Unknown54());
@@ -2856,13 +2856,13 @@ bool ClientChatListPacketClass::Process_Packet(void *instance)
 			UIFriendsClass *friends = panel->Friends; if (friends) { friends->Unknown_5913E0(Unknown20, Unknown30); return(true); } }
 			break;
 		case 1: {
-			UIChatPanelUnknownD8Class *d8 = panel->UnknownD8; if (d8) { d8->Unknown_5DA600(Unknown20); return(true); } }
+			UIPlayerOptClass *d8 = panel->UnknownD8; if (d8) { d8->Unknown_5DA600(Unknown20); return(true); } }
 			break;
 		case 3: {
-			UIChatPanelUnknownE4Class *e4 = panel->UnknownE4; if (e4 && e4->UnknownA0 == 0) { e4->Unknown_5E8E30(Unknown20, false); return(true); } }
+			UIRadioListClass *e4 = panel->UnknownE4; if (e4 && e4->State == 0) { e4->Unknown_5E8E30(0, Unknown20); return(true); } }
 			break;
 		case 2: {
-			UIChatPanelUnknownE4Class *e4 = panel->UnknownE4; UIChatPanelUnknownE8Class *e8 = panel->UnknownE8; if (e4 && e4->UnknownA0 == 1) { e4->Unknown_5E8E30(Unknown20, true); return(true); }
+			UIRadioListClass *e4 = panel->UnknownE4; UIRadioAdminClass *e8 = panel->UnknownE8; if (e4 && e4->State == 1) { e4->Unknown_5E8E30(1, Unknown20); return(true); }
 			if (e8) { e8->Unknown_5E5D70(Unknown20); return(true); } }
 			break;
 		default:

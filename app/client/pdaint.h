@@ -8,6 +8,7 @@
 #define PDAINT_H
 
 #include "intrface.h"
+#include "ui_inv.h"			// UIInvClass, the base of the cargo, equipment and vault windows
 #include "..\..\wwlib\ref_ptr.h"
 
 class SClient;
@@ -18,43 +19,38 @@ class UICinfoClass;			// ui_cinfo.h's character window (0x5734D0)
 class UIStarmapClass;		// ui_starmap.h's star map window (0x7C63D0)
 class UIPingClass;			// ui_ping.h's ping window (0x5D7630)
 
-// The PDA's equipment, cargo and vault windows share a method of ui_inv.cpp (0x5A0450: the items and slots of a kind)
-class PDAInventoryWindowClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-#ifdef POC_WINDOW_CTOR
-	PDAInventoryWindowClass(LineDisplayClientClass *client) : InterfaceClass(client) {}
+#ifdef POC_WINDOW_CTOR	// the POC (poc_world3.cpp) keeps InterfaceClass's own slots for its empty windows
+#define POC_INV_WINDOW_SLOTS virtual void Unknown_54() { InterfaceClass::Unknown_54(); } virtual void Unknown_58() { InterfaceClass::Unknown_58(); } virtual void Unknown_5C() { InterfaceClass::Unknown_5C(); } virtual void Unknown_60() { InterfaceClass::Unknown_60(); } virtual void Unknown_7C(UIViewClass *view, bool arg) { InterfaceClass::Unknown_7C(view, arg); }
+#else
+#define POC_INV_WINDOW_SLOTS
 #endif
-	class InvDataClass *Unknown_59FE10();				// 0x59FE10 (ui_inv.cpp: SlotData's slot +0x10; ui_trade.cpp calls it on the cargo window)
-	void Unknown_5A03B0(bool arg);						// 0x5A03B0 (ui_inv.cpp; ui_trade.cpp's 0x652FF0 passes false, true)  // NAME 1 [arg]: neutral
-	void Unknown_5A0450(int type, int *num_items, int *num_slots);	// 0x5A0450 (ui_inv.cpp; 0x695E10 adds the three)  // NAME 2 [num_items, num_slots]: 0x695E10's FAIL_IFs; NAME 1 [type]: neutral
-};
 
 // The equipment window (0x154 bytes, constructor 0x5D10C0; the key 'Equipment', window 1)
-class Unknown5D10C0Class : public PDAInventoryWindowClass	// NAME 1: neutral (D10)
+class Unknown5D10C0Class : public UIInvClass	// NAME 1: neutral (D10)
 {
 public:
+	POC_INV_WINDOW_SLOTS
 	Unknown5D10C0Class(SClient *client);				// 0x5D10C0  // NAME 1 [client]: neutral
-	char Unknown84[0x154 - 0x84];
+	char UnknownD0[0x154 - 0xD0];
 };
 
 // The cargo window (0x10C bytes, constructor 0x5CF9B0; the key 'Cargo', window 0)
-class Unknown5CF9B0Class : public PDAInventoryWindowClass	// NAME 1: neutral (D10)
+class Unknown5CF9B0Class : public UIInvClass	// NAME 1: neutral (D10)
 {
 public:
+	POC_INV_WINDOW_SLOTS
 	Unknown5CF9B0Class(SClient *client, class PDAInterfaceClass *pda);	// 0x5CF9B0  // NAME 1 [client, pda]: neutral
 	void Unknown_5D0A20(bool on);						// 0x5D0A20 (0x695DC0)  // NAME 1 [on]: neutral
-	char Unknown84[0xB4 - 0x84];
-	int UnknownB4;										// +0xB4 (ui_trade.cpp's 0x652EB0: the selected slot, -1 none)  // NAME 1: neutral (D10)
-	char UnknownB8[0x10C - 0xB8];
+	char UnknownD0[0x10C - 0xD0];
 };
 
 // The vault window (0xFC bytes, constructor 0x656FF0; the key 'Vault', window 3)
-class Unknown656FF0Class : public PDAInventoryWindowClass	// NAME 1: neutral (D10)
+class Unknown656FF0Class : public UIInvClass	// NAME 1: neutral (D10)
 {
 public:
+	POC_INV_WINDOW_SLOTS
 	Unknown656FF0Class(SClient *client);				// 0x656FF0  // NAME 1 [client]: neutral
-	char Unknown84[0xFC - 0x84];
+	char UnknownD0[0xFC - 0xD0];
 };
 
 // The PDA's experience display (0x28 bytes, constructor 0x58C450, ui_experience.cpp): slot +0x08 takes the client's

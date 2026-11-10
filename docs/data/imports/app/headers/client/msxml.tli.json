@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "VC6's #import wrappers for msxml.dll (msxml.tlh includes it); the client's out-of-line copies 0x7E04C0-0x7E1DF0"
+}
