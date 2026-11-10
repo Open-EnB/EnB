@@ -88,13 +88,17 @@ Rerun `python .claude/skills/coordinator-pacing/scripts/burnrate.py` from the re
   that needs a claim until then, and do not retry in a loop. `claims.py list`/`check` answer from a 5-minute cache.
 - Give every brief a hard stop time and a report time, both earlier than the handoff by the time you need to
   log the result and file its traps (about 15 minutes per report).
-- Model by item (D72, until the D93 evaluation revises it): Opus for byte-exact rebuilding, Sonnet for bounded
-  tools fixes and audits, Haiku for searches. A short, bounded item (one trial, one batch, three functions) is
+- Model by item (D72 as revised by D96): the table in docs/builders.md §4. A short, bounded item (one trial, one batch, three functions) is
   worth 30 to 60 minutes; a file is worth 2 to 2.5 hours.
 - Log the launch: time, builder id, item, stop time, how many builders are now running.
 - Push only at a heartbeat that found builders' work brought into the run branch since the last push: `python
   tools/run_branch.py push` (the pre-push check takes about 2.5 minutes). Contributors see the work before master
   does; the run's claims live while its PR is open, pushed or not, and the hosted checks skip the draft.
+- Landing (D223): give a finished branch to the `lander` subagent (Agent tool, `subagent_type: lander`; Sonnet)
+  with the worktree names in order, the target `run/<date>` and the addresses whose loss the user accepted,
+  rather than running `wt.py bring-over` yourself; several finished at once go to one lander as one batch, and
+  only one lander runs at a time. It returns one line per branch; a refusal names who acts next (resume that
+  builder with the line).
 - When a report arrives: log the result line (pairs before and after, what is parked, proposals), file the
   levers and traps in workflow.md §3, open proposals for the user in progress.md §3, then run the heartbeat
   command again (the report changes the builder count and the memory).
