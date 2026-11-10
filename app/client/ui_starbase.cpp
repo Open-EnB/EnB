@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x632E50-0x648340 by its asserts, its string order and ui_slot_scut.cpp's end).
-// So far the starbase interface's constructor 0x6333E0 (SB1), its lights helpers 0x640CC0-0x640F30 and the starbase lights panel (the class below,
-// 0x646170-0x648238), ST1; the file's own functions with their asserts (lines 368-4180) lie around them in the client.
+// The starbase interface (constructor 0x6333E0, SB1), its helpers 0x638FF0-0x6437A0 as far as rebuilt (SB1, run 2026-11-09b), its lights helpers
+// 0x640CC0-0x640F30 and the lights panel (0x646170-0x648238, ST1); the functions with asserts sit on the client's lines (2004-4180) in the padding.
 #include <stdio.h>
 #include <string.h>
 #include <vector>
@@ -1996,187 +1996,187 @@ void UIStarbaseLightsClass::Unknown_648190()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1)
+// 0x63A100
+void UIStarbaseClass::Unknown_63A100()
+{
+	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	FAIL_IF(!sclient) return;
+	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
+	bool busy = false;
+	if (panel) {
+		if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) {
+			busy = true;
+		}
+	}
+	if (!Unknown_42EC60(2, 0)) {
+		Unknown21A = false;
+	}
+	if (!UnknownC0.D->Avatar || UnknownC0.D->Avatar->Unknown380 || Unknown1FC || Unknown1FD || Unknown1FE || Unknown1FF || Unknown200 || Unknown201
+		|| UnknownC0.D->Avatar->Unknown318.size() || UnknownB0->Unknown_69CCD0() || Unknown1F8->Active || !sclient->Unknown_74B5E0()) {
+		if (sclient->Mouse->Unknown_515320() != 2 && sclient->Mouse->Unknown_515320() < 0x16 && !busy) {
+			sclient->Mouse->Unknown_515120(2);
+		}
+		if (!UnknownC0.D->Avatar->Unknown318.size()) {
+			if (UnknownC0.D->Avatar != NULL) {
+				UnknownC0.D->Avatar->Unknown_786E60();
+			}
+			Unknown214 = false;
+			Unknown215 = false;
+			Unknown216 = false;
+			Unknown217 = false;
+			Unknown218 = false;
+			Unknown219 = false;
+			Unknown21A = false;
+			Unknown1B3 = false;
+		}
+		return;
+	}
+	if (sclient->ChatPanel->ChatInt->Unknown_570F20()) {
+		Unknown214 = false;
+		Unknown215 = false;
+		Unknown216 = false;
+		Unknown217 = false;
+		Unknown218 = false;
+		Unknown219 = false;
+	}
+	float x;
+	float y;
+	Unknown_42ECF0(&x, &y);
+	bool key = Unknown_42EC60(0x11, 0);
+	if (OptionClass::Instance->Get_Bool("Starbase_Default_Run")) {
+		UnknownC0.D->Avatar->Unknown_784F60(true);
+	} else {
+		UnknownC0.D->Avatar->Unknown_784F60(false);
+	}
+	if (Unknown21A) {
+		bool top = y < 0.5f;
+		bool middle;
+		if (x <= 0.4f || x >= 0.6f) {
+			middle = false;
+		} else {
+			middle = true;
+		}
+		if (x <= 0.2f || x >= 0.8f || key) {
+			if (!Unknown1B3) {
+				UnknownC0.D->Avatar->Unknown_786C70();
+			}
+		} else {
+			if (middle && sclient->Mouse->Unknown_515320() != 0x12 && !busy) {
+				sclient->Mouse->Unknown_515120(0x12);
+			}
+			if (!(UnknownC0.D->Avatar->Unknown2F8 & 2)) {
+				UnknownC0.D->Avatar->Unknown_786B60(true);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786B60(false);
+			}
+		}
+		if (y < 0.5f) {
+			UnknownC0.D->Avatar->Unknown_786D40(0.5f - y);
+		} else if (y > 0.5f) {
+			UnknownC0.D->Avatar->Unknown_786D70(y - 0.5f);
+		}
+		if (x < 0.5f) {
+			if (!key) {
+				UnknownC0.D->Avatar->Unknown_786E40();
+				UnknownC0.D->Avatar->Unknown_786CF0(0.5f - x);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786D20();
+				UnknownC0.D->Avatar->Unknown_786DC0(0.5f - x);
+			}
+			if (middle) {
+				return;
+			}
+			if (top) {
+				if (sclient->Mouse->Unknown_515320() != 0x11 && !busy) {
+					sclient->Mouse->Unknown_515120(0x11);
+				}
+				return;
+			}
+			if (sclient->Mouse->Unknown_515320() != 0x0F && !busy) {
+				sclient->Mouse->Unknown_515120(0x0F);
+			}
+			return;
+		}
+		if (x > 0.5f) {
+			if (!key) {
+				UnknownC0.D->Avatar->Unknown_786E40();
+				UnknownC0.D->Avatar->Unknown_786CC0(x - 0.5f);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786D20();
+				UnknownC0.D->Avatar->Unknown_786E00(x - 0.5f);
+			}
+			if (middle) {
+				return;
+			}
+			if (top) {
+				if (sclient->Mouse->Unknown_515320() != 0x13 && !busy) {
+					sclient->Mouse->Unknown_515120(0x13);
+				}
+				return;
+			}
+			if (sclient->Mouse->Unknown_515320() != 0x15 && !busy) {
+				sclient->Mouse->Unknown_515120(0x15);
+			}
+		}
+		return;
+	}
+	if (sclient->Mouse->Unknown_515320() != 2 && ((UnknownB8->Unknown2C_02 && UnknownB8->Unknown2C_04) || sclient->Mouse->Unknown_515320() < 0x16) && !busy) {
+		sclient->Mouse->Unknown_515120(2);
+	}
+	if (Unknown214) {
+		if (!(UnknownC0.D->Avatar->Unknown2F8 & 2)) {
+			UnknownC0.D->Avatar->Unknown_786B60(true);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786B60(false);
+		}
+	} else if (Unknown215) {
+		if (!(UnknownC0.D->Avatar->Unknown2F8 & 1)) {
+			UnknownC0.D->Avatar->Unknown_786BF0(true);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786BF0(false);
+		}
+	} else if (!Unknown1B3) {
+		UnknownC0.D->Avatar->Unknown_786C70();
+	}
+	if (Unknown217) {
+		if (!key) {
+			UnknownC0.D->Avatar->Unknown_786E40();
+			UnknownC0.D->Avatar->Unknown_786CC0(1.0f);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786D20();
+			UnknownC0.D->Avatar->Unknown_786E00(1.0f);
+		}
+	} else if (Unknown216) {
+		if (!key) {
+			UnknownC0.D->Avatar->Unknown_786E40();
+			UnknownC0.D->Avatar->Unknown_786CF0(1.0f);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786D20();
+			UnknownC0.D->Avatar->Unknown_786DC0(1.0f);
+		}
+	} else if (x > 0.99f && key) {
+		UnknownC0.D->Avatar->Unknown_786D20();
+		UnknownC0.D->Avatar->Unknown_786E00(1.0f);
+	} else if (x < 0.01f && key) {
+		UnknownC0.D->Avatar->Unknown_786D20();
+		UnknownC0.D->Avatar->Unknown_786DC0(1.0f);
+	} else {
+		UnknownC0.D->Avatar->Unknown_786E40();
+		UnknownC0.D->Avatar->Unknown_786D20();
+	}
+	if (Unknown218) {
+		UnknownC0.D->Avatar->Unknown_786D40(1.0f);
+	} else if (Unknown219) {
+		UnknownC0.D->Avatar->Unknown_786D70(1.0f);
+	} else if (y > 0.99f && key) {
+		UnknownC0.D->Avatar->Unknown_786D70(1.0f);
+	} else if (y < 0.01f && key) {
+		UnknownC0.D->Avatar->Unknown_786D40(1.0f);
+	} else {
+		UnknownC0.D->Avatar->Unknown_786DA0();
+	}
+}
 
 
 
@@ -3776,49 +3776,6 @@ void UIStarbaseClass::Unknown_63E4B0(int new_room, int old_room)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The file's later functions, at their asserts' lines (FAIL_IF '!savatar' l.3995)
 
 // 0x63CF30
@@ -3883,6 +3840,49 @@ void UIStarbaseClass::Unknown_63E5C0(int avatar_id, float orient, Vector3 *posit
 		} else {
 			Unknown_63D1F0(avatar_id, tm, action);
 		}
+	}
+}
+
+// 0x63BB10
+void UIStarbaseClass::Unknown_63BB10(GadgetClass *gadget)
+{
+	if (gadget && ((RObjGadgetClass *)gadget)->RObj && UnknownC0.D->Avatar) {
+		Vector3 pos = ((RObjGadgetClass *)gadget)->RObj->Get_Transform().Get_Translation();
+		Vector3 diff = UnknownC0.D->Avatar->Get_Transform().Get_Translation() - pos;
+		int distance = (int)diff.Length();
+		if (distance > 999) {
+			distance = 999;
+		} else if (distance < 1) {
+			distance = 1;
+		}
+		gadget->Unknown_65FFA0(distance);
+	}
+}
+
+// NOT EXACT: 0x63E770, functional (the client compares the found iterator with end() through an out-of-line 8-byte copy 0x6439B0, a const_iterator conversion the stand-in table lacks; SB1)
+// 0x63E770
+void UIStarbaseClass::Unknown_63E770()
+{
+	float time = WW3D::Get_Frame_Time() * 0.001f;
+	std::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();
+	while (it != UnknownEC.end()) {
+		UIStarbaseUnknownECStruct *entry = *it;
+		entry->Time += time;
+		UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(entry->ID);
+		if (found != UnknownD4.end() && found.Cur->Value) {
+			CharacterViewAvatarClass *avatar = found.Cur->Value->Avatar.Peek();
+			if (avatar->Unknown318.size() && entry->Time <= 10.0f) {
+				++it;
+				continue;
+			}
+			if (avatar->Unknown380 && entry->Time <= 10.0f) {
+				++it;
+				continue;
+			}
+		}
+		Unknown_63D060(entry->ID);
+		delete entry;
+		it = UnknownEC.erase(it);
 	}
 }
 

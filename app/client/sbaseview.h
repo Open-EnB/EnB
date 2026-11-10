@@ -189,7 +189,7 @@ public:
 	int Room;	// +0xAC (158 moves an avatar only in this room; the constructor's index)  // NAME 2: what the handler compares with the packet's Room
 	SBaseViewClass *UnknownB0;	// +0xB0 (the starbase view: 0x640D80 reads its +0x1B4's +0x18, 0x640E90 / 0x640EC0 call its +0x70 scene)
 	UIStarbaseUnknownB4Struct *UnknownB4;	// +0xB4 (0x640D80: its bytes +0x0A / +0x0B; the constructor's 0x698730 of the room's key)
-	int UnknownB8;	// +0xB8
+	GadgetClass *UnknownB8;	// +0xB8 (0x63A100 tests its +0x2C bits 2 and 4)
 	RefCountPtr<RenderObjClass> UnknownBC;	// +0xBC (the constructor's '%sextra_%s' model, added to the mesh's model)
 	struct UnknownC0Struct { UnknownC0Struct() : A(-1), B(-1), C(-1), D(0), E(0) {} int A, B, C; UIStarbaseUnknownCCClass *D; int E; } UnknownC0;	// +0xC0 (-1, -1, -1, 0, 0: as a struct with its own constructor its stores follow the table's arguments, as the client's; five ints in the list come before them)  // NAME 1: neutral (D10)
 	UIStarbaseUnknownD4Class UnknownD4;	// +0xD4 (100 buckets)
@@ -237,7 +237,10 @@ public:
 	void Unknown_63D1F0(int id, Matrix3D transform, int flags);	// 0x63D1F0 (0x63E5C0: a known avatar's new goal and flags)  // NAME 1 [id, transform, flags]: neutral
 	void Unknown_63E4B0(int new_room, int old_room);	// 0x63E4B0 (Starbase_Room_Change sent, '(%s) Changing room from %d to %d')  // NAME 1 [new_room, old_room]: the packet's
 	void Unknown_63CA50(int id, const Matrix3D &transform, int flags);	// 0x63CA50 ('(%s) Adding avatar %s in room %d')  // NAME 1 [id, transform, flags]: neutral
+	void Unknown_63A100();	// 0x63A100 (the avatar moved by the keys and the mouse, the cursor set; 'Starbase_Default_Run')
+	void Unknown_63E770();	// 0x63E770 (the +0xEC entries aged; past 10 s without a path or an effect, the avatar removed)
 	void Unknown_63FF80();	// 0x63FF80 (0x638390's frame: the distances every 0.5 s, the position resent every 0.5 s while moving)
+	void Unknown_63BB10(GadgetClass *gadget);	// 0x63BB10 (no caller: a gadget's distance from the avatar, 1..999, as 0x641FA0 has it inline)
 	void Unknown_641FA0();	// 0x641FA0 (the gadgets' distances from the avatar, 1..999; 0x63E2B0, 0x63FF80)
 	void Unknown_641B00(); void Unknown_641B70();	// 0x641B00 (+0x214..+0x21A, +0x1B3 cleared), 0x641B70 (refilled by the view's 0x6A2430): as 0x63BDB0 / 0x63C080 have them
 };
