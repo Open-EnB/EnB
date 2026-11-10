@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_friends.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_friends.cpp', 0x58F090-0x5928AF by its asserts and its string order).
-// So far 0x58F0F0, 0x58FBA0-0x591A2F but 0x590020, and 0x591EE0-0x59219F (FR1); not yet: 0x58F210 / 0x58F450 / 0x58F6B0 / 0x590020 / 0x591C30.
+// Every function from 0x58F0F0 written (FR1, FR2: the constructor, the destructor, slots +0x54 / +0x68, 0x591C30); the near misses carry NOT EXACT.
 #define __INTRFACE_MEMBERS	// intrface.h's members (0x591EE0 calls InterfaceClass's 0x541930)
 #include <string.h>
 #include <wchar.h>
@@ -18,6 +18,8 @@
 #include "co.h"
 #include "gd_robj.h"
 #include "local_interface_sort.h"
+#include "option.h"
+#include "..\audio\soundlib.h"
 #include "..\shared\g_assert.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
@@ -40,6 +42,105 @@ UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass(std::string name, std::string
 static inline void Unknown_Delete_Player(UIFriendsPlayerInfoClass *info)	// NAME 1 [Unknown_Delete_Player, info]: neutral
 {
 	delete info;
+}
+
+// ui_manu.cpp's check button, as far as this window uses it (0x68 bytes, table 0xB075E4)
+class UIManuCheckButtonClass : public GadgetClass	// NAME 1: neutral (D10), as ui_manu.cpp's
+{
+public:
+	void Unknown_7E8030(bool on);						// 0x7E8030: checked or not  // NAME 1 [on]: neutral
+
+	char Unknown30[0x64 - 0x30];						// +0x30 (GadgetClass is 0x30 bytes)
+	bool Checked;										// +0x64  // NAME 2: what 0x7E8030 sets
+};
+
+extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
+
+// The buttons' models and tooltips (0xB7F268)
+static const char *Unknown_B7F268[] = { "exit", "add", "remove", "add_target", "send_message", "name", "status", "add_group" };	// NAME 1: neutral (D10)
+
+// 0x58F210
+UIFriendsClass::UIFriendsClass(SClient *client) :
+	ChatPanelUIBase(client),
+	Slider(NULL),
+	Top(0),
+	Selection(-1),
+	Unknown0AC(true),
+	Unknown0AD(false),
+	Unknown0AE(false),
+	PlayersInfo(0),
+	Unknown0C4(0)
+{
+	memset(Unknown0D0, 0, sizeof(Unknown0D0));
+	memset(Unknown0F0, 0, sizeof(Unknown0F0));
+	memset(Unknown10C, 0, sizeof(Unknown10C));
+	for (int i = 0; i < 7; i++) {
+		Unknown114[i] = NULL;
+		Unknown130[i] = NULL;
+	}
+	if (OptionClass::Instance) {
+		Unknown0AD = OptionClass::Instance->Get_Bool("RestrictedStatus");
+	}
+}
+
+// NOT EXACT: inline budget (explain.py): ours inlines 0x5906C0 (the players' ??_G) inside the inlined slot +0x5C; the client calls 0x591030 / 0x5906C0 / 0x590810 out of line
+// 0x58F450
+UIFriendsClass::~UIFriendsClass()
+{
+	Unknown0B0->Unknown_5C();
+	Unknown0B0 = NULL;
+	Unknown_5C();
+	if (Slider) {
+		Slider->Unknown_66E460(RefCountPtr<RenderObjClass>(), 0, 0);
+	}
+	OptionClass *options = OptionClass::Instance;
+	if (options) {
+		BoolOptionStruct *option = options->Find_Bool("RestrictedStatus");
+		if (option && option->Value != Unknown0AD) {
+			option->Value = Unknown0AD;
+			options->Save();
+		}
+	}
+}
+
+// 0x58F6B0
+void UIFriendsClass::Unknown_54()
+{
+	if (Unknown_98("tsi28a", "fa_tsi28a.ini")) {
+		int i;
+		for (i = 0; i < 8; i++) {
+			Unknown0D0[i] = Unknown_56D510(i + 1, Unknown_B7F268[i], NULL);
+			GadgetClass::Set_Tooltip(Unknown0D0[i], "UI_FRIENDS", Unknown_B7F268[i]);
+		}
+		char name[0x20];
+		for (i = 0; i < 7; i++) {
+			_snprintf(name, sizeof(name), "name%02d", i);
+			Unknown0F0[i] = Unknown_56D510(i + 0xD, name, NULL);
+			Unknown0F0[i]->Unknown2C_0A = true;
+			_snprintf(name, sizeof(name), "name%02d_TSI28A", i);
+			Unknown114[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Peek_Unknown84()));
+			_snprintf(name, sizeof(name), "LOCATION%02d_TSI28A", i);
+			Unknown130[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Peek_Unknown84()));
+		}
+		for (i = 0; i < 2; i++) {
+			_snprintf(name, sizeof(name), "check%02d", i);
+			Unknown10C[i] = Unknown_56D6F0(i + 10, name, NULL);
+		}
+		Unknown10C[0]->Unknown_7E8030(!Unknown0AD);
+		Unknown10C[1]->Unknown_7E8030(Unknown0AD);
+		Slider = Unknown_56D8D0(0x15, 0);
+		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
+		Unknown0B0 = Create_Get(new UIPTradeCreditsClass(Client->As_Space_Client(), 1, 0x14));
+		Unknown0B0->Unknown_54();
+		Unknown0B0->Unknown0CD = true;
+		Unknown0B0->Unknown_64A270("Friend Player");
+		GadgetClass::Set_Tooltip(Unknown0D0[1], "UI_FRIEND", "ADD_PLAYER");
+		GadgetClass::Set_Tooltip(Unknown0D0[2], "UI_FRIEND", "REMOVE_PLAYER");
+		GadgetClass::Set_Tooltip(Unknown0D0[3], "UI_FRIEND", "ADD_TARGET");
+		GadgetClass::Set_Tooltip(Unknown0D0[4], "UI_FRIEND", "CHAT_WITH");
+		GadgetClass::Set_Tooltip(Unknown0D0[7], "UI_FRIEND", "ADD_GROUP");
+		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
+	}
 }
 
 // NOT EXACT: inline budget (the client calls the vector's erase, the list's begin and erase out of line and expands the list's ??_G; ours the reverse)
@@ -103,12 +204,86 @@ void UIFriendsClass::Unknown_60()
 	}
 }
 
+// 0x590020
+bool UIFriendsClass::Unknown_68(int key)
+{
+	switch (key) {
+		case 1:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown_5C();
+			Unknown98 = 1;
+			return(true);
+		case 2:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown0B0->Unknown_58();
+			Unknown0B0->Unknown_64A2B0("");
+			return(true);
+		case 3:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown_5910D0();
+			return(true);
+		case 4:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown_591A30();
+			return(true);
+		case 5:
+			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
+			Unknown_591EE0();
+			return(true);
+		case 10:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown10C[0]->Unknown_7E8030(true);
+			Unknown10C[1]->Unknown_7E8030(false);
+			if (Unknown0AD) {
+				Unknown0AD = false;
+				int id = ((ClientClass *)Client)->Unknown1138; ((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1D, id));
+			}
+			return(true);
+		case 11:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown10C[0]->Unknown_7E8030(false);
+			Unknown10C[1]->Unknown_7E8030(true);
+			if (!Unknown0AD) {
+				Unknown0AD = true;
+				int id = ((ClientClass *)Client)->Unknown1138; ((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1C, id));
+			}
+			return(true);
+		case 6:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown0AC = false;
+			Unknown_5908B0();
+			Unknown_590550();
+			return(true);
+		case 7:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown0AC = true;
+			Unknown_5908B0();
+			Unknown_590550();
+			return(true);
+		case 8:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown_591C30();
+			return(true);
+		case 13:
+		case 14:
+		case 15:
+		case 16:
+		case 17:
+		case 18:
+		case 19:
+			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+			Unknown_590DB0(key - 13);
+			return(true);
+	}
+	return(false);
+}
+
 // 0x590430
 void UIFriendsClass::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (View != view) {
-		if (SymbolChatUI) {
-			SymbolChatUI->Unknown_7C(view, false);
+		if (Unknown0B0) {
+			Unknown0B0->Unknown_7C(view, false);
 		}
 		Unknown0AE = true;
 		InterfaceClass::Unknown_7C(view, arg);
@@ -263,21 +438,21 @@ void UIFriendsClass::Unknown_590DB0(int index)
 	}
 }
 
-// NOT EXACT: register allocation (the client holds this in ebx and 0 in ebp, ours the reverse)
+
 // 0x590E50
 void UIFriendsClass::Unknown_590E50()
 {
-	if (SymbolChatUI && SymbolChatUI->Active) {
-		int state = SymbolChatUI->Unknown_64A220();
+	if (Unknown0B0.Peek() != NULL && Unknown0B0->Is_Active()) {
+		int state = Unknown0B0->Unknown_64A220();
 		if (state) {
 			int length;
-			if (state == 2 && (length = strlen(SymbolChatUI->Unknown_64A240())) != 0) {
+			if (state == 2 && (length = strlen(Unknown0B0->Unknown_64A240())) != 0) {
 				int id = ((ClientClass *)Client)->Unknown1138;
 	ClientChatRequestPacketClass packet(8, id);
-				packet.Unknown14 = std::string(SymbolChatUI->Unknown_64A240());
+				packet.Unknown14 = std::string(Unknown0B0->Unknown_64A240());
 				((ClientClass *)Client)->Send_Packet(&packet);
 			}
-			SymbolChatUI->Unknown_5C();
+			Unknown0B0->Unknown_5C();
 		}
 	}
 }
@@ -301,181 +476,6 @@ void UIFriendsClass::Unknown_591030(bool on)
 		Unknown0D0[4]->Unknown_40(false);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -656,32 +656,32 @@ void UIFriendsClass::Unknown_591A30()
 	}
 }
 
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 
+// auxdata.h's find through one more inline level, as ui_group.cpp's; the dead size() reads here and in 0x591C30's loop spend the inline budget (D130, not the client's code) so the find 0x5927E0 and the name's _Eos stay out of line as in the client
+template<class C> inline C *Unknown_Friends_Find(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }  // NAME 1: neutral (D10)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x591C30
+void UIFriendsClass::Unknown_591C30()
+{
+	DeltaCompoundClass *aux = Client->As_Space_Client()->AuxData;
+	NameClass field("GroupInfo");
+	DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Friends_Find<DeltaCompoundClass>(aux, field);
+	if (group && group->Unknown70) {
+		for (int i = 0; i < 5; i++) {
+			DeltaGroupMemberClass *member = (DeltaGroupMemberClass *)group->Members.Children[i];
+			std::string name(member->Name.String);
+			PlayersInfo.size();
+			if (name.length()) {
+				int id = ((ClientClass *)Client)->Unknown1138;
+				ClientChatRequestPacketClass packet(8, id);
+				packet.Unknown14 = std::string(name.c_str());
+				((ClientClass *)Client)->Send_Packet(&packet);
+			}
+		}
+	}
+}
 
 
 

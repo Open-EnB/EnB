@@ -454,19 +454,8 @@ class UIBuffClass;
 class UIManuInvClass;		// ui_manu.h's: ui_inv.cpp's interface (+0xAC, +0xB0)
 class AvatarPipClass;		// avatar_pip.cpp's (+0xCC, +0xD0: 0x3C bytes each)
 
-// The credits entry the trade window holds at +0xB4 (0xD0 bytes, constructor 0x649890 over the base 0x5BB320, 'TRADE01A',
-// table 0xAF88BC; the set-up passes 'Enter Amount of Credits' to its 0x64A270), as far as ui_ptrade.cpp calls it
-class UIPTradeCreditsClass : public Unknown5BB320Class	// NAME 1: neutral (D10): what it asks for
-{
-public:
-	UIPTradeCreditsClass(SClient *client, int a, int b);	// 0x649890 (the set-up passes the client, 0, 9)  // NAME 1 [client, a, b]: what the set-up passes
-	void Unknown_64A270(const char *text);				// 0x64A270 (the set-up: 'Enter Amount of Credits')  // NAME 1 [text]: neutral
-	int Unknown_64A220();								// 0x64A220: its +0xC0 (0x5E39F0: 0 still open, 2 accepted)
-	const char *Unknown_64A240();						// 0x64A240 (0x5E39F0: the amount typed, to atoi)
-	void Unknown_64A2B0(const char *text);				// 0x64A2B0 (slot +0x68, key 4: the amount offered so far, or "")  // NAME 1 [text]: neutral
-
-	char Unknown0AC[0xD0 - 0xAC];						// +0xAC (0xD0 bytes: the set-up's new)
-};
+// The credits entry the trade window holds at +0xB4: ui_stringentry.cpp's text entry (0xD0 bytes, constructor 0x649890, 'TRADE01A')
+#include "ui_stringentry.h"
 
 class UIPTradeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_ptrade.cpp
 {
@@ -881,24 +870,6 @@ public:
 	Vector3 Unknown_765DF0(int index);					// 0x765DF0: colour index (0..23), else (1, 1, 1) (SClient 0x750F70: the chat channel)  // NAME 1 [index]: neutral
 
 	Vector3 Unknown00[24];								// +0x00  // NAME 2: what the constructor writes
-};
-
-// What the chat panel's +0x138 points to, as far as SClient 0x744E70 calls it
-class UIChatPanelUnknown138Class	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
-	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C();
-	virtual void Unknown_90(); virtual void Unknown_94(); virtual void Unknown_98(); virtual void Unknown_9C();
-	virtual void Unknown_A0(); virtual void Unknown_A4(); virtual void Unknown_A8();
-	virtual void Unknown_AC(bool on);					// +0xAC (0x744E70: false when the current view is +0x135C or asked, true for a type-1 target)  // NAME 1 [on]: neutral
 };
 
 #pragma pack(push, 4)		// as ClientClass (client.h)

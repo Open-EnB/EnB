@@ -82,8 +82,6 @@ public:
 	UISymbolChatClass(SClient *sclient);				// 0x64A480 (0x594040)  // NAME 1 [sclient]: what 0x594040 passes
 	void Unknown_64B2C0();								// 0x64B2C0 (0x594040, after its slot +0x54)
 	int Unknown_64B2F0(char *text, bool *leader);		// 0x64B2F0: the symbol picked, as text, and whether the leader sent it (0x596DB0)  // NAME 1 [text, leader]: what 0x596DB0 hands on
-	int Unknown_64A220();								// 0x64A220: its +0xC0 (ui_friends.cpp's 0x590E50: 2 when a symbol is picked)
-	const char *Unknown_64A240();						// 0x64A240 (0x590E50: the picked symbol's text)
 };
 
 #define MAX_VISIBLE_GROUP_MEMBERS	5	// the client's FAIL_IF 'Members.size() >= MAX_VISIBLE_GROUP_MEMBERS' compares with 5 (0x596130)

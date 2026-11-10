@@ -1,13 +1,9 @@
 {
  "clientpoc": [
   "?Handle_Input@MovieClientClass@@QAEXUKernelEventClass@@@Z",
-  "?Slot15@Sub14CImplClass@@UAE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@XZ",
   "?Unknown_49F300@Unknown49F200Class@@QAE?AV?$vector@UBuddyRewardStruct@@V?$allocator@UBuddyRewardStruct@@@std@@@std@@HH@Z",
   "?Unknown_553500@UICpitUnknownE0Class@@QAEXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@@Z",
   "?Unknown_5537A0@UICpitUnknownE0Class@@QAEXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@@Z",
-  "?Unknown_5DA600@UIChatPanelUnknownD8Class@@QAEXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@@Z",
-  "?Unknown_5E5D70@UIChatPanelUnknownE8Class@@QAEXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@@Z",
-  "?Unknown_5E8E30@UIChatPanelUnknownE4Class@@QAEXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@_N@Z",
   "?Unknown_751850@SClient@@QAEXAAV?$vector@UGuildRankNameStruct@@V?$allocator@UGuildRankNameStruct@@@std@@@std@@@Z"
  ],
  "clienttest": []

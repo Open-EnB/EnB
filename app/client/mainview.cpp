@@ -1106,16 +1106,16 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_string.h"
 #include "aux_roots.h"			// (Type_Name(int *) for DeltaTemplateClass<int>)
-// ui_chat_panel.cpp's chat panel (SClient +0x127C), as far as the main view's 0x512400 uses it (sclient.cpp and
-// cpacket.cpp declare their own parts)
-class ChatPanelInterface	// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408)
-{
-public:
-	void Unknown_563910(unsigned id, bool flag);		// 0x563910 (0x512400: the target's game id and true when 0x6F5A40 says so, else 0, false)  // NAME 1 [id, flag]: what it gets
+#include "ui_chat_panel.h"	// ChatPanelInterface (SClient +0x127C): the main view's 0x512400 calls 0x563910, reads +0x118
 
-	char Unknown00[0x118];
-	unsigned Unknown118;								// +0x118 (0x512400 skips 0x563910 when the target's game id equals it)
-};
+
+
+
+
+
+
+
+
 
 // SClient +0x12A4, as far as the main view's 0x512400 uses it (its G_ASSERT calls it 'targeting')
 #include "targeting.h"	// (+0x10: 0x512400 clears it when TargetGameID's +0x70 is above 1)

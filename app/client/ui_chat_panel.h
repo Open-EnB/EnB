@@ -12,7 +12,12 @@ class RenderObjClass;
 class GadgetClass;			// gadget.cpp's
 class GadgetSlider;			// gd_slider.h's
 
-class AvatarPipClass;		// avatar_pip.cpp's (the panel's +0x110; declared in ui_chat_panel.cpp)
+class AvatarPipClass;		// avatar_pip.h's (the panel's +0x110)
+class UIPlayerOptClass;		// ui_playeropt.h's (the panel's +0xD8)
+class UIFriendsClass;		// ui_friends.h's (+0xDC)
+class UIGuildClass;			// ui_guild.cpp's (+0xE0)
+class UIRadioListClass;		// ui_radio_list.h's (+0xE4)
+class UIRadioAdminClass;		// ui_radio_admin.h's (+0xE8)
 
 #include "ui_combobox.h"	// UIComboBoxClass: the panel's combos (Combo[]; was UIChatComboClass, P-TG4-1)
 
@@ -109,15 +114,16 @@ public:
 	GadgetClass *UnknownA4[7];							// +0xA4 (the constructor clears all seven)
 	RefCountPtr<UIComboBoxClass> Combo[NUM_COMBO];				// +0xC0 (NUM_COMBO, the assert's)  // NAME 2: the assert's NUM_COMBO
 	RefCountPtr<UIComboBoxClass> UnknownD4;				// +0xD4: the combo shown (0x5698F0)
-	void *UnknownD8;									// +0xD8 (the +0xF8 window's parts: 0x5685C0 clears +0xD8..+0xEC)
-	void *UnknownDC;									// +0xDC
-	void *UnknownE0;									// +0xE0
-	void *UnknownE4;									// +0xE4
-	void *UnknownE8;									// +0xE8
+	UIPlayerOptClass *UnknownD8;									// +0xD8 (the +0xF8 window's parts: 0x5685C0 clears +0xD8..+0xEC)
+	UIFriendsClass *UnknownDC;									// +0xDC
+	UIGuildClass *UnknownE0;									// +0xE0
+	UIRadioListClass *UnknownE4;									// +0xE4
+	UIRadioAdminClass *UnknownE8;									// +0xE8
 	void *UnknownEC;									// +0xEC
 	InterfaceClass *UnknownF0;							// +0xF0
 	bool UnknownF4;										// +0xF4
 	RefCountPtr<UIChatPanelWindowClass> UnknownF8;		// +0xF8
+	RefCountPtr<UIChatPanelWindowClass> Get_UnknownF8() { return(UnknownF8); }	// 0x739690 (out of line in cpacket.cpp's object, after FIND_MEMBER 83, the first caller)  // NAME 1: neutral (D10): the member it returns
 	int UnknownFC;										// +0xFC
 	int Unknown100;										// +0x100
 	RefCountPtr<UIChatPanelWindowClass> Unknown104;		// +0x104 (0x565F80: the window requested through +0x108)
@@ -159,6 +165,7 @@ public:
 	bool Unknown25C;									// +0x25C (the lag flag: 0x56BA40 / 0x56BA80)
 	float Unknown260;									// +0x260 (the lag light's blink time, 0x5630B0)
 	bool MessageButtonShowing;							// +0x264 (sclient.cpp's getter)  // NAME 2: its getter's
+	bool Is_Message_Button_Showing() { return(MessageButtonShowing); }	// (sclient.cpp 0x74FEC0's FAIL_IF names it)  // NAME 3: the FAIL_IF's
 	bool Unknown265;									// +0x265
 	bool Unknown266;									// +0x266
 	bool Unknown267;									// +0x267

@@ -42,15 +42,15 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 // What SClient 0x74C7B0 returns, as far as 0x5E3C90 reads it (the avatar's description at +0xF8, as ui_chat_panel.cpp's)
 class UIPTradeAvatarClass : public RefCountClass { public: char Unknown[0xF8 - sizeof(RefCountClass)]; AvatarDescClass Desc; };	// NAME 1: neutral (D10)
 
-// avatar_pip.cpp's pip (0x3C bytes; +0xCC, +0xD0), as far as this file calls it (ui_chat_panel.cpp declares it the same way)
-class CharacterViewAvatarClass; class AvatarPipClass	// NAME 3: class-from-file (D24) for app\client\avatar_pip.cpp
-{
-public:
-	bool Unknown_7E36B0(SClient *client, const RefCountPtr<RenderObjClass> &robj, bool arg);	// 0x7E36B0 (slot +0x58: the mesh's AVATAR_YOU / AVATAR_THEM, 0)  // NAME 1 [client, robj, arg]: what 0x562F50 passes
-	bool Unknown_7E3A20(const char *a, unsigned id, CharacterViewAvatarClass *b);		// 0x7E3A20 (slot +0x60: 0, the avatar's or the other's id, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
-	void Unknown_7E4350(); char Unknown00[0x3C];		// 0x7E4350 (slot +0x5C); 0x3C bytes (the set-up's new)
-	AvatarPipClass(); ~AvatarPipClass();				// 0x7E31B0 (the set-up's); 0x7E3410 (the destructor deletes both pips)
-};
+#include "avatar_pip.h"	// AvatarPipClass: PlayerPIP / OtherPIP (0x3C bytes; 0x7E31B0, 0x7E3410, 0x7E36B0, 0x7E3A20, 0x7E4350)
+
+
+
+
+
+
+
+
 
 // 0x5E1BE0
 UIPTradeClass::UIPTradeClass(SClient *client) :

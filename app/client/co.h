@@ -109,7 +109,7 @@ public:
 	virtual Vector3 Unknown_14(int unknown) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x14 0x6F2F00  // NAME 1 [unknown]: neutral
 };
 
-void Unknown_810540(RenderObjClass *model, int state, int unknown);	// shiputils.cpp (cdecl)  // NAME 1 [model, state, unknown]: co.cpp passes the model, 1 or 2, and 0
+void Unknown_810540(RenderObjClass *model, int state, float unknown);	// shiputils.cpp (cdecl; a float: ui_starbase.cpp's 0x634140 pushes 1.0f)  // NAME 1 [model, state, unknown]: co.cpp passes the model, 1 or 2, and 0
 void Unknown_810750(RenderObjClass *model, bool on);	// (cdecl; co.cpp's 0x7008B0 passes the model and 0; the engine sounds 0x6FDBD0 push a bool's whole dword)  // NAME 1 [model, on]: what co.cpp passes
 class SubPartsPacket;
 class ClientClass;

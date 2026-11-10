@@ -179,6 +179,11 @@ tools/re/README.md, tools/vc6 and tools/harness/README.md.
 
 ### 3.1 VC6 code generation
 
+* **Sort helpers and operator< (2026-11-10, IE3):** a sort's _Unguarded_insert / _Median / _Unguarded_partition that differ
+  from the client only by registers (esi / edi swapped, a zero cached in edi) came from `return lhs->K < rhs->K;`; reading both
+  keys into int locals first made all three property classes' sorts exact.
+* **A shrunk callee gets inlined (2026-11-10, FR2):** removing dead reads from 0x591A30 made it small enough that 0x590020
+  inlined it and stopped matching; after shrinking a function, re-verify every caller in the file, not only the function.
 * **Adjacent scalar deletes (2026-11-02 evening run, EAM5):** VC6 /O2 merges the stack cleanups of consecutive `delete p;`
   calls (`add esp, 8`); the client's per-call `add esp, 4` comes from `if (p != NULL) delete p;`.
 
@@ -629,6 +634,23 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **struct vs class in a declaration (2026-11-10, SU1):** gen_stubs declares a stand-in's type as `class`; a header that
+  declares it `struct` mangles differently (PAU vs PAV) and the link check finds the call unresolved. gen_stubs also skips
+  functions returning std::string by value: give those an inline body or a hand stand-in.
+* **Inline ctors with RefCountPtr<T> members in a shared header (2026-11-10, SU1):** every includer where T is incomplete
+  fails (C2027 in ref_ptr.h); define the ctor in the one .cpp that uses it.
+* **Headers sclient.cpp includes and ui_chat_panel.h (2026-11-10, CP2):** such a header takes ChatPanelUIBase from
+  ui_chat_panel_base.h, not ui_chat_panel.h. SEND_SYMBOL_PAD moved 4 -> 8 -> 35 -> 13 -> ... with each include; its window can
+  split (25, then 34..36): always sweep 0..63, never a neighbourhood.
+* **Char-array member stand-ins break on retype (2026-11-10, TC1):** code that reached a stand-in's members through
+  `->Unknown0AC[0xCD - 0xAC]` stops compiling once the real class replaces it; grep `->Unknown0..\[0x` before moving a class, in the run branch's
+  head too (FR2's ui_friends.cpp line 135 still wrote one; TC1's own grep at its base could not see it).
+* **Same-name minimal local class (2026-11-10, CP2):** when the real class has no header yet, a minimal local declaration
+  with the real class name (UIGuildClass : ChatPanelUIBase) makes a call link to the real member, line-neutral; replace it with
+  the header when one exists. ui_chat_panel.h's UIChatPanelWindowClass (+0xF8 / +0x104) is really ChatPanelUIBase.
+* **Member-callback disconnect order (2026-11-10, DW1):** the client's `disconnect(Collection, this, &F, GadgetEvent())` is
+  the templated form (the signal-map call before the temporary callback is built); `disconnect(void*, MemberCallback(...))`
+  misorders it. names.py records a `std::vector<...> Name; // NAME n` member under the name "std:".
 * **Stand-ins on the POC path (2026-11-04 night run, CRE1, SHIP, LIGHT, DEC):** a stand-in class used with `new` needs the
   real size (ui_avatr's ShipPip stand-in was 0xE0 bytes, the real ctor wrote 0xF4 and operator new crashed later); a
   stand-in's ctor / dtor defined in the same file, even last with `auto_inline(off)`, inlines into exact callers or breaks
@@ -963,6 +985,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **sendpad.py's watch set comes from the working ledger (2026-11-10, TC1):** after a verify that already lost 0x758210, the
+  sweep leaves it out, reports a "window" and sets a pad that still loses it. Sweep from the committed shards (restore them
+  first) and check 0x758210 / 0x702240 in .work/log/sendpad.log.
 * **A header static's `_$E` copy is no placement evidence** (NM1, 2026-11-07): the guard-0xC416FC initialiser has 533 copies in
   the app; one found inside a file's window is often the neighbour's. The client's CRT initialiser table (.CRT$XCU, 0xB6427C-0xB6E59C)
   lists them in link order: check it before trusting a range credit (P-IR3-1).
@@ -1180,9 +1205,10 @@ unless `--lever` cites a new row of this table.
 * **sclient's SEND_SYMBOL_PAD moves with its headers (2026-11-08c evening, PH1):** after SC1 sclient.cpp's padded
 constructors (0x758210, 0x702240) and 0x74D990 hang on aux_roots_send.h's SEND_SYMBOL_PAD, whose window shifts with any
 header sclient.cpp includes (sbaseview.h, fontmanager.h moved it 35 -> 40 -> 51); aux_roots.cpp's SYMBOL_PAD window was
-the single value 16 (2026-11-09b GS1: SYMBOL_PAD 58, window 57..59; SEND_SYMBOL_PAD 4, window 1..7 since ST1). Re-sweep after every landing that touches such a header (PH1's lock-free sweep: ~3 minutes); the
+the single value 16 (2026-11-09b GS1: SYMBOL_PAD 58, window 57..59; SEND_SYMBOL_PAD 4, window 0..7 plus 62..63 (it wraps on 64; sendpad.py at 6609de65)). Re-sweep after every landing that touches such a header (PH1's lock-free sweep: ~3 minutes); the
 pad cycles mod 64. Single-file compiles of sclient / aux_roots show a constant set of false losses: compare pads with
 each other and decide with the full verify. Builders branched before such a landing must rebase and re-sweep.
+* **The SEND pad sweep is a tool (2026-11-10, SP1):** `python tools/vc6/sendpad.py --pool 1 --lock-wait 6000` does the 0..63 sweep through verify's path and leaves the pad in the middle of the window; `wt.py bring-over NAME --sendpad` runs it when the verify loses sclient.cpp pairs and the diff touches a header sclient.cpp includes (`sendpad.py --includes`). Its watch set is the pad-sensitive addresses the ledger records for sclient.cpp (0x744560 is not matched, so it is left out).
 * **SEND_SYMBOL_PAD tonight, 2026-11-09b (PD1, AV1, TX1, GS1, SB1):** 40 -> 12 (IN1/PD1: one `#include "gadget.h"` moved the window ~30) -> 37 (SB1's sbaseview.h) -> 41 (AV1's sclient.h names) -> 43 (TX1) -> 30 (the sweep after a rebase, window 29..31) -> 47 (GS1, window 46..49). Every edit to a header sclient.cpp includes needs a 0..63 re-sweep before the bring-over (~5-10 min with the lock; `C:\EnBDevelopment\EnB\.work\wt\GS1\.work\gs1\sendpad_imp.py`, worth moving into tools/); a .cpp that sclient.cpp does not include (chatgadg.cpp, CE1) leaves the pad alone, only its headers count (pkclientchat.h's declaration moved it once). One sweep base at a time: a second builder's landing needs the rebase first (the bring-over refused SB1 for losing 0x758210 outright). IN1's "byte-identical twin" for the loss was wrong: 0x758210 (0x218 B) and 0x702240 (0x31C B) are different instances.
 * **D66 (vi) twins read as lost outright (2026-11-09b, CE1 / PD1):** a guarded atexit pair that becomes ambiguous because the client carries its own byte-identical instance (uiview 0x65B900 vs chatgadg's 0x65EC80) shows in pairs_cmp / wt.py as lost outright; name it in the commit and add the accepted-corrections.json entry (precedent 0x5495A0, 0x604150); the PR needs the maintainer's /accept-d66 (D202).
 * **Pad windows: appfile match is not the importer path (2026-11-09 night run, SC2, TM1):** `appfile.py match` and `importer.compile_and_match` (verify) pad sclient.cpp / aux_roots.cpp through different windows, so a SEND pad that matches in appfile can lose 0x74D990 / 0x758210 / 0x702240 in verify. Sweep through `importer.compile_and_match` under the lock (SC2's `.work/sc2/sendpad_imp.py`), with `ENB_LOCK_WAIT=6000` for the sweep; a definition-order change moves one window. Current values (2026-11-09b GS1): SYMBOL_PAD 58 (window 57..59), SEND_SYMBOL_PAD 47 (window 46..49, the values keeping 0x74D990 / 0x758210 / 0x702240); `tools/re/auxroots.py`'s DEF_ORDER is a build aid (the PrimaryCategory constructor 0x6FB1E0 is defined last); the pad comment in auxroots.py is stale. A header member added for one caller in a header sclient.cpp includes moves the pad window (TM1: option.h's accessor; fixed by reading +0x78 through a local inline in ui_log; IP2: a client.h inline accessor moved 0x74D990 too, so keep it file-local).
@@ -1239,6 +1265,11 @@ each other and decide with the full verify. Builders branched before such a land
 
 ### 3.6 RE tools, Ghidra and REA
 
+* **appfile.py match --diff and demangled names (2026-11-10, IE3):** it prints nothing for a demangled name; use
+  `objdiff.py .work/<agent>/appfile/obj/X.obj MANGLED ADDR` (the mangled name from `objdiff.py --list`).
+* **Tool paths (2026-11-10, FR2):** in Git Bash MSYS rewrites a `//` argument to `/` (`trim.py '// 0x...'` finds no
+  marker): prefix `MSYS_NO_PATHCONV=1`. tryvariants.py does not find app files in subdirectories: use tryv2.py with
+  `ENB_VC6_HOSTS` from `pool.py lease --agent ID`. A builder's verify objects are under `.work/<ID>/tmp/enb_import/verify-app/`.
 * **Never delete `.work/pseudo/` (2026-11-03, the user):** a plain `pseudocode.py` run decompiles only functions not
   yet exact in symbols.json, so the old "delete and rerun" refresh lost every file of a function that had become
   exact since (found when the P-API-5 (b) batch runs needed them); triage.py's `build` and appfile.py's drafts read

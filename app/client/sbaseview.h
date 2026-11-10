@@ -32,11 +32,38 @@ class Unknown78A910AvatarClass;	// NAME 1: neutral (D10)
 
 class SBaseViewClass;
 class LightClass;
+class FontSys;
 
-// What the starbase interface holds at +0xB4, as far as 0x640D80 reads it
+// What 0x698150 finds by an avatar slot (sbase_info.cpp's): the slot's NPC, as far as 0x634140 reads it
+class UIStarbaseUnknownB4NPCStruct	// NAME 1: neutral (D10) (a class: the stub generator declares classes)
+{
+public:
+	int Unknown_6976C0();	// 0x6976C0 (Unknown18 - 2 for 2..9, else -1: the VB_ model's index)
+	std::string Unknown_636520() { return(Unknown08); }	// 0x636520 (a copy of Unknown08; out of line in the client, inline here: the stub generator skips std::string returns)
+	char Unknown00[0x08];	// +0x00
+	std::string Unknown08;	// +0x08 (0x636520)
+	int Unknown18;			// +0x18 (9: a VB_BLACKMKT model, no avatar; 2..8 an avatar with a VB_ model)
+	int Unknown1C;			// +0x1C (set: 0x642740's avatar, the slot's bone not needed)
+	AvatarDescClass *Unknown_Desc() { return((AvatarDescClass *)Unknown20); }	// NAME 1: neutral (D10)
+	char Unknown20[4];		// +0x20 (an AvatarDescClass: 0x634140 copies it)
+};
+// What 0x6980E0 finds by a terminal index (sbase_info.cpp's), as far as 0x634140 reads it
+class UIStarbaseUnknownB4TerminalStruct	// NAME 1: neutral (D10)
+{
+public:
+	int Unknown00;			// +0x00
+	int Unknown04;			// +0x04 (the ico_ model's index, -1 none)
+};
+
+// What the starbase interface holds at +0xB4, as far as 0x640D80 / 0x634140 read it
 struct UIStarbaseUnknownB4Struct	// NAME 1: neutral (D10)
 {
-	char Unknown00[0x0A];	// +0x00
+	UIStarbaseUnknownB4NPCStruct *Unknown_698150(int index);	// 0x698150 (a hash lookup in +0x40's table)  // NAME 1 [index]: neutral
+	UIStarbaseUnknownB4TerminalStruct *Unknown_6980E0(int index);	// 0x6980E0 (a hash lookup in +0x28's table)  // NAME 1 [index]: neutral
+	char Unknown00[0x06];	// +0x00
+	bool Unknown06;			// +0x06 (0x634140: the '%sbar05' model on 'bar')
+	bool Unknown07;			// +0x07 (0x634140: '%sbar07' on each 'table%02d' bone)
+	char Unknown08[0x02];	// +0x08
 	bool Unknown0A;			// +0x0A (0x640D80: 2, else 1)
 	bool Unknown0B;			// +0x0B (0x640D80: 3)
 };
@@ -140,16 +167,18 @@ public:
 class UIStarbaseUnknownCCClass	// NAME 1: neutral (D10)
 {
 public:
+	UIStarbaseUnknownCCClass();	// (inline in ui_starbase.cpp: 0x634140 inlines it, 0x38 bytes)
 	~UIStarbaseUnknownCCClass();	// 0x632E50
 	int Unknown00;					// +0x00  // NAME 1: neutral
 	RefCountPtr<CharacterViewAvatarClass> Avatar;	// +0x04 (0x63BDB0 / 0x63C080 / 0x63D2F0)  // NAME 1: what it holds
 	RefCountPtr<Unknown78A910AvatarClass> Unknown08;	// +0x08 (0x63D2F0)  // NAME 1: neutral
-	RefCountPtr<RenderObjClass> Unknown0C, Unknown10;	// +0x0C (the destructor removes both; +0x0C is a FontSys: 0x6425D0's Change_Text and colour)
+	RefCountPtr<FontSys> Unknown0C, Unknown10;	// +0x0C (the destructor removes both; 0x634140: the view's 0x6A1880 makes +0x0C a NameText_SBASE, +0x10 a GuildText_SBASE)
 	GadgetClass *Unknown14;			// +0x14 (the destructor's GadgetClass::Destroy)
 	int Unknown18;					// +0x18 (0x6437A0 hands it to 0x63CA50 again)
 	int Unknown1C;					// +0x1C
 	float Unknown20;				// +0x20 (0x6425D0: 2.0 when the chat-event colour is set)
-	std::string Unknown24;			// +0x24 (the destructor's inlined _Tidy of +0x28; the size past +0x34 is unknown)
+	std::string Unknown24;			// +0x24 (the destructor's inlined _Tidy of +0x28; 0x634140: the player's guild text, or the NPC's 0x636520)
+	int Unknown34;					// +0x34 (-1; 0x634140: the player's ClientObjectClass 0x6FFF50)
 };
 // What the starbase interface's +0xEC list points to (8 bytes: 0x63CF30 makes them)
 struct UIStarbaseUnknownECStruct	// NAME 1: neutral (D10)
@@ -190,7 +219,7 @@ public:
 	SBaseViewClass *UnknownB0;	// +0xB0 (the starbase view: 0x640D80 reads its +0x1B4's +0x18, 0x640E90 / 0x640EC0 call its +0x70 scene)
 	UIStarbaseUnknownB4Struct *UnknownB4;	// +0xB4 (0x640D80: its bytes +0x0A / +0x0B; the constructor's 0x698730 of the room's key)
 	GadgetClass *UnknownB8;	// +0xB8 (0x63A100 tests its +0x2C bits 2 and 4)
-	RefCountPtr<RenderObjClass> UnknownBC;	// +0xBC (the constructor's '%sextra_%s' model, added to the mesh's model)
+	RefCountPtr<RenderObjClass> ExtraBones;	// +0xBC (the constructor's '%sextra_%s' model, added to the mesh's model; 0x634140's wall terminals and ship_extents00)  // NAME 3: 0x634140's G_ASSERT 'ExtraBones' (l.862)
 	struct UnknownC0Struct { UnknownC0Struct() : A(-1), B(-1), C(-1), D(0), E(0) {} int A, B, C; UIStarbaseUnknownCCClass *D; int E; } UnknownC0;	// +0xC0 (-1, -1, -1, 0, 0: as a struct with its own constructor its stores follow the table's arguments, as the client's; five ints in the list come before them)  // NAME 1: neutral (D10)
 	UIStarbaseUnknownD4Class UnknownD4;	// +0xD4 (100 buckets)
 	std::list<UIStarbaseUnknownECStruct *> UnknownEC;	// +0xEC (destructor 0x6439E0: plain elements; 0x63CF30 adds { id, 0 }, 0x63E770 ages them, 0x63E8F0 finds an id)  // NAME 1: neutral (D10)
@@ -242,6 +271,7 @@ public:
 	void Unknown_63FF80();	// 0x63FF80 (0x638390's frame: the distances every 0.5 s, the position resent every 0.5 s while moving)
 	void Unknown_63BB10(GadgetClass *gadget);	// 0x63BB10 (no caller: a gadget's distance from the avatar, 1..999, as 0x641FA0 has it inline)
 	void Unknown_641FA0();	// 0x641FA0 (the gadgets' distances from the avatar, 1..999; 0x63E2B0, 0x63FF80)
+	Unknown78A910AvatarClass *Unknown_642740(UIStarbaseUnknownB4NPCStruct *npc);	// 0x642740 (0x634140: an NPC slot's starbase avatar)  // NAME 1 [npc]: neutral
 	void Unknown_641B00(); void Unknown_641B70();	// 0x641B00 (+0x214..+0x21A, +0x1B3 cleared), 0x641B70 (refilled by the view's 0x6A2430): as 0x63BDB0 / 0x63C080 have them
 };
 
@@ -342,6 +372,8 @@ public:
 	void Unknown_6A0EC0();	// 0x6A0EC0: the text object +0x1B8 follows the pointer (inlined in 0x69C5E0)
 	void Unknown_69E260(const char *bone);	// 0x69E260: with ViewRObjs[1], +0x84 = its bone transform turned -90 degrees about y and z, the +0x6C camera's  // NAME 1 [bone]: neutral
 	void Unknown_69E510(Matrix3D tm);	// 0x69E510: with ViewRObjs[1], +0x84 = tm turned -90 degrees about y and z, the +0x6C camera's transform; +0xE8 / +0x1BC cleared  // NAME 1 [tm]: neutral
+	void Unknown_6A24C0(int room, RenderObjClass *model, const char *name);	// 0x6A24C0 (0x634140: the room, the mesh's model and its name; +0x1F4's 0x441DD0 and 0x4420E0)  // NAME 1 [room, model, name]: what 0x634140 passes
+	void Unknown_6A2500(int room, RenderObjClass *robj, const char *name);	// 0x6A2500 (0x634140: each '%s_%dmd' model, NULL at the end; 0x4420E0)  // NAME 1 [room, robj, name]: what 0x634140 passes
 	void Unknown_6A1880(RefCountPtr<FontSys> &text, int kind);	// 0x6A1880: text made (kind 0 NameText_SBASE, 1 / 2 NPCText_SBASE, 3 GuildText_SBASE) and added to the +0x1C scene  // NAME 1 [text, kind]: neutral
 	void Unknown_69E6E0(const char *bone, int seconds, bool keep, float lift);	// 0x69E6E0: with ViewRObjs[1], the move target +0xB4 = the bone transform turned as 0x69E260 (keep: +0x84 with only its position), lift added to its z, over seconds from now (ui_starbase 0x638500 / 0x63B630)  // NAME 1 [bone, seconds, keep, lift]: neutral
 	void Unknown_69EF00(int mode, float speed);	// 0x69EF00: the +0x6C camera turned by the frame time * speed * 3 (mode 0 / 1 about y either way, 2 / 3 its pitch +0x1BC up / down, clamped to 0.25), kept as +0x84  // NAME 1 [mode, speed]: neutral

@@ -74,7 +74,9 @@ inline bool operator<(const RefCountPtr<ClientItemPropertyAttributeClass> &lhs, 
 {
 	FAIL_IF(!lhs) return false;
 	FAIL_IF(!rhs) return true;
-	return lhs->Unknown08 < rhs->Unknown08;
+	int lhs_sort = lhs->Unknown08;
+	int rhs_sort = rhs->Unknown08;
+	return lhs_sort < rhs_sort;
 }
 
 #endif

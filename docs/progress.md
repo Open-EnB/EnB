@@ -4,6 +4,43 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-10 (13:30 PST, day): the week's last 4 %: ui_friends, ui_stringentry, the dynamic window toggle and the item examination rows, the chat panel stand-ins retired, sendpad.py; +178 pairs over the run's baseline, 0 lost outright
+
+- **Run** run/2026-11-10 (PR #185), coordinator Opus 5.5 on the subscription, base 041ad8cb, baseline `.work/imports.041ad8cb.json`,
+  plan `.work/run-2026-11-10/plan.md`. The user: open progress.md items until the week's usage is spent (96 % at 09:00, reset
+  12:00); at 10:40 "launch 2 more builders". Weekly 96 % -> 98 % at 11:14; the week reset at 12:00 (the old week ended at ~98-99 %);
+  no launches into the new week, the last builders finished in it (~1 %). Builders: Opus FR2 ~272k, TC1 ~206k, DW1 ~236k, AP2 ~97k,
+  CP2 ~230k, IE3 ~222k, SU1 ~305k; Sonnet SP1 ~107k, CA1 ~51k, HC1 ~52k.
+- **HEAD against the baseline:** gained 178, 0 lost outright (pacing.py heartbeat at 8155b207); every landing passed wt.py's
+  link checks.
+- **Files:** FR2: ui_friends.cpp's ctor 0x58F210, slots +0x54 0x58F6B0 / +0x68 0x590020 (the 11-case key switch), 0x590E50,
+  0x591C30 exact (+34); +0xB0 is a UIPTradeCreditsClass (AP2: 0x58F6B0's new(0xD0) and 0x649890), so ui_group.h's UISymbolChatClass
+  lost 0x64A220 / 0x64A240. TC1: app/client/ui_stringentry.cpp (UIPTradeCreditsClass 0x649890-0x64A32F, the text entry window
+  the guild / ignore / friends / trade windows use; file name from the tooltip section UI_STRINGENTRY; all 12 exact, +33), the class
+  out of sclient.h. DW1: dynamic_window_toggle.cpp (ToggleButtonDynamicWindow, client RTTI and __FILE__, 0x51D790-0x51EADF),
+  gd_dynamicelement.cpp (DynamicElementGadgetClass 0x6686F0, interim) and gadget_collection_interface.h (GadgetCollectionInterface /
+  GadgetEvent, RTTI; was UIDynamicWindowUnknown84Class): 13 of 14 exact (+49). IE3: the item examination rows on them (attributes,
+  options, specials: ctors, dtors, the toggle callback, MemberCallback slots, ToggleButtonStateEvent() 0x51E7F0, the three sorts):
+  all exact (+49). SU1: ui_starbase.cpp's Init 0x634140 (9.2 KB) functional, NOT EXACT 0.55 (frame 0x1D0 vs 0x1A0), with the window's layouts (+0xCC entries with their FontSys texts, +0x1F8 / +0xB8 local classes, +0xB4 NPC slot / terminal lookups, +0xBC ExtraBones NAME 3), the lights block moved to the file's end (the client's order), 0x636520 inline exact; its first bring-over was refused by the link check (a header struct against the gen stubs' class), fixed (+13).
+- **Stand-ins retired:** AP2: ui_chat_panel / ui_ptrade include avatar_pip.h. CP2: cpacket.cpp's ChatPanelInterface and four
+  chat window stand-ins onto ui_chat_panel.h / ui_friends.h / ui_playeropt.h / ui_radio_list.h / ui_radio_admin.h; ui_guild.h
+  (D137) for UIGuildClass (sclient's 0x81BF40 now links to ui_guild.cpp's real member); mainview.cpp's and sclient.cpp's
+  ChatPanelInterface stand-ins onto ui_chat_panel.h; sclient.h's UIChatPanelUnknown138Class deleted; 0 / 0 each, four
+  link_baseline symbols now resolved.
+- **Tools:** SP1: tools/vc6/sendpad.py (the SEND_SYMBOL_PAD sweep through verify's path, ~5 min for 0..63) and
+  `wt.py bring-over --sendpad` (opt-in; it ran on three bring-overs, none needed a retune: each builder had swept already).
+  SEND_SYMBOL_PAD today: 4 -> 56 (TC1) -> 13 (CP2) -> SU1's value. CA1: the Claims Action's startup failures were 11 runs on
+  2026-11-09 16:02Z-18:11Z only; no repository cause; §4 item 9 keeps a check at the next merge.
+- **D182 harness:** HC1 at 89be45e6 (FR2 landed): build 542 / 542, clienttest 103 checks, 0 failed, trace equal (2510 lines),
+  udpreplay alex3 24771 equal, handshake 54 / 54; no new asserts. HC2 at 8155b207 (the run's head): build 545 / 545, clienttest
+  103 checks, 0 failed, trace equal (2510), udpreplay alex3 24771 equal, handshake 54 / 54; no new asserts. The POC was not run
+  this run (tools/agy/poc_check.sh at the next run's start: TC1 / CP2 / SU1 changed POC-linked code).
+- **Traps filed** (workflow.md §3.1, §3.3, §3.4, §3.6): byte-array member stand-ins break on a retype (grep the run branch's head
+  too), struct vs class mangling against gen stubs, inline ctors with RefCountPtr members in shared headers, sendpad's watch set
+  from a ledger that already lost 0x758210, split pad windows, the templated disconnect, operator< int locals for sorts,
+  a shrunk callee getting inlined, MSYS `//` paths.
+- **Proposal (D137, the coordinator's call, not done):** rename UIPTradeCreditsClass to UIStringEntryClass in one cross-cutting pass.
+
 ### 2026-11-10 (06:30 PST, night, 2026-11-09b): the world's windows react (mouse to gadgets, chat entry and keyboard, the PDA's character page like retail, cargo and equipment windows); +416 pairs over the run's baseline, 0 lost outright beyond D66 (vi)'s 0x65B900
 
 - **Run** run/2026-11-09b (PR #183), coordinator Opus 5.5 on the subscription, base fecd64c8, baseline
@@ -2998,8 +3035,10 @@ below name only the work items, the blocked work, the leads and the queues.
      procedures 0x847BB0 / 0x847C40 (0.77) and the servers.ini page 0x8476C0 (0.78) are functional with the same
      first-test residue (~34 forms: it needs a new lever). 0x84BE60 (target_generator_summary, register 0.68): an inline operator|= gives the siblings'
      bytes (0x4F58A0 / 0x835390 / 0x83D290), not its ebx form.
-   * ui_starbase.cpp: UIStarbaseClass::Unknown_54 0x634140 (9.2 KB set-up, 0x634140-0x636520: needs the sub-object
-     layouts at +0x33 / +0x7E / +0x2E / +0x67 / +0x69 / +0x6A).
+   * ui_starbase.cpp: UIStarbaseClass::Unknown_54 0x634140 NOT EXACT 0.55 (SU1: frame 0x1D0 vs ours 0x1A0, every later stack
+     offset differs; the first entry's `std::string("")` is out of line in the client; zero in ebx vs eax): try one RefCountPtr
+     per Create_Get / Create_NEW block and three char[32] name buffers. Unrebuilt callees: 0x644F80 (+0x1F8's 0xA4 class),
+     0x6B6050 (+0xB8's gadget), 0x6976C0 / 0x636520 / 0x698150 / 0x6980E0 (the +0xB4 NPC slot and terminal lookups).
    * ui_analyze.cpp (AN1, 2026-11-06 night; UIAnalyzeClass 0x11C over Unknown5BB320Class, ui_manu.cpp's near-copy; ui_analyze.h
      interim NAME 1): slots +0x54 0x5439F0 (register 0.80) / +0x60 0x5443F0, 0x544D80, 0x545190, 0x545610, 0x5458B0 functional (AN2;
      inline budget: the client calls the finds / Casts out of line); Validity (0xC41640) and Mode (0xC41634) are one
@@ -3014,25 +3053,27 @@ below name only the work items, the blocked work, the leads and the queues.
    * avatar_pip.cpp (AP1, 2026-11-05 night; AvatarPipClass 0x3C, 0x7E31B0-0x7E49AF): NOT EXACT 0x7E4520 (shape: the client
      converts `* 0.1f` before Get_Sort_Level), 0x7E3A20 0.83 (shape: the light translation folded into zeroed floats, a release
      tail-merge, Rotate_Y's operand order); the model carrier Unknown47FA70Class (ctor 0x47FA70, table 0xAE9D88; ro_proxy.cpp
-     by the triage, not in the tree). ui_chat_panel.cpp / ui_ptrade.cpp declare local AvatarPipClass stand-ins with wrong
-     signatures (0x7E36B0 returns bool, takes bool; 0x7E3A20 takes const char *, unsigned, CharacterViewAvatarClass *):
-     include avatar_pip.h, with a verify of both files.
+     by the triage, not in the tree).
    * ui_ptrade.cpp (PT1 / PT2, 2026-11-05 night; UIPTradeClass in sclient.h, interim D137, base Unknown5BB320Class, 0xE8): NOT
-     EXACT only 0x5E2CE0 (0.84, register: key 3 reads the client through edx, the client eax; 7 forms). ui_group.h's
-     UISymbolChatClass 0x64A220 / 0x64A240 read the 0x649890 'TRADE01A' object's +0xC0 (UIPTradeCreditsClass, 0xD0, in
-     sclient.h): check 0x64A480's base and size and merge the two declarations. 0x5E1B80 / 0x5E1B90 are the previous file's.
+     EXACT only 0x5E2CE0 (0.84, register: key 3 reads the client through edx, the client eax; 7 forms). 0x5E1B80 / 0x5E1B90 are the previous file's.
      money.cpp's operators 0x4F0500 / 0x4F0700 / 0x4F0740 are stubs in clienttest / clientpoc until money.cpp links there.
-   * ui_friends.cpp (FR1, 2026-11-05 night; UIFriendsClass 0x14C over UIChatPanelBaseClass, 0x58F0F0-0x5921F0, 39 pairs): ctor
-     0x58F210 / dtor 0x58F450 not yet written (the vtable waits for an exact ctor), 0x58F6B0 (slot +0x54), 0x590020 (slot
-     +0x68, an 11-case key switch; callees 0x7E8030 / 0x64A2B0 unknown), 0x591C30 (GroupInfo lookup via 0x5927E0), 0x5921C0
-     on; NOT EXACT 0x5908B0 / 0x590E50 (register), 0x58FBA0 / 0x5913E0 (inline budget). cpacket.cpp's
-     stand-in `class UIFriendsClass` can include ui_friends.h (verify cpacket unchanged). ui_friends.h interim (NAME 1).
+   * Chat panel stand-ins (CP2, 2026-11-10): cpacket.cpp keeps UIChatPanelUnknownF8Class / F890Class and UIGroupFindClass for
+     FIND_MEMBER 83 (no ui_groupfind file; 0x59A400 unwritten); ui_chat_panel.h's UIChatPanelWindowClass (+0xF8 / +0x104) is
+     really ChatPanelUIBase: retyping it lets slot +0x90 be called without the cast (every `(UIChatPanelWindowClass *)new` in
+     ui_chat_panel.cpp and POC_WINDOW_CTOR). ChatPanelInterface's ~ 0x562410, 0x565F60, 0x569A00, 0x56C7E0 are still POC gen
+     stand-ins (ui_chat_panel.cpp lacks them).
+   * ui_friends.cpp (FR1 / FR2; UIFriendsClass 0x14C over UIChatPanelBaseClass, 0x58F0F0-0x5921F0): NOT EXACT dtor 0x58F450
+     (inline budget: ours inlines 0x5906C0 inside the inlined slot +0x5C, the client calls it; 11 forms; 12 dead reads push it
+     out but lose 0x592300: try a deeper inline level for 0x5906C0's delete), 0x58FBA0 (the inlined player dtor's EH state
+     between its two strings: client 2, ours 1), 0x5908B0 (register, 6 loop forms), 0x5913E0 (inline budget). cpacket.cpp's
+     stand-in `class UIFriendsClass` waits for its stand-in ChatPanelInterface to go (ui_friends.h brings the real one).
+     ui_friends.h interim (NAME 1).
    * The item examination window (IE1 / IE2, 2026-11-05 night; ui_item_examination*.cpp, 0x531430-0x53AB4F): NOT EXACT the
      description ctor 0x534CA0 (frame 0x2C vs 0x24; a named Vector2 gets the frame but inlines the second string's `_Eos`),
      the attributes ctor 0x532BA0 / dtor 0x533000 forms in attempts.csv; title 0x53A140 (the name's std::string by value);
-     the row classes (options 0x535CB0 / 0x5362F0 / 0x5362C0 / 0x536450, attributes 0x533450 / 0x533AC0 / 0x533A90, specials
-     0x538350 up to 0x539790) need dynamic_window_toggle and the gadget class at 0x6686F0 (0x34 bytes), neither in the tree;
-     the sorts' _Unguarded_insert / _Median / _Unguarded_partition inline operator< (0x534700). ui_item_examination.cpp's
+     0x5378C0 (UIItemExaminationPropertyRouterClass's inline ctor, called by Unknown_94: probably a D99 short row).
+     dynamic_window_toggle.cpp's ctor 0x51DEB0 NOT EXACT 0.47 (inline budget: the client calls RefCountPtr's copy 0x51E950
+     out of line inside the StateRenderObjects vector copy). ui_item_examination.cpp's
      local Unknown537830Class / LineDisplayClientClass onto the real headers in a line-neutral edit. Next object 0x53AA30.
      Interim names (D137): ui_item_examination_attributes / _description / _specials.cpp; declaration-only ui_slot_info.h /
      ui_dynamicwindow.h / dynamic_window_icon.h wait for their files.
@@ -3444,11 +3485,16 @@ below name only the work items, the blocked work, the leads and the queues.
    and ui_pda_equip.h (PW1: the .cpps follow the client's `__FILE__`, the headers are D137), unknown_764fd0.cpp (GS1: the chat
    colours at SClient +0x13CC, no `__FILE__`), gd_inv_slider.cpp's class Unknown669FB0Class (PW1: the name is interim),
    drag_mouse.cpp (SMouseDragClass) and drag_slot_data.cpp, ui_skills.cpp, ui_slot_info.cpp (SK1: names to confirm at their next
-   edit; ui_slot_data.cpp's SlotDataInterface is RTTI), ui_slot_data.h (the UI1 entry above: now defined).
+   edit; ui_slot_data.cpp's SlotDataInterface is RTTI), ui_slot_data.h (the UI1 entry above: now defined). 2026-11-10: ui_stringentry.cpp / .h (TC1: UIPTradeCreditsClass
+   0x649890-0x64A32F, file named from the tooltip section UI_STRINGENTRY, NAME 2; the class name should become
+   UIStringEntryClass in a cross-cutting rename: it serves the guild, ignore and friends entries too), gd_dynamicelement.cpp
+   (DW1: DynamicElementGadgetClass 0x6686F0, NAME 1, placed between gd_buffgadg and gd_dynamicwindow), gadget_collection_interface.h
+   (DW1: GadgetCollectionInterface / GadgetEvent are RTTI names, the header's name is interim), ui_guild.h (CP2).
 
-9. **Tools:** the Claims Action's pull_request_target runs fail at startup (since 2026-11-09 16:02Z): a merged run
-   PR's claims stay live until a schedule / manual run reconciles (`gh workflow run claims.yml`); find the cause
-   (`gh run view` of a failed run). P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
+9. **Tools:** the Claims Action: check that the next merged run PR's pull_request_target (closed) run succeeds and drops
+   its claims from `claims-state` (11 startup_failure runs 2026-11-09 16:02Z-18:11Z only, none since, workflow unchanged;
+   treated as transient; on a recurrence capture the run's annotations in the UI: `--log-failed` and the jobs API are
+   empty for startup_failure). P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
    P9's worktree scripts (`.work/p9/wt.py`'s leftovers, `checks.sh`, `commit_wt.py`; commit_json.py must keep
    imports.json's maps sorted); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
@@ -3457,9 +3503,8 @@ below name only the work items, the blocked work, the leads and the queues.
    `.work/ib1/e1-e11.py` and `census.txt`, IB2's variant runner `.work/ib2/vr.py`: its marker insertion
    shifts `__LINE__`) into tools/re if the census walk goes on; auxroots.py's pad comment is stale (SYMBOL_PAD 58,
    SEND_SYMBOL_PAD 47, DEF_ORDER); `appfile.py match` mixes overloads and its pad windows differ from the importer's
-   (workflow.md 3.4, 3.6). A SEND_SYMBOL_PAD sweep step in wt.py / linkgate (GS1's `.work/wt/GS1/.work/gs1/sendpad_imp.py`
-   moved into tools/: the bring-over sweeps 0..63 when the diff touches a header sclient.cpp includes, ~5-10 min; 2026-11-09b
-   needed seven pad changes).
+   (workflow.md 3.4, 3.6). `wt.py bring-over --sendpad` (tools/vc6/sendpad.py) has not yet run on a real bring-over that loses sclient
+   pairs: check it at the first one; a cheaper pre-sweep of the current pad +-8 would cut its ~5 min.
    Data and generated files: symbols.json / ghidra_symbols.py keep 15 old D198 names (and vtable 0xAFB5F4 reads
    `??_7Unknown_675120Class@@6B@`: it is UIBackGadget's, D208): run `symbols.py` with every library's `--objs` at the
    next refresh (without them it rewrites the file wholesale).

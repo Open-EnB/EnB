@@ -20,18 +20,15 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\..\shared\g_assert.h"
 #include "..\ui_item_examination_property_router.h"
+#include <string>
+#include <vector>
 
-
-
-
-
-
-
-
-
-
-
-
+// One line of a special's text (the row 0x538350 makes one text per line; 0x14 bytes)
+struct ClientItemPropertySpecialLineStruct  // NAME 1: what it holds
+{
+	std::string Text;																		// +0x00  // NAME 1: what it holds
+	bool Bold;																				// +0x10 (the font gets '_BOLD')  // NAME 1: what it selects
+};
 
 
 
@@ -76,6 +73,9 @@
 class ClientItemPropertySpecialClass : public ClientItemPropertyClass  // NAME 2 [ClientItemPropertySpecialClass]: class from file (D24), client_item_property_special.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route)
 {
 public:
+	virtual std::vector<ClientItemPropertySpecialLineStruct> Unknown_14() = 0;			// +0x14 (the row's lines)  // NAME 1: neutral (D10)
+	virtual bool Unknown_18() = 0;															// +0x18 (false: the font gets '_UNUSABLE')  // NAME 1: neutral (D10)
+
 	int Unknown08;																			// +0x08 (operator< compares it)  // NAME 1 [Unknown08]: neutral (D10)
 };
 
@@ -83,7 +83,9 @@ inline bool operator<(const RefCountPtr<ClientItemPropertySpecialClass> &lhs, co
 {
 	FAIL_IF(!lhs) return false;
 	FAIL_IF(!rhs) return true;
-	return lhs->Unknown08 < rhs->Unknown08;
+	int lhs_sort = lhs->Unknown08;
+	int rhs_sort = rhs->Unknown08;
+	return lhs_sort < rhs_sort;
 }
 
 #endif

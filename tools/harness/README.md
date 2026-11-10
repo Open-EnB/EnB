@@ -435,6 +435,10 @@ ENB_VC6_HOSTS=<user>@<ip> python tools/harness/clienttest.py build [--out DIR]
 python tools/harness/clienttest.py run [--name alex3] [--session ffff9b25] [--count 1000] [--update]
 ```
 
+In a fresh worktree: `ENB_VC6_HOSTS` comes from `python tools/vc6/pool.py lease --agent ID` (release it after), and `run`
+needs MSS32.DLL next to the exe (exit 0xC0000135 without it): copy the main tree's `build/art/MSS32.DLL` into
+`.work/harness/clienttest/` (a worktree has no build/art).
+
 tests/clienttest links app\client's client.cpp, sclient.cpp and cpacket.cpp, connect.cpp, dbgconn.cpp,
 circbuff.cpp, pk.cpp and every rebuilt packet file (one object per app file, so two files' statics never meet)
 with logging stand-ins: `client_stubs.cpp` by hand (SClient's members the handlers call, co.cpp's object,
