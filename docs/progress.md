@@ -4,7 +4,7 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
-### 2026-11-10 (06:30 PST, night, 2026-11-09b): the world's windows react (mouse to gadgets, chat entry and keyboard, the PDA's character page like retail, cargo and equipment windows); +<PAIRS> pairs over the run's baseline, 0 lost outright beyond D66 (vi)'s 0x65B900
+### 2026-11-10 (06:30 PST, night, 2026-11-09b): the world's windows react (mouse to gadgets, chat entry and keyboard, the PDA's character page like retail, cargo and equipment windows); +416 pairs over the run's baseline, 0 lost outright beyond D66 (vi)'s 0x65B900
 
 - **Run** run/2026-11-09b (PR #183), coordinator Opus 5.5 on the subscription, base fecd64c8, baseline
   `.work/imports.fecd64c8.json`, plan `.work/run-2026-11-09b/plan.md`. The user: first whatever blocks interacting with the
@@ -12,8 +12,10 @@ Newest first within each section. Dates are when the entry was written.
   large unexplored functions with many callers, weekly usage 100 % by 07:00, subscription only (no agy, no API-key builders),
   hourly heartbeats, no blocking questions. Weekly usage 90 % -> <WEEKLY_END>. Builders (Opus): IN1 ~194k tokens, PD1 ~96k
   (resumed twice for the pad sweeps), SB1 ~457k, SK1 ~450k, CE1 ~420k, AV1 ~150k, TX1 ~150k, PW1 ~400k, GS1 ~400k, ID1 ~250k,
-  <UV1>; Sonnet (D182 harness and POC checks): HC1, HC2, HC3.
-- **HEAD against the baseline:** <PAIRS_LINE>
+  UV1 ~130k, ST1 ~150k, IT1 ~200k, SG1 ~140k; Sonnet: HC1-HC5 (D182 harness and POC checks), DOC (this entry's draft), BS1
+  (a bisect, stopped once SG1 had the cause). Burn: about 0.5 % of the week per hour with two Opus builders and the coordinator.
+- **HEAD against the baseline:** gained 416, 0 lost outright beyond D66 (vi)'s accepted 0x65B900 (pacing.py heartbeat at
+  0c009e1c); every landing passed wt.py's link checks.
 - **The in-world interaction chain** (each cause found by running the POC in the world and reading what the click or key
   reached): IN1 found why nothing was clickable: sclient.cpp's Do_Frame 0x742B60 called GadgetClass::Process_Input 0x65F780
   through a free declaration `Unknown_65F780`, which linked to a gen stand-in the POC had stubbed empty; PD1 applied it by name
@@ -38,9 +40,19 @@ Newest first within each section. Dates are when the entry was written.
   show Equip>> / Credits / Sort, typed text shows. The replay's cargo is empty (retail too), so slots stay empty.
 - **Other files:** SB1: ui_starbase.cpp's rest (+31; 21 functions exact in 0x633180-0x6437A1), sbaseview.h retypes (+0xEC list,
   +0xB8 / +0xF8 / +0x118 gadgets, +0xD4 SGI hash stand-in), pkstarbase_avatar_change.h ctor 0x8A3600, clienttest.py #defines and
-  clienttest.cpp fakes renamed (Python: the PR needs /verify-approved).
+  clienttest.cpp fakes renamed (Python: the PR needs /verify-approved). UV1: app/shared/uvcontrl.cpp / uvcontrl.h (D137): the
+  texture mapper controllers, all 12 functions 0x4A0FB0-0x4A1550 exact (+13); the POC's UVController gen stand-ins are no longer
+  hit. ST1: ui_avatar_cust.h (NAME 1) holds StarbaseAvatarCreationInterface (RTTI 0xB7AC88); sbaseview.h's
+  SBaseViewUnknown19CClass stand-in is gone, AvatarUI retyped, so the starbase's avatar recustomization window is built from the
+  real (exact) 0x54B7B0 / 0x551C40 (0 / 0; no replay reaches it yet). IT1: app/common/item_template.cpp (D137) the item templates
+  (0x831340 ctor, 0x8316D0 dtor, 0x831840 icon, 0x8318B0 lookup, 0x831950 Mount parser, all exact, +14). The real lookup returns
+  the Null Item for empty shortcut slots, and so does ID1's real inventory: the shortcut bar then built gadgets through a gen
+  stand-in and every in-world replay crashed at 15d2b82d (HC4). SG1: gd_slot_data's exact 0x670E30 class was named
+  Unknown_670E30Class while the callers used SlotDataShortcutGadgetClass (the client's name, ui_inv's FAIL_IF): renamed, the real
+  ctor signature in ui_slot_scut.h (three symbols_named replaces rows keep its shorts), and the POC proxy-button stand-in gets
+  slot +0xA4: no crash.
 - **SEND_SYMBOL_PAD tonight:** 40 -> 12 (PD1: `#include "gadget.h"` in sclient.cpp, window 9..14) -> 37 (SB1's sbaseview.h,
-  window 36..38) -> 41 (AV1's sclient.h names, 40..42) -> 43 (TX1, 42..44) -> 30 (GS1: ui_scut.h dropping its duplicate 0x5417D0, window 29..31) -> 47 (GS1's 0x744560, window 46..49). Every edit to a
+  window 36..38) -> 41 (AV1's sclient.h names, 40..42) -> 43 (TX1, 42..44) -> 30 (GS1: ui_scut.h dropping its duplicate 0x5417D0, window 29..31) -> 47 (GS1's 0x744560, window 46..49) -> 4 (ST1's sbaseview.h, window 1..7; IT1 re-swept after rebasing: holds). Every edit to a
   header sclient.cpp includes moves the window; the bring-over refused SB1 once (cherry-picked onto the next head it lost sclient
   0x758210 outright), CE1's chatgadg.cpp (not included by sclient.cpp) needed no change. IN1's "byte-identical twin" reading of
   the 0x758210 loss was wrong (0x218 B vs 0x702240's 0x31C B). The sweep script
@@ -52,7 +64,8 @@ Newest first within each section. Dates are when the entry was written.
   lines at HC3; GS1 updated expected.txt because the real code now runs); udpreplay alex3 as before (24771 equal in order),
   handshake 54; the POC no CRASH / STUB_CALLED. Asserts seen every run: soundlib(838) x4, interface_static_sort_list(503) (GS1:
   radar adds robjs before a current interface; harmless); new at HC3: dynamic_window_background.cpp(147) AnimationData x4; ID1:
-  Mounts inv_data_peek.cpp(104) on the equipment list. ID1 (and UV1) landed after HC3.
+  Mounts inv_data_peek.cpp(104) on the equipment list. HC4 (15d2b82d): harness passed, every in-world replay crashed (above);
+  <HC5>
 - **Traps filed** (workflow.md §3.1, §3.3, §3.4, §3.7, §3.8): free `Unknown_<ADDR>` declarations and callers' local stand-in class
   names link silently to gen stand-ins (the night's class), the SEND pad history and the re-sweep rule, D66 (vi) twins in
   pairs_cmp, POC shot timing (IN1's ~59 frames/s against the virtual-time counts), tail padding and auto_inline forms.
@@ -3261,12 +3274,15 @@ below name only the work items, the blocked work, the leads and the queues.
    * sclient.cpp: 0x74CA90 / 0x741180 / 0x755600 (above); unknown_7cef30.cpp: the request readers 0x7D6A60 / 0x7DAD50 /
      0x7DB2D0 (Parked leftovers).
    * **From the 2026-11-09b night run (GS1, ID1, SB1, TX1, SK1, CE1):** gen stand-ins still hit in the world (35 at GS1's
-     close; list them with the POC's stubs.log `gen` lines against `client.py name`): uvcontrl.cpp's UVControllerClass (unless
-     UV1 landed), 0x53DFB0 / 0x53E030, BridgeInterfaceClass, acticon 0x6766E0, kv_util 0x4BB3F0, MusicManager / 0x74BFB0, the chat
-     colours 0x765540 / 0x765BE0 / 0x765E40, TX1's 0x58B160, 0x810CF0, 0x831950; StarbaseAvatarCreationInterface
-     (sbaseview.h's SBaseViewUnknown19CClass) into ui_avatar_cust.h (sclient.cpp includes it: the SEND pad sweep); the
-     0x42A410 key-binding writer's retype (ControlKeyComboStruct against KernelEventClass); ID1's item functions 0x8318B0 (the
-     template lookup), 0x831340 (ctor), 0x831840 (texture), the file after circbuff.cpp (0x831340-0x831950); the chat panel's
+     close, 34 after UV1; list them with the POC's stubs.log `gen` lines against `client.py name`): 0x53DFB0 / 0x53E030,
+     BridgeInterfaceClass, acticon 0x6766E0, kv_util 0x4BB3F0, MusicManager / 0x74BFB0, the chat colours 0x765540 / 0x765BE0 /
+     0x765E40, TX1's 0x58B160, 0x810CF0, the 'if_targ' range gauge Unknown6A3D60Class (0x6A3D60 / 0x6A4020 / dtor 0x6A3F10,
+     never rebuilt; its stubs are inert); ItemBaseInfoClass (pkitemba.h) and ItemTemplateInfoClass
+     (client_item_property_builder.h) are one class (both declare 0x83F490): merge the names, then rebuild the ctor 0x83F490 (a
+     gen stub: every item template's `new ItemBaseInfoClass` has a garbage table), 0x83DB00 and the dtor behind table 0xB08C34
+     (SG1); the 0x42A410 key-binding writer's retype (ControlKeyComboStruct against KernelEventClass); Unknown_671300Class's
+     second ctor argument as RenderObjClass * (UV1: ui_cpit passes `(int)uv`; ui_avatr / ui_avatar_cust's local declarations
+     must change with it); the chat panel's
      missing tabs and dynamic_window_background.cpp(147)'s AnimationData assert; money.cpp 0x4F00C0 (a hand stub groups
      thousands in the POC) / 0x4FAEE0; SB1's next ui_starbase leads 0x63CA50 (needs the +0xCC ctor and operator[] 0x644A20),
      0x63E930 / 0x63F490, 0x640360, 0x6417D0; CE1's ClientChatRequestPacketClass 0x878D90; symbols.json misnames 0x58A640
@@ -3345,7 +3361,7 @@ below name only the work items, the blocked work, the leads and the queues.
      0x66CC00, combo 0x5789E0 / 0x57B480, ship PIP 0x541DE0 / 0x66DA50, stats 0x6A2ED0; poc_world4.cpp: the star map
      set-up's class, GadgetPipSceneClass 0x66ACE0, GadgetStarmapClass 0x7B4700); in the world the chat panel's tabs are
      missing and the chat text colour differs from retail's (red against green: SClient +0x13CC, 0x765540 / 0x765BE0 /
-     0x765E40), the cargo window shows no items (the replay's cargo is empty; items need 0x8318B0 / 0x831340 / 0x831840) and
+     0x765E40), the cargo window shows no items (the replay's cargo is empty: a replay with items is the next check of item_template.cpp) and
      drag is untested; asserts every run: soundlib(838) x4, interface_static_sort_list(503) once, dynamic_window_background.cpp(147)
      AnimationData x4, Mounts inv_data_peek.cpp(104) on the equipment list; starmap_pip.cpp's rest (0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1C50, 0x7C2340,
      0x7C2850, 0x7C2DA0-0x7C30E0; NOT EXACT 0x7C0C80, 0x7C1770 (frame, 0.88: retry the slot order now that +0x68 is a
