@@ -454,19 +454,8 @@ class UIBuffClass;
 class UIManuInvClass;		// ui_manu.h's: ui_inv.cpp's interface (+0xAC, +0xB0)
 class AvatarPipClass;		// avatar_pip.cpp's (+0xCC, +0xD0: 0x3C bytes each)
 
-// The credits entry the trade window holds at +0xB4 (0xD0 bytes, constructor 0x649890 over the base 0x5BB320, 'TRADE01A',
-// table 0xAF88BC; the set-up passes 'Enter Amount of Credits' to its 0x64A270), as far as ui_ptrade.cpp calls it
-class UIPTradeCreditsClass : public Unknown5BB320Class	// NAME 1: neutral (D10): what it asks for
-{
-public:
-	UIPTradeCreditsClass(SClient *client, int a, int b);	// 0x649890 (the set-up passes the client, 0, 9)  // NAME 1 [client, a, b]: what the set-up passes
-	void Unknown_64A270(const char *text);				// 0x64A270 (the set-up: 'Enter Amount of Credits')  // NAME 1 [text]: neutral
-	int Unknown_64A220();								// 0x64A220: its +0xC0 (0x5E39F0: 0 still open, 2 accepted)
-	const char *Unknown_64A240();						// 0x64A240 (0x5E39F0: the amount typed, to atoi)
-	void Unknown_64A2B0(const char *text);				// 0x64A2B0 (slot +0x68, key 4: the amount offered so far, or "")  // NAME 1 [text]: neutral
-
-	char Unknown0AC[0xD0 - 0xAC];						// +0xAC (0xD0 bytes: the set-up's new)
-};
+// The credits entry the trade window holds at +0xB4: ui_stringentry.cpp's text entry (0xD0 bytes, constructor 0x649890, 'TRADE01A')
+#include "ui_stringentry.h"
 
 class UIPTradeClass : public Unknown5BB320Class	// NAME 3: class-from-file (D24) for app\client\ui_ptrade.cpp
 {

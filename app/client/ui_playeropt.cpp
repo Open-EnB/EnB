@@ -81,7 +81,7 @@ void UIPlayerOptClass::Unknown_54()
 		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
 		Unknown0AC = Create_Get(new UIPTradeCreditsClass(Client->As_Space_Client(), 1, 0x14));
 		Unknown0AC->Unknown_54();
-		Unknown0AC->Unknown0AC[0xCD - 0xAC] = true;
+		Unknown0AC->Unknown0CD = true;
 		Unknown0AC->Unknown_64A270("Ignore Player");
 		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
 	}

@@ -177,10 +177,10 @@ void UIGuildClass::Unknown_54()
 		Unknown0BC->Unknown_54();
 		Unknown0C0 = Create_Get(new UIPTradeCreditsClass(Client->As_Space_Client(), 2, 0xFE));
 		Unknown0C0->Unknown_54();
-		Unknown0C0->Unknown0AC[0xCD - 0xAC] = false;
+		Unknown0C0->Unknown0CD = false;
 		Unknown0C4 = Create_Get(new UIPTradeCreditsClass(Client->As_Space_Client(), 1, 0x14));
 		Unknown0C4->Unknown_54();
-		Unknown0C4->Unknown0AC[0xCD - 0xAC] = true;
+		Unknown0C4->Unknown0CD = true;
 		Slider = Unknown_56D8D0(0x17, 0);
 		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
 		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));

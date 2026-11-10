@@ -179,17 +179,12 @@ UISymbolChatClass::UISymbolChatClass(SClient *sclient) : InterfaceClass((LineDis
 	STUB_CALLED("POC UISymbolChatClass: an empty window");
 }
 
-// ---------------------------------------------------------------- the trade window's parts (0x59EDC0, 0x649890)
+// ---------------------------------------------------------------- the trade window's parts (0x59EDC0)
 #include "..\..\app\client\ui_manu.h"
 UIManuInvClass::UIManuInvClass(SClient *client, RenderObjClass *model, int count, const char *format, int unknown) : InterfaceClass((LineDisplayClientClass *)client)
 {
 	STUB_CALLED("POC UIManuInvClass: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
-}
-UIPTradeCreditsClass::UIPTradeCreditsClass(SClient *client, int a, int b) : Unknown5BB320Class(new UIMeshClass("TRADE01A", 0), client)
-{
-	STUB_CALLED("POC UIPTradeCreditsClass: the model only");
-	memset(Unknown0AC, 0, sizeof(Unknown0AC));
 }
 
 // ---------------------------------------------------------------- the +0x1358 view's window (0x5B7AB0): an empty window
