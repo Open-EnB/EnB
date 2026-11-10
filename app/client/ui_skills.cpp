@@ -150,13 +150,13 @@ bool UISkillsClass::Unknown_A0(SlotDataGadgetClass *gadget)
 }
 
 // 0x62D590
-// NOT EXACT: functional (D64), from the pseudocode
 void UISkillsClass::Unknown_A4(std::string &name, int index, int arg)
 {
 	const char *skill = SkillNamesDatabase::Unknown_818200(index);
-	if (!skill) skill = "Unknown Skill";
-	name = skill;
+	name = skill ? skill : "Unknown Skill";
 }
+
+
 
 
 
