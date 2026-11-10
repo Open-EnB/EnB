@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 181 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1733 |
+| 3 | by convention from a client-named file or sibling | 1731 |
 | 2 | describes what the code does | 3934 |
-| 1 | neutral placeholder | 22269 |
+| 1 | neutral placeholder | 22265 |
 
 ## For review (score 3 and below)
 
@@ -10754,12 +10754,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownF8` | `app/client/ui_chat_panel.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_Pad` | `app/client/ui_chat_panel.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown204` | `app/client/ui_chat_panel.cpp:36` | untagged neutral name (D10) |
-| 1 | `client, robj, arg` | `app/client/ui_chat_panel.cpp:43` | what 0x562F50 passes |
-| 1 | `Unknown_7E36B0` | `app/client/ui_chat_panel.cpp:43` | untagged neutral name (D10) |
-| 1 | `a, id, b` | `app/client/ui_chat_panel.cpp:44` | what 0x564030 passes |
-| 1 | `Unknown_7E3A20` | `app/client/ui_chat_panel.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_7E4350` | `app/client/ui_chat_panel.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown2C` | `app/client/ui_chat_panel.cpp:48` | untagged neutral name (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/ui_chat_panel.cpp:52` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_chat_panel.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_chat_panel.cpp:55` | untagged neutral name (D10) |
@@ -10883,6 +10877,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_56C0C0` | `app/client/ui_chat_panel.cpp:492` | untagged neutral name (D10) |
 | 1 | `Unknown_5689D0` | `app/client/ui_chat_panel.cpp:496` | untagged neutral name (D10) |
 | 1 | `UnknownD4` | `app/client/ui_chat_panel.cpp:498` | untagged neutral name (D10) |
+| 1 | `Unknown_7E36B0` | `app/client/ui_chat_panel.cpp:506` | untagged neutral name (D10) |
 | 1 | `Unknown_566AF0` | `app/client/ui_chat_panel.cpp:525` | untagged neutral name (D10) |
 | 1 | `Unknown_565F80` | `app/client/ui_chat_panel.cpp:526` | untagged neutral name (D10) |
 | 1 | `Unknown_567760` | `app/client/ui_chat_panel.cpp:527` | untagged neutral name (D10) |
@@ -10906,6 +10901,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B8` | `app/client/ui_chat_panel.cpp:638` | untagged neutral name (D10) |
 | 1 | `Unknown_563910` | `app/client/ui_chat_panel.cpp:642` | untagged neutral name (D10) |
 | 1 | `Unknown_744B60` | `app/client/ui_chat_panel.cpp:645` | untagged neutral name (D10) |
+| 1 | `Unknown_7E4350` | `app/client/ui_chat_panel.cpp:655` | untagged neutral name (D10) |
+| 1 | `Unknown_7E3A20` | `app/client/ui_chat_panel.cpp:656` | untagged neutral name (D10) |
+| 1 | `Unknown02C` | `app/client/ui_chat_panel.cpp:659` | untagged neutral name (D10) |
 | 1 | `Unknown124` | `app/client/ui_chat_panel.cpp:662` | untagged neutral name (D10) |
 | 1 | `Peek_Unknown84` | `app/client/ui_chat_panel.cpp:709` | untagged neutral name (D10) |
 | 1 | `Unknown_6D87D0` | `app/client/ui_chat_panel.cpp:712` | untagged neutral name (D10) |
@@ -14794,12 +14792,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BE67C4` | `app/client/ui_ptrade.cpp:40` | 0xBE67C4 |
 | 1 | `UIPTradeAvatarClass` | `app/client/ui_ptrade.cpp:43` | neutral (D10) |
 | 1 | `Unknown` | `app/client/ui_ptrade.cpp:43` | untagged neutral name (D10) |
-| 1 | `client, robj, arg` | `app/client/ui_ptrade.cpp:49` | what 0x562F50 passes |
-| 1 | `Unknown_7E36B0` | `app/client/ui_ptrade.cpp:49` | untagged neutral name (D10) |
-| 1 | `a, id, b` | `app/client/ui_ptrade.cpp:50` | what 0x564030 passes |
-| 1 | `Unknown_7E3A20` | `app/client/ui_ptrade.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown_7E4350` | `app/client/ui_ptrade.cpp:51` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/ui_ptrade.cpp:51` | untagged neutral name (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_ptrade.cpp:57` | untagged neutral name (D10) |
 | 1 | `Unknown0D8` | `app/client/ui_ptrade.cpp:61` | untagged neutral name (D10) |
 | 1 | `Unknown0DC` | `app/client/ui_ptrade.cpp:62` | untagged neutral name (D10) |
@@ -14831,6 +14823,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5E2F70` | `app/client/ui_ptrade.cpp:160` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_ptrade.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown_695780` | `app/client/ui_ptrade.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown_7E36B0` | `app/client/ui_ptrade.cpp:178` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8B40` | `app/client/ui_ptrade.cpp:178` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3340` | `app/client/ui_ptrade.cpp:181` | untagged neutral name (D10) |
 | 1 | `Unknown_74C7B0` | `app/client/ui_ptrade.cpp:183` | untagged neutral name (D10) |
@@ -14839,12 +14832,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/ui_ptrade.cpp:201` | untagged neutral name (D10) |
 | 1 | `Unknown_695A00` | `app/client/ui_ptrade.cpp:210` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3050` | `app/client/ui_ptrade.cpp:213` | untagged neutral name (D10) |
+| 1 | `Unknown_7E4350` | `app/client/ui_ptrade.cpp:215` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_ptrade.cpp:221` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3C90` | `app/client/ui_ptrade.cpp:223` | untagged neutral name (D10) |
 | 1 | `Unknown_5E39F0` | `app/client/ui_ptrade.cpp:224` | untagged neutral name (D10) |
 | 1 | `Unknown_5E37F0` | `app/client/ui_ptrade.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown_7E3A20` | `app/client/ui_ptrade.cpp:226` | untagged neutral name (D10) |
 | 1 | `Unknown1134` | `app/client/ui_ptrade.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_ptrade.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `app/client/ui_ptrade.cpp:259` | untagged neutral name (D10) |
 | 1 | `Unknown_64A2B0` | `app/client/ui_ptrade.cpp:260` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_ptrade.cpp:272` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3130` | `app/client/ui_ptrade.cpp:292` | untagged neutral name (D10) |
@@ -26788,7 +26784,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `MAX_BUFF_ELEMENTS` | `app/client/ui_buff.cpp:187` | the assert's (the ship's BuffArray.N.Elements count) |
 | 3 | `slot` | `app/client/ui_buff.h:27` | the asserts' |
 | 3 | `BuffTable` | `app/client/ui_buff.h:32` | the asserts' 'BuffTable[slot]' |
-| 3 | `AvatarPipClass` | `app/client/ui_chat_panel.cpp:40` | class-from-file (D24) for app\client\avatar_pip.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_chat_panel.cpp:57` | ui_manu.cpp's FAIL_IF's |
 | 3 | `GadgetClass` | `app/client/ui_chat_panel.cpp:159` | class-from-file (D24) for app\client\gadget.cpp |
 | 3 | `NUM_COMBO` | `app/client/ui_chat_panel.h:22` | the assert's |
@@ -26953,7 +26948,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `StartFrame` | `app/client/ui_proc_impl.h:62` | the FAIL_IF's 'StartFrame > EndFrame' |
 | 3 | `EndFrame` | `app/client/ui_proc_impl.h:63` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_ptrade.cpp:32` | ui_manu.cpp's FAIL_IF's |
-| 3 | `CharacterViewAvatarClass` | `app/client/ui_ptrade.cpp:46` | class-from-file (D24) for app\client\avatar_pip.cpp |
 | 3 | `ui_radio_entry.h` | `app/client/ui_radio_entry.h:4` | header name assumed from the client's ui_radio_entry.cpp |
 | 3 | `UIRadioEntryClass` | `app/client/ui_radio_entry.h:14` | class-from-file (D24) for app\client\ui_radio_entry.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_refinery.cpp:30` | ui_manu.cpp's FAIL_IF's |
