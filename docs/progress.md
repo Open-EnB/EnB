@@ -3446,9 +3446,10 @@ below name only the work items, the blocked work, the leads and the queues.
    drag_mouse.cpp (SMouseDragClass) and drag_slot_data.cpp, ui_skills.cpp, ui_slot_info.cpp (SK1: names to confirm at their next
    edit; ui_slot_data.cpp's SlotDataInterface is RTTI), ui_slot_data.h (the UI1 entry above: now defined).
 
-9. **Tools:** the Claims Action's pull_request_target runs fail at startup (since 2026-11-09 16:02Z): a merged run
-   PR's claims stay live until a schedule / manual run reconciles (`gh workflow run claims.yml`); find the cause
-   (`gh run view` of a failed run). P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
+9. **Tools:** the Claims Action: check that the next merged run PR's pull_request_target (closed) run succeeds and drops
+   its claims from `claims-state` (11 startup_failure runs 2026-11-09 16:02Z-18:11Z only, none since, workflow unchanged;
+   treated as transient; on a recurrence capture the run's annotations in the UI: `--log-failed` and the jobs API are
+   empty for startup_failure). P-LD3-2 (`wt.py bring-over` accepts named D119 ambiguous addresses, checked against the ambiguous
    column) with P-CS1-2 (the same flag for D66 (i) / (v) moves when pairs_cmp's lost-outright list is empty); promote
    P9's worktree scripts (`.work/p9/wt.py`'s leftovers, `checks.sh`, `commit_wt.py`; commit_json.py must keep
    imports.json's maps sorted); the compare-and-swap commit rule (`update-ref master NEW OLD`) into commit_mine
