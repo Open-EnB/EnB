@@ -872,24 +872,6 @@ public:
 	Vector3 Unknown00[24];								// +0x00  // NAME 2: what the constructor writes
 };
 
-// What the chat panel's +0x138 points to, as far as SClient 0x744E70 calls it
-class UIChatPanelUnknown138Class	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
-	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C();
-	virtual void Unknown_90(); virtual void Unknown_94(); virtual void Unknown_98(); virtual void Unknown_9C();
-	virtual void Unknown_A0(); virtual void Unknown_A4(); virtual void Unknown_A8();
-	virtual void Unknown_AC(bool on);					// +0xAC (0x744E70: false when the current view is +0x135C or asked, true for a type-1 target)  // NAME 1 [on]: neutral
-};
-
 #pragma pack(push, 4)		// as ClientClass (client.h)
 class CameraModuleClass; class CameraModuleSignal;	// the client's RTTI (the camera manager's callback, 0xB9AC18)
 class SClient : public ClientClass, public SOptionsClass	// NAME 2: the client's 'SClient::Process_Packets' (0x7427C0)
