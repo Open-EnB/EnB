@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-734 entries in 224 files.
+737 entries in 225 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -174,6 +174,9 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_robj.cpp:412` | `GalaxyMapLineRObjClass::Render` | marker | NOT EXACT: x87 operand order (the client multiplies Color's members by the clamped Fade held in st(1), ours keeps a copy with fld st(0)) @0x7B43F0 |
 | `app/client/gd_buffgadg.cpp:188` | `BuffGadgetClass::Unknown_AC` | marker | NOT EXACT: frame (the client keeps the time now on the stack, ours in registers; the body after it matches) 0x665F20 |
 | `app/client/gd_buffgadg.cpp:227` | `BuffGadgetClass::Unknown_6661F0` | marker | NOT EXACT: register (explain.py: identical once registers are normalised; ecx / edx swapped at the time compare) 0x6661F0 |
+| `app/client/gd_inv_slider.cpp:20` | `Unknown669FB0Class::Unknown669FB0Class` | marker | NOT EXACT: functional from the pseudocode (D64) 0x669FB0 |
+| `app/client/gd_inv_slider.cpp:41` | `Unknown669FB0Class::~Unknown669FB0Class` | marker | NOT EXACT: functional from the pseudocode (D64) 0x66A190 |
+| `app/client/gd_inv_slider.cpp:118` | `Unknown669FB0Class::Unknown_66A4E0` | marker | NOT EXACT: functional from the pseudocode (D64) 0x66A4E0 |
 | `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
 | `app/client/gd_text_editor.cpp:162` | `TextEditorGadgetClass::Set_Render_Obj` | marker | NOT EXACT: registers (client this esi, it ebp, line edi with a home at +0x24; here ebx, edi, esi) and the slots of first and height swapped @0x671CB0 |

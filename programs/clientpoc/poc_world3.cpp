@@ -5,7 +5,7 @@
 **	calls each window's slot +0x54 at once and the display's slots every frame, so the generated stand-ins (no table)
 **	would crash: these give each the real size's zeroed memory and InterfaceClass's own table (no mesh, no keys).
 **	The cargo and equipment windows are app.lib's; what they make that the tree does not have yet (the combo box's
-**	second constructor 0x5789E0, gd_inv_slider.cpp's slider, the ship's PIP 0x541DE0, its gadget 0x66DA50 and the
+**	second constructor 0x5789E0, the ship's PIP 0x541DE0, its gadget 0x66DA50 and the
 **	stats display 0x6A2ED0) is stood in for below. Delete one here when its real class lands in app/.
 */
 
@@ -16,7 +16,6 @@
 #include "..\..\app\client\pdaint.h"
 #include "..\..\app\client\sclient.h"
 #include "..\..\app\client\ui_combobox.h"
-#include "..\..\app\client\gd_inv_slider.h"
 #include "..\..\app\client\unknown_675120.h"
 #include "rendobj.h"
 #include "nullrobj.h"
@@ -69,24 +68,6 @@ UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, SClient *client, RenderO
 }
 void UIComboBoxClass::Unknown_57B480(const char *text)	// 0x57B480: the box's +0x104 string (nothing shown here)
 {
-}
-
-// ---------------------------------------------------------------- gd_inv_slider.cpp's slider (0x669FB0): a plain GadgetSlider
-Unknown669FB0Class::Unknown669FB0Class(UIInvClass *inventory, LayerClass *layer) : GadgetSlider(false, layer), Inventory(inventory), SlotData(NULL), Unknown130(0), Unknown134(0), Unknown138(0)
-{
-	STUB_CALLED("POC Unknown669FB0Class (the inventory slider): a plain slider");
-}
-Unknown669FB0Class::~Unknown669FB0Class()
-{
-}
-void Unknown669FB0Class::Unknown_A4(float val, bool arg2)
-{
-	GadgetSlider::Unknown_A4(val, arg2);
-}
-void Unknown669FB0Class::Unknown_66A300(int a, int b)
-{
-	Unknown130 = a;
-	Unknown134 = b;
 }
 
 // ---------------------------------------------------------------- the equipment window's ship PIP (0x541DE0), its gadget (0x66DA50), the stats (0x6A2ED0)
