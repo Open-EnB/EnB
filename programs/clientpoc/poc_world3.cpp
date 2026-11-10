@@ -19,6 +19,7 @@
 #include "..\..\app\client\gd_inv_slider.h"
 #include "..\..\app\client\unknown_675120.h"
 #include "rendobj.h"
+#include "nullrobj.h"
 
 // ---------------------------------------------------------------- the vault window (0x656FF0): 0xFC bytes
 Unknown656FF0Class::Unknown656FF0Class(SClient *client) : UIInvClass((LineDisplayClientClass *)client)
@@ -55,20 +56,16 @@ void Unknown58C450Class::Unknown_58CF60()
 }
 
 // ---------------------------------------------------------------- the cargo window's filter: the combo box's second constructor (0x5789E0)
-// An empty box: no drop-down, the text field left alone (+0x10C set); the arrow button (+0xD0, 0x57B570's) a hidden
-// button on the 'filter' sub-object, else on the model itself
+// An empty box: no drop-down, the text field left alone (+0x10C set); the arrow button (+0xD0, 0x57B570's) a button on a
+// null object of its own ('filter' is a bone of the window's mesh: a button on the mesh would hide the whole window)
 UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, SClient *client, RenderObjClass *model, const char *name, int a, int b, int c, int d, const char *style) : InterfaceClass((LineDisplayClientClass *)client)
 {
 	STUB_CALLED("POC UIComboBoxClass 0x5789E0 (the cargo window's filter): an empty box");
 	memset((char *)this + sizeof(InterfaceClass), 0, sizeof(UIComboBoxClass) - sizeof(InterfaceClass));
 	Unknown10C = 1;
-	RenderObjClass *robj = (model && name) ? model->Get_Sub_Object_By_Name(name) : NULL;
-	if (robj == NULL && model) {
-		robj = model;
-		robj->Add_Ref();
-	}
-	Unknown0D0 = robj ? new ButtonGadgetClass(robj, 0x55, 3) : NULL;
-	if (robj) robj->Release_Ref();
+	RenderObjClass *robj = new Null3DObjClass;
+	Unknown0D0 = new ButtonGadgetClass(robj, 0x55, 3);
+	robj->Release_Ref();
 }
 void UIComboBoxClass::Unknown_57B480(const char *text)	// 0x57B480: the box's +0x104 string (nothing shown here)
 {
@@ -125,4 +122,80 @@ void Unknown6A2ED0Class::Unknown_6A34E0(bool on)
 }
 void Unknown6A2ED0Class::Unknown_6A3C10()
 {
+}
+
+// ---------------------------------------------------------------- inv_data.cpp's inventory (0x688410, 0x18C bytes): an empty one
+// ui_inv.cpp's slot +0x88 (0x59FA00) news it for every inventory window's SlotData; declared as ui_inv.cpp declares it
+#include "..\..\app\client\slot_data.h"
+class DeltaCompoundClass;
+class Unknown688830Class;
+class InvDataClass : public SlotDataClass
+{
+public:
+	InvDataClass(int inv_type, SClient *client);
+	virtual InvDataClass *Unknown_10() { return(this); }	// +0x10 (the client's answers itself: ui_slot_info.cpp's 0x630280 makes the item window)
+	virtual bool Unknown_18();
+	virtual DeltaCompoundClass *Unknown_1C();
+	virtual bool Unknown_20();
+	Unknown688830Class *Unknown_688830();
+	Unknown688830Class *Unknown_688850();
+	int Unknown50;
+	char Unknown54[0x18C - 0x54];
+};
+InvDataClass::InvDataClass(int inv_type, SClient *client) : SlotDataClass(client), Unknown50(inv_type)
+{
+	STUB_CALLED("POC InvDataClass (0x688410, inv_data.cpp): an empty inventory");
+	memset(Unknown54, 0, sizeof(Unknown54));
+}
+bool InvDataClass::Unknown_18()
+{
+	return(false);
+}
+DeltaCompoundClass *InvDataClass::Unknown_1C()
+{
+	return(NULL);
+}
+bool InvDataClass::Unknown_20()
+{
+	return(false);
+}
+
+// ---------------------------------------------------------------- dynamic_window_icon.cpp's Create (0x519A20): a plain dynamic window, no texture
+// (the inventory windows' item examination window, ui_slot_info.cpp's 0x630280, makes its title's icon and close button with it)
+#include "..\..\app\client\dynamic_window_icon.h"
+RefCountPtr<DynamicWindowIconClass> DynamicWindowIconClass::Create(const std::string &texture_name, const Vector2 &size, unsigned int flags)
+{
+	STUB_CALLED("POC DynamicWindowIconClass::Create (0x519A20): a plain dynamic window");
+	return(Create_NEW((DynamicWindowIconClass *)new DynamicWindowClass("icon", 0)));
+}
+
+// ---------------------------------------------------------------- dynamic_window_move.cpp's 0x51A9C0: the window's move gadget, here one that is never hit
+class UIDynamicWindowClass;
+class PocNoHitGadgetClass : public GadgetClass
+{
+public:
+	PocNoHitGadgetClass() : GadgetClass(0) {}
+	virtual bool Unknown_30(float x, float y) { return(false); }
+};
+GadgetClass *Unknown_51A9C0(UIDynamicWindowClass *window)
+{
+	STUB_CALLED("POC Unknown_51A9C0 (0x51A9C0, the window's move gadget): never hit");
+	return(new PocNoHitGadgetClass);
+}
+
+// ---------------------------------------------------------------- the inventory's quantity gadget (0x66CC00; inv_transaction.cpp's 0x6908E0 news it): never hit
+// declared as inv_transaction.cpp declares it
+class Unknown66CC00Class : public GadgetClass { public: Unknown66CC00Class(UIViewClass *view, int arg); virtual bool Unknown_30(float x, float y); char Unknown30[0x10]; bool Unknown40; int Unknown44; int Unknown48; char Unknown4C[0x6C - 0x4C]; };
+Unknown66CC00Class::Unknown66CC00Class(UIViewClass *view, int arg) : GadgetClass(0)
+{
+	STUB_CALLED("POC Unknown66CC00Class (0x66CC00, the inventory's quantity gadget): never hit");
+	memset(Unknown30, 0, sizeof(Unknown30));
+	Unknown40 = false;
+	Unknown44 = 0;
+	Unknown48 = 0;
+	memset(Unknown4C, 0, sizeof(Unknown4C));
+}
+bool Unknown66CC00Class::Unknown_30(float x, float y)
+{
+	return(false);
 }
