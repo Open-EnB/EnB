@@ -8,7 +8,7 @@
 #include "fontmanager.h"
 #include "..\shared\g_assert.h"
 #include "ui_attrb_skills.h"
-
+#include "avatar.h"
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 #include "gd_attrb_skills.h"
@@ -225,9 +225,9 @@ void UIAttrbSkillsClass::Unknown_54ACE0()
 		UISkillsClass::Unknown_5C();
 	}
 	Unknown_54B050();
-	unsigned id = ((ClientClass *)Client)->AvatarID; Unknown77E3F0Class *avatar = Client->As_Space_Client()->Unknown_74C840(id);
+	unsigned id = ((ClientClass *)Client)->AvatarID; CharacterViewAvatarClass *avatar = Client->As_Space_Client()->Unknown_74C840(id);
 	if (avatar) {
-		int index = Unknown_82F350(avatar->Unknown108, avatar->Unknown10C);
+		int index = Unknown_82F350(avatar->Desc.Race, avatar->Desc.Profession);
 		SkillDataClass *list = Unknown_62D710();
 		int count = list->Unknown_6A7990();
 		for (int i = 0; i < count; i++) {
@@ -588,9 +588,9 @@ void UIAttrbSkillsClass::Unknown_54B370()
 // 0x54B400
 void UIAttrbSkillsClass::Unknown_54B400()
 {
-	unsigned id = ((ClientClass *)Client)->AvatarID; Unknown77E3F0Class *avatar = Client->As_Space_Client()->Unknown_74C840(id);
+	unsigned id = ((ClientClass *)Client)->AvatarID; CharacterViewAvatarClass *avatar = Client->As_Space_Client()->Unknown_74C840(id);
 	if (avatar) {
-		int index = Unknown_82F350(avatar->Unknown108, avatar->Unknown10C);
+		int index = Unknown_82F350(avatar->Desc.Race, avatar->Desc.Profession);
 		((Unknown548D60Class *)UnknownFC.Peek())->Unknown_548D60(Unknown_62D710(), Unknown_62D710()->Unknown_6A7A00(UnknownEC), index);
 	}
 }

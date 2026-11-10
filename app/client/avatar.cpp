@@ -1537,7 +1537,7 @@ void CharacterViewAvatarClass::Unknown_781760(const char *text)
 		Unknown0E8.Unknown_4C4410();
 	}
 }
-
+Unknown_ChatStreamClass *CharacterViewAvatarClass::Unknown_7817E0() { return(&Unknown0E8); }	// 0x7817E0: the chat stream +0xE8 (chatgadg.cpp's emotes; cpacket.cpp's CLIENT_CHAT_EVENT 165, MESSAGE_CHATSTREAM 95)
 // 0x781800
 void CharacterViewAvatarClass::Unknown_781800(Unknown_ChatStreamClass *stream)
 {

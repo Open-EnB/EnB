@@ -330,7 +330,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 								avatar->Unknown_781760(text);
 								ClientChatRequestPacketClass packet(1, Client->Unknown1138);
 								packet.Unknown14 = std::string(chatpanel->Unknown_565BA0());
-								packet.Unknown_878D90((Unknown_ChatStreamClass *)((Unknown77E3F0Class *)avatar)->Unknown_7817E0());
+								packet.Unknown_878D90((Unknown_ChatStreamClass *)avatar->Unknown_7817E0());
 								packet.Unknown34 = std::string(text);
 								Client->Send_Packet(&packet);
 							} else {
@@ -346,14 +346,14 @@ void ChatGadgetClass::Unknown_65CCD0()
 						break;
 					case 1:
 						if (sclient->Unknown_744B60()) {
-							Unknown77E3F0Class *avatar = sclient->Unknown_74C840(Client->AvatarID);
+							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->AvatarID);
 							if (avatar != NULL) {
 								((CharacterViewAvatarClass *)avatar)->Unknown_781760(text);
 								AvatarEmotePacketClass emote(Client->AvatarID, (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL);
 								Client->Send_Packet(&emote);
-								if (avatar->Unknown_7817E0()->Unknown_0C()) {
+								if (avatar->Unknown_7817E0()->Unknown_4C4940()) {
 									char line[512] = "";
-									avatar->Unknown_7817E0()->Unknown_08(line);
+									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
 									ClientChatPacketClass chat(Client->AvatarID, line, 3, NULL);
 									Client->Send_Packet(&chat);
 								}
@@ -365,14 +365,14 @@ void ChatGadgetClass::Unknown_65CCD0()
 						break;
 					case 0:
 						if (sclient->Unknown_744B60()) {
-							Unknown77E3F0Class *avatar = sclient->Unknown_74C840(Client->AvatarID);
+							CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(Client->AvatarID);
 							if (avatar != NULL) {
 								((CharacterViewAvatarClass *)avatar)->Unknown_781760(text);
 								AvatarEmotePacketClass emote(Client->AvatarID, (Unknown_ChatStreamClass *)avatar->Unknown_7817E0(), 1, NULL);
 								Client->Send_Packet(&emote);
-								if (avatar->Unknown_7817E0()->Unknown_0C()) {
+								if (avatar->Unknown_7817E0()->Unknown_4C4940()) {
 									char line[512] = "";
-									avatar->Unknown_7817E0()->Unknown_08(line);
+									avatar->Unknown_7817E0()->Unknown_4C48C0(line);
 									ClientChatPacketClass chat(Client->AvatarID, line, 4, NULL);
 									Client->Send_Packet(&chat);
 								}

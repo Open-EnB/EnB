@@ -45,7 +45,7 @@ extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  /
 // The object at 0xC404D8 is WWAudioClass::_theInstance (WWAudioClass's ctor and dtor set it): the constructor
 // sets its +0x19A5, which queues sounds started during the load
 #include "WWAudio.h"
-
+#include "avatar.h"
 
 
 
@@ -377,11 +377,11 @@ SClient::~SClient()
 	EnvironmentMapManager = NULL;
 	if (ProjDecalManager) delete ProjDecalManager;
 	ProjDecalManager = NULL;
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); it++) {
-		SClientUnknown1394Class *object = (*it).second;
+		CharacterViewAvatarClass *object = (*it).second;
 		if (object) {
-			object->Unknown_38();
+			object->Remove();
 			object->Release_Ref();
 		}
 	}
@@ -1329,11 +1329,11 @@ void SClient::Unknown_745750()
 		rnode = next;
 	}
 	Unknown_755600();
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
-		SClientUnknown1394Class *object = (*it).second;
+		CharacterViewAvatarClass *object = (*it).second;
 		if (object) {
-			object->Unknown_38();
+			object->Remove();
 			object->Release_Ref();
 		}
 	}
@@ -4263,29 +4263,29 @@ void SClient::Unknown_74C370(RefCountClass *object)
 void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
 {
 	if (Unknown1394.find(game_id) != Unknown1394.end()) return;
-	SClientUnknown1394Class *object = new SClientUnknown1394Class(desc, 0, 0, 0);
+	CharacterViewAvatarClass *object = new CharacterViewAvatarClass(&desc, false, false, NULL);
 	Unknown1394[game_id] = object;
-	if (AvatarID == (unsigned)game_id) BridgeInterface->Unknown_53B7A0(&object->UnknownF8);
+	if (AvatarID == (unsigned)game_id) BridgeInterface->Unknown_53B7A0((int *)&object->Desc);
 }
 #pragma auto_inline(on)	// 0x74C690
 void SClient::Unknown_74C690()
 {
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
-		SClientUnknown1394Class *object = (*it).second;
+		CharacterViewAvatarClass *object = (*it).second;
 		if (object) {
-			object->Unknown_38();
+			object->Remove();
 			object->Release_Ref();
 		}
 	}
 	Unknown1394.clear();
 }
 // 0x74C7B0
-Unknown77E3F0Class *SClient::Unknown_74C7B0(unsigned id)
+CharacterViewAvatarClass *SClient::Unknown_74C7B0(unsigned id)
 {
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
-		Unknown77E3F0Class *object = (*it).second->Unknown_77E3F0();
+		CharacterViewAvatarClass *object = (*it).second->Unknown_77E3F0();
 		object->Unknown_780810(EnvironmentMapManager);
 		return(object);
 	}
@@ -4293,11 +4293,11 @@ Unknown77E3F0Class *SClient::Unknown_74C7B0(unsigned id)
 }
 
 // 0x74C840
-Unknown77E3F0Class *SClient::Unknown_74C840(unsigned id)
+CharacterViewAvatarClass *SClient::Unknown_74C840(unsigned id)
 {
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
-		Unknown77E3F0Class *object = (*it).second->Unknown_77E610();
+		CharacterViewAvatarClass *object = (*it).second->Unknown_77E610();
 		object->Unknown_780810(EnvironmentMapManager);
 		return(object);
 	}
@@ -4306,7 +4306,7 @@ Unknown77E3F0Class *SClient::Unknown_74C840(unsigned id)
 
 // NOT EXACT: inline budget (explain.py frame, 31 masked rows): the client calls hash_map::find out of line (0x756820, the key in the argument slot) where ours inlines it, as itself or through 0x74C840; two forms
 // 0x74C8D0 (0x74C840 for the named object's GameID)
-Unknown77E3F0Class *SClient::Unknown_74C8D0(const char *name) {
+CharacterViewAvatarClass *SClient::Unknown_74C8D0(const char *name) {
 	ClientObjectClass *object = Find_Object(name);
 	if (object) return(Unknown_74C840(object->GameID));
 	return(NULL); }
@@ -4314,9 +4314,9 @@ Unknown77E3F0Class *SClient::Unknown_74C8D0(const char *name) {
 // 0x74C960
 int *SClient::Unknown_74C960(unsigned id)
 {
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
-		return(&(*it).second->UnknownF8);
+		return((int *)&(*it).second->Desc);
 	}
 	return(NULL);
 }
@@ -5332,12 +5332,12 @@ void SClient::Unknown_7511A0()
 	int count = 0;
 	std::vector<unsigned> ids;
 	std::vector<AvatarDescClass *> descs;
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
-		SClientUnknown1394Class *object = (*it).second;
+		CharacterViewAvatarClass *object = (*it).second;
 		if (object) {
 			ids.push_back((*it).first);
-			descs.insert(descs.end(), new AvatarDescClass((AvatarDescClass &)object->UnknownF8));
+			descs.insert(descs.end(), new AvatarDescClass(object->Desc));
 			count++;
 		}
 	}

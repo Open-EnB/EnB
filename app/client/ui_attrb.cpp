@@ -18,7 +18,7 @@
 #include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x5495F0)
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
-
+#include "avatar.h"
 #include "gd_uiback.h"		// UIBackGadget (0x674260)
 #include "assetmgr.h"
 #include "avatar_pip.h"
@@ -224,7 +224,7 @@ bool Unknown546A80Class::Unknown_68(int key)
 void Unknown546A80Class::Unknown_547570()
 {
 	if (SkillNamesDatabase::Max_Skill()) {
-		Unknown77E3F0Class *avatar = Client->As_Space_Client()->Unknown_74C840(((ClientClass *)Client)->Get_Avatar_ID());
+		CharacterViewAvatarClass *avatar = Client->As_Space_Client()->Unknown_74C840(((ClientClass *)Client)->Get_Avatar_ID());
 
 
 
@@ -239,7 +239,7 @@ void Unknown546A80Class::Unknown_547570()
 		int race = 0;
 		int profession = 0;
 		if (avatar) {
-			AvatarDescClass *desc = (AvatarDescClass *)&avatar->Unknown000[0xF8];
+			AvatarDescClass *desc = &avatar->Desc;
 			desc->Get_Full_Name(name);
 			race = desc->Race;
 			profession = desc->Profession;
