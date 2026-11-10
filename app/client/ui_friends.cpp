@@ -204,7 +204,6 @@ void UIFriendsClass::Unknown_60()
 	}
 }
 
-// NOT EXACT: shape (explain.py): case order / block layout and registers differ (the check buttons' calls, the sound before the store)
 // 0x590020
 bool UIFriendsClass::Unknown_68(int key)
 {
@@ -237,7 +236,7 @@ bool UIFriendsClass::Unknown_68(int key)
 			Unknown10C[1]->Unknown_7E8030(false);
 			if (Unknown0AD) {
 				Unknown0AD = false;
-				((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1D, ((ClientClass *)Client)->Unknown1138));
+				int id = ((ClientClass *)Client)->Unknown1138; ((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1D, id));
 			}
 			return(true);
 		case 11:
@@ -246,7 +245,7 @@ bool UIFriendsClass::Unknown_68(int key)
 			Unknown10C[1]->Unknown_7E8030(true);
 			if (!Unknown0AD) {
 				Unknown0AD = true;
-				((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1C, ((ClientClass *)Client)->Unknown1138));
+				int id = ((ClientClass *)Client)->Unknown1138; ((ClientClass *)Client)->Send_Packet(&ClientChatRequestPacketClass(0x1C, id));
 			}
 			return(true);
 		case 6:
@@ -579,6 +578,7 @@ void UIFriendsClass::Unknown_591030(bool on)
 
 
 
+
 // 0x5910D0
 void UIFriendsClass::Unknown_5910D0()
 {
@@ -643,8 +643,10 @@ void UIFriendsClass::Unknown_591880(std::string name)
 // 0x591A30
 void UIFriendsClass::Unknown_591A30()
 {
-	ClientObjectClass *target = Unknown_592150();
-	if (target) {
+	SClient *sclient = Client->As_Space_Client();
+	ClientObjectClass *target;
+	if (!sclient->Unknown_744B60() && sclient && sclient->MainView && (target = sclient->MainView->Unknown_5C()) != NULL && target->Unknown_6F5A40()) {
+		PlayersInfo.size(); PlayersInfo.size();		// dead reads: spend the inline budget so the name's _Tidy(false) stays out of line, as in the client
 		std::string name;
 		target->Get_Name(name);
 		int id = ((ClientClass *)Client)->Unknown1138;
@@ -657,10 +659,9 @@ void UIFriendsClass::Unknown_591A30()
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
 
-// auxdata.h's find through one more inline level: the client calls it out of line here (0x5927E0), as ui_group.cpp's
-template<class C> inline C *Unknown_Friends_Find(DeltaCompoundClass *root, const NameClass &name) { return(Unknown_Find_Field<C>(root, name)); }  // NAME 1: neutral (D10)
+// auxdata.h's find through one more inline level, as ui_group.cpp's; the dead size() reads here and in 0x591C30's loop spend the inline budget (D130, not the client's code) so the find 0x5927E0 and the name's _Eos stay out of line as in the client
+template<class C> inline C *Unknown_Friends_Find(DeltaCompoundClass *root, const NameClass &name) { root->Children.size(); return(Unknown_Find_Field<C>(root, name)); }  // NAME 1: neutral (D10)
 
-// NOT EXACT: inline budget (explain.py): ours inlines auxdata.h's find (Cast, Get_Lookup) and the name's constructor; the client calls 0x5927E0 and _Eos out of line
 // 0x591C30
 void UIFriendsClass::Unknown_591C30()
 {
@@ -669,7 +670,9 @@ void UIFriendsClass::Unknown_591C30()
 	DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Friends_Find<DeltaCompoundClass>(aux, field);
 	if (group && group->Unknown70) {
 		for (int i = 0; i < 5; i++) {
-			std::string name(((DeltaGroupMemberClass *)group->Members.Children[i])->Name.String);
+			DeltaGroupMemberClass *member = (DeltaGroupMemberClass *)group->Members.Children[i];
+			std::string name(member->Name.String);
+			PlayersInfo.size();
 			if (name.length()) {
 				int id = ((ClientClass *)Client)->Unknown1138;
 				ClientChatRequestPacketClass packet(8, id);
@@ -679,9 +682,6 @@ void UIFriendsClass::Unknown_591C30()
 		}
 	}
 }
-
-
-
 
 
 
