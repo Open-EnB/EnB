@@ -97,18 +97,17 @@ void UISkillsClass::Unknown_54()
 }
 
 // 0x62D360
-// NOT EXACT: functional (D64), from the pseudocode
 bool UISkillsClass::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *event, unsigned int mask)
 {
-	unsigned short flags = event->Flags;
+	bool up = event->Up;
 	bool right = (mask & 0xF0) != 0;
-	if (!(flags & 0x1000)) {
+	if (!up) {
 		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
 	}
 	UISkillInfoClass *info = Unknown9C->Unknown_8C();
 	if (info && info->UnknownB0) {
 		if (gadget == info->UnknownB0) {
-			if (flags & 0x1000) {
+			if (up) {
 				info->Unknown_5C();
 			}
 			if (right) {
@@ -119,20 +118,21 @@ bool UISkillsClass::Unknown_98(SlotDataGadgetClass *gadget, KernelEventClass *ev
 		}
 	}
 	if (!SlotDataInterface::Unknown_98(gadget, event, mask) && !right) {
-		if (!(mask & 0x1000)) {
-			if (flags & 0x1000) {
+		if (mask & 0x1000) {
+			if (up) {
+				Unknown_62D730((SlotDataGadgetClass *)gadget->Unknown_A4());
+				return(true);
+			}
+		} else {
+			if (up) {
 				Unknown_62DA30(gadget);
 				return(true);
 			}
 			Unknown_62D960(gadget, event);
-		} else if (flags & 0x1000) {
-			Unknown_62D730((SlotDataGadgetClass *)gadget->Unknown_A4());
-			return(true);
 		}
 	}
 	return(true);
 }
-
 
 
 

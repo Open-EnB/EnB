@@ -188,8 +188,8 @@ bool DragSlotDataClass::Drop()
 
 
 
+
 // 0x6855A0
-// NOT EXACT: functional (D64), from the pseudocode
 bool DragSlotDataClass::Cancel()
 {
 	if (SMouseDragClass::Cancel()) {
