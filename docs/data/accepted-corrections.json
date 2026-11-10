@@ -152,6 +152,14 @@
    "moved_to": null,
    "decision": "D66",
    "note": "D66 (vi), run 2026-11-08d (XR2 613122be): ui_registration's out-of-line ~_com_ptr_t<IXMLDOMDocument> (formerly ~Sub14CUnknown10Ptr) is byte-identical to the client's own _com_ptr_t destructors 0x7E1CA0 / 0x7E1CF0, which unknown_7dfed0.obj (the registration reader over MSXML) now also emits: the copy is ambiguous, none can be placed."
+  },
+  {
+   "address": "0x65B900",
+   "lib": "app",
+   "file": "uiview",
+   "moved_to": null,
+   "decision": "D66",
+   "note": "D66 (vi), run 2026-11-09b (CE1 eec4c786): uiview's guarded atexit for 0x42B320 is byte-identical to chatgadg.cpp's own copy, client 0x65EC80, which ChatGadgetClass's new file now emits: the one copy is credited there."
   }
  ]
 }

@@ -3,7 +3,8 @@
     python tools/vc6/verify_pr.py PR [--pool K] [--approved] [--no-post] [--keep] [--lib X ...]
 
 1. Fetches master, the PR's head and GitHub's test merge (`pull/PR/merge`: master with the PR merged) as
-   data: nothing of the PR is checked out in this tree.
+   data: nothing of the PR is checked out in this tree. No test merge: a conflict (GitHub's mergeable CONFLICTING)
+   fails; otherwise GitHub hasn't built it yet (a PR opened moments ago), so the status is pending and exit NO_MERGE.
 2. Gate: every file the PR changes must be one a verify only reads or sends to a build VM's compiler
    (C/C++ sources and headers outside tools/ and .github/, documentation, docs/data). Anything else (Python,
    scripts, workflows, libdefs.py's library table, .def files...) would run on this host: the run is refused
@@ -55,6 +56,8 @@ assert os.path.normcase(SELF) == os.path.normcase(pairs_cmp.ROOT)
 OUT = os.path.join(ROOT, '.work', 'verify')
 CONTEXT = 'vc6-verify'
 GATED = 3                       # exit status: the gate stopped it (verify_watch.py asks for approval)
+NO_MERGE = 4                    # exit status: GitHub's test merge isn't built yet (pending; the next pass retries)
+NO_MERGE_DESC = 'GitHub has not built the test merge yet: the next pass verifies it'
 MARK = '<!-- enb-verify -->'
 MAINTAINER = {'OWNER', 'MEMBER'}
 # a maintainer accepts a PR's D66 moves (every lost address held by another file) for one head
@@ -228,6 +231,13 @@ def main():
     fetch = wt.git('fetch', '-q', 'origin', '+refs/heads/master:refs/remotes/origin/master',
                    f'+refs/pull/{a.pr}/head:{pre}/head', f'+refs/pull/{a.pr}/merge:{pre}/merge', check=False)
     if fetch.returncode:
+        if f'refs/pull/{a.pr}/merge' in fetch.stderr.decode(errors='replace') and info['mergeable'] != 'CONFLICTING':
+            # GitHub has not built the test merge yet (a PR opened or pushed moments ago: mergeable UNKNOWN)
+            print(f'GitHub has not built the test merge of #{a.pr} yet (mergeable {info["mergeable"]}): pending')
+            if not a.no_post:
+                gh('api', '-X', 'POST', f'repos/{r}/statuses/{pr["head"]}', '-f', 'state=pending',
+                   '-f', f'context={CONTEXT}', '-f', f'description={NO_MERGE_DESC}')
+            sys.exit(NO_MERGE)
         if f'refs/pull/{a.pr}/merge' in fetch.stderr.decode(errors='replace'):
             res.update(merge='-', base=wt.rev('refs/remotes/origin/master') if wt.ok('rev-parse', 'origin/master') else '-')
             res['reasons'].append('GitHub has no test merge: the PR conflicts with master; rebase it')
