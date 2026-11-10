@@ -44,9 +44,9 @@ struct Unknown8155B0Struct { std::vector<Unknown815320Struct *> Abilities; int U
 class SkillAbilityNamesDatabase { public: static Unknown815320Struct *Unknown_815320(int ability); static const Unknown8155B0Struct &Unknown_8155B0(int skill); };	// NAME 1: neutral (D10)
 class SkillNamesDatabase { public: static const char *Unknown_818200(int skill); static const char *Unknown_818250(int skill); static const char *Unknown_8182A0(int skill, int level);	// as ui_attrb.cpp
 	static unsigned int Unknown_8185C0(int skill, int index); };	// NAME 1: neutral (D10)
-bool Unknown_496960(RenderObjClass *robj, float x, float y, LayerClass &layer);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
-void Unknown_496AE0(RenderObjClass *robj, int arg);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
-void Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int index);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
+bool Unknown_496960(RenderObjClass *robj, float x, float y, const LayerClass &layer);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
+bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int index);	// ro_funcs.cpp's  // NAME 1: neutral (D10)
 
 // 0x662DC0
 Unknown664500Class::Unknown664500Class() :

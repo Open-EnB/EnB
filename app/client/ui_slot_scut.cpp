@@ -250,13 +250,13 @@ RObjGadgetClass *SlotDataShortcutInterface::Unknown_0C(int slot)
 
 
 	FAIL_IF(!view) return(NULL);
-	RefCountPtr<SlotDataRenderClass> slot_render = Create_NEW(SlotDataRenderClass::Unknown_6A90A0(1, SlotIFace, 0));
+	RefCountPtr<SlotDataRenderClass> slot_render = Create_NEW(Unknown_6A90A0(1, (Unknown6A90A0Interface *)SlotIFace, NULL));
 
 
 	FAIL_IF(!slot_render) return(NULL);
 	slot_render->Unknown_40(slot);
 	LayerClass layer((SceneClass *)view->Unknown_50(), (CameraClass *)view->Unknown_54());
-	return(new SlotDataShortcutGadgetClass(SlotIFace, slot_render.Peek(), layer));
+	return(new SlotDataShortcutGadgetClass((SlotDataIFaceClass *)SlotIFace, slot_render.Peek(), &layer));
 }
 
 // @0x631270
@@ -271,12 +271,12 @@ RObjGadgetClass *SlotDataShortcutInterface::Unknown_14(const char *key)
 	UIViewClass *view = SlotIFace->Get_View();
 
 	FAIL_IF(!view) return(NULL);
-	RefCountPtr<SlotDataRenderClass> slot_render = Create_NEW(SlotDataRenderClass::Unknown_6A90A0(1, SlotIFace, 0));
+	RefCountPtr<SlotDataRenderClass> slot_render = Create_NEW(Unknown_6A90A0(1, (Unknown6A90A0Interface *)SlotIFace, NULL));
 
 	FAIL_IF(!slot_render) return(NULL);
 	if (!slot_render->Unknown_10(key)) return(NULL);
 	LayerClass layer((SceneClass *)view->Unknown_50(), (CameraClass *)view->Unknown_54());
-	return(new SlotDataShortcutGadgetClass(SlotIFace, slot_render.Peek(), layer));
+	return(new SlotDataShortcutGadgetClass((SlotDataIFaceClass *)SlotIFace, slot_render.Peek(), &layer));
 }
 
 // @0x631540

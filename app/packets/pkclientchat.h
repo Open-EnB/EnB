@@ -53,6 +53,9 @@ public:
 	virtual bool Process_Packet(void *client);	// +0x08 0x868CA0 (clientstub.cpp l.302)
 	virtual int Get_Data_Size();	// +0x0C 0x878EE0
 	virtual int Print(char *buffer, int len);	// +0x10 0x878F30 (the class name: 'ClientChatRequestPacketClass')
+#ifdef __CHATGADG_MEMBERS	// chatgadg.cpp only: a declaration sclient.cpp sees moves its pad window (0x74D990, as sclient.h's __UI_TRADE_MEMBERS)
+	void Unknown_878D90(class Unknown_ChatStreamClass *stream);	// 0x878D90 (not rebuilt; chatgadg.cpp's 0x65CCD0 passes the avatar's chat stream: Unknown44 / Unknown48 from its bytes)  // NAME 1 [stream]: what 0x65CCD0 passes
+#endif
 
 	int Unknown0C;	// +0x0C
 	int Unknown10;	// +0x10 (-1 by default)

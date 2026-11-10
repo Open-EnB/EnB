@@ -13,6 +13,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "stub_log.h"
 
 #include "g_assert.h"
@@ -89,11 +90,25 @@ const char *Type_Name(MoneyClass)
 #include <string>
 #include <vector>
 
-// 0x4F00C0: money.cpp's conversion (opcode 220's Print): the amount in decimal
-std::string MoneyClass::Unknown_4F00C0(bool) const
+// 0x4F00C0: money.cpp's conversion (opcode 220's Print): the amount in decimal; with the flag set, through 0x4FAEE0,
+// which puts a ',' between every three digits from the right when the text is all digits (the client's behaviour:
+// "Credits: 29,597,354" in the PDA's character window)
+std::string MoneyClass::Unknown_4F00C0(bool commas) const
 {
 	char buffer[32];
-	return std::string(_i64toa(Unknown00, buffer, 10));
+	std::string text(_i64toa(Unknown00, buffer, 10));
+	if (commas && !text.empty()) {
+		bool digits = true;
+		for (unsigned i = 0; i < text.size(); i++) {
+			if (!isdigit((unsigned char)text[i])) digits = false;
+		}
+		if (digits) {
+			for (int at = (int)text.size() - 3; at > 0; at -= 3) {
+				text.insert(at, 1, ',');
+			}
+		}
+	}
+	return text;
 }
 
 // 0x8B44E0: the int64 in decimal (the client's behaviour)
@@ -191,4 +206,22 @@ Vector3 Unknown_764480Class::Unknown_764CF0(int a, int b, int c)
 {
 	STUB_CALLED("Unknown_764480Class::Unknown_764CF0 (0x764CF0)");
 	return Vector3(0.5f, 0.5f, 0.5f);
+}
+
+// ui_item_examination_title.cpp's names (not rebuilt; gen_stubs skips a by-value std::string), linked since
+// ui_slot_info.cpp's 0x630280 news the item examination window
+std::string Unknown_7EA190(int id)
+{
+	STUB_CALLED("Unknown_7EA190 (0x7EA190): no icon");
+	return std::string();
+}
+std::string Unknown_49E210(int damage_type)
+{
+	STUB_CALLED("Unknown_49E210 (0x49E210): no damage type name");
+	return std::string();
+}
+std::string Unknown_7EB4D0(int type)
+{
+	STUB_CALLED("Unknown_7EB4D0 (0x7EB4D0): no item type name");
+	return std::string();
 }

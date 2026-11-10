@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x632E50-0x648340 by its asserts, its string order and ui_slot_scut.cpp's end).
-// So far the starbase interface's constructor 0x6333E0 (SB1), its lights helpers 0x640CC0-0x640F30 and the starbase lights panel (the class below,
-// 0x646170-0x648238), ST1; the file's own functions with their asserts (lines 368-4180) lie around them in the client.
+// The starbase interface (constructor 0x6333E0, SB1), its helpers 0x638FF0-0x6437A0 as far as rebuilt (SB1, run 2026-11-09b), its lights helpers
+// 0x640CC0-0x640F30 and the lights panel (0x646170-0x648238, ST1); the functions with asserts sit on the client's lines (2004-4180) in the padding.
 #include <stdio.h>
 #include <string.h>
 #include <vector>
@@ -20,6 +20,11 @@
 #include "..\audio\soundlib.h"
 #include "control_keys_manager.h"
 #include "avatar.h"
+#include "tasks\tsk_login.h"
+#include "..\shared\g_assert.h"
+#include "..\packets\pkstarbase_avatar_change.h"
+#include "..\..\ww3d2\ww3d.h"
+#include "..\shared\message.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -33,8 +38,8 @@ public:
 	virtual void Unknown_44(int arg);					// +0x44 (the starbase interface's destructor passes its +0x190's +0x90)  // NAME 1 [arg]: neutral
 	char Unknown04[0x112C - 0x04];
 	unsigned int AvatarID;								// +0x112C (client.h's ClientClass::AvatarID)  // NAME 3: client.h's
+	unsigned int Get_Avatar_ID() { return(AvatarID); }	// client.h's
 };
-
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, as ui_login.cpp's
 
 void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [robj, u, v, color]: as ui_avatar_cust.cpp's
@@ -479,6 +484,103 @@ void UIStarbaseClass::Unknown_640F30(int index, float range)
 {
 }
 
+// 0x638FF0
+void UIStarbaseClass::Unknown_7C(UIViewClass *view, bool arg)
+{
+	InterfaceClass::Unknown_7C(view, arg);
+	Unknown1F8->Unknown_7C(view, false);
+}
+
+// 0x639030
+void UIStarbaseClass::Unknown_639030(int arg)
+{
+	if (UnknownC0.B >= 0) {
+		UIStarbaseUnknownCCClass *entry = Unknown13C[UnknownC0.B];
+		if (entry->Avatar != NULL) {
+			entry->Avatar->Unknown_784A50((const char *)arg, true, false);
+			return;
+		}
+		if (entry->Unknown08 != NULL) {
+			entry->Unknown08->Unknown_784A50((const char *)arg, true, false);
+		}
+	}
+}
+
+// 0x63B5A0
+void UIStarbaseClass::Unknown_63B5A0()
+{
+	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	bool busy = false;
+	ChatPanelInterface *panel = client->ChatPanel.Peek();
+	if (panel) {
+		if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) {
+			busy = true;
+		}
+	}
+	if (client->Mouse->Unknown_515320() != 2 && !busy) {
+		client->Mouse->Unknown_515120(2);
+	}
+	UnknownB0->Unknown_6A0E50();
+}
+
+// 0x63E8F0
+bool UIStarbaseClass::Unknown_63E8F0(int id)
+{
+	for (std::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin(); it != UnknownEC.end(); ++it) {
+		if (id == (*it)->ID) {
+			return(true);
+		}
+	}
+	return(false);
+}
+
+// 0x640110
+void UIStarbaseClass::Unknown_640110(int state)
+{
+	if (!UnknownB0->Unknown_69CBE0() || state != 0) {
+		UnknownC0.E = state;
+		Unknown_63E2B0();
+	}
+}
+
+// 0x641AB0
+void UIStarbaseClass::Unknown_641AB0()
+{
+	if (Unknown190) {
+		Client->Unknown_44(Unknown190->Get_Unknown90());
+		delete Unknown190;
+		Unknown190 = NULL;
+	}
+}
+
+// 0x641B00
+void UIStarbaseClass::Unknown_641B00()
+{
+	if (UnknownC0.D->Avatar != NULL) {
+		UnknownC0.D->Avatar->Unknown_786E60();
+	}
+	Unknown214 = false;
+	Unknown215 = false;
+	Unknown216 = false;
+	Unknown217 = false;
+	Unknown218 = false;
+	Unknown219 = false;
+	Unknown21A = false;
+	Unknown1B3 = false;
+}
+
+// 0x641B70
+void UIStarbaseClass::Unknown_641B70()
+{
+	if (Unknown_42EC60(2, 0)) {
+		Unknown21A = true;
+	}
+	UnknownB0->Unknown_6A2430(&Unknown214, &Unknown215, &Unknown216, &Unknown217, &Unknown1B3);
+	if (Unknown1B3 && UnknownC0.D != NULL) {
+		UnknownC0.D->Avatar->Unknown_786B60(false);
+	}
+}
+
 #pragma auto_inline(on)
 
 // The colour pad's gadget (0x80 bytes, constructor 0x671300), as ui_avatar_cust.cpp's UIAvatarCustGadget671300Class
@@ -495,9 +597,9 @@ public:
 };
 
 // The pad and its pull (the panel's +0xD8), as ui_avatar_cust.cpp's UIAvatarCustGadgetHolderStruct
-struct UIStarbaseLightsGadgetHolderStruct	// NAME 1: neutral (D10)
+struct UIAvatrPullClass	// NAME 1: neutral (D10)
 {
-	UIStarbaseLightsGadgetHolderStruct();				// 0x585920 (0x10 bytes)
+	UIAvatrPullClass();				// 0x585920 (0x10 bytes)
 	void Unknown_5859A0();								// 0x5859A0 (once the gadget is in)
 	GadgetClass *Unknown00;								// +0x00 (the pad: slots +0x08 / +0x64)
 	RenderObjClass *Unknown04;							// +0x04 (the pull, a bone of the panel's model)
@@ -534,7 +636,7 @@ public:
 	GadgetClass *UnknownA0[6];							// +0xA0 (the buttons exit, save, light00-03: 0x646360; the constructor clears them with one memset)
 	GadgetSlider *Slider[4];							// +0xB8 (near, far, intensity, fill: 0x646F70's texts)  // NAME 1: neutral
 	float SliderValue[4];								// +0xC8 (the values last seen: 0x646F70 compares them)  // NAME 1: neutral
-	UIStarbaseLightsGadgetHolderStruct *UnknownD8;		// +0xD8
+	UIAvatrPullClass *UnknownD8;		// +0xD8
 	UIStarbaseClass *Starbase;							// +0xDC (0x640E90 / 0x640EC0 / 0x640EF0 / 0x640F30, ui_starbase.cpp's)  // NAME 1: neutral
 	int UnknownE0;										// +0xE0 (0: a light; else the ambient light)
 	int UnknownE4;										// +0xE4
@@ -617,7 +719,7 @@ void UIStarbaseLightsClass::Unknown_54()
 				Slider[i]->Unknown_A4(500.0f, false);
 			}
 		}
-		UnknownD8 = new UIStarbaseLightsGadgetHolderStruct;
+		UnknownD8 = new UIAvatrPullClass;
 		RefCountPtr<RenderObjClass> palette = Create_Get(Unknown84->Get_Sub_Object_By_Name("COLOR_PALETTE"));
 		Unknown_496AE0(palette.Peek(), false);
 		UnknownD8->Unknown00 = new Unknown_671300Class(palette.Peek(), 0, 0, 0, 0);
@@ -934,3 +1036,3188 @@ void UIStarbaseLightsClass::Unknown_648190()
 	}
 	AmbientPosition = Unknown_BE82D0->Unknown_764AB0(UnknownE4, UnknownE8, UnknownEC, 1000);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1)
+// 0x63A100
+void UIStarbaseClass::Unknown_63A100()
+{
+	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	FAIL_IF(!sclient) return;
+	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
+	bool busy = false;
+	if (panel) {
+		if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) {
+			busy = true;
+		}
+	}
+	if (!Unknown_42EC60(2, 0)) {
+		Unknown21A = false;
+	}
+	if (!UnknownC0.D->Avatar || UnknownC0.D->Avatar->Unknown380 || Unknown1FC || Unknown1FD || Unknown1FE || Unknown1FF || Unknown200 || Unknown201
+		|| UnknownC0.D->Avatar->Unknown318.size() || UnknownB0->Unknown_69CCD0() || Unknown1F8->Active || !sclient->Unknown_74B5E0()) {
+		if (sclient->Mouse->Unknown_515320() != 2 && sclient->Mouse->Unknown_515320() < 0x16 && !busy) {
+			sclient->Mouse->Unknown_515120(2);
+		}
+		if (!UnknownC0.D->Avatar->Unknown318.size()) {
+			if (UnknownC0.D->Avatar != NULL) {
+				UnknownC0.D->Avatar->Unknown_786E60();
+			}
+			Unknown214 = false;
+			Unknown215 = false;
+			Unknown216 = false;
+			Unknown217 = false;
+			Unknown218 = false;
+			Unknown219 = false;
+			Unknown21A = false;
+			Unknown1B3 = false;
+		}
+		return;
+	}
+	if (sclient->ChatPanel->ChatInt->Unknown_570F20()) {
+		Unknown214 = false;
+		Unknown215 = false;
+		Unknown216 = false;
+		Unknown217 = false;
+		Unknown218 = false;
+		Unknown219 = false;
+	}
+	float x;
+	float y;
+	Unknown_42ECF0(&x, &y);
+	bool key = Unknown_42EC60(0x11, 0);
+	if (OptionClass::Instance->Get_Bool("Starbase_Default_Run")) {
+		UnknownC0.D->Avatar->Unknown_784F60(true);
+	} else {
+		UnknownC0.D->Avatar->Unknown_784F60(false);
+	}
+	if (Unknown21A) {
+		bool top = y < 0.5f;
+		bool middle;
+		if (x <= 0.4f || x >= 0.6f) {
+			middle = false;
+		} else {
+			middle = true;
+		}
+		if (x <= 0.2f || x >= 0.8f || key) {
+			if (!Unknown1B3) {
+				UnknownC0.D->Avatar->Unknown_786C70();
+			}
+		} else {
+			if (middle && sclient->Mouse->Unknown_515320() != 0x12 && !busy) {
+				sclient->Mouse->Unknown_515120(0x12);
+			}
+			if (!(UnknownC0.D->Avatar->Unknown2F8 & 2)) {
+				UnknownC0.D->Avatar->Unknown_786B60(true);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786B60(false);
+			}
+		}
+		if (y < 0.5f) {
+			UnknownC0.D->Avatar->Unknown_786D40(0.5f - y);
+		} else if (y > 0.5f) {
+			UnknownC0.D->Avatar->Unknown_786D70(y - 0.5f);
+		}
+		if (x < 0.5f) {
+			if (!key) {
+				UnknownC0.D->Avatar->Unknown_786E40();
+				UnknownC0.D->Avatar->Unknown_786CF0(0.5f - x);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786D20();
+				UnknownC0.D->Avatar->Unknown_786DC0(0.5f - x);
+			}
+			if (middle) {
+				return;
+			}
+			if (top) {
+				if (sclient->Mouse->Unknown_515320() != 0x11 && !busy) {
+					sclient->Mouse->Unknown_515120(0x11);
+				}
+				return;
+			}
+			if (sclient->Mouse->Unknown_515320() != 0x0F && !busy) {
+				sclient->Mouse->Unknown_515120(0x0F);
+			}
+			return;
+		}
+		if (x > 0.5f) {
+			if (!key) {
+				UnknownC0.D->Avatar->Unknown_786E40();
+				UnknownC0.D->Avatar->Unknown_786CC0(x - 0.5f);
+			} else {
+				UnknownC0.D->Avatar->Unknown_786D20();
+				UnknownC0.D->Avatar->Unknown_786E00(x - 0.5f);
+			}
+			if (middle) {
+				return;
+			}
+			if (top) {
+				if (sclient->Mouse->Unknown_515320() != 0x13 && !busy) {
+					sclient->Mouse->Unknown_515120(0x13);
+				}
+				return;
+			}
+			if (sclient->Mouse->Unknown_515320() != 0x15 && !busy) {
+				sclient->Mouse->Unknown_515120(0x15);
+			}
+		}
+		return;
+	}
+	if (sclient->Mouse->Unknown_515320() != 2 && ((UnknownB8->Unknown2C_02 && UnknownB8->Unknown2C_04) || sclient->Mouse->Unknown_515320() < 0x16) && !busy) {
+		sclient->Mouse->Unknown_515120(2);
+	}
+	if (Unknown214) {
+		if (!(UnknownC0.D->Avatar->Unknown2F8 & 2)) {
+			UnknownC0.D->Avatar->Unknown_786B60(true);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786B60(false);
+		}
+	} else if (Unknown215) {
+		if (!(UnknownC0.D->Avatar->Unknown2F8 & 1)) {
+			UnknownC0.D->Avatar->Unknown_786BF0(true);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786BF0(false);
+		}
+	} else if (!Unknown1B3) {
+		UnknownC0.D->Avatar->Unknown_786C70();
+	}
+	if (Unknown217) {
+		if (!key) {
+			UnknownC0.D->Avatar->Unknown_786E40();
+			UnknownC0.D->Avatar->Unknown_786CC0(1.0f);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786D20();
+			UnknownC0.D->Avatar->Unknown_786E00(1.0f);
+		}
+	} else if (Unknown216) {
+		if (!key) {
+			UnknownC0.D->Avatar->Unknown_786E40();
+			UnknownC0.D->Avatar->Unknown_786CF0(1.0f);
+		} else {
+			UnknownC0.D->Avatar->Unknown_786D20();
+			UnknownC0.D->Avatar->Unknown_786DC0(1.0f);
+		}
+	} else if (x > 0.99f && key) {
+		UnknownC0.D->Avatar->Unknown_786D20();
+		UnknownC0.D->Avatar->Unknown_786E00(1.0f);
+	} else if (x < 0.01f && key) {
+		UnknownC0.D->Avatar->Unknown_786D20();
+		UnknownC0.D->Avatar->Unknown_786DC0(1.0f);
+	} else {
+		UnknownC0.D->Avatar->Unknown_786E40();
+		UnknownC0.D->Avatar->Unknown_786D20();
+	}
+	if (Unknown218) {
+		UnknownC0.D->Avatar->Unknown_786D40(1.0f);
+	} else if (Unknown219) {
+		UnknownC0.D->Avatar->Unknown_786D70(1.0f);
+	} else if (y > 0.99f && key) {
+		UnknownC0.D->Avatar->Unknown_786D70(1.0f);
+	} else if (y < 0.01f && key) {
+		UnknownC0.D->Avatar->Unknown_786D40(1.0f);
+	} else {
+		UnknownC0.D->Avatar->Unknown_786DA0();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x63D060
+void UIStarbaseClass::Unknown_63D060(unsigned int id)
+{
+	Unknown5BB320Class::Unknown_5C();
+	UIStarbaseUnknownD4TableClass::iterator it;
+	it = UnknownD4.find(id);
+	if (it.Cur) {
+		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+		if (savatar) {
+			Message_Info("Sbase", "", __FILE__, __LINE__, "(%s) Removing avatar %s from room %d", UnknownC0.D->Avatar->Desc.First_Name, savatar->Avatar->Desc.First_Name, Room);
+			savatar->Avatar->Unknown_788EF0();
+			if (savatar->Unknown14) {
+				Unknown64.Unknown_687150(savatar->Unknown14);
+			}
+			delete savatar;
+		}
+		UnknownD4.erase(id);
+	}
+	Unknown5BB320Class::Unknown_58();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x63E4B0
+void UIStarbaseClass::Unknown_63E4B0(int new_room, int old_room)
+{
+	int room = -1;
+	int old = -1;
+	if (new_room >= 0) {
+		room = new_room;
+	}
+	if (old_room >= 0) {
+		old = old_room;
+	}
+	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	client->Send_Packet(&Starbase_Room_ChangePacketClass(((LineDisplayClientClass *)Client)->Get_Avatar_ID(), room, old));
+	Message_Info("Sbase", "", __FILE__, __LINE__, "(%s) Changing room from %d to %d", UnknownC0.D->Avatar->Desc.First_Name, old, room);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// The file's later functions, at their asserts' lines (FAIL_IF '!savatar' l.3995)
+
+// 0x63CF30
+void UIStarbaseClass::Unknown_63CF30(int avatar_id, int new_room)
+{
+	for (std::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin(); it != UnknownEC.end(); ++it) {
+		if (avatar_id == (*it)->ID) {
+			return;
+		}
+	}
+	UIStarbaseUnknownECStruct *entry = new UIStarbaseUnknownECStruct(avatar_id);
+	UnknownEC.push_back(entry);
+	if (Room == 0 && new_room == -1) {
+		UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(avatar_id);
+		if (found.Cur) {
+			UIStarbaseUnknownCCClass *savatar = found.Cur->Value;
+			if (savatar) {
+				savatar->Avatar->Unknown_788EF0();
+				savatar->Avatar->Unknown_7896B0(3);
+			}
+		}
+	}
+}
+
+// 0x63D1F0
+void UIStarbaseClass::Unknown_63D1F0(int id, Matrix3D transform, int flags)
+{
+	UIStarbaseUnknownD4TableClass::iterator it = UnknownD4.find(id);
+	if (it.Cur) {
+		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+		if (savatar) {
+			savatar->Avatar->Unknown_788730(transform, true);
+			savatar->Unknown18 = flags;
+			if (flags & 1) {
+				savatar->Avatar->Unknown_784F60(true);
+			} else {
+				savatar->Avatar->Unknown_784F60(false);
+			}
+		}
+	}
+}
+
+// 0x63E5C0
+void UIStarbaseClass::Unknown_63E5C0(int avatar_id, float orient, Vector3 *position, int action)
+{
+	for (std::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin(); it != UnknownEC.end(); ++it) {
+		if (avatar_id == (*it)->ID) {
+			return;
+		}
+	}
+	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	if (client && client->AvatarID != avatar_id) {
+		Matrix3D tm(true);
+		tm.Rotate_Z(orient);
+		tm.Set_Translation(*position);
+		UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(avatar_id);
+		UIStarbaseUnknownCCClass *savatar = found.Cur ? found.Cur->Value : NULL;
+		if (!savatar) {
+			if (client->Unknown_74C960(avatar_id)) {
+				Unknown_63CA50(avatar_id, tm, action);
+			}
+		} else {
+			Unknown_63D1F0(avatar_id, tm, action);
+		}
+	}
+}
+
+// 0x63BB10
+void UIStarbaseClass::Unknown_63BB10(GadgetClass *gadget)
+{
+	if (gadget && ((RObjGadgetClass *)gadget)->RObj && UnknownC0.D->Avatar) {
+		Vector3 pos = ((RObjGadgetClass *)gadget)->RObj->Get_Transform().Get_Translation();
+		Vector3 diff = UnknownC0.D->Avatar->Get_Transform().Get_Translation() - pos;
+		int distance = (int)diff.Length();
+		if (distance > 999) {
+			distance = 999;
+		} else if (distance < 1) {
+			distance = 1;
+		}
+		gadget->Unknown_65FFA0(distance);
+	}
+}
+
+// NOT EXACT: 0x63E770, functional (the client compares the found iterator with end() through an out-of-line 8-byte copy 0x6439B0, a const_iterator conversion the stand-in table lacks; SB1)
+// 0x63E770
+void UIStarbaseClass::Unknown_63E770()
+{
+	float time = WW3D::Get_Frame_Time() * 0.001f;
+	std::list<UIStarbaseUnknownECStruct *>::iterator it = UnknownEC.begin();
+	while (it != UnknownEC.end()) {
+		UIStarbaseUnknownECStruct *entry = *it;
+		entry->Time += time;
+		UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(entry->ID);
+		if (found != UnknownD4.end() && found.Cur->Value) {
+			CharacterViewAvatarClass *avatar = found.Cur->Value->Avatar.Peek();
+			if (avatar->Unknown318.size() && entry->Time <= 10.0f) {
+				++it;
+				continue;
+			}
+			if (avatar->Unknown380 && entry->Time <= 10.0f) {
+				++it;
+				continue;
+			}
+		}
+		Unknown_63D060(entry->ID);
+		delete entry;
+		it = UnknownEC.erase(it);
+	}
+}
+
+// 0x63FF80
+void UIStarbaseClass::Unknown_63FF80()
+{
+	float time = WW3D::Get_Frame_Time() * 0.001f;
+	if (Unknown1B8 > 0.0f && (Unknown1B8 -= time) < 0.0f) {
+		Unknown1B8 = 0.5f;
+		Unknown_641FA0();
+	}
+	if ((UnknownC0.E & 0x40) && UnknownC0.D->Avatar->Unknown380 == 0) {
+		if (!UnknownB0->Unknown_69CBE0()) {
+			UnknownC0.E = 0;
+			Unknown_63E2B0();
+		}
+	}
+	if (!Unknown1FD) {
+		if (!UnknownB0->Unknown_69CCD0() && !Unknown1F8->Active) {
+			if (UnknownC0.D->Avatar->Unknown2F8 == 0) {
+				Unknown1B4 = 0.0f;
+				return;
+			}
+			if (Unknown1B4 >= 0.0f && (Unknown1B4 -= time) < 0.0f) {
+				Unknown1B4 = 0.5f;
+				Unknown_63E2B0();
+			}
+		}
+	}
+}
+
+// NOT EXACT: 0x63E2B0, functional (the flag test's own load of the avatar, the position's y / z through the matrix copy, the id's load order; SB1)
+// 0x63E2B0
+void UIStarbaseClass::Unknown_63E2B0()
+{
+	if (!Unknown21C) {
+		int flags = UnknownC0.E;
+		if (UnknownC0.D->Avatar->Unknown2F4) {
+			flags |= 1;
+		}
+		Matrix3D tm = UnknownC0.D->Avatar->Unknown330;
+		float orient = tm.Get_Z_Rotation();
+		Vector3 position = UnknownC0.D->Avatar->Unknown330.Get_Translation();
+		SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+		int room = -1;
+		if (Room >= 0) {
+			room = Room;
+		}
+		client->Send_Packet(&Starbase_Avatar_ChangePacketClass(((LineDisplayClientClass *)Client)->Get_Avatar_ID(), room, orient, &position, flags));
+		Unknown_641FA0();
+	}
+}
+
+// 0x641FA0's distance from the avatar to a gadget's model, 1..999 (five copies: a macro, as no inline budget is spent on it)
+#define UNKNOWN_DISTANCE(gadget) \
+	if ((gadget) && ((RObjGadgetClass *)(gadget))->RObj && UnknownC0.D->Avatar) { \
+		Vector3 pos = ((RObjGadgetClass *)(gadget))->RObj->Get_Transform().Get_Translation(); \
+		Vector3 apos = UnknownC0.D->Avatar->Get_Transform().Get_Translation(); \
+		int distance = (int)(apos - pos).Length(); \
+		if (distance > 999) { \
+			distance = 999; \
+		} else if (distance < 1) { \
+			distance = 1; \
+		} \
+		(gadget)->Unknown_65FFA0(distance); \
+	}
+
+// The same through a difference vector (the hash table's copy: its own x87 order)
+#define UNKNOWN_DISTANCE_2(gadget) \
+	if ((gadget) && ((RObjGadgetClass *)(gadget))->RObj && UnknownC0.D->Avatar) { \
+		Vector3 pos = ((RObjGadgetClass *)(gadget))->RObj->Get_Transform().Get_Translation(); \
+		Vector3 diff = UnknownC0.D->Avatar->Get_Transform().Get_Translation() - pos; \
+		int distance = (int)WWMath::Sqrt(diff.X * diff.X + diff.Y * diff.Y + diff.Z * diff.Z); \
+		if (distance > 999) { \
+			distance = 999; \
+		} else if (distance < 1) { \
+			distance = 1; \
+		} \
+		(gadget)->Unknown_65FFA0(distance); \
+	}
+
+// NOT EXACT: 0x641FA0, register only (this in edi, the gadget in ebx: the client's are swapped; SB1)
+// 0x641FA0
+void UIStarbaseClass::Unknown_641FA0()
+{
+	int i;
+	if (UnknownC0.D->Avatar) {
+		Unknown5BB320Class::Unknown_5C();
+		for (i = 0; i < 4; i++) {
+			GadgetClass *gadget = Unknown118[i];
+			UNKNOWN_DISTANCE(gadget)
+		}
+		if (Room == 0) {
+			GadgetClass *gadget = Unknown180;
+			UNKNOWN_DISTANCE(gadget)
+		}
+		for (i = 0; i < 4; i++) {
+			GadgetClass *gadget = UnknownF8[i];
+			UNKNOWN_DISTANCE(gadget)
+		}
+		for (i = 0; i < 14; i++) {
+			if (Unknown13C[i]) {
+				GadgetClass *gadget = Unknown13C[i]->Unknown14;
+				UNKNOWN_DISTANCE(gadget)
+			}
+		}
+		UIStarbaseUnknownD4TableClass::iterator it;
+		for (it = UnknownD4.begin(); it != UnknownD4.end(); it++) {
+			UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+			FAIL_IF(!savatar) continue;
+			GadgetClass *gadget = savatar->Unknown14;
+			UNKNOWN_DISTANCE_2(gadget)
+		}
+		Unknown5BB320Class::Unknown_58();
+	}
+}
+
+
+
+
+
+
+// 0x6425D0
+void UIStarbaseClass::Unknown_6425D0(const char *name, const Vector3 &color)
+{
+	UIStarbaseUnknownD4TableClass::iterator it;
+	for (it = UnknownD4.begin(); it.Cur; ++it) {
+		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+		FAIL_IF(!savatar) continue;
+		if (stricmp(savatar->Avatar->Desc.First_Name, name) == 0) {
+			savatar->Unknown20 = 2.0f;
+			((FontSys *)savatar->Unknown0C.Peek())->Change_Text("\".....\"", 0);
+			FontSys *tag = (FontSys *)savatar->Unknown0C.Peek();
+			tag->Unknown494.Color = color;
+			tag->Unknown4A4 = tag->Unknown494;
+			((FontSys *)savatar->Unknown0C.Peek())->Unknown_6D8A80(true);
+			return;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6437A0
+void UIStarbaseClass::Unknown_6437A0(int unknown, AvatarDescClass *desc)
+{
+	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	FAIL_IF(!sclient) return;
+	sclient->Unknown_74C530(unknown);
+	sclient->Unknown_74C3B0(unknown, *desc);
+	UIStarbaseUnknownD4TableClass::iterator it = UnknownD4.find(unknown);
+	if (it != UnknownD4.end()) {
+		CharacterViewAvatarClass *avatar = it.Cur->Value->Avatar.Peek();
+		int flags = it.Cur->Value->Unknown18;
+		Matrix3D tm = avatar->Get_Transform();
+		Unknown_63D060(unknown);
+		Unknown_63CA50(unknown, tm, flags);
+	}
+}
+
+// Out of line as the client's (auto-inlined into the callers above otherwise, though defined after them)
+#pragma auto_inline(off)
+// NOT EXACT: 0x643DF0, functional (the client's loop re-tests the vector's start each pass; SB1)
+// 0x643DF0 (SGI's hashtable::begin, out of line)
+UIStarbaseUnknownD4TableClass::iterator UIStarbaseUnknownD4TableClass::begin()
+{
+	for (unsigned int n = 0; n < Buckets.size(); ++n) {
+		if (Buckets[n]) {
+			iterator it;
+			it.Cur = Buckets[n];
+			it.Table = this;
+			return(it);
+		}
+	}
+	return(end());
+}
+
+// 0x643E60 (SGI's hashtable::find, out of line)
+UIStarbaseUnknownD4TableClass::iterator UIStarbaseUnknownD4TableClass::find(const unsigned int &key)
+{
+	unsigned int n = Bucket_Of_Key(key);
+	NodeStruct *first;
+	for (first = Buckets[n]; first && !(first->Key == key); first = first->Next) {
+	}
+	iterator it;
+	it.Cur = first;
+	it.Table = this;
+	return(it);
+}
+
+#pragma auto_inline(on)

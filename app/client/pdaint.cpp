@@ -70,9 +70,9 @@ void PDAInterfaceClass::Unknown_54()
 	Unknown58.Unknown_686CC0(InterfaceMesh.Peek(), NULL);
 
 	SClient *client = Get_Client()->As_Space_Client();
-	Equipment = Create_NEW(new Unknown5D10C0Class(client));
+	Equipment = Create_NEW(new UIPdaEquipClass(client));
 	Equipment->Unknown_54();
-	Cargo = Create_NEW(new Unknown5CF9B0Class(client, this));
+	Cargo = Create_NEW(new UIPdaCargoClass(client, this));
 	Cargo->Unknown_54();
 	Vault = Create_NEW(new Unknown656FF0Class(Get_Client()->As_Space_Client()));
 	Vault->Unknown_54();
@@ -482,7 +482,7 @@ void PDAInterfaceClass::Unknown_74(ControlKeysManager *manager)
 }
 
 // 0x695630
-RefCountPtr<Unknown5CF9B0Class> PDAInterfaceClass::Unknown_695630()
+RefCountPtr<UIPdaCargoClass> PDAInterfaceClass::Unknown_695630()
 {
 	if (Cargo->Is_Active()) {
 		return(Cargo);
@@ -491,7 +491,7 @@ RefCountPtr<Unknown5CF9B0Class> PDAInterfaceClass::Unknown_695630()
 }
 
 // 0x695680
-RefCountPtr<Unknown5CF9B0Class> PDAInterfaceClass::Unknown_695680()
+RefCountPtr<UIPdaCargoClass> PDAInterfaceClass::Unknown_695680()
 {
 	if (Cargo) {
 		return(Cargo);

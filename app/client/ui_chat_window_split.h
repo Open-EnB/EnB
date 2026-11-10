@@ -28,7 +28,7 @@ struct ChatWinSplitResizeStruct	// NAME 1: neutral (D10)
 class UIChatWindowSplitClass : public ChatWindowInterface	// NAME 3: class-from-file (D24) for app\client\ui_chat_window_split.cpp
 {
 public:
-	UIChatWindowSplitClass(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit, int kind);	// 0x571F00 (0x56C180: the panel's +0x13C, +0x140 and the kind 0..2)  // NAME 1 [client, history, edit, kind]: what 0x56C180 passes
+	UIChatWindowSplitClass(SClient *client, Unknown67D430Class *history, ChatGadgetClass *edit, int kind);	// 0x571F00 (0x56C180: the panel's +0x13C, +0x140 and the kind 0..2)  // NAME 1 [client, history, edit, kind]: what 0x56C180 passes
 	virtual ~UIChatWindowSplitClass();					// 0x572040 (deleting 0x572010)
 	virtual void Unknown_54();							// +0x54 0x5723B0 (the set-up: 'ChatWinSplit_*')
 	virtual void Unknown_58();							// +0x58 0x572DE0

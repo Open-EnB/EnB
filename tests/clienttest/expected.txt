@@ -1,7 +1,5 @@
 == SClient (its constructor, the base's)
-stub Unknown831340Class::Unknown831340Class -1 'Null Item' type -1
 stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
-gen Unknown764FD0Class::Unknown764FD0Class
 check SClient's slot +0x18 returns the client: ok
 check the fake asset manager is *0xBDADC0 and WW3DAssetManager::Get_Instance(): ok
 == (1) the lists
@@ -101,7 +99,6 @@ model 1 Add_Sub_Object_To_Bone 'part_618' bone 3
 model 1 Add_Sub_Object_To_Bone 'part_617' bone 4
 model 1 Add_Sub_Object_To_Bone 'part_73f' bone 1
 model 1 Add_Sub_Object_To_Bone 'part_73f' bone 2
-gen Unknown_831950
 stub UnknownB02C90Class::BufferStruct::Insert 0
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 4000
@@ -117,8 +114,7 @@ aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
 aux data +0x20 (the age step)
-gen Unknown_918200
-gen SClient::Unknown_743380
+the input dispatcher takes the frame's event
 msg 2 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
 model 1 Set_Transform (105, 210, 28)
 model Set_Transform (0, 0, 0)
@@ -134,7 +130,6 @@ mainview 64
 mainview 64's +0x24 0
 mainview 7C
 mainview 64
-gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 check Do_Frame returns 0 and sets the clock from Unknown_Get_Ticks: ok
 check SIMPLE_POSITIONAL_UPDATE 8 (time 1000) replaced it with the simple state (type 3): ok
@@ -165,7 +160,6 @@ mainview 64
 mainview 64's +0x24 0
 mainview 7C
 mainview 64
-gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 check a second SIMPLE packet (time 2000) updates the simple state in place: ok
 frame at 4500
@@ -188,7 +182,6 @@ mainview 64
 mainview 64's +0x24 0
 mainview 7C
 mainview 64
-gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
   model row 0: 1.0000 0.0000 0.0000 -50.0000
   model row 1: 0.0000 1.0000 0.0000 -15.0000
@@ -244,13 +237,11 @@ mainview 64
 mainview 64's +0x24 0
 mainview 7C
 mainview 64
-gen PDAInterfaceUnknownA8Class::Unknown_7C8DB0
 stub RadarSystemClass::Unknown_7BCA70 NULL, scene set
 check CHANGE_BASE_ASSET 38 (base asset 901, scale 1): the same object holds base asset 901's model (NAME ship_test2): ok
 check the old model was released and deleted: ok
 check at clock 5000 the new model follows the second packet: ok
 msg 5 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4000
 mainview remove 4000
 model 8 'ship_test2' deleted
@@ -266,7 +257,6 @@ check REMOVE 7 deleted the object, its model and its part models: ok
 == (4b) CREATE 4's types 24 and 28 make co_subtypes.cpp's subclasses
 msg 1 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_test' scale 0.5 hsv (0 0 0) -> model 15
-gen Unknown_831950
 stub UnknownB02C90Class::BufferStruct::Insert 0
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 4100
@@ -285,12 +275,10 @@ check type 28's constructor (0x70E5A0): no target, no parent, no bone, +0x1D0 1.
 msg 3 SET_TARGET (25) size 12: cpacket.cpp's handler
 check SET_TARGET 25 (target 4100 for object 4200): type 28's 0x70E750 stores the target and clears +0x1D0: ok
 msg 4 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4100
 mainview remove 4100
 model 15 'ship_test' deleted
 msg 5 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4200
 mainview remove 4200
 model 16 'ship_test2' deleted
@@ -302,133 +290,69 @@ msg 1 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
 loadingview 0C 1
 stub ChatPanelInterface::Unknown_563760 0x17 'rtt = 4291038945  correction = 2140340121'
 msg 2 ITEM_BASE (37) size 126: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 7745 'Aquitaine Dark Matter' type 13
 msg 3 ITEM_BASE (37) size 178: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8355 'Booney's Best Handle' type 13
 msg 4 ITEM_BASE (37) size 177: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8356 'Line Eye' type 13
 msg 5 ITEM_BASE (37) size 128: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 7928 'Small Solar Panel' type 13
 msg 6 ITEM_BASE (37) size 151: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 7281 'Roller Press' type 13
 msg 7 ITEM_BASE (37) size 170: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8183 'Symbol of Duty' type 13
 msg 8 ITEM_BASE (37) size 418: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 7716 'Zeke's Solar Sail' type 6
 msg 9 ITEM_BASE (37) size 466: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 7623 'Terminal Override v4.0' type 18
 msg 10 ITEM_BASE (37) size 732: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4027 'RE-X8 "Nova" Mk. VII' type 7
 msg 11 ITEM_BASE (37) size 492: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4007 'RE-X2 "Red Dwarf" Mk. IV' type 7
 msg 12 ITEM_BASE (37) size 959: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4896 'Harpy's Dread Gorge' type 11
 msg 13 ITEM_BASE (37) size 746: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4844 'Basilisk's Dire Torrent' type 11
 msg 14 ITEM_BASE (37) size 577: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6645 'Crystal Force Emitter' type 11
 msg 15 ITEM_BASE (37) size 591: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6630 'Vibrant Power Crystal' type 11
 msg 16 ITEM_BASE (37) size 908: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4863 'Wyvern's Fell Strike' type 11
 msg 17 ITEM_BASE (37) size 587: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 7929 'Duct Tape' type 11
 msg 18 ITEM_BASE (37) size 875: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4870 'Manticore's Fell Barb' type 11
 msg 19 ITEM_BASE (37) size 627: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6172 'Armored Bogeril Solar Sails' type 11
 msg 20 ITEM_BASE (37) size 571: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8217 'der Todesengel Gate Access Key' type 11
 msg 21 ITEM_BASE (37) size 272: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6473 'Universal Maelstrom Key' type 11
 msg 22 ITEM_BASE (37) size 195: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6418 'Chemical Smiter's' type 10
 msg 23 ITEM_BASE (37) size 479: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4860 'Wyvern's Claw' type 11
 msg 24 ITEM_BASE (37) size 390: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 3471 'Plasma Rocket Type Zet' type 10
 msg 25 ITEM_BASE (37) size 217: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6032 'Oya Plasma Shells' type 10
 msg 26 ITEM_BASE (37) size 235: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 5064 'Superior Ogun Plasma Missiles' type 10
 msg 27 ITEM_BASE (37) size 309: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1842 'Brimstone Flux X2' type 13
 msg 28 ITEM_BASE (37) size 300: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1720 'CE3K TR-12' type 13
 msg 29 ITEM_BASE (37) size 115: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8528 'Ten-Gu Cranium' type 13
 msg 30 ITEM_BASE (37) size 326: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 5871 'Athanor Luna' type 13
 msg 31 ITEM_BASE (37) size 198: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8309 'Whittled Steel Thumpin' Stick' type 13
 msg 32 ITEM_BASE (37) size 184: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 7079 'Crushed Chitin Plating' type 13
 msg 33 ITEM_BASE (37) size 118: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8236 'Blinkin' Lights' type 13
 msg 34 ITEM_BASE (37) size 227: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8357 'Bogeril Fishing Pole' type 13
 msg 35 ITEM_BASE (37) size 295: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1785 'CE3K Adm BL24' type 13
 msg 36 ITEM_BASE (37) size 278: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1699 'CE3K PM-89' type 13
 msg 37 ITEM_BASE (37) size 321: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1461 'Athanor Solar Mounts' type 13
 msg 38 ITEM_BASE (37) size 310: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1444 'BlackBox R58' type 13
 msg 39 ITEM_BASE (37) size 288: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1486 'CE3K Pulsar' type 13
 msg 40 ITEM_BASE (37) size 255: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1462 'K3 MountTECH A9' type 13
 msg 41 ITEM_BASE (37) size 129: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6866 'Mantichora Juice' type 13
 msg 42 ITEM_BASE (37) size 119: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8237 'Thumpin' Stick' type 13
 msg 43 ITEM_BASE (37) size 138: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1485 'Ultra ActuPlus 22' type 13
 msg 44 ITEM_BASE (37) size 268: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1472 'Evolver Magn8' type 13
 msg 45 ITEM_BASE (37) size 131: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 5839 'Mangled Terran DNA' type 13
 msg 46 ITEM_BASE (37) size 121: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 2387 'Mantichora Comb' type 13
 msg 47 ITEM_BASE (37) size 139: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1416 'Nebula PowerCon' type 13
 msg 48 ITEM_BASE (37) size 114: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8238 'Bailing Wire' type 13
 msg 49 ITEM_BASE (37) size 330: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 503 'BlackBox M22' type 13
 msg 50 ITEM_BASE (37) size 123: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 2389 'Mantichora Spine' type 13
 msg 51 ITEM_BASE (37) size 135: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6784 'Broken Drill Assembly' type 13
 msg 52 ITEM_BASE (37) size 152: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 5819 'Decayed Human Bones' type 13
 msg 53 ITEM_BASE (37) size 119: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1371 'Grail Water' type 13
 msg 54 ITEM_BASE (37) size 111: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1364 'Thothium Ore' type 13
 msg 55 ITEM_BASE (37) size 111: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1306 'Apollonite' type 13
 msg 56 ITEM_BASE (37) size 113: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1305 'Raw Eye Stone' type 13
 msg 57 ITEM_BASE (37) size 111: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1289 'Discordite' type 13
 msg 58 ITEM_BASE (37) size 121: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1288 'Raw Flawless Ruby' type 13
 msg 59 ITEM_BASE (37) size 128: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1284 'Stygian Blackwater' type 13
 msg 60 ITEM_BASE (37) size 233: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 417 'Star Steel' type 13
 msg 61 ITEM_BASE (37) size 124: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1252 'Solar FlexiGlass' type 13
 msg 62 ITEM_BASE (37) size 120: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 399 'Quartz Crystals' type 13
 msg 63 ITEM_BASE (37) size 119: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8363 'Rewired Fishing Reel' type 13
 msg 64 ITEM_BASE (37) size 285: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 7042 'CE3K MG-15' type 13
 msg 65 ITEM_BASE (37) size 325: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1708 'Athanor Hyperion Mounts' type 13
 msg 66 CLIENT_TYPE (60) size 8: cpacket.cpp's handler
 gen UITalkTreeClass::Unknown_64EED0
 d3d ResourceManagerDiscardBytes 0
@@ -436,55 +360,30 @@ stub WWAudioClass::Flush_Cache
 cockpit +0x58 (on)
 mainview 138's +0x58 (on)
 msg 67 ITEM_BASE (37) size 234: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 2886 'Arduinne Security Pass' type 13
 msg 68 ITEM_BASE (37) size 179: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 3268 'K3 Plasma Cartridge' type 13
 msg 69 ITEM_BASE (37) size 313: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 3344 'Explosive Rocket Type Zet' type 10
 msg 70 ITEM_BASE (37) size 111: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1300 'Horusium Ore' type 13
 msg 71 ITEM_BASE (37) size 113: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8526 'Ten-Gu Tooth' type 13
 msg 72 ITEM_BASE (37) size 127: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8534 'Ossified Ten-Gu Bile' type 13
 msg 73 ITEM_BASE (37) size 125: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8533 'Flaming Ten-Gu Bile' type 13
 msg 74 ITEM_BASE (37) size 123: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8532 'Cobalt Ten-Gu Bile' type 13
 msg 75 ITEM_BASE (37) size 122: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 8535 'Amber Ten-Gu Bile' type 13
 msg 76 ITEM_BASE (37) size 280: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1705 'K3 MountTECH P39' type 13
 msg 77 ITEM_BASE (37) size 233: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 1706 'Evolver PowR-Forge Max' type 13
 msg 78 ITEM_BASE (37) size 722: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6262 'Bulwark of the Reaver' type 2
 msg 79 ITEM_BASE (37) size 629: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6923 'Intolerance Mk. VIII' type 11
 msg 80 ITEM_BASE (37) size 714: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 3343 'No 1 Most Prize ML Type Zet' type 15
 msg 81 ITEM_BASE (37) size 559: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6407 'Smiter's Fury' type 15
 msg 82 ITEM_BASE (37) size 554: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 7297 'Dragon's Spite' type 15
 msg 83 ITEM_BASE (37) size 652: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 6643 'Focused Voltoi Essence Seven' type 11
 msg 84 ITEM_BASE (37) size 715: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4029 'RE-X9 "Supernova" Mk. VIII' type 7
 msg 85 ITEM_BASE (37) size 809: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 3324 'No 1 Most Amazing Shield Model Z' type 2
 msg 86 ITEM_BASE (37) size 585: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4604 'DV-WR-X3 "Lazarus" Mk. VIII' type 11
 msg 87 ITEM_BASE (37) size 433: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4191 'Trifid LGS 8' type 6
 msg 88 ITEM_BASE (37) size 608: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 4886 'Roc's Dire Celerity' type 11
 msg 89 ITEM_BASE (37) size 228: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 7922 'V'rix Xerion Device' type 11
 msg 90 ITEM_BASE (37) size 786: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 5990 'Ivory Ward' type 11
 msg 91 ITEM_BASE (37) size 679: cpacket.cpp's handler
-stub Unknown831340Class::Unknown831340Class 3214 'Sai'li's Circle' type 11
 msg 92 GALAXY_MAP (151) size 46: cpacket.cpp's handler
 fail_if !map (line 2358)
 msg 93 ? (33) size 65: cpacket.cpp's handler
@@ -883,7 +782,6 @@ model 64 Set_LOD_Bias 1e+009
 msg 271 CLIENT_SHIP (71) size 8: cpacket.cpp's handler
 state ship id 48900994
 msg 272 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
-gen SClientUnknown1394Class::SClientUnknown1394Class
 gen BridgeInterfaceClass::Unknown_53B7A0
 msg 273 COLORIZATION (17) size 138: cpacket.cpp's handler
 msg 274 DECAL (16) size 58: cpacket.cpp's handler
@@ -1804,11 +1702,9 @@ msg 758 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
 stub ChatPanelInterface::Unknown_563760 0x17 'rtt = 4291033018  correction = 2140343229'
 state CLIENT_SET_TIME correction 2140343229 rtt -3934278
 msg 759 CLIENT_CHAT_EVENT (165) size 76: cpacket.cpp's handler
-stub Unknown764FD0Class::Unknown_765DF0 12
 stub ChatPanelInterface::Unknown_563760 0xC '[Market] Snaggletoof: *erupts in laughter*'
 msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
 msg 761 CLIENT_CHAT_EVENT (165) size 99: cpacket.cpp's handler
-stub Unknown764FD0Class::Unknown_765DF0 12
 stub ChatPanelInterface::Unknown_563760 0xC '[Market] Heckitty: Think I feel my life expectancy rising already :D'
 msg 762 OBJECT_EFFECT (9) size 23: cpacket.cpp's handler
 asset manager +0x78 'eff_1160': not loaded
@@ -1859,7 +1755,6 @@ mainview 7C
 mainview 64
 msg 768 AUX_DATA (27) size 35: cpacket.cpp's handler
 msg 769 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
-gen SClientUnknown1394Class::SClientUnknown1394Class
 msg 770 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
 asset manager +0x78 'eff_1870': not loaded
 asset manager Load_3D_Assets 'eff_1870.w3d'
@@ -1935,7 +1830,6 @@ msg 807 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 808 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 809 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 810 CLIENT_CHAT_EVENT (165) size 61: cpacket.cpp's handler
-stub Unknown764FD0Class::Unknown_765DF0 12
 stub ChatPanelInterface::Unknown_563760 0xC '[Market] Stormp: hard to say >>>'
 msg 811 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 207
@@ -2009,7 +1903,6 @@ msg 837 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 838 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 839 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 840 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 38957
 mainview remove 38957
 model 175 'missing' deleted
@@ -2134,7 +2027,6 @@ msg 897 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 898 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 899 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 900 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 39074
 mainview remove 39074
 model 21 'ship_14' deleted
@@ -2235,7 +2127,6 @@ msg 951 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 952 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 953 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 954 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 41213
 mainview remove 41213
 model 210 'ship_1028' deleted
@@ -2285,7 +2176,6 @@ msg 975 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 976 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 977 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 978 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 43912
 mainview remove 43912
 model 222 'ship_1028' deleted
@@ -2376,7 +2266,6 @@ model 261 Add_Sub_Object_To_Bone 'part_618' bone 3
 model 261 Add_Sub_Object_To_Bone 'part_617' bone 4
 model 261 Add_Sub_Object_To_Bone 'part_73f' bone 1
 model 261 Add_Sub_Object_To_Bone 'part_73f' bone 2
-gen Unknown_831950
 stub UnknownB02C90Class::BufferStruct::Insert 0
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 4300
@@ -2401,7 +2290,6 @@ model 268 Add_Sub_Object_To_Bone 'part_618' bone 3
 model 268 Add_Sub_Object_To_Bone 'part_617' bone 4
 model 268 Add_Sub_Object_To_Bone 'part_73f' bone 1
 model 268 Add_Sub_Object_To_Bone 'part_73f' bone 2
-gen Unknown_831950
 stub UnknownB02C90Class::BufferStruct::Insert 0
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 4301
@@ -2426,7 +2314,6 @@ model 275 Add_Sub_Object_To_Bone 'part_618' bone 3
 model 275 Add_Sub_Object_To_Bone 'part_617' bone 4
 model 275 Add_Sub_Object_To_Bone 'part_73f' bone 1
 model 275 Add_Sub_Object_To_Bone 'part_73f' bone 2
-gen Unknown_831950
 stub UnknownB02C90Class::BufferStruct::Insert 0
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 4302
@@ -2437,7 +2324,6 @@ check FORMATION 65 for the avatar 4302: the type-4 state (0x7171C0) with leader 
 msg 6 FORMATION_POSITIONAL_UPDATE (65) size 24: cpacket.cpp's handler
 check a second FORMATION 65 for 4301 updates its state in place (0x716220: a new extrapolator, the blend to the new node): ok
 msg 7 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4300
 mainview remove 4300
 model 261 'ship_test' deleted
@@ -2449,7 +2335,6 @@ model 265 'part_617' deleted
 model 266 'part_73f' deleted
 model 267 'part_73f' deleted
 msg 8 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4301
 mainview remove 4301
 model 268 'ship_test' deleted
@@ -2461,7 +2346,6 @@ model 272 'part_617' deleted
 model 273 'part_73f' deleted
 model 274 'part_73f' deleted
 msg 9 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 stub SClient::Unknown_74C530 4302
 mainview remove 4302
 model 275 'ship_test' deleted
@@ -2506,69 +2390,42 @@ recustomize calls: 551C40(cost) 6437A0(7, desc)
 check 129: +0x1A0's 0x61F250 gets the description, the costs and +0x1A4..+0x1B0; 131: +0x19C's 0x551C40 the costs; 133: the interface's 0x6437A0 its int 7 and the description: ok
 == (4h) GM_EDIT_PLAYER_INVENTORY 234 and GM_VIEW_MISSION_LOG 235
 msg 1 ? (235) size 36: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 msg 2 ? (234) size 36: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 1
 GM calls: new 6B2460 +54 +7C(main view, 1) 6B3340(5, 2 strings, 'mission one') new 6AF220 +54 +7C(starbase view, 1) 6B09D0(6, 2 strings, 'mission one') 
 check GM_VIEW_MISSION_LOG 235 makes 0x6B2460's interface, loads it and opens it over the main view (0x744B60 false), then 0x6B3340(5, the strings); GM_EDIT_PLAYER_INVENTORY 234 the same with 0x6AF220 over the starbase view (0x744B60 true) and 0x6B09D0: ok
 == (4i) CTA_RESPONSE 189
 msg 1 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 fail_if !group_interface (line 3136)
 check CTA_RESPONSE 189 without a group interface: the FAIL_IF '!group_interface', nothing called: ok
 msg 2 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 fail_if !client (line 1753)
 msg 3 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 fail_if !client (line 1753)
 msg 4 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 msg 5 CTA_RESPONSE (189) size 13: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
 group calls: 
 check CTA_RESPONSE 189: type 14 clears +0x13C0 and calls 0x5981B0, 15 sets it and calls 0x598200(true), 17 passes AvatarID 9 to 0x5982A0, 13 nothing (the player leads no group: 0x74D690 false): ok
 == (4j) TRADE 31, NOTE_CONTENT 184, MESSAGE_CHATSTREAM 95, FIND_MEMBER 83
 msg 1 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 check TRADE 31 without a trade interface: nothing called: ok
 msg 2 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 check TRADE 31 type 0: +0x1134 = PartnerID 44: ok
 msg 3 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 msg 4 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 assert 0 (line 524)
 msg 5 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 assert 0 (line 524)
 msg 6 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 assert 0 (line 524)
 msg 7 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 assert 0 (line 524)
 msg 8 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 assert 0 (line 524)
 msg 9 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 0
-stub SClient::Unknown_744B60 -> 0
 trade calls (main view): +58 +5C 40(0) 40(0) 40(0) 40(0) [2 0 0] [2 1 0] [2 0 0] [2 0 1] [2 0 0] 
 check TRADE 31 in space: types 0-6 to the main view's trade interface (slots +0x58 / +0x5C; 0x5E3130: +0xD8 = 2, the buttons off; 0x5E2F70 / 0x5E3050: +0xDD / +0xDE), 7 ignored, +0x1134 cleared: ok
 msg 10 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 1
 msg 11 TRADE (31) size 9: cpacket.cpp's handler
-stub SClient::Unknown_744B60 -> 1
 assert 0 (line 524)
 trade calls (starbase): +58 640110(8) 40(0) 40(0) 40(0) 40(0) 640110(0) 
 check TRADE 31 docked: the starbase view's +0x1A4 and the starbase interface's 0x640110(8) / (0); its count back to 5: ok

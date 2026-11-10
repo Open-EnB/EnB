@@ -1,0 +1,22 @@
+diff --git a/app/client/sclient.cpp b/app/client/sclient.cpp
+index 06238eb9..99e879f9 100644
+--- a/app/client/sclient.cpp
++++ b/app/client/sclient.cpp
+@@ -784,7 +784,7 @@ void Unknown_918200(int ticks);							// 0x918200 (Do_Frame passes the new +0x10
+ void Unknown_42EDB0();									// NAME 1 [Unknown_42EDB0]: neutral (D10) (input.cpp's neighbourhood), as tsk_login.cpp
+ bool Unknown_42EA80(KernelEventClass *event);			// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp), as tsk_login.cpp
+ void Unknown_42E8A0(KernelEventClass *event);			// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp), as tsk_login.cpp
+-KernelEventClass Unknown_65F780(void *unknown);			// NAME 1 [Unknown_65F780]: neutral (D10) (gadget.cpp), as tsk_login.cpp
++#include "gadget.h"										// 0x65F780: GadgetClass::Process_Input over the view's gadgets, as tsk_login.cpp
+ 
+ #include "..\audio\soundlib.h"
+ #include "..\shared\auxdata\delta.h"
+@@ -840,7 +840,7 @@ int SClient::Do_Frame(bool focused)
+ 			if (Unknown1278) {
+ 				int i = 0;
+ 				do {
+-					event = Unknown_65F780((void *)Unknown1278);
++					event = GadgetClass::Process_Input((GadgetListManagerClass *)Unknown1278);
+ 					if (!Unknown1270->Unknown_429A20(&event) && (!CurrentView || !CurrentView->Get_Unknown04()->Unknown_429A20(&event))) {
+ 						if (ScriptedMovieView) {
+ 							ScriptedMovieView->Unknown_802960(event);

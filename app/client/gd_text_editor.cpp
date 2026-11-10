@@ -31,7 +31,7 @@ Unknown_671300Class::Unknown_671300Class(RenderObjClass *robj, int unknown1, con
 	Unknown78(unknown2), Unknown7C(unknown3)
 {
 	if (unknown1) {
-		Unknown68 = new UVControllerClass(unknown1, 0, 0);
+		Unknown68 = new UVControllerClass((RenderObjClass *)unknown1, 0, 0);
 	}
 }
 // @0x671410
@@ -41,7 +41,7 @@ Unknown_671300Class::Unknown_671300Class(RenderObjClass *robj, int unknown1, int
 	Unknown78(unknown2), Unknown7C(unknown3)
 {
 	if (unknown1) {
-		Unknown68 = new UVControllerClass(unknown1, 0, 0);
+		Unknown68 = new UVControllerClass((RenderObjClass *)unknown1, 0, 0);
 	}
 }
 // @0x6714F0

@@ -48,13 +48,7 @@ void Unknown_80F220(RenderObjClass *model, std::vector<ColorizationRegionStruct>
 	STUB_CALLED("POC Unknown_80F220 (0x80F220, the ship's colours): nothing");
 }
 
-// ---------------------------------------------------------------- the client's view of keys and gadgets: nothing
-KernelEventClass Unknown_65F780(void *unknown)
-{
-	KernelEventClass event;
-	memset(&event, 0, sizeof(event));
-	return(event);
-}
+// ---------------------------------------------------------------- the client's view of keys no gadget took: nothing
 void SClient::Unknown_744240(KernelEventClass event)
 {
 }

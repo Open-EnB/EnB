@@ -75,7 +75,7 @@
 #define RSTRACK_CLASSID	0x10001	// NAME 2: the class id the handlers test
 #include "verbmanager.h"
 #include "ui_line_display.h"
-
+#include "avatar.h"
 
 
 
@@ -143,7 +143,7 @@ bool StartPacketClass::Process_Packet(void *instance)
 #include "..\packets\pkrecustomize.h"
 #include "sbaseview.h"		// the starbase view and the interfaces it holds (moved out of this file)
 #include "ui_ship_cust.h"	// its +0x1A0, StarbaseShipCustomizeInterface
-
+#include "ui_avatar_cust.h"	// its +0x19C, StarbaseAvatarCreationInterface
 
 
 
@@ -2565,7 +2565,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 			return(true);
 		case 4:
 			if (name) {
-				Unknown77E3F0Class *avatar;
+				CharacterViewAvatarClass *avatar;
 				ClientObjectClass *object;
 				unsigned id;
 				if (Unknown78 && (object = sclient->Find_Object(name)) != NULL && (avatar = sclient->Unknown_74C840(id = object->GameID)) != NULL) {
@@ -2575,7 +2575,7 @@ bool ClientChatEventPacketClass::Process_Packet(void *instance)
 						sclient->ChatPanel->Unknown_563910(id, false);
 					}
 					if (sclient->AvatarID == id) return(true);
-					if (!avatar->Unknown_7817E0()->Unknown_0C()) return(true);
+					if (!avatar->Unknown_7817E0()->Unknown_4C4940()) return(true);
 					_snprintf(buffer, sizeof(buffer), "%s (private): %s", from, text);
 				} else {
 					panel->Unknown_565D80(Unknown14.c_str());
@@ -2773,21 +2773,21 @@ const std::string &ClientChatEventPacketClass::Get_Unknown64()
 }
 
 // The avatar description at +0xF8 of an avatar (MESSAGE_CHATSTREAM 95 reads its full name)
-static inline AvatarDescClass &Unknown_Avatar_Desc(Unknown77E3F0Class *avatar) { return(*(AvatarDescClass *)((char *)avatar + 0xF8)); }	// NAME 1: neutral (D10): what it returns
+static inline AvatarDescClass &Unknown_Avatar_Desc(CharacterViewAvatarClass *avatar) { return(avatar->Desc); }	// NAME 1: neutral (D10): what it returns
 static inline int Chat_Avatar_ID(SClient *sclient) { return(sclient->AvatarID); }
 // 0x736F10 (placed here, out of address order: it has no assert)
 bool MessageChatstreamPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("MessageChatstreamPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	Unknown77E3F0Class *avatar = sclient->Unknown_74C840(ShipID);
+	CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(ShipID);
 	if (avatar) {
 		avatar->Unknown_784B80(ChatString, Chatsize, true);
 		if (Color == 3 || Color == 4) {
 			if (Chat_Avatar_ID(sclient) != ShipID && sclient->ChatPanel) {
 				sclient->ChatPanel->Unknown_563910(ShipID, false);
 			}
-			if (Chat_Avatar_ID(sclient) != ShipID && avatar->Unknown_7817E0()->Unknown_0C()) {
+			if (Chat_Avatar_ID(sclient) != ShipID && avatar->Unknown_7817E0()->Unknown_4C4940()) {
 				AvatarDescClass &desc = Unknown_Avatar_Desc(avatar); std::string name;
 				desc.Get_Full_Name(name);
 				int len = Chatsize + name.size() + 16;
@@ -2800,7 +2800,7 @@ bool MessageChatstreamPacketClass::Process_Packet(void *instance)
 				} else if (Color == 4) {
 					_snprintf(text, len, "%s (group): ", name.c_str());
 				}
-				avatar->Unknown_7817E0()->Unknown_08(text);
+				avatar->Unknown_7817E0()->Unknown_4C48C0(text);
 				sclient->Unknown_74D990(Color, text, 0);
 				delete [] text;
 				SoundLibraryClass::Play_2D_Sound("private_message_beep", 2);
@@ -3433,10 +3433,10 @@ bool RecustomizeAvatarStartPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 
 	FAIL_IF(!sclient) return(true);
-	SBaseViewUnknown19CClass *avatar_ui = ((SBaseViewClass *)sclient->Unknown135C)->AvatarUI.Peek();
+	StarbaseAvatarCreationInterface *avatar_ui = ((SBaseViewClass *)sclient->Unknown135C)->AvatarUI.Peek();
 
 	FAIL_IF(!avatar_ui) return(true);
-	avatar_ui->Unknown_551C40(&Cost);
+	avatar_ui->Unknown_551C40(Cost);
 	return(true);
 }
 

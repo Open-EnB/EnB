@@ -14,7 +14,7 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 static const char *Unknown_B7D938[] = { "tsi05f", "tsi05d", "tsi05e" };	// 0xB7D938 (the kinds' models: slot +0x98's names, the animations '<model>.<model>-1' / '-2')  // NAME 1: neutral (D10)
 
 // 0x571F00
-UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit, int kind) :
+UIChatWindowSplitClass::UIChatWindowSplitClass(SClient *client, Unknown67D430Class *history, ChatGadgetClass *edit, int kind) :
 	ChatWindowInterface(client, history, edit),
 	UnknownE8(kind),
 	UnknownEC(NULL),

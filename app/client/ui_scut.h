@@ -80,7 +80,7 @@ public:
 	virtual bool Unknown_68(int key);					// 0x610A40  // NAME 1 [key]: the base's
 	virtual void Unknown_70(ControlKeysManager *manager);	// 0x610780  // NAME 1 [manager]: the base's
 	virtual void Unknown_74(ControlKeysManager *manager);	// 0x6107C0  // NAME 1 [manager]: the base's
-	void Unknown_5417D0(InterfaceClass *owner);		// 0x5417D0 (intrface.cpp's; the set-up passes the cockpit)  // NAME 1 [owner]: neutral
+
 	bool Unknown_610B00(GadgetClass *gadget);			// 0x610B00: the gadget onto the first free button of either bar  // NAME 1 [gadget]: 0x611BD0's
 	bool Unknown_610C70(GadgetClass *gadget, unsigned int bar);	// 0x610C70 (FAIL_IF l.325): onto a bar's first free button  // NAME 3 [bar]: the FAIL_IF's; NAME 1 [gadget]: 0x611BD0's
 	bool Unknown_610D00(GadgetClass *gadget, unsigned int bar, int group, int bttn_idx);	// 0x610D00 (FAIL_IF l.336)  // NAME 3 [bar]: the FAIL_IF's; NAME 1 [gadget, group, bttn_idx]: 0x611BD0's

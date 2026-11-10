@@ -18,10 +18,10 @@
 #include "..\shared\g_assert.h"
 
 // chatgadg.cpp's text entry (0x80 bytes, constructor 0x65BFD0, table 0xAF99D8), as far as this file calls it
-class Unknown65BFD0Class : public TextBaseGadgetClass	// NAME 1: neutral (D10)
+class ChatGadgetClass : public TextBaseGadgetClass	// chatgadg.h
 {
 public:
-	void Unknown_65E7C0(const char *text);				// 0x65E7C0 (slot +0xAC's)  // NAME 1 [text]: neutral
+	void Unknown_65E7C0(bool reply);					// 0x65E7C0 (slot +0xAC's)  // NAME 1 [reply]: as chatgadg.h
 	void Unknown_65EBF0(char *buffer, int size, int &cursorpos, bool &insert);	// 0x65EBF0: the text, the cursor position and the insert mode  // NAME 1 [buffer, size, cursorpos, insert]: what 0x571470 does with them
 };
 
@@ -55,7 +55,7 @@ inline ChatWinStruct::~ChatWinStruct()
 }
 
 // 0x56F420
-ChatWindowInterface::ChatWindowInterface(SClient *client, Unknown67D430Class *history, Unknown65BFD0Class *edit) :
+ChatWindowInterface::ChatWindowInterface(SClient *client, Unknown67D430Class *history, ChatGadgetClass *edit) :
 	ChatPanelUIBase(client),
 	ChatHistory(history),
 	UnknownA4(edit),
@@ -370,16 +370,16 @@ void ChatWindowInterface::Unknown_CC()
 }
 
 // 0x570F20
-Unknown65BFD0Class *ChatWindowInterface::Unknown_570F20()
+ChatGadgetClass *ChatWindowInterface::Unknown_570F20()
 {
 	return((UnknownA4 != NULL && UnknownA4->Active) ? UnknownA4 : NULL);
 }
 
 // 0x570F50  // NOT EXACT: functional (CW2): register residue (0.78)
-void ChatWindowInterface::Unknown_AC(const char *text)
+void ChatWindowInterface::Unknown_AC(bool reply)
 {
 	InterfaceSortScopeClass scope(this);
-	UnknownA4->Unknown_65E7C0(text);
+	UnknownA4->Unknown_65E7C0(reply);
 	if (!UnknownB8->Peek_Scene()) UnknownB8->Add(Peek_Scene());
 }
 
@@ -485,7 +485,7 @@ void ChatWindowInterface::Unknown_571430()
 void ChatWindowInterface::Unknown_571470(bool force)
 {
 	if (UnknownA4 == NULL) return;
-	Unknown65BFD0Class *edit = Unknown_570F20();
+	ChatGadgetClass *edit = Unknown_570F20();
 	if (edit != NULL) {
 		Unknown_5715F0(true, false);
 		bool changed = edit->Changed;

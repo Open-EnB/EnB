@@ -11,6 +11,7 @@
 #include "ui_scut_gadgets.h"
 
 class SlotDataInterface;
+class SlotDataIFaceClass;
 
 // The event the slot data signals (the client's RTTI, 0xB8A690)
 class SlotDataEventDataChange {};	// NAME 5: the client's RTTI
@@ -48,9 +49,9 @@ public:
 	virtual void Unknown_3C();
 	virtual void Unknown_40(int slot);					// +0x40 (0x631000)  // NAME 2 [slot]: what 0x62DA30 passes
 
-	static SlotDataRenderClass *Unknown_6A90A0(int shortcut, SlotDataInterface *iface, int arg);	// 0x6A90A0 (FAIL_IF '!iface')  // NAME 3 [iface]: the FAIL_IF's; NAME 1 [shortcut, arg]: neutral
-};
 
+};
+class Unknown6A90A0Interface; SlotDataRenderClass *Unknown_6A90A0(int kind, Unknown6A90A0Interface *iface, RenderObjClass *robj);	// 0x6A90A0 (slot_data_render.cpp; FAIL_IF '!iface')
 // gd_slot_data.cpp's gadget, as far as this file calls it
 class SlotDataGadgetClass : public RObjGadgetClass	// NAME 2: gd_slot_data.cpp's file, the asserts' 'sdata_gadg'
 {
@@ -67,7 +68,7 @@ public:
 class SlotDataShortcutGadgetClass : public SlotDataGadgetClass	// NAME 3: ui_inv.cpp's assert 'As_SlotDataShortcutGadget'
 {
 public:
-	SlotDataShortcutGadgetClass(SlotDataInterface *slot_iface, SlotDataRenderClass *slot_render, const LayerClass &layer);	// 0x670E30  // NAME 2 [slot_iface, slot_render, layer]: what this file passes
+	SlotDataShortcutGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render, LayerClass *layer);	// 0x670E30 (gd_slot_data.h's, which this declaration must match)
 	char Unknown68[0x70 - 0x68];
 };
 

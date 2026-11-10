@@ -1,0 +1,71 @@
+diff --git a/app/client/sclient.cpp b/app/client/sclient.cpp
+index 06238eb9..91509666 100644
+--- a/app/client/sclient.cpp
++++ b/app/client/sclient.cpp
+@@ -994,8 +994,8 @@ int SClient::Do_Frame(bool focused)
+ 
+ 
+ 
+-
+-
++// 0x744240 (Do_Frame: an event no dispatcher and 0x7436A0 took: the client returns at once)
++void SClient::Unknown_744240(KernelEventClass event) {}
+ 
+ // NOT EXACT: shape, 10 masked rows (the effect loop: ours reads the record before the next-node test and loops with a jmp, the client tests the next node again; the dead First_Valid spends the inline budget so that the third list's Remove 0x7572E0 is called out of line, as the client's; 30 forms)
+ // 0x744260 (placed in the blank run after Do_Frame, before 0x744C10: no assert line moves; no asserts of its own)
+diff --git a/docs/data/imports/app/sclient.json b/docs/data/imports/app/sclient.json
+index 45309a60..c2663235 100644
+--- a/docs/data/imports/app/sclient.json
++++ b/docs/data/imports/app/sclient.json
+@@ -251,7 +251,6 @@
+   "0x7427A0",
+   "0x7427C0",
+   "0x7428F0",
+-  "0x742B60",
+   "0x743330",
+   "0x7441D0",
+   "0x744B90",
+@@ -298,7 +297,6 @@
+   "0x74D870",
+   "0x74D8B0",
+   "0x74D950",
+-  "0x74D990",
+   "0x74DF70",
+   "0x74E580",
+   "0x74E710",
+diff --git a/docs/data/imports/app/ui_chat_panel.json b/docs/data/imports/app/ui_chat_panel.json
+index 4a0525b0..b14a80a7 100644
+--- a/docs/data/imports/app/ui_chat_panel.json
++++ b/docs/data/imports/app/ui_chat_panel.json
+@@ -85,7 +85,6 @@
+   "0x568950",
+   "0x5698F0",
+   "0x56BA40",
+-  "0x56BA80",
+   "0x56BAA0",
+   "0x56BC10",
+   "0x56BD80",
+@@ -181,7 +180,6 @@
+   "0x5623D0",
+   "0x5623F0",
+   "0x563260",
+-  "0x56BA80",
+   "0x56CF40",
+   "0x56CF60",
+   "0x56CF80",
+diff --git a/programs/clientpoc/poc_world2.cpp b/programs/clientpoc/poc_world2.cpp
+index 04bfa852..38d048e0 100644
+--- a/programs/clientpoc/poc_world2.cpp
++++ b/programs/clientpoc/poc_world2.cpp
+@@ -57,11 +57,6 @@ KernelEventClass Unknown_65F780(void *unknown)
+ 	return(GadgetClass::Process_Input((GadgetListManagerClass *)unknown));
+ }
+ 
+-// ---------------------------------------------------------------- the client's view of keys no gadget took: nothing
+-void SClient::Unknown_744240(KernelEventClass event)
+-{
+-}
+-
+ // ---------------------------------------------------------------- 0x73FDB0: the watcher's list node moved onto the object's list (from the pseudocode)
+ void UnknownAF0DD0Class::Unknown_73FDB0(DataNode<UnknownAF0DD0Class *> *node, ClientObjectClass *object)
+ {

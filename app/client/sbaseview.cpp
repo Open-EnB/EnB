@@ -35,7 +35,7 @@ class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnkno
 #include "ui_refinery.h"	// UIRefineryClass (+0x184, 0x69F8F0)
 float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAME 1 [Unknown_77B7D0, t]: neutral (D10)
 SBaseViewUnknown1B4Class *Unknown_6987A0(LoungeNPCPacketClass *packet);	// 0x6987A0 (sbase_info.cpp)  // NAME 1 [packet]: what 0x6A0FD0 passes
-
+#include "ui_avatar_cust.h"	// AvatarUI (+0x19C, 0x69F8F0)
 // ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SClient's to it
 class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_talkt_space.cpp
 {
@@ -1124,7 +1124,7 @@ void SBaseViewClass::Unknown_69F8F0(int type, int arg)
 				client->ChatPanel->Unknown_568690();
 			}
 			if (!AvatarUI) {
-				AvatarUI = Create_Get(new SBaseViewUnknown19CClass(this, Unknown7C));
+				AvatarUI = Create_Get(new StarbaseAvatarCreationInterface(this, Unknown7C));
 				AvatarUI->Unknown_54();
 				Unknown_6B4940(AvatarUI.Peek());
 				AvatarUI->Unknown_7C(this, true);

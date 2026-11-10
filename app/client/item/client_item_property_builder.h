@@ -108,7 +108,7 @@ class Unknown688830Item  // NAME 1: neutral (D10)
 {
 public:
 	const RefCountPtr<ItemTemplateInfoClass> &Get_Template_Info() const { return(TemplateInfo); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
-	TextureClass *Unknown_831840();																		// 0x831840 (its +0x10, with a reference)  // NAME 1: neutral (D10)
+	// (0x831840 is client.h's item template's Unknown_831840: callers cast)																		// 0x831840 (its +0x10, with a reference)  // NAME 1: neutral (D10)
 	char Unknown00[0x08];
 	int Unknown08;																						// +0x08 (0x529810's)  // NAME 1: neutral
 	char Unknown0C[0x14 - 0x0C];
@@ -123,11 +123,13 @@ public:
 };
 
 class MoneyClass;
+// inv_data.h's Unknown_688870 argument (libs/sgistl/hash_set.h's hash_set<int>), declared as kv_list.h declares the class
+namespace std { template <class _Key> struct hash; template <class _Value, class _HashFcn, class _EqualKey, class _Alloc> class hash_set; }
 class InvDataClass : public RefCountClass  // NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
 {
 public:
 	InvDataPeekClass *Unknown_688830();																	// 0x688830 (+0x54)  // NAME 1: neutral (D10)
-	void Unknown_688870(unsigned int mask, void *unknown);												// 0x688870 (ui_trade.cpp: a category's bit, 0 for all)  // NAME 1 [mask, unknown]: neutral
+	void Unknown_688870(unsigned int mask, const std::hash_set<int, std::hash<int>, std::equal_to<int>, std::allocator<int> > *ids);	// 0x688870 (ui_trade.cpp: a category's bit, 0 for all)  // NAME 1 [mask, ids]: neutral
 	char Unknown08[0x50 - 0x08];
 	int Unknown50;																						// +0x50 (0x522860 routes 0x52AD00's property when 2)  // NAME 1: neutral
 };

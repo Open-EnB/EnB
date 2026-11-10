@@ -103,7 +103,7 @@ class SClientUnknown12BCClass;	// NAME 1: neutral (D10): what SClient +0x12BC po
 class Unknown6D47C0Class;		// NAME 1: neutral (D10): the 0x4E8-byte text object CLIENT_DAMAGE 100 makes (constructor 0x6D47C0; cpacket.cpp)
 class SClientUnknown1330Class;	// NAME 1: neutral (D10): what SClient +0x1330 points to (destructor 0x43C560, musicmanager.cpp's neighbourhood)
 class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
-class SClientUnknown1394Class;	// NAME 1: neutral (D10): the values of SClient +0x1394 (reference counted, slot +0x38)
+class CharacterViewAvatarClass;	// avatar.h: the values of SClient +0x1394 (0x77B870's 0x384 bytes)
 
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC (P-H12-3: its callers include fontdatabase.h)
 class FontStringFilesClass;
@@ -883,54 +883,6 @@ public:
 	Vector3 Unknown00[24];								// +0x00  // NAME 2: what the constructor writes
 };
 
-// The +0xE8 member of what 0x77E610 returns (0x7817E0), as far as cpacket.cpp calls it
-class Unknown77E3F0E8Class	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00();
-	virtual void Unknown_04();
-	virtual void Unknown_08(char *text);					// +0x08 (MESSAGE_CHATSTREAM 95: the line it shows)  // NAME 1 [text]: what the handler passes
-	virtual bool Unknown_0C();							// +0x0C (CLIENT_CHAT_EVENT 165 shows a private message only when true)
-};
-
-// What the +0x1394 values' 0x77E3F0 / 0x77E610 return, as far as SClient calls it
-class Unknown77E3F0Class	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_784B80(char *data, int size, bool flag);	// 0x784B80 (avatar.cpp; cpacket.cpp: CLIENT_CHAT_EVENT 165 passes Unknown74, Unknown78, 1)  // NAME 1 [data, size, flag]: what the handler passes
-	Unknown77E3F0E8Class *Unknown_7817E0();			// 0x7817E0 (avatar.cpp: returns this + 0xE8)
-	void Unknown_780810(EnvironmentMapManagerClass *unknown);	// 0x780810 (SClient 0x74C7B0 / 0x74C840 / 0x74C8D0 pass EnvironmentMapManager)  // NAME 1 [unknown]: neutral
-	char Unknown000[0x108];							// +0x000
-	int Unknown108;									// +0x108 (ui_attrb_skills.cpp's 0x54A480: the race, for chartemplate.cpp's 0x82F350)
-	int Unknown10C;									// +0x10C (the profession, ditto)
-};
-
-// The values of SClient +0x1394 (reference counted: Delete_This in slot 0, the count at +0x04)
-class SClientUnknown1394Class : public RefCountClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_08();
-	virtual void Unknown_0C();
-	virtual void Unknown_10();
-	virtual void Unknown_14();
-	virtual void Unknown_18();
-	virtual void Unknown_1C();
-	virtual void Unknown_20();
-	virtual void Unknown_24();
-	virtual void Unknown_28();
-	virtual void Unknown_2C();
-	virtual void Unknown_30();
-	virtual void Unknown_34();
-	virtual void Unknown_38();							// +0x38 the destructor calls it before the release
-	SClientUnknown1394Class(AvatarDescClass &desc, int unknown1, int unknown2, int unknown3);	// 0x77B870 (0x384 bytes; SClient 0x74C3B0 passes the AVATAR_DESCRIPTION and three 0)  // NAME 1 [desc, unknown1, unknown2, unknown3]: what 0x74C3B0 passes
-	Unknown77E3F0Class *Unknown_77E3F0();				// 0x77E3F0 (SClient 0x74C7B0)
-	Unknown77E3F0Class *Unknown_77E610();				// 0x77E610 (SClient 0x74C840)
-
-	char Unknown08[0xF8 - 0x08];						// +0x08
-	int UnknownF8;										// +0xF8 (SClient 0x74C960 returns its address; 0x74C3B0 hands it to the bridge interface)
-	char UnknownFC[0x384 - 0xFC];						// +0xFC
-};
-
 // What the chat panel's +0x138 points to, as far as SClient 0x744E70 calls it
 class UIChatPanelUnknown138Class	// NAME 1: neutral (D10)
 {
@@ -1031,9 +983,9 @@ public:
 	void Unknown_74BD90(int arg);						// 0x74BD90: the scripted movie view made, view mode 6 (G_ASSERT '!ScriptedMovieView', l.4117)  // NAME 1 [arg]: neutral
 	void Unknown_74BF00(int mode);						// 0x74BF00: the scripted movie view ended into view mode 'mode' (l.4127)  // NAME 1 [mode]: what it is
 	void Unknown_744E70(bool arg);						// 0x744E70: the main view's target (FAIL_IF '!target', l.2110) as an ACTION 44 packet, else the chat panel's +0x138  // NAME 1 [arg]: neutral
-	Unknown77E3F0Class *Unknown_74C7B0(unsigned id);	// 0x74C7B0: Unknown1394's value of id, its 0x77E3F0 given EnvironmentMapManager  // NAME 1 [id]: the table's key
-	Unknown77E3F0Class *Unknown_74C840(unsigned id);	// 0x74C840: as 0x74C7B0 through 0x77E610  // NAME 1 [id]: the table's key
-	Unknown77E3F0Class *Unknown_74C8D0(const char *name);	// 0x74C8D0: as 0x74C840 for the named object's GameID  // NAME 1 [name]: Find_Object's
+	CharacterViewAvatarClass *Unknown_74C7B0(unsigned id);	// 0x74C7B0: Unknown1394's value of id, its 0x77E3F0 given EnvironmentMapManager  // NAME 1 [id]: the table's key
+	CharacterViewAvatarClass *Unknown_74C840(unsigned id);	// 0x74C840: as 0x74C7B0 through 0x77E610  // NAME 1 [id]: the table's key
+	CharacterViewAvatarClass *Unknown_74C8D0(const char *name);	// 0x74C8D0: as 0x74C840 for the named object's GameID  // NAME 1 [name]: Find_Object's
 	int *Unknown_74C960(unsigned id);					// 0x74C960: Unknown1394's value's +0xF8  // NAME 1 [id]: the table's key
 	void Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree);	// 0x74C9D0: Unknown1298 set, or reset to Unknown129C  // NAME 1 [tree]: what it holds
 	void Unknown_745F30(int type);						// 0x745F30 (cpacket.cpp: CLIENT_TYPE 60 passes 0, 1 or 5 for the packet's Type 0, 1 or 2)  // NAME 1 [type]: what the handler passes
@@ -1119,7 +1071,7 @@ public:
 	bool Unknown1388;									// +0x1388
 	int Unknown138C;									// +0x138C (1 after '/camp')
 	float Unknown1390;									// +0x1390 (the main view's Update adds it to the hours in debug mode)
-	std::hash_map<unsigned, SClientUnknown1394Class *> Unknown1394;	// +0x1394 keyed by game id (0x756820: the debug object's)
+	std::hash_map<unsigned, CharacterViewAvatarClass *> Unknown1394;	// +0x1394 keyed by game id (0x756820: the debug object's)
 	int Unknown13AC;									// +0x13AC
 	int Unknown13B0;									// +0x13B0
 	int Unknown13B4;									// +0x13B4

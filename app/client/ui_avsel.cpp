@@ -62,7 +62,7 @@ typedef GadgetUnknown08Struct UIAvselGadgetPartStruct;	// NAME 1 [UIAvselGadgetP
 
 
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (0, 0, 0 off: 0x55E070)  // NAME 1 [robj, a, b, c]: as ui_group.cpp's
-void Unknown_496490(RenderObjClass *robj, int unknown);	// 0x496490 (ro_funcs.cpp, cdecl: 0x55E070 highlights the avatar under the pointer)  // NAME 1 [robj, unknown]: neutral
+bool Unknown_496490(RenderObjClass *robj, bool unknown);	// 0x496490 (ro_funcs.cpp, cdecl: 0x55E070 highlights the avatar under the pointer)  // NAME 1 [robj, unknown]: neutral
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (cdecl): the pointer's position, 0..1  // NAME 1 [x, y]: as scriptedmovie.cpp's
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 // (FlashingGadgetEvent, the client's RTTI name 0xB7C068: gadget.h)
@@ -110,7 +110,7 @@ struct UIAvselKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 	float Unknown08;									// +0x08
 	int Unknown0C;										// +0x0C
 };
-class UIAvselKeysClass { public: void Unknown_721E60(const UIAvselKeyEventStruct *event, int id); void Unknown_721EF0(const UIAvselKeyEventStruct *event); };	// NAME 1: neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, id]: what the constructor passes (10, 7)
+struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// control_keys_manager.h's (InterfaceClass +0x4C, 0x721E60 / 0x721EF0), as ui_class.cpp declares it
 
 class UIAvselEnvMapClass;
 // An avatar's table as far as its slot +0x1C4 (0x55D9C0 calls it for the five every frame; ui_avatr.cpp's +0x94's +0x54)
@@ -334,8 +334,8 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 		Unknown64.Unknown_6870E0(gadget, i + 1, View, 1, 1);
 		robj->Release_Ref();
 	}
-	((UIAvselKeysClass *)Unknown4C)->Unknown_721E60(&UIAvselKeyEventStruct(0x1B), 10);
-	((UIAvselKeysClass *)Unknown4C)->Unknown_721E60(&UIAvselKeyEventStruct(0x0D), 7);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAvselKeyEventStruct(0x1B), (void *)10);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAvselKeyEventStruct(0x0D), (void *)7);
 	if (Unknown088->Unknown1138) {
 		RenderObjClass *robj = model->Get_Sub_Object_By_Name("click_me");
 		Unknown_496AE0(robj, 0);
@@ -1175,8 +1175,8 @@ void AvatarSelectionInterface::Unknown_55F760()
 	Unknown114->Unknown3B = true;
 	Unknown114->Unknown_74(1);
 	Unknown64.Unknown_6870E0(Unknown114, 4, View, 1, 0);
-	((UIAvselKeysClass *)Unknown4C)->Unknown_721E60(&UIAvselKeyEventStruct(0x0D), 2);
-	((UIAvselKeysClass *)Unknown4C)->Unknown_721E60(&UIAvselKeyEventStruct(0x1B), 1);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAvselKeyEventStruct(0x0D), (void *)2);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAvselKeyEventStruct(0x1B), (void *)1);
 	InterfaceClass::Unknown_58();
 	Unknown_58();
 }
@@ -1215,10 +1215,10 @@ void AvatarSelectionInterface::Unknown_55FBB0()
 	G_ASSERT(BuddyReferralUI);
 	model->Remove_Sub_Object(BuddyReferralUI.Peek());
 	BuddyReferralUI = NULL;
-	((UIAvselKeysClass *)Unknown4C)->Unknown_721EF0(&UIAvselKeyEventStruct(0x0D));
-	((UIAvselKeysClass *)Unknown4C)->Unknown_721EF0(&UIAvselKeyEventStruct(0x1B));
-	((UIAvselKeysClass *)Unknown4C)->Unknown_721E60(&UIAvselKeyEventStruct(0x0D), 7);
-	((UIAvselKeysClass *)Unknown4C)->Unknown_721E60(&UIAvselKeyEventStruct(0x1B), 10);
+	((ControlKeyListClass *)Unknown4C)->Remove(*(const ControlKeyComboStruct *)&UIAvselKeyEventStruct(0x0D));
+	((ControlKeyListClass *)Unknown4C)->Remove(*(const ControlKeyComboStruct *)&UIAvselKeyEventStruct(0x1B));
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAvselKeyEventStruct(0x0D), (void *)7);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAvselKeyEventStruct(0x1B), (void *)10);
 	InterfaceClass::Unknown_58();
 	Unknown_58();
 }

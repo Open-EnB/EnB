@@ -44,7 +44,7 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	// 0x496730 (ro_funcs.cpp, cdecl; the constructor passes the gutter, 0x20, 0)  // NAME 1 [robj, a, b]: what the constructor passes
-void Unknown_65EED0(GadgetClass *gadget);				// 0x65EED0 (cdecl, gadget.cpp): the gadget deleted  // NAME 1 [gadget]: neutral
+#include "gadget.h"	// GadgetClass::Destroy 0x65EED0 (the destructor)
 // 0x65EFB0 is GadgetClass::Set_Tooltip (variadic as gadget.h declares it)
 
 // local_interface_sort.cpp's sort object (8 bytes; view.cpp, mainview.cpp and ui_line_display.cpp declare it too)
@@ -416,7 +416,7 @@ UICpitClass::~UICpitClass()
 	Unknown_5C();
 	delete Unknown0D0;
 	Unknown0D0 = NULL;
-	Unknown_65EED0(Unknown0AC);
+	GadgetClass::Destroy(Unknown0AC);
 	Unknown0AC = NULL;
 	BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Cpit_ThrottleClickLocks");
 	if (option) option->Set_Value(Unknown13C);

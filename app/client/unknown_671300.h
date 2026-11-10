@@ -14,20 +14,7 @@
 #define UNKNOWN_671300_H
 
 #include "unknown_675120.h"
-
-class Vector2;
-
-// uvcontrl.cpp's texture scroller (0x4A1240 makes it; FAIL_IF '!Mapper'), as far as the gadgets call it
-class UVControllerClass	// NAME 3: class-from-file (D24) for app\shared\uvcontrl.cpp
-{
-public:
-	UVControllerClass(int unknown1, int unknown2, int unknown3);	// 0x4A1240 (0x671300: its second argument, 0, 0)  // NAME 1 [unknown1, unknown2, unknown3]: neutral
-	virtual ~UVControllerClass();						// slot +0x00
-	void Unknown_4A13A0(const Vector2 &offset);			// 0x4A13A0 (the mapper's +0x14 / +0x18)  // NAME 1 [offset]: what it sets
-
-	int Unknown04;										// +0x04
-	int Unknown08;										// +0x08
-};
+#include "..\shared\uvcontrl.h"
 
 // The gadget of constructor 0x671300 (0x80 bytes, table 0xAFB278): a button gadget that notes the buttons pressed on it and
 // scrolls its texture

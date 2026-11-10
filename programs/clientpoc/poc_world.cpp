@@ -117,6 +117,11 @@ void Unknown5BB320Class::Unknown_5C()
 void Unknown5BB320Class::Unknown_60()
 {
 }
+// 0x5BB4F0: the client's code (a gadget onto the mesh's list, ui_mesh.cpp 0x5B99C0; was a do-nothing gen stand-in)
+void Unknown5BB320Class::Unknown_5BB4F0(GadgetClass *gadget)
+{
+	InterfaceMesh->Unknown_5B99C0(gadget);
+}
 void Unknown5BB320Class::Unknown_7C(UIViewClass *view, bool arg)
 {
 	if (view == NULL) {
@@ -216,13 +221,7 @@ UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((Li
 	STUB_CALLED("POC UIChatReplyListClass: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-// 0x765DF0 (file unknown, not rebuilt): the client's code, the chat line colour by its index (0..23), else white;
-// a generated stub cannot return a Vector3 (the call links to 0)
-Vector3 Unknown764FD0Class::Unknown_765DF0(int index)
-{
-	if (index < 24 && index >= 0) return(Unknown00[index]);
-	return(Vector3(1.0f, 1.0f, 1.0f));
-}
+// (0x765DF0, the chat line colour by its index, is rebuilt: app/client/unknown_764fd0.cpp, GS1)
 
 // FontSys 0x6CE420 (unknown_6cce60.cpp's object, not rebuilt): the client's code, the text from a format into Change_Text
 // (a generated stub left the chat window's lines, the inventory counts and the mission texts empty)
@@ -243,29 +242,8 @@ void __cdecl FontSys::Unknown_6CE420(int unknown, const char *format, ...)
 	Change_Text(buffer, unknown);
 }
 
-// chatgadg.cpp's text entry (0x65BFD0, not rebuilt): a text gadget that holds no text, so the chat window's calls
-// through its table reach real code (a generated constructor leaves no table)
+// (chatgadg.cpp's text entry ChatGadgetClass 0x65BFD0 is rebuilt in app.lib)
 #include "..\..\app\client\textgadg.h"
-class Unknown65BFD0Class : public TextBaseGadgetClass
-{
-public:
-	Unknown65BFD0Class(LineDisplayClientClass *client);
-	void Unknown_65E7C0(const char *text);
-	void Unknown_65EBF0(char *buffer, int size, int &cursorpos, bool &insert);
-	char Unknown44[0x80 - 0x44];
-};
-Unknown65BFD0Class::Unknown65BFD0Class(LineDisplayClientClass *client) : TextBaseGadgetClass(0xFF, 0, NULL)
-{
-	STUB_CALLED("POC Unknown65BFD0Class (chatgadg.cpp's text entry): no text");
-	memset(Unknown44, 0, sizeof(Unknown44));
-}
-void Unknown65BFD0Class::Unknown_65E7C0(const char *text) {}
-void Unknown65BFD0Class::Unknown_65EBF0(char *buffer, int size, int &cursorpos, bool &insert)
-{
-	buffer[0] = 0;
-	cursorpos = 0;
-	insert = false;
-}
 UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c) : InterfaceClass(owner->Client)
 {
 	STUB_CALLED("POC UIComboBoxClass: an empty window");

@@ -21,16 +21,6 @@
 #include "..\..\app\client\dynamic_window_class.h"
 #include "..\..\app\client\ui_starmap.h"
 
-// ---------------------------------------------------------------- the skill tabs' base (0x62D1F0, ui_attrb_skills.h): 0xBC bytes
-Unknown62D1F0Class::Unknown62D1F0Class(SClient *client) : InterfaceClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC Unknown62D1F0Class (the skill tabs' base): an empty InterfaceClass");
-	memset(Unknown84, 0, sizeof(Unknown84));
-}
-Unknown62D1F0Class::~Unknown62D1F0Class()
-{
-}
-
 // ---------------------------------------------------------------- ui_faction_panel.cpp's panel (0x58EB50; ui_faction.cpp's view): 200 bytes
 class Unknown58EB50Class : public Unknown5BB320Class
 {
@@ -89,10 +79,17 @@ bool GadgetStarmapClass::Unknown_30(float x, float y)
 }
 
 // ---------------------------------------------------------------- ui_dynamicwindow.cpp's screen (0x589D30): 0xAC bytes, empty
+// (its +0x8C, slot +0x04's answer, is a gadget the windows over it set up: ui_slot_info.cpp's 0x62FDF0 calls its 0x65FFA0)
+class POCDynamicWindowGadgetClass : public GadgetClass
+{
+public:
+	POCDynamicWindowGadgetClass() : GadgetClass(0) {}
+	virtual bool Unknown_30(float x, float y) { return(false); }
+};
 UIDynamicWindowClass::UIDynamicWindowClass(LineDisplayClientClass *client, const char *name, int flags) : InterfaceClass(client)
 {
 	STUB_CALLED("POC UIDynamicWindowClass: an empty window");
-	Unknown8C = NULL;
+	Unknown8C = new POCDynamicWindowGadgetClass;
 	Unknown90 = 0x457;
 }
 UIDynamicWindowClass::~UIDynamicWindowClass()
@@ -147,4 +144,29 @@ DurationClass Unknown688830Class::Unknown_68A720(int slot)
 {
 	STUB_CALLED("POC Unknown688830Class::Unknown_68A720 (0x68A720): no time");
 	return(DurationClass(0));
+}
+
+// ---------------------------------------------------------------- ui_skill_info.cpp's window (0x62B930; ui_slot_info.cpp's 0x630280 makes it): 0xCC bytes
+#include "..\..\app\client\ui_slot_info.h"
+class SkillDataClass;
+class UISkillInfoClass : public UISlotInfoClass
+{
+public:
+	UISkillInfoClass(LineDisplayClientClass *client, SkillDataClass *skill);
+	virtual UISlotInfoItemClass *Unknown_90();
+	virtual bool Unknown_94();
+	char UnknownB0[0xCC - 0xB0];
+};
+UISkillInfoClass::UISkillInfoClass(LineDisplayClientClass *client, SkillDataClass *skill) : UISlotInfoClass(client, "SKILL_INFO_MAIN")
+{
+	STUB_CALLED("POC UISkillInfoClass (the skill information window): an empty window");
+	memset(UnknownB0, 0, sizeof(UnknownB0));
+}
+UISlotInfoItemClass *UISkillInfoClass::Unknown_90()
+{
+	return(NULL);
+}
+bool UISkillInfoClass::Unknown_94()
+{
+	return(false);
 }

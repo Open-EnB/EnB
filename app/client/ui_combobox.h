@@ -18,6 +18,7 @@ class UIComboBoxClass : public InterfaceClass	// NAME 3: class-from-file (D24)
 {
 public:
 	UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c);	// 0x5786C0 (0x118 bytes; ui_registration.cpp's 0x5F2F90)  // NAME 1 [owner, layer, model, name, id, key, a, b, c]: neutral
+	UIComboBoxClass(InterfaceClass *owner, SClient *client, RenderObjClass *model, const char *name, int a, int b, int c, int d, const char *style);	// 0x5789E0 (not rebuilt; ui_pda_cargo.cpp's filter: 'filter', 0x15, 0x14, 0x19, 0xC, 'Combo01')  // NAME 1 [owner, client, model, name, a, b, c, d, style]: neutral
 	void Unknown_57A330();								// 0x57A330 (the drop-down's opening / closing per frame)
 	void Unknown_57AAB0();								// 0x57AAB0 (the rows from the top item)
 	void Unknown_57AC70(int index);						// 0x57AC70 (select by index)  // NAME 1 [index]: neutral
@@ -27,6 +28,7 @@ public:
 	void Unknown_57B000(const char *text);						// 0x57B000 (ui_registration.cpp's map inserts: the entry's text)  // NAME 1 [Unknown_57B000, text]: neutral (D10)
 	void Unknown_57B3C0(int arg);							// 0x57B3C0 (ui_registration.cpp 0x5FB9F0: 0 on each of its combo boxes; the +0xD0 / +0xD4 gadgets' slot +0x40)  // NAME 1 [Unknown_57B3C0, arg]: neutral (D10)
 	void Unknown_57B440();								// 0x57B440 (ui_chat_panel.cpp: slot +0x7C, before each combo's slot +0x7C): the drop-down closes
+	void Unknown_57B480(const char *text);				// 0x57B480 (not rebuilt: a string at +0x104; ui_pda_cargo.cpp passes 'Filter')  // NAME 1 [text]: neutral
 	void Unknown_57B570(bool on);						// 0x57B570 (0x5689D0): +0x114 and the arrow button's +0x40 / +0x8C  // NAME 1 [on]: neutral
 	void Unknown_57B5C0(int first, int last);			// 0x57B5C0 (0x5689D0: 0 and the item count): the rows first..last-1 get +0x78 set  // NAME 1 [first, last]: neutral
 

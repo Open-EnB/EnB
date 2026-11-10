@@ -1,7 +1,7 @@
 #include "client_item_property_builder.h"
 #include "..\ui_item_examination_property_router.h"
 #include "..\..\shared\g_assert.h"
-
+class Unknown831340Class { public: class TextureClass *Unknown_831840(); };	// client.h's item template (item_template.cpp's 0x831840)
 ClientItemPropertyBuilderClass::ClientItemPropertyBuilderClass(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot) :
 	SpaceClient(space_client),
 	Item(item),
@@ -31,7 +31,7 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 	std::string maker2 = Item->Unknown34;
 	router.Route(ClientItemPropertyNameClass::Create(name));
 	router.Route(ClientItemPropertyUnknown529810Class::Create(Item->Unknown08));
-	router.Route(ClientItemPropertyIconClass::Create(Create_Get(Item->Unknown_831840())));
+	router.Route(ClientItemPropertyIconClass::Create(Create_Get(((Unknown831340Class *)Item)->Unknown_831840())));
 	int value = 0;
 	if (Item->Get_Template_Info()->Unknown_840A20(6, value)) {
 		router.Route(Unknown_52FFB0(Item->Unknown48, value, Item->Unknown08));

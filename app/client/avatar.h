@@ -72,6 +72,7 @@ public:
 	void Unknown_784700();								// 0x784700 (+0xE8's blocks into the queue +0x2A0 and the states +0x208 / +0x20C / +0x210)
 	void Unknown_789FE0(const char *part);				// 0x789FE0 (the head prototype's '<part>0'..'<part>4' removed and released; 0x77F000 / 0x77F960 inline it)  // NAME 1 [part]: neutral
 	void Unknown_781760(const char *text);				// 0x781760 (with an NLP: +0xE8 emptied, text parsed into it with Desc.Mood_Type, the end block; the UI's 0x569A00 calls it, 0x784A50 / 0x7860C0 inline it)  // NAME 1 [text]: neutral
+	Unknown_ChatStreamClass *Unknown_7817E0();			// 0x7817E0 (+0xE8; chatgadg.cpp, cpacket.cpp)  // NAME 1: neutral
 	void Unknown_781800(Unknown_ChatStreamClass *stream);	// 0x781800 (+0xE8 emptied, then stream's bytes copied in; unreferenced)  // NAME 1 [stream]: neutral
 	void Unknown_781840(const void *data, int size);	// 0x781840 (+0xE8 emptied, then the bytes copied in; 0x784B80 inlines it)  // NAME 1 [data, size]: neutral
 	void Unknown_77E370(const char *name);				// 0x77E370 (Desc's First_Name through 0x4C1460, converted; unreferenced)  // NAME 1 [name]: neutral

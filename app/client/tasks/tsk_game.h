@@ -78,7 +78,7 @@ INIClass &Get_Network_INI();							// 0x821B40 (connect.cpp)
 int Unknown_Log(const char *tag, const char *format, ...);	// NAME 1 [Unknown_Log]: 0x7E5F90, the 'HANDOFF:INF' / 'LOGIN:INF' log
 int Unknown_82E1D0();									// NAME 1 [Unknown_82E1D0]: udpconn.cpp
 bool Unknown_5FADE0();									// NAME 1 [Unknown_5FADE0]: ui_registration.cpp
-void Unknown_43FD70();									// NAME 1 [Unknown_43FD70]: soundlib.cpp
+
 class Unknown_7CA2D0Class								// NAME 1 [Unknown_7CA2D0Class]: the settings store 0x7CA2D0 returns
 {
 public:

@@ -53,4 +53,15 @@ void Fail_If_Report(const char *expr, const char *file, int line)
 	Message_Error("", "FAIL_IF", file, line, "ERROR: %s", expr);
 }
 
+// ---------------------------------------------------------------- inpdsp.cpp's ini key reader, for poc_link.cpp
 
+// control_keys_manager.cpp declares 0x42A1A0 as returning a ControlKeyComboStruct (the same 16 bytes), so its name
+// is not inpdsp.cpp's and poc_link.cpp's stand-in answered it with no key: control_keys.ini's PSW / SIM keys were
+// all empty (Return never opened the chat entry). poc_link.cpp's stand-in now copies inpdsp.cpp's real event.
+#include "..\..\app\input\inpdsp.h"
+#include <string.h>
+void Poc_Read_Ini_Key(INIClass &ini, const char *section, const char *entry, void *out)
+{
+	KernelEventClass event = Unknown_42A1A0(ini, section, entry);
+	memcpy(out, &event, sizeof(event));
+}

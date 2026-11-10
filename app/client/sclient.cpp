@@ -45,7 +45,7 @@ extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  /
 // The object at 0xC404D8 is WWAudioClass::_theInstance (WWAudioClass's ctor and dtor set it): the constructor
 // sets its +0x19A5, which queues sounds started during the load
 #include "WWAudio.h"
-
+#include "avatar.h"
 
 
 
@@ -143,7 +143,7 @@ public:
 	ChatPanelInterface(SClient *client); void Unknown_5685C0(); void Unknown_568690();	// 0x561DD0; 0x5685C0 (0x742530, on every change of view)
 	bool Unknown_56BA80(); void Unknown_563760(int type, const std::string &text);	// 0x563760 (0x74D990's chat line); 0x56BA80 (Do_Frame compares it with 'more than 15' from the connection's Get_Stats)
 	void Unknown_56BA40(bool on);						// 0x56BA40 (Do_Frame, when that changes)  // NAME 1 [on]: what Do_Frame passes
-	void Unknown_565F30(int arg); void Unknown_56BAA0(int a, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [a, text]: what 0x74E710 passes
+	void Unknown_565F30(int arg); void Unknown_56BAA0(bool show, const char *text);	// 0x565F30 (0x7436A0: Esc, 2); 0x56BAA0 (0x74E710: 1 and the confirmed action's message)  // NAME 1 [arg]: what 0x7436A0 passes  // NAME 1 [show, text]: ui_chat_panel.h's
 	char Unknown84[0xE0 - 0x84];
 	UIChatPanelUnknownE0Class *UnknownE0;				// +0xE0 (0x750210, 0x7517E0, 0x751850 test its +0x7C)
 	char UnknownE4[0x138 - 0xE4];
@@ -377,11 +377,11 @@ SClient::~SClient()
 	EnvironmentMapManager = NULL;
 	if (ProjDecalManager) delete ProjDecalManager;
 	ProjDecalManager = NULL;
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); it++) {
-		SClientUnknown1394Class *object = (*it).second;
+		CharacterViewAvatarClass *object = (*it).second;
 		if (object) {
-			object->Unknown_38();
+			object->Remove();
 			object->Release_Ref();
 		}
 	}
@@ -780,11 +780,11 @@ extern SoundManagerClass *SoundManager;					// 0xBE82A4  // NAME 2: what it hold
 extern int Unknown_BE350C;								// NAME 1: neutral (D10): Do_Frame sets it to the base's toggled +0x1128 for the frame
 extern int Unknown_BE5F34;								// NAME 1: neutral (D10): Do_Frame takes up to 20 more events while it has 0x1100
 unsigned int Unknown_Get_Ticks();						// 0x4A3B40, the aux-data clock (unknown_root.h)
-void Unknown_918200(int ticks);							// 0x918200 (Do_Frame passes the new +0x10BC when focused)  // NAME 1 [ticks]: what it gets
+
 void Unknown_42EDB0();									// NAME 1 [Unknown_42EDB0]: neutral (D10) (input.cpp's neighbourhood), as tsk_login.cpp
 bool Unknown_42EA80(KernelEventClass *event);			// NAME 1 [Unknown_42EA80]: the input queue's next event (input.cpp), as tsk_login.cpp
 void Unknown_42E8A0(KernelEventClass *event);			// NAME 1 [Unknown_42E8A0]: hands the event on (input.cpp), as tsk_login.cpp
-KernelEventClass Unknown_65F780(void *unknown);			// NAME 1 [Unknown_65F780]: neutral (D10) (gadget.cpp), as tsk_login.cpp
+#include "gadget.h"										// 0x65F780: GadgetClass::Process_Input over the view's gadgets, as tsk_login.cpp
 
 #include "..\audio\soundlib.h"
 #include "..\shared\auxdata\delta.h"
@@ -833,14 +833,14 @@ int SClient::Do_Frame(bool focused)
 
 	// input
 	if (focused) {
-		Unknown_918200(Unknown10BC);
+		WW3D::Sync(Unknown10BC);
 		if (!LoadingView || !LoadingView->Unknown68) {
 			KernelEventClass event;
 			Unknown_42EDB0();
 			if (Unknown1278) {
 				int i = 0;
 				do {
-					event = Unknown_65F780((void *)Unknown1278);
+					event = GadgetClass::Process_Input((GadgetListManagerClass *)Unknown1278);
 					if (!Unknown1270->Unknown_429A20(&event) && (!CurrentView || !CurrentView->Get_Unknown04()->Unknown_429A20(&event))) {
 						if (ScriptedMovieView) {
 							ScriptedMovieView->Unknown_802960(event);
@@ -1046,20 +1046,20 @@ void SClient::Process_AI()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma auto_inline(off)	// the client calls 0x743380 from Do_Frame
+// 0x743380 (Do_Frame without the +0x1278 gadget source: the input queue's event to the dispatchers, then the
+// scripted movie view or the key handler 0x7436A0)
+void SClient::Unknown_743380(KernelEventClass *event)
+{
+	if (!Unknown1270->Unknown_429A20(event) && (!CurrentView || !CurrentView->Get_Unknown04()->Unknown_429A20(event))) {
+		if (ScriptedMovieView) {
+			ScriptedMovieView->Unknown_802960(*event);
+		} else {
+			Unknown_7436A0(*event);
+		}
+	}
+}
+#pragma auto_inline(on)
 
 
 
@@ -1329,11 +1329,11 @@ void SClient::Unknown_745750()
 		rnode = next;
 	}
 	Unknown_755600();
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
-		SClientUnknown1394Class *object = (*it).second;
+		CharacterViewAvatarClass *object = (*it).second;
 		if (object) {
-			object->Unknown_38();
+			object->Remove();
 			object->Release_Ref();
 		}
 	}
@@ -2050,11 +2050,11 @@ bool SClient::Unknown_74D730()
 
 
 
-
-
-
-
-
+// 0x744B60 (cpacket.cpp: REMOVE 7, GROUP 30): the current view is the +0x135C one
+bool SClient::Unknown_744B60()
+{
+	if (CurrentView != NULL && CurrentView == Unknown135C) return(true); return(false);
+}
 
 
 
@@ -2081,11 +2081,11 @@ void SClient::Unknown_744C10()
 
 
 
-
-
-
-
-
+// 0x744E50: the camera manager's callback (Init registers it, Shutdown removes it)
+void SClient::Unknown_744E50(CameraModuleSignal *signal, CameraModuleClass *camera)
+{
+	Unknown_744C10();
+}
 
 
 
@@ -4263,29 +4263,29 @@ void SClient::Unknown_74C370(RefCountClass *object)
 void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
 {
 	if (Unknown1394.find(game_id) != Unknown1394.end()) return;
-	SClientUnknown1394Class *object = new SClientUnknown1394Class(desc, 0, 0, 0);
+	CharacterViewAvatarClass *object = new CharacterViewAvatarClass(&desc, false, false, NULL);
 	Unknown1394[game_id] = object;
-	if (AvatarID == (unsigned)game_id) BridgeInterface->Unknown_53B7A0(&object->UnknownF8);
+	if (AvatarID == (unsigned)game_id) BridgeInterface->Unknown_53B7A0((int *)&object->Desc);
 }
 #pragma auto_inline(on)	// 0x74C690
 void SClient::Unknown_74C690()
 {
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
-		SClientUnknown1394Class *object = (*it).second;
+		CharacterViewAvatarClass *object = (*it).second;
 		if (object) {
-			object->Unknown_38();
+			object->Remove();
 			object->Release_Ref();
 		}
 	}
 	Unknown1394.clear();
 }
 // 0x74C7B0
-Unknown77E3F0Class *SClient::Unknown_74C7B0(unsigned id)
+CharacterViewAvatarClass *SClient::Unknown_74C7B0(unsigned id)
 {
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
-		Unknown77E3F0Class *object = (*it).second->Unknown_77E3F0();
+		CharacterViewAvatarClass *object = (*it).second->Unknown_77E3F0();
 		object->Unknown_780810(EnvironmentMapManager);
 		return(object);
 	}
@@ -4293,11 +4293,11 @@ Unknown77E3F0Class *SClient::Unknown_74C7B0(unsigned id)
 }
 
 // 0x74C840
-Unknown77E3F0Class *SClient::Unknown_74C840(unsigned id)
+CharacterViewAvatarClass *SClient::Unknown_74C840(unsigned id)
 {
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
-		Unknown77E3F0Class *object = (*it).second->Unknown_77E610();
+		CharacterViewAvatarClass *object = (*it).second->Unknown_77E610();
 		object->Unknown_780810(EnvironmentMapManager);
 		return(object);
 	}
@@ -4306,7 +4306,7 @@ Unknown77E3F0Class *SClient::Unknown_74C840(unsigned id)
 
 // NOT EXACT: inline budget (explain.py frame, 31 masked rows): the client calls hash_map::find out of line (0x756820, the key in the argument slot) where ours inlines it, as itself or through 0x74C840; two forms
 // 0x74C8D0 (0x74C840 for the named object's GameID)
-Unknown77E3F0Class *SClient::Unknown_74C8D0(const char *name) {
+CharacterViewAvatarClass *SClient::Unknown_74C8D0(const char *name) {
 	ClientObjectClass *object = Find_Object(name);
 	if (object) return(Unknown_74C840(object->GameID));
 	return(NULL); }
@@ -4314,9 +4314,9 @@ Unknown77E3F0Class *SClient::Unknown_74C8D0(const char *name) {
 // 0x74C960
 int *SClient::Unknown_74C960(unsigned id)
 {
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it = Unknown1394.find(id);
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
 	if (it != Unknown1394.end() && (*it).second) {
-		return(&(*it).second->UnknownF8);
+		return((int *)&(*it).second->Desc);
 	}
 	return(NULL);
 }
@@ -4496,19 +4496,19 @@ bool SClient::Unknown_74D690()
 	return(group && group->Unknown70 && group->IsGroupLeader.Value);
 }
 
+// NOT EXACT: inline budget (explain.py): the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line in auxdata.h's Unknown_Find_Field; here it is inlined (0x744560)
+#include "..\packets\pkuitrigger.h"						// UiTriggerPacketClass (UI_TRIGGER 101): 0x744560 (defined here, after auxdata.h: Unknown_Find_Field)
 
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x744560 (ui_cpit.cpp: 11 when the hulk is let in, 12 when it goes): a UI_TRIGGER packet with the avatar's id
+// when the player's ClientSendUITriggers field is set and positive
+void SClient::Unknown_744560(int arg)
+{
+	NameClass name("ClientSendUITriggers");
+	DeltaTemplateClass<int> *t = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, name);
+	if (t && t->Unknown70 && t->Value > 0) {
+		Send_Packet(&UiTriggerPacketClass(AvatarID, arg));
+	}
+}
 
 
 
@@ -5332,12 +5332,12 @@ void SClient::Unknown_7511A0()
 	int count = 0;
 	std::vector<unsigned> ids;
 	std::vector<AvatarDescClass *> descs;
-	std::hash_map<unsigned, SClientUnknown1394Class *>::iterator it;
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
 	for (it = Unknown1394.begin(); it != Unknown1394.end(); ++it) {
-		SClientUnknown1394Class *object = (*it).second;
+		CharacterViewAvatarClass *object = (*it).second;
 		if (object) {
 			ids.push_back((*it).first);
-			descs.insert(descs.end(), new AvatarDescClass((AvatarDescClass &)object->UnknownF8));
+			descs.insert(descs.end(), new AvatarDescClass(object->Desc));
 			count++;
 		}
 	}

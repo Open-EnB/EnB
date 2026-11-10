@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-703 entries in 215 files.
+739 entries in 226 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -44,6 +44,12 @@ edit the comments in the code, not this file.
 | `app/client/cammod_chase.h:30` | `?` | mention | NOT EXACT) // NAME 2 [des_quat, des_pos, obj]: its FAIL_IFs |
 | `app/client/chat_window.cpp:299` | `ChatWindowClass::Unknown_67F7F0` | marker | NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy) |
 | `app/client/chat_window_history.cpp:216` | `ChatWindowHistoryClass::Unknown_682770` | marker | NOT EXACT: the walk back: the client keeps the mask 2 in al and an unrotated loop (0x6827BB); this rotates it |
+| `app/client/chatgadg.cpp:30` | `ChatGadgetClass::ChatGadgetClass` | marker | NOT EXACT: functional (D64) |
+| `app/client/chatgadg.cpp:306` | `ChatGadgetClass::Unknown_65CCD0` | marker | NOT EXACT: functional (D64) |
+| `app/client/chatgadg.cpp:470` | `ChatGadgetClass::Unknown_65DE90` | marker | NOT EXACT: functional (D64) |
+| `app/client/chatgadg.cpp:610` | `ChatGadgetClass::Unknown_65E250` | marker | NOT EXACT: functional (D64) |
+| `app/client/chatgadg.cpp:671` | `ChatGadgetClass::Unknown_65E5E0` | marker | NOT EXACT: functional (D64) |
+| `app/client/chatgadg.cpp:725` | `ChatGadgetClass::Unknown_65E840` | marker | NOT EXACT: functional (D64) |
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; six forms; 'Null Item' passed as a plain literal brings out the client's three string COMDATs 0x729260..0x7292D0; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
@@ -83,6 +89,10 @@ edit the comments in the code, not this file.
 | `app/client/ctrngadg.cpp:118` | `CtrnGadgetClass::Unknown_2C` | marker | NOT EXACT: shape, 0.69 (explain.py): the release block is laid out after the Ctrl test, the wheel's default gets its own epilogue, 0 for +0x12B4 from ebx (see attempts.csv) @0x50ABC0 |
 | `app/client/ctrngadg.cpp:226` | `CtrnGadgetClass::Unknown_2C` | mention | NOT EXACT): with the window focused (input.cpp 0x42EE90) and the task focused (SClient 0x74B5E0), a pointer move (+0x48 / +0x4C its last x, y) turns the camera (camera_manager.cpp's 0x79B370-0x79B410, the pitch clamped to +-1.4835 = 85 degrees, scaled by the frame time and 0.1) or the bridge's view (bridge_int.cpp 0x53CA00 / 0x53C980) while Shift or Ctrl is down; the wheel (0x101 / 0x102) zooms by... |
 | `app/client/decal.cpp:16` | `SClientUnknown1334Class::Load` | marker | NOT EXACT: functional (D64), from the pseudocode @0x75BE00 |
+| `app/client/drag_mouse.cpp:38` | `SMouseDragClass::SMouseDragClass` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/drag_mouse.cpp:75` | `SMouseDragClass::Update_Drag` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/drag_slot_data.cpp:95` | `DragSlotDataClass::Update` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/drag_slot_data.cpp:149` | `DragSlotDataClass::Unknown_685500` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
 | `app/client/dynamic_window_horizontal.cpp:101` | `DynamicWindowHorizontalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_multi_line_text.cpp:91` | `DynamicWindowMultiLineTextClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
@@ -164,6 +174,9 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_robj.cpp:412` | `GalaxyMapLineRObjClass::Render` | marker | NOT EXACT: x87 operand order (the client multiplies Color's members by the clamped Fade held in st(1), ours keeps a copy with fld st(0)) @0x7B43F0 |
 | `app/client/gd_buffgadg.cpp:188` | `BuffGadgetClass::Unknown_AC` | marker | NOT EXACT: frame (the client keeps the time now on the stack, ours in registers; the body after it matches) 0x665F20 |
 | `app/client/gd_buffgadg.cpp:227` | `BuffGadgetClass::Unknown_6661F0` | marker | NOT EXACT: register (explain.py: identical once registers are normalised; ecx / edx swapped at the time compare) 0x6661F0 |
+| `app/client/gd_inv_slider.cpp:20` | `Unknown669FB0Class::Unknown669FB0Class` | marker | NOT EXACT: functional from the pseudocode (D64) 0x669FB0 |
+| `app/client/gd_inv_slider.cpp:41` | `Unknown669FB0Class::~Unknown669FB0Class` | marker | NOT EXACT: functional from the pseudocode (D64) 0x66A190 |
+| `app/client/gd_inv_slider.cpp:118` | `Unknown669FB0Class::Unknown_66A4E0` | marker | NOT EXACT: functional from the pseudocode (D64) 0x66A4E0 |
 | `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
 | `app/client/gd_text_editor.cpp:162` | `TextEditorGadgetClass::Set_Render_Obj` | marker | NOT EXACT: registers (client this esi, it ebp, line edi with a home at +0x24; here ebx, edi, esi) and the slots of first and height swapped @0x671CB0 |
@@ -177,6 +190,7 @@ edit the comments in the code, not this file.
 | `app/client/html/htmlview.cpp:1486` | `HtmlViewClass::Hit_Test` | marker | NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin |
 | `app/client/html/htmlview.cpp:1644` | `Get_Value` | mention | NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text (one frame slot more than the client's), Draw_Item (the client saves ebx / esi after the Type test). |
 | `app/client/html/htmlview.cpp:1646` | `Get_Value` | mention | NOT EXACT (functional, D64, from the pseudocode): an if / else chain of tag names (p, font, br, a, title, i, b / strong, center, table, tr, td, h1-h4, /hN, body, hr, ul, li, img); <td> lays its cell out in a child block by recursing, and </td> returns the characters used. Its assert (body background with no link of that name) on line 926. Get_Value 0x7784D0 exact: defined after Draw_Line_24 under ... |
+| `app/client/inv_data.cpp:163` | `InvDataClass::Unknown_20` | marker | NOT EXACT: functional from the pseudocode (D64) 0x688B90 |
 | `app/client/inv_data_peek.cpp:155` | `InvDataPeekClass::Get_Instance_Info` | marker | NOT EXACT: the failure path's inlined string constructor has mov byte ptr [ecx + ebx], 0 where the client has [ebx + ecx] (register-only, as skill_data_peek's 0x6A5730) 0x68A090 |
 | `app/client/inv_data_peek.cpp:163` | `InvDataPeekClass::Get_Instance_Activated_Effect_Info` | marker | NOT EXACT: the failure path's inlined string constructor has mov byte ptr [ecx + ebx], 0 where the client has [ebx + ecx] (register-only, as skill_data_peek's 0x6A5730) 0x68A270 |
 | `app/client/inv_data_peek.cpp:171` | `InvDataPeekClass::Get_Instance_Equip_Effect_Info` | marker | NOT EXACT: the failure path's inlined string constructor has mov byte ptr [ecx + ebx], 0 where the client has [ebx + ecx] (register-only, as skill_data_peek's 0x6A5730) 0x68A450 |
@@ -235,6 +249,7 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:4261` | `SClient::Unknown_74C3B0` | marker | NOT EXACT: inline budget (explain.py: 11 calls, the client 7): ours inlines the hash table's resize 0x759660 into operator[] (and so std::__stl_next_prime), the client calls it and its bucket helper 0x756D10 |
 | `app/client/sclient.cpp:4307` | `SClient::Unknown_74C8D0` | marker | NOT EXACT: inline budget (explain.py frame, 31 masked rows): the client calls hash_map::find out of line (0x756820, the key in the argument slot) where ours inlines it, as itself or through 0x74C840; two forms 0x74C8D0 (0x74C840 for the named object's GameID) |
 | `app/client/sclient.cpp:4373` | `Unknown_74CA90` | marker | NOT EXACT: functional, from the disassembly (first round, SC1): the INI accessors, the volley defaults and the record copy 0x74CA90 (Load_INIs: testeffects.ini): one record per section but [Defaults], each entry from the section or [Defaults]; a zero duration is the distance over effect.ini's AmmoSpeed of its EFFECT-<descid>\Weapon Usage section |
+| `app/client/sclient.cpp:4499` | `SClient::Unknown_744560` | marker | NOT EXACT: inline budget (explain.py): the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line in auxdata.h's Unknown_Find_Field; here it is inlined (0x744560) |
 | `app/client/sclient.cpp:4800` | `SClient::Unknown_74EDB0` | marker | NOT EXACT: shape (explain.py: 503 instructions, the client 508; 131 masked rows, 25 with registers masked): the client saves ebp with ebx in the prologue and takes each c_str() before the player id; two forms (the flag declared first gains 5 rows) 0x74EDB0 (Do_Frame, after 0x7429B0): the guild confirmations' answers to the server |
 | `app/client/sclient.cpp:4973` | `SClient::Unknown_74F5C0` | marker | NOT EXACT: shape (explain.py: 272 instructions, the client 270, 10 masked rows): the client loads AvatarID before testing button == 1 and keeps this in esi; three forms (one 0x750210 per branch and the named queues gained the rest) 0x74F5C0 (Do_Frame, after 0x751660): the answer to the confirmed-action dialog (0x74E710's type 0) goes to the server and the offer leaves both queues |
 | `app/client/sclient.cpp:5178` | `SClient::Unknown_750800` | marker | NOT EXACT: frame (explain.py: 145 instructions, the client 146; its frame 4 bytes larger): the client keeps the chat panel in a named local ([esp+0x18]) and tests it before taking the queues; as a local (ChatPanel.Peek()) VC6 inlines pop_front / erase (169 instructions); three forms 0x750800 (the chat panel's 0x563280, its message button): yes to the oldest type 1 offer, then the button goes |
@@ -434,6 +449,18 @@ edit the comments in the code, not this file.
 | `app/client/ui_missn.cpp:685` | `UIMissnClass::Unknown_5C66D0` | marker | NOT EXACT: register (the client reloads CurrentMissions[CurrentMission] for the packets' arguments, hoisted above the branch; this keeps the FAIL_IF's pointer) |
 | `app/client/ui_mount.cpp:262` | `UIMountClass::Build` | marker | NOT EXACT: functional, from the pseudocode (D64); 0.53: the client calls rtti.h's Cast out of line (0x5469C0, 0x5C8780, 0x5C87D0), this inlines it; the frame is 0x1A8 against 0x164 0x5C77A0 |
 | `app/client/ui_mount.cpp:522` | `Unknown_5C8710` | marker | NOT EXACT: 0.58: the client sets the table pointer after the first name's null test, this before it (scheduling; 4 loop forms) 0x5C8710 |
+| `app/client/ui_pda_cargo.cpp:66` | `UIPdaCargoClass::UIPdaCargoClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CF9B0 |
+| `app/client/ui_pda_cargo.cpp:112` | `UIPdaCargoClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5CFE40 |
+| `app/client/ui_pda_cargo.cpp:216` | `UIPdaCargoClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0620 |
+| `app/client/ui_pda_cargo.cpp:293` | `UIPdaCargoClass::Unknown_5D0A50` | marker | NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits' 0x5D0A50 |
+| `app/client/ui_pda_cargo.cpp:319` | `UIPdaCargoClass::Unknown_5D0D20` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0D20 |
+| `app/client/ui_pda_equip.cpp:103` | `UIPdaEquipClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1250 |
+| `app/client/ui_pda_equip.cpp:158` | `UIPdaEquipClass::~UIPdaEquipClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1A00 |
+| `app/client/ui_pda_equip.cpp:217` | `UIPdaEquipClass::Unknown_58` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1CA0 |
+| `app/client/ui_pda_equip.cpp:273` | `UIPdaEquipClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2180 |
+| `app/client/ui_pda_equip.cpp:294` | `UIPdaEquipClass::Unknown_B0` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2210 |
+| `app/client/ui_pda_equip.cpp:398` | `UIPdaEquipClass::Unknown_A4` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2850 |
+| `app/client/ui_pda_equip.cpp:441` | `UIPdaEquipClass::Unknown_5D2C50` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2C50 |
 | `app/client/ui_popup_browser.cpp:45` | `UIPopupBrowserClass::UIPopupBrowserClass` | marker | NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it) @0x5DAE90 |
 | `app/client/ui_popup_browser.cpp:76` | `UIPopupBrowserClass::Unknown_54` | marker | NOT EXACT: stub @0x5DB2D0 |
 | `app/client/ui_proc.cpp:126` | `UIProc5DCD20Class::Unknown_08` | marker | NOT EXACT: 0x5DD3C0 (0.81): block order, the cycle wrap's EndFrame arm sits after the return in the client (attempts.csv) @0x5DD3C0 |
@@ -477,7 +504,16 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:1349` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
 | `app/client/ui_shipcust.cpp:1668` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
+| `app/client/ui_skills.cpp:187` | `UISkillsClass::Unknown_62D730` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/ui_slot_data.cpp:110` | `SlotDataInterface::SlotDataInterface` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/ui_slot_data.cpp:178` | `SlotDataInterface::~SlotDataInterface` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/ui_slot_info.cpp:135` | `UISlotInfoClass::Unknown_630070` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
+| `app/client/ui_starbase.cpp:1999` | `UIStarbaseClass::Unknown_63A100` | marker | NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1) 0x63A100 |
+| `app/client/ui_starbase.cpp:3862` | `UIStarbaseClass::Unknown_63E770` | marker | NOT EXACT: 0x63E770, functional (the client compares the found iterator with end() through an out-of-line 8-byte copy 0x6439B0, a const_iterator conversion the stand-in table lacks; SB1) 0x63E770 |
+| `app/client/ui_starbase.cpp:3917` | `UIStarbaseClass::Unknown_63E2B0` | marker | NOT EXACT: 0x63E2B0, functional (the flag test's own load of the avatar, the position's y / z through the matrix copy, the id's load order; SB1) 0x63E2B0 |
+| `app/client/ui_starbase.cpp:3967` | `UIStarbaseClass::Unknown_641FA0` | marker | NOT EXACT: 0x641FA0, register only (this in edi, the gadget in ebx: the client's are swapped; SB1) 0x641FA0 |
+| `app/client/ui_starbase.cpp:4195` | `UIStarbaseUnknownD4TableClass::begin` | marker | NOT EXACT: 0x643DF0, functional (the client's loop re-tests the vector's start each pass; SB1) 0x643DF0 (SGI's hashtable::begin, out of line) |
 | `app/client/ui_talkt.cpp:68` | `UITalkTreeClass::UITalkTreeClass` | marker | NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup) |
 | `app/client/ui_talkt.cpp:287` | `UITalkTreeClass::Unknown_5C` | marker | NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client) |
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |

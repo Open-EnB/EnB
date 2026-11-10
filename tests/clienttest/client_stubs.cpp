@@ -46,7 +46,6 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *, StarmapPipClass *arg, 
 // ------------------------------------------------------------------------- SClient's methods the handlers call (sclient.cpp, not rebuilt)
 
 void SClient::Unknown_743290() { Trace("stub SClient::Unknown_743290"); }
-bool SClient::Unknown_744B60() { Trace("stub SClient::Unknown_744B60 -> %d", Stub_744B60); return(Stub_744B60); }
 void SClient::Unknown_74C530(unsigned id) { Trace("stub SClient::Unknown_74C530 %u", id); }
 void SClient::Unknown_74B680(int a, int starbase_id) { Trace("stub SClient::Unknown_74B680 %d %d", a, starbase_id); }
 void SClient::Unknown_74BA30(int a, int starbase_id, int mode) { Trace("stub SClient::Unknown_74BA30 %d %d %d", a, starbase_id, mode); }
@@ -73,8 +72,7 @@ void ChatPanelInterface::Clienttest_Unknown_563760(int type, const std::string &
 {
 	Trace("stub ChatPanelInterface::Unknown_563760 0x%X '%s'", type, Chat_Trace_Text(text.c_str()).c_str());
 }
-// gen_stubs cannot return a class by value (P-T18-2): the chat colour SClient 0x750F70 reads (0x765DF0's body)
-Vector3 Unknown764FD0Class::Unknown_765DF0(int index) { Trace("stub Unknown764FD0Class::Unknown_765DF0 %d", index); return((index >= 0 && index < 24) ? Unknown00[index] : Vector3(1.0f, 1.0f, 1.0f)); }
+// (the chat colour 0x765DF0 SClient 0x750F70 reads is rebuilt: app/client/unknown_764fd0.cpp, GS1)
 // gen_stubs cannot return a class by value (P-T18-2): the referral rewards SClient 0x751460 sums
 std::vector<BuddyRewardStruct> Unknown49F200Class::Unknown_49F300(int points_spent, int points) { Trace("stub Unknown49F200Class::Unknown_49F300 %d %d", points_spent, points); return(std::vector<BuddyRewardStruct>()); }
 void SClient::Unknown_7517E0(int a, int b, int c, int d) { Trace("stub SClient::Unknown_7517E0 %d %d %d %d", a, b, c, d); }
@@ -107,7 +105,6 @@ int Unknown_BE5F34 = 0;
 // Do_Frame's callees that take an input event by value (gen_stubs skips a class by value)
 #include "..\..\..\app\kernel\kernel.h"
 void SClient::Unknown_744240(KernelEventClass event) { Trace("stub SClient::Unknown_744240 key 0x%X", event.Key); }
-KernelEventClass Unknown_65F780(void *) { Trace("stub Unknown_65F780"); return(KernelEventClass()); }
 // (ScriptedMovieViewClass::Unknown_802960 is rebuilt in scriptedmovie.cpp, UI1; the trace never reaches it)
 
 // ------------------------------------------------------------------------- eff_o.cpp's effect, the third list's records
@@ -117,13 +114,7 @@ Unknown86CRecordClass::~Unknown86CRecordClass() { Trace("stub Unknown86CRecordCl
 
 // ------------------------------------------------------------------------- ClientClass's members (client.h)
 
-// (ITEM_BASE 37 asserts on the item type and name of a template it has already: the stand-in keeps both)
-Unknown831340Class::Unknown831340Class(int a, int, int, const RefCountPtr<ItemBaseInfoClass> &, int, int, int g, int, int, int, int, int,
-	const std::string &name, const std::string &, const std::string &) : ItemType(g), Name(name)
-{
-	Trace("stub Unknown831340Class::Unknown831340Class %d '%s' type %d", a, name.c_str(), g);
-}
-Unknown831340Class::~Unknown831340Class() { Trace("stub Unknown831340Class::~Unknown831340Class"); }
+// Unknown831340Class (the item templates) is rebuilt in app\common\item_template.cpp (IT1): no stand-ins here
 
 // ------------------------------------------------------------------------- cpacket.cpp's callees in other files
 

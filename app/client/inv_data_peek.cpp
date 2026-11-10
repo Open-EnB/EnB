@@ -9,7 +9,7 @@ static const char *ItemFieldNames[14] = {	// 0xB8FEB4  // NAME 2: describes what
 	"Quality", "InstanceInfo", "InstanceActivatedEffectInfo", "InstanceEquipEffectInfo", "BuilderName", "Effects"
 };
 
-InvDataPeekItemStruct *Unknown_8318B0(int item_template_id, ClientClass *client);	// NAME 1: neutral (D10); NAME 3 [item_template_id]: ui_manu.cpp's
+class Unknown831340Class; Unknown831340Class *Unknown_8318B0(int item_template_id, ClientClass *client);	// item_template.cpp's (client.h's item template)  // NAME 1: neutral (D10); NAME 3 [item_template_id]: ui_manu.cpp's
 
 // 0x689A80
 InvDataPeekClass::InvDataPeekClass(ClientClass *client, const char *name, bool mounts) :
@@ -285,10 +285,10 @@ InvDataPeekItemStruct *InvDataPeekClass::Get_Item(int slot, bool flag)
 	if (Status == 2) return(0);
 	if (id == -2) return(0);
 	if (id == -1 && !flag) return(0);
-	InvDataPeekItemStruct *item = Unknown_8318B0(id, Owner);
+	InvDataPeekItemStruct *item = (InvDataPeekItemStruct *)Unknown_8318B0(id, Owner);
 	if (item) return(item);
 	G_ASSERT(false);
-	return(Unknown_8318B0(-1, Owner));
+	return((InvDataPeekItemStruct *)Unknown_8318B0(-1, Owner));
 }
 
 // 0x68AB80
