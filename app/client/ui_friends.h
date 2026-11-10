@@ -8,11 +8,13 @@
 #include <vector>
 #include <list>
 #include "ui_chat_panel.h"
-#include "ui_group.h"		// UISymbolChatClass (the window's +0xB0)
+#include "ui_group.h"		// sclient.h (UIPTradeCreditsClass: the window's +0xB0)
 
 class GadgetClass;			// gadget.cpp's
 class GadgetSlider;			// gd_slider.h's
 class FontSys;				// fontmanager.h's
+class UIManuCheckButtonClass;	// ui_manu.cpp's check button (0x7E8030: checked or not)
+class UIPTradeCreditsClass;	// sclient.h's: the text entry (ui_ptrade.cpp's credits entry; here 'Friend Player')
 
 // One player of the list (0x20 bytes; the window's list +0xC4 and PlayersInfo hold them)
 class UIFriendsPlayerInfoClass	// NAME 2: what PlayersInfo holds (the asserts' 'PlayersInfo', '!friend_info')
@@ -30,6 +32,11 @@ public:
 class UIFriendsClass : public ChatPanelUIBase	// NAME 3: class-from-file (D24) for app\client\ui_friends.cpp
 {
 public:
+	UIFriendsClass(SClient *client);					// 0x58F210  // NAME 1 [client]: ChatPanelUIBase's
+	virtual ~UIFriendsClass();							// 0x58F450 (deleting 0x58F420)
+	virtual void Unknown_54();							// +0x54 0x58F6B0 ('tsi28a', 'fa_tsi28a.ini': the buttons, the rows, the check buttons, the slider, the 'Friend Player' entry)
+	virtual bool Unknown_68(int key);					// +0x68 0x590020 (the buttons 1-5, the sort 6 / 7, 8, the check buttons 10 / 11, the rows 13-19)  // NAME 1 [key]: InterfaceClass's
+	void Unknown_591C30();								// 0x591C30 (key 8)
 	void Unknown_5908B0();								// 0x5908B0: PlayersInfo rebuilt from +0xC4, sorted (by name, or by location with 'offline' last)
 	void Unknown_5906C0();								// 0x5906C0: PlayersInfo's players deleted, the vector emptied (0x5908B0 expands it; the destructor calls it)
 	void Unknown_590810();								// 0x590810: +0xC4's players deleted, the list emptied (the destructor calls it)
@@ -60,13 +67,12 @@ public:
 	bool Unknown0AC;									// +0xAC (1 from the constructor: sorted by location)
 	bool Unknown0AD;									// +0xAD ('RestrictedStatus')
 	bool Unknown0AE;									// +0xAE
-	RefCountPtr<UISymbolChatClass> SymbolChatUI;		// +0xB0 (the destructor's slot +0x5C)  // NAME 1: as ui_group.h's
+	RefCountPtr<UIPTradeCreditsClass> Unknown0B0;		// +0xB0 ('Friend Player': 0x58F6B0 makes it by 0x649890; the destructor's slot +0x5C)
 	std::vector<UIFriendsPlayerInfoClass *> PlayersInfo;	// +0xB4  // NAME 3: the asserts'
 	std::list<UIFriendsPlayerInfoClass *> Unknown0C4;	// +0xC4 (the destructor erases its nodes, not the players)
 	GadgetClass *Unknown0D0[8];							// +0xD0 (the constructor clears them; [2] and [4] on while a row is selected)
 	GadgetClass *Unknown0F0[7];							// +0xF0 the rows (slot +0x30: the pointer over one)
-	int Unknown10C;										// +0x10C
-	int Unknown110;										// +0x110
+	UIManuCheckButtonClass *Unknown10C[2];				// +0x10C the check buttons ('check%02d', ids 10 / 11: not restricted, restricted)
 	RefCountPtr<FontSys> Unknown114[7];					// +0x114 the rows' names (eh vector constructor 0x553A80, destructor 0x51C630)
 	RefCountPtr<FontSys> Unknown130[7];					// +0x130 the rows' locations ('offline': 0.5 alpha)
 };

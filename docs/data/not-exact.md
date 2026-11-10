@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-739 entries in 226 files.
+744 entries in 226 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -390,10 +390,15 @@ edit the comments in the code, not this file.
 | `app/client/ui_cpit.cpp:1278` | `UICpitClass::Unknown_5821C0` | marker | NOT EXACT: written from the client (its expanded 0x584000 calls the find out of line, ours inlines it) |
 | `app/client/ui_cpit.cpp:1866` | `UICpitClass::Unknown_583DC0` | marker | NOT EXACT: inline budget (the client calls the list's _Construct out of line, 0x584F90, and keeps emp in bl; ours expands it) |
 | `app/client/ui_faction.cpp:230` | `UIFactionClass::Unknown_58DC20` | marker | NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump) |
-| `app/client/ui_friends.cpp:45` | `UIFriendsClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase, the list's begin and erase out of line and expands the list's ??_G; ours the reverse) 0x58FBA0 |
-| `app/client/ui_friends.cpp:183` | `UIFriendsClass::Unknown_5908B0` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14) 0x5908B0 |
-| `app/client/ui_friends.cpp:266` | `UIFriendsClass::Unknown_590E50` | marker | NOT EXACT: register allocation (the client holds this in ebx and 0 in ebp, ours the reverse) 0x590E50 |
+| `app/client/ui_friends.cpp:3` | `UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass` | mention | NOT EXACT. |
+| `app/client/ui_friends.cpp:62` | `UIFriendsClass::UIFriendsClass` | marker | NOT EXACT: shape (explain.py): the client zeroes a stack slot before reading the list's allocator byte from it; registers otherwise 0x58F210 |
+| `app/client/ui_friends.cpp:87` | `UIFriendsClass::~UIFriendsClass` | marker | NOT EXACT: inline budget (explain.py): ours inlines 0x5906C0 (the players' ??_G) inside the inlined slot +0x5C; the client calls 0x591030 / 0x5906C0 / 0x590810 out of line 0x58F450 |
+| `app/client/ui_friends.cpp:147` | `UIFriendsClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase, the list's begin and erase out of line and expands the list's ??_G; ours the reverse) 0x58FBA0 |
+| `app/client/ui_friends.cpp:208` | `UIFriendsClass::Unknown_68` | marker | NOT EXACT: shape (explain.py): case order / block layout and registers differ (the check buttons' calls, the sound before the store) 0x590020 |
+| `app/client/ui_friends.cpp:360` | `UIFriendsClass::Unknown_5908B0` | marker | NOT EXACT: register allocation (the client keeps 0 in ebx and the insert position in a stack slot; ours holds the position in ebx; frame 0x18 vs 0x14) 0x5908B0 |
+| `app/client/ui_friends.cpp:443` | `UIFriendsClass::Unknown_590E50` | marker | NOT EXACT: register allocation (the client holds this in ebx and 0 in ebp, ours the reverse) 0x590E50 |
 | `app/client/ui_friends.cpp:604` | `UIFriendsClass::Unknown_5913E0` | marker | NOT EXACT: inline budget and registers (the client keeps the list iterator's ++ inline and calls the players' ??_G and list::clear out of line; names' first / last in edi / ebx) 0x5913E0 |
+| `app/client/ui_friends.cpp:665` | `UIFriendsClass::Unknown_591C30` | marker | NOT EXACT: inline budget (explain.py): ours inlines auxdata.h's find (Cast, Get_Lookup) and the name's constructor; the client calls 0x5927E0 and _Eos out of line 0x591C30 |
 | `app/client/ui_group.cpp:226` | `UIGroupUnknownE8Class::Unknown_592C50` | marker | NOT EXACT: register / frame (the client keeps one temporary's slot for all five Create_NEW results and compares with the zero in ebx; ours gives the loop's its own slot) |
 | `app/client/ui_group.cpp:341` | `UIGroupMemberClass::~UIGroupMemberClass` | marker | NOT EXACT: inline budget (the client calls RefCountPtr's operator=(NULL) 0x5988A0 out of line for +0x38 / +0x30 here, 0x593790 expands it) |
 | `app/client/ui_group.cpp:643` | `UIGroupClass::Unknown_54` | marker | NOT EXACT: register (the arguments of 0x6870E0 / 0x5BB4F0 and the mesh for Get_Style in other registers) |
