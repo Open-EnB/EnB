@@ -81,10 +81,10 @@ struct SlotDataRenderUnknown18Struct	// NAME 1: neutral (D10)
 };
 
 // 0x62DD20
-// NOT EXACT: functional (D64), from the pseudocode
 SlotDataInterface::SlotDataInterface(UIViewClass *view, int unknown) :
 	InterfaceClass(view, unknown),
 	ShortcutUI(NULL),
+	Buttons(0),
 	SlotData(NULL),
 	Unknown9C(NULL),
 	SlotDrag(NULL),
@@ -111,6 +111,7 @@ bool SlotDataInterface::Unknown_9C(int slot, bool arg)
 SlotDataInterface::SlotDataInterface(SClient *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	ShortcutUI(NULL),
+	Buttons(0),
 	SlotData(NULL),
 	Unknown9C(NULL),
 	SlotDrag(NULL),
@@ -125,7 +126,6 @@ SlotDataInterface::SlotDataInterface(SClient *client) :
 	UnknownB8_2 = false;
 	UnknownB8_3 = true;
 }
-
 
 
 
