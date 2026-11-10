@@ -631,6 +631,15 @@ unless `--lever` cites a new row of this table.
 
 ### 3.3 E&B app code
 
+* **Char-array member stand-ins break on retype (2026-11-10, TC1):** code that reached a stand-in's members through
+  `->Unknown0AC[0xCD - 0xAC]` stops compiling once the real class replaces it; grep `->Unknown0..\[0x` before moving a class, in the run branch's
+  head too (FR2's ui_friends.cpp line 135 still wrote one; TC1's own grep at its base could not see it).
+* **Same-name minimal local class (2026-11-10, CP2):** when the real class has no header yet, a minimal local declaration
+  with the real class name (UIGuildClass : ChatPanelUIBase) makes a call link to the real member, line-neutral; replace it with
+  the header when one exists. ui_chat_panel.h's UIChatPanelWindowClass (+0xF8 / +0x104) is really ChatPanelUIBase.
+* **Member-callback disconnect order (2026-11-10, DW1):** the client's `disconnect(Collection, this, &F, GadgetEvent())` is
+  the templated form (the signal-map call before the temporary callback is built); `disconnect(void*, MemberCallback(...))`
+  misorders it. names.py records a `std::vector<...> Name; // NAME n` member under the name "std:".
 * **Stand-ins on the POC path (2026-11-04 night run, CRE1, SHIP, LIGHT, DEC):** a stand-in class used with `new` needs the
   real size (ui_avatr's ShipPip stand-in was 0xE0 bytes, the real ctor wrote 0xF4 and operator new crashed later); a
   stand-in's ctor / dtor defined in the same file, even last with `auto_inline(off)`, inlines into exact callers or breaks
@@ -965,6 +974,9 @@ unless `--lever` cites a new row of this table.
 
 ### 3.4 Importer, verify and pairs
 
+* **sendpad.py's watch set comes from the working ledger (2026-11-10, TC1):** after a verify that already lost 0x758210, the
+  sweep leaves it out, reports a "window" and sets a pad that still loses it. Sweep from the committed shards (restore them
+  first) and check 0x758210 / 0x702240 in .work/log/sendpad.log.
 * **A header static's `_$E` copy is no placement evidence** (NM1, 2026-11-07): the guard-0xC416FC initialiser has 533 copies in
   the app; one found inside a file's window is often the neighbour's. The client's CRT initialiser table (.CRT$XCU, 0xB6427C-0xB6E59C)
   lists them in link order: check it before trusting a range credit (P-IR3-1).
