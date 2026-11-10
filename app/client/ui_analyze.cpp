@@ -59,7 +59,7 @@ struct UIAnalyzeKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 	int Unknown08;										// +0x08
 	int Unknown0C;										// +0x0C
 };
-class UIAnalyzeKeysClass { public: void Unknown_721E60(const UIAnalyzeKeyEventStruct *event, bool on); };	// NAME 1: neutral (D10): InterfaceClass +0x4C's 0x721E60  // NAME 1 [event, on]: what slot +0x54 passes
+struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// control_keys_manager.h's (InterfaceClass +0x4C, 0x721E60 / 0x721EF0), as ui_class.cpp declares it
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
 
 // The item's fields this file reads (as ui_manu.cpp's)
@@ -136,7 +136,7 @@ void UIAnalyzeClass::Unknown_54()
 	}
 	GadgetClass::Set_Tooltip(Unknown0E0[5], "UI_ANALYZE", "ICON_GO");
 	GadgetClass::Set_Tooltip(Unknown0E0[6], "UI_ANALYZE", "ICON_INV");
-	((UIAnalyzeKeysClass *)Unknown4C)->Unknown_721E60(&UIAnalyzeKeyEventStruct(0x1B), true);
+	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAnalyzeKeyEventStruct(0x1B), (void *)1);
 	SClient *sclient = Client->As_Space_Client();
 	Unknown0D4 = Create_Get(new UIAnalyzeInvClass(sclient, InterfaceMesh->Peek_Object(), 6, "TSM02A.E%02d", 12));
 	Unknown0D4->Unknown_54();

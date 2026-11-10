@@ -24,7 +24,7 @@
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // What the avatar pip's +0x2C holds (a render object), as far as 0x563C50 reads it
-class AvatarPipUnknown2CClass : public RenderObjClass	// NAME 1: neutral (D10)
+class CharacterViewAvatarClass : public RenderObjClass	// avatar.h's (avatar_pip.h's +0x2C), as far as this file uses it
 {
 public:
 	void Unknown_77E3D0(int arg);						// 0x77E3D0 (avatar.cpp; 0x563910 passes 1 or 2)  // NAME 1 [arg]: neutral
@@ -41,11 +41,11 @@ class AvatarPipClass	// NAME 3: class-from-file (D24) for app\client\avatar_pip.
 {
 public:
 	bool Unknown_7E36B0(SClient *client, const RefCountPtr<RenderObjClass> &robj, bool arg);	// 0x7E36B0 (slot +0x58)  // NAME 1 [client, robj, arg]: what 0x562F50 passes
-	bool Unknown_7E3A20(const char *a, unsigned id, class CharacterViewAvatarClass *b);		// 0x7E3A20 (0x564030: 0, +0x118, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
+	bool Unknown_7E3A20(const char *a, unsigned id, CharacterViewAvatarClass *b);		// 0x7E3A20 (0x564030: 0, +0x118, 0)  // NAME 1 [a, id, b]: what 0x564030 passes
 	void Unknown_7E4350();								// 0x7E4350
 
 	char Unknown00[0x2C];
-	RefCountPtr<AvatarPipUnknown2CClass> Unknown2C;		// +0x2C (0x563C50 tests its +0x204)
+	RefCountPtr<CharacterViewAvatarClass> Unknown2C;		// +0x2C (0x563C50 tests its +0x204)
 };
 
 // The client at InterfaceClass +0x40, as this file calls it
@@ -656,7 +656,7 @@ void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 			Unknown110->Unknown_7E3A20(0, Unknown118, 0);
 		}
 		Unknown11C = id;
-		RefCountPtr<AvatarPipUnknown2CClass> avatar = Unknown110->Unknown2C;
+		RefCountPtr<CharacterViewAvatarClass> avatar = Unknown110->Unknown2C;
 		if (avatar) {
 			avatar->Unknown_77E3D0(1);
 			if (avatar->Get_UnknownF8()) Unknown124 = avatar->Get_UnknownF8()->Name;
@@ -668,7 +668,7 @@ void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 			Unknown118 = id;
 			if (Unknown11C) Unknown110->Unknown_7E4350();
 			Unknown110->Unknown_7E3A20(0, Unknown118, 0);
-			RefCountPtr<AvatarPipUnknown2CClass> avatar = Unknown110->Unknown2C;
+			RefCountPtr<CharacterViewAvatarClass> avatar = Unknown110->Unknown2C;
 			if (avatar) {
 				avatar->Unknown_77E3D0(2);
 				if (avatar->Get_UnknownF8()) Unknown124 = avatar->Get_UnknownF8()->Name;
@@ -682,7 +682,7 @@ void ChatPanelInterface::Unknown_563910(unsigned id, bool flag)
 void ChatPanelInterface::Unknown_563C50()
 {
 	SClient *sclient = Client->As_Space_Client();
-	RefCountPtr<AvatarPipUnknown2CClass> object = Unknown110->Unknown2C;
+	RefCountPtr<CharacterViewAvatarClass> object = Unknown110->Unknown2C;
 	if (Unknown118) {
 		if (!sclient->Find_Object(Unknown118) || (object && !object->Unknown204)) {
 			Unknown110->Unknown_7E4350();

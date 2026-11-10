@@ -597,9 +597,9 @@ public:
 };
 
 // The pad and its pull (the panel's +0xD8), as ui_avatar_cust.cpp's UIAvatarCustGadgetHolderStruct
-struct UIStarbaseLightsGadgetHolderStruct	// NAME 1: neutral (D10)
+struct UIAvatrPullClass	// NAME 1: neutral (D10)
 {
-	UIStarbaseLightsGadgetHolderStruct();				// 0x585920 (0x10 bytes)
+	UIAvatrPullClass();				// 0x585920 (0x10 bytes)
 	void Unknown_5859A0();								// 0x5859A0 (once the gadget is in)
 	GadgetClass *Unknown00;								// +0x00 (the pad: slots +0x08 / +0x64)
 	RenderObjClass *Unknown04;							// +0x04 (the pull, a bone of the panel's model)
@@ -636,7 +636,7 @@ public:
 	GadgetClass *UnknownA0[6];							// +0xA0 (the buttons exit, save, light00-03: 0x646360; the constructor clears them with one memset)
 	GadgetSlider *Slider[4];							// +0xB8 (near, far, intensity, fill: 0x646F70's texts)  // NAME 1: neutral
 	float SliderValue[4];								// +0xC8 (the values last seen: 0x646F70 compares them)  // NAME 1: neutral
-	UIStarbaseLightsGadgetHolderStruct *UnknownD8;		// +0xD8
+	UIAvatrPullClass *UnknownD8;		// +0xD8
 	UIStarbaseClass *Starbase;							// +0xDC (0x640E90 / 0x640EC0 / 0x640EF0 / 0x640F30, ui_starbase.cpp's)  // NAME 1: neutral
 	int UnknownE0;										// +0xE0 (0: a light; else the ambient light)
 	int UnknownE4;										// +0xE4
@@ -719,7 +719,7 @@ void UIStarbaseLightsClass::Unknown_54()
 				Slider[i]->Unknown_A4(500.0f, false);
 			}
 		}
-		UnknownD8 = new UIStarbaseLightsGadgetHolderStruct;
+		UnknownD8 = new UIAvatrPullClass;
 		RefCountPtr<RenderObjClass> palette = Create_Get(Unknown84->Get_Sub_Object_By_Name("COLOR_PALETTE"));
 		Unknown_496AE0(palette.Peek(), false);
 		UnknownD8->Unknown00 = new Unknown_671300Class(palette.Peek(), 0, 0, 0, 0);

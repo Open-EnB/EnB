@@ -12,8 +12,8 @@
 // inv_data.cpp's, as far as this file calls it
 class Unknown688830Item { public: char Unknown00[0x14]; std::string Unknown14; };	// NAME 1: neutral (D10)
 class Unknown688830Class { public: Unknown688830Item *Unknown_68AAA0(int slot, bool flag); int Unknown_689CA0(int slot); bool Unknown_689C60(int slot); MoneyClass Unknown_689DA0(int slot); };	// NAME 1: neutral (D10); NAME 1 [slot, flag]: neutral
-class Unknown695E10Class { public: void Unknown_695E10(int id, int *owned, int *slots); };	// NAME 1: neutral (D10); NAME 1 [id, owned, slots]: neutral
-class SClient { public: char Unknown00[0x1284]; Unknown695E10Class *Unknown1284; };	// sclient.cpp's, as far as this file reads it
+class PDAInterfaceClass { public: void Unknown_695E10(int type, int *num_items, int *num_slots); };	// pdaint.h's, as far as this file calls it
+class SClient { public: char Unknown00[0x1284]; PDAInterfaceClass *Unknown1284; };	// sclient.cpp's, as far as this file reads it
 class InvDataClass { public: Unknown688830Class *Unknown_688830(); char Unknown00[0x20]; SClient *Client; };	// NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
@@ -89,7 +89,7 @@ void InvTradeRenderClass::Unknown_2C(bool force)
 		if (OwnedTextValue) {
 			int slots = 0;
 			int owned = 0;
-			Unknown695E10Class *counter = Peek_Inv_Data()->Client->Unknown1284;	// NAME 1 [counter]: neutral
+			PDAInterfaceClass *counter = Peek_Inv_Data()->Client->Unknown1284;	// NAME 1 [counter]: neutral
 			counter->Unknown_695E10(data->Unknown_689CA0(slot), &owned, &slots);
 			if (slots > 1) {
 				OwnedTextValue->Unknown_6CE420(0, "Owned: %d in %d slots", owned, slots);
