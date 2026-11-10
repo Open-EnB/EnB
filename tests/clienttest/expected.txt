@@ -1,7 +1,6 @@
 == SClient (its constructor, the base's)
 stub Unknown831340Class::Unknown831340Class -1 'Null Item' type -1
 stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
-gen Unknown764FD0Class::Unknown764FD0Class
 check SClient's slot +0x18 returns the client: ok
 check the fake asset manager is *0xBDADC0 and WW3DAssetManager::Get_Instance(): ok
 == (1) the lists
@@ -1795,11 +1794,9 @@ msg 758 CLIENT_SET_TIME (52) size 16: cpacket.cpp's handler
 stub ChatPanelInterface::Unknown_563760 0x17 'rtt = 4291033018  correction = 2140343229'
 state CLIENT_SET_TIME correction 2140343229 rtt -3934278
 msg 759 CLIENT_CHAT_EVENT (165) size 76: cpacket.cpp's handler
-stub Unknown764FD0Class::Unknown_765DF0 12
 stub ChatPanelInterface::Unknown_563760 0xC '[Market] Snaggletoof: *erupts in laughter*'
 msg 760 CLIENT_SOUND (106) size 30: cpacket.cpp's handler
 msg 761 CLIENT_CHAT_EVENT (165) size 99: cpacket.cpp's handler
-stub Unknown764FD0Class::Unknown_765DF0 12
 stub ChatPanelInterface::Unknown_563760 0xC '[Market] Heckitty: Think I feel my life expectancy rising already :D'
 msg 762 OBJECT_EFFECT (9) size 23: cpacket.cpp's handler
 asset manager +0x78 'eff_1160': not loaded
@@ -1925,7 +1922,6 @@ msg 807 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 808 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 809 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 810 CLIENT_CHAT_EVENT (165) size 61: cpacket.cpp's handler
-stub Unknown764FD0Class::Unknown_765DF0 12
 stub ChatPanelInterface::Unknown_563760 0xC '[Market] Stormp: hard to say >>>'
 msg 811 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 207

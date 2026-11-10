@@ -216,13 +216,7 @@ UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((Li
 	STUB_CALLED("POC UIChatReplyListClass: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-// 0x765DF0 (file unknown, not rebuilt): the client's code, the chat line colour by its index (0..23), else white;
-// a generated stub cannot return a Vector3 (the call links to 0)
-Vector3 Unknown764FD0Class::Unknown_765DF0(int index)
-{
-	if (index < 24 && index >= 0) return(Unknown00[index]);
-	return(Vector3(1.0f, 1.0f, 1.0f));
-}
+// (0x765DF0, the chat line colour by its index, is rebuilt: app/client/unknown_764fd0.cpp, GS1)
 
 // FontSys 0x6CE420 (unknown_6cce60.cpp's object, not rebuilt): the client's code, the text from a format into Change_Text
 // (a generated stub left the chat window's lines, the inventory counts and the mission texts empty)
