@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-714 entries in 217 files.
+722 entries in 222 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -89,6 +89,10 @@ edit the comments in the code, not this file.
 | `app/client/ctrngadg.cpp:118` | `CtrnGadgetClass::Unknown_2C` | marker | NOT EXACT: shape, 0.69 (explain.py): the release block is laid out after the Ctrl test, the wheel's default gets its own epilogue, 0 for +0x12B4 from ebx (see attempts.csv) @0x50ABC0 |
 | `app/client/ctrngadg.cpp:226` | `CtrnGadgetClass::Unknown_2C` | mention | NOT EXACT): with the window focused (input.cpp 0x42EE90) and the task focused (SClient 0x74B5E0), a pointer move (+0x48 / +0x4C its last x, y) turns the camera (camera_manager.cpp's 0x79B370-0x79B410, the pitch clamped to +-1.4835 = 85 degrees, scaled by the frame time and 0.1) or the bridge's view (bridge_int.cpp 0x53CA00 / 0x53C980) while Shift or Ctrl is down; the wheel (0x101 / 0x102) zooms by... |
 | `app/client/decal.cpp:16` | `SClientUnknown1334Class::Load` | marker | NOT EXACT: functional (D64), from the pseudocode @0x75BE00 |
+| `app/client/drag_mouse.cpp:38` | `SMouseDragClass::SMouseDragClass` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/drag_mouse.cpp:75` | `SMouseDragClass::Update_Drag` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/drag_slot_data.cpp:95` | `DragSlotDataClass::Update` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/drag_slot_data.cpp:149` | `DragSlotDataClass::Unknown_685500` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/dynamic_window_background.cpp:407` | `DynamicWindowBackgroundClass::Fit_Size` | mention | NOT EXACT (D64): Get 0x515AB0 (marked); the data's inline destructor 0x515E20 is 6 bytes longer than the client's (its three strings' destructors). The direct calls of the base's slots are qualified calls (DynamicWindowRenderObjectClass::...). |
 | `app/client/dynamic_window_horizontal.cpp:101` | `DynamicWindowHorizontalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/dynamic_window_multi_line_text.cpp:91` | `DynamicWindowMultiLineTextClass::Set_Flags` | marker | NOT EXACT: the client keeps the new flags in a second register (esi, then edx) for the compare |
@@ -483,6 +487,10 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:1349` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
 | `app/client/ui_shipcust.cpp:1668` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
+| `app/client/ui_skills.cpp:187` | `UISkillsClass::Unknown_62D730` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/ui_slot_data.cpp:110` | `SlotDataInterface::SlotDataInterface` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/ui_slot_data.cpp:178` | `SlotDataInterface::~SlotDataInterface` | marker | NOT EXACT: functional (D64), from the pseudocode |
+| `app/client/ui_slot_info.cpp:135` | `UISlotInfoClass::Unknown_630070` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
 | `app/client/ui_starbase.cpp:1999` | `UIStarbaseClass::Unknown_63A100` | marker | NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1) 0x63A100 |
 | `app/client/ui_starbase.cpp:3862` | `UIStarbaseClass::Unknown_63E770` | marker | NOT EXACT: 0x63E770, functional (the client compares the found iterator with end() through an out-of-line 8-byte copy 0x6439B0, a const_iterator conversion the stand-in table lacks; SB1) 0x63E770 |
