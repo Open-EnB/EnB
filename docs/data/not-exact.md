@@ -478,7 +478,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:1668` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
 | `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
-| `app/client/ui_starbase.cpp:3931` | `UIStarbaseClass::Unknown_63E2B0` | marker | NOT EXACT: 0x63E2B0, functional (the flag test's own load of the avatar, the position's y / z through the matrix copy, the id's load order; SB1) 0x63E2B0 |
+| `app/client/ui_starbase.cpp:3917` | `UIStarbaseClass::Unknown_63E2B0` | marker | NOT EXACT: 0x63E2B0, functional (the flag test's own load of the avatar, the position's y / z through the matrix copy, the id's load order; SB1) 0x63E2B0 |
 | `app/client/ui_starbase.cpp:3967` | `UIStarbaseClass::Unknown_641FA0` | marker | NOT EXACT: 0x641FA0, register only (this in edi, the gadget in ebx: the client's are swapped; SB1) 0x641FA0 |
 | `app/client/ui_talkt.cpp:68` | `UITalkTreeClass::UITalkTreeClass` | marker | NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup) |
 | `app/client/ui_talkt.cpp:287` | `UITalkTreeClass::Unknown_5C` | marker | NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client) |

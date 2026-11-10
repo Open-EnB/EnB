@@ -73,6 +73,7 @@ public:
 		iterator operator++(int) { iterator tmp = *this; ++*this; return(tmp); }
 	};
 	iterator begin();	// 0x643DF0 (out of line)
+	iterator find(const unsigned int &key);	// 0x643E60 (out of line: 0x6437A0 passes an int, through a temporary)  // NAME 1 [key]: SGI's
 	iterator end() { iterator it; it.Cur = 0; it.Table = this; return(it); }
 	unsigned int Bucket_Of(unsigned int key) const { return(Bucket_Of_Key(key)); }	// SGI's _M_bkt_num (0x641FA0: the vector's size 0x644470 out of line, three layers down)  // NAME 1: neutral (D10)
 	unsigned int Bucket_Of_Key(unsigned int key) const { return(Bucket_Of_Key(key, Buckets.size())); }	// SGI's _M_bkt_num_key  // NAME 1: neutral (D10)
@@ -103,6 +104,7 @@ public:
 	UIStarbaseUnknownD4TableClass Table;	// +0x00  // NAME 1: neutral (D10)
 	UIStarbaseUnknownD4TableClass::iterator begin() { return(Table.begin()); }	// hash_map's (0x641FA0)
 	UIStarbaseUnknownD4TableClass::iterator end() { return(Table.end()); }	// hash_map's
+	UIStarbaseUnknownD4TableClass::iterator find(const unsigned int &key) { return(Table.find(key)); }	// hash_map's (0x6437A0)  // NAME 1 [key]: SGI's
 };
 // What the starbase interface's +0xCC and +0x13C point to (ui_starbase.cpp's class with the destructor 0x632E50: RefCountPtrs at +0x04, +0x0C, ...)
 class UIStarbaseUnknownCCClass	// NAME 1: neutral (D10)
@@ -112,9 +114,11 @@ public:
 	int Unknown00;					// +0x00  // NAME 1: neutral
 	RefCountPtr<CharacterViewAvatarClass> Avatar;	// +0x04 (0x63BDB0 / 0x63C080 / 0x63D2F0)  // NAME 1: what it holds
 	RefCountPtr<Unknown78A910AvatarClass> Unknown08;	// +0x08 (0x63D2F0)  // NAME 1: neutral
-	RefCountPtr<RenderObjClass> Unknown0C, Unknown10;	// +0x0C (the destructor removes both)
+	RefCountPtr<RenderObjClass> Unknown0C, Unknown10;	// +0x0C (the destructor removes both; +0x0C is a FontSys: 0x6425D0's Change_Text and colour)
 	GadgetClass *Unknown14;			// +0x14 (the destructor's GadgetClass::Destroy)
-	char Unknown18[0x24 - 0x18];	// +0x18
+	int Unknown18;					// +0x18 (0x6437A0 hands it to 0x63CA50 again)
+	int Unknown1C;					// +0x1C
+	float Unknown20;				// +0x20 (0x6425D0: 2.0 when the chat-event colour is set)
 	std::string Unknown24;			// +0x24 (the destructor's inlined _Tidy of +0x28; the size past +0x34 is unknown)
 };
 // What the starbase interface's +0xEC list points to (8 bytes: 0x63CF30 makes them)
@@ -198,6 +202,9 @@ public:
 	void Unknown_63B5A0();	// 0x63B5A0 (the software mouse's cursor 2 unless the chat panel is busy; the text object hidden)
 	bool Unknown_63E8F0(int id);	// 0x63E8F0 (an entry of +0xEC with this id)  // NAME 1 [id]: neutral
 	void Unknown_641AB0();	// 0x641AB0 (+0x190 released, as the destructor)
+	void Unknown_63D060(int id);	// 0x63D060 ('(%s) Removing avatar %s from room %d')  // NAME 1 [id]: neutral
+	void Unknown_63CA50(int id, const Matrix3D &transform, int flags);	// 0x63CA50 ('(%s) Adding avatar %s in room %d')  // NAME 1 [id, transform, flags]: neutral
+	void Unknown_63FF80();	// 0x63FF80 (0x638390's frame: the distances every 0.5 s, the position resent every 0.5 s while moving)
 	void Unknown_641FA0();	// 0x641FA0 (the gadgets' distances from the avatar, 1..999; 0x63E2B0, 0x63FF80)
 	void Unknown_641B00(); void Unknown_641B70();	// 0x641B00 (+0x214..+0x21A, +0x1B3 cleared), 0x641B70 (refilled by the view's 0x6A2430): as 0x63BDB0 / 0x63C080 have them
 };

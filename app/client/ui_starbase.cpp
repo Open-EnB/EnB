@@ -23,6 +23,7 @@
 #include "tasks\tsk_login.h"
 #include "..\shared\g_assert.h"
 #include "..\packets\pkstarbase_avatar_change.h"
+#include "..\..\ww3d2\ww3d.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -3883,50 +3884,35 @@ void UIStarbaseLightsClass::Unknown_648190()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The file's later functions, at their asserts' lines (FAIL_IF '!savatar' l.3995)
+
+// 0x63FF80
+void UIStarbaseClass::Unknown_63FF80()
+{
+	float time = WW3D::Get_Frame_Time() * 0.001f;
+	if (Unknown1B8 > 0.0f && (Unknown1B8 -= time) < 0.0f) {
+		Unknown1B8 = 0.5f;
+		Unknown_641FA0();
+	}
+	if ((UnknownC0.E & 0x40) && UnknownC0.D->Avatar->Unknown380 == 0) {
+		if (!UnknownB0->Unknown_69CBE0()) {
+			UnknownC0.E = 0;
+			Unknown_63E2B0();
+		}
+	}
+	if (!Unknown1FD) {
+		if (!UnknownB0->Unknown_69CCD0() && !Unknown1F8->Active) {
+			if (UnknownC0.D->Avatar->Unknown2F8 == 0) {
+				Unknown1B4 = 0.0f;
+				return;
+			}
+			if (Unknown1B4 >= 0.0f && (Unknown1B4 -= time) < 0.0f) {
+				Unknown1B4 = 0.5f;
+				Unknown_63E2B0();
+			}
+		}
+	}
+}
 
 // NOT EXACT: 0x63E2B0, functional (the flag test's own load of the avatar, the position's y / z through the matrix copy, the id's load order; SB1)
 // 0x63E2B0
@@ -3956,6 +3942,20 @@ void UIStarbaseClass::Unknown_63E2B0()
 		Vector3 pos = ((RObjGadgetClass *)(gadget))->RObj->Get_Transform().Get_Translation(); \
 		Vector3 apos = UnknownC0.D->Avatar->Get_Transform().Get_Translation(); \
 		int distance = (int)(apos - pos).Length(); \
+		if (distance > 999) { \
+			distance = 999; \
+		} else if (distance < 1) { \
+			distance = 1; \
+		} \
+		(gadget)->Unknown_65FFA0(distance); \
+	}
+
+// The same through a difference vector (the hash table's copy: its own x87 order)
+#define UNKNOWN_DISTANCE_2(gadget) \
+	if ((gadget) && ((RObjGadgetClass *)(gadget))->RObj && UnknownC0.D->Avatar) { \
+		Vector3 pos = ((RObjGadgetClass *)(gadget))->RObj->Get_Transform().Get_Translation(); \
+		Vector3 diff = UnknownC0.D->Avatar->Get_Transform().Get_Translation() - pos; \
+		int distance = (int)WWMath::Sqrt(diff.X * diff.X + diff.Y * diff.Y + diff.Z * diff.Z); \
 		if (distance > 999) { \
 			distance = 999; \
 		} else if (distance < 1) { \
@@ -3994,18 +3994,198 @@ void UIStarbaseClass::Unknown_641FA0()
 			UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
 			FAIL_IF(!savatar) continue;
 			GadgetClass *gadget = savatar->Unknown14;
-			if (gadget && ((RObjGadgetClass *)gadget)->RObj && UnknownC0.D->Avatar) {
-				Vector3 pos = ((RObjGadgetClass *)gadget)->RObj->Get_Transform().Get_Translation();
-				Vector3 diff = UnknownC0.D->Avatar->Get_Transform().Get_Translation() - pos;
-				int distance = (int)WWMath::Sqrt(diff.X * diff.X + diff.Y * diff.Y + diff.Z * diff.Z);
-				if (distance > 999) {
-					distance = 999;
-				} else if (distance < 1) {
-					distance = 1;
-				}
-				gadget->Unknown_65FFA0(distance);
-			}
+			UNKNOWN_DISTANCE_2(gadget)
 		}
 		Unknown5BB320Class::Unknown_58();
+	}
+}
+
+
+
+
+
+
+// 0x6425D0
+void UIStarbaseClass::Unknown_6425D0(const char *name, const Vector3 &color)
+{
+	UIStarbaseUnknownD4TableClass::iterator it;
+	for (it = UnknownD4.begin(); it.Cur; ++it) {
+		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+		FAIL_IF(!savatar) continue;
+		if (stricmp(savatar->Avatar->Desc.First_Name, name) == 0) {
+			savatar->Unknown20 = 2.0f;
+			((FontSys *)savatar->Unknown0C.Peek())->Change_Text("\".....\"", 0);
+			FontSys *tag = (FontSys *)savatar->Unknown0C.Peek();
+			tag->Unknown494.Color = color;
+			tag->Unknown4A4 = tag->Unknown494;
+			((FontSys *)savatar->Unknown0C.Peek())->Unknown_6D8A80(true);
+			return;
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6437A0
+void UIStarbaseClass::Unknown_6437A0(int unknown, AvatarDescClass *desc)
+{
+	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	FAIL_IF(!sclient) return;
+	sclient->Unknown_74C530(unknown);
+	sclient->Unknown_74C3B0(unknown, *desc);
+	UIStarbaseUnknownD4TableClass::iterator it = UnknownD4.find(unknown);
+	if (it != UnknownD4.end()) {
+		CharacterViewAvatarClass *avatar = it.Cur->Value->Avatar.Peek();
+		int flags = it.Cur->Value->Unknown18;
+		Matrix3D tm = avatar->Get_Transform();
+		Unknown_63D060(unknown);
+		Unknown_63CA50(unknown, tm, flags);
 	}
 }
