@@ -25,31 +25,31 @@ struct InvDataPeekItemStruct	// NAME 1: neutral (D10)
 	unsigned char Unknown54;							// +0x54  // NAME 1: neutral (D10)
 };
 
-// inv_data_peek.cpp's view of an inventory (inv_data_peek.h's InvDataPeek class), as this file calls it, under inv_render.cpp's name
-class Unknown688830Class	// NAME 1: neutral (D10), as inv_render.cpp's (one mangled name for InvDataClass::Unknown_688830 / 688850)
-{
-public:
-	int Get_Item_Template_ID(int slot);					// 0x689CA0 (-2: none)
-	int Get_Stack_Count(int slot);						// 0x689D20
-	InvDataPeekItemStruct *Get_Item(int slot, bool flag);	// 0x68AAA0
-	char Unknown00[0x44];
-	unsigned int Count;									// +0x44
-};
+#include "inv_data.h"	// InvDataClass and its lists (inv_data_peek.h's InvDataPeekClass)
 
-// inv_data.cpp's inventory, as this file calls it
-class InvDataClass : public SlotDataClass	// NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
-{
-public:
-	enum { NO_SLOT = -1 };								// NAME 3: the FAIL_IFs'
-	InvDataClass(int inv_type, SClient *client);		// 0x688410 (0x18C bytes)  // NAME 1 [inv_type, client]: what 0x59FA00 passes
-	virtual bool Unknown_18();
-	virtual DeltaCompoundClass *Unknown_1C();
-	virtual bool Unknown_20();
-	Unknown688830Class *Unknown_688830();					// 0x688830
-	Unknown688830Class *Unknown_688850();					// 0x688850
-	int Unknown50;										// +0x50 (the inventory: 0x5A0D00's destination)  // NAME 1: neutral (D10)
-	char Unknown54[0x18C - 0x54];
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // The client at InterfaceClass +0x40, as this file calls it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -603,7 +603,7 @@ bool UIInvClass::Unknown_5A03B0(bool arg)
 	FAIL_IF(slot == InvDataClass::NO_SLOT) return(false);
 	int num = 1;
 	if (arg) {
-		Unknown688830Class *peek = SlotData->Unknown_10()->Unknown_688830();
+		InvDataPeekClass *peek = SlotData->Unknown_10()->Unknown_688830();
 		num = peek->Get_Stack_Count(slot);
 	}
 	return(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 4, -1));
@@ -630,7 +630,7 @@ void UIInvClass::Unknown_5A0450(int type, int *num_items, int *num_slots)
 	FAIL_IF(!num_slots) return;
 	*num_items = 0;
 	*num_slots = 0;
-	Unknown688830Class *peek = SlotData->Unknown_10()->Unknown_688830();
+	InvDataPeekClass *peek = SlotData->Unknown_10()->Unknown_688830();
 	unsigned int i;
 	for (i = 0; i < peek->Count; i++) {
 		if (peek->Get_Item_Template_ID(i) == type) {
@@ -638,7 +638,7 @@ void UIInvClass::Unknown_5A0450(int type, int *num_items, int *num_slots)
 			(*num_slots)++;
 		}
 	}
-	Unknown688830Class *peek2 = SlotData->Unknown_10()->Unknown_688850();
+	InvDataPeekClass *peek2 = SlotData->Unknown_10()->Unknown_688850();
 	for (i = 0; i < peek->Count; i++) {		// (the client's: the first list's count)
 		if (peek2->Get_Item_Template_ID(i) == type) {
 			*num_items += peek2->Get_Stack_Count(i);
@@ -775,7 +775,7 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 				return(true);
 			}
 			InvDataClass *inv = SlotData->Unknown_10();
-			Unknown688830Class *peek = inv->Unknown_688830();
+			InvDataPeekClass *peek = inv->Unknown_688830();
 			int num = peek->Get_Stack_Count(from_slot);
 			if (!num) return(true);
 			if (SlotDrag->Unknown1C == 1) num = 1;
@@ -941,7 +941,7 @@ bool UIInvClass::Unknown_5A0D00(int slot, SlotDataGadgetClass *inv_gadget)
 {
 	FAIL_IF(!inv_gadget) return(false);
 	InvDataClass *inv = SlotData->Unknown_10();
-	Unknown688830Class *peek = inv->Unknown_688830();
+	InvDataPeekClass *peek = inv->Unknown_688830();
 	int id = peek->Get_Item_Template_ID(slot);
 	if (id == -1 || id == -2) return(false);
 	int num = 1;

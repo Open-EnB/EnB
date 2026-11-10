@@ -13,16 +13,16 @@
 #include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static: 0x68FB10)
 #include "ui_item_examination_property_router.h"
 
-// inv_data.cpp's, as far as this file calls it
+#include "inv_data_peek.h"	// InvDataPeekClass (InvDataClass::Unknown_688830 / 688850)
 class Unknown688830Item { public: int Get_Type() { return(Unknown0C); } const std::string &Get_Name() { return(Unknown14); } TextureClass *Unknown_831840(); char Unknown00[4]; int Unknown04; int Unknown08; int Unknown0C; char Unknown10[4]; std::string Unknown14; char Unknown24[0x48 - 0x24]; int Unknown48; char Unknown4C[4]; int Unknown50; char Unknown54[4]; int Unknown58; };	// NAME 1: neutral (D10)
-class Unknown688830Class { public: Unknown688830Item *Unknown_68AAA0(int slot, bool flag); int Unknown_689CA0(int slot); bool Unknown_689C30(); int Unknown_689D20(int id); unsigned Unknown_68A840(int slot); unsigned Unknown_68A6E0(int slot); unsigned Unknown_68A6B0(int slot); unsigned Unknown_68A680(int slot); float Unknown_68A630(int slot); float Unknown_68A7C0(int slot); DurationClass Unknown_68A720(int slot); float Unknown_689F90(int slot); float Unknown_68A010(int slot); float Unknown_689F10(int slot); MoneyClass Unknown_689DA0(int slot); int Unknown_68AC50(int slot); char Unknown00[0x80]; int Unknown80; };	// NAME 1: neutral (D10); NAME 1 [slot, flag]: neutral
+typedef InvDataPeekClass Unknown688830Class;	// inv_data_peek.h's view of an inventory list, under this file's old name  // NAME 1: neutral (D10)
 #include "sclient.h"	// SClient (Get_Target 0x744FE0, the slot +0x28 Get_Avatar, the clock +0x10BC) and co.h's ClientObjectClass
 float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// NAME 1: neutral (D10); NAME 1 [a, b]: neutral
 
 class LineDisplayClientClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual SClient *As_Space_Client(); };	// NAME 1: neutral (D10), as ui_cinfo.cpp declares it
-struct InvDataBaseStruct { virtual void Unknown_00(); char Unknown04[0x18 - 4]; };	// NAME 1: neutral (D10); ui_slot_info.h's UISlotInfoItemBaseStruct
-class InvDataClass : public InvDataBaseStruct, public RefCountClass { public: LineDisplayClientClass *Get_Client() { return(Client); } Unknown688830Class *Unknown_688830(); Unknown688830Class *Unknown_688850(); int Unknown_6A7990(); int Unknown_6A7A00(int index); LineDisplayClientClass *Client; };	// NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004; Client: the FAIL_IF at line 182
-class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual InvDataClass *Unknown_10(); };	// NAME 3: slot_data_render.h's
+#include "slot_data.h"	// SlotDataClass (InvDataClass's base: Unknown_6A7990 / 6A7A00, Unknown_10)
+#include "inv_data.h"	// InvDataClass (Peek_Inv_Data)
+// (InvDataClass's client is SClient: its slot +0x18 Unknown_18 answers itself, 0x740AC0)
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Unknown6A3D60Class(); void Unknown_6A4020(float distance, float range, int state, bool arg); char Unknown00[0x18]; };	// NAME 1: neutral (D10); skill_render.cpp's
 // the zero 0x68E360 compares with: its destructor is the empty 0x68EAC0
@@ -180,7 +180,7 @@ void Unknown68C5A0Class::Unknown_04(ClientItemPropertySpecialClass *property)
 void InvRenderClass::Unknown_2C(bool force)
 {
 	FAIL_IF(!Peek_Inv_Data()->Get_Client()) return;
-	SClient *space_client = Peek_Inv_Data()->Get_Client()->As_Space_Client();	// NAME 2 [space_client]: its slot
+	SClient *space_client = (SClient *)Peek_Inv_Data()->Get_Client()->Unknown_18();	// NAME 2 [space_client]: its slot
 	int slot = Get_Slot();
 	int count = 0;	// NAME 1 [count, usable, item, level, data, other, item_level, now, inv_data, done]: neutral
 	bool usable = true;
@@ -188,23 +188,23 @@ void InvRenderClass::Unknown_2C(bool force)
 	int level = 0;
 	if (slot != -1) {
 		Unknown688830Class *data = Peek_Inv_Data()->Unknown_688830();
-		item = data->Unknown_68AAA0(slot, false);
-		if (!data->Unknown80) {
+		item = (Unknown688830Item *)data->Get_Item(slot, false);
+		if (!data->Status) {
 			force = true;
 		}
 		if (item) {
-			count = data->Unknown_689D20(slot);
-			if (!data->Unknown80) {
+			count = data->Get_Stack_Count(slot);
+			if (!data->Status) {
 				force = true;
 			}
 			data = Peek_Inv_Data()->Unknown_688850();
-			Unknown688830Item *other = data->Unknown_68AAA0(slot, false);
-			if (!data->Unknown80) {
+			Unknown688830Item *other = (Unknown688830Item *)data->Get_Item(slot, false);
+			if (!data->Status) {
 				force = true;
 			}
 			if (other) {
-				count = data->Unknown_689D20(slot);
-				if (!data->Unknown80) {
+				count = data->Get_Stack_Count(slot);
+				if (!data->Status) {
 					force = true;
 				}
 			}
@@ -235,12 +235,12 @@ TextureClass *InvRenderClass::Unknown_34()
 	int slot = Unknown20;
 	if (slot != -1) {
 		Unknown688830Class *data = Peek_Inv_Data()->Unknown_688850();
-		Unknown688830Item *item = data->Unknown_68AAA0(slot, false);
+		Unknown688830Item *item = (Unknown688830Item *)data->Get_Item(slot, false);
 		if (item) {
 			return(item->Unknown_831840());
 		}
 		data = Peek_Inv_Data()->Unknown_688830();
-		item = data->Unknown_68AAA0(slot, false);
+		item = (Unknown688830Item *)data->Get_Item(slot, false);
 		if (item) {
 			return(item->Unknown_831840());
 		}
@@ -263,35 +263,35 @@ const char *InvRenderClass::Unknown_28(std::string *string)
 	SlotDataRenderClass::Unknown_28(string);
 	Unknown688830Class *data = Peek_Inv_Data()->Unknown_688830();
 	int slot = Get_Slot();
-	Unknown688830Item *item = data->Unknown_68AAA0(slot, false);
+	Unknown688830Item *item = (Unknown688830Item *)data->Get_Item(slot, false);
 	if (item) {
 		*string += item->Get_Name();
 		*string += "\n";
 		char buffer[32];	// NAME 1 [buffer, structure, quality, price, cost, type]: neutral
-		float structure = data->Unknown_689F90(slot);
+		float structure = data->Get_Structure(slot);
 		if (structure != -1.0f) {
 			sprintf(buffer, "Structure %0.0f%%\n", structure * 100.0f);
 			*string += buffer;
 		}
-		float quality = data->Unknown_68A010(slot);
+		float quality = data->Get_Quality(slot);
 		if (structure != -1.0f) {
 			sprintf(buffer, "Quality %0.0f%%\n", quality * 100.0f);
 			*string += buffer;
 		}
-		MoneyClass price = data->Unknown_689DA0(slot);
+		MoneyClass price = data->Get_Price(slot);
 		if (operator!=(price, MoneyClass(-1)) && operator!=(price, MoneyClass(0))) {
 			_snprintf(buffer, sizeof(buffer), "Price %s\n", price.Unknown_4F00C0(true).c_str());
 			*string += buffer;
 		}
 		if (item->Get_Type() == 13) {
-			float cost = data->Unknown_689F10(slot);
+			float cost = data->Get_Ave_Cost(slot);
 			if (cost != 0.0f) {
 				_snprintf(buffer, sizeof(buffer), "Avg. Cost %1.1f\n", cost);
 				*string += buffer;
 			}
 		}
 	} else {
-		int type = data->Unknown_68AC50(slot);
+		int type = data->Get_Mount_I00(slot);
 		switch (type) {
 			case 0:
 				*string += "Unused Slot\n";
@@ -393,7 +393,7 @@ void InvRenderClass::Unknown_50(int count)
 int InvRenderClass::Unknown_68D7E0(int slot)
 {
 	Unknown688830Class *data = Peek_Inv_Data()->Unknown_688830();
-	Unknown688830Item *item = data->Unknown_68AAA0(slot, false);
+	Unknown688830Item *item = (Unknown688830Item *)data->Get_Item(slot, false);
 	if (item) {
 		return(item->Unknown50);
 	}
@@ -427,7 +427,7 @@ void Unknown68D870Class::Unknown_50(int count)
 // 0x68D950
 void Unknown68D870Class::Unknown_40(int slot)
 {
-	Unknown5C = Peek_Inv_Data()->Unknown_688830()->Unknown_689CA0(slot);
+	Unknown5C = Peek_Inv_Data()->Unknown_688830()->Get_Item_Template_ID(slot);
 	SlotDataRenderClass::Unknown_40(slot);
 }
 
@@ -446,7 +446,7 @@ void Unknown68D870Class::Unknown_2C(bool force)
 bool Unknown68D870Class::Unknown_68DA20(bool force)
 {
 	Unknown688830Class *data = Peek_Inv_Data()->Unknown_688830();
-	if (force || data->Unknown_689C30()) {
+	if (force || data->Changed()) {
 		int old_count = Unknown58;
 		int old_slot = Unknown20;
 		int new_slot = -1;
@@ -454,8 +454,8 @@ bool Unknown68D870Class::Unknown_68DA20(bool force)
 		int count = Peek_Inv_Data()->Unknown_6A7990();
 		for (int i = 0; i < count; i++) {
 			int id = Peek_Inv_Data()->Unknown_6A7A00(i);
-			if (data->Unknown_689CA0(id) == Unknown5C) {
-				Unknown58 = data->Unknown_689D20(id) + Unknown58;
+			if (data->Get_Item_Template_ID(id) == Unknown5C) {
+				Unknown58 = data->Get_Stack_Count(id) + Unknown58;
 				new_slot = id;
 			}
 		}
@@ -638,7 +638,7 @@ void Unknown68DC20Class::Unknown_2C(bool force)
 	Unknown74 = -1.0f;
 	bool flag = false;
 	FAIL_IF(!Peek_Inv_Data()->Get_Client()) return;
-	SClient *sclient = Peek_Inv_Data()->Get_Client()->As_Space_Client();
+	SClient *sclient = (SClient *)Peek_Inv_Data()->Get_Client()->Unknown_18();
 	FAIL_IF(!sclient) return;
 	InvRenderClass::Unknown_2C(force);
 	int slot = Unknown20;
@@ -663,10 +663,10 @@ void Unknown68DC20Class::Unknown_2C(bool force)
 		}
 	}
 	Unknown688830Class *data = Peek_Inv_Data()->Unknown_688830();
-	unsigned state = data->Unknown_68A840(slot);
-	unsigned moved = data->Unknown_68A6E0(slot);
-	unsigned kind = data->Unknown_68A6B0(slot);
-	Unknown688830Item *item = data->Unknown_68AAA0(slot, true);
+	unsigned state = data->Get_Item_State(slot);
+	unsigned moved = data->Get_Effect_Validity(slot);
+	unsigned kind = data->Get_Effect_Targets(slot);
+	Unknown688830Item *item = (Unknown688830Item *)data->Get_Item(slot, true);
 	int type = item ? item->Unknown0C : -1;
 	bool weapon = false;
 	bool device = false;
@@ -703,7 +703,7 @@ void Unknown68DC20Class::Unknown_2C(bool force)
 		case 16:
 		case 17:
 			weapon = true;
-			Unknown70 = data->Unknown_68A7C0(slot);
+			Unknown70 = data->Get_Target_Range(slot);
 			if (!(state & 0x36)) {
 				mode = (state & 0x800) ? 1 : 2;
 				goto have;
@@ -716,10 +716,10 @@ void Unknown68DC20Class::Unknown_2C(bool force)
 		case 8:
 		case 11:
 		case 12:
-			if (data->Unknown_68A680(slot) & 5) {
+			if (data->Get_Effect_Usage(slot) & 5) {
 				device = true;
-				if (data->Unknown_68A6B0(slot) & 0x44) {
-					Unknown70 = data->Unknown_68A630(slot);
+				if (data->Get_Effect_Targets(slot) & 0x44) {
+					Unknown70 = data->Get_Effect_Range(slot);
 				}
 				if (!(moved & 0x3F8)) {
 					mode = ((kind & 0x34) != 0) ? 2 : 0;
@@ -737,7 +737,7 @@ void Unknown68DC20Class::Unknown_2C(bool force)
 have:
 	Unknown6C->Unknown_6A4020(Unknown74, Unknown70, mode, flag);
 	DurationClass now((unsigned)sclient->Unknown10BC);
-	Unknown78 = data->Unknown_68A720(slot);
+	Unknown78 = data->Get_Ready_Time(slot);
 	bool update = force;	// NAME 1 [update, on]: neutral
 	bool done;
 	if (Unknown78.Time <= now.Time || (Unknown78 == _Zero)) {
@@ -788,7 +788,7 @@ have:
 		ready = (Unknown80 & 0x680) == 0;
 		wrong = ((Unknown80 >> 1) & 1) != 0;
 	} else if (device) {
-		unsigned flags = data->Unknown_68A6E0(slot);	// NAME 1 [flags]: neutral
+		unsigned flags = data->Get_Effect_Validity(slot);	// NAME 1 [flags]: neutral
 		ready = (flags == 0 && Unknown78 == _Zero);
 		wrong = (flags & 0x70) != 0;
 	}
