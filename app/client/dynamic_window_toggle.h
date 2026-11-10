@@ -28,6 +28,7 @@ class GadgetClass;
 class ToggleButtonStateEvent  // NAME 5: the client's RTTI .?AVToggleButtonStateEvent@@
 {
 public:
+	ToggleButtonStateEvent();																	// 0x51E7F0 (out of line: the item examination option row's signal calls)
 	ToggleButtonStateEvent(int state) : State(state) {}
 	int State;																					// +0x00  // NAME 1: what it holds
 };

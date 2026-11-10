@@ -23,6 +23,9 @@
 #include <vector>
 
 class GadgetCollectionInterface;  // ui_dynamicwindow.h's gadget side (the examination window's +0x84, table 0xAEE298)
+class DynamicElementGadgetClass;
+class ToggleButtonDynamicWindow;
+class ToggleButtonStateEvent;
 
 class UIItemExaminationOptionClass : public DynamicWindowHorizontalClass  // NAME 2 [UIItemExaminationOptionClass]: from the file name and 'ItemOptionObject'
 {
@@ -31,10 +34,12 @@ public:
 	virtual ~UIItemExaminationOptionClass();												// +0x04 0x5362F0 (deleting 0x5362C0)
 
 protected:
-	int Unknown64;																			// +0x64  // NAME 1 [Unknown64]: neutral (D10)
-	int Unknown68;																			// +0x68  // NAME 1 [Unknown68]: neutral (D10)
-	int Unknown6C;																			// +0x6C (a gadget: GadgetClass::Destroy)  // NAME 1 [Unknown6C]: neutral (D10)
-	int Unknown70;																			// +0x70  // NAME 1 [Unknown70]: neutral (D10)
+	void On_Toggle_State(ToggleButtonStateEvent *event, ToggleButtonDynamicWindow *toggle);	// 0x536450 (FAIL_IFs '!event', '!Option': the option's slot +0x18 with the state)  // NAME 1 [On_Toggle_State, toggle]; NAME 3 [event]: the FAIL_IF's
+
+	RefCountPtr<ClientItemPropertyOptionClass> Option;										// +0x64  // NAME 3 [Option]: the FAIL_IF's '!Option'
+	GadgetCollectionInterface *Listener;													// +0x68 (takes the tooltip's gadget)  // NAME 1 [Listener]: as the panel's
+	DynamicElementGadgetClass *Gadget;														// +0x6C (the tooltip's, 'ItemOptionObject')  // NAME 1 [Gadget]: what it holds
+	RefCountPtr<ToggleButtonDynamicWindow> Toggle;											// +0x70 (if_check_off.tga / if_check_on.tga)  // NAME 1 [Toggle]: what it holds
 };
 
 class UIItemExaminationOptionsClass : public DynamicWindowVerticalClass  // NAME 2 [UIItemExaminationOptionsClass]: class from file (D24), ui_item_examination_options.cpp

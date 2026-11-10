@@ -1,5 +1,9 @@
 #include "ui_item_examination_options.h"
 #include "dynamic_window_text.h"
+#include "dynamic_window_toggle.h"
+#include "gd_dynamicelement.h"
+#include "gadget_collection_interface.h"
+#include "unknown_signalbase.h"
 #include "..\shared\g_assert.h"
 #include <algorithm>
 
@@ -50,6 +54,129 @@ void UIItemExaminationOptionsClass::Clear()
 	Options.clear();
 }
 
+// NOT EXACT: inline budget: the client calls the MemberCallback's constructor 0x536F40 out of line; ours inlines it (1196 bytes against 1173)
+UIItemExaminationOptionClass::UIItemExaminationOptionClass(const RefCountPtr<ClientItemPropertyOptionClass> &option, GadgetCollectionInterface *listener) :
+	DynamicWindowHorizontalClass(6),
+	Option(option),
+	Listener(listener),
+	Gadget(NULL)
+{
+	static Vector2 min_size(24.0f, 0.0f);
+	static Vector2 button_size(16.0f, 16.0f);
+	std::vector<std::string> textures;
+	textures.push_back("if_check_off.tga");
+	textures.push_back("if_check_on.tga");
+	Toggle = ToggleButtonDynamicWindow::Create(textures, button_size, listener, 0);
+	Toggle->Set_Min_Size(min_size);
+	Toggle->Set_State(option->Unknown_14() ? 1 : 0);
+	Unknown_4F7EF0().Add(Toggle.Peek(), this, &UIItemExaminationOptionClass::On_Toggle_State, ToggleButtonStateEvent());
+	Add_Element(Toggle);
+	RefCountPtr<DynamicWindowTextClass> label = DynamicWindowTextClass::Create("OPTION00_IEI00", option->Label, 0x12);
+	Add_Element(label);
+	std::string tooltip = option->Unknown_0C();
+	if (!tooltip.empty()) {
+		Gadget = new DynamicElementGadgetClass(this);
+		Gadget->Set_Unknown14(tooltip.c_str());
+		GadgetClass::Set_Tooltip_Name(Gadget, "ItemOptionObject");
+		Listener->Unknown84_08(Gadget, Listener->Unknown84_10(), -1);
+	}
+}
+
+UIItemExaminationOptionClass::~UIItemExaminationOptionClass()
+{
+	Unknown_4F7EF0().disconnect(Toggle.Peek(), this, &UIItemExaminationOptionClass::On_Toggle_State, ToggleButtonStateEvent());
+	if (Gadget != NULL) {
+		Listener->Unknown84_0C(Gadget);
+		GadgetClass::Destroy(Gadget);
+		Gadget = NULL;
+	}
+	Remove_All_Children(true);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void UIItemExaminationOptionClass::On_Toggle_State(ToggleButtonStateEvent *event, ToggleButtonDynamicWindow *toggle)
+{
+	FAIL_IF(!event) return;
+	FAIL_IF(!Option) return;
+	Option->Unknown_18(event->State != 0);
+}
+
 /*
 **	Reconstruction notes (from the retail client.exe, SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\ui_item_examination_options.cpp (its __FILE__: the
@@ -59,6 +186,8 @@ void UIItemExaminationOptionsClass::Clear()
 **	Add_Option 0x535970, Rebuild 0x535A10 and Clear 0x535BF0 exact, with
 **	the copies they bring: Create_NEW 0x536610, std::_Sort_0 0x536B20 / _Sort 0x537080 / copy_backward
 **	0x536ED0 over the options and RefCountPtr<ClientItemPropertyOptionClass>'s copy 0x536EA0, assignment
-**	0x536A80 and destructor 0x5365E0. Not yet here: the
-**	row's constructor 0x535CB0, destructor 0x5362F0 (deleting 0x5362C0) and 0x536450 / 0x5364D0.
+**	0x536A80 and destructor 0x5365E0. IE3 (run 2026-11-10): the row's destructor 0x5362F0 (deleting 0x5362C0) and
+**	its toggle callback 0x536450 exact with the MemberCallback's slots 0x536F70-0x537050; the row's constructor
+**	0x535CB0 NOT EXACT (see there). The toggle's event is built through ToggleButtonStateEvent's out-of-line
+**	constructor 0x51E7F0 (dynamic_window_toggle.cpp).
 */
