@@ -844,27 +844,27 @@ void ClientItemPropertyBuilderClass::Unknown_5285A0(UIItemExaminationPropertyRou
 {
 	ItemFlagsStruct flags = Item->Flags;	// NAME 1 [flags, special]: neutral
 	if (flags.Is_NotTradable()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = Unknown_52F9E0(3, "Not Tradable", "This item cannot be traded or sold.", 0, true);
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Tradable", "This item cannot be traded or sold.", 0, true);
 		router.Route(special);
 	}
 	if (flags.Is_Temporary()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = Unknown_52F9E0(3, "Temporary", "This item will disappear when player logs out.", 0, true);
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Temporary", "This item will disappear when player logs out.", 0, true);
 		router.Route(special);
 	}
 	if (flags.Is_Unique()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = Unknown_52F9E0(3, "Unique", "Player cannot have more than one of this item.", 0, true);
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Unique", "Player cannot have more than one of this item.", 0, true);
 		router.Route(special);
 	}
 	if (flags.Is_NotStorable()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = Unknown_52F9E0(3, "Not Storable", "This item cannot be placed in storage.", 0, true);
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Storable", "This item cannot be placed in storage.", 0, true);
 		router.Route(special);
 	}
 	if (flags.Is_NotDestroyable()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = Unknown_52F9E0(3, "Not Destroyable", "This item cannot be destroyed.", 0, true);
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Destroyable", "This item cannot be destroyed.", 0, true);
 		router.Route(special);
 	}
 	if (flags.Is_NotManufacturable()) {
-		RefCountPtr<ClientItemPropertySpecialClass> special = Unknown_52F9E0(3, "Not Manufacturable", "This item cannot be analyzed or manufactured.", 0, true);
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialFlagClass::Create(3, "Not Manufacturable", "This item cannot be analyzed or manufactured.", 0, true);
 		router.Route(special);
 	}
 }

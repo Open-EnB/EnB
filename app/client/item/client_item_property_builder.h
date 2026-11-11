@@ -12,6 +12,7 @@
 #include "client_item_property_special_profession_requirement.h"
 #include "client_item_property_special_race_requirement.h"
 #include "client_item_property_special_skill_requirement.h"
+#include "client_item_property_special_flag.h"
 #include "client_item_property_attribute.h"
 #include "client_item_property_attribute_distance.h"
 #include "client_item_property_attribute_string.h"
@@ -89,9 +90,8 @@ public:
 // An effect as a special property: ClientItemPropertySpecialEffectClass, client_item_property_special_effect.h
 // (two lines for three here and the #include above: the inline FAIL_IFs below keep their lines)
 
-// A flag as a special property (its file is not rebuilt)
-class ClientItemPropertySpecialFlagClass : public ClientItemPropertySpecialClass {};  // NAME 1: neutral (D10)
-RefCountPtr<ClientItemPropertySpecialFlagClass> Unknown_52F9E0(int sort, const std::string &label, const std::string &tooltip, int unknown, bool flag);	// 0x52F9E0  // NAME 1: neutral (D10); NAME 1 [sort, label, tooltip, unknown, flag]
+// A flag as a special property
+// ClientItemPropertySpecialFlagClass: client_item_property_special_flag.h (one line for two here and the #include)
 
 // The properties 0x521C10 makes (their files are not rebuilt; each Create allocates the property and hands it to Create_NEW)
 class ClientItemPropertySpecialUnknown52FFB0Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
