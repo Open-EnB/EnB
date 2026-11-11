@@ -58,8 +58,10 @@ bring-over: puts wt/NAME's commits on TARGET only when the loss rule below holds
      generated file, the landing's commits are replayed onto TARGET's tip (plumbing on a temporary index; no verify:
      nothing it verified changed) and the compare-and-swap retried; otherwise it refuses naming the overlapping paths.
   The pad (on by default; --no-sendpad turns it off): when the verify loses sclient.cpp pairs outright and the changes
-  touch a header sclient.cpp includes, tools/vc6/sendpad.py re-sweeps SEND_SYMBOL_PAD, the pad is committed and the
-  verify runs once more (workflow.md 3.4). It costs nothing when no sclient.cpp pair is lost.
+  touch a header sclient.cpp includes, tools/vc6/sendpad.py re-sweeps SEND_SYMBOL_PAD, both its outputs
+  (app/client/aux_roots_send.h and tools/re/auxroots.py, D227) are committed and the verify runs once more
+  (workflow.md 3.4). When the landing carries a `wt.py rebase` record commit, sendpad watches the target's ledger
+  (--watch-from, D228). It costs nothing when no sclient.cpp pair is lost.
   --dry stops before landing; --keep keeps the scratch worktree; logs go to .work/wt/NAME.bo.*.log.
   Every importer call waits --lock-wait seconds (3000) for the lock.
 

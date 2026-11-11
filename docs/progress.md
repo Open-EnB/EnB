@@ -4,6 +4,29 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-11 (11:55 PST, day): D227-D232 decided; the tools PR for D227, D228 and D232; no code change outside tools/
+
+- **Session** Opus 5.5 coordinator, branch `tools/2026-11-11` from master 84027c33 (PR #189 merged), PR #190.
+  Two Opus builders in the shared tree on disjoint files, no VM used: BP1 (wt.py / sendpad.py, ~75k tokens),
+  PL1 (pool.py, ~120k tokens).
+- **Decisions:** the user approved P-CO-1, P-R2-1, P-L1-3 (with its no-dialog guard), P-M1-3, P-L1-4 and P-VM-2:
+  D227-D232; D231 adds D66 kind (viii), an instance held for another object. The notes-and-tools proposals
+  (P-M2-1, P-M2-2, P-M2-4, P-M1-1, P-M1-6) moved from §3 to §4 item 9 (5095d4da).
+- **D227** (57492b43): bring-over's pad retune staged only aux_roots_send.h, while sendpad.py also rewrites
+  auxroots.py's SEND_SYMBOL_PAD; both are now committed in the retune commit, any other changed file still refuses.
+  **D228** (3b6b265c): sendpad.py `--watch-from REV`, and it watches the onto commit's ledger when HEAD is a
+  `wt.py rebase` record commit; bring-over passes its target when the landing carries one. Tests:
+  `tools/test_padretune.py` (9).
+- **D232** (c092eb47, 6f4b76b5): `pool.py lease --wait S` (1800; 0 = the old exit) queues first come first served
+  at the cap (tickets in `.work/pool/queue/`, dead waiters dropped); leases.lock held only to decide and save
+  (clones, tidy's stops, create / destroy / stop-idle run unlocked under a per-VM `busy` mark); LOCK_STALE
+  900 -> 300 s. Lock-file delete retried on Windows' sharing violation, the likely cause of 2026-11-01's
+  15-minute hold (not proven). `--prune` now destroys only VMs already Off. Tests: `tools/test_pool_queue.py`
+  (10, mocked Hyper-V); the full `unittest discover -s tools` passes 152.
+- **Docs:** workflow.md §3.5's two pool-contention traps retired; wt.py's docstring names both pad outputs.
+- **Open for the user:** `/verify-approved` on PR #190; P-PL1-1 (new); P-VM-1 by early December. D229 (app code)
+  and D230's layout-items-first order go to the next run.
+
 ### 2026-11-11 (09:22 PST, morning; night run 2026-11-10b, week plan session 1): the map of the app's unexplored code as the week's queue (574 rows), three stuck functions settled, eighteen new app files from the queue's top; +813 pairs over the run's baseline, 0 lost outright
 
 - **Session** Fable 5.2 coordinator, branch `run/2026-11-10` from master a5a3fde4, PR #189, head 19772e12; plan log
@@ -3128,15 +3151,16 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D224 | 2026-11-10 | The user, after the audit of this table: (a) D7's trigger (not-exact.md past 400; 742 entries) revisited: E&B's own code stays held to byte-exactness and the work continues toward it; (b) P-API-5 is closed: its pilot (D163 (a)) and the Batch API rounds (D184, D185, D216) were run; Batch variant rounds are the use of the API credit, the next one when about 300 new not-exact functions have gathered since the last; (c) rows without a Why cell (D188, D189, D193-D195, D199-D210) record "user"; D199 no longer cites D1 | user |
 | D225 | 2026-11-10 | The user: the usage week 2026-11-10 to 2026-11-17 spends one Fable usage reset (Fable is capped at 50 % of the week; the reset subtracts the Fable usage), planned in [week-plan-2026-11-10.md](week-plan-2026-11-10.md): (a) sessions 1-4 run the coordinator and the reasoning builders (analysis, class layouts, shared headers, first drafts, stuck functions, the quality pass) on Fable until its 50 points are spent, then the reset, then sessions 5-14 on Opus as builders.md §4 says, about 100 points; a second, unrefunded Fable batch only if the user says so at a review; (b) for the week this sets aside D96 (the coordinator's model) and D72's Fable row; D89's count limits (two prior Opus rounds, 8 forms, 4 functions per session) and D97's one Fable builder at a time are lifted while the first 50 points are spent, the ban on register-only and order-only residues stays; (c) no measuring run: D93's result is extended to Fable and the rates are read from the heartbeats; (d) subscription only; (e) guide for the split: 60 % new app code, 15 % stuck work, 15 % quality, 10 % libraries and tools | user |
 | D226 | 2026-11-10 | The user: (a) D189 (b) is not adopted: no source-order tie-break in objmatch (the 2026-11-10 order test held for own functions, 349 of 353 groups, and not for inline COMDATs; `.work/audit/ordertest.py` stays as the record); (b) two more subagents on Sonnet beside the lander (D223 (c)): the **checker** (`.claude/agents/checker.md`: D182's harness check and one POC run or replay, one line per program) and the **doc-filer** (`.claude/agents/doc-filer.md`: builders' traps, proposals and leftovers into workflow.md §3 and progress.md §3 / §4, then docs_check); the log entry stays the coordinator's | user |
-| D227 | 2026-11-11 | P-CO-1, the user: yes: `wt.py bring-over` accepts a pad retune's change to tools/re/auxroots.py and aux_roots_send.h as its own and commits them with the landing, instead of refusing with "regenerating changed other files as well" (three of fourteen landings of run 2026-11-10b needed a repair builder for it). Tools change (Python, the maintainer's `/verify-approved`). Not yet carried out. | user |
-| D228 | 2026-11-11 | P-R2-1, the user: yes: `sendpad.py` takes its watch set from the onto-branch's ledger when HEAD is a `wt.py rebase` record commit (after a rebase HEAD's ledger has already recorded the loss, and sendpad printed a wrong window: 44 against the true 46..53). Tools change (Python). Not yet carried out. | user |
+| D227 | 2026-11-11 | P-CO-1, the user: yes: `wt.py bring-over` accepts a pad retune's change to tools/re/auxroots.py and aux_roots_send.h as its own and commits them with the landing, instead of refusing with "regenerating changed other files as well" (three of fourteen landings of run 2026-11-10b needed a repair builder for it). Tools change (Python, the maintainer's `/verify-approved`). Carried out (57492b43, PR #190). | user |
+| D228 | 2026-11-11 | P-R2-1, the user: yes: `sendpad.py` takes its watch set from the onto-branch's ledger when HEAD is a `wt.py rebase` record commit (after a rebase HEAD's ledger has already recorded the loss, and sendpad printed a wrong window: 44 against the true 46..53). Tools change (Python). Carried out (3b6b265c, PR #190). | user |
 | D229 | 2026-11-11 | P-L1-3, the user: yes, with the guard: the settings store's 0x7CB2E0 (`ShellExecuteEx`, `MessageBoxA` on failure) is guarded so that unattended it logs instead of showing the box (D69), and then the five callers using local stand-in classes switch to the real class. Not yet carried out. | user |
 | D230 | 2026-11-11 | P-M1-3, the user: yes: the eleven layout items of queue-a.md §3 (the mesh interface base, the signal map, the chat panel base, the inventory strip's class, the specials' base, the string utilities, the audio family, the power gadget, the bridge interface, the dynamic window, the combo box) are done one after another before new drafts that use those classes, since each one replaces several files' private views of one class. | user |
 | D231 | 2026-11-11 | P-L1-4, the user: yes: D66 kind (viii), an instance held for another object. A template / COMDAT instance whose emitting (inexact) code goes away is not lost when the owning object's file holds it in the same landing; the landing names it as a D66 move (L1's five `map<string,string>` instances 0x6B15E0 / 0x6B1A40 / 0x6B1EC0 / 0x6B1F40 / 0x6B1FC0, now in unknown_6af220.cpp; P-M1-4's KVPairTemplateClass<float> / <bool> pairs move to unknown_445740.cpp the same way). | user |
-| D232 | 2026-11-11 | P-VM-2, the user: yes: `pool.py lease` (and `verify --pool`, `appfile.py --pool`) waits in a fair queue at the pool's cap instead of exiting with "pool cap: 7 VMs", and a lease process does not hold `leases.lock` past its own save. Tools change (Python, the maintainer's `/verify-approved`). Not yet carried out. | user |
+| D232 | 2026-11-11 | P-VM-2, the user: yes: `pool.py lease` (and `verify --pool`, `appfile.py --pool`) waits in a fair queue at the pool's cap instead of exiting with "pool cap: 7 VMs", and a lease process does not hold `leases.lock` past its own save. Tools change (Python, the maintainer's `/verify-approved`). Carried out (c092eb47, 6f4b76b5, PR #190). | user |
 
 ## 3. Open decisions
 
+* **P-PL1-1** (2026-11-11, PL1; recommend yes): `verify.py --pool` leases inside `hold_lock` (`vc6lock.pool_lease`), so while it waits in D232's queue it holds the importer lock: if every VM is held by builders whose own verify waits on that lock, nobody proceeds until `--wait` (30 min) expires. Lease before taking the importer lock (or pass a short `--wait` from pool_lease). A tools change (Python, the maintainer's `/verify-approved`).
 * **P-O6-1** (2026-11-11, O6; recommend retyping once the cause is known): retype slot +0x8C in ui_slot_info.h to return `UISkillInfoClass *` once it is known why the D188 short credit 0x532170 does not survive a return-type change. Not applied.
 * **P-L5-1** (2026-11-10, L5; recommend keeping the guard): the SignalMap / SignalList members sit behind a `__SIGNAL_MEMBERS` guard (as `__INTRFACE_MEMBERS`), because with them visible to sclient.cpp no pad value 0..63 keeps 0x758210 / 0x702240 / 0x74D990 together; keep the guard until sclient's pad is retired.
 * **P-S1-3** (2026-11-10, S1; recommend yes once aux_roots is retuned): an inline `LegoSplitStruct::Get_Name()` accessor makes Get_Lego_Transform 0x72B000 exact with no dead code and cuts Add 0x72B7F0's need to 3 units, but aux_roots then loses 0x7045F0 outright and its hold of 0x702240 (lego_identifier.h reaches it through co.h). Not applied; stash `docs/attempts/72B7F0/stash_getname_s1.txt`.
@@ -3753,10 +3777,9 @@ below name only the work items, the blocked work, the leads and the queues.
    in the heartbeat line; (13) auxroots.py's stale pad-window comments, with a `generate` diff proving the headers
    unchanged; (14) reproduce before fixing: build.py on a deleted tracked file, names.py's two-line-signature marker
    and wwonline, tryv2's restore failure (OSError 22).
-   Approved 2026-11-11, to carry out: D227 (bring-over commits a pad retune's auxroots.py / aux_roots_send.h), D228
-   (sendpad's watch set from the onto-branch's ledger after a rebase), D232 (pool leases queue at the cap; no
-   `leases.lock` held past the save); D229 (guard 0x7CB2E0's `MessageBoxA` to log unattended, then switch the
-   settings store's five stand-in callers). From the 2026-11-10 analysis (M1 / M2), each when a builder next touches
+   Approved 2026-11-11, to carry out (app code, the next run): D229 (guard 0x7CB2E0's `MessageBoxA` to log
+   unattended, then switch the settings store's five stand-in callers). The pool queue does not wait for host
+   memory yet (a lease still fails on "Unable to allocate"; workflow.md §3.5). From the 2026-11-10 analysis (M1 / M2), each when a builder next touches
    the tool: `appfile.py show` gains a "boundary" column (the window objects' end marker: two 16-byte adjustor
    thunks, slots 0 / 1 of the secondary tables, e.g. 0x6B2440 / 0x6B2450) and the stray-pair rule for `triage.py
    plan` / app_inventory's "between" (M2); `vtscan_a.py` + `class_blocks` into tools/re as `objspan.py ADDR` (class

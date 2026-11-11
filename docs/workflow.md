@@ -1328,11 +1328,11 @@ are in 3.0.
 * **Leases change under you:** `pool.py lease` and `release` take `--agent NAME` (a bare IP released nothing). The
   pool can stop or turn Off a leased VM mid-session: on an ssh timeout check `pool.py list`, release and lease
   again. A VM leased with `--agent` can later show as another holder's (release then finds nothing).
-* **Pool contention:** with every VM leased, `verify.py --pool 1` and `appfile.py --pool` exit at once with
-  "pool cap: N VMs exist", and `pool.py lease` can print it while `list` shows a free VM (a race): retry in a
-  loop. A lease can fail for 25 minutes with "Unable to allocate 4096 MB" while a memory-heavy program runs on the
-  host: retry. A `pool.py lease` process can hold `.work/pool/leases.lock` until the 900 s stale takeover:
-  check `pool.py list` and the lock's holder before assuming a hung VM. With the lock busy, a scratch copy
+* **Pool contention:** at the cap a lease (`pool.py lease`, `verify.py --pool`, `appfile.py --pool`) waits in a
+  first-come queue (`--wait S`, 1800; `pool.py list` shows the queue; D232) instead of exiting, and leases.lock is
+  held only to decide and save. While queued, `verify.py --pool` still holds the importer lock (P-PL1-1). The queue
+  does not wait for host memory: a lease can fail for 25 minutes with "Unable to allocate 4096 MB" while a
+  memory-heavy program runs on the host: retry. With the lock busy, a scratch copy
   compiles alone on a leased VM in ~20 s (vc6.py compile with the library's flags).
 * **Host memory:** `verify.py --pool K` exits when the host lacks memory for the VMs it would start (2 GB startup
   plus the reserve each): pass `--pool` = the VMs already running. `appfile.py --pool` exits at once on "host
