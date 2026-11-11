@@ -4,19 +4,28 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
-### 2026-11-10 (16:55 PST, afternoon): eight of the review's tool changes with tests; D189 (b)'s order test: holds for own functions (349 of 353 settled twin groups), not for inline COMDATs (608 of 700); no code change
+### 2026-11-10 (17:40 PST, evening): eleven of the review's tool changes with tests (1-11); D189 (b)'s order test: holds for own functions (349 of 353 settled twin groups), not for inline COMDATs (608 of 700); no code change
 
 - **Session** Fable 5.2, no builders, no VM leased; branch `tools/item9-tool-changes` from master af1c1654 (PR #186
-  merged), **not pushed**: 544f0819 (the tool changes) and this entry's commit. Tools, tests and docs only: no
-  library or app source, so no verify.
-- **Tool changes (§4 item 9: 1, 4-10; 2 and 3 not made: no approval is recorded).** `wt.py new` copies build/art
+  merged), pushed with its PR at the handoff: 544f0819 (changes 1, 4-10), acf64eaf and 9149244f (the order
+  test's record), then changes 2, 3 and 11 with this entry. Tools, tests and docs only: no library or app source,
+  so no verify.
+- **Tool changes 2, 3, 11 (approved by the user in the session).** `wt.py bring-over` without `--target` lands
+  on the main tree's branch when that is `run/*` and refuses on any other (it was master; `--target master` still
+  works); the pad retune is on by default (`--no-sendpad` turns it off; `--sendpad` still parses); pacing.py
+  projects usage in two parts, burnrate.py's fit: the coordinator 0.6 % of the week per hour plus 0.1 % per Opus
+  builder (`--coordinator-rate`, `--weekly-rate`), both scaled to the burn observed since the previous heartbeat
+  line; the old rule charged all burn to the builders. Its session-window rates are those times eight
+  (`--session-ratio`): the old defaults' ratio, **assumed, not measured**. A live `heartbeat --no-log` ran clean
+  (allowance 4, memory-bound). The lander's definition, the skill and workflow.md §3 say the new behaviour.
+- **Tool changes 1, 4-10.** `wt.py new` copies build/art
   and build/d3d8shot (checked on a real worktree: 171 art files with MSS32.DLL, d3d8.dll; made and removed);
   `verify.py --lib a,b` splits on the comma and an unknown library exits; wt.py passes `--lock-wait` to its
   report.py step (report.py itself already took the flag: the gap was the caller); appfile.py's `markers()` skips
   `#pragma` lines; symbols.py with no arguments refuses (`--no-objs` to mean it); explain.py takes the function
   whose name equals the argument before those that contain it, and lists the candidates on a bad `--n`; sendpad.py's
-  watch set comes from HEAD's ledger; `auxpad.py sweep --pool` is accepted. Tests: `tools/test_toolfixes.py`, 18,
-  12 of them failing on the old code; the suite 125 OK. tools/re/test_explain.py: 1 failure before and after
+  watch set comes from HEAD's ledger; `auxpad.py sweep --pool` is accepted. Tests: `tools/test_toolfixes.py`, 26
+  for the eleven changes (of the first 18, 12 fail on the old code); the suite 133 OK. tools/re/test_explain.py: 1 failure before and after
   (0x826D00 reads `relocation`, the case expects `shape`: a stale case, not touched). The retired trap bullets
   shrank in workflow.md §3, the pacing skill and the harness README; docs_check 0 problems.
 - **D189 (b)'s test** (`.work/audit/ordertest.py` on `dirs.json`'s objects, results in `ordertest.json` / `.log`;
@@ -42,13 +51,15 @@ Newest first within each section. Dates are when the entry was written.
   with the gutted file test_explain.py failed two other cases. Test a refusal on a copy or with `--out`.
 - **State outside git:** `.work/item9/` (the edit scripts), `.work/audit/` (finddirs.py, dirs.json, ordertest.py,
   ordertest2.py, ordertest.json / .log), `.work/log/item9-*.log`. Pool: none leased.
-- **Open for the user:** (1) push `tools/item9-tool-changes` and open its PR (recommend yes; tools changes go
-  through `/verify-approved`); (2) D189 (b): adopt for own functions only, libraries first (recommend yes: 57
-  candidates; app's 21 rest on our own source order); (3) still open from the last entry: bring-over without a
-  default target of master, `--sendpad` by default, pacing.py's allowance (recommend yes to all three), the
-  harness checker and doc filer definitions, the coordinator's model.
-- **Next step:** after the answers: D189 (b)'s round in objmatch behind a switch with a full verify
-  (gain-only), or changes 2 / 3 / 11-14 of §4 item 9.
+- **Not done:** the new bring-over defaults and the pacing projection have not run in a coordinator run yet (the
+  first one checks them: the pad retune on a landing that loses sclient pairs, the allowance against the run's
+  real burn); the session ratio is unmeasured; D189 (b) was skipped at the user's word and stays open in §3.
+- **Open for the user:** (1) the PR of `tools/item9-tool-changes` (tools changes: `/verify-approved`); (2) D189
+  (b): adopt for own functions only, libraries first (recommend yes: 57 candidates; app's 21 rest on our own
+  source order); (3) still open from the 16:30 entry: the harness checker and doc filer definitions (recommend
+  yes, Sonnet), the coordinator's model (Opus per builders.md §4) before a run.
+- **Next step:** D189 (b)'s round in objmatch behind a switch with a full verify (gain-only) once decided; else
+  changes 12-14 of §4 item 9, or the next coordinator run from master after the PR merges.
 
 ### 2026-11-10 (16:30 PST, afternoon): the workflow review: traps 332 -> 196 KB with read-first and lookup parts, decision rows marked, the lander subagent (D223, D224); no code change
 
@@ -3597,11 +3608,8 @@ below name only the work items, the blocked work, the leads and the queues.
    read only by non-exact functions, tables the compiler inlined or emitted no symbol for, 8 masked pointers in 7 tables
    (ui_attrb 0xB79F04, ui_analyze 0xB7967C, ui_manu 0xB81868, ...).
    The 2026-11-10 review's tool changes (D223; the audit tables are `.work/audit/traps-*.md`; 1 and 4-10
-   made 2026-11-10, tests in `tools/test_toolfixes.py`; left, each retiring the trap bullets named): (2) `wt.py bring-over` without `--target`
-   refuses, or lands on the current run branch, instead of master (waits for the user); (3) `--sendpad` by default
-   (waits for the user); (11) pacing.py's allowance on
-   burnrate.py's fit (about 0.6 % of the week per hour for the coordinator, 0.1 % per builder: it said "allowance 0"
-   and was overridden in four of the last five runs; waits for the user) and (12) the five-hour window's percentage
+   made 2026-11-10, tests in `tools/test_toolfixes.py`; 2, 3 and 11 the same day after the user's yes; left, each retiring the trap bullets named):
+   (12) the five-hour window's percentage
    in the heartbeat line; (13) auxroots.py's stale pad-window comments, with a `generate` diff proving the headers
    unchanged; (14) reproduce before fixing: build.py on a deleted tracked file, names.py's two-line-signature marker
    and wwonline, tryv2's restore failure (OSError 22).

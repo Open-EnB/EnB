@@ -247,5 +247,78 @@ class AuxpadPool(unittest.TestCase):
                 p.parse_args(bad)
 
 
+class BringOverDefaults(unittest.TestCase):
+    """2: no --target is the main tree's run branch, never master; 3: the pad retune is on unless --no-sendpad."""
+
+    def on(self, branch):
+        old = wt.current_branch
+        wt.current_branch = lambda cwd=None: branch
+        self.addCleanup(setattr, wt, 'current_branch', old)
+
+    def test_named_target_wins(self):
+        self.on('master')
+        self.assertEqual(wt.default_target('run/2026-11-10'), 'run/2026-11-10')
+        self.assertEqual(wt.default_target('master'), 'master')
+
+    def test_run_branch_is_the_default(self):
+        self.on('run/2026-11-10')
+        self.assertEqual(wt.default_target(None), 'run/2026-11-10')
+
+    def test_any_other_branch_refuses(self):
+        for cur in ('master', 'docs/x', 'wt/A', ''):
+            self.on(cur)
+            with self.subTest(cur=cur), self.assertRaises(SystemExit) as e:
+                wt.default_target(None)
+            self.assertIn('--target', str(e.exception))
+
+    def test_parser(self):
+        p = wt.parser()
+        a = p.parse_args(['bring-over', 'A'])
+        self.assertIsNone(a.target)
+        self.assertTrue(a.sendpad)
+        self.assertTrue(p.parse_args(['bring-over', 'A', '--sendpad']).sendpad)
+        self.assertFalse(p.parse_args(['bring-over', 'A', '--no-sendpad', '--target', 'run/x']).sendpad)
+
+
+class PacingRates(unittest.TestCase):
+    """11: the coordinator's own burn is no longer charged to the builders."""
+
+    @classmethod
+    def setUpClass(cls):
+        sys.path.insert(0, os.path.join(os.path.dirname(HERE), '.claude', 'skills', 'coordinator-pacing', 'scripts'))
+        import pacing
+        cls.p = pacing
+
+    def test_fit_without_an_observation(self):
+        self.assertEqual(self.p.split_rates(0.6, 0.1, 3), (0.6, 0.1))
+        self.assertEqual(self.p.split_rates(0.6, 0.1, 3, 0), (0.6, 0.1))
+
+    def test_observation_scales_both_parts(self):
+        c, b = self.p.split_rates(0.6, 0.1, 4, 2.0)          # the fit says 1.0 %/h for four builders; 2.0 observed
+        self.assertAlmostEqual(c, 1.2)
+        self.assertAlmostEqual(b, 0.2)
+        self.assertAlmostEqual(c + 4 * b, 2.0)
+        c, b = self.p.split_rates(0.6, 0.1, 0, 0.3)          # the coordinator alone
+        self.assertAlmostEqual(c, 0.3)
+
+    def test_projection(self):
+        self.assertAlmostEqual(self.p.projected_use(40, (0.6, 0.1), 5, 10), 51.0)
+        self.assertIsNone(self.p.projected_use(None, (0.6, 0.1), 5, 10))
+        self.assertIsNone(self.p.projected_use(40, (0.6, 0.1), 5, None))
+
+    def test_allowance(self):
+        # 70 % of the week used, 10 h to the handoff, one builder running, 1 %/h observed over the last hour.
+        # Charged to the one builder (the old rule) a second builder projected 70 + 2 * 1.0 * 10 = 90, a third 100:
+        # allowance 1. Split as the fit does (0.86 + 0.14 per builder), eight more fit under the cap.
+        w = self.p.split_rates(0.6, 0.1, 1, 1.0)
+        self.assertEqual(self.p.usage_allowance(70, None, 1, w, None, 10, None, 92), 8)
+        # the fit alone: 70 + (0.6 + 0.1 n) * 10 <= 92 -> n <= 16, capped at 12 in all
+        self.assertEqual(self.p.usage_allowance(70, None, 0, (0.6, 0.1), None, 10, None, 92), 12)
+        # the coordinator's own hours do not fit: 0
+        self.assertEqual(self.p.usage_allowance(88, None, 0, (0.6, 0.1), None, 10, None, 92), 0)
+        # the session window binds: 50 + (4.8 + 0.8 n) * 4 <= 92 -> n <= 7
+        self.assertEqual(self.p.usage_allowance(10, 50, 0, (0.6, 0.1), (4.8, 0.8), 10, 4, 92), 7)
+
+
 if __name__ == '__main__':
     unittest.main()

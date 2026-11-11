@@ -53,11 +53,13 @@ The rules behind the allowance (defaults in the script, all overridable):
 
 - **Memory:** one more builder per 2 GB free above a 3 GB floor. A stopped clone starts on lease and takes its
   startup memory, so count it before it exists.
-- **Usage:** a builder costs about 0.5 % of the week per hour, the coordinator's own burn included (Opus; Sonnet
-  about a fifth, Haiku a twentieth; measured below),
-  and 4 % of the session window per hour. Launch only while the projection at the handoff stays under the cap
-  (92 %). Never launch under 5 % of the week. Seven Opus builders burned about 1 % of the session window per
-  minute at their heaviest; the observed rate in the log is the better guide once two heartbeats exist.
+- **Usage:** the coordinator costs about 0.6 % of the week per hour by itself and each Opus builder about 0.1 %
+  more (Sonnet about a fifth of that, Haiku a twentieth; the fit measured below; `--coordinator-rate`,
+  `--weekly-rate`); the session window is taken as eight times those (`--session-ratio`: assumed, not measured).
+  With a previous heartbeat line in the plan, both parts are scaled to the burn observed since. Launch only while
+  the projection at the handoff stays under the cap (92 %). Never launch under 5 % of the week. Seven Opus
+  builders burned about 1 % of the session window per minute at their heaviest. An "allowance 0" from usage now
+  means the coordinator's own hours to the handoff do not fit: shorten the run, do not override it.
 - **Health:** no launch while HEAD's ledger does not parse or an address is lost outright. Fix first
   (usually a builder's commit script: see workflow.md §3.8).
 - **Harness check (D182):** at a heartbeat after any landed commit that rebuilds a file clienttest or udpreplay links

@@ -1147,7 +1147,8 @@ are in 3.0.
   (automatic) verify writes `.work/<agent>/tmp/enb_import/verify-<lib>`; a main-tree run without an agent uses
   `%TEMP%\enb_import`, which every other such run overwrites (a new file's .obj vanishes minutes later). Copy the
   objects out before vtables.py or objdiff.
-* **`wt.py bring-over NAME` lands on `master` by default:** in a run pass `--target run/<date>`.
+* **`wt.py bring-over NAME` without `--target`** lands on the main tree's branch when that is `run/*` and refuses
+  on any other; in a run still pass `--target run/<date>`.
 * **Library flags (D12):** library-matching.md §3.5 (wwshade `/GX /Ob1`, the other EA libraries `/Ob2` without
   `/GX`, app `/GX`, D23). Signs of wrong flags: EH prologs (`push -1; push handler; mov eax, fs:[0]`) only in the
   client, or a file's callers all calling what ours inlines. Compile through verify's path
@@ -1271,8 +1272,8 @@ are in 3.0.
   headers: `python tools/vc6/sendpad.py --includes`), cycles mod 64, can split, and is unaffected by .cpp files
   sclient.cpp does not include. Never store or copy a pad value and never sweep only a neighbourhood: after any
   landing that touches such a header, rebase, then run `python tools/vc6/sendpad.py --pool 1 --lock-wait 6000`
-  (the 0..63 sweep through verify's path; it sets the pad to the window's middle); `wt.py bring-over NAME
-  --sendpad` runs it when the verify loses sclient.cpp pairs and the diff touches such a header. One sweep base
+  (the 0..63 sweep through verify's path; it sets the pad to the window's middle); `wt.py bring-over NAME`
+  runs it (unless `--no-sendpad`) when the verify loses sclient.cpp pairs and the diff touches such a header. One sweep base
   at a time: a second landing needs a rebase and a new sweep (bring-over refuses a branch losing 0x74D990 or
   0x758210 outright). The sweep's watch set comes from HEAD's ledger (a verify that
   already lost 0x758210 no longer drops it from the set): check 0x758210 / 0x702240 in `.work/log/sendpad.log`. `appfile.py match` and single-file compiles pad through a

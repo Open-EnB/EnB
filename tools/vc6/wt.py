@@ -2,7 +2,7 @@
 
     python tools/vc6/wt.py new NAME [--base REV]
     python tools/vc6/wt.py list [--unlanded]
-    python tools/vc6/wt.py bring-over NAME [--target BRANCH] [--lib X ...] [--pool K] [--dry] [--keep] [--no-link] [--sendpad]
+    python tools/vc6/wt.py bring-over NAME [--target BRANCH] [--lib X ...] [--pool K] [--dry] [--keep] [--no-link] [--no-sendpad]
     python tools/vc6/wt.py bring-over A B..C D [--batch-name N] [--target BRANCH] [--lib X ...] [--pool K] [--trailer T]
                                       [--dry] [--picks-only] [--resume] [--keep] [--no-link]
     python tools/vc6/wt.py rebase NAME [--onto BRANCH] [--continue] [--lib X ...] [--pool K] [--trailer T]
@@ -22,8 +22,9 @@ new: `git worktree add .work/wt/NAME -b wt/NAME BASE` (default HEAD); NTFS junct
   commits only (`git rebase --onto ONTO <recorded parent tip>`) and drops the parent line (`--onto wt/PARENT` keeps it,
   recording PARENT's new tip).
 
-bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss rule below holds, never
-  touching TARGET otherwise:
+bring-over: puts wt/NAME's commits on TARGET only when the loss rule below holds, never touching TARGET otherwise.
+  TARGET: --target, else the branch the main tree is on when that is a run branch (run/*); on any other branch
+  it refuses (never master unless `--target master` says so):
   1. the commits of wt/NAME not yet on TARGET (patch-equivalent ones skipped, merges refused), only those above the
      recorded base (the branch's own, as the batch form picks them; a stacked branch's parent must be on TARGET);
   2. TARGET at the recorded base (or an ancestor of the branch, the base on TARGET): fast-forward to the branch tip;
@@ -56,8 +57,9 @@ bring-over: puts wt/NAME's commits on TARGET (default master) only when the loss
      item 3; a coordinator's commit): when those commits touch none of the paths the landing's commits touch and no
      generated file, the landing's commits are replayed onto TARGET's tip (plumbing on a temporary index; no verify:
      nothing it verified changed) and the compare-and-swap retried; otherwise it refuses naming the overlapping paths.
-  --sendpad: when the verify loses sclient.cpp pairs outright and the changes touch a header sclient.cpp includes,
-  tools/vc6/sendpad.py re-sweeps SEND_SYMBOL_PAD, the pad is committed and the verify runs once more (workflow.md 3.4).
+  The pad (on by default; --no-sendpad turns it off): when the verify loses sclient.cpp pairs outright and the changes
+  touch a header sclient.cpp includes, tools/vc6/sendpad.py re-sweeps SEND_SYMBOL_PAD, the pad is committed and the
+  verify runs once more (workflow.md 3.4). It costs nothing when no sclient.cpp pair is lost.
   --dry stops before landing; --keep keeps the scratch worktree; logs go to .work/wt/NAME.bo.*.log.
   Every importer call waits --lock-wait seconds (3000) for the lock.
 
@@ -976,7 +978,7 @@ def run_verify(a, bo, libs, target):
 
 
 def sendpad_retune(a, bo, libs, target):
-    """--sendpad (opt-in): when bo's changes touch a header sclient.cpp includes and the verify lost sclient.cpp pairs
+    """The pad retune (on unless --no-sendpad): when bo's changes touch a header sclient.cpp includes and the verify lost sclient.cpp pairs
     outright against TARGET, sendpad.py (bo's copy) re-sweeps SEND_SYMBOL_PAD, the new pad is committed and the
     verify runs once more. True when the pad was changed (the commits no longer record what the verify gives:
     the caller regenerates). Nothing else is judged here; the caller's loss rule applies to the second verify."""
@@ -1345,7 +1347,20 @@ def cmd_batch(a):
                 os.remove(bo + '.state')
 
 
+def default_target(target):
+    """bring-over's TARGET: --target when given, else the main tree's branch when it is a run branch; otherwise it
+    refuses (the default used to be master, which a run never lands on, D148)."""
+    if target:
+        return target
+    cur = current_branch()
+    if cur.startswith('run/'):
+        return cur
+    sys.exit(f'wt: no --target and the main tree is on {cur or "a detached HEAD"}, not a run branch: '
+             f'pass --target BRANCH (nothing done)')
+
+
 def cmd_bring_over(a):
+    a.target = default_target(a.target)
     if len(a.names) > 1 or a.batch_name or a.resume or a.picks_only or '..' in a.names[0]:
         return cmd_batch(a)
     a.name = a.names[0]
@@ -1603,7 +1618,7 @@ def cmd_rebase(a):
           f'({git("log", "-1", "--format=%s", "HEAD", cwd=path).strip()[:80]}); base recorded {st["onto_sha"][:9]}')
 
 
-def main():
+def parser():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = ap.add_subparsers(dest='cmd', required=True)
     p = sub.add_parser('new')
@@ -1615,7 +1630,8 @@ def main():
     p = sub.add_parser('bring-over')
     p.add_argument('names', nargs='+', metavar='NAME',
                    help='a worktree name; two or more, or A..B (A\'s branch below B\'s own commits): the batch form')
-    p.add_argument('--target', default='master', help='the branch to land on (tests: a scratch branch)')
+    p.add_argument('--target', default=None,
+                   help='the branch to land on (default: the main tree\'s branch when it is run/*, else refused)')
     p.add_argument('--batch-name', help='batch form (also for one branch): the scratch worktree .work/wt/N.bo')
     p.add_argument('--trailer', help='batch: the record commit\'s trailer line (default the newest on the target)')
     p.add_argument('--picks-only', action='store_true', help='batch: stop after the cherry-picks, no verify')
@@ -1628,9 +1644,10 @@ def main():
     p.add_argument('--keep', action='store_true', help='keep the scratch worktree NAME.bo')
     p.add_argument('--no-link', action='store_true',
                    help='skip the link check (item 6b; doc-only or tools-only landings), with a warning')
-    p.add_argument('--sendpad', action='store_true',
-                   help='opt-in: when the verify loses sclient.cpp pairs and the changes touch a header sclient.cpp '
-                        'includes, re-sweep SEND_SYMBOL_PAD (sendpad.py), commit it and verify once more')
+    p.add_argument('--sendpad', action=argparse.BooleanOptionalAction, default=True,
+                   help='when the verify loses sclient.cpp pairs and the changes touch a header sclient.cpp '
+                        'includes, re-sweep SEND_SYMBOL_PAD (sendpad.py), commit it and verify once more '
+                        '(default on; --no-sendpad to skip)')
     p = sub.add_parser('rebase')
     p.add_argument('name')
     p.add_argument('--onto', help='the branch to rebase onto (default the run branch wt/NAME was based on)')
@@ -1645,7 +1662,11 @@ def main():
     p.add_argument('--delete-branch', action='store_true')
     p.add_argument('--force', action='store_true',
                    help='remove a worktree with uncommitted changes or a branch with unlanded commits')
-    a = ap.parse_args()
+    return ap
+
+
+def main(argv=None):
+    a = parser().parse_args(argv)
     os.makedirs(WTDIR, exist_ok=True)
     {'new': cmd_new, 'list': cmd_list, 'bring-over': cmd_bring_over, 'rebase': cmd_rebase,
      'remove': cmd_remove}[a.cmd](a)
