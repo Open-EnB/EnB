@@ -19,20 +19,20 @@
 #include "unknown_675120.h"
 #include "..\..\wwlib\ref_ptr.h"
 
-class DynamicWindowClass;
+class DynamicWindowRenderObjectClass;
 
 class DynamicWindowGadgetClass : public ButtonGadgetClass  // NAME 3 [DynamicWindowGadgetClass]: class-from-file (D24) for app\Client\gd_dynamicwindow.cpp
 {
 public:
-	DynamicWindowGadgetClass(const RefCountPtr<DynamicWindowClass> &object, unsigned int mask, unsigned int flags, bool highlight);	// 0x668860  // NAME 1 [object, mask, flags, highlight]: the base's and what it does
-	DynamicWindowGadgetClass(DynamicWindowClass *object, unsigned int mask, unsigned int flags, bool highlight);	// 0x6689C0 (the message box passes 0x55, 3)  // NAME 1 [object, mask, flags, highlight]: the base's and what it does
+	DynamicWindowGadgetClass(const RefCountPtr<DynamicWindowRenderObjectClass> &object, unsigned int mask, unsigned int flags, bool highlight);	// 0x668860  // NAME 1 [object, mask, flags, highlight]: the base's and what it does
+	DynamicWindowGadgetClass(DynamicWindowRenderObjectClass *object, unsigned int mask, unsigned int flags, bool highlight);	// 0x6689C0 (the message box passes 0x55, 3)  // NAME 1 [object, mask, flags, highlight]: the base's and what it does
 	virtual ~DynamicWindowGadgetClass();								// +0x00 0x668B20 (deleting 0x668990)
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator) { return(NULL); }	// +0x24 0x668970
 	virtual bool Unknown_30(float x, float y);							// +0x30 0x668C80 (FAIL_IF '!DynamicObject': the pointer inside the window's bounds)
 
-	void Set_Dynamic_Object(const RefCountPtr<DynamicWindowClass> &object);	// 0x668BE0 (the window's model becomes the gadget's)  // NAME 1 [Set_Dynamic_Object, object]: the FAIL_IF's DynamicObject
+	void Set_Dynamic_Object(const RefCountPtr<DynamicWindowRenderObjectClass> &object);	// 0x668BE0 (the window's model becomes the gadget's)  // NAME 1 [Set_Dynamic_Object, object]: the FAIL_IF's DynamicObject
 
-	RefCountPtr<DynamicWindowClass> DynamicObject;						// +0x64 (FAIL_IF '!DynamicObject' l.61)  // NAME 3: the FAIL_IF's
+	RefCountPtr<DynamicWindowRenderObjectClass> DynamicObject;						// +0x64 (FAIL_IF '!DynamicObject' l.61)  // NAME 3: the FAIL_IF's
 	bool Highlight;														// +0x68 (0.6 grey, white while the pointer is over it)  // NAME 1: what it does
 };
 

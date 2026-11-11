@@ -105,15 +105,6 @@ void Unknown6A2ED0Class::Unknown_6A3C10()
 {
 }
 
-// ---------------------------------------------------------------- dynamic_window_icon.cpp's Create (0x519A20): a plain dynamic window, no texture
-// (the inventory windows' item examination window, ui_slot_info.cpp's 0x630280, makes its title's icon and close button with it)
-#include "..\..\app\client\dynamic_window_icon.h"
-RefCountPtr<DynamicWindowIconClass> DynamicWindowIconClass::Create(const std::string &texture_name, const Vector2 &size, unsigned int flags)
-{
-	STUB_CALLED("POC DynamicWindowIconClass::Create (0x519A20): a plain dynamic window");
-	return(Create_NEW((DynamicWindowIconClass *)new DynamicWindowClass("icon", 0)));
-}
-
 // ---------------------------------------------------------------- dynamic_window_move.cpp's 0x51A9C0: the window's move gadget, here one that is never hit
 class UIDynamicWindowClass;
 class PocNoHitGadgetClass : public GadgetClass

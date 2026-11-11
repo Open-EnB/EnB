@@ -7,7 +7,7 @@
 
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight  // NAME 1 [robj, a, b, c]: as ui_group.h
 
-DynamicWindowGadgetClass::DynamicWindowGadgetClass(const RefCountPtr<DynamicWindowClass> &object, unsigned int mask, unsigned int flags, bool highlight) :
+DynamicWindowGadgetClass::DynamicWindowGadgetClass(const RefCountPtr<DynamicWindowRenderObjectClass> &object, unsigned int mask, unsigned int flags, bool highlight) :
 	ButtonGadgetClass(NULL, mask, flags),
 	DynamicObject(),
 	Highlight(highlight)
@@ -15,7 +15,7 @@ DynamicWindowGadgetClass::DynamicWindowGadgetClass(const RefCountPtr<DynamicWind
 	Set_Dynamic_Object(object);
 }
 
-DynamicWindowGadgetClass::DynamicWindowGadgetClass(DynamicWindowClass *object, unsigned int mask, unsigned int flags, bool highlight) :
+DynamicWindowGadgetClass::DynamicWindowGadgetClass(DynamicWindowRenderObjectClass *object, unsigned int mask, unsigned int flags, bool highlight) :
 	ButtonGadgetClass(NULL, mask, flags),
 	DynamicObject(),
 	Highlight(highlight)
@@ -29,7 +29,7 @@ DynamicWindowGadgetClass::~DynamicWindowGadgetClass()
 	DynamicObject = NULL;
 }
 
-void DynamicWindowGadgetClass::Set_Dynamic_Object(const RefCountPtr<DynamicWindowClass> &object)
+void DynamicWindowGadgetClass::Set_Dynamic_Object(const RefCountPtr<DynamicWindowRenderObjectClass> &object)
 {
 	DynamicObject = object;
 	if (!DynamicObject) {
