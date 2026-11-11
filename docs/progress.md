@@ -4,6 +4,54 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-10 (16:30 PST, afternoon): the workflow review: traps 332 -> 196 KB with read-first and lookup parts, decision rows marked, the lander subagent (D223, D224); no code change
+
+- **Session** Fable 5.2, no builders, no VM leased; branch `docs/trap-rewrite` from master c657ef37 (PR #185 merged),
+  three commits, **not pushed**: 32f72c12 (decision markers, D223, the lander), 89b9e36b (the trap rewrite),
+  cc13aa69 (the user's answers, D224). Docs, two skills' text and comment / docstring lines of explain.py and
+  attempts.py only: no library or app source, so no verify.
+- **Traps (D223 (a)).** workflow.md §3 332,524 -> 195,577 bytes. An app builder's startup set was about 260 KB against
+  the 43 KB builders.md stated; now about 57 KB (builders.md §1's table re-measured). §3.1 = §3.1.1 Read first (7.6 KB)
+  + §3.1.2 Look up by symptom (the lever table and lookup bullets under explain.py's classes, each under
+  variants.py's 900-character cut; it took the generic VC6 forms out of §3.3); §3.3 = §3.3.1 Read first + §3.3.2
+  Look up; §3.9 = one `####` heading per file or library. Coordinator-only traps went to the coordinator-pacing
+  skill ("Landing and run-branch traps") with the filing rule that keeps §3 from growing back. Bullets for the
+  importer and the single ledger file (D211) and for fixed tool bugs are deleted.
+- **Decisions table (D223 (b), D224).** 11 superseded and 8 amended rows marked in place, no id renumbered or
+  removed; 17 Why cells set to "user"; D199 without D1; D7 revisited (byte-exact stays the goal); P-API-5 closed
+  (Batch rounds are the use of the API credit, the next at about 300 new not-exact functions). builders.md: D66's
+  seven kinds, no Fable queue cap (D136). The pacing skill cites D96.
+- **Lander (D223 (c)).** `.claude/agents/lander.md` (Sonnet): `wt.py bring-over --sendpad` in the background, a
+  refusal table, one line back per branch; builders.md §4 and the skill's Launching section name it. Evidence: about
+  25 bring-over refusals and 15 builder resumes in the last five runs' plans, in the coordinator's context, which
+  burnrate.py's fit puts at about six times a builder's cost per hour.
+- **Not adopted (D223 (d)):** Managed Agents' orchestration (hosted sandbox, API rates) and the advisor (no trial).
+- **Verified:** `tools/docs_check.py` 0 problems; `variants.workflow_bullets` on the new §3.1 (six bullets, all
+  under 900); every decision id, tool, flag and environment variable the old §3 cited that the new text does not
+  was traced to a stale, fixed or reworded bullet (`.work/audit/losscheck.py`). **Not done:** no second reader
+  proofread the rewritten text; 7 bullets are marked "not re-verified" and 14 "unresolved" (conflicting reports);
+  the lander has landed nothing yet; §4 was not swept against the ledger (the 13:30 entry's sweep stands, nothing
+  landed since).
+- **D189 (b) measured** (`.work/audit/twins.py`, `classify.py`, `twins.json`; objmatch's rounds re-run read-only on
+  the last verifies' objects): a source-order tie-break could settle 51 library functions (ww3d2 10 besides the
+  bw_render / bwrender duplicate-object case, wwmath 14, wwlib 11, wwsaveload 8, wlib 4, wwaudio 2, binkmovie 2;
+  of 195 ambiguous) and about 35 of app's 1,537 (40 of 545 app objects were older than the ledger: +-10 %). Its
+  premise, definition order = ascending client address within an object, is untested: §3's D189 (b), §4 item 9.
+- **Traps of this session:** an agent asked to "fix a stale comment" in tools/re/auxroots.py also changed a line
+  the tool writes into aux_roots_send.h; reverted (a pointer bullet in §3.3.1 keeps the source comments that cite
+  "workflow.md 3.3" for the pads valid). Give a generator's comment edits a `generate` diff, or leave them.
+- **State outside git:** `.work/audit/` (the audit tables traps-*.md and decisions.md, the rewrite's inputs
+  new-* / moved-* / final-*, assemble.py, losscheck.py, the twins files). Pool: enb-vc6-01 / -02 running and
+  free, none leased.
+- **Open for the user:** (1) push `docs/trap-rewrite` and open its PR (recommend yes, before the next run starts
+  from master); (2) the tool changes of §4 item 9 that change behaviour: bring-over without a default target of
+  master, `--sendpad` by default, pacing.py's allowance on burnrate.py's fit (recommend yes to all three);
+  (3) D189 (b) after its test; (4) definitions for the harness checker and the doc filer like the lander's
+  (recommend yes, Sonnet); (5) `/model` saved Fable as the default for new sessions while builders.md §4 has the
+  coordinator on Opus: switch before a coordinator run.
+- **Next step:** §4 item 9's tool changes 1-10 as one item on a branch from master (after this branch merges),
+  each with its tool test; then D189 (b)'s order test (`python .work/audit/twins.py` is the starting point).
+
 ### 2026-11-10 (13:30 PST, day): the week's last 4 %: ui_friends, ui_stringentry, the dynamic window toggle and the item examination rows, the chat panel stand-ins retired, sendpad.py; +178 pairs over the run's baseline, 0 lost outright
 
 - **Run** run/2026-11-10 (PR #185), coordinator Opus 5.5 on the subscription, base 041ad8cb, baseline `.work/imports.041ad8cb.json`,
@@ -2907,6 +2955,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **D189 (b)** (2026-11-03, TW3; counted 2026-11-10; recommend: test first, adopt if the test holds): a source-order tie-break in objmatch for byte-identical twins of one object (N functions with the same bytes tied over exactly N client addresses: pair them in definition order against ascending address). No round uses source order today; it could settle 51 library functions (of 195 ambiguous) and about 35 of app's. Nearly all the library ones are ordinary functions with identical bodies (Register_Sub_System / Link_Sub_System, Matrix3's two constructors), 19 in the tree true overloads. The premise is untested: measure, over the functions already exact, how often definition order within an object equals address order (§4 item 9); gain-only, behind a switch, if it holds.
 * **P-FN3-1** (2026-11-09, FN3; D221 revisited, recommend still no): no FontSys sub-object for +0x2B4..+0x2CC. 0x6CE4E0 and 0x6CD6F0 became exact without one. A byte scan of 0x6C0000-0x6E0000 (`.work/fn3/scan2b4.py`) finds the range's address taken only in the constructor 0x6D5170 (`lea edi, [esi+0x2B4]`, edi..edi+0xC pushed to WW3D::Get_Device_Resolution, then +0x2C4 / +0x2C8 / Scale stored); no call passes it as `this`, nothing copies it as a block, and every other function (Render, Change_Text, 0x6CE4E0, Update_Text, 0x6CE7D0) uses the fields one by one. Revisit with a sub-object whose inline init is that block when 0x6D5170 is worked (fontmanager.h, with the sclient pad check 0x74D990 / 0x758210 / 0x702240).
 * **P-CW2-1** (2026-11-08, CW2; recommend not yet): the form stashed in docs/attempts/5719A0 (`Vector3 &f(Vector3 &color, entry)`) makes 0x5719A0 and 0x570FF0 exact but loses 0x571B70 (vector::size, then inlined into 0x56FD30): net +1 with one loss. Retry once 0x56FD30 is exact. (2026-11-08b: b1108 sent 0x56FD30, best variant 0.606 against 0.545, not exact.)
 * **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
@@ -3501,6 +3550,24 @@ below name only the work items, the blocked work, the leads and the queues.
    first full run, 193 not placed (`--list-unplaced`); left: 4-byte scalars (BridgeNear / BridgeFar, ...), constants
    read only by non-exact functions, tables the compiler inlined or emitted no symbol for, 8 masked pointers in 7 tables
    (ui_attrb 0xB79F04, ui_analyze 0xB7967C, ui_manu 0xB81868, ...).
+   The 2026-11-10 review's tool changes (D223; the audit tables are `.work/audit/traps-*.md`; none made yet; each
+   retires the trap bullets named, which then shrink to a line or go): (1) `wt.py new` copies build/art (MSS32.DLL)
+   and the d3d8shot files into a worktree (§3.7's build/art bullets); (2) `wt.py bring-over` without `--target`
+   refuses, or lands on the current run branch, instead of master (waits for the user); (3) `--sendpad` by default
+   (waits for the user); (4) `verify.py --lib a,b` fails or splits on the comma instead of verifying nothing
+   (verify.py:95); (5) report.py honours `--lock-wait` (today ENB_LOCK_WAIT too); (6) appfile.py's `markers()`
+   skips `#pragma` lines (a `#pragma auto_inline(` before a marker reads as a definition); (7) symbols.py with no
+   arguments refuses instead of regenerating everything; (8) explain.py matches names exactly, not by substring
+   (explain.py:229); (9) sendpad.py reads its watch set from HEAD's ledger, not the working one; (10) auxpad.py's
+   docstring lists `--pool`, which its parser rejects: add it or fix the text; (11) pacing.py's allowance on
+   burnrate.py's fit (about 0.6 % of the week per hour for the coordinator, 0.1 % per builder: it said "allowance 0"
+   and was overridden in four of the last five runs; waits for the user) and (12) the five-hour window's percentage
+   in the heartbeat line; (13) auxroots.py's stale pad-window comments, with a `generate` diff proving the headers
+   unchanged; (14) reproduce before fixing: build.py on a deleted tracked file, names.py's two-line-signature marker
+   and wwonline, tryv2's restore failure (OSError 22).
+   D189 (b)'s test (§3): over the functions already exact, per object, how often definition order equals ascending
+   client address (objmatch's results and the object's symbol order; `.work/audit/twins.py` re-runs the rounds
+   read-only on a verify's objects); then the 86 candidate twins of `.work/audit/twins.json` under that rule.
 
 10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): inv_data_peek 0x68A090 / 0x68A270 /
    0x68A450 / 0x68A8C0 (register: the failure path's inlined string ctor `[ecx+ebx]` vs `[ebx+ecx]`, skill_data_peek
@@ -3578,10 +3645,10 @@ below name only the work items, the blocked work, the leads and the queues.
      - inv_data (ID1) 0x688B90 (0.87, one load order)
      - sclient (GS1) 0x744560 (NOT EXACT); Do_Frame 0x742B60 is still relocation-class (PD1's lead)
 
-11. **Reminders:** D7's (revisit byte-exactness of E&B's code with the user if it becomes too costly;
+11. **Reminders:** D7 (revisited 2026-11-10, D224: byte-exact stays the goal; check in again if it becomes too costly;
    `docs/data/not-exact.md` shows how much functional code waits); which bool-return form gives a bare
    `setcc al` without the `xor`; the inline budget blocks most parked UI rows: a study of VC6's /Ob2 budget (F8 /
-   IB3's levers, workflow.md §3.1) is the shared lead.
+   IB3's levers, workflow.md §3.1.1's budget model) is the shared lead.
    antprox's build table (AntaresProxy repo) calls 249f8524 EA's last client (D199): it is EA's 82663b2f plus Net-7's
    URL edits; correct the label there, and add 82663b2f if EA's exe should be recognised.
 
