@@ -2601,7 +2601,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovie
 				if ((*itor).Unknown08 == 0) {
 					(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
 				}
-				binary_effect->Unknown_28((*itor).Unknown08);
+				binary_effect->Set_Source_Object_ID((*itor).Unknown08);
 				sourceset = true;
 			}
 			if ((*itor).Slot == target && !targetset) {
@@ -2611,7 +2611,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Objects(ScriptedMovie
 				if ((*itor).Unknown08 == 0) {
 					(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
 				}
-				binary_effect->Unknown_34((*itor).Unknown08);
+				binary_effect->Set_Target_Object_ID((*itor).Unknown08);
 				targetset = true;
 			}
 			if (sourceset && targetset) {
@@ -2681,12 +2681,12 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Bones(ScriptedMovieLi
 		for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
 			if ((*itor).Slot == source && !sourceset) {
 				int id = Unknown_802D80((*itor).Mesh->Peek_Object(), source_bone);
-				binary_effect->Unknown_28(id);
+				binary_effect->Set_Source_Object_ID(id);
 				sourceset = true;
 			}
 			if ((*itor).Slot == target && !targetset) {
 				int id = Unknown_802D80((*itor).Mesh->Peek_Object(), target_bone);
-				binary_effect->Unknown_34(id);
+				binary_effect->Set_Target_Object_ID(id);
 				targetset = true;
 			}
 			if (sourceset && targetset) {
@@ -2753,12 +2753,12 @@ bool ScriptedMovieViewClass::Create_Special_Effect_Between_Object_And_Bone(Scrip
 				if ((*itor).Unknown08 == 0) {
 					(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
 				}
-				binary_effect->Unknown_28((*itor).Unknown08);
+				binary_effect->Set_Source_Object_ID((*itor).Unknown08);
 				sourceset = true;
 			}
 			if ((*itor).Slot == target && !targetset) {
 				int id = Unknown_802D80((*itor).Mesh->Peek_Object(), target_bone);
-				binary_effect->Unknown_34(id);
+				binary_effect->Set_Target_Object_ID(id);
 				targetset = true;
 			}
 			if (sourceset && targetset) {
@@ -2819,7 +2819,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_On_Bone(ScriptedMovieLineClas
 
 			G_ASSERT((*itor).Mesh);
 			int id = Unknown_802D80((*itor).Mesh->Peek_Object(), bone_name);
-			unary_effect->Unknown_28(id);
+			unary_effect->Set_Source_Object_ID(id);
 			client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
 			return(true);
 		}
@@ -2871,7 +2871,7 @@ bool ScriptedMovieViewClass::Create_Special_Effect_On_Object(ScriptedMovieLineCl
 			if ((*itor).Unknown08 == 0) {
 				(*itor).Unknown08 = Unknown_803180((*itor).Mesh->Peek_Object(), 0);
 			}
-			unary_effect->Unknown_28((*itor).Unknown08);
+			unary_effect->Set_Source_Object_ID((*itor).Unknown08);
 			client->Add_Effect(effect, (int)Unknown_5C(), (int)ScriptedCamera);
 			return(true);
 		}

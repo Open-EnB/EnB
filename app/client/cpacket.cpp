@@ -615,7 +615,7 @@ bool ObjectEffectPacketClass::Process_Packet(void *instance)
 	FAIL_IF(!effect) return(true);
 	UnknownB00060EffectClass *target = effect->Unknown_10();
 	if (target) {
-		target->Unknown_28(GameID);
+		target->Set_Source_Object_ID(GameID);
 	} else {
 
 		Message_Error("A/V Effects", "", __FILE__, __LINE__, "A non-unary effect descriptor %d was given for an effect on an object", EffectDescID);
@@ -673,9 +673,9 @@ bool ObjectToObjectEffectPacketClass::Process_Packet(void *instance)
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
 		} else {
-			binary->Unknown_28(SourceGameID);
+			binary->Set_Source_Object_ID(SourceGameID);
 		}
-		binary->Unknown_34(TargetGameID);
+		binary->Set_Target_Object_ID(TargetGameID);
 		if (OutsideTargetRadius) {
 			binary->Flags |= 0x2000;
 		} else {
@@ -711,9 +711,9 @@ bool ObjectToEffectEffectPacketClass::Process_Packet(void *instance)
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
 		} else {
-			binary->Unknown_28(SourceGameID);
+			binary->Set_Source_Object_ID(SourceGameID);
 		}
-		binary->Unknown_34(0);
+		binary->Set_Target_Object_ID(0);
 		EffectObjectClass *target = sclient->Get_Effect(TargetGameID);
 		Vector3 position = target->Unknown_08(Vector3(binary->SourcePosition));
 		UnknownB0009CEffectClass *target_binary = target->Unknown_14();
@@ -762,9 +762,9 @@ bool ObjectToObjectDurationLinkedEffectPacketClass::Process_Packet(void *instanc
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
 		} else {
-			binary->Unknown_28(SourceGameID);
+			binary->Set_Source_Object_ID(SourceGameID);
 		}
-		binary->Unknown_34(TargetGameID);
+		binary->Set_Target_Object_ID(TargetGameID);
 		if (OutsideTargetRadius) {
 			binary->Flags |= 0x2000;
 		} else {
@@ -801,7 +801,7 @@ bool ObjectToPointEffectPacketClass::Process_Packet(void *instance)
 		if (!SourceLego.Is_Empty()) {
 			binary->Unknown_2C(SourceGameID, SourceLego);
 		} else {
-			binary->Unknown_28(SourceGameID);
+			binary->Set_Source_Object_ID(SourceGameID);
 		}
 		binary->Unknown_38(TargetPoint);
 	} else {
@@ -1700,7 +1700,7 @@ public:
 	virtual void Unknown_1C();
 	virtual void Unknown_20();
 	virtual void Unknown_24();
-	virtual void Unknown_28(int id);	// +0x28 the object's id (as UnknownB00060EffectClass's)  // NAME 1 [id]: the packet's Victim
+	virtual void Set_Source_Object_ID(int id);	// +0x28 the object's id (as UnknownB00060EffectClass's)  // NAME 1 [id]: the packet's Victim
 
 	char Unknown04[0xF0 - 0x04];
 };
@@ -1780,7 +1780,7 @@ bool DamagePacketClass::Process_Packet(void *instance)
 			damage_text->Unknown_6D8780(320.0f, 240.0f);
 			int id = -(--sclient->Unknown113C);
 			Unknown6EF4C0Class *effect = new Unknown6EF4C0Class(sclient, id, time, 2000, 0, damage_text, Vector2(0.0f, 0.1f), Vector3(0.0f, 0.0f, 0.0f));
-			effect->Unknown_28(Victim);
+			effect->Set_Source_Object_ID(Victim);
 			damage_text->Release_Ref();
 			sclient->Add_Effect((EffectObjectClass *)effect, mainview->Unknown_48(), mainview->Unknown_7C());
 		}
@@ -1788,7 +1788,7 @@ bool DamagePacketClass::Process_Packet(void *instance)
 			header_text->Unknown_6D8780(320.0f, 240.0f);
 			int id = -(--sclient->Unknown113C);
 			Unknown6EF4C0Class *effect = new Unknown6EF4C0Class(sclient, id, time, 2000, 0, header_text, Vector2(0.0f, 0.2f), Vector3(0.0f, 0.0f, 0.0f));
-			effect->Unknown_28(Victim);
+			effect->Set_Source_Object_ID(Victim);
 			header_text->Release_Ref();
 			sclient->Add_Effect((EffectObjectClass *)effect, mainview->Unknown_48(), mainview->Unknown_7C());
 		}
