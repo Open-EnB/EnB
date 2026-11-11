@@ -4,6 +4,69 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-10 (17:40 PST, evening): eleven of the review's tool changes with tests (1-11); D189 (b)'s order test: holds for own functions (349 of 353 settled twin groups), not for inline COMDATs (608 of 700); no code change
+
+- **Session** Fable 5.2, no builders, no VM leased; branch `tools/item9-tool-changes` from master af1c1654 (PR #186
+  merged), pushed with its PR at the handoff: 544f0819 (changes 1, 4-10), acf64eaf and 9149244f (the order
+  test's record), then changes 2, 3 and 11 with this entry. Tools, tests and docs only: no library or app source,
+  so no verify.
+- **Tool changes 2, 3, 11 (approved by the user in the session).** `wt.py bring-over` without `--target` lands
+  on the main tree's branch when that is `run/*` and refuses on any other (it was master; `--target master` still
+  works); the pad retune is on by default (`--no-sendpad` turns it off; `--sendpad` still parses); pacing.py
+  projects usage in two parts, burnrate.py's fit: the coordinator 0.6 % of the week per hour plus 0.1 % per Opus
+  builder (`--coordinator-rate`, `--weekly-rate`), both scaled to the burn observed since the previous heartbeat
+  line; the old rule charged all burn to the builders. Its session-window rates are those times eight
+  (`--session-ratio`): the old defaults' ratio, **assumed, not measured**. A live `heartbeat --no-log` ran clean
+  (allowance 4, memory-bound). The lander's definition, the skill and workflow.md §3 say the new behaviour.
+- **Tool changes 1, 4-10.** `wt.py new` copies build/art
+  and build/d3d8shot (checked on a real worktree: 171 art files with MSS32.DLL, d3d8.dll; made and removed);
+  `verify.py --lib a,b` splits on the comma and an unknown library exits; wt.py passes `--lock-wait` to its
+  report.py step (report.py itself already took the flag: the gap was the caller); appfile.py's `markers()` skips
+  `#pragma` lines; symbols.py with no arguments refuses (`--no-objs` to mean it); explain.py takes the function
+  whose name equals the argument before those that contain it, and lists the candidates on a bad `--n`; sendpad.py's
+  watch set comes from HEAD's ledger; `auxpad.py sweep --pool` is accepted. Tests: `tools/test_toolfixes.py`, 26
+  for the eleven changes (of the first 18, 12 fail on the old code); the suite 133 OK. tools/re/test_explain.py: 1 failure before and after
+  (0x826D00 reads `relocation`, the case expects `shape`: a stale case, not touched). The retired trap bullets
+  shrank in workflow.md §3, the pacing skill and the harness README; docs_check 0 problems.
+- **D189 (b)'s test** (`.work/audit/ordertest.py` on `dirs.json`'s objects, results in `ordertest.json` / `.log`;
+  objmatch's rounds re-run read-only; the library objects are 2026-11-07's verify, app's 517 of 545 objects from
+  2026-11-09 08:46). (1) Functions objmatch places uniquely, per object, in the object's order: own functions
+  (not a COMDAT, or NODUPLICATES) 9,966 of 10,073 adjacent pairs ascend (98.9 %; every library but ww3d2 100 %,
+  ww3d2 99.7 %, app 98.4 %), 688 of 740 objects wholly in order; inline, template and generated COMDATs 3,313 of
+  3,617 (91.6 %; app 90.0 %, wwshade 73.8 %). (2) The direct test, byte-identical twins of one object that other
+  evidence already settles (range, self name, D166's callers): own 349 of 353 groups in definition order
+  (libraries 131 of 133, both exceptions dx8renderer.cpp's `_$E` initialisers; app 218 of 220: unknown_7cef30's
+  `_$E` trio and pkguildplayeronline.cpp's three Print functions, 0x892090 / 0x892A90 / 0x8922F0, where our
+  definition order is probably not the client's); COMDATs 608 of 700 (app 436 of 520). (3) The candidates: 94 rows
+  in twins.json's N-over-N groups (the 86 plus the bw_render / bwrender duplicate): 57 library and 22 app rows are
+  own functions, 2 library (vehiclecurve's two `ID`) and 13 app rows COMDATs; symbols.json holds no vtable, named
+  or strings name of a group's own function at any candidate address, so nothing outside the rule confirms or
+  refutes a single pairing (COMDAT rows only, outside the rule: vehiclecurve's two `ID` addresses carry another
+  instantiation's vtable name, two sclient.cpp Next_Valid rows sit where another instantiation is exact; one own
+  app row is permstr.cpp's `_$E7`, which the `_$E` exclusion drops: 21 app rows then).
+  Conclusion for §3: the premise holds for own functions and not for COMDATs.
+- **Traps of this session:** running the new tests against the old code (a `git stash` check) ran plain
+  `symbols.py`, which regenerated symbols.json, ghidra_symbols.py and coverage.md in the tree: the very trap change
+  7 removes; restored with `git checkout --` (the tree was clean). explain.py's verdicts depend on symbols.json:
+  with the gutted file test_explain.py failed two other cases. Test a refusal on a copy or with `--out`.
+- **State outside git:** `.work/item9/` (the edit scripts), `.work/audit/` (finddirs.py, dirs.json, ordertest.py,
+  ordertest2.py, ordertest.json / .log), `.work/log/item9-*.log`. Pool: none leased.
+- **The runners' packages (PR #187's first Checks run failed).** The three explain.py test cases import capstone,
+  which the Checks runner did not have (`ModuleNotFoundError`, 3 errors; local runs passed because the package is
+  installed here). Now `requirements.txt` at the root (capstone==5.0.9, pinned) and checks.yml installs it after
+  actions/setup-python with its pip cache keyed on that file; the cases are skipped only where capstone is
+  missing. claims.yml is unchanged: `claims.py` is standard library only and that job holds write permissions.
+  pefile and anthropic (maintainer-side tools) are named in the file's comment, not installed.
+- **Not done:** the new bring-over defaults and the pacing projection have not run in a coordinator run yet (the
+  first one checks them: the pad retune on a landing that loses sclient pairs, the allowance against the run's
+  real burn); the session ratio is unmeasured; D189 (b) was skipped at the user's word and stays open in §3.
+- **Open for the user:** (1) the PR of `tools/item9-tool-changes` (tools changes: `/verify-approved`); (2) D189
+  (b): adopt for own functions only, libraries first (recommend yes: 57 candidates; app's 21 rest on our own
+  source order); (3) still open from the 16:30 entry: the harness checker and doc filer definitions (recommend
+  yes, Sonnet), the coordinator's model (Opus per builders.md §4) before a run.
+- **Next step:** D189 (b)'s round in objmatch behind a switch with a full verify (gain-only) once decided; else
+  changes 12-14 of §4 item 9, or the next coordinator run from master after the PR merges.
+
 ### 2026-11-10 (16:30 PST, afternoon): the workflow review: traps 332 -> 196 KB with read-first and lookup parts, decision rows marked, the lander subagent (D223, D224); no code change
 
 - **Session** Fable 5.2, no builders, no VM leased; branch `docs/trap-rewrite` from master c657ef37 (PR #185 merged),
@@ -2955,7 +3018,7 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
-* **D189 (b)** (2026-11-03, TW3; counted 2026-11-10; recommend: test first, adopt if the test holds): a source-order tie-break in objmatch for byte-identical twins of one object (N functions with the same bytes tied over exactly N client addresses: pair them in definition order against ascending address). No round uses source order today; it could settle 51 library functions (of 195 ambiguous) and about 35 of app's. Nearly all the library ones are ordinary functions with identical bodies (Register_Sub_System / Link_Sub_System, Matrix3's two constructors), 19 in the tree true overloads. The premise is untested: measure, over the functions already exact, how often definition order within an object equals address order (§4 item 9); gain-only, behind a switch, if it holds.
+* **D189 (b)** (2026-11-03, TW3; counted 2026-11-10; recommend: test first, adopt if the test holds): a source-order tie-break in objmatch for byte-identical twins of one object (N functions with the same bytes tied over exactly N client addresses: pair them in definition order against ascending address). No round uses source order today; it could settle 51 library functions (of 195 ambiguous) and about 35 of app's. Nearly all the library ones are ordinary functions with identical bodies (Register_Sub_System / Link_Sub_System, Matrix3's two constructors), 19 in the tree true overloads. Tested 2026-11-10 (`.work/audit/ordertest.py`, log entry of 16:55): the premise holds for a translation unit's own functions and fails for inline, template and generated COMDATs. Twins of one object that objmatch already settles by other evidence: own functions 349 of 353 groups in definition order (3 of the 4 exceptions are `_$E` static initialisers, the fourth app's pkguildplayeronline.cpp Print trio, where the order is ours); COMDATs 608 of 700. Recommend: adopt for own functions only (`CoffObject.own`), never `_$E` names, gain-only, behind a switch, labelled in the ledger like D166's tie-break: 57 library candidates, 21 app ones (app's source order is ours, so there the rule credits our guess: a second question, recommend libraries first).
 * **P-FN3-1** (2026-11-09, FN3; D221 revisited, recommend still no): no FontSys sub-object for +0x2B4..+0x2CC. 0x6CE4E0 and 0x6CD6F0 became exact without one. A byte scan of 0x6C0000-0x6E0000 (`.work/fn3/scan2b4.py`) finds the range's address taken only in the constructor 0x6D5170 (`lea edi, [esi+0x2B4]`, edi..edi+0xC pushed to WW3D::Get_Device_Resolution, then +0x2C4 / +0x2C8 / Scale stored); no call passes it as `this`, nothing copies it as a block, and every other function (Render, Change_Text, 0x6CE4E0, Update_Text, 0x6CE7D0) uses the fields one by one. Revisit with a sub-object whose inline init is that block when 0x6D5170 is worked (fontmanager.h, with the sclient pad check 0x74D990 / 0x758210 / 0x702240).
 * **P-CW2-1** (2026-11-08, CW2; recommend not yet): the form stashed in docs/attempts/5719A0 (`Vector3 &f(Vector3 &color, entry)`) makes 0x5719A0 and 0x570FF0 exact but loses 0x571B70 (vector::size, then inlined into 0x56FD30): net +1 with one loss. Retry once 0x56FD30 is exact. (2026-11-08b: b1108 sent 0x56FD30, best variant 0.606 against 0.545, not exact.)
 * **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
@@ -3550,24 +3613,14 @@ below name only the work items, the blocked work, the leads and the queues.
    first full run, 193 not placed (`--list-unplaced`); left: 4-byte scalars (BridgeNear / BridgeFar, ...), constants
    read only by non-exact functions, tables the compiler inlined or emitted no symbol for, 8 masked pointers in 7 tables
    (ui_attrb 0xB79F04, ui_analyze 0xB7967C, ui_manu 0xB81868, ...).
-   The 2026-11-10 review's tool changes (D223; the audit tables are `.work/audit/traps-*.md`; none made yet; each
-   retires the trap bullets named, which then shrink to a line or go): (1) `wt.py new` copies build/art (MSS32.DLL)
-   and the d3d8shot files into a worktree (§3.7's build/art bullets); (2) `wt.py bring-over` without `--target`
-   refuses, or lands on the current run branch, instead of master (waits for the user); (3) `--sendpad` by default
-   (waits for the user); (4) `verify.py --lib a,b` fails or splits on the comma instead of verifying nothing
-   (verify.py:95); (5) report.py honours `--lock-wait` (today ENB_LOCK_WAIT too); (6) appfile.py's `markers()`
-   skips `#pragma` lines (a `#pragma auto_inline(` before a marker reads as a definition); (7) symbols.py with no
-   arguments refuses instead of regenerating everything; (8) explain.py matches names exactly, not by substring
-   (explain.py:229); (9) sendpad.py reads its watch set from HEAD's ledger, not the working one; (10) auxpad.py's
-   docstring lists `--pool`, which its parser rejects: add it or fix the text; (11) pacing.py's allowance on
-   burnrate.py's fit (about 0.6 % of the week per hour for the coordinator, 0.1 % per builder: it said "allowance 0"
-   and was overridden in four of the last five runs; waits for the user) and (12) the five-hour window's percentage
+   The 2026-11-10 review's tool changes (D223; the audit tables are `.work/audit/traps-*.md`; 1 and 4-10
+   made 2026-11-10, tests in `tools/test_toolfixes.py`; 2, 3 and 11 the same day after the user's yes; left, each retiring the trap bullets named):
+   (12) the five-hour window's percentage
    in the heartbeat line; (13) auxroots.py's stale pad-window comments, with a `generate` diff proving the headers
    unchanged; (14) reproduce before fixing: build.py on a deleted tracked file, names.py's two-line-signature marker
    and wwonline, tryv2's restore failure (OSError 22).
-   D189 (b)'s test (§3): over the functions already exact, per object, how often definition order equals ascending
-   client address (objmatch's results and the object's symbol order; `.work/audit/twins.py` re-runs the rounds
-   read-only on a verify's objects); then the 86 candidate twins of `.work/audit/twins.json` under that rule.
+   D189 (b) (§3, tested 2026-11-10, waits for the user): if adopted, the round in objmatch for own functions only,
+   behind a switch, with its label in the ledger and pairs_cmp; `.work/audit/ordertest.py` is the check to rerun.
 
 10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): inv_data_peek 0x68A090 / 0x68A270 /
    0x68A450 / 0x68A8C0 (register: the failure path's inlined string ctor `[ecx+ebx]` vs `[ebx+ecx]`, skill_data_peek

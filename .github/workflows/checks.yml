@@ -38,6 +38,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip                              # keyed on requirements.txt
+          cache-dependency-path: requirements.txt
+      - name: The runner's Python packages (requirements.txt)
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
       - name: Links resolve, stored files are LF (D147)
         run: python tools/docs_check.py
       - name: Generated documents are up to date (names.py, notexact.py)

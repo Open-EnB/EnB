@@ -6,14 +6,17 @@
     python .claude/skills/coordinator-pacing/scripts/pacing.py health [--baseline IMPORTS.json]
     python .claude/skills/coordinator-pacing/scripts/pacing.py heartbeat --plan PLAN.md --builders N
             [--baseline IMPORTS.json] [--handoff HH:MM] [--cap 92] [--floor-weekly 5]
-            [--weekly-rate 0.5] [--session-rate 4.0] [--floor-gb 3] [--gb-per-builder 2] [--no-log]
+            [--coordinator-rate 0.6] [--weekly-rate 0.1] [--session-ratio 8] [--floor-gb 3] [--gb-per-builder 2] [--no-log]
 
 `usage` reads the account's windows with the local Claude Code login token (the same numbers as /usage).
 `heartbeat` prints usage, free memory, the pool, HEAD's health, the unlanded wt/* branches (`wt.py list --unlanded`'s
 first line) and the number of builders that may be
-launched now, and appends one line to the plan's log (unless --no-log). The projection uses the burn rate
-observed between the previous heartbeat line in the plan and now when there is one, else the --*-rate
-defaults (percent of the window per hour per Opus builder).
+launched now, and appends one line to the plan's log (unless --no-log). The projection has two parts, as
+burnrate.py's fit over the runs' heartbeat lines does: the coordinator's own burn per hour plus each builder's
+(weekly: 0.6 % + 0.1 % per Opus builder; the session window: --session-ratio times that, an assumption, not a
+measurement). When the plan holds a previous heartbeat line, both parts are scaled so that their sum for the
+builders running equals the burn observed since then. (Before 2026-11-10 all burn was charged to the builders,
+0.5 % each or the observed burn divided by their number: it said "allowance 0" in four of five runs.)
 """
 import argparse
 import ast
@@ -149,6 +152,32 @@ def unlanded():
         return 'unlanded    ? (%s)' % (str(e)[:120] or type(e).__name__)
 
 
+def split_rates(coord, per_builder, builders, observed=None):
+    """(coordinator %/h, %/h per builder): the fit's two rates; with an observed total %/h (> 0) both are scaled
+    so that coord + per_builder * BUILDERS equals it (one reading cannot split the two: the fit's ratio is kept)."""
+    if observed and observed > 0:
+        k = observed / (coord + per_builder * builders)
+        return coord * k, per_builder * k
+    return coord, per_builder
+
+
+def projected_use(used, rates, builders, hours):
+    """The window's percentage after HOURS with BUILDERS running; None when the window is not reported."""
+    return None if used is None or hours is None else used + (rates[0] + rates[1] * builders) * hours
+
+
+def usage_allowance(week_used, sess_used, builders, wrates, srates, hw, hs, cap, most=12):
+    """How many more builders keep both projections at or under CAP (0..MOST)."""
+    n = 0
+    while n < most:
+        pw = projected_use(week_used, wrates, builders + n + 1, hw)
+        ps_ = projected_use(sess_used, srates, builders + n + 1, hs)
+        if pw > cap or (ps_ is not None and ps_ > cap):
+            break
+        n += 1
+    return n
+
+
 def heartbeat(a):
     now = datetime.now()
     rows = usage()
@@ -170,14 +199,18 @@ def heartbeat(a):
 
     plan_text = io.open(a.plan, encoding='utf-8', newline='').read() if a.plan and os.path.exists(a.plan) else ''
     prev = last_heartbeat(plan_text)
-    weekly_rate, session_rate, rate_src = a.weekly_rate, a.session_rate, 'default'
-    if prev and a.builders > 0:
+    fit_w = (a.coordinator_rate, a.weekly_rate)
+    fit_s = (a.coordinator_rate * a.session_ratio, a.weekly_rate * a.session_ratio)
+    wrates, srates, rate_src = fit_w, fit_s, 'the fit'
+    if prev:
         hours = (now - prev[0]).total_seconds() / 3600.0
         if hours >= 0.25:
-            wr = (week[0] - prev[2]) / hours / a.builders
-            sr = (sess[0] - prev[1]) / hours / a.builders if sess else session_rate
-            if wr > 0 and sr > 0:
-                weekly_rate, session_rate, rate_src = wr, sr, 'observed since %s' % prev[0].strftime('%H:%M')
+            wr = (week[0] - prev[2]) / hours
+            sr = (sess[0] - prev[1]) / hours if sess else 0
+            if wr > 0 or sr > 0:
+                wrates = split_rates(*fit_w, a.builders, wr)
+                srates = split_rates(*fit_s, a.builders, sr)
+                rate_src = 'scaled to the burn observed since %s' % prev[0].strftime('%H:%M')
 
     handoff = parse_hhmm(a.handoff) if a.handoff else None
     horizon_w = min(handoff, week[2]) if handoff else week[2]
@@ -188,15 +221,10 @@ def heartbeat(a):
         hs = max(0.0, (horizon_s - now).total_seconds() / 3600.0)
 
     def projected(n):
-        return (week[0] + n * weekly_rate * hw, sess[0] + n * session_rate * hs if sess else None)
+        return (projected_use(week[0], wrates, n, hw), projected_use(sess[0] if sess else None, srates, n, hs))
 
     allow_mem = max(0, int((fgb - a.floor_gb) // a.gb_per_builder))
-    allow_use = 0
-    while allow_use < 12:
-        pw, ps_ = projected(a.builders + allow_use + 1)
-        if pw > a.cap or (ps_ is not None and ps_ > a.cap):
-            break
-        allow_use += 1
+    allow_use = usage_allowance(week[0], sess[0] if sess else None, a.builders, wrates, srates, hw, hs, a.cap)
     if week[1] < a.floor_weekly:
         allow_use = 0
     allow = min(allow_mem, allow_use)
@@ -208,8 +236,8 @@ def heartbeat(a):
                  % (fgb, tgb, running, leased, a.builders))
     lines.append('HEAD        ledger %s; gained %s vs baseline; lost outright %s'
                  % ('parses' if parses else 'DOES NOT PARSE', gained_n, lost))
-    lines.append('rates       weekly %.2f %%/h, session %.2f %%/h per builder (%s)'
-                 % (weekly_rate, session_rate, rate_src))
+    lines.append('rates       weekly %.2f %%/h coordinator + %.2f per builder, session %.2f + %.2f (%s)'
+                 % (wrates[0], wrates[1], srates[0], srates[1], rate_src))
     pw, ps_ = projected(a.builders)
     lines.append('projection  with %d builders to %s: weekly %.0f%%, session %s (cap %d%%)'
                  % (a.builders, (handoff or horizon_w).strftime('%H:%M'), pw,
@@ -247,8 +275,12 @@ def main():
     hb.add_argument('--handoff', default=None, help='HH:MM when the handoff must be written')
     hb.add_argument('--cap', type=float, default=92.0, help='max projected %% of either window at the handoff')
     hb.add_argument('--floor-weekly', type=float, default=5.0, help='never launch under this %% of the week')
-    hb.add_argument('--weekly-rate', type=float, default=0.5, help='%% of the week per hour per Opus builder')
-    hb.add_argument('--session-rate', type=float, default=4.0, help='%% of the session per hour per Opus builder')
+    hb.add_argument('--coordinator-rate', type=float, default=0.6,
+                    help="%% of the week per hour for the coordinator alone (burnrate.py's fit)")
+    hb.add_argument('--weekly-rate', type=float, default=0.1,
+                    help="%% of the week per hour per Opus builder, the coordinator not included (burnrate.py's fit)")
+    hb.add_argument('--session-ratio', type=float, default=8.0,
+                    help='%% of the session window per %% of the week (assumed; the observed burn corrects it)')
     hb.add_argument('--floor-gb', type=float, default=3.0)
     hb.add_argument('--gb-per-builder', type=float, default=2.0)
     hb.add_argument('--no-log', action='store_true')

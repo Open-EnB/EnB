@@ -1,8 +1,11 @@
 """Classifies why a compiled function is not byte-exact: one line first, then the first mismatch.
 
-    python explain.py file.obj SYMBOL_SUBSTRING CLIENT_ADDRESS [--n INDEX] [--window N] [--json]
+    python explain.py file.obj SYMBOL CLIENT_ADDRESS [--n INDEX] [--window N] [--json]
 
-Both sides are disassembled as objdiff.py does (same symbol lookup, `--n` picks among matches),
+SYMBOL: a function whose mangled name, demangled name ('Class::name') or bare method name equals it; only
+when no name equals it, the functions whose mangled or demangled name contains it ('Class::pump' no longer
+also selects pumpClose). `--n` picks among several (the candidates are listed when INDEX is out of range).
+Both sides are disassembled as objdiff.py does,
 then normalised: relocated fields in the object and image addresses in the client become G,
 branch and call targets T; stack offsets ([esp + N], and [ebp +- N] in an ebp frame) S, as
 .work/c/mask.py did. Output:
@@ -224,11 +227,21 @@ def frame_of(rows):
     return (size, ebp_frame(rows), eh)
 
 
+def pick(funcs, symbol):
+    """The functions SYMBOL names: those whose mangled name, demangled name or bare method name equals it;
+    when none does, those whose mangled or demangled name contains it."""
+    exact = [f for f in funcs if symbol in (f[0], demangle(f[0]), demangle(f[0]).rsplit('::', 1)[-1])]
+    return exact or [f for f in funcs if symbol in f[0] or symbol in demangle(f[0])]
+
+
 def explain(obj_path, symbol, address, n=0, window=3):
     obj = CoffObject(obj_path)
-    cands = [f for f in obj.functions() if symbol in f[0] or symbol in demangle(f[0])]
+    cands = pick(obj.functions(), symbol)
     if not cands:
         raise SystemExit('no such symbol')
+    if not 0 <= n < len(cands):
+        raise SystemExit(f'--n {n}: {len(cands)} candidate(s) (--n is the index among them, from 0): '
+                         + ', '.join(f'{k} {f[0]}' for k, f in enumerate(cands[:12])))
     name, sec, s, e = cands[n]
     img = ClientImage()
     addr = int(address, 16)

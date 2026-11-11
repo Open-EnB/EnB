@@ -5,7 +5,7 @@ Every declaration aux_roots.cpp sees moves its six end-of-file template construc
 enumerators) puts the file inside the windows; retune it when a header aux_roots.cpp includes gains or
 loses declarations.
 
-  auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP | --pool]
+  auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP | --pool [1]]
       compile aux_roots.cpp alone with each pad value (~5 s a variant), print pad -> which of the six
       constructors are exact, and the windows where all six are
   auxpad.py set N [--client EXE]
@@ -13,7 +13,8 @@ loses declarations.
 
 sweep takes the importer lock per variant (the tree's aux_roots.cpp holds the variant only inside it and
 is restored after), never for the whole sweep. VMs: --host IP uses that build VM; otherwise one VM is
-leased from pool.py and released at the end (also on failure). Measuring logic: HX1's exp.py.
+leased from pool.py and released at the end (also on failure); --pool says the same (the default, accepted so
+that the form the other tools take works here). Measuring logic: HX1's exp.py.
 """
 import argparse
 import os
@@ -112,19 +113,26 @@ def set_pad(a):
     return subprocess.call(cmd)
 
 
-def main():
+def parser():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='cmd', required=True)
     s = sub.add_parser('sweep')
     s.add_argument('--from', dest='lo', type=int, default=0)
     s.add_argument('--to', dest='hi', type=int, default=63)
     s.add_argument('--agent', metavar='NAME', help='importer agent: lock owner, scratch under .work/NAME/tmp')
-    s.add_argument('--host', metavar='IP', help='use this build VM instead of leasing one')
+    vm = s.add_mutually_exclusive_group()
+    vm.add_argument('--host', metavar='IP', help='use this build VM instead of leasing one')
+    vm.add_argument('--pool', nargs='?', const=1, type=int, choices=[1], metavar='1',
+                    help='lease one VM from pool.py (the default)')
     s.add_argument('--holder-pid', type=int, help="the lease's holder pid (pool.py's default otherwise)")
     t = sub.add_parser('set')
     t.add_argument('n', type=int)
     t.add_argument('--client')
-    a = ap.parse_args()
+    return ap
+
+
+def main(argv=None):
+    a = parser().parse_args(argv)
     raise SystemExit(sweep(a) if a.cmd == 'sweep' else set_pad(a))
 
 

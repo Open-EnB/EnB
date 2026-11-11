@@ -19,13 +19,13 @@ step below does not behave as described (`grep -n` for the row; it is one long l
    batch is a refusal you report at once, without trying.
 2. `python tools/vc6/standins.py check --repo .work/wt/NAME` for each (seconds). Exit 1 is a refusal: report
    the symbol and the stand-in's file:line.
-3. Land, always with the target named (bring-over's default target is master, which is never yours):
-   `ENB_LOCK_WAIT=6000 python tools/vc6/wt.py bring-over NAME [NAME ...] --target run/<date> --sendpad
+3. Land, always with the target named (without `--target` bring-over takes the main tree's run branch, and
+   refuses on any other branch):
+   `python tools/vc6/wt.py bring-over NAME [NAME ...] --target run/<date>
    --lock-wait 6000 > .work/log/land-<first name>.log 2>&1; tail -25 .work/log/land-<first name>.log`
    Run it as a background command (`run_in_background`) and wait for its exit notification: a verify outlasts
    a foreground call's timeout, and a bring-over stopped that way keeps its python, the importer lock and its
-   lease. Never stop it; never start a second one. (`ENB_LOCK_WAIT` is for its report.py step, which ignores
-   `--lock-wait`.) Two or more names land as one batch with one verify. Add `--no-link` only when every commit touches
+   lease. Never stop it; never start a second one. (The pad retune, `--sendpad`, is on by default.) Two or more names land as one batch with one verify. Add `--no-link` only when every commit touches
    docs/ or tools/ alone.
 4. A refusal: read the log's last lines, classify it (below), act only where the table says you may, and
    try again at most once per branch.
@@ -33,7 +33,7 @@ step below does not behave as described (`grep -n` for the row; it is one long l
 | The log says | You do |
 |---|---|
 | The importer lock was not acquired in time | Run it once more with `--lock-wait 12000` |
-| sclient.cpp pairs lost and `--sendpad` already swept without a window | Report: the builder re-sweeps in its worktree after `wt.py rebase NAME` |
+| sclient.cpp pairs lost and the pad sweep (on by default) found no window | Report: the builder re-sweeps in its worktree after `wt.py rebase NAME` |
 | An address lost outright that the brief lists as accepted | Report it with the address: the accepted-corrections entry must be on the target first, and that is the coordinator's commit |
 | Any other address lost outright | Report address, file and the branch that lost it. Never land it, never accept it |
 | A conflict in a file that is not generated (the scratch is left mid-pick) | `python tools/vc6/wt.py remove <batch>.bo` if the tool says the scratch remains, then report file and commit: the builder runs `wt.py rebase NAME` |

@@ -2,7 +2,7 @@
 the ledger (split from importer.py; same options as `importer.py verify`).
 
     python verify.py                          every library
-                     [--lib L ...]            only these libraries
+                     [--lib L[,L...] ...]     only these libraries (an unknown name exits)
                      [--pool K [--holder-pid P]]  on K VMs leased from pool.py (agent importer-<pid>),
                                               released afterwards
                      [--lock-wait S] [--agent NAME]
@@ -162,9 +162,24 @@ def verify(state, libs=None):
     return state
 
 
+def lib_names(values, known):
+    """--lib's values as library names: repeated and comma-separated forms both; None when none was given.
+    A name the ledger does not hold exits (a typo, or `a,b` before the comma form existed, verified nothing)."""
+    names = []
+    for v in values or ():
+        names += [n.strip() for n in v.split(',') if n.strip() and n.strip() not in names]
+    bad = [n for n in names if n not in known]
+    if bad:
+        raise SystemExit(f'verify: no such library: {", ".join(bad)} (the ledger has: {", ".join(sorted(known))})')
+    if values and not names:
+        raise SystemExit('verify: --lib names no library')
+    return names or None
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description='Compile and byte-match the libraries; record the pairs.')
-    ap.add_argument('--lib', action='append', help='limit verify to these libraries')
+    ap.add_argument('--lib', action='append', metavar='NAME[,NAME...]',
+                    help='limit verify to these libraries (repeatable; commas split; an unknown name exits)')
     ap.add_argument('--lock-wait', type=int, default=vc6lock.LOCK_WAIT,
                     help='seconds to wait for another importer run to finish (default %(default)s)')
     ap.add_argument('--pool', type=int, metavar='K',
@@ -179,9 +194,10 @@ def main(argv=None):
         set_agent(a.agent)
     hold_lock(a.lock_wait)
     state = load_state()
+    libs = lib_names(a.lib, state)
     # one lease covers the whole run, released on success, failure and interrupt
     with (pool_lease(a.pool, a.holder_pid) if a.pool else contextlib.nullcontext()):
-        save_state(verify(state, a.lib))
+        save_state(verify(state, libs))
 
 
 if __name__ == '__main__':

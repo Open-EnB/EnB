@@ -436,8 +436,9 @@ python tools/harness/clienttest.py run [--name alex3] [--session ffff9b25] [--co
 ```
 
 In a fresh worktree: `ENB_VC6_HOSTS` comes from `python tools/vc6/pool.py lease --agent ID` (release it after), and `run`
-needs MSS32.DLL next to the exe (exit 0xC0000135 without it): copy the main tree's `build/art/MSS32.DLL` into
-`.work/harness/clienttest/` (a worktree has no build/art).
+needs MSS32.DLL next to the exe (exit 0xC0000135 without it): copy `build/art/MSS32.DLL` into
+`.work/harness/clienttest/` (`wt.py new` copies build/art and build/d3d8shot into a worktree; one made before
+2026-11-10 has neither).
 
 tests/clienttest links app\client's client.cpp, sclient.cpp and cpacket.cpp, connect.cpp, dbgconn.cpp,
 circbuff.cpp, pk.cpp and every rebuilt packet file (one object per app file, so two files' statics never meet)

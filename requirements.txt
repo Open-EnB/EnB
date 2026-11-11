@@ -1,0 +1,10 @@
+# Python packages the GitHub runners install (.github/workflows/checks.yml: actions/setup-python, then
+# `pip install -r requirements.txt`). Keep it to what the Checks job runs: the tools' tests and the generators.
+# Pinned: a runner must not pick up a new release by itself. Python itself is pinned in the workflow (3.12).
+#
+# Tools run only on the maintainer's machine need more and are not listed (the runner never runs them):
+# pefile (tools/vc6/mkmss32.py), anthropic (tools/re/triage.py, variants.py).
+
+# the x86 disassembler: tools/re/clientimage.py, explain.py, objdiff.py, auxextract.py (tools/test_toolfixes.py's
+# explain.py cases)
+capstone==5.0.9

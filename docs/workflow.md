@@ -1122,8 +1122,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 Shared-tree effects on verify and commits (other builders' uncommitted work, the working ledger, commit_mine)
 are in 3.0.
 
-* **`verify.py --lib a,b` verifies nothing, silently:** verify.py keeps only `--lib` values that are library
-  names; repeat `--lib` once per library.
+* **`verify.py --lib`** takes `--lib a --lib b` or `--lib a,b`; a name the ledger does not hold exits non-zero.
 * **A new app file is not compiled until it is `git add -N`'d and has a ledger shard** (`ledger.py describe`):
   before that the verify builds nothing new and reports no change.
 * **Verify keeps only the first 50 compile errors per library** (`compile_errors` in the library's
@@ -1139,7 +1138,7 @@ are in 3.0.
 * **The importer lock is global and not first come, first served:** every verify, report.py, auxpad.py /
   sendpad.py sweep and `wt.py bring-over` takes it, and with 6-9 builders a verify waited 20-50 minutes; the
   default wait (600 s, vc6lock, `ENB_LOCK_WAIT`) gives up. Pass `--lock-wait 6000` to verify.py and
-  `wt.py bring-over` (wt.py's default is 3000), set `ENB_LOCK_WAIT` for auxpad.py, iterate with the lock-free
+  `wt.py bring-over` (wt.py's default is 3000; it passes it on to its report.py step), set `ENB_LOCK_WAIT` for auxpad.py, iterate with the lock-free
   `appfile.py match FILE --pool`, and run the full verify once per batch of gains. A queued verify compiles the
   tree as it is when it starts, not when it was launched. Never wrap verify or an `auxpad.py` sweep in a shell
   `timeout`: it kills the job while it waits, orphans a lease named importer-PID (3.5) and can leave a pad
@@ -1148,7 +1147,8 @@ are in 3.0.
   (automatic) verify writes `.work/<agent>/tmp/enb_import/verify-<lib>`; a main-tree run without an agent uses
   `%TEMP%\enb_import`, which every other such run overwrites (a new file's .obj vanishes minutes later). Copy the
   objects out before vtables.py or objdiff.
-* **`wt.py bring-over NAME` lands on `master` by default:** in a run pass `--target run/<date>`.
+* **`wt.py bring-over NAME` without `--target`** lands on the main tree's branch when that is `run/*` and refuses
+  on any other; in a run still pass `--target run/<date>`.
 * **Library flags (D12):** library-matching.md §3.5 (wwshade `/GX /Ob1`, the other EA libraries `/Ob2` without
   `/GX`, app `/GX`, D23). Signs of wrong flags: EH prologs (`push -1; push handler; mov eax, fs:[0]`) only in the
   client, or a file's callers all calling what ours inlines. Compile through verify's path
@@ -1225,8 +1225,8 @@ are in 3.0.
   completes a vtable chain at once and a pair can move (a D171 self name settles a `??_G` before D100's range
   round: a false range pair). Regenerate from the landed file, only on a quiet tree (the coordinator's job), and
   run a full verify of every library after it; check every `lost outright` against the client's vtable layout
-  (slot count, slot 0's thunk) before calling it a loss. symbols.py without `--objs` reads no objects: copy every
-  library's verify-* folder and pass each. A tool fed by symbols.json must keep its evidence when symbols.json
+  (slot count, slot 0's thunk) before calling it a loss. symbols.py reads only the objects given: copy every
+  library's verify-* folder and pass each as `--objs` (with none it refuses). A tool fed by symbols.json must keep its evidence when symbols.json
   records that tool's own result (a regeneration once lost 268 pairs that way).
 * **Guarded `<string>` initialisers are range questions, not missing code:** every `<string>` includer compiles a
   byte-identical guarded initialiser of `std::ctype<unsigned short>::id` (guard 0xC416FC, atexit 0x42B320; the
@@ -1260,7 +1260,7 @@ are in 3.0.
   bounds accessor is visible (keep such helpers local); a root's classes built inline in another file go into
   aux_roots.h instead of aux_roots_send.h (extract them with auxextract's `run(start, this, regs0={'esi': this},
   stop=addr)`). Explicit `template class` instantiations and padding between definitions move all six alike.
-  auxpad.py: `sweep` leases its own VM and has no `--pool` (its docstring lists one); a sweep killed mid-run
+  auxpad.py: `sweep` leases its own VM (`--pool` says the same); a sweep killed mid-run
   leaves its VM leased under `importer-PID` and a pad variant in aux_roots.cpp (`pool.py release VM --agent
   importer-PID`, then check out aux_roots.*); its results reach the log only once the importer lock frees. An
   `appfile.py match` on untracked `aux_roots_pN.cpp` copies with your own VM sweeps without the lock, but appfile
@@ -1272,12 +1272,11 @@ are in 3.0.
   headers: `python tools/vc6/sendpad.py --includes`), cycles mod 64, can split, and is unaffected by .cpp files
   sclient.cpp does not include. Never store or copy a pad value and never sweep only a neighbourhood: after any
   landing that touches such a header, rebase, then run `python tools/vc6/sendpad.py --pool 1 --lock-wait 6000`
-  (the 0..63 sweep through verify's path; it sets the pad to the window's middle); `wt.py bring-over NAME
-  --sendpad` runs it when the verify loses sclient.cpp pairs and the diff touches such a header. One sweep base
+  (the 0..63 sweep through verify's path; it sets the pad to the window's middle); `wt.py bring-over NAME`
+  runs it (unless `--no-sendpad`) when the verify loses sclient.cpp pairs and the diff touches such a header. One sweep base
   at a time: a second landing needs a rebase and a new sweep (bring-over refuses a branch losing 0x74D990 or
-  0x758210 outright). The sweep's watch set comes from the working ledger: after a verify that already lost
-  0x758210 it leaves that address out and sets a pad that still loses it; restore the committed shards first and
-  check 0x758210 / 0x702240 in `.work/log/sendpad.log`. `appfile.py match` and single-file compiles pad through a
+  0x758210 outright). The sweep's watch set comes from HEAD's ledger (a verify that
+  already lost 0x758210 no longer drops it from the set): check 0x758210 / 0x702240 in `.work/log/sendpad.log`. `appfile.py match` and single-file compiles pad through a
   different window than verify (a constant set of false losses): decide with sendpad.py / the full verify only.
 * **Keeping both pads still:** put members only one file needs behind a guard macro defined only by its users
   (money.h's pattern; a declaration added to delta_array.h reaches aux_roots and sclient: `#ifdef
@@ -1344,9 +1343,8 @@ are in 3.0.
 * `.work/pseudo/`: never delete it, and remove a worktree only with `wt.py remove` (CLAUDE.md, RE tools step 3).
   A zip copy sits in `.work/pseudo-backup/`.
 * **appfile.py markers:** a `// @0xADDR` marker attaches to the first line within the next 5 that is neither
-  blank nor `//`, so a `/* */` block or a `#pragma` in between is read as the definition (`#pragma
-  auto_inline(off)` reports "the object lacks auto_inline": put the pragma above the marker and pass
-  `--allow-missing`; pay for its line with blank lines, for `__LINE__`). Stripping a trailing comment can make a
+  blank, `//` nor `#pragma`, so a `/* */` block in between is read as the definition (a `#pragma
+  auto_inline(off)` between marker and definition is skipped; it still counts toward the 5 lines). Stripping a trailing comment can make a
   declaration look like a definition. A marker with a trailing comment is ignored (put the bare marker directly
   above); the tree's `Exact` / `NOT EXACT` comments don't attach; in-class inline definitions are ignored
   (define them out of class). Markers apply in order among functions with the same demangled name: mark every
@@ -1400,9 +1398,9 @@ are in 3.0.
   string). Known shifted runs: around
   0xB71324 and 0xB7CB6C-0xB7CD30 (filed under ui_buff.cpp, ui_chat_panel.cpp's). Example: 0xBA8FE8 / 0xBA9018,
   listed under chartemplate.cpp, are chat_defs.cpp's (0x830770's `__FILE__`).
-* **`explain.py OBJ 'Class::name' ADDR` matches by substring:** 'CordCon::pump' also selects pumpClose; pass the
-  mangled name when one name contains another. `--n` is the candidate index, not a row count (`--n 2` tracebacks
-  when there is one match); `--window 200` shows a whole function.
+* **`explain.py OBJ 'Class::name' ADDR`** takes the function whose mangled, demangled or bare method name equals
+  the argument, and falls back to substrings only when none does. `--n` is the candidate index among overloads,
+  not a row count (out of range lists the candidates); `--window 200` shows a whole function.
 * **explain.py's client window can run through int3 padding into the next function or stub,** inflating the
   residue and naming another function's lever (773 client instructions against 388 real): trim the window to the
   function's end. False classes: 'relocation: X vs Unknown_X' can be a symbols.json naming difference, not code
@@ -1424,9 +1422,8 @@ are in 3.0.
   against `" "`: compare the string's address) was the whole difference.
 * **objmatch finds symbols.json at `__file__/../../docs/data`:** a copy of objmatch.py outside tools/re silently
   runs without symbols (D80 and the self name do nothing; false "losses"): measure variants from inside tools/re.
-* **`tools/re/symbols.py` with no arguments regenerates symbols.json, ghidra_symbols.py and coverage.md** from the
-  default objects (a stray call gutted symbols.json by 159k lines): never call it without `--objs` / `--out` from
-  a builder (3.4, symbols.json regeneration).
+* **`tools/re/symbols.py` with no arguments refuses** (it used to regenerate symbols.json, ghidra_symbols.py and
+  coverage.md without any object's names); a regeneration is the coordinator's (3.4, symbols.json regeneration).
 * **Check objmatch's status of the STL helpers a caller should call out of line** in your variant's obj before
   working toward them: `multiple` (identical client copies, e.g. `vector<RefCountPtr<T>>::insert` 0x47D690) never
   becomes a pair, however byte-identical; only the caller itself can gain.
@@ -1509,11 +1506,12 @@ Builds and links (every program: clienttest, udpreplay, kerneltest, VIDTEST, the
   before building. A tracked app file you delete breaks build.py's definitions scan (FileNotFoundError) until
   the deletion is staged (`git rm --cached`) (not re-verified since the report). POC-only edits under
   programs/clientpoc count only once linked: `build.py build --lib app` does not compile them.
-* **A worktree has no build/app.lib, build/art or build/d3d8shot.** `wt.py new` copies the other libraries and
-  the .dgram captures only. In a fresh worktree run `build.py build --lib app --allow-dirty` (before
-  `udpreplay build` or any link), and copy build/art (a directory: MSS32.DLL goes into it) and build/d3d8shot
-  in. Symptoms: clienttest "wrote no trace (exit 3221225781)" (0xC0000135, STATUS_DLL_NOT_FOUND); a POC replay
-  without d3d8.dll. kerneltest in a worktree: pass the main tree's build/ as `--out`.
+* **A worktree has no build/app.lib.** `wt.py new` copies the other libraries, the .dgram captures, build/art
+  (MSS32.DLL in it) and build/d3d8shot as the main tree has them at that moment. In a fresh worktree run
+  `build.py build --lib app --allow-dirty` (before `udpreplay build` or any link). A worktree made before
+  2026-11-10, or before the main tree had the folders, lacks them: clienttest "wrote no trace (exit 3221225781)"
+  (0xC0000135, STATUS_DLL_NOT_FOUND); a POC replay without d3d8.dll; copy them in. kerneltest in a worktree: pass
+  the main tree's build/ as `--out`.
 * **Link the programs after adding a function to a library file or touching stubs/ or pk.h** (`python
   tools/vc6/build.py link`): a stub in stubs/app_stubs.cpp that calls RawPacketClass pulled pk.obj and ~280
   externals into VIDTEST, so packet stand-ins go in tests/udpreplay/, never stubs/app_stubs.cpp. A commit
