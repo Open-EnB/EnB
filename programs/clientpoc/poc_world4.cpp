@@ -65,59 +65,6 @@ bool GadgetStarmapClass::Unknown_30(float x, float y)
 	return(false);
 }
 
-// ---------------------------------------------------------------- ui_dynamicwindow.cpp's screen (0x589D30): 0xAC bytes, empty
-// (its +0x8C, slot +0x04's answer, is a gadget the windows over it set up: ui_slot_info.cpp's 0x62FDF0 calls its 0x65FFA0)
-class POCDynamicWindowGadgetClass : public GadgetClass
-{
-public:
-	POCDynamicWindowGadgetClass() : GadgetClass(0) {}
-	virtual bool Unknown_30(float x, float y) { return(false); }
-};
-UIDynamicWindowClass::UIDynamicWindowClass(LineDisplayClientClass *client, const char *name, int flags) : InterfaceClass(client)
-{
-	STUB_CALLED("POC UIDynamicWindowClass: an empty window");
-	Unknown8C = (DynamicWindowGadgetClass *)(GadgetClass *)new POCDynamicWindowGadgetClass;
-	Unknown90 = 0x457;
-}
-UIDynamicWindowClass::~UIDynamicWindowClass()
-{
-}
-void UIDynamicWindowClass::Unknown_58()
-{
-	InterfaceClass::Unknown_58();
-}
-void UIDynamicWindowClass::Unknown_5C()
-{
-	if (Active) {
-		InterfaceClass::Unknown_5C();
-	}
-}
-void UIDynamicWindowClass::Unknown_60()
-{
-}
-bool UIDynamicWindowClass::Unknown_68(int key)
-{
-	return(false);
-}
-GadgetClass *UIDynamicWindowClass::Unknown84_04()
-{
-	return((GadgetClass *)Unknown8C);
-}
-void UIDynamicWindowClass::Unknown84_08(GadgetClass *gadget, int arg1, int arg2)
-{
-}
-void UIDynamicWindowClass::Unknown84_0C(GadgetClass *gadget)
-{
-}
-int UIDynamicWindowClass::Unknown84_10()
-{
-	return(Unknown90++);
-}
-void UIDynamicWindowClass::Unknown_58A580(Vector2 position)
-{
-	STUB_CALLED("POC UIDynamicWindowClass::Unknown_58A580 (0x58A580): not moved");
-}
-
 // ---------------------------------------------------------------- inv_render.cpp's inventory data (0x688830; its view): by-value results gen_stubs cannot write
 #include "..\..\app\shared\money.h"
 #include "..\..\app\shared\duration.h"
