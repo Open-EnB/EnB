@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 183 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1742 |
-| 2 | describes what the code does | 3937 |
-| 1 | neutral placeholder | 22480 |
+| 3 | by convention from a client-named file or sibling | 1755 |
+| 2 | describes what the code does | 3941 |
+| 1 | neutral placeholder | 22508 |
 
 ## For review (score 3 and below)
 
@@ -2796,13 +2796,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B92E30` | `app/client/eff_o.cpp:30` | neutral (D10) |
 | 1 | `direction, position` | `app/client/eff_o.cpp:31` | what 0x6E8DD0 passes |
 | 1 | `Unknown_82ECB0` | `app/client/eff_o.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown6F07F0EffectClass` | `app/client/eff_o.cpp:36` | neutral (D10); 0x6F07F0  // NAME 1 [client .. robj]: what the helper passes; [next]: the base's |
-| 1 | `Unknown_24` | `app/client/eff_o.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown80` | `app/client/eff_o.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown6F0B10EffectClass` | `app/client/eff_o.cpp:38` | neutral (D10); 0x6F0B10  // NAME 1 [client .. spin_rate]: effect.ini's SpiralRadius, SpiralSpinRate (radians per ms); [next]: the base's |
-| 1 | `Unknown6F0FD0EffectClass` | `app/client/eff_o.cpp:40` | neutral (D10); 0x6F0FD0  // NAME 1 [client .. distance]: effect.ini's ChangeTime (ms), Distance; [next]: the base's |
-| 1 | `Unknown6F1760EffectClass` | `app/client/eff_o.cpp:42` | neutral (D10); 0x6F1760  // NAME 1 [client .. distance]: effect.ini's ChangeTime, TimeToChange (ms), Distance; [next]: the base's |
 | 1 | `Unknown6F25A0EffectClass` | `app/client/eff_o.cpp:45` | neutral (D10); 0x6F25A0, the effect of 0x6EAA40 (its file after eff_seek.cpp) (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes |
+| 1 | `Unknown_24` | `app/client/eff_o.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/eff_o.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown6E4750EffectClass` | `app/client/eff_o.cpp:46` | neutral (D10); 0x6E4750, eff_attach.cpp's effect of 0x6EC570 (not rebuilt)  // NAME 1 [client .. bone_prefix, next]: what the helper passes |
 | 1 | `Unknown6ECC50EffectClass` | `app/client/eff_o.cpp:47` | neutral (D10); 0x6ECC50, eff_particlejet.cpp's effect of 0x6EC950 (not rebuilt)  // NAME 1 [client .. min_lifetime, next]: what the helper passes |
 | 1 | `Unknown6E5040EffectClass` | `app/client/eff_o.cpp:48` | neutral (D10); 0x6E5040, eff_line.cpp's line effect of 0x6EAC50 (not rebuilt)  // NAME 1 [client .. tiling_min_length, next]: effect.ini's keys |
@@ -3052,6 +3048,38 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `position` | `app/client/eff_rs.h:25` | the base's |
 | 1 | `Unknown_08` | `app/client/eff_rs.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/eff_rs.h:26` | untagged neutral name (D10) |
+| 1 | `direction, position` | `app/client/eff_seek.cpp:16` | what the callers pass |
+| 1 | `Unknown_82ECB0` | `app/client/eff_seek.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown6F0580EffectClass` | `app/client/eff_seek.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown6EF910EffectClass` | `app/client/eff_seek.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/eff_seek.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/eff_seek.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/eff_seek.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `app/client/eff_seek.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/eff_seek.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_BE6CC8` | `app/client/eff_seek.cpp:137` | neutral (D10) |
+| 1 | `Unknown_6F1590` | `app/client/eff_seek.cpp:207` | untagged neutral name (D10) |
+| 1 | `Unknown_BE6CD0` | `app/client/eff_seek.cpp:268` | neutral (D10) |
+| 1 | `Unknown_6F1C40` | `app/client/eff_seek.cpp:319` | untagged neutral name (D10) |
+| 1 | `Unknown6F0580EffectClass` | `app/client/eff_seek.h:28` | neutral (D10) |
+| 1 | `Unknown6EF910EffectClass` | `app/client/eff_seek.h:28` | untagged neutral name (D10) |
+| 1 | `client .. robj` | `app/client/eff_seek.h:31` | the base's |
+| 1 | `position` | `app/client/eff_seek.h:32` | the base's |
+| 1 | `Unknown_08` | `app/client/eff_seek.h:32` | untagged neutral name (D10) |
+| 1 | `duration` | `app/client/eff_seek.h:33` | the base's |
+| 1 | `Unknown_0C` | `app/client/eff_seek.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/eff_seek.h:34` | untagged neutral name (D10) |
+| 1 | `client .. robj` | `app/client/eff_seek.h:42` | the base's |
+| 1 | `duration` | `app/client/eff_seek.h:43` | the base's |
+| 1 | `Unknown_1C` | `app/client/eff_seek.h:44` | untagged neutral name (D10) |
+| 1 | `client .. robj` | `app/client/eff_seek.h:54` | the base's; radius, spin_rate: the members |
+| 1 | `duration` | `app/client/eff_seek.h:55` | the base's |
+| 1 | `client .. robj` | `app/client/eff_seek.h:68` | the base's; change_time, max_error_dist: the members |
+| 1 | `duration` | `app/client/eff_seek.h:69` | the base's |
+| 1 | `Unknown_6F1590` | `app/client/eff_seek.h:72` | untagged neutral name (D10) |
+| 1 | `client .. robj` | `app/client/eff_seek.h:84` | the base's; change_time .. max_error_dist: the members |
+| 1 | `duration` | `app/client/eff_seek.h:85` | the base's |
+| 1 | `Unknown_6F1C40` | `app/client/eff_seek.h:88` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/emote_data.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_7E76E0` | `app/client/emote_data.h:26` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6860` | `app/client/emote_data.h:27` | untagged neutral name (D10) |
@@ -22899,6 +22927,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `TargetNode` | `app/client/eff_o.h:194` | TargetObject's watch node |
 | 2 | `SourcePosition` | `app/client/eff_o.h:195` | what it holds |
 | 2 | `TargetPosition` | `app/client/eff_o.h:196` | what it holds |
+| 2 | `InvDuration` | `app/client/eff_seek.h:46` | what it holds |
+| 2 | `InvDuration` | `app/client/eff_seek.h:58` | what it holds |
+| 2 | `Spline` | `app/client/eff_seek.h:76` | what it is |
+| 2 | `Curve` | `app/client/eff_seek.h:93` | what it is |
 | 2 | `std:` | `app/client/env_map_manager.h:35` | what it holds |
 | 2 | `Load` | `app/client/env_map_manager.h:43` | what it does |
 | 2 | `INI` | `app/client/env_map_manager.h:48` | what it is |
@@ -26584,6 +26616,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RenderStateID` | `app/client/eff_rs.h:28` | effect.ini's 'RenderStateID' |
 | 3 | `ActionType` | `app/client/eff_rs.h:29` | effect.ini's 'ActionType' |
 | 3 | `ActionTime` | `app/client/eff_rs.h:30` | effect.ini's 'ActionTime' |
+| 3 | `eff_seek.h` | `app/client/eff_seek.h:17` | header name assumed from the client's eff_seek.cpp |
+| 3 | `eff_seek.h` | `app/client/eff_seek.h:23` | the asserts' 'duration != INFINITE_DURATION' (EffectObjectClass::Duration's -1; its own header is not known, eff_o.h compares with (unsigned)-1) |
+| 3 | `StraightSeekEffectClass` | `app/client/eff_seek.h:39` | effect.ini's EffectClass 'StraightSeekEffect' (0xB92E30's fifth), which the helper 0x6EAFA0 makes |
+| 3 | `SpiralSeekEffectClass` | `app/client/eff_seek.h:51` | effect.ini's EffectClass 'SpiralSeekEffect', which the helper 0x6EB150 makes |
+| 3 | `Radius` | `app/client/eff_seek.h:59` | effect.ini's 'SpiralRadius' |
+| 3 | `SpinRate` | `app/client/eff_seek.h:60` | effect.ini's 'SpiralSpinRate' |
+| 3 | `SplineRandomSeekEffectClass` | `app/client/eff_seek.h:65` | effect.ini's EffectClass 'SplineRandomSeekEffect', which the helper 0x6EB330 makes |
+| 3 | `ChangeTime` | `app/client/eff_seek.h:74` | the constructor's FAIL_IF 'ChangeTime < 100' |
+| 3 | `MaxErrorDist` | `app/client/eff_seek.h:75` | the constructor's FAIL_IF 'MaxErrorDist < 0.0f' |
+| 3 | `LinearRandomSeekEffectClass` | `app/client/eff_seek.h:81` | effect.ini's EffectClass 'LinearRandomSeekEffect', which the helper 0x6EB590 makes |
+| 3 | `ChangeTime` | `app/client/eff_seek.h:90` | the constructor's FAIL_IF 'ChangeTime < 100' |
+| 3 | `TimeToChange` | `app/client/eff_seek.h:91` | the constructor's FAIL_IF 'TimeToChange < 100' |
+| 3 | `MaxErrorDist` | `app/client/eff_seek.h:92` | the constructor's FAIL_IF 'MaxErrorDist < 0.0f' |
 | 3 | `emote_data.h` | `app/client/emote_data.h:16` | header name assumed from the client's emote_data.cpp |
 | 3 | `env_map_manager.h` | `app/client/env_map_manager.h:15` | beside the client's env_map_manager.cpp |
 | 3 | `EnvironmentMapManagerClass` | `app/client/env_map_manager.h:39` | by convention (D24) from the client's env_map_manager.cpp |

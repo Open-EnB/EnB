@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-741 entries in 227 files.
+744 entries in 228 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -102,6 +102,9 @@ edit the comments in the code, not this file.
 | `app/client/dynamic_window_toggle.cpp:73` | `ToggleButtonDynamicWindow::ToggleButtonDynamicWindow` | marker | NOT EXACT: 0.47, inline budget: the client calls the elements' RefCountPtr copy constructor out of line (0x51E950) in StateRenderObjects' copy, under its own EH state; ours inlines it |
 | `app/client/dynamic_window_vertical.cpp:101` | `DynamicWindowVerticalClass::Set_Alignment` | marker | NOT EXACT: the client stores the cleared flags, reloads them and ORs in the new bits; this form folds both into one store |
 | `app/client/eff_robj.cpp:156` | `Unknown6EF4C0EffectClass::Unknown_1C` | marker | NOT EXACT: order-only (the frame and the 96 instructions are the client's; two of the identity matrix's zero stores and pos.Y's store sit a few instructions later); attempts.py show 0x6EF740 0x6EF740 |
+| `app/client/eff_seek.cpp:110` | `SpiralSeekEffectClass::Unknown_1C` | marker | NOT EXACT: shape (the frame 0xB0, the sine's slot and the kept product radius * s are the client's; the client has point above rate above direction where this has rate, direction, point, and it stores point.X before rate.X from the FPU stack, 0x6F0E3D); attempts.py show 0x6F0D40 0x6F0D40 |
+| `app/client/eff_seek.cpp:218` | `SplineRandomSeekEffectClass::Unknown_1C` | marker | NOT EXACT: order-only (the frame and the 141 instructions are the client's; the facing vector's first two products load the matrix element first where this loads the rate's, 0x6F1496); attempts.py show 0x6F1390 0x6F1390 |
+| `app/client/eff_seek.cpp:330` | `LinearRandomSeekEffectClass::Unknown_1C` | marker | NOT EXACT: order-only (the frame and the 96 instructions are the client's; the squared length adds z, x, y where Length2 adds z, y, x, and two rows' products load the matrix element first); attempts.py show 0x6F1AD0 0x6F1AD0 |
 | `app/client/enbscene.cpp:170` | `MainViewSceneClass::Apply_Projectors` | marker | NOT EXACT: field-offset (explain.py; 0.78): the client addresses the projector lists' heads from the manager (+0x60 / +0x64, +0x48 / +0x4C), ours from the list (add 0x5C, +4 / +8), and copies the camera's transform in another order |
 | `app/client/enbscene.cpp:201` | `MainViewSceneClass::Unknown_75FB00` | marker | NOT EXACT: field-offset (explain.py; 0.84): FP operand order only: the client evaluates the inlined Matrix3::Rotate_Vector rows (Compute_Point) and Matrix3D::Inverse_Transform_Vector in another order than the tree's wwmath forms |
 | `app/client/env_map_manager.cpp:50` | `EnvironmentMapManagerClass::Unknown_760770` | marker | NOT EXACT: relocation (explain.py: our DX8Wrapper::_Create_DX8_Texture takes MipCountType, the client's TextureClass::MipCountType), then frame layout (similarity 0.69, its calls one for one the client's): functional for POC (D64) 0x760770 |
