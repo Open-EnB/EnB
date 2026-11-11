@@ -9,7 +9,7 @@
 #include "..\shared\g_assert.h"
 
 extern unsigned int Unknown_BE5F34;		// 0xBE5F34 (gadget.cpp's: the event mask; 0x10 for slot +0x68's keys 0x65 / 0x66)  // NAME 1: neutral (D10)
-#define InterfaceMesh Unknown84		// the base's +0x84 (ui_chat_window.cpp's name)
+
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass
 static const char *Unknown_B7D938[] = { "tsi05f", "tsi05d", "tsi05e" };	// 0xB7D938 (the kinds' models: slot +0x98's names, the animations '<model>.<model>-1' / '-2')  // NAME 1: neutral (D10)
 

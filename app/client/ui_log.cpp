@@ -108,18 +108,18 @@ void UILogClass::Unknown_54()
 	if (Unknown_98("log00a", "fa_log00a.ini")) {
 		InterfaceSortScopeClass sort(this);
 		for (int i = 0; i < 5; i++) {
-			Buttons[i + 1] = Unknown_56D510(i + 1, Unknown_B80F58[i], Unknown_B80F74[i]);
+			Buttons[i + 1] = Add_Button(i + 1, Unknown_B80F58[i], Unknown_B80F74[i]);
 			GadgetClass::Set_Tooltip(Buttons[i + 1], "UI_LOG", Unknown_B80F58[i]);
 		}
-		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
+		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
 		Slider = new GadgetSlider(false);
-		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
+		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
 		Slider->Unknown_66FA90(0, 0, true);
-		RefCountPtr<RenderObjClass> message = Create_NEW(Unknown84->Get_Sub_Object_By_Name("message"));
+		RefCountPtr<RenderObjClass> message = Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("message"));
 		Editor = new TextEditorGadgetClass(this, message, "UI_LOG_FONT", Slider, 0x400, "");
 		GadgetClass::Set_Tooltip(Editor, "UI_LOG", "DETAILS");
 		Editor->Client = Client->As_Space_Client();
-		RefCountPtr<RenderObjClass> entry = Create_Get(Unknown84->Get_Sub_Object_By_Name("Entry_Field00"));
+		RefCountPtr<RenderObjClass> entry = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("Entry_Field00"));
 		PageEntry = new TextGadgetClass(this, 3, "PAGE_EDIT_log00a", entry.Peek(), Unknown_B08CA8 | Unknown_B08C98, 0);
 		PageEntry->Set_Text("", 0);
 		PageEntry->Unknown58 = 0.95f;
@@ -182,7 +182,7 @@ bool UILogClass::Unknown_68(int key)
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Save_Page();
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			IntOptionStruct *option = OptionClass::Instance->Find_Int("Current_Log_Page");
 			if (option) {
 				option->Value = Page;

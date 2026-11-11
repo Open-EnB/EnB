@@ -55,20 +55,20 @@ void UIRadioListClass::Unknown_54()
 	if (Unknown_98("cht02", "cht02.ini")) {
 		int i;
 		for (i = 0; i < 3; i++) {
-			Buttons[i] = Unknown_56D510(i + 1, Unknown_B856CC[i], NULL);
+			Buttons[i] = Add_Button(i + 1, Unknown_B856CC[i], NULL);
 		}
 		for (i = 0; i < 7; i++) {
 			char name[0x20];	// NAME 1: neutral (D10)
 			_snprintf(name, sizeof(name), "NAME%02d", i);
-			Rows[i] = Unknown_56D510(i + 5, name, NULL);
+			Rows[i] = Add_Button(i + 5, name, NULL);
 			Rows[i]->Unknown2C_0A = true;
 			_snprintf(name, sizeof(name), "name%02d_Cht02", i);
 			Texts[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Interface_Mesh()));
 		}
 		Unknown_5E8C20();
-		Slider = Unknown_56D8D0(0x0D, 0);
-		Slider->Unknown_66E460(Unknown84, 0, 0);
-		Unknown_56D970(0, Vector3(0.0f, 0.0f, 0.0f));
+		Slider = Add_Slider(0x0D, 0);
+		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
+		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
 	}
 }
 
@@ -116,7 +116,7 @@ bool UIRadioListClass::Unknown_68(int key)
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 		case 3:
@@ -241,7 +241,7 @@ void UIRadioListClass::Unknown_5E85F0(int key)
 		case 0:
 			if (key == 2) {
 				Unknown_5C();
-				Unknown98 = 1;
+				Closed = 1;
 				if (Selection >= 0) {
 					int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
 					ClientChatRequestPacketClass packet(6, id);
@@ -250,7 +250,7 @@ void UIRadioListClass::Unknown_5E85F0(int key)
 				}
 			} else if (key == 3) {
 				Unknown_5C();
-				Unknown98 = 1;
+				Closed = 1;
 				if (chat) {
 					chat->Unknown_565F60(2);
 				}
@@ -259,7 +259,7 @@ void UIRadioListClass::Unknown_5E85F0(int key)
 		case 1:
 			if (key == 2) {
 				Unknown_5C();
-				Unknown98 = 1;
+				Closed = 1;
 				if (chat) {
 					chat->Unknown_565F60(1);
 				}

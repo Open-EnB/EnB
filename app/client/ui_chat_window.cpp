@@ -38,7 +38,7 @@ public:
 	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::Unknown_18; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
-#define InterfaceMesh Unknown84		// the asserts' name for +0x84 (the header's Unknown84 serves the files that read it)
+
 
 // (inline in 0x56FD30)
 inline ChatWinStruct::ChatWinStruct(GadgetSlider *slider, unsigned int index) :
@@ -173,7 +173,7 @@ void ChatWindowInterface::Unknown_A0(unsigned int count)
 	FAIL_IF(!ChatWindows.empty()) return;
 	ChatWindows.reserve(count);
 	for (unsigned int i = 0; i < count; i++) {
-		GadgetSlider *slider = Unknown_56D8D0(i + 8, 0);
+		GadgetSlider *slider = Add_Slider(i + 8, 0);
 		slider->Unknown_66E460(InterfaceMesh, false, i);
 		ChatWinStruct *chat_win = new ChatWinStruct(slider, i);
 		ChatWindows.push_back(chat_win);

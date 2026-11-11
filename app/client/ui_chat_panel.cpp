@@ -134,17 +134,17 @@ static const char *Unknown_B7C2E0[] = { NULL, "if_chat.tga", "if_chat02.tga", "i
 extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (as sclient.cpp declares it; 0x70 for slot +0x68's key 3)
 
 // The windows the panel opens (slot +0x68's key 16 'Online Manual', 0x565F80's requests), each over the window base
-class Unknown5DAE90Class : public UIChatPanelWindowClass	// NAME 1: neutral (D10): 0xCC bytes
+class Unknown5DAE90Class : public ChatPanelUIBase	// NAME 1: neutral (D10): 0xCC bytes
 {
 public:
 	Unknown5DAE90Class(SClient *client, int a, const char *title, int b);	// 0x5DAE90  // NAME 1 [client, a, title, b]: what 0x563280 passes
-	char Unknown9C[0xCC - 0x9C];
+	char UnknownA0[0xCC - 0xA0];
 };
-class Unknown5CE240Class : public UIChatPanelWindowClass { public: Unknown5CE240Class(SClient *client); char Unknown9C[0xC0 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CE240, 0xC0 bytes (request 1)
-class Unknown5CE700Class : public UIChatPanelWindowClass { public: Unknown5CE700Class(SClient *client, int a); char Unknown9C[0xB8 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CE700, 0xB8 bytes (request 2)  // NAME 1 [a]: neutral
+class Unknown5CE240Class : public ChatPanelUIBase { public: Unknown5CE240Class(SClient *client); char UnknownA0[0xC0 - 0xA0]; };	// NAME 1: neutral (D10): 0x5CE240, 0xC0 bytes (request 1)
+class Unknown5CE700Class : public ChatPanelUIBase { public: Unknown5CE700Class(SClient *client, int a); char UnknownA0[0xB8 - 0xA0]; };	// NAME 1: neutral (D10): 0x5CE700, 0xB8 bytes (request 2)  // NAME 1 [a]: neutral
 #include "ui_option_check.h"	// UIOptionCheckClass (0x5C9910, 0xE4 bytes: requests 3, 4)
-class Unknown5CEDD0Class : public UIChatPanelWindowClass { public: Unknown5CEDD0Class(SClient *client, int a, int b); char Unknown9C[0xE4 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CEDD0, 0xE4 bytes (requests 5-7)  // NAME 1 [a, b]: neutral
-class Unknown5CA010Class : public UIChatPanelWindowClass { public: Unknown5CA010Class(SClient *client, int a); char Unknown9C[0x1B0 - 0x9C]; };	// NAME 1: neutral (D10): 0x5CA010, 0x1B0 bytes (request 8)  // NAME 1 [a]: neutral
+class Unknown5CEDD0Class : public ChatPanelUIBase { public: Unknown5CEDD0Class(SClient *client, int a, int b); char UnknownA0[0xE4 - 0xA0]; };	// NAME 1: neutral (D10): 0x5CEDD0, 0xE4 bytes (requests 5-7)  // NAME 1 [a, b]: neutral
+class Unknown5CA010Class : public ChatPanelUIBase { public: Unknown5CA010Class(SClient *client, int a); char UnknownA0[0x1B0 - 0xA0]; };	// NAME 1: neutral (D10): 0x5CA010, 0x1B0 bytes (request 8)  // NAME 1 [a]: neutral
 #include "ui_option_account.h"	// UIOptionAccountClass (0x5C8870, 0xAC bytes: requests 9, 10)
 
 #include "ui_radio_main.h"	// UIRadioMainClass (0x5E9410, 0xC4 bytes: 0x566AF0's requests 1, 2, 5, 8: a state and a channel)
@@ -465,11 +465,11 @@ void ChatPanelInterface::Unknown_54()
 	if (!Unknown_98("tsi05b", "fa_tsi05b.ini")) {
 		return;
 	}
-	Unknown114 = Unknown84->Get_Sub_Object_By_Name("cockpit");
+	Unknown114 = InterfaceMesh->Get_Sub_Object_By_Name("cockpit");
 	Unknown114->Set_Hidden(1);
 	Unknown258 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("connect_break");
 	if (Unknown258) {
-		Unknown84->Add_Sub_Object_To_Bone(Unknown258, "frame_detail");
+		InterfaceMesh->Add_Sub_Object_To_Bone(Unknown258, "frame_detail");
 	}
 	Unknown25C = false;
 	Unknown260 = 0.0f;
@@ -477,7 +477,7 @@ void ChatPanelInterface::Unknown_54()
 		Unknown258->Set_Hidden(1);
 	}
 	for (int i = 0; i < 6; i++) {
-		UnknownA4[i + 1] = Unknown_56D510(i + 1, buttons[i], texts[i]);
+		UnknownA4[i + 1] = Add_Button(i + 1, buttons[i], texts[i]);
 		if (tips[i]) {
 			GadgetClass::Set_Tooltip(UnknownA4[i + 1], "UI_CHAT_PANEL", tips[i]);
 		}
@@ -526,7 +526,7 @@ void ChatPanelInterface::Unknown_60()
 	Unknown_565F80();
 	Unknown_567760();
 	Unknown_563C50();
-	if (ChatInt->Unknown98) Unknown_56C0C0();
+	if (ChatInt->Closed) Unknown_56C0C0();
 	for (int i = 0; i < NUM_COMBO; i++) {
 		Combo[i]->Unknown_60();
 	}
@@ -706,7 +706,7 @@ void ChatPanelInterface::Unknown_563C50()
 // 0x563DC0
 void ChatPanelInterface::Unknown_563DC0(bool on)
 {
-	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", Peek_Unknown84()));
+	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("avatar_name_TSI05B", Interface_Mesh()));
 	FAIL_IF(!font) return;
 	if (on) {
 		if (strcmp(Unknown124.c_str(), font->Unknown_6D87D0()) != 0) font->Change_Text(Unknown124.c_str(), 0);
@@ -777,8 +777,8 @@ void ChatPanelInterface::Unknown_564030(bool on)
 // 0x564150
 void ChatPanelInterface::Unknown_564150(bool on)
 {
-	RefCountPtr<RenderObjClass> big_robj = Create_Get(Unknown84->Get_Sub_Object_By_Name("FRAME_DETAIL"));
-	RefCountPtr<RenderObjClass> bigbutframe = Create_Get(Unknown84->Get_Sub_Object_By_Name("RESIZE_MIN01"));
+	RefCountPtr<RenderObjClass> big_robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("FRAME_DETAIL"));
+	RefCountPtr<RenderObjClass> bigbutframe = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("RESIZE_MIN01"));
 	FAIL_IF(!big_robj) return;
 	FAIL_IF(!bigbutframe) return;
 	big_robj->Set_Hidden(!on);
@@ -793,8 +793,8 @@ void ChatPanelInterface::Unknown_564150(bool on)
 // 0x564400
 void ChatPanelInterface::Unknown_564400(bool on)
 {
-	RefCountPtr<RenderObjClass> small_robj = Create_Get(Unknown84->Get_Sub_Object_By_Name("FRAME_DETAIL_MI"));
-	RefCountPtr<RenderObjClass> smallbutframe = Create_Get(Unknown84->Get_Sub_Object_By_Name("RESIZE_MAX01"));
+	RefCountPtr<RenderObjClass> small_robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("FRAME_DETAIL_MI"));
+	RefCountPtr<RenderObjClass> smallbutframe = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("RESIZE_MAX01"));
 	FAIL_IF(!small_robj) return;
 	FAIL_IF(!smallbutframe) return;
 	small_robj->Set_Hidden(!on);
@@ -1093,7 +1093,7 @@ void ChatPanelInterface::Unknown_565F30(int arg)
 // 0x565F80
 void ChatPanelInterface::Unknown_565F80()
 {
-	if (Unknown104 && Unknown104->Unknown98) {
+	if (Unknown104 && Unknown104->Closed) {
 		Unknown104->Unknown_7C(NULL, 0);
 		Unknown104 = NULL;
 	}
@@ -1107,10 +1107,10 @@ void ChatPanelInterface::Unknown_565F80()
 			Unknown104 = Create_Get(new Unknown5CE700Class(Client->As_Space_Client(), 1));
 			break;
 		case 3:
-			Unknown104 = Create_Get((UIChatPanelWindowClass *)new UIOptionCheckClass(Client->As_Space_Client(), 0, 0));
+			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionCheckClass(Client->As_Space_Client(), 0, 0));
 			break;
 		case 4:
-			Unknown104 = Create_Get((UIChatPanelWindowClass *)new UIOptionCheckClass(Client->As_Space_Client(), 1, 0));
+			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionCheckClass(Client->As_Space_Client(), 1, 0));
 			break;
 		case 5:
 			if (Unknown10C) {
@@ -1129,10 +1129,10 @@ void ChatPanelInterface::Unknown_565F80()
 			Unknown104 = Create_Get(new Unknown5CA010Class(Client->As_Space_Client(), 0));
 			break;
 		case 9:
-			Unknown104 = Create_Get((UIChatPanelWindowClass *)new UIOptionAccountClass(Client->As_Space_Client(), 0));
+			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionAccountClass(Client->As_Space_Client(), 0));
 			break;
 		case 10:
-			Unknown104 = Create_Get((UIChatPanelWindowClass *)new UIOptionAccountClass(Client->As_Space_Client(), 1));
+			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionAccountClass(Client->As_Space_Client(), 1));
 			break;
 		case 11:
 			if (!Unknown_7CA2D0()->Unknown34) {
@@ -1157,39 +1157,39 @@ void ChatPanelInterface::Unknown_565F80()
 // 0x566AF0
 void ChatPanelInterface::Unknown_566AF0()
 {
-	if (UnknownF8 && UnknownF8->Unknown98) Unknown_5685C0();
+	if (UnknownF8 && UnknownF8->Closed) Unknown_5685C0();
 	if (UnknownF8) return;
 	if (!UnknownFC) return;
 	switch (UnknownFC) {
 		case 1:
-			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioMainClass(Client->As_Space_Client(), 0, Unknown214));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioMainClass(Client->As_Space_Client(), 0, Unknown214));
 			break;
 		case 2:
-			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioMainClass(Client->As_Space_Client(), 1, ""));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioMainClass(Client->As_Space_Client(), 1, ""));
 			break;
 		case 3:
-			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioJoinClass(Client->As_Space_Client(), 0));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioJoinClass(Client->As_Space_Client(), 0));
 			break;
 		case 4:
-			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioJoinClass(Client->As_Space_Client(), 1));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioJoinClass(Client->As_Space_Client(), 1));
 			break;
 		case 5:
-			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioMainClass(Client->As_Space_Client(), 2, ""));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioMainClass(Client->As_Space_Client(), 2, ""));
 			break;
 		case 6:
-			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioEntryClass(Client->As_Space_Client(), 0));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioEntryClass(Client->As_Space_Client(), 0));
 			break;
 		case 7:
-			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioEntryClass(Client->As_Space_Client(), 1));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioEntryClass(Client->As_Space_Client(), 1));
 			break;
 		case 8:
-			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioMainClass(Client->As_Space_Client(), 3, Unknown_5682C0()));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioMainClass(Client->As_Space_Client(), 3, Unknown_5682C0()));
 			break;
 		case 9:
-			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioEntryClass(Client->As_Space_Client(), 2));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioEntryClass(Client->As_Space_Client(), 2));
 			break;
 		case 10:
-			UnknownF8 = Create_Get((UIChatPanelWindowClass *)new UIRadioAdminClass(Client->As_Space_Client()));
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioAdminClass(Client->As_Space_Client()));
 			UnknownE8 = (UIRadioAdminClass *)UnknownF8.Peek();
 			break;
 	}
@@ -2293,7 +2293,7 @@ void ChatPanelInterface::Unknown_56BAA0(bool show, const char *text)
 	UnknownA4[4]->Unknown_40(show);
 	UnknownA4[4]->Unknown_8C(!show);
 	if (text) {
-		RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("message_TSI05B", Peek_Unknown84()));
+		RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("message_TSI05B", Interface_Mesh()));
 		FAIL_IF(!font) return;
 		font->Change_Text(text, 0);
 	}

@@ -109,27 +109,27 @@ void UIFriendsClass::Unknown_54()
 	if (Unknown_98("tsi28a", "fa_tsi28a.ini")) {
 		int i;
 		for (i = 0; i < 8; i++) {
-			Unknown0D0[i] = Unknown_56D510(i + 1, Unknown_B7F268[i], NULL);
+			Unknown0D0[i] = Add_Button(i + 1, Unknown_B7F268[i], NULL);
 			GadgetClass::Set_Tooltip(Unknown0D0[i], "UI_FRIENDS", Unknown_B7F268[i]);
 		}
 		char name[0x20];
 		for (i = 0; i < 7; i++) {
 			_snprintf(name, sizeof(name), "name%02d", i);
-			Unknown0F0[i] = Unknown_56D510(i + 0xD, name, NULL);
+			Unknown0F0[i] = Add_Button(i + 0xD, name, NULL);
 			Unknown0F0[i]->Unknown2C_0A = true;
 			_snprintf(name, sizeof(name), "name%02d_TSI28A", i);
-			Unknown114[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Peek_Unknown84()));
+			Unknown114[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Interface_Mesh()));
 			_snprintf(name, sizeof(name), "LOCATION%02d_TSI28A", i);
-			Unknown130[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Peek_Unknown84()));
+			Unknown130[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Interface_Mesh()));
 		}
 		for (i = 0; i < 2; i++) {
 			_snprintf(name, sizeof(name), "check%02d", i);
-			Unknown10C[i] = Unknown_56D6F0(i + 10, name, NULL);
+			Unknown10C[i] = Add_Check_Button(i + 10, name, NULL);
 		}
 		Unknown10C[0]->Unknown_7E8030(!Unknown0AD);
 		Unknown10C[1]->Unknown_7E8030(Unknown0AD);
-		Slider = Unknown_56D8D0(0x15, 0);
-		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
+		Slider = Add_Slider(0x15, 0);
+		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
 		Unknown0B0 = Create_Get(new UIPTradeCreditsClass(Client->As_Space_Client(), 1, 0x14));
 		Unknown0B0->Unknown_54();
 		Unknown0B0->Unknown0CD = true;
@@ -139,7 +139,7 @@ void UIFriendsClass::Unknown_54()
 		GadgetClass::Set_Tooltip(Unknown0D0[3], "UI_FRIEND", "ADD_TARGET");
 		GadgetClass::Set_Tooltip(Unknown0D0[4], "UI_FRIEND", "CHAT_WITH");
 		GadgetClass::Set_Tooltip(Unknown0D0[7], "UI_FRIEND", "ADD_GROUP");
-		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
+		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
 	}
 }
 
@@ -211,7 +211,7 @@ bool UIFriendsClass::Unknown_68(int key)
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);

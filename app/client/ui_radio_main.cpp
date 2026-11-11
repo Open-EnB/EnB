@@ -42,10 +42,10 @@ void UIRadioMainClass::Unknown_54()
 {
 	if (Unknown_98("cht01", "cht01.ini")) {
 		for (int i = 0; i < 4; i++) {
-			Buttons[i] = Unknown_56D510(i + 1, Unknown_B85774[i], NULL);
+			Buttons[i] = Add_Button(i + 1, Unknown_B85774[i], NULL);
 			GadgetClass::Set_Tooltip(Buttons[i], "UI_RADIO_MAIN", Unknown_B85774[i]);
 		}
-		Unknown_56D970(0, Vector3(0.0f, 0.0f, 0.0f));
+		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
 		Unknown_5E9BB0();
 	}
 }
@@ -79,7 +79,7 @@ bool UIRadioMainClass::Unknown_68(int key)
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 		case 3:
@@ -99,7 +99,7 @@ void UIRadioMainClass::Unknown_5E9910(int key)
 	switch (State) {
 		case 0:
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			if (key == 2) {
 				Unknown_5EA7F0();
 			} else if (key == 3) {
@@ -114,7 +114,7 @@ void UIRadioMainClass::Unknown_5E9910(int key)
 			break;
 		case 1:
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			if (key == 2) {
 				if (chat) {
 					chat->Unknown_565F60(3);
@@ -127,7 +127,7 @@ void UIRadioMainClass::Unknown_5E9910(int key)
 		case 2:
 			if (key == 2) {
 				Unknown_5C();
-				Unknown98 = 1;
+				Closed = 1;
 				if (chat) {
 					chat->Unknown_565F60(2);
 				}
@@ -136,11 +136,11 @@ void UIRadioMainClass::Unknown_5E9910(int key)
 		case 3:
 			if (key == 2) {
 				Unknown_5C();
-				Unknown98 = 1;
+				Closed = 1;
 				Unknown_5EA550();
 			} else if (key == 4) {
 				Unknown_5C();
-				Unknown98 = 1;
+				Closed = 1;
 				if (chat) {
 					chat->Unknown_565F60(9);
 				}

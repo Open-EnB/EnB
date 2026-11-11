@@ -9,6 +9,8 @@
 #include "fontdatabase.h"
 #include "gadget.h"
 #include "gd_slider.h"
+#include "gd_uiback.h"
+#include "unknown_7e7e00.h"
 #include "unknown_675120.h"
 #include "unknown_signalbase.h"
 #include "..\shared\g_assert.h"
@@ -17,24 +19,24 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
 
-#define InterfaceMesh Unknown84		// the asserts' name for +0x84 (the header's Unknown84 serves the files that read it)
+
 
 // 0x56D280
 ChatPanelUIBase::ChatPanelUIBase(SClient *client) :
 	InterfaceClass((LineDisplayClientClass *)client),
 	InterfaceMesh(NULL),
-	Unknown98(0),
-	Unknown9C(0)
+	Closed(0),
+	MovableBackGadget(0)
 {
 }
 
 // 0x56D330
 ChatPanelUIBase::~ChatPanelUIBase()
 {
-	if (Unknown9C != NULL) {
-		GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)Unknown9C, this, &ChatPanelUIBase::Unknown_56DEE0, DestroyGadgetEvent());
+	if (MovableBackGadget != NULL) {
+		GadgetClass::Get_Signal_Map().disconnect((GadgetClass *)MovableBackGadget, this, &ChatPanelUIBase::On_Back_Gadget_Moved, DestroyGadgetEvent());
 	}
-	const char *name = Unknown88.c_str();
+	const char *name = IniName.c_str();
 	if (name != NULL) {
 		Unknown_BE67C4->Remove(InterfaceMesh.Peek());
 		Unknown_BE67BC->Unload(name);
@@ -47,7 +49,7 @@ ChatPanelUIBase::~ChatPanelUIBase()
 // 0x56D4F0
 void ChatPanelUIBase::Unknown_58()
 {
-	Unknown98 = 0;
+	Closed = 0;
 	InterfaceClass::Unknown_58();
 }
 
@@ -85,11 +87,9 @@ void ChatPanelUIBase::Unknown_58()
 
 
 
-
-
 // NOT EXACT: functional (WE1)
 // 0x56D510
-GadgetClass *ChatPanelUIBase::Unknown_56D510(int id, const char *bttn_name, const char *text)
+GadgetClass *ChatPanelUIBase::Add_Button(int id, const char *bttn_name, const char *text)
 {
 	FAIL_IF(!bttn_name || !*bttn_name) return(NULL);
 
@@ -123,7 +123,7 @@ GadgetClass *ChatPanelUIBase::Unknown_56D510(int id, const char *bttn_name, cons
 
 
 // 0x56D8D0
-GadgetSlider *ChatPanelUIBase::Unknown_56D8D0(int id, bool unknown)
+GadgetSlider *ChatPanelUIBase::Add_Slider(int id, bool unknown)
 {
 	GadgetSlider *gadget = new GadgetSlider(unknown, 0);
 	Unknown64.Unknown_6870E0(gadget, id, View, true, false);
@@ -164,7 +164,7 @@ bool ChatPanelUIBase::Unknown_98(const char *name, const char *ini)
 		Unknown58.Unknown_686CC0(InterfaceMesh.Peek(), NULL);
 	}
 	if (ini != NULL) {
-		Unknown88 = ini;
+		IniName = ini;
 		Unknown_BE67BC->Load(ini);
 		Unknown_BE67C4->Add(InterfaceMesh.Peek());
 	}
@@ -198,16 +198,23 @@ void ChatPanelUIBase::Unknown_8C(const RefCountPtr<RenderObjClass> &robj)
 }
 
 // 0x56DEE0
-void ChatPanelUIBase::Unknown_56DEE0(DestroyGadgetEvent *event, GadgetClass *sender)
+void ChatPanelUIBase::On_Back_Gadget_Moved(DestroyGadgetEvent *event, GadgetClass *sender)
 {
-	if (sender == (GadgetClass *)Unknown9C) {
+	if (sender == (GadgetClass *)MovableBackGadget) {
 		Unknown_9C();
 	}
 }
 /*
-** Reconstruction notes (WE1, 2026-11-06)
+** Reconstruction notes (WE1, 2026-11-06; L13, 2026-11-11)
 **
-** The chat panel's base and the base of ui_friends.cpp's, ui_playeropt.cpp's and ui_starbase.cpp's lights panel:
-** InterfaceClass and a model at +0x84, its string file's name at +0x88, +0x98, and the movable back gadget at +0x9C.
-** 0x56D6F0 and 0x56D970 (asserts on lines 113, 116, 141) are not written yet: their lines are blank.
+** The base of the chat panel, the chat window and every window the chat panel opens (33 constructors call
+** 0x56D280): InterfaceClass and the window's model InterfaceMesh at +0x84, the name of its font .ini at +0x88,
+** Closed at +0x98 (a window sets it when it is done; the chat panel releases it) and the movable back gadget at
+** +0x9C. A window's Unknown_98 override loads the model, then makes its gadgets from the model's sub-objects by name
+** (0x56D510 a button, 0x56D6F0 a check button, 0x56D8D0 a slider) and its back gadget (0x56D970).
+** The FAIL_IFs fix the lines: 94 / 97 (0x56D510), 113 / 116 (0x56D6F0), 141 (0x56D970), 162 (0x56DB20).
+** 0x56DEE0 handles MovableUIBackGadgetMoved (the client's RTTI 0xB7D5E8 names the callback
+** MemberCallback<MovableUIBackGadget, ChatPanelUIBase, ..., MovableUIBackGadgetMoved>); the tree's parameter types
+** (DestroyGadgetEvent, GadgetClass) are an earlier guess that compiles to the same code: retyping them renames the
+** callback's nine short functions 0x56DF10-0x56E130, which symbols.json holds under the old names.
 */

@@ -199,9 +199,9 @@ void PDAInterfaceClass::Unknown_60()
 inline void PDA_Close_Chat_Window(ChatPanelInterface *chat)	// NAME 1: neutral (D10)
 {
 	if (chat->Unknown_694AA0()) {
-		RefCountPtr<UIChatPanelWindowClass> window = chat->Unknown_694AA0();
+		RefCountPtr<ChatPanelUIBase> window = chat->Unknown_694AA0();
 		window->Unknown_5C();
-		window->Unknown98 = 1;
+		window->Closed = 1;
 	}
 }
 
@@ -250,9 +250,9 @@ bool PDAInterfaceClass::Unknown_68(int key)
 			if (!chat->Unknown_694AA0()) {
 				chat->Unknown_565F30(1);
 			} else {
-				RefCountPtr<UIChatPanelWindowClass> window = chat->Unknown_694AA0();
+				RefCountPtr<ChatPanelUIBase> window = chat->Unknown_694AA0();
 				window->Unknown_5C();
-				window->Unknown98 = 1;
+				window->Closed = 1;
 			}
 		}
 		break;

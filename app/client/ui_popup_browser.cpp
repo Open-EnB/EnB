@@ -106,7 +106,7 @@ bool UIPopupBrowserClass::Unknown_68(int id)
 	switch (id) {
 		case 1:
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 	}
 	return(false);
@@ -116,7 +116,7 @@ bool UIPopupBrowserClass::Unknown_68(int id)
 void UIPopupBrowserClass::Unknown_60()
 {
 	if (UnknownA4 && --UnknownA4 == 0) {
-		RenderObjClass *browser = Unknown84->Get_Sub_Object_By_Name("BROWSER");
+		RenderObjClass *browser = InterfaceMesh->Get_Sub_Object_By_Name("BROWSER");
 		if (Url.length()) {
 			Unknown_7CA2D0()->Unknown_7CA5C0(UnknownC8, browser, Url.c_str());
 		} else {

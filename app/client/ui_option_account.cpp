@@ -48,10 +48,10 @@ void UIOptionAccountClass::Unknown_54()
 {
 	if (Unknown_98("opt05a", "fa_opt05a.ini")) {
 		for (int i = 0; i < 2; i++) {
-			Buttons[i] = Unknown_56D510(i + 1, Unknown_B82B7C[i], Unknown_B82B88[i]);
+			Buttons[i] = Add_Button(i + 1, Unknown_B82B7C[i], Unknown_B82B88[i]);
 			GadgetClass::Set_Tooltip(Buttons[i], "UI_OPTION_ACCOUNT", Unknown_B82B7C[i]);
 		}
-		Unknown_56D970(0, Vector3(0.0f, 0.0f, 0.0f));
+		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
 		Unknown_5C8B90();
 		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIOptionAccountKeyEventStruct(0x1B), (void *)1);
 	}
@@ -82,11 +82,11 @@ bool UIOptionAccountClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			if (Mode == 1) {
 				chat->Unknown_565F30(5);
 			} else {
@@ -101,9 +101,9 @@ bool UIOptionAccountClass::Unknown_68(int key)
 void UIOptionAccountClass::Unknown_5C8B90()
 {
 	if (Mode == 1) {
-		RefCountPtr<FontSys> title = Unknown_BE67C4->Unknown_6D2700("title_opt05a", Unknown84);	// NAME 1: neutral (D10)
+		RefCountPtr<FontSys> title = Unknown_BE67C4->Unknown_6D2700("title_opt05a", InterfaceMesh);	// NAME 1: neutral (D10)
 		title->Change_Text("Screen Resolution Info", 0);
-		ManagedFontClass *font = Unknown_BE67C4->Find(Unknown84.Peek());	// NAME 1: neutral (D10)
+		ManagedFontClass *font = Unknown_BE67C4->Find(InterfaceMesh.Peek());	// NAME 1: neutral (D10)
 		font->Unknown_6D0A70("WRAP_message_opt05a", "Please exit the game and run EBConfig.exe to reconfigure the resolution settings for the game.");
 	}
 }

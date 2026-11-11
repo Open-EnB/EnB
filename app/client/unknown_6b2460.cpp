@@ -51,10 +51,10 @@ void Unknown6B2460Class::Unknown_54()
 		char name[0x40];
 		int i;
 		for (i = 0; i < 4; i++) {
-			Buttons[i] = Unknown_56D510(i + 1, Unknown_B91C40[i], NULL);
+			Buttons[i] = Add_Button(i + 1, Unknown_B91C40[i], NULL);
 			if (i > 0) {
 				_snprintf(name, sizeof(name), "button%02d_tsi27a", i);
-				FontSys *style = Unknown_BE67C4->Get_Style(name, Peek_Unknown84());
+				FontSys *style = Unknown_BE67C4->Get_Style(name, Interface_Mesh());
 				if (style) {
 					if (i == 1) {
 						style->Change_Text("Reset", 0);
@@ -69,18 +69,18 @@ void Unknown6B2460Class::Unknown_54()
 		((RObjGadgetClass *)Buttons[3])->Unknown_8C(true);
 		for (i = 0; i < 7; i++) {
 			_snprintf(name, 0x20, "name%02d", i);
-			Rows[i] = Unknown_56D510(i + 6, name, NULL);
+			Rows[i] = Add_Button(i + 6, name, NULL);
 			Rows[i]->Unknown2C_0A = true;
 			_snprintf(name, 0x20, "name%02d_tsi27a", i);
-			RowTexts[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Peek_Unknown84()));
+			RowTexts[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Interface_Mesh()));
 		}
-		FontSys *title = Unknown_BE67C4->Get_Style("ignore00_tsi27a", Peek_Unknown84());
+		FontSys *title = Unknown_BE67C4->Get_Style("ignore00_tsi27a", Interface_Mesh());
 		if (title) {
 			title->Change_Text("Mission Log", 0);
 		}
-		Slider = Unknown_56D8D0(0xE, 0);
-		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
-		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
+		Slider = Add_Slider(0xE, 0);
+		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
+		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
 	}
 }
 
@@ -125,7 +125,7 @@ bool Unknown6B2460Class::Unknown_68(int key)
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -273,7 +273,7 @@ void Unknown6B2460Class::Unknown_6B3810()
 	GMResetMissionPacketClass packet(UnknownF4, NULL, true);
 	((ClientClass *)Client)->Send_Packet(&packet);
 	Unknown_5C();
-	Unknown98 = 1;
+	Closed = 1;
 }
 
 // 0x6B38B0
