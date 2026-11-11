@@ -192,11 +192,13 @@ def main(argv=None):
     a = ap.parse_args(argv)
     if a.agent:
         set_agent(a.agent)
-    hold_lock(a.lock_wait)
-    state = load_state()
-    libs = lib_names(a.lib, state)
-    # one lease covers the whole run, released on success, failure and interrupt
+    # one lease covers the whole run, released on success, failure and interrupt. Lease before taking the
+    # importer lock (D234): a lease waiting in pool.py's queue must not hold the lock other verifies need
+    # to finish and free their VMs.
     with (pool_lease(a.pool, a.holder_pid) if a.pool else contextlib.nullcontext()):
+        hold_lock(a.lock_wait)
+        state = load_state()
+        libs = lib_names(a.lib, state)
         save_state(verify(state, libs))
 
 

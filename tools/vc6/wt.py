@@ -58,8 +58,10 @@ bring-over: puts wt/NAME's commits on TARGET only when the loss rule below holds
      generated file, the landing's commits are replayed onto TARGET's tip (plumbing on a temporary index; no verify:
      nothing it verified changed) and the compare-and-swap retried; otherwise it refuses naming the overlapping paths.
   The pad (on by default; --no-sendpad turns it off): when the verify loses sclient.cpp pairs outright and the changes
-  touch a header sclient.cpp includes, tools/vc6/sendpad.py re-sweeps SEND_SYMBOL_PAD, the pad is committed and the
-  verify runs once more (workflow.md 3.4). It costs nothing when no sclient.cpp pair is lost.
+  touch a header sclient.cpp includes, tools/vc6/sendpad.py re-sweeps SEND_SYMBOL_PAD, both its outputs
+  (app/client/aux_roots_send.h and tools/re/auxroots.py, D227) are committed and the verify runs once more
+  (workflow.md 3.4). When the landing carries a `wt.py rebase` record commit, sendpad watches the target's ledger
+  (--watch-from, D228). It costs nothing when no sclient.cpp pair is lost.
   --dry stops before landing; --keep keeps the scratch worktree; logs go to .work/wt/NAME.bo.*.log.
   Every importer call waits --lock-wait seconds (3000) for the lock.
 
@@ -977,6 +979,17 @@ def run_verify(a, bo, libs, target):
     return sendpad_retune(a, bo, libs, target) if getattr(a, 'sendpad', False) else False
 
 
+PAD_OUTPUTS = ('app/client/aux_roots_send.h', 'tools/re/auxroots.py')    # what sendpad.py writes (D227)
+# record_subject's form for a rebase (sendpad.py's REBASE_RECORD): its ledger has recorded the rebase's losses
+REBASE_RECORD = re.compile(r'^Record the verified pairs of wt/\S+ after rebasing it onto (\S+) ([0-9a-f]{7,40}):')
+
+
+def carries_rebase_record(path, old):
+    """True when a commit in OLD..HEAD (in PATH) is a `wt.py rebase` record commit: from it on the ledger has dropped
+    what the rebase lost, so sendpad's watch set has to come from OLD's ledger (D228)."""
+    return any(REBASE_RECORD.match(s) for s in git('log', '--format=%s', f'{old}..HEAD', cwd=path).splitlines())
+
+
 def sendpad_retune(a, bo, libs, target):
     """The pad retune (on unless --no-sendpad): when bo's changes touch a header sclient.cpp includes and the verify lost sclient.cpp pairs
     outright against TARGET, sendpad.py (bo's copy) re-sweeps SEND_SYMBOL_PAD, the new pad is committed and the
@@ -997,19 +1010,23 @@ def sendpad_retune(a, bo, libs, target):
         return False
     print(f'sendpad: sclient.cpp lost {sorted(lost)} and the changes touch its headers: sweeping '
           f'SEND_SYMBOL_PAD (log {bo}.sendpad.log)', flush=True)
+    watch = []
+    if carries_rebase_record(bo, old) and '--watch-from' in read_text(os.path.join(bo, 'tools', 'vc6', 'sendpad.py')):
+        watch = ['--watch-from', old]
+        print(f'  the landing carries a wt.py rebase record commit: watch set from {target}\'s ledger')
     rc, tail = run_logged([sys.executable, *tool(bo, 'sendpad.py', 'sendpad'), '--pool', str(a.pool),
-                           '--lock-wait', str(a.lock_wait)], bo, bo + '.sendpad.log')
+                           '--lock-wait', str(a.lock_wait), *watch], bo, bo + '.sendpad.log')
     print('  ' + ' '.join(tail[-1:]))
     if rc:
         sys.exit(f'wt: sendpad found no pad keeping sclient.cpp: {tail[-1:]}; {target} untouched')
-    if not dirty_tracked(bo):
+    git('add', '--', *PAD_OUTPUTS, cwd=bo)      # the header and its generator's SEND_SYMBOL_PAD, together (D227)
+    if not git('diff', '--cached', '--name-only', '--', *PAD_OUTPUTS, cwd=bo).strip():
         return False
-    git('add', '--', 'app/client/aux_roots_send.h', cwd=bo)
     msg = ('Retune SEND_SYMBOL_PAD for the changes this bring-over carries (wt.py --sendpad): ' + ' '.join(tail[-1:])
            + '\n')
     if getattr(a, 'trailer', None):
         msg += '\n' + a.trailer + '\n'
-    git('commit', '-q', '-F', '-', cwd=bo, inp=msg.encode())
+    git('commit', '-q', '-F', '-', '--', *PAD_OUTPUTS, cwd=bo, inp=msg.encode())
     print(f'verify again --lib {" ".join(libs)} (log {bo}.verify2.log)', flush=True)
     args = [sys.executable, *tool(bo, 'verify.py', 'verify'), '--pool', str(a.pool), '--lock-wait', str(a.lock_wait)]
     for lib in libs:

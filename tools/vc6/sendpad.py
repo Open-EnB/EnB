@@ -6,13 +6,16 @@ shift it. This compiles sclient.cpp alone through verify's own path (importer.co
 appfile match: the two pad through different windows) with each pad value, prints the window, and leaves
 the pad at the middle of it.
 
-  sendpad.py [--range LO..HI] [--pool K] [--lock-wait S] [--agent NAME] [--holder-pid P] [--dry]
+  sendpad.py [--range LO..HI] [--pool K] [--lock-wait S] [--agent NAME] [--holder-pid P] [--watch-from REV] [--dry]
   sendpad.py --includes [PATH ...]    the headers sclient.cpp includes (transitively, within app/);
                                       with paths: those of them among PATH (exit 1 when none)
 
 The window is the run of consecutive values at which every address of WATCH that HEAD's ledger records for
 sclient.cpp is exact (the longest run when there are several; HEAD's, not the working tree's: the verify that
 lost the pairs has already taken them out of the working ledger, which then watched nothing it lost); the pad is written to its middle (lower middle); --dry restores the file instead.
+When HEAD is a `wt.py rebase` record commit ("Record the verified pairs of wt/NAME after rebasing it onto BRANCH
+SHA: ..."), HEAD's ledger has recorded the loss already: the watch set comes from that onto commit's ledger (D228).
+--watch-from REV names the ledger outright (wt.py bring-over passes its target when the landing carries such a commit).
 The importer lock is taken per variant, not for the whole sweep. K VMs (default 1) are leased from pool.py and
 released at the end (also on failure). Log: .work/log/sendpad.log (one line per value). Prints one summary line.
 Exit 1: no value keeps all of them (the header is left as it was).
@@ -35,6 +38,8 @@ APP = os.path.join(REPO, 'app')
 WATCH = ['0x74D990', '0x758210', '0x702240', '0x742B60', '0x743380', '0x744B60', '0x744560']
 LINE = re.compile(r'^enum AuxRootsSendSymbolPadType \{[^}]*\};', re.M)
 INCLUDE = re.compile(r'^\s*#\s*include\s+"([^"]+)"', re.M)
+# wt.py's record_subject for a rebase: group 1 the onto branch, group 2 its commit (abbreviated)
+REBASE_RECORD = re.compile(r'^Record the verified pairs of wt/\S+ after rebasing it onto (\S+) ([0-9a-f]{7,40}):')
 
 
 def with_pad(text, n):
@@ -95,6 +100,15 @@ def windows(ok):
             start = n
         prev = n
     return runs
+
+
+def watch_source(repo=None):
+    """The revision whose ledger holds the watch set: HEAD, or the onto commit when HEAD is a `wt.py rebase` record
+    commit (its ledger has recorded the loss already, D228)."""
+    import subprocess
+    r = subprocess.run(['git', 'log', '-1', '--format=%s', 'HEAD'], cwd=repo or REPO, capture_output=True, text=True)
+    m = REBASE_RECORD.match(r.stdout.strip()) if r.returncode == 0 else None
+    return m.group(2) if m else 'HEAD'
 
 
 def watch_list(src='HEAD'):
@@ -159,6 +173,9 @@ def main(argv=None):
                     help="seconds to wait for another importer run, per variant (default the importer's)")
     ap.add_argument('--agent', metavar='NAME', help='importer agent: lock owner, scratch under .work/NAME/tmp')
     ap.add_argument('--holder-pid', type=int, help="the lease's holder pid (pool.py's default otherwise)")
+    ap.add_argument('--watch-from', metavar='REV',
+                    help="the ledger the watch set comes from (default HEAD's, or the onto commit's when HEAD is a "
+                         "wt.py rebase record commit)")
     ap.add_argument('--dry', action='store_true', help='sweep and print, leave the header as it was')
     ap.add_argument('--includes', nargs='*', metavar='PATH', help='print the include set, or which PATHs are in it')
     a = ap.parse_args(argv)
@@ -177,7 +194,9 @@ def main(argv=None):
     t0 = time.time()
     os.makedirs(os.path.join(REPO, '.work', 'log'), exist_ok=True)
     with open(os.path.join(REPO, '.work', 'log', 'sendpad.log'), 'w', encoding='utf-8') as log:
-        watch = watch_list()
+        src = a.watch_from or watch_source()
+        watch = watch_list(src)
+        print(f"watch set from {src}'s ledger: {' '.join(watch)}", file=log, flush=True)
         was, pick, runs = sweep(a, log, watch)
         wtxt = ', '.join(f'{x}..{y}' if x != y else str(x) for x, y in runs) or 'none'
         if pick is None:
