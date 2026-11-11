@@ -25,8 +25,8 @@ A job takes its VMs from `ENB_VC6_HOSTS=<user>@<ip>[,...]` (printed by `pool.py 
 | `setup/media.py --media DIR [--download]` | The VC6 and SP4 discs from the Internet Archive: SHA-1 check, MDF -> ISO |
 | `setup/guest/Setup-Guest.ps1`, `setup/guest/Install-VC6.ps1` | In the VM: OpenSSH with the key, VC6 SP4 by file copy from `setup/vc6-files.tsv` (SHA-1 per file), the base's settings |
 | `setup/check_vm.py` | A VM compiles as VC6 SP4: cl 12.00.8804, link 6.00.8447, `@comp.id` build 8799 |
-| `pool.py list` | Pool VMs, their state and leases |
-| `pool.py lease --agent NAME [--count N] [--holder-pid P] [--timeout S]` | Start VMs and print `ENB_VC6_HOSTS=...`; the lease dies with the holder pid (`$ENB_HOLDER_PID`, `$CLAUDE_PID`) or after `--max-age` hours. A VM starts only while the host keeps `reserve_gb` free after its 2 GB start |
+| `pool.py list` | Pool VMs, their state and leases, VMs busy (being created, stopped, destroyed) and the lease queue |
+| `pool.py lease --agent NAME [--count N] [--holder-pid P] [--timeout S] [--wait S]` | Start VMs and print `ENB_VC6_HOSTS=...`; the lease dies with the holder pid (`$ENB_HOLDER_PID`, `$CLAUDE_PID`) or after `--max-age` hours, or with the lease process if it ends before its VMs are ready. A VM starts only while the host keeps `reserve_gb` free after its 2 GB start. At the cap (or with others queued) it waits first come, first served (D232; a ticket in `.work/pool/queue/`, a dead waiter's dropped) up to `--wait` seconds (1800; `0`: exit at once with "pool cap", as before), a progress line on stderr each minute; `verify.py --pool` and `appfile.py --pool` wait the same way. `leases.lock` is held only to decide and save: creating, starting, waiting for and stopping VMs run unlocked |
 | `pool.py release --agent NAME` (or `release VM...`) | Give the VMs back |
 | `pool.py reclaim [--max-age H] [--idle-minutes M] [--prune [--keep K]]` | Release orphaned leases, stop idle VMs, optionally destroy free ones beyond K |
 | `pool.py stop-idle [--minutes M]` | Stop free VMs idle for M minutes |
