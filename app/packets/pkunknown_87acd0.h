@@ -96,7 +96,7 @@ public:
 	virtual int Get_Data_Size();	// +0x0C 0x87CC80
 	virtual int Print(char *buffer, int len);	// +0x10 0x87D150
 
-	void Add_Unknown30(const std::string &string);	// 0x87CD10 (push_back)  // NAME 1: neutral (D10)
+	void Add_NPC(const std::string &string);	// 0x87CD10 (push_back)  // NAME 1: neutral (D10)
 	void Add_Unknown40(const std::string &string);	// 0x87CF30 (push_back)  // NAME 1: neutral (D10)
 
 	std::string Unknown0C;	// +0x0C (a 2-byte length, then the bytes)

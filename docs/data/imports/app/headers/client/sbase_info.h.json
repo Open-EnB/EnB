@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "RECONSTRUCTED: the starbase tables of sbase_info.cpp (client 0x6974F0-0x69AC20): StarbaseInfoClass, StarbaseRoomClass, StarbaseFacilityClass, StarbaseNPCClass and their three SGI hash_maps, from the constructors 0x6974F0 / 0x6976F0 / 0x697720 / 0x6981C0, the loader 0x6987A0 and ui_starbase.cpp's reads"
+ "description": "RECONSTRUCTED: the starbase tables of sbase_info.cpp (client 0x6974F0-0x69ABC0): StarbaseInfoClass, StarbaseRoomClass, StarbaseFacilityClass, StarbaseNPCClass and their three SGI hash_maps, from the constructors 0x6974F0 / 0x6976F0 / 0x697720 / 0x6981C0, the loader 0x6987A0 and ui_starbase.cpp's reads"
 }
