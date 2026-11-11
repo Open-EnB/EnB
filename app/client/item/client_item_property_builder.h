@@ -7,6 +7,7 @@
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "client_item_property_special.h"
+#include "client_item_property_special_effect.h"
 #include "client_item_property_attribute.h"
 #include "client_item_property_attribute_distance.h"
 #include "client_item_property_attribute_string.h"
@@ -81,9 +82,8 @@ public:
 	int Unknown50;																						// +0x50 (0x522860 routes 0x52AD00's property when 2)  // NAME 1: neutral
 };
 
-// An effect as a special property (0x34 bytes, table 0xAEDEDC; its file is not rebuilt)
-class ClientItemPropertySpecialEffectClass : public ClientItemPropertySpecialClass {};  // NAME 1: neutral (D10)
-RefCountPtr<ClientItemPropertySpecialEffectClass> Unknown_52B840(const ItemEffectClass &effect);		// 0x52B840  // NAME 1: neutral (D10); NAME 1 [effect]
+// An effect as a special property: ClientItemPropertySpecialEffectClass, client_item_property_special_effect.h
+// (two lines for three here and the #include above: the inline FAIL_IFs below keep their lines)
 
 // A flag as a special property (its file is not rebuilt)
 class ClientItemPropertySpecialFlagClass : public ClientItemPropertySpecialClass {};  // NAME 1: neutral (D10)

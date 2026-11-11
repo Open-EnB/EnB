@@ -834,7 +834,7 @@ void ClientItemPropertyBuilderClass::Unknown_528460(UIItemExaminationPropertyRou
 {
 	unsigned int count = effects.size();	// unused: an inline layer the client spends budget on (0x527F40 calls the RefCountPtr copies out of line)  // NAME 1 [count]: neutral
 	for (std::vector<ItemEffectClass>::const_iterator it = effects.begin(); it != effects.end(); ++it) {	// NAME 1 [it, special]: neutral
-		RefCountPtr<ClientItemPropertySpecialClass> special = Unknown_52B840(*it);
+		RefCountPtr<ClientItemPropertySpecialClass> special = ClientItemPropertySpecialEffectClass::Create(*it);
 		router.Route(special);
 	}
 }
