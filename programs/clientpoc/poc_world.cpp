@@ -77,15 +77,19 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
 
 // orbitalmanager.cpp (0x4F28A0-0x4F51C0) is real app code since WE4: its stand-in left here.
 
-// ---------------------------------------------------------------- the main view's windows that have no class in the tree: empty windows on its view (0x53E970, 0x53D250 and +0x1DC's)
-MainViewUnknown53E970Class::MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene) : InterfaceClass((UIViewClass *)view, (int)scene)
+// debrsint.cpp (0x53D250-0x53E968) and frameint.cpp (0x53E970-0x53F338) are real app code since O5: their stand-ins left here.
+// debris.cpp's DebrisFieldClass (0x6B8F20, not in the tree): a field that draws nothing, so the debris interface's
+// fields are real objects (the gen stand-in constructor would leave a garbage table for Add / Remove / Release_Ref)
+DebrisFieldClass::DebrisFieldClass(float spacing, float size, float min_dist, float max_dist, float r, float g, float b, float a, bool additive, TextureClass *texture, float fade_in, float fade_out, int primitive, unsigned rows_columns_log2, float blur_time) :
+	Spacing(spacing), Size(size), MinDist(min_dist), MaxDist(max_dist), Color(r, g, b), Alpha(a), FadeIn(fade_in), FadeOut(fade_out), UnknownB4(10000), Additive(additive), UnknownBC(2), UnknownC0(0), UnknownC4(0), UnknownC8(1.0f), BlurTime(blur_time)
 {
-	STUB_CALLED("POC MainViewUnknown53E970Class: an empty window");
+	STUB_CALLED("POC DebrisFieldClass: a debris field that draws nothing");
 }
-MainViewUnknown138Class::MainViewUnknown138Class(MainViewClass *view, SimpleSceneClass *scene, INIClass &ini) : InterfaceClass((UIViewClass *)view, (int)scene)
-{
-	STUB_CALLED("POC MainViewUnknown138Class: an empty window");
-}
+RenderObjClass *DebrisFieldClass::Clone(void) const { return(NULL); }
+void DebrisFieldClass::Render(RenderInfoClass &rinfo) {}
+int DebrisFieldClass::Unknown_6BB440() { return(0); }
+void DebrisFieldClass::Unknown_6BB470() {}
+void DebrisFieldClass::Unknown_6BB640(const Vector3 &offset) {}
 
 // ui_mesh.cpp (0x5B8120-0x5BA4C0) is real app code since UM1: its stand-in left here.
 #include "..\..\ww3d2\assetmgr.h"

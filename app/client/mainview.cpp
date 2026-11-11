@@ -305,7 +305,7 @@ void MainViewClass::Unknown_08()
 	INIClass settings_ini;
 	settings_ini.Load("settings.ini");
 	G_ASSERT(settings_ini.Is_Loaded());
-	MainViewUnknown53E970Class *object = new MainViewUnknown53E970Class(this, Unknown24);
+	FrameInterfaceClass *object = new FrameInterfaceClass(this, Unknown24);
 	object->Unknown_54();
 	object->Unknown_58();
 	Unknown_6B4940(object);
@@ -326,7 +326,7 @@ void MainViewClass::Unknown_08()
 	Unknown1DC->Unknown_54();
 	Unknown1DC->Unknown_58();
 	Unknown_6B4940(Unknown1DC);
-	Unknown138 = new MainViewUnknown138Class(this, Scene, settings_ini);
+	Unknown138 = new DebrisInterfaceClass(this, Scene, settings_ini);
 	Unknown138->Unknown_54();
 	Unknown138->Unknown_58();
 	Unknown_6B4940(Unknown138);
@@ -2010,23 +2010,23 @@ void MainViewClass::Unknown_513B90(unsigned sector)
 	Wind.Z = ini.Get_Float("GENERAL", "WINDZ", 0.0f);
 	Wind *= 3600.0f;
 }
-void MainViewClass::Unknown_513CD0(int mode) { Unknown138->Unknown_53DFB0(mode); }
-int MainViewClass::Unknown_513D00() { return(Unknown138->Unknown9C); }
+void MainViewClass::Unknown_513CD0(int mode) { Unknown138->Set_Mode(mode); }
+int MainViewClass::Unknown_513D00() { return(Unknown138->Mode); }
 void MainViewClass::Unknown_513D20(float value) { Unknown138->Unknown_53E030(value); }
 
-void MainViewClass::Unknown_513D50() { Unknown138->Unknown_53E0B0(); }
-void MainViewClass::Unknown_513D70() { Unknown138->Unknown_53E0E0(); }
-void MainViewClass::Unknown_513D90(int arg) { Unknown138->Unknown_53E110(arg); }
-void MainViewClass::Unknown_513DC0() { Unknown138->Unknown_53E160(); }
-void MainViewClass::Unknown_513DE0(int arg) { Unknown138->Unknown_53E190(arg); }
-void MainViewClass::Unknown_513E10(int arg) { Unknown138->Unknown_53E1E0(arg); }
-void MainViewClass::Unknown_513E40(int arg) { Unknown138->Unknown_53E220(arg); }
-void MainViewClass::Unknown_513E70() { Unknown138->Unknown_53E260(); }
-void MainViewClass::Unknown_513E90(int arg) { Unknown138->Unknown_53E290(arg); }
-void MainViewClass::Unknown_513EC0() { Unknown138->Unknown_53E2C0(); }
-void MainViewClass::Unknown_513EE0(int arg) { Unknown138->Unknown_53E2F0(arg); }
-void MainViewClass::Unknown_513F10() { Unknown138->Unknown_53E3C0(); }
-void MainViewClass::Unknown_513F30(int arg) { Unknown138->Unknown_53E3F0(arg); }
+float MainViewClass::Unknown_513D50() { return(Unknown138->Unknown_53E0B0()); }
+float MainViewClass::Unknown_513D70() { return(Unknown138->Get_Spacing()); }
+void MainViewClass::Unknown_513D90(float arg) { Unknown138->Set_Spacing(arg); }
+float MainViewClass::Unknown_513DC0() { return(Unknown138->Get_Size()); }
+void MainViewClass::Unknown_513DE0(float arg) { Unknown138->Set_Size(arg); }
+void MainViewClass::Unknown_513E10(Vector3 &arg) { Unknown138->Get_Color(arg); }
+void MainViewClass::Unknown_513E40(const Vector3 &arg) { Unknown138->Set_Color(arg); }
+float MainViewClass::Unknown_513E70() { return(Unknown138->Get_Alpha()); }
+void MainViewClass::Unknown_513E90(float arg) { Unknown138->Set_Alpha(arg); }
+float MainViewClass::Unknown_513EC0() { return(Unknown138->Get_Min_Dist()); }
+void MainViewClass::Unknown_513EE0(float arg) { Unknown138->Set_Min_Dist(arg); }
+float MainViewClass::Unknown_513F10() { return(Unknown138->Get_Max_Dist()); }
+void MainViewClass::Unknown_513F30(float arg) { Unknown138->Set_Max_Dist(arg); }
 void MainViewClass::Unknown_513F60(FileClass *file, int indent) {}
 void MainViewClass::Unknown_513F80(int arg) {}
 void MainViewClass::Unknown_513FA0() {}
