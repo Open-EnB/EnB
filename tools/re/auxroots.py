@@ -162,8 +162,8 @@ INT_NAMED = {0xB0122C: 0x708690, 0xB013EC: 0x708800, 0xB01394: 0x708970, 0xB0133
 # Value_To_String), from the KVPair's slots +0x08 (Get_Type_Name), +0x10 (Set_Value_String 0x709680..)
 # and +0x0C (Get_Value_String). An out-of-line Type_Name takes the saved value (`push [ecx+0x10]`):
 # the KVPair's Get_Type_Name is specialised to pass it, as shipcust_desc.h does for ProfessionType.
-# Conversions now rebuilt in the tree: declared as ENUM_EXTERN says, no stand-in (target_generator_summary.cpp's, GD1).
-ENUM_REBUILT = {0xB0189C}
+# Conversions now rebuilt in the tree: declared as ENUM_EXTERN says, no stand-in (target_generator_summary.cpp's, GD1; item_effect.cpp's, E1).
+ENUM_REBUILT = {0xB0189C, 0xB01844}
 ENUM_EXTERN = {
     0xB01844: (0x835370, 0x835390, 0x835590),
     0xB0189C: (0x84BE40, 0x84BE60, 0x84C060),
