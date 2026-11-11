@@ -224,12 +224,12 @@ public:
 typedef SignalBaseClass::MemberCallback<GadgetClass, AvatarSelectionInterface, void (AvatarSelectionInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> UIAvselCallbackClass;	// NAME 1 [UIAvselCallbackClass]: neutral (D10)
 typedef SignalBaseClass::CallbackClass UIAvselCallbackBaseClass;	// NAME 1 [UIAvselCallbackBaseClass]: neutral (D10)
 
-class UIAvselNotifierClass		// NAME 1: neutral (D10)
-{
-public:
-	void Add(int id, UIAvselCallbackBaseClass *callback);	// 0x4F9740  // NAME 2: as sclient.cpp's
-	void Remove(int id, UIAvselCallbackBaseClass *callback);	// 0x4F98D0  // NAME 2: as sclient.cpp's
-};
+// (the signal map: unknown_signalbase.h's SignalMap, its Add / Remove)
+
+
+
+
+
 // (0x65ECE0: gadget.h's GadgetClass::Get_Signal_Map)
 
 // The asset manager (*0xBFAEE0)
@@ -354,8 +354,8 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 	Unknown_55EF90();
 	Unknown084->Unknown3A4->Unknown_760770(100001, true);
 	void (AvatarSelectionInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarSelectionInterface::Unknown_55F6D0;
-	UIAvselNotifierClass *notifier = (UIAvselNotifierClass *)&GadgetClass::Get_Signal_Map();
-	notifier->Add(0, new UIAvselCallbackClass(this, function));
+	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
+	notifier->connect(0, new UIAvselCallbackClass(this, function));
 }
 
 // 0x55CCC0
@@ -388,9 +388,9 @@ AvatarSelectionInterface::~AvatarSelectionInterface()
 	Unknown_BE67BC->Unload("FA_FE12A.ini");
 	Unknown084->Unknown_67A9B0(0);
 	void (AvatarSelectionInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &AvatarSelectionInterface::Unknown_55F6D0;
-	UIAvselNotifierClass *notifier = (UIAvselNotifierClass *)&GadgetClass::Get_Signal_Map();
+	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
 	UIAvselCallbackClass callback(this, function);
-	notifier->Remove(0, &callback);
+	notifier->disconnect(0, callback);
 }
 
 // 0x55CEA0

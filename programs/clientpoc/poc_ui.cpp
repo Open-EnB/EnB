@@ -107,25 +107,6 @@ void UIAvselKeysClass::Unknown_721EF0(const UIAvselKeyEventStruct *event)
 	((InterfaceKeyListClass *)this)->Remove(combo);
 }
 
-class UIAvselNotifierClass
-{
-public:
-	void Add(int id, SignalBaseClass::CallbackClass *callback);
-	void Remove(int id, SignalBaseClass::CallbackClass *callback);
-};
-
-void UIAvselNotifierClass::Add(int id, SignalBaseClass::CallbackClass *callback)
-{
-	((SignalMap *)this)->connect((void *)id, callback);
-}
-
-void UIAvselNotifierClass::Remove(int id, SignalBaseClass::CallbackClass *callback)
-{
-	if (callback != NULL) {
-		((SignalMap *)this)->disconnect((void *)id, *callback);
-	}
-}
-
 class UIAvselAvatarClass
 {
 public:

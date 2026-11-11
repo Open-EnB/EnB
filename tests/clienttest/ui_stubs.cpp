@@ -15,36 +15,7 @@
 
 // ------------------------------------------------------------------------- the UI kit's SignalMap (intrface.cpp)
 
-class InterfaceSignalMapClass
-{
-public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback);
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback);
-};
-void InterfaceSignalMapClass::Add(void *, SignalBaseClass::CallbackClass *) { Trace("stub InterfaceSignalMapClass::Add (0x4F9740)"); }
-void InterfaceSignalMapClass::Remove(void *, const SignalBaseClass::CallbackClass &) { Trace("stub InterfaceSignalMapClass::Remove (0x4F98D0)"); }
-
-// tooltip.cpp's view of the same two functions (its own TooltipSignalMapClass; unresolved since 627f1bd4)
-class TooltipSignalMapClass
-{
-public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback);
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback);
-};
-void TooltipSignalMapClass::Add(void *, SignalBaseClass::CallbackClass *) { Trace("stub TooltipSignalMapClass::Add (0x4F9740)"); }
-void TooltipSignalMapClass::Remove(void *, const SignalBaseClass::CallbackClass &) { Trace("stub TooltipSignalMapClass::Remove (0x4F98D0)"); }
-
-// ------------------------------------------------------------------------- sclient.cpp's notifier (0x79B9E0's object)
-
-typedef SignalBaseClass::CallbackClass SClientCallbackBaseClass;
-class SClientNotifierClass
-{
-public:
-	void Add(int id, SClientCallbackBaseClass *callback);
-	void Remove(int id, SClientCallbackBaseClass *callback);
-};
-void SClientNotifierClass::Add(int id, SClientCallbackBaseClass *) { Trace("stub SClientNotifierClass::Add %d", id); }
-void SClientNotifierClass::Remove(int id, SClientCallbackBaseClass *) { Trace("stub SClientNotifierClass::Remove %d", id); }
+// (the real SignalMap: app/client/signal_map.cpp; the per-file views of it are gone)
 
 // ------------------------------------------------------------------------- ui_chat_panel.cpp's dispatcher and handler
 
