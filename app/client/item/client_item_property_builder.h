@@ -23,66 +23,13 @@
 #include "..\..\ww3d2\texture.h"
 #include <string>
 #include <vector>
+#include "..\..\common\item_info.h"	// ItemBaseInfoClass, ItemEffectDescriptionClass, ItemEffectClass
 #include "..\inv_data_peek.h"	// InvDataPeekClass (InvDataClass::Unknown_688830)
 
 class SClient;
 class UIItemExaminationPropertyRouterBaseClass;
 
 // The callees in files the tree does not have yet (interim here, D137)
-
-// One effect of an item (0x58 bytes; its copy 0x5293B0 and destructors 0x5295C0 / 0x5296D0 are the implicit ones;
-// item_effect_description.cpp's, not rebuilt)
-class ItemEffectClass  // NAME 1: neutral (D10)
-{
-public:
-	std::string Unknown_833D00() const;																	// 0x833D00  // NAME 1: neutral (D10)
-	std::string Unknown_833D40() const;																	// 0x833D40  // NAME 1: neutral (D10)
-
-	std::string Unknown00;																				// +0x00  // NAME 1: neutral
-	std::string Unknown10;																				// +0x10  // NAME 1: neutral
-	std::string Unknown20;																				// +0x20  // NAME 1: neutral
-	std::vector<float> Unknown30;																		// +0x30  // NAME 1: neutral
-	std::vector<float> Unknown40;																		// +0x40  // NAME 1: neutral
-	int Unknown50;																						// +0x50  // NAME 1: neutral
-	int Unknown54;																						// +0x54  // NAME 1: neutral
-};
-
-// An item's effects (0x24 bytes; item_effect_description.cpp's, not rebuilt)
-class ItemEffectDescriptionClass  // NAME 2: item_effect_description.cpp's 0x83E5F0
-{
-public:
-	const std::vector<ItemEffectClass> &Get_Effects() const { return(Effects); }	// NAME 1: neutral
-	void Unknown_83E5F0(const std::string &delta);														// 0x83E5F0  // NAME 1: neutral (D10); NAME 1 [delta]: what it gets
-
-	std::vector<ItemEffectClass> Effects;																// +0x00  // NAME 2: what it holds
-	int Unknown10;																						// +0x10  // NAME 1: neutral
-	int Unknown14;																						// +0x14  // NAME 1: neutral
-	int Unknown18;																						// +0x18  // NAME 1: neutral
-	int Unknown1C;																						// +0x1C  // NAME 1: neutral
-	int Unknown20;																						// +0x20  // NAME 1: neutral
-};
-
-// What an item's +0x5C points at (item_info.cpp's, not rebuilt)
-class ItemTemplateInfoClass : public RefCountClass  // NAME 2: the FAIL_IFs '!template_info'
-{
-public:
-	const ItemEffectDescriptionClass &Get_Unknown40() const { return(Unknown40); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
-	const ItemEffectDescriptionClass &Get_Unknown68() const { return(Unknown68); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
-	ItemTemplateInfoClass();																			// 0x83F490 (item_info.cpp's; 0x90 bytes)
-	void Unknown_8417B0(const std::string &delta);														// 0x8417B0 (applies an encoded delta)  // NAME 1: neutral (D10); NAME 1 [delta]
-	unsigned int Unknown_83FE00();																		// 0x83FE00 (how many attributes)  // NAME 1: neutral (D10)
-	int Unknown_840940(unsigned int index);																// 0x840940 (the attribute id at index, -1: none)  // NAME 1: neutral (D10); NAME 1 [index]
-	bool Unknown_83FD60(int id);																		// 0x83FD60 (has the attribute)  // NAME 1: neutral (D10)
-	bool Unknown_840A20(int id, int &value);															// 0x840A20  // NAME 1: neutral (D10); NAME 1 [id, value]
-	bool Unknown_840AC0(int id, float &value);															// 0x840AC0  // NAME 1: neutral (D10)
-	bool Unknown_840980(std::string &value, unsigned int index);										// 0x840980  // NAME 1: neutral (D10)
-	bool Unknown_8409D0(int id, std::string &value);													// 0x8409D0  // NAME 1: neutral (D10)
-	char Unknown08[0x40 - 0x08];
-	ItemEffectDescriptionClass Unknown40;																// +0x40  // NAME 1: neutral
-	char Unknown64[0x68 - 0x64];
-	ItemEffectDescriptionClass Unknown68;																// +0x68  // NAME 1: neutral
-	char Unknown8C[0x90 - 0x8C];
-};
 
 // An item's flags (the item's +0x58; the labels and tooltips 0x5285A0 gives them)
 struct ItemFlagsStruct  // NAME 1: neutral (D10)
@@ -107,7 +54,7 @@ struct ItemFlagsStruct  // NAME 1: neutral (D10)
 class Unknown688830Item  // NAME 1: neutral (D10)
 {
 public:
-	const RefCountPtr<ItemTemplateInfoClass> &Get_Template_Info() const { return(TemplateInfo); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
+	const RefCountPtr<ItemBaseInfoClass> &Get_Template_Info() const { return(TemplateInfo); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
 	// (0x831840 is client.h's item template's Unknown_831840: callers cast)																		// 0x831840 (its +0x10, with a reference)  // NAME 1: neutral (D10)
 	char Unknown00[0x08];
 	int Unknown08;																						// +0x08 (0x529810's)  // NAME 1: neutral
@@ -119,7 +66,7 @@ public:
 	int Unknown48;																						// +0x48 (0x52FFB0 / 0x530070's)  // NAME 1: neutral
 	char Unknown4C[0x58 - 0x4C];
 	ItemFlagsStruct Flags;																				// +0x58  // NAME 2: the specials 0x5285A0 makes of them
-	RefCountPtr<ItemTemplateInfoClass> TemplateInfo;													// +0x5C  // NAME 2: the FAIL_IFs '!template_info'
+	RefCountPtr<ItemBaseInfoClass> TemplateInfo;													// +0x5C  // NAME 2: the FAIL_IFs '!template_info'
 };
 
 class MoneyClass;
