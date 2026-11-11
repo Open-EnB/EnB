@@ -230,7 +230,8 @@ class Lock:
                 return self
             except FileExistsError:
                 try:
-                    info = json.load(open(LOCK))
+                    with open(LOCK) as fh:
+                        info = json.load(fh)
                     stale = not _pid_alive(int(info['pid'])) or time.time() - info['time'] > LOCK_STALE
                 except (OSError, ValueError, KeyError, TypeError):
                     stale = time.time() - _mtime(LOCK) > LOCK_STALE
@@ -245,10 +246,18 @@ class Lock:
                 time.sleep(0.2)
 
     def __exit__(self, *exc):
-        try:
-            os.remove(LOCK)
-        except OSError:
-            pass
+        # A waiter reading the lock file has it open for a moment, and Windows then refuses the
+        # delete (sharing violation): retry, or the lock stays behind under a live pid until
+        # LOCK_STALE (one way a lease process "held" it for 15 minutes, 2026-11-01).
+        for _ in range(250):
+            try:
+                os.remove(LOCK)
+                return
+            except PermissionError:
+                time.sleep(0.02)
+            except OSError:
+                return
+        print(f'pool: could not delete {LOCK}', file=sys.stderr)
 
 
 def _mtime(path):
@@ -260,14 +269,16 @@ def _mtime(path):
 
 def load():
     try:
-        return json.load(open(STATE))
+        with open(STATE) as fh:
+            return json.load(fh)
     except (OSError, ValueError):
         return {}
 
 
 def save(state):
     tmp = STATE + '.tmp'
-    json.dump(state, open(tmp, 'w', newline='\n'), indent=1, sort_keys=True)
+    with open(tmp, 'w', newline='\n') as fh:
+        json.dump(state, fh, indent=1, sort_keys=True)
     os.replace(tmp, STATE)
 
 
