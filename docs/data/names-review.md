@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 183 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1733 |
-| 2 | describes what the code does | 3935 |
+| 2 | describes what the code does | 3936 |
 | 1 | neutral placeholder | 22426 |
 
 ## For review (score 3 and below)
@@ -22758,6 +22758,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ParentID` | `app/client/co_subtypes.h:82` | what it holds |
 | 2 | `Bone` | `app/client/co_subtypes.h:84` | what it holds |
 | 2 | `ContextEqualStruct` | `app/client/control_keys_manager.cpp:15` | describes what it does (the SGI documentation's eqstr; strcmp inlined in 0x71ECD0) |
+| 2 | `ContextMapStruct` | `app/client/control_keys_manager.cpp:18` | what it holds; an inline layer over the hash_map (implicit constructor): Load_Definitions calls hash_map() 0x71DCE0 out of line only through one |
 | 2 | `std:` | `app/client/control_keys_manager.cpp:20` | 0xBE7B80, what the accessors return without a definition |
 | 2 | `std:` | `app/client/control_keys_manager.h:32` | 0x71CC60 returns it; the table's key |
 | 2 | `std:` | `app/client/control_keys_manager.h:46` | returns the definition's first string |
