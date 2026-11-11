@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "UserClickIndicatorClass, the part gutter_data.cpp uses (D24 header name from the hint's user_click_indicator.cpp; the object is not rebuilt) (GR2)"
+ "description": "RECONSTRUCTED: UserClickIndicatorClass (0x3C bytes), from its object 0x6B3A90-0x6B4470; name assumed from user_click_indicator.cpp"
 }
