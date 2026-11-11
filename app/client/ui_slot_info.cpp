@@ -9,15 +9,15 @@
 
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (input.h: the pointer's position, 0..1)  // NAME 1 [x, y]: as input.h's
 
-// ui_skill_info.cpp's window (0xCC bytes, 'SKILL_INFO_MAIN', 'fc_skillinfo.ini'), as far as this file calls it
-class UISkillInfoClass : public UISlotInfoClass	// NAME 3: class-from-file (D24) for app\Client\ui_skill_info.cpp
-{
-public:
-	UISkillInfoClass(LineDisplayClientClass *client, SkillDataClass *skill);	// 0x62B930  // NAME 1 [client, skill]: what 0x630280 passes
-	virtual UISlotInfoItemClass *Unknown_90();
-	virtual bool Unknown_94();
-	char UnknownB0[0xCC - 0xB0];
-};
+#include "ui_skill_info.h"	// ui_skill_info.cpp's window (0x630280 makes it)
+
+
+
+
+
+
+
+
 
 UISlotInfoClass *UISlotInfoClass::_ActiveInterface = NULL;	// 0xBE5E5C  // NAME 3: the asserts' '_ActiveInterface'
 

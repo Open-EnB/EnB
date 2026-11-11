@@ -122,7 +122,7 @@ def build(out):
                 f.write('#define Unknown_64EED0 Real_Unknown_64EED0\n')
             f.write('#include "' + os.path.relpath(os.path.join(REPO, p), stage) + '"\n')
     B.PROGRAMS['clienttest'] = {'dir': os.path.relpath(stage, REPO), 'flags': B.I.LIB_FLAGS['app'],
-                                'subsystem': 'console', 'runtime': [], 'sys': ['WININET.LIB']}  # settings_store.cpp's lkey thread
+                                'subsystem': 'console', 'runtime': [], 'sys': ['WININET.LIB', 'SHELL32.LIB']}  # settings_store.cpp's lkey thread; shell32: its ShellExecuteExA (0x7CB3D0), as clientpoc
     # E&B's INFMSG (cordcon.cpp) writes to the old iostream's ostream, as udpreplay.py's link: LIBCIMT after LIBCPMT
     if 'LIBCIMT.LIB' not in B.LINK_SYS:
         B.LINK_SYS.insert(B.LINK_SYS.index('LIBCPMT.LIB') + 1, 'LIBCIMT.LIB')

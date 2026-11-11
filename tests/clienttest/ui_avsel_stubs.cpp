@@ -10,15 +10,6 @@
 #include "..\..\..\app\client\unknown_signalbase.h"
 #include "..\..\..\app\shared\avatar_desc.h"
 
-class UIAvselNotifierClass
-{
-public:
-	void Add(int id, SignalBaseClass::CallbackClass *callback);
-	void Remove(int id, SignalBaseClass::CallbackClass *callback);
-};
-void UIAvselNotifierClass::Add(int id, SignalBaseClass::CallbackClass *) { Trace("stub UIAvselNotifierClass::Add %d (0x4F9740)", id); }
-void UIAvselNotifierClass::Remove(int id, SignalBaseClass::CallbackClass *) { Trace("stub UIAvselNotifierClass::Remove %d (0x4F98D0)", id); }
-
 class UIAvselCharacterViewClass { public: void Unknown_5594B0(AvatarDescClass desc); };
 void UIAvselCharacterViewClass::Unknown_5594B0(AvatarDescClass) { Trace("stub UIAvselCharacterViewClass::Unknown_5594B0 (0x5594B0)"); }
 

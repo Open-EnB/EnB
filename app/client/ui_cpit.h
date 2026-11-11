@@ -69,18 +69,18 @@ public:
 	UICpitClass *Owner;									// +0x18  // NAME 2: what it holds
 };
 
-// What +0xD0 points to (0x28 bytes, constructor 0x5DBFC0; its file is unknown): a watcher of the avatar with a slot +0x10
-class UICpitUnknownD0Class : public UnknownObjectWatchClass	// NAME 1: neutral (D10)
-{
-public:
-	UICpitUnknownD0Class(RenderObjClass *model, LayerClass *layer, UICpitClass *cpit, int arg);	// 0x5DBFC0 (the set-up passes the mesh's model, the layer, the cockpit, -1)  // NAME 1 [model, layer, cpit, arg]: what the set-up passes
-	virtual void Unknown_Watch_0C();							// +0x0C (its own)
-	virtual void Unknown_10();							// +0x10 (slot +0x60, every frame)
-	void Unknown_5DC390();								// 0x5DC390 (ui_group.cpp's 0x595530: a member with no object)
-	void Unknown_5DCAE0();								// 0x5DCAE0 (ui_group.cpp: before the delete)
-	char Unknown18[0x28 - 0x18];						// +0x18
-	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (the base's: the implicit copy assignment hides it)
-};
+class UIPowerClass;	// ui_power.h's power gauges (+0xD0, constructor 0x5DBFC0)
+#ifdef EFF_O_H		// (sclient.cpp's path: its padded constructor 0x702240 needs the class here; skill_data.cpp's 0x6A4F40 needs it absent; interim, D137)
+#include "ui_power.h"
+#endif
+
+
+
+
+
+
+
+
 
 // The hulk (+0xC8) and harvest (+0xCC) windows (0xE4 bytes, constructor 0x5850E0 with 2 / 4; their file is unknown)
 class UICpitUnknownC8Class : public InterfaceClass	// NAME 1: neutral (D10)
@@ -151,7 +151,7 @@ public:
 	Unknown_671300Class *Unknown0C4;							// +0xC4 'RIGHT'
 	InterfaceClass *HulkUI;								// +0xC8 (0xE4 bytes, 0x5850E0; G_ASSERT 'HulkUI' l.1208)  // NAME 3: the assert's
 	InterfaceClass *Unknown0CC;							// +0xCC (0xE4 bytes, 0x5850E0: the harvesting window)
-	UICpitUnknownD0Class *Unknown0D0;				// +0xD0 (0x28 bytes, 0x5DBFC0)
+	UIPowerClass *Unknown0D0;						// +0xD0 (0x28 bytes, 0x5DBFC0: ui_power.h)
 	UIScanClass *Scan;									// +0xD4 (0x1B0 bytes, 0x60D800; the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
 	int Unknown0D8;										// +0xD8
 	UIScutClass *UnknownDC;								// +0xDC (0xB8 bytes, 0x610570; the main view's 0x514400 returns it)

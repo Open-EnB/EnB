@@ -14,8 +14,6 @@
 #include "..\..\..\app\shared\money.h"
 #include "..\..\..\app\shared\duration.h"
 
-void UIDynamicWindowClass::Unknown_58A580(Vector2 position) { Trace("stub UIDynamicWindowClass::Unknown_58A580 (0x58A580)"); }
-
 // inv_render.cpp's view of the inventory data (0x688830)
 class Unknown688830Class { public: DurationClass Unknown_68A720(int slot); MoneyClass Unknown_689DA0(int slot); };
 MoneyClass Unknown688830Class::Unknown_689DA0(int slot) { Trace("stub Unknown688830Class::Unknown_689DA0 (0x689DA0)"); return(MoneyClass()); }

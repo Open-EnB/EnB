@@ -1,0 +1,28 @@
+// 0x726100 ClientClass::ClientClass, builder S3 (claude-fable-5-2), 2026-11-10. Closest shape found (not kept: it
+// inlines HashNodeClass's constructor, so client.cpp loses 0x729260). Only the last statement differs from the tree:
+
+	Unknown831340List.Add(new Unknown831340Class(-1, -1, -1, RefCountPtr<ItemBaseInfoClass>(), -1, -1, -1, 0, 0, 1, 0, 0, "Null Item", "", ""), -1);
+
+// What it gives (tryv2, client.cpp alone): the client's construction order (n's "" at 0x38 first, m's "" at 0x28, then
+// 'Null Item' at 0x48, the RefCountPtr at 0x18), the client's flags 1/3/0xF, the same three pushes, and the client's
+// destructors ('Null Item' through an out-of-line _Tidy(true), the two "" inlined). It is one inlining notch too rich
+// at four sites: the client calls _Eos out of line in both "" strings (ours inlines it), calls assign(ptr, n) for
+// 'Null Item' (ours inlines assign and calls _Grow / _Eos), and calls HashNodeClass's constructor 0x729260 (ours
+// inlines it and calls DataNode's).
+//
+// Fingerprints of the other forms (per string: calls made while building it; slots as pushed n, m, name):
+//   tree ("Null Item", std::string(""), std::string("")): 'Null Item' is built FIRST (an implicit conversion is built
+//       before the explicit temporaries), slots 0x28/0x38/0x48, all three destructors inline, 0x729260 out of line.
+//   E/I mixes (EII, IIE, IEI, EEI, EIE; default arguments = "" or = std::string("") behave as the same text at the
+//       call): never the client's slots; all destructors inline.
+//   NULL for the RefCountPtr, an explicit NullConnectionClass() {}, Unknown10C0(DurationClass(0)), (unsigned)-1:
+//       byte-identical to the all-implicit form (no budget effect).
+//   one dead Unknown831340List.Num_Records() after the Add (same line): _Eos out of line in all three and 0x729260
+//       out of line, but the slots become 0x48/0x38/0x28, 'Null Item' keeps assign inline and its _Tidy inlines.
+//       Two, four, six: more _Tidy calls, assign(ptr, n) never goes out of line. One before: more inlining.
+//   std::string() = "Null Item": the only form whose 'Null Item' calls assign(ptr, n) (and both "" call _Eos), but
+//       an extra temporary flag (7), plain slots, destructors inline, 0x729260 inline.
+//   layers: Add through an inline member (no change from the tree); the statement in an inline member, the new in a
+//       file-static inline, a file-static inline returning std::string: the frame changes (0x44, other slots).
+// The member stores (0x10BC-0x10E8, the EH state 3 store after +0x10E8) and the prologue differ by scheduling only in
+// every form: not chased (order-only).

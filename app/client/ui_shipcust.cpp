@@ -53,12 +53,12 @@ struct UIShipCustKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
 struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60), as ui_login.cpp declares it
 
 // The gadget events' callback and the signal map, as ui_login.cpp declares them
-class InterfaceSignalMapClass : public SignalMap		// NAME 1: neutral (D10): intrface.cpp's
-{
-public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }			// 0x4F9740 (the client's 'SignalMap::connect')
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }	// 0x4F98D0 (the client's 'SignalMap::disconnect')
-};
+// (the signal map: unknown_signalbase.h's SignalMap, its Add / Remove)
+
+
+
+
+
 typedef SignalBaseClass::MemberCallback<GadgetClass, ShipCustomizeInterface, void (ShipCustomizeInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> ShipCustCallbackClass;	// NAME 1 [ShipCustCallbackClass]: neutral (D10); vtable 0xAF7970
 
 // The decal library (decal.h): its header inlines that this file calls out of line are emitted here too (COMDATs; the
@@ -600,7 +600,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	Unknown_621500();
 	TheDX8MeshRenderer.Invalidate();
 	void (ShipCustomizeInterface::*function)(FlashingGadgetEvent *, GadgetClass *) = &ShipCustomizeInterface::Unknown_628900;
-	InterfaceSignalMapClass *notifier = (InterfaceSignalMapClass *)&GadgetClass::Get_Signal_Map();
+	SignalMap *notifier = &GadgetClass::Get_Signal_Map();
 	notifier->Add(0, new ShipCustCallbackClass(this, function));
 }
 

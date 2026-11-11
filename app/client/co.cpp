@@ -1573,7 +1573,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 			}
 			UnknownB00060EffectClass *target = effect->Unknown_10();
 			if (target) {
-				target->Unknown_28(GameID);
+				target->Set_Source_Object_ID(GameID);
 			} else {
 				G_ASSERT(0);
 			}
@@ -1615,7 +1615,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 			}
 			UnknownB00060EffectClass *target = effect->Unknown_10();
 			if (target) {
-				target->Unknown_28(GameID);
+				target->Set_Source_Object_ID(GameID);
 			} else {
 				G_ASSERT(0);
 			}

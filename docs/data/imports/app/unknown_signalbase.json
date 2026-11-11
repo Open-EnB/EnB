@@ -1,0 +1,21 @@
+{
+ "ambiguous": [
+  "0x42A900",
+  "0x42B2F0",
+  "0x44C8D0"
+ ],
+ "copy": "reconstructed",
+ "description": "SignalBaseClass's own code (the constructor 0x4F7930 SignalList's and SignalMap's constructors call out of line, the callback lists' delete / emit / remove 0x4F79A0-0x4F7B80 and its template instance 0x4F7C50), client 0x4F7930-0x4F7EF0; PROVISIONAL file name (D137: no __FILE__; after shipcust_desc.cpp)",
+ "expected": {},
+ "in_tree": [
+  "0x4F79A0",
+  "0x4F7A60",
+  "0x4F7B80",
+  "0x4F7C50"
+ ],
+ "merged": [],
+ "name": "client/unknown_signalbase.cpp",
+ "tiebreak": [
+  "0x4F7C50"
+ ]
+}

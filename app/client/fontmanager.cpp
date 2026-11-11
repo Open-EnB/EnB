@@ -424,19 +424,19 @@ void FontManagerClass::Unknown_6D1C10(int index, float time)
 	}
 }
 
-// NOT EXACT: register-only, 3 rows: the client loads the id into ecx and keeps the font in eax (attempts.csv)
-void FontManagerClass::Add(RenderObjClass *object)
+// 0x6D1D80 (returns the font: ui_skill_info.cpp's FAIL_IF '!font_group' tests it)
+ManagedFontClass *FontManagerClass::Add(RenderObjClass *object)
 {
 	ManagedFontClass *font = new ManagedFontClass(object);
 	if (font && font->Id) {
 		Fonts[font->Id] = font;
 	}
+	return(font);
 }
-
-// NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv)
-void FontManagerClass::Add(const RefCountPtr<RenderObjClass> &object)
+// 0x6D1FB0 (returns 0x6D1D80's font)
+ManagedFontClass *FontManagerClass::Add(const RefCountPtr<RenderObjClass> &object)
 {
-	Add(object.Peek());
+	return(Add(object.Peek()));
 }
 
 ManagedFontClass *FontManagerClass::Create(const char *name, RenderObjClass *object)

@@ -1,0 +1,67 @@
+diff --git a/app/client/cpacket.cpp b/app/client/cpacket.cpp
+index 4977c447..381cf0a3 100644
+--- a/app/client/cpacket.cpp
++++ b/app/client/cpacket.cpp
+@@ -1685,25 +1685,25 @@ public:
+ };
+ 
+ // eff_robj.cpp's 0xF0-byte effect around a text object, as far as CLIENT_DAMAGE 100 makes it
+-class Unknown6EF4C0Class	// NAME 1: neutral (D10)
+-{
+-public:
+-	Unknown6EF4C0Class(SClient *client, int id, int time, int duration, int unknown, Unknown6D47C0Class *text, const Vector2 &offset, const Vector3 &velocity);	// 0x6EF4C0  // NAME 1 [client, id, time, duration, unknown, text, offset, velocity]: what the handler passes
+-
+-	virtual ~Unknown6EF4C0Class();
+-	virtual void Unknown_04();
+-	virtual void Unknown_08();
+-	virtual void Unknown_0C();
+-	virtual void Unknown_10();
+-	virtual void Unknown_14();
+-	virtual void Unknown_18();
+-	virtual void Unknown_1C();
+-	virtual void Unknown_20();
+-	virtual void Unknown_24();
+-	virtual void Set_Source_Object_ID(int id);	// +0x28 the object's id (as UnknownB00060EffectClass's)  // NAME 1 [id]: the packet's Victim
+-
+-	char Unknown04[0xF0 - 0x04];
+-};
++#include "eff_robj.h"	// Unknown6EF4C0EffectClass: the text effect 0x6EF4C0 (its constructor takes the text as a render object, an offset and a radius offset)
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
++// 0x6EF4C0
+ 
+ // 0x738970
+ bool DamagePacketClass::Process_Packet(void *instance)
+@@ -1779,7 +1779,7 @@ bool DamagePacketClass::Process_Packet(void *instance)
+ 		if (damage_text) {
+ 			damage_text->Unknown_6D8780(320.0f, 240.0f);
+ 			int id = -(--sclient->Unknown113C);
+-			Unknown6EF4C0Class *effect = new Unknown6EF4C0Class(sclient, id, time, 2000, 0, damage_text, Vector2(0.0f, 0.1f), Vector3(0.0f, 0.0f, 0.0f));
++			Unknown6EF4C0EffectClass *effect = new Unknown6EF4C0EffectClass(sclient, id, time, 2000, 0, (RenderObjClass *)damage_text, Vector2(0.0f, 0.1f), Vector3(0.0f, 0.0f, 0.0f));
+ 			effect->Set_Source_Object_ID(Victim);
+ 			damage_text->Release_Ref();
+ 			sclient->Add_Effect((EffectObjectClass *)effect, mainview->Unknown_48(), mainview->Unknown_7C());
+@@ -1787,7 +1787,7 @@ bool DamagePacketClass::Process_Packet(void *instance)
+ 		if (header_text) {
+ 			header_text->Unknown_6D8780(320.0f, 240.0f);
+ 			int id = -(--sclient->Unknown113C);
+-			Unknown6EF4C0Class *effect = new Unknown6EF4C0Class(sclient, id, time, 2000, 0, header_text, Vector2(0.0f, 0.2f), Vector3(0.0f, 0.0f, 0.0f));
++			Unknown6EF4C0EffectClass *effect = new Unknown6EF4C0EffectClass(sclient, id, time, 2000, 0, (RenderObjClass *)header_text, Vector2(0.0f, 0.2f), Vector3(0.0f, 0.0f, 0.0f));
+ 			effect->Set_Source_Object_ID(Victim);
+ 			header_text->Release_Ref();
+ 			sclient->Add_Effect((EffectObjectClass *)effect, mainview->Unknown_48(), mainview->Unknown_7C());

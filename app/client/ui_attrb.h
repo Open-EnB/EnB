@@ -9,7 +9,7 @@
 
 class RenderObjClass;
 class AvatarPipClass;		// avatar_pip.h's (+0xA8)
-class Unknown58C450Class;	// pdaint.h's experience display (+0x8C)
+class UIExperienceClass;	// ui_experience.h's experience bars (+0x8C)
 class FontSys;
 template<class T> class DeltaTemplateClass;
 
@@ -37,7 +37,7 @@ public:
 
 	RefCountPtr<RenderObjClass> Unknown84;				// +0x84 (the tab's mesh: the constructor's)
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0x88 ('TSI12A')  // NAME 1: as pdaint.h's
-	Unknown58C450Class *Experience;						// +0x8C (0x58C450, 0x28 bytes)  // NAME 1: as pdaint.h's
+	UIExperienceClass *Experience;						// +0x8C (0x58C450, 0x28 bytes)  // NAME 1: as pdaint.h's
 	RefCountPtr<FontSys> Unknown90;						// +0x90 'CHARACTER_NAME_ATT'
 	RefCountPtr<FontSys> Unknown94;						// +0x94 'CHARACTER_LEVEL_ATT'
 	RefCountPtr<FontSys> Unknown98;						// +0x98 'CHARACTER_CLASS_NAME_ATT'

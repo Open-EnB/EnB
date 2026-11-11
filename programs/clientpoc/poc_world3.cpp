@@ -1,9 +1,9 @@
 // Earth & Beyond client (reconstruction): the proof-of-concept client's stand-ins for the PDA's windows (D179). NOT THE CLIENT'S CODE.
 /*
 **	pdaint.cpp's set-up (0x693230) news the equipment (ui_pda_equip.cpp), cargo (ui_pda_cargo.cpp) and vault (0x656FF0)
-**	windows and the experience display (0x58C450). The vault window and the display have no class in the tree yet: it
-**	calls each window's slot +0x54 at once and the display's slots every frame, so the generated stand-ins (no table)
-**	would crash: these give each the real size's zeroed memory and InterfaceClass's own table (no mesh, no keys).
+**	windows and the experience display (0x58C450, ui_experience.cpp's, in app.lib). The vault window has no class in the
+**	tree yet: it calls each window's slot +0x54 at once, so the generated stand-in (no table) would crash: this gives it
+**	the real size's zeroed memory and InterfaceClass's own table (no mesh, no keys).
 **	The cargo and equipment windows are app.lib's; what they make that the tree does not have yet (the combo box's
 **	second constructor 0x5789E0, the ship's PIP 0x541DE0, its gadget 0x66DA50 and the
 **	stats display 0x6A2ED0) is stood in for below. Delete one here when its real class lands in app/.
@@ -25,33 +25,6 @@ Unknown656FF0Class::Unknown656FF0Class(SClient *client) : UIInvClass((LineDispla
 {
 	STUB_CALLED("POC Unknown656FF0Class (the PDA's vault window): an empty InterfaceClass");
 	memset(UnknownD0, 0, sizeof(UnknownD0));
-}
-
-// ---------------------------------------------------------------- the experience display (0x58C450): 0x28 bytes, nothing shown
-Unknown58C450Class::Unknown58C450Class(RenderObjClass *mesh, InterfaceClass *parent)
-{
-	STUB_CALLED("POC Unknown58C450Class (the PDA's experience display): nothing shown");
-	Unknown04 = 0;
-	memset(Unknown08, 0, sizeof(Unknown08));
-}
-Unknown58C450Class::~Unknown58C450Class()
-{
-}
-void Unknown58C450Class::Unknown_04()
-{
-}
-void Unknown58C450Class::Unknown_08(int value)
-{
-	Unknown04 = value;
-}
-void Unknown58C450Class::Unknown_0C()
-{
-}
-void Unknown58C450Class::Unknown_10()
-{
-}
-void Unknown58C450Class::Unknown_58CF60()
-{
 }
 
 // ---------------------------------------------------------------- the cargo window's filter: the combo box's second constructor (0x5789E0)
@@ -103,29 +76,6 @@ void Unknown6A2ED0Class::Unknown_6A34E0(bool on)
 }
 void Unknown6A2ED0Class::Unknown_6A3C10()
 {
-}
-
-// ---------------------------------------------------------------- dynamic_window_icon.cpp's Create (0x519A20): a plain dynamic window, no texture
-// (the inventory windows' item examination window, ui_slot_info.cpp's 0x630280, makes its title's icon and close button with it)
-#include "..\..\app\client\dynamic_window_icon.h"
-RefCountPtr<DynamicWindowIconClass> DynamicWindowIconClass::Create(const std::string &texture_name, const Vector2 &size, unsigned int flags)
-{
-	STUB_CALLED("POC DynamicWindowIconClass::Create (0x519A20): a plain dynamic window");
-	return(Create_NEW((DynamicWindowIconClass *)new DynamicWindowClass("icon", 0)));
-}
-
-// ---------------------------------------------------------------- dynamic_window_move.cpp's 0x51A9C0: the window's move gadget, here one that is never hit
-class UIDynamicWindowClass;
-class PocNoHitGadgetClass : public GadgetClass
-{
-public:
-	PocNoHitGadgetClass() : GadgetClass(0) {}
-	virtual bool Unknown_30(float x, float y) { return(false); }
-};
-GadgetClass *Unknown_51A9C0(UIDynamicWindowClass *window)
-{
-	STUB_CALLED("POC Unknown_51A9C0 (0x51A9C0, the window's move gadget): never hit");
-	return(new PocNoHitGadgetClass);
 }
 
 // ---------------------------------------------------------------- the inventory's quantity gadget (0x66CC00; inv_transaction.cpp's 0x6908E0 news it): never hit

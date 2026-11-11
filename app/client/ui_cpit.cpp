@@ -20,7 +20,7 @@
 #include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
-
+#include "ui_power.h"		// UIPowerClass (+0xD0)
 
 
 
@@ -307,7 +307,7 @@ void UICpitClass::Unknown_54()
 	Scan = new UIScanClass(View->As_Main_View(), &Layer);
 	Scan->Unknown_54();
 	View->Unknown_6B4940(Scan);
-	Unknown0D0 = new UICpitUnknownD0Class(InterfaceMesh->Peek_Object(), &Layer, this, -1);
+	Unknown0D0 = new UIPowerClass(InterfaceMesh->Peek_Object(), &Layer, this, -1);
 	UnknownDC = new UIScutClass(view, &Layer);
 	UnknownDC->Unknown_5417D0(this);
 	UnknownDC->Unknown_54();

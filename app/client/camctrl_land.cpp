@@ -69,7 +69,7 @@ void CameraController05Class::Unknown_04()
 
 	UnknownB00060EffectClass *source = effect->Unknown_10();
 	if (source) {
-		source->Unknown_28(Client->AvatarID);
+		source->Set_Source_Object_ID(Client->AvatarID);
 	} else {
 		G_ASSERT(0);
 	}

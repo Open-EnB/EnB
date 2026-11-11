@@ -208,8 +208,8 @@ public:
 	~FontManagerClass();												// 0x6D1920
 	void Remove_All();													// 0x6D1AE0  // NAME 2: describes what it does
 	void Unknown_6D1C10(int index, float time);					// 0x6D1C10: each font's 0x6CD950  // NAME 1 [Unknown_6D1C10]: neutral (D10)
-	void Add(RenderObjClass *object);										// 0x6D1D80: a new font for the render object, under its address  // NAME 2: describes what it does
-	void Add(const RefCountPtr<RenderObjClass> &object);					// 0x6D1FB0  // NAME 2: describes what it does
+	ManagedFontClass *Add(RenderObjClass *object);							// 0x6D1D80: a new font for the render object, under its address  // NAME 2: describes what it does
+	ManagedFontClass *Add(const RefCountPtr<RenderObjClass> &object);		// 0x6D1FB0  // NAME 2: describes what it does
 	ManagedFontClass *Create(const char *name, RenderObjClass *object);			// 0x6D1FD0: a font from the font database, added under its id  // NAME 2: describes what it does
 	void Remove(RenderObjClass *object);										// 0x6D2220  // NAME 2: describes what it does
 	void Unknown_6D2310(const RefCountPtr<RenderObjClass> &object);						// 0x6D2310: Remove through a reference (a screen's member)  // NAME 1 [Unknown_6D2310]: neutral (D10)

@@ -18,7 +18,7 @@
 #include "..\audio\soundlib.h"
 #include "..\..\wwaudio\AudibleSound.h"
 #include "..\shared\g_assert.h"
-
+#include "ui_experience.h"	// UIExperienceClass (+0xB4)
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
 
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as ui_cinfo.cpp declares it)
@@ -93,7 +93,7 @@ void PDAInterfaceClass::Unknown_54()
 	}
 
 	Unknown64.Unknown_6870E0(new UIBackGadget(InterfaceMesh), 0xE, View, 1, 0);
-	Experience = new Unknown58C450Class(InterfaceMesh.Peek(), this);
+	Experience = new UIExperienceClass(InterfaceMesh.Peek(), this);
 	Unknown_10();
 }
 
@@ -146,8 +146,8 @@ void PDAInterfaceClass::Unknown_60()
 		FAIL_IF(!Get_Client()) return;
 		SClient *client = Get_Client()->As_Space_Client();
 		if (Experience) {
-			if (Experience->Get_Unknown04() != Get_Client()->Unknown_28()) {
-				Experience->Unknown_08(Get_Client()->Unknown_28());
+			if ((int)Experience->Get_Object() != Get_Client()->Unknown_28()) {
+				Experience->Unknown_08((ClientObjectClass *)Get_Client()->Unknown_28());
 			}
 			Experience->Unknown_10();
 		}

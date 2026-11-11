@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "Unknown5BB320Class (NAME 1, D10), moved out of sclient.h: the mesh windows' base over intrface.cpp's InterfaceClass, 0xAC bytes (the UIMeshClass it owns +0x84, the LayerClass +0x88), tables 0xAF3390 / 0xAF3384 / 0xAF3378 (36 slots, +0x88 / +0x8C inline as the client emits them in ui_analyze.cpp at 0x543750 / 0x543770); laid out from the object 0x5BB250-0x5BB6D0 and the 30 derived constructors' tables; header and class names PROVISIONAL (D137; the object has no assert), L3"
+}

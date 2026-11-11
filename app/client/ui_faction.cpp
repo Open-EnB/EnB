@@ -30,14 +30,14 @@ public:
 	virtual SClient *As_Space_Client();					// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
 
-// ui_faction_panel.cpp's panel (200 bytes, constructor 0x58EB50), as far as this file calls it
-class Unknown58EB50Class : public Unknown5BB320Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown58EB50Class(SClient *client);				// 0x58EB50  // NAME 1 [client]: as UIBioClass's
-	void Unknown_58EFC0(const std::string &faction);	// 0x58EFC0 (a faction button's +0x64)  // NAME 1 [faction]: neutral
-	char UnknownAC[200 - 0xAC];							// +0xAC
-};
+#include "ui_faction_panel.h"	// ui_faction_panel.cpp's panel (0x58EB50)
+
+
+
+
+
+
+
 
 class Unknown669570Class;	// gd_gauge.cpp's gauge (declared before the button's constructor)
 // The faction buttons (0x7C bytes, tables 0xAF1820; 0x58D400 makes six): the faction's name and two gauges
@@ -119,7 +119,7 @@ void UIFactionClass::Unknown_54()
 	RefCountPtr<RenderObjClass> mesh = Create_Peek(InterfaceMesh->Peek_Mesh_Object());
 	FAIL_IF(!mesh) return;
 
-	UnknownAC = Create_NEW(new Unknown58EB50Class(Client->As_Space_Client()));
+	UnknownAC = Create_NEW(new UIFactionPanelClass(Client->As_Space_Client()));
 	UnknownAC->Unknown_54();
 
 	Unknown_BE67C4->Add(InterfaceMesh->Peek_Mesh_Object());
@@ -310,7 +310,7 @@ void UIFactionClass::Unknown_Select(int index)
 	}
 	UnknownC4 = index;
 	if (index != -1) {
-		UnknownAC->Unknown_58EFC0(UnknownC8[index]->Unknown64);
+		UnknownAC->Set_Faction(UnknownC8[index]->Unknown64);
 	}
 }
 

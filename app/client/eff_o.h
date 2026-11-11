@@ -32,6 +32,7 @@
 class ClientClass;
 class ClientObjectClass;
 class RenderObjClass;
+class SceneClass;
 class CameraClass;
 class AudibleSoundClass;
 class INIClass;
@@ -62,7 +63,7 @@ public:
 	virtual void Unknown_20();							// +0x20 0x6E68E0 (empty; called when it ends)
 	virtual void Unknown_24(int arg) = 0;				// +0x24 (_purecall: the ends link a new effect to theirs; 0x6E6AD0 passes 1 for NextLink)  // NAME 1 [arg]: what it gets
 
-	void Unknown_6E74B0(int arg);						// 0x6E74B0 (Add_Effect's first: the render object at +0x4C)  // NAME 1 [arg]: what client.h declares
+	void Unknown_6E74B0(int arg);						// 0x6E74B0 (Add_Effect's first: the scene at +0x4C; a running effect is ended, slot +0x20, and started again, slot +0x18, around the change)  // NAME 1 [arg]: what client.h declares
 	void Unknown_6E6ED0(int arg);						// 0x6E6ED0 (Add_Effect's second: the camera at +0x50)  // NAME 1 [arg]: what client.h declares
 	void Unknown_6E6E30();								// 0x6E6E30 (cpacket.cpp's REMOVE_EFFECT 15)
 	bool Unknown_6E6AD0();								// 0x6E6AD0 (SClient::Process_AI removes the effect when it is false)
@@ -100,7 +101,7 @@ public:
 	int Unknown40;										// +0x40 (TriggerSFXMinElapsedTime)
 	int Unknown44;										// +0x44 (TriggerSFXMaxElapsedTime)
 	unsigned Unknown48;									// +0x48 (the next trigger time)
-	RenderObjClass *Unknown4C;							// +0x4C (Unknown_6E74B0's)
+	SceneClass *Scene;									// +0x4C (Unknown_6E74B0's; the derived effects pass it to their render object's Add, RenderObjClass slot +0x34)  // NAME 2: what RenderObjClass::Add takes
 	CameraClass *Camera;								// +0x50  // NAME 3: 0x6E6AD0's FAIL_IF '!Camera'
 	int StartLinkID;									// +0x54 (-1: none)  // NAME 3: effect.ini's 'StartLinkID'
 	int NextLinkID;										// +0x58 (-1: none)  // NAME 3: effect.ini's 'NextLinkID'
@@ -126,11 +127,20 @@ public:
 			unsigned Unknown11 : 1;						// 0x800 (the binary end: UnaryStartLinkToTarget)
 			unsigned Unknown12 : 1;						// 0x1000 (the binary end: UnaryNextLinkToTarget)
 			unsigned Unknown13 : 1;						// 0x2000 (the binary end: the effect packets' OutsideTargetRadius)
+			unsigned Unknown14 : 1;						// 0x4000 (eff_robj.cpp's binary effect: a unary next link gets the render object's transform, slot +0x3C)
+			unsigned Unknown15 : 1;						// 0x8000 (eff_robj.cpp's binary effect: Reset_All_Texture_Mappers at the start)
+			unsigned Unknown16 : 1;						// 0x10000 (RObjLookAtEffect: the model scaled by its object's radius)
+			unsigned Unknown17 : 1;						// 0x20000 (RObjLookAtEffect: at the source, looking at the target; clear: the other way)
+			unsigned Unknown18 : 1;						// 0x40000 (RObjLookAtEffect: from the target's surface, its slot +0x24)
 		} Flag;
 	};
 };
 
-// The unary end (vtable 0xB00060, 0xD8 bytes, constructor 0x6E7540; its destructor is the implicit one,
+// The flag bits above 0x100 are the derived classes' own: the unary effects of eff_robj.cpp read 0x200 (the model
+// scaled by the source's radius), 0x400 (moved out to the source's surface towards the camera), 0x800 (facing
+// the camera) and 0x1000 (Reset_All_Texture_Mappers at the start); the render-state effect 0x6F0200 reads 0x200.
+// Read them with Get_Flag(bit), as the client's code does (shr, test 1).
+// The unary end (vtable 0xB00060, 12 slots, 0xD8 bytes, constructor 0x6E7540; its destructor is the implicit one,
 // first emitted in eff_attach.cpp at 0x6E4970): an effect on one object or point. The object is SourceObject,
 // watched through SourceNode (slot +0x04 is the object's notice that it goes); Transform is where it plays.
 class UnknownB00060EffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
@@ -142,7 +152,7 @@ public:
 	virtual void Unknown_18();							// +0x18 0x6E7850
 	virtual void Unknown_1C();							// +0x1C 0x6E7870 (with flag 0x80)
 	virtual void Unknown_24(int next);					// +0x24 0x6E78A0 (StartLink or NextLink takes this effect's render object, camera, end and source; G_ASSERT l.553)  // NAME 1 [next]: 0x6E6AD0 passes 1 for NextLink
-	virtual void Unknown_28(int game_id);				// +0x28 0x6E7770 ("Set_Source_Object_ID couldn't find the object!")  // NAME 1 [game_id]: OBJECT_EFFECT 9's GameID
+	virtual void Set_Source_Object_ID(int game_id);		// +0x28 0x6E7770 (the client's "Set_Source_Object_ID couldn't find the object!", 0xB92FCC)  // NAME 1 [game_id]: OBJECT_EFFECT 9's GameID
 	virtual void Unknown_2C(const Matrix3D &transform) { Transform = transform; }	// +0x2C 0x6E48A0  // NAME 1 [transform]: POINT_EFFECT 10's location
 
 	void Unknown_6E7810(int game_id, const LegoIdentifierClass &lego);	// 0x6E7810 (no caller)  // NAME 1 [game_id, lego]: what it sets
@@ -154,7 +164,7 @@ public:
 	LegoIdentifierClass SourceLego;						// +0xC4  // NAME 2: what it holds
 };
 
-// The binary end (vtable 0xB0009C, 0xE0 bytes, constructor 0x6E7D70; its destructor is the implicit one,
+// The binary end (vtable 0xB0009C, 16 slots, 0xE0 bytes, constructor 0x6E7D70; its destructor is the implicit one,
 // first emitted in eff_line.cpp at 0x6E5510): an effect from SourceObject (or SourcePosition) to TargetObject
 // (TargetPosition, TargetOffset from the target's position). Slot +0x04 is an object's notice that it goes.
 class UnknownB0009CEffectClass : public EffectObjectClass	// NAME 1: neutral (D10)
@@ -166,10 +176,10 @@ public:
 	virtual void Unknown_18();							// +0x18 0x6E8800
 	virtual void Unknown_1C();							// +0x1C 0x6E8890
 	virtual void Unknown_24(int next);					// +0x24 0x6E8B60 (as the unary end's, both ends; a unary link through slot +0x3C; G_ASSERT l.815)  // NAME 1 [next]: 0x6E6AD0 passes 1 for NextLink
-	virtual void Unknown_28(int game_id);				// +0x28 0x6E80D0 ("Set_Source_Object_ID couldn't find the object!")  // NAME 1 [game_id]: the packets' SourceGameID
+	virtual void Set_Source_Object_ID(int game_id);		// +0x28 0x6E80D0 (the client's "Set_Source_Object_ID couldn't find the object!", 0xB92FCC)  // NAME 1 [game_id]: the packets' SourceGameID
 	virtual void Unknown_2C(int game_id, const LegoIdentifierClass &lego);	// +0x2C 0x6E8170  // NAME 1 [game_id, lego]: the packets' SourceGameID, SourceLego
 	virtual void Unknown_30(const Vector3 &position) { SourcePosition = position; }	// +0x30 0x6E5460  // NAME 1 [position]: what it sets
-	virtual void Unknown_34(int game_id);				// +0x34 0x6E81B0 ("Set_Target_Object_ID couldn't find the object!")  // NAME 1 [game_id]: the packets' TargetGameID
+	virtual void Set_Target_Object_ID(int game_id);		// +0x34 0x6E81B0 (the client's "Set_Target_Object_ID couldn't find the object!", 0xB93054)  // NAME 1 [game_id]: the packets' TargetGameID
 	virtual void Unknown_38(const Vector3 &position) { TargetPosition = position; }	// +0x38 0x6E54A0  // NAME 1 [position]: what it sets
 	virtual void Unknown_3C(UnknownB00060EffectClass *unary, int next);	// +0x3C 0x6E8DD0 (slot +0x24's link to a unary effect)  // NAME 1 [unary, next]: what slot +0x24 passes
 

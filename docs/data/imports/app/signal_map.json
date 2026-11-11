@@ -4,32 +4,46 @@
   "0x42A900",
   "0x42AAE0",
   "0x42AC90",
-  "0x42AFF0",
   "0x42B250",
-  "0x42B2F0",
-  "0x436420",
   "0x443F30",
   "0x4D8F80",
   "0x4F8910",
   "0x4F8BD0"
  ],
  "copy": "reconstructed",
- "description": "SignalMap and SignalList (the client's profile strings 'SignalMap::emit' 0x4F9AD0, 'SignalMap::connect' 0x4F9740, 'SignalMap::disconnect' 0x4F98D0, 'SignalList::Add' 0x4F84C0, 'SignalList::remove' 0x4F8650, 'SignalList::emit' 0x4F8820), client 0x4F7E00-0x4F9D00: the accessor Unknown_4F7EF0, constructors, destructors, connect, disconnect, emit, functional (NOT EXACT); PROVISIONAL file name (D137: no __FILE__; between shipcust_desc.cpp and split_string.cpp)",
+ "description": "SignalMap (the client's profile strings 'SignalMap::connect' 0x4F9740, 'SignalMap::disconnect' 0x4F98D0, 'SignalMap::emit' 0x4F9AD0), client 0x4F9350-0x4F9BF0: constructor, destructor, connect, disconnect, emit; PROVISIONAL file name (D137: no __FILE__; before split_string.cpp)",
  "expected": {},
  "in_tree": [
   "0x444160",
+  "0x4F83F0",
   "0x4F8AA0",
+  "0x4F8C40",
   "0x4F8F00",
+  "0x4F8FD0",
+  "0x4F9000",
   "0x4F9030",
-  "0x4F9200"
+  "0x4F9200",
+  "0x4F92F0",
+  "0x4F9320",
+  "0x4F9350",
+  "0x4F9530",
+  "0x4F9740",
+  "0x4F98D0",
+  "0x4F9AD0"
  ],
  "merged": [],
  "name": "client/signal_map.cpp",
  "shared": [
-  "0x444160"
- ],
- "tiebreak": [
+  "0x444160",
+  "0x4F83F0",
+  "0x4F8AA0",
+  "0x4F8C40",
+  "0x4F8F00",
   "0x4F9030",
-  "0x4F9200"
+  "0x4F9200",
+  "0x4F9320"
+ ],
+ "short_known": [
+  "0x4F8C40"
  ]
 }

@@ -5293,18 +5293,18 @@ void SClient::Unknown_750C20(int index)
 		if (effect) {
 			UnknownB00060EffectClass *unary = effect->Unknown_10();
 			if (unary) {
-				unary->Unknown_28(AvatarID);
+				unary->Set_Source_Object_ID(AvatarID);
 			} else {
 				UnknownB0009CEffectClass *binary = effect->Unknown_14();
 				if (binary) {
 					if (target) {
-						binary->Unknown_34(AvatarID);
+						binary->Set_Target_Object_ID(AvatarID);
 						binary->Unknown_30(position);
 					} else {
 						if (!lego.Is_Empty()) {
 							binary->Unknown_2C(AvatarID, lego);
 						} else {
-							binary->Unknown_28(AvatarID);
+							binary->Set_Source_Object_ID(AvatarID);
 						}
 						binary->Unknown_38(position);
 					}

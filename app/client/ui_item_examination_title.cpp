@@ -37,7 +37,7 @@ void UIItemExaminationTitleClass::Set_Name(const ClientItemPropertyNameClass &na
 
 void UIItemExaminationTitleClass::Set_Icon(const ClientItemPropertyIconClass &icon)
 {
-	Icon->Unknown_519FE0(icon.IconTexture);
+	Icon->Set_Texture(icon.IconTexture);
 }
 
 

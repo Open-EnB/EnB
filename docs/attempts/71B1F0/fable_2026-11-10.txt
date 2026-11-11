@@ -1,0 +1,29 @@
+ControlKeysManager::Load_Definitions 0x71B1F0 (app/client/control_keys_manager.cpp), S2 (Fable), 2026-11-10.
+
+Tree form after this round (25 masked rows, was 233; pairs unchanged):
+  struct ContextMapStruct : public std::hash_map<const char *, int, std::hash<const char *>, ContextEqualStruct> {};
+  ContextMapStruct contexts;                       // the layer: hash_map() 0x71DCE0 goes out of line, frame 0x3e0 (client 0x3dc)
+  List<INISection *> &list = ini.Get_Section_List();
+  INISection *section = list.First_Valid();
+  int count = ini.Get_Section_List().Get_Valid_Count(); _DefaultPSW.size(); _DefaultPSW.size(); _DefaultPSW.size();   // D130
+
+Residue of that form: the client calls GenericList::First_Valid 0x71BCC0 out of line at `section = list.First_Valid()`
+(ours inlines it there and calls it only inside Get_Valid_Count), and the client builds the fourth KeyMappingStruct()
+temporary (the last _DefaultSIM.resize) with the inlined array loop where ours calls the vector constructor iterator
+with ??_FControlKeyStruct; the 4 bytes of frame and the pop order at the end follow from those two.
+
+What was measured (single-file tryv2 compiles, masked rows from explain.py; "lost" = a callee copy no longer emitted):
+  layer alone, derived or member, implicit or {} constructor, with or without destructor: 218, all six pair
+    constructors inline (lost 0x71ED90). The four layer shapes give the same code.
+  layer + Add(name, context) method over operator[]: 253-322 (worse).
+  layer + count through ini.Get_Section_List(): 49, five pair constructors inline, both First_Valid inline (lost 0x71BCC0).
+  layer + that + N dead _DefaultPSW.size() reads: N=1 43, 2 202, 3 25, 4 199, 5 205, 6 77. The reads' position does
+    not matter anywhere before the resizes (after the declaration, after the six inserts, after the INIClass, after the
+    list reference, after First_Valid, after the count: same rows for the same total); at the function's end they
+    break the final resizes instead (92-102 rows, lost 0x71CD60 0x71F110 0x71F180).
+  the reads as _KeyDefinitions.size(), _Empty.size() or contexts.size(): 115-250 (the callee matters, not only the count).
+  layer + count through the list reference + N reads: 2 48, 3 92, 4 31.
+  member layer + reads 0-4, either count form: 49 at best.
+  section through ini.Get_Section_List().First_Valid(): 126-235. `INISection *section; section = ...`: as the tree.
+  a hand-written count loop (for / while over First_Valid / Next_Valid) instead of Get_Valid_Count: 45-253, First_Valid inline.
+  list as a pointer instead of a reference: no change.

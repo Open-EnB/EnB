@@ -29,7 +29,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 #include "..\shared\auxdata\delta_string.h"
 #include "..\shared\g_assert.h"
 #include "..\common\race.h"		// RaceNames (0xBB06E0)
-
+#include "ui_experience.h"	// UIExperienceClass (+0x8C)
 // What 0x6A5640 returns for a skill (0x548D60 reads it), as far as this file reads it
 struct SkillLevelAvailabilityStruct  // NAME 1: neutral (D10)
 {
@@ -146,9 +146,9 @@ void Unknown546A80Class::Unknown_54()
 	InterfaceMesh = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("TSI12A"));
 	Unknown_BE67BC->Load("fa_att.ini");
 	Unknown_BE67C4->Add(InterfaceMesh.Peek());
-	Experience = new Unknown58C450Class(InterfaceMesh.Peek(), this);
+	Experience = new UIExperienceClass(InterfaceMesh.Peek(), this);
 	if (Experience) {
-		Experience->Unknown_08((int)Client->Get_Avatar());
+		Experience->Unknown_08(Client->Get_Avatar());
 	}
 	AvatarPip = new AvatarPipClass;
 	Unknown90 = Create_Peek(Unknown_BE67C4->Get_Style("CHARACTER_NAME_ATT", InterfaceMesh.Peek()));
@@ -304,9 +304,9 @@ void Unknown546A80Class::Unknown_5477C0(bool all)
 		Unknown94->Change_Text(text, 0);
 	}
 	if (Experience) {
-		int value = Experience->Unknown04;
+		int value = (int)Experience->Object;
 		if (value != (int)Client->Get_Avatar()) {
-			Experience->Unknown_08((int)Client->Get_Avatar());
+			Experience->Unknown_08(Client->Get_Avatar());
 		}
 		Experience->Unknown_10();
 	}

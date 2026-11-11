@@ -77,68 +77,26 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
 
 // orbitalmanager.cpp (0x4F28A0-0x4F51C0) is real app code since WE4: its stand-in left here.
 
-// ---------------------------------------------------------------- the main view's windows that have no class in the tree: empty windows on its view (0x53E970, 0x53D250 and +0x1DC's)
-MainViewUnknown53E970Class::MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene) : InterfaceClass((UIViewClass *)view, (int)scene)
+// debrsint.cpp (0x53D250-0x53E968) and frameint.cpp (0x53E970-0x53F338) are real app code since O5: their stand-ins left here.
+// debris.cpp's DebrisFieldClass (0x6B8F20, not in the tree): a field that draws nothing, so the debris interface's
+// fields are real objects (the gen stand-in constructor would leave a garbage table for Add / Remove / Release_Ref)
+DebrisFieldClass::DebrisFieldClass(float spacing, float size, float min_dist, float max_dist, float r, float g, float b, float a, bool additive, TextureClass *texture, float fade_in, float fade_out, int primitive, unsigned rows_columns_log2, float blur_time) :
+	Spacing(spacing), Size(size), MinDist(min_dist), MaxDist(max_dist), Color(r, g, b), Alpha(a), FadeIn(fade_in), FadeOut(fade_out), UnknownB4(10000), Additive(additive), UnknownBC(2), UnknownC0(0), UnknownC4(0), UnknownC8(1.0f), BlurTime(blur_time)
 {
-	STUB_CALLED("POC MainViewUnknown53E970Class: an empty window");
+	STUB_CALLED("POC DebrisFieldClass: a debris field that draws nothing");
 }
-MainViewUnknown138Class::MainViewUnknown138Class(MainViewClass *view, SimpleSceneClass *scene, INIClass &ini) : InterfaceClass((UIViewClass *)view, (int)scene)
-{
-	STUB_CALLED("POC MainViewUnknown138Class: an empty window");
-}
+RenderObjClass *DebrisFieldClass::Clone(void) const { return(NULL); }
+void DebrisFieldClass::Render(RenderInfoClass &rinfo) {}
+int DebrisFieldClass::Unknown_6BB440() { return(0); }
+void DebrisFieldClass::Unknown_6BB470() {}
+void DebrisFieldClass::Unknown_6BB640(const Vector3 &offset) {}
 
 // ui_mesh.cpp (0x5B8120-0x5BA4C0) is real app code since UM1: its stand-in left here.
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\rendobj.h"
 
-// ---------------------------------------------------------------- the interface base over a mesh and a layer (0x5BB250-0x5BB6B0)
-Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, SClient *client) : InterfaceClass((LineDisplayClientClass *)client), InterfaceMesh(mesh)
-{
-	STUB_CALLED("POC Unknown5BB320Class");
-}
-Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, UIViewClass *view, const LayerClass &layer) : InterfaceClass(view, (int)((LayerClass &)layer).Peek_Scene()), InterfaceMesh(mesh), Layer(layer)
-{
-	STUB_CALLED("POC Unknown5BB320Class");
-}
-Unknown5BB320Class::~Unknown5BB320Class()
-{
-	delete InterfaceMesh;
-}
-void Unknown5BB320Class::Unknown_58()
-{
-	InterfaceMesh->Unknown_5B9290((SimpleSceneClass *)Layer.Peek_Scene());
-	InterfaceClass::Unknown_58();
-}
-void Unknown5BB320Class::Unknown_5C()
-{
-	InterfaceMesh->Unknown_5B92B0();
-	InterfaceClass::Unknown_5C();
-}
-void Unknown5BB320Class::Unknown_60()
-{
-}
-// 0x5BB4F0: the client's code (a gadget onto the mesh's list, ui_mesh.cpp 0x5B99C0; was a do-nothing gen stand-in)
-void Unknown5BB320Class::Unknown_5BB4F0(GadgetClass *gadget)
-{
-	InterfaceMesh->Unknown_5B99C0(gadget);
-}
-void Unknown5BB320Class::Unknown_7C(UIViewClass *view, bool arg)
-{
-	if (view == NULL) {
-		Layer.Set_Scene(NULL);
-		Layer.Set_Camera(NULL);
-	} else {
-		Layer.Set_Scene((SceneClass *)view->Unknown_50());
-		Layer.Set_Camera((CameraClass *)view->Unknown_54());
-	}
-	InterfaceClass::Unknown_7C(view, arg);
-}
-void Unknown5BB320Class::Unknown_88()
-{
-}
-void Unknown5BB320Class::Unknown_8C()
-{
-}
+// The interface base over a mesh and a layer (0x5BB250-0x5BB6D0) is real app code since L3 (app/client/unknown_5bb250.cpp): its
+// stand-in left here. The real slot +0x60 runs the mesh's processes (0x5B9410), which the stand-in left out.
 
 // ---------------------------------------------------------------- the cockpit's parts with no class in the tree (ui_cpit.h, ui_cpit.cpp's views)
 #include "..\..\app\client\unknown_671300.h"
@@ -152,11 +110,22 @@ UICpitUnknownE0Class::UICpitUnknownE0Class(SClient *sclient) : InterfaceClass((L
 	STUB_CALLED("POC UICpitUnknownE0Class: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-UICpitUnknownD0Class::UICpitUnknownD0Class(RenderObjClass *model, LayerClass *layer, UICpitClass *cpit, int arg)
+// gd_gauge.cpp's gauge (0x669A30; ui_power.cpp's UIPowerClass, app.lib's, makes three): a gadget on no object, never
+// shown (Exists false: the power gauges skip it)
+#include "..\..\app\client\gd_gauge.h"
+GaugeGadgetClass::GaugeGadgetClass(RenderObjClass *mesh, const char *format) : Unknown_675120Class((RenderObjClass *)NULL, 0)
 {
-	STUB_CALLED("POC UICpitUnknownD0Class: an empty watch");
-	memset(Unknown18, 0, sizeof(Unknown18));
+	STUB_CALLED("POC GaugeGadgetClass 0x669A30 (the power gauges): no object");
+	Exists = false;
+	memset(Unknown61, 0, sizeof(Unknown61));
+	Value = 0.0f;
+	memset(Unknown6C, 0, sizeof(Unknown6C));
 }
+GaugeGadgetClass::~GaugeGadgetClass() {}
+RenderObjClass *GaugeGadgetClass::Unknown_24(Vector3 *position, float *frame, bool indicator) { return(NULL); }
+void GaugeGadgetClass::Set_Render_Obj(RenderObjClass *robj) { RObjGadgetClass::Set_Render_Obj(robj); }
+bool GaugeGadgetClass::Unknown_A4(float value) { Value = value; return(false); }
+float GaugeGadgetClass::Unknown_A8(float value) { Value = value; return(value); }
 class UICpitWarpGadgetClass : public Unknown_671300Class { public: UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer); void Unknown_676190(int a, int b); char Unknown80[0x94 - 0x80]; };
 UICpitWarpGadgetClass::UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer) : Unknown_671300Class(object, (int)bar, layer, 0, 0, 3)
 {
@@ -184,13 +153,6 @@ UISymbolChatClass::UISymbolChatClass(SClient *sclient) : InterfaceClass((LineDis
 UIManuInvClass::UIManuInvClass(SClient *client, RenderObjClass *model, int count, const char *format, int unknown) : InterfaceClass((LineDisplayClientClass *)client)
 {
 	STUB_CALLED("POC UIManuInvClass: an empty window");
-	memset(Unknown84, 0, sizeof(Unknown84));
-}
-
-// ---------------------------------------------------------------- the +0x1358 view's window (0x5B7AB0): an empty window
-Unknown5B7AB0Class::Unknown5B7AB0Class(UIViewClass *view, const LayerClass &layer) : InterfaceClass(view, (int)layer.Peek_Scene())
-{
-	STUB_CALLED("POC Unknown5B7AB0Class: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
 

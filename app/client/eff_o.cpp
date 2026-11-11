@@ -7,7 +7,7 @@
 */
 
 
-
+#include "scene.h"
 #include "eff_o.h"
 #include "client.h"
 #include "co.h"
@@ -30,18 +30,18 @@ void Message_Error(const char *sender, const char *category, const char *file, i
 static char *Unknown_B92E30[] = {"RObjLookAtEffect", "RObjEffect", "WarpEffect", "LineEffect", "StraightSeekEffect", "SpiralSeekEffect", "SplineRandomSeekEffect", "LinearRandomSeekEffect", "SoundEffect", "PassEffect", "AttachEffect", "RenderStateEffect", "ParticleJetEffect", NULL};	// 0xB92E30: effect.ini's EffectClass values, the factory's switch  // NAME 1: neutral (D10)
 Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0x82ECB0 (cdecl; a transform at the position facing along the direction)  // NAME 1 [direction, position]: what 0x6E8DD0 passes
 // The render-state effect the factory's helper 0x6EC7D0 makes (0xE4 bytes; its file, between eff_robj.cpp and
-// eff_seek.cpp, is not rebuilt): declared as far as the helper calls it
-class Unknown6F0200EffectClass : public EffectObjectClass { public: Unknown6F0200EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, int render_state, int action, int action_time); virtual void Unknown_24(int next); char Unknown80[0xE4 - 0x80]; };	// NAME 1: neutral (D10); 0x6F0200  // NAME 1 [client .. action_time]: effect.ini's RenderStateID, ActionType, ActionTime (ms); [next]: the base's
-// eff_seek.cpp's effect on a model that the helper 0x6EAFA0 makes (0xE8 bytes; not rebuilt): declared as far as it calls it
-class Unknown6F07F0EffectClass : public EffectObjectClass { public: Unknown6F07F0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE8 - 0x80]; };	// NAME 1: neutral (D10); 0x6F07F0  // NAME 1 [client .. robj]: what the helper passes; [next]: the base's
-// eff_seek.cpp's spiral effect that the helper 0x6EB150 makes (0xF0 bytes; not rebuilt)
-class Unknown6F0B10EffectClass : public EffectObjectClass { public: Unknown6F0B10EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj, float radius, float spin_rate); virtual void Unknown_24(int next); char Unknown80[0xF0 - 0x80]; };	// NAME 1: neutral (D10); 0x6F0B10  // NAME 1 [client .. spin_rate]: effect.ini's SpiralRadius, SpiralSpinRate (radians per ms); [next]: the base's
-// eff_seek.cpp's changing effect that the helper 0x6EB330 makes (0x12C bytes; not rebuilt)
-class Unknown6F0FD0EffectClass : public EffectObjectClass { public: Unknown6F0FD0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj, int change_time, float distance); virtual void Unknown_24(int next); char Unknown80[0x12C - 0x80]; };	// NAME 1: neutral (D10); 0x6F0FD0  // NAME 1 [client .. distance]: effect.ini's ChangeTime (ms), Distance; [next]: the base's
-// eff_seek.cpp's timed changing effect that the helper 0x6EB590 makes (0x114 bytes; not rebuilt)
-class Unknown6F1760EffectClass : public EffectObjectClass { public: Unknown6F1760EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj, int change_time, int time_to_change, float distance); virtual void Unknown_24(int next); char Unknown80[0x114 - 0x80]; };	// NAME 1: neutral (D10); 0x6F1760  // NAME 1 [client .. distance]: effect.ini's ChangeTime, TimeToChange (ms), Distance; [next]: the base's
-class Unknown6EFC70EffectClass : public EffectObjectClass { public: Unknown6EFC70EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE4 - 0x80]; };	// NAME 1: neutral (D10); 0x6EFC70, eff_robj.cpp's effect of 0x6EA5E0 (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
-class Unknown6EEEA0EffectClass : public EffectObjectClass { public: Unknown6EEEA0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xDC - 0x80]; };	// NAME 1: neutral (D10); 0x6EEEA0, eff_robj.cpp's effect of 0x6EA830 (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
+// eff_seek.cpp, is eff_rs.cpp by a provisional name, D137):
+#include "eff_rs.h"	// RenderStateEffectClass, 0x6F0200
+// eff_seek.cpp's seekers that the helpers 0x6EAFA0 (StraightSeekEffectClass, 0xE8 bytes), 0x6EB150
+// (SpiralSeekEffectClass, 0xF0 bytes), 0x6EB330 (SplineRandomSeekEffectClass, 0x12C bytes) and 0x6EB590
+// (LinearRandomSeekEffectClass, 0x114 bytes) make:
+#include "eff_seek.h"
+
+
+
+
+#include "eff_robj.h"
+// (eff_robj.h: RObjLookAtEffectClass, 0x6EFC70, the effect of 0x6EA5E0, and RObjEffectClass, 0x6EEEA0, the effect of 0x6EA830)
 class Unknown6F25A0EffectClass : public EffectObjectClass { public: Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE0 - 0x80]; };	// NAME 1: neutral (D10); 0x6F25A0, the effect of 0x6EAA40 (its file after eff_seek.cpp) (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
 class Unknown6E4750EffectClass : public EffectObjectClass { public: Unknown6E4750EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, const RefCountPtr<RenderObjClass> &robj, const char *bone_prefix); virtual void Unknown_24(int next); char Unknown80[0xF4 - 0x80]; };	// NAME 1: neutral (D10); 0x6E4750, eff_attach.cpp's effect of 0x6EC570 (not rebuilt)  // NAME 1 [client .. bone_prefix, next]: what the helper passes
 class Unknown6ECC50EffectClass : public EffectObjectClass { public: Unknown6ECC50EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *emitter, float min_lifetime); virtual void Unknown_24(int next); char Unknown80[0xF0 - 0x80]; };	// NAME 1: neutral (D10); 0x6ECC50, eff_particlejet.cpp's effect of 0x6EC950 (not rebuilt)  // NAME 1 [client .. min_lifetime, next]: what the helper passes
@@ -62,7 +62,7 @@ EffectObjectClass::EffectObjectClass(ClientClass *client, unsigned id, unsigned 
 	Unknown40(0),
 	Unknown44(0),
 	Unknown48(0),
-	Unknown4C(NULL),
+	Scene(NULL),
 	Camera(NULL),
 	StartLinkID(-1),
 	NextLinkID(-1),
@@ -118,7 +118,7 @@ void Unknown_6E6A90(EffectObjectClass *effect)
 // 0x6E6930
 EffectObjectClass::~EffectObjectClass()
 {
-	REF_PTR_RELEASE(Unknown4C);
+	REF_PTR_RELEASE(Scene);
 	REF_PTR_RELEASE(Camera);
 	if (Unknown34) {
 		delete [] Unknown34;
@@ -350,14 +350,14 @@ void EffectObjectClass::Unknown_6E73F0(const char *name, bool sfx_2d, float radi
 // 0x6E74B0
 void EffectObjectClass::Unknown_6E74B0(int arg)
 {
-	RenderObjClass *robj = (RenderObjClass *)arg;
-	if (robj != Unknown4C) {
+	SceneClass *scene = (SceneClass *)arg;
+	if (scene != Scene) {
 		if (Flag.State == 1) {
 			Unknown_20();
-			REF_PTR_SET(Unknown4C, robj);
+			REF_PTR_SET(Scene, scene);
 			Unknown_18();
 		} else {
-			REF_PTR_SET(Unknown4C, robj);
+			REF_PTR_SET(Scene, scene);
 		}
 	}
 }
@@ -475,7 +475,7 @@ void UnknownB00060EffectClass::Unknown_04(int arg)
 
 
 // 0x6E7770
-void UnknownB00060EffectClass::Unknown_28(int game_id)
+void UnknownB00060EffectClass::Set_Source_Object_ID(int game_id)
 {
 	SourceObject = Client->Find_Object(game_id);
 	if (SourceObject) {
@@ -493,7 +493,7 @@ void UnknownB00060EffectClass::Unknown_28(int game_id)
 void UnknownB00060EffectClass::Unknown_6E7810(int game_id, const LegoIdentifierClass &lego)
 {
 	SourceLego = lego;
-	Unknown_28(game_id);
+	Set_Source_Object_ID(game_id);
 }
 
 // 0x6E7850
@@ -532,7 +532,7 @@ void UnknownB00060EffectClass::Unknown_24(int next)
 {
 	EffectObjectClass *link = (next == 0) ? StartLink : NextLink;
 	if (link) {
-		link->Unknown_6E74B0((int)Unknown4C);
+		link->Unknown_6E74B0((int)Scene);
 		link->Unknown_6E6ED0((int)Camera);
 		if ((bool)Flag.Unknown2) {
 			link->Unknown_6E6E30();
@@ -543,7 +543,7 @@ void UnknownB00060EffectClass::Unknown_24(int next)
 				if (!SourceLego.Is_Empty()) {
 					unary->Unknown_6E7810(SourceObject->Get_Game_ID(), SourceLego);
 				} else {
-					unary->Unknown_28(SourceObject->Get_Game_ID());
+					unary->Set_Source_Object_ID(SourceObject->Get_Game_ID());
 				}
 			} else {
 				unary->Unknown_2C(Transform);
@@ -625,7 +625,7 @@ void UnknownB0009CEffectClass::Unknown_04(int arg)
 
 
 // 0x6E80D0
-void UnknownB0009CEffectClass::Unknown_28(int game_id)
+void UnknownB0009CEffectClass::Set_Source_Object_ID(int game_id)
 {
 	SourceObject = Client->Find_Object(game_id);
 	if (SourceObject) {
@@ -643,7 +643,7 @@ void UnknownB0009CEffectClass::Unknown_28(int game_id)
 void UnknownB0009CEffectClass::Unknown_2C(int game_id, const LegoIdentifierClass &lego)
 {
 	SourceLego = lego;
-	Unknown_28(game_id);
+	Set_Source_Object_ID(game_id);
 }
 
 
@@ -652,7 +652,7 @@ void UnknownB0009CEffectClass::Unknown_2C(int game_id, const LegoIdentifierClass
 
 
 // 0x6E81B0
-void UnknownB0009CEffectClass::Unknown_34(int game_id)
+void UnknownB0009CEffectClass::Set_Target_Object_ID(int game_id)
 {
 	TargetObject = Client->Find_Object(game_id);
 	Unknown_73FDB0(&TargetNode, TargetObject);
@@ -783,7 +783,7 @@ void UnknownB0009CEffectClass::Unknown_24(int next)
 {
 	EffectObjectClass *link = (next == 0) ? StartLink : NextLink;
 	if (link) {
-		link->Unknown_6E74B0((int)Unknown4C);
+		link->Unknown_6E74B0((int)Scene);
 		link->Unknown_6E6ED0((int)Camera);
 		if ((bool)Flag.Unknown2) {
 			link->Unknown_6E6E30();
@@ -794,13 +794,13 @@ void UnknownB0009CEffectClass::Unknown_24(int next)
 				if (!SourceLego.Is_Empty()) {
 					binary->Unknown_2C(SourceObject->Get_Game_ID(), SourceLego);
 				} else {
-					binary->Unknown_28(SourceObject->Get_Game_ID());
+					binary->Set_Source_Object_ID(SourceObject->Get_Game_ID());
 				}
 			} else {
 				binary->Unknown_30(SourcePosition);
 			}
 			if (TargetObject) {
-				binary->Unknown_34(TargetObject->Get_Game_ID());
+				binary->Set_Target_Object_ID(TargetObject->Get_Game_ID());
 			} else {
 				binary->Unknown_38(TargetPosition);
 			}
@@ -823,7 +823,7 @@ void UnknownB0009CEffectClass::Unknown_3C(UnknownB00060EffectClass *unary, int n
 {
 	if (Flags & ((next != 0) ? 0x1000 : 0x800)) {
 		if (TargetObject) {
-			unary->Unknown_28(TargetObject->Get_Game_ID());
+			unary->Set_Source_Object_ID(TargetObject->Get_Game_ID());
 			return;
 		}
 		unary->Unknown_2C(Unknown_82ECB0(SourcePosition - TargetPosition, TargetPosition));
@@ -832,7 +832,7 @@ void UnknownB0009CEffectClass::Unknown_3C(UnknownB00060EffectClass *unary, int n
 			if (!SourceLego.Is_Empty()) {
 				unary->Unknown_6E7810(SourceObject->Get_Game_ID(), SourceLego);
 			} else {
-				unary->Unknown_28(SourceObject->Get_Game_ID());
+				unary->Set_Source_Object_ID(SourceObject->Get_Game_ID());
 			}
 			return;
 		}
@@ -1241,7 +1241,7 @@ EffectObjectClass *Unknown_6EA5E0(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6EFC70EffectClass *effect = new Unknown6EFC70EffectClass(client, id, start_time, duration, cycle_time, robj);
+	RObjLookAtEffectClass *effect = new RObjLookAtEffectClass(client, id, start_time, duration, cycle_time, robj);
 	effect->Set_Flag(0x10000, scale_to_radius);
 	effect->Set_Flag(0x20000, source_based);
 	effect->Set_Flag(0x40000, target_center_to_point);
@@ -1270,7 +1270,7 @@ EffectObjectClass *Unknown_6EA830(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6EEEA0EffectClass *effect = new Unknown6EEEA0EffectClass(client, id, start_time, duration, cycle_time, robj);
+	RObjEffectClass *effect = new RObjEffectClass(client, id, start_time, duration, cycle_time, robj);
 	effect->Set_Flag(0x200, scale_to_radius);
 	effect->Set_Flag(0x400, in_front_of_object);
 	effect->Set_Flag(0x800, face_camera);
@@ -1365,7 +1365,7 @@ EffectObjectClass *Unknown_6EAFA0(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6F07F0EffectClass *effect = new Unknown6F07F0EffectClass(client, id, start_time, duration, cycle_time, robj);
+	StraightSeekEffectClass *effect = new StraightSeekEffectClass(client, id, start_time, duration, cycle_time, robj);
 	effect->Set_Flag(0x4000, next_link_to_robj);
 	effect->Set_Flag(0x8000, reset_mappers);
 	robj->Release_Ref();
@@ -1392,7 +1392,7 @@ EffectObjectClass *Unknown_6EB150(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6F0B10EffectClass *effect = new Unknown6F0B10EffectClass(client, id, start_time, duration, cycle_time, robj, radius, spin_rate);
+	SpiralSeekEffectClass *effect = new SpiralSeekEffectClass(client, id, start_time, duration, cycle_time, robj, radius, spin_rate);
 	effect->Set_Flag(0x4000, next_link_to_robj);
 	effect->Set_Flag(0x8000, reset_mappers);
 	robj->Release_Ref();
@@ -1423,7 +1423,7 @@ EffectObjectClass *Unknown_6EB330(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6F0FD0EffectClass *effect = new Unknown6F0FD0EffectClass(client, id, start_time, duration, cycle_time, robj, change_time, distance);
+	SplineRandomSeekEffectClass *effect = new SplineRandomSeekEffectClass(client, id, start_time, duration, cycle_time, robj, change_time, distance);
 	effect->Set_Flag(0x10000, one_change);
 	effect->Set_Flag(0x4000, next_link_to_robj);
 	effect->Set_Flag(0x8000, reset_mappers);
@@ -1458,7 +1458,7 @@ EffectObjectClass *Unknown_6EB590(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6F1760EffectClass *effect = new Unknown6F1760EffectClass(client, id, start_time, duration, cycle_time, robj, change_time, time_to_change, distance);
+	LinearRandomSeekEffectClass *effect = new LinearRandomSeekEffectClass(client, id, start_time, duration, cycle_time, robj, change_time, time_to_change, distance);
 	effect->Set_Flag(0x10000, one_change);
 	effect->Set_Flag(0x4000, next_link_to_robj);
 	effect->Set_Flag(0x8000, reset_mappers);
@@ -1659,7 +1659,7 @@ EffectObjectClass *Unknown_6EC7D0(INIClass *ini, const char *section, unsigned i
 	int action = ini->Get_List_Index(section, "ActionType", -1, actions);
 	int action_time = ini->Get_Float(section, "ActionTime", 1.0f) * 1000.0f;
 	bool force = ini->Get_Bool(section, "ForceReactivate", false);
-	Unknown6F0200EffectClass *effect = new Unknown6F0200EffectClass(client, id, start_time, duration, cycle_time, render_state, action, action_time);
+	RenderStateEffectClass *effect = new RenderStateEffectClass(client, id, start_time, duration, cycle_time, render_state, action, action_time);
 	effect->Set_Flag(0x200, force);
 	return(effect);
 }

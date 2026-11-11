@@ -522,7 +522,7 @@ PROGRAMS = {
                   'libs': ['app', 'wnet', 'wlib', 'binkmovie', 'wwshade', 'ww3d2', 'wwaudio', 'wwsaveload',
                            'wwmath', 'wwlib', 'wwdebug'],
                   'need': [os.path.join('authlogin', 'authlogin.lib')], 'extra_libs': [BINKW32_LIB],
-                  'sys': ['LIBCIMT.LIB', 'WININET.LIB'],      # WinInet: settings_store.cpp's lkey thread; the old iostreams (ostream, streambuf) some app files use
+                  'sys': ['LIBCIMT.LIB', 'WININET.LIB', 'SHELL32.LIB'],      # WinInet: settings_store.cpp's lkey thread; shell32: its ShellExecuteExA (0x7CB3D0); the old iostreams (ostream, streambuf) some app files use
                   'gen_stubs': True, 'force_unresolved': True, 'deploy': r'C:\EnBDevelopment\ClientPOC\release', 'deploy_name': 'client'},
 }
 STUBS_DIR = 'stubs'

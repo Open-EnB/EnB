@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED (interim view, D137): gd_gauge.cpp's gauge gadget as far as ui_power.cpp derives from it (constructor 0x669A30, table 0xAFA280)"
+}

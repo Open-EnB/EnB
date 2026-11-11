@@ -275,12 +275,12 @@ class FlashingGadgetEvent { public: GadgetClass *Gadget; };	// the client's RTTI
 
 
 
-class UIAvatrNotifierClass		// NAME 1: neutral (D10)
-{
-public:
-	void Remove(int id, UIAvatrCallbackBaseClass *callback);	// 0x4F98D0  // NAME 2: as sclient.cpp's
-};
-UIAvatrNotifierClass *Unknown_65ECE0();					// 0x65ECE0  // NAME 1 [Unknown_65ECE0]: neutral (D10)
+// (the signal map: unknown_signalbase.h's SignalMap, its Add / Remove)
+
+
+
+
+
 
 // The window's buttons and their texts (0xB7AF84: 50 entries, the gadgets' order at +0x98)
 struct UIAvatrPartStruct	// NAME 1: neutral (D10)

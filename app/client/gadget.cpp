@@ -27,17 +27,17 @@ static int Unknown_B8C9E0 = 0;			// 0xB8C9E0 (the gadgets' ids)  // NAME 1: neut
 
 void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0x509E30 (dbgmgr.cpp), the log line
 
-// user_click_indicator.cpp's indicator (0x3C bytes), as far as the flash uses it
-class UserClickIndicatorClass  // NAME 1: neutral (D10)
-{
-public:
-	UserClickIndicatorClass();							// 0x6B3A90
-	~UserClickIndicatorClass();							// 0x6B3C20
-	bool Unknown_6B3D00(UIViewClass *view);				// 0x6B3D00 (the flash's view)  // NAME 1 [view]: neutral
-	void Unknown_6B3F50(const SphereClass &sphere);		// 0x6B3F50 (each frame: the clone's bounding sphere, slot +0xF0)  // NAME 1 [sphere]: neutral
+#include "user_click_indicator.h"	// UserClickIndicatorClass (0x6B3A90-0x6B4470)
 
-	char Unknown00[0x3C];
-};
+
+
+
+
+
+
+
+
+
 
 // the input (input.cpp's neighbourhood, cdecl)
 bool Unknown_42EA80(KernelEventClass *event);						// 0x42EA80 (the queue's next event, kept)  // NAME 1 [event]: neutral

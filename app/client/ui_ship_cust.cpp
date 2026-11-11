@@ -113,11 +113,11 @@ extern bool Unknown_BB9654;							// NAME 1 [Unknown_BB9654]: neutral (D10) (tsk
 static const char *Unknown_B894A0[][2] = { { "BUY_SHIP01", "fa_buy_ship01.ini" }, { "BUY_SHIP02", "fa_buy_ship02.ini" }, { "BUY_SHIP03", "fa_buy_ship03.ini" }, { "BUY_SHIP04", "fa_buy_ship04.ini" } };	// NAME 1: neutral (D10)
 
 typedef SignalBaseClass::MemberCallback<GadgetClass, StarbaseShipCustomizeInterface, void (StarbaseShipCustomizeInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent> StarbaseShipCustCallbackClass;	// NAME 1 [StarbaseShipCustCallbackClass]: neutral (D10)
-class StarbaseShipCustNotifierClass : public SignalMap		// NAME 1: neutral (D10): as ui_shipcust.cpp's InterfaceSignalMapClass
-{
-public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }			// 0x4F9740 (the client's 'SignalMap::connect')
-};
+// (the signal map: unknown_signalbase.h's SignalMap, its Add / Remove)
+
+
+
+
 
 // @0x6181B0
 StarbaseShipCustomizeInterface::StarbaseShipCustomizeInterface(UIViewClass *view, LayerClass *layer) :

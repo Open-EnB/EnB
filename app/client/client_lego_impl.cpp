@@ -307,7 +307,7 @@ RefCountPtr<LegoClass> ClientLegoImplClass::Find(const LegoIdentifierClass &id) 
 
 
 
-// NOT EXACT: inline budget: the client builds one more Matrix3D result (6 ??_H against our 5), 0.88 (attempts.csv)
+// Exact with two dead size() reads (D130, marked): the test is two named bools and their || in a third (the client's sete pair); attempts.py show 0x72B000
 Matrix3D ClientLegoImplClass::Get_Lego_Transform(const LegoIdentifierClass &id) const
 {
 	if (id.Is_Empty()) {
@@ -323,7 +323,7 @@ Matrix3D ClientLegoImplClass::Get_Lego_Transform(const LegoIdentifierClass &id) 
 		return RenderObject->Get_Transform();
 	}
 	std::hash_map<std::string, LegoChildStruct>::const_iterator child_find = Children.find(split.Name);
-	if ((split.State == 0) | (child_find == Children.end())) {
+	bool is_self = split.State == 0; bool no_child = child_find == Children.end(); bool here = is_self || no_child; if (here) {
 
 
 
@@ -340,7 +340,7 @@ Matrix3D ClientLegoImplClass::Get_Lego_Transform(const LegoIdentifierClass &id) 
 		if (!BoneMap) {
 			return RenderObject->Get_Transform();
 		}
-		RefCountPtr<LegoKnobClass> knob = BoneMap->Get_Knob(split.Name);
+		split.Name.size(); split.Name.size(); RefCountPtr<LegoKnobClass> knob = BoneMap->Get_Knob(split.Name);	// dead size()s (D130; not the client's): inline calls after the last Get_Transform return take its nested inline budget, so its Matrix3D keeps the ??_H call (each needed)
 		if (!knob) {
 			return RenderObject->Get_Bone_Transform(split.Name.c_str());
 		}
@@ -360,7 +360,7 @@ Matrix3D ClientLegoImplClass::Get_Lego_Transform(const LegoIdentifierClass &id) 
 
 
 
-// NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours; 0.75 (attempts.csv)
+// Exact with two dead iterator comparisons (D130, marked): own code the client's source had that emits nothing; without them the last branch calls data's operator= and destructor; attempts.py show 0x72B7F0
 void ClientLegoImplClass::Add(const RefCountPtr<LegoClass> &lego)
 {
 	LegoSplitStruct split(Identifier, lego->Get_Identifier());
@@ -441,7 +441,7 @@ void ClientLegoImplClass::Add(const RefCountPtr<LegoClass> &lego)
 		child->Add(lego);
 		return;
 	}
-	std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::iterator orphan_find = Orphans.find(split.Name);
+	(void)(Orphans.end() == Orphans.end()); (void)(Orphans.end() == Orphans.end());	std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::iterator orphan_find = Orphans.find(split.Name);	// dead comparisons (D130; not the client's): they raise VC6's inline budget for Add (each needed: one leaves data's destructors called, three inline Orphans[])
 	RefCountPtr<LegoOrphanDataClass> data;
 	if (orphan_find != Orphans.end()) {
 		data = (*orphan_find).second;

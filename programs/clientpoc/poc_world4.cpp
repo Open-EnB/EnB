@@ -21,19 +21,6 @@
 #include "..\..\app\client\dynamic_window_class.h"
 #include "..\..\app\client\ui_starmap.h"
 
-// ---------------------------------------------------------------- ui_faction_panel.cpp's panel (0x58EB50; ui_faction.cpp's view): 200 bytes
-class Unknown58EB50Class : public Unknown5BB320Class
-{
-public:
-	Unknown58EB50Class(SClient *client);
-	char UnknownAC[200 - 0xAC];
-};
-Unknown58EB50Class::Unknown58EB50Class(SClient *client) : Unknown5BB320Class((UIMeshClass *)NULL, client)
-{
-	STUB_CALLED("POC Unknown58EB50Class (the faction panel): an empty window");
-	memset(UnknownAC, 0, sizeof(UnknownAC));
-}
-
 // ---------------------------------------------------------------- gd_gauge.cpp's gauge (0x669570; ui_faction.cpp's view): 0x6C bytes
 class Unknown669570Class : public RObjGadgetClass
 {
@@ -78,59 +65,6 @@ bool GadgetStarmapClass::Unknown_30(float x, float y)
 	return(false);
 }
 
-// ---------------------------------------------------------------- ui_dynamicwindow.cpp's screen (0x589D30): 0xAC bytes, empty
-// (its +0x8C, slot +0x04's answer, is a gadget the windows over it set up: ui_slot_info.cpp's 0x62FDF0 calls its 0x65FFA0)
-class POCDynamicWindowGadgetClass : public GadgetClass
-{
-public:
-	POCDynamicWindowGadgetClass() : GadgetClass(0) {}
-	virtual bool Unknown_30(float x, float y) { return(false); }
-};
-UIDynamicWindowClass::UIDynamicWindowClass(LineDisplayClientClass *client, const char *name, int flags) : InterfaceClass(client)
-{
-	STUB_CALLED("POC UIDynamicWindowClass: an empty window");
-	Unknown8C = new POCDynamicWindowGadgetClass;
-	Unknown90 = 0x457;
-}
-UIDynamicWindowClass::~UIDynamicWindowClass()
-{
-}
-void UIDynamicWindowClass::Unknown_58()
-{
-	InterfaceClass::Unknown_58();
-}
-void UIDynamicWindowClass::Unknown_5C()
-{
-	if (Active) {
-		InterfaceClass::Unknown_5C();
-	}
-}
-void UIDynamicWindowClass::Unknown_60()
-{
-}
-bool UIDynamicWindowClass::Unknown_68(int key)
-{
-	return(false);
-}
-GadgetClass *UIDynamicWindowClass::Unknown84_04()
-{
-	return(Unknown8C);
-}
-void UIDynamicWindowClass::Unknown84_08(GadgetClass *gadget, int arg1, int arg2)
-{
-}
-void UIDynamicWindowClass::Unknown84_0C(GadgetClass *gadget)
-{
-}
-int UIDynamicWindowClass::Unknown84_10()
-{
-	return(Unknown90++);
-}
-void UIDynamicWindowClass::Unknown_58A580(Vector2 position)
-{
-	STUB_CALLED("POC UIDynamicWindowClass::Unknown_58A580 (0x58A580): not moved");
-}
-
 // ---------------------------------------------------------------- inv_render.cpp's inventory data (0x688830; its view): by-value results gen_stubs cannot write
 #include "..\..\app\shared\money.h"
 #include "..\..\app\shared\duration.h"
@@ -144,29 +78,4 @@ DurationClass Unknown688830Class::Unknown_68A720(int slot)
 {
 	STUB_CALLED("POC Unknown688830Class::Unknown_68A720 (0x68A720): no time");
 	return(DurationClass(0));
-}
-
-// ---------------------------------------------------------------- ui_skill_info.cpp's window (0x62B930; ui_slot_info.cpp's 0x630280 makes it): 0xCC bytes
-#include "..\..\app\client\ui_slot_info.h"
-class SkillDataClass;
-class UISkillInfoClass : public UISlotInfoClass
-{
-public:
-	UISkillInfoClass(LineDisplayClientClass *client, SkillDataClass *skill);
-	virtual UISlotInfoItemClass *Unknown_90();
-	virtual bool Unknown_94();
-	char UnknownB0[0xCC - 0xB0];
-};
-UISkillInfoClass::UISkillInfoClass(LineDisplayClientClass *client, SkillDataClass *skill) : UISlotInfoClass(client, "SKILL_INFO_MAIN")
-{
-	STUB_CALLED("POC UISkillInfoClass (the skill information window): an empty window");
-	memset(UnknownB0, 0, sizeof(UnknownB0));
-}
-UISlotInfoItemClass *UISkillInfoClass::Unknown_90()
-{
-	return(NULL);
-}
-bool UISkillInfoClass::Unknown_94()
-{
-	return(false);
 }

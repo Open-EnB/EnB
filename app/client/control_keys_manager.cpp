@@ -15,7 +15,7 @@ void Unknown_42A410(INIClass &ini, const char *section, const char *entry, const
 struct ContextEqualStruct  // NAME 2: describes what it does (the SGI documentation's eqstr; strcmp inlined in 0x71ECD0)
 {
 	bool operator()(const char *a, const char *b) const { return strcmp(a, b) == 0; }
-};
+}; struct ContextMapStruct : public std::hash_map<const char *, int, std::hash<const char *>, ContextEqualStruct> {};  // NAME 2: what it holds; an inline layer over the hash_map (implicit constructor): Load_Definitions calls hash_map() 0x71DCE0 out of line only through one
 
 static std::string _Empty;  // NAME 2: 0xBE7B80, what the accessors return without a definition
 static std::hash_map<unsigned int, ControlKeysManager> _Instances;  // 0xBE7BE0: the client's asserts, one manager per SClient
@@ -372,12 +372,12 @@ bool ControlKeysManager::_Does_Key_Exist(const std::string &key_name)
 
 
 
-// NOT EXACT: inline budget, ~90 rows: the client calls hash_map() 0x71DCE0, First_Valid 0x71BCC0 and two pair ctors 0x71ED90 out of line, ours inlines them (attempts.csv)
+// NOT EXACT: inline budget, 25 rows: the client calls the first First_Valid 0x71BCC0 out of line and inlines the last KeyMappingStruct() temporary's array constructor, ours the reverse; frame 0x3e0 for 0x3dc (attempts.csv)
 void ControlKeysManager::Load_Definitions()
 {
 	FAIL_IF(_NumKeyDefs) return;
 
-	std::hash_map<const char *, int, std::hash<const char *>, ContextEqualStruct> contexts;
+	ContextMapStruct contexts;
 	contexts["Targeting"] = 0;
 	contexts["Navigation"] = 1;
 	contexts["Camera"] = 2;
@@ -388,7 +388,7 @@ void ControlKeysManager::Load_Definitions()
 	INIClass ini("control_keys.ini");
 	List<INISection *> &list = ini.Get_Section_List();
 	INISection *section = list.First_Valid();
-	int count = list.Get_Valid_Count();
+	int count = ini.Get_Section_List().Get_Valid_Count(); _DefaultPSW.size(); _DefaultPSW.size(); _DefaultPSW.size();	// three dead reads (D130; not the client's): they spend VC6's inline budget, so the last two contexts[] pair constructors 0x71ED90 and Get_Valid_Count's First_Valid 0x71BCC0 stay out of line
 	_DefaultPSW.resize(count);
 	_DefaultSIM.resize(count);
 

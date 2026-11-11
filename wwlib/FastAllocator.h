@@ -371,7 +371,7 @@ public:
 	unsigned Get_Total_Allocated_Size();
 	unsigned Get_Total_Allocation_Count();
 	unsigned Get_Total_Actual_Memory_Usage() { return ActualMemoryUsage; }
-	void Unknown_Reset_Statistics();	// E&B (0x9DADA0)
+	void Unknown_Reset_Statistics();	unsigned Get_Allocated_With_Malloc() { return AllocatedWithMalloc; } unsigned Get_Allocated_With_Malloc_Count() { return AllocatedWithMallocCount; } unsigned Get_Unknown_E20() { return UnknownE20[0]; } unsigned Get_Unknown_E28() { return UnknownE20[2]; } unsigned Get_Fast_Allocated_Size(); unsigned Get_Fast_Allocation_Count();	// E&B (0x9DADA0; the rest: frameint.cpp)
 
 	static FastAllocatorGeneral* Get_Allocator();
 
@@ -675,3 +675,6 @@ void main(){
 // EnB: Line 406 at the freeze: E&B's FastAllocatorGeneral::Free is out of line (0x9DAF60, called from the app's
 //       operator delete 0x4E9D10 and 0x9EDED0): the malloc path runs under the lock at 0xE00, then ActualMemoryUsage
 //       (0xE14) is reduced under the lock at 0xE04 (0x9DAFFA)
+// EnB: class FastAllocatorGeneral (line 374 at the freeze): E&B's app reads the malloc counters and the latched
+//       0xE20 / 0xE28 directly and sums the buckets without the malloc share (frameint.cpp 0x53EB00; the two sums 0x53F200
+//       / 0x53F250 are defined in frameint.cpp, where the client has them): getters, names unknown (D10 neutral for the latched pair)

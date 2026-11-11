@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: eff_robj.cpp's four effect classes (tables 0xB001C0, 0xB001FC, 0xB00238, 0xB00284); the header's name is assumed from eff_robj.cpp"
+}

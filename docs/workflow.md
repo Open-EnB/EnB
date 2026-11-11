@@ -276,6 +276,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A string compare pushed out of line by a C-style reference cast between RefCountPtr types | Cast through a pointer (the reference cast builds a temporary) | cpacket ITEM_BASE 37 |
 | The client expands std::string assign in some of many temporaries | Mix explicit and implicit constructions: the split tunes the budget | ui_cpit |
 | Which helpers an out-of-line insert calls | A probe, not a shippable form: a non-inline same-file helper holding the push_back emits exactly those | Get_Triangles |
+| The client calls a `hash_map()` constructor out of line with the hashtable constructor inlined in it, ours inlines it | A missing inline layer, not budget: a struct that derives from (or holds) the hash_map and has an implicit constructor sends `hash_map()` out of line (gives the client's frame too) | LookupTableSetClass::Load 0x4EC7D0 |
+| Temporaries' stack slots or flags differ, and they follow the inline decisions; arguments built from `const char *` | VC6 builds an implicit-conversion temporary before the explicit ones in one argument list: write the string arguments as implicit conversions (only that form gave the client's order, slots and flags) | ClientClass constructor 0x726100 |
+| Dead reads change later sites' inlining in narrow steps, and a position change does nothing | They act by their total and the callee they inline, not by position (before the function's last branch): sweep every count (7 exact, 8 over); an inline accessor costs about two thirds of a `size()` | client_lego_impl Add 0x72B7F0 |
+| `if (a && b)` against two nested `if`s: the same bytes, but callers inline differently | The cost is in the source's structure: try both forms when a caller's inlining is off | unknown_6af220.cpp |
+| A wrapper template calling through a second template | Costs one inline level (§3.1.1): count it | signal_list.cpp |
 | **register-only, order-only** (two attempts, then the stop rule) | | |
 | A constant loaded before a variable, or the reverse | Operand order: `elapsed * 0.05F * K` loads the constant first, `step = elapsed * 0.05F; step *= K;` loads `elapsed`; `a == b` vs `b == a`, `Pos > size` vs `size < Pos` differ (D18/D28) | |
 | Registers differ around a call or an argument | A temporary, a local copy of an argument, or a member / id read into a local before the call (`int id = Client->X; Packet p(N, id);`); one shared variable reusing a dead argument slot. `tools/vc6/trydiff.py` keeps a variant's object for `objdiff.py` / `explain.py` | Accept 0x82A6C0 |
@@ -301,6 +306,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A clamp: the client's `movsx` and compare | Through an int local: `v = x; x = v < 6 ? v : 6` | avatar_desc |
 | `end()` read through the wrong register in a vector append | `push_back` and `insert(end(), x)` differ: try the other; also `pop_back` vs `erase(end()-1)` | Flush_Lines |
 | A repeated null test of a literal / 64-bit memory value: the client re-tests, ours threads it | Unsolved stop signal (VC6 SP4 value threading): after `if (x == C)` on a register local a later `x == K` folds on every path through copies, unions and no-code statements; the test survives only for relational compares, undefined values or real code between. 8 header and call forms plus a 30-flag sweep changed nothing | ShdMesh ctor 0xA08F80 |
+| A float read through an inline getter goes through the FPU, a direct member read uses integer moves; an x87 `fst` / `fstp` double store | The product written twice in the temporaries' constructor arguments gives the `fst` / `fstp`; use the getter or the member read the client's bytes show | eff_seek 0x6F1C40, debrsint.cpp |
+| An order-only `fild` residue next to two float locals | An unsigned frame time converted once into a named float, after the other float local | user_click_indicator.cpp |
 | **shape: returns, tails, loops, switches** | | |
 | test/setne against neg/sbb; shared or separate `return false` tails | `if (g()) return true; return false;` gives test/setne, `return g();` neg/sbb; a shared `return false` tail is `if (p) {...; return true;} return false;`; an eax-wide 0/1 is `return(!a() && !b());` | |
 | A plain `sete al` | `if (f() == 0) return(true); return(false);`; `return(f() == 0)` doesn't | |
@@ -324,6 +331,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | An out-of-line loop function also inlined one level into its callers | A self tail-recursive `X_Rest(p, left)`; a plain `while` gets fully inlined | boolpars |
 | EH state numbers or the bigger inline expansion on the wrong branch | Lay out `if (a) X else Y` with the client's then-branch | ui_chat_panel 0x563910 |
 | A word load, `shr`, test-1 sequence on flags | bool accessors on bit fields (the "Bit tests" bullet below) | inpdsp 0x42A410 |
+| A bitfield test compiled as `shr` / `test cl,1`; `if (!Is_Active())` loads `al` first | An explicit `(bool)` cast on the test; `if (!Active)` (the member) compares the member instead | ui_dynamicwindow.cpp |
+| `if (a \|\| b) {X} else {Y}` lays Y first while the EH states follow source order; `while (flag)` gives the unrotated loop | Known layouts: judge by the bytes before choosing the form; a bool helper written `if (find != end) return(true); return(false);` gives `je` / `mov al,1`, `return(find != end)` gives `setne` | unknown_6af220.cpp |
+| A switch whose cases push the full argument list and share one call | The client has a call per case with a `break`, not a shared tail | user_click_indicator.cpp |
 | **frame** | | |
 | Each inlined copy has its own buffer slot | A function-scope buffer gives each inlined copy its own frame slot | 0x752E60 |
 | The frame size differs | The frame counts every local: a difference names a local too many or too few (a second RECT: +0x10; `char name[MAX_PATH + 1]`: +4) | 0x9182C0 |
@@ -337,6 +347,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A frame 0x30 too small; int-move copies | A Matrix3D local (its user copy constructor) | client_lego_impl |
 | A 12-byte local holding a translation | `Matrix3D::Get_Translation(Vector3 *)`, the out-parameter overload | 0x479A50 |
 | One-byte temporaries where the client passes an empty tag type by reference | A fresh temporary per call | co_data |
+| A float member initialised before the next unwind state | It belongs to the inline member whose constructor initialises it, not to the caller's frame | ui_power.cpp |
 | **constructors, destructors, vtables** | | |
 | A destructor that is a lone `jmp` to the base's, or one that stores the vtables first | The compiler-generated destructor stores no vtable; a user-declared `virtual ~X() {}` stores them first (and adds an EH state to its owner's destructor): declare one exactly where the client stores | 0x4AA210 |
 | Members stored before or after the vtable | An init list stores members before the vtable (in declaration order), body assignments after it; the base's vtable store comes first and is dropped | 0x4A8370 |
@@ -1007,6 +1018,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   the COMDAT goes missing. Instantiate first: a named `RefCountPtr<T>` local, or `enum { X =
   sizeof(RefCountPtr<T>) };` (no code). A RefCountPtr<InterfaceClass> passed to InterfaceSortClass's
   constructor gives the same C2440: pass `.Peek()`.
+* **`RefCountPtr<T> x = Create_Peek(p)` of the same type is elided:** the client's copy and release want
+  `RefCountPtr<T> x = RefCountPtr<T>(Create_Peek(p))`; a factory's RefCountPtr result passed on to the next call wants a named local (the nested call came out 4 bytes short).
+* **An inline empty virtual in a base header is emitted by every file that makes a derived class's table:** a per-file
+  view that declares it out of line hides those pairs. A base whose constructor the client calls out of line belongs in its own .cpp.
 * **RefCountPtr<T> needs T complete:** an inline constructor with RefCountPtr<T> members in a shared header
   fails (C2027 in ref_ptr.h) in every includer where T is incomplete: define it in the one .cpp that uses it,
   or include T's header (camera.h for RefCountPtr<CameraClass>). A function-local static `RefCountPtr<T>` (a
@@ -1280,7 +1295,7 @@ are in 3.0.
   different window than verify (a constant set of false losses): decide with sendpad.py / the full verify only.
 * **Keeping both pads still:** put members only one file needs behind a guard macro defined only by its users
   (money.h's pattern; a declaration added to delta_array.h reaches aux_roots and sclient: `#ifdef
-  __DELTA_ARRAY_MEMBERS`), and keep a single caller's accessor file-local.
+  __DELTA_ARRAY_MEMBERS`), and keep a single caller's accessor file-local. A hash_map / list / vector member in a header sclient.cpp includes can leave no pad window at all (the signal classes' members sit behind `__SIGNAL_MEMBERS` for that). A stopped sendpad.py leaves its pool lease: release it.
 
 ### 3.5 Build VMs and vc6.py
 
@@ -1332,7 +1347,7 @@ are in 3.0.
   `%TEMP%\enb_vc6_synccache_<ip>.json` or run a full verify first.
 * **A one-off C1083 on a tracked, unchanged header:** a worktree's first `build.py build --lib app` failed one file
   with "Cannot open include file '..\packets\pkcolorization.h'"; the rerun built every file. Rerun once before
-  blaming a commit.
+  blaming a commit; a new file can fail the same way while other worktrees verify (read `compile_errors` in the app library.json).
 * **Background jobs:** a Bash `&` job is killed when the tool call ends: use the tool's run_in_background. Claude
   Code's memory reaper can kill background shells (lease-wait loops); a process started detached (PowerShell
   `Start-Process`) survives. TaskStop of a background shell leaves its child processes: check Win32_Process before
@@ -1360,6 +1375,8 @@ are in 3.0.
   such a function exact, and verify's count decides; check the disassembly (`client.py dis`) for the padding or
   the following symbol. A start missing from the function starts makes match report the previous function as
   PREFIX: give it its own marker. Example: 0x81EEA0, 402 bytes, padded to 0x81F0DF.
+* **explain.py's class can be wrong:** it says inline-budget for a function followed by a static initialiser (read
+  objdiff first), and register-only where the lever was an inline-budget one (an `x.clear()` two layers down).
 * **appfile.py false exacts:** one template compiled from two files (with and without an EH frame) can match at
   the other instantiation's address, and a static can pair with another one whose initialiser is identical (a
   16x16 icon size, 0x531630): check the address and read the initialiser's disassembly.
@@ -1449,6 +1466,9 @@ are in 3.0.
   verify compiles it too). With `#define private public` members mangle as public (`QAE`), and objdiff needs that
   name. To probe several forms in one compile, add members V1..V6 to the draft's header copy and objdiff each
   (each counts as a form, D141).
+* **Text appended by a script:** text appended to an `#include` line is dropped by the preprocessor, and text appended after a
+  `//` comment on a header line is commented out (tryv2 helpers): add a line, then check `__LINE__`; a tryv2 variant replaces the whole file
+  when its anchors repeat in it.
 * **names.py run while a tryv2 variant is in the tree** writes the variant's line numbers into not-exact.md: rerun
   names.py on the restored file before committing.
 * **attempts.py:** never split attempts.csv on line endings (its rows hold quoted multi-line text; one split
@@ -1484,6 +1504,12 @@ are in 3.0.
   `C:\Program Files\Git\usr\bin\bash.exe` by full path. In Git Bash `cmd //c mklink //J` makes broken links: use
   PowerShell `New-Item -ItemType Junction`. `client.py dis` on a cp1252 console: `PYTHONIOENCODING=utf-8`.
 * **Tool changes:** compare outputs on a snapshot of the verify objects. Starts are verified (D27).
+* **Placement evidence from raw scans:** a raw call scan counts the unwind funclets (0xA9F000 and above) as callers (a
+  destructor "with 14 callers" may have none in code): filter them. A tree comment that names the next object's first
+  address makes that address look like the file's own in an address grep: a mention is not a placement. A scan of a function's
+  immediates for source paths can hit by accident (0x449EA0 "references" two files; app-functions.json leaves it unattributed): check
+  the assert call. `.inl` asserts (spline.inl) mark template code instantiated in the using object, not the .cpp of the same name.
+  The map's function counts can omit `<string>` initialisers and adjustor thunks.
 
 ### 3.7 Harnesses, programs, unattended runs
 
@@ -1618,6 +1644,11 @@ clienttest (`python tools/harness/clienttest.py build|run`):
   crashes at run time (verify does not catch it); a gen stub that tolerated a null `this` crashes once real:
   give the test a zeroed fake object. When cpacket.cpp gains handlers, re-run and refresh expected.txt with
   `--update` after checking the difference.
+  A real class that indexes a sub-object through a zeroed fake crashes (0xC0000005; DebrisInterfaceClass +0x58 indexes `Fields[Mode]`):
+  grow the fake with one zeroed sub-object.
+* **linkgate and clienttest build only committed files** (commit, then run them); clienttest has its own library list: a commit
+  that adds a Win32 import (ShellExecuteExA) fails linkgate with an unresolved `__imp__...` until the library (SHELL32.LIB) is added to clienttest.py and
+  the program's build.py entry. ATL headers compile in the VMs.
 * **clienttest's fakes.** Set a fake only for the section that needs it, so other handlers' FAIL_IF paths stay
   covered (the radar stays NULL for WARP_INDEX 156). Fake objects called through a slot need a `__stdcall`
   slot with the callee's argument count (Set_LOD_Bias, slot 75; ~ClientObjectClass deletes AuxData through
@@ -1830,10 +1861,26 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   return;` gives the CLIENT_CHAT handlers' layout (0x5E8FF0).
 * UIChatPanelWindowClass (+0xF8 / +0x104) is really ChatPanelUIBase.
 
+#### client.cpp / ClientClass's constructor (0x726100)
+
+* Adding a line to client.cpp loses nine assert-line functions. The constructor's three string arguments are implicit conversions
+  ("Null Item", "", ""); it stays one inline-budget notch too rich at four sites (`_Eos` twice, `assign(ptr,n)`, the HashNodeClass
+  constructor 0x729260, which that form loses in client.cpp). Lead: lower the constructor's budget before the Add statement through headers.
+
+#### control_keys_manager.cpp (Load_Definitions 0x71B1F0)
+
+* The out-of-line `hash_map()` 0x71DCE0 is a missing inline layer (struct row in §3.1.2): ContextMapStruct plus three D130 dead
+  `_DefaultPSW.size()` reads, which act by total and callee, not position. Residue: First_Valid 0x71BCC0 out of line in the client at
+  the section line, and the fourth KeyMappingStruct temporary's array constructor inline.
+
 #### client_lego_impl.cpp
 
 * Its canary function (the bone map constructor 0x72D5F0) flips with the file's contents: check it each
   verify.
+* Add 0x72B7F0 and Get_Lego_Transform 0x72B000 are exact with D130 dead reads (marked). aux_roots' inline-budget pairs flip with
+  lego_identifier.h and client_lego_impl.h too; 0x72D5F0 flips with the file's inline state. An inline `LegoSplitStruct::Get_Name()`
+  accessor makes Get_Lego_Transform exact without dead code but loses 0x7045F0 and aux_roots' hold of 0x702240 (lego_identifier.h reaches it
+  through co.h).
 
 #### co.cpp
 
@@ -1875,6 +1922,11 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   forward declaration on its own line shifted every later `__LINE__` (41 functions): use `class X *` inside
   the declaration. Calling SoundLibraryClass needs a clienttest stand-in (wwaudio's globals break the link).
 
+#### debrsint.cpp / frameint.cpp (the main view's windows)
+
+* POC: a settings.ini without Debris00 crashes in DebrisInterfaceClass (+0x58 indexes `Fields[Mode]`), as the client would. FastAllocator.h (wwlib)
+  carries E&B getters in its EnB block: a change there needs a wwlib verify.
+
 #### duration.h / delta_template.h
 
 * Any change, even an unused declaration, flips aux_roots' 8 inline-budget pairs and slot_data_render
@@ -1886,6 +1938,12 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   lose rows); size equality misled for 8 files. RTPatch's path search patched `common\blood.ini` at the demo's
   `client\ini` copy. 7z's case-insensitive lookup collides MSS32.DLL and mss32.dll. The project's client.exe
   carries Net-7's URL edits in `.data` (P-EA1-2); `.work/eadata/ea2004/` has EA's own.
+
+#### eff_robj.cpp / eff_seek.cpp (effects)
+
+* cpacket.cpp's local `Unknown6EF4C0Class` stand-in: the real class loses 0x738970. 0x6EF4C0 is exact only with one D130 dead read in
+  0x6EEEA0. Replacing a stand-in class in eff_o.cpp changes clienttest's trace stand-ins and expected.txt. `appfile.py match` outside
+  app/client needs `-I auto -I app/client`. Curve members need the base-reference cast for virtual calls.
 
 #### extrap.cpp (motion code)
 
@@ -1982,6 +2040,12 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   client's forms (0x74FA30 / 0x74FEC0, 0x751460). A quick exactness check: an appfile draft of sclient.cpp
   with `// @0xADDR` marker lines (~3 min).
 
+#### settings_store.cpp / unknown_6af220.cpp
+
+* Declarations added to tsk_game.h flip ui_radio_main 0x5E9410 in verify's path only (the BrowserType enum's position compensates). The five
+  `map<string,string>` instances 0x6B15E0, 0x6B1A40, 0x6B1EC0, 0x6B1F40, 0x6B1FC0 belong to the window object 0x6AF220: exact settings_store code calls
+  them out of line as the client does, so the window's file must hold them.
+
 #### sgistl hash_map (attrib_dir.cpp, ini_manager.cpp)
 
 * `insert_unique_noresize` compiles (sgistl_adapt.py), so `hash_map::insert` is usable; keep the existing
@@ -2021,6 +2085,10 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 * The client's two fmuls need the intermediate in a named local; a flag the client stores before an unrelated
   load needed `volatile` (0x57AC70 / 0x57AD50).
+
+#### ui_dynamicwindow.cpp (the dynamic window family)
+
+* In the family a factory's RefCountPtr result passed on wants a named local (bullet in §3.3.2).
 
 #### ui_mfd.cpp
 

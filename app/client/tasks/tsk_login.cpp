@@ -592,7 +592,7 @@ void LoginTaskClass::Unknown_7692A0()
 // 0x769360
 void LoginTaskClass::Unknown_6C()
 {
-	if (CharacterView && Unknown_7CA2D0()->Unknown2C == 0 && Unknown_5FADE0()) {
+	if (CharacterView && Unknown_7CA2D0()->Unknown24.length() == 0 && Unknown_5FADE0()) {
 		CharacterView->Unknown1CC[1] = true;
 		CharacterView->Unknown1CC[2] = true;
 		CharacterView->Unknown1CC[3] = true;

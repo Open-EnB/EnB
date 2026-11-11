@@ -305,14 +305,14 @@ public:
 	SClient *Client;									// +0x4C 0x65B810 copies the task's Client (+0x78); the main view's 0x5137F0 asks its slot +0x18 for the SClient  // NAME 2: what it holds
 };
 
-// the interface object of the view at SClient +0x1358 (0xAC bytes, constructor 0x5B7AB0; file unknown)
-class Unknown5B7AB0Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown5B7AB0Class(UIViewClass *view, const LayerClass &layer);	// 0x5B7AB0 (0x514E70 passes its view and a layer of the base's +0x1C / +0x20)  // NAME 1 [view, layer]: what 0x514E70 passes
+#include "unknown_5b7ab0.h"	// Unknown5B7AB0Class, the interface object of the view at SClient +0x1358 (0x5B7AB0)
 
-	char Unknown84[0xAC - 0x84];						// +0x84
-};
+
+
+
+
+
+
 
 // The 0x50-byte view at SClient +0x1358 (SClient::Init; constructor 0x514CC0, table 0xAED114): its functions follow
 // mainview.cpp's, with no static initializer of their own before them, so they are kept at mainview.cpp's end
@@ -371,26 +371,26 @@ class UIScanClass;
 
 class IncapacitanceDetailsPacket;
 class UIMeshClass;
-// The interface base of the group window and the cockpit (0xAC bytes; constructors 0x5BB320 / 0x5BB250, destructor 0x5BB3B0,
-// table 0xAF3390; its file is unknown, its functions follow ui_mesh.cpp's): intrface.cpp's class over a UIMeshClass and a
-// layer (interim placement in sclient.h, moved from ui_group.h for its second user, ui_cpit.h: D137)
-class Unknown5BB320Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown5BB320Class(UIMeshClass *mesh, SClient *client);	// 0x5BB320 (the mesh at +0x84, the client to 0x540D30)  // NAME 1 [mesh, client]: what 0x593BD0 passes
-	Unknown5BB320Class(UIMeshClass *mesh, UIViewClass *view, const LayerClass &layer);	// 0x5BB250 (the view and the layer's scene to 0x540A90, the layer copied)  // NAME 1 [mesh, view, layer]: what 0x57D830 passes
-	~Unknown5BB320Class();								// 0x5BB3B0 (deletes the mesh)
-	virtual void Unknown_58();							// 0x5BB550
-	virtual void Unknown_5C();							// 0x5BB5E0 (the group window's destructor calls it first)
-	virtual void Unknown_60();							// 0x5BB660
-	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x5BB470
-	virtual void Unknown_88();							// +0x88 0x543750
-	virtual void Unknown_8C();							// +0x8C 0x543770
-	void Unknown_5BB4F0(GadgetClass *gadget);			// 0x5BB4F0  // NAME 1 [gadget]: what 0x594040 passes
+// The interface base of the mesh windows (Unknown5BB320Class, 0xAC bytes; constructors 0x5BB320 / 0x5BB250): moved to its own
+// header (interim placement, D137), included here where its view stood, for ui_cpit.h and ui_talkt.h below
+#include "unknown_5bb250.h"
 
-	UIMeshClass *InterfaceMesh;							// +0x84 (the destructor deletes it)  // NAME 3: the FAIL_IFs' '!InterfaceMesh' (ui_faction.cpp's 0x58D400 l.118; ui_attrb_skills.cpp's 0x549AA0 l.121 names its own +0xBC)
-	LayerClass Layer;									// +0x88 (LayerClass::LayerClass in the constructor; the gadgets are made over it)  // NAME 2: what it is
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include "ui_cpit.h"		// ui_cpit.cpp's cockpit interface (the main view's +0x1D0)
 class UICpitClass;		// (for ui_cpit.h included first: its own include of sclient.h reaches this before the class)
 #include "ui_talkt.h"		// ui_talkt.cpp's talk tree (needs Unknown5BB320Class)
@@ -491,16 +491,16 @@ public:
 	MoneyClass Unknown0E0;								// +0xE0 the credits offered (0x5E39F0 adds it to the avatar's Money; the destructor's EH states count it)
 };
 
-// the object 0x50C690 makes, registers and releases at once (0x90 bytes, with the base's +0x24 scene)
-class MainViewUnknown53E970Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	MainViewUnknown53E970Class(MainViewClass *view, SimpleSceneClass *scene);	// 0x53E970  // NAME 1 [view, scene]: what 0x50C690 passes
-	// (+0x04..+0x50: gclass.h's GClass slots)
-	virtual void Unknown_54();
-	virtual void Unknown_58();
-	char Unknown84[0x90 - 0x84];						// +0x84
-};
+// what 0x50C690 makes, registers and releases at once (0x90 bytes, over the base's +0x24 scene): frameint.cpp's FrameInterfaceClass
+#include "frameint.h"
+
+
+
+
+
+
+
+
 
 // what the main view's +0x1E0 points to (Shutdown 0x50C2F0 releases it)
 class MainViewUnknown1E0Class : public InterfaceClass	// NAME 1: neutral (D10)
@@ -510,37 +510,37 @@ class MainViewUnknown1E0Class : public InterfaceClass	// NAME 1: neutral (D10)
 // what the main view's +0x1DC points to: backint.cpp's BackInterfaceClass (the backdrop, over the +0x110 scene)
 #include "backint.h"
 
-// what the main view's +0x138 points to (0x53DFB0-0x53E3F0: the main view forwards to it)
-class MainViewUnknown138Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	MainViewUnknown138Class(MainViewClass *view, SimpleSceneClass *scene, INIClass &ini);	// 0x53D250 (0xA4 bytes; 0x50C690: the +0x10C scene, settings.ini)  // NAME 1 [view, scene, ini]: what 0x50C690 passes
-	void Unknown_53DFB0(int mode);						// 0x53DFB0  // NAME 1 [mode]: the main view's
-	void Unknown_53E030(float value);					// 0x53E030  // NAME 1 [value]: the main view's
-	void Unknown_53E470(const Vector3 &offset);			// 0x53E470 (the main view's Update, view mode 5: the hours times the wind)  // NAME 1 [offset]: neutral
-	void Unknown_53E0B0();								// 0x53E0B0
-	void Unknown_53E0E0();								// 0x53E0E0
-	void Unknown_53E110(int arg);						// 0x53E110  // NAME 1 [arg]: neutral
-	void Unknown_53E160();								// 0x53E160
-	void Unknown_53E190(int arg);						// 0x53E190  // NAME 1 [arg]: neutral
-	void Unknown_53E1E0(int arg);						// 0x53E1E0  // NAME 1 [arg]: neutral
-	void Unknown_53E220(int arg);						// 0x53E220  // NAME 1 [arg]: neutral
-	void Unknown_53E260();								// 0x53E260
-	void Unknown_53E290(int arg);						// 0x53E290  // NAME 1 [arg]: neutral
-	void Unknown_53E2C0();								// 0x53E2C0
-	void Unknown_53E2F0(int arg);						// 0x53E2F0  // NAME 1 [arg]: neutral
-	void Unknown_53E3C0();								// 0x53E3C0
-	void Unknown_53E3F0(int arg);						// 0x53E3F0  // NAME 1 [arg]: neutral
+// what the main view's +0x138 points to (0x513CD0-0x513F30 forward to it): debrsint.cpp's DebrisInterfaceClass
+#include "debrsint.h"
 
-	// (+0x04..+0x50: gclass.h's GClass slots)
-	virtual void Unknown_54();
-	virtual void Unknown_58();							// +0x58 (the main view's 0x514010: on)
-	virtual void Unknown_5C();							// +0x5C (0x514010: off)
 
-	char Unknown84[0x9C - 0x84];						// +0x84 (+0x7C Active: 0x514010 tests it)
-	int Unknown9C;										// +0x9C (the main view's 0x513D00 returns it)
-	char UnknownA0[0xA4 - 0xA0];						// +0xA0
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // mainview.cpp's view (constructor 0x50B360, 0x1EC bytes): SClient's Add_Object / Remove_Object tell it
 class MainViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for mainview.cpp
@@ -603,19 +603,19 @@ public:
 	void Unknown_513CD0(int mode);						// 0x513CD0 (SClient 0x7456B0 passes the base's Unknown10F4, DebrisMode)  // NAME 1 [mode]: what it gets
 	int Unknown_513D00();								// 0x513D00 (+0x138's +0x9C)
 	void Unknown_513D20(float value);					// 0x513D20 (SClient 0x7456B0 passes 1.0)  // NAME 1 [value]: neutral
-	void Unknown_513D50();								// 0x513D50
-	void Unknown_513D70();								// 0x513D70
-	void Unknown_513D90(int arg);						// 0x513D90  // NAME 1 [arg]: neutral
-	void Unknown_513DC0();								// 0x513DC0
-	void Unknown_513DE0(int arg);						// 0x513DE0  // NAME 1 [arg]: neutral
-	void Unknown_513E10(int arg);						// 0x513E10  // NAME 1 [arg]: neutral
-	void Unknown_513E40(int arg);						// 0x513E40  // NAME 1 [arg]: neutral
-	void Unknown_513E70();								// 0x513E70
-	void Unknown_513E90(int arg);						// 0x513E90  // NAME 1 [arg]: neutral
-	void Unknown_513EC0();								// 0x513EC0
-	void Unknown_513EE0(int arg);						// 0x513EE0  // NAME 1 [arg]: neutral
-	void Unknown_513F10();								// 0x513F10
-	void Unknown_513F30(int arg);						// 0x513F30  // NAME 1 [arg]: neutral
+	float Unknown_513D50();								// 0x513D50
+	float Unknown_513D70();								// 0x513D70
+	void Unknown_513D90(float arg);						// 0x513D90  // NAME 1 [arg]: neutral
+	float Unknown_513DC0();								// 0x513DC0
+	void Unknown_513DE0(float arg);						// 0x513DE0  // NAME 1 [arg]: neutral
+	void Unknown_513E10(Vector3 &arg);						// 0x513E10  // NAME 1 [arg]: neutral
+	void Unknown_513E40(const Vector3 &arg);						// 0x513E40  // NAME 1 [arg]: neutral
+	float Unknown_513E70();								// 0x513E70
+	void Unknown_513E90(float arg);						// 0x513E90  // NAME 1 [arg]: neutral
+	float Unknown_513EC0();								// 0x513EC0
+	void Unknown_513EE0(float arg);						// 0x513EE0  // NAME 1 [arg]: neutral
+	float Unknown_513F10();								// 0x513F10
+	void Unknown_513F30(float arg);						// 0x513F30  // NAME 1 [arg]: neutral
 	void Unknown_513F60(FileClass *file, int indent);	// 0x513F60 (SClient 0x745EC0's dump, two deeper; empty)  // NAME 1 [file, indent]: Printf_Indented's
 	void Unknown_513F80(int arg);						// 0x513F80 (empty)  // NAME 1 [arg]: neutral
 	void Unknown_513FA0();								// 0x513FA0 (empty)
@@ -654,7 +654,7 @@ public:
 	CameraClass *Camera;								// +0x12C (Set_Camera; slots +0x58 / +0x7C)  // NAME 2: what Set_Camera stores
 	bool Unknown130;									// +0x130 (SClient 0x7456B0 sets it; the constructor: true)
 	RefCountPtr<StarFieldClass> StarField;				// +0x134 (0x50BA60: a StarFieldClass)  // NAME 2: what it holds
-	MainViewUnknown138Class *Unknown138;				// +0x138
+	DebrisInterfaceClass *Unknown138;					// +0x138
 	LandClass *Land;									// +0x13C 0x5137F0's FAIL_IF 'Land!=NULL' / 'NULL==Land' (SERVER_PARAMETERS 66 copies its +0x90 to the client's +0x1144 in view mode 1)  // NAME 3: the FAIL_IF's name
 	OrbitalManager *Orbitals;							// +0x140 (0x50BA60 makes it, 0x1D4 bytes, 0x4F3250)  // NAME 2: its class's (OrbitalManager::Update)
 	RefCountPtr<LightClass> Unknown144[4];				// +0x144 (0x50BA60: four lights)

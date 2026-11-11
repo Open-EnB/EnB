@@ -35,22 +35,22 @@
 
 
 // The SignalMap (0x4F9740 / 0x4F98D0), as far as the interfaces connect to it
-class InterfaceSignalMapClass : public SignalMap
-{
-public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }
-	template <class SENDER, class OBJECT, class EVENT>
-	void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *))
-	{
-		Add(sender, new SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
-	}
-	template <class SENDER, class OBJECT, class EVENT>
-	void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event)
-	{
-		Remove(sender, SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
-	}
-};
+// (the signal map: unknown_signalbase.h's SignalMap, its Add / Remove)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -91,7 +91,7 @@ InterfaceClass::InterfaceClass(UIViewClass *view, int unknown) :
 	} else {
 		Client = NULL;
 	}
-	((InterfaceSignalMapClass &)GadgetClass::Get_Signal_Map()).Add((void *)this, this, &InterfaceClass::Unknown_5418C0);
+	GadgetClass::Get_Signal_Map().Add((void *)this, this, &InterfaceClass::Unknown_5418C0);
 }
 
 void InterfaceClass::Unknown_60()
@@ -109,7 +109,7 @@ InterfaceClass::InterfaceClass(LineDisplayClientClass *client) :
 	PartialDeactivatedGadget(NULL)
 {
 	Unknown70 = new InterfaceKeyHandlerClass(this);
-	((InterfaceSignalMapClass &)GadgetClass::Get_Signal_Map()).Add((void *)this, this, &InterfaceClass::Unknown_5418C0);
+	GadgetClass::Get_Signal_Map().Add((void *)this, this, &InterfaceClass::Unknown_5418C0);
 }
 
 
@@ -147,7 +147,7 @@ InterfaceClass::~InterfaceClass()
 		((RefCountClass *)Unknown44)->Release_Ref();
 		Unknown44 = 0;
 	}
-	((InterfaceSignalMapClass &)GadgetClass::Get_Signal_Map()).Remove((void *)this, this, &InterfaceClass::Unknown_5418C0, GadgetGroupToFrontEvent(NULL));
+	GadgetClass::Get_Signal_Map().Remove((void *)this, this, &InterfaceClass::Unknown_5418C0, GadgetGroupToFrontEvent(NULL));
 }
 
 
@@ -197,7 +197,7 @@ void InterfaceClass::Unknown_58()
 		ControlKeysManager *manager = ControlKeysManager::Get((SClient *)(Client ? ((ClientClass *)Client)->Unknown_18() : 0));
 		Unknown_70(manager);
 		if (manager) {
-			((InterfaceSignalMapClass &)ControlKeysManager::Get_Signal_Map()).Add(manager, this, &InterfaceClass::Unknown_541830);
+			ControlKeysManager::Get_Signal_Map().Add(manager, this, &InterfaceClass::Unknown_541830);
 		}
 		Unknown4C.Unknown_721F40(View->Get_Unknown04(), Unknown70, this);
 		Active = true;
@@ -228,7 +228,7 @@ void InterfaceClass::Unknown_5C()
 		ControlKeysManager *manager = ControlKeysManager::Get((SClient *)(Client ? ((ClientClass *)Client)->Unknown_18() : 0));
 		Unknown4C.Unknown_721F80(View->Get_Unknown04(), this);
 		if (manager) {
-			((InterfaceSignalMapClass &)ControlKeysManager::Get_Signal_Map()).Remove(manager, this, &InterfaceClass::Unknown_541830, KeysSavedEvent());
+			ControlKeysManager::Get_Signal_Map().Remove(manager, this, &InterfaceClass::Unknown_541830, KeysSavedEvent());
 		}
 		Unknown_74(manager);
 		Unknown64.Unknown_6872A0(View->Get_Unknown04(), Unknown78);
