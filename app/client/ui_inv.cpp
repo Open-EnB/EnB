@@ -830,8 +830,8 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 		}
 	} else {
 		GadgetClass *target = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)Client->As_Space_Client()->Unknown1278, true, false);
-		Unknown66CB20Class *button;
-		if (target && (button = (Unknown66CB20Class *)target->Unknown_14()) != NULL) {
+		UIScutProxyGadgetClass *button;
+		if (target && (button = (UIScutProxyGadgetClass *)target->Unknown_14()) != NULL) {
 			if (ShortcutUI) {
 				ShortcutUI->Create_Shortcut(from_slot, button);
 				ShortcutUI->Save_Current();

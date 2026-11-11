@@ -248,7 +248,7 @@ void UISkillsClass::Unknown_62DA30(SlotDataGadgetClass *gadget)
 		if (from_slot != -1) {
 			GadgetClass *target = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)Client->As_Space_Client()->Unknown1278, true, false);
 			if (target) {
-				Unknown66CB20Class *button = (Unknown66CB20Class *)target->Unknown_14();
+				UIScutProxyGadgetClass *button = (UIScutProxyGadgetClass *)target->Unknown_14();
 				if (button && ShortcutUI) {
 					SkillRenderClass *render = Unknown_6A7380((SlotDataGadgetClass *)gadget->Unknown_10());
 					int ability = render->Unknown34;

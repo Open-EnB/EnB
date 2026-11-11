@@ -9,8 +9,8 @@
 **	(0x66B240-0x66B770), both with 44 slots (RObjGadgetClass's 41 and three of their own):
 **	  ProxyGadgetClass      table 0xAFA6E8, constructor 0x66B240, 0x74 bytes (ui_cpit.cpp's 0x650A40 makes one)
 **	  RObjProxyGadgetClass  table 0xAFA7BC, constructor 0x66B4C0, 0x78 bytes: shows the target's model on itself.
-**	The shortcut bar's proxy button (ui_scut.cpp's UIScutProxyGadgetClass, table 0xAFAC78, constructor 0x66C9C0 in the
-**	run 0x66C8F0) derives from the second: its table has that class's 0x66B510 / 0x66B5F0 / 0x66B690.
+**	The shortcut bar's proxy button (gd_scut_proxy.h's UIScutProxyGadgetClass, table 0xAFAC78, constructor
+**	0x66C9C0) derives from the second: its table has that class's 0x66B510 / 0x66B5F0 / 0x66B690.
 */
 
 #if defined(_MSC_VER)

@@ -180,5 +180,5 @@ void RObjProxyGadgetClass::Set_Target(RObjGadgetClass *target)
 **	The proxy buttons (gd_proxy.h): 0x66B240-0x66B740, tables 0xAFA6E8 (ProxyGadgetClass) and 0xAFA7BC
 **	(RObjProxyGadgetClass). The class's inline slots sit between its functions: 0x66B290 (slot +0xA8) after the
 **	first constructor, 0x66B510 (slot +0x0C) after the second. The shortcut bar's proxy button (table 0xAFAC78,
-**	constructor 0x66C9C0, in the run 0x66C8F0 after gd_robj.cpp) derives from RObjProxyGadgetClass.
+**	constructor 0x66C9C0, gd_scut_proxy.cpp after gd_robj.cpp) derives from RObjProxyGadgetClass.
 */

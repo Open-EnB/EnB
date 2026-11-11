@@ -270,8 +270,8 @@ Vector3 RObjGadgetClass::Unknown_A0()
 /*
 **	Reconstruction notes (GAD4, 2026-11-01). Client 0x66BDF0-0x66C8A1 (table 0xAFAAA0, 41 slots; __FILE__ 0xB8D374,
 **	G_ASSERT 'RObj' on the client's line 250 in 0x66C7D0). gd_resize.cpp's FAIL_IF (0x66BB10, line 64) is the code
-**	just before; gd_selct.cpp's 'GD_SELECT_FONT' is first read at 0x66CC00. Between them 0x66C8F0-0x66C9A0 (a
-**	640x480 gadget, table 0xAFAB64) belong to one of the two files; not placed.
+**	just before; gd_selct.cpp's 'GD_SELECT_FONT' is first read at 0x66CC00. Between them the run 0x66C8F0-0x66CBF0
+**	(gd_scut_proxy.cpp: a 640x480 gadget, table 0xAFAB64, and the shortcut bar's proxy button, table 0xAFAC78).
 **
 **	Slot +0x08's one-line inlines and slots +0x7C-+0x88 (0x51AD20-0x51ADA0) are emitted beside smouse.cpp's, as
 **	gadget.h's. The highlight (0x66C2D0 / 0x66C360) takes slot +0x9C / +0xA0's colour into a local and passes it
