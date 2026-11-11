@@ -2188,9 +2188,15 @@ int main(int argc, char **argv)
 	// 0x514010 (SClient 0x745F30, CLIENT_TYPE 60) turns the cockpit (+0x1D0, zeroed: no scanner) and the +0x138
 	// object (+0x7C false) off and on
 	static void **fake_cpit[0x100 / 4] = { Cpit_Table };
-	static void **fake_138[0xA0 / 4] = { View138_Table };
+	static void **fake_138[0xA4 / 4] = { View138_Table };
 	*(void ***)&main_view.Unknown04[0x1D0 - 0x04] = (void **)fake_cpit;
 	*(void ***)&main_view.Unknown04[0x138 - 0x04] = (void **)fake_138;
+	// +0x138 is debrsint.cpp's DebrisInterfaceClass (real since O5): CLIENT_TYPE's DebrisMode (0x513CD0 -> 0x53DFB0,
+	// 0x513D20 -> 0x53E030) reads its fields, so the fake holds one zeroed field (not Active: nothing enters a scene)
+	static double fake_debris_field[(sizeof(DebrisFieldClass) + 7) / 8];
+	DebrisInterfaceClass *fake_debris = (DebrisInterfaceClass *)fake_138;
+	new (&fake_debris->Fields) DynamicVectorClass<DebrisFieldClass *>;
+	fake_debris->Fields.Add((DebrisFieldClass *)fake_debris_field);
 	static void **fake_scene[0x100 / 4] = { Scene10C_Table };	// the +0x10C scene (0x514010)
 	*(void ***)&main_view.Unknown04[0x10C - 0x04] = (void **)fake_scene;
 	*(SClient **)&main_view.Unknown04[0x4C - 0x04] = client;	// +0x4C, the view's client (0x514010's G_ASSERT reads its mode)

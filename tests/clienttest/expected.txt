@@ -123,8 +123,6 @@ model Set_Transform (0, 0, 0)
 camera controller +0x08
 mainview 7C
 model Set_Transform (0, 0, 0)
-gen DebrisInterfaceClass::Set_Mode
-gen DebrisInterfaceClass::Unknown_53E030
 mainview 1DC's +0x8C 0
 mainview 64
 mainview 64's +0x24 0
@@ -153,8 +151,6 @@ model Set_Transform (0, 0, 0)
 camera controller +0x08
 mainview 7C
 model Set_Transform (0, 0, 0)
-gen DebrisInterfaceClass::Set_Mode
-gen DebrisInterfaceClass::Unknown_53E030
 mainview 1DC's +0x8C 0
 mainview 64
 mainview 64's +0x24 0
@@ -175,8 +171,6 @@ model Set_Transform (0, 0, 0)
 camera controller +0x08
 mainview 7C
 model Set_Transform (0, 0, 0)
-gen DebrisInterfaceClass::Set_Mode
-gen DebrisInterfaceClass::Unknown_53E030
 mainview 1DC's +0x8C 0
 mainview 64
 mainview 64's +0x24 0
@@ -230,8 +224,6 @@ model Set_Transform (0, 0, 0)
 camera controller +0x08
 mainview 7C
 model Set_Transform (0, 0, 0)
-gen DebrisInterfaceClass::Set_Mode
-gen DebrisInterfaceClass::Unknown_53E030
 mainview 1DC's +0x8C 0
 mainview 64
 mainview 64's +0x24 0
