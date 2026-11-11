@@ -91,48 +91,8 @@ MainViewUnknown138Class::MainViewUnknown138Class(MainViewClass *view, SimpleScen
 #include "..\..\ww3d2\assetmgr.h"
 #include "..\..\ww3d2\rendobj.h"
 
-// ---------------------------------------------------------------- the interface base over a mesh and a layer (0x5BB250-0x5BB6B0)
-Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, SClient *client) : InterfaceClass((LineDisplayClientClass *)client), InterfaceMesh(mesh)
-{
-	STUB_CALLED("POC Unknown5BB320Class");
-}
-Unknown5BB320Class::Unknown5BB320Class(UIMeshClass *mesh, UIViewClass *view, const LayerClass &layer) : InterfaceClass(view, (int)((LayerClass &)layer).Peek_Scene()), InterfaceMesh(mesh), Layer(layer)
-{
-	STUB_CALLED("POC Unknown5BB320Class");
-}
-Unknown5BB320Class::~Unknown5BB320Class()
-{
-	delete InterfaceMesh;
-}
-void Unknown5BB320Class::Unknown_58()
-{
-	InterfaceMesh->Unknown_5B9290((SimpleSceneClass *)Layer.Peek_Scene());
-	InterfaceClass::Unknown_58();
-}
-void Unknown5BB320Class::Unknown_5C()
-{
-	InterfaceMesh->Unknown_5B92B0();
-	InterfaceClass::Unknown_5C();
-}
-void Unknown5BB320Class::Unknown_60()
-{
-}
-// 0x5BB4F0: the client's code (a gadget onto the mesh's list, ui_mesh.cpp 0x5B99C0; was a do-nothing gen stand-in)
-void Unknown5BB320Class::Unknown_5BB4F0(GadgetClass *gadget)
-{
-	InterfaceMesh->Unknown_5B99C0(gadget);
-}
-void Unknown5BB320Class::Unknown_7C(UIViewClass *view, bool arg)
-{
-	if (view == NULL) {
-		Layer.Set_Scene(NULL);
-		Layer.Set_Camera(NULL);
-	} else {
-		Layer.Set_Scene((SceneClass *)view->Unknown_50());
-		Layer.Set_Camera((CameraClass *)view->Unknown_54());
-	}
-	InterfaceClass::Unknown_7C(view, arg);
-}
+// The interface base over a mesh and a layer (0x5BB250-0x5BB6D0) is real app code since L3 (app/client/unknown_5bb250.cpp): its
+// stand-in left here. The real slot +0x60 runs the mesh's processes (0x5B9410), which the stand-in left out.
 
 // ---------------------------------------------------------------- the cockpit's parts with no class in the tree (ui_cpit.h, ui_cpit.cpp's views)
 #include "..\..\app\client\unknown_671300.h"

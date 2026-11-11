@@ -10,7 +10,7 @@
 class GadgetClass;			// gadget.cpp's (the formation buttons at +0xC0, deleted through 0x65EED0)
 class UIGroupClass;
 
-// (The interface base, Unknown5BB320Class, is in sclient.h since its second user, ui_cpit.h: D137)
+// (The interface base, Unknown5BB320Class, is in unknown_5bb250.h, which sclient.h includes: D137)
 
 // What a member's +0x2C points to: ui_cpit.h's UICpitUnknownD0Class (constructor 0x5DBFC0; sclient.h includes ui_cpit.h)
 
