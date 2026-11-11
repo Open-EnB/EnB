@@ -61,7 +61,7 @@ public:
 
 	std::vector<ItemEffectClass> Effects;																// +0x00  // NAME 2: what it holds
 	DurationClass Duration;																				// +0x10 (written as an int, 'Time > INT_MAX')  // NAME 2: its type
-	int Unknown18;																						// +0x18  // NAME 1: neutral
+	int Unknown18;																						// +0x18 (Write 0x83DF10 sends it with RawPacketClass::Add(const float &): a float, to retype with item_effect_description.cpp)  // NAME 1: neutral
 	int Unknown1C;																						// +0x1C  // NAME 1: neutral
 	int Unknown20;																						// +0x20  // NAME 1: neutral
 };
