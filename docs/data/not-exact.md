@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-733 entries in 230 files.
+737 entries in 232 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -381,6 +381,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_cpit.cpp:1866` | `UICpitClass::Unknown_583DC0` | marker | NOT EXACT: inline budget (the client calls the list's _Construct out of line, 0x584F90, and keeps emp in bl; ours expands it) |
 | `app/client/ui_dynamicwindow.cpp:352` | `UIDynamicWindowClass::Add_Text` | marker | NOT EXACT: 0x58AE90, inline-budget: the client calls std::string::_Eos out of line for the font name's string where this inlines it (docs/attempts/58AE90) |
 | `app/client/ui_dynamicwindow.cpp:369` | `UIDynamicWindowClass::Add_Text` | marker | NOT EXACT: inline-budget: the client calls std::string::_Eos out of line for both strings where this inlines them (docs/attempts/58B160) 0x58B160 |
+| `app/client/ui_experience.cpp:136` | `UIExperienceClass::UIExperienceClass` | marker | NOT EXACT: functional (D64): the client calls GenericNode::GenericNode out of line (an EH state for the node) |
+| `app/client/ui_experience.cpp:189` | `UIExperienceClass::Unknown_10` | marker | NOT EXACT: functional (D64): the client calls Unknown_Find_Field out of line for CombatExp only |
 | `app/client/ui_faction.cpp:230` | `UIFactionClass::Unknown_58DC20` | marker | NOT EXACT: register (the client keeps the reputation in esi and its frame slot after the order's, +0x28; this keeps it in ebx, at +0x14; the rest is the client's, including the tail call made a jump) |
 | `app/client/ui_friends.cpp:3` | `UIFriendsPlayerInfoClass::UIFriendsPlayerInfoClass` | mention | NOT EXACT. |
 | `app/client/ui_friends.cpp:86` | `UIFriendsClass::~UIFriendsClass` | marker | NOT EXACT: inline budget (explain.py): ours inlines 0x5906C0 (the players' ??_G) inside the inlined slot +0x5C; the client calls 0x591030 / 0x5906C0 / 0x590810 out of line 0x58F450 |
@@ -456,6 +458,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_pda_equip.cpp:441` | `UIPdaEquipClass::Unknown_5D2C50` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2C50 |
 | `app/client/ui_popup_browser.cpp:45` | `UIPopupBrowserClass::UIPopupBrowserClass` | marker | NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it) @0x5DAE90 |
 | `app/client/ui_popup_browser.cpp:76` | `UIPopupBrowserClass::Unknown_54` | marker | NOT EXACT: stub @0x5DB2D0 |
+| `app/client/ui_power.cpp:31` | `UIPowerClass::UIPowerClass` | marker | NOT EXACT: functional (D64): the client calls GenericNode::GenericNode out of line (as ui_experience.cpp's 0x58C450) |
+| `app/client/ui_power.cpp:99` | `UIPowerClass::Unknown_10` | marker | NOT EXACT: functional (D64): the client calls Unknown_Find_Field out of line for MaxEnergyPower only (as ui_experience.cpp's 0x58CB50) |
 | `app/client/ui_proc.cpp:126` | `UIProc5DCD20Class::Unknown_08` | marker | NOT EXACT: 0x5DD3C0 (0.81): block order, the cycle wrap's EndFrame arm sits after the return in the client (attempts.csv) @0x5DD3C0 |
 | `app/client/ui_ptrade.cpp:239` | `UIPTradeClass::Unknown_68` | marker | NOT EXACT: register-only (0.84, same length: key 3's request reads the client through eax, the client's; ours through edx as keys 1 / 2) |
 | `app/client/ui_radio_admin.cpp:246` | `UIRadioAdminClass::Unknown_5E5360` | marker | NOT EXACT: inline budget and stack slots (cases 5 and 6: the client destroys the channel's temporary inline and expands the selected name's assignment in case 6, its temporaries at other frame offsets) |
