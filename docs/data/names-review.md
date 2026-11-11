@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 184 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1755 |
-| 2 | describes what the code does | 3938 |
-| 1 | neutral placeholder | 22507 |
+| 3 | by convention from a client-named file or sibling | 1756 |
+| 2 | describes what the code does | 3940 |
+| 1 | neutral placeholder | 22524 |
 
 ## For review (score 3 and below)
 
@@ -2742,8 +2742,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Position` | `app/client/dynamic_window_horizontal.h:65` | Set_Position's |
 | 1 | `LayoutPosition` | `app/client/dynamic_window_horizontal.h:66` | Layout's |
 | 1 | `Scene` | `app/client/dynamic_window_horizontal.h:69` | Peek_Scene's |
-| 1 | `dynamic_window_icon.h` | `app/client/dynamic_window_icon.h:4` | provisional header name for dynamic_window_icon.cpp |
-| 1 | `Unknown_519FE0` | `app/client/dynamic_window_icon.h:16` | neutral (D10); NAME 1 [texture]: neutral |
+| 1 | `Create, flags` | `app/client/dynamic_window_icon.h:31` | as DynamicWindowTextClass's |
+| 1 | `Set_Texture` | `app/client/dynamic_window_icon.h:33` | what it does |
+| 1 | `Set_Texture` | `app/client/dynamic_window_icon.h:34` | what it does |
+| 1 | `Create_Render_Object` | `app/client/dynamic_window_icon.h:36` | as ToggleButtonDynamicWindow's |
+| 1 | `Create_Render_Object` | `app/client/dynamic_window_icon.h:37` | as ToggleButtonDynamicWindow's |
+| 1 | `IconSize` | `app/client/dynamic_window_icon.h:40` | what it sizes |
 | 1 | `Unknown78` | `app/client/dynamic_window_multi_line_text.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5A80` | `app/client/dynamic_window_multi_line_text.cpp:63` | untagged neutral name (D10) |
 | 1 | `font_name, sample_font, min_size, flags` | `app/client/dynamic_window_multi_line_text.h:29` | the FAIL_IFs'; Set_Min_Size's; the base's |
@@ -12043,12 +12047,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/ui_faction.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_faction.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_faction.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown58EB50Class` | `app/client/ui_faction.cpp:34` | neutral (D10) |
-| 1 | `Unknown5BB320Class` | `app/client/ui_faction.cpp:34` | untagged neutral name (D10) |
-| 1 | `client` | `app/client/ui_faction.cpp:37` | as UIBioClass's |
-| 1 | `faction` | `app/client/ui_faction.cpp:38` | neutral |
-| 1 | `Unknown_58EFC0` | `app/client/ui_faction.cpp:38` | untagged neutral name (D10) |
-| 1 | `UnknownAC` | `app/client/ui_faction.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown58E210Class` | `app/client/ui_faction.cpp:44` | neutral (D10) |
 | 1 | `mesh, index` | `app/client/ui_faction.cpp:47` | neutral |
 | 1 | `on` | `app/client/ui_faction.cpp:49` | GadgetClass's |
@@ -12058,12 +12056,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown64` | `app/client/ui_faction.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/ui_faction.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/ui_faction.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_faction.cpp:58` | untagged neutral name (D10) |
 | 1 | `UnknownBC` | `app/client/ui_faction.cpp:59` | untagged neutral name (D10) |
 | 1 | `UnknownC0` | `app/client/ui_faction.cpp:60` | untagged neutral name (D10) |
 | 1 | `UnknownC4` | `app/client/ui_faction.cpp:61` | untagged neutral name (D10) |
 | 1 | `UnknownC8` | `app/client/ui_faction.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/ui_faction.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown_66E460` | `app/client/ui_faction.cpp:76` | untagged neutral name (D10) |
+| 1 | `UnknownAC` | `app/client/ui_faction.cpp:78` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_faction.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_faction.cpp:116` | untagged neutral name (D10) |
 | 1 | `UnknownB8` | `app/client/ui_faction.cpp:126` | untagged neutral name (D10) |
@@ -12092,7 +12092,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8C` | `app/client/ui_faction.cpp:379` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/ui_faction.cpp:389` | untagged neutral name (D10) |
 | 1 | `ui_faction.h` | `app/client/ui_faction.h:4` | provisional header name for ui_faction.cpp |
-| 1 | `Unknown58EB50Class` | `app/client/ui_faction.h:11` | untagged neutral name (D10) |
 | 1 | `Unknown58E210Class` | `app/client/ui_faction.h:12` | untagged neutral name (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_faction.h:15` | untagged neutral name (D10) |
 | 1 | `MAX_BUTTONS` | `app/client/ui_faction.h:18` | the constructor clears 7, 0x58D400 makes 6 (keys 1..6) |
@@ -12114,6 +12113,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownC0` | `app/client/ui_faction.h:36` | untagged neutral name (D10) |
 | 1 | `UnknownC4` | `app/client/ui_faction.h:37` | untagged neutral name (D10) |
 | 1 | `UnknownC8` | `app/client/ui_faction.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_faction_panel.cpp:15` | 0xBE67C4 |
+| 1 | `Unknown5BB320Class` | `app/client/ui_faction_panel.cpp:20` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_faction_panel.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_faction_panel.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_faction_panel.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_faction_panel.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_faction_panel.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_faction_panel.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_faction_panel.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_faction_panel.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_faction_panel.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_faction_panel.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_faction_panel.h:26` | untagged neutral name (D10) |
+| 1 | `client` | `app/client/ui_faction_panel.h:29` | as UIBioClass's |
+| 1 | `Unknown_54` | `app/client/ui_faction_panel.h:31` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_faction_panel.h:32` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_faction_panel.h:32` | untagged neutral name (D10) |
+| 1 | `Set_Faction, faction` | `app/client/ui_faction_panel.h:34` | what it does |
+| 1 | `std:` | `app/client/ui_faction_panel.h:36` | neutral (D10) |
+| 1 | `UnknownAC` | `app/client/ui_faction_panel.h:36` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_faction_panel.h:37` | neutral (D10) |
+| 1 | `ExitButton` | `app/client/ui_faction_panel.h:38` | its model 'EXIT01' |
 | 1 | `LineDisplayClientClass` | `app/client/ui_friends.cpp:26` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_friends.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_friends.cpp:29` | untagged neutral name (D10) |
@@ -13001,7 +13022,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `icon_name` | `app/client/ui_item_examination_title.cpp:10` | neutral |
 | 1 | `Unknown_7EA190` | `app/client/ui_item_examination_title.cpp:10` | untagged neutral name (D10) |
 | 1 | `column` | `app/client/ui_item_examination_title.cpp:13` | neutral |
-| 1 | `Unknown_519FE0` | `app/client/ui_item_examination_title.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_530310` | `app/client/ui_item_examination_title.cpp:89` | untagged neutral name (D10) |
 | 1 | `damage` | `app/client/ui_item_examination_title.cpp:90` | neutral |
 | 1 | `Unknown_49E210` | `app/client/ui_item_examination_title.cpp:90` | untagged neutral name (D10) |
@@ -22216,42 +22236,39 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `programs/clientpoc/poc_world3.cpp:96` | untagged neutral name (D10) |
 | 1 | `Unknown_6A34E0` | `programs/clientpoc/poc_world3.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_6A3C10` | `programs/clientpoc/poc_world3.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown_51A9C0` | `programs/clientpoc/poc_world3.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown66CC00Class` | `programs/clientpoc/poc_world3.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `programs/clientpoc/poc_world3.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `programs/clientpoc/poc_world3.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `programs/clientpoc/poc_world3.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `programs/clientpoc/poc_world3.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `programs/clientpoc/poc_world3.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown58EB50Class` | `programs/clientpoc/poc_world4.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown5BB320Class` | `programs/clientpoc/poc_world4.cpp:25` | untagged neutral name (D10) |
-| 1 | `UnknownAC` | `programs/clientpoc/poc_world4.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown669570Class` | `programs/clientpoc/poc_world4.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `programs/clientpoc/poc_world4.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_A8` | `programs/clientpoc/poc_world4.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `programs/clientpoc/poc_world4.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad30` | `programs/clientpoc/poc_world4.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `programs/clientpoc/poc_world4.cpp:65` | untagged neutral name (D10) |
-| 1 | `Unknown_Pad40` | `programs/clientpoc/poc_world4.cpp:67` | untagged neutral name (D10) |
-| 1 | `Unknown49` | `programs/clientpoc/poc_world4.cpp:68` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `programs/clientpoc/poc_world4.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown8C` | `programs/clientpoc/poc_world4.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown90` | `programs/clientpoc/poc_world4.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `programs/clientpoc/poc_world4.cpp:98` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `programs/clientpoc/poc_world4.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `programs/clientpoc/poc_world4.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `programs/clientpoc/poc_world4.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown84_04` | `programs/clientpoc/poc_world4.cpp:115` | untagged neutral name (D10) |
-| 1 | `Unknown84_08` | `programs/clientpoc/poc_world4.cpp:119` | untagged neutral name (D10) |
-| 1 | `Unknown84_0C` | `programs/clientpoc/poc_world4.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown84_10` | `programs/clientpoc/poc_world4.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_58A580` | `programs/clientpoc/poc_world4.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown688830Class` | `programs/clientpoc/poc_world4.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown_68A720` | `programs/clientpoc/poc_world4.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown_689DA0` | `programs/clientpoc/poc_world4.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `programs/clientpoc/poc_world4.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `programs/clientpoc/poc_world4.cpp:157` | untagged neutral name (D10) |
-| 1 | `UnknownB0` | `programs/clientpoc/poc_world4.cpp:158` | untagged neutral name (D10) |
+| 1 | `Unknown_51A9C0` | `programs/clientpoc/poc_world3.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown66CC00Class` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown669570Class` | `programs/clientpoc/poc_world4.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `programs/clientpoc/poc_world4.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `programs/clientpoc/poc_world4.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `programs/clientpoc/poc_world4.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad30` | `programs/clientpoc/poc_world4.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `programs/clientpoc/poc_world4.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_Pad40` | `programs/clientpoc/poc_world4.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown49` | `programs/clientpoc/poc_world4.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `programs/clientpoc/poc_world4.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown8C` | `programs/clientpoc/poc_world4.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown90` | `programs/clientpoc/poc_world4.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `programs/clientpoc/poc_world4.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `programs/clientpoc/poc_world4.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `programs/clientpoc/poc_world4.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `programs/clientpoc/poc_world4.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown84_04` | `programs/clientpoc/poc_world4.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown84_08` | `programs/clientpoc/poc_world4.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown84_0C` | `programs/clientpoc/poc_world4.cpp:109` | untagged neutral name (D10) |
+| 1 | `Unknown84_10` | `programs/clientpoc/poc_world4.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown_58A580` | `programs/clientpoc/poc_world4.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown688830Class` | `programs/clientpoc/poc_world4.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_68A720` | `programs/clientpoc/poc_world4.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_689DA0` | `programs/clientpoc/poc_world4.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `programs/clientpoc/poc_world4.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `programs/clientpoc/poc_world4.cpp:144` | untagged neutral name (D10) |
+| 1 | `UnknownB0` | `programs/clientpoc/poc_world4.cpp:145` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `stubs/app_stubs.cpp:76` | untagged neutral name (D10) |
@@ -22899,7 +22916,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `DynamicWindowBackgroundClass` | `app/client/dynamic_window_background.h:54` | class from file (D24) |
 | 2 | `Or_Flags` | `app/client/dynamic_window_horizontal.cpp:82` | what it does (D185 variant: the returned copy keeps the client's second register) |
 | 2 | `DynamicWindowHorizontalClass` | `app/client/dynamic_window_horizontal.h:21` | class from file (D24), dynamic_window_horizontal.cpp |
-| 2 | `texture_name` | `app/client/dynamic_window_icon.h:15` | the FAIL_IF's; NAME 1 [Create, size, flags]: as DynamicWindowTextClass's |
+| 2 | `DynamicWindowIconClass` | `app/client/dynamic_window_icon.h:25` | class from file (D24), dynamic_window_icon.cpp |
+| 2 | `render_object, size` | `app/client/dynamic_window_icon.h:28` | Create's FAIL_IF names; NAME 1 [flags]: the base's |
 | 2 | `DynamicWindowMultiLineTextClass` | `app/client/dynamic_window_multi_line_text.h:26` | class from file (D24) |
 | 2 | `DynamicWindowRenderObjectClass` | `app/client/dynamic_window_render_object.h:73` | class from file (D24), dynamic_window_render_object.cpp |
 | 2 | `DynamicWindowTextClass` | `app/client/dynamic_window_text.h:23` | class from file (D24) |
@@ -24148,6 +24166,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `HulkWatch` | `app/client/ui_cpit.h:162` | what it holds |
 | 2 | `position` | `app/client/ui_dynamicwindow.h:35` | what the caller passes |
 | 2 | `Get_Center, center` | `app/client/ui_dynamicwindow.h:36` | DynamicWindowClass's |
+| 2 | `UIFactionPanelClass` | `app/client/ui_faction_panel.h:26` | class from file (D24), ui_faction_panel.cpp |
 | 2 | `Checked` | `app/client/ui_friends.cpp:54` | what 0x7E8030 sets |
 | 2 | `UIFriendsPlayerInfoClass` | `app/client/ui_friends.h:20` | what PlayersInfo holds (the asserts' 'PlayersInfo', '!friend_info') |
 | 2 | `std:` | `app/client/ui_friends.h:26` | its style's |
@@ -26581,7 +26600,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `dynamic_window_background.h` | `app/client/dynamic_window_background.h:17` | header name assumed from the client's dynamic_window_background.cpp |
 | 3 | `dynamic_window_class.h` | `app/client/dynamic_window_class.h:18` | header name assumed from the client's dynamic_window_class.cpp |
 | 3 | `dynamic_window_horizontal.h` | `app/client/dynamic_window_horizontal.h:15` | header name assumed from the client's dynamic_window_horizontal.cpp |
-| 3 | `DynamicWindowIconClass` | `app/client/dynamic_window_icon.h:12` | class-from-file (D24) for dynamic_window_icon.cpp (base interim: what DynamicWindowGadgetClass takes) |
+| 3 | `dynamic_window_icon.h` | `app/client/dynamic_window_icon.h:17` | header name assumed from the client's dynamic_window_icon.cpp |
 | 3 | `dynamic_window_multi_line_text.h` | `app/client/dynamic_window_multi_line_text.h:17` | header name assumed from the client's dynamic_window_multi_line_text.cpp |
 | 3 | `dynamic_window_render_object.h` | `app/client/dynamic_window_render_object.h:23` | header name assumed from the client's dynamic_window_render_object.cpp |
 | 3 | `dynamic_window_text.h` | `app/client/dynamic_window_text.h:15` | header name assumed from the client's dynamic_window_text.cpp |
@@ -27095,6 +27114,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Get_Client` | `app/client/ui_faction.h:28` | the FAIL_IF's |
 | 3 | `StandardBttnTexture` | `app/client/ui_faction.h:32` | the G_ASSERT's (l.139) |
 | 3 | `SelectedBttnTexture` | `app/client/ui_faction.h:33` | the G_ASSERT's (l.143) |
+| 3 | `ui_faction_panel.h` | `app/client/ui_faction_panel.h:17` | header name assumed from the client's ui_faction_panel.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_friends.cpp:31` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UIFriendsClass` | `app/client/ui_friends.h:32` | class-from-file (D24) for app\client\ui_friends.cpp |
 | 3 | `Selection` | `app/client/ui_friends.h:66` | the asserts' |
