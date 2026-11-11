@@ -11,7 +11,7 @@
 
     python -m unittest discover -s tools -p "test_*.py"
 
-Standard library only (explain.py's cases also need capstone and are skipped without it); no VM, no client.exe,
+Standard library only, but explain.py's cases need capstone (requirements.txt) and are skipped without it; no VM, no client.exe,
 no verify.
 """
 import argparse
@@ -165,12 +165,12 @@ class SymbolsRefuses(unittest.TestCase):
 
 
 try:
-    import capstone  # noqa: F401  (explain.py's disassembler: not installed on the CI runner)
+    import capstone  # noqa: F401  (explain.py's disassembler: requirements.txt installs it on the runners)
 except ImportError:
     capstone = None
 
 
-@unittest.skipUnless(capstone, 'explain.py needs capstone (pip), which the Checks workflow does not install')
+@unittest.skipUnless(capstone, 'explain.py needs capstone: pip install -r requirements.txt')
 class ExplainPick(unittest.TestCase):
     """8: 'CordCon::pump' also selected pumpClose (and --n 0 took whichever the object defined first)."""
 

@@ -51,6 +51,12 @@ Newest first within each section. Dates are when the entry was written.
   with the gutted file test_explain.py failed two other cases. Test a refusal on a copy or with `--out`.
 - **State outside git:** `.work/item9/` (the edit scripts), `.work/audit/` (finddirs.py, dirs.json, ordertest.py,
   ordertest2.py, ordertest.json / .log), `.work/log/item9-*.log`. Pool: none leased.
+- **The runners' packages (PR #187's first Checks run failed).** The three explain.py test cases import capstone,
+  which the Checks runner did not have (`ModuleNotFoundError`, 3 errors; local runs passed because the package is
+  installed here). Now `requirements.txt` at the root (capstone==5.0.9, pinned) and checks.yml installs it after
+  actions/setup-python with its pip cache keyed on that file; the cases are skipped only where capstone is
+  missing. claims.yml is unchanged: `claims.py` is standard library only and that job holds write permissions.
+  pefile and anthropic (maintainer-side tools) are named in the file's comment, not installed.
 - **Not done:** the new bring-over defaults and the pacing projection have not run in a coordinator run yet (the
   first one checks them: the pad retune on a landing that loses sclient pairs, the allowance against the run's
   real burn); the session ratio is unmeasured; D189 (b) was skipped at the user's word and stays open in §3.

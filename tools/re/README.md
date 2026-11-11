@@ -1,6 +1,6 @@
 # Reverse-engineering tools
 
-Python 3.12 with `capstone` (`pip install capstone`; only `ClientImage.disasm` needs it). Run from
+Python 3.12 with `capstone` (`pip install -r requirements.txt`, the set the GitHub runners install; only `ClientImage.disasm` needs it). Run from
 this directory. Each tool checks client.exe's SHA-256 and defaults to the retail install path;
 pass `--client PATH` otherwise. EA's repositories, the SDK, Net-7 and the capture data are expected at
 the paths in `roots.py` (`python tools/re/roots.py` prints them and whether they exist;
