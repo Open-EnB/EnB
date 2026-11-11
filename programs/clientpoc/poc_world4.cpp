@@ -21,40 +21,6 @@
 #include "..\..\app\client\dynamic_window_class.h"
 #include "..\..\app\client\ui_starmap.h"
 
-// ---------------------------------------------------------------- gd_gauge.cpp's gauge (0x669570; ui_faction.cpp's view): 0x6C bytes
-class Unknown669570Class : public RObjGadgetClass
-{
-public:
-	Unknown669570Class(RenderObjClass *robj, const char *name);
-	virtual void Unknown_A4();
-	virtual float Unknown_A8(float value);
-	char Unknown60[0x6C - 0x60];
-};
-Unknown669570Class::Unknown669570Class(RenderObjClass *robj, const char *name) : RObjGadgetClass(robj, 0)
-{
-	STUB_CALLED("POC Unknown669570Class (a gauge): the model only");
-	memset(Unknown60, 0, sizeof(Unknown60));
-}
-void Unknown669570Class::Unknown_A4()
-{
-}
-float Unknown669570Class::Unknown_A8(float value)
-{
-	return(value);
-}
-
-// ---------------------------------------------------------------- gd_pip_scene.cpp's gadget base (0x66ACE0, map_pip.h): 0x4C bytes
-GadgetPipSceneClass::GadgetPipSceneClass(PipSceneClass *pip) : GadgetClass(0x1077)
-{
-	STUB_CALLED("POC GadgetPipSceneClass: an empty GadgetClass");
-	memset(Unknown_Pad30, 0, sizeof(Unknown_Pad30));
-	*(PipSceneClass **)Unknown_Pad30 = pip;
-	Unknown38.X = 0.0f;
-	Unknown38.Y = 0.0f;
-	memset(Unknown_Pad40, 0, sizeof(Unknown_Pad40));
-	Unknown49 = false;
-}
-
 // ---------------------------------------------------------------- gd_starmap.cpp's gadget (0x7B4700, starmap_pip.h): 0x50 bytes
 GadgetStarmapClass::GadgetStarmapClass(StarmapPipClass *pip) : GadgetPipSceneClass(pip), StarmapPIP(pip)
 {

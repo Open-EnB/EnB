@@ -156,7 +156,7 @@ void GalaxyMapPipClass::Unknown_53F9E0()
 	}
 	Render->Unknown_7A7070(false);
 	if (Unknown_693020()) {
-		const TPoint2D<float> &p = ViewportGadget->Unknown38;
+		const Vector2 &p = ViewportGadget->Position;
 		Render->Unknown_7A72C0(p.X, p.Y);
 	} else {
 		Render->Unknown_7A7450();

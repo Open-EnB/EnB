@@ -252,7 +252,7 @@ void MapPipClass::Unknown_14()
 
 bool MapPipClass::Unknown_693020()
 {
-	return(ViewportGadget->Unknown49);
+	return(ViewportGadget->PointerInside);
 }
 
 /*

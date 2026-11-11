@@ -10,6 +10,7 @@
 #include "ui_inv.h"		// UIInvClass, ui_inv.cpp's inventory window base
 #include "pip_scene.h"	// PipSceneClass, the ship's PIP's base
 #include "gadget.h"
+#include "gd_pip_scene.h"	// GadgetPipSceneClass, the ship's PIP's gadget's base
 #include "..\..\wwlib\ref_ptr.h"
 
 class SClient;
@@ -40,13 +41,15 @@ public:
 	char Unknown00[0xCC];
 };
 
-// The ship's PIP's gadget (0x58 bytes, constructor 0x66DA50, table 0xAFAE64; its base 0x66ACE0, by triage gd_pip_scene.cpp's)
-class Unknown66DA50Class : public GadgetClass	// NAME 1: neutral (D10)
+// The ship's PIP's gadget (0x58 bytes, constructor 0x66DA50, table 0xAFAE64: gd_ship_equip_pip.cpp's, over gd_pip_scene.h's gadget)
+class Unknown66DA50Class : public GadgetPipSceneClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown66DA50Class(Unknown541DE0Class *pip);		// 0x66DA50 (not rebuilt)  // NAME 1 [pip]: what the window passes
 	virtual ~Unknown66DA50Class();						// +0x00 (deleting 0x66DA90; not rebuilt)
 	virtual bool Unknown_30(float x, float y);			// +0x30 0x66DAE0 (not rebuilt; +0x2C is 0x66DB10)  // NAME 1 [x, y]: GadgetClass's
+
+	char Unknown4C[0x58 - 0x4C];						// +0x4C
 };
 
 // One mount of the ship on the window (0x10 bytes; 0x5D2C50 news it from an 'Inventory.Mounts' element)

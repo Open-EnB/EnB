@@ -44,15 +44,15 @@ static inline void Unknown_Delete_Player(UIFriendsPlayerInfoClass *info)	// NAME
 	delete info;
 }
 
-// ui_manu.cpp's check button, as far as this window uses it (0x68 bytes, table 0xB075E4)
-class UIManuCheckButtonClass : public GadgetClass	// NAME 1: neutral (D10), as ui_manu.cpp's
-{
-public:
-	void Unknown_7E8030(bool on);						// 0x7E8030: checked or not  // NAME 1 [on]: neutral
+// The check box (unknown_7e7e00.h: 0x68 bytes, table 0xB075E4)
+#include "unknown_7e7e00.h"
 
-	char Unknown30[0x64 - 0x30];						// +0x30 (GadgetClass is 0x30 bytes)
-	bool Checked;										// +0x64  // NAME 2: what 0x7E8030 sets
-};
+
+
+
+
+
+
 
 extern FontManagerClass *Unknown_BE67C4;				// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 

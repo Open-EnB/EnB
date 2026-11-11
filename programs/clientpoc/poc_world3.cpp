@@ -52,7 +52,7 @@ Unknown541DE0Class::Unknown541DE0Class(SClient *client) : PipSceneClass(client)
 void Unknown541DE0Class::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 {
 }
-Unknown66DA50Class::Unknown66DA50Class(Unknown541DE0Class *pip) : GadgetClass(0)
+Unknown66DA50Class::Unknown66DA50Class(Unknown541DE0Class *pip) : GadgetPipSceneClass(pip)
 {
 	STUB_CALLED("POC Unknown66DA50Class (the ship PIP's gadget): never hit");
 }

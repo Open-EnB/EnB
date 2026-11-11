@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "Name assumed from gd_proxy.cpp's __FILE__ (G_ASSERT '!StickySave' l.107 of 0x66B420); the proxy buttons' two classes (tables 0xAFA6E8 / 0xAFA7BC, constructors 0x66B240 / 0x66B4C0)"
+}

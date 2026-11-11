@@ -39,7 +39,7 @@ public:
 
 
 
-class Unknown669570Class;	// gd_gauge.cpp's gauge (declared before the button's constructor)
+#include "gd_gauge.h"	// GaugeGadgetClass (the love / hate bars)
 // The faction buttons (0x7C bytes, tables 0xAF1820; 0x58D400 makes six): the faction's name and two gauges
 class Unknown58E210Class : public ButtonGadgetClass  // NAME 1: neutral (D10)
 {
@@ -50,8 +50,8 @@ public:
 	void Unknown_58E740(const std::string &faction, float reaction);	// 0x58E740 (the faction's name, the reaction / 10000 on the two gauges)  // NAME 1 [faction, reaction]: neutral
 
 	std::string Unknown64;								// +0x64 (the faction: what 0x58EFC0 takes)
-	Unknown669570Class *Unknown74;						// +0x74 ('LOVE_BAR%02d')
-	Unknown669570Class *Unknown78;						// +0x78 ('HATE_BAR%02d')
+	GaugeGadgetClass *Unknown74;						// +0x74 ('LOVE_BAR%02d')
+	GaugeGadgetClass *Unknown78;						// +0x78 ('HATE_BAR%02d')
 };
 // 0x58D080
 UIFactionClass::UIFactionClass(SClient *client) :
@@ -315,15 +315,15 @@ void UIFactionClass::Unknown_Select(int index)
 }
 
 
-// gd_gauge.cpp's gauge (0x6C bytes, constructor 0x669570), as far as this file makes and sets it
-class Unknown669570Class : public RObjGadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown669570Class(RenderObjClass *robj, const char *name);	// 0x669570  // NAME 1 [robj, name]: neutral
-	virtual void Unknown_A4();							// +0xA4
-	virtual float Unknown_A8(float value);				// +0xA8 (the gauge's value; 0x58E740 passes the reaction)  // NAME 1 [value]: neutral
-	char Unknown60[0x6C - 0x60];						// +0x60
-};
+
+
+
+
+
+
+
+
+
 
 // 0x58E210
 Unknown58E210Class::Unknown58E210Class(UIMeshClass *uimesh, int index) :
@@ -344,11 +344,11 @@ Unknown58E210Class::Unknown58E210Class(UIMeshClass *uimesh, int index) :
 	Set_Render_Obj(sobj.Peek());
 
 	sprintf(name, "LOVE_BAR%02d", index);
-	Unknown74 = new Unknown669570Class(robj.Peek(), name);
-	Unknown74->Unknown_A8(0);
+	Unknown74 = new GaugeGadgetClass(robj.Peek(), name);
+	Unknown74->Force_Value(0);
 	sprintf(name, "HATE_BAR%02d", index);
-	Unknown78 = new Unknown669570Class(robj.Peek(), name);
-	Unknown78->Unknown_A8(0);
+	Unknown78 = new GaugeGadgetClass(robj.Peek(), name);
+	Unknown78->Force_Value(0);
 
 	sprintf(name, "NAME%02d_TSI30A", index);
 	RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style(name, robj.Peek()));
@@ -392,17 +392,17 @@ void Unknown58E210Class::Unknown_58E740(const std::string &faction, float reacti
 
 	float value = WWMath::Clamp(reaction * 0.0001f, -1.0f, 1.0f);
 	if (value >= 0.0f && value < 0.1f) {
-		Unknown74->Unknown_A8(value + 0.05f);
-		Unknown78->Unknown_A8(0.05f - value);
+		Unknown74->Force_Value(value + 0.05f);
+		Unknown78->Force_Value(0.05f - value);
 	} else if (value < 0.0f && -value < 0.1f) {
-		Unknown78->Unknown_A8(0.05f - value);
-		Unknown74->Unknown_A8(value + 0.05f);
+		Unknown78->Force_Value(0.05f - value);
+		Unknown74->Force_Value(value + 0.05f);
 	} else if (value >= 0.0f) {
-		Unknown74->Unknown_A8(value);
-		Unknown78->Unknown_A8(0.0f);
+		Unknown74->Force_Value(value);
+		Unknown78->Force_Value(0.0f);
 	} else {
-		Unknown74->Unknown_A8(0.0f);
-		Unknown78->Unknown_A8(-value);
+		Unknown74->Force_Value(0.0f);
+		Unknown78->Force_Value(-value);
 	}
 	faction.size();		// a dead read (no code): it spends the inline budget so the assign above is called out of line, as in the client
 }
