@@ -118,7 +118,7 @@ void UIPopupBrowserClass::Unknown_60()
 	if (UnknownA4 && --UnknownA4 == 0) {
 		RenderObjClass *browser = Unknown84->Get_Sub_Object_By_Name("BROWSER");
 		if (Url.length()) {
-			Unknown_7CA2D0()->Unknown_7CA5C0(UnknownC8, browser, (void *)Url.c_str());
+			Unknown_7CA2D0()->Unknown_7CA5C0(UnknownC8, browser, Url.c_str());
 		} else {
 			Unknown_7CA2D0()->Unknown_7CA5C0(UnknownC8, browser, NULL);
 		}

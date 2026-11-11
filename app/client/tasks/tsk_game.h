@@ -79,25 +79,99 @@ int Unknown_Log(const char *tag, const char *format, ...);	// NAME 1 [Unknown_Lo
 int Unknown_82E1D0();									// NAME 1 [Unknown_82E1D0]: udpconn.cpp
 bool Unknown_5FADE0();									// NAME 1 [Unknown_5FADE0]: ui_registration.cpp
 
-class Unknown_7CA2D0Class								// NAME 1 [Unknown_7CA2D0Class]: the settings store 0x7CA2D0 returns
+// The store's browsers (0x7C97B0 adds them in this order, under these DX8WebBrowser names; 8 is "none"). Trap: without a declaration here ui_radio_main.cpp loses 0x5E9410 (this header's declaration count; verify's path only)
+enum BrowserType {										// NAME 1 [BrowserType and its values]: after the browsers' names in 0x7C97B0
+	BROWSER_RNW = 0,
+	BROWSER_SUPPORT,
+	BROWSER_BUG,
+	BROWSER_PIT,
+	BROWSER_PRIVACY,									// ui_registration.cpp opens it (4)
+	BROWSER_CREDITS,
+	BROWSER_HELP,
+	BROWSER_HTMLDIALOG,									// the message box's (7)
+	BROWSER_COUNT
+};
+
+struct IUnknown;
+struct ITypeInfo;
+struct _GUID;
+
+// One browser the store can open (0x2C bytes; the constructor 0x7C97B0 adds eight, ids 0-7; 8 is "none")
+struct Unknown_7C9F00Struct								// NAME 1 [Unknown_7C9F00Struct]: neutral (D10)
+{
+	Unknown_7C9F00Struct();								// 0x7CAB30 (inline, in settings_store.cpp: no bodies in this widely included header)
+	Unknown_7C9F00Struct(int id, const char *name, const char *url, int options, int update_ticks);	// 0x7C9F00 (inline, as 0x7CAB30)  // NAME 1 [id, name, url, options, update_ticks]: the fields they set
+
+	int Id;												// +0x00 (the map's key)  // NAME 1: what it is
+	std::string Name;									// +0x04 ('SUPPORT', 'PRIVACY', ...: DX8WebBrowser's browser name)  // NAME 1: what it is
+	int UpdateTicks;									// +0x14 (CreateBrowser's updateticks)  // NAME 1: the argument it is passed as
+	int Options;										// +0x18 (CreateBrowser's options)  // NAME 1: the argument it is passed as
+	std::string Url;									// +0x1C  // NAME 1: what it holds
+};
+
+// The object the browsers get as their game dispatch (window.external): a COM object over CreateStdDispatch, with
+// ATL's shapes (CComObjectRootBase's count, CComObject's lock count and destructor). Written without ATL's headers here.
+struct Unknown_7C9CD0RootStruct							// NAME 1 [Unknown_7C9CD0RootStruct]: neutral (D10); ATL's CComObjectRootBase
+{
+	Unknown_7C9CD0RootStruct();							// inline in 0x7C9CD0 (the count stored before the table: a base's constructor body)
+	long RefCount;										// +0x04 of the object  // NAME 1: what AddRef / Release count
+};
+
+class Unknown_7C9CD0Class : public Unknown_7C9CD0RootStruct	// NAME 1 [Unknown_7C9CD0Class]: neutral (D10); table 0xB07368
+{
+public:
+	virtual long __stdcall QueryInterface(const _GUID &iid, void **object) = 0;	// +0x00
+	virtual unsigned long __stdcall AddRef() = 0;		// +0x04
+	virtual unsigned long __stdcall Release() = 0;		// +0x08
+	virtual long __stdcall Unknown_0C(unsigned short **text) = 0;	// +0x0C  // NAME 1 [Unknown_0C, text]: neutral (D10)
+	Unknown_7C9CD0Class();								// 0x7C9CD0
+	virtual ~Unknown_7C9CD0Class();						// +0x10: 0x7CD730
+
+	IUnknown *Dispatch;									// +0x08 (CreateStdDispatch's)  // NAME 1: what it holds
+	ITypeInfo *TypeInfo;								// +0x0C (the client's own type library's, GUID 0xB072A0)  // NAME 1: what it holds
+};
+
+class Unknown_7CD500Class : public Unknown_7C9CD0Class	// NAME 1 [Unknown_7CD500Class]: neutral (D10); table 0xB07350
+{
+public:
+	Unknown_7CD500Class();								// inline in 0x7C97B0 (counts itself in 0xBE87FC)
+	virtual ~Unknown_7CD500Class();						// 0x7CD500 (0x7CD810)
+	virtual long __stdcall QueryInterface(const _GUID &iid, void **object);	// 0x7CD5B0
+	virtual unsigned long __stdcall AddRef();			// 0x7CD550
+	virtual unsigned long __stdcall Release();			// 0x7CD570
+	virtual long __stdcall Unknown_0C(unsigned short **text);	// 0x7C96F0
+};
+
+class Unknown_7CA2D0Class								// NAME 1 [Unknown_7CA2D0Class]: the settings store 0x7CA2D0 returns; table 0xB0734C, 0x70 bytes
 {
 public:
 	Unknown_7CA2D0Class();									// 0x7C97B0 (the constructor; the accessor 0x7CA2D0 runs it once)
+	virtual ~Unknown_7CA2D0Class();						// 0x7CA340 (0x7CA160)
 	void Set_String(const char *key, const char *value);	// 0x7CCB30  // NAME 1: what it does
 	void Set_Int(const char *key, int value);			// 0x7CCE80 ('%d')  // NAME 1: what it does
 	void Set_Int64(const char *key, __int64 value);		// 0x7CCED0  // NAME 1: what it does
 	void Unknown_7CB610(const char *url);				// 0x7CB610 (LoginTaskClass::Fetch_EA_Ticket: auth.ini's LKeyUrl)
 	void Unknown_7CB6F0(int force);						// 0x7CB6F0 (the tasks' per-frame poll: the lkey check thread started when a deadline passed, its result collected)  // NAME 1 [force]: lets the +0x38 / +0x3C deadlines start it (the game task's 1)
-	unsigned int Unknown_7CA5C0(int unknown, RenderObjClass *object, void *unknown2);	// 0x7CA5C0 (ui_registration.cpp 0x5FB030: 4, its 'LABEL_TEXT', NULL)  // NAME 1 [Unknown_7CA5C0, unknown, object, unknown2]: neutral (D10)
+	bool Unknown_7CB8A0(int which);						// 0x7CB8A0 (starts the check thread unless one runs)  // NAME 1 [Unknown_7CB8A0, which]: neutral (D10)
+	bool Unknown_7CA5C0(int id, RenderObjClass *object, const char *url);	// 0x7CA5C0 (ui_registration.cpp 0x5FB030: 4, its 'LABEL_TEXT', NULL): opens browser 'id' over the object's box  // NAME 1 [Unknown_7CA5C0, id, object, url]: neutral (D10)
+	bool Unknown_7CAD00(int id, const class AABoxClass &box, const char *url);	// 0x7CAD00: as 0x7CA5C0, over a box  // NAME 1 [Unknown_7CAD00, id, box, url]: neutral (D10)
+	bool Unknown_7CA570(int id);						// 0x7CA570 (DX8WebBrowser::Is_Browser_Open)  // NAME 1 [Unknown_7CA570, id]: neutral (D10)
+	void Unknown_7CB240(int id);						// 0x7CB240 (DX8WebBrowser::DestroyBrowser)  // NAME 1 [Unknown_7CB240, id]: neutral (D10)
+	void Unknown_7CB290(int id, const char *url);		// 0x7CB290 (DX8WebBrowser::Navigate)  // NAME 1 [Unknown_7CB290, id, url]: neutral (D10)
+	void Unknown_7CB2E0(const char *url, bool force);	// 0x7CB2E0 (sets the exit URL, when none is set or forced)  // NAME 1 [Unknown_7CB2E0, url, force]: neutral (D10)
+	void Unknown_7CBC60(const Unknown_7C9F00Struct &browser);	// 0x7CBC60 (adds or replaces a browser)  // NAME 1 [Unknown_7CBC60, browser]: neutral (D10)
+	Unknown_7C9F00Struct Unknown_7CC1B0(int id);		// 0x7CC1B0 (a copy of browser 'id')  // NAME 1 [Unknown_7CC1B0, id]: neutral (D10)
+	void Unknown_7CC630(int id, const char *url);		// 0x7CC630 (sets browser 'id's URL)  // NAME 1 [Unknown_7CC630, id, url]: neutral (D10)
+	std::string Unknown_7CC890();						// 0x7CC890 (the settings as 'key=value&key=value': CreateBrowser's query data)  // NAME 1 [Unknown_7CC890]: neutral (D10)
 	std::string Get_String(const char *key);			// 0x7CCF20 (0x7CB8F0: 'lkey')  // NAME 1: what it returns
 	static unsigned long __stdcall Unknown_7CB8F0(void *store);	// 0x7CB8F0: the check thread (WinInet, 'ENBCLIENT'; the reply starting 'Success': 1)  // NAME 1 [store]: CreateThread's parameter
 	void Unknown_7CB3D0();								// 0x7CB3D0 (WinMain's shut-down: ShellExecuteEx, 'Earth & Beyond will now exit to allow you to check your E-Mail')  // NAME 1 [Unknown_7CB3D0]: neutral (D10)
+	const char *Unknown_7CB4E0();						// 0x7CB4E0 (the text the browsers' pages read through the dispatch object)  // NAME 1 [Unknown_7CB4E0]: neutral (D10)
 
-	char Unknown00[0x2C];
-	int Unknown2C;										// +0x2C: LoginTaskClass::Unknown_6C tests it
-	char Unknown30[0x34 - 0x30];						// +0x30
-	bool Unknown34;										// +0x34 (the chat panel's slot +0x68 0x563280: set, no Online Manual)
-	char Unknown35[0x38 - 0x35];						// +0x35
+	std::map<int, Unknown_7C9F00Struct> Unknown04;		// +0x04: the browsers by id  // NAME 1: neutral (D10)
+	Unknown_7CD500Class Unknown14;						// +0x14: the browsers' game dispatch  // NAME 1: neutral (D10)
+	std::string Unknown24;								// +0x24: the URL 0x7CB3D0 opens at exit (its length at +0x2C: LoginTaskClass::Unknown_6C tests it)  // NAME 1: neutral (D10)
+	bool Unknown34;										// +0x34 (the chat panel's slot +0x68 0x563280: set, no Online Manual): a browser is open
 	unsigned int Unknown38;								// +0x38: a GetTickCount deadline (mode 1)
 	unsigned int Unknown3C;								// +0x3C: a deadline (mode 3; zero: none)
 	unsigned int Unknown40;								// +0x40: a deadline (mode 2)
@@ -106,7 +180,6 @@ public:
 	int Unknown4C;										// +0x4C: which deadline started it (1-4)
 	std::string Unknown50;								// +0x50: the lkey URL's format (0x7CB610's; empty: no checks)
 	std::map<std::string, std::string> Unknown60;		// +0x60: the settings (Set_String / Get_String's canonicalised keys and values)  // NAME 1: neutral (D10)
-	char Unknown70[0x1B4 - 0x60 - sizeof(std::map<std::string, std::string>)];	// +0x70: the browser descriptors (0x7C97B0 fills them: not rebuilt)
 };
 Unknown_7CA2D0Class *Unknown_7CA2D0();					// NAME 1 [Unknown_7CA2D0]: a function-static instance
 #include "..\option.h"								// OptionClass, option.cpp's object at 0xBE8B38 (D107)
