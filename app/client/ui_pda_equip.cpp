@@ -150,7 +150,7 @@ void UIPdaEquipClass::Unknown_54()
 	Unknown_BE67C4->Add(InterfaceMesh);
 	Stats = new Unknown6A2ED0Class(Client->As_Space_Client(), InterfaceMesh);
 	ShipPip = new Unknown541DE0Class(Client->As_Space_Client());
-	Unknown66DA50Class *pip = new Unknown66DA50Class(ShipPip);
+	GadgetShipEquipPipClass *pip = new GadgetShipEquipPipClass(ShipPip);
 	Unknown64.Unknown_6870E0(pip, 0x12, View, 1, 0);
 	pip->Unknown_65FFC0(1, (GadgetClass *)first);
 }
@@ -470,8 +470,8 @@ void UIPdaEquipClass::Unknown_5D2C50()
 **	Reconstruction notes (PW1, 2026-11-09)
 **
 **	Every function here is functional from Ghidra's pseudocode (D64). 0x5D2EB0, 0x5D2F50, 0x5D2F90 and 0x5D3000 are
-**	std::vector<UnknownMountSlotStruct *>'s helpers (Mounts). The PIP (0x541DE0), the stats display (0x6A2ED0) and the
-**	PIP's gadget (0x66DA50) are not rebuilt (the POC's stand-ins). 0x5D1F60 is co.h's DecalName copied (the ship's
+**	std::vector<UnknownMountSlotStruct *>'s helpers (Mounts). The PIP (0x541DE0) and the stats display (0x6A2ED0) are not
+**	rebuilt (the POC's stand-ins); the PIP's gadget is gd_ship_equip_pip.cpp's. 0x5D1F60 is co.h's DecalName copied (the ship's
 **	name, emitted here). Slot +0x7C looks up the 'ship' sub-object and drops it (the client's: a reference not
 **	released). Slot +0x68's key 0xFFF is the back gadget's (0x62F4D0).
 */

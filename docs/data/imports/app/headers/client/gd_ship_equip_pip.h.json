@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "Name assumed from gd_ship_equip_pip.cpp's __FILE__; the ship PIP's gadget (table 0xAFAE64, constructor 0x66DA50)"
+}
