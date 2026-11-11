@@ -4,6 +4,87 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-11 (09:22 PST, morning; night run 2026-11-10b, week plan session 1): the map of the app's unexplored code as the week's queue (574 rows), three stuck functions settled, eighteen new app files from the queue's top; +813 pairs over the run's baseline, 0 lost outright
+
+- **Session** Fable 5.2 coordinator, branch `run/2026-11-10` from master a5a3fde4, PR #189, head 19772e12; plan log
+  `.work/run-2026-11-10b/plan.md`. Builders: 11 Fable (the map, the stuck queue, layouts and first drafts) until
+  the meter reached the floor at 23:05, then 10 Opus (new files of a known pattern, three landing repairs);
+  landers, the checker and the doc-filer on Sonnet. A Windows reboot at about 01:30 cut the session, one lander
+  and builder O6 off; the user resumed it at 07:11 ("continue the interrupted work, then handoff"), so the drain
+  planned for 06:30 happened between 07:11 and 09:22 with no new items.
+- **Item 1, the map (done):** `.work/week-2026-11-10/queue.md` (table) and `queue.tsv` (all columns), merged by
+  `merge.py` from `queue-a.*` (M1, application functions below 0x640000) and `queue-b.*` (M2, at or above) on a
+  shared score (callers from exact code, stand-ins retired, POC path, size); states in `state.tsv` (edit it,
+  rerun `merge.py`). 574 rows, 4,643 functions not yet exact, 1,634 KB, 37 subsystems; at the handoff 10 rows exact, 8 drafted (functions left NOT EXACT), 453 open, 103 parked.
+  Largest subsystems by bytes: object model / client core (13 rows, 283 functions, 140 KB), UI windows (21, 409,
+  126 KB), UI login / character creation (11, 148, 125 KB), world render (17, 154, 92 KB), data tables (41, 300,
+  86 KB), UI toolkit / gadgets (60, 288, 82 KB), world views / radar / starmap (19, 162, 80 KB), shared utilities
+  (32, 317, 69 KB), UI starbase (5, 83, 63 KB), UI framework (30, 287, 59 KB); the full table is the queue's
+  first section. 188 rows are files the tree lacks (2,369 functions, 547 KB). The layouts to do in series
+  before drafts: queue-a.md §3 (L1-L11) and queue-b.md's list (1-9); done tonight: a-L1 (the mesh window base),
+  a-L2 (the signal classes), a-L8 (ui_power), a-L10 (ui_dynamicwindow), b-1 (the settings store), b-2 (the
+  effect bases), b-7 (both "tsi27a" GM windows). The map is a proposal: four of the rows taken tonight had a
+  wrong boundary or class count (eff_robj's start, the signal classes as three objects, the 0x6AF220 window's
+  base, the menu window's five options), each corrected from the client by its builder.
+- **The next ten rows** (open, top first): sclient.cpp by run (79 functions; layout list b-9), fontsys.cpp (17,
+  stuck work), land.cpp (45, mostly drafted), shiputils.cpp (11), fontdatabase.cpp (15), control_keys_manager.cpp
+  (27), unknown_4fac20.cpp (18, new: the string utilities, layout a-L6 with 0x4A1590), wlib's monod.cpp (2),
+  ui_combobox.cpp (34, layout a-L11), starmap_pip.cpp (19). For Fable's sessions 2-4 the unexplored ones among
+  them and the remaining layouts (a-L3 ChatPanelUIBase, a-L4 ui_inv's 0xE0 class, a-L5
+  client_item_property_special, a-L6, a-L7 the audio family, a-L9 bridge_int, a-L11; b-3 ItemBaseInfo /
+  ItemTemplateInfo, b-4 sbase_info.h, b-5 data_binder.h, b-6 the gadget bases, b-8 mv3dview.h) come first; the
+  windows that tonight's bases unlocked (queue-a.md §2b) are Opus work.
+- **Item 2, the stuck round** (§4 item 7; D89's count limits lifted, D225):
+  ClientLegoImplClass::Add 0x72B7F0 and Get_Lego_Transform 0x72B000 exact (S1; the cause was a fixed,
+  function-wide shortfall of codeless source against the inline budget: seven read-units for Add; both carry two
+  marked D130 dead reads, and P-S1-3's `Get_Name()` accessor would replace most of them);
+  ControlKeysManager::Load_Definitions 0x71B1F0 233 -> 25 masked rows (S2: the out-of-line hash_map() is a
+  missing inline layer, a struct deriving from the hash_map, not budget; two inline decisions left);
+  ClientClass's constructor 0x726100 unchanged (S3: the three string arguments are implicit conversions, still
+  one inlining notch too rich at four sites; the lead is header cost before the Add statement). CLIENT_DAMAGE
+  0x738970 was already exact (2026-11-08) and is deleted from item 7. 0x6FBEF0 and item 10's leftovers were not
+  started: the Fable budget went to the layouts instead.
+- **Item 3, layouts and first drafts** (Fable): eff_o.h's effect bases settled, eff_robj.cpp (25 of 26) and
+  eff_rs.cpp (L2), eff_seek.cpp (29 of 32, L4); Unknown5BB320Class in unknown_5bb250.h / .cpp, 13 of 13 (L3: the
+  base of the map's 34 interface windows); the signal classes as unknown_signalbase.cpp, signal_list.cpp and
+  signal_map.cpp, 17 of 17, with seven per-file views retired (L5; members behind `__SIGNAL_MEMBERS`, P-L5-1);
+  the settings store Unknown_7CA2D0Class, 59 of 60 (L1), which lost five map<string,string> instances that belong
+  to the neighbouring window: instead of a loss for the user, L6 drafted that window (unknown_6af220.cpp, the GM
+  tools' player inventory, 21 of 21) in the same worktree and the two landed together at 0 lost.
+- **Opus on the unlocked rows:** dynamic_window_icon.cpp, ui_faction_panel.cpp (O1), user_click_indicator.cpp,
+  unknown_5b7ab0.cpp (O2), ui_dynamicwindow.cpp with its header completed (37 of 39, O3), ui_experience.cpp,
+  ui_power.cpp with gd_gauge.h (O4), debrsint.cpp, frameint.cpp (O5), ui_skill_info.cpp, dynamic_window_move.cpp
+  (O6; FontManagerClass::Add 0x6D1D80 / 0x6D1FB0 exact on the way), unknown_6b2460.cpp (the GM mission log, 23
+  of 23 in one round from L6's file, O7). NOT EXACT functions and D130 dead reads left: §4 item 10.
+- **Landings:** sixteen branches through the lander, each verified, 0 lost outright in all. Moves needing
+  `/accept-d66` at the merge: 0x58F050 ui_friends -> ui_faction_panel (D66 v); 0x6B15E0, 0x6B1A40, 0x6B1EC0,
+  0x6B1F40, 0x6B1FC0 settings_store -> unknown_6af220, 0x42DB80 (D66 i), 0x6B1AC0 / 0x6B2230 (D66 vii). Three
+  landings (L1, O5, O4) were refused over the sclient send pad and needed a bounded Opus repair each (R1-R3):
+  a branch that commits its own `SEND_SYMBOL_PAD` cannot land once that value does not hold on the run head
+  (P-CO-1), and after a rebase sendpad.py's printed window is wrong (P-R2-1). **The pad is now 46, a one-value
+  window** (0x758210 is exact only at 18 and 46 since ui_cpit.h's change): the next landing that touches a header
+  sclient.cpp sees will need a sweep read from the per-value table, and may find no value at all.
+- **Checks:** the checker at 2c3272a2 (22:34) and at 3986f2d9 (09:00): clienttest 103 of 103 with the trace equal, udpreplay alex3 24,771 blocks equal in order, handshake 54 of 54, both times. The POC replay (login, Karen, world entry) passed at 2c3272a2 and **crashed before the world at 3986f2d9**: the real DynamicWindowIconClass::Create got an empty texture name from the stand-in for 0x7EA190 and returned NULL as the client would. P1 gave the stand-in the client's own id -> texture table (stubs/app_stubs.cpp) and the POC enters the world again at 19772e12: the ship on the starfield, the chat window, the HUD bars and warp dial, the radar panel; only the weapon slots are empty. The check of a landed stand-in removal belongs in the same landing, not at the handoff.
+- **Measured rates** (the plan's phase A rates were assumed): meter 4 % at 19:44, 15 % at 23:05 (the floor,
+  7.5 h early), 17 % at 01:05, 18 % at 07:11, 19 % at the handoff. Fable phase 19:44-23:05: 11 points in
+  3.35 h, **3.3 points an hour** with two to six Fable builders running, against the assumed 1.2 + 0.3 per
+  builder (2.4-3.0); by tokens about 3.5 points per million Fable builder tokens with the coordinator included.
+  Opus phase 23:05-01:05: 1 point an hour with two to four Opus builders and the Fable tail. Builders (tokens
+  from the harness): Fable 11 runs, 3.04M (M1 419k, M2 288k, S1 254k, S2 238k, S3 184k, L1 425k, L2 264k, L3
+  157k, L4 287k, L5 226k, L6 302k); Opus 10 runs, 2.1M (O1 196k, O2 229k, O3 230k, O4 353k, O5 351k, O6 330k, O7
+  113k, R1 77k, R2 115k, R3 122k); Sonnet about 0.9M (fourteen lander runs, the checker, the doc-filer). Pairs
+  per point: about 54 overall; Fable's builders about 360 pairs for about 11 points besides the map and the
+  stuck round, Opus's about 456 for about 3. **For session 2:** at 3.3 points an hour the 12 points of a Fable
+  session last under four hours of builders; plan the Fable items first and fill the rest with Opus rows, as
+  tonight, and give pacing.py `--coordinator-rate 1.0 --weekly-rate 0.6` for Fable builders.
+- **First use of the checker and the doc-filer** (D226): both worked from their definitions. The checker read
+  two images where one is allowed and wrote its own replay input; the doc-filer filed 31 traps, 18 proposals
+  and the §4 changes in one commit with docs_check at 0 problems.
+- **Open for the user:** the 18 proposals in §3 (P-CO-1 and P-R2-1 are tools changes that would have saved
+  three repair runs; P-L1-3 is a D69 question); `/accept-d66` for the moves above; the PR.
+- **Next step:** session 2 of the week plan (its prompt in week-plan-2026-11-10.md §5), taking rows from the
+  queue's top and marking `state.tsv`.
+
 ### 2026-11-10 (19:00 PST, evening): the week's plan for the Fable reset (D225): four Fable sessions, then ten on Opus, with the fourteen coordinator prompts; the checker and doc-filer subagents (D226); no code change
 
 - **Session** Fable 5.2, no builders, no VM leased; branch `docs/fable-week-plan` from master 5fa9dc86 (PR #187
