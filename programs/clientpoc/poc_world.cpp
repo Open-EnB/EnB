@@ -133,12 +133,6 @@ void Unknown5BB320Class::Unknown_7C(UIViewClass *view, bool arg)
 	}
 	InterfaceClass::Unknown_7C(view, arg);
 }
-void Unknown5BB320Class::Unknown_88()
-{
-}
-void Unknown5BB320Class::Unknown_8C()
-{
-}
 
 // ---------------------------------------------------------------- the cockpit's parts with no class in the tree (ui_cpit.h, ui_cpit.cpp's views)
 #include "..\..\app\client\unknown_671300.h"

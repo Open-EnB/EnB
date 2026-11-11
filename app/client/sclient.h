@@ -371,26 +371,26 @@ class UIScanClass;
 
 class IncapacitanceDetailsPacket;
 class UIMeshClass;
-// The interface base of the group window and the cockpit (0xAC bytes; constructors 0x5BB320 / 0x5BB250, destructor 0x5BB3B0,
-// table 0xAF3390; its file is unknown, its functions follow ui_mesh.cpp's): intrface.cpp's class over a UIMeshClass and a
-// layer (interim placement in sclient.h, moved from ui_group.h for its second user, ui_cpit.h: D137)
-class Unknown5BB320Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown5BB320Class(UIMeshClass *mesh, SClient *client);	// 0x5BB320 (the mesh at +0x84, the client to 0x540D30)  // NAME 1 [mesh, client]: what 0x593BD0 passes
-	Unknown5BB320Class(UIMeshClass *mesh, UIViewClass *view, const LayerClass &layer);	// 0x5BB250 (the view and the layer's scene to 0x540A90, the layer copied)  // NAME 1 [mesh, view, layer]: what 0x57D830 passes
-	~Unknown5BB320Class();								// 0x5BB3B0 (deletes the mesh)
-	virtual void Unknown_58();							// 0x5BB550
-	virtual void Unknown_5C();							// 0x5BB5E0 (the group window's destructor calls it first)
-	virtual void Unknown_60();							// 0x5BB660
-	virtual void Unknown_7C(UIViewClass *view, bool arg);	// 0x5BB470
-	virtual void Unknown_88();							// +0x88 0x543750
-	virtual void Unknown_8C();							// +0x8C 0x543770
-	void Unknown_5BB4F0(GadgetClass *gadget);			// 0x5BB4F0  // NAME 1 [gadget]: what 0x594040 passes
+// The interface base of the mesh windows (Unknown5BB320Class, 0xAC bytes; constructors 0x5BB320 / 0x5BB250): moved to its own
+// header (interim placement, D137), included here where its view stood, for ui_cpit.h and ui_talkt.h below
+#include "unknown_5bb250.h"
 
-	UIMeshClass *InterfaceMesh;							// +0x84 (the destructor deletes it)  // NAME 3: the FAIL_IFs' '!InterfaceMesh' (ui_faction.cpp's 0x58D400 l.118; ui_attrb_skills.cpp's 0x549AA0 l.121 names its own +0xBC)
-	LayerClass Layer;									// +0x88 (LayerClass::LayerClass in the constructor; the gadgets are made over it)  // NAME 2: what it is
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #include "ui_cpit.h"		// ui_cpit.cpp's cockpit interface (the main view's +0x1D0)
 class UICpitClass;		// (for ui_cpit.h included first: its own include of sclient.h reaches this before the class)
 #include "ui_talkt.h"		// ui_talkt.cpp's talk tree (needs Unknown5BB320Class)
