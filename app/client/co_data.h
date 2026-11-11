@@ -52,13 +52,17 @@ template<class T>
 class ClientObjectDataAccessClass  // NAME 1: neutral (D10), the per-type access
 {
 public:
-	// NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0)
+	// NOT EXACT: register-only (the type name in edi and the type's map in esi where the client's 0x79E300 has esi and
+	// edi; the calls and the frame are the client's). The dead Get_Game_ID read is not the client's (D130): with
+	// the one in the binder's Bind it gives the client's inlining (the type map's (n, hash, equal) constructor
+	// 0x79E6E0, the const_iterator conversions 0x7A0920 and the value map's constructor 0x7A2140 called)
 	static T *Get(ClientObjectClass *co, bool create)  // 0x79E300 (radar) ...  // NAME 2: what it does
 	{
 		DataBinderClass<ClientObjectClass *> &binder = DataBinderClass<ClientObjectClass *>::Instance();
 		if (binder.Has(co, DataBinderType<T>())) {
 			return(binder.Get(co, DataBinderType<T>()));
 		}
+		co->Get_Game_ID();
 		if (!create) {
 			return(0);
 		}
@@ -67,9 +71,18 @@ public:
 		return(data);
 	}
 
-	static bool Remove(ClientObjectClass *co)  // inline in 0x79D700 (radar) ...  // NAME 2: what it does
+	// Unbinds and deletes co's data; false when there's none. Inline in 0x79D700 (radar) ...; the binder's Has, Get
+	// and Remove get fresh type objects (the client's one-byte temporaries, Has's in the dead argument's slot)
+	static bool Remove(ClientObjectClass *co)  // NAME 2: what it does
 	{
-		return(DataBinderClass<ClientObjectClass *>::Delete(co, DataBinderType<T>()));
+		DataBinderClass<ClientObjectClass *> &binder = DataBinderClass<ClientObjectClass *>::Instance();
+		if (binder.Has(co, DataBinderType<T>())) {
+			T *data = binder.Get(co, DataBinderType<T>());
+			binder.Remove(co, DataBinderType<T>());
+			delete data;
+			return(true);
+		}
+		return(false);
 	}
 };
 

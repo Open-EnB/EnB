@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-737 entries in 232 files.
+735 entries in 231 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -69,7 +69,7 @@ edit the comments in the code, not this file.
 | `app/client/co.cpp:2654` | `ClientObjectClass::Unknown_6FF7A0` | mention | NOT EXACT), 0x6FEF70 (l.2284) and 0x6F5F60. The aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in aux_roots.cpp (generated). The asserts sit on the client's lines (D25): the blank stretches hold the members not yet written; members without asserts (0x6FF4B0-0x700400, 0x6FF7A0) sit where room was. The constructor (T17's reading of 0x6F2820, for whoever rebuilds it): Clien... |
 | `app/client/co.h:119` | `Unknown_810750` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
 | `app/client/co.h:255` | `Unknown_810750` | mention | NOT EXACT) |
-| `app/client/co_data.h:55` | `?` | marker | NOT EXACT: frame (0x54 vs the client's 0x50: ours inlines the type map's default constructor, the client calls 0x79E6E0) |
+| `app/client/co_data.h:55` | `?` | marker | NOT EXACT: register-only (the type name in edi and the type's map in esi where the client's 0x79E300 has esi and edi; the calls and the frame are the client's). The dead Get_Game_ID read is not the client's (D130): with the one in the binder's Bind it gives the client's inlining (the type map's (n, hash, equal) constructor 0x79E6E0, the const_iterator conversions 0x7A0920 and the value map's const... |
 | `app/client/co_player_relationship.cpp:149` | `Unknown_70B450` | marker | NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450) |
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |
 | `app/client/co_subtypes.cpp:112` | `Unknown70E5A0Class::Unknown_20` | marker | NOT EXACT: shape (stack layout: the client's frame is 0x128 bytes, ours 0xFC; the inverse transform's terms in another order; attempts.py show 0x70E850) 0x70E850 |
@@ -624,8 +624,6 @@ edit the comments in the code, not this file.
 | `app/shared/boolpars.cpp:655` | `BoolParserClass::Get_Callback` | mention | NOT EXACT: Parse 0x49A430 (inline budget) and Parse_Params 0x49AE30 (shape). |
 | `app/shared/chat_edit_stream.cpp:8` | `Unknown_ChatStreamClass::Unknown_ChatStreamClass` | marker | NOT EXACT: call form (the client calls 0x4C44A0 through its vtable slot, call [0xAEBAB8]; this compiles to a direct call) |
 | `app/shared/combo_ffactory.cpp:50` | `ComboFileFactoryClass::~ComboFileFactoryClass` | marker | NOT EXACT: shape (explain.py), the client calls the table's _M_delete_node 0x4E6D00 out of line in MixMap.clear() and keeps this in ebx; ours inlines it |
-| `app/shared/data_binder.h:71` | `?` | marker | NOT EXACT: order-only (the client's 0x7A1050 takes the type name's length before the string's zero stores) |
-| `app/shared/data_binder.h:116` | `?` | marker | NOT EXACT: frame (0x28 vs the client's 0x2c: the client keeps value_map in esi and a stack slot, zero in ebx, and clears the erased name), 0x79F980 and the next four |
 | `app/shared/definition_auto_ptr.h:110` | `?` | marker | NOT EXACT: register-only (explain.py), the inlined erase's terminator store addresses [edi+eax] in the client, [eax+edi] in ours (0x4EB1B0) |
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
 | `app/shared/dynamic_obj.cpp:9` | `DynObj::DynObj` | marker | NOT EXACT: shape (the client duplicates the epilogue into the allocation-failed path; attempts.py show 0x44AC70) |

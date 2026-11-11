@@ -10,7 +10,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 186 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1768 |
-| 2 | describes what the code does | 3983 |
+| 2 | describes what the code does | 3984 |
 | 1 | neutral placeholder | 22934 |
 
 ## For review (score 3 and below)
@@ -23233,18 +23233,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Relationship` | `app/client/co.h:302` | what it holds |
 | 2 | `Get_Client` | `app/client/co_data.h:41` | what it does |
 | 2 | `Remove_All` | `app/client/co_data.h:44` | what it does |
-| 2 | `Get` | `app/client/co_data.h:56` | what it does |
-| 2 | `Remove` | `app/client/co_data.h:70` | what it does |
-| 2 | `Get_Radar_Data` | `app/client/co_data.h:82` | what it does |
-| 2 | `Remove_Radar_Data` | `app/client/co_data.h:83` | what it does |
-| 2 | `Get_Gutter_Data` | `app/client/co_data.h:84` | what it does |
-| 2 | `Remove_Gutter_Data` | `app/client/co_data.h:85` | what it does |
-| 2 | `Get_Starmap_Data` | `app/client/co_data.h:86` | what it does |
-| 2 | `Remove_Starmap_Data` | `app/client/co_data.h:87` | what it does |
-| 2 | `Get_Navigation_Data` | `app/client/co_data.h:88` | what it does |
-| 2 | `Remove_Navigation_Data` | `app/client/co_data.h:89` | what it does |
-| 2 | `Get_Emote_Data` | `app/client/co_data.h:90` | what it does |
-| 2 | `Remove_Emote_Data` | `app/client/co_data.h:91` | what it does |
+| 2 | `Get` | `app/client/co_data.h:59` | what it does |
+| 2 | `Remove` | `app/client/co_data.h:76` | what it does |
+| 2 | `Get_Radar_Data` | `app/client/co_data.h:95` | what it does |
+| 2 | `Remove_Radar_Data` | `app/client/co_data.h:96` | what it does |
+| 2 | `Get_Gutter_Data` | `app/client/co_data.h:97` | what it does |
+| 2 | `Remove_Gutter_Data` | `app/client/co_data.h:98` | what it does |
+| 2 | `Get_Starmap_Data` | `app/client/co_data.h:99` | what it does |
+| 2 | `Remove_Starmap_Data` | `app/client/co_data.h:100` | what it does |
+| 2 | `Get_Navigation_Data` | `app/client/co_data.h:101` | what it does |
+| 2 | `Remove_Navigation_Data` | `app/client/co_data.h:102` | what it does |
+| 2 | `Get_Emote_Data` | `app/client/co_data.h:103` | what it does |
+| 2 | `Remove_Emote_Data` | `app/client/co_data.h:104` | what it does |
 | 2 | `String_To_Value` | `app/client/co_player_relationship.cpp:17` | as strconv_lib.h's pairs |
 | 2 | `std:` | `app/client/co_player_relationship.cpp:43` | what it holds |
 | 2 | `defaults` | `app/client/co_player_relationship.cpp:80` | what it holds |
@@ -26156,13 +26156,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/shared/combo_ffactory.h:43` | describes what it holds |
 | 2 | `std:` | `app/shared/data_binder.h:38` | what it holds |
 | 2 | `Instance` | `app/shared/data_binder.h:40` | what it does |
-| 2 | `Delete` | `app/shared/data_binder.h:60` | what it does |
-| 2 | `std:` | `app/shared/data_binder.h:73` | what it does |
+| 2 | `std:` | `app/shared/data_binder.h:72` | what it does |
 | 2 | `Has` | `app/shared/data_binder.h:84` | what it does |
 | 2 | `Get` | `app/shared/data_binder.h:95` | what it does |
-| 2 | `Bind` | `app/shared/data_binder.h:106` | what it does |
-| 2 | `Remove` | `app/shared/data_binder.h:118` | what it does |
-| 2 | `Types` | `app/shared/data_binder.h:134` | what it holds |
+| 2 | `Bind` | `app/shared/data_binder.h:108` | what it does |
+| 2 | `std:` | `app/shared/data_binder.h:117` | what it does |
+| 2 | `Remove` | `app/shared/data_binder.h:130` | what it does |
+| 2 | `std:` | `app/shared/data_binder.h:143` | what it does |
+| 2 | `Types` | `app/shared/data_binder.h:154` | what it holds |
 | 2 | `Peek` | `app/shared/definition_auto_ptr.h:45` | as ref_ptr.h's |
 | 2 | `Set` | `app/shared/definition_auto_ptr.h:47` | what it does |
 | 2 | `Release` | `app/shared/definition_auto_ptr.h:111` | what it does |
