@@ -76,6 +76,9 @@ coordinator included** (runs 0.34-0.63 %). A fit splitting the two gives the coo
 ~0.1 %/h, loosely (whole-percent readings, coordinator and builders always overlap): extra builders cost less than
 the all-in rate. The single 2026-10-27 run's 1.3-2.5 % was the old default and overstated it about fourfold.
 Rerun `python .claude/skills/coordinator-pacing/scripts/burnrate.py` from the repo root to refresh the figure.
+Measured on the night of 2026-11-10: Fable builders cost about 2.5-3 % of the week per million builder tokens with the
+coordinator in (4 % -> 15 % in 3.3 h with two to six running), five times the assumed 1.2 + 0.3 per builder; Opus builders
+on known-pattern files moved the meter about 1 point an hour with two to four running.
 
 ## Launching
 
@@ -171,6 +174,19 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   shards (after a D119 move master's `in_tree_total` is one high until the next verify).
 - **docs/imports.md on HEAD can be stale:** `report.py` regenerates ~100 unrelated lines; builders leave it out,
   you regenerate it.
+- **A branch that commits its own SEND_SYMBOL_PAD cannot land once that value does not hold on the run head:** the
+  landing's retune leaves tools/re/auxroots.py dirty and wt.py's regen_and_commit refuses ("regenerating changed other
+  files as well"). Repair: `wt.py rebase ID`, commit in the branch the pad that holds on the run head, land. Briefs
+  should forbid committing a pad, or say this.
+- **After `wt.py rebase`, HEAD's ledger is the record commit that already recorded sclient.cpp's loss,** so sendpad.py's
+  watch set misses the lost addresses and its printed window is wrong: read the per-value table in
+  `.work/log/sendpad.log` for the values where 0x758210, 0x702240 and 0x74D990 are all exact, and set the middle of that window.
+- **A worktree with uncommitted generated files (names-review.md, imports.md) makes the lander refuse at step 1:**
+  discard them (`git checkout -- FILE`); the landing regenerates them.
+- **A lander that hands back while its rebase or verify still runs cannot report a second time** (the harness refuses
+  it): read `.work/log/land-ID.log`'s `landed:` line.
+- **After a host reboot:** the pool VMs are Off and start on lease; run `vc6.py discover`, resume cut-off builders from
+  their transcripts with SendMessage, and read the landing logs for what completed before relaunching a lander.
 
 Stacked branches and merges:
 - **A builder on another's unlanded branch:** `wt.py new C --base wt/P`; land P first or `bring-over P C` in that
