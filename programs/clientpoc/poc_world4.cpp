@@ -76,7 +76,7 @@ public:
 UIDynamicWindowClass::UIDynamicWindowClass(LineDisplayClientClass *client, const char *name, int flags) : InterfaceClass(client)
 {
 	STUB_CALLED("POC UIDynamicWindowClass: an empty window");
-	Unknown8C = new POCDynamicWindowGadgetClass;
+	Unknown8C = (DynamicWindowGadgetClass *)(GadgetClass *)new POCDynamicWindowGadgetClass;
 	Unknown90 = 0x457;
 }
 UIDynamicWindowClass::~UIDynamicWindowClass()
@@ -101,7 +101,7 @@ bool UIDynamicWindowClass::Unknown_68(int key)
 }
 GadgetClass *UIDynamicWindowClass::Unknown84_04()
 {
-	return(Unknown8C);
+	return((GadgetClass *)Unknown8C);
 }
 void UIDynamicWindowClass::Unknown84_08(GadgetClass *gadget, int arg1, int arg2)
 {

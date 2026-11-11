@@ -77,7 +77,7 @@ public:
 	std::string Unknown_BC;								// +0xBC (the starbase's name)  // NAME 1: neutral (D10)
 };
 
-void Unknown_58B160(UIDynamicWindowClass *window, const char *name, int index, int type, const char *text, ...);	// 0x58B160 (ui_dynamicwindow.cpp, cdecl)  // NAME 1: neutral (D10)
+// (0x58B160 is ui_dynamicwindow.h's UIDynamicWindowClass::Add_Text, cdecl)
 
 inline void UIStarmapClass::Unknown_Show_How_To(const RefCountPtr<UIDynamicWindowClass> &window, const Vector3 &position)
 {
@@ -252,24 +252,24 @@ void UIStarmapClass::Unknown_54()
 	Unknown64.Unknown_6870E0(new BoundedUIBackGadget(InterfaceMesh), 9, View, 1, 0);
 	Unknown_7C8E00(Get_Min_Frame());
 	HowToStarmap = Create_Get(new UIDynamicWindowClass(Client, "STARMAP_HOW_TO", 2));
-	Unknown_58B160(HowToStarmap.Peek(), "STARMAP_HOW_TO", 0, 0x10, "Starmap Click Controls:");
-	Unknown_58B160(HowToStarmap.Peek(), "STARMAP_HOW_TO", 1, 0x10, "   -Left click an object icon to select warp destination");
-	Unknown_58B160(HowToStarmap.Peek(), "STARMAP_HOW_TO", 2, 0x10, "   -Right click on map to center location");
-	Unknown_58B160(HowToStarmap.Peek(), "STARMAP_HOW_TO", 3, 0x10, "   -Right click an object icon to lock object to center");
-	Unknown_58B160(HowToStarmap.Peek(), "STARMAP_HOW_TO", 4, 0x10, "Starmap Drag Controls:");
-	Unknown_58B160(HowToStarmap.Peek(), "STARMAP_HOW_TO", 5, 0x10, "   -Left drag on map to pan map around");
-	Unknown_58B160(HowToStarmap.Peek(), "STARMAP_HOW_TO", 6, 0x10, "   -Right drag on map to zoom in and out");
+	HowToStarmap->Add_Text("STARMAP_HOW_TO", 0, 0x10, "Starmap Click Controls:");
+	HowToStarmap->Add_Text("STARMAP_HOW_TO", 1, 0x10, "   -Left click an object icon to select warp destination");
+	HowToStarmap->Add_Text("STARMAP_HOW_TO", 2, 0x10, "   -Right click on map to center location");
+	HowToStarmap->Add_Text("STARMAP_HOW_TO", 3, 0x10, "   -Right click an object icon to lock object to center");
+	HowToStarmap->Add_Text("STARMAP_HOW_TO", 4, 0x10, "Starmap Drag Controls:");
+	HowToStarmap->Add_Text("STARMAP_HOW_TO", 5, 0x10, "   -Left drag on map to pan map around");
+	HowToStarmap->Add_Text("STARMAP_HOW_TO", 6, 0x10, "   -Right drag on map to zoom in and out");
 	HowToStarmap->UnknownA8 = false;
 	HowToStarmap->Unknown_7C(View, false);
 	HowToGalaxyMap = Create_Get(new UIDynamicWindowClass(Client, "STARMAP_HOW_TO", 2));
-	Unknown_58B160(HowToGalaxyMap.Peek(), "STARMAP_HOW_TO", 0, 0x10, "Galaxy Map Click Controls:");
-	Unknown_58B160(HowToGalaxyMap.Peek(), "STARMAP_HOW_TO", 1, 0x10, "   -Left click anywhere to zoom to a location");
-	Unknown_58B160(HowToGalaxyMap.Peek(), "STARMAP_HOW_TO", 2, 0x10, "   -Right click anywhere to zoom out from a location");
-	Unknown_58B160(HowToGalaxyMap.Peek(), "STARMAP_HOW_TO", 3, 0x10, "   -Right click on empty space to zoom full out");
-	Unknown_58B160(HowToGalaxyMap.Peek(), "STARMAP_HOW_TO", 4, 0x10, "Galaxy Map Drag Controls:");
-	Unknown_58B160(HowToGalaxyMap.Peek(), "STARMAP_HOW_TO", 5, 0x10, "   -Left drag on map to pan map around");
-	Unknown_58B160(HowToGalaxyMap.Peek(), "STARMAP_HOW_TO", 6, 0x10, "   -Right drag on map to zoom in and out");
-	Unknown_58B160(HowToGalaxyMap.Peek(), "STARMAP_HOW_TO", 7, 0x10, "   -Left drag with CTRL button to rotate map");
+	HowToGalaxyMap->Add_Text("STARMAP_HOW_TO", 0, 0x10, "Galaxy Map Click Controls:");
+	HowToGalaxyMap->Add_Text("STARMAP_HOW_TO", 1, 0x10, "   -Left click anywhere to zoom to a location");
+	HowToGalaxyMap->Add_Text("STARMAP_HOW_TO", 2, 0x10, "   -Right click anywhere to zoom out from a location");
+	HowToGalaxyMap->Add_Text("STARMAP_HOW_TO", 3, 0x10, "   -Right click on empty space to zoom full out");
+	HowToGalaxyMap->Add_Text("STARMAP_HOW_TO", 4, 0x10, "Galaxy Map Drag Controls:");
+	HowToGalaxyMap->Add_Text("STARMAP_HOW_TO", 5, 0x10, "   -Left drag on map to pan map around");
+	HowToGalaxyMap->Add_Text("STARMAP_HOW_TO", 6, 0x10, "   -Right drag on map to zoom in and out");
+	HowToGalaxyMap->Add_Text("STARMAP_HOW_TO", 7, 0x10, "   -Left drag with CTRL button to rotate map");
 	HowToGalaxyMap->UnknownA8 = false;
 	HowToGalaxyMap->Unknown_7C(View, false);
 }
