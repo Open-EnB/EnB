@@ -1,0 +1,23 @@
+S1, 2026-11-10 (Fable, D225): the accessor form of client_lego_impl's Add 0x72B7F0 and Get_Lego_Transform 0x72B000.
+Not in the tree: the header change costs aux_roots 0x7045F0 (lost outright) and its hold of 0x702240
+(sclient still holds it) in the full app verify; aux_roots.cpp sees lego_identifier.h through co.h.
+
+1. app/common/lego_identifier.h, in LegoSplitStruct, above Is_Invalid:
+	const std::string &Get_Name(void) const { return Name; }
+
+2. app/client/client_lego_impl.cpp: every `split.Name` becomes `split.Get_Name()` (Find, Get_Lego_Transform,
+   Add, Remove, Child_Moved: 19 places).
+
+3. Get_Lego_Transform's test line (needed with or without the accessor):
+	bool is_self = split.State == 0; bool no_child = child_find == Children.end(); bool here = is_self || no_child; if (here) {
+   and no dead reads in it: Get_Name()'s two uses after the `!BoneMap` return do their work.
+
+4. Add: the dead line before the outer orphan find becomes
+	Orphans.end(); Orphans.end();	std::hash_map<...>::iterator orphan_find = Orphans.find(split.Get_Name());
+   (two dead end() or three dead size(); one end() or two size() are too few, three end() or four size() too many).
+
+Result in the file (tryv2, client_lego_impl.cpp alone): 0x72B000 and 0x72B7F0 exact, Find 0x72ABB0, Remove
+0x72C1D0, Detach_All 0x72C8B0, Child_Moved 0x72CE40 and the bone map's constructor 0x72D5F0 stay exact.
+With a Get_State() accessor as well, Add needs two dead size() (one fewer unit). A Get_Legos() accessor on
+LegoOrphanDataClass or a Get_Bone_Index() on LegoKnobClass adds about a third of a size() per use and turns
+0x72D5F0 inexact in most combinations; a State predicate (`Is_Here()`) weighs like Get_State().
