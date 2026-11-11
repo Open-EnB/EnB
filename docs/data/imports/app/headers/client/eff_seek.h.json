@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from the client: the five seeker effect classes of eff_seek.cpp (vtables 0xB003A0 / 0xB003EC / 0xB00438 / 0xB00484 / 0xB00560, constructors 0x6F0580 / 0x6F07F0 / 0x6F0B10 / 0x6F0FD0 / 0x6F1760); header name assumed from eff_seek.cpp"
+}

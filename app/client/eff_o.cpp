@@ -32,14 +32,14 @@ Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0
 // The render-state effect the factory's helper 0x6EC7D0 makes (0xE4 bytes; its file, between eff_robj.cpp and
 // eff_seek.cpp, is eff_rs.cpp by a provisional name, D137):
 #include "eff_rs.h"	// RenderStateEffectClass, 0x6F0200
-// eff_seek.cpp's effect on a model that the helper 0x6EAFA0 makes (0xE8 bytes; not rebuilt): declared as far as it calls it
-class Unknown6F07F0EffectClass : public EffectObjectClass { public: Unknown6F07F0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE8 - 0x80]; };	// NAME 1: neutral (D10); 0x6F07F0  // NAME 1 [client .. robj]: what the helper passes; [next]: the base's
-// eff_seek.cpp's spiral effect that the helper 0x6EB150 makes (0xF0 bytes; not rebuilt)
-class Unknown6F0B10EffectClass : public EffectObjectClass { public: Unknown6F0B10EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj, float radius, float spin_rate); virtual void Unknown_24(int next); char Unknown80[0xF0 - 0x80]; };	// NAME 1: neutral (D10); 0x6F0B10  // NAME 1 [client .. spin_rate]: effect.ini's SpiralRadius, SpiralSpinRate (radians per ms); [next]: the base's
-// eff_seek.cpp's changing effect that the helper 0x6EB330 makes (0x12C bytes; not rebuilt)
-class Unknown6F0FD0EffectClass : public EffectObjectClass { public: Unknown6F0FD0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj, int change_time, float distance); virtual void Unknown_24(int next); char Unknown80[0x12C - 0x80]; };	// NAME 1: neutral (D10); 0x6F0FD0  // NAME 1 [client .. distance]: effect.ini's ChangeTime (ms), Distance; [next]: the base's
-// eff_seek.cpp's timed changing effect that the helper 0x6EB590 makes (0x114 bytes; not rebuilt)
-class Unknown6F1760EffectClass : public EffectObjectClass { public: Unknown6F1760EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj, int change_time, int time_to_change, float distance); virtual void Unknown_24(int next); char Unknown80[0x114 - 0x80]; };	// NAME 1: neutral (D10); 0x6F1760  // NAME 1 [client .. distance]: effect.ini's ChangeTime, TimeToChange (ms), Distance; [next]: the base's
+// eff_seek.cpp's seekers that the helpers 0x6EAFA0 (StraightSeekEffectClass, 0xE8 bytes), 0x6EB150
+// (SpiralSeekEffectClass, 0xF0 bytes), 0x6EB330 (SplineRandomSeekEffectClass, 0x12C bytes) and 0x6EB590
+// (LinearRandomSeekEffectClass, 0x114 bytes) make:
+#include "eff_seek.h"
+
+
+
+
 #include "eff_robj.h"
 // (eff_robj.h: RObjLookAtEffectClass, 0x6EFC70, the effect of 0x6EA5E0, and RObjEffectClass, 0x6EEEA0, the effect of 0x6EA830)
 class Unknown6F25A0EffectClass : public EffectObjectClass { public: Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE0 - 0x80]; };	// NAME 1: neutral (D10); 0x6F25A0, the effect of 0x6EAA40 (its file after eff_seek.cpp) (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
@@ -1365,7 +1365,7 @@ EffectObjectClass *Unknown_6EAFA0(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6F07F0EffectClass *effect = new Unknown6F07F0EffectClass(client, id, start_time, duration, cycle_time, robj);
+	StraightSeekEffectClass *effect = new StraightSeekEffectClass(client, id, start_time, duration, cycle_time, robj);
 	effect->Set_Flag(0x4000, next_link_to_robj);
 	effect->Set_Flag(0x8000, reset_mappers);
 	robj->Release_Ref();
@@ -1392,7 +1392,7 @@ EffectObjectClass *Unknown_6EB150(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6F0B10EffectClass *effect = new Unknown6F0B10EffectClass(client, id, start_time, duration, cycle_time, robj, radius, spin_rate);
+	SpiralSeekEffectClass *effect = new SpiralSeekEffectClass(client, id, start_time, duration, cycle_time, robj, radius, spin_rate);
 	effect->Set_Flag(0x4000, next_link_to_robj);
 	effect->Set_Flag(0x8000, reset_mappers);
 	robj->Release_Ref();
@@ -1423,7 +1423,7 @@ EffectObjectClass *Unknown_6EB330(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6F0FD0EffectClass *effect = new Unknown6F0FD0EffectClass(client, id, start_time, duration, cycle_time, robj, change_time, distance);
+	SplineRandomSeekEffectClass *effect = new SplineRandomSeekEffectClass(client, id, start_time, duration, cycle_time, robj, change_time, distance);
 	effect->Set_Flag(0x10000, one_change);
 	effect->Set_Flag(0x4000, next_link_to_robj);
 	effect->Set_Flag(0x8000, reset_mappers);
@@ -1458,7 +1458,7 @@ EffectObjectClass *Unknown_6EB590(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6F1760EffectClass *effect = new Unknown6F1760EffectClass(client, id, start_time, duration, cycle_time, robj, change_time, time_to_change, distance);
+	LinearRandomSeekEffectClass *effect = new LinearRandomSeekEffectClass(client, id, start_time, duration, cycle_time, robj, change_time, time_to_change, distance);
 	effect->Set_Flag(0x10000, one_change);
 	effect->Set_Flag(0x4000, next_link_to_robj);
 	effect->Set_Flag(0x8000, reset_mappers);
