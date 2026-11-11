@@ -736,14 +736,14 @@ void UIInvClass::Unknown_5A06C0(SlotDataGadgetClass *gadget)
 
 
 
-// NOT EXACT: 0.68, 1174 bytes against the client's 1154 (shape): the client's one 'return true' block and the epilogue sit after the single item's 'Transferring' line, where the stack's 'Selling' line joins its call; here they follow the first FAIL_IF (the result variable, early returns in the shortcut part, a ?: FAIL_IF and a result set in the drop part change nothing or lose)
+// NOT EXACT: 0.74, the client's 1154 bytes and blocks (register-only): the client loads the ship's ID, the views, the stack's inventory and the drag's mode through other scratch registers (eax / edx / ecx turned round) and sets the result through cl where this has dl
 // 0x5A0740
 bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 {
 	SClient *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return(true);
 	int from_slot = SlotDrag->Get_Slot();
-
+	bool handled = true;								// (the result from the transfer on: its first return is where the client has its one 'return true' block)  // NAME 2: what it holds
 
 
 
@@ -754,9 +754,10 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 		if (gadget->As_SlotDataShortcutGadget()) {
 			if (sclient->Unknown_750B60()) {
 				sclient->Unknown_74D990(0x11, "Cannot perform action while incapacitated.", 0);
-			} else {
-				sclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));
+				return(true);
 			}
+			sclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));
+			return(true);
 		} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {
 			if (SlotDrag->Unknown20) {
 				if (sclient->CurrentView == sclient->Unknown135C) {
@@ -783,9 +784,9 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 						if (item) {
 							if (num == 1) {
 								sclient->Print(0, "Transferring %s to %s.", item->Name.c_str(), to_name);
-							} else {
-								sclient->Print(0, "Transferring stack of %d %s to %s.", num, item->Name.c_str(), to_name);
+								return(handled);
 							}
+							sclient->Print(0, "Transferring stack of %d %s to %s.", num, item->Name.c_str(), to_name);
 						}
 					}
 				}
@@ -838,18 +839,17 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 		} else if (!gadget->As_SlotDataShortcutGadget() && target) {
 			SlotDataGadgetClass *inv_gadget = (SlotDataGadgetClass *)target->Unknown_10();
 			if (inv_gadget && inv_gadget->Unknown_670950() && ((SlotDataClass *)inv_gadget->Unknown_670950())->Unknown_10()) {
-				if (!((UIInvSlotGadgetStruct *)inv_gadget)->Unknown68) return(true);
+				if (!((UIInvSlotGadgetStruct *)inv_gadget)->Unknown68) return(handled);
 				Unknown_5A0D00(from_slot, inv_gadget);
 			} else {
-				if (!target->Unknown_1C() && !target->Unknown_18()) return(true);
+				if (!target->Unknown_1C() && !target->Unknown_18()) return(handled);
 				Unknown_5A0EB0(from_slot, SlotDrag->Unknown1C);
 			}
 			return(!Is_Busy());
 		}
 	}
-	return(true);
+	return(handled);
 }
-
 
 
 
