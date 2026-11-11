@@ -7,10 +7,7 @@
   "0x440560",
   "0x46BE90",
   "0x474080",
-  "0x497300",
-  "0x4DF8B0",
-  "0x4DF930",
-  "0x6D46D0"
+  "0x497300"
  ],
  "copy": "reconstructed",
  "description": "FontManagerClass 0x6D16E0-0x6D2A70 and the font's 0x6D1010-0x6D1600, with the tables' instances (builder H14; G_ASSERT lines 524 / 533, D25); 0x6D1220 (line 360) exact (H16); 0x6D2700 (line 550) written, NOT EXACT; ManagedFontClass's constructors 0x6CE990 (with FontStringStruct's copy constructor 0x6CECC0) / 0x6CF520 and destructor 0x6CF730, 0x6D01C0-0x6D0550 and style loops 0x6D0710-0x6D0950, 0x6D0A20, and 0x6D0A70 NOT EXACT with the sounds' operator= 0x6D0F70 it emits (FU1); 0x6CF930 through FontSplitStringClass (LS1)",
@@ -61,6 +58,8 @@
   "0x6D1920",
   "0x6D1AE0",
   "0x6D1C10",
+  "0x6D1D80",
+  "0x6D1FB0",
   "0x6D1FD0",
   "0x6D2220",
   "0x6D2310",
@@ -106,7 +105,10 @@
   "0x6D4490",
   "0x6D4640",
   "0x6D4670",
-  "0x6D46A0"
+  "0x6D46A0",
+  "0x6D46D0",
+  "0x6D4700",
+  "0x6D4780"
  ],
  "merged": [],
  "name": "client/fontmanager.cpp",
@@ -139,8 +141,14 @@
  ],
  "short_known": [
   "0x42D120",
+  "0x6D1FB0",
   "0x6D3380",
   "0x6D3710",
   "0x6D40C0"
+ ],
+ "tiebreak": [
+  "0x6D46D0",
+  "0x6D4700",
+  "0x6D4780"
  ]
 }

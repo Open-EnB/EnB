@@ -79,28 +79,3 @@ DurationClass Unknown688830Class::Unknown_68A720(int slot)
 	STUB_CALLED("POC Unknown688830Class::Unknown_68A720 (0x68A720): no time");
 	return(DurationClass(0));
 }
-
-// ---------------------------------------------------------------- ui_skill_info.cpp's window (0x62B930; ui_slot_info.cpp's 0x630280 makes it): 0xCC bytes
-#include "..\..\app\client\ui_slot_info.h"
-class SkillDataClass;
-class UISkillInfoClass : public UISlotInfoClass
-{
-public:
-	UISkillInfoClass(LineDisplayClientClass *client, SkillDataClass *skill);
-	virtual UISlotInfoItemClass *Unknown_90();
-	virtual bool Unknown_94();
-	char UnknownB0[0xCC - 0xB0];
-};
-UISkillInfoClass::UISkillInfoClass(LineDisplayClientClass *client, SkillDataClass *skill) : UISlotInfoClass(client, "SKILL_INFO_MAIN")
-{
-	STUB_CALLED("POC UISkillInfoClass (the skill information window): an empty window");
-	memset(UnknownB0, 0, sizeof(UnknownB0));
-}
-UISlotInfoItemClass *UISkillInfoClass::Unknown_90()
-{
-	return(NULL);
-}
-bool UISkillInfoClass::Unknown_94()
-{
-	return(false);
-}
