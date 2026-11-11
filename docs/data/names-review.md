@@ -22694,8 +22694,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_764AB0` | `stubs/app_stubs.cpp:200` | untagged neutral name (D10) |
 | 1 | `Unknown_764CF0` | `stubs/app_stubs.cpp:205` | untagged neutral name (D10) |
 | 1 | `Unknown_7EA190` | `stubs/app_stubs.cpp:213` | untagged neutral name (D10) |
-| 1 | `Unknown_49E210` | `stubs/app_stubs.cpp:218` | untagged neutral name (D10) |
-| 1 | `Unknown_7EB4D0` | `stubs/app_stubs.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown_49E210` | `stubs/app_stubs.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown_7EB4D0` | `stubs/app_stubs.cpp:242` | untagged neutral name (D10) |
 | 1 | `UnknownB0122CEnum` | `stubs/aux_roots_stubs.cpp:68` | untagged neutral name (D10) |
 | 1 | `UnknownB0133CEnum` | `stubs/aux_roots_stubs.cpp:86` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `stubs/aux_roots_stubs.cpp:104` | untagged neutral name (D10) |
