@@ -138,13 +138,13 @@ void UIAnalyzeClass::Unknown_54()
 	GadgetClass::Set_Tooltip(Unknown0E0[6], "UI_ANALYZE", "ICON_INV");
 	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAnalyzeKeyEventStruct(0x1B), (void *)1);
 	SClient *sclient = Client->As_Space_Client();
-	Unknown0D4 = Create_Get(new UIAnalyzeInvClass(sclient, InterfaceMesh->Peek_Object(), 6, "TSM02A.E%02d", 12));
+	Unknown0D4 = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, "TSM02A.E%02d", 12));
 	Unknown0D4->Unknown_54();
 	Unknown0D4->Unknown_7C(View, 0);
-	Unknown0D8 = Create_Get(new UIAnalyzeInvClass(sclient, InterfaceMesh->Peek_Object(), 1, "TSM02A.RESULT", 13));
+	Unknown0D8 = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 1, "TSM02A.RESULT", 13));
 	Unknown0D8->Unknown_54();
 	Unknown0D8->Unknown_7C(View, 0);
-	Unknown0DC = Create_Get(new UIAnalyzeInvClass(sclient, InterfaceMesh->Peek_Object(), 1, "TSM02A.OVER", 14));
+	Unknown0DC = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 1, "TSM02A.OVER", 14));
 	Unknown0DC->Unknown_54();
 	Unknown0DC->Unknown_7C(View, 0);
 	char name[64];

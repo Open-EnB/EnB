@@ -451,7 +451,8 @@ class UIBuffClass;
 // ui_ptrade.cpp's player trade interface: the main view's +0x1E4 (0x50C690 makes it, then its slot +0x7C with the view) and the starbase view's +0x1A4 (TRADE 31; 0x69B5E0)
 // (over the base 0x5BB320 with a 'TRADE00A' mesh, 'fa_trade00a.ini'; tables 0xAF64CC / 0xAF64C0 / 0xAF64B4; destructor 0x5E1D80;
 // laid out from the constructor and the set-up 0x5E1FA0, PT1 2026-11-05; interim placement in sclient.h, D137)
-class UIManuInvClass;		// ui_manu.h's: ui_inv.cpp's interface (+0xAC, +0xB0)
+template<class MODEL> class UIInvStripOfClass;
+typedef UIInvStripOfClass<RenderObjClass> UIInvRobjStripClass;	// ui_inv.h's strip of slots (+0xAC, +0xB0)
 class AvatarPipClass;		// avatar_pip.cpp's (+0xCC, +0xD0: 0x3C bytes each)
 
 // The credits entry the trade window holds at +0xB4: ui_stringentry.cpp's text entry (0xD0 bytes, constructor 0x649890, 'TRADE01A')
@@ -476,8 +477,8 @@ public:
 	void Unknown_5E39F0();								// 0x5E39F0 (the credits entry closed: request 0x18 with the amount, or 'Insufficient credits.')
 	void Unknown_5E3C90();								// 0x5E3C90 ('RECIPIENT_NAME_TRADE00' empty: the other's full name)
 
-	RefCountPtr<UIManuInvClass> Unknown0AC;				// +0xAC 'TRADE00A.C%02d' 15, the player's items (the destructor releases it twice over: NULL, then as a member)
-	RefCountPtr<UIManuInvClass> Unknown0B0;				// +0xB0 'TRADE00A.X%02d' 16, the other's items
+	RefCountPtr<UIInvRobjStripClass> Unknown0AC;				// +0xAC 'TRADE00A.C%02d' 15, the player's items (the destructor releases it twice over: NULL, then as a member)
+	RefCountPtr<UIInvRobjStripClass> Unknown0B0;				// +0xB0 'TRADE00A.X%02d' 16, the other's items
 	RefCountPtr<UIPTradeCreditsClass> Unknown0B4;		// +0xB4 the credits entry
 	int Unknown0B8;										// +0xB8 (the constructor clears it with +0xBC..+0xC8)
 	GadgetClass *Unknown0BC[4];							// +0xBC the buttons ('UI_PTRADE' 'CANCEL', 'CANCEL', 'CONFIRM', 'CREDITS')

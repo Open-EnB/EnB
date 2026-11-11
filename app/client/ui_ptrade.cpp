@@ -131,10 +131,10 @@ void UIPTradeClass::Unknown_54()
 	GadgetClass::Set_Tooltip(Unknown0BC[2], "UI_PTRADE", "CONFIRM");
 	GadgetClass::Set_Tooltip(Unknown0BC[3], "UI_PTRADE", "CREDITS");
 	SClient *sclient = Client->As_Space_Client();
-	Unknown0AC = Create_Get(new UIManuInvClass(sclient, InterfaceMesh->Peek_Object(), 6, "TRADE00A.C%02d", 15));
+	Unknown0AC = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, "TRADE00A.C%02d", 15));
 	Unknown0AC->Unknown_5417D0(this);
 	Unknown0AC->Unknown_54();
-	Unknown0B0 = Create_Get(new UIManuInvClass(sclient, InterfaceMesh->Peek_Object(), 6, "TRADE00A.X%02d", 16));
+	Unknown0B0 = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, "TRADE00A.X%02d", 16));
 	Unknown0B0->Unknown_5417D0(this);
 	Unknown0B0->Unknown_54();
 	Unknown0B4 = Create_Get(new UIPTradeCreditsClass(sclient, 0, 9));

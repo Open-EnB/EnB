@@ -126,10 +126,10 @@ void UIRefineryClass::Unknown_54()
 	Unknown0B0->Unknown_66E460(Unknown_497300(InterfaceMesh->Peek_Object()), 0, 1);
 	Unknown64.Unknown_6870E0(Unknown0B0, 15, View, 1, 0);
 	Unknown_5BB4F0(Unknown0B0);
-	Unknown0B4 = Create_Get(new UIRefineryInvClass(Client->As_Space_Client(), InterfaceMesh->Peek_Object(), 6, "TSM03A.E%02d", 12));
+	Unknown0B4 = Create_Get(new UIInvRobjStripClass(Client->As_Space_Client(), InterfaceMesh->Peek_Object(), 6, "TSM03A.E%02d", 12));
 	Unknown0B4->Unknown_54();
 	Unknown0B4->Unknown_7C(View, 0);
-	Unknown0B8 = Create_Get(new UIRefineryInvClass(Client->As_Space_Client(), InterfaceMesh->Peek_Object(), 1, "TSM03A.RESULT", 13));
+	Unknown0B8 = Create_Get(new UIInvRobjStripClass(Client->As_Space_Client(), InterfaceMesh->Peek_Object(), 1, "TSM03A.RESULT", 13));
 	Unknown0B8->Unknown_54();
 	Unknown0B8->Unknown_7C(View, 0);
 	RefCountPtr<RenderObjClass> tutorial = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("tutorial"));

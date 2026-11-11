@@ -5,6 +5,7 @@
 #define UI_JOBS_H
 
 #include "sclient.h"
+#include "ui_inv.h"		// UIInvRobjStripClass, the strips of slots
 #include "..\..\wwlib\ref_ptr.h"
 #include <string>
 #include <vector>
@@ -16,16 +17,6 @@ class FontSys;					// fontmanager.h's text objects (+0x14C)
 class JobListPacketClass;		// pkjoblist.h's packets
 class JobDescriptionPacketClass;
 class JobAcceptReplyPacketClass;
-
-// ui_inv.cpp's interface (0xE0 bytes, constructor 0x59EDC0) the window holds one of (+0xB0 'JNEWS00.C00'), as far as
-// this file calls it (as ui_analyze.h's UIAnalyzeInvClass)
-class UIJobsInvClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	UIJobsInvClass(SClient *client, RenderObjClass *model, int count, const char *format, int unknown);	// 0x59EDC0 (slot +0x54: 1 'JNEWS00.C00' 18)  // NAME 1 [client, model, count, format, unknown]: as ui_manu.h's
-
-	char Unknown84[0xE0 - 0x84];						// +0x84
-};
 
 // One job as the window keeps it (0x48 bytes; made from a JOB_LIST 147 JobStruct by 0x5A3BC0, copied by 0x5A2C50)
 struct UIJobsInfoStruct	// NAME 1: neutral (D10)
@@ -91,7 +82,7 @@ public:
 	static int Unknown_5A45A0(int category);			// 0x5A45A0 (cdecl; G_ASSERT(0), l.921): the category's button  // NAME 1 [category]: neutral
 
 	GadgetSlider *Unknown0AC;							// +0x0AC (the list's slider)
-	RefCountPtr<UIJobsInvClass> Unknown0B0;				// +0x0B0 'JNEWS00.C00'
+	RefCountPtr<UIInvRobjStripClass> Unknown0B0;				// +0x0B0 'JNEWS00.C00'
 	int Unknown0B4;										// +0x0B4 the first row shown
 	int Unknown0B8;										// +0x0B8
 	int State;											// +0x0BC (UI_CLOSED when shut)  // NAME 3: the assert's
