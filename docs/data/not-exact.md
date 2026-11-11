@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-743 entries in 228 files.
+741 entries in 227 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -53,8 +53,6 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; six forms; 'Null Item' passed as a plain literal brings out the client's three string COMDATs 0x729260..0x7292D0; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
-| `app/client/client_lego_impl.cpp:310` | `ClientLegoImplClass::Get_Lego_Transform` | marker | NOT EXACT: inline budget: the client builds one more Matrix3D result (6 ??_H against our 5), 0.88 (attempts.csv) |
-| `app/client/client_lego_impl.cpp:363` | `ClientLegoImplClass::Add` | marker | NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours; 0.75 (attempts.csv) |
 | `app/client/client_lego_root.cpp:102` | `ClientLegoRootClass::Update_Attachment` | marker | NOT EXACT: shape (similarity 0.86, every row equal but one: the client's null test of lego at the end jumps past its release to the epilogue, ours to the release; attempts.py show 0x732880) |
 | `app/client/co.cpp:483` | `ClientObjectClass::Unknown_28` | marker | NOT EXACT: register (eax / edx swapped for the vtable loads from the thrust sound on), the one-case switch 0x6F5A40 at done (movsx / dec where the client compares the byte) and 'x \|\| y' (the client ORs the bools); the find is out of line as the client's since Unknown_Find_Aux (IB1) 0x6F4610 |
 | `app/client/co.cpp:563` | `ClientObjectClass::Unknown_6F3FA0` | marker | NOT EXACT: inline budget (0x6F3ED0 is out of line through auto_inline(off) at its definition, as the client; the client still calls 0x6F45E0 out of line in one branch of the inlined 0x6F4590 and auxdata.h's find 0x7079B0; attempts.py show 0x6F3FA0) 0x6F3FA0 (slot +0x28's tilt: the turn +0x144 steered toward 0x6F3ED0's angle through +0x134, then the roll) |
