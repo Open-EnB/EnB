@@ -1330,7 +1330,7 @@ are in 3.0.
   again. A VM leased with `--agent` can later show as another holder's (release then finds nothing).
 * **Pool contention:** at the cap a lease (`pool.py lease`, `verify.py --pool`, `appfile.py --pool`) waits in a
   first-come queue (`--wait S`, 1800; `pool.py list` shows the queue; D232) instead of exiting, and leases.lock is
-  held only to decide and save. While queued, `verify.py --pool` still holds the importer lock (P-PL1-1). The queue
+  held only to decide and save. `verify.py --pool` leases before it takes the importer lock (D234). The queue
   does not wait for host memory: a lease can fail for 25 minutes with "Unable to allocate 4096 MB" while a
   memory-heavy program runs on the host: retry. With the lock busy, a scratch copy
   compiles alone on a leased VM in ~20 s (vc6.py compile with the library's flags).

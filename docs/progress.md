@@ -24,7 +24,9 @@ Newest first within each section. Dates are when the entry was written.
   15-minute hold (not proven). `--prune` now destroys only VMs already Off. Tests: `tools/test_pool_queue.py`
   (10, mocked Hyper-V); the full `unittest discover -s tools` passes 152.
 - **Docs:** workflow.md §3.5's two pool-contention traps retired; wt.py's docstring names both pad outputs.
-- **Open for the user:** `/verify-approved` on PR #190; P-PL1-1 (new); P-VM-1 by early December. D229 (app code)
+- **Later the same session:** D233 (P-VM-1 closed: rebuild the pool when its image expires) and D234
+  (P-PL1-1: verify.py leases before the importer lock; `tools/test_verify_lease_order.py`; 154 tools tests pass).
+- **Open for the user:** `/verify-approved` on PR #190. D229 (app code)
   and D230's layout-items-first order go to the next run.
 
 ### 2026-11-11 (09:22 PST, morning; night run 2026-11-10b, week plan session 1): the map of the app's unexplored code as the week's queue (574 rows), three stuck functions settled, eighteen new app files from the queue's top; +813 pairs over the run's baseline, 0 lost outright
@@ -3157,10 +3159,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D230 | 2026-11-11 | P-M1-3, the user: yes: the eleven layout items of queue-a.md §3 (the mesh interface base, the signal map, the chat panel base, the inventory strip's class, the specials' base, the string utilities, the audio family, the power gadget, the bridge interface, the dynamic window, the combo box) are done one after another before new drafts that use those classes, since each one replaces several files' private views of one class. | user |
 | D231 | 2026-11-11 | P-L1-4, the user: yes: D66 kind (viii), an instance held for another object. A template / COMDAT instance whose emitting (inexact) code goes away is not lost when the owning object's file holds it in the same landing; the landing names it as a D66 move (L1's five `map<string,string>` instances 0x6B15E0 / 0x6B1A40 / 0x6B1EC0 / 0x6B1F40 / 0x6B1FC0, now in unknown_6af220.cpp; P-M1-4's KVPairTemplateClass<float> / <bool> pairs move to unknown_445740.cpp the same way). | user |
 | D232 | 2026-11-11 | P-VM-2, the user: yes: `pool.py lease` (and `verify --pool`, `appfile.py --pool`) waits in a fair queue at the pool's cap instead of exiting with "pool cap: 7 VMs", and a lease process does not hold `leases.lock` past its own save. Tools change (Python, the maintainer's `/verify-approved`). Carried out (c092eb47, 6f4b76b5, PR #190). | user |
+| D233 | 2026-11-11 | P-VM-1, the user: closed, no scheduled rebuild. The build VMs' Windows image expires every 90 days (the current one 2027-01-20); `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` (setup-vc6.md §5, 5.5 minutes, same pairs) rebuilds the pool when needed, and the project is likely complete before the first window ends. | user |
+| D234 | 2026-11-11 | P-PL1-1, the user: yes, in PR #190: `verify.py --pool` leases its VMs before it takes the importer lock, so a lease waiting in D232's queue no longer holds the lock other verifies need to finish and free their VMs (the other `pool_lease` callers already leased first). Test `tools/test_verify_lease_order.py`. Carried out (PR #190). | user |
 
 ## 3. Open decisions
 
-* **P-PL1-1** (2026-11-11, PL1; recommend yes): `verify.py --pool` leases inside `hold_lock` (`vc6lock.pool_lease`), so while it waits in D232's queue it holds the importer lock: if every VM is held by builders whose own verify waits on that lock, nobody proceeds until `--wait` (30 min) expires. Lease before taking the importer lock (or pass a short `--wait` from pool_lease). A tools change (Python, the maintainer's `/verify-approved`).
 * **P-O6-1** (2026-11-11, O6; recommend retyping once the cause is known): retype slot +0x8C in ui_slot_info.h to return `UISkillInfoClass *` once it is known why the D188 short credit 0x532170 does not survive a return-type change. Not applied.
 * **P-L5-1** (2026-11-10, L5; recommend keeping the guard): the SignalMap / SignalList members sit behind a `__SIGNAL_MEMBERS` guard (as `__INTRFACE_MEMBERS`), because with them visible to sclient.cpp no pad value 0..63 keeps 0x758210 / 0x702240 / 0x74D990 together; keep the guard until sclient's pad is retired.
 * **P-S1-3** (2026-11-10, S1; recommend yes once aux_roots is retuned): an inline `LegoSplitStruct::Get_Name()` accessor makes Get_Lego_Transform 0x72B000 exact with no dead code and cuts Add 0x72B7F0's need to 3 units, but aux_roots then loses 0x7045F0 outright and its hold of 0x702240 (lego_identifier.h reaches it through co.h). Not applied; stash `docs/attempts/72B7F0/stash_getname_s1.txt`.
@@ -3172,11 +3175,6 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 * **P-FN3-1** (2026-11-09, FN3; D221 revisited, recommend still no): no FontSys sub-object for +0x2B4..+0x2CC. 0x6CE4E0 and 0x6CD6F0 became exact without one. A byte scan of 0x6C0000-0x6E0000 (`.work/fn3/scan2b4.py`) finds the range's address taken only in the constructor 0x6D5170 (`lea edi, [esi+0x2B4]`, edi..edi+0xC pushed to WW3D::Get_Device_Resolution, then +0x2C4 / +0x2C8 / Scale stored); no call passes it as `this`, nothing copies it as a block, and every other function (Render, Change_Text, 0x6CE4E0, Update_Text, 0x6CE7D0) uses the fields one by one. Revisit with a sub-object whose inline init is that block when 0x6D5170 is worked (fontmanager.h, with the sclient pad check 0x74D990 / 0x758210 / 0x702240).
 * **P-CW2-1** (2026-11-08, CW2; recommend not yet): the form stashed in docs/attempts/5719A0 (`Vector3 &f(Vector3 &color, entry)`) makes 0x5719A0 and 0x570FF0 exact but loses 0x571B70 (vector::size, then inlined into 0x56FD30): net +1 with one loss. Retry once 0x56FD30 is exact. (2026-11-08b: b1108 sent 0x56FD30, best variant 0.606 against 0.545, not exact.)
 * **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
-* **P-VM-1** (2026-10-29, coordinator; recommend yes): the build host's VMs need replacing by **2027-01-20**: the
-  template `Win10` and the pool's base made from it stop working then, and every clone inherits the date. Rebuild the
-  pool with `tools/vc6/setup/New-BuildVM.ps1 -ReplaceBase` ([setup-vc6.md](setup-vc6.md) §5; tested 2026-10-29: 5.5
-  minutes, same pairs) on a quiet tree before then, and retire `Win10` as the template (`.work/vc6_config.json` then
-  names `enb-vc6-template`)? Alternative: a Windows image without an end date (`-WindowsVhdx`).
 ## 4. Next steps
 
 Outstanding work only (rewritten 2026-10-31: what is done went to the log entries, which hold each item's
