@@ -329,7 +329,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			std::string skill;
 			int unknown = Item->Unknown48;
 			template_info->Get_String(11, skill);
-			RefCountPtr<ClientItemPropertySpecialClass> property = Unknown_52E760(SpaceClient, skill, unknown, false);
+			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialSkillRequirementClass::Create(SpaceClient, skill, unknown, ClientItemPropertySpecialSkillRequirementClass::REQUIRED_TO_EQUIP);
 			router.Route(property);
 			break;
 		}
@@ -603,7 +603,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			std::string skill;
 			template_info->Get_String(27, skill);
 			template_info->Get_Int(28, &unknown);
-			RefCountPtr<ClientItemPropertySpecialClass> property = Unknown_52E760(SpaceClient, skill, unknown, true);
+			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialSkillRequirementClass::Create(SpaceClient, skill, unknown, ClientItemPropertySpecialSkillRequirementClass::REQUIRED_TO_ACTIVATE);
 			router.Route(property);
 			break;
 		}
