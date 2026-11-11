@@ -11,7 +11,7 @@ class SClient;
 class ClientObjectClass;
 class RenderObjClass;
 class GadgetClass;
-class UICpitWarpGadgetClass;
+class ActIconClass;	// acticon.h's
 class Unknown_673EE0Class;
 class Unknown_671300Class;
 class IncapacitanceDetailsPacket;
@@ -144,7 +144,7 @@ public:
 
 	GadgetClass *Unknown0AC;							// +0xAC (0x57DD20 news it, 0x5C bytes, 0x6B56A0; the destructor deletes it through 0x65EED0)
 	RefCountPtr<RenderObjClass> Unknown0B0;				// +0xB0 'tsi01_gutter' (the constructor)
-	UICpitWarpGadgetClass *Unknown0B4;							// +0xB4 'WARP' (0x57DD20)
+	ActIconClass *Unknown0B4;							// +0xB4 'WARP' (0x57DD20)
 	Unknown_673EE0Class *Unknown0B8;							// +0xB8 'THROTTLE'
 	Unknown_673EE0Class *Unknown0BC;							// +0xBC 'REVERSE'
 	Unknown_671300Class *Unknown0C0;							// +0xC0 'LEFT'

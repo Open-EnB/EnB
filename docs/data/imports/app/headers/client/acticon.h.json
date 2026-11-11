@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "Name assumed from acticon.cpp's __FILE__; the cockpit's warp button (table 0xAFBB58, constructor 0x676000)"
+}

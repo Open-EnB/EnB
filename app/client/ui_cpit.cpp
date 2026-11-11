@@ -147,10 +147,10 @@ void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient)
 	}
 }
 
-// The cockpit's five buttons: gd_text_editor.cpp's object (the turn buttons), gd_uiback.cpp's (the thrust buttons), and the warp button
+// The cockpit's five buttons: gd_text_editor.cpp's object (the turn buttons), gd_uiback.cpp's (the thrust buttons), and acticon.cpp's warp button
 #include "unknown_671300.h"
 #include "gd_uiback.h"
-class UICpitWarpGadgetClass : public Unknown_671300Class { public: UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer); void Unknown_676190(int a, int b); char Unknown80[0x94 - 0x80]; };	// 0x676000 (0x94 bytes; 'WARP', 'WARP_BAR'; 0x676190: slot +0x60: 5, 0 when incapacitated, else 0, 0)  // NAME 1: neutral (D10); NAME 1 [object, bar, layer, a, b]: neutral
+#include "acticon.h"	// ActIconClass: the warp button (0x676000; 'WARP', 'WARP_BAR'; Set_State 0x676190: 5, 0 when incapacitated, else 0, 0)
 
 
 
@@ -318,7 +318,7 @@ void UICpitClass::Unknown_54()
 
 	RenderObjClass *object = InterfaceMesh->Unknown_5B8B40("WARP");
 	RenderObjClass *uv = InterfaceMesh->Unknown_5B8B40("WARP_BAR");
-	Unknown0B4 = new UICpitWarpGadgetClass(object, uv, Layer);
+	Unknown0B4 = new ActIconClass(object, uv, Layer);
 	Unknown64.Unknown_6870E0(Unknown0B4, 1, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP");
 	Unknown_5BB4F0(Unknown0B4);
@@ -1080,7 +1080,7 @@ void UICpitClass::Unknown_60()
 			((ClientClass *)Client)->Send_Packet(&TiltPacketClass(Unknown_Avatar_ID(Client), 0));
 			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_745C70(0);
 			avatar->Unknown_6FC880();
-			Unknown0B4->Unknown_676190(5, 0);
+			Unknown0B4->Set_State(5, 0);
 			Unknown0B4->Unknown_A4(2.0f);
 			Unknown13D = true;
 			Unknown140 = false;
@@ -1092,7 +1092,7 @@ void UICpitClass::Unknown_60()
 			Unknown_5845A0();
 		}
 	} else if (Unknown13D) {
-		Unknown0B4->Unknown_676190(0, 0);
+		Unknown0B4->Set_State(0, 0);
 		Unknown0B4->Unknown_A4(0);
 		Unknown13D = false;
 		Unknown140 = false;
@@ -1391,7 +1391,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						Unknown_5845A0();
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_WAIT");
 						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
-						if (time) Unknown0B4->Unknown_676190(4, time->Value.As_Int());
+						if (time) Unknown0B4->Set_State(4, time->Value.As_Int());
 						Unknown0B4->Unknown_A4(0);
 						SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
 						if (client && client->BridgeInterface) client->BridgeInterface->Unknown_53B740();
@@ -1402,7 +1402,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 					{
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_DONE");
 						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
-						if (time) Unknown0B4->Unknown_676190(1, time->Value.As_Int());
+						if (time) Unknown0B4->Set_State(1, time->Value.As_Int());
 						Unknown0B4->Unknown_A4(0);
 						break;
 					}
@@ -1410,7 +1410,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 					{
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_DONE");
 						Unknown174->Set_Hidden(false);
-						Unknown0B4->Unknown_676190(2, 0);
+						Unknown0B4->Set_State(2, 0);
 						Unknown0B4->Unknown_A4(1.0f);
 						((MainViewClass *)View->As_Main_View())->CameraEffects->Unknown_6E32E0(2, 1.0f, 0);
 						SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();

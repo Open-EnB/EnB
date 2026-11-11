@@ -110,12 +110,6 @@ UICpitUnknownE0Class::UICpitUnknownE0Class(SClient *sclient) : InterfaceClass((L
 	STUB_CALLED("POC UICpitUnknownE0Class: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-class UICpitWarpGadgetClass : public Unknown_671300Class { public: UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer); void Unknown_676190(int a, int b); char Unknown80[0x94 - 0x80]; };
-UICpitWarpGadgetClass::UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer) : Unknown_671300Class(object, (int)bar, layer, 0, 0, 3)
-{
-	STUB_CALLED("POC UICpitWarpGadgetClass: a plain button");
-	memset(Unknown80, 0, sizeof(Unknown80));
-}
 class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); virtual bool Unknown_30(float x, float y); char Unknown30[0x49 - 0x30]; bool Unknown49; char Unknown4A[0x5C - 0x4A]; };
 UICpitGadget6B56AClass::UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view) : GadgetClass(0xFF)
 {
