@@ -54,6 +54,7 @@
 #include <list>
 #include "clienttest.h"
 #include "..\..\..\app\client\eff_o.h"	// the real effect object (eff_o.cpp is in the link), before client.h declares its short form
+#include "..\..\..\app\client\eff_robj.h"	// RObjEffectClass (eff_robj.cpp is in the link): the warp stand-in derives from it
 #include "..\..\..\app\kernel\kernel.h"
 #include "..\..\..\app\input\input.h"
 #include "..\..\..\app\client\sclient.h"
@@ -515,22 +516,8 @@ static EffectObjectClass *New_Effect(unsigned id)
 // unary end's 0x6E7540, 0x6F25A0 calls 0x6EEEA0, 0x6E5040 the binary end's 0x6E7D70), so the packets' slot +0x10 /
 // +0x14 calls and the per-frame update run eff_o.cpp's real slots; each keeps a reference to its render object
 // (the helper releases its own after the constructor) at the end of the client's size.
-class Unknown6EEEA0EffectClass : public UnknownB00060EffectClass	// RObjEffect (0xDC bytes: the unary end's 0xD8, then its model)
-{
-public:
-	Unknown6EEEA0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj);
-	virtual ~Unknown6EEEA0EffectClass() { REF_PTR_RELEASE(Model); }
-	virtual void Unknown_24(int next);
-	RenderObjClass *Model;
-};
-Unknown6EEEA0EffectClass::Unknown6EEEA0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj) :
-	UnknownB00060EffectClass(client, id, start_time, duration, cycle_time), Model(robj)
-{
-	if (Model) Model->Add_Ref();
-	Trace("stub Unknown6EEEA0EffectClass %u start %u duration %d cycle %u model '%s'", id, start_time, (int)duration, cycle_time, robj ? robj->Get_Name() : "(null)");
-}
-void Unknown6EEEA0EffectClass::Unknown_24(int next) { Trace("stub Unknown6EEEA0EffectClass::Unknown_24 %u %d", ID, next); }
-class Unknown6F25A0EffectClass : public Unknown6EEEA0EffectClass	// WarpEffect (0xE0 bytes)
+// (RObjEffect, 0x6EEEA0, is eff_robj.cpp's real RObjEffectClass since L2: app.lib defines it, the warp stands on it)
+class Unknown6F25A0EffectClass : public RObjEffectClass	// WarpEffect (0xE0 bytes)
 {
 public:
 	Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj);
@@ -538,7 +525,7 @@ public:
 	char Unknown_DC[4];
 };
 Unknown6F25A0EffectClass::Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj) :
-	Unknown6EEEA0EffectClass(client, id, start_time, duration, cycle_time, robj)
+	RObjEffectClass(client, id, start_time, duration, cycle_time, robj)
 {
 	Trace("stub Unknown6F25A0EffectClass %u", id);
 }

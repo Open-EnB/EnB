@@ -1710,7 +1710,7 @@ msg 762 OBJECT_EFFECT (9) size 23: cpacket.cpp's handler
 asset manager +0x78 'eff_1160': not loaded
 asset manager Load_3D_Assets 'eff_1160.w3d'
 asset manager +0x78 'eff_1160' scale 1 hsv (60 0 0) -> model 1001
-stub Unknown6EEEA0EffectClass 48901062 start 1967671 duration 550 cycle 550 model 'eff_1160'
+model 1001 Set_Transform (0, 0, 0)
 stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
@@ -1730,7 +1730,7 @@ msg 765 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
 asset manager +0x78 'eff_1075': not loaded
 asset manager Load_3D_Assets 'eff_1075.w3d'
 asset manager +0x78 'eff_1075' scale 1 hsv (0 0 0) -> model 1002
-stub Unknown6EEEA0EffectClass 48901075 start 1972671 duration 1419 cycle 0 model 'eff_1075'
+model 1002 Set_Transform (0, 0, 0)
 stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
@@ -1739,7 +1739,7 @@ msg 766 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
 asset manager +0x78 'eff_1770': not loaded
 asset manager Load_3D_Assets 'eff_1770.w3d'
 asset manager +0x78 'eff_1770' scale 1 hsv (0 0 0) -> model 1003
-stub Unknown6EEEA0EffectClass 48901076 start 1972671 duration 2000 cycle 2000 model 'eff_1770'
+model 1003 Set_Transform (0, 0, 0)
 stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
@@ -1748,7 +1748,7 @@ msg 767 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
 asset manager +0x78 'eff_GE_EN_buff01': not loaded
 asset manager Load_3D_Assets 'eff_GE_EN_buff01.w3d'
 asset manager +0x78 'eff_GE_EN_buff01' scale 1 hsv (0 0 0) -> model 1004
-stub Unknown6EEEA0EffectClass 48901077 start 1972671 duration 3000 cycle 1000 model 'eff_GE_EN_buff01'
+model 1004 Set_Transform (0, 0, 0)
 stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
@@ -1759,7 +1759,7 @@ msg 770 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
 asset manager +0x78 'eff_1870': not loaded
 asset manager Load_3D_Assets 'eff_1870.w3d'
 asset manager +0x78 'eff_1870' scale 1 hsv (0 0 0) -> model 1005
-stub Unknown6EEEA0EffectClass 48901060 start 1965671 duration -1 cycle 0 model 'eff_1870'
+model 1005 Set_Transform (0, 0, 0)
 stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
@@ -1798,7 +1798,7 @@ msg 793 OBJECT_EFFECT (9) size 19: cpacket.cpp's handler
 asset manager +0x78 'eff_wrp01': not loaded
 asset manager Load_3D_Assets 'eff_wrp01.w3d'
 asset manager +0x78 'eff_wrp01' scale 1 hsv (0 0 0) -> model 1006
-stub Unknown6EEEA0EffectClass 48901090 start 1977404 duration -1 cycle 0 model 'eff_wrp01'
+model 1006 Set_Transform (0, 0, 0)
 stub Unknown6F25A0EffectClass 48901090
 stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
