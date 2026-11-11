@@ -26,12 +26,12 @@ Classes, in triage order (an earlier one masks the later ones; fix it first):
   order-only       the same instructions, registers included, in a different order
   inline-budget    a callee called at one site and inlined at another: call counts differ, a known
                    callee called on one side only, or the `??_H`/`??_I` vector-constructor
-                   temporaries differ (workflow.md §3.1)
+                   temporaries differ (workflow.md §3.1.2)
   shape            everything else
   identical        nothing differs once stack offsets are masked (only slot numbers: re-run objmatch)
 
 register-only and order-only are exclusive (order-only needs the registers equal), so their order in
-the list doesn't matter. Read docs/workflow.md §3.1's table for the lever per class.
+the list doesn't matter. Read docs/workflow.md §3.1.2's table for the lever per class.
 """
 import argparse
 import collections
