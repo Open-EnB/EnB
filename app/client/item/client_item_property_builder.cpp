@@ -187,7 +187,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			int profession = 0;
 			template_info->Get_Int(3, &profession);
 			if (profession != 0) {
-				RefCountPtr<ClientItemPropertySpecialClass> property = Unknown_52CF90(SpaceClient, profession);
+				RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialProfessionRequirementClass::Create(SpaceClient, profession);
 				router.Route(property);
 			}
 			break;
