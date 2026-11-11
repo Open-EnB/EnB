@@ -54,7 +54,7 @@ for _sub in ('', 'gameedit'):
         APP += sorted(os.path.join('app', 'packets', _sub, f) for f in os.listdir(_d)
                       if f.startswith('pk') and f.endswith('.cpp') and f != 'pk.cpp')
 # udpreplay's stand-ins the packet files need (the same files, copied into the stage)
-UDPREPLAY_STUBS = ['avatar_desc_stubs.cpp', 'pkitemba_stubs.cpp',
+UDPREPLAY_STUBS = ['avatar_desc_stubs.cpp',
                    'wtime_replay.cpp',     # wlib's Xtime (cordcon.cpp, cordmgr.cpp, unknown_cordmsg.cpp)
                    'wdebug_replay.cpp',    # DebugLibSemaphore and MsgManager::infoStream (INFMSG in cordcon.cpp)
                    'shipcust_stubs.cpp']   # shipcust_desc.obj's externals (pkrecustomize.cpp, pkcreatecharacter.cpp)
