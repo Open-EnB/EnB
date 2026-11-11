@@ -87,7 +87,7 @@ void ChatPanelUIBase::Unknown_58()
 
 
 
-// NOT EXACT: functional (WE1)
+
 // 0x56D510
 GadgetClass *ChatPanelUIBase::Add_Button(int id, const char *bttn_name, const char *text)
 {
@@ -99,28 +99,31 @@ GadgetClass *ChatPanelUIBase::Add_Button(int id, const char *bttn_name, const ch
 	ButtonGadgetClass *gadget = new ButtonGadgetClass(robj.Peek(), 0x55, 3);
 	Unknown64.Unknown_6870E0(gadget, id, View, true, false);
 	if (text != NULL) {
-		gadget->Unknown_98(Unknown_BE67C4->Get_Style(text, InterfaceMesh.Peek()));
+		FontSys *style = Unknown_BE67C4->Get_Style(text, InterfaceMesh.Peek());
+		gadget->Unknown_98(style);
 	}
 	return(gadget);
 }
 
 
 
+// 0x56D6F0
+UIManuCheckButtonClass *ChatPanelUIBase::Add_Check_Button(int id, const char *bttn_name, const char *text)
+{
+	FAIL_IF(!bttn_name || !*bttn_name) return(NULL);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name(bttn_name));
+	FAIL_IF(!robj) return(NULL);
+	Unknown_496AE0(robj.Peek(), false);
+	UIManuCheckButtonClass *gadget = new UIManuCheckButtonClass(robj.Peek(), 0x55);
+	Unknown64.Unknown_6870E0(gadget, id, View, true, false);
+	gadget->Unknown_65FFA0(-1);
+	if (text != NULL) {
+		FontSys *style = Unknown_BE67C4->Get_Style(text, InterfaceMesh.Peek());
+		gadget->Unknown_98(style);
+	}
+	return(gadget);
+}
 
 // 0x56D8D0
 GadgetSlider *ChatPanelUIBase::Add_Slider(int id, bool unknown)
@@ -132,26 +135,23 @@ GadgetSlider *ChatPanelUIBase::Add_Slider(int id, bool unknown)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x56D970
+UIBackGadget *ChatPanelUIBase::Add_Back_Gadget(bool movable, const Vector3 &offset)
+{
+	FAIL_IF(MovableBackGadget) return(NULL);
+	UIBackGadget *gadget;
+	if (movable) {
+		gadget = MovableBackGadget = new MovableUIBackGadget(InterfaceMesh, offset);
+		if (MovableBackGadget) {
+			GadgetClass::Get_Signal_Map().connect((GadgetClass *)MovableBackGadget, this, &ChatPanelUIBase::On_Back_Gadget_Moved);
+		}
+	} else {
+		gadget = new UIBackGadget(InterfaceMesh);
+	}
+	Unknown64.Unknown_6870E0(gadget, 0, View, true, false);
+	gadget->Unknown_65FFA0(1000);
+	return(gadget);
+}
 
 
 
