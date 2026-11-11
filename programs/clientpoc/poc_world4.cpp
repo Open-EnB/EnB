@@ -21,19 +21,6 @@
 #include "..\..\app\client\dynamic_window_class.h"
 #include "..\..\app\client\ui_starmap.h"
 
-// ---------------------------------------------------------------- ui_faction_panel.cpp's panel (0x58EB50; ui_faction.cpp's view): 200 bytes
-class Unknown58EB50Class : public Unknown5BB320Class
-{
-public:
-	Unknown58EB50Class(SClient *client);
-	char UnknownAC[200 - 0xAC];
-};
-Unknown58EB50Class::Unknown58EB50Class(SClient *client) : Unknown5BB320Class((UIMeshClass *)NULL, client)
-{
-	STUB_CALLED("POC Unknown58EB50Class (the faction panel): an empty window");
-	memset(UnknownAC, 0, sizeof(UnknownAC));
-}
-
 // ---------------------------------------------------------------- gd_gauge.cpp's gauge (0x669570; ui_faction.cpp's view): 0x6C bytes
 class Unknown669570Class : public RObjGadgetClass
 {

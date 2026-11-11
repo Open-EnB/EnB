@@ -8,7 +8,7 @@
 class GadgetSlider;			// gd_slider.h's slider (+0xBC)
 class TextureClass;
 class FontSys;
-class Unknown58EB50Class;	// ui_faction_panel.cpp's panel (+0xAC; 200 bytes)
+class UIFactionPanelClass;	// ui_faction_panel.cpp's panel (+0xAC; 200 bytes)
 class Unknown58E210Class;	// the faction buttons (0x7C bytes; 0x58E210 makes them)
 // The faction tab (0xE4 bytes, tables 0xAF1774 / 0xAF1768 / 0xAF175C; 0x5738B0 makes it, the third of the character info
 // window's tabs): a 'tsi30a' mesh, the strings of 'fa_tsi30a.ini', six faction buttons, a slider (gadget 8) and a panel
@@ -28,7 +28,7 @@ public:
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x58DC20's FAIL_IF '!Get_Client()', as UICinfoClass's)  // NAME 3: the FAIL_IF's
 	void Unknown_Select(int index);						// (inline, defined in ui_faction.cpp: 0x58DB30's two forms)  // NAME 1: neutral (D10)  // NAME 1 [index]: neutral
 
-	RefCountPtr<Unknown58EB50Class> UnknownAC;			// +0xAC (the panel, 0x58D400 makes it)
+	RefCountPtr<UIFactionPanelClass> UnknownAC;			// +0xAC (the panel, 0x58D400 makes it)
 	RefCountPtr<TextureClass> StandardBttnTexture;		// +0xB0 (0x58D400: 0x66C4A0's)  // NAME 3: the G_ASSERT's (l.139)
 	RefCountPtr<TextureClass> SelectedBttnTexture;		// +0xB4 ('I_blank_SEL.tga')  // NAME 3: the G_ASSERT's (l.143)
 	RefCountPtr<FontSys> UnknownB8;						// +0xB8 ('AFFILIATED_TSI30A')
