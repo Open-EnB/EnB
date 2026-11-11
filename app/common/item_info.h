@@ -59,7 +59,7 @@ public:
 	void Reset_Effects();																				// 0x83F9E0  // NAME 2: what it does
 	void Merge(const ItemBaseInfoClass &that);															// 0x83FA10 (sets that's non-empty fields, copies its effects)  // NAME 2: what it does
 	bool Has_Field(int iteminfo);																		// 0x83FD60  // NAME 2: what it returns
-	unsigned char Get_Enum_Mapping(int iteminfo);														// 0x83FDE0 (the field's index, 0xFF: none)  // NAME 2: what it returns
+	int Get_Enum_Mapping(int iteminfo);																	// 0x83FDE0 (the field's index, 0xFF: none)  // NAME 2: what it returns
 	unsigned int Get_Field_Count();																		// 0x83FE00  // NAME 2: what it returns
 	int Get_Size();																						// 0x83FE30 (its bytes in a message)  // NAME 2: what it returns
 	void Write(RawPacketClass *raw);																	// 0x83FEF0  // NAME 2: what it does
@@ -77,7 +77,7 @@ public:
 	void Set_Equip_Effects(const ItemEffectDescriptionClass &effects);									// 0x840DB0  // NAME 2: what it does
 	ItemFieldStruct *Add_Field(int iteminfo);															// 0x841000 (the field, added empty when missing)  // NAME 2: what it does
 	ItemFieldStruct *Find_Field(int iteminfo);															// 0x8410D0 (NULL: none)  // NAME 2: what it does
-	static bool Field_To_String(const ItemFieldStruct *field, std::string &val);						// 0x841100  // NAME 2: what it does
+	bool Field_To_String(const ItemFieldStruct *field, std::string &val);								// 0x841100 (does not use the info: its callers leave ecx as it is)  // NAME 2: what it does
 	std::string Get_Delta();																			// 0x841410 ('id:value' per field, the text Apply_Delta reads)  // NAME 2: what it returns
 	void Apply_Delta(const std::string &delta);															// 0x8417B0 (applies an encoded delta)  // NAME 2: what it does; NAME 1 [delta]
 
