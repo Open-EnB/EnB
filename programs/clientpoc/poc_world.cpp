@@ -132,14 +132,6 @@ UISymbolChatClass::UISymbolChatClass(SClient *sclient) : InterfaceClass((LineDis
 	STUB_CALLED("POC UISymbolChatClass: an empty window");
 }
 
-// ---------------------------------------------------------------- the trade window's parts (0x59EDC0)
-#define POC_WINDOW_CTOR
-#include "..\..\app\client\ui_manu.h"
-UIInvStripOfClass<RenderObjClass>::UIInvStripOfClass(SClient *client, RenderObjClass *model, int count, const char *format, int kind) : UIInvStripClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC UIInvStripOfClass: an empty window");
-}
-
 // ---------------------------------------------------------------- 0x79B9E0: the camera modules' signal map, a function-local static (camera_manager.cpp's neighbourhood)
 #include "..\..\app\client\unknown_signalbase.h"
 class SClientNotifierClass;
@@ -153,6 +145,7 @@ void SClientNotifierClass::Add(int id, SignalBaseClass::CallbackClass *callback)
 void SClientNotifierClass::Remove(int id, SignalBaseClass::CallbackClass *callback) { ((SignalMap *)this)->disconnect((void *)id, *callback); }	// 0x4F98D0
 
 // ---------------------------------------------------------------- the chat panel's parts (ui_chat_panel.cpp's slot +0x54): empty windows
+#define POC_WINDOW_CTOR
 #include "..\..\app\client\ui_chat_panel.h"
 #include "..\..\app\client\ui_combobox.h"
 class UIChatReplyListClass : public InterfaceClass { public: UIChatReplyListClass(SClient *client); char Unknown84[0xA4 - 0x84]; };
