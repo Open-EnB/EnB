@@ -70,9 +70,9 @@ public:
 };
 
 class UIPowerClass;	// ui_power.h's power gauges (+0xD0, constructor 0x5DBFC0)
-
-
-
+#ifdef EFF_O_H		// (sclient.cpp's path: its padded constructor 0x702240 needs the class here; skill_data.cpp's 0x6A4F40 needs it absent; interim, D137)
+#include "ui_power.h"
+#endif
 
 
 
