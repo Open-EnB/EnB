@@ -198,14 +198,22 @@ void __cdecl FontSys::Unknown_6CE420(int unknown, const char *format, ...)
 
 // (chatgadg.cpp's text entry ChatGadgetClass 0x65BFD0 is rebuilt in app.lib)
 #include "..\..\app\client\textgadg.h"
-UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c) : InterfaceClass(owner->Client)
+// The chat panel's combos while 0x5689D0 is a stand-in: an empty interface of the combo box's size, its state zero (the
+// drop-down up: the real Close_Drop_Down 0x57B440 reads +0xC8), with InterfaceClass's slots. Not a UIComboBoxClass: the
+// real constructor 0x5786C0 and destructor 0x578D50 (ui_combobox.cpp) need the layer, the model and the gadgets.
+class PocEmptyComboClass : public InterfaceClass
 {
-	STUB_CALLED("POC UIComboBoxClass: an empty window");
-	memset((char *)this + sizeof(InterfaceClass), 0, sizeof(UIComboBoxClass) - sizeof(InterfaceClass));	// the real 0x57B440 (slot +0x7C) reads the drop-down state +0xC8
-}
+public:
+	PocEmptyComboClass(InterfaceClass *owner) : InterfaceClass(owner->Client)
+	{
+		STUB_CALLED("POC UIComboBoxClass: an empty window");
+		memset(Zero, 0, sizeof(Zero));
+	}
+	char Zero[sizeof(UIComboBoxClass) - sizeof(InterfaceClass)];
+};
 void ChatPanelInterface::Unknown_5689D0(int index)
 {
-	Combo[index] = Create_NEW(new UIComboBoxClass(this, NULL, NULL, NULL, 0, 0, 0, 0, 0));
+	Combo[index] = Create_NEW((UIComboBoxClass *)new PocEmptyComboClass(this));
 }
 class UnknownEventDispatcherClass;
 UnknownEventDispatcherClass *Unknown_540A20()	// 0x540A20 (intrface.cpp's function-local static SignalMap 0xBE5AF0): a real map, ui_chat_panel.cpp connects to it
