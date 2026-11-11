@@ -10,206 +10,149 @@
 #include "..\..\wwlib\ref_ptr.h"
 
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
+#include "unknown_675120.h"	// the gadgets (before ui_combobox.h: its text gadget is declared only with them)
+#include "gd_slider.h"
+#include "ui_combobox.h"
 
-
-
-
-
-
-// gadget.cpp's gadget, as far as this file calls it (the list's rows, the text field)
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50();
-	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual bool Unknown_60();							// +0x60 (the slider: 0x57A330 asks it before the top row follows the selection)
-	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
-	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
-	virtual void Unknown_84(); virtual void Unknown_88();
-	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
-	virtual void Unknown_90(); virtual void Unknown_94(); virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0();
-	virtual void Unknown_A4(float value, int arg);		// +0xA4 (the slider's position: 0x57A330 passes the top row)  // NAME 1 [value, arg]: neutral
-
-	char Unknown04[0x5C - 0x04];						// +0x04
-	unsigned char Unknown5C;							// +0x5C (bit 4: the row is off)
-	char Unknown5D[0x61 - 0x5D];						// +0x5D
-	bool Unknown61;										// +0x61 (a row: the selected one; the row's constructor 0x578210 clears it)
-	char Unknown62[0x68 - 0x62];						// +0x62
-	FontSys *Unknown68;							// +0x68 (the text)
-	char Unknown6C[0x78 - 0x6C];						// +0x6C
-	bool Unknown78;										// +0x78 (a row: set by 0x57B5C0; the row's constructor clears it)
-};
-
-// gd_slider.cpp's slider (the list's scroll bar, the combo box's +0xD8), as far as this file calls it: gd_slider.h's GadgetSlider (gd_slider.h's gadget.h clashes with this file's GadgetClass)
-class GadgetSlider : public GadgetClass	// NAME 5: the client's RTTI .?AVGadgetSlider@@ (gd_slider.h)
-{
-public:
-	void Unknown_66E3A0();								// 0x66E3A0
-	void Unknown_66E460(const RefCountPtr<RenderObjClass> &object, bool is_horizontal, int bone_idx);	// 0x66E460 (0x57A330: the mesh's model, false, 0)  // NAME 1 [object, is_horizontal, bone_idx]: gd_slider.h's
-	void Unknown_66FA90(float total, float page, bool a);	// 0x66FA90 (0x57A330: the items past the rows plus one, 1.0, true)  // NAME 1 [total, page, a]: gd_slider.h's
-	bool Unknown_66FD80(bool force = false);			// 0x66FD80 (0x57A330 passes false)  // NAME 1 [force]: gd_slider.h's
-};
-
-template<class T> inline T Unknown_Clamp(T val, T lo, T hi) { if (val < lo) return(lo); if (val > hi) return(hi); return(val); }	// NAME 1: neutral (D10): WWMath::Clamp_Int's form, unsigned (0x57A330's top row)
+template<class T> inline T Unknown_Clamp(T val, T lo, T hi) { if (val < lo) return(lo); if (val > hi) return(hi); return(val); }	// 0x57BA10 (out of line for unsigned: 0x579DC0)  // NAME 1: neutral (D10): WWMath::Clamp_Int's form, unsigned (0x57A330's top row)
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
-class UIComboBoxClass;
 extern UIComboBoxClass *Unknown_BE5BC4;	// NAME 1: neutral (D10): the open combo box (0x57A330 sets it while the list is down)
 
-// What the combo box's +0xBC points to, as far as this file calls it
-class UIComboBoxUnknownBCClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64();
-	virtual void Unknown_68(int arg);					// +0x68 (0x57AC70 passes the combo box's +0xC0)  // NAME 1 [arg]: neutral
-};
-
-#include "ui_combobox.h"
 // (the header's inline: the text field shows the selected item unless +0x10C says leave it)
-inline void UIComboBoxClass::Unknown_Show_Selected() { if (!Unknown10C) Unknown0D4->Unknown68->Change_Text(Unknown_Item_Text(Selected), 0); }
+inline void UIComboBoxClass::Show_Selected() { if (Label.size() == 0) TextField->Text->Change_Text(Get_Item_Text(Selected), 0); }
 
 // 0x57AAB0
-void UIComboBoxClass::Unknown_57AAB0()
+void UIComboBoxClass::Update_Rows()
 {
-	for (int i = 0; i < Unknown0B8; i++) {
-		if (i <= Unknown0CC && Unknown0CC != 0.0f && i + Unknown0DC < Items.size()) {
-			if (Unknown0F8[i]->Unknown5C & 4) {
-				Unknown0F8[i]->Unknown_40(true);
-				Unknown0F8[i]->Unknown_8C(false);
+	for (int i = 0; i < NumRows; i++) {
+		if (i <= RowsShown && RowsShown != 0.0f && i + TopItem < Items.size()) {
+			if (Rows[i]->Unknown5C_02) {
+				Rows[i]->Unknown_40(true);
+				Rows[i]->Unknown_8C(false);
 			}
-			Unknown0F8[i]->Unknown68->Change_Text(Items[i + Unknown0DC].c_str(), 0);
-			if (i + Unknown0DC == Selected) {
-				Unknown0F8[i]->Unknown61 = true;
+			Rows[i]->Text->Change_Text(Items[i + TopItem].c_str(), 0);
+			if (i + TopItem == Selected) {
+				Rows[i]->Selected = true;
 			} else {
-				Unknown0F8[i]->Unknown61 = false;
+				Rows[i]->Selected = false;
 			}
 		} else {
-			if (!(Unknown0F8[i]->Unknown5C & 4)) {
-				Unknown0F8[i]->Unknown_40(false);
-				Unknown0F8[i]->Unknown_8C(true);
+			if (!(Rows[i]->Unknown5C_02)) {
+				Rows[i]->Unknown_40(false);
+				Rows[i]->Unknown_8C(true);
 			}
-			Unknown0F8[i]->Unknown68->Change_Text(" ", 0);
+			Rows[i]->Text->Change_Text(" ", 0);
 		}
 	}
 }
 
 // 0x57AC70
-void UIComboBoxClass::Unknown_57AC70(int index)
+void UIComboBoxClass::Select(int index)
 {
 	if (index >= (int)Items.size()) {
 		index = Items.size() - 1;
 	}
 	Selected = index;
-	Unknown_Show_Selected();
-	Unknown0BC->Unknown_68(Unknown0C0);
+	Show_Selected();
+	Owner->Unknown_68(SelectKey);
 }
 
 // 0x57AD50
-void UIComboBoxClass::Unknown_57AD50(const char *text)
+void UIComboBoxClass::Select_Text(const char *text)
 {
 	for (unsigned i = 0; i < Items.size(); i++) {
 		if (strncmp(text, Items[i].c_str(), strlen(text)) == 0) {
 			Selected = i;
-			Unknown_Show_Selected();
+			Show_Selected();
 			return;
 		}
 	}
 	Selected = 0;
-	Unknown_Show_Selected();
+	Show_Selected();
 }
 
 // 0x57A330
-void UIComboBoxClass::Unknown_57A330()
+void UIComboBoxClass::Update_Drop_Down()
 {
-	if (Unknown0C8 == 3 || Unknown0C8 == 0) {
+	if (State == 3 || State == 0) {
 		return;
 	}
 	float seconds = WW3D::Get_Frame_Time() * 0.001f;
 	float step = seconds * 50.0f;
-	RenderObjClass *drop = Unknown084->Unknown_5B8B40("DROP_DOWN00");
-	switch (Unknown0C8) {
+	RenderObjClass *drop = Mesh->Unknown_5B8B40("DROP_DOWN00");
+	switch (State) {
 		case 2:
-			Unknown0CC -= step;
-			if (Unknown0CC < 0.0f) {
-				Unknown0CC = 0;
-				Unknown0C8 = 0;
+			RowsShown -= step;
+			if (RowsShown < 0.0f) {
+				RowsShown = 0;
+				State = 0;
 				drop->Set_Hidden(1);
-				Unknown0F8[0]->Unknown_40(false);
-				Unknown0F8[0]->Unknown_8C(true);
+				Rows[0]->Unknown_40(false);
+				Rows[0]->Unknown_8C(true);
 				Unknown_BE5BC4 = NULL;
-				if ((int)Items.size() > Unknown0B8) {
+				if ((int)Items.size() > NumRows) {
 					Unknown_5C();
-					Unknown0D8->Unknown_66E3A0();
-					Unknown0D8->Unknown_40(false);
+					Slider->Unknown_66E3A0();
+					Slider->Unknown_40(false);
 					Unknown_58();
 				}
 			}
-			Unknown_57AAB0();
-			Unknown0A0->Set_Frame(1, Unknown0CC);
-			Unknown084->Peek_Object()->Update_Sub_Object_Transforms();
-			if ((int)Items.size() > Unknown0B8 && Unknown0D8->Unknown_60()) {
-				Unknown0D8->Unknown_66FD80(false);
+			Update_Rows();
+			Anim->Set_Frame(1, RowsShown);
+			Mesh->Peek_Object()->Update_Sub_Object_Transforms();
+			if ((int)Items.size() > NumRows && Slider->Unknown_60()) {
+				Slider->Unknown_66FD80(false);
 			}
-			if (Unknown0C8 == 0) {
-				Unknown0BC->Unknown_68(Unknown0C4);
+			if (State == 0) {
+				Owner->Unknown_68(ToggleKey);
 			}
 			break;
 		case 1:
 			if (drop->Is_Hidden()) {
 				Unknown_BE5BC4 = this;
-				Unknown0BC->Unknown_68(Unknown0C4);
+				Owner->Unknown_68(ToggleKey);
 				Unknown_5C();
 				drop->Set_Hidden(0);
-				if ((int)Items.size() > Unknown0B8) {
-					Unknown0D8->Unknown_66E460(Unknown_497300(Unknown084->Peek_Object()), false, 0);
-					Unknown0D8->Unknown_66FA90((float)(Items.size() - Unknown0B8 + 1), 1.0f, true);
-					Unknown0D8->Unknown_40(true);
-					Unknown0D8->Unknown_66FD80(false);
-					Unknown0D8->Unknown_A4((float)Unknown0DC, 0);
+				if ((int)Items.size() > NumRows) {
+					Slider->Unknown_66E460(Unknown_497300(Mesh->Peek_Object()), false, 0);
+					Slider->Unknown_66FA90((float)(Items.size() - NumRows + 1), 1.0f, true);
+					Slider->Unknown_40(true);
+					Slider->Unknown_66FD80(false);
+					Slider->Unknown_A4((float)TopItem, 0);
 				}
-				if ((int)Items.size() > Unknown0B8 && Unknown0D8->Unknown_60()) {
-					Unknown0DC = min((unsigned)Selected, Items.size() - Unknown0B8);
-					Unknown0DC = Unknown_Clamp(Unknown0DC, 0u, Items.size() - Unknown0B8);
+				if ((int)Items.size() > NumRows && Slider->Unknown_60()) {
+					TopItem = min((unsigned)Selected, Items.size() - NumRows);
+					TopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);
 				} else {
-					Unknown0DC = 0;
+					TopItem = 0;
 				}
 				Unknown_58();
 			}
-			Unknown0CC += step;
-			if (Unknown0CC >= (float)Unknown0B8) {
-				Unknown0CC = (float)Unknown0B8;
-				Unknown0C8 = 3;
+			RowsShown += step;
+			if (RowsShown >= (float)NumRows) {
+				RowsShown = (float)NumRows;
+				State = 3;
 				Unknown_5C();
-				if ((int)Items.size() > Unknown0B8 && Unknown0D8->Unknown_60()) {
-					Unknown0DC = min((unsigned)Selected, Items.size() - Unknown0B8);
-					Unknown0DC = Unknown_Clamp(Unknown0DC, 0u, Items.size() - Unknown0B8);
+				if ((int)Items.size() > NumRows && Slider->Unknown_60()) {
+					TopItem = min((unsigned)Selected, Items.size() - NumRows);
+					TopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);
 				} else {
-					Unknown0DC = 0;
+					TopItem = 0;
 				}
-				if ((int)Items.size() > Unknown0B8) {
-					Unknown0D8->Unknown_66E3A0();
-					Unknown0D8->Unknown_66E460(Unknown_497300(Unknown084->Peek_Object()), false, 0);
-					Unknown0D8->Unknown_66FA90((float)(Items.size() - Unknown0B8 + 1), 1.0f, true);
-					Unknown0D8->Unknown_40(true);
-					Unknown0D8->Unknown_A4((float)Unknown0DC, 0);
+				if ((int)Items.size() > NumRows) {
+					Slider->Unknown_66E3A0();
+					Slider->Unknown_66E460(Unknown_497300(Mesh->Peek_Object()), false, 0);
+					Slider->Unknown_66FA90((float)(Items.size() - NumRows + 1), 1.0f, true);
+					Slider->Unknown_40(true);
+					Slider->Unknown_A4((float)TopItem, 0);
 				}
 				Unknown_58();
 			}
-			Unknown_57AAB0();
-			Unknown0A0->Set_Frame(1, Unknown0CC);
-			Unknown084->Peek_Object()->Update_Sub_Object_Transforms();
-			if ((int)Items.size() > Unknown0B8 && Unknown0D8->Unknown_60()) {
-				Unknown0D8->Unknown_66FD80(false);
+			Update_Rows();
+			Anim->Set_Frame(1, RowsShown);
+			Mesh->Peek_Object()->Update_Sub_Object_Transforms();
+			if ((int)Items.size() > NumRows && Slider->Unknown_60()) {
+				Slider->Unknown_66FD80(false);
 			}
 			break;
 	}
@@ -218,60 +161,60 @@ void UIComboBoxClass::Unknown_57A330()
 
 // NOT EXACT: inline-budget (the client expands the item's string constructor, _Tidy and _Grow, where ours calls assign)
 // 0x57B000
-void UIComboBoxClass::Unknown_57B000(const char *text)
+void UIComboBoxClass::Add_Item(const char *text)
 {
-	Unknown0B8++;
-	Unknown0B8 = min(Unknown0B4, Unknown0B8);
+	NumRows++;
+	NumRows = min(MaxRows, NumRows);
 	Items.insert(Items.end(), 1, std::string(text));
 	if (Items.size() == 1) {
 		Selected = 0;
-		Unknown_Show_Selected();
+		Show_Selected();
 	}
 }
 
 // 0x57B1D0
-void UIComboBoxClass::Unknown_57B1D0(const char **items)
+void UIComboBoxClass::Add_Items(const char **items)
 {
 	while (*items) {
-		Unknown_57B000(*items++);
+		Add_Item(*items++);
 	}
 }
 
 // 0x57B210
-void UIComboBoxClass::Unknown_57B210()
+void UIComboBoxClass::Clear_Items()
 {
 	Items.clear();
-	Unknown0DC = 0;
+	TopItem = 0;
 	Selected = 0;
-	Unknown_57AAB0();
-	Unknown0B8 = 0;
+	Update_Rows();
+	NumRows = 0;
 }
 
 // 0x57B440
-void UIComboBoxClass::Unknown_57B440()
+void UIComboBoxClass::Close_Drop_Down()
 {
-	if (Unknown0C8 == 1 || Unknown0C8 == 3 || Unknown0C8 == 2) {
-		Unknown0C8 = 2;
-		Unknown0CC = -1.0f;
-		Unknown_57A330();
+	if (State == 1 || State == 3 || State == 2) {
+		State = 2;
+		RowsShown = -1.0f;
+		Update_Drop_Down();
 	}
 }
 
 // 0x57B570
-void UIComboBoxClass::Unknown_57B570(bool on)
+void UIComboBoxClass::Hide_Arrow(bool on)
 {
-	Unknown114 = on;
-	Unknown0D0->Unknown_40(!on);
-	Unknown0D0->Unknown_8C(on);
+	ArrowHidden = on;
+	Arrow->Unknown_40(!on);
+	Arrow->Unknown_8C(on);
 }
 
 // 0x57B5C0
-void UIComboBoxClass::Unknown_57B5C0(int first, int last)
+void UIComboBoxClass::Set_Hover_Only(int first, int last)
 {
 	first = (first > 0) ? first : 0;
-	int end = (last < Unknown0B8) ? last : Unknown0B8;
+	int end = (last < NumRows) ? last : NumRows;
 	for (int i = first; i < end; i++) {
-		Unknown0F8[i]->Unknown78 = true;
+		Rows[i]->HoverOnly = true;
 	}
 }
 

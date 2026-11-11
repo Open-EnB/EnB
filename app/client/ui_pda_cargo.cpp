@@ -151,10 +151,10 @@ void UIPdaCargoClass::Unknown_54()
 	Filter = Create_NEW(new UIComboBoxClass(this, Client->As_Space_Client(), InterfaceMesh.Peek(), "filter", 0x15, 0x14, 0x19, 0xC, "Combo01"));
 	Filter->Unknown_5417D0(this);
 	Filter->Unknown_54();
-	Filter->Unknown_57B1D0(CargoFilterNames);
-	Filter->Unknown_57AD50(FilterName.c_str());
-	Filter->Unknown_57B570(true);
-	Filter->Unknown_57B480("Filter");
+	Filter->Add_Items(CargoFilterNames);
+	Filter->Select_Text(FilterName.c_str());
+	Filter->Hide_Arrow(true);
+	Filter->Set_Label("Filter");
 	Unknown_62F620(FilterName.c_str());
 
 	FontSys *font = Unknown_BE67C4->Get_Style("Vault_inv", InterfaceMesh.Peek());
@@ -249,7 +249,7 @@ bool UIPdaCargoClass::Unknown_68(int key)
 			return(UIInvClass::Unknown_68(key));
 	}
 	SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
-	FilterName = Filter->Unknown_Item_Text(Filter->Selected);
+	FilterName = Filter->Get_Item_Text(Filter->Selected);
 	if (FilterName.size() == 0) {
 		return(true);
 	}

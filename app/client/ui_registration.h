@@ -170,7 +170,7 @@ public:
 	void Unknown_5F1940();
 	void Unknown_5F2280();
 	void Unknown_5F2990(bool on);  // NAME 1 [on]: the gadgets' slot +0x40
-	void Unknown_5F2A80(int on, UIComboBoxClass *except);  // NAME 1 [on, except]: neutral
+	void Unknown_5F2A80(bool on, UIComboBoxClass *except);  // NAME 1 [on, except]: neutral
 	void Unknown_5F2B20(int id, const char *name, const char *style, unsigned short key, unsigned short group, bool in_frame);  // NAME 1 [id, name, style, key, group, in_frame]: neutral
 	void Unknown_5F2D30(int id, const char *name, const char *style, int length, const char *text, int next, bool password, unsigned int flags, const char *chars);  // NAME 1 [id, name, style, length, text, next, password, flags, chars]: neutral
 	void Unknown_5F2F90(int id, const char *name, int a, int b);  // NAME 1 [id, name, a, b]: neutral

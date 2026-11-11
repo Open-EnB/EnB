@@ -626,7 +626,7 @@ void ChatPanelInterface::Unknown_7C(UIViewClass *view, bool arg)
 		if (Unknown1E8) Unknown1E8->Unknown_7C(view, 0);
 		Unknown_5689D0(4);
 		for (int i = 0; i < NUM_COMBO; i++) {
-			Combo[i]->Unknown_57B440();
+			Combo[i]->Close_Drop_Down();
 			Combo[i]->Unknown_7C(view, 1);
 		}
 	}
@@ -1981,7 +1981,7 @@ void ChatPanelInterface::Unknown_5698F0(int id)
 	SoundLibraryClass::Play_2D_Sound("SR_scifielectronic42.wav", 2);
 	if (UnknownD4) UnknownD4 = NULL;
 	UnknownD4 = Combo[index];
-	if (id == 8) UnknownD4->Unknown_57AD50(Unknown1F4.c_str());
+	if (id == 8) UnknownD4->Select_Text(Unknown1F4.c_str());
 }
 
 // NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178)
