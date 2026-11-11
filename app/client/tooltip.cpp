@@ -29,22 +29,22 @@ bool Unknown_42EC60(int button, int arg);		// 0x42EC60 (input.cpp: a button or k
 
 
 // The SignalMap (0x4F9740 / 0x4F98D0), as intrface.cpp's InterfaceSignalMapClass
-class TooltipSignalMapClass : public SignalMap  // NAME 1: neutral (D10)
-{
-public:
-	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }
-	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }
-	template <class SENDER, class OBJECT, class EVENT>
-	void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *))
-	{
-		Add(sender, new SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
-	}
-	template <class SENDER, class OBJECT, class EVENT>
-	void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event)
-	{
-		Remove(sender, SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
-	}
-};
+// (the signal map: unknown_signalbase.h's SignalMap, its Add / Remove)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 inline void UIViewUnknown30Class::Unknown_6ABC10()
 {
@@ -227,7 +227,7 @@ void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
 			}
 		}
 		Unknown_6ABC10();
-		((TooltipSignalMapClass &)GadgetClass::Get_Signal_Map()).Remove(CurGadget, this, &UIViewUnknown30Class::Unknown_6AB8F0, DestroyGadgetEvent());
+		GadgetClass::Get_Signal_Map().Remove(CurGadget, this, &UIViewUnknown30Class::Unknown_6AB8F0, DestroyGadgetEvent());
 	}
 	Unknown0D = false;
 	Unknown0E = false;
@@ -250,7 +250,7 @@ void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
 			delay = OptionClass::Instance->Get_Float("Interface_Tooltip_Delay") * delay * 0.01f;
 		}
 		Unknown08 += delay;
-		((TooltipSignalMapClass &)GadgetClass::Get_Signal_Map()).Add(CurGadget, this, &UIViewUnknown30Class::Unknown_6AB8F0);
+		GadgetClass::Get_Signal_Map().Add(CurGadget, this, &UIViewUnknown30Class::Unknown_6AB8F0);
 		if (Unknown_42EC60(0x12, 0)) {
 			if (CurGadget->Unknown24) {
 				UIViewClass *view = View->Unknown_20();

@@ -158,7 +158,7 @@ public:
 	template <class SENDER, class OBJECT, class EVENT>
 	void Add(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *))
 	{
-		connect(sender, object, function);
+		Add(sender, new SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
 	}
 
 	template <class SENDER, class OBJECT, class EVENT>
@@ -170,7 +170,7 @@ public:
 	template <class SENDER, class OBJECT, class EVENT>
 	void Remove(SENDER *sender, OBJECT *object, void (OBJECT::*function)(EVENT *, SENDER *), const EVENT &event)
 	{
-		disconnect(sender, object, function, event);
+		Remove(sender, SignalBaseClass::MemberCallback<SENDER, OBJECT, void (OBJECT::*)(EVENT *, SENDER *), EVENT>(object, function));
 	}
 
 	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }
