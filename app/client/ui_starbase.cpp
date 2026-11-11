@@ -65,7 +65,7 @@ class Unknown78A910AvatarClass : public CharacterViewAvatarClass	// NAME 1: neut
 public:
 	void Unknown_78B570(bool b);						// 0x78B570  // NAME 1 [b]: neutral
 };
-
+#include "sbase_info.h"
 // The four rooms (the constructor's index): the key 0x698730 looks up (0xB8A870), the room's model part (0xB8A880),
 // and the race letters by the starbase's column +0x18 (0xB8A950)
 static int Unknown_B8A870[4] = { 0, 1, 3, 2 };	// NAME 1: neutral (D10)
@@ -104,14 +104,14 @@ UIStarbaseUnknownCCClass::~UIStarbaseUnknownCCClass()
 		Unknown14 = NULL;
 	}
 }
-
-inline SBaseViewUnknown1B4Class *UIStarbaseClass::Unknown_Info() { return(UnknownB0->Unknown1B4); }
+inline int UIStarbaseClass::Unknown_Kind() { int c = 1; if (RoomInfo->Unknown0B) { c = 3; } else if (RoomInfo->Unknown0A) { c = 2; } return(c); }
+inline StarbaseInfoClass *UIStarbaseClass::Get_Info() { return(UnknownB0->Info); }
 // 0x6333E0
 UIStarbaseClass::UIStarbaseClass(UIViewClass *view, LayerClass *layer, int index, const char *name) :
 	Unknown5BB320Class(new UIMeshClass(name, 1), view, *layer),
 	Room(index),
 	UnknownB0((SBaseViewClass *)view),
-	UnknownB4(NULL),
+	RoomInfo(NULL),
 	UnknownB8(0),
 	ExtraBones(NULL),
 	UnknownD4(100),
@@ -164,12 +164,12 @@ UIStarbaseClass::UIStarbaseClass(UIViewClass *view, LayerClass *layer, int index
 	UnknownB0 = (SBaseViewClass *)View->Unknown_30();
 	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIStarbaseKeyEventStruct(2, 0), (void *)0x2B);
 	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIStarbaseKeyEventStruct(2, 0x1000), (void *)0x2C);
-	UnknownB4 = (UIStarbaseUnknownB4Struct *)Unknown_Info()->Unknown_698730(Unknown_B8A870[Room]);
-	int column = Unknown_Info()->Unknown18;
+	RoomInfo = Get_Info()->Find_Room(Unknown_B8A870[Room]);
+	int column = Get_Info()->Style;
 	char model[32];
-	if (UnknownB4->Unknown0B) {
+	if (RoomInfo->Unknown0B) {
 		_snprintf(model, sizeof(model), "%sextra_%s_3", Unknown_B8A950[column], Unknown_B8A880[Room]);
-	} else if (UnknownB4->Unknown0A) {
+	} else if (RoomInfo->Unknown0A) {
 		_snprintf(model, sizeof(model), "%sextra_%s_2", Unknown_B8A950[column], Unknown_B8A880[Room]);
 	} else {
 		_snprintf(model, sizeof(model), "%sextra_%s", Unknown_B8A950[column], Unknown_B8A880[Room]);
@@ -193,7 +193,7 @@ UIStarbaseClass::~UIStarbaseClass()
 	}
 	UIStarbaseClass::Unknown_5C();
 	Unknown1F8 = NULL;
-	UnknownB4 = NULL;
+	RoomInfo = NULL;
 	InterfaceMesh->Unknown_5B9930(-1);
 	if (ExtraBones) {
 		ExtraBones->Remove();
@@ -387,7 +387,7 @@ void UIStarbaseClass::Unknown_63D2F0(int index)
 void UIStarbaseClass::Unknown_640810()
 {
 	int i = 0;
-	int a = Unknown_Info()->Unknown18;
+	int a = Get_Info()->Style;
 	int room = Room;
 	int c = Unknown_Kind();
 	Unknown_640CC0();
@@ -445,12 +445,12 @@ void UIStarbaseClass::Unknown_640CC0()
 // 0x640D80
 void UIStarbaseClass::Unknown_640D80(int *a, int *b, int *c)
 {
-	*a = UnknownB0->Unknown1B4->Unknown18;
+	*a = UnknownB0->Info->Style;
 	*b = Room;
-	if (UnknownB4->Unknown0B) {
+	if (RoomInfo->Unknown0B) {
 		*c = 3;
 	} else {
-		*c = UnknownB4->Unknown0A ? 2 : 1;
+		*c = RoomInfo->Unknown0A ? 2 : 1;
 	}
 }
 
@@ -678,7 +678,7 @@ inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avat
 void UIStarbaseClass::Unknown_54()
 {
 	RefCountPtr<RenderObjClass> robj;
-	int column = Unknown_Info()->Unknown18;
+	int column = Get_Info()->Style;
 	{
 		InterfaceSortScopeClass scope(this);
 		UnknownB8 = new UIStarbaseGadget6B6050Class(0, 0, 640, 480, UnknownB0);
@@ -717,10 +717,10 @@ void UIStarbaseClass::Unknown_54()
 		char model[32];
 		int i;
 		for (i = 0; i < 14; i++) {
-			if (UnknownB4->Unknown_698150(i) == NULL) {
+			if (RoomInfo->Find_NPC(i) == NULL) {
 				continue;
 			}
-			UIStarbaseUnknownB4NPCStruct *npc = UnknownB4->Unknown_698150(i);
+			StarbaseNPCClass *npc = RoomInfo->Find_NPC(i);
 			if (npc->Unknown1C) {
 				Unknown13C[i] = new UIStarbaseUnknownCCClass;
 				Unknown13C[i]->Unknown08 = Create_NEW(Unknown_642740(npc));
@@ -735,15 +735,15 @@ void UIStarbaseClass::Unknown_54()
 				continue;
 			}
 			Unknown13C[i] = new UIStarbaseUnknownCCClass;
-			if (npc->Unknown18 == 9) {
-				robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B8AA18[npc->Unknown_6976C0()]));
+			if (npc->Booth == 9) {
+				robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B8AA18[npc->Get_Booth_Index()]));
 				Unknown_496AE0(robj.Peek(), false);
 				InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), name);
 				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(robj.Peek(), *UnknownB0->Unknown80, 5, 0);
 				Unknown13C[i]->Unknown14->Unknown2C_0A = true;
 				Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, false);
 			} else {
-				AvatarDescClass desc(*npc->Unknown_Desc());
+				AvatarDescClass desc(npc->Desc);
 				Unknown13C[i]->Avatar = Create_NEW(new CharacterViewAvatarClass(&desc, true, false, ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager));
 				if (Unknown13C[i]->Avatar) {
 					Unknown13C[i]->Avatar->Unknown330 = InterfaceMesh->Peek_Object()->Get_Bone_Transform(name);
@@ -753,10 +753,10 @@ void UIStarbaseClass::Unknown_54()
 					Unknown13C[i]->Unknown14->Unknown2C_0A = true;
 					Unknown13C[i]->Unknown14->Set_Last_Sort_Group(true);
 					Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, true);
-					Unknown13C[i]->Unknown24 = npc->Unknown_636520();
-					if (npc->Unknown18 > 1 && npc->Unknown18 < 10) {
+					Unknown13C[i]->Unknown24 = npc->Get_Name();
+					if (npc->Booth > 1 && npc->Booth < 10) {
 						WW3D::Enable_Overbright_Modify_On_Load(false);
-						RefCountPtr<RenderObjClass> weapon = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B8AA18[npc->Unknown_6976C0()]));
+						RefCountPtr<RenderObjClass> weapon = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B8AA18[npc->Get_Booth_Index()]));
 						if (weapon) {
 							InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(weapon.Peek(), name);
 							Unknown194.push_back(weapon);
@@ -781,7 +781,7 @@ void UIStarbaseClass::Unknown_54()
 			if (!found) {
 				continue;
 			}
-			UIStarbaseUnknownB4TerminalStruct *terminal = UnknownB4->Unknown_6980E0(i);
+			StarbaseFacilityClass *terminal = RoomInfo->Find_Facility(i);
 			if (terminal) {
 				_snprintf(model, sizeof(model), wall ? "%s_wall_term" : "%s_monitor", Unknown_B8A950[column]);
 				Unknown108[i] = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
@@ -789,8 +789,8 @@ void UIStarbaseClass::Unknown_54()
 			if (Unknown108[i]) {
 				Unknown_496AE0(Unknown108[i].Peek(), false);
 				(wall ? ExtraBones.Peek() : InterfaceMesh->Peek_Object())->Add_Sub_Object_To_Bone(Unknown108[i].Peek(), name);
-				if (terminal->Unknown04 != -1) {
-					RefCountPtr<RenderObjClass> icon = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B90C2C[terminal->Unknown04]));
+				if (terminal->Type != -1) {
+					RefCountPtr<RenderObjClass> icon = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown_B90C2C[terminal->Type]));
 					(wall ? ExtraBones.Peek() : InterfaceMesh->Peek_Object())->Add_Sub_Object_To_Bone(icon.Peek(), name);
 					Unknown194.push_back(icon);
 				}
@@ -807,7 +807,7 @@ void UIStarbaseClass::Unknown_54()
 				continue;
 			}
 			int key = Unknown_B8AABC[Room * 4 + i];
-			if (key < 0 || Unknown_Info()->Unknown_698730(key) == NULL) {
+			if (key < 0 || Get_Info()->Find_Room(key) == NULL) {
 				if (Room == 0) {
 					_snprintf(model, sizeof(model), "%s%s", Unknown_B8A978[column], Unknown_B8A8A0[0]);
 				} else {
@@ -830,7 +830,7 @@ void UIStarbaseClass::Unknown_54()
 					Unknown118[i]->Set_Last_Sort_Group(true);
 					Unknown64.Unknown_6870E0(Unknown118[i], i + 0x16, View, true, false);
 					std::string sign("");
-					if (!Unknown_Info()->Unknown_698730(key)->Unknown0B) {
+					if (!Get_Info()->Find_Room(key)->Unknown0B) {
 						sign = Unknown_B8A9A0[key];
 					} else if (column == 0) {
 						sign = Unknown_B8A9B8[key];
@@ -870,7 +870,7 @@ void UIStarbaseClass::Unknown_54()
 			Unknown180->Set_Last_Sort_Group(true);
 			Unknown64.Unknown_6870E0(Unknown180, 1, View, true, true);
 		}
-		if (UnknownB4->Unknown06) {
+		if (RoomInfo->Unknown06) {
 			_snprintf(model, sizeof(model), "%sbar05", Unknown_B8A950[column]);
 			robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
 			if (robj) {
@@ -878,7 +878,7 @@ void UIStarbaseClass::Unknown_54()
 				Unknown194.push_back(robj);
 			}
 		}
-		if (UnknownB4->Unknown07) {
+		if (RoomInfo->Unknown07) {
 			for (int table = 0; ; table++) {
 				_snprintf(name, sizeof(name), "table%02d", table);
 				if (!InterfaceMesh->Peek_Object()->Get_Bone_Index(name)) {
@@ -901,9 +901,9 @@ void UIStarbaseClass::Unknown_54()
 		UnknownB0->Unknown_6A24C0(Room, mesh, mesh_name);
 		for (int n = 1; ; n++) {
 			const char *prefix = Unknown_B8ABBC[Room][column];
-			if (UnknownB4->Unknown0B) {
+			if (RoomInfo->Unknown0B) {
 				_snprintf(model, sizeof(model), "%s3_%dmd", prefix, n);
-			} else if (UnknownB4->Unknown0A) {
+			} else if (RoomInfo->Unknown0A) {
 				_snprintf(model, sizeof(model), "%s2_%dmd", prefix, n);
 			} else {
 				_snprintf(model, sizeof(model), "%s_%dmd", prefix, n);
@@ -914,9 +914,9 @@ void UIStarbaseClass::Unknown_54()
 				break;
 			}
 			Unknown1A0.push_back(robj);
-			if (UnknownB4->Unknown0B) {
+			if (RoomInfo->Unknown0B) {
 				_snprintf(name, sizeof(name), "%s3_%dmd.%s3_%dan", prefix, n, prefix, n);
-			} else if (UnknownB4->Unknown0A) {
+			} else if (RoomInfo->Unknown0A) {
 				_snprintf(name, sizeof(name), "%s2_%dmd.%s2_%dan", prefix, n, prefix, n);
 			} else {
 				_snprintf(name, sizeof(name), "%s_%dmd.%s_%dan", prefix, n, prefix, n);

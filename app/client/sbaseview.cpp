@@ -34,7 +34,7 @@
 class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnknown70Class(); char Unknown98[0xC8 - 0x98]; };	// NAME 1: neutral (D10)
 #include "ui_refinery.h"	// UIRefineryClass (+0x184, 0x69F8F0)
 float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAME 1 [Unknown_77B7D0, t]: neutral (D10)
-SBaseViewUnknown1B4Class *Unknown_6987A0(LoungeNPCPacketClass *packet);	// 0x6987A0 (sbase_info.cpp)  // NAME 1 [packet]: what 0x6A0FD0 passes
+#include "sbase_info.h"	// StarbaseInfoClass (+0x1B4; LOUNGE_NPC 0x6A0FD0, 0x6A2120)
 #include "ui_avatar_cust.h"	// AvatarUI (+0x19C, 0x69F8F0)
 // ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SClient's to it
 class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_talkt_space.cpp
@@ -74,7 +74,7 @@ SBaseViewClass::SBaseViewClass(ClientTaskClass *task, int arg) :
 	UnknownE8(0),
 	Unknown170(false),
 	Unknown1B0(false),
-	Unknown1B4(NULL),
+	Info(NULL),
 	Unknown1BC(0),
 	Unknown1C4(0),
 	Unknown1C8(0),
@@ -102,9 +102,9 @@ SimpleSceneClass *SBaseViewClass::Unknown_5C()
 // 0x69B0C0
 SBaseViewClass::~SBaseViewClass()
 {
-	if (Unknown1B4) {
-		delete Unknown1B4;
-		Unknown1B4 = NULL;
+	if (Info) {
+		delete Info;
+		Info = NULL;
 	}
 	Unknown_BE67BC->Unload("fa_sbase.ini");
 	RKey = NULL;
@@ -405,7 +405,7 @@ void SBaseViewClass::Unknown_69CDE0()
 // NOT EXACT: literal (explain.py; 0.87): Rotate_Z's first row multiplies c * x before s * y in the client
 void SBaseViewClass::Unknown_69D030(int index)
 {
-	if (!Unknown1B4 && index != -1) return;
+	if (!Info && index != -1) return;
 	if (index == Unknown50) return;
 	if (Starbase) {
 		Starbase->Unknown_5C();
@@ -1355,7 +1355,7 @@ void SBaseViewClass::Unknown_6A0EC0()
 // 0x6A0FD0: LOUNGE_NPC 82
 void SBaseViewClass::Unknown_6A0FD0(LoungeNPCPacketClass *packet)
 {
-	Unknown1B4 = Unknown_6987A0(packet);
+	Info = StarbaseInfoClass::Create(packet);
 }
 
 // 0x6A1000: the 2-D sound name as +0x1C0, looped
@@ -1463,9 +1463,9 @@ static const char *Unknown_B90F4C[4][10] = {	// NAME 1: neutral (D10)
 std::string SBaseViewClass::Unknown_6A2120(int index)
 {
 	std::string name;
-	SBaseViewUnknown1B4Class *info_list = Unknown1B4;
-	SBaseViewUnknown698730Struct *info = info_list->Unknown_698730(Unknown_B90F3C[index]);
-	int column = info_list->Unknown18;
+	StarbaseInfoClass *info_list = Info;
+	StarbaseRoomClass *info = info_list->Find_Room(Unknown_B90F3C[index]);
+	int column = info_list->Style;
 	name = Unknown_B90F4C[index][column];
 	if (info->Unknown0B) {
 		name += "3";
