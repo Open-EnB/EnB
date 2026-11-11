@@ -977,6 +977,9 @@ def run_verify(a, bo, libs, target):
     return sendpad_retune(a, bo, libs, target) if getattr(a, 'sendpad', False) else False
 
 
+PAD_OUTPUTS = ('app/client/aux_roots_send.h', 'tools/re/auxroots.py')    # what sendpad.py writes (D227)
+
+
 def sendpad_retune(a, bo, libs, target):
     """The pad retune (on unless --no-sendpad): when bo's changes touch a header sclient.cpp includes and the verify lost sclient.cpp pairs
     outright against TARGET, sendpad.py (bo's copy) re-sweeps SEND_SYMBOL_PAD, the new pad is committed and the
@@ -1002,14 +1005,14 @@ def sendpad_retune(a, bo, libs, target):
     print('  ' + ' '.join(tail[-1:]))
     if rc:
         sys.exit(f'wt: sendpad found no pad keeping sclient.cpp: {tail[-1:]}; {target} untouched')
-    if not dirty_tracked(bo):
+    git('add', '--', *PAD_OUTPUTS, cwd=bo)      # the header and its generator's SEND_SYMBOL_PAD, together (D227)
+    if not git('diff', '--cached', '--name-only', '--', *PAD_OUTPUTS, cwd=bo).strip():
         return False
-    git('add', '--', 'app/client/aux_roots_send.h', cwd=bo)
     msg = ('Retune SEND_SYMBOL_PAD for the changes this bring-over carries (wt.py --sendpad): ' + ' '.join(tail[-1:])
            + '\n')
     if getattr(a, 'trailer', None):
         msg += '\n' + a.trailer + '\n'
-    git('commit', '-q', '-F', '-', cwd=bo, inp=msg.encode())
+    git('commit', '-q', '-F', '-', '--', *PAD_OUTPUTS, cwd=bo, inp=msg.encode())
     print(f'verify again --lib {" ".join(libs)} (log {bo}.verify2.log)', flush=True)
     args = [sys.executable, *tool(bo, 'verify.py', 'verify'), '--pool', str(a.pool), '--lock-wait', str(a.lock_wait)]
     for lib in libs:
