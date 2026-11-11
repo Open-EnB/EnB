@@ -39,7 +39,6 @@ Unknown6AF220Class::Unknown6AF220Class(SClient *client) :
 	Names["InvPlayerSecure"] = "Vault:";
 }
 
-// NOT EXACT: inline budget (explain.py: shape, 7 rows once registers are masked): the client folds the expanded erase's copy (begin == end) and calls the vector's _Destroy 0x432C30 out of line; ours either keeps the copy's end in a stack slot (this form) or, with slot +0x5C's body written out here, folds it and expands _Destroy
 // 0x6AF810
 Unknown6AF220Class::~Unknown6AF220Class()
 {
@@ -89,7 +88,6 @@ void Unknown6AF220Class::Unknown_54()
 	}
 }
 
-// NOT EXACT: register-only (explain.py): the expanded erase's copy loop walks ebp where ours walks ebx, and the -1 for +0x104 / Top is in edi where ours has eax
 // 0x6AFDE0
 void Unknown6AF220Class::Unknown_58()
 {
@@ -314,7 +312,7 @@ void Unknown6AF220Class::Unknown_6B0F30(int unknown)
 // 0x6B1000
 void Unknown6AF220Class::Unknown_6B1000()
 {
-	Items.erase(Items.begin(), Items.end());
+	Items.clear();
 	Unknown104 = -1;
 }
 
@@ -323,10 +321,12 @@ void Unknown6AF220Class::Unknown_6B1000()
 **	Object 0x6AF220-0x6B245F: the constructor 0x6AF220 opens it; its map<string, string> and vector<string>
 **	instances 0x6B1250-0x6B23E0 follow its last function 0x6B1000, and this window's adjustor thunks 0x6B2440 /
 **	0x6B2450 close it (the sibling window 0x6B2460, GM_VIEW_MISSION_LOG's, follows). cpacket.cpp's 0x73F2E0 makes
-**	it for GM_EDIT_PLAYER_INVENTORY 234 through its stand-in of the same name. The base is ChatPanelUIBase
+**	it for GM_EDIT_PLAYER_INVENTORY 234 (it includes this window's header). The base is ChatPanelUIBase
 **	(0x56D280, 40 slots), which the table 0xAFDC6C shares slots 1-20, 25, 27-30 and 32-39 with.
-**	Every function is written; exact but the destructor 0x6AF810 (inline budget) and slot +0x58 0x6AFDE0
-**	(register-only). Two dead reads (D130, marked, not the client's code): Names.size() in 0x6B06C0 and
-**	Items.size() in slot +0x68. 0x6B0940's last test is two nested ifs: with 'on && Selected < 0' its four callers
-**	expand it, the client calls it. 0x6B0F30 takes one argument it never reads (the client's 'ret 4').
+**	Every function is written and exact. Two dead reads (D130, marked, not the client's code): Names.size() in
+**	0x6B06C0 and Items.size() in slot +0x68. 0x6B0940's last test is two nested ifs: with 'on && Selected < 0'
+**	its four callers expand it, the client calls it. 0x6B1000 empties the list with clear(), one inline layer over
+**	erase(begin(), end()): with the erase written out the destructor (through the expanded slot +0x5C) keeps the
+**	copy's end in a stack slot and slot +0x58 walks other registers. 0x6B0F30 takes one argument it never reads
+**	(the client's 'ret 4').
 */
