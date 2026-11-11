@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-732 entries in 227 files.
+728 entries in 227 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -289,12 +289,8 @@ edit the comments in the code, not this file.
 | `app/client/starmap_pip.cpp:1170` | `StarmapPipClass::Unknown_7C2060` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C2060 |
 | `app/client/starmap_pip.cpp:1332` | `Unknown_7C3220Class::Unknown_7C3A90` | mention | NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68, which it copies whole). Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1510, 0x7C1C50, 0x7C2340, 0x7C2850, 0x7C2DA0-0x7C3... |
 | `app/client/target_reticle.cpp:107` | `TargetReticleClass::Update` | marker | NOT EXACT: 0x7C5690, register rotation only (13 rows at the inlined time == LastTime: eax / ecx for ecx / eax, edx / eax for ecx / eax, eax for ecx at LastValue); same length (1990 bytes) @0x7C5690 |
-| `app/client/tasks/settings_store.cpp:10` | `Unknown_7CA2D0Class::Unknown_7CA2D0Class` | marker | NOT EXACT: shape (functional for the POC: the client's constructor also sets the two vtables, counts itself in a global, and fills the browser descriptors at +0x70 ('SUPPORT', 'PRIVACY', ... with their http://support.net-7.org URLs); only the state the login path reads is set here: the empty strings and map, the URL-check deadlines) |
-| `app/client/tasks/settings_store.cpp:30` | `Unknown_7CA2D0` | marker | NOT EXACT: schedule (the client runs the constructor through a jump thunk and registers the destructor thunk with atexit) |
-| `app/client/tasks/settings_store.cpp:105` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: inline-budget (the client expands string appends: _Eos / _Grow, and the store's static init with atexit) |
-| `app/client/tasks/settings_store.cpp:138` | `Unknown_7CA2D0Class::Set_String` | marker | NOT EXACT: shape (the client's std::map insert / erase and string assigns are inlined helpers; the order of the temporaries differs) |
-| `app/client/tasks/settings_store.cpp:182` | `Unknown_7CA2D0Class::Get_String` | marker | NOT EXACT: shape (the client reads the entry with the map's operator[], which adds an empty one for a missing key, then canonicalises the value; its failures return the empty default string) |
-| `app/client/tasks/settings_store.cpp:213` | `Unknown_7CA2D0Class::Get_String` | mention | NOT EXACT (D64, functional for the POC): 0x7C97B0 (no vtables, no browser descriptors), 0x7CA2D0, 0x7CB6F0, 0x7CB8F0 (the reply read with strlen as the client does: the 100-byte buffer is not terminated), 0x7CCB30, 0x7CCF20. Not built here: the destructor 0x7CA340, 0x7CB2E0 / 0x7CB3D0 (the callers in ui_login.cpp, ui_popupmsg.cpp and main_client.cpp use other class types for them). ACT (run 2026-1... |
+| `app/client/tasks/settings_store.cpp:376` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: order-only (the same 231 instructions: the client zeroes the count before the read's arguments are pushed and reloads a handle one instruction earlier at the end) |
+| `app/client/tasks/settings_store.cpp:545` | `Unknown_7CA2D0Class::Get_String` | mention | NOT EXACT (D64): 0x7CB8F0 (order-only: two instructions out of place). Other files still reach 0x7CB2E0 / 0x7CB240 / 0x7CA570 / 0x7CAD00 through local stand-in classes (ui_login.cpp, ui_popupmsg.cpp, ui_popup_browser.cpp, ui_registration.cpp, unknown_msgbox.cpp). |
 | `app/client/tasks/tsk_login.cpp:271` | `LoginTaskClass::Run` | marker | NOT EXACT: register-only (the final Process_Packets call loads the vtable in edx, the client eax; attempts.py show 0x767F50) |
 | `app/client/tasks/tsk_login.cpp:456` | `LoginTaskClass::Unknown_50` | marker | NOT EXACT: register-only (the client recomputes the slot index for Is_Registered_Character; the operator= / 0x7688F0 trade is settled (0x7688F0 exact); attempts.py show 0x7683F0) 0x7683F0 |
 | `app/client/tasks/tsk_login.cpp:644` | `LoginTaskClass::Go_Next_Step` | marker | NOT EXACT: register-only (the client keeps 1 in ebx from before the jump table for every flag store and step 1, as Go_Back_Step; step 1 stored before the flag and step 5 without the step check as in the client; attempts.py show 0x769500) 0x769500 |
