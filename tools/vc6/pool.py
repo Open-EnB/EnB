@@ -165,8 +165,27 @@ def get_vm(name):
 
 # ---------------------------------------------------------------- state and lock
 
+def _proc_stat(pid):
+    """/proc/<pid>/stat's fields after the command name (state first), or None."""
+    try:
+        with open(f'/proc/{int(pid)}/stat') as f:
+            return f.read().rsplit(')', 1)[1].split()
+    except (OSError, IndexError):
+        return None
+
+
 def _pid_alive(pid):
-    """importer.py's test (fa14686): os.kill(pid, 0) would terminate the process on Windows."""
+    """importer.py's test (fa14686): os.kill(pid, 0) would terminate the process on Windows.
+    Elsewhere (CI runs the mocked tests on Linux) os.kill(pid, 0), with a zombie counted as gone."""
+    if os.name != 'nt':
+        try:
+            os.kill(int(pid), 0)
+        except ProcessLookupError:
+            return False
+        except PermissionError:
+            return True
+        st = _proc_stat(pid)
+        return not (st and st[0] == 'Z')
     k = ctypes.windll.kernel32
     h = k.OpenProcess(0x1000, False, int(pid))   # PROCESS_QUERY_LIMITED_INFORMATION
     if not h:
@@ -178,7 +197,11 @@ def _pid_alive(pid):
 
 
 def _pid_started(pid):
-    """The process's creation time (FILETIME ticks), or None if it can't be read."""
+    """The process's creation time (FILETIME ticks; /proc start-time ticks off Windows), or None
+    if it can't be read."""
+    if os.name != 'nt':
+        st = _proc_stat(pid)
+        return int(st[19]) if st and len(st) > 19 else None
     k = ctypes.windll.kernel32
     h = k.OpenProcess(0x1000, False, int(pid))
     if not h:
