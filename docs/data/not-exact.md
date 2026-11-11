@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-738 entries in 232 files.
+747 entries in 233 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -286,6 +286,8 @@ edit the comments in the code, not this file.
 | `app/client/skill_data.cpp:144` | `SkillDataClass::Unknown_20` | marker | NOT EXACT: inline-budget, the client inlines only the -1 push_back and calls 0x4A0880 for the other two 0x6A4F40 |
 | `app/client/skill_data_peek.cpp:149` | `SkillDataPeekClass::Get_Affiliations` | marker | NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return) 0x6A5730 |
 | `app/client/slot_data.cpp:32` | `SlotDataClass::Unknown_6A7730` | marker | NOT EXACT: shape (0.59: the client lays out the second emit before the shared failure exit; this form makes the copy 0x6A7860 inlines exact) 0x6A7730 |
+| `app/client/starbase_lights.cpp:97` | `Unknown_764480Class::Unknown_764AB0` | marker | NOT EXACT: 0x764AB0, functional (register / order: the client keeps the offset's y on the FPU across the branch and copies x / z as integers; B1) 0x764AB0 |
+| `app/client/starbase_lights.cpp:127` | `Unknown_764480Class::Unknown_764CF0` | marker | NOT EXACT: 0x764CF0, functional (register / order: the client keeps the colour's y on the FPU across the branch and copies x / z as integers; B1) 0x764CF0 |
 | `app/client/starmap_data.cpp:231` | `StarmapDataClass::Create_Mesh` | marker | NOT EXACT: frame and registers (the client keeps 0 in ebx and is_ship on the stack, the old transform above the rotation) @0x7BEF50 |
 | `app/client/starmap_pip.cpp:173` | `StarmapPipClass::Unknown_10` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C0C80 |
 | `app/client/starmap_pip.cpp:968` | `Unknown_491550` | marker | NOT EXACT: stack (the client keeps diff at +0x24 and t at +0x1C, the other way round: 0.88) |
@@ -508,10 +510,17 @@ edit the comments in the code, not this file.
 | `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
 | `app/client/ui_starbase.cpp:673` | `UIStarbaseClass::Unknown_54` | marker | NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the '%s_%dmd' animated models 0x634140 |
 | `app/client/ui_starbase.cpp:1999` | `UIStarbaseClass::Unknown_63A100` | marker | NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1) 0x63A100 |
+| `app/client/ui_starbase.cpp:3089` | `UIStarbaseClass::Unknown_641C00` | marker | NOT EXACT: 0x641C00, functional (frame: the client keeps the NPC position's y / z in two more stack copies, sub esp 0x98 against 0x8C; B1) 0x641C00 |
+| `app/client/ui_starbase.cpp:3209` | `UIStarbaseClass::Unknown_640F50` | marker | NOT EXACT: 0x640F50, functional (the avatar dropped onto the room's model: a 0.5 box swept 50 down from its position at its height; the client copies the position through a Matrix3D temporary and keeps a smaller frame; B1) 0x640F50 |
+| `app/client/ui_starbase.cpp:3469` | `UIStarbaseClass::Unknown_640360` | marker | NOT EXACT: 0x640360, functional (inline budget: the client copies the 'ship' bone transform through ??_H, the out-of-line Vector4 constructor 0x468E70; ours inlines it; B1) 0x640360 |
+| `app/client/ui_starbase.cpp:3620` | `UIStarbaseClass::Unknown_642740` | marker | NOT EXACT: 0x642740, functional (B1): a lounge NPC's wandering avatar from '<race>starbase_ambient.ini', its section the NPC's first name: the walk points Location%02d (OffsetBoneName / DestBoneName bones of ExtraBones), the idle actions Action%02d with their Chance%02d, ExtraName%02d and ExtraAnim%02d 0x642740 |
 | `app/client/ui_starbase.cpp:3862` | `UIStarbaseClass::Unknown_63E770` | marker | NOT EXACT: 0x63E770, functional (the client compares the found iterator with end() through an out-of-line 8-byte copy 0x6439B0, a const_iterator conversion the stand-in table lacks; SB1) 0x63E770 |
 | `app/client/ui_starbase.cpp:3917` | `UIStarbaseClass::Unknown_63E2B0` | marker | NOT EXACT: 0x63E2B0, functional (the flag test's own load of the avatar, the position's y / z through the matrix copy, the id's load order; SB1) 0x63E2B0 |
 | `app/client/ui_starbase.cpp:3967` | `UIStarbaseClass::Unknown_641FA0` | marker | NOT EXACT: 0x641FA0, register only (this in edi, the gadget in ebx: the client's are swapped; SB1) 0x641FA0 |
 | `app/client/ui_starbase.cpp:4195` | `UIStarbaseUnknownD4TableClass::begin` | marker | NOT EXACT: 0x643DF0, functional (the client's loop re-tests the vector's start each pass; SB1) 0x643DF0 (SGI's hashtable::begin, out of line) |
+| `app/client/ui_starbase.cpp:4242` | `UIStarbaseUnknown1F8Class::UIStarbaseUnknown1F8Class` | marker | NOT EXACT: 0x644F80, functional (register / frame: the client's EH state in bl and its RefCountPtr temporary in edi, one stack slot less; B1) 0x644F80 |
+| `app/client/ui_starbase.cpp:4263` | `UIStarbaseUnknown1F8Class::~UIStarbaseUnknown1F8Class` | marker | NOT EXACT: 0x6452C0, functional (inline budget: the client calls the options' vector clear 0x645E30 out of line, ours inlines it; B1) 0x6452C0 |
+| `app/client/ui_starbase.cpp:4296` | `UIStarbaseUnknown1F8Class::Unknown_645510` | marker | NOT EXACT: 0x645510, functional (frame: two more stack slots in ours, every local 8 bytes up; the client's order otherwise; B1) 0x645510 |
 | `app/client/ui_talkt.cpp:68` | `UITalkTreeClass::UITalkTreeClass` | marker | NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup) |
 | `app/client/ui_talkt.cpp:287` | `UITalkTreeClass::Unknown_5C` | marker | NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client) |
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
