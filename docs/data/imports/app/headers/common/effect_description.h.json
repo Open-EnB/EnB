@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: EffectDescriptionClass, ItemEffectFlagsStruct and ItemEffectClass (moved from item_effect_description.h); header name assumed from effect_description.cpp"
+}
