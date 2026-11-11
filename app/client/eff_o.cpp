@@ -30,8 +30,8 @@ void Message_Error(const char *sender, const char *category, const char *file, i
 static char *Unknown_B92E30[] = {"RObjLookAtEffect", "RObjEffect", "WarpEffect", "LineEffect", "StraightSeekEffect", "SpiralSeekEffect", "SplineRandomSeekEffect", "LinearRandomSeekEffect", "SoundEffect", "PassEffect", "AttachEffect", "RenderStateEffect", "ParticleJetEffect", NULL};	// 0xB92E30: effect.ini's EffectClass values, the factory's switch  // NAME 1: neutral (D10)
 Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0x82ECB0 (cdecl; a transform at the position facing along the direction)  // NAME 1 [direction, position]: what 0x6E8DD0 passes
 // The render-state effect the factory's helper 0x6EC7D0 makes (0xE4 bytes; its file, between eff_robj.cpp and
-// eff_seek.cpp, is not rebuilt): declared as far as the helper calls it
-class Unknown6F0200EffectClass : public EffectObjectClass { public: Unknown6F0200EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, int render_state, int action, int action_time); virtual void Unknown_24(int next); char Unknown80[0xE4 - 0x80]; };	// NAME 1: neutral (D10); 0x6F0200  // NAME 1 [client .. action_time]: effect.ini's RenderStateID, ActionType, ActionTime (ms); [next]: the base's
+// eff_seek.cpp, is eff_rs.cpp by a provisional name, D137):
+#include "eff_rs.h"	// RenderStateEffectClass, 0x6F0200
 // eff_seek.cpp's effect on a model that the helper 0x6EAFA0 makes (0xE8 bytes; not rebuilt): declared as far as it calls it
 class Unknown6F07F0EffectClass : public EffectObjectClass { public: Unknown6F07F0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE8 - 0x80]; };	// NAME 1: neutral (D10); 0x6F07F0  // NAME 1 [client .. robj]: what the helper passes; [next]: the base's
 // eff_seek.cpp's spiral effect that the helper 0x6EB150 makes (0xF0 bytes; not rebuilt)
@@ -1659,7 +1659,7 @@ EffectObjectClass *Unknown_6EC7D0(INIClass *ini, const char *section, unsigned i
 	int action = ini->Get_List_Index(section, "ActionType", -1, actions);
 	int action_time = ini->Get_Float(section, "ActionTime", 1.0f) * 1000.0f;
 	bool force = ini->Get_Bool(section, "ForceReactivate", false);
-	Unknown6F0200EffectClass *effect = new Unknown6F0200EffectClass(client, id, start_time, duration, cycle_time, render_state, action, action_time);
+	RenderStateEffectClass *effect = new RenderStateEffectClass(client, id, start_time, duration, cycle_time, render_state, action, action_time);
 	effect->Set_Flag(0x200, force);
 	return(effect);
 }
