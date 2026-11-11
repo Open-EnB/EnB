@@ -72,9 +72,9 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 		}
 	}
 	if (!maker.empty()) {
-		router.Route(Unknown_52C770(maker, false));
+		router.Route(ClientItemPropertySpecialMakerClass::Create(maker, ClientItemPropertySpecialMakerClass::MAKER_PLAYER));
 	} else if (!maker2.empty()) {
-		router.Route(Unknown_52C770(maker2, true));
+		router.Route(ClientItemPropertySpecialMakerClass::Create(maker2, ClientItemPropertySpecialMakerClass::MAKER_CORPORATION));
 	}
 }
 

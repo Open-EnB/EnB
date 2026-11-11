@@ -8,6 +8,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "client_item_property_special.h"
 #include "client_item_property_special_effect.h"
+#include "client_item_property_special_maker.h"
 #include "client_item_property_attribute.h"
 #include "client_item_property_attribute_distance.h"
 #include "client_item_property_attribute_string.h"
@@ -90,12 +91,11 @@ class ClientItemPropertySpecialFlagClass : public ClientItemPropertySpecialClass
 RefCountPtr<ClientItemPropertySpecialFlagClass> Unknown_52F9E0(int sort, const std::string &label, const std::string &tooltip, int unknown, bool flag);	// 0x52F9E0  // NAME 1: neutral (D10); NAME 1 [sort, label, tooltip, unknown, flag]
 
 // The properties 0x521C10 makes (their files are not rebuilt; each Create allocates the property and hands it to Create_NEW)
-class ClientItemPropertySpecialMakerClass : public ClientItemPropertySpecialClass {};					// table 0xAEDF00  // NAME 3: client_item_property_special_maker.cpp's
 class ClientItemPropertySpecialUnknown52FFB0Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
 class ClientItemPropertySpecialUnknown530070Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
 RefCountPtr<ClientItemPropertySpecialUnknown52FFB0Class> Unknown_52FFB0(int unknown, int value, int id);	// 0x52FFB0  // NAME 1: neutral (D10); NAME 1 [unknown, value, id]
 RefCountPtr<ClientItemPropertySpecialUnknown530070Class> Unknown_530070(int unknown, int id);			// 0x530070  // NAME 1: neutral (D10); NAME 1 [unknown, id]
-RefCountPtr<ClientItemPropertySpecialMakerClass> Unknown_52C770(const std::string &maker, bool flag);	// 0x52C770  // NAME 1: neutral (D10); NAME 1 [maker, flag]
+// The maker: ClientItemPropertySpecialMakerClass, client_item_property_special_maker.h (one line for two here and the #include)
 
 // The attributes and requirements 0x522860 makes (their files are not rebuilt)
 enum { MODE_NONE_BF = 0 };																				// the mode flags' none (G_ASSERT 'mode_flags != MODE_NONE_BF')  // NAME 3: the client's assert
