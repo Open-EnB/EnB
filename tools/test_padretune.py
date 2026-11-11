@@ -1,8 +1,10 @@
-"""Tests for the 2026-11-11 pad-retune changes (D227):
+"""Tests for the 2026-11-11 pad-retune changes (D227, D228):
 
   D227  wt.py bring-over's pad retune commits both of sendpad.py's outputs (aux_roots_send.h and auxroots.py's
         SEND_SYMBOL_PAD), so the regeneration after it no longer refuses with "regenerating changed other files";
         any other changed file is still left out (and still refuses there)
+  D228  sendpad.py takes its watch set from the onto commit's ledger when HEAD is a `wt.py rebase` record commit
+        (--watch-from REV names it outright; wt.py passes its target when the landing carries such a commit)
 
     python -m unittest discover -s tools -p "test_*.py"
 
@@ -22,8 +24,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 for d in ('vc6', 're'):
     sys.path.insert(0, os.path.join(HERE, d))
 
+import sendpad  # noqa: E402
 import wt  # noqa: E402
 
+RECORD = ('Record the verified pairs of wt/O5 after rebasing it onto run/2026-11-10 6cfb06e15: generated files '
+          'regenerated, not merged, no source change, 96 gained, 0 D66 moves, 2 lost outright')
 
 
 def run(cwd, *args):
@@ -61,8 +66,58 @@ class Repo(unittest.TestCase):
                                              'app/client/x.h': 'int x;\n'})
 
 
+class WatchSource(Repo):
+    """D228: the record commit's subject names the onto commit; its ledger still holds what the rebase lost."""
+
+    def test_record_commit_gives_onto(self):
+        commit(self.td, RECORD, {'docs/data/imports/x.json': '{}\n'})
+        self.assertEqual(sendpad.watch_source(self.td), '6cfb06e15')
+
+    def test_other_commit_gives_head(self):
+        commit(self.td, 'Rebuild Foo::Bar from the client', {'app/client/x.h': 'int y;\n'})
+        self.assertEqual(sendpad.watch_source(self.td), 'HEAD')
+
+    def test_regex_matches_record_subject(self):
+        subj = wt.record_subject('of wt/O5 after rebasing it onto run/2026-11-10 6cfb06e15: generated files '
+                                 'regenerated, not merged', {'gained': [], 'gained_tiebreak': [], 'moves': []})
+        self.assertEqual(sendpad.REBASE_RECORD.match(subj).group(2), '6cfb06e15')
+        self.assertTrue(wt.REBASE_RECORD.match(subj))
+        self.assertIsNone(wt.REBASE_RECORD.match(wt.record_subject('of wt/O5 after the SEND_SYMBOL_PAD retune', {
+            'gained': [], 'gained_tiebreak': [], 'moves': []})))
+
+    def test_carries_rebase_record(self):
+        commit(self.td, RECORD, {'docs/data/imports/x.json': '{}\n'})
+        commit(self.td, 'a later commit', {'app/client/x.h': 'int z;\n'})
+        self.assertTrue(wt.carries_rebase_record(self.td, self.base))
+        self.assertFalse(wt.carries_rebase_record(self.td, run(self.td, 'rev-parse', 'HEAD~1')))
+
+
+class SendpadMainSource(unittest.TestCase):
+    """D228: main() reads the watch set from --watch-from, else from watch_source()."""
+
+    def go(self, argv, source):
+        td = tempfile.mkdtemp(prefix='sendpadmain_')
+        self.addCleanup(shutil.rmtree, td, ignore_errors=True)
+        asked = []
+        saved = {k: getattr(sendpad, k) for k in ('REPO', 'watch_source', 'watch_list', 'sweep')}
+        self.addCleanup(lambda: [setattr(sendpad, k, v) for k, v in saved.items()])
+        sendpad.REPO = td
+        sendpad.watch_source = lambda repo=None: source
+        sendpad.watch_list = lambda src='HEAD': asked.append(src) or list(sendpad.WATCH)
+        sendpad.sweep = lambda a, log, watch: (44, None, [])
+        with contextlib.redirect_stdout(io.StringIO()):
+            sendpad.main(argv)
+        return asked
+
+    def test_watch_from(self):
+        self.assertEqual(self.go(['--dry', '--watch-from', 'abc1234'], 'HEAD'), ['abc1234'])
+
+    def test_auto(self):
+        self.assertEqual(self.go(['--dry'], '6cfb06e15'), ['6cfb06e15'])
+
+
 class Retune(Repo):
-    """D227: the retune commit takes both of sendpad's outputs."""
+    """D227: the retune commit takes both of sendpad's outputs; D228: --watch-from TARGET after a rebase record."""
 
     def setUp(self):
         super().setUp()
@@ -108,6 +163,7 @@ class Retune(Repo):
         files = run(self.td, 'show', '--name-only', '--format=', 'HEAD').split()
         self.assertEqual(sorted(files), sorted(wt.PAD_OUTPUTS))
         self.assertEqual(wt.dirty_tracked(self.td), ['docs/other.md'])   # regen_and_commit still refuses this
+        self.assertNotIn('--watch-from', [x for c in self.calls for x in c])
 
     def test_unchanged_pad_commits_nothing(self):
         commit(self.td, 'Change x.h', {'app/client/x.h': 'int y;\n',
@@ -116,6 +172,13 @@ class Retune(Repo):
         head = run(self.td, 'rev-parse', 'HEAD')
         self.assertFalse(self.retune())
         self.assertEqual(run(self.td, 'rev-parse', 'HEAD'), head)
+
+    def test_watch_from_target_after_rebase_record(self):
+        commit(self.td, 'Change x.h', {'app/client/x.h': 'int y;\n'})
+        commit(self.td, RECORD, {'docs/data/imports/x.json': '{}\n'})
+        self.assertTrue(self.retune())
+        sweep = [c for c in self.calls if any(str(x).endswith('sendpad.py') for x in c) and '--includes' not in c]
+        self.assertEqual(sweep[0][-2:], ['--watch-from', self.base])
 
 
 if __name__ == '__main__':

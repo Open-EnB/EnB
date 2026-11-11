@@ -978,6 +978,14 @@ def run_verify(a, bo, libs, target):
 
 
 PAD_OUTPUTS = ('app/client/aux_roots_send.h', 'tools/re/auxroots.py')    # what sendpad.py writes (D227)
+# record_subject's form for a rebase (sendpad.py's REBASE_RECORD): its ledger has recorded the rebase's losses
+REBASE_RECORD = re.compile(r'^Record the verified pairs of wt/\S+ after rebasing it onto (\S+) ([0-9a-f]{7,40}):')
+
+
+def carries_rebase_record(path, old):
+    """True when a commit in OLD..HEAD (in PATH) is a `wt.py rebase` record commit: from it on the ledger has dropped
+    what the rebase lost, so sendpad's watch set has to come from OLD's ledger (D228)."""
+    return any(REBASE_RECORD.match(s) for s in git('log', '--format=%s', f'{old}..HEAD', cwd=path).splitlines())
 
 
 def sendpad_retune(a, bo, libs, target):
@@ -1000,8 +1008,12 @@ def sendpad_retune(a, bo, libs, target):
         return False
     print(f'sendpad: sclient.cpp lost {sorted(lost)} and the changes touch its headers: sweeping '
           f'SEND_SYMBOL_PAD (log {bo}.sendpad.log)', flush=True)
+    watch = []
+    if carries_rebase_record(bo, old) and '--watch-from' in read_text(os.path.join(bo, 'tools', 'vc6', 'sendpad.py')):
+        watch = ['--watch-from', old]
+        print(f'  the landing carries a wt.py rebase record commit: watch set from {target}\'s ledger')
     rc, tail = run_logged([sys.executable, *tool(bo, 'sendpad.py', 'sendpad'), '--pool', str(a.pool),
-                           '--lock-wait', str(a.lock_wait)], bo, bo + '.sendpad.log')
+                           '--lock-wait', str(a.lock_wait), *watch], bo, bo + '.sendpad.log')
     print('  ' + ' '.join(tail[-1:]))
     if rc:
         sys.exit(f'wt: sendpad found no pad keeping sclient.cpp: {tail[-1:]}; {target} untouched')
