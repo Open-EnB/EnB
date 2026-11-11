@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-730 entries in 228 files.
+728 entries in 228 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -137,8 +137,6 @@ edit the comments in the code, not this file.
 | `app/client/fontmanager.cpp:172` | `ManagedFontClass::Unknown_6D0A70` | marker | NOT EXACT: inline budget, 58 rows: the client inlines std::string(const char *) for the key, ours calls it (and two of the six 4-string loops swap lea operands; attempts.csv) |
 | `app/client/fontmanager.cpp:193` | `ManagedFontClass::Unknown_6D1010` | marker | NOT EXACT: inline budget: the client calls the std::string(const char *, allocator) constructor out of line, ours inlines it (attempts.csv) |
 | `app/client/fontmanager.cpp:377` | `ManagedFontClass::Unknown_6D1600` | marker | NOT EXACT: shape, 39 rows: the client destroys the name in one shared tail, ours in each return (attempts.csv) |
-| `app/client/fontmanager.cpp:427` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 3 rows: the client loads the id into ecx and keeps the font in eax (attempts.csv) |
-| `app/client/fontmanager.cpp:436` | `FontManagerClass::Add` | marker | NOT EXACT: register-only, 2 rows: the client reloads the buffer into eax, ours into edx (attempts.csv) |
 | `app/client/fontmanager.cpp:519` | `FontManagerClass::Get_Style` | marker | NOT EXACT: order-only, 1 row: the inlined std::string(name) stores its terminator through [ebx+eax], ours [eax+ebx] (attempts.csv) |
 | `app/client/fontmanager.cpp:554` | `FontManagerClass::Unknown_6D28C0` | marker | NOT EXACT: inline budget, 75 rows: the client calls the styles table's begin and bucket helpers out of line, ours inlines them (attempts.csv) |
 | `app/client/fontsys.cpp:18` | `FontSys::FontSys` | marker | NOT EXACT: written from the client's code (0x6D47C0) for the POC, not yet matched |

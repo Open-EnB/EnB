@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 184 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1757 |
+| 3 | by convention from a client-named file or sibling | 1761 |
 | 2 | describes what the code does | 3941 |
-| 1 | neutral placeholder | 22792 |
+| 1 | neutral placeholder | 22868 |
 
 ## For review (score 3 and below)
 
@@ -2747,6 +2747,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Create_Render_Object` | `app/client/dynamic_window_icon.h:36` | as ToggleButtonDynamicWindow's |
 | 1 | `Create_Render_Object` | `app/client/dynamic_window_icon.h:37` | as ToggleButtonDynamicWindow's |
 | 1 | `IconSize` | `app/client/dynamic_window_icon.h:40` | what it sizes |
+| 1 | `center` | `app/client/dynamic_window_move.cpp:17` | what Unknown_58A580 sets |
+| 1 | `Unknown_58A580` | `app/client/dynamic_window_move.cpp:18` | untagged neutral name (D10) |
+| 1 | `center` | `app/client/dynamic_window_move.cpp:24` | Get_Center's |
+| 1 | `Unknown_51A9C0` | `app/client/dynamic_window_move.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown_AFB794Class` | `app/client/dynamic_window_move.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown84_04` | `app/client/dynamic_window_move.cpp:34` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/dynamic_window_move.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFA0` | `app/client/dynamic_window_move.cpp:69` | untagged neutral name (D10) |
+| 1 | `dynamic_window_move.h` | `app/client/dynamic_window_move.h:4` | provisional header name for dynamic_window_move.cpp |
+| 1 | `Unknown_AFB794Class` | `app/client/dynamic_window_move.h:12` | untagged neutral name (D10) |
+| 1 | `window` | `app/client/dynamic_window_move.h:15` | neutral |
+| 1 | `Create` | `app/client/dynamic_window_move.h:20` | what it does |
+| 1 | `Window` | `app/client/dynamic_window_move.h:22` | neutral (D10) |
+| 1 | `DynamicWindowMoveGadgetClass` | `app/client/dynamic_window_move.h:26` | neutral (D10) |
+| 1 | `gadget` | `app/client/dynamic_window_move.h:29` | neutral |
+| 1 | `Unknown_30` | `app/client/dynamic_window_move.h:30` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/dynamic_window_move.h:32` | neutral (D10) |
+| 1 | `window` | `app/client/dynamic_window_move.h:35` | neutral |
+| 1 | `Unknown_51A9C0` | `app/client/dynamic_window_move.h:35` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/dynamic_window_multi_line_text.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5A80` | `app/client/dynamic_window_multi_line_text.cpp:63` | untagged neutral name (D10) |
 | 1 | `font_name, sample_font, min_size, flags` | `app/client/dynamic_window_multi_line_text.h:29` | the FAIL_IFs'; Set_Min_Size's; the base's |
@@ -17088,6 +17107,70 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown264` | `app/client/ui_shipcust.h:132` | untagged neutral name (D10) |
 | 1 | `Unknown268` | `app/client/ui_shipcust.h:133` | untagged neutral name (D10) |
 | 1 | `Unknown622180InterfaceClass` | `app/client/ui_shipcust.h:136` | transition alias (charview.cpp) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_skill_info.cpp:16` | neutral (D10), as inv_trade_render.cpp declares it |
+| 1 | `Unknown_496AE0` | `app/client/ui_skill_info.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown_495FD0` | `app/client/ui_skill_info.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_496110` | `app/client/ui_skill_info.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown_496730` | `app/client/ui_skill_info.cpp:20` | untagged neutral name (D10) |
+| 1 | `UISkillInfoAbilityClass` | `app/client/ui_skill_info.cpp:23` | neutral (D10) |
+| 1 | `robj, circle, icon, ability` | `app/client/ui_skill_info.cpp:26` | neutral; NAME 3 [font_group]: the FAIL_IF's |
+| 1 | `Robj` | `app/client/ui_skill_info.cpp:35` | neutral (D10) |
+| 1 | `Circle` | `app/client/ui_skill_info.cpp:36` | neutral (D10) |
+| 1 | `Icon` | `app/client/ui_skill_info.cpp:37` | neutral (D10) |
+| 1 | `Ability` | `app/client/ui_skill_info.cpp:39` | neutral (D10) |
+| 1 | `UnknownB0` | `app/client/ui_skill_info.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_skill_info.cpp:48` | untagged neutral name (D10) |
+| 1 | `UnknownA9` | `app/client/ui_skill_info.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_62CBB0` | `app/client/ui_skill_info.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_skill_info.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown8155B0Struct` | `app/client/ui_skill_info.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_8155B0` | `app/client/ui_skill_info.cpp:85` | untagged neutral name (D10) |
+| 1 | `label, robj, skill_sub, circle, icon, texture, color, id` | `app/client/ui_skill_info.cpp:87` | neutral |
+| 1 | `Unknown51C800Class` | `app/client/ui_skill_info.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown815320Struct` | `app/client/ui_skill_info.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/ui_skill_info.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_skill_info.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown84_08` | `app/client/ui_skill_info.cpp:120` | untagged neutral name (D10) |
+| 1 | `Unknown_815690` | `app/client/ui_skill_info.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_skill_info.cpp:124` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/ui_skill_info.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_skill_info.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_skill_info.cpp:153` | untagged neutral name (D10) |
+| 1 | `bone, size, box` | `app/client/ui_skill_info.cpp:156` | neutral |
+| 1 | `mesh` | `app/client/ui_skill_info.cpp:162` | SlotDataRenderClass's |
+| 1 | `Unknown_58A580` | `app/client/ui_skill_info.cpp:166` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/ui_skill_info.cpp:167` | untagged neutral name (D10) |
+| 1 | `level` | `app/client/ui_skill_info.cpp:190` | neutral |
+| 1 | `Unknown_6D01C0` | `app/client/ui_skill_info.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_skill_info.cpp:199` | untagged neutral name (D10) |
+| 1 | `Unknown_62CA20` | `app/client/ui_skill_info.cpp:201` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_skill_info.cpp:207` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_skill_info.cpp:210` | neutral |
+| 1 | `Unknown_6A72E0` | `app/client/ui_skill_info.cpp:212` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_skill_info.cpp:220` | untagged neutral name (D10) |
+| 1 | `Unknown2C_02` | `app/client/ui_skill_info.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown_62C9E0` | `app/client/ui_skill_info.cpp:232` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_skill_info.cpp:235` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7380` | `app/client/ui_skill_info.cpp:242` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/ui_skill_info.cpp:244` | untagged neutral name (D10) |
+| 1 | `Unknown_58ADA0` | `app/client/ui_skill_info.cpp:262` | untagged neutral name (D10) |
+| 1 | `ui_skill_info.h` | `app/client/ui_skill_info.h:5` | provisional header name for ui_skill_info.cpp |
+| 1 | `client, skill` | `app/client/ui_skill_info.h:20` | what 0x630280 passes |
+| 1 | `Unknown_58` | `app/client/ui_skill_info.h:22` | neutral (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_skill_info.h:23` | neutral (D10) |
+| 1 | `Unknown_60` | `app/client/ui_skill_info.h:24` | neutral (D10) |
+| 1 | `key` | `app/client/ui_skill_info.h:25` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_skill_info.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_skill_info.h:26` | neutral (D10) |
+| 1 | `Unknown_90` | `app/client/ui_skill_info.h:27` | neutral (D10) |
+| 1 | `Unknown_94` | `app/client/ui_skill_info.h:28` | neutral (D10) |
+| 1 | `Unknown_62C9E0` | `app/client/ui_skill_info.h:30` | neutral (D10) |
+| 1 | `gadget` | `app/client/ui_skill_info.h:31` | what 0x62D540 passes |
+| 1 | `Unknown_62CA20` | `app/client/ui_skill_info.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_62CBB0` | `app/client/ui_skill_info.h:32` | neutral (D10) |
+| 1 | `UnknownB0` | `app/client/ui_skill_info.h:34` | neutral (D10) |
+| 1 | `std:` | `app/client/ui_skill_info.h:37` | neutral (D10) |
+| 1 | `UnknownBC` | `app/client/ui_skill_info.h:37` | untagged neutral name (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/ui_skills.cpp:19` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_skills.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_skills.cpp:22` | untagged neutral name (D10) |
@@ -17351,10 +17434,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB8_3` | `app/client/ui_slot_data.h:85` | neutral (D10) |
 | 1 | `x, y` | `app/client/ui_slot_info.cpp:10` | as input.h's |
 | 1 | `Unknown_42ECF0` | `app/client/ui_slot_info.cpp:10` | untagged neutral name (D10) |
-| 1 | `client, skill` | `app/client/ui_slot_info.cpp:16` | what 0x630280 passes |
-| 1 | `Unknown_90` | `app/client/ui_slot_info.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `app/client/ui_slot_info.cpp:18` | untagged neutral name (D10) |
-| 1 | `UnknownB0` | `app/client/ui_slot_info.cpp:19` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/ui_slot_info.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown84_04` | `app/client/ui_slot_info.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_65FFA0` | `app/client/ui_slot_info.cpp:29` | untagged neutral name (D10) |
@@ -17362,6 +17441,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_58` | `app/client/ui_slot_info.cpp:109` | untagged neutral name (D10) |
 | 1 | `Unknown_630070` | `app/client/ui_slot_info.cpp:136` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_slot_info.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_slot_info.cpp:148` | untagged neutral name (D10) |
 | 1 | `Unknown_58A580` | `app/client/ui_slot_info.cpp:149` | untagged neutral name (D10) |
 | 1 | `Unknown_630280` | `app/client/ui_slot_info.cpp:242` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_slot_info.cpp:244` | untagged neutral name (D10) |
@@ -22516,13 +22596,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `programs/clientpoc/poc_world3.cpp:96` | untagged neutral name (D10) |
 | 1 | `Unknown_6A34E0` | `programs/clientpoc/poc_world3.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_6A3C10` | `programs/clientpoc/poc_world3.cpp:104` | untagged neutral name (D10) |
-| 1 | `Unknown_51A9C0` | `programs/clientpoc/poc_world3.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown66CC00Class` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown40` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown48` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
-| 1 | `Unknown4C` | `programs/clientpoc/poc_world3.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown66CC00Class` | `programs/clientpoc/poc_world3.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `programs/clientpoc/poc_world3.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `programs/clientpoc/poc_world3.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `programs/clientpoc/poc_world3.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `programs/clientpoc/poc_world3.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `programs/clientpoc/poc_world3.cpp:110` | untagged neutral name (D10) |
 | 1 | `Unknown669570Class` | `programs/clientpoc/poc_world4.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_A4` | `programs/clientpoc/poc_world4.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_A8` | `programs/clientpoc/poc_world4.cpp:30` | untagged neutral name (D10) |
@@ -22535,9 +22614,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown688830Class` | `programs/clientpoc/poc_world4.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_68A720` | `programs/clientpoc/poc_world4.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_689DA0` | `programs/clientpoc/poc_world4.cpp:71` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `programs/clientpoc/poc_world4.cpp:90` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `programs/clientpoc/poc_world4.cpp:91` | untagged neutral name (D10) |
-| 1 | `UnknownB0` | `programs/clientpoc/poc_world4.cpp:92` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `stubs/app_stubs.cpp:76` | untagged neutral name (D10) |
@@ -26870,6 +26946,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `dynamic_window_class.h` | `app/client/dynamic_window_class.h:18` | header name assumed from the client's dynamic_window_class.cpp |
 | 3 | `dynamic_window_horizontal.h` | `app/client/dynamic_window_horizontal.h:15` | header name assumed from the client's dynamic_window_horizontal.cpp |
 | 3 | `dynamic_window_icon.h` | `app/client/dynamic_window_icon.h:17` | header name assumed from the client's dynamic_window_icon.cpp |
+| 3 | `DynamicWindowMoveClass` | `app/client/dynamic_window_move.h:12` | class-from-file (D24) for app\Client\dynamic_window_move.cpp |
 | 3 | `dynamic_window_multi_line_text.h` | `app/client/dynamic_window_multi_line_text.h:17` | header name assumed from the client's dynamic_window_multi_line_text.cpp |
 | 3 | `dynamic_window_render_object.h` | `app/client/dynamic_window_render_object.h:23` | header name assumed from the client's dynamic_window_render_object.cpp |
 | 3 | `dynamic_window_text.h` | `app/client/dynamic_window_text.h:15` | header name assumed from the client's dynamic_window_text.cpp |
@@ -27558,6 +27635,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `decalmaterialmanager` | `app/client/ui_shipcust.h:34` | the assert's; NAME 1 [decal]: neutral |
 | 3 | `event` | `app/client/ui_shipcust.h:108` | the FAIL_IF's; NAME 1 [sender]: the callback's type |
 | 3 | `ColorSliderTexture` | `app/client/ui_shipcust.h:127` | the G_ASSERT's |
+| 3 | `FontGroup` | `app/client/ui_skill_info.cpp:38` | the FAIL_IF's 'font_group' |
+| 3 | `UISkillInfoClass` | `app/client/ui_skill_info.h:17` | class-from-file (D24) for app\Client\ui_skill_info.cpp |
+| 3 | `SkillRender` | `app/client/ui_skill_info.h:35` | the FAIL_IFs' |
+| 3 | `SkillData` | `app/client/ui_skill_info.h:36` | the FAIL_IFs' |
 | 3 | `DragSlotDataClass` | `app/client/ui_skills.cpp:28` | class-from-file (D24) for drag_slot_data.cpp (0x6851B0, 0x685500, 0x685610) |
 | 3 | `Get_Slot` | `app/client/ui_skills.cpp:37` | the assert 'from_slot != SlotDrag->Get_Slot()' |
 | 3 | `UISlotInfoClass` | `app/client/ui_skills.cpp:49` | class-from-file (D24) for app\Client\ui_slot_info.cpp |
@@ -27577,7 +27658,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SlotDrag` | `app/client/ui_slot_data.h:76` | ui_skills.cpp's assert 'from_slot != SlotDrag->Get_Slot()' |
 | 3 | `SelectedHilight` | `app/client/ui_slot_data.h:77` | the G_ASSERT's |
 | 3 | `VisibleButtons` | `app/client/ui_slot_data.h:79` | the FAIL_IFs '(VisibleButtons % notch_size) != 0' |
-| 3 | `UISkillInfoClass` | `app/client/ui_slot_info.cpp:13` | class-from-file (D24) for app\Client\ui_skill_info.cpp |
 | 3 | `UISlotInfoClass::_ActiveInterface` | `app/client/ui_slot_info.cpp:22` | the asserts' '_ActiveInterface' |
 | 3 | `UISlotInfoClass` | `app/client/ui_slot_info.h:20` | class-from-file (D24) for app\Client\ui_slot_info.cpp |
 | 3 | `_ActiveInterface` | `app/client/ui_slot_info.h:35` | the asserts' |
