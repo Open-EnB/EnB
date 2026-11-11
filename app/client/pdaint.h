@@ -36,23 +36,23 @@ public:
 	char UnknownD0[0xFC - 0xD0];
 };
 
-// The PDA's experience display (0x28 bytes, constructor 0x58C450, ui_experience.cpp): slot +0x08 takes the client's
-// slot +0x28 when +0x04 differs, slot +0x10 every frame
-class Unknown58C450Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown58C450Class(RenderObjClass *mesh, InterfaceClass *parent);	// 0x58C450 (the PDA, 0x693230; ui_attrb.cpp's panel, 0x546DD0)  // NAME 1 [mesh, parent]: what its callers pass
-	virtual ~Unknown58C450Class();
-	virtual void Unknown_04();
-	virtual void Unknown_08(int value);					// +0x08  // NAME 1 [value]: neutral
-	virtual void Unknown_0C();
-	virtual void Unknown_10();							// +0x10 (every frame)
-	void Unknown_58CF60();								// 0x58CF60 (before its delete)
+class UIExperienceClass;	// ui_experience.h's experience bars (0x58C450)
 
-	int Get_Unknown04() { return(Unknown04); }			// (inline: 0x693CA0 loads +0x04 before the client's slot +0x28 call)  // NAME 1: neutral
-	int Unknown04;										// +0x04
-	char Unknown08[0x28 - 0x08];
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // pdaint.cpp's PDA (SClient +0x1284; Init news it, 0xC0 bytes; tables 0xAFD148 / 0xAFD13C / 0xAFD130): the 'TSI14A'
 // mesh with four buttons, and its windows 0 cargo, 1 equipment, 2 character, 3 vault, 4 star map (0x6956C0), the ping
@@ -94,7 +94,7 @@ public:
 	RefCountPtr<UIStarmapClass> Starmap;				// +0xA8 (window 4; the main view's 0x512A00 calls its 0x7C8DB0)  // NAME 1: its class's
 	RefCountPtr<InterfaceClass> OpenedCargoInterface;	// +0xAC (the equipment or vault window opened with the cargo window)  // NAME 3: the assert's
 	RefCountPtr<InterfaceClass> UnknownB0;				// +0xB0 (the window asked for: Active on the next frame without a bridge request)
-	Unknown58C450Class *Experience;						// +0xB4 (0x58C450)  // NAME 1: its file's
+	UIExperienceClass *Experience;						// +0xB4 (0x58C450)  // NAME 1: its file's
 	RefCountPtr<UIPingClass> Ping;						// +0xB8 (the key 'Toggle Ping')  // NAME 2: its key's
 	bool UnknownBC;										// +0xBC (the keys taken; the constructor: true)
 };
