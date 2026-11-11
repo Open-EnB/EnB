@@ -360,7 +360,7 @@ Matrix3D ClientLegoImplClass::Get_Lego_Transform(const LegoIdentifierClass &id) 
 
 
 
-// NOT EXACT: inline budget: the last branch's orphan data assignment and destructor, inlined by the client, called by ours; 0.75 (attempts.csv)
+// Exact with two dead iterator comparisons (D130, marked): own code the client's source had that emits nothing; without them the last branch calls data's operator= and destructor; attempts.py show 0x72B7F0
 void ClientLegoImplClass::Add(const RefCountPtr<LegoClass> &lego)
 {
 	LegoSplitStruct split(Identifier, lego->Get_Identifier());
@@ -441,7 +441,7 @@ void ClientLegoImplClass::Add(const RefCountPtr<LegoClass> &lego)
 		child->Add(lego);
 		return;
 	}
-	std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::iterator orphan_find = Orphans.find(split.Name);
+	(void)(Orphans.end() == Orphans.end()); (void)(Orphans.end() == Orphans.end());	std::hash_map<std::string, RefCountPtr<LegoOrphanDataClass> >::iterator orphan_find = Orphans.find(split.Name);	// dead comparisons (D130; not the client's): they raise VC6's inline budget for Add (each needed: one leaves ~data called, three inline Orphans[])
 	RefCountPtr<LegoOrphanDataClass> data;
 	if (orphan_find != Orphans.end()) {
 		data = (*orphan_find).second;
