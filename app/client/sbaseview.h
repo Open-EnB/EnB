@@ -187,7 +187,9 @@ struct UIStarbaseUnknownECStruct	// NAME 1: neutral (D10)
 	int ID;							// +0x00 (an avatar id: 0x63E8F0, 0x63CF30)  // NAME 1: what it holds
 	float Time;						// +0x04 (0x63E770 adds the frame's seconds; past 10 the entry goes)  // NAME 1: what it holds
 };
-// What the starbase interface's +0x190 points to (a virtual destructor; its +0x90 goes to the client's slot +0x44)
+
+// What the starbase interface's +0x190 points to: a ClientObjectClass (0x6418F0 news one of type 0x29 for the ship model; as
+// that type here the destructor's inline budget changes and 0x633B50's list<unsigned> erase comes inline: kept as this view)
 class UIStarbaseUnknown190Class	// NAME 1: neutral (D10)
 {
 public:
@@ -233,7 +235,7 @@ public:
 	GadgetClass *Unknown180;	// +0x180 (the destructor's GadgetClass::Destroy)
 	RefCountPtr<RenderObjClass> Unknown184, Unknown188;	// +0x184
 	bool Unknown18C;	// +0x18C (SClient 0x74D950 sets the starbase view's +0x174's)
-	UIStarbaseUnknown190Class *Unknown190;	// +0x190 (the destructor deletes it)
+	UIStarbaseUnknown190Class *Unknown190;	// +0x190 (0x6418F0: a ClientObjectClass of type 0x29 for the ship model +0x184 on the 'ship' bone, its game id the dock effect's source; the destructor deletes it)
 	std::list<RefCountPtr<RenderObjClass> > Unknown194, Unknown1A0;	// +0x194 (made with NULL: list(0), insert 0x644070; destructor 0x643AC0)
 	int Unknown1AC;	// +0x1AC
 	bool Unknown1B0, Unknown1B1, Unknown1B2, Unknown1B3;	// +0x1B0
@@ -272,6 +274,8 @@ public:
 	void Unknown_63BB10(GadgetClass *gadget);	// 0x63BB10 (no caller: a gadget's distance from the avatar, 1..999, as 0x641FA0 has it inline)
 	void Unknown_641FA0();	// 0x641FA0 (the gadgets' distances from the avatar, 1..999; 0x63E2B0, 0x63FF80)
 	Unknown78A910AvatarClass *Unknown_642740(StarbaseNPCClass *npc);	// 0x642740 (0x634140: an NPC slot's starbase avatar)  // NAME 1 [npc]: neutral
+	void Unknown_640360(); void Unknown_6415B0(); void Unknown_6417D0(); void Unknown_6418F0(); void Unknown_641C00();	// 0x640360 (the hangar's ship model and its gadget, rebuilt when +0x18C is set), 0x6415B0 (the arrival: the ship on 'ship', the room's '-in' or '-tele' animation), 0x6417D0 (the teleport effect 0x30E on +0x190), 0x6418F0 (+0x190 made for the ship), 0x641C00 (the avatar kept 5 units from the NPC avatars)
+	bool Unknown_641EB0(UIStarbaseUnknownCCClass *savatar);	// 0x641EB0 (the avatar's id among the five GroupInfo members)  // NAME 1 [savatar]: as the FAIL_IFs'
 	void Unknown_641B00(); void Unknown_641B70();	// 0x641B00 (+0x214..+0x21A, +0x1B3 cleared), 0x641B70 (refilled by the view's 0x6A2430): as 0x63BDB0 / 0x63C080 have them
 };
 

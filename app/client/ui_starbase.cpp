@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__
 // 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x632E50-0x648340 by its asserts, its string order and ui_slot_scut.cpp's end).
-// The starbase interface (constructor 0x6333E0, SB1), its helpers 0x638FF0-0x6437A0 as far as rebuilt (SB1, run 2026-11-09b), its lights helpers
-// 0x640CC0-0x640F30 and the lights panel (0x646170-0x648238, ST1, at the end); the set-up 0x634140 (SU1) and the functions with asserts sit on the client's lines (862, 2004-4180).
+// The starbase interface (constructor 0x6333E0, SB1), its helpers 0x638FF0-0x6437A0 as far as rebuilt (SB1, run 2026-11-09b), its lights helpers 0x640CC0-0x640F30 and the lights panel (0x646170-0x648238, ST1, at the end); the set-up 0x634140 (SU1) and the functions with asserts sit on the client's lines (862, 2004-4180).
+#include "eff_o.h"	// first: client.h then skips its partial EffectObjectClass
 #include <stdio.h>
 #include <string.h>
 #include <vector>
@@ -586,16 +586,16 @@ void UIStarbaseClass::Unknown_641B70()
 
 #pragma auto_inline(on)
 
+#include "co.h"
 
-
-
-
-
-
-
-
-
-
+#include "postate.h"
+#include "coltest.h"
+#include "random.h"
+#include "aux_roots.h"
+#include "..\shared\auxdata\auxdata.h"
+extern Random4Class Unknown_BDB1C0;	// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, as camctrl_dock.cpp's
+// The docking sounds by the starbase's column +0x18 (0xB8A8B0: 0x6415B0)
+static const char *Unknown_B8A8B0[10] = { "terren_space_ship_dock_1.wav", "jenquai_space_ship_dock_1.wav", "progen_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav" };	// NAME 1: neutral (D10)
 
 
 
@@ -870,7 +870,7 @@ void UIStarbaseClass::Unknown_54()
 			Unknown180->Set_Last_Sort_Group(true);
 			Unknown64.Unknown_6870E0(Unknown180, 1, View, true, true);
 		}
-		if (RoomInfo->Unknown06) {
+		if (RoomInfo->HasBar) {
 			_snprintf(model, sizeof(model), "%sbar05", Unknown_B8A950[column]);
 			robj = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(model));
 			if (robj) {
@@ -878,7 +878,7 @@ void UIStarbaseClass::Unknown_54()
 				Unknown194.push_back(robj);
 			}
 		}
-		if (RoomInfo->Unknown07) {
+		if (RoomInfo->HasTables) {
 			for (int table = 0; ; table++) {
 				_snprintf(name, sizeof(name), "table%02d", table);
 				if (!InterfaceMesh->Peek_Object()->Get_Bone_Index(name)) {
@@ -3077,6 +3077,116 @@ void UIStarbaseClass::Unknown_63E4B0(int new_room, int old_room)
 }
 
 
+// 0x640150
+void UIStarbaseClass::Unknown_640150()
+{
+	Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("safe_spot");
+	tm.In_Place_Pre_Rotate_Z(Unknown_BDB1C0.Get_Float() * (WWMATH_PI * 2.0f));
+	UnknownC0.D->Avatar->Set_Transform(tm);
+	UnknownC0.D->Avatar->Unknown330 = tm;
+	Unknown_63E2B0();
+}
+// NOT EXACT: 0x641C00, functional (frame: the client keeps the NPC position's y / z in two more stack copies, sub esp 0x98 against 0x8C; B1)
+// 0x641C00
+void UIStarbaseClass::Unknown_641C00()
+{
+	if (UnknownC0.D->Avatar) {
+		for (int i = 0; i < 14; i++) {
+			if (Unknown13C[i] && Unknown13C[i]->Avatar) {
+				CharacterViewAvatarClass *npc = Unknown13C[i]->Avatar.Peek();
+				Matrix3D tm = UnknownC0.D->Avatar->Unknown330;
+				Vector3 pos = npc->Get_Transform().Get_Translation();
+				Vector3 diff = tm.Get_Translation() - pos;
+				float distance = diff.Length();
+				if (distance < 5.0f) {
+					float push = 5.0f - distance;
+					diff.Normalize();
+					tm.Set_Translation(tm.Get_Translation() + diff * push);
+					UnknownC0.D->Avatar->Unknown330 = tm;
+				}
+			}
+		}
+	}
+}
+// 0x641EB0
+bool UIStarbaseClass::Unknown_641EB0(UIStarbaseUnknownCCClass *savatar)
+{
+	if (savatar && ((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_74D570()) {
+		DeltaCompoundClass *aux_data = ((LineDisplayClientClass *)Client)->As_Space_Client()->AuxData;
+		if (aux_data) {
+			NameClass name("GroupInfo");
+			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux_data, name);
+			if (group && group->Unknown70) {
+				for (int i = 0; i < 5; i++) {
+					if (savatar->Unknown00 == ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value) {
+						return(true);
+					}
+				}
+			}
+		}
+	}
+	return(false);
+}
+// 0x6435E0
+void UIStarbaseClass::Unknown_6435E0()
+{
+	Matrix3D tm = UnknownC0.D->Avatar->Get_Transform();
+	UnknownC0.D->Avatar->Remove();
+	UnknownC0.D->Avatar = NULL;
+	unsigned int id = ((LineDisplayClientClass *)Client)->AvatarID;
+	UnknownC0.D->Avatar = Create_NEW((CharacterViewAvatarClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_74C7B0(id));
+	Unknown_63BDB0(tm);
+}
+
+// 0x6418F0
+void UIStarbaseClass::Unknown_6418F0()
+{
+	if (Unknown190) {
+		Client->Unknown_44(Unknown190->Get_Unknown90());
+		delete Unknown190;
+		Unknown190 = NULL;
+	}
+	Unknown190 = (UIStarbaseUnknown190Class *)new ClientObjectClass((ClientClass *)Client, 0x29, ((ClientClass *)Client)->Next_Local_ID());
+	((ClientObjectClass *)Unknown190)->Unknown98 = new Unknown7192A0Class(InterfaceMesh->Peek_Object(), ((ClientObjectClass *)Unknown190)->Unknown98, "ship");
+	((ClientObjectClass *)Unknown190)->Unknown_6F33F0(Unknown184.Peek(), -1, 1.0f);
+	SphereClass sphere = Unknown184->Get_Bounding_Sphere();
+	((ClientObjectClass *)Unknown190)->Unknown_34(sphere.Radius);
+	((ClientClass *)Client)->ClientClass::Add_Object((ClientObjectClass *)Unknown190);
+}
+// 0x6415B0
+void UIStarbaseClass::Unknown_6415B0()
+{
+	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	RenderObjClass *ship = Unknown184.Peek();
+	int column = UnknownB0->Info->Style;
+	if (ship) {
+		Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
+		((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
+		((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(ship);
+		ship->Set_Transform(tm);
+	}
+	char anim[64];
+	if (client->Unknown13C1) {
+		if (RoomInfo->Unknown0A) {
+			_snprintf(anim, sizeof(anim), "%sa2.%sa2-tele", Unknown_B8A978[column], Unknown_B8A978[column]);
+		} else {
+			_snprintf(anim, sizeof(anim), "%sa.%sa-tele", Unknown_B8A978[column], Unknown_B8A978[column]);
+		}
+		Unknown_6417D0();
+	} else {
+		if (RoomInfo->Unknown0A) {
+			_snprintf(anim, sizeof(anim), "%sa2.%sa2-in", Unknown_B8A978[column], Unknown_B8A978[column]);
+		} else {
+			_snprintf(anim, sizeof(anim), "%sa.%sa-in", Unknown_B8A978[column], Unknown_B8A978[column]);
+		}
+		SoundLibraryClass::Play_2D_Sound(Unknown_B8A8B0[column], 2);
+	}
+	InterfaceMesh->Unknown_5B8EE0(0, 0, anim, false, 0, 0, 0, -1);
+	InterfaceMesh->Unknown_5B9410();
+	Unknown1FD = false;
+	Unknown200 = true;
+	client->Unknown13C1 = false;
+}
 
 
 
@@ -3096,8 +3206,33 @@ void UIStarbaseClass::Unknown_63E4B0(int new_room, int old_room)
 
 
 
+// NOT EXACT: 0x640F50, functional (the avatar dropped onto the room's model: a 0.5 box swept 50 down from its position at
+// its height; the client copies the position through a Matrix3D temporary and keeps a smaller frame; B1)
+// 0x640F50
+void UIStarbaseClass::Unknown_640F50(CharacterViewAvatarClass *avatar)
+{
+	CastResultStruct result;
+	Matrix3D tm(true);
+	tm.Set_Translation(avatar->Unknown330.Get_Translation());
 
 
+	tm[2][3] += avatar->Unknown_77D9F0(true);
+	Vector3 move(0.0f, 0.0f, -50.0f);
+	OBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));
+	OBBoxClass world;
+	OBBoxClass::Transform(tm, box, &world);
+	OBBoxCollisionTestClass test(world, move, &result, COLLISION_TYPE_1);
+	Matrix3D model_tm = Unknown_Model()->Get_Transform();
+	Matrix3D inv;
+	model_tm.Get_Orthogonal_Inverse(inv);
+	OBBoxCollisionTestClass local_test(test, inv);
+	if (Unknown_Model()->Cast_OBBox(local_test)) {
+		Matrix3D m = avatar->Unknown330;
+		m.Set_Translation(tm.Get_Translation() + move * result.Fraction);
+		avatar->Unknown330 = m;
+	}
+	avatar->Unknown23C = result.SurfaceType;
+}
 
 
 
@@ -3331,434 +3466,50 @@ void UIStarbaseClass::Unknown_63E4B0(int new_room, int old_room)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x640360, functional (inline budget: the client copies the 'ship' bone transform through ??_H, the out-of-line Vector4 constructor 0x468E70; ours inlines it; B1)
+// 0x640360
+void UIStarbaseClass::Unknown_640360()
+{
+	if (Unknown18C) {
+		Unknown5BB320Class::Unknown_5C();
+		if (Unknown180) {
+			Unknown64.Unknown_687150(Unknown180);
+			GadgetClass::Destroy(Unknown180);
+			Unknown180 = NULL;
+		}
+		if (Unknown184) {
+			Unknown184->Remove();
+			Unknown184 = NULL;
+		}
+		ClientObjectClass *ship_object = ((ClientClass *)Client)->Get_Ship();
+		if (ship_object) {
+			Unknown184 = Create_Get(ship_object->Unknown_6F3BC0());
+			Unknown_496DB0(Unknown184.Peek());
+			Unknown184->Set_LOD_Bias(100.0f);
+			RenderObjClass *ship = Unknown184.Peek();
+			Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
+			((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
+			((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(ship);
+			ship->Set_Transform(tm);
+			Unknown_810540(Unknown184.Peek(), 1, 1.0f);
+			RefCountPtr<RenderObjClass> extents;
+			if (ExtraBones) {
+				extents = Create_Get(ExtraBones->Get_Sub_Object_By_Name("ship_extents00")); } else {
+				G_ASSERT(ExtraBones);
+				extents = Unknown184;
+			}
+			Unknown180 = new ButtonGadgetClass(extents.Peek(), Layer, 5, 3);
+			Unknown180->Set_Last_Sort_Group(true);
+			Unknown180->Unknown2C_0A = true;
+			Unknown64.Unknown_6870E0(Unknown180, 1, View, true, true);
+		}
+		Unknown5BB320Class::Unknown_58();
+		Unknown18C = false;
+	} else if (Unknown184) {
+		Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
+		Unknown184->Set_Transform(tm);
+	}
+}
 
 
 
@@ -3858,6 +3609,255 @@ void UIStarbaseClass::Unknown_63BB10(GadgetClass *gadget)
 		gadget->Unknown_65FFA0(distance);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x6417D0
+void UIStarbaseClass::Unknown_6417D0()
+{
+	Unknown_6418F0();
+	Vector3 hsv_shift(0.0f, 0.0f, 0.0f);
+	EffectObjectClass *effect = Unknown_6E9490(0x30E, ((ClientClass *)Client)->Next_Local_ID(), 0, ((ClientClass *)Client)->Unknown10BC, (ClientClass *)Client, 1.0f, hsv_shift, 1.0f, -1, 0);
+	FAIL_IF(!effect) return;
+	UnknownB00060EffectClass *source = effect->Unknown_10();
+	if (source) {
+		source->Set_Source_Object_ID(Unknown190->Get_Unknown90());
+	}
+	SBaseViewClass *view = (SBaseViewClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown135C;
+	((ClientClass *)Client)->Add_Effect(effect, (int)view->Unknown_5C(), (int)view->Unknown6C.Peek());
+	Unknown220 = effect->ID;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // NOT EXACT: 0x63E770, functional (the client compares the found iterator with end() through an out-of-line 8-byte copy 0x6439B0, a const_iterator conversion the stand-in table lacks; SB1)
 // 0x63E770
@@ -4265,6 +4265,7 @@ public:
 	void Unknown_646A00();								// 0x646A00 (the lights read)
 	void Unknown_646E00();								// 0x646E00 (key 2)
 	void Unknown_648190();								// 0x648190 (no caller: the pad points from the lights manager)
+	void Unknown_648270();								// 0x648270 (no caller: the pad points into the lights manager)
 	void Unknown_646F70(bool force);					// 0x646F70 (the sliders into the current light; its texts)  // NAME 1 [force]: neutral
 	void Unknown_6474C0(int index);						// 0x6474C0 (a light chosen; mode 1: the ambient light)  // NAME 1 [index]: neutral
 	void Unknown_647B30();								// 0x647B30 (the colour pad dragged)
@@ -4675,4 +4676,13 @@ void UIStarbaseLightsClass::Unknown_648190()
 		Position[i] = Unknown_BE82D0->Unknown_764AB0(UnknownE4, UnknownE8, UnknownEC, i);
 	}
 	AmbientPosition = Unknown_BE82D0->Unknown_764AB0(UnknownE4, UnknownE8, UnknownEC, 1000);
+}
+
+// 0x648270
+void UIStarbaseLightsClass::Unknown_648270()
+{
+	for (int i = 0; i < UnknownF4; i++) {
+		Unknown_BE82D0->Unknown_764C30(UnknownE4, UnknownE8, UnknownEC, i, Position[i]);
+	}
+	Unknown_BE82D0->Unknown_764C30(UnknownE4, UnknownE8, UnknownEC, 1000, AmbientPosition);
 }

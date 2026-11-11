@@ -108,8 +108,8 @@ public:
 	int Type;					// +0x00 the key in the starbase's table  // NAME 2: the assert's 'room_type'
 	bool Unknown04;			// +0x04 LOUNGE_NPC's flags, a bit each: 0x001
 	bool Unknown05;			// +0x05 0x002
-	bool Unknown06;			// +0x06 0x004 (0x634140: the '%sbar05' model on 'bar')
-	bool Unknown07;			// +0x07 0x008 (0x634140: '%sbar07' on each 'table%02d' bone)
+	bool HasBar;			// +0x06 0x004 (0x634140: the '%sbar05' model on the 'bar' bone)  // NAME 2: what 0x634140 adds for it
+	bool HasTables;		// +0x07 0x008 (0x634140: '%sbar07' on each 'table%02d' bone)  // NAME 2: what 0x634140 adds for it
 	bool Unknown08;			// +0x08 0x010
 	bool Unknown09;			// +0x09 0x020
 	bool Unknown0A;			// +0x0A 0x040 (0x6A2120, 0x640D80: the room's second model variant, when +0x0B is clear)

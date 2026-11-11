@@ -41,8 +41,8 @@ StarbaseRoomClass::StarbaseRoomClass(int type) :
 	Type(type),
 	Unknown04(false),
 	Unknown05(false),
-	Unknown06(false),
-	Unknown07(false),
+	HasBar(false),
+	HasTables(false),
 	Unknown08(false),
 	Unknown09(false),
 	Unknown0A(false),
@@ -315,8 +315,8 @@ static inline void Set_Room_Flags(StarbaseRoomClass *room, int flags)	// NAME 2:
 {
 	if (flags & 0x001) room->Unknown04 = true;
 	if (flags & 0x002) room->Unknown05 = true;
-	if (flags & 0x004) room->Unknown06 = true;
-	if (flags & 0x008) room->Unknown07 = true;
+	if (flags & 0x004) room->HasBar = true;
+	if (flags & 0x008) room->HasTables = true;
 	if (flags & 0x010) room->Unknown08 = true;
 	if (flags & 0x020) room->Unknown09 = true;
 	if (flags & 0x040) room->Unknown0A = true;
