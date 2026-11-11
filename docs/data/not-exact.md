@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-744 entries in 228 files.
+732 entries in 227 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -280,18 +280,6 @@ edit the comments in the code, not this file.
 | `app/client/shiputils.cpp:447` | `void` | marker | NOT EXACT: functional (D64), from the disassembly: a mesh named '[prefix.]decalNN' gets slot NN's material (an empty slot's from the library, else the slot's decal tinted by its colour): the mesh made unique, its passes, two texture stages, shader and vertex material replaced and its material info rebuilt; anything else recurses over its sub-objects @0x80EAF0 |
 | `app/client/shiputils.cpp:513` | `Unknown_80F020` | marker | NOT EXACT: functional (D64), from the disassembly: a mesh takes 0x812390 with the region (the bone '~NN' above it sets it), anything else recurses over its bones' objects, or over its sub-objects when it has no bones @0x80F020 |
 | `app/client/shiputils.cpp:552` | `Unknown_80EFF0` | marker | NOT EXACT: functional (D64): 0x80F020 from region 0 with the environment-map manager's axis (+0x10) @0x80EFF0 |
-| `app/client/signal_map.cpp:36` | `Unknown_4F7EF0` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:45` | `Unknown_4F7F60` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:54` | `SignalList::SignalList` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:64` | `SignalList::~SignalList` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:74` | `SignalList::Add` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:85` | `SignalList::remove` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:111` | `SignalList::emit` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:135` | `SignalMap::SignalMap` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:145` | `SignalMap::~SignalMap` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:155` | `SignalMap::connect` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:166` | `SignalMap::disconnect` | marker | NOT EXACT: functional (shape) |
-| `app/client/signal_map.cpp:190` | `SignalMap::emit` | marker | NOT EXACT: functional (shape) |
 | `app/client/skill_data.cpp:144` | `SkillDataClass::Unknown_20` | marker | NOT EXACT: inline-budget, the client inlines only the -1 push_back and calls 0x4A0880 for the other two 0x6A4F40 |
 | `app/client/skill_data_peek.cpp:149` | `SkillDataPeekClass::Get_Affiliations` | marker | NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return) 0x6A5730 |
 | `app/client/slot_data.cpp:32` | `SlotDataClass::Unknown_6A7730` | marker | NOT EXACT: shape (0.59: the client lays out the second emit before the shared failure exit; this form makes the copy 0x6A7860 inlines exact) 0x6A7730 |
