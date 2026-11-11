@@ -10,8 +10,9 @@ the pad at the middle of it.
   sendpad.py --includes [PATH ...]    the headers sclient.cpp includes (transitively, within app/);
                                       with paths: those of them among PATH (exit 1 when none)
 
-The window is the run of consecutive values at which every address of WATCH that the ledger records for sclient.cpp is exact (the longest run
-when there are several); the pad is written to its middle (lower middle); --dry restores the file instead.
+The window is the run of consecutive values at which every address of WATCH that HEAD's ledger records for
+sclient.cpp is exact (the longest run when there are several; HEAD's, not the working tree's: the verify that
+lost the pairs has already taken them out of the working ledger, which then watched nothing it lost); the pad is written to its middle (lower middle); --dry restores the file instead.
 The importer lock is taken per variant, not for the whole sweep. K VMs (default 1) are leased from pool.py and
 released at the end (also on failure). Log: .work/log/sendpad.log (one line per value). Prints one summary line.
 Exit 1: no value keeps all of them (the header is left as it was).
@@ -96,12 +97,13 @@ def windows(ok):
     return runs
 
 
-def watch_list():
-    """WATCH addresses that the tree's ledger records for sclient.cpp (an address not matched yet constrains nothing);
-    all of WATCH when the ledger has no sclient.cpp entry."""
+def watch_list(src='HEAD'):
+    """WATCH addresses that HEAD's ledger records for sclient.cpp (an address not matched yet constrains nothing;
+    the working ledger is the wrong source: a verify that just lost them has rewritten it);
+    all of WATCH when that ledger has no sclient.cpp entry."""
     try:
         import ledger
-        held = {str(x) for x in ledger.load(None, repo=REPO)['app']['files']['sclient']['in_tree']}
+        held = {str(x) for x in ledger.load(src, repo=REPO)['app']['files']['sclient']['in_tree']}
     except Exception:
         return list(WATCH)
     return [w for w in WATCH if w in held] or list(WATCH)

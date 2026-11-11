@@ -10,8 +10,9 @@
 
 new: `git worktree add .work/wt/NAME -b wt/NAME BASE` (default HEAD); NTFS junctions .work/locks,
   .work/pool, .work/pseudo to the main tree's (one importer lock, one VM pool, Ghidra's saved
-  pseudocode); copies .work/vc6_hosts.json, .work/harness/*.dgram and build/*/*.lib except app's
-  (udpreplay needs app.lib: `build.py build --lib app --allow-dirty` in the worktree); records BASE in
+  pseudocode); copies .work/vc6_hosts.json, .work/harness/*.dgram, build/*/*.lib except app's
+  (udpreplay needs app.lib: `build.py build --lib app --allow-dirty` in the worktree) and the folders build/art
+  (the art copy with MSS32.DLL, D120) and build/d3d8shot (the d3d8.dll proxy) when the main tree has them; records BASE in
   .work/wt/NAME.base. verify.py run inside the worktree takes NAME as its agent (scratch under
   the worktree's .work/NAME/tmp): `new` checks that.
   Stacked branches (pipeline-plan §4 item 4): `--base wt/PARENT` records PARENT's tip as the base plus a line
@@ -157,6 +158,7 @@ def _main_root():
 ROOT = _main_root()
 WTDIR = os.path.join(ROOT, '.work', 'wt')
 JUNCTIONS = ('locks', 'pool', 'pseudo')
+BUILD_DIRS = ('art', 'd3d8shot')                        # build/ folders the harness runs need: copied whole by `new`
 IMPORTS = ledger.REL                                    # docs/data/imports: one shard per source file
 OLD_IMPORTS = ledger.OLD_REL                            # the single file before the split
 ATTEMPTS = 'docs/data/attempts.csv'
@@ -259,7 +261,7 @@ def _junction(dst, src):
 
 
 def furnish(path, libs=True, pseudo=True):
-    """Junctions, VM hosts, captures and the non-app libraries for the worktree at path."""
+    """Junctions, VM hosts, captures, the non-app libraries and build/art, build/d3d8shot for the worktree at path."""
     os.makedirs(os.path.join(path, '.work', 'harness'), exist_ok=True)
     for j in JUNCTIONS:
         src = os.path.join(ROOT, '.work', j)
@@ -280,6 +282,10 @@ def furnish(path, libs=True, pseudo=True):
         if lib != 'app' and os.path.isfile(f):
             os.makedirs(os.path.join(path, 'build', lib), exist_ok=True)
             shutil.copyfile(f, os.path.join(path, 'build', lib, lib + '.lib'))
+    for d in BUILD_DIRS:
+        src = os.path.join(bd, d)
+        if os.path.isdir(src):
+            shutil.copytree(src, os.path.join(path, 'build', d), dirs_exist_ok=True)
 
 
 def importer_agent(path):
@@ -1198,11 +1204,19 @@ def record_subject(what, res):
             f'gained, {len(res["moves"])} D66 moves, {lost} lost outright')
 
 
+def report_args(a, bo):
+    """report.py's arguments in bo with this run's --lock-wait (it takes the importer lock like verify; without
+    the flag it gave up after vc6lock's 600 s whatever bring-over was told). The pre-split importer.py form: as it was."""
+    args = tool(bo, 'report.py', 'report')
+    wait = getattr(a, 'lock_wait', None)
+    return args + ['--lock-wait', str(wait)] if wait is not None and args[0] != IMPORTER else args
+
+
 def regen_and_commit(a, bo, subject, target, old, took=()):
     """report, names.py, notexact.py (app_inventory.py when TOOK holds one of its files), and the regenerated files
     committed with SUBJECT and a.trailer (default the newest Co-Authored-By below OLD); exits on anything else
     changed. TARGET only names what stays untouched in the messages."""
-    steps = [('report', tool(bo, 'report.py', 'report')),
+    steps = [('report', report_args(a, bo)),
              ('names', ['tools/re/names.py']), ('notexact', ['tools/re/notexact.py'])]
     if set(APP_INV) & set(took):
         steps.append(('appinv', ['tools/re/app_inventory.py']))

@@ -153,8 +153,7 @@ Landing and bring-over (the lander does the landing; these are what you see arou
 - **If you run `wt.py bring-over` yourself, run it in the background**, never in a foreground call (a 600 s
   timeout moved one to the background, and stopping that task left its python, the importer lock and lease
   `importer-<pid>` running). Wait on the log's `landed:` line or `tasklist //FI "PID eq N"` (Git Bash can't see
-  Windows processes); a wait loop on the verify log hangs if the batch stops at a conflict. Its report.py step
-  ignores `--lock-wait`: set ENB_LOCK_WAIT=6000 too. `--dry` still runs the full verify.
+  Windows processes); a wait loop on the verify log hangs if the batch stops at a conflict. `--dry` still runs the full verify.
 - **During a landing:** a second bring-over refuses cleanly ("run moved while landing ... nothing landed, rerun");
   a run-branch commit made meanwhile is replayed under it when it touches none of the landing's paths and no
   generated file, otherwise rerun. Read a landing's exit before removing its worktree: the branch survives, the

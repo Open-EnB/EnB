@@ -1,6 +1,8 @@
 """Builds a symbol map of client.exe from everything proven so far, and a coverage report.
 
-    python symbols.py [--objs DIR...] [--out ../../docs/data]
+    python symbols.py --objs DIR [--objs DIR...] [--out ../../docs/data]
+    python symbols.py --no-objs         regenerate without any object directory (every objmatch and vtable name
+                                        is dropped: rarely what you want; plain `symbols.py` refuses)
     python symbols.py --apply-named     only apply symbols_named.json to the existing symbols.json
                                         (no regeneration: a regeneration is not neutral, workflow.md §3.4)
 
@@ -79,13 +81,21 @@ def vptr_stores(img, objs, results):
     return out
 
 
-def main():
+def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument('--objs', action='append', default=[], help='object directories (vtables, exact names)')
     ap.add_argument('--out', default=DATA)
     ap.add_argument('--apply-named', action='store_true',
                     help='apply symbols_named.json to the existing symbols.json only (no regeneration)')
-    a = ap.parse_args()
+    ap.add_argument('--no-objs', action='store_true',
+                    help='regenerate with no object directory (drops every name the objects prove)')
+    a = ap.parse_args(argv)
+    if not a.objs and not a.apply_named and not a.no_objs:
+        ap.error('nothing to do: a regeneration needs every library\'s --objs DIR (without them it rewrites '
+                 'symbols.json wholesale, workflow.md 3.4); --apply-named only applies symbols_named.json; '
+                 '--no-objs regenerates without objects on purpose')
+    if a.no_objs and (a.objs or a.apply_named):
+        ap.error('--no-objs goes alone')
     img = ClientImage()
     starts, thunks = img.function_starts()
     t0, t1, _ = img.section('.text')

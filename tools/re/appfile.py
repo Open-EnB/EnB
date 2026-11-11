@@ -228,6 +228,7 @@ def write_draft(rows, fname, out):
 
 MARKER = re.compile(r'^\s*//\s*@(0x[0-9A-Fa-f]+)\s*$')
 DEFN = re.compile(r'([A-Za-z_][\w]*(?:::~?[A-Za-z_]\w*|::operator\s*\S+?)*)\s*\(')
+PRAGMA = re.compile(r'^\s*#\s*pragma\b')
 
 
 def markers(path, inline=None):
@@ -241,8 +242,8 @@ def markers(path, inline=None):
         if not m:
             continue
         for j, nxt in enumerate(lines[k + 1:k + 6]):
-            if not nxt.strip() or nxt.lstrip().startswith('//'):
-                continue
+            if not nxt.strip() or nxt.lstrip().startswith('//') or PRAGMA.match(nxt):
+                continue                    # `#pragma auto_inline(off)` would read as a definition of auto_inline
             d = DEFN.search(nxt)
             if d:
                 name = d.group(1).replace(' ', '')

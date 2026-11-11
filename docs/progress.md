@@ -3550,16 +3550,10 @@ below name only the work items, the blocked work, the leads and the queues.
    first full run, 193 not placed (`--list-unplaced`); left: 4-byte scalars (BridgeNear / BridgeFar, ...), constants
    read only by non-exact functions, tables the compiler inlined or emitted no symbol for, 8 masked pointers in 7 tables
    (ui_attrb 0xB79F04, ui_analyze 0xB7967C, ui_manu 0xB81868, ...).
-   The 2026-11-10 review's tool changes (D223; the audit tables are `.work/audit/traps-*.md`; none made yet; each
-   retires the trap bullets named, which then shrink to a line or go): (1) `wt.py new` copies build/art (MSS32.DLL)
-   and the d3d8shot files into a worktree (§3.7's build/art bullets); (2) `wt.py bring-over` without `--target`
+   The 2026-11-10 review's tool changes (D223; the audit tables are `.work/audit/traps-*.md`; 1 and 4-10
+   made 2026-11-10, tests in `tools/test_toolfixes.py`; left, each retiring the trap bullets named): (2) `wt.py bring-over` without `--target`
    refuses, or lands on the current run branch, instead of master (waits for the user); (3) `--sendpad` by default
-   (waits for the user); (4) `verify.py --lib a,b` fails or splits on the comma instead of verifying nothing
-   (verify.py:95); (5) report.py honours `--lock-wait` (today ENB_LOCK_WAIT too); (6) appfile.py's `markers()`
-   skips `#pragma` lines (a `#pragma auto_inline(` before a marker reads as a definition); (7) symbols.py with no
-   arguments refuses instead of regenerating everything; (8) explain.py matches names exactly, not by substring
-   (explain.py:229); (9) sendpad.py reads its watch set from HEAD's ledger, not the working one; (10) auxpad.py's
-   docstring lists `--pool`, which its parser rejects: add it or fix the text; (11) pacing.py's allowance on
+   (waits for the user); (11) pacing.py's allowance on
    burnrate.py's fit (about 0.6 % of the week per hour for the coordinator, 0.1 % per builder: it said "allowance 0"
    and was overridden in four of the last five runs; waits for the user) and (12) the five-hour window's percentage
    in the heartbeat line; (13) auxroots.py's stale pad-window comments, with a `generate` diff proving the headers
