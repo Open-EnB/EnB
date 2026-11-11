@@ -3349,7 +3349,7 @@ bool GuildRankNamesSectorPacket::Process_Packet(void *instance)
 #include "..\packets\pkgmviewmissionlog.h"
 #include "..\packets\pkgmeditplayerinventory.h"
 // the GM tools' interfaces the GM packets make (InterfaceClass objects; their files unknown), declared as far as the handlers call them
-class Unknown6B2460Class : public InterfaceClass { public: Unknown6B2460Class(SClient *client); void Unknown_6B3340(int unknown, std::vector<std::string> *strings); char Unknown84[0x108 - 0x84]; };	// NAME 1: neutral (D10): 0x108 bytes (GM_VIEW_MISSION_LOG 235)  // NAME 1 [client, unknown, strings]: what the handler passes
+#include "unknown_6b2460.h"	// the GM tools' mission log window (GM_VIEW_MISSION_LOG 235 makes it)
 #include "unknown_6af220.h"	// the GM tools' player inventory window (GM_EDIT_PLAYER_INVENTORY 234 makes it)
 // 0x73EEF0
 bool GuildGMRenameConfirmSectorPacket::Process_Packet(void *instance)
