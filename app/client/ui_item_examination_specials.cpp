@@ -51,8 +51,8 @@ UIItemExaminationSpecialClass::UIItemExaminationSpecialClass(const RefCountPtr<C
 	Listener(listener),
 	Gadget(NULL)
 {
-	bool usable = special->Unknown_18();
-	std::vector<ClientItemPropertySpecialLineStruct> lines = special->Unknown_14();
+	bool usable = special->Is_Usable();
+	std::vector<ClientItemPropertySpecialLineStruct> lines = special->Get_Lines();
 	for (std::vector<ClientItemPropertySpecialLineStruct>::iterator it = lines.begin(); it != lines.end(); ++it) {
 		std::string font = "SPECIALS00_IEI00";
 		if (it->Bold) {

@@ -32,7 +32,7 @@ void Unknown_496730(RenderObjClass *robj, int a, bool b);	// NAME 1: neutral (D1
 bool operator!=(const MoneyClass &a, const MoneyClass &b);	// 0x4F0640: money.cpp's inequality
 // 0x521B80: what walks an item's properties
 class Unknown521B80Class { public: Unknown521B80Class(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot); ~Unknown521B80Class(); void Unknown_521BD0(UIItemExaminationPropertyRouterBaseClass &visitor); int Unknown00[4]; };	// NAME 1: neutral (D10); NAME 1 [space_client, item, data, slot, visitor]: neutral
-class Unknown68C680PropertyClass : public RefCountClass { public: virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual bool Unknown_18(); };	// NAME 1: neutral (D10): ClientItemPropertySpecialClass as far as 0x68C680 calls it
+#include "item\client_item_property_special.h"	// ClientItemPropertySpecialClass (0x68C680 asks Is_Usable)
 
 const char *Get_Roman_Numeral(int value);
 
@@ -171,7 +171,7 @@ void Unknown68C5A0Class::Route(const RefCountPtr<ClientItemPropertyClass> &prope
 // 0x68C680
 void Unknown68C5A0Class::Unknown_04(ClientItemPropertySpecialClass *property)
 {
-	bool usable = ((Unknown68C680PropertyClass *)property)->Unknown_18();	// NAME 1 [usable]: neutral
+	bool usable = property->Is_Usable();	// NAME 1 [usable]: neutral
 	if (!usable) Usable = usable;
 }
 
