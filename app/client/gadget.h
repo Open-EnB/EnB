@@ -154,7 +154,10 @@ public:
 	virtual bool Unknown_30(float x, float y);							// +0x30 0x660DD0
 	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x660E40  // NAME 1 [box]: what it fills
 
-	char Unknown30[0x40 - 0x30];										// +0x30
+	float X;															// +0x30 (the constructor's a / 640: 0x660DD0's test, 0x660E40's box)  // NAME 1: what 0x660DD0 tests
+	float Y;															// +0x34 (b / 480)  // NAME 1: what 0x660DD0 tests
+	float Width;														// +0x38 (c / 640)  // NAME 1: what 0x660DD0 tests
+	float Height;														// +0x3C (d / 480)  // NAME 1: what 0x660DD0 tests
 };
 
 class DestroyGadgetEvent  // NAME 5: the client's RTTI .?AVDestroyGadgetEvent@@

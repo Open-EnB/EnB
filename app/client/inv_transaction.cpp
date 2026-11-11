@@ -11,8 +11,8 @@
 
 enum { INV_NONE = 0, MAX_ITEMS = -1, USER_SELECT_NO = 1 };	// NAME 3: the asserts'
 
-// The HUD's quantity gadget, as far as this file calls it (0x6C bytes)
-class Unknown66CC00Class : public GadgetClass { public: Unknown66CC00Class(UIViewClass *view, int arg); virtual bool Unknown_30(float x, float y); char Unknown30[0x10]; bool Unknown40; int Unknown44; int Unknown48; char Unknown4C[0x6C - 0x4C]; };	// NAME 1: neutral (D10); NAME 1 [view, arg]: neutral
+// The quantity gadget
+#include "gd_selct.h"
 // The view it works in, past UIViewClass's 0x4C bytes
 class Unknown690880ViewClass : public UIViewClass { public: Unknown690880ViewClass(); ClientClass *Unknown4C; };	// NAME 1: neutral (D10)
 // What 0x6908E0 takes: its slot +0x20 gives the view
@@ -50,7 +50,7 @@ void InvTransactionClass::Unknown_6908E0(Unknown6908E0Class *arg)
 	DropQuery = 0;
 	View = arg ? arg->Unknown_20() : 0;
 	if (View) {
-		QuantityGadget = new Unknown66CC00Class(View, 0);
+		QuantityGadget = new SelectGadgetClass(View, 0);
 		QuantityGadget->Set_First_Sort_Group(true);
 		QuantityGadget->Unknown_40(false);
 		LayerClass layer((SceneClass *)View->Unknown_50(), (CameraClass *)View->Unknown_54());
@@ -140,7 +140,7 @@ bool InvTransactionClass::Unknown_690AA0(int from_inv, int from_slot, int num, b
 	{
 		InterfaceSortClass sort(View, true);	// NAME 1 [sort]: neutral
 		State = 1;
-		QuantityGadget->Unknown44 = Num;
+		QuantityGadget->Max = Num;
 		QuantityGadget->Unknown_54(View->Unknown2C, 0);
 		QuantityGadget->Unknown_40(true);
 	}
@@ -174,8 +174,8 @@ void InvTransactionClass::Unknown_690D20()
 	FAIL_IF(!View) return;
 	if (State == 0) return;
 	if (State == 1) {
-		Num = QuantityGadget->Unknown48;
-		if (!QuantityGadget->Unknown40) return;
+		Num = QuantityGadget->Value;
+		if (!QuantityGadget->Finished) return;
 		QuantityGadget->Unknown_40(false);
 		QuantityGadget->Unknown_58(View->Unknown2C);
 		if (Num == 0) {

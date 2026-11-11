@@ -14,7 +14,7 @@
 #ifndef INV_TRANSACTION_H
 #define INV_TRANSACTION_H
 
-class Unknown66CC00Class;
+class SelectGadgetClass;	// gd_selct.h's
 class Unknown690880ViewClass;
 class Unknown6908E0Class;
 class ViewUnknown34Class;
@@ -32,7 +32,7 @@ public:
 
 	int State;																	// +0x00 (0 none, 1 the quantity, 2 the query, 3 send)  // NAME 1: what it holds
 	Unknown690880ViewClass *View;												// +0x04  // NAME 3: the FAIL_IF '!View'
-	Unknown66CC00Class *QuantityGadget;											// +0x08  // NAME 3: the FAIL_IF
+	SelectGadgetClass *QuantityGadget;											// +0x08  // NAME 3: the FAIL_IF
 	ViewUnknown34Class *DropQuery;												// +0x0C  // NAME 3: the FAIL_IF
 	int Num;																	// +0x10  // NAME 3: the FAIL_IF's num
 	int FromInv;																// +0x14  // NAME 3: the FAIL_IF's from_inv

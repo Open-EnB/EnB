@@ -43,7 +43,7 @@ void UIComboBoxClass::Unknown_57B480(const char *text)	// 0x57B480: the box's +0
 {
 }
 
-// ---------------------------------------------------------------- the equipment window's ship PIP (0x541DE0), its gadget (0x66DA50), the stats (0x6A2ED0)
+// ---------------------------------------------------------------- the equipment window's ship PIP (0x541DE0; its gadget is gd_ship_equip_pip.cpp's), the stats (0x6A2ED0)
 Unknown541DE0Class::Unknown541DE0Class(SClient *client) : PipSceneClass(client)
 {
 	STUB_CALLED("POC Unknown541DE0Class (the equipment window's ship PIP): an empty scene");
@@ -52,16 +52,11 @@ Unknown541DE0Class::Unknown541DE0Class(SClient *client) : PipSceneClass(client)
 void Unknown541DE0Class::Unknown_542250(const RefCountPtr<RenderObjClass> &robj)
 {
 }
-Unknown66DA50Class::Unknown66DA50Class(Unknown541DE0Class *pip) : GadgetPipSceneClass(pip)
-{
-	STUB_CALLED("POC Unknown66DA50Class (the ship PIP's gadget): never hit");
-}
-Unknown66DA50Class::~Unknown66DA50Class()
+void Unknown541DE0Class::Unknown_542A10(const Vector2 &point, bool on)	// 0x542A10: the drag (gd_ship_equip_pip.cpp's gadget)
 {
 }
-bool Unknown66DA50Class::Unknown_30(float x, float y)
+void Unknown541DE0Class::Unknown_542EE0(float zoom)	// 0x542EE0: the zoom (gd_ship_equip_pip.cpp's gadget)
 {
-	return(false);
 }
 Unknown6A2ED0Class::Unknown6A2ED0Class(SClient *client, RefCountPtr<RenderObjClass> &mesh)
 {
@@ -78,19 +73,3 @@ void Unknown6A2ED0Class::Unknown_6A3C10()
 {
 }
 
-// ---------------------------------------------------------------- the inventory's quantity gadget (0x66CC00; inv_transaction.cpp's 0x6908E0 news it): never hit
-// declared as inv_transaction.cpp declares it
-class Unknown66CC00Class : public GadgetClass { public: Unknown66CC00Class(UIViewClass *view, int arg); virtual bool Unknown_30(float x, float y); char Unknown30[0x10]; bool Unknown40; int Unknown44; int Unknown48; char Unknown4C[0x6C - 0x4C]; };
-Unknown66CC00Class::Unknown66CC00Class(UIViewClass *view, int arg) : GadgetClass(0)
-{
-	STUB_CALLED("POC Unknown66CC00Class (0x66CC00, the inventory's quantity gadget): never hit");
-	memset(Unknown30, 0, sizeof(Unknown30));
-	Unknown40 = false;
-	Unknown44 = 0;
-	Unknown48 = 0;
-	memset(Unknown4C, 0, sizeof(Unknown4C));
-}
-bool Unknown66CC00Class::Unknown_30(float x, float y)
-{
-	return(false);
-}
