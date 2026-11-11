@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe: DynamicWindowMoveClass (table 0xAED610) and DynamicWindowMoveGadgetClass (table 0xAED628), provisional header name for dynamic_window_move.cpp"
+}

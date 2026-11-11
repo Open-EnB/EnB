@@ -105,20 +105,6 @@ void Unknown6A2ED0Class::Unknown_6A3C10()
 {
 }
 
-// ---------------------------------------------------------------- dynamic_window_move.cpp's 0x51A9C0: the window's move gadget, here one that is never hit
-class UIDynamicWindowClass;
-class PocNoHitGadgetClass : public GadgetClass
-{
-public:
-	PocNoHitGadgetClass() : GadgetClass(0) {}
-	virtual bool Unknown_30(float x, float y) { return(false); }
-};
-GadgetClass *Unknown_51A9C0(UIDynamicWindowClass *window)
-{
-	STUB_CALLED("POC Unknown_51A9C0 (0x51A9C0, the window's move gadget): never hit");
-	return(new PocNoHitGadgetClass);
-}
-
 // ---------------------------------------------------------------- the inventory's quantity gadget (0x66CC00; inv_transaction.cpp's 0x6908E0 news it): never hit
 // declared as inv_transaction.cpp declares it
 class Unknown66CC00Class : public GadgetClass { public: Unknown66CC00Class(UIViewClass *view, int arg); virtual bool Unknown_30(float x, float y); char Unknown30[0x10]; bool Unknown40; int Unknown44; int Unknown48; char Unknown4C[0x6C - 0x4C]; };
