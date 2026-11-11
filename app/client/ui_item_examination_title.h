@@ -15,19 +15,7 @@
 // What the title's slots get (the filler 0x537830's slots +0x08 / +0x0C pass them on)
 #include "item\client_item_property_name.h"
 #include "item\client_item_property_icon.h"
-class UIItemExaminationTitleSubtitlesClass  // NAME 1: neutral (D10): what slot +0x10 of the filler passes (0x530310 is in the item property files)
-{
-public:
-	bool Unknown_530310() const;														// 0x530310 (DamageType != 9)  // NAME 1: neutral (D10)
-	int Get_Level() const { return(Level); }											// (inline: Set_Subtitles reads through it)  // NAME 1: the member it returns
-	int Get_Damage_Type() const { return(DamageType); }									// (inline)  // NAME 1: the member it returns
-	int Get_Type() const { return(Type); }												// (inline)  // NAME 1: the member it returns
-
-	char Unknown00[8];																// NAME 1: neutral (D10)
-	int Level;																		// +0x08 ('Level %d ')  // NAME 1: what it shows
-	int DamageType;																	// +0x0C (0x49E210's name; 9 none)  // NAME 1: what it shows ('SUBTITLE_DAMAGE_TYPE_IEI00')
-	int Type;																		// +0x10 (0x7EB4D0's name)  // NAME 1: what it shows ('SUBTITLE_TYPE_IEI00')
-};
+#include "item\client_item_property_type.h"	// ClientItemPropertyTypeClass: the subtitles (slot +0x10 of the filler passes it)
 
 class UIItemExaminationTitleClass : public DynamicWindowHorizontalClass  // NAME 2: its text 'TITLE_IEI00' and ui_item_examination_title.cpp
 {
@@ -38,7 +26,7 @@ public:
 	void Clear();																			// 0x539F70 (the name emptied, the subtitles removed)  // NAME 1 [Clear]: as the options panel's
 	void Set_Name(const ClientItemPropertyNameClass &name);								// 0x53A0A0  // NAME 1 [Set_Name, name]: what it does
 	void Set_Icon(const ClientItemPropertyIconClass &icon);							// 0x53A2C0  // NAME 1 [Set_Icon, icon]: what it does
-	void Set_Subtitles(const UIItemExaminationTitleSubtitlesClass &info);					// 0x53A2F0 (FAIL_IFs '!text')  // NAME 1 [Set_Subtitles, info]: what it does
+	void Set_Subtitles(const ClientItemPropertyTypeClass &info);					// 0x53A2F0 (FAIL_IFs '!text')  // NAME 1 [Set_Subtitles, info]: what it does
 
 protected:
 	RefCountPtr<DynamicWindowIconClass> Icon;												// +0x64 (the item's icon, 32 x 32)  // NAME 1 [Icon]: what it holds

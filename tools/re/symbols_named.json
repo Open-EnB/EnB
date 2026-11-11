@@ -1315,5 +1315,23 @@
   "symbol": "?Unknown_88@SlotDataShortcutGadgetClass@@UAE_NXZ",
   "evidence": "SG1 2026-11-10: gd_slot_data.cpp's 0x670E30 class (table 0xAFB1A4) is the client's SlotDataShortcutGadgetClass (ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()', its +0xA4 returns this); renamed from Unknown_670E30Class",
   "replaces": "?Unknown_88@Unknown_670E30Class@@UAE_NXZ"
+ },
+ {
+  "address": "0x5379F0",
+  "symbol": "?Unknown_10@UIItemExaminationPropertyRouterClass@@UAEXPAVClientItemPropertyTypeClass@@@Z",
+  "evidence": "X1 2026-11-11: the title subtitles stand-in is client_item_property_type.cpp's class (table 0xAEE14C, Accept 0x5302F0 calls the visitor's +0x10 with it); renamed from UIItemExaminationTitleSubtitlesClass",
+  "replaces": "?Unknown_10@UIItemExaminationPropertyRouterClass@@UAEXPAVUIItemExaminationTitleSubtitlesClass@@@Z"
+ },
+ {
+  "address": "0x53A2F0",
+  "symbol": "?Set_Subtitles@UIItemExaminationTitleClass@@QAEXABVClientItemPropertyTypeClass@@@Z",
+  "evidence": "X1 2026-11-11: the title subtitles stand-in is client_item_property_type.cpp's class (table 0xAEE14C, Accept 0x5302F0 calls the visitor's +0x10 with it); renamed from UIItemExaminationTitleSubtitlesClass",
+  "replaces": "?Set_Subtitles@UIItemExaminationTitleClass@@QAEXABVUIItemExaminationTitleSubtitlesClass@@@Z"
+ },
+ {
+  "address": "0x68C520",
+  "symbol": "?Unknown_10@Unknown68C5D0Class@@UAEXPAVClientItemPropertyTypeClass@@@Z",
+  "evidence": "X1 2026-11-11: the title subtitles stand-in is client_item_property_type.cpp's class (table 0xAEE14C, Accept 0x5302F0 calls the visitor's +0x10 with it); renamed from UIItemExaminationTitleSubtitlesClass",
+  "replaces": "?Unknown_10@Unknown68C5D0Class@@UAEXPAVUIItemExaminationTitleSubtitlesClass@@@Z"
  }
 ]

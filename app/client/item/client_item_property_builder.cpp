@@ -34,9 +34,9 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 	router.Route(ClientItemPropertyIconClass::Create(Create_Get(((Unknown831340Class *)Item)->Unknown_831840())));
 	int value = 0;
 	if (Item->Get_Template_Info()->Get_Int(6, &value)) {
-		router.Route(Unknown_52FFB0(Item->Unknown48, value, Item->Unknown08));
+		router.Route(ClientItemPropertyTypeClass::Create(Item->Unknown48, value, Item->Unknown08));
 	} else {
-		router.Route(Unknown_530070(Item->Unknown48, Item->Unknown08));
+		router.Route(ClientItemPropertyTypeClass::Create(Item->Unknown48, Item->Unknown08));
 	}
 	router.Route(ClientItemPropertyDescriptionClass::Create(Item->Description));
 	float quality = Data->Unknown_688830()->Get_Quality(Slot);

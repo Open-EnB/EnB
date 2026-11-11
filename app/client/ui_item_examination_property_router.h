@@ -18,7 +18,7 @@ class UIItemExaminationOptionsClass;
 class UIItemExaminationDescriptionClass;
 class ClientItemPropertyNameClass;
 class ClientItemPropertyIconClass;
-class UIItemExaminationTitleSubtitlesClass;
+class ClientItemPropertyTypeClass;
 class ClientItemPropertySpecialClass;
 class ClientItemPropertyDescriptionClass;
 class ClientItemPropertyUnknown529810Class;
@@ -35,7 +35,7 @@ public:
 	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10  // NAME 1 [Accept, visitor]: what the router passes
 };
 
-// The property visitor (table 0xAEE6DC: its default slots 0x530490-0x530390 are in the item property files)
+// The property visitor (table 0xAEE6DC: its default slots 0x530490-0x530390 are in item\client_item_property_visitor.cpp)
 class ClientItemPropertyVisitorClass  // NAME 1: neutral (D10)
 {
 public:
@@ -43,7 +43,7 @@ public:
 	virtual void Unknown_04(ClientItemPropertySpecialClass *property);				// +0x04 (0x530470)  // NAME 1: neutral (D10)
 	virtual void Unknown_08(ClientItemPropertyAttributeClass *property);					// +0x08 (0x530450)  // NAME 1: neutral (D10)
 	virtual void Unknown_0C(ClientItemPropertyDescriptionClass *property);				// +0x0C (0x530430)  // NAME 1: neutral (D10)
-	virtual void Unknown_10(UIItemExaminationTitleSubtitlesClass *property);				// +0x10 (0x530410)  // NAME 1: neutral (D10)
+	virtual void Unknown_10(ClientItemPropertyTypeClass *property);				// +0x10 (0x530410)  // NAME 1: neutral (D10)
 	virtual void Unknown_14(ClientItemPropertyUnknown529810Class *property);				// +0x14 (0x5303F0)  // NAME 1: neutral (D10)
 	virtual void Unknown_18(ClientItemPropertyIconClass *property);					// +0x18 (0x5303D0)  // NAME 1: neutral (D10)
 	virtual void Unknown_1C(ClientItemPropertyNameClass *property);						// +0x1C (0x5303B0)  // NAME 1: neutral (D10)
@@ -69,7 +69,7 @@ public:
 	virtual void Unknown_04(ClientItemPropertySpecialClass *property);				// 0x537A60 (the specials panel)  // NAME 1: neutral (D10)
 	virtual void Unknown_08(ClientItemPropertyAttributeClass *property);					// 0x537A40 (the attributes panel)  // NAME 1: neutral (D10)
 	virtual void Unknown_0C(ClientItemPropertyDescriptionClass *property);				// 0x537A10 (the description)  // NAME 1: neutral (D10)
-	virtual void Unknown_10(UIItemExaminationTitleSubtitlesClass *property);				// 0x5379F0 (the title's subtitles)  // NAME 1: neutral (D10)
+	virtual void Unknown_10(ClientItemPropertyTypeClass *property);				// 0x5379F0 (the title's subtitles)  // NAME 1: neutral (D10)
 	virtual void Unknown_14(ClientItemPropertyUnknown529810Class *property);				// 0x5379B0 (nothing)  // NAME 1: neutral (D10)
 	virtual void Unknown_18(ClientItemPropertyIconClass *property);					// 0x5379D0 (the title's icon)  // NAME 1: neutral (D10)
 	virtual void Unknown_1C(ClientItemPropertyNameClass *property);						// 0x537990 (the title's name)  // NAME 1: neutral (D10)

@@ -14,6 +14,7 @@
 #include "client_item_property_special_skill_requirement.h"
 #include "client_item_property_special_flag.h"
 #include "client_item_property_special_level_requirement.h"
+#include "client_item_property_type.h"
 #include "client_item_property_attribute.h"
 #include "client_item_property_attribute_distance.h"
 #include "client_item_property_attribute_string.h"
@@ -94,11 +95,10 @@ public:
 // A flag as a special property
 // ClientItemPropertySpecialFlagClass: client_item_property_special_flag.h (one line for two here and the #include)
 
-// The properties 0x521C10 makes (their files are not rebuilt; each Create allocates the property and hands it to Create_NEW)
-class ClientItemPropertySpecialUnknown52FFB0Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
-class ClientItemPropertySpecialUnknown530070Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
-RefCountPtr<ClientItemPropertySpecialUnknown52FFB0Class> Unknown_52FFB0(int unknown, int value, int id);	// 0x52FFB0  // NAME 1: neutral (D10); NAME 1 [unknown, value, id]
-RefCountPtr<ClientItemPropertySpecialUnknown530070Class> Unknown_530070(int unknown, int id);			// 0x530070  // NAME 1: neutral (D10); NAME 1 [unknown, id]
+// The properties 0x521C10 makes (each Create allocates the property and hands it to Create_NEW)
+// The level, damage type and type: ClientItemPropertyTypeClass, client_item_property_type.h (a ClientItemPropertyClass,
+// not a special; its two Creates 0x52FFB0 / 0x530070; three lines for four here and the #include, so the
+// line count stays)
 // The maker: ClientItemPropertySpecialMakerClass, client_item_property_special_maker.h (one line for two here and the #include)
 
 // The attributes and requirements 0x522860 makes

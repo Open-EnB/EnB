@@ -49,7 +49,7 @@ public:
 	virtual void Unknown_04(ClientItemPropertySpecialClass *property) {}					// +0x04 0x68C5D0
 	virtual void Unknown_08(ClientItemPropertyAttributeClass *property) {}					// +0x08 0x68C560
 	virtual void Unknown_0C(ClientItemPropertyDescriptionClass *property) {}			// +0x0C 0x68C540
-	virtual void Unknown_10(UIItemExaminationTitleSubtitlesClass *property) {}				// +0x10 0x68C520
+	virtual void Unknown_10(ClientItemPropertyTypeClass *property) {}				// +0x10 0x68C520
 	virtual void Unknown_14(ClientItemPropertyUnknown529810Class *property) {}				// +0x14 0x68C500
 	virtual void Unknown_18(ClientItemPropertyIconClass *property) {}					// +0x18 0x68C4E0
 	virtual void Unknown_1C(ClientItemPropertyNameClass *property) {}						// +0x1C 0x68C4C0
