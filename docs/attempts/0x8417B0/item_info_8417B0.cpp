@@ -42,5 +42,6 @@ void ItemBaseInfoClass::Apply_Delta(const std::string &delta)
 //     the scope's destructors; the client has two, the string / float one shared with the FAIL_IFs' exits and
 //     an inline-expanded one after the int branch: the continues above give exactly that).
 //  3. form of the tree with substr(field_separator + 1, it->size()): 0.62.
+//  4. form of the tree with std::string::size_type field_separator: the same 927 bytes as the tree's.
 // What is left is the register of field_separator + 1: something after the substr still reads
 // field_separator in the client's source (dead in the object), or the + 1 is a separate unsigned local.

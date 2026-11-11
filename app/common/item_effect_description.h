@@ -23,19 +23,25 @@
 
 class RawPacketClass;
 
-// One effect of an item (0x58 bytes; its copy 0x5293B0 and destructors 0x5295C0 / 0x5296D0 are the implicit ones;
-// item_effect_description.cpp's, not rebuilt)
-class ItemEffectClass  // NAME 1: neutral (D10)
+// The first 0x50 bytes of an effect, a base of their own: the client has its implicit operator= out of line
+// (0x83EE00, called where ItemEffectClass's own operator= 0x83EBF0 is inlined: the vector's insert 0x83E810)
+struct Unknown83EE00Struct  // NAME 1: neutral (D10)
 {
-public:
-	std::string Unknown_833D00() const;																	// 0x833D00  // NAME 1: neutral (D10)
-	std::string Unknown_833D40() const;																	// 0x833D40  // NAME 1: neutral (D10)
-
 	std::string Unknown00;																				// +0x00  // NAME 1: neutral
 	std::string Unknown10;																				// +0x10  // NAME 1: neutral
 	std::string Unknown20;																				// +0x20  // NAME 1: neutral
 	std::vector<float> Unknown30;																		// +0x30  // NAME 1: neutral
 	std::vector<float> Unknown40;																		// +0x40  // NAME 1: neutral
+};
+
+// One effect of an item (0x58 bytes; its copy 0x5293B0 and destructors 0x5295C0 / 0x5296D0 are the implicit ones;
+// its functions 0x833D00 / 0x833D40 / 0x834F20 / 0x834F40 are effect_description.cpp's, not rebuilt)
+class ItemEffectClass : public Unknown83EE00Struct  // NAME 1: neutral (D10)
+{
+public:
+	std::string Unknown_833D00() const;																	// 0x833D00  // NAME 1: neutral (D10)
+	std::string Unknown_833D40() const;																	// 0x833D40  // NAME 1: neutral (D10)
+
 	int Unknown50;																						// +0x50  // NAME 1: neutral
 	int Unknown54;																						// +0x54  // NAME 1: neutral
 };

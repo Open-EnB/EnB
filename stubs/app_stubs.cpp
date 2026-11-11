@@ -244,3 +244,17 @@ std::string Unknown_7EB4D0(int type)
 	STUB_CALLED("Unknown_7EB4D0 (0x7EB4D0): no item type name");
 	return std::string();
 }
+
+// ------------------------------------------------------------------------- item_info.cpp's effect descriptions
+
+#include "item_effect_description.h"
+
+// 0x83DB00 / 0x83DD40: ItemEffectDescriptionClass's constructor and Clear_Effects (item_effect_description.cpp, not
+// rebuilt), the client's behaviour: the real ItemBaseInfoClass (item_info.cpp) holds two and destroys their vectors
+ItemEffectDescriptionClass::ItemEffectDescriptionClass() : Duration(0), Unknown18(0), Unknown1C(0), Unknown20(0)
+{
+}
+void ItemEffectDescriptionClass::Clear_Effects()
+{
+	Effects.erase(Effects.begin(), Effects.end());
+}
