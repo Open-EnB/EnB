@@ -10,6 +10,7 @@
 #include "client_item_property_special_effect.h"
 #include "client_item_property_special_maker.h"
 #include "client_item_property_special_profession_requirement.h"
+#include "client_item_property_special_race_requirement.h"
 #include "client_item_property_attribute.h"
 #include "client_item_property_attribute_distance.h"
 #include "client_item_property_attribute_string.h"
@@ -102,10 +103,9 @@ RefCountPtr<ClientItemPropertySpecialUnknown530070Class> Unknown_530070(int unkn
 enum { MODE_NONE_BF = 0 };																				// the mode flags' none (G_ASSERT 'mode_flags != MODE_NONE_BF')  // NAME 3: the client's assert
 class ClientItemPropertySpecialLevelRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_level_requirement.cpp's
 // ClientItemPropertySpecialProfessionRequirementClass: client_item_property_special_profession_requirement.h (one line for two here and the #include)
-class ClientItemPropertySpecialRaceRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_race_requirement.cpp's
+// ClientItemPropertySpecialRaceRequirementClass: client_item_property_special_race_requirement.h (one line for two here and the #include)
 class ClientItemPropertySpecialSkillRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_skill_requirement.cpp's
 RefCountPtr<ClientItemPropertySpecialLevelRequirementClass> Unknown_530530(SClient *space_client, int kind, int level);	// 0x530530 (kind 0 combat, 1 explore, 2 trade, 3 total)  // NAME 1: neutral (D10); NAME 1 [kind, level]
-RefCountPtr<ClientItemPropertySpecialRaceRequirementClass> Unknown_52DB60(SClient *space_client, int unknown, int race);	// 0x52DB60 (attributes 18, 17)  // NAME 1: neutral (D10); NAME 1 [race]
 RefCountPtr<ClientItemPropertySpecialSkillRequirementClass> Unknown_52E760(SClient *space_client, const std::string &skill, int level, bool flag);	// 0x52E760  // NAME 1: neutral (D10); NAME 1 [skill, flag]
 std::string Unknown_4FB5B0(const std::vector<std::string> &strings, const std::string &separator);	// 0x4FB5B0 (joins: the mode names with ", ")  // NAME 1: neutral (D10); NAME 1 [strings, separator]
 

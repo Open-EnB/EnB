@@ -415,7 +415,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			template_info->Get_Int(18, &unknown);
 			template_info->Get_Int(17, &race);
 			if (race != 0 || unknown != 0) {
-				RefCountPtr<ClientItemPropertySpecialClass> property = Unknown_52DB60(SpaceClient, unknown, race);
+				RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialRaceRequirementClass::Create(SpaceClient, unknown, race);
 				router.Route(property);
 			}
 			break;
