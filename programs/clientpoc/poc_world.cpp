@@ -141,13 +141,6 @@ UIManuInvClass::UIManuInvClass(SClient *client, RenderObjClass *model, int count
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
 
-// ---------------------------------------------------------------- the +0x1358 view's window (0x5B7AB0): an empty window
-Unknown5B7AB0Class::Unknown5B7AB0Class(UIViewClass *view, const LayerClass &layer) : InterfaceClass(view, (int)layer.Peek_Scene())
-{
-	STUB_CALLED("POC Unknown5B7AB0Class: an empty window");
-	memset(Unknown84, 0, sizeof(Unknown84));
-}
-
 // ---------------------------------------------------------------- 0x79B9E0: the camera modules' signal map, a function-local static (camera_manager.cpp's neighbourhood)
 #include "..\..\app\client\unknown_signalbase.h"
 class SClientNotifierClass;

@@ -305,14 +305,14 @@ public:
 	SClient *Client;									// +0x4C 0x65B810 copies the task's Client (+0x78); the main view's 0x5137F0 asks its slot +0x18 for the SClient  // NAME 2: what it holds
 };
 
-// the interface object of the view at SClient +0x1358 (0xAC bytes, constructor 0x5B7AB0; file unknown)
-class Unknown5B7AB0Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown5B7AB0Class(UIViewClass *view, const LayerClass &layer);	// 0x5B7AB0 (0x514E70 passes its view and a layer of the base's +0x1C / +0x20)  // NAME 1 [view, layer]: what 0x514E70 passes
+#include "unknown_5b7ab0.h"	// Unknown5B7AB0Class, the interface object of the view at SClient +0x1358 (0x5B7AB0)
 
-	char Unknown84[0xAC - 0x84];						// +0x84
-};
+
+
+
+
+
+
 
 // The 0x50-byte view at SClient +0x1358 (SClient::Init; constructor 0x514CC0, table 0xAED114): its functions follow
 // mainview.cpp's, with no static initializer of their own before them, so they are kept at mainview.cpp's end
