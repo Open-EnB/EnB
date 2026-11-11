@@ -101,6 +101,11 @@ Rerun `python .claude/skills/coordinator-pacing/scripts/burnrate.py` from the re
   rather than running `wt.py bring-over` yourself; several finished at once go to one lander as one batch, and
   only one lander runs at a time. It returns one line per branch; a refusal names who acts next (resume that
   builder with the line).
+- Checks and filing (D226): the harness check below and a POC run or replay go to the `checker` subagent
+  (`subagent_type: checker`; Sonnet) with the commit or worktree, which checks, and for the POC the input, the
+  seconds and the question; it returns one line per program, and a failure is still your health item. At a
+  drain, the builders' traps, proposals and leftovers go to the `doc-filer` subagent (`subagent_type:
+  doc-filer`; Sonnet) with the reports and the run branch; the log entry stays yours.
 - When a report arrives: log the result line (pairs before and after, what is parked, proposals), file the
   levers and traps in workflow.md §3, open proposals for the user in progress.md §3, then run the heartbeat
   command again (the report changes the builder count and the memory).

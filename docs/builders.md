@@ -131,8 +131,14 @@ before placing (`docs/data/triage.md`).
 | A reasoning puzzle with small input (an inline-budget, frame or shape near-miss) **after two failed Opus attempts**, under D89's limits (never a register-only or order-only residue; one Fable round per function, 8 forms (every variant compile counts, scratch probes included: D141), 4 functions per session, no cap on the queue (D136: rounds are scheduled more often instead), one Fable builder at a time; `attempts.py show` says LIMIT REACHED); or a one-shot analysis whose wrong answer would cost a builder run | Fable | the only cases where the expected total is lower |
 | Read-only audits, cross-referencing, doc moves, log digging, generator reruns: anything a tool checks afterwards (verify, names.py, a diff); Explore agents | Sonnet | cheap, and the check catches mistakes |
 | Landing finished branches for the coordinator (`.claude/agents/lander.md`: `wt.py bring-over`, one line back per branch) | Sonnet (D223) | the tools decide; it never edits source, and the logs stay out of the coordinator's context |
+| The harness check (D182) and a POC run or replay for the coordinator (`.claude/agents/checker.md`: one line back per program) | Sonnet (D226) | the programs decide; it never edits source, and the logs and the frame stay out of the coordinator's context |
+| Filing builders' traps, proposals and leftovers into workflow.md §3 and progress.md §3 / §4 (`.claude/agents/doc-filer.md`) | Sonnet (D226) | it quotes the reports and docs_check checks it; the log entry stays the coordinator's |
 | Grep-level searches, log triage | Haiku | never edits tree code |
 | Bounded POC and triage items (the functions of one file, 30-60 min), when the user's agy window has room | Gemini 3.8 Flash (high) through agy (D187; `tools/agy/README.md`) | the user's Google subscription, outside the Claude windows; the coordinator verifies each landing and runs the POC itself |
+
+**The week of 2026-11-10 to 2026-11-17 (D225)** departs from this table: its first four sessions run the
+coordinator and the reasoning builders on Fable with D89's count limits lifted; the rows that apply per
+session are in [week-plan-2026-11-10.md](week-plan-2026-11-10.md) §2. From session 5 this table holds again.
 
 The plan log of each run (`.work/<run>/plan.md`) records model and tokens per builder, so this
 table gets evidence. Rule of thumb for Fable: estimate Fable's cost for one attempt against Opus's

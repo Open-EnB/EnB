@@ -4,6 +4,36 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-10 (19:00 PST, evening): the week's plan for the Fable reset (D225): four Fable sessions, then ten on Opus, with the fourteen coordinator prompts; the checker and doc-filer subagents (D226); no code change
+
+- **Session** Fable 5.2, no builders, no VM leased; branch `docs/fable-week-plan` from master 5fa9dc86 (PR #187
+  merged). Docs and agent definitions only: no library, app or tools source, so no verify. Committed and
+  pushed with its PR at the user's word.
+- **The plan** ([week-plan-2026-11-10.md](week-plan-2026-11-10.md)): the user spends a Fable usage reset this
+  week (Fable capped at 50 % of the week; the reset subtracts the Fable usage), so about 150 points: sessions
+  1-4 on Fable to its cap (3 points already spent on it today), the reset at Thursday evening's review, sessions
+  5-14 on Opus at about 10 points each to 99 % by Tuesday 2026-11-17 11:30. Fable takes the map of the app's
+  unexplored functions (the week's queue, `.work/week-2026-11-10/queue.md`), class layouts, shared headers,
+  first drafts (two verify rounds per function, then NOT EXACT for Opus), the stuck queue with D89's count
+  limits lifted, the library classification and a quality pass; Opus finishes the drafts and works down the
+  queue; Sonnet lands, checks and files. Guide for the split: 60 % new app code, 15 % stuck, 15 % quality,
+  10 % libraries and tools. Subscription only.
+- **No measuring run** (the user): D93 had no Fable builder (Opus, Sonnet, Haiku only); the plan extends its
+  result (the stronger model wins on reasoning-heavy files, ties on routine ones) one level up, and the Fable
+  rates come from the ordinary heartbeats. pacing.py's phase A rates (`--coordinator-rate 1.2 --weekly-rate
+  0.3`) are **assumed, not measured**; session 1's handoff reports the measured ones.
+- **The two subagents** (`.claude/agents/checker.md`, `doc-filer.md`, both Sonnet): the checker runs D182's
+  harness check and one POC run or replay and returns a line per program; the doc-filer files builders' traps,
+  proposals and leftovers into workflow.md §3 and progress.md §3 / §4 and runs docs_check. Neither has run yet:
+  session 1 is their first use, and their definitions were written from the skill's and the README's text, not
+  from a trial.
+- **Known risk:** phase B's 10 points a session needs the coordinator and about four Opus builders the whole
+  time, the number host memory allowed on 2026-11-10. Sessions 5 and 6 report their rate; a second, unrefunded
+  batch of Fable builders is the user's call at Saturday's review.
+- **Open for the user:** the PR of `docs/fable-week-plan` (session 1 starts from master, so it has to merge
+  first, or session 1's coordinator is pointed at the branch).
+- **Next step:** session 1 of the plan (its prompt in the plan's §5).
+
 ### 2026-11-10 (17:40 PST, evening): eleven of the review's tool changes with tests (1-11); D189 (b)'s order test: holds for own functions (349 of 353 settled twin groups), not for inline COMDATs (608 of 700); no code change
 
 - **Session** Fable 5.2, no builders, no VM leased; branch `tools/item9-tool-changes` from master af1c1654 (PR #186
@@ -3015,10 +3045,11 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D222 | 2026-11-09 | P-XR2-1, the user: instead of the hand-cut msxml3.tlh / .tli, VC6's whole #import output of msxml.dll, MSXML 2.0's type library, extracted from the Windows XP SP3 ISO's I386\MSXML.DL_ (8.00.7002.0; the DLL stays in `.work/msxml/xp_sp3/`, never in the tree): app/client/msxml.tlh / .tli, namespace MSXML. The client's .rdata holds this library's DOMDocument CLSID 2933BF90 (0xBA0F90) and IIDs 2933BF80 / 81 / 82 / 83 / 8B and none of MSXML 3.0's; the hand-cut header had compiled msxml3's DOMDocument CLSID F6D90F11 (a functional difference pairs cannot see). verify: app 0 gained, 0 lost against HEAD (0x5FA5F0 kept); linkgate passed; the object holds 2933BF90. Scripts `.work/msxml/`. | user |
 | D223 | 2026-11-10 | The workflow review, the user: (a) the traps of workflow.md §3 are rewritten on their own branch (stale bullets deleted, repeats merged, §3.1 and §3.3 split into a part read up front and a part looked up by symptom, coordinator-only bullets moved to the coordinator-pacing skill); (b) superseded and amended rows of this table are marked in place, no archive split, no id renumbered or removed; (c) a **lander** subagent on Sonnet (`.claude/agents/lander.md`) runs `wt.py bring-over` for the coordinator and returns one line per branch; (d) not adopted: Claude Managed Agents' multiagent orchestration and Claude Code's advisor (no trial) | (a) an app builder's startup set had grown to about 260 KB against the 43 KB builders.md stated; (b) 187 of 225 ids are cited in live docs, tools or source and nobody reads the table whole, so pruning saves nothing and marking keeps a followed citation true; (c) the last five runs logged about 25 bring-over refusals and 15 builder resumes in the coordinator's context, which costs about six times a builder's per hour; (d) Managed Agents run in a hosted sandbox at API rates and cannot reach the VM pool or the worktrees; an advisor call re-reads the builder's whole transcript, the pairs check already does its "before done" review, and D89's limits could not be enforced on it |
 | D224 | 2026-11-10 | The user, after the audit of this table: (a) D7's trigger (not-exact.md past 400; 742 entries) revisited: E&B's own code stays held to byte-exactness and the work continues toward it; (b) P-API-5 is closed: its pilot (D163 (a)) and the Batch API rounds (D184, D185, D216) were run; Batch variant rounds are the use of the API credit, the next one when about 300 new not-exact functions have gathered since the last; (c) rows without a Why cell (D188, D189, D193-D195, D199-D210) record "user"; D199 no longer cites D1 | user |
+| D225 | 2026-11-10 | The user: the usage week 2026-11-10 to 2026-11-17 spends one Fable usage reset (Fable is capped at 50 % of the week; the reset subtracts the Fable usage), planned in [week-plan-2026-11-10.md](week-plan-2026-11-10.md): (a) sessions 1-4 run the coordinator and the reasoning builders (analysis, class layouts, shared headers, first drafts, stuck functions, the quality pass) on Fable until its 50 points are spent, then the reset, then sessions 5-14 on Opus as builders.md §4 says, about 100 points; a second, unrefunded Fable batch only if the user says so at a review; (b) for the week this sets aside D96 (the coordinator's model) and D72's Fable row; D89's count limits (two prior Opus rounds, 8 forms, 4 functions per session) and D97's one Fable builder at a time are lifted while the first 50 points are spent, the ban on register-only and order-only residues stays; (c) no measuring run: D93's result is extended to Fable and the rates are read from the heartbeats; (d) subscription only; (e) guide for the split: 60 % new app code, 15 % stuck work, 15 % quality, 10 % libraries and tools | user |
+| D226 | 2026-11-10 | The user: (a) D189 (b) is not adopted: no source-order tie-break in objmatch (the 2026-11-10 order test held for own functions, 349 of 353 groups, and not for inline COMDATs; `.work/audit/ordertest.py` stays as the record); (b) two more subagents on Sonnet beside the lander (D223 (c)): the **checker** (`.claude/agents/checker.md`: D182's harness check and one POC run or replay, one line per program) and the **doc-filer** (`.claude/agents/doc-filer.md`: builders' traps, proposals and leftovers into workflow.md §3 and progress.md §3 / §4, then docs_check); the log entry stays the coordinator's | user |
 
 ## 3. Open decisions
 
-* **D189 (b)** (2026-11-03, TW3; counted 2026-11-10; recommend: test first, adopt if the test holds): a source-order tie-break in objmatch for byte-identical twins of one object (N functions with the same bytes tied over exactly N client addresses: pair them in definition order against ascending address). No round uses source order today; it could settle 51 library functions (of 195 ambiguous) and about 35 of app's. Nearly all the library ones are ordinary functions with identical bodies (Register_Sub_System / Link_Sub_System, Matrix3's two constructors), 19 in the tree true overloads. Tested 2026-11-10 (`.work/audit/ordertest.py`, log entry of 16:55): the premise holds for a translation unit's own functions and fails for inline, template and generated COMDATs. Twins of one object that objmatch already settles by other evidence: own functions 349 of 353 groups in definition order (3 of the 4 exceptions are `_$E` static initialisers, the fourth app's pkguildplayeronline.cpp Print trio, where the order is ours); COMDATs 608 of 700. Recommend: adopt for own functions only (`CoffObject.own`), never `_$E` names, gain-only, behind a switch, labelled in the ledger like D166's tie-break: 57 library candidates, 21 app ones (app's source order is ours, so there the rule credits our guess: a second question, recommend libraries first).
 * **P-FN3-1** (2026-11-09, FN3; D221 revisited, recommend still no): no FontSys sub-object for +0x2B4..+0x2CC. 0x6CE4E0 and 0x6CD6F0 became exact without one. A byte scan of 0x6C0000-0x6E0000 (`.work/fn3/scan2b4.py`) finds the range's address taken only in the constructor 0x6D5170 (`lea edi, [esi+0x2B4]`, edi..edi+0xC pushed to WW3D::Get_Device_Resolution, then +0x2C4 / +0x2C8 / Scale stored); no call passes it as `this`, nothing copies it as a block, and every other function (Render, Change_Text, 0x6CE4E0, Update_Text, 0x6CE7D0) uses the fields one by one. Revisit with a sub-object whose inline init is that block when 0x6D5170 is worked (fontmanager.h, with the sclient pad check 0x74D990 / 0x758210 / 0x702240).
 * **P-CW2-1** (2026-11-08, CW2; recommend not yet): the form stashed in docs/attempts/5719A0 (`Vector3 &f(Vector3 &color, entry)`) makes 0x5719A0 and 0x570FF0 exact but loses 0x571B70 (vector::size, then inlined into 0x56FD30): net +1 with one loss. Retry once 0x56FD30 is exact. (2026-11-08b: b1108 sent 0x56FD30, best variant 0.606 against 0.545, not exact.)
 * **P-EA1-1** (2026-11-06, EA1; recommend not yet, after more POC paths have run on it): make `ClientPOC_EA` (D200) the POC's default instead of `--ea`? One replay reached the class screen and shows EA's six; `ClientPOC` still has what antprox's Net-7 sessions may need, including 401 installed files outside EA's set. If it becomes a project input, the scripts in `.work/eadata/` move to `tools/` (never the data).
@@ -3619,8 +3650,6 @@ below name only the work items, the blocked work, the leads and the queues.
    in the heartbeat line; (13) auxroots.py's stale pad-window comments, with a `generate` diff proving the headers
    unchanged; (14) reproduce before fixing: build.py on a deleted tracked file, names.py's two-line-signature marker
    and wwonline, tryv2's restore failure (OSError 22).
-   D189 (b) (§3, tested 2026-11-10, waits for the user): if adopted, the round in objmatch for own functions only,
-   behind a switch, with its label in the ledger and pairs_cmp; `.work/audit/ordertest.py` is the check to rerun.
 
 10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): inv_data_peek 0x68A090 / 0x68A270 /
    0x68A450 / 0x68A8C0 (register: the failure path's inlined string ctor `[ecx+ebx]` vs `[ebx+ecx]`, skill_data_peek
