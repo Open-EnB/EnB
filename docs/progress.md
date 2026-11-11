@@ -3642,7 +3642,7 @@ below name only the work items, the blocked work, the leads and the queues.
    classes' three objects 0x4F7930-0x4F9BF0, names provisional); unknown_6af220.cpp / .h (the GM tools' player inventory window
    'tsi27a', 0x6AF220); unknown_6b2460.cpp / .h (the GM mission log window); unknown_7c96f0.cpp (0x7C96F0 split off settings_store.cpp);
    settings_store.cpp's placement under app/client/tasks/ (P-M2-3: it sits after ui_starmap in the link order); unknown_5b7ab0.cpp / .h
-   (the five-option menu window, 0x5B7AB0); DebrisFieldClass as a view in debrsint.h; in wt/O4, not yet landed: gd_gauge.h's view of
+   (the five-option menu window, 0x5B7AB0); DebrisFieldClass as a view in debrsint.h; gd_gauge.h's view of
    GaugeGadgetClass 0x669A30 (UIPowerGaugeClass sits on it) and ui_power.cpp's name (no `__FILE__`, NAME 1).
 
 9. **Tools:** the Claims Action: check that the next merged run PR's pull_request_target (closed) run succeeds and drops
@@ -3754,7 +3754,7 @@ below name only the work items, the blocked work, the leads and the queues.
      - ui_dynamicwindow Add_Text 0x58AE90 and 0x58B160 (inline-budget: the client calls std::string::_Eos out of line; six forms)
      - debrsint 0x53D250 (register), 0x53D9F0 (order), 0x53DDE0 (frame 0x10C against 0x108), 0x53E2F0 (literal); frameint 0x53EB00
        (register), 0x53F1C0 (unmatched)
-     - in wt/O4, not yet landed: ui_experience 0x58C450 and ui_power 0x5DBFC0 (inline-budget: GenericNode's constructor out of line in
+     - ui_experience 0x58C450 and ui_power 0x5DBFC0 (inline-budget: GenericNode's constructor out of line in
        the base watcher's constructor), ui_experience 0x58CB50 and ui_power 0x5DC4A0 (inline-budget: Unknown_Find_Field out of line for the
        first plain field only; one lever may fix the four twin residues); 0x58CF60 matches but is not counted (its verified start runs
        over the statics)
