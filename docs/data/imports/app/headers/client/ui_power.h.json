@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "RECONSTRUCTED: UIPowerClass (table 0xAF5D70) and UIPowerGaugeClass (0xAF5CA0), laid out from 0x5DBFC0 / 0x5DC2C0; header name provisional (NAME 1)"
+ "description": "RECONSTRUCTED: UIPowerClass (table 0xAF5D70), laid out from 0x5DBFC0 / 0x5DC2C0; its gauges' class is ui_power.cpp's; header name provisional (NAME 1)"
 }

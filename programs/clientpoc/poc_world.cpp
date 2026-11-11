@@ -110,11 +110,22 @@ UICpitUnknownE0Class::UICpitUnknownE0Class(SClient *sclient) : InterfaceClass((L
 	STUB_CALLED("POC UICpitUnknownE0Class: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-UICpitUnknownD0Class::UICpitUnknownD0Class(RenderObjClass *model, LayerClass *layer, UICpitClass *cpit, int arg)
+// gd_gauge.cpp's gauge (0x669A30; ui_power.cpp's UIPowerClass, app.lib's, makes three): a gadget on no object, never
+// shown (Exists false: the power gauges skip it)
+#include "..\..\app\client\gd_gauge.h"
+GaugeGadgetClass::GaugeGadgetClass(RenderObjClass *mesh, const char *format) : Unknown_675120Class((RenderObjClass *)NULL, 0)
 {
-	STUB_CALLED("POC UICpitUnknownD0Class: an empty watch");
-	memset(Unknown18, 0, sizeof(Unknown18));
+	STUB_CALLED("POC GaugeGadgetClass 0x669A30 (the power gauges): no object");
+	Exists = false;
+	memset(Unknown61, 0, sizeof(Unknown61));
+	Value = 0.0f;
+	memset(Unknown6C, 0, sizeof(Unknown6C));
 }
+GaugeGadgetClass::~GaugeGadgetClass() {}
+RenderObjClass *GaugeGadgetClass::Unknown_24(Vector3 *position, float *frame, bool indicator) { return(NULL); }
+void GaugeGadgetClass::Set_Render_Obj(RenderObjClass *robj) { RObjGadgetClass::Set_Render_Obj(robj); }
+bool GaugeGadgetClass::Unknown_A4(float value) { Value = value; return(false); }
+float GaugeGadgetClass::Unknown_A8(float value) { Value = value; return(value); }
 class UICpitWarpGadgetClass : public Unknown_671300Class { public: UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer); void Unknown_676190(int a, int b); char Unknown80[0x94 - 0x80]; };
 UICpitWarpGadgetClass::UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer) : Unknown_671300Class(object, (int)bar, layer, 0, 0, 3)
 {

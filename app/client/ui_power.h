@@ -6,22 +6,12 @@
 #define UI_POWER_H
 
 #include "ui_cpit.h"		// UnknownObjectWatchClass (interim placement, D137)
-#include "gd_gauge.h"
 
 class RenderObjClass;
 class LayerClass;
 class InterfaceClass;
 class ClientObjectClass;
-
-// One gauge of the three (0x8C bytes, table 0xAF5CA0): gd_gauge.cpp's with the sound name of its low warning
-class UIPowerGaugeClass : public GaugeGadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	UIPowerGaugeClass(RenderObjClass *mesh, const char *format, const char *sound);	// 0x5DCB50 (inlined into 0x5DBFC0)  // NAME 1 [mesh, format, sound]: what 0x5DBFC0 passes
-	virtual bool Unknown_A4(float value);				// +0xA4 0x5DCBE0 (the base's; 'TALK_%s_ENERGY_LOW_1.wav' when it drops under 2)  // NAME 1 [value]: the base's
-
-	const char *Sound;									// +0x88 ('PROPULSION', 'SHIELD')  // NAME 2: what the warning's name takes
-};
+class UIPowerGaugeClass;	// ui_power.cpp's (over gd_gauge.h's gauge)
 
 // The energy, shield and hull gauges of a mesh (0x28 bytes, table 0xAF5D70): a watcher of a ship whose slot +0x10 fills
 // them from its EnergyPercent / ShieldPercent / HullPoints every frame
@@ -35,6 +25,7 @@ public:
 	virtual void Unknown_10();							// +0x10 0x5DC4A0 (every frame)
 	void Unknown_5DC390();								// 0x5DC390 (the gauges emptied: NO_SHIELDS / NO_ENERGY / NO_HULL; ui_group.cpp calls it)
 	void Unknown_5DCAE0();								// 0x5DCAE0 (the gauges out of the parent's +0x64, before its delete)
+	void operator = (ClientObjectClass *object) { Unknown_08(object); }	// (the base's: the implicit copy assignment hides it; ui_cpit.cpp sets +0xD0's object so)
 
 	InterfaceClass *Parent;								// +0x18  // NAME 1: what its callers pass
 	UIPowerGaugeClass *EnergyGauge;						// +0x1C ('reactor_bar%d', tooltip ENERGY)  // NAME 2: its tooltip

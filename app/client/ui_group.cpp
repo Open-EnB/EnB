@@ -15,7 +15,7 @@
 #include "..\packets\pkcta_request.h"
 #include "..\packets\pkrequesttarget.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
-
+#include "ui_power.h"		// UIPowerClass (the members' +0x2C)
 
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
@@ -1082,7 +1082,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			member->Unknown_593790();
 			member->Unknown_593830(member->Unknown34);
-			member->Unknown2C = new UICpitUnknownD0Class(member->Unknown34.Peek(), &Layer, (UICpitClass *)this, -1);
+			member->Unknown2C = new UIPowerClass(member->Unknown34.Peek(), &Layer, (UICpitClass *)this, -1);
 			ClientObjectClass *object = ((ClientClass *)Client)->Find_Object(member->ID);
 			if (object) {
 				member->Unknown2C->Unknown_08(object);

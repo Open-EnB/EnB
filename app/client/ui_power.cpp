@@ -2,6 +2,7 @@
 // cockpit, the group window's members and the MFD. The file name is provisional (NAME 1). Notes at the end of the file.
 #include <stdio.h>
 #include "ui_power.h"
+#include "gd_gauge.h"
 #include "sclient.h"
 #include "client.h"
 #include "co.h"
@@ -12,6 +13,16 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\auxdata\delta_interpolator.h"
 #include "..\shared\g_assert.h"
+
+// One gauge of the three (0x8C bytes, table 0xAF5CA0): gd_gauge.cpp's with the sound name of its low warning
+class UIPowerGaugeClass : public GaugeGadgetClass	// NAME 1: neutral (D10)
+{
+public:
+	UIPowerGaugeClass(RenderObjClass *mesh, const char *format, const char *sound);	// 0x5DCB50 (inlined into 0x5DBFC0)  // NAME 1 [mesh, format, sound]: what 0x5DBFC0 passes
+	virtual bool Unknown_A4(float value);				// +0xA4 0x5DCBE0 (the base's; 'TALK_%s_ENERGY_LOW_1.wav' when it drops under 2)  // NAME 1 [value]: the base's
+
+	const char *Sound;									// +0x88 ('PROPULSION', 'SHIELD')  // NAME 2: what the warning's name takes
+};
 
 // (two inline layers, NameClass and the root copy in the inner one: ui_mfd.cpp's form, the find 0x5BF2B0 out of line)
 template<class C> inline C *Unknown_Power_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10)

@@ -113,7 +113,7 @@ public:
 	int Unknown9C;										// +0x9C (the constructor's last argument: 1 lets 0x5BC5E0's shifted key reach the starmap)
 	RenderObjClass *RObj;								// +0xA0  // NAME 5: the client's assert
 	LayerClass Layer;									// +0xA4
-	UICpitUnknownD0Class *UnknownC8;					// +0xC8 (0x28 bytes: 0x5DBFC0 in 0x5BBF70; the destructor deletes it)
+	UIPowerClass *UnknownC8;					// +0xC8 (0x28 bytes: 0x5DBFC0 in 0x5BBF70; the destructor deletes it)
 	std::vector<UIMFDItemClass *> Items;				// +0xCC (its allocator; +0xD0 / +0xD4 / +0xD8 the pointers)  // NAME 2: what it holds
 	bool UnknownDC;										// +0xDC (0x5BC940: the current item shown once again)
 	int Current;										// +0xE0 (the index into Items)  // NAME 2: what it holds

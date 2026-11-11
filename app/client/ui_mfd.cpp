@@ -19,7 +19,7 @@
 #include "nstrdup.h"
 #include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static 0xBE5C8C, initialised by 0x5BB6D0)
 #include "ui_mfd.h"
-
+#include "ui_power.h"		// UIPowerClass (+0xC8)
 extern unsigned int Unknown_BE5F34;
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// (cameraeffects.cpp's)  // NAME 1: neutral (D10)
 float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// 0x7E6060 (distance_calc_client.cpp's)  // NAME 1: neutral (D10)
@@ -228,7 +228,7 @@ void UIMFDClass::Unknown_54()
 		robj->Release_Ref();
 		Unknown64.Unknown_6870E0(gadget, i, View, 1, 0);
 	}
-	UnknownC8 = new UICpitUnknownD0Class(RObj, &Layer, (UICpitClass *)this, -1);
+	UnknownC8 = new UIPowerClass(RObj, &Layer, (UICpitClass *)this, -1);
 	Unknown_10();
 	UIMFDClass::Unknown_88((ClientObjectClass *)-1);
 }
