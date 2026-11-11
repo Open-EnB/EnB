@@ -48,7 +48,16 @@ void SpiralSeekEffectClass::Unknown_1C()
 // Forms S1-S4 (tryv2, .work/seek/v1.py): A's head with the tail of D (S1: fst to the length's slot), the sine and
 // cosine written out in each use with a named angle (S2, S3: the cosine is not kept on the stack, fmul st(2)).
 
-// Not compiled (the importer lock was held; .work/seek/v2.py): A's head with one of the two reads through point
-// (`+ point.Z * spin` with `- radius * s * spin`), which should give both the client's frame order (B) and the
-// kept product (A); tails `float length = ...; rate.X = length; point.X = length * t;` and
-// `point.X = direction.Length(); rate.X = point.X; point.X *= t;`.
+// tryv2 sets 2 and 3 (.work/seek/v2.py, v3.py; each compiled, none exact). Head M1 is A's with
+// `rate.Y = radius_rate * s + point.Z * spin;` (one read through point; the kept product stays). Frame orders
+// (highest first; the client's is point, rate, direction):
+//	A  (no read; rate.X = Length(); point.X = rate.X * t)			rate, direction, point
+//	M1 + that tail													rate, point, direction
+//	M1 + `point.X = direction.Length(); rate.X = point.X; point.X *= t;`	point, direction, rate
+//	M1 + `rate.X = point.X = direction.Length(); point.X *= t;`		point, direction, rate
+//	M1 + `point.X = rate.X = direction.Length(); point.X *= t;`		rate, point, direction
+//	B  (both reads through point)									point, rate, direction (no kept product)
+// A named `float length` (either order of the two stores) takes [ebp-4] and moves t and the sine.
+// In every form the length reaches a vector member with fst before the multiply; the client's fld st(0) with
+// both stores after the pushes (point.X, then rate.X) is not found. What is left: a form that reads point more
+// often than rate without reading point.Y (the kept product), and the tail.
