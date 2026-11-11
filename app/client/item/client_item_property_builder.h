@@ -13,6 +13,7 @@
 #include "client_item_property_special_race_requirement.h"
 #include "client_item_property_special_skill_requirement.h"
 #include "client_item_property_special_flag.h"
+#include "client_item_property_special_level_requirement.h"
 #include "client_item_property_attribute.h"
 #include "client_item_property_attribute_distance.h"
 #include "client_item_property_attribute_string.h"
@@ -100,13 +101,12 @@ RefCountPtr<ClientItemPropertySpecialUnknown52FFB0Class> Unknown_52FFB0(int unkn
 RefCountPtr<ClientItemPropertySpecialUnknown530070Class> Unknown_530070(int unknown, int id);			// 0x530070  // NAME 1: neutral (D10); NAME 1 [unknown, id]
 // The maker: ClientItemPropertySpecialMakerClass, client_item_property_special_maker.h (one line for two here and the #include)
 
-// The attributes and requirements 0x522860 makes (their files are not rebuilt)
+// The attributes and requirements 0x522860 makes
 enum { MODE_NONE_BF = 0 };																				// the mode flags' none (G_ASSERT 'mode_flags != MODE_NONE_BF')  // NAME 3: the client's assert
-class ClientItemPropertySpecialLevelRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_level_requirement.cpp's
+// ClientItemPropertySpecialLevelRequirementClass: client_item_property_special_level_requirement.h (one line for two here and the #include)
 // ClientItemPropertySpecialProfessionRequirementClass: client_item_property_special_profession_requirement.h (one line for two here and the #include)
 // ClientItemPropertySpecialRaceRequirementClass: client_item_property_special_race_requirement.h (one line for two here and the #include)
 // ClientItemPropertySpecialSkillRequirementClass: client_item_property_special_skill_requirement.h (one line for two here and the #include)
-RefCountPtr<ClientItemPropertySpecialLevelRequirementClass> Unknown_530530(SClient *space_client, int kind, int level);	// 0x530530 (kind 0 combat, 1 explore, 2 trade, 3 total)  // NAME 1: neutral (D10); NAME 1 [kind, level]
 std::string Unknown_4FB5B0(const std::vector<std::string> &strings, const std::string &separator);	// 0x4FB5B0 (joins: the mode names with ", ")  // NAME 1: neutral (D10); NAME 1 [strings, separator]
 
 // What hands an item's properties to a router (16 bytes on the caller's stack: the item examination window's slot +0x94

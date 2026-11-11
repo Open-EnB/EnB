@@ -208,7 +208,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			FAIL_IF(combat_level_required <= 0) break;
-			RefCountPtr<ClientItemPropertySpecialClass> property = Unknown_530530(SpaceClient, 0, combat_level_required);
+			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 0, combat_level_required);
 			router.Route(property);
 			break;
 		}
@@ -344,7 +344,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			FAIL_IF(explore_level_required <= 0) break;
-			RefCountPtr<ClientItemPropertySpecialClass> property = Unknown_530530(SpaceClient, 1, explore_level_required);
+			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 1, explore_level_required);
 			router.Route(property);
 			break;
 		}
@@ -360,7 +360,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			FAIL_IF(total_level_required <= 0) break;
-			RefCountPtr<ClientItemPropertySpecialClass> property = Unknown_530530(SpaceClient, 3, total_level_required);
+			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 3, total_level_required);
 			router.Route(property);
 			break;
 		}
@@ -678,7 +678,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 			FAIL_IF(trade_level_required <= 0) break;
-			RefCountPtr<ClientItemPropertySpecialClass> property = Unknown_530530(SpaceClient, 2, trade_level_required);
+			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialLevelRequirementClass::Create(SpaceClient, 2, trade_level_required);
 			router.Route(property);
 			break;
 		}
