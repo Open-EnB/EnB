@@ -1,5 +1,5 @@
-// Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__
-// 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x632E50-0x648340 by its asserts, its string order and ui_slot_scut.cpp's end).
+// Earth & Beyond client (reconstruction): app\client\ui_starbase.cpp (the client's __FILE__ 'e:\build\beta\G\app\Client\ui_starbase.cpp', 0x632E50-0x648340 by its asserts, its string order and ui_slot_scut.cpp's end).
+#define __INTRFACE_MEMBERS	// intrface.h's members (the constructor 0x540D30 with the client: the symbol chat menu's)
 // The starbase interface (constructor 0x6333E0, SB1), its helpers 0x638FF0-0x6437A0 as far as rebuilt (SB1, run 2026-11-09b), its lights helpers 0x640CC0-0x640F30 and the lights panel (0x646170-0x648238, ST1, at the end); the set-up 0x634140 (SU1) and the functions with asserts sit on the client's lines (862, 2004-4180).
 #include "eff_o.h"	// first: client.h then skips its partial EffectObjectClass
 #include <stdio.h>
@@ -64,6 +64,13 @@ class Unknown78A910AvatarClass : public CharacterViewAvatarClass	// NAME 1: neut
 {
 public:
 	void Unknown_78B570(bool b);						// 0x78B570  // NAME 1 [b]: neutral
+	Unknown78A910AvatarClass(int a, AvatarDescClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (0x642740: the NPC's +0x1C and description)  // NAME 1 [a]: neutral
+	void Unknown_78AD20(int anim, int min, int max, const char *model, const char *motion);	// 0x78AD20 (0x642740: an Action%02d, its roll range, ExtraAnim%02d and ExtraName%02d)  // NAME 1 [anim, min, max, model, motion]: as unknown_78a910.cpp's
+	void Unknown_78B010(const Matrix3D &tm); void Unknown_78B290(const Matrix3D &tm);	// 0x78B010 / 0x78B290 (0x642740: a Location%02d's OffsetBoneName / DestBoneName bone)  // NAME 1 [tm]: neutral
+	void Unknown_78B530(int a, int b, int c, int d);	// 0x78B530 (0x642740: MinWait, MaxWait, RelocateChance, ActionChance)  // NAME 1 [a, b, c, d]: neutral
+	char Unknown384[0x3B9 - 0x384];					// +0x384
+	bool Unknown3B9;									// +0x3B9 (0x642740: the INI's 'Sequential')
+	char Unknown3BA[0x3E4 - 0x3BA];					// +0x3BA (0x3E4 bytes: 0x642740's new)
 };
 #include "sbase_info.h"
 // The four rooms (the constructor's index): the key 0x698730 looks up (0xB8A870), the room's model part (0xB8A880),
@@ -162,8 +169,8 @@ UIStarbaseClass::UIStarbaseClass(UIViewClass *view, LayerClass *layer, int index
 		Unknown13C[i] = 0;
 	}
 	UnknownB0 = (SBaseViewClass *)View->Unknown_30();
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIStarbaseKeyEventStruct(2, 0), (void *)0x2B);
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIStarbaseKeyEventStruct(2, 0x1000), (void *)0x2C);
+	Unknown4C.Add(*(const ControlKeyComboStruct *)&UIStarbaseKeyEventStruct(2, 0), (void *)0x2B);
+	Unknown4C.Add(*(const ControlKeyComboStruct *)&UIStarbaseKeyEventStruct(2, 0x1000), (void *)0x2C);
 	RoomInfo = Get_Info()->Find_Room(Unknown_B8A870[Room]);
 	int column = Get_Info()->Style;
 	char model[32];
@@ -596,38 +603,6 @@ void UIStarbaseClass::Unknown_641B70()
 extern Random4Class Unknown_BDB1C0;	// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, as camctrl_dock.cpp's
 // The docking sounds by the starbase's column +0x18 (0xB8A8B0: 0x6415B0)
 static const char *Unknown_B8A8B0[10] = { "terren_space_ship_dock_1.wav", "jenquai_space_ship_dock_1.wav", "progen_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav" };	// NAME 1: neutral (D10)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // What 0x634140 news for the starbase interface's +0xB8 (0x44 bytes, constructor 0x6B6050, table 0xAFE174): a full-screen
 // InterfaceDeactivationGadgetClass that keeps the view (not rebuilt; interim placement in this file, D137)
 class UIStarbaseGadget6B6050Class : public InterfaceDeactivationGadgetClass	// NAME 1: neutral (D10)
@@ -636,15 +611,40 @@ public:
 	UIStarbaseGadget6B6050Class(int x, int y, int width, int height, SBaseViewClass *view);	// 0x6B6050 (0, 0, 640, 480, the view)  // NAME 1 [x, y, width, height, view]: what 0x634140 passes
 	SBaseViewClass *Unknown40;							// +0x40
 };
-
-// What 0x634140 news for the starbase interface's +0x1F8 (0xA4 bytes, constructor 0x644F80 with the space client,
-// table 0xAF84CC; its own 'fc_symbolchat_ini' model; not rebuilt; interim placement in this file, D137)
+#include "dynamic_window_class.h"
+#include "gd_dynamicwindow.h"
+#include "unknown_51c800.h"
+// What 0x634140 news for the starbase interface's +0x1F8 (0xA4 bytes, constructor 0x644F80 with the space client, table
+// 0xAF84CC, its other sides 0xAF84C0 / 0xAF84B4): the symbol chat menu ('fc_symbolchat.ini'; SYMBOL_CHAT_WINDOW with one
+// SYMBOL_CHAT_SECTION, an option a row: Cancel, Chat, Trade, Group Invite); interim placement in this file, D137
+struct UIStarbaseSymbolChatOptionStruct	// NAME 1: neutral (D10): a row of the menu (0x0C bytes: 0x645510 news it)
+{
+	UIStarbaseSymbolChatOptionStruct() : Window(NULL), Text(NULL), Gadget(NULL) {}
+	~UIStarbaseSymbolChatOptionStruct();				// 0x644E70
+	RefCountPtr<DynamicWindowClass> Window;				// +0x00 (SYMBOL_CHAT_OPTION)
+	RefCountPtr<Unknown51C800Class> Text;				// +0x04 (the option's name)
+	GadgetClass *Gadget;								// +0x08 (a DynamicWindowGadgetClass over Window; its id the option)
+};
 class UIStarbaseUnknown1F8Class : public InterfaceClass	// NAME 1: neutral (D10)
 {
 public:
 	UIStarbaseUnknown1F8Class(SClient *sclient);		// 0x644F80  // NAME 1 [sclient]: what 0x634140 passes
-	char Unknown84[0xA4 - 0x84];						// +0x84
+	virtual ~UIStarbaseUnknown1F8Class();				// +0x00 0x6452C0 (deleting 0x645290)
+	virtual void Unknown_58();							// +0x58 0x645B20 (opened at the pointer, 'fontclick.wav')
+	virtual void Unknown_5C();							// +0x5C 0x645C50
+	virtual bool Unknown_68(int key);					// +0x68 0x645C80 (an option chosen: kept in +0x84)  // NAME 1 [key]: InterfaceClass's
+	void Unknown_645510();								// 0x645510 (the four options made, those the player cannot use greyed)
+	void Unknown_645A60();								// 0x645A60 (the options removed)
+	void Unknown_645CC0();								// 0x645CC0 (empty; no caller)
+	void Unknown_645CE0();								// 0x645CE0 (the options rebuilt unless open; the starbase interface's 0x63B630)
+	int Unknown_645DC0();								// 0x645DC0 (the chosen option, cleared; the starbase interface's 0x63DFE0)
+	int Unknown84;										// +0x84 (the chosen option: 0x645C80)
+	RefCountPtr<DynamicWindowClass> Window;				// +0x88 (SYMBOL_CHAT_WINDOW)
+	RefCountPtr<DynamicWindowClass> Section;			// +0x8C (SYMBOL_CHAT_SECTION)
+	GadgetClass *Gadget;								// +0x90 (a DynamicWindowGadgetClass over Window)
+	std::vector<UIStarbaseSymbolChatOptionStruct *> Options;	// +0x94
 };
+
 
 // The VB_ models of 0x634140's NPC slots (0xB8AA18, by the NPC's 0x6976C0), the ico_ models of its terminals (0xB90C2C),
 // the door bones by room (0xB8AA3C, four a room) and their 0x698730 keys (0xB8AABC), the starbase models of the door
@@ -3617,94 +3617,94 @@ void UIStarbaseClass::Unknown_63BB10(GadgetClass *gadget)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x642740, functional (B1): a lounge NPC's wandering avatar from '<race>starbase_ambient.ini', its section the
+// NPC's first name: the walk points Location%02d (OffsetBoneName / DestBoneName bones of ExtraBones), the idle actions
+// Action%02d with their Chance%02d, ExtraName%02d and ExtraAnim%02d
+// 0x642740
+Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
+{
+	if (!ExtraBones) {
+		return(NULL);
+	}
+	char file_name[64];
+	_snprintf(file_name, sizeof(file_name), "%sstarbase_ambient.ini", Unknown_B8A950[UnknownB0->Info->Style]);
+	INIClass ini(file_name);
+	if (!ini.Is_Loaded()) {
+		return(NULL);
+	}
+	char section[32];
+	_snprintf(section, sizeof(section), "%s", npc->Desc.First_Name);
+	std::string offset_bone("");
+	std::string dest_bone;
+	dest_bone = "";
+	StringClass str;
+	ini.Get_String(str, section, "OffsetBoneName", "");
+	if (!str.Is_Empty()) {
+		offset_bone = str;
+	}
+	ini.Get_String(str, section, "DestBoneName", "");
+	if (!str.Is_Empty()) {
+		dest_bone = str;
+	}
+	Unknown78A910AvatarClass *avatar = new Unknown78A910AvatarClass(npc->Unknown1C, &npc->Desc, ((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager);
+	avatar->Unknown3B9 = ini.Find_Entry(section, "Sequential") ? ini.Get_Bool(section, "Sequential", false) : false;
+	avatar->Unknown_78B530(ini.Get_Int(section, "MinWait", 5), ini.Get_Int(section, "MaxWait", 15), ini.Get_Int(section, "RelocateChance", 33), ini.Get_Int(section, "ActionChance", 67));
+	Matrix3D tm(true);
+	Matrix3D start(true);
+	char entry[32];
+	char bone[32];
+	int i;
+	for (i = 0; ; i++) {
+		_snprintf(entry, sizeof(entry), "Location%02d", i);
+		if (!ini.Find_Entry(section, entry)) {
+			break;
+		}
+		int location = ini.Get_Int(section, entry, 0);
+		if (offset_bone.length()) {
+			_snprintf(bone, sizeof(bone), "%s%02d", offset_bone.c_str(), location);
+			tm = ExtraBones->Get_Bone_Transform(bone);
+			avatar->Unknown_78B010(tm);
+		}
+		_snprintf(bone, sizeof(bone), "%s%02d", dest_bone.c_str(), location);
+		tm = ExtraBones->Get_Bone_Transform(bone);
+		avatar->Unknown_78B290(tm);
+		if (i == 0) {
+			start = tm;
+		}
+	}
+	int top = -1;
+	int bottom = 0;
+	for (i = 0; ; i++) {
+		_snprintf(bone, sizeof(bone), "Action%02d", i);
+		if (!ini.Find_Entry(section, bone)) {
+			break;
+		}
+		int anim = ini.Get_Int(section, bone, 200);
+		_snprintf(bone, sizeof(bone), "Chance%02d", i);
+		top += ini.Get_Int(section, bone, 1);
+		std::string extra_name("");
+		std::string extra_anim("");
+		_snprintf(bone, sizeof(bone), "ExtraName%02d", i);
+		ini.Get_String(str, section, bone, "");
+		if (!str.Is_Empty()) {
+			extra_name = str;
+		}
+		_snprintf(bone, sizeof(bone), "ExtraAnim%02d", i);
+		ini.Get_String(str, section, bone, "");
+		if (!str.Is_Empty()) {
+			extra_anim = str;
+		}
+		avatar->Unknown_78AD20(anim, bottom, top, extra_anim.c_str(), extra_name.c_str());
+		bottom = top + 1;
+	}
+	avatar->Set_Transform(start);
+	avatar->Unknown330 = start;
+	avatar->Unknown_785F20(true);
+	avatar->Unknown_77E3D0(1);
+	avatar->BodyObj->Set_LOD_Bias(1.0f);
+	avatar->Unknown_784F60(false);
+	return(avatar);
+}
 
 
 
@@ -4222,6 +4222,199 @@ UIStarbaseUnknownD4TableClass::iterator UIStarbaseUnknownD4TableClass::find(cons
 
 #pragma auto_inline(on)
 
+// The symbol chat menu (0x644E70-0x645E80, the starbase interface's +0x1F8)
+// 0x644E70
+UIStarbaseSymbolChatOptionStruct::~UIStarbaseSymbolChatOptionStruct()
+{
+	if (Window) {
+		Window->Remove_All(false);
+		Window = NULL;
+	}
+	if (Text) {
+		Text = NULL;
+	}
+	if (Gadget) {
+		GadgetClass::Destroy(Gadget);
+		Gadget = NULL;
+	}
+}
+
+// NOT EXACT: 0x644F80, functional (register / frame: the client's EH state in bl and its RefCountPtr temporary in edi, one stack slot less; B1)
+// 0x644F80
+UIStarbaseUnknown1F8Class::UIStarbaseUnknown1F8Class(SClient *sclient) :
+	InterfaceClass((LineDisplayClientClass *)sclient),
+	Unknown84(0),
+	Window(NULL),
+	Section(NULL),
+	Gadget(NULL),
+	Options(0)
+{
+	InterfaceSortScopeClass scope(this);
+	Unknown_BE67BC->Load("fc_symbolchat.ini");
+	Window = Create_NEW(new DynamicWindowClass("SYMBOL_CHAT_WINDOW", 3));
+	Window->Set_Level(8);
+	Section = Create_NEW(new DynamicWindowClass("SYMBOL_CHAT_SECTION", 1));
+	Window->Add_Object(Section.Peek(), 0);
+	Gadget = new DynamicWindowGadgetClass(Window, 0x55, 3, false);
+	Unknown64.Unknown_6870E0(Gadget, 0, View, true, true);
+	Gadget->Unknown_65FFA0(-1);
+}
+
+// NOT EXACT: 0x6452C0, functional (inline budget: the client calls the options' vector clear 0x645E30 out of line, ours inlines it; B1)
+// 0x6452C0
+UIStarbaseUnknown1F8Class::~UIStarbaseUnknown1F8Class()
+{
+	if (Active) {
+		InterfaceClass::Unknown_5C();
+		Window->Remove_From_Scene();
+	}
+	for (std::vector<UIStarbaseSymbolChatOptionStruct *>::iterator it = Options.begin(); it != Options.end(); it++) {
+		UIStarbaseSymbolChatOptionStruct *option = *it;
+		Unknown64.Unknown_687150(option->Gadget);
+		delete option;
+	}
+	Options.clear();
+	if (Section) {
+		Section->Remove_All(false);
+	}
+	if (Gadget) {
+		Unknown64.Unknown_687150(Gadget);
+		GadgetClass::Destroy(Gadget);
+		Gadget = NULL;
+	}
+	if (Section) {
+		Section->Remove_All(false);
+		Section = NULL;
+	}
+	if (Window) {
+		Window->Remove_All(false);
+		Window = NULL;
+	}
+	Unknown_BE67BC->Unload("fc_symbolchat.ini");
+}
+
+// NOT EXACT: 0x645510, functional (frame: two more stack slots in ours, every local 8 bytes up; the client's order otherwise; B1)
+// 0x645510
+void UIStarbaseUnknown1F8Class::Unknown_645510()
+{
+	InterfaceSortScopeClass scope(this);
+	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	for (int i = 1; i <= 4; i++) {
+		char name[32];
+		bool usable = false;
+		switch (i) {
+			case 1:
+				_snprintf(name, sizeof(name), "Cancel");
+				usable = true;
+				break;
+			case 2:
+				_snprintf(name, sizeof(name), "Chat");
+				usable = true;
+				break;
+			case 3:
+				_snprintf(name, sizeof(name), "Trade");
+				usable = true;
+				break;
+			case 4:
+				_snprintf(name, sizeof(name), "Group Invite");
+				if (client->Unknown_74D690() || !client->Unknown_74D570()) {
+					usable = true;
+				}
+				break;
+		}
+		RefCountPtr<FontSys> text;
+		if (usable) {
+			text = Create_NEW(new FontSys("Symbol_Chat_Default", NULL, NULL));
+		} else {
+			text = Create_NEW(new FontSys("Symbol_Chat_Unusable", NULL, NULL));
+		}
+		text->Change_Text(name, 0);
+		UIStarbaseSymbolChatOptionStruct *option = new UIStarbaseSymbolChatOptionStruct;
+		option->Window = Create_NEW(new DynamicWindowClass("SYMBOL_CHAT_OPTION", 1));
+		Section->Add_Object(option->Window.Peek(), i);
+		option->Text = Create_NEW(new Unknown51C800Class(text.Peek(), 6));
+		option->Window->Add_Object(option->Text.Peek(), 0);
+		option->Gadget = new DynamicWindowGadgetClass(option->Window, 0x55, 3, false);
+		Unknown64.Unknown_6870E0(option->Gadget, i, View, true, true);
+		option->Gadget->Unknown_65FFA0(-1);
+		option->Gadget->Unknown_40(usable);
+		Options.push_back(option);
+	}
+}
+
+// 0x645A60
+void UIStarbaseUnknown1F8Class::Unknown_645A60()
+{
+	for (std::vector<UIStarbaseSymbolChatOptionStruct *>::iterator it = Options.begin(); it != Options.end(); it++) {
+		UIStarbaseSymbolChatOptionStruct *option = *it;
+		Unknown64.Unknown_687150(option->Gadget);
+		delete option;
+	}
+	Options.clear();
+	if (Section) {
+		Section->Remove_All(false);
+	}
+}
+
+// 0x645B20
+void UIStarbaseUnknown1F8Class::Unknown_58()
+{
+	if (!Active) {
+		InterfaceSortScopeClass scope(this);
+		float x;
+		float y;
+		Unknown_42ECF0(&x, &y);
+		x = x * 640.0f - 320.0f;
+		y = 240.0f - y * 480.0f;
+		Window->Set_Center(Vector2(x, y));
+		Window->Add_To_Scene((SceneClass *)View->Unknown_50());
+		InterfaceClass::Unknown_58();
+		SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+	}
+}
+
+// 0x645C50
+void UIStarbaseUnknown1F8Class::Unknown_5C()
+{
+	if (Active) {
+		InterfaceClass::Unknown_5C();
+		Window->Remove_From_Scene();
+	}
+}
+
+// 0x645C80
+bool UIStarbaseUnknown1F8Class::Unknown_68(int key)
+{
+	if (key) {
+		Unknown84 = key;
+		SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
+		return(true);
+	}
+	return(false);
+}
+
+// 0x645CC0
+void UIStarbaseUnknown1F8Class::Unknown_645CC0()
+{
+}
+
+// 0x645CE0
+void UIStarbaseUnknown1F8Class::Unknown_645CE0()
+{
+	if (!Active) {
+		Unknown_645A60();
+		Unknown_645510();
+	}
+}
+
+// 0x645DC0
+int UIStarbaseUnknown1F8Class::Unknown_645DC0()
+{
+	int option = Unknown84;
+	Unknown84 = 0;
+	return(option);
+}
+
 // The starbase lights panel (0x646170-0x648238): moved after the file's other functions, as the client's order (SU1)
 // The colour pad's gadget (0x80 bytes, constructor 0x671300), as ui_avatar_cust.cpp's UIAvatarCustGadget671300Class
 class Unknown_671300Class : public GadgetClass	// NAME 1: neutral (D10)
@@ -4371,7 +4564,7 @@ void UIStarbaseLightsClass::Unknown_54()
 		UnknownD8->Unknown00->Unknown_65FFA0(-1);
 		Unknown64.Unknown_6870E0(UnknownD8->Unknown00, 0xD, View, true, false);
 		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
-		((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIStarbaseLightsKeyEventStruct(0x1B), (void *)1);
+		Unknown4C.Add(*(const ControlKeyComboStruct *)&UIStarbaseLightsKeyEventStruct(0x1B), (void *)1);
 	}
 }
 
