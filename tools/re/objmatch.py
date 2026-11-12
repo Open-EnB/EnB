@@ -81,6 +81,14 @@ initialiser calls, or registers through its atexit function (`initialiser_target
 `tiebreak` and `initialiser` set. Finds and other helpers stay tied. It runs only when the range
 resolves nothing more; its credits feed D80's next round.
 
+What the static initialiser leaves gets the CRT table (D242, 2026-11-12; it feeds D80's next round) (P-C1-2, amends D94(b); `xcu_position`, USE_XCU_POSITION): the client's initialiser table 0xB6C000-0xB6D700
+lists every object's `.CRT$XCU` initialisers in link order, so an object's n-th initialiser is the n-th of the
+consecutive table entries in its stretch (each initialiser's window: between its nearest exact own functions in
+object order, within the range +- RANGE_GAP, short of the other objects' exact own functions; as many entries as
+initialisers, each fullmatching its pattern, none held by another symbol, an exact initialiser at its own entry);
+the `_$E` functions those initialisers' bytes reach (the wrapper called, the atexit stub pushed) follow, `exact`
+with `xcu` set to 'table' or 'linked'. The `_$E` names stay unused across objects: the position is the proof.
+
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
 `ret`, `ret n`, `jmp`, an indirect `jmp`, or a jump table's last entry), or a 16-byte aligned one (a
@@ -655,7 +663,7 @@ def match_objects(img, paths, region=None, callers=False):
             if selfname:
                 names = run_self_names(img, list({id(x[1]): x[1] for x in results}.values()), known, thunk)
             ranges = {}
-            if phase in ('range', 'init'):
+            if phase in ('range', 'init', 'xcu'):
                 for r, obj, sec, s, length in results:
                     if r['status'] == 'exact' and obj.own(sec):
                         a = int(r['addresses'][0], 16)
@@ -734,6 +742,24 @@ def match_objects(img, paths, region=None, callers=False):
                     changed = True
                 shorts = [x for x in shorts if x[0]['status'] == 'short']
                 phase = 'd80' if changed else 'done'
+                continue
+            if phase == 'xcu':
+                # D242 P-C1-2: the `_$E` initialisers by their CRT table position, and what their bytes reach
+                got = xcu_position(img, results, ranges, text, start, claimed, thunk) if USE_XCU_POSITION else []
+                for (r, obj, sec, s, length), a, kind in got:
+                    if r['status'] == 'multiple':
+                        r['tiebreak'] = True
+                        r.pop('count', None), r.pop('identical', None)
+                        done.add(id(r))
+                    r['status'] = 'exact'
+                    r['addresses'] = [f'0x{a:06X}']
+                    r['xcu'] = kind
+                    claimed[a].add(r['symbol'])
+                    learn(r, obj, sec, s, length, a)
+                    changed = True
+                shorts = [x for x in shorts if x[0]['status'] == 'short']
+                phase = 'd80' if changed else 'short'
+                changed = True
                 continue
             for item in pending:
                 r, obj, sec, s, length, hits = item
@@ -817,7 +843,8 @@ def match_objects(img, paths, region=None, callers=False):
             elif phase == 'range':
                 phase, changed = 'init', True           # nor the range: one static initialiser round (D115)
             elif phase == 'init':
-                phase, changed = 'short', True          # nor the initialiser: one short-function round (D188)
+                phase, changed = 'xcu', True            # nor the initialiser: the CRT table round (D242),
+                                                        # then one short round (D188)
         if not callers:
             break
         credited = caller_tiebreak(img, results, pending, claimed, text, start, thunk, known)
@@ -1330,6 +1357,138 @@ def xcu_previous(img):
                 prev.setdefault(vals[i], vals[i - 1])
         _xcu['prev'] = prev
     return _xcu['prev']
+
+
+USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
+XCU_TABLE = (0xB6C000, 0xB6D700)
+
+
+def xcu_table(img):
+    """The non-zero entries of the client's CRT initialiser table (.CRT$XCU merged into .data, XCU_TABLE), in table
+    order: the initialisers of every object, in link order."""
+    if 'table' not in _xcu:
+        out = []
+        for va in range(XCU_TABLE[0], XCU_TABLE[1], 4):
+            o = img.offset(va)
+            v = struct.unpack_from('<I', img.data, o)[0] if o is not None else 0
+            if v:
+                out.append(v)
+        _xcu['table'] = out
+    return _xcu['table']
+
+
+def xcu_initialisers(obj):
+    """The symbols an object's .CRT$XCU sections list (its dynamic initialisers), in section and slot order."""
+    out = []
+    for info in obj.sections:
+        if info['name'].startswith('.CRT$XC') and info['name'] not in ('.CRT$XCA', '.CRT$XCZ'):
+            for va, symidx, typ in sorted(info['relocs']):
+                sym = obj.symbol_at(symidx)
+                if sym is not None:
+                    out.append(sym['name'])
+    return out
+
+
+def _fullmatch_at(obj, sec, s, length, text, base, a):
+    o = a - base
+    if length <= 0 or o < 0 or o + length > len(text):
+        return False
+    return re.fullmatch(obj.pattern(sec, s, s + length)[0], text[o:o + length], re.S) is not None
+
+
+def _object_order(results):
+    """{id(obj): [((sec, start), address or None, item)]} of each object's own functions in object order (section,
+    then offset: the order /Gy's linker keeps, library-matching.md 3.6), with the address when the function is
+    exact."""
+    out = collections.defaultdict(list)
+    for item in results:
+        r, obj, sec, s, length = item
+        if obj.own(sec):
+            out[id(obj)].append(((sec, s), int(r['addresses'][0], 16) if r['status'] == 'exact' else None, item))
+    for v in out.values():
+        v.sort(key=lambda x: x[0])
+    return out
+
+
+def _neighbours(order, key):
+    """(address of the nearest exact own function before KEY in object order, of the nearest after), None if none."""
+    before = [a for k, a, _ in order if k < key and a is not None]
+    after = [a for k, a, _ in order if k > key and a is not None]
+    return (before[-1] if before else None), (after[0] if after else None)
+
+
+def xcu_position(img, results, ranges, text, base, claimed, thunk):
+    """D242 P-C1-2 (amends D94(b)): [(item, address, kind)] of `_$E` functions credited by the CRT initialiser table.
+    The table lists every object's initialisers in link order, so the n-th initialiser an object's .CRT$XCU lists
+    is the n-th table entry in the object's stretch. Per object: each initialiser's window is the gap between its
+    nearest exact own functions in object order, clipped to the object's range +- RANGE_GAP and to the exact own
+    functions of the other objects of the run; the table entries lying in the union of those windows must be
+    consecutive in the table, as many as the initialisers, each the n-th initialiser's (inside its own window,
+    its pattern fullmatching there, no other symbol there; an initialiser already exact must sit at its entry).
+    Then the `_$E` functions they reference (the constructor wrapper they call, the atexit stub they push or jump
+    to, transitively) are credited at the targets the initialisers' bytes give, where their patterns fullmatch.
+    kind is 'table' or 'linked'. The names stay unused across objects: the position is the proof."""
+    table = xcu_table(img)
+    index = {a: i for i, a in enumerate(table)}
+    orders = _object_order(results)
+    own_exact = sorted((a, k) for k, v in orders.items() for _, a, _ in v if a is not None)
+    by_obj = collections.defaultdict(dict)
+    for item in results:
+        by_obj[id(item[1])][item[0]['symbol']] = item
+    out = []
+    for key, defs in by_obj.items():
+        if key not in ranges:
+            continue
+        obj = next(iter(defs.values()))[1]
+        inits = xcu_initialisers(obj)
+        if not inits or any(n not in defs or not generated(n) for n in inits):
+            continue
+        lo, hi = ranges[key]
+        below = [a for a, k in own_exact if a < lo and k != key]
+        above = [a for a, k in own_exact if a > hi and k != key]
+        blo = max(lo - RANGE_GAP, below[-1] + 1 if below else 0)
+        bhi = min(hi + RANGE_GAP, above[0] - 1 if above else 0xFFFFFFFF)
+        wins = []
+        for n in inits:
+            r, _, sec, s, length = defs[n]
+            p, q = _neighbours(orders[key], (sec, s))
+            wins.append((max(blo, p + 1 if p is not None else blo), min(bhi, q - 1 if q is not None else bhi)))
+        run = sorted({t for t in table for w in wins if w[0] <= t <= w[1]})
+        if len(run) != len(inits) or any(index[b] != index[a] + 1 for a, b in zip(run, run[1:])):
+            continue
+        ok = True
+        for n, (w0, w1), a in zip(inits, wins, run):
+            r, _, sec, s, length = defs[n]
+            if not w0 <= a <= w1 or claimed[a] - {n} or (r['status'] == 'exact' and int(r['addresses'][0], 16) != a) \
+                    or r['status'] != 'exact' and not _fullmatch_at(obj, sec, s, length, text, base, a):
+                ok = False
+                break
+        if not ok:
+            continue
+        got = {n: a for n, a in zip(inits, run)}
+        todo = list(got.items())
+        while todo:         # what the initialisers' own bytes reach: the wrapper they call, the atexit stub they push
+            n, a = todo.pop()
+            r, _, sec, s, length = defs[n]
+            o = a - base
+            for k, sz, typ, sym, addend in obj.reloc_targets(sec, s, length):
+                if sz != 4 or sym is None or sym['name'] not in defs or not generated(sym['name']) \
+                        or sym['name'] in got or typ not in (0x06, 0x14) or o + k + 4 > len(text):
+                    continue
+                v = struct.unpack('<I', text[o + k:o + k + 4])[0]
+                v = (v - struct.unpack('<I', addend)[0]) & 0xFFFFFFFF if typ == 0x06 \
+                    else (a + k + 4 + struct.unpack('<i', text[o + k:o + k + 4])[0]) & 0xFFFFFFFF
+                v = thunk.get(v, v)
+                tr, _, tsec, ts, tlen = defs[sym['name']]
+                if claimed[v] - {sym['name']} or (tr['status'] == 'exact' and int(tr['addresses'][0], 16) != v) \
+                        or tr['status'] != 'exact' and not _fullmatch_at(obj, tsec, ts, tlen, text, base, v):
+                    continue
+                got[sym['name']] = v
+                todo.append((sym['name'], v))
+        for n, a in got.items():
+            if defs[n][0]['status'] != 'exact':
+                out.append((defs[n], a, 'table' if n in inits else 'linked'))
+    return out
 
 
 USE_RANGE_EVIDENCE = True
