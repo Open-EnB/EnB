@@ -37,6 +37,7 @@ public:
 	virtual int Unknown_08();
 	OtherClass *Next;
 };
+extern GadgetClass *Held;
 """
 
 USE_CPP = """\
@@ -56,6 +57,10 @@ void Use(GadgetClass *gadget, OtherClass *other, ButtonClass &button)
 	list[2]->Unknown_08();
 	const char *text = "Unknown_08";
 	mystery()->Unknown_08();
+	for (std::vector<RObjGadgetClass *>::iterator it = v.begin(); it != v.end(); ++it) {
+		(*it)->Unknown_08();
+	}
+	Held->Unknown_08();
 }
 """
 
@@ -104,6 +109,8 @@ class SlotRename(unittest.TestCase):
         self.assertIn('list[2]->Get_RObj();', c)
         self.assertIn('"Unknown_08"', c)
         self.assertIn('mystery()->Unknown_08();', c)
+        self.assertIn('(*it)->Get_RObj();', c)
+        self.assertIn('Held->Get_RObj();', c)
         self.assertIn('UNRESOLVED app/client/use.cpp:16 Unknown_08', out)
 
     def test_strict_fails_on_unresolved(self):

@@ -94,6 +94,7 @@ def match_fwd(m, j, open_c, close_c):
 
 CLASS_RE = re.compile(r'\b(?:class|struct)\s+(\w+)\s*(?:final\s*)?(:[^{;()]*)?\{')
 DEF_RE = re.compile(r'\b(\w+)\s*::\s*~?\w+\s*\([^;{}]*\)\s*(?:const\s*)?(?::[^{;]*)?\{')
+ITER_RE = re.compile(r'<\s*(?:const\s+)?(\w+)\s*\*?\s*>\s*::\s*(?:const_)?iterator\s+(\w+)')
 DECL_RE = re.compile(r'(?<![\w.>:])(?:const\s+)?(\w+)(\s*<[^;(){}<>]*(?:<[^;(){}<>]*>[^;(){}<>]*)*>)?\s*((?:const\s*)?[*&]+\s*(?:const\s+)?|\s+)(\w+)\s*(\[[^\]]*\]\s*)?([;,=)(\[:])')
 
 
@@ -140,7 +141,9 @@ class Index:
         self.bases = {}      # class -> set of base names
         self.members = {}    # class -> {name: (type, element type)}
         self.globals = {}    # name -> set of (type, element type)
+        self.by_name = {}    # file base name (lower case) -> [Source]
         for s in self.files:
+            self.by_name.setdefault(os.path.basename(s.rel).lower(), []).append(s)
             self._scan(s)
 
     def _scan(self, s):
@@ -158,6 +161,9 @@ class Index:
         for d in DEF_RE.finditer(m):
             close = match_fwd(m, d.end() - 1, '{', '}')
             s.defs.append((d.group(1), d.end() - 1, close if close >= 0 else len(m)))
+        s.includes = [x.replace('\\', '/').split('/')[-1].lower() for x in re.findall(r'#\s*include\s*"([^"]+)"', s.text)]
+        for d in ITER_RE.finditer(m):
+            s.decls.append((d.start(2), d.group(2), 'iterator', d.group(1), False))
         for d in DECL_RE.finditer(m):
             typ, targs, name, arr, nxt = d.group(1), d.group(2), d.group(4), d.group(5), d.group(6)
             if typ in KEYWORDS or name in KEYWORDS or typ.isdigit():
@@ -240,6 +246,18 @@ class Index:
                 return e
         if best:
             return best
+        seen, todo = set(), list(s.includes)
+        while todo and len(seen) < 200:
+            inc = todo.pop(0)
+            if inc in seen:
+                continue
+            seen.add(inc)
+            found = set()
+            for h in self.by_name.get(inc, ()):
+                found |= {(typ, elem) for o, n, typ, elem, is_fn in h.decls if n == name and is_fn == want_fn}
+                todo.extend(h.includes)
+            if len({f[0] for f in found}) == 1:
+                return next(iter(found))
         g = self.globals.get(name, set())
         types = {t for t, _ in g}
         if len(types) == 1:
@@ -259,6 +277,9 @@ class Index:
             if o < 0:
                 return None
             inner = m[o + 1:k]
+            deref = re.match(r'\s*\*\s*(\w+)\s*$', inner)
+            if deref:
+                return self.var_type(s, o + 1 + deref.end(1), element=True)
             cast = re.match(r'\s*\(\s*(?:const\s+)?(\w+)\s*[*&]+\s*\)', inner)
             if cast:
                 return cast.group(1)
