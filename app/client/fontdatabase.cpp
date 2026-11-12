@@ -1156,7 +1156,7 @@ void FontStringFilesClass::Load(const char *name)
 		file->Name = key;
 		file->Count = 1;
 		Files[file->Name.c_str()] = file;
-		Unknown_BE67B8->Unknown_6C1500(file->Name.c_str());
+		fontDatabase->Unknown_6C1500(file->Name.c_str());
 	}
 }
 
@@ -1171,7 +1171,7 @@ void FontStringFilesClass::Unload(const char *name)
 	if (--file->Count == 0) {
 		delete file;
 		Files.erase(key);
-		Unknown_BE67B8->Unknown_6C1AA0(key.c_str());
+		fontDatabase->Unknown_6C1AA0(key.c_str());
 	}
 }
 
@@ -1322,7 +1322,7 @@ FontStringFilesClass::~FontStringFilesClass()
 	std::hash_map<std::string, FontStringFileStruct *>::iterator it;
 	for (it = Files.begin(); it != Files.end(); ++it) {
 		FontStringFileStruct *file = (*it).second;
-		Unknown_BE67B8->Unknown_6C1AA0(file->Name.c_str());
+		fontDatabase->Unknown_6C1AA0(file->Name.c_str());
 		delete file;
 	}
 	Files.clear();

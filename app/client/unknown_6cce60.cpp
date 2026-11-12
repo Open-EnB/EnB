@@ -395,7 +395,7 @@ void FontSys::Unknown_6CE4E0(int font_index)
 	StringClass text(Info.Text);
 	Clip_Text(this, text);
 	char *buffer = text.Get_Buffer(Unknown2F0.Get_Length());
-	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
+	FontStruct *font = fontDatabase->Find_Font(Info.FontType[FontIndex], Scale);
 	Font = font->font32Ptr;
 	Reset_XSpacing(Font.Peek());
 	Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, buffer, 0);

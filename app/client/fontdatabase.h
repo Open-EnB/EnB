@@ -226,7 +226,7 @@ public:
 	FontStruct Font[MAXFONTS];												// +0x68, the client's name (its assert)
 };
 
-extern FontDatabaseClass *Unknown_BE67B8;									// 0xBE67B8, created by 0x526DE0  // NAME 1 [Unknown_BE67B8]: neutral (D10)
+extern FontDatabaseClass *fontDatabase;									// 0xBE67B8, created by 0x526DE0  // NAME 5: the client's FAIL_IF '!::fontDatabase' (ui_option_font.cpp 0x5CD780; P-CP2-1)
 
 struct FontStringFileStruct  // NAME 2: one loaded string file (0x14 bytes)
 {

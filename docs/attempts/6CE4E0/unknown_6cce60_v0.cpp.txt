@@ -363,7 +363,7 @@ void FontSys::Unknown_6CE4E0(int font_index) {
 	if (Unknown406) {
 		Append_Ellipsis(text); }
 	char *buffer = text.Get_Buffer(Unknown2F0.Get_Length());
-	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
+	FontStruct *font = fontDatabase->Find_Font(Info.FontType[FontIndex], Scale);
 	REF_PTR_SET(Font, font->font32Ptr.Peek());
 	Reset_XSpacing(Font);
 	Unknown4C4 = Unknown2D0.Unknown_6D8DC0(&Font, buffer, 0);

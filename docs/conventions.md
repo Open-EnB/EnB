@@ -374,3 +374,7 @@ Where the client's names disagree with these conventions, the client's are used;
   returns `this`): was `Unknown_18` (NAME 1), NAME 5, in client.h, sclient.h and every caller (tools/re/slotrename.py
   over ClientClass's hierarchy, 233 uses in 53 files); the two short slots' symbols_named.json rows carry `replaces`.
   The files' local views that already called it `As_Space_Client` (returning SClient *) are unchanged.
+* **fontDatabase (2026-11-12, RN, P-CP2-1, D243):** ui_option_font.cpp's FAIL_IF `!::fontDatabase` (0x5CD780) names
+  the global FontDatabaseClass * at 0xBE67B8: was `Unknown_BE67B8` (NAME 1), NAME 5, in fontdatabase.h, tsk_game.h,
+  main_client.cpp, the font files and clienttest's stub; ui_option_font.cpp's `#define fontDatabase` is gone (a
+  comment line keeps its `__LINE__`s).

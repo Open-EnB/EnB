@@ -15,7 +15,7 @@
 #include "..\shared\g_assert.h"
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
-#define fontDatabase Unknown_BE67B8		// NAME 3: the FAIL_IF '!::fontDatabase' (0x5CD780); fontdatabase.h still calls it Unknown_BE67B8
+// fontDatabase (0xBE67B8) is declared by fontdatabase.h / tsk_game.h under the client's FAIL_IF name
 
 class UnknownEventDispatcherClass;
 UnknownEventDispatcherClass *Unknown_540A20();			// 0x540A20 (intrface.cpp: the interfaces' signal map)  // NAME 1: neutral (D10)

@@ -62,7 +62,7 @@ index 78168bb9..e03a96c6 100644
 @@ -169,7 +169,7 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
  	memset(Unknown303, 0, sizeof(Unknown303));
  	Unknown414 = 0;
- 	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
+ 	FontStruct *font = fontDatabase->Find_Font(Info.FontType[FontIndex], Scale);
 -	REF_PTR_SET(Font, font->font32Ptr.Peek());
 +	Font = font->font32Ptr;
  	Underline = Info.Underline;
@@ -278,7 +278,7 @@ index 96dac1d1..19cdfd50 100644
 @@ -369,8 +369,8 @@ void FontSys::Unknown_6CE4E0(int font_index)
  	}
  	char *buffer = text.Get_Buffer(Unknown2F0.Get_Length());
- 	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
+ 	FontStruct *font = fontDatabase->Find_Font(Info.FontType[FontIndex], Scale);
 -	REF_PTR_SET(Font, font->font32Ptr.Peek());
 -	Reset_XSpacing(Font);
 +	Font = font->font32Ptr;

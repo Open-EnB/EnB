@@ -161,7 +161,7 @@ extern Unknown_790560Class *Unknown_BE856C;			// NAME 1 [Unknown_BE856C]: neutra
 **	  _TheSimpleFileFactory and _TheWritingFileFactory (the last used as a SimpleFileFactoryClass);
 **	  0xC1E1B4 / 0xC1E1B8 are win.cpp's MainWindow and ProgramInstance; 0xBFAEE0 is
 **	  WW3DAssetManager::TheInstance (Delete_This, twice).
-**	* The font globals: tsk_game.h's Unknown_BE67B8 and sclient.h's Unknown_BE67BC have fontdatabase.h's
+**	* The font globals: tsk_game.h's fontDatabase and sclient.h's Unknown_BE67BC have fontdatabase.h's
 **	  types, FontDatabaseClass * and FontStringFilesClass * (P-H12-3, 2026-11-03); this file still declares
 **	  the four font classes as far as it uses them (their constructors and destructors) instead of
 **	  including fontdatabase.h.
@@ -549,7 +549,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 		Unknown_Debug_Begin_Step("starting up font system");
-		Unknown_BE67B8 = new FontDatabaseClass;
+		fontDatabase = new FontDatabaseClass;
 		Unknown_BE67C4 = new FontManagerClass;
 		Unknown_BE67B4 = new Unknown_6BCFB0Class;
 		Unknown_BE67BC = new FontStringFilesClass;
@@ -624,7 +624,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		delete Unknown_BE67B4;
 		delete Unknown_BE67BC;
 		delete Unknown_BE67C4;
-		delete Unknown_BE67B8;
+		delete fontDatabase;
 		Unknown_Debug_End_Step("ok");
 
 		Unknown_Debug_Begin_Step("shutting down sound manager");

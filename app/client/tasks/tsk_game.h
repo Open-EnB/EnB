@@ -184,6 +184,6 @@ public:
 Unknown_7CA2D0Class *Unknown_7CA2D0();					// NAME 1 [Unknown_7CA2D0]: a function-static instance
 #include "..\option.h"								// OptionClass, option.cpp's object at 0xBE8B38 (D107)
 class FontDatabaseClass;								// fontdatabase.h's (P-H12-3)
-extern FontDatabaseClass *Unknown_BE67B8;				// NAME 1 [Unknown_BE67B8]: neutral (D10); fontdatabase.h declares it too
+extern FontDatabaseClass *fontDatabase;				// NAME 5: the client's FAIL_IF '!::fontDatabase' (ui_option_font.cpp 0x5CD780; P-CP2-1); fontdatabase.h declares it too
 
 #endif

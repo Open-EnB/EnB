@@ -63,19 +63,19 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	Unknown274[0] = 0; Unknown274[1] = 0; Unknown274[2] = 0; Unknown274[3] = 0; Unknown274[4] = 0; Unknown274[5] = 0; Unknown274[6] = 0; Unknown274[7] = 0; Unknown274[8] = 0; Unknown274[9] = 0; Unknown274[10] = 0; Unknown274[11] = 0;
 	for (i = 0; i < 4; i++) Unknown274[12 + i] = 0; Unknown254[0] = 0; Unknown254[1] = 0; Unknown254[2] = 0; Unknown254[3] = 0; Unknown254[4] = 0; Unknown254[5] = 0;
 	for (i = 0; i < 4; i++) {
-		Effects[0][i] = Unknown_BE67B8->Find_Effect(Info.EffectOn[i].Get_Buffer(Info.EffectOn[i].Get_Length()));
-		Effects[1][i] = Unknown_BE67B8->Find_Effect(Info.EffectConst[i].Get_Buffer(Info.EffectConst[i].Get_Length()));
-		Effects[2][i] = Unknown_BE67B8->Find_Effect(Info.EffectOff[i].Get_Buffer(Info.EffectOff[i].Get_Length()));
-		Effects[3][i] = Unknown_BE67B8->Find_Effect(Info.MouseOver[i].Get_Buffer(Info.MouseOver[i].Get_Length()));
-		Effects[4][i] = Unknown_BE67B8->Find_Effect(Info.MouseClick[i].Get_Buffer(Info.MouseClick[i].Get_Length()));
-		Effects[5][i] = Unknown_BE67B8->Find_Effect(Info.EffectTriggered[i].Get_Buffer(Info.EffectTriggered[i].Get_Length()));
+		Effects[0][i] = fontDatabase->Find_Effect(Info.EffectOn[i].Get_Buffer(Info.EffectOn[i].Get_Length()));
+		Effects[1][i] = fontDatabase->Find_Effect(Info.EffectConst[i].Get_Buffer(Info.EffectConst[i].Get_Length()));
+		Effects[2][i] = fontDatabase->Find_Effect(Info.EffectOff[i].Get_Buffer(Info.EffectOff[i].Get_Length()));
+		Effects[3][i] = fontDatabase->Find_Effect(Info.MouseOver[i].Get_Buffer(Info.MouseOver[i].Get_Length()));
+		Effects[4][i] = fontDatabase->Find_Effect(Info.MouseClick[i].Get_Buffer(Info.MouseClick[i].Get_Length()));
+		Effects[5][i] = fontDatabase->Find_Effect(Info.EffectTriggered[i].Get_Buffer(Info.EffectTriggered[i].Get_Length()));
 	}
 	if (Effects[0][0] == NULL && Effects[0][1] == NULL && Effects[0][2] == NULL) {
 		Unknown440 = 1;
 	}
 	Unknown44C = 0;
-	Colors[0] = Unknown_BE67B8->Find_Color(Info.Color[0]);
-	Colors[1] = Unknown_BE67B8->Find_Color(Info.Color[1]);
+	Colors[0] = fontDatabase->Find_Color(Info.Color[0]);
+	Colors[1] = fontDatabase->Find_Color(Info.Color[1]);
 	if (Colors[1] == NULL) {
 		Colors[1] = Colors[0];
 	}
@@ -106,7 +106,7 @@ void FontSys::Unknown_6D5170(RenderObjClass *object)
 	}
 	memset(Unknown303, 0, sizeof(Unknown303));
 	Unknown414 = 0;
-	FontStruct *font = Unknown_BE67B8->Find_Font(Info.FontType[FontIndex], Scale);
+	FontStruct *font = fontDatabase->Find_Font(Info.FontType[FontIndex], Scale);
 	Font = font->font32Ptr;
 	Underline = Info.Underline;
 	if (Info.Underline) {
