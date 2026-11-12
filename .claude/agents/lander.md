@@ -34,7 +34,7 @@ step below does not behave as described (`grep -n` for the row; it is one long l
 |---|---|
 | The importer lock was not acquired in time | Run it once more with `--lock-wait 12000` |
 | sclient.cpp pairs lost and the pad sweep (on by default) found no window | Report: the builder re-sweeps in its worktree after `wt.py rebase NAME` |
-| An address lost outright that the brief lists as accepted | Report it with the address: the accepted-corrections entry must be on the target first, and that is the coordinator's commit |
+| An address lost outright that the brief lists as accepted (D66, or D240: a client-evidenced form's loss the builder reported) | Report it with the address: the accepted-corrections entry must be on the target first, and that is the coordinator's commit |
 | Any other address lost outright | Report address, file and the branch that lost it. Never land it, never accept it |
 | A conflict in a file that is not generated (the scratch is left mid-pick) | `python tools/vc6/wt.py remove <batch>.bo` if the tool says the scratch remains, then report file and commit: the builder runs `wt.py rebase NAME` |
 | The link check (LNK2005, LNK1169, an unresolved symbol, a compile error) | Report the symbol or the first error line and the file: the builder fixes it in its branch |

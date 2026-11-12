@@ -178,6 +178,28 @@ def usage_allowance(week_used, sess_used, builders, wrates, srates, hw, hs, cap,
     return n
 
 
+def addr_int(x):
+    """An address as an int, whether the ledger gives '0x702240', '702240' or an int (None if unreadable)."""
+    try:
+        return x if isinstance(x, int) else int(str(x).strip(), 16)
+    except ValueError:
+        return None
+
+
+def decided_losses():
+    """Addresses HEAD's docs/data/accepted-corrections.json records as decided losses (moved_to null:
+    D175, and D240's client-evidenced forms until regained). They are not losses for the health check."""
+    r = subprocess.run(['git', 'show', 'HEAD:docs/data/accepted-corrections.json'],
+                       capture_output=True, text=True, encoding='utf-8')
+    if r.returncode != 0:
+        return set()
+    try:
+        rows = json.loads(r.stdout).get('corrections', [])
+    except ValueError:
+        return set()
+    return {addr_int(c.get('address')) for c in rows if c.get('moved_to') is None} - {None}
+
+
 def heartbeat(a):
     now = datetime.now()
     rows = usage()
@@ -193,9 +215,10 @@ def heartbeat(a):
     running = sum(1 for v in vms if v[1] == 'Running')
     leased = sum(1 for v in vms if v[2])
     parses, gained_n, lost = health(a.baseline)
-    accepted = {x.strip().upper() for x in (a.accept or '').split(',') if x.strip()}
+    accepted = {addr_int(x) for x in (a.accept or '').split(',') if x.strip()}
+    accepted |= decided_losses()
     if lost:
-        lost = [x for x in lost if x.upper() not in accepted]
+        lost = [x for x in lost if addr_int(x) not in accepted]
 
     plan_text = io.open(a.plan, encoding='utf-8', newline='').read() if a.plan and os.path.exists(a.plan) else ''
     prev = last_heartbeat(plan_text)
@@ -271,7 +294,7 @@ def main():
     hb.add_argument('--builders', type=int, required=True, help='builders running now')
     hb.add_argument('--baseline', default=None, help="the run's baseline (.work/imports.<sha>.json, ledger.py export --rev) for pairs_cmp")
     hb.add_argument('--accept', default=None,
-                    help='comma-separated addresses whose loss the user accepted (D66), not counted as lost')
+                    help='comma-separated addresses whose loss the user accepted (D66), not counted as lost (accepted-corrections.json decided losses are skipped without it)')
     hb.add_argument('--handoff', default=None, help='HH:MM when the handoff must be written')
     hb.add_argument('--cap', type=float, default=92.0, help='max projected %% of either window at the handoff')
     hb.add_argument('--floor-weekly', type=float, default=5.0, help='never launch under this %% of the week')
