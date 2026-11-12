@@ -26,7 +26,7 @@ class Sound3DClass;
 // meshsnd.cpp's sound on a model's bone (0x50 bytes, no table of its own: +0x00 is a member node, table 0xB07968;
 // constructor 0x7ED1D0, destructor 0x7ED300, called directly). The scripted movie's Play_Audio makes them (0x806BD0)
 // and so does the 3-D movie's sound table (0x7EDCB0), which fills the members from movie3d.ini's entries of the same
-// names. Laid out from the client's code, not yet compiled against it (meshsnd.cpp is not rebuilt).
+// names. Compiled against the client in meshsnd.cpp (M1, 2026-11-12): the layout holds.
 class MeshSoundClass	// NAME 3: class-from-file (D24) for meshsnd.cpp
 {
 public:
@@ -74,7 +74,7 @@ public:
 
 // The 3-D movie's sounds (mv3dsnd.cpp, 0x40 bytes, no table of its own): each animation id's sounds, read from the
 // movie's 'SFX' section of movie3d.ini (constructor 0x7EDCB0, destructor 0x7EE340). Whether the hash list is a base or
-// a member is not settled by the bytes; not yet compiled against the client (mv3dsnd.cpp is not rebuilt).
+// a member is not settled by the bytes (both compile the same, mv3dsnd.cpp M1 2026-11-12); the base is kept.
 class Movie3DSoundClass : public HashListClass<MeshSoundListClass *, HashDefaultUserClass, 7>	// NAME 3: class-from-file (D24) for mv3dsnd.cpp, after Movie3DViewClass
 {
 public:
