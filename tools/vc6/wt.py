@@ -43,9 +43,9 @@ bring-over: puts wt/NAME's commits on TARGET only when the loss rule below holds
      verified ledger's new app pairs too) refuses a function defined anew in app/ that a hand stand-in still defines
      (programs/clientpoc/poc_standins.cpp, poc_world*.cpp, poc_gadget_*.cpp, stubs/app_stubs.cpp,
      tests/clienttest/client_stubs.cpp), naming symbol and file:line; the batch form runs it too, after its verify;
-  4b. link (item 6b, when the commits touch app/, stubs/, programs/clientpoc/ or tests/clienttest/; else skipped,
+  4b. link (item 6b, when the commits touch app/, stubs/, programs/clientpoc/, tests/clienttest/ or tests/udpreplay/; else skipped,
      printed): linkgate.py in the scratch worktree on --pool K VMs: build.py build --lib app (plus the other touched
-     libraries; the rest copied from the main tree's build/), the POC linked (--no-deploy) and clienttest built;
+     libraries; the rest copied from the main tree's build/), the POC linked (--no-deploy), clienttest and udpreplay built;
      refused on LNK2005 / LNK1169, a compile error, no exe, or an unresolved symbol not in
      tools/vc6/link_baseline.json (the POC's known set gen_stubs cannot write). Once per batch in the batch form.
      --no-link skips it with a warning (doc-only or tools-only landings). Minutes: the app build. The harness run
@@ -879,12 +879,12 @@ def standin_gate(old, new, old_ledger, new_ledger, target):
 
 
 def link_gate(a, bo, old, new, target):
-    """Pipeline-plan §4 item 6b: when OLD..NEW touches app/, stubs/, programs/clientpoc/ or tests/clienttest/,
-    linkgate.py in the scratch worktree BO (app.lib built there, the POC and clienttest linked, a.pool VMs); exits on
+    """Pipeline-plan §4 item 6b: when OLD..NEW touches app/, stubs/, programs/clientpoc/, tests/clienttest/ or tests/udpreplay/,
+    linkgate.py in the scratch worktree BO (app.lib built there, the POC, clienttest and udpreplay linked, a.pool VMs); exits on
     a duplicate definition, an unresolved symbol not in its baseline, a compile error or no exe."""
     paths = git('diff', '--name-only', old, new).splitlines()
     if getattr(a, 'no_link', False):
-        print('WARNING: --no-link: the link check (POC and clienttest) is skipped; the landing may still break them')
+        print('WARNING: --no-link: the link check (POC, clienttest, udpreplay) is skipped; the landing may still break them')
         return
     if not linkgate.touches(paths):
         print('link check: skipped, no path under ' + ', '.join(linkgate.TOUCH) + ' touched')
