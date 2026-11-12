@@ -46,18 +46,18 @@ struct ItemFieldStruct  // NAME 2: the asserts' 'field->ItemInfo' and '_ItemFiel
 
 // What ITEM_BASE's Info and an item's template info point at: 0x90 bytes, vtable 0xB08C34 over RefCountClass
 // (Delete_This, the destructor 0x83F550).
-class ItemBaseInfoClass : public RefCountClass  // NAME 2: what it is (ITEM_BASE's FAIL_IF '!Info'; D219 merged ItemTemplateInfoClass into it)
+class ItemInfoClass : public RefCountClass  // NAME 2: its file's name, D24 (ITEM_BASE's FAIL_IF '!Info'; D219 merged ItemTemplateInfoClass into it, D239 renamed it from ItemBaseInfoClass)
 {
 public:
-	ItemBaseInfoClass();																				// 0x83F490
-	ItemBaseInfoClass(const ItemBaseInfoClass &that);													// 0x83F710
-	virtual ~ItemBaseInfoClass();																		// 0x83F580 (0x83F550)
-	ItemBaseInfoClass &operator=(const ItemBaseInfoClass &that);										// 0x83F7E0
+	ItemInfoClass();																				// 0x83F490
+	ItemInfoClass(const ItemInfoClass &that);													// 0x83F710
+	virtual ~ItemInfoClass();																		// 0x83F580 (0x83F550)
+	ItemInfoClass &operator=(const ItemInfoClass &that);										// 0x83F7E0
 
 	void Reset();																						// 0x83F8A0 (no fields, no effects)  // NAME 2: what it does
 	void Reset_Fields();																				// 0x83F940 (frees the strings)  // NAME 2: what it does
 	void Reset_Effects();																				// 0x83F9E0  // NAME 2: what it does
-	void Merge(const ItemBaseInfoClass &that);															// 0x83FA10 (sets that's non-empty fields, copies its effects)  // NAME 2: what it does
+	void Merge(const ItemInfoClass &that);															// 0x83FA10 (sets that's non-empty fields, copies its effects)  // NAME 2: what it does
 	bool Has_Field(int iteminfo);																		// 0x83FD60  // NAME 2: what it returns
 	int Get_Enum_Mapping(int iteminfo);																	// 0x83FDE0 (the field's index, 0xFF: none)  // NAME 2: what it returns
 	unsigned int Get_Field_Count();																		// 0x83FE00  // NAME 2: what it returns

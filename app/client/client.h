@@ -35,7 +35,7 @@ class PacketClass;
 class ConnectionClass;
 class SplineDatabaseClass;
 class ClientClass;
-class ItemBaseInfoClass;
+class ItemInfoClass;
 
 #include "co.h"
 
@@ -73,7 +73,7 @@ public:
 class Unknown831340Class	// NAME 1: neutral (D10)
 {
 public:
-	Unknown831340Class(int a, int b, int c, const RefCountPtr<ItemBaseInfoClass> &d, int e, int f, int g, int h, int i, int j, int k, int l,
+	Unknown831340Class(int a, int b, int c, const RefCountPtr<ItemInfoClass> &d, int e, int f, int g, int h, int i, int j, int k, int l,
 		const std::string &name, const std::string &m, const std::string &n);	// 0x831340  // NAME 1 [a..n]: the arguments are unknown  // NAME 2 [name]: 'Null Item'
 	~Unknown831340Class();								// 0x8316D0 (not virtual: delete calls it directly)
 
@@ -96,7 +96,7 @@ public:
 	int MaxStack;										// +0x50 j  // NAME 3: ITEM_BASE 37's Print text 'MaxStack='
 	unsigned int EffectUsage;							// +0x54 k  // NAME 3: ITEM_BASE 37's Print text 'EffectUsage='
 	int Flags;											// +0x58 l  // NAME 3: ITEM_BASE 37's Print text 'Flags='
-	RefCountPtr<ItemBaseInfoClass> Info;				// +0x5C d (a new one when d is empty)  // NAME 3: ITEM_BASE 37's FAIL_IF '!Info'
+	RefCountPtr<ItemInfoClass> Info;				// +0x5C d (a new one when d is empty)  // NAME 3: ITEM_BASE 37's FAIL_IF '!Info'
 };
 
 // px.cpp's PxList (0x34 bytes, constructor 0x44BE90, destructor 0x44BF00; app\shared\px.h)

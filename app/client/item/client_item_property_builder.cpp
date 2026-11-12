@@ -83,7 +83,7 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	Data->Unknown_688830()->Get_Quality(Slot);
-	const RefCountPtr<ItemBaseInfoClass> &template_info = Item->Get_Template_Info();	// NAME 1 [info, count, i, ok, base, actual, level and the cases' locals]: neutral
+	const RefCountPtr<ItemInfoClass> &template_info = Item->Get_Template_Info();	// NAME 1 [info, count, i, ok, base, actual, level and the cases' locals]: neutral
 
 
 
@@ -153,7 +153,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 	FAIL_IF(!template_info) return;
-	RefCountPtr<ItemBaseInfoClass> info = Create_NEW(new ItemBaseInfoClass);
+	RefCountPtr<ItemInfoClass> info = Create_NEW(new ItemInfoClass);
 	info->Apply_Delta(Data->Unknown_688830()->Get_Instance_Info(Slot));
 	unsigned int count = template_info->Get_Field_Count();
 	for (unsigned int i = 0; i < count; i++) {
@@ -812,7 +812,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 // NOT EXACT: 0x527F40 (0.78: the same code; the client pushes esi at entry, ours after the FAIL_IF, and its frame is 8 bytes bigger)
 void ClientItemPropertyBuilderClass::Unknown_527F40(UIItemExaminationPropertyRouterBaseClass &router)
 {
-	const RefCountPtr<ItemBaseInfoClass> &template_info = Item->Get_Template_Info();
+	const RefCountPtr<ItemInfoClass> &template_info = Item->Get_Template_Info();
 
 
 	FAIL_IF(!template_info) return;

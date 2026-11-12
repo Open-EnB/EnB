@@ -109,26 +109,26 @@ static ItemFieldClass _ItemField;	// 0xBF34E0
 static const char *DeltaSeparator = "^";	// 0xBAE1FC (between the fields of a delta string)  // NAME 1: what it is
 
 // NOT EXACT: 0x83F490 (0.86, order-only: the same 39 instructions; the client takes EnumMapping's address before the count and fill of the memset, ours after)
-ItemBaseInfoClass::ItemBaseInfoClass()
+ItemInfoClass::ItemInfoClass()
 {
 	memset(EnumMapping, 0xFF, sizeof(EnumMapping));
 }
 
 // 0x83F580 (the scalar deleting destructor 0x83F550)
-ItemBaseInfoClass::~ItemBaseInfoClass()
+ItemInfoClass::~ItemInfoClass()
 {
 	Reset();
 }
 
 // NOT EXACT: 0x83F710 (0.88, order-only: the same 44 instructions, as 0x83F490)
-ItemBaseInfoClass::ItemBaseInfoClass(const ItemBaseInfoClass &that)
+ItemInfoClass::ItemInfoClass(const ItemInfoClass &that)
 {
 	memset(EnumMapping, 0xFF, sizeof(EnumMapping));
 	Merge(that);
 }
 
 // 0x83F7E0
-ItemBaseInfoClass &ItemBaseInfoClass::operator=(const ItemBaseInfoClass &that)
+ItemInfoClass &ItemInfoClass::operator=(const ItemInfoClass &that)
 {
 	Reset();
 	Merge(that);
@@ -136,14 +136,14 @@ ItemBaseInfoClass &ItemBaseInfoClass::operator=(const ItemBaseInfoClass &that)
 }
 
 // 0x83F8A0
-void ItemBaseInfoClass::Reset()
+void ItemInfoClass::Reset()
 {
 	Reset_Fields();
 	Reset_Effects();
 }
 
 // 0x83F940: the strings are the info's own
-void ItemBaseInfoClass::Reset_Fields()
+void ItemInfoClass::Reset_Fields()
 {
 	for (std::vector<ItemFieldStruct>::iterator field = Fields.begin(); field != Fields.end(); ++field) {
 		if (_ItemField.Is_String(field->ItemInfo)) {
@@ -155,14 +155,14 @@ void ItemBaseInfoClass::Reset_Fields()
 }
 
 // 0x83F9E0
-void ItemBaseInfoClass::Reset_Effects()
+void ItemInfoClass::Reset_Effects()
 {
 	ActivatedEffects.Clear_Effects();
 	EquipEffects.Clear_Effects();
 }
 
 // 0x83FA10: every field of that which has a value replaces ours; the effects are copied
-void ItemBaseInfoClass::Merge(const ItemBaseInfoClass &that)
+void ItemInfoClass::Merge(const ItemInfoClass &that)
 {
 	for (std::vector<ItemFieldStruct>::const_iterator field = that.Fields.begin(); field != that.Fields.end(); ++field) {
 		if (_ItemField.Is_String(field->ItemInfo)) {
@@ -212,7 +212,7 @@ void ItemBaseInfoClass::Merge(const ItemBaseInfoClass &that)
 }
 
 // 0x83FD60
-bool ItemBaseInfoClass::Has_Field(int iteminfo)
+bool ItemInfoClass::Has_Field(int iteminfo)
 {
 	if (EnumMapping[iteminfo] == 0xFF) {
 		return(false);
@@ -225,19 +225,19 @@ bool ItemBaseInfoClass::Has_Field(int iteminfo)
 }
 
 // 0x83FDE0
-int ItemBaseInfoClass::Get_Enum_Mapping(int iteminfo)
+int ItemInfoClass::Get_Enum_Mapping(int iteminfo)
 {
 	return(EnumMapping[iteminfo]);
 }
 
 // 0x83FE00
-unsigned int ItemBaseInfoClass::Get_Field_Count()
+unsigned int ItemInfoClass::Get_Field_Count()
 {
 	return(Fields.size());
 }
 
 // 0x83FE30: the count byte, then per field its id and value (a string: a 2-byte length and the bytes with the 0)
-int ItemBaseInfoClass::Get_Size()
+int ItemInfoClass::Get_Size()
 {
 	int size = sizeof(unsigned char);
 	for (std::vector<ItemFieldStruct>::iterator field = Fields.begin(); field != Fields.end(); ++field) {
@@ -266,7 +266,7 @@ int ItemBaseInfoClass::Get_Size()
 }
 
 // 0x83FEF0
-void ItemBaseInfoClass::Write(RawPacketClass *raw)
+void ItemInfoClass::Write(RawPacketClass *raw)
 {
 	unsigned char count = Fields.size();
 	raw->Add(&count, sizeof(count));
@@ -296,7 +296,7 @@ void ItemBaseInfoClass::Write(RawPacketClass *raw)
 }
 
 // 0x840030
-void ItemBaseInfoClass::Read(RawPacketClass *raw)
+void ItemInfoClass::Read(RawPacketClass *raw)
 {
 	unsigned char count = 0;
 	raw->Get(&count, sizeof(count));
@@ -329,7 +329,7 @@ void ItemBaseInfoClass::Read(RawPacketClass *raw)
 	EquipEffects.Read(raw);
 }
 
-void ItemBaseInfoClass::Set_Int(int iteminfo, int val, bool force)	// 0x840420: a zero is not stored unless forced
+void ItemInfoClass::Set_Int(int iteminfo, int val, bool force)	// 0x840420: a zero is not stored unless forced
 {
 	if (val == 0 && !force) {
 		return;
@@ -340,7 +340,7 @@ void ItemBaseInfoClass::Set_Int(int iteminfo, int val, bool force)	// 0x840420: 
 }
 
 // 0x840540
-void ItemBaseInfoClass::Set_Float(int iteminfo, float val, bool force)
+void ItemInfoClass::Set_Float(int iteminfo, float val, bool force)
 {
 	if (val > -0.0001f && val < 0.0001f && !force) {
 		return;
@@ -350,7 +350,7 @@ void ItemBaseInfoClass::Set_Float(int iteminfo, float val, bool force)
 }
 
 // 0x840670: an empty string is not stored; the field gets its own copy
-void ItemBaseInfoClass::Set_String(int iteminfo, const char *val)
+void ItemInfoClass::Set_String(int iteminfo, const char *val)
 {
 	if (val == NULL || *val == '\0') {
 		return;
@@ -362,12 +362,12 @@ void ItemBaseInfoClass::Set_String(int iteminfo, const char *val)
 }
 
 // 0x8407D0
-void ItemBaseInfoClass::Set_String(int iteminfo, const std::string &val)
+void ItemInfoClass::Set_String(int iteminfo, const std::string &val)
 {
 	Set_String(iteminfo, val.c_str());
 }
 
-int ItemBaseInfoClass::Get_Field_Info(unsigned int index)	// 0x840940
+int ItemInfoClass::Get_Field_Info(unsigned int index)	// 0x840940
 {
 	if (index >= Fields.size()) {
 		return(ITEM_INFO_NONE);
@@ -375,7 +375,7 @@ int ItemBaseInfoClass::Get_Field_Info(unsigned int index)	// 0x840940
 	return(Fields[index].ItemInfo);
 }
 
-bool ItemBaseInfoClass::Get_String(std::string &val, unsigned int index)	// 0x840980
+bool ItemInfoClass::Get_String(std::string &val, unsigned int index)	// 0x840980
 {
 	if (index >= Fields.size()) {
 		return(false);
@@ -383,12 +383,12 @@ bool ItemBaseInfoClass::Get_String(std::string &val, unsigned int index)	// 0x84
 	return(Field_To_String(&Fields[index], val));
 }
 
-bool ItemBaseInfoClass::Get_String(int iteminfo, std::string &val)	// 0x8409D0
+bool ItemInfoClass::Get_String(int iteminfo, std::string &val)	// 0x8409D0
 {
 	return(Field_To_String(Find_Field(iteminfo), val));
 }
 
-bool ItemBaseInfoClass::Get_Int(int iteminfo, int *val)	// 0x840A20
+bool ItemInfoClass::Get_Int(int iteminfo, int *val)	// 0x840A20
 {
 	FAIL_IF(!val) return(false);
 	const ItemFieldStruct *field = Find_Field(iteminfo);
@@ -401,7 +401,7 @@ bool ItemBaseInfoClass::Get_Int(int iteminfo, int *val)	// 0x840A20
 }
 
 // 0x840AC0
-bool ItemBaseInfoClass::Get_Float(int iteminfo, float *val)
+bool ItemInfoClass::Get_Float(int iteminfo, float *val)
 {
 	FAIL_IF(!val) return(false);
 	const ItemFieldStruct *field = Find_Field(iteminfo);
@@ -414,19 +414,19 @@ bool ItemBaseInfoClass::Get_Float(int iteminfo, float *val)
 }
 
 // 0x840B60
-void ItemBaseInfoClass::Set_Activated_Effects(const ItemEffectDescriptionClass &effects)
+void ItemInfoClass::Set_Activated_Effects(const ItemEffectDescriptionClass &effects)
 {
 	ActivatedEffects = effects;
 }
 
 // 0x840DB0
-void ItemBaseInfoClass::Set_Equip_Effects(const ItemEffectDescriptionClass &effects)
+void ItemInfoClass::Set_Equip_Effects(const ItemEffectDescriptionClass &effects)
 {
 	EquipEffects = effects;
 }
 
 // 0x841000: the field, added with a zero value when the info has none
-ItemFieldStruct *ItemBaseInfoClass::Add_Field(int iteminfo)
+ItemFieldStruct *ItemInfoClass::Add_Field(int iteminfo)
 {
 	if (!Has_Field(iteminfo)) {
 		ItemFieldStruct field;
@@ -439,7 +439,7 @@ ItemFieldStruct *ItemBaseInfoClass::Add_Field(int iteminfo)
 }
 
 // 0x8410D0
-ItemFieldStruct *ItemBaseInfoClass::Find_Field(int iteminfo)
+ItemFieldStruct *ItemInfoClass::Find_Field(int iteminfo)
 {
 	int index = Get_Enum_Mapping(iteminfo);
 	if (index == 0xFF) {
@@ -449,7 +449,7 @@ ItemFieldStruct *ItemBaseInfoClass::Find_Field(int iteminfo)
 }
 
 // 0x841100: the field's value as text (field 19, a float, in thousands: '%.2fk'); false and an empty val without a field
-bool ItemBaseInfoClass::Field_To_String(const ItemFieldStruct *field, std::string &val)
+bool ItemInfoClass::Field_To_String(const ItemFieldStruct *field, std::string &val)
 {
 	if (field == NULL) {
 		val.erase();
@@ -485,7 +485,7 @@ bool ItemBaseInfoClass::Field_To_String(const ItemFieldStruct *field, std::strin
 }
 
 // 0x841410: 'id:value' for every field, each followed by DeltaSeparator (what Apply_Delta reads)
-std::string ItemBaseInfoClass::Get_Delta()
+std::string ItemInfoClass::Get_Delta()
 {
 	std::string delta;
 	for (std::vector<ItemFieldStruct>::iterator field = Fields.begin(); field != Fields.end(); ++field) {
@@ -529,7 +529,7 @@ std::string ItemBaseInfoClass::Get_Delta()
 
 // NOT EXACT: 0x8417B0 (0.78, the same 287 instructions but 4: the client keeps field_separator and takes field_separator + 1 into another register for the second substr)
 // Replaces the fields by those of a delta string ('id:value' pieces between DeltaSeparator)
-void ItemBaseInfoClass::Apply_Delta(const std::string &delta)
+void ItemInfoClass::Apply_Delta(const std::string &delta)
 {
 	Reset_Fields();
 	std::vector<std::string> fields;
@@ -579,7 +579,7 @@ void ItemBaseInfoClass::Apply_Delta(const std::string &delta)
 **
 **	The object: std::vector<ItemEffectClass>'s and std::vector<ItemFieldStruct>'s instances (0x83E7C0-0x83F2B0 and
 **	0x841C50-0x8428D0), <string>'s guarded static 0x83F2F0, _ItemField's static initialiser 0x83F320 (its G_ASSERT on
-**	line 103), then ItemBaseInfoClass in source order 0x83F490-0x8417B0. The names Fields, EnumMapping, ItemInfo,
+**	line 103), then ItemInfoClass in source order 0x83F490-0x8417B0. The names Fields, EnumMapping, ItemInfo,
 **	_ItemField, FieldTypes, FT_NONE, lp, iteminfo, val, field, field_separator, item_info, ITEM_INFO_NONE and
-**	NUM_ITEM_INFO are the asserts'. The class name is the tree's (D219).
+**	NUM_ITEM_INFO are the asserts'. The class name is its file's (D24; D239 renamed it from ItemBaseInfoClass).
 */

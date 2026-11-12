@@ -66,7 +66,7 @@ ClientClass::ClientClass() :
 	PxProcess = new PxProcessClass;
 	Splines = new SplineDatabaseClass(NULL);
 	Splines->Load("splines.wsd");
-	Unknown831340List.Add(new Unknown831340Class(-1, -1, -1, RefCountPtr<ItemBaseInfoClass>(), -1, -1, -1, 0, 0, 1, 0, 0, "Null Item", std::string(""), std::string("")), -1);
+	Unknown831340List.Add(new Unknown831340Class(-1, -1, -1, RefCountPtr<ItemInfoClass>(), -1, -1, -1, 0, 0, 1, 0, 0, "Null Item", std::string(""), std::string("")), -1);
 }
 
 // 0x726C60

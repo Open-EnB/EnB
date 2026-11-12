@@ -3,7 +3,7 @@
 #include "..\shared\g_assert.h"
 #include <stdio.h>
 
-ItemBasePacketClass::ItemBasePacketClass(int item_template_id, int category, int subcategory, int item_type, const RefCountPtr<ItemBaseInfoClass> &info,
+ItemBasePacketClass::ItemBasePacketClass(int item_template_id, int category, int subcategory, int item_type, const RefCountPtr<ItemInfoClass> &info,
 	short game_basset, short icon_base_asset, short tech_level, int cost, int max_stack, unsigned int effect_usage, int flags,
 	const std::string &name, const std::string &unknown30, const std::string &unknown40, int channel) :
 	Channel(channel),
@@ -40,13 +40,13 @@ ItemBasePacketClass::ItemBasePacketClass(int item_template_id, int category, int
 
 
 	FAIL_IF(!Info) {
-		Info = Create_NEW(new ItemBaseInfoClass);
+		Info = Create_NEW(new ItemInfoClass);
 	}
 }
 
 ItemBasePacketClass::ItemBasePacketClass(RawPacketClass *raw)
 {
-	Info = Create_NEW(new ItemBaseInfoClass);
+	Info = Create_NEW(new ItemInfoClass);
 	raw->Get(ItemTemplateID);
 	raw->Get(&Category, sizeof(Category));
 	raw->Get(&Subcategory, sizeof(Subcategory));
