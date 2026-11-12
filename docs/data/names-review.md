@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 186 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1794 |
-| 2 | describes what the code does | 4269 |
-| 1 | neutral placeholder | 23053 |
+| 3 | by convention from a client-named file or sibling | 1795 |
+| 2 | describes what the code does | 4278 |
+| 1 | neutral placeholder | 23082 |
 
 ## For review (score 3 and below)
 
@@ -8366,8 +8366,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `robj, name, color` | `app/client/shiputils.h:27` | what ui_shipcust.cpp passes |
 | 1 | `Unknown_80FF20` | `app/client/shiputils.h:27` | untagged neutral name (D10) |
 | 1 | `robj, on` | `app/client/shiputils.h:34` | what it does with them |
-| 1 | `Unknown_4F7EF0` | `app/client/signal_list.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_4F7F60` | `app/client/signal_list.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_4F7EF0` | `app/client/signal_list.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_4F7F60` | `app/client/signal_list.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_813B00` | `app/client/skill_ability_data_peek.cpp:51` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/skill_ability_data_peek.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_813B30` | `app/client/skill_ability_data_peek.cpp:60` | untagged neutral name (D10) |
@@ -19614,30 +19614,29 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7FFA30` | `app/client/unknown_screenfade.cpp:120` | untagged neutral name (D10) |
 | 1 | `Unknown_7FFBE0` | `app/client/unknown_screenfade.cpp:127` | untagged neutral name (D10) |
 | 1 | `unknown_signalbase.h` | `app/client/unknown_signalbase.h:5` | neutral header name (D10) |
-| 1 | `CallbackClass` | `app/client/unknown_signalbase.h:27` | neutral (D10) |
-| 1 | `Sender_Type` | `app/client/unknown_signalbase.h:31` | what it returns |
-| 1 | `Event_Type` | `app/client/unknown_signalbase.h:32` | what it returns |
-| 1 | `Type` | `app/client/unknown_signalbase.h:33` | what it returns |
-| 1 | `Is_Equal` | `app/client/unknown_signalbase.h:34` | what it does |
-| 1 | `Call` | `app/client/unknown_signalbase.h:35` | what it does |
-| 1 | `EventCallbackClass` | `app/client/unknown_signalbase.h:42` | neutral (D10) |
-| 1 | `Is_Same` | `app/client/unknown_signalbase.h:65` | what it does |
-| 1 | `Object` | `app/client/unknown_signalbase.h:68` | what it holds |
-| 1 | `Function` | `app/client/unknown_signalbase.h:69` | what it holds |
-| 1 | `std:` | `app/client/unknown_signalbase.h:73` | neutral (D10) |
-| 1 | `std:` | `app/client/unknown_signalbase.h:74` | neutral (D10) |
-| 1 | `std:` | `app/client/unknown_signalbase.h:75` | neutral (D10); the client's hashtable<pair<const unsigned int, list<CallbackClass *> >, ...>::find_or_insert 0x4F8F00 |
-| 1 | `Delete_All` | `app/client/unknown_signalbase.h:81` | what it does |
-| 1 | `Emit_To` | `app/client/unknown_signalbase.h:82` | what it does |
-| 1 | `Remove_From` | `app/client/unknown_signalbase.h:83` | what it does |
-| 1 | `Invalidate` | `app/client/unknown_signalbase.h:87` | what it does |
-| 1 | `Pop_Iterator` | `app/client/unknown_signalbase.h:97` | what it does |
-| 1 | `ActiveIterators` | `app/client/unknown_signalbase.h:107` | what it holds |
-| 1 | `Map` | `app/client/unknown_signalbase.h:123` | what it holds |
-| 1 | `Unknown_4F7F60` | `app/client/unknown_signalbase.h:126` | untagged neutral name (D10) |
-| 1 | `Map` | `app/client/unknown_signalbase.h:180` | what it holds |
-| 1 | `Unknown00` | `app/client/unknown_signalbase.h:182` | neutral (D10) |
-| 1 | `Unknown_4F7EF0` | `app/client/unknown_signalbase.h:186` | untagged neutral name (D10) |
+| 1 | `CallbackClass` | `app/client/unknown_signalbase.h:21` | neutral (D10) |
+| 1 | `Sender_Type` | `app/client/unknown_signalbase.h:25` | what it returns |
+| 1 | `Event_Type` | `app/client/unknown_signalbase.h:26` | what it returns |
+| 1 | `Type` | `app/client/unknown_signalbase.h:27` | what it returns |
+| 1 | `Is_Equal` | `app/client/unknown_signalbase.h:28` | what it does |
+| 1 | `Call` | `app/client/unknown_signalbase.h:29` | what it does |
+| 1 | `EventCallbackClass` | `app/client/unknown_signalbase.h:36` | neutral (D10) |
+| 1 | `Is_Same` | `app/client/unknown_signalbase.h:59` | what it does |
+| 1 | `Object` | `app/client/unknown_signalbase.h:62` | what it holds |
+| 1 | `Function` | `app/client/unknown_signalbase.h:63` | what it holds |
+| 1 | `std:` | `app/client/unknown_signalbase.h:66` | neutral (D10) |
+| 1 | `std:` | `app/client/unknown_signalbase.h:67` | neutral (D10) |
+| 1 | `std:` | `app/client/unknown_signalbase.h:68` | neutral (D10); the client's hashtable<pair<const unsigned int, list<CallbackClass *> >, ...>::find_or_insert 0x4F8F00 |
+| 1 | `Delete_All` | `app/client/unknown_signalbase.h:74` | what it does |
+| 1 | `Emit_To` | `app/client/unknown_signalbase.h:75` | what it does |
+| 1 | `Remove_From` | `app/client/unknown_signalbase.h:76` | what it does |
+| 1 | `Invalidate` | `app/client/unknown_signalbase.h:80` | what it does |
+| 1 | `Pop_Iterator` | `app/client/unknown_signalbase.h:90` | what it does |
+| 1 | `ActiveIterators` | `app/client/unknown_signalbase.h:100` | what it holds |
+| 1 | `Map` | `app/client/unknown_signalbase.h:114` | what it holds |
+| 1 | `Unknown_4F7F60` | `app/client/unknown_signalbase.h:117` | untagged neutral name (D10) |
+| 1 | `Map` | `app/client/unknown_signalbase.h:166` | what it holds |
+| 1 | `Unknown_4F7EF0` | `app/client/unknown_signalbase.h:169` | untagged neutral name (D10) |
 | 1 | `robj, make_geometry_unique` | `app/client/user_click_indicator.cpp:13` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/user_click_indicator.cpp:13` | untagged neutral name (D10) |
 | 1 | `_BoneNames` | `app/client/user_click_indicator.cpp:15` | what it holds |
@@ -19766,6 +19765,36 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Is_Unknown3` | `app/common/effect_description.h:78` | neutral; an inline layer the client spends budget on (0x83DB40) |
 | 1 | `Is_Unknown4` | `app/common/effect_description.h:79` | neutral; an inline layer the client spends budget on (0x83DB40) |
 | 1 | `Flags` | `app/common/effect_description.h:82` | what it is |
+| 1 | `Unknown_4A1590` | `app/common/faction_and_reputation.cpp:37` | neutral placeholder (D10) |
+| 1 | `MobReactionNames` | `app/common/faction_and_reputation.cpp:39` | what it holds |
+| 1 | `NPCReactionNames` | `app/common/faction_and_reputation.cpp:40` | what it holds |
+| 1 | `Unknown835BD0Class` | `app/common/faction_and_reputation.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown835C80Class` | `app/common/faction_and_reputation.cpp:174` | untagged neutral name (D10) |
+| 1 | `FormationStateNameStruct` | `app/common/faction_and_reputation.cpp:194` | what it holds |
+| 1 | `State` | `app/common/faction_and_reputation.cpp:196` | what it holds |
+| 1 | `Name` | `app/common/faction_and_reputation.cpp:197` | what it holds |
+| 1 | `FormationStateNames` | `app/common/faction_and_reputation.cpp:200` | what it holds |
+| 1 | `FactionReputationStruct` | `app/common/faction_and_reputation.h:55` | what it holds |
+| 1 | `Reputation` | `app/common/faction_and_reputation.h:59` | what the limits compare |
+| 1 | `CanBeLowest` | `app/common/faction_and_reputation.h:60` | what it does |
+| 1 | `MobReactionLimitsClass` | `app/common/faction_and_reputation.h:64` | what it holds; that it is the mobs' is a guess (the first of three alike, as the converters' order) |
+| 1 | `Get_Reaction` | `app/common/faction_and_reputation.h:69` | what it does |
+| 1 | `Shun` | `app/common/faction_and_reputation.h:71` | the reaction from it on |
+| 1 | `Friendly` | `app/common/faction_and_reputation.h:72` | the reaction from it on |
+| 1 | `Adoration` | `app/common/faction_and_reputation.h:73` | the reaction from it on |
+| 1 | `NPCReactionLimitsClass` | `app/common/faction_and_reputation.h:77` | what it holds; that it is the NPCs' is a guess (the second of three alike) |
+| 1 | `Get_Reaction` | `app/common/faction_and_reputation.h:82` | what it does |
+| 1 | `Shun` | `app/common/faction_and_reputation.h:84` | the reaction from it on |
+| 1 | `Friendly` | `app/common/faction_and_reputation.h:85` | the reaction from it on |
+| 1 | `Adoration` | `app/common/faction_and_reputation.h:86` | the reaction from it on |
+| 1 | `Unknown835BD0Class` | `app/common/faction_and_reputation.h:90` | neutral (D10) |
+| 1 | `Get_Reaction` | `app/common/faction_and_reputation.h:95` | what it does |
+| 1 | `Second` | `app/common/faction_and_reputation.h:97` | the reaction from it on |
+| 1 | `Third` | `app/common/faction_and_reputation.h:98` | the reaction from it on |
+| 1 | `Fourth` | `app/common/faction_and_reputation.h:99` | the reaction from it on |
+| 1 | `Unknown835C80Class` | `app/common/faction_and_reputation.h:103` | neutral (D10) |
+| 1 | `Get_Reaction` | `app/common/faction_and_reputation.h:108` | what it does |
+| 1 | `Limit` | `app/common/faction_and_reputation.h:110` | what it holds |
 | 1 | `Unknown38` | `app/common/galaxy_map.cpp:259` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/common/galaxy_map.cpp:260` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/common/galaxy_map.cpp:269` | untagged neutral name (D10) |
@@ -22814,11 +22843,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_689DA0` | `programs/clientpoc/poc_world4.cpp:75` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:121` | untagged neutral name (D10) |
-| 1 | `Unknown_82ECB0` | `stubs/app_stubs.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_7EA190` | `stubs/app_stubs.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_49E210` | `stubs/app_stubs.cpp:159` | untagged neutral name (D10) |
-| 1 | `Unknown_7EB4D0` | `stubs/app_stubs.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_82ECB0` | `stubs/app_stubs.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown_7EA190` | `stubs/app_stubs.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_49E210` | `stubs/app_stubs.cpp:146` | untagged neutral name (D10) |
+| 1 | `Unknown_7EB4D0` | `stubs/app_stubs.cpp:151` | untagged neutral name (D10) |
 | 1 | `UnknownB0122CEnum` | `stubs/aux_roots_stubs.cpp:68` | untagged neutral name (D10) |
 | 1 | `UnknownB0133CEnum` | `stubs/aux_roots_stubs.cpp:86` | untagged neutral name (D10) |
 | 1 | `UnknownB01394Enum` | `stubs/aux_roots_stubs.cpp:104` | untagged neutral name (D10) |
@@ -25316,7 +25345,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Green` | `app/client/unknown_screenfade.cpp:45` | Set_Screen_Fade_Color's second |
 | 2 | `Blue` | `app/client/unknown_screenfade.cpp:46` | Set_Screen_Fade_Color's third |
 | 2 | `Renderer` | `app/client/unknown_screenfade.cpp:49` | what it holds |
-| 2 | `emit` | `app/client/unknown_signalbase.h:156` | the typed form Save's call expands to |
+| 2 | `emit` | `app/client/unknown_signalbase.h:143` | the typed form Save's call expands to |
 | 2 | `scene` | `app/client/user_click_indicator.h:33` | the FAIL_IF's '!scene' |
 | 2 | `Client` | `app/client/verbmanager.h:35` | what it holds |
 | 2 | `Get_Average` | `app/common/average.h:106` | what it does |
@@ -25469,6 +25498,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/common/effect_description.h:74` | the client's 'summary_strings' |
 | 2 | `Set_Summary` | `app/common/effect_description.h:75` | the client's 'summary_strings' |
 | 2 | `Usage` | `app/common/effect_description.h:81` | the client's enum |
+| 2 | `NPCReactionType` | `app/common/faction_and_reputation.h:26` | after the client's NPC_REACTION_COUNT, as MobReactionType |
+| 2 | `Rude` | `app/common/faction_and_reputation.h:28` | the client's text |
+| 2 | `Shun` | `app/common/faction_and_reputation.h:29` | the client's text |
+| 2 | `Friendly` | `app/common/faction_and_reputation.h:30` | the client's text |
+| 2 | `Adoration` | `app/common/faction_and_reputation.h:31` | the client's text |
+| 2 | `NotForming` | `app/common/faction_and_reputation.h:38` | the client's text |
+| 2 | `Joining` | `app/common/faction_and_reputation.h:39` | the client's text |
+| 2 | `InFormation` | `app/common/faction_and_reputation.h:40` | the client's text |
+| 2 | `Leader` | `app/common/faction_and_reputation.h:41` | the client's text |
 | 2 | `GalaxyMapDataClass` | `app/common/galaxy_map.h:153` | the map's 'AllData' (galaxy_map.h's asserts) holds them |
 | 2 | `Read, buffer` | `app/common/galaxy_map.h:164` | LinearBufferClass::Read of GalaxyMapID |
 | 2 | `Write, buffer` | `app/common/galaxy_map.h:165` | LinearBufferClass::Write of GalaxyMapID |
@@ -28254,7 +28292,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIVerbClass` | `app/client/ui_verb.h:39` | class-from-file (D24) for ui_verb.cpp |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |
 | 3 | `InterfaceMesh` | `app/client/unknown_5bb250.h:36` | the FAIL_IFs' '!InterfaceMesh' (ui_faction.cpp's 0x58D400 l.118; ui_attrb_skills.cpp's 0x549AA0 l.121 names its own +0xBC) |
-| 3 | `SignalBaseClass` | `app/client/unknown_signalbase.h:23` | the client's RTTI (the scope of MemberCallback) |
+| 3 | `SignalBaseClass` | `app/client/unknown_signalbase.h:17` | the client's RTTI (the scope of MemberCallback) |
 | 3 | `user_click_indicator.h` | `app/client/user_click_indicator.h:15` | header name assumed from the client's user_click_indicator.cpp |
 | 3 | `UserClickIndicatorClass` | `app/client/user_click_indicator.h:27` | class-from-file (D24) |
 | 3 | `Indicator` | `app/client/user_click_indicator.h:44` | the FAIL_IF's '!Indicator' |
@@ -28268,6 +28306,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
 | 3 | `dbgconn.h` | `app/common/dbgconn.h:19` | a .h paired with the client's dbgconn.cpp (D24) |
+| 3 | `faction_and_reputation.h` | `app/common/faction_and_reputation.h:18` | header name assumed from the client's faction_and_reputation.cpp (D57) |
 | 3 | `NOT_IN_GALAXY_MAP` | `app/common/galaxy_map.h:156` | the asserts' 'GalaxyMapID != NOT_IN_GALAXY_MAP' |
 | 3 | `Get_Hash_ID` | `app/common/galaxy_map.h:170` | galaxy_map.cpp's 'Systems.find(system->Get_Hash_ID())' |
 | 3 | `Is_In_Galaxy_Map` | `app/common/galaxy_map.h:172` | the destructor's G_ASSERT |
