@@ -2452,6 +2452,26 @@ void ChatPanelInterface::Unknown_56C7B0(OptionFontInterfaceEvent *event, Interfa
 	if (sender == UnknownF8.Peek() && ChatInt) ChatInt->Unknown_571430();
 }
 
+// 0x56C7E0
+void ChatPanelInterface::Unknown_56C7E0()
+{
+	Unknown_5685C0();
+	Unknown10C = false;
+	const char *split_names[] = { "FONT_CHAT_LINE_00", "FONT_CHAT_LINE_01", NULL };	// NAME 1: neutral (D10)
+	const char *split_labels[] = { "Player Chat Font", "Game Message Font" };		// NAME 1: neutral (D10)
+	const char *single_names[] = { "FONT_CHAT_LINE_00", NULL };					// NAME 1: neutral (D10)
+	const char *single_labels[] = { "" };											// NAME 1: neutral (D10)
+	if (Unknown134 == 1) {
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new OptionFontInterface(Client->As_Space_Client(), single_names, single_labels, std::string("Chat Font Settings")));
+	} else {
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new OptionFontInterface(Client->As_Space_Client(), split_names, split_labels, std::string("Chat Font Settings")));
+	}
+	UnknownF8->Unknown_54();
+	UnknownF8->Unknown_7C(View, 1);
+	Unknown10D = true;
+	Unknown_540A20()->Add((InterfaceClass *)UnknownF8.Peek(), this, &ChatPanelInterface::Unknown_56C7B0);
+}
+
 
 
 /*
@@ -2463,8 +2483,9 @@ void ChatPanelInterface::Unknown_56C7B0(OptionFontInterfaceEvent *event, Interfa
 ** control keys, +0x7C 0x563620; +0x88 / +0x8C / +0x98 the base's, +0x90 / +0x94 / +0x9C the base's inline defaults
 ** (0x5623B0 / 0x5623D0 / 0x5623F0, emitted with this file's table).
 **
-** The asserts sit on the client's lines (D25); the functions not written yet (0x5689D0, 0x569A00, 0x56C7E0) leave
-** their lines blank (0x5646A0 took 87 of 0x5689D0's, CW1). docs/data/asserts.txt files the strings
+** The asserts sit on the client's lines (D25); the functions not written yet (0x5689D0, 0x569A00) leave
+** their lines blank (0x5646A0 took 87 of 0x5689D0's, CW1). 0x56C7E0 (request 12, CP3) has no assert: it follows
+** 0x56C7B0; a one-font list for the single chat window (+0x134 1, its label empty) or both chat fonts. docs/data/asserts.txt files the strings
 ** 0xB7CB6C-0xB7CD30 (if_chat*.tga, fa_tsi05b.ini, TextClick03.wav, SR_scifielectronic42.wav, the NUM_COMBO assert)
 ** under ui_buff.cpp: they are this file's (0x5629FC reads fa_tsi05b.ini; the NUM_COMBO assert passes this file's
 ** __FILE__).
