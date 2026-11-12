@@ -148,33 +148,8 @@ UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((Li
 	STUB_CALLED("POC UIChatReplyListClass: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-// The windows ChatPanelInterface::Unknown_565F80 opens (ui_chat_panel.cpp's local classes; request 1 is the HUD's options
-// button): the generated constructors left no table, and Set_Current_Interface crashed calling through it. Empty windows:
-// the base (ChatPanelUIBase) constructed, the window's own members zeroed.
-class Unknown5DAE90Class : public ChatPanelUIBase { public: Unknown5DAE90Class(SClient *client, int a, const char *title, int b); char UnknownA0[0xCC - 0xA0]; };
-class Unknown5CE240Class : public ChatPanelUIBase { public: Unknown5CE240Class(SClient *client); char UnknownA0[0xC0 - 0xA0]; };
-class Unknown5CE700Class : public ChatPanelUIBase { public: Unknown5CE700Class(SClient *client, int a); char UnknownA0[0xB8 - 0xA0]; };
-class Unknown5CEDD0Class : public ChatPanelUIBase { public: Unknown5CEDD0Class(SClient *client, int a, int b); char UnknownA0[0xE4 - 0xA0]; };
-Unknown5DAE90Class::Unknown5DAE90Class(SClient *client, int a, const char *title, int b) : ChatPanelUIBase(client)
-{
-	STUB_CALLED("POC Unknown5DAE90Class (0x5DAE90): an empty window");
-	memset(UnknownA0, 0, sizeof(UnknownA0));
-}
-Unknown5CE240Class::Unknown5CE240Class(SClient *client) : ChatPanelUIBase(client)
-{
-	STUB_CALLED("POC Unknown5CE240Class (0x5CE240): an empty window");
-	memset(UnknownA0, 0, sizeof(UnknownA0));
-}
-Unknown5CE700Class::Unknown5CE700Class(SClient *client, int a) : ChatPanelUIBase(client)
-{
-	STUB_CALLED("POC Unknown5CE700Class (0x5CE700): an empty window");
-	memset(UnknownA0, 0, sizeof(UnknownA0));
-}
-Unknown5CEDD0Class::Unknown5CEDD0Class(SClient *client, int a, int b) : ChatPanelUIBase(client)
-{
-	STUB_CALLED("POC Unknown5CEDD0Class (0x5CEDD0): an empty window");
-	memset(UnknownA0, 0, sizeof(UnknownA0));
-}
+// (The windows ChatPanelInterface::Unknown_565F80 opens are rebuilt: ui_option_main.cpp, ui_option_quit.cpp,
+// ui_option_slider.cpp and ui_popup_browser.h's UIPopupBrowserClass, CP1)
 // (0x765DF0, the chat line colour by its index, is rebuilt: app/client/unknown_764fd0.cpp, GS1)
 
 // FontSys 0x6CE420 (unknown_6cce60.cpp's object, not rebuilt): the client's code, the text from a format into Change_Text

@@ -134,16 +134,16 @@ static const char *Unknown_B7C2E0[] = { NULL, "if_chat.tga", "if_chat02.tga", "i
 extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (as sclient.cpp declares it; 0x70 for slot +0x68's key 3)
 
 // The windows the panel opens (slot +0x68's key 16 'Online Manual', 0x565F80's requests), each over the window base
-class Unknown5DAE90Class : public ChatPanelUIBase	// NAME 1: neutral (D10): 0xCC bytes
-{
-public:
-	Unknown5DAE90Class(SClient *client, int a, const char *title, int b);	// 0x5DAE90  // NAME 1 [client, a, title, b]: what 0x563280 passes
-	char UnknownA0[0xCC - 0xA0];
-};
-class Unknown5CE240Class : public ChatPanelUIBase { public: Unknown5CE240Class(SClient *client); char UnknownA0[0xC0 - 0xA0]; };	// NAME 1: neutral (D10): 0x5CE240, 0xC0 bytes (request 1)
-class Unknown5CE700Class : public ChatPanelUIBase { public: Unknown5CE700Class(SClient *client, int a); char UnknownA0[0xB8 - 0xA0]; };	// NAME 1: neutral (D10): 0x5CE700, 0xB8 bytes (request 2)  // NAME 1 [a]: neutral
+#include "ui_popup_browser.h"	// UIPopupBrowserClass (0x5DAE90, 0xCC bytes: request 11 'Credits', key 16 'Online Manual')
+
+
+
+
+
+#include "ui_option_main.h"	// UIOptionMainClass (0x5CE240, 0xC0 bytes: request 1)
+#include "ui_option_quit.h"	// UIOptionQuitClass (0x5CE700, 0xB8 bytes: request 2)
 #include "ui_option_check.h"	// UIOptionCheckClass (0x5C9910, 0xE4 bytes: requests 3, 4)
-class Unknown5CEDD0Class : public ChatPanelUIBase { public: Unknown5CEDD0Class(SClient *client, int a, int b); char UnknownA0[0xE4 - 0xA0]; };	// NAME 1: neutral (D10): 0x5CEDD0, 0xE4 bytes (requests 5-7)  // NAME 1 [a, b]: neutral
+#include "ui_option_slider.h"	// UIOptionSliderClass (0x5CEDD0, 0xE4 bytes: requests 5-7)
 class Unknown5CA010Class : public ChatPanelUIBase { public: Unknown5CA010Class(SClient *client, int a); char UnknownA0[0x1B0 - 0xA0]; };	// NAME 1: neutral (D10): 0x5CA010, 0x1B0 bytes (request 8)  // NAME 1 [a]: neutral
 #include "ui_option_account.h"	// UIOptionAccountClass (0x5C8870, 0xAC bytes: requests 9, 10)
 
@@ -592,7 +592,7 @@ bool ChatPanelInterface::Unknown_68(int key)
 		case 16:
 			if (!Unknown_7CA2D0()->Unknown34) {
 				Unknown_5685C0();
-				UnknownF8 = Create_Get(new Unknown5DAE90Class(Client->As_Space_Client(), 6, "Online Manual", 0));
+				UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 6, "Online Manual", 0));
 				UnknownF8->Unknown_54();
 				UnknownF8->Unknown_7C(View, 1);
 				UnknownEC = UnknownF8.Peek();
@@ -1101,10 +1101,10 @@ void ChatPanelInterface::Unknown_565F80()
 	if (!Unknown108) return;
 	switch (Unknown108) {
 		case 1:
-			Unknown104 = Create_Get(new Unknown5CE240Class(Client->As_Space_Client()));
+			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionMainClass(Client->As_Space_Client()));
 			break;
 		case 2:
-			Unknown104 = Create_Get(new Unknown5CE700Class(Client->As_Space_Client(), 1));
+			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionQuitClass(Client->As_Space_Client(), 1));
 			break;
 		case 3:
 			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionCheckClass(Client->As_Space_Client(), 0, 0));
@@ -1114,16 +1114,16 @@ void ChatPanelInterface::Unknown_565F80()
 			break;
 		case 5:
 			if (Unknown10C) {
-				Unknown104 = Create_Get(new Unknown5CEDD0Class(Client->As_Space_Client(), 0, 0));
+				Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionSliderClass(Client->As_Space_Client(), 0, 0));
 			} else {
-				Unknown104 = Create_Get(new Unknown5CEDD0Class(Client->As_Space_Client(), 0, 1));
+				Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionSliderClass(Client->As_Space_Client(), 0, 1));
 			}
 			break;
 		case 6:
-			Unknown104 = Create_Get(new Unknown5CEDD0Class(Client->As_Space_Client(), 1, 0));
+			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionSliderClass(Client->As_Space_Client(), 1, 0));
 			break;
 		case 7:
-			Unknown104 = Create_Get(new Unknown5CEDD0Class(Client->As_Space_Client(), 2, 0));
+			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionSliderClass(Client->As_Space_Client(), 2, 0));
 			break;
 		case 8:
 			Unknown104 = Create_Get(new Unknown5CA010Class(Client->As_Space_Client(), 0));
@@ -1136,7 +1136,7 @@ void ChatPanelInterface::Unknown_565F80()
 			break;
 		case 11:
 			if (!Unknown_7CA2D0()->Unknown34) {
-				Unknown104 = Create_Get(new Unknown5DAE90Class(Client->As_Space_Client(), 5, "Credits", 0));
+				Unknown104 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 5, "Credits", 0));
 				UnknownEC = Unknown104.Peek();
 			}
 			break;
