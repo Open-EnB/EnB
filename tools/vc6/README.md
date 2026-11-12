@@ -113,7 +113,7 @@ The pad sweeps (`sendpad.py`, `auxpad.py sweep`) take the lock per value by defa
 queue a sweep waits one round of every queued verify between two values. `--hold` takes it once, at the first
 value, and keeps it to the end of the sweep (given back on every exit, an exception or Ctrl-C included; the
 pool lease is released as before). `sendpad.py --first-window` tries the current pad first, then outward
-(cur, cur+1, cur-1, ...), and stops once a run of 3 or more full values has both neighbours known; the pad goes
+(cur, cur+1, cur-1, ...), and stops once a run of 2 or more full values (P-L18-4; 3 before) has both neighbours known; the pad goes
 to its middle (the full sweep's pick whenever that nearest run is the longest; with no such run it tries every
 value). `wt.py bring-over`'s retune passes `--hold --first-window` when the scratch tree's sendpad.py has them.
 
