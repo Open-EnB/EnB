@@ -2,29 +2,29 @@
 
 Each EA copy compiled with VC6 SP4; every function searched for in client.exe with relocated fields masked (tools/re/objmatch.py). Only functions found exactly once are counted.
 
-Client functions explained: **627**. L: 627; found only in L: 627.
+Client functions explained: **807**. L: 807; found only in L: 807.
 
 | File | L exact/functions | only L |
 |---|---|---|
-| 0002_d3dx8core.obj | 11/15 | 11 |
-| 0004_cd3dxfont.obj | 7/16 | 7 |
-| 0005_cd3dxtext.obj | 8/11 | 8 |
-| 0006_cd3dxsprite.obj | 8/26 | 8 |
-| 0007_cd3dxbuffer.obj | 8/20 | 8 |
-| 0008_cd3dxfile.obj | 3/4 | 3 |
-| 0009_cd3dxrendertosurface.obj | 6/15 | 6 |
-| 0010_cd3dxrendertoenvmap.obj | 13/25 | 13 |
-| 0011_cd3dxstack.obj | 3/10 | 3 |
-| 0012_cd3dxassembler.obj | 16/18 | 16 |
+| 0002_d3dx8core.obj | 15/15 | 15 |
+| 0004_cd3dxfont.obj | 14/16 | 14 |
+| 0005_cd3dxtext.obj | 10/11 | 10 |
+| 0006_cd3dxsprite.obj | 13/26 | 13 |
+| 0007_cd3dxbuffer.obj | 16/20 | 16 |
+| 0008_cd3dxfile.obj | 4/4 | 4 |
+| 0009_cd3dxrendertosurface.obj | 11/15 | 11 |
+| 0010_cd3dxrendertoenvmap.obj | 21/25 | 21 |
+| 0011_cd3dxstack.obj | 9/10 | 9 |
+| 0012_cd3dxassembler.obj | 17/18 | 17 |
 | 0014_ccompiler.obj | 1/26 | 1 |
 | 0015_cdeclaration.obj | 0/15 | 0 |
 | 0016_ceffect.obj | 2/51 | 2 |
 | 0017_ctechnique.obj | 0/31 | 0 |
 | 0018_d3dx8effect.obj | 0/5 | 0 |
-| 0020_d3dxmath.obj | 86/108 | 86 |
+| 0020_d3dxmath.obj | 94/108 | 94 |
 | 0021_cstack.obj | 1/30 | 1 |
 | 0023_quadric.obj | 0/8 | 0 |
-| 0024_createmesh.obj | 7/548 | 7 |
+| 0024_createmesh.obj | 8/548 | 8 |
 | 0025_loadutil.obj | 6/51 | 6 |
 | 0026_btri.obj | 5/47 | 5 |
 | 0027_intersect.obj | 3/15 | 3 |
@@ -33,15 +33,15 @@ Client functions explained: **627**. L: 627; found only in L: 627.
 | 0031_shapes.obj | 2/17 | 2 |
 | 0032_fontoutl.obj | 1/51 | 1 |
 | 0033_fontextr.obj | 1/36 | 1 |
-| 0035_d3dx8tex.obj | 30/37 | 30 |
-| 0036_cd3dximage.obj | 14/21 | 14 |
-| 0037_cd3dxcodec.obj | 65/161 | 65 |
-| 0038_cd3dxblt.obj | 31/42 | 31 |
-| 0039_cd3dxresource.obj | 2/4 | 2 |
+| 0035_d3dx8tex.obj | 37/37 | 37 |
+| 0036_cd3dximage.obj | 16/21 | 16 |
+| 0037_cd3dxcodec.obj | 158/161 | 158 |
+| 0038_cd3dxblt.obj | 40/42 | 40 |
+| 0039_cd3dxresource.obj | 3/4 | 3 |
 | 0040_s3tc.obj | 15/15 | 15 |
 | 0041_s3tchelp.obj | 2/2 | 2 |
 | 0042_jcomapi.obj | 4/4 | 4 |
-| 0043_jdapimin.obj | 8/10 | 8 |
+| 0043_jdapimin.obj | 9/10 | 9 |
 | 0044_jdapistd.obj | 6/6 | 6 |
 | 0045_jdcoefct.obj | 9/10 | 9 |
 | 0046_jdcolor.obj | 9/10 | 9 |
@@ -56,13 +56,13 @@ Client functions explained: **627**. L: 627; found only in L: 627.
 | 0055_jdpostct.obj | 5/5 | 5 |
 | 0056_jdsample.obj | 8/10 | 8 |
 | 0057_jdtrans.obj | 0/2 | 0 |
-| 0058_jerror.obj | 5/6 | 5 |
+| 0058_jerror.obj | 6/6 | 6 |
 | 0059_jidctflt.obj | 1/1 | 1 |
 | 0060_jidctfst.obj | 1/1 | 1 |
 | 0061_jidctint.obj | 1/1 | 1 |
 | 0062_jidctred.obj | 3/3 | 3 |
 | 0063_jmemmgr.obj | 15/15 | 15 |
-| 0064_jmemnobs.obj | 1/8 | 1 |
+| 0064_jmemnobs.obj | 8/8 | 8 |
 | 0065_jquant1.obj | 16/17 | 16 |
 | 0066_jquant2.obj | 17/18 | 17 |
 | 0067_jutils.obj | 6/6 | 6 |
@@ -85,17 +85,17 @@ Client functions explained: **627**. L: 627; found only in L: 627.
 | 0084_priority.obj | 0/16 | 0 |
 | 0085_normal.obj | 0/4 | 0 |
 | 0086_mem_simp.obj | 0/1 | 0 |
-| 0087_png.obj | 9/15 | 9 |
+| 0087_png.obj | 11/15 | 11 |
 | 0088_pngset.obj | 7/7 | 7 |
 | 0089_pngget.obj | 9/9 | 9 |
 | 0090_pngread.obj | 12/12 | 12 |
-| 0092_pngrtran.obj | 16/21 | 16 |
+| 0092_pngrtran.obj | 19/21 | 19 |
 | 0093_pngrutil.obj | 18/18 | 18 |
-| 0094_pngerror.obj | 4/9 | 4 |
-| 0095_pngmem.obj | 5/6 | 5 |
+| 0094_pngerror.obj | 6/9 | 6 |
+| 0095_pngmem.obj | 6/6 | 6 |
 | 0096_pngrio.obj | 2/2 | 2 |
 | 0097_pngwio.obj | 0/3 | 0 |
-| 0098_pngtrans.obj | 5/6 | 5 |
+| 0098_pngtrans.obj | 6/6 | 6 |
 | 0099_pngwrite.obj | 0/19 | 0 |
 | 0100_pngwtran.obj | 0/1 | 0 |
 | 0101_pngwutil.obj | 0/16 | 0 |

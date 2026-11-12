@@ -215,6 +215,14 @@
    "length": 102
   }
  },
+ "0x8E532D": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTextureFromFileInMemory",
+   "symbol": "_D3DXCreateTextureFromFileInMemory@16",
+   "length": 41
+  }
+ },
  "0x8E5356": {
   "L": {
    "object": "0035_d3dx8tex.obj",
@@ -237,6 +245,54 @@
    "function": "D3DXCreateCubeTextureFromFileInMemory",
    "symbol": "_D3DXCreateCubeTextureFromFileInMemory@16",
    "length": 40
+  }
+ },
+ "0x8E543E": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTextureFromFileA",
+   "symbol": "_D3DXCreateTextureFromFileA@12",
+   "length": 37
+  }
+ },
+ "0x8E5463": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTextureFromFileW",
+   "symbol": "_D3DXCreateTextureFromFileW@12",
+   "length": 37
+  }
+ },
+ "0x8E5488": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTextureFromResourceA",
+   "symbol": "_D3DXCreateTextureFromResourceA@16",
+   "length": 41
+  }
+ },
+ "0x8E54B1": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateTextureFromResourceW",
+   "symbol": "_D3DXCreateTextureFromResourceW@16",
+   "length": 41
+  }
+ },
+ "0x8E54DA": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateCubeTextureFromFileA",
+   "symbol": "_D3DXCreateCubeTextureFromFileA@12",
+   "length": 36
+  }
+ },
+ "0x8E54FE": {
+  "L": {
+   "object": "0035_d3dx8tex.obj",
+   "function": "D3DXCreateCubeTextureFromFileW",
+   "symbol": "_D3DXCreateCubeTextureFromFileW@12",
+   "length": 36
   }
  },
  "0x8E5522": {
@@ -439,6 +495,14 @@
    "length": 202
   }
  },
+ "0x8E5FCF": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "??KD3DXVECTOR4@@QBE?AU0@M@Z",
+   "symbol": "??KD3DXVECTOR4@@QBE?AU0@M@Z",
+   "length": 45
+  }
+ },
  "0x8E5FFC": {
   "L": {
    "object": "0020_d3dxmath.obj",
@@ -517,6 +581,14 @@
    "function": "??_0D3DXQUATERNION@@QAEAAU0@M@Z",
    "symbol": "??_0D3DXQUATERNION@@QAEAAU0@M@Z",
    "length": 39
+  }
+ },
+ "0x8E682B": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "??KD3DXQUATERNION@@QBE?AU0@M@Z",
+   "symbol": "??KD3DXQUATERNION@@QBE?AU0@M@Z",
+   "length": 45
   }
  },
  "0x8E6878": {
@@ -655,6 +727,14 @@
    "length": 55
   }
  },
+ "0x8E6FE3": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec4LengthSq",
+   "symbol": "?D3DXVec4LengthSq@@YAMPBUD3DXVECTOR4@@@Z",
+   "length": 46
+  }
+ },
  "0x8E7011": {
   "L": {
    "object": "0020_d3dxmath.obj",
@@ -669,6 +749,22 @@
    "function": "D3DXMatrixIdentity",
    "symbol": "?D3DXMatrixIdentity@@YAPAUD3DXMATRIX@@PAU1@@Z",
    "length": 84
+  }
+ },
+ "0x8E7199": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionLengthSq",
+   "symbol": "?D3DXQuaternionLengthSq@@YAMPBUD3DXQUATERNION@@@Z",
+   "length": 46
+  }
+ },
+ "0x8E71C7": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionDot",
+   "symbol": "?D3DXQuaternionDot@@YAMPBUD3DXQUATERNION@@0@Z",
+   "length": 37
   }
  },
  "0x8E71EC": {
@@ -695,12 +791,28 @@
    "length": 37
   }
  },
+ "0x8E7380": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXPlaneDot",
+   "symbol": "?D3DXPlaneDot@@YAMPBUD3DXPLANE@@PBUD3DXVECTOR4@@@Z",
+   "length": 37
+  }
+ },
  "0x8E73A5": {
   "L": {
    "object": "0020_d3dxmath.obj",
    "function": "D3DXPlaneDotCoord",
    "symbol": "?D3DXPlaneDotCoord@@YAMPBUD3DXPLANE@@PBUD3DXVECTOR3@@@Z",
    "length": 32
+  }
+ },
+ "0x8E73E2": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXQuaternionNormalize",
+   "symbol": "_D3DXQuaternionNormalize@8",
+   "length": 140
   }
  },
  "0x8E746E": {
@@ -839,6 +951,14 @@
    "length": 302
   }
  },
+ "0x8E7ED3": {
+  "L": {
+   "object": "0020_d3dxmath.obj",
+   "function": "D3DXVec4Normalize",
+   "symbol": "_D3DXVec4Normalize@8",
+   "length": 140
+  }
+ },
  "0x8E7F5F": {
   "L": {
    "object": "0020_d3dxmath.obj",
@@ -925,6 +1045,38 @@
    "function": "D3DXPlaneTransform",
    "symbol": "_D3DXPlaneTransform@12",
    "length": 124
+  }
+ },
+ "0x8E8816": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::scalar deleting dtor",
+   "symbol": "??_GCD3DXFont@@QAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8E8832": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::scalar deleting dtor",
+   "symbol": "??_GCD3DXSprite@@QAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8E884E": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::scalar deleting dtor",
+   "symbol": "??_GCD3DXRenderToSurface@@QAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8E886A": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::scalar deleting dtor",
+   "symbol": "??_GCD3DXRenderToEnvMap@@QAEPAXI@Z",
+   "length": 28
   }
  },
  "0x8E8886": {
@@ -1015,6 +1167,14 @@
    "length": 51
   }
  },
+ "0x8E8F7E": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::CD3DXBlt",
+   "symbol": "??0CD3DXBlt@@QAE@XZ",
+   "length": 10
+  }
+ },
  "0x8E8F88": {
   "L": {
    "object": "0038_cd3dxblt.obj",
@@ -1037,6 +1197,14 @@
    "function": "TF_Row::~TF_Row",
    "symbol": "??1TF_Row@@QAE@XZ",
    "length": 34
+  }
+ },
+ "0x8E8FDC": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "TF_Row::scalar deleting dtor",
+   "symbol": "??_GTF_Row@@QAEPAXI@Z",
+   "length": 28
   }
  },
  "0x8E8FF8": {
@@ -1063,6 +1231,14 @@
    "length": 1239
   }
  },
+ "0x8E9B26": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "D3DXCOLOR::D3DXCOLOR",
+   "symbol": "??0D3DXCOLOR@@QAE@MMMM@Z",
+   "length": 32
+  }
+ },
  "0x8E9B46": {
   "L": {
    "object": "0038_cd3dxblt.obj",
@@ -1085,6 +1261,14 @@
    "function": "CD3DXBlt::BltSame_DXTn",
    "symbol": "?BltSame_DXTn@CD3DXBlt@@IAEJXZ",
    "length": 385
+  }
+ },
+ "0x8E9D1F": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_R8G8B8",
+   "symbol": "?BltBox2D_R8G8B8@CD3DXBlt@@IAEJXZ",
+   "length": 6
   }
  },
  "0x8E9D25": {
@@ -1167,6 +1351,22 @@
    "length": 289
   }
  },
+ "0x8EA8FC": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_A8P8",
+   "symbol": "?BltBox2D_A8P8@CD3DXBlt@@IAEJXZ",
+   "length": 6
+  }
+ },
+ "0x8EA902": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "CD3DXBlt::BltBox2D_P8",
+   "symbol": "?BltBox2D_P8@CD3DXBlt@@IAEJXZ",
+   "length": 6
+  }
+ },
  "0x8EA908": {
   "L": {
    "object": "0038_cd3dxblt.obj",
@@ -1181,6 +1381,30 @@
    "function": "CD3DXBlt::BltBox2D_A4L4",
    "symbol": "?BltBox2D_A4L4@CD3DXBlt@@IAEJXZ",
    "length": 319
+  }
+ },
+ "0x8EAB93": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "F2IBegin",
+   "symbol": "?F2IBegin@@YAXXZ",
+   "length": 35
+  }
+ },
+ "0x8EABB6": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "F2I",
+   "symbol": "?F2I@@YAHM@Z",
+   "length": 15
+  }
+ },
+ "0x8EABC5": {
+  "L": {
+   "object": "0038_cd3dxblt.obj",
+   "function": "F2IEnd",
+   "symbol": "?F2IEnd@@YAXXZ",
+   "length": 16
   }
  },
  "0x8EABD5": {
@@ -1279,6 +1503,14 @@
    "length": 89
   }
  },
+ "0x8EC3D5": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "CD3DXImage::scalar deleting dtor",
+   "symbol": "??_GCD3DXImage@@QAEPAXI@Z",
+   "length": 28
+  }
+ },
  "0x8EC3F1": {
   "L": {
    "object": "0036_cd3dximage.obj",
@@ -1293,6 +1525,14 @@
    "function": "d3dx_jpeg_error_exit",
    "symbol": "?d3dx_jpeg_error_exit@@YAXPAUjpeg_common_struct@D3DX@@@Z",
    "length": 28
+  }
+ },
+ "0x8ECA49": {
+  "L": {
+   "object": "0036_cd3dximage.obj",
+   "function": "d3dx_jpeg_output_message",
+   "symbol": "?d3dx_jpeg_output_message@@YAXPAUjpeg_common_struct@D3DX@@@Z",
+   "length": 29
   }
  },
  "0x8ECA67": {
@@ -1399,6 +1639,22 @@
    "length": 65
   }
  },
+ "0x8EDF4B": {
+  "L": {
+   "object": "0008_cd3dxfile.obj",
+   "function": "CD3DXFile::~CD3DXFile",
+   "symbol": "??1CD3DXFile@@QAE@XZ",
+   "length": 11
+  }
+ },
+ "0x8EDF63": {
+  "L": {
+   "object": "0039_cd3dxresource.obj",
+   "function": "CD3DXResource::~CD3DXResource",
+   "symbol": "??1CD3DXResource@@QAE@XZ",
+   "length": 14
+  }
+ },
  "0x8EDF71": {
   "L": {
    "object": "0039_cd3dxresource.obj",
@@ -1423,12 +1679,28 @@
    "length": 50
   }
  },
+ "0x8EE045": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::AddRef",
+   "symbol": "?AddRef@CD3DXFont@@UAGKXZ",
+   "length": 13
+  }
+ },
  "0x8EE052": {
   "L": {
    "object": "0004_cd3dxfont.obj",
    "function": "CD3DXFont::Initialize",
    "symbol": "?Initialize@CD3DXFont@@QAEJPAUIDirect3DDevice8@@PBUtagLOGFONTA@@@Z",
    "length": 82
+  }
+ },
+ "0x8EE0A4": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "IsEqualGUID",
+   "symbol": "_IsEqualGUID",
+   "length": 23
   }
  },
  "0x8EE0BB": {
@@ -1447,6 +1719,22 @@
    "length": 36
   }
  },
+ "0x8EE105": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::Begin",
+   "symbol": "?Begin@CD3DXFont@@UAGJXZ",
+   "length": 15
+  }
+ },
+ "0x8EE114": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::End",
+   "symbol": "?End@CD3DXFont@@UAGJXZ",
+   "length": 15
+  }
+ },
  "0x8EE123": {
   "L": {
    "object": "0004_cd3dxfont.obj",
@@ -1461,6 +1749,22 @@
    "function": "CD3DXFont::DrawTextW",
    "symbol": "?DrawTextW@CD3DXFont@@UAGHPBGHPAUtagRECT@@KK@Z",
    "length": 38
+  }
+ },
+ "0x8EE172": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::QueryInterface",
+   "symbol": "?QueryInterface@CD3DXFont@@UAGJABU_GUID@@PAPAX@Z",
+   "length": 68
+  }
+ },
+ "0x8EE1B6": {
+  "L": {
+   "object": "0004_cd3dxfont.obj",
+   "function": "CD3DXFont::Release",
+   "symbol": "?Release@CD3DXFont@@UAGKXZ",
+   "length": 33
   }
  },
  "0x8EE1D7": {
@@ -1479,12 +1783,28 @@
    "length": 64
   }
  },
+ "0x8EE232": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::AddRef",
+   "symbol": "?AddRef@CD3DXSprite@@UAGKXZ",
+   "length": 13
+  }
+ },
  "0x8EE23F": {
   "L": {
    "object": "0006_cd3dxsprite.obj",
    "function": "CD3DXSprite::Initialize",
    "symbol": "?Initialize@CD3DXSprite@@QAEJPAUIDirect3DDevice8@@@Z",
    "length": 647
+  }
+ },
+ "0x8EE4C6": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::GetDevice",
+   "symbol": "?GetDevice@CD3DXSprite@@UAGJPAPAUIDirect3DDevice8@@@Z",
+   "length": 38
   }
  },
  "0x8EE4EC": {
@@ -1501,6 +1821,22 @@
    "function": "CD3DXSprite::End",
    "symbol": "?End@CD3DXSprite@@UAGJXZ",
    "length": 43
+  }
+ },
+ "0x8EE564": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::QueryInterface",
+   "symbol": "?QueryInterface@CD3DXSprite@@UAGJABU_GUID@@PAPAX@Z",
+   "length": 68
+  }
+ },
+ "0x8EE5A8": {
+  "L": {
+   "object": "0006_cd3dxsprite.obj",
+   "function": "CD3DXSprite::Release",
+   "symbol": "?Release@CD3DXSprite@@UAGKXZ",
+   "length": 33
   }
  },
  "0x8EE5C9": {
@@ -1543,6 +1879,22 @@
    "length": 79
   }
  },
+ "0x8EEA66": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::AddRef",
+   "symbol": "?AddRef@CD3DXRenderToSurface@@UAGKXZ",
+   "length": 13
+  }
+ },
+ "0x8EEA73": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::GetDevice",
+   "symbol": "?GetDevice@CD3DXRenderToSurface@@UAGJPAPAUIDirect3DDevice8@@@Z",
+   "length": 38
+  }
+ },
  "0x8EEA99": {
   "L": {
    "object": "0009_cd3dxrendertosurface.obj",
@@ -1565,6 +1917,22 @@
    "function": "CD3DXRenderToSurface::EndScene",
    "symbol": "?EndScene@CD3DXRenderToSurface@@UAGJXZ",
    "length": 184
+  }
+ },
+ "0x8EED44": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::QueryInterface",
+   "symbol": "?QueryInterface@CD3DXRenderToSurface@@UAGJABU_GUID@@PAPAX@Z",
+   "length": 71
+  }
+ },
+ "0x8EED8B": {
+  "L": {
+   "object": "0009_cd3dxrendertosurface.obj",
+   "function": "CD3DXRenderToSurface::Release",
+   "symbol": "?Release@CD3DXRenderToSurface@@UAGKXZ",
+   "length": 41
   }
  },
  "0x8EEDB4": {
@@ -1613,6 +1981,54 @@
    "function": "CD3DXRenderToEnvMap::EndScene",
    "symbol": "?EndScene@CD3DXRenderToEnvMap@@QAEJXZ",
    "length": 114
+  }
+ },
+ "0x8EF110": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::RenderSphere",
+   "symbol": "?RenderSphere@CD3DXRenderToEnvMap@@QAEJXZ",
+   "length": 6
+  }
+ },
+ "0x8EF116": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::RenderHemisphere",
+   "symbol": "?RenderHemisphere@CD3DXRenderToEnvMap@@QAEJXZ",
+   "length": 6
+  }
+ },
+ "0x8EF11C": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::RenderParabolic",
+   "symbol": "?RenderParabolic@CD3DXRenderToEnvMap@@QAEJXZ",
+   "length": 6
+  }
+ },
+ "0x8EF122": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::QueryInterface",
+   "symbol": "?QueryInterface@CD3DXRenderToEnvMap@@UAGJABU_GUID@@PAPAX@Z",
+   "length": 71
+  }
+ },
+ "0x8EF169": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::AddRef",
+   "symbol": "?AddRef@CD3DXRenderToEnvMap@@UAGKXZ",
+   "length": 13
+  }
+ },
+ "0x8EF176": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::GetDevice",
+   "symbol": "?GetDevice@CD3DXRenderToEnvMap@@UAGJPAPAUIDirect3DDevice8@@@Z",
+   "length": 38
   }
  },
  "0x8EF19C": {
@@ -1671,6 +2087,14 @@
    "length": 206
   }
  },
+ "0x8EF427": {
+  "L": {
+   "object": "0010_cd3dxrendertoenvmap.obj",
+   "function": "CD3DXRenderToEnvMap::Release",
+   "symbol": "?Release@CD3DXRenderToEnvMap@@UAGKXZ",
+   "length": 41
+  }
+ },
  "0x8EF450": {
   "L": {
    "object": "0010_cd3dxrendertoenvmap.obj",
@@ -1693,6 +2117,14 @@
    "function": "CD3DXAssembler::~CD3DXAssembler",
    "symbol": "??1CD3DXAssembler@@QAE@XZ",
    "length": 128
+  }
+ },
+ "0x8EF5B2": {
+  "L": {
+   "object": "0024_createmesh.obj",
+   "function": "CD3DXBuffer::scalar deleting dtor",
+   "symbol": "??_GCD3DXBuffer@@QAEPAXI@Z",
+   "length": 28
   }
  },
  "0x8EF5CE": {
@@ -1807,6 +2239,30 @@
    "length": 1175
   }
  },
+ "0x8F1A65": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec::~CD3DXCodec",
+   "symbol": "??1CD3DXCodec@@UAE@XZ",
+   "length": 7
+  }
+ },
+ "0x8F1A6C": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec::Decode",
+   "symbol": "?Decode@CD3DXCodec@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 3
+  }
+ },
+ "0x8F1A6F": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec::Encode",
+   "symbol": "?Encode@CD3DXCodec@@UAEXIIPAUD3DXCOLOR@@@Z",
+   "length": 3
+  }
+ },
  "0x8F1A72": {
   "L": {
    "object": "0037_cd3dxcodec.obj",
@@ -1879,12 +2335,44 @@
    "length": 64
   }
  },
+ "0x8F1E32": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "F2IBegin",
+   "symbol": "?F2IBegin@@YAXXZ",
+   "length": 35
+  }
+ },
+ "0x8F1E55": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "F2I",
+   "symbol": "?F2I@@YAHM@Z",
+   "length": 15
+  }
+ },
+ "0x8F1E64": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "F2IEnd",
+   "symbol": "?F2IEnd@@YAXXZ",
+   "length": 16
+  }
+ },
  "0x8F1E74": {
   "L": {
    "object": "0037_cd3dxcodec.obj",
    "function": "CD3DXCodec::CD3DXCodec",
    "symbol": "??0CD3DXCodec@@IAE@PAUD3DX_BLT@@IK@Z",
    "length": 489
+  }
+ },
+ "0x8F205D": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec@@UAEPAXI@Z",
+   "length": 28
   }
  },
  "0x8F2079": {
@@ -2271,12 +2759,52 @@
    "length": 28
   }
  },
+ "0x8F4A07": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R8G8B8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_R8G8B8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4A23": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R8G8B8::~CD3DXCodec_R8G8B8",
+   "symbol": "??1CD3DXCodec_R8G8B8@@UAE@XZ",
+   "length": 5
+  }
+ },
  "0x8F4A28": {
   "L": {
    "object": "0037_cd3dxcodec.obj",
    "function": "CD3DXCodecDXT::Encode",
    "symbol": "?Encode@CD3DXCodecDXT@@UAEXIIPAUD3DXCOLOR@@@Z",
    "length": 134
+  }
+ },
+ "0x8F4AAE": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8R8G8B8::CD3DXCodec_A8R8G8B8",
+   "symbol": "??0CD3DXCodec_A8R8G8B8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4ACA": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8R8G8B8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_A8R8G8B8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4AE6": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8R8G8B8::~CD3DXCodec_A8R8G8B8",
+   "symbol": "??1CD3DXCodec_A8R8G8B8@@UAE@XZ",
+   "length": 5
   }
  },
  "0x8F4AEB": {
@@ -2287,6 +2815,222 @@
    "length": 116
   }
  },
+ "0x8F4B5F": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X8R8G8B8::CD3DXCodec_X8R8G8B8",
+   "symbol": "??0CD3DXCodec_X8R8G8B8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4B7B": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X8R8G8B8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_X8R8G8B8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4B97": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X8R8G8B8::~CD3DXCodec_X8R8G8B8",
+   "symbol": "??1CD3DXCodec_X8R8G8B8@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4B9C": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R5G6B5::CD3DXCodec_R5G6B5",
+   "symbol": "??0CD3DXCodec_R5G6B5@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4BB8": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R5G6B5::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_R5G6B5@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4BD4": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R5G6B5::~CD3DXCodec_R5G6B5",
+   "symbol": "??1CD3DXCodec_R5G6B5@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4BD9": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X1R5G5B5::CD3DXCodec_X1R5G5B5",
+   "symbol": "??0CD3DXCodec_X1R5G5B5@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4BF5": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X1R5G5B5::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_X1R5G5B5@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4C11": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X1R5G5B5::~CD3DXCodec_X1R5G5B5",
+   "symbol": "??1CD3DXCodec_X1R5G5B5@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4C16": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A1R5G5B5::CD3DXCodec_A1R5G5B5",
+   "symbol": "??0CD3DXCodec_A1R5G5B5@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4C32": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A1R5G5B5::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_A1R5G5B5@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4C4E": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A1R5G5B5::~CD3DXCodec_A1R5G5B5",
+   "symbol": "??1CD3DXCodec_A1R5G5B5@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4C53": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A4R4G4B4::CD3DXCodec_A4R4G4B4",
+   "symbol": "??0CD3DXCodec_A4R4G4B4@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4C6F": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A4R4G4B4::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_A4R4G4B4@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4C8B": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A4R4G4B4::~CD3DXCodec_A4R4G4B4",
+   "symbol": "??1CD3DXCodec_A4R4G4B4@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4C90": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R3G3B2::CD3DXCodec_R3G3B2",
+   "symbol": "??0CD3DXCodec_R3G3B2@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4CAC": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R3G3B2::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_R3G3B2@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4CC8": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_R3G3B2::~CD3DXCodec_R3G3B2",
+   "symbol": "??1CD3DXCodec_R3G3B2@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4CCD": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8::CD3DXCodec_A8",
+   "symbol": "??0CD3DXCodec_A8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4CE9": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_A8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4D05": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8::~CD3DXCodec_A8",
+   "symbol": "??1CD3DXCodec_A8@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4D0A": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8R3G3B2::CD3DXCodec_A8R3G3B2",
+   "symbol": "??0CD3DXCodec_A8R3G3B2@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4D26": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8R3G3B2::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_A8R3G3B2@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4D42": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8R3G3B2::~CD3DXCodec_A8R3G3B2",
+   "symbol": "??1CD3DXCodec_A8R3G3B2@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4D47": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X4R4G4B4::CD3DXCodec_X4R4G4B4",
+   "symbol": "??0CD3DXCodec_X4R4G4B4@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4D63": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X4R4G4B4::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_X4R4G4B4@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4D7F": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X4R4G4B4::~CD3DXCodec_X4R4G4B4",
+   "symbol": "??1CD3DXCodec_X4R4G4B4@@UAE@XZ",
+   "length": 5
+  }
+ },
  "0x8F4D84": {
   "L": {
    "object": "0037_cd3dxcodec.obj",
@@ -2295,12 +3039,260 @@
    "length": 28
   }
  },
+ "0x8F4DA0": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8P8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_A8P8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4DBC": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8P8::~CD3DXCodec_A8P8",
+   "symbol": "??1CD3DXCodec_A8P8@@UAE@XZ",
+   "length": 5
+  }
+ },
  "0x8F4DC1": {
   "L": {
    "object": "0037_cd3dxcodec.obj",
    "function": "CD3DXCodec_P8::CD3DXCodec_P8",
    "symbol": "??0CD3DXCodec_P8@@QAE@PAUD3DX_BLT@@@Z",
    "length": 28
+  }
+ },
+ "0x8F4DDD": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_P8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_P8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4DF9": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_P8::~CD3DXCodec_P8",
+   "symbol": "??1CD3DXCodec_P8@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4DFE": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_L8::CD3DXCodec_L8",
+   "symbol": "??0CD3DXCodec_L8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4E1A": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_L8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_L8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4E36": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_L8::~CD3DXCodec_L8",
+   "symbol": "??1CD3DXCodec_L8@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4E3B": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8L8::CD3DXCodec_A8L8",
+   "symbol": "??0CD3DXCodec_A8L8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4E57": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8L8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_A8L8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4E73": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A8L8::~CD3DXCodec_A8L8",
+   "symbol": "??1CD3DXCodec_A8L8@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4E78": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A4L4::CD3DXCodec_A4L4",
+   "symbol": "??0CD3DXCodec_A4L4@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4E94": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A4L4::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_A4L4@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4EB0": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_A4L4::~CD3DXCodec_A4L4",
+   "symbol": "??1CD3DXCodec_A4L4@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4EB5": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_V8U8::CD3DXCodec_V8U8",
+   "symbol": "??0CD3DXCodec_V8U8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4ED1": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_V8U8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_V8U8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4EED": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_V8U8::~CD3DXCodec_V8U8",
+   "symbol": "??1CD3DXCodec_V8U8@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4EF2": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_L6V5U5::CD3DXCodec_L6V5U5",
+   "symbol": "??0CD3DXCodec_L6V5U5@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4F0E": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_L6V5U5::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_L6V5U5@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4F2A": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_L6V5U5::~CD3DXCodec_L6V5U5",
+   "symbol": "??1CD3DXCodec_L6V5U5@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4F2F": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X8L8V8U8::CD3DXCodec_X8L8V8U8",
+   "symbol": "??0CD3DXCodec_X8L8V8U8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4F4B": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X8L8V8U8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_X8L8V8U8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4F67": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_X8L8V8U8::~CD3DXCodec_X8L8V8U8",
+   "symbol": "??1CD3DXCodec_X8L8V8U8@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4F6C": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_Q8W8V8U8::CD3DXCodec_Q8W8V8U8",
+   "symbol": "??0CD3DXCodec_Q8W8V8U8@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4F88": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_Q8W8V8U8::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_Q8W8V8U8@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4FA4": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_Q8W8V8U8::~CD3DXCodec_Q8W8V8U8",
+   "symbol": "??1CD3DXCodec_Q8W8V8U8@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4FA9": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_V16U16::CD3DXCodec_V16U16",
+   "symbol": "??0CD3DXCodec_V16U16@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F4FC5": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_V16U16::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_V16U16@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F4FE1": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_V16U16::~CD3DXCodec_V16U16",
+   "symbol": "??1CD3DXCodec_V16U16@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F4FE6": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_W11V11U10::CD3DXCodec_W11V11U10",
+   "symbol": "??0CD3DXCodec_W11V11U10@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 28
+  }
+ },
+ "0x8F5002": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_W11V11U10::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_W11V11U10@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F501E": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_W11V11U10::~CD3DXCodec_W11V11U10",
+   "symbol": "??1CD3DXCodec_W11V11U10@@UAE@XZ",
+   "length": 5
   }
  },
  "0x8F5023": {
@@ -2319,6 +3311,62 @@
    "length": 84
   }
  },
+ "0x8F50BC": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_UYVY::CD3DXCodec_UYVY",
+   "symbol": "??0CD3DXCodec_UYVY@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 24
+  }
+ },
+ "0x8F50D4": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_YUY2::CD3DXCodec_YUY2",
+   "symbol": "??0CD3DXCodec_YUY2@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 24
+  }
+ },
+ "0x8F50EC": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT1::CD3DXCodec_DXT1",
+   "symbol": "??0CD3DXCodec_DXT1@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 24
+  }
+ },
+ "0x8F5104": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT2::CD3DXCodec_DXT2",
+   "symbol": "??0CD3DXCodec_DXT2@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 24
+  }
+ },
+ "0x8F511C": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT3::CD3DXCodec_DXT3",
+   "symbol": "??0CD3DXCodec_DXT3@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 24
+  }
+ },
+ "0x8F5134": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT4::CD3DXCodec_DXT4",
+   "symbol": "??0CD3DXCodec_DXT4@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 24
+  }
+ },
+ "0x8F514C": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT5::CD3DXCodec_DXT5",
+   "symbol": "??0CD3DXCodec_DXT5@@QAE@PAUD3DX_BLT@@@Z",
+   "length": 24
+  }
+ },
  "0x8F5164": {
   "L": {
    "object": "0037_cd3dxcodec.obj",
@@ -2327,12 +3375,148 @@
    "length": 1552
   }
  },
+ "0x8F5774": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecYUV::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodecYUV@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F5790": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodecDXT::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodecDXT@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F57AC": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_UYVY::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_UYVY@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F57C8": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_UYVY::~CD3DXCodec_UYVY",
+   "symbol": "??1CD3DXCodec_UYVY@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F57CD": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_YUY2::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_YUY2@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F57E9": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_YUY2::~CD3DXCodec_YUY2",
+   "symbol": "??1CD3DXCodec_YUY2@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F57EE": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT1::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_DXT1@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F580A": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT1::~CD3DXCodec_DXT1",
+   "symbol": "??1CD3DXCodec_DXT1@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F580F": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT2::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_DXT2@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F582B": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT2::~CD3DXCodec_DXT2",
+   "symbol": "??1CD3DXCodec_DXT2@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F5830": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT3::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_DXT3@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F584C": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT3::~CD3DXCodec_DXT3",
+   "symbol": "??1CD3DXCodec_DXT3@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F5851": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT4::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_DXT4@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F586D": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT4::~CD3DXCodec_DXT4",
+   "symbol": "??1CD3DXCodec_DXT4@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0x8F5872": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT5::scalar deleting dtor",
+   "symbol": "??_GCD3DXCodec_DXT5@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0x8F588E": {
+  "L": {
+   "object": "0037_cd3dxcodec.obj",
+   "function": "CD3DXCodec_DXT5::~CD3DXCodec_DXT5",
+   "symbol": "??1CD3DXCodec_DXT5@@UAE@XZ",
+   "length": 5
+  }
+ },
  "0x8F5893": {
   "L": {
    "object": "0043_jdapimin.obj",
    "function": "jpeg_CreateDecompress",
    "symbol": "_jpeg_CreateDecompress",
    "length": 192
+  }
+ },
+ "0x8F5953": {
+  "L": {
+   "object": "0043_jdapimin.obj",
+   "function": "jpeg_destroy_decompress",
+   "symbol": "_jpeg_destroy_decompress",
+   "length": 5
   }
  },
  "0x8F595D": {
@@ -2583,6 +3767,14 @@
    "length": 27
   }
  },
+ "0x8F7810": {
+  "L": {
+   "object": "0058_jerror.obj",
+   "function": "D3DX::output_message",
+   "symbol": "?output_message@D3DX@@YAXPAUjpeg_common_struct@1@@Z",
+   "length": 29
+  }
+ },
  "0x8F782D": {
   "L": {
    "object": "0058_jerror.obj",
@@ -2645,6 +3837,22 @@
    "function": "png_warning",
    "symbol": "_png_warning",
    "length": 21
+  }
+ },
+ "0x8F7A3F": {
+  "L": {
+   "object": "0094_pngerror.obj",
+   "function": "png_chunk_error",
+   "symbol": "_png_chunk_error",
+   "length": 37
+  }
+ },
+ "0x8F7A64": {
+  "L": {
+   "object": "0094_pngerror.obj",
+   "function": "png_chunk_warning",
+   "symbol": "_png_chunk_warning",
+   "length": 37
   }
  },
  "0x8F7A89": {
@@ -2815,6 +4023,14 @@
    "length": 103
   }
  },
+ "0x8F872F": {
+  "L": {
+   "object": "0098_pngtrans.obj",
+   "function": "png_set_bgr",
+   "symbol": "_png_set_bgr",
+   "length": 9
+  }
+ },
  "0x8F8738": {
   "L": {
    "object": "0098_pngtrans.obj",
@@ -2863,6 +4079,14 @@
    "length": 127
   }
  },
+ "0x8F890E": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_set_strip_16",
+   "symbol": "_png_set_strip_16",
+   "length": 9
+  }
+ },
  "0x8F8917": {
   "L": {
    "object": "0092_pngrtran.obj",
@@ -2877,6 +4101,22 @@
    "function": "png_set_gamma",
    "symbol": "_png_set_gamma",
    "length": 54
+  }
+ },
+ "0x8F8FB2": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_set_gray_1_2_4_to_8",
+   "symbol": "_png_set_gray_1_2_4_to_8",
+   "length": 9
+  }
+ },
+ "0x8F8FBB": {
+  "L": {
+   "object": "0092_pngrtran.obj",
+   "function": "png_set_tRNS_to_alpha",
+   "symbol": "_png_set_tRNS_to_alpha",
+   "length": 9
   }
  },
  "0x8F8FC4": {
@@ -3087,6 +4327,14 @@
    "length": 83
   }
  },
+ "0x8FA879": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_zfree",
+   "symbol": "_png_zfree",
+   "length": 5
+  }
+ },
  "0x8FA87E": {
   "L": {
    "object": "0087_png.obj",
@@ -3109,6 +4357,14 @@
    "function": "png_info_init",
    "symbol": "_png_info_init",
    "length": 14
+  }
+ },
+ "0x8FA8E3": {
+  "L": {
+   "object": "0087_png.obj",
+   "function": "png_info_destroy",
+   "symbol": "_png_info_destroy",
+   "length": 11
   }
  },
  "0x8FA8FD": {
@@ -3141,6 +4397,22 @@
    "function": "CD3DXText::~CD3DXText",
    "symbol": "??1CD3DXText@@IAE@XZ",
    "length": 203
+  }
+ },
+ "0x8FAA50": {
+  "L": {
+   "object": "0005_cd3dxtext.obj",
+   "function": "CD3DXText::AddRef",
+   "symbol": "?AddRef@CD3DXText@@QAEXXZ",
+   "length": 3
+  }
+ },
+ "0x8FAA53": {
+  "L": {
+   "object": "0005_cd3dxtext.obj",
+   "function": "CD3DXText::scalar deleting dtor",
+   "symbol": "??_GCD3DXText@@IAEPAXI@Z",
+   "length": 28
   }
  },
  "0x8FAA6F": {
@@ -3191,12 +4463,44 @@
    "length": 1434
   }
  },
+ "0x8FB2D6": {
+  "L": {
+   "object": "0011_cd3dxstack.obj",
+   "function": "CD3DXDwStack::~CD3DXDwStack",
+   "symbol": "??1CD3DXDwStack@@QAE@XZ",
+   "length": 14
+  }
+ },
  "0x8FB2E4": {
   "L": {
    "object": "0011_cd3dxstack.obj",
    "function": "CD3DXDwStack::Push",
    "symbol": "?Push@CD3DXDwStack@@QAEJK@Z",
    "length": 110
+  }
+ },
+ "0x8FB352": {
+  "L": {
+   "object": "0011_cd3dxstack.obj",
+   "function": "CD3DXDwStack::Pop",
+   "symbol": "?Pop@CD3DXDwStack@@QAEJPAK@Z",
+   "length": 52
+  }
+ },
+ "0x8FB386": {
+  "L": {
+   "object": "0011_cd3dxstack.obj",
+   "function": "CD3DXDwStack::GetLastError",
+   "symbol": "?GetLastError@CD3DXDwStack@@QAEJXZ",
+   "length": 8
+  }
+ },
+ "0x8FB38E": {
+  "L": {
+   "object": "0011_cd3dxstack.obj",
+   "function": "CD3DXSzStack::CD3DXSzStack",
+   "symbol": "??0CD3DXSzStack@@QAE@XZ",
+   "length": 16
   }
  },
  "0x8FB39E": {
@@ -3215,6 +4519,22 @@
    "length": 175
   }
  },
+ "0x8FB47E": {
+  "L": {
+   "object": "0011_cd3dxstack.obj",
+   "function": "CD3DXSzStack::Pop",
+   "symbol": "?Pop@CD3DXSzStack@@QAEJPAPAD@Z",
+   "length": 52
+  }
+ },
+ "0x8FB4B2": {
+  "L": {
+   "object": "0011_cd3dxstack.obj",
+   "function": "CD3DXSzStack::GetLastError",
+   "symbol": "?GetLastError@CD3DXSzStack@@QAEJXZ",
+   "length": 8
+  }
+ },
  "0x8FB4BA": {
   "L": {
    "object": "0007_cd3dxbuffer.obj",
@@ -3229,6 +4549,30 @@
    "function": "CD3DXBuffer::Init",
    "symbol": "?Init@CD3DXBuffer@@QAEJK@Z",
    "length": 38
+  }
+ },
+ "0x8FB4F5": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXBuffer::AddRef",
+   "symbol": "?AddRef@CD3DXBuffer@@UAGKXZ",
+   "length": 13
+  }
+ },
+ "0x8FB502": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXBuffer::GetBufferPointer",
+   "symbol": "?GetBufferPointer@CD3DXBuffer@@UAGPAXXZ",
+   "length": 10
+  }
+ },
+ "0x8FB50C": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXBuffer::GetBufferSize",
+   "symbol": "?GetBufferSize@CD3DXBuffer@@UAGKXZ",
+   "length": 10
   }
  },
  "0x8FB516": {
@@ -3247,12 +4591,44 @@
    "length": 36
   }
  },
+ "0x8FB58F": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXStringBuffer::~CD3DXStringBuffer",
+   "symbol": "??1CD3DXStringBuffer@@QAE@XZ",
+   "length": 5
+  }
+ },
  "0x8FB594": {
   "L": {
    "object": "0007_cd3dxbuffer.obj",
    "function": "CD3DXStringBuffer::AddString",
    "symbol": "?AddString@CD3DXStringBuffer@@QAEJPAD@Z",
    "length": 255
+  }
+ },
+ "0x8FB696": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXBuffer::QueryInterface",
+   "symbol": "?QueryInterface@CD3DXBuffer@@UAGJABU_GUID@@PAPAX@Z",
+   "length": 71
+  }
+ },
+ "0x8FB6DD": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXBuffer::Release",
+   "symbol": "?Release@CD3DXBuffer@@UAGKXZ",
+   "length": 41
+  }
+ },
+ "0x8FB706": {
+  "L": {
+   "object": "0007_cd3dxbuffer.obj",
+   "function": "CD3DXStringBuffer::scalar deleting dtor",
+   "symbol": "??_GCD3DXStringBuffer@@QAEPAXI@Z",
+   "length": 28
   }
  },
  "0x8FB722": {
@@ -3815,6 +5191,14 @@
    "length": 66
   }
  },
+ "0x8FE1DB": {
+  "L": {
+   "object": "0095_pngmem.obj",
+   "function": "png_destroy_struct",
+   "symbol": "_png_destroy_struct",
+   "length": 13
+  }
+ },
  "0x8FE1E8": {
   "L": {
    "object": "0095_pngmem.obj",
@@ -3999,12 +5383,68 @@
    "length": 265
   }
  },
+ "0x8FF695": {
+  "L": {
+   "object": "0064_jmemnobs.obj",
+   "function": "D3DX::jpeg_get_small",
+   "symbol": "?jpeg_get_small@D3DX@@YAPAXPAUjpeg_common_struct@1@I@Z",
+   "length": 11
+  }
+ },
+ "0x8FF6A0": {
+  "L": {
+   "object": "0064_jmemnobs.obj",
+   "function": "D3DX::jpeg_free_small",
+   "symbol": "?jpeg_free_small@D3DX@@YAXPAUjpeg_common_struct@1@PAXI@Z",
+   "length": 11
+  }
+ },
+ "0x8FF6AB": {
+  "L": {
+   "object": "0064_jmemnobs.obj",
+   "function": "D3DX::jpeg_get_large",
+   "symbol": "?jpeg_get_large@D3DX@@YAPAXPAUjpeg_common_struct@1@I@Z",
+   "length": 11
+  }
+ },
+ "0x8FF6B6": {
+  "L": {
+   "object": "0064_jmemnobs.obj",
+   "function": "D3DX::jpeg_free_large",
+   "symbol": "?jpeg_free_large@D3DX@@YAXPAUjpeg_common_struct@1@PAXI@Z",
+   "length": 11
+  }
+ },
+ "0x8FF6C1": {
+  "L": {
+   "object": "0064_jmemnobs.obj",
+   "function": "D3DX::jpeg_mem_available",
+   "symbol": "?jpeg_mem_available@D3DX@@YAJPAUjpeg_common_struct@1@JJJ@Z",
+   "length": 5
+  }
+ },
  "0x8FF6C6": {
   "L": {
    "object": "0064_jmemnobs.obj",
    "function": "D3DX::jpeg_open_backing_store",
    "symbol": "?jpeg_open_backing_store@D3DX@@YAXPAUjpeg_common_struct@1@PAUbacking_store_struct@1@J@Z",
    "length": 20
+  }
+ },
+ "0x8FF6DA": {
+  "L": {
+   "object": "0064_jmemnobs.obj",
+   "function": "D3DX::jpeg_mem_init",
+   "symbol": "?jpeg_mem_init@D3DX@@YAJPAUjpeg_common_struct@1@@Z",
+   "length": 3
+  }
+ },
+ "0x8FF6DD": {
+  "L": {
+   "object": "0064_jmemnobs.obj",
+   "function": "D3DX::jpeg_mem_term",
+   "symbol": "?jpeg_mem_term@D3DX@@YAXPAUjpeg_common_struct@1@@Z",
+   "length": 1
   }
  },
  "0x8FF6DE": {

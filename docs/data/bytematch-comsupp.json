@@ -1,4 +1,12 @@
 {
+ "0xA401F0": {
+  "L": {
+   "object": "0002_comsupp.obj",
+   "function": "_com_issue_error",
+   "symbol": "?_com_issue_error@@YGXJ@Z",
+   "length": 14
+  }
+ },
  "0xA401FE": {
   "L": {
    "object": "0002_comsupp.obj",
@@ -29,6 +37,22 @@
    "function": "_com_dispatch_method",
    "symbol": "?_com_dispatch_method@@YAJPAUIDispatch@@JGGPAXPBGZZ",
    "length": 58
+  }
+ },
+ "0xA407BA": {
+  "L": {
+   "object": "0002_comsupp.obj",
+   "function": "_com_dispatch_raw_propget",
+   "symbol": "?_com_dispatch_raw_propget@@YGJPAUIDispatch@@JGPAX@Z",
+   "length": 31
+  }
+ },
+ "0xA407D9": {
+  "L": {
+   "object": "0002_comsupp.obj",
+   "function": "_com_dispatch_propget",
+   "symbol": "?_com_dispatch_propget@@YGJPAUIDispatch@@JGPAX@Z",
+   "length": 31
   }
  },
  "0xA407F8": {
@@ -85,6 +109,14 @@
    "function": "_com_error::_com_error",
    "symbol": "??0_com_error@@QAE@JPAUIErrorInfo@@_N@Z",
    "length": 50
+  }
+ },
+ "0xA40A81": {
+  "L": {
+   "object": "0001_comraise.obj",
+   "function": "_com_error::scalar deleting dtor",
+   "symbol": "??_G_com_error@@UAEPAXI@Z",
+   "length": 28
   }
  },
  "0xA40A9D": {

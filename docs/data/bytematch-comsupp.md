@@ -2,10 +2,10 @@
 
 Each EA copy compiled with VC6 SP4; every function searched for in client.exe with relocated fields masked (tools/re/objmatch.py). Only functions found exactly once are counted.
 
-Client functions explained: **13**. L: 13; found only in L: 13.
+Client functions explained: **17**. L: 17; found only in L: 17.
 
 | File | L exact/functions | only L |
 |---|---|---|
 | 0000_comutil.obj | 3/7 | 3 |
-| 0001_comraise.obj | 4/5 | 4 |
-| 0002_comsupp.obj | 6/9 | 6 |
+| 0001_comraise.obj | 5/5 | 5 |
+| 0002_comsupp.obj | 9/9 | 9 |

@@ -2,23 +2,23 @@
 
 Each EA copy compiled with VC6 SP4; every function searched for in client.exe with relocated fields masked (tools/re/objmatch.py). Only functions found exactly once are counted.
 
-Client functions explained: **681**. L: 681; found only in L: 681.
+Client functions explained: **717**. L: 717; found only in L: 717.
 
 | File | L exact/functions | only L |
 |---|---|---|
 | 0000__ctype.obj | 14/15 | 14 |
 | 0001__fptostr.obj | 1/1 | 1 |
 | 0002__mbslen.obj | 0/1 | 0 |
-| 0003__wctype.obj | 5/13 | 5 |
+| 0003__wctype.obj | 0/13 | 0 |
 | 0004_atof.obj | 1/1 | 1 |
 | 0005_atox.obj | 2/3 | 2 |
 | 0006_fcvt.obj | 0/3 | 0 |
 | 0007_gcvt.obj | 0/1 | 0 |
 | 0008_isctype.obj | 1/1 | 1 |
-| 0009_iswctype.obj | 1/2 | 1 |
+| 0009_iswctype.obj | 2/2 | 2 |
 | 0010_mblen.obj | 0/1 | 0 |
-| 0011_mbstowcs.obj | 1/2 | 1 |
-| 0012_mbtowc.obj | 1/2 | 1 |
+| 0011_mbstowcs.obj | 2/2 | 2 |
+| 0012_mbtowc.obj | 2/2 | 2 |
 | 0013_strtod.obj | 1/1 | 1 |
 | 0014_strtol.obj | 1/3 | 1 |
 | 0015_swab.obj | 0/1 | 0 |
@@ -45,7 +45,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0036_access.obj | 1/1 | 1 |
 | 0037_chmod.obj | 0/1 | 0 |
 | 0038_chdir.obj | 0/1 | 0 |
-| 0039_dosmap.obj | 1/3 | 1 |
+| 0039_dosmap.obj | 3/3 | 3 |
 | 0040_drive.obj | 2/2 | 2 |
 | 0041_fullpath.obj | 1/1 | 1 |
 | 0042_getcwd.obj | 4/4 | 4 |
@@ -67,23 +67,23 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0059_wstat.obj | 0/3 | 0 |
 | 0060_wstati64.obj | 0/2 | 0 |
 | 0061_wunlink.obj | 1/2 | 1 |
-| 0062_trnsctrl.obj | 9/12 | 9 |
-| 0063_lowhelpr.obj | 2/2 | 2 |
+| 0062_trnsctrl.obj | 12/12 | 12 |
+| 0063_lowhelpr.obj | 1/2 | 1 |
 | 0064_ehprolog.obj | 1/1 | 1 |
 | 0065_ehprolog2.obj | 0/1 | 0 |
-| 0066_frame.obj | 11/12 | 11 |
+| 0066_frame.obj | 12/12 | 12 |
 | 0067_hooks.obj | 3/3 | 3 |
 | 0068_throw.obj | 1/1 | 1 |
 | 0069_unhandld.obj | 1/3 | 1 |
 | 0070_user.obj | 0/4 | 0 |
-| 0071_validate.obj | 1/3 | 1 |
+| 0071_validate.obj | 2/3 | 2 |
 | 0072_ehvecctr.obj | 1/1 | 1 |
 | 0073_ehveccvb.obj | 0/1 | 0 |
 | 0074_ehvecdtr.obj | 2/3 | 2 |
-| 0075_undname.obj | 88/99 | 88 |
+| 0075_undname.obj | 99/99 | 99 |
 | 0076_rtti.obj | 0/20 | 0 |
-| 0077_stdexcpt.obj | 5/7 | 5 |
-| 0078_typinfo.obj | 4/8 | 4 |
+| 0077_stdexcpt.obj | 7/7 | 7 |
+| 0078_typinfo.obj | 5/8 | 5 |
 | 0079_typname.obj | 1/1 | 1 |
 | 0080_cenvarg.obj | 0/1 | 0 |
 | 0082_dospawn.obj | 0/1 | 0 |
@@ -137,7 +137,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0130_hpabort.obj | 0/1 | 0 |
 | 0131_heapused.obj | 0/1 | 0 |
 | 0132_heapwalk.obj | 0/1 | 0 |
-| 0133_malloc.obj | 2/3 | 2 |
+| 0133_malloc.obj | 3/3 | 3 |
 | 0134_msize.obj | 1/1 | 1 |
 | 0135_realloc.obj | 1/1 | 1 |
 | 0136_sbheap.obj | 21/22 | 21 |
@@ -154,7 +154,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0148_ulldiv.obj | 1/1 | 1 |
 | 0149_ullrem.obj | 1/1 | 1 |
 | 0150_ullshr.obj | 1/1 | 1 |
-| 0151_chsize.obj | 1/2 | 1 |
+| 0151_chsize.obj | 2/2 | 2 |
 | 0152_close.obj | 2/2 | 2 |
 | 0153_commit.obj | 1/1 | 1 |
 | 0154_creat.obj | 0/1 | 0 |
@@ -169,17 +169,17 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0163_ioinit.obj | 2/2 | 2 |
 | 0164_isatty.obj | 1/1 | 1 |
 | 0165_locking.obj | 0/1 | 0 |
-| 0166_lseek.obj | 1/2 | 1 |
+| 0166_lseek.obj | 2/2 | 2 |
 | 0167_lseeki64.obj | 2/2 | 2 |
 | 0168_mktemp.obj | 0/1 | 0 |
 | 0169_open.obj | 2/2 | 2 |
 | 0170_osfinfo.obj | 7/7 | 7 |
 | 0171_pipe.obj | 0/1 | 0 |
-| 0172_read.obj | 1/2 | 1 |
-| 0173_setmode.obj | 1/2 | 1 |
+| 0172_read.obj | 2/2 | 2 |
+| 0173_setmode.obj | 2/2 | 2 |
 | 0174_tell.obj | 1/1 | 1 |
 | 0175_telli64.obj | 0/1 | 0 |
-| 0177_write.obj | 1/2 | 1 |
+| 0177_write.obj | 2/2 | 2 |
 | 0178_cgets.obj | 0/1 | 0 |
 | 0179_cputs.obj | 0/1 | 0 |
 | 0180_getch.obj | 0/9 | 0 |
@@ -257,7 +257,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0252_chkesp.obj | 0/1 | 0 |
 | 0253_exsup.obj | 6/9 | 6 |
 | 0254_exsup2.obj | 0/1 | 0 |
-| 0255_exsup3.obj | 2/2 | 2 |
+| 0255_exsup3.obj | 1/2 | 1 |
 | 0256_longjmp.obj | 1/1 | 1 |
 | 0257_sehsupp.obj | 1/1 | 1 |
 | 0258_setjmp.obj | 0/1 | 0 |
@@ -268,7 +268,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0263_a_loc.obj | 1/1 | 1 |
 | 0264_a_map.obj | 1/2 | 1 |
 | 0265_a_str.obj | 1/1 | 1 |
-| 0266_abort.obj | 0/1 | 0 |
+| 0266_abort.obj | 1/1 | 1 |
 | 0267_abs.obj | 0/1 | 0 |
 | 0268_assert.obj | 0/1 | 0 |
 | 0269_aw_com.obj | 0/1 | 0 |
@@ -282,7 +282,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0285_initcoll.obj | 0/1 | 0 |
 | 0286_initctyp.obj | 1/1 | 1 |
 | 0287_inithelp.obj | 1/1 | 1 |
-| 0288_initmon.obj | 3/4 | 3 |
+| 0288_initmon.obj | 4/4 | 4 |
 | 0289_initnum.obj | 1/2 | 1 |
 | 0290_inittime.obj | 3/3 | 3 |
 | 0291_labs.obj | 0/1 | 0 |
@@ -313,7 +313,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0320_w_loc.obj | 1/1 | 1 |
 | 0321_w_map.obj | 2/2 | 2 |
 | 0322_w_str.obj | 1/1 | 1 |
-| 0323_winsig.obj | 4/6 | 4 |
+| 0323_winsig.obj | 5/6 | 5 |
 | 0324_winxfltr.obj | 2/2 | 2 |
 | 0325_wgetenv.obj | 1/2 | 1 |
 | 0326_wgetpath.obj | 0/1 | 0 |
@@ -330,7 +330,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0337__wstargv.obj | 0/2 | 0 |
 | 0338_chkstk.obj | 1/2 | 1 |
 | 0339_crt0.obj | 0/3 | 0 |
-| 0340_crt0dat.obj | 5/9 | 5 |
+| 0340_crt0dat.obj | 7/9 | 7 |
 | 0341_crt0fp.obj | 0/1 | 0 |
 | 0343_crt0msg.obj | 3/3 | 3 |
 | 0344_dllcrt0.obj | 0/3 | 0 |
@@ -359,15 +359,15 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0369_fgetws.obj | 0/1 | 0 |
 | 0370_fgetwchr.obj | 0/2 | 0 |
 | 0371_fileno.obj | 0/1 | 0 |
-| 0372_fputc.obj | 1/2 | 1 |
+| 0372_fputc.obj | 2/2 | 2 |
 | 0373_fputs.obj | 0/1 | 0 |
 | 0374_fputchar.obj | 0/2 | 0 |
-| 0375_fputwc.obj | 1/3 | 1 |
+| 0375_fputwc.obj | 3/3 | 3 |
 | 0376_fputws.obj | 0/1 | 0 |
 | 0377_fputwchr.obj | 0/2 | 0 |
 | 0378__filbuf.obj | 1/1 | 1 |
 | 0379__filwbuf.obj | 1/1 | 1 |
-| 0380__file.obj | 1/6 | 1 |
+| 0380__file.obj | 5/6 | 5 |
 | 0381__flsbuf.obj | 1/1 | 1 |
 | 0382__flswbuf.obj | 1/1 | 1 |
 | 0383__freebuf.obj | 1/1 | 1 |
@@ -384,7 +384,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0394_fgetpos.obj | 1/1 | 1 |
 | 0395_fopen.obj | 2/2 | 2 |
 | 0396_fprintf.obj | 1/1 | 1 |
-| 0397_fread.obj | 1/2 | 1 |
+| 0397_fread.obj | 2/2 | 2 |
 | 0398_freopen.obj | 0/1 | 0 |
 | 0399_fscanf.obj | 0/1 | 0 |
 | 0400_fseek.obj | 2/2 | 2 |
@@ -393,13 +393,13 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0403_ftell.obj | 2/2 | 2 |
 | 0404_ftelli64.obj | 2/2 | 2 |
 | 0405_fwprintf.obj | 1/1 | 1 |
-| 0406_fwrite.obj | 1/2 | 1 |
+| 0406_fwrite.obj | 2/2 | 2 |
 | 0407_fwscanf.obj | 0/1 | 0 |
 | 0408_gets.obj | 0/1 | 0 |
 | 0409_getw.obj | 0/1 | 0 |
 | 0410_getws.obj | 0/1 | 0 |
 | 0411_input.obj | 5/5 | 5 |
-| 0412_output.obj | 4/7 | 4 |
+| 0412_output.obj | 7/7 | 7 |
 | 0413_popen.obj | 0/3 | 0 |
 | 0414_printf.obj | 1/1 | 1 |
 | 0415_puts.obj | 0/1 | 0 |
@@ -421,7 +421,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0431_tempnam.obj | 0/2 | 0 |
 | 0432_tmpfile.obj | 0/5 | 0 |
 | 0433_ungetc.obj | 2/2 | 2 |
-| 0434_ungetwc.obj | 1/2 | 1 |
+| 0434_ungetwc.obj | 2/2 | 2 |
 | 0435_vprintf.obj | 0/1 | 0 |
 | 0436_vfprintf.obj | 1/1 | 1 |
 | 0437_vfwprint.obj | 1/1 | 1 |
@@ -435,7 +435,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0445_wfreopen.obj | 0/1 | 0 |
 | 0446_winput.obj | 0/5 | 0 |
 | 0447__wopen.obj | 0/1 | 0 |
-| 0448_woutput.obj | 3/6 | 3 |
+| 0448_woutput.obj | 4/6 | 4 |
 | 0449_wpopen.obj | 0/2 | 0 |
 | 0450_wprintf.obj | 1/1 | 1 |
 | 0451_wscanf.obj | 0/1 | 0 |
@@ -449,7 +449,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0460_memmove.obj | 0/31 | 0 |
 | 0461_memset.obj | 1/1 | 1 |
 | 0462_strcat.obj | 2/2 | 2 |
-| 0463_strchr.obj | 1/2 | 1 |
+| 0463_strchr.obj | 2/2 | 2 |
 | 0464_strcmp.obj | 1/1 | 1 |
 | 0465_strcspn.obj | 1/1 | 1 |
 | 0466_strdup.obj | 1/1 | 1 |
@@ -526,7 +526,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0579_cfout.obj | 2/2 | 2 |
 | 0581_cvt.obj | 11/11 | 11 |
 | 0582_fpinit.obj | 1/4 | 1 |
-| 0583_intrncvt.obj | 10/14 | 10 |
+| 0583_intrncvt.obj | 14/14 | 14 |
 | 0584_mantold.obj | 5/5 | 5 |
 | 0585_strgtold.obj | 2/2 | 2 |
 | 0586_tenpow.obj | 2/2 | 2 |
@@ -536,14 +536,14 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0590_87ctran.obj | 0/2 | 0 |
 | 0591_87ctriga.obj | 0/2 | 0 |
 | 0592_87ctrigh.obj | 0/6 | 0 |
-| 0593_87disp.obj | 5/19 | 5 |
+| 0593_87disp.obj | 10/19 | 10 |
 | 0594_87except.obj | 1/1 | 1 |
 | 0595_87fmod.obj | 1/3 | 1 |
-| 0597_87tran.obj | 5/9 | 5 |
+| 0597_87tran.obj | 3/9 | 3 |
 | 0598_87trig.obj | 0/2 | 0 |
 | 0599_87triga.obj | 0/5 | 0 |
 | 0600_87trigh.obj | 0/8 | 0 |
-| 0601_adj_fdiv.obj | 59/86 | 59 |
+| 0601_adj_fdiv.obj | 45/86 | 45 |
 | 0602_ceil.obj | 1/1 | 1 |
 | 0603_common.obj | 9/9 | 9 |
 | 0604_fabs.obj | 0/1 | 0 |
@@ -556,7 +556,7 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0611_ftol.obj | 1/1 | 1 |
 | 0612_genexcep.obj | 2/2 | 2 |
 | 0614_hypot.obj | 0/3 | 0 |
-| 0615_ieee87.obj | 8/8 | 8 |
+| 0615_ieee87.obj | 7/8 | 7 |
 | 0616_modf.obj | 0/1 | 0 |
 | 0617_powhlp.obj | 2/2 | 2 |
 | 0618_testfdiv.obj | 2/2 | 2 |
@@ -577,5 +577,5 @@ Client functions explained: **681**. L: 681; found only in L: 681.
 | 0633_frexp.obj | 0/1 | 0 |
 | 0634_ieeemisc.obj | 8/8 | 8 |
 | 0635_ldexp.obj | 1/1 | 1 |
-| 0636_matherr.obj | 0/1 | 0 |
+| 0636_matherr.obj | 1/1 | 1 |
 | 0637_util.obj | 6/6 | 6 |

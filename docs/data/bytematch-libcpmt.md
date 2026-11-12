@@ -2,26 +2,26 @@
 
 Each EA copy compiled with VC6 SP4; every function searched for in client.exe with relocated fields masked (tools/re/objmatch.py). Only functions found exactly once are counted.
 
-Client functions explained: **181**. L: 181; found only in L: 181.
+Client functions explained: **400**. L: 400; found only in L: 400.
 
 | File | L exact/functions | only L |
 |---|---|---|
 | 0000_delop.obj | 0/1 | 0 |
 | 0001_fiopen.obj | 0/6 | 0 |
 | 0002_iomanip.obj | 0/15 | 0 |
-| 0003_ios.obj | 15/34 | 15 |
-| 0004_iostream.obj | 22/94 | 22 |
-| 0005_locale.obj | 38/134 | 38 |
-| 0006_locale0.obj | 13/35 | 13 |
+| 0003_ios.obj | 24/34 | 24 |
+| 0004_iostream.obj | 45/94 | 45 |
+| 0005_locale.obj | 52/134 | 52 |
+| 0006_locale0.obj | 14/35 | 14 |
 | 0008_newop2.obj | 0/1 | 0 |
-| 0009_nomemory.obj | 2/7 | 2 |
-| 0010_string.obj | 1/29 | 1 |
-| 0011_strstrea.obj | 11/59 | 11 |
+| 0009_nomemory.obj | 4/7 | 4 |
+| 0010_string.obj | 16/29 | 16 |
+| 0011_strstrea.obj | 23/59 | 23 |
 | 0012_uncaught.obj | 0/1 | 0 |
-| 0013_wiostrea.obj | 27/104 | 27 |
+| 0013_wiostrea.obj | 54/104 | 54 |
 | 0014_wctrans.obj | 0/2 | 0 |
 | 0015_wctype.obj | 0/1 | 0 |
-| 0016_wlocale.obj | 77/234 | 75 |
+| 0016_wlocale.obj | 159/234 | 157 |
 | 0017_xcosh.obj | 0/1 | 0 |
 | 0018_xdnorm.obj | 0/1 | 0 |
 | 0019_xdscale.obj | 0/1 | 0 |
@@ -37,18 +37,18 @@ Client functions explained: **181**. L: 181; found only in L: 181.
 | 0031_xldscale.obj | 0/1 | 0 |
 | 0032_xldtest.obj | 0/1 | 0 |
 | 0033_xlexp.obj | 0/1 | 0 |
-| 0034_xlocale.obj | 30/145 | 30 |
-| 0035_xlock.obj | 2/3 | 2 |
+| 0034_xlocale.obj | 79/145 | 79 |
+| 0035_xlock.obj | 3/3 | 3 |
 | 0036_xlpoly.obj | 0/1 | 0 |
 | 0037_xlsinh.obj | 0/1 | 0 |
 | 0039_xmbtowc.obj | 6/6 | 6 |
 | 0040_xpoly.obj | 0/1 | 0 |
 | 0041_xsinh.obj | 0/1 | 0 |
 | 0042_xstod.obj | 1/3 | 1 |
-| 0043_xstrcoll.obj | 1/2 | 1 |
+| 0043_xstrcoll.obj | 2/2 | 2 |
 | 0044_xstrxfrm.obj | 0/1 | 0 |
 | 0045__tolower.obj | 3/3 | 3 |
 | 0046__toupper.obj | 2/2 | 2 |
 | 0048_xwcscoll.obj | 0/2 | 0 |
 | 0049_xwcsxfrm.obj | 0/1 | 0 |
-| 0050_xwctomb.obj | 5/6 | 5 |
+| 0050_xwctomb.obj | 6/6 | 6 |
