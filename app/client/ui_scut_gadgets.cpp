@@ -16,7 +16,7 @@
 #include "co.h"
 #include "ui_scut_gadgets.h"
 
-char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10), as pkguildplayeronline.h  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_8b4560.h"
 
 static const char *ShortcutIni = "shortcut.ini";	// 0xB88EA0  // NAME 2: what it holds
 // @0x6136D0

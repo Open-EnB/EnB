@@ -20,7 +20,7 @@
 #include "..\shared\g_assert.h"
 #include "ini.h"
 
-char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10), as pkguildplayeronline.h  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_8b4560.h"
 
 #define NUM_QUICK_MESSAGES 9	// the FAIL_IFs' constant (the keys 'Save / Send Quick Message 1..9')
 extern const int Unknown_B08CA8;	// 0xB08CA8 (0x40: StrEditClass's enter flag; the text gadgets' constants, textgadg.h)  // NAME 1: neutral (D10), as ui_log.cpp

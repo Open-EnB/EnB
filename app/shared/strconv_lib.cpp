@@ -8,8 +8,8 @@
 #include "g_assert.h"
 
 #include "unknown_4a1590.h"
-char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10) (not rebuilt)  // NAME 1: neutral placeholder (D10)
-__int64 Unknown_8B44C0(const char *text);	// 0x8B44C0: _atoi64(text) (not rebuilt)  // NAME 1: neutral placeholder (D10)
+#include "unknown_8b4560.h"
+
 
 // The conversions for the wwmath types and __int64 (the client's 0x4A3750-0x4A3B10). The text goes
 // through a buffer on the stack and the caller's buffer gets a bounded copy of it; the asserts sit on

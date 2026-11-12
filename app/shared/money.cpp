@@ -9,8 +9,8 @@
 
 #include "unknown_4a1590.h"
 #include "unknown_4fac20.h"
-char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10)  // NAME 1: neutral placeholder (D10)
-__int64 Unknown_8B44C0(const char *text);	// 0x8B44C0: _atoi64(text)
+#include "unknown_8b4560.h"
+
 
 // Helper 0x4F0080
 // @0x4F0080

@@ -34,7 +34,7 @@
 #include <string.h>
 #include "..\shared\g_assert.h"
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "..\shared\unknown_4a1590.h"
 
 static const char * const MobReactionNames[MOB_REACTION_COUNT] = { "Attack", "Shun", "Friendly", "Adoration" };	// 0xBA9614  // NAME 1: what it holds
 static const char * const NPCReactionNames[NPC_REACTION_COUNT] = { "Rude", "Shun", "Friendly", "Adoration" };	// 0xBA9624  // NAME 1: what it holds
@@ -49,9 +49,9 @@ FactionReputationStruct::FactionReputationStruct(int reputation, bool can_be_low
 // @0x835890
 char *Value_To_String(char *buf, int size, MobReactionType reaction)
 {
-	FAIL_IF(reaction < 0) return(Unknown_4A1590(buf, size, "BadReaction"));
-	FAIL_IF(reaction >= MOB_REACTION_COUNT) return(Unknown_4A1590(buf, size, "BadReaction"));
-	return(Unknown_4A1590(buf, size, MobReactionNames[reaction]));
+	FAIL_IF(reaction < 0) return(Bounded_Strcpy(buf, size, "BadReaction"));
+	FAIL_IF(reaction >= MOB_REACTION_COUNT) return(Bounded_Strcpy(buf, size, "BadReaction"));
+	return(Bounded_Strcpy(buf, size, MobReactionNames[reaction]));
 }
 
 // @0x835930
@@ -69,9 +69,9 @@ bool String_To_Value(const char *text, MobReactionType *reaction)
 // @0x835980
 char *Value_To_String(char *buf, int size, NPCReactionType reaction)
 {
-	FAIL_IF(reaction < 0) return(Unknown_4A1590(buf, size, "BadReaction"));
-	FAIL_IF(reaction >= NPC_REACTION_COUNT) return(Unknown_4A1590(buf, size, "BadReaction"));
-	return(Unknown_4A1590(buf, size, NPCReactionNames[reaction]));
+	FAIL_IF(reaction < 0) return(Bounded_Strcpy(buf, size, "BadReaction"));
+	FAIL_IF(reaction >= NPC_REACTION_COUNT) return(Bounded_Strcpy(buf, size, "BadReaction"));
+	return(Bounded_Strcpy(buf, size, NPCReactionNames[reaction]));
 }
 
 // @0x835A20
@@ -227,8 +227,8 @@ char *Value_To_String(char *buf, int size, FormationState value)
 {
 	for (int i = 0; i < (int)(sizeof(FormationStateNames) / sizeof(FormationStateNames[0])); i++) {
 		if (FormationStateNames[i].State == value) {
-			return(Unknown_4A1590(buf, size, FormationStateNames[i].Name));
+			return(Bounded_Strcpy(buf, size, FormationStateNames[i].Name));
 		}
 	}
-	return(Unknown_4A1590(buf, size, FormationStateNames[0].Name));
+	return(Bounded_Strcpy(buf, size, FormationStateNames[0].Name));
 }
