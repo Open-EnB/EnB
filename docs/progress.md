@@ -3164,6 +3164,24 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-L7-1** (2026-11-11, L7; recommend accept): accept the two D130 dead reads kept in ClientObjectDataAccessClass<T>::Get 0x79E300 / Bind (co_data.cpp) while Get stays NOT EXACT (register-only, esi / edi swapped, 10 rows; ~70 forms; stash `docs/attempts/0x79E300/`). 57 byte-identical instances wait on Get as their caller (D54 tie-break).
+* **P-L7-2** (2026-11-11, L7; the builder's next lead, no other recommendation): try `DataBinderType() {}` without the dead reads for Get 0x79E300 and its twins 0x79E8B0 / 0x79EC90 / 0x79F070 / 0x79F450.
+* **P-L8-1** (2026-11-11, L8; recommend as stated, its own item): stop avatar_desc.h reaching permstr.h (a permstr static appears through it; seen in sbase_info.cpp).
+* **P-L9-1** (2026-11-11, L9; recommend as stated): rename UIMeshClass::Unknown_5B8B40 to Get_Sub_Object_By_Name (9 files; an interim inline forwarder stays in ui_mesh.h).
+* **P-L10-1** (2026-11-11, L10; the user's call): 0x57B6E0 `~RefCountPtr<RenderObjClass>` in ui_combobox.cpp is listed "lost outright" by pairs_cmp. L10 committed it as D66 (vi) / D119: a byte-identical `~RefCountPtr<HAnimClass>` joins the object (ambiguous group 0x46BE90). The landing refused it; L10 was resumed for a form that keeps 0x57B6E0 (its `RefCountPtr<HAnimClass>` form stashed); if none, the branch stays unlanded until the user accepts the move.
+* **P-L11-1** (2026-11-11, L11; recommend yes): rename ItemBaseInfoClass to ItemInfoClass (D24's file-name convention; amends D219).
+* **P-L11-2** (2026-11-11, L11; recommend as stated): name ItemInfoEnum's 38 values (the client's NUM_ITEM_INFO) and retype `int iteminfo` to the enum.
+* **P-L12-1** (2026-11-11, L12; recommend as stated): a type-aware slot rename tool.
+* **P-L12-2** (2026-11-11, L12; recommend as stated): retype GadgetClass slots +0x08 .. +0x1C ('are you a ...' tests) to gadget pointers.
+* **P-L12-3** (2026-11-11, L12; recommend as stated): rename InterfaceDeactivationGadgetClass (table 0xAFAB64, gd_selct.cpp), which is a general rectangle gadget (X / Y / Width / Height).
+* **P-L12-4** (2026-11-11, L12; recommend as stated): retire the private GadgetClass views per file.
+* **P-L13-1** (2026-11-11, L13; recommend as stated): retype ChatPanelUIBase's 0x56DEE0 to `(MovableUIBackGadgetMoved *, MovableUIBackGadget *)` per RTTI 0xB7D5E8, with a symbols.json reseed (alone it loses eight short functions 0x56DF10-0x56E130 and the tooltip 0x56E0A0).
+* **P-L13-2** (2026-11-11, L13; recommend as stated): move ui_manu.cpp onto gadget.h / unknown_7e7e70.h and rename UIManuCheckButtonClass.
+* **P-L13-3** (2026-11-11, L13; recommend as stated): make the importer lock first-come (it starves long waiters).
+* **P-L14-1** (2026-11-11, L14; recommend keeping): the provisional file name client_item_property_special_effect (NAME 2).
+* **P-L14-2** (2026-11-11, L14; recommend as stated): name ClientItemPropertySpecialClass's Unknown1C / Unknown20 / Unknown_08 / Unknown_0C from the callers of slot +0x08 (a family-wide rename).
+* **P-E1-1** (2026-11-11, E1; recommend keeping): the name item_effect.cpp until evidence (object from 0x834D30; its end is not established).
+* **P-E1-2** (2026-11-11, E1; recommend as stated): type ItemEffectClass::Usage as EffectGeneratorUsageBF once aux_roots.h's enum is shareable with app/common (a *BF enum redeclared there breaks every aux_roots.h includer).
 * **P-O6-1** (2026-11-11, O6; recommend retyping once the cause is known): retype slot +0x8C in ui_slot_info.h to return `UISkillInfoClass *` once it is known why the D188 short credit 0x532170 does not survive a return-type change. Not applied.
 * **P-L5-1** (2026-11-10, L5; recommend keeping the guard): the SignalMap / SignalList members sit behind a `__SIGNAL_MEMBERS` guard (as `__INTRFACE_MEMBERS`), because with them visible to sclient.cpp no pad value 0..63 keeps 0x758210 / 0x702240 / 0x74D990 together; keep the guard until sclient's pad is retired.
 * **P-S1-3** (2026-11-10, S1; recommend yes once aux_roots is retuned): an inline `LegoSplitStruct::Get_Name()` accessor makes Get_Lego_Transform 0x72B000 exact with no dead code and cuts Add 0x72B7F0's need to 3 units, but aux_roots then loses 0x7045F0 outright and its hold of 0x702240 (lego_identifier.h reaches it through co.h). Not applied; stash `docs/attempts/72B7F0/stash_getname_s1.txt`.
@@ -3342,11 +3360,8 @@ below name only the work items, the blocked work, the leads and the queues.
      lost 0x758210), then drop sbaseview.cpp case 5's cast; ui_refinery near misses 0x5EDCC0 (0.77, inline-budget: the
      'NegotiatedCost' Cast out of line), 0x5ECEF0 (0.76, register / flag-test order), 0x5EDFD0 (0.38, a probe reached
      0.48), 0x5EE460 (0.34, register, ui_manu 0x5B5CD0's residue).
-   * **From the 2026-11-09 day run (UI1):** the rest of ui_inv.cpp: 0x59E970-0x59F2C0, three window classes over
-     UIInvClass (vtables 0xAF2414 / 0xAF2644, a `vector<RenderObjClass*>` at +0xD4, a shared inline Add at line 108 with
-     the '!robj' FAIL_IF, slot +0x54 0x59F2C0) and their vector helpers 0x5A0FC0-0x5A1060; near misses 0x59FE30 (0.62,
-     register), 0x5A0740 (0.37, shape: the client's returns share one `mov al,1` exit; a form stashed), 0x5A0D00 (0.58,
-     register).
+   * **From the 2026-11-09 day run (UI1):** ui_inv.cpp's 0x59E970 (ui_scan.h's Unknown59E2C0Class, the interrupt
+     display) has no file yet; the strips (object 0x59E9B0-0x5A1110) are rebuilt. Near misses: see Parked leftovers.
    * **From the 2026-11-09 day run (OP1):** the options' next page from 0x5CA010 (0x1B0 bytes, request 8), after
      ui_option_check.cpp; ui_chat_panel.cpp's local Unknown5C8870Class / Unknown5C9910Class onto ui_option_account.h /
      ui_option_check.h (ctor (client, page, mode)), and 0x5C8DB0's caller 0x569B5A (in 0x569A00) onto
@@ -3535,8 +3550,7 @@ below name only the work items, the blocked work, the leads and the queues.
      0x81D290 (calls 0x4FB810 / 0x4FC990).
    * client_item_property_builder.cpp: 0x522860 / 0x521C10 / 0x527F40 (NOT EXACT); ui_item_examination's router /
      builder stand-ins (need D218 carried out first: UISlotInfoItem = InvDataClass, UISlotInfoItemUnknown54Class =
-     InvDataPeekClass in shared headers, ui_item_examination and inv_render onto them); D219: ItemTemplateInfoClass merged
-     into ItemBaseInfoClass (pkitemba.h). client_item_property_attribute.h:
+     InvDataPeekClass in shared headers, ui_item_examination and inv_render onto them). client_item_property_attribute.h:
      the client's inline code the tree lacks (13 functions, 18 asserts, used by its includers); the visitor's slot +0x20
      takes a ClientItemPropertyClass * (the base's Accept passes `this`: retype with symbols_named.json `replaces` rows);
      0x51F8E0 (7 bytes, no callers, stores RefCountClass's vtable, between dynamic_window_vertical and the base: an
@@ -3560,16 +3574,39 @@ below name only the work items, the blocked work, the leads and the queues.
      close, 34 after UV1; list them with the POC's stubs.log `gen` lines against `client.py name`): 0x53DFB0 / 0x53E030,
      BridgeInterfaceClass, acticon 0x6766E0, kv_util 0x4BB3F0, MusicManager / 0x74BFB0, the chat colours 0x765540 / 0x765BE0 /
      0x765E40, TX1's 0x58B160, 0x810CF0, the 'if_targ' range gauge Unknown6A3D60Class (0x6A3D60 / 0x6A4020 / dtor 0x6A3F10,
-     never rebuilt; its stubs are inert); ItemBaseInfoClass (pkitemba.h) and ItemTemplateInfoClass
-     (client_item_property_builder.h) are one class (both declare 0x83F490): merge the names, then rebuild the ctor 0x83F490 (a
-     gen stub: every item template's `new ItemBaseInfoClass` has a garbage table), 0x83DB00 and the dtor behind table 0xB08C34
-     (SG1); the 0x42A410 key-binding writer's retype (ControlKeyComboStruct against KernelEventClass); Unknown_671300Class's
+     never rebuilt; its stubs are inert); 0x83DB00 and the dtor behind table 0xB08C34 (SG1; item_effect_description.cpp
+     is E1's, see below); the 0x42A410 key-binding writer's retype (ControlKeyComboStruct against KernelEventClass); Unknown_671300Class's
      second ctor argument as RenderObjClass * (UV1: ui_cpit passes `(int)uv`; ui_avatr / ui_avatar_cust's local declarations
      must change with it); the chat panel's
      missing tabs and dynamic_window_background.cpp(147)'s AnimationData assert; money.cpp 0x4F00C0 (a hand stub groups
      thousands in the POC) / 0x4FAEE0; SB1's next ui_starbase leads 0x63CA50 (needs the +0xCC ctor and operator[] 0x644A20),
      0x63E930 / 0x63F490, 0x640360, 0x6417D0; CE1's ClientChatRequestPacketClass 0x878D90; symbols.json misnames 0x58A640
      (it is UIDynamicWindowClass::Get_Center, SK1); antprox's replay does not echo CLIENT_CHAT_REQUEST 0x00A3 (antprox repo).
+   * **From the 2026-11-11 day run (L7-L14, G1, E1, B1, X1; leads and work items):**
+     - Work item (evidence-backed): rename Unknown78A910AvatarClass +0x3B9 to `Sequential` (the client's INI key; B1's P-B1-1).
+     - ui_starbase.cpp / starbase_lights.cpp (B1): the +0xD4 stand-in's SGI hashtable / list internals 0x643930-0x643C20 and
+       0x644740-0x644C10 want a real `hash_map<unsigned, UIStarbaseUnknownCCClass *>` at +0xD4 on sbase_info.cpp's pattern;
+       open in the range: 0x643960, 0x6439B0, 0x643B70, 0x644E50, 0x645DF0, 0x645E30, the thunks 0x646150 / 0x646160, 0x641FA0 /
+       0x643DF0. 0x764FD0 is SClient's constructor's, not the lights'.
+     - sgistl (L8): `hash_map(size_type)` instance 0x699150 (inline-budget); the identical `~hash_map` instances 0x697A10 /
+       0x697D70 / 0x698530 are ambiguous (lead in libs/sgistl).
+     - co_data.cpp (L7): Get 0x79E300 is the one residue the 57 byte-identical instances wait on (Parked leftovers; P-L7-1 / -2).
+     - Item specials (X1): the four Is_Usable residues (0x52D900, 0x52E500, 0x52F010, 0x531080) share one shape (the aux-data
+       FAIL_IF, then Unknown_Find_Valid). Not matched: 0x5314D0, 0x531590 (template copies outside the claim). Family-wide
+       names for the base's Unknown fields: P-L14-2.
+     - Chat panel (L13, unlanded): the routine child windows that call 0x56D280 (33 ctors; pattern ui_option_account.cpp): ui_option_main /
+       _quit / _slider / _font, 0x5CA010, 0x5C8DB0, ui_groupfind, ui_groupopt, 0x59DEA0, ui_petition and _avatar_pip / _entry /
+       _player / _player_entry / _stuck, unknown_57bad0, 0x586240, 0x5DAE90. Not a child: unknown_56e170 (InterfaceClass +
+       DynamicWindowClass).
+     - Gadgets (L12, G1): gd_uisld; the check box 0x7E7E00; 0x6B56A0 / 0x6B6050; the slot renames in gadget.h /
+       gd_robj.h (comments only so far, P-L12-1) and the private GadgetClass views (P-L12-4).
+     - acticon.cpp (G1): the action entry 0xAFBC48 (0x6765D0 / 0x676690 / 0x6766C0), the loader 0x6766E0 and 0x676A00 on (the
+       object extends past the claim; 0x676000-0x67648B done; the range 0x6765D0-0x676A70 and beyond).
+     - Item effect (E1): item_effect.cpp's end (the object from 0x834D30) is not established; 0x832E00 is not produced;
+       effect_description.cpp is 0x8320D0-0x834D30.
+     - ui_combobox.cpp (L10): lead: own-slot Unknown_58() at the first ctor's end; the empty 0x57A310 expanded in
+       Toggle_Drop_Down / Add_Item as the budget notch.
+     - ui_scan.h's Unknown59E2C0Class 0x59E970 (the interrupt display) has no file.
 
 2. **Step 9 (D90)**, left in its files (history: the log entries of 2026-10-28 and 2026-10-29):
    * co.cpp: the thunks 0x70E2A0-0x70E2D0 (too short for verify to count); type 28's aim 0x70E850 (frame / shape);
@@ -3877,6 +3914,20 @@ below name only the work items, the blocked work, the leads and the queues.
      - ui_pda_cargo / ui_pda_equip / gd_inv_slider (PW1): twelve (`attempts.py list`)
      - inv_data (ID1) 0x688B90 (0.87, one load order)
      - sclient (GS1) 0x744560 (NOT EXACT); Do_Frame 0x742B60 is still relocation-class (PD1's lead)
+   * Near misses from the 2026-11-11 day run (explain.py class; attempts.csv rows; a builder whose branch had not landed
+     at filing is marked "unlanded"):
+     - co_data (L7) ClientObjectDataAccessClass<T>::Get 0x79E300 + twins 0x79E8B0 / 0x79EC90 / 0x79F070 / 0x79F450 (register-only,
+       esi / edi swapped, 10 rows; ~70 forms; stash `docs/attempts/0x79E300/`)
+     - ui_inv (L9) 0x5A0740 (0.74, register-only, 16 forms stashed), 0x59FE30, 0x5A0D00 (register-only, untouched)
+     - item_info (L11) ctors 0x83F490 / 0x83F710 (order-only, parked), Apply_Delta 0x8417B0 (0.78, shape; 5 forms stashed)
+     - ui_combobox (L10, unlanded) 0x578350 (shape), 0x5786C0, 0x5789E0, 0x579DC0, 0x57A060, 0x57B000 (inline-budget), 0x5790C0
+       (register); forms stashed
+     - starbase_lights (B1, unlanded) 0x764AB0, 0x764CF0 (register: y kept on the FPU); ui_starbase (B1, unlanded) 0x640360,
+       0x6452C0 (inline-budget), 0x640F50, 0x641C00, 0x645510, 0x642740 (frame; functional), 0x644F80 (register)
+     - effect_description (E1, unlanded) Fill_Values 0x8335D0, Find_Value_Tag 0x833880 (inline-budget; stashed)
+     - gd_selct (G1, unlanded) 0x66D1E0 (0.73, shape: push order); acticon (G1, unlanded) 0x6762B0 (frame 0x1C vs 0x10)
+     - client_item_property_special_* (X1, unlanded) _profession_requirement 0x52D900, _race_requirement 0x52E500 (register);
+       _skill_requirement 0x52F010, _level_requirement 0x531080 (inline-budget); _level_requirement 0x530AA0 (frame)
 
 11. **Reminders:** D7 (revisited 2026-11-10, D224: byte-exact stays the goal; check in again if it becomes too costly;
    `docs/data/not-exact.md` shows how much functional code waits); which bool-return form gives a bare

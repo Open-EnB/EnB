@@ -494,6 +494,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   statements at a function's end let earlier sites inline; `clear()` vs `erase(begin, end)` can let an
   uncalled function at the auto-inline limit inline.
 
+* **A dead read inside the callee sends the callee out of line** (ui_inv.cpp, UIInvClass::Unknown_5A0740's
+  helper): the dead-read rule of §3.1.1 also acts inside the callee, not only after the call site.
+
 **Register-only, order-only** (two attempts, then the stop rule)
 
 * **The operand VC6 reads first decides its register:** cache it in a local declared first, or read it
@@ -670,6 +673,12 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   / cmp 2 / jg); the client's dec / je chain needs one `return(true)` per case. Reading the jump table's targets
   against code addresses made 33 cases exact in one step.
 
+* **A three-case switch the client reaches through a jump table needs a `case 0`** (sbase_info.cpp's room
+  loader); `Is_Int` / `Is_Float` / `Is_String` tests (item_info.cpp's field types) are an if-chain, not a switch.
+* **A shared `return true` exit** (the client's single `mov al,1` the early returns reach): write the early
+  returns as the literal `true` and use a result variable from the transfer's first return on
+  (UIInvClass::Unknown_5A0740, 0.68 to 0.74; a register-only residue remains). Its placement is the lever.
+
 **Frame and stack slots**
 
 * **Stack slots follow scopes:** sibling block scopes share frame slots; a client frame equal to the sum of
@@ -739,6 +748,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   function kept the client's frameless form only when defined before its neighbour). REF_PTR_SET's null test
   disappears when the cache-or-new choice is an inline helper with two returns. A function that inlines a
   same-file helper one level and calls it recursively out of line calls the helper; a hand copy inlines twice.
+
+* **An extra vtable-pointer store in a destructor the client keeps bare:** a declared empty destructor stores
+  the vtable pointer (gd_scut_proxy.cpp); a bit-field read needs a `(bool)` cast.
 
 **Field offset, layout**
 
@@ -849,6 +861,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   EA-derived file the banner note replaces the bare `**` line under EA's copyright, one line for one. `#line N`
   alone switches `__FILE__` to the full path; `#line N "..\\shared/..."` needs escaped backslashes.
 
+* **File-scope `const float` operand order** (gd_gauge.cpp, gd_pip_scene.cpp, gd_proxy.cpp): where a
+  file-scope const stands in the expression decides the instruction's operand order; try it in both positions
+  before reaching for the named function-static form above.
+
 **Reading the client**
 
 * **Out-parameters, thunks and calling conventions:** a `ret 4` function writing its result through eax with
@@ -917,7 +933,15 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A hash_map loop's iterator declared in the `for` header** (fontdatabase 0x6C4F50): VC6 makes it
   `begin()`'s return slot and keeps its node in memory. The client declares it before the loop and assigns it
   in the `for` (`iterator it; for (it = T.begin(); ...)`); a const_iterator copy puts the table pointer in a
-  register instead.
+  register instead. Write the not-found test first (sbase_info.cpp). A map's key member in its owner must
+  have the map's exact key type.
+* **A template's instance order in the client is its source shape** (data_binder.h's accessors, co_data.cpp):
+  the order the instances are emitted in tells the order the source defines and uses them; changing the
+  emission order changes EH stores and registers; a function defined later in the file is inlined into the
+  earlier ones; an explicit and an implicit `std::string` conversion are different forms.
+* **Two classes whose functions differ in one argument type are one template instantiated in that file**
+  (ui_inv.cpp's UIInvStripOfClass<MODEL>): explicitly instantiate its constructor at the file's end (17
+  functions exact, all on the first form).
 * **A hash_map value whose destructor the client never runs** (operator[] 0x71D4D0 leaves its pair temporary
   alive, 0x7198B0 frees nodes bare): give the value class a private, empty, inline destructor and make the
   `std::hash_map<K, V>` its friend (a private destructor alone is C2248 in operator[]). It also frees
@@ -1041,6 +1065,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   PDAInterfaceClass itself). To rebase an interim class in sclient.h on a later base, move it to its own
   header included on a blank line after the base.
 
+* **A member that ignores `this` looks like a static function in the disassembly** (item_info.cpp): check that
+  its callers pass `this` in ecx before declaring it static.
+* **A member rename must grep the derived classes' files too** (ChatPanelUIBase): a derived class in another
+  file keeps using the old name and fails there, not in the file you built.
+
 **Classes, vtables and layout**
 
 * **Declare every override the client's vtable has:** once a constructor is exact, D188 ties the vtable to the
@@ -1139,7 +1168,8 @@ are in 3.0.
 
 * **`verify.py --lib`** takes `--lib a --lib b` or `--lib a,b`; a name the ledger does not hold exits non-zero.
 * **A new app file is not compiled until it is `git add -N`'d and has a ledger shard** (`ledger.py describe`):
-  before that the verify builds nothing new and reports no change.
+  before that the verify builds nothing new and reports no change. A file added while a verify waits for the
+  lock gives "a description without a file block".
 * **Verify keeps only the first 50 compile errors per library** (`compile_errors` in the library's
   `docs/data/imports/<lib>/library.json`): a library losing functions with no error for that file means a loud
   file hid them; fix it first. A failed verify records its errors only in the working ledger: read them (or rerun
@@ -1154,7 +1184,9 @@ are in 3.0.
   sendpad.py sweep and `wt.py bring-over` takes it, and with 6-9 builders a verify waited 20-50 minutes; the
   default wait (600 s, vc6lock, `ENB_LOCK_WAIT`) gives up. Pass `--lock-wait 6000` to verify.py and
   `wt.py bring-over` (wt.py's default is 3000; it passes it on to its report.py step), set `ENB_LOCK_WAIT` for auxpad.py, iterate with the lock-free
-  `appfile.py match FILE --pool`, and run the full verify once per batch of gains. A queued verify compiles the
+  `appfile.py match FILE --pool` (about 1 minute or ~20 s a form, against a 30-minute lock wait; `--allow-missing`
+  runs a variant of one function in ~15 s; for draft rounds `build.py --pool 1 --allow-dirty` plus `explain.py`
+  also take no lock), and run the full verify once per batch of gains. A queued verify compiles the
   tree as it is when it starts, not when it was launched. Never wrap verify or an `auxpad.py` sweep in a shell
   `timeout`: it kills the job while it waits, orphans a lease named importer-PID (3.5) and can leave a pad
   variant in aux_roots.cpp.
@@ -1293,6 +1325,8 @@ are in 3.0.
   0x758210 outright). The sweep's watch set comes from HEAD's ledger (a verify that
   already lost 0x758210 no longer drops it from the set): check 0x758210 / 0x702240 in `.work/log/sendpad.log`. `appfile.py match` and single-file compiles pad through a
   different window than verify (a constant set of false losses): decide with sendpad.py / the full verify only.
+  A member added to a header that sclient.cpp or aux_roots.cpp includes flips pad-sensitive pairs beyond the
+  watch list (client_item_property_builder.cpp in §3.9 has the case).
 * **Keeping both pads still:** put members only one file needs behind a guard macro defined only by its users
   (money.h's pattern; a declaration added to delta_array.h reaches aux_roots and sclient: `#ifdef
   __DELTA_ARRAY_MEMBERS`), and keep a single caller's accessor file-local. A hash_map / list / vector member in a header sclient.cpp includes can leave no pad window at all (the signal classes' members sit behind `__SIGNAL_MEMBERS` for that). A stopped sendpad.py leaves its pool lease: release it.
@@ -1348,7 +1382,8 @@ are in 3.0.
 * **A one-off C1083 on a tracked, unchanged header:** a worktree's first `build.py build --lib app` failed one file
   with "Cannot open include file '..\packets\pkcolorization.h'"; the rerun built every file. Rerun once before
   blaming a commit; a new file can fail the same way while other worktrees verify (read `compile_errors` in the app library.json).
-* **Background jobs:** a Bash `&` job is killed when the tool call ends: use the tool's run_in_background. Claude
+* **Background jobs:** a Bash `&` job is killed when the tool call ends (`cmd &` also leaves a verify detached):
+  use the tool's run_in_background. Claude
   Code's memory reaper can kill background shells (lease-wait loops); a process started detached (PowerShell
   `Start-Process`) survives. TaskStop of a background shell leaves its child processes: check Win32_Process before
   restarting.
@@ -1357,7 +1392,7 @@ are in 3.0.
 
 * `.work/pseudo/`: never delete it, and remove a worktree only with `wt.py remove` (CLAUDE.md, RE tools step 3).
   A zip copy sits in `.work/pseudo-backup/`.
-* **appfile.py markers:** a `// @0xADDR` marker attaches to the first line within the next 5 that is neither
+* **appfile.py markers:** `--diff` shows only the marked functions. A `// @0xADDR` marker attaches to the first line within the next 5 that is neither
   blank, `//` nor `#pragma`, so a `/* */` block in between is read as the definition (a `#pragma
   auto_inline(off)` between marker and definition is skipped; it still counts toward the 5 lines). Stripping a trailing comment can make a
   declaration look like a definition. A marker with a trailing comment is ignored (put the bare marker directly
@@ -1374,7 +1409,8 @@ are in 3.0.
   file-local static / initialiser stored without a thunk (the tools' function starts lack those). Verify counts
   such a function exact, and verify's count decides; check the disassembly (`client.py dis`) for the padding or
   the following symbol. A start missing from the function starts makes match report the previous function as
-  PREFIX: give it its own marker. Example: 0x81EEA0, 402 bytes, padded to 0x81F0DF.
+  PREFIX: give it its own marker. Example: 0x81EEA0, 402 bytes, padded to 0x81F0DF. The last function before a
+  PermStringInit static reports PREFIX the same way, and REL shows on float immediates.
 * **explain.py's class can be wrong:** it says inline-budget for a function followed by a static initialiser (read
   objdiff first), and register-only where the lever was an inline-budget one (an `x.clear()` two layers down).
 * **appfile.py false exacts:** one template compiled from two files (with and without an EH frame) can match at
@@ -1648,7 +1684,8 @@ clienttest (`python tools/harness/clienttest.py build|run`):
   grow the fake with one zeroed sub-object.
 * **linkgate and clienttest build only committed files** (commit, then run them); clienttest has its own library list: a commit
   that adds a Win32 import (ShellExecuteExA) fails linkgate with an unresolved `__imp__...` until the library (SHELL32.LIB) is added to clienttest.py and
-  the program's build.py entry. ATL headers compile in the VMs.
+  the program's build.py entry. ATL headers compile in the VMs. A virtual destructor in a layout header breaks the
+  harness stand-ins: run linkgate after the layout commit, before the first verify.
 * **clienttest's fakes.** Set a fake only for the section that needs it, so other handlers' FAIL_IF paths stay
   covered (the radar stays NULL for WARP_INDEX 156). Fake objects called through a slot need a `__stdcall`
   slot with the callee's argument count (Set_LOD_Bias, slot 75; ~ClientObjectClass deletes AuxData through
@@ -1837,6 +1874,8 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 #### aux_roots.cpp (auxextract)
 
+* A `*BF` enum redeclared in app/common breaks every file that includes aux_roots.h (EffectGeneratorUsageBF).
+
 * auxextract misses defaults via a register (`or reg,-1`, byte stores, masks) or a stack temporary (1.0f
   arrays, Validity 0x100): check the bytes before each constructor call.
 * Get_Value_String needs a `const T &` parameter in Value_To_String (by value: another register);
@@ -1872,6 +1911,13 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * The out-of-line `hash_map()` 0x71DCE0 is a missing inline layer (struct row in §3.1.2): ContextMapStruct plus three D130 dead
   `_DefaultPSW.size()` reads, which act by total and callee, not position. Residue: First_Valid 0x71BCC0 out of line in the client at
   the section line, and the fourth KeyMappingStruct temporary's array constructor inline.
+
+#### client_item_property_builder.cpp / builder.h
+
+* builder.h's four inline FAIL_IFs fix the file's line count. builder.h and an item property's effect header
+  include each other: an appfile draft hits the cycle. A visitor-slot class retype needs `replaces` rows in
+  symbols_named.json. DeltaItemArrayClass::Get_Size (the client's FAIL_IF text) costs five pairs: 0x702240,
+  0x7045F0, 0x758210, 0x6A4F40, 0x597080 (symbol-table sensitive); left out.
 
 #### client_lego_impl.cpp
 
@@ -2018,6 +2064,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 #### ref_ptr.h
 
+* A `Create` returning `RefCountPtr<Derived>` wants a named local of that type (item property files).
 * Including it needs g_assert.h first (G_ASSERT). A script that finds `G_ASSERT(0 != Referent)` by text also
   hits ref_ptr.h's header note: match the whole statement line.
 
@@ -2027,6 +2074,10 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   p->F() : k;` (the if form gives `call`); a copy constructor can use the default base `RenderObjClass()`,
   members copied one by one; the client's Cast_* / Intersect_* call ProxyRObj's own slot, not the proxied
   object's (recursing when one is set): exact as written, kept.
+
+#### sbase_info.cpp
+
+* A `permstr` static appears in a file through avatar_desc.h (it reaches permstr.h).
 
 #### sclient.cpp / sclient.h / client.h
 
@@ -2110,6 +2161,11 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 * A step hook that jumps to creation's galaxy select must create the narrator (0x67AB20 / 0x67C440) or
   ui_shard's constructor crashes.
+
+#### ui_starbase.cpp
+
+* Retyping UIStarbaseClass +0x190 breaks the destructor 0x633B50. Integer copies of a point go through a named
+  TPoint3D (`Get_Point`); a vector member the client initialises as `Member(0)` is written that way.
 
 #### vector<string>::erase (0x4FC7C0)
 
