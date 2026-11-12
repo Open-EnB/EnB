@@ -93,7 +93,7 @@ static ChatChannelStruct Unknown_B7C530[17] = {	// NAME 1: neutral (D10): 17 ent
 };
 
 // What the +0xF8 window's events carry (an empty type: 0x5685C0 passes one to name the handler)
-class OptionFontInterfaceEvent {};	// NAME 5: the client's RTTI (.?AVOptionFontInterfaceEvent@@ 0xB7D3B0, the Event_Type of the callback table 0xAEFFDC, whose sender is .?AVOptionFontInterface@@)
+#include "ui_option_font.h"	// OptionFontInterface (0x5CC350, 0x138 bytes: request 12, 0x56C7E0) and OptionFontInterfaceEvent (the +0xF8 window's event)
 
 
 
@@ -144,7 +144,7 @@ extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (a
 #include "ui_option_quit.h"	// UIOptionQuitClass (0x5CE700, 0xB8 bytes: request 2)
 #include "ui_option_check.h"	// UIOptionCheckClass (0x5C9910, 0xE4 bytes: requests 3, 4)
 #include "ui_option_slider.h"	// UIOptionSliderClass (0x5CEDD0, 0xE4 bytes: requests 5-7)
-class Unknown5CA010Class : public ChatPanelUIBase { public: Unknown5CA010Class(SClient *client, int a); char UnknownA0[0x1B0 - 0xA0]; };	// NAME 1: neutral (D10): 0x5CA010, 0x1B0 bytes (request 8)  // NAME 1 [a]: neutral
+#include "ui_option_control_keys.h"	// UIOptionControlKeysClass (0x5CA010, 0x1B0 bytes: request 8)
 #include "ui_option_account.h"	// UIOptionAccountClass (0x5C8870, 0xAC bytes: requests 9, 10)
 
 #include "ui_radio_main.h"	// UIRadioMainClass (0x5E9410, 0xC4 bytes: 0x566AF0's requests 1, 2, 5, 8: a state and a channel)
@@ -1126,7 +1126,7 @@ void ChatPanelInterface::Unknown_565F80()
 			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionSliderClass(Client->As_Space_Client(), 2, 0));
 			break;
 		case 8:
-			Unknown104 = Create_Get(new Unknown5CA010Class(Client->As_Space_Client(), 0));
+			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionControlKeysClass(Client->As_Space_Client(), 0));
 			break;
 		case 9:
 			Unknown104 = Create_Get((ChatPanelUIBase *)new UIOptionAccountClass(Client->As_Space_Client(), 0));
