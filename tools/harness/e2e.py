@@ -28,7 +28,8 @@ The format (one step a line, '#' comments, shell-style quoting):
     alive S                       S seconds pass with the client running and no expect-no line matched
     shot NAME                     the client's own back buffer at the next Present (d3d8shot's D3D8SHOT_TRIGGER)
 SOURCE: antprox (antprox.out: antprox, the replay server and the client's stderr), stubs (stubs.log), msg
-(messages.log; needs --messages or a 'messages: on' header), any. wait-event / expect-event look at the lines
+(messages.log; needs --messages or a 'messages: on' header), files (d3d8shot.log: the proxy's log of the client's
+file opens, CreateFileA; only in a scenario with a shot step, which installs the proxy), any. wait-event / expect-event look at the lines
 since the last input step (or the start), so an event the step causes is not missed however fast it comes.
 
 Input is posted with the harness's tag (programs/clientpoc/poc_input.cpp: POC_TAG in wParam's high word) and the
@@ -54,7 +55,7 @@ SCN = os.path.join(HERE, 'e2e')
 OUT = os.path.join(ROOT, '.work', 'e2e')
 ORDER = ['world_entry', 'starmap', 'options', 'pda_pages', 'cargo', 'chat']
 STANDIN_HIT = 'stand-in hit:'
-SOURCES = ('antprox', 'stubs', 'msg', 'any')
+SOURCES = ('antprox', 'stubs', 'msg', 'files', 'any')
 ACTIONS = ('click', 'rclick', 'move', 'key', 'text', 'stray')
 
 
@@ -312,6 +313,8 @@ def run_one(sc, args, log):
     files = {'antprox': os.path.join(out, 'antprox.out'), 'stubs': inst.log}
     if messages:
         files['msg'] = os.path.join(out, 'messages.log')
+    if shots:
+        files['files'] = os.path.join(out, 'd3d8shot.log')    # the proxy's CreateFileA log
     note(f'scenario {sc["name"]}: exe {inst.src_exe}, instance {inst.name}, out {out}')
     a, pid, _ = clientpoc.start_antprox(inst, out, env, cargs)
     ev = Events(files)

@@ -551,7 +551,8 @@ docstring: headers `name:`, `expected-fail:`, `timeout:`, `messages:`; steps `in
 `click X,Y` (`rclick`, `move`), `key VK`, `text STRING`, `alive S`, `shot NAME`, `stand-in PATTERN` (the goal is
 not met while stubs.log shows PATTERN, a stand-in's first call; checked at the end so every other step still runs). `stray click ...` / `stray key VK` posts the input untagged, as a person's would be: world_entry's
 self-test that the client drops it. SOURCE is `antprox` (antprox.out:
-antprox, the replay server and the client's stderr), `stubs`, `msg` (`--messages`) or `any`; an event step looks
+antprox, the replay server and the client's stderr), `stubs`, `msg` (`--messages`), `files` (d3d8shot.log, the proxy's log of the client's file opens: only in a
+scenario with a `shot` step) or `any`; an event step looks
 at the lines since the last input step, so a fast event is not missed. Steps advance on events (the replay server's
 `VERSION_RESPONSE`, `GLOBAL_AVATAR_LIST`, `START_ACK`), not on input times; `alive S` is the only wait, and it is an
 assertion (the client runs, no `expect-no` line appears). Gadget names come from `e2e/gadgets.txt` (NAME X Y at
