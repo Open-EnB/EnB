@@ -82,7 +82,7 @@ void UIOptionQuitClass::Unknown_5C()
 // 0x5CEB00
 bool UIOptionQuitClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 	switch (key) {
@@ -145,7 +145,7 @@ void UIOptionQuitClass::Unknown_5CEC70(bool on)
 void UIOptionQuitClass::Unknown_5CECB0()
 {
 	RefCountPtr<FontSys> note = Unknown_BE67C4->Unknown_6D2700("Note_opt02a", InterfaceMesh);	// NAME 1: neutral (D10)
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	if (sclient->Unknown_744B60()) {
 		note->Set_Hidden(true);
 	} else {

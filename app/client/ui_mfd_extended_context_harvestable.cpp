@@ -51,7 +51,7 @@ RefCountPtr<UIMFDExtendedContextClass> Unknown_5BF790(ClientObjectClass *self, C
 
 	FAIL_IF(-1 == prospect_skill_index)
 		return(NULL);
-	SClient *player = (SClient *)self->Client->Unknown_18();
+	SClient *player = (SClient *)self->Client->As_Space_Client();
 	FAIL_IF(0 == player)
 		return(NULL);
 	DeltaPlayerClass *avatar_aux_data = player->AuxData;

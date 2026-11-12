@@ -180,7 +180,7 @@ void Unknown68C5A0Class::Unknown_04(ClientItemPropertySpecialClass *property)
 void InvRenderClass::Unknown_2C(bool force)
 {
 	FAIL_IF(!Peek_Inv_Data()->Get_Client()) return;
-	SClient *space_client = (SClient *)Peek_Inv_Data()->Get_Client()->Unknown_18();	// NAME 2 [space_client]: its slot
+	SClient *space_client = (SClient *)Peek_Inv_Data()->Get_Client()->As_Space_Client();	// NAME 2 [space_client]: its slot
 	int slot = Get_Slot();
 	int count = 0;	// NAME 1 [count, usable, item, level, data, other, item_level, now, inv_data, done]: neutral
 	bool usable = true;
@@ -638,7 +638,7 @@ void Unknown68DC20Class::Unknown_2C(bool force)
 	Unknown74 = -1.0f;
 	bool flag = false;
 	FAIL_IF(!Peek_Inv_Data()->Get_Client()) return;
-	SClient *sclient = (SClient *)Peek_Inv_Data()->Get_Client()->Unknown_18();
+	SClient *sclient = (SClient *)Peek_Inv_Data()->Get_Client()->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	InvRenderClass::Unknown_2C(force);
 	int slot = Unknown20;

@@ -297,7 +297,7 @@ void UICpitClass::Unknown_54()
 	gadget->Set_Last_Sort_Group(true);
 	gadget->Unknown_65FFC0(-1, Unknown0AC);
 	Unknown64.Unknown_6870E0(gadget, 0x4D, View, 1, 0);
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 	HulkUI = new UICpitUnknownC8Class(this, sclient, 2);
 	HulkUI->Unknown_54();
 	HulkUI->Unknown_7C(View, 0);
@@ -1066,19 +1066,19 @@ void UICpitClass::Unknown_60()
 	Unknown_583510();
 	Unknown_583F70();
 	Unknown0D0->Unknown_10();
-	if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_750B60()) {
+	if (((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_750B60()) {
 		if (!Unknown13D) {
-			LoadingViewClass *loading = ((SClient *)((ClientClass *)Client)->Unknown_18())->LoadingView;
+			LoadingViewClass *loading = ((SClient *)((ClientClass *)Client)->As_Space_Client())->LoadingView;
 			if (loading && loading->Unknown68) loading->Unknown_692330();
 			((ClientClass *)Client)->Send_Packet(&MovePacketClass(Unknown_Avatar_ID(Client), 4));
-			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_745E40(0, false);
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_745E40(0, false);
 			Unknown144 = 0;
 			Unknown0B8->Unknown_671740(false, 0);
 			Unknown0BC->Unknown_671740(false, 0);
 			((ClientClass *)Client)->Send_Packet(&TurnPacketClass(Unknown_Avatar_ID(Client), 0));
-			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_745B90(0);
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_745B90(0);
 			((ClientClass *)Client)->Send_Packet(&TiltPacketClass(Unknown_Avatar_ID(Client), 0));
-			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_745C70(0);
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_745C70(0);
 			avatar->Unknown_6FC880();
 			Unknown0B4->Set_State(5, 0);
 			Unknown0B4->Unknown_A4(2.0f);
@@ -1105,16 +1105,16 @@ void UICpitClass::Unknown_60()
 			switch (choice) {
 				case 0:
 					Unknown13F = true;
-					((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown13C1 = true;
+					((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown13C1 = true;
 					((ClientClass *)Client)->Send_Packet(&Packet_008FClass(Unknown_Avatar_ID(Client)));
 					break;
 				case 1:
 					Unknown140 = !Unknown140;
 					((ClientClass *)Client)->Send_Packet(&IncapacitanceDistressBeaconPacketClass(Unknown_Avatar_ID(Client), Unknown140));
 					if (Unknown140) {
-						((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0, "Distress beacon activated.", 0);
+						((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0, "Distress beacon activated.", 0);
 					} else {
-						((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0, "Distress beacon deactivated.", 0);
+						((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0, "Distress beacon deactivated.", 0);
 					}
 					break;
 			}
@@ -1206,7 +1206,7 @@ void UICpitClass::Unknown_581F90(ClientObjectClass *hulk)
 
 
 		if (HulkUI) HulkUI->Unknown_58(); else G_ASSERT(HulkUI);
-		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_744560(11);
+		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(11);
 	}
 }
 
@@ -1214,7 +1214,7 @@ void UICpitClass::Unknown_581F90(ClientObjectClass *hulk)
 void UICpitClass::Unknown_582070()
 {
 	if (HulkWatch) {
-		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_744560(12);
+		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(12);
 		HulkUI->Unknown_5C();
 		HulkWatch = NULL;
 	}
@@ -1308,7 +1308,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 			}
 		}
 	}
-	CameraManagerClass *camera = ((SClient *)((ClientClass *)Client)->Unknown_18())->CameraManager;
+	CameraManagerClass *camera = ((SClient *)((ClientClass *)Client)->As_Space_Client())->CameraManager;
 	if (camera && camera->Unknown_79B600()) {
 		if (Unknown0B4->Unknown_60()) {
 			Unknown0B4->Unknown_40(0);
@@ -1324,11 +1324,11 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 		} else if (Unknown13F) {
 			Unknown0B4->Unknown_40(0);
 		}
-	} else if (((SClient *)((ClientClass *)Client)->Unknown_18())->ViewMode == 1) {
+	} else if (((SClient *)((ClientClass *)Client)->As_Space_Client())->ViewMode == 1) {
 		GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "ON_PLANET");
 		Unknown0B4->Unknown_40(0);
 		Unknown_5845A0();
-	} else if (((SClient *)((ClientClass *)Client)->Unknown_18())->ViewMode == 5) {
+	} else if (((SClient *)((ClientClass *)Client)->As_Space_Client())->ViewMode == 5) {
 		GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "GAS_GIANT");
 		Unknown0B4->Unknown_40(0);
 		Unknown_5845A0();
@@ -1393,7 +1393,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
 						if (time) Unknown0B4->Set_State(4, time->Value.As_Int());
 						Unknown0B4->Unknown_A4(0);
-						SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+						SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
 						if (client && client->Bridge) client->Bridge->Stop_Hard();
 						Unknown174->Set_Hidden(true);
 						break;
@@ -1413,7 +1413,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						Unknown0B4->Set_State(2, 0);
 						Unknown0B4->Unknown_A4(1.0f);
 						((MainViewClass *)View->As_Main_View())->CameraEffects->Unknown_6E32E0(2, 1.0f, 0);
-						SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
+						SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
 						if (client && client->Bridge) client->Bridge->Start_Warp();
 						break;
 					}
@@ -1627,7 +1627,7 @@ void UICpitClass::Unknown_583250()
 				}
 				Unknown0BC->Unknown_671740(false, 0);
 			} else if (sclient->ViewMode == 1) {
-				((SClient *)sclient->Unknown_18())->CameraManager->Unknown_79B2B0(17);
+				((SClient *)sclient->As_Space_Client())->CameraManager->Unknown_79B2B0(17);
 			}
 		}
 	}
@@ -1990,7 +1990,7 @@ void UICpitClass::Unknown_584110()
 		warpfont->Set_Hidden(true);
 		distressfont->Set_Hidden(false);
 		spacefont->Set_Hidden(true);
-	} else if (((SClient *)((ClientClass *)Client)->Unknown_18())->ViewMode == 1) {
+	} else if (((SClient *)((ClientClass *)Client)->As_Space_Client())->ViewMode == 1) {
 		warpfont->Set_Hidden(false);
 		distressfont->Set_Hidden(true);
 		spacefont->Set_Hidden(true);
@@ -2021,7 +2021,7 @@ void UICpitClass::Unknown_5845A0()
 // two push_backs' insert inlined to insert(it, 1, x))
 void UICpitClass::Unknown_584690(IncapacitanceDetailsPacket *packet)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 	if (sclient && sclient->Bridge) sclient->Bridge->Lose_Control();
 	std::vector<std::string> first;
 	std::vector<std::string> second;

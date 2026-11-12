@@ -69,7 +69,7 @@ index 92658de..e0f5935 100644
 +**	97 functions, appfile.py show app\client\mainview.cpp). The zone loader 0x5137F0 sits on the
 +**	client's FAIL_IF lines 1974 / 1981 / 1983 (the lines above are left empty for the functions not yet rebuilt), with its
 +**	neighbours 0x513700 (stars, orbital%04d.ini) and 0x513B90 (gas%04d.ini's wind).
- **	Client->Unknown_18() is ClientClass's slot +0x18 (0 in the base, 0x7268E0); SClient's override returns the
+ **	Client->As_Space_Client() is ClientClass's slot +0x18 (0 in the base, 0x7268E0); SClient's override returns the
  **	SClient ('!sclient'). Its +0x1320 byte is LandClass::Create's flag.
  */
 diff --git a/app/client/sclient.h b/app/client/sclient.h

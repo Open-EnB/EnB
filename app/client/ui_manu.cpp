@@ -183,7 +183,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::Unknown_18; SClient's returns itself)  // NAME 3: the FAIL_IF's
+	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: the FAIL_IF's
 };
 
 
@@ -1567,7 +1567,7 @@ void UIManuClass::Unknown_5B5320()
 		if (reason.length() && !Unknown0BB4) {
 			std::string item = Unknown_5B5CD0((DeltaCompoundClass *)Unknown0BA0, Client);
 			std::string message = "Unable to create " + item + std::string(". ") + reason + ".";
-			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0x11, (char *)message.c_str(), 0);
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x11, (char *)message.c_str(), 0);
 		}
 	}
 

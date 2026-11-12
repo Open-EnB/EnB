@@ -230,7 +230,7 @@ void UIRadioAdminClass::Unknown_5E5290(int index)
 {
 	Selection = index + Top;
 	if (Selection >= 0 && Selection < (int)Names.size()) {
-		SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 		ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 		if (chat && chat->Unknown224) {
 			Buttons[1]->Unknown_40(true);
@@ -249,7 +249,7 @@ void UIRadioAdminClass::Unknown_5E5360(int key)
 	if (Selection < 0 || Selection >= (int)Names.size()) {
 		return;
 	}
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 2:
@@ -326,7 +326,7 @@ void UIRadioAdminClass::Unknown_5E5A40(bool on)
 // 0x5E5B10
 void UIRadioAdminClass::Unknown_5E5B10()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
 	ClientChatRequestPacketClass packet(0x1B, id);

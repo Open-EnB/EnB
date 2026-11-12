@@ -51,7 +51,7 @@ UnknownAFFE84Class::UnknownAFFE84Class(CameraEffectsClass *owner, float damage) 
 		return;
 	}
 	SClient *client = Owner->Client;
-	SClient *self = (SClient *)client->Unknown_18();
+	SClient *self = (SClient *)client->As_Space_Client();
 	if (self == NULL) {
 		return;
 	}

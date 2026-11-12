@@ -164,7 +164,7 @@ void UIOptionControlKeysClass::Unknown_54()
 void UIOptionControlKeysClass::Unknown_58()
 {
 	if (!Active) {
-		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->Unknown_18());
+		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 		FAIL_IF(!key_manager) return;
 		ChatPanelUIBase::Unknown_58();
 	}
@@ -188,7 +188,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 {
 	if (DialogBoxUI) return(true);
 
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (key == 14) return(true);
 
@@ -208,7 +208,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 
 
 
-	ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->Unknown_18());
+	ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 	FAIL_IF(!key_manager) return(true);
 	if (key != 13) {
 		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -320,7 +320,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 void UIOptionControlKeysClass::Unknown_60()
 {
 	if (EditKey && !DialogBoxUI && !KeyPress->Unknown_60()) {
-		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->Unknown_18());
+		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 		FAIL_IF(!key_manager) return;
 		KernelEventClass &event = KeyPress->Event;		// NAME 1: neutral (D10)
 		bool allowed = true;							// NAME 1: neutral (D10)
@@ -431,7 +431,7 @@ void UIOptionControlKeysClass::Unknown_60()
 		int button = DialogBoxUI->Unknown_5890B0(DialogBoxID);	// NAME 1: tsk_login.h's
 		if (button) {
 			if (button == 1 && EditKey) {
-				ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->Unknown_18());
+				ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 
 
 
@@ -465,7 +465,7 @@ void UIOptionControlKeysClass::Unknown_60()
 // 0x5CB8F0
 void UIOptionControlKeysClass::Set_Context(int context)
 {
-	ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->Unknown_18());
+	ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 	FAIL_IF(!key_manager) return;
 	Context = context;
 	key_manager->Find_Mappings(&CurrentKeys, context);
@@ -585,7 +585,7 @@ bool UIOptionControlKeysClass::Show_Dialog_Box(const char *dialog_name, const ch
 {
 	FAIL_IF(!dialog_name) return(false);
 
-	SClient *sclient = Client ? (SClient *)((ClientClass *)Client)->Unknown_18() : NULL;
+	SClient *sclient = Client ? (SClient *)((ClientClass *)Client)->As_Space_Client() : NULL;
 	FAIL_IF(!sclient) return(false);
 	FAIL_IF(!sclient->CurrentView) return(false);
 

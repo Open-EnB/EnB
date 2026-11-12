@@ -94,7 +94,7 @@ bool UIRadioMainClass::Unknown_68(int key)
 // 0x5E9910
 void UIRadioMainClass::Unknown_5E9910(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (State) {
 		case 0:
@@ -238,10 +238,10 @@ void UIRadioMainClass::Unknown_5EA260(bool on)
 // 0x5EA370
 void UIRadioMainClass::Unknown_5EA370()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (Is_Request_Pending(chat)) {
-		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0x13, "Another request is pending. Cannot create a new channel.", 0);
+		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Another request is pending. Cannot create a new channel.", 0);
 		return;
 	}
 	int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
@@ -255,7 +255,7 @@ void UIRadioMainClass::Unknown_5EA370()
 // 0x5EA550
 void UIRadioMainClass::Unknown_5EA550()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)
 	ClientChatRequestPacketClass packet(0x15, id);
@@ -267,10 +267,10 @@ void UIRadioMainClass::Unknown_5EA550()
 // 0x5EA7F0
 void UIRadioMainClass::Unknown_5EA7F0()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (Is_Request_Pending(chat)) {
-		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0x13, "Another request is pending. Cannot leave the channel.", 0);
+		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Another request is pending. Cannot leave the channel.", 0);
 		return;
 	}
 	if (chat->Unknown_5682C0() != "") {

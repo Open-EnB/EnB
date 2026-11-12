@@ -195,8 +195,8 @@ void MainViewClass::Unknown_04()
 	DazzleLayer = new DazzleLayerClass;
 	Unknown128 = new MainViewDazzleHandlerClass(Client);
 	DazzleRenderObjClass::Install_Dazzle_Visibility_Handler(Unknown128);
-	Radar = new RadarSystemClass((SClient *)Client->Unknown_18());
-	Unknown84 = new GutterRadarClass((SClient *)Client->Unknown_18(), Create_Peek((SimpleSceneClass *)Unknown_50()));
+	Radar = new RadarSystemClass((SClient *)Client->As_Space_Client());
+	Unknown84 = new GutterRadarClass((SClient *)Client->As_Space_Client(), Create_Peek((SimpleSceneClass *)Unknown_50()));
 	Unknown110->Set_Fog_Enable(false);
 	Unknown114->Set_Fog_Enable(false);
 	Scene->Set_Fog_Enable(false);
@@ -549,7 +549,7 @@ void MainViewClass::Unknown_50D430(float znear, float zfar)
 // 0x50D520: the bridge (+0x120, in the bridge's camera space), the base view's 2-D scene, the debug texts
 void MainViewClass::Unknown_50D520()
 {
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	BridgeInterface *bridge = sclient->Bridge;
 	if (bridge && bridge->Scene.Peek()) {
 		CameraClass *camera = Camera;
@@ -1135,8 +1135,8 @@ void MainViewClass::Unknown_510440()
 {
 	static StringClass profile_string(1024, true);
 	static StringClass working_string(255, true);
-	if (((SClient *)Client->Unknown_18())->Unknown14EC != 3) return;
-	((SClient *)Client->Unknown_18())->Text->Draw_Text(profile_string, 0xFF00FF00);
+	if (((SClient *)Client->As_Space_Client())->Unknown14EC != 3) return;
+	((SClient *)Client->As_Space_Client())->Text->Draw_Text(profile_string, 0xFF00FF00);
 	// Only update every 1/4 second
 	static unsigned int last_time;
 	if (WW3D::Get_Sync_Time() - last_time < 250) return;
@@ -1608,7 +1608,7 @@ void MainViewClass::Unknown_14()
 // the radar from the +0x84 object, the PDA's +0xA8 object and the scene
 void MainViewClass::Unknown_512A00()
 {
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	PDAInterfaceClass *pda = sclient->PDAInterface;
 	InterfaceSortClass sort(this, 0);
 	Radar->Unknown_7BCA70(Unknown84, ((UIStarmapClass *)pda->UnknownA8)->Unknown_7C8DB0(true), Create_Peek((SceneClass *)Unknown_64()));
@@ -1976,7 +1976,7 @@ void MainViewClass::Unknown_5137F0(unsigned sector)
 	sprintf(filename, "land%04d.ini", sector);
 
 
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 
 	FAIL_IF(!sclient) {return;}
 	bool flag = sclient->Unknown1320; Land = LandClass::Create(filename, flag);	// the flag through a local, as the client (one line: the FAIL_IFs)

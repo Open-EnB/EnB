@@ -12,8 +12,8 @@ void MainViewClass::Unknown_04()
 	DazzleLayer = new DazzleLayerClass;
 	Unknown128 = new MainViewDazzleHandlerClass(Client);
 	DazzleRenderObjClass::Install_Dazzle_Visibility_Handler(Unknown128);
-	Radar = new RadarSystemClass((SClient *)Client->Unknown_18());
-	Unknown84 = new MainViewUnknown84Class((SClient *)Client->Unknown_18(), Create_Peek((RefCountClass *)Unknown_50()));
+	Radar = new RadarSystemClass((SClient *)Client->As_Space_Client());
+	Unknown84 = new MainViewUnknown84Class((SClient *)Client->As_Space_Client(), Create_Peek((RefCountClass *)Unknown_50()));
 	Unknown110->Set_Fog_Enable(false);
 	Unknown114->Set_Fog_Enable(false);
 	Scene->Set_Fog_Enable(false);

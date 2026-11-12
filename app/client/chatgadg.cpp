@@ -79,7 +79,7 @@ ChatGadgetClass::~ChatGadgetClass()
 // 0x65CA10
 bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	if (sclient->LoadingView != NULL && sclient->LoadingView->Unknown68) {
 		return(true);
 	}
@@ -306,7 +306,7 @@ bool ChatGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 // 0x65CCD0  // NOT EXACT: functional (D64)
 void ChatGadgetClass::Unknown_65CCD0()
 {
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	ChatPanelInterface *chatpanel = sclient->ChatPanel.Peek();
 	int channel = 0;
@@ -340,7 +340,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 								Client->Send_Packet(&packet);
 							}
 							if (*text != '/') {
-								((SClient *)Client->Unknown_18())->Print(0x10, "To %s: %s", chatpanel->Unknown_565BA0(), text);
+								((SClient *)Client->As_Space_Client())->Print(0x10, "To %s: %s", chatpanel->Unknown_565BA0(), text);
 							}
 						}
 						break;
@@ -403,19 +403,19 @@ void ChatGadgetClass::Unknown_65CCD0()
 						}
 						break;
 					case 3:
-						if (((SClient *)Client->Unknown_18())->Unknown_74D570()) {
+						if (((SClient *)Client->As_Space_Client())->Unknown_74D570()) {
 							ClientChatPacketClass chat(Client->AvatarID, text, 1, NULL);
 							Client->Send_Packet(&chat);
 						} else {
-							((SClient *)Client->Unknown_18())->Unknown_74D990(0x11, "Not in a group.", 0);
+							((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a group.", 0);
 						}
 						break;
 					case 2:
-						if (((SClient *)Client->Unknown_18())->Unknown_728300()) {
+						if (((SClient *)Client->As_Space_Client())->Unknown_728300()) {
 							ClientChatPacketClass chat(Client->AvatarID, text, 2, NULL);
 							Client->Send_Packet(&chat);
 						} else {
-							((SClient *)Client->Unknown_18())->Unknown_74D990(0x11, "Not in a guild.", 0);
+							((SClient *)Client->As_Space_Client())->Unknown_74D990(0x11, "Not in a guild.", 0);
 						}
 						break;
 				}
@@ -470,7 +470,7 @@ void ChatGadgetClass::Unknown_65CCD0()
 // 0x65DE90  // NOT EXACT: functional (D64)
 bool ChatGadgetClass::Unknown_65DE90(KernelEventClass *event)
 {
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 	int key = ControlKeysManager::Get_Key_Id(sclient, ModuleName, *(ControlKeyValueStruct *)event);
 	if (key == -1) {
@@ -613,7 +613,7 @@ bool ChatGadgetClass::Unknown_65E250(int index)
 	FAIL_IF(index < 1) return(false);
 	FAIL_IF(index > NUM_QUICK_MESSAGES) return(false);
 
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 	char message[0x100];
 	char text[0x100];
@@ -641,7 +641,7 @@ bool ChatGadgetClass::Unknown_65E3E0(int index)
 	FAIL_IF(index < 1) return(false);
 	FAIL_IF(index > NUM_QUICK_MESSAGES) return(false);
 
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 	char text[0x100];
 	char section[0x18];
@@ -671,7 +671,7 @@ bool ChatGadgetClass::Unknown_65E520()
 // 0x65E5E0  // NOT EXACT: functional (D64)
 bool ChatGadgetClass::Unknown_65E5E0()
 {
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	ClientObjectClass *target;
 	if (sclient != NULL && sclient->MainView != NULL && (target = sclient->MainView->Unknown_5C()) != NULL) {
 		char text[0x100];
@@ -725,7 +725,7 @@ void ChatGadgetClass::Unknown_65E7C0(bool reply)
 // 0x65E840  // NOT EXACT: functional (D64)
 bool ChatGadgetClass::Unknown_65E840()
 {
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 
 	ChatPanelInterface *chatpanel = sclient->ChatPanel.Peek();

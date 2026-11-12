@@ -1,7 +1,7 @@
 // 0x65DE90  // NOT EXACT: functional (D64)
 bool ChatGadgetClass::Unknown_65DE90(KernelEventClass *event)
 {
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	FAIL_IF(!sclient) return(false);
 	int key = ControlKeysManager::Get_Key_Id(sclient, ModuleName, *(ControlKeyValueStruct *)event);
 	if (key == -1) {

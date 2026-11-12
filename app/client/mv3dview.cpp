@@ -171,12 +171,12 @@ int Movie3DViewClass::Unknown_0C(bool on)
 // @0x7EFA40
 void Movie3DViewClass::Unknown_18(bool arg)
 {
-	Client->Unknown_18();
+	Client->As_Space_Client();
 	if (arg) {
-		((SClient *)Client->Unknown_18())->Unknown_74C370(Camera);
+		((SClient *)Client->As_Space_Client())->Unknown_74C370(Camera);
 		Unknown_7F0410();
 	} else {
-		((SClient *)Client->Unknown_18())->Unknown_74C370(NULL);
+		((SClient *)Client->As_Space_Client())->Unknown_74C370(NULL);
 	}
 }
 

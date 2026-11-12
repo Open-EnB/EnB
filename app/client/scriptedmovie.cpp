@@ -214,7 +214,7 @@ ScriptedMovieViewClass::ScriptedMovieViewClass(ClientTaskClass *task, int arg, S
 	for (int i = 0; i < MAX_LIGHTS_PER_SCENE; i++) Lights[i] = NULL;
 	UIViewClass::Unknown_04();
 	Unknown_7FF230();
-	SClient *sclient = (SClient *)ClientInterface->Unknown_00()->Unknown_18();
+	SClient *sclient = (SClient *)ClientInterface->Unknown_00()->As_Space_Client();
 	if (sclient != NULL) {
 
 
@@ -428,7 +428,7 @@ void ScriptedMovieViewClass::Unknown_10()
 		delete BackgroundDazzleLayer;
 		BackgroundDazzleLayer = NULL;
 	}
-	SClient *sclient = (SClient *)client->Unknown_18();
+	SClient *sclient = (SClient *)client->As_Space_Client();
 	if (sclient) {
 		sclient->Unknown_745050();
 	} else {

@@ -886,7 +886,7 @@ public:
 	virtual void Process_Packets();						// +0x0C 0x7427C0 (S: 'SClient::Process_Packets')
 	virtual void Unknown_10();							// +0x10 0x7428F0: pumps the window's message queue (the base's name kept)
 	virtual int Do_Frame(bool focused);					// +0x14 0x742B60: ClientTaskClass::Sector, 0 .. 5
-	virtual int Unknown_18() { return((int)this); }		// +0x18 0x740AC0 (the base's returns 0)
+	virtual int As_Space_Client() { return((int)this); }		// +0x18 0x740AC0 (the base's returns 0)  // NAME 5: the FAIL_IF '!client->As_Space_Client()' (0xBA78A0)
 	virtual unsigned Set_Avatar_ID(unsigned id);		// +0x24 0x745730: the base's
 	virtual bool Unknown_34(const char *text);			// +0x34 0x74ABC0: the chat line's '/' commands ('/group', 'Unable to camp - insufficient marshmallows.'); true when it was one  // NAME 1 [text]: the chat line
 	bool Unknown_747510(const char *text);				// 0x747510 (0x74ABC0: '/group ...')  // NAME 1 [text]: the chat line

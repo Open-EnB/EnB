@@ -33,7 +33,7 @@ UIPetitionPlayerEntryClass::~UIPetitionPlayerEntryClass()
 void UIPetitionPlayerEntryClass::Unknown_54()
 {
 	UIPetitionEntryClass::Unknown_54();
-	PlayerName = Create_NEW(new UIPetitionPlayerNameClass((SClient *)((ClientClass *)Client)->Unknown_18()));
+	PlayerName = Create_NEW(new UIPetitionPlayerNameClass((SClient *)((ClientClass *)Client)->As_Space_Client()));
 	PlayerName->Unknown_5417D0(this);
 	PlayerName->Unknown_54();
 	PlayerName->NameEditor->Next = SubjectEditor;
@@ -312,7 +312,7 @@ bool UIPetitionPlayerNameClass::Unknown_68(int key)
 		case 1:
 			{
 
-				SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 3: the FAIL_IF's
+				SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 3: the FAIL_IF's
 				FAIL_IF(!sclient) return(true);
 				ClientObjectClass *target = sclient->Get_Target();	// NAME 1: neutral (D10)
 				if (target && target->Type == 1) {

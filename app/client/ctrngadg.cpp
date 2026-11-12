@@ -127,7 +127,7 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 	Unknown48 = x;
 	Unknown4C = y;
 	if (shift || ctrl) {
-		SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 		sclient->Unknown12B0 = sclient->Unknown10BC;
 		sclient->Unknown12B4 = 0;
 	}
@@ -203,11 +203,11 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 		}
 	}
 	Unknown_42ED20(0.5f, 0.5f);
-	((SClient *)((ClientClass *)Client)->Unknown_18())->Mouse->Unknown_5153B0();
+	((SClient *)((ClientClass *)Client)->As_Space_Client())->Mouse->Unknown_5153B0();
 	return(true);
 release:
 	((SClient *)Client)->CameraManager->Unknown28 = false;
-	((SClient *)((ClientClass *)Client)->Unknown_18())->Mouse->Unknown_515400();
+	((SClient *)((ClientClass *)Client)->As_Space_Client())->Mouse->Unknown_515400();
 	Unknown44 = true;
 	CtrnValueHolderClass<unsigned int> holder(Unknown_BE5F34, 1);
 	Unknown_6C();

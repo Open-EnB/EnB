@@ -798,7 +798,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 	if (Get_Owner()->View->Unknown_20() == NULL) return(true);
 	Unknown65B810ViewClass *view = (Unknown65B810ViewClass *)Get_Owner()->View->Unknown_20();
 	if (view->Client == NULL) return(true);
-	SClient *sclient = (SClient *)((ClientClass *)view->Client)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)view->Client)->As_Space_Client();
 	if (sclient == NULL) return(true);
 	UIScutMouseClass *mouse = (UIScutMouseClass *)Get_Owner()->View->Unknown_44();
 	G_ASSERT(mouse);

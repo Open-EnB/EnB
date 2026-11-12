@@ -194,7 +194,7 @@ void InterfaceClass::Unknown_58()
 		issl->Interface_To_Front(this);
 		Unknown58.Unknown_686E90();
 		Unknown64.Unknown_6871D0(View->Get_Unknown04(), Unknown70, Unknown78);
-		ControlKeysManager *manager = ControlKeysManager::Get((SClient *)(Client ? ((ClientClass *)Client)->Unknown_18() : 0));
+		ControlKeysManager *manager = ControlKeysManager::Get((SClient *)(Client ? ((ClientClass *)Client)->As_Space_Client() : 0));
 		Unknown_70(manager);
 		if (manager) {
 			ControlKeysManager::Get_Signal_Map().Add(manager, this, &InterfaceClass::Unknown_541830);
@@ -225,7 +225,7 @@ void InterfaceClass::Unknown_5C()
 {
 	G_ASSERT(!PartialDeactivatedGadget);
 	if (Active) {
-		ControlKeysManager *manager = ControlKeysManager::Get((SClient *)(Client ? ((ClientClass *)Client)->Unknown_18() : 0));
+		ControlKeysManager *manager = ControlKeysManager::Get((SClient *)(Client ? ((ClientClass *)Client)->As_Space_Client() : 0));
 		Unknown4C.Unknown_721F80(View->Get_Unknown04(), this);
 		if (manager) {
 			ControlKeysManager::Get_Signal_Map().Remove(manager, this, &InterfaceClass::Unknown_541830, KeysSavedEvent());

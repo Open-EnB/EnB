@@ -3,7 +3,7 @@
 bool StarbaseSetPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("StarbaseSetPacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	switch (Action) {
 		case 0:
 			sclient->Unknown_74B680(0, StarbaseID);

@@ -369,3 +369,8 @@ Where the client's names disagree with these conventions, the client's are used;
   descriptor 0xB78F28, returned by the callback's slot 0x53D110), without a `Class` suffix: was
   `BridgeInterfaceClass` (NAME 3, D24), NAME 5, declared in app/client/bridge_int.h. SClient's member of that
   name is `Bridge` (NAME 1; was `BridgeInterface`, NAME 3 after the file), as `ChatPanel` holds the ChatPanelInterface.
+* **ClientClass::As_Space_Client (2026-11-12, RN, P-G2-1, D243):** the client's FAIL_IF
+  `!client->As_Space_Client()` (0xBA78A0) names ClientClass's slot +0x18 (0x7268E0 returns 0; SClient's 0x740AC0
+  returns `this`): was `Unknown_18` (NAME 1), NAME 5, in client.h, sclient.h and every caller (tools/re/slotrename.py
+  over ClientClass's hierarchy, 233 uses in 53 files); the two short slots' symbols_named.json rows carry `replaces`.
+  The files' local views that already called it `As_Space_Client` (returning SClient *) are unchanged.

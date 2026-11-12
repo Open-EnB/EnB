@@ -1439,5 +1439,17 @@
   "symbol": "??BControlKeyValueStruct@@QBE?AUKernelEventClass@@XZ",
   "evidence": "the key event type is kernel.h's KernelEventClass (L21 2026-11-12, f2206285: inpdsp.cpp's 0x42A1A0 / 0x42A410 and inpkeys.cpp's 0x42B7E0 take it; InterfaceKeyEntryStruct 0x721C70 copies Add's argument into one); the ControlKeyComboStruct mangle was the retired private struct's",
   "replaces": "??BControlKeyValueStruct@@QBE?AUControlKeyComboStruct@@XZ"
+ },
+ {
+  "address": "0x7268E0",
+  "symbol": "?As_Space_Client@ClientClass@@UAEHXZ",
+  "evidence": "ClientClass's slot +0x18 named after the client's FAIL_IF '!client->As_Space_Client()' (0xBA78A0; D243, P-G2-1; RN 2026-11-12); was Unknown_18",
+  "replaces": "?Unknown_18@ClientClass@@UAEHXZ"
+ },
+ {
+  "address": "0x740AC0",
+  "symbol": "?As_Space_Client@SClient@@UAEHXZ",
+  "evidence": "ClientClass's slot +0x18 named after the client's FAIL_IF '!client->As_Space_Client()' (0xBA78A0; D243, P-G2-1; RN 2026-11-12); was Unknown_18 (SClient's override returns this)",
+  "replaces": "?Unknown_18@SClient@@UAEHXZ"
  }
 ]

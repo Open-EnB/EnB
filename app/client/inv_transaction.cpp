@@ -54,7 +54,7 @@ void InvTransactionClass::Unknown_6908E0(Unknown6908E0Class *arg)
 		QuantityGadget->Set_First_Sort_Group(true);
 		QuantityGadget->Unknown_40(false);
 		LayerClass layer((SceneClass *)View->Unknown_50(), (CameraClass *)View->Unknown_54());
-		SClient *sclient = (SClient *)View->Unknown4C->Unknown_18();	// NAME 1 [sclient, layer]: neutral
+		SClient *sclient = (SClient *)View->Unknown4C->As_Space_Client();	// NAME 1 [sclient, layer]: neutral
 		if (sclient) {
 			if (sclient->Unknown_744B60()) {
 				DropQuery = sclient->Unknown135C->Get_Unknown34();

@@ -133,7 +133,7 @@ public:
 	virtual void Process_Packets() = 0;					// +0x0C (SClient: 'SClient::Process_Packets')  // NAME 3: SClient's string names its override
 	virtual void Unknown_10() = 0;						// +0x10
 	virtual int Do_Frame(bool focused) = 0;				// +0x14: ClientTaskClass::Sector, 0 .. 5  // NAME 2: what SClient's does  // NAME 1 [focused]: Is_Focused()
-	virtual int Unknown_18() { return(0); }				// +0x18 0x7268E0
+	virtual int As_Space_Client() { return(0); }			// +0x18 0x7268E0  // NAME 5: the client's FAIL_IF '!client->As_Space_Client()' (0xBA78A0; P-G2-1)
 	virtual int Unknown_1C() { return(0); }				// +0x1C 0x726900
 	virtual int Unknown_20() { return(0); }				// +0x20 0x726920
 	unsigned Get_Avatar_ID() { return(AvatarID); }	// (inlined: verbmanager.cpp 0x81F560 / 0x81F610 / 0x81F6A0's eax)  // NAME 2: what it does

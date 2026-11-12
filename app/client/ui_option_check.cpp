@@ -112,7 +112,7 @@ void UIOptionCheckClass::Unknown_5C()
 // 0x5C9D00
 bool UIOptionCheckClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
@@ -190,7 +190,7 @@ void UIOptionCheckClass::Unknown_5C9F20()
 	}
 	options->Save();
 	if (Page == 0) {
-		SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 		ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 		if (chat) {
 			chat->Unknown_5689D0(0);

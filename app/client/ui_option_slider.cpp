@@ -127,14 +127,14 @@ void UIOptionSliderClass::Unknown_60()
 // 0x5CF310
 bool UIOptionSliderClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5CF880(true);
-			((SClient *)((ClientClass *)Client)->Unknown_18())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->Unknown_18())->MainView->Unknown_5146D0();
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
@@ -144,8 +144,8 @@ bool UIOptionSliderClass::Unknown_68(int key)
 				chat->Unknown_565F30(1);
 			}
 			Unknown_5CF7E0();
-			((SClient *)((ClientClass *)Client)->Unknown_18())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->Unknown_18())->MainView->Unknown_5146D0();
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
@@ -155,8 +155,8 @@ bool UIOptionSliderClass::Unknown_68(int key)
 				chat->Unknown_565F30(1);
 			}
 			Unknown_5CF880(true);
-			((SClient *)((ClientClass *)Client)->Unknown_18())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->Unknown_18())->MainView->Unknown_5146D0();
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			Unknown_5C();
 			Closed = 1;
 			return(true);
@@ -169,8 +169,8 @@ bool UIOptionSliderClass::Unknown_68(int key)
 		case 12:
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
 			Unknown_5CF580();
-			((SClient *)((ClientClass *)Client)->Unknown_18())->MainView->Unknown_514480();
-			((SClient *)((ClientClass *)Client)->Unknown_18())->MainView->Unknown_5146D0();
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_514480();
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->MainView->Unknown_5146D0();
 			return(true);
 	}
 	return(false);
