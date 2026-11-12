@@ -160,6 +160,14 @@
    "moved_to": null,
    "decision": "D66",
    "note": "D66 (vi), run 2026-11-09b (CE1 eec4c786): uiview's guarded atexit for 0x42B320 is byte-identical to chatgadg.cpp's own copy, client 0x65EC80, which ChatGadgetClass's new file now emits: the one copy is credited there."
+  },
+  {
+   "address": "0x57B6E0",
+   "lib": "app",
+   "file": "ui_combobox",
+   "moved_to": null,
+   "decision": "D235",
+   "note": "D235 (D66 (vi) / D119), run 2026-11-11 (L10): ui_combobox.cpp's ~RefCountPtr<RenderObjClass> is byte-identical to the ~RefCountPtr<HAnimClass> the object also emits in the client's RefCountPtr<HAnimClass> form (group 0x46BE90): the copy is ambiguous, none can be placed; the form makes 25 functions of 0x578120-0x57BAC0 exact."
   }
  ]
 }
