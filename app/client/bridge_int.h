@@ -38,7 +38,6 @@ public:
 	void Set_Scene(const RefCountPtr<RefCountClass> &scene);	// 0x53BBC0 (0x744C10: the main view's bridge scene, or NULL when the camera is outside): the mesh and the avatar out of the old scene and into the new one  // NAME 1: what it does; [scene]: what it is (a RefCountClass as 0x744C10 wraps it: its Create_Peek is the client's 0x514960)
 	void Do_Frame(CameraClass *camera);					// 0x53BD40 (SClient's Do_Frame, while there is a scene): the processes, the avatar, the bridge's transform and the camera's (FAIL_IF '!camera')  // NAME 1: its caller's; NAME 3 [camera]: the FAIL_IF's
 
-#ifdef __BRIDGE_INT_MEMBERS	// defined before the include by the files that use what follows; sclient.cpp, which only makes it, gives it its scene, its avatar and its frame, does not (the fewer declarations it sees, the stiller its symbol pad: workflow.md 3.4)
 	// What the avatar plays in its chair (+0x7C). The high word is the rank: a playing animation is not replaced by
 	// one of a higher rank number. Each name is the animation's tag in the avatar's personality.
 	enum {
@@ -79,7 +78,6 @@ public:
 	bool Is_Busy() { return(ViewReached != View); }		// (inline: pdaint.cpp's 0x693CA0 and 0x695780 compare +0x1C with +0x18)  // NAME 1: neutral
 	SimpleSceneClass *Peek_Scene() { return((SimpleSceneClass *)Scene.Peek()); }	// NAME 1: what it returns
 	ClientClass *Peek_Client() { return(Client); }		// NAME 1: what it returns
-#endif
 
 	ClientClass *Client;								// +0x04: the constructor stores it between the observer's table and this class's (its first member); NAME 3: the FAIL_IF's 'Client == NULL' (l.404)
 	UIMeshClass *Mesh;									// +0x08: the bridge (its model is the FAIL_IFs' 'bridge')  // NAME 1: what it is

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string>
-#define __BRIDGE_INT_MEMBERS	// bridge_int.h's enums and the functions sclient.cpp does not call
+
 #include "bridge_int.h"
 #include "sclient.h"
 #include "ui_mesh.h"

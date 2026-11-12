@@ -1240,7 +1240,7 @@ void UICpitClass::Unknown_582190(ClientObjectClass *object, int arg)
 	if (Unknown0D0->Object != object) *Unknown0D0 = object;
 }
 
-#define __BRIDGE_INT_MEMBERS	// bridge_int.h's enums and the functions sclient.cpp does not call
+
 #include "bridge_int.h"	// BridgeInterface (SClient +0x128C)
 
 
