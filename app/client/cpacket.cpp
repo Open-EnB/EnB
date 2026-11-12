@@ -1081,12 +1081,12 @@ bool NameDecalPacketClass::Process_Packet(void *instance)
 
 
 
-// audio\musicmanager.cpp's class (sclient.cpp declares its other members)
-class MusicManagerClass
-{
-public:
-	void Unknown_43ADF0();	// 0x43ADF0 (CAMERA_CONTROL 146's case 5, after the 'Docking_Init' sound)
-};
+#include "..\audio\musicmanager.h"	// MusicManagerClass (SClient's MusicManager)
+
+
+
+
+
 
 // 0x739FF0 (placed here, out of address order, so that no assert line moves; the GameID locals put the id in the dead 'this' register as the client does)
 bool CameraControlPacketClass::Process_Packet(void *instance)
@@ -1122,7 +1122,7 @@ bool CameraControlPacketClass::Process_Packet(void *instance)
 			sclient->Get_Ship()->Unknown_6FC880();
 			SoundLibraryClass::Play_2D_Sound("Docking_Init", 2);
 			if (sclient->MusicManager) {
-				sclient->MusicManager->Unknown_43ADF0();
+				sclient->MusicManager->Fade_Out();
 			}
 			break;
 		case 6:

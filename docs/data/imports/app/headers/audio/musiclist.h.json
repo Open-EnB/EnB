@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "MusicListClass's declaration (0x44 bytes: a deque of themes and the playing sound, constructor 0x437180; header name assumed from musiclist.cpp, NAME 2)"
+}

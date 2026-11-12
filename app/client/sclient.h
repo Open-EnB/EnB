@@ -84,7 +84,7 @@ class GutterRadarClass;
 class MainViewDazzleHandlerClass;
 class WWProfileIterator;
 class Render2DTextClass;
-class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
+class MusicManagerClass;		// audio\musicmanager.h (constructor 0x439E40, 0x1FC bytes)
 class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes)
 class ChatPanelInterface;			// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408); ui_chat_panel.cpp's (constructor 0x561DD0, 0x268 bytes)
 class UIGroupClass;			// NAME 3: class-from-file (D24) for ui_group.cpp (the main view's +0x1D8; cpacket.cpp: CLIENT_CHAT_EVENT 165)

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "MusicManagerClass's declaration (0x1FC bytes: SClient +0x132C, was sclient.cpp's and cpacket.cpp's views; header name assumed from musicmanager.cpp, NAME 2)"
+}

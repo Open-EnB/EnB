@@ -219,16 +219,16 @@ public:
 
 
 
-class MusicManagerClass
-{
-public:
-	MusicManagerClass();								// 0x439E40
-	~MusicManagerClass();								// 0x43A040
-	void Unknown_43AD70(); void Unknown_43AE30(int a, int b, int c, int d);	// 0x43AD70 (Shutdown, before the delete); 0x43AE30 (0x744690 passes 0, 0, 0, 8 while loading)  // NAME 1 [a, b, c, d]: neutral
-	void Unknown_43B760(unsigned sector);				// 0x43B760 (0x750A70: SERVER_PARAMETERS 66's SectorNum)  // NAME 1 [sector]: what it gets
+#include "..\audio\musicmanager.h"	// SClient's +0x132C (made at Init, 0x1FC bytes)
 
-	char Unknown00[0x1FC];
-};
+
+
+
+
+
+
+
+
 
 #include "..\audio\sectorsound.h"	// SClient's +0x1330 (made at 0x750A70, 0x58 bytes)
 
@@ -532,7 +532,7 @@ void SClient::Shutdown()
 	scene->Release_Ref();
 	camera->Release_Ref();
 
-	MusicManager->Unknown_43AD70();
+	MusicManager->Stop();
 	delete MusicManager;
 	MusicManager = NULL;
 	delete SectorSound;
@@ -5227,7 +5227,7 @@ void SClient::Unknown_750800()
 void SClient::Unknown_750A70(unsigned sector)
 {
 	if (MusicManager) {
-		MusicManager->Unknown_43B760(sector);
+		MusicManager->Set_Sector(sector);
 	}
 	delete SectorSound;
 	SectorSound = new SectorSoundClass(sector);
@@ -5735,7 +5735,7 @@ void SClient::Unknown_64()
 		}
 		LoadingView->Unknown_0C(true);
 		if (MusicManager) {
-			MusicManager->Unknown_43AE30(0, 0, 0, 8);
+			MusicManager->Update(MusicManagerClass::MUSIC_THEME_WANDER, 0, 0, 8);
 			SoundLibraryClass::Update();
 		}
 		if (SectorSound) {
