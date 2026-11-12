@@ -104,6 +104,18 @@ void EffectDescriptionClass::Read(RawPacketClass *raw)
 	}
 }
 
+// 0x832E00: a text and its values (no caller in the client)
+struct Unknown832E00Struct  // NAME 1: neutral (D10)
+{
+	Unknown832E00Struct(const std::string &text);
+	std::string Text;	// NAME 1: what it holds
+	std::vector<float> Values;	// NAME 1: what it holds
+};
+Unknown832E00Struct::Unknown832E00Struct(const std::string &text) :
+	Text(text)
+{
+}
+
 // 0x832F20
 void EffectDescriptionClass::Set_Name(const std::string &name)
 {
@@ -123,18 +135,6 @@ inline bool Replace_Tag(std::string &text, const std::string &tag, const std::st
 }
 
 static std::string ValueTag("%value");	// 0xBF32A8 (a value's tag: '%value', its printf format, '%')  // NAME 1: what it is
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -215,27 +215,27 @@ bool Replace_Value(std::string &text, float value)  // NAME 1: what it does; NAM
 
 
 
-// NOT EXACT: 0x833880 (0.34, inline budget: the client calls the strings' constructor 0x603BB0 out of line, ours inlines it)
+// 0x833880 (match a pair: its implicit constructor inlined leaves the strings' 0x603BB0 out of line)
 // Text's first value tag and its printf format ("%0.1f" when the tag has no end), empty strings when text has none;
 // static, so the client emits it after Fill_Values, its caller
-static std::pair<std::string, std::string> Find_Value_Tag(const std::string &text)  // NAME 1: what it does; NAME 1 [tag, format]
+static std::pair<std::string, std::string> Find_Value_Tag(const std::string &text)  // NAME 1: what it does
 {
 	static int tag_length = ValueTag.length();
-	std::string tag;
-	std::string format;
+	std::pair<std::string, std::string> match;	// NAME 1 [match]: the tag and its format
+
 	int match_start = text.find(ValueTag);
 	if (match_start == std::string::npos) {
-		return(std::pair<std::string, std::string>(tag, format));
+		return(match);
 	}
 	int match_end = text.find('%', match_start + 1);
 	FAIL_IF(match_end == std::string::npos) {
-		tag.substr(match_start);
-		format = "0.1f";
-		return(std::pair<std::string, std::string>(tag, format));
+		match.first.substr(match_start);
+		match.second = "0.1f";
+		return(match);
 	}
-	tag = text.substr(match_start, match_end - match_start + 1);
-	format = std::string("%") + tag.substr(tag_length).substr(0, tag.substr(tag_length).length() - 1);
-	return(std::pair<std::string, std::string>(tag, format));
+	match.first = text.substr(match_start, match_end - match_start + 1);
+	std::string format_end = match.first.substr(tag_length); match.second = std::string("%") + format_end.substr(0, format_end.length() - 1);	// NAME 1 [format_end]: as Replace_Value's
+	return(match);
 }
 
 
@@ -357,5 +357,7 @@ void EffectDescriptionClass::Set_Summary(const std::string &summary)
 **	definitions, then its template and <sstream> instances and <xlocale>'s guarded statics 0x834CB0. ItemEffectClass
 **	(0x834D30 on) is another object, item_effect.cpp: it calls the constructor and Get_Size this object inlines.
 **	The names NameValues, DescriptionValues, match_start, match_end, value_iterator, values, strings, name_and_description, name_value_strings, description_value_strings and summary_strings are
-**	the asserts'.
+**	the asserts'. 0x832E00 (between Read and Set_Name, no caller and no reference in the client) is the constructor
+**	of a text with its values, a struct this file defines; Find_Value_Tag 0x833880 builds its result in a pair local
+**	(the client calls the strings' allocator constructor 0x603BB0 from the pair's inlined default constructor).
 */

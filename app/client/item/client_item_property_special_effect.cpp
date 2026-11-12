@@ -1,10 +1,10 @@
 #include "client_item_property_special_effect.h"
-#include "client_item_property_builder.h"	// ItemEffectClass
+#include "client_item_property_builder.h"	// ItemEffectClass (effect_description.h)
 
 RefCountPtr<ClientItemPropertySpecialEffectClass> ClientItemPropertySpecialEffectClass::Create(const ItemEffectClass &effect)
 {
-	std::string text = effect.Unknown_833D00();
-	std::string tooltip = effect.Unknown_833D40();
+	std::string text = effect.Get_Name_Text();
+	std::string tooltip = effect.Get_Description_Text();
 	return(Create_NEW(new ClientItemPropertySpecialEffectClass(text, tooltip)));
 }
 
