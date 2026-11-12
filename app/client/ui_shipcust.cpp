@@ -506,7 +506,7 @@ void Unknown620D20Class::Unknown_621790(EnvironmentMapManagerClass *environmentm
 	Unknown_6211D0(environmentmapmanager);
 	Unknown_621390(decal, decalmaterialmanager);
 	Unknown_80FF20(Unknown160.Peek(), Desc.Ship_Name, (float *)&Desc.Ship_Name_Color);
-	Unknown_810750(Unknown160.Peek(), 0);
+	Set_Engine_Glow(Unknown160.Peek(), 0);
 }
 
 #pragma auto_inline(off)	// the client calls 0x621E20 from the dtor 0x6210A0 and 0x621790

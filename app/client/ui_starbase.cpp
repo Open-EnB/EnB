@@ -856,7 +856,7 @@ void UIStarbaseClass::Unknown_54()
 			Unknown_496DB0(Unknown184.Peek());
 			Unknown184->Set_LOD_Bias(100.0f);
 			Unknown184->Set_Hidden(false);
-			Unknown_810540(Unknown184.Peek(), 1, 1.0f);
+			Play_State_Animation(Unknown184.Peek(), 1, 1.0f);
 			RefCountPtr<RenderObjClass> extents;
 			if (!ExtraBones) {
 				G_ASSERT(ExtraBones);
@@ -3491,7 +3491,7 @@ void UIStarbaseClass::Unknown_640360()
 			((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
 			((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(ship);
 			ship->Set_Transform(tm);
-			Unknown_810540(Unknown184.Peek(), 1, 1.0f);
+			Play_State_Animation(Unknown184.Peek(), 1, 1.0f);
 			RefCountPtr<RenderObjClass> extents;
 			if (ExtraBones) {
 				extents = Create_Get(ExtraBones->Get_Sub_Object_By_Name("ship_extents00")); } else {

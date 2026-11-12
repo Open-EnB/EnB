@@ -1563,7 +1563,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 				((SClient *)Client)->CameraManager->Unknown_79B2B0(2);
 			}
 			if (Unknown_6F5A40() && Unknown184) {
-				Unknown_810540(RenderObject, 1, 0);
+				Play_State_Animation(RenderObject, 1, 0);
 				Unknown184 = false;
 			}
 			Unknown14C = --Client->Unknown113C;
@@ -1631,7 +1631,7 @@ void ClientObjectClass::Unknown_6FBEF0()
 				SoundLibraryClass::Play_3D_Sound(sound, Unknown_28(true), 2, 1.0f);
 			}
 			if (Unknown_6F5A40() && Unknown184 != true) {
-				Unknown_810540(RenderObject, 2, 0); Unknown184 = true;
+				Play_State_Animation(RenderObject, 2, 0); Unknown184 = true;
 			}
 			Unknown_6FC880(); break;
 	}
@@ -1656,7 +1656,7 @@ void ClientObjectClass::Unknown_6FC880()
 		Unknown14C = 0;
 	}
 	if (Unknown_6F5A40() && Unknown184 != true) {
-		Unknown_810540(RenderObject, 2, 0);
+		Play_State_Animation(RenderObject, 2, 0);
 		Unknown184 = true;
 	}
 }
@@ -1738,8 +1738,8 @@ public:
 void Unknown_80F220(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions);	// 0x80F220 (cdecl, shiputils.cpp's run; not rebuilt): the colorization regions onto a new model  // NAME 1 [model, regions]: what 0x6FCB70 passes
 // a field that is set (+0x70 not 0), else NULL (auxdata.h's find; the bool copy 0x705450 is out of line in 0x6FCB70)
 
-int Unknown_810CF0(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);
-inline void ClientObjectClass::Unknown_Damage_Reset() { if ((Unknown_6F58B0() || Unknown_6F5880()) && RenderObject) { int levels[4]; for (int i = 0; i < 4; i++) levels[i] = 1; Unknown_810750(RenderObject, 0); Unknown150 = Unknown_810CF0(RenderObject, levels, 1, Client, GameID, Unknown150); UnknownFC = false; for (int j = 0; j < 4; j++) Unknown104[j] = 1; Unknown104[4] = 1; } }
+int Update_Damage_Particles(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);
+inline void ClientObjectClass::Unknown_Damage_Reset() { if ((Unknown_6F58B0() || Unknown_6F5880()) && RenderObject) { int levels[4]; for (int i = 0; i < 4; i++) levels[i] = 1; Set_Engine_Glow(RenderObject, 0); Unknown150 = Update_Damage_Particles(RenderObject, levels, 1, Client, GameID, Unknown150); UnknownFC = false; for (int j = 0; j < 4; j++) Unknown104[j] = 1; Unknown104[4] = 1; } }
 // NOT EXACT: inline budget (the client calls the IsOrganic find 0x705450, the fourth 0x6F5140 and the RefCountPtr assignments 0x4153B6 out of line, ours inlines them; the client holds the 1 in edi; attempts.py show 0x6FCB70)
 // 0x6FCB70 (Set_Model and SUBPARTS 0x6FEF70 call it last): the damage state reset, the sphere, the colorization,
 // then for an organic type 0 or 1 that isn't IsOrganic the six bone models (+0x158) from base assets 0x618 / 0x617 / 0x73F, hidden
@@ -2020,18 +2020,18 @@ void ClientObjectClass::Unknown_6FDBD0()
 				Unknown120->Remove_From_Scene();
 			}
 		}
-		Unknown_810750(RenderObject, on);
+		Set_Engine_Glow(RenderObject, on);
 		UnknownFC = on;
 	}
 	if (UnknownFC) {
 		if (Unknown100 > 0) {
 			Unknown100--;
-			Unknown_810750(RenderObject, false);
+			Set_Engine_Glow(RenderObject, false);
 			return;
 		}
 		if (Unknown100 == 0) {
 			Unknown100 = -1;
-			Unknown_810750(RenderObject, true);
+			Set_Engine_Glow(RenderObject, true);
 		}
 	}
 }
@@ -2108,8 +2108,8 @@ void ClientObjectClass::Unknown_6FDBD0()
 
 // shiputils.cpp's damage-state calls, as far as the damage state 0x6FE1E0 makes them (cdecl, not rebuilt): the ship's
 // four quadrant levels and its hull level (type 1), or the hull level with the view (the other types); both return +0x150
-int Unknown_810CF0(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);	// 0x810CF0  // NAME 1 [model, levels, hull_level, client, id, unknown]: what 0x6FE1E0 passes
-int Unknown_8117D0(RenderObjClass *model, int hull_level, int number, unsigned id, bool organic, bool view, ClientClass *client, int unknown);	// 0x8117D0  // NAME 1 [model, hull_level, number, id, organic, view, client, unknown]: what 0x6FE1E0 passes
+int Update_Damage_Particles(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);	// 0x810CF0  // NAME 1 [model, levels, hull_level, client, id, unknown]: what 0x6FE1E0 passes
+int Update_Blood_Particles(RenderObjClass *model, int hull_level, int number, unsigned id, bool organic, bool view, ClientClass *client, int unknown);	// 0x8117D0  // NAME 1 [model, hull_level, number, id, organic, view, client, unknown]: what 0x6FE1E0 passes
 // a damage fraction's level: 4 from one half, 3 from a quarter, 2 above 0, else 1 (inline in 0x6FE1E0)
 static inline int Unknown_Damage_Level(float damage) { if (damage >= 0.5f) return(4); if (damage >= 0.25f) return(3); if (damage > 0.0f) return(2); return(1); }	// NAME 1 [damage]: what it is
 
@@ -2181,7 +2181,7 @@ void ClientObjectClass::Unknown_6FE1E0()
 		return;
 	}
 	if (Unknown_6F5A40()) {
-		Unknown150 = Unknown_810CF0(RenderObject, level, hull_level, Client, GameID, Unknown150);
+		Unknown150 = Update_Damage_Particles(RenderObject, level, hull_level, Client, GameID, Unknown150);
 	} else {
 		bool view = false;
 		switch (((SClient *)Client->Unknown_18())->ViewMode) {
@@ -2197,7 +2197,7 @@ void ClientObjectClass::Unknown_6FE1E0()
 				break;
 		}
 		bool is_organic = Unknown_6F5E40();
-		Unknown150 = Unknown_8117D0(RenderObject, hull_level, BaseAsset, GameID, is_organic, view, Client, Unknown150);
+		Unknown150 = Update_Blood_Particles(RenderObject, hull_level, BaseAsset, GameID, is_organic, view, Client, Unknown150);
 	}
 	for (int j = 0; j < 4; j++) {
 		if (level[j]) Unknown104[j] = level[j];
@@ -2492,7 +2492,7 @@ bool ClientObjectClass::Unknown_7008B0()
 {
 	if (!Unknown_6F58B0()) return(false);
 	if (!RenderObject) return(false);
-	Unknown_810750(RenderObject, 0);
+	Set_Engine_Glow(RenderObject, 0);
 	UnknownFC = false;
 	return(true);
 }
@@ -2596,11 +2596,11 @@ void ClientObjectClass::Unknown_7009A0(bool on, bool force)
 {
 	if (force || on != Unknown184) {
 		if (on) {
-			Unknown_810540(RenderObject, 2, 0);
+			Play_State_Animation(RenderObject, 2, 0);
 			Unknown184 = true;
 			return;
 		}
-		Unknown_810540(RenderObject, 1, 0);
+		Play_State_Animation(RenderObject, 1, 0);
 		Unknown184 = false;
 	}
 }

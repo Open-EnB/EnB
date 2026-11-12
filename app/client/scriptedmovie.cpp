@@ -26,7 +26,7 @@
 // the screen fade and the letterbox (unknown_screenfade.cpp, 0x7FF010-0x7FFC4F, before scriptedmovieline.cpp's object)
 void Unknown_7FF830(bool on, float time);							// 0x7FF830: the letterbox  // NAME 1 [on, time]: what Enable_Letterbox passes
 void Unknown_7FFA30(float red, float green, float blue, float time);	// 0x7FFA30: the fade's colour  // NAME 1 [red, green, blue, time]: what Set_Screen_Fade_Color passes
-void Unknown_810750(RenderObjClass *model, bool on);					// 0x810750 (shiputils.cpp; co.h declares it so): a ship model's engine trails  // NAME 1 [model, on]: what co.cpp passes
+void Set_Engine_Glow(RenderObjClass *model, bool on);					// 0x810750 (shiputils.cpp; co.h declares it so): a ship model's engine trails  // NAME 1 [model, on]: what co.cpp passes
 void Unknown_7FFBE0(float opacity, float time);						// 0x7FFBE0: the fade's opacity  // NAME 1 [opacity, time]: what Set_Screen_Fade_Opacity passes
 
 // 0x7FFEA0: by frame; within a frame the objects and lights are made first
@@ -3256,7 +3256,7 @@ bool ScriptedMovieViewClass::Toggle_Engine_Trails(ScriptedMovieLineClass *params
 
 
 			G_ASSERT((*itor).Mesh);
-			Unknown_810750((*itor).Mesh->InterfaceMesh, on);
+			Set_Engine_Glow((*itor).Mesh->InterfaceMesh, on);
 			return(true);
 		}
 	}
@@ -3274,7 +3274,7 @@ bool ScriptedMovieViewClass::Toggle_Engine_Trails(ScriptedMovieLineClass *params
 
 
 
-int Unknown_810CF0(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);	// 0x810CF0 (shiputils.cpp; co.cpp declares it so)
+int Update_Damage_Particles(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);	// 0x810CF0 (shiputils.cpp; co.cpp declares it so)
 // the damage levels Turn_On_Damage_Particles takes (its FAIL_IF names the ends; shiputils.cpp's 0x810CF0 gets them)
 enum { DAMAGE_PARTICLES_NO_CHANGE = 0, DAMAGE_PARTICLES_3 = 4 };	// NAME 3 [DAMAGE_PARTICLES_NO_CHANGE, DAMAGE_PARTICLES_3]: the FAIL_IF's text (0x808FD0); values from its tests
 // 0x808FD0: the slot's damage particles, every hull section or one
@@ -3306,7 +3306,7 @@ bool ScriptedMovieViewClass::Turn_On_Damage_Particles(ScriptedMovieLineClass *pa
 			} else {
 				levels[0] = damage_amount; levels[1] = damage_amount; levels[2] = damage_amount; levels[3] = damage_amount;
 			}
-			Unknown_810CF0((*itor).Mesh->InterfaceMesh, levels, levels[0], NULL, (unsigned)-1, 0);
+			Update_Damage_Particles((*itor).Mesh->InterfaceMesh, levels, levels[0], NULL, (unsigned)-1, 0);
 			return(true);
 		}
 	}
@@ -3601,7 +3601,7 @@ bool ScriptedMovieViewClass::Hide_Object(ScriptedMovieLineClass *params, bool hi
 			G_ASSERT((*itor).Mesh);
 			G_ASSERT((*itor).Mesh->Peek_Object());
 			(*itor).Mesh->Peek_Object()->Set_Hidden(hide);
-			Unknown_810750((*itor).Mesh->InterfaceMesh, !hide);
+			Set_Engine_Glow((*itor).Mesh->InterfaceMesh, !hide);
 			return(true);
 		}
 	}
