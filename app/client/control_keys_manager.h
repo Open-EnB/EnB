@@ -69,6 +69,7 @@ struct ControlKeyStruct  // NAME 1: neutral (D10): one key of a mapping (4 bytes
 	ControlKeyStruct(unsigned short key = 0, unsigned short modifiers = 0) : Key(key), Modifiers(modifiers) {}	// default arguments: an array's ??_H gets the default constructor closure 0x71BD70 (no return value)
 	ControlKeyStruct &operator=(const KernelEventClass &event) { Key = event.Key; Modifiers = event.Flags; return *this; }	// Load_Keys' ini read
 
+	operator KernelEventClass() const { return KernelEventClass(Key, Modifiers); }
 	unsigned short Key;																	// +0x00  // NAME 2: the key's code
 	unsigned short Modifiers;															// +0x02  // NAME 2: the modifier bits
 };
@@ -139,6 +140,7 @@ public:
 	ControlKeysManager();												// 0x71A300
 
 	KeyMappingStruct *Set_Key(KeyMappingStruct *entry, int set, const ControlKeyStruct &key, bool force);	// 0x71A860: returns the mapping already using key unless force  // NAME 2: describes what it does
+	ControlKeyStruct &Get_Key(KeyMappingStruct *entry, int set);	// 0x71A940: the key of a mapping's set (no caller: inlined)  // NAME 2: describes what it does
 	int Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, unsigned short modifiers);	// 0x71A960  // NAME 2: describes what it does
 	int Remove_Keys(ControlKeyListClass *keylist, const std::string &name, unsigned short modifiers);	// 0x71AB40  // NAME 2: describes what it does
 	void Save();														// 0x71AD20: keymap.ini, then KeysSavedEvent  // NAME 2: describes what it does
