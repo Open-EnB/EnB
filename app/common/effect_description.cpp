@@ -7,7 +7,7 @@
 #include "..\packets\pk.h"
 #include "..\shared\g_assert.h"
 
-void Unknown_4FC2F0(std::vector<std::string> &list, const std::string &string, const std::string &separator);	// 0x4FC2F0: splits string at separator  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_4fac20.h"
 
 // 0x8320D0
 EffectDescriptionClass::EffectDescriptionClass() :
@@ -332,14 +332,14 @@ inline void Set_Values(const std::vector<std::string> &strings, std::vector<floa
 void EffectDescriptionClass::Set_Summary(const std::string &summary)
 {
 	std::vector<std::string> name_and_description;
-	Unknown_4FC2F0(name_and_description, summary, NameDescriptionSeparator);
+	String_Split(name_and_description, summary, NameDescriptionSeparator);
 	FAIL_IF(name_and_description.size() != 2) return;
 	const std::string &name_values = name_and_description[0];	// NAME 1 [name_values, description_values]: what they hold
 	const std::string &description_values = name_and_description[1];
 	std::vector<std::string> name_value_strings;
 	std::vector<std::string> description_value_strings;
-	Unknown_4FC2F0(name_value_strings, name_values, ValueSeparator);
-	Unknown_4FC2F0(description_value_strings, description_values, ValueSeparator);
+	String_Split(name_value_strings, name_values, ValueSeparator);
+	String_Split(description_value_strings, description_values, ValueSeparator);
 
 
 

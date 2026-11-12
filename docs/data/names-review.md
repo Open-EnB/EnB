@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1792 |
 | 2 | describes what the code does | 4252 |
-| 1 | neutral placeholder | 23064 |
+| 1 | neutral placeholder | 23062 |
 
 ## For review (score 3 and below)
 
@@ -19740,7 +19740,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/common/connect.h:197` | untagged neutral name (D10) |
 | 1 | `Unknown2A` | `app/common/dbgconn.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/dbgconn.cpp:116` | untagged neutral name (D10) |
-| 1 | `Unknown_4FC2F0` | `app/common/effect_description.cpp:10` | neutral placeholder (D10) |
 | 1 | `Unknown00` | `app/common/effect_description.cpp:14` | untagged neutral name (D10) |
 | 1 | `size` | `app/common/effect_description.cpp:55` | neutral |
 | 1 | `it, count, value, i` | `app/common/effect_description.cpp:71` | neutral |
@@ -19819,8 +19818,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `map` | `app/common/galaxy_map.h:347` | what it walks |
 | 1 | `std:` | `app/common/galaxy_map.h:353` | the position |
 | 1 | `Current` | `app/common/galaxy_map.h:354` | the entry at It, NULL at the end |
-| 1 | `Unknown_4FC2F0` | `app/common/item_effect.cpp:10` | neutral |
-| 1 | `Unknown_4A1590` | `app/common/item_effect.cpp:11` | neutral placeholder (D10) |
 | 1 | `std:` | `app/common/item_effect.cpp:62` | what it is |
 | 1 | `EffectGeneratorUsageNameStruct` | `app/common/item_effect.cpp:65` | what it is |
 | 1 | `Value` | `app/common/item_effect.cpp:69` | what it holds |
@@ -19828,7 +19825,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `EffectGeneratorUsageNames` | `app/common/item_effect.cpp:73` | what it is |
 | 1 | `list, found, it, i, entry` | `app/common/item_effect.cpp:97` | neutral |
 | 1 | `text, entry` | `app/common/item_effect.cpp:116` | neutral |
-| 1 | `Unknown_4FC2F0` | `app/common/item_effect_description.cpp:7` | neutral placeholder (D10) |
 | 1 | `Unknown18` | `app/common/item_effect_description.cpp:12` | untagged neutral name (D10) |
 | 1 | `has_range, has_radius, has_duration, range, radius, it` | `app/common/item_effect_description.cpp:26` | what they hold |
 | 1 | `Is_Unknown1` | `app/common/item_effect_description.cpp:39` | untagged neutral name (D10) |
@@ -22588,10 +22584,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unknown_4be9d0.h` | `app/shared/unknown_4be9d0.h:15` | neutral (D137) |
 | 1 | `Unknown_4BE9D0` | `app/shared/unknown_4be9d0.h:20` | neutral (D10); callers avatar_desc.cpp's 0x4C1460 / 0x4C15F0 / Convert_Names, 0x5D6DC0, 0x616220, 0x649FE0 |
 | 1 | `unknown_4fac20.h` | `app/shared/unknown_4fac20.h:21` | neutral header name (D10) |
-| 1 | `Unknown_8B4510` | `app/shared/unknown_8b4560.cpp:18` | wwonline's 64-bit htonl |
-| 1 | `Unknown_8B4560` | `app/shared/unknown_8b4560.cpp:34` | wwonline's 64-bit ntohl |
-| 1 | `Unknown_8B4510` | `app/shared/unknown_8b4560.h:6` | wwonline's 64-bit htonl |
-| 1 | `Unknown_8B4560` | `app/shared/unknown_8b4560.h:7` | wwonline's 64-bit ntohl |
+| 1 | `Unknown_8B44C0` | `app/shared/unknown_8b4560.cpp:9` | neutral placeholder (D10) |
+| 1 | `Unknown_8B44E0` | `app/shared/unknown_8b4560.cpp:15` | neutral placeholder (D10) |
+| 1 | `Unknown_8B4510` | `app/shared/unknown_8b4560.cpp:32` | wwonline's 64-bit htonl |
+| 1 | `Unknown_8B4560` | `app/shared/unknown_8b4560.cpp:48` | wwonline's 64-bit ntohl |
+| 1 | `Unknown_8B44C0` | `app/shared/unknown_8b4560.h:7` | neutral placeholder (D10): _atoi64(text) |
+| 1 | `Unknown_8B44E0` | `app/shared/unknown_8b4560.h:8` | neutral placeholder (D10): _i64toa(value, buffer, 10) |
+| 1 | `Unknown_8B4510` | `app/shared/unknown_8b4560.h:9` | wwonline's 64-bit htonl |
+| 1 | `Unknown_8B4560` | `app/shared/unknown_8b4560.h:10` | wwonline's 64-bit ntohl |
 | 1 | `unknown_font_split_string.h` | `app/shared/unknown_font_split_string.h:19` | neutral (D10), file name unknown |
 | 1 | `Unknown_8B4510` | `app/shared/unknown_login_data.cpp:14` | wwonline's 64-bit htonl (a byte-order probe, then two htonl) |
 | 1 | `Unknown_8B4560` | `app/shared/unknown_login_data.cpp:15` | wwonline's 64-bit ntohl |
@@ -23073,8 +23073,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `tests/udpreplay/conn_replay.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `tests/udpreplay/conn_replay.cpp:81` | untagged neutral name (D10) |
 | 1 | `Unknown_BFAEE0` | `tests/udpreplay/conn_replay.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown_8B4510` | `tests/udpreplay/conn_replay.cpp:97` | untagged neutral name (D10) |
-| 1 | `Unknown_8B4560` | `tests/udpreplay/conn_replay.cpp:98` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Begin_Step` | `tests/udpreplay/connect_stubs.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_End_Step` | `tests/udpreplay/connect_stubs.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/udpreplay/connect_stubs.cpp:34` | untagged neutral name (D10) |

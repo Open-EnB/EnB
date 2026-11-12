@@ -4,7 +4,7 @@
 #include "..\packets\pk.h"
 #include "..\shared\g_assert.h"
 
-void Unknown_4FC2F0(std::vector<std::string> &list, const std::string &string, const std::string &separator);	// 0x4FC2F0: splits string at separator  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_4fac20.h"
 
 // 0x83DB00
 ItemEffectDescriptionClass::ItemEffectDescriptionClass() :
@@ -200,7 +200,7 @@ std::string ItemEffectDescriptionClass::Get_Summary() const
 void ItemEffectDescriptionClass::Set_Summary(const std::string &summary)
 {
 	std::vector<std::string> summary_strings;
-	Unknown_4FC2F0(summary_strings, summary, SummarySeparator);
+	String_Split(summary_strings, summary, SummarySeparator);
 	G_ASSERT(summary_strings.size() == Effects.size());
 	std::vector<std::string>::iterator s = summary_strings.begin();	// NAME 1 [s, it]: neutral
 	for (std::vector<ItemEffectClass>::iterator it = Effects.begin(); it != Effects.end() && s != summary_strings.end(); ++it, ++s) {
