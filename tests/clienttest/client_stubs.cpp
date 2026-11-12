@@ -191,12 +191,6 @@ void UnknownB02C90Class::BufferStruct::Insert(const ElementStruct &, int index) 
 // eff_o.cpp (real code, in the link since the testeffects.ini loader) calls it; co.cpp is not in the harness
 Matrix3D UnknownB02C90Class::Unknown_725AD0() { Trace("stub UnknownB02C90Class::Unknown_725AD0"); return(Matrix3D(1)); }
 
-// and its colorization of a new model (co.cpp's 0x6FCB70: a vector by reference gen_stubs.py cannot write)
-void Unknown_80F220(RenderObjClass *, std::vector<ColorizationRegionStruct> &regions)
-{
-	Trace("stub Unknown_80F220 %d regions", (int)regions.size());
-}
-
 // ------------------------------------------------------------------------- the aux-data roots' decode (AUX_DATA 27 / 28)
 
 // ------------------------------------------------------------------------- eff_o.cpp's effect factory (OBJECT_EFFECT 9)

@@ -18,6 +18,10 @@ void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SCl
 // The colourization regions on the model (cpacket.cpp's COLORIZATION 17, ui_shipcust.cpp's 0x6211D0)
 void Unknown_80EFF0(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *unknown);	// 0x80EFF0 (cdecl)  // NAME 1 [model, regions, unknown]: as cpacket.cpp's
 
+// The ship's colorization regions onto a new model (co.cpp's 0x6FCB70): the meshes under '~weap' bones take their
+// region's first colour (a metal's from metal_equivalent_rgbs.ini) on their '~s1' vertex materials
+void Apply_Ship_Colorization(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions);	// 0x80F220 (cdecl)  // NAME 2: what it does
+
 // The ship's name on its 'namedecal' meshes: 'ship_font.tga' printed into a texture, tinted with the colour
 // (ui_shipcust.cpp's 0x621500 / 0x622FC0, with the ship description's Ship_Name and Ship_Name_Color)
 void Unknown_80FF20(RenderObjClass *robj, const char *name, float *color);	// 0x80FF20 (cdecl; FAIL_IFs l.477 / l.483)  // NAME 1 [robj, name, color]: what ui_shipcust.cpp passes

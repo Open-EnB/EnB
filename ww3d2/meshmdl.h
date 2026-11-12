@@ -224,6 +224,8 @@ protected:
 
 public: // Jani: I need to have an access to these for now...
 
+	bool						Has_Polygon_Renderers(void)		{ return !PolygonRendererList.Is_Empty(); }
+
 	TexBufferClass *			Get_Texture_Array(int pass,int stage,bool create = true)
 	{
 		return CurMatDesc->Get_Texture_Array(pass,stage,create);
@@ -364,3 +366,5 @@ public:
 // EnB: class is (line 303 at the freeze): MeshModelClass keeps the PolygonRendererList member Renegade's later
 //       revision removed (Generals and Zero Hour have it after MatInfo): GapFiller is 24 bytes (a MultiListClass) later
 //       in the client
+// EnB: class is (line 226 at the freeze): Has_Polygon_Renderers, inline, the test shiputils.cpp's 0x810130 and 0x80F470
+//       pass to MeshClass::Make_Unique (the list at the model's +0x84 not empty); NAME 1: what it tests

@@ -1735,7 +1735,7 @@ class ProjDecalManagerClass	// NAME 3: the FAIL_IF's 'proj_decal_manager' (sclie
 public:
 	void Unknown_7633E0(DecalGeneratorClass *generator, const ProjectedDecalClass &decal, RenderObjClass *model);	// 0x7633E0 (the damage decals 0x6FD310: an aux item's value onto the model)  // NAME 1 [generator, decal, model]: what 0x6FD310 passes
 };
-void Unknown_80F220(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions);	// 0x80F220 (cdecl, shiputils.cpp's run; not rebuilt): the colorization regions onto a new model  // NAME 1 [model, regions]: what 0x6FCB70 passes
+void Apply_Ship_Colorization(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions);	// 0x80F220 (cdecl, shiputils.cpp): the colorization regions onto a new model  // NAME 1 [model, regions]: what 0x6FCB70 passes
 // a field that is set (+0x70 not 0), else NULL (auxdata.h's find; the bool copy 0x705450 is out of line in 0x6FCB70)
 
 int Update_Damage_Particles(RenderObjClass *model, int *levels, int hull_level, ClientClass *client, unsigned id, int unknown);
@@ -1747,7 +1747,7 @@ void ClientObjectClass::Unknown_6FCB70()
 {
 	Unknown_Damage_Reset();
 	Unknown_6FED30();
-	if (!Colorization.empty() && RenderObject) Unknown_80F220(RenderObject, Colorization);
+	if (!Colorization.empty() && RenderObject) Apply_Ship_Colorization(RenderObject, Colorization);
 	SClient *sclient = (SClient *)Client->Unknown_18(); if (sclient && sclient->AvatarID == GameID) sclient->Unknown_74D950();
 	if (Unknown_6F5A10()) {
 		NameClass name("IsOrganic");
