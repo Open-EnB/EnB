@@ -48,11 +48,11 @@ static float HitScale = 4.0f;	// 0xB78D68: a hit's direction to the camera's off
 
 static Matrix3D BridgeTransform;	// 0xBE5AA8: the bridge model's orientation in its scene (the constructor sets it)  // NAME 1: what it is
 
-// NOT EXACT: order (explain.py): the client stores the listener's table before +0x04, ours after (ui_scut.h's base sets
-// +0x04 in its initialiser list; the client's order is a base without the member and Client as this class's first)
+
+
 // 0x53B040
 BridgeInterface::BridgeInterface(ClientClass *client) :
-	UnknownAEEA88Class(client),
+	Client(client),
 	Mesh(NULL),
 	BridgeName(NULL),
 	View(VIEW_MAIN),
@@ -69,7 +69,7 @@ BridgeInterface::BridgeInterface(ClientClass *client) :
 	Animation(ANIM_NONE)
 {
 	Mesh = new UIMeshClass(NULL, 0);
-	Mesh->Observers.Add((ObserverClass *)this);
+	Mesh->Observers.Add(this);
 	BridgeTransform.Make_Identity();
 	BridgeTransform.Rotate_X(DEG_TO_RADF(-90.0f));
 	BridgeTransform.Rotate_Z(DEG_TO_RADF(90.0f));
@@ -79,7 +79,7 @@ BridgeInterface::BridgeInterface(ClientClass *client) :
 BridgeInterface::~BridgeInterface()
 {
 	Set_Scene(RefCountPtr<RefCountClass>());
-	UnknownAEEA88Class::Unknown_04((DynamicVectorClass<UnknownAEEA88Class *> *)&Mesh->Observers);
+	Mesh->Detach(this);
 	delete Mesh;
 	Mesh = NULL;
 	Avatar = NULL;
@@ -88,13 +88,13 @@ BridgeInterface::~BridgeInterface()
 // The mesh's processes report here: a transition started (1: the camera rides the main bone while it plays), ended (3:
 // the camera is at the view asked for), anything else clears the mesh's flag bit 0 (Set_View sets it)
 // 0x53B500
-void BridgeInterface::Unknown_00(void *source, int *event)
+void BridgeInterface::Unknown_00(SubjectClass *subject, void *event)
 {
-	if (source != (SubjectClass *)Mesh) return;
-	if (event[1] == 1) {
+	if (subject != Mesh) return;
+	if (((int *)event)[1] == 1) {
 		InTransition = true;
 		Update_Camera_Bone();
-	} else if (event[1] == 3) {
+	} else if (((int *)event)[1] == 3) {
 		InTransition = false;
 		ViewReached = View;
 		Update_Camera_Bone();
@@ -307,8 +307,8 @@ void BridgeInterface::Set_Scene(const RefCountPtr<RefCountClass> &scene)
 // One frame, while the bridge is in a scene. The camera goes onto the view's bone of the mesh (in the main view turned
 // by Yaw and Pitch, which decay unless the pointer set them this frame) and is moved by the last hit's offset; the
 // bridge model leans by the ship's turn rates, smoothed.
-// NOT EXACT: order (explain.py; the same length, 1866 bytes): the client multiplies the rows' Y terms of the
-// translation first and keeps the second and third rotations' sine and cosine in the other two stack slots
+// NOT EXACT: order (explain.py; the same length, 1866 bytes, 0.94): three operand-order pairs, the client loads the
+// other factor first in Pre_Rotate_Z's sine / cosine products and in the last Rotate_Z's
 // 0x53BD40
 void BridgeInterface::Do_Frame(CameraClass *camera)
 {
@@ -400,12 +400,12 @@ void BridgeInterface::Do_Frame(CameraClass *camera)
 
 
 
-	ClientClass *Client = Peek_Client();	// NAME 3: the FAIL_IF's (the listener's +0x04)
+
 	FAIL_IF(Client == NULL) return;
 	Sounds.Stop_Sound(Client->Unknown10BC);
 }
 
-// NOT EXACT: register, inline budget (explain.py): the client keeps &anim in ebx (saved on entry, so its early returns share one epilogue) and destroys the first temporary string through _Tidy; ours spills anim and expands that _Tidy inline
+
 // 0x53C670
 bool BridgeInterface::Set_View(int view)
 {
@@ -417,6 +417,7 @@ bool BridgeInterface::Set_View(int view)
 		std::string name = std::string(BridgeName) + "." + BridgeName + anim.AnimName;
 		Mesh->Unknown70 |= 1;
 		Mesh->Unknown_5B8EE0(0, view, name.c_str(), false, 1, anim.Reverse, 0, -1);
+		name.size();	// (dead, D130: the client's register allocation keeps &anim in ebx)
 	} else {
 		View = view;
 		ViewReached = view;
@@ -443,7 +444,6 @@ void BridgeInterface::Set_Yaw(float yaw)
 		Looking = true;
 	}
 }
-
 
 
 
@@ -595,8 +595,8 @@ void BridgeInterface::Reset_Sounds(int time)
 **	Reconstruction notes (from the retail client.exe, SHA-256 249f8524...51c4).
 **	Original location: e:\build\beta\G\app\Client\bridge_int.cpp (its __FILE__ 0xB78DF0: G_ASSERT 'false' on lines
 **	221 / 250, FAIL_IFs '!camera' 315, '!bridge' 318, '!pship' 332, 'Client == NULL' 404, '!anim.AnimName' 416,
-**	'!bridge' 462, '!event' 521, '!gadget' 525). Client 0x53B040-0x53D23E: the constructor, the listener's slot +0x04
-**	(0x53B310, ui_scut.h's inline, first emitted here), the destructor, the functions above in the client's order,
+**	'!bridge' 462, '!event' 521, '!gadget' 525). Client 0x53B040-0x53D23E: the constructor, the observer's slot +0x04
+**	(0x53B310, observer.h's inline, first emitted here), the destructor, the functions above in the client's order,
 **	AvatarDescClass's destructor 0x53BB50, then the instances this file is the first to use: Create_NEW 0x53CF50 and
 **	~RefCountPtr 0x53CF80 of CharacterViewAvatarClass, the signal map's disconnect 0x53CFB0 and Add 0x53D030 for
 **	MemberCallback<GadgetClass, BridgeInterface, ..., FlashingGadgetEvent>, that callback's members 0x53D0D0-0x53D1C0,

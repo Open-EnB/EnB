@@ -6,9 +6,10 @@
 #ifndef BRIDGE_INT_H
 #define BRIDGE_INT_H
 
-#include "ui_scut.h"
+#include "..\shared\observer.h"
 #include "matrix3d.h"
 #include "vector3.h"
+#include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "..\audio\bridgesounds.h"
 
@@ -21,18 +22,18 @@ class CharacterViewAvatarClass;
 class FlashingGadgetEvent;
 class GadgetClass;
 
-// bridge_int.cpp's interface (0xC4 bytes, table 0xAEEA7C over the listener's 0xAEEA88; SClient's +0x128C, made by its
+// bridge_int.cpp's interface (0xC4 bytes, table 0xAEEA7C over the observer's 0xAEEA88; SClient's +0x128C, made by its
 // Init and deleted by its Shutdown): the ship's bridge around the first-person camera. It owns the bridge's mesh (the
 // race's 't_i_bridge' / 'j_i_bridge' / 'p_i_bridge' model) and listens to its animations, seats the player's avatar on
 // the mesh's 'main_chair' bone, puts both into the main view's bridge scene while the camera is inside the ship, and
 // each frame places the camera on one of the mesh's camera bones: the main one, or the PDA page's after the
 // transition animation between two of them has played.
-class BridgeInterface : public UnknownAEEA88Class	// NAME 5: the client's RTTI (the receiver in MemberCallback<GadgetClass, BridgeInterface, void (BridgeInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent>, the type descriptor 0xB78F28)
+class BridgeInterface : public ObserverClass	// NAME 5: the client's RTTI (the receiver in MemberCallback<GadgetClass, BridgeInterface, void (BridgeInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent>, the type descriptor 0xB78F28)
 {
 public:
 	BridgeInterface(ClientClass *client);				// 0x53B040  // NAME 3 [client]: the member's
 	~BridgeInterface();									// 0x53B380
-	virtual void Unknown_00(void *source, int *event);	// +0x00 0x53B500: the mesh's animation started (1: the camera back to the main bone), ended (3: the view reached) or else (the mesh's flag bit 0 cleared)
+	virtual void Unknown_00(SubjectClass *subject, void *event);	// +0x00 0x53B500: the mesh's animation started (1: the camera back to the main bone), ended (3: the view reached) or else (the mesh's flag bit 0 cleared)
 	void Set_Avatar(AvatarDescClass *desc);				// 0x53B7A0 (0x74C3B0: the player's own avatar arrived): the race's bridge model and a second avatar of that description for the chair  // NAME 1: what it does; [desc]: what it is
 	void Set_Scene(const RefCountPtr<RefCountClass> &scene);	// 0x53BBC0 (0x744C10: the main view's bridge scene, or NULL when the camera is outside): the mesh and the avatar out of the old scene and into the new one  // NAME 1: what it does; [scene]: what it is (a RefCountClass as 0x744C10 wraps it: its Create_Peek is the client's 0x514960)
 	void Do_Frame(CameraClass *camera);					// 0x53BD40 (SClient's Do_Frame, while there is a scene): the processes, the avatar, the bridge's transform and the camera's (FAIL_IF '!camera')  // NAME 1: its caller's; NAME 3 [camera]: the FAIL_IF's
@@ -77,9 +78,10 @@ public:
 
 	bool Is_Busy() { return(ViewReached != View); }		// (inline: pdaint.cpp's 0x693CA0 and 0x695780 compare +0x1C with +0x18)  // NAME 1: neutral
 	SimpleSceneClass *Peek_Scene() { return((SimpleSceneClass *)Scene.Peek()); }	// NAME 1: what it returns
-	ClientClass *Peek_Client() { return((ClientClass *)Unknown04); }	// the listener's +0x04 (bridge_int.cpp's FAIL_IF 'Client == NULL' l.404 names it Client)  // NAME 1: what it returns
+	ClientClass *Peek_Client() { return(Client); }		// NAME 1: what it returns
 #endif
 
+	ClientClass *Client;								// +0x04: the constructor stores it between the observer's table and this class's (its first member); NAME 3: the FAIL_IF's 'Client == NULL' (l.404)
 	UIMeshClass *Mesh;									// +0x08: the bridge (its model is the FAIL_IFs' 'bridge')  // NAME 1: what it is
 	const char *BridgeName;								// +0x0C: the race's model name  // NAME 1: what it holds
 	RefCountPtr<CharacterViewAvatarClass> Avatar;		// +0x10: the player in the chair  // NAME 1: what it is
