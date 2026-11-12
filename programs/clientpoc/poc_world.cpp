@@ -24,22 +24,7 @@ UIHotKeysClass::UIHotKeysClass(SClient *client) : InterfaceClass((LineDisplayCli
 
 // pdaint.cpp's PDA is real app code since PD1 (pdaint.cpp); its windows' stand-ins are in poc_world3.cpp.
 
-// ---------------------------------------------------------------- bridge (0x53B040): 0xC4 bytes, zero
-class BridgeInterface
-{
-public:
-	BridgeInterface(ClientClass *client);
-	~BridgeInterface();
-	char Unknown00[0xC4];
-};
-BridgeInterface::BridgeInterface(ClientClass *client)
-{
-	STUB_CALLED("POC BridgeInterface: zero");
-	memset(this, 0, sizeof(*this));
-}
-BridgeInterface::~BridgeInterface()
-{
-}
+// bridge_int.cpp's bridge (0x53B040) is real app code since L17 (bridge_int.h): its zeroed stand-in left here.
 
 // camera_manager.cpp is real app code (camera_manager.h; its stand-in left here since CM2).
 

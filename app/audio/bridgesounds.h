@@ -17,6 +17,7 @@ public:
 	void Reset(int time);
 	void Play_Sounds(int channel, int time);  // NAME 2: function name assumed
 	void Stop_Sound(int channel);  // NAME 2: function name assumed
+	void Unknown_437070();  // 0x437070: AmbientSoundManager's 0x435FA0 with m_fade_out (bridge_int.cpp: the bridge left its scene)
 	void Load_INI();  // NAME 2: function name assumed
 	void Load_Section(INIClass *ini, const char *section, int race);  // NAME 2: function name assumed
 

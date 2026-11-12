@@ -115,7 +115,7 @@ def tidy(t):
 
 
 # Templates a stand-in may name (P-T18-2), with the declaration link_stubs.cpp gives each. RefCountPtr<T>
-# (wwlib's ref_ptr.h, one pointer): as a `const RefCountPtr<T> &` parameter (BridgeInterfaceClass 0x53BBC0,
+# (wwlib's ref_ptr.h, one pointer): as a `const RefCountPtr<T> &` parameter (BridgeInterface 0x53BBC0,
 # MainViewUnknown84Class 0x7B6BD0) or returned by value. The stand-in declares (never defines) a destructor,
 # so it is returned through a hidden pointer as the real class is, and defines no member a real object
 # file also emits (no COMDAT can replace ref_ptr.h's); a returned one is a copy of four zero bytes, NULL.
