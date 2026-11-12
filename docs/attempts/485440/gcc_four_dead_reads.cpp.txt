@@ -1,0 +1,33 @@
+// P1 2026-11-11 (Fable): Get_Color_Curves 0x485440 near miss, 31 rows: four dead KeyNames.Count() reads (D130; anywhere after
+// the second lookup, by their total: 3 do nothing, 5-6 cut other things) send the _G lookup's HashListClass::Find out of line as
+// the client has it and every call matches; left: VC6 then merges the name == NULL return with the final return(false)
+// (the client keeps both: its last one sets al before the pops). Not kept in the tree (no pair).
+bool SplineDatabaseClass::Get_Color_Curves(const char *base_name, Curve1DClass **r, Curve1DClass **g, Curve1DClass **b)
+{
+	char *name = new char[strlen(base_name) + 3];
+	if (name == NULL) {
+		return false;
+	}
+	strcpy(name, base_name);
+	strcat(name, "_R");
+	char *suffix = &name[strlen(name) - 1];
+	SplineEntryClass *entry = Find(name);
+	if (entry != NULL) {
+		*r = entry->Curve;
+		*suffix = 'G';
+		entry = Find(name);
+		if (entry != NULL) {
+			*g = entry->Curve;
+			KeyNames.Count(); KeyNames.Count(); KeyNames.Count(); KeyNames.Count(); 
+			*suffix = 'B';
+			entry = Find(name);
+			if (entry != NULL) {
+				*b = entry->Curve;
+				delete [] name;
+				return true;
+			}
+		}
+	}
+	delete [] name;
+	return false;
+}

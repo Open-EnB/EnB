@@ -400,8 +400,8 @@ bool GalaxyMapRenderClass::Unknown_7A7070(bool arg)
 		Unknown_7A7D70(true);
 		return(true);
 	}
-	for (std::vector<GalaxyMapRenderUpdateStruct>::iterator it = Updates.begin(); it != Updates.end(); ++it) {
-		(*it).Item->Update();
+	for (std::vector<RefCountPtr<GalaxyMapRenderItemClass> >::iterator it = Updates.begin(); it != Updates.end(); ++it) {
+		(*it)->Update();
 	}
 
 
@@ -2012,8 +2012,8 @@ const RefCountPtr<GalaxyMapRenderSectorClass> &GalaxyMapRenderGateClass::Unknown
 **	('it == container.end()') and 194 ('!scene') that the members inline.
 **
 **	Forms: iterators constructed in place, not assigned (an assigned one is kept in registers);
-**	the update list's element is a one-member struct, whose implicit destructor _Destroy calls
-**	through ??_G (0x7B18A0); the destructors call Release_Item, which reaches Remove_From_Scene through
+**	the update list holds plain RefCountPtrs (??_G 0x7B18A0, erase 0x7AF400 and _Destroy 0x7AF4A0 are
+**	its instances); the destructors call Release_Item, which reaches Remove_From_Scene through
 **	the table just stored; New_Item 0x7A9370 / 0x7A93F0 are static (called without a thunk);
 **	0x7ABA70, 0x7A83D0 and 0x7A89A0 write their results through references (ret without eax).
 **	What stays NOT EXACT is listed in docs/data/attempts.csv (inline budgets in the long members,
