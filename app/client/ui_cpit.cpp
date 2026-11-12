@@ -316,8 +316,8 @@ void UICpitClass::Unknown_54()
 	Unknown0E0->Unknown_54();
 	Unknown0E0->Unknown_7C(View, 0);
 
-	RenderObjClass *object = InterfaceMesh->Unknown_5B8B40("WARP");
-	RenderObjClass *uv = InterfaceMesh->Unknown_5B8B40("WARP_BAR");
+	RenderObjClass *object = InterfaceMesh->Get_Sub_Object_By_Name("WARP");
+	RenderObjClass *uv = InterfaceMesh->Get_Sub_Object_By_Name("WARP_BAR");
 	Unknown0B4 = new ActIconClass(object, uv, Layer);
 	Unknown64.Unknown_6870E0(Unknown0B4, 1, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP");
@@ -325,8 +325,8 @@ void UICpitClass::Unknown_54()
 	uv->Release_Ref();
 	object->Release_Ref();
 
-	object = InterfaceMesh->Unknown_5B8B40("LEFT");
-	uv = InterfaceMesh->Unknown_5B8B40("LEFT_UV");
+	object = InterfaceMesh->Get_Sub_Object_By_Name("LEFT");
+	uv = InterfaceMesh->Get_Sub_Object_By_Name("LEFT_UV");
 	Unknown0C0 = new Unknown_671300Class(object, (int)uv, Layer, -1, 0, 3);
 	Unknown64.Unknown_6870E0(Unknown0C0, 6, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0C0, "UI_CPIT", "LEFT");
@@ -334,8 +334,8 @@ void UICpitClass::Unknown_54()
 	uv->Release_Ref();
 	object->Release_Ref();
 
-	object = InterfaceMesh->Unknown_5B8B40("RIGHT");
-	uv = InterfaceMesh->Unknown_5B8B40("RIGHT_UV");
+	object = InterfaceMesh->Get_Sub_Object_By_Name("RIGHT");
+	uv = InterfaceMesh->Get_Sub_Object_By_Name("RIGHT_UV");
 	Unknown0C4 = new Unknown_671300Class(object, (int)uv, Layer, -1, 0, 3);
 	Unknown64.Unknown_6870E0(Unknown0C4, 7, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0C4, "UI_CPIT", "RIGHT");
@@ -343,8 +343,8 @@ void UICpitClass::Unknown_54()
 	uv->Release_Ref();
 	object->Release_Ref();
 
-	object = InterfaceMesh->Unknown_5B8B40("THROTTLE");
-	uv = InterfaceMesh->Unknown_5B8B40("THROTTLE_UV");
+	object = InterfaceMesh->Get_Sub_Object_By_Name("THROTTLE");
+	uv = InterfaceMesh->Get_Sub_Object_By_Name("THROTTLE_UV");
 	Unknown0B8 = new Unknown_673EE0Class(object, (int)uv, Layer, -1, 0);
 	Unknown64.Unknown_6870E0(Unknown0B8, 4, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0B8, "UI_CPIT", "THROTTLE");
@@ -352,8 +352,8 @@ void UICpitClass::Unknown_54()
 	uv->Release_Ref();
 	object->Release_Ref();
 
-	object = InterfaceMesh->Unknown_5B8B40("REVERSE");
-	uv = InterfaceMesh->Unknown_5B8B40("REVERSE_UV");
+	object = InterfaceMesh->Get_Sub_Object_By_Name("REVERSE");
+	uv = InterfaceMesh->Get_Sub_Object_By_Name("REVERSE_UV");
 	Unknown0BC = new Unknown_673EE0Class(object, (int)uv, Layer, -1, 0);
 	Unknown64.Unknown_6870E0(Unknown0BC, 4, View, 1, 0);
 	GadgetClass::Set_Tooltip(Unknown0BC, "UI_CPIT", "REVERSE");

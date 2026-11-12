@@ -197,10 +197,10 @@ void UITalkTreeClass::Unknown_54()
 	Buttons[BTTN_EXIT] = new ButtonGadgetClass(InterfaceMesh, "EXIT", 0x55, 3);
 	Unknown64.Unknown_6870E0(Buttons[BTTN_EXIT], BTTN_EXIT, View, 1, 0);
 	GadgetClass::Set_Tooltip(Buttons[BTTN_EXIT], "UI_TALKTREE", "EXIT");
-	RefCountPtr<RenderObjClass> frame = Create_Get(InterfaceMesh->Unknown_5B8B40("frame01"));
+	RefCountPtr<RenderObjClass> frame = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("frame01"));
 	Unknown64.Unknown_6870E0(new UIBackGadget(frame), 12, View, 1, 0);
 	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UITalkTreeKeyEventStruct(0x1B), (void *)11);
-	RenderObjClass *npc_line = InterfaceMesh->Unknown_5B8B40("TALK00");
+	RenderObjClass *npc_line = InterfaceMesh->Get_Sub_Object_By_Name("TALK00");
 	if (npc_line) {
 		float width = npc_line->Get_Bounding_Box().Extent.X * 2;
 		NPCLineWidth = (int)(width * 0.95f);
@@ -226,7 +226,7 @@ void UITalkTreeClass::Unknown_54()
 		G_ASSERT(npc_line);
 		NPCLineWidth = 400;
 	}
-	RenderObjClass *player_line = InterfaceMesh->Unknown_5B8B40("ANSWER00");
+	RenderObjClass *player_line = InterfaceMesh->Get_Sub_Object_By_Name("ANSWER00");
 	if (player_line) {
 		float width = player_line->Get_Bounding_Box().Extent.X * 2;
 		PlayerLineWidth = (int)(width * 0.95f);

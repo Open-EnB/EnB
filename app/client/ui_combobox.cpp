@@ -231,7 +231,7 @@ void UIComboBoxClass::Init(InterfaceClass *owner)
 	Anim->Set_Weight(1, 1.0f);
 	Anim->Set_Frame(0, (float)(Width * scale));
 	Mesh->Peek_Object()->Set_Animation(Anim);
-	RenderObjClass *drop = Mesh->Unknown_5B8B40("DROP_DOWN00");
+	RenderObjClass *drop = Mesh->Get_Sub_Object_By_Name("DROP_DOWN00");
 	drop->Set_Sort_Level(4);
 	drop->Set_Hidden(1);
 	drop->Release_Ref();
@@ -404,7 +404,7 @@ void UIComboBoxClass::Update_Drop_Down()
 	}
 	float seconds = WW3D::Get_Frame_Time() * 0.001f;
 	float step = seconds * 50.0f;
-	RenderObjClass *drop = Mesh->Unknown_5B8B40("DROP_DOWN00");
+	RenderObjClass *drop = Mesh->Get_Sub_Object_By_Name("DROP_DOWN00");
 	switch (State) {
 		case 2:
 			RowsShown -= step;

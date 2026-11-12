@@ -4,7 +4,7 @@
 #include "rendobj.h"
 
 Unknown_675120Class::Unknown_675120Class(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask) :
-	RObjGadgetClass(mesh->Unknown_5B8B40(name), layer, mask)
+	RObjGadgetClass(mesh->Get_Sub_Object_By_Name(name), layer, mask)
 {
 	Peek_Render_Obj()->Release_Ref();
 }
@@ -15,7 +15,7 @@ Unknown_675120Class::Unknown_675120Class(RenderObjClass *robj, const LayerClass 
 }
 
 Unknown_675120Class::Unknown_675120Class(UIMeshClass *mesh, const char *name, unsigned int mask) :
-	RObjGadgetClass(mesh->Unknown_5B8B40(name), mask)
+	RObjGadgetClass(mesh->Get_Sub_Object_By_Name(name), mask)
 {
 	Peek_Render_Obj()->Release_Ref();
 }
@@ -30,7 +30,7 @@ Unknown_675120Class::~Unknown_675120Class()
 }
 
 ButtonGadgetClass::ButtonGadgetClass(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask, unsigned int flags) :
-	Unknown_66B770Class(mesh->Unknown_5B8B40(name), layer, mask, flags)
+	Unknown_66B770Class(mesh->Get_Sub_Object_By_Name(name), layer, mask, flags)
 {
 	Peek_Render_Obj()->Release_Ref();
 }
@@ -41,7 +41,7 @@ ButtonGadgetClass::ButtonGadgetClass(RenderObjClass *robj, const LayerClass &lay
 }
 
 ButtonGadgetClass::ButtonGadgetClass(UIMeshClass *mesh, const char *name, unsigned int mask, unsigned int flags) :
-	Unknown_66B770Class(mesh->Unknown_5B8B40(name), mask, flags)
+	Unknown_66B770Class(mesh->Get_Sub_Object_By_Name(name), mask, flags)
 {
 	Peek_Render_Obj()->Release_Ref();
 }

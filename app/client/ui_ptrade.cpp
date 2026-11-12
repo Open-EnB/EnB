@@ -175,8 +175,8 @@ void UIPTradeClass::Unknown_58()
 		State = UI_OPEN;
 		SClient *sclient = Client->As_Space_Client();
 		Unknown0DC = sclient->PDAInterface->Unknown_695780(false);
-		PlayerPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Unknown_5B8B40("AVATAR_YOU")), 0);
-		OtherPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Unknown_5B8B40("AVATAR_THEM")), 0);
+		PlayerPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("AVATAR_YOU")), 0);
+		OtherPIP->Unknown_7E36B0(sclient, Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("AVATAR_THEM")), 0);
 		Unknown5BB320Class::Unknown_58();
 		Unknown_5E3340();
 		RefCountPtr<FontSys> font = Create_Peek(Unknown_BE67C4->Get_Style("PLAYER_NAME_TRADE00", InterfaceMesh->Peek_Object()));
