@@ -27,6 +27,8 @@ SHA: ..."), HEAD's ledger has recorded the loss already: the watch set comes fro
 --watch-from REV names the ledger outright (wt.py bring-over passes its target when the landing carries such a commit).
 The importer lock is taken per variant, not for the whole sweep. K VMs (default 1) are leased from pool.py and
 released at the end (also on failure). Log: .work/log/sendpad.log (one line per value). Prints one summary line.
+Every value's exact address set (all of sclient.cpp's, not only WATCH) goes to .work/log/sendpad-sets.json (--sets PATH),
+with HEAD's commit: tools/re/matchaudit.py's pad-held class (D240) reads it, so a sweep need not be run twice.
 Exit 1: no value keeps all of them (the header is left as it was).
 It works on the tree holding the script (wt.py bring-over runs the scratch worktree's copy).
 """
@@ -152,17 +154,33 @@ def measure(importer, n, orig, lock_wait):
             importer.release_lock()
 
 
+def save_sets(path, file, sets, errors, repo=None):
+    """Write the per-value exact address sets of one sweep (sendpad.py / auxpad.py) as JSON:
+    {"file", "head", "values": {"N": [addr, ...]}, "errors": {"N": [line, ...]}}."""
+    import json
+    import subprocess
+    r = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=repo or REPO, capture_output=True, text=True)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    data = {'file': file, 'head': r.stdout.strip(), 'values': {str(n): sorted(s) for n, s in sorted(sets.items())},
+            'errors': {str(n): e for n, e in sorted(errors.items()) if e}}
+    with open(path, 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(data, f, indent=1)
+        f.write('\n')
+
+
 def sweep(a, log, watch):
     """(pad before, chosen pad or None, [(lo, hi) windows])."""
     import importer
     if a.agent:
         importer.set_agent(a.agent)
     orig = open(H, 'rb').read().decode('latin-1')
-    ok = []
+    ok, sets, errors = [], {}, {}
     try:
         with importer.pool_lease(a.pool, a.holder_pid):
             for n in range(a.range[0], a.range[1] + 1):
                 got, errs = measure(importer, n, orig, a.lock_wait)
+                sets[n], errors[n] = got, errs
+                save_sets(a.sets, 'app/client/sclient.cpp', sets, errors)
                 hit = [w for w in watch if w in got]
                 print(f'{n:3d}  {len(hit)}/{len(watch)}  ' + ' '.join(w + ('+' if w in got else '-') for w in WATCH)
                       + f'  total {len(got)}' + (f'  ERRORS {errs}' if errs else ''), file=log, flush=True)
@@ -255,6 +273,8 @@ def main(argv=None):
                     help="the ledger the watch set comes from (default HEAD's, or the onto commit's when HEAD is a "
                          "wt.py rebase record commit)")
     ap.add_argument('--dry', action='store_true', help='sweep and print, leave the header as it was')
+    ap.add_argument('--sets', default=os.path.join(REPO, '.work', 'log', 'sendpad-sets.json'), metavar='PATH',
+                    help="every value's exact address set, as JSON (default %(default)s)")
     ap.add_argument('--includes', nargs='*', metavar='PATH', help='print the include set, or which PATHs are in it')
     a = ap.parse_args(argv)
     if a.includes is not None:

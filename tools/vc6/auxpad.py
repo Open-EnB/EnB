@@ -13,7 +13,8 @@ loses declarations.
       write SYMBOL_PAD = N in tools/re/auxroots.py and regenerate aux_roots.h/.cpp as auxroots.py does
 
 sweep takes the importer lock per variant (the tree's aux_roots.cpp holds the variant only inside it and
-is restored after), never for the whole sweep. VMs: --host IP uses that build VM; otherwise one VM is
+is restored after), never for the whole sweep. Every value's exact address set (all of aux_roots.cpp's) goes
+to .work/log/auxpad-sets.json (--sets PATH) for tools/re/matchaudit.py's pad-held class (D240). VMs: --host IP uses that build VM; otherwise one VM is
 leased from pool.py and released at the end (also on failure); --pool says the same (the default, accepted so
 that the form the other tools take works here). Measuring logic: HX1's exp.py.
 """
@@ -89,11 +90,14 @@ def sweep(a):
         lease = contextlib.nullcontext()
     else:
         lease = importer.pool_lease(1, a.holder_pid)
-    rows, ok = [], []
+    from sendpad import save_sets
+    rows, ok, sets, errors = [], [], {}, {}
     with lease:
         for n in range(a.lo, a.hi + 1):
             orig = open(CPP, 'rb').read()          # re-read: the tree may change between variants
             got, errs = measure(importer, n, orig)
+            sets[n], errors[n] = got, errs
+            save_sets(a.sets, 'app/client/aux_roots.cpp', sets, errors, REPO)
             exact = [w for w in WATCH if w in got]
             line = f'{n:3d}  {len(exact)}/6  ' + ' '.join(w + ('+' if w in got else '-') for w in WATCH) + \
                    f'  total {len(got)}' + (f'  ERRORS {errs}' if errs else '')
@@ -131,6 +135,8 @@ def parser():
     vm.add_argument('--pool', nargs='?', const=1, type=int, choices=[1], metavar='1',
                     help='lease one VM from pool.py (the default)')
     s.add_argument('--holder-pid', type=int, help="the lease's holder pid (pool.py's default otherwise)")
+    s.add_argument('--sets', default=os.path.join(REPO, '.work', 'log', 'auxpad-sets.json'), metavar='PATH',
+                   help="every value's exact address set, as JSON (default %(default)s)")
     t = sub.add_parser('set')
     t.add_argument('n', type=int)
     t.add_argument('--client')
