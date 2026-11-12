@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -46,7 +46,7 @@ class FontCharsClass;
 class BINKMovie
 {
 public:
-	static void Play(const char* filename,const char* subtitlename=NULL, FontCharsClass* font = NULL);
+	static void Play(const char* filename,const char* subtitlename, int volume);
 	static void Stop();
 	static void Update();
 	static void Render();
@@ -56,3 +56,7 @@ public:
 };
 
 #endif
+
+// Earth & Beyond client (reconstruction): changes to Renegade's BINKMovie.h
+// EnB: BINKMovie::Play: a volume (int, BinkSetVolume's) in place of the subtitle font (0xA161B0 passes [esp+0xC] to
+//       BinkSetVolume; MovieTaskClass::Accept_Focus 0x76C18A and Run 0x76C4A0 push the movie's volume)

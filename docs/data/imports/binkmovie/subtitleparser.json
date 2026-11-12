@@ -7,6 +7,7 @@
  "headers_from": null,
  "in_tree": [
   "0xA17300",
+  "0xA17330",
   "0xA17340",
   "0xA175C0",
   "0xA17690",
@@ -31,5 +32,8 @@
   "0xA17E00"
  ],
  "merged": [],
- "name": "subtitleparser.cpp"
+ "name": "subtitleparser.cpp",
+ "short_known": [
+  "0xA17330"
+ ]
 }

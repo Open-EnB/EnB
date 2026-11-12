@@ -1,7 +1,7 @@
 /*
 **	Command & Conquer Renegade(tm)
 **	Copyright 2025 Electronic Arts Inc.
-**
+**	Modified for the Earth & Beyond client reconstruction: each change is recorded at the end of this file.
 **	This program is free software: you can redistribute it and/or modify
 **	it under the terms of the GNU General Public License as published by
 **	the Free Software Foundation, either version 3 of the License, or
@@ -39,10 +39,14 @@
 #include "subtitleparser.h"
 #include "subtitle.h"
 #include "xstraw.h"
-#include "rawfile.h"
+#include "ffactory.h"
 #include "assetmgr.h"
 #include "ww3d.h"
 #include <stdlib.h>
+
+static int SubTitleFontSize = 14;					// NAME 2 [SubTitleFontSize]: Get_FontChars' point size (0xBCEBB8)
+static StringClass SubTitleFileName("subtitle.txt");	// NAME 2 [SubTitleFileName]: the file Load_Sub_Titles opens (0xC40B20)
+static StringClass SubTitleFontName("arial");			// NAME 2 [SubTitleFontName]: Get_FontChars' name (0xC40B1C)
 
 
 /******************************************************************************
@@ -61,13 +65,9 @@
 *
 ******************************************************************************/
 
-SubTitleManagerClass* SubTitleManagerClass::Create(const char* filename, const char* subtitlefilename, FontCharsClass* font)
+SubTitleManagerClass* SubTitleManagerClass::Create(const char* filename)
 {
 	if ((filename == NULL) || (strlen(filename) == 0)) {
-		return NULL;
-	}
-
-	if (subtitlefilename && !font) {
 		return NULL;
 	}
 
@@ -76,17 +76,10 @@ SubTitleManagerClass* SubTitleManagerClass::Create(const char* filename, const c
 	WWASSERT(instance != NULL);
 
 	if (instance != NULL) {
-		instance->Set_Font(font);
-
 		// Retrieve moviename
 		char fname[_MAX_FNAME];
 		_splitpath(filename, NULL, NULL, fname, NULL);
-		bool loaded = instance->Load_Sub_Titles(fname, subtitlefilename);
-
-		if (loaded == false) {
-			delete instance;
-			return NULL;
-		}
+		instance->Load_Sub_Titles(fname);
 	}
 
 	return instance;
@@ -113,6 +106,10 @@ SubTitleManagerClass::SubTitleManagerClass()
 	mSubTitleIndex(0),
 	mActiveSubTitle(NULL)
 {
+	FontCharsClass* font = WW3DAssetManager::Get_Instance()->Get_FontChars(SubTitleFontName, SubTitleFontSize, false);
+	Renderer = new Render2DSentenceClass;
+	Renderer->Set_Font(font);
+	font->Release_Ref();
 }
 
 
@@ -141,14 +138,8 @@ SubTitleManagerClass::~SubTitleManagerClass()
 
 		delete mSubTitles;
 	}
-}
 
-
-void SubTitleManagerClass::Set_Font(FontCharsClass* font)
-{
-	if (font) {
-		Renderer.Set_Font(font);
-	}
+	delete Renderer;
 }
 
 
@@ -163,30 +154,33 @@ void SubTitleManagerClass::Set_Font(FontCharsClass* font)
 *     Moviename - Pointer to movie name
 *
 * RESULTS
-*     Success - 
+*     Success -
 *
 ******************************************************************************/
 
-bool SubTitleManagerClass::Load_Sub_Titles(const char* moviename, const char* subtitlefilename)
+bool SubTitleManagerClass::Load_Sub_Titles(const char* moviename)
 {
 	if ((moviename == NULL) || (strlen(moviename) == 0)) {
 		return false;
 	}
 
-	if ((subtitlefilename == NULL) || (strlen(subtitlefilename) == 0)) {
+	FileClass* file = _TheFileFactory->Get_File(SubTitleFileName);
+
+	if (!file->Is_Available()) {
+		_TheFileFactory->Return_File(file);
 		return false;
 	}
 
-	RawFileClass file(subtitlefilename);
+ 	FileStraw* input = new FileStraw(file);
+ 	SubTitleParserClass parser(*input);
 
-	if (!file.Is_Available()) {
-		return false;
-	}
-
- 	FileStraw input(file);
- 	SubTitleParserClass parser(input);
- 	
  	mSubTitles = parser.Get_Sub_Titles(moviename);
+
+	delete input;
+
+	if (file) {
+		_TheFileFactory->Return_File(file);
+	}
 
  	if (mSubTitles == NULL) {
  		return false;
@@ -260,9 +254,6 @@ bool SubTitleManagerClass::Process(unsigned long movieTime)
 
 		if (movieTime >= expireTime) {
 			mActiveSubTitle = NULL;
-
-			// Erase subtitle
-			Renderer.Reset();
 			update = true;
 		}
 	}
@@ -312,14 +303,18 @@ void SubTitleManagerClass::Draw_Sub_Title(const SubTitleClass* subtitle)
 {
 	WWASSERT(subtitle != NULL);
 
-	Renderer.Reset();
+	if (Renderer == NULL) {
+		return;
+	}
+
+	Renderer->Reset();
 
 	unsigned short* string = (unsigned short*)subtitle->Get_Caption();
 
 	int w,h,bits;
 	bool windowed;
 	WW3D::Get_Device_Resolution(w,h,bits,windowed);
-	Vector2 extents=Renderer.Get_Text_Extents( string );
+	Vector2 extents=Renderer->Get_Text_Extents( string );
 
 	// Assume left justification
 	int xPos = 0;
@@ -335,17 +330,36 @@ void SubTitleManagerClass::Draw_Sub_Title(const SubTitleClass* subtitle)
 		xPos = (w - xSize);
 	}
 
-	Renderer.Set_Location(Vector2(xPos,yPos));
-	Renderer.Build_Sentence(string);
+	Renderer->Set_Location(Vector2(xPos,yPos));
+	Renderer->Build_Sentence(string);
 
 	// Set font color
 	unsigned long rgbColor = subtitle->Get_RGB_Color()|0xff000000;
 
-	Renderer.Draw_Sentence(rgbColor);
+	Renderer->Draw_Sentence(rgbColor);
 }
 
 
 void SubTitleManagerClass::Render()
 {
-	Renderer.Render();
+	if (Renderer) {
+		Renderer->Render();
+	}
 }
+
+
+// Earth & Beyond client (reconstruction): changes to Renegade's subtitlemanager.cpp
+// EnB: file scope: three statics the client's object starts with: the point size 14 (.data 0xBCEBB8, before the
+//       literals "subtitle.txt" 0xBCEBBC and "arial" 0xBCEBCC), the StringClass "subtitle.txt" (initialiser 0xA16CB0,
+//       0xC40B20) and the StringClass "arial" (initialiser 0xA16D70, 0xC40B1C); ffactory.h replaces rawfile.h
+// EnB: SubTitleManagerClass::Create (0xA16E20): one argument; no font check, no Set_Font, and the instance is
+//       returned whatever Load_Sub_Titles gives (the call's result is not tested)
+// EnB: SubTitleManagerClass::SubTitleManagerClass (0xA16F10): the font from WW3DAssetManager::Get_FontChars
+//       ("arial", 14, false; vtable +0x4C), set on a newed Render2DSentenceClass, then released
+// EnB: SubTitleManagerClass::~SubTitleManagerClass (0xA16F80): deletes the renderer
+// EnB: SubTitleManagerClass::Set_Font: removed (see subtitlemanager.h)
+// EnB: SubTitleManagerClass::Load_Sub_Titles (0xA16FE0): the file through _TheFileFactory (Get_File vtable +4,
+//       Return_File +8) instead of a RawFileClass, the straw newed (FileStraw vtable 0xB1475C) and deleted
+// EnB: SubTitleManagerClass::Process (0xA170E0): an expired subtitle is not erased (no Renderer.Reset)
+// EnB: SubTitleManagerClass::Draw_Sub_Title (0xA17160) and Render (0xA17240): through the renderer pointer,
+//       nothing when it is NULL
