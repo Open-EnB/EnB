@@ -49,6 +49,7 @@ void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (the pointer, 0..1)  // NAME 1 [x, y]: as ui_avatar_cust.cpp's
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_avatar_cust.cpp's
 bool Unknown_42EC60(int button, int arg);		// 0x42EC60 (input.cpp: a button or key down)  // NAME 1 [button, arg]: neutral
+RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
 
 // The starbase view's +0x70 scene (sbaseview.cpp's SBaseViewUnknown70Class), as far as the starbase interface calls it
 class UIStarbaseSceneClass : public SceneClass	// NAME 1: neutral (D10)
@@ -64,6 +65,7 @@ class Unknown78A910AvatarClass : public CharacterViewAvatarClass	// NAME 1: neut
 {
 public:
 	void Unknown_78B570(bool b);						// 0x78B570  // NAME 1 [b]: neutral
+	void Unknown_78A200();								// 0x78A200 (0x638DA0: the ambient avatars restarted with 0x78B570(true))
 	Unknown78A910AvatarClass(int a, AvatarDescClass *desc, EnvironmentMapManagerClass *env_maps);	// 0x78A910 (0x642740: the NPC's +0x1C and description)  // NAME 1 [a]: neutral
 	void Unknown_78AD20(int anim, int min, int max, const char *model, const char *motion);	// 0x78AD20 (0x642740: an Action%02d, its roll range, ExtraAnim%02d and ExtraName%02d)  // NAME 1 [anim, min, max, model, motion]: as unknown_78a910.cpp's
 	void Unknown_78B010(const Matrix3D &tm); void Unknown_78B290(const Matrix3D &tm);	// 0x78B010 / 0x78B290 (0x642740: a Location%02d's OffsetBoneName / DestBoneName bone)  // NAME 1 [tm]: neutral
@@ -277,8 +279,6 @@ void UIStarbaseUnknownCCClass::Unknown_6330E0(const Vector3 &color)
 	tag->Unknown4A4 = tag->Unknown494;
 	((FontSys *)NameTag.Peek())->Unknown_6D8A80(true);
 }
-
-
 
 
 
@@ -1074,192 +1074,192 @@ void UIStarbaseClass::Unknown_63D2F0(int index)
 
 #pragma auto_inline(on)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma auto_inline(off)
+float Unknown_831E90(const Vector3 &a, float a_radius, const Vector3 &b, float b_radius);	// 0x831E90 (cdecl): the distance between two spheres, as gutter_radar.cpp's  // NAME 1: neutral (D10)
+
+// 0x63B310
+void UIStarbaseClass::Unknown_63B310()
+{
+	if (!Unknown21B && UnknownC0.D->Avatar != NULL && !Unknown200 && !Unknown1B2 && !Unknown1FD) {
+		Matrix3D tm = UnknownC0.D->Avatar->Unknown_787A90();
+		if (UnknownC0.D->Avatar->Unknown2F5 && !Unknown1FC) {
+			tm = Unknown_63E930(tm);
+		}
+		if (Unknown1B1) {
+			if (UnknownB0->UnknownE4 == 0.0f) {
+				Unknown1B1 = false;
+			}
+			UnknownB0->Unknown_69EB20(tm, 1, false);
+		} else if (UnknownC0.B < 0 && UnknownC0.A < 0) {
+			UnknownB0->Unknown_69E510(tm);
+		}
+	}
+}
+
+// 0x63BA70
+bool UIStarbaseClass::Unknown_63BA70(RenderObjClass *a, RenderObjClass *b, float radius)
+{
+	Vector3 pa = a->Get_Transform().Get_Translation();
+	Vector3 pb = b->Get_Transform().Get_Translation();
+	if (Unknown_831E90(pa, 3.0f, pb, radius) < 3.0f) {
+		return(true);
+	}
+	return(false);
+}
+
+// NOT EXACT: 0x63BC30, functional (loop shape: the client keeps the test of the count at the loop's top before the first sweep, ours rotates it; while, do-while, for(;;) and goto forms tried; C3)
+// 0x63BC30
+void UIStarbaseClass::Unknown_63BC30(RefCountPtr<CharacterViewAvatarClass> &avatar)
+{
+	int tries = 0;
+	Matrix3D tm = avatar->Unknown_787DE0();
+retry:
+	if (tries < 10) {
+		tries++;
+		if (avatar->Unknown_787F40(Unknown_Model())) {
+			goto retry;
+		}
+	}
+	if (tries < 10) {
+		Vector3 pos = tm.Get_Translation();
+		if ((pos - Unknown1EC).Length() > 1.0f) {
+			Unknown1EC = pos;
+		}
+	} else {
+		tm.Set_Translation(Unknown1EC);
+		avatar->Unknown330 = tm;
+	}
+}
+
+// 0x63C4B0
+void UIStarbaseClass::Unknown_63C4B0(RenderObjClass *obj, const char *bone)
+{
+	Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform(bone);
+	((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(obj);
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(obj);
+	obj->Set_Transform(tm);
+}
+
+// NOT EXACT: 0x63D280, functional (inline budget: the client inlines SGI's find with the vector's size 0x644470 out of line; ours calls the out-of-line find 0x643E60; C3)
+// 0x63D280
+UIStarbaseUnknownCCClass *UIStarbaseClass::Unknown_63D280(unsigned int id)
+{
+	UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(id);
+	return(found.Cur ? found.Cur->Value : NULL);
+}
+
+// NOT EXACT: 0x63AAF0, functional (inline budget: the client inlines SGI's begin with the vector's size 0x644470 out of line; ours calls begin 0x643DF0; C3)
+// 0x63AAF0
+void UIStarbaseClass::Unknown_63AAF0()
+{
+	if (UnknownC0.D->Avatar) {
+		UnknownC0.D->Avatar->Unknown_1C4();
+		if (UnknownC0.D->Avatar->Unknown318.size() == 0) {
+			Unknown_63BC30(UnknownC0.D->Avatar);
+		}
+		Unknown_640F50(UnknownC0.D->Avatar.Peek());
+	}
+	for (int i = 0; i < 14; i++) {
+		if (Unknown13C[i]) {
+			if (Unknown13C[i]->Avatar) {
+				Unknown13C[i]->Avatar->Unknown_1C4();
+			}
+			if (Unknown13C[i]->AmbientAvatar) {
+				Unknown13C[i]->AmbientAvatar->Unknown_1C4();
+			}
+		}
+	}
+	UIStarbaseUnknownD4TableClass::iterator it;
+	for (it = UnknownD4.begin(); it != UnknownD4.end(); ++it) {
+		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+		savatar->Avatar->Unknown_1C4();
+		Unknown_640F50(savatar->Avatar.Peek());
+	}
+}
+
+#pragma auto_inline(on)
+
+// 0x638CB0
+void UIStarbaseClass::Unknown_88()
+{
+	Unknown1B3 = false;
+	Unknown1FD = true;
+	int i;
+	for (i = 0; i < 4; i++) {
+		if (UnknownF8[i]) {
+			UnknownF8[i]->Unknown_40(false);
+		}
+	}
+	for (i = 0; i < 14; i++) {
+		if (Unknown13C[i] && Unknown13C[i]->Unknown14) {
+			Unknown13C[i]->Unknown14->Unknown_40(false);
+		}
+	}
+	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	bool busy = false;
+	ChatPanelInterface *panel = client->ChatPanel.Peek();
+	if (panel) {
+		if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) {
+			busy = true;
+		}
+	}
+	if (client->Mouse->Unknown_515320() != 2 && !busy) {
+		client->Mouse->Unknown_515120(2);
+	}
+	UnknownB0->Unknown_6A0E50();
+}
+
+// NOT EXACT: 0x638DA0, functional (register: the client takes the RefCountPtr temporary's address in eax after pushing the model, ours in ecx before; a named temporary is worse; C3)
+// 0x638DA0
+void UIStarbaseClass::Unknown_8C()
+{
+	if (Unknown1FD) {
+		Unknown1FD = false;
+		Unknown1FC = true;
+		Unknown1B1 = true;
+		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, true);
+		if (Unknown1B0 && UnknownC0.B >= 0) {
+			UnknownB0->Unknown_69F540(Unknown_497300(((RObjGadgetClass *)Unknown13C[UnknownC0.B]->Unknown14)->RObj), "vb_blackmkt.vb_blackmkt-2", 0, false, false);
+			Unknown1B0 = false;
+		}
+		UnknownC0.A = -1;
+		UnknownC0.B = -1;
+		UnknownC0.C = -1;
+		Unknown1B3 = false;
+		int i;
+		for (i = 0; i < 4; i++) {
+			if (UnknownF8[i]) {
+				UnknownF8[i]->Unknown_40(true);
+			}
+		}
+		for (i = 0; i < 14; i++) {
+			if (Unknown13C[i]) {
+				if (Unknown13C[i]->Unknown14) {
+					Unknown13C[i]->Unknown14->Unknown_40(true);
+				}
+				if (Unknown13C[i]->AmbientAvatar) {
+					Unknown13C[i]->AmbientAvatar->Unknown_78A200();
+					Unknown13C[i]->AmbientAvatar->Unknown_78B570(true);
+				}
+			}
+		}
+		if (!UnknownB0->Unknown_69CBE0()) {
+			UnknownC0.E = 0;
+			Unknown_63E2B0();
+		}
+		if (UnknownC0.D->Avatar) {
+			UnknownC0.D->Avatar->Unknown_786E60();
+		}
+		Unknown214 = false;
+		Unknown215 = false;
+		Unknown216 = false;
+		Unknown217 = false;
+		Unknown218 = false;
+		Unknown219 = false;
+		Unknown21A = false;
+		Unknown1B3 = false;
+	}
+}
 
 
 
@@ -2704,25 +2704,25 @@ void UIStarbaseClass::Unknown_63A100()
 
 
 
+// 0x63C890
+void UIStarbaseClass::Unknown_63C890()
+{
+	UIStarbaseUnknownD4TableClass::iterator it;
+	for (it = UnknownD4.begin(); it != UnknownD4.end(); ++it) {
+		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+		FAIL_IF(!savatar) continue;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		Message_Info("Sbase", "", __FILE__, __LINE__, "(%s) Clearing avatar %s from room %d", UnknownC0.D->Avatar->Desc.First_Name, savatar->Avatar->Desc.First_Name, Room);
+		savatar->Avatar->Unknown_788EF0();
+		savatar->Avatar->Unknown_7885D0(false);
+		savatar->Avatar->Unknown_786E60();
+		if (savatar->Unknown14) {
+			Unknown64.Unknown_687150(savatar->Unknown14);
+		}
+		delete savatar;
+	}
+	UnknownD4.Table.clear();
+}
 
 
 
@@ -2897,6 +2897,7 @@ void UIStarbaseClass::Unknown_63D060(unsigned int id)
 
 
 
+enum { MAX_FACILITY = 4 };	// the facility gadgets +0xF8 / +0x108 (0x63DCD0's FAIL_IF 'facility < 0 || facility >= MAX_FACILITY')  // NAME 3: the FAIL_IF's
 
 
 
@@ -2941,22 +2942,21 @@ void UIStarbaseClass::Unknown_63D060(unsigned int id)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x63DCD0
+void UIStarbaseClass::Unknown_63DCD0(int facility)
+{
+	FAIL_IF(facility < 0 || facility >= MAX_FACILITY) return;
+	if (UnknownF8[facility] && Unknown108[facility]) {
+		Matrix3D tm1 = Unknown108[facility]->Get_Transform();
+		Matrix3D tm = UnknownC0.D->Avatar->Get_Transform();
+		Vector3 diff = tm1.Get_Translation() - tm.Get_Translation();
+		diff.Normalize();
+		Vector3 z = tm.Get_Z_Vector();
+		Vector3 cross = Vector3::Cross_Product(z, diff);
+		tm.Set(diff, cross, z, tm.Get_Translation());
+		UnknownC0.D->Avatar->Unknown_788700(tm);
+	}
+}
 
 
 

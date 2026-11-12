@@ -281,6 +281,15 @@ public:
 	Unknown78A910AvatarClass *Unknown_642740(StarbaseNPCClass *npc);	// 0x642740 (0x634140: an NPC slot's starbase avatar)  // NAME 1 [npc]: neutral
 	void Unknown_640360(); void Unknown_6415B0(); void Unknown_6417D0(); void Unknown_6418F0(); void Unknown_641C00();	// 0x640360 (the hangar's ship model and its gadget, rebuilt when +0x18C is set), 0x6415B0 (the arrival: the ship on 'ship', the room's '-in' or '-tele' animation), 0x6417D0 (the teleport effect 0x30E on +0x190), 0x6418F0 (+0x190 made for the ship), 0x641C00 (the avatar kept 5 units from the NPC avatars)
 	bool Unknown_641EB0(UIStarbaseUnknownCCClass *savatar);	// 0x641EB0 (the avatar's id among the five GroupInfo members)  // NAME 1 [savatar]: as the FAIL_IFs'
+	void Unknown_63AAF0();	// 0x63AAF0 (0x638390's frame: the avatars' per-frame update, the own avatar's step kept clear of the model)
+	void Unknown_63B310();	// 0x63B310 (0x638390's frame: the camera after the own avatar)
+	bool Unknown_63BA70(RenderObjClass *a, RenderObjClass *b, float radius);	// 0x63BA70 (no caller: two objects within 3 units, 0x831E90)  // NAME 1 [a, b, radius]: neutral
+	void Unknown_63BC30(RefCountPtr<CharacterViewAvatarClass> &avatar);	// 0x63BC30 (0x63AAF0: the step retried 10 times against the model, else back to +0x1EC)  // NAME 1 [avatar]: neutral
+	void Unknown_63C4B0(RenderObjClass *obj, const char *bone);	// 0x63C4B0 (no caller: obj added to the scene on the mesh's bone)  // NAME 1 [obj, bone]: neutral
+	void Unknown_63C890();	// 0x63C890 ('(%s) Clearing avatar %s from room %d': every entry of +0xD4 deleted, the table cleared)
+	void Unknown_63DCD0(int facility);	// 0x63DCD0 (the own avatar turned to face facility's model +0x108)  // NAME 3 [facility]: its FAIL_IF's
+	UIStarbaseUnknownCCClass *Unknown_63D280(unsigned int id);	// 0x63D280 (no caller: the entry of +0xD4 with this id)  // NAME 1 [id]: neutral
+	Matrix3D Unknown_63E930(const Matrix3D &tm);	// 0x63E930 (0x63B310: the camera transform pulled in against the model)  // NAME 1 [tm]: neutral
 	void Unknown_641B00(); void Unknown_641B70();	// 0x641B00 (+0x214..+0x21A, +0x1B3 cleared), 0x641B70 (refilled by the view's 0x6A2430): as 0x63BDB0 / 0x63C080 have them
 };
 
