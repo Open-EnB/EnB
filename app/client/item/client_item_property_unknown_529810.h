@@ -28,7 +28,7 @@ public:
 	ClientItemPropertyUnknown529810Class(int id);											// 0x5298B0
 	virtual ~ClientItemPropertyUnknown529810Class();										// 0x529910 (deleting 0x5298E0)
 	virtual int Unknown_08();																// +0x08 0x529930  // NAME 1: neutral (D10)
-	virtual std::string Unknown_0C();														// +0x0C 0x529950 ('category tooltip')  // NAME 1: neutral (D10)
+	virtual std::string Get_Tooltip();														// +0x0C 0x529950 ('category tooltip')  // NAME 2: what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2)
 	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10 0x529A60 (the visitor's +0x14)
 
 	int Unknown08;																			// +0x08 (the item's +0x08)  // NAME 1: neutral

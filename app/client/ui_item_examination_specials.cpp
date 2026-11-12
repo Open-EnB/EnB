@@ -64,7 +64,7 @@ UIItemExaminationSpecialClass::UIItemExaminationSpecialClass(const RefCountPtr<C
 		RefCountPtr<DynamicWindowTextClass> text = DynamicWindowTextClass::Create(font.c_str(), it->Text, 0x90);
 		Add_Element(text);
 	}
-	std::string tooltip = special->Unknown_0C();
+	std::string tooltip = special->Get_Tooltip();
 	if (!tooltip.empty()) {
 		Gadget = new DynamicElementGadgetClass(this);
 		Gadget->Set_Unknown14(tooltip.c_str());

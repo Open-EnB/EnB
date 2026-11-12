@@ -31,7 +31,7 @@ public:
 	ClientItemPropertyTypeClass(int level, int damage_type, int type);						// 0x530130 (inlined into both Creates)  // NAME 1 [level, damage_type, type]: the members they fill
 	virtual ~ClientItemPropertyTypeClass();													// 0x5301A0 (deleting 0x530170)
 	virtual int Unknown_08();																// +0x08 0x5301C0 (0)  // NAME 1: neutral (D10)
-	virtual std::string Unknown_0C();														// +0x0C 0x5301E0 ('type tooltip')  // NAME 1: neutral (D10)
+	virtual std::string Get_Tooltip();														// +0x0C 0x5301E0 ('type tooltip')  // NAME 2: what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2)
 	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10 0x5302F0 (the visitor's +0x10)
 
 	bool Has_Damage_Type() const;															// 0x530310 (DamageType != DAMAGE_TYPE_NONE; the title's Set_Subtitles asks)  // NAME 1 [Has_Damage_Type]: what it tests

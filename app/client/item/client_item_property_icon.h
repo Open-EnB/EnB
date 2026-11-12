@@ -31,7 +31,7 @@ public:
 	ClientItemPropertyIconClass(const RefCountPtr<TextureClass> &icon_texture);				// 0x52A0B0
 	virtual ~ClientItemPropertyIconClass();													// 0x52A120 (deleting 0x52A0F0)
 	virtual int Unknown_08();																// +0x08 0x52A1B0 (0)  // NAME 1: neutral (D10)
-	virtual std::string Unknown_0C();														// +0x0C 0x52A1D0 ('category tooltip')  // NAME 1: neutral (D10)
+	virtual std::string Get_Tooltip();														// +0x0C 0x52A1D0 ('category tooltip')  // NAME 2: what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2)
 	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10 0x52A2E0 (the visitor's +0x18)
 
 	RefCountPtr<TextureClass> IconTexture;													// +0x08  // NAME 2 [IconTexture]: the FAIL_IF's icon_texture

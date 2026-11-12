@@ -43,7 +43,7 @@ int ClientItemPropertyIconClass::Unknown_08()
 	return(0);
 }
 
-std::string ClientItemPropertyIconClass::Unknown_0C()
+std::string ClientItemPropertyIconClass::Get_Tooltip()
 {
 	return("category tooltip");
 }

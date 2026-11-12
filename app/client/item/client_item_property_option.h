@@ -54,7 +54,7 @@ public:
 	ClientItemPropertyOptionClass(int sort, const std::string &label, const std::string &tooltip, int unknown);	// 0x52A840 (table 0xAEDDB8)  // NAME 1 [sort, label, tooltip, unknown]: what the auto fire option passes (1, 'Auto Fire', its tooltip, 0)
 	virtual ~ClientItemPropertyOptionClass();												// 0x52AA00 (deleting 0x52A9D0)
 	virtual int Unknown_08();																// +0x08 0x52AAC0 (Unknown2C)  // NAME 1: neutral (D10)
-	virtual std::string Unknown_0C();														// +0x0C 0x52AAE0 (Tooltip)  // NAME 1: neutral (D10)
+	virtual std::string Get_Tooltip();														// +0x0C 0x52AAE0 (Tooltip)  // NAME 2: what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2)
 	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10 0x52AC60 (the visitor's +0x00)
 	virtual bool Unknown_14() = 0;															// +0x14 (pure; the auto fire option's 0x52B120: the slot's flag 0x2000)  // NAME 1: neutral (D10)
 	virtual void Unknown_18(bool value) = 0;												// +0x18 (pure; the auto fire option's 0x52B160 sends it)  // NAME 1: neutral (D10); NAME 1 [value]

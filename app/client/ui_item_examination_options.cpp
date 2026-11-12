@@ -73,7 +73,7 @@ UIItemExaminationOptionClass::UIItemExaminationOptionClass(const RefCountPtr<Cli
 	Add_Element(Toggle);
 	RefCountPtr<DynamicWindowTextClass> label = DynamicWindowTextClass::Create("OPTION00_IEI00", option->Label, 0x12);
 	Add_Element(label);
-	std::string tooltip = option->Unknown_0C();
+	std::string tooltip = option->Get_Tooltip();
 	if (!tooltip.empty()) {
 		Gadget = new DynamicElementGadgetClass(this);
 		Gadget->Set_Unknown14(tooltip.c_str());

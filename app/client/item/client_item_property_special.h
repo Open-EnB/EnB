@@ -68,15 +68,15 @@ public:
 	ClientItemPropertySpecialClass(int sort_order, const std::string &tooltip, int unknown_1c, int unknown_20);	// 0x52B3E0  // NAME 1 [sort_order, tooltip]: the members they fill; NAME 1 [unknown_1c, unknown_20]: neutral (D10)
 	virtual ~ClientItemPropertySpecialClass();												// 0x52B5E0 (deleting 0x52B5B0)
 	virtual int Unknown_08();																// +0x08 0x52B650 (Unknown1C)
-	virtual std::string Unknown_0C();														// +0x0C 0x52B670 (Tooltip)
+	virtual std::string Get_Tooltip();														// +0x0C 0x52B670 (Tooltip)  // NAME 2: what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2)
 	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10 0x52B7F0 (the visitor's slot +0x04)
 	virtual std::vector<ClientItemPropertySpecialLineStruct> Get_Lines() = 0;				// +0x14 (pure; the row's lines, a bold label and its text)  // NAME 1 [Get_Lines]: what the row 0x538350 does with them
 	virtual bool Is_Usable() = 0;															// +0x18 (pure; false: the font gets '_UNUSABLE', a requirement the player does not meet)  // NAME 1 [Is_Usable]: the font's suffix
 
 	int SortOrder;																			// +0x08 (operator< compares it; 100 for an effect)  // NAME 1 [SortOrder]: what operator< does with it
 	std::string Tooltip;																	// +0x0C (the slot +0x0C answers it, as the attributes' Tooltip)  // NAME 1 [Tooltip]: as ClientItemPropertyAttributeClass's, the same slot
-	int Unknown1C;																			// +0x1C (the slot +0x08 answers it; 0 for an effect)  // NAME 1: neutral (D10)
-	int Unknown20;																			// +0x20 (1 for an effect)  // NAME 1: neutral (D10)
+	int Unknown1C;																			// +0x1C (the slot +0x08 answers it; every special passes 0; no reader of it or caller of the slot found in 0x530000-0x570000, the routers or the builder, P-L14-2)  // NAME 1: neutral (D10)
+	int Unknown20;																			// +0x20 (every special passes 1 / true; no reader found, P-L14-2)  // NAME 1: neutral (D10)
 };
 
 inline bool operator<(const RefCountPtr<ClientItemPropertySpecialClass> &lhs, const RefCountPtr<ClientItemPropertySpecialClass> &rhs)	// (inline: the sort 0x539790)

@@ -19,7 +19,7 @@ int ClientItemPropertyDescriptionClass::Unknown_08()
 	return(0);
 }
 
-std::string ClientItemPropertyDescriptionClass::Unknown_0C()
+std::string ClientItemPropertyDescriptionClass::Get_Tooltip()
 {
 	return("description");
 }

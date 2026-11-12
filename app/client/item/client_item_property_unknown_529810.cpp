@@ -19,7 +19,7 @@ int ClientItemPropertyUnknown529810Class::Unknown_08()
 	return(0);
 }
 
-std::string ClientItemPropertyUnknown529810Class::Unknown_0C()
+std::string ClientItemPropertyUnknown529810Class::Get_Tooltip()
 {
 	return("category tooltip");
 }

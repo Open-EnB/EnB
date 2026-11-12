@@ -30,8 +30,8 @@ class ClientItemPropertyClass : public RefCountClass  // NAME 1: neutral (D10): 
 public:
 	ClientItemPropertyClass();															// 0x51F900 (table 0xAEDBF0)
 	virtual ~ClientItemPropertyClass();													// 0x51F950 (deleting 0x51F920)
-	virtual int Unknown_08() = 0;														// +0x08 (pure in 0xAEDBF0)  // NAME 1: neutral (D10)
-	virtual std::string Unknown_0C() = 0;												// +0x0C (pure in 0xAEDBF0; the tooltip's key: 'category tooltip', 'description', 'name tooltip')  // NAME 1: neutral (D10)
+	virtual int Unknown_08() = 0;														// +0x08 (pure in 0xAEDBF0; no caller in the examination windows 0x530000-0x570000, the routers or the builder: P-L14-2)  // NAME 1: neutral (D10)
+	virtual std::string Get_Tooltip() = 0;												// +0x0C (pure in 0xAEDBF0; the tooltip's key: 'category tooltip', 'description', 'name tooltip')  // NAME 2: what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2)
 	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10  // NAME 1 [Accept, visitor]: what the router passes
 };
 

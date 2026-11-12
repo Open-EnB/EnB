@@ -11,7 +11,7 @@ edit the comments in the code, not this file.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
-| `app/audio/bridgesounds.cpp:8` | `BridgeSoundManager::BridgeSoundManager` | marker | NOT EXACT: register-only (explain.py: same length, 0.74): the client holds the 0 of m_channel in ecx and loads 0.5 into eax before it; here eax holds both in turn |
+| `app/audio/bridgesounds.cpp:8` | `BridgeSoundManagerClass::BridgeSoundManagerClass` | marker | NOT EXACT: register-only (explain.py: same length, 0.74): the client holds the 0 of m_channel in ecx and loads 0.5 into eax before it; here eax holds both in turn |
 | `app/audio/musicmanager.cpp:157` | `MusicManagerClass::Queue_Themes` | marker | NOT EXACT: register allocation and inline budget (explain.py: 488 bytes vs 494, 0.46): the client keeps type in ebx and calls the vector's _Destroy 0x43BC60 after the first erase, here type is in ebp and both erases are inline |
 | `app/audio/musicmanager.cpp:236` | `MusicManagerClass::Queue_Sector_Themes` | marker | NOT EXACT: order-only (explain.py: same length, 0.84): the client stores Sector = -1 before it saves CurrentMusicType to the stack, here after |
 | `app/audio/sectorsound.cpp:56` | `SectorSoundClass::Load_INI` | marker | NOT EXACT: stack slots only (explain.py: same length, 0.68): the client keeps ini at esp+0x18 and its copy of 'this' at esp+0x28, here 'this' is at esp+0x18 and ini at esp+0x1C |

@@ -19,7 +19,7 @@ int ClientItemPropertyAttributeClass::Unknown_08()
 	return(Unknown3C);
 }
 
-std::string ClientItemPropertyAttributeClass::Unknown_0C()
+std::string ClientItemPropertyAttributeClass::Get_Tooltip()
 {
 	return(Tooltip);
 }
