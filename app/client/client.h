@@ -107,14 +107,14 @@ class PxList;
 
 // The 0x10-byte object at ClientClass +0x18 (constructor 0x763E00, destructor 0x763E30: between
 // proj_decal_manager.cpp and tsk_game.cpp; file unknown)
-class Unknown763E00Class	// NAME 1: neutral (D10)
+class RSLRegistryClass	// NAME 3: ClientClass +0x18 holds it, named RSLRegistry by mclient.cpp's G_ASSERT 'RSLRegistry' (l.83); class name by D24 (P-M1b-1)
 {
 public:
-	Unknown763E00Class();								// 0x763E00
+	RSLRegistryClass();								// 0x763E00
 	void Unknown_763E70(const char *ini);				// 0x763E70: SClient::Init passes 'rs.ini'
 	void *Unknown_764030(int rslid); class RenderStateListClass *Unknown_764060(const char *name);	// 0x764060: the render state list of that name (ui_mesh.cpp's 0x5B8330 asserts 'list')  // NAME 1 [name]: neutral; 0x764030 (co.cpp's model loader: the render state list of a base asset's RSLID)  // NAME 2 [rslid]: the INI key it is read from
 	void Unknown_763FF0();								// 0x763FF0 (SClient::Shutdown, before the delete)
-	~Unknown763E00Class();								// 0x763E30
+	~RSLRegistryClass();								// 0x763E30
 
 	char Unknown00[0x10];
 };
@@ -176,7 +176,7 @@ public:
 	bool DebugMode;										// +0x10 (slots +0x38 / +0x3C, the DEBUG packet's user data)  // NAME 2: what it holds
 	bool Unknown11;										// +0x11 (Set_Avatar_ID's DEBUG packet's user data)
 	KernelClass *Kernel;								// +0x14 ClientTaskClass::Init sets it  // NAME 2: what it holds
-	Unknown763E00Class *RSLRegistry;					// +0x18  // NAME 3: mclient.cpp's G_ASSERT 'RSLRegistry' (l.83)
+	RSLRegistryClass *RSLRegistry;					// +0x18  // NAME 3: mclient.cpp's G_ASSERT 'RSLRegistry' (l.83)
 	HashListClass<ClientObjectClass *> ObjectList;		// +0x1C (the assert's name)
 	HashListClass<EffectObjectClass *> EffectList;		// +0x444  // NAME 2: what it holds
 	HashListClass<Unknown86CRecordClass *> Unknown86CList;	// +0x86C

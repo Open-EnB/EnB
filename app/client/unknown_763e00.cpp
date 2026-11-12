@@ -6,17 +6,17 @@
 #include "..\shared\rs_track.h"
 
 // 0x763E00
-Unknown763E00Class::Unknown763E00Class()
+RSLRegistryClass::RSLRegistryClass()
 {
 }
 
 // 0x763E30
-Unknown763E00Class::~Unknown763E00Class()
+RSLRegistryClass::~RSLRegistryClass()
 {
 }
 
 // 0x763E70: one list per '<n>\STATE0' section, n from 0 until one is missing
-void Unknown763E00Class::Unknown_763E70(const char *ini_name)
+void RSLRegistryClass::Unknown_763E70(const char *ini_name)
 {
 	INIClass ini;
 	ini.Load(ini_name);
@@ -41,7 +41,7 @@ void Unknown763E00Class::Unknown_763E70(const char *ini_name)
 }
 
 // 0x763FF0
-void Unknown763E00Class::Unknown_763FF0()
+void RSLRegistryClass::Unknown_763FF0()
 {
 	for (int i = 0; i < Lists.Length(); i++) {
 		if (Lists[i] != NULL) {
@@ -51,7 +51,7 @@ void Unknown763E00Class::Unknown_763FF0()
 }
 
 // 0x764030
-void *Unknown763E00Class::Unknown_764030(int rslid)
+void *RSLRegistryClass::Unknown_764030(int rslid)
 {
 	if (rslid >= Lists.Length()) {
 		return(NULL);
@@ -60,7 +60,7 @@ void *Unknown763E00Class::Unknown_764030(int rslid)
 }
 
 // 0x764060
-RenderStateListClass *Unknown763E00Class::Unknown_764060(const char *name)
+RenderStateListClass *RSLRegistryClass::Unknown_764060(const char *name)
 {
 	INIClass ini;
 	int id = Lists.Length();

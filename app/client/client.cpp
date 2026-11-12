@@ -61,7 +61,7 @@ ClientClass::ClientClass() :
 	srand(timeGetTime());
 	Unknown1138 = rand();
 	Connection = new PeekConnectionClass(new NullConnectionClass);
-	RSLRegistry = new Unknown763E00Class;
+	RSLRegistry = new RSLRegistryClass;
 	Px = new PxList;
 	PxProcess = new PxProcessClass;
 	Splines = new SplineDatabaseClass(NULL);

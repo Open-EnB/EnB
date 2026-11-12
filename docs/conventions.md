@@ -378,3 +378,7 @@ Where the client's names disagree with these conventions, the client's are used;
   the global FontDatabaseClass * at 0xBE67B8: was `Unknown_BE67B8` (NAME 1), NAME 5, in fontdatabase.h, tsk_game.h,
   main_client.cpp, the font files and clienttest's stub; ui_option_font.cpp's `#define fontDatabase` is gone (a
   comment line keeps its `__LINE__`s).
+* **RSLRegistryClass (2026-11-12, RN, P-M1b-1, D243):** mclient.cpp's G_ASSERT `RSLRegistry` (l.83) names
+  ClientClass +0x18, the object rs.ini's render state lists are kept in (constructor 0x763E00); no string names its
+  class: `RSLRegistryClass` by D24 from the member (NAME 3; was `Unknown763E00Class`, NAME 1) in client.h and
+  unknown_763e00.h / .cpp (the provisional file name stays, D137).
