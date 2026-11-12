@@ -1096,17 +1096,6 @@ void UIStarbaseClass::Unknown_63B310()
 	}
 }
 
-// 0x63BA70
-bool UIStarbaseClass::Unknown_63BA70(RenderObjClass *a, RenderObjClass *b, float radius)
-{
-	Vector3 pa = a->Get_Transform().Get_Translation();
-	Vector3 pb = b->Get_Transform().Get_Translation();
-	if (Unknown_831E90(pa, 3.0f, pb, radius) < 3.0f) {
-		return(true);
-	}
-	return(false);
-}
-
 // NOT EXACT: 0x63BC30, functional (loop shape: the client keeps the test of the count at the loop's top before the first sweep, ours rotates it; while, do-while, for(;;) and goto forms tried; C3)
 // 0x63BC30
 void UIStarbaseClass::Unknown_63BC30(RefCountPtr<CharacterViewAvatarClass> &avatar)
@@ -1178,6 +1167,17 @@ void UIStarbaseClass::Unknown_63AAF0()
 }
 
 #pragma auto_inline(on)
+
+// 0x63BA70
+bool UIStarbaseClass::Unknown_63BA70(RenderObjClass *a, RenderObjClass *b, float radius)
+{
+	Vector3 pa = a->Get_Transform().Get_Translation();
+	Vector3 pb = b->Get_Transform().Get_Translation();
+	if (Unknown_831E90(pa, 3.0f, pb, radius) < 3.0f) {
+		return(true);
+	}
+	return(false);
+}
 
 // 0x638CB0
 void UIStarbaseClass::Unknown_88()
@@ -1261,47 +1261,47 @@ void UIStarbaseClass::Unknown_8C()
 	}
 }
 
+// The door sounds by the starbase's column (0xB8A900 opening, 0xB8A928 closing; 0x63C590)
+static const char *Unknown_B8A900[10] = { "terren_station_door_1.wav", "jenquai_station_door_1.wav", "progen_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav", "terren_station_door_1.wav" };	// NAME 1: neutral (D10)
+static const char *Unknown_B8A928[10] = { "terran_station_door_close", "jenquai_station_door_close", "progen_station_door_close", "terran_station_door_close", "terran_station_door_close", "terran_station_door_close", "terran_station_door_close", "terran_station_door_close", "terran_station_door_close", "terran_station_door_close" };	// NAME 1: neutral (D10)
+
+// NOT EXACT: 0x63C590, functional (register: with 0x63BA70 inline, as the client has it, the shape is the client's; esi / edi swapped for the door and the avatar, the two flags' stores; C3)
+// 0x63C590
+void UIStarbaseClass::Unknown_63C590()
+{
+	for (int i = 0; i < 4; i++) {
+		bool open = false;
+		if (Unknown118[i]) {
+			if (Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)Unknown118[i])->RObj, 10.0f)) {
+
+
+				open = true;
+			} else {
+				UIStarbaseUnknownD4TableClass::iterator it;
+				for (it = UnknownD4.begin(); it != UnknownD4.end(); ++it) {
+					if (Unknown_63BA70(it.Cur->Value->Avatar.Peek(), ((RObjGadgetClass *)Unknown118[i])->RObj, 10.0f)) {
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+						open = true;
+						break;
+					}
+				}
+			}
+		}
+		if (Unknown138[i] != open) {
+			if (UnknownB0->Unknown_69F850(i + 2)) {
+				int column = UnknownB0->Info->Style;
+				char anim[64];
+				_snprintf(anim, sizeof(anim), "%sbar06.%sbar06-1", Unknown_B8A950[column], Unknown_B8A950[column]);
+				UnknownB0->Unknown_69F540(Unknown128[i], anim, i + 2, false, !open);
+				SoundLibraryClass::Play_2D_Sound(open ? Unknown_B8A900[column] : Unknown_B8A928[column], 2);
+				Unknown138[i] = open;
+			}
+		}
+	}
+}
 
 
 

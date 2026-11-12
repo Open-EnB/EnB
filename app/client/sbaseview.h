@@ -286,6 +286,7 @@ public:
 	bool Unknown_63BA70(RenderObjClass *a, RenderObjClass *b, float radius);	// 0x63BA70 (no caller: two objects within 3 units, 0x831E90)  // NAME 1 [a, b, radius]: neutral
 	void Unknown_63BC30(RefCountPtr<CharacterViewAvatarClass> &avatar);	// 0x63BC30 (0x63AAF0: the step retried 10 times against the model, else back to +0x1EC)  // NAME 1 [avatar]: neutral
 	void Unknown_63C4B0(RenderObjClass *obj, const char *bone);	// 0x63C4B0 (no caller: obj added to the scene on the mesh's bone)  // NAME 1 [obj, bone]: neutral
+	void Unknown_63C590();	// 0x63C590 (0x638390's frame: the four doors +0x118 opened or closed by an avatar within 3 units, '%sbar06.%sbar06-1' and the door sounds)
 	void Unknown_63C890();	// 0x63C890 ('(%s) Clearing avatar %s from room %d': every entry of +0xD4 deleted, the table cleared)
 	void Unknown_63DCD0(int facility);	// 0x63DCD0 (the own avatar turned to face facility's model +0x108)  // NAME 3 [facility]: its FAIL_IF's
 	UIStarbaseUnknownCCClass *Unknown_63D280(unsigned int id);	// 0x63D280 (no caller: the entry of +0xD4 with this id)  // NAME 1 [id]: neutral
