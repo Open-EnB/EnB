@@ -1,6 +1,5 @@
 == SClient (its constructor, the base's)
 stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
-gen BridgeSoundManager::BridgeSoundManager
 check SClient's slot +0x18 returns the client: ok
 check the fake asset manager is *0xBDADC0 and WW3DAssetManager::Get_Instance(): ok
 == (1) the lists
