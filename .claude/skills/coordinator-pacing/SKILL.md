@@ -191,6 +191,12 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   explain.py) and one verify per commit; keep a slot of lock time for the landings from two hours before the drain.
 - **Stacked builders (`--base wt/P`) pay a rebase with its own verify** after P lands, and conflict when another landed
   branch touched the same file (a shared header's users): prefer landing P first when the lock is free.
+- **A `wt.py rebase` record goes stale when another branch lands after it** (the next bring-over refuses the branch
+  for the newly landed functions, "lost outright"): rebase immediately before the landing, and only a branch that
+  needs it (a conflict, a landed parent); bring-over cherry-picks unrebased branches itself. Read the whole rebase
+  log, not its last line: `grep WARNING` shows "the branch loses N address(es) outright", which names a real
+  interaction with landed code and would refuse the whole batch that branch is in. bring-over has no accept flag: a
+  user-accepted address must be an entry in `docs/data/accepted-corrections.json` on the target first.
 - **After `wt.py rebase`, HEAD's ledger is the record commit that already recorded sclient.cpp's loss,** so sendpad.py's
   watch set misses the lost addresses and its printed window is wrong: read the per-value table in
   `.work/log/sendpad.log` for the values where 0x758210, 0x702240 and 0x74D990 are all exact, and set the middle of that window.
