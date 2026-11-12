@@ -38,7 +38,7 @@ StarmapPipClass::StarmapPipClass(SClient *client) :
 	// (+0x70 is Unknown68.Z)
 	Unknown74(0.0f, 0.0f),
 	Unknown7C(0.0f, 0.0f),
-	Unknown84(0.0f, 0.0f),
+	MapRange_ws(0.0f, 0.0f),
 	TargetPath(NULL),
 	WarpPath(NULL),
 	Unknown94(-1),
@@ -778,12 +778,12 @@ void StarmapPipClass::Unknown_7C1280(const Vector3 &position, float radius)
 		changed = true;
 	}
 	if (changed) {
-		Unknown84.Set(Unknown7C.X - Unknown74.X, Unknown7C.Y - Unknown74.Y);
+		MapRange_ws.Set(Unknown7C.X - Unknown74.X, Unknown7C.Y - Unknown74.Y);
 		Unknown51 = true;
 	}
 }
 
-// 0x7C1510 is not rebuilt yet. For the inline below:
+// For the inline below:
 // 0x7C0260, 0x7C1120, 0x7C1510 and 0x7C1A90 expand it (FAIL_IF on 1039).
 
 
@@ -883,7 +883,7 @@ bool StarmapPipClass::Unknown_7C1350()
 	Unknown_7C1510(false);
 	if (!Unknown60) {
 		if (ScaleMult == 1.0f) {
-			Unknown_7C1770(Unknown84.X * 0.5f + Unknown74.X, Unknown84.Y * 0.5f + Unknown74.Y);
+			Unknown_7C1770(MapRange_ws.X * 0.5f + Unknown74.X, MapRange_ws.Y * 0.5f + Unknown74.Y);
 		} else if (avatar) {
 			Vector3 pos = avatar->Unknown_24();
 			Unknown_7C1770(pos.X, pos.Y);
@@ -914,25 +914,25 @@ bool StarmapPipClass::Unknown_7C1350()
 
 
 
+// @0x7C1510
+void StarmapPipClass::Unknown_7C1510(bool arg)
+{
+	if (Unknown50) {
+		FAIL_IF(MapRange_ws.X < WWMATH_EPSILON) return;
+		FAIL_IF(MapRange_ws.Y < WWMATH_EPSILON) return;
+		float old = Unknown54;
+		Vector2 scale(ViewportSize.X / MapRange_ws.X, ViewportSize.Y / MapRange_ws.Y);
+		Unknown_Set_54(min(scale.X, scale.Y));
+		if (arg) {
+			Unknown_7C1A90(old * ScaleMult / Unknown54);
+		}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		Unknown51 = false;
+	}
+}
 
 
 
@@ -1004,10 +1004,10 @@ void StarmapPipClass::Unknown_7C1770(float x, float y)
 
 
 		FAIL_IF(ScaleMult < WWMATH_EPSILON) return;
-		Vector2 range = Unknown84 * 3.0f;
-		Vector2 min = Unknown84 / ScaleMult;
+		Vector2 range = MapRange_ws * 3.0f;
+		Vector2 min = MapRange_ws / ScaleMult;
 		Vector2 diff = range - min;
-		Vector2 t((x - Unknown74.X) / Unknown84.X, (Unknown7C.Y - y) / Unknown84.Y);
+		Vector2 t((x - Unknown74.X) / MapRange_ws.X, (Unknown7C.Y - y) / MapRange_ws.Y);
 		Unknown48->Unknown_7C3CA0(range.X, min.X, diff.X * t.X, true);
 		Unknown4C->Unknown_7C3CA0(range.Y, min.Y, t.Y * diff.Y, false);
 	}
@@ -1328,9 +1328,9 @@ void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int botto
 **	+0x84 is a Vector2: as two ints the constructor's 'or ecx,-1' moved one store earlier.
 **
 **	Exact: 0x7BF930, 0x7BFF20, 0x7C01C0, 0x7C0240, 0x7C0330, 0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0,
-**	0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1280, 0x7C1350, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C2280, 0x7C2D30,
-**	0x7C3220, 0x7C3720. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
-**	int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68, which it copies whole).
-**	Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1510, 0x7C1C50, 0x7C2340, 0x7C2850,
+**	0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1280, 0x7C1350, 0x7C1510, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C2280, 0x7C2D30,
+**	0x7C3220, 0x7C3720, 0x7C3830. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
+**	int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68, which it copies whole).
+**	Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1C50, 0x7C2340, 0x7C2850,
 **	0x7C2DA0-0x7C30E0 (the POC and clienttest get them from generated stubs).
 */

@@ -120,7 +120,7 @@ public:
 	Vector3 Unknown68;									// +0x68 (X, Y over CurMult: 0x7C1770's scale; Z: 0x7C0C80, the viewport's larger side; 0x7C1770 copies it whole)
 	Vector2 Unknown74;									// +0x74 (0x7C0D70: FLT_MAX, FLT_MAX)
 	Vector2 Unknown7C;									// +0x7C (0x7C0D70: -FLT_MAX, -FLT_MAX)
-	Vector2 Unknown84;									// +0x84 (0x7C1280: +0x7C less +0x74)
+	Vector2 MapRange_ws;									// +0x84 (0x7C1280: +0x7C less +0x74)  // NAME 3: 0x7C1510's FAIL_IF 'MapRange_ws.X < WWMATH_EPSILON'
 	Unknown_7B97F0Class *TargetPath;					// +0x8C (0.75, 1, green)  // NAME 3: 0x7C0EE0's FAIL_IF
 	Unknown_7B97F0Class *WarpPath;						// +0x90 (0.75, 2, red)  // NAME 3: 0x7C0EE0's FAIL_IF
 	int Unknown94;										// +0x94 (-1)
