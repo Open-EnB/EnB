@@ -13,6 +13,7 @@
 #include "wwprofile.h"
 #include "wwmath.h"
 #include <math.h>
+#include <queue>
 #include "ini.h"
 #include "targa.h"
 #include "ffactory.h"
@@ -427,19 +428,21 @@ bool LandClass::Save_Sea_Mask(const char *filename)
 	return true;
 }
 
-// NOT EXACT: inline-budget (the client calls the first push_back out of line (0x46BF70) and inlines _Freefront in pop_front and the destructor; ours the reverse)
+// NOT EXACT: register-only by eye, explain.py says field-offset (58 masked rows, 22 with the registers masked: in the second
+// neighbour ecx / edx are swapped, in the third the client keeps cell.I in ebp across the push). A std::queue and the
+// patches indexed at each use give the client's frame 0x7C and inlining: the seed push_back 0x46BF70 out of line, the
+// queue's first iterator constructor called and the second inlined, _Freefront inlined (attempts.csv 0x46AA40)
 void LandClass::Limit_Levels(int x, int y)
 {
-	std::deque<Vector2i> queue;
-	queue.push_back(Vector2i(x, y));
+	std::queue<Vector2i> queue;
+	queue.push(Vector2i(x, y));
 	Vector2i next;
 	while (!queue.empty()) {
 		Vector2i &cell = queue.front();
-		LandPatchClass *patch = Patches[cell.J * GridWidth + cell.I];
-		if (patch->Visited) {
-			queue.pop_front();
+		if (Patches[cell.J * GridWidth + cell.I]->Visited) {
+			queue.pop();
 		} else {
-			patch->Visited = true;
+			Patches[cell.J * GridWidth + cell.I]->Visited = true;
 			unsigned int level = Patches[cell.J * GridWidth + cell.I]->Level + 1;
 			if (level > 4) {
 				level = 4;
@@ -447,38 +450,34 @@ void LandClass::Limit_Levels(int x, int y)
 			next.J = cell.J;
 			next.I = cell.I + 1;
 			if (next.I < GridWidth && !Patches[next.J * GridWidth + next.I]->Visited) {
-				queue.push_back(next);
-				patch = Patches[next.J * GridWidth + next.I];
-				if ((unsigned int)patch->Level > level) {
-					patch->Level = level;
+				queue.push(next);
+				if ((unsigned int)Patches[next.J * GridWidth + next.I]->Level > level) {
+					Patches[next.J * GridWidth + next.I]->Level = level;
 				}
 			}
 			next.I = cell.I - 1;
 			if (next.I >= 0 && !Patches[next.J * GridWidth + next.I]->Visited) {
-				queue.push_back(next);
-				patch = Patches[next.J * GridWidth + next.I];
-				if ((unsigned int)patch->Level > level) {
-					patch->Level = level;
+				queue.push(next);
+				if ((unsigned int)Patches[next.J * GridWidth + next.I]->Level > level) {
+					Patches[next.J * GridWidth + next.I]->Level = level;
 				}
 			}
 			next.I = cell.I;
 			next.J = cell.J + 1;
 			if (next.J < GridWidth && !Patches[next.J * GridWidth + next.I]->Visited) {
-				queue.push_back(next);
-				patch = Patches[next.J * GridWidth + next.I];
-				if ((unsigned int)patch->Level > level) {
-					patch->Level = level;
+				queue.push(next);
+				if ((unsigned int)Patches[next.J * GridWidth + next.I]->Level > level) {
+					Patches[next.J * GridWidth + next.I]->Level = level;
 				}
 			}
 			next.J = cell.J - 1;
 			if (next.J >= 0 && !Patches[next.J * GridWidth + next.I]->Visited) {
-				queue.push_back(next);
-				patch = Patches[next.J * GridWidth + next.I];
-				if ((unsigned int)patch->Level > level) {
-					patch->Level = level;
+				queue.push(next);
+				if ((unsigned int)Patches[next.J * GridWidth + next.I]->Level > level) {
+					Patches[next.J * GridWidth + next.I]->Level = level;
 				}
 			}
-			queue.pop_front();
+			queue.pop();
 		}
 	}
 }

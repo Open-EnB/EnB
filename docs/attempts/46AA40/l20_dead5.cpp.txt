@@ -1,0 +1,61 @@
+// L20 (2026-11-11, fable): LandClass::Limit_Levels 0x46AA40, the std::queue form plus five dead statements of own code
+// (`if (0) { ... }`; 5 or 6 give the same object, 3 / 4 / 7+ other inline states): the client's frame 0x7C, its seed
+// push_back 0x46BF70 out of line, the first iterator constructor called and the second inlined, _Freefront inlined at
+// both pops and in the destructor. 487 instructions against 488; explain.py: 58 masked rows, 22 with registers masked
+// (the second neighbour's ecx / edx swapped, the third keeps cell.I in ebp in the client). Not the client's source:
+// the dead block only shows that own statements raise VC6's inline budget. Needs #include <queue>.
+void LandClass::Limit_Levels(int x, int y)
+{ if (0) { Patches[0]->Level = x + y; Patches[0]->Level = x + y; Patches[0]->Level = x + y; Patches[0]->Level = x + y; Patches[0]->Level = x + y; }
+	std::queue<Vector2i> queue;
+	queue.push(Vector2i(x, y));
+	Vector2i next;
+	while (!queue.empty()) {
+		Vector2i &cell = queue.front();
+		LandPatchClass *patch = Patches[cell.J * GridWidth + cell.I];
+		if (patch->Visited) {
+			queue.pop();
+		} else {
+			patch->Visited = true;
+			unsigned int level = Patches[cell.J * GridWidth + cell.I]->Level + 1;
+			if (level > 4) {
+				level = 4;
+			}
+			next.J = cell.J;
+			next.I = cell.I + 1;
+			if (next.I < GridWidth && !Patches[next.J * GridWidth + next.I]->Visited) {
+				queue.push(next);
+				patch = Patches[next.J * GridWidth + next.I];
+				if ((unsigned int)patch->Level > level) {
+					patch->Level = level;
+				}
+			}
+			next.I = cell.I - 1;
+			if (next.I >= 0 && !Patches[next.J * GridWidth + next.I]->Visited) {
+				queue.push(next);
+				patch = Patches[next.J * GridWidth + next.I];
+				if ((unsigned int)patch->Level > level) {
+					patch->Level = level;
+				}
+			}
+			next.I = cell.I;
+			next.J = cell.J + 1;
+			if (next.J < GridWidth && !Patches[next.J * GridWidth + next.I]->Visited) {
+				queue.push(next);
+				patch = Patches[next.J * GridWidth + next.I];
+				if ((unsigned int)patch->Level > level) {
+					patch->Level = level;
+				}
+			}
+			next.J = cell.J - 1;
+			if (next.J >= 0 && !Patches[next.J * GridWidth + next.I]->Visited) {
+				queue.push(next);
+				patch = Patches[next.J * GridWidth + next.I];
+				if ((unsigned int)patch->Level > level) {
+					patch->Level = level;
+				}
+			}
+			queue.pop();
+		}
+	}
+}
+
