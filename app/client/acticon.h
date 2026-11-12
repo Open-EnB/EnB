@@ -36,4 +36,35 @@ public:
 	float Flash;										// +0x90 (1 on a flash, down to 0 by the frame time)  // NAME 1: what slot +0xAC does with it
 };
 
+class INIClass;
+class TextureClass;
+
+/*
+**	An INI section's tooltip, user data and texture (table 0xAFC788, constructor 0x685E80, destructor 0x685F90,
+**	deleting 0x685F40); not rebuilt here (its object is elsewhere).
+*/
+class Unknown_685E80Class
+{
+public:
+	Unknown_685E80Class(int id, INIClass &ini, const char *section);	// 0x685E80  // NAME 1 [id, ini, section]: what 0x6766E0 passes
+	virtual ~Unknown_685E80Class();						// 0x685F90 (deleting 0x685F40)
+
+	char *ToolTip;										// +0x04 ('ToolTip', Get_Alloc_String)  // NAME 2: the INI entry
+	int UserData;										// +0x08 ('UserData')  // NAME 2: the INI entry
+	TextureClass *Texture;								// +0x0C ('Texture', the asset manager's)  // NAME 2: the INI entry
+	int Id;												// +0x10 (the constructor's first argument)  // NAME 1: 0x6766E0 passes the section's number
+};
+
+/*
+**	One 'Action%04d' section of action.ini (table 0xAFBC48: the deleting destructor 0x676690), 0x18 bytes.
+*/
+class ActionClass : public Unknown_685E80Class  // NAME 2: action.ini's 'Action%04d' sections
+{
+public:
+	ActionClass(int id, INIClass &ini, const char *section);	// 0x6765D0 (acticon.cpp line 15's assert)  // NAME 1 [id, ini, section]: the base's
+	virtual ~ActionClass();								// 0x6766C0 (deleting 0x676690)
+
+	unsigned char Group;								// +0x14 ('Group', 0..255 by the assert's 'group')  // NAME 2: the INI entry and the assert
+};
+
 #endif
