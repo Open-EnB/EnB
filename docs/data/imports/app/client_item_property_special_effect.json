@@ -1,57 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientItemPropertySpecialEffectClass (NAME 2: the file's name after its client-named siblings client_item_property_special_maker.cpp etc.; no assert), an item effect as a special property (table 0xAEDEDC, 0x34 bytes, label 'Effect: '), client 0x52B840-0x52C75F: Create 0x52B840, ctor 0x52B9C0, dtors 0x52BBC0 / 0x52BB90, Get_Lines 0x52BC30, Is_Usable 0x52BF50, the line struct's 0x52BF00 / 0x52C580 / 0x52C710, Create_NEW 0x52BF70, the vector's 0x52BFA0 / 0x52BFF0, std::_Construct 0x52C3D0, <string>'s guarded static 0x52C740",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x45CC10",
-  "0x52B840",
-  "0x52B9C0",
-  "0x52BB90",
-  "0x52BBC0",
-  "0x52BC30",
-  "0x52BF00",
-  "0x52BF50",
-  "0x52BF70",
-  "0x52BFA0",
-  "0x52BFF0",
-  "0x52C3D0",
-  "0x52C580",
-  "0x52C710"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/item/client_item_property_special_effect.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x45CC10",
-  "0x52BF00",
-  "0x52BFA0",
-  "0x52BFF0",
-  "0x52C3D0",
-  "0x52C580",
-  "0x52C710"
- ],
- "short_known": [
-  "0x42D120",
-  "0x52BF50"
- ],
- "tiebreak": [
-  "0x52BF70"
- ]
+ "name": "client/item/client_item_property_special_effect.cpp"
 }
