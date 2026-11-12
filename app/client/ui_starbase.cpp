@@ -98,9 +98,9 @@ UIStarbaseUnknownCCClass::~UIStarbaseUnknownCCClass()
 		Avatar->Remove();
 		Avatar = NULL;
 	}
-	if (Unknown0C) {
-		Unknown0C->Remove();
-		Unknown0C = NULL;
+	if (NameTag) {
+		NameTag->Remove();
+		NameTag = NULL;
 	}
 	if (Unknown10) {
 		Unknown10->Remove();
@@ -246,147 +246,147 @@ UIStarbaseClass::~UIStarbaseClass()
 	Unknown1A0.clear();
 }
 
-// 0x63BDB0
-// @0x0063BDB0
-void UIStarbaseClass::Unknown_63BDB0(const Matrix3D &transform)
+// 0x633010
+bool UIStarbaseUnknownCCClass::Unknown_633010()
 {
-	Matrix3D tm;
-	if (!UnknownC0.D->Avatar) {
-		return;
-	}
-	UnknownC0.D->Avatar->Remove();
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(UnknownC0.D->Avatar.Peek());
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(UnknownC0.D->Avatar.Peek());
-	UnknownB0->Unknown_69DFC0(UnknownC0.D->Avatar, transform, false);
-	UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, 1);
-	UnknownC0.D->Avatar->Unknown_77E3D0(1);
-	UnknownC0.D->Avatar->Unknown230 = false;
-	UnknownC0.D->Avatar->Unknown36C = true;
-	UnknownC0.D->Avatar->Unknown_785F20(true);
-	UnknownC0.D->Avatar->BodyObj->Set_LOD_Bias(100.0f);
-	UnknownC0.D->Avatar->Unknown_786E60();
-	Unknown_640F50(UnknownC0.D->Avatar.Peek());
-	if (UnknownC0.D->Avatar != NULL) {
-		UnknownC0.D->Avatar->Unknown_786E60();
-	}
-	Unknown214 = false;
-	Unknown215 = false;
-	Unknown216 = false;
-	Unknown217 = false;
-	Unknown218 = false;
-	Unknown219 = false;
-	Unknown21A = false;
-	Unknown1B3 = false;
-	if (Unknown_42EC60(2, 0)) {
-		Unknown21A = true;
-	}
-	UnknownB0->Unknown_6A2430(&Unknown214, &Unknown215, &Unknown216, &Unknown217, &Unknown1B3);
-	if (Unknown1B3 && UnknownC0.D != NULL) {
-		UnknownC0.D->Avatar->Unknown_786B60(false);
-	}
-	tm = UnknownC0.D->Avatar->Unknown330;
-	Unknown1EC = tm.Get_Translation();
-	UnknownB0->Unknown_69CBE0();
-	UnknownC0.E = 0x40;
-	Unknown_63E2B0();
-	Unknown1B4 = 0.0f;
+	bool r = false;
+	if ((Unknown18 & 0x3E) || Avatar->Unknown318.size()) r = true;
+	return(r);
 }
 
-// 0x63C080
-// @0x0063C080
-void UIStarbaseClass::Unknown_63C080(const char *name, bool a, bool b)
+// 0x633040
+void UIStarbaseUnknownCCClass::Unknown_633040()
 {
-	Matrix3D tm;
-	if (!UnknownC0.D->Avatar) {
-		return;
-	}
-	UnknownC0.D->Avatar->Remove();
-	UnknownC0.D->Avatar = NULL;
-	unsigned int id = ((LineDisplayClientClass *)Client)->AvatarID;
-	UnknownC0.D->Avatar = Create_NEW((CharacterViewAvatarClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_74C7B0(id));
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(UnknownC0.D->Avatar.Peek());
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(UnknownC0.D->Avatar.Peek());
-	UnknownB0->Unknown_69DC80(UnknownC0.D->Avatar, name, b);
-	if (a) {
-		UnknownB0->Unknown_69E510(UnknownC0.D->Avatar->Unknown_787A90());
-	} else {
-		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, 1);
-	}
-	UnknownC0.D->Avatar->Unknown_77E3D0(1);
-	UnknownC0.D->Avatar->Unknown230 = false;
-	UnknownC0.D->Avatar->Unknown36C = true;
-	UnknownC0.D->Avatar->Unknown_785F20(true);
-	UnknownC0.D->Avatar->BodyObj->Set_LOD_Bias(100.0f);
-	UnknownC0.D->Avatar->Unknown_786E60();
-	Unknown_640F50(UnknownC0.D->Avatar.Peek());
-	if (UnknownC0.D->Avatar != NULL) {
-		UnknownC0.D->Avatar->Unknown_786E60();
-	}
-	Unknown214 = false;
-	Unknown215 = false;
-	Unknown216 = false;
-	Unknown217 = false;
-	Unknown218 = false;
-	Unknown219 = false;
-	Unknown21A = false;
-	Unknown1B3 = false;
-	if (Unknown_42EC60(2, 0)) {
-		Unknown21A = true;
-	}
-	UnknownB0->Unknown_6A2430(&Unknown214, &Unknown215, &Unknown216, &Unknown217, &Unknown1B3);
-	if (Unknown1B3 && UnknownC0.D != NULL) {
-		UnknownC0.D->Avatar->Unknown_786B60(false);
-	}
-	tm = UnknownC0.D->Avatar->Unknown330;
-	Unknown1EC = tm.Get_Translation();
-	if (b) {
-		if (!UnknownB0->Unknown_69CBE0()) {
-			UnknownC0.E = 0;
-			Unknown_63E2B0();
+	if (Unknown20 > 0.0f) {
+		Unknown20 -= WW3D::Get_Frame_Time() * 0.001f;
+		if (Unknown20 < 0.0f) {
+			Unknown20 = 0;
+			NameTag->Change_Text(Avatar->Desc.First_Name, 0);
+			NameTag->Unknown_6D8A80(false);
 		}
-	} else {
-		UnknownB0->Unknown_69CBE0();
-		UnknownC0.E = 0x40;
-		Unknown_63E2B0();
 	}
-	Unknown1B4 = 0.0f;
 }
 
-// 0x63D2F0
-// @0x0063D2F0
-void UIStarbaseClass::Unknown_63D2F0(int index)
+// 0x6330E0
+void UIStarbaseUnknownCCClass::Unknown_6330E0(const Vector3 &color)
 {
-	if (Unknown13C[index]->Avatar != NULL) {
-		Matrix3D tm1 = Unknown13C[index]->Avatar->Get_Transform();
-		Matrix3D tm2 = UnknownC0.D->Avatar->Get_Transform();
-		Vector3 diff = tm2.Get_Translation() - tm1.Get_Translation();
-		diff.Normalize();
-		Vector3 z = tm2.Get_Z_Vector();
-		Vector3 cross = Vector3::Cross_Product(z, diff);
-		tm1.Set(diff, cross, z, tm1.Get_Translation());
-		Unknown13C[index]->Avatar->Unknown_788700(tm1);
-		tm2.Set(-diff, -cross, z, tm2.Get_Translation());
-		UnknownC0.D->Avatar->Unknown_788700(tm2);
-		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787450(Unknown13C[index]->Avatar.Peek()), 1, 1);
-		Unknown1FC = true;
+	Unknown20 = 2.0f;
+	((FontSys *)NameTag.Peek())->Change_Text("\".....\"", 0);
+	FontSys *tag = (FontSys *)NameTag.Peek();
+	tag->Unknown494.Color = color;
+	tag->Unknown4A4 = tag->Unknown494;
+	((FontSys *)NameTag.Peek())->Unknown_6D8A80(true);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x633180
+void UIStarbaseUnknownCCClass::Unknown_633180()
+{
+	FAIL_IF(!Avatar && !AmbientAvatar) return;
+	FAIL_IF(!NameTag) return;
+	std::string name = "";
+	if (Avatar) {
+		name = Avatar->Desc.Get_Full_Name();
+	} else if (AmbientAvatar) {
+		name = AmbientAvatar->Desc.Get_Full_Name();
 	}
-	if (Unknown13C[index]->Unknown08 != NULL) {
-		Unknown13C[index]->Unknown08->Unknown_78A080();
-		Unknown13C[index]->Unknown08->Unknown_78B570(false);
-		Matrix3D tm1 = Unknown13C[index]->Unknown08->Get_Transform();
-		Matrix3D tm2 = UnknownC0.D->Avatar->Get_Transform();
-		Vector3 diff = tm2.Get_Translation() - tm1.Get_Translation();
-		diff.Normalize();
-		Vector3 z = tm2.Get_Z_Vector();
-		Vector3 cross = Vector3::Cross_Product(z, diff);
-		tm1.Set(diff, cross, z, tm1.Get_Translation());
-		Unknown13C[index]->Unknown08->Unknown_788700(tm1);
-		tm2.Set(-diff, -cross, z, tm2.Get_Translation());
-		UnknownC0.D->Avatar->Unknown_788700(tm2);
-		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787450(Unknown13C[index]->Unknown08.Peek()), 1, 1);
-		Unknown1FC = true;
+	NameTag->Change_Text(name.c_str(), 0);
+	NameTag->Set_Hidden(true);
+	NameTag->Unknown_6CE7D0(2);
+	if (Unknown10) {
+		Unknown10->Change_Text(Unknown24.c_str(), 0);
+		Unknown10->Set_Hidden(true);
+		Unknown10->Unknown_6CE7D0(2);
 	}
 }
+
+
+
+
+
 
 #pragma auto_inline(on)
 
@@ -510,8 +510,8 @@ void UIStarbaseClass::Unknown_639030(int arg)
 			entry->Avatar->Unknown_784A50((const char *)arg, true, false);
 			return;
 		}
-		if (entry->Unknown08 != NULL) {
-			entry->Unknown08->Unknown_784A50((const char *)arg, true, false);
+		if (entry->AmbientAvatar != NULL) {
+			entry->AmbientAvatar->Unknown_784A50((const char *)arg, true, false);
 		}
 	}
 }
@@ -669,7 +669,7 @@ static const char *Unknown_B8ABBC[4][10] = {	// NAME 1: neutral (D10)
 };
 void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs.cpp, cdecl), as avatar.cpp's  // NAME 1 [robj]: avatar.cpp's
 
-inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avatar(NULL), Unknown08(NULL), Unknown0C(NULL), Unknown10(NULL), Unknown14(0), Unknown18(0), Unknown1C(0), Unknown20(0), Unknown24(""), Unknown34(-1) {}
+inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avatar(NULL), AmbientAvatar(NULL), NameTag(NULL), Unknown10(NULL), Unknown14(0), Unknown18(0), Unknown1C(0), Unknown20(0), Unknown24(""), Unknown34(-1) {}
 // NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen
 // gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four
 // terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the
@@ -692,12 +692,12 @@ void UIStarbaseClass::Unknown_54()
 		WW3D::Enable_Overbright_Modify_On_Load(true);
 
 		UnknownC0.D = new UIStarbaseUnknownCCClass;
-		UnknownB0->Unknown_6A1880(UnknownC0.D->Unknown0C, 0);
+		UnknownB0->Unknown_6A1880(UnknownC0.D->NameTag, 0);
 		unsigned int id = ((LineDisplayClientClass *)Client)->AvatarID;
 		UnknownC0.D->Avatar = Create_NEW((CharacterViewAvatarClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_74C7B0(id));
-		UnknownC0.D->Unknown0C->Change_Text(UnknownC0.D->Avatar->Desc.First_Name, 0);
-		UnknownC0.D->Unknown0C->Unknown494.Color.Set(0.33f, 0.33f, 0.99f);
-		UnknownC0.D->Unknown0C->Unknown4A4 = UnknownC0.D->Unknown0C->Unknown494;
+		UnknownC0.D->NameTag->Change_Text(UnknownC0.D->Avatar->Desc.First_Name, 0);
+		UnknownC0.D->NameTag->Unknown494.Color.Set(0.33f, 0.33f, 0.99f);
+		UnknownC0.D->NameTag->Unknown4A4 = UnknownC0.D->NameTag->Unknown494;
 		UnknownB0->Unknown_6A1880(UnknownC0.D->Unknown10, 3);
 		if (((ClientClass *)Client)->Unknown_728330()) {
 			((ClientClass *)Client)->Get_Avatar()->Unknown_6FFFF0(UnknownC0.D->Unknown24);
@@ -723,8 +723,8 @@ void UIStarbaseClass::Unknown_54()
 			StarbaseNPCClass *npc = RoomInfo->Find_NPC(i);
 			if (npc->Unknown1C) {
 				Unknown13C[i] = new UIStarbaseUnknownCCClass;
-				Unknown13C[i]->Unknown08 = Create_NEW(Unknown_642740(npc));
-				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->Unknown08->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
+				Unknown13C[i]->AmbientAvatar = Create_NEW(Unknown_642740(npc));
+				Unknown13C[i]->Unknown14 = new ButtonGadgetClass(Unknown13C[i]->AmbientAvatar->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
 				Unknown13C[i]->Unknown14->Unknown2C_0A = true;
 				Unknown13C[i]->Unknown14->Set_Last_Sort_Group(true);
 				Unknown64.Unknown_6870E0(Unknown13C[i]->Unknown14, i + 2, View, true, true);
@@ -928,151 +928,151 @@ void UIStarbaseClass::Unknown_54()
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#pragma auto_inline(off)
+
+// 0x63BDB0
+// @0x0063BDB0
+void UIStarbaseClass::Unknown_63BDB0(const Matrix3D &transform)
+{
+	Matrix3D tm;
+	if (!UnknownC0.D->Avatar) {
+		return;
+	}
+	UnknownC0.D->Avatar->Remove();
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(UnknownC0.D->Avatar.Peek());
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(UnknownC0.D->Avatar.Peek());
+	UnknownB0->Unknown_69DFC0(UnknownC0.D->Avatar, transform, false);
+	UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, 1);
+	UnknownC0.D->Avatar->Unknown_77E3D0(1);
+	UnknownC0.D->Avatar->Unknown230 = false;
+	UnknownC0.D->Avatar->Unknown36C = true;
+	UnknownC0.D->Avatar->Unknown_785F20(true);
+	UnknownC0.D->Avatar->BodyObj->Set_LOD_Bias(100.0f);
+	UnknownC0.D->Avatar->Unknown_786E60();
+	Unknown_640F50(UnknownC0.D->Avatar.Peek());
+	if (UnknownC0.D->Avatar != NULL) {
+		UnknownC0.D->Avatar->Unknown_786E60();
+	}
+	Unknown214 = false;
+	Unknown215 = false;
+	Unknown216 = false;
+	Unknown217 = false;
+	Unknown218 = false;
+	Unknown219 = false;
+	Unknown21A = false;
+	Unknown1B3 = false;
+	if (Unknown_42EC60(2, 0)) {
+		Unknown21A = true;
+	}
+	UnknownB0->Unknown_6A2430(&Unknown214, &Unknown215, &Unknown216, &Unknown217, &Unknown1B3);
+	if (Unknown1B3 && UnknownC0.D != NULL) {
+		UnknownC0.D->Avatar->Unknown_786B60(false);
+	}
+	tm = UnknownC0.D->Avatar->Unknown330;
+	Unknown1EC = tm.Get_Translation();
+	UnknownB0->Unknown_69CBE0();
+	UnknownC0.E = 0x40;
+	Unknown_63E2B0();
+	Unknown1B4 = 0.0f;
+}
+
+// 0x63C080
+// @0x0063C080
+void UIStarbaseClass::Unknown_63C080(const char *name, bool a, bool b)
+{
+	Matrix3D tm;
+	if (!UnknownC0.D->Avatar) {
+		return;
+	}
+	UnknownC0.D->Avatar->Remove();
+	UnknownC0.D->Avatar = NULL;
+	unsigned int id = ((LineDisplayClientClass *)Client)->AvatarID;
+	UnknownC0.D->Avatar = Create_NEW((CharacterViewAvatarClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_74C7B0(id));
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(UnknownC0.D->Avatar.Peek());
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(UnknownC0.D->Avatar.Peek());
+	UnknownB0->Unknown_69DC80(UnknownC0.D->Avatar, name, b);
+	if (a) {
+		UnknownB0->Unknown_69E510(UnknownC0.D->Avatar->Unknown_787A90());
+	} else {
+		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, 1);
+	}
+	UnknownC0.D->Avatar->Unknown_77E3D0(1);
+	UnknownC0.D->Avatar->Unknown230 = false;
+	UnknownC0.D->Avatar->Unknown36C = true;
+	UnknownC0.D->Avatar->Unknown_785F20(true);
+	UnknownC0.D->Avatar->BodyObj->Set_LOD_Bias(100.0f);
+	UnknownC0.D->Avatar->Unknown_786E60();
+	Unknown_640F50(UnknownC0.D->Avatar.Peek());
+	if (UnknownC0.D->Avatar != NULL) {
+		UnknownC0.D->Avatar->Unknown_786E60();
+	}
+	Unknown214 = false;
+	Unknown215 = false;
+	Unknown216 = false;
+	Unknown217 = false;
+	Unknown218 = false;
+	Unknown219 = false;
+	Unknown21A = false;
+	Unknown1B3 = false;
+	if (Unknown_42EC60(2, 0)) {
+		Unknown21A = true;
+	}
+	UnknownB0->Unknown_6A2430(&Unknown214, &Unknown215, &Unknown216, &Unknown217, &Unknown1B3);
+	if (Unknown1B3 && UnknownC0.D != NULL) {
+		UnknownC0.D->Avatar->Unknown_786B60(false);
+	}
+	tm = UnknownC0.D->Avatar->Unknown330;
+	Unknown1EC = tm.Get_Translation();
+	if (b) {
+		if (!UnknownB0->Unknown_69CBE0()) {
+			UnknownC0.E = 0;
+			Unknown_63E2B0();
+		}
+	} else {
+		UnknownB0->Unknown_69CBE0();
+		UnknownC0.E = 0x40;
+		Unknown_63E2B0();
+	}
+	Unknown1B4 = 0.0f;
+}
+
+// 0x63D2F0
+// @0x0063D2F0
+void UIStarbaseClass::Unknown_63D2F0(int index)
+{
+	if (Unknown13C[index]->Avatar != NULL) {
+		Matrix3D tm1 = Unknown13C[index]->Avatar->Get_Transform();
+		Matrix3D tm2 = UnknownC0.D->Avatar->Get_Transform();
+		Vector3 diff = tm2.Get_Translation() - tm1.Get_Translation();
+		diff.Normalize();
+		Vector3 z = tm2.Get_Z_Vector();
+		Vector3 cross = Vector3::Cross_Product(z, diff);
+		tm1.Set(diff, cross, z, tm1.Get_Translation());
+		Unknown13C[index]->Avatar->Unknown_788700(tm1);
+		tm2.Set(-diff, -cross, z, tm2.Get_Translation());
+		UnknownC0.D->Avatar->Unknown_788700(tm2);
+		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787450(Unknown13C[index]->Avatar.Peek()), 1, 1);
+		Unknown1FC = true;
+	}
+	if (Unknown13C[index]->AmbientAvatar != NULL) {
+		Unknown13C[index]->AmbientAvatar->Unknown_78A080();
+		Unknown13C[index]->AmbientAvatar->Unknown_78B570(false);
+		Matrix3D tm1 = Unknown13C[index]->AmbientAvatar->Get_Transform();
+		Matrix3D tm2 = UnknownC0.D->Avatar->Get_Transform();
+		Vector3 diff = tm2.Get_Translation() - tm1.Get_Translation();
+		diff.Normalize();
+		Vector3 z = tm2.Get_Z_Vector();
+		Vector3 cross = Vector3::Cross_Product(z, diff);
+		tm1.Set(diff, cross, z, tm1.Get_Translation());
+		Unknown13C[index]->AmbientAvatar->Unknown_788700(tm1);
+		tm2.Set(-diff, -cross, z, tm2.Get_Translation());
+		UnknownC0.D->Avatar->Unknown_788700(tm2);
+		UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787450(Unknown13C[index]->AmbientAvatar.Peek()), 1, 1);
+		Unknown1FC = true;
+	}
+}
+
+#pragma auto_inline(on)
 
 
 
@@ -4014,11 +4014,11 @@ void UIStarbaseClass::Unknown_6425D0(const char *name, const Vector3 &color)
 		FAIL_IF(!savatar) continue;
 		if (stricmp(savatar->Avatar->Desc.First_Name, name) == 0) {
 			savatar->Unknown20 = 2.0f;
-			((FontSys *)savatar->Unknown0C.Peek())->Change_Text("\".....\"", 0);
-			FontSys *tag = (FontSys *)savatar->Unknown0C.Peek();
+			((FontSys *)savatar->NameTag.Peek())->Change_Text("\".....\"", 0);
+			FontSys *tag = (FontSys *)savatar->NameTag.Peek();
 			tag->Unknown494.Color = color;
 			tag->Unknown4A4 = tag->Unknown494;
-			((FontSys *)savatar->Unknown0C.Peek())->Unknown_6D8A80(true);
+			((FontSys *)savatar->NameTag.Peek())->Unknown_6D8A80(true);
 			return;
 		}
 	}

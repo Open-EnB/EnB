@@ -171,8 +171,13 @@ public:
 	~UIStarbaseUnknownCCClass();	// 0x632E50
 	int Unknown00;					// +0x00  // NAME 1: neutral
 	RefCountPtr<CharacterViewAvatarClass> Avatar;	// +0x04 (0x63BDB0 / 0x63C080 / 0x63D2F0)  // NAME 1: what it holds
-	RefCountPtr<Unknown78A910AvatarClass> Unknown08;	// +0x08 (0x63D2F0)  // NAME 1: neutral
-	RefCountPtr<FontSys> Unknown0C, Unknown10;	// +0x0C (the destructor removes both; 0x634140: the view's 0x6A1880 makes +0x0C a NameText_SBASE, +0x10 a GuildText_SBASE)
+	bool Unknown_633010();			// 0x633010 (no caller: +0x18's bits 1-5, or the avatar's path not empty)
+	void Unknown_633040();			// 0x633040 (no caller: +0x20 counted down by the frame time; at 0 the name tag's text back)
+	void Unknown_6330E0(const Vector3 &color);	// 0x6330E0 (no caller: the name tag '.....' in the colour for 2 seconds)  // NAME 1 [color]: what it sets
+	void Unknown_633180();			// 0x633180 (the name tag's and +0x10's texts: 0x6366A0, 0x63CA50)
+	RefCountPtr<Unknown78A910AvatarClass> AmbientAvatar;	// +0x08 (0x63D2F0)  // NAME 3: 0x633180's FAIL_IF '!Avatar && !AmbientAvatar'
+	RefCountPtr<FontSys> NameTag;	// +0x0C (the destructor removes it; 0x634140: the view's 0x6A1880 makes it a NameText_SBASE)  // NAME 3: 0x633180's FAIL_IF '!NameTag'
+	RefCountPtr<FontSys> Unknown10;	// +0x10 (the destructor removes it; 0x634140: a GuildText_SBASE)
 	GadgetClass *Unknown14;			// +0x14 (the destructor's GadgetClass::Destroy)
 	int Unknown18;					// +0x18 (0x6437A0 hands it to 0x63CA50 again)
 	int Unknown1C;					// +0x1C
