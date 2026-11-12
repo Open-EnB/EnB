@@ -23,7 +23,7 @@
 class UIScutBarClass;
 
 // A gadget over the whole screen, sorted last (0x40 bytes, table 0xAFAB64)
-class FullScreenGadgetClass : public InterfaceDeactivationGadgetClass  // NAME 2: what it covers
+class FullScreenGadgetClass : public RectangleGadgetClass  // NAME 2: what it covers
 {
 public:
 	FullScreenGadgetClass(int arg);										// 0x66C8F0 (0, 0, 640, 480 and the argument to the base 0x660D30, then Set_Last_Sort_Group)  // NAME 1 [arg]: the base's fifth

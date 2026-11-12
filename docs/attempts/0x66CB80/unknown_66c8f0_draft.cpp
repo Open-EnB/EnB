@@ -8,7 +8,7 @@
 #include "sclient.h"
 
 // A gadget over the whole 640 x 480 screen, sorted last (0x40 bytes, table 0xAFAB64)
-class Unknown66C8F0Class : public InterfaceDeactivationGadgetClass	// NAME 1: neutral (D10)
+class Unknown66C8F0Class : public RectangleGadgetClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown66C8F0Class(int arg);						// 0x66C8F0  // NAME 1 [arg]: the base's fifth
@@ -33,7 +33,7 @@ public:
 
 // @0x66C8F0
 Unknown66C8F0Class::Unknown66C8F0Class(int arg) :
-	InterfaceDeactivationGadgetClass(0, 0, 640, 480, arg)
+	RectangleGadgetClass(0, 0, 640, 480, arg)
 {
 	Set_Last_Sort_Group(true);
 }

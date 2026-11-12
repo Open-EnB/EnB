@@ -147,10 +147,10 @@ public:
 };
 
 // The gadget intrface.cpp news for a partial deactivation (0x40 bytes, constructor 0x660D30, table 0xAF9B80)
-class InterfaceDeactivationGadgetClass : public GadgetClass  // NAME 1: neutral (D10)
+class RectangleGadgetClass : public GadgetClass  // NAME 2: what it is, a screen rectangle (X / Y / Width / Height; D239 renamed it from InterfaceDeactivationGadgetClass: intrface.cpp's partial deactivation is one use of it)
 {
 public:
-	InterfaceDeactivationGadgetClass(int a, int b, int c, int d, int e);	// 0x660D30 (intrface.cpp passes 0, 0, 0, 0, 0)  // NAME 1 [a, b, c, d, e]: neutral
+	RectangleGadgetClass(int a, int b, int c, int d, int e);	// 0x660D30 (intrface.cpp passes 0, 0, 0, 0, 0)  // NAME 1 [a, b, c, d, e]: neutral
 	virtual bool Unknown_30(float x, float y);							// +0x30 0x660DD0
 	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x660E40  // NAME 1 [box]: what it fills
 

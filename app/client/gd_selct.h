@@ -6,7 +6,7 @@
 **
 **	The quantity selector (inv_transaction.cpp makes one for a stack): a bar at the pointer from 0 to a maximum,
 **	the number typed or picked with the pointer, shown in GD_SELECT_FONT; a click or Enter takes it, the second
-**	button or Esc takes 0. Over gadget.h's InterfaceDeactivationGadgetClass (its rectangle reused in pixels from the
+**	button or Esc takes 0. Over gadget.h's RectangleGadgetClass (its rectangle reused in pixels from the
 **	screen's centre). Table 0xAFADD4 (29 slots: +0x2C, +0x30 and +0x40 its own), constructor 0x66CC00, 0x6C bytes.
 */
 
@@ -24,7 +24,7 @@ class StrEditClass;
 class Rect3DClass;
 class FontSys;
 
-class SelectGadgetClass : public InterfaceDeactivationGadgetClass  // NAME 2: class-from-file (D24) for app\Client\gd_selct.cpp, after its GD_SELECT_FONT
+class SelectGadgetClass : public RectangleGadgetClass  // NAME 2: class-from-file (D24) for app\Client\gd_selct.cpp, after its GD_SELECT_FONT
 {
 public:
 	SelectGadgetClass(UIViewClass *view, int max);		// 0x66CC00 (the base's 0, 0, 1, 1, 0x1FF; the edit, the four rectangles and the text made)  // NAME 1 [view]: what inv_transaction.cpp passes; NAME 1 [max]: what it holds

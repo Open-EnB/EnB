@@ -6,7 +6,7 @@
 
 
 FullScreenGadgetClass::FullScreenGadgetClass(int arg) :
-	InterfaceDeactivationGadgetClass(0, 0, 640, 480, arg)
+	RectangleGadgetClass(0, 0, 640, 480, arg)
 {
 	Set_Last_Sort_Group(true);
 }

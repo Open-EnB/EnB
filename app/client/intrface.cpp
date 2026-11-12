@@ -319,7 +319,7 @@ void InterfaceClass::Unknown_80()
 {
 	FAIL_IF(PartialDeactivatedGadget) return;
 	FAIL_IF(!Active) return;
-	PartialDeactivatedGadget = new InterfaceDeactivationGadgetClass(0, 0, 0, 0, 0);
+	PartialDeactivatedGadget = new RectangleGadgetClass(0, 0, 0, 0, 0);
 	PartialDeactivatedGadget->Unknown_54(View->Unknown2C, Unknown78);
 	Unknown64.Unknown_6872A0(View->Get_Unknown04(), Unknown78);
 	Unknown58.Unknown_686EE0();
