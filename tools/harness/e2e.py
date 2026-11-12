@@ -458,7 +458,7 @@ def run_one(sc, args, log):
         import symbolize
         syms = symbolize.load(inst.map)
         a0 = re.findall(r'\b([0-9A-F]{8})\b', crash[0])
-        res['crash_at'] = [f'{int(x, 16):08X} {symbolize.name_of(syms, int(x, 16))}' for x in a0[:1] + a0[2:6]
+        res['crash_at'] = [f'{int(x, 16):08X} {symbolize.name_of(syms, int(x, 16))}' for x in a0[1:2] + a0[3:7]
                            if 0x401000 <= int(x, 16) < 0x1000000]
     note(f'result: {json.dumps(res)}')
     with open(os.path.join(out, 'result.json'), 'w', encoding='utf-8') as f:

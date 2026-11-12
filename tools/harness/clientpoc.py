@@ -279,7 +279,7 @@ def digest(inst=None):
         if line.startswith('CRASH:') and syms and not named:     # the first: later ones come from the report's own probing
             named = True
             addrs = re.findall(r'\b([0-9A-F]{8})\b', line)
-            for a in addrs[:1] + addrs[2:12]:
+            for a in addrs[1:2] + addrs[3:13]:
                 v = int(a, 16)
                 if 0x401000 <= v < 0x1000000:
                     print(f'    {v:08X} {symbolize.name_of(syms, v)}')

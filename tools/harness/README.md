@@ -544,7 +544,8 @@ step; `XPASS`, the stand-in no longer hit, fails the run so the stale note is re
 (default `e2e`) is clientpoc.py's, removed at the end (`clientpoc.py clean`) unless `--keep`.
 
 **Scenarios** are `tools/harness/e2e/NAME.scn`, in the order world_entry, starmap, options, pda_pages, cargo, chat;
-`_login.scn` (login, character select, START_ACK) is included by each, not run alone. The format is in e2e.py's
+`_login.scn` (the start-up movie skipped with a click, login, character select, START_ACK) is included by each,
+not run alone; it turns on `messages` (WinMain's 'Server initialized & ready to go' starts the movie step). The format is in e2e.py's
 docstring: headers `name:`, `expected-fail:`, `timeout:`, `messages:`; steps `include`, `wait-event SOURCE PATTERN
 [within S]`, `expect-event ...`, `expect-no SOURCE PATTERN` / `expect-no CRASH` (always on), `click gadget NAME` /
 `click X,Y` (`rclick`, `move`), `key VK`, `text STRING`, `alive S`, `shot NAME`, `stand-in PATTERN` (the goal is
