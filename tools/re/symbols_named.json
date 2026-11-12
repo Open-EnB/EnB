@@ -1451,5 +1451,35 @@
   "symbol": "?As_Space_Client@SClient@@UAEHXZ",
   "evidence": "ClientClass's slot +0x18 named after the client's FAIL_IF '!client->As_Space_Client()' (0xBA78A0; D243, P-G2-1; RN 2026-11-12); was Unknown_18 (SClient's override returns this)",
   "replaces": "?Unknown_18@SClient@@UAEHXZ"
+ },
+ {
+  "address": "0x697A10",
+  "symbol": "??1?$hash_map@IPAVStarbaseFacilityClass@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVStarbaseFacilityClass@@@3@@std@@QAE@XZ",
+  "evidence": "StarbaseRoomClass's constructor 0x697720 and destructor 0x697AA0 unwind its Facilities (+0x24, sbase_info.h) through it: the funclets 0xAC01EB / 0xAC0220 are `mov ecx, [ebp-N]; add ecx, 0x24; jmp` to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x697D70",
+  "symbol": "??1?$hash_map@IPAVStarbaseNPCClass@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVStarbaseNPCClass@@@3@@std@@QAE@XZ",
+  "evidence": "StarbaseRoomClass's destructor 0x697AA0 unwinds its NPCs (+0x3C, sbase_info.h) through it: the funclet 0xAC022B is `mov ecx, [ebp-N]; add ecx, 0x3c; jmp` to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x698530",
+  "symbol": "??1?$hash_map@IPAVStarbaseRoomClass@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVStarbaseRoomClass@@@3@@std@@QAE@XZ",
+  "evidence": "StarbaseInfoClass's destructor 0x698370 unwinds its Rooms (+0x00, sbase_info.h) through it: the funclet 0xAC02A0 is `mov ecx, [ebp-N]; jmp` to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x841F60",
+  "symbol": "??1?$vector@UItemFieldStruct@@V?$allocator@UItemFieldStruct@@@std@@@std@@QAE@XZ",
+  "evidence": "ItemInfoClass's constructors 0x83F490 / 0x83F710 and destructor 0x83F580 unwind its Fields (+0x08, item_info.h) through it: the funclets 0xAD7668 / 0xAD76A8 are `mov ecx, [ebp-N]; add ecx, 8; jmp` to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x52DA20",
+  "symbol": "??1?$RefCountPtr@VClientItemPropertySpecialProfessionRequirementClass@@@@QAE@XZ",
+  "evidence": "ClientItemPropertySpecialProfessionRequirementClass::Create 0x52CF90 destroys its returned RefCountPtr through it on unwind: the funclet 0xAAC8D0 tests the return flag ([ebp-0x34] & 1) and jumps to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x52E620",
+  "symbol": "??1?$RefCountPtr@VClientItemPropertySpecialRaceRequirementClass@@@@QAE@XZ",
+  "evidence": "ClientItemPropertySpecialRaceRequirementClass::Create 0x52DB60 destroys its returned RefCountPtr through it on unwind: the funclet 0xAAC9B0 tests the return flag ([ebp-0x30] & 1) and jumps to it (C5 2026-11-12)"
  }
 ]

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "item_state.cpp's header: ItemStateEnum and its two converters (the client's KVPair<ItemStateEnum> calls them; aux_roots.h declares them too)"
+}
