@@ -4,7 +4,7 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
-### 2026-11-12 (13:15 PST, day): the week's plan revised after the Fable cap (D245); D241-D244 decided; no code change
+### 2026-11-12 (13:15 PST, day): the week's plan revised after the Fable cap (D245); D241-D244 decided; who decides (D246); no code change
 
 - **Session** Fable 5.2, the review only, on `run/2026-11-11` (PR #193 is merged); no builder. The meter read 17 % at 12:30
   (the reset was applied at 08:15): 82 points to Tuesday 11:30.
@@ -15,6 +15,20 @@ Newest first within each section. Dates are when the entry was written.
   the libraries session replaced by one tools builder.
 - **Decided:** D241 (P-R1-1), D242 (P-C1-1 for own functions only, P-C1-2), D243 (five renames), D244 (P-H1-1, P-T1-1),
   D245 (the plan). Their proposals moved from section 3 to section 4 item 1.
+- **Who decides (D246; a second session the same afternoon, Fable 5.2, on `docs/week-replan-2026-11-12`, 3e4eca44):** the
+  user asked why so many proposals reached them since the doc-filer (D226). Found: the 2026-11-01 grant (evidence-backed
+  changes are the coordinator's call) was in no decision row and no brief, only in the coordinator's memory notes, which
+  builders and subagents never read; CLAUDE.md, builders.md and the pacing skill said "the user's", and the doc-filer filed
+  every proposal in section 3 verbatim (5 open items on 2026-11-10, 31 after two sessions, 21 now; 4 of the table's 250
+  rows coordinator-decided). D246: the coordinator decides what client.exe's evidence, the verify or a measurement
+  settles, tool design included; a loss with no client evidence lands inside a valve (the landing gains more than it
+  loses, at most 5 such addresses per landing and 40 open, one regain round, an accepted-corrections entry with
+  `"decision": "D246"`; the tools read that field as a free label); builders decide inside their item; a function not
+  exact after two builder rounds is parked; the user keeps outside inputs, safety, `master`, the hard rules and what the
+  valve stops. Changed with it: CLAUDE.md, builders.md, the doc-filer and lander briefs, the pacing and handoff skills;
+  D66, D119, D137 and D240 marked amended; docs_check 0 problems.
+- **Left for session 4's coordinator:** settle section 3's twenty items filed under the old rule (all but P-EA1-1) at
+  its start, each as a call or a section 4 item.
 - **Not checked:** whether `/accept-d66` was run for the 103 moved pairs of PR #193.
 - **Next step:** session 4's prompt in the week plan, on Opus.
 
