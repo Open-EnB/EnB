@@ -22,8 +22,11 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
 - **Client wins**: where client.exe's names disagree with `docs/conventions.md`, use the
   client's and record the case in conventions.md.
 - Verify before keeping a fix: compare sets of `(file, address)` pairs before/after
-  (`tools/vc6/pairs_cmp.py`), not totals. Keep only changes that gain and lose nothing; D66 says
-  which losses aren't losses, and any other loss waits for the user before the commit.
+  (`tools/vc6/pairs_cmp.py`), not totals. No unexplained losses (D240): D66 says which losses
+  aren't losses; a form backed by client.exe's own evidence (a string, RTTI, a symbol, bytes) may
+  land with its losses when the commit names the evidence and each lost address gets an
+  `accepted-corrections.json` entry (`"decision": "D240"`, `moved_to` null) until regained; any
+  other loss waits for the user before the commit.
 - Edit the source; describe each E&B change to an EA-derived file in its end-of-file `// EnB:`
   block (conventions.md), never inline above code. A new reconstructed file gets its description
   (`RECONSTRUCTED`) in its ledger shard: `tools/vc6/ledger.py describe`. Scripted edits go in a script saved in `.work/`, not an inline heredoc

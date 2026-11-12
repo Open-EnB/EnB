@@ -41,7 +41,8 @@ python .claude/skills/coordinator-pacing/scripts/pacing.py heartbeat --plan .wor
 ```
 
 `--accept` names addresses whose loss the user already accepted under D66 (the two land copies above, since
-2026-10-27), so they do not block launches; any other loss sets the allowance to 0.
+2026-10-27), so they do not block launches; the decided losses in HEAD's `docs/data/accepted-corrections.json`
+(`moved_to` null: D175, and D240's entries) are skipped without it. Any other loss sets the allowance to 0.
 
 It prints and logs: both usage windows with reset times; host free memory, the pool's running and leased VMs;
 whether HEAD's ledger (docs/data/imports) parses and which addresses are lost outright against the baseline (pairs that
@@ -160,6 +161,12 @@ Landing and bring-over (the lander does the landing; these are what you see arou
 - **A batch can lose a function no builder lost alone** (one new declaration in a widely included header flips
   it): the landing's verify is the check that matters. D202: bring-over refuses an address lost outright; D66
   moves and shared holders land, printed, and still need the maintainer's `/accept-d66`.
+- **D240 losses are the coordinator's call, not the user's:** when a builder reports a client-evidenced form with
+  losses it could not regain (its D240 rows: address, file, form, evidence), check that the evidence is client.exe's
+  own (a string, RTTI, a symbol, bytes; not EA's later code), then commit one `accepted-corrections.json` entry per
+  address (`"decision": "D240"`, `moved_to` null, the note naming form and evidence) on the run branch, and only then
+  hand the branch to the lander with those addresses as accepted. Name them in the log entry. A loss without such
+  evidence is still the user's. An entry is deleted when its address is regained (the match audit's queue, §4).
 - **If you run `wt.py bring-over` yourself, run it in the background**, never in a foreground call (a 600 s
   timeout moved one to the background, and stopping that task left its python, the importer lock and lease
   `importer-<pid>` running). Wait on the log's `landed:` line or `tasklist //FI "PID eq N"` (Git Bash can't see

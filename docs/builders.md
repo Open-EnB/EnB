@@ -31,7 +31,12 @@ D23-D25, D54, D56, D62, D66, D69) are one table row each in progress.md §2; rea
 `verify.py --lib X [--pool K]`, compare with `tools/vc6/pairs_cmp.py`; then `report.py`, commit. A change to an EA-derived file is a
 direct edit plus its entry in the file's end-of-file `// EnB:` block, never a comment line above code
 (D211; conventions.md, "E&B changes to an EA-derived file"). D66 names the
-seven kinds of non-loss, (i)-(vii) (say which in the commit); any other loss waits for the user.
+seven kinds of non-loss, (i)-(vii) (say which in the commit). **D240:** a form backed by client.exe's own evidence
+(assert / FAIL_IF text, RTTI, a symbol, a byte pattern) is kept even when it loses pairs: never revert it for its
+losses. Commit it naming the evidence, try to regain the lost pairs (the pad sweeps first for sclient / aux_roots
+headers), and list each address still lost in your report as a D240 row (address, file, the form, the evidence); the
+coordinator commits those rows to `docs/data/accepted-corrections.json` on the run branch before the landing. Any
+other loss waits for the user.
 
 **Shared tree (D62).** Other builders may be working in the same tree. Their changes must not be
 *compiled* into your verify: their untracked files aren't, unless the ledger lists them; check
