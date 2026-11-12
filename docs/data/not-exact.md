@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-758 entries in 237 files.
+760 entries in 238 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -54,7 +54,7 @@ edit the comments in the code, not this file.
 | `app/client/client.cpp:19` | `ClientClass::ClientClass` | marker | NOT EXACT: inline budget (the client calls the 'Null Item' string's assign out of line, ours inlines all three strings and swaps two temporaries' slots; the member stores and the prologue scheduled differently; six forms; 'Null Item' passed as a plain literal brings out the client's three string COMDATs 0x729260..0x7292D0; attempts.py show 0x726100) 0x726100 |
 | `app/client/client.cpp:307` | `ClientClass::Set_Avatar_ID` | marker | NOT EXACT: register-only (the flag in dl, the id in eax; two forms; attempts.py show 0x728010) 0x728010 |
 | `app/client/client.cpp:584` | `UnknownB02C90Class::Unknown_04` | marker | NOT EXACT: order-only (the fallback element: the client stores +0x3C, +0x40, Bone, the flag and +0x38 before the matrix; 5 forms) |
-| `app/client/client_lego_root.cpp:102` | `ClientLegoRootClass::Update_Attachment` | marker | NOT EXACT: shape (similarity 0.86, every row equal but one: the client's null test of lego at the end jumps past its release to the epilogue, ours to the release; attempts.py show 0x732880) |
+| `app/client/client_lego_root.cpp:101` | `ClientLegoRootClass::Update_Attachment` | marker | NOT EXACT: shape (similarity 0.86, every row equal but one: the client's null test of lego at the end jumps past its release to the epilogue, ours to the release; attempts.py show 0x732880) |
 | `app/client/co.cpp:483` | `ClientObjectClass::Unknown_28` | marker | NOT EXACT: register (eax / edx swapped for the vtable loads from the thrust sound on), the one-case switch 0x6F5A40 at done (movsx / dec where the client compares the byte) and 'x \|\| y' (the client ORs the bools); the find is out of line as the client's since Unknown_Find_Aux (IB1) 0x6F4610 |
 | `app/client/co.cpp:563` | `ClientObjectClass::Unknown_6F3FA0` | marker | NOT EXACT: inline budget (0x6F3ED0 is out of line through auto_inline(off) at its definition, as the client; the client still calls 0x6F45E0 out of line in one branch of the inlined 0x6F4590 and auxdata.h's find 0x7079B0; attempts.py show 0x6F3FA0) 0x6F3FA0 (slot +0x28's tilt: the turn +0x144 steered toward 0x6F3ED0's angle through +0x134, then the roll) |
 | `app/client/co.cpp:1472` | `ClientObjectClass::Unknown_6FBEF0` | marker | NOT EXACT: inline budget (the client calls the four finds' Casts 0x531590 / 0x7099F0 out of line, ours inlines them; 74 calls vs 70; frame 0x270 since F8; attempts.py show 0x6FBEF0) 0x6FBEF0 (the warp state: PrivateWarpState's messages, then GlobalWarpState's sounds, effects and camera modes) |
@@ -296,10 +296,12 @@ edit the comments in the code, not this file.
 | `app/client/starbase_lights.cpp:97` | `Unknown_764480Class::Unknown_764AB0` | marker | NOT EXACT: 0x764AB0, functional (register / order: the client keeps the offset's y on the FPU across the branch and copies x / z as integers; B1) 0x764AB0 |
 | `app/client/starbase_lights.cpp:127` | `Unknown_764480Class::Unknown_764CF0` | marker | NOT EXACT: 0x764CF0, functional (register / order: the client keeps the colour's y on the FPU across the branch and copies x / z as integers; B1) 0x764CF0 |
 | `app/client/starmap_data.cpp:231` | `StarmapDataClass::Create_Mesh` | marker | NOT EXACT: frame and registers (the client keeps 0 in ebx and is_ship on the stack, the old transform above the rotation) @0x7BEF50 |
-| `app/client/starmap_pip.cpp:173` | `StarmapPipClass::Unknown_10` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C0C80 |
-| `app/client/starmap_pip.cpp:968` | `Unknown_491550` | marker | NOT EXACT: stack (the client keeps diff at +0x24 and t at +0x1C, the other way round: 0.88) |
-| `app/client/starmap_pip.cpp:1170` | `StarmapPipClass::Unknown_7C2060` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C2060 |
-| `app/client/starmap_pip.cpp:1332` | `Unknown_7C3220Class::Unknown_7C3A90` | mention | NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68, which it copies whole). Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1C50, 0x7C2340, 0x7C2850, 0x7C2DA0-0x7C30E0 (the POC and client... |
+| `app/client/starmap_pip.cpp:183` | `StarmapPipClass::Unknown_10` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C0C80 |
+| `app/client/starmap_pip.cpp:278` | `StarmapPipClass::Unknown_7C0440` | marker | NOT EXACT: shape (0.80): the client loads the gadget's Position.X through its address (add eax, 0x38) and puts the Unknown60 = 0 block after the return; forms tried in attempts.csv @0x7C0440 |
+| `app/client/starmap_pip.cpp:968` | `StarmapPipClass::Unknown_7C1770` | marker | NOT EXACT: stack (the client keeps diff at +0x24 and t at +0x1C, the other way round: 0.88) |
+| `app/client/starmap_pip.cpp:1181` | `StarmapPipClass::Unknown_7C2060` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C2060 |
+| `app/client/starmap_pip.cpp:1257` | `StarmapPipClass::Unknown_7C2850` | marker | NOT EXACT: inline budget (0.32): the client calls Unknown_Find_Field (0x7C30E0) out of line and expands both label deletes as the scalar deleting destructor plus erase(begin, end); here the budget runs out the other way. attempts.csv @0x7C2850 |
+| `app/client/starmap_pip.cpp:1438` | `Unknown_7C3220Class::Unknown_7C3A90` | mention | NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 (the max's fcompp form), 0x7C2060 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68, which it copies whole), 0x7C2850 (inline budget). Not rebuilt: 0x7C2DA0-0x7C30E... |
 | `app/client/target_reticle.cpp:107` | `TargetReticleClass::Update` | marker | NOT EXACT: 0x7C5690, register rotation only (13 rows at the inlined time == LastTime: eax / ecx for ecx / eax, edx / eax for ecx / eax, eax for ecx at LastValue); same length (1990 bytes) @0x7C5690 |
 | `app/client/tasks/settings_store.cpp:376` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: order-only (the same 231 instructions: the client zeroes the count before the read's arguments are pushed and reloads a handle one instruction earlier at the end) |
 | `app/client/tasks/settings_store.cpp:545` | `Unknown_7CA2D0Class::Get_String` | mention | NOT EXACT (D64): 0x7CB8F0 (order-only: two instructions out of place). Other files still reach 0x7CB2E0 / 0x7CB240 / 0x7CA570 / 0x7CAD00 through local stand-in classes (ui_login.cpp, ui_popupmsg.cpp, ui_popup_browser.cpp, ui_registration.cpp, unknown_msgbox.cpp). |
@@ -470,8 +472,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_pda_equip.cpp:294` | `UIPdaEquipClass::Unknown_B0` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2210 |
 | `app/client/ui_pda_equip.cpp:398` | `UIPdaEquipClass::Unknown_A4` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2850 |
 | `app/client/ui_pda_equip.cpp:441` | `UIPdaEquipClass::Unknown_5D2C50` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2C50 |
-| `app/client/ui_popup_browser.cpp:45` | `UIPopupBrowserClass::UIPopupBrowserClass` | marker | NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it) @0x5DAE90 |
-| `app/client/ui_popup_browser.cpp:76` | `UIPopupBrowserClass::Unknown_54` | marker | NOT EXACT: stub @0x5DB2D0 |
+| `app/client/ui_popup_browser.cpp:27` | `UIPopupBrowserClass::UIPopupBrowserClass` | marker | NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it) @0x5DAE90 |
 | `app/client/ui_power.cpp:31` | `UIPowerClass::UIPowerClass` | marker | NOT EXACT: functional (D64): the client calls GenericNode::GenericNode out of line (as ui_experience.cpp's 0x58C450) |
 | `app/client/ui_power.cpp:99` | `UIPowerClass::Unknown_10` | marker | NOT EXACT: functional (D64): the client calls Unknown_Find_Field out of line for MaxEnergyPower only (as ui_experience.cpp's 0x58CB50) |
 | `app/client/ui_proc.cpp:126` | `UIProc5DCD20Class::Unknown_08` | marker | NOT EXACT: 0x5DD3C0 (0.81): block order, the cycle wrap's EndFrame arm sits after the return in the client (attempts.csv) @0x5DD3C0 |
@@ -588,6 +589,7 @@ edit the comments in the code, not this file.
 | `app/client/unknown_phoneme.cpp:445` | `Unknown_791310Class::Unknown_791F80` | marker | NOT EXACT: functional for POC (D64), shape (registers and the branch layout) |
 | `app/common/dbgconn.cpp:111` | `TimedLogConnectionClass::TimedLogConnectionClass` | marker | NOT EXACT: the client inlines LogConnectionClass's constructor here and keeps it out of line (0x823F70, no caller); `inline` on it matches this one and loses that one. |
 | `app/common/dbgconn.cpp:154` | `RateConnectionClass::Send_Message` | marker | NOT EXACT: the client inlines ~ForwardingConnectionClass here (inline in its connect.h; ours is in connect.cpp, see the notes). |
+| `app/common/effect_description.cpp:257` | `Fill_Values` | marker | NOT EXACT: 0x8335D0 (0.57, inline budget: the client keeps ebx / edi for the loop and does not rotate it; Replace_Tag gives its out-of-line find and replace) Text with each value tag replaced by the next of values |
 | `app/common/galaxy_map.cpp:438` | `GalaxyMapSystemIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839220) |
 | `app/common/galaxy_map.cpp:472` | `GalaxyMapSectorIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8394B0) |
 | `app/common/galaxy_map.cpp:506` | `GalaxyMapGateIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839740) |
