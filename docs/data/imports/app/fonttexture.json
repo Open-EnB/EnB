@@ -3,14 +3,18 @@
   "0x42B2F0"
  ],
  "copy": "reconstructed",
- "description": "the font texture holder's destructor 0x6D8C50 and 0x6D8DC0 (the text into the texture in strips; __FILE__ 0xB92870, FAIL_IF lines 92 / 114 / 116, D25); NOT EXACT (D64, functional for the POC, TXT1); constructor 0x6D8B90 still in fontsys.cpp (D137)",
+ "description": "the font texture holder (Unknown_6D8B90Class, 0x6D8B90-0x6D9360, gauge3d.cpp follows): constructor 0x6D8B90 and Is_Printed 0x6D8D30 exact; the destructor 0x6D8C50 and 0x6D8DC0 (the text into the texture in strips; __FILE__ 0xB92870, FAIL_IF lines 92 / 114 / 116, D25) NOT EXACT (D64, shape: the shared surface 0xBE67C8's release), functional for the POC (TXT1)",
  "expected": {},
  "in_tree": [
-  "0x42F250"
+  "0x42F250",
+  "0x4FABB0",
+  "0x6D8B90",
+  "0x6D8D30"
  ],
  "merged": [],
  "name": "client/fonttexture.cpp",
  "shared": [
-  "0x42F250"
+  "0x42F250",
+  "0x4FABB0"
  ]
 }

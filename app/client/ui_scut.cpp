@@ -15,7 +15,7 @@
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
 // file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontManagerClass { public: void Add(RenderObjClass *object); };	// NAME 3: fontmanager.h's
+class ManagedFontClass; class FontManagerClass { public: ManagedFontClass *Add(RenderObjClass *object); };	// NAME 3: fontmanager.h's (0x6D1D80; a void return linked to no definition: the POC's generated stand-in)
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // local_interface_sort.cpp's sort object (8 bytes; view.cpp, mainview.cpp and ui_line_display.cpp declare it too)

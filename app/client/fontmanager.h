@@ -44,11 +44,12 @@ class Unknown_6D8B90Class  // NAME 1 [Unknown_6D8B90Class]: neutral (D10): 16 by
 public:
 	Unknown_6D8B90Class();												// 0x6D8B90
 	~Unknown_6D8B90Class();												// 0x6D8C50
-	bool Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const char *text, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
+	bool Is_Printed(RefCountPtr<Font32Class> *font, const char *str);			// 0x6D8D30: Texture made from str with *font already (inlined in 0x6D8DC0)  // NAME 2: what it tests
+	bool Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const char *str, int unknown);	// 0x6D8DC0 (fonttexture.cpp): the text into the texture (Font32Class::Print_To_Surface)  // NAME 1 [Unknown_6D8DC0, unknown]: neutral (D10)
 
 	int Size;															// +0x00: 0x20  // NAME 2: what the constructor gives the texture
-	char *Unknown04;														// +0x04: the text last printed (nstrdup; 0x6D8DC0, 0x6D8C50)  // NAME 1: neutral (D10)
-	Font32Class *Unknown08;														// +0x08: the font it was printed with (a reference held)  // NAME 1: neutral (D10)
+	char *Text;															// +0x04: the text last printed (nstrdup; 0x6D8DC0, 0x6D8C50)  // NAME 2: what it holds
+	RefCountPtr<Font32Class> Font;										// +0x08: the font it was printed with (released after the destructor's EH state: a member)  // NAME 2: what it holds
 	TextureClass *Texture;												// +0x0C  // NAME 2: what it holds
 
 	static int Count;													// 0xBE67CC: live objects (0x6D8C50 frees 0xBE67C8 at 0)  // NAME 2: what 0x6D8B90 / 0x6D8C50 do with it
