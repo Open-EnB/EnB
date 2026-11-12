@@ -767,7 +767,7 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 # 0x7045F0, 0x7014B0, 0x701D70, 0x758210) by one step of a cycle of 64: each matches only in a window of
 # it. The pad's enumerators put the file inside the windows; retune SYMBOL_PAD when a header aux_roots.cpp
 # includes gains or loses declarations (.work/hx1/exp.py sweeps it by compiling aux_roots.cpp alone).
-SYMBOL_PAD = 58
+SYMBOL_PAD = 53
 # Definition order in aux_roots.cpp, a second lever (SC2, 2026-11-08d): with DeltaItemArrayClass<DeltaStringClass>
 # (MountBoneNames) instantiated, no pad holds the six with the client's address order (0x7014B0 and 0x7045F0
 # share only 57..59, where 0x6FB1E0 fails); PrimaryCategory's inline constructor (0x6FB1E0) defined last moves
