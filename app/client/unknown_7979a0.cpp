@@ -40,7 +40,6 @@ void CameraController02Class::Unknown_04()
 	Unknown14 = Client->Unknown10BC + 2000;
 }
 
-// NOT EXACT: 0x797B50 (case 0 tests Flags bit 0 from the bit-1 test's register where the client reloads it (test byte ptr), and the switch's blocks for cases 3 / 4 come in another order)
 // 0x797B50
 void CameraController02Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mode, int *target)
 {
@@ -60,7 +59,6 @@ void CameraController02Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 			if ((Flags & 1)) {
 				Clear_Flag(0);
 			}
-		case 3:
 			if (Get_Flag(1)) {
 				Client->CameraManager->Unknown_79B2B0(5);
 				Clear_Flag(1);
@@ -115,6 +113,19 @@ void CameraController02Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 				}
 			}
 			break;
+		case 3:
+			if (Get_Flag(1)) {
+				Client->CameraManager->Unknown_79B2B0(5);
+				Clear_Flag(1);
+			} else if ((unsigned)Client->Unknown10BC > (unsigned)Unknown14) {
+				Unknown10 = 2;
+				Unknown14 = Client->Unknown10BC + 5000;
+				Unknown18 = Client->Unknown10BC;
+				Unknown0C->Unknown_0C();
+				Client->CameraManager->Get_Player_Chase_Camera_Module()->Unknown_79BF40(Client->AvatarID);
+				Client->CameraManager->Get_Player_Chase_Camera_Module()->Unknown_04();
+			}
+			break;
 		case 4:
 			if (Get_Flag(1)) {
 				Unknown14 = Client->Unknown10BC + 2000;
@@ -129,14 +140,14 @@ void CameraController02Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 			Unknown0C->Unknown_08(pos, rot);
 			*mode = 1;
 			break;
+		case 2:
+			Client->CameraManager->Get_Player_Chase_Camera_Module()->Unknown_08(pos, rot);
+			*mode = 2;
+			break;
 		case 1:
 		case 3:
 		case 4:
 			Unknown0C->Unknown_08(pos, rot);
-			*mode = 2;
-			break;
-		case 2:
-			Client->CameraManager->Get_Player_Chase_Camera_Module()->Unknown_08(pos, rot);
 			*mode = 2;
 			break;
 	}
@@ -164,40 +175,47 @@ void CameraController02Class::Unknown_0C()
 	}
 }
 
-// NOT EXACT: 0x7981B0 (written from the pseudocode, functional; not matched form by form)
+// NOT EXACT: 0x7981B0 (the frame's size and the statements' order are the client's; the two offsets, the two results and the camera's copy sit in other frame slots, and the products' operand order follows the slots)
 // 0x7981B0
 void CameraController02Class::Unknown_7981B0()
 {
 	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
 	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
 	Vector3 dir;
-	if (dest == NULL) {
-		dir = tm.Get_X_Vector();
+	if (dest) {
+		Vector3 target = dest->Unknown_24();
+		dir = target - tm.Get_Translation();
 	} else {
-		dir = dest->Unknown_24() - tm.Get_Translation();
+		dir = tm.Get_X_Vector();
 	}
 	float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
 	float back = angle + 3.1415927f;
 	float range = CameraManagerClass::Unknown_79B6B0();
-	Vector3 one(range + range, (float)cos(angle) * range * 1.25f, (float)sin(angle) * range * 1.25f);
-	Vector3 two(range + range, (float)cos(back) * range * 1.25f, (float)sin(back) * range * 1.25f);
+	float s = WWMath::Sin(angle);
+	float c = WWMath::Cos(angle);
+	Vector3 one(range + range, c * range, s * range);
+	s = WWMath::Sin(back);
+	c = WWMath::Cos(back);
+	Vector3 two(range + range, c * range, s * range);
+	one.Y *= 1.25f;
+	one.Z *= 1.25f;
+	two.Y *= 1.25f;
+	two.Z *= 1.25f;
 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
-	Vector3 first, second;
-	Matrix3D::Transform_Vector(frame, one, &first);
-	Matrix3D::Transform_Vector(frame, two, &second);
-	const Vector3 &camera = Client->CameraManager->Position;
-	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C;
-	if ((second - camera).Length2() <= (first - camera).Length2()) {
-		module->Position = second;
+	Vector3 first = frame * one;
+	Vector3 second = frame * two;
+	Vector3 camera = Client->CameraManager->Position;
+	if ((first - camera).Length2() < (second - camera).Length2()) {
+		((CameraModule79C8E0Class *)Unknown0C)->Position = first;
 	} else {
-		module->Position = first;
+		((CameraModule79C8E0Class *)Unknown0C)->Position = second;
 	}
-	module->Unknown14 = true;
-	module->Unknown18 = Client->AvatarID;
-	module->Unknown_04();
+	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+	Unknown0C->Unknown_04();
 }
 
-// NOT EXACT: 0x798570 (written from the pseudocode, functional; not matched form by form)
+// NOT EXACT: 0x798570 (the frame's size is the client's; the angle and the offset swap frame slots (the client: the offset at ebp-0xC, the angle at ebp-0x10), the products' operand order follows them, and the client stores Y and Z before doubling them)
 // 0x798570
 void CameraController02Class::Unknown_798570()
 {
@@ -205,38 +223,39 @@ void CameraController02Class::Unknown_798570()
 	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
 	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
 	float dist = 1000.0f;
+	float angle;
 	if (dest) {
 		Vector3 pos = tm.Get_Translation();
 		dist = (dest->Unknown_24() - pos).Length();
 	}
-	float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
+	angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
 	if (Unknown_BDB1C0(0, 1)) {
 		angle += 3.1415927f;
 	}
-	float s = (float)sin(angle);
-	float c = (float)cos(angle);
+	float s = WWMath::Sin(angle);
+	float c = WWMath::Cos(angle);
 	Vector3 offset(dist * 0.75f, c * range, s * range);
-	offset.Y += offset.Y;
-	offset.Z += offset.Z;
+	offset.Y *= 2.0f;
+	offset.Z *= 2.0f;
 	Matrix3D frame = Unknown_82ECB0(tm.Get_X_Vector(), tm.Get_Translation());
-	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C;
-	Matrix3D::Transform_Vector(frame, offset, &module->Position);
-	module->Unknown14 = true;
-	module->Unknown18 = Client->AvatarID;
-	module->Unknown_04();
+	((CameraModule79C8E0Class *)Unknown0C)->Position = frame * offset;
+	((CameraModule79C8E0Class *)Unknown0C)->Unknown14 = true;
+	((CameraModule79C8E0Class *)Unknown0C)->Unknown18 = Client->AvatarID;
+	Unknown0C->Unknown_04();
 }
 
-// NOT EXACT: 0x7987F0 (written from the pseudocode, functional; not matched form by form)
+// NOT EXACT: 0x7987F0 (the frame's size is the client's; the destination's position and the offset sit in other frame slots (the client: both at ebp-0xC), and the speed's square root keeps a slot of its own in the client)
 // 0x7987F0
 void CameraController02Class::Unknown_7987F0()
 {
 	Matrix3D tm = Client->Get_Avatar()->Unknown_28(true);
 	ClientObjectClass *dest = Client->Find_Object(((NavigationListClass &)Client->MainView->Radar->Unknown_7BD960()).Get_Current());
 	Vector3 dir;
-	if (dest == NULL) {
-		dir = tm.Get_X_Vector();
+	if (dest) {
+		Vector3 target = dest->Unknown_24();
+		dir = target - tm.Get_Translation();
 	} else {
-		dir = dest->Unknown_24() - tm.Get_Translation();
+		dir = tm.Get_X_Vector();
 	}
 	float angle = (Unknown_BDB1C0.Get_Float() - 0.5f) * 0.62831855f;
 	if (Unknown_BDB1C0(0, 1)) {
@@ -244,12 +263,14 @@ void CameraController02Class::Unknown_7987F0()
 	}
 	float speed = Client->Get_Avatar()->Unknown_2C().Length();
 	float range = CameraManagerClass::Unknown_79B6B0();
-	float s = (float)sin(angle);
-	float c = (float)cos(angle);
-	Vector3 offset(speed * 1000.0f, c * range * 1.25f, s * range * 1.25f);
+	float s = WWMath::Sin(angle);
+	float c = WWMath::Cos(angle);
+	Vector3 offset(speed * 1000.0f, c * range, s * range);
+	offset.Y *= 1.25f;
+	offset.Z *= 1.25f;
 	Matrix3D frame = Unknown_82ECB0(dir, tm.Get_Translation());
 	CameraModule79C8E0Class *module = (CameraModule79C8E0Class *)Unknown0C;
-	Matrix3D::Transform_Vector(frame, offset, &module->Position);
+	module->Position = frame * offset;
 	module->Unknown14 = true;
 	module->Unknown18 = Client->AvatarID;
 	module->Unknown_04();
@@ -259,6 +280,8 @@ void CameraController02Class::Unknown_7987F0()
 ** Reconstruction notes (CM1, 2026-11-07)
 **
 ** The object 0x7979A0-0x798ACF: after camctrl_tractor.cpp's (its <string> initialiser 0x797970), ending with its own at
-** 0x798AB0. No __FILE__ or assert: the name is PROVISIONAL (D137). The slot +0x08 0x797B50 NOT EXACT (CS1); the module's placements
-** 0x7981B0 / 0x798570 / 0x7987F0 (Random4Class 0xBDB1C0 and 0x82ECB0) NOT EXACT from the pseudocode (CS1).
+** 0x798AB0. No __FILE__ or assert: the name is PROVISIONAL (D137). In the slot +0x08 0x797B50 phase 1 has its own copy
+** of phase 3's body (the client keeps one copy, after phase 2's: its jump table sends 1 and 3 to 0x797BDC / 0x797BEB). The module's
+** placements 0x7981B0 / 0x798570 / 0x7987F0 (Random4Class 0xBDB1C0 and 0x82ECB0) NOT EXACT: WWMath::Sin / Cos (their retval slots
+** are in the client's frames), the matrix * vector operator and the module's members through Unknown0C are the client's (P2).
 */

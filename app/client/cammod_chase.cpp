@@ -142,7 +142,7 @@ void ChaseCameraModuleClass::Unknown_79BF40(int id)
 #include "vector2.h"
 
 // 0x79BFC0
-// NOT EXACT: inline budget (0.42: the client inlines Translate_Z and computes Normalize's Length2 twice; ours calls Translate_Z)
+// NOT EXACT: 0.90, the inlining is the client's; left: the client negates dir.Y before it copies the translation, and its first inline Rotate_X adds row 0's products in the other order
 void ChaseCameraModuleClass::Unknown_79BFC0(ClientObjectClass *obj, Quaternion *des_quat, Vector3 *des_pos)
 {
 	FAIL_IF(!des_quat) {return;}
@@ -154,10 +154,10 @@ void ChaseCameraModuleClass::Unknown_79BFC0(ClientObjectClass *obj, Quaternion *
 	Unknown24.Get_Value((float)WW3D::Get_Frame_Time());
 	tm.Rotate_X(Unknown24.Get_Current());
 	if (!Unknown14) {
-		Vector2 dir(tm[0][0], tm[1][0]);
+		Vector3 dir(tm[0][0], tm[1][0], 0.0f);
 		dir.Normalize();
 		Vector3 pos = tm.Get_Translation();
-		tm.Set(dir.X, -dir.Y, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, 0.0f, 0.0f, 1.0f, pos.Z);
+		tm.Set(dir.X, -dir.Y, 0.0f, pos.X, dir.Y, dir.X, 0.0f, pos.Y, dir.Z, 0.0f, 1.0f, pos.Z);
 	}
 	tm.Rotate_Y(-1.5707963705062866f);
 	tm.Rotate_Z(-1.5707963705062866f);
@@ -178,6 +178,7 @@ void ChaseCameraModuleClass::Unknown_79BFC0(ClientObjectClass *obj, Quaternion *
 ** destructor 0x79BC40 and deleting destructor 0x79BC60 (table 0xB054F8) are emitted here, before ours 0x79BC90 /
 ** 0x79BCC0. 0x79BFC0 (the chase placement, lines 148-150; WE3): the object's transform turned about X by the
 ** steered angle (Matrix3D::Rotate_X(float) and Rotate_Y(float) inlined in the client: sin before cos, one load of the
-** angle), flattened onto XY when +0x14 is clear, then Rotate_Y(-pi/2), Rotate_Z(-pi/2), heading, tilt, the distance
+** angle), flattened onto XY when +0x14 is clear (a Vector3 with Z 0: its Normalize takes Length2 twice, Z stays on the FPU
+** stack and goes into the matrix's [2][0]; with it the client's inlining follows: Rotate_Z out of line, Translate_Z inline; P2), then Rotate_Y(-pi/2), Rotate_Z(-pi/2), heading, tilt, the distance
 ** along Z and the elevation; CM1's draft read the first turn as Rotate_Z.
 */
