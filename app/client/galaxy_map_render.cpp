@@ -341,7 +341,7 @@ void GalaxyMapRenderClass::Unknown_7A6AB0(const RefCountPtr<SceneClass> &scene, 
 	Add_Items(Sectors, Scene);
 	Add_Items(Gates, Scene);
 }
-// NOT EXACT: written from the client's code (see attempts.csv)
+
 
 
 
@@ -359,7 +359,7 @@ void GalaxyMapRenderClass::Unknown_7A6DD0()
 {
 	FAIL_IF(!HomeSectorRObj) { return; }
 	if (HomeSectorRObj->Peek_Scene()) { HomeSectorRObj->Remove(); }
-	Unknown_7A7D70(Unknown_7A9840());
+	Unknown_7A7450();
 	Remove_Items(Systems);
 	Remove_Items(Sectors);
 	Remove_Items(Gates);

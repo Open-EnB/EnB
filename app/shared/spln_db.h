@@ -147,8 +147,8 @@ public:
 // NAME 2: polls the mailslot and reloads when an editor wrote to it (0x486AD0)
 	bool						Update(void);
 // NAME 2: lookups by key (0x486C40, 0x486CE0), by curve (0x486C90)
-	SplineEntryClass *	Find(unsigned int key);
-	SplineEntryClass *	Find(Curve1DClass *curve);
+	SplineEntryClass *	Find(unsigned int key, int unused = 0);		// NAME 1 [unused]: ret 8 in the client (0x486C40), as the lookup by name
+	SplineEntryClass *	Find(Curve1DClass *curve, int unused = 0);	// NAME 1 [unused]: ret 8 in the client (0x486C90)
 	Curve1DClass *			Get_Curve(unsigned int key);
 // NAME 2: names to keys (0x486D30), keys to entries (0x486D80), a name's key (0x4873E0)
 	void						Get_Keys(unsigned int count, const char **names, unsigned int *keys);

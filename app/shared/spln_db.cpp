@@ -54,7 +54,7 @@ SplineDatabaseClass::SplineDatabaseClass(const char *database_filename) :
 	KeyNames.Add(NULL);
 }
 
-// NOT EXACT: inline-budget (the client inlines HashListClass::First_Valid in the Free_Splines loop; ours calls it)
+
 SplineDatabaseClass::~SplineDatabaseClass(void)
 {
 	if (Mailslot != INVALID_HANDLE_VALUE) {
@@ -1228,7 +1228,7 @@ SplineEntryClass *SplineDatabaseClass::Find(const char *spline_name, int unused)
 	return node->Get();
 }
 
-SplineEntryClass *SplineDatabaseClass::Find(unsigned int key)
+SplineEntryClass *SplineDatabaseClass::Find(unsigned int key, int unused)
 {
 	HashNodeClass<SplineEntryClass *> *node = Splines.Find(key);
 	if (node == NULL) {
@@ -1237,7 +1237,7 @@ SplineEntryClass *SplineDatabaseClass::Find(unsigned int key)
 	return node->Get();
 }
 
-SplineEntryClass *SplineDatabaseClass::Find(Curve1DClass *curve)
+SplineEntryClass *SplineDatabaseClass::Find(Curve1DClass *curve, int unused)
 {
 	if (curve != NULL) {
 		for (HashNodeClass<SplineEntryClass *> *node = Splines.First_Valid(); node != NULL; node = node->Next_Valid()) {
@@ -1418,16 +1418,16 @@ void SplineDatabaseClass::Unpack(char *buffer)
 	}
 }
 
-// NOT EXACT: register-only / shape (the client keeps the next node on the stack and tests the first node before the loop); its inlined copy in Load and Reload is exact
+
 void SplineDatabaseClass::Free_Splines(void)
 {
 	HashNodeClass<SplineEntryClass *> *next = Splines.First_Valid();
 	while (next != NULL) {
 		HashNodeClass<SplineEntryClass *> *node = next;
-		next = node->Next();
-		if (!next->Is_Valid()) {
-			next = NULL;
-		}
+		next = node->Next_Valid();
+
+
+
 		SplineEntryClass *entry = node->Get();
 		if (entry != NULL) {
 			delete entry;
@@ -3240,11 +3240,11 @@ void SplineEntryClass::Unpack(char **buffer)
 **	inlined in most callers.
 **
 **	  0x4845F0 SplineDatabaseClass             0x4867B0-0x486970 the key names
-**	  0x484810 ~SplineDatabaseClass (NE)       0x4869C0 / 0x486A40 Get_First_Name / Get_Next_Name
+**	  0x484810 ~SplineDatabaseClass            0x4869C0 / 0x486A40 Get_First_Name / Get_Next_Name
 **	  0x484AB0 Load                            0x486AD0 Update (the mailslot)
 **	  0x485110 Get_Type (400)                  0x486BB0 Find (1223), 0x486C40 / 0x486C90 Find
 **	  0x485380 Get_Curve (478)                 0x486CE0 Get_Curve, 0x486D30 Get_Keys, 0x486D80 Get_Entries
-**	  0x485440 Get_Color_Curves (NE)           0x487190 Free_Splines (NE), 0x487360 Free_Key_Names
+**	  0x485440 Get_Color_Curves (NE)           0x487190 Free_Splines, 0x487360 Free_Key_Names
 **	  0x487660 Resolve (NE)                    0x4873E0 Get_Key, 0x487900 Reload (1662)
 **	  0x488500 Load_Chunks (NE)                0x4887F0 Load_Header, 0x488870 Load_Entry (NE)
 **	  0x488DC0 Load_Hermite                    0x488F20 Read_String

@@ -2,9 +2,7 @@
  "ambiguous": [
   "0x42A6C0",
   "0x42A900",
-  "0x42B250",
-  "0x440560",
-  "0x4F8BD0"
+  "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "AttribDir / AttributeInfo, client 0x4D42C0-0x4D8690 with the list, vector and table instances and the mod iterators: the asserts on the client's lines 200-1066 (D25); NOT EXACT: 0x4D4490, 0x4D4810, 0x4D4BD0, 0x4D5000, 0x4D55D0, 0x4D6620, 0x4D6820, 0x4D71D0, 0x4D8240, 0x4D8690",
@@ -42,6 +40,7 @@
   "0x4D6360",
   "0x4D6590",
   "0x4D6620",
+  "0x4D6820",
   "0x4D6960",
   "0x4D6B30",
   "0x4D6BA0",
@@ -83,8 +82,10 @@
   "0x4D7E60",
   "0x4D8090",
   "0x4D8120",
+  "0x4D8240",
   "0x4D8370",
   "0x4D8430",
+  "0x4D8690",
   "0x4D8870",
   "0x4D88E0",
   "0x4D8950",
@@ -99,6 +100,7 @@
   "0x4D8D20",
   "0x4D8DF0",
   "0x4D8EC0",
+  "0x4D8F00",
   "0x4D8F80",
   "0x4D8FF0",
   "0x4D9010",

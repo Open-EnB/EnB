@@ -193,14 +193,14 @@ AttribDir::~AttribDir()
 
 
 
-// NOT EXACT: shape (explain.py: 9 vs 8 calls), as AttributeInfo::Attach_Mod: the client calls the list's insert 0x4D8F00 out of line and the value's construction
+// NOT EXACT: register-only (one fxch before the inlined Calculate's fadd); the info local makes the client's order (Get_Info before the mod's copy), AttributeInfo::Attach_Mod's dead read its insert call
 bool AttribDir::Attach_Mod(const char *name, AttribModClass *mod)
 {
 	WWPROFILE("AttribDir::Attach_Mod");
 	FAIL_IF(!name || !mod) return false;
-	return Get_Info(name)->Attach_Mod(mod);
+	AttributeInfo *info = Get_Info(name);
+	return info->Attach_Mod(mod);
 }
-
 
 
 
@@ -514,10 +514,10 @@ AttributeInfo::~AttributeInfo()
 	CallbackIterators.Invalidate();
 }
 
-// NOT EXACT: inline budget (explain.py), the client calls the list node value's construction 0x4D9FB0 out of line; ours inlines it
+// Exact with one dead size() read (D130, marked): it sends push_front's nested _Construct 0x4D9FB0 out of line as the client has it; attempts.py show 0x4D6820
 bool AttributeInfo::Attach_Mod(AttribModClass *mod)
 {
-	Mods.push_front(mod);
+	Mods.push_front(mod); Mods.size();	// dead size() (D130; not the client's): an inline call after push_front spends its nested budget
 	Apply_Mod(mod);
 	Update_Value();
 	return true;
@@ -687,7 +687,7 @@ inline int AttributeInfo::Update_Value()
 	return false;
 }
 
-// NOT EXACT: inline budget (explain.py: shape), the client inlines the update table's begin() (ours calls it; frame 0x2C vs 0x28); the callback loop is the client's
+// NOT EXACT: order-only (explain.py): the same 205 instructions with the end iterator kept in a local (begin() inlined as the client's, frame 0x28); the client keeps value, the callback iterator's address and this in other stack slots and hoists two of Recalculate's stores
 void AttributeInfo::Notify()
 {
 	float value = Value;
@@ -699,11 +699,11 @@ void AttributeInfo::Notify()
 		bool ok = CallbackIterators.Pop();
 		G_ASSERT(ok);
 	}
-	for (std::hash_map<AttributeInfo *, int, AttributeInfoHash>::iterator u = Updates.begin(); u != Updates.end(); ++u) {
+	std::hash_map<AttributeInfo *, int, AttributeInfoHash>::iterator end = Updates.end();
+	for (std::hash_map<AttributeInfo *, int, AttributeInfoHash>::iterator u = Updates.begin(); u != end; ++u) {
 		(*u).first->Recalculate();
 	}
 }
-
 
 
 
@@ -1028,13 +1028,13 @@ void AttribDirModIteratorClass::Skip_Empty()
 	}
 }
 
-// NOT EXACT: shape (explain.py: 8 masked rows), registers swapped after ++ModCur and the client tests MapCur != MapEnd twice before the inlined Skip_Empty
+
 void AttribDirModIteratorClass::Next()
 {
-	++ModCur;
-	if (ModCur == ModEnd) {
-		++MapCur;
-		Skip_Empty();
+	if (++ModCur == ModEnd) {
+		if (++MapCur != MapEnd) {
+			Skip_Empty();
+		}
 	}
 }
 
@@ -1055,21 +1055,21 @@ void AttribDirModIteratorClass::Lock_Next()
 
 
 
-// NOT EXACT: inline budget (explain.py: 4 vs 5 calls), the client pops with Pop (erase(end() - 1), _Destroy 0x4D9010 called) and tests MapCur == MapEnd twice before the inlined Skip_Empty; Pop with a guarded Skip_Empty gives 0.80 (attempts.csv, TK2)
+
 void AttribDirModIteratorClass::Unlock()
 {
 	FAIL_IF(MapCur == MapEnd) return;
 
 
-	bool ok = (*MapCur).second->ModIterators.Pop_Back();
+	bool ok = (*MapCur).second->ModIterators.Pop();
 
 	G_ASSERT(ok);
 	if (ModCur == ModEnd) {
-		++MapCur;
-		Skip_Empty();
+		if (++MapCur != MapEnd) {
+			Skip_Empty();
+		}
 	}
 }
-
 
 #include <string.h>
 
