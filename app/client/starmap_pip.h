@@ -51,7 +51,9 @@ class Unknown_7B97F0Class  // NAME 1: neutral (D10): its file is not known
 public:
 	Unknown_7B97F0Class(SClient *client, float arg1, int arg2, const Vector3 &color, float arg3);	// 0x7B97F0  // NAME 1 [client, arg1, arg2, color, arg3]: what the constructor passes
 	~Unknown_7B97F0Class();								// 0x7B98E0
+	void Unknown_7B99C0(ClientObjectClass *avatar, NavListBuilderClass *path, const RefCountPtr<SceneClass> &scene, bool arg);	// 0x7B99C0 (0x7C0910)  // NAME 1 [avatar, path, scene, arg]: what 0x7C0910 passes
 	void Unknown_7B9CD0();								// 0x7B9CD0 (0x7C2D30)
+	void Unknown_7B9DC0(int index);						// 0x7B9DC0 (FAIL_IF '!Client'; 0x7C0910)  // NAME 1 [index]: the list's Index that 0x7C0910 passes
 	char Unknown_Pad00[0x08];
 	NavigationListClass *List;							// +0x08 (0x7B97F0 news it; 0x7C0EE0)  // NAME 2: what it holds
 	char Unknown_Pad0C[0x40 - 0x0C];
@@ -87,10 +89,11 @@ public:
 	virtual void Unknown_20(int arg);					// +0x20 0x7C0260  // NAME 1 [arg]: neutral
 	virtual void Unknown_24(int arg);					// +0x24 0x7C0330 (the next label mode, and says so)  // NAME 1 [arg]: neutral
 
-	void Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass *mouse_target);	// 0x7C0440 (G_ASSERT 'MouseTarget'; radar_system.cpp)  // NAME 2 [hover, mouse_target]: its G_ASSERT
+	void Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass *mouse_target);	// 0x7C0440 (FAIL_IF 'MouseTarget'; radar_system.cpp)  // NAME 2 [hover, mouse_target]: its G_ASSERT
 	void Unknown_7C0620(RadarSystemDataCacheClass *entry);	// 0x7C0620 (FAIL_IF '!sdata', '!co'; radar_system.cpp)  // NAME 2 [entry]: as the gutter's Update
 	void Unknown_7C0910(ClientObjectClass *target, NavListBuilderClass *warp_path, NavListBuilderClass *target_path);	// 0x7C0910 (radar_system.cpp)  // NAME 2 [target, warp_path, target_path]: what it receives
 	void Unknown_7C1280(const Vector3 &position, float radius);	// 0x7C1280 (0x7C0620, 0x7C1350: the bounds grow; 0x7C1350 passes ClientObjectClass slot +0x24's Vector3)  // NAME 1 [position, radius]: what it does with them
+	void Unknown_7C1C50(ClientObjectClass *target, ClientObjectClass *hover);	// 0x7C1C50 (0x7C0910)  // NAME 1 [target, hover]: what 0x7C0910 passes
 	void Unknown_7C1A90(float mult);					// 0x7C1A90  // NAME 1 [mult]: what it sets
 	void Unknown_7C1B70(float value);					// 0x7C1B70  // NAME 1 [value]: neutral
 	void Unknown_7C1C30();								// 0x7C1C30 (no caller)
@@ -125,7 +128,7 @@ public:
 	Unknown_7B97F0Class *WarpPath;						// +0x90 (0.75, 2, red)  // NAME 3: 0x7C0EE0's FAIL_IF
 	int Unknown94;										// +0x94 (-1)
 	int Unknown98;										// +0x98 (-1)
-	int Unknown9C;										// +0x9C
+	MouseTargetClass *MouseTarget;						// +0x9C (0x7C0440 sets it, 0x7C0620 tests against it, 0x7C0910 clears it)  // NAME 3: 0x7C0440's FAIL_IF 'MouseTarget'
 	Unknown_7C3220Class *UnknownA0;						// +0xA0 (type 4, the scene's)
 	Unknown_7C3220Class *UnknownA4;						// +0xA4 (type 4, on)
 	RefCountPtr<FontSys> XPos;							// +0xA8 ('STARMAP_X_POS')  // NAME 2: the font's
