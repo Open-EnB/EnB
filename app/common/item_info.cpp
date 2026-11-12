@@ -166,11 +166,11 @@ void ItemInfoClass::Merge(const ItemInfoClass &that)
 {
 	for (std::vector<ItemFieldStruct>::const_iterator field = that.Fields.begin(); field != that.Fields.end(); ++field) {
 		if (_ItemField.Is_String(field->ItemInfo)) {
-			Set_String(field->ItemInfo, field->String);
+			Set_String((ItemInfoEnum)field->ItemInfo, field->String);
 		} else if (_ItemField.Is_Float(field->ItemInfo)) {
-			Set_Float(field->ItemInfo, field->Float, false);
+			Set_Float((ItemInfoEnum)field->ItemInfo, field->Float, false);
 		} else if (_ItemField.Is_Int(field->ItemInfo)) {
-			Set_Int(field->ItemInfo, field->Int, false);
+			Set_Int((ItemInfoEnum)field->ItemInfo, field->Int, false);
 		} else {
 
 
@@ -212,7 +212,7 @@ void ItemInfoClass::Merge(const ItemInfoClass &that)
 }
 
 // 0x83FD60
-bool ItemInfoClass::Has_Field(int iteminfo)
+bool ItemInfoClass::Has_Field(ItemInfoEnum iteminfo)
 {
 	if (EnumMapping[iteminfo] == 0xFF) {
 		return(false);
@@ -225,7 +225,7 @@ bool ItemInfoClass::Has_Field(int iteminfo)
 }
 
 // 0x83FDE0
-int ItemInfoClass::Get_Enum_Mapping(int iteminfo)
+int ItemInfoClass::Get_Enum_Mapping(ItemInfoEnum iteminfo)
 {
 	return(EnumMapping[iteminfo]);
 }
@@ -329,7 +329,7 @@ void ItemInfoClass::Read(RawPacketClass *raw)
 	EquipEffects.Read(raw);
 }
 
-void ItemInfoClass::Set_Int(int iteminfo, int val, bool force)	// 0x840420: a zero is not stored unless forced
+void ItemInfoClass::Set_Int(ItemInfoEnum iteminfo, int val, bool force)	// 0x840420: a zero is not stored unless forced
 {
 	if (val == 0 && !force) {
 		return;
@@ -340,7 +340,7 @@ void ItemInfoClass::Set_Int(int iteminfo, int val, bool force)	// 0x840420: a ze
 }
 
 // 0x840540
-void ItemInfoClass::Set_Float(int iteminfo, float val, bool force)
+void ItemInfoClass::Set_Float(ItemInfoEnum iteminfo, float val, bool force)
 {
 	if (val > -0.0001f && val < 0.0001f && !force) {
 		return;
@@ -350,7 +350,7 @@ void ItemInfoClass::Set_Float(int iteminfo, float val, bool force)
 }
 
 // 0x840670: an empty string is not stored; the field gets its own copy
-void ItemInfoClass::Set_String(int iteminfo, const char *val)
+void ItemInfoClass::Set_String(ItemInfoEnum iteminfo, const char *val)
 {
 	if (val == NULL || *val == '\0') {
 		return;
@@ -362,7 +362,7 @@ void ItemInfoClass::Set_String(int iteminfo, const char *val)
 }
 
 // 0x8407D0
-void ItemInfoClass::Set_String(int iteminfo, const std::string &val)
+void ItemInfoClass::Set_String(ItemInfoEnum iteminfo, const std::string &val)
 {
 	Set_String(iteminfo, val.c_str());
 }
@@ -383,12 +383,12 @@ bool ItemInfoClass::Get_String(std::string &val, unsigned int index)	// 0x840980
 	return(Field_To_String(&Fields[index], val));
 }
 
-bool ItemInfoClass::Get_String(int iteminfo, std::string &val)	// 0x8409D0
+bool ItemInfoClass::Get_String(ItemInfoEnum iteminfo, std::string &val)	// 0x8409D0
 {
 	return(Field_To_String(Find_Field(iteminfo), val));
 }
 
-bool ItemInfoClass::Get_Int(int iteminfo, int *val)	// 0x840A20
+bool ItemInfoClass::Get_Int(ItemInfoEnum iteminfo, int *val)	// 0x840A20
 {
 	FAIL_IF(!val) return(false);
 	const ItemFieldStruct *field = Find_Field(iteminfo);
@@ -401,7 +401,7 @@ bool ItemInfoClass::Get_Int(int iteminfo, int *val)	// 0x840A20
 }
 
 // 0x840AC0
-bool ItemInfoClass::Get_Float(int iteminfo, float *val)
+bool ItemInfoClass::Get_Float(ItemInfoEnum iteminfo, float *val)
 {
 	FAIL_IF(!val) return(false);
 	const ItemFieldStruct *field = Find_Field(iteminfo);
@@ -426,7 +426,7 @@ void ItemInfoClass::Set_Equip_Effects(const ItemEffectDescriptionClass &effects)
 }
 
 // 0x841000: the field, added with a zero value when the info has none
-ItemFieldStruct *ItemInfoClass::Add_Field(int iteminfo)
+ItemFieldStruct *ItemInfoClass::Add_Field(ItemInfoEnum iteminfo)
 {
 	if (!Has_Field(iteminfo)) {
 		ItemFieldStruct field;
@@ -439,7 +439,7 @@ ItemFieldStruct *ItemInfoClass::Add_Field(int iteminfo)
 }
 
 // 0x8410D0
-ItemFieldStruct *ItemInfoClass::Find_Field(int iteminfo)
+ItemFieldStruct *ItemInfoClass::Find_Field(ItemInfoEnum iteminfo)
 {
 	int index = Get_Enum_Mapping(iteminfo);
 	if (index == 0xFF) {
@@ -561,15 +561,15 @@ void ItemInfoClass::Apply_Delta(const std::string &delta)
 		}
 		std::string value = it->substr(field_separator + 1);
 		if (_ItemField.Is_String(item_info)) {
-			Set_String(item_info, value.c_str());
+			Set_String((ItemInfoEnum)item_info, value.c_str());
 			continue;
 		}
 		if (_ItemField.Is_Float(item_info)) {
-			Set_Float(item_info, atof(value.c_str()), false);
+			Set_Float((ItemInfoEnum)item_info, atof(value.c_str()), false);
 			continue;
 		}
 		if (_ItemField.Is_Int(item_info)) {
-			Set_Int(item_info, atoi(value.c_str()), false);
+			Set_Int((ItemInfoEnum)item_info, atoi(value.c_str()), false);
 		}
 	}
 }
