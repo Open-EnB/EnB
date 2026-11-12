@@ -1,0 +1,13 @@
+name: the cargo window by its key (control_keys.ini [Cargo]: O), opened and closed
+# The window (ui_pda_cargo.cpp) shows the credits and the slots; its filter box is POC stand-in UIComboBoxClass
+# 0x5789E0 (hit at the PDA's set-up, before this scenario's steps).
+timeout: 400
+include _login
+alive 8
+key 0x4F
+expect-event stubs '^POC input: replayed key 0x4F'
+alive 4
+shot cargo_open
+key 0x4F
+expect-event stubs '^POC input: replayed key 0x4F'
+alive 5

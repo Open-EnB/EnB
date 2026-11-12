@@ -16,6 +16,9 @@
 **   D3D8SHOT_FRAMES also save these frames, comma-separated (1 = the first frame presented)
 **   D3D8SHOT_MAX    at most this many screenshots (default 200)
 **   D3D8SHOT_DUMP   dump every draw call of these frames, comma-separated (M2.4: the land's geometry)
+**   D3D8SHOT_TRIGGER a file path: when it exists at a Present (looked at every 8th), that frame is saved as
+**                   shot_<the file's first line>_NNNNN.bmp and the file deleted (tools/harness/e2e.py's 'shot' step:
+**                   a shot on an event, not at a frame number)
 ** Output: d3d8shot.log, frame_NNNNN.bmp (24-bit), draws_NNNNN.bin.
 **
 ** The draw dump (D3D8SHOT_DUMP): every vertex and index buffer the program locks is shadowed (the
@@ -89,6 +92,8 @@ static int				Saved = 0;
 static int				Frames[64];
 static int				FrameCount = 0;
 static int				Presented = 0;
+static char				Trigger[MAX_PATH];		/* D3D8SHOT_TRIGGER, empty: none */
+static char				TriggerName[64];		/* the shot's name while it is saved */
 static CRITICAL_SECTION	LogLock;
 
 /* The draw dump (D3D8SHOT_DUMP) */
@@ -712,7 +717,11 @@ static void Save_Back_Buffer(void *dev, int frame)
 		free(rgb);
 		return;
 	}
-	_snprintf(name, sizeof(name) - 1, "%s\\frame_%05d.bmp", Dir, frame);
+	if (TriggerName[0]) {
+		_snprintf(name, sizeof(name) - 1, "%s\\shot_%s_%05d.bmp", Dir, TriggerName, frame);
+	} else {
+		_snprintf(name, sizeof(name) - 1, "%s\\frame_%05d.bmp", Dir, frame);
+	}
 	name[sizeof(name) - 1] = 0;
 	fp = fopen(name, "wb");
 	if (fp) {
@@ -746,6 +755,27 @@ static HRESULT STDMETHODCALLTYPE Hook_Present(void *dev, const RECT *src, const 
 	if (DumpCount > 0) Hook_Dump(dev);		/* again: the runtime rewrites slots of its vtable copy */
 	if (Wanted(Presented)) {
 		Save_Back_Buffer(dev, Presented);
+	}
+	if (Trigger[0] && (Presented & 7) == 0 && GetFileAttributesA(Trigger) != (DWORD)-1) {
+		FILE *t = fopen(Trigger, "r");
+		int i;
+		TriggerName[0] = 0;
+		if (t) {
+			if (!fgets(TriggerName, sizeof(TriggerName), t)) TriggerName[0] = 0;
+			fclose(t);
+		}
+		for (i = 0; TriggerName[i]; i++) {		/* a file name: letters, digits, '-' and '_' only */
+			char c = TriggerName[i];
+			if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '-' || c == '_')) {
+				TriggerName[i] = 0;
+				break;
+			}
+		}
+		if (!TriggerName[0]) strcpy(TriggerName, "shot");
+		DeleteFileA(Trigger);
+		Log("frame %d: trigger %s\n", Presented, TriggerName);
+		Save_Back_Buffer(dev, Presented);
+		TriggerName[0] = 0;
 	}
 	return RealPresent(dev, src, dst, wnd, dirty);
 }
@@ -920,6 +950,7 @@ static void Init(void)
 			Frames[FrameCount++] = atoi(p);
 		}
 	}
+	if (!GetEnvironmentVariableA("D3D8SHOT_TRIGGER", Trigger, sizeof(Trigger))) Trigger[0] = 0;
 	if (GetEnvironmentVariableA("D3D8SHOT_DUMP", frames, sizeof(frames))) {
 		for (p = strtok(frames, ","); p && DumpCount < 64; p = strtok(NULL, ",")) {
 			Dumps[DumpCount++] = atoi(p);

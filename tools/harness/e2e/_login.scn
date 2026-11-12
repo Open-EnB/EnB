@@ -1,0 +1,20 @@
+# Shared: the login screen, character select, the world. Included by every scenario; not run on its own.
+# antprox /REPLAY serves Karen (slot 0, Jupiter). Events are antprox.out's lines (the replay server's).
+# the start-up movie (eb_sizzle.bik) plays about 77 s and input does not end it in the POC: the link leaves
+# MovieClientClass::Handle_Input (tsk_smovie.obj's call) unresolved
+wait-event stubs '^POC BINKMovie::Play: playing' within 60
+wait-event antprox 'Global connection #1: sent VERSION_RESPONSE' within 240
+# the login screen takes its first clicks a moment after the client's version check (no log line for "drawn" yet)
+alive 3
+click gadget login.username
+text tester
+click gadget login.password
+text secret
+click gadget login.ok
+wait-event antprox 'sent GLOBAL_AVATAR_LIST' within 30
+# character select builds its avatars after the list (no log line for "ready" yet)
+alive 12
+click gadget select.slot0
+alive 2
+click gadget select.enter
+wait-event antprox 'received START_ACK' within 120

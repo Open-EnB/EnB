@@ -1,0 +1,28 @@
+name: the PDA's pages by their keys (control_keys.ini: Y character, U missions, I equipment), each opened and closed
+# Each key's page code reports itself: the missions page's FAIL_IF '!ad_missions' (ui_missn.cpp) and the equipment
+# page's FAIL_IF '!future_weapons' (ui_pda_equip.cpp) come from those pages' own code on the replay's data. The
+# galaxy map page (G) is the starmap scenario's (its gadgets are stand-ins).
+timeout: 400
+include _login
+alive 8
+# Y: [Character]
+key 0x59
+expect-event stubs '^POC input: replayed key 0x59'
+alive 3
+shot pda_character
+key 0x59
+alive 2
+# U: [Missions]
+key 0x55
+expect-event stubs 'ui_missn\.cpp'
+alive 3
+shot pda_missions
+key 0x55
+alive 2
+# I: [Equipment]
+key 0x49
+expect-event stubs 'ui_pda_equip\.cpp'
+alive 3
+shot pda_equipment
+key 0x49
+alive 4
