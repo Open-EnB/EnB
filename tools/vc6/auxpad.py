@@ -5,9 +5,10 @@ Every declaration aux_roots.cpp sees moves its six end-of-file template construc
 enumerators) puts the file inside the windows; retune it when a header aux_roots.cpp includes gains or
 loses declarations.
 
-  auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP | --pool [1]]
+  auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP | --pool [1]] [--hold]
       compile aux_roots.cpp alone with each pad value (~5 s a variant), print pad -> which of the six
-      constructors are exact, and the windows where all six are
+      constructors are exact, and the windows where all six are; --hold takes the importer lock once, at the
+      first value, and keeps it to the end (given back on every exit, Ctrl-C included): one wait in the queue
   auxpad.py set N [--client EXE]
       write SYMBOL_PAD = N in tools/re/auxroots.py and regenerate aux_roots.h/.cpp as auxroots.py does
 
@@ -46,8 +47,11 @@ def with_pad(text, n):
     return text[:m.start()] + block + text[m.end():]
 
 
+HOLD = False          # --hold: measure() keeps the lock it takes; held_sweep() gives it back
+
+
 def measure(importer, n, orig):
-    """Compile aux_roots.cpp with pad n under the importer lock (taken and given back here)."""
+    """Compile aux_roots.cpp with pad n under the importer lock (taken and given back here; with --hold kept)."""
     importer.hold_lock()
     try:
         with open(CPP, 'wb') as f:
@@ -59,7 +63,8 @@ def measure(importer, n, orig):
     finally:
         with open(CPP, 'wb') as f:
             f.write(orig)
-        importer.release_lock()
+        if not HOLD:
+            importer.release_lock()
 
 
 def windows(ok):
@@ -120,6 +125,7 @@ def parser():
     s.add_argument('--from', dest='lo', type=int, default=0)
     s.add_argument('--to', dest='hi', type=int, default=63)
     s.add_argument('--agent', metavar='NAME', help='importer agent: lock owner, scratch under .work/NAME/tmp')
+    s.add_argument('--hold', action='store_true', help='take the importer lock once and hold it for the whole sweep')
     vm = s.add_mutually_exclusive_group()
     vm.add_argument('--host', metavar='IP', help='use this build VM instead of leasing one')
     vm.add_argument('--pool', nargs='?', const=1, type=int, choices=[1], metavar='1',
@@ -131,9 +137,22 @@ def parser():
     return ap
 
 
+def held_sweep(a):
+    """sweep(a); with --hold the lock the first value takes is given back here, on every exit."""
+    global HOLD
+    HOLD = bool(getattr(a, 'hold', False))
+    try:
+        return sweep(a)
+    finally:
+        if HOLD:
+            HOLD = False
+            import importer
+            importer.release_lock()
+
+
 def main(argv=None):
     a = parser().parse_args(argv)
-    raise SystemExit(sweep(a) if a.cmd == 'sweep' else set_pad(a))
+    raise SystemExit(held_sweep(a) if a.cmd == 'sweep' else set_pad(a))
 
 
 if __name__ == '__main__':

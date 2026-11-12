@@ -109,6 +109,14 @@ same queue. `python tools/vc6/importer.py lock-status` (or `vc6lock.py status`):
 order (pre-D238 waiters have no ticket and are not listed). The import
 commands (plan, assemble, add, replay, refine) were deleted at the freeze (323f258d).
 
+The pad sweeps (`sendpad.py`, `auxpad.py sweep`) take the lock per value by default, so under the first-come
+queue a sweep waits one round of every queued verify between two values. `--hold` takes it once, at the first
+value, and keeps it to the end of the sweep (given back on every exit, an exception or Ctrl-C included; the
+pool lease is released as before). `sendpad.py --first-window` tries the current pad first, then outward
+(cur, cur+1, cur-1, ...), and stops once a run of 3 or more full values has both neighbours known; the pad goes
+to its middle (the full sweep's pick whenever that nearest run is the longest; with no such run it tries every
+value). `wt.py bring-over`'s retune passes `--hold --first-window` when the scratch tree's sendpad.py has them.
+
 | Script | Does |
 |---|---|
 | `verify_pr.py PR [--pool K] [--approved] [--no-post] [--keep] [--lib X]` | Verify a pull request before it reaches master (docs/github-plan.md 4.5.5): GitHub's test merge `pull/PR/merge` in a detached worktree `.work/wt/prPR.vf`, the libraries it touches (wt.py's libs_touched) verified on the pool, pairs against master's record and the PR's own, `// NOT EXACT` markers before and after; posts the commit status `vc6-verify` and one PR comment (.work/verify/prPR.json). Refuses a PR that changes anything but C/C++ sources, docs and docs/data until `--approved` (the maintainer has read it) |

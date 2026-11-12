@@ -971,6 +971,8 @@ def sendpad_retune(a, bo, libs, target):
     if carries_rebase_record(bo, old) and '--watch-from' in read_text(os.path.join(bo, 'tools', 'vc6', 'sendpad.py')):
         watch = ['--watch-from', old]
         print(f'  the landing carries a wt.py rebase record commit: watch set from {target}\'s ledger')
+    if '--first-window' in read_text(os.path.join(bo, 'tools', 'vc6', 'sendpad.py')):
+        watch = ['--hold', '--first-window', *watch]     # queue once for the lock, stop at the first window (D238)
     rc, tail = run_logged([sys.executable, *tool(bo, 'sendpad.py', 'sendpad'), '--pool', str(a.pool),
                            '--lock-wait', str(a.lock_wait), *watch], bo, bo + '.sendpad.log')
     print('  ' + ' '.join(tail[-1:]))

@@ -7,8 +7,17 @@ appfile match: the two pad through different windows) with each pad value, print
 the pad at the middle of it.
 
   sendpad.py [--range LO..HI] [--pool K] [--lock-wait S] [--agent NAME] [--holder-pid P] [--watch-from REV] [--dry]
+             [--hold] [--first-window]
   sendpad.py --includes [PATH ...]    the headers sclient.cpp includes (transitively, within app/);
                                       with paths: those of them among PATH (exit 1 when none)
+  --hold          take the importer lock once, at the first value, and keep it to the end of the sweep (given back on
+                  every exit, exceptions and Ctrl-C included): a sweep queues once on the first-come lock (D238)
+                  instead of once per value. wt.py bring-over's retune passes it, with --first-window.
+  --first-window  try the current pad first, then outward (cur, cur+1, cur-1, cur+2, ...) and stop once a run of at
+                  least 3 full values has both neighbours known (failed, or outside the range); the pad goes to its
+                  middle. That is the full sweep's pick whenever the run nearest the current pad is the longest; with
+                  no such run every value is tried and the pick is the full sweep's. Per-value output covers only
+                  the values tried.
 
 The window is the run of consecutive values at which every address of WATCH that HEAD's ledger records for
 sclient.cpp is exact (the longest run when there are several; HEAD's, not the working tree's: the verify that
@@ -123,8 +132,11 @@ def watch_list(src='HEAD'):
     return [w for w in WATCH if w in held] or list(WATCH)
 
 
+HOLD = False          # --hold: measure() keeps the lock it takes; run_sweep() gives it back
+
+
 def measure(importer, n, orig, lock_wait):
-    """Compile sclient.cpp alone with pad n under the importer lock (taken and given back here)."""
+    """Compile sclient.cpp alone with pad n under the importer lock (taken and given back here; with --hold kept)."""
     importer.hold_lock(lock_wait)
     try:
         with open(H, 'wb') as f:
@@ -136,7 +148,8 @@ def measure(importer, n, orig, lock_wait):
     finally:
         with open(H, 'wb') as f:
             f.write(orig.encode('latin-1'))
-        importer.release_lock()
+        if not HOLD:
+            importer.release_lock()
 
 
 def sweep(a, log, watch):
@@ -165,6 +178,68 @@ def sweep(a, log, watch):
     return current_pad(orig), (best[0] + best[1]) // 2, runs
 
 
+def outward(lo, hi, cur):
+    """lo..hi from cur outward: cur, cur+1, cur-1, cur+2, ... (cur clamped into the range)."""
+    cur = min(max(lo if cur is None else cur, lo), hi)
+    order = [cur]
+    for d in range(1, hi - lo + 1):
+        order += [n for n in (cur + d, cur - d) if lo <= n <= hi]
+    return order
+
+
+def settled(ok, tried, lo, hi):
+    """The first run of 3 or more full values whose two neighbours are known (tried and not full, or outside lo..hi),
+    or None."""
+    for x, y in windows(sorted(ok)):
+        if y - x >= 2 and (x - 1 < lo or x - 1 in tried) and (y + 1 > hi or y + 1 in tried):
+            return x, y
+    return None
+
+
+def sweep_first_window(a, log, watch):
+    """--first-window: sweep()'s result from the values tried outward from the current pad, stopping at settled()."""
+    import importer
+    if a.agent:
+        importer.set_agent(a.agent)
+    orig = open(H, 'rb').read().decode('latin-1')
+    ok, tried = [], set()
+    try:
+        with importer.pool_lease(a.pool, a.holder_pid):
+            for n in outward(a.range[0], a.range[1], current_pad(orig)):
+                got, errs = measure(importer, n, orig, a.lock_wait)
+                tried.add(n)
+                hit = [w for w in watch if w in got]
+                print(f'{n:3d}  {len(hit)}/{len(watch)}  ' + ' '.join(w + ('+' if w in got else '-') for w in WATCH)
+                      + f'  total {len(got)}' + (f'  ERRORS {errs}' if errs else ''), file=log, flush=True)
+                if len(hit) == len(watch):
+                    ok.append(n)
+                done = settled(ok, tried, a.range[0], a.range[1])
+                if done:
+                    print(f'first window {done[0]}..{done[1]}: stopped after {len(tried)} values', file=log, flush=True)
+                    break
+    finally:
+        with open(H, 'wb') as f:
+            f.write(orig.encode('latin-1'))
+    runs = windows(sorted(ok))
+    if not runs:
+        return current_pad(orig), None, runs
+    best = settled(ok, tried, a.range[0], a.range[1]) or max(runs, key=lambda r: (r[1] - r[0], -r[0]))
+    return current_pad(orig), (best[0] + best[1]) // 2, runs
+
+
+def run_sweep(a, log, watch):
+    """sweep() or sweep_first_window(); with --hold the lock the first value takes is given back here, on every exit."""
+    global HOLD
+    HOLD = bool(getattr(a, 'hold', False))
+    try:
+        return (sweep_first_window if getattr(a, 'first_window', False) else sweep)(a, log, watch)
+    finally:
+        if HOLD:
+            HOLD = False
+            import importer
+            importer.release_lock()
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--range', default='0..63', metavar='LO..HI', help='pad values to try (default %(default)s)')
@@ -173,6 +248,9 @@ def main(argv=None):
                     help="seconds to wait for another importer run, per variant (default the importer's)")
     ap.add_argument('--agent', metavar='NAME', help='importer agent: lock owner, scratch under .work/NAME/tmp')
     ap.add_argument('--holder-pid', type=int, help="the lease's holder pid (pool.py's default otherwise)")
+    ap.add_argument('--hold', action='store_true', help='take the importer lock once and hold it for the whole sweep')
+    ap.add_argument('--first-window', action='store_true',
+                    help='current pad first, then outward; stop at the first settled window of 3 or more values')
     ap.add_argument('--watch-from', metavar='REV',
                     help="the ledger the watch set comes from (default HEAD's, or the onto commit's when HEAD is a "
                          "wt.py rebase record commit)")
@@ -197,7 +275,7 @@ def main(argv=None):
         src = a.watch_from or watch_source()
         watch = watch_list(src)
         print(f"watch set from {src}'s ledger: {' '.join(watch)}", file=log, flush=True)
-        was, pick, runs = sweep(a, log, watch)
+        was, pick, runs = run_sweep(a, log, watch)
         wtxt = ', '.join(f'{x}..{y}' if x != y else str(x) for x, y in runs) or 'none'
         if pick is None:
             line = f'sendpad: no value in {a.range[0]}..{a.range[1]} keeps all {len(watch)} addresses ({' '.join(watch)}); pad left at {was}'
