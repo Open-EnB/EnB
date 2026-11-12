@@ -1,5 +1,8 @@
 {
  "base": "reconstructed",
- "compile_errors": [],
+ "compile_errors": [
+  "e:\\build\\beta\\G\\app\\client\\item\\client_item_property_special_effect.cpp(6) : error C2039: 'Unknown_833D00' : is not a member of 'ItemEffectClass'",
+  "e:\\build\\beta\\G\\app\\client\\item\\client_item_property_special_effect.cpp(7) : error C2039: 'Unknown_833D40' : is not a member of 'ItemEffectClass'"
+ ],
  "totals": {}
 }
