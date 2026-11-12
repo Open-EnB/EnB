@@ -1,5 +1,8 @@
 """Tests for objmatch's two D242 crediting rounds (2026-11-12):
 
+  P-C1-1  object_order: the tied own functions of one object that share one set of candidates, as many as the
+          candidates, all inside the object's range, take them in object order (not COMDATs; each must land
+          between its nearest exact own functions in object order)
   P-C1-2  xcu_position: an object's `_$E` initialisers are the consecutive CRT table entries in its stretch, n-th
           to n-th; the `_$E` functions their bytes reach (call / push targets) follow
 
@@ -58,6 +61,54 @@ def res(obj, sec, name, addr=None, status=None, hits=None):
     r = {'symbol': name, 'status': status or ('exact' if addr is not None else 'multiple'),
          'addresses': [f'0x{addr:06X}'] if addr is not None else [f'0x{h:06X}' for h in hits or []]}
     return (r, obj, sec, 0, len(obj.secs[sec][0]))
+
+
+class ObjectOrder(unittest.TestCase):
+    def setUp(self):
+        body = b'\x55\x8b\xec\x5d\xc3'
+        self.obj = FakeObj({1: (body, True, []), 2: (body, True, []), 3: (body, True, []), 4: (body, True, []),
+                            5: (body, False, []), 6: (body, False, [])})
+
+    def run_rule(self, items, exact, rng=(0x400, 0x900), claimed=None, obj_called=None):
+        results = [res(self.obj, sec, n, a) for sec, n, a in exact] + [x[:5] for x in items]
+        pending = [x for x in items]
+        surv = {id(x[0]): x[5] for x in items}
+        return objmatch.object_order(pending, set(), surv, {id(self.obj): rng},
+                                     collections.defaultdict(set, claimed or {}), obj_called or {}, results)
+
+    def tie(self, sec, name, hits):
+        return res(self.obj, sec, name, hits=hits) + (hits,)
+
+    def test_two_own_functions_in_object_order(self):
+        a, b = self.tie(2, 'Start', [0x600, 0x700]), self.tie(3, 'Start_Root', [0x600, 0x700])
+        got = self.run_rule([b, a], [(1, 'Before', 0x500), (4, 'After', 0x800)])
+        self.assertEqual(sorted((x[0]['symbol'], ad) for x, ad in got), [('Start', 0x600), ('Start_Root', 0x700)])
+
+    def test_comdats_stay_tied(self):
+        a, b = self.tie(5, 'Inl1', [0x600, 0x700]), self.tie(6, 'Inl2', [0x600, 0x700])
+        self.assertEqual(self.run_rule([a, b], [(1, 'Before', 0x500)]), [])
+
+    def test_neighbour_between_contradicts(self):
+        # object order Start (2), Mid (3, exact at 0x650), Start_Root (4): Start_Root must lie above 0x650 and
+        # Start below it; the candidates 0x600 / 0x620 cannot satisfy both
+        a, b = self.tie(2, 'Start', [0x600, 0x620]), self.tie(4, 'Start_Root', [0x600, 0x620])
+        self.assertEqual(self.run_rule([a, b], [(3, 'Mid', 0x650)]), [])
+
+    def test_outside_range_or_claimed_or_foreign_tie(self):
+        a, b = self.tie(2, 'Start', [0x600, 0x980]), self.tie(3, 'Start_Root', [0x600, 0x980])
+        self.assertEqual(self.run_rule([a, b], []), [])                                  # 0x980 outside the range
+        a, b = self.tie(2, 'Start', [0x600, 0x700]), self.tie(3, 'Start_Root', [0x600, 0x700])
+        self.assertEqual(self.run_rule([a, b], [], claimed={0x700: {'Other'}}), [])
+        c = self.tie(4, 'Third', [0x700, 0x780])                                           # survives at 0x700 too
+        self.assertEqual(self.run_rule([a, b, c], []), [])
+
+    def test_group_size_must_equal_candidates(self):
+        a, b = self.tie(2, 'Start', [0x600, 0x700, 0x780]), self.tie(3, 'Start_Root', [0x600, 0x700, 0x780])
+        self.assertEqual(self.run_rule([a, b], []), [])
+
+    def test_own_calls_contradict(self):
+        a, b = self.tie(2, 'Start', [0x600, 0x700]), self.tie(3, 'Start_Root', [0x600, 0x700])
+        self.assertEqual(self.run_rule([a, b], [], obj_called={(id(self.obj), 'Start'): {0x700}}), [])
 
 
 class XcuPosition(unittest.TestCase):

@@ -81,13 +81,22 @@ initialiser calls, or registers through its atexit function (`initialiser_target
 `tiebreak` and `initialiser` set. Finds and other helpers stay tied. It runs only when the range
 resolves nothing more; its credits feed D80's next round.
 
-What the static initialiser leaves gets the CRT table (D242, 2026-11-12; it feeds D80's next round) (P-C1-2, amends D94(b); `xcu_position`, USE_XCU_POSITION): the client's initialiser table 0xB6C000-0xB6D700
+What the static initialiser leaves gets two D242 rounds (2026-11-12), each feeding D80's next round. First the CRT
+table (P-C1-2, amends D94(b); `xcu_position`, USE_XCU_POSITION): the client's initialiser table 0xB6C000-0xB6D700
 lists every object's `.CRT$XCU` initialisers in link order, so an object's n-th initialiser is the n-th of the
 consecutive table entries in its stretch (each initialiser's window: between its nearest exact own functions in
 object order, within the range +- RANGE_GAP, short of the other objects' exact own functions; as many entries as
 initialisers, each fullmatching its pattern, none held by another symbol, an exact initialiser at its own entry);
 the `_$E` functions those initialisers' bytes reach (the wrapper called, the atexit stub pushed) follow, `exact`
 with `xcu` set to 'table' or 'linked'. The `_$E` names stay unused across objects: the position is the proof.
+Then object order (P-C1-1; `object_order`, USE_OBJECT_ORDER): tied own functions of one object (not COMDATs:
+D189(b)'s order test held for 349 of 353 own groups, 608 of 700 inline ones did not) that share one set of
+surviving candidates, as many members as candidates, every candidate inside the object's range, held by no other
+symbol and surviving for no tied function outside the group, take the candidates in object order (section, then
+offset: with /Gy the linker keeps source order), each between its nearest exact own functions in object order
+and not contradicted by the object's own exact calls (P-CGP-1); `exact` with `tiebreak` and `order` set.
+wwprofile.obj's Start_Profile 0x9EA930 / Start_Root_Profile 0x9EA9C0, Stop_Profile 0x9EAA50 / Stop_Root_Profile
+0x9EAAD0 were the first case.
 
 A searched match counts only at a function start (D189(2)): an address the client's thunk table or a
 call / jump reaches, or one right after padding (int3 / nop) or after the end of another function (a
@@ -663,7 +672,7 @@ def match_objects(img, paths, region=None, callers=False):
             if selfname:
                 names = run_self_names(img, list({id(x[1]): x[1] for x in results}.values()), known, thunk)
             ranges = {}
-            if phase in ('range', 'init', 'xcu'):
+            if phase in ('range', 'init', 'xcu', 'order'):
                 for r, obj, sec, s, length in results:
                     if r['status'] == 'exact' and obj.own(sec):
                         a = int(r['addresses'][0], 16)
@@ -758,7 +767,26 @@ def match_objects(img, paths, region=None, callers=False):
                     learn(r, obj, sec, s, length, a)
                     changed = True
                 shorts = [x for x in shorts if x[0]['status'] == 'short']
-                phase = 'd80' if changed else 'short'
+                phase = 'd80' if changed else 'order'
+                changed = True
+                continue
+            if phase == 'order':
+                # D242 P-C1-1: a tie among one object's own functions, assigned in object order
+                got = []
+                if USE_OBJECT_ORDER:
+                    surv = {id(it[0]): break_tie(it[1], it[2], it[3], it[4], text, start, it[5], img, known)[0]
+                            for it in pending if id(it[0]) not in done}
+                    got = object_order(pending, done, surv, ranges, claimed, obj_called, results)
+                for (r, obj, sec, s, length, hits), a in got:
+                    r['status'] = 'exact'
+                    r['addresses'] = [f'0x{a:06X}']
+                    r['tiebreak'] = True
+                    r['order'] = True
+                    r.pop('count', None), r.pop('identical', None)
+                    claimed[a].add(r['symbol'])
+                    learn(r, obj, sec, s, length, a)
+                    done.add(id(r))
+                phase = 'd80' if got else 'short'
                 changed = True
                 continue
             for item in pending:
@@ -843,8 +871,8 @@ def match_objects(img, paths, region=None, callers=False):
             elif phase == 'range':
                 phase, changed = 'init', True           # nor the range: one static initialiser round (D115)
             elif phase == 'init':
-                phase, changed = 'xcu', True            # nor the initialiser: the CRT table round (D242),
-                                                        # then one short round (D188)
+                phase, changed = 'xcu', True            # nor the initialiser: the CRT table round (D242), the
+                                                        # object-order round (D242), then one short round (D188)
         if not callers:
             break
         credited = caller_tiebreak(img, results, pending, claimed, text, start, thunk, known)
@@ -1361,6 +1389,7 @@ def xcu_previous(img):
 
 USE_XCU_POSITION = True     # D242 P-C1-2: the `_$E` initialisers credited by their CRT table position
 XCU_TABLE = (0xB6C000, 0xB6D700)
+USE_OBJECT_ORDER = True     # D242 P-C1-1: an own-function tie inside one object assigned in object order
 
 
 def xcu_table(img):
@@ -1488,6 +1517,45 @@ def xcu_position(img, results, ranges, text, base, claimed, thunk):
         for n, a in got.items():
             if defs[n][0]['status'] != 'exact':
                 out.append((defs[n], a, 'table' if n in inits else 'linked'))
+    return out
+
+
+def object_order(pending, done, survivors_of, ranges, claimed, obj_called, results):
+    """D242 P-C1-1: [(pending item, address)] for ties inside one object. A group is the tied own functions (not
+    COMDATs: D189(b)'s order test held for 349 of 353 own groups, 608 of 700 inline ones did not) of one object that
+    share one set of surviving candidates, as many members as candidates, every candidate inside the object's range
+    and held by no other symbol, and no tied function outside the group surviving at any of them. The members, in
+    object order, take the candidates in address order, when each lands between its nearest exact own functions in
+    object order and the object's own exact calls to it (P-CGP-1) do not contradict it."""
+    orders = _object_order(results)
+    groups = collections.defaultdict(list)
+    at = collections.defaultdict(set)
+    for item in pending:
+        if id(item[0]) in done:
+            continue
+        surv = frozenset(survivors_of[id(item[0])])
+        for h in surv:
+            at[h].add(id(item[0]))
+        groups[(id(item[1]), surv)].append(item)
+    out = []
+    for (key, surv), items in groups.items():
+        if len(surv) < 2 or len(items) != len(surv) or key not in ranges:
+            continue
+        lo, hi = ranges[key]
+        ids = {id(x[0]) for x in items}
+        if any(not x[1].own(x[2]) for x in items) or any(not lo <= h <= hi or claimed[h] or at[h] - ids for h in surv):
+            continue
+        items = sorted(items, key=lambda x: (x[2], x[3]))
+        addrs = sorted(surv)
+        ok = True
+        for (r, obj, sec, s, length, hits), a in zip(items, addrs):
+            p, q = _neighbours(orders[key], (sec, s))
+            reach = obj_called.get((key, r['symbol']))
+            if (p is not None and a <= p) or (q is not None and a >= q) or (reach and a not in reach):
+                ok = False
+                break
+        if ok:
+            out += list(zip(items, addrs))
     return out
 
 
