@@ -1,7 +1,6 @@
 // Earth & Beyond client (reconstruction): SignalMap (callbacks by sender).
 // File PROVISIONAL (D137: no __FILE__; client 0x4F9350-0x4F9BF0, before split_string.cpp; its template instances are
 // SignalList's, emitted there).
-#define __SIGNAL_MEMBERS	// unknown_signalbase.h's data members and SignalList
 #include "unknown_signalbase.h"
 
 #ifndef ENABLE_WWPROFILE

@@ -6,15 +6,9 @@
 #define UNKNOWN_SIGNALBASE_H
 
 #include <typeinfo.h>
-// The data members, SignalBaseClass's own functions and SignalList are behind __SIGNAL_MEMBERS, which the three
-// signal files define: no other file reads them, and sclient.cpp's symbol pad (aux_roots_send.h, workflow.md 3.4)
-// has no window that keeps 0x758210 and 0x702240 together when sclient.cpp sees them (swept 2026-11-10). Without
-// the macro SignalMap is its 0x28 bytes and its out-of-line functions.
-#ifdef __SIGNAL_MEMBERS
 #include <hash_map.h>
 #include <list>
 #include <vector>
-#endif
 
 // The client's RTTI names the callbacks SignalBaseClass::MemberCallback<SENDER, OBJECT, FUNC, EVENT> (type names
 // '.PBV?$MemberCallback@...@SignalBaseClass@@': typeid(this) in a const member, 0xB7C068, 0xB817B0, about 20 more)
@@ -69,7 +63,6 @@ public:
 		FUNC Function;									// +0x08  // NAME 1: what it holds
 	};
 
-#ifdef __SIGNAL_MEMBERS
 	typedef std::list<CallbackClass *> CallbackList;			// NAME 1: neutral (D10)
 	typedef std::vector<CallbackList::iterator *> IteratorVector;	// NAME 1: neutral (D10)
 	typedef std::hash_map<unsigned int, CallbackList> SignalHashMap;	// NAME 1: neutral (D10); the client's hashtable<pair<const unsigned int, list<CallbackClass *> >, ...>::find_or_insert 0x4F8F00
@@ -105,10 +98,8 @@ protected:
 	}
 
 	IteratorVector ActiveIterators;						// +0x00 (0x10 bytes): the iterators of the Emits in progress, innermost last  // NAME 1: what it holds
-#endif
 };
 
-#ifdef __SIGNAL_MEMBERS
 // The callbacks by the event's type (a function-local static 0xBE57F0 in 0x4F7F60; 0x28 bytes)
 class SignalList : public SignalBaseClass  // NAME 5: the client's profile strings 'SignalList::Add' / 'SignalList::remove' / 'SignalList::emit'; the base by its constructor's call of 0x4F7930
 {
@@ -124,14 +115,10 @@ public:
 };
 
 SignalList &Unknown_4F7F60();											// 0x4F7F60: the function-local static 0xBE57F0
-#endif
 
-// The signal map the events are emitted on (moved here from control_keys_manager.h for gclass.h)
-#ifdef __SIGNAL_MEMBERS
-class SignalMap : public SignalBaseClass  // NAME 5: the client's profile string 'SignalMap::emit' (0x4F9AD0); declared as far as ControlKeysManager::Save and GClass need it
-#else
-class SignalMap  // NAME 5: the client's profile string 'SignalMap::emit' (0x4F9AD0); declared as far as ControlKeysManager::Save and GClass need it
-#endif
+// The callbacks by the sender: the signal map the events are emitted on (0x28 bytes: GClass's +0x10..+0x38; the
+// function-local static 0xBE57C0 in 0x4F7EF0)
+class SignalMap : public SignalBaseClass  // NAME 5: the client's profile strings 'SignalMap::connect' / 'SignalMap::disconnect' / 'SignalMap::emit'; the base by its constructor's call of 0x4F7930
 {
 public:
 	SignalMap();														// 0x4F9350
@@ -176,11 +163,7 @@ public:
 	void Add(void *sender, SignalBaseClass::CallbackClass *callback) { connect(sender, callback); }
 	void Remove(void *sender, const SignalBaseClass::CallbackClass &callback) { disconnect(sender, callback); }
 
-#ifdef __SIGNAL_MEMBERS
 	SignalHashMap Map;													// +0x10 (0x18 bytes: GClass's +0x20..+0x38), by the sender  // NAME 1: what it holds
-#else
-	char Unknown00[0x28];												// 0x28 bytes: GClass's +0x10..+0x38 (0x4F9350 fills +0x00..+0x24)  // NAME 1: neutral (D10)
-#endif
 };
 
 SignalMap &Unknown_4F7EF0();											// 0x4F7EF0: the function-local static 0xBE57C0
