@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-753 entries in 238 files.
+759 entries in 238 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -381,7 +381,13 @@ edit the comments in the code, not this file.
 | `app/client/ui_cinfo.cpp:278` | `UICinfoClass::Unknown_5741A0` | marker | NOT EXACT: register (this and the index swap ebx / edi; four loop forms tried) |
 | `app/client/ui_class.cpp:155` | `ClassSelectInterface::ClassSelectInterface` | marker | NOT EXACT: frame (0.45: the client's frame is 0x34, ours 0x38: its per-iteration RefCountPtr sits in the dead view parameter's slot) @0x574710 |
 | `app/client/ui_class.cpp:1117` | `ClassSelectInterface::Unknown_576AC0` | marker | NOT EXACT: inline-budget (0.80: ours inlines all 18 dialog names' string assigns, the client calls the last one out of line; two dead size() reads at the top gave 0.84 and the client's 17, then the register order of the 0x67B390 call and the identity matrix stores were left) @0x576AC0 |
-| `app/client/ui_combobox.cpp:162` | `UIComboBoxClass::Add_Item` | marker | NOT EXACT: inline-budget (the client expands the item's string constructor, _Tidy and _Grow, where ours calls assign) 0x57B000 |
+| `app/client/ui_combobox.cpp:72` | `UIComboBoxTextClass::Init` | marker | NOT EXACT: shape (3 rows: the client adds pos.Y onto the height left on the FPU stack, ours loads pos.Y and pops the height after) 0x578350 |
+| `app/client/ui_combobox.cpp:122` | `UIComboBoxClass::UIComboBoxClass` | marker | NOT EXACT: inline-budget (the client calls assign for the label and stops at _Grow for the style; ours expands both further) 0x5786C0 |
+| `app/client/ui_combobox.cpp:153` | `UIComboBoxClass::UIComboBoxClass` | marker | NOT EXACT: inline-budget (the client expands the label's assign and the style's _Grow; ours calls them) 0x5789E0 |
+| `app/client/ui_combobox.cpp:205` | `UIComboBoxClass::Init` | marker | NOT EXACT: register-only in the main (this in esi and the scale in ebp in the client; ours this in ebp, the scale in esi and spilled) 0x5790C0: owner NULL (the first constructor): the gadgets on Layer; else on an empty layer |
+| `app/client/ui_combobox.cpp:302` | `UIComboBoxClass::Unknown_60` | marker | NOT EXACT: inline-budget (the client calls Unknown_Clamp 0x57BA10 and the items' size() 0x47D640 in the expanded Scroll_To_Selected; ours expands them) 0x579DC0 |
+| `app/client/ui_combobox.cpp:322` | `UIComboBoxClass::Unknown_68` | marker | NOT EXACT: inline-budget (the client calls Scroll_To_Selected 0x57B2F0 and the items' size(); ours expands them) 0x57A060 |
+| `app/client/ui_combobox.cpp:511` | `(whole file)` | marker | NOT EXACT: inline-budget (the client calls the items' insert; with the whole file in the object ours expands it) 0x57B000 |
 | `app/client/ui_cpit.cpp:121` | `Unknown_57D6C0` | marker | NOT EXACT: inline budget (the client calls the LockSpeed Cast out of line, 0x584FF0, and inlines the LockOrient one; ours inlines both) |
 | `app/client/ui_cpit.cpp:266` | `UICpitClass::Unknown_54` | marker | NOT EXACT: inline budget (the client calls the name's _Tidy(true) out of line at the gutter loop's end, ours expands it) |
 | `app/client/ui_cpit.cpp:701` | `UICpitClass::Unknown_68` | marker | NOT EXACT: inline budget (the client calls Unknown_Find_Field<float> out of line, 0x546710, in the expanded 0x584000; ours expands it and calls the Cast) |

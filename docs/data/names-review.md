@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 186 |
+| 5 | the client names it | 185 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1781 |
-| 2 | describes what the code does | 4137 |
-| 1 | neutral placeholder | 22917 |
+| 2 | describes what the code does | 4182 |
+| 1 | neutral placeholder | 22821 |
 
 ## For review (score 3 and below)
 
@@ -11205,7 +11205,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5698F0` | `app/client/ui_chat_panel.cpp:606` | untagged neutral name (D10) |
 | 1 | `Unknown_569A00` | `app/client/ui_chat_panel.cpp:610` | untagged neutral name (D10) |
 | 1 | `Unknown104` | `app/client/ui_chat_panel.cpp:625` | untagged neutral name (D10) |
-| 1 | `Unknown_57B440` | `app/client/ui_chat_panel.cpp:629` | untagged neutral name (D10) |
 | 1 | `Unknown_5638E0` | `app/client/ui_chat_panel.cpp:635` | untagged neutral name (D10) |
 | 1 | `Unknown_B8` | `app/client/ui_chat_panel.cpp:638` | untagged neutral name (D10) |
 | 1 | `Unknown_563910` | `app/client/ui_chat_panel.cpp:642` | untagged neutral name (D10) |
@@ -11251,7 +11250,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5688E0` | `app/client/ui_chat_panel.cpp:1394` | untagged neutral name (D10) |
 | 1 | `Unknown_568910` | `app/client/ui_chat_panel.cpp:1402` | untagged neutral name (D10) |
 | 1 | `Unknown_568950` | `app/client/ui_chat_panel.cpp:1408` | untagged neutral name (D10) |
-| 1 | `Unknown_57AD50` | `app/client/ui_chat_panel.cpp:1984` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/ui_chat_panel.cpp:1995` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/ui_chat_panel.cpp:1996` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/ui_chat_panel.cpp:1997` | untagged neutral name (D10) |
@@ -11825,148 +11823,68 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown140` | `app/client/ui_class.h:69` | untagged neutral name (D10) |
 | 1 | `Unknown141` | `app/client/ui_class.h:70` | untagged neutral name (D10) |
 | 1 | `Unknown574710InterfaceClass` | `app/client/ui_class.h:74` | transition alias |
-| 1 | `Unknown_00` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_combobox.cpp:23` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_combobox.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/ui_combobox.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_combobox.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_1C` | `app/client/ui_combobox.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_20` | `app/client/ui_combobox.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/ui_combobox.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_28` | `app/client/ui_combobox.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_2C` | `app/client/ui_combobox.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ui_combobox.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_34` | `app/client/ui_combobox.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_38` | `app/client/ui_combobox.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_3C` | `app/client/ui_combobox.cpp:26` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_combobox.cpp:27` | neutral |
-| 1 | `Unknown_40` | `app/client/ui_combobox.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_44` | `app/client/ui_combobox.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_48` | `app/client/ui_combobox.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_4C` | `app/client/ui_combobox.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_50` | `app/client/ui_combobox.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_combobox.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_combobox.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_combobox.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_combobox.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/ui_combobox.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_combobox.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_6C` | `app/client/ui_combobox.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_70` | `app/client/ui_combobox.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown_74` | `app/client/ui_combobox.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_78` | `app/client/ui_combobox.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_combobox.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_80` | `app/client/ui_combobox.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_84` | `app/client/ui_combobox.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_88` | `app/client/ui_combobox.cpp:33` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_combobox.cpp:34` | neutral |
-| 1 | `Unknown_8C` | `app/client/ui_combobox.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_90` | `app/client/ui_combobox.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_94` | `app/client/ui_combobox.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `app/client/ui_combobox.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_9C` | `app/client/ui_combobox.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_A0` | `app/client/ui_combobox.cpp:35` | untagged neutral name (D10) |
-| 1 | `value, arg` | `app/client/ui_combobox.cpp:36` | neutral |
-| 1 | `Unknown_A4` | `app/client/ui_combobox.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/ui_combobox.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown5C` | `app/client/ui_combobox.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown5D` | `app/client/ui_combobox.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown61` | `app/client/ui_combobox.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown62` | `app/client/ui_combobox.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/ui_combobox.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown6C` | `app/client/ui_combobox.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown78` | `app/client/ui_combobox.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown_66E3A0` | `app/client/ui_combobox.cpp:52` | untagged neutral name (D10) |
-| 1 | `object, is_horizontal, bone_idx` | `app/client/ui_combobox.cpp:53` | gd_slider.h's |
-| 1 | `Unknown_66E460` | `app/client/ui_combobox.cpp:53` | untagged neutral name (D10) |
-| 1 | `total, page, a` | `app/client/ui_combobox.cpp:54` | gd_slider.h's |
-| 1 | `Unknown_66FA90` | `app/client/ui_combobox.cpp:54` | untagged neutral name (D10) |
-| 1 | `force` | `app/client/ui_combobox.cpp:55` | gd_slider.h's |
-| 1 | `Unknown_66FD80` | `app/client/ui_combobox.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown_Clamp` | `app/client/ui_combobox.cpp:58` | neutral (D10): WWMath::Clamp_Int's form, unsigned (0x57A330's top row) |
-| 1 | `robj` | `app/client/ui_combobox.cpp:59` | neutral |
-| 1 | `Unknown_497300` | `app/client/ui_combobox.cpp:59` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5BC4` | `app/client/ui_combobox.cpp:61` | neutral (D10): the open combo box (0x57A330 sets it while the list is down) |
-| 1 | `UIComboBoxUnknownBCClass` | `app/client/ui_combobox.cpp:64` | neutral (D10) |
-| 1 | `arg` | `app/client/ui_combobox.cpp:74` | neutral |
-| 1 | `Unknown_Show_Selected` | `app/client/ui_combobox.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `app/client/ui_combobox.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown0D4` | `app/client/ui_combobox.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown_Item_Text` | `app/client/ui_combobox.cpp:79` | untagged neutral name (D10) |
-| 1 | `Unknown_57AAB0` | `app/client/ui_combobox.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown0B8` | `app/client/ui_combobox.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown0CC` | `app/client/ui_combobox.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown0DC` | `app/client/ui_combobox.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown0F8` | `app/client/ui_combobox.cpp:86` | untagged neutral name (D10) |
-| 1 | `Unknown_57AC70` | `app/client/ui_combobox.cpp:107` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_combobox.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_combobox.cpp:114` | untagged neutral name (D10) |
-| 1 | `Unknown_57AD50` | `app/client/ui_combobox.cpp:118` | untagged neutral name (D10) |
-| 1 | `Unknown_57A330` | `app/client/ui_combobox.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown0C8` | `app/client/ui_combobox.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown084` | `app/client/ui_combobox.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown_5B8B40` | `app/client/ui_combobox.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown0D8` | `app/client/ui_combobox.cpp:152` | untagged neutral name (D10) |
-| 1 | `Unknown0A0` | `app/client/ui_combobox.cpp:158` | untagged neutral name (D10) |
-| 1 | `Unknown0C4` | `app/client/ui_combobox.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown_57B000` | `app/client/ui_combobox.cpp:221` | untagged neutral name (D10) |
-| 1 | `Unknown0B4` | `app/client/ui_combobox.cpp:224` | untagged neutral name (D10) |
-| 1 | `Unknown_57B1D0` | `app/client/ui_combobox.cpp:233` | untagged neutral name (D10) |
-| 1 | `Unknown_57B210` | `app/client/ui_combobox.cpp:241` | untagged neutral name (D10) |
-| 1 | `Unknown_57B440` | `app/client/ui_combobox.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown_57B570` | `app/client/ui_combobox.cpp:261` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `app/client/ui_combobox.cpp:263` | untagged neutral name (D10) |
-| 1 | `Unknown0D0` | `app/client/ui_combobox.cpp:264` | untagged neutral name (D10) |
-| 1 | `Unknown_57B5C0` | `app/client/ui_combobox.cpp:269` | untagged neutral name (D10) |
-| 1 | `UIComboBoxUnknownBCClass` | `app/client/ui_combobox.h:14` | untagged neutral name (D10) |
-| 1 | `owner, layer, model, name, id, key, a, b, c` | `app/client/ui_combobox.h:20` | neutral |
-| 1 | `owner, client, model, name, a, b, c, d, style` | `app/client/ui_combobox.h:21` | neutral |
-| 1 | `Unknown_57A330` | `app/client/ui_combobox.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown_57AAB0` | `app/client/ui_combobox.h:23` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/ui_combobox.h:24` | neutral |
-| 1 | `Unknown_57AC70` | `app/client/ui_combobox.h:24` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/ui_combobox.h:25` | neutral |
-| 1 | `Unknown_57AD50` | `app/client/ui_combobox.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown_57B210` | `app/client/ui_combobox.h:26` | neutral (D10) |
-| 1 | `items` | `app/client/ui_combobox.h:27` | neutral |
-| 1 | `Unknown_57B1D0` | `app/client/ui_combobox.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_57B000, text` | `app/client/ui_combobox.h:28` | neutral (D10) |
-| 1 | `Unknown_57B000` | `app/client/ui_combobox.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown_57B3C0, arg` | `app/client/ui_combobox.h:29` | neutral (D10) |
-| 1 | `Unknown_57B3C0` | `app/client/ui_combobox.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown_57B440` | `app/client/ui_combobox.h:30` | untagged neutral name (D10) |
-| 1 | `text` | `app/client/ui_combobox.h:31` | neutral |
-| 1 | `Unknown_57B480` | `app/client/ui_combobox.h:31` | untagged neutral name (D10) |
-| 1 | `on` | `app/client/ui_combobox.h:32` | neutral |
-| 1 | `Unknown_57B570` | `app/client/ui_combobox.h:32` | untagged neutral name (D10) |
-| 1 | `first, last` | `app/client/ui_combobox.h:33` | neutral |
-| 1 | `Unknown_57B5C0` | `app/client/ui_combobox.h:33` | untagged neutral name (D10) |
-| 1 | `Unknown_Item_Text` | `app/client/ui_combobox.h:35` | neutral (D10) |
-| 1 | `Unknown_Show_Selected` | `app/client/ui_combobox.h:36` | neutral (D10) |
-| 1 | `Unknown084` | `app/client/ui_combobox.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown088` | `app/client/ui_combobox.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown0A0` | `app/client/ui_combobox.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown0A4` | `app/client/ui_combobox.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown0B4` | `app/client/ui_combobox.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown0B8` | `app/client/ui_combobox.h:43` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_combobox.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_combobox.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown0C4` | `app/client/ui_combobox.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown0C8` | `app/client/ui_combobox.h:47` | untagged neutral name (D10) |
-| 1 | `Unknown0CC` | `app/client/ui_combobox.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown0D0` | `app/client/ui_combobox.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown0D4` | `app/client/ui_combobox.h:50` | untagged neutral name (D10) |
-| 1 | `Unknown0D8` | `app/client/ui_combobox.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown0DC` | `app/client/ui_combobox.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown0F4` | `app/client/ui_combobox.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown0F8` | `app/client/ui_combobox.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown0FC` | `app/client/ui_combobox.h:57` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `app/client/ui_combobox.h:58` | untagged neutral name (D10) |
-| 1 | `Unknown110` | `app/client/ui_combobox.h:59` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `app/client/ui_combobox.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown115` | `app/client/ui_combobox.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown_Clamp` | `app/client/ui_combobox.cpp:23` | neutral (D10): WWMath::Clamp_Int's form, unsigned (0x57A330's top row) |
+| 1 | `robj` | `app/client/ui_combobox.cpp:24` | neutral |
+| 1 | `Unknown_497300` | `app/client/ui_combobox.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5BC4` | `app/client/ui_combobox.cpp:25` | neutral (D10): the open combo box (0x57A330 sets it while the list is down) |
+| 1 | `robj, on` | `app/client/ui_combobox.cpp:30` | neutral |
+| 1 | `Unknown_497240` | `app/client/ui_combobox.cpp:30` | untagged neutral name (D10) |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_combobox.cpp:31` | what the helpers pass |
+| 1 | `Unknown_496AE0` | `app/client/ui_combobox.cpp:31` | untagged neutral name (D10) |
+| 1 | `button, arg` | `app/client/ui_combobox.cpp:32` | neutral |
+| 1 | `Unknown_42EC60` | `app/client/ui_combobox.cpp:32` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/ui_combobox.cpp:33` | neutral |
+| 1 | `Unknown_42ECF0` | `app/client/ui_combobox.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_combobox.cpp:34` | 0xBE67BC (fontdatabase.h's: the string files in use) |
+| 1 | `Unknown_675120Class` | `app/client/ui_combobox.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/ui_combobox.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown4E4` | `app/client/ui_combobox.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_6D88F0` | `app/client/ui_combobox.cpp:84` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_combobox.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_combobox.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/ui_combobox.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_combobox.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_combobox.cpp:150` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_combobox.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_combobox.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_combobox.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown_687150` | `app/client/ui_combobox.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown_5B8B40` | `app/client/ui_combobox.cpp:234` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9210` | `app/client/ui_combobox.cpp:241` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFA0` | `app/client/ui_combobox.cpp:254` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_combobox.cpp:255` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/ui_combobox.cpp:256` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_combobox.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_combobox.cpp:317` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_combobox.cpp:324` | untagged neutral name (D10) |
+| 1 | `Unknown_57A310` | `app/client/ui_combobox.cpp:345` | untagged neutral name (D10) |
+| 1 | `Unknown5C_02` | `app/client/ui_combobox.cpp:354` | untagged neutral name (D10) |
+| 1 | `Unknown_66E3A0` | `app/client/ui_combobox.cpp:420` | untagged neutral name (D10) |
+| 1 | `Unknown_66FD80` | `app/client/ui_combobox.cpp:429` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_combobox.cpp:443` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_combobox.cpp:446` | untagged neutral name (D10) |
+| 1 | `UIComboBoxTextClass` | `app/client/ui_combobox.h:26` | neutral (D10): what the box makes of it |
+| 1 | `Unknown_675120Class` | `app/client/ui_combobox.h:26` | untagged neutral name (D10) |
+| 1 | `mesh, bone, layer, width` | `app/client/ui_combobox.h:29` | the members they set |
+| 1 | `mesh, bone, width` | `app/client/ui_combobox.h:30` | the members they set |
+| 1 | `Unknown_30` | `app/client/ui_combobox.h:32` | untagged neutral name (D10) |
+| 1 | `Set_Hover_Only` | `app/client/ui_combobox.h:36` | the member it sets; NAME 1 [on]: neutral |
+| 1 | `Layer` | `app/client/ui_combobox.h:40` | its type |
+| 1 | `owner, layer, model, name, select_key, toggle_key, width, max_rows, style` | `app/client/ui_combobox.h:53` | the members they set |
+| 1 | `owner, client, model, name, select_key, toggle_key, width, max_rows, style` | `app/client/ui_combobox.h:54` | the members they set |
+| 1 | `Unknown_58` | `app/client/ui_combobox.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_combobox.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_combobox.h:58` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_combobox.h:59` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_combobox.h:59` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_combobox.h:60` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_combobox.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_57A310` | `app/client/ui_combobox.h:63` | untagged neutral name (D10) |
+| 1 | `Set_Hover_Only` | `app/client/ui_combobox.h:78` | the rows' member it sets; NAME 1 [first, last]: neutral |
+| 1 | `Model` | `app/client/ui_combobox.h:86` | what the constructors are given |
+| 1 | `std:` | `app/client/ui_combobox.h:87` | neutral |
+| 1 | `Layer` | `app/client/ui_combobox.h:91` | its type |
+| 1 | `Owner` | `app/client/ui_combobox.h:95` | what the constructors are given |
 | 1 | `Unknown_BE67C4` | `app/client/ui_cpit.cpp:36` | neutral (D10) |
 | 1 | `robj, a, b` | `app/client/ui_cpit.cpp:46` | what the constructor passes |
 | 1 | `Unknown_496730` | `app/client/ui_cpit.cpp:46` | untagged neutral name (D10) |
@@ -14644,10 +14562,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown64` | `app/client/ui_pda_cargo.cpp:148` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_pda_cargo.cpp:148` | untagged neutral name (D10) |
 | 1 | `Unknown_5417D0` | `app/client/ui_pda_cargo.cpp:152` | untagged neutral name (D10) |
-| 1 | `Unknown_57B1D0` | `app/client/ui_pda_cargo.cpp:154` | untagged neutral name (D10) |
-| 1 | `Unknown_57AD50` | `app/client/ui_pda_cargo.cpp:155` | untagged neutral name (D10) |
-| 1 | `Unknown_57B570` | `app/client/ui_pda_cargo.cpp:156` | untagged neutral name (D10) |
-| 1 | `Unknown_57B480` | `app/client/ui_pda_cargo.cpp:157` | untagged neutral name (D10) |
 | 1 | `Unknown_62F620` | `app/client/ui_pda_cargo.cpp:158` | untagged neutral name (D10) |
 | 1 | `Unknown_98` | `app/client/ui_pda_cargo.cpp:168` | untagged neutral name (D10) |
 | 1 | `Unknown669FB0Class` | `app/client/ui_pda_cargo.cpp:170` | untagged neutral name (D10) |
@@ -14668,7 +14582,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5D0D20` | `app/client/ui_pda_cargo.cpp:231` | untagged neutral name (D10) |
 | 1 | `Unknown_6607D0` | `app/client/ui_pda_cargo.cpp:232` | untagged neutral name (D10) |
 | 1 | `Unknown_695A00` | `app/client/ui_pda_cargo.cpp:241` | untagged neutral name (D10) |
-| 1 | `Unknown_Item_Text` | `app/client/ui_pda_cargo.cpp:252` | untagged neutral name (D10) |
 | 1 | `Unknown_B0` | `app/client/ui_pda_cargo.cpp:261` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_pda_cargo.cpp:267` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_pda_cargo.cpp:276` | untagged neutral name (D10) |
@@ -15960,12 +15873,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_588A70` | `app/client/ui_registration.cpp:583` | untagged neutral name (D10) |
 | 1 | `Unknown39` | `app/client/ui_registration.cpp:594` | untagged neutral name (D10) |
 | 1 | `Unknown_5F8CD0` | `app/client/ui_registration.cpp:598` | untagged neutral name (D10) |
-| 1 | `Unknown_57B3C0` | `app/client/ui_registration.cpp:610` | untagged neutral name (D10) |
 | 1 | `Unknown_5FB0C0` | `app/client/ui_registration.cpp:633` | untagged neutral name (D10) |
 | 1 | `Unknown88` | `app/client/ui_registration.cpp:641` | untagged neutral name (D10) |
 | 1 | `RegistrationUnknown5A8Struct` | `app/client/ui_registration.cpp:648` | untagged neutral name (D10) |
 | 1 | `Unknown5A8` | `app/client/ui_registration.cpp:648` | untagged neutral name (D10) |
-| 1 | `Unknown_57AC70` | `app/client/ui_registration.cpp:655` | untagged neutral name (D10) |
 | 1 | `Is_Unknown220` | `app/client/ui_registration.cpp:663` | untagged neutral name (D10) |
 | 1 | `Unknown_7863E0` | `app/client/ui_registration.cpp:673` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_registration.cpp:681` | untagged neutral name (D10) |
@@ -15994,8 +15905,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown248` | `app/client/ui_registration.cpp:1393` | untagged neutral name (D10) |
 | 1 | `Unknown_5F8520` | `app/client/ui_registration.cpp:1411` | untagged neutral name (D10) |
 | 1 | `Unknown_5F98C0` | `app/client/ui_registration.cpp:1426` | untagged neutral name (D10) |
-| 1 | `Unknown_57AD50` | `app/client/ui_registration.cpp:1431` | untagged neutral name (D10) |
-| 1 | `Unknown_57B1D0` | `app/client/ui_registration.cpp:1434` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/ui_registration.cpp:1441` | untagged neutral name (D10) |
 | 1 | `Unknown_5F9700` | `app/client/ui_registration.cpp:1443` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/client/ui_registration.cpp:1444` | untagged neutral name (D10) |
@@ -16023,8 +15932,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5F8EA0` | `app/client/ui_registration.cpp:2011` | untagged neutral name (D10) |
 | 1 | `Unknown_5F8F60` | `app/client/ui_registration.cpp:2036` | untagged neutral name (D10) |
 | 1 | `UnknownAC` | `app/client/ui_registration.cpp:2063` | untagged neutral name (D10) |
-| 1 | `Unknown_57B210` | `app/client/ui_registration.cpp:2093` | untagged neutral name (D10) |
-| 1 | `Unknown_57B000` | `app/client/ui_registration.cpp:2097` | untagged neutral name (D10) |
 | 1 | `Unknown_5FA0B0` | `app/client/ui_registration.cpp:2349` | untagged neutral name (D10) |
 | 1 | `Unknown_7D3570` | `app/client/ui_registration.cpp:2351` | untagged neutral name (D10) |
 | 1 | `Unknown2CC` | `app/client/ui_registration.cpp:2369` | untagged neutral name (D10) |
@@ -22624,15 +22531,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4A` | `programs/clientpoc/poc_world.cpp:113` | untagged neutral name (D10) |
 | 1 | `Unknown_79B9E0` | `programs/clientpoc/poc_world.cpp:132` | untagged neutral name (D10) |
 | 1 | `Unknown5DAE90Class` | `programs/clientpoc/poc_world.cpp:154` | untagged neutral name (D10) |
-| 1 | `Unknown9C` | `programs/clientpoc/poc_world.cpp:154` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `programs/clientpoc/poc_world.cpp:154` | untagged neutral name (D10) |
 | 1 | `Unknown5CE240Class` | `programs/clientpoc/poc_world.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown5CE700Class` | `programs/clientpoc/poc_world.cpp:156` | untagged neutral name (D10) |
 | 1 | `Unknown5CEDD0Class` | `programs/clientpoc/poc_world.cpp:157` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:184` | untagged neutral name (D10) |
-| 1 | `Unknown_5689D0` | `programs/clientpoc/poc_world.cpp:206` | untagged neutral name (D10) |
-| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:210` | untagged neutral name (D10) |
-| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:211` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:224` | untagged neutral name (D10) |
+| 1 | `Unknown_5689D0` | `programs/clientpoc/poc_world.cpp:214` | untagged neutral name (D10) |
+| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:218` | untagged neutral name (D10) |
+| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:219` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:232` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
@@ -22645,18 +22552,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:89` | untagged neutral name (D10) |
 | 1 | `Unknown656FF0Class` | `programs/clientpoc/poc_world3.cpp:24` | untagged neutral name (D10) |
 | 1 | `UnknownD0` | `programs/clientpoc/poc_world3.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `programs/clientpoc/poc_world3.cpp:37` | untagged neutral name (D10) |
-| 1 | `Unknown0D0` | `programs/clientpoc/poc_world3.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_57B480` | `programs/clientpoc/poc_world3.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown541DE0Class` | `programs/clientpoc/poc_world3.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `programs/clientpoc/poc_world3.cpp:50` | untagged neutral name (D10) |
-| 1 | `Unknown_542250` | `programs/clientpoc/poc_world3.cpp:52` | untagged neutral name (D10) |
-| 1 | `Unknown_542A10` | `programs/clientpoc/poc_world3.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown_542EE0` | `programs/clientpoc/poc_world3.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown6A2ED0Class` | `programs/clientpoc/poc_world3.cpp:61` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `programs/clientpoc/poc_world3.cpp:64` | untagged neutral name (D10) |
-| 1 | `Unknown_6A34E0` | `programs/clientpoc/poc_world3.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown_6A3C10` | `programs/clientpoc/poc_world3.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown541DE0Class` | `programs/clientpoc/poc_world3.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `programs/clientpoc/poc_world3.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_542250` | `programs/clientpoc/poc_world3.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_542A10` | `programs/clientpoc/poc_world3.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_542EE0` | `programs/clientpoc/poc_world3.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown6A2ED0Class` | `programs/clientpoc/poc_world3.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown00` | `programs/clientpoc/poc_world3.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_6A34E0` | `programs/clientpoc/poc_world3.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_6A3C10` | `programs/clientpoc/poc_world3.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `programs/clientpoc/poc_world4.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_466920Class` | `programs/clientpoc/poc_world4.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown688830Class` | `programs/clientpoc/poc_world4.cpp:75` | untagged neutral name (D10) |
@@ -24666,8 +24570,53 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `On_Back_Gadget_Moved` | `app/client/ui_chat_panel_base.h:40` | what it handles; NAME 1 [event, sender]: what the signal passes |
 | 2 | `std:` | `app/client/ui_chat_panel_base.h:44` | what 0x56DB20 stores |
 | 2 | `Closed` | `app/client/ui_chat_panel_base.h:45` | what the windows set it for |
-| 2 | `Selected` | `app/client/ui_combobox.h:53` | what 0x57AC70 / 0x57AD50 set |
-| 2 | `std:` | `app/client/ui_combobox.h:54` | what the rows show |
+| 2 | `Init` | `app/client/ui_combobox.h:34` | describes what it does |
+| 2 | `Set_Text` | `app/client/ui_combobox.h:35` | describes what it does; NAME 1 [text]: neutral |
+| 2 | `Hover` | `app/client/ui_combobox.h:38` | what slot +0x30 sets |
+| 2 | `Selected` | `app/client/ui_combobox.h:39` | what Update_Rows sets |
+| 2 | `Text` | `app/client/ui_combobox.h:41` | what it shows |
+| 2 | `Mesh` | `app/client/ui_combobox.h:42` | what Init reads the bone from |
+| 2 | `Width` | `app/client/ui_combobox.h:43` | what slot +0x30 compares x with |
+| 2 | `Bone` | `app/client/ui_combobox.h:44` | the bone index it holds |
+| 2 | `HoverOnly` | `app/client/ui_combobox.h:45` | what slot +0x30 does with it |
+| 2 | `Init` | `app/client/ui_combobox.h:62` | describes what it does; NAME 1 [owner]: what the second constructor passes |
+| 2 | `Update_Drop_Down` | `app/client/ui_combobox.h:64` | describes what it does |
+| 2 | `Update_Rows` | `app/client/ui_combobox.h:65` | describes what it does |
+| 2 | `Select` | `app/client/ui_combobox.h:66` | describes what it does; NAME 1 [index]: neutral |
+| 2 | `Select_Text` | `app/client/ui_combobox.h:67` | describes what it does; NAME 1 [text]: neutral |
+| 2 | `Toggle_Drop_Down` | `app/client/ui_combobox.h:68` | describes what it does |
+| 2 | `Add_Item` | `app/client/ui_combobox.h:69` | describes what it does; NAME 1 [text]: neutral |
+| 2 | `Add_Items` | `app/client/ui_combobox.h:70` | describes what it does; NAME 1 [items]: neutral |
+| 2 | `Clear_Items` | `app/client/ui_combobox.h:71` | describes what it does |
+| 2 | `Scroll_To_Selected` | `app/client/ui_combobox.h:72` | describes what it does |
+| 2 | `Enable` | `app/client/ui_combobox.h:73` | describes what it does; NAME 1 [on]: neutral |
+| 2 | `Close_Drop_Down` | `app/client/ui_combobox.h:74` | describes what it does |
+| 2 | `Set_Label` | `app/client/ui_combobox.h:75` | describes what it does; NAME 1 [text]: neutral |
+| 2 | `Has_Label` | `app/client/ui_combobox.h:76` | describes what it does |
+| 2 | `Hide_Arrow` | `app/client/ui_combobox.h:77` | describes what it does; NAME 1 [on]: neutral |
+| 2 | `Is_Pointer_Over` | `app/client/ui_combobox.h:79` | describes what it does |
+| 2 | `Get_Item_Text` | `app/client/ui_combobox.h:81` | describes what it does |
+| 2 | `Show_Selected` | `app/client/ui_combobox.h:82` | describes what it does |
+| 2 | `Mesh` | `app/client/ui_combobox.h:84` | its type and use |
+| 2 | `Anim` | `app/client/ui_combobox.h:88` | its type and use |
+| 2 | `WidthAnim` | `app/client/ui_combobox.h:89` | what Init sets its frame from |
+| 2 | `DropAnim` | `app/client/ui_combobox.h:90` | what Update_Drop_Down sets its frame from |
+| 2 | `Width` | `app/client/ui_combobox.h:92` | what Init does with it |
+| 2 | `MaxRows` | `app/client/ui_combobox.h:93` | what Init and Add_Item do with it |
+| 2 | `NumRows` | `app/client/ui_combobox.h:94` | what Add_Item counts |
+| 2 | `SelectKey` | `app/client/ui_combobox.h:96` | when the owner gets it |
+| 2 | `ToggleKey` | `app/client/ui_combobox.h:97` | when the owner gets it |
+| 2 | `State` | `app/client/ui_combobox.h:98` | what Update_Drop_Down switches on |
+| 2 | `RowsShown` | `app/client/ui_combobox.h:99` | what Update_Drop_Down animates |
+| 2 | `Arrow` | `app/client/ui_combobox.h:100` | its sub-object's name |
+| 2 | `TextField` | `app/client/ui_combobox.h:101` | its bone's name |
+| 2 | `Slider` | `app/client/ui_combobox.h:102` | its type |
+| 2 | `TopItem` | `app/client/ui_combobox.h:103` | what Update_Rows reads |
+| 2 | `Selected` | `app/client/ui_combobox.h:104` | what Select / Select_Text set |
+| 2 | `std:` | `app/client/ui_combobox.h:105` | what the rows show |
+| 2 | `std:` | `app/client/ui_combobox.h:106` | what they are |
+| 2 | `std:` | `app/client/ui_combobox.h:107` | what Set_Label shows |
+| 2 | `ArrowHidden` | `app/client/ui_combobox.h:108` | what Hide_Arrow sets |
 | 2 | `SoundManager` | `app/client/ui_cpit.cpp:394` | what it holds |
 | 2 | `Object` | `app/client/ui_cpit.h:46` | what it holds |
 | 2 | `Node` | `app/client/ui_cpit.h:47` | eff_o.h's watch nodes' |
@@ -27705,9 +27654,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `As_Space_Client` | `app/client/ui_cinfo.cpp:25` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UICinfoClass` | `app/client/ui_cinfo.h:15` | class-from-file (D24) for app\Client\ui_cinfo.cpp |
 | 3 | `Get_Client` | `app/client/ui_cinfo.h:31` | the FAIL_IF's |
-| 3 | `GadgetClass` | `app/client/ui_combobox.cpp:20` | class-from-file (D24) for app\client\gadget.cpp |
-| 3 | `ui_combobox.h` | `app/client/ui_combobox.h:4` | header name by convention (D24) from the client's ui_combobox.cpp |
-| 3 | `UIComboBoxClass` | `app/client/ui_combobox.h:17` | class-from-file (D24) |
+| 3 | `ui_combobox.h` | `app/client/ui_combobox.h:5` | header name by convention (D24) from the client's ui_combobox.cpp |
+| 3 | `UIComboBoxClass` | `app/client/ui_combobox.h:50` | class-from-file (D24) |
+| 3 | `AttachBone` | `app/client/ui_combobox.h:85` | the assert's |
 | 3 | `CtrnGadgetClass` | `app/client/ui_cpit.cpp:206` | ctrngadg.h's (D24 class-from-file) |
 | 3 | `SoundManagerClass` | `app/client/ui_cpit.cpp:389` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `BridgeInterfaceClass` | `app/client/ui_cpit.cpp:1244` | class-from-file (D24) for bridge_int.cpp |
