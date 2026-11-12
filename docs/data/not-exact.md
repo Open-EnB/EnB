@@ -7,11 +7,12 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-747 entries in 233 files.
+754 entries in 239 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/audio/soundlib.cpp:157` | `SoundDefClass::SoundDefClass` | marker | NOT EXACT: inline budget (explain.py: 66 calls vs 67), reserve inlines size() and calls _Destroy where the client calls size() and inlines _Destroy; one more string destructor called |
+| `app/client/acticon.cpp:78` | `ActIconClass::Unknown_AC` | marker | NOT EXACT (0.73, attempts.py 0x6762B0): the client keeps one 12-byte temporary for both colour slots (+0x9C / +0xA0) and the UV offsets (frame 0x10); ours gives slot +0x9C its own (frame 0x1C) |
 | `app/client/aux_roots.cpp:2` | `ClientObjectClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Unknown_Hex_String` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |
 | `app/client/aux_roots_send.h:4` | `Type_Name` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
@@ -185,6 +186,7 @@ edit the comments in the code, not this file.
 | `app/client/gd_inv_slider.cpp:118` | `Unknown669FB0Class::Unknown_66A4E0` | marker | NOT EXACT: functional from the pseudocode (D64) 0x66A4E0 |
 | `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
+| `app/client/gd_selct.cpp:79` | `SelectGadgetClass::Unknown_2C` | marker | NOT EXACT (0.73, attempts.py 0x66D1E0): the client pushes edi with ebp after the first test and loads the event after them; the rest matches |
 | `app/client/gd_text_editor.cpp:162` | `TextEditorGadgetClass::Set_Render_Obj` | marker | NOT EXACT: registers (client this esi, it ebp, line edi with a home at +0x24; here ebx, edi, esi) and the slots of first and height swapped @0x671CB0 |
 | `app/client/gd_text_editor.cpp:560` | `TextEditorGadgetClass::Unknown_6732F0` | marker | NOT EXACT: ebx and ebp swapped (length / line), one fcomp scheduled after the column's copy @0x6732F0 |
 | `app/client/gd_text_editor.cpp:612` | `TextEditorGadgetClass::Unknown_6735A0` | marker | NOT EXACT: registers (the client hoists the load of Client between the test and the branch; x and y in edx and ecx) @0x6735A0 |
@@ -212,6 +214,11 @@ edit the comments in the code, not this file.
 | `app/client/item/client_item_property_builder.cpp:82` | `ClientItemPropertyBuilderClass::Unknown_522860` | marker | NOT EXACT: 0x522860 (functional, 0.61: the same calls, strings and asserts in order; the frame is 0xC smaller, VC6 inlines string assigns in other cases, and case 35 releases its property through the RefCountPtr the flags use, 0x529130) |
 | `app/client/item/client_item_property_builder.cpp:812` | `ClientItemPropertyBuilderClass::Unknown_527F40` | marker | NOT EXACT: 0x527F40 (0.78: the same code; the client pushes esi at entry, ours after the FAIL_IF, and its frame is 8 bytes bigger) |
 | `app/client/item/client_item_property_builder.cpp:883` | `ClientItemPropertyBuilderClass::Unknown_5285A0` | mention | NOT EXACT. The callees in files the tree does not have yet are declared in client_item_property_builder.h (interim, D137). |
+| `app/client/item/client_item_property_special_level_requirement.cpp:71` | `ClientItemPropertySpecialLevelRequirementClass::Get_Lines` | marker | NOT EXACT: 0x530AA0 (frame: the same calls and strings in order, but the client's frame is 0x14 smaller and its temporaries sit in other slots; one vector per branch, each returned) |
+| `app/client/item/client_item_property_special_level_requirement.cpp:91` | `ClientItemPropertySpecialLevelRequirementClass::Is_Usable` | marker | NOT EXACT: 0x531080 (inline-budget: the client calls UnknownRTTIClass<DeltaTemplateClass<int> >::Cast out of line, 0x531590, and compares Value < Level after reloading this; the rest, asserts and lines match) |
+| `app/client/item/client_item_property_special_profession_requirement.cpp:102` | `ClientItemPropertySpecialProfessionRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52D900 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines) |
+| `app/client/item/client_item_property_special_race_requirement.cpp:108` | `ClientItemPropertySpecialRaceRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52E500 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines) |
+| `app/client/item/client_item_property_special_skill_requirement.cpp:88` | `ClientItemPropertySpecialSkillRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52F010 (inline-budget: the client calls UnknownRTTIClass<DeltaItemArrayClass<DeltaSkillClass> >::Cast out of line, 0x52F990 (emitted in this object); ours inlines it; the rest, asserts and lines match) |
 | `app/client/local_interface_sort.cpp:56` | `InterfaceSortClass::InterfaceSortClass` | marker | NOT EXACT: inline-budget (0.48; the client's case 2 calls RefCountPtr's assignment out of line, 0x6B55D0, EH state 5) 0x6E0E80 |
 | `app/client/mainview.cpp:157` | `MainViewClass::MainViewClass` | marker | NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360 |
 | `app/client/mainview.cpp:487` | `MainViewClass::Unknown_50D060` | marker | NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060 |
