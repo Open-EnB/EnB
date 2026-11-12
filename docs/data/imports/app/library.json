@@ -1,27 +1,5 @@
 {
  "base": "reconstructed",
- "compile_errors": [
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(142) : error C2440: '=' : cannot convert from 'class CheckBoxGadgetClass *' to 'class UIManuCheckButtonClass *'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(156) : error C2027: use of undefined type 'UIManuCheckButtonClass'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(156) : error C2227: left of '->Unknown_7E8030' must point to class/struct/union",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(158) : error C2027: use of undefined type 'UIManuCheckButtonClass'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(158) : error C2227: left of '->Unknown_40' must point to class/struct/union",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(159) : error C2027: use of undefined type 'UIManuCheckButtonClass'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(159) : error C2227: left of '->Unknown_8C' must point to class/struct/union",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(221) : error C2027: use of undefined type 'UIManuCheckButtonClass'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(221) : error C2227: left of '->Checked' must point to class/struct/union",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(228) : error C2027: use of undefined type 'UIManuCheckButtonClass'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(228) : error C2227: left of '->Checked' must point to class/struct/union",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(244) : error C2027: use of undefined type 'UIManuCheckButtonClass'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(244) : error C2227: left of '->Checked' must point to class/struct/union",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(257) : error C2027: use of undefined type 'UIManuCheckButtonClass'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(257) : error C2227: left of '->Checked' must point to class/struct/union",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(270) : error C2027: use of undefined type 'UIManuCheckButtonClass'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(270) : error C2227: left of '->Checked' must point to class/struct/union",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(283) : error C2027: use of undefined type 'UIManuCheckButtonClass'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(283) : error C2227: left of '->Checked' must point to class/struct/union",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(382) : error C2027: use of undefined type 'UIManuCheckButtonClass'",
-  "e:\\build\\beta\\G\\app\\client\\ui_option_font.cpp(382) : error C2227: left of '->Checked' must point to class/struct/union"
- ],
+ "compile_errors": [],
  "totals": {}
 }
