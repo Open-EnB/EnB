@@ -371,7 +371,7 @@ public:
 	unsigned Get_Total_Allocated_Size();
 	unsigned Get_Total_Allocation_Count();
 	unsigned Get_Total_Actual_Memory_Usage() { return ActualMemoryUsage; }
-	void Unknown_Reset_Statistics();	unsigned Get_Allocated_With_Malloc() { return AllocatedWithMalloc; } unsigned Get_Allocated_With_Malloc_Count() { return AllocatedWithMallocCount; } unsigned Get_Unknown_E20() { return UnknownE20[0]; } unsigned Get_Unknown_E28() { return UnknownE20[2]; } unsigned Get_Fast_Allocated_Size(); unsigned Get_Fast_Allocation_Count();	// E&B (0x9DADA0; the rest: frameint.cpp)
+	void Unknown_Reset_Statistics();	unsigned Get_Fast_Allocated_Size(); unsigned Get_Fast_Allocation_Count(); friend class FrameInterfaceClass;	// E&B (0x9DADA0; the rest: frameint.cpp)
 
 	static FastAllocatorGeneral* Get_Allocator();
 
@@ -677,4 +677,6 @@ void main(){
 //       (0xE14) is reduced under the lock at 0xE04 (0x9DAFFA)
 // EnB: class FastAllocatorGeneral (line 374 at the freeze): E&B's app reads the malloc counters and the latched
 //       0xE20 / 0xE28 directly and sums the buckets without the malloc share (frameint.cpp 0x53EB00; the two sums 0x53F200
-//       / 0x53F250 are defined in frameint.cpp, where the client has them): getters, names unknown (D10 neutral for the latched pair)
+//       / 0x53F250 are defined in frameint.cpp, where the client has them): FrameInterfaceClass is a friend and reads the
+//       members itself; four inline getters here instead moved wwprofile.cpp's Log_Intermediate 0x9EBF20 frame
+//       (even as plain declarations; tryv2, G1 2026-11-12)
