@@ -230,13 +230,18 @@ unless `--lever` cites a new row of the table in §3.1.2.
   variants show false losses and can look exact while losing later ones. In an EA-derived file a comment
   line above an assert loses its pair: E&B notes go in the end-of-file `// EnB:` block (D211). Keep the
   line count (techniques: "Keeping `__LINE__`" in §3.1.2) and check: `git diff --numstat`, then every
-  FAIL_IF / G_ASSERT line against HEAD and the client's pushed line numbers, not only the pair count.
+  FAIL_IF / G_ASSERT line against HEAD and the client's pushed line numbers, not only the pair count. A function that goes `none` after a `#define` or
+  guard line is removed or added above it is this, not inline depth: compare the push immediates (`client.py dis`,
+  our .obj) before looking for an inline cause; a blank or comment line in its place keeps every line.
 * **Re-verify the whole file after a change:** shrinking a function (or wrapping a find in an early-return
   helper) can make it small enough to inline into callers that then stop matching; added code can make the
   file's other near misses exact (re-verify its NOT EXACT functions); a header with inline bodies, a changed
   macro (FAIL_IF's form) or an unused declaration in a widely included header (duration.h,
   delta_template.h) moves the budget in files that never use it. Try such edits in a draft and run a full
-  verify; compare pairs over every file that includes the header.
+  verify; compare pairs over every file that includes the header. Whether a header HAS an inline function at all (not
+  its name) can flip register allocation in other files that include it (a forwarder removed from ui_mesh.h
+  changed one constructor's registers; so did removing an accessor): `appfile.py match` compiles a draft apart
+  from the tree and can say exact where the tree build is not, so the verify decides.
 
 #### 3.1.2 Look up by symptom
 
@@ -394,6 +399,15 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Inline budget: more levers** (the model and the dead-read rule are in §3.1.1)
 
+* **A function with no caller in the client is its neighbour's inline layer:** draft its body as that layer, not as a
+  function of its own (land.cpp's Load_Prototype_Names). **Dead reads act by their total**, not their place: sweep the
+  count of identical reads. **Your own statement mass moves the budget both ways:** statements added to a function
+  that is itself inlined can stop an inline in its caller, and fewer can start one.
+* **Levers that closed inline-budget and order near misses elsewhere:** step with `Next_Valid()`; an unused argument
+  for a `ret N` mismatch; increments inside conditions; the object read into a local before the call; `clear()` for
+  `erase(begin(), end())`; the member passed instead of the local; the client's own member as the missing inline
+  layer; plain `RefCountPtr` elements instead of a one-member struct; an inline overload layer; dead reads in a shared
+  inline constructor; a case's own copy of the next case's body.
 * **An extra inline layer moves the budget:** one no-code inline layer (a handle method, a file-static
   forwarder, a qualified sibling call, a template like SignalMap's `connect`) leaves one more nested call
   out of line; writing `it._Inc()` out removes a layer. One layer left exactly the client's first operator=
@@ -593,6 +607,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Shape: returns, tails, loops, switches**
 
+* **Shape forms seen once:** a shared tail after a switch merges a case's ending: one `return` per case keeps them
+  apart; two `return(call())` statements give the tail-merged form; return by value gives a dead store of 0; `break`
+  against `if` can differ by one jump target, visible only in the bytes; a derived-to-base reference conversion is
+  null-tested (`test` / `je`), so pass the form the client passes; a strip width written as a conditional
+  expression in the call argument.
 * **Bool returns:** `return x ? true : false;` drops the `xor eax,eax` before setne / sete and the `mov al,dl`
   (`!= 0`, `(bool)`, `!empty()` keep them); `return(x->Active ? false : true)` gives `mov al / test / sete`,
   `!x->Active` adds `xor eax, eax`. `p ? p->f() : false` inside an && loads the member pointer straight into
@@ -708,6 +727,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Constructors, destructors, vtables**
 
+* **Constructor forms seen once:** a vtable store after the member initialisers says whose `+0x04` member it is (a
+  listener base of 4 bytes, the subclass's own member after it); a file-static pointer global gives the client's
+  release sequence, an extern one does not.
 * **Reading construction from the listing:** a vtable store after the member stores is an init list (every
   member in it, declaration order; `Member(NULL)` there stores before the vptrs); `esi = this + 8` is a struct
   assigned from a temporary; a ctor moved out of a header keeps its stores in the body; a callback's vtable
@@ -779,6 +801,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Literal, floats**
 
+* **Floats through integer registers or the FPU:** an int-register copy of a float member means a reference
+  accessor or a plain assignment; an inline accessor is the form when the client copies the float through the FPU
+  (`fld` / `fstp`); `c + 0, 0 - s` is `Matrix3D::Rotate_Z` on an identity; `WWMath::Sin` / `Cos` are asm inlines; a
+  `Vector3` with Z 0 stands in for a `Vector2`, and a `Vector3` temporary inside a `new` expression.
 * **x87 order and constants:** parenthesise each product (`(width * u) + left - center`, `(keep * U) +
   (rest * W)`); `(a*b)*c` differs from `a*b*c`; `-480.0f * y + 240.0f` compiles to fsubr, `(-480.0f * y) +
   240.0f` to fmul / fadd; VC6 moves a literal summand to the end of a sum (a static const or float local keeps
@@ -1068,7 +1094,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A member that ignores `this` looks like a static function in the disassembly** (item_info.cpp): check that
   its callers pass `this` in ecx before declaring it static.
 * **A member rename must grep the derived classes' files too** (ChatPanelUIBase): a derived class in another
-  file keeps using the old name and fails there, not in the file you built.
+  file keeps using the old name and fails there, not in the file you built. The same holds for files landed on the
+  run branch after yours was cut: after the rebase they show as N lost outright (their compile fails): grep the
+  rebased tree for the old names. `udpreplay` compiles files (effect_description.cpp, item_effect.cpp) that neither
+  verify's app build nor the link gate's two programs reach.
 
 **Classes, vtables and layout**
 
@@ -1088,7 +1117,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A renamed vtable slot:** an inline compatibility wrapper makes callers inline it instead of the client's
   `call dword ptr [eax + slot]`: change the callers. Retyping a base's `void Unknown_XX()` virtuals gives
   C2555 in every stand-in subclass that redeclares placeholders: grep descendants first
-  (`.work/gc/derived.py`).
+  (`.work/gc/derived.py`). `tools/re/slotrename.py` renames a slot and its uses across the classes; a use it cannot
+  type stays marked UNRESOLVED (finish by hand); mind CRLF files.
 * **Client-style virtual calls on members:** a call through the object's own class (reference included) is
   devirtualised; cast to the base class reference (`((DeltaClass &)EndTime)`, `((VectorClass<T>
   &)Entries).Clear()`).
@@ -1180,7 +1210,9 @@ are in 3.0.
 * **Verify compiles the tree as it is:** chain a tree writer and verify with `&&` (a failed writer leaves verify
   compiling new headers with old sources), and a worktree script must `git checkout -- .` before `checkout
   --detach`, or the checkout aborts and the next verify runs on a stale tree.
-* **The importer lock is global and not first come, first served:** every verify, report.py, auxpad.py /
+* **The importer lock is global, first-come among new-code waiters (D238, tools/vc6/lockq.py, `importer.py
+  lock-status`):** a ticket untouched for 120 s loses its place, and a worktree made before that code (or before any
+  lock change) waits without a ticket and starves behind the queue: rebase it or copy the lock files. Every verify, report.py, auxpad.py /
   sendpad.py sweep and `wt.py bring-over` takes it, and with 6-9 builders a verify waited 20-50 minutes; the
   default wait (600 s, vc6lock, `ENB_LOCK_WAIT`) gives up. Pass `--lock-wait 6000` to verify.py and
   `wt.py bring-over` (wt.py's default is 3000; it passes it on to its report.py step), set `ENB_LOCK_WAIT` for auxpad.py, iterate with the lock-free
@@ -1189,7 +1221,9 @@ are in 3.0.
   also take no lock), and run the full verify once per batch of gains. A queued verify compiles the
   tree as it is when it starts, not when it was launched. Never wrap verify or an `auxpad.py` sweep in a shell
   `timeout`: it kills the job while it waits, orphans a lease named importer-PID (3.5) and can leave a pad
-  variant in aux_roots.cpp.
+  variant in aux_roots.cpp. A verify started with `&` inside a foreground call is the same orphan. A pad sweep takes
+  the lock once per value unless `--hold` (once for the sweep, released in a finally); `sendpad.py --first-window`
+  tests the current pad first and stops at a run of three full values (it saves no per-value sets).
 * **Verify scratch is private only with an agent:** with `--agent NAME`, `ENB_AGENT`, or inside a wt.py worktree
   (automatic) verify writes `.work/<agent>/tmp/enb_import/verify-<lib>`; a main-tree run without an agent uses
   `%TEMP%\enb_import`, which every other such run overwrites (a new file's .obj vanishes minutes later). Copy the
@@ -1244,10 +1278,14 @@ are in 3.0.
   caller's pair loses it too (D66 (vii)); anything that rewrites a file's `in_tree` without verify can leave its
   `tiebreak` list stale. pairs_cmp's "with its caller" is approximate (it sees no call edges); its output is one
   labelled list per line (`gained tie-break` / `lost tie-break` follow `gained` / `lost`).
+* **One tree file can be several client objects, and objmatch's own-range rule assumes one:** a file that spans
+  objects (land.cpp: three) credits across the boundaries wrongly. Splitting it regained functions and moved the
+  rest by D66 between the files (interim names, D137).
 * **Shared COMDATs move range credits (D114(b)):** a new file that instantiates another file's inline COMDATs
   makes them "held by two objects", and the other object's range stops widening: its range-credited COMDATs near
   the boundary are lost outright. Name them in `tools/re/symbols_named.json` from structural evidence (unwind
-  funclets' `add ecx, member; jmp`), then `symbols.py --apply-named` (P-IS-1). Crediting a COMDAT to every holder
+  funclets' `add ecx, member; jmp`), then `symbols.py --apply-named` (P-IS-1). objmatch's tie-break never proposes a
+  template destructor whose only callers are unwind funclets: name those the same way (no source change). Crediting a COMDAT to every holder
   lets the later object's range reach over the first object's code (the linker keeps the copy with the object it
   meets first): widen only the nearest holder (P-IS-2). A new template instance (e.g. MemberCallback `??_G`
   copies) can propose an address in objmatch's range round and take another function's tie-break (P-CW1-1).
@@ -1282,7 +1320,8 @@ are in 3.0.
   whichever copy the file's range reaches first. So: one left unpaired is a range question (check the .obj for
   its `_$E` before editing includes); when the client's object holds two copies and ours compiles one, moving the
   range (a new function lower in the file) shows the other as lost outright: not a code loss, the user's ruling
-  (D196, D197; see accepted corrections below); a copy inside a file's window is no placement evidence (3.3).
+  (D196, D197; see accepted corrections below); a copy inside a file's window is no placement evidence (3.3). A guarded initialiser marks an object's end, and its
+  absence from the client's object says which headers that file never saw (before adding an `#include`).
   Other dynamic initialisers (PermStringInit's `$E70` / `$E68` pairs) and implicit destructors emitted out of
   line for funclets need D99 rows.
 * **Accepted corrections must be on master, and on the target branch, before landing (D202):** verify_pr.py and
@@ -1404,13 +1443,19 @@ are in 3.0.
   nothing for a demangled name, for a function without a marker, or on a tree file (copy it to a draft): use
   `objdiff.py .work/<agent>/appfile/obj/X.obj MANGLED ADDR` (the name from `objdiff.py --list`). Constructors
   can fall outside `appfile.py show`'s `__FILE__` windows. mark.py's `NAME=ADDR` can't name `operator=`.
+* **appfile.py invocation:** `--pool` takes no count; a marker is exactly `// @0xADDR` on its own line; a header copy
+  placed beside the draft is not used (the tree's header is); parallel runs under one agent name share one objects
+  directory, so give each run its own `--agent`; `-D V=1` breaks `<utility>`; the markers over blank lines count the
+  blank lines; a static generated stand-in is reported "defined but not compiled"; `explain.py` wants appfile's own
+  object path (`.work/<agent>/appfile/obj/X.obj`).
 * **appfile.py PREFIX means "ours is a prefix of the client's measured size":** the client size runs to the next
   verified function start, so it can include int3 padding after the client's `ret`, inter-object padding, or a
   file-local static / initialiser stored without a thunk (the tools' function starts lack those). Verify counts
   such a function exact, and verify's count decides; check the disassembly (`client.py dis`) for the padding or
   the following symbol. A start missing from the function starts makes match report the previous function as
   PREFIX: give it its own marker. Example: 0x81EEA0, 402 bytes, padded to 0x81F0DF. The last function before a
-  PermStringInit static reports PREFIX the same way, and REL shows on float immediates.
+  PermStringInit static reports PREFIX the same way, and REL shows on float immediates. A trailing jump table or `$E` initialiser makes PREFIX mean exact; conversely
+  appfile can say EXACT where verify does not (a jump table's bytes, a stale callee name in symbols.json).
 * **explain.py's class can be wrong:** it says inline-budget for a function followed by a static initialiser (read
   objdiff first), and register-only where the lever was an inline-budget one (an `x.clear()` two layers down).
 * **appfile.py false exacts:** one template compiled from two files (with and without an EH frame) can match at
@@ -1597,6 +1642,14 @@ Builds and links (every program: clienttest, udpreplay, kerneltest, VIDTEST, the
 
 Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
 
+* **e2e.py (D237, tools/harness/README.md):** every POC check builds `--lib binkmovie` before the link, else `Play`
+  is a generated stand-in and the start-up movie runs to its end; `build.py` has no `--lock-wait`; a trigger file
+  must be renamed into place; input is tagged 0x5043 and `ENB_POC_INPUT_TAG=1` drops untagged input.
+* **Retiring a stand-in must not take its neighbours with it** (deleting a hand stand-in from stubs/app_stubs.cpp
+  also removed the CRT wrappers beside it): gen_stubs' generated stand-ins return null, `standins.py check` and the
+  link gate pass, and only a POC run shows it (a crash on a null inside the real function that copies it). Run
+  the e2e set after every landing that retires a stand-in (D237). The reverse: a stand-in for a function written
+  later becomes LNK2005; delete it in the commit that adds the function.
 * **A landed app definition collides with stand-ins** in three places: programs/clientpoc/poc_standins.cpp /
   poc_world*.cpp, stubs/app_stubs.cpp and tests/clienttest/client_stubs.cpp. `python tools/vc6/standins.py
   check` finds them (wt.py bring-over refuses on it); a stand-in that must stay gets `// standins: keep (why)`
@@ -1682,7 +1735,9 @@ clienttest (`python tools/harness/clienttest.py build|run`):
   `--update` after checking the difference.
   A real class that indexes a sub-object through a zeroed fake crashes (0xC0000005; DebrisInterfaceClass +0x58 indexes `Fields[Mode]`):
   grow the fake with one zeroed sub-object.
-* **linkgate and clienttest build only committed files** (commit, then run them); clienttest has its own library list: a commit
+* **linkgate, clienttest and `build.py` build only tracked files** (`git add -N` a new file or commit, then run them;
+  linkgate's occasional sync.tar failure passes on a rerun; run `linkgate.py check --tree` after any rebase of a
+  header-changing branch); clienttest has its own library list: a commit
   that adds a Win32 import (ShellExecuteExA) fails linkgate with an unresolved `__imp__...` until the library (SHELL32.LIB) is added to clienttest.py and
   the program's build.py entry. ATL headers compile in the VMs. A virtual destructor in a layout header breaks the
   harness stand-ins: run linkgate after the layout commit, before the first verify.
@@ -1797,6 +1852,9 @@ wt.py:
   `.work/`. It refuses a branch with unlanded commits unless `--force` (also needed when files were copied
   in); `wt.py list --unlanded` lists them; `--delete-branch` drops wt/NAME. Never rebase a worktree by hand:
   `wt.py rebase ID` regenerates the generated files and stops on any other conflict (`--continue` or abort).
+
+* **A script that reads and writes one file in one expression empties it** (open for write before the read ran):
+  read into a variable first.
 
 attempts.py and names.py:
 
@@ -1975,6 +2033,8 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 #### duration.h / delta_template.h
 
+* A member added to the DeltaItemArrayClass template cannot be padded (no send pad restores sclient's addresses):
+  put it on the base DeltaCompoundClass (`Get_Size()`, from the client's FAIL_IF texts).
 * Any change, even an unused declaration, flips aux_roots' 8 inline-budget pairs and slot_data_render
   0x6A7C00: draft and full verify first.
 
@@ -2035,8 +2095,16 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   displacements, 0x46D6B0); `extra` declared in its else branch made Apply_Colors exact; `float y` for v2.Y
   and v3.Y made Get_Triangles 0x465D30 exact.
 
+#### mv3dview.cpp / mv3dsnd.cpp / meshsnd.cpp / mclient.cpp
+
+* Four objects: mclient.obj 0x7EC3E0-0x7ED140 (the "task helper" 0x7ECC80 is inside it), meshsnd.obj
+  0x7ED150-0x7EDCA0, mv3dsnd.obj 0x7EDCB0-0x7EEF50, mv3dview.obj 0x7EEF60-0x7F0F50. asserts.txt credits
+  'movie3d.ini' to mv3dsnd.
+
 #### nav_list_builder.cpp
 
+* A POD in a vector whose `insert` helpers are "multiple" wants a user copy constructor (NavLinkStruct's explicit
+  one gave 0x7B92A0 / 0x7B95E0 / 0x7B9630 / 0x7B9670).
 * 0x7B7EF0 is exact only with the exact text of the headers it includes (client.h, sclient.h -> ui_mesh.h);
   any change swaps two stack slots, and its two vector destructors (0x7B8ED0, 0x7B8F10) then lose their caller
   among 174 identical copies. Under D203 that loss is accepted: name it in the commit and record it in
@@ -2081,6 +2149,9 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 #### sclient.cpp / sclient.h / client.h
 
+* A class sclient.cpp newly sees whole (six audio classes; BridgeInterface's enums and uncalled members) can leave
+  no pad window: BridgeInterface's first answer was a member guard in the header; the unguarded form worked once
+  its deleted `#define` lines became blank lines (a removed line costs `__LINE__`). sendpad's "no value" line reads as if the pad moved; appfile is no predictor for sclient's pad.
 * client.h's partial EffectObjectClass clashes with eff_o.h (C2011): include eff_o.h before client.h /
   sclient.h. Including auxdata.h in sclient.cpp breaks kv_pair.h's Type_Name overloads (C2665; blocks
   0x750B60). Headers sclient.cpp includes take ChatPanelUIBase from ui_chat_panel_base.h, not ui_chat_panel.h;

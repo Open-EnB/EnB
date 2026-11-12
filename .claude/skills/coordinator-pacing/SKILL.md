@@ -191,11 +191,28 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   (`tools/vc6/sendpad.py --watch-from <base>`: a plain sweep takes its watch set from HEAD's ledger, which already
   recorded the loss, and picks a wrong value), or land a pad-neutral branch first. Every later branch leaves the pad
   uncommitted and the landing retunes it.
-- **The importer lock is the limit on parallel builders, not memory:** it is not first-come (a verify waited 50 minutes
-  while later ones were served), a waiting verify keeps its VM, a sendpad sweep holds it 8 to 26 minutes, and report.py
-  takes it too (it gives up after 600 s: `--lock-wait`). With six builders a verify cost 30 minutes. Briefs should
-  point at the lock-free loops (workflow.md §3.4: `appfile.py match --pool`, `build.py --pool 1 --allow-dirty` +
-  explain.py) and one verify per commit; keep a slot of lock time for the landings from two hours before the drain.
+- **The importer lock is the limit on parallel builders, not memory:** since D238 it is first-come among waiters with the
+  new code (tools/vc6/lockq.py tickets; `importer.py lock-status`; a ticket untouched for 120 s loses its place). A
+  worktree made before a lock change has the old code, waits without a ticket and starves behind the queue: rebase it, or copy the lock files in uncommitted and restore them before its report. A waiting
+  verify keeps its VM, and report.py takes the lock too (it gives up after 600 s: `--lock-wait`). With six builders a
+  verify cost 30 minutes. Briefs should point at the lock-free loops (workflow.md §3.4: `appfile.py match --pool`,
+  `build.py --pool 1 --allow-dirty` + explain.py) and one verify per commit; keep a slot of lock time for the landings
+  from two hours before the drain.
+- **A landing's pad sweep holds the lock for the whole sweep** (`sendpad.py` / `auxpad.py --hold`, and
+  `--first-window` for the send pad: the current pad first, then outward). Without `--hold` a sweep re-queued per
+  value behind a round of builders (the landing had to be stopped). It saves no per-value sets
+  JSON, so the match audit's class 1 needs a full sweep now and then. **Builders run no pad sweeps** (briefs say so):
+  a loss of only the three send pad addresses (0x758210, 0x702240, 0x74D990) is the pad, and the landing's retune
+  confirms it. The lone-file sweep and the full verify can disagree for a branch (the audio branch: a window found,
+  the verify after it still lost a pad address): the landing refuses that branch.
+- **Run `linkgate.py check --tree` after any rebase of a header-changing branch** (the rebase's verify builds app
+  only). A rename in one branch breaks files landed meanwhile that call the old names: it shows as "N lost outright"
+  after the rebase; grep the rebased tree for the old names. A rebase stopped at a conflict keeps its start-time base;
+  generated-file conflicts stay UU until `--continue`; a rebase whose verify hit compile errors leaves the generated
+  files unregenerated; two branches' rows in tools/re/symbols_named.json conflict (abort the rebase cleanly).
+- **After every landing that retires a stand-in run the end-to-end smoke set** (the checker: clienttest, udpreplay,
+  `e2e.py run`); POC checks build `--lib binkmovie` first. The link gate and the stand-in check pass when a
+  generated null-returning stand-in replaced a hand one next to the retired one; only the POC run shows it.
 - **Stacked builders (`--base wt/P`) pay a rebase with its own verify** after P lands, and conflict when another landed
   branch touched the same file (a shared header's users): prefer landing P first when the lock is free.
 - **A `wt.py rebase` record goes stale when another branch lands after it** (the next bring-over refuses the branch
@@ -209,6 +226,7 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   `.work/log/sendpad.log` for the values where 0x758210, 0x702240 and 0x74D990 are all exact, and set the middle of that window.
 - **A worktree with uncommitted generated files (names-review.md, imports.md) makes the lander refuse at step 1:**
   discard them (`git checkout -- FILE`); the landing regenerates them.
+- **A finished subagent (lander, checker) can keep re-sending its report:** stop it; the landing is intact.
 - **A lander that hands back while its rebase or verify still runs cannot report a second time** (the harness refuses
   it): read `.work/log/land-ID.log`'s `landed:` line.
 - **After a host reboot:** the pool VMs are Off and start on lease; run `vc6.py discover`, resume cut-off builders from
@@ -231,7 +249,8 @@ PRs and the verify service:
   share `.work/wt/prN.vf`: the second drops the first's worktree mid-build and both fail (reported once; not
   rechecked against verify_watch.py). verify_pr.py refuses to run off origin/master: run it from
   `.work/wt/verifier`.
-- **A lease named `importer-<pid>` with no holder pid may be live** (the hosted verify: verify_watch.py ->
+- **A stopped lander, a killed verify or a `TaskStop` on a sweep leaves `importer-<pid>` (or `appfile-<pid>`)
+  leases:** check the pid, then release. **A lease named `importer-<pid>` with no holder pid may be live** (the hosted verify: verify_watch.py ->
   verify_pr.py -> verify): check the pid's command line (`tasklist`, `Get-CimInstance Win32_Process`) before
   releasing a lease you did not take.
 
@@ -256,6 +275,8 @@ Stop times, launchers and POC checks:
   coord). `clientpoc.py clean --all` / `--older HOURS` unlinks instances' junctions into ClientPOC\Data and keeps
   an instance whose client.exe still runs. For character select in the 44 s input3-quit replay, shoot at ~290000
   frames, not 2400 (menus run ~7,000 Presents a second).
+- **`wt.py remove NAME` leaves the `wt/NAME` branch behind** (add `--delete-branch`); `build.py link --program
+  clientpoc` deploys to C:\EnBDevelopment\ClientPOC\release.
 - **agy:** `--mode auto` is not available on the account (`--dangerously-skip-permissions` suffices); under Git
   Bash set `MSYS_NO_PATHCONV=1` (also for `agy -p /usage`); agy runs its commands in PowerShell whatever the brief
   says; the stream's `usage` is per turn: sum the lines for a running item. `tools/agy/launch.sh` wants `RUN_DIR`
@@ -280,6 +301,11 @@ Gemini 3.8 Flash (high) through the Antigravity CLI runs on the user's Google su
 - **Briefs** name every WinMain stand-in that opens a dialog (0x847D20, 0x846C90) and say it stays (D69).
 
 ## Session caps
+
+If the model's usage credits run out (HTTP 429 "out of usage credits"), the builders and the coordinator stop
+together although the weekly meter reads far from its cap (64 % at the cut): the meter does not show the credit
+balance. Check the credits before a night run; no heartbeat runs while the session is cut off, so a drain and a
+handoff set by the clock are missed.
 
 If the session window caps mid-run, the builders stop where they are with their leases intact; nothing is lost.
 At the reset, check HEAD's health, then resume each one from its transcript (SendMessage) with a new stop time.
