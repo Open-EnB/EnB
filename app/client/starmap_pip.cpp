@@ -1251,7 +1251,70 @@ void Unknown_7C3220Class::Set_Name(std::string name)
 	Name = name;
 }
 
-// 0x7C2850 is not rebuilt yet.
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"					// DeltaGroupInfoClass (0x7C2850)
+
+// NOT EXACT: inline budget (0.32): the client calls Unknown_Find_Field (0x7C30E0) out of line and expands both label
+// deletes as the scalar deleting destructor plus erase(begin, end); here the budget runs out the other way. attempts.csv
+// @0x7C2850
+void StarmapPipClass::Unknown_7C2850(bool force)
+{
+	if (!Label) {
+		Unknown_7C2280();
+		return;
+	}
+	if (!Client->Get_Objects_Changed() && Labels.size() && !force) {
+		for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
+			ClientObjectClass *co = ((SClient *)Client->Unknown_18())->Find_Object((*it)->ObjectID);
+			if (co) {
+				(*it)->Unknown_7C3830(co);
+			}
+		}
+		return;
+	}
+	Unknown_7C2280();
+	HashNodeClass<ClientObjectClass *> *node = Client->ObjectList.First_Valid();
+	while (node) {
+		ClientObjectClass *co = node->Get_Record();
+		node = node->Next_Valid();
+		StarmapDataClass *sdata = Get_Starmap_Data(co, false);
+		if (!sdata || sdata->Unknown38) {
+			continue;
+		}
+		bool grouped;
+		if (co->Unknown_6F5A40() && ((SClient *)Client->Unknown_18())->AuxData) {
+			NameClass name("GroupInfo");
+			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(((SClient *)Client->Unknown_18())->AuxData, name);
+			if (group) {
+				for (int i = 0; i < 5; i++) {
+					if (co->Get_Game_ID() == ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value) {
+						grouped = true;
+						goto found;
+					}
+				}
+			}
+		}
+		grouped = false;
+found:
+		bool player = co->Unknown_6F5A40();
+		bool avatar = Client->AvatarID == co->Get_Game_ID();
+		std::string name("");
+		co->Unknown_6FF7A0(name);
+		bool flag = player && co->Unknown_700860();
+		if (!name.length() || (Label == 1 && !grouped && !avatar) || (Label == 2 && !player)) {
+			continue;
+		}
+		if (flag) {
+			Unknown_7C2340(co->Get_Game_ID(), name, 3);
+		} else if (grouped) {
+			Unknown_7C2340(co->Get_Game_ID(), name, 0);
+		} else if (player) {
+			Unknown_7C2340(co->Get_Game_ID(), name, 1);
+		} else {
+			Unknown_7C2340(co->Get_Game_ID(), name, 2);
+		}
+	}
+}
 
 // @0x7C2D30
 void StarmapPipClass::Unknown_7C2D30()
@@ -1375,6 +1438,6 @@ void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int botto
 **	0x7C3830, 0x7C3A90. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
 **	int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 (the max's
 **	fcompp form), 0x7C2060 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68,
-**	which it copies whole). Not rebuilt: 0x7C2850 (the labels), 0x7C2DA0-0x7C30E0 (the POC and clienttest get them
-**	from generated stubs).
+**	which it copies whole), 0x7C2850 (inline budget). Not rebuilt: 0x7C2DA0-0x7C30E0 (template instances; the POC and
+**	clienttest get them from generated stubs).
 */
