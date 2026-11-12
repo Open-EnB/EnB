@@ -12,6 +12,10 @@ class TextGadgetClass;
 class TextEditorGadgetClass;
 class ViewUnknown34Class;
 
+// The dialog's answers (ViewUnknown34Class::Unknown_5890B0; 0 none yet): the asserts 'choice == USER_SELECT_NO' (0x5D4CDA
+// compares 2) and 'choice == USER_SELECT_OK' (0x5D64C0 compares 1). inv_transaction.cpp's drop dialog gives NO 1.
+enum { USER_SELECT_YES = 1, USER_SELECT_OK = 1, USER_SELECT_NO = 2 };	// NAME 3 [USER_SELECT_NO, USER_SELECT_OK]: the asserts'; NAME 1 [USER_SELECT_YES]: neutral
+
 // The entry window (0xB4 bytes, tables 0xAF50D4 / 0xAF50C8 / 0xAF50BC): a subject line and a details editor with
 // its slider, exit / back / submit. Leaving with text typed asks first (the dialog 'PETITION_ENTRY_CANCEL'); submit
 // without enough text says so ('PETITION_ENTRY_NO_DATA'). The petition's pages derive from it (ui_petition_stuck.cpp
@@ -35,6 +39,7 @@ public:
 
 	void Get_Text(std::string &subject, std::string &details);	// 0x5D5200 (ui_petition_player_entry.cpp 0x5D6550, ui_petition_stuck.cpp 0x5D7420)  // NAME 1 [Get_Text, subject, details]: what it does
 	static bool Has_Printable(const char *text, unsigned int count);	// 0x5D5670 (more than count characters above ' '; ui_petition_player_entry.cpp calls it, 0x5D4FD0 inlines it)  // NAME 1 [Has_Printable, text, count]: what it does
+	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: the pages' FAIL_IFs '!Get_Client()', 0x5D6550 / 0x5D7420, as UICinfoClass's)  // NAME 3: the FAIL_IFs'
 
 	GadgetSlider *Slider;								// +0xA0 (the details' slider, id 7)  // NAME 2: what it is
 	TextGadgetClass *SubjectEditor;						// +0xA4 'Entry_Field00' (id 8, 'SUBJECT_EDIT_hsi02a')  // NAME 3: the FAIL_IF '!SubjectEditor'
