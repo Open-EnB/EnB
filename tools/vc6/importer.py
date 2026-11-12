@@ -9,7 +9,8 @@
 
 `import importer` keeps working: every attribute resolves to the module that now holds it (looked up
 at each access, so importer.WORK follows set_agent). `python importer.py verify|report ...` forwards
-to verify.py / report.py with a deprecation note on stderr.
+to verify.py / report.py with a deprecation note on stderr. `python importer.py lock-status` (same as
+`python vc6lock.py status`): the importer lock's holder and its first-come queue (D238).
 """
 import os
 import sys
@@ -34,6 +35,10 @@ def __getattr__(name):
 
 
 def main():
+    if sys.argv[1:] == ['lock-status']:  # D238: the importer lock's holder and queue
+        for line in vc6lock.lockq.status(vc6lock.LOCK):
+            print(line)
+        return
     if len(sys.argv) < 2 or sys.argv[1] not in ('verify', 'report'):
         raise SystemExit('usage: importer.py verify|report [options] (now tools/vc6/verify.py and report.py)')
     cmd, rest = sys.argv[1], sys.argv[2:]

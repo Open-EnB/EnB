@@ -147,6 +147,7 @@ import commit_rows as cr  # noqa: E402
 import ledger  # noqa: E402
 import pairs_cmp  # noqa: E402
 import linkgate  # noqa: E402
+import lockq  # noqa: E402
 import standins  # noqa: E402
 
 
@@ -646,60 +647,16 @@ def cherry_pick(bo, commits, log, took):
     return None
 
 
-def _pid_alive(pid):
-    """importer.py's test (os.kill(pid, 0) would end the process on Windows)."""
-    import ctypes
-    k = ctypes.windll.kernel32
-    h = k.OpenProcess(0x1000, False, pid)
-    if not h:
-        return ctypes.GetLastError() == 5
-    code = ctypes.c_ulong()
-    good = k.GetExitCodeProcess(h, ctypes.byref(code))
-    k.CloseHandle(h)
-    return not good or code.value == 259
-
-
 def hold_lock(wait=900):
-    """vc6lock.py's importer lock (same file and format), so no verify rewrites the ledger while landing."""
-    me = {'agent': 'wt.py bring-over', 'host': socket.gethostname(), 'pid': os.getpid(),
-          'cmd': ' '.join(sys.argv), 'start': time.time()}
-    limit, said = time.time() + wait, None
-    while True:
-        try:
-            fd = os.open(LOCK, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
-            os.write(fd, json.dumps(me).encode())
-            os.close(fd)
-            return
-        except FileExistsError:
-            pass
-        try:
-            h = json.load(open(LOCK))
-            who = f"{h.get('agent')} (pid {h.get('pid')})"
-        except (OSError, ValueError):
-            h, who = None, None
-        if h and h.get('host') == me['host'] and not _pid_alive(h.get('pid', 0)):
-            print(f'wt: importer lock: taking over from {who}: process gone', flush=True)
-            try:
-                os.remove(LOCK)
-            except OSError:
-                pass
-            continue
-        if who and who != said:
-            print(f'wt: importer lock held by {who}, waiting', flush=True)
-            said = who
-        if time.time() > limit:
-            sys.exit('wt: importer lock still held; nothing landed')
-        time.sleep(2)
+    """vc6lock.py's importer lock (same file and queue, lockq.py, D238), so no verify rewrites the ledger
+    while landing."""
+    me = {'agent': 'wt.py bring-over', 'host': socket.gethostname(), 'pid': os.getpid(), 'cmd': ' '.join(sys.argv)}
+    if not lockq.acquire(LOCK, me, wait, log=lambda s: print(f'wt: {s}', flush=True)):
+        sys.exit('wt: importer lock still held; nothing landed')
 
 
 def release_lock():
-    try:
-        with open(LOCK) as f:
-            mine = json.load(f).get('pid') == os.getpid()
-        if mine:
-            os.remove(LOCK)
-    except (OSError, ValueError):
-        pass
+    lockq.release(LOCK)
 
 
 def merge_work(wt, path, old, new):

@@ -69,7 +69,8 @@ split (docs/pipeline-plan.md §3.3):
 | `ledger.py` | The ledger `docs/data/imports/`: `load(src)` (the tree, a shard directory, a snapshot file or a git revision; imports.json's dict with the counts computed), `save`, `load_state` / `save_state`, `RECONSTRUCTED` (computed from the shards' descriptions); commands `export`, `describe`, `split`, `compare` |
 | `verify.py` | Compile and byte-match the libraries, record the pairs in the ledger; `compile_and_match` |
 | `report.py` | Write docs/imports.md from the ledger |
-| `vc6lock.py` | The importer lock, the agent and its scratch folder `WORK`, `pool_lease` |
+| `vc6lock.py` | The importer lock, the agent and its scratch folder `WORK`, `pool_lease`; `status` prints the lock's holder and queue |
+| `lockq.py` | The first-come lock core (D238): tickets, hand-over on release, status; used by vc6lock.py and wt.py |
 | `importer.py` | Transition shim: `import importer` resolves every old attribute in the modules above; `importer.py verify\|report` forwards with a deprecation line |
 
 **The ledger** (`docs/data/imports/`, one JSON shard per source file, so two landings conflict only
@@ -94,7 +95,18 @@ python tools/vc6/ledger.py describe LIB NAME TEXT                       a recons
 
 **Per-agent scratch (D112).** `verify.py --agent NAME` (or `ENB_AGENT=NAME`; `tryv2.py --agent NAME VARIANTS.py` the same) puts the compile output under `.work/NAME/tmp/enb_import/` instead of the shared `%TEMP%\enb_import`, names the importer lock's owner, and prefixes tryv2's tags (`tryv2-NAME-base`), so concurrent builders stop overwriting each other's objects. With no agent, a run from inside a git worktree other than the main tree takes the worktree's directory name; otherwise the scratch is `%TEMP%\enb_import` and the lock owner USERNAME@host, as before. vc6.py's per-host sync cache stays shared (keyed by host IP).
 
-`verify.py` and `report.py` take `--lock-wait S` (the importer lock, docs/workflow.md §1). The import
+`verify.py` and `report.py` take `--lock-wait S` (the importer lock, docs/workflow.md §1): the seconds to
+wait before giving up, as before. **First come, first served (D238, `lockq.py`).** The lock is still the file
+`.work/locks/importer.lock` (worktrees reach it through their `.work/locks` junction); a waiter also writes a
+ticket `.work/locks/importer.lock.queue/<time_ns>-<pid>.json` and touches it while waiting, and only the
+queue's head takes a free lock. A ticket whose process is gone (or untouched for 120 s) is deleted by whoever
+reads the queue, and a timeout removes its own, so the queue cannot deadlock. A releasing holder with waiters
+queued hands the lock to the head (the file is replaced by one naming the head, never removed), so a pre-D238
+process, which knows only the file and polls it every 2 s, cannot slip in between; when a pre-D238 holder
+releases (it removes the file) the head, polling every 0.25 s, usually wins: mutual exclusion always holds,
+first come is exact among new-code waiters and best effort toward old ones. wt.py's landing lock uses the
+same queue. `python tools/vc6/importer.py lock-status` (or `vc6lock.py status`): the holder and the queue in
+order (pre-D238 waiters have no ticket and are not listed). The import
 commands (plan, assemble, add, replay, refine) were deleted at the freeze (323f258d).
 
 | Script | Does |
@@ -121,7 +133,7 @@ with a file tool, not a shell heredoc (escapes get mangled).
   children from an unlocked parent or call in-process. `tools/vc6/zhall.py` holds the
   lock for its whole run (~15 min for ww3d2); read-only `objdiff.py` on verify objects still works.
   Killing it mid-run leaves a spliced tree file and the lock: `git status`, restore, delete the
-  lock. A transient `PermissionError` on tree writes can do the same: retry, then `git status`.
+  lock (`importer.py lock-status` shows it). A transient `PermissionError` on tree writes can do the same: retry, then `git status`.
 
 * **Type libraries.** vc6.py syncs only `SOURCE_EXT` (`.tlh`/`.tli` added; D21 done). `#import` writes absolute `c:\enbdevelopment\_vc6\obj_*\` paths into the `.tlh`: strip them before committing. Generate from E&B's `BrowserEngine.dll`, not EA's (same GUIDs, extra methods).
 
