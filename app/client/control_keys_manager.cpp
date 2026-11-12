@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "..\shared\unknown_8b4560.h"
-ControlKeyComboStruct Unknown_42A1A0(INIClass &ini, const char *section, const char *entry);	// NAME 1 [Unknown_42A1A0]: neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry
-void Unknown_42A410(INIClass &ini, const char *section, const char *entry, const ControlKeyComboStruct &key);	// NAME 1 [Unknown_42A410]: neutral (D10): 0x42A410 (app\input), a key written to an ini entry
+#include "..\shared\unknown_8b4560.h"	// 0x8B44E0: _i64toa(value, buffer, 10)
+#include "..\input\inpdsp.h"	// 0x42A1A0 / 0x42A410: a key event read from and written to an ini entry
+
 #include "..\input\inpkeys.h"	// 0x42B7E0, the key's text: it takes the kernel's event (its mangled name)
 
 struct ContextEqualStruct  // NAME 2: describes what it does (the SGI documentation's eqstr; strcmp inlined in 0x71ECD0)
@@ -249,9 +249,9 @@ int ControlKeysManager::Add_Keys(ControlKeyListClass *keylist, const std::string
 	int count = 0;
 	KeyMappingStruct &mapping = UserKeys[def->Get_Index()];
 	for (int set = 0; set < NUM_MAPPING_SETS; set++) {
-		ControlKeyComboStruct key(mapping.Keys[set].Key, mapping.Keys[set].Modifiers);
-		ControlKeyComboStruct combo = key;
-		combo.Modifiers |= modifiers;
+		KernelEventClass key(mapping.Keys[set].Key, mapping.Keys[set].Modifiers);
+		KernelEventClass combo = key;
+		combo.Flags |= modifiers;
 		if (combo.Key) {
 			keylist->Add(combo, handler);
 			count++;
@@ -278,9 +278,9 @@ int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::str
 	int count = 0;
 	KeyMappingStruct &mapping = RestoreKeys[def->Get_Index()];
 	for (int set = 0; set < NUM_MAPPING_SETS; set++) {
-		ControlKeyComboStruct key(mapping.Keys[set].Key, mapping.Keys[set].Modifiers);
-		ControlKeyComboStruct combo = key;
-		combo.Modifiers |= modifiers;
+		KernelEventClass key(mapping.Keys[set].Key, mapping.Keys[set].Modifiers);
+		KernelEventClass combo = key;
+		combo.Flags |= modifiers;
 		if (combo.Key) {
 			keylist->Remove(combo);
 			count++;
@@ -536,7 +536,7 @@ void ControlKeysManager::Save_Keys(std::vector<KeyMappingStruct> *keys, const ch
 			sprintf(buffer, "%d_", set);
 			std::string entry(buffer);
 			entry += it->Get_Name();
-			Unknown_42A410(ini, section, entry.c_str(), ControlKeyComboStruct(it->Keys[set - 1].Key, it->Keys[set - 1].Modifiers));
+			Unknown_42A410(ini, section, entry.c_str(), KernelEventClass(it->Keys[set - 1].Key, it->Keys[set - 1].Modifiers));
 		}
 	}
 	ini.Save("keymap.ini");
@@ -610,9 +610,9 @@ ControlKeyValueStruct &ControlKeyValueStruct::operator=(const ControlKeyValueStr
 	return *this;
 }
 
-ControlKeyValueStruct::operator ControlKeyComboStruct() const
+ControlKeyValueStruct::operator KernelEventClass() const
 {
-	return ControlKeyComboStruct(Key, Modifiers);
+	return KernelEventClass(Key, Modifiers);
 }
 
 ControlKeyValueStruct::operator unsigned int() const

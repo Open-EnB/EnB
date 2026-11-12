@@ -24,6 +24,8 @@
 #include <hash_map.h>
 #include <typeinfo.h>
 #include "unknown_signalbase.h"	// SignalMap
+#include "..\kernel\kernel.h"	// KernelEventClass: the 16-byte key event 0x42A1A0 reads, 0x42A410 writes and 0x42B7E0 turns into text
+#include "control_key_list.h"	// ControlKeyListClass: the screen's key list Add_Keys / Remove_Keys fill
 
 #define NUM_MAPPING_SETS	2	// the client's asserts compare '(unsigned int)set > NUM_MAPPING_SETS' with 2
 
@@ -51,21 +53,21 @@ public:
 	ControlKeyDefStruct *DefPtr;														// +0x00: the client's '!DefPtr'
 };
 
-struct ControlKeyComboStruct  // NAME 1: neutral (D10): 0x10 bytes, what 0x42B7E0 turns into text
-{
-	ControlKeyComboStruct(unsigned short key, unsigned short modifiers) : Key(key), Modifiers(modifiers), Unknown04(0), Unknown08(0), Unknown0C(0) {}
 
-	unsigned short Key;																	// +0x00  // NAME 2: the key's code
-	unsigned short Modifiers;															// +0x02  // NAME 2: the modifier bits
-	int Unknown04;																			// +0x04  // NAME 1: neutral (D10)
-	int Unknown08;																			// +0x08  // NAME 1: neutral (D10)
-	int Unknown0C;																			// +0x0C  // NAME 1: neutral (D10)
-};
+
+
+
+
+
+
+
+
+
 
 struct ControlKeyStruct  // NAME 1: neutral (D10): one key of a mapping (4 bytes)
 {
 	ControlKeyStruct(unsigned short key = 0, unsigned short modifiers = 0) : Key(key), Modifiers(modifiers) {}	// default arguments: an array's ??_H gets the default constructor closure 0x71BD70 (no return value)
-	ControlKeyStruct &operator=(const ControlKeyComboStruct &combo) { Key = combo.Key; Modifiers = combo.Modifiers; return *this; }	// Load_Keys' ini read
+	ControlKeyStruct &operator=(const KernelEventClass &event) { Key = event.Key; Modifiers = event.Flags; return *this; }	// Load_Keys' ini read
 
 	unsigned short Key;																	// +0x00  // NAME 2: the key's code
 	unsigned short Modifiers;															// +0x02  // NAME 2: the modifier bits
@@ -76,7 +78,7 @@ struct ControlKeyValueStruct  // NAME 1: neutral (D10): the 4-byte key value 0x5
 	ControlKeyValueStruct(const ControlKeyValueStruct &src);					// 0x71C9C0
 	ControlKeyValueStruct(unsigned int value);										// 0x71CA80 (no caller)
 	ControlKeyValueStruct &operator=(const ControlKeyValueStruct &src);	// 0x71C9F0 (no caller)
-	operator ControlKeyComboStruct() const;										// 0x71CA20
+	operator KernelEventClass() const;										// 0x71CA20
 	operator unsigned int() const;													// 0x71CA50 (no caller)
 
 	unsigned short Key;																	// +0x00  // NAME 2: the key's code
@@ -104,28 +106,28 @@ class SClient;
 
 
 
-#ifndef __CONTROL_KEY_LIST_CLASS
-#define __CONTROL_KEY_LIST_CLASS
-#include "slist.h"
-class LoginUnknown0CClass;
-class RefCountClass;
-class InterfaceClass;
-struct InterfaceKeyEntryStruct;
 
-class ControlKeyListClass  // NAME 1: neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist')
-{
-public:
-	ControlKeyListClass();																	// 0x721D50
-	~ControlKeyListClass();																	// 0x721D80
-	void Add(const ControlKeyComboStruct &combo, void *handler);							// 0x721E60  // NAME 2: describes what it does
-	void Remove(const ControlKeyComboStruct &combo);										// 0x721EF0  // NAME 2: describes what it does
-	void Unknown_721F40(LoginUnknown0CClass *dispatcher, RefCountClass *handler, InterfaceClass *iface);	// 0x721F40 (activated)
-	void Unknown_721F80(LoginUnknown0CClass *dispatcher, InterfaceClass *iface);			// 0x721F80 (deactivated)
 
-	SList<InterfaceKeyEntryStruct> List;													// +0x00 (0x0C bytes)
-};
-typedef ControlKeyListClass InterfaceKeyListClass;
-#endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class KeysSavedEvent  // NAME 5: the client's RTTI .?AVKeysSavedEvent@@ (Save's signal)
 {

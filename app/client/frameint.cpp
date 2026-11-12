@@ -24,7 +24,7 @@ FrameInterfaceClass::FrameInterfaceClass(UIViewClass *view, SimpleSceneClass *sc
 	MinFrameRate(99.4f),
 	MaxFrameRate(0.0f)
 {
-	Unknown4C.Add(ControlKeyComboStruct(0x54, 0x400), NULL);
+	Unknown4C.Add(KernelEventClass(0x54, 0x400), NULL);
 }
 
 // 0x53EA70

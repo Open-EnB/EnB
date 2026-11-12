@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: control_key_list.h (PROVISIONAL, D137, as control_key_list.cpp): ControlKeyListClass, the screen's key list at InterfaceClass +0x4C (0x721D50-0x721F80), keyed by kernel.h's KernelEventClass; moved out of intrface.h / control_keys_manager.h so the screens include it instead of private views"
+}

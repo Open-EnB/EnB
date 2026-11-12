@@ -50,16 +50,16 @@ static const char *Unknown_B796A8[] = { "Analyzing Target", "Dismantling Target"
 static const float Unknown_AEF0EC = 2.0f;			// NAME 1: neutral (D10): what 0x546090 stores (read from .rdata)
 
 // The control keys event slot +0x54 registers (0x10 bytes) and what InterfaceClass +0x4C is (as ui_manu.cpp's)
-struct UIAnalyzeKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
-{
-	UIAnalyzeKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	int Unknown04;										// +0x04
-	int Unknown08;										// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// control_keys_manager.h's (InterfaceClass +0x4C, 0x721E60 / 0x721EF0), as ui_class.cpp declares it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
 
 // The item's fields this file reads (as ui_manu.cpp's)
@@ -136,7 +136,7 @@ void UIAnalyzeClass::Unknown_54()
 	}
 	GadgetClass::Set_Tooltip(Unknown0E0[5], "UI_ANALYZE", "ICON_GO");
 	GadgetClass::Set_Tooltip(Unknown0E0[6], "UI_ANALYZE", "ICON_INV");
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAnalyzeKeyEventStruct(0x1B), (void *)1);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 	SClient *sclient = Client->As_Space_Client();
 	Unknown0D4 = Create_Get(new UIInvRobjStripClass(sclient, InterfaceMesh->Peek_Object(), 6, "TSM02A.E%02d", 12));
 	Unknown0D4->Unknown_54();

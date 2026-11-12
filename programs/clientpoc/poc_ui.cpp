@@ -97,13 +97,13 @@ public:
 
 void UIAvselKeysClass::Unknown_721E60(const UIAvselKeyEventStruct *event, int id)
 {
-	ControlKeyComboStruct combo((unsigned short)event->Key, 0);
+	KernelEventClass combo((unsigned short)event->Key, 0);
 	((InterfaceKeyListClass *)this)->Add(combo, (void *)id);
 }
 
 void UIAvselKeysClass::Unknown_721EF0(const UIAvselKeyEventStruct *event)
 {
-	ControlKeyComboStruct combo((unsigned short)event->Key, 0);
+	KernelEventClass combo((unsigned short)event->Key, 0);
 	((InterfaceKeyListClass *)this)->Remove(combo);
 }
 

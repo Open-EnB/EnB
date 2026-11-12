@@ -30,16 +30,16 @@ extern FontManagerClass *Unknown_BE67C4;
 extern const int Unknown_B08C9C;					// 0xB08C9C (8: or'ed with textgadg.h's Unknown_B08CAC for the name's gadget)  // NAME 1: neutral (D10)			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 // The control keys event the constructor registers (0x10 bytes) and what InterfaceClass +0x4C is (as ui_class.cpp's)
-struct UIShardKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
-{
-	UIShardKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B, 0x0D)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60), as ui_login.cpp declares it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp)
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp's
@@ -121,8 +121,8 @@ Unknown615A50InterfaceClass::Unknown615A50InterfaceClass(UIViewClass *view, Laye
 	NameGadget->Set_Text(Unknown_B8909C, 0);
 	NameGadget->Unknown_28(layer);
 	Unknown64.Unknown_6870E0(NameGadget, 15, View, 1, 1);
-	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShardKeyEventStruct(0x1B), (void *)12);
-	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShardKeyEventStruct(0x0D), (void *)9);
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)12);
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x0D), (void *)9);
 	Unknown_6176F0();
 	if (CharacterView->Unknown_67AD30(0, "FE02A.FE02A-1")) {
 		CharacterView->Unknown_67AE20(0);

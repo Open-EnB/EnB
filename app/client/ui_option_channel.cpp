@@ -59,15 +59,15 @@ static const char *Unknown_B82CAC[21] = {	// NAME 1: neutral (D10)
 
 
 // kernel.h's input event, as ui_option_account.cpp's (Unknown_54's Escape)
-struct UIOptionChannelKeyEventStruct	// NAME 1: neutral (D10)
-{
-	UIOptionChannelKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+
+
+
+
+
+
+
+
+
 
 // 0x5C8DB0
 UIOptionChannelClass::UIOptionChannelClass(SClient *client, bool mode) :
@@ -105,7 +105,7 @@ void UIOptionChannelClass::Unknown_54()
 			}
 		}
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIOptionChannelKeyEventStruct(0x1B), (void *)1);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 	}
 }
 

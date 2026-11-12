@@ -79,16 +79,16 @@ static int Unknown_B8A870[4] = { 0, 1, 3, 2 };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A880[4] = { "hangar", "main", "bazaar", "lounge" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A950[10] = { "t", "j", "p", "n", "n", "n", "n", "n", "n", "n" };	// NAME 1: neutral (D10)
 
-// kernel.h's input event, as UIStarbaseLightsKeyEventStruct below, with its second short
-struct UIStarbaseKeyEventStruct	// NAME 1: neutral (D10)
-{
-	UIStarbaseKeyEventStruct(short key, short modifiers) : Key(key), Unknown02(modifiers), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key, modifiers]: neutral
-	short Key;											// +0x00  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+
+
+
+
+
+
+
+
+
+
 
 // @0x00632E50
 UIStarbaseUnknownCCClass::~UIStarbaseUnknownCCClass()
@@ -169,8 +169,8 @@ UIStarbaseClass::UIStarbaseClass(UIViewClass *view, LayerClass *layer, int index
 		Unknown13C[i] = 0;
 	}
 	UnknownB0 = (SBaseViewClass *)View->Unknown_30();
-	Unknown4C.Add(*(const ControlKeyComboStruct *)&UIStarbaseKeyEventStruct(2, 0), (void *)0x2B);
-	Unknown4C.Add(*(const ControlKeyComboStruct *)&UIStarbaseKeyEventStruct(2, 0x1000), (void *)0x2C);
+	Unknown4C.Add(KernelEventClass(2, 0), (void *)0x2B);
+	Unknown4C.Add(KernelEventClass(2, 0x1000), (void *)0x2C);
 	RoomInfo = Get_Info()->Find_Room(Unknown_B8A870[Room]);
 	int column = Get_Info()->Style;
 	char model[32];
@@ -4519,16 +4519,16 @@ UIStarbaseLightsClass::~UIStarbaseLightsClass()
 static const char *Unknown_B8B864[6] = { "exit", "save", "light00", "light01", "light02", "light03" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8B880[6] = { NULL, "save_light02a", "previous_light02a", "next_light02a", "diffuse_light02a", "ambient_light02a" };	// NAME 1: neutral (D10)
 
-// kernel.h's input event, as ui_class.cpp's UIClassKeyEventStruct (0x646360's Escape)
-struct UIStarbaseLightsKeyEventStruct	// NAME 1: neutral (D10)
-{
-	UIStarbaseLightsKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+
+
+
+
+
+
+
+
+
+
 
 // 0x646360
 void UIStarbaseLightsClass::Unknown_54()
@@ -4564,7 +4564,7 @@ void UIStarbaseLightsClass::Unknown_54()
 		UnknownD8->Unknown00->Unknown_65FFA0(-1);
 		Unknown64.Unknown_6870E0(UnknownD8->Unknown00, 0xD, View, true, false);
 		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
-		Unknown4C.Add(*(const ControlKeyComboStruct *)&UIStarbaseLightsKeyEventStruct(0x1B), (void *)1);
+		Unknown4C.Add(KernelEventClass(0x1B), (void *)1);
 	}
 }
 

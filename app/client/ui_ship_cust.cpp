@@ -41,16 +41,16 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 0x496C00 (ro_funcs.cpp, cdecl): the model's texture colour at (u, v)  // NAME 1 [all]: as ui_shipcust.cpp's
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (cdecl): the pointer's position, 0..1, as ui_shipcust.cpp's
 // The control keys (0x10 bytes) and InterfaceClass +0x4C's list, as ui_shipcust.cpp declares them
-struct UIShipCustKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
-{
-	UIShipCustKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60), as ui_login.cpp declares it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 // The palette's drag gadget (0x80 bytes, constructor 0x671300), as ui_shipcust.cpp declares it
 class UIMeshClass;
@@ -204,7 +204,7 @@ void StarbaseShipCustomizeInterface::Unknown_54()
 	Unknown64.Unknown_6870E0(Unknown2E0, 0x33, View, 1, 0);
 	Unknown330 = new SClientUnknown1334Class;
 	Unknown330->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
-	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShipCustKeyEventStruct(0x1B), (void *)0x1B);
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x1B);
 	Unknown_10();
 	Unknown_7C((UIViewClass *)SBaseView, true);
 	Unknown_61BD80(Page);
@@ -785,7 +785,7 @@ void StarbaseShipCustomizeInterface::Unknown_61ADA0(int id, const char *name, co
 	Gadgets.insert(std::map<int, StarbaseShipCustGadgetStruct>::value_type(id, entry));
 	Unknown64.Unknown_6870E0(button, id, View, 1, 0);
 	if (key != 0) {
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShipCustKeyEventStruct(key), (void *)id);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(key), (void *)id);
 	}
 	sub->Release_Ref();
 }

@@ -41,16 +41,16 @@ void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (cdecl): the pointer's position, 0..1, as scriptedmovie.cpp's
 
 // The control keys (0x10 bytes) and InterfaceClass +0x4C's list, as ui_login.cpp declares them
-struct UIShipCustKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
-{
-	UIShipCustKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60), as ui_login.cpp declares it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 // The gadget events' callback and the signal map, as ui_login.cpp declares them
 // (the signal map: unknown_signalbase.h's SignalMap, its Add / Remove)
@@ -587,7 +587,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	CharacterView->Unknown_67A8D0(true);
 	Unknown268 = new SClientUnknown1334Class;
 	Unknown268->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
-	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShipCustKeyEventStruct(0x1B), (void *)0x1C);
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x1C);
 	Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
 	if (Unknown22C->Unknown054.Peek() == NULL) {
 		Unknown22C->Unknown_7C(Unknown160);
@@ -1300,7 +1300,7 @@ void ShipCustomizeInterface::Unknown_624B50(int id, const char *name, const char
 	Gadgets.insert(std::map<int, ShipCustGadgetStruct>::value_type(id, entry));
 	Unknown64.Unknown_6870E0(button, id, View, 1, 0);
 	if (key != 0) {
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShipCustKeyEventStruct(key), (void *)id);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(key), (void *)id);
 	}
 	sub->Release_Ref();
 }

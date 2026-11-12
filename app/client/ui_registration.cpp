@@ -164,16 +164,16 @@ class RegistrationSettingsClass { public: void Unknown_7CB240(int a); void Unkno
 
 static const char *RegistrationSubscribeURL = "https://jump-subs.ea.com/SubscribeEntry.jsp?prodID=REG-EB&iPath=3&CancelURL=http%3A%2F%2Fwww.earthandbeyond.ea.com%2F";  // NAME 1 [RegistrationSubscribeURL]: the literal 0xB8139C (0x5F2280)
 
-struct RegistrationKeyStruct  // NAME 1: neutral (D10): 0x10 bytes, 0x721E60's first argument
-{
-	RegistrationKeyStruct(unsigned short key) : Key(key), Modifiers(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}  // NAME 1 [key]: the key's code
-	unsigned short Key;			// NAME 1 [Key]: the key's code
-	unsigned short Modifiers;	// NAME 1 [Modifiers]: as ControlKeyComboStruct's
-	int Unknown04;
-	int Unknown08;
-	int Unknown0C;
-};
-class RegistrationKeyListClass { public: void Add(const RegistrationKeyStruct &combo, void *handler); };  // NAME 1: neutral (D10): InterfaceClass +0x4C (ui_login.cpp declares it likewise) PLACEHOLDER
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 class RegistrationFontClass : public FontSys { public: void Unknown_6D5EF0(bool on); };  // NAME 1 [RegistrationFontClass, on]: neutral (D10): 0x6D5EF0 (0x5F8DB0)
 static const int CardDoubled[10] = { 0, 2, 4, 6, 8, 1, 3, 5, 7, 9 };  // NAME 1 [CardDoubled]: client .rdata 0xAF6F88 (0x603820: a digit doubled, Luhn)
@@ -356,8 +356,8 @@ RegistrationInterface::RegistrationInterface(UIViewClass *view, LayerClass *laye
 	UnknownBC->Unknown_67AB20(3, "comp00a");
 	UnknownBC->Unknown_67AB20(4, "FE_NAR_AGG");
 	UnknownBC->Unknown_67A6C0();
-	((RegistrationKeyListClass *)Unknown4C)->Add(RegistrationKeyStruct(0x1B), (void *)0x2D);
-	((RegistrationKeyListClass *)Unknown4C)->Add(RegistrationKeyStruct(0x0D), (void *)6);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x2D);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x0D), (void *)6);
 	Unknown_5F8FD0();
 	Unknown1AC->Unknown_7CEF30(&Sub14C, Unknown98, Unknown9C, UnknownA0, this);
 	Unknown1B8 = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("RG_Radio_off.tga", (MipCountType)0, (WW3DFormat)0, true));
@@ -907,7 +907,7 @@ void RegistrationInterface::Unknown_5F2B20(int id, const char *name, const char 
 	UnknownE8.insert(std::map<int, RegistrationButtonStruct>::value_type(id, button));
 	Unknown64.Unknown_6870E0(gadget, id, View, true, false);
 	if (key != 0) {
-		((RegistrationKeyListClass *)Unknown4C)->Add(RegistrationKeyStruct(key), (void *)id);
+		((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(key), (void *)id);
 	}
 	robj->Release_Ref();
 }

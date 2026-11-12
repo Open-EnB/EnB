@@ -451,16 +451,16 @@ typedef SignalBaseClass::MemberCallback<GadgetClass, AvatarCreationInterface, vo
 
 // env_map_manager.h's EnvironmentMapManagerClass (the view's +0x3A4), as ui_class.cpp declares it
 class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, bool a); };	// NAME 1: as ui_class.cpp's
-struct UIAvatrKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event, as ui_class.cpp's UIClassKeyEventStruct
-{
-	UIAvatrKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B, 0x0D)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// control_keys_manager.h's (InterfaceClass +0x4C, 0x721E60 / 0x721EF0), as ui_login.cpp declares it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 class ButtonGadgetClass : public GadgetClass	// NAME 1 [ButtonGadgetClass]: unknown_675120.h's (0x64 bytes), as far as this file makes it
 {
 public:
@@ -573,8 +573,8 @@ AvatarCreationInterface::AvatarCreationInterface(UIViewClass *view, LayerClass *
 	}
 
 	Unknown_559900();
-	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAvatrKeyEventStruct(0x1B), (void *)0x3A);
-	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIAvatrKeyEventStruct(0x0D), (void *)0xF);
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x3A);
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x0D), (void *)0xF);
 	Unknown_556290();
 	Unknown_5560E0();
 	bool back = (Unknown090->Previous_Step == 6);

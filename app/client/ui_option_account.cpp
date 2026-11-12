@@ -16,16 +16,16 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, a
 static const char *Unknown_B82B7C[2] = { "exit", "ok" };	// NAME 1: neutral (D10)
 static const char *Unknown_B82B88[2] = { NULL, "ok_opt05a" };	// NAME 1: neutral (D10)
 
-// kernel.h's input event, as ui_starbase.cpp's UIStarbaseLightsKeyEventStruct (Unknown_54's Escape)
-struct UIOptionAccountKeyEventStruct	// NAME 1: neutral (D10)
-{
-	UIOptionAccountKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+
+
+
+
+
+
+
+
+
+
 
 // 0x5C8870
 UIOptionAccountClass::UIOptionAccountClass(SClient *client, int mode) :
@@ -53,7 +53,7 @@ void UIOptionAccountClass::Unknown_54()
 		}
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
 		Unknown_5C8B90();
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIOptionAccountKeyEventStruct(0x1B), (void *)1);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 	}
 }
 

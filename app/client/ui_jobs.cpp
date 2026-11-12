@@ -32,15 +32,15 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
 
 // The control keys event slot +0x54 registers (0x10 bytes; as ui_avatr.cpp's)
-struct UIJobsKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
-{
-	UIJobsKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04 (stored as an immediate 0: a float)
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+
+
+
+
+
+
+
+
+
 
 enum
 {
@@ -143,7 +143,7 @@ void UIJobsClass::Unknown_54()
 	Unknown_5BB4F0(Unknown0AC);
 	Unknown0B0 = Create_Get(new UIInvRobjStripClass(Client->As_Space_Client(), InterfaceMesh->Peek_Object(), 1, "JNEWS00.C00", 0x12));
 	Unknown0B0->Unknown_54();
-	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIJobsKeyEventStruct(0x1B), (void *)2);
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)2);
 	RefCountPtr<RenderObjClass> tutorial = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("tutorial"));
 	if (tutorial) {
 		tutorial->Set_Hidden(true);

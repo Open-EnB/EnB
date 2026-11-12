@@ -203,7 +203,7 @@ Matrix3D UnknownB02C90Class::Unknown_725AD0() { Trace("stub UnknownB02C90Class::
 // inpdsp.cpp's 0x42A1A0 (a key from an ini entry): control_keys_manager.obj links since SClient 0x7436A0 registers its keys;
 // gen_stubs.py cannot write a struct returned by value. clienttest never loads key maps: this only links.
 #include "..\..\..\app\client\control_keys_manager.h"
-ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char *entry) { Trace("stub Unknown_42A1A0 [%s] %s", section ? section : "(null)", entry ? entry : "(null)"); return(ControlKeyComboStruct(0, 0)); }
+KernelEventClass Unknown_42A1A0(INIClass &, const char *section, const char *entry) { Trace("stub Unknown_42A1A0 [%s] %s", section ? section : "(null)", entry ? entry : "(null)"); return(KernelEventClass(0, 0)); }
 
 
 // ui_missn.cpp / ui_manu.cpp (via ui_ship_cust.obj's chain) call GadgetClass's slots +0x08 / +0x14 as void functions; gen_stubs

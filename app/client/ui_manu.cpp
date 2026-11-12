@@ -151,16 +151,16 @@ UIManuClass::~UIManuClass()
 }
 
 // The control keys event slot +0x54 registers (0x10 bytes) and what InterfaceClass +0x4C is, as far as this file calls it
-struct UIManuKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
-{
-	UIManuKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	int Unknown04;										// +0x04
-	int Unknown08;										// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// control_keys_manager.h's (InterfaceClass +0x4C, 0x721E60 / 0x721EF0), as ui_class.cpp declares it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 // gadget.cpp's button gadgets (100 bytes), as slot +0x54 makes them: over a render object (0x675240) or over a mesh's
 // named sub-object (0x675170)
@@ -432,7 +432,7 @@ void UIManuClass::Unknown_54()
 		Unknown11C[level - 1].Unknown04->Unknown_7E8030(false);
 	}
 	}
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIManuKeyEventStruct(0x1B), (void *)1);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 	Unknown0B0 = new GadgetSlider(false, &Layer);
 	Unknown0B0->Unknown_66E460(Create_Peek(InterfaceMesh->Peek_Object()), 0, 1);
 	Unknown64.Unknown_6870E0(Unknown0B0, 0x35, View, 1, 0);

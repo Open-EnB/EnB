@@ -116,16 +116,16 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (c
 
 
 // The control keys event (0x10 bytes) and InterfaceClass +0x4C, as ui_manu.cpp declares them
-struct LoginKeyEventStruct	// NAME 1: neutral (D10)
-{
-	LoginKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0.0f), Unknown08(0.0f), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04 (stored as an immediate 0: a float)
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60, Remove 0x721EF0), as far as this file calls it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 // The character view: charview.h's CharacterViewClass (its +0x198 the narrator, avatar.cpp's model)
 #include "charview.h"
@@ -347,9 +347,9 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	PasswordGadget->Set_Text("", 0);
 	PasswordGadget->Unknown_28(Layer);
 	Unknown64.Unknown_6870E0(PasswordGadget, 8, View, 1, 1);
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x1B), (void *)5);
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x0D), (void *)3);
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&LoginKeyEventStruct(0x09), (void *)9);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)5);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x0D), (void *)3);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x09), (void *)9);
 	RefCountPtr<FontSys> banner = Unknown_BE67C4->Unknown_6D2700("Banner_fe01a", model);
 	RefCountPtr<FontSys> demo = Unknown_BE67C4->Unknown_6D2700("DemoBanner_fe01a", model);
 	if (Unknown_5FADE0()) {
