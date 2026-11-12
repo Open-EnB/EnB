@@ -1,0 +1,47 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "the terrain's second object, client 0x46C730-0x4744C0 (INTERIM file name, D137; split from land.cpp on the client's COMDAT clusters 0x46BEC0-0x46C6E0 and 0x474000-0x4744C0): the lighting, the lightmap upload and the horizon tables, partly NOT EXACT (marked)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x444160",
+  "0x447C40",
+  "0x46C730",
+  "0x46D410",
+  "0x46D880",
+  "0x46D8B0",
+  "0x46D900",
+  "0x46DA70",
+  "0x46DDD0",
+  "0x46E120",
+  "0x46EB60",
+  "0x46ECF0",
+  "0x46EE60",
+  "0x46EEB0",
+  "0x46EEE0",
+  "0x46EF30",
+  "0x46EF60",
+  "0x46F0A0",
+  "0x470EF0",
+  "0x473290",
+  "0x4733C0",
+  "0x474000",
+  "0x474080",
+  "0x4740B0",
+  "0x4740E0",
+  "0x474450",
+  "0x474480",
+  "0x4744C0"
+ ],
+ "merged": [],
+ "name": "shared/unknown_46c730.cpp",
+ "shared": [
+  "0x42F250",
+  "0x444160",
+  "0x447C40",
+  "0x4740E0"
+ ]
+}
