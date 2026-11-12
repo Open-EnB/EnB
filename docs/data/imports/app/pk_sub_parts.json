@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "pk_sub_parts.cpp (the client's __FILE__, assert line 64): SUBPARTS 180 written by hand (builder P4, 8 of 8 exact in appfile.py match), client 0x8754D0-0x875CF0",
@@ -39,7 +38,8 @@
   "0x875CF0",
   "0x875D40",
   "0x875D90",
-  "0x876180"
+  "0x876180",
+  "0x876330"
  ],
  "merged": [],
  "name": "packets/pk_sub_parts.cpp",
@@ -71,9 +71,5 @@
   "0x52B310",
   "0x52B330",
   "0x875570"
- ],
- "tiebreak": [
-  "0x875D90",
-  "0x876180"
  ]
 }

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "FindPlayerRequest 181 and FindPlayerResponse 182, the object 0x886C70-0x887280 after pkfindmember.cpp (no assert: the name provisional, pk + the first class's Print label): written by hand (builder P10)",
  "expected": {},
@@ -27,7 +25,8 @@
   "0x887100",
   "0x887120",
   "0x887210",
-  "0x887230"
+  "0x887230",
+  "0x887260"
  ],
  "merged": [],
  "name": "packets/pkfindplayerrequest.cpp",

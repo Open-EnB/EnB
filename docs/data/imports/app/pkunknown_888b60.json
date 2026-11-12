@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 174 written by hand (builder P3, 5 of 5 exact in appfile.py match); packet classes (opcode 175) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -81,7 +79,8 @@
   "0x88B790",
   "0x88B950",
   "0x88BB20",
-  "0x88BCE0"
+  "0x88BCE0",
+  "0x88BD10"
  ],
  "merged": [],
  "name": "packets/pkunknown_888b60.cpp",

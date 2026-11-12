@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "SERVER_REDIRECT 54's object, 0x8A1500-0x8A1630 (no assert: the file name provisional, NAME 1): written by hand (builder A-opus)",
  "expected": {},
@@ -19,7 +17,8 @@
   "0x8A1570",
   "0x8A1590",
   "0x8A15C0",
-  "0x8A15E0"
+  "0x8A15E0",
+  "0x8A1630"
  ],
  "merged": [],
  "name": "packets/pkserverredirect.cpp",

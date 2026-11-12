@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x46BE90",
   "0x474080"
  ],
@@ -15,15 +14,13 @@
   "0x51D5D0",
   "0x51D600",
   "0x51D690",
-  "0x51D700"
+  "0x51D700",
+  "0x51D760"
  ],
  "merged": [],
  "name": "client/dynamic_window_text.cpp",
  "shared": [
   "0x42F250",
   "0x45CC10"
- ],
- "tiebreak": [
-  "0x51D700"
  ]
 }

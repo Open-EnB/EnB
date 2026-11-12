@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "opcode 236 (GM Destroy Item) written by hand (builder P4, 6 of 6 exact in appfile.py match), client 0x8714F0-0x871A00; the file name provisional (NAME 1)",
@@ -23,7 +22,8 @@
   "0x871840",
   "0x8718B0",
   "0x8719A0",
-  "0x8719C0"
+  "0x8719C0",
+  "0x871A00"
  ],
  "merged": [],
  "name": "packets/pkgmdestroyitem.cpp",

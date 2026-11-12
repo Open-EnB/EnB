@@ -1,7 +1,6 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42B2F0",
   "0x46BE90",
   "0x474080"
  ],
@@ -57,7 +56,8 @@
   "0x6A90A0",
   "0x6A93E0",
   "0x6A9660",
-  "0x6A9920"
+  "0x6A9920",
+  "0x6A9B30"
  ],
  "merged": [],
  "name": "client/slot_data_render.cpp",

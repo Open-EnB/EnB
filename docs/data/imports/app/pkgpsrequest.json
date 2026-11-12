@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcodes 221 (GPS_REQUEST) and 222 (GPSResponse) written by hand (builder P4, 12 of 12 exact in appfile.py match), client 0x887F20-0x888670; the file name provisional (NAME 1)",
  "expected": {},
@@ -27,7 +25,8 @@
   "0x888490",
   "0x888500",
   "0x8885F0",
-  "0x888640"
+  "0x888640",
+  "0x888670"
  ],
  "merged": [],
  "name": "packets/pkgpsrequest.cpp",

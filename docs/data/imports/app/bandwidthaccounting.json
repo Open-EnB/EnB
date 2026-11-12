@@ -4,6 +4,7 @@
  "description": "the bandwidth accounting, client 0x84C720-0x84DFB0 (M1.4): a kernel task with per-address counts fed by wnet's accounting callback, WWLib's DynamicVectorClass of 0x3C-byte entries; the debug window prints on the client's lines 281-361 (D25); exact",
  "expected": {},
  "in_tree": [
+  "0x84C6C0",
   "0x84C6F0",
   "0x84C720",
   "0x84C760",

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 106 written by hand, builder P; opcode 107) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -27,7 +25,8 @@
   "0x8A5320",
   "0x8A53C0",
   "0x8A5490",
-  "0x8A54B0"
+  "0x8A54B0",
+  "0x8A54E0"
  ],
  "merged": [],
  "name": "packets/pksoundcommand.cpp",

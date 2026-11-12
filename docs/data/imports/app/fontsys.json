@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x483600",
   "0x497350"
  ],
@@ -124,7 +123,8 @@
   "0x6D87F0",
   "0x6D88C0",
   "0x6D88F0",
-  "0x6D8AB0"
+  "0x6D8AB0",
+  "0x6D8B40"
  ],
  "merged": [],
  "name": "client/fontsys.cpp",

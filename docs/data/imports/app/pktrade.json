@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 31) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -21,7 +19,8 @@
   "0x8AB370",
   "0x8AB410",
   "0x8AB4E0",
-  "0x8AB500"
+  "0x8AB500",
+  "0x8AB530"
  ],
  "merged": [],
  "name": "packets/pktrade.cpp",

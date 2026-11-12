@@ -1,8 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42AFF0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "client 0x8AEAE0-0x8B15C0, one object (P-PK2-2: pkverblist.cpp merged in, builder PK3): opcode 90 (VERB_REQUEST) drafted by tools/re/pkdecode.py / pkemit.py; 92 (VERB_UPDATE, builder P4) and 91 (VERB_LIST, builder PK1) written by hand with std::set<VerbEnum>'s members, their serialisation in three static helpers (Read_Verbs / Write_Verbs / Append_Verbs) VC6 inlines (F9: the five inline-budget functions exact only so); the file name provisional (NAME 1)",
@@ -61,7 +59,9 @@
   "0x8B1390",
   "0x8B1410",
   "0x8B1490",
-  "0x8B1510"
+  "0x8B1510",
+  "0x8B1590",
+  "0x8B15C0"
  ],
  "merged": [],
  "name": "packets/pkverbrequest.cpp",

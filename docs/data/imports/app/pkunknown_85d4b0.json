@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 77's object, 0x85D4B0-0x85D780 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
@@ -19,7 +17,8 @@
   "0x85D570",
   "0x85D630",
   "0x85D650",
-  "0x85D730"
+  "0x85D730",
+  "0x85D780"
  ],
  "merged": [],
  "name": "packets/pkunknown_85d4b0.cpp",

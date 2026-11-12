@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientItemPropertyAttributeIntegerClass (D24 class-from-file), a integer attribute property (0x4C bytes), client file client_item_property_attribute_integer.cpp (its __FILE__ and FAIL_IFs 'label.empty()' / 'tooltip.empty()', D25): Create, ctor, dtors, slot +0x14, Create_NEW, <string>'s guarded static",
  "expected": {},
@@ -14,7 +12,8 @@
   "0x520930",
   "0x520960",
   "0x520980",
-  "0x520AC0"
+  "0x520AC0",
+  "0x520AF0"
  ],
  "merged": [],
  "name": "client/item/client_item_property_attribute_integer.cpp",
@@ -25,8 +24,5 @@
  ],
  "short_known": [
   "0x520960"
- ],
- "tiebreak": [
-  "0x520AC0"
  ]
 }

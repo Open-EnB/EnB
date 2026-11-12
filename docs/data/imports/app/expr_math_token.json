@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the object 0x4C7620-0x4C7B4F between expr_lexer_match_list.cpp and expr_math_float.cpp (no __FILE__, interim name and placement D137): ExprMathTokenClass's constructors, Is_Valid, operator== / !=, all exact (EX3)",
  "expected": {},
@@ -16,7 +14,8 @@
   "0x4C7850",
   "0x4C79E0",
   "0x4C7A60",
-  "0x4C7AE0"
+  "0x4C7AE0",
+  "0x4C7B70"
  ],
  "merged": [],
  "name": "shared/expr/expr_math_token.cpp",

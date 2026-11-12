@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "opcode 235 (GM View Mission Log) written by hand (builder P4, 6 of 6 exact in appfile.py match), client 0x86FD00-0x8703A0; the file name provisional (NAME 1)",
@@ -32,7 +31,8 @@
   "0x870170",
   "0x870200",
   "0x870320",
-  "0x870370"
+  "0x870370",
+  "0x8703A0"
  ],
  "merged": [],
  "name": "packets/pkgmviewmissionlog.cpp",

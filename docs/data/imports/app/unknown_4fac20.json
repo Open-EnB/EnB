@@ -1,7 +1,6 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42B2F0",
   "0x4F2440"
  ],
  "copy": "reconstructed",
@@ -23,7 +22,8 @@
   "0x4FB290",
   "0x4FB380",
   "0x4FB4C0",
-  "0x4FB5B0"
+  "0x4FB5B0",
+  "0x4FB7E0"
  ],
  "merged": [],
  "name": "shared/unknown_4fac20.cpp",

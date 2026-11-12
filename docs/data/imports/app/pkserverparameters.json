@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 66 (SERVER_PARAMETERS) written by hand (builder P4, 4 of 4 exact in appfile.py match), client 0x8A5AB0-0x8A60F0; the file name provisional (NAME 1)",
  "expected": {},
@@ -20,7 +18,8 @@
   "0x8A5C10",
   "0x8A5DD0",
   "0x8A5FB0",
-  "0x8A5FD0"
+  "0x8A5FD0",
+  "0x8A6110"
  ],
  "merged": [],
  "name": "packets/pkserverparameters.cpp",

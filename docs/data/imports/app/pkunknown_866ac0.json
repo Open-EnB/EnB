@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "packet classes (opcode 120) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
@@ -29,7 +28,8 @@
   "0x866EB0",
   "0x866ED0",
   "0x866F90",
-  "0x866FB0"
+  "0x866FB0",
+  "0x866FE0"
  ],
  "merged": [],
  "name": "packets/pkunknown_866ac0.cpp",

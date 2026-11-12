@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x72C040",
-  "0x8B5EC0"
+  "0x72C040"
  ],
  "copy": "Z",
  "expected": {
@@ -11,6 +10,7 @@
  "in_tree": [
   "0x8B5DB0",
   "0x8B5E30",
+  "0x8B5EC0",
   "0x8B5EF0",
   "0x8B5F70",
   "0x8B6000",
@@ -27,6 +27,7 @@
   "0x8B6CC0",
   "0x8B6D40",
   "0x8B6DD0",
+  "0x8B6EB0",
   "0x8B6EE0",
   "0x8B6F50",
   "0x8B6FC0",

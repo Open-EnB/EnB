@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 79 (STARBASE_SET) written by hand (builder P4, 4 of 4 exact); packet classes (opcode 78, 80) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -33,7 +31,8 @@
   "0x8A3370",
   "0x8A3450",
   "0x8A3560",
-  "0x8A3580"
+  "0x8A3580",
+  "0x8A35D0"
  ],
  "merged": [],
  "name": "packets/pkstarbasetow.cpp",

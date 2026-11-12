@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 98's object, 0x8812D0-0x8816A0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 6 of 6 exact in appfile.py match",
  "expected": {},
@@ -22,7 +20,8 @@
   "0x8814E0",
   "0x881520",
   "0x881600",
-  "0x881620"
+  "0x881620",
+  "0x8816A0"
  ],
  "merged": [],
  "name": "packets/pkdialog.cpp",

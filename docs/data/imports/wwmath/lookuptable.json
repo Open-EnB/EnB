@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x8DF3B0"
- ],
+ "ambiguous": [],
  "best": "R",
  "copy": "R",
  "expected": {
@@ -24,6 +22,8 @@
   "0x8DF160",
   "0x8DF1C0",
   "0x8DF2A0",
+  "0x8DF3B0",
+  "0x8DF3F0",
   "0x8DF430",
   "0x8DF460",
   "0x8DF4A0",

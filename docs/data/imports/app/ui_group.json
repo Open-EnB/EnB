@@ -4,8 +4,7 @@
   "0x42B2F0",
   "0x46BE90",
   "0x474080",
-  "0x4982F0",
-  "0x597820"
+  "0x4982F0"
  ],
  "copy": "reconstructed",
  "description": "UIGroupClass (ui_group.cpp's __FILE__; client 0x593180-0x598A60, claims #27 / #28): the constructor 0x593BD0, destructor 0x593D70, slot +0x7C, the member lookups, the ClientGroupEvent emitters (line 1594), 0x597B00 / 0x597B70 / 0x597D10, the formation button state 0x5981B0-0x5982A0 and the control keys 0x5985A0 / 0x598720 on the client's lines (D25), UG1",
@@ -81,6 +80,8 @@
   "0x597200",
   "0x597310",
   "0x5975D0",
+  "0x597820",
+  "0x5978A0",
   "0x597920",
   "0x5979A0",
   "0x597A60",

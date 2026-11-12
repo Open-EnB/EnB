@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "expr_math_lexer_factory.cpp (the client's __FILE__; FAIL_IF line 12), client 0x4D0230-0x4D052F: Add_Operators, Create and the white-space matcher's destructors, all exact (EX3)",
  "expected": {},
@@ -10,7 +8,8 @@
   "0x4D0230",
   "0x4D0360",
   "0x4D04E0",
-  "0x4D0510"
+  "0x4D0510",
+  "0x4D0530"
  ],
  "merged": [],
  "name": "shared/expr/expr_math_lexer_factory.cpp",

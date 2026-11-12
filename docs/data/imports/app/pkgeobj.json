@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 30015, 30009, 30010) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the client's file (its asserts' __FILE__; renamed from pkunknown_* under D95(c))",
  "expected": {},
@@ -72,7 +70,8 @@
   "0x860BC0",
   "0x860C90",
   "0x860CB0",
-  "0x860CE0"
+  "0x860CE0",
+  "0x860D00"
  ],
  "merged": [],
  "name": "packets/gameedit/pkgeobj.cpp",

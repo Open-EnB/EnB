@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the aux data packets (opcodes 27 and 28 over it), client 0x876D30-0x877340: written by hand (builder P), 7 of 8 functions exact in appfile.py match (Print NOT EXACT: register order); the file name provisional (NAME 1)",
  "expected": {},
@@ -29,7 +27,8 @@
   "0x8771E0",
   "0x877200",
   "0x877230",
-  "0x877300"
+  "0x877300",
+  "0x877340"
  ],
  "merged": [],
  "name": "packets/pkauxdata.cpp",
@@ -58,8 +57,5 @@
   "0x877080",
   "0x8771C0",
   "0x8771E0"
- ],
- "tiebreak": [
-  "0x877300"
  ]
 }

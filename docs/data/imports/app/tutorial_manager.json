@@ -1,8 +1,7 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42B250",
-  "0x42B2F0"
+  "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "TutorialStepStruct / TutorialManagerClass, client 0x6AC280-0x6AD7B0 with the table's and list's instances after it: the reports on the client's lines 94 / 114 / 190 / 382 / 402 (D25); NOT EXACT: the constructor 0x6AC600, the destructor 0x6ACD10, Start_Step 0x6ACF50, Read_Completed_File 0x6AD4B0, Reload 0x6AD7B0",
@@ -61,7 +60,8 @@
   "0x6AEE00",
   "0x6AEE30",
   "0x6AEE60",
-  "0x6AF040"
+  "0x6AF040",
+  "0x6AF1F0"
  ],
  "merged": [],
  "name": "client/tutorial_manager.cpp",
@@ -81,8 +81,5 @@
   "0x6ACF30",
   "0x6AD080",
   "0x6AE230"
- ],
- "tiebreak": [
-  "0x6AF040"
  ]
 }

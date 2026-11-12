@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 20's object, 0x89D040-0x89D2E0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 5 of 5 exact in appfile.py match",
  "expected": {},
@@ -21,7 +19,8 @@
   "0x89D110",
   "0x89D1B0",
   "0x89D280",
-  "0x89D2A0"
+  "0x89D2A0",
+  "0x89D2E0"
  ],
  "merged": [],
  "name": "packets/pkmove.cpp",

@@ -2,7 +2,6 @@
  "ambiguous": [
   "0x42A900",
   "0x42B250",
-  "0x42B2F0",
   "0x46BE90"
  ],
  "copy": "reconstructed",
@@ -165,7 +164,8 @@
   "0x83C640",
   "0x83C670",
   "0x83C6A0",
-  "0x83C6D0"
+  "0x83C6D0",
+  "0x83C700"
  ],
  "merged": [],
  "name": "common/galaxy_map.cpp",
@@ -223,11 +223,5 @@
   "0x83AE10",
   "0x83AE60",
   "0x83B1F0"
- ],
- "tiebreak": [
-  "0x83C640",
-  "0x83C670",
-  "0x83C6A0",
-  "0x83C6D0"
  ]
 }

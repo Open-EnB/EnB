@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 81) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -20,7 +18,8 @@
   "0x8A25B0",
   "0x8A2650",
   "0x8A2720",
-  "0x8A2740"
+  "0x8A2740",
+  "0x8A2780"
  ],
  "merged": [],
  "name": "packets/pkskillstringrq.cpp",

@@ -1,7 +1,6 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42B2F0",
   "0x46BE90"
  ],
  "copy": "reconstructed",
@@ -38,7 +37,8 @@
   "0x5182B0",
   "0x5182E0",
   "0x518650",
-  "0x518680"
+  "0x518680",
+  "0x5186C0"
  ],
  "merged": [],
  "name": "client/dynamic_window_class.cpp",
@@ -49,11 +49,5 @@
   "0x42AB30",
   "0x42F250",
   "0x45CC10"
- ],
- "tiebreak": [
-  "0x518170",
-  "0x5182E0",
-  "0x518650",
-  "0x518680"
  ]
 }

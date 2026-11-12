@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42B2F0",
-  "0x86E920"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "PARTIAL: pk.cpp's factory 0x8696C0 and its switch 0x869790 (GENERATED between markers by tools/re/pkclasses.py: 263 cases), the raw-message helpers 0x86E870-0x86EFE0 and the base's slot +0x14 0x86F010, all exact; the asserts on the client's lines 1078-1344 (D25); the small packet classes' members 0x86E5B0-0x86E850 not rebuilt",
@@ -44,8 +43,10 @@
   "0x86E870",
   "0x86E8A0",
   "0x86E8D0",
+  "0x86E920",
   "0x86E960",
   "0x86E9A0",
+  "0x86E9E0",
   "0x86EA20",
   "0x86EA40",
   "0x86EAC0",

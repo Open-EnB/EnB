@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "opcode 118's object (GlobalLoginPacketClass), 0x865D60-0x866770 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
@@ -29,7 +28,8 @@
   "0x8662B0",
   "0x866420",
   "0x8665A0",
-  "0x866640"
+  "0x866640",
+  "0x866770"
  ],
  "merged": [],
  "name": "packets/pkgloballogin.cpp",

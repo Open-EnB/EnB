@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcodes 30021 and 30022 (send-only), client 0x85DE30-0x85E610, the client's file (its asserts' __FILE__): written by hand (builder P5)",
  "expected": {},
@@ -29,7 +27,8 @@
   "0x85E440",
   "0x85E560",
   "0x85E580",
-  "0x85E5F0"
+  "0x85E5F0",
+  "0x85E610"
  ],
  "merged": [],
  "name": "packets/gameedit/pkgeclon.cpp",

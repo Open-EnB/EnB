@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientItemPropertySpecialClass (D24 class from its header client_item_property_special.h, __FILE__ 0xB78B68), the special properties' base (table 0xAEDEB8, 0x24 bytes), client 0x52B3E0-0x52B80F: ctor 0x52B3E0, dtors 0x52B5E0 / 0x52B5B0, slots 0x52B650 / 0x52B670 / 0x52B7F0; no assert, the file's name provisional (D137)",
  "expected": {},
@@ -17,7 +15,8 @@
   "0x52B5E0",
   "0x52B650",
   "0x52B670",
-  "0x52B7F0"
+  "0x52B7F0",
+  "0x52B810"
  ],
  "merged": [],
  "name": "client/item/client_item_property_special.cpp",

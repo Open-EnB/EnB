@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 184 (NoteContent) written by hand (builder P4, 6 of 6 exact in appfile.py match), client 0x87EA50-0x87F2F0 (183 not yet); the file name provisional (NAME 1)",
  "expected": {},
@@ -30,7 +28,8 @@
   "0x87F1E0",
   "0x87F200",
   "0x87F230",
-  "0x87F2A0"
+  "0x87F2A0",
+  "0x87F2F0"
  ],
  "merged": [],
  "name": "packets/pknotelist.cpp",
@@ -48,8 +47,5 @@
   "0x52B2D0",
   "0x52B310",
   "0x52B330"
- ],
- "tiebreak": [
-  "0x87F2A0"
  ]
 }

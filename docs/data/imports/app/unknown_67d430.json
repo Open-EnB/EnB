@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the object 0x67D430-0x67DC6F between charview.cpp and chat_window.cpp, its bounds the guarded initialisers 0x67D400 and 0x67DC50 (no __FILE__, neutral name D10, placement provisional D137); all exact (CH1)",
  "expected": {},
@@ -20,7 +18,8 @@
   "0x67D780",
   "0x67D980",
   "0x67DA60",
-  "0x67DB40"
+  "0x67DB40",
+  "0x67DC50"
  ],
  "merged": [],
  "name": "client/unknown_67d430.cpp",
