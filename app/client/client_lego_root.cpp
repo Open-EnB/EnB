@@ -5,6 +5,7 @@
 #include "..\shared\auxdata\auxdata.h"
 // The asserts name DeltaClass::Is_Valid(), not declared in delta.h (a declaration there moves aux_roots.cpp's pad window: interim, D137)
 #define Is_Valid() Unknown70
+// Get_Size() is DeltaCompoundClass's member (delta.h), as the FAIL_IF text 0xB95290 names it
 // unknown_7294d0.cpp's (0x7294D0 / 0x729770; that file has no header yet)
 struct Unknown729990Struct					// NAME 1: neutral (D10)
 {
