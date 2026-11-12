@@ -17,10 +17,10 @@ class Matrix3D;
 // The ambient sounds of one place (the bridge, a sector, a starbase), kept per channel: a channel is one set of
 // sounds (a race's bridge, an elevation band of a sector, a starbase room), and one channel plays at a time.
 // Each channel has sounds that loop while it plays and sounds started at random intervals, both either plain
-// (2-D) or attached to a bone of a model (3-D). 0x2C bytes (BridgeSoundManager's first own member is at +0x2C).
+// (2-D) or attached to a bone of a model (3-D). 0x2C bytes (BridgeSoundManagerClass's first own member is at +0x2C).
 // The class and its member names LoopingSounds, RandomSounds, NumChannels, CurrentChannel, and the sounds'
 // RenderObj and Sound, are the client's (ambientsoundmanager.cpp's FAIL_IF / G_ASSERT texts, l.84-577).
-class AmbientSoundManager  // NAME 2: ambientsoundmanager.cpp is the client's; class name assumed
+class AmbientSoundManagerClass  // NAME 3: class-from-file (D24) for audio/ambientsoundmanager.cpp (P-L18-2)
 {
 public:
 	// a sound started at random intervals (0x28 bytes, made at 0x434C60; the destructor 0x4346C0 is the compiler's)
@@ -63,8 +63,8 @@ public:
 		int NextTime;				// +0x20  // NAME 2: as RandomSoundStruct's
 	};
 
-	AmbientSoundManager(int num_channels);	// 0x433D00 (0: Initialize is called later)
-	~AmbientSoundManager();					// 0x4342E0
+	AmbientSoundManagerClass(int num_channels);	// 0x433D00 (0: Initialize is called later)
+	~AmbientSoundManagerClass();					// 0x4342E0
 	void Initialize(int num_channels);		// 0x433D90 (FAIL_IF 'num_channels <= 0', l.86): the four channel arrays allocated
 	void Reset();							// 0x434360: every sound stopped, the channel arrays freed
 	void Add_Looping_Sound(int channel, const char *name);	// 0x434710 (l.203)  // NAME 2: what it does

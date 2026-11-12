@@ -6,8 +6,8 @@
 
 // @0x436A60
 // NOT EXACT: register-only (explain.py: same length, 0.74): the client holds the 0 of m_channel in ecx and loads 0.5 into eax before it; here eax holds both in turn
-BridgeSoundManager::BridgeSoundManager() :
-	AmbientSoundManager(3)
+BridgeSoundManagerClass::BridgeSoundManagerClass() :
+	AmbientSoundManagerClass(3)
 {
 	m_channel = 0;
 	m_fade_out = 500;
@@ -19,34 +19,34 @@ BridgeSoundManager::BridgeSoundManager() :
 }
 
 // @0x436AF0
-BridgeSoundManager::~BridgeSoundManager()
+BridgeSoundManagerClass::~BridgeSoundManagerClass()
 {
-	AmbientSoundManager::Reset();
+	AmbientSoundManagerClass::Reset();
 }
 
 // @0x436B60
-void BridgeSoundManager::Reset(int time)
+void BridgeSoundManagerClass::Reset(int time)
 {
-	AmbientSoundManager::Reset();
-	AmbientSoundManager::Initialize(3);
+	AmbientSoundManagerClass::Reset();
+	AmbientSoundManagerClass::Initialize(3);
 	Load_INI();
-	AmbientSoundManager::Play_Ambient_Sounds(m_channel, m_fade_out, time);
+	AmbientSoundManagerClass::Play_Ambient_Sounds(m_channel, m_fade_out, time);
 }
 
 // @0x436BA0
-void BridgeSoundManager::Play_Sounds(int channel, int time)
+void BridgeSoundManagerClass::Play_Sounds(int channel, int time)
 {
-	AmbientSoundManager::Play_Ambient_Sounds(channel, m_fade_out, time);
+	AmbientSoundManagerClass::Play_Ambient_Sounds(channel, m_fade_out, time);
 }
 
 // @0x436BD0
-void BridgeSoundManager::Update(int time)
+void BridgeSoundManagerClass::Update(int time)
 {
-	AmbientSoundManager::Update(time);
+	AmbientSoundManagerClass::Update(time);
 }
 
 // @0x436BF0
-void BridgeSoundManager::Load_INI()
+void BridgeSoundManagerClass::Load_INI()
 {
 	INIClass ini;
 	char filename[128];
@@ -207,7 +207,7 @@ void BridgeSoundManager::Load_INI()
 
 
 // @0x436DC0
-void BridgeSoundManager::Load_Section(INIClass *ini, const char *section, int race)
+void BridgeSoundManagerClass::Load_Section(INIClass *ini, const char *section, int race)
 {
 	FAIL_IF(ini == NULL) return;
 	if (ini->Section_Present(section)) {
@@ -238,7 +238,7 @@ void BridgeSoundManager::Load_Section(INIClass *ini, const char *section, int ra
 
 /*
 Reconstruction notes:
-bridgesounds.cpp holds BridgeSoundManager (derived from AmbientSoundManager)
+bridgesounds.cpp holds BridgeSoundManagerClass (derived from AmbientSoundManagerClass)
 which loads bridgesounds.ini for bridge ambient audio loops and delays.
 Confirmed object boundary 0x436A60-0x4370A0. Not rebuilt yet: 0x437070 (Stop_Sounds with the fade-out; no caller found).
 */

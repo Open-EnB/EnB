@@ -12,7 +12,7 @@
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as avatar.cpp's
 
 // @0x433D00
-AmbientSoundManager::AmbientSoundManager(int num_channels) :
+AmbientSoundManagerClass::AmbientSoundManagerClass(int num_channels) :
 	LoopingSounds(NULL),
 	RandomSounds(NULL),
 	LoopingSounds3D(NULL),
@@ -79,7 +79,7 @@ AmbientSoundManager::AmbientSoundManager(int num_channels) :
 
 
 // @0x433D90
-void AmbientSoundManager::Initialize(int num_channels)
+void AmbientSoundManagerClass::Initialize(int num_channels)
 {
 	FAIL_IF(LoopingSounds != NULL) return;
 	FAIL_IF(RandomSounds != NULL) return;
@@ -92,13 +92,13 @@ void AmbientSoundManager::Initialize(int num_channels)
 }
 
 // @0x4342E0
-AmbientSoundManager::~AmbientSoundManager()
+AmbientSoundManagerClass::~AmbientSoundManagerClass()
 {
 	Reset();
 }
 
 // @0x434360
-void AmbientSoundManager::Reset()
+void AmbientSoundManagerClass::Reset()
 {
 	Stop_Sounds(0);
 	int channel;
@@ -198,7 +198,7 @@ void AmbientSoundManager::Reset()
 
 
 // @0x434710
-void AmbientSoundManager::Add_Looping_Sound(int channel, const char *name)
+void AmbientSoundManagerClass::Add_Looping_Sound(int channel, const char *name)
 {
 	FAIL_IF(channel >= NumChannels) return;
 	FAIL_IF(channel < 0) return;
@@ -222,7 +222,7 @@ void AmbientSoundManager::Add_Looping_Sound(int channel, const char *name)
 
 
 // @0x4348C0
-void AmbientSoundManager::Add_Looping_Sound(int channel, const char *name, RenderObjClass *rendobj, const char *bone_name)
+void AmbientSoundManagerClass::Add_Looping_Sound(int channel, const char *name, RenderObjClass *rendobj, const char *bone_name)
 {
 	FAIL_IF(channel >= NumChannels) return;
 	FAIL_IF(channel < 0) return;
@@ -261,7 +261,7 @@ void AmbientSoundManager::Add_Looping_Sound(int channel, const char *name, Rende
 
 
 // @0x434C60
-void AmbientSoundManager::Add_Random_Sound(int channel, const char *name, int min_delay, int max_delay, float min_pan, float max_pan, bool positional)
+void AmbientSoundManagerClass::Add_Random_Sound(int channel, const char *name, int min_delay, int max_delay, float min_pan, float max_pan, bool positional)
 {
 	FAIL_IF(channel >= NumChannels) return;
 	FAIL_IF(channel < 0) return;
@@ -300,7 +300,7 @@ void AmbientSoundManager::Add_Random_Sound(int channel, const char *name, int mi
 
 
 // @0x434FD0
-void AmbientSoundManager::Add_Random_Sound(int channel, const char *name, int min_delay, int max_delay, RenderObjClass *rendobj, const char *bone_name)
+void AmbientSoundManagerClass::Add_Random_Sound(int channel, const char *name, int min_delay, int max_delay, RenderObjClass *rendobj, const char *bone_name)
 {
 	FAIL_IF(channel >= NumChannels) return;
 	FAIL_IF(channel < 0) return;
@@ -341,7 +341,7 @@ void AmbientSoundManager::Add_Random_Sound(int channel, const char *name, int mi
 
 
 // @0x435390
-void AmbientSoundManager::Play_Ambient_Sounds(int channel, int fade_out, int time)
+void AmbientSoundManagerClass::Play_Ambient_Sounds(int channel, int fade_out, int time)
 {
 	FAIL_IF(channel >= NumChannels) return;
 	FAIL_IF(channel < 0) return;
@@ -398,7 +398,7 @@ void AmbientSoundManager::Play_Ambient_Sounds(int channel, int fade_out, int tim
 
 
 // @0x435610
-void AmbientSoundManager::Update(int time, const Matrix3D &tm)
+void AmbientSoundManagerClass::Update(int time, const Matrix3D &tm)
 {
 	FAIL_IF(CurrentChannel >= NumChannels) return;
 	if (CurrentChannel < 0) return;
@@ -444,7 +444,7 @@ void AmbientSoundManager::Update(int time, const Matrix3D &tm)
 	}
 }
 // @0x435AE0
-void AmbientSoundManager::Update(int time)
+void AmbientSoundManagerClass::Update(int time)
 {
 	FAIL_IF(CurrentChannel >= NumChannels) return;
 	if (CurrentChannel < 0) return;
@@ -469,7 +469,7 @@ void AmbientSoundManager::Update(int time)
 }
 
 // @0x435E50
-void AmbientSoundManager::Update_Playing_Sounds(int time)
+void AmbientSoundManagerClass::Update_Playing_Sounds(int time)
 {
 	bool silent = true;
 	std::vector<AudibleSoundClass *>::iterator itor = PlayingSounds.begin();
@@ -494,7 +494,7 @@ void AmbientSoundManager::Update_Playing_Sounds(int time)
 }
 
 // @0x435F80
-void AmbientSoundManager::Set_Pending_Channel(int channel)
+void AmbientSoundManagerClass::Set_Pending_Channel(int channel)
 {
 	ChannelPending = true;
 	CurrentChannel = channel;
@@ -557,7 +557,7 @@ void AmbientSoundManager::Set_Pending_Channel(int channel)
 
 
 // @0x435FA0
-void AmbientSoundManager::Stop_Sounds(int fade_out)
+void AmbientSoundManagerClass::Stop_Sounds(int fade_out)
 {
 	for (std::vector<AudibleSoundClass *>::iterator playing = PlayingSounds.begin(); playing != PlayingSounds.end(); playing++) {
 		AudibleSoundClass *sound = *playing;
@@ -590,7 +590,7 @@ void AmbientSoundManager::Stop_Sounds(int fade_out)
 }
 
 // @0x436120
-AmbientSoundManager::LoopingSound3DStruct::~LoopingSound3DStruct()
+AmbientSoundManagerClass::LoopingSound3DStruct::~LoopingSound3DStruct()
 {
 	if (Sound != NULL) {
 		Sound->Stop(true);
@@ -605,7 +605,7 @@ AmbientSoundManager::LoopingSound3DStruct::~LoopingSound3DStruct()
 }
 
 // @0x436200
-AmbientSoundManager::RandomSound3DStruct::~RandomSound3DStruct()
+AmbientSoundManagerClass::RandomSound3DStruct::~RandomSound3DStruct()
 {
 	if (RenderObj != NULL) {
 		RenderObj->Release_Ref();
@@ -615,7 +615,7 @@ AmbientSoundManager::RandomSound3DStruct::~RandomSound3DStruct()
 
 /*
 Reconstruction notes:
-ambientsoundmanager.cpp holds AmbientSoundManager, the base of the bridge's, a sector's and a starbase's ambient
+ambientsoundmanager.cpp holds AmbientSoundManagerClass, the base of the bridge's, a sector's and a starbase's ambient
 sounds (bridgesounds.cpp, sectorsound.cpp, starbasesound.cpp). The object is 0x433C80-0x436A00 (the music
 player's object ends before it; bridgesounds.cpp's 0x436A60 follows); its vectors' instances lie between its
 functions (0x433F90-0x4342B0: the channel arrays' vector deleting destructors and constructors) and after them

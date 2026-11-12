@@ -73,7 +73,7 @@ public:
 	void On_Gadget_Flash(FlashingGadgetEvent *event, GadgetClass *sender);	// 0x53CCD0 (the signal map's callback while in a scene): 'use_controls'  // NAME 1: what it handles; NAME 3 [event]: the FAIL_IF's '!event'; NAME 1 [sender]: the callback's second argument
 	void Play_Animation(int anim, float frame, int flags, int variant);	// 0x53CD60: the tag's body animation onto the avatar (variant 1..4 of 'use_controls', else random)  // NAME 1: what it does; [anim, variant]: what they are; [frame, flags]: 0x789C10's
 	void Stop_Animation();								// 0x53CEE0  // NAME 1: what it does
-	void Reset_Sounds(int time);						// 0x53CF20: BridgeSoundManager::Reset  // NAME 1: what it does; [time]: bridgesounds.h's
+	void Reset_Sounds(int time);						// 0x53CF20: BridgeSoundManagerClass::Reset  // NAME 1: what it does; [time]: bridgesounds.h's
 
 	bool Is_Busy() { return(ViewReached != View); }		// (inline: pdaint.cpp's 0x693CA0 and 0x695780 compare +0x1C with +0x18)  // NAME 1: neutral
 	SimpleSceneClass *Peek_Scene() { return((SimpleSceneClass *)Scene.Peek()); }	// NAME 1: what it returns
@@ -96,7 +96,7 @@ public:
 	bool Looking;										// +0x78: Pitch / Yaw were set this frame (else they decay)  // NAME 1: what it holds
 	bool Unknown79;										// +0x79
 	int Animation;										// +0x7C: what the avatar plays (ANIM_*)  // NAME 1: what it holds
-	BridgeSoundManager Sounds;							// +0x80  // NAME 1: what it is
+	BridgeSoundManagerClass Sounds;							// +0x80  // NAME 1: what it is
 };
 
 #endif

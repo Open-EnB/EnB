@@ -21,7 +21,7 @@ static const char *_RoomSectionNames[StarbaseSoundClass::NUM_ROOMS] = {	// NAME 
 
 // @0x441910
 StarbaseSoundClass::StarbaseSoundClass(int starbase) :
-	AmbientSoundManager(NUM_ROOMS),
+	AmbientSoundManagerClass(NUM_ROOMS),
 	Starbase(starbase),
 	DefaultMinPan(0.5f),
 	DefaultMaxPan(0.5f)
@@ -37,7 +37,7 @@ StarbaseSoundClass::StarbaseSoundClass(int starbase) :
 // @0x4419B0
 StarbaseSoundClass::~StarbaseSoundClass()
 {
-	AmbientSoundManager::Reset();
+	AmbientSoundManagerClass::Reset();
 	if (INI != NULL) {
 		delete INI;
 		INI = NULL;
@@ -53,8 +53,8 @@ void StarbaseSoundClass::Set_Room(int room)
 // @0x441A50
 void StarbaseSoundClass::Reset(int room)
 {
-	AmbientSoundManager::Reset();
-	AmbientSoundManager::Initialize(NUM_ROOMS);
+	AmbientSoundManagerClass::Reset();
+	AmbientSoundManagerClass::Initialize(NUM_ROOMS);
 	Load_INI();
 	Set_Pending_Channel(room);
 }
@@ -158,7 +158,7 @@ void StarbaseSoundClass::Update(int time, UIMeshClass *mesh)
 	Matrix3D tm(1);
 	int bone = Unknown_BDBB84(0, obj->Get_Num_Bones() - 1);
 	tm = obj->Get_Bone_Transform(bone);
-	AmbientSoundManager::Update(time, tm);
+	AmbientSoundManagerClass::Update(time, tm);
 }
 
 // @0x441C40
@@ -263,7 +263,7 @@ void StarbaseSoundClass::Load_Section(int room, const char *section_name)
 
 /*
 Reconstruction notes:
-starbasesound.cpp holds StarbaseSoundClass (derived from AmbientSoundManager): a starbase's ambient sounds, read
+starbasesound.cpp holds StarbaseSoundClass (derived from AmbientSoundManagerClass): a starbase's ambient sounds, read
 from starbasesounds<n>.ini, one channel per room. The object is 0x441910-0x4428E0 (after soundlib.cpp's
 instances, before surfacetypes.cpp). Not rebuilt yet: the second Load_Section 0x4420E0 (the sounds
 tracked on a model's bones).

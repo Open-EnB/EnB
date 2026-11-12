@@ -7,7 +7,7 @@
 
 // @0x43C4A0
 SectorSoundClass::SectorSoundClass(unsigned sector) :
-	AmbientSoundManager(0),
+	AmbientSoundManagerClass(0),
 	CurrentElevation(-1),
 	Sector(sector)
 {
@@ -22,14 +22,14 @@ SectorSoundClass::SectorSoundClass(unsigned sector) :
 // @0x43C560
 SectorSoundClass::~SectorSoundClass()
 {
-	AmbientSoundManager::Reset();
+	AmbientSoundManagerClass::Reset();
 	Elevations.clear();
 }
 
 // @0x43C630
 void SectorSoundClass::Reset()
 {
-	AmbientSoundManager::Reset();
+	AmbientSoundManagerClass::Reset();
 	Load_INI();
 }
 
@@ -47,7 +47,7 @@ void SectorSoundClass::Update(int time, float elevation)
 			}
 		}
 		if (CurrentElevation != -1) {
-			AmbientSoundManager::Update(time);
+			AmbientSoundManagerClass::Update(time);
 		}
 	}
 }
@@ -285,7 +285,7 @@ void SectorSoundClass::Load_Section(INIClass *ini, const char *section_name, int
 
 /*
 Reconstruction notes:
-sectorsound.cpp holds SectorSoundClass (derived from AmbientSoundManager): a sector's ambient sounds, read from
+sectorsound.cpp holds SectorSoundClass (derived from AmbientSoundManagerClass): a sector's ambient sounds, read from
 sectorsounds<sector>.ini, one channel per elevation band. The object is 0x43C4A0-0x43CEA0 (after musictheme.cpp's
 0x43C460, before soundlib.cpp's templates); the vector's instances 0x43CE40-0x43D2A0 follow its functions.
 */

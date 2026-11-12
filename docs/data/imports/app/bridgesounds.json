@@ -1,7 +1,7 @@
 {
  "ambiguous": [],
  "copy": "reconstructed",
- "description": "BridgeSoundManager, client 0x436A60-0x4370A0 (assert ini == NULL line 212 confirms path e:\\\\build\\\\beta\\\\G\\\\app\\\\Audio\\\\bridgesounds.cpp, D25); ~BridgeSoundManager 0x436AF0, Reset 0x436B60, Play_Sounds 0x436BA0 exact",
+ "description": "BridgeSoundManagerClass, client 0x436A60-0x4370A0 (assert ini == NULL line 212 confirms path e:\\\\build\\\\beta\\\\G\\\\app\\\\Audio\\\\bridgesounds.cpp, D25); ~BridgeSoundManagerClass 0x436AF0, Reset 0x436B60, Play_Sounds 0x436BA0 exact",
  "expected": {},
  "in_tree": [
   "0x436AF0",

@@ -5,7 +5,7 @@
   "0x434070"
  ],
  "copy": "reconstructed",
- "description": "AmbientSoundManager, client 0x433C80-0x436A00: FAIL_IF 'LoopingSounds != NULL' l.84, 'RandomSounds != NULL' l.85, 'num_channels <= 0' l.86, 'channel >= NumChannels' l.203 / 227 / 266 / 305 / 346, 'CurrentChannel >= NumChannels' l.403 / 449, 'sound == NULL' l.577 and G_ASSERT 'sound->RenderObj' l.362 give the path e:\\build\\beta\\G\\app\\Audio\\ambientsoundmanager.cpp (D25)",
+ "description": "AmbientSoundManagerClass, client 0x433C80-0x436A00: FAIL_IF 'LoopingSounds != NULL' l.84, 'RandomSounds != NULL' l.85, 'num_channels <= 0' l.86, 'channel >= NumChannels' l.203 / 227 / 266 / 305 / 346, 'CurrentChannel >= NumChannels' l.403 / 449, 'sound == NULL' l.577 and G_ASSERT 'sound->RenderObj' l.362 give the path e:\\build\\beta\\G\\app\\Audio\\ambientsoundmanager.cpp (D25)",
  "expected": {},
  "in_tree": [
   "0x42A820",
