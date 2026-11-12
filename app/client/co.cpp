@@ -907,7 +907,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 		if (rslid == -1 || client == NULL) {
 			return(AssetManager->Create_Render_Obj("missing"));
 		}
-		RenderStateListClass *list = (RenderStateListClass *)client->Unknown18->Unknown_764030(rslid);	RsTrackClass *track = new RsTrackClass(list, scale, hsv);
+		RenderStateListClass *list = (RenderStateListClass *)client->RSLRegistry->Unknown_764030(rslid);	RsTrackClass *track = new RsTrackClass(list, scale, hsv);
 		int link_id = ini.Get_Int(section, "LINKID", -1);
 		int rs_id = ini.Get_Int(section, "RSID", -1);
 		if (link_id == -1) {

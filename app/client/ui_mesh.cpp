@@ -36,7 +36,7 @@ UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), Interfa
 UIMeshClass::UIMeshClass(const char *name, ClientClass *client) : SubjectClass(2), Unknown6C(1), Unknown70(0)
 {
 	G_ASSERT(client);
-	RenderStateListClass *list = client->Unknown18->Unknown_764060(name);
+	RenderStateListClass *list = client->RSLRegistry->Unknown_764060(name);
 	G_ASSERT(list);
 	RsTrackClass *track = new RsTrackClass(list, 1.0f, (float *)&Vector3(0.0f, 0.0f, 0.0f));
 

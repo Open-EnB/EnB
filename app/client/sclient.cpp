@@ -415,7 +415,7 @@ void SClient::Init()
 	Unknown13CC.Unknown_765010();
 	INIClass metals;
 	metals.Load("metals.ini");
-	Unknown18->Unknown_763E70("rs.ini");
+	RSLRegistry->Unknown_763E70("rs.ini");
 	Unknown1334->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
 	ProjDecalManager->Load("proj_dec.ini");
 	Unknown1270 = new LoginUnknown0CClass;
@@ -587,10 +587,10 @@ void SClient::Shutdown()
 	Mouse = NULL;
 	delete LoadingView;
 	LoadingView = NULL;
-	if (Unknown18) {
-		Unknown18->Unknown_763FF0();
-		delete Unknown18;
-		Unknown18 = NULL;
+	if (RSLRegistry) {
+		RSLRegistry->Unknown_763FF0();
+		delete RSLRegistry;
+		RSLRegistry = NULL;
 	}
 	delete Unknown1334;
 	Unknown1334 = NULL;
