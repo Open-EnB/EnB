@@ -20,12 +20,12 @@
 
 #include "unknown_675120.h"
 
-class UIManuCheckButtonClass : public ButtonGadgetClass  // NAME 1: neutral (D10): ui_manu.cpp's name for it, kept (the POC's link baseline names its stand-ins by it)
+class CheckBoxGadgetClass : public ButtonGadgetClass  // NAME 2: what it is, a check box ('if_check_on.tga' / 'if_check_off.tga'; D239 renamed it from UIManuCheckButtonClass)
 {
 public:
-	UIManuCheckButtonClass(RenderObjClass *robj, const LayerClass &layer, unsigned int flags);	// 0x7E7E70 (ButtonGadgetClass 0x675240 with mask 0x11; ui_manu.cpp's 0x5B6410 passes 0, or 0x55)  // NAME 1 [robj, layer, flags]: the base's
-	UIManuCheckButtonClass(RenderObjClass *robj, unsigned int flags);	// 0x7E7F20 (ButtonGadgetClass 0x675310; ui_chat_panel_base.cpp's 0x56D6F0)  // NAME 1 [robj, flags]: the base's
-	virtual ~UIManuCheckButtonClass();						// +0x00 0x7E7FA0 (deleting 0x7E7EF0)
+	CheckBoxGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int flags);	// 0x7E7E70 (ButtonGadgetClass 0x675240 with mask 0x11; ui_manu.cpp's 0x5B6410 passes 0, or 0x55)  // NAME 1 [robj, layer, flags]: the base's
+	CheckBoxGadgetClass(RenderObjClass *robj, unsigned int flags);	// 0x7E7F20 (ButtonGadgetClass 0x675310; ui_chat_panel_base.cpp's 0x56D6F0)  // NAME 1 [robj, flags]: the base's
+	virtual ~CheckBoxGadgetClass();						// +0x00 0x7E7FA0 (deleting 0x7E7EF0)
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x7E7FC0  // NAME 1 [event, x, y, mask]: the base's
 	void Unknown_7E8030(bool on);						// 0x7E8030 (Checked set, then 0x7E8050)  // NAME 1 [on]: neutral
 	void Unknown_7E8050();								// 0x7E8050 (the model's texture: 'if_check_on.tga' or 'if_check_off.tga')

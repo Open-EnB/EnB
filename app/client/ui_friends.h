@@ -13,7 +13,7 @@
 class GadgetClass;			// gadget.cpp's
 class GadgetSlider;			// gd_slider.h's
 class FontSys;				// fontmanager.h's
-class UIManuCheckButtonClass;	// ui_manu.cpp's check button (0x7E8030: checked or not)
+class CheckBoxGadgetClass;	// ui_manu.cpp's check button (0x7E8030: checked or not)
 class UIPTradeCreditsClass;	// sclient.h's: the text entry (ui_ptrade.cpp's credits entry; here 'Friend Player')
 
 // One player of the list (0x20 bytes; the window's list +0xC4 and PlayersInfo hold them)
@@ -72,7 +72,7 @@ public:
 	std::list<UIFriendsPlayerInfoClass *> Unknown0C4;	// +0xC4 (the destructor erases its nodes, not the players)
 	GadgetClass *Unknown0D0[8];							// +0xD0 (the constructor clears them; [2] and [4] on while a row is selected)
 	GadgetClass *Unknown0F0[7];							// +0xF0 the rows (slot +0x30: the pointer over one)
-	UIManuCheckButtonClass *Unknown10C[2];				// +0x10C the check buttons ('check%02d', ids 10 / 11: not restricted, restricted)
+	CheckBoxGadgetClass *Unknown10C[2];				// +0x10C the check buttons ('check%02d', ids 10 / 11: not restricted, restricted)
 	RefCountPtr<FontSys> Unknown114[7];					// +0x114 the rows' names (eh vector constructor 0x553A80, destructor 0x51C630)
 	RefCountPtr<FontSys> Unknown130[7];					// +0x130 the rows' locations ('offline': 0.5 alpha)
 };

@@ -7,7 +7,7 @@
 #include <string>
 #include "ui_chat_panel_base.h"
 
-class UIManuCheckButtonClass;	// ui_manu.cpp's check button (0x7E8030: checked or not; +0x64)
+class CheckBoxGadgetClass;	// ui_manu.cpp's check button (0x7E8030: checked or not; +0x64)
 
 // The channels page (0x104 bytes, tables 0xAF412C / 0xAF4120 / 0xAF4114)
 class UIOptionChannelClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltips' section 'UI_OPTION_CHANNEL'
@@ -27,7 +27,7 @@ public:
 
 	bool Mode;											// +0xA0 (the constructor's; false: ok and cancel go back to the chat panel's page 1)  // NAME 1: neutral (D10)
 	GadgetClass *Buttons[3];							// +0xA4 'exit', 'ok', 'cancel'  // NAME 2: what they are
-	UIManuCheckButtonClass *Checks[21];					// +0xB0 'check00'-'check20', one per channel option  // NAME 2: what they are
+	CheckBoxGadgetClass *Checks[21];					// +0xB0 'check00'-'check20', one per channel option  // NAME 2: what they are
 };
 
 #endif // UI_OPTION_CHANNEL_H

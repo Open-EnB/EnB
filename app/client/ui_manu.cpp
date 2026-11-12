@@ -296,11 +296,11 @@ void UIManuClass::Unknown_5C()
 }
 
 // The check button (0x68 bytes; constructor 0x7E7E70 over a render object and a layer, destructor 0x7E7FA0, table 0xB075E4)
-class UIManuCheckButtonClass : public GadgetClass	// NAME 1: neutral (D10)
+class CheckBoxGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIManuCheckButtonClass(RenderObjClass *robj, LayerClass *layer, int arg);	// 0x7E7E70 (0x5B6410: 0, or 0x55 for the filter buttons)  // NAME 1 [robj, layer, arg]: neutral
-	virtual ~UIManuCheckButtonClass();					// 0x7E7FA0
+	CheckBoxGadgetClass(RenderObjClass *robj, LayerClass *layer, int arg);	// 0x7E7E70 (0x5B6410: 0, or 0x55 for the filter buttons)  // NAME 1 [robj, layer, arg]: neutral
+	virtual ~CheckBoxGadgetClass();					// 0x7E7FA0
 	virtual bool Unknown_2C(int a, int b, int c, int d);	// +0x2C 0x7E7FC0
 	void Unknown_7E8030(bool on);						// 0x7E8030: checked or not  // NAME 1 [on]: neutral
 
@@ -310,13 +310,13 @@ public:
 
 // The tech level filter buttons: one per level (0x70 bytes, table 0xAF2DF8) and the "all levels" one (0x6C bytes,
 // table 0xAF2EBC), made by 0x5B6410; a toggle calls the window back
-class UIManuTechLevelButtonClass : public UIManuCheckButtonClass	// NAME 1: neutral (D10)
+class UIManuTechLevelButtonClass : public CheckBoxGadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIManuTechLevelButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner, int tech_level) : UIManuCheckButtonClass(robj, layer, 0x55), Owner(owner), TechLevel(tech_level) {}	// NAME 1 [robj, layer, owner]: neutral; NAME 3 [tech_level]: the FAIL_IF's
+	UIManuTechLevelButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner, int tech_level) : CheckBoxGadgetClass(robj, layer, 0x55), Owner(owner), TechLevel(tech_level) {}	// NAME 1 [robj, layer, owner]: neutral; NAME 3 [tech_level]: the FAIL_IF's
 	virtual bool Unknown_2C(int a, int b, int c, int d)	// +0x2C 0x5B6680: 0x5B67C0 when it toggled (inline: emitted after 0x5B6410)
 	{
-		bool result = UIManuCheckButtonClass::Unknown_2C(a, b, c, d);
+		bool result = CheckBoxGadgetClass::Unknown_2C(a, b, c, d);
 		if (result) {
 			Owner->Unknown_5B67C0(TechLevel, Checked, USER_INPUT);
 		}
@@ -326,13 +326,13 @@ public:
 	UIManuClass *Owner;									// +0x68  // NAME 2: what it holds
 	int TechLevel;										// +0x6C (1..9)  // NAME 3: the FAIL_IF's
 };
-class UIManuAllLevelsButtonClass : public UIManuCheckButtonClass	// NAME 1: neutral (D10)
+class UIManuAllLevelsButtonClass : public CheckBoxGadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIManuAllLevelsButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner) : UIManuCheckButtonClass(robj, layer, 0x55), Owner(owner) {}	// NAME 1 [robj, layer, owner]: neutral
+	UIManuAllLevelsButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner) : CheckBoxGadgetClass(robj, layer, 0x55), Owner(owner) {}	// NAME 1 [robj, layer, owner]: neutral
 	virtual bool Unknown_2C(int a, int b, int c, int d)	// +0x2C 0x5B6720: 0x5B6A80 when it toggled (inline: emitted after 0x5B6410)
 	{
-		bool result = UIManuCheckButtonClass::Unknown_2C(a, b, c, d);
+		bool result = CheckBoxGadgetClass::Unknown_2C(a, b, c, d);
 		if (result) {
 			Owner->Unknown_5B6A80(Checked, USER_INPUT);
 		}
@@ -1717,16 +1717,16 @@ void UIManuClass::Unknown_5B5320()
 
 
 // 0x5B6410
-UIManuCheckButtonClass *UIManuClass::Unknown_5B6410(int id, const char *bttn_name, int tech_level, bool plain)
+CheckBoxGadgetClass *UIManuClass::Unknown_5B6410(int id, const char *bttn_name, int tech_level, bool plain)
 {
 	FAIL_IF(!bttn_name || !*bttn_name) return(NULL);
 
 	RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(bttn_name));
 	FAIL_IF(!robj) return(NULL);
 	Unknown_496AE0(robj.Peek(), 0);
-	UIManuCheckButtonClass *button;
+	CheckBoxGadgetClass *button;
 	if (plain) {
-		button = new UIManuCheckButtonClass(robj.Peek(), &Layer, 0);
+		button = new CheckBoxGadgetClass(robj.Peek(), &Layer, 0);
 	} else if (tech_level == NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS) {
 		button = new UIManuAllLevelsButtonClass(robj.Peek(), &Layer, this);
 	} else {

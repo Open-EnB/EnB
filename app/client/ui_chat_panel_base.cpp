@@ -108,14 +108,14 @@ GadgetClass *ChatPanelUIBase::Add_Button(int id, const char *bttn_name, const ch
 
 
 // 0x56D6F0
-UIManuCheckButtonClass *ChatPanelUIBase::Add_Check_Button(int id, const char *bttn_name, const char *text)
+CheckBoxGadgetClass *ChatPanelUIBase::Add_Check_Button(int id, const char *bttn_name, const char *text)
 {
 	FAIL_IF(!bttn_name || !*bttn_name) return(NULL);
 
 	RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name(bttn_name));
 	FAIL_IF(!robj) return(NULL);
 	Unknown_496AE0(robj.Peek(), false);
-	UIManuCheckButtonClass *gadget = new UIManuCheckButtonClass(robj.Peek(), 0x55);
+	CheckBoxGadgetClass *gadget = new CheckBoxGadgetClass(robj.Peek(), 0x55);
 	Unknown64.Unknown_6870E0(gadget, id, View, true, false);
 	gadget->Unknown_65FFA0(-1);
 	if (text != NULL) {
