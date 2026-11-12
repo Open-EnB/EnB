@@ -18,16 +18,16 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1 [Unknown_BE67C4]: 0xBE67C4, a
 static const char *Unknown_B835F0[5] = { "exit", "bttn03", "bttn00", "bttn01", "bttn02" };	// NAME 1: neutral (D10)
 static const char *Unknown_B83608[5] = { NULL, "cancel_opt02a", "Quit_opt02a", "Login_opt02a", NULL };	// NAME 1: neutral (D10)
 
-// kernel.h's input event, as ui_starbase.cpp's UIStarbaseKeyEventStruct (Unknown_54's keys)
-struct UIOptionQuitKeyEventStruct	// NAME 1: neutral (D10)
-{
-	UIOptionQuitKeyEventStruct(short key, short modifiers) : Key(key), Unknown02(modifiers), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key, modifiers]: neutral
-	short Key;											// +0x00 (0x1B, 'Q', 'C', 'L')  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02 (0x400 with the letters)
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+
+
+
+
+
+
+
+
+
+
 
 // 0x5CE700
 UIOptionQuitClass::UIOptionQuitClass(SClient *client, bool mode) :
@@ -54,10 +54,10 @@ void UIOptionQuitClass::Unknown_54()
 			GadgetClass::Set_Tooltip(Buttons[i], "UI_OPTION_QUIT", Unknown_B835F0[i]);
 		}
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const KernelEventClass *)&UIOptionQuitKeyEventStruct(0x1B, 0), (void *)1);
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const KernelEventClass *)&UIOptionQuitKeyEventStruct('Q', 0x400), (void *)3);
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const KernelEventClass *)&UIOptionQuitKeyEventStruct('C', 0x400), (void *)4);
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const KernelEventClass *)&UIOptionQuitKeyEventStruct('L', 0x400), (void *)5);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B, 0), (void *)1);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass('Q', 0x400), (void *)3);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass('C', 0x400), (void *)4);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass('L', 0x400), (void *)5);
 	}
 }
 
