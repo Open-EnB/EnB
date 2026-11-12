@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1818 |
 | 2 | describes what the code does | 4484 |
-| 1 | neutral placeholder | 23262 |
+| 1 | neutral placeholder | 23261 |
 
 ## For review (score 3 and below)
 
@@ -3675,8 +3675,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/frameint.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/frameint.cpp:197` | untagged neutral name (D10) |
 | 1 | `Unknown14EC` | `app/client/frameint.cpp:205` | untagged neutral name (D10) |
-| 1 | `Get_Unknown_E28` | `app/client/frameint.cpp:207` | untagged neutral name (D10) |
-| 1 | `Get_Unknown_E20` | `app/client/frameint.cpp:208` | untagged neutral name (D10) |
+| 1 | `UnknownE20` | `app/client/frameint.cpp:207` | untagged neutral name (D10) |
 | 1 | `Unknown_Reset_Statistics` | `app/client/frameint.cpp:256` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/frameint.cpp:291` | untagged neutral name (D10) |
 | 1 | `view, scene` | `app/client/frameint.h:20` | what 0x50C690 passes |
