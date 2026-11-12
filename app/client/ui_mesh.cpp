@@ -32,14 +32,14 @@ UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), Interfa
 
 
 
-// NOT EXACT: 0x5B8330 (0.78): the client calls GenericNode() / Link out of line for the running list (inline budget) and stores the hsv zeros inside the new
+// 0x5B8330 (the hsv zeros are a Vector3 temporary inside the new expression: the client stores them after the allocation's null test)
 UIMeshClass::UIMeshClass(const char *name, ClientClass *client) : SubjectClass(2), Unknown6C(1), Unknown70(0)
 {
 	G_ASSERT(client);
 	RenderStateListClass *list = client->Unknown18->Unknown_764060(name);
 	G_ASSERT(list);
-	float hsv[3] = { 0.0f, 0.0f, 0.0f };
-	RsTrackClass *track = new RsTrackClass(list, 1.0f, hsv);
+	RsTrackClass *track = new RsTrackClass(list, 1.0f, (float *)&Vector3(0.0f, 0.0f, 0.0f));
+
 	track->Unknown_4604D0(0);
 	InterfaceMesh = track;
 
