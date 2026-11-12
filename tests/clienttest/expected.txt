@@ -1,5 +1,6 @@
 == SClient (its constructor, the base's)
 stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
+gen BridgeSoundManager::BridgeSoundManager
 check SClient's slot +0x18 returns the client: ok
 check the fake asset manager is *0xBDADC0 and WW3DAssetManager::Get_Instance(): ok
 == (1) the lists
@@ -769,7 +770,10 @@ model 64 Set_LOD_Bias 1e+009
 msg 271 CLIENT_SHIP (71) size 8: cpacket.cpp's handler
 state ship id 48900994
 msg 272 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
-gen BridgeInterface::Set_Avatar
+asset manager Create_Render_Obj 't_i_bridge' -> none (no bridge model here)
+fail_if !InterfaceMesh (line 101)
+assert false (line 250)
+fail_if !bridge (line 462)
 msg 273 COLORIZATION (17) size 138: cpacket.cpp's handler
 msg 274 DECAL (16) size 58: cpacket.cpp's handler
 gen Unknown_80EAF0

@@ -58,6 +58,7 @@
 #include "..\..\..\app\kernel\kernel.h"
 #include "..\..\..\app\input\input.h"
 #include "..\..\..\app\client\sclient.h"
+#include "..\..\..\app\client\bridge_int.h"	// SClient's +0x128C (main() makes a real one)
 #include "..\..\..\app\input\inpdsp.h"	// LoginUnknown0CClass, InputActionClass (Frame's dispatcher)
 #include "..\..\..\app\client\camera_manager.h"
 #include "..\..\..\app\client\option.h"
@@ -446,6 +447,12 @@ public:
 	}
 	virtual RenderObjClass *Create_Render_Obj(const char *name)
 	{
+		// the bridges (bridge_int.cpp's Set_Avatar 0x53B7A0, AVATAR_DESCRIPTION 97): none here, so the bridge keeps no
+		// model and seats no avatar (a seated one would build a whole avatar: personalities, head animations, ...)
+		if (strcmp(name, "t_i_bridge") == 0 || strcmp(name, "j_i_bridge") == 0 || strcmp(name, "p_i_bridge") == 0) {
+			Trace("asset manager Create_Render_Obj '%s' -> none (no bridge model here)", name);
+			return(0);
+		}
 		FakeModelClass *model = new FakeModelClass(name);
 		Trace("asset manager Create_Render_Obj '%s' -> model %d", name, model->Number);
 		return(model);
@@ -1108,10 +1115,8 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	float lag = client->Unknown10C8;
 	int lags = client->Unknown10D0;
 	int toggle = client->Unknown1128;
-	static char fake_bridge[0xC4];			// bridge_int.cpp's object: +0x14 0, so Do_Frame doesn't call it
-	client->Unknown1198 = false;
+	client->Unknown1198 = false;		// client->Bridge is main()'s real one: its Scene NULL, so Do_Frame doesn't call it
 	client->CurrentView = (UIViewClass *)main_view;
-	client->Bridge = (BridgeInterface *)fake_bridge;
 	Path_Views = true;
 	// 0x512A00 (Do_Frame, the main view current): a radar (its 0x7BCA70 is client_stubs.cpp's) and a PDA whose +0xA8
 	// object's 0x7C8DB0 is a stand-in
@@ -1194,7 +1199,6 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	Test_Ticks = 0;
 	client->Unknown1198 = true;
 	client->CurrentView = 0;
-	client->Bridge = 0;
 	client->Unknown1128 = toggle;
 	client->Unknown10BC = clock;
 	client->Unknown10C8 = lag;
@@ -2177,6 +2181,9 @@ int main(int argc, char **argv)
 	if (OptionClass::Instance == 0) {
 		OptionClass::Instance = new OptionClass();
 	}
+	// SClient's Init (0x741180, never run here) makes the bridge: a real one (bridge_int.cpp is in the link), Scene NULL
+	// so Do_Frame passes it by; AVATAR_DESCRIPTION 97's 0x74C3B0 calls its Set_Avatar 0x53B7A0 for the player's avatar
+	client->Bridge = new BridgeInterface(client);
 	// 0x513700 (SERVER_PARAMETERS 66) calls the main view's stars (+0x134: a real StarFieldClass; no stars.ini in the
 	// working directory, so its Init loads nothing) and orbitals (+0x140: zeroed but its ViewInterface, a fake whose scene is NULL: orbitalmanager.cpp's 0x4F3310 is real, WE4)
 	static double fake_orbitals[(sizeof(OrbitalManager) + 7) / 8];
