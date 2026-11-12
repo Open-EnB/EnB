@@ -7,7 +7,7 @@ Exact pairs: 32315. Not stable (any class): 6635 (20.5%).
 | Class | Pairs | Share of exact pairs | Source |
 |---|---|---|---|
 | pad-held | 0 | 0.0% | not built |
-| workaround-held | 6602 | 20.4% | static scan, 114 files; 5 confirmed by build |
+| workaround-held | 6602 | 20.4% | static scan, 114 files; 5 confirmed by build (the device holds 7 of their 406 pairs) |
 | contradicted | 0 | 0.0% | not built |
 | unstable | 43 | 0.1% | history to 02e85b13, 1850 ledger states |
 

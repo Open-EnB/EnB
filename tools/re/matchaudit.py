@@ -579,7 +579,10 @@ def cmd_table(a):
         sources['pad-held'] = '; '.join(f"{w} sweep at {s['head'][:8]}, {s['values']} values"
                                         for w, s in sorted(pad.get('sweeps', {}).items())) or 'no sweep sets'
     if work:
-        sources['workaround-held'] = (f"static scan, {len(work['files'])} files; {len(conf or {})} confirmed by build")
+        held = sum(len(c['lost']) for c in (conf or {}).values())
+        of = sum(c.get('ledger', 0) for c in (conf or {}).values())
+        sources['workaround-held'] = (f"static scan, {len(work['files'])} files; {len(conf or {})} confirmed by build "
+                                      f"(the device holds {held} of their {of} pairs)")
     if hist:
         sources['unstable'] = f"history to {hist['rev'][:8]}, {hist['states']} ledger states"
     md = render(rows, summary, sources)

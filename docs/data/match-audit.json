@@ -1,7 +1,7 @@
 {
  "sources": {
   "unstable": "history to 02e85b13, 1850 ledger states",
-  "workaround-held": "static scan, 114 files; 5 confirmed by build"
+  "workaround-held": "static scan, 114 files; 5 confirmed by build (the device holds 7 of their 406 pairs)"
  },
  "summary": {
   "classes": {
