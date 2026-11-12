@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-759 entries in 238 files.
+758 entries in 237 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -701,7 +701,6 @@ edit the comments in the code, not this file.
 | `app/shared/landdmap.cpp:593` | `LandUnknown466BE0Class::Unknown_468D50` | mention | NOT EXACT (Matrox only, never run): the draw 0x466F60 and its helpers 0x468240, 0x468760, 0x468920, 0x468D50. |
 | `app/shared/lookup_table.cpp:204` | `SampledLookupTableClass::SampledLookupTableClass` | marker | NOT EXACT: order-only, the client stores the sample's Value (atof) after pushing push_back's arguments, ours before; everything else equal |
 | `app/shared/message_filter.cpp:60` | `MessageFilterClass::Unknown_4BE2C0` | marker | NOT EXACT: shape (explain.py: 14 masked rows; 0.80): register allocation only: the client keeps pass in bl (with its stack home) after the module test, ours reloads it from the stack; every call and branch is the client's (25 forms tried: helpers, loop and test forms, bool, early returns) |
-| `app/shared/money.cpp:46` | `MoneyClass::Div` | marker | NOT EXACT: shape: 1 masked rows differ; no simpler class fits |
 | `app/shared/orbitalmanager.cpp:164` | `OrbitalObject::Update` | marker | NOT EXACT: the first rotation's sin / cos order and the temporaries' stack slots differ (similarity 0.53) |
 | `app/shared/orbitalmanager.cpp:514` | `OrbitalManager::Update` | marker | NOT EXACT: the locals' slots differ (the client's sphere centre sits below the cast result; similarity 0.57) |
 | `app/shared/proj_man.cpp:627` | `ProjectorManagerClass::Setup_Static_Directional_Shadow` | marker | NOT EXACT: 0x493620, 1 register row in the inlined Get_Static_Shadow_Tex_Mgr (mov eax,esi / test eax,eax) |
