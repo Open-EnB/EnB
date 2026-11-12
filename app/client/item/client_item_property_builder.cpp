@@ -741,7 +741,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				if (mode_flags & 2) modes.push_back("Analyze");
 				if (mode_flags & 4) modes.push_back("Dismantle");
 				if (mode_flags & 8) modes.push_back("Refining");
-				std::string text = Unknown_4FB5B0(modes, ", ");
+				std::string text = String_Join(modes, ", ");
 				RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeStringClass::Create(6, "Mode", "", "Which activities this Override item benefits", 0, text);
 				router.Route(property);
 			}
@@ -819,13 +819,13 @@ void ClientItemPropertyBuilderClass::Unknown_527F40(UIItemExaminationPropertyRou
 	ItemEffectDescriptionClass effects = template_info->Get_Activated_Effects();	// NAME 1 [effects, delta, effects2, delta2]: neutral
 	std::string delta = Data->Unknown_688830()->Get_Instance_Activated_Effect_Info(Slot);
 	if (!delta.empty()) {
-		effects.Unknown_83E5F0(delta);
+		effects.Set_Summary(delta);
 	}
 	Unknown_528460(router, effects.Get_Effects());
 	ItemEffectDescriptionClass effects2 = template_info->Get_Equip_Effects();
 	std::string delta2 = Data->Unknown_688830()->Get_Instance_Equip_Effect_Info(Slot);
 	if (!delta2.empty()) {
-		effects2.Unknown_83E5F0(delta2);
+		effects2.Set_Summary(delta2);
 	}
 	Unknown_528460(router, effects2.Get_Effects());
 }

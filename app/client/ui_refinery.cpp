@@ -32,7 +32,7 @@ public:
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "..\shared\unknown_4a1590.h"
 
 // The control keys event slot +0x54 registers (0x10 bytes; as ui_jobs.cpp's)
 struct UIRefineryKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
@@ -421,7 +421,7 @@ void UIRefineryClass::Unknown_5ECE20()
 			char text[64];
 			int index = Unknown0AE0 + i;
 			if (index < Unknown0AE4 && Unknown11C[index]) {
-				Unknown_4A1590(text, sizeof(text), Unknown11C[index]);
+				Bounded_Strcpy(text, sizeof(text), Unknown11C[index]);
 			} else {
 				text[0] = '\0';
 			}
@@ -622,13 +622,13 @@ void UIRefineryClass::Unknown_5EDCC0()
 	if (money && money->Unknown70) {
 		credits = money->Value;
 	}
-	Unknown_5ECBB0(0, true, credits.Unknown_4F00C0(false).c_str());
+	Unknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());
 	MoneyClass cost;
 	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, NameClass("NegotiatedCost"));
 	if (negotiated && negotiated->Unknown70) {
 		cost = negotiated->Value;
 	}
-	Unknown_5ECBB0(3, true, cost.Unknown_4F00C0(false).c_str());
+	Unknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());
 }
 
 static std::string Unknown_5EE7F0(int validity);
@@ -655,13 +655,13 @@ void UIRefineryClass::Unknown_5EDFD0()
 	DeltaTemplateClass<MoneyClass> *money = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, "Money");
 	if (money && money->Unknown70 > 1) {
 		credits = money->Value;
-		Unknown_5ECBB0(0, true, credits.Unknown_4F00C0(false).c_str());
+		Unknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());
 	}
 	MoneyClass cost;
 	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, "NegotiatedCost");
 	if (negotiated && negotiated->Unknown70 > 1) {
 		cost = negotiated->Value;
-		Unknown_5ECBB0(3, true, cost.Unknown_4F00C0(false).c_str());
+		Unknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());
 	}
 	UIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, NameClass("KnownFormula"));
 	if (list) {

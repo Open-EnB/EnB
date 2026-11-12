@@ -362,3 +362,10 @@ Where the client's names disagree with these conventions, the client's are used;
   with `this` as receiver and 0x56DEE0 as method; no `.?AV` descriptor of its own), without a `Class`
   suffix: was `UIChatPanelBaseClass` (NAME 3, D24), NAME 5. The files keep their names: ui_chat_panel_base.cpp is the
   client's own file name (its asserts' `__FILE__` 0xB7D504), not derived from the class.
+
+* **BridgeInterface (2026-11-11, L17):** bridge_int.cpp's class (SClient +0x128C; constructor 0x53B040, table 0xAEEA7C)
+  is `BridgeInterface` by the client's RTTI: the receiver in `SignalBaseClass::MemberCallback<GadgetClass,
+  BridgeInterface, void (BridgeInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent>` (type
+  descriptor 0xB78F28, returned by the callback's slot 0x53D110), without a `Class` suffix: was
+  `BridgeInterfaceClass` (NAME 3, D24), NAME 5, declared in app/client/bridge_int.h. SClient's member of that
+  name is `Bridge` (NAME 1; was `BridgeInterface`, NAME 3 after the file), as `ChatPanel` holds the ChatPanelInterface.

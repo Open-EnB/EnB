@@ -162,16 +162,16 @@ void UIGuildClass::Unknown_54()
 	if (Unknown_98("tsi35a", "fa_tsi35a.ini")) {
 		int i;
 		for (i = 0; i < 13; i++) {
-			Unknown0E8[i] = Unknown_56D510(i + 1, Unknown_BA7ED8[i], NULL);
+			Unknown0E8[i] = Add_Button(i + 1, Unknown_BA7ED8[i], NULL);
 			GadgetClass::Set_Tooltip(Unknown0E8[i], "UI_GUILD", Unknown_BA7F10[i]);
 		}
 		for (i = 0; i < 7; i++) {
 			char name[0x20];
 			_snprintf(name, sizeof(name), "NAME%02d", i);
-			Unknown11C[i] = Unknown_56D510(i + 15, name, NULL);
+			Unknown11C[i] = Add_Button(i + 15, name, NULL);
 			Unknown11C[i]->Unknown2C_0A = true;
-			Unknown138[i] = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_8192C0("name%02d_TSI35a", i).c_str(), Peek_Unknown84()));
-			Unknown154[i] = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_8192C0("LOCATION%02d_TSI35a", i).c_str(), Peek_Unknown84()));
+			Unknown138[i] = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_8192C0("name%02d_TSI35a", i).c_str(), Interface_Mesh()));
+			Unknown154[i] = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_8192C0("LOCATION%02d_TSI35a", i).c_str(), Interface_Mesh()));
 		}
 		Unknown0BC = Create_Get(new UIGuildListClass(Client->As_Space_Client()));
 		Unknown0BC->Unknown_54();
@@ -181,9 +181,9 @@ void UIGuildClass::Unknown_54()
 		Unknown0C4 = Create_Get(new UIPTradeCreditsClass(Client->As_Space_Client(), 1, 0x14));
 		Unknown0C4->Unknown_54();
 		Unknown0C4->Unknown0CD = true;
-		Slider = Unknown_56D8D0(0x17, 0);
-		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
-		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
+		Slider = Add_Slider(0x17, 0);
+		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
+		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
 	}
 }
 
@@ -212,7 +212,7 @@ void UIGuildClass::Unknown_58()
 			Unknown0C0->Unknown_64A2B0("");
 			Unknown0C8 = 24;
 			Unknown_81BA60(false);
-			Unknown84->Set_Hidden(true);
+			InterfaceMesh->Set_Hidden(true);
 			return;
 		}
 		Unknown_81BFD0();
@@ -245,9 +245,9 @@ void UIGuildClass::Unknown_60()
 			Unknown0BC->Unknown_5C();
 		}
 	}
-	if (!Unknown84->Is_Hidden() && !Client->As_Space_Client()->Unknown_728300()) {
+	if (!InterfaceMesh->Is_Hidden() && !Client->As_Space_Client()->Unknown_728300()) {
 		Unknown_5C();
-		Unknown98 = 1;
+		Closed = 1;
 	}
 }
 
@@ -259,7 +259,7 @@ bool UIGuildClass::Unknown_68(int key)
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 			Unknown0C8 = 2;
@@ -647,7 +647,7 @@ void UIGuildClass::Unknown_81CB90()
 		entry->Unknown_5C();
 		if (Unknown0C8 == 24) {
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 		} else {
 			Unknown_81BA60(true);
 		}

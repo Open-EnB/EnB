@@ -7,7 +7,7 @@
 #include "..\..\wwlib\ini.h"
 #include "..\..\wwlib\inisup.h"
 
-void Unknown_4FC2F0(std::vector<std::string> &list, const std::string &string, const std::string &separator);	// 0x4FC2F0: splits string at separator  // NAME 1: neutral placeholder (D10)
+#include "unknown_4fac20.h"
 
 static RefCountPtr<LookupTableSetClass> _LookupTables;	// 0xBE566C (file-static: its release has the client's register form)
 
@@ -143,7 +143,7 @@ RefCountPtr<LookupTableClass> LookupTableSetClass::Get(const std::string &name)
 RefCountPtr<LookupTableClass> ContinuousLookupTableClass::Create(const std::string &values)
 {
 	std::vector<std::string> strings;
-	Unknown_4FC2F0(strings, values, std::string(","));
+	String_Split(strings, values, std::string(","));
 	FAIL_IF(strings.empty()) return 0;
 	RefCountPtr<ContinuousLookupTableClass> table = Create_NEW(new ContinuousLookupTableClass);
 	std::vector<float> &vals = table->Values;

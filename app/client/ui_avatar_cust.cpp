@@ -2247,14 +2247,14 @@ void StarbaseAvatarCreationInterface::Unknown_551520(bool any)
 		FontSys *text = Unknown_BE67C4->Get_Style("credits_buy_avatar00", InterfaceMesh->Peek_Object());
 		if (text) {
 			std::string line("Credits: ");
-			line += Unknown380.Unknown_4F00C0(true);
+			line += Unknown380.Amount_As_Text(true);
 			text->Change_Text(line.c_str(), 0);
 		}
 	}
 	FontSys *text = Unknown_BE67C4->Get_Style("cost_buy_avatar00", InterfaceMesh->Peek_Object());
 	if (text) {
 		std::string line("Cost: ");
-		line += Unknown388.Unknown_4F00C0(true);
+		line += Unknown388.Amount_As_Text(true);
 		text->Change_Text(line.c_str(), 0);
 	}
 }
@@ -2266,7 +2266,7 @@ void StarbaseAvatarCreationInterface::Unknown_551900()
 		View->Get_Unknown34()->Unknown_588A70("NO_CHANGES", 0, NULL, 0x140, 0, 0);
 	} else if (Unknown380 >= Unknown388) {
 		char text[128];
-		_snprintf(text, sizeof(text), "Total changes cost %s credits. Proceed with update?", Unknown388.Unknown_4F00C0(false).c_str());
+		_snprintf(text, sizeof(text), "Total changes cost %s credits. Proceed with update?", Unknown388.Amount_As_Text(false).c_str());
 		View->Get_Unknown34()->Unknown_588A70("AVATAR_CONFIRMATION", 0, text, 0x140, 0, 0);
 	} else {
 		View->Get_Unknown34()->Unknown_588A70("NEED_FUNDS", 0, NULL, 0x140, 0, 0);

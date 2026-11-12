@@ -1,0 +1,25 @@
+# Shared: the login screen, character select, the world. Included by every scenario; not run on its own.
+# antprox /REPLAY serves Karen (slot 0, Jupiter). Events are antprox.out's lines (the replay server's).
+messages: on
+# The start-up movie (eb_sizzle.bik, MovieTaskClass, tsk_movie.cpp) is skipped with a click, as the client does:
+# MovieTaskClass::Handle_Input (0x76C5A0) calls BINKMovie::Stop and removes the task once 3000 ms have passed since
+# the movie's first frame. WinMain's 'Server initialized & ready to go' (messages.log) comes just before the kernel
+# runs the movie; the client's own 3000 ms guard is the 4 s wait.
+wait-event msg 'Server initialized & ready to go' within 60
+alive 4
+click 640,512
+wait-event antprox 'Global connection #1: sent VERSION_RESPONSE' within 120
+# the login screen takes its first clicks a moment after the client's version check (no log line for "drawn" yet)
+alive 3
+click gadget login.username
+text tester
+click gadget login.password
+text secret
+click gadget login.ok
+wait-event antprox 'sent GLOBAL_AVATAR_LIST' within 30
+# character select builds its avatars after the list (no log line for "ready" yet)
+alive 12
+click gadget select.slot0
+alive 2
+click gadget select.enter
+wait-event antprox 'received START_ACK' within 120

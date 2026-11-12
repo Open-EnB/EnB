@@ -1,0 +1,15 @@
+name: open the options window from its HUD button, then close it
+# The click opens one of the chat panel's windows (ui_chat_panel.cpp's request 1): the options' main page
+# (ui_option_main.cpp's UIOptionMainClass, 'opt01a'); the second click closes it.
+timeout: 400
+include _login
+alive 8
+click gadget hud.options
+expect-event stubs '^POC input: replayed mouse 0x202 at 176, 933'
+# the main page's Unknown_54 (0x5CE350) loads its model 'opt01a' with 'fa_opt01a.ini' (the proxy's file-open log)
+expect-event files 'fa_opt01a\.ini", R, disposition 3\) = ok' within 10
+alive 4
+shot options_open
+click gadget hud.options
+expect-event stubs '^POC input: replayed mouse 0x202 at 176, 933'
+alive 5

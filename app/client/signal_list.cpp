@@ -2,7 +2,6 @@
 // static dispatchers.
 // File PROVISIONAL (D137: no __FILE__; client 0x4F7EF0-0x4F9350, an object of its own: its template instances
 // 0x4F8910-0x4F9320 follow SignalList::emit and precede SignalMap's constructor).
-#define __SIGNAL_MEMBERS	// unknown_signalbase.h's data members and SignalList
 #include "unknown_signalbase.h"
 
 #ifndef ENABLE_WWPROFILE

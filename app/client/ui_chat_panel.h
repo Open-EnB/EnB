@@ -28,17 +28,6 @@ enum { NUM_COMBO = 5 };	// NAME 3: the assert's
 
 #include "ui_chat_panel_base.h"	// ChatPanelUIBase (moved out of this header for ui_chat_window.h)
 
-// The base of the windows the panel holds (ChatInt, +0xF8, +0x104): an int at +0x98 (0x565F80: set, the window closed)
-class UIChatPanelWindowClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-#ifdef POC_WINDOW_CTOR
-	UIChatPanelWindowClass(LineDisplayClientClass *client) : InterfaceClass(client) {}
-#endif
-	char Unknown84[0x98 - 0x84];						// +0x84
-	int Unknown98;										// +0x98 (0x5630B0 / 0x565F80 test it)
-};
-
 // The chat window (ChatInt, +0x138): ui_chat_window.h; the split window the panel makes: ui_chat_window_split.h
 #include "ui_chat_window_split.h"
 
@@ -91,7 +80,7 @@ public:
 	std::string Unknown_5682C0();						// 0x5682C0: +0x214
 	std::string Unknown_568440();						// 0x568440: +0x204
 	void Unknown_5685C0();								// 0x5685C0: the +0xF8 window released
-	void Unknown_568690(); RefCountPtr<UIChatPanelWindowClass> Unknown_694AA0() { return(Unknown104); }	// 0x568690: the +0x104 window released; 0x694AA0 (inline, out of line in pdaint.cpp's object): +0x104
+	void Unknown_568690(); RefCountPtr<ChatPanelUIBase> Unknown_694AA0() { return(Unknown104); }	// 0x568690: the +0x104 window released; 0x694AA0 (inline, out of line in pdaint.cpp's object): +0x104
 	int Unknown_5688E0(void **list);				// 0x5688E0: the count of a NULL-terminated list  // NAME 1 [list]: neutral
 	void Unknown_568910();								// 0x568910: the combo released
 	void Unknown_568950();								// 0x568950: the five combos rebuilt, the combo released
@@ -122,11 +111,11 @@ public:
 	void *UnknownEC;									// +0xEC
 	InterfaceClass *UnknownF0;							// +0xF0
 	bool UnknownF4;										// +0xF4
-	RefCountPtr<UIChatPanelWindowClass> UnknownF8;		// +0xF8
-	RefCountPtr<UIChatPanelWindowClass> Get_UnknownF8() { return(UnknownF8); }	// 0x739690 (out of line in cpacket.cpp's object, after FIND_MEMBER 83, the first caller)  // NAME 1: neutral (D10): the member it returns
+	RefCountPtr<ChatPanelUIBase> UnknownF8;		// +0xF8
+	RefCountPtr<ChatPanelUIBase> Get_UnknownF8() { return(UnknownF8); }	// 0x739690 (out of line in cpacket.cpp's object, after FIND_MEMBER 83, the first caller)  // NAME 1: neutral (D10): the member it returns
 	int UnknownFC;										// +0xFC
 	int Unknown100;										// +0x100
-	RefCountPtr<UIChatPanelWindowClass> Unknown104;		// +0x104 (0x565F80: the window requested through +0x108)
+	RefCountPtr<ChatPanelUIBase> Unknown104;		// +0x104 (0x565F80: the window requested through +0x108)
 	int Unknown108;										// +0x108
 	bool Unknown10C;									// +0x10C
 	bool Unknown10D;									// +0x10D (an event handler registered on +0xF8)

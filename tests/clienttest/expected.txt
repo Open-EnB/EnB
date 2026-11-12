@@ -1,5 +1,6 @@
 == SClient (its constructor, the base's)
 stub SOptionsClass::SOptionsClass (0x75A280, registry: not run)
+gen BridgeSoundManager::BridgeSoundManager
 check SClient's slot +0x18 returns the client: ok
 check the fake asset manager is *0xBDADC0 and WW3DAssetManager::Get_Instance(): ok
 == (1) the lists
@@ -74,7 +75,6 @@ msg 1 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_test': not loaded
 asset manager Load_3D_Assets 'ship_test.w3d'
 asset manager +0x78 'ship_test' scale 0.5 hsv (0 0 0) -> model 1
-gen Unknown_810CF0
 asset manager +0x78 'part_618': not loaded
 asset manager Load_3D_Assets 'part_618.w3d'
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 2
@@ -192,7 +192,6 @@ asset manager +0x78 'ship_test2': not loaded
 asset manager Load_3D_Assets 'ship_test2.w3d'
 asset manager +0x78 'ship_test2' scale 1 hsv (0 0 0) -> model 8
 model 1 'ship_test' deleted
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 9
 model 2 'part_618' deleted
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 10
@@ -417,7 +416,6 @@ msg 112 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_14': not loaded
 asset manager Load_3D_Assets 'ship_14.w3d'
 asset manager +0x78 'ship_14' scale 1 hsv (0 0 0) -> model 21
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 22
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 23
 asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 24
@@ -721,7 +719,6 @@ msg 268 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1605': not loaded
 asset manager Load_3D_Assets 'ship_1605.w3d'
 asset manager +0x78 'ship_1605' scale 1 hsv (0 0 0) -> model 64
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 65
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 66
 asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 67
@@ -743,7 +740,6 @@ model 64 Add_Sub_Object_To_Bone 'part_73f' bone 2
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 48900994
 msg 269 SUBPARTS (180) size 58: cpacket.cpp's handler
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 71
 model 65 'part_618' deleted
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 72
@@ -774,7 +770,10 @@ model 64 Set_LOD_Bias 1e+009
 msg 271 CLIENT_SHIP (71) size 8: cpacket.cpp's handler
 state ship id 48900994
 msg 272 AVATAR_DESCRIPTION (97) size 264: cpacket.cpp's handler
-gen BridgeInterfaceClass::Unknown_53B7A0
+asset manager Create_Render_Obj 't_i_bridge' -> none (no bridge model here)
+fail_if !InterfaceMesh (line 101)
+assert false (line 250)
+fail_if !bridge (line 462)
 msg 273 COLORIZATION (17) size 138: cpacket.cpp's handler
 msg 274 DECAL (16) size 58: cpacket.cpp's handler
 gen Unknown_80EAF0
@@ -957,7 +956,6 @@ msg 374 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1616': not loaded
 asset manager Load_3D_Assets 'ship_1616.w3d'
 asset manager +0x78 'ship_1616' scale 1 hsv (0 0 0) -> model 100
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 101
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 102
 asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 103
@@ -979,7 +977,6 @@ model 100 Add_Sub_Object_To_Bone 'part_73f' bone 2
 stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 48887635
 msg 375 SUBPARTS (180) size 58: cpacket.cpp's handler
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 107
 model 101 'part_618' deleted
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 108
@@ -1849,7 +1846,6 @@ msg 824 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1028': not loaded
 asset manager Load_3D_Assets 'ship_1028.w3d'
 asset manager +0x78 'ship_1028' scale 0.2 hsv (0 0 0) -> model 210
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 211
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 212
 asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 213
@@ -1919,7 +1915,6 @@ msg 851 NAVIGATION (153) size 18: cpacket.cpp's handler
 gen NavigationDataClass::Unknown_7BA940
 msg 852 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1028' scale 0.2 hsv (0 0 0) -> model 222
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 223
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 224
 asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 225
@@ -2239,7 +2234,6 @@ check INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the rea
 == (4d) FORMATION_POSITIONAL_UPDATE 65
 msg 1 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_test' scale 1 hsv (0 0 0) -> model 261
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 262
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 263
 asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 264
@@ -2263,7 +2257,6 @@ stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 4300
 msg 2 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_test' scale 1 hsv (0 0 0) -> model 268
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 269
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 270
 asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 271
@@ -2287,7 +2280,6 @@ stub UnknownB02C90Class::BufferStruct::Insert 0
 mainview add 4301
 msg 3 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_test' scale 1 hsv (0 0 0) -> model 275
-gen Unknown_810CF0
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 276
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 277
 asset manager +0x78 'part_617' scale 1 hsv (0 0 0) -> model 278

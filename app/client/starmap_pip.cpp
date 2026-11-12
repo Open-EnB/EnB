@@ -24,6 +24,16 @@
 #include "..\..\ww3d2\scene.h"
 #include "wwmath.h"
 #include "..\..\ww3d2\camera.h"
+#include "mouse_targeting.h"
+#include "nav_list_builder.h"
+#include "radar_system_data_cache.h"
+#include "..\..\ww3d2\layer.h"
+#include "..\shared\auxdata\permstr.h"
+
+static Vector3 CoordsColor(0.0f, 0.5f, 1.0f);		// 0xBE87A0 (0x7BF870): the avatar's or the map's position  // NAME 1: what 0x7C1C50 shows in it
+static Vector3 PointerCoordsColor(0.1f, 1.0f, 0.1f);	// 0xBE87B0 (0x7BF8A0): the pointer's  // NAME 1: what 0x7C1C50 shows in it
+static Vector3 TargetCoordsColor(1.0f, 0.1f, 0.1f);	// 0xBE8790 (0x7BF8D0): the target's  // NAME 1: what 0x7C1C50 shows in it
+static Vector3 HoverCoordsColor(1.0f, 1.0f, 0.0f);	// 0xBE87C0 (0x7BF900): the hovered object's  // NAME 1: what 0x7C1C50 shows in it
 
 // @0x7BF930
 StarmapPipClass::StarmapPipClass(SClient *client) :
@@ -38,12 +48,12 @@ StarmapPipClass::StarmapPipClass(SClient *client) :
 	// (+0x70 is Unknown68.Z)
 	Unknown74(0.0f, 0.0f),
 	Unknown7C(0.0f, 0.0f),
-	Unknown84(0.0f, 0.0f),
+	MapRange_ws(0.0f, 0.0f),
 	TargetPath(NULL),
 	WarpPath(NULL),
 	Unknown94(-1),
 	Unknown98(-1),
-	Unknown9C(0),
+	MouseTarget(NULL),
 	UnknownA0(NULL),
 	UnknownA4(NULL),
 	ShowCoords(0),
@@ -52,8 +62,8 @@ StarmapPipClass::StarmapPipClass(SClient *client) :
 	Label(0)
 {
 	Unknown_BE67BC->Load("fc_radar.ini");
-	TargetPath = new Unknown_7B97F0Class(Client, 0.75f, 1, Vector3(0.0f, 0.8f, 0.0f), 0.5f);
-	WarpPath = new Unknown_7B97F0Class(Client, 0.75f, 2, Vector3(0.8f, 0.0f, 0.0f), 0.5f);
+	TargetPath = new NavListLineDrawClass(Client, 0.75f, 1, Vector3(0.0f, 0.8f, 0.0f), 0.5f);
+	WarpPath = new NavListLineDrawClass(Client, 0.75f, 2, Vector3(0.8f, 0.0f, 0.0f), 0.5f);
 	UnknownA0 = new Unknown_7C3220Class(Scene, false, 4);
 	UnknownA4 = new Unknown_7C3220Class(Scene, true, 4);
 	XPos = Create_NEW(new FontSys("STARMAP_X_POS", 0, 0));
@@ -142,7 +152,7 @@ void StarmapPipClass::Unknown_24(int arg)
 	Unknown_7C2850(true);
 }
 
-// 0x7C0440 (FAIL_IF 'MouseTarget' on 283), 0x7C0620 ('!sdata' 361, '!co' 364) and 0x7C0910 are not rebuilt yet.
+
 
 
 // @0x7C0AF0
@@ -264,6 +274,39 @@ void StarmapPipClass::Unknown_7C0EA0(bool on)
 
 
 
+float Unknown_7BF630();								// 0x7BF630 (starmap_data.cpp: the PC icon size)
+// NOT EXACT: shape (0.80): the client loads the gadget's Position.X through its address (add eax, 0x38) and puts the
+// Unknown60 = 0 block after the return; forms tried in attempts.csv
+// @0x7C0440
+void StarmapPipClass::Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass *mouse_target)
+{
+	FAIL_IF(MouseTarget) {
+		MouseTarget = NULL;
+	}
+	if (!Unknown50 && !Unknown_7C1350()) {
+		return;
+	}
+	if (Unknown51) {
+		Unknown_7C1510(true);
+	}
+	if (!ViewportGadget->WrapPointer) {
+		MouseTarget = mouse_target;
+	}
+	if (MouseTarget) {
+		float size = Unknown_7BF630();
+		MouseTarget->Set(ViewportGadget->Position.X, ViewportGadget->Position.Y, size / ViewportSize.X, size / ViewportSize.Y,
+			LayerClass(Scene.Peek(), Camera.Peek()));
+	}
+	if (Unknown60) {
+		ClientObjectClass *co = Client->Find_Object(Unknown60);
+		if (co) {
+			Vector3 pos = co->Unknown_24();
+			Unknown_7C1770(pos.X, pos.Y);
+		}
+	} else {
+		Unknown60 = 0;
+	}
+}
 
 
 
@@ -308,101 +351,58 @@ void StarmapPipClass::Unknown_7C0EA0(bool on)
 
 
 
+void Unknown_491550(float *x, float *y);			// 0x491550 (scales by the device resolution; its file is not known)  // NAME 1: neutral (D10)
+// @0x7C0620
+void StarmapPipClass::Unknown_7C0620(RadarSystemDataCacheClass *entry)
+{
+	StarmapDataClass *sdata = entry->Get_Starmap_Data(true);
 
 
+	FAIL_IF(!sdata) return;
 
+	ClientObjectClass *co = sdata->Peek_Client_Object();
+	FAIL_IF(!co) return;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	Vector3 pos = co->Unknown_24();
+	float radius = co->Unknown_30();
+	if (sdata->Update(entry, pos, Scene)) {
+		Unknown_7C1280(pos, radius);
+	}
+	Vector3 map_pos(pos.X * CurMult, pos.Y * CurMult, 0.0f);
+	Unknown_491550(&map_pos.X, &map_pos.Y);
+	Vector2 position(map_pos.X - Unknown68.X, map_pos.Y - Unknown68.Y);
+	Unknown_491550(&position.X, &position.Y);
+	position.X = position.X / ViewportSize.X + 0.5f;
+	position.Y = 0.5f - position.Y / ViewportSize.Y;
+	float angle = co->Unknown_28(true).Get_Z_Rotation() - WWMATH_PI / 2.0f;
+	sdata->Update_Transform(map_pos, position, angle, CurMult, co->Unknown_6F5A10());
+	if (MouseTarget && position.X >= 0.0f && position.X <= 1.0f && position.Y >= 0.0f && position.Y <= 1.0f) {
+		MouseTarget->Test(sdata, Vector3(position.X, position.Y, -1.0f), radius * CurMult, MouseTarget->Get_Half_Size().X);
+	}
+}
+
+
+// @0x7C0910
+void StarmapPipClass::Unknown_7C0910(ClientObjectClass *target, NavListBuilderClass *warp_path, NavListBuilderClass *target_path)
+{
+	if (Unknown94 != warp_path->Unknown1C) {
+		Unknown94 = warp_path->Unknown1C;
+		TargetPath->Unknown_7B99C0(Client->Get_Avatar(), warp_path, Scene, false);
+	}
+	int index = warp_path->Index;
+	TargetPath->Unknown_7B9DC0(index);
+	if (Unknown98 != target_path->Unknown1C) {
+		Unknown98 = target_path->Unknown1C;
+		WarpPath->Unknown_7B99C0(Client->Get_Avatar(), target_path, Scene, true);
+	}
+	WarpPath->Unknown_7B9DC0(target_path->Index);
+	ClientObjectClass *hover = MouseTarget ? MouseTarget->Get_Target() : NULL;
+	UnknownA4->Unknown_7C3830(hover);
+	UnknownA0->Unknown_7C3830(target);
+	Unknown_7C2850(false);
+	Unknown_7C1C50(target, hover);
+	MouseTarget = NULL;
+}
 
 
 
@@ -754,7 +754,15 @@ void StarmapPipClass::Unknown_7C1120(float arg)
 	}
 }
 
-// 0x7C1200 (gd_starmap.cpp's) is not rebuilt yet.
+// @0x7C1200
+Vector2 StarmapPipClass::Unknown_7C1200(const Vector2 &mouse)
+{
+	Vector2 pos((mouse.X - 0.5f) * ViewportSize.X, -((mouse.Y - 0.5f) * ViewportSize.Y));
+	pos.X += Unknown68.X;
+	pos.Y += Unknown68.Y;
+	pos /= CurMult;
+	return(pos);
+}
 
 
 // @0x7C1280
@@ -778,21 +786,13 @@ void StarmapPipClass::Unknown_7C1280(const Vector3 &position, float radius)
 		changed = true;
 	}
 	if (changed) {
-		Unknown84.Set(Unknown7C.X - Unknown74.X, Unknown7C.Y - Unknown74.Y);
+		MapRange_ws.Set(Unknown7C.X - Unknown74.X, Unknown7C.Y - Unknown74.Y);
 		Unknown51 = true;
 	}
 }
 
-// 0x7C1510 is not rebuilt yet. For the inline below:
+// For the inline below:
 // 0x7C0260, 0x7C1120, 0x7C1510 and 0x7C1A90 expand it (FAIL_IF on 1039).
-
-
-
-
-
-
-
-
 
 
 
@@ -883,7 +883,7 @@ bool StarmapPipClass::Unknown_7C1350()
 	Unknown_7C1510(false);
 	if (!Unknown60) {
 		if (ScaleMult == 1.0f) {
-			Unknown_7C1770(Unknown84.X * 0.5f + Unknown74.X, Unknown84.Y * 0.5f + Unknown74.Y);
+			Unknown_7C1770(MapRange_ws.X * 0.5f + Unknown74.X, MapRange_ws.Y * 0.5f + Unknown74.Y);
 		} else if (avatar) {
 			Vector3 pos = avatar->Unknown_24();
 			Unknown_7C1770(pos.X, pos.Y);
@@ -914,25 +914,25 @@ bool StarmapPipClass::Unknown_7C1350()
 
 
 
+// @0x7C1510
+void StarmapPipClass::Unknown_7C1510(bool arg)
+{
+	if (Unknown50) {
+		FAIL_IF(MapRange_ws.X < WWMATH_EPSILON) return;
+		FAIL_IF(MapRange_ws.Y < WWMATH_EPSILON) return;
+		float old = Unknown54;
+		Vector2 scale(ViewportSize.X / MapRange_ws.X, ViewportSize.Y / MapRange_ws.Y);
+		Unknown_Set_54(min(scale.X, scale.Y));
+		if (arg) {
+			Unknown_7C1A90(old * ScaleMult / Unknown54);
+		}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		Unknown51 = false;
+	}
+}
 
 
 
@@ -966,7 +966,7 @@ bool StarmapPipClass::Unknown_7C1350()
 
 
 // NOT EXACT: stack (the client keeps diff at +0x24 and t at +0x1C, the other way round: 0.88)
-void Unknown_491550(float *x, float *y);			// 0x491550 (scales by the device resolution; its file is not known)  // NAME 1: neutral (D10)
+
 #pragma auto_inline(off)
 // @0x7C1770
 void StarmapPipClass::Unknown_7C1770(float x, float y)
@@ -1004,10 +1004,10 @@ void StarmapPipClass::Unknown_7C1770(float x, float y)
 
 
 		FAIL_IF(ScaleMult < WWMATH_EPSILON) return;
-		Vector2 range = Unknown84 * 3.0f;
-		Vector2 min = Unknown84 / ScaleMult;
+		Vector2 range = MapRange_ws * 3.0f;
+		Vector2 min = MapRange_ws / ScaleMult;
 		Vector2 diff = range - min;
-		Vector2 t((x - Unknown74.X) / Unknown84.X, (Unknown7C.Y - y) / Unknown84.Y);
+		Vector2 t((x - Unknown74.X) / MapRange_ws.X, (Unknown7C.Y - y) / MapRange_ws.Y);
 		Unknown48->Unknown_7C3CA0(range.X, min.X, diff.X * t.X, true);
 		Unknown4C->Unknown_7C3CA0(range.Y, min.Y, t.Y * diff.Y, false);
 	}
@@ -1090,7 +1090,6 @@ void StarmapPipClass::Unknown_7C1C30()
 	CurMult = ScaleMult * Unknown54;
 }
 
-// 0x7C1C50 ('CurMult < WWMATH_EPSILON' 1157) is not rebuilt yet.
 
 
 
@@ -1125,46 +1124,58 @@ void StarmapPipClass::Unknown_7C1C30()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @0x7C1C50
+void StarmapPipClass::Unknown_7C1C50(ClientObjectClass *target, ClientObjectClass *hover)
+{
+	if (!Unknown50) {
+		return;
+	}
+	if (!ShowCoords) {
+		return;
+	}
+	Vector3 pos;
+	const Vector3 *color;
+	bool inside = Unknown_693020();
+	bool show = true;
+	if (inside && hover) {
+		pos = hover->Unknown_24();
+		color = &HoverCoordsColor;
+	} else if (inside && target && MouseTarget && MouseTarget->Get_Self_Priority()) {
+		pos = target->Unknown_24();
+		color = &TargetCoordsColor;
+	} else if (inside && ShowCoords == 2) {
+		Vector2 p = Unknown_7C1200(ViewportGadget->Position);
+		pos.X = p.X;
+		pos.Y = p.Y;
+		pos.Z = 0.0f;
+		color = &PointerCoordsColor;
+	} else {
+		ClientObjectClass *co;
+		if (Unknown60 && (co = Client->Find_Object(Unknown60)) != NULL) {
+			pos = co->Unknown_24();
+		} else if (ShowCoords == 2) {
+			FAIL_IF(CurMult < WWMATH_EPSILON) {
+				CurMult = 1.0f;
+			}
+			pos.Set(Unknown68.X / CurMult, Unknown68.Y / CurMult, 0.0f);
+		} else {
+			show = false;
+		}
+		color = &CoordsColor;
+	}
+	if (show) {
+		XPos->Unknown_6CE420(0, "X: %5.2f", pos.X * 0.001f);
+		YPos->Unknown_6CE420(0, "Y: %5.2f", pos.Y * 0.001f);
+		ZPos->Unknown_6CE420(0, "Z: %5.2f", pos.Z * 0.001f);
+		XPos->Set_Color(*color);
+		YPos->Set_Color(*color);
+		ZPos->Set_Color(*color);
+	} else {
+		XPos->Change_Text("", 0);
+		YPos->Change_Text("", 0);
+		ZPos->Change_Text("", 0);
+	}
+}
 
 
 // NOT EXACT: written from the pseudocode (D64), functional
@@ -1216,7 +1227,94 @@ void StarmapPipClass::Unknown_7C2280()
 	Labels.clear();
 }
 
-// 0x7C2340 and 0x7C2850 are not rebuilt yet.
+// @0x7C2340
+void StarmapPipClass::Unknown_7C2340(unsigned id, std::string name, int type)
+{
+	ClientObjectClass *co = ((SClient *)Client->Unknown_18())->Find_Object(id);
+	if (!co) {
+		return;
+	}
+	Unknown_7C3220Class *label = new Unknown_7C3220Class(Scene, false, type);
+	Vector3 pos = Unknown68;
+	Unknown_491550(&pos.X, &pos.Y);
+	label->Unknown_7C3A90((int)(pos.X - ViewportSize.X * 0.5f), (int)(ViewportSize.Y * 0.5f + pos.Y),
+		(int)(ViewportSize.X * 0.5f + pos.X), (int)(pos.Y - ViewportSize.Y * 0.5f));
+	label->Set_Name(name);
+	label->Unknown_7C3830(co);
+	Labels.push_back(label);
+}
+
+
+// @0x7C25B0
+void Unknown_7C3220Class::Set_Name(std::string name)
+{
+	Name = name;
+}
+
+#include "..\shared\auxdata\auxdata.h"
+#include "aux_roots.h"					// DeltaGroupInfoClass (0x7C2850)
+
+// NOT EXACT: inline budget (0.32): the client calls Unknown_Find_Field (0x7C30E0) out of line and expands both label
+// deletes as the scalar deleting destructor plus erase(begin, end); here the budget runs out the other way. attempts.csv
+// @0x7C2850
+void StarmapPipClass::Unknown_7C2850(bool force)
+{
+	if (!Label) {
+		Unknown_7C2280();
+		return;
+	}
+	if (!Client->Get_Objects_Changed() && Labels.size() && !force) {
+		for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
+			ClientObjectClass *co = ((SClient *)Client->Unknown_18())->Find_Object((*it)->ObjectID);
+			if (co) {
+				(*it)->Unknown_7C3830(co);
+			}
+		}
+		return;
+	}
+	Unknown_7C2280();
+	HashNodeClass<ClientObjectClass *> *node = Client->ObjectList.First_Valid();
+	while (node) {
+		ClientObjectClass *co = node->Get_Record();
+		node = node->Next_Valid();
+		StarmapDataClass *sdata = Get_Starmap_Data(co, false);
+		if (!sdata || sdata->Unknown38) {
+			continue;
+		}
+		bool grouped;
+		if (co->Unknown_6F5A40() && ((SClient *)Client->Unknown_18())->AuxData) {
+			NameClass name("GroupInfo");
+			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(((SClient *)Client->Unknown_18())->AuxData, name);
+			if (group) {
+				for (int i = 0; i < 5; i++) {
+					if (co->Get_Game_ID() == ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value) {
+						grouped = true;
+						goto found;
+					}
+				}
+			}
+		}
+		grouped = false;
+found:
+		bool player = co->Unknown_6F5A40();
+		bool avatar = Client->AvatarID == co->Get_Game_ID();
+		std::string name("");
+		co->Unknown_6FF7A0(name);
+		bool flag = player && co->Unknown_700860();
+		if (!name.length() || (Label == 1 && !grouped && !avatar) || (Label == 2 && !player)) {
+			continue;
+		}
+		if (flag) {
+			Unknown_7C2340(co->Get_Game_ID(), name, 3);
+		} else if (grouped) {
+			Unknown_7C2340(co->Get_Game_ID(), name, 0);
+		} else if (player) {
+			Unknown_7C2340(co->Get_Game_ID(), name, 1);
+		} else {
+			Unknown_7C2340(co->Get_Game_ID(), name, 2);
+		}
+	}
+}
 
 // @0x7C2D30
 void StarmapPipClass::Unknown_7C2D30()
@@ -1303,11 +1401,13 @@ void Unknown_7C3220Class::Unknown_7C3830(ClientObjectClass *co)
 }
 
 
+#pragma auto_inline(off)
 // @0x7C3A90
 void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int bottom)
 {
 	Text->Unknown_6D88F0(left, top, right, bottom);
 }
+#pragma auto_inline(on)
 
 /*
 **	Reconstruction notes
@@ -1327,10 +1427,17 @@ void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int botto
 **	that 0x7C0AF0 and the destructor expand; 0x7C0D70 has the loop written out (that form is the exact one there).
 **	+0x84 is a Vector2: as two ints the constructor's 'or ecx,-1' moved one store earlier.
 **
-**	Exact: 0x7BF930, 0x7BFF20, 0x7C01C0, 0x7C0240, 0x7C0330, 0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0,
-**	0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1280, 0x7C1350, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C2280, 0x7C2D30,
-**	0x7C3220, 0x7C3720. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
-**	int, the client tests a byte), 0x7C0C80 (the max's fcompp form), 0x7C2060 and 0x7C3830 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68, which it copies whole).
-**	Not rebuilt: 0x7C0440, 0x7C0620, 0x7C0910, 0x7C1200, 0x7C1510, 0x7C1C50, 0x7C2340, 0x7C2850,
-**	0x7C2DA0-0x7C30E0 (the POC and clienttest get them from generated stubs).
+**	The object starts at 0x7BF820: permstr.h's PermStringInitClass static (0xBE87BC), then the four colours of
+**	0x7C1C50's coordinates (0x7BF870-0x7BF900, in their definition order). 0x7C1C50 calls 0x7C1200 inline and keeps
+**	the tail after the fallback only in the if (show) {} else {} form. 0x7C3A90 sits under auto_inline(off): the
+**	client calls it from 0x7C1770 and 0x7C2340 (VC6 expands a later definition otherwise).
+**
+**	Exact: 0x7BF870, 0x7BF8A0, 0x7BF8D0, 0x7BF900, 0x7BF930, 0x7BFF20, 0x7C01C0, 0x7C0240, 0x7C0330, 0x7C0620, 0x7C0910,
+**	0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0, 0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1200, 0x7C1280,
+**	0x7C1350, 0x7C1510, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C1C50, 0x7C2280, 0x7C2340, 0x7C25B0, 0x7C2D30, 0x7C3220, 0x7C3720,
+**	0x7C3830, 0x7C3A90. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
+**	int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 (the max's
+**	fcompp form), 0x7C2060 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68,
+**	which it copies whole), 0x7C2850 (inline budget). Not rebuilt: 0x7C2DA0-0x7C30E0 (template instances; the POC and
+**	clienttest get them from generated stubs).
 */

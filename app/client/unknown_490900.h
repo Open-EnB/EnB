@@ -24,7 +24,7 @@ struct ScriptedMovieViewerSettingsStruct	// NAME 1: neutral (D10), scriptedmovie
 {
 	ScriptedMovieViewerSettingsStruct();	// 0x490900
 	~ScriptedMovieViewerSettingsStruct();	// 0x4909A0
-	void Unknown_4909D0(const char *name, Vector3 &color);	// 0x4909D0: the INI name's settings  // NAME 1 [name, color]: neutral
+	bool Unknown_4909D0(const char *name, const Vector3 &position);	// 0x4909D0: the INI name's settings; false without them (0x7F0460 tests it and passes its light mesh's position)  // NAME 1 [name, position]: neutral / what 0x7F0460 passes
 
 	LightClass *Unknown00;	// +0x00 the scene light (0x6A0540 / the scripted movie's shutdown remove it)
 	Vector3 BackgroundColor;	// +0x04  // NAME 2 [BackgroundColor]: what Begin_Render gets (scriptedmovie.cpp)

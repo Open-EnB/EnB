@@ -494,7 +494,7 @@ void UIAnalyzeClass::Unknown_544D80()
 	if (negotiated && negotiated->Unknown70) {
 		cost = negotiated->Value;
 	}
-	Unknown_544C50(3, true, cost.Unknown_4F00C0(false).c_str());
+	Unknown_544C50(3, true, cost.Amount_As_Text(false).c_str());
 	char text[32];
 	float success = 0;
 	DeltaTemplateClass<float> *success_probability = Unknown_Find_Field<DeltaTemplateClass<float> >(Unknown10C, NameClass("SuccessProbability"));
@@ -520,7 +520,7 @@ void UIAnalyzeClass::Unknown_545190()
 	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown10C, NameClass("NegotiatedCost"));
 	if (negotiated && negotiated->Unknown70 > 1) {
 		cost = negotiated->Value;
-		Unknown_544C50(3, true, cost.Unknown_4F00C0(false).c_str());
+		Unknown_544C50(3, true, cost.Amount_As_Text(false).c_str());
 	}
 	char text[32];
 	DeltaTemplateClass<float> *success_probability = Unknown_Find_Field<DeltaTemplateClass<float> >(Unknown10C, NameClass("SuccessProbability"));

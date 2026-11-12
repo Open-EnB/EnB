@@ -92,19 +92,19 @@ void UIOptionChannelClass::Unknown_54()
 	if (Unknown_98("opt06a", "fa_opt06a.ini")) {
 		int i;
 		for (i = 0; i < 3; i++) {
-			Buttons[i] = Unknown_56D510(i + 1, Unknown_B82C94[i], Unknown_B82CA0[i]);
+			Buttons[i] = Add_Button(i + 1, Unknown_B82C94[i], Unknown_B82CA0[i]);
 			GadgetClass::Set_Tooltip(Buttons[i], "UI_OPTION_CHANNEL", Unknown_B82C94[i]);
 		}
 		for (i = 0; i < 21; i++) {
 			char name[32];
 			_snprintf(name, sizeof(name), "check%02d", i);
-			Checks[i] = Unknown_56D6F0(i + 5, name, NULL);
+			Checks[i] = Add_Check_Button(i + 5, name, NULL);
 			if (!Unknown_B82CAC[i]) {
 				Checks[i]->Unknown_40(false);
 				((RObjGadgetClass *)Checks[i])->Unknown_8C(true);
 			}
 		}
-		Unknown_56D970(0, Vector3(0.0f, 0.0f, 0.0f));
+		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
 		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIOptionChannelKeyEventStruct(0x1B), (void *)1);
 	}
 }
@@ -136,7 +136,7 @@ bool UIOptionChannelClass::Unknown_68(int key)
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -145,7 +145,7 @@ bool UIOptionChannelClass::Unknown_68(int key)
 			}
 			Unknown_5C93B0();
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 3:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -161,7 +161,7 @@ bool UIOptionChannelClass::Unknown_68(int key)
 			return(false);
 	}
 	Unknown_5C();
-	Unknown98 = 1;
+	Closed = 1;
 	return(true);
 }
 

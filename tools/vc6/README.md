@@ -41,8 +41,8 @@ A job takes its VMs from `ENB_VC6_HOSTS=<user>@<ip>[,...]` (printed by `pool.py 
 
 | Script | Does |
 |---|---|
-| `auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP \| --pool]` / `set N` | `sweep`: compile aux_roots.cpp alone (~5 s a variant, one pool VM leased and released, or `--host`) with each SYMBOL_PAD value and print pad -> which of the six end-of-file constructors are exact, and the all-six windows; the importer lock is taken per variant, not for the sweep (workflow.md 3.3). `set N`: write `SYMBOL_PAD` in `tools/re/auxroots.py` and regenerate aux_roots.h/.cpp |
-| `sendpad.py [--range LO..HI] [--pool K] [--lock-wait S] [--agent NAME] [--watch-from REV] [--dry]` / `--includes [PATH ...]` | The SEND_SYMBOL_PAD sweep (workflow.md 3.4): compile sclient.cpp alone through verify's path (`importer.compile_and_match`) with each pad value of aux_roots_send.h (default 0..63, one pool VM, the importer lock per variant), print the window where every sclient.cpp address of the pad-sensitive set is exact, and leave the pad at the middle of it (`--dry`: report only). Log `.work/log/sendpad.log`. `--includes`: the headers sclient.cpp includes, transitively within app/ (with PATHs: which of them are in it). `wt.py bring-over --sendpad` runs it when the verify loses sclient.cpp pairs and the diff touches such a header, commits the pad (the header and auxroots.py's SEND_SYMBOL_PAD together, D227) and verifies once more. The watch set is the sclient.cpp addresses HEAD's ledger holds; when HEAD is a `wt.py rebase` record commit, the onto commit's (that record has dropped what the rebase lost, D228); `--watch-from REV` names the ledger, and bring-over passes its target when the landing carries such a commit |
+| `auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP \| --pool]` / `set N` | `sweep`: compile aux_roots.cpp alone (~5 s a variant, one pool VM leased and released, or `--host`) with each SYMBOL_PAD value and print pad -> which of the six end-of-file constructors are exact, and the all-six windows; the importer lock is taken per variant, not for the sweep (workflow.md 3.3). `set N`: write `SYMBOL_PAD` in `tools/re/auxroots.py` and regenerate aux_roots.h/.cpp Every value's exact address set goes to `.work/log/auxpad-sets.json` (`--sets PATH`), the input of `tools/re/matchaudit.py pad` (D240). |
+| `sendpad.py [--range LO..HI] [--pool K] [--lock-wait S] [--agent NAME] [--watch-from REV] [--dry]` / `--includes [PATH ...]` | The SEND_SYMBOL_PAD sweep (workflow.md 3.4): compile sclient.cpp alone through verify's path (`importer.compile_and_match`) with each pad value of aux_roots_send.h (default 0..63, one pool VM, the importer lock per variant), print the window where every sclient.cpp address of the pad-sensitive set is exact, and leave the pad at the middle of it (`--dry`: report only). Log `.work/log/sendpad.log`. `--includes`: the headers sclient.cpp includes, transitively within app/ (with PATHs: which of them are in it). `wt.py bring-over --sendpad` runs it when the verify loses sclient.cpp pairs and the diff touches such a header, commits the pad (the header and auxroots.py's SEND_SYMBOL_PAD together, D227) and verifies once more. The watch set is the sclient.cpp addresses HEAD's ledger holds; when HEAD is a `wt.py rebase` record commit, the onto commit's (that record has dropped what the rebase lost, D228); `--watch-from REV` names the ledger, and bring-over passes its target when the landing carries such a commit Every value's exact address set goes to `.work/log/sendpad-sets.json` (`--sets PATH`), the input of `tools/re/matchaudit.py pad` (D240). |
 | `build.py [--pool K] [--lib X]... [--out DIR] [--allow-dirty] [--root DIR]` | Build each library of the tree into DIR/<lib>/<lib>.lib (L1); refuses a dirty library unless `--allow-dirty`; never assembles. Every build.py command refuses a cwd outside the script's own tree (rootguard.py) |
 | `build.py unresolved [--out DIR] [--report FILE]` | External symbols no library defines, by library and cause |
 | `build.py link [--program vidtest] [--pool K] [--out DIR] [--no-deploy]` | Compile `programs/<name>` and `stubs/` and link against the libraries (L2); the test programs of `tools/harness` use this step. `--no-deploy`: the POC's exe is not copied to its release folder |
@@ -69,7 +69,8 @@ split (docs/pipeline-plan.md §3.3):
 | `ledger.py` | The ledger `docs/data/imports/`: `load(src)` (the tree, a shard directory, a snapshot file or a git revision; imports.json's dict with the counts computed), `save`, `load_state` / `save_state`, `RECONSTRUCTED` (computed from the shards' descriptions); commands `export`, `describe`, `split`, `compare` |
 | `verify.py` | Compile and byte-match the libraries, record the pairs in the ledger; `compile_and_match` |
 | `report.py` | Write docs/imports.md from the ledger |
-| `vc6lock.py` | The importer lock, the agent and its scratch folder `WORK`, `pool_lease` |
+| `vc6lock.py` | The importer lock, the agent and its scratch folder `WORK`, `pool_lease`; `status` prints the lock's holder and queue |
+| `lockq.py` | The first-come lock core (D238): tickets, hand-over on release, status; used by vc6lock.py and wt.py |
 | `importer.py` | Transition shim: `import importer` resolves every old attribute in the modules above; `importer.py verify\|report` forwards with a deprecation line |
 
 **The ledger** (`docs/data/imports/`, one JSON shard per source file, so two landings conflict only
@@ -94,8 +95,27 @@ python tools/vc6/ledger.py describe LIB NAME TEXT                       a recons
 
 **Per-agent scratch (D112).** `verify.py --agent NAME` (or `ENB_AGENT=NAME`; `tryv2.py --agent NAME VARIANTS.py` the same) puts the compile output under `.work/NAME/tmp/enb_import/` instead of the shared `%TEMP%\enb_import`, names the importer lock's owner, and prefixes tryv2's tags (`tryv2-NAME-base`), so concurrent builders stop overwriting each other's objects. With no agent, a run from inside a git worktree other than the main tree takes the worktree's directory name; otherwise the scratch is `%TEMP%\enb_import` and the lock owner USERNAME@host, as before. vc6.py's per-host sync cache stays shared (keyed by host IP).
 
-`verify.py` and `report.py` take `--lock-wait S` (the importer lock, docs/workflow.md §1). The import
+`verify.py` and `report.py` take `--lock-wait S` (the importer lock, docs/workflow.md §1): the seconds to
+wait before giving up, as before. **First come, first served (D238, `lockq.py`).** The lock is still the file
+`.work/locks/importer.lock` (worktrees reach it through their `.work/locks` junction); a waiter also writes a
+ticket `.work/locks/importer.lock.queue/<time_ns>-<pid>.json` and touches it while waiting, and only the
+queue's head takes a free lock. A ticket whose process is gone (or untouched for 120 s) is deleted by whoever
+reads the queue, and a timeout removes its own, so the queue cannot deadlock. A releasing holder with waiters
+queued hands the lock to the head (the file is replaced by one naming the head, never removed), so a pre-D238
+process, which knows only the file and polls it every 2 s, cannot slip in between; when a pre-D238 holder
+releases (it removes the file) the head, polling every 0.25 s, usually wins: mutual exclusion always holds,
+first come is exact among new-code waiters and best effort toward old ones. wt.py's landing lock uses the
+same queue. `python tools/vc6/importer.py lock-status` (or `vc6lock.py status`): the holder and the queue in
+order (pre-D238 waiters have no ticket and are not listed). The import
 commands (plan, assemble, add, replay, refine) were deleted at the freeze (323f258d).
+
+The pad sweeps (`sendpad.py`, `auxpad.py sweep`) take the lock per value by default, so under the first-come
+queue a sweep waits one round of every queued verify between two values. `--hold` takes it once, at the first
+value, and keeps it to the end of the sweep (given back on every exit, an exception or Ctrl-C included; the
+pool lease is released as before). `sendpad.py --first-window` tries the current pad first, then outward
+(cur, cur+1, cur-1, ...), and stops once a run of 3 or more full values has both neighbours known; the pad goes
+to its middle (the full sweep's pick whenever that nearest run is the longest; with no such run it tries every
+value). `wt.py bring-over`'s retune passes `--hold --first-window` when the scratch tree's sendpad.py has them.
 
 | Script | Does |
 |---|---|
@@ -121,7 +141,7 @@ with a file tool, not a shell heredoc (escapes get mangled).
   children from an unlocked parent or call in-process. `tools/vc6/zhall.py` holds the
   lock for its whole run (~15 min for ww3d2); read-only `objdiff.py` on verify objects still works.
   Killing it mid-run leaves a spliced tree file and the lock: `git status`, restore, delete the
-  lock. A transient `PermissionError` on tree writes can do the same: retry, then `git status`.
+  lock (`importer.py lock-status` shows it). A transient `PermissionError` on tree writes can do the same: retry, then `git status`.
 
 * **Type libraries.** vc6.py syncs only `SOURCE_EXT` (`.tlh`/`.tli` added; D21 done). `#import` writes absolute `c:\enbdevelopment\_vc6\obj_*\` paths into the `.tlh`: strip them before committing. Generate from E&B's `BrowserEngine.dll`, not EA's (same GUIDs, extra methods).
 

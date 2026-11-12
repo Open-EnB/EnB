@@ -69,7 +69,7 @@ bool DeltaTemplateClass<MoneyClass>::Read(LinearBufferClass &buf, const Duration
 		G_ASSERT(0);
 		return false;
 	}
-	Value.Unknown00 = value;
+	Value.Amount = value;
 	return true;
 }
 

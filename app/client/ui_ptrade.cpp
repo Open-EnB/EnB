@@ -256,7 +256,7 @@ bool UIPTradeClass::Unknown_68(int key)
 			Unknown0B4->Unknown_58();
 			char text[0x14];
 			if (Unknown0E0 > MoneyClass()) {
-				_snprintf(text, sizeof(text), "%d", Unknown0E0.Unknown00);
+				_snprintf(text, sizeof(text), "%d", Unknown0E0.Amount);
 				Unknown0B4->Unknown_64A2B0(text);
 			} else {
 				Unknown0B4->Unknown_64A2B0("");
@@ -405,14 +405,14 @@ void UIPTradeClass::Unknown_5E3340()
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)Client->As_Space_Client()->AuxData;
 	DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Money(aux, "Money");
 	if (t) money = t->Value;
-	Unknown_5E3210("CREDITS_TRADE00", true, money.Unknown_4F00C0(false).c_str());
-	Unknown_5E3210("CRED1_TRADE00", true, Unknown0E0.Unknown_4F00C0(false).c_str());
+	Unknown_5E3210("CREDITS_TRADE00", true, money.Amount_As_Text(false).c_str());
+	Unknown_5E3210("CRED1_TRADE00", true, Unknown0E0.Amount_As_Text(false).c_str());
 	if (((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)) {
 		money = MoneyClass();
 		DeltaCompoundClass *other = (DeltaCompoundClass *)((ClientClass *)Client)->Find_Object(((ClientClass *)Client)->Unknown1134)->AuxData;
 		t = Unknown_Find_Money(other, "TradeMoney");
 		if (t) money = t->Value;
-		Unknown_5E3210("CRED2_TRADE00", true, money.Unknown_4F00C0(false).c_str());
+		Unknown_5E3210("CRED2_TRADE00", true, money.Amount_As_Text(false).c_str());
 	}
 }
 
@@ -465,9 +465,9 @@ void UIPTradeClass::Unknown_5E39F0()
 				DeltaTemplateClass<MoneyClass> *t = Unknown_Find_Money(aux, "Money");
 				if (t) money = t->Value;
 				if (money + Unknown0E0 >= MoneyClass(amount)) {
-					Unknown0E0.Unknown00 = amount;
+					Unknown0E0.Amount = amount;
 					SClient *sclient = Client->As_Space_Client();
-					__int64 offered = Unknown0E0.Unknown00; int id = ((ClientClass *)Client)->Unknown1134; int avatar = sclient->AvatarID; sclient->Send_Packet(&ActionPacketClass(avatar, 0x18, id, (int)offered));
+					__int64 offered = Unknown0E0.Amount; int id = ((ClientClass *)Client)->Unknown1134; int avatar = sclient->AvatarID; sclient->Send_Packet(&ActionPacketClass(avatar, 0x18, id, (int)offered));
 					Unknown_5E3340();
 				} else {
 					std::string text("Insufficient credits.");

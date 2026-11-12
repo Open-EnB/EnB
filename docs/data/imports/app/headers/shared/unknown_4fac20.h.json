@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: declarations of the string utilities of the object 0x4FAC20-0x4FC2F0 (trim, thousands separators, lower / upper, join, split, a tokenizer; free functions, no client name: neutral file name, D10; the object links between unknown_font_split_string.cpp and symbol_substitution.cpp)"
+}

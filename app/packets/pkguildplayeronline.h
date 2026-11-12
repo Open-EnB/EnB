@@ -24,7 +24,7 @@
 #include <string>
 #include <vector>
 
-char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10) (not rebuilt)  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_8b4560.h"
 
 // GuildPermissions' second field (read and sent through an int)
 enum Unknown_GuildPermissionsEnum  // NAME 1: neutral placeholder (D10)

@@ -32,17 +32,17 @@ public:
 	virtual int Unknown_28();							// +0x28 (what the experience display shows)
 };
 
-// bridge_int.cpp's class (SClient +0x128C), as far as this file uses it
-class BridgeInterfaceClass	// NAME 3: class-from-file (D24) for bridge_int.cpp
-{
-public:
-	void Unknown_53C670(int mode);						// 0x53C670 (0 closed, 1 cargo, 2 character, 3 star map)  // NAME 1 [mode]: neutral
-	bool Is_Busy() { return(Unknown1C != Unknown18); }	// (inline: 0x693CA0 and 0x695780 compare +0x1C with +0x18)  // NAME 1: neutral
 
-	char Unknown00[0x18];
-	int Unknown18;										// +0x18
-	int Unknown1C;										// +0x1C
-};
+#include "bridge_int.h"	// BridgeInterface (SClient +0x128C)
+
+
+
+
+
+
+
+
+
 
 // 0xB90A38: the mesh's buttons, gadgets 1..4 (tooltips from section 'UI_CPIT')
 static const char *PDAButtonNames[PDAInterfaceClass::NUM_BUTTONS] = {	// NAME 1: neutral (D10)
@@ -151,7 +151,7 @@ void PDAInterfaceClass::Unknown_60()
 			}
 			Experience->Unknown_10();
 		}
-		if (UnknownB0 && !client->BridgeInterface->Is_Busy()) {
+		if (UnknownB0 && !client->Bridge->Is_Busy()) {
 			UnknownB0->Unknown_58();
 			if (UnknownB0.Peek() == Cargo.Peek()) {
 				UnknownB0 = NULL;
@@ -199,9 +199,9 @@ void PDAInterfaceClass::Unknown_60()
 inline void PDA_Close_Chat_Window(ChatPanelInterface *chat)	// NAME 1: neutral (D10)
 {
 	if (chat->Unknown_694AA0()) {
-		RefCountPtr<UIChatPanelWindowClass> window = chat->Unknown_694AA0();
+		RefCountPtr<ChatPanelUIBase> window = chat->Unknown_694AA0();
 		window->Unknown_5C();
-		window->Unknown98 = 1;
+		window->Closed = 1;
 	}
 }
 
@@ -250,9 +250,9 @@ bool PDAInterfaceClass::Unknown_68(int key)
 			if (!chat->Unknown_694AA0()) {
 				chat->Unknown_565F30(1);
 			} else {
-				RefCountPtr<UIChatPanelWindowClass> window = chat->Unknown_694AA0();
+				RefCountPtr<ChatPanelUIBase> window = chat->Unknown_694AA0();
 				window->Unknown_5C();
-				window->Unknown98 = 1;
+				window->Closed = 1;
 			}
 		}
 		break;
@@ -533,7 +533,7 @@ bool PDAInterfaceClass::Unknown_695780(int index)
 	FAIL_IF(!Get_Client()) return(false);
 	SClient *sc = Get_Client()->As_Space_Client();
 	FAIL_IF(!sc) return(false);
-	if (sc->BridgeInterface && sc->BridgeInterface->Is_Busy()) {
+	if (sc->Bridge && sc->Bridge->Is_Busy()) {
 		return(false);
 	}
 	UnknownB0 = Unknown_6956C0(index);
@@ -552,21 +552,21 @@ bool PDAInterfaceClass::Unknown_695780(int index)
 	switch (index) {
 	case 0:
 		sc->Unknown_744560(0);
-		sc->BridgeInterface->Unknown_53C670(1);
+		sc->Bridge->Set_View(BridgeInterface::VIEW_CARGO);
 		return(true);
 	case 1:
 		sc->Unknown_744560(0xF);
 		return(true);
 	case 2:
 		sc->Unknown_744560(2);
-		sc->BridgeInterface->Unknown_53C670(2);
+		sc->Bridge->Set_View(BridgeInterface::VIEW_CHARACTER);
 		return(true);
 	case 3:
 		sc->Unknown_744560(0x11);
 		return(true);
 	case 4:
 		sc->Unknown_744560(0x13);
-		sc->BridgeInterface->Unknown_53C670(3);
+		sc->Bridge->Set_View(BridgeInterface::VIEW_STAR_MAP);
 		return(true);
 	}
 	return(true);
@@ -630,8 +630,8 @@ bool PDAInterfaceClass::Unknown_695A00(int index, bool arg)
 	}
 	if (arg) {
 		FAIL_IF(!Get_Client()) return(false);
-		if (Get_Client()->As_Space_Client()->BridgeInterface) {
-			Get_Client()->As_Space_Client()->BridgeInterface->Unknown_53C670(0);
+		if (Get_Client()->As_Space_Client()->Bridge) {
+			Get_Client()->As_Space_Client()->Bridge->Set_View(BridgeInterface::VIEW_MAIN);
 		}
 	}
 	return(true);

@@ -524,11 +524,56 @@ Each script has its usage in its docstring; `python tools/harness/X.py --help` w
 | `clienttest.py` | `tests/clienttest` (ClientClass's lists, the DEBUG setters and the redirect, SClient::Process_Packets through cpacket.cpp's handlers on a capture's messages; trace against `expected.txt`); `build` then `run` | pool VM, the reference decoder's trace.jsonl |
 | `movietest.py` | `tests/movietest`: the movie task plays a Bink movie (kernel-map step 7); `build` stages Renegade's BinkMovie source from `roots.EA_ROOT`, `run` copies `binkw32.dll` and the movie from the retail install (read only) and runs in `.work/harness/movietest` | retail install, pool VM |
 | `clientpoc.py` | the proof-of-concept client (D179): `run` starts `ClientPOC\release\client.exe` there (windowed unless `--fullscreen`), kills it by PID after `--seconds`, and digests `stubs.log` (stand-ins' first calls, repeats folded, the first `CRASH:` line named from `client.map`) and `_except.txt`; `log` digests the last run. `run --shots N,M` saves the client's own back buffer at those Present calls through the d3d8shot proxy (`build/d3d8shot/d3d8.dll`, copied beside the exe for the run and deleted after it; never a screen grab, D69) as `.work/poc/shots/HHMMSS/frame_NNNNN.png` with the proxy's `d3d8shot.log`. The login screen presents thousands of frames a second (frame 120000 is about 25 s in), so pick large numbers. Build it with `tools/vc6/build.py link --program clientpoc`; each run's first failure goes in `.work/poc/runs.md`. **Several at once:** `--instance NAME` runs in `ClientPOC\inst\NAME\release` beside its own `inst\NAME\Data` (`client\ini` and `client\output` copied once, every other folder a junction to `ClientPOC\Data`'s: antprox `/REPLAY` rewrites `auth.ini`'s AAIUrl / LKeyUrl at each start, and with one shared `auth.ini` the first-started client sent its account login to the other replay server; own stubs.log, `_except.txt`, proxy, shots `.work/poc/shots/NAME-HHMMSS`; prints `client pid N`), `--exe PATH` runs a worktree's own link output, `<worktree>\build\programs\clientpoc\clientpoc.exe`, whatever `release` holds (needs `--instance`; must exist; the worktree's link also deploys into `release`, which is fine), `replay --input FILE [--seconds N] [--shots N,M]` runs the same against antprox `/REPLAY` (the client is the child of that antprox; its output goes in the shot folder; CLIENT ARGS after `--` become `/CLIENTOP:` switches); `--messages` (run, replay) adds `-ENABLE_MESSAGES` and `msglisten.py` (`<shots dir>\messages.log`); programs/clientpoc/poc_multi.cpp (mutex per process, no cursor warp) makes it work. `clean --instance NAME | --all | --older HOURS` deletes instances (junctions into `ClientPOC\Data` unlinked, never followed; a running client's instance kept): each builder its own before reporting, the coordinator `--all` at handoff. **`replay` also prints the client's exit** (D191: antprox.out's "Client exited" against the last input's time, or "still running when this run killed it"). **`--ea`** (with `--instance`, D200) runs the instance in `C:\EnBDevelopment\ClientPOC_EA\inst\NAME` over that folder's `Data` and DLLs, EA's final data (P-EA1-1; local, never committed); the exe stays `ClientPOC\release`'s, `--exe`'s or `--retail`'s, and `clean` covers both folders' instances. **`replay --retail`** (D190; needs `--instance` and `--shots`) runs a copy of `INSTALL\release\client.exe` in the instance folder under the d3d8shot proxy with `D3D8SHOT_INPUT=1` (`Hook_Input` in d3d8shot.c patches the client's user32 imports to read the posted messages, as poc_input.cpp does; rebuild the proxy with `run_reference.py build` for it) and posts BM_CLICK to the terms box's "I Agree"; the same `--input` file as the POC; character select needs frames in the hundreds to few thousands (`--shots 300,1000,3000`), not the login screen's 100000s. `dumpcmp.py A B` compares two draw dumps (`D3D8SHOT_DUMP=N` in the environment) draw by draw. It writes `*.th6` thumbnails beside the mixes in `ClientPOC\Data\client\mixfiles` (as the client does) | every library built, `mkauthlogin.py`, pool VM for the link |
+| `e2e.py` | end-to-end scenarios for POC builds (D237): `tools/harness/e2e/*.scn`, event-driven steps, tagged input, shots on events, the gen stand-ins per scenario (section below) | a linked POC, antprox, the proxy for shots |
 | `run_vidtest.py`, `vidtest_sbs.py`, `run_reference.py`, `drawdump.py`, `symbolize.py`, `bmp2png.py`, `d3d8shot.c` | vidtest (above) | |
 | `msglisten.py` | listens to a running client's debug-message server (the client's `-ENABLE_MESSAGES`: app/shared/message/msgserv.cpp's MsgServer on the first free TCP port of 9999-10009, bound to every interface by the client's own code, so run it on this host only). `msglisten.py [--pid PID | --port P] [--out FILE] [--seconds N] [--levels MASK] [--modules A,B] [--files F,G] [--prefix TEXT] [--raw]`: `--pid` finds that client's port with netstat (several clients each get their own) and waits for it; it sends one filter record (`S` name `` ` `` levels `` ` `` modules `` ` `` files `` ` `` prefix, `\0`-ended, empty fields as ' ') and prints each `M` record (level `` ` `` [sender,]category `` ` `` file `` ` `` line `` ` `` x `` ` `` y `` ` `` sec.usec `` ` `` text, `\0`-ended) as `HH:MM:SS.uuuuuu LEVEL category: text  file(line)`. The client drops messages while no listener is connected and accepts one at most once a second in the server's run (the kernel task, every 200 ms, and after each error report), so start-up asserts before WinMain's 'adding message server to kernel' never arrive. `clientpoc.py run|replay --messages` starts the client with `-ENABLE_MESSAGES` (replay: antprox `/CLIENTOP:`) and msglisten beside it into `<shots dir>\messages.log` | a client started with `-ENABLE_MESSAGES` |
 | `artdir.py` | the art folder default of drawcheck, vidtest_sbs and run_vidtest (D120): `build/art` when it exists, else a warning | `build/art` (`cp -rp` of EBCONFIG) |
 | `vidtest_e2e.py` | starts vidtest as E&BConfig does (its command line, `CreateProcessA` with a relative name, E&BConfig's working directory = a copy of EBCONFIG at `build/programs/vidtest/e2e_ebconfig`, never the install) and reads `results.ini` as E&BConfig does; `--original` runs the retail VIDTEST (which has no `-nomsgbox`; ours gets it appended) | built vidtest, retail EBCONFIG folder to copy |
 | `vidtest_exitcodes.py` | the exit-code matrix (cases `finish close key mode res scenes`, `--case NAME`, repeatable) with `-nomsgbox` always; window and any stray message box are found by process id; results.ini compared with `--ref` | built vidtest |
+
+## End-to-end scenarios (`e2e.py`, D237)
+
+`python tools/harness/e2e.py run [NAME...] [--instance ID] [--exe PATH] [--messages]` runs the POC client through
+scenarios against antprox `/REPLAY` (D181; world login included), one client per scenario, and prints one line per
+scenario (`PASS` / `FAIL` / `XFAIL` / `XPASS`, the generated stand-ins hit, the failure); exit 0 only if every one
+is as expected (`XFAIL`: a scenario marked `expected-fail: REASON` ran every step and failed only on its `stand-in`
+step; `XPASS`, the stand-in no longer hit, fails the run so the stale note is removed; any other failure is `FAIL`). `list` and `check` parse only. Logs per scenario in `.work/e2e/HHMMSS-NAME/`: `e2e.log`
+(each step, each match), `events.log` (every line of antprox.out, stubs.log and messages.log with its time),
+`result.json`, `stubs.log`, `antprox.out`, the shots. `--exe` defaults to this tree's
+`build/programs/clientpoc/clientpoc.exe` (a worktree's own link), else `ClientPOC\release`'s; the instance
+(default `e2e`) is clientpoc.py's, removed at the end (`clientpoc.py clean`) unless `--keep`.
+
+**Scenarios** are `tools/harness/e2e/NAME.scn`, in the order world_entry, starmap, options, pda_pages, cargo, chat;
+`_login.scn` (the start-up movie skipped with a click, login, character select, START_ACK) is included by each,
+not run alone; it turns on `messages` (WinMain's 'Server initialized & ready to go' starts the movie step). The format is in e2e.py's
+docstring: headers `name:`, `expected-fail:`, `timeout:`, `messages:`; steps `include`, `wait-event SOURCE PATTERN
+[within S]`, `expect-event ...`, `expect-no SOURCE PATTERN` / `expect-no CRASH` (always on), `click gadget NAME` /
+`click X,Y` (`rclick`, `move`), `key VK`, `text STRING`, `alive S`, `shot NAME`, `stand-in PATTERN` (the goal is
+not met while stubs.log shows PATTERN, a stand-in's first call; checked at the end so every other step still runs). `stray click ...` / `stray key VK` posts the input untagged, as a person's would be: world_entry's
+self-test that the client drops it. SOURCE is `antprox` (antprox.out:
+antprox, the replay server and the client's stderr), `stubs`, `msg` (`--messages`), `files` (d3d8shot.log, the proxy's log of the client's file opens: only in a
+scenario with a `shot` step) or `any`; an event step looks
+at the lines since the last input step, so a fast event is not missed. Steps advance on events (the replay server's
+`VERSION_RESPONSE`, `GLOBAL_AVATAR_LIST`, `START_ACK`), not on input times; `alive S` is the only wait, and it is an
+assertion (the client runs, no `expect-no` line appears). Gadget names come from `e2e/gadgets.txt` (NAME X Y at
+1280x1024, each with the replay or the tooltip in a shot that found it): the POC does not log gadgets' names or
+rectangles yet, so a name is a table entry, not a lookup in the running client.
+
+**Injected input is tagged:** e2e posts with `0x5043` in wParam's high word and runs the client with
+`ENB_POC_INPUT_TAG=1`; programs/clientpoc/poc_input.cpp strips the tag, logs each button / key-down as `POC input:
+replayed ...`, and drops untagged mouse and key messages (`POC input: NOT REPLAYED (dropped) ...`): a person's
+click or the real cursor crossing the test window no longer reaches the client, and the result line counts the
+dropped ones. A POC without the hook is refused (its stubs.log lacks `tagged input read`). `clientpoc.py replay`
+posts untagged as before (its `post_step(tag=False)`).
+
+**Shots on events:** `shot NAME` writes the proxy's trigger file (`D3D8SHOT_TRIGGER`, d3d8shot.c: looked at every
+8th Present); the next frame is saved as `shot_NAME_NNNNN.png` from the client's own back buffer (D69). Rebuild the
+proxy once with `run_reference.py build --pool 1` (older proxies ignore the trigger: the step notes it, no failure).
+
+**Smoke set (D237):** a landing that retires a stand-in runs `e2e.py run --exe <its worktree's clientpoc.exe>
+--instance <name>` and lands only with every line as expected. The `gen` part of each line (all of
+`e2e/<run>/result.json`'s `gen`, and `gen_own`: those first hit after the scenario's own steps began) is the
+queue's score input (P-M2-6).
 
 `vidtest_e2e.py` and `vidtest_exitcodes.py` stay two scripts: one reproduces E&BConfig's launch
 (ctypes `CreateProcessA`, the working directory trick, the results.ini reader) and one drives

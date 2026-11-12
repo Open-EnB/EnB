@@ -27,22 +27,6 @@ Unknown656FF0Class::Unknown656FF0Class(SClient *client) : UIInvClass((LineDispla
 	memset(UnknownD0, 0, sizeof(UnknownD0));
 }
 
-// ---------------------------------------------------------------- the cargo window's filter: the combo box's second constructor (0x5789E0)
-// An empty box: no drop-down, the text field left alone (+0x10C set); the arrow button (+0xD0, 0x57B570's) a button on a
-// null object of its own ('filter' is a bone of the window's mesh: a button on the mesh would hide the whole window)
-UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, SClient *client, RenderObjClass *model, const char *name, int a, int b, int c, int d, const char *style) : InterfaceClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC UIComboBoxClass 0x5789E0 (the cargo window's filter): an empty box");
-	memset((char *)this + sizeof(InterfaceClass), 0, sizeof(UIComboBoxClass) - sizeof(InterfaceClass));
-	Unknown10C = 1;
-	RenderObjClass *robj = new Null3DObjClass;
-	Unknown0D0 = new ButtonGadgetClass(robj, 0x55, 3);
-	robj->Release_Ref();
-}
-void UIComboBoxClass::Unknown_57B480(const char *text)	// 0x57B480: the box's +0x104 string (nothing shown here)
-{
-}
-
 // ---------------------------------------------------------------- the equipment window's ship PIP (0x541DE0; its gadget is gd_ship_equip_pip.cpp's), the stats (0x6A2ED0)
 Unknown541DE0Class::Unknown541DE0Class(SClient *client) : PipSceneClass(client)
 {

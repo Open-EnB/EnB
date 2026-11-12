@@ -32,7 +32,7 @@ public:
 	virtual std::vector<ClientItemPropertySpecialLineStruct> Get_Lines();					// +0x14 0x52BC30 ('Effect: ' in bold, then Text)
 	virtual bool Is_Usable();																// +0x18 0x52BF50 (always)
 
-	std::string Text;																		// +0x24 (the effect's Unknown_833D00; the second line)  // NAME 1 [Text]: what Get_Lines does with it
+	std::string Text;																		// +0x24 (the effect's Get_Name_Text; the second line)  // NAME 1 [Text]: what Get_Lines does with it
 };
 
 #endif

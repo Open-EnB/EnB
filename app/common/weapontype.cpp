@@ -4,7 +4,7 @@
 #include <string.h>
 #include "..\shared\g_assert.h"
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_4a1590.h"
 
 static char *WeaponTypeNames[] = { "Beam", "Projectile", "Missile", "Area Effect" };	// 0xBB1358  // NAME 1: what it holds
 
@@ -47,7 +47,7 @@ char *Value_To_String(char *buf, int size, WeaponType a)
 {
 	FAIL_IF(a < WEAPON_TYPE_FIRST) return(buf);
 	FAIL_IF(a >= MAX_TYPE_WEAPON) return(buf);
-	Unknown_4A1590(buf, size, WeaponTypeNames[a]);
+	Bounded_Strcpy(buf, size, WeaponTypeNames[a]);
 	return(buf);
 }
 

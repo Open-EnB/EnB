@@ -17,26 +17,26 @@
 #include <stdio.h>
 #include <string>
 #include "..\client.h"
-// mclient.cpp's movie client (0x1178 bytes, vtable 0xB07864; mclient.cpp isn't rebuilt) on the client
-// base ClientClass (client.h): declared here only, as far as this task uses it.
-class MovieClientClass : public ClientClass	// NAME 2: mclient.cpp's class, the movie script's player
-{
-public:
-	MovieClientClass(ScriptedMovieTaskClass *task, KernelClass *kernel);	// 0x7EC3E0
-	~MovieClientClass();										// 0x7EC570 (not virtual: delete calls it directly)
-	virtual void Init();										// +0x00 .. +0x14 (and +0x1C): its own, 0x7EC550-0x7ECAA0
-	virtual void Shutdown();
-	virtual void Unknown_08();
-	virtual void Process_Packets();
-	virtual void Unknown_10();
-	virtual int Do_Frame(bool focused);							// +0x14: Run passes Is_Focused()
-	void Load_Script(const char *filename);					// 0x7ECC80  // NAME 2: Accept_Focus's '%s%d.txt'
-	void Handle_Input(KernelEventClass event);				// 0x7ECA50  // NAME 2: Pre_Run's events
-	void Render();											// 0x7ECDC0  // NAME 2: called from Render
-	bool Is_Done();											// 0x7ED090  // NAME 2: Run deletes the client then
+#include "..\mclient.h"						// MovieClientClass (0x1178 bytes, vtable 0xB07864)
 
-	char Unknown1150[0x1178 - 0x1150];						// +0x1150
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #include "..\client_lego_impl.h"					// the bone maps of cbasset.ini: Init_Bone_Maps 0x729BF0, Shutdown_Bone_Maps 0x729D60
 

@@ -69,7 +69,10 @@ CONN = [r'app\common\circbuff.cpp', r'app\common\connect.cpp', r'app\common\udpc
         r'app\common\lego_identifier.cpp',   # the object-to-object effects' bone path (opcodes 11-14)
         r'app\shared\avatar_desc.cpp',       # AVATAR_DESCRIPTION 97's member (avatar_desc_stubs.cpp)
         r'app\common\unknown_verb.cpp',      # Value_To_String(VerbEnum) (pkverbrequest.cpp and the other packets' logs)
-        r'app\common\item_info.cpp']         # ITEM_BASE 37's item info (pkitemba_stubs.cpp keeps its effect descriptions as bytes)
+        r'app\common\item_info.cpp',        # ITEM_BASE 37's item info
+        r'app\common\item_effect_description.cpp',   # its two effect descriptions
+        r'app\common\effect_description.cpp',        # their effects' texts and values
+        r'app\common\item_effect.cpp']               # their effects (ItemEffectClass)
 # the packet classes rebuilt in their own files (pkclasses.py: pk_classes.h includes their headers;
 # conn_replay.cpp sends what their Build makes)
 for _sub in ('', 'gameedit'):

@@ -1,4 +1,0 @@
-{
- "copy": "reconstructed",
- "description": "observer.h as its own .cpp needs it, with observer.h's guard so the shared header keeps the text nav_list_builder.cpp 0x7B7EF0 needs (RS1): SubjectClass (NAME 1), observer.cpp's 0x18-byte subject (DynamicVectorClass<ObserverClass *>: 0x49E890 / 0x49E950 / 0x49EA60 / 0x49EAB0), UIMeshClass's base at +0x04, and the ObserverClass interface its slots +0x00 / +0x04 show; header PROVISIONAL (D137), UM1, UP1"
-}

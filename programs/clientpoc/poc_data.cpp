@@ -1,16 +1,14 @@
-// Earth & Beyond client (reconstruction): the proof-of-concept client's data globals and the movie call (D179). NOT THE CLIENT'S CODE.
+// Earth & Beyond client (reconstruction): the proof-of-concept client's data globals (D179). NOT THE CLIENT'S CODE.
 /*
 **	The globals app files declare and no tree file defines yet that gen_stubs.py --link cannot write
-**	(objects, not pointers or scalars), each constructed as its type's default; and E&B's BINKMovie::Play
-**	(the movie, its subtitles, a volume), which the tree's BINKMovie (Renegade's) lacks: it plays the movie
-**	through Renegade's Play without subtitles and at full volume. Delete one here when a tree file defines it.
+**	(objects, not pointers or scalars), each constructed as its type's default. Delete one here when a tree
+**	file defines it. (E&B's BINKMovie::Play, once here, is binkmovie's own since run 2026-11-11b.)
 */
 
 
 
 #include <string>
 #include <vector>
-#include "..\..\stubs\stub_log.h"
 #include "..\..\wwlib\_mono.h"
 #include "..\..\wwlib\random.h"
 #include "..\..\wwmath\rect.h"
@@ -38,23 +36,3 @@ extern const int Unknown_B08CB8 = 0x400;
 extern const int Unknown_B08CBC = 0x800;
 extern const int Unknown_B08CC0 = 0x1000;
 extern const int Unknown_B08CC4 = 0x2C0;
-
-// ---------------------------------------------------------------- the movie
-
-class FontCharsClass;
-
-class BINKMovie		// the two Play overloads (Renegade's in binkmovie.lib, E&B's here)
-{
-public:
-	static void Play(const char *filename, const char *subtitlename, FontCharsClass *font);
-	static void Play(const char *filename, const char *subtitlename, int volume);
-	static bool Is_Complete();
-};
-
-// E&B's Play (client 0xA161B0-0xA162D0's run): here Renegade's, no subtitles, the volume ignored
-void BINKMovie::Play(const char *filename, const char *subtitlename, int volume)
-{
-	Stub_Log_Line("POC BINKMovie::Play('%s', '%s', %d): Renegade's Play, no subtitles", filename, subtitlename, volume);
-	Play(filename, (const char *)NULL, (FontCharsClass *)NULL);
-	Stub_Log_Line("POC BINKMovie::Play: %s", Is_Complete() ? "complete at once (not opened?)" : "playing");
-}

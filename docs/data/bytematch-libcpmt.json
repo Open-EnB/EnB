@@ -7,12 +7,268 @@
    "length": 24
   }
  },
+ "0x500D80": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "??1?$basic_ios@DU?$char_traits@D@std@@@std@@UAE@XZ",
+   "symbol": "??1?$basic_ios@DU?$char_traits@D@std@@@std@@UAE@XZ",
+   "length": 11
+  }
+ },
+ "0x5012E0": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "?overflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHH@Z",
+   "symbol": "?overflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHH@Z",
+   "length": 6
+  }
+ },
+ "0x501300": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "?pbackfail@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHH@Z",
+   "symbol": "?pbackfail@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHH@Z",
+   "length": 6
+  }
+ },
+ "0x501320": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "?showmanyc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
+   "symbol": "?showmanyc@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
+   "length": 3
+  }
+ },
+ "0x501340": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "?underflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
+   "symbol": "?underflow@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
+   "length": 4
+  }
+ },
+ "0x5015A0": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "?setbuf@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEPAV12@PADH@Z",
+   "symbol": "?setbuf@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEPAV12@PADH@Z",
+   "length": 5
+  }
+ },
+ "0x5015C0": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "?sync@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
+   "symbol": "?sync@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
+   "length": 3
+  }
+ },
+ "0x5015E0": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "?imbue@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEXABVlocale@2@@Z",
+   "symbol": "?imbue@?$basic_streambuf@DU?$char_traits@D@std@@@std@@MAEXABVlocale@2@@Z",
+   "length": 3
+  }
+ },
+ "0xA17E50": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "std::_Xlen",
+   "symbol": "?_Xlen@std@@YAXXZ",
+   "length": 90
+  }
+ },
+ "0xA17EAA": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "logic_error::logic_error",
+   "symbol": "??0logic_error@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@@Z",
+   "length": 100
+  }
+ },
+ "0xA17F0E": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "logic_error::what",
+   "symbol": "?what@logic_error@std@@UBEPBDXZ",
+   "length": 13
+  }
+ },
+ "0xA17F1B": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "logic_error::_Doraise",
+   "symbol": "?_Doraise@logic_error@std@@MBEXXZ",
+   "length": 29
+  }
+ },
+ "0xA17F38": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "logic_error::~logic_error",
+   "symbol": "??1logic_error@std@@UAE@XZ",
+   "length": 61
+  }
+ },
+ "0xA17F75": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "logic_error::scalar deleting dtor",
+   "symbol": "??_Glogic_error@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA17F91": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "logic_error::logic_error",
+   "symbol": "??0logic_error@std@@QAE@ABV01@@Z",
+   "length": 93
+  }
+ },
+ "0xA17FEE": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "length_error::~length_error",
+   "symbol": "??1length_error@std@@UAE@XZ",
+   "length": 61
+  }
+ },
+ "0xA1802B": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "length_error::_Doraise",
+   "symbol": "?_Doraise@length_error@std@@MBEXXZ",
+   "length": 29
+  }
+ },
+ "0xA18064": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "length_error::length_error",
+   "symbol": "??0length_error@std@@QAE@ABV01@@Z",
+   "length": 24
+  }
+ },
+ "0xA1807C": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "std::_Xran",
+   "symbol": "?_Xran@std@@YAXXZ",
+   "length": 90
+  }
+ },
+ "0xA180D6": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "out_of_range::~out_of_range",
+   "symbol": "??1out_of_range@std@@UAE@XZ",
+   "length": 61
+  }
+ },
+ "0xA18113": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "out_of_range::_Doraise",
+   "symbol": "?_Doraise@out_of_range@std@@MBEXXZ",
+   "length": 29
+  }
+ },
+ "0xA18130": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "out_of_range::scalar deleting dtor",
+   "symbol": "??_Gout_of_range@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1814C": {
+  "L": {
+   "object": "0010_string.obj",
+   "function": "out_of_range::out_of_range",
+   "symbol": "??0out_of_range@std@@QAE@ABV01@@Z",
+   "length": 24
+  }
+ },
+ "0xA18230": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "??_D?$basic_istream@DU?$char_traits@D@std@@@std@@QAEXXZ",
+   "symbol": "??_D?$basic_istream@DU?$char_traits@D@std@@@std@@QAEXXZ",
+   "length": 21
+  }
+ },
+ "0xA18274": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "??_D?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEXXZ",
+   "symbol": "??_D?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEXXZ",
+   "length": 21
+  }
+ },
  "0xA18314": {
   "L": {
    "object": "0004_iostream.obj",
    "function": "Init::Init",
    "symbol": "??0Init@ios_base@std@@QAE@XZ",
    "length": 383
+  }
+ },
+ "0xA18493": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "Init::~Init",
+   "symbol": "??1Init@ios_base@std@@QAE@XZ",
+   "length": 67
+  }
+ },
+ "0xA184D6": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "??0?$basic_ostream@DU?$char_traits@D@std@@@std@@QAE@PAV?$basic_streambuf@DU?$char_traits@D@std@@@1@_N1@Z",
+   "symbol": "??0?$basic_ostream@DU?$char_traits@D@std@@@std@@QAE@PAV?$basic_streambuf@DU?$char_traits@D@std@@@1@_N1@Z",
+   "length": 106
+  }
+ },
+ "0xA18540": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "??0?$basic_ostream@DU?$char_traits@D@std@@@std@@QAE@W4_Uninitialized@1@@Z",
+   "symbol": "??0?$basic_ostream@DU?$char_traits@D@std@@@std@@QAE@W4_Uninitialized@1@@Z",
+   "length": 95
+  }
+ },
+ "0xA1859F": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "?flush@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV12@XZ",
+   "symbol": "?flush@?$basic_ostream@DU?$char_traits@D@std@@@std@@QAEAAV12@XZ",
+   "length": 74
+  }
+ },
+ "0xA185E9": {
+  "L": {
+   "object": "0011_strstrea.obj",
+   "function": "??0?$basic_istream@DU?$char_traits@D@std@@@std@@QAE@PAV?$basic_streambuf@DU?$char_traits@D@std@@@1@_N@Z",
+   "symbol": "??0?$basic_istream@DU?$char_traits@D@std@@@std@@QAE@PAV?$basic_streambuf@DU?$char_traits@D@std@@@1@_N@Z",
+   "length": 104
+  }
+ },
+ "0xA18651": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "??0?$basic_istream@DU?$char_traits@D@std@@@std@@QAE@W4_Uninitialized@1@@Z",
+   "symbol": "??0?$basic_istream@DU?$char_traits@D@std@@@std@@QAE@W4_Uninitialized@1@@Z",
+   "length": 95
+  }
+ },
+ "0xA186B0": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "??0?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAE@PAU_iobuf@@@Z",
+   "symbol": "??0?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAE@PAU_iobuf@@@Z",
+   "length": 96
   }
  },
  "0xA18710": {
@@ -29,6 +285,14 @@
    "function": "facet::_Incref",
    "symbol": "?_Incref@facet@locale@std@@QAEXXZ",
    "length": 38
+  }
+ },
+ "0xA1876F": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "??1?$basic_filebuf@DU?$char_traits@D@std@@@std@@UAE@XZ",
+   "symbol": "??1?$basic_filebuf@DU?$char_traits@D@std@@@std@@UAE@XZ",
+   "length": 101
   }
  },
  "0xA187D4": {
@@ -63,12 +327,44 @@
    "length": 277
   }
  },
+ "0xA18AF9": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "?seekoff@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAE?AV?$fpos@H@2@JW4seekdir@ios_base@2@H@Z",
+   "symbol": "?seekoff@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAE?AV?$fpos@H@2@JW4seekdir@ios_base@2@H@Z",
+   "length": 111
+  }
+ },
+ "0xA18B68": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "?seekpos@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAE?AV?$fpos@H@2@V32@H@Z",
+   "symbol": "?seekpos@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAE?AV?$fpos@H@2@V32@H@Z",
+   "length": 175
+  }
+ },
  "0xA18C17": {
   "L": {
    "object": "0004_iostream.obj",
    "function": "?setbuf@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@PADH@Z",
    "symbol": "?setbuf@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEPAV?$basic_streambuf@DU?$char_traits@D@std@@@2@PADH@Z",
    "length": 43
+  }
+ },
+ "0xA18C42": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "?sync@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
+   "symbol": "?sync@?$basic_filebuf@DU?$char_traits@D@std@@@std@@MAEHXZ",
+   "length": 25
+  }
+ },
+ "0xA18C5B": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "??_G?$basic_filebuf@DU?$char_traits@D@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$basic_filebuf@DU?$char_traits@D@std@@@std@@UAEPAXI@Z",
+   "length": 28
   }
  },
  "0xA18C77": {
@@ -103,6 +399,14 @@
    "length": 16
   }
  },
+ "0xA18CE7": {
+  "L": {
+   "object": "0004_iostream.obj",
+   "function": "?close@?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAEPAV12@XZ",
+   "symbol": "?close@?$basic_filebuf@DU?$char_traits@D@std@@@std@@QAEPAV12@XZ",
+   "length": 39
+  }
+ },
  "0xA18D0E": {
   "L": {
    "object": "0004_iostream.obj",
@@ -119,12 +423,140 @@
    "length": 77
   }
  },
+ "0xA18DD3": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "$E70",
+   "symbol": "_$E70",
+   "length": 42
+  }
+ },
+ "0xA18F1F": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??_D?$basic_istream@GU?$char_traits@G@std@@@std@@QAEXXZ",
+   "symbol": "??_D?$basic_istream@GU?$char_traits@G@std@@@std@@QAEXXZ",
+   "length": 21
+  }
+ },
+ "0xA18F63": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??_D?$basic_ostream@GU?$char_traits@G@std@@@std@@QAEXXZ",
+   "symbol": "??_D?$basic_ostream@GU?$char_traits@G@std@@@std@@QAEXXZ",
+   "length": 21
+  }
+ },
  "0xA18FD6": {
   "L": {
    "object": "0013_wiostrea.obj",
    "function": "_Winit::_Winit",
    "symbol": "??0_Winit@std@@QAE@XZ",
    "length": 385
+  }
+ },
+ "0xA19157": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "_Winit::~_Winit",
+   "symbol": "??1_Winit@std@@QAE@XZ",
+   "length": 67
+  }
+ },
+ "0xA1919A": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??0?$basic_ostream@GU?$char_traits@G@std@@@std@@QAE@PAV?$basic_streambuf@GU?$char_traits@G@std@@@1@_N1@Z",
+   "symbol": "??0?$basic_ostream@GU?$char_traits@G@std@@@std@@QAE@PAV?$basic_streambuf@GU?$char_traits@G@std@@@1@_N1@Z",
+   "length": 106
+  }
+ },
+ "0xA19204": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??0?$basic_ostream@GU?$char_traits@G@std@@@std@@QAE@W4_Uninitialized@1@@Z",
+   "symbol": "??0?$basic_ostream@GU?$char_traits@G@std@@@std@@QAE@W4_Uninitialized@1@@Z",
+   "length": 95
+  }
+ },
+ "0xA19263": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?flush@?$basic_ostream@GU?$char_traits@G@std@@@std@@QAEAAV12@XZ",
+   "symbol": "?flush@?$basic_ostream@GU?$char_traits@G@std@@@std@@QAEAAV12@XZ",
+   "length": 74
+  }
+ },
+ "0xA192AD": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??1?$basic_ios@GU?$char_traits@G@std@@@std@@UAE@XZ",
+   "symbol": "??1?$basic_ios@GU?$char_traits@G@std@@@std@@UAE@XZ",
+   "length": 11
+  }
+ },
+ "0xA192B8": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??0?$basic_istream@GU?$char_traits@G@std@@@std@@QAE@PAV?$basic_streambuf@GU?$char_traits@G@std@@@1@_N@Z",
+   "symbol": "??0?$basic_istream@GU?$char_traits@G@std@@@std@@QAE@PAV?$basic_streambuf@GU?$char_traits@G@std@@@1@_N@Z",
+   "length": 104
+  }
+ },
+ "0xA19320": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??0?$basic_istream@GU?$char_traits@G@std@@@std@@QAE@W4_Uninitialized@1@@Z",
+   "symbol": "??0?$basic_istream@GU?$char_traits@G@std@@@std@@QAE@W4_Uninitialized@1@@Z",
+   "length": 95
+  }
+ },
+ "0xA1937F": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??0?$basic_filebuf@GU?$char_traits@G@std@@@std@@QAE@PAU_iobuf@@@Z",
+   "symbol": "??0?$basic_filebuf@GU?$char_traits@G@std@@@std@@QAE@PAU_iobuf@@@Z",
+   "length": 96
+  }
+ },
+ "0xA193DF": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??1?$basic_streambuf@GU?$char_traits@G@std@@@std@@UAE@XZ",
+   "symbol": "??1?$basic_streambuf@GU?$char_traits@G@std@@@std@@UAE@XZ",
+   "length": 14
+  }
+ },
+ "0xA193ED": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?overflow@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEGG@Z",
+   "symbol": "?overflow@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEGG@Z",
+   "length": 7
+  }
+ },
+ "0xA193F4": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?pbackfail@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEGG@Z",
+   "symbol": "?pbackfail@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEGG@Z",
+   "length": 7
+  }
+ },
+ "0xA193FB": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?showmanyc@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHXZ",
+   "symbol": "?showmanyc@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHXZ",
+   "length": 3
+  }
+ },
+ "0xA193FE": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?underflow@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEGXZ",
+   "symbol": "?underflow@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEGXZ",
+   "length": 5
   }
  },
  "0xA19403": {
@@ -167,6 +599,38 @@
    "length": 36
   }
  },
+ "0xA1957B": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?setbuf@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEPAV12@PAGH@Z",
+   "symbol": "?setbuf@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEPAV12@PAGH@Z",
+   "length": 5
+  }
+ },
+ "0xA19580": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?sync@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHXZ",
+   "symbol": "?sync@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEHXZ",
+   "length": 3
+  }
+ },
+ "0xA19583": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?imbue@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEXABVlocale@2@@Z",
+   "symbol": "?imbue@?$basic_streambuf@GU?$char_traits@G@std@@@std@@MAEXABVlocale@2@@Z",
+   "length": 3
+  }
+ },
+ "0xA19591": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??1?$basic_filebuf@GU?$char_traits@G@std@@@std@@UAE@XZ",
+   "symbol": "??1?$basic_filebuf@GU?$char_traits@G@std@@@std@@UAE@XZ",
+   "length": 101
+  }
+ },
  "0xA195F6": {
   "L": {
    "object": "0013_wiostrea.obj",
@@ -199,12 +663,36 @@
    "length": 286
   }
  },
+ "0xA19941": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?seekoff@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAE?AV?$fpos@H@2@JW4seekdir@ios_base@2@H@Z",
+   "symbol": "?seekoff@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAE?AV?$fpos@H@2@JW4seekdir@ios_base@2@H@Z",
+   "length": 111
+  }
+ },
+ "0xA199B0": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?seekpos@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAE?AV?$fpos@H@2@V32@H@Z",
+   "symbol": "?seekpos@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAE?AV?$fpos@H@2@V32@H@Z",
+   "length": 175
+  }
+ },
  "0xA19A5F": {
   "L": {
    "object": "0013_wiostrea.obj",
    "function": "?setbuf@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@PAGH@Z",
    "symbol": "?setbuf@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEPAV?$basic_streambuf@GU?$char_traits@G@std@@@2@PAGH@Z",
    "length": 46
+  }
+ },
+ "0xA19A8D": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?sync@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEHXZ",
+   "symbol": "?sync@?$basic_filebuf@GU?$char_traits@G@std@@@std@@MAEHXZ",
+   "length": 25
   }
  },
  "0xA19AA6": {
@@ -215,12 +703,36 @@
    "length": 31
   }
  },
+ "0xA19AC5": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??_G?$basic_ios@GU?$char_traits@G@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$basic_ios@GU?$char_traits@G@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
  "0xA19AE1": {
   "L": {
    "object": "0013_wiostrea.obj",
    "function": "??_G?$basic_istream@GU?$char_traits@G@std@@@std@@UAEPAXI@Z",
    "symbol": "??_G?$basic_istream@GU?$char_traits@G@std@@@std@@UAEPAXI@Z",
    "length": 31
+  }
+ },
+ "0xA19B00": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??_G?$basic_streambuf@GU?$char_traits@G@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$basic_streambuf@GU?$char_traits@G@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA19B1C": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "??_G?$basic_filebuf@GU?$char_traits@G@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$basic_filebuf@GU?$char_traits@G@std@@@std@@UAEPAXI@Z",
+   "length": 28
   }
  },
  "0xA19B38": {
@@ -271,6 +783,14 @@
    "length": 16
   }
  },
+ "0xA19BDB": {
+  "L": {
+   "object": "0013_wiostrea.obj",
+   "function": "?close@?$basic_filebuf@GU?$char_traits@G@std@@@std@@QAEPAV12@XZ",
+   "symbol": "?close@?$basic_filebuf@GU?$char_traits@G@std@@@std@@QAEPAV12@XZ",
+   "length": 39
+  }
+ },
  "0xA19C02": {
   "L": {
    "object": "0013_wiostrea.obj",
@@ -303,12 +823,92 @@
    "length": 30
   }
  },
+ "0xA19D78": {
+  "L": {
+   "object": "0035_xlock.obj",
+   "function": "_Lockit::~_Lockit",
+   "symbol": "??1_Lockit@std@@QAE@XZ",
+   "length": 21
+  }
+ },
  "0xA19D8D": {
   "L": {
    "object": "0003_ios.obj",
    "function": "ios_base::clear",
    "symbol": "?clear@ios_base@std@@QAEXH_N@Z",
    "length": 156
+  }
+ },
+ "0xA19E29": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "runtime_error::runtime_error",
+   "symbol": "??0runtime_error@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@@Z",
+   "length": 100
+  }
+ },
+ "0xA19E8D": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "runtime_error::what",
+   "symbol": "?what@runtime_error@std@@UBEPBDXZ",
+   "length": 13
+  }
+ },
+ "0xA19E9A": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "runtime_error::_Doraise",
+   "symbol": "?_Doraise@runtime_error@std@@MBEXXZ",
+   "length": 29
+  }
+ },
+ "0xA19EB7": {
+  "L": {
+   "object": "0003_ios.obj",
+   "function": "runtime_error::~runtime_error",
+   "symbol": "??1runtime_error@std@@UAE@XZ",
+   "length": 61
+  }
+ },
+ "0xA19EF4": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "runtime_error::scalar deleting dtor",
+   "symbol": "??_Gruntime_error@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA19F10": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "runtime_error::runtime_error",
+   "symbol": "??0runtime_error@std@@QAE@ABV01@@Z",
+   "length": 93
+  }
+ },
+ "0xA19F6D": {
+  "L": {
+   "object": "0003_ios.obj",
+   "function": "failure::~failure",
+   "symbol": "??1failure@ios_base@std@@UAE@XZ",
+   "length": 61
+  }
+ },
+ "0xA19FAA": {
+  "L": {
+   "object": "0003_ios.obj",
+   "function": "failure::_Doraise",
+   "symbol": "?_Doraise@failure@ios_base@std@@MBEXXZ",
+   "length": 29
+  }
+ },
+ "0xA19FE3": {
+  "L": {
+   "object": "0003_ios.obj",
+   "function": "failure::failure",
+   "symbol": "??0failure@ios_base@std@@QAE@ABV012@@Z",
+   "length": 24
   }
  },
  "0xA19FFB": {
@@ -463,6 +1063,14 @@
    "length": 114
   }
  },
+ "0xA1A700": {
+  "L": {
+   "object": "0006_locale0.obj",
+   "function": "_Locimp::scalar deleting dtor",
+   "symbol": "??_G_Locimp@locale@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
  "0xA1A71C": {
   "L": {
    "object": "0006_locale0.obj",
@@ -527,6 +1135,30 @@
    "length": 628
   }
  },
+ "0xA1AEE4": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "codecvt_base::do_always_noconv",
+   "symbol": "?do_always_noconv@codecvt_base@std@@MBE_NXZ",
+   "length": 3
+  }
+ },
+ "0xA1AEE7": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "codecvt_base::do_max_length",
+   "symbol": "?do_max_length@codecvt_base@std@@MBEHXZ",
+   "length": 4
+  }
+ },
+ "0xA1AEEB": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "codecvt_base::do_encoding",
+   "symbol": "?do_encoding@codecvt_base@std@@MBEHXZ",
+   "length": 4
+  }
+ },
  "0xA1AEEF": {
   "L": {
    "object": "0034_xlocale.obj",
@@ -583,12 +1215,44 @@
    "length": 111
   }
  },
+ "0xA1B32B": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "?do_in@?$codecvt@DDH@std@@MBEHAAHPBD1AAPBDPAD3AAPAD@Z",
+   "symbol": "?do_in@?$codecvt@DDH@std@@MBEHAAHPBD1AAPBDPAD3AAPAD@Z",
+   "length": 26
+  }
+ },
+ "0xA1B345": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "?do_out@?$codecvt@DDH@std@@MBEHAAHPBD1AAPBDPAD3AAPAD@Z",
+   "symbol": "?do_out@?$codecvt@DDH@std@@MBEHAAHPBD1AAPBDPAD3AAPAD@Z",
+   "length": 26
+  }
+ },
  "0xA1B35F": {
   "L": {
    "object": "0005_locale.obj",
    "function": "?do_length@?$codecvt@DDH@std@@MBEHAAHPBD1I@Z",
    "symbol": "?do_length@?$codecvt@DDH@std@@MBEHAAHPBD1I@Z",
    "length": 21
+  }
+ },
+ "0xA1B374": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "??_G?$codecvt@DDH@std@@UAEPAXI@Z",
+   "symbol": "??_G?$codecvt@DDH@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1B390": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "??1?$codecvt@DDH@std@@UAE@XZ",
+   "symbol": "??1?$codecvt@DDH@std@@UAE@XZ",
+   "length": 7
   }
  },
  "0xA1B397": {
@@ -621,6 +1285,14 @@
    "function": "std::isdigit",
    "symbol": "?isdigit@std@@YA_NDABVlocale@1@@Z",
    "length": 33
+  }
+ },
+ "0xA1BBDA": {
+  "L": {
+   "object": "0005_locale.obj",
+   "function": "??0?$codecvt@DDH@std@@QAE@I@Z",
+   "symbol": "??0?$codecvt@DDH@std@@QAE@I@Z",
+   "length": 84
   }
  },
  "0xA1BD12": {
@@ -727,12 +1399,28 @@
    "length": 75
   }
  },
+ "0xA1C4DD": {
+  "L": {
+   "object": "0009_nomemory.obj",
+   "function": "bad_alloc::bad_alloc",
+   "symbol": "??0bad_alloc@std@@QAE@PBD@Z",
+   "length": 25
+  }
+ },
  "0xA1C501": {
   "L": {
    "object": "0034_xlocale.obj",
    "function": "bad_cast::_Doraise",
    "symbol": "?_Doraise@bad_cast@std@@MBEXXZ",
    "length": 29
+  }
+ },
+ "0xA1C53A": {
+  "L": {
+   "object": "0009_nomemory.obj",
+   "function": "bad_alloc::bad_alloc",
+   "symbol": "??0bad_alloc@std@@QAE@ABV01@@Z",
+   "length": 24
   }
  },
  "0xA1C55C": {
@@ -767,6 +1455,46 @@
    "length": 79
   }
  },
+ "0xA1CC5B": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_always_noconv@?$codecvt@GDH@std@@MBE_NXZ",
+   "symbol": "?do_always_noconv@?$codecvt@GDH@std@@MBE_NXZ",
+   "length": 3
+  }
+ },
+ "0xA1CC5E": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_max_length@?$codecvt@GDH@std@@MBEHXZ",
+   "symbol": "?do_max_length@?$codecvt@GDH@std@@MBEHXZ",
+   "length": 4
+  }
+ },
+ "0xA1CC62": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_encoding@?$codecvt@GDH@std@@MBEHXZ",
+   "symbol": "?do_encoding@?$codecvt@GDH@std@@MBEHXZ",
+   "length": 3
+  }
+ },
+ "0xA1CC65": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$codecvt@GDH@std@@UAEPAXI@Z",
+   "symbol": "??_G?$codecvt@GDH@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1CC81": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$codecvt@GDH@std@@UAE@XZ",
+   "symbol": "??1?$codecvt@GDH@std@@UAE@XZ",
+   "length": 7
+  }
+ },
  "0xA1CC96": {
   "L": {
    "object": "0016_wlocale.obj",
@@ -799,12 +1527,60 @@
    "length": 44
   }
  },
+ "0xA1CD54": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_tolower@?$ctype@G@std@@MBEGG@Z",
+   "symbol": "?do_tolower@?$ctype@G@std@@MBEGG@Z",
+   "length": 49
+  }
+ },
+ "0xA1CD85": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z",
+   "symbol": "?do_tolower@?$ctype@G@std@@MBEPBGPAGPBG@Z",
+   "length": 45
+  }
+ },
+ "0xA1CDB2": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_toupper@?$ctype@G@std@@MBEGG@Z",
+   "symbol": "?do_toupper@?$ctype@G@std@@MBEGG@Z",
+   "length": 49
+  }
+ },
+ "0xA1CDE3": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z",
+   "symbol": "?do_toupper@?$ctype@G@std@@MBEPBGPAGPBG@Z",
+   "length": 45
+  }
+ },
+ "0xA1CE10": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_widen@?$ctype@G@std@@MBEGD@Z",
+   "symbol": "?do_widen@?$ctype@G@std@@MBEGD@Z",
+   "length": 15
+  }
+ },
  "0xA1CE1F": {
   "L": {
    "object": "0016_wlocale.obj",
    "function": "?do_widen@?$ctype@G@std@@MBEPBDPBD0PAG@Z",
    "symbol": "?do_widen@?$ctype@G@std@@MBEPBDPBD0PAG@Z",
    "length": 45
+  }
+ },
+ "0xA1CE4C": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_narrow@?$ctype@G@std@@MBEDGD@Z",
+   "symbol": "?do_narrow@?$ctype@G@std@@MBEDGD@Z",
+   "length": 13
   }
  },
  "0xA1CE59": {
@@ -847,11 +1623,43 @@
    "length": 200
   }
  },
+ "0xA1D29F": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_get@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHAAJ@Z",
+   "symbol": "?do_get@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHAAJ@Z",
+   "length": 174
+  }
+ },
+ "0xA1D34D": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_get@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHAAK@Z",
+   "symbol": "?do_get@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHAAK@Z",
+   "length": 174
+  }
+ },
  "0xA1D3FB": {
   "L": {
    "object": "0016_wlocale.obj",
    "function": "?do_get@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHAAM@Z",
    "symbol": "?do_get@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHAAM@Z",
+   "length": 170
+  }
+ },
+ "0xA1D4A5": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_get@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHAAN@Z",
+   "symbol": "?do_get@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHAAN@Z",
+   "length": 170
+  }
+ },
+ "0xA1D54F": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_get@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHAAO@Z",
+   "symbol": "?do_get@?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHAAO@Z",
    "length": 170
   }
  },
@@ -911,6 +1719,46 @@
    "length": 210
   }
  },
+ "0xA1DB28": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_decimal_point@?$numpunct@G@std@@MBEGXZ",
+   "symbol": "?do_decimal_point@?$numpunct@G@std@@MBEGXZ",
+   "length": 5
+  }
+ },
+ "0xA1DB2D": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_thousands_sep@?$numpunct@G@std@@MBEGXZ",
+   "symbol": "?do_thousands_sep@?$numpunct@G@std@@MBEGXZ",
+   "length": 5
+  }
+ },
+ "0xA1DB32": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_grouping@?$numpunct@G@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?do_grouping@?$numpunct@G@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 54
+  }
+ },
+ "0xA1DB68": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_falsename@?$numpunct@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "symbol": "?do_falsename@?$numpunct@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "length": 54
+  }
+ },
+ "0xA1DB9E": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_truename@?$numpunct@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "symbol": "?do_truename@?$numpunct@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "length": 54
+  }
+ },
  "0xA1DBD4": {
   "L": {
    "object": "0016_wlocale.obj",
@@ -935,12 +1783,44 @@
    "length": 34
   }
  },
+ "0xA1DD10": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_open@?$messages@G@std@@MBEHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@ABVlocale@2@@Z",
+   "symbol": "?do_open@?$messages@G@std@@MBEHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@ABVlocale@2@@Z",
+   "length": 5
+  }
+ },
+ "0xA1DD15": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_get@?$messages@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@HHHABV32@@Z",
+   "symbol": "?do_get@?$messages@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@HHHABV32@@Z",
+   "length": 113
+  }
+ },
+ "0xA1DD86": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_close@?$messages@G@std@@MBEXH@Z",
+   "symbol": "?do_close@?$messages@G@std@@MBEXH@Z",
+   "length": 3
+  }
+ },
  "0xA1DD89": {
   "L": {
    "object": "0016_wlocale.obj",
    "function": "?do_get@?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0_NAAVios_base@2@AAHAAO@Z",
    "symbol": "?do_get@?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0_NAAVios_base@2@AAHAAO@Z",
    "length": 309
+  }
+ },
+ "0xA1DEBE": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_get@?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@@Z",
+   "symbol": "?do_get@?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@@Z",
+   "length": 138
   }
  },
  "0xA1DF48": {
@@ -959,6 +1839,86 @@
    "length": 316
   }
  },
+ "0xA1E1B8": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_decimal_point@?$_Mpunct@G@std@@MBEGXZ",
+   "symbol": "?do_decimal_point@?$_Mpunct@G@std@@MBEGXZ",
+   "length": 5
+  }
+ },
+ "0xA1E1BD": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_thousands_sep@?$_Mpunct@G@std@@MBEGXZ",
+   "symbol": "?do_thousands_sep@?$_Mpunct@G@std@@MBEGXZ",
+   "length": 5
+  }
+ },
+ "0xA1E1C2": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_grouping@?$_Mpunct@G@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?do_grouping@?$_Mpunct@G@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 54
+  }
+ },
+ "0xA1E1F8": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_curr_symbol@?$_Mpunct@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "symbol": "?do_curr_symbol@?$_Mpunct@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "length": 54
+  }
+ },
+ "0xA1E22E": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_positive_sign@?$_Mpunct@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "symbol": "?do_positive_sign@?$_Mpunct@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "length": 54
+  }
+ },
+ "0xA1E264": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_negative_sign@?$_Mpunct@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "symbol": "?do_negative_sign@?$_Mpunct@G@std@@MBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "length": 54
+  }
+ },
+ "0xA1E29A": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_frac_digits@?$_Mpunct@G@std@@MBEHXZ",
+   "symbol": "?do_frac_digits@?$_Mpunct@G@std@@MBEHXZ",
+   "length": 4
+  }
+ },
+ "0xA1E29E": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_pos_format@?$_Mpunct@G@std@@MBE?AUpattern@money_base@2@XZ",
+   "symbol": "?do_pos_format@?$_Mpunct@G@std@@MBE?AUpattern@money_base@2@XZ",
+   "length": 12
+  }
+ },
+ "0xA1E2AA": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_neg_format@?$_Mpunct@G@std@@MBE?AUpattern@money_base@2@XZ",
+   "symbol": "?do_neg_format@?$_Mpunct@G@std@@MBE?AUpattern@money_base@2@XZ",
+   "length": 12
+  }
+ },
+ "0xA1E2B6": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_date_order@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBEHXZ",
+   "symbol": "?do_date_order@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBEHXZ",
+   "length": 4
+  }
+ },
  "0xA1E2BA": {
   "L": {
    "object": "0016_wlocale.obj",
@@ -975,6 +1935,38 @@
    "length": 305
   }
  },
+ "0xA1E4AF": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_get_weekday@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "symbol": "?do_get_weekday@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "length": 62
+  }
+ },
+ "0xA1E4ED": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_get_monthname@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "symbol": "?do_get_monthname@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "length": 62
+  }
+ },
+ "0xA1E52B": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?do_get_year@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "symbol": "?do_get_year@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@GU?$char_traits@G@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "length": 102
+  }
+ },
+ "0xA1E591": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$ctype@G@std@@UAEPAXI@Z",
+   "symbol": "??_G?$ctype@G@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
  "0xA1E5AD": {
   "L": {
    "object": "0034_xlocale.obj",
@@ -983,12 +1975,204 @@
    "length": 32
   }
  },
+ "0xA1E5CD": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E5E9": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "symbol": "??1?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "length": 26
+  }
+ },
+ "0xA1E603": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E61F": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "symbol": "??1?$num_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "length": 7
+  }
+ },
+ "0xA1E626": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E642": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "symbol": "??1?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "length": 7
+  }
+ },
+ "0xA1E649": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$numpunct@G@std@@UAEPAXI@Z",
+   "symbol": "??_G?$numpunct@G@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
  "0xA1E665": {
   "L": {
    "object": "0016_wlocale.obj",
    "function": "??1?$numpunct@G@std@@UAE@XZ",
    "symbol": "??1?$numpunct@G@std@@UAE@XZ",
    "length": 44
+  }
+ },
+ "0xA1E691": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$collate@G@std@@UAEPAXI@Z",
+   "symbol": "??_G?$collate@G@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E6AD": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$collate@G@std@@UAE@XZ",
+   "symbol": "??1?$collate@G@std@@UAE@XZ",
+   "length": 7
+  }
+ },
+ "0xA1E6B4": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$messages@G@std@@UAEPAXI@Z",
+   "symbol": "??_G?$messages@G@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E6D0": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$messages@G@std@@UAE@XZ",
+   "symbol": "??1?$messages@G@std@@UAE@XZ",
+   "length": 35
+  }
+ },
+ "0xA1E6F3": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E70F": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "symbol": "??1?$money_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "length": 7
+  }
+ },
+ "0xA1E716": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$money_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$money_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E732": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$money_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "symbol": "??1?$money_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "length": 7
+  }
+ },
+ "0xA1E739": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$moneypunct@G$0A@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$moneypunct@G$0A@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E755": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$moneypunct@G$00@std@@UAEPAXI@Z",
+   "symbol": "??_G?$moneypunct@G$00@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E771": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E78D": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "symbol": "??1?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@UAE@XZ",
+   "length": 35
+  }
+ },
+ "0xA1E7B0": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$moneypunct@G$0A@@std@@UAE@XZ",
+   "symbol": "??1?$moneypunct@G$0A@@std@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0xA1E7B5": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$_Mpunct@G@std@@UAE@XZ",
+   "symbol": "??1?$_Mpunct@G@std@@UAE@XZ",
+   "length": 52
+  }
+ },
+ "0xA1E7E9": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??_G?$_Mpunct@G@std@@UAEPAXI@Z",
+   "symbol": "??_G?$_Mpunct@G@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA1E805": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??1?$moneypunct@G$00@std@@UAE@XZ",
+   "symbol": "??1?$moneypunct@G$00@std@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0xA1E80A": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?_Init@?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@IAEXABV_Locinfo@2@@Z",
+   "symbol": "?_Init@?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@IAEXABV_Locinfo@2@@Z",
+   "length": 40
   }
  },
  "0xA1E832": {
@@ -1031,12 +2215,28 @@
    "length": 843
   }
  },
+ "0xA1EFB7": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?_Ffmt@?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@KAPADPADDH@Z",
+   "symbol": "?_Ffmt@?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@KAPADPADDH@Z",
+   "length": 94
+  }
+ },
  "0xA1F015": {
   "L": {
    "object": "0016_wlocale.obj",
    "function": "?_Fput@?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@KA?AV?$ostreambuf_iterator@GU?$char_traits@G@std@@@2@V32@AAVios_base@2@GPBDII@Z",
    "symbol": "?_Fput@?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@KA?AV?$ostreambuf_iterator@GU?$char_traits@G@std@@@2@V32@AAVios_base@2@GPBDII@Z",
    "length": 741
+  }
+ },
+ "0xA1F2FA": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?_Ifmt@?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@KAPADPADDH@Z",
+   "symbol": "?_Ifmt@?$num_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@KAPADPADDH@Z",
+   "length": 90
   }
  },
  "0xA1F354": {
@@ -1047,12 +2247,36 @@
    "length": 686
   }
  },
+ "0xA1F602": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?falsename@?$numpunct@G@std@@QBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "symbol": "?falsename@?$numpunct@G@std@@QBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "length": 23
+  }
+ },
+ "0xA1F619": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?truename@?$numpunct@G@std@@QBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "symbol": "?truename@?$numpunct@G@std@@QBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "length": 23
+  }
+ },
  "0xA1F630": {
   "L": {
    "object": "0016_wlocale.obj",
    "function": "?_Init@?$numpunct@G@std@@IAEXABV_Locinfo@2@@Z",
    "symbol": "?_Init@?$numpunct@G@std@@IAEXABV_Locinfo@2@@Z",
    "length": 93
+  }
+ },
+ "0xA1F68D": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?_Init@?$messages@G@std@@IAEXABV_Locinfo@2@@Z",
+   "symbol": "?_Init@?$messages@G@std@@IAEXABV_Locinfo@2@@Z",
+   "length": 40
   }
  },
  "0xA1F6B5": {
@@ -1085,6 +2309,22 @@
    "function": "?resize@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEXI@Z",
    "symbol": "?resize@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEXI@Z",
    "length": 38
+  }
+ },
+ "0xA205C8": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??0?$_Mpunct@G@std@@QAE@ABV_Locinfo@1@I_N@Z",
+   "symbol": "??0?$_Mpunct@G@std@@QAE@ABV_Locinfo@1@I_N@Z",
+   "length": 64
+  }
+ },
+ "0xA2060F": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?_Init@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@IAEXABV_Locinfo@2@@Z",
+   "symbol": "?_Init@?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@IAEXABV_Locinfo@2@@Z",
+   "length": 51
   }
  },
  "0xA20642": {
@@ -1141,6 +2381,14 @@
    "function": "?sgetc@?$basic_streambuf@GU?$char_traits@G@std@@@std@@QAEGXZ",
    "symbol": "?sgetc@?$basic_streambuf@GU?$char_traits@G@std@@@std@@QAEGXZ",
    "length": 31
+  }
+ },
+ "0xA208B3": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?grouping@?$numpunct@G@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?grouping@?$numpunct@G@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 23
   }
  },
  "0xA208CA": {
@@ -1215,6 +2463,38 @@
    "length": 61
   }
  },
+ "0xA20C7A": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?grouping@?$_Mpunct@G@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?grouping@?$_Mpunct@G@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 23
+  }
+ },
+ "0xA20C91": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?curr_symbol@?$_Mpunct@G@std@@QBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "symbol": "?curr_symbol@?$_Mpunct@G@std@@QBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "length": 23
+  }
+ },
+ "0xA20CA8": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?positive_sign@?$_Mpunct@G@std@@QBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "symbol": "?positive_sign@?$_Mpunct@G@std@@QBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "length": 23
+  }
+ },
+ "0xA20CBF": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?negative_sign@?$_Mpunct@G@std@@QBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "symbol": "?negative_sign@?$_Mpunct@G@std@@QBE?AV?$basic_string@GU?$char_traits@G@std@@V?$allocator@G@2@@2@XZ",
+   "length": 23
+  }
+ },
  "0xA20CD6": {
   "L": {
    "object": "0016_wlocale.obj",
@@ -1247,6 +2527,22 @@
    "length": 48
   }
  },
+ "0xA20F55": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "?_Makpat@?$_Mpunct@G@std@@AAEXAAUpattern@money_base@2@DDD@Z",
+   "symbol": "?_Makpat@?$_Mpunct@G@std@@AAEXAAUpattern@money_base@2@DDD@Z",
+   "length": 97
+  }
+ },
+ "0xA21A20": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??0?$codecvt@GDH@std@@QAE@I@Z",
+   "symbol": "??0?$codecvt@GDH@std@@QAE@I@Z",
+   "length": 84
+  }
+ },
  "0xA21A74": {
   "L": {
    "object": "0016_wlocale.obj",
@@ -1271,12 +2567,60 @@
    "length": 96
   }
  },
+ "0xA21CDE": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??0?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@QAE@I@Z",
+   "symbol": "??0?$time_put@GV?$ostreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@QAE@I@Z",
+   "length": 109
+  }
+ },
  "0xA21D4B": {
   "L": {
    "object": "0034_xlocale.obj",
    "function": "?equal@?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@QBE_NABV12@@Z",
    "symbol": "?equal@?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@QBE_NABV12@@Z",
    "length": 63
+  }
+ },
+ "0xA21D8A": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??0?$numpunct@G@std@@QAE@I@Z",
+   "symbol": "??0?$numpunct@G@std@@QAE@I@Z",
+   "length": 89
+  }
+ },
+ "0xA21DE3": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??0?$collate@G@std@@QAE@I@Z",
+   "symbol": "??0?$collate@G@std@@QAE@I@Z",
+   "length": 84
+  }
+ },
+ "0xA21E37": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??0?$messages@G@std@@QAE@I@Z",
+   "symbol": "??0?$messages@G@std@@QAE@I@Z",
+   "length": 114
+  }
+ },
+ "0xA21EA9": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??0?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@QAE@I@Z",
+   "symbol": "??0?$time_get@GV?$istreambuf_iterator@GU?$char_traits@G@std@@@std@@@std@@QAE@I@Z",
+   "length": 89
+  }
+ },
+ "0xA222F8": {
+  "L": {
+   "object": "0016_wlocale.obj",
+   "function": "??0?$_Mpunct@G@std@@QAE@I_N@Z",
+   "symbol": "??0?$_Mpunct@G@std@@QAE@I_N@Z",
+   "length": 95
   }
  },
  "0xA22761": {
@@ -1311,12 +2655,44 @@
    "length": 33
   }
  },
+ "0xA22BE7": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_open@?$messages@D@std@@MBEHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@ABVlocale@2@@Z",
+   "symbol": "?do_open@?$messages@D@std@@MBEHABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@ABVlocale@2@@Z",
+   "length": 5
+  }
+ },
+ "0xA22BEC": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_get@?$messages@D@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@HHHABV32@@Z",
+   "symbol": "?do_get@?$messages@D@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@HHHABV32@@Z",
+   "length": 113
+  }
+ },
+ "0xA22C5D": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_close@?$messages@D@std@@MBEXH@Z",
+   "symbol": "?do_close@?$messages@D@std@@MBEXH@Z",
+   "length": 3
+  }
+ },
  "0xA22C60": {
   "L": {
    "object": "0034_xlocale.obj",
    "function": "?do_get@?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0_NAAVios_base@2@AAHAAO@Z",
    "symbol": "?do_get@?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0_NAAVios_base@2@AAHAAO@Z",
    "length": 302
+  }
+ },
+ "0xA22D8E": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_get@?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@@Z",
+   "symbol": "?do_get@?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@@Z",
+   "length": 138
   }
  },
  "0xA22E18": {
@@ -1335,6 +2711,86 @@
    "length": 280
   }
  },
+ "0xA2305A": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_decimal_point@?$_Mpunct@D@std@@MBEDXZ",
+   "symbol": "?do_decimal_point@?$_Mpunct@D@std@@MBEDXZ",
+   "length": 4
+  }
+ },
+ "0xA2305E": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_thousands_sep@?$_Mpunct@D@std@@MBEDXZ",
+   "symbol": "?do_thousands_sep@?$_Mpunct@D@std@@MBEDXZ",
+   "length": 4
+  }
+ },
+ "0xA23062": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_grouping@?$_Mpunct@D@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?do_grouping@?$_Mpunct@D@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 54
+  }
+ },
+ "0xA23098": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_curr_symbol@?$_Mpunct@D@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?do_curr_symbol@?$_Mpunct@D@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 54
+  }
+ },
+ "0xA230CE": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_positive_sign@?$_Mpunct@D@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?do_positive_sign@?$_Mpunct@D@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 54
+  }
+ },
+ "0xA23104": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_negative_sign@?$_Mpunct@D@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?do_negative_sign@?$_Mpunct@D@std@@MBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 54
+  }
+ },
+ "0xA2313A": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_frac_digits@?$_Mpunct@D@std@@MBEHXZ",
+   "symbol": "?do_frac_digits@?$_Mpunct@D@std@@MBEHXZ",
+   "length": 4
+  }
+ },
+ "0xA2313E": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_pos_format@?$_Mpunct@D@std@@MBE?AUpattern@money_base@2@XZ",
+   "symbol": "?do_pos_format@?$_Mpunct@D@std@@MBE?AUpattern@money_base@2@XZ",
+   "length": 12
+  }
+ },
+ "0xA2314A": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_neg_format@?$_Mpunct@D@std@@MBE?AUpattern@money_base@2@XZ",
+   "symbol": "?do_neg_format@?$_Mpunct@D@std@@MBE?AUpattern@money_base@2@XZ",
+   "length": 12
+  }
+ },
+ "0xA23156": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_date_order@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBEHXZ",
+   "symbol": "?do_date_order@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBEHXZ",
+   "length": 4
+  }
+ },
  "0xA2315A": {
   "L": {
    "object": "0034_xlocale.obj",
@@ -1351,12 +2807,188 @@
    "length": 277
   }
  },
+ "0xA23320": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_get_weekday@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "symbol": "?do_get_weekday@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "length": 62
+  }
+ },
+ "0xA2335E": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_get_monthname@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "symbol": "?do_get_monthname@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "length": 62
+  }
+ },
+ "0xA2339C": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?do_get_year@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "symbol": "?do_get_year@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@V32@0AAVios_base@2@AAHPAUtm@@@Z",
+   "length": 102
+  }
+ },
  "0xA23402": {
   "L": {
    "object": "0034_xlocale.obj",
    "function": "?do_put@?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$ostreambuf_iterator@DU?$char_traits@D@std@@@2@V32@AAVios_base@2@PBUtm@@DD@Z",
    "symbol": "?do_put@?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@MBE?AV?$ostreambuf_iterator@DU?$char_traits@D@std@@@2@V32@AAVios_base@2@PBUtm@@DD@Z",
    "length": 217
+  }
+ },
+ "0xA234DB": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??_G?$collate@D@std@@UAEPAXI@Z",
+   "symbol": "??_G?$collate@D@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA234F7": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??1?$collate@D@std@@UAE@XZ",
+   "symbol": "??1?$collate@D@std@@UAE@XZ",
+   "length": 7
+  }
+ },
+ "0xA234FE": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??_G?$messages@D@std@@UAEPAXI@Z",
+   "symbol": "??_G?$messages@D@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA2351A": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??1?$messages@D@std@@UAE@XZ",
+   "symbol": "??1?$messages@D@std@@UAE@XZ",
+   "length": 35
+  }
+ },
+ "0xA2353D": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??_G?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA23559": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??1?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAE@XZ",
+   "symbol": "??1?$money_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAE@XZ",
+   "length": 7
+  }
+ },
+ "0xA23560": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??_G?$money_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$money_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA2357C": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??1?$money_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAE@XZ",
+   "symbol": "??1?$money_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAE@XZ",
+   "length": 7
+  }
+ },
+ "0xA23583": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??_G?$moneypunct@D$0A@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$moneypunct@D$0A@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA2359F": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??_G?$moneypunct@D$00@std@@UAEPAXI@Z",
+   "symbol": "??_G?$moneypunct@D$00@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA235BB": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??_G?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA235D7": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??1?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAE@XZ",
+   "symbol": "??1?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAE@XZ",
+   "length": 35
+  }
+ },
+ "0xA235FA": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??_G?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAEPAXI@Z",
+   "symbol": "??_G?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA23616": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??1?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAE@XZ",
+   "symbol": "??1?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@UAE@XZ",
+   "length": 26
+  }
+ },
+ "0xA23630": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??1?$moneypunct@D$0A@@std@@UAE@XZ",
+   "symbol": "??1?$moneypunct@D$0A@@std@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0xA23635": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??1?$_Mpunct@D@std@@UAE@XZ",
+   "symbol": "??1?$_Mpunct@D@std@@UAE@XZ",
+   "length": 52
+  }
+ },
+ "0xA23669": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??_G?$_Mpunct@D@std@@UAEPAXI@Z",
+   "symbol": "??_G?$_Mpunct@D@std@@UAEPAXI@Z",
+   "length": 28
+  }
+ },
+ "0xA23685": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??1?$moneypunct@D$00@std@@UAE@XZ",
+   "symbol": "??1?$moneypunct@D$00@std@@UAE@XZ",
+   "length": 5
+  }
+ },
+ "0xA2368A": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?_Init@?$messages@D@std@@IAEXABV_Locinfo@2@@Z",
+   "symbol": "?_Init@?$messages@D@std@@IAEXABV_Locinfo@2@@Z",
+   "length": 40
   }
  },
  "0xA236B2": {
@@ -1375,12 +3007,36 @@
    "length": 1451
   }
  },
+ "0xA244D2": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??0?$_Mpunct@D@std@@QAE@ABV_Locinfo@1@I_N@Z",
+   "symbol": "??0?$_Mpunct@D@std@@QAE@ABV_Locinfo@1@I_N@Z",
+   "length": 64
+  }
+ },
+ "0xA24512": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?_Init@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@IAEXABV_Locinfo@2@@Z",
+   "symbol": "?_Init@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@IAEXABV_Locinfo@2@@Z",
+   "length": 51
+  }
+ },
  "0xA24545": {
   "L": {
    "object": "0034_xlocale.obj",
    "function": "?_Getint@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@CAHAAV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@0HHAAH@Z",
    "symbol": "?_Getint@?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@CAHAAV?$istreambuf_iterator@DU?$char_traits@D@std@@@2@0HHAAH@Z",
    "length": 311
+  }
+ },
+ "0xA2467C": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?_Init@?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@IAEXABV_Locinfo@2@@Z",
+   "symbol": "?_Init@?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@IAEXABV_Locinfo@2@@Z",
+   "length": 40
   }
  },
  "0xA246A4": {
@@ -1391,12 +3047,92 @@
    "length": 127
   }
  },
+ "0xA24723": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?grouping@?$_Mpunct@D@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?grouping@?$_Mpunct@D@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 23
+  }
+ },
+ "0xA2473A": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?curr_symbol@?$_Mpunct@D@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?curr_symbol@?$_Mpunct@D@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 23
+  }
+ },
+ "0xA24751": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?positive_sign@?$_Mpunct@D@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?positive_sign@?$_Mpunct@D@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 23
+  }
+ },
+ "0xA24768": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?negative_sign@?$_Mpunct@D@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "symbol": "?negative_sign@?$_Mpunct@D@std@@QBE?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ",
+   "length": 23
+  }
+ },
  "0xA2477F": {
   "L": {
    "object": "0034_xlocale.obj",
    "function": "?_Init@?$_Mpunct@D@std@@IAEXABV_Locinfo@2@@Z",
    "symbol": "?_Init@?$_Mpunct@D@std@@IAEXABV_Locinfo@2@@Z",
    "length": 218
+  }
+ },
+ "0xA24859": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "?_Makpat@?$_Mpunct@D@std@@AAEXAAUpattern@money_base@2@DDD@Z",
+   "symbol": "?_Makpat@?$_Mpunct@D@std@@AAEXAAUpattern@money_base@2@DDD@Z",
+   "length": 97
+  }
+ },
+ "0xA24F20": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??0?$collate@D@std@@QAE@I@Z",
+   "symbol": "??0?$collate@D@std@@QAE@I@Z",
+   "length": 84
+  }
+ },
+ "0xA24F74": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??0?$messages@D@std@@QAE@I@Z",
+   "symbol": "??0?$messages@D@std@@QAE@I@Z",
+   "length": 114
+  }
+ },
+ "0xA24FE6": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??0?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@QAE@I@Z",
+   "symbol": "??0?$time_get@DV?$istreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@QAE@I@Z",
+   "length": 89
+  }
+ },
+ "0xA2503F": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??0?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@QAE@I@Z",
+   "symbol": "??0?$time_put@DV?$ostreambuf_iterator@DU?$char_traits@D@std@@@std@@@std@@QAE@I@Z",
+   "length": 109
+  }
+ },
+ "0xA2531C": {
+  "L": {
+   "object": "0034_xlocale.obj",
+   "function": "??0?$_Mpunct@D@std@@QAE@I_N@Z",
+   "symbol": "??0?$_Mpunct@D@std@@QAE@I_N@Z",
+   "length": 95
   }
  },
  "0xA25604": {
@@ -1413,6 +3149,14 @@
    "function": "Wcrtomb_lk",
    "symbol": "___Wcrtomb_lk",
    "length": 115
+  }
+ },
+ "0xA256D6": {
+  "L": {
+   "object": "0050_xwctomb.obj",
+   "function": "Getcvt",
+   "symbol": "__Getcvt",
+   "length": 84
   }
  },
  "0xA2572A": {
@@ -1445,6 +3189,14 @@
    "function": "Strcoll",
    "symbol": "__Strcoll",
    "length": 249
+  }
+ },
+ "0xA259D8": {
+  "L": {
+   "object": "0043_xstrcoll.obj",
+   "function": "Getcoll",
+   "symbol": "__Getcoll",
+   "length": 84
   }
  }
 }

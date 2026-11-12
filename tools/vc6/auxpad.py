@@ -5,14 +5,16 @@ Every declaration aux_roots.cpp sees moves its six end-of-file template construc
 enumerators) puts the file inside the windows; retune it when a header aux_roots.cpp includes gains or
 loses declarations.
 
-  auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP | --pool [1]]
+  auxpad.py sweep [--from 0 --to 63] [--agent NAME] [--host IP | --pool [1]] [--hold]
       compile aux_roots.cpp alone with each pad value (~5 s a variant), print pad -> which of the six
-      constructors are exact, and the windows where all six are
+      constructors are exact, and the windows where all six are; --hold takes the importer lock once, at the
+      first value, and keeps it to the end (given back on every exit, Ctrl-C included): one wait in the queue
   auxpad.py set N [--client EXE]
       write SYMBOL_PAD = N in tools/re/auxroots.py and regenerate aux_roots.h/.cpp as auxroots.py does
 
 sweep takes the importer lock per variant (the tree's aux_roots.cpp holds the variant only inside it and
-is restored after), never for the whole sweep. VMs: --host IP uses that build VM; otherwise one VM is
+is restored after), never for the whole sweep. Every value's exact address set (all of aux_roots.cpp's) goes
+to .work/log/auxpad-sets.json (--sets PATH) for tools/re/matchaudit.py's pad-held class (D240). VMs: --host IP uses that build VM; otherwise one VM is
 leased from pool.py and released at the end (also on failure); --pool says the same (the default, accepted so
 that the form the other tools take works here). Measuring logic: HX1's exp.py.
 """
@@ -46,8 +48,11 @@ def with_pad(text, n):
     return text[:m.start()] + block + text[m.end():]
 
 
+HOLD = False          # --hold: measure() keeps the lock it takes; held_sweep() gives it back
+
+
 def measure(importer, n, orig):
-    """Compile aux_roots.cpp with pad n under the importer lock (taken and given back here)."""
+    """Compile aux_roots.cpp with pad n under the importer lock (taken and given back here; with --hold kept)."""
     importer.hold_lock()
     try:
         with open(CPP, 'wb') as f:
@@ -59,7 +64,8 @@ def measure(importer, n, orig):
     finally:
         with open(CPP, 'wb') as f:
             f.write(orig)
-        importer.release_lock()
+        if not HOLD:
+            importer.release_lock()
 
 
 def windows(ok):
@@ -84,11 +90,14 @@ def sweep(a):
         lease = contextlib.nullcontext()
     else:
         lease = importer.pool_lease(1, a.holder_pid)
-    rows, ok = [], []
+    from sendpad import save_sets
+    rows, ok, sets, errors = [], [], {}, {}
     with lease:
         for n in range(a.lo, a.hi + 1):
             orig = open(CPP, 'rb').read()          # re-read: the tree may change between variants
             got, errs = measure(importer, n, orig)
+            sets[n], errors[n] = got, errs
+            save_sets(a.sets, 'app/client/aux_roots.cpp', sets, errors, REPO)
             exact = [w for w in WATCH if w in got]
             line = f'{n:3d}  {len(exact)}/6  ' + ' '.join(w + ('+' if w in got else '-') for w in WATCH) + \
                    f'  total {len(got)}' + (f'  ERRORS {errs}' if errs else '')
@@ -120,20 +129,36 @@ def parser():
     s.add_argument('--from', dest='lo', type=int, default=0)
     s.add_argument('--to', dest='hi', type=int, default=63)
     s.add_argument('--agent', metavar='NAME', help='importer agent: lock owner, scratch under .work/NAME/tmp')
+    s.add_argument('--hold', action='store_true', help='take the importer lock once and hold it for the whole sweep')
     vm = s.add_mutually_exclusive_group()
     vm.add_argument('--host', metavar='IP', help='use this build VM instead of leasing one')
     vm.add_argument('--pool', nargs='?', const=1, type=int, choices=[1], metavar='1',
                     help='lease one VM from pool.py (the default)')
     s.add_argument('--holder-pid', type=int, help="the lease's holder pid (pool.py's default otherwise)")
+    s.add_argument('--sets', default=os.path.join(REPO, '.work', 'log', 'auxpad-sets.json'), metavar='PATH',
+                   help="every value's exact address set, as JSON (default %(default)s)")
     t = sub.add_parser('set')
     t.add_argument('n', type=int)
     t.add_argument('--client')
     return ap
 
 
+def held_sweep(a):
+    """sweep(a); with --hold the lock the first value takes is given back here, on every exit."""
+    global HOLD
+    HOLD = bool(getattr(a, 'hold', False))
+    try:
+        return sweep(a)
+    finally:
+        if HOLD:
+            HOLD = False
+            import importer
+            importer.release_lock()
+
+
 def main(argv=None):
     a = parser().parse_args(argv)
-    raise SystemExit(sweep(a) if a.cmd == 'sweep' else set_pad(a))
+    raise SystemExit(held_sweep(a) if a.cmd == 'sweep' else set_pad(a))
 
 
 if __name__ == '__main__':

@@ -5,7 +5,7 @@
 #include <string.h>
 #include "..\shared\g_assert.h"
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_4a1590.h"
 
 static char *VendorTypeNames[] = { "Weapon", "System", "Core", "Consumable", "Junk", "Component", "Resource", "BlackMarket" };	// 0xBB10D8  // NAME 1: what it holds
 static char *AmbientTypeNames[] = { "None", "Npc", "Vendor", "Bartender" };	// 0xBB10F8  // NAME 1: what it holds
@@ -46,7 +46,7 @@ char *Value_To_String(char *buf, int size, VendorTypeEnum r)
 {
 	FAIL_IF(r <= VENDOR_TYPE_INVALID) return("invalid");
 	FAIL_IF(r >= VENDOR_TYPE_NUM) return("invalid");
-	return(Unknown_4A1590(buf, size, VendorTypeNames[r]));
+	return(Bounded_Strcpy(buf, size, VendorTypeNames[r]));
 }
 
 
@@ -84,7 +84,7 @@ char *Value_To_String(char *buf, int size, AmbientTypeEnum r)
 {
 	FAIL_IF(r <= AMBIENT_TYPE_INVALID) return("invalid");
 	FAIL_IF(r >= AMBIENT_TYPE_NUM) return("invalid");
-	return(Unknown_4A1590(buf, size, AmbientTypeNames[r]));
+	return(Bounded_Strcpy(buf, size, AmbientTypeNames[r]));
 }
 
 /*

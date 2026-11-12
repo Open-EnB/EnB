@@ -3,7 +3,6 @@
 // disconnect while their signal is emitted.
 // File PROVISIONAL (D137: no __FILE__; client 0x4F7930-0x4F7EF0, an object of its own: SignalList's and SignalMap's
 // constructors call its constructor 0x4F7930 out of line, and its one template instance 0x4F7C50 follows it).
-#define __SIGNAL_MEMBERS	// unknown_signalbase.h's data members and SignalList
 #include "unknown_signalbase.h"
 
 

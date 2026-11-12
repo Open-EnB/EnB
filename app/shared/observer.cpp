@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\shared\observer.cpp, a subject's list of observers (SubjectClass,
 // 0x49E890-0x49EB30 and the vector templates it emits to 0x49EF10; the assert sits on the client's line). Notes at the end.
-#include "observer_impl.h"
+#include "observer.h"
 #include "g_assert.h"
 
 // @0x49E890

@@ -90,7 +90,7 @@ class ChatPanelInterface;			// NAME 5: the client's RTTI (the receiver in Member
 class UIGroupClass;			// NAME 3: class-from-file (D24) for ui_group.cpp (the main view's +0x1D8; cpacket.cpp: CLIENT_CHAT_EVENT 165)
 class UILineDisplayClass;		// NAME 3: class-from-file (D24) for ui_line_display.cpp (constructor 0x5A5410, 0x100 bytes)
 class PDAInterfaceClass;		// NAME 3: class-from-file (D24) for pdaint.cpp (constructor 0x693140, 0xC0 bytes)
-class BridgeInterfaceClass;		// NAME 3: class-from-file (D24) for bridge_int.cpp (constructor 0x53B040, 0xC4 bytes)
+class BridgeInterface;			// NAME 5: the client's RTTI (bridge_int.h; constructor 0x53B040, 0xC4 bytes)
 class UIHotKeysClass;			// NAME 3: class-from-file (D24) for ui_hot_keys.cpp (constructor 0x59C6F0, 0x84 bytes)
 class UITalkTreeSpaceClass;		// NAME 3: class-from-file (D24) for ui_talkt_space.cpp (constructor 0x64F310, 0x184 bytes)
 class GalaxyMapClientClass;		// NAME 3: class-from-file (D24) for galaxy_map_client.cpp (constructor 0x7A4830, 0xCC bytes)
@@ -704,15 +704,15 @@ public:
 	bool Unknown69;										// +0x69
 };
 
-// The 3-D movie view (constructor 0x7EEF90, 0x2A8 bytes; SClient 0x74BC20 makes it, 0x74BD10 deletes it)
-class Movie3DViewClass : public Unknown65B810ViewClass	// NAME 2: SClient's member 'Movie3DView' (G_ASSERT l.4104)
-{
-public:
-	Movie3DViewClass(ClientTaskClass *task, int arg);	// 0x7EEF90  // NAME 1 [task, arg]: what 0x74BC20 passes
-	bool Unknown_7EFCC0();								// 0x7EFCC0 (SClient::Do_Frame in view mode 3: true ends the movie, 0x74BD10)
+class Movie3DViewClass;	// mv3dview.h: the 3-D movie view (constructor 0x7EEF90, 0x2A8 bytes; SClient 0x74BC20 makes it, 0x74BD10 deletes it)
 
-	char Unknown50[0x2A8 - 0x50];						// +0x50
-};
+
+
+
+
+
+
+
 
 class SClientMovieCallbackClass;
 
@@ -771,7 +771,7 @@ struct ScriptedMovieCameraStruct	// NAME 1: neutral (D10)
 	float HFov;											// +0x08 (0: the camera's own)  // NAME 2: Set_View_Plane's argument
 	float VFov;											// +0x0C  // NAME 2: Set_View_Plane's argument
 };
-class ScriptedMovieSoundClass { public: ScriptedMovieSoundClass(const char *name, const char *bone_name); ~ScriptedMovieSoundClass(); void Unknown_7ED410(RenderObjClass *model); void Unknown_7ED6C0(int a, int b); bool Unknown_7EDA60(const char *name); void Unknown_7ED630(int arg); char Unknown00[0x18]; bool Unknown18; char Unknown19[0x28 - 0x19]; float Unknown28; char Unknown2C[0x50 - 0x2C]; };	// 0x50 bytes, constructor 0x7ED1D0 (Play_Audio: the name and the bone), 0x7ED410 onto a model; +0x18 loops, +0x28 the volume  // NAME 1 [name, bone_name, model]: what Play_Audio passes	// NAME 1: neutral (D10): mv3dsnd.cpp's object (0x7ED6C0)  // NAME 1 [a, b]: what 0x802AD0 passes
+class MeshSoundClass;	// mv3dview.h: meshsnd.cpp's sound on a model's bone (0x50 bytes, constructor 0x7ED1D0)
 class ScriptedMovieViewClass : public UIViewClass	// NAME 2: SClient's member 'ScriptedMovieView' (G_ASSERT l.4127)
 {
 public:
@@ -840,7 +840,7 @@ public:
 	enum { MAX_LIGHTS_PER_SCENE = 4 };					// NAME 3: the FAIL_IFs' 'lightslot >= MAX_LIGHTS_PER_SCENE' ('Exceeding 4 lights per scene')
 	LightClass *Lights[MAX_LIGHTS_PER_SCENE];			// +0xD0: the script's lights by slot  // NAME 3: the FAIL_IFs' 'Lights[lightslot]'
 	std::vector<ScriptedMovieLineClass *> Lines;		// +0xE0: the script's lines still to run, by frame  // NAME 2: what it holds
-	std::vector<ScriptedMovieSoundClass *> UnknownF0;	// +0xF0: mv3dsnd.cpp's objects (0x802AD0)
+	std::vector<MeshSoundClass *> UnknownF0;	// +0xF0: meshsnd.cpp's sounds (0x802AD0)
 	std::vector<ScriptedMovieBoneObjectStruct> BoneClientObjectList;	// +0x100: the bones' client objects (0x802D80)  // NAME 3: the asserts' 'BoneClientObjectList[i]'
 	std::vector<ScriptedMovieCameraStruct> CameraList;	// +0x110  // NAME 3: the asserts' 'CameraList[CurrentCameraIndex]'
 	SimpleSceneClass *BackgroundScene;					// +0x120: the skybox's scene, rendered at depth 1 between clip planes 20 and 100000 (0x801860)  // NAME 3: the asserts' (0x804800)
@@ -999,7 +999,7 @@ public:
 	UILineDisplayClass *LineDisplay;					// +0x1280 Init  // NAME 3: its file's
 	PDAInterfaceClass *PDAInterface;					// +0x1284 Init  // NAME 3: its file's
 	int Unknown1288;									// +0x1288
-	BridgeInterfaceClass *BridgeInterface;				// +0x128C Init  // NAME 3: its file's
+	BridgeInterface *Bridge;							// +0x128C Init  // NAME 1: what it is
 	UIHotKeysClass *HotKeys;							// +0x1290 Init  // NAME 3: its file's
 	VerbManagerClass *VerbManager;						// +0x1294 Init  // NAME 3: its file's
 	RefCountPtr<UITalkTreeClass> Unknown1298;		// +0x1298 Init: Unknown129C's object (the starbase view's 0x69F8F0: its +0x190)

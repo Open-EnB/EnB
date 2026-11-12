@@ -14,7 +14,7 @@
 #include <string.h>
 #include <ctype.h>
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "..\shared\unknown_4a1590.h"
 extern Random4Class Unknown_BDB1C0;				// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, the camera controllers' generator outside this file
 
 static float Unknown_B04AF0 = 0.4f;				// NAME 1: neutral (D10): dock.ini's Speed default
@@ -168,7 +168,7 @@ void CameraController06Class::Unknown_792750()
 		const char *name = robj->Get_Name();
 		static INIClass ini("dock.ini");
 		char section[100];
-		Unknown_4A1590(section, 100, name);
+		Bounded_Strcpy(section, 100, name);
 		for (int i = 0; i < (int)strlen(section); i++) {
 			section[i] = toupper(section[i]);
 		}

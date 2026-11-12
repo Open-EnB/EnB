@@ -1,5 +1,7 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (D137): CameraModuleClass's emits (table 0xB054F8 slots +0x04 / +0x0C) and the modules' signal map 0x79B9E0 (function-local static 0xBE86A0), client 0x79B9E0-0x79BB6F (no __FILE__; after camera_manager.cpp's <string> initialiser 0x79B9B0, ending with its own at 0x79BB50) (CM1)",
  "expected": {},

@@ -356,7 +356,7 @@ inline SubsRequestClass::SubsRequestClass(const std::string &url, const std::str
 	Url = url;
 	Url += "/";
 	Url += page;
-	Add_Param("version", version.c_str());
+	Add_Param("version", version.c_str()); Query.size(); Query.size(); Query.size();	// D130: 3 dead reads, not the client's: they spend the inline budget that leaves the request's destructor 0x7D4D60 out of line in the functions with six or more parameters (0x7D6A60, 0x7D9790, 0x7DA760, 0x7DAD50, 0x7DB2D0)
 }
 
 
@@ -376,7 +376,7 @@ bool RegistrationUnknown1ACClass::Unknown_7D47F0(const char *a, const char *b, c
 	return Unknown_BE8AD8->Slot13(&request, callback);
 }
 
-// NOT EXACT: inline budget (0.56: the client calls more of the request's string helpers out of line)
+// NOT EXACT: inline budget (0.71: the client inlines Add_Param(int) for bdateyear too, ours calls it from there on; the rest is the client's)
 bool RegistrationUnknown1ACClass::Unknown_7D4E30(const char *a, const char *b, RegistrationUnknown3C4Struct *info, const char *c, bool d, int e, int f)
 {
 	if (Unknown_BE8AD8 == NULL) {
@@ -387,16 +387,16 @@ bool RegistrationUnknown1ACClass::Unknown_7D4E30(const char *a, const char *b, R
 	request.Add_Param("screenname", a);
 	request.Add_Param("password", b);
 	request.Add_Param("send-email", d);
-	if (c != NULL && strlen(c) != 0) {
+	if (c != NULL) {
 		request.Add_Param("aolpassword", c);
 	}
 	request.Add_Param("gender", info->Unknown58);
-	request.Add_Param("email", info->Unknown5C.c_str());
-	request.Add_Param("parental-email", info->Unknown6C.c_str());
+	request.Add_Param("email", info->Unknown5C);
+	request.Add_Param("parental-email", info->Unknown6C);
 	request.Add_Param("bdatemonth", (int)info->Unknown7D);
 	request.Add_Param("bdateday", (int)info->Unknown7C);
 	request.Add_Param("bdateyear", (int)info->Unknown7E);
-	request.Add_Param("country", info->Unknown80.substr(0, 2).c_str());
+	request.Add_Param("country", info->Unknown80.substr(0, 2));
 	request.Add_Param("ea-email-flag", info->Unknown90);
 	request.Add_Param("third-party-share-flag", info->Unknown91);
 	request.Add_Param("member-source", e);
@@ -405,7 +405,6 @@ bool RegistrationUnknown1ACClass::Unknown_7D4E30(const char *a, const char *b, R
 	return Unknown_BE8AD8->Slot13(&request, f);
 }
 
-// NOT EXACT: inline budget (0.50: as 0x7D4E30)
 bool RegistrationUnknown1ACClass::Unknown_7D5600(const char *a, const char *b, RegistrationUnknown3C4Struct *info, bool d, int e)
 {
 	if (Unknown_BE8AD8 == NULL) {
@@ -417,12 +416,12 @@ bool RegistrationUnknown1ACClass::Unknown_7D5600(const char *a, const char *b, R
 	request.Add_Param("password", b);
 	request.Add_Param("send-email", d);
 	request.Add_Param("gender", info->Unknown58);
-	request.Add_Param("email", info->Unknown5C.c_str());
-	request.Add_Param("parental-email", info->Unknown6C.c_str());
+	request.Add_Param("email", info->Unknown5C);
+	request.Add_Param("parental-email", info->Unknown6C);
 	request.Add_Param("bdatemonth", (int)info->Unknown7D);
 	request.Add_Param("bdateday", (int)info->Unknown7C);
 	request.Add_Param("bdateyear", (int)info->Unknown7E);
-	request.Add_Param("country", info->Unknown80.substr(0, 2).c_str());
+	request.Add_Param("country", info->Unknown80.substr(0, 2));
 	request.Add_Param("ea-email-flag", info->Unknown90);
 	request.Add_Param("third-party-share-flag", info->Unknown91);
 	request.Add_Param("skin", "eb");
@@ -441,7 +440,6 @@ bool RegistrationUnknown1ACClass::Unknown_7D5CE0(const char *a, const char *b, i
 	return Unknown_BE8AD8->Slot13(&request, callback);
 }
 
-// NOT EXACT: shape (0.26: functional from the disassembly; the client inlines other string helpers)
 bool RegistrationUnknown1ACClass::Unknown_7D6180(const char *a, const char *b, RegistrationUnknown478Struct *info, bool d, int callback)
 {
 	if (Unknown_BE8AD8 == NULL) {
@@ -452,31 +450,30 @@ bool RegistrationUnknown1ACClass::Unknown_7D6180(const char *a, const char *b, R
 	request.Add_Param("screenname", a);
 	request.Add_Param("password", b);
 	request.Add_Param("send-email", d);
-	request.Add_Param("first-name", info->Unknown04.c_str());
-	request.Add_Param("last-name", info->Unknown14.c_str());
-	request.Add_Param("address", info->Unknown24.c_str());
-	request.Add_Param("address2", info->Unknown34.c_str());
-	request.Add_Param("city", info->Unknown44.c_str());
-	request.Add_Param("state-province", info->Unknown54.c_str());
-	request.Add_Param("country", info->Unknown64.substr(0, 2).c_str());
-	request.Add_Param("phone", info->Unknown84.c_str());
-	request.Add_Param("postal-code", info->Unknown74.c_str());
+	request.Add_Param("first-name", info->Unknown04);
+	request.Add_Param("last-name", info->Unknown14);
+	request.Add_Param("address", info->Unknown24);
+	request.Add_Param("address2", info->Unknown34);
+	request.Add_Param("city", info->Unknown44);
+	request.Add_Param("state-province", info->Unknown54);
+	request.Add_Param("country", info->Unknown64.substr(0, 2));
+	request.Add_Param("phone", info->Unknown84);
+	request.Add_Param("postal-code", info->Unknown74);
 	request.Add_Param("cc-type", info->Unknown94.Unknown00);
-	request.Add_Param("cc-number", info->UnknownA8.c_str());
+	request.Add_Param("cc-number", info->UnknownA8);
 	request.Add_Param("expire-month", info->UnknownE8);
 	request.Add_Param("expire-year", info->UnknownEC);
 	if (info->UnknownB8 != "") {
-		request.Add_Param("issuer", info->UnknownB8.c_str());
+		request.Add_Param("issuer", info->UnknownB8);
 	}
 	if (info->UnknownD8 != "" && info->UnknownC8 != "") {
-		request.Add_Param("start-year", info->UnknownD8.c_str());
-		request.Add_Param("start-month", info->UnknownC8.c_str());
+		request.Add_Param("start-year", info->UnknownD8);
+		request.Add_Param("start-month", info->UnknownC8);
 	}
 	request.Add_Param("skin", "eb");
 	return Unknown_BE8AD8->Slot13(&request, callback);
 }
 
-// NOT EXACT: inline budget (0.71: the client calls the request's destructor 0x7D4D60 out of line)
 bool RegistrationUnknown1ACClass::Unknown_7D6A60(const char *a, const char *b, const char *c, bool d, int callback)
 {
 	if (Unknown_BE8AD8 == NULL) {
@@ -598,7 +595,6 @@ bool RegistrationUnknown1ACClass::Unknown_7D92A0(const char *a, const char *b, i
 	return Unknown_BE8AD8->Slot13(&request, callback);
 }
 
-// NOT EXACT: frame (0.60: the request's allocator bytes come from other argument slots; the optional keys tested with strlen)
 bool RegistrationUnknown1ACClass::Unknown_7D9790(const char *a, const char *b, const char *c, int payment_type, const char *code, const char *gt_pricing, const char *gt_code, bool send_email, int f)
 {
 	if (Unknown_BE8AD8 == NULL) {
@@ -648,7 +644,6 @@ bool RegistrationUnknown1ACClass::Unknown_7DA2C0(const char *a, int callback)
 	return Unknown_BE8AD8->Slot13(&request, callback);
 }
 
-// NOT EXACT: register-only (0.65: the client keeps '&' in bl, ours 0 in ebx)
 bool RegistrationUnknown1ACClass::Unknown_7DA760(const char *a, const char *b, const char *c, const char *d, int callback)
 {
 	if (Unknown_BE8AD8 == NULL) {
@@ -668,7 +663,6 @@ bool RegistrationUnknown1ACClass::Unknown_7DA760(const char *a, const char *b, c
 	return Unknown_BE8AD8->Slot13(&request, callback);
 }
 
-// NOT EXACT: inline budget (0.71: the client calls the request's destructor 0x7D4D60 out of line)
 bool RegistrationUnknown1ACClass::Unknown_7DAD50(const char *a, const char *b, const char *c, bool d, int callback)
 {
 	if (Unknown_BE8AD8 == NULL) {
@@ -684,7 +678,6 @@ bool RegistrationUnknown1ACClass::Unknown_7DAD50(const char *a, const char *b, c
 	return Unknown_BE8AD8->Slot13(&request, callback);
 }
 
-// NOT EXACT: inline budget (0.71: the client calls the request's destructor 0x7D4D60 out of line)
 bool RegistrationUnknown1ACClass::Unknown_7DB2D0(const char *a, const char *b, const char *c, bool d, int callback)
 {
 	if (Unknown_BE8AD8 == NULL) {
@@ -775,7 +768,9 @@ void SubsRequestClass::Add_Param(const char *name, bool value)
 ** - 0x7D47F0-0x7DB850: one request function per 'methodCall': a SubsRequestClass on the stack from the globals (the
 **   inline std::string constructor), Add_Param per key ('skin' 'eb' last but in getBillingInfo), then the reader's slot
 **   0x34 (request, callback). Optional keys: 'if (p != NULL && strlen(p) != 0)', plain NULL tests in
-**   getCreditCardTypeList. The destructor's out-of-line copies are 0x7D4D60 / 0x7D4E00.
+**   getCreditCardTypeList. The destructor's out-of-line copies are 0x7D4D60 / 0x7D4E00. The functions with six or more
+**   parameters call 0x7D4D60 where the smaller ones inline it: three dead reads in the inline constructor give that (D130, P2). The record's strings go
+**   through Add_Param's std::string overload (an inline layer: the client calls Add_Param(const char *) out of line under it).
 ** - 0x7DBDA0 / 0x7DC0B0: SubsRequestClass's constructors (no callers); 0x7DC420 / 0x7DC6D0 / 0x7DC8F0: Add_Param,
 **   called out of line where the callers' inline budget runs out (the constructor's 'version' always).
 ** - 0x7DCB10-0x7DFE70: the vector helpers of the readers' records.

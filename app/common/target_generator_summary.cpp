@@ -56,8 +56,8 @@ TargetSummaryText Target_Summary_Text(unsigned char flags, int radius)	// NAME 2
 // aux_roots.h's, for these three (that header is the generated roots', far too much for this object)
 enum TargetGeneratorSummaryBF { UNKNOWN_B0189C_0 };	// NAME 5: the client's Get_Type_Name string 'TargetGeneratorSummaryBF'
 
-void Unknown_4FC2F0(std::vector<std::string> &list, const std::string &string, const std::string &separator);	// 0x4FC2F0: splits string at separator  // NAME 1: neutral
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_4fac20.h"
+#include "..\shared\unknown_4a1590.h"
 
 static std::string Unknown_BF3F80("|");	// 0xBF3F80 (the separator of the bits' names)  // NAME 1: neutral (D10)
 
@@ -94,7 +94,7 @@ bool String_To_Value(const char *text, TargetGeneratorSummaryBF *value)
 {
 	*value = (TargetGeneratorSummaryBF)0;
 	std::vector<std::string> list;
-	Unknown_4FC2F0(list, std::string(text), Unknown_BF3F80);
+	String_Split(list, std::string(text), Unknown_BF3F80);
 	bool found = false;
 	for (std::vector<std::string>::iterator it = list.begin(); it != list.end(); ++it) {
 		for (int i = 0; i < 7; i++) {
@@ -121,7 +121,7 @@ char *Value_To_String(char *buf, int size, TargetGeneratorSummaryBF value)
 	if (text.size() == 0) {
 		return(NULL);
 	}
-	return(Unknown_4A1590(buf, size, text.c_str()));
+	return(Bounded_Strcpy(buf, size, text.c_str()));
 }
 
 /*

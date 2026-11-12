@@ -14,7 +14,7 @@ int Unknown_832010(const Vector3 &pos1, float radius1, const Vector3 &pos2, floa
 struct NavLinkStruct	// NAME 1: neutral; the assert's 'link'
 {
 	NavLinkStruct(NavNodeStruct *node, float distance) : Node(node), Distance(distance) {}
-
+	NavLinkStruct(const NavLinkStruct &src) : Node(src.Node), Distance(src.Distance) {}
 	NavNodeStruct *Node;			// +0x00 (the FAIL_IF's name 'link.Node')
 	float Distance;					// +0x04  // NAME 2: what it holds
 };
@@ -499,4 +499,7 @@ void NavListBuilderClass::Delete_Nodes(std::vector<NavNodeStruct *> &nav_points)
 **
 **	The client's __FILE__ 0xB9EE4C. The object opens with the node pool's initialiser (0x7B7B60, atexit 0x7B7BA0);
 **	mouse_targeting.cpp ends at 0x7B7B4F before it.
+**	It ends with its template instances (0x7B92A0-0x7B9780); nav_list_line_draw.cpp starts at 0x7B97F0. NavLinkStruct's
+**	copy constructor is declared: vector<NavLinkStruct>'s insert / _Ucopy / _Ufill (0x7B92A0, 0x7B95E0, 0x7B9630) copy
+**	it member by member only with it (without it, the three are generic copies that match other files' instances).
 */

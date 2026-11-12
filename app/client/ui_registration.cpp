@@ -607,7 +607,7 @@ bool RegistrationInterface::Unknown_68(int key)
 				Unknown_5F2990(true);
 				for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); combo++) {
 					if ((*combo).second.Combo) {
-						(*combo).second.Combo->Unknown_57B3C0(1);
+						(*combo).second.Combo->Enable(1);
 					}
 				}
 			} else {
@@ -618,7 +618,7 @@ bool RegistrationInterface::Unknown_68(int key)
 				Unknown_5F2990(false);
 				for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); combo++) {
 					if ((*combo).second.Combo != open) {
-						(*combo).second.Combo->Unknown_57B3C0(0);
+						(*combo).second.Combo->Enable(0);
 					}
 				}
 			}
@@ -652,7 +652,7 @@ void RegistrationInterface::Unknown_5F2280()
 						}
 					}
 					if (entry != Unknown5A8.end()) {
-						Unknown108[0x22].Combo->Unknown_57AC70(entry - Unknown5A8.begin());
+						Unknown108[0x22].Combo->Select(entry - Unknown5A8.begin());
 					}
 				}
 				delete[] text;
@@ -666,7 +666,7 @@ void RegistrationInterface::Unknown_5F2280()
 		Unknown_5F2990(true);
 		for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); combo++) {
 			if ((*combo).second.Combo) {
-				(*combo).second.Combo->Unknown_57B3C0(1);
+				(*combo).second.Combo->Enable(1);
 			}
 		}
 	}
@@ -719,7 +719,7 @@ void RegistrationInterface::Unknown_5F2280()
 			Unknown_5F2990(false);
 			for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); combo++) {
 				if ((*combo).second.Combo) {
-					(*combo).second.Combo->Unknown_57B3C0(0);
+					(*combo).second.Combo->Enable(0);
 				}
 			}
 		}
@@ -728,7 +728,7 @@ void RegistrationInterface::Unknown_5F2280()
 		Unknown_5F2990(true);
 		for (std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin(); combo != Unknown108.end(); ++combo) {
 			if ((*combo).second.Combo) {
-				(*combo).second.Combo->Unknown_57B3C0(1);
+				(*combo).second.Combo->Enable(1);
 			}
 		}
 	}
@@ -758,12 +758,12 @@ void RegistrationInterface::Unknown_5F2990(bool on)
 }
 
 // @0x5F2A80
-void RegistrationInterface::Unknown_5F2A80(int on, UIComboBoxClass *except)
+void RegistrationInterface::Unknown_5F2A80(bool on, UIComboBoxClass *except)
 {
 	std::map<int, RegistrationComboStruct>::iterator combo = Unknown108.begin();
 	while (combo != Unknown108.end()) {
 		if ((*combo).second.Combo != except) {
-			(*combo).second.Combo->Unknown_57B3C0(on);
+			(*combo).second.Combo->Enable(on);
 		}
 		combo++;
 	}
@@ -1425,26 +1425,26 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
 				Unknown_5F98C0(1900, Unknown124.tm_year + 1900);
 				if (Unknown3C4.Unknown7E < 1) {
-					Unknown108[0x16].Combo->Unknown_57AC70(0);
+					Unknown108[0x16].Combo->Select(0);
 				} else {
 					_snprintf(buffer, 5, "%d", (int)Unknown3C4.Unknown7E);
-					Unknown108[0x16].Combo->Unknown_57AD50(buffer);
+					Unknown108[0x16].Combo->Select_Text(buffer);
 				}
 				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
-				Unknown108[0x14].Combo->Unknown_57B1D0(RegistrationMonths);
-				Unknown108[0x14].Combo->Unknown_57AC70(Unknown3C4.Unknown7D < 1 ? 0 : Unknown3C4.Unknown7D - 1);
+				Unknown108[0x14].Combo->Add_Items(RegistrationMonths);
+				Unknown108[0x14].Combo->Select(Unknown3C4.Unknown7D < 1 ? 0 : Unknown3C4.Unknown7D - 1);
 				Unknown_5F2F90(0x15, "COMBO_DAY", 2, 5);
 				Unknown_5F9460();
-				Unknown108[0x15].Combo->Unknown_57AC70(Unknown3C4.Unknown7C < 1 ? 0 : Unknown3C4.Unknown7C - 1);
+				Unknown108[0x15].Combo->Select(Unknown3C4.Unknown7C < 1 ? 0 : Unknown3C4.Unknown7C - 1);
 				Unknown_5F2B20(0x17, "RADIO_MALE", 0, 0, 1, false);
 				Unknown_5F2B20(0x18, "RADIO_FEMALE", 0, 0, 1, false);
 				Unknown_5F3250((Unknown3C4.Unknown58 != 0) + 0x17);
 				Unknown_5F2F90(0x19, "COMBO_COUNTRY", 0x2C, 7);
 				Unknown_5F9700();
 				if (Unknown3C4.Unknown80.size() == 0) {
-					Unknown108[0x19].Combo->Unknown_57AD50(UnknownA4);
+					Unknown108[0x19].Combo->Select_Text(UnknownA4);
 				} else {
-					Unknown108[0x19].Combo->Unknown_57AD50(Unknown3C4.Unknown80.c_str());
+					Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());
 				}
 				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_C1",0,0,0);
 				Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_C1",0,0,0);
@@ -1461,7 +1461,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 		case 0xB:
 			Unknown_5F2F90(0x2A, "COMBO_OPTION", 0x14, std::_cpp_min(5, (int)Unknown598.size()));
 			Unknown_5F9EB0();
-			Unknown108[0x2A].Combo->Unknown_57AC70(Unknown388);
+			Unknown108[0x2A].Combo->Select(Unknown388);
 			Unknown38C = Unknown598[Unknown388];
 			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D1",0,0,0);
 			Unknown_5F2B20(6,"RIGHT_BUTTON","RIGHT_BUTTON_RG_D1",0,0,0);
@@ -1488,18 +1488,18 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				Unknown_5F9700();
 				if (Unknown478.Unknown64.empty()) {
 					if (Unknown3C4.Unknown80.size() == 0) {
-						Unknown108[0x19].Combo->Unknown_57AD50(UnknownA4);
+						Unknown108[0x19].Combo->Select_Text(UnknownA4);
 					} else {
-						Unknown108[0x19].Combo->Unknown_57AD50(Unknown3C4.Unknown80.c_str());
-						Unknown108[0x19].Combo->Unknown_57B3C0(0);
+						Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());
+						Unknown108[0x19].Combo->Enable(0);
 					}
 				} else {
-					Unknown108[0x19].Combo->Unknown_57AD50(Unknown478.Unknown64.c_str());
-					Unknown108[0x19].Combo->Unknown_57B3C0(0);
+					Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str());
+					Unknown108[0x19].Combo->Enable(0);
 				}
 				Unknown_5F2F90(0x22, "COMBO_CARDTYPE", 0x13, 4);
 				Unknown_5F9A90();
-				Unknown108[0x22].Combo->Unknown_57AC70(0);
+				Unknown108[0x22].Combo->Select(0);
 				{
 					std::vector<RegistrationUnknown5A8Struct>::iterator entry = Unknown5A8.begin();
 					std::vector<RegistrationUnknown5A8Struct>::iterator last = Unknown5A8.end();
@@ -1509,19 +1509,19 @@ void RegistrationInterface::Unknown_5F3770(int state)
 						}
 					}
 					if (entry != last) {
-						Unknown108[0x22].Combo->Unknown_57AC70(entry - Unknown5A8.begin());
+						Unknown108[0x22].Combo->Select(entry - Unknown5A8.begin());
 					}
 				}
 				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
-				Unknown108[0x14].Combo->Unknown_57B1D0(RegistrationMonths);
-				Unknown108[0x14].Combo->Unknown_57AC70(Unknown478.UnknownE8 < 1 ? 0 : Unknown478.UnknownE8 - 1);
+				Unknown108[0x14].Combo->Add_Items(RegistrationMonths);
+				Unknown108[0x14].Combo->Select(Unknown478.UnknownE8 < 1 ? 0 : Unknown478.UnknownE8 - 1);
 				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
 				Unknown_5F98C0(Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);
 				if (Unknown478.UnknownEC < 1) {
-					Unknown108[0x16].Combo->Unknown_57AC70(0);
+					Unknown108[0x16].Combo->Select(0);
 				} else {
 					_snprintf(buffer, 5, "%d", Unknown478.UnknownEC);
-					Unknown108[0x16].Combo->Unknown_57AD50(buffer);
+					Unknown108[0x16].Combo->Select_Text(buffer);
 				}
 				Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D3", !Unknown1CD ? "\nPlease enter your billing information below." : "The information below is for Identification/Age verification purposes only.  YOU WILL NOT BE BILLED!");
 				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D3",0,0,0);
@@ -1691,18 +1691,18 @@ void RegistrationInterface::Unknown_5F3770(int state)
 				if (Unknown478.Unknown64.empty()) {
 					if (Unknown3C4.Unknown80.size() == 0) {
 						G_ASSERT(0);
-						Unknown108[0x19].Combo->Unknown_57AD50(UnknownA4);
+						Unknown108[0x19].Combo->Select_Text(UnknownA4);
 					} else {
-						Unknown108[0x19].Combo->Unknown_57AD50(Unknown3C4.Unknown80.c_str());
-						Unknown108[0x19].Combo->Unknown_57B3C0(0);
+						Unknown108[0x19].Combo->Select_Text(Unknown3C4.Unknown80.c_str());
+						Unknown108[0x19].Combo->Enable(0);
 					}
 				} else {
-					Unknown108[0x19].Combo->Unknown_57AD50(Unknown478.Unknown64.c_str());
-					Unknown108[0x19].Combo->Unknown_57B3C0(0);
+					Unknown108[0x19].Combo->Select_Text(Unknown478.Unknown64.c_str());
+					Unknown108[0x19].Combo->Enable(0);
 				}
 				Unknown_5F2F90(0x22, "COMBO_CARDTYPE", 0x13, 4);
 				Unknown_5F9A90();
-				Unknown108[0x22].Combo->Unknown_57AC70(0);
+				Unknown108[0x22].Combo->Select(0);
 				{
 					std::vector<RegistrationUnknown5A8Struct>::iterator entry = Unknown5A8.begin();
 					std::vector<RegistrationUnknown5A8Struct>::iterator last = Unknown5A8.end();
@@ -1712,19 +1712,19 @@ void RegistrationInterface::Unknown_5F3770(int state)
 						}
 					}
 					if (entry != last) {
-						Unknown108[0x22].Combo->Unknown_57AC70(entry - Unknown5A8.begin());
+						Unknown108[0x22].Combo->Select(entry - Unknown5A8.begin());
 					}
 				}
 				Unknown_5F2F90(0x14, "COMBO_MONTH", 4, 5);
-				Unknown108[0x14].Combo->Unknown_57B1D0(RegistrationMonths);
-				Unknown108[0x14].Combo->Unknown_57AC70(Unknown478.UnknownE8 < 1 ? 0 : Unknown478.UnknownE8 - 1);
+				Unknown108[0x14].Combo->Add_Items(RegistrationMonths);
+				Unknown108[0x14].Combo->Select(Unknown478.UnknownE8 < 1 ? 0 : Unknown478.UnknownE8 - 1);
 				Unknown_5F2F90(0x16, "COMBO_YEAR", 5, 5);
 				Unknown_5F98C0(Unknown124.tm_year + 1900, Unknown124.tm_year + 1910);
 				if (Unknown478.UnknownEC < 1) {
-					Unknown108[0x16].Combo->Unknown_57AC70(0);
+					Unknown108[0x16].Combo->Select(0);
 				} else {
 					_snprintf(buffer, 5, "%d", Unknown478.UnknownEC);
-					Unknown108[0x16].Combo->Unknown_57AD50(buffer);
+					Unknown108[0x16].Combo->Select_Text(buffer);
 				}
 				Unknown_5F84E0("WRAP_LABEL_TEXT_RG_D4", !Unknown1CD ? "\nPlease enter your billing information below." : "The information below is for Identification/Age verification purposes only.  YOU WILL NOT BE BILLED!");
 				Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_D4",0,0,0);
@@ -1745,7 +1745,7 @@ void RegistrationInterface::Unknown_5F3770(int state)
 		case 0xE:
 			Unknown_5F2F90(0x29, "COMBO_OPTION", 0x2D, std::_cpp_min(5, (int)Unknown578.size()));
 			Unknown_5F9C90();
-			Unknown108[0x29].Combo->Unknown_57AC70(Unknown384);
+			Unknown108[0x29].Combo->Select(Unknown384);
 			Unknown270 = Unknown578[Unknown384];
 			Unknown_5F84E0("WRAP_LABEL_DESC_RG_F1", Unknown270.Unknown34.c_str());
 			Unknown_5F2B20(0x2d,"LEFT_BUTTON","LEFT_BUTTON_RG_F1",0,0,0);
@@ -1881,7 +1881,7 @@ void RegistrationInterface::Unknown_5F8560()
 		Unknown_5F2990(false);
 		for (std::map<int, RegistrationComboStruct>::iterator it = Unknown108.begin(); it != Unknown108.end(); it++) {
 			if ((*it).second.Combo) {
-				(*it).second.Combo->Unknown_57B3C0(0);
+				(*it).second.Combo->Enable(0);
 			}
 		}
 		UnknownCA = true;
@@ -1908,7 +1908,7 @@ void RegistrationInterface::Unknown_5F86F0()
 	std::map<int, RegistrationComboStruct>::iterator it = Unknown108.begin();
 	while (it != Unknown108.end()) {
 		if ((*it).second.Combo) {
-			(*it).second.Combo->Unknown_57B3C0(0);
+			(*it).second.Combo->Enable(0);
 		}
 		it++;
 	}
@@ -2090,20 +2090,20 @@ void RegistrationInterface::Unknown_5F9460()
 		days = 29;
 	}
 	UIComboBoxClass *days_box = Unknown108[0x15].Combo;
-	days_box->Unknown_57B210();
+	days_box->Clear_Items();
 	for (int i = 1; i <= days; i++) {
 		char text[5];
 		_snprintf(text, sizeof(text), "%02d", i);
-		days_box->Unknown_57B000(text);
+		days_box->Add_Item(text);
 	}
-	Unknown108[0x15].Combo->Unknown_57AC70(day);
+	Unknown108[0x15].Combo->Select(day);
 }
 
 // @0x5F9700
 void RegistrationInterface::Unknown_5F9700()
 {
 	for (std::vector<StringClass>::iterator it = UnknownAC.begin(); it != UnknownAC.end(); it++) {
-		Unknown108[0x19].Combo->Unknown_57B000(*it);
+		Unknown108[0x19].Combo->Add_Item(*it);
 	}
 }
 
@@ -2113,7 +2113,7 @@ void RegistrationInterface::Unknown_5F98C0(int from, int to)
 	for (int i = from; i <= to; i++) {
 		char text[6];
 		_snprintf(text, sizeof(text), "%d", i);
-		Unknown108[0x16].Combo->Unknown_57B000(text);
+		Unknown108[0x16].Combo->Add_Item(text);
 	}
 }
 
@@ -2121,7 +2121,7 @@ void RegistrationInterface::Unknown_5F98C0(int from, int to)
 void RegistrationInterface::Unknown_5F9A90()
 {
 	for (std::vector<RegistrationUnknown5A8Struct>::iterator it = Unknown5A8.begin(); it != Unknown5A8.end(); it++) {
-		Unknown108[0x22].Combo->Unknown_57B000((*it).Unknown04.c_str());
+		Unknown108[0x22].Combo->Add_Item((*it).Unknown04.c_str());
 	}
 }
 
@@ -2130,7 +2130,7 @@ void RegistrationInterface::Unknown_5F9C90()
 {
 	for (std::vector<RegistrationUnknown578Struct>::iterator it = Unknown578.begin(); it != Unknown578.end(); it++) {
 		if (std::find((*it).Unknown4C.begin(), (*it).Unknown4C.end(), Unknown38C) != (*it).Unknown4C.end()) {
-			Unknown108[0x29].Combo->Unknown_57B000((*it).Unknown24.c_str());
+			Unknown108[0x29].Combo->Add_Item((*it).Unknown24.c_str());
 		}
 	}
 }
@@ -2340,7 +2340,7 @@ void RegistrationInterface::Unknown_5F9EB0()
 	for (std::vector<int>::iterator it = Unknown598.begin(); it != Unknown598.end(); it++) {
 		const char *typetext = PaymentTypeNames[*it];
 		G_ASSERT(typetext);
-		Unknown108[0x2A].Combo->Unknown_57B000(typetext);
+		Unknown108[0x2A].Combo->Add_Item(typetext);
 	}
 }
 
@@ -2928,7 +2928,7 @@ void RegistrationInterface::Unknown_5F0100()
 		Unknown_5F2990(0);
 		for (std::map<int, RegistrationComboStruct>::iterator it = Unknown108.begin(); it != Unknown108.end(); it++) {
 			if ((*it).second.Combo) {
-				(*it).second.Combo->Unknown_57B3C0(0);
+				(*it).second.Combo->Enable(0);
 			}
 		}
 		UnknownCA = true;

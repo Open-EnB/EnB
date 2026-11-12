@@ -856,7 +856,7 @@ void UIStarbaseClass::Unknown_54()
 			Unknown_496DB0(Unknown184.Peek());
 			Unknown184->Set_LOD_Bias(100.0f);
 			Unknown184->Set_Hidden(false);
-			Unknown_810540(Unknown184.Peek(), 1, 1.0f);
+			Play_State_Animation(Unknown184.Peek(), 1, 1.0f);
 			RefCountPtr<RenderObjClass> extents;
 			if (!ExtraBones) {
 				G_ASSERT(ExtraBones);
@@ -3491,7 +3491,7 @@ void UIStarbaseClass::Unknown_640360()
 			((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
 			((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(ship);
 			ship->Set_Transform(tm);
-			Unknown_810540(Unknown184.Peek(), 1, 1.0f);
+			Play_State_Animation(Unknown184.Peek(), 1, 1.0f);
 			RefCountPtr<RenderObjClass> extents;
 			if (ExtraBones) {
 				extents = Create_Get(ExtraBones->Get_Sub_Object_By_Name("ship_extents00")); } else {
@@ -4464,8 +4464,8 @@ public:
 	void Unknown_647B30();								// 0x647B30 (the colour pad dragged)
 	void Unknown_647F30(Vector3 point);					// 0x647F30 (the pull placed at a pad point, the colour read)  // NAME 1 [point]: neutral
 
-	// The base's +0x84 model as the font manager takes it (ChatPanelUIBase declares it a plain pointer)
-	const RefCountPtr<RenderObjClass> &Model() { return(*(const RefCountPtr<RenderObjClass> *)&Unknown84); }	// NAME 1 [Model]: neutral
+
+
 
 	GadgetClass *UnknownA0[6];							// +0xA0 (the buttons exit, save, light00-03: 0x646360; the constructor clears them with one memset)
 	GadgetSlider *Slider[4];							// +0xB8 (near, far, intensity, fill: 0x646F70's texts)  // NAME 1: neutral
@@ -4537,11 +4537,11 @@ void UIStarbaseLightsClass::Unknown_54()
 		Unknown_646940();
 		int i;
 		for (i = 0; i < 6; i++) {
-			UnknownA0[i] = Unknown_56D510(i + 1, Unknown_B8B864[i], Unknown_B8B880[i]);
+			UnknownA0[i] = Add_Button(i + 1, Unknown_B8B864[i], Unknown_B8B880[i]);
 		}
 		for (i = 0; i < 4; i++) {
-			Slider[i] = Unknown_56D8D0(i + 8, 0);
-			Slider[i]->Unknown_66E460(Model(), true, i);
+			Slider[i] = Add_Slider(i + 8, 0);
+			Slider[i]->Unknown_66E460(InterfaceMesh, true, i);
 			if (i == 2) {
 				Slider[2]->Unknown_66FA90(3.0f, 0.01f, true);
 				Slider[2]->Unknown_A4(0.5f, false);
@@ -4554,16 +4554,16 @@ void UIStarbaseLightsClass::Unknown_54()
 			}
 		}
 		UnknownD8 = new UIAvatrPullClass;
-		RefCountPtr<RenderObjClass> palette = Create_Get(Unknown84->Get_Sub_Object_By_Name("COLOR_PALETTE"));
+		RefCountPtr<RenderObjClass> palette = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("COLOR_PALETTE"));
 		Unknown_496AE0(palette.Peek(), false);
 		UnknownD8->Unknown00 = new Unknown_671300Class(palette.Peek(), 0, 0, 0, 0);
 		UnknownD8->Unknown00->Unknown2C_0A = true;
-		UnknownD8->Unknown04 = Unknown84->Get_Sub_Object_By_Name("PULL_COLOR");
+		UnknownD8->Unknown04 = InterfaceMesh->Get_Sub_Object_By_Name("PULL_COLOR");
 		Unknown_496AE0(UnknownD8->Unknown04, true);
 		UnknownD8->Unknown_5859A0();
 		UnknownD8->Unknown00->Unknown_65FFA0(-1);
 		Unknown64.Unknown_6870E0(UnknownD8->Unknown00, 0xD, View, true, false);
-		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
+		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
 		Unknown4C.Add(*(const ControlKeyComboStruct *)&UIStarbaseLightsKeyEventStruct(0x1B), (void *)1);
 	}
 }
@@ -4605,7 +4605,7 @@ bool UIStarbaseLightsClass::Unknown_68(int key)
 	switch (key) {
 		case 1:
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 			Unknown_646E00();
@@ -4726,16 +4726,16 @@ void UIStarbaseLightsClass::Unknown_646F70(bool force)
 			}
 		}
 		char buffer[64];
-		RefCountPtr<FontSys> text = Unknown_BE67C4->Unknown_6D2700("near_light02a", Model());
+		RefCountPtr<FontSys> text = Unknown_BE67C4->Unknown_6D2700("near_light02a", InterfaceMesh);
 		_snprintf(buffer, sizeof(buffer), "Near %d", (int)Slider[0]->Get_Value());
 		text->Change_Text(buffer, 0);
-		text = Unknown_BE67C4->Unknown_6D2700("far_light02a", Model());
+		text = Unknown_BE67C4->Unknown_6D2700("far_light02a", InterfaceMesh);
 		_snprintf(buffer, sizeof(buffer), "Far %d", (int)Slider[1]->Get_Value());
 		text->Change_Text(buffer, 0);
-		text = Unknown_BE67C4->Unknown_6D2700("Int_light02a", Model());
+		text = Unknown_BE67C4->Unknown_6D2700("Int_light02a", InterfaceMesh);
 		_snprintf(buffer, sizeof(buffer), "Int %0.2f", Slider[2]->Get_Value());
 		text->Change_Text(buffer, 0);
-		text = Unknown_BE67C4->Unknown_6D2700("Fill_light02a", Model());
+		text = Unknown_BE67C4->Unknown_6D2700("Fill_light02a", InterfaceMesh);
 		_snprintf(buffer, sizeof(buffer), "Fill %0.2f", Slider[3]->Get_Value());
 		text->Change_Text(buffer, 0);
 	}
@@ -4762,7 +4762,7 @@ void UIStarbaseLightsClass::Unknown_6474C0(int index)
 			SliderValue[i] = Slider[i]->Get_Value();
 		}
 		Unknown_647F30(Position[Current]);
-		RefCountPtr<FontSys> text = Unknown_BE67C4->Unknown_6D2700("GO_light02a", Model());
+		RefCountPtr<FontSys> text = Unknown_BE67C4->Unknown_6D2700("GO_light02a", InterfaceMesh);
 		char buffer[64];
 		_snprintf(buffer, sizeof(buffer), "Light %02d", Current);
 		text->Change_Text(buffer, 0);
@@ -4775,17 +4775,17 @@ void UIStarbaseLightsClass::Unknown_6474C0(int index)
 		Slider[1]->Unknown_40(false);
 		Slider[2]->Unknown_40(false);
 		Unknown_647F30(AmbientPosition);
-		RefCountPtr<FontSys> text = Unknown_BE67C4->Unknown_6D2700("GO_light02a", Model());
+		RefCountPtr<FontSys> text = Unknown_BE67C4->Unknown_6D2700("GO_light02a", InterfaceMesh);
 		char buffer[64];
 		_snprintf(buffer, sizeof(buffer), "Ambient Light", Current);
 		text->Change_Text(buffer, 0);
-		text = Unknown_BE67C4->Unknown_6D2700("near_light02a", Model());
+		text = Unknown_BE67C4->Unknown_6D2700("near_light02a", InterfaceMesh);
 		text->Change_Text("", 0);
-		text = Unknown_BE67C4->Unknown_6D2700("far_light02a", Model());
+		text = Unknown_BE67C4->Unknown_6D2700("far_light02a", InterfaceMesh);
 		text->Change_Text("", 0);
-		text = Unknown_BE67C4->Unknown_6D2700("Int_light02a", Model());
+		text = Unknown_BE67C4->Unknown_6D2700("Int_light02a", InterfaceMesh);
 		text->Change_Text("", 0);
-		text = Unknown_BE67C4->Unknown_6D2700("Fill_light02a", Model());
+		text = Unknown_BE67C4->Unknown_6D2700("Fill_light02a", InterfaceMesh);
 		text->Change_Text("", 0);
 	}
 }
@@ -4808,13 +4808,13 @@ void UIStarbaseLightsClass::Unknown_647B30()
 		x = WWMath::Max(x, box.Center.X - box.Extent.X);
 		y = WWMath::Min(y, box.Center.Y + box.Extent.Y);
 		y = WWMath::Max(y, box.Center.Y - box.Extent.Y);
-		int bone = Unknown84->Get_Sub_Object_Bone_Index(UnknownD8->Unknown04);
-		Unknown84->Capture_Bone(bone);
+		int bone = InterfaceMesh->Get_Sub_Object_Bone_Index(UnknownD8->Unknown04);
+		InterfaceMesh->Capture_Bone(bone);
 		Matrix3D tm = UnknownD8->Unknown04->Get_Transform();
 		tm.Set_X_Translation(x - box.Center.X);
 		tm.Set_Y_Translation(y - box.Center.Y);
 		tm[2][3] = 0.0f;
-		Unknown84->Control_Bone(bone, tm, false);
+		InterfaceMesh->Control_Bone(bone, tm, false);
 		Vector2 point;
 		point.X = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
 		point.Y = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
@@ -4844,13 +4844,13 @@ void UIStarbaseLightsClass::Unknown_647F30(Vector3 point)
 	float left = box.Center.X - box.Extent.X;
 	float width = box.Extent.X * 2.0f;
 	float height = box.Extent.Y * 2.0f;
-	int bone = Unknown84->Get_Sub_Object_Bone_Index(UnknownD8->Unknown04);
-	Unknown84->Capture_Bone(bone);
+	int bone = InterfaceMesh->Get_Sub_Object_Bone_Index(UnknownD8->Unknown04);
+	InterfaceMesh->Capture_Bone(bone);
 	Matrix3D tm = UnknownD8->Unknown04->Get_Transform();
 	tm.Set_X_Translation((point.X * width) + left - box.Center.X);
 	tm.Set_Y_Translation((point.Y * height) + top - box.Center.Y);
 	tm[2][3] = 0.0f;
-	Unknown84->Control_Bone(bone, tm, false);
+	InterfaceMesh->Control_Bone(bone, tm, false);
 	if (UnknownE0 == 0) {
 		GadgetUnknown08Struct *area = UnknownD8->Unknown00->Unknown_08();
 		Unknown_496C00(area->Unknown30, point.X, 1.0f - point.Y, &Color[Current]);

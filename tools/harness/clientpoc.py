@@ -279,7 +279,7 @@ def digest(inst=None):
         if line.startswith('CRASH:') and syms and not named:     # the first: later ones come from the report's own probing
             named = True
             addrs = re.findall(r'\b([0-9A-F]{8})\b', line)
-            for a in addrs[:1] + addrs[2:12]:
+            for a in addrs[1:2] + addrs[3:13]:
                 v = int(a, 16)
                 if 0x401000 <= v < 0x1000000:
                     print(f'    {v:08X} {symbolize.name_of(syms, v)}')
@@ -322,9 +322,15 @@ def find_window(pid, skip_dialogs=False):
     return found[0] if found else None
 
 
-def post_step(hwnd, op, rest):
+TAG = 0x5043 << 16      # programs/clientpoc/poc_input.cpp's POC_TAG: the high word of a replayed message's wParam
+
+
+def post_step(hwnd, op, rest, tag=False):
+    """Posts one input step. tag: wParam's high word carries TAG (poc_input.cpp strips it and logs the message as
+    'replayed'; with ENB_POC_INPUT_TAG=1 it drops untagged input, a human's). Only for a POC built with that hook."""
     user32 = ctypes.windll.user32
-    post = lambda m, w, l: user32.PostMessageW(hwnd, m, w, l)
+    t = TAG if tag else 0
+    post = lambda m, w, l: user32.PostMessageW(hwnd, m, w | t, l)
     if op in ('move', 'click', 'rclick'):
         x, y = (int(v) for v in rest.split()[:2])
         lp = (y << 16) | (x & 0xFFFF)
@@ -353,7 +359,7 @@ def post_step(hwnd, op, rest):
             vk, shift = vs & 0xFF, bool(vs & 0x100)
             if shift:
                 post(WM['keydown'], 0x10, 1 | (user32.MapVirtualKeyW(0x10, 0) << 16))
-            post_step(hwnd, 'key', str(vk))
+            post_step(hwnd, 'key', str(vk), tag)
             if shift:
                 post(WM['keyup'], 0x10, 1 | (user32.MapVirtualKeyW(0x10, 0) << 16) | (3 << 30))
             time.sleep(0.03)
@@ -488,6 +494,49 @@ def convert_shots(out):
         print(f'd3d8shot.log: {len(presents)} frame lines; the last: {presents[-1].strip() if presents else "-"}')
 
 
+def start_antprox(inst, out, env, args):
+    """antprox /REPLAY starting inst's client (out\antprox.out, out\antprox-logs); (antprox, client PID or None,
+    start time). Used by replay and tools/harness/e2e.py."""
+    logdir = os.path.join(out, 'antprox-logs')
+    os.makedirs(logdir, exist_ok=True)
+    # antprox picks its loopback address at start: two starting together can pick the same one, so start one at a
+    # time (a lock folder in %TEMP%) and let each say "Replay server ready" before the next starts
+    gate = os.path.join(os.environ.get('TEMP', '.'), 'clientpoc-antprox-start.lock')
+    for _ in range(300):
+        try:
+            os.mkdir(gate)
+            break
+        except OSError:
+            try:
+                if time.time() - os.path.getmtime(gate) > 60:
+                    shutil.rmtree(gate, ignore_errors=True)
+            except OSError:
+                pass
+            time.sleep(0.2)
+    a = subprocess.Popen([ANTPROX, '/REPLAY', '/CLIENT:' + inst.exe, '/LOGDIR:' + logdir]
+                         + ['/CLIENTOP:' + x.lstrip('-') for x in args], cwd=inst.dir, env=env,  # antprox adds the '-'
+                         stdout=open(os.path.join(out, 'antprox.out'), 'w'), stderr=subprocess.STDOUT)
+    start = time.time()
+    pid = None
+    try:
+        while time.time() - start < 20 and a.poll() is None:
+            if 'Replay server ready' in open(os.path.join(out, 'antprox.out'), errors='replace').read():
+                break
+            time.sleep(0.1)
+    finally:
+        shutil.rmtree(gate, ignore_errors=True)
+    try:
+        while time.time() - start < 30 and pid is None and a.poll() is None:
+            for p, name in descendants(a.pid):
+                if name == 'client.exe':
+                    pid = p
+            time.sleep(0.5)
+    except BaseException:
+        subprocess.run(['taskkill', '/F', '/T', '/PID', str(a.pid)], capture_output=True)
+        raise
+    return a, pid, start
+
+
 def replay(seconds, shots, steps, inst, messages=False, args=()):
     inst.prepare()
     env = dict(os.environ)
@@ -506,43 +555,11 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
         shutil.copyfile(PROXY, proxy)
         env['D3D8SHOT_DIR'] = out
         env['D3D8SHOT_FRAMES'] = shots
-    logdir = os.path.join(out, 'antprox-logs')
-    os.makedirs(logdir, exist_ok=True)
-    # antprox picks its loopback address at start: two starting together can pick the same one, so start one at a
-    # time (a lock folder in %TEMP%) and let each say "Replay server ready" before the next starts
-    gate = os.path.join(os.environ.get('TEMP', '.'), 'clientpoc-antprox-start.lock')
-    for _ in range(300):
-        try:
-            os.mkdir(gate)
-            break
-        except OSError:
-            try:
-                if time.time() - os.path.getmtime(gate) > 60:
-                    shutil.rmtree(gate, ignore_errors=True)
-            except OSError:
-                pass
-            time.sleep(0.2)
     args = (['-ENABLE_MESSAGES'] if messages else []) + list(args)
-    a = subprocess.Popen([ANTPROX, '/REPLAY', '/CLIENT:' + inst.exe, '/LOGDIR:' + logdir]
-                         + ['/CLIENTOP:' + x.lstrip('-') for x in args], cwd=inst.dir, env=env,  # antprox adds the '-'
-                         stdout=open(os.path.join(out, 'antprox.out'), 'w'), stderr=subprocess.STDOUT)
-    start = time.time()
-    pid = None
     listener = None
     last_input, killed, self_exit = None, None, False
+    a, pid, start = start_antprox(inst, out, env, args)
     try:
-        while time.time() - start < 20 and a.poll() is None:
-            if 'Replay server ready' in open(os.path.join(out, 'antprox.out'), errors='replace').read():
-                break
-            time.sleep(0.1)
-    finally:
-        shutil.rmtree(gate, ignore_errors=True)
-    try:
-        while time.time() - start < 30 and pid is None and a.poll() is None:
-            for p, name in descendants(a.pid):
-                if name == 'client.exe':
-                    pid = p
-            time.sleep(0.5)
         print(f'antprox pid {a.pid}, client pid {pid}', flush=True)
         if messages and pid:
             listener = start_listener(pid, out, seconds + 5)

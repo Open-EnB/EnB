@@ -40,7 +40,7 @@ public:
 };
 
 extern FontManagerClass *Unknown_BE67C4;				// NAME 1: neutral (D10)
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral (D10)
+#include "..\shared\unknown_4a1590.h"
 void Unknown_42EB20();									// 0x42EB20  // NAME 1: neutral (D10)
 
 struct UITalkTreeKeyEventStruct  // NAME 1: neutral (D10): as ui_avatr.cpp's
@@ -731,7 +731,7 @@ bool UITalkTreeClass::Unknown_64DD50()
 		const char *line = NPCSplit->Get(NextLine++);
 		if (line) {
 			char buffer[1024];
-			Unknown_4A1590(buffer, sizeof(buffer), line);
+			Bounded_Strcpy(buffer, sizeof(buffer), line);
 			Unknown_64D360(buffer);
 			NPCLines[lp]->Change_Text(buffer, 0);
 			NPCText += line;

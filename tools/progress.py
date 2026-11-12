@@ -27,7 +27,7 @@ to the first):
   stubbed     functions replaced by a stub in stubs/ (a STUB_CALLED name or comment gives the
               client address) and not otherwise exact
   third-party the C and C++ runtime, COM support and D3DX (library-matching.md section 3.7): the
-              proven functions of docs/data/bytematch-{libcmt,libcpmt,comsupp,d3dx8}.json and the
+              proven functions of docs/data/bytematch-{libcmt,libcpmt,libcimt,comsupp,d3dx8}.json and the
               unproven bytes between a library's first and last proven function (never ours)
   unattributed everything else
 
@@ -78,7 +78,7 @@ PAD2 = (0xA420AC, 0xAA1C00)           # incremental-link padding (library-matchi
 EH = (0xAA1C00, 0xAE2830)             # compiler-generated exception-handling stubs
 FIRST_COMMIT_DAY = '2026-10-22'
 RULE_CHANGE = '2026-10-25'            # D80
-THIRD_PARTY = ('libcmt', 'libcpmt', 'comsupp', 'd3dx8')
+THIRD_PARTY = ('libcmt', 'libcpmt', 'libcimt', 'comsupp', 'd3dx8')
 LIBS = ('app', 'binkmovie', 'wlib', 'wnet', 'ww3d2', 'wwaudio', 'wwdebug', 'wwlib', 'wwmath', 'wwsaveload',
         'wwshade')
 # the executable in address order (docs/binary.md section 2; the runs of proven functions in

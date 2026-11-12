@@ -85,17 +85,9 @@ UnknownBFAEE0Class *Unknown_BFAEE0 = &BFAEE0;
 
 // ------------------------------------------------------------------------- the packets
 
-// wwonline's 64-bit byte order pair (pk.cpp's Add / Get of an __int64)
-static unsigned __int64 Swap64(unsigned __int64 v)
-{
-	unsigned __int64 r = 0;
-	for (int i = 0; i < 8; i++) {
-		r = (r << 8) | ((v >> (8 * i)) & 0xFF);
-	}
-	return r;
-}
-unsigned __int64 Unknown_8B4510(unsigned __int64 value) { return Swap64(value); }
-unsigned __int64 Unknown_8B4560(unsigned __int64 value) { return Swap64(value); }
+// wwonline's 64-bit byte order pair (pk.cpp's Add / Get of an __int64): app.lib's rebuilt
+// Unknown_8B4510 / Unknown_8B4560 (app\shared\unknown_8b4560.cpp, the object that also holds
+// 0x8B44C0 / 0x8B44E0, which the packets' Print and money.cpp call)
 
 // The packets the client's factory made (pk.cpp: Unknown_Create_Packet, the generated switch, a
 // class of pk_classes.h): their constructors aren't rebuilt, so pk_ctor_stubs.cpp's hand each raw

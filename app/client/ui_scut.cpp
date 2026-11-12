@@ -15,7 +15,7 @@
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
 // file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
 class FontStringFilesClass { public: void Load(const char *name); void Unload(const char *name); };	// NAME 2: fontdatabase.h's
-class FontManagerClass { public: void Add(RenderObjClass *object); };	// NAME 3: fontmanager.h's
+class ManagedFontClass; class FontManagerClass { public: ManagedFontClass *Add(RenderObjClass *object); };	// NAME 3: fontmanager.h's (0x6D1D80; a void return linked to no definition: the POC's generated stand-in)
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 // local_interface_sort.cpp's sort object (8 bytes; view.cpp, mainview.cpp and ui_line_display.cpp declare it too)
@@ -378,7 +378,7 @@ UIScutProxyGadgetClass *UIScutClass::Unknown_610F30()
 
 // NOT EXACT: register (ecx / edx swapped around the 0x6870E0 and bank constructor arguments)
 UIScutBarClass::UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass *layer, int bar, int *id, int index) :
-	UnknownAEEA88Class(owner),
+	Owner(owner),
 	Mesh(mesh),
 	Index(index),
 	Bar(bar),
@@ -410,13 +410,13 @@ UIScutBarClass::UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass
 	Get_Owner()->Unknown64.Unknown_6870E0(Bank, *id, Get_Owner()->View, 1, 0);
 	Bank->Unknown1C = *id;
 	(*id)++;
-	((DynamicVectorClass<UnknownAEEA88Class *> *)((char *)Mesh + 4))->Add(this);
+	Mesh->Attach(this);
 }
 
 
 UIScutBarClass::~UIScutBarClass()
 {
-	UnknownAEEA88Class::Unknown_04((DynamicVectorClass<UnknownAEEA88Class *> *)((char *)Mesh + 4));
+	Mesh->Detach(this);
 	REF_PTR_RELEASE(Unknown44);
 }
 
@@ -921,9 +921,9 @@ void UIScutBarClass::Unknown_6124F0(UIScutProxyGadgetClass *gadget)
 }
 
 
-void UIScutBarClass::Unknown_00(void *source, int *event)
+void UIScutBarClass::Unknown_00(SubjectClass *subject, void *event)
 {
-	if (source == (Mesh ? (char *)Mesh + 4 : NULL) && ((GadgetClass *)event[0])->Unknown1C == (int)this && event[1] == 3) {
+	if (subject == Mesh && ((UIProcClass *)((int *)event)[0])->Id == (int)this && ((int *)event)[1] == 3) {
 		Mesh->Peek_Object()->Set_Sub_Object_Transforms_Dirty(true);
 		for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
 			ProxyButtons[lp]->Set_Target((RObjGadgetClass *)Shortcuts[Group][lp]);
@@ -1026,7 +1026,7 @@ void UIScutBankGadgetClass::Unknown_612820(int num)
 **	tsi01a_short mesh and fc_scut.ini's texts): two bars (UIScutBarClass, 0x58 bytes), each with three proxy
 **	buttons (gd_scut_proxy.h's UIScutProxyGadgetClass, 'bttn_%d_%02d') over two groups of three shortcuts, a bank toggle (UIScutBankGadgetClass,
 **	'bank_%d', its group models 'bank_%d_%d') and the 'Use Slot %d' control keys (the first ids from 2, three a set,
-**	two sets a bar, the bank's id after them). A bar listens to the mesh (the listener base UnknownAEEA88Class, the
+**	two sets a bar, the bank's id after them). A bar listens to the mesh (the observer base ObserverClass, the
 **	mesh's list at its +0x04). Key 0x12 held shows the other group. The client's window runs 0x610570-0x6134F1
 **	(claims #35 / #36): the interface, the bars, the bank, then the std::sort instances of ShortcutSlotStruct
 **	(0x610B00 picks the bar with a free button: found first, then the lower group, then the lower bar).

@@ -96,7 +96,7 @@ bool ClientItemPropertySpecialSkillRequirementClass::Is_Usable()
 
 	int skill_index = SkillNamesDatabase::Unknown_818520(Skill.c_str());
 	FAIL_IF(skill_index < 0) return(false);
-	FAIL_IF(skill_index >= (int)skills_aux_data->Children.size()) return(false);
+	FAIL_IF(skill_index >= (int)skills_aux_data->Get_Size()) return(false);
 	DeltaSkillClass *skill = (DeltaSkillClass *)skills_aux_data->Children[skill_index];
 	return(Level <= skill->Level.Value);
 }
@@ -108,9 +108,8 @@ bool ClientItemPropertySpecialSkillRequirementClass::Is_Usable()
 **	at line 48 for another type; sort order 0 to equip, 1 to activate), the constructor 0x52E9E0, the destructors
 **	0x52EBE0 / 0x52EBB0, the table's slots 0x52EC50 (Get_Lines: 'Requires ', the skill in bold, ' level ', the level
 **	in bold) and 0x52F010 (Is_Usable: FAIL_IFs at lines 92, 95, 98 and 99; true when the player's RPGInfo.Skills
-**	entry has Level or more; the client's FAIL_IF reads 'skill_index >= (int)skills_aux_data->Get_Size()': a
-**	Get_Size member in delta_item_array.h shifts the symbol pad of sclient.cpp / aux_roots.cpp, so the test spells
-**	Children.size() out), and what the compiler emits for them: Create_NEW 0x52F190, the vector's
+**	entry has Level or more; the client's FAIL_IF reads 'skill_index >= (int)skills_aux_data->Get_Size()',
+**	DeltaItemArrayClass's accessor in delta_item_array.h, D236), and what the compiler emits for them: Create_NEW 0x52F190, the vector's
 **	insert(iterator, const T &) 0x52F1F0 and its helpers 0x52F450-0x52F710, and
 **	UnknownRTTIClass<DeltaItemArrayClass<DeltaSkillClass> >::Cast 0x52F990.
 */

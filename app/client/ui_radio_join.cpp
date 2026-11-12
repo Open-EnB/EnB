@@ -45,12 +45,12 @@ void UIRadioJoinClass::Unknown_54()
 {
 	if (Unknown_98("cht03", "cht03.ini")) {
 		for (int i = 0; i < 4; i++) {
-			Buttons[i] = Unknown_56D510(i + 1, Unknown_B85AB0[i], NULL);
+			Buttons[i] = Add_Button(i + 1, Unknown_B85AB0[i], NULL);
 		}
 		Entry = new TextGadgetClass(this, 4, "TEXTFIELD_Cht03", Interface_Mesh(), Unknown_B08CAC | Unknown_B08CA8 | Unknown_B08C98, 0);
 		Entry->Set_Text("", 0);
 		Unknown64.Unknown_6870E0(Entry, 6, View, 1, 0);
-		Unknown_56D970(0, Vector3(0.0f, 0.0f, 0.0f));
+		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
 		Unknown_5EB140();
 	}
 }
@@ -85,7 +85,7 @@ void UIRadioJoinClass::Unknown_60()
 		Entry->Unknown_6AAD10();
 		if (UnknownA8 && !Entry->Active) {
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			Unknown_5EB2F0();
 		}
 	}
@@ -101,7 +101,7 @@ bool UIRadioJoinClass::Unknown_68(int key)
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Entry->Unknown_74(false);
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
@@ -115,7 +115,7 @@ bool UIRadioJoinClass::Unknown_68(int key)
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Entry->Unknown_74(false);
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			if (chat) {
 				chat->Unknown_565F60(2);
 			}
@@ -124,7 +124,7 @@ bool UIRadioJoinClass::Unknown_68(int key)
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Entry->Unknown_74(false);
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			Unknown_5EB2F0();
 			return(true);
 	}

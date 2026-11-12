@@ -1333,5 +1333,45 @@
   "symbol": "?Unknown_10@Unknown68C5D0Class@@UAEXPAVClientItemPropertyTypeClass@@@Z",
   "evidence": "X1 2026-11-11: the title subtitles stand-in is client_item_property_type.cpp's class (table 0xAEE14C, Accept 0x5302F0 calls the visitor's +0x10 with it); renamed from UIItemExaminationTitleSubtitlesClass",
   "replaces": "?Unknown_10@Unknown68C5D0Class@@UAEXPAVUIItemExaminationTitleSubtitlesClass@@@Z"
+ },
+ {
+  "address": "0x6BE8F0",
+  "symbol": "??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontColorStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontColorStruct@@@2@@std@@QAE@XZ",
+  "evidence": "FontDatabaseClass's constructor 0x6BE5C0 (exact): its unwind funclet 0xAC2523 'mov ecx, [ebp-0x14]; add ecx, 0x10; jmp' destroys the member at +0x10, the Colors hash_map (the funclet before it, 0xAC2518, destroys its bucket vector, already named); F2 2026-11-11"
+ },
+ {
+  "address": "0x6BE9C0",
+  "symbol": "??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontEffectStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontEffectStruct@@@2@@std@@QAE@XZ",
+  "evidence": "FontDatabaseClass's constructor 0x6BE5C0: unwind funclet 0xAC2539 'add ecx, 0x28; jmp', the Effects hash_map at +0x28 (0xAC252E before it: its bucket vector); F2 2026-11-11"
+ },
+ {
+  "address": "0x6BEA90",
+  "symbol": "??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringStruct@@@2@@std@@QAE@XZ",
+  "evidence": "FontDatabaseClass's constructor 0x6BE5C0: unwind funclet 0xAC254F 'add ecx, 0x40; jmp', the Strings hash_map at +0x40 (0xAC2544 before it: its bucket vector); F2 2026-11-11"
+ },
+ {
+  "address": "0x6C6110",
+  "symbol": "??1?$vector@PAUFontInitStruct@@V?$allocator@PAUFontInitStruct@@@std@@@std@@QAE@XZ",
+  "evidence": "FontDatabaseClass's constructor 0x6BE5C0: unwind funclet 0xAC2510 'mov ecx, [ebp-0x14]; jmp' (this + 0), the Infos vector<FontInitStruct *> at +0x00 (fontdatabase.h); F2 2026-11-11"
+ },
+ {
+  "address": "0x6C4E80",
+  "symbol": "??1?$hash_map@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringFileStruct@@@2@@std@@QAE@XZ",
+  "evidence": "FontStringFilesClass's constructor 0x6C4C80 and destructor 0x6C4F50: unwind funclets 0xAC2D0B (constructor) / 0xAC2D50 (destructor) destroy the Files hash_map at +0x00 (its bucket vector 0x6C6FA0 at 0xAC2D00 / 0xAC2D58); F2 2026-11-11"
+ },
+ {
+  "address": "0x6C6FA0",
+  "symbol": "??1?$vector@PAU?$_Hashtable_node@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@@std@@@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@@std@@@std@@@2@@std@@QAE@XZ",
+  "evidence": "FontStringFilesClass's unwind funclets 0xAC2D00 (constructor 0x6C4C80), 0xAC2D30 / 0xAC2D58 (destructor 0x6C4F50) 'add ecx, 4; jmp': the Files hash_map's bucket vector (+0x04), as FontDatabaseClass's funclets 0xAC2518 / 0xAC252E do for its tables; F2 2026-11-11"
+ },
+ {
+  "address": "0x6C6270",
+  "symbol": "??0?$_Hashtable_const_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringStruct@@@2@@std@@QAE@ABU?$_Hashtable_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringStruct@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringStruct@@@2@@1@@Z",
+  "evidence": "the iterator -> const_iterator conversion of the Strings table (FontDatabaseClass +0x40): 0x6C1500 calls it on the _Hashtable_iterator its call 0x6C1658 to hash_map<string, FontStringStruct *>::find returns (0x6C1662, 0x6C168B; again at 0x6C1883, 0x6C18AC); an 8-byte copy, ret 4; F2 2026-11-11"
+ },
+ {
+  "address": "0x6C6370",
+  "symbol": "??0?$_Hashtable_const_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringFileStruct@@@2@@std@@QAE@ABU?$_Hashtable_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringFileStruct@@@2@@1@@Z",
+  "evidence": "the iterator -> const_iterator conversion of FontStringFilesClass's Files table: FontStringFilesClass::Load 0x6C52B0 calls it (0x6C534C, 0x6C5372) on what its call 0x6C5342 to hash_map<string, FontStringFileStruct *>::find returns; an 8-byte copy, ret 4; F2 2026-11-11"
  }
 ]

@@ -176,7 +176,7 @@ public:
 	bool DebugMode;										// +0x10 (slots +0x38 / +0x3C, the DEBUG packet's user data)  // NAME 2: what it holds
 	bool Unknown11;										// +0x11 (Set_Avatar_ID's DEBUG packet's user data)
 	KernelClass *Kernel;								// +0x14 ClientTaskClass::Init sets it  // NAME 2: what it holds
-	Unknown763E00Class *Unknown18;						// +0x18
+	Unknown763E00Class *RSLRegistry;					// +0x18  // NAME 3: mclient.cpp's G_ASSERT 'RSLRegistry' (l.83)
 	HashListClass<ClientObjectClass *> ObjectList;		// +0x1C (the assert's name)
 	HashListClass<EffectObjectClass *> EffectList;		// +0x444  // NAME 2: what it holds
 	HashListClass<Unknown86CRecordClass *> Unknown86CList;	// +0x86C

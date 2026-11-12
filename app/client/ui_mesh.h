@@ -38,9 +38,9 @@ public:
 	void Unknown_5B8C10(RenderObjClass *robj, float r, float g, float b);	// 0x5B8C10: every vertex material's emissive  // NAME 1 [robj, r, g, b]: neutral
 	void Unknown_5B8CB0(RenderObjClass *robj);			// 0x5B8CB0: the same, 0.35 grey
 	void Unknown_5B8D50(RenderObjClass *robj);			// 0x5B8D50: the same, white
-	void Unknown_5B8DF0(int id, const char *anim_name, bool loop, int a, int b, int c, int d);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [id, loop, a..d]: neutral; NAME 2 [anim_name]: 0x5DCD20's FAIL_IF
-	void Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, int a, int b, int c, int d);	// 0x5B8EE0: the same onto a channel (ui_verb.cpp: the button's index twice, its animation, 0s, -1)  // NAME 1 [slot, id, loop, a..d]: neutral
-	void Unknown_5B8FF0(int slot, int id, const char *morph_anim, bool loop, int a, int b, int c, int d);	// 0x5B8FF0: a morph onto a channel  // NAME 2 [morph_anim]: 0x5DCF00's FAIL_IF; NAME 1 [slot, id, loop, a..d]: neutral
+	void Unknown_5B8DF0(int id, const char *anim_name, bool loop, bool a, bool b, int c, int d);	// 0x5B8DF0: an animation onto the mesh  // NAME 1 [id, loop, a..d]: neutral; NAME 2 [anim_name]: 0x5DCD20's FAIL_IF
+	void Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d);	// 0x5B8EE0: the same onto a channel (ui_verb.cpp: the button's index twice, its animation, 0s, -1)  // NAME 1 [slot, id, loop, a..d]: neutral
+	void Unknown_5B8FF0(int slot, int id, const char *morph_anim, bool loop, bool a, bool b, int c, int d);	// 0x5B8FF0: a morph onto a channel  // NAME 2 [morph_anim]: 0x5DCF00's FAIL_IF; NAME 1 [slot, id, loop, a..d]: neutral
 	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
 	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's
 	int Unknown_5B9160(const char *bone_name);			// 0x5B9160: the bone's index  // NAME 1 [bone_name]: neutral

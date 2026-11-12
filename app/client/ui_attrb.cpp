@@ -329,7 +329,7 @@ void Unknown546A80Class::Unknown_547C20(bool all)
 		money = field->Value;
 	}
 	char text[32];
-	_snprintf(text, sizeof(text), "Credits: %s", money.Unknown_4F00C0(true).c_str());
+	_snprintf(text, sizeof(text), "Credits: %s", money.Amount_As_Text(true).c_str());
 	UnknownA0->Change_Text(text, 0);
 }
 

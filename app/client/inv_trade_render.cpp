@@ -76,7 +76,7 @@ void InvTradeRenderClass::Unknown_2C(bool force)
 		}
 		if (CostText) {
 			MoneyClass cost = data->Get_Price(slot);
-			CostText->Unknown_6CE420(0, "Cost: %s each", cost.Unknown_4F00C0(true).c_str());
+			CostText->Unknown_6CE420(0, "Cost: %s each", cost.Amount_As_Text(true).c_str());
 		}
 		if (StackText) {
 			int stack = Unknown_68D7E0(slot);

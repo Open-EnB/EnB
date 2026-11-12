@@ -187,7 +187,7 @@ void ShipCustSettingsClass::Unknown_00(KVEncoderClass *object)
 	visitor->Add_Pointer(0x3FF, "Metal", &Metal);
 }
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "unknown_4a1590.h"
 
 // The metals by name (0xB75D70)
 struct ShipCustMetalNameStruct	// NAME 1: what it holds
@@ -378,11 +378,11 @@ char *Value_To_String(char *buf, int size, const ShipCustomizationMetal &value)
 {
 	for (ShipCustMetalNameStruct *entry = ShipCustMetalNames; entry->Name != NULL; entry++) {
 		if (entry->Metal == value) {
-			return(Unknown_4A1590(buf, size, entry->Name));
+			return(Bounded_Strcpy(buf, size, entry->Name));
 		}
 	}
 	G_ASSERT(0);
-	return(Unknown_4A1590(buf, size, "none"));
+	return(Bounded_Strcpy(buf, size, "none"));
 }
 
 

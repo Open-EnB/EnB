@@ -341,7 +341,7 @@ void GalaxyMapRenderClass::Unknown_7A6AB0(const RefCountPtr<SceneClass> &scene, 
 	Add_Items(Sectors, Scene);
 	Add_Items(Gates, Scene);
 }
-// NOT EXACT: written from the client's code (see attempts.csv)
+
 
 
 
@@ -359,7 +359,7 @@ void GalaxyMapRenderClass::Unknown_7A6DD0()
 {
 	FAIL_IF(!HomeSectorRObj) { return; }
 	if (HomeSectorRObj->Peek_Scene()) { HomeSectorRObj->Remove(); }
-	Unknown_7A7D70(Unknown_7A9840());
+	Unknown_7A7450();
 	Remove_Items(Systems);
 	Remove_Items(Sectors);
 	Remove_Items(Gates);
@@ -400,8 +400,8 @@ bool GalaxyMapRenderClass::Unknown_7A7070(bool arg)
 		Unknown_7A7D70(true);
 		return(true);
 	}
-	for (std::vector<GalaxyMapRenderUpdateStruct>::iterator it = Updates.begin(); it != Updates.end(); ++it) {
-		(*it).Item->Update();
+	for (std::vector<RefCountPtr<GalaxyMapRenderItemClass> >::iterator it = Updates.begin(); it != Updates.end(); ++it) {
+		(*it)->Update();
 	}
 
 
@@ -1184,18 +1184,18 @@ GalaxyMapRenderSystemClass::GalaxyMapRenderSystemClass(const RefCountPtr<GalaxyM
 	Set_RObj(robj);
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+
 GalaxyMapRenderSystemClass::~GalaxyMapRenderSystemClass()
 {
-	GalaxyMapRenderMeshClass::Release_Item();
-	Sectors.clear();
-	Data = NULL;
+	Release_Item();
+
+
 }
 
 inline void GalaxyMapRenderSystemClass::Release_Item()
 {
 	GalaxyMapRenderMeshClass::Release_Item();
-	Sectors.erase(Sectors.begin(), Sectors.end());
+	Sectors.clear();
 	Data = NULL;
 }
 
@@ -1367,15 +1367,15 @@ inline void GalaxyMapRenderSectorClass::Release_Item()
 	Data = NULL;
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+// NOT EXACT: order-only (the frame is the client's with the colour at function scope; the key's copy and the iterator sit in each other's slots)
 bool GalaxyMapRenderSectorClass::Unknown_7AB6D0(RenderSystemsType &systems, bool explored)
 {
 	Explored = explored;
-	RefCountPtr<GalaxyMapRenderSystemClass> system;
+	RefCountPtr<GalaxyMapRenderSystemClass> system; Vector3 color;
 	if (Find_Item(system, systems, Data->Unknown10)) {
 		System = system;
 		system->Sectors.push_back(Create_Peek(this));
-		Vector3 color; Set_Color(Unknown_7ABA70(color, false));
+		Set_Color(Unknown_7ABA70(color, false));
 		return(true);
 	}
 	return(false);
@@ -1696,7 +1696,7 @@ RefCountPtr<SegmentedLineClass> &GalaxyMapRenderLineClass::Get_Line()
 	return(Line);
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+// NOT EXACT: inline-budget (the client inlines name's ~RefCountPtr and so keeps the pointer in esi; ours calls it); the matrix (identity, Set_Translation, Rotate_Z(s, c)), the branch order and '!line' are the client's
 
 
 
@@ -1704,10 +1704,10 @@ RefCountPtr<SegmentedLineClass> &GalaxyMapRenderLineClass::Get_Line()
 float GalaxyMapRenderGateClass::Unknown_7AD090(bool hide_inter, bool hide_intra, bool place)
 {
 	float angle = 0.0f;
-	Peek_RObj();
-	FAIL_IF(!Line) { return(angle); }
-	GalaxyMapLineRObjClass *line = (GalaxyMapLineRObjClass *)Line.Peek();
-	line->Hidden = Intra ? (hide_intra == false) : (hide_inter == false);
+	Peek_RObj(); GalaxyMapLineRObjClass *line = (GalaxyMapLineRObjClass *)Line.Peek();
+	FAIL_IF(!line) { return(angle); }
+	if (Intra) { line->Hidden = (hide_intra == false); } else { line->Hidden = (hide_inter == false); }
+
 	RefCountPtr<FontSys> name = To->Name;
 	if (place) {
 		Vector3 a;
@@ -1716,16 +1716,16 @@ float GalaxyMapRenderGateClass::Unknown_7AD090(bool hide_inter, bool hide_intra,
 		To->Get_Position(b);
 		Vector3 d = b - a;
 		d.Normalize();
-		Matrix3D tm;
-		tm.Set(d.X, -d.Y, 0, a.X, d.Y, d.X, 0, a.Y, 0, 0, 1, a.Z);
+		Matrix3D tm(true); tm.Set_Translation(a);
+		tm.Rotate_Z(d.Y, d.X);
 		angle = tm.Get_Z_Rotation();
-		if (fabs(angle) <= 1.5707964f) {
-			tm.Translate_X(2.0f);
-			name->Set_Justify(0, 3);
-		} else {
+		if (fabs(angle) > 1.5707964f) {
 			tm.Rotate_Z(WWMATH_PI);
 			tm.Translate_X(-2.0f);
 			name->Set_Justify(0, 4);
+		} else {
+			tm.Translate_X(2.0f);
+			name->Set_Justify(0, 3);
 		}
 		name->Set_Transform(tm);
 		Vector3 color; name->Set_Color(To->Unknown_7ABA70(color, false));
@@ -1861,7 +1861,7 @@ void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 	To->Unknown_7AC070(Flipped);
 	From->Unknown_7AC070(!Flipped);
 }
-// NOT EXACT: written from the client's code (see attempts.csv)
+
 
 
 
@@ -1990,7 +1990,7 @@ void GalaxyMapRenderGateClass::Unknown_7ADFC0(const Vector3 &a, const Vector3 &b
 	bool flipped = da > db;
 	if (flipped != Flipped) {
 		Flipped = flipped;
-		To->Unknown_7AC070(!flipped);
+		To->Unknown_7AC070(!Flipped);
 		From->Unknown_7AC070(Flipped);
 	}
 }
@@ -2012,8 +2012,8 @@ const RefCountPtr<GalaxyMapRenderSectorClass> &GalaxyMapRenderGateClass::Unknown
 **	('it == container.end()') and 194 ('!scene') that the members inline.
 **
 **	Forms: iterators constructed in place, not assigned (an assigned one is kept in registers);
-**	the update list's element is a one-member struct, whose implicit destructor _Destroy calls
-**	through ??_G (0x7B18A0); the destructors call Release_Item, which reaches Remove_From_Scene through
+**	the update list holds plain RefCountPtrs (??_G 0x7B18A0, erase 0x7AF400 and _Destroy 0x7AF4A0 are
+**	its instances); the destructors call Release_Item, which reaches Remove_From_Scene through
 **	the table just stored; New_Item 0x7A9370 / 0x7A93F0 are static (called without a thunk);
 **	0x7ABA70, 0x7A83D0 and 0x7A89A0 write their results through references (ret without eax).
 **	What stays NOT EXACT is listed in docs/data/attempts.csv (inline budgets in the long members,

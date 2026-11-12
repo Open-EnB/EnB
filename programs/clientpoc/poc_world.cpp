@@ -24,22 +24,7 @@ UIHotKeysClass::UIHotKeysClass(SClient *client) : InterfaceClass((LineDisplayCli
 
 // pdaint.cpp's PDA is real app code since PD1 (pdaint.cpp); its windows' stand-ins are in poc_world3.cpp.
 
-// ---------------------------------------------------------------- bridge (0x53B040): 0xC4 bytes, zero
-class BridgeInterfaceClass
-{
-public:
-	BridgeInterfaceClass(SClient *client);
-	~BridgeInterfaceClass();
-	char Unknown00[0xC4];
-};
-BridgeInterfaceClass::BridgeInterfaceClass(SClient *client)
-{
-	STUB_CALLED("POC BridgeInterfaceClass: zero");
-	memset(this, 0, sizeof(*this));
-}
-BridgeInterfaceClass::~BridgeInterfaceClass()
-{
-}
+// bridge_int.cpp's bridge (0x53B040) is real app code since L17 (bridge_int.h): its zeroed stand-in left here.
 
 // camera_manager.cpp is real app code (camera_manager.h; its stand-in left here since CM2).
 
@@ -148,33 +133,8 @@ UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((Li
 	STUB_CALLED("POC UIChatReplyListClass: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-// The windows ChatPanelInterface::Unknown_565F80 opens (ui_chat_panel.cpp's local classes; request 1 is the HUD's options
-// button): the generated constructors left no table, and Set_Current_Interface crashed calling through it. Empty windows:
-// the base constructed, the members (Unknown98, 'closed', included) zeroed.
-class Unknown5DAE90Class : public UIChatPanelWindowClass { public: Unknown5DAE90Class(SClient *client, int a, const char *title, int b); char Unknown9C[0xCC - 0x9C]; };
-class Unknown5CE240Class : public UIChatPanelWindowClass { public: Unknown5CE240Class(SClient *client); char Unknown9C[0xC0 - 0x9C]; };
-class Unknown5CE700Class : public UIChatPanelWindowClass { public: Unknown5CE700Class(SClient *client, int a); char Unknown9C[0xB8 - 0x9C]; };
-class Unknown5CEDD0Class : public UIChatPanelWindowClass { public: Unknown5CEDD0Class(SClient *client, int a, int b); char Unknown9C[0xE4 - 0x9C]; };
-Unknown5DAE90Class::Unknown5DAE90Class(SClient *client, int a, const char *title, int b) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC Unknown5DAE90Class (0x5DAE90): an empty window");
-	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
-}
-Unknown5CE240Class::Unknown5CE240Class(SClient *client) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC Unknown5CE240Class (0x5CE240): an empty window");
-	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
-}
-Unknown5CE700Class::Unknown5CE700Class(SClient *client, int a) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC Unknown5CE700Class (0x5CE700): an empty window");
-	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
-}
-Unknown5CEDD0Class::Unknown5CEDD0Class(SClient *client, int a, int b) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC Unknown5CEDD0Class (0x5CEDD0): an empty window");
-	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
-}
+// (The windows ChatPanelInterface::Unknown_565F80 opens are rebuilt: ui_option_main.cpp, ui_option_quit.cpp,
+// ui_option_slider.cpp and ui_popup_browser.h's UIPopupBrowserClass, CP1)
 // (0x765DF0, the chat line colour by its index, is rebuilt: app/client/unknown_764fd0.cpp, GS1)
 
 // FontSys 0x6CE420 (unknown_6cce60.cpp's object, not rebuilt): the client's code, the text from a format into Change_Text
@@ -198,14 +158,22 @@ void __cdecl FontSys::Unknown_6CE420(int unknown, const char *format, ...)
 
 // (chatgadg.cpp's text entry ChatGadgetClass 0x65BFD0 is rebuilt in app.lib)
 #include "..\..\app\client\textgadg.h"
-UIComboBoxClass::UIComboBoxClass(InterfaceClass *owner, LayerClass *layer, RenderObjClass *model, const char *name, int id, int key, int a, int b, int c) : InterfaceClass(owner->Client)
+// The chat panel's combos while 0x5689D0 is a stand-in: an empty interface of the combo box's size, its state zero (the
+// drop-down up: the real Close_Drop_Down 0x57B440 reads +0xC8), with InterfaceClass's slots. Not a UIComboBoxClass: the
+// real constructor 0x5786C0 and destructor 0x578D50 (ui_combobox.cpp) need the layer, the model and the gadgets.
+class PocEmptyComboClass : public InterfaceClass
 {
-	STUB_CALLED("POC UIComboBoxClass: an empty window");
-	memset((char *)this + sizeof(InterfaceClass), 0, sizeof(UIComboBoxClass) - sizeof(InterfaceClass));	// the real 0x57B440 (slot +0x7C) reads the drop-down state +0xC8
-}
+public:
+	PocEmptyComboClass(InterfaceClass *owner) : InterfaceClass(owner->Client)
+	{
+		STUB_CALLED("POC UIComboBoxClass: an empty window");
+		memset(Zero, 0, sizeof(Zero));
+	}
+	char Zero[sizeof(UIComboBoxClass) - sizeof(InterfaceClass)];
+};
 void ChatPanelInterface::Unknown_5689D0(int index)
 {
-	Combo[index] = Create_NEW(new UIComboBoxClass(this, NULL, NULL, NULL, 0, 0, 0, 0, 0));
+	Combo[index] = Create_NEW((UIComboBoxClass *)new PocEmptyComboClass(this));
 }
 class UnknownEventDispatcherClass;
 UnknownEventDispatcherClass *Unknown_540A20()	// 0x540A20 (intrface.cpp's function-local static SignalMap 0xBE5AF0): a real map, ui_chat_panel.cpp connects to it

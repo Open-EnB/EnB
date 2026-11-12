@@ -1,0 +1,12 @@
+name: chat entry: Return opens the entry (control_keys.ini [Channel Message]), a line typed, Return sends it to the server
+timeout: 400
+include _login
+alive 8
+key 0x0D
+alive 2
+text 'hello world'
+shot chat_typed
+key 0x0D
+# the typed line reaches the replay server as a CLIENT_CHAT_REQUEST longer than the 18-byte ones sent at entry
+expect-event antprox 'received CLIENT_CHAT_REQUEST 0x00a3, (?!18 bytes)\d+ bytes' within 10
+alive 5

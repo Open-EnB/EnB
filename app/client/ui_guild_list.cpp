@@ -50,17 +50,17 @@ void UIGuildListClass::Unknown_54()
 	if (Unknown_98("tsi36a", "fa_tsi36a.ini")) {
 		int i;
 		for (i = 0; i < 2; i++) {
-			Unknown0BC[i] = Unknown_56D510(i + 1, Unknown_BA8204[i], NULL);
+			Unknown0BC[i] = Add_Button(i + 1, Unknown_BA8204[i], NULL);
 			GadgetClass::Set_Tooltip(Unknown0BC[i], "UI_GUILD_LIST", Unknown_BA8210[i]);
 		}
 		for (i = 0; i < 9; i++) {
 			char name[0x20];
 			_snprintf(name, sizeof(name), "name%02d_TSI36a", i);
-			Unknown0C4[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Peek_Unknown84()));
+			Unknown0C4[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Interface_Mesh()));
 		}
-		Slider = Unknown_56D8D0(0x0E, 0);
-		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
-		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
+		Slider = Add_Slider(0x0E, 0);
+		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
+		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
 	}
 }
 

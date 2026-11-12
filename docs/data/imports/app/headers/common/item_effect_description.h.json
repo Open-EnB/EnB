@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "RECONSTRUCTED: ItemEffectClass and ItemEffectDescriptionClass (0x28 bytes: its DurationClass at +0x10 aligns it to 8), moved from client_item_property_builder.h; header name assumed from item_effect_description.cpp"
+ "description": "RECONSTRUCTED: ItemEffectDescriptionClass (0x28 bytes: its DurationClass at +0x10 aligns it to 8) and ItemEffectParameterClass, moved from client_item_property_builder.h (ItemEffectClass is effect_description.h's); header name assumed from item_effect_description.cpp"
 }

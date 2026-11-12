@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "faction_and_reputation.h (name assumed from the client's faction_and_reputation.cpp): MobReactionType, NPCReactionType, FormationState, their converters and the reputation limits' classes"
+}

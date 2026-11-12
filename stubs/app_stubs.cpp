@@ -49,19 +49,6 @@ int DeltaStringClass::UnknownGlobal = 0;	// 0xBE3A9C
 
 // ------------------------------------------------------------------------- strconv_lib.h
 
-// faction_and_reputation.cpp 0x835890: the reaction's name from the client's table 0xBA9614 (not
-// known yet: its number), 'BadReaction' out of range
-char *Value_To_String(char *buf, int size, MobReactionType reaction)
-{
-	STUB_CALLED("Value_To_String(MobReactionType) (0x835890)");
-	if (reaction < 0 || reaction >= MOB_REACTION_COUNT) {
-		_snprintf(buf, size, "BadReaction");
-	} else {
-		_snprintf(buf, size, "%d", (int)reaction);
-	}
-	return buf;
-}
-
 // 0x848C80: RELATIONSHIP's relationship (opcode 137), the client's defaults
 RelationshipClass::RelationshipClass()
 {
@@ -73,7 +60,7 @@ RelationshipClass::RelationshipClass()
 char *Value_To_String(char *buf, int size, const MoneyClass &value)
 {
 	STUB_CALLED("Value_To_String(MoneyClass) (0x4F0BE0)");
-	sprintf(buf, "%I64d", value.Unknown00);
+	sprintf(buf, "%I64d", value.Amount);
 	return buf;
 }
 
@@ -89,70 +76,6 @@ const char *Type_Name(MoneyClass)
 
 #include <string>
 #include <vector>
-
-// 0x4F00C0: money.cpp's conversion (opcode 220's Print): the amount in decimal; with the flag set, through 0x4FAEE0,
-// which puts a ',' between every three digits from the right when the text is all digits (the client's behaviour:
-// "Credits: 29,597,354" in the PDA's character window)
-std::string MoneyClass::Unknown_4F00C0(bool commas) const
-{
-	char buffer[32];
-	std::string text(_i64toa(Unknown00, buffer, 10));
-	if (commas && !text.empty()) {
-		bool digits = true;
-		for (unsigned i = 0; i < text.size(); i++) {
-			if (!isdigit((unsigned char)text[i])) digits = false;
-		}
-		if (digits) {
-			for (int at = (int)text.size() - 3; at > 0; at -= 3) {
-				text.insert(at, 1, ',');
-			}
-		}
-	}
-	return text;
-}
-
-// 0x8B44E0: the int64 in decimal (the client's behaviour)
-char *Unknown_8B44E0(__int64 value, char *buffer)
-{
-	return _i64toa(value, buffer, 10);
-}
-
-// 0x8B44C0: the int64 from decimal text (the client's behaviour; strconv_lib.cpp's 0x4A3AB0 calls it)
-__int64 Unknown_8B44C0(const char *text)
-{
-	return _atoi64(text);
-}
-
-// 0x4A1590: a bounded strcpy (at most size - 1 characters, always ended): the client's behaviour
-char *Unknown_4A1590(char *buffer, int size, const char *string)
-{
-	if (size == 0) {
-		return buffer;
-	}
-	strncpy(buffer, string, size - 1);
-	buffer[size - 1] = 0;
-	return buffer;
-}
-
-// 0x4FC2F0: string split at separator into list (lego_identifier.cpp's Set_Name), the client's
-// behaviour as far as the lego identifiers need it
-void Unknown_4FC2F0(std::vector<std::string> &list, const std::string &string, const std::string &separator)
-{
-	list.clear();
-	if (string.size() == 0) {
-		return;
-	}
-	std::string::size_type pos = 0;
-	for (;;) {
-		std::string::size_type at = string.find(separator, pos);
-		if (at == std::string::npos || separator.size() == 0) {
-			list.push_back(string.substr(pos));
-			return;
-		}
-		list.push_back(string.substr(pos, at - pos));
-		pos = at + separator.size();
-	}
-}
 
 // ------------------------------------------------------------------------- STARBASE_SET's Print (pkstarbasetow.cpp)
 
@@ -229,18 +152,4 @@ std::string Unknown_7EB4D0(int type)
 {
 	STUB_CALLED("Unknown_7EB4D0 (0x7EB4D0): no item type name");
 	return std::string();
-}
-
-// ------------------------------------------------------------------------- item_info.cpp's effect descriptions
-
-#include "item_effect_description.h"
-
-// 0x83DB00 / 0x83DD40: ItemEffectDescriptionClass's constructor and Clear_Effects (item_effect_description.cpp, not
-// rebuilt), the client's behaviour: the real ItemBaseInfoClass (item_info.cpp) holds two and destroys their vectors
-ItemEffectDescriptionClass::ItemEffectDescriptionClass() : Duration(0), Unknown18(0), Unknown1C(0), Unknown20(0)
-{
-}
-void ItemEffectDescriptionClass::Clear_Effects()
-{
-	Effects.erase(Effects.begin(), Effects.end());
 }

@@ -67,13 +67,13 @@ public:
 
 
 #include "..\..\ww3d2\render2d.h"
-// what SClient's +0x128C (bridge_int.cpp's bridge, sclient.cpp's local class) holds, as far as 0x50D520 reads it
-class BridgeInterfaceClass	// NAME 3: class-from-file (D24) for bridge_int.cpp
-{
-public:
-	char Unknown00[0x14]; int Unknown14; char Unknown18[0x28 - 0x18];	// +0x14 (0x50D520: the bridge is drawn when it is set)
-	Matrix3D Unknown28;								// +0x28 (0x50D520: the camera's transform for the bridge scene)
-};
+#include "bridge_int.h"	// BridgeInterface (SClient +0x128C)
+
+
+
+
+
+
 // what the base view's +0x1C points to (interface_scene.h's InterfaceSceneClass: 0x50D520 calls its Render_With_PIP_Scenes 0x6DA760 with the base's +0x20 camera)
 #include "uiview.h"
 static const float BridgeNear = 1.0f, BridgeFar = 150.0f;	// NAME 1: neutral (D10): the bridge scene's clip planes (0xAECF48 / 0xAECF44)
@@ -550,15 +550,15 @@ void MainViewClass::Unknown_50D430(float znear, float zfar)
 void MainViewClass::Unknown_50D520()
 {
 	SClient *sclient = (SClient *)Client->Unknown_18();
-	BridgeInterfaceClass *bridge = sclient->BridgeInterface;
-	if (bridge && bridge->Unknown14) {
+	BridgeInterface *bridge = sclient->Bridge;
+	if (bridge && bridge->Scene.Peek()) {
 		CameraClass *camera = Camera;
 		float old_near, old_far; camera->Get_Clip_Planes(old_near, old_far);
 		float zmin, zmax; camera->Get_Depth_Range(&zmin, &zmax);
 		Matrix3D tm = camera->Get_Transform();
 		camera->Set_Depth_Range(0.0f, 0.95f);
 		camera->Set_Clip_Planes(BridgeNear, BridgeFar);
-		camera->Set_Transform(bridge->Unknown28);
+		camera->Set_Transform(bridge->CameraTransform);
 		for (int i = 0; i < 4; i++) {
 			LightClass *light = Unknown154[i].Peek();
 			*light = *Unknown144[i].Peek();

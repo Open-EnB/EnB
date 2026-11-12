@@ -56,6 +56,7 @@ struct FloatOptionStruct  // NAME 2: what it holds (0x18 bytes)
 {
 	FloatOptionStruct(const char *name, float value) : Name(name), Value(value), Default(value) {}	// 0x7F8090
 	const char *Get_Name() { return(Name.c_str()); }		// 0x7F8180  // NAME 2: what it does
+	float Get_Value() { return(Value); }		// inline: ui_option_slider.cpp copies it through the FPU (fld / fstp)  // NAME 2: what it does
 	void Set_Value(float value) { Value = value; }		// inlined into Load  // NAME 2: what it does
 
 	std::string Name;										// +0x00  // NAME 2: the ini's OptionName

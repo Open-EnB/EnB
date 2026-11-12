@@ -4,9 +4,14 @@
  "description": "Unknown_8B4510 and Unknown_8B4560 (client 0x8B4510-0x8B4596): the 64-bit byte swap functions; file PROVISIONAL (D137)",
  "expected": {},
  "in_tree": [
+  "0x8B44C0",
+  "0x8B44E0",
   "0x8B4510",
   "0x8B4560"
  ],
  "merged": [],
- "name": "shared/unknown_8b4560.cpp"
+ "name": "shared/unknown_8b4560.cpp",
+ "short_known": [
+  "0x8B44C0"
+ ]
 }

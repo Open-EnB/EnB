@@ -42,7 +42,7 @@ void UIRadioEntryClass::Unknown_54()
 {
 	if (Unknown_98("cht04", "cht04.ini")) {
 		for (int i = 0; i < 5; i++) {
-			Buttons[i] = Unknown_56D510(i + 1, Unknown_B853D0[i], NULL);
+			Buttons[i] = Add_Button(i + 1, Unknown_B853D0[i], NULL);
 		}
 		PasswordGadget = new TextGadgetClass(this, 8, "TEXTFIELD00_Cht04", Interface_Mesh(), Unknown_B08CC4, 0);
 		PasswordGadget->Set_Text("", 0);
@@ -58,7 +58,7 @@ void UIRadioEntryClass::Unknown_54()
 			((RObjGadgetClass *)Buttons[2])->Unknown_8C(true);
 			Buttons[2]->Unknown_40(false);
 		}
-		Unknown_56D970(0, Vector3(0.0f, 0.0f, 0.0f));
+		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
 		Unknown_5E6BA0();
 	}
 }
@@ -135,7 +135,7 @@ bool UIRadioEntryClass::Unknown_68(int key)
 				ConfirmGadget->Unknown_74(false);
 			}
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
@@ -188,20 +188,20 @@ void UIRadioEntryClass::Unknown_5E6A20(int key)
 		case 1:
 			if (key == 4) {
 				Unknown_5C();
-				Unknown98 = 1;
+				Closed = 1;
 				if (chat) {
 					chat->Unknown_565F60(3);
 				}
 			} else if (key == 5) {
 				Unknown_5C();
-				Unknown98 = 1;
+				Closed = 1;
 				Unknown_5E6EC0();
 			}
 			break;
 		case 2:
 			if (key == 4) {
 				Unknown_5C();
-				Unknown98 = 1;
+				Closed = 1;
 				if (chat) {
 					chat->Unknown_565F60(8);
 				}
@@ -308,7 +308,7 @@ void UIRadioEntryClass::Unknown_5E70A0()
 		packet.Unknown24 = chat->Unknown_5682C0();
 		((ClientClass *)Client)->Send_Packet(&packet);
 		Unknown_5C();
-		Unknown98 = 1;
+		Closed = 1;
 		return;
 	}
 	RefCountPtr<FontSys> title = Create_Peek(Unknown_BE67C4->Get_Style("TITLE01_Cht04", Interface_Mesh()));	// NAME 1: neutral (D10)

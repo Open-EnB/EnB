@@ -41,13 +41,6 @@ Matrix3D UnknownB02C90Class::Unknown_725AD0()
 	return(Unknown1C);
 }
 
-// ---------------------------------------------------------------- 0x80F220 (shiputils.cpp): the model's colours: left as loaded
-struct ColorizationRegionStruct;
-void Unknown_80F220(RenderObjClass *model, std::vector<ColorizationRegionStruct> &regions)
-{
-	STUB_CALLED("POC Unknown_80F220 (0x80F220, the ship's colours): nothing");
-}
-
 // ---------------------------------------------------------------- the client's view of keys no gadget took: nothing
 void SClient::Unknown_744240(KernelEventClass event)
 {

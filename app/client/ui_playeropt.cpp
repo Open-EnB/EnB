@@ -66,24 +66,24 @@ void UIPlayerOptClass::Unknown_54()
 	if (Unknown_98("tsi27a", "fa_tsi27a.ini")) {
 		int i;
 		for (i = 0; i < 4; i++) {
-			Unknown0CC[i] = Unknown_56D510(i + 1, Unknown_B84594[i], NULL);
+			Unknown0CC[i] = Add_Button(i + 1, Unknown_B84594[i], NULL);
 			GadgetClass::Set_Tooltip(Unknown0CC[i], "UI_PLAYEROPT", Unknown_B84594[i]);
 		}
 		char name[0x20];
 		for (i = 0; i < 7; i++) {
 			_snprintf(name, sizeof(name), "name%02d", i);
-			Unknown0DC[i] = Unknown_56D510(i + 6, name, NULL);
+			Unknown0DC[i] = Add_Button(i + 6, name, NULL);
 			Unknown0DC[i]->Unknown2C_0A = true;
 			_snprintf(name, sizeof(name), "name%02d_tsi27a", i);
-			Unknown0F8[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Peek_Unknown84()));
+			Unknown0F8[i] = Create_Peek(Unknown_BE67C4->Get_Style(name, Interface_Mesh()));
 		}
-		Slider = Unknown_56D8D0(0xE, 0);
-		Slider->Unknown_66E460(*(const RefCountPtr<RenderObjClass> *)&Unknown84, 0, 0);
+		Slider = Add_Slider(0xE, 0);
+		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
 		Unknown0AC = Create_Get(new UIPTradeCreditsClass(Client->As_Space_Client(), 1, 0x14));
 		Unknown0AC->Unknown_54();
 		Unknown0AC->Unknown0CD = true;
 		Unknown0AC->Unknown_64A270("Ignore Player");
-		Unknown_56D970(1, Vector3(0.0f, 0.0f, 0.0f));
+		Add_Back_Gadget(1, Vector3(0.0f, 0.0f, 0.0f));
 	}
 }
 
@@ -132,7 +132,7 @@ bool UIPlayerOptClass::Unknown_68(int key)
 		case 1:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 			Unknown_5C();
-			Unknown98 = 1;
+			Closed = 1;
 			return(true);
 		case 2:
 			SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -499,5 +499,5 @@ ClientObjectClass *UIPlayerOptClass::Unknown_5DAD50()
 **	0x5D9BB0 / 0x5D9C70 (an extra inline level: the destructor's inlined slot +0x5C then calls the erases out of
 **	line); 0x5DA2B0 written with an early return, which the client never inlines; 0x5D9410 sending through
 **	0x5DA570 and 0x5DAB50 asking 0x5DAD50 (inlined helpers take the budget the client spent there); the model
-**	through Peek_Unknown84() (0x5D9100) and the entry through Peek() / Is_Active() (0x5DA0D0).
+**	through Interface_Mesh() (0x5D9100) and the entry through Peek() / Is_Active() (0x5DA0D0).
 */

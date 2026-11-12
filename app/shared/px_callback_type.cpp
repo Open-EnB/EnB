@@ -3,7 +3,7 @@
 #include "..\shared\g_assert.h"
 #include <string.h>
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
+#include "unknown_4a1590.h"
 
 static const char * const _EventStrings[] = {	// the client's name, the FAIL_IF l.102 (0xB70A80)
 	"Enter",
@@ -47,13 +47,13 @@ char *PxCallbackType_To_String(char *buf, int size, PxCallbackType type)
 	FAIL_IF(!buf) return(NULL);
 	switch (type) {
 		case PX_CALLBACK_ACCURATE:
-			Unknown_4A1590(buf, size, "Accurate"); break;
+			Bounded_Strcpy(buf, size, "Accurate"); break;
 		case PX_CALLBACK_LIBERAL:
-			Unknown_4A1590(buf, size, "Liberal"); break;
+			Bounded_Strcpy(buf, size, "Liberal"); break;
 		case PX_CALLBACK_CONSERVATIVE:
-			Unknown_4A1590(buf, size, "Conservative"); break;
+			Bounded_Strcpy(buf, size, "Conservative"); break;
 		case PX_CALLBACK_POLLING:
-			Unknown_4A1590(buf, size, "Polling"); break;
+			Bounded_Strcpy(buf, size, "Polling"); break;
 		default:
 			return(NULL);
 	}
@@ -101,7 +101,7 @@ char *PxCallbackEvent_To_String(char *buf, int size, int index)
 	FAIL_IF(index < 0) return(NULL);
 	FAIL_IF(index >= sizeof(_EventStrings) / sizeof(_EventStrings[0])) return(NULL);
 	FAIL_IF(!buf) return(NULL);
-	Unknown_4A1590(buf, size, _EventStrings[index]); return(buf);
+	Bounded_Strcpy(buf, size, _EventStrings[index]); return(buf);
 }
 
 

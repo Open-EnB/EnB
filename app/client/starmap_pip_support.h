@@ -31,6 +31,7 @@ public:
 	virtual void Render(RenderInfoClass &rinfo);		// 0x466B20
 	virtual int Get_Sort_Level() const { return SortLevel; }	// 0x466BA0
 	virtual void Set_Sort_Level(int level) { SortLevel = level; }	// 0x466BC0
+	bool Unknown_In_Scene() { return(Scene != NULL); }	// (inline: nav_list_line_draw.cpp's 0x7B9CD0 reads +0x7C)  // NAME 1: what it returns
 
 	int SortLevel;										// +0x108 (0x466B20: the static sort list's level)  // NAME 2: Get_Sort_Level's
 };

@@ -1,0 +1,20 @@
+{
+ "ambiguous": [
+  "0x46BE90",
+  "0x474000"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\client\\nav_list_line_draw.cpp' (0xB9EF98, FAIL_IF '!Client' l.137 in 0x7B9DC0); the object starts at the constructor 0x7B97F0 after nav_list_builder.cpp's template instances",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x7B97F0",
+  "0x7B98E0",
+  "0x7B9CD0"
+ ],
+ "merged": [],
+ "name": "client/nav_list_line_draw.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

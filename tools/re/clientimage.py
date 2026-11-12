@@ -98,6 +98,11 @@ class ClientImage:
         any `E8` byte's rel32 target instead: 216 more starts, all false (an E8 inside another
         instruction, often landing mid-instruction, 0x95A482 is one); kept only for auditing the
         difference (and pseudocode.py's cleanup of functions earlier runs made at those).
+
+        A padding boundary whose first byte is itself int3 is not a start (2026-11-11): inside a
+        long int3 run (the linker's fill, `fill_runs()`) the 1-15 byte rule fired every 240 bytes,
+        1,734 false starts in 0xA420AC-0xAA1C00 and 0xAE2830-end. No call targets change (int3
+        decodes one byte at a time, so the sweep resynchronises at the same seeds).
         """
         start, end, raw = self.section('.text')
         thunks = self.incremental_thunks()
@@ -107,6 +112,8 @@ class ClientImage:
         lib_off = lib_start - start
         for m in re.finditer(rb'(?:\xCC|\x90){1,15}', body[lib_off:]):
             va = lib_start + m.end()
+            if va < end and body[va - start] == 0xCC:
+                continue
             if va % 16 == 0 and body[lib_off + m.end() - 1] in (0xCC, 0x90) and m.end() - m.start() >= 1:
                 prev = body[lib_off + m.start() - 1]
                 if prev in (0xC3, 0xC2, 0xCC, 0xE9) or body[lib_off + m.start() - 3] == 0xC2:
@@ -142,6 +149,49 @@ class ClientImage:
                 if va < e:
                     va += 1
         return calls
+
+    def fill_runs(self, min_len=4096):
+        """[(lo, hi)]: the int3 runs of .text at least `min_len` bytes long (the linker's fill; in
+        client.exe 0x419650, 0x7F6A30, 0xA420AC-0xAA1C00 and 0xAE2830-0xAE68DD). Not code."""
+        start, end, raw = self.section('.text')
+        body = self.data[raw:raw + (end - start)]
+        return [(start + m.start(), start + m.end()) for m in re.finditer(rb'\xCC{%d,}' % min_len, body)]
+
+    def eh_stub_area(self):
+        """The compiler-generated /GX stubs the linker gathers after the library code: unwind
+        funclets and frame-handler thunks (`mov eax, offset FuncInfo; jmp ___CxxFrameHandler`,
+        FuncInfo's magic 0x19930520). Returns (lo, hi, {thunk VA: owner site VA or None}): the area
+        runs from the end of the fill before the first thunk to the start of the fill after the last
+        (client.exe 0xAA1C00-0xAE2830, 4,416 thunks). A thunk's owner site is where a function
+        installs it (`push offset thunk`, or `mov eax, offset thunk` before `call __EH_prolog`), the
+        lowest such site below the area; the function containing that site owns the thunk's frame.
+        Its starts stay in function_starts() (they bound the funclets); reports count them apart."""
+        if getattr(self, '_eh', None) is not None:
+            return self._eh
+        start, end, raw = self.section('.text')
+        body = self.data[raw:raw + (end - start)]
+        data = self.data
+        stubs = []
+        for m in re.finditer(rb'\xB8(....)\xE9', body, re.S):
+            fi = struct.unpack_from('<I', body, m.start() + 1)[0]
+            off = self.offset(fi)
+            if off is None or off + 4 > len(data) or struct.unpack_from('<I', data, off)[0] != 0x19930520:
+                continue
+            stubs.append(start + m.start())
+        if not stubs:
+            self._eh = (end, end, {})
+            return self._eh
+        fills = self.fill_runs()
+        lo = max([h for _, h in fills if h <= stubs[0]] or [stubs[0]])
+        hi = min([l for l, _ in fills if l > stubs[-1]] or [end])
+        want = set(stubs)
+        owner = dict.fromkeys(stubs)
+        for m in re.finditer(rb'(?=[\x68\xB8](....))', body[:lo - start], re.S):
+            v = struct.unpack_from('<I', body, m.start() + 1)[0]
+            if v in want and owner[v] is None:
+                owner[v] = start + m.start()
+        self._eh = (lo, hi, owner)
+        return self._eh
 
     def dword_refs(self, targets):
         """Every place in .text whose 4 bytes equal one of `targets`: {target: [VA, ...]}."""

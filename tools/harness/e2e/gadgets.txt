@@ -1,0 +1,10 @@
+# Gadget names for e2e scenarios' `click gadget NAME`: NAME X Y in client pixels at 1280x1024 (the POC's window).
+# The POC does not log gadgets' names or rectangles yet: each position here comes from a replay that hit it, named
+# in the comment (the tooltip the client drew over it, where a shot showed one).
+login.username     300 249   # .work/WE1/input.txt, the login screen's account field
+login.password     300 317   # the same, the password field
+login.ok           1060 950  # the same, the login button
+select.slot0       250 70    # the same, character select's first slot (Karen in the replay)
+select.enter       1060 950  # the same, "Enter" on character select
+hud.navmap         140 946   # progress.md 2026-11-11 (P2, "the starmap button"); e2e starmap shot: tooltip 'Open Navigation Map'
+hud.options        176 933   # progress.md 2026-11-11 (P2): the options button (the chat panel's request 1)

@@ -1559,7 +1559,7 @@ void DX8_Assert()
 
 void DX8Wrapper::Begin_Scene(void)
 {
-	DX8_THREAD_ASSERT();
+	DX8_THREAD_ASSERT(); DX8WebBrowser::Update();
 	DX8CALL(BeginScene());
 }
 
@@ -4068,6 +4068,9 @@ const char* DX8Wrapper::Get_DX8_Blend_Op_Name(unsigned value)
 // EnB: DX8Wrapper::End_Statistics (line 1539 at the freeze): Zero Hour's End_Statistics, which counts draw calls too
 //       (byte-exact; Renegade's isn't)
 // EnB: DX8Wrapper::Get_Last_Frame_DX8_Calls (line 1550 at the freeze): (its accessor, Zero Hour)
+// EnB: DX8Wrapper::Begin_Scene (line 1562, 2026-11-11): Begin_Scene 0x924870 calls DX8WebBrowser::Update
+//       (0x920560) before BeginScene, once (Generals calls it after, Zero Hour before and after); on the
+//       assert's line so the lines below keep their numbers
 // EnB: DX8Wrapper::End_Scene (line 1571 at the freeze): D9/E&B: End_Scene 0x924890: Zero Hour's
 //       DX8WebBrowser::Render(0) and Get_Max_Textures_Per_Pass loop, no ATI back-buffer lock; on a failed Present it
 //       sets IsDeviceLost and inlines Unknown_Restore_Device (Reset_Device two levels deep: Set_Index_Buffer and

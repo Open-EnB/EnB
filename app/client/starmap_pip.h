@@ -23,6 +23,7 @@
 #include "vector2.h"
 #include "vector3.h"
 #include "map_pip.h"
+#include "nav_list_line_draw.h"
 
 class SClient;
 class SceneClass;
@@ -44,19 +45,6 @@ public:
 	StarmapPipClass *StarmapPIP;						// +0x4C  // NAME 3: the assert's
 };
 
-// The 0x40-byte object the constructor makes twice (a navigation list and its line colour; 0x7B97F0 news the
-// list). Not in the tree yet. PLACEMENT: provisional (D137): its file is likely nav_list_line_draw.cpp (triage, low)
-class Unknown_7B97F0Class  // NAME 1: neutral (D10): its file is not known
-{
-public:
-	Unknown_7B97F0Class(SClient *client, float arg1, int arg2, const Vector3 &color, float arg3);	// 0x7B97F0  // NAME 1 [client, arg1, arg2, color, arg3]: what the constructor passes
-	~Unknown_7B97F0Class();								// 0x7B98E0
-	void Unknown_7B9CD0();								// 0x7B9CD0 (0x7C2D30)
-	char Unknown_Pad00[0x08];
-	NavigationListClass *List;							// +0x08 (0x7B97F0 news it; 0x7C0EE0)  // NAME 2: what it holds
-	char Unknown_Pad0C[0x40 - 0x0C];
-};
-
 // A label on the star map: an object's name in a font, in the PIP's scene. 0x1C bytes, no table.
 class Unknown_7C3220Class  // NAME 1: neutral (D10)
 {
@@ -64,6 +52,7 @@ public:
 	Unknown_7C3220Class(const RefCountPtr<SceneClass> &scene, bool arg, int type);	// 0x7C3220 (type 0..4: RADAR_GROUP, _PLAYER, _OBJECT, _JUMPSTART, _NAME)  // NAME 1 [scene, arg, type]: what it does with them
 	~Unknown_7C3220Class();								// 0x7C3720
 	void Unknown_7C3A90(int left, int top, int right, int bottom);	// 0x7C3A90 (Text's 0x6D88F0 rectangle; 0x7C1770)  // NAME 1 [left, top, right, bottom]: FontSys 0x6D88F0's
+	void Set_Name(std::string name);					// 0x7C25B0 (0x7C2340)  // NAME 2: what it does
 	void Unknown_7C3830(ClientObjectClass *co);			// 0x7C3830 (NULL: the label off)  // NAME 2 [co]: the client's usual name
 
 	unsigned ObjectID;									// +0x00 (the object's +0x90)  // NAME 2: what it holds
@@ -87,10 +76,12 @@ public:
 	virtual void Unknown_20(int arg);					// +0x20 0x7C0260  // NAME 1 [arg]: neutral
 	virtual void Unknown_24(int arg);					// +0x24 0x7C0330 (the next label mode, and says so)  // NAME 1 [arg]: neutral
 
-	void Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass *mouse_target);	// 0x7C0440 (G_ASSERT 'MouseTarget'; radar_system.cpp)  // NAME 2 [hover, mouse_target]: its G_ASSERT
+	void Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass *mouse_target);	// 0x7C0440 (FAIL_IF 'MouseTarget'; radar_system.cpp)  // NAME 2 [hover, mouse_target]: its G_ASSERT
 	void Unknown_7C0620(RadarSystemDataCacheClass *entry);	// 0x7C0620 (FAIL_IF '!sdata', '!co'; radar_system.cpp)  // NAME 2 [entry]: as the gutter's Update
 	void Unknown_7C0910(ClientObjectClass *target, NavListBuilderClass *warp_path, NavListBuilderClass *target_path);	// 0x7C0910 (radar_system.cpp)  // NAME 2 [target, warp_path, target_path]: what it receives
+	Vector2 Unknown_7C1200(const Vector2 &mouse);			// 0x7C1200 (the pointer's place in the viewport, 0..1, on the map; gd_starmap.cpp, 0x7C1C50)  // NAME 1 [mouse]: GadgetPipSceneClass's Position
 	void Unknown_7C1280(const Vector3 &position, float radius);	// 0x7C1280 (0x7C0620, 0x7C1350: the bounds grow; 0x7C1350 passes ClientObjectClass slot +0x24's Vector3)  // NAME 1 [position, radius]: what it does with them
+	void Unknown_7C1C50(ClientObjectClass *target, ClientObjectClass *hover);	// 0x7C1C50 (0x7C0910)  // NAME 1 [target, hover]: what 0x7C0910 passes
 	void Unknown_7C1A90(float mult);					// 0x7C1A90  // NAME 1 [mult]: what it sets
 	void Unknown_7C1B70(float value);					// 0x7C1B70  // NAME 1 [value]: neutral
 	void Unknown_7C1C30();								// 0x7C1C30 (no caller)
@@ -107,6 +98,7 @@ public:
 	void Unknown_7C1510(bool arg);						// 0x7C1510 (FAIL_IF 'MapRange_ws.X < WWMATH_EPSILON')  // NAME 1 [arg]: neutral
 	void Unknown_7C1770(float x, float y);				// 0x7C1770 (FAIL_IF '!camera', 'ScaleMult < WWMATH_EPSILON')  // NAME 1 [x, y]: what 0x7C0260 passes (+0x68 over CurMult)
 	void Unknown_7C2060(int mode);						// 0x7C2060 (the coordinates' fonts in or out of the interface's scene)  // NAME 1 [mode]: what it stores
+	void Unknown_7C2340(unsigned id, std::string name, int type);	// 0x7C2340 (a label for the object id; 0x7C2850)  // NAME 1 [id, name, type]: what it does with them
 	void Unknown_7C2850(bool force);					// 0x7C2850 (the labels)  // NAME 1 [force]: neutral
 	void Unknown_7C2D30();								// 0x7C2D30 (0x7C8E50)
 
@@ -120,12 +112,12 @@ public:
 	Vector3 Unknown68;									// +0x68 (X, Y over CurMult: 0x7C1770's scale; Z: 0x7C0C80, the viewport's larger side; 0x7C1770 copies it whole)
 	Vector2 Unknown74;									// +0x74 (0x7C0D70: FLT_MAX, FLT_MAX)
 	Vector2 Unknown7C;									// +0x7C (0x7C0D70: -FLT_MAX, -FLT_MAX)
-	Vector2 Unknown84;									// +0x84 (0x7C1280: +0x7C less +0x74)
-	Unknown_7B97F0Class *TargetPath;					// +0x8C (0.75, 1, green)  // NAME 3: 0x7C0EE0's FAIL_IF
-	Unknown_7B97F0Class *WarpPath;						// +0x90 (0.75, 2, red)  // NAME 3: 0x7C0EE0's FAIL_IF
+	Vector2 MapRange_ws;									// +0x84 (0x7C1280: +0x7C less +0x74)  // NAME 3: 0x7C1510's FAIL_IF 'MapRange_ws.X < WWMATH_EPSILON'
+	NavListLineDrawClass *TargetPath;					// +0x8C (0.75, 1, green)  // NAME 3: 0x7C0EE0's FAIL_IF
+	NavListLineDrawClass *WarpPath;						// +0x90 (0.75, 2, red)  // NAME 3: 0x7C0EE0's FAIL_IF
 	int Unknown94;										// +0x94 (-1)
 	int Unknown98;										// +0x98 (-1)
-	int Unknown9C;										// +0x9C
+	MouseTargetClass *MouseTarget;						// +0x9C (0x7C0440 sets it, 0x7C0620 tests against it, 0x7C0910 clears it)  // NAME 3: 0x7C0440's FAIL_IF 'MouseTarget'
 	Unknown_7C3220Class *UnknownA0;						// +0xA0 (type 4, the scene's)
 	Unknown_7C3220Class *UnknownA4;						// +0xA4 (type 4, on)
 	RefCountPtr<FontSys> XPos;							// +0xA8 ('STARMAP_X_POS')  // NAME 2: the font's

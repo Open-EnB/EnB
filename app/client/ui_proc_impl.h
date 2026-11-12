@@ -47,8 +47,8 @@ struct UIProcEventStruct	// NAME 1: neutral (D10)
 class UIProc5DCD20Class : public UIProcClass	// NAME 1: neutral (D10)
 {
 public:
-	UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name, bool cycle, int delete_self, int reverse, int start_frame, int end_frame);	// 0x5DCD20  // NAME 3 [uimesh, anim_name]: the FAIL_IFs'; NAME 2 [cycle, delete_self, start_frame, end_frame]: the members'; NAME 1 [reverse]: neutral
-	UIProc5DCD20Class(UIMeshClass *uimesh, HAnimClass *morph_anim, bool cycle, int delete_self, int reverse, int start_frame, int end_frame);	// 0x5DCF00  // NAME 3 [uimesh, morph_anim]: the FAIL_IFs'; NAME 2 [cycle, delete_self, start_frame, end_frame]: the members'; NAME 1 [reverse]: neutral
+	UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame);	// 0x5DCD20  // NAME 3 [uimesh, anim_name]: the FAIL_IFs'; NAME 2 [cycle, delete_self, start_frame, end_frame]: the members'; NAME 1 [reverse]: neutral
+	UIProc5DCD20Class(UIMeshClass *uimesh, HAnimClass *morph_anim, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame);	// 0x5DCF00  // NAME 3 [uimesh, morph_anim]: the FAIL_IFs'; NAME 2 [cycle, delete_self, start_frame, end_frame]: the members'; NAME 1 [reverse]: neutral
 	virtual ~UIProc5DCD20Class();						// 0x5DD2E0 (deleting 0x5DCED0)
 	virtual bool Unknown_08(float time);				// +0x08 0x5DD3C0: the next frame; false when done  // NAME 1 [time]: neutral
 	virtual void Unknown_0C();							// +0x0C 0x5DD720: off the combo, ended

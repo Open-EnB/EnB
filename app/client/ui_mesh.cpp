@@ -32,14 +32,14 @@ UIMeshClass::UIMeshClass(const char *name, int count) : SubjectClass(2), Interfa
 
 
 
-// NOT EXACT: 0x5B8330 (0.78): the client calls GenericNode() / Link out of line for the running list (inline budget) and stores the hsv zeros inside the new
+// 0x5B8330 (the hsv zeros are a Vector3 temporary inside the new expression: the client stores them after the allocation's null test)
 UIMeshClass::UIMeshClass(const char *name, ClientClass *client) : SubjectClass(2), Unknown6C(1), Unknown70(0)
 {
 	G_ASSERT(client);
-	RenderStateListClass *list = client->Unknown18->Unknown_764060(name);
+	RenderStateListClass *list = client->RSLRegistry->Unknown_764060(name);
 	G_ASSERT(list);
-	float hsv[3] = { 0.0f, 0.0f, 0.0f };
-	RsTrackClass *track = new RsTrackClass(list, 1.0f, hsv);
+	RsTrackClass *track = new RsTrackClass(list, 1.0f, (float *)&Vector3(0.0f, 0.0f, 0.0f));
+
 	track->Unknown_4604D0(0);
 	InterfaceMesh = track;
 
@@ -184,7 +184,7 @@ void UIMeshClass::Unknown_5B8D50(RenderObjClass *robj)
 	info->Release_Ref();
 }
 
-void UIMeshClass::Unknown_5B8DF0(int id, const char *anim_name, bool loop, int a, int b, int c, int d)
+void UIMeshClass::Unknown_5B8DF0(int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
 {
 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
 	proc->Id = id;
@@ -192,7 +192,7 @@ void UIMeshClass::Unknown_5B8DF0(int id, const char *anim_name, bool loop, int a
 }
 
 // NOT EXACT: 0x5B8EE0 (0.50): register choice (slot in edx, the node through lea ecx)
-void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, int a, int b, int c, int d)
+void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool loop, bool a, bool b, int c, int d)
 {
 	UIProcClass *proc = new UIProc5DCD20Class(this, anim_name, loop, a, b, c, d);
 	proc->Slot = slot;
@@ -201,7 +201,7 @@ void UIMeshClass::Unknown_5B8EE0(int slot, int id, const char *anim_name, bool l
 }
 
 // NOT EXACT: 0x5B8FF0 (0.50): as 0x5B8EE0
-void UIMeshClass::Unknown_5B8FF0(int slot, int id, const char *morph_anim, bool loop, int a, int b, int c, int d)
+void UIMeshClass::Unknown_5B8FF0(int slot, int id, const char *morph_anim, bool loop, bool a, bool b, int c, int d)
 {
 	UIProcClass *proc = new UIProc5DCD20Class(this, (HAnimClass *)morph_anim, loop, a, b, c, d);
 	proc->Slot = slot;

@@ -145,6 +145,7 @@ public:
 	// Defined in the root's object 0x4A3B40-0x4A4780 (unknown_root.cpp, UnknownRootClass's, derived
 	// from this one); which class the client declared it in isn't known
 	bool Decode(LinearBufferClass &buf, const DurationClass &base);  // NAME 2: describes what it does
+	unsigned int Get_Size() const { return Children.size(); }	// the client's FAIL_IF texts 0xB784AC, 0xB95290 (on item arrays)
 
 	std::vector<DeltaClass *> Children;		// +0x84  // NAME 2 [Children]: describes what it does
 	LookupClass *Lookup;							// +0x94 (assert name), made on first use

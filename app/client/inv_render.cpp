@@ -280,7 +280,7 @@ const char *InvRenderClass::Unknown_28(std::string *string)
 		}
 		MoneyClass price = data->Get_Price(slot);
 		if (operator!=(price, MoneyClass(-1)) && operator!=(price, MoneyClass(0))) {
-			_snprintf(buffer, sizeof(buffer), "Price %s\n", price.Unknown_4F00C0(true).c_str());
+			_snprintf(buffer, sizeof(buffer), "Price %s\n", price.Amount_As_Text(true).c_str());
 			*string += buffer;
 		}
 		if (item->Get_Type() == 13) {

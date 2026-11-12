@@ -609,7 +609,7 @@ GuildDeletePlayerPacketClass::GuildDeletePlayerPacketClass(__int64 player_id, in
 	Slot(slot),
 	AccountID(account_id)
 {
-	Unknown_4A1590(AccountName, sizeof(AccountName), account_name);
+	Bounded_Strcpy(AccountName, sizeof(AccountName), account_name);
 }
 
 GuildDeletePlayerPacketClass::GuildDeletePlayerPacketClass(RawPacketClass *raw)
@@ -649,7 +649,7 @@ GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(__int64 pla
 	Unknown68(0),
 	Unknown6C(0)
 {
-	Unknown_4A1590(AccountName, sizeof(AccountName), account_name);
+	Bounded_Strcpy(AccountName, sizeof(AccountName), account_name);
 }
 
 GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(RawPacketClass *raw) :
@@ -724,7 +724,7 @@ int GuildDeductFeePacketClass::Get_Data_Size()
 int GuildDeductFeePacketClass::Print(char *buffer, int len)
 {
 	char player_id[32];
-	return(_snprintf(buffer, len, "GuildDeductFeePacket { PlayerID=%s NumCredits=%s Description=%s }", Unknown_8B44E0(PlayerID, player_id), NumCredits.Unknown_4F00C0(false).c_str(), Description.c_str()));
+	return(_snprintf(buffer, len, "GuildDeductFeePacket { PlayerID=%s NumCredits=%s Description=%s }", Unknown_8B44E0(PlayerID, player_id), NumCredits.Amount_As_Text(false).c_str(), Description.c_str()));
 }
 
 

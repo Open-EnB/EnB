@@ -10,6 +10,8 @@
 //   SetCursorPos         moves the virtual cursor only                    (w32mouse.cpp Update / Set_Position)
 //   GetForegroundWindow  the window the messages go to                    (input.cpp 0x42EE90: input only when foreground)
 //   GetKeyState / GetAsyncKeyState  the virtual key state                 (w32kbd.cpp, w32mouse.cpp)
+// Each mouse button and key-down message is logged to stubs.log as 'replayed' (it carries the harness's tag, POC_TAG
+// below) or 'untagged'; with ENB_POC_INPUT_TAG=1 (tools/harness/e2e.py) untagged input is dropped ('NOT REPLAYED').
 // Without ENB_POC_INPUT nothing is changed.
 #include <windows.h>
 #include <stdio.h>
@@ -39,12 +41,44 @@ static void Poc_Input_Log(const char *text)
 	}
 }
 
+// The harness's tag (tools/harness/clientpoc.py post_step(tag=True), e2e.py): POC_TAG in the high word of a mouse or
+// key message's wParam (MK_ flags and virtual keys fit the low word). It is stripped here before the client sees the
+// message. With ENB_POC_INPUT_TAG=1 an untagged mouse or key message (a human's click or keystroke in the test window,
+// or the real cursor crossing it) is logged as such and dropped, so only replayed input reaches the client.
+#define POC_TAG 0x5043
+static int Poc_Tag_Only = -1;
+
 static BOOL WINAPI Poc_GetMessageA(LPMSG msg, HWND window, UINT first, UINT last)
 {
 	BOOL result = Poc_Real_GetMessageA(msg, window, first, last);
 	if (result > 0 && msg->hwnd != NULL) {
 		if (Poc_Window == NULL) {
 			Poc_Window = msg->hwnd;
+		}
+		if (Poc_Tag_Only < 0) {
+			char value[8];
+			Poc_Tag_Only = GetEnvironmentVariableA("ENB_POC_INPUT_TAG", value, sizeof(value)) && value[0] == '1';
+		}
+		bool input = (msg->message >= WM_MOUSEFIRST && msg->message <= WM_MBUTTONDBLCLK)
+			|| msg->message == WM_KEYDOWN || msg->message == WM_KEYUP || msg->message == WM_SYSKEYDOWN || msg->message == WM_SYSKEYUP;
+		const char *who = "untagged";
+		if (input && HIWORD(msg->wParam) == POC_TAG) {
+			msg->wParam &= 0xFFFF;
+			who = "replayed";
+		} else if (input && Poc_Tag_Only) {
+			if (msg->message != WM_MOUSEMOVE) {
+				char text[128];
+				sprintf(text, "POC input: NOT REPLAYED (dropped) 0x%X wparam 0x%X lparam 0x%X\n", msg->message,
+					(unsigned)msg->wParam, (unsigned)msg->lParam);
+				Poc_Input_Log(text);
+			}
+			msg->message = WM_NULL;
+			return result;
+		}
+		if (input && (msg->message == WM_KEYDOWN || msg->message == WM_SYSKEYDOWN)) {
+			char text[96];
+			sprintf(text, "POC input: %s key 0x%X\n", who, (unsigned)msg->wParam);
+			Poc_Input_Log(text);
 		}
 		if (msg->message >= WM_MOUSEFIRST && msg->message <= WM_MBUTTONDBLCLK) {
 			Poc_Cursor.x = (short)LOWORD(msg->lParam);
@@ -55,7 +89,7 @@ static BOOL WINAPI Poc_GetMessageA(LPMSG msg, HWND window, UINT first, UINT last
 			if (msg->message == WM_RBUTTONUP) Poc_Keys[VK_RBUTTON] &= ~0x80;
 			if (msg->message != WM_MOUSEMOVE) {
 				char text[96];
-				sprintf(text, "POC input: mouse 0x%X at %d, %d\n", msg->message, Poc_Cursor.x, Poc_Cursor.y);
+				sprintf(text, "POC input: %s mouse 0x%X at %d, %d\n", who, msg->message, Poc_Cursor.x, Poc_Cursor.y);
 				Poc_Input_Log(text);
 			}
 		} else if (msg->message == WM_KEYDOWN || msg->message == WM_SYSKEYDOWN) {
@@ -172,8 +206,11 @@ static struct PocInput
 				}
 			}
 		}
-		char text[64];
-		sprintf(text, "POC input: virtual input, %d user32 imports redirected\n", hooked);
+		char text[128];
+		value[0] = 0;
+		GetEnvironmentVariableA("ENB_POC_INPUT_TAG", value, sizeof(value));
+		sprintf(text, "POC input: virtual input, %d user32 imports redirected; tagged input read%s\n", hooked,
+			value[0] == '1' ? ", untagged dropped" : "");
 		Poc_Input_Log(text);
 	}
 } Poc_Input_Installed;

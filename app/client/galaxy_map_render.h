@@ -310,13 +310,6 @@ public:
 	bool Flipped;											// +0x19  // NAME 1: which end is the near one
 };
 
-// One entry of the renderer's update list: _Destroy calls its implicit destructor through ??_G (0x7B18A0)
-struct GalaxyMapRenderUpdateStruct  // NAME 1: what it is
-{
-	GalaxyMapRenderUpdateStruct(const RefCountPtr<GalaxyMapRenderItemClass> &item) : Item(item) {}
-	RefCountPtr<GalaxyMapRenderItemClass> Item;			// NAME 1: what it holds
-};
-
 // The renderer (GalaxyMapPipClass's, 0xC0 bytes)
 class GalaxyMapRenderClass  // NAME 3: class-from-file (D24) for app\Client\galaxy_map_render.cpp
 {
@@ -354,7 +347,7 @@ public:
 	std::hash_map<int, RefCountPtr<GalaxyMapRenderSystemClass> > Systems;	// +0x2C  // NAME 2: what it holds
 	std::hash_map<int, RefCountPtr<GalaxyMapRenderSectorClass> > Sectors;	// +0x44  // NAME 2: what it holds
 	std::hash_map<int, RefCountPtr<GalaxyMapRenderGateClass> > Gates;		// +0x5C  // NAME 2: what it holds
-	std::vector<GalaxyMapRenderUpdateStruct> Updates;			// +0x74  // NAME 2: 0x7A7070 calls Update on them
+	std::vector<RefCountPtr<GalaxyMapRenderItemClass> > Updates;			// +0x74  // NAME 2: 0x7A7070 calls Update on them
 	Vector3 Point;										// +0x84: the pointer on the map's plane
 	RefCountPtr<GalaxyMapRenderSystemClass> PickedSystem;	// +0x90  // NAME 2: 0x7A7560
 	RefCountPtr<GalaxyMapRenderSectorClass> PickedSector;	// +0x94  // NAME 2: 0x7A7560

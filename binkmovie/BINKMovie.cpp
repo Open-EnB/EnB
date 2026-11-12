@@ -32,7 +32,8 @@ class BINKMovieClass
 		HBINK Bink;
 		bool FrameChanged;
 		unsigned TextureCount;
-		unsigned long TicksPerFrame;
+		unsigned MaxWidth;	// NAME 2 [MaxWidth]: the textures' width (Renegade's local max_width)
+		unsigned MaxHeight;	// NAME 2 [MaxHeight]: the textures' height (Renegade's local max_height)
 
 		struct TextureInfoStruct {
 			TextureClass* Texture;
@@ -45,31 +46,38 @@ class BINKMovieClass
 		};
 
 		TextureInfoStruct* TextureInfos;
+		TextureInfoStruct* TextureInfos1;	// NAME 1 [TextureInfos1]: the first texture set
+		TextureInfoStruct* TextureInfos2;	// NAME 1 [TextureInfos2]: the second texture set
 		unsigned char* TempBuffer;
-		Render2DClass Renderer;
+		Render2DClass* Renderer;
 		SubTitleManagerClass* SubTitleManager;
 
+		void Create_Textures();	// NAME 2 [Create_Textures]: news TextureInfos and its textures
+		void Free_Textures();	// NAME 2 [Free_Textures]: releases TextureInfos' textures and deletes it
+
 	public:
-		BINKMovieClass(const char* filename,const char* subtitlename,FontCharsClass* font);
+		BINKMovieClass(const char* filename,const char* subtitlename);
 		~BINKMovieClass();
 
 		void Update();
 		void Render();
 		bool Is_Complete();
+		void Set_Volume(int volume);	// NAME 2 [Set_Volume]: BinkSetVolume
 };
 
 
 static BINKMovieClass* CurrentMovie;
 
 
-void BINKMovie::Play(const char* filename,const char* subtitlename, FontCharsClass* font)
+void BINKMovie::Play(const char* filename,const char* subtitlename, int volume)
 {
 	if (CurrentMovie) {
 		delete CurrentMovie;
 		CurrentMovie = NULL;
 	}
 
-	CurrentMovie = new BINKMovieClass(filename,subtitlename,font);
+	CurrentMovie = new BINKMovieClass(filename,subtitlename);
+	CurrentMovie->Set_Volume(volume);
 }
 
 
@@ -122,12 +130,11 @@ bool BINKMovie::Is_Complete()
 
 // ----------------------------------------------------------------------------
 
-BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename, FontCharsClass* font)
+BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename)
 	:
 	Filename(filename),
 	Bink(0),
 	FrameChanged(true),
-	TicksPerFrame(0),
 	SubTitleManager(NULL)
 {
 	Bink = BinkOpen(Filename, 0);
@@ -146,7 +153,7 @@ BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename, F
 	}
 
 	unsigned poweroftwoheight = 1;
-	
+
 	while (poweroftwoheight < Bink->Height) {
 		poweroftwoheight <<= 1;
 	}
@@ -154,51 +161,96 @@ BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename, F
 	if (poweroftwowidth > dx8caps.MaxTextureWidth) {
 		poweroftwowidth = dx8caps.MaxTextureWidth;
 	}
-	
+
 	if (poweroftwoheight > dx8caps.MaxTextureHeight) {
 		poweroftwoheight = dx8caps.MaxTextureHeight;
 	}
 
 	TextureCount = 0;
-	unsigned max_width = poweroftwowidth;
-	unsigned max_height = poweroftwoheight;
+	MaxWidth = poweroftwowidth;
+	MaxHeight = poweroftwoheight;
 	unsigned x, y;
 
-	for (y = 0; y < Bink->Height; y += max_height-2) {		// Two pixels are lost due to duplicated edges to prevent bilinear artifacts
-		for (x = 0; x < Bink->Width; x += max_width-2) {
+	for (y = 0; y < Bink->Height; y += poweroftwoheight-2) {		// Two pixels are lost due to duplicated edges to prevent bilinear artifacts
+		for (x = 0; x < Bink->Width; x += poweroftwowidth-2) {
 			++TextureCount;
 		}
 	}
 
+	Create_Textures();
+	TextureInfos1 = TextureInfos;
+	TextureInfos = NULL;
+	Create_Textures();
+	TextureInfos2 = TextureInfos;
+
+	Renderer = new Render2DClass;
+
+	if (subtitlename) {
+		SubTitleManager = SubTitleManagerClass::Create(subtitlename);
+		if (SubTitleManager) {
+			SubTitleManager->Reset();
+		}
+	}
+}
+
+
+BINKMovieClass::~BINKMovieClass()
+{
+	if (Bink) {
+		BinkClose(Bink);
+		Bink = NULL;
+
+		delete[] TempBuffer;
+		TempBuffer = NULL;
+
+		TextureInfos = TextureInfos1;
+		TextureInfos1 = NULL;
+		Free_Textures();
+
+		TextureInfos = TextureInfos2;
+		TextureInfos2 = NULL;
+		Free_Textures();
+
+		if (Renderer) {
+			delete Renderer;
+			Renderer = NULL;
+		}
+	}
+}
+
+
+void BINKMovieClass::Create_Textures()
+{
 	TextureInfos = new TextureInfoStruct[TextureCount];
 	unsigned cnt = 0;
-	
-	for (y = 0; y < Bink->Height; y += max_height-1) {
-		for (x = 0; x < Bink->Width; x += max_width-1) {
+	unsigned x, y;
+
+	for (y = 0; y < Bink->Height; y += MaxHeight-1) {
+		for (x = 0; x < Bink->Width; x += MaxWidth-1) {
 			TextureInfos[cnt].Texture = new TextureClass(
-				max_width, max_height, D3DFormat_To_WW3DFormat(D3DFMT_R5G6B5),
+				MaxWidth, MaxHeight, D3DFormat_To_WW3DFormat(D3DFMT_R5G6B5),
 				MIP_LEVELS_1, TextureClass::POOL_MANAGED, false);
 
 			TextureInfos[cnt].TextureLocX = x;
 			TextureInfos[cnt].TextureLocY = y;
-			TextureInfos[cnt].TextureWidth = max_width;
-			TextureInfos[cnt].UV.Right = float(max_width) / float(max_width);
+			TextureInfos[cnt].TextureWidth = MaxWidth;
+			TextureInfos[cnt].UV.Right = float(MaxWidth) / float(MaxWidth);
 
 			if ((TextureInfos[cnt].TextureWidth + x) > Bink->Width) {
 				TextureInfos[cnt].TextureWidth = Bink->Width - x;
-				TextureInfos[cnt].UV.Right = float(TextureInfos[cnt].TextureWidth - 1) / float(max_width);
+				TextureInfos[cnt].UV.Right = float(TextureInfos[cnt].TextureWidth - 1) / float(MaxWidth);
 			}
 
-			TextureInfos[cnt].TextureHeight = max_height;
-			TextureInfos[cnt].UV.Bottom = float(max_height) / float(max_height);
+			TextureInfos[cnt].TextureHeight = MaxHeight;
+			TextureInfos[cnt].UV.Bottom = float(MaxHeight) / float(MaxHeight);
 
 			if ((TextureInfos[cnt].TextureHeight + y) > Bink->Height) {
 				TextureInfos[cnt].TextureHeight = Bink->Height - y;
-				TextureInfos[cnt].UV.Bottom = float(TextureInfos[cnt].TextureHeight + 1) / float(max_height);
+				TextureInfos[cnt].UV.Bottom = float(TextureInfos[cnt].TextureHeight + 1) / float(MaxHeight);
 			}
 
-			TextureInfos[cnt].UV.Left = 1.0f / float(max_width);
-			TextureInfos[cnt].UV.Top = 1.0f / float(max_height);
+			TextureInfos[cnt].UV.Left = 1.0f / float(MaxWidth);
+			TextureInfos[cnt].UV.Top = 1.0f / float(MaxHeight);
 
 			TextureInfos[cnt].Rect.Left = float(TextureInfos[cnt].TextureLocX) / float(Bink->Width);
 			TextureInfos[cnt].Rect.Top = float(TextureInfos[cnt].TextureLocY) / float(Bink->Height);
@@ -208,41 +260,18 @@ BINKMovieClass::BINKMovieClass(const char* filename, const char* subtitlename, F
 			++cnt;
 		}
 	}
-
-	Renderer.Reset();
-
-	// Calculate the time per frame of video
-	unsigned int rate = (Bink->FrameRate / Bink->FrameRateDiv);
-	TicksPerFrame = (60 / rate);
-
-	if (subtitlename && font) {
-		SubTitleManager = SubTitleManagerClass::Create(filename, subtitlename, font);
-	}
 }
 
 
-BINKMovieClass::~BINKMovieClass()
+void BINKMovieClass::Free_Textures()
 {
-	if (Bink == NULL) {
-		return;
-	}
-
-	if (Bink) {
-		BinkClose(Bink);
-	}
-
-	delete[] TempBuffer;
-
 	if (TextureInfos) {
 		for (unsigned t = 0; t < TextureCount; ++t) {
 			REF_PTR_RELEASE(TextureInfos[t].Texture);
 		}
 
 		delete[] TextureInfos;
-	}
-
-	if (SubTitleManager) {
-		delete SubTitleManager;
+		TextureInfos = NULL;
 	}
 }
 
@@ -283,6 +312,20 @@ void BINKMovieClass::Render()
 
 	// decompress a frame
 	if (FrameChanged) {
+		if (DX8Wrapper::Get_Current_Caps()->Get_Vendor() == DX8Caps::VENDOR_POWERVR) {
+			if (TextureInfos == TextureInfos1) {
+				TextureInfos = TextureInfos2;
+				Free_Textures();
+				Create_Textures();
+				TextureInfos2 = TextureInfos;
+			} else {
+				TextureInfos = TextureInfos1;
+				Free_Textures();
+				Create_Textures();
+				TextureInfos1 = TextureInfos;
+			}
+		}
+
 		BinkDoFrame(Bink);
 		FrameChanged = false;
 
@@ -333,17 +376,21 @@ void BINKMovieClass::Render()
 	}
 
 	for (unsigned t = 0; t < TextureCount; ++t) {
-		Renderer.Reset();
-		Renderer.Set_Texture(TextureInfos[t].Texture);
-		Renderer.Set_Coordinate_Range(RectClass(0.0f, 0.0f, 1.0f, 1.0f));//Bink->Width,Bink->Height));
+		Renderer->Reset();
+		Renderer->Set_Texture(TextureInfos[t].Texture);
+		Renderer->Set_Coordinate_Range(RectClass(0.0f, 0.0f, 1.0f, 1.0f));//Bink->Width,Bink->Height));
 
 		RectClass rect(TextureInfos[t].TextureLocX, TextureInfos[t].TextureLocY, TextureInfos[t].TextureWidth, TextureInfos[t].TextureHeight);
-		Renderer.Add_Quad(TextureInfos[t].Rect, TextureInfos[t].UV, 0xffffffff);
-		Renderer.Render();
+		Renderer->Add_Quad(TextureInfos[t].Rect, TextureInfos[t].UV, 0xffffffff);
+		Renderer->Render();
 	}
 
 	if (SubTitleManager) {
-		unsigned long movieTime = (Bink->FrameNum * TicksPerFrame);
+		unsigned long hundredths = (unsigned long)((Bink->FrameNum * 100) / ((float)Bink->FrameRate / Bink->FrameRateDiv));
+		unsigned long seconds = hundredths / 100;
+		unsigned long minutes = seconds / 60 / 60;
+		unsigned long hours = minutes / 60;
+		unsigned long movieTime = (((hours * 60) + minutes) * 60 + (seconds % 60)) * 60 + ((hundredths % 100) * 60) / 100;
 		SubTitleManager->Process(movieTime);
 		SubTitleManager->Render();
 	}
@@ -357,8 +404,33 @@ bool BINKMovieClass::Is_Complete()
 }
 
 
+void BINKMovieClass::Set_Volume(int volume)
+{
+	if (Bink) {
+		BinkSetVolume(Bink, volume);
+	}
+}
+
+
 // Earth & Beyond client (reconstruction): changes to Renegade's BINKMovie.cpp (frozen 2026-11-07 from importer.py)
 // EnB: BINKMovieClass::BINKMovieClass (line 180 at the freeze): E&B's WW3D2 is Zero Hour's here: MipCountType is a
 //       file-scope enum in texture.h (not TextureClass's)
 // EnB: BINKMovieClass::Render (line 292 at the freeze): E&B's WW3D2 is Zero Hour's here:
 //       TextureClass::Peek_D3D_Texture (texture.h), Renegade's Peek_DX8_Texture
+// EnB: BINKMovieClass: 0x30 bytes (Play's new 0x30): no TicksPerFrame; the texture size kept (MaxWidth +0x10,
+//       MaxHeight +0x14) and two texture sets (TextureInfos1 +0x1C, TextureInfos2 +0x20) beside the current one (+0x18);
+//       the renderer a pointer (+0x28, new 0x5B4, Render2DClass's constructor); members Create_Textures,
+//       Free_Textures and Set_Volume
+// EnB: BINKMovie::Play (0xA161B0): a volume in place of the font; BinkSetVolume through Set_Volume (inlined)
+// EnB: BINKMovieClass::BINKMovieClass (0xA162F0): no font argument; the texture loop moved to Create_Textures,
+//       called twice (two sets); the subtitle manager is created from the subtitle name alone and reset
+//       (0xA16444 calls SubTitleManagerClass::Create 0xA16E20 with one argument when it is not NULL, 0xA16455 Reset
+//       0xA17150 on the result)
+// EnB: BINKMovieClass::~BINKMovieClass (0xA16470): Bink, the buffer, both texture sets and the renderer released
+//       and cleared; the subtitle manager is not deleted
+// EnB: BINKMovieClass::Create_Textures (0xA16560) and Free_Textures (0xA167F0): new; the constructor's texture
+//       loop and the destructor's release loop of Renegade's
+// EnB: BINKMovieClass::Render (0xA16870): on a PowerVR card (DX8Caps VendorId +0x13C == 5) each new frame swaps to
+//       the other texture set and recreates it; the renderer through its pointer; the subtitle time is the frame's
+//       hundredths of a second turned into ticks (60 a second) as subtitleparser.cpp's Decode_Time_String counts them
+// EnB: BINKMovieClass::Set_Volume (0xA16C90): new, BinkSetVolume (binkw32 import 0xC44460)
