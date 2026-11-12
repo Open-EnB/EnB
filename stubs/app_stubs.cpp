@@ -123,37 +123,6 @@ __int64 Unknown_8B44C0(const char *text)
 	return _atoi64(text);
 }
 
-// 0x4A1590: a bounded strcpy (at most size - 1 characters, always ended): the client's behaviour
-char *Bounded_Strcpy(char *buffer, int size, const char *string)
-{
-	if (size == 0) {
-		return buffer;
-	}
-	strncpy(buffer, string, size - 1);
-	buffer[size - 1] = 0;
-	return buffer;
-}
-
-// 0x4FC2F0: string split at separator into list (lego_identifier.cpp's Set_Name), the client's
-// behaviour as far as the lego identifiers need it
-void String_Split(std::vector<std::string> &list, const std::string &string, const std::string &separator)
-{
-	list.clear();
-	if (string.size() == 0) {
-		return;
-	}
-	std::string::size_type pos = 0;
-	for (;;) {
-		std::string::size_type at = string.find(separator, pos);
-		if (at == std::string::npos || separator.size() == 0) {
-			list.push_back(string.substr(pos));
-			return;
-		}
-		list.push_back(string.substr(pos, at - pos));
-		pos = at + separator.size();
-	}
-}
-
 // ------------------------------------------------------------------------- STARBASE_SET's Print (pkstarbasetow.cpp)
 
 // sector_types.cpp 0x84A3B0: a sector type's name from the client's table 0xBB0AC0 (3 names)

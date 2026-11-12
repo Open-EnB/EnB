@@ -166,6 +166,23 @@ void Unknown4A13F0Class::Unknown_4A1550(unsigned int frame)
 	((GridTextureMapperClass *)Mapper)->Set_Frame(frame);
 }
 
+// Not uvcontrl.cpp's own: the next object's only function, placed here until a file name appears (D137, P-M1-5).
+#include "unknown_4a1590.h"
+// 0x4A1590: a strncpy that always ends the buffer: at most size - 1 characters, then a 0 (size 0 writes nothing)
+char *Bounded_Strcpy(char *buffer, int size, const char *string)
+{
+	if (size == 0) {
+		return buffer;
+	}
+	char *start = buffer;
+	while (--size && (*buffer++ = *string++) != 0) {
+	}
+	if (size == 0) {
+		*buffer = 0;
+	}
+	return start;
+}
+
 /*
 **	Reconstruction notes
 **
@@ -177,4 +194,9 @@ void Unknown4A13F0Class::Unknown_4A1550(unsigned int frame)
 **	(Set_Current_UV_Offset), Unknown4A13F0Class's constructor 0x4A13F0 (MAPPER_ID_GRID, Set_Frame_Per_Second(0)),
 **	destructor 0x4A1500 / 0x4A14D0 (table 0xAEAA24) and Unknown_4A1550 (Set_Frame). Caller: Unknown_671300Class
 **	(gd_text_editor.cpp 0x671300 / 0x671410: the gadget's second render object, vertex material 0, stage 0).
+**
+**	Bounded_Strcpy 0x4A1590-0x4A15CA (byte-exact; 40 callers) is not this file's: it is alone between this object and
+**	the static initialiser 0x4A15E0 (a List<DataNode<UnknownGadgetBase00Class *> > at 0xBE39F8, gclass.cpp's side).
+**	No string names its file; it is placed here as an interim (D137, P-M1-5). The pointer it advances is the buffer
+**	parameter itself and the returned value a copy made first (mov edx, buffer; mov eax, edx).
 */

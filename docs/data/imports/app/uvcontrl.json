@@ -16,7 +16,8 @@
   "0x4A13F0",
   "0x4A14D0",
   "0x4A1500",
-  "0x4A1550"
+  "0x4A1550",
+  "0x4A1590"
  ],
  "merged": [],
  "name": "shared/uvcontrl.cpp",

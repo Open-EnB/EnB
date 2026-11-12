@@ -1,0 +1,43 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0",
+  "0x4F2440"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: the object 0x4FAC20-0x4FB800 between unknown_font_split_string.cpp and the tokenizer's object, closed by its guarded <string> static 0x4FB7E0 (no __FILE__, neutral name D10, placement provisional D137): string utilities (trim, thousands separators, lower / upper, join), 8 free functions, all exact (L15)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42CF30",
+  "0x42D120",
+  "0x4E2CC0",
+  "0x4FAD80",
+  "0x4FAEE0",
+  "0x4FB150",
+  "0x4FB290",
+  "0x4FB380",
+  "0x4FB4C0"
+ ],
+ "merged": [],
+ "name": "shared/unknown_4fac20.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42CF30",
+  "0x42D120",
+  "0x4E2CC0"
+ ],
+ "short_known": [
+  "0x42D120"
+ ]
+}
