@@ -4,6 +4,102 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-11 (17:35 PST, evening; day run 2026-11-11, week plan session 2): eight class layouts and shared headers, twenty-eight files drafted on them (five still on unlanded branches); +619 pairs over the run's baseline, 0 lost outright
+
+- **Session** Fable 5.2 coordinator, branch `run/2026-11-11` from master 0185dca9 (PR #190 merged), PR #191, head
+  ca8fead3 before the handoff commits; plan log `.work/run-2026-11-11/plan.md`. Builders: 8 Fable (L7-L14: a layout or shared header first, then
+  its file's first draft), then 5 Opus (G1, E1, B1, X1 on the files those layouts unlocked; P2 on the POC); landers,
+  the checker and the doc-filer on Sonnet. The Fable launch window closed at 13:48, when the floor was already met.
+- **Layouts done** (D230's order; queue-a.md §3 and queue-b.md's list): a-L3 ChatPanelUIBase (L13), a-L4 the
+  inventory strip (L9), a-L5 the item specials' base (L14), a-L11 UIComboBoxClass (L10); b-3 ItemBaseInfoClass
+  (L11), b-4 sbase_info.h (L8), b-5 data_binder.h's templates (L7), b-6 the gadget classes (L12: the classes are
+  laid out, the slot renames in gadget.h / gd_robj.h are comments only, P-L12-1). Left: a-L6 (string utilities),
+  a-L7 (audio), a-L9 (bridge_int), b-8 (mv3dview.h), b-9 (sclient by run).
+- **Files, exact / NOT EXACT** (own functions unless said; every NOT EXACT has an attempts.py row and its best form
+  under `docs/attempts/<ADDR>/`; §4 item 10 lists them):
+
+  | File | Builder | Exact | NOT EXACT (explain.py's class) |
+  |---|---|---|---|
+  | data_binder.h / co_data.cpp (templates) | L7 | Remove 0x79F980 + 4 twins, const Get_Value_Map 0x7A1050 + 4, 15 helpers | Get 0x79E300 + 4 twins (register; parked, ~70 forms); 57 identical instances wait on it |
+  | sbase_info.cpp (new) | L8 | 14 of 14, 38 of 42 instances | 0x699150 hash_map(size_type) (inline-budget, libs/sgistl) |
+  | ui_inv.cpp (strips) | L9 | 17 | 0x5A0740 (register, 0.36 -> 0.74), 0x59FE30, 0x5A0D00 (register) |
+  | ui_combobox.cpp | L10 | 25 | 0x578350 (shape); 0x5786C0, 0x5789E0, 0x579DC0, 0x57A060, 0x57B000 (inline-budget); 0x5790C0 (register) |
+  | item_info.cpp (new) | L11 | 50 of 53 | ctors 0x83F490, 0x83F710 (order); Apply_Delta 0x8417B0 (shape) |
+  | gd_gauge.cpp (new) | L12 | 13 of 13 | none |
+  | gd_pip_scene.cpp (new) | L12 | 6 of 6 | none |
+  | gd_proxy.cpp (new; the map's unknown_66b4c0) | L12 | 16 of 16 | none |
+  | ui_chat_panel_base.cpp | L13 | 3 of 3 | none |
+  | client_item_property_special.cpp (new) | L14 | 6 of 6 | none |
+  | client_item_property_special_effect.cpp (new) | L14 | 13 of 13 | none |
+  | gd_scut_proxy.cpp (new, NAME 2) | G1 | 11 of 11 | none |
+  | gd_ship_equip_pip.cpp (new) | G1 | 7 of 7 | none |
+  | gd_selct.cpp (new) | G1 | 5 of 6 | 0x66D1E0 (shape) |
+  | acticon.cpp (new, the warp button only) | G1 | 4 of 5 | 0x6762B0 (frame); the action entry and loader 0x6765D0-0x676A70+ not started |
+  | item_effect_description.cpp (new) | E1 | 10 of 10 | none |
+  | effect_description.cpp (new) | E1 | 26 of 29 | Fill_Values 0x8335D0, Find_Value_Tag 0x833880 (inline-budget); 0x832E00 not produced |
+  | item_effect.cpp (new, name assumed) | E1 | the three EffectGeneratorUsageBF converters | end of the object not established |
+  | ui_starbase.cpp | B1 | 16 more | 0x640360, 0x6452C0 (inline-budget); 0x640F50, 0x641C00, 0x645510, 0x642740 (frame); 0x644F80 (register) |
+  | starbase_lights.cpp | B1 | 9 of 11 | 0x764AB0, 0x764CF0 (register) |
+  | client_item_property_special_maker.cpp (new) | X1 | 5 + Create_NEW by tie-break | none |
+  | ..._profession_requirement.cpp (new) | X1 | 5 of 6 | Is_Usable 0x52D900 (register) |
+  | ..._race_requirement.cpp (new) | X1 | 5 of 6 | Is_Usable 0x52E500 (register) |
+  | ..._skill_requirement.cpp (new) | X1 | 4 of 5 | Is_Usable 0x52F010 (inline-budget) |
+  | ..._special_flag.cpp (new, NAME 2) | X1 | 6 of 6 | none |
+  | ..._level_requirement.cpp (new) | X1 | 5 of 7 | Get_Lines 0x530AA0 (frame), Is_Usable 0x531080 (inline-budget) |
+  | client_item_property_type.cpp (new, NAME 2) | X1 | 9 of 9 | none |
+  | client_item_property_visitor.cpp (new, NAME 2) | X1 | 9 of 9 | none |
+
+- **The map corrected by the builders:** unknown_66b4c0 is the client's gd_proxy.cpp (assert '!StickySave'), and
+  table 0xAFA6E8 is its ProxyGadgetClass, not gd_pip_scene's; the inventory strip is three classes (a base and a
+  template with two instances), and 0x59E970 belongs to a ui_scan.h class with no file; 0x52F9E0 is the flag
+  property and 0x52FFB0 a type property that is no special; effect_description.cpp starts at 0x8320D0 and
+  item_effect.cpp is a separate object from 0x834D30; sbase_info's object ends at 0x69ABC0; unknown_56e170 is not a
+  chat-panel child.
+- **Landings:** five lander runs, each batch one verify, 0 lost outright in all. Landed: L7 + L12 + L11 (record d2dbfd00, +194), L8 (d5de6a4c, +59), L9 + L14 (68d5336c, +52; pad 1 -> 39), B1 + G1 + X1 + P2 (ca8fead3, +314; pad 39 -> 29, window 10, 28..30). **Not landed, kept on their branches** (§4 item 1 has each one's next step): wt/E1 (rebased onto the run head it loses all 13 functions of L14's client_item_property_special_effect.cpp: an interaction of its ItemEffectClass change with that file, not looked into), wt/L13 (conflicts in ui_starbase.cpp with B1), wt/L10 (conflicts in poc_world3.cpp; D235's 0x57B6E0 needs its accepted-corrections entry first). Refusals on the way: L8 (the pad, see below), L13 twice and G1 and X1 once on conflicts, B1 + E1 on a stale rebase record, the batch of seven on E1's loss, which the coordinator had missed in E1's rebase log.
+- **Decisions:** D235 (P-L10-1: ui_combobox's `RefCountPtr<HAnimClass>` form accepted, 0x57B6E0 ambiguous under
+  D66 (vi) / D119) and D236 (a client-evidenced form is pursued even when it costs pairs at first, then the losses
+  are worked on; first case `DeltaItemArrayClass::Get_Size`, §4 item 1). Moves needing `/accept-d66` at the merge:
+  ui_starbase 0x47CE60 (D66 (i), 11+ other holders; L8); 0x57B6E0 (D235) when wt/L10 lands.
+- **Checks:** the checker at 68d5336c: clienttest 103 of 103 with the trace equal, udpreplay alex3 24,771 blocks
+  equal in order, handshake 54 of 54. The closing check at ca8fead3: clienttest 103 of 103 with the trace equal; udpreplay alex3 exit 0 with all sessions but one the same set (the README's expected result; the checker did not report the block count this time), handshake 54 of 54; two POC replays with P2's in-world clicks, the starmap button (140,946) and the options button (176,933): the world entered, the replayed click in the log, no CRASH after it, and every mouse line in both logs matched the input (no foreign click). Earlier in the day: The POC reached the world in both replays; the second crashed when
+  **the user** clicked the PDA starmap button in the test window (the checker took it for a replayed click: the
+  input, `.work/WE1/input.txt`, stops at the Enter click, so the check proves world entry only). The user then
+  found a second crash on the options button. P2 (0ddf3368, POC stand-ins only): the starmap crash was the
+  generated constructor of Unknown_466920Class (its Line3DClass base never built, the object freed at once; the
+  printed stack's GadgetPipSceneClass frames were stale words), then the galaxy map gadget 0x668E30; the options
+  crash was four chat-panel child windows with generated constructors (0x5CE240, 0x5CE700, 0x5CEDD0, 0x5DAE90),
+  now empty windows. Proof: the run-head build crashes at a replayed click (140,946); the fixed build ran twice
+  past it and once past the options click (176,933) with no CRASH; one in-world frame shows the power / shield
+  gauges, the radar panel, the PDA's buttons, the ship and the chat window. Whether the starmap crash predates
+  today's landings is not established. P-CO-2 proposes an end-to-end harness from this.
+- **What went wrong in the coordination, and the traps filed in the pacing skill:** (1) the brief forbade
+  committing the send pad, and the first landing (L8, on an unmoved run head) was refused for the pad's address:
+  the first landing must carry its pad; (2) the brief named `tools/re/sendpad.py` (it is `tools/vc6/`); (3) the
+  importer lock, not memory, limited the builders: with six running a verify waited 30 to 50 minutes, the lock is
+  not first-come, a waiting verify keeps its VM, and report.py gave up on it for five builders; (4) builders
+  stacked on unlanded branches (G1, E1, B1, X1) each needed a rebase with its own verify, two conflicted with other
+  landed branches (ui_inv.cpp, client_item_property_builder.cpp), and B1 / E1, rebased before L14 landed, were
+  refused for L14's 13 functions: a `wt.py rebase` record goes stale when another branch lands.
+- **Measured rates:** meter 19 % at 12:22, 28 % at 13:48 (six Fable builders: about 6 points an hour, twice last
+  night's rate), 32 % at 14:48, 34 % at 16:09, 35 % at the handoff. Builders (tokens from the harness): Fable
+  2.4M (L7 395k, L8 340k, L9 286k, L10 371k, L11 313k, L12 351k, L13 227k, L14 130k, repairs included); Opus 1.9M
+  (G1 391k, E1 441k, B1 479k, X1 391k, P2 161k); Sonnet about 0.6M (five lander runs, the checker, the
+  doc-filer). The floor (27 %) was met at 13:48.
+- **The queue** (`.work/week-2026-11-10/state.tsv`, `merge.py` rerun): 19 rows exact, 23 drafted, 429 open, 103
+  parked. **The next ten open rows:** sclient.cpp by run (79; layout b-9), fontsys.cpp (17, stuck work), land.cpp
+  (45), shiputils.cpp (11), fontdatabase.cpp (15), control_keys_manager.cpp (27), unknown_4fac20.cpp (18, new:
+  layout a-L6), wlib's monod.cpp (2), starmap_pip.cpp (19; co_data.h's accessors are settled), co.cpp (36). Opus
+  rows the day's layouts unlocked: the chat-panel child windows (ui_option_main / _quit / _slider / _font,
+  ui_groupfind, ui_groupopt, the six ui_petition files, unknown_57bad0), ui_registration.cpp / ui_chat_panel.cpp /
+  ui_pda_cargo.cpp on the combo box, ui_analyze / ui_jobs / ui_manu / ui_refinery / ui_ptrade on the strip, the
+  gadget files gd_uisld, the check box 0x7E7E00, 0x6B56A0 / 0x6B6050, and acticon.cpp's rest.
+- **Item 3 of the brief** (a stuck-round item a new layout unlocks): none was started; no layout of today touches
+  0x71B1F0, 0x726100 or 0x6FBEF0.
+- **Open for the user:** the 17 proposals in §3 from today's builders, P-CO-2 and D236's reading; `/accept-d66` for
+  the moves above; the PR. Three branches wait unlanded (above).
+- **Next step:** session 3 of the week plan; first D236's Get_Size item (§4 item 1), then the remaining layouts
+  (a-L6, a-L7, a-L9, b-8) and the queue's top.
+
 ### 2026-11-11 (11:55 PST, day): D227-D232 decided; the tools PR for D227, D228 and D232; no code change outside tools/
 
 - **Session** Opus 5.5 coordinator, branch `tools/2026-11-11` from master 84027c33 (PR #189 merged), PR #190.
@@ -3166,6 +3262,8 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 
 ## 3. Open decisions
 
+* **P-CO-2** (2026-11-11, the coordinator, on the user's question; recommend yes, as the next run's own item): an end-to-end test harness for client builds, grown from the POC check. Today's check proved world entry only (its input stops at the Enter click), read a login-screen frame for an in-world question, and took the user's hand click for a replayed one; both crashes the user found (the PDA starmap, the options button) lay behind the first in-world click. Outline: (1) scenarios = an input script plus assertions on log events (world entered, window opened, no CRASH, no new stand-in first call against a baseline); (2) steps triggered by events and aimed at the client's own gadget names, not frame counts and coordinates; (3) injected input tagged in the log, so a human click cannot be mistaken for the test's; (4) a smoke set per landing (world entry, then open and close each HUD window: starmap, options, PDA pages, cargo, chat), required of every landing that retires a stand-in; (5) back-buffer shots taken on events. Existing parts: clientpoc.py's input playback (in-world clicks are delivered: P2), antprox /REPLAY, stubs.log, the checker.
+* **D236's reading** (2026-11-11, the coordinator; to confirm): D236 as recorded keeps D66 / D202 (a client-evidenced form's losses are named and asked per case at the landing). If the user means that such a form may land with its losses without asking, D236 and CLAUDE.md's hard rule ("Keep only changes that gain and lose nothing") are amended together.
 * **P-L7-1** (2026-11-11, L7; recommend accept): accept the two D130 dead reads kept in ClientObjectDataAccessClass<T>::Get 0x79E300 / Bind (co_data.cpp) while Get stays NOT EXACT (register-only, esi / edi swapped, 10 rows; ~70 forms; stash `docs/attempts/0x79E300/`). 57 byte-identical instances wait on Get as their caller (D54 tie-break).
 * **P-L7-2** (2026-11-11, L7; the builder's next lead, no other recommendation): try `DataBinderType() {}` without the dead reads for Get 0x79E300 and its twins 0x79E8B0 / 0x79EC90 / 0x79F070 / 0x79F450.
 * **P-L8-1** (2026-11-11, L8; recommend as stated, its own item): stop avatar_desc.h reaching permstr.h (a permstr static appears through it; seen in sbase_info.cpp).
@@ -3209,6 +3307,9 @@ below name only the work items, the blocked work, the leads and the queues.
    `python tools/run_branch.py start` (coordinator-pacing skill).
 
 1. **Work items** (each at its file's next edit, unless it says otherwise):
+   * **D236, first case (the next run's first item):** add `DeltaItemArrayClass::Get_Size` (delta_item_array.h; the client's FAIL_IF text in client_item_property_special_skill_requirement.cpp line 99 reads `skills_aux_data->Get_Size()`), then work on the five pairs it cost X1: 0x702240, 0x758210 (the send pad: `tools/vc6/sendpad.py --watch-from` the base first), 0x7045F0, 0x6A4F40, 0x597080 (DeltaItemArrayClass constructors that start or stop matching with the symbol table: aux_roots.cpp's order / auxpad). Report both sides (gained, lost, evidence) for the landing.
+   * **POC stand-ins left by P2:** the options window opens empty (ui_chat_panel.cpp's local windows 0x5CE240, 0x5CE700, 0x5CEDD0, 0x5DAE90 are stand-ins built on the header's InterfaceClass base; the client builds them on ChatPanelUIBase: ui_option_main / _quit / _slider are now routine files on that base); the starmap's gadget input (GadgetStarmapClass / GadgetGalaxyMapClass `Unknown_30` return false) and the generated UIStarmapPipViewClass::Unknown_693040.
+   * **Unlanded branches of run 2026-11-11** (kept; each verified on its own base): **wt/E1** (item_effect_description.cpp 10 of 10, effect_description.cpp 26 of 29, item_effect.cpp; +171 pairs): rebased onto the run head it loses all 13 functions of client_item_property_special_effect.cpp (0x52B840-0x52C710; `.work/log/rebase2-E1.log`): find what E1's ItemEffectClass / item_effect_description.h change does to that file (its `Create(const ItemEffectClass &)`), fix, `wt.py rebase E1`, land. **wt/L13** (ChatPanelUIBase complete, 3 of 3 exact, views replaced in 24 files): conflicts in ui_starbase.cpp with B1's work: `wt.py rebase L13`, resolve, land (send pad retuned by the landing). **wt/L10** (ui_combobox.cpp, 25 exact; D235): conflicts in programs/clientpoc/poc_world3.cpp: `wt.py rebase L10`; add 0x57B6E0 to `docs/data/accepted-corrections.json` on the run branch first (bring-over has no accept flag), land.
    * New-file work for the week (D225): `.work/week-2026-11-10/queue.md` (574 rows; states in state.tsv; `merge.py` regenerates) is the source.
    * Types: P-SM1-2 (OrbitalManager's ctor takes a shared callback base and ClientClass). strconv: D57's range and
      milestones.md still give the root object 0x4A3990 (it starts at 0x4A3B40).
@@ -3294,8 +3395,7 @@ below name only the work items, the blocked work, the leads and the queues.
      bytes (0x4F58A0 / 0x835390 / 0x83D290), not its ebx form.
    * ui_starbase.cpp: UIStarbaseClass::Unknown_54 0x634140 NOT EXACT 0.55 (SU1: frame 0x1D0 vs ours 0x1A0, every later stack
      offset differs; the first entry's `std::string("")` is out of line in the client; zero in ebx vs eax): try one RefCountPtr
-     per Create_Get / Create_NEW block and three char[32] name buffers. Unrebuilt callees: 0x644F80 (+0x1F8's 0xA4 class),
-     0x6B6050 (+0xB8's gadget), 0x6976C0 / 0x636520 / 0x698150 / 0x6980E0 (the +0xB4 NPC slot and terminal lookups).
+     per Create_Get / Create_NEW block and three char[32] name buffers. Unrebuilt callee: 0x6B6050 (+0xB8's gadget).
    * ui_analyze.cpp (AN1, 2026-11-06 night; UIAnalyzeClass 0x11C over Unknown5BB320Class, ui_manu.cpp's near-copy; ui_analyze.h
      interim NAME 1): slots +0x54 0x5439F0 (register 0.80) / +0x60 0x5443F0, 0x544D80, 0x545190, 0x545610, 0x5458B0 functional (AN2;
      inline budget: the client calls the finds / Casts out of line); Validity (0xC41640) and Mode (0xC41634) are one
@@ -3775,8 +3875,7 @@ below name only the work items, the blocked work, the leads and the queues.
    classes' three objects 0x4F7930-0x4F9BF0, names provisional); unknown_6af220.cpp / .h (the GM tools' player inventory window
    'tsi27a', 0x6AF220); unknown_6b2460.cpp / .h (the GM mission log window); unknown_7c96f0.cpp (0x7C96F0 split off settings_store.cpp);
    settings_store.cpp's placement under app/client/tasks/ (P-M2-3: it sits after ui_starmap in the link order); unknown_5b7ab0.cpp / .h
-   (the five-option menu window, 0x5B7AB0); DebrisFieldClass as a view in debrsint.h; gd_gauge.h's view of
-   GaugeGadgetClass 0x669A30 (UIPowerGaugeClass sits on it) and ui_power.cpp's name (no `__FILE__`, NAME 1).
+   (the five-option menu window, 0x5B7AB0); DebrisFieldClass as a view in debrsint.h; ui_power.cpp's name (no `__FILE__`, NAME 1).
 
 9. **Tools:** the Claims Action: check that the next merged run PR's pull_request_target (closed) run succeeds and drops
    its claims from `claims-state` (11 startup_failure runs 2026-11-09 16:02Z-18:11Z only, none since, workflow unchanged;
