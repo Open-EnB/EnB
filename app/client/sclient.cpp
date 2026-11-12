@@ -171,17 +171,17 @@ public:
 	char Unknown180[0x184 - 0x180];
 };
 
-class BridgeInterfaceClass
-{
-public:
-	BridgeInterfaceClass(SClient *client);				// 0x53B040
-	~BridgeInterfaceClass();							// 0x53B380
-	void Unknown_53BD40(int camera);					// 0x53BD40 (Do_Frame passes the main view's +0x7C when +0x14 is set)  // NAME 1 [camera]: Process_AI reads that result as a render object's position
-	void Unknown_53BBC0(const RefCountPtr<RefCountClass> &scene); void Unknown_53B7A0(int *value);	// 0x53BBC0 (0x744C10: Create_Peek 0x514960 of the main view's slot +0x78 scene, or NULL); 0x53B7A0 (0x74C3B0: the player's new +0x1394 value's +0xF8)  // NAME 1 [scene, value]: what 0x744C10 / 0x74C3B0 pass
-	char Unknown00[0x14];
-	int Unknown14;										// +0x14 (Do_Frame tests it)
-	char Unknown18[0xC4 - 0x18];
-};
+#include "bridge_int.h"	// BridgeInterface (SClient +0x128C)
+
+
+
+
+
+
+
+
+
+
 
 class GalaxyMapClientClass
 {
@@ -308,7 +308,7 @@ SClient::SClient(ClientTaskClass *task) :
 	LineDisplay(NULL),
 	PDAInterface(NULL),
 	Unknown1288(0),
-	BridgeInterface(NULL),
+	Bridge(NULL),
 	HotKeys(NULL),
 	VerbManager(NULL),
 	GalaxyMap(NULL),
@@ -432,7 +432,7 @@ void SClient::Init()
 	Targeting = new TargetingClass(this);
 	PDAInterface = new PDAInterfaceClass(this);
 	PDAInterface->Unknown_54();
-	BridgeInterface = new BridgeInterfaceClass(this);
+	Bridge = new BridgeInterface(this);
 	HotKeys = new UIHotKeysClass(this);
 	MainView = new MainViewClass(Task);
 	MainView->Unknown_04();
@@ -569,8 +569,8 @@ void SClient::Shutdown()
 	GalaxyMap = NULL;
 	delete Targeting;
 	Targeting = NULL;
-	delete BridgeInterface;
-	BridgeInterface = NULL;
+	delete Bridge;
+	Bridge = NULL;
 	REF_PTR_RELEASE(HotKeys);
 	ChatPanel = NULL;
 	delete MainView;
@@ -863,8 +863,8 @@ int SClient::Do_Frame(bool focused)
 	if (!Unknown1198) {
 		Process_AI();
 		CurrentView->Unknown_14();
-		if (BridgeInterface->Unknown14) {
-			BridgeInterface->Unknown_53BD40(MainView->Unknown_7C());
+		if (Bridge->Scene.Peek()) {
+			Bridge->Do_Frame((CameraClass *)MainView->Unknown_7C());
 		}
 		if (CurrentView == MainView) {
 			MainView->Unknown_512A00();
@@ -2063,14 +2063,14 @@ bool SClient::Unknown_744B60()
 // 0x744C10
 void SClient::Unknown_744C10()
 {
-	if (!BridgeInterface) return;
+	if (!Bridge) return;
 	SimpleSceneClass *scene = NULL;
 	FAIL_IF(!CameraManager) return;
 	FAIL_IF(!CameraManager->Get_Player_Chase_Camera_Module()) return;
 	if (CurrentView == MainView && CameraMode == 0 && Unknown28 && CameraManager->Get_Player_Chase_Camera_Module()->Unknown34) {
 		scene = MainView->Unknown_78();
 	}
-	BridgeInterface->Unknown_53BBC0(Create_Peek((RefCountClass *)scene));
+	Bridge->Set_Scene(Create_Peek((RefCountClass *)scene));
 }
 
 
@@ -4265,7 +4265,7 @@ void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
 	if (Unknown1394.find(game_id) != Unknown1394.end()) return;
 	CharacterViewAvatarClass *object = new CharacterViewAvatarClass(&desc, false, false, NULL);
 	Unknown1394[game_id] = object;
-	if (AvatarID == (unsigned)game_id) BridgeInterface->Unknown_53B7A0((int *)&object->Desc);
+	if (AvatarID == (unsigned)game_id) Bridge->Set_Avatar(&object->Desc);
 }
 #pragma auto_inline(on)	// 0x74C690
 void SClient::Unknown_74C690()

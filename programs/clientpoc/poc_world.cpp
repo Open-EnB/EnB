@@ -25,19 +25,19 @@ UIHotKeysClass::UIHotKeysClass(SClient *client) : InterfaceClass((LineDisplayCli
 // pdaint.cpp's PDA is real app code since PD1 (pdaint.cpp); its windows' stand-ins are in poc_world3.cpp.
 
 // ---------------------------------------------------------------- bridge (0x53B040): 0xC4 bytes, zero
-class BridgeInterfaceClass
+class BridgeInterface
 {
 public:
-	BridgeInterfaceClass(SClient *client);
-	~BridgeInterfaceClass();
+	BridgeInterface(ClientClass *client);
+	~BridgeInterface();
 	char Unknown00[0xC4];
 };
-BridgeInterfaceClass::BridgeInterfaceClass(SClient *client)
+BridgeInterface::BridgeInterface(ClientClass *client)
 {
-	STUB_CALLED("POC BridgeInterfaceClass: zero");
+	STUB_CALLED("POC BridgeInterface: zero");
 	memset(this, 0, sizeof(*this));
 }
-BridgeInterfaceClass::~BridgeInterfaceClass()
+BridgeInterface::~BridgeInterface()
 {
 }
 

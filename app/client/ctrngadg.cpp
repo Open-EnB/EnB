@@ -12,19 +12,19 @@ bool Unknown_42EC60(int button, int arg);							// 0x42EC60 (a key down: input.c
 bool Unknown_42EE90();												// 0x42EE90 (input.cpp: the window has the focus)
 void Unknown_42ED20(float x, float y);								// 0x42ED20 (input.cpp: the pointer placed, 0..1)  // NAME 1 [x, y]: input.h's
 
-// bridge_int.cpp's class, as far as the event slot uses it
-class BridgeInterfaceClass	// NAME 3: class-from-file (D24) for bridge_int.cpp
-{
-public:
-	void Unknown_53CA00(float yaw);										// 0x53CA00  // NAME 1 [yaw]: what the gadget passes
-	void Unknown_53C980(float pitch);									// 0x53C980  // NAME 1 [pitch]: what the gadget passes
+#include "bridge_int.h"	// BridgeInterface (SClient +0x128C)
 
-	char Unknown00[0x14];
-	int Unknown14;														// +0x14 (the gadget turns the bridge's view only when set)
-	char Unknown18[0x70 - 0x18];
-	float Unknown70;													// +0x70 (the view's pitch)
-	float Unknown74;													// +0x74 (the view's yaw)
-};
+
+
+
+
+
+
+
+
+
+
+
 
 #include "camera_manager.h"
 
@@ -134,23 +134,23 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 	float speed = WW3D::Get_Frame_Time() * 0.1f;
 	if (((SClient *)Client)->CameraMode == 0) {
 		speed *= 0.5f;
-		BridgeInterfaceClass *bridge = ((SClient *)Client)->BridgeInterface;
-		if (!bridge || !bridge->Unknown14 || !ctrl) goto release;
+		BridgeInterface *bridge = ((SClient *)Client)->Bridge;
+		if (!bridge || !bridge->Scene.Peek() || !ctrl) goto release;
 		{
 			if (Unknown44) {
-				x = bridge->Unknown74;
-				y = bridge->Unknown70;
+				x = bridge->Yaw;
+				y = bridge->Pitch;
 				Unknown44 = false;
 				CtrnValueHolderClass<unsigned int> holder(Unknown_BE5F34, 1);
 				Unknown_68();
 			} else {
-				x = (0.5f - x) * speed + bridge->Unknown74;
-				y = (y - 0.5f) * speed + bridge->Unknown70;
+				x = (0.5f - x) * speed + bridge->Yaw;
+				y = (y - 0.5f) * speed + bridge->Pitch;
 				if (y < -1.4835299f) y = -1.4835299f;
 				else if (y > 1.4835299f) y = 1.4835299f;
 			}
-			bridge->Unknown_53CA00(x);
-			bridge->Unknown_53C980(y);
+			bridge->Set_Yaw(x);
+			bridge->Set_Pitch(y);
 		}
 	} else {
 		if (mask & 0x1000) {

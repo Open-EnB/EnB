@@ -1111,7 +1111,7 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	static char fake_bridge[0xC4];			// bridge_int.cpp's object: +0x14 0, so Do_Frame doesn't call it
 	client->Unknown1198 = false;
 	client->CurrentView = (UIViewClass *)main_view;
-	client->BridgeInterface = (BridgeInterfaceClass *)fake_bridge;
+	client->Bridge = (BridgeInterface *)fake_bridge;
 	Path_Views = true;
 	// 0x512A00 (Do_Frame, the main view current): a radar (its 0x7BCA70 is client_stubs.cpp's) and a PDA whose +0xA8
 	// object's 0x7C8DB0 is a stand-in
@@ -1194,7 +1194,7 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	Test_Ticks = 0;
 	client->Unknown1198 = true;
 	client->CurrentView = 0;
-	client->BridgeInterface = 0;
+	client->Bridge = 0;
 	client->Unknown1128 = toggle;
 	client->Unknown10BC = clock;
 	client->Unknown10C8 = lag;

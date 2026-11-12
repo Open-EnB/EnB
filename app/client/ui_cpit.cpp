@@ -1240,14 +1240,14 @@ void UICpitClass::Unknown_582190(ClientObjectClass *object, int arg)
 	if (Unknown0D0->Object != object) *Unknown0D0 = object;
 }
 
-// bridge_int.cpp's interface (SClient +0x128C), as far as the incapacitance details call it (mainview.cpp, sclient.cpp declare it too)
-class BridgeInterfaceClass	// NAME 3: class-from-file (D24) for bridge_int.cpp
-{
-public:
-	void Unknown_53B770();								// 0x53B770 (0x584690, first)
-	void Unknown_53B710();								// 0x53B710 (0x5821C0: the warp done)
-	void Unknown_53B740();								// 0x53B740 (0x5821C0: waiting for the warp)
-};
+#include "bridge_int.h"	// BridgeInterface (SClient +0x128C)
+
+
+
+
+
+
+
 
 // auxdata.h's find through two inline layers, the NameClass built in the inner one: set (+0x70), or changed since (+0x70
 // above 1), else NULL. 0x5821C0's copies call the Casts out of line as the client's (0x546970, 0x584FF0, 0x531590, 0x585040)
@@ -1394,7 +1394,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						if (time) Unknown0B4->Set_State(4, time->Value.As_Int());
 						Unknown0B4->Unknown_A4(0);
 						SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
-						if (client && client->BridgeInterface) client->BridgeInterface->Unknown_53B740();
+						if (client && client->Bridge) client->Bridge->Stop_Hard();
 						Unknown174->Set_Hidden(true);
 						break;
 					}
@@ -1414,7 +1414,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						Unknown0B4->Unknown_A4(1.0f);
 						((MainViewClass *)View->As_Main_View())->CameraEffects->Unknown_6E32E0(2, 1.0f, 0);
 						SClient *client = (SClient *)((ClientClass *)Client)->Unknown_18();
-						if (client && client->BridgeInterface) client->BridgeInterface->Unknown_53B710();
+						if (client && client->Bridge) client->Bridge->Start_Warp();
 						break;
 					}
 				}
@@ -2022,7 +2022,7 @@ void UICpitClass::Unknown_5845A0()
 void UICpitClass::Unknown_584690(IncapacitanceDetailsPacket *packet)
 {
 	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
-	if (sclient && sclient->BridgeInterface) sclient->BridgeInterface->Unknown_53B770();
+	if (sclient && sclient->Bridge) sclient->Bridge->Lose_Control();
 	std::vector<std::string> first;
 	std::vector<std::string> second;
 	first.clear();

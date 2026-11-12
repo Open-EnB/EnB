@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "BridgeInterface's declaration (header name from bridge_int.cpp's __FILE__ 0xB78DF0; class name from the client's RTTI, the type descriptor 0xB78F28 of its MemberCallback; table 0xAEEA7C over the listener's 0xAEEA88, 0xC4 bytes, laid out from the constructor 0x53B040 and destructor 0x53B380) (L17)"
+}
