@@ -26,7 +26,24 @@ class PadTest(unittest.TestCase):
         ledger = {('app', 'sclient', '0x10'), ('app', 'sclient', '0x20'), ('app', 'other', '0x30')}
         rows = ma.pad_rows(sets, 'app', 'sclient', ledger, 'SEND_SYMBOL_PAD')
         self.assertEqual([r['address'] for r in rows], ['0x20'])
-        self.assertIn('exact at 2/4 values; not at 1..2', rows[0]['evidence'])
+        self.assertIn('exact at 2/4 values (0..3); not at 1..2', rows[0]['evidence'])
+
+    def test_never_exact_is_no_flip(self):
+        sets = {'values': {'0': ['0x10'], '1': ['0x10']}}
+        rows = ma.pad_rows(sets, 'app', 'sclient', {('app', 'sclient', '0x30')}, 'P')
+        self.assertEqual(rows, [])
+
+    def test_sets_from_log_judge_the_watched_addresses_only(self):
+        log = ("watch set from HEAD's ledger: 0x74D990 0x758210\n"
+               '  0  1/2  0x74D990- 0x758210+  total 462\n'
+               '  1  2/2  0x74D990+ 0x758210+  total 463\n'
+               'sendpad: window 1; was 44; dry run, pad stays 44\n')
+        sets = ma.sets_from_log(log, 'log x')
+        self.assertEqual(sets['values'], {'0': ['0x758210'], '1': ['0x74D990', '0x758210']})
+        ledger = {('app', 'sclient', '0x74D990'), ('app', 'sclient', '0x758210'), ('app', 'sclient', '0x111111')}
+        rows = ma.pad_rows(sets, 'app', 'sclient', ledger, 'SEND_SYMBOL_PAD')
+        self.assertEqual([r['address'] for r in rows], ['0x74D990'])
+        self.assertTrue(rows[0]['evidence'].endswith('[log x]'))
 
     def test_compress(self):
         self.assertEqual(ma.compress([0, 1, 2, 5, 7, 8]), '0..2, 5, 7..8')

@@ -6,10 +6,23 @@ Exact pairs: 32315. Not stable (any class): 6635 (20.5%).
 
 | Class | Pairs | Share of exact pairs | Source |
 |---|---|---|---|
-| pad-held | 0 | 0.0% | not built |
+| pad-held | 8 | 0.0% | aux: log ../D1/.work/log/auxpad_run.log, values 0..22, watched 6; send: sets sendpad-sets.json at 6b89354d, values 0..20, watched all; send: log ../batch-S1-D1.bo/.work/log/sendpad.log, values 0..3, watched 7 |
 | workaround-held | 6602 | 20.4% | static scan, 114 files; 5 confirmed by build (the device holds 7 of their 406 pairs) |
 | contradicted | 0 | 0.0% | not built |
 | unstable | 43 | 0.1% | history to 02e85b13, 1850 ledger states |
+
+## pad-held (8)
+
+| Library | File | Address | Evidence |
+|---|---|---|---|
+| app | aux_roots | 0x6FB1E0 | SYMBOL_PAD: exact at 2/23 values (0..22); not at 2..22 [log ../D1/.work/log/auxpad_run.log] |
+| app | aux_roots | 0x7014B0 | SYMBOL_PAD: exact at 11/23 values (0..22); not at 11..22 [log ../D1/.work/log/auxpad_run.log] |
+| app | aux_roots | 0x701D70 | SYMBOL_PAD: exact at 22/23 values (0..22); not at 22 [log ../D1/.work/log/auxpad_run.log] |
+| app | aux_roots | 0x702240 | SYMBOL_PAD: exact at 9/23 values (0..22); not at 0..13 [log ../D1/.work/log/auxpad_run.log] |
+| app | aux_roots | 0x7045F0 | SYMBOL_PAD: exact at 3/23 values (0..22); not at 0..19 [log ../D1/.work/log/auxpad_run.log] |
+| app | sclient | 0x702240 | SEND_SYMBOL_PAD: exact at 14/21 values (0..20); not at 3..9 [sets sendpad-sets.json at 6b89354d] |
+| app | sclient | 0x74D990 | SEND_SYMBOL_PAD: exact at 9/21 values (0..20); not at 7..8, 11..20 [sets sendpad-sets.json at 6b89354d] |
+| app | sclient | 0x758210 | SEND_SYMBOL_PAD: exact at 8/21 values (0..20); not at 0..2, 11..20 [sets sendpad-sets.json at 6b89354d] |
 
 ## workaround-held (6602)
 

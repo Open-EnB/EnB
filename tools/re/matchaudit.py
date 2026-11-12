@@ -4,8 +4,9 @@ A pair is (library, file, address) of the ledger (docs/data/imports, a file's `i
 
   (1) pad-held        the pair's match flips somewhere in a pad sweep: tools/vc6/auxpad.py (SYMBOL_PAD, aux_roots.cpp)
                       or tools/vc6/sendpad.py (SEND_SYMBOL_PAD, sclient.cpp), 0..63. Both save every value's exact
-                      address set (.work/log/auxpad-sets.json, sendpad-sets.json); a pair of the swept file not exact
-                      at every value is pad-held.
+                      address set (.work/log/auxpad-sets.json, sendpad-sets.json); a pair of the swept file exact at
+                      some values and not at others is pad-held (one never exact in the lone-file compile does not
+                      flip). --send-log / --aux-log add a sweep's printed table (its watched addresses only).
   (2) workaround-held the pair's file carries a known non-client device: D130 dead reads, a `__X_MEMBERS` guard it
                       defines, other code marked "not the client's", a private class view (a class the file defines that
                       another app/ file defines too), an interim forwarder (an inline body on a line marked interim).
@@ -17,7 +18,7 @@ A pair is (library, file, address) of the ledger (docs/data/imports, a file's `i
                       merged run branch's own first-parent commits before its merge; the old docs/data/imports.json
                       before the shards): two or more flips after the first gain.
 
-    python tools/re/matchaudit.py pad [--aux PATH] [--send PATH]     class (1) from the sweeps' set files
+    python tools/re/matchaudit.py pad [--aux P] [--send P] [--send-log L] [--aux-log L]   class (1)
     python tools/re/matchaudit.py workaround                         class (2), the static scan
     python tools/re/matchaudit.py confirm (LIB FILE VARIANT.cpp --device KIND | --spec JOBS.json) [--pool]
                                                                      class (2) for one file, by build
@@ -93,18 +94,47 @@ def git(*args, inp=None):
 # ---------------------------------------------------------------- (1) pad-held
 
 def pad_rows(sets, lib, key, ledger_pairs, pad_name):
-    """Rows for the pairs of (lib, key) not exact at every value of a sweep's sets ({"N": [addr]})."""
-    values = {int(n): {norm_addr(a) for a in v} for n, v in sets['values'].items()}
+    """Rows for the pairs of (lib, key) exact at some values of a sweep's sets ({"values": {"N": [addr]}}) and not at others.
+    Sets read from a sweep's text log hold only its watched addresses ("watched"): only those are judged."""
+    values = {int(n): {norm_addr(x) for x in v} for n, v in sets['values'].items()}
+    watched = {norm_addr(x) for x in sets['watched']} if sets.get('watched') else None
     rows = []
-    for (l, k, a) in sorted(ledger_pairs):
-        if (l, k) != (lib, key):
+    for (l, k, x) in sorted(ledger_pairs):
+        if (l, k) != (lib, key) or (watched is not None and x not in watched):
             continue
-        off = sorted(n for n, s in values.items() if a not in s)
-        if off:
-            rows.append({'lib': l, 'file': k, 'address': a, 'class': 'pad-held',
-                         'evidence': f'{pad_name}: exact at {len(values) - len(off)}/{len(values)} values; not at '
-                                     + compress(off)})
+        off = sorted(n for n, got in values.items() if x not in got)
+        if off and len(off) < len(values):          # never exact in the sweep: its compile does not hold it, no flip
+            rows.append({'lib': l, 'file': k, 'address': x, 'class': 'pad-held',
+                         'evidence': f'{pad_name}: exact at {len(values) - len(off)}/{len(values)} values '
+                                     f'({compress(sorted(values))}); not at {compress(off)}'
+                                     + (f' [{sets["source"]}]' if sets.get('source') else '')})
     return rows
+
+
+LOG_ROW = re.compile(r'^\s*(\d+)\s+\d+/\d+\s+((?:0x[0-9A-Fa-f]+[+-]\s*)+)', re.M)
+
+
+def sets_from_log(text, source=''):
+    """Sets from a sendpad.log / auxpad sweep's printed table (one line per value: `N  k/m  0xA+ 0xB- ...`):
+    the watched addresses only."""
+    values, watched = {}, set()
+    for m in LOG_ROW.finditer(text):
+        marks = m.group(2).split()
+        watched |= {t[:-1] for t in marks}
+        values[m.group(1)] = sorted(t[:-1] for t in marks if t.endswith('+'))
+    return {'values': values, 'watched': sorted(watched), 'source': source}
+
+
+def merge_pad_rows(rows):
+    """One row per pair: the evidence of several sweeps joined."""
+    out = {}
+    for r in rows:
+        k = (r['lib'], r['file'], r['address'])
+        if k in out:
+            out[k]['evidence'] += '; ' + r['evidence']
+        else:
+            out[k] = dict(r)
+    return [out[k] for k in sorted(out)]
 
 
 def compress(ns):
@@ -125,21 +155,28 @@ def cmd_pad(a):
     head = git('rev-parse', 'HEAD').strip()
     rows, sweeps = [], {}
     for which, (lib, key, path, pad) in PAD_SETS.items():
+        sources = []
         path = getattr(a, which) or path
-        if not os.path.isfile(path):
+        if os.path.isfile(path):
+            sets = json.load(open(path, encoding='utf-8'))
+            sets['source'] = f'sets {os.path.basename(path)} at {sets.get("head", "?")[:8]}'
+            sources.append(sets)
+        for log in getattr(a, which + '_log') or []:
+            sources.append(sets_from_log(open(log, encoding='utf-8', errors='replace').read(),
+                                         'log ' + os.path.relpath(log, ROOT).replace(os.sep, '/')))
+        if not sources:
             print(f'pad: no {which} sweep sets at {os.path.relpath(path, ROOT)} (run tools/vc6/'
                   f'{"auxpad.py sweep" if which == "aux" else "sendpad.py --dry"} once)')
             continue
-        sets = json.load(open(path, encoding='utf-8'))
-        n = len(sets['values'])
-        r = pad_rows(sets, lib, key, cur, pad)
-        sweeps[which] = {'file': sets.get('file'), 'head': sets.get('head'), 'values': n,
-                         'errors': sorted(sets.get('errors', {}), key=int)}
-        note = '' if sets.get('head') == head else f' (swept at {sets.get("head", "?")[:8]}, HEAD {head[:8]})'
-        print(f'pad: {which} sweep, {n} values, {len(r)} of {sum(1 for p in cur if p[:2] == (lib, key))} '
-              f'{key} pairs pad-held{note}')
-        rows += r
-    save('pad', {'sweeps': sweeps, 'rows': rows})
+        for sets in sources:
+            n = len(sets['values'])
+            r = pad_rows(sets, lib, key, cur, pad)
+            sweeps.setdefault(which, []).append({'source': sets['source'], 'values': compress(sorted(map(int, sets['values']))),
+                                                 'watched': len(sets.get('watched') or []) or 'all'})
+            print(f'pad: {which} {sets["source"]}: {n} values, {len(r)} of '
+                  f'{sum(1 for p in cur if p[:2] == (lib, key))} {key} pairs pad-held (HEAD {head[:8]})')
+            rows += r
+    save('pad', {'sweeps': sweeps, 'rows': merge_pad_rows(rows)})
     return 0
 
 
@@ -576,8 +613,8 @@ def cmd_table(a):
     rows, summary = combine(cur, pad, work, conf, hist)
     sources = {}
     if pad:
-        sources['pad-held'] = '; '.join(f"{w} sweep at {s['head'][:8]}, {s['values']} values"
-                                        for w, s in sorted(pad.get('sweeps', {}).items())) or 'no sweep sets'
+        sources['pad-held'] = '; '.join(f"{w}: {s['source']}, values {s['values']}, watched {s['watched']}"
+                                        for w, ss in sorted(pad.get('sweeps', {}).items()) for s in ss) or 'no sweep sets'
     if work:
         held = sum(len(c['lost']) for c in (conf or {}).values())
         of = sum(c.get('ledger', 0) for c in (conf or {}).values())
@@ -604,6 +641,8 @@ def main(argv=None):
     p = sub.add_parser('pad')
     p.add_argument('--aux', help='auxpad.py sweep sets (default .work/log/auxpad-sets.json)')
     p.add_argument('--send', help='sendpad.py sweep sets (default .work/log/sendpad-sets.json)')
+    p.add_argument('--aux-log', action='append', help="an auxpad sweep's printed table (watched addresses only)")
+    p.add_argument('--send-log', action='append', help='a sendpad.log (watched addresses only)')
     sub.add_parser('workaround')
     c = sub.add_parser('confirm')
     c.add_argument('lib', nargs='?')

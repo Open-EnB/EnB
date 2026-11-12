@@ -1,5 +1,6 @@
 {
  "sources": {
+  "pad-held": "aux: log ../D1/.work/log/auxpad_run.log, values 0..22, watched 6; send: sets sendpad-sets.json at 6b89354d, values 0..20, watched all; send: log ../batch-S1-D1.bo/.work/log/sendpad.log, values 0..3, watched 7",
   "unstable": "history to 02e85b13, 1850 ledger states",
   "workaround-held": "static scan, 114 files; 5 confirmed by build (the device holds 7 of their 406 pairs)"
  },
@@ -10,8 +11,8 @@
     "share": 0.0
    },
    "pad-held": {
-    "count": 0,
-    "share": 0.0
+    "count": 8,
+    "share": 0.0002
    },
    "unstable": {
     "count": 43,
@@ -29,6 +30,14 @@
   "pairs": 32315
  },
  "rows": [
+  {"address": "0x6FB1E0", "class": "pad-held", "evidence": "SYMBOL_PAD: exact at 2/23 values (0..22); not at 2..22 [log ../D1/.work/log/auxpad_run.log]", "file": "aux_roots", "lib": "app"},
+  {"address": "0x7014B0", "class": "pad-held", "evidence": "SYMBOL_PAD: exact at 11/23 values (0..22); not at 11..22 [log ../D1/.work/log/auxpad_run.log]", "file": "aux_roots", "lib": "app"},
+  {"address": "0x701D70", "class": "pad-held", "evidence": "SYMBOL_PAD: exact at 22/23 values (0..22); not at 22 [log ../D1/.work/log/auxpad_run.log]", "file": "aux_roots", "lib": "app"},
+  {"address": "0x702240", "class": "pad-held", "evidence": "SYMBOL_PAD: exact at 9/23 values (0..22); not at 0..13 [log ../D1/.work/log/auxpad_run.log]", "file": "aux_roots", "lib": "app"},
+  {"address": "0x7045F0", "class": "pad-held", "evidence": "SYMBOL_PAD: exact at 3/23 values (0..22); not at 0..19 [log ../D1/.work/log/auxpad_run.log]", "file": "aux_roots", "lib": "app"},
+  {"address": "0x702240", "class": "pad-held", "evidence": "SEND_SYMBOL_PAD: exact at 14/21 values (0..20); not at 3..9 [sets sendpad-sets.json at 6b89354d]", "file": "sclient", "lib": "app"},
+  {"address": "0x74D990", "class": "pad-held", "evidence": "SEND_SYMBOL_PAD: exact at 9/21 values (0..20); not at 7..8, 11..20 [sets sendpad-sets.json at 6b89354d]", "file": "sclient", "lib": "app"},
+  {"address": "0x758210", "class": "pad-held", "evidence": "SEND_SYMBOL_PAD: exact at 8/21 values (0..20); not at 0..2, 11..20 [sets sendpad-sets.json at 6b89354d]", "file": "sclient", "lib": "app"},
   {"address": "0x42F250", "class": "workaround-held", "evidence": "unconfirmed: class-view x1 (line 20)", "file": "camctrl_takeoff", "lib": "app"},
   {"address": "0x7923E0", "class": "workaround-held", "evidence": "unconfirmed: class-view x1 (line 20)", "file": "camctrl_takeoff", "lib": "app"},
   {"address": "0x792410", "class": "workaround-held", "evidence": "unconfirmed: class-view x1 (line 20)", "file": "camctrl_takeoff", "lib": "app"},
