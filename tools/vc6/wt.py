@@ -60,8 +60,8 @@ bring-over: puts wt/NAME's commits on TARGET only when the loss rule below holds
   The pad (on by default; --no-sendpad turns it off): when the verify loses sclient.cpp pairs outright and the changes
   touch a header sclient.cpp includes, tools/vc6/sendpad.py re-sweeps SEND_SYMBOL_PAD, both its outputs
   (app/client/aux_roots_send.h and tools/re/auxroots.py, D227) are committed and the verify runs once more
-  (workflow.md 3.4). When the landing carries a `wt.py rebase` record commit, sendpad watches the target's ledger
-  (--watch-from, D228). It costs nothing when no sclient.cpp pair is lost.
+  (workflow.md 3.4). sendpad always watches the target's ledger (--watch-from, D228; since P-L18-3 not only after a
+  `wt.py rebase` record commit: a builder's own verify commit can record the loss too). It costs nothing when no sclient.cpp pair is lost.
   --dry stops before landing; --keep keeps the scratch worktree; logs go to .work/wt/NAME.bo.*.log.
   Every importer call waits --lock-wait seconds (3000) for the lock.
 
@@ -968,9 +968,12 @@ def sendpad_retune(a, bo, libs, target):
     print(f'sendpad: sclient.cpp lost {sorted(lost)} and the changes touch its headers: sweeping '
           f'SEND_SYMBOL_PAD (log {bo}.sendpad.log)', flush=True)
     watch = []
-    if carries_rebase_record(bo, old) and '--watch-from' in read_text(os.path.join(bo, 'tools', 'vc6', 'sendpad.py')):
+    # Always the target's ledger (P-L18-3): any commit of the landing (a wt.py rebase record, or the builder's own
+    # verify commit) may already have recorded the pad loss in HEAD's ledger and so blinded the watch set.
+    if '--watch-from' in read_text(os.path.join(bo, 'tools', 'vc6', 'sendpad.py')):
         watch = ['--watch-from', old]
-        print(f'  the landing carries a wt.py rebase record commit: watch set from {target}\'s ledger')
+        why = 'a wt.py rebase record commit' if carries_rebase_record(bo, old) else 'its own commits'
+        print(f'  watch set from {target}\'s ledger (the landing\'s ledger may record the loss: {why})')
     if '--first-window' in read_text(os.path.join(bo, 'tools', 'vc6', 'sendpad.py')):
         watch = ['--hold', '--first-window', *watch]     # queue once for the lock, stop at the first window (D238)
     rc, tail = run_logged([sys.executable, *tool(bo, 'sendpad.py', 'sendpad'), '--pool', str(a.pool),

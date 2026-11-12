@@ -163,7 +163,8 @@ class Retune(Repo):
         files = run(self.td, 'show', '--name-only', '--format=', 'HEAD').split()
         self.assertEqual(sorted(files), sorted(wt.PAD_OUTPUTS))
         self.assertEqual(wt.dirty_tracked(self.td), ['docs/other.md'])   # regen_and_commit still refuses this
-        self.assertNotIn('--watch-from', [x for c in self.calls for x in c])
+        sweep = [c for c in self.calls if any(str(x).endswith('sendpad.py') for x in c) and '--includes' not in c]
+        self.assertEqual(sweep[0][-2:], ['--watch-from', self.base])   # P-L18-3: always, not only after a record
 
     def test_unchanged_pad_commits_nothing(self):
         commit(self.td, 'Change x.h', {'app/client/x.h': 'int y;\n',
@@ -172,6 +173,20 @@ class Retune(Repo):
         head = run(self.td, 'rev-parse', 'HEAD')
         self.assertFalse(self.retune())
         self.assertEqual(run(self.td, 'rev-parse', 'HEAD'), head)
+
+    def test_watch_from_target_after_own_verify_commit(self):
+        # P-L18-3: a builder's own verify commit (no rebase record) may have recorded the loss already
+        commit(self.td, 'Change x.h', {'app/client/x.h': 'int y;\n'})
+        commit(self.td, 'Rebuild x, verify recorded', {'docs/data/imports/x.json': '{}\n'})
+        self.assertTrue(self.retune())
+        sweep = [c for c in self.calls if any(str(x).endswith('sendpad.py') for x in c) and '--includes' not in c]
+        self.assertEqual(sweep[0][-2:], ['--watch-from', self.base])
+
+    def test_old_sendpad_without_watch_from(self):
+        write(self.td, 'tools/vc6/sendpad.py', '# predates D228\n')
+        commit(self.td, 'Change x.h', {'app/client/x.h': 'int y;\n'})
+        self.assertTrue(self.retune())
+        self.assertNotIn('--watch-from', [x for c in self.calls for x in c])
 
     def test_watch_from_target_after_rebase_record(self):
         commit(self.td, 'Change x.h', {'app/client/x.h': 'int y;\n'})
