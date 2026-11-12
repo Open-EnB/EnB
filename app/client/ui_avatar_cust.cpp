@@ -47,8 +47,8 @@ struct UIAvatarCustGadgetUnknown08Struct { char Unknown00[0x30]; RenderObjClass 
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
 public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual UIAvatarCustGadgetUnknown08Struct *Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual UIAvatarCustGadgetUnknown08Struct *As_RObjGadget(); virtual void As_RObjProxyGadget();
+	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(bool on);					// +0x40 (shown; 0x551B20 passes its argument to every gadget)  // NAME 1 [on]: neutral
@@ -1090,7 +1090,7 @@ void StarbaseAvatarCreationInterface::Unknown_54FAA0()
 			cv = point.Y;
 		}
 		Vector3 color;
-		UIAvatarCustGadgetUnknown08Struct *area = Unknown31C->Unknown00->Unknown_08();
+		UIAvatarCustGadgetUnknown08Struct *area = Unknown31C->Unknown00->As_RObjGadget();
 		Unknown_496C00(area->Unknown30, cu, 1.0f - cv, &color);
 		Unknown320[Unknown358].Set(cu, cv);
 		switch (Unknown358) {

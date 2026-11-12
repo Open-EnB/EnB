@@ -24,8 +24,8 @@ class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - s
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
 public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void As_RObjGadget(); virtual void As_RObjProxyGadget();
+	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24();
 	virtual void Unknown_28(LayerClass *layer);			// +0x28 (0x597080: the window's layer)  // NAME 1 [layer]: what 0x597080 passes
 	virtual void Unknown_2C();

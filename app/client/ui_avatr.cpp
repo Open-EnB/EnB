@@ -22,8 +22,8 @@ class AABoxClass;
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
 public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual UIAvatrGadgetUnknown08Struct *Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual UIAvatrGadgetUnknown08Struct *As_RObjGadget(); virtual void As_RObjProxyGadget();
+	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(bool on);					// +0x40 (shown)  // NAME 1 [on]: neutral
@@ -236,8 +236,8 @@ public:
 	ShipPipClass(int type);								// 0x80B2E0 (the constructor passes 1)  // NAME 1 [type]: neutral
 	bool Unknown_80C220(ViewClass *view);		// 0x80C220 (FAIL_IF '!PIPView': its scene, camera and FloatParent)  // NAME 1 [view]: neutral
 	void Unknown_80C540(const Vector2 &size, const Vector3 &offset, unsigned int sort_level);	// 0x80C540 (the constructor: (640, 480), (0, 0, 0), 0x1C)  // NAME 1 [size, offset, a]: neutral
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_00(); virtual void Unknown_04(); virtual void As_RObjGadget(); virtual void As_RObjProxyGadget();
+	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(bool on);					// +0x40 (0x554D60)  // NAME 1 [on]: neutral
@@ -1506,7 +1506,7 @@ void AvatarCreationInterface::Unknown_55A960()
 		float u; if (point.X < 0.01f) { u = 0.01f; } else if (point.X > 0.99f) { u = 0.99f; } else { u = point.X; }
 		float v; if (point.Y < 0.01f) { v = 0.01f; } else if (point.Y > 0.99f) { v = 0.99f; } else { v = point.Y; }
 		Vector3 color;
-		UIAvatrGadgetUnknown08Struct *area = Unknown180->Gadget->Unknown_08(); Unknown_496C00(area->Unknown30, u, 1.0f - v, &color);
+		UIAvatrGadgetUnknown08Struct *area = Unknown180->Gadget->As_RObjGadget(); Unknown_496C00(area->Unknown30, u, 1.0f - v, &color);
 		Unknown184[Unknown1BC].Set(u, v);
 
 		CharacterViewAvatarClass *avatar = Unknown08C->Peek_Unknown194();

@@ -36,7 +36,7 @@ class UIScutProxyGadgetClass : public RObjProxyGadgetClass  // NAME 1: neutral (
 public:
 	UIScutProxyGadgetClass(UIScutBarClass *owner, RenderObjClass *robj, const LayerClass &layer, unsigned int mask, int bttn_idx);	// 0x66C9C0 (ui_scut.cpp's 0x610F80: the bar, its 'bttn_%d_%02d' model, the layer, 0x55, the button)  // NAME 3 [owner]: the assert's 'Owner'; NAME 1 [robj, layer, mask]: the base's; NAME 3 [bttn_idx]: 0x611BD0's asserts
 	virtual ~UIScutProxyGadgetClass();									// +0x00 0x66CA60 (deleting 0x66CA30)
-	virtual int Unknown_14() { return((int)this); }						// +0x14 0x66CA10 (inline; itself: 'are you a shortcut button')
+	virtual UIScutProxyGadgetClass *As_UIScutProxyGadget() { return(this); }						// +0x14 0x66CA10 (inline; itself: 'are you a shortcut button')
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x66CA80 (the base's; bit 0 makes this the bar's active shortcut, bit 2 clears it)  // NAME 1 [event, x, y, mask]: the base's
 
 	void Set_Shortcut(GadgetClass *gadget);								// 0x66CB20 (ui_scut_gadgets.cpp's Create_Shortcut 0x614360: the gadget onto the bar at this button, 0x611BD0)  // NAME 2: what it does; NAME 1 [gadget]: what 0x614360 passes

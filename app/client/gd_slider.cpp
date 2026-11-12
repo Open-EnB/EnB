@@ -322,7 +322,7 @@ bool GadgetSlider::Unknown_30(float x, float y)
 		if (Unknown_BE5F24 == NULL) {
 			return(true);
 		}
-		if (!Unknown_BE5F24->Unknown_10()) {
+		if (!Unknown_BE5F24->As_SlotDataGadget()) {
 			return(true);
 		}
 		if (Unknown_B8D444 + Unknown100 >= now) {

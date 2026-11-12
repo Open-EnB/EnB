@@ -67,14 +67,14 @@ bool UIScutProxyGadgetClass::Can_Be_Shortcut(GadgetClass *gadget)
 	if (!gadget) {
 		return(false);
 	}
-	GadgetUnknown08Struct *robj_gadget = gadget->Unknown_08();
+	RObjGadgetClass *robj_gadget = gadget->As_RObjGadget();
 	if (!robj_gadget) {
 		return(false);
 	}
-	if (gadget->Unknown_14()) {
+	if (gadget->As_UIScutProxyGadget()) {
 		return(false);
 	}
-	return(robj_gadget->Unknown30 ? true : false);
+	return(robj_gadget->RObj ? true : false);
 }
 
 /*

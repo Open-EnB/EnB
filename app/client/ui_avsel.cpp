@@ -14,9 +14,9 @@
 #include "tutorial_manager.h"
 #include "ui_avsel.h"
 
-// gadget.cpp's gadget: gadget.h (its slot +0x08's part: GadgetUnknown08Struct)
+// gadget.cpp's gadget: gadget.h, and gd_robj.h's gadget its slot +0x08 answers with
 #include "gadget.h"
-typedef GadgetUnknown08Struct UIAvselGadgetPartStruct;	// NAME 1 [UIAvselGadgetPartStruct]: neutral (D10)
+#include "gd_robj.h"
 
 
 
@@ -736,12 +736,12 @@ void AvatarSelectionInterface::Unknown_55E070()
 					GadgetClass *gadget = Unknown0D0[j];
 					if (j == i) {
 						if (gadget) {
-							robj = gadget->Unknown_08()->Unknown30;
+							robj = gadget->As_RObjGadget()->RObj;
 							Unknown_496490(robj, 0);
 							highlight = j;
 						}
 					} else if (gadget) {
-						robj = gadget->Unknown_08()->Unknown30;
+						robj = gadget->As_RObjGadget()->RObj;
 						Unknown_496110(robj, 0.0f, 0.0f, 0.0f);
 					}
 				}
@@ -752,7 +752,7 @@ void AvatarSelectionInterface::Unknown_55E070()
 		Unknown100 = -1;
 		for (int i = 0; i < 5; i++) {
 			if (Unknown0D0[i]) {
-				robj = Unknown0D0[i]->Unknown_08()->Unknown30;
+				robj = Unknown0D0[i]->As_RObjGadget()->RObj;
 				Unknown_496110(robj, 0.0f, 0.0f, 0.0f);
 			}
 		}

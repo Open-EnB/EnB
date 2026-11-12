@@ -861,7 +861,7 @@ void StarbaseShipCustomizeInterface::Unknown_61B170()
 		float u = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
 		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
 		Vector3 *color = (Page == 1) ? &Desc.Parts[Unknown30C].Settings[Unknown310].Color : &Desc.Ship_Name_Color;
-		RObjGadgetClass *robj = (RObjGadgetClass *)Unknown300->Gadget->Unknown_08(); Unknown_496C00(robj->RObj, u, 1.0f - v, color);
+		RObjGadgetClass *robj = (RObjGadgetClass *)Unknown300->Gadget->As_RObjGadget(); Unknown_496C00(robj->RObj, u, 1.0f - v, color);
 		Unknown_61B510(Vector2(u, v));
 		if (Page == 1) {
 			Unknown_6211D0(SBaseView->Client->Peek_Environment_Map_Manager());

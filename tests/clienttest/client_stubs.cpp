@@ -209,8 +209,8 @@ ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char
 // ui_missn.cpp / ui_manu.cpp (via ui_ship_cust.obj's chain) call GadgetClass's slots +0x08 / +0x14 as void functions; gen_stubs
 // writes one signature a name (the pointer-returning one) and clienttest.py does not apply link_aliases.txt, so these two
 // names link here. Never called: clienttest opens no such window.
-class GadgetClass { public: virtual void Unknown_08(); virtual void Unknown_14(); };
-void GadgetClass::Unknown_08() {}
-void GadgetClass::Unknown_14() {}
+class GadgetClass { public: virtual void As_RObjGadget(); virtual void As_UIScutProxyGadget(); };
+void GadgetClass::As_RObjGadget() {}
+void GadgetClass::As_UIScutProxyGadget() {}
 
 // (rs_eff_p.cpp's 'effect_pass' state 0x458C10 links from app.lib)

@@ -370,7 +370,7 @@ UIScutProxyGadgetClass *UIScutClass::Unknown_610F30()
 {
 	GadgetClass *gadget = Unknown_6123F0(View);
 	if (gadget) {
-		return((UIScutProxyGadgetClass *)gadget->Unknown_14());
+		return((UIScutProxyGadgetClass *)gadget->As_UIScutProxyGadget());
 	}
 	return(NULL);
 }
@@ -849,7 +849,7 @@ GadgetClass *Unknown_6123F0(UIViewClass *view)
 	SClient *client = ((Unknown65B810ViewClass *)view->Unknown_20())->Client;
 	GadgetClass *gadget = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)client->Unknown1278, true, true);
 	if (gadget) {
-		return((GadgetClass *)gadget->Unknown_08());
+		return((GadgetClass *)gadget->As_RObjGadget());
 	}
 	return(NULL);
 }

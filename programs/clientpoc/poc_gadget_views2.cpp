@@ -3,8 +3,8 @@ extern "C" void **POC_Button_Table();
 class GadgetClass
 {
 public:
-	virtual GadgetClass *Unknown_08(); virtual void Unknown_14();
+	virtual GadgetClass *As_RObjGadget(); virtual void As_UIScutProxyGadget();
 };
 #define FORWARD(off) { __asm push ecx __asm call POC_Button_Table __asm pop ecx __asm jmp dword ptr [eax + off] }
-__declspec(naked) GadgetClass *GadgetClass::Unknown_08() FORWARD(0x08)
-__declspec(naked) void GadgetClass::Unknown_14() FORWARD(0x14)
+__declspec(naked) GadgetClass *GadgetClass::As_RObjGadget() FORWARD(0x08)
+__declspec(naked) void GadgetClass::As_UIScutProxyGadget() FORWARD(0x14)

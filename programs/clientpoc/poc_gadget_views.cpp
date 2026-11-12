@@ -8,8 +8,8 @@ class UIScutBarClass;
 class GadgetClass
 {
 public:
-	virtual void Unknown_00(); virtual void Unknown_08(); virtual GadgetClass *Unknown_14();
-	virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual void Unknown_00(); virtual void As_RObjGadget(); virtual GadgetClass *As_UIScutProxyGadget();
+	virtual void As_RObjProxyGadget(); virtual void As_SlotDataGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28();
 	virtual void Unknown_2C(KernelEventClass *event, float x, float y, unsigned short key);
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
@@ -25,10 +25,10 @@ public:
 #define FORWARD(off) { __asm push ecx __asm call POC_Button_Table __asm pop ecx __asm jmp dword ptr [eax + off] }
 
 __declspec(naked) void GadgetClass::Unknown_00() FORWARD(0x00)
-__declspec(naked) void GadgetClass::Unknown_08() FORWARD(0x08)
-__declspec(naked) GadgetClass *GadgetClass::Unknown_14() FORWARD(0x14)
-__declspec(naked) void GadgetClass::Unknown_0C() FORWARD(0x0C)
-__declspec(naked) void GadgetClass::Unknown_10() FORWARD(0x10)
+__declspec(naked) void GadgetClass::As_RObjGadget() FORWARD(0x08)
+__declspec(naked) GadgetClass *GadgetClass::As_UIScutProxyGadget() FORWARD(0x14)
+__declspec(naked) void GadgetClass::As_RObjProxyGadget() FORWARD(0x0C)
+__declspec(naked) void GadgetClass::As_SlotDataGadget() FORWARD(0x10)
 __declspec(naked) void GadgetClass::Unknown_18() FORWARD(0x18)
 __declspec(naked) void GadgetClass::Unknown_1C() FORWARD(0x1C)
 __declspec(naked) void GadgetClass::Unknown_20() FORWARD(0x20)

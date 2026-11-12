@@ -1819,8 +1819,8 @@ class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
 public:
 	virtual void Unknown_00(); virtual void Unknown_04();
-	virtual UIGadgetInterfaceClass *Unknown_08();	// +0x08 (GADGET 103)
-	virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18();
+	virtual UIGadgetInterfaceClass *As_RObjGadget();	// +0x08 (GADGET 103)
+	virtual void As_RObjProxyGadget(); virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18();
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28();
 	virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38();
 	virtual void Unknown_3C();
@@ -1849,7 +1849,7 @@ bool GadgetPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
 	GadgetClass *gadget = ((GadgetListManagerClass *)sclient->Unknown1278)->Unknown_661940(Name);
 	FAIL_IF(!gadget) return(true);
-	UIGadgetInterfaceClass *iface = gadget->Unknown_08();
+	UIGadgetInterfaceClass *iface = gadget->As_RObjGadget();
 	if ((Function & 1) && iface) iface->Unknown_8C(true);
 	if ((Function & 2) && iface) iface->Unknown_8C(false);
 	if (Function & 4) gadget->Unknown_40(true);

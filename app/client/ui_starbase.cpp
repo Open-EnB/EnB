@@ -4819,13 +4819,13 @@ void UIStarbaseLightsClass::Unknown_647B30()
 		point.X = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
 		point.Y = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
 		if (UnknownE0 == 0) {
-			GadgetUnknown08Struct *area = UnknownD8->Unknown00->Unknown_08();
-			Unknown_496C00(area->Unknown30, point.X, 1.0f - point.Y, &Color[Current]);
+			RObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
+			Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &Color[Current]);
 			Position[Current].Set(point.X, point.Y, 0.0f);
 			Lights[Current]->Set_Diffuse(Color[Current]);
 		} else {
-			GadgetUnknown08Struct *area = UnknownD8->Unknown00->Unknown_08();
-			Unknown_496C00(area->Unknown30, point.X, 1.0f - point.Y, &AmbientColor);
+			RObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
+			Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &AmbientColor);
 			AmbientPosition.Set(point.X, point.Y, 0.0f);
 			Starbase->Unknown_640E90(AmbientColor);
 		}
@@ -4852,12 +4852,12 @@ void UIStarbaseLightsClass::Unknown_647F30(Vector3 point)
 	tm[2][3] = 0.0f;
 	InterfaceMesh->Control_Bone(bone, tm, false);
 	if (UnknownE0 == 0) {
-		GadgetUnknown08Struct *area = UnknownD8->Unknown00->Unknown_08();
-		Unknown_496C00(area->Unknown30, point.X, 1.0f - point.Y, &Color[Current]);
+		RObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
+		Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &Color[Current]);
 		Position[Current].Set(point.X, point.Y, 0.0f);
 	} else {
-		GadgetUnknown08Struct *area = UnknownD8->Unknown00->Unknown_08();
-		Unknown_496C00(area->Unknown30, point.X, 1.0f - point.Y, &AmbientColor);
+		RObjGadgetClass *area = UnknownD8->Unknown00->As_RObjGadget();
+		Unknown_496C00(area->RObj, point.X, 1.0f - point.Y, &AmbientColor);
 		AmbientPosition.Set(point.X, point.Y, 0.0f);
 	}
 }

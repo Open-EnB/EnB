@@ -38,8 +38,8 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
 public:
-	virtual ~GadgetClass(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual ~GadgetClass(); virtual void Unknown_04(); virtual void As_RObjGadget(); virtual void As_RObjProxyGadget();
+	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28();
 	virtual bool Unknown_2C(int a, int b, int c, int d);	// +0x2C (the check button's 0x7E7FC0: true when it toggled)  // NAME 1 [a, b, c, d]: neutral
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
