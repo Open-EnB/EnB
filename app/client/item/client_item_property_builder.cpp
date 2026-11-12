@@ -741,7 +741,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 				if (mode_flags & 2) modes.push_back("Analyze");
 				if (mode_flags & 4) modes.push_back("Dismantle");
 				if (mode_flags & 8) modes.push_back("Refining");
-				std::string text = Unknown_4FB5B0(modes, ", ");
+				std::string text = String_Join(modes, ", ");
 				RefCountPtr<ClientItemPropertyAttributeClass> property = ClientItemPropertyAttributeStringClass::Create(6, "Mode", "", "Which activities this Override item benefits", 0, text);
 				router.Route(property);
 			}

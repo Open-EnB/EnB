@@ -4368,7 +4368,7 @@ struct TestEffectStruct	// NAME 2: testeffects.ini's record
 	char Name[0x20];	// +0x44 the message's %s  // NAME 1: what 0x750C20 prints
 };
 extern std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80: testeffects.ini's records (0x74CA90)  // NAME 1: neutral (D10)
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_4a1590.h"
 
 // NOT EXACT: functional, from the disassembly (first round, SC1): the INI accessors, the volley defaults and the record copy
 // 0x74CA90 (Load_INIs: testeffects.ini): one record per section but [Defaults], each entry from the section or [Defaults];
@@ -4468,7 +4468,7 @@ void Unknown_74CA90(const char *filename)
 
 		FAIL_IF(f_advance < 0.0f) f_advance = 0.0f;
 		record.Delay = (int)(f_advance * 1000.0f);
-		Unknown_4A1590(record.Name, sizeof(record.Name), section->Section);
+		Bounded_Strcpy(record.Name, sizeof(record.Name), section->Section);
 		Unknown_BE7D80.push_back(record);
 	}
 }

@@ -87,7 +87,7 @@ void Unknown_42E8A0(KernelEventClass *event);		// NAME 1 [Unknown_42E8A0]: hands
 #include "..\gadget.h"	// 0x65F780: GadgetClass::Process_Input over the view's gadgets
 class GlobalDeleteCharacterPacketClass : public PacketClass { public: GlobalDeleteCharacterPacketClass(int slot); ~GlobalDeleteCharacterPacketClass(); int Unknown0C; char Unknown10[4]; };	// opcode 113: 0x8647B0, 0x8648B0 (pkglobaldeletecharacter.h: the receiving side only)
 void Message_Warn(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// NAME 5 [Message_Warn]: the client's WWPROFILE("Message_Warn") label (D198)
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "..\..\shared\unknown_4a1590.h"
 
 
 
@@ -1147,7 +1147,7 @@ bool LoginTaskClass::Fetch_EA_Ticket()
 
 
 
-		Unknown_4A1590(EATicket, sizeof(EATicket), response.Get_Ticket());
+		Bounded_Strcpy(EATicket, sizeof(EATicket), response.Get_Ticket());
 		G_ASSERT(sizeof(EATicket) > strlen(response.Get_Ticket()) + 1);
 	}
 	authFactory->Release();

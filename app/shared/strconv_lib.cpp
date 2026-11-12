@@ -7,7 +7,7 @@
 #include "matrix3d.h"
 #include "g_assert.h"
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "unknown_4a1590.h"
 char *Unknown_8B44E0(__int64 value, char *buffer);	// 0x8B44E0: _i64toa(value, buffer, 10) (not rebuilt)  // NAME 1: neutral placeholder (D10)
 __int64 Unknown_8B44C0(const char *text);	// 0x8B44C0: _atoi64(text) (not rebuilt)  // NAME 1: neutral placeholder (D10)
 
@@ -22,7 +22,7 @@ char *Value_To_String(char *buf, int size, const Vector3 &value)
 	char tmp[128];
 	sprintf(tmp, "%f,%f,%f", value.X, value.Y, value.Z);
 	G_ASSERT((int)strlen(tmp) < size);
-	return Unknown_4A1590(buf, size, tmp);
+	return Bounded_Strcpy(buf, size, tmp);
 }
 
 bool String_To_Value(const char *text, Vector3 *value)
@@ -55,7 +55,7 @@ char *Value_To_String(char *buf, int size, const Matrix3D &value)
 	Vector3 t = value.Get_Translation();
 	sprintf(tmp, "%f,%f,%f, %f,%f,%f, %f,%f,%f, %f,%f,%f", x.X, x.Y, x.Z, y.X, y.Y, y.Z, z.X, z.Y, z.Z, t.X, t.Y, t.Z);
 	G_ASSERT((int)strlen(tmp) < size);
-	return Unknown_4A1590(buf, size, tmp);
+	return Bounded_Strcpy(buf, size, tmp);
 }
 
 bool String_To_Value(const char *text, Matrix3D *value)

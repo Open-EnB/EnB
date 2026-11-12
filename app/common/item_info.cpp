@@ -7,7 +7,7 @@
 #include "..\packets\pk.h"
 #include "..\shared\g_assert.h"
 
-void Unknown_4FC2F0(std::vector<std::string> &list, const std::string &string, const std::string &separator);	// 0x4FC2F0: splits string at separator  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_4fac20.h"
 
 // What a field's value is
 enum FieldTypeEnum  // NAME 2: the client's FT_NONE
@@ -533,7 +533,7 @@ void ItemBaseInfoClass::Apply_Delta(const std::string &delta)
 {
 	Reset_Fields();
 	std::vector<std::string> fields;
-	Unknown_4FC2F0(fields, delta, std::string(DeltaSeparator));
+	String_Split(fields, delta, std::string(DeltaSeparator));
 	for (std::vector<std::string>::iterator it = fields.begin(); it != fields.end(); ++it) {
 		int field_separator = it->find(':');
 

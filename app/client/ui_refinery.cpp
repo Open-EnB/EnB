@@ -32,7 +32,7 @@ public:
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "..\shared\unknown_4a1590.h"
 
 // The control keys event slot +0x54 registers (0x10 bytes; as ui_jobs.cpp's)
 struct UIRefineryKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
@@ -421,7 +421,7 @@ void UIRefineryClass::Unknown_5ECE20()
 			char text[64];
 			int index = Unknown0AE0 + i;
 			if (index < Unknown0AE4 && Unknown11C[index]) {
-				Unknown_4A1590(text, sizeof(text), Unknown11C[index]);
+				Bounded_Strcpy(text, sizeof(text), Unknown11C[index]);
 			} else {
 				text[0] = '\0';
 			}

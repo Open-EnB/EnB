@@ -1010,7 +1010,7 @@ void LandClass::Clear_Unknown1218(void)
 	Unknown1218.clear();
 }
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
+#include "unknown_4a1590.h"
 
 // NAME 2: the .dcb's first word (0x4795D0, 0x479A50)
 #define LAND_DECORATION_ID			0xDEC0DEC0
@@ -1542,7 +1542,7 @@ void LandClass::Save_Decorations(std::vector<std::string> &names, std::vector<La
 	for (id = 0; id < count; id++) {
 		char name[32];
 		memset(name, 0, sizeof(name));
-		Unknown_4A1590(name, sizeof(name), names[id].c_str());
+		Bounded_Strcpy(name, sizeof(name), names[id].c_str());
 		file->Write(name, sizeof(name));
 	}
 	file->Write(&decoration_count, 4);

@@ -107,7 +107,7 @@ enum { MODE_NONE_BF = 0 };																				// the mode flags' none (G_ASSERT 
 // ClientItemPropertySpecialProfessionRequirementClass: client_item_property_special_profession_requirement.h (one line for two here and the #include)
 // ClientItemPropertySpecialRaceRequirementClass: client_item_property_special_race_requirement.h (one line for two here and the #include)
 // ClientItemPropertySpecialSkillRequirementClass: client_item_property_special_skill_requirement.h (one line for two here and the #include)
-std::string Unknown_4FB5B0(const std::vector<std::string> &strings, const std::string &separator);	// 0x4FB5B0 (joins: the mode names with ", ")  // NAME 1: neutral (D10); NAME 1 [strings, separator]
+#include "..\..\shared\unknown_4fac20.h"
 
 // What hands an item's properties to a router (16 bytes on the caller's stack: the item examination window's slot +0x94
 // 0x532640, inv_render.cpp's 0x68C3E0 and 0x68C6B0)

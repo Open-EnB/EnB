@@ -7,7 +7,7 @@
 #define __MONEY_MEMBERS
 #include "money.h"
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "unknown_4a1590.h"
 __int64 Unknown_8B44C0(const char *text);	// 0x8B44C0: _atoi64(text)
 
 // Helper 0x4F0080
@@ -225,7 +225,7 @@ bool String_To_Value(const char *text, MoneyClass *value)	// NAME 2: describes w
 // @0x4F0BE0
 char *Value_To_String(char *buf, int size, MoneyClass value)	// NAME 2: describes what it does
 {
-	return Unknown_4A1590(buf, size, value.Unknown_4F00C0(false).c_str());
+	return Bounded_Strcpy(buf, size, value.Unknown_4F00C0(false).c_str());
 }
 
 /*

@@ -19,7 +19,7 @@
 #include "pk.h"
 #include <list>
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
+#include "..\shared\unknown_4a1590.h"
 
 // One note of NoteList 183: 0x4C bytes (the client's Get_Data_Size and the raw constructor's test count
 // 0x4C a note), 0x49 of them sent: two ints in network order, then 65 bytes as they are

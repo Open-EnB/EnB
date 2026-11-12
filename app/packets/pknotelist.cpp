@@ -51,7 +51,7 @@ bool NoteListPacketClass::Add_Note(int unknown00, int unknown04, const char *unk
 	NoteListEntryStruct note;
 	note.Unknown00 = unknown00;
 	note.Unknown04 = unknown04;
-	Unknown_4A1590(note.Unknown08, sizeof(note.Unknown08), unknown08);
+	Bounded_Strcpy(note.Unknown08, sizeof(note.Unknown08), unknown08);
 	Notes.push_back(note);
 	return(true);
 }
@@ -60,7 +60,7 @@ NoteContentPacketClass::NoteContentPacketClass(int unknown0c, const char *unknow
 	Unknown0C(unknown0c),
 	Unknown54(0)
 {
-	Unknown_4A1590(Unknown10, sizeof(Unknown10), unknown10);
+	Bounded_Strcpy(Unknown10, sizeof(Unknown10), unknown10);
 	Unknown54 = nstrdup(unknown54);
 }
 

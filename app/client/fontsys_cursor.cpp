@@ -14,7 +14,7 @@ public:
 	char Unknown00[8];
 };
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "..\shared\unknown_4a1590.h"
 
 RefCountPtr<TextCursorClass> Unknown_685680(InterfaceClass *iface, const RefCountPtr<RenderObjClass> &unknown)
 {
@@ -91,7 +91,7 @@ void TextCursorClass::Unknown_685AB0(const RefCountPtr<FontSys> &line, int curso
 	Set_Sort_Level(level);
 
 	char *buffer = new char[cursorpos + 2];
-	Unknown_4A1590(buffer, cursorpos + 2, text);
+	Bounded_Strcpy(buffer, cursorpos + 2, text);
 	char c = buffer[cursorpos];
 	int width = (int)(c ? style->Font->Get_Char_Width(c, 640.0f) : style->Font->Get_Char_Width('n', 640.0f)) + 1;
 	if (width < 2) {

@@ -747,7 +747,7 @@ void AvatarDescClass::Load_Defaults(int type, const char *name)
 
 
 #include "unknown_4be9d0.h"	// 0x4BE9D0, a name turned into another (kv_util.cpp's run)
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "unknown_4a1590.h"
 
 // 0x4C1020
 std::string AvatarDescClass::Get_Full_Name()
@@ -777,7 +777,7 @@ void AvatarDescClass::Unknown_4C1460(const char *name, bool convert)
 	} else {
 		text = name;
 	}
-	Unknown_4A1590(First_Name, sizeof(First_Name), text.c_str());
+	Bounded_Strcpy(First_Name, sizeof(First_Name), text.c_str());
 }
 
 // 0x4C15F0
@@ -789,7 +789,7 @@ void AvatarDescClass::Unknown_4C15F0(const char *name, bool convert)
 	} else {
 		text = name;
 	}
-	Unknown_4A1590(Last_Name, sizeof(Last_Name), text.c_str());
+	Bounded_Strcpy(Last_Name, sizeof(Last_Name), text.c_str());
 }
 
 // 0x4C1780

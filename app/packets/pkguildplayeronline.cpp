@@ -609,7 +609,7 @@ GuildDeletePlayerPacketClass::GuildDeletePlayerPacketClass(__int64 player_id, in
 	Slot(slot),
 	AccountID(account_id)
 {
-	Unknown_4A1590(AccountName, sizeof(AccountName), account_name);
+	Bounded_Strcpy(AccountName, sizeof(AccountName), account_name);
 }
 
 GuildDeletePlayerPacketClass::GuildDeletePlayerPacketClass(RawPacketClass *raw)
@@ -649,7 +649,7 @@ GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(__int64 pla
 	Unknown68(0),
 	Unknown6C(0)
 {
-	Unknown_4A1590(AccountName, sizeof(AccountName), account_name);
+	Bounded_Strcpy(AccountName, sizeof(AccountName), account_name);
 }
 
 GuildPlayerInfoDeletedPacketClass::GuildPlayerInfoDeletedPacketClass(RawPacketClass *raw) :

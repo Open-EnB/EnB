@@ -3,7 +3,7 @@
 #include "kv_tripl.h"
 #include "g_assert.h"
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1: neutral placeholder (D10)
+#include "unknown_4a1590.h"
 
 
 
@@ -32,7 +32,7 @@ void KVTripleClass::Copy_Member(char *member, unsigned int member_size, const ch
 {
 	if (value != 0) {
 		G_ASSERT(strlen(value) < member_size);
-		Unknown_4A1590(member, member_size, value);
+		Bounded_Strcpy(member, member_size, value);
 	} else {
 		member[0] = 0;
 	}

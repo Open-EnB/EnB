@@ -6,7 +6,7 @@ FindPlayerRequestPacketClass::FindPlayerRequestPacketClass(int unknown0c, const 
 	Unknown0C(unknown0c),
 	Unknown51(unknown51)
 {
-	Unknown_4A1590(Name, sizeof(Name) - 1, name);
+	Bounded_Strcpy(Name, sizeof(Name) - 1, name);
 }
 
 FindPlayerRequestPacketClass::FindPlayerRequestPacketClass(RawPacketClass *raw)
@@ -44,7 +44,7 @@ FindPlayerResponsePacketClass::FindPlayerResponsePacketClass(int unknown0c, cons
 	Unknown51(unknown51),
 	Unknown54(unknown54)
 {
-	Unknown_4A1590(Name, sizeof(Name) - 1, name);
+	Bounded_Strcpy(Name, sizeof(Name) - 1, name);
 }
 
 FindPlayerResponsePacketClass::FindPlayerResponsePacketClass(RawPacketClass *raw)

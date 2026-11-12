@@ -17,7 +17,7 @@
 
 #include "pk.h"
 
-char *Unknown_4A1590(char *buffer, int size, const char *string);	// 0x4A1590: a bounded strcpy  // NAME 1 [Unknown_4A1590]: neutral placeholder (D10)
+#include "..\shared\unknown_4a1590.h"
 
 // opcode 181 (0x00B5, ?): vtable 0xB0A5BC, constructor 0x886D40, 0x54 bytes
 class FindPlayerRequestPacketClass : public PacketClass  // NAME 3: the client's Print label 'FindPlayerRequest'
