@@ -34,12 +34,12 @@ bool UIScutProxyGadgetClass::Unknown_2C(KernelEventClass *event, float x, float 
 {
 	if (RObjProxyGadgetClass::Unknown_2C(event, x, y, mask)) {
 		if (mask & 1) {
-			((InterfaceClass *)Owner->Unknown04)->View->Unknown_44();
+			Owner->Owner->View->Unknown_44();
 			Owner->Unknown_6124F0(this);
 			return(true);
 		}
 		if (mask & 4) {
-			((InterfaceClass *)Owner->Unknown04)->View->Unknown_44();
+			Owner->Owner->View->Unknown_44();
 			Owner->Unknown_6124F0(NULL);
 		}
 		return(true);

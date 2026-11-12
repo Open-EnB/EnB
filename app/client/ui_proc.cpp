@@ -24,7 +24,7 @@ void UIProcClass::Unknown_5DCCE0(int event, int arg)
 }
 
 // @0x5DCD20
-UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name, bool cycle, int delete_self, int reverse, int start_frame, int end_frame) :
+UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame) :
 	UIProcClass(uimesh),
 	Cycle(cycle),
 	DeleteSelf(delete_self),
@@ -54,7 +54,7 @@ UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name,
 }
 
 // @0x5DCF00
-UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, HAnimClass *morph_anim, bool cycle, int delete_self, int reverse, int start_frame, int end_frame) :
+UIProc5DCD20Class::UIProc5DCD20Class(UIMeshClass *uimesh, HAnimClass *morph_anim, bool cycle, bool delete_self, bool reverse, int start_frame, int end_frame) :
 	UIProcClass(uimesh),
 	Cycle(cycle),
 	DeleteSelf(delete_self),

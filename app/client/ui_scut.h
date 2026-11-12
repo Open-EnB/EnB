@@ -5,7 +5,7 @@
 #define UI_SCUT_H
 
 #include "sclient.h"
-
+#include "..\shared\observer.h"
 class GadgetClass;			// gadget.cpp's
 class RenderObjClass;
 class UIScutClass;
@@ -22,27 +22,25 @@ enum {
 	CURRENT_GROUP = -1		// (G_ASSERT 'group == CURRENT_GROUP' l.603)  // NAME 3: the assert's
 };
 
-// A listener base (8 bytes, vtable 0xAEEA88: slot +0x00 pure, +0x04 0x53B310 first emitted in bridge_int.cpp; bridge_int.cpp's
-// interface 0x53B040 and the 3-D movie view 0x7EEF90 derive from it too): +0x04 what the subclass is given
-class UnknownAEEA88Class	// NAME 1: neutral (D10)
-{
-public:
-	UnknownAEEA88Class(void *owner) : Unknown04(owner) {}	// NAME 1 [owner]: neutral
-	virtual void Unknown_00(void *source, int *event) = 0;	// +0x00 (the shortcut bar's 0x612510)  // NAME 1 [source, event]: neutral
-	virtual void Unknown_04(DynamicVectorClass<UnknownAEEA88Class *> *list) { list->Delete(this); }	// +0x04 0x53B310: out of the list  // NAME 1 [list]: neutral
 
-	void *Unknown04;									// +0x04
-};
+
+
+
+
+
+
+
+
+
 
 // One shortcut bar (0x58 bytes, table 0xAF7484; constructor 0x610F80, destructor 0x611220): three proxy buttons over two
 // groups of three shortcuts, and the bank toggle that shows the group
-class UIScutBarClass : public UnknownAEEA88Class	// NAME 2: what UIScutClass's Bars holds (the FAIL_IFs' 'bar')
+class UIScutBarClass : public ObserverClass	// NAME 2: what UIScutClass's Bars holds (the FAIL_IFs' 'bar')
 {
 public:
 	UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass *layer, int bar, int *id, int index);	// 0x610F80 (the shortcut interface's constructor: itself, its mesh and layer, the bar's number twice and the next control id)  // NAME 1 [owner, mesh, layer, id, index]: what 0x610570 passes; NAME 3 [bar]: the FAIL_IFs'
 	~UIScutBarClass();									// 0x611220
-	virtual void Unknown_00(void *source, int *event);	// +0x00 0x612510: the buttons' shortcuts shown again  // NAME 1 [source, event]: the base's
-	UIScutClass *Get_Owner() { return((UIScutClass *)Unknown04); }	// NAME 1: what it returns
+	virtual void Unknown_00(SubjectClass *subject, void *event);	// +0x00 0x612510: the buttons' shortcuts shown again  // NAME 1 [subject, event]: the base's
 	void Unknown_6112B0();								// 0x6112B0 (FAIL_IF '!ProxyButtons[lp]' l.479): the proxy buttons' help section
 	void Unknown_611300(ControlKeysManager *manager);	// 0x611300: the 'Use Slot %d' keys added  // NAME 1 [manager]: the interface's slot +0x70's
 	void Unknown_611710(ControlKeysManager *manager);	// 0x611710: the 'Use Slot %d' keys removed  // NAME 1 [manager]: the interface's slot +0x74's
@@ -55,7 +53,9 @@ public:
 	void Unknown_612430();								// 0x612430 (G_ASSERTs l.904 / 907): the active shortcut dropped
 	void Unknown_6124F0(UIScutProxyGadgetClass *gadget);	// 0x6124F0: the active shortcut set  // NAME 1 [gadget]: neutral
 
-	UIMeshClass *Mesh;									// +0x08 (its listener list at +0x04)  // NAME 2: what it holds
+	UIScutClass *Get_Owner() { return(Owner); }			// NAME 1: what it returns
+	UIScutClass *Owner;									// +0x04: the shortcut interface  // NAME 1: what the constructor is given
+	UIMeshClass *Mesh;									// +0x08 (the bar observes it)  // NAME 2: what it holds
 	int Index;											// +0x0C  // NAME 1: neutral
 	UIScutProxyGadgetClass *ProxyButtons[NUM_SHORTCUT_BUTTONS];	// +0x10 (FAIL_IF '!ProxyButtons[lp]' l.479)  // NAME 3: the FAIL_IF's
 	GadgetClass *Shortcuts[NUM_GROUPS][NUM_SHORTCUT_BUTTONS];	// +0x1C  // NAME 1: neutral

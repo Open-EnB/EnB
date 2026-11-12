@@ -18,7 +18,7 @@
 #include <string.h>
 // E&B's asset manager at 0xBDADC0 (ENBAssetManager): the asserts name it AssetManager
 #include "..\shared\enbassetmgr.h"
-
+#include "mv3dview.h"	// MeshSoundClass (meshsnd.cpp): the sounds on +0xF0
 
 
 // (enbassetmgr.h declares the global as the asserts name it: AssetManager, 0x802D30)
@@ -323,7 +323,7 @@ ScriptedMovieViewClass::~ScriptedMovieViewClass()
 		delete *itor2;
 	}
 	Lines.clear();
-	for (std::vector<ScriptedMovieSoundClass *>::iterator itor3 = UnknownF0.begin(); itor3 != UnknownF0.end(); itor3++) {
+	for (std::vector<MeshSoundClass *>::iterator itor3 = UnknownF0.begin(); itor3 != UnknownF0.end(); itor3++) {
 		(*itor3)->Unknown_7ED630(1);
 		delete *itor3;
 	}
@@ -1110,7 +1110,7 @@ void ScriptedMovieViewClass::Unknown_802960(KernelEventClass event)
 // 0x802AD0: every sound of +0xF0
 void ScriptedMovieViewClass::Unknown_802AD0(int arg)
 {
-	for (std::vector<ScriptedMovieSoundClass *>::iterator i = UnknownF0.begin(); i != UnknownF0.end(); i++) {
+	for (std::vector<MeshSoundClass *>::iterator i = UnknownF0.begin(); i != UnknownF0.end(); i++) {
 		(*i)->Unknown_7ED6C0(arg, arg);
 	}
 }
@@ -2380,18 +2380,18 @@ bool ScriptedMovieViewClass::Play_Audio(ScriptedMovieLineClass *params)
 		}
 		sound2d->Release_Ref(); return(true);
 	} else {
-		ScriptedMovieSoundClass *sound = new ScriptedMovieSoundClass(audio_name, bone_name);
+		MeshSoundClass *sound = new MeshSoundClass(audio_name, bone_name);
 
 
 
 
 		G_ASSERT(sound);
 		if (loop) {
-			sound->Unknown18 = true;
+			sound->Loop = true;
 		} else {
-			sound->Unknown18 = false;
+			sound->Loop = false;
 		}
-		sound->Unknown28 = volume;
+		sound->Volume = volume;
 		for (std::vector<ScriptedMovieObjectStruct>::iterator itor = Objects.begin(); itor != Objects.end(); itor++) {
 			if ((*itor).Slot == slot) {
 
@@ -2433,7 +2433,7 @@ bool ScriptedMovieViewClass::Stop_Audio(ScriptedMovieLineClass *params)
 {
 	const char *audio_name = params->Unknown_7FFDC0();
 	FAIL_IF((audio_name == NULL) && "User error: Stop_Audio: Need audio name") {return(false);}
-	for (std::vector<ScriptedMovieSoundClass *>::iterator i = UnknownF0.begin(); i != UnknownF0.end(); i++) {
+	for (std::vector<MeshSoundClass *>::iterator i = UnknownF0.begin(); i != UnknownF0.end(); i++) {
 		if ((*i)->Unknown_7EDA60(audio_name)) {
 			(*i)->Unknown_7ED630(0);
 			return(true);

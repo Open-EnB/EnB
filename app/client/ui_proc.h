@@ -32,7 +32,7 @@ public:
 class UIProc5DCD20Class : public UIProcClass	// NAME 1: neutral (D10)
 {
 public:
-	UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name, bool loop, int a, int b, int c, int d);	// 0x5DCD20  // NAME 3 [uimesh, anim_name]: the FAIL_IFs'; NAME 1 [loop, a..d]: neutral
+	UIProc5DCD20Class(UIMeshClass *uimesh, const char *anim_name, bool loop, bool a, bool b, int c, int d);	// 0x5DCD20  // NAME 3 [uimesh, anim_name]: the FAIL_IFs'; NAME 1 [loop, a..d]: neutral
 	char Unknown20[0x30 - 0x20];						// +0x20
 };
 
@@ -40,7 +40,7 @@ public:
 class UIProc5DCF00Class : public UIProcClass	// NAME 1: neutral (D10)
 {
 public:
-	UIProc5DCF00Class(UIMeshClass *uimesh, const char *morph_anim, bool loop, int a, int b, int c, int d);	// 0x5DCF00  // NAME 3 [uimesh, morph_anim]: the FAIL_IFs'; NAME 1 [loop, a..d]: neutral
+	UIProc5DCF00Class(UIMeshClass *uimesh, const char *morph_anim, bool loop, bool a, bool b, int c, int d);	// 0x5DCF00  // NAME 3 [uimesh, morph_anim]: the FAIL_IFs'; NAME 1 [loop, a..d]: neutral
 	char Unknown20[0x30 - 0x20];						// +0x20
 };
 

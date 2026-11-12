@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: the 3-D movie family's header (provisional name, NAME 1): Movie3DViewClass (mv3dview.cpp's __FILE__ and asserts; laid out from 0x7EEF90, 0x7EF220, 0x7EF5F0 and the tables 0xB07A94 / 0xB07A88), moved out of sclient.h; MeshSoundClass (meshsnd.cpp, 0x7ED1D0), MeshSoundListClass and Movie3DSoundClass (mv3dsnd.cpp, 0x7EDCB0), from the client's code"
+}

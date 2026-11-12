@@ -39,7 +39,7 @@ void Unknown_74CA90(const char *ini);					// 0x74CA90 (sclient.cpp's attributed 
 void Unknown_70A7E0(const std::string &ini);			// 0x70A7E0: 'gutter_color.ini'
 void Unknown_70AD70();									// 0x70AD70
 #include "client_lego_impl.h"							// the bone maps of cbasset.ini: Init_Bone_Maps 0x729BF0, Shutdown_Bone_Maps 0x729D60
-
+#include "mv3dview.h"									// Movie3DViewClass: view mode 3
 extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  // NAME 2: what Pump_Messages redraws
 
 // The object at 0xC404D8 is WWAudioClass::_theInstance (WWAudioClass's ctor and dtor set it): the constructor
