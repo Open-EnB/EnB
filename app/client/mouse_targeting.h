@@ -30,6 +30,7 @@ public:
 
 	void Set(float x, float y, float width, float height, const LayerClass &layer);	// 0x7B7810  // NAME 2 [Set, x, y, width, height, layer]: what it stores
 	const Vector2 &Get_Half_Size() { return(HalfSize); }			// (inline: starmap_pip.cpp's 0x7C0620)  // NAME 1: what it returns
+	int Get_Self_Priority() { return(SelfPriority); }			// (inline: starmap_pip.cpp's 0x7C1C50)  // NAME 1: what it returns
 	ClientObjectClass *Get_Target() { return(Target); }			// (inline: radar_system.cpp's 0x7BCA70)  // NAME 2: what it does
 	void Test(RadarIconDataClass *rdata, const Vector3 &pos, float size, float scale);	// 0x7B7880: rdata is the FAIL_IF's name  // NAME 2 [Test, pos, size, scale]: what it does, what 0x7B7040 passes
 

@@ -52,6 +52,7 @@ public:
 	Unknown_7C3220Class(const RefCountPtr<SceneClass> &scene, bool arg, int type);	// 0x7C3220 (type 0..4: RADAR_GROUP, _PLAYER, _OBJECT, _JUMPSTART, _NAME)  // NAME 1 [scene, arg, type]: what it does with them
 	~Unknown_7C3220Class();								// 0x7C3720
 	void Unknown_7C3A90(int left, int top, int right, int bottom);	// 0x7C3A90 (Text's 0x6D88F0 rectangle; 0x7C1770)  // NAME 1 [left, top, right, bottom]: FontSys 0x6D88F0's
+	void Set_Name(std::string name);					// 0x7C25B0 (0x7C2340)  // NAME 2: what it does
 	void Unknown_7C3830(ClientObjectClass *co);			// 0x7C3830 (NULL: the label off)  // NAME 2 [co]: the client's usual name
 
 	unsigned ObjectID;									// +0x00 (the object's +0x90)  // NAME 2: what it holds
@@ -78,6 +79,7 @@ public:
 	void Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass *mouse_target);	// 0x7C0440 (FAIL_IF 'MouseTarget'; radar_system.cpp)  // NAME 2 [hover, mouse_target]: its G_ASSERT
 	void Unknown_7C0620(RadarSystemDataCacheClass *entry);	// 0x7C0620 (FAIL_IF '!sdata', '!co'; radar_system.cpp)  // NAME 2 [entry]: as the gutter's Update
 	void Unknown_7C0910(ClientObjectClass *target, NavListBuilderClass *warp_path, NavListBuilderClass *target_path);	// 0x7C0910 (radar_system.cpp)  // NAME 2 [target, warp_path, target_path]: what it receives
+	Vector2 Unknown_7C1200(const Vector2 &mouse);			// 0x7C1200 (the pointer's place in the viewport, 0..1, on the map; gd_starmap.cpp, 0x7C1C50)  // NAME 1 [mouse]: GadgetPipSceneClass's Position
 	void Unknown_7C1280(const Vector3 &position, float radius);	// 0x7C1280 (0x7C0620, 0x7C1350: the bounds grow; 0x7C1350 passes ClientObjectClass slot +0x24's Vector3)  // NAME 1 [position, radius]: what it does with them
 	void Unknown_7C1C50(ClientObjectClass *target, ClientObjectClass *hover);	// 0x7C1C50 (0x7C0910)  // NAME 1 [target, hover]: what 0x7C0910 passes
 	void Unknown_7C1A90(float mult);					// 0x7C1A90  // NAME 1 [mult]: what it sets
@@ -96,6 +98,7 @@ public:
 	void Unknown_7C1510(bool arg);						// 0x7C1510 (FAIL_IF 'MapRange_ws.X < WWMATH_EPSILON')  // NAME 1 [arg]: neutral
 	void Unknown_7C1770(float x, float y);				// 0x7C1770 (FAIL_IF '!camera', 'ScaleMult < WWMATH_EPSILON')  // NAME 1 [x, y]: what 0x7C0260 passes (+0x68 over CurMult)
 	void Unknown_7C2060(int mode);						// 0x7C2060 (the coordinates' fonts in or out of the interface's scene)  // NAME 1 [mode]: what it stores
+	void Unknown_7C2340(unsigned id, std::string name, int type);	// 0x7C2340 (a label for the object id; 0x7C2850)  // NAME 1 [id, name, type]: what it does with them
 	void Unknown_7C2850(bool force);					// 0x7C2850 (the labels)  // NAME 1 [force]: neutral
 	void Unknown_7C2D30();								// 0x7C2D30 (0x7C8E50)
 
