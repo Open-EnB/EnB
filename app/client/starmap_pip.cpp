@@ -1254,6 +1254,27 @@ void Unknown_7C3220Class::Set_Name(std::string name)
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"					// DeltaGroupInfoClass (0x7C2850)
 
+// NOT EXACT: inline budget (0.78, attempts.py 0x7C2760): the client calls UnknownRTTIClass<DeltaCompoundClass>::Cast out of line in Unknown_Find_Field; here it is inlined (Find_Valid helpers one, two and three layers deep give the same)
+// @0x7C2760
+bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
+{
+	if (co->Unknown_6F5A40()) {
+		DeltaCompoundClass *aux = ((SClient *)Client->Unknown_18())->AuxData;
+		if (aux) {
+			NameClass name("GroupInfo");
+			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, name);
+			if (group && group->Unknown70) {
+				for (int i = 0; i < 5; i++) {
+					if (co->Get_Game_ID() == ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value) {
+						return(true);
+					}
+				}
+			}
+		}
+	}
+	return(false);
+}
+
 // NOT EXACT: inline budget (0.32): the client calls Unknown_Find_Field (0x7C30E0) out of line and expands both label
 // deletes as the scalar deleting destructor plus erase(begin, end); here the budget runs out the other way. attempts.csv
 // @0x7C2850
