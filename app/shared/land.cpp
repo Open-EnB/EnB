@@ -1036,32 +1036,19 @@ void LandClass::Load_Prototype_Names(std::vector<std::string> &names, INIClass &
 	}
 }
 
-// NAME 2: one inline level around the name's string and push_back: the client calls the string's assign and the names'
-// insert out of line, as this depth gives (Load_Decorations_Ini 0x478B50)
-static inline void Land_Add_Name(std::vector<std::string> &names, const char *name)
-{
-	std::string string(name);
-	names.push_back(string);
-}
-
-// NOT EXACT: inline-budget (32 masked rows: inside the inlined decorations' insert the client calls size() 0x47D170 and
-// _Ufill 0x47E560 out of line, ours inlines them; the ini sits 4 bytes lower; attempts.csv 0x478B50)
+// NOT EXACT: frame (identical once the stack offsets are masked: the client has the ini at esp+0x18 and the section
+// counter above it at esp+0x28, ours the counter at esp+0x18 and the ini above it. Load_Prototype_Names 0x478970,
+// which nothing calls in the client, is inlined here: that is the level that leaves the string's assign and the
+// names' insert out of line; attempts.csv 0x478B50)
 void LandClass::Load_Decorations_Ini(std::vector<std::string> &names, std::vector<LandDecorationStruct> &decorations, const char *filename)
 {
 	INIClass ini;
 	char section[256];
 	ini.Load(filename);
 	if (ini.Is_Loaded()) {
-		int count = ini.Get_Int("Prototypes", "NUM_PROTOS", 0);
-		for (int i = 0; i < count; i++) {
-			char entry[256];
-			char name[1024];
-			sprintf(entry, "PROTO%d", i);
-			ini.Get_String("Prototypes", entry, "TDTREE01A", name, sizeof(name));
-			Land_Add_Name(names, name);
-		}
-		unsigned int proto_count;
-		if (names.begin() != NULL && (proto_count = names.size()) != 0) {
+		Load_Prototype_Names(names, ini, "Prototypes");
+		unsigned int proto_count = names.size();
+		if (proto_count != 0) {
 			int n = 0;
 			sprintf(section, "DECO%d", n);
 			while (ini.Find_Section(section) != NULL) {
@@ -1198,8 +1185,11 @@ struct LandDecorationVertexStruct
 	float						UV[2];
 };
 
-// NOT EXACT: shape (written from the disassembly: the client keeps this in a frame slot, calls the string constructor and the
-// vector insert out of line, builds the rotation from a zero local; 1 form, attempts.csv 0x479D00)
+// NOT EXACT: frame and inline-budget (the client's calls and frame size 0x109C; the slots differ (the decorations at
+// esp+0x2C, the client's at +0x34) and the decorations' destructor calls _Destroy where the client's is inline).
+// Read from the client: Load_Prototype_Names 0x478970 inlined, the prototype count in a local, a counted loop, the
+// transform as an identity Matrix3D turned by Rotate_Z (c + 0, 0 - s, s + 0, c - 0 sign for sign) and copied, the sea
+// test through the accessors (docs/attempts/479D00/l20_decode.txt, attempts.csv 0x479D00)
 void LandClass::Create_Decorations(int set)
 {
 	INIClass ini;
@@ -1213,32 +1203,27 @@ void LandClass::Create_Decorations(int set)
 	float min_scale = ini.Get_Float(section, "MIN_SCALE", 1.0f);
 	float max_scale = ini.Get_Float(section, "MAX_SCALE", 2.0f);
 	std::vector<std::string> names;
-	int proto_count = ini.Get_Int(section, "NUM_PROTOS", 0);
-	for (int i = 0; i < proto_count; i++) {
-		char entry[256];
-		char name[1024];
-		sprintf(entry, "PROTO%d", i);
-		ini.Get_String(section, entry, "TDTREE01A", name, sizeof(name));
-		names.push_back(std::string(name));
-	}
-	if (names.size() <= 0) {
+	Load_Prototype_Names(names, ini, section);
+	int proto_count = names.size();
+	if (proto_count <= 0) {
 		return;
 	}
 	std::vector<LandDecorationStruct> decorations;
 	Random4Class random(0x1105);
-	while (count--) {
+	for (int i = 0; i < count; i++) {
 		LandDecorationStruct decoration;
-		decoration.Proto = Pick_Random_Number(random, 0, names.size() - 1);
+		decoration.Proto = Pick_Random_Number(random, 0, proto_count - 1);
 		decoration.Scale = random.Get_Float() * (max_scale - min_scale) + min_scale;
 		Vector3 pos;
 		do {
 			Vector2 uv(random.Get_Float(), random.Get_Float());
 			pos = Field->Sample(uv);
-		} while (HasSea && pos.Z <= SeaLevel);
+		} while (Has_Sea() && pos.Z <= Get_Sea_Level());
 		float angle = random.Get_Float() * (2.0f * WWMATH_PI);
-		float c = (float)cos(angle);
-		float s = (float)sin(angle);
-		decoration.Transform.Set(c, -s, 0.0f, pos.X, s, c, 0.0f, pos.Y, 0.0f, 0.0f, 1.0f, pos.Z);
+		Matrix3D tm(true);
+		tm.Rotate_Z(angle);
+		tm.Set_Translation(pos);
+		decoration.Transform = tm;
 		decorations.push_back(decoration);
 	}
 	Build_Decorations(names, decorations);
@@ -1246,43 +1231,41 @@ void LandClass::Create_Decorations(int set)
 
 // 0x47C580 (VIDTEST 0x418400): the first mesh under robj, depth first, whose name holds ".d" or ".D" (a tree) or ".s" or
 // ".S" (its shadow); add-reffed
-// NOT EXACT: functional, from the disassembly
 static RenderObjClass *Land_Find_Decoration_Mesh(RenderObjClass *robj, bool tree)	// NAME 2: after what it does
 {
+	RenderObjClass *found = NULL;
 	if (robj->Class_ID() == RenderObjClass::CLASSID_MESH) {
 		const char *name = robj->Get_Name();
-		if (name == NULL) {
-			return NULL;
-		}
 		if (tree) {
-			if (strstr(name, ".d") == NULL && strstr(name, ".D") == NULL) {
-				return NULL;
+			if (name != NULL && (strstr(name, ".d") != NULL || strstr(name, ".D") != NULL)) {
+				found = robj;
+				robj->Add_Ref();
 			}
 		} else {
-			if (strstr(name, ".s") == NULL && strstr(name, ".S") == NULL) {
-				return NULL;
+			if (name != NULL && (strstr(name, ".s") != NULL || strstr(name, ".S") != NULL)) {
+				found = robj;
+				robj->Add_Ref();
 			}
 		}
-		robj->Add_Ref();
-		return robj;
-	}
-	int count = robj->Get_Num_Sub_Objects();
-	for (int i = 0; i < count; i++) {
-		RenderObjClass *sub = robj->Get_Sub_Object(i);
-		if (sub != NULL) {
-			RenderObjClass *found = Land_Find_Decoration_Mesh(sub, tree);
-			sub->Release_Ref();
+	} else {
+		int count = robj->Get_Num_Sub_Objects();
+		for (int i = 0; i < count; i++) {
+			RenderObjClass *sub = robj->Get_Sub_Object(i);
+			found = Land_Find_Decoration_Mesh(sub, tree);
+			REF_PTR_RELEASE(sub);
 			if (found != NULL) {
-				return found;
+				break;
 			}
 		}
 	}
-	return NULL;
+	return found;
 }
 
 // 0x47C6A0: a mesh's vertices (scaled, then through tm; normals rotated, not normalised; no normals or uvs give zeros) and its
 // triangles' indices plus base, appended; returns the largest index the triangles use
-// NOT EXACT: inline budget (the third index push_back's reallocation inlines the first _Ucopy, the client calls it; index-loop registers; attempts.csv 0x47C6A0)
+// NOT EXACT: order-only (42 masked rows: the client reads tri.J and tri.K into di before the previous maximum's ftol, ours into cx
+// after it. The triangle through a reference, the two returns and `polys && points` give the client's inlining: one
+// more or fewer comparison against NULL moves the third push_back's _Ucopy in or out of line; attempts.csv 0x47C6A0)
 static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<LandDecorationVertexStruct> &vertices,
 	std::vector<unsigned short> &indices, unsigned short base, const Matrix3D &tm, float scale)	// NAME 2: after what it does
 {
@@ -1292,7 +1275,7 @@ static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<L
 	const TriIndex *polys = model->Get_Polygon_Array();
 	const Vector3 *points = model->Get_Vertex_Array();
 	const Vector3 *normals = model->Get_Vertex_Normal_Array();
-	if (polys != NULL && points != NULL) {
+	if (polys && points) {
 		int i;
 		int vertex_count = model->Get_Vertex_Count();
 		int poly_count = model->Get_Polygon_Count();
@@ -1318,15 +1301,17 @@ static unsigned short Land_Append_Decoration_Mesh(MeshClass *mesh, std::vector<L
 			vertices.push_back(vertex);
 		}
 		for (i = 0; i < poly_count; i++) {
-			largest = (unsigned short)WWMath::Max((float)polys[i].I, (float)largest);
-			indices.push_back((unsigned short)(base + polys[i].I));
-			largest = (unsigned short)WWMath::Max((float)polys[i].J, (float)largest);
-			indices.push_back((unsigned short)(base + polys[i].J));
-			largest = (unsigned short)WWMath::Max((float)polys[i].K, (float)largest);
-			indices.push_back((unsigned short)(base + polys[i].K));
+			const TriIndex &tri = polys[i];
+			largest = (unsigned short)WWMath::Max((float)tri.I, (float)largest);
+			indices.push_back((unsigned short)(base + tri.I));
+			largest = (unsigned short)WWMath::Max((float)tri.J, (float)largest);
+			indices.push_back((unsigned short)(base + tri.J));
+			largest = (unsigned short)WWMath::Max((float)tri.K, (float)largest);
+			indices.push_back((unsigned short)(base + tri.K));
 		}
+		return largest;
 	}
-	return largest;
+	return 0;
 }
 
 // NOT EXACT: functional, from the disassembly and the pseudocode (0x47A2F0 = VIDTEST 0x416170, 7 KB). The prototypes' tree
@@ -2883,7 +2868,7 @@ void LandClass::Save_PLD(const char *filename)
 **	fill the patch records that Render draws (both functional; drawcheck frame 900 the original's draws).
 **	The zone loader (mainview 0x5137F0) reads land_%04d.dcb with Load_Decorations 0x4795D0 and builds
 **	from it, or makes the decorations from decoration.ini without one; Save_Decorations 0x479A50 writes
-**	it and Load_Prototype_Names 0x478970 reads an ini section's names (nothing calls either). The same
+**	it and Load_Prototype_Names 0x478970 reads an ini section's names (nothing calls either; the reader inlines the second). The same
 **	as an ini ([Prototypes], [DECO%d] DecID, M, Scale): the reader 0x478B50 and the writer 0x4791D0
 **	(NOT EXACT, marked; nothing calls either).
 */

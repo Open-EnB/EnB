@@ -1,0 +1,24 @@
+L20 (2026-11-12, fable): LandClass::Create_Decorations 0x479D00, read from the client's code
+
+1. The prototype loop is Load_Prototype_Names 0x478970 inlined (nothing calls 0x478970 in the client; Load_Decorations_Ini
+   0x478B50 inlines it too, with "Prototypes"): Load_Prototype_Names(names, ini, section). With that call the first
+   part of the function (to 0x479E5D) lines up with the client's, string constructor and names' insert out of line.
+2. The prototype count is a local: esi = names.size() (cmp _First, 0; (last - first) >> 4; jg), then `dec esi;
+   mov [esp+0x58], esi` once before the loop: int proto_count = names.size(); if (proto_count <= 0) return; and
+   Pick_Random_Number(random, 0, proto_count - 1) in the loop.
+3. The loop counts down in ebx after `cmp ebx, 0; jle` (dec ebx; jne): for (int i = 0; i < count; i++), i unused.
+4. The transform: Row0 = (c + Z, K - s, 0, pos.X), Row1 = (s + K, c - Z, 0, pos.Y), Row2 = (K + Z, K - Z, 1, pos.Z),
+   Z a zero stored once at [esp+0x18] (s * 0 folded and kept in a slot), K the constant 0.0f 0xAE7244 (c * 0 folded).
+   That is Matrix3D::Rotate_Z(float) inlined on an identity rotation, sign for sign:
+       Row[r][0] = c * tmp1 + s * tmp2;  Row[r][1] = -s * tmp1 + c * tmp2;   (tmp1, tmp2) = (1, 0), (0, 1), (0, 0)
+   so the source is a Matrix3D with the position and an identity rotation (Matrix3D tm(pos), or tm(true) and
+   Set_Translation), tm.Rotate_Z(angle), decoration.Transform = tm. The temporary Matrix3D is at [esp+0xB8] (the 0x38
+   bytes our frame lacks: client 0x109C, ours 0x1064); its values are copied into decoration.Transform.
+   Not it: rotated basis vectors through Vector3's operators and Matrix3D(x, y, z, pos) (the products go through
+   memory: 1435 bytes against the client's 1205).
+5. `this` is kept in a frame slot ([esp+0x2C]) and reloaded into esi inside the loop (Field +0x90, HasSea +0xE8,
+   SeaLevel +0x160).
+6. decorations.push_back(decoration) is the call insert(end, 1, x) for LandDecorationStruct (thunk 0x40C315); the
+   decorations' destructor is inline (delete _First, three zero stores), the names' is called.
+
+Forms tried lock-free: .work/L20/cd2.py, cd3.py; attempts.csv 0x479D00 has the result.
