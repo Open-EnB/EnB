@@ -168,6 +168,38 @@
    "moved_to": null,
    "decision": "D235",
    "note": "D235 (D66 (vi) / D119), run 2026-11-11 (L10): ui_combobox.cpp's ~RefCountPtr<RenderObjClass> is byte-identical to the ~RefCountPtr<HAnimClass> the object also emits in the client's RefCountPtr<HAnimClass> form (group 0x46BE90): the copy is ambiguous, none can be placed; the form makes 25 functions of 0x578120-0x57BAC0 exact."
+  },
+  {
+   "address": "0x702240",
+   "lib": "app",
+   "file": "aux_roots",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "D240 (D236's first case), run 2026-11-11b (D1 877cae62): DeltaCompoundClass::Get_Size, the accessor the client's FAIL_IF texts name (0xB784AC 'skill_index >= (int)skills_aux_data->Get_Size()', 0xB95290 'aux_data_index >= AuxData->Attachments.Get_Size()'); the DeltaItemArrayClass<DeltaEquipItemClass> constructor in aux_roots.cpp is SYMBOL_PAD-sensitive and no aux pad of 0..22 holds it with 0x7045F0 (23..63 untested); its shared copy in sclient holds. Delete when regained."
+  },
+  {
+   "address": "0x7045F0",
+   "lib": "app",
+   "file": "aux_roots",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "D240 (D236's first case), run 2026-11-11b (D1 877cae62): DeltaCompoundClass::Get_Size, the accessor the client's FAIL_IF texts name (0xB784AC 'skill_index >= (int)skills_aux_data->Get_Size()', 0xB95290 'aux_data_index >= AuxData->Attachments.Get_Size()'); the DeltaItemArrayClass<DeltaSubCategoryClass> constructor in aux_roots.cpp is SYMBOL_PAD-sensitive (aux pads 23..63 untested). Delete when regained."
+  },
+  {
+   "address": "0x732030",
+   "lib": "app",
+   "file": "client_lego_root",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "D240 (D236's first case), run 2026-11-11b (D1 877cae62): DeltaCompoundClass::Get_Size, the accessor the client's FAIL_IF texts name (0xB784AC 'skill_index >= (int)skills_aux_data->Get_Size()', 0xB95290 'aux_data_index >= AuxData->Attachments.Get_Size()'); ClientLegoRootClass's constructor now calls the member where a '#define Get_Size() Children.size()' stand-in gave the client's bytes (likely inline depth: Get_Size -> size()). Delete when regained."
+  },
+  {
+   "address": "0x732790",
+   "lib": "app",
+   "file": "client_lego_root",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "D240 (D236's first case), run 2026-11-11b (D1 877cae62): DeltaCompoundClass::Get_Size, the accessor the client's FAIL_IF texts name (0xB784AC 'skill_index >= (int)skills_aux_data->Get_Size()', 0xB95290 'aux_data_index >= AuxData->Attachments.Get_Size()'); ClientLegoRootClass::Update, the same call as 0x732030. Delete when regained."
   }
  ]
 }
