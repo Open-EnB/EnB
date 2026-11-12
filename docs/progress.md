@@ -4,6 +4,111 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-12 (09:30 PST, morning; night run 2026-11-11b, week plan session 3): D236-D240 carried out, the three kept branches landed, five layouts and thirty-odd files drafted on them, the library region classified; +969 pairs over the run's baseline, 0 lost outright; the run was cut off at 03:05 by the usage credits and drained at 08:15
+
+- **Session** Fable 5.2 coordinator, branch `run/2026-11-11` (a new branch of that name) from master b112bac0, PR #193, head 1112bf00
+  before the handoff commits; plan log `.work/run-2026-11-11b/plan.md`. Builders: 9 Fable (C1 read-only, L15-L20 layouts and first
+  drafts, P1 / P2 the parked leftovers), 21 Opus (tools, rebases, routine files, health items), Sonnet for the landers, the
+  checker, the doc-filer and two small items (RR, X1). **Cut off:** at about 03:05 PST the account's usage credits for the model
+  ran out (HTTP 429) for the coordinator and three Fable builders (L21, P3, P4) while the weekly meter read 64 %; nothing ran
+  until the user restored credits at 08:15, so the 06:30 drain and the 07:00 handoff were missed. The drain (one landing of
+  eight finished branches, the checks, the filing) ran from 08:15 with no new builder.
+- **Item 1 (section 4 item 1).** D238: the importer lock is first-come (tools/vc6/lockq.py, `importer.py lock-status`), and a
+  landing's pad retune holds the lock for its sweep and stops at the first window (`sendpad.py --hold --first-window`, T4: a
+  retune went from over an hour to 1-7 minutes). D237: `tools/harness/e2e.py` with six event-driven scenarios (world entry,
+  starmap, options, PDA pages, cargo, chat), injected input tagged, back-buffer shots on events; a click skips the start-up
+  movie since binkmovie is E&B's (the 77 s were eb_sizzle.bik under a Play stand-in with no Stop). D236's first case:
+  `Get_Size()` on DeltaCompoundClass (the client's FAIL_IF texts 0xB784AC, 0xB95290); it landed with four D240 losses, and all
+  four were regained the same night (client_lego_root 0x732030 / 0x732790: a `__LINE__` shift from the removed `#define`;
+  aux_roots 0x702240 / 0x7045F0: SYMBOL_PAD 58 -> 53) and their entries deleted. D239: carried out on wt/R1 except P-L12-4 and
+  ui_manu.cpp's move onto gadget.h; NOT landed (below). D240's match audit: `tools/re/matchaudit.py`,
+  `docs/data/match-audit.md`: of 32,315 exact pairs, 8 pad-held (partial sweeps), 6,602 in files carrying a device
+  (unconfirmed; in the five files rebuilt without it 7 of 406 fell), 43 unstable; class 3 not built. The kept branches wt/E1,
+  wt/L13, wt/L10 all landed (E1's loss was a rename L14's file had not followed; L13 needed its POC stand-ins on
+  ChatPanelUIBase). P2's stand-ins: the four option windows are real files; the starmap's gadget input is left.
+- **Item 2, files, exact / NOT EXACT** (own functions; every NOT EXACT has an attempts.py row; section 4 lists them):
+
+  | File | Builder | Exact | NOT EXACT (explain.py's class) / open |
+  |---|---|---|---|
+  | unknown_4fac20.cpp, unknown_4fb810.cpp (new; a-L6: one object was two), 0x4A1590 | L15 | 8 of 8, 8 of 8, Bounded_Strcpy | none |
+  | money.cpp | L15 | Amount_As_Text 0x4F00C0, 0x4F0320 | none |
+  | mv3dview.cpp (new; b-8: mv3dview.h, observer.h's ObserverClass) | L16 | 33 of 33 | none |
+  | bridge_int.cpp (new; a-L9: class BridgeInterface by RTTI) | L17, U3 | 16 of 19 + 11 instances | Do_Frame 0x53BD40 (order), Update_Avatar 0x53CB40, Play_Animation 0x53CD60 (shape) |
+  | faction_and_reputation.cpp (new, 0x835860-0x835DC0) | L19 | 20 of 20 by appfile (6 counted by verify: D99) | none |
+  | land.cpp split into land.cpp, unknown_46c730.cpp, unknown_474530.cpp | L20 | 0x47C580, 0x47D170, 0x47D640, 0x47E620, two deque instances | 0x46AA40 (register), 0x478B50 (frame), 0x47C6A0 (order), 0x479D00 (frame + inline-budget), 0x4691D0; ten not attempted |
+  | starmap_pip.cpp | S1 | 9 + 4 statics | 0x7C0440 (shape), 0x7C2850 (inline-budget) |
+  | nav_list_line_draw.cpp (new; NavListLineDrawClass), nav_list_builder.cpp | S1 | ctor, dtor, 0x7B9CD0; four instances | 0x7B99C0, 0x7B9DC0 open |
+  | shiputils.cpp (now in the client's line order) | G2 | 11 | 0x80F470 (shape), 0x80EAF0 (inline-budget), 0x80FF20 (layout); 0x812390 open |
+  | fonttexture.cpp | F2 | 4 of 4 | none |
+  | fontdatabase.cpp | F2 | 8 paired by symbols_named rows (funclet-only destructors) | 7 parked as before |
+  | item_effect_description.cpp, effect_description.cpp, item_effect.cpp, special_effect.cpp (wt/E1) | E1, U2 | 10 of 10; 28 of 29; converters; 13 of 13 | Fill_Values 0x8335D0 (register); 0x8348B0 with it |
+  | ui_combobox.cpp (wt/L10) | L10 | 25 | seven, as in the day run's entry |
+  | ui_option_main / _quit / _slider.cpp (new), ui_popup_browser | CP1 | 7 of 7, 9 of 9, 11 of 11, 0x5DB2D0 | ctor 0x5DAE90 (inline-budget) |
+  | ui_option_control_keys.cpp (new) | CP2 | 10 + instances | 0x5CA9F0 (register), 0x5CB000 (shape), 0x5CC030 (inline-budget) |
+  | ui_option_font.cpp (new; OptionFontInterface by RTTI), its maker 0x56C7E0 | CP2, CP3 | 9; the maker | ctor 0x5CC350 (inline-budget), 0x5CC9D0 (frame), 0x5CD780 (jump table) |
+  | ui_petition_entry.cpp (new), ui_petition_stuck.cpp, ui_petition_player_entry.cpp | CP3 | 16 of 18; 16 of 21 together | 0x5D4890, 0x5D4C60, 0x5D6BC0 (shape), 0x5D7420, 0x5D6550 (register), 0x5D6EE0 (inline-budget) |
+  | mclient.cpp (new mclient.h; Handle_Input 0x7ECA50 defined), meshsnd.cpp, mv3dsnd.cpp | M1 | 15 of 17; 11 of 12; 5 + instances | 0x7EC7C0 (register), 0x7ECDC0 (frame), 0x7ED6C0 (literal), 0x7EDCB0 (inline-budget), 0x7EE340 (frame) |
+  | unknown_8b4560.cpp (+0x8B44C0, 0x8B44E0), binkmovie (E&B's fork) | H1, LB2 | 2; 12 functions + 2 initialisers (+18) | the two atexit stubs (D94 b) |
+  | the audio family: ambientsoundmanager, sectorsound, starbasesound, musiccomponent, musictheme, musicmanager, bridgesounds (wt/L18, NOT LANDED) | L18 | 16 of 16; 5; 7; 2 of 2; 5 of 5; 10; +2 | 0x43C780 (frame), 0x436A60 (register), 0x43B1C0, 0x43B7D0; five open |
+
+- **Item 3, the library region** (`.work/week-2026-11-10/libraries.md`, `lib/classes.tsv`; C1, read-only). 4,355 open entries of
+  11,127 verified starts in 0x8C1B50-0xAE68DD:
+
+  | Class | Entries | What |
+  |---|---:|---|
+  | (c) compiler-generated or not a function | 3,985 | 1,734 starts in linker int3 fill, 1,624 EH funclet groups, 190 short, 170 static-init, 79 twins, 71 atexit stubs, 47 import thunks, 70 others |
+  | (a) not EA's published code | 352 | d3dx8 78, libcpmt 171, libcmt 75, comsupp 2, the old iostream library (LIBCIMT) 22, 4 others |
+  | (b) a version difference | 16 | binkmovie 14, DX8Wrapper::Begin_Scene, CPUDetectClass::Init_Processor_Speed |
+  | (d) E&B's own additions | 2 | JPEGWriterClass::Write / Encode_Component |
+
+  3,358 are not functions; of 997 real entries 585 are Westwood's and the tree's objects reproduce 558 byte for byte without
+  credit. **Its first recommended item, the metric fix, was carried out the same night** (LB1: `function_starts()` drops the
+  fill, coverage.md lists the fill and the EH area apart: the region's open list 4,355 -> 996 without the EH groups), as were
+  Begin_Scene (+1), binkmovie (+18; not a revision but an unpublished fork later than Renegade's), LIBCIMT in
+  runtime_match.sh and the four stale runtime reports. Init_Processor_Speed is register-only, not a version difference.
+  **What is left as the first item for the user:** the two crediting rules (P-C1-1 an order tie-break inside one object,
+  about 110 pairs with WWProfileManager's Start_Profile / Stop_Profile; P-C1-2 `$E` initialisers by table position, about 240).
+- **Item 4, the parked leftovers** (section 4 item 10; `.work/run-2026-11-11b/leftovers.md`: 219 addresses, 13 already exact, 79
+  register- or order-only, 127 in packets W1-W14). P1 (W2, W4, W1): +17, spln_db / attrib_dir 8 and galaxy_map_render 8 exact;
+  W1's seven tried all still NOT EXACT. P2 (W3, W5, W7): +11, unknown_7cef30's seven, ui_mesh 0x5B8330, 0x797B50. Fifteen
+  levers recorded with candidates (workflow.md section 3.1.2). W6, W8-W14 not done (P3 and P4 were cut off without a commit).
+- **Landings:** twelve lander runs. In: T2; LB1; L13 + L10 + T1 + LB2 (+88); T3 + RR; L15 (+48); S1 + L16 + E1 + CP1 + D1
+  (+358); T4; H1 + A1 + F2 + G2 + P1 (+46); L19 (+7); X1 + D2 + P2 + L20 + M1 + CP2 + CP3 + L17 (+425). Send pad 29 -> 43
+  (window 42..44); aux pad 58 -> 53. **Not landed, kept** (section 4 item 1 has each one's next step): wt/L18 (refused twice: the
+  retune finds a window, the full verify after it still loses a pad address), wt/R1 (D239's renames: a symbols_named.json
+  conflict at its rebase), wt/L21, wt/P3, wt/P4 (cut off).
+- **D240 and D66 at the merge:** one D240 entry is on the branch for a loss that has NOT happened yet: ui_radio_main 0x5E9410,
+  for wt/R1's removal of ui_mesh.h's interim forwarder (P-R1-1 in section 3: the coordinator's reading, on bytes and D239's
+  wording, not a client string; ui_option_quit 0x5CE830 comes back with it). `/accept-d66` is needed for 103 pairs that moved
+  or lost a holder: 70 are land's functions moving into its two new files; the rest include galaxy_map_render 0x6041C0 ->
+  ui_registration, spln_db 0x71BCC0, cammod_chase 0x67A1D0, land 0x433A10 (other holders keep them), ui_combobox 0x57B6E0 (D235).
+- **What went wrong, and what was changed:** (1) two regressions reached the pushed head 89856458 and were found by the
+  first full check: udpreplay did not link (L15's rename missed three files only udpreplay compiles; the link gate does not
+  link udpreplay: P-H1-1) and the POC crashed in Amount_As_Text (L15's commit removed two neighbouring hand stand-ins,
+  generated ones returned null); both fixed by H1 with real code and confirmed at db5d7156. The e2e smoke set was not run at
+  L15's landing although it retired stand-ins (D237's rule). (2) The first-come lock starved the worktrees made before it
+  (one verify waited 100 minutes); then builders' dry pad sweeps, and later the landing's own per-value sweep, stalled the
+  landings (3 pad values in 45 minutes): fixed by T4 and by forbidding builder sweeps. (3) The coordinator left an
+  uncommitted edit in the main tree and a landing refused on it. (4) The harness flagged one builder (U3) for a possible test
+  removal: the branch's diff under tests/, tools/, stubs/ and link_baseline.json showed renames only; the cause of the flag was
+  not found. (5) The credit cut-off (above): the weekly meter does not show the credit balance. (6) The last landing brought two more regressions, found by the closing check and fixed by H3 before the handoff: clienttest crashed in the real BridgeInterface::Set_Avatar on its fake bridge (the unguarded bridge_int.h had been link-checked but not run through clienttest), and udpreplay did not link again (faction_and_reputation.cpp called Unknown_4A1590 under its old name).
+- **Checks:** at db5d7156: clienttest 103 of 103, udpreplay 0 unresolved, alex3 exit 0 (26,106 messages against the
+  reference's 26,078, none of the reference's undelivered: the 28 extra are not explained), handshake 54 of 54, e2e 6 of 6 as
+  expected. The closing checks: e2e at e8722d79 6 of 6 as expected (world_entry, options, pda_pages, cargo, chat PASS; starmap expected-fail on the POC's GadgetStarmapClass; the real BridgeInterface runs at world entry); after H3's fixes, in its worktree at the head's code: clienttest 103 of 103 with the trace equal (2,494 lines), udpreplay 0 unresolved, handshake 54 of 54, alex3 as the README states except 24,771 message blocks equal in order for the README's 24,772, link gate and stand-in check passed, verify 0 gained / 0 lost. Not rerun after H3's landing: e2e (H3 changed tests/clienttest and line-neutral renames only).
+- **Measured rates:** meter 36 % at 19:14, 46 % at 21:50 (the floor), 52 % at 23:11, 57 % at 00:15, 64 % at 02:16: 4.0 points an
+  hour with two or three Fable and four to seven Opus builders, then the cut-off at 03:05; after the credits were restored the
+  meter read 16 % (not comparable). Builders (the harness's figure at each one's end): Fable C1 274k, L15 340k, L16 341k (its
+  own count 1.1M), L17 488k, L18 474k, L19 216k, L20 428k, P1 560k, P2 494k; Opus between 80k (H2) and 440k (G2), 21 builders,
+  about 4.6M together.
+- **The queue** (`state.tsv`, `merge.py` rerun): 26 rows exact, 40 drafted, 1 taken (control_keys_manager, wt/L21), 404 open,
+  103 parked. **The next ten open rows:** sclient.cpp by run (79; the POC's stubs.log names first), fontsys.cpp (17), wlib's
+  monod.cpp (2), co.cpp (36), env_map_manager.cpp (11), wlib's wdebug.cpp (9), avatar.cpp (22), client.cpp (16),
+  manufacturing_defs.cpp (21, new), ui_registration.cpp (68, on the combo box). Layouts left: a-L7 is on wt/L18; b-9 (sclient
+  by run) not started.
+- **Open for the user:** the 17 proposals of the night in section 3 (P-R1-1 first: it gates wt/R1), `/accept-d66`, the PR.
+- **Next step:** land wt/R1 and wt/L18 (their bullets in section 4 item 1), review wt/L21's cut-off work, then session 4 of the
+  week plan.
+
 ### 2026-11-11 (17:35 PST, evening; day run 2026-11-11, week plan session 2): eight class layouts and shared headers, twenty-eight files drafted on them (five still on unlanded branches); +619 pairs over the run's baseline, 0 lost outright
 
 - **Session** Fable 5.2 coordinator, branch `run/2026-11-11` from master 0185dca9 (PR #190 merged), PR #191, head
