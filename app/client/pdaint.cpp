@@ -32,8 +32,8 @@ public:
 	virtual int Unknown_28();							// +0x28 (what the experience display shows)
 };
 
+#define __BRIDGE_INT_MEMBERS	// bridge_int.h's enums and the functions sclient.cpp does not call
 #include "bridge_int.h"	// BridgeInterface (SClient +0x128C)
-
 
 
 

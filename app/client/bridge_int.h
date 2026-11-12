@@ -30,6 +30,14 @@ class GadgetClass;
 class BridgeInterface : public UnknownAEEA88Class	// NAME 5: the client's RTTI (the receiver in MemberCallback<GadgetClass, BridgeInterface, void (BridgeInterface::*)(FlashingGadgetEvent *, GadgetClass *), FlashingGadgetEvent>, the type descriptor 0xB78F28)
 {
 public:
+	BridgeInterface(ClientClass *client);				// 0x53B040  // NAME 3 [client]: the member's
+	~BridgeInterface();									// 0x53B380
+	virtual void Unknown_00(void *source, int *event);	// +0x00 0x53B500: the mesh's animation started (1: the camera back to the main bone), ended (3: the view reached) or else (the mesh's flag bit 0 cleared)
+	void Set_Avatar(AvatarDescClass *desc);				// 0x53B7A0 (0x74C3B0: the player's own avatar arrived): the race's bridge model and a second avatar of that description for the chair  // NAME 1: what it does; [desc]: what it is
+	void Set_Scene(const RefCountPtr<RefCountClass> &scene);	// 0x53BBC0 (0x744C10: the main view's bridge scene, or NULL when the camera is outside): the mesh and the avatar out of the old scene and into the new one  // NAME 1: what it does; [scene]: what it is (a RefCountClass as 0x744C10 wraps it: its Create_Peek is the client's 0x514960)
+	void Do_Frame(CameraClass *camera);					// 0x53BD40 (SClient's Do_Frame, while there is a scene): the processes, the avatar, the bridge's transform and the camera's (FAIL_IF '!camera')  // NAME 1: its caller's; NAME 3 [camera]: the FAIL_IF's
+
+#ifdef __BRIDGE_INT_MEMBERS	// defined before the include by the files that use what follows; sclient.cpp, which only makes it, gives it its scene, its avatar and its frame, does not (the fewer declarations it sees, the stiller its symbol pad: workflow.md 3.4)
 	// What the avatar plays in its chair (+0x7C). The high word is the rank: a playing animation is not replaced by
 	// one of a higher rank number. Each name is the animation's tag in the avatar's personality.
 	enum {
@@ -53,17 +61,10 @@ public:
 		NUM_VIEWS			// NAME 1: the count
 	};
 
-	BridgeInterface(ClientClass *client);				// 0x53B040  // NAME 3 [client]: the member's
-	~BridgeInterface();									// 0x53B380
-	virtual void Unknown_00(void *source, int *event);	// +0x00 0x53B500: the mesh's animation started (1: the camera back to the main bone), ended (3: the view reached) or else (the mesh's flag bit 0 cleared)
-
 	void Get_Hit(const Vector3 &hit);					// 0x53B670: the camera thrown by a hit, 'get_hit'  // NAME 2: the tag's; [hit]: NAME 1, what it is
 	void Start_Warp();									// 0x53B710 (0x5821C0: the warp done)  // NAME 2: the tag's
 	void Stop_Hard();									// 0x53B740 (0x5821C0: waiting for the warp)  // NAME 2: the tag's
 	void Lose_Control();								// 0x53B770 (0x584690, first)  // NAME 2: the tag's
-	void Set_Avatar(AvatarDescClass *desc);				// 0x53B7A0 (0x74C3B0: the player's own avatar arrived): the race's bridge model and a second avatar of that description for the chair  // NAME 1: what it does; [desc]: what it is
-	void Set_Scene(const RefCountPtr<RefCountClass> &scene);	// 0x53BBC0 (0x744C10: the main view's bridge scene, or NULL when the camera is outside): the mesh and the avatar out of the old scene and into the new one  // NAME 1: what it does; [scene]: what it is (a RefCountClass as 0x744C10 wraps it: its Create_Peek is the client's 0x514960)
-	void Do_Frame(CameraClass *camera);					// 0x53BD40 (SClient's Do_Frame, while there is a scene): the processes, the avatar, the bridge's transform and the camera's (FAIL_IF '!camera')  // NAME 1: its caller's; NAME 3 [camera]: the FAIL_IF's
 	bool Set_View(int view);							// 0x53C670: false while a transition plays or when already there  // NAME 1: what it does; [view]: what it is
 	void Set_Pitch(float pitch);						// 0x53C980 (ctrngadg.cpp: the view turned by the pointer, -0.2 .. 0.4)  // NAME 1: what it sets; [pitch]: what the gadget passes
 	void Set_Yaw(float yaw);							// 0x53CA00 (the same, -0.25 .. 0.25)  // NAME 1: what it sets; [yaw]: what the gadget passes
@@ -77,6 +78,7 @@ public:
 	bool Is_Busy() { return(ViewReached != View); }		// (inline: pdaint.cpp's 0x693CA0 and 0x695780 compare +0x1C with +0x18)  // NAME 1: neutral
 	SimpleSceneClass *Peek_Scene() { return((SimpleSceneClass *)Scene.Peek()); }	// NAME 1: what it returns
 	ClientClass *Peek_Client() { return((ClientClass *)Unknown04); }	// the listener's +0x04 (bridge_int.cpp's FAIL_IF 'Client == NULL' l.404 names it Client)  // NAME 1: what it returns
+#endif
 
 	UIMeshClass *Mesh;									// +0x08: the bridge (its model is the FAIL_IFs' 'bridge')  // NAME 1: what it is
 	const char *BridgeName;								// +0x0C: the race's model name  // NAME 1: what it holds

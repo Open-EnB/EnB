@@ -12,8 +12,8 @@ bool Unknown_42EC60(int button, int arg);							// 0x42EC60 (a key down: input.c
 bool Unknown_42EE90();												// 0x42EE90 (input.cpp: the window has the focus)
 void Unknown_42ED20(float x, float y);								// 0x42ED20 (input.cpp: the pointer placed, 0..1)  // NAME 1 [x, y]: input.h's
 
+#define __BRIDGE_INT_MEMBERS	// bridge_int.h's enums and the functions sclient.cpp does not call
 #include "bridge_int.h"	// BridgeInterface (SClient +0x128C)
-
 
 
 

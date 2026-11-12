@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string>
+#define __BRIDGE_INT_MEMBERS	// bridge_int.h's enums and the functions sclient.cpp does not call
 #include "bridge_int.h"
 #include "sclient.h"
 #include "ui_mesh.h"
@@ -131,7 +132,6 @@ void BridgeInterface::Lose_Control()
 {
 	Play_Animation(ANIM_LOSE_CONTROL, 1.0f, 0, -1);
 }
-
 
 
 
