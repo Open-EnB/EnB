@@ -9,7 +9,7 @@
 #include <math.h>
 #include <string.h>
 
-SurfaceClass *Unknown_BE67C8 = NULL;	// 0xBE67C8: the surface every text is printed to first (freed with the last holder)  // NAME 1 [Unknown_BE67C8]: neutral (D10)
+static SurfaceClass *Unknown_BE67C8 = NULL;	// 0xBE67C8: the surface every text is printed to first (freed with the last holder; file static: its release codegen, 0x6D8C50 / 0x6D8DC0)  // NAME 1 [Unknown_BE67C8]: neutral (D10)
 int Unknown_BE67D0 = 0;					// 0xBE67D0: counts the surface's re-creations  // NAME 1 [Unknown_BE67D0]: neutral (D10)
 int Unknown_BE67D4 = 0;					// 0xBE67D4: counts the textures 0x6D8DC0 re-creates  // NAME 1 [Unknown_BE67D4]: neutral (D10)
 
@@ -27,7 +27,7 @@ Unknown_6D8B90Class::Unknown_6D8B90Class() :
 	Unknown_BE67D8++;
 }
 
-// NOT EXACT: shape: the client releases the shared surface 0xBE67C8 through &NumRefs (mov ecx, eax; add eax, 4; cmp edx, 0) where REF_PTR_RELEASE gives the plain dec / jne (Texture's release is the plain form in both)
+
 Unknown_6D8B90Class::~Unknown_6D8B90Class()
 {
 	REF_PTR_RELEASE(Texture);
@@ -86,7 +86,7 @@ bool Unknown_6D8B90Class::Is_Printed(RefCountPtr<Font32Class> *font, const char 
 
 
 
-// NOT EXACT: shape: only the shared surface's release, as in the destructor (the strip width as a conditional expression fixed the loop's registers)
+
 bool Unknown_6D8B90Class::Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const char *str, int unknown)
 {
 	FAIL_IF(!str) str = "";
@@ -179,5 +179,8 @@ bool Unknown_6D8B90Class::Unknown_6D8DC0(RefCountPtr<Font32Class> *font, const c
 **	this file's. The object starts at the constructor 0x6D8B90 (fontsys.cpp's last function before it) and ends with
 **	0x6D8DC0 (gauge3d.cpp follows at 0x6D9360). Font +0x08 is a RefCountPtr<Font32Class>: the destructor releases it
 **	after the EH state's end (a member's destructor) and 0x6D8DC0's assignment is RefCountPtr's operator=. Is_Printed
-**	0x6D8D30 (no callers left; inlined in 0x6D8DC0) is the same-text test.
+**	0x6D8D30 (no callers left; inlined in 0x6D8DC0) is the same-text test. The shared surface 0xBE67C8 is a file
+**	static: as a global its REF_PTR_RELEASE compiles to the plain dec / jne, as a static to the client's
+**	mov ecx, eax; add eax, 4; dec; cmp; jne (the destructor and 0x6D8DC0 match only so). The strip width is a
+**	conditional expression in the Copy call (a separate w swaps ecx / edx).
 */
