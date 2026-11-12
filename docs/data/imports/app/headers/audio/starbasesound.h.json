@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "StarbaseSoundClass's declaration (0x4C bytes: the starbase view's +0x1F4, was sbaseview.h's SBaseViewUnknown1F4Class view; header name assumed from starbasesound.cpp, NAME 2)"
+}

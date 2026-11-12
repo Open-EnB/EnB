@@ -402,7 +402,7 @@ void BridgeInterface::Do_Frame(CameraClass *camera)
 
 
 	FAIL_IF(Client == NULL) return;
-	Sounds.Stop_Sound(Client->Unknown10BC);
+	Sounds.Update(Client->Unknown10BC);
 }
 
 

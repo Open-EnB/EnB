@@ -85,7 +85,7 @@ SBaseViewClass::SBaseViewClass(ClientTaskClass *task, int arg) :
 	Unknown1EE(false),
 	Unknown1EF(false),
 	Unknown1F0(false),
-	Unknown1F4(arg)
+	StarbaseSound(arg)
 {
 	for (int i = 0; i < 3; i++) {
 		ViewRObjs[i] = NULL;
@@ -321,7 +321,7 @@ void SBaseViewClass::Unknown_14()
 	}
 	Unknown_6A1B80();
 	if (Client && Starbase) {
-		Unknown1F4.Unknown_441A90(Client->Unknown10BC, Unknown_84(Starbase.Peek()));
+		StarbaseSound.Update(Client->Unknown10BC, (UIMeshClass *)Unknown_84(Starbase.Peek()));
 	}
 	if (Unknown64 && Unknown64->Is_Active() && PTrade && PTrade->Is_Active()) {
 		((ClientClass *)((ClientClass *)Client)->Unknown_18())->Send_Packet(&ActionPacketClass(Unknown_Avatar_ID(Client), 22, Unknown_1134(Client), 0));
@@ -466,7 +466,7 @@ void SBaseViewClass::Unknown_69D030(int index)
 		tm.Rotate_Z(WWMATH_PI / 2.0f);
 		SoundLibraryClass::Set_Listener_Transform(tm);
 	}
-	Unknown1F4.Unknown_441A30(index);
+	StarbaseSound.Set_Room(index);
 done:
 	Unknown54 = Unknown50;
 }
@@ -1665,7 +1665,7 @@ void SBaseViewClass::Unknown_6A2430(bool *a, bool *b, bool *c, bool *d, bool *e)
 void SBaseViewClass::Unknown_6A2480()
 {
 	FAIL_IF(Client == NULL) {return;}
-	Unknown1F4.Unknown_441A50(Unknown50);
+	StarbaseSound.Reset(Unknown50);
 }
 
 /*

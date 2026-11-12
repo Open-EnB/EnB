@@ -23,9 +23,9 @@ void BridgeSoundManager::Play_Sounds(int channel, int time)
 }
 
 // @0x436BD0
-void BridgeSoundManager::Stop_Sound(int channel)
+void BridgeSoundManager::Update(int time)
 {
-	AmbientSoundManager::Stop_Sound(channel);
+	AmbientSoundManager::Update(time);
 }
 
 /*

@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "AmbientSoundManager base class declaration (header name assumed from ambientsoundmanager.cpp, NAME 2)"
+ "description": "AmbientSoundManager's declaration (0x2C bytes: BridgeSoundManager, SectorSoundClass and StarbaseSoundClass derive from it; the members LoopingSounds, RandomSounds, NumChannels, CurrentChannel and the sounds' RenderObj / Sound are the asserts'; header name assumed from ambientsoundmanager.cpp, NAME 2)"
 }

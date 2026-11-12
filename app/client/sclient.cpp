@@ -230,14 +230,14 @@ public:
 	char Unknown00[0x1FC];
 };
 
-class SClientUnknown1330Class
-{
-public:
-	SClientUnknown1330Class(unsigned sector);			// 0x43C4A0 (0x750A70, 0x58 bytes)  // NAME 1 [sector]: what 0x750A70 passes
-	~SClientUnknown1330Class();							// 0x43C560
-	char Unknown00[0x58];
-	void Unknown_43C660(int a, int b);					// 0x43C660 (0x750B30 passes the base's Unknown10BC and its argument)  // NAME 1 [a, b]: neutral
-};
+#include "..\audio\sectorsound.h"	// SClient's +0x1330 (made at 0x750A70, 0x58 bytes)
+
+
+
+
+
+
+
 
 class SClientUnknown12BCClass
 {
@@ -325,7 +325,7 @@ SClient::SClient(ClientTaskClass *task) :
 	Unknown1320(true),
 	Unknown1324(0),
 	MusicManager(NULL),
-	Unknown1330(0),
+	SectorSound(0),
 	Unknown1334(NULL),
 	EnvironmentMapManager(NULL),
 	ProjDecalManager(NULL),
@@ -535,8 +535,8 @@ void SClient::Shutdown()
 	MusicManager->Unknown_43AD70();
 	delete MusicManager;
 	MusicManager = NULL;
-	delete Unknown1330;
-	Unknown1330 = NULL;
+	delete SectorSound;
+	SectorSound = NULL;
 
 	int id = (int)CameraManager->Module;
 	SignalMap &notifier = CameraModuleClass::Get_Signal_Map();
@@ -5229,8 +5229,8 @@ void SClient::Unknown_750A70(unsigned sector)
 	if (MusicManager) {
 		MusicManager->Unknown_43B760(sector);
 	}
-	delete Unknown1330;
-	Unknown1330 = new SClientUnknown1330Class(sector);
+	delete SectorSound;
+	SectorSound = new SectorSoundClass(sector);
 }
 
 
@@ -5248,10 +5248,10 @@ void SClient::Unknown_750A70(unsigned sector)
 
 
 // 0x750B30
-void SClient::Unknown_750B30(int arg)
+void SClient::Unknown_750B30(float elevation)
 {
-	if (Unknown1330) {
-		Unknown1330->Unknown_43C660(Unknown10BC, arg);
+	if (SectorSound) {
+		SectorSound->Update(Unknown10BC, elevation);
 	}
 }
 
@@ -5738,9 +5738,9 @@ void SClient::Unknown_64()
 			MusicManager->Unknown_43AE30(0, 0, 0, 8);
 			SoundLibraryClass::Update();
 		}
-		if (Unknown1330) {
-			delete Unknown1330;
-			Unknown1330 = NULL;
+		if (SectorSound) {
+			delete SectorSound;
+			SectorSound = NULL;
 		}
 		return;
 	}
@@ -5791,9 +5791,9 @@ void SClient::Unknown_64()
 	}
 	SoundLibraryClass::Set_Listener_Transform(tm);
 	Unknown_74BFB0();
-	if (Unknown1330) {
+	if (SectorSound) {
 		float z = tm[2][3];
-		Unknown1330->Unknown_43C660(Unknown10BC, *(int *)&z);
+		SectorSound->Update(Unknown10BC, z);
 	}
 	SoundLibraryClass::Update();
 }

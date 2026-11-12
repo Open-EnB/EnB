@@ -323,17 +323,17 @@ struct SBaseViewChannelStruct	// NAME 1: neutral (D10)
 	float Frame;	// +0x0C  // NAME 2: what it holds
 	bool Backward;	// +0x10: played from the last frame down  // NAME 2: what it does
 };
-// the starbase view's +0x1F4 (0x4C bytes: the view is 0x240, SClient 0x74B680)
-class SBaseViewUnknown1F4Class	// NAME 1: neutral (D10): 0x441A50, starbasesound.cpp's neighbourhood
-{
-public:
-	SBaseViewUnknown1F4Class(int arg);	// 0x441910 (the view's constructor passes its second argument)  // NAME 1 [arg]: neutral
-	~SBaseViewUnknown1F4Class();	// 0x4419B0
-	void Unknown_441A50(int arg);	// 0x441A50  // NAME 1 [arg]: what 0x6A2480 passes
-	void Unknown_441A30(int index);	// 0x441A30 (the starbase view's 0x69D030 passes its index)  // NAME 1 [index]: what 0x69D030 passes
-	void Unknown_441A90(int a, int b);	// 0x441A90 (0x69C8F0: the client's +0x10BC, the starbase interface's +0x84)  // NAME 1 [a, b]: neutral
-	int Unknown00[0x4C / 4];	// +0x00 (0x441910 stores dwords up to +0x48)
-};
+#include "..\audio\starbasesound.h"	// StarbaseSoundClass: the starbase view's +0x1F4 (0x4C bytes: the view is 0x240, SClient 0x74B680)
+
+
+
+
+
+
+
+
+
+
 class SBaseViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for app\client\sbaseview.cpp
 {
 public:
@@ -436,7 +436,7 @@ public:
 	Vector3 Unknown1D4;	// +0x1D4 (six zero dwords: as two Vector3s the constructor stores them before the +0x1F4 call, as the client)  // NAME 1 [Unknown1D4]: neutral; the type from the store order only
 	Vector3 Unknown1E0;	// +0x1E0  // NAME 1 [Unknown1E0]: neutral; as Unknown1D4
 	bool Unknown1EC; bool Unknown1ED; bool Unknown1EE; bool Unknown1EF; bool Unknown1F0;	// +0x1EC..+0x1F0 (0x6A23E0 / 0x6A2430)
-	SBaseViewUnknown1F4Class Unknown1F4;	// +0x1F4 (0x6A2480)
+	StarbaseSoundClass StarbaseSound;	// +0x1F4: the rooms' ambient sounds (0x6A2480 resets it)  // NAME 2: what it holds
 };
 
 /*
