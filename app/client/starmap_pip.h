@@ -23,6 +23,7 @@
 #include "vector2.h"
 #include "vector3.h"
 #include "map_pip.h"
+#include "nav_list_line_draw.h"
 
 class SClient;
 class SceneClass;
@@ -42,21 +43,6 @@ public:
 	GadgetStarmapClass(StarmapPipClass *pip);			// 0x7B4700 (G_ASSERT 'StarmapPIP', +0x4C)  // NAME 1 [pip]: what the caller passes
 	virtual bool Unknown_30(float x, float y);			// +0x30 (GadgetClass's pure slot)  // NAME 1 [x, y]: GadgetClass's
 	StarmapPipClass *StarmapPIP;						// +0x4C  // NAME 3: the assert's
-};
-
-// The 0x40-byte object the constructor makes twice (a navigation list and its line colour; 0x7B97F0 news the
-// list). Not in the tree yet. PLACEMENT: provisional (D137): its file is likely nav_list_line_draw.cpp (triage, low)
-class Unknown_7B97F0Class  // NAME 1: neutral (D10): its file is not known
-{
-public:
-	Unknown_7B97F0Class(SClient *client, float arg1, int arg2, const Vector3 &color, float arg3);	// 0x7B97F0  // NAME 1 [client, arg1, arg2, color, arg3]: what the constructor passes
-	~Unknown_7B97F0Class();								// 0x7B98E0
-	void Unknown_7B99C0(ClientObjectClass *avatar, NavListBuilderClass *path, const RefCountPtr<SceneClass> &scene, bool arg);	// 0x7B99C0 (0x7C0910)  // NAME 1 [avatar, path, scene, arg]: what 0x7C0910 passes
-	void Unknown_7B9CD0();								// 0x7B9CD0 (0x7C2D30)
-	void Unknown_7B9DC0(int index);						// 0x7B9DC0 (FAIL_IF '!Client'; 0x7C0910)  // NAME 1 [index]: the list's Index that 0x7C0910 passes
-	char Unknown_Pad00[0x08];
-	NavigationListClass *List;							// +0x08 (0x7B97F0 news it; 0x7C0EE0)  // NAME 2: what it holds
-	char Unknown_Pad0C[0x40 - 0x0C];
 };
 
 // A label on the star map: an object's name in a font, in the PIP's scene. 0x1C bytes, no table.
@@ -124,8 +110,8 @@ public:
 	Vector2 Unknown74;									// +0x74 (0x7C0D70: FLT_MAX, FLT_MAX)
 	Vector2 Unknown7C;									// +0x7C (0x7C0D70: -FLT_MAX, -FLT_MAX)
 	Vector2 MapRange_ws;									// +0x84 (0x7C1280: +0x7C less +0x74)  // NAME 3: 0x7C1510's FAIL_IF 'MapRange_ws.X < WWMATH_EPSILON'
-	Unknown_7B97F0Class *TargetPath;					// +0x8C (0.75, 1, green)  // NAME 3: 0x7C0EE0's FAIL_IF
-	Unknown_7B97F0Class *WarpPath;						// +0x90 (0.75, 2, red)  // NAME 3: 0x7C0EE0's FAIL_IF
+	NavListLineDrawClass *TargetPath;					// +0x8C (0.75, 1, green)  // NAME 3: 0x7C0EE0's FAIL_IF
+	NavListLineDrawClass *WarpPath;						// +0x90 (0.75, 2, red)  // NAME 3: 0x7C0EE0's FAIL_IF
 	int Unknown94;										// +0x94 (-1)
 	int Unknown98;										// +0x98 (-1)
 	MouseTargetClass *MouseTarget;						// +0x9C (0x7C0440 sets it, 0x7C0620 tests against it, 0x7C0910 clears it)  // NAME 3: 0x7C0440's FAIL_IF 'MouseTarget'

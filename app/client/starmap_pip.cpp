@@ -56,8 +56,8 @@ StarmapPipClass::StarmapPipClass(SClient *client) :
 	Label(0)
 {
 	Unknown_BE67BC->Load("fc_radar.ini");
-	TargetPath = new Unknown_7B97F0Class(Client, 0.75f, 1, Vector3(0.0f, 0.8f, 0.0f), 0.5f);
-	WarpPath = new Unknown_7B97F0Class(Client, 0.75f, 2, Vector3(0.8f, 0.0f, 0.0f), 0.5f);
+	TargetPath = new NavListLineDrawClass(Client, 0.75f, 1, Vector3(0.0f, 0.8f, 0.0f), 0.5f);
+	WarpPath = new NavListLineDrawClass(Client, 0.75f, 2, Vector3(0.8f, 0.0f, 0.0f), 0.5f);
 	UnknownA0 = new Unknown_7C3220Class(Scene, false, 4);
 	UnknownA4 = new Unknown_7C3220Class(Scene, true, 4);
 	XPos = Create_NEW(new FontSys("STARMAP_X_POS", 0, 0));
