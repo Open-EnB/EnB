@@ -49,19 +49,6 @@ int DeltaStringClass::UnknownGlobal = 0;	// 0xBE3A9C
 
 // ------------------------------------------------------------------------- strconv_lib.h
 
-// faction_and_reputation.cpp 0x835890: the reaction's name from the client's table 0xBA9614 (not
-// known yet: its number), 'BadReaction' out of range
-char *Value_To_String(char *buf, int size, MobReactionType reaction)
-{
-	STUB_CALLED("Value_To_String(MobReactionType) (0x835890)");
-	if (reaction < 0 || reaction >= MOB_REACTION_COUNT) {
-		_snprintf(buf, size, "BadReaction");
-	} else {
-		_snprintf(buf, size, "%d", (int)reaction);
-	}
-	return buf;
-}
-
 // 0x848C80: RELATIONSHIP's relationship (opcode 137), the client's defaults
 RelationshipClass::RelationshipClass()
 {
