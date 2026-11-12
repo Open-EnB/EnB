@@ -233,8 +233,8 @@ ControlKeyStruct &ControlKeysManager::Get_Key(KeyMappingStruct *entry, int set)
 
 
 
-// NOT EXACT: register, 14 rows: the client keeps modifiers in ebx and reloads the converted event's +4 zero from its frame slot per set, ours keeps both zero words in ebp / ebx and reloads modifiers (attempts.csv)
-int ControlKeysManager::Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, unsigned short modifiers)
+// 0x71A960 (modifiers is an int: the client loads the whole argument into ebx)
+int ControlKeysManager::Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, int modifiers)
 {
 	FAIL_IF(!keylist) return -1;
 
@@ -260,8 +260,8 @@ int ControlKeysManager::Add_Keys(ControlKeyListClass *keylist, const std::string
 	return count;
 }
 
-// NOT EXACT: register, 14 rows: the client keeps modifiers in ebx and reloads the converted event's +4 zero from its frame slot per set, ours keeps both zero words in ebp / ebx and reloads modifiers (attempts.csv)
-int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::string &name, unsigned short modifiers)
+// 0x71AB40 (modifiers is an int, as Add_Keys')
+int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::string &name, int modifiers)
 {
 	FAIL_IF(!keylist) return -1;
 

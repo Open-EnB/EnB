@@ -141,8 +141,8 @@ public:
 
 	KeyMappingStruct *Set_Key(KeyMappingStruct *entry, int set, const ControlKeyStruct &key, bool force);	// 0x71A860: returns the mapping already using key unless force  // NAME 2: describes what it does
 	ControlKeyStruct &Get_Key(KeyMappingStruct *entry, int set);	// 0x71A940: the key of a mapping's set (no caller: inlined)  // NAME 2: describes what it does
-	int Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, unsigned short modifiers);	// 0x71A960  // NAME 2: describes what it does
-	int Remove_Keys(ControlKeyListClass *keylist, const std::string &name, unsigned short modifiers);	// 0x71AB40  // NAME 2: describes what it does
+	int Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, int modifiers);	// 0x71A960  // NAME 2: describes what it does
+	int Remove_Keys(ControlKeyListClass *keylist, const std::string &name, int modifiers);	// 0x71AB40  // NAME 2: describes what it does
 	void Save();														// 0x71AD20: keymap.ini, then KeysSavedEvent  // NAME 2: describes what it does
 	static SignalMap &Get_Signal_Map();								// 0x71B0F0: the function-local static 0xBE7C08  // NAME 2: describes what it does
 	void Restore_Keys();												// 0x71ADC0: RestoreKeys back into UserKeys  // NAME 2: describes what it does
