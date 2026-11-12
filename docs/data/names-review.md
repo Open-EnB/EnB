@@ -9,17 +9,20 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 190 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1812 |
-| 2 | describes what the code does | 4359 |
-| 1 | neutral placeholder | 23433 |
+| 3 | by convention from a client-named file or sibling | 1817 |
+| 2 | describes what the code does | 4485 |
+| 1 | neutral placeholder | 23412 |
 
 ## For review (score 3 and below)
 
 | Score | Name | Where | Evidence |
 |---|---|---|---|
-| 1 | `m_pad` | `app/audio/ambientsoundmanager.h:18` | size from BridgeSoundManager member offset |
+| 1 | `Unknown_BDBB84` | `app/audio/ambientsoundmanager.cpp:12` | neutral (D10), as avatar.cpp's |
 | 1 | `Unknown_437070` | `app/audio/bridgesounds.h:20` | untagged neutral name (D10) |
 | 1 | `m_channel` | `app/audio/bridgesounds.h:29` | race / sound channel index |
+| 1 | `fade_in` | `app/audio/musiclist.h:28` | what Fade_In gets; NAME 2: what it does |
+| 1 | `Unknown_BDBB84` | `app/audio/musicmanager.cpp:11` | neutral (D10), as avatar.cpp's |
+| 1 | `sector` | `app/audio/sectorsound.h:26` | what 0x750A70 passes; sectorsounds%d.ini's number |
 | 1 | `Unknown_Get_Ticks` | `app/audio/soundlib.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_442650` | `app/audio/soundlib.cpp:19` | 0x442650, surfacetypes.cpp's loader |
 | 1 | `Unknown_442870` | `app/audio/soundlib.cpp:20` | 0x442870, surfacetypes.cpp's release |
@@ -32,6 +35,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SoundINIClass` | `app/audio/soundlib.cpp:800` | an INIClass with its own vtable 0xAE7500 (destructor only) |
 | 1 | `Unknown_43FD70` | `app/audio/soundlib.cpp:888` | untagged neutral name (D10) |
 | 1 | `Unknown_43FA80` | `app/audio/soundlib.cpp:888` | untagged neutral name (D10) |
+| 1 | `Unknown_BDBB84` | `app/audio/starbasesound.cpp:11` | neutral (D10), as avatar.cpp's |
+| 1 | `Unknown2C` | `app/audio/starbasesound.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/audio/starbasesound.h:32` | untagged neutral name (D10) |
 | 1 | `SoundINIClass` | `app/audio/surfacetypes.cpp:13` | an INIClass with its own vtable 0xAE7500 (destructor only) |
 | 1 | `Unknown_442650` | `app/audio/surfacetypes.cpp:23` | 0x442650, surfacetypes.cpp's loader |
 | 1 | `Unknown_442870` | `app/audio/surfacetypes.cpp:86` | 0x442870, surfacetypes.cpp's release |
@@ -2489,7 +2495,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_588A70` | `app/client/cpacket.cpp:963` | untagged neutral name (D10) |
 | 1 | `model, name, rgb` | `app/client/cpacket.cpp:1056` | what NAME_DECAL 178 passes |
 | 1 | `Unknown_80FF20` | `app/client/cpacket.cpp:1056` | untagged neutral name (D10) |
-| 1 | `Unknown_43ADF0` | `app/client/cpacket.cpp:1088` | untagged neutral name (D10) |
 | 1 | `Unknown_79B2B0` | `app/client/cpacket.cpp:1098` | untagged neutral name (D10) |
 | 1 | `Unknown13AC` | `app/client/cpacket.cpp:1099` | untagged neutral name (D10) |
 | 1 | `Unknown13B0` | `app/client/cpacket.cpp:1103` | untagged neutral name (D10) |
@@ -6809,7 +6814,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1EE` | `app/client/sbaseview.cpp:85` | untagged neutral name (D10) |
 | 1 | `Unknown1EF` | `app/client/sbaseview.cpp:86` | untagged neutral name (D10) |
 | 1 | `Unknown1F0` | `app/client/sbaseview.cpp:87` | untagged neutral name (D10) |
-| 1 | `Unknown1F4` | `app/client/sbaseview.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/sbaseview.cpp:93` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/sbaseview.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/sbaseview.cpp:99` | untagged neutral name (D10) |
@@ -6865,7 +6869,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_69CDE0` | `app/client/sbaseview.cpp:308` | untagged neutral name (D10) |
 | 1 | `Unknown_74BA30` | `app/client/sbaseview.cpp:319` | untagged neutral name (D10) |
 | 1 | `Unknown_6A1B80` | `app/client/sbaseview.cpp:322` | untagged neutral name (D10) |
-| 1 | `Unknown_441A90` | `app/client/sbaseview.cpp:324` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/sbaseview.cpp:324` | untagged neutral name (D10) |
 | 1 | `Unknown_64EEA0` | `app/client/sbaseview.cpp:330` | untagged neutral name (D10) |
 | 1 | `Unknown_596770` | `app/client/sbaseview.cpp:337` | untagged neutral name (D10) |
@@ -6877,7 +6880,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_695FE0` | `app/client/sbaseview.cpp:398` | untagged neutral name (D10) |
 | 1 | `Unknown_6A2120` | `app/client/sbaseview.cpp:417` | untagged neutral name (D10) |
 | 1 | `Unknown_74CA70` | `app/client/sbaseview.cpp:421` | untagged neutral name (D10) |
-| 1 | `Unknown_441A30` | `app/client/sbaseview.cpp:469` | untagged neutral name (D10) |
 | 1 | `Unknown_69D9D0` | `app/client/sbaseview.cpp:733` | untagged neutral name (D10) |
 | 1 | `Unknown_69DB50` | `app/client/sbaseview.cpp:757` | untagged neutral name (D10) |
 | 1 | `Unknown_69DBA0` | `app/client/sbaseview.cpp:765` | untagged neutral name (D10) |
@@ -6928,7 +6930,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6A23E0` | `app/client/sbaseview.cpp:1483` | untagged neutral name (D10) |
 | 1 | `Unknown_6A2430` | `app/client/sbaseview.cpp:1493` | untagged neutral name (D10) |
 | 1 | `Unknown_6A2480` | `app/client/sbaseview.cpp:1665` | untagged neutral name (D10) |
-| 1 | `Unknown_441A50` | `app/client/sbaseview.cpp:1668` | untagged neutral name (D10) |
 | 1 | `sbaseview` | `app/client/sbaseview.h:10` | provisional, the view's file (sbaseview.cpp, D24) |
 | 1 | `Unknown78A910AvatarClass` | `app/client/sbaseview.h:31` | neutral (D10) |
 | 1 | `UIStarbaseUnknownD4Hash` | `app/client/sbaseview.h:76` | neutral (D10): the hasher |
@@ -7104,14 +7105,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SBaseViewUnknown198Class` | `app/client/sbaseview.h:288` | neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes |
 | 1 | `SBaseViewUnknown70Class` | `app/client/sbaseview.h:308` | untagged neutral name (D10) |
 | 1 | `SBaseViewChannelStruct` | `app/client/sbaseview.h:315` | neutral (D10) |
-| 1 | `SBaseViewUnknown1F4Class` | `app/client/sbaseview.h:327` | neutral (D10): 0x441A50, starbasesound.cpp's neighbourhood |
-| 1 | `arg` | `app/client/sbaseview.h:330` | neutral |
-| 1 | `arg` | `app/client/sbaseview.h:332` | what 0x6A2480 passes |
-| 1 | `Unknown_441A50` | `app/client/sbaseview.h:332` | untagged neutral name (D10) |
-| 1 | `index` | `app/client/sbaseview.h:333` | what 0x69D030 passes |
-| 1 | `Unknown_441A30` | `app/client/sbaseview.h:333` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/client/sbaseview.h:334` | neutral |
-| 1 | `Unknown_441A90` | `app/client/sbaseview.h:334` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/sbaseview.h:337` | untagged neutral name (D10) |
 | 1 | `task, arg` | `app/client/sbaseview.h:340` | what the base / +0x1F4 get |
 | 1 | `Unknown_04` | `app/client/sbaseview.h:342` | untagged neutral name (D10) |
@@ -7223,7 +7216,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1EE` | `app/client/sbaseview.h:438` | untagged neutral name (D10) |
 | 1 | `Unknown1EF` | `app/client/sbaseview.h:438` | untagged neutral name (D10) |
 | 1 | `Unknown1F0` | `app/client/sbaseview.h:438` | untagged neutral name (D10) |
-| 1 | `Unknown1F4` | `app/client/sbaseview.h:439` | untagged neutral name (D10) |
 | 1 | `Unknown_6766E0` | `app/client/sclient.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_676A00` | `app/client/sclient.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_817070` | `app/client/sclient.cpp:34` | untagged neutral name (D10) |
@@ -7251,15 +7243,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64EED0` | `app/client/sclient.cpp:170` | untagged neutral name (D10) |
 | 1 | `Unknown180` | `app/client/sclient.cpp:171` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/client/sclient.cpp:192` | untagged neutral name (D10) |
-| 1 | `a, b, c, d` | `app/client/sclient.cpp:227` | neutral |
-| 1 | `Unknown_43AD70` | `app/client/sclient.cpp:227` | untagged neutral name (D10) |
-| 1 | `Unknown_43AE30` | `app/client/sclient.cpp:227` | untagged neutral name (D10) |
-| 1 | `sector` | `app/client/sclient.cpp:228` | what it gets |
-| 1 | `Unknown_43B760` | `app/client/sclient.cpp:228` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1330Class` | `app/client/sclient.cpp:233` | untagged neutral name (D10) |
-| 1 | `sector` | `app/client/sclient.cpp:236` | what 0x750A70 passes |
-| 1 | `a, b` | `app/client/sclient.cpp:239` | neutral |
-| 1 | `Unknown_43C660` | `app/client/sclient.cpp:239` | untagged neutral name (D10) |
 | 1 | `SClientUnknown12BCClass` | `app/client/sclient.cpp:242` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/sclient.cpp:246` | untagged neutral name (D10) |
 | 1 | `SClientCallbackBaseClass` | `app/client/sclient.cpp:262` | neutral (D10) |
@@ -7279,7 +7262,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown12D4` | `app/client/sclient.cpp:323` | untagged neutral name (D10) |
 | 1 | `Unknown1320` | `app/client/sclient.cpp:325` | untagged neutral name (D10) |
 | 1 | `Unknown1324` | `app/client/sclient.cpp:326` | untagged neutral name (D10) |
-| 1 | `Unknown1330` | `app/client/sclient.cpp:328` | untagged neutral name (D10) |
 | 1 | `Unknown1334` | `app/client/sclient.cpp:329` | untagged neutral name (D10) |
 | 1 | `Unknown1358` | `app/client/sclient.cpp:334` | untagged neutral name (D10) |
 | 1 | `Unknown135C` | `app/client/sclient.cpp:335` | untagged neutral name (D10) |
@@ -7539,7 +7521,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `SClientUnknown1334Class` | `app/client/sclient.h:100` | neutral (D10): 0xB8 bytes, destructor 0x618A50; decal.cpp's 0x75BE00 loads the decal INIs into it |
 | 1 | `SClientUnknown12BCClass` | `app/client/sclient.h:102` | neutral (D10): what SClient +0x12BC points to (a virtual destructor) |
 | 1 | `Unknown6D47C0Class` | `app/client/sclient.h:103` | neutral (D10): the 0x4E8-byte text object CLIENT_DAMAGE 100 makes (constructor 0x6D47C0; cpacket.cpp) |
-| 1 | `SClientUnknown1330Class` | `app/client/sclient.h:104` | neutral (D10): what SClient +0x1330 points to (destructor 0x43C560, musicmanager.cpp's neighbourhood) |
 | 1 | `Unknown_BE67BC` | `app/client/sclient.h:110` | neutral (D10); fontdatabase.h declares it too |
 | 1 | `ViewUnknown34MessageStruct` | `app/client/sclient.h:154` | neutral (D10): a box queued while one is shown (0x10 bytes, 0x589140) |
 | 1 | `Type` | `app/client/sclient.h:158` | 0x588A70's argument |
@@ -8034,7 +8015,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74FEC0` | `app/client/sclient.h:982` | untagged neutral name (D10) |
 | 1 | `Unknown_750210` | `app/client/sclient.h:983` | untagged neutral name (D10) |
 | 1 | `Unknown_750260` | `app/client/sclient.h:984` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/sclient.h:985` | neutral |
 | 1 | `Unknown_750B30` | `app/client/sclient.h:985` | untagged neutral name (D10) |
 | 1 | `text, type, value` | `app/client/sclient.h:986` | what it does with them |
 | 1 | `Unknown_74E580` | `app/client/sclient.h:986` | untagged neutral name (D10) |
@@ -8061,7 +8041,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1320` | `app/client/sclient.h:1019` | untagged neutral name (D10) |
 | 1 | `Unknown1324` | `app/client/sclient.h:1020` | untagged neutral name (D10) |
 | 1 | `Unknown1328` | `app/client/sclient.h:1021` | untagged neutral name (D10) |
-| 1 | `Unknown1330` | `app/client/sclient.h:1023` | untagged neutral name (D10) |
 | 1 | `Peek_Environment_Map_Manager` | `app/client/sclient.h:1024` | neutral (D10) |
 | 1 | `Unknown1334` | `app/client/sclient.h:1024` | untagged neutral name (D10) |
 | 1 | `Unknown1340` | `app/client/sclient.h:1027` | untagged neutral name (D10) |
@@ -23451,11 +23430,41 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `tests/udpreplay/recust_stubs.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `tests/udpreplay/shipcust_stubs.cpp:27` | untagged neutral name (D10) |
 | 2 | `ambientsoundmanager.h` | `app/audio/ambientsoundmanager.h:5` | ambientsoundmanager.cpp is the client's; header name assumed |
-| 2 | `AmbientSoundManager` | `app/audio/ambientsoundmanager.h:8` | ambientsoundmanager.cpp is the client's; class name assumed |
+| 2 | `AmbientSoundManager` | `app/audio/ambientsoundmanager.h:23` | ambientsoundmanager.cpp is the client's; class name assumed |
+| 2 | `RandomSoundStruct` | `app/audio/ambientsoundmanager.h:27` | what it holds (the channel array's name is the client's RandomSounds) |
+| 2 | `std:` | `app/audio/ambientsoundmanager.h:31` | what Play_2D_Sound gets |
+| 2 | `MinDelay` | `app/audio/ambientsoundmanager.h:32` | the ini's MinDelay%d |
+| 2 | `MaxDelay` | `app/audio/ambientsoundmanager.h:33` | the ini's MaxDelay%d |
+| 2 | `NextTime` | `app/audio/ambientsoundmanager.h:34` | what it holds |
+| 2 | `MinPan` | `app/audio/ambientsoundmanager.h:35` | the ini's MinPan%d |
+| 2 | `MaxPan` | `app/audio/ambientsoundmanager.h:36` | the ini's MaxPan%d |
+| 2 | `Positional` | `app/audio/ambientsoundmanager.h:37` | what it selects |
+| 2 | `LoopingSound3DStruct` | `app/audio/ambientsoundmanager.h:41` | what it holds |
+| 2 | `std:` | `app/audio/ambientsoundmanager.h:46` | what Play_3D_Sound gets |
+| 2 | `BoneIndex` | `app/audio/ambientsoundmanager.h:49` | what it holds |
+| 2 | `RandomSound3DStruct` | `app/audio/ambientsoundmanager.h:53` | what it holds |
+| 2 | `BoneIndex` | `app/audio/ambientsoundmanager.h:59` | what it holds |
+| 2 | `std:` | `app/audio/ambientsoundmanager.h:60` | what Play_3D_Sound gets |
+| 2 | `MinDelay` | `app/audio/ambientsoundmanager.h:61` | as RandomSoundStruct's |
+| 2 | `MaxDelay` | `app/audio/ambientsoundmanager.h:62` | as RandomSoundStruct's |
+| 2 | `NextTime` | `app/audio/ambientsoundmanager.h:63` | as RandomSoundStruct's |
+| 2 | `Add_Looping_Sound` | `app/audio/ambientsoundmanager.h:70` | what it does |
+| 2 | `Add_Looping_Sound` | `app/audio/ambientsoundmanager.h:71` | what it does |
+| 2 | `Add_Random_Sound` | `app/audio/ambientsoundmanager.h:72` | what it does |
+| 2 | `Add_Random_Sound` | `app/audio/ambientsoundmanager.h:73` | what it does |
+| 2 | `Update` | `app/audio/ambientsoundmanager.h:75` | what it does |
+| 2 | `Update` | `app/audio/ambientsoundmanager.h:76` | what it does |
+| 2 | `Update_Playing_Sounds` | `app/audio/ambientsoundmanager.h:77` | what it does |
+| 2 | `Set_Pending_Channel` | `app/audio/ambientsoundmanager.h:78` | what it does |
+| 2 | `Stop_Sounds` | `app/audio/ambientsoundmanager.h:79` | what it does |
+| 2 | `std:` | `app/audio/ambientsoundmanager.h:81` | what it holds |
+| 2 | `std:` | `app/audio/ambientsoundmanager.h:84` | as LoopingSounds, attached to a model |
+| 2 | `std:` | `app/audio/ambientsoundmanager.h:85` | as RandomSounds, attached to a model |
+| 2 | `ChannelPending` | `app/audio/ambientsoundmanager.h:88` | what it does |
 | 2 | `bridgesounds.h` | `app/audio/bridgesounds.h:5` | bridgesounds.cpp is the client's; header name assumed |
 | 2 | `BridgeSoundManager` | `app/audio/bridgesounds.h:12` | bridgesounds.cpp is the client's; class name assumed |
 | 2 | `Play_Sounds` | `app/audio/bridgesounds.h:18` | function name assumed |
-| 2 | `Stop_Sound` | `app/audio/bridgesounds.h:19` | function name assumed |
+| 2 | `Update` | `app/audio/bridgesounds.h:19` | what it does |
 | 2 | `Load_INI` | `app/audio/bridgesounds.h:21` | function name assumed |
 | 2 | `Load_Section` | `app/audio/bridgesounds.h:22` | function name assumed |
 | 2 | `m_fade_out` | `app/audio/bridgesounds.h:24` | from bridgesounds.ini "FadeOut" |
@@ -23463,6 +23472,82 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `m_max_delay` | `app/audio/bridgesounds.h:26` | from bridgesounds.ini "DefaultMaxDelay" |
 | 2 | `m_min_pan` | `app/audio/bridgesounds.h:27` | from bridgesounds.ini "DefaultMinPan" |
 | 2 | `m_max_pan` | `app/audio/bridgesounds.h:28` | from bridgesounds.ini "DefaultMaxPan" |
+| 2 | `musiccomponent.h` | `app/audio/musiccomponent.h:5` | musiccomponent.cpp is the client's; header name assumed |
+| 2 | `fade_in, fade_out` | `app/audio/musiccomponent.h:13` | the ini's FadeIn-NN, read twice |
+| 2 | `FadeIn` | `app/audio/musiccomponent.h:17` | the ini's FadeIn-NN |
+| 2 | `FadeOut` | `app/audio/musiccomponent.h:18` | the second time |
+| 2 | `musiclist.h` | `app/audio/musiclist.h:5` | musiclist.cpp is the client's; header name assumed |
+| 2 | `std:` | `app/audio/musiclist.h:23` | what it holds |
+| 2 | `Add_Theme` | `app/audio/musiclist.h:27` | what it does |
+| 2 | `Update_Fade_Out` | `app/audio/musiclist.h:29` | what it does |
+| 2 | `Stop` | `app/audio/musiclist.h:30` | what it does |
+| 2 | `Fade_Out` | `app/audio/musiclist.h:31` | what it does |
+| 2 | `Fade_In` | `app/audio/musiclist.h:32` | what it does |
+| 2 | `Reset` | `app/audio/musiclist.h:33` | what it does |
+| 2 | `Get_Current_Name` | `app/audio/musiclist.h:34` | what it returns |
+| 2 | `std:` | `app/audio/musiclist.h:36` | what it holds |
+| 2 | `FadingOut` | `app/audio/musiclist.h:39` | what it does |
+| 2 | `FadingIn` | `app/audio/musiclist.h:40` | what it does |
+| 2 | `LastTheme` | `app/audio/musiclist.h:41` | what it holds |
+| 2 | `Looping` | `app/audio/musiclist.h:42` | what it does |
+| 2 | `musicmanager.h` | `app/audio/musicmanager.h:5` | musicmanager.cpp is the client's; header name assumed |
+| 2 | `MUSIC_THEME_NONE` | `app/audio/musicmanager.h:23` | CurrentMusicType's -1 |
+| 2 | `MUSIC_THEME_WANDER` | `app/audio/musicmanager.h:24` | the ini's WANDER |
+| 2 | `MUSIC_THEME_COMBAT` | `app/audio/musicmanager.h:25` | the ini's COMBAT |
+| 2 | `MUSIC_THEME_PLANET` | `app/audio/musicmanager.h:26` | the ini's PLANET |
+| 2 | `MUSIC_THEME_STARBASE` | `app/audio/musicmanager.h:27` | the ini's STARBASE (3) |
+| 2 | `MUSIC_THEME_STARGATE` | `app/audio/musicmanager.h:28` | the ini's STARGATE (4) |
+| 2 | `Load_INI` | `app/audio/musicmanager.h:34` | what it does; NAME 1 [race]: what the themes' Race is compared with |
+| 2 | `Set_Music_Type` | `app/audio/musicmanager.h:35` | what it does |
+| 2 | `Stop` | `app/audio/musicmanager.h:36` | what it does |
+| 2 | `Fade_Out` | `app/audio/musicmanager.h:37` | what it does |
+| 2 | `Update` | `app/audio/musicmanager.h:38` | what it does; NAME 1 [level, race, theme_race]: what LevelAvailable, Load_INI and 0x43B1C0 get |
+| 2 | `Get_Current_Name` | `app/audio/musicmanager.h:39` | what it returns |
+| 2 | `Queue_Themes` | `app/audio/musicmanager.h:40` | what it does |
+| 2 | `Race_From_Name` | `app/audio/musicmanager.h:41` | what it does |
+| 2 | `Type_From_Name` | `app/audio/musicmanager.h:42` | what it does |
+| 2 | `Set_Sector` | `app/audio/musicmanager.h:43` | what it does |
+| 2 | `Queue_Sector_Themes` | `app/audio/musicmanager.h:44` | what it does |
+| 2 | `Queue_Sector_Theme` | `app/audio/musicmanager.h:45` | what it does |
+| 2 | `Play_Music` | `app/audio/musicmanager.h:46` | what it does |
+| 2 | `std:` | `app/audio/musicmanager.h:48` | what it holds |
+| 2 | `Lists` | `app/audio/musicmanager.h:49` | what it holds |
+| 2 | `PreviousMusicType` | `app/audio/musicmanager.h:51` | Set_Music_Type keeps the old type here |
+| 2 | `Level` | `app/audio/musicmanager.h:52` | what it is compared with |
+| 2 | `SectorThemeSector` | `app/audio/musicmanager.h:53` | what it holds |
+| 2 | `FadeIn` | `app/audio/musicmanager.h:54` | the ini's WanderFadeIn, CombatFadeIn, PlanetFadeIn |
+| 2 | `FadeOut` | `app/audio/musicmanager.h:55` | the ini's WanderFadeOut, CombatFadeOut, PlanetFadeOut |
+| 2 | `SilenceMin` | `app/audio/musicmanager.h:56` | the ini's SilenceMin |
+| 2 | `SilenceMax` | `app/audio/musicmanager.h:57` | the ini's SilenceMax |
+| 2 | `SilenceEnd` | `app/audio/musicmanager.h:58` | what it holds |
+| 2 | `IsLoaded` | `app/audio/musicmanager.h:59` | what it does |
+| 2 | `Sector` | `app/audio/musicmanager.h:60` | what it holds |
+| 2 | `SectorMusic` | `app/audio/musicmanager.h:61` | what it holds |
+| 2 | `Enabled` | `app/audio/musicmanager.h:63` | what it does |
+| 2 | `musictheme.h` | `app/audio/musictheme.h:5` | musictheme.cpp is the client's; header name assumed |
+| 2 | `Add_Component` | `app/audio/musictheme.h:18` | what it does |
+| 2 | `Get_Component` | `app/audio/musictheme.h:20` | what it returns |
+| 2 | `std:` | `app/audio/musictheme.h:22` | Get_Num_Components counts it |
+| 2 | `Sector` | `app/audio/musictheme.h:23` | the ini's Sector |
+| 2 | `LevelAvailable` | `app/audio/musictheme.h:24` | the ini's LevelAvailable |
+| 2 | `Race` | `app/audio/musictheme.h:25` | the ini's Race (TERRAN, JENQUAI, PROGEN, OTHER) |
+| 2 | `sectorsound.h` | `app/audio/sectorsound.h:5` | sectorsound.cpp is the client's; header name assumed |
+| 2 | `ElevationStruct` | `app/audio/sectorsound.h:19` | what it holds |
+| 2 | `Channel` | `app/audio/sectorsound.h:21` | what Play_Ambient_Sounds gets |
+| 2 | `MaxElevation` | `app/audio/sectorsound.h:22` | the ini's MaxElevation |
+| 2 | `MinElevation` | `app/audio/sectorsound.h:23` | what it holds |
+| 2 | `Reset` | `app/audio/sectorsound.h:28` | as BridgeSoundManager's |
+| 2 | `Update` | `app/audio/sectorsound.h:29` | what it does |
+| 2 | `Load_INI` | `app/audio/sectorsound.h:30` | as BridgeSoundManager's |
+| 2 | `Load_Section` | `app/audio/sectorsound.h:31` | as BridgeSoundManager's |
+| 2 | `CurrentElevation` | `app/audio/sectorsound.h:33` | what it holds |
+| 2 | `std:` | `app/audio/sectorsound.h:34` | what it holds |
+| 2 | `Sector` | `app/audio/sectorsound.h:35` | what it holds |
+| 2 | `FadeOut` | `app/audio/sectorsound.h:36` | the ini's FadeOut |
+| 2 | `DefaultMinDelay` | `app/audio/sectorsound.h:37` | the ini's DefaultMinDelay |
+| 2 | `DefaultMaxDelay` | `app/audio/sectorsound.h:38` | the ini's DefaultMaxDelay |
+| 2 | `DefaultMinPan` | `app/audio/sectorsound.h:39` | the ini's DefaultMinPan |
+| 2 | `DefaultMaxPan` | `app/audio/sectorsound.h:40` | the ini's DefaultMaxPan |
 | 2 | `SoundAccessClass` | `app/audio/soundlib.cpp:32` | what it does |
 | 2 | `Sound3DAccessClass` | `app/audio/soundlib.cpp:38` | what it does |
 | 2 | `SoundLibBridgeClass` | `app/audio/soundlib.cpp:398` | what it does (vtable 0xAE74EC) |
@@ -23519,6 +23604,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `_Audio` | `app/audio/soundlib.h:104` | what it holds |
 | 2 | `_CurrentDialog` | `app/audio/soundlib.h:105` | what it holds |
 | 2 | `_PlayUndefined` | `app/audio/soundlib.h:108` | what it does |
+| 2 | `_RoomSectionNames` | `app/audio/starbasesound.cpp:14` | what it holds |
+| 2 | `starbasesound.h` | `app/audio/starbasesound.h:5` | starbasesound.cpp is the client's; header name assumed |
+| 2 | `NUM_ROOMS` | `app/audio/starbasesound.h:20` | the channel count 0x441910 / 0x441A50 pass |
+| 2 | `starbase` | `app/audio/starbasesound.h:23` | starbasesounds%d.ini's number |
+| 2 | `Set_Room` | `app/audio/starbasesound.h:25` | what it does |
+| 2 | `Reset` | `app/audio/starbasesound.h:26` | as BridgeSoundManager's |
+| 2 | `Update` | `app/audio/starbasesound.h:27` | what it does |
+| 2 | `Load_INI` | `app/audio/starbasesound.h:28` | as BridgeSoundManager's |
+| 2 | `Load_Section` | `app/audio/starbasesound.h:29` | as BridgeSoundManager's |
+| 2 | `Load_Section` | `app/audio/starbasesound.h:30` | as BridgeSoundManager's |
+| 2 | `Starbase` | `app/audio/starbasesound.h:33` | what it holds |
+| 2 | `FadeOut` | `app/audio/starbasesound.h:34` | the ini's FadeOut |
+| 2 | `DefaultMinDelay` | `app/audio/starbasesound.h:35` | the ini's DefaultMinDelay |
+| 2 | `DefaultMaxDelay` | `app/audio/starbasesound.h:36` | the ini's DefaultMaxDelay |
+| 2 | `DefaultMinPan` | `app/audio/starbasesound.h:37` | the ini's DefaultMinPan |
+| 2 | `DefaultMaxPan` | `app/audio/starbasesound.h:38` | the ini's DefaultMaxPan |
+| 2 | `INI` | `app/audio/starbasesound.h:39` | what it holds |
 | 2 | `SoundWalking` | `app/audio/surfacetypes.cpp:19` | what it holds |
 | 2 | `SoundRunning` | `app/audio/surfacetypes.cpp:20` | what it holds |
 | 2 | `Set_State` | `app/client/acticon.h:30` | what it does; NAME 1 [state, end_time]: what ui_cpit.cpp passes |
@@ -24863,6 +24965,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channels` | `app/client/sbaseview.h:417` | what it holds |
 | 2 | `Jobs` | `app/client/sbaseview.h:423` | what it holds; +0x19C / +0x1A0  // NAME 3 [AvatarUI, ShipUI]: the recustomize handlers' '!avatar_ui' / '!ship_ui' tests |
 | 2 | `Info` | `app/client/sbaseview.h:428` | what it holds |
+| 2 | `StarbaseSound` | `app/client/sbaseview.h:439` | what it holds |
 | 2 | `Unknown_Main_Window` | `app/client/sclient.cpp:43` | what Pump_Messages redraws |
 | 2 | `Load` | `app/client/sclient.cpp:67` | what it does  // NAME 3 [textures, swatches, secret_textures]: the INI names |
 | 2 | `Load` | `app/client/sclient.cpp:88` | what it does |
@@ -24976,7 +25079,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `turn, tilt` | `app/client/sclient.h:940` | 0x717430's |
 | 2 | `move_direction, fixed_speed` | `app/client/sclient.h:942` | 0x717430's |
 | 2 | `reset` | `app/client/sclient.h:984` | true sets every sample name to NONE |
+| 2 | `elevation` | `app/client/sclient.h:985` | what SectorSoundClass::Update compares with the ini's MaxElevation |
 | 2 | `Get_Target` | `app/client/sclient.h:1008` | what it returns; +0x12A4 Init  // NAME 2: the asserts' |
+| 2 | `SectorSound` | `app/client/sclient.h:1023` | what it holds |
 | 2 | `ViewMode` | `app/client/sclient.h:1036` | what Do_Frame's asserts show |
 | 2 | `Task` | `app/client/sclient.h:1042` | what it holds |
 | 2 | `Text` | `app/client/sclient.h:1054` | what it holds |
@@ -27809,9 +27914,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |
 | 2 | `LossRound` | `app/wwudp/unknown_cordmsg.cpp:175` | 0xBB1DBC |
 | 2 | `LimitedAt` | `app/wwudp/unknown_cordmsg.cpp:202` | 0xBF4120 when the rate limit last held a send back |
+| 3 | `MusicComponentClass` | `app/audio/musiccomponent.h:10` | class-from-file (D24) for audio\musiccomponent.cpp |
+| 3 | `MusicListClass` | `app/audio/musiclist.h:20` | class-from-file (D24) for audio\musiclist.cpp |
+| 3 | `MusicManagerClass` | `app/audio/musicmanager.h:18` | class-from-file (D24) for audio\musicmanager.cpp |
+| 3 | `MusicThemeClass` | `app/audio/musictheme.h:13` | class-from-file (D24) for audio\musictheme.cpp |
+| 3 | `SectorSoundClass` | `app/audio/sectorsound.h:15` | class-from-file (D24) for audio/sectorsound.cpp |
 | 3 | `soundlib.h` | `app/audio/soundlib.h:21` | header name assumed from the client's soundlib.cpp |
 | 3 | `SoundDefClass` | `app/audio/soundlib.h:35` | from the client's _NextDialogDef (0x68 bytes) |
 | 3 | `SoundLibraryClass` | `app/audio/soundlib.h:71` | from the client's soundlib.cpp ('sound library' in the start-up messages) |
+| 3 | `StarbaseSoundClass` | `app/audio/starbasesound.h:16` | class-from-file (D24) for audio/starbasesound.cpp |
 | 3 | `acticon.h` | `app/client/acticon.h:17` | header name assumed from the client's acticon.cpp |
 | 3 | `ActIconClass` | `app/client/acticon.h:23` | class-from-file (D24) for app\Client\acticon.cpp |
 | 3 | `DeltaElementsClass` | `app/client/aux_roots.h:357` | Net-7 AuxElements at the same place in the tree, its child count differs (Net-7 Construct 4 children != ours 5) |
@@ -28238,7 +28349,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `confirmedlist, chat_panel` | `app/client/sclient.cpp:5070` | the FAIL_IFs'  // NAME 1 [timedlist]: 0x74EB00's queue |
 | 3 | `confirmedlist` | `app/client/sclient.cpp:5182` | the G_ASSERT's  // NAME 1 [timedlist]: 0x74EB00's queue |
 | 3 | `sclient.h` | `app/client/sclient.h:21` | header name assumed from the class |
-| 3 | `MusicManagerClass` | `app/client/sclient.h:87` | class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes) |
 | 3 | `CameraManagerClass` | `app/client/sclient.h:88` | class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes) |
 | 3 | `UIGroupClass` | `app/client/sclient.h:90` | class-from-file (D24) for ui_group.cpp (the main view's +0x1D8; cpacket.cpp: CLIENT_CHAT_EVENT 165) |
 | 3 | `UILineDisplayClass` | `app/client/sclient.h:91` | class-from-file (D24) for ui_line_display.cpp (constructor 0x5A5410, 0x100 bytes) |
