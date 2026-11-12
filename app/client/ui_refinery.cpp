@@ -622,13 +622,13 @@ void UIRefineryClass::Unknown_5EDCC0()
 	if (money && money->Unknown70) {
 		credits = money->Value;
 	}
-	Unknown_5ECBB0(0, true, credits.Unknown_4F00C0(false).c_str());
+	Unknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());
 	MoneyClass cost;
 	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Find_Field<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, NameClass("NegotiatedCost"));
 	if (negotiated && negotiated->Unknown70) {
 		cost = negotiated->Value;
 	}
-	Unknown_5ECBB0(3, true, cost.Unknown_4F00C0(false).c_str());
+	Unknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());
 }
 
 static std::string Unknown_5EE7F0(int validity);
@@ -655,13 +655,13 @@ void UIRefineryClass::Unknown_5EDFD0()
 	DeltaTemplateClass<MoneyClass> *money = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >((DeltaCompoundClass *)Client->As_Space_Client()->AuxData, "Money");
 	if (money && money->Unknown70 > 1) {
 		credits = money->Value;
-		Unknown_5ECBB0(0, true, credits.Unknown_4F00C0(false).c_str());
+		Unknown_5ECBB0(0, true, credits.Amount_As_Text(false).c_str());
 	}
 	MoneyClass cost;
 	DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >(Unknown0AEC, "NegotiatedCost");
 	if (negotiated && negotiated->Unknown70 > 1) {
 		cost = negotiated->Value;
-		Unknown_5ECBB0(3, true, cost.Unknown_4F00C0(false).c_str());
+		Unknown_5ECBB0(3, true, cost.Amount_As_Text(false).c_str());
 	}
 	UIManuListClass *list = Unknown_Find_Changed<UIManuListClass>(Unknown0AEC, NameClass("KnownFormula"));
 	if (list) {

@@ -1456,7 +1456,7 @@ void UIManuClass::Unknown_5B4B10()
 	if (negotiated && negotiated->Unknown70) {
 		cost = negotiated->Value;
 	}
-	Unknown_5B1AF0(1, true, cost.Unknown_4F00C0(false).c_str());
+	Unknown_5B1AF0(1, true, cost.Amount_As_Text(false).c_str());
 
 	DeltaTemplateClass<float> *min = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MinimumQuality"));
 	DeltaTemplateClass<float> *max = Unknown_Find_Valid<DeltaTemplateClass<float> >((DeltaCompoundClass *)Unknown0BA0, NameClass("MaximumQuality"));
@@ -1574,7 +1574,7 @@ void UIManuClass::Unknown_5B5320()
 	MoneyClass cost;		DeltaTemplateClass<MoneyClass> *negotiated = Unknown_Manu_Raw<DeltaTemplateClass<MoneyClass> >(Unknown0BA0, "NegotiatedCost");
 	if (negotiated && negotiated->Unknown70 > 1) {
 		cost = negotiated->Value;
-		Unknown_5B1AF0(1, true, cost.Unknown_4F00C0(false).c_str());
+		Unknown_5B1AF0(1, true, cost.Amount_As_Text(false).c_str());
 	}
 		DeltaTemplateClass<float> *min = Unknown_Manu_Raw<DeltaTemplateClass<float> >(Unknown0BA0, "MinimumQuality");
 	if (min && min->Unknown70 <= 1) {

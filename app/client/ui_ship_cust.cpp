@@ -2061,7 +2061,7 @@ void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
 		}
 		if (text) {
 			std::string line("Credits: ");
-			line += Unknown320.Unknown_4F00C0(true);
+			line += Unknown320.Amount_As_Text(true);
 			text->Change_Text(line.c_str(), 0);
 		}
 	}
@@ -2074,7 +2074,7 @@ void StarbaseShipCustomizeInterface::Unknown_61E8E0(bool any)
 	}
 	if (text) {
 		std::string line("Cost: ");
-		line += Unknown328.Unknown_4F00C0(true);
+		line += Unknown328.Amount_As_Text(true);
 		text->Change_Text(line.c_str(), 0);
 	}
 	FontSys *name = NULL;
@@ -2096,7 +2096,7 @@ void StarbaseShipCustomizeInterface::Unknown_61EF60()
 		View->Get_Unknown34()->Unknown_588A70("NO_CHANGES", 0, NULL, 0x140, 0, 0);
 	} else if (Unknown320 >= Unknown328) {
 		char text[128];
-		_snprintf(text, sizeof(text), "Total changes cost %s credits. Proceed with update?", Unknown328.Unknown_4F00C0(false).c_str());
+		_snprintf(text, sizeof(text), "Total changes cost %s credits. Proceed with update?", Unknown328.Amount_As_Text(false).c_str());
 		View->Get_Unknown34()->Unknown_588A70("SHIP_CONFIRMATION", 0, text, 0x140, 0, 0);
 	} else {
 		View->Get_Unknown34()->Unknown_588A70("NEED_FUNDS", 0, NULL, 0x140, 0, 0);

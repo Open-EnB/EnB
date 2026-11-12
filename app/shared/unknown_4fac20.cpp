@@ -104,10 +104,9 @@ std::string String_Join(const std::vector<std::string> &list, const std::string 
 	while (it != list.end()) {
 		result += *it;
 		++it;
-		if (it == list.end()) {
-			break;
+		if (it != list.end()) {
+			result += separator;
 		}
-		result += separator;
 	}
 	return result;
 }
@@ -124,7 +123,8 @@ std::string String_Join(const std::vector<std::string> &list, const std::string 
 **	with string(first, last + 1) and compare "last > first"; String_Insert_Commas counts with a signed remainder
 **	(idiv) and walks iterators, inserting through insert(iterator, char); the two copies (String_To_Lower / _Upper)
 **	call the in-place functions inline (their _Freeze calls stay out of line, one inline layer down), which are
-**	std::transform with tolower / toupper; String_Join tests size() == 0 first and appends with += (the separator's
-**	append is inline, the element's is not). String_Join's bytes end at 0x4FB769; the matcher's extent for it runs on
-**	into the initialiser 0x4FB7E0, which is not a verified function start.
+**	std::transform with tolower / toupper; String_Join tests size() == 0 first, appends with += (the separator's
+**	append is inline, the element's is not) and adds the separator under "if (it != list.end())" (with a break in
+**	its place the jump at 0x4FB676 lands two bytes later). String_Join's bytes end at 0x4FB769; appfile.py calls
+**	it PREFIX because the initialiser 0x4FB7E0 behind it is not a verified function start.
 */

@@ -311,7 +311,7 @@ void UIPdaCargoClass::Unknown_5D0A50(bool all)
 			money = field->Value;
 		}
 		std::string text = "Credits: ";
-		text += money.Unknown_4F00C0(true);
+		text += money.Amount_As_Text(true);
 		font->Change_Text(text.c_str(), 0);
 	}
 }

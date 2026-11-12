@@ -724,7 +724,7 @@ int GuildDeductFeePacketClass::Get_Data_Size()
 int GuildDeductFeePacketClass::Print(char *buffer, int len)
 {
 	char player_id[32];
-	return(_snprintf(buffer, len, "GuildDeductFeePacket { PlayerID=%s NumCredits=%s Description=%s }", Unknown_8B44E0(PlayerID, player_id), NumCredits.Unknown_4F00C0(false).c_str(), Description.c_str()));
+	return(_snprintf(buffer, len, "GuildDeductFeePacket { PlayerID=%s NumCredits=%s Description=%s }", Unknown_8B44E0(PlayerID, player_id), NumCredits.Amount_As_Text(false).c_str(), Description.c_str()));
 }
 
 

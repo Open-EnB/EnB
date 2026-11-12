@@ -697,7 +697,7 @@ void UITradeClass::Unknown_652450(bool force)
 			Money = money;
 			FontSys *font = Unknown_BE67C4->Get_Style("credits00_ce02a", Get_Unknown0D0());
 			FAIL_IF(!font) return;
-			font->Change_Text(Money.Unknown_4F00C0(true).c_str(), 0);
+			font->Change_Text(Money.Amount_As_Text(true).c_str(), 0);
 		}
 		return;
 	}
@@ -741,7 +741,7 @@ void UITradeClass::Unknown_652890()
 		Unknown_5A00C0(&count, &name);
 		MoneyClass total = (float)count * price;
 		char text[128];
-		_snprintf(text, sizeof(text), "Confirm purchase of %d %s for %s credits?", count, name.c_str(), total.Unknown_4F00C0(true).c_str());
+		_snprintf(text, sizeof(text), "Confirm purchase of %d %s for %s credits?", count, name.c_str(), total.Amount_As_Text(true).c_str());
 		Get_View()->Get_Unknown34()->Unknown_588A70("BUY_CONFIRMATION", false, text, 320, false, false);
 		Unknown174 = 1;
 	}
@@ -792,7 +792,7 @@ void UITradeClass::Unknown_652C60()
 		total = price * (float)count + extra;
 	}
 	char text[128];
-	_snprintf(text, sizeof(text), "Are you sure you want to sell the whole stack for %s credits?", total.Unknown_4F00C0(true).c_str());
+	_snprintf(text, sizeof(text), "Are you sure you want to sell the whole stack for %s credits?", total.Amount_As_Text(true).c_str());
 	Get_View()->Get_Unknown34()->Unknown_588A70("BUY_CONFIRMATION", false, text, 320, false, false);
 }
 
