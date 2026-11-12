@@ -1421,5 +1421,23 @@
   "symbol": "?As_SlotDataGadget@SlotDataGadgetClass@@UAEPAV1@XZ",
   "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
   "replaces": "?Unknown_10@SlotDataGadgetClass@@UAEHXZ"
+ },
+ {
+  "address": "0x721E60",
+  "symbol": "?Add@ControlKeyListClass@@QAEXABUKernelEventClass@@PAX@Z",
+  "evidence": "the key event type is kernel.h's KernelEventClass (L21 2026-11-12, f2206285: inpdsp.cpp's 0x42A1A0 / 0x42A410 and inpkeys.cpp's 0x42B7E0 take it; InterfaceKeyEntryStruct 0x721C70 copies Add's argument into one); the ControlKeyComboStruct mangle was the retired private struct's",
+  "replaces": "?Add@ControlKeyListClass@@QAEXABUControlKeyComboStruct@@PAX@Z"
+ },
+ {
+  "address": "0x721EF0",
+  "symbol": "?Remove@ControlKeyListClass@@QAEXABUKernelEventClass@@@Z",
+  "evidence": "the key event type is kernel.h's KernelEventClass (L21 2026-11-12, f2206285: inpdsp.cpp's 0x42A1A0 / 0x42A410 and inpkeys.cpp's 0x42B7E0 take it; InterfaceKeyEntryStruct 0x721C70 copies Add's argument into one); the ControlKeyComboStruct mangle was the retired private struct's",
+  "replaces": "?Remove@ControlKeyListClass@@QAEXABUControlKeyComboStruct@@@Z"
+ },
+ {
+  "address": "0x71CA20",
+  "symbol": "??BControlKeyValueStruct@@QBE?AUKernelEventClass@@XZ",
+  "evidence": "the key event type is kernel.h's KernelEventClass (L21 2026-11-12, f2206285: inpdsp.cpp's 0x42A1A0 / 0x42A410 and inpkeys.cpp's 0x42B7E0 take it; InterfaceKeyEntryStruct 0x721C70 copies Add's argument into one); the ControlKeyComboStruct mangle was the retired private struct's",
+  "replaces": "??BControlKeyValueStruct@@QBE?AUControlKeyComboStruct@@XZ"
  }
 ]

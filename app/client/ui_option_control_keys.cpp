@@ -33,16 +33,16 @@ public:
 // The buttons Unknown_54 makes, ids 1-11 (0xB82F58)
 static const char *Unknown_B82F58[CONTROL_KEYS_ROWS] = { "exit", "BUTTON03", "BUTTON00", "BUTTON01", "BUTTON02", "TOP_BUTTON00", "TOP_BUTTON01", "TOP_BUTTON02", "TOP_BUTTON03", "TOP_BUTTON04", "TOP_BUTTON05" };	// NAME 1: neutral (D10)
 
-// kernel.h's input event, as ui_option_main.cpp's (Unknown_54's Escape)
-struct UIOptionControlKeysKeyEventStruct	// NAME 1: neutral (D10)
-{
-	UIOptionControlKeysKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+// kernel.h's input event (KernelEventClass), as ui_option_main.cpp's (Unknown_54's Escape)
+
+
+
+
+
+
+
+
+
 
 static int Unknown_BE5D1C;								// 0xBE5D1C (Set_Key_Text: the buttons' width, measured once)  // NAME 1: neutral (D10)
 
@@ -80,7 +80,7 @@ UIOptionControlKeysClass::~UIOptionControlKeysClass()
 void UIOptionControlKeysClass::Unknown_54()
 {
 	if (Unknown_98("tsi31a", "tsi31a.ini")) {
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIOptionControlKeysKeyEventStruct(0x1B), (void *)1);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 		std::string text;
 		for (int i = 0; i < CONTROL_KEYS_ROWS; i++) {
 			int id = i + 1;								// NAME 1: neutral (D10)
@@ -345,7 +345,7 @@ void UIOptionControlKeysClass::Unknown_60()
 		if (allowed) {
 			int set = EditPrimary ? 0 : 1;				// NAME 3: control_keys_manager.cpp's 'set'
 			if (event.Key == 0x1B && (event.Flags & 0x700) == 0) {
-				ControlKeyComboStruct combo = *(ControlKeyValueStruct *)&EditKey->Keys[set];	// NAME 1: neutral (D10)
+				KernelEventClass combo = *(ControlKeyValueStruct *)&EditKey->Keys[set];	// NAME 1: neutral (D10)
 				if (combo.Key == 0) {
 					EditKey = NULL;
 					allowed = false;
