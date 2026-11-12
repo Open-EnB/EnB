@@ -150,30 +150,30 @@ UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((Li
 }
 // The windows ChatPanelInterface::Unknown_565F80 opens (ui_chat_panel.cpp's local classes; request 1 is the HUD's options
 // button): the generated constructors left no table, and Set_Current_Interface crashed calling through it. Empty windows:
-// the base constructed, the members (Unknown98, 'closed', included) zeroed.
-class Unknown5DAE90Class : public UIChatPanelWindowClass { public: Unknown5DAE90Class(SClient *client, int a, const char *title, int b); char Unknown9C[0xCC - 0x9C]; };
-class Unknown5CE240Class : public UIChatPanelWindowClass { public: Unknown5CE240Class(SClient *client); char Unknown9C[0xC0 - 0x9C]; };
-class Unknown5CE700Class : public UIChatPanelWindowClass { public: Unknown5CE700Class(SClient *client, int a); char Unknown9C[0xB8 - 0x9C]; };
-class Unknown5CEDD0Class : public UIChatPanelWindowClass { public: Unknown5CEDD0Class(SClient *client, int a, int b); char Unknown9C[0xE4 - 0x9C]; };
-Unknown5DAE90Class::Unknown5DAE90Class(SClient *client, int a, const char *title, int b) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+// the base (ChatPanelUIBase) constructed, the window's own members zeroed.
+class Unknown5DAE90Class : public ChatPanelUIBase { public: Unknown5DAE90Class(SClient *client, int a, const char *title, int b); char UnknownA0[0xCC - 0xA0]; };
+class Unknown5CE240Class : public ChatPanelUIBase { public: Unknown5CE240Class(SClient *client); char UnknownA0[0xC0 - 0xA0]; };
+class Unknown5CE700Class : public ChatPanelUIBase { public: Unknown5CE700Class(SClient *client, int a); char UnknownA0[0xB8 - 0xA0]; };
+class Unknown5CEDD0Class : public ChatPanelUIBase { public: Unknown5CEDD0Class(SClient *client, int a, int b); char UnknownA0[0xE4 - 0xA0]; };
+Unknown5DAE90Class::Unknown5DAE90Class(SClient *client, int a, const char *title, int b) : ChatPanelUIBase(client)
 {
 	STUB_CALLED("POC Unknown5DAE90Class (0x5DAE90): an empty window");
-	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
+	memset(UnknownA0, 0, sizeof(UnknownA0));
 }
-Unknown5CE240Class::Unknown5CE240Class(SClient *client) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+Unknown5CE240Class::Unknown5CE240Class(SClient *client) : ChatPanelUIBase(client)
 {
 	STUB_CALLED("POC Unknown5CE240Class (0x5CE240): an empty window");
-	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
+	memset(UnknownA0, 0, sizeof(UnknownA0));
 }
-Unknown5CE700Class::Unknown5CE700Class(SClient *client, int a) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+Unknown5CE700Class::Unknown5CE700Class(SClient *client, int a) : ChatPanelUIBase(client)
 {
 	STUB_CALLED("POC Unknown5CE700Class (0x5CE700): an empty window");
-	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
+	memset(UnknownA0, 0, sizeof(UnknownA0));
 }
-Unknown5CEDD0Class::Unknown5CEDD0Class(SClient *client, int a, int b) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+Unknown5CEDD0Class::Unknown5CEDD0Class(SClient *client, int a, int b) : ChatPanelUIBase(client)
 {
 	STUB_CALLED("POC Unknown5CEDD0Class (0x5CEDD0): an empty window");
-	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
+	memset(UnknownA0, 0, sizeof(UnknownA0));
 }
 // (0x765DF0, the chat line colour by its index, is rebuilt: app/client/unknown_764fd0.cpp, GS1)
 
