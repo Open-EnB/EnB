@@ -4,10 +4,15 @@ Functions named so far, by region and by the kind of evidence. "Exact" means pro
 
 | Region | Functions found | Named | Exact | vtable | strings | Named bytes (approx.) |
 |---|---|---|---|---|---|---|
-| app (E&B, 0x401000-0x8C1B50) | 18690 | 12972 | 12724 | 220 | 28 | 2062 KB |
-| libraries (0x8C1B50-end) | 11127 | 6615 | 6580 | 27 | 8 | 1300 KB |
+| app (E&B, 0x401000-0x8C1B50) | 18690 | 12972 | 12654 | 219 | 99 | 2066 KB |
+| libraries (0x8C1B50-end) | 7769 | 6615 | 6580 | 27 | 8 | 1300 KB |
 
 Functions first named through vtables in this run: 256.
 
-The library region also holds about 640 KB of linker padding and compiler-generated exception-handling stubs (docs/library-matching.md §3.7), which are not functions to name.
+| Compiler / linker output in the library region | Starts | Bytes |
+|---|---|---|
+| /GX stubs 0xAA1C00-0xAE2830 (unwind funclets, frame-handler thunks) | 1624 | 259 KB |
+| int3 fill (0xA420AC-0xAA1C00, 0xAE2830-0xAE68DD) | 0 | 399 KB |
+
+The /GX stub area holds 4416 frame-handler thunks; the function that installs each (`push offset thunk`, or `mov eax` before `__EH_prolog`) owns its frame: 4154 thunks of 4144 application functions, 262 of 211 library functions, 0 with no installer found. Neither the stubs nor the fill are functions to name; they are not in the table above (docs/library-matching.md §3.7).
 
