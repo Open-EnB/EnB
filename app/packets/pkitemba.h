@@ -19,20 +19,7 @@
 #include "refcount.h"
 #include "ref_ptr.h"
 #include <string>
-
-// What ITEM_BASE's Info points at: a reference-counted 0x90-byte object (vtable 0xB08C34 over
-// RefCountClass; client 0x83F490-0x840400, not rebuilt) that reads, writes and sizes its own part
-// of the message. Declared for opcode 37 only.
-class ItemBaseInfoClass : public RefCountClass  // NAME 2: what it is (ITEM_BASE's FAIL_IF '!Info')
-{
-public:
-	ItemBaseInfoClass();	// 0x83F490
-	void Read(RawPacketClass *raw);	// 0x840030  // NAME 2: what it does
-	void Write(RawPacketClass *raw);	// 0x83FEF0  // NAME 2: what it does
-	int Get_Size();	// 0x83FE30  // NAME 2: what it returns
-
-	char Unknown08[0x90 - 8];	// +0x08
-};
+#include "..\common\item_info.h"	// ItemBaseInfoClass
 
 // opcode 37 (0x0025, ITEM_BASE): vtable 0xB0AE94, constructor 0x8955C0, 0x6C bytes
 class ItemBasePacketClass : public PacketClass  // NAME 3: the client's Print text 'Item_Base' and Net-7's ITEM_BASE

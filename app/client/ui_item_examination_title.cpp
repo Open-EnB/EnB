@@ -78,7 +78,7 @@ void UIItemExaminationTitleClass::Set_Icon(const ClientItemPropertyIconClass &ic
 
 
 
-void UIItemExaminationTitleClass::Set_Subtitles(const UIItemExaminationTitleSubtitlesClass &info)
+void UIItemExaminationTitleClass::Set_Subtitles(const ClientItemPropertyTypeClass &info)
 {
 	Subtitles->Remove_All_Children(true);
 	char level[32];
@@ -86,7 +86,7 @@ void UIItemExaminationTitleClass::Set_Subtitles(const UIItemExaminationTitleSubt
 	RefCountPtr<DynamicWindowTextClass> text = DynamicWindowTextClass::Create("SUBTITLE_TECH_LEVEL_IEI00", level, 0x20);
 	FAIL_IF(!text) return;
 	Subtitles->Insert_Element(text, 0);
-	if (info.Unknown_530310()) {
+	if (info.Has_Damage_Type()) {
 		std::string damage = Unknown_49E210(info.Get_Damage_Type());	// NAME 1 [damage]: neutral
 		if (damage.size() != 0) {
 			damage += std::string(" ");

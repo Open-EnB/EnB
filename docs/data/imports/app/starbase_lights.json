@@ -1,17 +1,31 @@
 {
  "ambiguous": [],
  "copy": "reconstructed",
- "description": "Unknown_764480Class, the starbase lights manager (0x10 bytes: an INIClass member at +0x00, 'starbase_lights.ini'), client 0x764480-0x764519: the constructor, the destructor 0x7644F0 and the setter 0x764510 of 0xBE82D0 (PROVISIONAL file name after its INI file, D137) (STB2)",
+ "description": "Unknown_764480Class, the starbase lights manager (0x10 bytes: an INIClass member at +0x00, 'starbase_lights.ini'), client 0x764480-0x764FCF: the constructor, the destructor 0x7644F0 and the setter 0x764510 of 0xBE82D0 (PROVISIONAL file name after its INI file, D137) (STB2); B1 (run 2026-11-11): its readers and writers of the sections STARBASE-a-b-c: 0x764530 (Load), 0x764550 (Save), 0x764570 (a light), 0x764880 (a light stored), 0x764C30 (a pad point stored), 0x764E20 / 0x764F60 (the ambient colour / the fill stored), 0x764EA0 (the fill) exact; 0x764AB0 (a pad point) and 0x764CF0 (the ambient colour) functional (NOT EXACT, register / order); 0x764FD0 (SClient's constructor's 24 white vectors) left: not this manager's",
  "expected": {},
  "in_tree": [
+  "0x42F250",
   "0x764480",
   "0x7644F0",
-  "0x764510"
+  "0x764510",
+  "0x764530",
+  "0x764550",
+  "0x764570",
+  "0x764880",
+  "0x764C30",
+  "0x764E20",
+  "0x764EA0",
+  "0x764F60"
  ],
  "merged": [],
  "name": "client/starbase_lights.cpp",
+ "shared": [
+  "0x42F250"
+ ],
  "short_known": [
   "0x7644F0",
-  "0x764510"
+  "0x764510",
+  "0x764530",
+  "0x764550"
  ]
 }

@@ -1,0 +1,24 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "ClientItemPropertyVisitorClass's default slots (NAME 2: the file's name after the item property files around it; no assert; the class is declared in ui_item_examination_property_router.h, table 0xAEE6DC), client 0x530390-0x5304CF: Unknown_20 0x530390 (nothing), Unknown_1C ... Unknown_00 0x5303B0-0x530490 (each hands its property to Unknown_20), <string>'s guarded static 0x5304B0",
+ "expected": {},
+ "in_tree": [
+  "0x530390",
+  "0x5303B0",
+  "0x5303D0",
+  "0x5303F0",
+  "0x530410",
+  "0x530430",
+  "0x530450",
+  "0x530470",
+  "0x530490"
+ ],
+ "merged": [],
+ "name": "client/item/client_item_property_visitor.cpp",
+ "short_known": [
+  "0x530390"
+ ]
+}

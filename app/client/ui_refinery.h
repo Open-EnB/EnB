@@ -5,6 +5,7 @@
 #define UI_REFINERY_H
 
 #include "sclient.h"
+#include "ui_inv.h"		// UIInvRobjStripClass, the strips of slots
 #include "..\..\wwlib\ref_ptr.h"
 
 class GadgetSlider;				// gd_slider.h's slider (+0xB0)
@@ -13,16 +14,6 @@ class FontSys;					// fontmanager.h's text objects (+0xF4)
 class SBaseViewClass;			// sbaseview.cpp's starbase view (+0xAC)
 class DeltaCompoundClass;
 class UIManuListClass;			// ui_manu.cpp's formula list ('KnownFormula')
-
-// ui_inv.cpp's interface (0xE0 bytes, constructor 0x59EDC0) the window holds two of (+0xB4 'TSM03A.E%02d', +0xB8
-// 'TSM03A.RESULT'), as far as this file calls it (as ui_manu.h's UIManuInvClass)
-class UIRefineryInvClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	UIRefineryInvClass(SClient *client, RenderObjClass *model, int count, const char *format, int unknown);	// 0x59EDC0 (slot +0x54: 6 'TSM03A.E%02d' 12, 1 'TSM03A.RESULT' 13)  // NAME 1 [client, model, count, format, unknown]: as ui_manu.h's
-
-	char Unknown84[0xE0 - 0x84];						// +0x84
-};
 
 // ui_refinery.cpp's refinery window (0xB08 bytes, tables 0xAF6DBC / 0xAF6DB0 / 0xAF6DA4; made by 0x69F8F0, sbaseview.cpp,
 // case 5: the starbase view's +0x184)
@@ -57,8 +48,8 @@ public:
 
 	SBaseViewClass *Unknown0AC;							// +0x0AC (the constructor's view)
 	GadgetSlider *Unknown0B0;							// +0x0B0 (the list's slider: its +0xD4 the first row)
-	RefCountPtr<UIRefineryInvClass> Unknown0B4;			// +0x0B4 'TSM03A.E%02d'
-	RefCountPtr<UIRefineryInvClass> Unknown0B8;			// +0x0B8 'TSM03A.RESULT'
+	RefCountPtr<UIInvRobjStripClass> Unknown0B4;			// +0x0B4 'TSM03A.E%02d'
+	RefCountPtr<UIInvRobjStripClass> Unknown0B8;			// +0x0B8 'TSM03A.RESULT'
 	ButtonGadgetClass *Unknown0BC[4];					// +0x0BC (+0xC0..+0xC8: slot +0x54's buttons 'exit', 'go', 'r_stack')
 	ButtonGadgetClass *Unknown0CC[10];					// +0x0CC the rows' buttons ('desc%02d')
 	RefCountPtr<FontSys> Unknown0F4[10];				// +0x0F4 the rows' texts

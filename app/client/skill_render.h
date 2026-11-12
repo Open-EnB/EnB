@@ -17,7 +17,7 @@
 
 #include "slot_data_render.h"
 
-class Unknown669570Class;
+class GaugeGadgetClass;	// gd_gauge.h
 class Unknown6A3D60Class;
 class SkillDataClass;
 class SlotDataGadgetClass;
@@ -45,7 +45,7 @@ public:
 	void Unknown_6A73C0(bool on, const RefCountPtr<RenderObjClass> &robj);	// 0x6A73C0 (onto or off the container)  // NAME 1 [on, robj]: neutral
 
 	RefCountPtr<RenderObjClass> Unknown2C;								// +0x2C ('itemon01')
-	Unknown669570Class *Unknown30;										// +0x30 (the 'REACTOR_BAR1' gauge)
+	GaugeGadgetClass *Unknown30;										// +0x30 (the 'REACTOR_BAR1' gauge)
 	int Unknown34;														// +0x34 (the ability; -1)
 	int Unknown38;														// +0x38 (0 and 1: shortcuts, 2: the skill list)
 	RefCountPtr<RenderObjClass> ValidityIndicator;						// +0x3C ('item_dark')  // NAME 3: its assert

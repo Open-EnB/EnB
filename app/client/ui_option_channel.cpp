@@ -48,15 +48,15 @@ static const char *Unknown_B82CAC[21] = {	// NAME 1: neutral (D10)
 	NULL, "Channel_Jenquai", "Channel_Enforcers", NULL, "Channel_Progen", NULL,
 };
 
-// ui_manu.cpp's check button, as far as this page uses it (0x68 bytes, table 0xB075E4)
-class UIManuCheckButtonClass : public GadgetClass	// NAME 1: neutral (D10), as ui_manu.cpp's
-{
-public:
-	void Unknown_7E8030(bool on);						// 0x7E8030: checked or not  // NAME 1 [on]: neutral
+// The check box (unknown_7e7e00.h: 0x68 bytes, table 0xB075E4)
+#include "unknown_7e7e00.h"
 
-	char Unknown30[0x64 - 0x30];						// +0x30 (GadgetClass is 0x30 bytes)
-	bool Checked;										// +0x64  // NAME 2: what 0x7E8030 sets
-};
+
+
+
+
+
+
 
 // kernel.h's input event, as ui_option_account.cpp's (Unknown_54's Escape)
 struct UIOptionChannelKeyEventStruct	// NAME 1: neutral (D10)

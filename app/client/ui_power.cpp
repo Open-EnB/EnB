@@ -15,11 +15,11 @@
 #include "..\shared\g_assert.h"
 
 // One gauge of the three (0x8C bytes, table 0xAF5CA0): gd_gauge.cpp's with the sound name of its low warning
-class UIPowerGaugeClass : public GaugeGadgetClass	// NAME 1: neutral (D10)
+class UIPowerGaugeClass : public TrailGaugeGadgetClass	// NAME 1: neutral (D10)
 {
 public:
 	UIPowerGaugeClass(RenderObjClass *mesh, const char *format, const char *sound);	// 0x5DCB50 (inlined into 0x5DBFC0)  // NAME 1 [mesh, format, sound]: what 0x5DBFC0 passes
-	virtual bool Unknown_A4(float value);				// +0xA4 0x5DCBE0 (the base's; 'TALK_%s_ENERGY_LOW_1.wav' when it drops under 2)  // NAME 1 [value]: the base's
+	virtual bool Set_Value(float value);				// +0xA4 0x5DCBE0 (the base's; 'TALK_%s_ENERGY_LOW_1.wav' when it drops under 2)  // NAME 1 [value]: the base's
 
 	const char *Sound;									// +0x88 ('PROPULSION', 'SHIELD')  // NAME 2: what the warning's name takes
 };
@@ -70,15 +70,15 @@ UIPowerClass::~UIPowerClass()
 void UIPowerClass::Unknown_5DC390()
 {
 	if (ShieldGauge->Exists) {
-		ShieldGauge->Unknown_A8(0.0f);
+		ShieldGauge->Force_Value(0.0f);
 		GadgetClass::Set_Tooltip(ShieldGauge, "UI_POWER", "NO_SHIELDS");
 	}
 	if (EnergyGauge->Exists) {
-		EnergyGauge->Unknown_A8(0.0f);
+		EnergyGauge->Force_Value(0.0f);
 		GadgetClass::Set_Tooltip(EnergyGauge, "UI_POWER", "NO_ENERGY");
 	}
 	if (HullGauge->Exists) {
-		HullGauge->Unknown_A8(0.0f);
+		HullGauge->Force_Value(0.0f);
 		GadgetClass::Set_Tooltip(HullGauge, "UI_POWER", "NO_HULL");
 	}
 }
@@ -105,7 +105,7 @@ void UIPowerClass::Unknown_10()
 	if (EnergyGauge->Exists) {
 		DeltaInterpolatorClass *percent = Unknown_Power_Find<DeltaInterpolatorClass>(aux, "EnergyPercent");
 		float value = percent ? percent->Get_Value(time) : 0.0f;
-		EnergyGauge->Unknown_A4(value);
+		EnergyGauge->Set_Value(value);
 		if (EnergyGauge->Is_Unknown2C_08()) {
 			DeltaTemplateClass<float> *field = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxEnergyPower"));
 			float max = (field && field->Unknown70) ? field->Value : 0.0;
@@ -121,7 +121,7 @@ void UIPowerClass::Unknown_10()
 	if (ShieldGauge->Exists) {
 		DeltaInterpolatorClass *percent = Unknown_Power_Find<DeltaInterpolatorClass>(aux, "ShieldPercent");
 		float value = percent ? percent->Get_Value(time) : 0.0f;
-		ShieldGauge->Unknown_A4(value);
+		ShieldGauge->Set_Value(value);
 		if (ShieldGauge->Is_Unknown2C_08()) {
 			DeltaTemplateClass<float> *field = Unknown_Find_Field<DeltaTemplateClass<float> >(aux, NameClass("MaxShieldPower"));
 			if (field && field->Unknown70 && field->Value > 0.0f) {
@@ -148,14 +148,14 @@ void UIPowerClass::Unknown_10()
 		if (max < 1.0f) {
 			max = 0.0f;
 			cur = 0.0f;
-			HullGauge->Unknown_A4(0.0f);
+			HullGauge->Set_Value(0.0f);
 		} else {
 			if (cur < 0.0f) {
 				cur = 0.0f;
 			} else if (cur > max) {
 				cur = max;
 			}
-			HullGauge->Unknown_A4(cur / max);
+			HullGauge->Set_Value(cur / max);
 		}
 		if (HullGauge->Is_Unknown2C_08()) {
 			GadgetClass::Set_Tooltip(HullGauge, "UI_POWER", "HULL", (int)cur, (int)max);
@@ -173,17 +173,17 @@ void UIPowerClass::Unknown_5DCAE0()
 
 // @0x5DCB50
 UIPowerGaugeClass::UIPowerGaugeClass(RenderObjClass *mesh, const char *format, const char *sound) :
-	GaugeGadgetClass(mesh, format),
+	TrailGaugeGadgetClass(mesh, format),
 	Sound(sound)
 {
 }
 
 // @0x5DCBE0
-bool UIPowerGaugeClass::Unknown_A4(float value)
+bool UIPowerGaugeClass::Set_Value(float value)
 {
 	float old = Get_Value();
-	if (GaugeGadgetClass::Unknown_A4(value)) {
-		if (Value < 2.0f && old >= 2.0f) {
+	if (TrailGaugeGadgetClass::Set_Value(value)) {
+		if (Current.Value < 2.0f && old >= 2.0f) {
 			char name[256];
 			sprintf(name, "TALK_%s_ENERGY_LOW_1.wav", Sound);
 			SoundLibraryClass::Play_2D_Sound(name, 2);

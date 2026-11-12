@@ -194,20 +194,6 @@ Matrix3D Unknown_82ECB0(const Vector3 &dir, const Vector3 &pos)
 	return tm;
 }
 
-// starbase_lights.cpp 0x764AB0 / 0x764CF0 (not rebuilt; gen_stubs skips a by-value Vector3): a light's pad point
-// and the ambient colour, called by ui_starbase.cpp's lights panel, linked since its constructor 0x6333E0 is real
-#include "starbase_lights.h"
-Vector3 Unknown_764480Class::Unknown_764AB0(int a, int b, int c, int index)
-{
-	STUB_CALLED("Unknown_764480Class::Unknown_764AB0 (0x764AB0)");
-	return Vector3(0.5f, 0.5f, 0.0f);
-}
-Vector3 Unknown_764480Class::Unknown_764CF0(int a, int b, int c)
-{
-	STUB_CALLED("Unknown_764480Class::Unknown_764CF0 (0x764CF0)");
-	return Vector3(0.5f, 0.5f, 0.5f);
-}
-
 // ui_item_examination_title.cpp's names (not rebuilt; gen_stubs skips a by-value std::string), linked since
 // ui_slot_info.cpp's 0x630280 news the item examination window
 std::string Unknown_7EA190(int id)
@@ -243,4 +229,18 @@ std::string Unknown_7EB4D0(int type)
 {
 	STUB_CALLED("Unknown_7EB4D0 (0x7EB4D0): no item type name");
 	return std::string();
+}
+
+// ------------------------------------------------------------------------- item_info.cpp's effect descriptions
+
+#include "item_effect_description.h"
+
+// 0x83DB00 / 0x83DD40: ItemEffectDescriptionClass's constructor and Clear_Effects (item_effect_description.cpp, not
+// rebuilt), the client's behaviour: the real ItemBaseInfoClass (item_info.cpp) holds two and destroys their vectors
+ItemEffectDescriptionClass::ItemEffectDescriptionClass() : Duration(0), Unknown18(0), Unknown1C(0), Unknown20(0)
+{
+}
+void ItemEffectDescriptionClass::Clear_Effects()
+{
+	Effects.erase(Effects.begin(), Effects.end());
 }

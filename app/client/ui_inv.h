@@ -56,4 +56,35 @@ public:
 	const char *Name;									// +0xCC (the kind's: 'SHIP_CARGO', ...)  // NAME 2: what it holds
 };
 
+// The inventory strip (0xE0 bytes): an inventory window whose slots are sub-objects of a model, kept until the set-up
+// 0x59F2C0 makes a button of each. No table or constructor of its own in the client (the constructor inline in
+// UIInvStripOfClass's, the destructor implicit: 0x59EBB0, the constructors' unwind).
+class UIInvStripClass : public UIInvClass	// NAME 2: what it is (the week's map calls it the inventory strip)
+{
+public:
+#ifdef POC_WINDOW_CTOR
+	UIInvStripClass(LineDisplayClientClass *client) : UIInvClass(client) {}	// (the POC's empty windows)
+#endif
+	UIInvStripClass(SClient *client, int kind) : UIInvClass(client, kind) {}	// (inline: 0x59EA30, 0x59EDC0)  // NAME 1 [client]: neutral; NAME 2 [kind]: UIInvClass's
+	virtual void Unknown_54();							// 0x59F2C0 (UIInvClass's, then a button for each of Robjs through slot +0xAC, and Robjs emptied)
+	void Add(RenderObjClass *robj);						// 0x59F060 (FAIL_IF '!robj' l.108; no caller left: inline in the constructors)  // NAME 2: what it does; NAME 3 [robj]: the FAIL_IF's
+
+	std::vector<RenderObjClass *> Robjs;				// +0xD0 (the slots' sub-objects, a reference each, until the set-up)  // NAME 2: the FAIL_IF's 'robj', plural
+};
+
+// The strip made from a model's sub-objects named by a format ('TSM01A.E%02d' and the index, count of them). Two of
+// it in the client, alike but for the model's call and both in ui_inv.cpp's range before its other code, so a template
+// instantiated there (a reading, NAME 1): MODEL = UIMeshClass at 0x59EA30 (tables 0xAF2414 / 0xAF2408 / 0xAF23FC,
+// destructor 0x59ECD0, deleting 0x59ECA0; no caller) and MODEL = RenderObjClass at 0x59EDC0 (tables 0xAF2644 /
+// 0xAF2638 / 0xAF262C, destructor 0x59EF70, deleting 0x59EF40; the manufacture, analyze, refinery, jobs and player
+// trade windows' slot +0x54). The tables differ from UIInvClass's only at +0x00 and +0x54.
+template<class MODEL>
+class UIInvStripOfClass : public UIInvStripClass	// NAME 1: neutral (D10)
+{
+public:
+	UIInvStripOfClass(SClient *client, MODEL *model, int count, const char *format, int kind);	// 0x59EA30, 0x59EDC0 (6 'TSM01A.E%02d' 12, 1 'TSM01A.RESULT' 13, 1 'TSM01A.OVER' 14, 6 'TRADE00A.C%02d' 15, 1 'JNEWS00.C00' 18)  // NAME 1 [client, model]: neutral; NAME 2 [count, format, kind]: what it does with them
+};
+
+typedef UIInvStripOfClass<RenderObjClass> UIInvRobjStripClass;	// NAME 1: neutral (D10)
+
 #endif // UI_INV_H

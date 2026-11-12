@@ -26,31 +26,6 @@ struct InvDataPeekItemStruct	// NAME 1: neutral (D10)
 };
 
 #include "inv_data.h"	// InvDataClass and its lists (inv_data_peek.h's InvDataPeekClass)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // The client at InterfaceClass +0x40, as this file calls it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {
@@ -112,6 +87,42 @@ struct UIInvViewUnknown44Struct	// NAME 1: neutral (D10): the view's slot +0x44,
 	DragSlotDataClass *Unknown2C;				// +0x2C
 };
 
+#include "ui_mesh.h"	// the strips' models
+#include "rendobj.h"
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (avatar.cpp declares it the same)
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x59F060
+void UIInvStripClass::Add(RenderObjClass *robj)
+{
+	FAIL_IF(!robj) return;
+	robj->Add_Ref();
+	Robjs.push_back(robj);
+}
+
+// 0x59F2C0
+void UIInvStripClass::Unknown_54()
+{
+	UIInvClass::Unknown_54();
+	int count = Robjs.size();
+	for (int i = 0; i < count; i++) {
+		Unknown_496AE0(Robjs[i], true);
+		Unknown_AC(Robjs[i], NULL);
+		REF_PTR_RELEASE(Robjs[i]);
+	}
+	Robjs.clear();
+}
+
 // 0x59F3D0
 UIInvClass::UIInvClass(SClient *client, int kind) :
 	SlotDataInterface(client),
@@ -122,17 +133,6 @@ UIInvClass::UIInvClass(SClient *client, int kind) :
 	Name(NULL)
 {
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -575,7 +575,7 @@ bool UIInvClass::Unknown_5A02E0(bool arg)
 	if (arg) {
 		InvDataClass *inv = SlotData->Unknown_10();
 		InvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(slot, false);
-		if (item) num = item->Unknown50;
+		if (item) num = item->Unknown50; item->Name.size();	// (a dead read: the cost D165's FAIL_IF form took from this function, so that 0x5A0740 calls it out of line as the client does; workflow.md 3.1.2)
 	}
 	return(InvTransaction->Unknown_690AA0(InvType, slot, num, true, 1, -1));
 }
@@ -736,14 +736,14 @@ void UIInvClass::Unknown_5A06C0(SlotDataGadgetClass *gadget)
 
 
 
-// NOT EXACT: functional, from the pseudocode (D64); 0.36: 1388 bytes against the client's 1154 (the branches' order and the item's name reads)
+// NOT EXACT: 0.74, the client's 1154 bytes and blocks (register-only): the client loads the ship's ID, the views, the stack's inventory and the drag's mode through other scratch registers (eax / edx / ecx turned round) and sets the result through cl where this has dl
 // 0x5A0740
 bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 {
 	SClient *sclient = Client->As_Space_Client();
 	FAIL_IF(!sclient) return(true);
 	int from_slot = SlotDrag->Get_Slot();
-
+	bool handled = true;								// (the result from the transfer on: its first return is where the client has its one 'return true' block)  // NAME 2: what it holds
 
 
 
@@ -758,98 +758,98 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 			}
 			sclient->Send_Packet(&EquipUsePacketClass(sclient->ShipID, InvType, from_slot));
 			return(true);
-		}
-		int mode = SlotDrag->Unknown1C;
-		if (mode != 1 && mode != 3) return(true);
-		if (SlotDrag->Unknown20) {
-			if (sclient->CurrentView != sclient->Unknown135C) return(true);
-			int to_inv;
-			const char *to_name;
-			if (InvType == 1) {
-				to_inv = 3;
-				to_name = "vault";
-			} else if (InvType == 3) {
-				to_inv = 1;
-				to_name = "cargo";
+		} else if (SlotDrag->Unknown1C == 1 || SlotDrag->Unknown1C == 3) {
+			if (SlotDrag->Unknown20) {
+				if (sclient->CurrentView == sclient->Unknown135C) {
+					int to_inv;
+					const char *to_name;
+					switch (InvType) {
+						case 3:
+							to_inv = 1;
+							to_name = "cargo";
+							break;
+						case 1:
+							to_inv = 3;
+							to_name = "vault";
+							break;
+						default:
+							return(true);
+					}
+					InvDataPeekClass *peek = SlotData->Unknown_10()->Unknown_688830();
+					int num = peek->Get_Stack_Count(from_slot);
+					if (num) {
+						if (SlotDrag->Unknown1C == 1) num = 1;
+						InvTransaction->Unknown_690AA0(InvType, from_slot, num, true, to_inv, -1);
+						InvDataPeekItemStruct *item = peek->Get_Item(from_slot, false);
+						if (item) {
+							if (num == 1) {
+								sclient->Print(0, "Transferring %s to %s.", item->Name.c_str(), to_name);
+								return(handled);
+							}
+							sclient->Print(0, "Transferring stack of %d %s to %s.", num, item->Name.c_str(), to_name);
+						}
+					}
+				}
 			} else {
-				return(true);
-			}
-			InvDataClass *inv = SlotData->Unknown_10();
-			InvDataPeekClass *peek = inv->Unknown_688830();
-			int num = peek->Get_Stack_Count(from_slot);
-			if (!num) return(true);
-			if (SlotDrag->Unknown1C == 1) num = 1;
-			InvTransaction->Unknown_690AA0(InvType, from_slot, num, true, to_inv, -1);
-			InvDataPeekItemStruct *item = peek->Get_Item(from_slot, false);
-			if (!item) return(true);
-			if (num != 1) {
-				sclient->Print(0, "Transferring stack of %d %s to %s.", num, item->Name.c_str(), to_name);
-			} else {
-				sclient->Print(0, "Transferring %s to %s.", item->Name.c_str(), to_name);
-			}
-			return(true);
-		}
-		InvDataClass *inv = SlotData->Unknown_10();
-		InvDataPeekItemStruct *item = inv->Unknown_688830()->Get_Item(from_slot, true);
-		if (InvType == 1) {
-			if (!sclient->Unknown1298) return(true);
-			if (!sclient->Unknown1298->Unknown_64EEA0()) return(true);
-			switch (SlotDrag->Unknown1C) {
-				case 1:
-					InvTransaction->Unknown_690AA0(InvType, from_slot, 1, true, 4, 0);
-					sclient->Print(0, "Selling %s.", item->Name.c_str());
-					break;
-				case 3: {
-					InvDataClass *inv = SlotData->Unknown_10();
-					int num = inv->Unknown_688830()->Get_Stack_Count(from_slot);
-					if (!num) return(true);
-					InvTransaction->Unknown_690AA0(InvType, from_slot, num, true, 4, 0);
-					sclient->Print(0, "Selling stack of %d %s.", num, item->Name.c_str());
-					break;
+				InvDataPeekClass *peek = SlotData->Unknown_10()->Unknown_688830();
+				InvDataPeekItemStruct *item = peek->Get_Item(from_slot, true);
+				switch (InvType) {
+					case INV_VENDOR:
+						switch (SlotDrag->Unknown1C) {
+							case 3:
+								Unknown_5A02E0(true);
+								sclient->Print(0, "Buying stack of %s.", item->Name.c_str());
+								break;
+							case 1:
+								Unknown_5A02E0(false);
+								sclient->Print(0, "Buying %s.", item->Name.c_str());
+								break;
+						}
+						break;
+					case 1:
+						if (sclient->Unknown1298 && sclient->Unknown1298->Unknown_64EEA0()) {
+							switch (SlotDrag->Unknown1C) {
+								case 3: {
+									InvDataPeekClass *peek = SlotData->Unknown_10()->Unknown_688830();
+									int num = peek->Get_Stack_Count(from_slot);
+									if (num) {
+										InvTransaction->Unknown_690AA0(InvType, from_slot, num, true, 4, 0);
+										sclient->Print(0, "Selling stack of %d %s.", num, item->Name.c_str());
+									}
+									break;
+								}
+								case 1:
+									InvTransaction->Unknown_690AA0(InvType, from_slot, 1, true, 4, 0);
+									sclient->Print(0, "Selling %s.", item->Name.c_str());
+									break;
+							}
+						}
+						break;
 				}
 			}
-			return(true);
 		}
-		if (InvType == INV_VENDOR) {
-			switch (SlotDrag->Unknown1C) {
-				case 1:
-					Unknown_5A02E0(false);
-					sclient->Print(0, "Buying %s.", item->Name.c_str());
-					break;
-				case 3:
-					Unknown_5A02E0(true);
-					sclient->Print(0, "Buying stack of %s.", item->Name.c_str());
-					break;
-			}
-		}
-		return(true);
-	}
-	GadgetClass *target = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)Client->As_Space_Client()->Unknown1278, true, false);
-	Unknown66CB20Class *button;
-	if (target && (button = (Unknown66CB20Class *)target->Unknown_14()) != NULL) {
-		if (!ShortcutUI) return(true);
-		ShortcutUI->Create_Shortcut(from_slot, button);
-		ShortcutUI->Save_Current();
-		return(true);
-	}
-	if (gadget->As_SlotDataShortcutGadget()) return(true);
-	if (!target) return(true);
-	SlotDataGadgetClass *inv_gadget = (SlotDataGadgetClass *)target->Unknown_10();
-	if (inv_gadget && inv_gadget->Unknown_670950() && ((SlotDataClass *)inv_gadget->Unknown_670950())->Unknown_10()) {
-		if (!((UIInvSlotGadgetStruct *)inv_gadget)->Unknown68) return(true);
-		Unknown_5A0D00(from_slot, inv_gadget);
 	} else {
-		if (!target->Unknown_1C() && !target->Unknown_18()) return(true);
-		Unknown_5A0EB0(from_slot, SlotDrag->Unknown1C);
+		GadgetClass *target = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)Client->As_Space_Client()->Unknown1278, true, false);
+		UIScutProxyGadgetClass *button;
+		if (target && (button = (UIScutProxyGadgetClass *)target->Unknown_14()) != NULL) {
+			if (ShortcutUI) {
+				ShortcutUI->Create_Shortcut(from_slot, button);
+				ShortcutUI->Save_Current();
+			}
+		} else if (!gadget->As_SlotDataShortcutGadget() && target) {
+			SlotDataGadgetClass *inv_gadget = (SlotDataGadgetClass *)target->Unknown_10();
+			if (inv_gadget && inv_gadget->Unknown_670950() && ((SlotDataClass *)inv_gadget->Unknown_670950())->Unknown_10()) {
+				if (!((UIInvSlotGadgetStruct *)inv_gadget)->Unknown68) return(handled);
+				Unknown_5A0D00(from_slot, inv_gadget);
+			} else {
+				if (!target->Unknown_1C() && !target->Unknown_18()) return(handled);
+				Unknown_5A0EB0(from_slot, SlotDrag->Unknown1C);
+			}
+			return(!Is_Busy());
+		}
 	}
-	return(!Is_Busy());
+	return(handled);
 }
-
-
-
-
-
-
 
 
 
@@ -996,12 +996,33 @@ bool UIInvClass::Unknown_5A0EB0(int slot, int mode)
 }
 
 
+// 0x59EA30 (MODEL = UIMeshClass), 0x59EDC0 (MODEL = RenderObjClass): the model's sub-objects named by the format and
+// the index, each kept for the set-up (Add inline: its FAIL_IF l.108)
+template<class MODEL>
+UIInvStripOfClass<MODEL>::UIInvStripOfClass(SClient *client, MODEL *model, int count, const char *format, int kind) :
+	UIInvStripClass(client, kind)
+{
+	for (int i = 0; i < count; i++) {
+		char name[32];
+		sprintf(name, format, i);
+		RenderObjClass *robj = model->Get_Sub_Object_By_Name(name);
+		Add(robj);
+		REF_PTR_RELEASE(robj);
+	}
+}
+
+template class UIInvStripOfClass<UIMeshClass>;
+template class UIInvStripOfClass<RenderObjClass>;
+
+
 /*
 **	Notes (UI1, 2026-11-09).
-**	The object runs from 0x59E970 to 0x5A10F0; this file holds UIInvClass's own functions from the constructor
-**	0x59F3D0 on. Not rebuilt yet: 0x59E970-0x59F2C0 (three window classes made over this one, tables 0xAF2414 and
-**	0xAF2644, the FAIL_IF '!robj' l.108) and the vector helpers 0x5A0FC0-0x5A1060 they use; the adjustor
-**	thunks 0x5A10C0 / 0x5A10D0 come with this file's tables.
+**	The object runs from 0x59E9B0 (its static initialisers) to 0x5A1110; 0x59E970 before it is the interrupt
+**	display's (ui_scan.h's Unknown59E2C0Class, constructor 0x59E2C0), not this file's. The strips (L9, 2026-11-11):
+**	UIInvStripClass and the template over it, 0x59EA30-0x59F2C0, with the vector helpers 0x5A0FC0-0x5A1060 Add
+**	uses and the adjustor thunks 0x5A10C0-0x5A1110 of the three tables. The template's constructor is defined at
+**	the end of the file and instantiated there for both models: VC6 compiles templates at the end of the file, so
+**	the constructors inline Add (l.108) and UIInvClass's constructor though both come later in the client's order.
 **	The inline slots +0x90 and +0xA8 are emitted elsewhere (0x5851A0, 0x5851C0). 0x5A0450's second loop counts the
 **	second list by the first one's Count, as the client does.
 */

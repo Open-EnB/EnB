@@ -9,6 +9,8 @@
 #include "rendobj.h"
 #include "..\shared\g_assert.h"
 #include "control_keys_manager.h"
+#include "gd_scut_proxy.h"
+#include "matrix3d.h"
 
 // fontdatabase.h's FontStringFilesClass at 0xBE67BC and fontmanager.h's FontManagerClass at 0xBE67C4, as far as this
 // file calls them (fontdatabase.h's 0xBE67B8 clashes with tsk_game.h's, so neither header can be included here)
@@ -27,75 +29,73 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
 
 
-// gadget.cpp's gadget, as far as the shortcut bars call it
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04();
-	virtual GadgetClass *Unknown_08();					// +0x08 (0x610A40: what the mouse holds)
-	virtual void Unknown_0C(); virtual void Unknown_10();
-	virtual GadgetClass *Unknown_14();					// +0x14 (0x610A40: the proxy button of what the mouse holds)
-	virtual void Unknown_18(); virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28();
-	virtual void Unknown_2C(KernelEventClass *event, float x, float y, unsigned short flags);	// +0x2C (0x6120E0: a zero event, the proxy's position, its flags)  // NAME 1 [event, x, y, flags]: neutral
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40 (0x611BD0: a new shortcut on; the bank's 0x6127E0)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
-	virtual void Unknown_74(); virtual void Unknown_78();
-	virtual void Unknown_7C(UIScutBarClass *bar);		// +0x7C (0x611BD0: onto the bar)  // NAME 1 [bar]: neutral
-	virtual void Unknown_80(UIScutBarClass *bar);		// +0x80 (0x611BD0: off the bar)  // NAME 1 [bar]: neutral
-	virtual void Unknown_84(); virtual void Unknown_88(); virtual void Unknown_8C(); virtual void Unknown_90();
-	virtual void Unknown_94(RenderObjClass *object);	// +0x94 0x66C000 (the bank's constructor: its 'bank_%d' model)  // NAME 1 [object]: ui_group.cpp's
-	virtual void Unknown_98(); virtual void Unknown_9C(); virtual void Unknown_A0(); static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...); static void Set_Tooltip_Name(GadgetClass *gadget, const char *format, ...); static GadgetClass *Unknown_65F5F0(class GadgetListManagerClass *manager, bool a, bool b);	// 0x65EFB0 / 0x65F340 (gadget.h)
-	virtual void Unknown_A4(GadgetClass *gadget);		// +0xA4 (the proxy buttons: the shortcut shown)  // NAME 1 [gadget]: neutral
 
-	char Unknown04[0x10 - 0x04];						// +0x04
-	unsigned int Unknown10;								// +0x10 (0x6120E0: bits 0x01 / 0x04)
-	char Unknown14[0x1C - 0x14];						// +0x14
-	int Unknown1C;										// +0x1C: the control id (0x610F80 sets the bank's)
-	char Unknown20[0x2C - 0x20];						// +0x20
-	unsigned int Unknown2C;								// +0x2C (0x612820: bit 0x20)
-	char Unknown30[0x64 - 0x30];						// +0x30
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 bool Unknown_42EC60(int key, int arg);					// 0x42EC60 (cdecl: the input object *0xBDAA70's slot +0x0C; 0x610980 passes 0x12, 0)  // NAME 1 [key, arg]: neutral
 
-// gadget.cpp's button gadget (100 bytes, constructor 0x675240, destructor 0x675350), the bank's base
-class UIScutButtonGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	UIScutButtonGadgetClass(RenderObjClass *object, LayerClass *layer, int unknown1, int unknown2);	// 0x675240 (the bank passes NULL, the layer, 0x55, 4)  // NAME 1 [object, layer, unknown1, unknown2]: ui_group.cpp's
-	~UIScutButtonGadgetClass();							// 0x675350
-	virtual void Unknown_40(bool on);					// +0x40 0x66B840  // NAME 1 [on]: neutral
-};
 
-// gd_proxy.cpp's proxy button (0x80 bytes, constructor 0x66C9C0): what a shortcut button shows
-class UIScutProxyGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	UIScutProxyGadgetClass(UIScutBarClass *owner, RenderObjClass *object, LayerClass *layer, int unknown, int index);	// 0x66C9C0 (the bar, its 'bttn_%d_%02d' model, the layer, 0x55, the button)  // NAME 1 [object, layer, unknown, index]: what 0x610F80 passes; NAME 3 [owner]: the assert's 'Owner'
-	void Unknown_66B420(int arg);						// 0x66B420 (0x6120E0: 0 down, 1 up)  // NAME 1 [arg]: neutral
-	void Unknown_66B4A0();								// 0x66B4A0 (0x6120E0: after the event)
-	GadgetClass *Unknown_66C6C0();						// 0x66C6C0 (0x6120E0: on the shortcut, for its position)
-	void Unknown_66CB50();								// 0x66CB50 (0x612430: every frame)
 
-	GadgetClass *Unknown64;								// +0x64: the shortcut shown
-	char Unknown68[0x6C - 0x68];						// +0x68
-	bool Unknown6C;										// +0x6C: pressed (0x6120E0)
-	char Unknown6D[0x78 - 0x6D];						// +0x6D
-	UIScutBarClass *Owner;								// +0x78 (G_ASSERT 'ActiveShortcut->Owner == this' l.904)  // NAME 3: the assert's
-	int Unknown7C;										// +0x7C: the button
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // What the software mouse holds at +0x2C (0x612430: its +0x10 is 2 when a shortcut is let go)
 class UIScutMouseUnknown2CClass { public: char Unknown00[0x10]; int Unknown10; };	// NAME 1: neutral (D10)
 // The software mouse (SClient +0x1274; the view's slot +0x44), as far as the shortcut bars use it
 class UIScutMouseClass { public: char Unknown00[0x28]; int Unknown28; UIScutMouseUnknown2CClass *Unknown2C; };	// NAME 1: neutral (D10): +0x28 a nesting count (0x6120E0)
 
 // The bank toggle of a bar (0x70 bytes, table 0xAF7490; constructor 0x6125B0, destructor 0x612740): its group models
-class UIScutBankGadgetClass : public UIScutButtonGadgetClass	// NAME 2: its 'bank_%d' model
+class UIScutBankGadgetClass : public ButtonGadgetClass	// NAME 2: its 'bank_%d' model
 {
 public:
 	UIScutBankGadgetClass(int bar, UIMeshClass *mesh, LayerClass *layer);	// 0x6125B0  // NAME 1 [bar, mesh, layer]: what 0x610F80 passes
@@ -265,7 +265,7 @@ bool UIScutClass::Unknown_68(int key)
 		case 1: {
 			UIScutProxyGadgetClass *proxy = Unknown_610F30();
 			if (proxy) {
-				proxy->Owner->Unknown_611BD0(NULL, proxy->Unknown7C, CURRENT_GROUP, true);
+				proxy->Owner->Unknown_611BD0(NULL, proxy->BttnIdx, CURRENT_GROUP, true);
 			}
 			return(false);
 		}
@@ -400,7 +400,7 @@ UIScutBarClass::UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass
 	for (lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
 		sprintf(name, "bttn_%d_%02d", bar, lp);
 		RenderObjClass *object = mesh->Unknown_5B8B40(name);
-		ProxyButtons[lp] = new UIScutProxyGadgetClass(this, object, layer, 0x55, lp);
+		ProxyButtons[lp] = new UIScutProxyGadgetClass(this, object, *layer, 0x55, lp);
 		GadgetClass::Set_Tooltip(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
 		Get_Owner()->Unknown64.Unknown_6870E0(ProxyButtons[lp], FirstId + lp, Get_Owner()->View, 1, 0);
 		object->Release_Ref();
@@ -604,16 +604,16 @@ bool UIScutBarClass::Unknown_611BD0(GadgetClass *gadget, int bttn_idx, int group
 		group = Group;
 	}
 	if (Shortcuts[group][bttn_idx]) {
-		Shortcuts[group][bttn_idx]->Unknown_80(this);
+		((RObjGadgetClass *)Shortcuts[group][bttn_idx])->Unknown_80((int)this);
 		Counts[group]--;
 	}
 	Shortcuts[group][bttn_idx] = gadget;
 	if (Shortcuts[group][bttn_idx]) {
-		Shortcuts[group][bttn_idx]->Unknown_7C(this);
+		((RObjGadgetClass *)Shortcuts[group][bttn_idx])->Unknown_7C((int)this);
 		Counts[group]++;
 	}
 	if (group == Group) {
-		ProxyButtons[bttn_idx]->Unknown_A4(gadget);
+		ProxyButtons[bttn_idx]->Set_Target((RObjGadgetClass *)gadget);
 		GadgetClass::Set_Tooltip(ProxyButtons[bttn_idx], "UI_SCUT", "SHORTCUTS");
 	}
 	if (show) {
@@ -720,7 +720,7 @@ void UIScutBarClass::Unknown_611F60(int group)
 		SoundLibraryClass::Play_2D_Sound(Group != 0 ? "bank_toggle_a_sn_1.wav" : "bank_toggle_b_sn_1.wav", 2);
 		Mesh->Peek_Object()->Set_Sub_Object_Transforms_Dirty(true);
 		for (lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
-			ProxyButtons[lp]->Unknown_A4(Shortcuts[Group][lp]);
+			ProxyButtons[lp]->Set_Target((RObjGadgetClass *)Shortcuts[Group][lp]);
 			GadgetClass::Set_Tooltip(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
 		}
 	}
@@ -804,38 +804,38 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 	G_ASSERT(mouse);
 	if (key >= FirstId && key < FirstId + NUM_SHORTCUT_BUTTONS) {
 		int index = key - FirstId;
-		GadgetClass *shortcut = ProxyButtons[index]->Unknown64;
-		if (shortcut && !ProxyButtons[index]->Unknown6C) {
+		RObjGadgetClass *shortcut = ProxyButtons[index]->Target;
+		if (shortcut && !ProxyButtons[index]->Pressed) {
 			if (sclient->Unknown_750B60()) {
 				sclient->Unknown_74D990(0x11, "Cannot perform action while incapacitated.", 0);
 				return(true);
 			}
 			KernelEventClass event;
 			mouse->Unknown28++;
-			ProxyButtons[index]->Unknown_66B420(0);
-			GadgetClass *pos = ((UIScutProxyGadgetClass *)shortcut)->Unknown_66C6C0();
-			shortcut->Unknown_2C(&event, *(float *)((char *)pos + 0xC), *(float *)((char *)pos + 0x1C), (unsigned short)((shortcut->Unknown10 & 1) | 0x1000));
+			ProxyButtons[index]->Save_Sticky(false);
+			const Matrix3D &pos = shortcut->Unknown_66C6C0();
+			shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), (unsigned short)((shortcut->Mask & 1) | 0x1000));
 			sclient->Unknown_743380(&event);
-			ProxyButtons[index]->Unknown6C = true;
-			ProxyButtons[index]->Unknown_66B4A0();
+			ProxyButtons[index]->Pressed = true;
+			ProxyButtons[index]->Restore_Sticky();
 			mouse->Unknown28--;
 		}
 		return(true);
 	}
 	if (key >= SecondId && key < SecondId + NUM_SHORTCUT_BUTTONS) {
 		int index = key - SecondId;
-		GadgetClass *shortcut = ProxyButtons[index]->Unknown64;
-		if (ProxyButtons[index]->Unknown6C) {
+		RObjGadgetClass *shortcut = ProxyButtons[index]->Target;
+		if (ProxyButtons[index]->Pressed) {
 			mouse->Unknown28++;
 			KernelEventClass event(0, 0x1000);
-			ProxyButtons[index]->Unknown_66B420(1);
+			ProxyButtons[index]->Save_Sticky(true);
 			if (shortcut) {
-				GadgetClass *pos = ((UIScutProxyGadgetClass *)shortcut)->Unknown_66C6C0();
-				shortcut->Unknown_2C(&event, *(float *)((char *)pos + 0xC), *(float *)((char *)pos + 0x1C), (unsigned short)((shortcut->Unknown10 & 4) | 0x1000));
+				const Matrix3D &pos = shortcut->Unknown_66C6C0();
+				shortcut->Unknown_2C(&event, pos.Get_X_Translation(), pos.Get_Y_Translation(), (unsigned short)((shortcut->Mask & 4) | 0x1000));
 			}
 			sclient->Unknown_743380(&event);
-			ProxyButtons[index]->Unknown6C = false;
-			ProxyButtons[index]->Unknown_66B4A0();
+			ProxyButtons[index]->Pressed = false;
+			ProxyButtons[index]->Restore_Sticky();
 			mouse->Unknown28--;
 			return(true);
 		}
@@ -849,7 +849,7 @@ GadgetClass *Unknown_6123F0(UIViewClass *view)
 	SClient *client = ((Unknown65B810ViewClass *)view->Unknown_20())->Client;
 	GadgetClass *gadget = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)client->Unknown1278, true, true);
 	if (gadget) {
-		return(gadget->Unknown_08());
+		return((GadgetClass *)gadget->Unknown_08());
 	}
 	return(NULL);
 }
@@ -908,7 +908,7 @@ void UIScutBarClass::Unknown_612430()
 		if (mouse->Unknown2C == NULL) {
 			ActiveShortcut = NULL;
 		} else if (mouse->Unknown2C->Unknown10 == 2) {
-			Unknown_611BD0(NULL, ActiveShortcut->Unknown7C, CURRENT_GROUP, true);
+			Unknown_611BD0(NULL, ActiveShortcut->BttnIdx, CURRENT_GROUP, true);
 			ActiveShortcut = NULL;
 		}
 	}
@@ -926,7 +926,7 @@ void UIScutBarClass::Unknown_00(void *source, int *event)
 	if (source == (Mesh ? (char *)Mesh + 4 : NULL) && ((GadgetClass *)event[0])->Unknown1C == (int)this && event[1] == 3) {
 		Mesh->Peek_Object()->Set_Sub_Object_Transforms_Dirty(true);
 		for (int lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
-			ProxyButtons[lp]->Unknown_A4(Shortcuts[Group][lp]);
+			ProxyButtons[lp]->Set_Target((RObjGadgetClass *)Shortcuts[Group][lp]);
 			GadgetClass::Set_Tooltip(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
 		}
 	}
@@ -961,7 +961,7 @@ void UIScutBarClass::Unknown_00(void *source, int *event)
 
 
 UIScutBankGadgetClass::UIScutBankGadgetClass(int bar, UIMeshClass *mesh, LayerClass *layer) :
-	UIScutButtonGadgetClass(NULL, layer, 0x55, 4),
+	ButtonGadgetClass(NULL, *layer, 0x55, 4),
 	Group(0)
 {
 	for (int lp = 0; lp < NUM_GROUPS; lp++) {
@@ -970,7 +970,7 @@ UIScutBankGadgetClass::UIScutBankGadgetClass(int bar, UIMeshClass *mesh, LayerCl
 	char name[32];
 	sprintf(name, "bank_%d", bar);
 	RenderObjClass *object = mesh->Unknown_5B8B40(name);
-	Unknown_94(object);
+	Set_Render_Obj(object);
 	object->Release_Ref();
 	for (lp = 0; lp < NUM_GROUPS; lp++) {
 		sprintf(name, "bank_%d_%d", bar, lp);
@@ -993,7 +993,7 @@ UIScutBankGadgetClass::~UIScutBankGadgetClass()
 void UIScutBankGadgetClass::Unknown_40(bool on)
 {
 	GroupRObj[Group]->Set_Hidden(!on);
-	UIScutButtonGadgetClass::Unknown_40(on);
+	ButtonGadgetClass::Unknown_40(on);
 }
 
 
@@ -1009,7 +1009,7 @@ void UIScutBankGadgetClass::Unknown_612820(int num)
 		FAIL_IF(!GroupRObj[num]) return;
 		GroupRObj[Group]->Set_Hidden(true);
 		Group = num;
-		if (Unknown2C & 0x20) {
+		if (Unknown2C_05) {
 			GroupRObj[num]->Set_Hidden(false);
 		}
 	}
@@ -1024,7 +1024,7 @@ void UIScutBankGadgetClass::Unknown_612820(int num)
 **
 **	The shortcut bars (ui_scut.h's UIScutClass, the cockpit's +0xDC; 0xB8 bytes over Unknown5BB320Class, the
 **	tsi01a_short mesh and fc_scut.ini's texts): two bars (UIScutBarClass, 0x58 bytes), each with three proxy
-**	buttons (gd_proxy.cpp's, 'bttn_%d_%02d') over two groups of three shortcuts, a bank toggle (UIScutBankGadgetClass,
+**	buttons (gd_scut_proxy.h's UIScutProxyGadgetClass, 'bttn_%d_%02d') over two groups of three shortcuts, a bank toggle (UIScutBankGadgetClass,
 **	'bank_%d', its group models 'bank_%d_%d') and the 'Use Slot %d' control keys (the first ids from 2, three a set,
 **	two sets a bar, the bank's id after them). A bar listens to the mesh (the listener base UnknownAEEA88Class, the
 **	mesh's list at its +0x04). Key 0x12 held shows the other group. The client's window runs 0x610570-0x6134F1

@@ -34,6 +34,7 @@ public:
 	RenderObjClass *Peek_Object();						// 0x5B8B00 (the asserts' '(*itor).Mesh->Peek_Object()')  // NAME 3: the assert's
 	RenderObjClass *Unknown_5B8B20();					// 0x5B8B20: the model with a reference added (Add_Camera)
 	RenderObjClass *Unknown_5B8B40(const char *name);	// 0x5B8B40: a sub-object by name ('a.b': b inside a), a reference added  // NAME 1 [name]: neutral
+	RenderObjClass *Get_Sub_Object_By_Name(const char *name) { return(Unknown_5B8B40(name)); }	// (inline: 0x5B8B40 under RenderObjClass's name, as ui_inv.cpp's strip template calls both models at 0x59EA30 / 0x59EDC0; interim, until 0x5B8B40 itself takes the name)  // NAME 2: RenderObjClass's, by the template's one call
 	void Unknown_5B8C10(RenderObjClass *robj, float r, float g, float b);	// 0x5B8C10: every vertex material's emissive  // NAME 1 [robj, r, g, b]: neutral
 	void Unknown_5B8CB0(RenderObjClass *robj);			// 0x5B8CB0: the same, 0.35 grey
 	void Unknown_5B8D50(RenderObjClass *robj);			// 0x5B8D50: the same, white

@@ -30,16 +30,16 @@ class RenderObjClass;
 class UIViewClass;
 class StarmapPipSupportClass;
 
-// The gadget a map PIP makes in slot +0x18 (gd_pip_scene.cpp's constructor 0x66ACE0), as far as this file reads it
-class GadgetPipSceneClass : public GadgetClass  // NAME 3: class-from-file (D24) for app\client\gd_pip_scene.cpp
-{
-public:
-	GadgetPipSceneClass(PipSceneClass *pip);			// 0x66ACE0 (G_ASSERT 'PIPScene', +0x30; GadgetClass(0x1077))  // NAME 1 [pip]: what the callers pass
-	char Unknown_Pad30[0x38 - 0x30];
-	TPoint2D<float> Unknown38;							// +0x38 (0x53F9E0 hands it to 0x7A72C0 by value)
-	char Unknown_Pad40[0x49 - 0x40];
-	bool Unknown49;										// +0x49 (0x693020)
-};
+// The gadget a map PIP makes in slot +0x18: gd_pip_scene.h's GadgetPipSceneClass (0x66ACE0)
+#include "gd_pip_scene.h"
+
+
+
+
+
+
+
+
 
 class MapPipClass : public PipSceneClass  // NAME 3: class-from-file (D24) for app\Client\map_pip.cpp
 {

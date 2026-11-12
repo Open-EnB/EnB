@@ -34,39 +34,39 @@ class SBaseViewClass;
 class LightClass;
 class FontSys;
 
-// What 0x698150 finds by an avatar slot (sbase_info.cpp's): the slot's NPC, as far as 0x634140 reads it
-class UIStarbaseUnknownB4NPCStruct	// NAME 1: neutral (D10) (a class: the stub generator declares classes)
-{
-public:
-	int Unknown_6976C0();	// 0x6976C0 (Unknown18 - 2 for 2..9, else -1: the VB_ model's index)
-	std::string Unknown_636520() { return(Unknown08); }	// 0x636520 (a copy of Unknown08; out of line in the client, inline here: the stub generator skips std::string returns)
-	char Unknown00[0x08];	// +0x00
-	std::string Unknown08;	// +0x08 (0x636520)
-	int Unknown18;			// +0x18 (9: a VB_BLACKMKT model, no avatar; 2..8 an avatar with a VB_ model)
-	int Unknown1C;			// +0x1C (set: 0x642740's avatar, the slot's bone not needed)
-	AvatarDescClass *Unknown_Desc() { return((AvatarDescClass *)Unknown20); }	// NAME 1: neutral (D10)
-	char Unknown20[4];		// +0x20 (an AvatarDescClass: 0x634140 copies it)
-};
-// What 0x6980E0 finds by a terminal index (sbase_info.cpp's), as far as 0x634140 reads it
-class UIStarbaseUnknownB4TerminalStruct	// NAME 1: neutral (D10)
-{
-public:
-	int Unknown00;			// +0x00
-	int Unknown04;			// +0x04 (the ico_ model's index, -1 none)
-};
+// The starbase tables (sbase_info.h): the starbase LOUNGE_NPC describes, its rooms, their facilities (terminals) and NPCs
+class StarbaseInfoClass;
+class StarbaseRoomClass;
+class StarbaseFacilityClass;
+class StarbaseNPCClass;
 
-// What the starbase interface holds at +0xB4, as far as 0x640D80 / 0x634140 read it
-struct UIStarbaseUnknownB4Struct	// NAME 1: neutral (D10)
-{
-	UIStarbaseUnknownB4NPCStruct *Unknown_698150(int index);	// 0x698150 (a hash lookup in +0x40's table)  // NAME 1 [index]: neutral
-	UIStarbaseUnknownB4TerminalStruct *Unknown_6980E0(int index);	// 0x6980E0 (a hash lookup in +0x28's table)  // NAME 1 [index]: neutral
-	char Unknown00[0x06];	// +0x00
-	bool Unknown06;			// +0x06 (0x634140: the '%sbar05' model on 'bar')
-	bool Unknown07;			// +0x07 (0x634140: '%sbar07' on each 'table%02d' bone)
-	char Unknown08[0x02];	// +0x08
-	bool Unknown0A;			// +0x0A (0x640D80: 2, else 1)
-	bool Unknown0B;			// +0x0B (0x640D80: 3)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // The starbase interface's +0xD4: an SGI hash table of plain nodes (0x18 bytes: the hasher, key test and key getter
 // bytes, the bucket vector, the count), its three-argument constructor 0x643C20 (100 buckets) and destructor 0x633AC0
@@ -187,7 +187,9 @@ struct UIStarbaseUnknownECStruct	// NAME 1: neutral (D10)
 	int ID;							// +0x00 (an avatar id: 0x63E8F0, 0x63CF30)  // NAME 1: what it holds
 	float Time;						// +0x04 (0x63E770 adds the frame's seconds; past 10 the entry goes)  // NAME 1: what it holds
 };
-// What the starbase interface's +0x190 points to (a virtual destructor; its +0x90 goes to the client's slot +0x44)
+
+// What the starbase interface's +0x190 points to: a ClientObjectClass (0x6418F0 news one of type 0x29 for the ship model; as
+// that type here the destructor's inline budget changes and 0x633B50's list<unsigned> erase comes inline: kept as this view)
 class UIStarbaseUnknown190Class	// NAME 1: neutral (D10)
 {
 public:
@@ -213,11 +215,11 @@ public:
 	virtual void Unknown_88();	// +0x88
 	virtual void Unknown_8C();	// +0x8C (0x69CDE0 calls it when the view's interfaces go)
 	// +0x84 the base's InterfaceMesh (both handlers test +0x7C Active; the starbase view's 0x69C8F0 hands +0x84 to its +0x1F4's 0x441A90)
-	class SBaseViewUnknown1B4Class *Unknown_Info();	// inline in ui_starbase.cpp: the view's +0x1B4 (0x6333E0 reads it through this: it loads +0xB0 before Room, and the inline spends the budget that keeps the lists' begin() out of line)  // NAME 1: neutral (D10)
+	StarbaseInfoClass *Get_Info();	// inline in ui_starbase.cpp: the view's +0x1B4 (0x6333E0 reads it through this: it loads +0xB0 before Room, and the inline spends the budget that keeps the lists' begin() out of line)  // NAME 2: what it returns
 	RenderObjClass *Unknown_Model() { return(InterfaceMesh->InterfaceMesh); }	// the mesh's model (0x6333E0: the same budget)  // NAME 1: neutral (D10)
 	int Room;	// +0xAC (158 moves an avatar only in this room; the constructor's index)  // NAME 2: what the handler compares with the packet's Room
 	SBaseViewClass *UnknownB0;	// +0xB0 (the starbase view: 0x640D80 reads its +0x1B4's +0x18, 0x640E90 / 0x640EC0 call its +0x70 scene)
-	UIStarbaseUnknownB4Struct *UnknownB4;	// +0xB4 (0x640D80: its bytes +0x0A / +0x0B; the constructor's 0x698730 of the room's key)
+	StarbaseRoomClass *RoomInfo;	// +0xB4 (0x640D80: its bytes +0x0A / +0x0B; the constructor's 0x698730 of the room's key)  // NAME 2: what it holds
 	GadgetClass *UnknownB8;	// +0xB8 (0x63A100 tests its +0x2C bits 2 and 4)
 	RefCountPtr<RenderObjClass> ExtraBones;	// +0xBC (the constructor's '%sextra_%s' model, added to the mesh's model; 0x634140's wall terminals and ship_extents00)  // NAME 3: 0x634140's G_ASSERT 'ExtraBones' (l.862)
 	struct UnknownC0Struct { UnknownC0Struct() : A(-1), B(-1), C(-1), D(0), E(0) {} int A, B, C; UIStarbaseUnknownCCClass *D; int E; } UnknownC0;	// +0xC0 (-1, -1, -1, 0, 0: as a struct with its own constructor its stores follow the table's arguments, as the client's; five ints in the list come before them)  // NAME 1: neutral (D10)
@@ -233,7 +235,7 @@ public:
 	GadgetClass *Unknown180;	// +0x180 (the destructor's GadgetClass::Destroy)
 	RefCountPtr<RenderObjClass> Unknown184, Unknown188;	// +0x184
 	bool Unknown18C;	// +0x18C (SClient 0x74D950 sets the starbase view's +0x174's)
-	UIStarbaseUnknown190Class *Unknown190;	// +0x190 (the destructor deletes it)
+	UIStarbaseUnknown190Class *Unknown190;	// +0x190 (0x6418F0: a ClientObjectClass of type 0x29 for the ship model +0x184 on the 'ship' bone, its game id the dock effect's source; the destructor deletes it)
 	std::list<RefCountPtr<RenderObjClass> > Unknown194, Unknown1A0;	// +0x194 (made with NULL: list(0), insert 0x644070; destructor 0x643AC0)
 	int Unknown1AC;	// +0x1AC
 	bool Unknown1B0, Unknown1B1, Unknown1B2, Unknown1B3;	// +0x1B0
@@ -248,7 +250,7 @@ public:
 	void Unknown_640150(); void Unknown_6425D0(const char *name, const Vector3 &color);	// 0x640150 (SClient 0x74ABC0: '/starbase reset'); 0x6425D0 (SClient 0x750F70: the chat-event colour)  // NAME 1 [name, color]: what 0x750F70 passes
 	void Unknown_6437A0(int unknown, AvatarDescClass *desc);	// 0x6437A0 (RECUSTOMIZE_AVATAR_UPDATE 133)  // NAME 1 [unknown, desc]: the packet's fields
 	void Unknown_640110(int state);	// 0x640110 (TRADE 31: 8 when a trade opens, 0 when it ends)  // NAME 1 [state]: neutral
-	int Unknown_Kind() { int c = 1; if (UnknownB4->Unknown0B) { c = 3; } else if (UnknownB4->Unknown0A) { c = 2; } return(c); }	// NAME 1: neutral (D10): the third light key as 0x640810 inlines it (an inline level: it moves 0x640810's budget to the client's out-of-line calls; 0x640D80 has its own setne form)
+	int Unknown_Kind();	// NAME 1: neutral (D10): the third light key as 0x640810 inlines it (an inline level: it moves 0x640810's budget to the client's out-of-line calls; 0x640D80 has its own setne form) (inline in ui_starbase.cpp: it reads the room, sbase_info.h's)
 	void Unknown_640810();	// 0x640810 (0x6366A0: the lights rebuilt from the model's D_LIGHTnn bones, else one default light)
 	void Unknown_640CC0();	// 0x640CC0 (no caller: the lights removed from their scene, released and cleared)
 	void Unknown_640D80(int *a, int *b, int *c); void Unknown_640F10();	// 0x640D80 (+0xB0's +0x1B4's +0x18, Room, 1..3 from +0xB4); 0x640F10 (empty: ret); the lights panel's 0x6466F0 / 0x6467B0  // NAME 1 [a, b, c]: neutral
@@ -271,7 +273,9 @@ public:
 	void Unknown_63FF80();	// 0x63FF80 (0x638390's frame: the distances every 0.5 s, the position resent every 0.5 s while moving)
 	void Unknown_63BB10(GadgetClass *gadget);	// 0x63BB10 (no caller: a gadget's distance from the avatar, 1..999, as 0x641FA0 has it inline)
 	void Unknown_641FA0();	// 0x641FA0 (the gadgets' distances from the avatar, 1..999; 0x63E2B0, 0x63FF80)
-	Unknown78A910AvatarClass *Unknown_642740(UIStarbaseUnknownB4NPCStruct *npc);	// 0x642740 (0x634140: an NPC slot's starbase avatar)  // NAME 1 [npc]: neutral
+	Unknown78A910AvatarClass *Unknown_642740(StarbaseNPCClass *npc);	// 0x642740 (0x634140: an NPC slot's starbase avatar)  // NAME 1 [npc]: neutral
+	void Unknown_640360(); void Unknown_6415B0(); void Unknown_6417D0(); void Unknown_6418F0(); void Unknown_641C00();	// 0x640360 (the hangar's ship model and its gadget, rebuilt when +0x18C is set), 0x6415B0 (the arrival: the ship on 'ship', the room's '-in' or '-tele' animation), 0x6417D0 (the teleport effect 0x30E on +0x190), 0x6418F0 (+0x190 made for the ship), 0x641C00 (the avatar kept 5 units from the NPC avatars)
+	bool Unknown_641EB0(UIStarbaseUnknownCCClass *savatar);	// 0x641EB0 (the avatar's id among the five GroupInfo members)  // NAME 1 [savatar]: as the FAIL_IFs'
 	void Unknown_641B00(); void Unknown_641B70();	// 0x641B00 (+0x214..+0x21A, +0x1B3 cleared), 0x641B70 (refilled by the view's 0x6A2430): as 0x63BDB0 / 0x63C080 have them
 };
 
@@ -299,8 +303,8 @@ class UIManuClass;	// ui_manu.h: the starbase view's +0x18C (0x69F8F0 case 7: 0x
 class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp declares it)
 // ScriptedMovieViewerSettingsStruct (the view's +0x68): unknown_490900.h
 // ui_talkt.cpp's talk tree UITalkTreeClass (the view's +0x190): sclient.h
-struct SBaseViewUnknown698730Struct { char Unknown00[0x0A]; bool Unknown0A; bool Unknown0B; };	// NAME 1: neutral (D10): what 0x698730 finds (0x6A2120 tests +0x0A / +0x0B)
-class SBaseViewUnknown1B4Class { public: ~SBaseViewUnknown1B4Class(); SBaseViewUnknown698730Struct *Unknown_698730(int key); char Unknown00[0x18]; int Unknown18; };	// NAME 1: neutral (D10): what sbase_info.cpp's 0x6987A0 returns (the starbase view's +0x1B4; the view's destructor 0x69B0C0 deletes it through 0x698370); 0x698730: a hash lookup by key; +0x18 the column of 0x6A2120's model names (0..9)  // NAME 1 [key]: neutral
+// the view's +0x1B4: sbase_info.h's StarbaseInfoClass (0x6A2120 tests its rooms' +0x0A / +0x0B; the view's destructor 0x69B0C0 deletes it)
+
 class SBaseViewUnknown70Class;	// the +0x70 scene (sbaseview.cpp declares it)
 class LightClass;
 class HAnimClass;
@@ -421,7 +425,7 @@ public:
 	RefCountPtr<UIGroupClass> Unknown1A8;	// +0x1A8 ui_group.cpp's interface (0x69C8F0: its slots +0x58 / +0x5C and 0x596770)
 	RefCountPtr<UIBuffClass> Unknown1AC;	// +0x1AC (0x69B5E0: the main view's +0x1D4 class, 0x5608D0)
 	bool Unknown1B0;	// +0x1B0 (0x69F440 sets it, 0x69CDE0 clears it)
-	SBaseViewUnknown1B4Class *Unknown1B4;	// +0x1B4 (LOUNGE_NPC 82: sbase_info.cpp's 0x6987A0 of the packet; the destructor deletes it)
+	StarbaseInfoClass *Info;	// +0x1B4 (LOUNGE_NPC 82: StarbaseInfoClass::Create of the packet; the destructor deletes it)  // NAME 2: what it holds
 	RefCountPtr<FontSys> Unknown1B8;	// +0x1B8: a text object (0x6A0E80 changes its text)
 	float Unknown1BC;	// +0x1BC: the +0x6C camera's pitch about x (0x69EF00: -0.25 .. 0.25)
 	RefCountPtr<AudibleSoundClass> Unknown1C0;	// +0x1C0: a 2-D sound (0x6A1000 plays it looped, 0x6A1130 stops it)

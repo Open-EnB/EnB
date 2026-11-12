@@ -110,28 +110,6 @@ UICpitUnknownE0Class::UICpitUnknownE0Class(SClient *sclient) : InterfaceClass((L
 	STUB_CALLED("POC UICpitUnknownE0Class: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-// gd_gauge.cpp's gauge (0x669A30; ui_power.cpp's UIPowerClass, app.lib's, makes three): a gadget on no object, never
-// shown (Exists false: the power gauges skip it)
-#include "..\..\app\client\gd_gauge.h"
-GaugeGadgetClass::GaugeGadgetClass(RenderObjClass *mesh, const char *format) : Unknown_675120Class((RenderObjClass *)NULL, 0)
-{
-	STUB_CALLED("POC GaugeGadgetClass 0x669A30 (the power gauges): no object");
-	Exists = false;
-	memset(Unknown61, 0, sizeof(Unknown61));
-	Value = 0.0f;
-	memset(Unknown6C, 0, sizeof(Unknown6C));
-}
-GaugeGadgetClass::~GaugeGadgetClass() {}
-RenderObjClass *GaugeGadgetClass::Unknown_24(Vector3 *position, float *frame, bool indicator) { return(NULL); }
-void GaugeGadgetClass::Set_Render_Obj(RenderObjClass *robj) { RObjGadgetClass::Set_Render_Obj(robj); }
-bool GaugeGadgetClass::Unknown_A4(float value) { Value = value; return(false); }
-float GaugeGadgetClass::Unknown_A8(float value) { Value = value; return(value); }
-class UICpitWarpGadgetClass : public Unknown_671300Class { public: UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer); void Unknown_676190(int a, int b); char Unknown80[0x94 - 0x80]; };
-UICpitWarpGadgetClass::UICpitWarpGadgetClass(RenderObjClass *object, RenderObjClass *bar, const LayerClass &layer) : Unknown_671300Class(object, (int)bar, layer, 0, 0, 3)
-{
-	STUB_CALLED("POC UICpitWarpGadgetClass: a plain button");
-	memset(Unknown80, 0, sizeof(Unknown80));
-}
 class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); virtual bool Unknown_30(float x, float y); char Unknown30[0x49 - 0x30]; bool Unknown49; char Unknown4A[0x5C - 0x4A]; };
 UICpitGadget6B56AClass::UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view) : GadgetClass(0xFF)
 {
@@ -146,14 +124,6 @@ UICpitGadget6B56AClass::UICpitGadget6B56AClass(int x, int y, int width, int heig
 UISymbolChatClass::UISymbolChatClass(SClient *sclient) : InterfaceClass((LineDisplayClientClass *)sclient)
 {
 	STUB_CALLED("POC UISymbolChatClass: an empty window");
-}
-
-// ---------------------------------------------------------------- the trade window's parts (0x59EDC0)
-#include "..\..\app\client\ui_manu.h"
-UIManuInvClass::UIManuInvClass(SClient *client, RenderObjClass *model, int count, const char *format, int unknown) : InterfaceClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC UIManuInvClass: an empty window");
-	memset(Unknown84, 0, sizeof(Unknown84));
 }
 
 // ---------------------------------------------------------------- 0x79B9E0: the camera modules' signal map, a function-local static (camera_manager.cpp's neighbourhood)
@@ -177,6 +147,33 @@ UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((Li
 {
 	STUB_CALLED("POC UIChatReplyListClass: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
+}
+// The windows ChatPanelInterface::Unknown_565F80 opens (ui_chat_panel.cpp's local classes; request 1 is the HUD's options
+// button): the generated constructors left no table, and Set_Current_Interface crashed calling through it. Empty windows:
+// the base constructed, the members (Unknown98, 'closed', included) zeroed.
+class Unknown5DAE90Class : public UIChatPanelWindowClass { public: Unknown5DAE90Class(SClient *client, int a, const char *title, int b); char Unknown9C[0xCC - 0x9C]; };
+class Unknown5CE240Class : public UIChatPanelWindowClass { public: Unknown5CE240Class(SClient *client); char Unknown9C[0xC0 - 0x9C]; };
+class Unknown5CE700Class : public UIChatPanelWindowClass { public: Unknown5CE700Class(SClient *client, int a); char Unknown9C[0xB8 - 0x9C]; };
+class Unknown5CEDD0Class : public UIChatPanelWindowClass { public: Unknown5CEDD0Class(SClient *client, int a, int b); char Unknown9C[0xE4 - 0x9C]; };
+Unknown5DAE90Class::Unknown5DAE90Class(SClient *client, int a, const char *title, int b) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+{
+	STUB_CALLED("POC Unknown5DAE90Class (0x5DAE90): an empty window");
+	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
+}
+Unknown5CE240Class::Unknown5CE240Class(SClient *client) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+{
+	STUB_CALLED("POC Unknown5CE240Class (0x5CE240): an empty window");
+	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
+}
+Unknown5CE700Class::Unknown5CE700Class(SClient *client, int a) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+{
+	STUB_CALLED("POC Unknown5CE700Class (0x5CE700): an empty window");
+	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
+}
+Unknown5CEDD0Class::Unknown5CEDD0Class(SClient *client, int a, int b) : UIChatPanelWindowClass((LineDisplayClientClass *)client)
+{
+	STUB_CALLED("POC Unknown5CEDD0Class (0x5CEDD0): an empty window");
+	memset(Unknown84, 0, (char *)(this + 1) - Unknown84);
 }
 // (0x765DF0, the chat line colour by its index, is rebuilt: app/client/unknown_764fd0.cpp, GS1)
 

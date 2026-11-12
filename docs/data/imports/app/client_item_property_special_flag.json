@@ -1,0 +1,53 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "ClientItemPropertySpecialFlagClass (NAME 2: the file's name after its client-named siblings; no assert), an item flag as a special property (table 0xAEE128, 0x34 bytes; 'Not Tradable', 'Unique' ...), client 0x52F9E0-0x52FFAF: Create 0x52F9E0, ctor 0x52FAC0, dtors 0x52FCC0 / 0x52FC90, Get_Lines 0x52FD30, Is_Usable 0x52FF30, Create_NEW 0x52FF50",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42C4E0",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x45CC10",
+  "0x52BFA0",
+  "0x52BFF0",
+  "0x52C3D0",
+  "0x52F9E0",
+  "0x52FAC0",
+  "0x52FC90",
+  "0x52FCC0",
+  "0x52FD30",
+  "0x52FF30",
+  "0x52FF50"
+ ],
+ "merged": [],
+ "name": "client/item/client_item_property_special_flag.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42C4E0",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x45CC10",
+  "0x52BFA0",
+  "0x52BFF0",
+  "0x52C3D0"
+ ],
+ "short_known": [
+  "0x42D120",
+  "0x52FF30"
+ ],
+ "tiebreak": [
+  "0x52FF50"
+ ]
+}

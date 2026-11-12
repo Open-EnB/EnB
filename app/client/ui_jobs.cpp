@@ -141,7 +141,7 @@ void UIJobsClass::Unknown_54()
 	Unknown0AC->Unknown_66E460(Unknown_497300(InterfaceMesh->Peek_Mesh_Object()), 0, 0);
 	Unknown64.Unknown_6870E0(Unknown0AC, 0x16, View, 1, 0);
 	Unknown_5BB4F0(Unknown0AC);
-	Unknown0B0 = Create_Get(new UIJobsInvClass(Client->As_Space_Client(), InterfaceMesh->Peek_Object(), 1, "JNEWS00.C00", 0x12));
+	Unknown0B0 = Create_Get(new UIInvRobjStripClass(Client->As_Space_Client(), InterfaceMesh->Peek_Object(), 1, "JNEWS00.C00", 0x12));
 	Unknown0B0->Unknown_54();
 	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIJobsKeyEventStruct(0x1B), (void *)2);
 	RefCountPtr<RenderObjClass> tutorial = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("tutorial"));

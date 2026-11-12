@@ -5,22 +5,12 @@
 
 #include "sclient.h"
 #include "layer.h"
+#include "ui_inv.h"		// UIInvRobjStripClass, the strips of slots
 #include "..\..\wwlib\ref_ptr.h"
 
 class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xD0)
 class ButtonGadgetClass;	// unknown_675120.h's (+0xE0)
 class DeltaCompoundClass;	// the item's aux data (+0x10C)
-
-// ui_inv.cpp's interface (0xE0 bytes, constructor 0x59EDC0) the window holds three of (+0xD4 'TSM02A.E%02d', +0xD8
-// 'TSM02A.RESULT', +0xDC 'TSM02A.OVER'), as far as this file calls it
-class UIAnalyzeInvClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	UIAnalyzeInvClass(SClient *client, RenderObjClass *model, int count, const char *format, int unknown);	// 0x59EDC0 (slot +0x54: 6 'TSM02A.E%02d' 12, 1 'TSM02A.RESULT' 13, 1 'TSM02A.OVER' 14)  // NAME 1 [client, model, count, format, unknown]: as ui_manu.h's
-	void Unknown_62F5B0(bool on);						// 0x62F5B0 (0x546090 passes false)  // NAME 1 [on]: neutral
-
-	char Unknown84[0xE0 - 0x84];						// +0x84
-};
 
 enum
 {
@@ -54,9 +44,9 @@ public:
 
 	LayerClass Unknown0AC;								// +0x0AC (the constructor's layer)
 	SBaseViewClass *Unknown0D0;							// +0x0D0 (the constructor's view: sbaseview.cpp's starbase view)
-	RefCountPtr<UIAnalyzeInvClass> Unknown0D4;			// +0x0D4 'TSM02A.E%02d'
-	RefCountPtr<UIAnalyzeInvClass> Unknown0D8;			// +0x0D8 'TSM02A.RESULT'
-	RefCountPtr<UIAnalyzeInvClass> Unknown0DC;			// +0x0DC 'TSM02A.OVER'
+	RefCountPtr<UIInvRobjStripClass> Unknown0D4;			// +0x0D4 'TSM02A.E%02d'
+	RefCountPtr<UIInvRobjStripClass> Unknown0D8;			// +0x0D8 'TSM02A.RESULT'
+	RefCountPtr<UIInvRobjStripClass> Unknown0DC;			// +0x0DC 'TSM02A.OVER'
 	ButtonGadgetClass *Unknown0E0[7];					// +0x0E0 (+0xE8..+0xF0: the category columns)
 	RefCountPtr<RenderObjClass> Unknown0FC[3];			// +0x0FC the category columns' icons
 	int State;											// +0x108 (UI_CLOSED when shut)  // NAME 3: the destructor's G_ASSERT 'State == UI_CLOSED'

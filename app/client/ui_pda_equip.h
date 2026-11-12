@@ -10,15 +10,16 @@
 #include "ui_inv.h"		// UIInvClass, ui_inv.cpp's inventory window base
 #include "pip_scene.h"	// PipSceneClass, the ship's PIP's base
 #include "gadget.h"
+#include "gd_ship_equip_pip.h"	// GadgetShipEquipPipClass, the ship's PIP's gadget
 #include "..\..\wwlib\ref_ptr.h"
 
 class SClient;
 class RenderObjClass;
 class ButtonGadgetClass;		// unknown_675120.h's buttons
 
-// D137 interim placement (PW1, 2026-11-09): the three classes the equipment window makes, not rebuilt; their files by
-// their asserts' neighbourhoods are not confirmed (triage's hints: ship_equip_pip.cpp, ship_stats_display.cpp,
-// gd_ship_equip_pip.cpp). Declared as far as ui_pda_equip.cpp calls them.
+// D137 interim placement (PW1, 2026-11-09): two of the classes the equipment window makes, not rebuilt; their files by
+// their asserts' neighbourhoods are not confirmed (triage's hints: ship_equip_pip.cpp, ship_stats_display.cpp; the
+// third, the PIP's gadget, is gd_ship_equip_pip.h's). Declared as far as ui_pda_equip.cpp and its gadget call them.
 
 // The ship's PIP (0xB0 bytes, constructor 0x541DE0; a PipSceneClass)
 class Unknown541DE0Class : public PipSceneClass	// NAME 1: neutral (D10)
@@ -26,6 +27,8 @@ class Unknown541DE0Class : public PipSceneClass	// NAME 1: neutral (D10)
 public:
 	Unknown541DE0Class(SClient *client);				// 0x541DE0 (not rebuilt)  // NAME 1 [client]: what the window passes
 	void Unknown_542250(const RefCountPtr<RenderObjClass> &robj);	// 0x542250 (not rebuilt: the ship's model, 0x5D2B90)  // NAME 1 [robj]: neutral
+	void Unknown_542A10(const Vector2 &point, bool on);	// 0x542A10 (not rebuilt: gd_ship_equip_pip.cpp's drag, from the point)  // NAME 1 [point, on]: neutral
+	void Unknown_542EE0(float zoom);					// 0x542EE0 (not rebuilt: gd_ship_equip_pip.cpp's wheel, +-0.05)  // NAME 1 [zoom]: what the wheel passes
 	char Unknown34[0xB0 - 0x34];
 };
 
@@ -38,15 +41,6 @@ public:
 	void Unknown_6A34E0(bool on);						// 0x6A34E0 (not rebuilt: slot +0x58 passes true, +0x60 false)  // NAME 1 [on]: neutral
 	void Unknown_6A3C10();								// 0x6A3C10 (not rebuilt: the stats panel's key 16)
 	char Unknown00[0xCC];
-};
-
-// The ship's PIP's gadget (0x58 bytes, constructor 0x66DA50, table 0xAFAE64; its base 0x66ACE0, by triage gd_pip_scene.cpp's)
-class Unknown66DA50Class : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown66DA50Class(Unknown541DE0Class *pip);		// 0x66DA50 (not rebuilt)  // NAME 1 [pip]: what the window passes
-	virtual ~Unknown66DA50Class();						// +0x00 (deleting 0x66DA90; not rebuilt)
-	virtual bool Unknown_30(float x, float y);			// +0x30 0x66DAE0 (not rebuilt; +0x2C is 0x66DB10)  // NAME 1 [x, y]: GadgetClass's
 };
 
 // One mount of the ship on the window (0x10 bytes; 0x5D2C50 news it from an 'Inventory.Mounts' element)

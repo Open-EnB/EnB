@@ -78,7 +78,7 @@ void UIItemExaminationPropertyRouterClass::Unknown_18(ClientItemPropertyIconClas
 	Title.Set_Icon(*property);
 }
 
-void UIItemExaminationPropertyRouterClass::Unknown_10(UIItemExaminationTitleSubtitlesClass *property)
+void UIItemExaminationPropertyRouterClass::Unknown_10(ClientItemPropertyTypeClass *property)
 {
 	Title.Set_Subtitles(*property);
 }

@@ -178,6 +178,25 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   landing's retune leaves tools/re/auxroots.py dirty and wt.py's regen_and_commit refuses ("regenerating changed other
   files as well"). Repair: `wt.py rebase ID`, commit in the branch the pad that holds on the run head, land. Briefs
   should forbid committing a pad, or say this.
+- **The first landing on an unmoved run head must carry its pad:** bring-over's fast-forward path (target still at the
+  branch's base) checks the branch's committed ledger record before any retune, so a branch whose header change needs a
+  new pad and that left the pad uncommitted is refused "lost outright". Have that builder commit the pad
+  (`tools/vc6/sendpad.py --watch-from <base>`: a plain sweep takes its watch set from HEAD's ledger, which already
+  recorded the loss, and picks a wrong value), or land a pad-neutral branch first. Every later branch leaves the pad
+  uncommitted and the landing retunes it.
+- **The importer lock is the limit on parallel builders, not memory:** it is not first-come (a verify waited 50 minutes
+  while later ones were served), a waiting verify keeps its VM, a sendpad sweep holds it 8 to 26 minutes, and report.py
+  takes it too (it gives up after 600 s: `--lock-wait`). With six builders a verify cost 30 minutes. Briefs should
+  point at the lock-free loops (workflow.md §3.4: `appfile.py match --pool`, `build.py --pool 1 --allow-dirty` +
+  explain.py) and one verify per commit; keep a slot of lock time for the landings from two hours before the drain.
+- **Stacked builders (`--base wt/P`) pay a rebase with its own verify** after P lands, and conflict when another landed
+  branch touched the same file (a shared header's users): prefer landing P first when the lock is free.
+- **A `wt.py rebase` record goes stale when another branch lands after it** (the next bring-over refuses the branch
+  for the newly landed functions, "lost outright"): rebase immediately before the landing, and only a branch that
+  needs it (a conflict, a landed parent); bring-over cherry-picks unrebased branches itself. Read the whole rebase
+  log, not its last line: `grep WARNING` shows "the branch loses N address(es) outright", which names a real
+  interaction with landed code and would refuse the whole batch that branch is in. bring-over has no accept flag: a
+  user-accepted address must be an entry in `docs/data/accepted-corrections.json` on the target first.
 - **After `wt.py rebase`, HEAD's ledger is the record commit that already recorded sclient.cpp's loss,** so sendpad.py's
   watch set misses the lost addresses and its printed window is wrong: read the per-value table in
   `.work/log/sendpad.log` for the values where 0x758210, 0x702240 and 0x74D990 are all exact, and set the middle of that window.

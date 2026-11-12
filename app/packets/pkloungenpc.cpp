@@ -2,42 +2,42 @@
 #include "pkloungenpc.h"
 #include <stdio.h>
 
-LoungeNPCPacketClass::LoungeNPCPacketClass(int unknown0c) :
-	Unknown0C(unknown0c)
+LoungeNPCPacketClass::LoungeNPCPacketClass(int style) :
+	Style(style)
 {
 }
 
 LoungeNPCPacketClass::LoungeNPCPacketClass(RawPacketClass *raw)
 {
 	int count = 0;
-	raw->Get(&Unknown0C, sizeof(Unknown0C));
+	raw->Get(&Style, sizeof(Style));
 	raw->Get(&count, sizeof(count));
-	Unknown10.resize(count);
+	Rooms.resize(count);
 	for (int i = 0; i < count; i++) {
-		LoungeNPCUnknown10Struct &entry = Unknown10[i];
-		raw->Get(&entry.Unknown00, sizeof(entry.Unknown00));
-		raw->Get(&entry.Unknown04, sizeof(entry.Unknown04));
+		LoungeNPCRoomStruct &entry = Rooms[i];
+		raw->Get(&entry.RoomType, sizeof(entry.RoomType));
+		raw->Get(&entry.Flags, sizeof(entry.Flags));
 		raw->Get(&entry.Unknown08, sizeof(entry.Unknown08));
 		raw->Get(&entry.Unknown0C, sizeof(entry.Unknown0C));
 		raw->Get(&entry.Unknown10, sizeof(entry.Unknown10));
 	}
 	raw->Get(&count, sizeof(count));
-	Unknown20.resize(count);
+	Facilities.resize(count);
 	for (i = 0; i < count; i++) {
-		LoungeNPCUnknown20Struct &entry = Unknown20[i];
-		raw->Get(&entry.Unknown00, sizeof(entry.Unknown00));
-		raw->Get(&entry.Unknown04, sizeof(entry.Unknown04));
-		raw->Get(&entry.Unknown08, sizeof(entry.Unknown08));
+		LoungeNPCFacilityStruct &entry = Facilities[i];
+		raw->Get(&entry.RoomType, sizeof(entry.RoomType));
+		raw->Get(&entry.Terminal, sizeof(entry.Terminal));
+		raw->Get(&entry.FacilityType, sizeof(entry.FacilityType));
 		raw->Get(&entry.Unknown0C, sizeof(entry.Unknown0C));
 	}
 	raw->Get(&count, sizeof(count));
-	Unknown30.resize(count);
+	NPCs.resize(count);
 	for (i = 0; i < count; i++) {
-		LoungeNPCUnknown30Struct &entry = Unknown30[i];
-		raw->Get(&entry.Unknown00, sizeof(entry.Unknown00));
-		raw->Get(&entry.Unknown04, sizeof(entry.Unknown04));
+		LoungeNPCNPCStruct &entry = NPCs[i];
+		raw->Get(&entry.RoomType, sizeof(entry.RoomType));
+		raw->Get(&entry.Slot, sizeof(entry.Slot));
 		raw->Get(&entry.Unknown08, sizeof(entry.Unknown08));
-		raw->Get(&entry.Unknown0C, sizeof(entry.Unknown0C));
+		raw->Get(&entry.Booth, sizeof(entry.Booth));
 		raw->Get(&entry.Unknown10, sizeof(entry.Unknown10));
 		raw->Get(&entry.Length, sizeof(entry.Length));
 		if (entry.Length != 0) {
@@ -58,34 +58,34 @@ RawPacketClass *LoungeNPCPacketClass::Build()
 {
 	RawPacketClass *raw = new RawPacketClass(82, Get_Data_Size());
 	int count = 0;
-	raw->Add(&Unknown0C, sizeof(Unknown0C));
-	count = Unknown10.size();
+	raw->Add(&Style, sizeof(Style));
+	count = Rooms.size();
 	raw->Add(&count, sizeof(count));
 	for (int i = 0; i < count; i++) {
-		LoungeNPCUnknown10Struct &entry = Unknown10[i];
-		raw->Add(&entry.Unknown00, sizeof(entry.Unknown00));
-		raw->Add(&entry.Unknown04, sizeof(entry.Unknown04));
+		LoungeNPCRoomStruct &entry = Rooms[i];
+		raw->Add(&entry.RoomType, sizeof(entry.RoomType));
+		raw->Add(&entry.Flags, sizeof(entry.Flags));
 		raw->Add(&entry.Unknown08, sizeof(entry.Unknown08));
 		raw->Add(&entry.Unknown0C, sizeof(entry.Unknown0C));
 		raw->Add(&entry.Unknown10, sizeof(entry.Unknown10));
 	}
-	count = Unknown20.size();
+	count = Facilities.size();
 	raw->Add(&count, sizeof(count));
 	for (i = 0; i < count; i++) {
-		LoungeNPCUnknown20Struct &entry = Unknown20[i];
-		raw->Add(&entry.Unknown00, sizeof(entry.Unknown00));
-		raw->Add(&entry.Unknown04, sizeof(entry.Unknown04));
-		raw->Add(&entry.Unknown08, sizeof(entry.Unknown08));
+		LoungeNPCFacilityStruct &entry = Facilities[i];
+		raw->Add(&entry.RoomType, sizeof(entry.RoomType));
+		raw->Add(&entry.Terminal, sizeof(entry.Terminal));
+		raw->Add(&entry.FacilityType, sizeof(entry.FacilityType));
 		raw->Add(&entry.Unknown0C, sizeof(entry.Unknown0C));
 	}
-	count = Unknown30.size();
+	count = NPCs.size();
 	raw->Add(&count, sizeof(count));
 	for (i = 0; i < count; i++) {
-		LoungeNPCUnknown30Struct &entry = Unknown30[i];
-		raw->Add(&entry.Unknown00, sizeof(entry.Unknown00));
-		raw->Add(&entry.Unknown04, sizeof(entry.Unknown04));
+		LoungeNPCNPCStruct &entry = NPCs[i];
+		raw->Add(&entry.RoomType, sizeof(entry.RoomType));
+		raw->Add(&entry.Slot, sizeof(entry.Slot));
 		raw->Add(&entry.Unknown08, sizeof(entry.Unknown08));
-		raw->Add(&entry.Unknown0C, sizeof(entry.Unknown0C));
+		raw->Add(&entry.Booth, sizeof(entry.Booth));
 		raw->Add(&entry.Unknown10, sizeof(entry.Unknown10));
 		raw->Add(&entry.Length, sizeof(entry.Length));
 		if (entry.Length != 0) {
@@ -98,21 +98,21 @@ RawPacketClass *LoungeNPCPacketClass::Build()
 
 int LoungeNPCPacketClass::Get_Data_Size()
 {
-	int count = Unknown10.size();
-	int size = sizeof(Unknown0C) + sizeof(int);
+	int count = Rooms.size();
+	int size = sizeof(Style) + sizeof(int);
 	for (int i = 0; i < count; i++) {
-		size += sizeof(LoungeNPCUnknown10Struct);
+		size += sizeof(LoungeNPCRoomStruct);
 	}
-	count = Unknown20.size();
+	count = Facilities.size();
 	size += sizeof(int);
 	for (i = 0; i < count; i++) {
-		size += sizeof(LoungeNPCUnknown20Struct);
+		size += sizeof(LoungeNPCFacilityStruct);
 	}
-	count = Unknown30.size();
+	count = NPCs.size();
 	size += sizeof(int);
 	for (i = 0; i < count; i++) {
-		LoungeNPCUnknown30Struct &entry = Unknown30[i];
-		size += sizeof(entry.Unknown00) + sizeof(entry.Unknown04) + sizeof(entry.Unknown08) + sizeof(entry.Unknown0C) +
+		LoungeNPCNPCStruct &entry = NPCs[i];
+		size += sizeof(entry.RoomType) + sizeof(entry.Slot) + sizeof(entry.Unknown08) + sizeof(entry.Booth) +
 			sizeof(entry.Unknown10) + sizeof(entry.Length);
 		if (entry.Length != 0) {
 			size += entry.Length;
@@ -127,19 +127,19 @@ int LoungeNPCPacketClass::Print(char *buffer, int)
 	return(sprintf(buffer, "%s", "LoungeNPC"));
 }
 
-void LoungeNPCPacketClass::Add_Unknown10(const LoungeNPCUnknown10Struct &entry)
+void LoungeNPCPacketClass::Add_Room(const LoungeNPCRoomStruct &entry)
 {
-	Unknown10.push_back(entry);
+	Rooms.push_back(entry);
 }
 
-void LoungeNPCPacketClass::Add_Unknown20(const LoungeNPCUnknown20Struct &entry)
+void LoungeNPCPacketClass::Add_Facility(const LoungeNPCFacilityStruct &entry)
 {
-	Unknown20.push_back(entry);
+	Facilities.push_back(entry);
 }
 
-void LoungeNPCPacketClass::Add_Unknown30(const LoungeNPCUnknown30Struct &entry)
+void LoungeNPCPacketClass::Add_NPC(const LoungeNPCNPCStruct &entry)
 {
-	Unknown30.push_back(entry);
+	NPCs.push_back(entry);
 }
 
 

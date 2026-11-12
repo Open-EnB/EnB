@@ -7,6 +7,14 @@
 #include "..\..\wwlib\refcount.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "client_item_property_special.h"
+#include "client_item_property_special_effect.h"
+#include "client_item_property_special_maker.h"
+#include "client_item_property_special_profession_requirement.h"
+#include "client_item_property_special_race_requirement.h"
+#include "client_item_property_special_skill_requirement.h"
+#include "client_item_property_special_flag.h"
+#include "client_item_property_special_level_requirement.h"
+#include "client_item_property_type.h"
 #include "client_item_property_attribute.h"
 #include "client_item_property_attribute_distance.h"
 #include "client_item_property_attribute_string.h"
@@ -23,66 +31,13 @@
 #include "..\..\ww3d2\texture.h"
 #include <string>
 #include <vector>
+#include "..\..\common\item_info.h"	// ItemBaseInfoClass, ItemEffectDescriptionClass, ItemEffectClass
 #include "..\inv_data_peek.h"	// InvDataPeekClass (InvDataClass::Unknown_688830)
 
 class SClient;
 class UIItemExaminationPropertyRouterBaseClass;
 
 // The callees in files the tree does not have yet (interim here, D137)
-
-// One effect of an item (0x58 bytes; its copy 0x5293B0 and destructors 0x5295C0 / 0x5296D0 are the implicit ones;
-// item_effect_description.cpp's, not rebuilt)
-class ItemEffectClass  // NAME 1: neutral (D10)
-{
-public:
-	std::string Unknown_833D00() const;																	// 0x833D00  // NAME 1: neutral (D10)
-	std::string Unknown_833D40() const;																	// 0x833D40  // NAME 1: neutral (D10)
-
-	std::string Unknown00;																				// +0x00  // NAME 1: neutral
-	std::string Unknown10;																				// +0x10  // NAME 1: neutral
-	std::string Unknown20;																				// +0x20  // NAME 1: neutral
-	std::vector<float> Unknown30;																		// +0x30  // NAME 1: neutral
-	std::vector<float> Unknown40;																		// +0x40  // NAME 1: neutral
-	int Unknown50;																						// +0x50  // NAME 1: neutral
-	int Unknown54;																						// +0x54  // NAME 1: neutral
-};
-
-// An item's effects (0x24 bytes; item_effect_description.cpp's, not rebuilt)
-class ItemEffectDescriptionClass  // NAME 2: item_effect_description.cpp's 0x83E5F0
-{
-public:
-	const std::vector<ItemEffectClass> &Get_Effects() const { return(Effects); }	// NAME 1: neutral
-	void Unknown_83E5F0(const std::string &delta);														// 0x83E5F0  // NAME 1: neutral (D10); NAME 1 [delta]: what it gets
-
-	std::vector<ItemEffectClass> Effects;																// +0x00  // NAME 2: what it holds
-	int Unknown10;																						// +0x10  // NAME 1: neutral
-	int Unknown14;																						// +0x14  // NAME 1: neutral
-	int Unknown18;																						// +0x18  // NAME 1: neutral
-	int Unknown1C;																						// +0x1C  // NAME 1: neutral
-	int Unknown20;																						// +0x20  // NAME 1: neutral
-};
-
-// What an item's +0x5C points at (item_info.cpp's, not rebuilt)
-class ItemTemplateInfoClass : public RefCountClass  // NAME 2: the FAIL_IFs '!template_info'
-{
-public:
-	const ItemEffectDescriptionClass &Get_Unknown40() const { return(Unknown40); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
-	const ItemEffectDescriptionClass &Get_Unknown68() const { return(Unknown68); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
-	ItemTemplateInfoClass();																			// 0x83F490 (item_info.cpp's; 0x90 bytes)
-	void Unknown_8417B0(const std::string &delta);														// 0x8417B0 (applies an encoded delta)  // NAME 1: neutral (D10); NAME 1 [delta]
-	unsigned int Unknown_83FE00();																		// 0x83FE00 (how many attributes)  // NAME 1: neutral (D10)
-	int Unknown_840940(unsigned int index);																// 0x840940 (the attribute id at index, -1: none)  // NAME 1: neutral (D10); NAME 1 [index]
-	bool Unknown_83FD60(int id);																		// 0x83FD60 (has the attribute)  // NAME 1: neutral (D10)
-	bool Unknown_840A20(int id, int &value);															// 0x840A20  // NAME 1: neutral (D10); NAME 1 [id, value]
-	bool Unknown_840AC0(int id, float &value);															// 0x840AC0  // NAME 1: neutral (D10)
-	bool Unknown_840980(std::string &value, unsigned int index);										// 0x840980  // NAME 1: neutral (D10)
-	bool Unknown_8409D0(int id, std::string &value);													// 0x8409D0  // NAME 1: neutral (D10)
-	char Unknown08[0x40 - 0x08];
-	ItemEffectDescriptionClass Unknown40;																// +0x40  // NAME 1: neutral
-	char Unknown64[0x68 - 0x64];
-	ItemEffectDescriptionClass Unknown68;																// +0x68  // NAME 1: neutral
-	char Unknown8C[0x90 - 0x8C];
-};
 
 // An item's flags (the item's +0x58; the labels and tooltips 0x5285A0 gives them)
 struct ItemFlagsStruct  // NAME 1: neutral (D10)
@@ -107,7 +62,7 @@ struct ItemFlagsStruct  // NAME 1: neutral (D10)
 class Unknown688830Item  // NAME 1: neutral (D10)
 {
 public:
-	const RefCountPtr<ItemTemplateInfoClass> &Get_Template_Info() const { return(TemplateInfo); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
+	const RefCountPtr<ItemBaseInfoClass> &Get_Template_Info() const { return(TemplateInfo); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
 	// (0x831840 is client.h's item template's Unknown_831840: callers cast)																		// 0x831840 (its +0x10, with a reference)  // NAME 1: neutral (D10)
 	char Unknown00[0x08];
 	int Unknown08;																						// +0x08 (0x529810's)  // NAME 1: neutral
@@ -119,7 +74,7 @@ public:
 	int Unknown48;																						// +0x48 (0x52FFB0 / 0x530070's)  // NAME 1: neutral
 	char Unknown4C[0x58 - 0x4C];
 	ItemFlagsStruct Flags;																				// +0x58  // NAME 2: the specials 0x5285A0 makes of them
-	RefCountPtr<ItemTemplateInfoClass> TemplateInfo;													// +0x5C  // NAME 2: the FAIL_IFs '!template_info'
+	RefCountPtr<ItemBaseInfoClass> TemplateInfo;													// +0x5C  // NAME 2: the FAIL_IFs '!template_info'
 };
 
 class MoneyClass;
@@ -134,32 +89,24 @@ public:
 	int Unknown50;																						// +0x50 (0x522860 routes 0x52AD00's property when 2)  // NAME 1: neutral
 };
 
-// An effect as a special property (0x34 bytes, table 0xAEDEDC; its file is not rebuilt)
-class ClientItemPropertySpecialEffectClass : public ClientItemPropertySpecialClass {};  // NAME 1: neutral (D10)
-RefCountPtr<ClientItemPropertySpecialEffectClass> Unknown_52B840(const ItemEffectClass &effect);		// 0x52B840  // NAME 1: neutral (D10); NAME 1 [effect]
+// An effect as a special property: ClientItemPropertySpecialEffectClass, client_item_property_special_effect.h
+// (two lines for three here and the #include above: the inline FAIL_IFs below keep their lines)
 
-// A flag as a special property (its file is not rebuilt)
-class ClientItemPropertySpecialFlagClass : public ClientItemPropertySpecialClass {};  // NAME 1: neutral (D10)
-RefCountPtr<ClientItemPropertySpecialFlagClass> Unknown_52F9E0(int sort, const std::string &label, const std::string &tooltip, int unknown, bool flag);	// 0x52F9E0  // NAME 1: neutral (D10); NAME 1 [sort, label, tooltip, unknown, flag]
+// A flag as a special property
+// ClientItemPropertySpecialFlagClass: client_item_property_special_flag.h (one line for two here and the #include)
 
-// The properties 0x521C10 makes (their files are not rebuilt; each Create allocates the property and hands it to Create_NEW)
-class ClientItemPropertySpecialMakerClass : public ClientItemPropertySpecialClass {};					// table 0xAEDF00  // NAME 3: client_item_property_special_maker.cpp's
-class ClientItemPropertySpecialUnknown52FFB0Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
-class ClientItemPropertySpecialUnknown530070Class : public ClientItemPropertySpecialClass {};			// NAME 1: neutral (D10)
-RefCountPtr<ClientItemPropertySpecialUnknown52FFB0Class> Unknown_52FFB0(int unknown, int value, int id);	// 0x52FFB0  // NAME 1: neutral (D10); NAME 1 [unknown, value, id]
-RefCountPtr<ClientItemPropertySpecialUnknown530070Class> Unknown_530070(int unknown, int id);			// 0x530070  // NAME 1: neutral (D10); NAME 1 [unknown, id]
-RefCountPtr<ClientItemPropertySpecialMakerClass> Unknown_52C770(const std::string &maker, bool flag);	// 0x52C770  // NAME 1: neutral (D10); NAME 1 [maker, flag]
+// The properties 0x521C10 makes (each Create allocates the property and hands it to Create_NEW)
+// The level, damage type and type: ClientItemPropertyTypeClass, client_item_property_type.h (a ClientItemPropertyClass,
+// not a special; its two Creates 0x52FFB0 / 0x530070; three lines for four here and the #include, so the
+// line count stays)
+// The maker: ClientItemPropertySpecialMakerClass, client_item_property_special_maker.h (one line for two here and the #include)
 
-// The attributes and requirements 0x522860 makes (their files are not rebuilt)
+// The attributes and requirements 0x522860 makes
 enum { MODE_NONE_BF = 0 };																				// the mode flags' none (G_ASSERT 'mode_flags != MODE_NONE_BF')  // NAME 3: the client's assert
-class ClientItemPropertySpecialLevelRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_level_requirement.cpp's
-class ClientItemPropertySpecialProfessionRequirementClass : public ClientItemPropertySpecialClass {};	// NAME 3: client_item_property_special_profession_requirement.cpp's
-class ClientItemPropertySpecialRaceRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_race_requirement.cpp's
-class ClientItemPropertySpecialSkillRequirementClass : public ClientItemPropertySpecialClass {};		// NAME 3: client_item_property_special_skill_requirement.cpp's
-RefCountPtr<ClientItemPropertySpecialLevelRequirementClass> Unknown_530530(SClient *space_client, int kind, int level);	// 0x530530 (kind 0 combat, 1 explore, 2 trade, 3 total)  // NAME 1: neutral (D10); NAME 1 [kind, level]
-RefCountPtr<ClientItemPropertySpecialProfessionRequirementClass> Unknown_52CF90(SClient *space_client, int profession);	// 0x52CF90  // NAME 1: neutral (D10); NAME 1 [profession]
-RefCountPtr<ClientItemPropertySpecialRaceRequirementClass> Unknown_52DB60(SClient *space_client, int unknown, int race);	// 0x52DB60 (attributes 18, 17)  // NAME 1: neutral (D10); NAME 1 [race]
-RefCountPtr<ClientItemPropertySpecialSkillRequirementClass> Unknown_52E760(SClient *space_client, const std::string &skill, int level, bool flag);	// 0x52E760  // NAME 1: neutral (D10); NAME 1 [skill, flag]
+// ClientItemPropertySpecialLevelRequirementClass: client_item_property_special_level_requirement.h (one line for two here and the #include)
+// ClientItemPropertySpecialProfessionRequirementClass: client_item_property_special_profession_requirement.h (one line for two here and the #include)
+// ClientItemPropertySpecialRaceRequirementClass: client_item_property_special_race_requirement.h (one line for two here and the #include)
+// ClientItemPropertySpecialSkillRequirementClass: client_item_property_special_skill_requirement.h (one line for two here and the #include)
 std::string Unknown_4FB5B0(const std::vector<std::string> &strings, const std::string &separator);	// 0x4FB5B0 (joins: the mode names with ", ")  // NAME 1: neutral (D10); NAME 1 [strings, separator]
 
 // What hands an item's properties to a router (16 bytes on the caller's stack: the item examination window's slot +0x94

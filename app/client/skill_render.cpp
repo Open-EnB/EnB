@@ -21,7 +21,7 @@ class Unknown6A7A00Base { public: char Unknown00[0x20]; SClient *Unknown20; char
 class SkillDataClass : public Unknown6A7A00Base, public SkillDataPeekClass, public SkillAbilityDataPeekClass { public: int Get_Level(int skill) { return(SkillDataPeekClass::Get_Level(skill)); } int Get_Skill_Powerup_Ability_Number(); float Unknown_6A4C20(); };	// NAME 1: neutral (D10); NAME 2 [Get_Level]: 0x6A54B0's result is compared with the abilities' levels; NAME 1 [skill]: neutral
 class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual SkillDataClass *Unknown_14(); };	// NAME 3: its local sd (0x6A7310)
 // gd_gauge.cpp's gauge (ui_faction.cpp's), shortcut_range_gauge.cpp's
-class Unknown669570Class : public RObjGadgetClass { public: Unknown669570Class(RenderObjClass *robj, const char *name); virtual void Unknown_A4(float value); char Unknown60[0x6C - 0x60]; };	// NAME 1: neutral (D10); NAME 1 [robj, name, value]: neutral
+#include "gd_gauge.h"	// GaugeGadgetClass (0x669570)
 class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Unknown6A3D60Class(); void Unknown_6A4020(float distance, float range, int state, bool arg); char Unknown00[0x18]; };	// NAME 1: neutral (D10); NAME 1 [robj, distance, range, state, arg]: neutral
 
 // skill_ability_names.cpp's, skillnam.cpp's, slot_data_render.cpp's, ro_funcs.cpp's, distance_calc_client.cpp's
@@ -46,7 +46,7 @@ SkillRenderClass::SkillRenderClass() :
 	Unknown58(false)
 {
 	Unknown2C = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("itemon01"));
-	Unknown30 = new Unknown669570Class(Unknown2C.Peek(), "REACTOR_BAR1");
+	Unknown30 = new GaugeGadgetClass(Unknown2C.Peek(), "REACTOR_BAR1");
 }
 
 // 0x6A6070
@@ -157,7 +157,7 @@ void SkillRenderClass::Unknown_2C(bool force)
 					Unknown_496730(Unknown2C.Peek(), robj->Get_Sort_Level() - 1, 0);
 				}
 			}
-			Unknown30->Unknown_A4(skills->Unknown_6A4C20());
+			Unknown30->Set_Value(skills->Unknown_6A4C20());
 		} else {
 			if (Unknown2C->Get_Container()) {
 				Unknown2C->Remove();

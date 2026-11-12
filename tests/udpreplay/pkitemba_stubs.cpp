@@ -1,21 +1,27 @@
 // Earth & Beyond client (reconstruction)
-// udpreplay: ITEM_BASE 37's item description (ItemBaseInfoClass, client 0x83F490-0x840400, not rebuilt).
-// Here, not in stubs/app_stubs.cpp: these call RawPacketClass, and stubs.lib goes into every program
-// (VIDTEST would then pull in pk.obj and the connection layer).
+// udpreplay: the effect descriptions of ITEM_BASE 37's item info (ItemEffectDescriptionClass, client
+// 0x83DB00-0x83E7C0, item_effect_description.cpp, not rebuilt). The item info itself is the real
+// app\common\item_info.cpp. Here, not in stubs/app_stubs.cpp: these call RawPacketClass, and stubs.lib
+// goes into every program (VIDTEST would then pull in pk.obj and the connection layer).
 #include "..\..\..\app\packets\pkitemba.h"
 #include <string.h>
 
-// 0x83F490 / 0x840030 / 0x83FEF0 / 0x83FE30: ITEM_BASE's item description (opcode 37). The harness keeps
-// its part of the message as bytes: its length depends on the client's attribute type table (filled at
-// run time), so Read takes the first split after which the packet's fixed tail (22 bytes, then three
-// strings of text with 2-byte lengths) ends exactly at the message's end.
-ItemBaseInfoClass::ItemBaseInfoClass()
-{
-	memset(Unknown08, 0, sizeof(Unknown08));
-}
+// 0x83E040 / 0x83DF10 / 0x83DE70: an item info ends with two effect descriptions (the activated effects,
+// then the equip effects), whose length depends on effect_description.cpp's format. The harness keeps both
+// as bytes in the first one: its Read takes the first split after which the packet's fixed tail (22 bytes,
+// then three strings of text with 2-byte lengths) ends exactly at the message's end; the second one's Read
+// takes nothing. The bytes and their length sit in Unknown18 / Unknown1C (zero from the constructor).
+static bool SecondDescription = false;
 
-void ItemBaseInfoClass::Read(RawPacketClass *raw)
+void ItemEffectDescriptionClass::Read(RawPacketClass *raw)
 {
+	if (SecondDescription) {
+		SecondDescription = false;
+		Unknown18 = 0;
+		Unknown1C = 0;
+		return;
+	}
+	SecondDescription = true;
 	const unsigned char *p = (const unsigned char *)raw->Data.Buffer + raw->Data.Pos;
 	int left = raw->Data.Size - raw->Data.Pos;
 	int len = 0;
@@ -40,16 +46,16 @@ void ItemBaseInfoClass::Read(RawPacketClass *raw)
 	}
 	char *bytes = new char[len + 1];
 	raw->Get(bytes, len);
-	*(char **)Unknown08 = bytes;
-	*(int *)(Unknown08 + 4) = len;
+	Unknown18 = (int)bytes;
+	Unknown1C = len;
 }
 
-void ItemBaseInfoClass::Write(RawPacketClass *raw)
+void ItemEffectDescriptionClass::Write(RawPacketClass *raw)
 {
-	raw->Add(*(char **)Unknown08, *(int *)(Unknown08 + 4));
+	raw->Add((char *)Unknown18, Unknown1C);
 }
 
-int ItemBaseInfoClass::Get_Size()
+int ItemEffectDescriptionClass::Get_Size()
 {
-	return *(int *)(Unknown08 + 4);
+	return Unknown1C;
 }

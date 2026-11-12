@@ -5,6 +5,7 @@
 #define UI_MANU_H
 
 #include "sclient.h"
+#include "ui_inv.h"		// UIInvRobjStripClass, the strips of slots
 
 class GadgetClass;			// gadget.cpp's
 class UIManuCheckButtonClass;	// the check buttons (the tech level filters at +0x11C)
@@ -75,17 +76,6 @@ public:
 
 #define NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS	10	// the FAIL_IF's (0x5B67C0 compares with 9 and 1)
 
-// ui_inv.cpp's interface (0xE0 bytes, constructor 0x59EDC0) the window holds three of (+0xB4 'TSM01A.E%02d', +0xB8
-// 'TSM01A.RESULT', +0xBC 'TSM01A.OVER'), as far as this file calls it
-class UIManuInvClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	UIManuInvClass(SClient *client, RenderObjClass *model, int count, const char *format, int unknown);	// 0x59EDC0 (slot +0x54: 6 'TSM01A.E%02d' 12, 1 'TSM01A.RESULT' 13, 1 'TSM01A.OVER' 14)  // NAME 1 [client, model, count, format, unknown]: what slot +0x54 passes
-	void Unknown_62F5B0(bool on);						// 0x62F5B0 (0x5B3A70 passes false)  // NAME 1 [on]: neutral
-
-	char Unknown84[0xE0 - 0x84];						// +0x84
-};
-
 enum
 {
 	USER_INPUT = 0,										// (the G_ASSERTs 'source != USER_INPUT'; the buttons pass 0)  // NAME 3: the asserts'
@@ -149,9 +139,9 @@ public:
 
 	SBaseViewClass *Unknown0AC;							// +0x0AC (the constructor's view)
 	GadgetSlider *Unknown0B0;						// +0x0B0 (the list's slider: its +0xD4 the first row)
-	RefCountPtr<UIManuInvClass> Unknown0B4;				// +0x0B4 'TSM01A.E%02d' (slots +0x58 / +0x5C / +0x7C passed on)
-	RefCountPtr<UIManuInvClass> Unknown0B8;				// +0x0B8 'TSM01A.RESULT'
-	RefCountPtr<UIManuInvClass> Unknown0BC;				// +0x0BC 'TSM01A.OVER'
+	RefCountPtr<UIInvRobjStripClass> Unknown0B4;				// +0x0B4 'TSM01A.E%02d' (slots +0x58 / +0x5C / +0x7C passed on)
+	RefCountPtr<UIInvRobjStripClass> Unknown0B8;				// +0x0B8 'TSM01A.RESULT'
+	RefCountPtr<UIInvRobjStripClass> Unknown0BC;				// +0x0BC 'TSM01A.OVER'
 	UIManuUnknownC0Class *Unknown0C0[3];				// +0x0C0 (the destructor deletes them)
 	GadgetClass *Unknown0CC[7];							// +0x0CC (+0xD0..+0xE4: slot +0x54's buttons 'exit', the category columns 'item00' / 'cat00' / 'sub00', 'recent00', 'go')
 	GadgetClass *Unknown0E8[10];						// +0x0E8 the rows' buttons ('desc%02d')

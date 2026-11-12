@@ -37,6 +37,7 @@ public:
 	bool Unknown_7BB080(UIViewClass *view, int arg1, int arg2);	// 0x7BB080 (FAIL_IF '!view'; UIViewClass::Unknown_65B7A0's poly budget, sort level)  // NAME 2 [view]: the FAIL_IF's  // NAME 1 [arg1, arg2]: neutral
 	bool Unknown_7BB110();								// 0x7BB110 (true: it was in a view)
 
+	SClient *Peek_Client() { return(Unknown04); }		// (inline: gd_pip_scene.cpp's FAIL_IF '!PIPScene->Peek_Client()' l.148)  // NAME 3: the FAIL_IF's
 	Vector2 &Rect_Min() { return *(Vector2 *)&Rect.Left; }	// Rect's corners as Vector2s (0x692EF0, 0x7BACD0)  // NAME 1: neutral
 	Vector2 &Rect_Max() { return *(Vector2 *)&Rect.Right; }
 

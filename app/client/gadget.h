@@ -64,12 +64,12 @@ public:
 	GadgetClass(unsigned int mask);										// 0x65ED50 (+0x10; the id from the counter 0xB8C9E0)  // NAME 1 [mask]: slot +0x34 masks its argument with it
 	virtual ~GadgetClass();												// +0x00 0x65EE60 (G_ASSERT 'Destroyed'; deleting 0x65EDD0)
 	virtual void Unknown_04();											// +0x04 0x65EF90 (empty; Destroy calls it before the delete)
-	virtual GadgetUnknown08Struct *Unknown_08() { return(NULL); }		// +0x08 0x50A8C0
-	virtual int Unknown_0C() { return(0); }								// +0x0C 0x50A8E0
-	virtual int Unknown_10() { return(0); }								// +0x10 0x50A900
-	virtual int Unknown_14() { return(0); }								// +0x14 0x50A920
-	virtual int Unknown_18() { return(0); }								// +0x18 0x50A940
-	virtual int Unknown_1C() { return(0); }								// +0x1C 0x50A960
+	virtual GadgetUnknown08Struct *Unknown_08() { return(NULL); }		// +0x08 0x50A8C0 (the first of five 'are you a ...' slots, +0x08 to +0x1C: NULL here, the gadget itself in the class that is one; this one gd_robj.h's RObjGadgetClass, 0x51AD20)
+	virtual int Unknown_0C() { return(0); }								// +0x0C 0x50A8E0 (gd_proxy.h's RObjProxyGadgetClass answers this one: 0x66B510)
+	virtual int Unknown_10() { return(0); }								// +0x10 0x50A900 (no table among the gadget files of 0x669570-0x676A00 answers this one)
+	virtual int Unknown_14() { return(0); }								// +0x14 0x50A920 (the shortcut bar's proxy button answers this one: 0x66CA10, ui_scut.cpp's 0x610F30)
+	virtual int Unknown_18() { return(0); }								// +0x18 0x50A940 (the rectangle gadget of constructor 0x6B56A0, table 0xAFE0C4, answers this one: 0x6B57B0)
+	virtual int Unknown_1C() { return(0); }								// +0x1C 0x50A960 (the rectangle gadget of constructor 0x6B6050, table 0xAFE174, answers this one: 0x6B60A0)
 	virtual void Unknown_20(int arg) {}									// +0x20 0x50A980  // NAME 1 [arg]: neutral
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator) { return(NULL); }	// +0x24 0x50A9A0 (the flash's model, where it is and its animation frame)  // NAME 1 [position, frame, indicator]: what 0x6603A0 / 0x6609A0 do with them
 	virtual void Unknown_28(LayerClass *layer) {}						// +0x28 0x50A9C0 (the windows pass their layer)  // NAME 1 [layer]: what the windows pass
@@ -154,7 +154,10 @@ public:
 	virtual bool Unknown_30(float x, float y);							// +0x30 0x660DD0
 	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x660E40  // NAME 1 [box]: what it fills
 
-	char Unknown30[0x40 - 0x30];										// +0x30
+	float X;															// +0x30 (the constructor's a / 640: 0x660DD0's test, 0x660E40's box)  // NAME 1: what 0x660DD0 tests
+	float Y;															// +0x34 (b / 480)  // NAME 1: what 0x660DD0 tests
+	float Width;														// +0x38 (c / 640)  // NAME 1: what 0x660DD0 tests
+	float Height;														// +0x3C (d / 480)  // NAME 1: what 0x660DD0 tests
 };
 
 class DestroyGadgetEvent  // NAME 5: the client's RTTI .?AVDestroyGadgetEvent@@

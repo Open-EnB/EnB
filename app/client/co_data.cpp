@@ -73,14 +73,15 @@ DataBinderClass<ClientObjectClass *> &DataBinderClass<ClientObjectClass *>::Inst
 	return(binder);
 }
 
-// the dead Get_Game_ID read keeps Has, Get and Remove out of line here as the client has them (inline budget, D40)
+// the five removals are the functions below, inlined (each copies co once, as the client does); the dead
+// Get_Game_ID read, not the client's, keeps Has, Get and Remove out of line here as the client has them (D130)
 void ClientObjectDataClass::Remove_All(ClientObjectClass *co)
 {
-	ClientObjectDataAccessClass<RadarDataClass>::Remove(co);
-	ClientObjectDataAccessClass<GutterDataClass>::Remove(co);
-	ClientObjectDataAccessClass<StarmapDataClass>::Remove(co);
-	ClientObjectDataAccessClass<NavigationDataClass>::Remove(co);
-	ClientObjectDataAccessClass<EmoteDataClass>::Remove(co);
+	Remove_Radar_Data(co);
+	Remove_Gutter_Data(co);
+	Remove_Starmap_Data(co);
+	Remove_Navigation_Data(co);
+	Remove_Emote_Data(co);
 	co->Get_Game_ID();
 }
 
@@ -150,4 +151,9 @@ bool Remove_Emote_Data(ClientObjectClass *co)
 **	five types (D54's ambiguous column). Get's new sizes: radar 0x7C (0x7BB1D0), gutter 0x2C
 **	(0x7B4F30), starmap 0x3C (0x7BE640), navigation 0x18 (0x7BA8B0), emote 0x48 (0x7E62F0).
 **	The blank lines above the constructor keep the asserts on the client's lines (D25).
+**	The order of the client's instances gives the source's shape: Has, Get and Remove of a type sit
+**	together (0x79F860, 0x79F8E0, 0x79F980), before the value maps' members, so one function body
+**	names all three first: co_data.h's Remove, which Remove_All reaches through the five Remove
+**	functions (inlined, one level deeper than in the functions themselves: Has and Get called
+**	there, expanded here).
 */

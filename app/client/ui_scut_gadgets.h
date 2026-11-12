@@ -14,12 +14,7 @@ class GadgetClass;
 class ClientClass;
 class SClient;
 
-// What Create_Shortcut's second argument points to, a shortcut button: 0x66CB20 hands a new gadget on to its +0x78 (UIScutBarClass::Unknown_611BD0) at its +0x7C (bttn_idx)
-class Unknown66CB20Class	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_66CB20(GadgetClass *gadget);			// 0x66CB20  // NAME 1 [gadget]: what 0x614360 passes
-};
+class UIScutProxyGadgetClass;	// gd_scut_proxy.h's: the shortcut bar's button
 
 // One saved shortcut (0x1C bytes, the list node's 0x24): the sections of shortcut.ini (%d_Key, %d_Bar, %d_Group, %d_Button)
 struct ShortcutDataStruct	// NAME 2: what it holds
@@ -55,7 +50,7 @@ public:
 	int Get_State();									// 0x613F50 (the G_ASSERT's)  // NAME 3: the FAIL_IF's
 	bool Restore();										// 0x613F80 (FAIL_IF l.135)  // NAME 2: what it does
 	bool Restore(const std::list<ShortcutDataStruct> &list);	// 0x614040 (G_ASSERTs 'added' l.160, '!restored' l.166)  // NAME 2: what it does; NAME 1 [list]: neutral
-	RObjGadgetClass *Create_Shortcut(int slot, Unknown66CB20Class *button);	// 0x614360 (FAIL_IF '!ShortcutUI' l.187; 'shortcut_created_sn_1.wav')  // NAME 2: what it does; NAME 3 [slot]: ui_skills.cpp's 'from_slot != SlotDrag->Get_Slot()' (0x62DA30), the Slots of 0x6309F0, 0x685610's in 0x5A0740; NAME 2 [button]: the gadget under the pointer, or NULL for the first free one (0x66CB20 gives its bar +0x78 and bttn_idx +0x7C to 0x611BD0)
+	RObjGadgetClass *Create_Shortcut(int slot, UIScutProxyGadgetClass *button);	// 0x614360 (FAIL_IF '!ShortcutUI' l.187; 'shortcut_created_sn_1.wav')  // NAME 2: what it does; NAME 3 [slot]: ui_skills.cpp's 'from_slot != SlotDrag->Get_Slot()' (0x62DA30), the Slots of 0x6309F0, 0x685610's in 0x5A0740; NAME 2 [button]: the gadget under the pointer, or NULL for the first free one (its Set_Shortcut 0x66CB20)
 	bool Delete_Shortcut(int scut);						// 0x614660 (FAIL_IFs l.235, l.238)  // NAME 2: what it does; NAME 3 [scut]: the FAIL_IF's
 	void Delete_All();									// 0x614730 (no direct caller)  // NAME 2: what it does
 	void Delete_Gadgets();								// (inline in the .cpp: a budget layer, see the notes; 0x613BA0 calls 0x614660 out of line through it)  // NAME 1: neutral

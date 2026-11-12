@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: ItemBaseInfoClass (0x90 bytes, vtable 0xB08C34), ItemFieldStruct and ItemInfoEnum, from item_info.cpp's constructor 0x83F490, destructor 0x83F580 and asserts (Fields, EnumMapping, field->ItemInfo, ITEM_INFO_NONE, NUM_ITEM_INFO); header name assumed from item_info.cpp"
+}

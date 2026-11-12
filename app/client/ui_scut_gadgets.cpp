@@ -8,7 +8,7 @@
 #include "rendobj.h"
 #include "..\..\wwlib\ref_ptr.h"
 #include "gadget.h"
-#include "gd_robj.h"
+#include "gd_scut_proxy.h"
 #include "..\audio\soundlib.h"
 #include "..\shared\auxdata\permstr.h"	// (its PermStringInitClass static 0xBE5E1C, initialised by 0x613680, atexit 0x6136B0)
 #include "..\shared\g_assert.h"
@@ -170,7 +170,7 @@ bool UIScutGadgetsClass::Restore(const std::list<ShortcutDataStruct> &list)
 }
 
 // @0x614360
-RObjGadgetClass *UIScutGadgetsClass::Create_Shortcut(int slot, Unknown66CB20Class *button)
+RObjGadgetClass *UIScutGadgetsClass::Create_Shortcut(int slot, UIScutProxyGadgetClass *button)
 {
 
 
@@ -188,7 +188,7 @@ RObjGadgetClass *UIScutGadgetsClass::Create_Shortcut(int slot, Unknown66CB20Clas
 	RObjGadgetClass *gadget = Unknown_0C(slot);
 	if (!gadget) return(NULL);
 	if (button) {
-		button->Unknown_66CB20(gadget);
+		button->Set_Shortcut(gadget);
 	} else {
 		if (!ShortcutUI->Unknown_610C70(gadget, Unknown_18()) && !ShortcutUI->Unknown_610B00(gadget)) {
 			GadgetClass::Destroy(gadget);

@@ -4,9 +4,9 @@
 **	Original location: e:\build\beta\G\app\Client\item/client_item_property_special.h (its FAIL_IFs'
 **	__FILE__, 0xB78B68).
 **
-**	Partial (interim, D137): only what ui_item_examination_specials.cpp needs. A special property of an
-**	item: reference counted, sorted by the int at +0x08 (its operator< is inlined into the sort 0x539790, the FAIL_IFs at lines 84
-**	and 85). The rest of the header is not yet rebuilt.
+**	The specials' base class (its own code in client_item_property_special.cpp, 0x52B3E0-0x52B80F) and
+**	operator<. A special property of an item (an effect, the maker, a requirement): reference counted, sorted by
+**	SortOrder (operator< is inlined into the sort 0x539790, the FAIL_IFs at lines 84 and 85).
 */
 
 #if defined(_MSC_VER)
@@ -26,6 +26,8 @@
 // One line of a special's text (the row 0x538350 makes one text per line; 0x14 bytes)
 struct ClientItemPropertySpecialLineStruct  // NAME 1: what it holds
 {
+	ClientItemPropertySpecialLineStruct(const std::string &text, bool bold) : Text(text), Bold(bold) {}	// (inline in the subclasses' Get_Lines)  // NAME 1 [text, bold]: the members'
+
 	std::string Text;																		// +0x00  // NAME 1: what it holds
 	bool Bold;																				// +0x10 (the font gets '_BOLD')  // NAME 1: what it selects
 };
@@ -60,31 +62,29 @@ struct ClientItemPropertySpecialLineStruct  // NAME 1: what it holds
 
 
 
-
-
-
-
-
-
-
-
-
-
-class ClientItemPropertySpecialClass : public ClientItemPropertyClass  // NAME 2 [ClientItemPropertySpecialClass]: class from file (D24), client_item_property_special.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route)
+class ClientItemPropertySpecialClass : public ClientItemPropertyClass  // NAME 2 [ClientItemPropertySpecialClass]: class from file (D24), client_item_property_special.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route); table 0xAEDEB8, 0x24 bytes
 {
 public:
-	virtual std::vector<ClientItemPropertySpecialLineStruct> Unknown_14() = 0;			// +0x14 (the row's lines)  // NAME 1: neutral (D10)
-	virtual bool Unknown_18() = 0;															// +0x18 (false: the font gets '_UNUSABLE')  // NAME 1: neutral (D10)
+	ClientItemPropertySpecialClass(int sort_order, const std::string &tooltip, int unknown_1c, int unknown_20);	// 0x52B3E0  // NAME 1 [sort_order, tooltip]: the members they fill; NAME 1 [unknown_1c, unknown_20]: neutral (D10)
+	virtual ~ClientItemPropertySpecialClass();												// 0x52B5E0 (deleting 0x52B5B0)
+	virtual int Unknown_08();																// +0x08 0x52B650 (Unknown1C)
+	virtual std::string Unknown_0C();														// +0x0C 0x52B670 (Tooltip)
+	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10 0x52B7F0 (the visitor's slot +0x04)
+	virtual std::vector<ClientItemPropertySpecialLineStruct> Get_Lines() = 0;				// +0x14 (pure; the row's lines, a bold label and its text)  // NAME 1 [Get_Lines]: what the row 0x538350 does with them
+	virtual bool Is_Usable() = 0;															// +0x18 (pure; false: the font gets '_UNUSABLE', a requirement the player does not meet)  // NAME 1 [Is_Usable]: the font's suffix
 
-	int Unknown08;																			// +0x08 (operator< compares it)  // NAME 1 [Unknown08]: neutral (D10)
+	int SortOrder;																			// +0x08 (operator< compares it; 100 for an effect)  // NAME 1 [SortOrder]: what operator< does with it
+	std::string Tooltip;																	// +0x0C (the slot +0x0C answers it, as the attributes' Tooltip)  // NAME 1 [Tooltip]: as ClientItemPropertyAttributeClass's, the same slot
+	int Unknown1C;																			// +0x1C (the slot +0x08 answers it; 0 for an effect)  // NAME 1: neutral (D10)
+	int Unknown20;																			// +0x20 (1 for an effect)  // NAME 1: neutral (D10)
 };
 
 inline bool operator<(const RefCountPtr<ClientItemPropertySpecialClass> &lhs, const RefCountPtr<ClientItemPropertySpecialClass> &rhs)	// (inline: the sort 0x539790)
 {
 	FAIL_IF(!lhs) return false;
 	FAIL_IF(!rhs) return true;
-	int lhs_sort = lhs->Unknown08;
-	int rhs_sort = rhs->Unknown08;
+	int lhs_sort = lhs->SortOrder;
+	int rhs_sort = rhs->SortOrder;
 	return lhs_sort < rhs_sort;
 }
 

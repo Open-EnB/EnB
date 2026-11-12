@@ -41,9 +41,9 @@ public:
 	virtual void Unknown_64(AABoxClass &box);							// +0x64 0x66C7D0 (G_ASSERT 'RObj' l.250: the model's bounding box)
 	virtual void Unknown_74();											// +0x74 0x66C5F0 (the model into the layer's scene)
 	virtual void Unknown_78();											// +0x78 0x66C630 (the flash stopped, the model out of its scene)
-	virtual void Unknown_7C(int arg) {}									// +0x7C 0x51AD40  // NAME 1 [arg]: neutral
-	virtual void Unknown_80(int arg) {}									// +0x80 0x51AD60  // NAME 1 [arg]: neutral
-	virtual void Unknown_84(int arg) {}									// +0x84 0x51AD80  // NAME 1 [arg]: neutral
+	virtual void Unknown_7C(int arg) {}									// +0x7C 0x51AD40 (ui_scut.cpp's 0x611BD0 passes the shortcut bar the gadget goes onto)  // NAME 1 [arg]: neutral
+	virtual void Unknown_80(int arg) {}									// +0x80 0x51AD60 (0x611BD0: the bar it comes off)  // NAME 1 [arg]: neutral
+	virtual void Unknown_84(int arg) {}									// +0x84 0x51AD80 (the shortcut bar's proxy button showing the gadget passes itself, every frame: 0x66CB50)  // NAME 1 [arg]: neutral
 	virtual bool Unknown_88() { return(false); }						// +0x88 0x51ADA0
 	virtual void Unknown_8C(bool on);									// +0x8C 0x66C3F0 (the model and the style hidden)  // NAME 1 [on]: neutral
 	virtual void Unknown_90(class TextureClass *texture);									// +0x90 0x66C470 (ro_funcs.cpp's 0x495FD0 on the model, index 0)  // NAME 1 [texture]: ro_funcs.cpp's parameter (ui_chat_panel.cpp passes a texture)

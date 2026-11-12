@@ -281,7 +281,7 @@ int Packet_00ABClass::Get_Data_Size()
 	return(size);
 }
 
-void Packet_00ABClass::Add_Unknown30(const std::string &string)
+void Packet_00ABClass::Add_NPC(const std::string &string)
 {
 	Unknown30.push_back(string);
 }
