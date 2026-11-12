@@ -103,7 +103,8 @@ class Base(unittest.TestCase):
         self.orig = open(self.h, 'rb').read()
 
     def args(self, **kw):
-        a = dict(range=(0, 63), pool=1, holder_pid=None, lock_wait=5, agent=None, hold=False, first_window=False)
+        a = dict(range=(0, 63), pool=1, holder_pid=None, lock_wait=5, agent=None, hold=False, first_window=False,
+                 sets=os.path.join(self.td, 'sets.json'))
         a.update(kw)
         return argparse.Namespace(**a)
 
