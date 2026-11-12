@@ -200,6 +200,14 @@
    "moved_to": null,
    "decision": "D240",
    "note": "D240 (D236's first case), run 2026-11-11b (D1 877cae62): DeltaCompoundClass::Get_Size, the accessor the client's FAIL_IF texts name (0xB784AC 'skill_index >= (int)skills_aux_data->Get_Size()', 0xB95290 'aux_data_index >= AuxData->Attachments.Get_Size()'); ClientLegoRootClass::Update, the same call as 0x732030. Delete when regained."
+  },
+  {
+   "address": "0x5E9410",
+   "lib": "app",
+   "file": "ui_radio_main",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "D240 (D239's P-L9-1), run 2026-11-11b (R1 b73bb3d4): UIMeshClass::Get_Sub_Object_By_Name replaces Unknown_5B8B40 and its interim inline forwarder in ui_mesh.h is removed (a non-client device; ui_inv.cpp's strip template makes the one call on both model types, two instantiations in the client's bytes). UIRadioMainClass's constructor was held by that forwarder's presence: without it VC6 hoists one 'mov edi,[esp+0x30]' in an inlined std::string assign (352 bytes for 348); no spelling of the name changes it (four tried); ui_option_quit 0x5CE830 is regained by the same branch. Delete when regained (a translation-unit-level retune, as for the pads)."
   }
  ]
 }
