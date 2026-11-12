@@ -26,7 +26,9 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
   aren't losses; a form backed by client.exe's own evidence (a string, RTTI, a symbol, bytes) may
   land with its losses when the commit names the evidence and each lost address gets an
   `accepted-corrections.json` entry (`"decision": "D240"`, `moved_to` null) until regained; any
-  other loss waits for the user before the commit.
+  other loss is the coordinator's call inside D246's valve (the landing gains more than it loses, at
+  most 5 such addresses per landing and 40 open, one regain round tried, an entry each with
+  `"decision": "D246"`); past the valve the branch is parked for the user and the run goes on.
 - Edit the source; describe each E&B change to an EA-derived file in its end-of-file `// EnB:`
   block (conventions.md), never inline above code. A new reconstructed file gets its description
   (`RECONSTRUCTED`) in its ledger shard: `tools/vc6/ledger.py describe`. Scripted edits go in a script saved in `.work/`, not an inline heredoc
@@ -44,7 +46,15 @@ reverse engineer the rest. Windows; shell is Git Bash (`/c/...` paths) or PowerS
   never push `master` (the coordinator pushes only its run branch and opens a PR, D148,
   D157; builders never push); `git add` by name (never stage `.claude/settings.json`: tracked, the
   maintainer changes it).
-- Decisions are the user's (D1, D2...). Propose with a recommendation; don't decide silently.
+- Who decides (D246). The coordinator decides, without asking, whatever client.exe's evidence, the
+  verify or a measurement settles: names, types, layouts, placements, file splits, D66 / D240 losses,
+  losses inside the valve, crediting rules, harness and tool design. A builder decides the same inside
+  its own item and proposes to the coordinator what reaches past it. Never decide silently: a call
+  that makes a rule gets a row in progress.md §2 (`coordinator (D246)`), a case call a line under
+  `Calls` in the log entry. The user decides only: inputs from outside the original app tree (SDKs,
+  DLLs, data, VMs, credits, models), safety (D69), what reaches `master`, changes to these hard rules,
+  and what the valve stops; only those go to progress.md §3. Never block on a question: park the item
+  and continue. A function not exact after two builder rounds is parked until new evidence turns up.
 
 ## Reverse-engineering tools: pick in this order
 1. Existing project data: `docs/data/symbols.json`, `class-methods.txt`, `rtti.txt`, bytematch reports.

@@ -1,6 +1,6 @@
 ---
 name: lander
-description: Lands finished builder worktrees on the run branch for a coordinator (wt.py bring-over with its verify, stand-in and link checks) and returns one result line per branch. Use when a builder reports a branch finished, instead of running bring-over in the coordinator's own context. Give it the worktree names in landing order, the target run branch and any addresses whose loss the user already accepted.
+description: Lands finished builder worktrees on the run branch for a coordinator (wt.py bring-over with its verify, stand-in and link checks) and returns one result line per branch. Use when a builder reports a branch finished, instead of running bring-over in the coordinator's own context. Give it the worktree names in landing order, the target run branch and any addresses whose loss is already accepted (D66, D240 or the coordinator's D246 valve, each with its accepted-corrections.json entry on the target).
 model: sonnet
 ---
 
@@ -8,7 +8,8 @@ You land builder branches for the coordinator of an Earth & Beyond client recons
 reads only your final message, so the logs stay with you and the result goes back in a few lines.
 
 You are given: worktree names (`.work/wt/NAME`, branch `wt/NAME`) in landing order, the target branch
-(`run/<date>`), and optionally addresses whose loss the user has already accepted. Work from the repository
+(`run/<date>`), and optionally addresses whose loss is already accepted (by the user, or by the coordinator
+under D240 / D246). Work from the repository
 root. Read `tools/vc6/README.md`'s rows for `wt.py`, `standins.py`, `sendpad.py` and `linkgate.py` only if a
 step below does not behave as described (`grep -n` for the row; it is one long line each).
 
@@ -34,8 +35,8 @@ step below does not behave as described (`grep -n` for the row; it is one long l
 |---|---|
 | The importer lock was not acquired in time | Run it once more with `--lock-wait 12000` |
 | sclient.cpp pairs lost and the pad sweep (on by default) found no window | Report: the builder re-sweeps in its worktree after `wt.py rebase NAME` |
-| An address lost outright that the brief lists as accepted (D66, or D240: a client-evidenced form's loss the builder reported) | Report it with the address: the accepted-corrections entry must be on the target first, and that is the coordinator's commit |
-| Any other address lost outright | Report address, file and the branch that lost it. Never land it, never accept it |
+| An address lost outright that the brief lists as accepted (D66; D240: a client-evidenced form's loss the builder reported; D246: the coordinator's valve) | Report it with the address: the accepted-corrections entry must be on the target first, and that is the coordinator's commit |
+| Any other address lost outright | Report address, file, the branch that lost it and the landing's gain (the coordinator decides under D246's valve). Never land it, never accept it yourself |
 | A conflict in a file that is not generated (the scratch is left mid-pick) | `python tools/vc6/wt.py remove <batch>.bo` if the tool says the scratch remains, then report file and commit: the builder runs `wt.py rebase NAME` |
 | The link check (LNK2005, LNK1169, an unresolved symbol, a compile error) | Report the symbol or the first error line and the file: the builder fixes it in its branch |
 | "run moved while landing ... nothing landed, rerun" | Run it once more |

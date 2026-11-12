@@ -108,11 +108,23 @@ on known-pattern files moved the meter about 1 point an hour with two to four ru
 - Checks and filing (D226): the harness check below and a POC run or replay go to the `checker` subagent
   (`subagent_type: checker`; Sonnet) with the commit or worktree, which checks, and for the POC the input, the
   seconds and the question; it returns one line per program, and a failure is still your health item. At a
-  drain, the builders' traps, proposals and leftovers go to the `doc-filer` subagent (`subagent_type:
-  doc-filer`; Sonnet) with the reports and the run branch; the log entry stays yours.
-- When a report arrives: log the result line (pairs before and after, what is parked, proposals), file the
-  levers and traps in workflow.md §3, open proposals for the user in progress.md §3, then run the heartbeat
-  command again (the report changes the builder count and the memory).
+  drain, the builders' traps and leftovers go to the `doc-filer` subagent (`subagent_type:
+  doc-filer`; Sonnet) with the reports and the run branch; it returns their calls and proposals to you, and
+  the log entry, the decisions and progress.md §3 stay yours.
+- When a report arrives: log the result line (pairs before and after, what is parked, the builder's calls), file
+  the levers and traps in workflow.md §3, **decide its proposals** (below), then run the heartbeat command again
+  (the report changes the builder count and the memory).
+- **Proposals are yours to decide (D246), not to relay.** For each one: if client.exe's evidence, the verify or a
+  measurement settles it (a name, a retype, a layout, a placement, a file split, a D66 / D240 loss, a crediting
+  rule, a harness or tool change), decide it: carry it out or queue it as a §4 item, or reject it, and write one
+  line in the plan log's `Calls` list (id, the call, the evidence) for the log entry; a call that makes a rule
+  also gets a §2 row with `coordinator (D246)`. Evidence on both sides: pick one, mark it provisional, list it.
+  A builder's "needs ratifying" or "for the user" does not make it the user's. Only these go to progress.md §3:
+  an input from outside the app tree (an SDK, a DLL, data, a VM, credits, a model), safety (D69), `master`, a
+  change to CLAUDE.md's hard rules, a branch the loss valve stopped. A question about the client the user might
+  simply know goes in the handoff's report, and the work goes on without the answer.
+- **Parking (D246 (f)):** a function not exact after two builder rounds goes to §4's parked item with its
+  attempts.csv rows and is not relaunched until new evidence or a new lever turns up.
 - Filing a trap (D223; the 2026-11-10 rewrite cut §3 from 332 KB to 196 KB, most of it repeats filed per run):
   `grep -n` its key terms in workflow.md first. Already said: file nothing, or add the one missing fact to that
   bullet. A VC6 form goes under its `explain.py` class in §3.1.2 (a table row or a bullet under 900 characters,
@@ -166,7 +178,10 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   own (a string, RTTI, a symbol, bytes; not EA's later code), then commit one `accepted-corrections.json` entry per
   address (`"decision": "D240"`, `moved_to` null, the note naming form and evidence) on the run branch, and only then
   hand the branch to the lander with those addresses as accepted. Name them in the log entry. A loss without such
-  evidence is still the user's. An entry is deleted when its address is regained (the match audit's queue, §4).
+  evidence is yours inside D246's valve: the landing gains more pairs than it loses, at most 5 such addresses in
+  the landing and 40 open in accepted-corrections.json (`"decision": "D246"`), and one regain round was tried;
+  then the same entry-first steps, with the note saying what was gained for it. Past the valve leave the branch
+  unlanded, list it in progress.md §3 and go on with the run. An entry is deleted when its address is regained (the match audit's queue, §4).
 - **If you run `wt.py bring-over` yourself, run it in the background**, never in a foreground call (a 600 s
   timeout moved one to the background, and stopping that task left its python, the importer lock and lease
   `importer-<pid>` running). Wait on the log's `landed:` line or `tasklist //FI "PID eq N"` (Git Bash can't see

@@ -43,6 +43,7 @@ prepare the handoff and tell the user to run `/clear` (or start a new session).
 7. Ask before committing the handoff file(s). Never push `main` (D148). After the commit, the coordinator's run
    PR: release the claims whose builders brought nothing in (`python tools/run_branch.py release N`), write the
    PR summary to `.work/run-<date>/pr-summary.md` (what landed, pairs before and after, what is parked, the
-   decisions waiting for the user), then `python tools/run_branch.py ready --summary .work/run-<date>/pr-summary.md`:
+   calls the coordinator made under D246 with any valve losses by address, and the few items D246 (d) leaves
+   to the user), then `python tools/run_branch.py ready --summary .work/run-<date>/pr-summary.md`:
    it pushes the run branch and takes the PR out of draft. The verify service posts `vc6-verify` within minutes;
    the user merges. Report the PR's link.

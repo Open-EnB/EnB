@@ -1,8 +1,13 @@
 # Builders: startup set, rules, models, report
 
 A *builder* is a subagent given one work item by a coordinator session. The user talks to the
-coordinator, not to you: never stop to ask; write questions as proposals (with a recommendation)
-in your report. Decisions are the user's (D-numbers in [progress.md](progress.md) §2).
+coordinator, not to you: never stop to ask. Inside your item you decide what its evidence settles
+(D246: names, types, forms, D66 kinds, D240 forms, placements in your own files, marked provisional
+where the evidence is thin) and list each call in your report. What reaches past your item (a shared
+header, another builder's file, a tool, a rule) is a proposal to the coordinator, with a
+recommendation; the coordinator decides it. Only a missing input (an SDK, a DLL, data) is the user's.
+Never trade other files' exact pairs for your own item without saying so in the report.
+Decisions are in [progress.md](progress.md) §2 (D-numbers).
 
 ## 1. Read first, by kind of work (sections only, never whole docs)
 
@@ -36,7 +41,8 @@ seven kinds of non-loss, (i)-(vii) (say which in the commit). **D240:** a form b
 losses. Commit it naming the evidence, try to regain the lost pairs (the pad sweeps first for sclient / aux_roots
 headers), and list each address still lost in your report as a D240 row (address, file, the form, the evidence); the
 coordinator commits those rows to `docs/data/accepted-corrections.json` on the run branch before the landing. Any
-other loss waits for the user.
+other loss: try one regain round, then either drop the change or, when it gains more than it loses, commit it on
+your branch and report both sides (addresses gained and lost); the coordinator decides under D246's valve.
 
 **Shared tree (D62).** Other builders may be working in the same tree. Their changes must not be
 *compiled* into your verify: their untracked files aren't, unless the ledger lists them; check
@@ -122,7 +128,8 @@ before placing (`docs/data/triage.md`).
 2. What was built and how to run it.
 3. What didn't work, so nobody repeats it: every NOT EXACT function with `explain.py`'s class, and the
    `attempts.csv` rows you wrote (`attempts.py record`), one line each.
-4. Proposals needing the user (with a recommendation each).
+4. Calls you made (D246; one line each: what, and the client's evidence), then proposals for the coordinator
+   (what reaches past your item; a recommendation each), then any input only the user can supply.
 5. New traps for workflow.md §3 (the coordinator files them).
 6. What's left and the best next lead. Confirm the tree is clean of your work and VMs released.
 7. Model and approximate tokens used (the coordinator logs them, §4).
@@ -137,7 +144,7 @@ before placing (`docs/data/triage.md`).
 | Read-only audits, cross-referencing, doc moves, log digging, generator reruns: anything a tool checks afterwards (verify, names.py, a diff); Explore agents | Sonnet | cheap, and the check catches mistakes |
 | Landing finished branches for the coordinator (`.claude/agents/lander.md`: `wt.py bring-over`, one line back per branch) | Sonnet (D223) | the tools decide; it never edits source, and the logs stay out of the coordinator's context |
 | The harness check (D182) and a POC run or replay for the coordinator (`.claude/agents/checker.md`: one line back per program) | Sonnet (D226) | the programs decide; it never edits source, and the logs and the frame stay out of the coordinator's context |
-| Filing builders' traps, proposals and leftovers into workflow.md §3 and progress.md §3 / §4 (`.claude/agents/doc-filer.md`) | Sonnet (D226) | it quotes the reports and docs_check checks it; the log entry stays the coordinator's |
+| Filing builders' traps and leftovers into workflow.md §3 and progress.md §4, and returning their calls and proposals to the coordinator (`.claude/agents/doc-filer.md`) | Sonnet (D226, D246) | it quotes the reports and docs_check checks it; the log entry, the decisions and §3 stay the coordinator's |
 | Grep-level searches, log triage | Haiku | never edits tree code |
 | Bounded POC and triage items (the functions of one file, 30-60 min), when the user's agy window has room | Gemini 3.8 Flash (high) through agy (D187; `tools/agy/README.md`) | the user's Google subscription, outside the Claude windows; the coordinator verifies each landing and runs the POC itself |
 
