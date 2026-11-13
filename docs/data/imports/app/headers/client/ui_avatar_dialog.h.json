@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: UIAvatarDialogClass for ui_avatar_dialog.cpp (header name provisional, NAME 1); retires ui_cpit.h's stand-in UICpitUnknownE0Class"
+}

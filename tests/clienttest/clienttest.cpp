@@ -1280,16 +1280,8 @@ static void __stdcall Gadget_Iface_8C_Slot(bool on) { Gadget_Log += on ? "iface+
 // the real 0x6603A0 (gadget.cpp) runs on the fake gadget: it asks slot +0x24 for the flash's model (the fake logs and
 // returns null, so nothing more happens); the log shows 0x6603A0 was reached with the indicator flag 1
 static void *__stdcall Gadget_24_Slot(void *position, float *frame, bool indicator) { Gadget_Log += indicator ? "6603A0(1) " : "6603A0(0) "; return(0); }
-static std::string Incap_Calls;
-// ui_cpit.cpp's real 0x584690 (since 2026-11-01) fills the cockpit's +0xE0 object (UICpitUnknownE0Class, 0x551FB0, not
-// rebuilt): the fake below has the table's slot +0x58 and records the four non-virtual calls the real code makes.
-static void __stdcall Incap_E0_58_Slot() { Incap_Calls += "slot58 "; Trace("stub UICpitUnknownE0Class slot +0x58"); }
-void UICpitUnknownE0Class::Unknown_552FC0(AvatarDescClass *) { Incap_Calls += "552FC0 "; }
-void UICpitUnknownE0Class::Unknown_553370(std::string text) { Incap_Calls += "553370('" + text + "') "; }
-void UICpitUnknownE0Class::Unknown_553500(std::vector<std::string> lines) { char t[32]; sprintf(t, "553500(%u) ", (unsigned)lines.size()); Incap_Calls += t; }
-void UICpitUnknownE0Class::Unknown_5537A0(std::vector<std::string> lines) { char t[32]; sprintf(t, "5537A0(%u) ", (unsigned)lines.size()); Incap_Calls += t; }
-static void *Incap_E0_Table[64];
-static void **Incap_E0[0x1B4 / 4] = { Incap_E0_Table };
+// (INCAPACITANCE_DETAILS 144 is no longer checked here: ui_cpit.cpp 0x584690 calls the real ui_avatar_dialog.cpp
+// (0x552FC0, 0x553370, 0x553500, 0x5537A0), which a fake +0xE0 object cannot run; O2, run 2026-11-13)
 
 static void Test_Gadget(SClient *client, FakeMainViewClass *main_view)
 {
@@ -1338,23 +1330,6 @@ static void Test_Gadget(SClient *client, FakeMainViewClass *main_view)
 	client->Unknown1278 = list;
 	client->CurrentView = view;
 
-	for (int e = 0; e < 64; e++) {
-		Incap_E0_Table[e] = (void *)Zero_Slot;
-	}
-	Incap_E0_Table[0x58 / 4] = (void *)Incap_E0_58_Slot;
-	char *cpit = *(char **)&main_view->Unknown04[0x1D0 - 0x04];
-	void *saved_e0 = *(void **)(cpit + 0xE0);
-	*(void **)(cpit + 0xE0) = (void *)Incap_E0;
-	void *saved_client = *(void **)(cpit + 0x40);
-	*(void **)(cpit + 0x40) = client;	// the interface's Client (+0x40): 0x584690 asks its slot +0x18 for the SClient
-	Incap_Calls = "";
-	Memory->Incoming.push_back(Built_Message(&IncapacitanceDetailsPacket("rescuer", AvatarDescClass(), "a", "b", "c", "d", "e", "f", "g")));
-	client->Process_Packets();
-	*(void **)(cpit + 0xE0) = saved_e0;
-	*(void **)(cpit + 0x40) = saved_client;
-	Trace("incapacitance calls: %s", Incap_Calls.c_str());
-	Check(Incap_Calls == "552FC0 553370('a') 553500(3) 5537A0(3) slot58 ",
-		"INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the real ui_cpit.cpp 0x584690 hands the packet to the cockpit's +0xE0 object (0x552FC0, 0x553370, 0x553500, 0x5537A0, slot +0x58)");
 	Memory->Received = 0;
 }
 

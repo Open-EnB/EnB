@@ -2217,10 +2217,6 @@ check GADGET 103 Function 0x14 without a current view: only the gadget's +0x40 o
 msg 1003 ? (103) size 22: cpacket.cpp's handler
 fail_if !gadget (line 1851)
 check GADGET 103 for a gadget the list doesn't know: the FAIL_IF '!gadget', nothing called: ok
-msg 1004 ? (144) size 267: cpacket.cpp's handler
-stub UICpitUnknownE0Class slot +0x58
-incapacitance calls: 552FC0 553370('a') 553500(3) 5537A0(3) slot58 
-check INCAPACITANCE_DETAILS 144: the camera's mode 0x19 (0x79B2B0), then the real ui_cpit.cpp 0x584690 hands the packet to the cockpit's +0xE0 object (0x552FC0, 0x553370, 0x553500, 0x5537A0, slot +0x58): ok
 == (4d) FORMATION_POSITIONAL_UPDATE 65
 msg 1 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_test' scale 1 hsv (0 0 0) -> model 261

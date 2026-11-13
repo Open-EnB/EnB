@@ -90,11 +90,7 @@ UICpitUnknownC8Class::UICpitUnknownC8Class(UICpitClass *cpit, SClient *sclient, 
 	STUB_CALLED("POC UICpitUnknownC8Class: an empty window");
 	memset(Unknown84, 0, sizeof(Unknown84));
 }
-UICpitUnknownE0Class::UICpitUnknownE0Class(SClient *sclient) : InterfaceClass((LineDisplayClientClass *)sclient)
-{
-	STUB_CALLED("POC UICpitUnknownE0Class: an empty window");
-	memset(Unknown84, 0, sizeof(Unknown84));
-}
+// (the cockpit's +0xE0, UIAvatarDialogClass 0x551FB0, is rebuilt: app/client/ui_avatar_dialog.cpp, O2)
 class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); virtual bool Unknown_30(float x, float y); char Unknown30[0x49 - 0x30]; bool Unknown49; char Unknown4A[0x5C - 0x4A]; };
 UICpitGadget6B56AClass::UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view) : GadgetClass(0xFF)
 {

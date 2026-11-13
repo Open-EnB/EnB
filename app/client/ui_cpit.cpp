@@ -312,7 +312,7 @@ void UICpitClass::Unknown_54()
 	UnknownDC->Unknown_5417D0(this);
 	UnknownDC->Unknown_54();
 	View->Unknown_6B4940(UnknownDC);
-	Unknown0E0 = Create_NEW(new UICpitUnknownE0Class(sclient));
+	Unknown0E0 = Create_NEW(new UIAvatarDialogClass(sclient));
 	Unknown0E0->Unknown_54();
 	Unknown0E0->Unknown_7C(View, 0);
 
