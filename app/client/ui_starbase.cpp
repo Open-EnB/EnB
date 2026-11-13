@@ -4306,7 +4306,7 @@ UIStarbaseSymbolChatOptionStruct::~UIStarbaseSymbolChatOptionStruct()
 	}
 }
 
-// NOT EXACT: 0x644F80, functional (register / frame: the client's EH state in bl and its RefCountPtr temporary in edi, one stack slot less; B1)
+// The gadget made over the window's raw pointer (Window.Peek()), as the chat reply list 0x56E2A0
 // 0x644F80
 UIStarbaseUnknown1F8Class::UIStarbaseUnknown1F8Class(SClient *sclient) :
 	InterfaceClass((LineDisplayClientClass *)sclient),
@@ -4322,12 +4322,12 @@ UIStarbaseUnknown1F8Class::UIStarbaseUnknown1F8Class(SClient *sclient) :
 	Window->Set_Level(8);
 	Section = Create_NEW(new DynamicWindowClass("SYMBOL_CHAT_SECTION", 1));
 	Window->Add_Object(Section.Peek(), 0);
-	Gadget = new DynamicWindowGadgetClass(Window, 0x55, 3, false);
+	Gadget = new DynamicWindowGadgetClass(Window.Peek(), 0x55, 3, false);
 	Unknown64.Unknown_6870E0(Gadget, 0, View, true, true);
 	Gadget->Unknown_65FFA0(-1);
 }
 
-// NOT EXACT: 0x6452C0, functional (inline budget: the client calls the options' vector clear 0x645E30 out of line, ours inlines it; B1)
+// The options removed through Unknown_645A60, as the chat reply list's destructor 0x56E5A0
 // 0x6452C0
 UIStarbaseUnknown1F8Class::~UIStarbaseUnknown1F8Class()
 {
@@ -4335,15 +4335,15 @@ UIStarbaseUnknown1F8Class::~UIStarbaseUnknown1F8Class()
 		InterfaceClass::Unknown_5C();
 		Window->Remove_From_Scene();
 	}
-	for (std::vector<UIStarbaseSymbolChatOptionStruct *>::iterator it = Options.begin(); it != Options.end(); it++) {
-		UIStarbaseSymbolChatOptionStruct *option = *it;
-		Unknown64.Unknown_687150(option->Gadget);
-		delete option;
-	}
-	Options.clear();
-	if (Section) {
-		Section->Remove_All(false);
-	}
+	Unknown_645A60();
+
+
+
+
+
+
+
+
 	if (Gadget) {
 		Unknown64.Unknown_687150(Gadget);
 		GadgetClass::Destroy(Gadget);
@@ -4401,7 +4401,7 @@ void UIStarbaseUnknown1F8Class::Unknown_645510()
 		Section->Add_Object(option->Window.Peek(), i);
 		option->Text = Create_NEW(new Unknown51C800Class(text.Peek(), 6));
 		option->Window->Add_Object(option->Text.Peek(), 0);
-		option->Gadget = new DynamicWindowGadgetClass(option->Window, 0x55, 3, false);
+		option->Gadget = new DynamicWindowGadgetClass(option->Window.Peek(), 0x55, 3, false);
 		Unknown64.Unknown_6870E0(option->Gadget, i, View, true, true);
 		option->Gadget->Unknown_65FFA0(-1);
 		option->Gadget->Unknown_40(usable);
