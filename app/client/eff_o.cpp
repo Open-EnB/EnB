@@ -1488,8 +1488,8 @@ EffectObjectClass *Unknown_6EB850(INIClass *ini, const char *section, unsigned i
 
 
 
-// eff_pass.cpp's pass effect that the helper 0x6EB9B0 makes (0x174 bytes; not rebuilt): declared as far as it calls it
-class Unknown6ED6C0EffectClass : public EffectObjectClass { public: Unknown6ED6C0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RefCountPtr<MaterialPassClass> &pass, bool projection0, bool projection1); void Unknown_6EDBB0(const Vector2 &scale, int projection); virtual void Unknown_24(int next); char Unknown80[0x174 - 0x80]; };	// NAME 1: neutral (D10); 0x6ED6C0, 0x6EDBB0  // NAME 1 [client .. projection1, scale, projection, next]: what the helper passes; [next]: the base's
+#include "eff_pass.h"
+
 static char *Unknown_B92E68[] = {"X", "Y", "Z", NULL};	// 0xB92E68: effect.ini's Projection0Axis / Projection1Axis values  // NAME 1: neutral (D10)
 EffectObjectClass *Unknown_6EB9B0(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
 {
@@ -1568,7 +1568,7 @@ EffectObjectClass *Unknown_6EB9B0(INIClass *ini, const char *section, unsigned i
 		pass->Set_Material(material);
 		material->Release_Ref();
 	}
-	Unknown6ED6C0EffectClass *effect = new Unknown6ED6C0EffectClass(client, id, start_time, duration, cycle_time, pass, projection0, projection1);
+	PassEffectClass *effect = new PassEffectClass(client, id, start_time, duration, cycle_time, pass, projection0, projection1);
 	effect->Set_Flag(0x200, hide_base_mesh);
 	effect->Set_Flag(0x400, reset_mappers);
 	if (projection0) {
