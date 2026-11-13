@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: chat_defs.h (name assumed from chat_defs.cpp): ChatEventType (CHAT_EVENT_*, the table's stringised names), ChatErrorType and their converters"
+}

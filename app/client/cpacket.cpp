@@ -2931,8 +2931,8 @@ bool ClientChatListPacketClass::Process_Packet(void *instance)
 
 
 
-// chat_defs.cpp (app\common): the text of a chat error code into a buffer
-void Unknown_830AA0(char *buffer, int size, int code);	// NAME 1 [buffer, size, code]: what CLIENT_CHAT_ERROR 166 passes
+// chat_defs.cpp (app\common): the text of a chat error code into a buffer (Value_To_String 0x830AA0)
+#include "..\common\chat_defs.h"
 
 // 0x73D170
 bool ClientChatErrorPacketClass::Process_Packet(void *instance)
@@ -2950,7 +2950,7 @@ bool ClientChatErrorPacketClass::Process_Packet(void *instance)
 	buffer[0] = 0;
 	_snprintf(buffer, sizeof(buffer), "");
 	if (Unknown0C) {
-		Unknown_830AA0(error, sizeof(error), Unknown0C);
+		Value_To_String(error, sizeof(error), (ChatErrorType)Unknown0C);
 		switch (Unknown10) {
 			case 2:
 				if (!stricmp(error, "is_gagged")) {

@@ -145,12 +145,12 @@ enum UnknownB035E0Enum { UNKNOWN_B035E0_0 };	// vtable 0xB035E0, 4 bytes
 inline const char *Type_Name(UnknownB035E0Enum *) { return "UnknownB035E0Enum"; }
 inline char *Value_To_String(char *buf, int size, UnknownB035E0Enum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
 inline bool String_To_Value(const char *text, UnknownB035E0Enum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB035E0Enum)v; return true; }
-// NAME 5: the client's Get_Type_Name string 'SkillLevelAvailabilityStruct' (KVPair vtable 0xB03AB4, 0x759CE0 inline), leaf vtable 0xB03694
-struct SkillLevelAvailabilityStruct { int I00; int I04; int I08; int I0C; SkillLevelAvailabilityStruct() : I00(0), I04(0), I08(0), I0C(0) {} };	// vtable 0xB03694, 16 bytes, zeroed (0x757B00)
-inline bool operator!=(const SkillLevelAvailabilityStruct &a, const SkillLevelAvailabilityStruct &b) { return a.I00 != b.I00 || a.I04 != b.I04 || a.I08 != b.I08 || a.I0C != b.I0C; }
-inline const char *Type_Name(SkillLevelAvailabilityStruct *) { return "SkillLevelAvailabilityStruct"; }
-bool String_To_Value(const char *text, SkillLevelAvailabilityStruct *value);	// 0x84A600
-char *Value_To_String(char *buf, int size, const SkillLevelAvailabilityStruct &value);	// 0x84A560
+#include "..\common\skill_level_availability.h"	// SkillLevelAvailabilityStruct (KVPair vtable 0xB03AB4, leaf vtable 0xB03694) and its converters 0x84A560 / 0x84A600
+
+
+
+
+
 // NAME 5: the client's Get_Type_Name string 'FormationState' (KVPair 0x759E80 hands the saved value to Type_Name 0x835CF0; 0x759EA0 / 0x75A200 call 0x835D80 / 0x835D10), leaf vtable 0xB03970: the groups' 'Formation'
 #include "..\common\faction_and_reputation.h"	// FormationState and its three converters (4 bytes)
 template<> inline const char *KVPairTemplateClass<FormationState>::Get_Type_Name() const { return Type_Name(Value); }	// 0x759E80

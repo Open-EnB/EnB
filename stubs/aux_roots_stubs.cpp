@@ -6,47 +6,6 @@
 #include "stub_log.h"
 #include "..\app\client\aux_roots.h"
 
-bool String_To_Value(const char *text, InterruptStateType *value)
-{
-	STUB_CALLED("String_To_Value(InterruptStateType) (0x83DA80)");
-	int v;
-	if (sscanf(text, "%d", &v) != 1) {
-		return false;
-	}
-	*value = (InterruptStateType)v;
-	return true;
-}
-
-char *Value_To_String(char *buf, int size, InterruptStateType value)
-{
-	STUB_CALLED("Value_To_String(InterruptStateType) (0x83D9E0)");
-	_snprintf(buf, size, "%d", (int)value);
-	return buf;
-}
-
-const char *Type_Name(GuildRankType)
-{
-	return "GuildRankType";	// the client's 0x83D8B0
-}
-
-bool String_To_Value(const char *text, GuildRankType *value)
-{
-	STUB_CALLED("String_To_Value(GuildRankType) (0x83D7D0)");
-	int v;
-	if (sscanf(text, "%d", &v) != 1) {
-		return false;
-	}
-	*value = (GuildRankType)v;
-	return true;
-}
-
-char *Value_To_String(char *buf, int size, GuildRankType value)
-{
-	STUB_CALLED("Value_To_String(GuildRankType) (0x83D860)");
-	_snprintf(buf, size, "%d", (int)value);
-	return buf;
-}
-
 bool String_To_Value(const char *text, WW3DLightAttenuationType *value)
 {
 	STUB_CALLED("String_To_Value(WW3DLightAttenuationType) (0x82F180)");
@@ -85,18 +44,5 @@ char *Value_To_String(char *buf, int size, GameActionValidityBitFlag value)
 {
 	STUB_CALLED("Value_To_String(GameActionValidityBitFlag) (0x83D490)");
 	_snprintf(buf, size, "%d", (int)value);
-	return buf;
-}
-
-bool String_To_Value(const char *, SkillLevelAvailabilityStruct *)
-{
-	STUB_CALLED("String_To_Value(SkillLevelAvailabilityStruct) (0x84A600)");
-	return false;
-}
-
-char *Value_To_String(char *buf, int size, const SkillLevelAvailabilityStruct &value)
-{
-	STUB_CALLED("Value_To_String(SkillLevelAvailabilityStruct) (0x84A560)");
-	_snprintf(buf, size, "%d,%d,%d,%d", value.I00, value.I04, value.I08, value.I0C);
 	return buf;
 }

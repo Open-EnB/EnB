@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: starbase_defs.h (name assumed from starbase_defs.cpp): the four starbase enums (FAIL_IF texts' bounds) and their converters"
+}

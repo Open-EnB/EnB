@@ -1956,7 +1956,7 @@ static void Test_Guild(SClient *client, FakeMainViewClass *main_view)
 // 164: with no chat panel nothing; the list type picks the panel member that takes the names (0 the friends +0xDC
 // with both lists, 1 the ignore list +0xD8, 3 / 2 the +0xE4 channel list when its +0xA0 is 0 / 1, else 2 the +0xE8);
 // without that member the list is printed in colour 0x17 under its heading ('<none>' when empty). 166: an error code
-// (Unknown0C) gets chat_defs.cpp's text (0x830AA0, written here) and a line per request type (Unknown10), the success
+// (Unknown0C) gets chat_defs.cpp's text (Value_To_String 0x830AA0, written here) and a line per request type (Unknown10), the success
 // case (code 0) a line for types 3 / 5 / 20 / 21 / 22, both in colour 0x13. 204: a question per Type to 0x74E580.
 static FakeMainViewClass *Test_Main_View = 0;
 class Clienttest_UIPlayerOptClass { public: void Unknown_5DA600(std::vector<std::string> names); void Unknown_5DA780(std::string name); void Unknown_5DA8C0(std::string name); };
@@ -1975,7 +1975,8 @@ void Clienttest_UIRadioListClass::Unknown_5E8FF0(int state, std::string name) { 
 void Clienttest_UIRadioListClass::Unknown_5E9160(int state, std::string name) { Trace("stub Clienttest_UIRadioListClass::Unknown_5E9160 %d '%s'", state, name.c_str()); }
 void Clienttest_UIRadioAdminClass::Unknown_5E5EF0(std::string name) { Trace("stub Clienttest_UIRadioAdminClass::Unknown_5E5EF0 '%s'", name.c_str()); }
 void Clienttest_UIRadioAdminClass::Unknown_5E6030(std::string name) { Trace("stub Clienttest_UIRadioAdminClass::Unknown_5E6030 '%s'", name.c_str()); }
-void Unknown_830AA0(char *buffer, int size, int code) { _snprintf(buffer, size, code == 99 ? "is_gagged" : "error %d", code); }
+#include "..\..\..\app\common\chat_defs.h"	// chat_defs.cpp is not linked here: its error text stands in (cpacket.cpp calls it as Value_To_String)
+char *Value_To_String(char *buffer, int size, ChatErrorType code) { _snprintf(buffer, size, code == 99 ? "is_gagged" : "error %d", code); return(buffer); }
 
 static void Test_Chat_Lists(SClient *client)
 {

@@ -1,0 +1,13 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: skill_level_availability.cpp (__FILE__ 0xBB0C44), 0x84A470-0x84A62D: the class qualification's names 0xBB0B80 (_ClassQualificationNames, FAIL_IF l.55/56) and converters, SkillLevelAvailabilityStruct's converters (G_ASSERT l.71)",
+ "expected": {},
+ "in_tree": [
+  "0x84A4C0",
+  "0x84A560",
+  "0x84A600"
+ ],
+ "merged": [],
+ "name": "common/skill_level_availability.cpp"
+}
