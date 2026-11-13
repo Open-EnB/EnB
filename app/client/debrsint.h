@@ -15,37 +15,37 @@ class SimpleSceneClass;
 class TextureClass;
 #include "vector3.h"
 
-// debris.cpp's render object (0x108 bytes, constructor 0x6B8F20; the client's profile name 'DebrisFieldClass::Render'
-// 0xB921E4): a view of what debrsint.cpp reaches, until debris.cpp is rebuilt (interim placement, D137)
-class DebrisFieldClass : public RenderObjClass	// NAME 3: the profile name's
-{
-public:
-	DebrisFieldClass(float spacing, float size, float min_dist, float max_dist, float r, float g, float b, float a, bool additive, TextureClass *texture, float fade_in, float fade_out, int primitive, unsigned rows_columns_log2, float blur_time);	// 0x6B8F20  // NAME 2 [all]: the Debris%02d keys they come from
-	virtual RenderObjClass *Clone(void) const;
-	virtual void Render(RenderInfoClass &rinfo);
-	int Unknown_6BB440();								// 0x6BB440 (0 or 1: what debrsint.cpp's keys 9 / 10 scale, the alpha or the colour)
-	void Unknown_6BB470();								// 0x6BB470 (after +0xBC changes)
-	void Unknown_6BB640(const Vector3 &offset);			// 0x6BB640 (the main view's wind, through debrsint.cpp's 0x53E470)  // NAME 1 [offset]: neutral
-	void Set_Color(float r, float g, float b) { Color.X = r; Color.Y = g; Color.Z = b; } float Get_Spacing() { return(Spacing); } float Get_Size() { return(Size); } float Get_Min_Dist() { return(MinDist); } float Get_Max_Dist() { return(MaxDist); } const Vector3 &Get_Color() { return(Color); } float Get_Alpha() { return(Alpha); }	// (debrsint.cpp's 0x53E220: the floats through the FPU)  // NAME 2: what it sets
+#include "debris.h"
 
-	float Spacing;										// +0x8C  // NAME 2: the key's
-	float Size;											// +0x90  // NAME 2: the key's
-	float MinDist;										// +0x94  // NAME 2: the key's
-	float MaxDist;										// +0x98  // NAME 2: the key's
-	Vector3 Color;										// +0x9C 'R' 'G' 'B'  // NAME 2: the keys'
-	float Alpha;										// +0xA8 'A'  // NAME 2: the key's
-	float FadeIn;										// +0xAC  // NAME 2: the key's
-	float FadeOut;										// +0xB0  // NAME 2: the key's
-	int UnknownB4;										// +0xB4 (the constructor: 10000)
-	bool Additive;										// +0xB8  // NAME 2: the key's
-	int UnknownBC;										// +0xBC (0, 1, 2: debrsint.cpp's key 11 cycles it; the constructor: 2)
-	int UnknownC0;										// +0xC0
-	int UnknownC4;										// +0xC4
-	float UnknownC8;									// +0xC8 (0..1; the constructor: 1.0)
-	char UnknownCC[0xF4 - 0xCC];						// +0xCC
-	float BlurTime;										// +0xF4  // NAME 2: the key's
-	char UnknownF8[0x108 - 0xF8];						// +0xF8 (+0x104 the primitive)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // debrsint.cpp's interface (0xA4 bytes, tables 0xAEEB6C / 0xAEEB60 / 0xAEEB54): the main view's +0x138, over its
 // +0x10C scene. It reads settings.ini's Debris00, Debris01... sections into one debris field each, shows the one
