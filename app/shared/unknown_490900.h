@@ -1,7 +1,8 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: unknown (PROVISIONAL, D137: a neutral name; the struct's file is not known)
+**	Original location: unknown (PROVISIONAL, D137: a neutral name, beside unknown_490900.cpp in app\shared,
+**	between enbassetmgr.cpp and proj_man.cpp)
 **
 **	The viewer settings scriptedmovie.cpp's view (+0x68 ViewerSettings) and sbaseview.cpp's starbase view (+0x68) make:
 **	0x1C bytes, constructor 0x490900, destructor 0x4909A0, the INI loader 0x4909D0 ('Settings': AmbientLight,

@@ -11,7 +11,7 @@
 #include "mv3dview.h"
 #include "ui_mesh.h"
 #include "co.h"
-#include "unknown_490900.h"
+#include "..\shared\unknown_490900.h"
 #include "random.h"
 #include "strtok_r.h"
 #include "wwmath.h"

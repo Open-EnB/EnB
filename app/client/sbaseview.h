@@ -15,7 +15,7 @@
 #include "ref_ptr.h"
 #include "vector3.h"
 #include "matrix3d.h"
-#include "unknown_490900.h"
+#include "..\shared\unknown_490900.h"
 #include <list>		// the starbase interface's lists
 #include <hash_map.h>	// SGI's _Bucket_allocator (the +0xD4 table's buckets)
 

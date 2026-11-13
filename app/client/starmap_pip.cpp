@@ -351,7 +351,7 @@ void StarmapPipClass::Unknown_7C0440(ClientObjectClass *hover, MouseTargetClass 
 
 
 
-void Unknown_491550(float *x, float *y);			// 0x491550 (scales by the device resolution; its file is not known)  // NAME 1: neutral (D10)
+void Unknown_491550(float *x, float *y);			// 0x491550 (unknown_490900.cpp; not in its header: sbaseview.h reaches sclient.cpp, whose send pad 0x758210 moves with a declaration more)  // NAME 1: neutral (D10)
 // @0x7C0620
 void StarmapPipClass::Unknown_7C0620(RadarSystemDataCacheClass *entry)
 {
