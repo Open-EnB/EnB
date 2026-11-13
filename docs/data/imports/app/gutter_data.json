@@ -1,9 +1,51 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0",
+  "0x46BE90",
+  "0x474080",
+  "0x497300"
+ ],
  "copy": "reconstructed",
  "description": "GutterDataClass (the client's typeid name), the gutter icon and its two labels (the client's __FILE__ 0xB9EC38, FAIL_IFs from line 76; 0x7B4F30-0x7B6A00) (GR2)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42A820",
+  "0x42AB30",
+  "0x42CF30",
+  "0x42D050",
+  "0x42F250",
+  "0x447C40",
+  "0x46BE90",
+  "0x79D130",
+  "0x7B4F30",
+  "0x7B50A0",
+  "0x7B50D0",
+  "0x7B57D0",
+  "0x7B58F0",
+  "0x7B5A60",
+  "0x7B5AD0",
+  "0x7B5B50",
+  "0x7B5BF0",
+  "0x7B5FF0",
+  "0x7B6040",
+  "0x7B6170",
+  "0x7B61F0",
+  "0x7B6A00"
+ ],
  "merged": [],
- "name": "client/gutter_data.cpp"
+ "name": "client/gutter_data.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42AB30",
+  "0x42CF30",
+  "0x42D050",
+  "0x42F250",
+  "0x447C40",
+  "0x46BE90",
+  "0x79D130"
+ ],
+ "short_known": [
+  "0x79D130"
+ ]
 }

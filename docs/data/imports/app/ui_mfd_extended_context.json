@@ -1,9 +1,30 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0",
+  "0x46BE90"
+ ],
  "copy": "reconstructed",
  "description": "UIMFDExtendedContextClass's base and factory, client 0x5BF4B0-~0x5BF6A0 (no __FILE__ of its own: its header's 0xB82458 and link order place it; a provisional name, NAME 1) (MM1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x45CC10",
+  "0x45CC30",
+  "0x5BF4B0",
+  "0x5BF4D0",
+  "0x5BF4F0",
+  "0x5BF600",
+  "0x5BF630",
+  "0x5BF660"
+ ],
  "merged": [],
- "name": "client/ui_mfd_extended_context.cpp"
+ "name": "client/ui_mfd_extended_context.cpp",
+ "shared": [
+  "0x45CC10",
+  "0x45CC30"
+ ],
+ "short_known": [
+  "0x5BF4B0",
+  "0x5BF4D0",
+  "0x5BF660"
+ ]
 }

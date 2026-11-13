@@ -3,7 +3,42 @@
  "copy": "reconstructed",
  "description": "packet classes (opcode 110) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x769340",
+  "0x867860",
+  "0x8678A0",
+  "0x8678D0",
+  "0x867960",
+  "0x867A20",
+  "0x867A40",
+  "0x867A70"
+ ],
  "merged": [],
- "name": "packets/pkglobalticketrequest.cpp"
+ "name": "packets/pkglobalticketrequest.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x769340"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x769340",
+  "0x867A20"
+ ]
 }

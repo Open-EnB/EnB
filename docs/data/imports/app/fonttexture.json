@@ -1,9 +1,22 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "the font texture holder (Unknown_6D8B90Class, 0x6D8B90-0x6D9360, gauge3d.cpp follows): constructor 0x6D8B90, destructor 0x6D8C50, Is_Printed 0x6D8D30 and 0x6D8DC0 (the text into the texture in strips; __FILE__ 0xB92870, FAIL_IF lines 92 / 114 / 116, D25), all exact; the shared surface 0xBE67C8 is a file static (its release codegen)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x4FABB0",
+  "0x6D8B90",
+  "0x6D8C50",
+  "0x6D8D30",
+  "0x6D8DC0"
+ ],
  "merged": [],
- "name": "client/fonttexture.cpp"
+ "name": "client/fonttexture.cpp",
+ "shared": [
+  "0x42F250",
+  "0x4FABB0"
+ ]
 }

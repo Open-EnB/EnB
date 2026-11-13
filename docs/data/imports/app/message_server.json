@@ -3,7 +3,26 @@
  "copy": "reconstructed",
  "description": "the message server MessageServerProtocolClass from 0x4BCA80: constructor, destructor, listener 0x4BCCB0, 0x4BCCF0, 0x4BCD10, 0x4BD3F0, 0x4BD470 and its ArrayList instances (a separate object: the reporters call 0x4BCD10, not inlined; D137 provisional)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4BCA80",
+  "0x4BCB50",
+  "0x4BCCB0",
+  "0x4BCD10",
+  "0x4BCD30",
+  "0x4BD3A0",
+  "0x4BD3F0",
+  "0x4BD470",
+  "0x4BD870",
+  "0x4BD8C0",
+  "0x4BD910",
+  "0x4BD960",
+  "0x4BD990",
+  "0x4BDBE0",
+  "0x4BDEF0"
+ ],
  "merged": [],
- "name": "shared/message_server.cpp"
+ "name": "shared/message_server.cpp",
+ "short_known": [
+  "0x4BCD10"
+ ]
 }

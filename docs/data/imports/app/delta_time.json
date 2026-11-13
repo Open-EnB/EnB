@@ -1,9 +1,59 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "the time field's Read 0x4A81D0 and Write 0x4A8270 (DeltaTemplateClass<DurationClass> specialisations), asserts on the client's lines 31 and 58 (D25); the constructor 0x4A8150 and Unknown_00 0x4A8330 with DurationAccessorClass (vtable 0xAEB244; Get / Set not exact) and the unsigned int pair they instantiate",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4A3C50",
+  "0x4A3C70",
+  "0x4A3C90",
+  "0x4A4E50",
+  "0x4A62F0",
+  "0x4A8150",
+  "0x4A81A0",
+  "0x4A81D0",
+  "0x4A8270",
+  "0x4A8330",
+  "0x4A8370",
+  "0x4A8550",
+  "0x4A85B0",
+  "0x4A85E0",
+  "0x4A8630",
+  "0x4A8770",
+  "0x4A8830",
+  "0x4A8850",
+  "0x4A8880",
+  "0x4A88B0",
+  "0x4A88E0",
+  "0x4A8910",
+  "0x4A8990"
+ ],
  "merged": [],
- "name": "shared/auxdata/delta_time.cpp"
+ "name": "shared/auxdata/delta_time.cpp",
+ "shared": [
+  "0x4A3C50",
+  "0x4A3C70",
+  "0x4A3C90",
+  "0x4A4E50",
+  "0x4A62F0",
+  "0x4A85E0",
+  "0x4A8770",
+  "0x4A8830",
+  "0x4A8850",
+  "0x4A8880",
+  "0x4A88B0",
+  "0x4A88E0",
+  "0x4A8910",
+  "0x4A8990"
+ ],
+ "short_known": [
+  "0x4A3C50",
+  "0x4A3C70",
+  "0x4A3C90",
+  "0x4A62F0",
+  "0x4A85E0",
+  "0x4A8830"
+ ]
 }

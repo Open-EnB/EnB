@@ -3,7 +3,44 @@
  "copy": "reconstructed",
  "description": "packet classes (opcode 74) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x876AC0",
+  "0x876AE0",
+  "0x876B10",
+  "0x876B30",
+  "0x876BD0",
+  "0x876CA0",
+  "0x876CC0",
+  "0x876D00"
+ ],
  "merged": [],
- "name": "packets/pkcreateattachment.cpp"
+ "name": "packets/pkcreateattachment.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x876AC0",
+  "0x876B10"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x876AC0",
+  "0x876B10",
+  "0x876CA0"
+ ]
 }

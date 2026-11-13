@@ -3,7 +3,12 @@
  "copy": "reconstructed",
  "description": "the message server's record MessageRecordClass 0x4BB8A0-0x4BBAA0 (its constructor, destructor and text forms: a separate object, the reporters call them; D137 provisional)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4BB8A0",
+  "0x4BB930",
+  "0x4BB9C0",
+  "0x4BBAA0"
+ ],
  "merged": [],
  "name": "shared/message_record.cpp"
 }

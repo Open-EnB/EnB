@@ -1,9 +1,18 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42AFF0",
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (D137; no assert, no __FILE__, no string): client 0x4B0680-0x4B0A29, a breadth-first walk over a deque (uncalled, no vtable), deque<DeltaClass *>::_Buyback 0x4B08D0; DeltaVisitorClass::Visit_Children 0x4B0860 between them stays in unknown_root.cpp (moving it loses unknown_root's Create_NEW 0x4A46F0)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4B0680",
+  "0x4B08D0"
+ ],
  "merged": [],
- "name": "shared/auxdata/delta_visitor.cpp"
+ "name": "shared/auxdata/delta_visitor.cpp",
+ "tiebreak": [
+  "0x4B08D0"
+ ]
 }

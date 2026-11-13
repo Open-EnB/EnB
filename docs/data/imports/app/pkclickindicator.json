@@ -3,7 +3,41 @@
  "copy": "reconstructed",
  "description": "packet classes (opcode 105) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x87E820",
+  "0x87E850",
+  "0x87E870",
+  "0x87E910",
+  "0x87E9E0",
+  "0x87EA00",
+  "0x87EA30"
+ ],
  "merged": [],
- "name": "packets/pkclickindicator.cpp"
+ "name": "packets/pkclickindicator.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x87E850"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x87E850",
+  "0x87E9E0"
+ ]
 }

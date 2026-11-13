@@ -3,7 +3,50 @@
  "copy": "reconstructed",
  "description": "opcodes 30017 and 30018 (send-only), client 0x862350-0x862970, the client's file (its asserts' __FILE__ e:\\build\\beta\\G\\app\\Packets\\gameedit\\pkgespwn.cpp): written by hand (builder P5)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x862350",
+  "0x862410",
+  "0x862440",
+  "0x862520",
+  "0x862560",
+  "0x862630",
+  "0x862650",
+  "0x862680",
+  "0x8626D0",
+  "0x862700",
+  "0x8627E0",
+  "0x862820",
+  "0x862900",
+  "0x862920",
+  "0x862950",
+  "0x862970"
+ ],
  "merged": [],
- "name": "packets/gameedit/pkgespwn.cpp"
+ "name": "packets/gameedit/pkgespwn.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x862630",
+  "0x862900",
+  "0x862950"
+ ]
 }

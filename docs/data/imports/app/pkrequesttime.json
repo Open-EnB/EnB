@@ -1,9 +1,61 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "opcodes 68 (REQUEST_TIME) and 52 (CLIENT_SET_TIME) written by hand (builder P4, 10 of 10 exact in appfile.py match), client 0x8AAD50-0x8AB27F; the file name provisional (NAME 1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x733550",
+  "0x8AAD50",
+  "0x8AAD90",
+  "0x8AADB0",
+  "0x8AADE0",
+  "0x8AAE70",
+  "0x8AAF40",
+  "0x8AAF60",
+  "0x8AAFA0",
+  "0x8AAFF0",
+  "0x8AB010",
+  "0x8AB040",
+  "0x8AB060",
+  "0x8AB120",
+  "0x8AB200",
+  "0x8AB220"
+ ],
  "merged": [],
- "name": "packets/pkrequesttime.cpp"
+ "name": "packets/pkrequesttime.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x733550",
+  "0x8AAD90",
+  "0x8AAFF0",
+  "0x8AB040"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x733550",
+  "0x8AAD90",
+  "0x8AAF40",
+  "0x8AAFF0",
+  "0x8AB040",
+  "0x8AB200"
+ ]
 }

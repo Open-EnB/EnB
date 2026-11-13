@@ -3,7 +3,39 @@
  "copy": "reconstructed",
  "description": "provisional file (D137, no assert): ClientItemPropertyNameClass, the item's name as a property (0x18 bytes, table 0xAEDDA0): 0x52A360-0x52A82F, Create 0x52A360, constructor 0x52A430, destructors 0x52A620 / 0x52A5F0, slots 0x52A690 / 0x52A6B0 / 0x52A7C0, Create_NEW 0x52A7E0",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x45CC10",
+  "0x52A360",
+  "0x52A430",
+  "0x52A5F0",
+  "0x52A620",
+  "0x52A690",
+  "0x52A6B0",
+  "0x52A7C0",
+  "0x52A7E0",
+  "0x52A810"
+ ],
  "merged": [],
- "name": "client/item/client_item_property_name.cpp"
+ "name": "client/item/client_item_property_name.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x45CC10"
+ ],
+ "short_known": [
+  "0x42D120",
+  "0x52A690"
+ ]
 }

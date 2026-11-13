@@ -3,7 +3,9 @@
  "copy": "reconstructed",
  "description": "E&B's spline.cpp (the client's assert __FILE__), client 0x483000-0x4845F0: only SplineFloatArrayClass::Resize 0x483820 (assert line 29), which spln_db.cpp's evaluation helpers call",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x483820"
+ ],
  "merged": [],
  "name": "shared/spline.cpp"
 }

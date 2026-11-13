@@ -1,9 +1,46 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "TargetFindClass (D24 class-from-file), the cycling target finder (the client's __FILE__ 0xB9F7D4, FAIL_IFs at lines 181-249; client 0x7C3EC0-0x7C509F) (TF1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x7C3F10",
+  "0x7C3F40",
+  "0x7C3F60",
+  "0x7C3F90",
+  "0x7C3FB0",
+  "0x7C3FF0",
+  "0x7C40E0",
+  "0x7C4120",
+  "0x7C4210",
+  "0x7C4240",
+  "0x7C4270",
+  "0x7C42B0",
+  "0x7C42E0",
+  "0x7C4310",
+  "0x7C4340",
+  "0x7C4370",
+  "0x7C43A0",
+  "0x7C44B0",
+  "0x7C44F0",
+  "0x7C4530",
+  "0x7C4940",
+  "0x7C4A80",
+  "0x7C4AC0",
+  "0x7C4E30",
+  "0x7C4FF0",
+  "0x7C5040"
+ ],
  "merged": [],
- "name": "client/target_find.cpp"
+ "name": "client/target_find.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x7C3F40",
+  "0x7C3F90"
+ ]
 }

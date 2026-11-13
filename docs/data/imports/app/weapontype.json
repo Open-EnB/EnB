@@ -3,7 +3,10 @@
  "copy": "reconstructed",
  "description": "weapontype.cpp (the client's __FILE__, G_ASSERT l.41, FAIL_IF l.48 / 49): a weapon type's converters, client 0x84C5D0-0x84C69D (builder NW4, 2 of 2 exact)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x84C5D0",
+  "0x84C640"
+ ],
  "merged": [],
  "name": "common/weapontype.cpp"
 }

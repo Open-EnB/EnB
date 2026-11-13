@@ -3,7 +3,42 @@
  "copy": "reconstructed",
  "description": "opcode 60 (CLIENT_TYPE) written by hand (builder P4, 4 of 4 exact in appfile.py match), client 0x87FCF0-0x87FF30; the file name provisional (NAME 1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x87FCF0",
+  "0x87FD30",
+  "0x87FD60",
+  "0x87FD80",
+  "0x87FE10",
+  "0x87FED0",
+  "0x87FEF0",
+  "0x87FF30"
+ ],
  "merged": [],
- "name": "packets/pksetclienttype.cpp"
+ "name": "packets/pksetclienttype.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x87FD60"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x87FD60",
+  "0x87FED0"
+ ]
 }

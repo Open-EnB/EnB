@@ -3,7 +3,24 @@
  "copy": "reconstructed",
  "description": "footsteps.ini surface-type sound effects (0x442650-0x442970): asserts on lines 65 and 80 confirm path e:\\\\build\\\\beta\\\\G\\\\app\\\\Audio\\\\surfacetypes.cpp (D25); Unknown_442650 (NOT EXACT, frame), Unknown_442870 / Unknown_4428E0 / Unknown_442930 exact",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x441220",
+  "0x441250",
+  "0x442650",
+  "0x442870",
+  "0x4428E0",
+  "0x442930",
+  "0x4429D0"
+ ],
  "merged": [],
- "name": "audio/surfacetypes.cpp"
+ "name": "audio/surfacetypes.cpp",
+ "shared": [
+  "0x42F250",
+  "0x441220",
+  "0x441250"
+ ],
+ "short_known": [
+  "0x441250"
+ ]
 }

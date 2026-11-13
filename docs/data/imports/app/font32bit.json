@@ -3,7 +3,49 @@
  "copy": "reconstructed",
  "description": "font32bit.cpp (__FILE__ e:\\build\\beta\\G\\app\\Client\\font32bit.cpp; G_ASSERT l.335 / 563 / 564, FAIL_IF l.439 / 488), client 0x6BBAC0-0x6BCFA0: Font32Class's constructors 0x6BBAC0 / 0x6BBD50, destructor, font3d.cpp's Minimize_Font_Image / Make_Proportional / Load_Font_Image, Print_To_Surface 0x6BC950, the FontClass virtuals and the screen-scaled widths (FNT1; several NOT EXACT, D64)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0x683290",
+  "0x6BBAC0",
+  "0x6BBC20",
+  "0x6BBC40",
+  "0x6BBC60",
+  "0x6BBC90",
+  "0x6BBCC0",
+  "0x6BBD50",
+  "0x6BBE20",
+  "0x6BC3A0",
+  "0x6BC950",
+  "0x6BCBB0",
+  "0x6BCC40",
+  "0x6BCC70",
+  "0x6BCCE0",
+  "0x6BCD20",
+  "0x6BCD60",
+  "0x6BCDA0",
+  "0x6BCDE0",
+  "0x6BCED0",
+  "0x6BCF00",
+  "0x6BCF40",
+  "0x6BCF70",
+  "0x6BCFA0"
+ ],
  "merged": [],
- "name": "client/font32bit.cpp"
+ "name": "client/font32bit.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0x683290",
+  "0x6BBC20",
+  "0x6BBC40",
+  "0x6BCFA0"
+ ],
+ "short_known": [
+  "0x6BBC20",
+  "0x6BBC40",
+  "0x6BCFA0"
+ ]
 }

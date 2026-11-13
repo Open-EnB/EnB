@@ -1,9 +1,35 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (D137): CameraController00Class, the camera manager's state-0 controller (table 0xB05318, 0x14 bytes), client 0x798AE0-0x798D0F (no __FILE__, assert or string; after the <string> initialiser 0x798AB0, ending with its own at 0x798CF0, before camera_manager.cpp) (CM1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x7923E0",
+  "0x792410",
+  "0x792430",
+  "0x792460",
+  "0x798AE0",
+  "0x798B10",
+  "0x798B40",
+  "0x798B60",
+  "0x798BA0",
+  "0x798CD0"
+ ],
  "merged": [],
- "name": "client/unknown_798ae0.cpp"
+ "name": "client/unknown_798ae0.cpp",
+ "shared": [
+  "0x42F250",
+  "0x7923E0",
+  "0x792410",
+  "0x792430",
+  "0x792460"
+ ],
+ "short_known": [
+  "0x792410",
+  "0x798B40",
+  "0x798CD0"
+ ]
 }

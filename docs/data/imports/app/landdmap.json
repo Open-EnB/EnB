@@ -3,7 +3,32 @@
  "copy": "reconstructed",
  "description": "the land's displacement-mapped companion, client 0x466BE0-0x468E70 (PROVISIONAL file name; the land's dtor calls 0x466F10 out of line): ctor, dtor, create / delete 0x466E70 / 0x466F10, the DMap registry reader 0x468120, 0x467910; the Matrox-only draw 0x466F60 and the rest functional (NOT EXACT)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x466BE0",
+  "0x466D40",
+  "0x466DE0",
+  "0x466E70",
+  "0x466F10",
+  "0x4676D0",
+  "0x467710",
+  "0x467750",
+  "0x467780",
+  "0x4677B0",
+  "0x467910",
+  "0x467A50",
+  "0x467E40",
+  "0x467FD0",
+  "0x468010",
+  "0x4680D0",
+  "0x468120",
+  "0x4688F0",
+  "0x468BE0",
+  "0x468D50"
+ ],
  "merged": [],
- "name": "shared/landdmap.cpp"
+ "name": "shared/landdmap.cpp",
+ "shared": [
+  "0x42F250"
+ ]
 }

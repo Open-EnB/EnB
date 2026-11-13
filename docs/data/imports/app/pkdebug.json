@@ -3,7 +3,42 @@
  "copy": "reconstructed",
  "description": "pkdebug.cpp (the client's __FILE__, assert line 84): DEBUG 26 written by hand (builder P4, 4 of 4 exact in appfile.py match), client 0x8802C0-0x880590",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x7280E0",
+  "0x8802C0",
+  "0x880310",
+  "0x880340",
+  "0x880400",
+  "0x8804E0",
+  "0x880500",
+  "0x880590"
+ ],
  "merged": [],
- "name": "packets/pkdebug.cpp"
+ "name": "packets/pkdebug.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x7280E0"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x7280E0",
+  "0x8804E0"
+ ]
 }

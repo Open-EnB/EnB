@@ -3,7 +3,13 @@
  "copy": "reconstructed",
  "description": "the options dialog (WinMain's -MENU), named by the client's own assert strings e:\\build\\beta\\G\\app\\Common\\optdlg.cpp (0x8476C0, lines 498 / 514): 0x846CD0 and 0x846D10 exact; 0x846FC0, the dialog procedure 0x8472E0 and the Account page's procedure 0x847630 NOT EXACT (functional); 0x846B80, 0x846C90 (POC stand-in, D69) and 0x8476C0-0x847CD0 not rebuilt",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x846B80",
+  "0x846CD0",
+  "0x846D10",
+  "0x8472E0",
+  "0x847CD0"
+ ],
  "merged": [],
  "name": "common/optdlg.cpp"
 }

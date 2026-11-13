@@ -1,9 +1,45 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x457CA0"
+ ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: eff_line.obj 0x6E5040-0x6E6710 (__FILE__ 0xB92DDC, FAIL_IF lines 51-262; vtable 0xAFFF4C; effect.ini's EffectClass 'LineEffect')",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x447C40",
+  "0x457FA0",
+  "0x6E5040",
+  "0x6E5420",
+  "0x6E5440",
+  "0x6E5460",
+  "0x6E54A0",
+  "0x6E54E0",
+  "0x6E5510",
+  "0x6E5600",
+  "0x6E5720",
+  "0x6E5860",
+  "0x6E58E0",
+  "0x6E5960",
+  "0x6E59B0",
+  "0x6E5B70",
+  "0x6E5BB0",
+  "0x6E66E0"
+ ],
  "merged": [],
- "name": "client/eff_line.cpp"
+ "name": "client/eff_line.cpp",
+ "shared": [
+  "0x42F250",
+  "0x447C40",
+  "0x457FA0",
+  "0x6E5420",
+  "0x6E5440",
+  "0x6E5460",
+  "0x6E54A0",
+  "0x6E5510"
+ ],
+ "short_known": [
+  "0x6E5420",
+  "0x6E5440"
+ ]
 }

@@ -3,7 +3,46 @@
  "copy": "reconstructed",
  "description": "FIND_MEMBER 83's object, 0x886580-0x886C40, the client's file (its assert's __FILE__): written by hand (builder A-opus)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x886580",
+  "0x886620",
+  "0x886640",
+  "0x886670",
+  "0x886710",
+  "0x886890",
+  "0x8869F0",
+  "0x886B00",
+  "0x886B30",
+  "0x886B60",
+  "0x886BD0",
+  "0x886C20",
+  "0x886C40"
+ ],
  "merged": [],
- "name": "packets/pkfindmember.cpp"
+ "name": "packets/pkfindmember.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x886620"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x886620"
+ ]
 }

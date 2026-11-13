@@ -3,7 +3,60 @@
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x49B920-0x49D2CF (between boolpars.cpp's guarded ctype initializer 0x49B8F0 and damtype.cpp 0x49D2D0): CallbackManager, the timed callbacks timer_manager.cpp runs; names from the client's 'CallbackManager::Process' profile label and the assert texts 'iter.Iter == Callbacks.end()' / '!f' (lines 47, 68, 101, 144, 222)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x444160",
+  "0x49B920",
+  "0x49B950",
+  "0x49B980",
+  "0x49B9C0",
+  "0x49B9F0",
+  "0x49BA30",
+  "0x49BBC0",
+  "0x49BBF0",
+  "0x49BCC0",
+  "0x49BDB0",
+  "0x49BE80",
+  "0x49BF70",
+  "0x49C040",
+  "0x49C1C0",
+  "0x49C320",
+  "0x49C490",
+  "0x49C660",
+  "0x49C680",
+  "0x49C720",
+  "0x49C860",
+  "0x49CAE0",
+  "0x49CB50",
+  "0x49CB70",
+  "0x49CBC0",
+  "0x49CBE0",
+  "0x49CC60",
+  "0x49CCB0",
+  "0x49CCE0",
+  "0x49CEF0",
+  "0x49CF40",
+  "0x49D1E0",
+  "0x49D220",
+  "0x49D260",
+  "0x49D2A0"
+ ],
  "merged": [],
- "name": "shared/callback_manager.cpp"
+ "name": "shared/callback_manager.cpp",
+ "shared": [
+  "0x444160",
+  "0x49C660",
+  "0x49CBC0"
+ ],
+ "short_known": [
+  "0x49C660",
+  "0x49CBC0"
+ ],
+ "tiebreak": [
+  "0x49CEF0",
+  "0x49CF40",
+  "0x49D1E0",
+  "0x49D220",
+  "0x49D260",
+  "0x49D2A0"
+ ]
 }

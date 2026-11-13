@@ -3,7 +3,41 @@
  "copy": "reconstructed",
  "description": "SERVER_REDIRECT 54's object, 0x8A1500-0x8A1630 (no assert: the file name provisional, NAME 1): written by hand (builder A-opus)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x8A1500",
+  "0x8A1540",
+  "0x8A1570",
+  "0x8A1590",
+  "0x8A15C0",
+  "0x8A15E0",
+  "0x8A1630"
+ ],
  "merged": [],
- "name": "packets/pkserverredirect.cpp"
+ "name": "packets/pkserverredirect.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x8A1570"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x8A1570",
+  "0x8A15C0"
+ ]
 }

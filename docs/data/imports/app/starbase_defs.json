@@ -3,7 +3,12 @@
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: starbase_defs.cpp (__FILE__ 0xBB0E54), 0x84A640-0x84A9E2: the starbase room / facility / room decoration / art names (0xBB0C98-0xBB0D1B), Type_Name and converters (FAIL_IF l.40/41, 82/83, 123/124, 165/166)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x84A6B0",
+  "0x84A7A0",
+  "0x84A890",
+  "0x84A980"
+ ],
  "merged": [],
  "name": "common/starbase_defs.cpp"
 }

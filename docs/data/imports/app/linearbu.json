@@ -3,7 +3,32 @@
  "copy": "reconstructed",
  "description": "LinearBufferClass, client 0x4AAB60-0x4AB536: 21 functions, asserts on the client's lines 22-310 (D25)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4AAB60",
+  "0x4AABE0",
+  "0x4AACB0",
+  "0x4AACE0",
+  "0x4AADA0",
+  "0x4AAE90",
+  "0x4AAFC0",
+  "0x4AB0D0",
+  "0x4AB140",
+  "0x4AB180",
+  "0x4AB1F0",
+  "0x4AB230",
+  "0x4AB280",
+  "0x4AB2A0",
+  "0x4AB2E0",
+  "0x4AB330",
+  "0x4AB3A0",
+  "0x4AB3C0",
+  "0x4AB430",
+  "0x4AB460"
+ ],
  "merged": [],
- "name": "shared/auxdata/linearbu.cpp"
+ "name": "shared/auxdata/linearbu.cpp",
+ "short_known": [
+  "0x4AB280",
+  "0x4AB3A0"
+ ]
 }

@@ -3,7 +3,37 @@
  "copy": "reconstructed",
  "description": "the plain types' conversions, client 0x4A30A0-0x4A3640 (no assert, no __FILE__: INTERIM file name, D137; strconv_lib.cpp's first assert, line 24, is too early for them): bool, float, double, char, unsigned char, int, short, long, unsigned long, unsigned int, std::string",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42A820",
+  "0x42AB30",
+  "0x4A30A0",
+  "0x4A30F0",
+  "0x4A3200",
+  "0x4A3240",
+  "0x4A3270",
+  "0x4A32B0",
+  "0x4A32E0",
+  "0x4A3310",
+  "0x4A3380",
+  "0x4A33C0",
+  "0x4A3410",
+  "0x4A3440",
+  "0x4A3470",
+  "0x4A34A0",
+  "0x4A34D0",
+  "0x4A3500",
+  "0x4A3530",
+  "0x4A3560",
+  "0x4A3590",
+  "0x4A35C0",
+  "0x4A35F0",
+  "0x4A3640",
+  "0x4A3720"
+ ],
  "merged": [],
- "name": "shared/unknown_strconv.cpp"
+ "name": "shared/unknown_strconv.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42AB30"
+ ]
 }

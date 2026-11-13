@@ -3,7 +3,10 @@
  "copy": "reconstructed",
  "description": "the assert reporters 0x4E9410 and 0x4E9450 (they call E&B's reporter 0x4BC260 with the pooled \"\" 0xBDA908; byte-exact, objmatch 'multiple': the two differ only in their strings)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4E9410",
+  "0x4E9450"
+ ],
  "merged": [],
  "name": "shared/g_assert.cpp"
 }

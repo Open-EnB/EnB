@@ -3,7 +3,26 @@
  "copy": "reconstructed",
  "description": "NameClass, client 0x4AD380-0x4ADC25: 12 functions, asserts on the client's lines 138-177 (D25)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x4AD330",
+  "0x4AD360",
+  "0x4AD380",
+  "0x4AD3F0",
+  "0x4AD460",
+  "0x4AD4B0",
+  "0x4AD500",
+  "0x4AD610",
+  "0x4AD6F0",
+  "0x4AD7D0",
+  "0x4AD890",
+  "0x4AD9F0",
+  "0x4ADB80",
+  "0x4ADBB0"
+ ],
  "merged": [],
- "name": "shared/auxdata/name.cpp"
+ "name": "shared/auxdata/name.cpp",
+ "shared": [
+  "0x42F250"
+ ]
 }

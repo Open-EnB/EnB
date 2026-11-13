@@ -3,7 +3,41 @@
  "copy": "reconstructed",
  "description": "packet classes (opcode 233) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x878030",
+  "0x8780D0",
+  "0x878100",
+  "0x878120",
+  "0x8781F0",
+  "0x878210",
+  "0x878250"
+ ],
  "merged": [],
- "name": "packets/pkreferralpointsavailable.cpp"
+ "name": "packets/pkreferralpointsavailable.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x878100"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x878100",
+  "0x8781F0"
+ ]
 }

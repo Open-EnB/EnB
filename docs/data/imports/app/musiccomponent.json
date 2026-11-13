@@ -3,7 +3,10 @@
  "copy": "reconstructed",
  "description": "MusicComponentClass (NAME 3), client 0x4370C0-0x437180: G_ASSERT 'name' l.45 and 'ThemeName' l.67 give the path e:\\build\\beta\\G\\app\\Audio\\musiccomponent.cpp (D25)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4370C0",
+  "0x437140"
+ ],
  "merged": [],
  "name": "audio/musiccomponent.cpp"
 }

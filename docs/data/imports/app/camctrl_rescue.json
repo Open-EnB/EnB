@@ -1,9 +1,35 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "CameraController11Class (NAME 1, neutral), the camera manager's state-11 controller (table 0xB04F5C, 0x10 bytes), client 0x7953A0-0x7958EF (__FILE__ 0xB9E440, FAIL_IF l.75; ending with <string>'s initialiser 0x7958D0); 0x795570 functional, not exact (CC1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x7923E0",
+  "0x792410",
+  "0x792430",
+  "0x792460",
+  "0x7953B0",
+  "0x795450",
+  "0x795480",
+  "0x795500",
+  "0x795520",
+  "0x795550"
+ ],
  "merged": [],
- "name": "client/camctrl_rescue.cpp"
+ "name": "client/camctrl_rescue.cpp",
+ "shared": [
+  "0x42F250",
+  "0x7923E0",
+  "0x792410",
+  "0x792430",
+  "0x792460"
+ ],
+ "short_known": [
+  "0x792410",
+  "0x795500",
+  "0x795550"
+ ]
 }

@@ -3,7 +3,14 @@
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (D137): co.cpp's render hook UnknownB007A4Class (vtable 0xB007A4, declared locally as co.cpp's), Pre_Render 0x6BB7E0 and Post_Render 0x6BB8B0, client 0x6BB7E0-0x6BB8CB (no __FILE__ or assert; after debris.cpp 0x6BB470, std::list helpers 0x6BB8E0 / 0x6BBA20 after it, font32bit.cpp from 0x6BBAC0) (WE5)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x6BB7E0",
+  "0x6BB8B0"
+ ],
  "merged": [],
- "name": "client/unknown_6bb7e0.cpp"
+ "name": "client/unknown_6bb7e0.cpp",
+ "shared": [
+  "0x42F250"
+ ]
 }

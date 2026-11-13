@@ -1,9 +1,56 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B250"
+ ],
  "copy": "reconstructed",
  "description": "expr_lexer_match_list.cpp (the client's __FILE__; G_ASSERT lines 13 22, FAIL_IF 38 67 108), client 0x4C5930-0x4C761F: ExprLexerMatchListClass's constructors, destructors, Add, Add_Token and Match, the node's destructors and the hashtable / vector instances, all exact (EX3)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4C5730",
+  "0x4C5930",
+  "0x4C5BF0",
+  "0x4C5C20",
+  "0x4C5EC0",
+  "0x4C60A0",
+  "0x4C6130",
+  "0x4C6160",
+  "0x4C62C0",
+  "0x4C6530",
+  "0x4C65D0",
+  "0x4C6790",
+  "0x4C67D0",
+  "0x4C6840",
+  "0x4C6880",
+  "0x4C6BC0",
+  "0x4C6BF0",
+  "0x4C6C10",
+  "0x4C6EB0",
+  "0x4C7150",
+  "0x4C7190",
+  "0x4C71D0",
+  "0x4C7290",
+  "0x4C7300",
+  "0x4C7330",
+  "0x4C7370",
+  "0x4C7390",
+  "0x4C7560",
+  "0x4C7590",
+  "0x4C75C0",
+  "0x4C75F0"
+ ],
  "merged": [],
- "name": "shared/expr/expr_lexer_match_list.cpp"
+ "name": "shared/expr/expr_lexer_match_list.cpp",
+ "shared": [
+  "0x4C5730",
+  "0x4C6BF0",
+  "0x4C7370"
+ ],
+ "short_known": [
+  "0x4C6BF0",
+  "0x4C7370"
+ ],
+ "tiebreak": [
+  "0x4C75C0",
+  "0x4C75F0"
+ ]
 }

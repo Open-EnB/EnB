@@ -3,7 +3,49 @@
  "copy": "reconstructed",
  "description": "DynamicWindowRenderObjectClass (D24 class-from-file), the dynamic windows' model-backed element (table 0xAED8D0, 0x4C bytes), client 0x51C930-0x51D240 (__FILE__ 0xB76D68, FAIL_IF '!RenderObject' on the client's line 129, D25); NOT EXACT (D64): 0x51CA80, 0x51CAE0, 0x51CB20, 0x51CC10, 0x51CFD0 (DW1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0x5188E0",
+  "0x51C930",
+  "0x51C9A0",
+  "0x51C9D0",
+  "0x51CA50",
+  "0x51CAB0",
+  "0x51CB20",
+  "0x51CB50",
+  "0x51CB70",
+  "0x51CBE0",
+  "0x51CC10",
+  "0x51CC80",
+  "0x51CCB0",
+  "0x51CD50",
+  "0x51CDD0",
+  "0x51CE20",
+  "0x51CE40",
+  "0x51CE90",
+  "0x51CEC0",
+  "0x51CEE0",
+  "0x51CF10",
+  "0x51CF30",
+  "0x51CFD0",
+  "0x51D060",
+  "0x51D0D0",
+  "0x51D160"
+ ],
  "merged": [],
- "name": "client/dynamic_window_render_object.cpp"
+ "name": "client/dynamic_window_render_object.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45CC10",
+  "0x45CC30",
+  "0x5188E0"
+ ],
+ "short_known": [
+  "0x5188E0",
+  "0x51CB50",
+  "0x51CE20",
+  "0x51CF10"
+ ]
 }

@@ -1,9 +1,52 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "the money field's Read 0x4A7470 and Write 0x4A74F0 (DeltaTemplateClass<MoneyClass> specialisations), asserts on the client's lines 69 and 86 (D25)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4A3C50",
+  "0x4A3C70",
+  "0x4A3C90",
+  "0x4A4E50",
+  "0x4A7080",
+  "0x4A70D0",
+  "0x4A7100",
+  "0x4A7150",
+  "0x4A71E0",
+  "0x4A7340",
+  "0x4A7360",
+  "0x4A73B0",
+  "0x4A73F0",
+  "0x4A7420",
+  "0x4A7440",
+  "0x4A7470",
+  "0x4A74F0",
+  "0x4A7540",
+  "0x4A7600",
+  "0x4A7670",
+  "0x4A76A0",
+  "0x4A76D0",
+  "0x4A7700",
+  "0x4A77A0"
+ ],
  "merged": [],
- "name": "shared/auxdata/delta_money.cpp"
+ "name": "shared/auxdata/delta_money.cpp",
+ "shared": [
+  "0x4A3C50",
+  "0x4A3C70",
+  "0x4A3C90",
+  "0x4A4E50",
+  "0x4A7340",
+  "0x4A7420"
+ ],
+ "short_known": [
+  "0x4A3C50",
+  "0x4A3C70",
+  "0x4A3C90",
+  "0x4A7100",
+  "0x4A7340",
+  "0x4A7420"
+ ]
 }

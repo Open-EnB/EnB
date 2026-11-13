@@ -3,7 +3,18 @@
  "copy": "reconstructed",
  "description": "display.cpp, client 0x442AC0-0x443003 (S: __FILE__ e:\\build\\beta\\G\\app\\display\\display.cpp in the texture depth report, line 260, D25; builder DISP, run PR #144): the start-up 0x442AC0 (the registry's render device, read only), its WM_PAINT handler 0x442FA0, the shut-down 0x442FF0; exact",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x442AC0",
+  "0x442FA0",
+  "0x442FF0"
+ ],
  "merged": [],
- "name": "display/display.cpp"
+ "name": "display/display.cpp",
+ "shared": [
+  "0x42F250"
+ ],
+ "short_known": [
+  "0x442FF0"
+ ]
 }

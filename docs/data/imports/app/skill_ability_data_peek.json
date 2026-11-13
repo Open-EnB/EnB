@@ -3,7 +3,26 @@
  "copy": "reconstructed",
  "description": "SkillAbilityDataPeekClass, a view of RPGInfo.SkillAbilities, skill_data_peek.cpp's twin (the client's __FILE__ 0xBA7990, asserts on lines 159-226; object from 0x8139A0, permstr.h's static, to <string>'s initialiser 0x814230) (SD1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x8139F0",
+  "0x813A40",
+  "0x813A60",
+  "0x813B00",
+  "0x813B30",
+  "0x813B70",
+  "0x813BE0",
+  "0x813C50",
+  "0x813CC0",
+  "0x813D30",
+  "0x813DA0",
+  "0x813E10",
+  "0x813E80",
+  "0x813F40",
+  "0x814000"
+ ],
  "merged": [],
- "name": "client/skill_ability_data_peek.cpp"
+ "name": "client/skill_ability_data_peek.cpp",
+ "short_known": [
+  "0x813A40"
+ ]
 }

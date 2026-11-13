@@ -1,9 +1,58 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "GLOBAL_CREATE_CHARACTER 114's object, 0x864090-0x864780 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42A820",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CD30",
+  "0x42F250",
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x53BB50",
+  "0x618500",
+  "0x85CB00",
+  "0x864090",
+  "0x864350",
+  "0x864380",
+  "0x864590",
+  "0x864610",
+  "0x864720",
+  "0x864750"
+ ],
  "merged": [],
- "name": "packets/pkglobalcreatecharacter.cpp"
+ "name": "packets/pkglobalcreatecharacter.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CD30",
+  "0x42F250",
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x53BB50",
+  "0x618500",
+  "0x85CB00"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330"
+ ]
 }

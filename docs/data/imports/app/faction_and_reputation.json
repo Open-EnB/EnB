@@ -1,9 +1,25 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0",
+  "0x4A91B0"
+ ],
  "copy": "reconstructed",
  "description": "faction_and_reputation.cpp (the client's __FILE__, FAIL_IFs l.52-53 and l.72-73): the mob and NPC reactions' Value_To_String / String_To_Value, the reputation limits' classes and FormationState's Type_Name / String_To_Value / Value_To_String, client 0x835860-0x835DC0",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x835860",
+  "0x835890",
+  "0x835980",
+  "0x835A70",
+  "0x835AD0",
+  "0x835B20",
+  "0x835B80",
+  "0x835BD0",
+  "0x835C30",
+  "0x835CC0",
+  "0x835D10",
+  "0x835D80"
+ ],
  "merged": [],
  "name": "common/faction_and_reputation.cpp"
 }

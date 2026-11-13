@@ -3,7 +3,28 @@
  "copy": "reconstructed",
  "description": "client_item_property_icon.cpp (its FAIL_IF's __FILE__ 0xB77D50): ClientItemPropertyIconClass, the item's icon as a property (12 bytes, table 0xAEDD88): Create 0x529FC0 (FAIL_IF '!icon_texture' line 28), constructor 0x52A0B0, destructors 0x52A120 / 0x52A0F0, slots 0x52A1B0 / 0x52A1D0 / 0x52A2E0, Create_NEW 0x52A300",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42A820",
+  "0x42AB30",
+  "0x45CC10",
+  "0x529FC0",
+  "0x52A0B0",
+  "0x52A0F0",
+  "0x52A120",
+  "0x52A1B0",
+  "0x52A1D0",
+  "0x52A2E0",
+  "0x52A300",
+  "0x52A330"
+ ],
  "merged": [],
- "name": "client/item/client_item_property_icon.cpp"
+ "name": "client/item/client_item_property_icon.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42AB30",
+  "0x45CC10"
+ ],
+ "short_known": [
+  "0x52A1B0"
+ ]
 }

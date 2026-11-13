@@ -3,7 +3,49 @@
  "copy": "reconstructed",
  "description": "PxWrapper, client 0x4560B0-0x457740 (its __FILE__; FAIL_IFs lines 108-273): the constructors, Create_Boxes 0x456350, the list and flag members, Update 0x456B60 (NOT EXACT), the callback members, _Collision_Callback 0x457670",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x444160",
+  "0x44C2B0",
+  "0x4560B0",
+  "0x456190",
+  "0x456350",
+  "0x456500",
+  "0x456660",
+  "0x456730",
+  "0x4567D0",
+  "0x456840",
+  "0x456890",
+  "0x4568E0",
+  "0x456900",
+  "0x456B60",
+  "0x456F60",
+  "0x457190",
+  "0x4573C0",
+  "0x4575E0",
+  "0x457670",
+  "0x457780",
+  "0x4577C0",
+  "0x4577E0",
+  "0x457A80",
+  "0x457AB0",
+  "0x457AF0",
+  "0x457B30"
+ ],
  "merged": [],
- "name": "shared/px_wrapper.cpp"
+ "name": "shared/px_wrapper.cpp",
+ "shared": [
+  "0x444160",
+  "0x44C2B0",
+  "0x4577C0"
+ ],
+ "short_known": [
+  "0x4568E0",
+  "0x4577C0"
+ ],
+ "tiebreak": [
+  "0x4577E0",
+  "0x457A80",
+  "0x457AF0",
+  "0x457B30"
+ ]
 }

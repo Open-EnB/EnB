@@ -1,9 +1,38 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x457CA0"
+ ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from the client: the object 0x6F0200-0x6F0580 (effect.ini's RenderStateEffect, table 0xB002D0), between the guarded <string> statics 0x6F01D0 and 0x6F0550; no __FILE__: the name eff_rs.cpp is provisional (D137), it sorts between eff_robj.cpp and eff_seek.cpp",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x457FA0",
+  "0x491830",
+  "0x494CC0",
+  "0x6E4860",
+  "0x6E4880",
+  "0x6E48A0",
+  "0x6F0200",
+  "0x6F0290",
+  "0x6F02C0",
+  "0x6F0380",
+  "0x6F03C0",
+  "0x6F0550"
+ ],
  "merged": [],
- "name": "client/eff_rs.cpp"
+ "name": "client/eff_rs.cpp",
+ "shared": [
+  "0x42F250",
+  "0x457FA0",
+  "0x491830",
+  "0x494CC0",
+  "0x6E4860",
+  "0x6E4880",
+  "0x6E48A0"
+ ],
+ "short_known": [
+  "0x6E4860",
+  "0x6E4880"
+ ]
 }

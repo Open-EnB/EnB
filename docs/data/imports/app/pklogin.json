@@ -1,9 +1,42 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "LOGIN 2's object, 0x89A740-0x89AB00 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x89A740",
+  "0x89A820",
+  "0x89A850",
+  "0x89A940",
+  "0x89A9B0",
+  "0x89AAA0",
+  "0x89AAC0"
+ ],
  "merged": [],
- "name": "packets/pklogin.cpp"
+ "name": "packets/pklogin.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330"
+ ]
 }

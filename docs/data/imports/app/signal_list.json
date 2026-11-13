@@ -1,9 +1,55 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42AFF0",
+  "0x42B250"
+ ],
  "copy": "reconstructed",
  "description": "SignalList (the client's profile strings 'SignalList::Add' 0x4F84C0, 'SignalList::remove' 0x4F8650, 'SignalList::emit' 0x4F8820) and the two function-local static dispatchers 0x4F7EF0 / 0x4F7F60, client 0x4F7EF0-0x4F9350 (its template instances 0x4F8910-0x4F9320 end the object); PROVISIONAL file name (D137: no __FILE__)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x444160",
+  "0x4F7F60",
+  "0x4F7FD0",
+  "0x4F8000",
+  "0x4F81E0",
+  "0x4F83F0",
+  "0x4F84C0",
+  "0x4F8650",
+  "0x4F8820",
+  "0x4F8910",
+  "0x4F8980",
+  "0x4F89F0",
+  "0x4F8A60",
+  "0x4F8AA0",
+  "0x4F8B60",
+  "0x4F8BD0",
+  "0x4F8C10",
+  "0x4F8C40",
+  "0x4F8C60",
+  "0x4F8F00",
+  "0x4F9030",
+  "0x4F9200",
+  "0x4F9320"
+ ],
  "merged": [],
- "name": "client/signal_list.cpp"
+ "name": "client/signal_list.cpp",
+ "shared": [
+  "0x444160",
+  "0x4F83F0",
+  "0x4F8AA0",
+  "0x4F8C40",
+  "0x4F8F00",
+  "0x4F9030",
+  "0x4F9200",
+  "0x4F9320"
+ ],
+ "shared_callers": [
+  "0x4F9200"
+ ],
+ "short_known": [
+  "0x4F8C40"
+ ],
+ "tiebreak": [
+  "0x4F9200"
+ ]
 }

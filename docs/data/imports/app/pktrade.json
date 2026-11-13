@@ -3,7 +3,47 @@
  "copy": "reconstructed",
  "description": "packet classes (opcode 31) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x8AB2E0",
+  "0x8AB300",
+  "0x8AB320",
+  "0x8AB350",
+  "0x8AB370",
+  "0x8AB410",
+  "0x8AB4E0",
+  "0x8AB500",
+  "0x8AB530"
+ ],
  "merged": [],
- "name": "packets/pktrade.cpp"
+ "name": "packets/pktrade.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x8AB2E0",
+  "0x8AB300",
+  "0x8AB350"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x8AB2E0",
+  "0x8AB300",
+  "0x8AB350",
+  "0x8AB4E0"
+ ]
 }

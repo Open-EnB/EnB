@@ -3,7 +3,45 @@
  "copy": "reconstructed",
  "description": "opcode 59 written by hand (builder P4, parked behind P-P4-1 until D91; committed by P5), client 0x8A6140-0x8A6400; the file name provisional (NAME 1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x8A6140",
+  "0x8A6190",
+  "0x8A61C0",
+  "0x8A61E0",
+  "0x8A62A0",
+  "0x8A6380",
+  "0x8A63A0",
+  "0x8A63C0",
+  "0x8A6400"
+ ],
  "merged": [],
- "name": "packets/pkserverready.cpp"
+ "name": "packets/pkserverready.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x8A61C0",
+  "0x8A6380"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x8A61C0",
+  "0x8A6380",
+  "0x8A63A0"
+ ]
 }

@@ -1,9 +1,19 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42A900",
+  "0x42B2F0",
+  "0x43CEA0",
+  "0x43D2A0"
+ ],
  "copy": "reconstructed",
  "description": "SectorSoundClass (NAME 3), client 0x43C4A0-0x43CEA0: FAIL_IF 'ini == NULL' l.260 and 'ini->Section_Present(section_name) == false' l.261 give the path e:\\build\\beta\\G\\app\\Audio\\sectorsound.cpp (D25); the strings sectorsounds%d.ini, MaxElevation, LoopingAmbient%d, NonLoopingAmbient%d",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x43C4A0",
+  "0x43C560",
+  "0x43C660",
+  "0x43CB70"
+ ],
  "merged": [],
  "name": "audio/sectorsound.cpp"
 }

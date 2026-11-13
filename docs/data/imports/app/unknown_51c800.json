@@ -1,9 +1,29 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0",
+  "0x46BE90"
+ ],
  "copy": "reconstructed",
  "description": "Unknown51C800Class, a dynamic window element over a font style's text (table 0xAED85C, 0x4C bytes), client 0x51C800-0x51C91B: the constructor, the destructors, slot +0x58 0x51C910; PROVISIONAL file (D137: no string; between dynamic_window_multi_line_text.cpp and dynamic_window_render_object.cpp); all exact (MSG2)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x45CC10",
+  "0x51C800",
+  "0x51C8C0",
+  "0x51C8F0",
+  "0x51C910"
+ ],
  "merged": [],
- "name": "client/unknown_51c800.cpp"
+ "name": "client/unknown_51c800.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45CC10",
+  "0x51C8F0",
+  "0x51C910"
+ ],
+ "short_known": [
+  "0x51C8F0",
+  "0x51C910"
+ ]
 }

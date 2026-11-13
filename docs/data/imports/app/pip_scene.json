@@ -1,9 +1,26 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x46BE90",
+  "0x474080"
+ ],
  "copy": "reconstructed",
  "description": "PipSceneClass (D24 class-from-file), a 3-D scene and camera drawn into a rectangle of a view (the client's __FILE__ 0xB9F038; client 0x7BA9C0-0x7BB131 by its FAIL_IFs, lines 113-195) (PS1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x5149F0",
+  "0x7BA9C0",
+  "0x7BABE0",
+  "0x7BAC10",
+  "0x7BACD0",
+  "0x7BB080",
+  "0x7BB110",
+  "0x7BB150"
+ ],
  "merged": [],
- "name": "client/pip_scene.cpp"
+ "name": "client/pip_scene.cpp",
+ "shared": [
+  "0x42F250",
+  "0x5149F0"
+ ]
 }

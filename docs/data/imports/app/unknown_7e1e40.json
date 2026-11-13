@@ -3,7 +3,49 @@
  "copy": "reconstructed",
  "description": "the registration reader's download (Sub14CUnknown18Class: IBindStatusCallback / IHttpNegotiate over an URL moniker, a POST of the query), its own object 0x7E1E40-0x7E3160 (Sub14CImplClass calls 0x7E2430 / 0x7E2850 out of line), no __FILE__ or assert. File PROVISIONAL (D137)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x7E1E10",
+  "0x7E1E40",
+  "0x7E1EB0",
+  "0x7E1ED0",
+  "0x7E2080",
+  "0x7E21F0",
+  "0x7E2290",
+  "0x7E23B0",
+  "0x7E2430",
+  "0x7E24B0",
+  "0x7E2580",
+  "0x7E2640",
+  "0x7E2660",
+  "0x7E2680",
+  "0x7E2850",
+  "0x7E2960",
+  "0x7E2A80",
+  "0x7E2BA0",
+  "0x7E2CE0",
+  "0x7E2DF0",
+  "0x7E2E90",
+  "0x7E2FD0",
+  "0x7E3000",
+  "0x7E3090",
+  "0x7E30B0",
+  "0x7E30E0",
+  "0x7E3130",
+  "0x7E3140",
+  "0x7E3150"
+ ],
  "merged": [],
- "name": "client/unknown_7e1e40.cpp"
+ "name": "client/unknown_7e1e40.cpp",
+ "shared": [
+  "0x7E3130",
+  "0x7E3140",
+  "0x7E3150"
+ ],
+ "short_known": [
+  "0x7E2640",
+  "0x7E2660",
+  "0x7E3130",
+  "0x7E3140",
+  "0x7E3150"
+ ]
 }

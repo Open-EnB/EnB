@@ -1,9 +1,26 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x46BE90",
+  "0x474080"
+ ],
  "copy": "reconstructed",
  "description": "DynamicWindowTextClass (D24 class-from-file), a dynamic window's line of text (table 0xAED9CC, 0x50 bytes), client 0x51D290-0x51D74D (__FILE__ 0xB76DB8, FAIL_IF 'font_name.empty()' on the client's line 25, D25), every function exact (DW1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x45CC10",
+  "0x51D290",
+  "0x51D500",
+  "0x51D5D0",
+  "0x51D600",
+  "0x51D690",
+  "0x51D700",
+  "0x51D760"
+ ],
  "merged": [],
- "name": "client/dynamic_window_text.cpp"
+ "name": "client/dynamic_window_text.cpp",
+ "shared": [
+  "0x42F250",
+  "0x45CC10"
+ ]
 }

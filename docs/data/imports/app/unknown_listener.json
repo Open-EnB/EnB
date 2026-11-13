@@ -3,7 +3,23 @@
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (D10): the composite listener (vtable 0xB0844C), client 0x820B30-0x820EE5",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x820B30",
+  "0x820C70",
+  "0x820CA0",
+  "0x820CD0",
+  "0x820D70",
+  "0x820DC0",
+  "0x820DE0",
+  "0x820E70",
+  "0x820EC0"
+ ],
  "merged": [],
- "name": "common/unknown_listener.cpp"
+ "name": "common/unknown_listener.cpp",
+ "shared": [
+  "0x820C70"
+ ],
+ "short_known": [
+  "0x820DC0"
+ ]
 }

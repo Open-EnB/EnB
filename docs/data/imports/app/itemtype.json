@@ -3,7 +3,24 @@
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: itemtype.cpp (__FILE__ 0xBAEB90), 0x843110-0x8436BF: the item type / basic type / sort order names and converters, the item type's display name (std::string), the mount masks by name (0xBAE7B0), the trade categories' names 0xBAE854 (asserts l.159, 200/201, 280, 286/287, 324, 331/332)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42A970",
+  "0x42AB30",
+  "0x843110",
+  "0x8431B0",
+  "0x8431F0",
+  "0x8433C0",
+  "0x843440",
+  "0x843480",
+  "0x843500",
+  "0x843590",
+  "0x843610",
+  "0x8436A0"
+ ],
  "merged": [],
- "name": "common/itemtype.cpp"
+ "name": "common/itemtype.cpp",
+ "shared": [
+  "0x42A970",
+  "0x42AB30"
+ ]
 }

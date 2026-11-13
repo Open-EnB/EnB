@@ -1,9 +1,34 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42A6C0"
+ ],
  "copy": "reconstructed",
  "description": "ClientItemPropertyAttributePercentClass (D24 class-from-file), a percent attribute property (0x4C bytes), client file client_item_property_attribute_percent.cpp (its __FILE__ and FAIL_IFs 'label.empty()' / 'tooltip.empty()', D25): Create, ctor, dtors, slot +0x14, Create_NEW, <string>'s guarded static",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42A820",
+  "0x42A970",
+  "0x42AB30",
+  "0x42D050",
+  "0x45CC10",
+  "0x520B20",
+  "0x520D00",
+  "0x520E40",
+  "0x520E70",
+  "0x520E90",
+  "0x520FF0",
+  "0x521020"
+ ],
  "merged": [],
- "name": "client/item/client_item_property_attribute_percent.cpp"
+ "name": "client/item/client_item_property_attribute_percent.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A970",
+  "0x42AB30",
+  "0x42D050",
+  "0x45CC10"
+ ],
+ "short_known": [
+  "0x520E70"
+ ]
 }

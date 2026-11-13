@@ -1,9 +1,29 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x76FE80"
+ ],
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (M1.4): the object 0x85AEC0-0x85C600 after cordmgr.cpp: CordMessageClass's constructor 0x85BE00, destructor 0x85BEA0 and Free 0x85BEC0; CordStatsClass (the send window and round-trip estimate CordCon keeps at +0x68, 0x85BF30-0x85C5E0)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x85BE00",
+  "0x85BEA0",
+  "0x85BEC0",
+  "0x85BF30",
+  "0x85C010",
+  "0x85C090",
+  "0x85C0D0",
+  "0x85C1C0",
+  "0x85C1E0",
+  "0x85C220",
+  "0x85C250",
+  "0x85C310",
+  "0x85C3A0",
+  "0x85C430"
+ ],
  "merged": [],
- "name": "wwudp/unknown_cordmsg.cpp"
+ "name": "wwudp/unknown_cordmsg.cpp",
+ "short_known": [
+  "0x85BEA0"
+ ]
 }

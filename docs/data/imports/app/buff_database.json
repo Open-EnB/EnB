@@ -1,9 +1,60 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B250"
+ ],
  "copy": "reconstructed",
  "description": "BuffDefStruct / BuffDatabaseClass, client 0x676CD0-0x677660 with the table's instances to 0x678420: the reports on the client's lines 47 / 78 (D25); NOT EXACT: the destructor 0x677410",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42C4E0",
+  "0x42CD30",
+  "0x42D050",
+  "0x42DB00",
+  "0x441480",
+  "0x676CD0",
+  "0x676D40",
+  "0x676DB0",
+  "0x677340",
+  "0x677410",
+  "0x677640",
+  "0x677660",
+  "0x677780",
+  "0x677850",
+  "0x6778A0",
+  "0x677A70",
+  "0x677AB0",
+  "0x677AE0",
+  "0x677C60",
+  "0x677F00",
+  "0x678030",
+  "0x678060",
+  "0x678240",
+  "0x6783F0",
+  "0x678420"
+ ],
  "merged": [],
- "name": "client/buff_database.cpp"
+ "name": "client/buff_database.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42C4E0",
+  "0x42CD30",
+  "0x42D050",
+  "0x42DB00",
+  "0x441480"
+ ],
+ "short_known": [
+  "0x677640"
+ ],
+ "tiebreak": [
+  "0x677850",
+  "0x678420"
+ ]
 }

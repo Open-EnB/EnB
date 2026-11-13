@@ -1,9 +1,57 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0"
+ ],
  "copy": "reconstructed",
  "description": "InvManuRenderClass (D24 class-from-file), an inventory slot on the manufacturing screen (the client's __FILE__ 0xB900CC, asserts on lines 121-160; object 0x68B370-0x68BEFA, permstr.h's initialiser 0x68BEC0 ends it) (IR2)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42A970",
+  "0x42AB30",
+  "0x42F250",
+  "0x45CC10",
+  "0x68B370",
+  "0x68B410",
+  "0x68B430",
+  "0x68B450",
+  "0x68B470",
+  "0x68B490",
+  "0x68B4B0",
+  "0x68B4D0",
+  "0x68B4F0",
+  "0x68B510",
+  "0x68B540",
+  "0x68B5E0",
+  "0x68B860",
+  "0x68B980",
+  "0x68BCF0",
+  "0x68BD60",
+  "0x68BDA0"
+ ],
  "merged": [],
- "name": "client/inv_manu_render.cpp"
+ "name": "client/inv_manu_render.cpp",
+ "shared": [
+  "0x42A970",
+  "0x42AB30",
+  "0x42F250",
+  "0x45CC10",
+  "0x68B410",
+  "0x68B430",
+  "0x68B450",
+  "0x68B470",
+  "0x68B490",
+  "0x68B4B0",
+  "0x68B4D0",
+  "0x68B4F0"
+ ],
+ "short_known": [
+  "0x68B410",
+  "0x68B430",
+  "0x68B450",
+  "0x68B470",
+  "0x68B490",
+  "0x68B4B0",
+  "0x68B4D0",
+  "0x68B4F0"
+ ]
 }

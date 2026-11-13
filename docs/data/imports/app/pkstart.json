@@ -3,7 +3,51 @@
  "copy": "reconstructed",
  "description": "packet classes (opcode 5, 6) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x733570",
+  "0x8A6650",
+  "0x8A6680",
+  "0x8A66A0",
+  "0x8A6730",
+  "0x8A67F0",
+  "0x8A6810",
+  "0x8A6840",
+  "0x8A6880",
+  "0x8A68B0",
+  "0x8A6940",
+  "0x8A6A00",
+  "0x8A6A20",
+  "0x8A6A50"
+ ],
  "merged": [],
- "name": "packets/pkstart.cpp"
+ "name": "packets/pkstart.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x733570",
+  "0x8A6680"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x733570",
+  "0x8A6680",
+  "0x8A67F0",
+  "0x8A6A00"
+ ]
 }

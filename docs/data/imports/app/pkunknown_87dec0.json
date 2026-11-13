@@ -3,7 +3,45 @@
  "copy": "reconstructed",
  "description": "opcode 94's object, 0x87DEC0-0x87E3F0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x87DEC0",
+  "0x87DFA0",
+  "0x87DFC0",
+  "0x87DFE0",
+  "0x87E010",
+  "0x87E130",
+  "0x87E1A0",
+  "0x87E2C0",
+  "0x87E2E0",
+  "0x87E3F0"
+ ],
  "merged": [],
- "name": "packets/pkunknown_87dec0.cpp"
+ "name": "packets/pkunknown_87dec0.cpp",
+ "shared": [
+  "0x52B210",
+  "0x52B240",
+  "0x52B270",
+  "0x52B2A0",
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x52B350",
+  "0x87DFA0",
+  "0x87DFC0"
+ ],
+ "short_known": [
+  "0x52B2D0",
+  "0x52B310",
+  "0x52B330",
+  "0x87DFA0",
+  "0x87DFC0"
+ ]
 }

@@ -1,9 +1,64 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x70AC60",
+  "0x70ACA0"
+ ],
  "copy": "reconstructed",
  "description": "RadarDataClass (the client's typeid name), the object's radar colours (the client's __FILE__ 0xB9F070, FAIL_IFs at lines 73-227; 0x7BB1D0-0x7BC02B) (RD1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x51E220",
+  "0x6101C0",
+  "0x79D130",
+  "0x7BB180",
+  "0x7BB1B0",
+  "0x7BB1D0",
+  "0x7BB420",
+  "0x7BB450",
+  "0x7BB8C0",
+  "0x7BB910",
+  "0x7BB960",
+  "0x7BBA90",
+  "0x7BBD90",
+  "0x7BBDB0",
+  "0x7BBDD0",
+  "0x7BBDF0",
+  "0x7BBE10",
+  "0x7BBE30",
+  "0x7BBE50",
+  "0x7BBE70",
+  "0x7BBEE0",
+  "0x7BBF10",
+  "0x7BBF80",
+  "0x7BBFB0",
+  "0x7BBFE0",
+  "0x7BC010"
+ ],
  "merged": [],
- "name": "client/radar_data.cpp"
+ "name": "client/radar_data.cpp",
+ "shared": [
+  "0x42F250",
+  "0x51E220",
+  "0x6101C0",
+  "0x79D130",
+  "0x7BBD90",
+  "0x7BBDB0",
+  "0x7BBDD0",
+  "0x7BBDF0",
+  "0x7BBE10",
+  "0x7BBE30",
+  "0x7BBE50"
+ ],
+ "short_known": [
+  "0x6101C0",
+  "0x79D130",
+  "0x7BBD90",
+  "0x7BBDB0",
+  "0x7BBDD0",
+  "0x7BBDF0",
+  "0x7BBE10",
+  "0x7BBE30",
+  "0x7BBE50"
+ ]
 }

@@ -3,7 +3,15 @@
  "copy": "reconstructed",
  "description": "a named PrimitivePrototypeClass Unknown45E3F0Class (vtable 0xAE8124), client 0x45E3F0-0x45E536 (PROVISIONAL file name D10, interim placement D137: no __FILE__, after rs_proj_sup.cpp's inline copies, before rs_robj.cpp; builder RPS, run PR #144): the uncalled constructor 0x45E3F0, destructor 0x45E4A0 (deleting 0x45E470), Get_Name 0x45E530; exact",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x45E3F0",
+  "0x45E470",
+  "0x45E4A0",
+  "0x45E530"
+ ],
  "merged": [],
- "name": "shared/unknown_45e3f0.cpp"
+ "name": "shared/unknown_45e3f0.cpp",
+ "short_known": [
+  "0x45E530"
+ ]
 }

@@ -3,7 +3,16 @@
  "copy": "reconstructed",
  "description": "race.cpp (the client's __FILE__, assert l.124) PARTIAL: the race's and its bit field's converters, client 0x848FF0-0x8492A6 (the race costs after them not rebuilt)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x848FF0",
+  "0x849010",
+  "0x849060",
+  "0x8490C0",
+  "0x8491B0"
+ ],
  "merged": [],
- "name": "common/race.cpp"
+ "name": "common/race.cpp",
+ "short_known": [
+  "0x848FF0"
+ ]
 }

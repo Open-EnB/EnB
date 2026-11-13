@@ -3,7 +3,13 @@
  "copy": "reconstructed",
  "description": "E&B's global operator new 0x4E9CB0, new[] 0x4E9CE0 and delete 0x4E9D10 (wwlib's FastAllocatorGeneral); the client's object is g_assert.cpp's, kept apart so that programs defining their own reporters link",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4E9CB0",
+  "0x4E9D10"
+ ],
  "merged": [],
- "name": "shared/unknown_new.cpp"
+ "name": "shared/unknown_new.cpp",
+ "short_known": [
+  "0x4E9CB0"
+ ]
 }

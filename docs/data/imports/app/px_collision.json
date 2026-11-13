@@ -3,7 +3,28 @@
  "copy": "reconstructed",
  "description": "px_collision.cpp, client 0x453A40-0x4557F0 (its __FILE__ in 0x454730's FAIL_IF l.234): Process 0x453A40, its distance test 0x453B10 (NOT EXACT) and the response 0x453C20 (PX3), the OBBox tests not rebuilt; PxObject 0x4557F0-0x455860 placed here provisionally (no string)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x444160",
+  "0x453A40",
+  "0x453B10",
+  "0x453C20",
+  "0x4555B0",
+  "0x4555F0",
+  "0x455680",
+  "0x455760",
+  "0x4557F0",
+  "0x455820",
+  "0x455860"
+ ],
  "merged": [],
- "name": "shared/px_collision.cpp"
+ "name": "shared/px_collision.cpp",
+ "shared": [
+  "0x42F250",
+  "0x444160",
+  "0x4555B0"
+ ],
+ "short_known": [
+  "0x455860"
+ ]
 }

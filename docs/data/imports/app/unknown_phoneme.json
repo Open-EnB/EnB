@@ -3,7 +3,9 @@
  "copy": "reconstructed",
  "description": "client 0x791310-0x792040 after the personality manager (PROVISIONAL file name, D10: no __FILE__): the lip-sync phoneme converter (the manager's +0x10; 0x78EEF0 times the talk animation with it), its table 0xB9DAB8 and index 0xBE8570; NOT EXACT functional for the POC (D64) where marked",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x7913B0"
+ ],
  "merged": [],
  "name": "client/unknown_phoneme.cpp"
 }

@@ -1,9 +1,33 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x42B2F0",
+  "0x457CA0",
+  "0x57DC80"
+ ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe: __FILE__ 'e:\\build\\beta\\G\\app\\Client\\ui_interrupt.cpp' (G_ASSERT l.125), constructor 0x59E2C0, table 0xAF235C; the scanner's interrupt progress display (O15)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x457FA0",
+  "0x57DBC0",
+  "0x57DC20",
+  "0x584E20",
+  "0x59E510",
+  "0x59E540",
+  "0x59E600",
+  "0x59E680",
+  "0x59E700",
+  "0x59E790",
+  "0x59E970"
+ ],
  "merged": [],
- "name": "client/ui_interrupt.cpp"
+ "name": "client/ui_interrupt.cpp",
+ "shared": [
+  "0x42F250",
+  "0x457FA0",
+  "0x57DBC0",
+  "0x57DC20",
+  "0x584E20"
+ ]
 }

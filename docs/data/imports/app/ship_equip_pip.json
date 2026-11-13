@@ -1,9 +1,26 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x46BE90",
+  "0x474080"
+ ],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x541D60-0x543550: __FILE__ e:\\build\\beta\\G\\app\\Client\\ship_equip_pip.cpp (FAIL_IFs l.96, 177, 234, 282, 318, 340); the PDA equipment window's ship PIP (table 0xAEF058)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x514A80",
+  "0x514AD0",
+  "0x541DE0",
+  "0x542150",
+  "0x542180",
+  "0x543200",
+  "0x543270"
+ ],
  "merged": [],
- "name": "client/ship_equip_pip.cpp"
+ "name": "client/ship_equip_pip.cpp",
+ "shared": [
+  "0x42F250",
+  "0x514A80",
+  "0x514AD0"
+ ]
 }

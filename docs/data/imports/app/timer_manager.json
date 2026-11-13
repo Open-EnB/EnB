@@ -3,7 +3,27 @@
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: TimerManager (client 0x4A0C40-0x4A0F9B) from its __FILE__ string, the asserts 'Callbacks' (lines 25, 32) and '!t' (50, 65), its calls into CallbackManager and the tables 0xAEA9F8 / 0xAEAA08; every function byte-exact",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x4A0C40",
+  "0x4A0CE0",
+  "0x4A0D50",
+  "0x4A0DE0",
+  "0x4A0E20",
+  "0x4A0E60",
+  "0x4A0EB0",
+  "0x4A0ED0",
+  "0x4A0F00",
+  "0x4A0F30",
+  "0x4A0F60"
+ ],
  "merged": [],
- "name": "shared/timer_manager.cpp"
+ "name": "shared/timer_manager.cpp",
+ "shared": [
+  "0x4A0EB0",
+  "0x4A0F60"
+ ],
+ "short_known": [
+  "0x4A0EB0",
+  "0x4A0F60"
+ ]
 }

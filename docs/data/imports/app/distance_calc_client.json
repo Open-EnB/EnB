@@ -3,7 +3,16 @@
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: distance_calc_client.cpp (__FILE__ 0xBA137C), 0x7E6060-0x7E62DF: two client objects' sphere distances through distance_calc.h (FAIL_IFs '!obj_a' / '!obj_b' l.9-10, 20-21, 31-32)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x7E6060",
+  "0x7E6130",
+  "0x7E6200",
+  "0x7E62C0"
+ ],
  "merged": [],
- "name": "client/distance_calc_client.cpp"
+ "name": "client/distance_calc_client.cpp",
+ "shared": [
+  "0x42F250"
+ ]
 }

@@ -3,7 +3,10 @@
  "copy": "reconstructed",
  "description": "PROVISIONAL name (D137). client.exe 0x7C96F0-0x7C97B0, an object of its own between ui_starmap.cpp's and the settings store's: the browsers' game dispatch object's one out-of-line method (ATL's CComBSTR inline) and <string>'s closing initialiser 0x7C9780",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x7C96F0",
+  "0x7C9780"
+ ],
  "merged": [],
  "name": "client/tasks/unknown_7c96f0.cpp"
 }

@@ -3,7 +3,24 @@
  "copy": "reconstructed",
  "description": "the ring buffer, client 0x830BF0-0x831277 (the stream connection's 100,000-byte receive buffer): all 12 functions exact (0x830F60-0x8310D0 with no caller), the asserts on the client's lines 112 / 166 (D25)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x830BF0",
+  "0x830C60",
+  "0x830C80",
+  "0x830DA0",
+  "0x830EB0",
+  "0x830ED0",
+  "0x830EF0",
+  "0x830F60",
+  "0x830F90",
+  "0x830FD0",
+  "0x831060",
+  "0x8310D0"
+ ],
  "merged": [],
- "name": "common/circbuff.cpp"
+ "name": "common/circbuff.cpp",
+ "short_known": [
+  "0x830EB0",
+  "0x830ED0"
+ ]
 }

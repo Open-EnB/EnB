@@ -1,9 +1,35 @@
 {
- "ambiguous": [],
+ "ambiguous": [
+  "0x46BE90",
+  "0x474080"
+ ],
  "copy": "reconstructed",
  "description": "ro_funcs.cpp (__FILE__ 0xB724F0), client window 0x495F60-0x497330: so far only 0x497240 (exact), the ALLOW_NPATCHES flag on every mesh's model through the sub-objects; after the file's last assert function 0x496E90 and before its COMDATs (MSG2)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x495FD0",
+  "0x4960C0",
+  "0x496110",
+  "0x496240",
+  "0x496360",
+  "0x496490",
+  "0x496620",
+  "0x496730",
+  "0x496960",
+  "0x496AE0",
+  "0x496C00",
+  "0x496DB0",
+  "0x497240",
+  "0x497330",
+  "0x497350",
+  "0x4973B0"
+ ],
  "merged": [],
- "name": "shared/ro_funcs.cpp"
+ "name": "shared/ro_funcs.cpp",
+ "shared": [
+  "0x42F250",
+  "0x497330",
+  "0x4973B0"
+ ]
 }

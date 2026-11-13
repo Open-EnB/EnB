@@ -3,7 +3,29 @@
  "copy": "reconstructed",
  "description": "GalaxyMapFocalPointClass (D24 class-from-file), the point the galaxy map's camera looks at (the client's __FILE__ 0xB9E8F4; client 0x7A5730-0x7A5FF3) (MP1)",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x42F250",
+  "0x551270",
+  "0x577940",
+  "0x7A5730",
+  "0x7A5780",
+  "0x7A57A0",
+  "0x7A5820",
+  "0x7A5890",
+  "0x7A5980",
+  "0x7A5AA0",
+  "0x7A5E10",
+  "0x7A5ED0",
+  "0x7A5F90"
+ ],
  "merged": [],
- "name": "client/galaxy_map_focal_point.cpp"
+ "name": "client/galaxy_map_focal_point.cpp",
+ "shared": [
+  "0x42F250",
+  "0x551270",
+  "0x577940"
+ ],
+ "short_known": [
+  "0x7A5780"
+ ]
 }

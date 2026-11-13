@@ -3,7 +3,24 @@
  "copy": "reconstructed",
  "description": "observer.cpp (the client's __FILE__ 0xB72C54 'e:\\build\\beta\\G\\app\\shared\\observer.cpp'; client 0x49E890-0x49EF10: after damtype.cpp's std::vector instance 0x49E5C0, before the referral.ini object 0x49EF10; G_ASSERT line 102): SubjectClass's constructor, destructor, 0x49EA60 and 0x49EAB0, and the DynamicVectorClass<ObserverClass *> members it emits, UP1",
  "expected": {},
- "in_tree": [],
+ "in_tree": [
+  "0x49E890",
+  "0x49E950",
+  "0x49EA20",
+  "0x49EA60",
+  "0x49EAB0",
+  "0x49EAF0",
+  "0x49EB30",
+  "0x49EB60",
+  "0x49EBB0",
+  "0x49EC90",
+  "0x49ECD0",
+  "0x49ED20",
+  "0x49ED50",
+  "0x49EE30",
+  "0x49EE70",
+  "0x49EEE0"
+ ],
  "merged": [],
  "name": "shared/observer.cpp"
 }
