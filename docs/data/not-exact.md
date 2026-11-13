@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-816 entries in 269 files.
+819 entries in 270 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -693,6 +693,9 @@ edit the comments in the code, not this file.
 | `app/shared/boolpars.cpp:488` | `BoolParserClass::Parse_Params` | marker | NOT EXACT: shape, the loop's failure returns jump to the second 'return 0' tail in the client, the first in ours |
 | `app/shared/boolpars.cpp:655` | `BoolParserClass::Get_Callback` | mention | NOT EXACT: Parse 0x49A430 (inline budget) and Parse_Params 0x49AE30 (shape). |
 | `app/shared/chat_edit_stream.cpp:8` | `Unknown_ChatStreamClass::Unknown_ChatStreamClass` | marker | NOT EXACT: call form (the client calls 0x4C44A0 through its vtable slot, call [0xAEBAB8]; this compiles to a direct call) |
+| `app/shared/chat_filter.cpp:68` | `ChatWordFilterClass::Filter` | marker | NOT EXACT: frame (the client keeps one more dword local: a dead store of find's pos, the word iterator held twice; attempts.py show 0x4E1300) |
+| `app/shared/chat_filter.cpp:189` | `ChatTreeFilterClass::ChatTreeFilterClass` | marker | NOT EXACT: inline budget (the client inlines the first node whole and calls the second's _Tree constructor 0x4E2B20 and an insert 0x4E2D60 out of line; Root->Get_Child(' ', false, true) scores 0.85; attempts.py show 0x4E2040) |
+| `app/shared/chat_filter.cpp:272` | `ChatTreeFilterClass::Remove_Word` | marker | NOT EXACT: inline budget (the client calls map::find 0x4E2F90 out of line inside the inlined Find_Child, as Get_Child does; attempts.py show 0x4E2910) |
 | `app/shared/combo_ffactory.cpp:50` | `ComboFileFactoryClass::~ComboFileFactoryClass` | marker | NOT EXACT: shape (explain.py), the client calls the table's _M_delete_node 0x4E6D00 out of line in MixMap.clear() and keeps this in ebx; ours inlines it |
 | `app/shared/definition_auto_ptr.h:110` | `?` | marker | NOT EXACT: register-only (explain.py), the inlined erase's terminator store addresses [edi+eax] in the client, [eax+edi] in ours (0x4EB1B0) |
 | `app/shared/definition_manager.h:115` | `?` | marker | NOT EXACT: shape (explain.py), two registers swapped in the inlined hashtable destructor and one EH state store more in ours (0x4EAFB0) |
