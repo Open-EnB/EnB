@@ -117,6 +117,18 @@ Matrix3D Unknown_82ECB0(const Vector3 &dir, const Vector3 &pos)
 	return tm;
 }
 
+// ------------------------------------------------------------------------- the starbase interface (ui_starbase.cpp)
+
+// 0x63E930 (not rebuilt; gen_stubs skips a by-value Matrix3D): the starbase camera's transform pulled in against the
+// room's model, called by the rebuilt 0x63B310. Only the member is declared here (sbaseview.h's class needs the app's
+// headers). A stand-in that works: the transform unchanged (the camera is not pulled in)
+class UIStarbaseClass { public: Matrix3D Unknown_63E930(const Matrix3D &tm); };
+Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
+{
+	STUB_CALLED("UIStarbaseClass::Unknown_63E930 (0x63E930)");
+	return tm;
+}
+
 // ui_item_examination_title.cpp's names (not rebuilt; gen_stubs skips a by-value std::string), linked since
 // ui_slot_info.cpp's 0x630280 news the item examination window
 std::string Unknown_7EA190(int id)
