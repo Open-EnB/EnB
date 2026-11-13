@@ -57,7 +57,7 @@ UIGroupFindClass::UIGroupFindClass(SClient *client) :
 	memset(Unknown0B8, 0, sizeof(Unknown0B8));
 }
 
-// NOT EXACT: inline budget (the client calls the vector's erase out of line with its this loaded before the pushes; ours loads it after; attempts.py show 0x599080)
+
 // 0x599080
 UIGroupFindClass::~UIGroupFindClass()
 {
@@ -98,7 +98,7 @@ void UIGroupFindClass::Unknown_54()
 	}
 }
 
-// NOT EXACT: inline budget (the client calls the players' destructor 0x599830 out of line in both loops and the list's erase out of line; ours inlines the list's; attempts.py show 0x599660)
+// NOT EXACT: shape (explain.py; inline budget: the client calls the players' destructor 0x599830 out of line in both loops and the list's erase 0x59AB80 out of line; attempts.py show 0x599660)
 // 0x599660
 void UIGroupFindClass::Unknown_58()
 {
@@ -138,7 +138,7 @@ UIGroupFindPlayerInfoClass::~UIGroupFindPlayerInfoClass()
 	ID = 0;
 }
 
-// NOT EXACT: inline budget (the client inlines both players' destructors and calls the list's erase(it) 0x59ABF0 out of line; ours calls the vector's player destructor out of line; attempts.py show 0x599880)
+
 // 0x599880
 void UIGroupFindClass::Unknown_5C()
 {
@@ -237,7 +237,7 @@ void UIGroupFindClass::Unknown_599D00()
 	for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
 		delete *it;
 	}
-	PlayersInfo.erase(PlayersInfo.begin(), PlayersInfo.end());
+	PlayersInfo.clear();
 }
 
 // 0x599E60
@@ -252,7 +252,7 @@ void UIGroupFindClass::Unknown_599E60()
 
 // (0x59A3D0, defined below: the sorts expand it)
 
-// NOT EXACT: inline budget (the client calls the vector's clear 0x59A760 out of line and breaks out of each sort's test on its own; attempts.py show 0x599F30)
+// NOT EXACT: shape (explain.py; inline budget: the client calls the vector's clear 0x59A760 out of line and tests each sort's result on its own; attempts.py show 0x599F30)
 // 0x599F30
 void UIGroupFindClass::Unknown_599F30(int sort)
 {

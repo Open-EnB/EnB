@@ -2478,7 +2478,7 @@ class UIChatPanelUnknownF890Class; class UIChatPanelUnknownF8Class : public Inte
 #include "..\packets\pkmessagechatstream.h"
 #include "..\packets\pktrade.h"
 // ui_groupfind.cpp's interface (what +0xA8 of the chat panel's +0xF8 interface's slot +0x90 result points to), as far as FIND_MEMBER 83 calls it
-class UIGroupFindClass { public: void Unknown_59A400(FindMemberPacketClass *packet); char Unknown00[0x7C]; bool Unknown7C; };	// NAME 3: class-from-file (D24) for app\client\ui_groupfind.cpp  // NAME 1 [packet]: the handler's packet
+#include "ui_groupfind.h"	// UIGroupFindClass (ui_groupfind.cpp's list window: FIND_MEMBER 83 calls its 0x59A400 while it is active)
 class UIChatPanelUnknownF890Class { public: char Unknown00[0xA8]; UIGroupFindClass *UnknownA8; };	// NAME 1: neutral (D10): the chat panel's +0xF8 interface's slot +0x90 result
 
 
@@ -2819,7 +2819,7 @@ bool FindMemberPacketClass::Process_Packet(void *instance)
 	if (panel == NULL || panel->Get_UnknownF8() == NULL) return(true);
 	UIChatPanelUnknownF890Class *find = ((UIChatPanelUnknownF8Class *)panel->Get_UnknownF8().Peek())->Unknown_90();
 	if (!find) return(true);
-	if (find->UnknownA8 && find->UnknownA8->Unknown7C) {
+	if (find->UnknownA8 && find->UnknownA8->Is_Active()) {
 		find->UnknownA8->Unknown_59A400(this);
 	}
 	return(true);

@@ -179,7 +179,7 @@ void UIGroupOptClass::Unknown_5C()
 
 
 
-// NOT EXACT: inline budget (the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find; ours inlines it, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)
+// NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220)
 // 0x59B220
 void UIGroupOptClass::Unknown_60()
 {
@@ -201,7 +201,7 @@ void UIGroupOptClass::Unknown_60()
 	}
 }
 
-// NOT EXACT: register allocation / temporaries (the client passes the check buttons' Checked through a stack byte and orders the packet temporaries' slots differently; attempts.py show 0x59B380)
+// NOT EXACT: shape (explain.py; registers / temporaries: the client loads Client earlier and passes the check buttons' Checked through a stack byte; attempts.py show 0x59B380)
 // 0x59B380
 bool UIGroupOptClass::Unknown_68(int key)
 {
@@ -405,7 +405,7 @@ bool UIGroupOptClass::Unknown_59BC00()
 }
 
 
-// NOT EXACT: inline budget (the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find; ours inlines it; a file-end inline_depth(1) matched it but broke the constructor and destructor; attempts.py show 0x59BC40)
+// NOT EXACT: inline budget (explain.py as 0x59B220: the client calls rtti.h's cast 0x598D80 out of line; a file-end inline_depth(1) matched it but broke the constructor and destructor; attempts.py show 0x59BC40)
 // 0x59BC40
 void UIGroupOptClass::Unknown_59BC40()
 {
