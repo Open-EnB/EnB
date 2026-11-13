@@ -45,7 +45,7 @@ Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0
 class Unknown6F25A0EffectClass : public EffectObjectClass { public: Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE0 - 0x80]; };	// NAME 1: neutral (D10); 0x6F25A0, the effect of 0x6EAA40 (its file after eff_seek.cpp) (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
 class Unknown6E4750EffectClass : public EffectObjectClass { public: Unknown6E4750EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, const RefCountPtr<RenderObjClass> &robj, const char *bone_prefix); virtual void Unknown_24(int next); char Unknown80[0xF4 - 0x80]; };	// NAME 1: neutral (D10); 0x6E4750, eff_attach.cpp's effect of 0x6EC570 (not rebuilt)  // NAME 1 [client .. bone_prefix, next]: what the helper passes
 class Unknown6ECC50EffectClass : public EffectObjectClass { public: Unknown6ECC50EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *emitter, float min_lifetime); virtual void Unknown_24(int next); char Unknown80[0xF0 - 0x80]; };	// NAME 1: neutral (D10); 0x6ECC50, eff_particlejet.cpp's effect of 0x6EC950 (not rebuilt)  // NAME 1 [client .. min_lifetime, next]: what the helper passes
-class Unknown6E5040EffectClass : public EffectObjectClass { public: Unknown6E5040EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, SegmentedLineClass *line, float start_offset, float end_offset, int grow_time, int shrink_time, float grow_accel, float shrink_accel, float tiling_min_length); virtual void Unknown_24(int next); char Unknown80[0x114 - 0x80]; };	// NAME 1: neutral (D10); 0x6E5040, eff_line.cpp's line effect of 0x6EAC50 (not rebuilt)  // NAME 1 [client .. tiling_min_length, next]: effect.ini's keys
+#include "eff_line.h"
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl: effect.ini's ResetMappers)  // NAME 1 [robj, make_geometry_unique]: what the helpers pass
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as ui_line_display.cpp's
 static inline int Unknown_Time(const ClientClass *client) { return(client->Unknown10BC); }	// NAME 1 [Unknown_Time]: neutral (D10): the client clock as the link calls read it (evaluated before the other arguments)
@@ -1319,7 +1319,7 @@ EffectObjectClass *Unknown_6EAC50(INIClass *ini, const char *section, unsigned i
 	int base_asset = ini->Get_Int(section, "BaseAssetID", -1);
 	RenderObjClass *robj = ClientObjectClass::Unknown_6F5140(base_asset, client, scale, hsv);
 	FAIL_IF(!robj) return(NULL);
-	Unknown6E5040EffectClass *effect = NULL;
+	LineEffectClass *effect = NULL;
 	if (robj->Class_ID() == RenderObjClass::CLASSID_SEGLINE) {
 		bool invert_grow = ini->Get_Bool(section, "InvertGrow", false);
 		bool invert_shrink = ini->Get_Bool(section, "InvertShrink", false);
@@ -1331,7 +1331,7 @@ EffectObjectClass *Unknown_6EAC50(INIClass *ini, const char *section, unsigned i
 		float shrink_accel = ini->Get_Float(section, "ShrinkAccelFactor", 0.0f);
 		float tiling_min_length = ini->Get_Float(section, "TilingMinLength", 0.0f);
 		((SegmentedLineClass *)robj)->Set_UV_Offset_Rate(speedup * ((SegmentedLineClass *)robj)->Get_UV_Offset_Rate());
-		effect = new Unknown6E5040EffectClass(client, id, start_time, duration, cycle_time, (SegmentedLineClass *)robj, start_offset, end_offset, grow_time, shrink_time, grow_accel, shrink_accel, tiling_min_length);
+		effect = new LineEffectClass(client, id, start_time, duration, cycle_time, (SegmentedLineClass *)robj, start_offset, end_offset, grow_time, shrink_time, grow_accel, shrink_accel, tiling_min_length);
 		effect->Set_Flag(0x4000, invert_grow);
 		effect->Set_Flag(0x8000, invert_shrink);
 		robj->Release_Ref();
@@ -1488,8 +1488,8 @@ EffectObjectClass *Unknown_6EB850(INIClass *ini, const char *section, unsigned i
 
 
 
-// eff_pass.cpp's pass effect that the helper 0x6EB9B0 makes (0x174 bytes; not rebuilt): declared as far as it calls it
-class Unknown6ED6C0EffectClass : public EffectObjectClass { public: Unknown6ED6C0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RefCountPtr<MaterialPassClass> &pass, bool projection0, bool projection1); void Unknown_6EDBB0(const Vector2 &scale, int projection); virtual void Unknown_24(int next); char Unknown80[0x174 - 0x80]; };	// NAME 1: neutral (D10); 0x6ED6C0, 0x6EDBB0  // NAME 1 [client .. projection1, scale, projection, next]: what the helper passes; [next]: the base's
+#include "eff_pass.h"
+
 static char *Unknown_B92E68[] = {"X", "Y", "Z", NULL};	// 0xB92E68: effect.ini's Projection0Axis / Projection1Axis values  // NAME 1: neutral (D10)
 EffectObjectClass *Unknown_6EB9B0(INIClass *ini, const char *section, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, ClientClass *client, float scale, float *hsv)
 {
@@ -1568,7 +1568,7 @@ EffectObjectClass *Unknown_6EB9B0(INIClass *ini, const char *section, unsigned i
 		pass->Set_Material(material);
 		material->Release_Ref();
 	}
-	Unknown6ED6C0EffectClass *effect = new Unknown6ED6C0EffectClass(client, id, start_time, duration, cycle_time, pass, projection0, projection1);
+	PassEffectClass *effect = new PassEffectClass(client, id, start_time, duration, cycle_time, pass, projection0, projection1);
 	effect->Set_Flag(0x200, hide_base_mesh);
 	effect->Set_Flag(0x400, reset_mappers);
 	if (projection0) {

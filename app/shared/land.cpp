@@ -517,7 +517,7 @@ bool LandClass::Cast_OBBox(OBBoxCollisionTestClass &boxtest)
 	return Field->Cast_OBBox(boxtest);
 }
 
-// NOT EXACT: shape (written from the disassembly: the client's frame is 0x18 larger, it copies the camera position and ors the change tests; 5 forms, attempts.csv 0x46B3C0)
+// NOT EXACT: shape (199 masked rows: the client's frame is 0xC larger, it copies the camera position and keeps the spacing on the x87 stack past its use (fild qword PatchSize, fmul st(1), fstp st(0)); attempts.csv 0x46B3C0)
 void LandClass::Update_Patches(CameraClass &camera, int lod)
 {
 	Vector3 pos = camera.Get_Position();
@@ -529,7 +529,7 @@ void LandClass::Update_Patches(CameraClass &camera, int lod)
 	int cell_y = (int)(inv_extent * pos.Y);
 	int cell_z = (int)(inv_extent * pos.Z);
 	int i, j;
-	if (Dirty == true || CameraCellX != cell_x || CameraCellZ != cell_z || CameraCellY != cell_y) {
+	if ((Dirty == true) | (CameraCellX ^ cell_x) | (cell_z ^ CameraCellZ) | (cell_y ^ CameraCellY)) {
 		Dirty = false;
 		for (i = 0; i < GridWidth; i++) {
 			for (j = 0; j < GridWidth; j++) {

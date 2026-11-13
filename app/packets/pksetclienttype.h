@@ -17,7 +17,7 @@
 
 #include "pk.h"
 
-char *Sector_Type_Name(int sector_type);	// 0x84A3B0 (sector_types.cpp, not rebuilt; also pkstarbasetow.h)  // NAME 2: what it returns
+char *Sector_Type_Name(int sector_type);	// 0x84A3B0 (app/common/sector_types.h; declared here too: pk_classes.h is pad-sensitive)  // NAME 2: what it returns
 
 // opcode 60 (0x003C, CLIENT_TYPE): vtable 0xB0A170, constructor 0x87FD80, 0x10 bytes
 class SetClientTypePacketClass : public PacketClass

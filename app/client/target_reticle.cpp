@@ -20,7 +20,7 @@
 #include "..\shared\auxdata\delta_interpolator.h"
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as eff_o.cpp's
-float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// 0x7E6060 (distance_calc_client.cpp's)  // NAME 1: neutral (D10)
+#include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 
 // (two inline layers, NameClass and the root copy in the inner one (ui_analyze.cpp's form): Update calls the find out of line, 0x5BF2B0, and inlines Get_Value, as the client)
 static inline DeltaInterpolatorClass *Find_L2(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; DeltaInterpolatorClass *t = Unknown_Find_Field<DeltaInterpolatorClass>(r, n); return(t); } static inline DeltaInterpolatorClass *Find_L1(DeltaCompoundClass *const &root, const char *name) { return(Find_L2(root, name)); }	// NAME 1: neutral (D10)

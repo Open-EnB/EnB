@@ -236,9 +236,15 @@ void BridgeSoundManagerClass::Load_Section(INIClass *ini, const char *section, i
 	}
 }
 
+// @0x437070
+void BridgeSoundManagerClass::Unknown_437070()
+{
+	Stop_Sounds(m_fade_out);
+}
+
 /*
 Reconstruction notes:
 bridgesounds.cpp holds BridgeSoundManagerClass (derived from AmbientSoundManagerClass)
 which loads bridgesounds.ini for bridge ambient audio loops and delays.
-Confirmed object boundary 0x436A60-0x4370A0. Not rebuilt yet: 0x437070 (Stop_Sounds with the fade-out; no caller found).
+Confirmed object boundary 0x436A60-0x4370A0. 0x437070 is the base's Stop_Sounds with m_fade_out (bridge_int.cpp's 0x53BBC0 calls it).
 */

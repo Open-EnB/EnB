@@ -15,8 +15,9 @@
 #include "ref_ptr.h"
 #include "vector3.h"
 #include "matrix3d.h"
-#include "unknown_490900.h"
+#include "..\shared\unknown_490900.h"
 #include <list>		// the starbase interface's lists
+#include <hash_map.h>	// SGI's _Bucket_allocator (the +0xD4 table's buckets)
 
 class JobListPacketClass;
 class JobDescriptionPacketClass;
@@ -75,15 +76,19 @@ class StarbaseNPCClass;
 // constructor into 0x6333E0 and calls _M_initialize_buckets out of line (its vector _Ucopy then duplicates 0x644430)
 struct UIStarbaseUnknownD4Hash {};	// NAME 1: neutral (D10): the hasher
 struct UIStarbaseUnknownD4Equal {};	// NAME 1: neutral (D10): the key test
+struct UIStarbaseUnknownD4GetKey {};	// NAME 1: neutral (D10): the key getter (0x643C20 copies a default one's byte)
 class UIStarbaseUnknownCCClass;
 class UIStarbaseUnknownD4TableClass	// NAME 1: neutral (D10)
 {
 public:
-	struct NodeStruct { NodeStruct *Next; unsigned int Key; UIStarbaseUnknownCCClass *Value; };	// the SGI table's _Node (0x641FA0: the key at +0x04, hashed as itself; the entry at +0x08)  // NAME 1: neutral (D10)
+	typedef std::pair<const unsigned int, UIStarbaseUnknownCCClass *> ValueType;	// SGI's value_type (0x644A20 copies one into a node)  // NAME 1: SGI's
+	struct NodeStruct { NodeStruct *Next; unsigned int Key; UIStarbaseUnknownCCClass *Value; ValueType &Get_Value() { return(*(ValueType *)&Key); } };	// the SGI table's _Node (0x641FA0: the key at +0x04, hashed as itself; the entry at +0x08)  // NAME 1: neutral (D10)
 	struct iterator	// SGI's _Hashtable_iterator, as far as 0x641FA0 walks it  // NAME 1: neutral (D10)
 	{
 		NodeStruct *Cur;	// SGI's _M_cur  // NAME 1: neutral (D10)
 		UIStarbaseUnknownD4TableClass *Table;	// SGI's _M_ht  // NAME 1: neutral (D10)
+		iterator() {}
+		iterator(NodeStruct *n, UIStarbaseUnknownD4TableClass *tab) : Cur(n), Table(tab) {}	// SGI's (end() through it stores the null node as an immediate: 0x643DF0)  // NAME 1 [n, tab]: SGI's
 		bool operator!=(const iterator &it) const { return(Cur != it.Cur); }
 		iterator &operator++()
 		{
@@ -99,7 +104,16 @@ public:
 		}
 		iterator operator++(int) { iterator tmp = *this; ++*this; return(tmp); }
 	};
+	struct const_iterator	// SGI's _Hashtable_const_iterator, as far as 0x63DFE0 uses it  // NAME 1: neutral (D10)
+	{
+		const NodeStruct *Cur;	// SGI's _M_cur  // NAME 1: neutral (D10)
+		const UIStarbaseUnknownD4TableClass *Table;	// SGI's _M_ht  // NAME 1: neutral (D10)
+		const_iterator(const iterator &it);	// 0x6439B0 (out of line in ui_starbase.cpp: 0x63DFE0 converts find's and end()'s)  // NAME 1 [it]: SGI's
+		bool operator==(const const_iterator &it) const { return(Cur == it.Cur); }
+	};
 	iterator begin();	// 0x643DF0 (out of line)
+	ValueType &find_or_insert(const ValueType &obj);	// 0x644A20 (out of line: 0x63CA50's operator[])  // NAME 1 [obj]: SGI's
+	void resize(unsigned int hint);	// 0x644C10 (out of line)  // NAME 1 [hint]: SGI's
 	iterator find(const unsigned int &key);	// 0x643E60 (out of line: 0x6437A0 passes an int, through a temporary)  // NAME 1 [key]: SGI's
 	unsigned int erase(const unsigned int &key)	// SGI's (inline in 0x63D060)  // NAME 1 [key]: SGI's
 	{
@@ -130,11 +144,19 @@ public:
 		}
 		return(erased);
 	}
-	iterator end() { iterator it; it.Cur = 0; it.Table = this; return(it); }
+	iterator end() { return(iterator(0, this)); }
 	unsigned int Bucket_Of(unsigned int key) const { return(Bucket_Of_Key(key)); }	// SGI's _M_bkt_num (0x641FA0: the vector's size 0x644470 out of line, three layers down)  // NAME 1: neutral (D10)
 	unsigned int Bucket_Of_Key(unsigned int key) const { return(Bucket_Of_Key(key, Buckets.size())); }	// SGI's _M_bkt_num_key  // NAME 1: neutral (D10)
 	unsigned int Bucket_Of_Key(unsigned int key, unsigned int n) const { return(key % n); }	// SGI's _M_bkt_num_key (the hasher: the key itself)  // NAME 1: neutral (D10)
 	UIStarbaseUnknownD4TableClass(unsigned int n, const UIStarbaseUnknownD4Hash &hf, const UIStarbaseUnknownD4Equal &eql);	// 0x643C20  // NAME 1 [n, hf, eql]: the SGI table's
+	unsigned int Next_Size(unsigned int n) const { return(std::__stl_next_prime(n)); }	// SGI's _M_next_size  // NAME 1: neutral (D10)
+	void Initialize_Buckets(unsigned int n)	// SGI's _M_initialize_buckets (inline in 0x643C20)  // NAME 1: neutral (D10)
+	{
+		const unsigned int n_buckets = Next_Size(n);
+		Buckets.reserve(n_buckets);
+		Buckets.insert(Buckets.end(), n_buckets, (NodeStruct *)0);
+		NumElements = 0;
+	}
 	~UIStarbaseUnknownD4TableClass() { clear(); }	// as SGI's (the map's implicit destructor 0x633AC0 inlines it all; 0x633B50 calls clear 0x644AE0 and the vector's 0x643ED0)
 	void clear()	// 0x644AE0 (SGI's)
 	{
@@ -149,8 +171,8 @@ public:
 		}
 		NumElements = 0;
 	}
-	char Unknown00[4];	// +0x00 (the hasher, key test and key getter bytes)
-	std::vector<NodeStruct *> Buckets;	// +0x04 (SGI's _M_buckets)  // NAME 1: neutral (D10)
+	UIStarbaseUnknownD4Hash Hash; UIStarbaseUnknownD4Equal Equal; UIStarbaseUnknownD4GetKey GetKey;	// +0x00 / +0x01 / +0x02 (SGI's _M_hash, _M_equals, _M_get_key: 0x643C20 copies their bytes)  // NAME 1: SGI's
+	std::vector<NodeStruct *, std::_Bucket_allocator<NodeStruct *> > Buckets;	// +0x04 (SGI's _M_buckets, its byte allocator: 0x643C20)  // NAME 1: neutral (D10)
 	unsigned int NumElements;	// +0x14 (SGI's _M_num_elements)  // NAME 1: neutral (D10)
 };
 class UIStarbaseUnknownD4Class	// NAME 1: neutral (D10)
@@ -161,6 +183,7 @@ public:
 	UIStarbaseUnknownD4TableClass::iterator begin() { return(Table.begin()); }	// hash_map's (0x641FA0)
 	UIStarbaseUnknownD4TableClass::iterator end() { return(Table.end()); }	// hash_map's
 	UIStarbaseUnknownD4TableClass::iterator find(const unsigned int &key) { return(Table.find(key)); }	// hash_map's (0x6437A0)  // NAME 1 [key]: SGI's
+	UIStarbaseUnknownCCClass *&operator[](const unsigned int &key) { return(Table.find_or_insert(UIStarbaseUnknownD4TableClass::ValueType(key, (UIStarbaseUnknownCCClass *)0)).second); }	// hash_map's (0x63CA50)  // NAME 1 [key]: SGI's
 	unsigned int erase(const unsigned int &key) { return(Table.erase(key)); }	// hash_map's (0x63D060)  // NAME 1 [key]: SGI's
 };
 // What the starbase interface's +0xCC and +0x13C point to (ui_starbase.cpp's class with the destructor 0x632E50: RefCountPtrs at +0x04, +0x0C, ...)
@@ -215,7 +238,7 @@ public:
 	void Unknown_6435E0();	// 0x6435E0 (ui_avatar_cust.cpp 0x54EC30, once the new look is sent)
 	virtual ~UIStarbaseClass();	// +0x00 0x633B50 (deleting 0x633A90)
 	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60();	// +0x54 0x634140, +0x58 0x6366A0, +0x5C 0x636D50, +0x60 0x638390 (the client's overrides, table 0xAF836C: declared so the constructor's table doesn't emit the base's inline defaults; not rebuilt)
-	virtual bool Unknown_68(int key); virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager);	// +0x68 0x638500, +0x70 0x637130, +0x74 0x637A90 (not rebuilt)  // NAME 1 [key, manager]: InterfaceClass's
+	virtual bool Unknown_68(int key); virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager);	// +0x68 0x638500, +0x70 0x637130, +0x74 0x637A90 (the keys added and removed; FAIL_IF '!manager')  // NAME 1 [key]: InterfaceClass's; NAME 3 [manager]: the FAIL_IFs'
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x638FF0 (not rebuilt)  // NAME 1 [view, arg]: InterfaceClass's
 	virtual void Unknown_88();	// +0x88
 	virtual void Unknown_8C();	// +0x8C (0x69CDE0 calls it when the view's interfaces go)
@@ -280,6 +303,7 @@ public:
 	void Unknown_641FA0();	// 0x641FA0 (the gadgets' distances from the avatar, 1..999; 0x63E2B0, 0x63FF80)
 	Unknown78A910AvatarClass *Unknown_642740(StarbaseNPCClass *npc);	// 0x642740 (0x634140: an NPC slot's starbase avatar)  // NAME 1 [npc]: neutral
 	void Unknown_640360(); void Unknown_6415B0(); void Unknown_6417D0(); void Unknown_6418F0(); void Unknown_641C00();	// 0x640360 (the hangar's ship model and its gadget, rebuilt when +0x18C is set), 0x6415B0 (the arrival: the ship on 'ship', the room's '-in' or '-tele' animation), 0x6417D0 (the teleport effect 0x30E on +0x190), 0x6418F0 (+0x190 made for the ship), 0x641C00 (the avatar kept 5 units from the NPC avatars)
+	void Unknown_6390A0(); void Unknown_639630(); void Unknown_63AC60(); void Unknown_63DFE0(); void Unknown_63FCB0(); void Unknown_63B630(int type, int index); void Unknown_63F490(UIStarbaseUnknownCCClass *savatar); bool Unknown_63F0D0(const Vector3 &from, const Vector3 &to);	// 0x638390's frame (not rebuilt); 0x63B630 (0x638500: the keys 2..0xF, 0x11..0x14 and 100.. by their first key)  // NAME 1 [type, index]: neutral
 	bool Unknown_641EB0(UIStarbaseUnknownCCClass *savatar);	// 0x641EB0 (the avatar's id among the five GroupInfo members)  // NAME 1 [savatar]: as the FAIL_IFs'
 	void Unknown_63AAF0();	// 0x63AAF0 (0x638390's frame: the avatars' per-frame update, the own avatar's step kept clear of the model)
 	void Unknown_63B310();	// 0x63B310 (0x638390's frame: the camera after the own avatar)

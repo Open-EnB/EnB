@@ -77,30 +77,6 @@ const char *Type_Name(MoneyClass)
 #include <string>
 #include <vector>
 
-// ------------------------------------------------------------------------- STARBASE_SET's Print (pkstarbasetow.cpp)
-
-// sector_types.cpp 0x84A3B0: a sector type's name from the client's table 0xBB0AC0 (3 names)
-char *Sector_Type_Name(int sector_type)
-{
-	STUB_CALLED("Sector_Type_Name (0x84A3B0)");
-	static char *names[] = { "SectorSpace", "SectorPlanet", "SectorGasGiant" };
-	if (sector_type < 0 || sector_type >= 3) {
-		return "InvalidSectorType";
-	}
-	return names[sector_type];
-}
-
-// ------------------------------------------------------------------------- MANUFACTURE_ITEM_CATAGORY's Print
-
-// manufacturing_defs.cpp 0x845910: a manufacturing mode's name (the client's table 0xBAEF30), "error"
-// out of range
-char *Manufacturing_Mode_Name(char *buffer, int len, int mode)
-{
-	STUB_CALLED("Manufacturing_Mode_Name (0x845910)");
-	static char *names[] = { "None", "Manufacture", "Analyze", "Dismantle" };
-	return strncpy(buffer, (mode >= 0 && mode < 4) ? names[mode] : "error", len);
-}
-
 // ------------------------------------------------------------------------- the warp camera's placements (unknown_7979a0.cpp)
 
 // 0xBDB1C0: a global Random4Class with seed 0x1105 (its initialiser 0x444240; its home file is unknown). Data, so it
@@ -114,18 +90,6 @@ Matrix3D Unknown_82ECB0(const Vector3 &dir, const Vector3 &pos)
 	STUB_CALLED("Unknown_82ECB0 (0x82ECB0)");
 	Matrix3D tm(true);
 	tm.Obj_Look_At(pos, pos + dir, 0.0f);
-	return tm;
-}
-
-// ------------------------------------------------------------------------- the starbase interface (ui_starbase.cpp)
-
-// 0x63E930 (not rebuilt; gen_stubs skips a by-value Matrix3D): the starbase camera's transform pulled in against the
-// room's model, called by the rebuilt 0x63B310. Only the member is declared here (sbaseview.h's class needs the app's
-// headers). A stand-in that works: the transform unchanged (the camera is not pulled in)
-class UIStarbaseClass { public: Matrix3D Unknown_63E930(const Matrix3D &tm); };
-Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
-{
-	STUB_CALLED("UIStarbaseClass::Unknown_63E930 (0x63E930)");
 	return tm;
 }
 
@@ -154,11 +118,6 @@ std::string Unknown_7EA190(int id)
 		return std::string("im_03.tga");
 	}
 	return std::string("im_default.tga");
-}
-std::string Unknown_49E210(int damage_type)
-{
-	STUB_CALLED("Unknown_49E210 (0x49E210): no damage type name");
-	return std::string();
 }
 std::string Unknown_7EB4D0(int type)
 {

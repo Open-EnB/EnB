@@ -35,7 +35,7 @@ protected:
 };
 
 std::string Unknown_7EA190(int id);														// 0x7EA190 (an icon's texture name by id; the title asks for 100)  // NAME 1: neutral (D10); NAME 1 [id]: neutral
-std::string Unknown_49E210(int damage_type);											// 0x49E210 (a damage type's name)  // NAME 1: neutral (D10); NAME 1 [damage_type]: neutral
+#include "..\shared\damtype.h"	// Unknown_49E210 0x49E210 (a damage type's name)
 std::string Unknown_7EB4D0(int type);												// 0x7EB4D0 (an item type's name)  // NAME 1: neutral (D10); NAME 1 [type]: neutral
 
 #endif

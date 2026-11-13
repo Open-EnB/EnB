@@ -17,14 +17,14 @@
 class Unknown688830Item { public: int Get_Type() { return(Unknown0C); } const std::string &Get_Name() { return(Unknown14); } char Unknown00[4]; int Unknown04; int Unknown08; int Unknown0C; char Unknown10[4]; std::string Unknown14; char Unknown24[0x48 - 0x24]; int Unknown48; char Unknown4C[4]; int Unknown50; char Unknown54[4]; int Unknown58; };	// NAME 1: neutral (D10)
 typedef InvDataPeekClass Unknown688830Class;	// inv_data_peek.h's view of an inventory list, under this file's old name  // NAME 1: neutral (D10)
 #include "sclient.h"	// SClient (Get_Target 0x744FE0, the slot +0x28 Get_Avatar, the clock +0x10BC) and co.h's ClientObjectClass
-float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// NAME 1: neutral (D10); NAME 1 [a, b]: neutral
+#include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 
 class LineDisplayClientClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual SClient *As_Space_Client(); };	// NAME 1: neutral (D10), as ui_cinfo.cpp declares it
 #include "slot_data.h"	// SlotDataClass (InvDataClass's base: Unknown_6A7990 / 6A7A00, Unknown_10)
 #include "inv_data.h"	// InvDataClass (Peek_Inv_Data)
 // (InvDataClass's client is SClient: its slot +0x18 Unknown_18 answers itself, 0x740AC0)
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
-class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Unknown6A3D60Class(); void Unknown_6A4020(float distance, float range, int state, bool arg); char Unknown00[0x18]; };	// NAME 1: neutral (D10); skill_render.cpp's
+#include "shortcut_range_gauge.h"	// ShortcutRangeGaugeClass (0x6A3D60)
 // the zero 0x68E360 compares with: its destructor is the empty 0x68EAC0
 class Unknown68E360Class : public DurationClass { public: Unknown68E360Class(__int64 time = 0) : DurationClass(time) {} ~Unknown68E360Class() {} };	// NAME 1: neutral (D10)
 // ro_funcs.cpp's
@@ -545,7 +545,7 @@ bool Unknown68DC20Class::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 	G_ASSERT(RechargeIndicator);
 	RenderObjClass *mesh = Mesh;
 	if (mesh) {
-		Unknown6C = new Unknown6A3D60Class(mesh);
+		Unknown6C = new ShortcutRangeGaugeClass(mesh);
 	}
 	return(true);
 }

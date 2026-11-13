@@ -1,0 +1,45 @@
+{
+ "ambiguous": [
+  "0x42AFF0",
+  "0x4333D0",
+  "0x436730"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe: __FILE__ e:\\build\\beta\\G\\app\\shared\\selector.cpp (0xB72D04) and its asserts l.131/243/275/276/296; the selectors (Dependent, Independent, Counted by the client's strings) 0x49FA80-0x4A0C40 with vector<unsigned long>'s members",
+ "expected": {},
+ "in_tree": [
+  "0x49FA80",
+  "0x49FAB0",
+  "0x49FB70",
+  "0x49FC50",
+  "0x49FC70",
+  "0x49FCB0",
+  "0x49FD00",
+  "0x49FFE0",
+  "0x4A0030",
+  "0x4A02F0",
+  "0x4A05F0",
+  "0x4A0610",
+  "0x4A0640",
+  "0x4A0700",
+  "0x4A0810",
+  "0x4A0850",
+  "0x4A0880",
+  "0x4A0B20",
+  "0x4A0B70"
+ ],
+ "merged": [],
+ "name": "shared/selector.cpp",
+ "shared": [
+  "0x49FC50",
+  "0x49FC70",
+  "0x4A05F0",
+  "0x4A0B70"
+ ],
+ "short_known": [
+  "0x49FC50",
+  "0x49FC70",
+  "0x4A05F0",
+  "0x4A0B70"
+ ]
+}

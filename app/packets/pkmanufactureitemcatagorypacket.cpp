@@ -28,7 +28,7 @@ int ManufactureItemCatagoryPacketClass::Get_Data_Size()
 int ManufactureItemCatagoryPacketClass::Print(char *buffer, int)
 {
 	char mode[128];
-	return(sprintf(buffer, "Manufacture Item Category request {player=%d} Mode = %s", player, Manufacturing_Mode_Name(mode, sizeof(mode) - 1, Mode)));
+	return(sprintf(buffer, "Manufacture Item Category request {player=%d} Mode = %s", player, Value_To_String(mode, sizeof(mode) - 1, (UnknownB013ECEnum)Mode)));
 }
 
 

@@ -146,7 +146,7 @@ class EnvironmentMapManagerClass { public: EnvironmentMapManagerClass() : Unknow
 // decal.cpp's decal INIs at the view's +0x144 (sclient.h's SClientUnknown1334Class), as far as the shutdown deletes it
 class SClientUnknown1334Class { public: ~SClientUnknown1334Class(); void Load(const char *textures, const char *swatches, const char *secret_textures); std::vector<int> Unknown00; std::vector<int> Unknown10; std::vector<int> Unknown20; Unknown619280Class Unknown30; Unknown619280Class Unknown74; };	// 0x618A50, Load 0x75BE00 (decal.cpp)  // NAME 3 [textures, swatches, secret_textures]: the INI names (sclient.cpp's)
 // ViewerSettings (+0x68): unknown_490900.h (its first member the scene light, removed on the shutdown)
-#include "unknown_490900.h"
+#include "..\shared\unknown_490900.h"
 
 void Unknown_7FF230();	// 0x7FF230 (the file before this one: the screen fade and the letterbox), the constructor calls it
 extern bool Unknown_BB9654;	// NAME 1 [Unknown_BB9654]: neutral (D10) (tsk_login.cpp's); the constructor clears it, the destructor sets it

@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): race.cpp (the client's __FILE__ e:\build\beta\G\app\Common\race.cpp),
-// client 0x848FF0-0x8492A6: PARTIAL: only the converters; the race costs after them (0x8492F0-0x849B50, asserts 'Costs.Per_Cost[slot] == 0') are not rebuilt.
+// client 0x848FF0-0x8492A6 (the costs after it, 0x8492F0-0x84A256, are recustomization_cost.cpp's).
 // The race names in client order: Terran, Jenquai, Progen, Vrix, Grey, Dark Vrix, Elendri, Game, Other (0xBB06E0).
 // Each type's Type_Name / String_To_Value / Value_To_String, as the key/value pairs call them
 // (KVPairTemplateClass<RaceType> in shipcust_desc.cpp); the bit field's text joins the names with '|'.

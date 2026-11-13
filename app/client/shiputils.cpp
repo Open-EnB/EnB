@@ -25,7 +25,7 @@
 void Unknown_80FCE0(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions,
 	EnvironmentMapManagerClass *env_maps, const Vector3 *skin);
 void Unknown_80FD10(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, int axis, const Vector3 *skin);
-void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, int region, int axis,
+void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &reg_mat_defs, unsigned current_region, int axis,
 	const Vector3 *skin);
 
 // The decals by slot (0x18 bytes each, 16 slots: DecalStruct's layout, the slot in +0x00, 0x7FFFFFF in +0x04 for none)
@@ -160,10 +160,11 @@ static void Unknown_80F470(RenderObjClass *robj, std::vector<ColorizationRegionS
 	if (!_MetalDatabase.Is_Loaded()) {
 		_MetalDatabase.Load("metal_equivalent_rgbs.ini");
 	}
+	int metal = reg_mat_defs[current_region].Unknown00.Unknown00;	// NAME 2: metal_equivalent_rgbs.ini's 'Metal-%02d'
 	Vector3 color = reg_mat_defs[current_region].Unknown00.Unknown04;
-	if (reg_mat_defs[current_region].Unknown00.Unknown00 >= 0) {
+	if (metal >= 0) {
 		char section[256];
-		sprintf(section, "Metal-%02d", reg_mat_defs[current_region].Unknown00.Unknown00);
+		sprintf(section, "Metal-%02d", metal);
 		float r = _MetalDatabase.Get_Float(section, "R", 1.0f);
 		float g = _MetalDatabase.Get_Float(section, "G", 1.0f);
 		color.Z = _MetalDatabase.Get_Float(section, "B", 1.0f);
@@ -176,12 +177,11 @@ static void Unknown_80F470(RenderObjClass *robj, std::vector<ColorizationRegionS
 
 
 
-
 	FAIL_IF(!minfo) {
 		return;
 	}
-	int vmat_count = minfo->Vertex_Material_Count(); int i;
-	for (i = 0; i < vmat_count; i++) {
+	int vmat_count = minfo->Vertex_Material_Count(); bool differs = false;
+	for (int i = 0; i < vmat_count; i++) {
 		RefCountPtr<VertexMaterialClass> vmat = Create_Get(minfo->Get_Vertex_Material(i));
 		FAIL_IF(!vmat) {
 			return;
@@ -193,12 +193,12 @@ static void Unknown_80F470(RenderObjClass *robj, std::vector<ColorizationRegionS
 			vmat->Get_Ambient(&ambient);
 			if (fabs(diffuse.X - color.X) > 0.004f || fabs(diffuse.Y - color.Y) > 0.004f || fabs(diffuse.Z - color.Z) > 0.004f
 				|| fabs(ambient.X - color.X) > 0.004f || fabs(ambient.Y - color.Y) > 0.004f || fabs(ambient.Z - color.Z) > 0.004f) {
-				break;
+				differs = true; break;
 			}
 		}
 	}
-	if (i < vmat_count) {
-		mesh->Make_Unique(mesh->Peek_Model()->Has_Polygon_Renderers());
+	if (differs) {
+		bool force_meshmdl_clone = mesh->Peek_Model()->Has_Polygon_Renderers(); mesh->Make_Unique(force_meshmdl_clone);
 		minfo = Create_Get(mesh->Get_Material_Info());
 
 
@@ -443,9 +443,6 @@ void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SCl
 	Unknown_80EAF0(model, slots, decal_ini);
 }
 
-static int Unknown_Region_Material(VertexMaterialClass *vmat);	// defined after 0x812390
-static bool Unknown_Region_Half(const ColorizationHalfStruct &half, int axis, TextureMapperClass **mapper,
-	Vector3 &color, ShaderClass::DetailColorFuncType &func);	// defined after 0x812390
 
 
 
@@ -466,7 +463,10 @@ static bool Unknown_Region_Half(const ColorizationHalfStruct &half, int axis, Te
 
 
 
-// NOT EXACT: functional (D64), from the pseudocode
+
+
+
+
 // @0x80FF20
 void Unknown_80FF20(RenderObjClass *robj, const char *name, float *rgb)
 {
@@ -483,9 +483,9 @@ void Unknown_80FF20(RenderObjClass *robj, const char *name, float *rgb)
 	FAIL_IF(!name_texture) return;
 	name_texture->Add_Ref();
 	delete text;
-	name_texture->Set_U_Addr_Mode((TextureClass::TxtAddrMode)2);	// the client's 2 (the tree's enum stops at 1)
-	name_texture->Set_V_Addr_Mode((TextureClass::TxtAddrMode)2);
-	Unknown_810130(robj, name_texture, Vector3(rgb[0], rgb[1], rgb[2]));
+	name_texture->Set_Min_Filter(TextureClass::FILTER_TYPE_BEST);
+	name_texture->Set_Mag_Filter(TextureClass::FILTER_TYPE_BEST);
+	Unknown_810130(robj, name_texture, *(Vector3 *)rgb);
 	name_texture->Release_Ref();
 }
 
@@ -928,164 +928,214 @@ int Add_Looping_Sound_Effect(const char *sound, ClientClass *client, unsigned ob
 
 
 
-
+// NOT EXACT: from the disassembly (D64), the client's own FAIL_IF / G_ASSERT lines; shape and frame residues (attempts.py show 0x812390)
 // 0x812390: the region's two halves onto the mesh's '~S1' / '~S2' vertex materials (colour, stage 1 mapper, the
 // shaders' post-detail colour function) and the skin colour onto '~SK'
-// NOT EXACT: functional for POC (D64), not compared
-void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, int region, int axis,
-	const Vector3 *skin)
+// @0x812390
+void Unknown_812390(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &reg_mat_defs, unsigned current_region,	// NAME 3 [reg_mat_defs, current_region]: the FAIL_IF
+	int axis, const Vector3 *skin)
 {
-	FAIL_IF(regions.size() == 0 || (unsigned)region >= regions.size()) {
+	FAIL_IF(current_region >= reg_mat_defs.size()) {
 		return;
 	}
-	MeshClass *mesh = (MeshClass *)robj;
-	TextureMapperClass *mapper1 = NULL;
-	TextureMapperClass *mapper2 = NULL;
-	Vector3 color1, color2;
-	ShaderClass::DetailColorFuncType func1 = ShaderClass::DETAILCOLOR_DISABLE, func2 = ShaderClass::DETAILCOLOR_DISABLE;
-	if (!Unknown_Region_Half(regions[region].Unknown00, axis, &mapper1, color1, func1) ||
-		!Unknown_Region_Half(regions[region].Unknown10, axis, &mapper2, color2, func2)) {
-		REF_PTR_RELEASE(mapper1);
-		REF_PTR_RELEASE(mapper2);
-		return;
-	}
+	RefCountPtr<TextureMapperClass> primary_mapper;	// NAME 2: the FAIL_IF's 'primary_material_present'
+	RefCountPtr<TextureMapperClass> secondary_mapper;	// NAME 2: the FAIL_IF's 'secondary_material_present'
+	ShaderClass::DetailColorFuncType primary_func;	// NAME 2: as primary_mapper
+	ShaderClass::DetailColorFuncType secondary_func;	// NAME 2: as secondary_mapper
 
-	MaterialInfoClass *minfo = mesh->Get_Material_Info();
-	FAIL_IF(!minfo) {
-		REF_PTR_RELEASE(mapper1);
-		REF_PTR_RELEASE(mapper2);
-		return;
-	}
-	int count = minfo->Vertex_Material_Count();
-	bool s1 = false, s2 = false, sk = false;
-	int i;
-	for (i = 0; i < count; i++) {
-		VertexMaterialClass *vmat = minfo->Peek_Vertex_Material(i);
-		if (vmat) {
-			int kind = Unknown_Region_Material(vmat);
-			if (kind == 1) s1 = true;
-			if (kind == 2) s2 = true;
-			if (kind == 3) sk = true;
+	int primary_metal = reg_mat_defs[current_region].Unknown00.Unknown00;	// NAME 2: a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2
+	Vector3 primary_color = reg_mat_defs[current_region].Unknown00.Unknown04;	// NAME 2: as primary_mapper
+	if (primary_metal >= 0) {
+		primary_func = ShaderClass::DETAILCOLOR_SCALE2X;
+		primary_mapper = Create_NEW(new GridWSEnvironmentMapperClass(0.0f, 2, 0, primary_metal, (GridWSEnvMapperClass::AxisType)axis, 1));
+		primary_color.Set(0.25f, 0.25f, 0.25f);
+	} else {
+		switch (primary_metal) {
+			case -1:
+				primary_func = ShaderClass::DETAILCOLOR_MODALPHAADDCOLOR;
+				primary_mapper = Create_NEW(new GridWSEnvironmentMapperClass(0.0f, 1, 0, 3, (GridWSEnvMapperClass::AxisType)axis, 1));
+				break;
+
+			case -2:
+				primary_func = ShaderClass::DETAILCOLOR_SCALE;
+				primary_mapper = Create_NEW(new GridWSClassicEnvironmentMapperClass(0.0f, 4, 0, 0xFF, (GridWSEnvMapperClass::AxisType)axis, 1));
+				break;
+
+			default:
+
+				G_ASSERT(0);
+				return;
 		}
 	}
-	minfo->Release_Ref();
-	if (s1 || s2 || sk) {
-		// the client forces the model's clone on a test of the model's own (+0x8C against +0x88), not rebuilt: a
-		// clone's mesh shares its prototype's model, so it is cloned anyway
-		mesh->Make_Unique(false);
-		MeshModelClass *model;
-		minfo = mesh->Get_Material_Info();
-		model = mesh->Get_Model();
-		if (minfo && model && minfo->Vertex_Material_Count() == count) {
-			if (count == 1) {
-				VertexMaterialClass *vmat = minfo->Peek_Vertex_Material(0);
-				if (vmat && !sk) {
-					ShaderClass::DetailColorFuncType func = s1 ? func1 : func2;
-					vmat->Set_Mapper(s1 ? mapper1 : mapper2, 1);
-					vmat->Set_Ambient(s1 ? color1 : color2);
-					vmat->Set_Diffuse(s1 ? color1 : color2);
-					ShaderClass shader = model->Get_Single_Shader(0);
-					shader.Set_Post_Detail_Color_Func(func);
-					model->Set_Single_Shader(shader, 0);
-					if (model->Has_Shader_Array(0)) {
-						for (int p = 0; p < model->Get_Polygon_Count(); p++) {
-							ShaderClass ps = model->Get_Shader(p, 0);
-							ps.Set_Post_Detail_Color_Func(func);
-							model->Set_Shader(p, ps, 0);
-						}
-					}
-				} else if (vmat) {
+
+	int secondary_metal = reg_mat_defs[current_region].Unknown10.Unknown00;	// NAME 2: a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2
+	Vector3 secondary_color = reg_mat_defs[current_region].Unknown10.Unknown04;	// NAME 2: as secondary_mapper
+	if (secondary_metal >= 0) {
+		secondary_func = ShaderClass::DETAILCOLOR_SCALE2X;
+		secondary_mapper = Create_NEW(new GridWSEnvironmentMapperClass(0.0f, 2, 0, secondary_metal, (GridWSEnvMapperClass::AxisType)axis, 1));
+		secondary_color.Set(0.25f, 0.25f, 0.25f);
+	} else {
+		switch (secondary_metal) {
+			case -1:
+				secondary_func = ShaderClass::DETAILCOLOR_MODALPHAADDCOLOR;
+				secondary_mapper = Create_NEW(new GridWSEnvironmentMapperClass(0.0f, 1, 0, 3, (GridWSEnvMapperClass::AxisType)axis, 1));
+				break;
+
+			case -2:
+				secondary_func = ShaderClass::DETAILCOLOR_SCALE;
+				secondary_mapper = Create_NEW(new GridWSClassicEnvironmentMapperClass(0.0f, 4, 0, 0xFF, (GridWSEnvMapperClass::AxisType)axis, 1));
+				break;
+
+			default:
+
+
+
+
+				G_ASSERT(0);
+				return;
+		}
+	}
+
+	MeshClass *mesh = (MeshClass *)robj;
+	RefCountPtr<MaterialInfoClass> minfo = Create_Get(mesh->Get_Material_Info());
+
+
+
+
+	FAIL_IF(!minfo) return;
+	int vmat_count = minfo->Vertex_Material_Count();
+	bool primary_material_present = false;	// NAME 3: the FAIL_IF
+	bool secondary_material_present = false;	// NAME 3: the FAIL_IF
+	bool skin_material_present = false;	// NAME 2: as primary_material_present, '~SK'
+	for (int i = 0; i < vmat_count; i++) {
+		RefCountPtr<VertexMaterialClass> vmat = Create_Get(minfo->Get_Vertex_Material(i));
+
+		FAIL_IF(!vmat) {
+			return;
+		}
+		const char *name = vmat->Get_Name();
+		if (name[0] == '~' && (name[1] == 'S' || name[1] == 's') && (name[2] == '1' || name[2] == '2' || name[2] == 'K' || name[2] == 'k')) {
+			if (name[2] == '1') {
+				primary_material_present = true;
+			} else if (name[2] == '2') {
+				secondary_material_present = true;
+			} else {
+				skin_material_present = true;
+			}
+		}
+	}
+	if (!primary_material_present && !secondary_material_present && !skin_material_present) {
+		return;
+	}
+	bool force_meshmdl_clone = mesh->Peek_Model()->Has_Polygon_Renderers(); mesh->Make_Unique(force_meshmdl_clone);
+	minfo = Create_Get(mesh->Get_Material_Info());
+
+
+
+
+
+
+
+
+
+	FAIL_IF(!minfo) return;
+	FAIL_IF(vmat_count != minfo->Vertex_Material_Count()) {
+		return;
+	}
+	if (vmat_count == 1) {
+		RefCountPtr<VertexMaterialClass> vmat = Create_Get(minfo->Get_Vertex_Material(0));
+		FAIL_IF(!vmat) {
+			return;
+		}
+		if (skin_material_present) {
+			vmat->Set_Ambient(*skin);
+			vmat->Set_Diffuse(*skin);
+		} else {
+			ShaderClass::DetailColorFuncType func;
+			if (primary_material_present) {
+				vmat->Set_Mapper(primary_mapper.Peek(), 1);
+				vmat->Set_Ambient(primary_color);
+				vmat->Set_Diffuse(primary_color);
+				func = primary_func;
+			} else {
+				vmat->Set_Mapper(secondary_mapper.Peek(), 1);
+				vmat->Set_Ambient(secondary_color);
+				vmat->Set_Diffuse(secondary_color);
+				func = secondary_func;
+			}
+			RefCountPtr<MeshModelClass> meshmdl = Create_Get(mesh->Get_Model());
+
+
+
+
+
+
+
+
+			FAIL_IF(!meshmdl) {
+				return;
+			}
+			ShaderClass shader = meshmdl->Get_Single_Shader(0);
+			shader.Set_Post_Detail_Color_Func(func);
+			meshmdl->Set_Single_Shader(shader, 0);
+			if (meshmdl->Has_Shader_Array(0)) {
+				int poly_count = meshmdl->Get_Polygon_Count();
+				for (int p = 0; p < poly_count; p++) {
+					ShaderClass poly_shader = meshmdl->Get_Shader(p, 0);
+					poly_shader.Set_Post_Detail_Color_Func(func);
+					meshmdl->Set_Shader(p, poly_shader, 0);
+				}
+			}
+		}
+	} else {
+		for (int i = 0; i < vmat_count; i++) {
+			RefCountPtr<VertexMaterialClass> vmat = Create_Get(minfo->Get_Vertex_Material(i));
+
+
+			FAIL_IF(!vmat) {
+				return;
+			}
+			const char *name = vmat->Get_Name();
+			if (name[0] == '~' && (name[1] == 'S' || name[1] == 's')) {
+				if (name[2] == '1') {
+					vmat->Set_Mapper(primary_mapper.Peek(), 1);
+					vmat->Set_Ambient(primary_color);
+					vmat->Set_Diffuse(primary_color);
+				} else if (name[2] == '2') {
+					vmat->Set_Mapper(secondary_mapper.Peek(), 1);
+					vmat->Set_Ambient(secondary_color);
+					vmat->Set_Diffuse(secondary_color);
+				} else if (name[2] == 'K' || name[2] == 'k') {
 					vmat->Set_Ambient(*skin);
 					vmat->Set_Diffuse(*skin);
 				}
-			} else {
-				for (i = 0; i < count; i++) {
-					VertexMaterialClass *vmat = minfo->Peek_Vertex_Material(i);
-					if (!vmat) {
-						continue;
-					}
-					int kind = Unknown_Region_Material(vmat);
-					if (kind == 1) {
-						vmat->Set_Mapper(mapper1, 1);
-						vmat->Set_Ambient(color1);
-						vmat->Set_Diffuse(color1);
-					} else if (kind == 2) {
-						vmat->Set_Mapper(mapper2, 1);
-						vmat->Set_Ambient(color2);
-						vmat->Set_Diffuse(color2);
-					} else if (kind == 3) {
-						vmat->Set_Ambient(*skin);
-						vmat->Set_Diffuse(*skin);
-					}
-				}
-				if (!model->Has_Shader_Array(0)) {
-					if (s1 && s2) {
-						FAIL_IF("primary material present & secondary material present, but no shader array") {
-						}
-					} else if (s1 || s2) {
-						ShaderClass shader = model->Get_Single_Shader(0);
-						shader.Set_Post_Detail_Color_Func(s1 ? func1 : func2);
-						model->Set_Single_Shader(shader, 0);
-					}
-				} else {
-					const TriIndex *polys = model->Get_Polygon_Array();
-					for (int p = 0; p < model->Get_Polygon_Count(); p++) {
-						VertexMaterialClass *vmat = model->Get_Material(polys[p].I, 0);
-						if (vmat) {
-							int kind = Unknown_Region_Material(vmat);
-							if (kind == 1 || kind == 2) {
-								ShaderClass ps = model->Get_Shader(p, 0);
-								ps.Set_Post_Detail_Color_Func(kind == 1 ? func1 : func2);
-								model->Set_Shader(p, ps, 0);
-							}
-							vmat->Release_Ref();
-						}
-					}
-				}
-			}
-		} else {
-			FAIL_IF(minfo == NULL || model == NULL || minfo->Vertex_Material_Count() != count) {
 			}
 		}
-		REF_PTR_RELEASE(model);
-		REF_PTR_RELEASE(minfo);
-	}
-	REF_PTR_RELEASE(mapper1);
-	REF_PTR_RELEASE(mapper2);
-}
+		RefCountPtr<MeshModelClass> meshmdl = Create_Get(mesh->Get_Model());
+		FAIL_IF(!meshmdl) {
+			return;
+		}
+		if (!meshmdl->Has_Shader_Array(0)) {
 
-// '~S1' / '~S2' / '~SK' (the S and K in either case): 1, 2, 3; anything else 0
-static int Unknown_Region_Material(VertexMaterialClass *vmat)
-{
-	const char *name = vmat->Get_Name();
-	if (name[0] == '~' && (name[1] == 'S' || name[1] == 's')) {
-		if (name[2] == '1') return 1;
-		if (name[2] == '2') return 2;
-		if (name[2] == 'K' || name[2] == 'k') return 3;
+			FAIL_IF(primary_material_present && secondary_material_present) {
+				return;
+			}
+			if (primary_material_present || secondary_material_present) {
+				ShaderClass shader = meshmdl->Get_Single_Shader(0);
+				shader.Set_Post_Detail_Color_Func(primary_material_present ? primary_func : secondary_func);
+				meshmdl->Set_Single_Shader(shader, 0);
+			}
+		} else {
+			int poly_count = meshmdl->Get_Polygon_Count();
+			for (int p = 0; p < poly_count; p++) {
+				RefCountPtr<VertexMaterialClass> vmat = Create_Get(meshmdl->Get_Material(meshmdl->Get_Polygon_Array()[p].I, 0));
+				const char *name = vmat->Get_Name();
+				if (name[0] == '~' && (name[1] == 'S' || name[1] == 's') && (name[2] == '1' || name[2] == '2')) {
+					ShaderClass shader = meshmdl->Get_Shader(p, 0);
+					shader.Set_Post_Detail_Color_Func(name[2] == '1' ? primary_func : secondary_func);
+					meshmdl->Set_Shader(p, shader, 0);
+				}
+			}
+		}
 	}
-	return 0;
-}
-
-// One half of a region: a metal (an environment-map grid offset) or -1 / -2 (the two plain looks) and its colour.
-// Metal >= 0: GridWSEnvironmentMapper (grid 2, the metal's offset), SCALE2X, the colour a quarter grey;
-// -1: GridWSEnvironmentMapper (grid 1, offset 3), MODALPHAADDCOLOR; -2: GridWSClassicEnvironmentMapper (grid 4,
-// offset 0xFF), SCALE; the colour then the region's own.
-static bool Unknown_Region_Half(const ColorizationHalfStruct &half, int axis, TextureMapperClass **mapper,
-	Vector3 &color, ShaderClass::DetailColorFuncType &func)
-{
-	color = half.Unknown04;
-	if (half.Unknown00 >= 0) {
-		func = ShaderClass::DETAILCOLOR_SCALE2X;
-		*mapper = new GridWSEnvironmentMapperClass(0.0f, 2, 0, half.Unknown00, (GridWSEnvMapperClass::AxisType)axis, 1);
-		color.Set(0.25f, 0.25f, 0.25f);
-	} else if (half.Unknown00 == -2) {
-		func = ShaderClass::DETAILCOLOR_SCALE;
-		*mapper = new GridWSClassicEnvironmentMapperClass(0.0f, 4, 0, 0xFF, (GridWSEnvMapperClass::AxisType)axis, 1);
-	} else if (half.Unknown00 == -1) {
-		func = ShaderClass::DETAILCOLOR_MODALPHAADDCOLOR;
-		*mapper = new GridWSEnvironmentMapperClass(0.0f, 1, 0, 3, (GridWSEnvMapperClass::AxisType)axis, 1);
-	} else {
-		return false;
-	}
-	return true;
 }

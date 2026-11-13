@@ -7,7 +7,7 @@
 #include "navigation_data.h"
 #include "..\shared\g_assert.h"
 
-bool Unknown_831F90(const Vector3 &a, float a_radius, const Vector3 &b, float b_radius, float range);	// 0x831F90 (cdecl): the two spheres within range  // NAME 1: neutral (D10)
+extern "C" bool Unknown_831F90(const Vector3 &a, float a_radius, const Vector3 &b, float b_radius, float range);	// 0x831F90 (distance_calc.h, C linkage): the two spheres within range; the client reads al, the definition returns an int  // NAME 1: neutral (D10)
 
 // @0x7BDFC0
 RadarSystemDataCacheClass::RadarSystemDataCacheClass(ClientObjectClass *player, float extra_range) :

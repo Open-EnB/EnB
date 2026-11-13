@@ -1,10 +1,10 @@
 // Earth & Beyond client (reconstruction): gd_ship_equip_pip.cpp. Notes at the end of the file.
 #include "gd_ship_equip_pip.h"
-#include "ui_pda_equip.h"
+#include "ship_equip_pip.h"
 #include "..\shared\g_assert.h"
 #include "..\kernel\kernel.h"
 
-GadgetShipEquipPipClass::GadgetShipEquipPipClass(Unknown541DE0Class *pip) :
+GadgetShipEquipPipClass::GadgetShipEquipPipClass(ShipEquipPipClass *pip) :
 	GadgetPipSceneClass(pip),
 	ShipPIP(pip),
 	Point(0.0f, 0.0f)

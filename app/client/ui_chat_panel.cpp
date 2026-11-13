@@ -67,13 +67,13 @@ public:
 
 
 
-// The reply list at the panel's +0x1E8, as far as this file calls it
-class UIChatReplyListClass : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	UIChatReplyListClass(SClient *client); int Unknown_56EFB0();	// 0x56E2A0 (0xA4 bytes; slot +0x54); 0x56EFB0: the line picked (1-based), 0 for none, negative to close
-	void Unknown_56EED0(std::list<std::string> &names, int arg);	// 0x56EED0 (0x567540: the reply names, +0x1EC)  // NAME 1 [names, arg]: what 0x567540 passes
-};
+#include "unknown_56e170.h"	// UIChatReplyListClass: the reply list at the panel's +0x1E8 (0x56E2A0, 0x56EED0, 0x56EFB0)
+
+
+
+
+
+
 
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 bool Unknown_42EC60(int a, int b);						// 0x42EC60 (cdecl): *0xBDAA70's slot +0x0C (0x567760: 1, 0 and 2, 0)  // NAME 1 [a, b]: what 0x567760 passes

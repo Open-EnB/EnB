@@ -18,7 +18,7 @@
 #include "pk.h"
 #include "..\shared\strconv_lib.h"
 
-char *Manufacturing_Mode_Name(char *buffer, int len, int mode);	// 0x845910 (manufacturing_defs.cpp, not rebuilt: 'None', 'Manufacture', 'Analyze', 'Dismantle')  // NAME 2: what it does
+#include "..\common\manufacturing_defs.h"	// Value_To_String(UnknownB013ECEnum) 0x845910, the mode's name
 
 // opcode 121 (0x0079, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B104, constructor 0x89B3C0, 0x14 bytes
 class ManufactureItemCatagoryPacketClass : public PacketClass  // NAME 2: Net-7's opcode name MANUFACTURE_ITEM_CATAGORY (the Net-7 opcode table; no structure check)
@@ -32,7 +32,7 @@ public:
 	virtual int Print(char *buffer, int len);	// +0x10 0x89B550
 
 	int player;	// +0x0C (network order)  // NAME 3: the client's Print text 'player='
-	int Mode;	// +0x10 (network order; Manufacturing_Mode_Name)  // NAME 3: the client's Print text 'Mode = '
+	int Mode;	// +0x10 (network order; UnknownB013ECEnum, manufacturing_defs.h)  // NAME 3: the client's Print text 'Mode = '
 };
 
 // opcode 122 (0x007A, MANUFACTURE_ITEM_CATAGORY): vtable 0xB0B134, constructor 0x89B620, 0x14 bytes

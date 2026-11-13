@@ -870,7 +870,7 @@ public:
 	void Unknown_765010();								// 0x765010 (SClient::Init)
 	Vector3 Unknown_765DF0(int index);					// 0x765DF0: colour index (0..23), else (1, 1, 1) (SClient 0x750F70: the chat channel)  // NAME 1 [index]: neutral
 
-	Vector3 Unknown00[24];								// +0x00  // NAME 2: what the constructor writes
+	Vector3 Unknown00[24];	void Unknown_765540(); void Unknown_765BE0(); void Unknown_765E40(int index, const Vector3 &color);	// +0x00  // NAME 2: what the constructor writes; 0x765540: the colours back into the options' 'Color_*' entries ('/setcolor', '/resetcolor' 0x747FA0); 0x765BE0: the default colours ('/resetcolor'); 0x765E40: colour 'index' (0..23) set, each part clamped to 0..1 ('/setcolor', 22 calls)  // NAME 1 [index, color]: what it does with them
 };
 
 #pragma pack(push, 4)		// as ClientClass (client.h)
@@ -906,7 +906,7 @@ public:
 
 	void Print(int channel, const char *format, ...);	// 0x74DF70 (cdecl): a line in the chat panel  // NAME 2: what it does
 	UIViewClass *Unknown_742530(UIViewClass *view);		// 0x742530 (Shutdown passes 0; 0x745F30 the view of the new view mode): CurrentView becomes it, the old one is returned  // NAME 1 [view]: what it gets
-	void Unknown_7429B0();								// 0x7429B0 (Do_Frame, after the lost-dialog check; FAIL_IF '!CurrentView', l.749)
+	void Unknown_7429B0(); void Unknown_743440(); bool Unknown_7472A0(const char *text); bool Unknown_747AF0(int arg, bool set_state); void Unknown_745080();	// 0x7429B0 (Do_Frame, after the lost-dialog check; FAIL_IF '!CurrentView', l.749); no caller in the client, each: 0x743440 (the input queue's events to the dispatcher, the scripted movie view or 0x7436A0); 0x7472A0 ('/latency get|set ...' on the connection's slot +0x30); 0x747AF0 (LOGOFF_REQUEST sent with Unknown138C = 1, then 0x743290's switch when set_state); 0x745080 (settings.ini's Lights / GlobalZ and the two views' 0x6B4900 saved)  // NAME 1 [text, arg, set_state]: the chat line; neutral; what it does
 	void Unknown_743380(KernelEventClass *event);		// 0x743380 (Do_Frame: the input queue's event without the +0x1278 source)  // NAME 1 [event]: what it gets
 	bool Unknown_7436A0(KernelEventClass event);		// 0x7436A0 (Do_Frame: an event no dispatcher took; false: 0x744240)  // NAME 1 [event]: what it gets
 	void Unknown_744240(KernelEventClass event);		// 0x744240 (Do_Frame: an event 0x7436A0 refused)  // NAME 1 [event]: what it gets

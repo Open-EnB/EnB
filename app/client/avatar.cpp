@@ -50,6 +50,21 @@ static inline PlayerNLPClass *NLP_Of(CharacterViewAvatarClass *avatar) { return(
 void Unknown_80FCE0(RenderObjClass *robj, std::vector<ColorizationRegionStruct> &regions, EnvironmentMapManagerClass *env_maps,
 	const Vector3 *skin);	// 0x80FCE0 (shiputils.cpp)
 
+// 0x77B760: a count from first, one more while Random(0, 1000) * 0.001 stays at or above 0.7, up to last (0x781EA0
+// inlines it for the breathe animation's number); the client emits it first in the object: interim placement (D137)
+float Unknown_77B760(int first, int last)	// NAME 1 [Unknown_77B760, first, last]: neutral (D10)
+{
+	int i = first;
+	while (true) {
+		if ((float)Unknown_BDBB84(0, 1000) * 0.001f < 0.7f) {
+			return((float)i);
+		}
+		if (++i == last) {
+			return((float)i);	// (the inlined copy in 0x781EA0 loads the constant last here)
+		}
+	}
+}
+
 // 0x77B7D0
 // 0..1 eased: a half cosine below 0.5, a half sine above (0x576AC0's planet turn, sbaseview 0x69ED80); interim placement (D137)
 float Unknown_77B7D0(float t)	// NAME 1 [Unknown_77B7D0, t]: neutral (D10)
@@ -349,21 +364,6 @@ float CharacterViewAvatarClass::Unknown_77D9F0(bool a)
 	const float &h2 = Unknown234;
 	return(h2);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1612,7 +1612,7 @@ std::string CharacterViewAvatarClass::Unknown_781D10(int anim)
 }
 
 // 0x781EA0
-// NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built)
+// NOT EXACT: functional for POC (D64), register (ebx for the zero where the client has ebp; the client keeps Unknown314 = 1 apart from = n)
 void CharacterViewAvatarClass::Unknown_781EA0()
 {
 	int delay = PlayerNLP->Personality->Get_Fidget_Delay();
@@ -1642,16 +1642,7 @@ void CharacterViewAvatarClass::Unknown_781EA0()
 		_snprintf(name, 0x20, "breathe1");
 		Unknown314 = 1;
 	} else {
-		int n = 1;
-		for (;;) {
-			if ((float)Unknown_BDBB84(0, 1000) * 0.001f < 0.7f) {
-				break;
-			}
-			n++;
-			if (n == 4) {
-				break;
-			}
-		}
+		int n = Unknown_77B760(1, 4);
 		_snprintf(name, 0x20, "breathe%d", n);
 		Unknown314 = n;
 	}
@@ -1664,6 +1655,15 @@ void CharacterViewAvatarClass::Unknown_781EA0()
 		Unknown_783470();
 	}
 }
+
+
+
+
+
+
+
+
+
 
 // 0x782200
 // NOT EXACT: functional for POC (D64)
@@ -3521,7 +3521,7 @@ void CharacterViewAvatarClass::Unknown_788890()
 }
 
 // 0x788900
-// NOT EXACT: shape (0.59: the goal tests' order and the inlined Vector3 temporaries)
+// NOT EXACT: shape (0.81: the client calls 0x784F20 out of line here (inline budget; its other callers inline it), and keeps the Normalize result on the FPU stack on both paths)
 void CharacterViewAvatarClass::Unknown_788900()
 {
 	while (Unknown318.size() != 0) {
@@ -3536,7 +3536,7 @@ void CharacterViewAvatarClass::Unknown_788900()
 			}
 			Unknown_784F20();
 			Unknown2F8 &= 0xFFFC;
-			float facing = Vector3::Dot_Product(goal->Get_Y_Vector(), Unknown330.Get_X_Vector());
+			float facing = Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_Y_Vector());
 			if (fabs(facing) < 0.0436193873653360) {
 				Unknown_786D20();
 				Unknown_788890();
@@ -3549,10 +3549,12 @@ void CharacterViewAvatarClass::Unknown_788900()
 			}
 			return;
 		}
-		delta.Normalize();
-		float side = Vector3::Dot_Product(delta, Unknown330.Get_Y_Vector());
-		if (Vector3::Dot_Product(delta, Unknown330.Get_X_Vector()) <= 0.0f
-			&& Vector3::Dot_Product(goal->Get_X_Vector(), Unknown330.Get_X_Vector()) >= 0.0f
+		Vector3 dir = Normalize(delta);
+		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
+		Vector3 goal_x = goal->Get_X_Vector();
+		Vector3 my_x = Unknown330.Get_X_Vector();
+		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
+			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
 			&& dist <= 10.0f) {
 			bool full = false;
 			if (fabs(side) < 0.5) {
@@ -3596,8 +3598,6 @@ void CharacterViewAvatarClass::Unknown_788900()
 		return;
 	}
 }
-
-
 
 
 

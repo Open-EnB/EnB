@@ -9,8 +9,12 @@
   "0x436BA0",
   "0x436BF0",
   "0x436DC0",
+  "0x437070",
   "0x437090"
  ],
  "merged": [],
- "name": "audio/bridgesounds.cpp"
+ "name": "audio/bridgesounds.cpp",
+ "short_known": [
+  "0x437070"
+ ]
 }

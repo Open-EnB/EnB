@@ -261,10 +261,67 @@ void StarbaseSoundClass::Load_Section(int room, const char *section_name)
 	}
 }
 
+// @0x4420E0
+void StarbaseSoundClass::Load_Section(int room, RenderObjClass *rendobj, const char *section_name)
+{
+	if (room < 0 || room >= NUM_ROOMS || rendobj == NULL || INI == NULL) return;
+	const char *section = _RoomSectionNames[room];
+	const char *model_name = rendobj->Get_Name();
+	if (INI->Is_Present(section_name)) {
+		section = section_name;
+	}
+	for (int index = 1; index <= 64; index++) {
+		char entry[128];
+		char mesh[128];
+		char sound[128];
+		char bone[128];
+		sprintf(entry, "TrackedMesh%d", index);
+		if (INI->Is_Present(section, entry)) {
+			INI->Get_String(section, entry, "ERROR", mesh, sizeof(mesh));
+			if (strcmp(model_name, mesh) == 0) {
+				sprintf(entry, "TrackedSound%d", index);
+				if (INI->Is_Present(section, entry)) {
+					INI->Get_String(section, entry, "ERROR", sound, sizeof(sound));
+					sprintf(entry, "TrackedBone%d", index);
+					INI->Get_String(section, entry, "ROOTTRANSFORM", bone, sizeof(bone));
+					sprintf(entry, "OnlyAddSoundIfBoneUsed%d", index);
+					if (!INI->Get_Bool(section, entry, false) || rendobj->Get_Num_Sub_Objects_On_Bone(rendobj->Get_Bone_Index(bone)) > 0) {
+						sprintf(entry, "TrackedMinDelay%d", index);
+						int min_delay = (int)(INI->Get_Float(section, entry, DefaultMinDelay) * 1000.0f);
+						sprintf(entry, "TrackedMaxDelay%d", index);
+						int max_delay = (int)(INI->Get_Float(section, entry, DefaultMaxDelay) * 1000.0f);
+						Add_Random_Sound(room, sound, min_delay, max_delay, rendobj, bone);
+					}
+				}
+			}
+		}
+		char looping_mesh[128];
+		char looping_sound[128];
+		char looping_bone[128];
+		sprintf(entry, "LoopingTrackedMesh%d", index);
+		if (INI->Is_Present(section, entry)) {
+			INI->Get_String(section, entry, "ERROR", looping_mesh, sizeof(looping_mesh));
+			if (strcmp(model_name, looping_mesh) == 0) {
+				sprintf(entry, "LoopingTrackedSound%d", index);
+				if (INI->Is_Present(section, entry)) {
+					INI->Get_String(section, entry, "ERROR", looping_sound, sizeof(looping_sound));
+					sprintf(entry, "LoopingTrackedBone%d", index);
+					INI->Get_String(section, entry, "ROOTTRANSFORM", looping_bone, sizeof(looping_bone));
+					sprintf(entry, "OnlyAddLoopingSoundIfBoneUsed%d", index);
+					if (!INI->Get_Bool(section, entry, false) || rendobj->Get_Num_Sub_Objects_On_Bone(rendobj->Get_Bone_Index(looping_bone)) > 0) {
+						Add_Looping_Sound(room, looping_sound, rendobj, looping_bone);
+					}
+				}
+			}
+		}
+	}
+}
+
 /*
 Reconstruction notes:
 starbasesound.cpp holds StarbaseSoundClass (derived from AmbientSoundManagerClass): a starbase's ambient sounds, read
 from starbasesounds<n>.ini, one channel per room. The object is 0x441910-0x4428E0 (after soundlib.cpp's
-instances, before surfacetypes.cpp). Not rebuilt yet: the second Load_Section 0x4420E0 (the sounds
-tracked on a model's bones).
+instances, before surfacetypes.cpp). The second Load_Section 0x4420E0 reads the sounds tracked on a model's
+bones (TrackedMesh<n> must name the model); OnlyAdd...IfBoneUsed is vtable +0x74 on the bone's index (+0xB0),
+read as Get_Num_Sub_Objects_On_Bone > 0. It is followed by int3 padding to 0x442640 (appfile's PREFIX).
 */

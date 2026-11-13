@@ -1706,7 +1706,6 @@ msg 763 OBJECT_TO_OBJECT_EFFECT (11) size 25: cpacket.cpp's handler
 asset manager +0x78 'eff_segline_1091': not loaded
 asset manager Load_3D_Assets 'eff_segline_1091.w3d'
 asset manager +0x78 'eff_segline_1091' scale 1 -> a segmented line
-stub Unknown6E5040EffectClass 48901063 start 1967671 duration 1000 grow 250 shrink 0 line class 28
 stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
@@ -2359,10 +2358,6 @@ msg 6 STARBASE_AVATAR_CHANGE (158) size 32: cpacket.cpp's handler
 starbase calls: 63CF30(77, 4) 
 check STARBASE_AVATAR_ROOM_UPDATE 160: avatar 77's new room 4 (0x63CF30); with +0x7C clear neither handler calls: ok
 == (4g) RECUSTOMIZE_SHIP_START 129, RECUSTOMIZE_AVATAR_START 131, RECUSTOMIZE_AVATAR_UPDATE 133
-gen ShipRecustomizationCostClass::ShipRecustomizationCostClass
-gen RecustomizationCostClass::RecustomizationCostClass
-gen ShipRecustomizationCostClass::ShipRecustomizationCostClass
-gen RecustomizationCostClass::RecustomizationCostClass
 packets made
 fail_if !ship_ui (line 3425)
 fail_if !avatar_ui (line 3438)

@@ -11,6 +11,7 @@
 #include "ui_inv.h"			// UIInvClass, the base of the cargo, equipment and vault windows
 #include "ui_pda_cargo.h"	// UIPdaCargoClass, the cargo window (window 0)
 #include "ui_pda_equip.h"	// UIPdaEquipClass, the equipment window (window 1)
+#include "ui_vault.h"		// UIVaultClass, the vault window (window 3)
 #include "..\..\wwlib\ref_ptr.h"
 
 class SClient;
@@ -20,21 +21,6 @@ class ControlKeysManager;	// control_keys_manager.h's
 class UICinfoClass;			// ui_cinfo.h's character window (0x5734D0)
 class UIStarmapClass;		// ui_starmap.h's star map window (0x7C63D0)
 class UIPingClass;			// ui_ping.h's ping window (0x5D7630)
-
-#ifdef POC_WINDOW_CTOR	// the POC (poc_world3.cpp) keeps InterfaceClass's own slots for its empty windows
-#define POC_INV_WINDOW_SLOTS virtual void Unknown_54() { InterfaceClass::Unknown_54(); } virtual void Unknown_58() { InterfaceClass::Unknown_58(); } virtual void Unknown_5C() { InterfaceClass::Unknown_5C(); } virtual void Unknown_60() { InterfaceClass::Unknown_60(); } virtual void Unknown_64() { InterfaceClass::Unknown_64(); } virtual bool Unknown_68(int key) { return(InterfaceClass::Unknown_68(key)); } virtual void Unknown_7C(UIViewClass *view, bool arg) { InterfaceClass::Unknown_7C(view, arg); }
-#else
-#define POC_INV_WINDOW_SLOTS
-#endif
-
-// The vault window (0xFC bytes, constructor 0x656FF0; the key 'Vault', window 3)
-class Unknown656FF0Class : public UIInvClass	// NAME 1: neutral (D10)
-{
-public:
-	POC_INV_WINDOW_SLOTS
-	Unknown656FF0Class(SClient *client);				// 0x656FF0  // NAME 1 [client]: neutral
-	char UnknownD0[0xFC - 0xD0];
-};
 
 class UIExperienceClass;	// ui_experience.h's experience bars (0x58C450)
 
@@ -83,13 +69,14 @@ public:
 	void Unknown_695E10(int type, int *num_items, int *num_slots);	// 0x695E10 (the three inventories' sums)  // NAME 3 [num_items, num_slots]: the FAIL_IFs'; NAME 1 [type]: neutral
 	void Unknown_695F40();								// 0x695F40 (SClient 0x742530, ui_chat_panel.cpp, on every change of view: all closed)
 	void Unknown_695FE0(bool on);						// 0x695FE0 (+0xBC; the starbase view's 0x69CDE0 passes true)  // NAME 1 [on]: neutral
+	RefCountPtr<UICinfoClass> Get_Character();	// 0x6384D0 (inline in ui_starbase.cpp, out of line after UIStarbaseClass::Unknown_60)  // NAME 1: its member's
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: the FAIL_IFs '!Get_Client()')  // NAME 3: the FAIL_IFs'
 
 	ButtonGadgetClass *Buttons[NUM_BUTTONS];			// +0x84 ('MAP_BUT', 'CHARACTER_BUT', 'SHIP_BUT', 'OPTIONS_BUT': gadgets 1..4)  // NAME 1: neutral
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0x94 ('TSI14A')  // NAME 1: as ui_starmap.h's
 	RefCountPtr<UIPdaEquipClass> Equipment;			// +0x98 (window 1)  // NAME 2: its key's
 	RefCountPtr<UIPdaCargoClass> Cargo;				// +0x9C (window 0)  // NAME 2: its key's
-	RefCountPtr<Unknown656FF0Class> Vault;				// +0xA0 (window 3)  // NAME 2: its key's
+	RefCountPtr<UIVaultClass> Vault;				// +0xA0 (window 3)  // NAME 2: its key's
 	RefCountPtr<UICinfoClass> Character;				// +0xA4 (window 2)  // NAME 2: its key's
 	RefCountPtr<UIStarmapClass> Starmap;				// +0xA8 (window 4; the main view's 0x512A00 calls its 0x7C8DB0)  // NAME 1: its class's
 	RefCountPtr<InterfaceClass> OpenedCargoInterface;	// +0xAC (the equipment or vault window opened with the cargo window)  // NAME 3: the assert's

@@ -41,7 +41,7 @@ public:
 	void Unknown_81B3F0(int index);						// 0x81B3F0 (a row clicked: its name copied, the buttons updated)  // NAME 1 [index]: neutral
 	void Unknown_81B610(int key);						// 0x81B610 (the selected member's /gc remove, promote, demote, contributions)  // NAME 1 [key]: slot +0x68's
 	void Unknown_81BA60(bool on);						// 0x81BA60 (the buttons' slot +0x40 and tooltips by the rank's rights)  // NAME 1 [on]: neutral
-	void Unknown_81BF40();								// 0x81BF40 ('/gc list all')
+	void Unknown_81BF40(); void Unknown_81C380(std::vector<std::string> lines); void Unknown_81C630(std::vector<GuildRankNameStruct> &ranks);	// 0x81BF40 ('/gc list all'); 0x81C380 (sclient.cpp 0x74DFF0, message type 3: the member lines; not rebuilt); 0x81C630 (sclient.cpp 0x751850: Unknown180 = ranks, then 0x81BA60(true); not rebuilt)  // NAME 1 [lines, ranks]: as 0x81C060's; what it copies
 	int Unknown_81C930(std::string rank);				// 0x81C930 (a rank name's number: the rank names' vector)  // NAME 1 [rank]: neutral
 	void Unknown_81BFD0();								// 0x81BFD0 (the rank names requested)
 	void Unknown_81C060(std::vector<std::string> lines);	// 0x81C060 (sclient.cpp 0x74DFF0: lines added to the list window while it is active)  // NAME 1 [lines]: neutral

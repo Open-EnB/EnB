@@ -104,12 +104,7 @@ UICpitGadget6B56AClass::UICpitGadget6B56AClass(int x, int y, int width, int heig
 	memset(Unknown4A, 0, sizeof(Unknown4A));
 }
 
-// ---------------------------------------------------------------- ui_symbolchat (0x64A480): an empty window
-#include "..\..\app\client\ui_group.h"
-UISymbolChatClass::UISymbolChatClass(SClient *sclient) : InterfaceClass((LineDisplayClientClass *)sclient)
-{
-	STUB_CALLED("POC UISymbolChatClass: an empty window");
-}
+// (ui_symbolchat.cpp's UISymbolChatClass, 0x64A480, is rebuilt: app/client/ui_symbolchat.cpp, O12)
 
 // ---------------------------------------------------------------- 0x79B9E0: the camera modules' signal map, a function-local static (camera_manager.cpp's neighbourhood)
 #include "..\..\app\client\unknown_signalbase.h"
@@ -127,12 +122,7 @@ void SClientNotifierClass::Remove(int id, SignalBaseClass::CallbackClass *callba
 #define POC_WINDOW_CTOR
 #include "..\..\app\client\ui_chat_panel.h"
 #include "..\..\app\client\ui_combobox.h"
-class UIChatReplyListClass : public InterfaceClass { public: UIChatReplyListClass(SClient *client); char Unknown84[0xA4 - 0x84]; };
-UIChatReplyListClass::UIChatReplyListClass(SClient *client) : InterfaceClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC UIChatReplyListClass: an empty window");
-	memset(Unknown84, 0, sizeof(Unknown84));
-}
+// (the reply list UIChatReplyListClass, 0x56E2A0, is rebuilt: app/client/unknown_56e170.cpp, O12)
 // (The windows ChatPanelInterface::Unknown_565F80 opens are rebuilt: ui_option_main.cpp, ui_option_quit.cpp,
 // ui_option_slider.cpp and ui_popup_browser.h's UIPopupBrowserClass, CP1)
 // (0x765DF0, the chat line colour by its index, is rebuilt: app/client/unknown_764fd0.cpp, GS1)

@@ -537,22 +537,6 @@ Unknown6F25A0EffectClass::Unknown6F25A0EffectClass(ClientClass *client, unsigned
 	Trace("stub Unknown6F25A0EffectClass %u", id);
 }
 void Unknown6F25A0EffectClass::Unknown_24(int next) { Trace("stub Unknown6F25A0EffectClass::Unknown_24 %u %d", ID, next); }
-class Unknown6E5040EffectClass : public UnknownB0009CEffectClass	// LineEffect (0x114 bytes)
-{
-public:
-	Unknown6E5040EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, SegmentedLineClass *line, float start_offset, float end_offset, int grow_time, int shrink_time, float grow_accel, float shrink_accel, float tiling_min_length);
-	virtual ~Unknown6E5040EffectClass() { REF_PTR_RELEASE(Line); }
-	virtual void Unknown_24(int next);
-	char Pad[0x110 - sizeof(UnknownB0009CEffectClass)];
-	SegmentedLineClass *Line;
-};
-Unknown6E5040EffectClass::Unknown6E5040EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, SegmentedLineClass *line, float, float, int grow_time, int shrink_time, float, float, float) :
-	UnknownB0009CEffectClass(client, id, start_time, duration, cycle_time), Line(line)
-{
-	if (Line) Line->Add_Ref();
-	Trace("stub Unknown6E5040EffectClass %u start %u duration %d grow %d shrink %d line class %d", id, start_time, (int)duration, grow_time, shrink_time, line ? line->Class_ID() : -1);
-}
-void Unknown6E5040EffectClass::Unknown_24(int next) { Trace("stub Unknown6E5040EffectClass::Unknown_24 %u %d", ID, next); }
 
 // ------------------------------------------------------------------------- the memory connection
 

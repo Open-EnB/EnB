@@ -74,15 +74,7 @@ public:
 	float Unknown30;									// +0x30 (0x593180: 2.0f)
 };
 
-// The symbol chat interface the group window holds at +0xAC (0xAC bytes, constructor 0x64A480 over the sclient; its file
-// is unknown), as far as ui_group.cpp calls it
-class UISymbolChatClass : public InterfaceClass	// NAME 2: the FAIL_IF's '!SymbolChatUI'
-{
-public:
-	UISymbolChatClass(SClient *sclient);				// 0x64A480 (0x594040)  // NAME 1 [sclient]: what 0x594040 passes
-	void Unknown_64B2C0();								// 0x64B2C0 (0x594040, after its slot +0x54)
-	int Unknown_64B2F0(char *text, bool *leader);		// 0x64B2F0: the symbol picked, as text, and whether the leader sent it (0x596DB0)  // NAME 1 [text, leader]: what 0x596DB0 hands on
-};
+#include "ui_symbolchat.h"	// UISymbolChatClass: the symbol chat menu the group window holds at +0xAC (0x64A480)
 
 #define MAX_VISIBLE_GROUP_MEMBERS	5	// the client's FAIL_IF 'Members.size() >= MAX_VISIBLE_GROUP_MEMBERS' compares with 5 (0x596130)
 

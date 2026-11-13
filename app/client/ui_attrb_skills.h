@@ -9,7 +9,7 @@
 #include "..\..\wwlib\ref_ptr.h"
 #include "ui_skills.h"
 class GadgetSlider;			// gd_slider.h's sliders (+0xD4, +0xD8)
-class RenderObjClass;
+class RenderObjClass; class Unknown546A80Class;	// ui_attrb.h's (+0xC0)
 class Unknown664500Class;	// gd_attrb_skills.cpp's gadget (UnknownC4's elements; ui_attrb_skills.cpp declares it as far as it calls it)
 
 // The attributes tab (0x124 bytes, tables 0xAEF4FC / 0xAEF4F0 / 0xAEF4E4; 0x5738B0 makes it, the first of the character
@@ -41,7 +41,7 @@ public:
 	void Unknown_54B370();								// 0x54B370 (FAIL_IF '!gadget' l.577: the gadgets from the last, +0xF0 of them, +0xF8 counting the set ones; inlined by 0x54A200 / 0x54B140)
 
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0xBC (the mesh, Init's 'TSI12B': its fonts and its interface list entry)  // NAME 3: Init's FAIL_IF '!InterfaceMesh' (l.121)
-	RefCountPtr<InterfaceClass> UnknownC0;				// +0xC0
+	RefCountPtr<Unknown546A80Class> UnknownC0;			// +0xC0 (ui_attrb.h's: the constructor news one; ui_starbase.cpp 0x638390 calls its 0x5473B0)
 	std::vector<Unknown664500Class *> UnknownC4;		// +0xC4 (its allocator byte, then +0xC8 first / +0xCC last / +0xD0 end)
 	GadgetSlider *UnknownD4;							// +0xD4
 	GadgetSlider *UnknownD8;							// +0xD8

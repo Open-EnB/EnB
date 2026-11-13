@@ -7,9 +7,9 @@
 #include "..\..\wwlib\random.h"
 #include <stdio.h>
 #include <string.h>
-
+#include "..\..\wwlib\inisup.h"
 extern RandomClass Unknown_BDBB84;	// NAME 1 [Unknown_BDBB84]: neutral (D10), as avatar.cpp's
-
+unsigned int Unknown_Get_Ticks();	// 0x4A3B40, the aux-data clock (soundlib.cpp's)
 
 
 
@@ -116,6 +116,109 @@ MusicManagerClass::~MusicManagerClass()
 	MusicINI = NULL;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @0x43A1F0
+// NOT EXACT: inline budget (explain.py: 2287 bytes vs 2227, 0.61): the client calls push_back's _Ucopy / _Ufill / _Destroy (0x43BF20, 0x43BF60, 0x43BC60) and its last size() (0x43BC30) out of line, here they are inline; this and the section name swap edi / ebp
+void MusicManagerClass::Load_INI(int race)
+{
+	G_ASSERT(MusicINI);
+	G_ASSERT(MusicINI->Is_Loaded());
+	for (int type = 0; type < NUM_MUSIC_THEME_TYPES; type++) {
+		Themes[type].clear();
+		FadeIn[type] = 6000;
+		FadeOut[type] = 2000;
+	}
+	char section[32];
+	_snprintf(section, sizeof(section), "Global", 6);
+	if (MusicINI->Section_Present(section)) {
+		FadeIn[MUSIC_THEME_COMBAT] = (int)(MusicINI->Get_Float(section, "CombatFadeIn", 6.0f) * 1000.0f);
+		FadeOut[MUSIC_THEME_COMBAT] = (int)(MusicINI->Get_Float(section, "CombatFadeOut", 2.0f) * 1000.0f);
+		FadeIn[MUSIC_THEME_WANDER] = (int)(MusicINI->Get_Float(section, "WanderFadeIn", 6.0f) * 1000.0f);
+		FadeOut[MUSIC_THEME_WANDER] = (int)(MusicINI->Get_Float(section, "WanderFadeOut", 2.0f) * 1000.0f);
+		FadeIn[MUSIC_THEME_PLANET] = (int)(MusicINI->Get_Float(section, "PlanetFadeIn", 6.0f) * 1000.0f);
+		FadeOut[MUSIC_THEME_PLANET] = (int)(MusicINI->Get_Float(section, "PlanetFadeOut", 2.0f) * 1000.0f);
+		SilenceMin = (int)(MusicINI->Get_Float(section, "SilenceMin", 0.0f) * 1000.0f);
+		SilenceMax = (int)(MusicINI->Get_Float(section, "SilenceMax", 0.0f) * 1000.0f);
+	}
+	for (INISection *ini_section = MusicINI->Get_Section_List().First_Valid(); ini_section != NULL; ini_section = ini_section->Next_Valid()) {
+		const char *name = ini_section->Section;
+		if (strncmp(name, "MusicTheme", 10) == 0) {
+			char temp[32];
+			MusicINI->Get_String(name, "Race", "Other", temp, sizeof(temp));
+			strupr(temp);
+			int theme_race = Race_From_Name(temp);
+			MusicINI->Get_String(name, "Type", "Wander", temp, sizeof(temp));
+			strupr(temp);
+			int theme_type = Type_From_Name(temp);
+			if (theme_race == race || theme_race == 8 || theme_type == MUSIC_THEME_STARBASE) {
+				MusicThemeClass *theme = new MusicThemeClass;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				G_ASSERT(theme);
+				theme->Race = theme_race;
+				theme->Sector = MusicINI->Get_Int(name, "Sector", -1);
+				theme->LevelAvailable = MusicINI->Get_Int(name, "LevelAvailable", 0);
+				int count = MusicINI->Get_Int(name, "ComponentCount", 0);
+				for (int component = 0; component < count; component++) {
+					char entry[32];
+					_snprintf(entry, sizeof(entry), "Component-%02d", component);
+					MusicINI->Get_String(name, entry, "None", temp, sizeof(temp));
+
+
+
+
+
+
+					G_ASSERT(strcmp("None", temp) != 0);
+					_snprintf(entry, sizeof(entry), "FadeIn-%02d", component);
+					float fade_in = MusicINI->Get_Float(name, entry, 0.0f);
+					float fade_out = MusicINI->Get_Float(name, entry, 0.0f);
+					theme->Add_Component(temp, fade_in, fade_out);
+				}
+				Themes[theme_type].push_back(theme);
+			}
+		}
+	}
+	IsLoaded = true;
+	for (type = 0; type < NUM_MUSIC_THEME_TYPES; type++) {
+		Queue_Themes(type, 8);
+	}
+	SilenceEnd = Unknown_Get_Ticks() + 5000;
+}
+
 // @0x43ACE0
 void MusicManagerClass::Set_Music_Type(int type)
 {
@@ -151,6 +254,15 @@ void MusicManagerClass::Fade_Out()
 	if (CurrentMusicType != MUSIC_THEME_NONE) {
 		Lists[CurrentMusicType].Fade_Out(2000);
 	}
+}
+
+// @0x43B190
+const char *MusicManagerClass::Get_Current_Name()
+{
+	if (CurrentMusicType == MUSIC_THEME_NONE) {
+		return NULL;
+	}
+	return Lists[CurrentMusicType].Get_Current_Name();
 }
 
 // @0x43B1C0
@@ -454,118 +566,6 @@ void MusicManagerClass::Queue_Sector_Themes()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // @0x43B860
 bool MusicManagerClass::Queue_Sector_Theme(int sector)
 {
@@ -621,12 +621,23 @@ void MusicManagerClass::Play_Music(int music_id)
 	}
 }
 
+// @0x43BBA0
+void MusicManagerClass::Stop_Sector_Music()
+{
+	if (SectorMusic != NULL) {
+		SectorMusic->Stop(true);
+		SectorMusic->Release_Ref();
+		SectorMusic = NULL;
+	}
+}
+
 /*
 Reconstruction notes:
 musicmanager.cpp holds MusicManagerClass: the themes of music.ini by kind of music, a MusicListClass per kind and
 the kind playing now. The object is 0x439E40-0x43BFD0 (after musiclist.cpp's deque instances, before
-musictheme.cpp's 0x43C010). Not rebuilt yet: Load_INI 0x43A1F0, Update 0x43AE30 and Get_Current_Name
-0x43B190, which carries musiclist.cpp's G_ASSERTs (l.364 / l.365, as MusicListClass's 0x438800): musiclist.cpp's
-code is compiled into this object (the client's musicmanager.cpp includes it, or MusicListClass's functions are
-inline there); until that is settled 0x43B190 cannot be written here.
+musictheme.cpp's 0x43C010). Not rebuilt yet: Update 0x43AE30. Load_INI 0x43A1F0 is NOT EXACT (inline budget:
+the client keeps push_back's helpers out of line; one dead size() after the push_back gives 0.74, 2219 bytes, with
+size() out of line one call too early). Get_Current_Name 0x43B190 is a plain tail call of MusicListClass's 0x438800
+(no assert of its own: the musiclist.cpp lines 364 / 365 are 0x438800's). Stop_Sector_Music 0x43BBA0 has no caller:
+the out-of-line copy of a member whose code the destructor, Stop and Play_Music hold inline.
 */

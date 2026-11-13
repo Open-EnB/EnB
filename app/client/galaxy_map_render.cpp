@@ -125,19 +125,19 @@ static bool Find_Item(RefCountPtr<T> &result, CONTAINER &container, int id)	// N
 	return(true);
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+// 0x7B0E10: Create_Item<GalaxyMapRenderGateClass> (0x7A8B70 calls it)
 template <class CONTAINER, class T, class DATA>
 static bool Create_Item(RefCountPtr<T> &result, CONTAINER &container, const RefCountPtr<DATA> &data, const RefCountPtr<SceneClass> &scene)	// NAME 1: what it does
 {
 	int id = data->Get_Hash_ID();
-	if (Find_Item(result, container, id)) { return(false); }
-	result = Create_NEW(new T(data));
-	container[id] = result;
-	if (scene) { result->Add_To_Scene(scene); }
-	return(true);
+	if (!Find_Item(result, container, id)) {
+		result = Create_NEW(new T(data));
+		container[id] = result;
+		if (scene) { result->Add_To_Scene(scene); }
+		return(true);
+	}
+	return(false);
 }
-
-
 
 
 
@@ -1095,6 +1095,11 @@ bool GalaxyMapRenderMeshClass::Intersect(const LineSegClass &ray, Vector3 *conta
 	return(false);
 }
 
+GalaxyMapRenderMeshClass::GalaxyMapRenderMeshClass() :
+	Scale(1.0f, 1.0f, 1.0f)
+{
+}
+
 bool GalaxyMapRenderMeshClass::Set_RObj(const char *name)
 {
 	RefCountPtr<RenderObjClass> robj;
@@ -1112,11 +1117,6 @@ bool GalaxyMapRenderMeshClass::Set_RObj(const RefCountPtr<RenderObjClass> &robj)
 	if (scene) { Add_To_Scene(Create_Peek(scene)); }
 	return(true);
 }
-
-
-
-
-
 
 
 
@@ -1577,12 +1577,12 @@ const RefCountPtr<GalaxyMapRenderGateClass> &GalaxyMapRenderSectorClass::Unknown
 	static RefCountPtr<GalaxyMapRenderGateClass> none;
 	return(none);
 }
-
+#pragma auto_inline(off)
 GalaxyMapRenderGateClass::GalaxyMapRenderGateClass(const RefCountPtr<GalaxyMapGateClass> &data) :
 	Data(data), Intra(false), Flipped(false)
 {
 }
-
+#pragma auto_inline(on)
 void GalaxyMapRenderGateClass::Release_Item()
 {
 	Remove_From_Scene();
@@ -1836,101 +1836,101 @@ float GalaxyMapRenderGateClass::Unknown_7AD5B0(const Vector3 &point)
 
 
 
+static float Unknown_7ADF80(const Vector2 &p, const Vector2 &a, const Vector2 &b);
+// The distance of p from the line a-b (the 2D cross product's side in *side), or from a when a == b
+static inline float Unknown_Distance(const Vector2 &p, const Vector2 &a, const Vector2 &b, float *side)	// NAME 1: what it computes
+{
+	float dummy;
+	if (side == NULL) { side = &dummy; }
+	float len = (a - b).Length();
+	if (len < 0.0001f) {
+		*side = 0.0f;
+		return((p - a).Length());
+	}
+	*side = Unknown_7ADF80(p, a, b);
+	return(fabs(*side / len));
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: written whole from the client's code (0x7ADF80 called, 0x7AC7B0 and the positions inlined); register choice differs (see attempts.csv)
 void GalaxyMapRenderGateClass::Unknown_7AD850(const Vector3 &point)
 {
 
 
+	GalaxyMapLineRObjClass *line = (GalaxyMapLineRObjClass *)Line.Peek();
+	FAIL_IF(!line) { return; }
+	From->Unknown_7AC070(Flipped);
+	To->Unknown_7AC070(!Flipped);
+	line->Hidden = false;
+	const RefCountPtr<GalaxyMapRenderGateClass> &other = To->Unknown_7AC7B0(From);
+	if (other && other->Line) { ((GalaxyMapLineRObjClass *)other->Line.Peek())->Hidden = false; }
+	Vector3 a;
+	Vector3 b;
+	From->Get_Position(a);
+	To->Get_Position(b);
+	Matrix3D tm(point);
+	Vector3 d = b - a;
+	d.Normalize();
+	tm.Rotate_Z(d.Y, d.X);
+	Vector2 vb(b.X, b.Y);
+	Vector2 va(a.X, a.Y);
+	Vector2 p(point.X, point.Y);
+	float side;
+	float dist = Unknown_Distance(p, va, vb, &side);
+	tm.Translate_Y((side > 0.0f) ? -dist : dist);
 
-	FAIL_IF(!Line) { return; }
-	To->Unknown_7AC070(Flipped);
-	From->Unknown_7AC070(!Flipped);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	RefCountPtr<FontSys> to_name = To->Name;
+	FAIL_IF(!to_name) { return; }
+
+	RefCountPtr<FontSys> from_name = From->Name;
+	FAIL_IF(!from_name) { return; }
+	if (fabs(tm.Get_Z_Rotation()) <= 1.5707964f) {
+		to_name->Set_Justify(1, 3);
+		from_name->Set_Justify(2, 4);
+	} else {
+		tm.Rotate_Z(WWMATH_PI);
+		to_name->Set_Justify(2, 4);
+		from_name->Set_Justify(1, 3);
+	}
+	to_name->Unknown_6CE7D0(0);
+	to_name->Set_Transform(tm);
+	if (!to_name->Peek_Scene()) { to_name->Add(Line->Peek_Scene()); }
+	from_name->Unknown_6CE7D0(0);
+	from_name->Set_Transform(tm);
+	if (!from_name->Peek_Scene()) { from_name->Add(Line->Peek_Scene()); }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x7ADF80: the 2D cross product of p - b and a - b (called, not inlined)
+static float Unknown_7ADF80(const Vector2 &p, const Vector2 &a, const Vector2 &b)	// NAME 1: what it computes
+{
+	return((a.Y - b.Y) * (p.X - b.X) - (p.Y - b.Y) * (a.X - b.X));
+}
 
 
 
@@ -2018,4 +2018,9 @@ const RefCountPtr<GalaxyMapRenderSectorClass> &GalaxyMapRenderGateClass::Unknown
 **	0x7ABA70, 0x7A83D0 and 0x7A89A0 write their results through references (ret without eax).
 **	What stays NOT EXACT is listed in docs/data/attempts.csv (inline budgets in the long members,
 **	0x7A8B70 above all, and three order-only residues).
+**	GalaxyMapRenderGateClass's constructor 0x7AC870 sits under auto_inline(off): its one caller,
+**	Create_Item<GalaxyMapRenderGateClass> 0x7B0E10, calls it (`new T(data)`, non-null branch), where
+**	/Ob2 would inline it; Create_Item returns false after the creating branch (the client's epilogue
+**	for the found case comes last). GalaxyMapRenderMeshClass's constructor is a .cpp function: the
+**	client keeps an uncalled copy at 0x7A9B20, its derived constructors inline it.
 */

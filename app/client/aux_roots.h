@@ -80,26 +80,26 @@ enum UnknownB011D4Enum { UNKNOWN_B011D4_0 };	// vtable 0xB011D4, 4 bytes
 inline const char *Type_Name(UnknownB011D4Enum *) { return "UnknownB011D4Enum"; }
 inline char *Value_To_String(char *buf, int size, UnknownB011D4Enum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
 inline bool String_To_Value(const char *text, UnknownB011D4Enum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB011D4Enum)v; return true; }
-// NAME 1: the value type of the leaf vtable 0xB0122C (its KVPair's Get_Type_Name 0x708690 says 'int'; no name in Net-7 or C#)
-enum UnknownB0122CEnum { UNKNOWN_B0122C_0 };	// vtable 0xB0122C, 4 bytes
-inline const char *Type_Name(UnknownB0122CEnum *) { return "int"; }
-bool String_To_Value(const char *text, UnknownB0122CEnum *value);	// 0x8456C0
-char *Value_To_String(char *buf, int size, UnknownB0122CEnum value);	// 0x845780
-// NAME 1: the value type of the leaf vtable 0xB0133C (its KVPair's Get_Type_Name 0x708AE0 says 'int'; no name in Net-7 or C#)
-enum UnknownB0133CEnum { UNKNOWN_B0133C_0 };	// vtable 0xB0133C, 4 bytes
-inline const char *Type_Name(UnknownB0133CEnum *) { return "int"; }
-bool String_To_Value(const char *text, UnknownB0133CEnum *value);	// 0x846110
-char *Value_To_String(char *buf, int size, UnknownB0133CEnum value);	// 0x846160
-// NAME 1: the value type of the leaf vtable 0xB01394 (its KVPair's Get_Type_Name 0x708970 says 'int'; no name in Net-7 or C#)
-enum UnknownB01394Enum { UNKNOWN_B01394_0 };	// vtable 0xB01394, 4 bytes
-inline const char *Type_Name(UnknownB01394Enum *) { return "int"; }
-bool String_To_Value(const char *text, UnknownB01394Enum *value);	// 0x846040
-char *Value_To_String(char *buf, int size, UnknownB01394Enum value);	// 0x846090
-// NAME 1: the value type of the leaf vtable 0xB013EC (its KVPair's Get_Type_Name 0x708800 says 'int'; no name in Net-7 or C#)
-enum UnknownB013ECEnum { UNKNOWN_B013EC_0 };	// vtable 0xB013EC, 4 bytes
-inline const char *Type_Name(UnknownB013ECEnum *) { return "int"; }
-bool String_To_Value(const char *text, UnknownB013ECEnum *value);	// 0x8458C0
-char *Value_To_String(char *buf, int size, UnknownB013ECEnum value);	// 0x845910
+#include "..\common\manufacturing_defs.h"	// the subcategory, mode, validity and difficulty types (vtables 0xB0122C, 0xB013EC, 0xB01394, 0xB0133C) and their converters
+inline const char *Type_Name(UnknownB0122CEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708690 says 'int'
+inline const char *Type_Name(UnknownB0133CEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708AE0 says 'int'
+inline const char *Type_Name(UnknownB01394Enum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708970 says 'int'
+inline const char *Type_Name(UnknownB013ECEnum *) { return "int"; }	// the KVPair's Get_Type_Name 0x708800 says 'int'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // NAME 1: the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#)
 struct UnknownB016DCType { int I00; int I04; int I08; UnknownB016DCType() : I00(-1), I04(-1), I08(-1) {} UnknownB016DCType(const UnknownB016DCType &v) { I00 = v.I00; I04 = v.I04; I08 = v.I08; } };	// vtable 0xB016DC, 12 bytes, constructed {-1, -1, -1} (the Mounts elements' default, Ship 0x6F6E29); the copy constructor is the client's: sclient's 0x751BE0 calls it out of line (0x752170, folded with UnknownB00A00Type's)
 inline bool operator!=(const UnknownB016DCType &a, const UnknownB016DCType &b) { return memcmp(&a, &b, sizeof(a)) != 0; }
@@ -151,11 +151,11 @@ inline bool operator!=(const SkillLevelAvailabilityStruct &a, const SkillLevelAv
 inline const char *Type_Name(SkillLevelAvailabilityStruct *) { return "SkillLevelAvailabilityStruct"; }
 bool String_To_Value(const char *text, SkillLevelAvailabilityStruct *value);	// 0x84A600
 char *Value_To_String(char *buf, int size, const SkillLevelAvailabilityStruct &value);	// 0x84A560
-// NAME 1: the value type of the leaf vtable 0xB03970 (no name in the client, Net-7 or C#)
-enum UnknownB03970Enum { UNKNOWN_B03970_0 };	// vtable 0xB03970, 4 bytes
-inline const char *Type_Name(UnknownB03970Enum *) { return "UnknownB03970Enum"; }
-inline char *Value_To_String(char *buf, int size, UnknownB03970Enum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
-inline bool String_To_Value(const char *text, UnknownB03970Enum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB03970Enum)v; return true; }
+// NAME 5: the client's Get_Type_Name string 'FormationState' (KVPair 0x759E80 hands the saved value to Type_Name 0x835CF0; 0x759EA0 / 0x75A200 call 0x835D80 / 0x835D10), leaf vtable 0xB03970: the groups' 'Formation'
+#include "..\common\faction_and_reputation.h"	// FormationState and its three converters (4 bytes)
+template<> inline const char *KVPairTemplateClass<FormationState>::Get_Type_Name() const { return Type_Name(Value); }	// 0x759E80
+
+
 
 // ------------------------------------------------------------------------- the compounds
 
@@ -834,7 +834,7 @@ public:
 
 	DeltaStringClass Name;	// +0x9C
 	DeltaTemplateClass<int> GameID;	// +0x124
-	DeltaTemplateClass<UnknownB03970Enum> Formation;	// +0x1AC
+	DeltaTemplateClass<FormationState> Formation;	// +0x1AC
 	DeltaTemplateClass<int> Position;	// +0x234
 };
 
@@ -853,7 +853,7 @@ public:
 	DeltaTemplateClass<bool> RestrictedLootingRights;	// +0x344
 	DeltaTemplateClass<bool> AutoReleaseLootingRestrictions;	// +0x3CC
 	DeltaStringClass FormationName;	// +0x454
-	DeltaTemplateClass<UnknownB03970Enum> Formation;	// +0x4DC
+	DeltaTemplateClass<FormationState> Formation;	// +0x4DC
 	DeltaTemplateClass<int> Position;	// +0x564
 	DeltaItemArrayClass<DeltaGroupMemberClass> Members;	// +0x5EC
 };
