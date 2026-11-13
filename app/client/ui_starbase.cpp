@@ -3859,7 +3859,7 @@ void UIStarbaseClass::Unknown_6417D0()
 
 
 
-// NOT EXACT: 0x63E770, functional (order: end() through the const_iterator conversion 0x6439B0 as the client's; the frame time's 64-bit stores and a zero store in another order; SB1, O4)
+// NOT EXACT: 0x63E770, functional (order: end() through the const_iterator conversion 0x6439B0 as the client's; order-only since end() builds through the iterator constructor (O7): the same 92 instructions in another order (the frame time's 64-bit stores); SB1, O4)
 // 0x63E770
 void UIStarbaseClass::Unknown_63E770()
 {
@@ -4212,16 +4212,12 @@ UIStarbaseUnknownD4TableClass::UIStarbaseUnknownD4TableClass(unsigned int n, con
 	Initialize_Buckets(n);
 }
 
-// NOT EXACT: 0x643DF0, functional (the client's loop re-tests the vector's start each pass; SB1)
 // 0x643DF0 (SGI's hashtable::begin, out of line)
 UIStarbaseUnknownD4TableClass::iterator UIStarbaseUnknownD4TableClass::begin()
 {
 	for (unsigned int n = 0; n < Buckets.size(); ++n) {
 		if (Buckets[n]) {
-			iterator it;
-			it.Cur = Buckets[n];
-			it.Table = this;
-			return(it);
+			return(iterator(Buckets[n], this));
 		}
 	}
 	return(end());

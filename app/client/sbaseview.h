@@ -87,6 +87,8 @@ public:
 	{
 		NodeStruct *Cur;	// SGI's _M_cur  // NAME 1: neutral (D10)
 		UIStarbaseUnknownD4TableClass *Table;	// SGI's _M_ht  // NAME 1: neutral (D10)
+		iterator() {}
+		iterator(NodeStruct *n, UIStarbaseUnknownD4TableClass *tab) : Cur(n), Table(tab) {}	// SGI's (end() through it stores the null node as an immediate: 0x643DF0)  // NAME 1 [n, tab]: SGI's
 		bool operator!=(const iterator &it) const { return(Cur != it.Cur); }
 		iterator &operator++()
 		{
@@ -142,7 +144,7 @@ public:
 		}
 		return(erased);
 	}
-	iterator end() { iterator it; it.Cur = 0; it.Table = this; return(it); }
+	iterator end() { return(iterator(0, this)); }
 	unsigned int Bucket_Of(unsigned int key) const { return(Bucket_Of_Key(key)); }	// SGI's _M_bkt_num (0x641FA0: the vector's size 0x644470 out of line, three layers down)  // NAME 1: neutral (D10)
 	unsigned int Bucket_Of_Key(unsigned int key) const { return(Bucket_Of_Key(key, Buckets.size())); }	// SGI's _M_bkt_num_key  // NAME 1: neutral (D10)
 	unsigned int Bucket_Of_Key(unsigned int key, unsigned int n) const { return(key % n); }	// SGI's _M_bkt_num_key (the hasher: the key itself)  // NAME 1: neutral (D10)
