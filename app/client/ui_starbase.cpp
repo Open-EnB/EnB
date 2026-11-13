@@ -25,6 +25,7 @@
 #include "..\shared\g_assert.h"
 #include "..\packets\pkstarbase_avatar_change.h"
 #include "..\packets\pkaction.h"	// ActionPacketClass (0x63DFE0)
+#include "env_map_manager.h"	// EnvironmentMapManagerClass (0x6366A0)
 #include "..\..\ww3d2\ww3d.h"
 #include "..\shared\message.h"
 #include "local_interface_sort.h"
@@ -85,7 +86,6 @@ public:
 static int Unknown_B8A870[4] = { 0, 1, 3, 2 };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A880[4] = { "hangar", "main", "bazaar", "lounge" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A950[10] = { "t", "j", "p", "n", "n", "n", "n", "n", "n", "n" };	// NAME 1: neutral (D10)
-
 
 
 
@@ -247,7 +247,7 @@ UIStarbaseClass::~UIStarbaseClass()
 	}
 	Unknown1A0.clear();
 }
-
+#pragma auto_inline(on)
 // 0x633010
 bool UIStarbaseUnknownCCClass::Unknown_633010()
 {
@@ -268,7 +268,7 @@ void UIStarbaseUnknownCCClass::Unknown_633040()
 		}
 	}
 }
-
+#pragma auto_inline(off)
 // 0x6330E0
 void UIStarbaseUnknownCCClass::Unknown_6330E0(const Vector3 &color)
 {
@@ -656,6 +656,7 @@ static const char *Unknown_B8AA3C[16] = { "door_forward", NULL, NULL, NULL, "doo
 static const char *Unknown_B8AA7C[16] = { "cam_door_fd_out", "", "", "", "cam_door_fd_out", "cam_door_lf_out", "cam_door_bk_out", "cam_door_rt_out", "", "cam_door_lf_out", "", "", "", "", "", "cam_door_rt_out" };	// NAME 1: neutral (D10): the doors' camera bones by room and column (0x63FCB0)
 static int Unknown_B8AABC[16] = { 1, -1, -1, -1, -1, 2, 0, 3, -1, 1, -1, -1, -1, -1, -1, 1 };	// NAME 1: neutral (D10)
 static int Unknown_B8AB3C[16] = { 1, -1, -1, -1, -1, 3, 0, 2, -1, 1, -1, -1, -1, -1, -1, 1 };	// NAME 1: neutral (D10): the room each door leads to (0x63FCB0)
+static const char *Unknown_B8AB7C[16] = { "cam_door_fd_in", "", "", "", "cam_door_fd_in", "cam_door_lf_in", "cam_door_bk_in", "cam_door_rt_in", "", "cam_door_lf_in", "", "", "", "", "", "cam_door_rt_in" };	// NAME 1: neutral (D10): the doors' arrival camera bones by room and column (0x6366A0)
 static const char *Unknown_B8A9A0[6] = { "sn_hangar", "sn_maindeck", "sn_npclounge", "sn_merchants", "sn_lounge", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A9B8[6] = { "sn_hangar", "sn_maindeck", "sn_npclounge", "sn_merchants", "sn_lounge", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A9D0[6] = { "sn_hangar", "sn_maindeck", "sn_npclounge", "sn_const", "sn_lounge", NULL };	// NAME 1: neutral (D10)
@@ -712,7 +713,6 @@ void UIStarbaseClass::Unknown_54()
 		UnknownC0.D->Unknown10->Change_Text(UnknownC0.D->Unknown24.c_str(), 0);
 		UnknownC0.D->Unknown10->Set_Hidden(true);
 		UnknownC0.D->Unknown10->Unknown_6CE7D0(2);
-
 		char name[32];
 		char model[32];
 		int i;
@@ -1347,88 +1347,88 @@ void UIStarbaseClass::Unknown_74(ControlKeysManager *manager)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @0x00636D50
+// 0x636D50 (slot +0x5C, the interface closed: the teleport effect, the ship, the animation channels, the lights, the
+// models' parts, the +0xEC entries, the NPC slots and the own avatar taken out; the client's view by room)
+void UIStarbaseClass::Unknown_5C()
+{
+	int i;
+	if (Unknown220) {
+		EffectObjectClass *effect = ((ClientClass *)Client)->Get_Effect(Unknown220);
+		if (effect) {
+			effect->Unknown_6E6E30();
+		}
+		Unknown220 = 0;
+	}
+	if (Unknown184) {
+		Unknown184->Remove();
+	}
+	UnknownB0->Unknown_6A2100();
+	for (i = 0; i < 6; i++) {
+		UnknownB0->Unknown_69F480(i);
+	}
+	UnknownB0->Unknown_69DB50(1);
+	Unknown_640CC0();
+	std::list<RefCountPtr<RenderObjClass> >::iterator it;
+	for (it = Unknown1A0.begin(); it != Unknown1A0.end(); it++) {
+		RefCountPtr<RenderObjClass> robj = *it;
+		InterfaceMesh->Peek_Object()->Remove_Sub_Object(robj.Peek());
+	}
+	for (it = Unknown194.begin(); it != Unknown194.end(); it++) {
+		RefCountPtr<RenderObjClass> robj = *it;
+		robj->Set_Hidden(true);
+	}
+	std::list<UIStarbaseUnknownECStruct *>::iterator entry;
+	for (entry = UnknownEC.begin(); entry != UnknownEC.end(); entry++) {
+		delete *entry;
+	}
+	UnknownEC.clear();
+	for (i = 0; i < 14; i++) {
+		if (Unknown13C[i]) {
+			if (Unknown13C[i]->Avatar) {
+				Unknown13C[i]->Avatar->Remove();
+			}
+			if (Unknown13C[i]->AmbientAvatar) {
+				Unknown13C[i]->AmbientAvatar->Remove();
+			}
+			if (Unknown13C[i]->NameTag) {
+				Unknown13C[i]->NameTag->Remove();
+				Unknown13C[i]->NameTag = NULL;
+			}
+		}
+	}
+	UnknownC0.D->Avatar->Unknown230 = true;
+	UnknownC0.D->Avatar->Unknown36C = false;
+	UnknownC0.D->Avatar->Unknown_785F20(false);
+	UnknownC0.D->Avatar->Unknown_788EF0();
+	UnknownC0.D->Avatar->Remove();
+	UnknownC0.D->NameTag->Set_Hidden(true);
+	if (UnknownC0.D->Unknown10) {
+		UnknownC0.D->Unknown10->Set_Hidden(true);
+	}
+	UnknownB0->Unknown_6A1130();
+	int view;
+	switch (Room) {
+		case 0:
+			view = 0x20;
+			break;
+		case 2:
+			view = 0x24;
+			break;
+		case 1:
+			view = 0x26;
+			break;
+		case 3:
+			view = 0x22;
+			break;
+		default:
+			view = 0x27;
+			break;
+	}
+	((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_744560(view);
+	Unknown5BB320Class::Unknown_5C();
+	Unknown_63C890();
+}
 
 
 
@@ -1616,116 +1616,116 @@ bool UIStarbaseClass::Unknown_68(int key)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x6366A0, functional (inline budget: the client builds the ship transform through ??_H (the Vector4 constructor 0x468E70 out of line, as 0x640360) and calls the avatar RefCountPtr's operator-> out of line; the column in ebx, ours in ebp; O4)
+// 0x6366A0 (slot +0x58, the interface opened: the room's model in the view, the camera at the door the avatar came
+// through (or 'camera_3rd' on arrival), the ship and its animation in the hangar, the NPC slots, the parts, the fog)
+void UIStarbaseClass::Unknown_58()
+{
+	InterfaceSortScopeClass scope(this);
+	Unknown5BB320Class::Unknown_58();
+	Unknown1F8->Unknown_7C(View, false);
+	int column = UnknownB0->Info->Style;
+	((LineDisplayClientClass *)Client)->As_Space_Client()->EnvironmentMapManager->Unknown_760770(100000, true);
+	UnknownB0->Unknown_69DBA0(1, Create_Get(InterfaceMesh->Unknown_5B8B20()));
+	Unknown21C = false;
+	Unknown1B3 = false;
+	Unknown1B2 = false;
+	UnknownC0.A = -1;
+	UnknownC0.B = -1;
+	UnknownC0.C = -1;
+	memset(Unknown138, 0, sizeof(Unknown138));
+	int i;
+	if (UnknownB0->Unknown58 == -1) {
+		UnknownB0->Unknown_69E260("camera_3rd");
+		Unknown1FD = true;
+		Unknown1AC = 4;
+	} else {
+		for (i = 0; i < 4; i++) {
+			if (Unknown_B8AB3C[Room * 4 + i] == UnknownB0->Unknown58) {
+				Unknown_63C080(Unknown_B8AB7C[Room * 4 + i], true, true);
+				UnknownB0->Unknown_69E510(UnknownC0.D->Avatar->Unknown_787A90());
+				break;
+			}
+		}
+		Unknown200 = false;
+		Unknown1FC = false;
+		Unknown1B1 = false;
+	}
+	if (!Room) {
+		RenderObjClass *ship = Unknown184.Peek();
+		if (ship && !Unknown1AC) {
+			Matrix3D tm;
+			tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
+			((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
+			((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(ship);
+			ship->Set_Transform(tm);
+		}
+		char anim[32];
+		if (RoomInfo->Unknown0A) {
+			_snprintf(anim, sizeof(anim), "%sa2.%sa2-1", Unknown_B8A978[column], Unknown_B8A978[column]);
+		} else {
+			_snprintf(anim, sizeof(anim), "%sa.%sa-1", Unknown_B8A978[column], Unknown_B8A978[column]);
+		}
+		UnknownB0->Unknown_69F540(Unknown_497300(InterfaceMesh->Peek_Object()), anim, 1, true, false);
+	}
+	int view;
+	switch (Room) {
+		case 0:
+			view = 0x1F;
+			break;
+		case 2:
+			view = 0x23;
+			break;
+		case 1:
+			view = 0x25;
+			break;
+		case 3:
+			view = 0x21;
+			break;
+		default:
+			view = 0x27;
+			break;
+	}
+	((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_744560(view);
+	for (i = 0; i < 14; i++) {
+		if (Unknown13C[i]) {
+			if (Unknown13C[i]->Avatar) {
+				((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(Unknown13C[i]->Avatar.Peek());
+				((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(Unknown13C[i]->Avatar.Peek());
+			} else if (Unknown13C[i]->AmbientAvatar) {
+				((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(Unknown13C[i]->AmbientAvatar.Peek());
+				((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(Unknown13C[i]->AmbientAvatar.Peek());
+			}
+			UnknownB0->Unknown_6A1880(Unknown13C[i]->NameTag, 1);
+			if (Unknown13C[i]->Unknown24.length()) {
+				UnknownB0->Unknown_6A1880(Unknown13C[i]->Unknown10, 1);
+			}
+			Unknown13C[i]->Unknown_633180();
+		}
+	}
+	Unknown_640810();
+	std::list<RefCountPtr<RenderObjClass> >::iterator it;
+	for (it = Unknown194.begin(); it != Unknown194.end(); it++) {
+		RefCountPtr<RenderObjClass> robj = *it;
+		robj->Set_Hidden(false);
+	}
+	for (it = Unknown1A0.begin(); it != Unknown1A0.end(); it++) {
+		RefCountPtr<RenderObjClass> robj = *it;
+		InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(robj.Peek(), "root");
+	}
+	if (RoomInfo->Unknown0C) {
+		UnknownB0->Unknown_6A20C0(RoomInfo->Unknown18, *(float *)&RoomInfo->Unknown10, *(float *)&RoomInfo->Unknown14);
+	}
+	if (OptionClass::Instance->Get_Bool("Starbase_Third_Person_Mode")) {
+		if (!UnknownC0.D->Avatar->Unknown2F5) {
+			UnknownC0.D->Avatar->Unknown2F5 = !UnknownC0.D->Avatar->Unknown2F5;
+		}
+	} else if (UnknownC0.D->Avatar->Unknown2F5) {
+		UnknownC0.D->Avatar->Unknown2F5 = !UnknownC0.D->Avatar->Unknown2F5;
+	}
+	((LineDisplayClientClass *)Client)->As_Space_Client()->Mouse->Unknown_515120(2);
+	((LineDisplayClientClass *)Client)->As_Space_Client()->Mouse->Unknown_515400();
+}
 
 
 
@@ -2281,83 +2281,83 @@ void UIStarbaseClass::Unknown_63A100()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x63AC60, functional (frame 0x28 / 0x2C; the client calls the own guild string's assign out of line and inlines the others'; O4)
+// 0x63AC60 (0x638390's frame: the name tags shown or hidden, their guild texts and colours kept up to date)
+void UIStarbaseClass::Unknown_63AC60()
+{
+	if (OptionClass::Instance->Get_Bool("Show_Self_Name") && UnknownC0.D->Avatar && !UnknownC0.D->Avatar->Unknown_7863E0()) {
+		UnknownC0.D->NameTag->Set_Hidden(false);
+		if (UnknownC0.D->Unknown10) {
+			UnknownC0.D->Unknown10->Set_Hidden(false);
+		}
+		Unknown_63F490(UnknownC0.D);
+		if (((ClientClass *)Client)->Get_Avatar()->Unknown_6FFF50() != UnknownC0.D->Unknown34) {
+			if (((ClientClass *)Client)->Unknown_728300()) {
+				((ClientClass *)Client)->Get_Avatar()->Unknown_6FFFF0(UnknownC0.D->Unknown24);
+				Vector3 color;
+				((ClientClass *)Client)->Get_Avatar()->Unknown_700670(color);
+				UnknownC0.D->Unknown10->Unknown494.Color = color;
+				UnknownC0.D->Unknown10->Unknown4A4 = UnknownC0.D->Unknown10->Unknown494;
+				UnknownC0.D->Unknown34 = ((ClientClass *)Client)->Get_Avatar()->Unknown_6FFF50();
+			} else {
+				UnknownC0.D->Unknown24 = "";
+				UnknownC0.D->Unknown34 = -1;
+			}
+			UnknownC0.D->Unknown10->Change_Text(UnknownC0.D->Unknown24.c_str(), 0);
+		}
+	} else {
+		UnknownC0.D->NameTag->Set_Hidden(true);
+		if (UnknownC0.D->Unknown10) {
+			UnknownC0.D->Unknown10->Set_Hidden(true);
+		}
+	}
+	for (int i = 0; i < 14; i++) {
+		if (Unknown13C[i]) {
+			Unknown_63F490(Unknown13C[i]);
+		}
+	}
+	UIStarbaseUnknownD4TableClass::iterator it;
+	for (it = UnknownD4.begin(); it != UnknownD4.end(); it++) {
+		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+		FAIL_IF(!savatar) continue;
+		if (UnknownB0->Unknown_69CCD0()) {
+			if (savatar->NameTag->Unknown440 == 1) {
+				savatar->NameTag->Unknown_6CE7D0(2);
+			}
+			continue;
+		}
+		Unknown_63F490(savatar);
+		savatar->Unknown_633040();
+		if (savatar->Unknown20 <= 0.0f) {
+			if (Unknown_641EB0(savatar)) {
+				savatar->NameTag->Unknown494.Color = Vector3(0.66f, 0.0f, 0.66f);
+			} else {
+				savatar->NameTag->Unknown494.Color = Vector3(0.33f, 0.33f, 0.99f);
+			}
+			savatar->NameTag->Unknown4A4 = savatar->NameTag->Unknown494;
+		}
+		ClientObjectClass *object = ((LineDisplayClientClass *)Client)->As_Space_Client()->Find_Object(savatar->Unknown00);
+		if (object && object->Unknown_6FFF50() != savatar->Unknown34) {
+			if (object->Unknown_6FFE90()) {
+				object->Unknown_6FFFF0(savatar->Unknown24);
+				Vector3 color;
+				if (Unknown_641EB0(savatar)) {
+					color.Set(0.66f, 0.0f, 0.66f);
+				} else {
+					color.Set(0.33f, 0.33f, 0.99f);
+				}
+				object->Unknown_700670(color);
+				savatar->Unknown10->Unknown494.Color = color;
+				savatar->Unknown10->Unknown4A4 = savatar->Unknown10->Unknown494;
+				savatar->Unknown34 = object->Unknown_6FFF50();
+			} else {
+				savatar->Unknown24 = "";
+				savatar->Unknown34 = -1;
+			}
+			savatar->Unknown10->Change_Text(savatar->Unknown24.c_str(), 0);
+		}
+	}
+}
 
 
 
@@ -2976,7 +2976,7 @@ void UIStarbaseClass::Unknown_63DFE0()
 			Unknown1F8->Unknown_5C();
 			return;
 		}
-		if ((savatar->Unknown18 & 0x3E) || !savatar->Avatar->Unknown318.empty()) {
+		if (savatar->Unknown_633010()) {
 			Unknown1F8->Unknown_5C();
 			return;
 		}
