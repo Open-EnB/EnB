@@ -5484,6 +5484,28 @@ void SClient::Unknown_7555B0()
 	}
 }
 
+// the root to's state set from from's encoding (0x755600's two roots)
+template<class T> inline void Unknown_Copy_Root(T *to, T *from)	// NAME 1: neutral (D10)
+{
+	LinearBufferClass buf(0x400, 0x400);
+	DurationClass base(0);
+	from->Unknown_0C(buf);
+	buf.Seek(0);
+	to->Unknown_10(buf, base);
+	to->Unknown_1C();
+}
+
+// 0x755600 (0x745750: SERVER_HANDOFF 58): the roots back to their defaults: a new root's encoding decoded into each
+void SClient::Unknown_755600()
+{
+	DeltaPlayerClass *player = new DeltaPlayerClass;
+	Unknown_Copy_Root(AuxData, player);
+	delete player;
+	DeltaHullClass *hull = new DeltaHullClass(AvatarID);
+	Unknown_Copy_Root((DeltaHullClass *)PlayerVarAuxData[0], hull);
+	delete hull;
+}
+
 
 
 

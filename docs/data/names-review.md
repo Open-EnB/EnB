@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1866 |
 | 2 | describes what the code does | 4595 |
-| 1 | neutral placeholder | 23745 |
+| 1 | neutral placeholder | 23746 |
 
 ## For review (score 3 and below)
 
@@ -7586,35 +7586,36 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_751850` | `app/client/sclient.cpp:5438` | untagged neutral name (D10) |
 | 1 | `Unknown_81C630` | `app/client/sclient.cpp:5443` | untagged neutral name (D10) |
 | 1 | `SClientUnknown12C4Class` | `app/client/sclient.cpp:5467` | untagged neutral name (D10) |
-| 1 | `Unknown_BE5F20` | `app/client/sclient.cpp:5520` | neutral (D10) |
-| 1 | `Unknown_34` | `app/client/sclient.cpp:5524` | untagged neutral name (D10) |
-| 1 | `Unknown_747510` | `app/client/sclient.cpp:5527` | untagged neutral name (D10) |
-| 1 | `Unknown_745FF0` | `app/client/sclient.cpp:5530` | untagged neutral name (D10) |
-| 1 | `Unknown_747C70` | `app/client/sclient.cpp:5532` | untagged neutral name (D10) |
-| 1 | `Unknown05` | `app/client/sclient.cpp:5562` | untagged neutral name (D10) |
-| 1 | `Unknown_640150` | `app/client/sclient.cpp:5604` | untagged neutral name (D10) |
-| 1 | `Unknown_747FA0` | `app/client/sclient.cpp:5636` | untagged neutral name (D10) |
-| 1 | `Unknown_749020` | `app/client/sclient.cpp:5636` | untagged neutral name (D10) |
-| 1 | `Unknown_749590` | `app/client/sclient.cpp:5636` | untagged neutral name (D10) |
-| 1 | `Unknown_749A70` | `app/client/sclient.cpp:5636` | untagged neutral name (D10) |
-| 1 | `Unknown_749ED0` | `app/client/sclient.cpp:5636` | untagged neutral name (D10) |
-| 1 | `Unknown_6FF7A0` | `app/client/sclient.cpp:5650` | untagged neutral name (D10) |
-| 1 | `Unknown4D` | `app/client/sclient.cpp:5653` | untagged neutral name (D10) |
-| 1 | `Unknown_74D950` | `app/client/sclient.cpp:5674` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/sclient.cpp:5676` | untagged neutral name (D10) |
-| 1 | `Unknown18C` | `app/client/sclient.cpp:5677` | untagged neutral name (D10) |
-| 1 | `Unknown_750F70` | `app/client/sclient.cpp:5696` | untagged neutral name (D10) |
-| 1 | `Unknown_765DF0` | `app/client/sclient.cpp:5703` | untagged neutral name (D10) |
-| 1 | `Unknown_6425D0` | `app/client/sclient.cpp:5708` | untagged neutral name (D10) |
-| 1 | `Unknown_700820` | `app/client/sclient.cpp:5716` | untagged neutral name (D10) |
-| 1 | `Unknown_BB9C40` | `app/client/sclient.cpp:5724` | neutral (D10): cleared while 0x744690 renders the first frames (Unknown1374) |
-| 1 | `Unknown_BBB5D0` | `app/client/sclient.cpp:5725` | neutral (D10): the same |
-| 1 | `Unknown_568690` | `app/client/sclient.cpp:5734` | untagged neutral name (D10) |
-| 1 | `Unknown_515440` | `app/client/sclient.cpp:5754` | untagged neutral name (D10) |
-| 1 | `Unknown_Resume_All` | `app/client/sclient.cpp:5773` | untagged neutral name (D10) |
-| 1 | `Unknown_74B680` | `app/client/sclient.cpp:5805` | untagged neutral name (D10) |
-| 1 | `Unknown_74BA30` | `app/client/sclient.cpp:5827` | untagged neutral name (D10) |
-| 1 | `Unknown_692160` | `app/client/sclient.cpp:5832` | untagged neutral name (D10) |
+| 1 | `Unknown_Copy_Root` | `app/client/sclient.cpp:5488` | neutral (D10) |
+| 1 | `Unknown_BE5F20` | `app/client/sclient.cpp:5542` | neutral (D10) |
+| 1 | `Unknown_34` | `app/client/sclient.cpp:5546` | untagged neutral name (D10) |
+| 1 | `Unknown_747510` | `app/client/sclient.cpp:5549` | untagged neutral name (D10) |
+| 1 | `Unknown_745FF0` | `app/client/sclient.cpp:5552` | untagged neutral name (D10) |
+| 1 | `Unknown_747C70` | `app/client/sclient.cpp:5554` | untagged neutral name (D10) |
+| 1 | `Unknown05` | `app/client/sclient.cpp:5584` | untagged neutral name (D10) |
+| 1 | `Unknown_640150` | `app/client/sclient.cpp:5626` | untagged neutral name (D10) |
+| 1 | `Unknown_747FA0` | `app/client/sclient.cpp:5658` | untagged neutral name (D10) |
+| 1 | `Unknown_749020` | `app/client/sclient.cpp:5658` | untagged neutral name (D10) |
+| 1 | `Unknown_749590` | `app/client/sclient.cpp:5658` | untagged neutral name (D10) |
+| 1 | `Unknown_749A70` | `app/client/sclient.cpp:5658` | untagged neutral name (D10) |
+| 1 | `Unknown_749ED0` | `app/client/sclient.cpp:5658` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF7A0` | `app/client/sclient.cpp:5672` | untagged neutral name (D10) |
+| 1 | `Unknown4D` | `app/client/sclient.cpp:5675` | untagged neutral name (D10) |
+| 1 | `Unknown_74D950` | `app/client/sclient.cpp:5696` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/sclient.cpp:5698` | untagged neutral name (D10) |
+| 1 | `Unknown18C` | `app/client/sclient.cpp:5699` | untagged neutral name (D10) |
+| 1 | `Unknown_750F70` | `app/client/sclient.cpp:5718` | untagged neutral name (D10) |
+| 1 | `Unknown_765DF0` | `app/client/sclient.cpp:5725` | untagged neutral name (D10) |
+| 1 | `Unknown_6425D0` | `app/client/sclient.cpp:5730` | untagged neutral name (D10) |
+| 1 | `Unknown_700820` | `app/client/sclient.cpp:5738` | untagged neutral name (D10) |
+| 1 | `Unknown_BB9C40` | `app/client/sclient.cpp:5746` | neutral (D10): cleared while 0x744690 renders the first frames (Unknown1374) |
+| 1 | `Unknown_BBB5D0` | `app/client/sclient.cpp:5747` | neutral (D10): the same |
+| 1 | `Unknown_568690` | `app/client/sclient.cpp:5756` | untagged neutral name (D10) |
+| 1 | `Unknown_515440` | `app/client/sclient.cpp:5776` | untagged neutral name (D10) |
+| 1 | `Unknown_Resume_All` | `app/client/sclient.cpp:5795` | untagged neutral name (D10) |
+| 1 | `Unknown_74B680` | `app/client/sclient.cpp:5827` | untagged neutral name (D10) |
+| 1 | `Unknown_74BA30` | `app/client/sclient.cpp:5849` | untagged neutral name (D10) |
+| 1 | `Unknown_692160` | `app/client/sclient.cpp:5854` | untagged neutral name (D10) |
 | 1 | `LoginUnknown0CClass` | `app/client/sclient.h:42` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `app/client/sclient.h:43` | untagged neutral name (D10) |
 | 1 | `Unknown49F200Class` | `app/client/sclient.h:57` | neutral (D10) |
@@ -25355,10 +25356,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `TestEffectStruct` | `app/client/sclient.cpp:4363` | testeffects.ini's record |
 | 2 | `Sample2DNames` | `app/client/sclient.cpp:5116` | what it holds |
 | 2 | `Sample3DNames` | `app/client/sclient.cpp:5117` | what it holds |
-| 2 | `ChatCommandHelp` | `app/client/sclient.cpp:5510` | 0x745FF0's '/chat' help lines |
-| 2 | `LogoffCommandStruct` | `app/client/sclient.cpp:5517` | what 0x74ABC0 does with an entry |
-| 2 | `LogoffCommands` | `app/client/sclient.cpp:5518` | what 0x74ABC0 sends for them |
-| 2 | `CampCommands` | `app/client/sclient.cpp:5519` | the command 0x74ABC0 refuses |
+| 2 | `ChatCommandHelp` | `app/client/sclient.cpp:5532` | 0x745FF0's '/chat' help lines |
+| 2 | `LogoffCommandStruct` | `app/client/sclient.cpp:5539` | what 0x74ABC0 does with an entry |
+| 2 | `LogoffCommands` | `app/client/sclient.cpp:5540` | what 0x74ABC0 sends for them |
+| 2 | `CampCommands` | `app/client/sclient.cpp:5541` | the command 0x74ABC0 refuses |
 | 2 | `BuddyRewardStruct` | `app/client/sclient.h:51` | what 0x751460 sums from it |
 | 2 | `SkillPoints` | `app/client/sclient.h:54` | the text it fills |
 | 2 | `Credits` | `app/client/sclient.h:55` | the text it fills |
