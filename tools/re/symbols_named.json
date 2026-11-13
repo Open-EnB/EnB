@@ -1491,5 +1491,35 @@
   "address": "0x46BEC0",
   "symbol": "??1?$RefCountPtr@VVertexMaterialClass@@@@QAE@XZ",
   "evidence": "land.obj's second RefCountPtr destructor: LandClass's destructor 0x46A480 unwinds its members +0x180 and +0x188 through it (funclets 0xAA3ED6 / 0xAA3EE4), the materials Render 0x474B30 hands DX8Wrapper::Set_Material and the decoration loader fills from MaterialInfoClass::Get_Vertex_Material. Byte-identical to 0x46BE90 (O1 2026-11-12)"
+ },
+ {
+  "address": "0x7EE5C0",
+  "symbol": "??1?$List@PAV?$DataNode@PAVMeshSoundClass@@@@@@UAE@XZ",
+  "evidence": "mv3dsnd.obj's List<DataNode<MeshSoundClass *> *> destructor (MeshSoundListClass's Sounds, +0x08, mv3dview.h): ~Movie3DSoundClass 0x7EE340 unwinds the list's Sounds through it (funclet 0xAD3A68 `mov ecx, [ebp-0x10]; add ecx, 8; jmp`), and 0x7EEAA0 (its ??_G, table 0xB079F4 the constructor 0x7EDCB0 stores at 0x7EDFFC) calls it. Byte-identical to 0x45C0E0 / 0x45CA30 / 0x489EE0 (O5 2026-11-12)"
+ },
+ {
+  "address": "0x7EEAA0",
+  "symbol": "??_G?$List@PAV?$DataNode@PAVMeshSoundClass@@@@@@UAEPAXI@Z",
+  "evidence": "the deleting destructor in table 0xB079F4 (stored at 0x7EDFFC by 0x7EDCB0 for MeshSoundListClass's Sounds); it calls 0x7EE5C0 (O5 2026-11-12)"
+ },
+ {
+  "address": "0x7EEAD0",
+  "symbol": "??1?$List@PAV?$DataNode@PAVMeshSoundListClass@@@@@@UAE@XZ",
+  "evidence": "mv3dsnd.obj's List<DataNode<MeshSoundListClass *> *> destructor (HashListClass's List, hashlist.h): ~Movie3DSoundClass 0x7EE340's funclet 0xAD3A73 and ~HashListClass 0x7EE8A0's funclet 0xAD3A90 jump to it (`mov ecx, [ebp-N]; jmp`), and 0x7EEBA0 (its ??_G, table 0xB079F8 stored at 0x7EDCE8) calls it (O5 2026-11-12)"
+ },
+ {
+  "address": "0x7EEBA0",
+  "symbol": "??_G?$List@PAV?$DataNode@PAVMeshSoundListClass@@@@@@UAEPAXI@Z",
+  "evidence": "the deleting destructor in table 0xB079F8 (stored at 0x7EDCE8 by 0x7EDCB0 for the hash list's List); it calls 0x7EEAD0 (O5 2026-11-12)"
+ },
+ {
+  "address": "0x7EED80",
+  "symbol": "??_G?$HashNodeClass@PAVMeshSoundListClass@@VHashDefaultUserClass@@@@UAEPAXI@Z",
+  "evidence": "the deleting destructor in table 0xB079FC, which the node constructor 0x7EED40 stores (0x7EED5A); it calls 0x7EEDB0 (O5 2026-11-12)"
+ },
+ {
+  "address": "0x7EEDB0",
+  "symbol": "??1?$HashNodeClass@PAVMeshSoundListClass@@VHashDefaultUserClass@@@@UAE@XZ",
+  "evidence": "HashNodeClass<MeshSoundListClass *, HashDefaultUserClass>'s destructor: its only caller is 0x7EED80, the deleting destructor of the node table 0xB079FC that 0x7EED40 stores (O5 2026-11-12)"
  }
 ]
