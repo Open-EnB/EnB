@@ -870,7 +870,7 @@ public:
 	void Unknown_765010();								// 0x765010 (SClient::Init)
 	Vector3 Unknown_765DF0(int index);					// 0x765DF0: colour index (0..23), else (1, 1, 1) (SClient 0x750F70: the chat channel)  // NAME 1 [index]: neutral
 
-	Vector3 Unknown00[24];								// +0x00  // NAME 2: what the constructor writes
+	Vector3 Unknown00[24];	void Unknown_765540(); void Unknown_765BE0(); void Unknown_765E40(int index, const Vector3 &color);	// +0x00  // NAME 2: what the constructor writes; 0x765540: the colours back into the options' 'Color_*' entries ('/setcolor', '/resetcolor' 0x747FA0); 0x765BE0: the default colours ('/resetcolor'); 0x765E40: colour 'index' (0..23) set, each part clamped to 0..1 ('/setcolor', 22 calls)  // NAME 1 [index, color]: what it does with them
 };
 
 #pragma pack(push, 4)		// as ClientClass (client.h)
