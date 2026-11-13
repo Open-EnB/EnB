@@ -3521,7 +3521,7 @@ void CharacterViewAvatarClass::Unknown_788890()
 }
 
 // 0x788900
-// NOT EXACT: shape (0.78: the client calls 0x784F20 out of line here (inline budget; its other callers inline it), and evaluates both X-vector temporaries before the first goal test)
+// NOT EXACT: shape (0.81: the client calls 0x784F20 out of line here (inline budget; its other callers inline it), and keeps the Normalize result on the FPU stack on both paths)
 void CharacterViewAvatarClass::Unknown_788900()
 {
 	while (Unknown318.size() != 0) {
@@ -3551,8 +3551,10 @@ void CharacterViewAvatarClass::Unknown_788900()
 		}
 		Vector3 dir = Normalize(delta);
 		float side = Vector3::Dot_Product(Unknown330.Get_Y_Vector(), dir);
+		Vector3 goal_x = goal->Get_X_Vector();
+		Vector3 my_x = Unknown330.Get_X_Vector();
 		if (Vector3::Dot_Product(Unknown330.Get_X_Vector(), dir) <= 0.0f
-			&& Vector3::Dot_Product(Unknown330.Get_X_Vector(), goal->Get_X_Vector()) >= 0.0f
+			&& Vector3::Dot_Product(my_x, goal_x) >= 0.0f
 			&& dist <= 10.0f) {
 			bool full = false;
 			if (fabs(side) < 0.5) {
@@ -3596,8 +3598,6 @@ void CharacterViewAvatarClass::Unknown_788900()
 		return;
 	}
 }
-
-
 
 
 
