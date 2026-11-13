@@ -1075,7 +1075,7 @@ void UIStarbaseClass::Unknown_63D2F0(int index)
 #pragma auto_inline(on)
 
 #pragma auto_inline(off)
-float Unknown_831E90(const Vector3 &a, float a_radius, const Vector3 &b, float b_radius);	// 0x831E90 (cdecl): the distance between two spheres, as gutter_radar.cpp's  // NAME 1: neutral (D10)
+#include "..\common\distance_calc.h"	// Unknown_831E90 0x831E90: the distance between two spheres
 
 // 0x63B310
 void UIStarbaseClass::Unknown_63B310()

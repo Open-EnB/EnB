@@ -1,0 +1,13 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: color_common.cpp (__FILE__ 0xBA93DC, G_ASSERTs 'false' l.47 and '0' l.92): chat colours by type, chat type by name (0xBA928C), the decal index check (decal_textures.ini / decal_swatches.ini / secret_decal_textures.ini); object 0x831950-0x831E7F",
+ "expected": {},
+ "in_tree": [
+  "0x831A70",
+  "0x831C80",
+  "0x831CF0"
+ ],
+ "merged": [],
+ "name": "common/color_common.cpp"
+}

@@ -17,7 +17,7 @@
 #include "tasks\tsk_login.h"
 #include "..\shared\g_assert.h"
 
-float Unknown_831E90(const Vector3 &a, float a_radius, const Vector3 &b, float b_radius);	// 0x831E90 (cdecl): the distance between two spheres  // NAME 1: neutral (D10)
+#include "..\common\distance_calc.h"	// Unknown_831E90 0x831E90: the distance between two spheres
 
 
 

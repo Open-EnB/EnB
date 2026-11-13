@@ -1,0 +1,14 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: the sphere distances 0x831E90-0x83209F, the object after color_common.cpp's ctype guard 0x831E60; no __FILE__, name PROVISIONAL (D137) after its wrapper file distance_calc_client.cpp (__FILE__ 0xBA137C)",
+ "expected": {},
+ "in_tree": [
+  "0x831E90",
+  "0x831F10",
+  "0x831F90",
+  "0x832010"
+ ],
+ "merged": [],
+ "name": "common/distance_calc.cpp"
+}

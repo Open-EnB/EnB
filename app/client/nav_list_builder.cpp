@@ -8,7 +8,7 @@
 #include "mempool.h"
 #include "..\shared\g_assert.h"
 
-int Unknown_832010(const Vector3 &pos1, float radius1, const Vector3 &pos2, float radius2, float range1, float range2, float *distance);	// 0x832010 (cdecl)  // NAME 1: neutral: bit 0 within radius1, bit 1 within radius2
+#include "..\common\distance_calc.h"	// Unknown_832010 0x832010: bit 0 within radius1, bit 1 within radius2
 
 // One link of a node of the search
 struct NavLinkStruct	// NAME 1: neutral; the assert's 'link'
