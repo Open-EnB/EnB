@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 195 |
+| 5 | the client names it | 196 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1830 |
 | 2 | describes what the code does | 4529 |
-| 1 | neutral placeholder | 23251 |
+| 1 | neutral placeholder | 23261 |
 
 ## For review (score 3 and below)
 
@@ -98,7 +98,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB016DCType` | `app/client/aux_roots.h:103` | the value type of the leaf vtable 0xB016DC (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB03588Enum` | `app/client/aux_roots.h:138` | the value type of the leaf vtable 0xB03588 (no name in the client, Net-7 or C#) |
 | 1 | `UnknownB035E0Enum` | `app/client/aux_roots.h:143` | the value type of the leaf vtable 0xB035E0 (no name in the client, Net-7 or C#) |
-| 1 | `UnknownB03970Enum` | `app/client/aux_roots.h:154` | the value type of the leaf vtable 0xB03970 (no name in the client, Net-7 or C#) |
 | 1 | `Unknown9C` | `app/client/aux_roots.h:181` | neutral (D10): a member, not a field of the tree |
 | 1 | `Unknown04` | `app/client/aux_roots.h:363` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `app/client/aux_roots.h:363` | untagged neutral name (D10) |
@@ -7874,6 +7873,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_765010` | `app/client/sclient.h:870` | untagged neutral name (D10) |
 | 1 | `index` | `app/client/sclient.h:871` | neutral |
 | 1 | `Unknown_765DF0` | `app/client/sclient.h:871` | untagged neutral name (D10) |
+| 1 | `Unknown_765540` | `app/client/sclient.h:873` | untagged neutral name (D10) |
+| 1 | `Unknown_765BE0` | `app/client/sclient.h:873` | untagged neutral name (D10) |
+| 1 | `Unknown_765E40` | `app/client/sclient.h:873` | untagged neutral name (D10) |
 | 1 | `task` | `app/client/sclient.h:881` | ClientTaskClass::Init passes this |
 | 1 | `text` | `app/client/sclient.h:891` | the chat line |
 | 1 | `text` | `app/client/sclient.h:892` | the chat line |
@@ -7894,7 +7896,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_749ED0` | `app/client/sclient.h:899` | untagged neutral name (D10) |
 | 1 | `view` | `app/client/sclient.h:908` | what it gets |
 | 1 | `Unknown_742530` | `app/client/sclient.h:908` | untagged neutral name (D10) |
+| 1 | `text, arg, set_state` | `app/client/sclient.h:909` | the chat line; neutral; what it does |
 | 1 | `Unknown_7429B0` | `app/client/sclient.h:909` | untagged neutral name (D10) |
+| 1 | `Unknown_743440` | `app/client/sclient.h:909` | untagged neutral name (D10) |
+| 1 | `Unknown_7472A0` | `app/client/sclient.h:909` | untagged neutral name (D10) |
+| 1 | `Unknown_747AF0` | `app/client/sclient.h:909` | untagged neutral name (D10) |
+| 1 | `Unknown_745080` | `app/client/sclient.h:909` | untagged neutral name (D10) |
 | 1 | `event` | `app/client/sclient.h:910` | what it gets |
 | 1 | `Unknown_743380` | `app/client/sclient.h:910` | untagged neutral name (D10) |
 | 1 | `event` | `app/client/sclient.h:911` | what it gets |
@@ -12934,7 +12941,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_81B610` | `app/client/ui_guild.h:42` | untagged neutral name (D10) |
 | 1 | `on` | `app/client/ui_guild.h:43` | neutral |
 | 1 | `Unknown_81BA60` | `app/client/ui_guild.h:43` | untagged neutral name (D10) |
+| 1 | `lines, ranks` | `app/client/ui_guild.h:44` | as 0x81C060's; what it copies |
 | 1 | `Unknown_81BF40` | `app/client/ui_guild.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_81C380` | `app/client/ui_guild.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_81C630` | `app/client/ui_guild.h:44` | untagged neutral name (D10) |
 | 1 | `rank` | `app/client/ui_guild.h:45` | neutral |
 | 1 | `Unknown_81C930` | `app/client/ui_guild.h:45` | untagged neutral name (D10) |
 | 1 | `Unknown_81BFD0` | `app/client/ui_guild.h:46` | untagged neutral name (D10) |
@@ -24938,7 +24948,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/sclient.h:828` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:842` | what it holds |
 | 2 | `std:` | `app/client/sclient.h:855` | what it holds |
-| 2 | `Unknown00` | `app/client/sclient.h:873` | what the constructor writes |
+| 2 | `Unknown00` | `app/client/sclient.h:873` | what the constructor writes; 0x765540: the colours back into the options' 'Color_*' entries ('/setcolor', '/resetcolor' 0x747FA0); 0x765BE0: the default colours ('/resetcolor'); 0x765E40: colour 'index' (0..23) set, each part clamped to 0..1 ('/setcolor', 22 calls)  // NAME 1 [index, color]: what it does with them |
 | 2 | `SClient` | `app/client/sclient.h:878` | the client's 'SClient::Process_Packets' (0x7427C0) |
 | 2 | `Load_INIs` | `app/client/sclient.h:903` | what it does |
 | 2 | `Unload_INIs` | `app/client/sclient.h:904` | what it does |
