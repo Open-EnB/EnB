@@ -1,0 +1,14 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "safe_ptr.cpp: the self-unlinking pointer and its target, client 0x4F5E10-0x4F5F3C (its __FILE__ in 0x4F5ED0, assert 'm_prev' on line 31); the target's destructor 0x4F5E10 (table 0xAEC890, one slot), the pointer's constructor, destructor and Set",
+ "expected": {},
+ "in_tree": [
+  "0x4F5E10",
+  "0x4F5E40",
+  "0x4F5E90",
+  "0x4F5ED0"
+ ],
+ "merged": [],
+ "name": "shared/safe_ptr.cpp"
+}
