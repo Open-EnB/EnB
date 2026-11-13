@@ -18,7 +18,7 @@
 
 #include "pk.h"
 
-char *Sector_Type_Name(int sector_type);	// 0x84A3B0 (sector_types.cpp, not rebuilt: 'SectorSpace', ...)  // NAME 2: what it returns
+char *Sector_Type_Name(int sector_type);	// 0x84A3B0 (app/common/sector_types.h; declared here too: pk_classes.h is pad-sensitive)  // NAME 2: what it returns
 
 // opcode 78 (0x004E, STARBASE_REQUEST): vtable 0xB0B868, constructor 0x8A2DF0, 0x18 bytes
 class StarbaseRequestPacketClass : public PacketClass  // NAME 2: Net-7's opcode name STARBASE_REQUEST (the Net-7 opcode table; no structure check)

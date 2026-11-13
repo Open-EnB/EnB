@@ -77,19 +77,6 @@ const char *Type_Name(MoneyClass)
 #include <string>
 #include <vector>
 
-// ------------------------------------------------------------------------- STARBASE_SET's Print (pkstarbasetow.cpp)
-
-// sector_types.cpp 0x84A3B0: a sector type's name from the client's table 0xBB0AC0 (3 names)
-char *Sector_Type_Name(int sector_type)
-{
-	STUB_CALLED("Sector_Type_Name (0x84A3B0)");
-	static char *names[] = { "SectorSpace", "SectorPlanet", "SectorGasGiant" };
-	if (sector_type < 0 || sector_type >= 3) {
-		return "InvalidSectorType";
-	}
-	return names[sector_type];
-}
-
 // ------------------------------------------------------------------------- the warp camera's placements (unknown_7979a0.cpp)
 
 // 0xBDB1C0: a global Random4Class with seed 0x1105 (its initialiser 0x444240; its home file is unknown). Data, so it

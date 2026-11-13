@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: sector_types.h (name assumed from sector_types.cpp): SectorType (SECTOR_SPACE .. SECTOR_COUNT, FAIL_IF text) and its converters"
+}
