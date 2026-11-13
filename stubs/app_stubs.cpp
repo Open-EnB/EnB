@@ -132,11 +132,6 @@ std::string Unknown_7EA190(int id)
 	}
 	return std::string("im_default.tga");
 }
-std::string Unknown_49E210(int damage_type)
-{
-	STUB_CALLED("Unknown_49E210 (0x49E210): no damage type name");
-	return std::string();
-}
 std::string Unknown_7EB4D0(int type)
 {
 	STUB_CALLED("Unknown_7EB4D0 (0x7EB4D0): no item type name");

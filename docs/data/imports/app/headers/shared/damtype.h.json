@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "damtype.h: the damage type, mark and spread enums (DAMTYPE_FIRST / DAMTYPE_COUNT, DAMAGE_MARK_TYPE_BLOTCH, DAMAGE_SPREAD_ONE_QUADRANT are the client's FAIL_IF text) and damtype.cpp's functions (O13)"
+}
