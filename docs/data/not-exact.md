@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-778 entries in 254 files.
+779 entries in 255 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -565,6 +565,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_starbase.cpp:4309` | `UIStarbaseUnknown1F8Class::UIStarbaseUnknown1F8Class` | marker | NOT EXACT: 0x644F80, functional (register / frame: the client's EH state in bl and its RefCountPtr temporary in edi, one stack slot less; B1) 0x644F80 |
 | `app/client/ui_starbase.cpp:4330` | `UIStarbaseUnknown1F8Class::~UIStarbaseUnknown1F8Class` | marker | NOT EXACT: 0x6452C0, functional (inline budget: the client calls the options' vector clear 0x645E30 out of line, ours inlines it; B1) 0x6452C0 |
 | `app/client/ui_starbase.cpp:4363` | `UIStarbaseUnknown1F8Class::Unknown_645510` | marker | NOT EXACT: 0x645510, functional (frame: two more stack slots in ours, every local 8 bytes up; the client's order otherwise; B1) 0x645510 |
+| `app/client/ui_symbolchat.cpp:146` | `UISymbolChatClass::Unknown_64A9B0` | marker | NOT EXACT: written from the client's code (register only: this in ebp, the client's esi; see attempts.csv) 0x64A9B0 |
 | `app/client/ui_talkt.cpp:68` | `UITalkTreeClass::UITalkTreeClass` | marker | NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup) |
 | `app/client/ui_talkt.cpp:287` | `UITalkTreeClass::Unknown_5C` | marker | NOT EXACT: 0x64C8D0 (Unknown_5C: inline budget, _Eos / _Tidy out of line in the client) |
 | `app/client/ui_talkt.cpp:357` | `UITalkTreeClass::Unknown_90` | marker | NOT EXACT: 0x64CC90 (Unknown_90: the vector's _Destroy out of line in the client) |
