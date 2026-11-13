@@ -603,6 +603,7 @@ void UIStarbaseClass::Unknown_641B70()
 extern Random4Class Unknown_BDB1C0;	// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, as camctrl_dock.cpp's
 // The docking sounds by the starbase's column +0x18 (0xB8A8B0: 0x6415B0)
 static const char *Unknown_B8A8B0[10] = { "terren_space_ship_dock_1.wav", "jenquai_space_ship_dock_1.wav", "progen_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav" };	// NAME 1: neutral (D10)
+static const char *Unknown_B8A8D8[10] = { "terren_space_ship_undock_1.wav", "jenquai_space_ship_undock_1.wav", "progen_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav" };	// NAME 1: neutral (D10): the undocking sounds (0x638500)
 // What 0x634140 news for the starbase interface's +0xB8 (0x44 bytes, constructor 0x6B6050, table 0xAFE174): a full-screen
 // RectangleGadgetClass that keeps the view (not rebuilt; interim placement in this file, D137)
 class UIStarbaseGadget6B6050Class : public RectangleGadgetClass	// NAME 1: neutral (D10)
@@ -644,7 +645,6 @@ public:
 	GadgetClass *Gadget;								// +0x90 (a DynamicWindowGadgetClass over Window)
 	std::vector<UIStarbaseSymbolChatOptionStruct *> Options;	// +0x94
 };
-
 
 // The VB_ models of 0x634140's NPC slots (0xB8AA18, by the NPC's 0x6976C0), the ico_ models of its terminals (0xB90C2C),
 // the door bones by room (0xB8AA3C, four a room) and their 0x698730 keys (0xB8AABC), the starbase models of the door
@@ -1282,8 +1282,6 @@ void UIStarbaseClass::Unknown_63C590()
 					if (Unknown_63BA70(it.Cur->Value->Avatar.Peek(), ((RObjGadgetClass *)Unknown118[i])->RObj, 10.0f)) {
 
 
-
-
 						open = true;
 						break;
 					}
@@ -1302,49 +1300,51 @@ void UIStarbaseClass::Unknown_63C590()
 		}
 	}
 }
+// NOT EXACT: 0x637130, functional (inline budget: the client inlines the string's assign (_Grow, the copy) at the last eight keys, ours calls it at all sixteen; O4)
+void UIStarbaseClass::Unknown_70(ControlKeysManager *manager)
+{
+	FAIL_IF(!manager) return;
+	manager->Add_Keys(&Unknown4C, std::string("Move Forward Toggle"), (void *)0x1D, 0);
+	manager->Add_Keys(&Unknown4C, std::string("First Person"), (void *)0x1B, 0);
+	manager->Add_Keys(&Unknown4C, std::string("Avatar Run"), (void *)0x1C, 0);
+	manager->Add_Keys(&Unknown4C, std::string("Move Backward"), (void *)0x1F, 0);
+	manager->Add_Keys(&Unknown4C, std::string("Move Backward"), (void *)0x20, 0x1000);
+	manager->Add_Keys(&Unknown4C, std::string("Move Forward"), (void *)0x21, 0);
+	manager->Add_Keys(&Unknown4C, std::string("Move Forward"), (void *)0x22, 0x1000);
+	manager->Add_Keys(&Unknown4C, std::string("Tilt Down"), (void *)0x27, 0);
+	manager->Add_Keys(&Unknown4C, std::string("Tilt Down"), (void *)0x28, 0x1000);
+	manager->Add_Keys(&Unknown4C, std::string("Tilt Up"), (void *)0x29, 0);
+	manager->Add_Keys(&Unknown4C, std::string("Tilt Up"), (void *)0x2A, 0x1000);
+	manager->Add_Keys(&Unknown4C, std::string("Turn Left"), (void *)0x23, 0);
+	manager->Add_Keys(&Unknown4C, std::string("Turn Left"), (void *)0x24, 0x1000);
+	manager->Add_Keys(&Unknown4C, std::string("Turn Right"), (void *)0x25, 0);
+	manager->Add_Keys(&Unknown4C, std::string("Turn Right"), (void *)0x26, 0x1000);
+	manager->Add_Keys(&Unknown4C, std::string("Restore Camera"), (void *)0x1E, 0);
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x637A90, functional (inline budget: the client inlines the string's assign (_Grow, the copy) at the last eight keys, ours calls it at all sixteen; O4)
+void UIStarbaseClass::Unknown_74(ControlKeysManager *manager)
+{
+	FAIL_IF(!manager) return;
+	manager->Remove_Keys(&Unknown4C, std::string("Move Forward Toggle"), 0);
+	manager->Remove_Keys(&Unknown4C, std::string("First Person"), 0);
+	manager->Remove_Keys(&Unknown4C, std::string("Avatar Run"), 0);
+	manager->Remove_Keys(&Unknown4C, std::string("Move Backward"), 0);
+	manager->Remove_Keys(&Unknown4C, std::string("Move Backward"), 0x1000);
+	manager->Remove_Keys(&Unknown4C, std::string("Move Forward"), 0);
+	manager->Remove_Keys(&Unknown4C, std::string("Move Forward"), 0x1000);
+	manager->Remove_Keys(&Unknown4C, std::string("Tilt Down"), 0);
+	manager->Remove_Keys(&Unknown4C, std::string("Tilt Down"), 0x1000);
+	manager->Remove_Keys(&Unknown4C, std::string("Tilt Up"), 0);
+	manager->Remove_Keys(&Unknown4C, std::string("Tilt Up"), 0x1000);
+	manager->Remove_Keys(&Unknown4C, std::string("Turn Left"), 0);
+	manager->Remove_Keys(&Unknown4C, std::string("Turn Left"), 0x1000);
+	manager->Remove_Keys(&Unknown4C, std::string("Turn Right"), 0);
+	manager->Remove_Keys(&Unknown4C, std::string("Turn Right"), 0x1000);
+	manager->Remove_Keys(&Unknown4C, std::string("Restore Camera"), 0);
+}
 
 
 
@@ -1469,163 +1469,163 @@ void UIStarbaseClass::Unknown_60()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @0x00638500
+// 0x638500 (slot +0x68, a key or button: the facilities and NPCs (2..0xF, 0x11..0x14, 100..), 1 leaving the starbase,
+// the movement and camera keys of 0x637130)
+bool UIStarbaseClass::Unknown_68(int key)
+{
+	if (Unknown1FC || Unknown1FD || Unknown1FE || Unknown1FF || Unknown200 || Unknown201 || UnknownB0->Unknown_69CCD0() || Unknown1F8->Active) {
+		return(false);
+	}
+	if (key >= 100) {
+		Unknown_63B630(100, key - 100);
+		return(true);
+	}
+	switch (key) {
+		case 0x11:
+		case 0x12:
+		case 0x13:
+		case 0x14:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_63B630(0x11, key - 0x11);
+			return(true);
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+		case 8:
+		case 9:
+		case 10:
+		case 11:
+		case 12:
+		case 13:
+		case 14:
+		case 15:
+			SoundLibraryClass::Play_2D_Sound("ButtonClick02.wav", 2);
+			Unknown_63B630(2, key - 2);
+			return(true);
+		case 1:
+			if (UnknownC0.D->Avatar && UnknownC0.D->Avatar->Unknown318.empty()) {
+				int column = UnknownB0->Info->Style;
+				SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client(); bool busy = false; ChatPanelInterface *panel = client->ChatPanel.Peek();	// 0x63B5A0's body, inline in the client
+				if (panel) { if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) { busy = true; } }
+				if (client->Mouse->Unknown_515320() != 2 && !busy) { client->Mouse->Unknown_515120(2); }
+				UnknownB0->Unknown_6A0E50();
+				UnknownB0->Unknown_69E6E0("camera_leave", 6, false, 0);
+				InterfaceMesh->Unknown_5B9830();
+				char anim[64];
+				if (RoomInfo->Unknown0A) {
+					_snprintf(anim, sizeof(anim), "%sa2.%sa2-out", Unknown_B8A978[column], Unknown_B8A978[column]);
+				} else {
+					_snprintf(anim, sizeof(anim), "%sa.%sa-out", Unknown_B8A978[column], Unknown_B8A978[column]);
+				}
+				InterfaceMesh->Unknown_5B8EE0(0, 0, anim, false, 0, 0, 0, -1);
+				SoundLibraryClass::Play_2D_Sound(Unknown_B8A8D8[column], 2);
+				UnknownC0.D->Avatar->Unknown_7896B0(3);
+				UnknownB0->Unknown_69CBE0();
+				UnknownC0.E = 4;
+				Unknown_63E2B0();
+				Unknown_63E4B0(-1, Room);
+				Unknown21C = true;
+				Unknown1FC = true;
+				Unknown201 = true;
+				Unknown1B2 = true;
+				if (UnknownC0.D->Avatar != NULL) {
+					UnknownC0.D->Avatar->Unknown_786E60();
+				}
+				Unknown214 = false;
+				Unknown215 = false;
+				Unknown216 = false;
+				Unknown217 = false;
+				Unknown218 = false;
+				Unknown219 = false;
+				Unknown21A = false;
+				Unknown1B3 = false;
+				UnknownB0->Unknown_6A23E0(Unknown214, Unknown215, Unknown216, Unknown217, Unknown1B3);
+			}
+			return(true);
+		case 0x1D:
+			if (UnknownC0.D->Avatar && UnknownC0.D->Avatar->Unknown318.empty()) {
+				if (Unknown1B3) {
+					UnknownC0.D->Avatar->Unknown_786C70();
+				} else if (!(UnknownC0.D->Avatar->Unknown2F8 & 1)) {
+					UnknownC0.D->Avatar->Unknown_786B60(false);
+				}
+				Unknown1B3 = !Unknown1B3;
+			}
+			return(true);
+		case 0x1B:
+			if (UnknownC0.D->Avatar && !Unknown1B1) {
+				UnknownC0.D->Avatar->Unknown2F5 = !UnknownC0.D->Avatar->Unknown2F5;
+				UnknownB0->Unknown_69E510(UnknownC0.D->Avatar->Unknown_787A90());
+				*(Matrix3D *)Unknown1BC = UnknownC0.D->Avatar->Unknown_787A90();
+				BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Starbase_Third_Person_Mode");
+				if (option) {
+					option->Value = UnknownC0.D->Avatar->Unknown2F5;
+				}
+			}
+			return(true);
+		case 0x1C:
+			{
+				BoolOptionStruct *option = OptionClass::Instance->Find_Bool("Starbase_Default_Run");
+				if (option) {
+					option->Value = !option->Value;
+				}
+			}
+			return(true);
+		case 0x1E:
+			if (CharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek()) {
+				avatar->Unknown310 = 0;
+				avatar->Unknown30C = 0;
+			}
+			return(true);
+		case 0x21:
+			Unknown214 = true;
+			return(true);
+		case 0x22:
+			Unknown214 = false;
+			return(true);
+		case 0x1F:
+			Unknown215 = true;
+			return(true);
+		case 0x20:
+			Unknown215 = false;
+			return(true);
+		case 0x25:
+			Unknown217 = true;
+			return(true);
+		case 0x26:
+			Unknown217 = false;
+			return(true);
+		case 0x23:
+			Unknown216 = true;
+			return(true);
+		case 0x24:
+			Unknown216 = false;
+			return(true);
+		case 0x29:
+			Unknown218 = true;
+			return(true);
+		case 0x2A:
+			Unknown218 = false;
+			return(true);
+		case 0x27:
+			Unknown219 = true;
+			return(true);
+		case 0x28:
+			Unknown219 = false;
+			return(true);
+		case 0x2B:
+			Unknown21A = true;
+			return(true);
+		case 0x2C:
+			Unknown21A = false;
+			return(true);
+	}
+	return(false);
+}
 
 
 

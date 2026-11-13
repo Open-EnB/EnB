@@ -225,7 +225,7 @@ public:
 	void Unknown_6435E0();	// 0x6435E0 (ui_avatar_cust.cpp 0x54EC30, once the new look is sent)
 	virtual ~UIStarbaseClass();	// +0x00 0x633B50 (deleting 0x633A90)
 	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60();	// +0x54 0x634140, +0x58 0x6366A0, +0x5C 0x636D50, +0x60 0x638390 (the client's overrides, table 0xAF836C: declared so the constructor's table doesn't emit the base's inline defaults; not rebuilt)
-	virtual bool Unknown_68(int key); virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager);	// +0x68 0x638500, +0x70 0x637130, +0x74 0x637A90 (not rebuilt)  // NAME 1 [key, manager]: InterfaceClass's
+	virtual bool Unknown_68(int key); virtual void Unknown_70(ControlKeysManager *manager); virtual void Unknown_74(ControlKeysManager *manager);	// +0x68 0x638500, +0x70 0x637130, +0x74 0x637A90 (the keys added and removed; FAIL_IF '!manager')  // NAME 1 [key]: InterfaceClass's; NAME 3 [manager]: the FAIL_IFs'
 	virtual void Unknown_7C(UIViewClass *view, bool arg);	// +0x7C 0x638FF0 (not rebuilt)  // NAME 1 [view, arg]: InterfaceClass's
 	virtual void Unknown_88();	// +0x88
 	virtual void Unknown_8C();	// +0x8C (0x69CDE0 calls it when the view's interfaces go)
@@ -290,7 +290,7 @@ public:
 	void Unknown_641FA0();	// 0x641FA0 (the gadgets' distances from the avatar, 1..999; 0x63E2B0, 0x63FF80)
 	Unknown78A910AvatarClass *Unknown_642740(StarbaseNPCClass *npc);	// 0x642740 (0x634140: an NPC slot's starbase avatar)  // NAME 1 [npc]: neutral
 	void Unknown_640360(); void Unknown_6415B0(); void Unknown_6417D0(); void Unknown_6418F0(); void Unknown_641C00();	// 0x640360 (the hangar's ship model and its gadget, rebuilt when +0x18C is set), 0x6415B0 (the arrival: the ship on 'ship', the room's '-in' or '-tele' animation), 0x6417D0 (the teleport effect 0x30E on +0x190), 0x6418F0 (+0x190 made for the ship), 0x641C00 (the avatar kept 5 units from the NPC avatars)
-	void Unknown_6390A0(); void Unknown_639630(); void Unknown_63AC60(); void Unknown_63DFE0(); void Unknown_63FCB0();	// 0x638390's frame (not rebuilt)
+	void Unknown_6390A0(); void Unknown_639630(); void Unknown_63AC60(); void Unknown_63DFE0(); void Unknown_63FCB0(); void Unknown_63B630(int type, int index);	// 0x638390's frame (not rebuilt); 0x63B630 (0x638500: the keys 2..0xF, 0x11..0x14 and 100.. by their first key)  // NAME 1 [type, index]: neutral
 	bool Unknown_641EB0(UIStarbaseUnknownCCClass *savatar);	// 0x641EB0 (the avatar's id among the five GroupInfo members)  // NAME 1 [savatar]: as the FAIL_IFs'
 	void Unknown_63AAF0();	// 0x63AAF0 (0x638390's frame: the avatars' per-frame update, the own avatar's step kept clear of the model)
 	void Unknown_63B310();	// 0x63B310 (0x638390's frame: the camera after the own avatar)
