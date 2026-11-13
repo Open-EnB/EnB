@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 190 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1818 |
-| 2 | describes what the code does | 4484 |
-| 1 | neutral placeholder | 23261 |
+| 2 | describes what the code does | 4491 |
+| 1 | neutral placeholder | 23274 |
 
 ## For review (score 3 and below)
 
@@ -47,10 +47,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_442870` | `app/audio/surfacetypes.h:7` | neutral (D10) |
 | 1 | `Unknown_4428E0` | `app/audio/surfacetypes.h:8` | neutral (D10) |
 | 1 | `Unknown_442930` | `app/audio/surfacetypes.h:9` | neutral (D10) |
-| 1 | `robj` | `app/client/acticon.cpp:10` | as ui_avatr.cpp's |
-| 1 | `Unknown_497300` | `app/client/acticon.cpp:10` | untagged neutral name (D10) |
-| 1 | `robj, a, b, c` | `app/client/acticon.cpp:11` | as ui_group.h's |
-| 1 | `Unknown_496110` | `app/client/acticon.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_685E80Class` | `app/client/acticon.cpp:13` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/acticon.cpp:25` | as ui_avatr.cpp's |
+| 1 | `Unknown_497300` | `app/client/acticon.cpp:25` | untagged neutral name (D10) |
+| 1 | `robj, a, b, c` | `app/client/acticon.cpp:26` | as ui_group.h's |
+| 1 | `Unknown_496110` | `app/client/acticon.cpp:26` | untagged neutral name (D10) |
 | 1 | `Unknown_671300Class` | `app/client/acticon.cpp:35` | untagged neutral name (D10) |
 | 1 | `Unknown6C` | `app/client/acticon.cpp:58` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/acticon.cpp:60` | untagged neutral name (D10) |
@@ -63,12 +64,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_A0` | `app/client/acticon.cpp:91` | untagged neutral name (D10) |
 | 1 | `Unknown_9C` | `app/client/acticon.cpp:91` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/acticon.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_6766E0` | `app/client/acticon.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_676A00` | `app/client/acticon.cpp:143` | untagged neutral name (D10) |
 | 1 | `Unknown_671300Class` | `app/client/acticon.h:9` | untagged neutral name (D10) |
 | 1 | `robj, layer` | `app/client/acticon.h:26` | the base's; NAME 2 [bar]: ui_cpit.cpp's 'WARP_BAR' |
 | 1 | `Unknown_AC` | `app/client/acticon.h:28` | untagged neutral name (D10) |
 | 1 | `Duration` | `app/client/acticon.h:34` | what Set_State stores |
 | 1 | `EndTime` | `app/client/acticon.h:35` | what Set_State stores |
 | 1 | `Flash` | `app/client/acticon.h:36` | what slot +0xAC does with it |
+| 1 | `Unknown_685E80Class` | `app/client/acticon.h:46` | untagged neutral name (D10) |
+| 1 | `id, ini, section` | `app/client/acticon.h:49` | what 0x6766E0 passes |
+| 1 | `Id` | `app/client/acticon.h:55` | 0x6766E0 passes the section's number |
+| 1 | `id, ini, section` | `app/client/acticon.h:64` | the base's |
 | 1 | `aux_roots.cpp` | `app/client/aux_roots.cpp:3` | provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | 1 | `UnknownGlobal` | `app/client/aux_roots.cpp:7` | untagged neutral name (D10) |
 | 1 | `UnknownRootClass` | `app/client/aux_roots.cpp:12` | untagged neutral name (D10) |
@@ -6318,11 +6325,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `range, to` | `app/client/nav_list_builder.h:29` | neutral; co_from: the FAIL_IF |
 | 1 | `Unknown_7B7EF0` | `app/client/nav_list_builder.h:29` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/nav_list_builder.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/nav_list_line_draw.cpp:11` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `app/client/nav_list_line_draw.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown_7B9CD0` | `app/client/nav_list_line_draw.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown_466920Class` | `app/client/nav_list_line_draw.cpp:38` | untagged neutral name (D10) |
-| 1 | `Unknown_In_Scene` | `app/client/nav_list_line_draw.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/nav_list_line_draw.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `app/client/nav_list_line_draw.cpp:15` | untagged neutral name (D10) |
+| 1 | `NAV_LINE_Z` | `app/client/nav_list_line_draw.cpp:32` | what it is |
+| 1 | `NavLineClass` | `app/client/nav_list_line_draw.cpp:36` | neutral (D10): what it draws |
+| 1 | `Unknown_466920Class` | `app/client/nav_list_line_draw.cpp:36` | untagged neutral name (D10) |
+| 1 | `width, color, opacity, sort` | `app/client/nav_list_line_draw.cpp:39` | the base's |
+| 1 | `Unknown_7B9CD0` | `app/client/nav_list_line_draw.cpp:49` | untagged neutral name (D10) |
+| 1 | `Unknown_In_Scene` | `app/client/nav_list_line_draw.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_7B99C0` | `app/client/nav_list_line_draw.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_7B9DC0` | `app/client/nav_list_line_draw.cpp:132` | untagged neutral name (D10) |
 | 1 | `Unknown_466920Class` | `app/client/nav_list_line_draw.h:27` | untagged neutral name (D10) |
 | 1 | `width, sort, color, opacity` | `app/client/nav_list_line_draw.h:35` | what 0x7B99C0 hands the lines (0x466920's arguments, +0x108) |
 | 1 | `avatar, path, scene, arg` | `app/client/nav_list_line_draw.h:37` | what 0x7C0910 passes |
@@ -8956,18 +8968,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6CE420` | `app/client/starmap_pip.cpp:1167` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/client/starmap_pip.cpp:1199` | untagged neutral name (D10) |
 | 1 | `Unknown_7C2340` | `app/client/starmap_pip.cpp:1231` | untagged neutral name (D10) |
-| 1 | `Unknown38` | `app/client/starmap_pip.cpp:1281` | untagged neutral name (D10) |
-| 1 | `Unknown_6F5A40` | `app/client/starmap_pip.cpp:1285` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Field` | `app/client/starmap_pip.cpp:1287` | untagged neutral name (D10) |
-| 1 | `Unknown_6FF7A0` | `app/client/starmap_pip.cpp:1302` | untagged neutral name (D10) |
-| 1 | `Unknown_700860` | `app/client/starmap_pip.cpp:1303` | untagged neutral name (D10) |
-| 1 | `Unknown_7C2D30` | `app/client/starmap_pip.cpp:1320` | untagged neutral name (D10) |
-| 1 | `Unknown_7B9CD0` | `app/client/starmap_pip.cpp:1322` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/starmap_pip.cpp:1340` | untagged neutral name (D10) |
-| 1 | `Unknown_6D8A80` | `app/client/starmap_pip.cpp:1345` | untagged neutral name (D10) |
-| 1 | `Unknown_6D87D0` | `app/client/starmap_pip.cpp:1378` | untagged neutral name (D10) |
-| 1 | `Unknown` | `app/client/starmap_pip.cpp:1380` | untagged neutral name (D10) |
-| 1 | `Unknown_6D88F0` | `app/client/starmap_pip.cpp:1408` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A40` | `app/client/starmap_pip.cpp:1261` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/starmap_pip.cpp:1265` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/starmap_pip.cpp:1266` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/client/starmap_pip.cpp:1302` | untagged neutral name (D10) |
+| 1 | `Unknown_6FF7A0` | `app/client/starmap_pip.cpp:1323` | untagged neutral name (D10) |
+| 1 | `Unknown_700860` | `app/client/starmap_pip.cpp:1324` | untagged neutral name (D10) |
+| 1 | `Unknown_7C2D30` | `app/client/starmap_pip.cpp:1341` | untagged neutral name (D10) |
+| 1 | `Unknown_7B9CD0` | `app/client/starmap_pip.cpp:1343` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/starmap_pip.cpp:1361` | untagged neutral name (D10) |
+| 1 | `Unknown_6D8A80` | `app/client/starmap_pip.cpp:1366` | untagged neutral name (D10) |
+| 1 | `Unknown_6D87D0` | `app/client/starmap_pip.cpp:1399` | untagged neutral name (D10) |
+| 1 | `Unknown` | `app/client/starmap_pip.cpp:1401` | untagged neutral name (D10) |
+| 1 | `Unknown_6D88F0` | `app/client/starmap_pip.cpp:1429` | untagged neutral name (D10) |
 | 1 | `pip` | `app/client/starmap_pip.h:43` | what the caller passes |
 | 1 | `x, y` | `app/client/starmap_pip.h:44` | GadgetClass's |
 | 1 | `Unknown_30` | `app/client/starmap_pip.h:44` | untagged neutral name (D10) |
@@ -9026,21 +9039,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7C2340` | `app/client/starmap_pip.h:101` | untagged neutral name (D10) |
 | 1 | `force` | `app/client/starmap_pip.h:102` | neutral |
 | 1 | `Unknown_7C2850` | `app/client/starmap_pip.h:102` | untagged neutral name (D10) |
-| 1 | `Unknown_7C2D30` | `app/client/starmap_pip.h:103` | untagged neutral name (D10) |
-| 1 | `Unknown50` | `app/client/starmap_pip.h:105` | untagged neutral name (D10) |
-| 1 | `Unknown51` | `app/client/starmap_pip.h:106` | untagged neutral name (D10) |
-| 1 | `Unknown54` | `app/client/starmap_pip.h:107` | untagged neutral name (D10) |
-| 1 | `Unknown60` | `app/client/starmap_pip.h:110` | untagged neutral name (D10) |
-| 1 | `Unknown64` | `app/client/starmap_pip.h:111` | untagged neutral name (D10) |
-| 1 | `Unknown68` | `app/client/starmap_pip.h:112` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/starmap_pip.h:113` | untagged neutral name (D10) |
-| 1 | `Unknown7C` | `app/client/starmap_pip.h:114` | untagged neutral name (D10) |
-| 1 | `Unknown94` | `app/client/starmap_pip.h:118` | untagged neutral name (D10) |
-| 1 | `Unknown98` | `app/client/starmap_pip.h:119` | untagged neutral name (D10) |
-| 1 | `UnknownA0` | `app/client/starmap_pip.h:121` | untagged neutral name (D10) |
-| 1 | `UnknownA4` | `app/client/starmap_pip.h:122` | untagged neutral name (D10) |
-| 1 | `UnknownB8` | `app/client/starmap_pip.h:127` | untagged neutral name (D10) |
-| 1 | `UnknownBC` | `app/client/starmap_pip.h:128` | untagged neutral name (D10) |
+| 1 | `Unknown_7C2D30` | `app/client/starmap_pip.h:104` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/starmap_pip.h:106` | untagged neutral name (D10) |
+| 1 | `Unknown51` | `app/client/starmap_pip.h:107` | untagged neutral name (D10) |
+| 1 | `Unknown54` | `app/client/starmap_pip.h:108` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/starmap_pip.h:111` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/starmap_pip.h:112` | untagged neutral name (D10) |
+| 1 | `Unknown68` | `app/client/starmap_pip.h:113` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/starmap_pip.h:114` | untagged neutral name (D10) |
+| 1 | `Unknown7C` | `app/client/starmap_pip.h:115` | untagged neutral name (D10) |
+| 1 | `Unknown94` | `app/client/starmap_pip.h:119` | untagged neutral name (D10) |
+| 1 | `Unknown98` | `app/client/starmap_pip.h:120` | untagged neutral name (D10) |
+| 1 | `UnknownA0` | `app/client/starmap_pip.h:122` | untagged neutral name (D10) |
+| 1 | `UnknownA4` | `app/client/starmap_pip.h:123` | untagged neutral name (D10) |
+| 1 | `UnknownB8` | `app/client/starmap_pip.h:128` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/starmap_pip.h:129` | untagged neutral name (D10) |
 | 1 | `Unknown_466920Class` | `app/client/starmap_pip_support.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown10C` | `app/client/starmap_pip_support.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown114` | `app/client/starmap_pip_support.cpp:10` | untagged neutral name (D10) |
@@ -23472,9 +23485,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `INI` | `app/audio/starbasesound.h:39` | what it holds |
 | 2 | `SoundWalking` | `app/audio/surfacetypes.cpp:19` | what it holds |
 | 2 | `SoundRunning` | `app/audio/surfacetypes.cpp:20` | what it holds |
+| 2 | `Actions` | `app/client/acticon.cpp:23` | what 0x6766E0 fills |
 | 2 | `Set_State` | `app/client/acticon.h:30` | what it does; NAME 1 [state, end_time]: what ui_cpit.cpp passes |
 | 2 | `Bar` | `app/client/acticon.h:32` | ui_cpit.cpp's 'WARP_BAR' |
 | 2 | `State` | `app/client/acticon.h:33` | what Set_State stores |
+| 2 | `ToolTip` | `app/client/acticon.h:52` | the INI entry |
+| 2 | `UserData` | `app/client/acticon.h:53` | the INI entry |
+| 2 | `Texture` | `app/client/acticon.h:54` | the INI entry |
+| 2 | `ActionClass` | `app/client/acticon.h:61` | action.ini's 'Action%04d' sections |
+| 2 | `Group` | `app/client/acticon.h:67` | the INI entry and the assert |
 | 2 | `PlayerNLP` | `app/client/avatar.h:194` | PlayerNLP != 0 assert |
 | 2 | `HeadSource` | `app/client/avatar.h:237` | '!HeadSource \|\| !BodyObj' assert |
 | 2 | `HeadObj` | `app/client/avatar.h:239` | '!HeadObj' assert (0x786370 sets hidden) |
@@ -25053,12 +25072,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `hover, mouse_target` | `app/client/starmap_pip.h:79` | its G_ASSERT |
 | 2 | `entry` | `app/client/starmap_pip.h:80` | as the gutter's Update |
 | 2 | `target, warp_path, target_path` | `app/client/starmap_pip.h:81` | what it receives |
-| 2 | `XPos` | `app/client/starmap_pip.h:123` | the font's |
-| 2 | `YPos` | `app/client/starmap_pip.h:124` | the font's |
-| 2 | `ZPos` | `app/client/starmap_pip.h:125` | the font's |
-| 2 | `ShowCoords` | `app/client/starmap_pip.h:126` | the option's |
-| 2 | `Label` | `app/client/starmap_pip.h:129` | the option's |
-| 2 | `std:` | `app/client/starmap_pip.h:130` | what it holds |
+| 2 | `Is_Grouped` | `app/client/starmap_pip.h:103` | what it does |
+| 2 | `XPos` | `app/client/starmap_pip.h:124` | the font's |
+| 2 | `YPos` | `app/client/starmap_pip.h:125` | the font's |
+| 2 | `ZPos` | `app/client/starmap_pip.h:126` | the font's |
+| 2 | `ShowCoords` | `app/client/starmap_pip.h:127` | the option's |
+| 2 | `Label` | `app/client/starmap_pip.h:130` | the option's |
+| 2 | `std:` | `app/client/starmap_pip.h:131` | what it holds |
 | 2 | `SortLevel` | `app/client/starmap_pip_support.h:36` | Get_Sort_Level's |
 | 2 | `total_range` | `app/client/starmap_pip_support.h:46` | the FAIL_IF's  // NAME 1 [arg1, arg2, arg3]: neutral |
 | 2 | `TARGET_FIND_AVATAR` | `app/client/target_find.h:24` | Type == 1 |
@@ -28332,12 +28352,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GadgetStarmapClass` | `app/client/starmap_pip.h:40` | class-from-file (D24) for app\client\gd_starmap.cpp |
 | 3 | `StarmapPIP` | `app/client/starmap_pip.h:45` | the assert's |
 | 3 | `StarmapPipClass` | `app/client/starmap_pip.h:64` | class-from-file (D24) for app\client\starmap_pip.cpp |
-| 3 | `ScaleMult` | `app/client/starmap_pip.h:108` | 0x7C1770's FAIL_IF 'ScaleMult < WWMATH_EPSILON' |
-| 3 | `CurMult` | `app/client/starmap_pip.h:109` | the FAIL_IF's |
-| 3 | `MapRange_ws` | `app/client/starmap_pip.h:115` | 0x7C1510's FAIL_IF 'MapRange_ws.X < WWMATH_EPSILON' |
-| 3 | `TargetPath` | `app/client/starmap_pip.h:116` | 0x7C0EE0's FAIL_IF |
-| 3 | `WarpPath` | `app/client/starmap_pip.h:117` | 0x7C0EE0's FAIL_IF |
-| 3 | `MouseTarget` | `app/client/starmap_pip.h:120` | 0x7C0440's FAIL_IF 'MouseTarget' |
+| 3 | `ScaleMult` | `app/client/starmap_pip.h:109` | 0x7C1770's FAIL_IF 'ScaleMult < WWMATH_EPSILON' |
+| 3 | `CurMult` | `app/client/starmap_pip.h:110` | the FAIL_IF's |
+| 3 | `MapRange_ws` | `app/client/starmap_pip.h:116` | 0x7C1510's FAIL_IF 'MapRange_ws.X < WWMATH_EPSILON' |
+| 3 | `TargetPath` | `app/client/starmap_pip.h:117` | 0x7C0EE0's FAIL_IF |
+| 3 | `WarpPath` | `app/client/starmap_pip.h:118` | 0x7C0EE0's FAIL_IF |
+| 3 | `MouseTarget` | `app/client/starmap_pip.h:121` | 0x7C0440's FAIL_IF 'MouseTarget' |
 | 3 | `starmap_pip_support.h` | `app/client/starmap_pip_support.h:16` | header name assumed from the client's starmap_pip_support.cpp |
 | 3 | `StarmapPipSupportClass` | `app/client/starmap_pip_support.h:39` | class-from-file (D24) for app\client\starmap_pip_support.cpp |
 | 3 | `obj_a, obj_b` | `app/client/target_find.cpp:13` | its FAIL_IFs |
