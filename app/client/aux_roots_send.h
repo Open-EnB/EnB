@@ -269,6 +269,6 @@ DeltaPlayerClass::DeltaPlayerClass() :
 
 // VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
-enum AuxRootsSendSymbolPadType { AUX_ROOTS_SEND_PAD_00, AUX_ROOTS_SEND_PAD_01, AUX_ROOTS_SEND_PAD_02, AUX_ROOTS_SEND_PAD_03 };	// NAME 1: a build aid (SC1)
+enum AuxRootsSendSymbolPadType { AUX_ROOTS_SEND_PAD_00 };	// NAME 1: a build aid (SC1)
 
 #endif //__AUX_ROOTS_SEND_H
