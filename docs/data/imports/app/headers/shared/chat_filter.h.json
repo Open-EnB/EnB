@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the chat filter classes (ChatFilterClass, ChatWordFilterClass, ChatTreeFilterClass and the tree's node), declared for chat_filter.cpp and chat_filter_util.cpp; the name provisional (D137); builder O10 (2026-11-13)"
+}
