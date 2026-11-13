@@ -74,7 +74,7 @@ void PDAInterfaceClass::Unknown_54()
 	Equipment->Unknown_54();
 	Cargo = Create_NEW(new UIPdaCargoClass(client, this));
 	Cargo->Unknown_54();
-	Vault = Create_NEW(new Unknown656FF0Class(Get_Client()->As_Space_Client()));
+	Vault = Create_NEW(new UIVaultClass(Get_Client()->As_Space_Client()));
 	Vault->Unknown_54();
 	Character = Create_NEW(new UICinfoClass(client));
 	Character->Unknown_54();
