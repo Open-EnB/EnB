@@ -4,6 +4,56 @@ Newest first within each section. Dates are when the entry was written.
 
 ## 1. Log
 
+### 2026-11-12 (17:45 PST, afternoon; run 2026-11-12, week plan session 4): the decks cleared: the kept branches landed (R1, L18, L21), D242's crediting rules (+646), the D243 / D244 renames, the Opus queue written, section 3's twenty old items settled; +853 pairs over the run's baseline, 0 lost outright
+
+- **Session** Opus 5.5 coordinator from 13:14 on `run/2026-11-12` (PR #196, from master 5e8a0af9); Opus builders R1, L18, L21,
+  T1, G1, C2, RN, C3, C4, C5, S1 and one Sonnet builder (Q1), never more than three at once; Sonnet lander, checker and
+  doc-filer. Subscription only, no Fable. Meter: 17 % at the start, 20 % at the drain (floor 21, cap 23).
+- **Kept branches of run 2026-11-11b:** wt/R1 (D239's renames) landed after a rebase and a pad commit (the first landing on
+  an unmoved head must carry its pad); ui_radio_main 0x5E9410 came back with it, so D241's entry was deleted. wt/L18 (the
+  audio family, +72) landed: the lone-file sweep and the verify disagreed because bring-over passed `--watch-from` only with a
+  rebase record, and the branch's own verify commits had already recorded the pad loss (P-L18-3 / P-L18-4, tools fixed by
+  T1). wt/L21 (control keys, +4: Add_Keys / Remove_Keys exact with `modifiers` as an int, the client's whole-word load)
+  landed; its sgistl `hashtable(n)` edit was dropped (+52 / -128 outright) and S1 then showed why no header form fits (one
+  `hash_map()` source gives two inline layers in the client: P-L21-1 parked, attempts row 0x71DCE0). wt/P3 and wt/P4
+  removed (their attempts rows and stashes kept); the leftover packets W6, W8-W14 marked parked.
+- **D242 (T1):** objmatch's `xcu_position` (P-C1-2, CRT initialiser table, +560) and `object_order` (P-C1-1, own functions
+  only, +90) rounds: +646 together across nine libraries, 0 lost; tests test_objmatch_d242.py. The full verify found
+  wwdebug 0x9EBF20 stale-lost since master's FastAllocator.h getters (an app-only verify); G1 regained it with a friend
+  declaration (D247).
+- **Renames (RN, D243 / D244):** `As_Space_Client` (233 uses, 53 files), `fontDatabase`, `RSLRegistryClass`,
+  `AmbientSoundManagerClass` / `BridgeSoundManagerClass`, ClientItemPropertySpecialClass's slot +0x0C `Get_Tooltip` (the
+  other slots stay neutral); linkgate.py builds udpreplay as its third program; the checker's definition runs e2e. Landed 0 / 0 after two rebases (symbols_named.json merged by hand; C4's new `Unknown_18` use renamed).
+- **The Opus queue (Q1):** `.work/week-2026-11-10/opus-queue.tsv` / `.md` from the 40 drafted rows (script opus_queue.py),
+  rerun after L18 landed: 236 functions, list 1 (not attempted) 116, list 2 (shape, literal, layout, source) 32, list 3
+  (register, order, frame, inline-budget) 88. co_data's 56 list-1 functions all hang on Get 0x79E300 (C2: the wrappers are
+  byte-identical to other files' and told apart only by their call target; P-L7-2 failed, Get parked).
+- **New code from the queue:** ui_starbase +10 (C3; AmbientAvatar / NameTag / MAX_FACILITY from FAIL_IFs; a hand stand-in for
+  the Matrix3D-returning 0x63E930), acticon +12, nav_list_line_draw +81 (NavLineClass; the nav functions are that file's by
+  their asserts), mv3dsnd +1 (a provisional inline_depth(0) device) (C4), item_state.cpp (C5; by its FAIL_IF path; six
+  funclet-only destructors named) (+8).
+- **Section 3:** the twenty old builder proposals settled by the coordinator (D246): eighteen accepted, kept or queued in
+  §4, P-P2-1's library-wide /Gf trial rejected (the client pools its strings), P-S1-3 deferred; P-EA1-1 stays the user's.
+- **Calls (D246):** P-L18-3, P-L18-4, P-T1b-2 (regenerate symbols.json: 0xA049C0 is an initialiser, not
+  DefinitionMgrClass::Name), P-C4-1 (D80's range end, measure first), P-RN-b and C5's aux_roots.h include accepted; P-L21-1
+  parked; co_data's list 1 parked behind Get; L18's 0x436BD0 is BridgeSoundManagerClass::Update (assert); C5's item_state.cpp
+  placement; C3's and C4's names (provisional NAME tags); the D242 rule details as T1 measured them. Rule row D247.
+- **Checks:** a first smoke check at f9f93de4 failed on another builder's objects (a reused worktree name; not reproduced on
+  a fresh worktree with its own lease); clienttest 103 / 0, udpreplay handshake 54 / 54 and e2e 5 PASS + starmap XFAIL at
+  f9f93de4, ece9a374 (expected.txt lost L18's retired `gen BridgeSoundManager` line) and 61a20b8a. Again at 2dad1c03 after the renames; the last at b50d4b8a before the handoff: clienttest 103 / 0, handshake 54 / 54, e2e 5 PASS + starmap XFAIL.
+- **Pairs:** R1 0, L18 +72, G1 + T1 + L21 +652 (pad 51 -> 61), C4 +94, C3 +10, RN 0, C5 +8: +853 over the baseline 5e8a0af9 (heartbeat); 0 lost outright; D66 (i) shared
+  holders 0x48A060 / 0x48A120 (mv3dsnd) need `/accept-d66` at the merge.
+- **Builders (model, approximate tokens):** R1 95k, L18 170k, L21 260k, T1 330k, G1 60k, C2 120k, RN 200k (+74k Sonnet
+  helper), C3 400k, C4 350k, C5 150k, S1 75k (Opus); Q1 90k (Sonnet). Points of the week: 3 of the week in about 4 hours (17 -> 20 %, 0.75 an hour), about 280 pairs per point (most of it T1's crediting rules: tools 646 for about 1 point; new files and finishing 207). The floor was missed by one point: three builders at a time was the binding limit, not the meter.
+- **Kept / unlanded:** none: every branch landed (R1, L18, L21, G1, T1, RN, C3, C4, C5); C2, S1 and Q1 left attempts rows / the queue only.
+- **Next ten items** (session 5 and on): (1) layout b-9 for sclient (the week's Fable builder); (2) the Opus queue's list 1
+  less co_data (60 functions: shiputils after 0x812390, the starmap_pip trio after 0x7C2850, ui_starbase's Unknown_58..74,
+  0x6390A0, 0x639630, 0x63AC60, 0x63B630, 0x63E930, 0x63F0D0, 0x63F490); (3) the queue's next open rows from the top of
+  queue.md; (4) regenerate symbols.json on a quiet tree (P-T1b-2); (5) P-C4-1 measured; (6) aux_roots.h onto
+  common/item_state.h with a pad check; (7) list 2's shape / layout functions (32); (8) D239's leftovers P-L13-2 (ui_manu onto
+  gadget.h) and P-L12-4; (9) the funclet-destructor sweep (skill_requirement first); (10) list 3 by class for session 10's
+  levers.
+
 ### 2026-11-12 (13:15 PST, day): the week's plan revised after the Fable cap (D245); D241-D244 decided; who decides (D246); no code change
 
 - **Session** Fable 5.2, the review only, on `run/2026-11-11` (PR #193 is merged); no builder. The meter read 17 % at 12:30
@@ -3396,12 +3446,13 @@ Unattended session, 01:20-04:40, plan agreed beforehand; report: [overnight-repo
 | D238 | 2026-11-11 | P-L13-3, the user: yes. The importer lock becomes first-come (run 2026-11-11: verifies waited 30-50 minutes with six builders and report.py gave up for five; D234 freed the waiting verify's VM but not the starvation). §4 item 1. Not yet carried out. | user |
 | D239 | 2026-11-11 | The user approved the renames and retypes as stated: P-L11-1 (ItemBaseInfoClass -> ItemInfoClass, amends D219), P-L11-2 (ItemInfoEnum's 38 values, `int iteminfo` retyped), P-L9-1 (UIMeshClass::Unknown_5B8B40 -> Get_Sub_Object_By_Name), P-L12-1 (a type-aware slot rename tool), then with it P-L12-2 (GadgetClass +0x08..+0x1C to gadget pointers) and P-L12-4 (retire the private GadgetClass views per file), P-L12-3 (rename InterfaceDeactivationGadgetClass, a general rectangle gadget), P-L13-2 (ui_manu.cpp onto gadget.h / unknown_7e7e70.h, rename UIManuCheckButtonClass). Before the next rows' files build on the old names (§4 item 1). Not yet carried out. | user |
 | D240 | 2026-11-11 | D236's reading, the user: (b), with guards, because past pair gains look partly like false positives (matches held by a form that is not the client's). The hard rule becomes "no unexplained losses" (CLAUDE.md amended): (1) a form backed by client.exe's own evidence (a string or assert text, RTTI, a symbol, a byte pattern) may land with its losses without asking, the commit naming the evidence; (2) each lost address gets an `accepted-corrections.json` entry (`"decision": "D240"`, `moved_to` null, the note naming the form and its evidence), committed on the run branch before the landing (bring-over has no accept flag), and deleted when the address is regained: those entries are the owed-regain queue; (3) any loss neither D66's nor (1)'s still waits for the user (amended by D246, 2026-11-12: it is the coordinator's within D246 (b)'s valve). D66 and D202 otherwise unchanged. With it, the measurement of false positives (§4 item 1, the match audit). | user |
-| D241 | 2026-11-12 | The user approved P-R1-1: ui_radio_main 0x5E9410 stays recorded as a D240 loss for D239's P-L9-1 (the interim forwarder removed from ui_mesh.h; ui_option_quit 0x5CE830 comes back with it), so wt/R1 may land. | user |
+| D241 | 2026-11-12 | The user approved P-R1-1: ui_radio_main 0x5E9410 stays recorded as a D240 loss for D239's P-L9-1 (the interim forwarder removed from ui_mesh.h; ui_option_quit 0x5CE830 comes back with it), so wt/R1 may land. Regained when wt/R1 landed on run 2026-11-12 (after its rebase 0x5E9410 matched again); the entry was deleted. | user |
 | D242 | 2026-11-12 | The user approved the two library crediting rules of C1's classification: P-C1-1, an objmatch tie-break beside D80 / D100 / D115 that assigns the candidates of a `multiple` in object order when all are functions of one object and their client addresses lie in that object's range, **for the object's own functions only, not inline COMDATs** (D189 (b)'s order test of 2026-11-10: 349 of 353 own groups, 608 of 700 inline ones); P-C1-2, `_$E` static initialisers and their atexit stubs credited by their position in the CRT initialiser table 0xB6C000-0xB6D700 (amends D94 (b): the names stay unused, the position is the proof). Pairs compared before and after. | user |
 | D243 | 2026-11-12 | The user approved the renames as stated: P-G2-1 (`ClientClass::Unknown_18` -> `As_Space_Client`), P-CP2-1 (`Unknown_BE67B8` -> `fontDatabase`), P-M1b-1 (`Unknown763E00Class` -> `RSLRegistryClass`), P-L18-2 (AmbientSoundManager / BridgeSoundManager to the D24 `...Class` style, after wt/L18 lands), P-L14-2 (ClientItemPropertySpecialClass's Unknown members from the callers of slot +0x08). In series on a quiet tree (week plan session 4). | user |
 | D244 | 2026-11-12 | The user approved P-H1-1 (udpreplay as a third program of linkgate.py) and P-T1-1 (the checker's definition gains the e2e check). | user |
 | D245 | 2026-11-12 | The week's plan revised at the review after Fable reached its cap in session 3 (amends D225; docs/week-plan-2026-11-10.md): sessions 4-14 run an Opus coordinator with a floor and a cap on the meter per session; Fable is rationed to 6 unrefunded points, builders only (layout b-9, at most two class-lever builders on Sunday, one for a blocker that stopped two Opus builders), 400k tokens each; the leftover packets W6 and W8-W14 are parked; the libraries get one tools builder instead of session 11. | user |
 | D246 | 2026-11-12 | The user: who decides. Byte-exactness of client.exe stays the goal; the earlier worries (agents looping on one function, or trading many exact pairs for their own item) did not come true, and since the doc-filer (D226) every builder proposal reached §3 (5 open items on 2026-11-10, 31 on 2026-11-11). (a) **The coordinator decides**, without asking, whatever client.exe's evidence, the verify or a measurement can settle: names, renames and retypes (A2), class layouts, placements and file splits (D137, evidence on both sides included: pick one, mark it provisional, list it), D66's kinds, D240's losses, crediting and tie-break rules backed by a quiet-tree measurement, harness and test design, changes to the project's own tools (the PR's `/verify-approved` and `/accept-d66` stay the maintainer's gates, D157 / D202), scheduling and parking. (b) **The valve, for a loss with no client evidence:** the coordinator may land it when the landing gains more pairs than it loses, with at most 5 such addresses per landing and 40 open in all, after one regain round; each gets an `accepted-corrections.json` entry (`"decision": "D246"`, `moved_to` null) and joins the regain queue. Past the valve the branch stays unlanded and is listed in §3, and the run goes on. (c) **A builder decides** inside its item what the item's evidence settles (names, types, forms, D66 kinds, D240 forms, placements in its own files) and lists each call in its report; what reaches past the item (a shared header, another builder's file, a tool, a rule) is a proposal to the coordinator. (d) **The user decides only:** inputs from outside the original app tree (SDKs, DLLs, data sets, VMs, credits, models and the week's plan), safety (D69), what reaches `master` (D148, D157), licence and publication, changes to CLAUDE.md's hard rules or to this row, and what (b) stops. A question about the client itself may be put to the user at any time, never as a blocker. (e) **Records:** a call that makes a rule gets a row here with `coordinator (D246)`; a case call (a rename, a loss, a placement) goes in the run's log entry under `Calls` and in its own home (conventions.md, accepted-corrections.json, §4's placements), with no row. §3 holds only (d)'s items; the doc-filer returns builders' proposals to the coordinator and no longer files them. (f) **Parking:** a function not exact after two builder rounds is parked (§4, attempts.csv) and not relaunched until new evidence or a new lever turns up. Amends D66, D119, D137, D226, D240 and CLAUDE.md's "Decisions are the user's". | user |
+| D247 | 2026-11-12 | A change to a header that more than one library includes (wwlib's, sgistl's, a shared app header) is verified on every library that includes it, not only the builder's own: run 2026-11-12 found wwdebug 0x9EBF20 (wwprofile's Log_Intermediate) lost since an app-only verify of FastAllocator.h's inline getters, hidden by wwdebug's stale ledger until a full verify; regained by a friend declaration in place of the getters. Builders' briefs and workflow.md §3.4 say so. | coordinator (D246) |
 
 ## 3. Open decisions
 
