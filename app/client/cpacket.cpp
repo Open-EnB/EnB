@@ -105,11 +105,11 @@ class GutterDataClass	// NAME 3: class-from-file (D24) for app\client\gutter_dat
 public:
 	bool Set_Click_Indicator(bool turn_on, class UIViewClass *view);	// 0x7B6040 (the click indicator 105): gutter_data.h's
 };
-class EmoteDataClass	// NAME 2: co_data.h's name for what Get_Emote_Data returns
-{
-public:
-	void Unknown_7E6650(int emote);	// 0x7E6650 (NOTIFY_EMOTE 162)  // NAME 1 [emote]: the packet's Emote
-};
+#include "emote_data.h"
+
+
+
+
 
 // shiputils.cpp's decal helper (cdecl): the packet's decals on the object's model, with the decal INI
 void Unknown_80E8C0(RenderObjClass *model, std::vector<DecalStruct> &decals, SClientUnknown1334Class *decal_ini);	// 0x80E8C0  // NAME 1 [model, decals, decal_ini]: what DECAL 16 passes
