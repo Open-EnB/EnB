@@ -125,19 +125,19 @@ static bool Find_Item(RefCountPtr<T> &result, CONTAINER &container, int id)	// N
 	return(true);
 }
 
-// NOT EXACT: written from the client's code (see attempts.csv)
+// 0x7B0E10: Create_Item<GalaxyMapRenderGateClass> (0x7A8B70 calls it)
 template <class CONTAINER, class T, class DATA>
 static bool Create_Item(RefCountPtr<T> &result, CONTAINER &container, const RefCountPtr<DATA> &data, const RefCountPtr<SceneClass> &scene)	// NAME 1: what it does
 {
 	int id = data->Get_Hash_ID();
-	if (Find_Item(result, container, id)) { return(false); }
-	result = Create_NEW(new T(data));
-	container[id] = result;
-	if (scene) { result->Add_To_Scene(scene); }
-	return(true);
+	if (!Find_Item(result, container, id)) {
+		result = Create_NEW(new T(data));
+		container[id] = result;
+		if (scene) { result->Add_To_Scene(scene); }
+		return(true);
+	}
+	return(false);
 }
-
-
 
 
 
@@ -1095,6 +1095,11 @@ bool GalaxyMapRenderMeshClass::Intersect(const LineSegClass &ray, Vector3 *conta
 	return(false);
 }
 
+GalaxyMapRenderMeshClass::GalaxyMapRenderMeshClass() :
+	Scale(1.0f, 1.0f, 1.0f)
+{
+}
+
 bool GalaxyMapRenderMeshClass::Set_RObj(const char *name)
 {
 	RefCountPtr<RenderObjClass> robj;
@@ -1112,11 +1117,6 @@ bool GalaxyMapRenderMeshClass::Set_RObj(const RefCountPtr<RenderObjClass> &robj)
 	if (scene) { Add_To_Scene(Create_Peek(scene)); }
 	return(true);
 }
-
-
-
-
-
 
 
 
@@ -1577,12 +1577,12 @@ const RefCountPtr<GalaxyMapRenderGateClass> &GalaxyMapRenderSectorClass::Unknown
 	static RefCountPtr<GalaxyMapRenderGateClass> none;
 	return(none);
 }
-
+#pragma auto_inline(off)
 GalaxyMapRenderGateClass::GalaxyMapRenderGateClass(const RefCountPtr<GalaxyMapGateClass> &data) :
 	Data(data), Intra(false), Flipped(false)
 {
 }
-
+#pragma auto_inline(on)
 void GalaxyMapRenderGateClass::Release_Item()
 {
 	Remove_From_Scene();
@@ -2018,4 +2018,9 @@ const RefCountPtr<GalaxyMapRenderSectorClass> &GalaxyMapRenderGateClass::Unknown
 **	0x7ABA70, 0x7A83D0 and 0x7A89A0 write their results through references (ret without eax).
 **	What stays NOT EXACT is listed in docs/data/attempts.csv (inline budgets in the long members,
 **	0x7A8B70 above all, and three order-only residues).
+**	GalaxyMapRenderGateClass's constructor 0x7AC870 sits under auto_inline(off): its one caller,
+**	Create_Item<GalaxyMapRenderGateClass> 0x7B0E10, calls it (`new T(data)`, non-null branch), where
+**	/Ob2 would inline it; Create_Item returns false after the creating branch (the client's epilogue
+**	for the found case comes last). GalaxyMapRenderMeshClass's constructor is a .cpp function: the
+**	client keeps an uncalled copy at 0x7A9B20, its derived constructors inline it.
 */

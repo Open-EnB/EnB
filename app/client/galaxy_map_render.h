@@ -200,7 +200,7 @@ public:
 class GalaxyMapRenderMeshClass : public GalaxyMapRenderItemClass  // NAME 1: what it is
 {
 public:
-	GalaxyMapRenderMeshClass() : Scale(1.0f, 1.0f, 1.0f) {}	// 0x7A9B20
+	GalaxyMapRenderMeshClass();								// 0x7A9B20 (out of line: an uncalled copy)
 	virtual ~GalaxyMapRenderMeshClass() { GalaxyMapRenderMeshClass::Release_Item(); }	// 0x7A9C00 (deleting 0x7A9BD0)
 	virtual void Release_Item() { Remove_From_Scene(); RObj = NULL; }	// +0x08 0x7A9CE0
 	virtual RenderObjClass *Peek_RObj() { return(RObj.Peek()); }	// +0x0C 0x7A9BB0
