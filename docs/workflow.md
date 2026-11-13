@@ -288,6 +288,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | Dead reads change later sites' inlining in narrow steps, and a position change does nothing | They act by their total and the callee they inline, not by position (before the function's last branch): sweep every count (7 exact, 8 over); an inline accessor costs about two thirds of a `size()` | client_lego_impl Add 0x72B7F0 |
 | `if (a && b)` against two nested `if`s: the same bytes, but callers inline differently | The cost is in the source's structure: try both forms when a caller's inlining is off | unknown_6af220.cpp |
 | A wrapper template calling through a second template | Costs one inline level (§3.1.1): count it | signal_list.cpp |
+| A static helper defined later in the file is inlined into earlier callers; the client calls it | `#pragma auto_inline(off)` around the helper. The client's callers are the evidence (`client.py callers`: a function with no callers in the client is always inlined there, keep it outside the bracket); definition order is not an inline barrier in VC6 | steering `Predict` / `Avoid_Obstacles`; damtype's section reader |
+| The client calls a function out of line from one caller but its other callers inline it | Try `auto_inline(off)` only after an `appfile.py match` over those other callers shows they still inline it | avatar.cpp |
+| The client inlines `std::string` assign at the later call sites of a long function, not the earlier ones | The budget ran out inside the function: classify inline-budget, park | ui_starbase 0x637130 |
+| A callee taking a by-value `Vector2` stays out of line as in the client | Keep the by-value parameter (a const reference inlines it) | 0x543200 |
+| A float max the client compiles as `fld X; fld Y; fcompp` | A double compare: `(double)X > Y`, or an inline float-returning getter on both sides; plain float compares give `fld X; fcomp Y` in every order | mv3dsnd |
 | **register-only, order-only** (two attempts, then the stop rule) | | |
 | A constant loaded before a variable, or the reverse | Operand order: `elapsed * 0.05F * K` loads the constant first, `step = elapsed * 0.05F; step *= K;` loads `elapsed`; `a == b` vs `b == a`, `Pos > size` vs `size < Pos` differ (D18/D28) | |
 | Registers differ around a call or an argument | A temporary, a local copy of an argument, or a member / id read into a local before the call (`int id = Client->X; Packet p(N, id);`); one shared variable reusing a dead argument slot. `tools/vc6/trydiff.py` keeps a variant's object for `objdiff.py` / `explain.py` | Accept 0x82A6C0 |
@@ -315,6 +320,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A repeated null test of a literal / 64-bit memory value: the client re-tests, ours threads it | Unsolved stop signal (VC6 SP4 value threading): after `if (x == C)` on a register local a later `x == K` folds on every path through copies, unions and no-code statements; the test survives only for relational compares, undefined values or real code between. 8 header and call forms plus a 30-flag sweep changed nothing | ShdMesh ctor 0xA08F80 |
 | A float read through an inline getter goes through the FPU, a direct member read uses integer moves; an x87 `fst` / `fstp` double store | The product written twice in the temporaries' constructor arguments gives the `fst` / `fstp`; use the getter or the member read the client's bytes show | eff_seek 0x6F1C40, debrsint.cpp |
 | An order-only `fild` residue next to two float locals | An unsigned frame time converted once into a named float, after the other float local | user_click_indicator.cpp |
+| Inlined file-static helpers get the client's registers only with the new value as the first argument (old value in ecx / esi) | Argument order of an inline helper moves registers: try both | recustomization_cost.cpp |
 | **shape: returns, tails, loops, switches** | | |
 | test/setne against neg/sbb; shared or separate `return false` tails | `if (g()) return true; return false;` gives test/setne, `return g();` neg/sbb; a shared `return false` tail is `if (p) {...; return true;} return false;`; an eax-wide 0/1 is `return(!a() && !b());` | |
 | A plain `sete al` | `if (f() == 0) return(true); return(false);`; `return(f() == 0)` doesn't | |
@@ -341,6 +347,14 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A bitfield test compiled as `shr` / `test cl,1`; `if (!Is_Active())` loads `al` first | An explicit `(bool)` cast on the test; `if (!Active)` (the member) compares the member instead | ui_dynamicwindow.cpp |
 | `if (a \|\| b) {X} else {Y}` lays Y first while the EH states follow source order; `while (flag)` gives the unrotated loop | Known layouts: judge by the bytes before choosing the form; a bool helper written `if (find != end) return(true); return(false);` gives `je` / `mov al,1`, `return(find != end)` gives `setne` | unknown_6af220.cpp |
 | A switch whose cases push the full argument list and share one call | The client has a call per case with a `break`, not a shared tail | user_click_indicator.cpp |
+| `setne dl; mov [esp+N],dl; mov eax,[esp+N]; push eax` before a call taking a bool | A named bool local: `bool b = expr; f(b);` | shiputils 0x80F470 |
+| `test al,al; setne al` after a bool call, or a bare `setne` for a byte / int compare returned as bool | `return x ? true : false;` / `return (a != b) ? true : false;`; `!!x` does not give it | ui_starbase, recustomization_cost.cpp |
+| A loop helper whose first call is peeled (do-while, `for(;;)`, goto); the client loads a constant on one exit | Only `while (true)` with a return at each exit keeps the client's loop; the constant on one exit means two return statements, not one after the loop | avatar.cpp |
+| The if / else block order is swapped | A `goto` into an if-body, or a `bool ||` guard, swaps the blocks: avoid both | emote_data.cpp |
+| Several "return zero" paths | Each is a separate early return: Ghidra's nested if-structure is misleading | steering (unknown_445740.cpp) |
+| A loop bound compiled to a signed `jl` against an unsigned count | An `(int)` cast on the count | |
+| A `box.Extent` read the client does through one pointer (`add eax, 0xC`) | `const Vector3 &extent = robj->Get_Bounding_Box().Extent;` | eff_pass.cpp |
+| A callee returns int in eax but a caller reads `al` as bool, and declaration and definition will not link | C linkage (`extern "C"`) on both | distance_calc.h 0x831F90 |
 | **frame** | | |
 | Each inlined copy has its own buffer slot | A function-scope buffer gives each inlined copy its own frame slot | 0x752E60 |
 | The frame size differs | The frame counts every local: a difference names a local too many or too few (a second RECT: +0x10; `char name[MAX_PATH + 1]`: +4) | 0x9182C0 |
@@ -366,6 +380,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | The destructors that expand a member struct's destructor gain an EH state | An empty user destructor on the struct: drop it | ui_group |
 | An out-of-line "constructor" called through `??_H` without `mov eax, ecx` | A default-constructor closure: give the constructor default arguments | 0x71BD70 |
 | An out-of-line 16-byte copy (`mov eax,ecx; ... ret 4`) | An inline user `operator=` the budget cut: declare one | 0x80B100 |
+| A derived destructor stores its base's vtable last and its members' EH states are shifted by 1; or the client's implicit destructor stores no own vtable | A base class with an empty inline virtual destructor adds that state and store (as does an empty user-declared one on the class itself): when the client shows neither, declare no destructor | SelectorClass; PassEffectClass |
 | **field offset** | | |
 | `[reg+N]` differs in otherwise equal code | The displacement can belong to another class: trace the register before patching; `tools/re/layoutdiff.py` tallies offsets per class | |
 | A `malloc`'d / `new` size larger than the class | Extra E&B members, or a stray `#pragma pack(4)` | `FastAllocatorGeneral` |
@@ -1017,7 +1032,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   with the 32-byte guarded `std::ctype<unsigned short>::id` initialiser (guard 0xC416FC; scan raw bytes for
   `8A 0D FC 16 C4 00 B0 01 84 C8 75 08`, it is not always a verified start; pairing questions: 3.4), so code
   placed after a file's guarded `<string>` static lands in the next object. A PermStringInitClass static opens
-  an object, it does not end the previous one. A static function stored by address with no incremental thunk
+  an object, it does not end the previous one; a file's own guarded static initialiser can also sit at the START of its object (proj_man.cpp's cos initialiser 0x491660), and a queue row's range can run past a guard: scan for the guard bytes before trusting a row's end. A static function stored by address with no incremental thunk
   marks a file-local function and a boundary.
 * **What is not placement evidence:** out-of-line copies of inlines (VC6 puts them among the file's own
   functions), a static's place in .text, shared string or float literals (merged across objects; the object
@@ -1232,6 +1247,8 @@ are in 3.0.
   objects out before vtables.py or objdiff.
 * **`wt.py bring-over NAME` without `--target`** lands on the main tree's branch when that is `run/*` and refuses
   on any other; in a run still pass `--target run/<date>`.
+* **`ledger.py describe` takes the plain path:** `describe app shared/damtype.h`, not `headers/shared/damtype.h` (that writes a doubled `headers/headers/` shard; Tools item: make describe strip it).
+* **A background verify's output lags:** its "waiting" lines can be minutes stale even with PYTHONUNBUFFERED: read `importer.py lock-status` instead.
 * **Library flags (D12):** library-matching.md §3.5 (wwshade `/GX /Ob1`, the other EA libraries `/Ob2` without
   `/GX`, app `/GX`, D23). Signs of wrong flags: EH prologs (`push -1; push handler; mov eax, fs:[0]`) only in the
   client, or a file's callers all calling what ours inlines. Compile through verify's path
@@ -1368,6 +1385,8 @@ are in 3.0.
   different window than verify (a constant set of false losses): decide with sendpad.py / the full verify only.
   A member added to a header that sclient.cpp or aux_roots.cpp includes flips pad-sensitive pairs beyond the
   watch list (client_item_property_builder.cpp in §3.9 has the case).
+* **More pad-sensitive headers:** declarations added to a header reached through sbaseview.h move sclient's send pad 0x758210 (a declaration stays local in the .cpp that needs it); replacing aux_roots.h's views with an include of a new header lost the six padded constructors (0x702240, 0x7045F0): keep aux_roots.cpp's declaration count, with money.h's guard pattern. Out-of-class definitions of member templates compile in VC6 (only explicit specialisations hit C1001): a way to add a member without changing a pad-sensitive header (a plain overload in kv_encoder_base.h cost the send pad and 0x597080).
+* **Names inside a header guard macro** (money.h's `__X_ALL` pattern) cannot be enumerators of a type declared outside the guard: use anonymous enums, with casts where an enum value is returned or passed (C2440 / C2665).
 * **Keeping both pads still:** put members only one file needs behind a guard macro defined only by its users
   (money.h's pattern; a declaration added to delta_array.h reaches aux_roots and sclient: `#ifdef
   __DELTA_ARRAY_MEMBERS`), and keep a single caller's accessor file-local. A hash_map / list / vector member in a header sclient.cpp includes can leave no pad window at all (the signal classes' members sit behind `__SIGNAL_MEMBERS` for that). A stopped sendpad.py leaves its pool lease: release it.
@@ -1423,6 +1442,7 @@ are in 3.0.
 * **A one-off C1083 on a tracked, unchanged header:** a worktree's first `build.py build --lib app` failed one file
   with "Cannot open include file '..\packets\pkcolorization.h'"; the rerun built every file. Rerun once before
   blaming a commit; a new file can fail the same way while other worktrees verify (read `compile_errors` in the app library.json).
+* **A pool VM failing with "tar: Can't unlink" during the source sync:** rerun once; it passed the second time.
 * **Background jobs:** a Bash `&` job is killed when the tool call ends (`cmd &` also leaves a verify detached):
   use the tool's run_in_background. Claude
   Code's memory reaper can kill background shells (lease-wait loops); a process started detached (PowerShell
@@ -1450,6 +1470,8 @@ are in 3.0.
   directory, so give each run its own `--agent`; `-D V=1` breaks `<utility>`; the markers over blank lines count the
   blank lines; a static generated stand-in is reported "defined but not compiled"; `explain.py` wants appfile's own
   object path (`.work/<agent>/appfile/obj/X.obj`).
+* **appfile.py, `match` and `show` limits:** `match` wipes the agent's `appfile/obj` on every run, so two runs of same-named drafts under one `--agent` overwrite each other's object (FileNotFoundError or another variant's result): run variants in series or one `ENB_AGENT` each. `match` refuses "the object lacks void" for a parenthesised definition `static void (Name)(...)` unless `--allow-missing`. `show` refuses a file app-functions.json does not attribute (a new file): a throwaway wrapper that sets the range's `file` in memory gives show and draft (Tools item: a `--range` option). A `#line` in a draft is easy to lose when the file goes into the tree: count the padding from the draft without it.
+* **appfile.py, markers and includes:** a `// @0xADDR` marker skips a `template <...>` line on its own, so it never attaches to a template function: join the template line to the definition line. `--diff` prints nothing once the marker line is replaced by a `// NOT EXACT` line: run explain.py on `.work/<agent>/appfile/obj/X.obj`. A draft outside app/ with relative `..\..\wwlib\x.h` includes needs `-I app/shared -I wwlib -I wwdebug -I wwmath`; `-I DIR` did not resolve app/shared's subdirectory includes (`auxdata\permstr.h`) even absolute: run `match` on the tree path with the default `-I auto`. A draft can be tried lock-free while your own verify waits: copy the .cpp and the edited header into `.work/<id>/dr/` (reported: quoted includes resolve from the draft's folder first, against the invocation bullet above: check which header the object used).
 * **appfile.py PREFIX means "ours is a prefix of the client's measured size":** the client size runs to the next
   verified function start, so it can include int3 padding after the client's `ret`, inter-object padding, or a
   file-local static / initialiser stored without a thunk (the tools' function starts lack those). Verify counts
@@ -1534,7 +1556,7 @@ are in 3.0.
   every applied variant goes through the full verify (a gain-only try lost another address outright).
   Byte-identical twin functions report losses and gains: apply the form to both. Distrust an 'exact' that needs
   inline asm (D70); don't apply a gain-only variant that lowers its own function's similarity by more than 0.1; a
-  stash in docs/attempts holds one function at given lines: check they still hold it before splicing.
+  stash in docs/attempts holds one function at given lines: check they still hold it before splicing. A best form stashed there may never have been committed: compare the tree's residue with the attempts row before a round.
 * **tryv2.py:** its single-file verdict on register allocation needs the full verify to confirm. It refuses an anchor that occurs twice. It writes tree files with `open(..., 'w')`: a concurrent
   reader makes it fail (OSError 22 / PermissionError, also while restoring), later variants are skipped silently
   and a variant can stay in the tree file: check the log's variant lines and grep / `git status` after every run.
@@ -2181,6 +2203,10 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * The client has both ui_ship_cust.cpp (0x6186A0-0x61E8xx, not in the tree) and ui_shipcust.cpp (from
   0x620E40): check the window with `appfile.py show` before placing anything in 0x618xxx-0x61Exxx.
 
+#### shiputils.cpp
+
+* `appfile.py match` refuses the file ("the object lacks void") unless `--allow-missing`: the parenthesised `static void (Unknown_80EAF0)(...)` definition.
+
 #### stredit.h
 
 * `#include <string>` must not go there: a forward declaration of `std::basic_string` with its three
@@ -2239,6 +2265,8 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 * Retyping UIStarbaseClass +0x190 breaks the destructor 0x633B50. Integer copies of a point go through a named
   TPoint3D (`Get_Point`); a vector member the client initialises as `Member(0)` is written that way.
+* The file is padded with blank lines so FAIL_IF `__LINE__` values match the client: copy a draft whole or keep line counts, and replace a removed NOT EXACT line with a plain comment instead of deleting it.
+* COLLISION_TYPE_0 is 2 and COLLISION_TYPE_1 is 4: check the client's push.
 
 #### vector<string>::erase (0x4FC7C0)
 

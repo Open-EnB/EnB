@@ -228,6 +228,17 @@ Landing and bring-over (the lander does the landing; these are what you see arou
 - **After every landing that retires a stand-in run the end-to-end smoke set** (the checker: clienttest, udpreplay,
   `e2e.py run`); POC checks build `--lib binkmovie` first. The link gate and the stand-in check pass when a
   generated null-returning stand-in replaced a hand one next to the retired one; only the POC run shows it.
+- **A branch that retires a stand-in must drop what names it:** (1) a generated or hand stand-in that clienttest's trace
+  prints (`gen Class::Function` lines in tests/clienttest/expected.txt): the lines go in the same branch, else only
+  clienttest's trace compare fails (the landing's link and stand-in checks pass); (2) a POC section for a class that
+  becomes real (programs/clientpoc/poc_world*.cpp sections named after the old Unknown class): the section goes in
+  the branch, else only the landing's clientpoc link fails (compile errors on the old class name, then hundreds of
+  unresolved symbols; the verify, stand-in check, clienttest and udpreplay pass). Briefs say: grep expected.txt and
+  programs/clientpoc for the retired names before reporting.
+- **e2e on a client linked without `build.py build --lib binkmovie` fails every scenario at `_login:11`** (wait-event
+  VERSION_RESPONSE not seen): without the movie library the client connects at once, before the scenario's
+  movie-skip step starts its wait. Build binkmovie first for every e2e or POC run (Tools item: e2e.py should refuse or
+  warn when the linked client has no movie library).
 - **Stacked builders (`--base wt/P`) pay a rebase with its own verify** after P lands, and conflict when another landed
   branch touched the same file (a shared header's users): prefer landing P first when the lock is free.
 - **A `wt.py rebase` record goes stale when another branch lands after it** (the next bring-over refuses the branch
