@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 204 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1839 |
-| 2 | describes what the code does | 4540 |
-| 1 | neutral placeholder | 23452 |
+| 2 | describes what the code does | 4562 |
+| 1 | neutral placeholder | 23474 |
 
 ## For review (score 3 and below)
 
@@ -13360,8 +13360,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Subtitles` | `app/client/ui_item_examination_title.h:34` | what it holds |
 | 1 | `std:` | `app/client/ui_item_examination_title.h:37` | neutral (D10); NAME 1 [id]: neutral |
 | 1 | `Unknown_7EA190` | `app/client/ui_item_examination_title.h:37` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_item_examination_title.h:38` | neutral (D10); NAME 1 [damage_type]: neutral |
-| 1 | `Unknown_49E210` | `app/client/ui_item_examination_title.h:38` | untagged neutral name (D10) |
 | 1 | `std:` | `app/client/ui_item_examination_title.h:39` | neutral (D10); NAME 1 [type]: neutral |
 | 1 | `Unknown_7EB4D0` | `app/client/ui_item_examination_title.h:39` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_jobs.cpp:20` | neutral (D10) |
@@ -21743,6 +21741,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C4530` | `app/shared/chat_edit_stream.h:60` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/chat_edit_stream.h:62` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/shared/chat_edit_stream.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown_BDBB84` | `app/shared/damtype.cpp:12` | neutral (D10), as avatar.cpp's |
+| 1 | `DamageTypeInfoStruct` | `app/shared/damtype.cpp:15` | neutral (D10) |
+| 1 | `std:` | `app/shared/damtype.cpp:39` | neutral (D10) |
+| 1 | `DamageTypeNames` | `app/shared/damtype.cpp:41` | neutral (D10) |
+| 1 | `DamageTypeDisplayNames` | `app/shared/damtype.cpp:42` | neutral (D10) |
+| 1 | `DamageMarkTypeNames` | `app/shared/damtype.cpp:43` | neutral (D10) |
+| 1 | `DamageSpreadNames` | `app/shared/damtype.cpp:44` | neutral (D10) |
+| 1 | `Read_Section` | `app/shared/damtype.cpp:59` | what it does; NAME 1 [dam_type]: the accessors' |
+| 1 | `Get_Info` | `app/shared/damtype.cpp:94` | what it does |
+| 1 | `range` | `app/shared/damtype.cpp:189` | neutral |
+| 1 | `Unknown_49E210` | `app/shared/damtype.cpp:311` | untagged neutral name (D10) |
+| 1 | `DAMAGE_MARK_TYPE_COUNT` | `app/shared/damtype.h:30` | the lookup's bound (0x49E340) |
+| 1 | `DAMAGE_SPREAD_COUNT` | `app/shared/damtype.h:37` | the lookup's bound (0x49E480) |
+| 1 | `Load_Damage_Types` | `app/shared/damtype.h:40` | what it does; NAME 1 [filename]: INIClass::Load's |
+| 1 | `Free_Damage_Types` | `app/shared/damtype.h:41` | what it does |
+| 1 | `Has_Application_Interval` | `app/shared/damtype.h:51` | what it tests |
+| 1 | `Get_Resist_Name` | `app/shared/damtype.h:52` | what it returns |
+| 1 | `Damage_Type_From_Name` | `app/shared/damtype.h:53` | what it does; NAME 1 [name]: neutral |
+| 1 | `Damage_Type_Name` | `app/shared/damtype.h:54` | what it does; NAME 1 [buffer, size]: Bounded_Strcpy's |
+| 1 | `std:` | `app/shared/damtype.h:55` | neutral (D10) |
+| 1 | `Unknown_49E210` | `app/shared/damtype.h:55` | untagged neutral name (D10) |
+| 1 | `Damage_Mark_Type_From_Name` | `app/shared/damtype.h:56` | what it does; NAME 1 [name, type]: neutral |
+| 1 | `Damage_Mark_Type_Name` | `app/shared/damtype.h:57` | what it does; NAME 1 [buffer, size]: Bounded_Strcpy's |
+| 1 | `Damage_Spread_From_Name` | `app/shared/damtype.h:58` | what it does; NAME 1 [name, spread]: neutral |
+| 1 | `Damage_Spread_Name` | `app/shared/damtype.h:59` | what it does; NAME 1 [buffer, size]: Bounded_Strcpy's |
 | 1 | `DataBinderType` | `app/shared/data_binder.h:30` | neutral (D10), an empty tag type |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:37` | neutral placeholder (D10) |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:221` | neutral placeholder (D10) |
@@ -23226,8 +23249,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown_82ECB0` | `stubs/app_stubs.cpp:101` | untagged neutral name (D10) |
 | 1 | `Unknown_7EA190` | `stubs/app_stubs.cpp:111` | untagged neutral name (D10) |
-| 1 | `Unknown_49E210` | `stubs/app_stubs.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown_7EB4D0` | `stubs/app_stubs.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown_7EB4D0` | `stubs/app_stubs.cpp:135` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `tests/auxdata_smoke/auxdata_smoke.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_All` | `tests/auxdata_smoke/auxdata_smoke.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `tests/auxdata_smoke/auxdata_smoke.cpp:94` | untagged neutral name (D10) |
@@ -27206,6 +27228,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Add_Mix` | `app/shared/combo_ffactory.h:38` | describes what it does |
 | 2 | `Simple` | `app/shared/combo_ffactory.h:41` | describes what it holds |
 | 2 | `std:` | `app/shared/combo_ffactory.h:43` | describes what it holds |
+| 2 | `DAMTYPE_IMPACT` | `app/shared/damtype.h:12` | 'IMPACT' / 'Impact' |
+| 2 | `DAMTYPE_EXPLOSIVE` | `app/shared/damtype.h:13` | 'EXPLOSIVE' |
+| 2 | `DAMTYPE_PLASMA` | `app/shared/damtype.h:14` | 'PLASMA' |
+| 2 | `DAMTYPE_ENERGY` | `app/shared/damtype.h:15` | 'ENERGY' |
+| 2 | `DAMTYPE_EMP` | `app/shared/damtype.h:16` | 'EMP' |
+| 2 | `DAMTYPE_CHEMICAL` | `app/shared/damtype.h:17` | 'CHEMICAL' |
+| 2 | `DAMTYPE_ABSOLUTE` | `app/shared/damtype.h:18` | 'Absolute' |
+| 2 | `DAMTYPE_SYSTEM` | `app/shared/damtype.h:19` | 'System' |
+| 2 | `DAMTYPE_EFFECT` | `app/shared/damtype.h:20` | 'Effect' |
+| 2 | `DAMAGE_MARK_TYPE_NONE` | `app/shared/damtype.h:26` | 'None' |
+| 2 | `DAMAGE_MARK_TYPE_SPOT` | `app/shared/damtype.h:27` | 'Spot' |
+| 2 | `DAMAGE_MARK_TYPE_LINE` | `app/shared/damtype.h:28` | 'Line' |
+| 2 | `DAMAGE_SPREAD_ONE_SYSTEM` | `app/shared/damtype.h:35` | 'One_System' |
+| 2 | `Get_Damage_Spread` | `app/shared/damtype.h:42` | 'DamageSpread' |
+| 2 | `Get_Shield_Damage_Modifier` | `app/shared/damtype.h:43` | 'ShieldDamageModifier' |
+| 2 | `Get_System_Damage_Modifier` | `app/shared/damtype.h:44` | 'SystemDamageModifier' |
+| 2 | `Get_Organic_Damage_Modifier` | `app/shared/damtype.h:45` | 'OrganicDamageModifier' |
+| 2 | `Get_Interruption_Modifier` | `app/shared/damtype.h:46` | 'InterruptionModifier' |
+| 2 | `Get_Damage_Volatility` | `app/shared/damtype.h:47` | 'DamageVolatility' |
+| 2 | `Get_Volatility_Multiplier` | `app/shared/damtype.h:48` | 'volatility_multiplier' (FAIL_IF, line 194) |
+| 2 | `Get_Application_Interval` | `app/shared/damtype.h:49` | 'ApplicationInterval' |
+| 2 | `Get_Application_Percentage` | `app/shared/damtype.h:50` | 'ApplicationPercentage' |
 | 2 | `std:` | `app/shared/data_binder.h:38` | what it holds |
 | 2 | `Instance` | `app/shared/data_binder.h:40` | what it does |
 | 2 | `std:` | `app/shared/data_binder.h:72` | what it does |

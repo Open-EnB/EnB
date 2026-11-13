@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-779 entries in 255 files.
+777 entries in 255 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -562,8 +562,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_starbase.cpp:3917` | `UIStarbaseClass::Unknown_63E2B0` | marker | NOT EXACT: 0x63E2B0, functional (the flag test's own load of the avatar, the position's y / z through the matrix copy, the id's load order; SB1) 0x63E2B0 |
 | `app/client/ui_starbase.cpp:3967` | `UIStarbaseClass::Unknown_641FA0` | marker | NOT EXACT: 0x641FA0, register only (this in edi, the gadget in ebx: the client's are swapped; SB1) 0x641FA0 |
 | `app/client/ui_starbase.cpp:4041` | `UIStarbaseClass::Unknown_63F490` | marker | NOT EXACT: 0x63F490, functional (shape: the client's Matrix3D temporaries through ??_H and its x87 copies, as 0x63E930; O4) 0x63F490 (0x63AC60: an avatar's name tags put on the screen above its 'ROOTTRANSFORM' bone, sized by its distance from the camera (25 / distance, at most 2), hidden when it is too far or the room's model is between them) |
-| `app/client/ui_starbase.cpp:4309` | `UIStarbaseUnknown1F8Class::UIStarbaseUnknown1F8Class` | marker | NOT EXACT: 0x644F80, functional (register / frame: the client's EH state in bl and its RefCountPtr temporary in edi, one stack slot less; B1) 0x644F80 |
-| `app/client/ui_starbase.cpp:4330` | `UIStarbaseUnknown1F8Class::~UIStarbaseUnknown1F8Class` | marker | NOT EXACT: 0x6452C0, functional (inline budget: the client calls the options' vector clear 0x645E30 out of line, ours inlines it; B1) 0x6452C0 |
 | `app/client/ui_starbase.cpp:4363` | `UIStarbaseUnknown1F8Class::Unknown_645510` | marker | NOT EXACT: 0x645510, functional (frame: two more stack slots in ours, every local 8 bytes up; the client's order otherwise; B1) 0x645510 |
 | `app/client/ui_symbolchat.cpp:146` | `UISymbolChatClass::Unknown_64A9B0` | marker | NOT EXACT: written from the client's code (register only: this in ebp, the client's esi; see attempts.csv) 0x64A9B0 |
 | `app/client/ui_talkt.cpp:68` | `UITalkTreeClass::UITalkTreeClass` | marker | NOT EXACT: 0x64B6E0 (the constructor: the +0x174 stores scheduled after the fill's setup) |
