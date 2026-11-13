@@ -22739,23 +22739,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LandUnknown466BE0Class` | `app/shared/unknown_46c730.cpp:45` | untagged neutral name (D10) |
 | 1 | `LandClass::Lightmap_Thread` | `app/shared/unknown_46c730.cpp:46` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
 | 1 | `Unknown120` | `app/shared/unknown_46c730.cpp:169` | untagged neutral name (D10) |
-| 1 | `Unknown120C` | `app/shared/unknown_46c730.cpp:171` | untagged neutral name (D10) |
-| 1 | `Unknown1E8` | `app/shared/unknown_46c730.cpp:232` | untagged neutral name (D10) |
-| 1 | `Unknown1E4` | `app/shared/unknown_46c730.cpp:234` | untagged neutral name (D10) |
-| 1 | `Unknown1F0` | `app/shared/unknown_46c730.cpp:236` | untagged neutral name (D10) |
-| 1 | `Unknown1F4` | `app/shared/unknown_46c730.cpp:237` | untagged neutral name (D10) |
-| 1 | `Unknown1F8` | `app/shared/unknown_46c730.cpp:238` | untagged neutral name (D10) |
-| 1 | `Unknown1EC` | `app/shared/unknown_46c730.cpp:276` | untagged neutral name (D10) |
-| 1 | `Unknown1214` | `app/shared/unknown_46c730.cpp:343` | untagged neutral name (D10) |
-| 1 | `Unknown_46E120` | `app/shared/unknown_46c730.cpp:448` | untagged neutral name (D10) |
-| 1 | `LandNormalTable` | `app/shared/unknown_46c730.cpp:513` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
-| 1 | `Unknown_46F120` | `app/shared/unknown_46c730.cpp:615` | untagged neutral name (D10) |
-| 1 | `Unknown_470F80` | `app/shared/unknown_46c730.cpp:764` | untagged neutral name (D10) |
-| 1 | `Unknown_472F80` | `app/shared/unknown_46c730.cpp:808` | untagged neutral name (D10) |
-| 1 | `Unknown_473290` | `app/shared/unknown_46c730.cpp:1110` | untagged neutral name (D10) |
-| 1 | `Unknown_4733C0` | `app/shared/unknown_46c730.cpp:1139` | untagged neutral name (D10) |
-| 1 | `Unknown_473780` | `app/shared/unknown_46c730.cpp:1141` | untagged neutral name (D10) |
-| 1 | `Unknown_473BC0` | `app/shared/unknown_46c730.cpp:1145` | untagged neutral name (D10) |
+| 1 | `Unknown120C` | `app/shared/unknown_46c730.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown1E8` | `app/shared/unknown_46c730.cpp:233` | untagged neutral name (D10) |
+| 1 | `Unknown1E4` | `app/shared/unknown_46c730.cpp:235` | untagged neutral name (D10) |
+| 1 | `Unknown1F0` | `app/shared/unknown_46c730.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown1F4` | `app/shared/unknown_46c730.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown1F8` | `app/shared/unknown_46c730.cpp:239` | untagged neutral name (D10) |
+| 1 | `Unknown1EC` | `app/shared/unknown_46c730.cpp:277` | untagged neutral name (D10) |
+| 1 | `Unknown1214` | `app/shared/unknown_46c730.cpp:344` | untagged neutral name (D10) |
+| 1 | `Unknown_46E120` | `app/shared/unknown_46c730.cpp:449` | untagged neutral name (D10) |
+| 1 | `LandNormalTable` | `app/shared/unknown_46c730.cpp:514` | unknown; the 256 unit normals Unknown_46F120 copies into Normals (0xAE8BBC .. 0xAE97BC, .rdata, 6-digit literals): |
+| 1 | `Unknown_46F120` | `app/shared/unknown_46c730.cpp:617` | untagged neutral name (D10) |
+| 1 | `Unknown_470F80` | `app/shared/unknown_46c730.cpp:818` | untagged neutral name (D10) |
+| 1 | `Unknown_472F80` | `app/shared/unknown_46c730.cpp:863` | untagged neutral name (D10) |
+| 1 | `Unknown_473290` | `app/shared/unknown_46c730.cpp:1161` | untagged neutral name (D10) |
+| 1 | `Unknown_4733C0` | `app/shared/unknown_46c730.cpp:1190` | untagged neutral name (D10) |
+| 1 | `Unknown_473780` | `app/shared/unknown_46c730.cpp:1192` | untagged neutral name (D10) |
+| 1 | `Unknown_473BC0` | `app/shared/unknown_46c730.cpp:1196` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC0D8` | `app/shared/unknown_474530.cpp:45` | unknown |
 | 1 | `LandUnknown466BE0Class` | `app/shared/unknown_474530.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_477E20` | `app/shared/unknown_474530.cpp:46` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
@@ -27567,9 +27567,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `name, proto` | `app/shared/unknown_45e3f0.cpp:25` | the base's / Get_Name's; NAME 1 [owned]: neutral |
 | 2 | `Name` | `app/shared/unknown_45e3f0.cpp:30` | Get_Name's |
 | 2 | `Sound` | `app/shared/unknown_45f390.h:32` | Play_3D_Sound's |
-| 2 | `LandDirectionX` | `app/shared/unknown_46c730.cpp:382` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
-| 2 | `Pack_Slope8` | `app/shared/unknown_46c730.cpp:386` | a horizon slope as the high bits of its float, saturating, and back (0x46EE60 / 0x46EEB0: 8 bits; 0x46EEE0 / 0x46EF30: |
-| 2 | `LandHorizonTable` | `app/shared/unknown_46c730.cpp:424` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
+| 2 | `LandDirectionX` | `app/shared/unknown_46c730.cpp:383` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
+| 2 | `Pack_Slope8` | `app/shared/unknown_46c730.cpp:387` | a horizon slope as the high bits of its float, saturating, and back (0x46EE60 / 0x46EEB0: 8 bits; 0x46EEE0 / 0x46EF30: |
+| 2 | `LandHorizonTable` | `app/shared/unknown_46c730.cpp:425` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
 | 2 | `unknown_474530.cpp` | `app/shared/unknown_474530.cpp:52` | a quad's four corners at a height into the sea's vertex list. A macro: Render 0x474B30 inlines all 36 Adds and |
 | 2 | `unknown_474530.cpp` | `app/shared/unknown_474530.cpp:318` | the .dcb's first word (0x4795D0, 0x479A50) |
 | 2 | `LandDecorationRecordStruct` | `app/shared/unknown_474530.cpp:321` | a decoration as the .dcb keeps it, 0x20 bytes (0x479A50): no height, the reader puts it on the ground |
