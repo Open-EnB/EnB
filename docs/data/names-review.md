@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 195 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1827 |
-| 2 | describes what the code does | 4498 |
-| 1 | neutral placeholder | 23248 |
+| 3 | by convention from a client-named file or sibling | 1830 |
+| 2 | describes what the code does | 4508 |
+| 1 | neutral placeholder | 23246 |
 
 ## For review (score 3 and below)
 
@@ -8393,8 +8393,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Clamp01` | `app/client/shiputils.cpp:342` | neutral (D10): inline in 0x80E8C0 |
 | 1 | `Unknown_810130` | `app/client/shiputils.cpp:353` | neutral (D10); NAME 1 [robj, texture, color]: as 0x80FF20's |
 | 1 | `Unknown_80E8C0` | `app/client/shiputils.cpp:423` | untagged neutral name (D10) |
-| 1 | `Unknown_Region_Material` | `app/client/shiputils.cpp:446` | untagged neutral name (D10) |
-| 1 | `Unknown_Region_Half` | `app/client/shiputils.cpp:447` | untagged neutral name (D10) |
 | 1 | `Unknown_80FF20` | `app/client/shiputils.cpp:471` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8B90Class` | `app/client/shiputils.cpp:478` | untagged neutral name (D10) |
 | 1 | `Unknown_6D8DC0` | `app/client/shiputils.cpp:479` | untagged neutral name (D10) |
@@ -24939,6 +24937,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Frame` | `app/client/scriptedmovieline.h:17` | what the order compares |
 | 2 | `Text` | `app/client/scriptedmovieline.h:18` | what it holds |
 | 2 | `_MetalDatabase` | `app/client/shiputils.cpp:153` | metal_equivalent_rgbs.ini, as 0x8117D0's _BloodDatabase |
+| 2 | `metal` | `app/client/shiputils.cpp:163` | metal_equivalent_rgbs.ini's 'Metal-%02d' |
 | 2 | `Apply_Ship_Colorization` | `app/client/shiputils.cpp:291` | what it does |
 | 2 | `Play_State_Animation, state, fraction` | `app/client/shiputils.cpp:521` | what it does with them; The model's '<name>.<name>-<state>' animation (an HLOD's), set at the fraction of its frames; recursive over the sub-objects |
 | 2 | `Set_Engine_Glow` | `app/client/shiputils.cpp:534` | what it does |
@@ -24948,6 +24947,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Clear_Particle_Acceleration` | `app/client/shiputils.cpp:770` | what it does (inlined once in 0x8117D0, the client's 0x812080 recursing) |
 | 2 | `all` | `app/client/shiputils.cpp:786` | what it does with them (co.cpp's 0x6FE1E0 passes them) |
 | 2 | `all` | `app/client/shiputils.cpp:911` | what it does with them (0x8117D0 passes blood.ini's LoopingSound) |
+| 2 | `primary_mapper` | `app/client/shiputils.cpp:941` | the FAIL_IF's 'primary_material_present' |
+| 2 | `secondary_mapper` | `app/client/shiputils.cpp:942` | the FAIL_IF's 'secondary_material_present' |
+| 2 | `ShaderClass:` | `app/client/shiputils.cpp:943` | as primary_mapper |
+| 2 | `ShaderClass:` | `app/client/shiputils.cpp:944` | as secondary_mapper |
+| 2 | `primary_metal` | `app/client/shiputils.cpp:946` | a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2 |
+| 2 | `primary_color` | `app/client/shiputils.cpp:947` | as primary_mapper |
+| 2 | `secondary_metal` | `app/client/shiputils.cpp:971` | a metal_equivalent_rgbs.ini 'Metal-NN' (0x80F470), or -1 / -2 |
+| 2 | `secondary_color` | `app/client/shiputils.cpp:972` | as secondary_mapper |
+| 2 | `skin_material_present` | `app/client/shiputils.cpp:1009` | as primary_material_present, '~SK' |
 | 2 | `Apply_Ship_Colorization` | `app/client/shiputils.h:23` | what it does |
 | 2 | `Play_State_Animation` | `app/client/shiputils.h:30` | what it does |
 | 2 | `Update_Damage_Particles` | `app/client/shiputils.h:39` | what it does |
@@ -28282,6 +28290,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `shiputils.cpp` | `app/client/shiputils.cpp:32` | the FAIL_IF's 'slot_id >= MAX_NUM_DECAL_SLOTS' |
 | 3 | `reg_mat_defs, current_region` | `app/client/shiputils.cpp:155` | the FAIL_IF; NAME 1 [Unknown_80F470]: neutral (D10); The region's first colour (a metal's from metal_equivalent_rgbs.ini) onto the '~s1' vertex materials once they differ |
 | 3 | `_BloodDatabase` | `app/client/shiputils.cpp:783` | the FAIL_IF '!_BloodDatabase.Find_Section(section)' |
+| 3 | `reg_mat_defs, current_region` | `app/client/shiputils.cpp:935` | the FAIL_IF |
+| 3 | `primary_material_present` | `app/client/shiputils.cpp:1007` | the FAIL_IF |
+| 3 | `secondary_material_present` | `app/client/shiputils.cpp:1008` | the FAIL_IF |
 | 3 | `SkillAbilityDataPeekClass` | `app/client/skill_ability_data_peek.h:24` | by convention (D24) from the client's file skill_ability_data_peek.cpp |
 | 3 | `std:` | `app/client/skill_ability_names.cpp:23` | its asserts |
 | 3 | `std:` | `app/client/skill_ability_names.cpp:24` | its asserts |

@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-764 entries in 252 files.
+763 entries in 252 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -290,8 +290,7 @@ edit the comments in the code, not this file.
 | `app/client/ship_pip.cpp:457` | `ShipPipClass::Unknown_2C` | marker | NOT EXACT: ShipPipClass, literal (first: the left drag's Translate(-center) FPU stack order; one temp slot [esp + 0x14] against 0x10) @0x80D5E0 |
 | `app/client/shiputils.cpp:34` | `void` | marker | NOT EXACT: functional (D64), from the disassembly (attempts.py show 0x80EAF0): a mesh named '[prefix.]decalNN' gets slot NN's material (an empty slot's from the library, else the slot's decal tinted by its colour): the mesh made unique, its passes, two texture stages, shader and vertex material replaced and its material info rebuilt; anything else recurses over its sub-objects @0x80EAF0 |
 | `app/client/shiputils.cpp:142` | `Unknown_80EFF0` | marker | NOT EXACT: functional (D64): 0x80F020 from region 0 with the environment-map manager's axis (+0x10) @0x80EFF0 |
-| `app/client/shiputils.cpp:469` | `Unknown_80FF20` | marker | NOT EXACT: functional (D64), from the pseudocode @0x80FF20 |
-| `app/client/shiputils.cpp:934` | `Add_Looping_Sound_Effect` | marker | NOT EXACT: functional for POC (D64), not compared |
+| `app/client/shiputils.cpp:931` | `Unknown_812390` | marker | NOT EXACT: from the disassembly (D64), the client's own FAIL_IF / G_ASSERT lines; shape and frame residues (attempts.py show 0x812390) 0x812390: the region's two halves onto the mesh's '~S1' / '~S2' vertex materials (colour, stage 1 mapper, the shaders' post-detail colour function) and the skin colour onto '~SK' @0x812390 |
 | `app/client/skill_data.cpp:144` | `SkillDataClass::Unknown_20` | marker | NOT EXACT: inline-budget, the client inlines only the -1 push_back and calls 0x4A0880 for the other two 0x6A4F40 |
 | `app/client/skill_data_peek.cpp:149` | `SkillDataPeekClass::Get_Affiliations` | marker | NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return) 0x6A5730 |
 | `app/client/slot_data.cpp:32` | `SlotDataClass::Unknown_6A7730` | marker | NOT EXACT: shape (0.59: the client lays out the second emit before the shared failure exit; this form makes the copy 0x6A7860 inlines exact) 0x6A7730 |
