@@ -168,6 +168,102 @@
    "moved_to": null,
    "decision": "D235",
    "note": "D235 (D66 (vi) / D119), run 2026-11-11 (L10): ui_combobox.cpp's ~RefCountPtr<RenderObjClass> is byte-identical to the ~RefCountPtr<HAnimClass> the object also emits in the client's RefCountPtr<HAnimClass> form (group 0x46BE90): the copy is ambiguous, none can be placed; the form makes 25 functions of 0x578120-0x57BAC0 exact."
+  },
+  {
+   "address": "0x6FB1E0",
+   "lib": "app",
+   "file": "aux_roots",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x7014B0",
+   "lib": "app",
+   "file": "aux_roots",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x701D70",
+   "lib": "app",
+   "file": "aux_roots",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x754F90",
+   "lib": "app",
+   "file": "sclient",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x755E30",
+   "lib": "app",
+   "file": "sclient",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x759340",
+   "lib": "app",
+   "file": "sclient",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x759500",
+   "lib": "app",
+   "file": "sclient",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x759610",
+   "lib": "app",
+   "file": "sclient",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x759ED0",
+   "lib": "app",
+   "file": "sclient",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x759F00",
+   "lib": "app",
+   "file": "sclient",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x6A4F40",
+   "lib": "app",
+   "file": "skill_data",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "F1 856a9916: aux_roots.h's UnknownB03970Enum named FormationState from the client's string 'FormationState' (0xBA9734) returned by 0x835CF0, which 0x759E80 calls on the saved value; form DeltaTemplateClass<FormationState> Formation (Get_Type_Name specialisation). Lost until regained."
+  },
+  {
+   "address": "0x5CE830",
+   "lib": "app",
+   "file": "ui_option_quit",
+   "moved_to": null,
+   "decision": "D246",
+   "note": "F1 fa4dbb82: three member declarations on Unknown764FD0Class (sclient.h; 0x765540 / 0x765BE0 / 0x765E40, from the code) gain nav_list_builder 0x7B7EF0, 0x7B8ED0, 0x7B8F10 and flip this text-sensitive function; one regain round tried (declaration placement). Coordinator's valve call, run 2026-11-12b."
   }
  ]
 }
