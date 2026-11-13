@@ -1259,7 +1259,7 @@ void Unknown_7C3220Class::Set_Name(std::string name)
 bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
 {
 	if (co->Unknown_6F5A40()) {
-		DeltaCompoundClass *aux = ((SClient *)Client->Unknown_18())->AuxData;
+		DeltaCompoundClass *aux = ((SClient *)Client->As_Space_Client())->AuxData;
 		if (aux) {
 			NameClass name("GroupInfo");
 			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, name);
