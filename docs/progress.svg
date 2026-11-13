@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="520" viewBox="0 0 880 520" role="img" aria-labelledby="title desc">
-  <title id="title">Earth &amp; Beyond client rebuild: 71.00% rebuilt (55.10% byte-exact), 64.90% written in C++</title>
-  <desc id="desc">5,134,736 of 7,231,709 bytes of client.exe .text are rebuilt: 3,984,496 byte for byte from source, the rest runtime libraries and linker output; 4,693,416 are written in C++.</desc>
+  <title id="title">Earth &amp; Beyond client rebuild: 72.48% rebuilt (56.57% byte-exact), 66.73% written in C++</title>
+  <desc id="desc">5,241,248 of 7,231,709 bytes of client.exe .text are rebuilt: 4,091,008 byte for byte from source, the rest runtime libraries and linker output; 4,825,475 are written in C++.</desc>
   <style>
     .card { fill: #0d1117; stroke: #30363d; } .strong { fill: #f0f6fc; } .muted { fill: #8b949e; }
     .grid { stroke: #30363d; } .up { fill: #3fb950; } .down { fill: #f85149; }
@@ -17,33 +17,33 @@
   <rect class="card" x="0.5" y="0.5" width="879" height="519" rx="12"/>
   <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif">
     <text x="28" y="30" class="muted" font-size="13" font-weight="600" letter-spacing="1.3">EARTH &amp; BEYOND CLIENT · REBUILD PROGRESS</text>
-    <text x="28" y="64" class="strong" font-size="15" font-weight="600">Bytes rebuilt<tspan class="up" dx="10" font-size="13" font-weight="600">▲ 0.92</tspan></text>
-    <text x="852" y="64" class="strong" font-size="20" font-weight="700" text-anchor="end">71.00%</text>
-    <clipPath id="clip74"><rect x="28" y="74" width="824" height="16" rx="8.0"/></clipPath><g clip-path="url(#clip74)"><rect x="28.00" y="74" width="454.00" height="16" class="s-exact"/><rect x="482.00" y="74" width="37.32" height="16" class="s-third"/><rect x="519.32" y="74" width="93.74" height="16" class="s-linker"/><rect x="613.07" y="74" width="80.78" height="16" class="s-notexact"/><rect x="693.84" y="74" width="0.47" height="16" class="s-stub"/><rect x="694.31" y="74" width="157.69" height="16" class="s-unattr"/></g>
-    <rect x="28" y="100" width="9" height="9" rx="2" class="s-exact"/><text x="42" y="108.5" class="muted" font-size="11.5">byte-exact 55.1%</text>
+    <text x="28" y="64" class="strong" font-size="15" font-weight="600">Bytes rebuilt<tspan class="up" dx="10" font-size="13" font-weight="600">▲ 2.39</tspan></text>
+    <text x="852" y="64" class="strong" font-size="20" font-weight="700" text-anchor="end">72.48%</text>
+    <clipPath id="clip74"><rect x="28" y="74" width="824" height="16" rx="8.0"/></clipPath><g clip-path="url(#clip74)"><rect x="28.00" y="74" width="466.14" height="16" class="s-exact"/><rect x="494.14" y="74" width="37.32" height="16" class="s-third"/><rect x="531.46" y="74" width="93.74" height="16" class="s-linker"/><rect x="625.20" y="74" width="83.69" height="16" class="s-notexact"/><rect x="708.89" y="74" width="0.00" height="16" class="s-stub"/><rect x="708.89" y="74" width="143.11" height="16" class="s-unattr"/></g>
+    <rect x="28" y="100" width="9" height="9" rx="2" class="s-exact"/><text x="42" y="108.5" class="muted" font-size="11.5">byte-exact 56.6%</text>
     <rect x="157" y="100" width="9" height="9" rx="2" class="s-third"/><text x="171" y="108.5" class="muted" font-size="11.5">CRT / third-party 4.5%</text>
     <rect x="323" y="100" width="9" height="9" rx="2" class="s-linker"/><text x="337" y="108.5" class="muted" font-size="11.5">linker output 11.4%</text>
-    <rect x="470" y="100" width="9" height="9" rx="2" class="s-notexact"/><text x="484" y="108.5" class="muted" font-size="11.5">NOT EXACT 9.8%</text>
-    <rect x="587" y="100" width="9" height="9" rx="2" class="s-stub"/><text x="601" y="108.5" class="muted" font-size="11.5">stubbed 0.1%</text>
-    <rect x="692" y="100" width="9" height="9" rx="2" class="s-unattr"/><text x="706" y="108.5" class="muted" font-size="11.5">unattributed 19.1%</text>
-    <text x="28" y="128" class="muted" font-size="12.5">5,134,736 of 7,231,709 bytes of client.exe's .text:</text>
-    <text x="28" y="143" class="muted" font-size="12.5">3,891 KB byte-exact from source, 319 KB runtime and D3DX, 803 KB the linker's thunks, padding and EH stubs.</text>
+    <rect x="470" y="100" width="9" height="9" rx="2" class="s-notexact"/><text x="484" y="108.5" class="muted" font-size="11.5">NOT EXACT 10.2%</text>
+    <rect x="593" y="100" width="9" height="9" rx="2" class="s-stub"/><text x="607" y="108.5" class="muted" font-size="11.5">stubbed 0.0%</text>
+    <rect x="698" y="100" width="9" height="9" rx="2" class="s-unattr"/><text x="712" y="108.5" class="muted" font-size="11.5">unattributed 17.4%</text>
+    <text x="28" y="128" class="muted" font-size="12.5">5,241,248 of 7,231,709 bytes of client.exe's .text:</text>
+    <text x="28" y="143" class="muted" font-size="12.5">3,995 KB byte-exact from source, 319 KB runtime and D3DX, 803 KB the linker's thunks, padding and EH stubs.</text>
     <text x="28" y="164" class="strong" font-size="15" font-weight="600">Written in C++</text>
-    <text x="852" y="164" class="strong" font-size="20" font-weight="700" text-anchor="end">64.90%</text>
-    <clipPath id="clip174"><rect x="28" y="174" width="824" height="16" rx="8.0"/></clipPath><g clip-path="url(#clip174)"><rect x="28.00" y="174" width="454.00" height="16" class="s-exact"/><rect x="482.00" y="174" width="80.78" height="16" class="s-notexact"/><rect x="562.78" y="174" width="289.22" height="16" class="s-unattr"/></g>
-    <text x="28" y="208" class="muted" font-size="12.5">4,693,416 bytes written as source: 3,984,496 byte-exact + 708,920 NOT EXACT (functional, D64). Stubs are not counted.</text>
+    <text x="852" y="164" class="strong" font-size="20" font-weight="700" text-anchor="end">66.73%</text>
+    <clipPath id="clip174"><rect x="28" y="174" width="824" height="16" rx="8.0"/></clipPath><g clip-path="url(#clip174)"><rect x="28.00" y="174" width="466.14" height="16" class="s-exact"/><rect x="494.14" y="174" width="83.69" height="16" class="s-notexact"/><rect x="577.83" y="174" width="274.17" height="16" class="s-unattr"/></g>
+    <text x="28" y="208" class="muted" font-size="12.5">4,825,475 bytes written as source: 4,091,008 byte-exact + 734,467 NOT EXACT (functional, D64). Stubs are not counted.</text>
     <text x="28" y="248" class="strong" font-size="15" font-weight="600">Readable names (D56 scale)</text>
-    <text x="852" y="248" class="strong" font-size="20" font-weight="700" text-anchor="end">65.9% at 4-5</text>
-    <clipPath id="clip258"><rect x="28" y="258" width="824" height="16" rx="8.0"/></clipPath><g clip-path="url(#clip258)"><rect x="28.00" y="258" width="542.91" height="16" fill="#2ea043"/><rect x="570.91" y="258" width="0.41" height="16" fill="#56d364"/><rect x="571.32" y="258" width="18.47" height="16" fill="#d29922"/><rect x="589.79" y="258" width="66.42" height="16" fill="#f0883e"/><rect x="656.21" y="258" width="195.79" height="16" fill="#f85149"/></g>
-    <rect x="28" y="284" width="9" height="9" rx="2" fill="#2ea043"/><text x="42" y="292.5" class="muted" font-size="11.5">5 the client names it 65.9%</text>
-    <rect x="213" y="284" width="9" height="9" rx="2" fill="#56d364"/><text x="227" y="292.5" class="muted" font-size="11.5">4 EA / structure-confirmed 0.1%</text>
+    <text x="852" y="248" class="strong" font-size="20" font-weight="700" text-anchor="end">65.8% at 4-5</text>
+    <clipPath id="clip258"><rect x="28" y="258" width="824" height="16" rx="8.0"/></clipPath><g clip-path="url(#clip258)"><rect x="28.00" y="258" width="541.79" height="16" fill="#2ea043"/><rect x="569.79" y="258" width="0.40" height="16" fill="#56d364"/><rect x="570.20" y="258" width="18.42" height="16" fill="#d29922"/><rect x="588.62" y="258" width="65.86" height="16" fill="#f0883e"/><rect x="654.48" y="258" width="197.52" height="16" fill="#f85149"/></g>
+    <rect x="28" y="284" width="9" height="9" rx="2" fill="#2ea043"/><text x="42" y="292.5" class="muted" font-size="11.5">5 the client names it 65.8%</text>
+    <rect x="213" y="284" width="9" height="9" rx="2" fill="#56d364"/><text x="227" y="292.5" class="muted" font-size="11.5">4 EA / structure-confirmed 0.0%</text>
     <rect x="421" y="284" width="9" height="9" rx="2" fill="#d29922"/><text x="435" y="292.5" class="muted" font-size="11.5">3 by convention 2.2%</text>
-    <rect x="565" y="284" width="9" height="9" rx="2" fill="#f0883e"/><text x="579" y="292.5" class="muted" font-size="11.5">2 descriptive 8.1%</text>
-    <rect x="697" y="284" width="9" height="9" rx="2" fill="#f85149"/><text x="711" y="292.5" class="muted" font-size="11.5">1 placeholder 23.8%</text>
-    <text x="28" y="312" class="muted" font-size="12.5">75,813 declarations in E&amp;B code (types, functions, members, globals, parameters, locals). Untagged names count as 5 per D56: 49,731 of them (65.6%).</text>
+    <rect x="565" y="284" width="9" height="9" rx="2" fill="#f0883e"/><text x="579" y="292.5" class="muted" font-size="11.5">2 descriptive 8.0%</text>
+    <rect x="697" y="284" width="9" height="9" rx="2" fill="#f85149"/><text x="711" y="292.5" class="muted" font-size="11.5">1 placeholder 24.0%</text>
+    <text x="28" y="312" class="muted" font-size="12.5">77,735 declarations in E&amp;B code (types, functions, members, globals, parameters, locals). Untagged names count as 5 per D56: 50,888 of them (65.5%).</text>
     <text x="28" y="332" class="muted" font-size="12.5">Beside the scale: 55,057 declarations in the imported EA library code (EA source, EA's names, not scored).</text>
     <text x="28" y="372" class="strong" font-size="15" font-weight="600">Functions proven, by library</text>
-    <text x="28" y="394" class="strong" font-size="16" font-weight="700">15,739</text><text x="28" y="409" class="muted" font-size="11.5">app</text>
+    <text x="28" y="394" class="strong" font-size="16" font-weight="700">16,167</text><text x="28" y="409" class="muted" font-size="11.5">app</text>
     <text x="105" y="394" class="strong" font-size="16" font-weight="700">61</text><text x="105" y="409" class="muted" font-size="11.5">binkmovie</text>
     <text x="182" y="394" class="strong" font-size="16" font-weight="700">156</text><text x="182" y="409" class="muted" font-size="11.5">wlib</text>
     <text x="259" y="394" class="strong" font-size="16" font-weight="700">67</text><text x="259" y="409" class="muted" font-size="11.5">wnet</text>
@@ -54,9 +54,9 @@
     <text x="644" y="394" class="strong" font-size="16" font-weight="700">603</text><text x="644" y="409" class="muted" font-size="11.5">wwmath</text>
     <text x="721" y="394" class="strong" font-size="16" font-weight="700">191</text><text x="721" y="409" class="muted" font-size="11.5">wwsaveload</text>
     <text x="798" y="394" class="strong" font-size="16" font-weight="700">583</text><text x="798" y="409" class="muted" font-size="11.5">wwshade</text>
-    <text x="28" y="432" class="muted" font-size="12.5">22,570 functions byte-exact in all (34,549 file-and-address pairs; a function can be proven by two files, and D54 adds 45 identical copies).</text>
+    <text x="28" y="432" class="muted" font-size="12.5">22,996 functions byte-exact in all (35,413 file-and-address pairs; a function can be proven by two files, and D54 adds 43 identical copies).</text>
     <text x="28" y="464" class="muted" font-size="11">Counting rule changed on 2026-10-25 (D80): identical functions that differ only in a relocation target are told apart, so earlier days under-count.</text>
-    <text x="28" y="480" class="muted" font-size="11">Measured from committed data only (tools/progress.py); NOT EXACT placement: 560 entries located, 244 charged an average function (882 bytes).</text>
+    <text x="28" y="480" class="muted" font-size="11">Measured from committed data only (tools/progress.py); NOT EXACT placement: 560 entries located, 259 charged an average function (897 bytes).</text>
     <text x="28" y="496" class="muted" font-size="11">Updated 2026-11-13.</text>
   </g>
 </svg>
