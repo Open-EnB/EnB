@@ -222,7 +222,8 @@ unless `--lever` cites a new row of the table in §3.1.2.
   for a destructor reached from `delete` and `delete []`), or define it at the client's position. The pragma
   does not reach in-class or `inline` functions (rtti.h's Cast) and does not stop Unknown_Find_Field's
   inlining. `#pragma inline_depth(N)` at a file's end changes every template member's inlining in the file:
-  a lever, but check every marker (one file fell from 21 exact to 8); function-scope inline_depth does nothing.
+  a lever, but check every marker (one file fell from 21 exact to 8); around one function, inline_depth(1..3) does
+  nothing, but inline_depth(0) does act (it sends that function's template callees out of line, see below).
 * **`__LINE__` moves with every line above it:** FAIL_IF / G_ASSERT / WWASSERT / WWDEBUG_SAY push `__LINE__`,
   so any added or removed line above them (a comment, a multi-line `// NOT EXACT:`, an `#include`, a deleted
   `#define`, a pragma, a helper, a shorter `#include` replacing a stand-in block, a trailing blank line from
@@ -282,6 +283,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | The client expands std::string assign in some of many temporaries | Mix explicit and implicit constructions: the split tunes the budget | ui_cpit |
 | Which helpers an out-of-line insert calls | A probe, not a shippable form: a non-inline same-file helper holding the push_back emits exactly those | Get_Triangles |
 | The client calls a `hash_map()` constructor out of line with the hashtable constructor inlined in it, ours inlines it | A missing inline layer, not budget: a struct that derives from (or holds) the hash_map and has an implicit constructor sends `hash_map()` out of line (gives the client's frame too) | LookupTableSetClass::Load 0x4EC7D0 |
+| One `hash_map()` is flat where the client calls it out of line, but calls `_M_initialize_buckets` out of line where it is inlined into a large owner constructor | Two inline layers of the same source: no header form gives both (a flat `hashtable(n)` gains the first and loses the second; `m(100)` initializers spend the owner's budget). Leave sgistl as it is; attempts row 0x71DCE0 | ckm 0x71DCE0 vs OptionClass 0x7F0F60 |
 | Temporaries' stack slots or flags differ, and they follow the inline decisions; arguments built from `const char *` | VC6 builds an implicit-conversion temporary before the explicit ones in one argument list: write the string arguments as implicit conversions (only that form gave the client's order, slots and flags) | ClientClass constructor 0x726100 |
 | Dead reads change later sites' inlining in narrow steps, and a position change does nothing | They act by their total and the callee they inline, not by position (before the function's last branch): sweep every count (7 exact, 8 over); an inline accessor costs about two thirds of a `size()` | client_lego_impl Add 0x72B7F0 |
 | `if (a && b)` against two nested `if`s: the same bytes, but callers inline differently | The cost is in the source's structure: try both forms when a caller's inlining is off | unknown_6af220.cpp |
