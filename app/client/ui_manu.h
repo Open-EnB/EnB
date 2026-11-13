@@ -17,25 +17,8 @@ class UIManuClass;
 class UIManuListClass;		// a formula list of the target item's aux data
 class NameClass;
 
-// What +0xC0..+0xC8 point to (0x4C bytes; constructor 0x5B73C0 over the window, destructor 0x5B7430; its functions follow
-// ui_manu.cpp's): five gadgets and five text objects that fade in and out
-class UIManuUnknownC0Class	// NAME 1: neutral (D10)
-{
-public:
-	UIManuUnknownC0Class(int column);					// 0x5B73C0 (slot +0x54 passes 0..2)  // NAME 1 [column]: neutral
-	~UIManuUnknownC0Class();							// 0x5B7430
-	void Unknown_5B74F0(bool on);
-	void Unknown_5B7880();								// 0x5B7880: one step of the fade (slot +0x60)						// 0x5B74F0: hidden at once (true), else faded  // NAME 1 [on]: neutral
-	void Unknown_5B7570(bool *disabled, int primary, int secondary);	// 0x5B7570 (0x5B2230: the window's +0x98C and the first two picks)  // NAME 1 [disabled, primary, secondary]: neutral
+#include "ui_manu_util.h"	// UIManuUnknownC0Class: what +0xC0..+0xC8 point to (ui_manu_util.cpp's)
 
-	GadgetClass *Gadgets[5];							// +0x00 (slot +0x60: picked)  // NAME 2: what it holds
-	RenderObjClass *Unknown14[5];						// +0x14 (released by the destructor; slot +0x184)
-	int IDs[5];											// +0x28 (-1 for none; what 0x5B2060 picks)  // NAME 2: what it holds
-	int Unknown3C;										// +0x3C: fading in (1) or out (-1)
-	int Unknown40;										// +0x40
-	float Unknown44;									// +0x44
-	int Unknown48;										// +0x48 (the constructor's argument: the column, 0..2)
-};
 
 // One tech level filter (8 bytes, ten at +0x11C: levels 1..9, then all)
 struct UIManuRowStruct	// NAME 1: neutral (D10)

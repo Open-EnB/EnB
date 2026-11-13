@@ -1,0 +1,20 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: the client's ui_manu_util.cpp per its asserts' __FILE__ (0x5B7570, lines 107/113/114); object 0x5B7370-0x5B7A8A bounded by ui_manu.cpp's guarded <string> ids initialiser 0x5B71A0 and its own 0x5B7A40; UIManuUnknownC0Class's six functions 0x5B73C0-0x5B7880",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x5B74A0",
+  "0x5B74F0",
+  "0x5B7570",
+  "0x5B7880"
+ ],
+ "merged": [],
+ "name": "client/ui_manu_util.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}
