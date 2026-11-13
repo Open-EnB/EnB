@@ -4074,6 +4074,12 @@ below name only the work items, the blocked work, the leads and the queues.
    (`map_b_ordchk.py` lists 20 tree names that cannot be the client's, e.g. control_key_list, scriptedmovieline,
    nlp, rawfile, settings_store); add that check to names.py's review. The packet objects 0x85C5F0-0x8B20D0 are in
    alphabetical order of class names the tree does not use; the client names packet files by topic (pkitemba).
+   * **P-C4-1 (accepted, measure on a quiet tree):** D80's range round may end an object's range at its unique-exact
+     COMDATs or at the next object's start: mv3dsnd's six byte-identical copies (0x7EE5C0, 0x7EEAA0, 0x7EEAD0,
+     0x7EEBA0, 0x7EED80, 0x7EEDB0) lie outside its exact non-COMDAT range 0x7EE690-0x7EE830 and stay `multiple`.
+   * **data_binder.h line 47's note** calls 0x79DE00 the type map's default constructor; appfile matches it as
+     `DataBinderClass<ClientObjectClass*>`'s constructor (owner plus one member): correct the note at the next edit
+     (on the same line: the file's `__LINE__`s matter).
 
 10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): inv_data_peek 0x68A090 / 0x68A270 /
    0x68A450 / 0x68A8C0 (register: the failure path's inlined string ctor `[ecx+ebx]` vs `[ebx+ecx]`, skill_data_peek
@@ -4089,6 +4095,9 @@ below name only the work items, the blocked work, the leads and the queues.
    unbuilt until another SGI user shows it); `selfname` into imports.json only when something needs it (D88 row);
    same-shape template instances stay `multiple` until their relocation targets have names in symbols.json (P9).
    * Near misses by file (attempts.csv rows; the parenthesis is the closeness where recorded and the cause):
+     - nav_list_line_draw 0x7B99C0 (inline-budget: Scene = NULL inlined where the client calls 0x7BA340), 0x7B9DC0 (shape: the size() == 1 assert block after the final ret)
+     - starmap_pip 0x7C2760 Is_Grouped (inline-budget: the client calls UnknownRTTIClass<DeltaCompoundClass>::Cast out of line; lead: D130 dead finds); 0x7C2CE0 / 0x7C2D00 / 0x7C2DF0 wait on 0x7C2850
+     - mv3dsnd 0x7EDCB0 (parked, inline-budget: the tree's inline_depth(0) is a provisional device, not the client's form; lead: expand Add(record, key) by hand); 0x7EED40 / 0x7EEE00 sit inside its Add
      - accel 0x4990C0 (shape)
      - camera_manager 0x79B4F0, 0x799E40 (frame)
      - cammod_chase 0x79BFC0 (0.42, inline-budget)
