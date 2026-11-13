@@ -1,0 +1,50 @@
+// 0x74BFB0 closest form (O1, 2026-11-13): 50 masked rows, 21 with registers masked; 25 calls vs 26: the const_iterator conversion of find()'s result inlined, the client calls 0x755BD0 for it
+static inline int Unknown_Field_Value(DeltaCompoundClass *root, const NameClass &name) { return(Unknown_Find_Valid<DeltaTemplateClass<int> >(root, name)->Value); }
+static inline int Unknown_Music_Type(SClient *client, int &theme_race)
+{
+	int type = 0;
+	if (client->ViewMode == 6) {
+		type = -1;
+	} else if (client->CameraManager && client->CameraManager->Unknown_79B630()) {
+		type = -1;
+	} else if (client->CameraManager && client->CameraManager->Unknown_79B650()) {
+		type = 4;
+	} else if (client->CurrentView && client->CurrentView == client->Unknown135C) {
+		type = 3;
+		SBaseViewClass *view = (SBaseViewClass *)client->Unknown135C;
+		if (view && view->Info) {
+			theme_race = view->Info->Style;
+			if (theme_race > 2) theme_race = 8;
+		}
+	} else if (client->ViewMode == 1 || client->ViewMode == 5) {
+		type = 2;
+	}
+	return(type);
+}
+void SClient::Unknown_74BFB0()
+{
+	int theme_race = 8;
+	int type = Unknown_Music_Type(this, theme_race);
+	if (Unknown_74D730()) type = 1;
+	AvatarDescClass *desc = (AvatarDescClass *)Unknown_74C960(Get_Avatar_ID());
+	if (!desc) return;
+	int race = desc->Race;
+	G_ASSERT(AuxData);
+	int level = Unknown_Field_Value((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.CombatLevel"));
+	level += Unknown_Field_Value((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.TradeLevel"));
+	level += Unknown_Field_Value((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.ExploreLevel"));
+	MusicManager->Update(type, level, race, theme_race);
+	DeltaTemplateClass<int> *music = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("MusicID"));
+	if (music && music->Unknown70 > 1) {
+		MusicManager->Play_Music(music->Value);
+	}
+}
+// and 0x74C960 with const_iterator (stays exact):
+int *SClient::Unknown_74C960(unsigned id)
+{
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::const_iterator it = Unknown1394.find(id);
+	if (it != Unknown1394.end() && (*it).second) {
+		return((int *)&(*it).second->Desc);
+	}
+	return(NULL);
+}

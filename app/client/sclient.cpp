@@ -4151,7 +4151,7 @@ ClientObjectClass *SClient::Unknown_74BF80()
 #include "sbaseview.h"	// UIStarbaseClass, SBaseViewClass (0x74BFB0's Info, '/starbase reset', 0x74D950, the chat-event colour)
 #include "sbase_info.h"	// StarbaseInfoClass: the starbase view's Info (0x74BFB0)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// (cameraeffects.cpp's, ui_mfd.cpp's)  // NAME 1: neutral (D10)
-// NOT EXACT: inline budget (explain.py: 23 calls, the client 26): the client calls the const_iterator conversion 0x755BD0 twice, the first Unknown_Find_Field and the other three's Cast out of line, ours inlines them; four forms (attempts.py show 0x74BFB0)
+// NOT EXACT: inline budget (explain.py: 23 calls, the client 26): the client calls the const_iterator conversion 0x755BD0 twice, the first Unknown_Find_Field and the other three's Cast out of line, ours inlines them; 14 forms, the closest (21 rows) stashed (attempts.py show 0x74BFB0)
 // 0x74BFB0 (0x744690, after the listener: every frame): MusicManagerClass::Update's type, level, race and theme race, then the aux data's MusicID
 void SClient::Unknown_74BFB0()
 {
