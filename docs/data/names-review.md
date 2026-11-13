@@ -7,9 +7,9 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 194 |
+| 5 | the client names it | 195 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1825 |
+| 3 | by convention from a client-named file or sibling | 1827 |
 | 2 | describes what the code does | 4498 |
 | 1 | neutral placeholder | 23248 |
 
@@ -28734,6 +28734,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `std:` | `app/common/galaxy_map.h:296` | the asserts' |
 | 3 | `std:` | `app/common/galaxy_map.h:297` | the asserts' |
 | 3 | `MaxDataObjects` | `app/common/galaxy_map.h:298` | Add_Data's FAIL_IF '(int)id >= MaxDataObjects' |
+| 3 | `str_enum` | `app/common/item_state.cpp:54` | the FAIL_IF's 'str_enum' |
+| 3 | `slen` | `app/common/item_state.cpp:55` | the FAIL_IF's 'slen' |
 | 3 | `lego_identifier.h` | `app/common/lego_identifier.h:18` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `LegoIdentifierClass` | `app/common/lego_identifier.h:28` | by convention from the client's lego_identifier.cpp (D24) |
 | 3 | `Is_Invalid` | `app/common/lego_identifier.h:56` | the client's asserts 'split.Is_Invalid()' |
