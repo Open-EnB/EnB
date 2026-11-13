@@ -26,6 +26,7 @@
 #include "..\packets\pkstarbase_avatar_change.h"
 #include "..\packets\pkaction.h"	// ActionPacketClass (0x63DFE0)
 #include "env_map_manager.h"	// EnvironmentMapManagerClass (0x6366A0)
+#include "ui_talkt.h"	// UITalkTreeClass, the view's +0x190 (0x6390A0)
 #include "..\..\ww3d2\ww3d.h"
 #include "..\shared\message.h"
 #include "local_interface_sort.h"
@@ -86,7 +87,6 @@ public:
 static int Unknown_B8A870[4] = { 0, 1, 3, 2 };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A880[4] = { "hangar", "main", "bazaar", "lounge" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A950[10] = { "t", "j", "p", "n", "n", "n", "n", "n", "n", "n" };	// NAME 1: neutral (D10)
-
 
 
 
@@ -600,7 +600,7 @@ void UIStarbaseClass::Unknown_641B70()
 #include "random.h"
 #include "aux_roots.h"
 #include "..\shared\auxdata\auxdata.h"
-extern Random4Class Unknown_BDB1C0;	// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, as camctrl_dock.cpp's
+extern RandomClass Unknown_BDBB84; extern Random4Class Unknown_BDB1C0;	// NAME 1 [Unknown_BDB1C0]: 0xBDB1C0, as camctrl_dock.cpp's
 // The docking sounds by the starbase's column +0x18 (0xB8A8B0: 0x6415B0)
 static const char *Unknown_B8A8B0[10] = { "terren_space_ship_dock_1.wav", "jenquai_space_ship_dock_1.wav", "progen_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav", "terren_space_ship_dock_1.wav" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A8D8[10] = { "terren_space_ship_undock_1.wav", "jenquai_space_ship_undock_1.wav", "progen_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav", "terren_space_ship_undock_1.wav" };	// NAME 1: neutral (D10): the undocking sounds (0x638500)
@@ -652,6 +652,7 @@ public:
 // monitor models by column (0xB8A978), the bar parts by room (0xB8A8A0) and the '%s_%dmd' names by room and column (0xB8ABBC)
 static const char *Unknown_B8AA18[9] = { "VB_WEAPON", "VB_SYSTEM", "VB_CORE", "VB_CONSUMABLE", "VB_JUNK", "VB_COMPONENT", "VB_RESOURCE", "VB_BLACKMKT", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B90C2C[12] = { "ico_refinery", "ico_analyze", "ico_manufacture", "ico_jobs", "ico_browser", "ico_ship_con", "ico_ava_con", "ico_encyclo", "ico_encyclo", "ico_encyclo", "ico_encyclo", "ico_encyclo" };	// NAME 1: neutral (D10)
+static int Unknown_B90C60[12] = { 5, 6, 7, 8, 9, 13, 14, -1, -1, -1, -1, -1 };	// NAME 1: neutral (D10): the view's interface type by facility type (0x6390A0)
 static const char *Unknown_B8AA3C[16] = { "door_forward", NULL, NULL, NULL, "door_forward", "door_left", "door_back", "door_right", "door_forward", "door_left", "door_back", "door_right", "door_forward", "door_left", "door_back", "door_right" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8AA7C[16] = { "cam_door_fd_out", "", "", "", "cam_door_fd_out", "cam_door_lf_out", "cam_door_bk_out", "cam_door_rt_out", "", "cam_door_lf_out", "", "", "", "", "", "cam_door_rt_out" };	// NAME 1: neutral (D10): the doors' camera bones by room and column (0x63FCB0)
 static int Unknown_B8AABC[16] = { 1, -1, -1, -1, -1, 2, 0, 3, -1, 1, -1, -1, -1, -1, -1, 1 };	// NAME 1: neutral (D10)
@@ -767,7 +768,6 @@ void UIStarbaseClass::Unknown_54()
 			}
 		}
 		WW3D::Enable_Overbright_Modify_On_Load(false);
-
 		bool wall = (Room == 0 && ExtraBones);
 		for (i = 0; i < 4; i++) {
 			int found;
@@ -1737,61 +1737,61 @@ void UIStarbaseClass::Unknown_58()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x6390A0, functional (inline budget: the client destroys the two name strings through _Tidy(true) out of line, ours inlines it; O4)
+// 0x6390A0 (0x638390's frame: the arrival walk to a 'Spawn%02d' bone, then the facility's or NPC's interface once the
+// camera has arrived, the departure once the leaving animation ends)
+void UIStarbaseClass::Unknown_6390A0()
+{
+	if (Unknown1FD) {
+		return;
+	}
+	if (!Room && Unknown200) {
+		if (InterfaceMesh->Unknown_5BA320(0, false)) {
+			Unknown_63E4B0(Room, -1);
+			char name[64];
+			if (ExtraBones) {
+				_snprintf(name, sizeof(name), "Spawn%02d", Unknown_BDBB84(0, 0x11));
+				Matrix3D tm = ExtraBones->Get_Bone_Transform(name);
+				Unknown_63BDB0(tm);
+			} else {
+				_snprintf(name, sizeof(name), "Spawn%02d", Unknown_BDBB84(0, 4));
+				Unknown_63C080(name, false, false);
+			}
+			UnknownC0.D->Avatar->Unknown_7896B0(2);
+			Unknown200 = false;
+			Unknown1FC = true;
+			Unknown1B1 = true;
+		} else {
+			Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("camera_3rd");
+			UnknownB0->Unknown_69E510(tm);
+		}
+	}
+	if (Unknown1FC && UnknownB0->UnknownE4 == 0.0f) {
+		Unknown1FC = false;
+		if (UnknownC0.B >= 0) {
+			StarbaseNPCClass *npc = RoomInfo->Find_NPC(UnknownC0.B);
+			if (npc->Booth >= StarbaseNPCClass::BOOTH_NONE && npc->Booth <= StarbaseNPCClass::BOOTH_BLACKMKT) {
+				UnknownB0->Unknown_69F8F0(11, npc->Unknown04);
+				if (UnknownB0->Unknown190) {
+					UnknownB0->Unknown190->Unknown_64C7B0(npc->Desc.Get_Full_Name().c_str());
+				}
+			}
+		} else if (UnknownC0.A >= 0) {
+			UnknownB0->Unknown_69F8F0(Unknown_B90C60[RoomInfo->Find_Facility(UnknownC0.A)->Type], 0);
+		}
+	}
+	if (Unknown201 && UnknownC0.D->Avatar->Unknown318.empty()) {
+		if (InterfaceMesh->Unknown_5BA320(0, false)) {
+			UnknownB0->Unknown170 = true;
+			Unknown201 = false;
+		}
+		if (!UnknownC0.D->Avatar->Unknown380 && UnknownC0.D->Avatar->Unknown_7863E0()) {
+			UnknownC0.D->Avatar->Remove();
+			UnknownC0.D->NameTag->Set_Hidden(true);
+			UnknownC0.D->Avatar->Unknown_786370(false);
+		}
+	}
+}
 
 
 
@@ -3717,33 +3717,33 @@ Unknown78A910AvatarClass *UIStarbaseClass::Unknown_642740(StarbaseNPCClass *npc)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x63E930, functional (shape: the client builds the box and matrices through ??_H temporaries and keeps other x87 copies; as 0x640F50; O4)
+// 0x63E930 (0x63B310: the camera transform pulled in against the room's model: a 0.5 box swept from above the avatar's
+// head to the camera; on a hit the camera halfway between the hit and the last camera position +0x1BC, kept there)
+Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
+{
+	CastResultStruct result;
+	Matrix3D start(true);
+	CharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();
+	start.Set_Translation(avatar->Get_Transform().Get_Translation());
+	start[2][3] += avatar->Unknown_77D9F0(true) + 1.0f;
+	Vector3 move = tm.Get_Translation() - start.Get_Translation();
+	OBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));
+	OBBoxClass world;
+	OBBoxClass::Transform(start, box, &world);
+	OBBoxCollisionTestClass test(world, move, &result, COLLISION_TYPE_1);
+	Matrix3D model_tm = Unknown_Model()->Get_Transform();
+	Matrix3D inv;
+	model_tm.Get_Orthogonal_Inverse(inv);
+	OBBoxCollisionTestClass local_test(test, inv);
+	Matrix3D out = tm;
+	if (Unknown_Model()->Cast_OBBox(local_test)) {
+		Vector3 hit = start.Get_Translation() + move * result.Fraction;
+		out.Set_Translation((hit + ((Matrix3D *)Unknown1BC)->Get_Translation()) * 0.5f);
+	}
+	*(Matrix3D *)Unknown1BC = out;
+	return(out);
+}
 
 
 
