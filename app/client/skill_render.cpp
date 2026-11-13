@@ -28,11 +28,11 @@ class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04
 struct Unknown815320Struct { std::string Name; int Unknown10; int Unknown14; unsigned int Unknown18; bool Unknown1C; Vector3 Unknown20; };	// NAME 1: neutral (D10); NAME 2 [Name]: 0x6A6A80 writes it as the ability
 
 struct Unknown8155B0Struct { std::vector<Unknown815320Struct *> Abilities; int NumActivatable; };	// NAME 3 [Abilities, NumActivatable]: asserts
-
+#include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 class SkillAbilityNamesDatabase { public: static Unknown815320Struct *Unknown_815320(int ability); static const Unknown8155B0Struct &Unknown_8155B0(int skill); static int Unknown_815260(const std::string &name); static void Unknown_815720(std::string *string, int ability, bool below, unsigned int level); };	// NAME 1: neutral (D10)
 class SkillNamesDatabase { public: static const char *Unknown_818200(int skill); static int Unknown_818520(const char *name); static TextureClass *Unknown_818430(int skill); };	// NAME 1: neutral (D10)
 void Unknown_6A93E0(const char *value, std::string &string);	const char *Unknown_6A9660(const char *state, std::string &string);	// NAME 1: neutral (D10)
-void Unknown_496730(RenderObjClass *robj, int a, bool b);	float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// NAME 1: neutral (D10)
+void Unknown_496730(RenderObjClass *robj, int a, bool b);	// NAME 1: neutral (D10)
 
 // 0x6A5EA0
 SkillRenderClass::SkillRenderClass() :

@@ -17,7 +17,7 @@
 class Unknown688830Item { public: int Get_Type() { return(Unknown0C); } const std::string &Get_Name() { return(Unknown14); } char Unknown00[4]; int Unknown04; int Unknown08; int Unknown0C; char Unknown10[4]; std::string Unknown14; char Unknown24[0x48 - 0x24]; int Unknown48; char Unknown4C[4]; int Unknown50; char Unknown54[4]; int Unknown58; };	// NAME 1: neutral (D10)
 typedef InvDataPeekClass Unknown688830Class;	// inv_data_peek.h's view of an inventory list, under this file's old name  // NAME 1: neutral (D10)
 #include "sclient.h"	// SClient (Get_Target 0x744FE0, the slot +0x28 Get_Avatar, the clock +0x10BC) and co.h's ClientObjectClass
-float Unknown_7E6060(ClientObjectClass *a, ClientObjectClass *b);	// NAME 1: neutral (D10); NAME 1 [a, b]: neutral
+#include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 
 class LineDisplayClientClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual SClient *As_Space_Client(); };	// NAME 1: neutral (D10), as ui_cinfo.cpp declares it
 #include "slot_data.h"	// SlotDataClass (InvDataClass's base: Unknown_6A7990 / 6A7A00, Unknown_10)

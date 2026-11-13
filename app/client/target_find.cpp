@@ -10,7 +10,7 @@
 #include "aux_roots.h"
 #include <algorithm>
 
-float Unknown_7E6130(ClientObjectClass *obj_a, ClientObjectClass *obj_b);	// 0x7E6130 (distance_calc_client.cpp)  // NAME 3 [obj_a, obj_b]: its FAIL_IFs
+#include "distance_calc_client.h"	// 0x7E6060 / 0x7E6130
 bool Unknown_70B3D0(ClientObjectClass *object);								// 0x70B3D0 (co_player_relationship.cpp)
 
 // @0x7C3F10
