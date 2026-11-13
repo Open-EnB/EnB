@@ -264,6 +264,14 @@
    "moved_to": null,
    "decision": "D246",
    "note": "F1 fa4dbb82: three member declarations on Unknown764FD0Class (sclient.h; 0x765540 / 0x765BE0 / 0x765E40, from the code) gain nav_list_builder 0x7B7EF0, 0x7B8ED0, 0x7B8F10 and flip this text-sensitive function; one regain round tried (declaration placement). Coordinator's valve call, run 2026-11-12b."
+  },
+  {
+   "address": "0x6A4550",
+   "lib": "app",
+   "file": "skill_data",
+   "moved_to": null,
+   "decision": "D66",
+   "note": "D66 (vi), run 2026-11-12b (O18 97014f30): 0x6A4550 is the guarded <string> initialiser that closes shortcut_range_gauge.cpp's object (skill_data's object starts after it at 0x6A4580), so skill_data's credit was false; shortcut_range_gauge.obj now emits the byte-identical copy and the address goes ambiguous between the two copies: not a code loss (D196 precedent)."
   }
  ]
 }
