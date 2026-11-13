@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-802 entries in 263 files.
+803 entries in 264 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -802,6 +802,7 @@ edit the comments in the code, not this file.
 | `app/shared/unknown_474530.cpp:570` | `LandClass::Build_Decorations` | marker | NOT EXACT: order-only (42 masked rows: the client reads tri.J and tri.K into di before the previous maximum's ftol, ours into cx after it. The triangle through a reference, the two returns and `polys && points` give the client's inlining: one more or fewer comparison against NULL moves the third push_back's _Ucopy in or out of line; attempts.csv 0x47C6A0) |
 | `app/shared/unknown_474530.cpp:621` | `LandClass::Build_Decorations` | marker | NOT EXACT: functional, from the disassembly and the pseudocode (0x47A2F0 = VIDTEST 0x416170, 7 KB). The prototypes' tree and shadow meshes; the first tree's texture, shader and vertex material (+0x178 / +0x17C / +0x180) and the first shadow's shader and material (+0x184 / +0x188), every other prototype's must be the same (else no decorations); each decoration appended to its patch's lists (the pat... |
 | `app/shared/unknown_474530.cpp:872` | `LandPatchClass::Build_Vertices` | marker | NOT EXACT: order-only (7 masked rows: the client sets xi = x after the inner loop's Size test, ours before; the slots of inv_size / v and i / xi swapped; attempts.csv 0x474790) |
+| `app/shared/unknown_490900.cpp:30` | `ScriptedMovieViewerSettingsStruct::Unknown_4909D0` | marker | NOT EXACT: stack slots only (the client's frame is 8 bytes larger: its r / g at -0x40 / -0x3C, the quaternion at -0x50); every instruction otherwise matches |
 | `app/wwudp/cordcon.cpp:6` | `DEFINE_AUTO_POOL` | mention | NOT EXACT, D42): the receive path (handlePacket, examinePacket, read) follows the client's code statement by statement; the send path (write, openc, buildHeader, buildMsgHeader, pump, pumpInternal with its resend timer and send window) too; getHighestPriorityMessage is byte-exact. Time is wlib's Xtime (libs\wwonline\wlib, D73), as in the client. The client's asserts sit on lines 521, 632 and 977 (... |
 | `app/wwudp/cordcon.cpp:72` | `CordChannelClass::Copy` | mention | NOT EXACT (functional, 0.14: inline budget): member by member in the client's order (the lists through wlib's operator=, the vectors emptied and refilled one record at a time). The client inlines ArrayList::clear, CordListClass's clear and getPointer and calls get / add, the vectors' erase / insert and the second size() out of line; ours inlines erase / insert and calls clear, Clear and Get. |
 | `app/wwudp/cordcon.cpp:270` | `CordCon::openc` | mention | NOT EXACT (0.48): the client opens odd channels, the server even ones: the unused one written least recently, the search going on from where it stopped after two more are made. Not reproduced: the client's dead test on the first index (`sete` / `test cl, 1`). |
