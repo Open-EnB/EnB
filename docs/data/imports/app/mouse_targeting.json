@@ -1,22 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0",
-  "0x46BE90"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "MouseTargetClass, the object under the mouse (the client's __FILE__ 0xB9EE10, FAIL_IF at line 66; 0x7B77C0-0x7B7B4F, ended by <string>'s initialiser 0x7B7B30) (GR2)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x4973B0",
-  "0x7B77C0",
-  "0x7B7810",
-  "0x7B7880"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/mouse_targeting.cpp",
- "shared": [
-  "0x42F250",
-  "0x4973B0"
- ]
+ "name": "client/mouse_targeting.cpp"
 }

@@ -1,43 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "client_item_property_option.cpp (named after its header's __FILE__ 0xB78A58, NAME 3; no assert of its own): ClientItemPropertyOptionClass's code 0x52A840-0x52AC9F (table 0xAEDDB8, slots +0x14 / +0x18 pure): constructor 0x52A840, destructors 0x52AA00 / 0x52A9D0, slots 0x52AAC0 / 0x52AAE0 / 0x52AC60",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x45CC10",
-  "0x4B5740",
-  "0x52A840",
-  "0x52A9D0",
-  "0x52AA00",
-  "0x52AAC0",
-  "0x52AAE0",
-  "0x52AC60"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/item/client_item_property_option.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x45CC10",
-  "0x4B5740"
- ],
- "short_known": [
-  "0x42D120",
-  "0x52AAC0"
- ]
+ "name": "client/item/client_item_property_option.cpp"
 }

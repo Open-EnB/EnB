@@ -1,56 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "OrbitalManager and OrbitalObject, the sector's planets and suns (the client's __FILE__ 0xB759A0, asserts on lines 131 / 294 / 336 / 338 / 390 / 728; client 0x4F28A0-0x4F51C0) (WE4)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x444160",
-  "0x447C40",
-  "0x4481E0",
-  "0x483760",
-  "0x483780",
-  "0x4F28A0",
-  "0x4F2930",
-  "0x4F2960",
-  "0x4F3250",
-  "0x4F3310",
-  "0x4F34C0",
-  "0x4F37C0",
-  "0x4F38E0",
-  "0x4F3EF0",
-  "0x4F4FD0",
-  "0x4F5090",
-  "0x4F50D0",
-  "0x4F5100",
-  "0x4F5140",
-  "0x4F5160",
-  "0x4F51A0",
-  "0x4F51C0",
-  "0x4F5200",
-  "0x4F5240",
-  "0x4F5260",
-  "0x4F5500"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "shared/orbitalmanager.cpp",
- "shared": [
-  "0x42F250",
-  "0x444160",
-  "0x447C40",
-  "0x4481E0",
-  "0x483760",
-  "0x483780",
-  "0x4F5240"
- ],
- "short_known": [
-  "0x483760",
-  "0x4F5240"
- ],
- "tiebreak": [
-  "0x4F5260",
-  "0x4F5500"
- ]
+ "name": "shared/orbitalmanager.cpp"
 }

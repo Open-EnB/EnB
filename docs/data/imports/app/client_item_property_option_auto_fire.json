@@ -1,64 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "provisional file (D137, no assert): ClientItemPropertyOptionAutoFireClass, a weapon slot's 'Auto Fire' option (0x3C bytes, table 0xAEDE64): 0x52AD00-0x52B38F, Create 0x52AD00, constructor 0x52AF10, destructors 0x52B100 / 0x52B0D0, slots 0x52B120 / 0x52B160 (ItemStatePacketClass), pk.h's inlines 0x52B210-0x52B350, Create_NEW 0x52B380",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42D050",
-  "0x42F250",
-  "0x45CC10",
-  "0x52AD00",
-  "0x52AF10",
-  "0x52B0D0",
-  "0x52B100",
-  "0x52B120",
-  "0x52B160",
-  "0x52B1F0",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x52B380"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/item/client_item_property_option_auto_fire.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42D050",
-  "0x42F250",
-  "0x45CC10",
-  "0x52B1F0",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350"
- ],
- "short_known": [
-  "0x52B100",
-  "0x52B1F0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330"
- ],
- "tiebreak": [
-  "0x52B380"
- ]
+ "name": "client/item/client_item_property_option_auto_fire.cpp"
 }

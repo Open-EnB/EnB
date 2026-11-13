@@ -1,42 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "GLOBAL_TICKET 111's object, 0x867520-0x867830 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x867520",
-  "0x8675B0",
-  "0x8675E0",
-  "0x867650",
-  "0x867710",
-  "0x8677E0",
-  "0x867800"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkglobalticket.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330"
- ]
+ "name": "packets/pkglobalticket.cpp"
 }

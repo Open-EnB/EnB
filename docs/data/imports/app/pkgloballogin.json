@@ -1,60 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 118's object (GlobalLoginPacketClass), 0x865D60-0x866770 (no assert: the file name provisional, NAME 1): written by hand (builder P9)",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x5AEF50",
-  "0x865D60",
-  "0x866020",
-  "0x866050",
-  "0x8662B0",
-  "0x866420",
-  "0x8665A0",
-  "0x866640",
-  "0x866770"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkgloballogin.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x5AEF50"
- ],
- "short_known": [
-  "0x42D120",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330"
- ]
+ "name": "packets/pkgloballogin.cpp"
 }

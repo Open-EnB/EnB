@@ -1,67 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "VerbManagerClass (D24 class-from-file), the verb windows' registry (the client's __FILE__ 0xBA8268, 0x81F890's 'false' assert on line 143; client 0x81F100-0x81FA40 and its map / list instances; 0x81F610 / 0x81F560 call 0x81F890, 0x81F6A0 inlines 0x81FA40) (VB1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x81F100",
-  "0x81F1E0",
-  "0x81F430",
-  "0x81F560",
-  "0x81F5F0",
-  "0x81F610",
-  "0x81F6A0",
-  "0x81F780",
-  "0x81F810",
-  "0x81F890",
-  "0x81FA40",
-  "0x81FAD0",
-  "0x81FB20",
-  "0x81FC50",
-  "0x81FC70",
-  "0x81FD50",
-  "0x81FDE0",
-  "0x81FE50",
-  "0x81FE70",
-  "0x820340",
-  "0x820390",
-  "0x8203C0",
-  "0x820440",
-  "0x820750",
-  "0x8207D0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/verbmanager.cpp",
- "shared": [
-  "0x42F250",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x81F5F0"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x81F5F0"
- ],
- "tiebreak": [
-  "0x8207D0"
- ]
+ "name": "client/verbmanager.cpp"
 }

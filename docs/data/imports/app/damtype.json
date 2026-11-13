@@ -3,39 +3,7 @@
  "copy": "reconstructed",
  "description": "damtype.cpp (the client's __FILE__ 0xB72928, client 0x49D2D0-0x49E5BF by its asserts and the static vector 0xBE34F8): the damage types read from an INI (sections IMPACT ... CHEMICAL, keys ShieldDamageModifier ... DamageSpread) into a vector of DamageTypeInfoStruct (0x24 bytes), their accessors (Get_Info's FAIL_IFs l.96/97, G_ASSERT l.102 inlined in each), the volatility multiplier (l.187/188/194), the resist key names, and the name tables of the damage types, marks and spreads with their lookups (l.284-384, Bounded_Strcpy 0x4A1590); all 21 functions exact in appfile match (O13); Unknown_49E210 is UIItemExaminationTitleClass's",
  "expected": {},
- "in_tree": [
-  "0x42A970",
-  "0x42AB30",
-  "0x49D2D0",
-  "0x49D310",
-  "0x49D340",
-  "0x49D460",
-  "0x49D760",
-  "0x49D7D0",
-  "0x49D870",
-  "0x49D930",
-  "0x49D9F0",
-  "0x49DAB0",
-  "0x49DB70",
-  "0x49DC30",
-  "0x49DDF0",
-  "0x49DEB0",
-  "0x49DF70",
-  "0x49E030",
-  "0x49E0D0",
-  "0x49E150",
-  "0x49E210",
-  "0x49E340",
-  "0x49E3C0",
-  "0x49E480",
-  "0x49E500",
-  "0x49E5C0",
-  "0x49E860"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "shared/damtype.cpp",
- "shared": [
-  "0x42A970",
-  "0x42AB30"
- ]
+ "name": "shared/damtype.cpp"
 }

@@ -1,60 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x42A900",
-  "0x42AAE0",
-  "0x42AFF0",
-  "0x4333D0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: client 0x834D30 on, ItemEffectClass (an effect description with its usage and flags), the usage names' table 0xBF3308 and EffectGeneratorUsageBF's converters Type_Name 0x835370 / String_To_Value 0x835390 / Value_To_String 0x835590; a separate object from effect_description.cpp (it calls EffectDescriptionClass's constructor and Get_Size, which that object inlines, and repeats its header statics' guarded initialiser 0x835010); file name assumed (no assert)",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42CF30",
-  "0x42D120",
-  "0x432B80",
-  "0x4F5C60",
-  "0x834D30",
-  "0x834D60",
-  "0x834F20",
-  "0x834F40",
-  "0x834F80",
-  "0x834FC0",
-  "0x834FF0",
-  "0x835010",
-  "0x835040",
-  "0x835100",
-  "0x835170",
-  "0x8351E0",
-  "0x835320",
-  "0x835370",
-  "0x835390",
-  "0x835590"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "common/item_effect.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42CF30",
-  "0x42D120",
-  "0x432B80",
-  "0x4F5C60"
- ],
- "short_known": [
-  "0x42D120",
-  "0x834F20",
-  "0x834FF0",
-  "0x835370"
- ]
+ "name": "common/item_effect.cpp"
 }

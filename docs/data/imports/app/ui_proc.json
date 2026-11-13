@@ -1,60 +1,9 @@
 {
- "ambiguous": [
-  "0x430450",
-  "0x5B9740"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_proc.cpp (the client's __FILE__ 0xB84AF8 'e:\\build\\beta\\G\\app\\Client\\ui_proc.cpp'; client 0x5DCCE0-0x5DD960: after the unnamed gauge object 0x5DCB50-0x5DCBE0 (its .data ends before this one's static 0xB84AD4), before the face / target / orient buttons' object 0x5DD960; FAIL_IFs lines 36-135): UIProcClass::Unknown_5DCCE0, the animation process's constructors, setup, destructor and slots +0x08 / +0x0C, the five subclasses' slot +0x04; NOT EXACT 0x5DD3C0 (attempts.csv), UP1",
  "expected": {},
- "in_tree": [
-  "0x42A100",
-  "0x42F250",
-  "0x457FA0",
-  "0x5170C0",
-  "0x5170F0",
-  "0x5B96B0",
-  "0x5B96F0",
-  "0x5B97B0",
-  "0x5BA4D0",
-  "0x5BA500",
-  "0x5DCCE0",
-  "0x5DCD20",
-  "0x5DCEB0",
-  "0x5DCED0",
-  "0x5DCF00",
-  "0x5DD030",
-  "0x5DD2E0",
-  "0x5DD720",
-  "0x5DD770",
-  "0x5DD7E0",
-  "0x5DD830",
-  "0x5DD8A0",
-  "0x5DD910"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/ui_proc.cpp",
- "shared": [
-  "0x42A100",
-  "0x42F250",
-  "0x457FA0",
-  "0x5170C0",
-  "0x5170F0",
-  "0x5B96B0",
-  "0x5B96F0",
-  "0x5B97B0",
-  "0x5BA4D0",
-  "0x5BA500",
-  "0x5DCEB0"
- ],
- "shared_callers": [
-  "0x5BA500"
- ],
- "short_known": [
-  "0x5B96B0",
-  "0x5B96F0",
-  "0x5DCEB0"
- ],
- "tiebreak": [
-  "0x5BA500"
- ]
+ "name": "client/ui_proc.cpp"
 }

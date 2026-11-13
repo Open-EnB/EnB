@@ -3,12 +3,7 @@
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: chat_defs.cpp (__FILE__ 0xBA9030), 0x830460-0x830BC3: the chat event / error tables built at start-up (0xBF3090, 0xBF3188) and their converters (FAIL_IF l.80/83, 144/147)",
  "expected": {},
- "in_tree": [
-  "0x830460",
-  "0x830770",
-  "0x8308C0",
-  "0x830AA0"
- ],
+ "in_tree": [],
  "merged": [],
  "name": "common/chat_defs.cpp"
 }

@@ -3,39 +3,7 @@
  "copy": "reconstructed",
  "description": "provisional file (D137, no assert): ClientItemPropertyDescriptionClass, the item's description as a property (0x18 bytes, table 0xAEDD70): 0x529AE0-0x529FAF, Create 0x529AE0, constructor 0x529BB0, destructors 0x529DA0 / 0x529D70, slots 0x529E10 / 0x529E30 / 0x529F40, Create_NEW 0x529F60",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x45CC10",
-  "0x529AE0",
-  "0x529BB0",
-  "0x529D70",
-  "0x529DA0",
-  "0x529E10",
-  "0x529E30",
-  "0x529F40",
-  "0x529F60",
-  "0x529F90"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/item/client_item_property_description.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x45CC10"
- ],
- "short_known": [
-  "0x42D120",
-  "0x529E10"
- ]
+ "name": "client/item/client_item_property_description.cpp"
 }

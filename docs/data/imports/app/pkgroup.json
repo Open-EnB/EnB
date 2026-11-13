@@ -3,47 +3,7 @@
  "copy": "reconstructed",
  "description": "opcode 30's object, 0x888690-0x888B30 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 7 of 7 exact in appfile.py match",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x8886A0",
-  "0x888710",
-  "0x888730",
-  "0x888750",
-  "0x888780",
-  "0x888890",
-  "0x888960",
-  "0x8889A0",
-  "0x888A80",
-  "0x888AA0",
-  "0x888B30"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkgroup.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x888710",
-  "0x888730"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x888710",
-  "0x888730",
-  "0x888A80"
- ]
+ "name": "packets/pkgroup.cpp"
 }

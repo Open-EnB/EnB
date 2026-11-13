@@ -1,58 +1,9 @@
 {
- "ambiguous": [
-  "0x42A900"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 17's object, 0x87F2F0-0x87F8F0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 4 of 5 exact in appfile.py match (the value constructor 0x87F320 NOT EXACT, parked)",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x62A0A0",
-  "0x62A560",
-  "0x62A5D0",
-  "0x87F320",
-  "0x87F480",
-  "0x87F4A0",
-  "0x87F4D0",
-  "0x87F510",
-  "0x87F730",
-  "0x87F870",
-  "0x87F8A0",
-  "0x87F8F0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkcolorization.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x62A0A0",
-  "0x62A560",
-  "0x62A5D0",
-  "0x87F480"
- ],
- "shared_callers": [
-  "0x62A5D0"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x87F480"
- ],
- "tiebreak": [
-  "0x62A5D0"
- ]
+ "name": "packets/pkcolorization.cpp"
 }

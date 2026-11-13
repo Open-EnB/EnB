@@ -1,48 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 237 (GM Reset Mission) written by hand (builder P4, 6 of 6 exact in appfile.py match), client 0x871A30-0x871F40; the file name provisional (NAME 1)",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42AB30",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x871A30",
-  "0x871BE0",
-  "0x871C10",
-  "0x871D80",
-  "0x871DF0",
-  "0x871EE0",
-  "0x871F00",
-  "0x871F40"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkgmresetmission.cpp",
- "shared": [
-  "0x42A820",
-  "0x42AB30",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x871EE0"
- ]
+ "name": "packets/pkgmresetmission.cpp"
 }

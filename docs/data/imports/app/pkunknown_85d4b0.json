@@ -3,41 +3,7 @@
  "copy": "reconstructed",
  "description": "opcode 77's object, 0x85D4B0-0x85D780 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x85D4B0",
-  "0x85D540",
-  "0x85D570",
-  "0x85D630",
-  "0x85D650",
-  "0x85D730",
-  "0x85D780"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkunknown_85d4b0.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x85D630"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x85D630",
-  "0x85D730"
- ]
+ "name": "packets/pkunknown_85d4b0.cpp"
 }

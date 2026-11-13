@@ -1,17 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "WinMain 0x526DE0 (S: __FILE__ e:\\build\\beta\\G\\app\\main\\main_client.cpp in its report, line 596, D25): the start-up steps, the kernel loop, the shut-down (kernel-map.md 1); exact",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x526DE0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "main/main_client.cpp",
- "shared": [
-  "0x42F250"
- ]
+ "name": "main/main_client.cpp"
 }

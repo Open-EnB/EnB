@@ -1,45 +1,9 @@
 {
- "ambiguous": [
-  "0x457CA0",
-  "0x46BE90",
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x6ED6C0-0x6EEE90: __FILE__ e:\\build\\beta\\G\\app\\Client\\eff_pass.cpp (asserts l.69-288); effect.ini's PassEffect (vtable 0xB00184)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x457FA0",
-  "0x6E4860",
-  "0x6E4880",
-  "0x6E48A0",
-  "0x6ED6C0",
-  "0x6EDA30",
-  "0x6EDA60",
-  "0x6EDB70",
-  "0x6EDBB0",
-  "0x6EDC00",
-  "0x6EE260",
-  "0x6EE9B0",
-  "0x6EEA50",
-  "0x6EEAF0",
-  "0x6EEB90",
-  "0x6EECD0",
-  "0x6EEDF0",
-  "0x6EEE40",
-  "0x6EEE70"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/eff_pass.cpp",
- "shared": [
-  "0x42F250",
-  "0x457FA0",
-  "0x6E4860",
-  "0x6E4880",
-  "0x6E48A0"
- ],
- "short_known": [
-  "0x6E4860",
-  "0x6E4880"
- ]
+ "name": "client/eff_pass.cpp"
 }

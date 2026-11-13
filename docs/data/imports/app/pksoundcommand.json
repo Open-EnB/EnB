@@ -3,50 +3,7 @@
  "copy": "reconstructed",
  "description": "packet classes (opcode 106 written by hand, builder P; opcode 107) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x8A4F20",
-  "0x8A4FE0",
-  "0x8A5010",
-  "0x8A5050",
-  "0x8A5130",
-  "0x8A5220",
-  "0x8A5240",
-  "0x8A5280",
-  "0x8A52D0",
-  "0x8A5300",
-  "0x8A5320",
-  "0x8A53C0",
-  "0x8A5490",
-  "0x8A54B0",
-  "0x8A54E0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pksoundcommand.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x8A5300"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x8A5220",
-  "0x8A5300",
-  "0x8A5490"
- ]
+ "name": "packets/pksoundcommand.cpp"
 }

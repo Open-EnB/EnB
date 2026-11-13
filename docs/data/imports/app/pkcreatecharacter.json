@@ -1,58 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 72's object, 0x85C5F0-0x85D170 (no assert: the file name provisional, NAME 1): written by hand (builder P7)",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CD30",
-  "0x42F250",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x53BB50",
-  "0x618500",
-  "0x85C5F0",
-  "0x85C7D0",
-  "0x85C800",
-  "0x85CB00",
-  "0x85CF80",
-  "0x85D000",
-  "0x85D110",
-  "0x85D140"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkcreatecharacter.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CD30",
-  "0x42F250",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x53BB50",
-  "0x618500",
-  "0x85CB00"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330"
- ]
+ "name": "packets/pkcreatecharacter.cpp"
 }

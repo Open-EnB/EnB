@@ -1,23 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0",
-  "0x46BE90",
-  "0x474080",
-  "0x64EFC0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x6A3D60-0x6A4570: __FILE__ e:\\build\\beta\\G\\app\\Client\\shortcut_range_gauge.cpp (FAIL_IF l.48); the range gauge on a shortcut slot (the if_targ model, weapon_range_green_1.wav)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x6A3D60",
-  "0x6A3F10",
-  "0x6A43D0",
-  "0x6A4500"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/shortcut_range_gauge.cpp",
- "shared": [
-  "0x42F250"
- ]
+ "name": "client/shortcut_range_gauge.cpp"
 }

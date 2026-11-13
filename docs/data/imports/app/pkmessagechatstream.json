@@ -3,46 +3,7 @@
  "copy": "reconstructed",
  "description": "opcode 95's object, 0x89D310-0x89D740 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x89D310",
-  "0x89D380",
-  "0x89D3A0",
-  "0x89D3C0",
-  "0x89D3F0",
-  "0x89D4D0",
-  "0x89D510",
-  "0x89D600",
-  "0x89D620",
-  "0x89D730"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkmessagechatstream.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x89D380",
-  "0x89D3A0"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x89D380",
-  "0x89D3A0",
-  "0x89D600"
- ]
+ "name": "packets/pkmessagechatstream.cpp"
 }

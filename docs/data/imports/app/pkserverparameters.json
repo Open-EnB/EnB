@@ -3,42 +3,7 @@
  "copy": "reconstructed",
  "description": "opcode 66 (SERVER_PARAMETERS) written by hand (builder P4, 4 of 4 exact in appfile.py match), client 0x8A5AB0-0x8A60F0; the file name provisional (NAME 1)",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x8A5AB0",
-  "0x8A5BC0",
-  "0x8A5BF0",
-  "0x8A5C10",
-  "0x8A5DD0",
-  "0x8A5FB0",
-  "0x8A5FD0",
-  "0x8A6110"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkserverparameters.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x8A5BF0"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x8A5BF0",
-  "0x8A5FB0"
- ]
+ "name": "packets/pkserverparameters.cpp"
 }

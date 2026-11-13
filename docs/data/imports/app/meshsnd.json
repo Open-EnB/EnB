@@ -1,29 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "E&B's mesh sound (MeshSoundClass, MeshSoundListClass; 0x7ED150-0x7EDCA0): G_ASSERT 'mesh' l.123 with __FILE__ e:\\build\\beta\\G\\app\\Client\\meshsnd.cpp; DataNode<MeshSoundClass *> table 0xB07968; mono debug strings ' %s:%s ', '%s:%s:Off'",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x457FA0",
-  "0x7ED150",
-  "0x7ED1D0",
-  "0x7ED2B0",
-  "0x7ED300",
-  "0x7ED410",
-  "0x7ED630",
-  "0x7EDA60",
-  "0x7EDAD0",
-  "0x7EDB60",
-  "0x7EDBE0",
-  "0x7EDC50"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/meshsnd.cpp",
- "shared": [
-  "0x42F250",
-  "0x457FA0"
- ]
+ "name": "client/meshsnd.cpp"
 }

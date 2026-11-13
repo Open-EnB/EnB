@@ -1,21 +1,9 @@
 {
- "ambiguous": [
-  "0x6B6880"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "E&B's copy of Westwood's Autorun Wnd_file.cpp, streams only (asserts 0xB91DF8-0xB91FF0 on the client's lines): StandardFileClass 0x6B61B0-0x6B686D (constructor, destructor, Open, Close, Read, Write, Seek, Query_Size, Query_File_Stream_Pointer, Reset) and Full_Path_File_Exists 0x6B6880, all byte-exact (STB, STB2)",
  "expected": {},
- "in_tree": [
-  "0x6B61B0",
-  "0x6B61D0",
-  "0x6B6240",
-  "0x6B63B0",
-  "0x6B6490",
-  "0x6B65A0",
-  "0x6B66B0",
-  "0x6B67A0",
-  "0x6B6860"
- ],
+ "in_tree": [],
  "merged": [],
  "name": "client/wnd_file.cpp"
 }

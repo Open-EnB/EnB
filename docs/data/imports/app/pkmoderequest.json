@@ -3,42 +3,7 @@
  "copy": "reconstructed",
  "description": "opcode 75 written by hand (builder P4), client 0x89CDB0-0x89D040; the file name provisional (NAME 1)",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x89CDB0",
-  "0x89CE20",
-  "0x89CE50",
-  "0x89CE70",
-  "0x89CF10",
-  "0x89CFE0",
-  "0x89D000",
-  "0x89D040"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkmoderequest.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x89CE50"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x89CE50",
-  "0x89CFE0"
- ]
+ "name": "packets/pkmoderequest.cpp"
 }

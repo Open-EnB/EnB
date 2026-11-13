@@ -3,22 +3,7 @@
  "copy": "reconstructed",
  "description": "fp_tt.cpp: FpTTClass, a turn-rate limited flight path (client 0x449360-0x44AC60; __FILE__ 0xB70600, FAIL_IF 'proxim.Get_Avoidance()' line 323 in 0x449EA0, table 0xAE7934)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x447C40",
-  "0x4492D0",
-  "0x449360",
-  "0x4494F0",
-  "0x449520",
-  "0x44AC40"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "shared/fp_tt.cpp",
- "shared": [
-  "0x42F250",
-  "0x447C40"
- ],
- "short_known": [
-  "0x449520"
- ]
+ "name": "shared/fp_tt.cpp"
 }

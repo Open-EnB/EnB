@@ -1,34 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (D137): CameraController01Class, the camera manager's state-1 controller (the player chase; table 0xB04DF8, 0x10 bytes), client 0x794500-0x7946BF (no __FILE__, assert or string; after camctrl_land.cpp's <string> initialiser 0x7944E0, ending with its own at 0x7946A0) (CC1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x7923E0",
-  "0x792410",
-  "0x792430",
-  "0x792460",
-  "0x794510",
-  "0x794540",
-  "0x794570",
-  "0x794590",
-  "0x7945E0",
-  "0x794670"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/unknown_794510.cpp",
- "shared": [
-  "0x42F250",
-  "0x7923E0",
-  "0x792410",
-  "0x792430",
-  "0x792460"
- ],
- "short_known": [
-  "0x792410",
-  "0x794570"
- ]
+ "name": "client/unknown_794510.cpp"
 }

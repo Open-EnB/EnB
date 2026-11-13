@@ -1,69 +1,9 @@
 {
- "ambiguous": [
-  "0x42CA60"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "expr_math_tree.cpp (the client's __FILE__; G_ASSERT lines 52 53 59 63 86 96 120 126 142), client 0x4D2580-0x4D42C0: the three node classes, the infix and postfix printers, the token collector and its vector<ExprMathTokenClass> instances exact; parked: std::fill 0x4D3CF0, std::copy_backward 0x4D3EC0 (EX2)",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CD30",
-  "0x4D2580",
-  "0x4D2730",
-  "0x4D2760",
-  "0x4D27D0",
-  "0x4D27F0",
-  "0x4D2980",
-  "0x4D29A0",
-  "0x4D2BB0",
-  "0x4D2BE0",
-  "0x4D2CF0",
-  "0x4D2D10",
-  "0x4D2D30",
-  "0x4D2D80",
-  "0x4D2DD0",
-  "0x4D2DF0",
-  "0x4D2FD0",
-  "0x4D3000",
-  "0x4D30D0",
-  "0x4D30F0",
-  "0x4D3140",
-  "0x4D3160",
-  "0x4D3190",
-  "0x4D31D0",
-  "0x4D3260",
-  "0x4D32D0",
-  "0x4D3310",
-  "0x4D3380",
-  "0x4D33D0",
-  "0x4D3410",
-  "0x4D36C0",
-  "0x4D3960",
-  "0x4D3BE0",
-  "0x4D3C20",
-  "0x4D3C60",
-  "0x4D3CB0",
-  "0x4D40C0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "shared/expr/expr_math_tree.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CD30"
- ],
- "short_known": [
-  "0x4D27D0",
-  "0x4D2CF0",
-  "0x4D2D10",
-  "0x4D30D0"
- ],
- "tiebreak": [
-  "0x4D40C0"
- ]
+ "name": "shared/expr/expr_math_tree.cpp"
 }

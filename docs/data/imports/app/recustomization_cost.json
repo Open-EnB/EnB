@@ -1,38 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x8492F0-0x84A256: __FILE__ e:\\build\\beta\\G\\app\\Common\\recustomization_cost.cpp (FAIL_IFs lines 50-52, 60-61, 250-252, 259-260: '!oldavatar', '!newavatar', '!oldship', '!newship', 'Costs.Per_Cost[slot] == 0'); the avatar's and ship's recustomization costs (vtables 0xB08C6C, 0xB08C7C); object between race.cpp and sector_types.cpp",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x621050",
-  "0x8492F0",
-  "0x849320",
-  "0x849360",
-  "0x8493F0",
-  "0x8494C0",
-  "0x849920",
-  "0x849960",
-  "0x8499A0",
-  "0x8499C0",
-  "0x8499F0",
-  "0x849A30",
-  "0x849AC0",
-  "0x849B90",
-  "0x84A150",
-  "0x84A1D0",
-  "0x84A210",
-  "0x84A250"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "common/recustomization_cost.cpp",
- "shared": [
-  "0x42F250"
- ],
- "short_known": [
-  "0x8499A0",
-  "0x84A250"
- ]
+ "name": "common/recustomization_cost.cpp"
 }

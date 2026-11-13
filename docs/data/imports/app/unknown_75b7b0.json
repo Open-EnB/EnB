@@ -3,21 +3,7 @@
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (D137): the planets' day / night phase ('plt' models, 'plt_dn' textures' linear-offset mapper), client 0x75B7B0-0x75BD68 (no __FILE__ or assert; after sound_manager.cpp's deque helpers, before decal.cpp 0x75BE00): 0x75B7B0, 0x75B8F0 (OrbitalManager 0x4F45A0, enbscene.cpp 0x75F690), 0x75BB50 (WE5)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x447C40",
-  "0x48C500",
-  "0x48CA70",
-  "0x510CC0",
-  "0x75B7B0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/unknown_75b7b0.cpp",
- "shared": [
-  "0x42F250",
-  "0x447C40",
-  "0x48C500",
-  "0x48CA70",
-  "0x510CC0"
- ]
+ "name": "client/unknown_75b7b0.cpp"
 }

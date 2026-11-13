@@ -3,10 +3,7 @@
  "copy": "reconstructed",
  "description": "vendor_defs.cpp (the client's __FILE__, FAIL_IF l.47 / 48 / 85 / 86): the vendor's and the ambient character's type converters, client 0x84C270-0x84C42C (builder NW4, 6 of 6 exact in appfile.py match)",
  "expected": {},
- "in_tree": [
-  "0x84C2E0",
-  "0x84C3D0"
- ],
+ "in_tree": [],
  "merged": [],
  "name": "common/vendor_defs.cpp"
 }

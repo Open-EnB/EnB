@@ -3,27 +3,7 @@
  "copy": "reconstructed",
  "description": "the object 0x4C7620-0x4C7B4F between expr_lexer_match_list.cpp and expr_math_float.cpp (no __FILE__, interim name and placement D137): ExprMathTokenClass's constructors, Is_Valid, operator== / !=, all exact (EX3)",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CD30",
-  "0x4C7620",
-  "0x4C7740",
-  "0x4C7850",
-  "0x4C79E0",
-  "0x4C7A60",
-  "0x4C7AE0",
-  "0x4C7B70"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "shared/expr/expr_math_token.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CD30"
- ]
+ "name": "shared/expr/expr_math_token.cpp"
 }

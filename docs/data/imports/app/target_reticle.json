@@ -1,24 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0",
-  "0x46BE90",
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "TargetReticleClass (D24 class-from-file), the reticle round a target (the client's __FILE__ 0xB9F85C, FAIL_IFs at lines 82-281; client 0x7C50B0-0x7C60F0) (TR1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x46BEC0",
-  "0x7C5100",
-  "0x7C5500",
-  "0x7C55A0",
-  "0x7C6060"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/target_reticle.cpp",
- "shared": [
-  "0x42F250",
-  "0x46BEC0"
- ]
+ "name": "client/target_reticle.cpp"
 }

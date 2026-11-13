@@ -1,51 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientItemPropertySpecialProfessionRequirementClass (the client's __FILE__ e:\\build\\beta\\G\\app\\Client\\item\\client_item_property_special_profession_requirement.cpp, 0xB780B4), a profession requirement as a special property (table 0xAEDFAC, 0x3C bytes, 'Warriors Only' ...), client 0x52CF90-0x52DB5F: Create 0x52CF90 (G_ASSERT(0) line 37), ctor 0x52D490, dtors 0x52D690 / 0x52D660, Get_Lines 0x52D700, Is_Usable 0x52D900 (FAIL_IFs lines 106, 109), Create_NEW 0x52D9F0, ~RefCountPtr 0x52DA20, <string>'s and permstr.h's statics",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42C4E0",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D050",
-  "0x42D120",
-  "0x42F250",
-  "0x45CC10",
-  "0x52BFA0",
-  "0x52C3D0",
-  "0x52CF90",
-  "0x52D490",
-  "0x52D660",
-  "0x52D690",
-  "0x52D700",
-  "0x52D9F0",
-  "0x52DA20"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/item/client_item_property_special_profession_requirement.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42C4E0",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D050",
-  "0x42D120",
-  "0x42F250",
-  "0x45CC10",
-  "0x52BFA0",
-  "0x52C3D0"
- ],
- "short_known": [
-  "0x42D120"
- ]
+ "name": "client/item/client_item_property_special_profession_requirement.cpp"
 }

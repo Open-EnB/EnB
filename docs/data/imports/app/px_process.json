@@ -1,29 +1,9 @@
 {
- "ambiguous": [
-  "0x42AFF0",
-  "0x4333D0",
-  "0x436730"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "px_process.cpp, client 0x455880-0x4560B0 (its __FILE__; FAIL_IFs lines 16-62): PxProcessNode (vtable 0xAE7CE8), PxProcessClass's Add / Remove / Remove_All / Process, Get_Current / Push / Pop (Push 0x455D10, Pop 0x455F60 NOT EXACT)",
  "expected": {},
- "in_tree": [
-  "0x455880",
-  "0x4558B0",
-  "0x455940",
-  "0x4559B0",
-  "0x455A30",
-  "0x455AB0",
-  "0x455B70",
-  "0x455BF0",
-  "0x455C80",
-  "0x455CC0",
-  "0x455CF0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "shared/px_process.cpp",
- "short_known": [
-  "0x455A30",
-  "0x455CF0"
- ]
+ "name": "shared/px_process.cpp"
 }

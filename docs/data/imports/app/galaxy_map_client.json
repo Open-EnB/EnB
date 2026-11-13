@@ -1,40 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x46BE90"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "galaxy_map_client.cpp (the client's __FILE__ 0xB9E8A0), client 0x7A4830-0x7A56ED: the constructor, destructor, Load_Ini and the GALAXY_MAP packet handlers 0x7A4C50-0x7A5260 exact (GM2, claim run PR #139); 0x7A5470 / 0x7A54F0 / 0x7A5540 exact; 0x7A52F0 and 0x7A5400 NOT EXACT",
  "expected": {},
- "in_tree": [
-  "0x42A970",
-  "0x42AB30",
-  "0x42F250",
-  "0x7A4830",
-  "0x7A4970",
-  "0x7A49A0",
-  "0x7A4B10",
-  "0x7A4C50",
-  "0x7A4FA0",
-  "0x7A4FC0",
-  "0x7A50A0",
-  "0x7A5180",
-  "0x7A5260",
-  "0x7A5400",
-  "0x7A5470",
-  "0x7A54F0",
-  "0x7A5540",
-  "0x7A5700"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/galaxy_map_client.cpp",
- "shared": [
-  "0x42A970",
-  "0x42AB30",
-  "0x42F250",
-  "0x7A4FA0"
- ],
- "short_known": [
-  "0x7A4FA0"
- ]
+ "name": "client/galaxy_map_client.cpp"
 }

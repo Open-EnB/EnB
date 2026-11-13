@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-823 entries in 271 files.
+824 entries in 272 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -443,6 +443,7 @@ edit the comments in the code, not this file.
 | `app/client/ui_guild.cpp:190` | `UIGuildClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase out of line; ours expands it) and one register (0x819FB0) 0x819FB0 |
 | `app/client/ui_guild.cpp:254` | `UIGuildClass::Unknown_68` | marker | NOT EXACT: inline budget (the inlined row click 0x81B3F0 expands the name's _Eos, the client calls it) (0x81A420) 0x81A420 |
 | `app/client/ui_guild.cpp:405` | `UIGuildClass::Unknown_81AEB0` | marker | NOT EXACT: scheduling only (the client computes the vector's address for the inlined clean-up's erase before saving edi) (0x81AEB0) 0x81AEB0 |
+| `app/client/ui_interrupt.cpp:19` | `Unknown59E2C0Class::Unknown59E2C0Class` | marker | NOT EXACT: the client loads the bar into edx and the view into ecx for 0x6870E0 (ours: ecx / edx), twice @0x59E2C0 |
 | `app/client/ui_inv.cpp:469` | `UIInvClass::Unknown_98` | marker | NOT EXACT: 0.62: the client keeps the slot in edi and the button test in the event's argument slot, this the gadget in edi and a frame slot (register allocation; tried: no shadowed parameter, the event's bit as a bitfield) 0x59FE30 |
 | `app/client/ui_inv.cpp:739` | `UIInvClass::Unknown_5A0740` | marker | NOT EXACT: 0.74, the client's 1154 bytes and blocks (register-only): the client loads the ship's ID, the views, the stack's inventory and the drag's mode through other scratch registers (eax / edx / ecx turned round) and sets the result through cl where this has dl 0x5A0740 |
 | `app/client/ui_inv.cpp:938` | `UIInvClass::Unknown_5A0D00` | marker | NOT EXACT: 0.58: the client keeps the slot in ebx and spills the first list's peek, this the reverse (register allocation) 0x5A0D00 |

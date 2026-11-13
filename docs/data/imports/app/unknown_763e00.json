@@ -3,28 +3,7 @@
  "copy": "reconstructed",
  "description": "RSLRegistryClass (ClientClass +0x18, mclient.cpp's G_ASSERT 'RSLRegistry'; P-M1b-1), rs.ini's render state lists by RSLID (a VectorClass<RenderStateListClass *> member), client 0x763E00-0x764460: constructor, destructor, the rs.ini load 0x763E70, the delete-all 0x763FF0, the lookup 0x764030, the one-object add 0x764060 and VectorClass's template copies (PROVISIONAL file name, D137: no __FILE__, between proj_decal_manager.cpp and starbase_lights.cpp) (RS1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x491830",
-  "0x494CC0",
-  "0x763E00",
-  "0x763E30",
-  "0x763E70",
-  "0x763FF0",
-  "0x764030",
-  "0x764060",
-  "0x764220",
-  "0x764270",
-  "0x764350",
-  "0x764390",
-  "0x7643E0",
-  "0x764410"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/unknown_763e00.cpp",
- "shared": [
-  "0x42F250",
-  "0x491830",
-  "0x494CC0"
- ]
+ "name": "client/unknown_763e00.cpp"
 }

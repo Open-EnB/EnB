@@ -1,65 +1,9 @@
 {
- "ambiguous": [
-  "0x42AFF0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "SlotDataShortcutInterface (the client's RTTI 0xB8A7C0), the shortcut gadgets of a slot interface (the client's __FILE__ 0xB8A74C, asserts l.61-306; client 0x630490-0x632DD0) (SL1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x51E220",
-  "0x62FBA0",
-  "0x630490",
-  "0x630650",
-  "0x630680",
-  "0x6307B0",
-  "0x630980",
-  "0x631000",
-  "0x631270",
-  "0x631540",
-  "0x6315C0",
-  "0x631600",
-  "0x631720",
-  "0x631750",
-  "0x631780",
-  "0x6317C0",
-  "0x6317E0",
-  "0x631AB0",
-  "0x631F80",
-  "0x632060",
-  "0x6320F0",
-  "0x632160",
-  "0x6321B0",
-  "0x632280",
-  "0x632590",
-  "0x632610",
-  "0x632690",
-  "0x6326C0",
-  "0x632740",
-  "0x632760",
-  "0x6328D0",
-  "0x6328F0",
-  "0x632910",
-  "0x632980",
-  "0x6329B0",
-  "0x632AA0",
-  "0x632DA0",
-  "0x632DD0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/ui_slot_scut.cpp",
- "shared": [
-  "0x42F250",
-  "0x51E220",
-  "0x62FBA0",
-  "0x632740",
-  "0x6328D0",
-  "0x6328F0"
- ],
- "short_known": [
-  "0x62FBA0",
-  "0x632740",
-  "0x6328D0",
-  "0x6328F0"
- ]
+ "name": "client/ui_slot_scut.cpp"
 }

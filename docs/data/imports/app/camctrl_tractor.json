@@ -1,35 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "CameraController08Class (NAME 1, neutral), the camera manager's state-8 controller (tractor; table 0xB051BC, 0x20 bytes), client 0x797310-0x79798F (__FILE__ 0xB9E504, FAIL_IF l.176; ending with <string>'s initialiser 0x797970); 0x797570 and 0x797770 functional, not exact (CC1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x7923E0",
-  "0x792410",
-  "0x792430",
-  "0x792460",
-  "0x797320",
-  "0x7973E0",
-  "0x797410",
-  "0x797490",
-  "0x7974D0",
-  "0x797720",
-  "0x797740"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/camctrl_tractor.cpp",
- "shared": [
-  "0x42F250",
-  "0x7923E0",
-  "0x792410",
-  "0x792430",
-  "0x792460"
- ],
- "short_known": [
-  "0x792410",
-  "0x797720"
- ]
+ "name": "client/camctrl_tractor.cpp"
 }

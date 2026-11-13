@@ -1,44 +1,9 @@
 {
- "ambiguous": [
-  "0x46BE90",
-  "0x483600"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from client.exe 0x519A20-0x51A7AF (__FILE__ 0xB76BA0 e:\\build\\beta\\G\\app\\Client\\dynamic_window_icon.cpp; FAIL_IFs lines 28-83): DynamicWindowIconClass, a texture quad element on DynamicWindowRenderObjectClass (table 0xAED4FC)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x45CC10",
-  "0x45CC30",
-  "0x46BE90",
-  "0x497330",
-  "0x519A20",
-  "0x519C40",
-  "0x519E60",
-  "0x519EF0",
-  "0x519F20",
-  "0x519F40",
-  "0x519FE0",
-  "0x51A080",
-  "0x51A190",
-  "0x51A4F0",
-  "0x51A650",
-  "0x51A690",
-  "0x51A6F0",
-  "0x51A720",
-  "0x51A7F0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/dynamic_window_icon.cpp",
- "shared": [
-  "0x42F250",
-  "0x45CC10",
-  "0x45CC30",
-  "0x46BE90",
-  "0x497330",
-  "0x51A4F0"
- ],
- "short_known": [
-  "0x519F20"
- ]
+ "name": "client/dynamic_window_icon.cpp"
 }

@@ -3,45 +3,7 @@
  "copy": "reconstructed",
  "description": "packet classes (opcode 18) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x581630",
-  "0x8AB560",
-  "0x8AB5B0",
-  "0x8AB5D0",
-  "0x8AB600",
-  "0x8AB6A0",
-  "0x8AB770",
-  "0x8AB790",
-  "0x8AB7D0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkturn.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x581630",
-  "0x8AB5B0"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x581630",
-  "0x8AB5B0",
-  "0x8AB770"
- ]
+ "name": "packets/pkturn.cpp"
 }

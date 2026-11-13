@@ -1,40 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0",
-  "0x499720",
-  "0x4A91B0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "CameraController07Class (NAME 1, neutral), the camera manager's state-7 controller (planet landing; table 0xB04EA8, 0x18 bytes), client 0x7946C0-0x79539F (__FILE__ 0xB9E3B8, asserts on lines 71-125; ending with <string>'s initialiser 0x795380); 0x794A90 not rebuilt (CC1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x447C40",
-  "0x7923E0",
-  "0x792410",
-  "0x792430",
-  "0x792460",
-  "0x7946D0",
-  "0x794770",
-  "0x794790",
-  "0x7947C0",
-  "0x794840",
-  "0x794970",
-  "0x7949F0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/camctrl_pland.cpp",
- "shared": [
-  "0x42F250",
-  "0x447C40",
-  "0x7923E0",
-  "0x792410",
-  "0x792430",
-  "0x792460",
-  "0x794770"
- ],
- "short_known": [
-  "0x792410",
-  "0x794770"
- ]
+ "name": "client/camctrl_pland.cpp"
 }

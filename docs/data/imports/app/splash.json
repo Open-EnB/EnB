@@ -3,17 +3,7 @@
  "copy": "reconstructed",
  "description": "Splash (0x10 bytes; the class name from 0x6A9E40's profile string 'Splash::Render'), client 0x6A9B60-0x6A9F39: the constructor 0x6A9B60, the destructor 0x6A9DB0, Render 0x6A9E40, byte-exact; its literals 0xB917F8-0xB91836 precede textgadg.cpp's; file name PROVISIONAL (D137: no __FILE__; the app\\Client objects here run alphabetically, loadingview .. textgadg, tutorial_manager, view) (GAD4)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x444160",
-  "0x6A9B60",
-  "0x6A9DB0",
-  "0x6A9E40"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/splash.cpp",
- "shared": [
-  "0x42F250",
-  "0x444160"
- ]
+ "name": "client/splash.cpp"
 }

@@ -1,69 +1,9 @@
 {
- "ambiguous": [
-  "0x42A900",
-  "0x42AAE0",
-  "0x42AFF0",
-  "0x42B2F0",
-  "0x436420",
-  "0x443F30",
-  "0x46BE90",
-  "0x49CB70",
-  "0x4A0B20"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "UIMFDExtendedContextHarvestableClass (D24 class-from-file), client 0x5BF730-~0x5C1080 (__FILE__ 0xB82378) (MM1)",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42F250",
-  "0x45CC10",
-  "0x52F990",
-  "0x5BF730",
-  "0x5BF760",
-  "0x5BF790",
-  "0x5BFB00",
-  "0x5BFDA0",
-  "0x5BFDD0",
-  "0x5BFF10",
-  "0x5BFF30",
-  "0x5BFF50",
-  "0x5C0110",
-  "0x5C0240",
-  "0x5C0750",
-  "0x5C07E0",
-  "0x5C0940",
-  "0x5C0970",
-  "0x5C0B70",
-  "0x5C0C80",
-  "0x5C0CB0",
-  "0x5C0CE0",
-  "0x5C0D10",
-  "0x5C0D30",
-  "0x5C0EB0",
-  "0x5C0EE0",
-  "0x5C0F10",
-  "0x5C0F90"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/ui_mfd_extended_context_harvestable.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42F250",
-  "0x45CC10"
- ],
- "short_known": [
-  "0x5BF730",
-  "0x5BF760",
-  "0x5BFF10",
-  "0x5BFF30"
- ],
- "tiebreak": [
-  "0x5C0F90"
- ]
+ "name": "client/ui_mfd_extended_context_harvestable.cpp"
 }

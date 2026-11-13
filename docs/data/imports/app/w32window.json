@@ -3,10 +3,7 @@
  "copy": "reconstructed",
  "description": "the main window, client 0x431CA0-0x431E10 (PROVISIONAL file name, D10, and place, D137: after w32mouse.cpp's functions, no __FILE__; builder INP, run PR #140): its window procedure 0x431DE0 exact, the window's creation 0x431CA0 NOT EXACT (shape)",
  "expected": {},
- "in_tree": [
-  "0x431CA0",
-  "0x431DE0"
- ],
+ "in_tree": [],
  "merged": [],
  "name": "input/w32window.cpp"
 }

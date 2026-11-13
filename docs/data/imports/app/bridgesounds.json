@@ -3,18 +3,7 @@
  "copy": "reconstructed",
  "description": "BridgeSoundManagerClass, client 0x436A60-0x4370A0 (assert ini == NULL line 212 confirms path e:\\\\build\\\\beta\\\\G\\\\app\\\\Audio\\\\bridgesounds.cpp, D25); ~BridgeSoundManagerClass 0x436AF0, Reset 0x436B60, Play_Sounds 0x436BA0 exact",
  "expected": {},
- "in_tree": [
-  "0x436AF0",
-  "0x436B60",
-  "0x436BA0",
-  "0x436BF0",
-  "0x436DC0",
-  "0x437070",
-  "0x437090"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "audio/bridgesounds.cpp",
- "short_known": [
-  "0x437070"
- ]
+ "name": "audio/bridgesounds.cpp"
 }

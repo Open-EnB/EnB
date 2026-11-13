@@ -3,10 +3,7 @@
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: guild_strings.cpp (__FILE__ 0xBAE080), 0x83D900-0x83D9BA: the guild messages' {sound, text} table 0xBA9B00 (132 entries) and its two lookups (FAIL_IFs l.157/158, 165/166)",
  "expected": {},
- "in_tree": [
-  "0x83D900",
-  "0x83D970"
- ],
+ "in_tree": [],
  "merged": [],
  "name": "common/guild_strings.cpp"
 }

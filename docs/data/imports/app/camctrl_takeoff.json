@@ -1,33 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "CameraController09Class (NAME 1, neutral), the camera manager's state-9 controller (take-off; table 0xB05100, 0x60 bytes), client 0x7961A0-0x79730F (__FILE__ 0xB9E4BC, asserts on lines 106-190; ending with <string>'s initialiser 0x797300); 0x796440 and 0x796920 not rebuilt (CC1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x7923E0",
-  "0x792410",
-  "0x792430",
-  "0x792460",
-  "0x7961B0",
-  "0x796250",
-  "0x796280",
-  "0x796300",
-  "0x796850",
-  "0x7968F0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/camctrl_takeoff.cpp",
- "shared": [
-  "0x42F250",
-  "0x7923E0",
-  "0x792410",
-  "0x792430",
-  "0x792460"
- ],
- "short_known": [
-  "0x792410"
- ]
+ "name": "client/camctrl_takeoff.cpp"
 }

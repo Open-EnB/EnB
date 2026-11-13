@@ -3,43 +3,7 @@
  "copy": "reconstructed",
  "description": "SkillDataPeekClass, a view of RPGInfo.Skills (the client's __FILE__ 0xB914A4, asserts on lines 130-250; object 0x6A52E0-0x6A5E9F: permstr.h's static opens it, <string>'s initialiser 0x6A5E00 closes it) (SD1)",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x6A5330",
-  "0x6A5380",
-  "0x6A53A0",
-  "0x6A5440",
-  "0x6A5470",
-  "0x6A54B0",
-  "0x6A5520",
-  "0x6A55B0",
-  "0x6A5640",
-  "0x6A5900",
-  "0x6A5970",
-  "0x6A59E0",
-  "0x6A5A50",
-  "0x6A5B10",
-  "0x6A5BD0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/skill_data_peek.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120"
- ],
- "short_known": [
-  "0x42D120",
-  "0x6A5380"
- ]
+ "name": "client/skill_data_peek.cpp"
 }

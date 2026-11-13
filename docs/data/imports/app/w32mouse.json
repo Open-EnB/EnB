@@ -3,28 +3,7 @@
  "copy": "reconstructed",
  "description": "w32mouse.cpp's Win32MouseHandlerClass, client 0x430D90-0x431C80 (G_ASSERT 'Mouse == NULL' line 37, D25; builder INP, run PR #140): all exact but Update 0x431AA0 (NOT EXACT, register)",
  "expected": {},
- "in_tree": [
-  "0x42F220",
-  "0x42F250",
-  "0x430D90",
-  "0x430EB0",
-  "0x430EE0",
-  "0x430F50",
-  "0x4310E0",
-  "0x431270",
-  "0x4312C0",
-  "0x431490",
-  "0x4314C0",
-  "0x4316A0",
-  "0x431900",
-  "0x431950",
-  "0x431B70",
-  "0x431C30"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "input/w32mouse.cpp",
- "shared": [
-  "0x42F220",
-  "0x42F250"
- ]
+ "name": "input/w32mouse.cpp"
 }

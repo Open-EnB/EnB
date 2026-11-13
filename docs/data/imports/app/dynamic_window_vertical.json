@@ -1,71 +1,9 @@
 {
- "ambiguous": [
-  "0x42AAE0",
-  "0x46BE90",
-  "0x474000",
-  "0x474480",
-  "0x519950"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "DynamicWindowVerticalClass (D24 class-from-file), a dynamic window's column (table 0xAEDB84, 0x64 bytes), client 0x51EAE0-0x51F8B5 (__FILE__ 0xB77010, FAIL_IF '!element' on the client's line 52, D25); NOT EXACT (D64): Set_Flags 0x51EF50, Set_Alignment 0x51EFB0, Update_Content_Size 0x51F850 (DW1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x45CC10",
-  "0x45CC30",
-  "0x5188E0",
-  "0x5195E0",
-  "0x5199F0",
-  "0x51EAE0",
-  "0x51EB70",
-  "0x51EBA0",
-  "0x51ECD0",
-  "0x51EEE0",
-  "0x51EF20",
-  "0x51EF50",
-  "0x51EF80",
-  "0x51EFF0",
-  "0x51F020",
-  "0x51F040",
-  "0x51F0C0",
-  "0x51F0F0",
-  "0x51F310",
-  "0x51F340",
-  "0x51F3B0",
-  "0x51F430",
-  "0x51F480",
-  "0x51F4A0",
-  "0x51F4F0",
-  "0x51F530",
-  "0x51F550",
-  "0x51F590",
-  "0x51F5B0",
-  "0x51F600",
-  "0x51F6D0",
-  "0x51F7C0",
-  "0x51F850"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/dynamic_window_vertical.cpp",
- "shared": [
-  "0x42F250",
-  "0x45CC10",
-  "0x45CC30",
-  "0x5188E0",
-  "0x5195E0",
-  "0x5199F0"
- ],
- "shared_callers": [
-  "0x5199F0"
- ],
- "short_known": [
-  "0x5188E0",
-  "0x51F020",
-  "0x51F480",
-  "0x51F530",
-  "0x51F590"
- ],
- "tiebreak": [
-  "0x5199F0"
- ]
+ "name": "client/dynamic_window_vertical.cpp"
 }

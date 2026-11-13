@@ -3,14 +3,7 @@
  "copy": "reconstructed",
  "description": "KVPairClass's constructor 0x4B7EB0 (assert on the client's line 20, D25) and destructor 0x4B7F50",
  "expected": {},
- "in_tree": [
-  "0x4B7EB0",
-  "0x4B7F20",
-  "0x4B7F50"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "shared/kv_pair.cpp",
- "short_known": [
-  "0x4B7F50"
- ]
+ "name": "shared/kv_pair.cpp"
 }

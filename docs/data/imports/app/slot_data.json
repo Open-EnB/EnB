@@ -1,56 +1,9 @@
 {
- "ambiguous": [
-  "0x42A900",
-  "0x457CA0",
-  "0x57DC80"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "SlotDataClass (the client's RTTI; file name assumed, no __FILE__: link order between skill_render and slot_data_render; object 0x6A7420-0x6A7B4F between <string>'s initialisers 0x6A73F0 and 0x6A7B20) (SD1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x457FA0",
-  "0x45CC10",
-  "0x45CC30",
-  "0x57DBC0",
-  "0x57DBF0",
-  "0x57DC20",
-  "0x584E20",
-  "0x5BBAD0",
-  "0x688660",
-  "0x6A46A0",
-  "0x6A7420",
-  "0x6A7500",
-  "0x6A7530",
-  "0x6A76A0",
-  "0x6A7860",
-  "0x6A7990",
-  "0x6A79C0",
-  "0x6A7A00",
-  "0x6A7A40",
-  "0x6A7AB0",
-  "0x6A7B20",
-  "0x6A7B50"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/slot_data.cpp",
- "shared": [
-  "0x42F250",
-  "0x457FA0",
-  "0x45CC10",
-  "0x45CC30",
-  "0x57DBC0",
-  "0x57DBF0",
-  "0x57DC20",
-  "0x584E20",
-  "0x5BBAD0",
-  "0x688660",
-  "0x6A46A0",
-  "0x6A7B50"
- ],
- "short_known": [
-  "0x688660",
-  "0x6A46A0",
-  "0x6A7B50"
- ]
+ "name": "client/slot_data.cpp"
 }

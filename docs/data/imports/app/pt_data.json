@@ -1,41 +1,9 @@
 {
- "ambiguous": [
-  "0x42A900"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: the petition terminal's three lists (missions, news, people) read from pt_missions.ini / pt_news.ini / pt_people.ini; the client's __FILE__ and G_ASSERTs 'idx >= 0' (lines 86, 139, 197), 0x696320-0x6974F0",
  "expected": {},
- "in_tree": [
-  "0x696320",
-  "0x696700",
-  "0x6967A0",
-  "0x696810",
-  "0x696BC0",
-  "0x696C60",
-  "0x696CD0",
-  "0x697110",
-  "0x6971B0",
-  "0x697260",
-  "0x6972D0",
-  "0x697340",
-  "0x697370",
-  "0x6973B0",
-  "0x6973F0",
-  "0x697430",
-  "0x697470",
-  "0x6974B0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/pt_data.cpp",
- "tiebreak": [
-  "0x697260",
-  "0x6972D0",
-  "0x697340",
-  "0x697370",
-  "0x6973B0",
-  "0x6973F0",
-  "0x697430",
-  "0x697470",
-  "0x6974B0"
- ]
+ "name": "client/pt_data.cpp"
 }

@@ -3,13 +3,7 @@
  "copy": "reconstructed",
  "description": "Unknown_Log 0x7E5F90 and Unknown_7E5F70 (client 0x7E5F70-0x7E6022): the enb_client.log functions; file PROVISIONAL (D137: no __FILE__ string; between cfaction_database.cpp and distance_calc_client.cpp)",
  "expected": {},
- "in_tree": [
-  "0x7E5F70",
-  "0x7E5F90"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/unknown_log.cpp",
- "short_known": [
-  "0x7E5F70"
- ]
+ "name": "client/unknown_log.cpp"
 }

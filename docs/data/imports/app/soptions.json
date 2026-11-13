@@ -3,21 +3,7 @@
  "copy": "reconstructed",
  "description": "SOptionsClass (soptions.h), client 0x75A280-0x75AAB0 (__FILE__ e:\\build\\beta\\G\\app\\Client\\soptions.cpp, asserts l.53 / l.93): the registry's render budgets, the camera modes, VectorClass<CameraModeStruct>'s members (D90 9d)",
  "expected": {},
- "in_tree": [
-  "0x75A280",
-  "0x75A4E0",
-  "0x75A530",
-  "0x75A570",
-  "0x75A5A0",
-  "0x75A5F0",
-  "0x75A750",
-  "0x75A790",
-  "0x75A830",
-  "0x75A920",
-  "0x75A960",
-  "0x75AA00",
-  "0x75AA40"
- ],
+ "in_tree": [],
  "merged": [],
  "name": "client/soptions.cpp"
 }

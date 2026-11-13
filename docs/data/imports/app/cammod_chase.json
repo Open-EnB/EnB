@@ -1,43 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ChaseCameraModuleClass (table 0xB054E4, 0x38 bytes), client 0x79BB80-0x79C48F (__FILE__ 0xB9E658, FAIL_IFs on lines 30 / 43 / 148-150; ends with its <string> initialiser 0x79C470); 0x79BFC0 not rebuilt (CM1)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x447C40",
-  "0x551270",
-  "0x577940",
-  "0x69F3B0",
-  "0x79BB80",
-  "0x79BC60",
-  "0x79BC90",
-  "0x79BCC0",
-  "0x79BCE0",
-  "0x79BD50",
-  "0x79BDC0",
-  "0x79BE00",
-  "0x79BE30",
-  "0x79BE60",
-  "0x79BE90",
-  "0x79BEC0",
-  "0x79BEF0",
-  "0x79BF40"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/cammod_chase.cpp",
- "shared": [
-  "0x42F250",
-  "0x447C40",
-  "0x551270",
-  "0x577940",
-  "0x69F3B0",
-  "0x79BC60",
-  "0x79BCC0"
- ],
- "short_known": [
-  "0x79BCC0"
- ]
+ "name": "client/cammod_chase.cpp"
 }

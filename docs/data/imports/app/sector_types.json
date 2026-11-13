@@ -3,14 +3,7 @@
  "copy": "reconstructed",
  "description": "RECONSTRUCTED: sector_types.cpp (__FILE__ 0xBB0B04), 0x84A2A0-0x84A45F: the sector type's String_To_Value / Value_To_String / name (FAIL_IFs l.36/51/60, names 0xBB0AC0) and a two-word class's constructors",
  "expected": {},
- "in_tree": [
-  "0x84A2A0",
-  "0x84A320",
-  "0x84A3B0",
-  "0x84A3F0",
-  "0x84A410",
-  "0x84A440"
- ],
+ "in_tree": [],
  "merged": [],
  "name": "common/sector_types.cpp"
 }

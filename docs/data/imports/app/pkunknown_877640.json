@@ -1,63 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 97's object, 0x877640-0x877C50 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x53BB50",
-  "0x877640",
-  "0x8779A0",
-  "0x8779C0",
-  "0x8779F0",
-  "0x877A60",
-  "0x877B20",
-  "0x877BF0",
-  "0x877C10"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkunknown_877640.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x53BB50",
-  "0x8779A0"
- ],
- "short_known": [
-  "0x42D120",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x8779A0",
-  "0x877BF0"
- ]
+ "name": "packets/pkunknown_877640.cpp"
 }

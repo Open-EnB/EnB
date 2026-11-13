@@ -1,51 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientItemPropertySpecialRaceRequirementClass (the client's __FILE__ e:\\build\\beta\\G\\app\\Client\\item\\client_item_property_special_race_requirement.cpp, 0xB78324), a race requirement as a special property (table 0xAEE058, 0x3C bytes, 'Terran Only' ...), client 0x52DB60-0x52E75F: Create 0x52DB60 (G_ASSERT(0) line 43), ctor 0x52E090, dtors 0x52E290 / 0x52E260, Get_Lines 0x52E300, Is_Usable 0x52E500 (FAIL_IFs lines 112, 115), Create_NEW 0x52E5F0, ~RefCountPtr 0x52E620, <string>'s and permstr.h's statics",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42C4E0",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D050",
-  "0x42D120",
-  "0x42F250",
-  "0x45CC10",
-  "0x52BFA0",
-  "0x52C3D0",
-  "0x52DB60",
-  "0x52E090",
-  "0x52E260",
-  "0x52E290",
-  "0x52E300",
-  "0x52E5F0",
-  "0x52E620"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/item/client_item_property_special_race_requirement.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42C4E0",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D050",
-  "0x42D120",
-  "0x42F250",
-  "0x45CC10",
-  "0x52BFA0",
-  "0x52C3D0"
- ],
- "short_known": [
-  "0x42D120"
- ]
+ "name": "client/item/client_item_property_special_race_requirement.cpp"
 }

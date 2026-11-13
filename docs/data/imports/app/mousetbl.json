@@ -3,17 +3,7 @@
  "copy": "reconstructed",
  "description": "mousetbl.cpp (__FILE__ 0xB94DD0): the mouse cursor table (25 entries, 0xBE7C70, reference counted 0xBE7CD4), client 0x722770-0x723199 and the header's PermStringInit 0x7231C0 / 0x7231F0 (G_ASSERTs on the client's lines 33, 72), all exact (KRN)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x722770",
-  "0x7227F0",
-  "0x722890",
-  "0x7228C0",
-  "0x723150"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/mousetbl.cpp",
- "shared": [
-  "0x42F250"
- ]
+ "name": "client/mousetbl.cpp"
 }

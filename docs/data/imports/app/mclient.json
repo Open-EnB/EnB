@@ -1,48 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "E&B's movie client (MovieClientClass, 0x7EC3E0-0x7ED140): G_ASSERT 'RSLRegistry' l.83 with __FILE__ e:\\build\\beta\\G\\app\\Client\\mclient.cpp; vtable 0xB07864, the view callback's 0xB078D4",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x7268E0",
-  "0x726920",
-  "0x726A00",
-  "0x7EC3E0",
-  "0x7EC550",
-  "0x7EC570",
-  "0x7EC780",
-  "0x7EC7A0",
-  "0x7EC970",
-  "0x7EC990",
-  "0x7ECA50",
-  "0x7ECAA0",
-  "0x7ECC80",
-  "0x7ECD60",
-  "0x7ECD80",
-  "0x7ED090",
-  "0x7ED0C0",
-  "0x7ED100"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/mclient.cpp",
- "shared": [
-  "0x42F250",
-  "0x7268E0",
-  "0x726920",
-  "0x726A00",
-  "0x7EC550",
-  "0x7ECD60"
- ],
- "short_known": [
-  "0x7268E0",
-  "0x726920",
-  "0x7EC550",
-  "0x7EC780",
-  "0x7EC7A0",
-  "0x7EC970",
-  "0x7ECD60"
- ]
+ "name": "client/mclient.cpp"
 }

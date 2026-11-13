@@ -1,57 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientItemPropertySpecialMakerClass (the client's __FILE__ e:\\build\\beta\\G\\app\\Client\\item\\client_item_property_special_maker.cpp, 0xB77EA8), who manufactured an item as a special property (table 0xAEDF00, 0x34 bytes, label 'Manufactured by: ', sort order 0x6E), client 0x52C770-0x52CF8F: Create 0x52C770 (G_ASSERT(0) line 35), ctor 0x52C980, dtors 0x52CB80 / 0x52CB50, Get_Lines 0x52CBF0, Is_Usable 0x52CEC0, Create_NEW 0x52CEE0, <string>'s guarded static 0x52CF10, permstr.h's static 0x52CF40 / 0x52CF70",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x45CC10",
-  "0x52BC30",
-  "0x52BF00",
-  "0x52BFA0",
-  "0x52BFF0",
-  "0x52C3D0",
-  "0x52C580",
-  "0x52C710",
-  "0x52C740",
-  "0x52C770",
-  "0x52C980",
-  "0x52CB50",
-  "0x52CB80",
-  "0x52CEC0",
-  "0x52CEE0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/item/client_item_property_special_maker.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D120",
-  "0x45CC10",
-  "0x52BF00",
-  "0x52BFA0",
-  "0x52BFF0",
-  "0x52C3D0",
-  "0x52C580",
-  "0x52C710"
- ],
- "short_known": [
-  "0x42D120",
-  "0x52CEC0"
- ],
- "tiebreak": [
-  "0x52CEE0"
- ]
+ "name": "client/item/client_item_property_special_maker.cpp"
 }

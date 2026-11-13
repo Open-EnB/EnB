@@ -3,20 +3,7 @@
  "copy": "reconstructed",
  "description": "E&B's debug log (its asserts name e:\\build\\beta\\G\\app\\dbgmgr\\dbgmgr.cpp): WWDebug's handler 0x509C10, the output 0x509C40, the print forms 0x509D50-0x509E30, 0x509E50-0x509EB0, WinMain's step log 0x509EF0 / 0x50A1E0 over a std::deque<DbgStepStruct> (its out-of-line members 0x509B30, 0x50A560-0x50A810)",
  "expected": {},
- "in_tree": [
-  "0x509C10",
-  "0x509C40",
-  "0x509D50",
-  "0x509DC0",
-  "0x509E30",
-  "0x509E70",
-  "0x509EB0",
-  "0x509EF0",
-  "0x50A5A0",
-  "0x50A760",
-  "0x50A7F0",
-  "0x50A810"
- ],
+ "in_tree": [],
  "merged": [],
  "name": "dbgmgr/dbgmgr.cpp"
 }

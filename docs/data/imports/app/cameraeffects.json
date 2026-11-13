@@ -1,21 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the camera effects (cameraeffects.cpp's __FILE__, 0x6E32E0's assert; client 0x6E2B40-0x6E46A0, claim #62): so far the shake's and the shield jitter's slot 0x6E3710 / 0x6E3B60 and the jitter's constructor 0x6E37F0, all exact (TG4); their tables 0xAFFE64 / 0xAFFE84 in the object's constants, the file's generator 0xBE67E8 (TG4)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x546970",
-  "0x6E3710",
-  "0x6E37F0",
-  "0x6E3B60"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/cameraeffects.cpp",
- "shared": [
-  "0x42F250",
-  "0x546970"
- ]
+ "name": "client/cameraeffects.cpp"
 }

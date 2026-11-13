@@ -1,27 +1,9 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "PROVISIONAL file name (D137): CameraModule79C8E0Class, the look-at module of eight camera controllers (table 0xB05630, 0x1C bytes; declared in unknown_7979a0.h), client 0x79C8E0-0x79D0DF (no __FILE__ or assert; after unknown_79c4a0.cpp's <string> initialiser 0x79C8B0, ending with its own at 0x79D0C0); 0x79C970 NOT EXACT (WE3)",
  "expected": {},
- "in_tree": [
-  "0x42F250",
-  "0x447C40",
-  "0x79BC60",
-  "0x79C8E0",
-  "0x79C920",
-  "0x79C950"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/unknown_79c8e0.cpp",
- "shared": [
-  "0x42F250",
-  "0x447C40",
-  "0x79BC60",
-  "0x79C950"
- ],
- "short_known": [
-  "0x79C950"
- ]
+ "name": "client/unknown_79c8e0.cpp"
 }

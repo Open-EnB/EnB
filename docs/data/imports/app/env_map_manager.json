@@ -1,55 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0",
-  "0x46BE90",
-  "0x474080"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "EnvironmentMapManagerClass (NAME 3 by convention from env_map_manager.cpp; 0x24 bytes: the BaseGridTextures vector, an axis, envmaps.ini's INIClass), client 0x7602C0-0x7617C0 (__FILE__ 0xB9B1D4, asserts on lines 9, 42, 56-137): Load 0x760360 byte-exact; 0x760770 (the BACK-%i reflection blended into each base grid texture) functional NOT EXACT (D64) (STB)",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D050",
-  "0x42D120",
-  "0x42F250",
-  "0x46BE90",
-  "0x4B5740",
-  "0x760360",
-  "0x761540",
-  "0x7617A0",
-  "0x7617E0",
-  "0x761820",
-  "0x761870",
-  "0x7618B0",
-  "0x761A30",
-  "0x761BC0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/env_map_manager.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D050",
-  "0x42D120",
-  "0x42F250",
-  "0x46BE90",
-  "0x4B5740"
- ],
- "short_known": [
-  "0x42D120"
- ],
- "tiebreak": [
-  "0x7617E0",
-  "0x761BC0"
- ]
+ "name": "client/env_map_manager.cpp"
 }

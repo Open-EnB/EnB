@@ -3,22 +3,7 @@
  "copy": "reconstructed",
  "description": "ClientItemPropertyClass (NAME 1, interim D137), the item property files' common base (table 0xAEDBF0), client 0x51F900-0x51F9AF: ctor 0x51F900, dtors 0x51F950 / 0x51F920, Accept 0x51F970, <string>'s guarded static 0x51F990; no assert, file name provisional (D137)",
  "expected": {},
- "in_tree": [
-  "0x45CC10",
-  "0x45CC30",
-  "0x51F900",
-  "0x51F920",
-  "0x51F950",
-  "0x51F970",
-  "0x51F990"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/item/client_item_property.cpp",
- "shared": [
-  "0x45CC10",
-  "0x45CC30"
- ],
- "short_known": [
-  "0x51F950"
- ]
+ "name": "client/item/client_item_property.cpp"
 }

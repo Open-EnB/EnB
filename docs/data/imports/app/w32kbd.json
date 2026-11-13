@@ -3,24 +3,7 @@
  "copy": "reconstructed",
  "description": "w32kbd.cpp's keyboard handler, client 0x430490-0x430D40 (the reporter's __LINE__ 124 / 270, D25; builder INP, run PR #140): the constructor, destructor, Set_Repeat, the registration pair and the key-message handler 0x4307A0 exact, the key test 0x430CA0 NOT EXACT (register); the handler list before 0x430490 not rebuilt",
  "expected": {},
- "in_tree": [
-  "0x42F060",
-  "0x42F250",
-  "0x430490",
-  "0x430600",
-  "0x430630",
-  "0x4306D0",
-  "0x430700",
-  "0x430750",
-  "0x4307A0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "input/w32kbd.cpp",
- "shared": [
-  "0x42F060",
-  "0x42F250"
- ],
- "short_known": [
-  "0x4306D0"
- ]
+ "name": "input/w32kbd.cpp"
 }

@@ -3,44 +3,7 @@
  "copy": "reconstructed",
  "description": "the send-only opcode 30004's object, 0x861B30-0x861D80 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x861B30",
-  "0x861B70",
-  "0x861BA0",
-  "0x861BC0",
-  "0x861C50",
-  "0x861D10",
-  "0x861D30",
-  "0x861D60",
-  "0x861D80"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkunknown_861b30.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x861BA0"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x861BA0",
-  "0x861D10",
-  "0x861D60"
- ]
+ "name": "packets/pkunknown_861b30.cpp"
 }

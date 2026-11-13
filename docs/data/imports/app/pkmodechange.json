@@ -3,42 +3,7 @@
  "copy": "reconstructed",
  "description": "opcode 76 written by hand (builder P4), client 0x89CAF0-0x89CD80; the file name provisional (NAME 1)",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x89CAF0",
-  "0x89CB60",
-  "0x89CB90",
-  "0x89CBB0",
-  "0x89CC50",
-  "0x89CD20",
-  "0x89CD40",
-  "0x89CD80"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkmodechange.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x89CB90"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x89CB90",
-  "0x89CD20"
- ]
+ "name": "packets/pkmodechange.cpp"
 }

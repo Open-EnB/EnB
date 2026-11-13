@@ -1,64 +1,9 @@
 {
- "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientItemPropertySpecialSkillRequirementClass (the client's __FILE__ e:\\build\\beta\\G\\app\\Client\\item\\client_item_property_special_skill_requirement.cpp, 0xB78430), a skill requirement as a special property (table 0xAEE104, 0x3C bytes, 'Requires <skill> level <n>'), client 0x52E760-0x52F9DF: Create 0x52E760 (G_ASSERT(0) line 48), ctor 0x52E9E0, dtors 0x52EBE0 / 0x52EBB0, Get_Lines 0x52EC50, Is_Usable 0x52F010 (FAIL_IFs lines 92, 95, 98, 99), Create_NEW 0x52F190, vector<ClientItemPropertySpecialLineStruct>::insert(iterator, const T &) 0x52F1F0 and its helpers 0x52F450-0x52F710, UnknownRTTIClass<DeltaItemArrayClass<DeltaSkillClass> >::Cast 0x52F990",
  "expected": {},
- "in_tree": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42C4E0",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D050",
-  "0x42D120",
-  "0x42F250",
-  "0x45CC10",
-  "0x52BFA0",
-  "0x52C3D0",
-  "0x52E760",
-  "0x52E9E0",
-  "0x52EBB0",
-  "0x52EBE0",
-  "0x52EC50",
-  "0x52F190",
-  "0x52F1C0",
-  "0x52F1F0",
-  "0x52F450",
-  "0x52F490",
-  "0x52F4D0",
-  "0x52F520",
-  "0x52F560",
-  "0x52F710"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "client/item/client_item_property_special_skill_requirement.cpp",
- "shared": [
-  "0x42A820",
-  "0x42A940",
-  "0x42A970",
-  "0x42AB30",
-  "0x42C4E0",
-  "0x42CAB0",
-  "0x42CD30",
-  "0x42D050",
-  "0x42D120",
-  "0x42F250",
-  "0x45CC10",
-  "0x52BFA0",
-  "0x52C3D0",
-  "0x52F1F0",
-  "0x52F490",
-  "0x52F4D0",
-  "0x52F520",
-  "0x52F560",
-  "0x52F710"
- ],
- "short_known": [
-  "0x42D120"
- ]
+ "name": "client/item/client_item_property_special_skill_requirement.cpp"
 }

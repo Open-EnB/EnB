@@ -3,44 +3,7 @@
  "copy": "reconstructed",
  "description": "packet classes (opcode 38) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
- "in_tree": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x87E4F0",
-  "0x87E510",
-  "0x87E540",
-  "0x87E560",
-  "0x87E620",
-  "0x87E710",
-  "0x87E730",
-  "0x87E7A0"
- ],
+ "in_tree": [],
  "merged": [],
- "name": "packets/pkchangebaseasset.cpp",
- "shared": [
-  "0x52B210",
-  "0x52B240",
-  "0x52B270",
-  "0x52B2A0",
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x52B350",
-  "0x87E4F0",
-  "0x87E540"
- ],
- "short_known": [
-  "0x52B2D0",
-  "0x52B310",
-  "0x52B330",
-  "0x87E4F0",
-  "0x87E540",
-  "0x87E710"
- ]
+ "name": "packets/pkchangebaseasset.cpp"
 }
