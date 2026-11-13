@@ -30,26 +30,26 @@ public:
 	char Unknown0B8[0xD0 - 0xB8];						// +0xB8
 };
 
-// One news item of pt_data.cpp's list (0x696C60 returns it)
-struct Unknown696810RecordStruct  // NAME 1: neutral (D10)
-{
-	const char *Unknown00;								// +0x00 (the row's date)
-	const char *Unknown04;								// +0x04 (the row's location)
-	const char *Unknown08;								// +0x08 (the row's title)
-	const char *Unknown0C;								// +0x0C (the text)
-};
+#include "pt_data.h"
 
-// pt_data.cpp's news list (0x10 bytes: constructor 0x696810, destructor 0x696BC0)
-class Unknown696810Class  // NAME 1: neutral (D10)
-{
-public:
-	Unknown696810Class();								// 0x696810
-	~Unknown696810Class();								// 0x696BC0
-	Unknown696810RecordStruct *Unknown_696C60(int idx);	// 0x696C60 (G_ASSERT 'idx >= 0')  // NAME 3 [idx]: the G_ASSERT's
-	int Count() { return(List.size()); }				// NAME 1: what it returns
 
-	std::vector<Unknown696810RecordStruct *> List;		// +0x00  // NAME 1: what it holds
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -222,7 +222,7 @@ void UIPTNewClass::Unknown_5E03A0(int index)
 		if (Unknown0C8 <= -1) {
 			font->Unknown_6D0A70("WRAP_NEWS00_PT_NEWS", "Select News");
 		} else {
-			font->Unknown_6D0A70("WRAP_NEWS00_PT_NEWS", Unknown0B4->Unknown_696C60(Unknown0C8)->Unknown0C);
+			font->Unknown_6D0A70("WRAP_NEWS00_PT_NEWS", Unknown0B4->Unknown_696C60(Unknown0C8)->Story);
 		}
 	}
 }
@@ -256,9 +256,9 @@ void UIPTNewClass::Unknown_5E0470()
 		row++;
 		Unknown696810RecordStruct *record = Unknown0B4->Unknown_696C60(index++);
 		if (record) {
-			(*it)->Date->Change_Text(record->Unknown00, 0);
-			(*it)->Location->Change_Text(record->Unknown04, 0);
-			(*it)->Title->Change_Text(record->Unknown08, 0);
+			(*it)->Date->Change_Text(record->Date, 0);
+			(*it)->Location->Change_Text(record->Location, 0);
+			(*it)->Title->Change_Text(record->Headline, 0);
 		} else {
 			(*it)->Date->Change_Text(" ", 0);
 			(*it)->Location->Change_Text(" ", 0);
@@ -280,6 +280,7 @@ void UIPTNewClass::Unknown_5E0470()
 **	in releasing the screens before the scroll bar and the list in its destructor, and in opening on the list
 **	(0x5E0470) instead of a cleared selection.
 **
-**	pt_data.cpp's news list (0x696810) and the scroll bar class 0x675370 are declared here as far as this page
-**	uses them (neutral names, D10). The class is declared in ui_ptnew.h (PROVISIONAL name, D137).
+**	pt_data.cpp's news list (0x696810) comes from pt_data.h (included where its local declaration stood); the
+**	scroll bar class 0x675370 is declared here as far as this page uses it (neutral name, D10). The class is
+**	declared in ui_ptnew.h (PROVISIONAL name, D137).
 */

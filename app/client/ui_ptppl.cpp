@@ -31,30 +31,30 @@ public:
 	char Unknown0B8[0xD0 - 0xB8];						// +0xB8
 };
 
-// One person of pt_data.cpp's list (0x6971B0 returns it)
-struct Unknown696CD0RecordStruct  // NAME 1: neutral (D10)
-{
-	const char *Unknown00;								// +0x00 (the row's name)
-	const char *Unknown04;								// +0x04 (the row's profession)
-	const char *Unknown08;								// +0x08 (the row's location)
-	const char *Unknown0C;								// +0x0C (the profile)
-	int Unknown10;										// +0x10 (the row's level)
-	int Unknown14;										// +0x14 ('Combat: %d')
-	int Unknown18;										// +0x18 ('Explore: %d')
-	int Unknown1C;										// +0x1C ('Trade: %d')
-};
+#include "pt_data.h"
 
-// pt_data.cpp's people list (0x10 bytes: constructor 0x696CD0, destructor 0x697110)
-class Unknown696CD0Class  // NAME 1: neutral (D10)
-{
-public:
-	Unknown696CD0Class();								// 0x696CD0
-	~Unknown696CD0Class();								// 0x697110
-	Unknown696CD0RecordStruct *Unknown_6971B0(int idx);	// 0x6971B0  // NAME 1 [idx]: as 0x6967A0's G_ASSERT
-	int Count() { return(List.size()); }				// NAME 1: what it returns
 
-	std::vector<Unknown696CD0RecordStruct *> List;		// +0x00  // NAME 1: what it holds
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -225,12 +225,12 @@ void UIPTPplClass::Unknown_5E1390(int index)
 			person->Change_Text(" ", 0);
 		} else {
 			Unknown696CD0RecordStruct *record = Unknown0B0->Unknown_6971B0(Unknown0D8);
-			font->Unknown_6D0A70("WRAP_Profile00_PT_PEOPLE", record->Unknown0C);
-			combat->Unknown_6CE420(0, "Combat: %d", record->Unknown14);
-			trade->Unknown_6CE420(0, "Trade: %d", record->Unknown1C);
-			explore->Unknown_6CE420(0, "Explore: %d", record->Unknown18);
-			profession->Change_Text(record->Unknown04, 0);
-			person->Change_Text(record->Unknown00, 0);
+			font->Unknown_6D0A70("WRAP_Profile00_PT_PEOPLE", record->Background);
+			combat->Unknown_6CE420(0, "Combat: %d", record->Combat);
+			trade->Unknown_6CE420(0, "Trade: %d", record->Trade);
+			explore->Unknown_6CE420(0, "Explore: %d", record->Explore);
+			profession->Change_Text(record->Profession, 0);
+			person->Change_Text(record->Name, 0);
 		}
 	}
 }
@@ -266,10 +266,10 @@ void UIPTPplClass::Unknown_5E15F0()
 		row++;
 		Unknown696CD0RecordStruct *record = Unknown0B0->Unknown_6971B0(index++);
 		if (record) {
-			(*it)->Name->Change_Text(record->Unknown00, 0);
-			(*it)->Prof->Change_Text(record->Unknown04, 0);
-			(*it)->Loc->Change_Text(record->Unknown08, 0);
-			(*it)->Level->Unknown_6CE420(0, "%d", record->Unknown10);
+			(*it)->Name->Change_Text(record->Name, 0);
+			(*it)->Prof->Change_Text(record->Profession, 0);
+			(*it)->Loc->Change_Text(record->Location, 0);
+			(*it)->Level->Unknown_6CE420(0, "%d", record->Level);
 		} else {
 			(*it)->Name->Change_Text(" ", 0);
 			(*it)->Prof->Change_Text(" ", 0);
@@ -292,6 +292,7 @@ void UIPTPplClass::Unknown_5E15F0()
 **	textures 'IF_TERR.TGA' / 'IF_CIR20.TGA' (REF_PTR_RELEASE in the destructor), +0xC8 released on close
 **	(nothing in the file sets it) and a profile ('Combat: %d', 'Trade: %d', 'Explore: %d') under the list.
 **
-**	pt_data.cpp's people list (0x696CD0) and the scroll bar class 0x675370 are declared here as far as this page
-**	uses them (neutral names, D10). The class is declared in ui_ptppl.h (PROVISIONAL name, D137).
+**	pt_data.cpp's people list (0x696CD0) comes from pt_data.h (included where its local declaration stood); the
+**	scroll bar class 0x675370 is declared here as far as this page uses it (neutral name, D10). The class is
+**	declared in ui_ptppl.h (PROVISIONAL name, D137).
 */

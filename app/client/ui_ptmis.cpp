@@ -30,27 +30,27 @@ public:
 	char Unknown0B8[0xD0 - 0xB8];						// +0xB8
 };
 
-// One mission of pt_data.cpp's list (0x6967A0 returns it)
-struct Unknown696320RecordStruct  // NAME 1: neutral (D10)
-{
-	const char *Unknown00;								// +0x00 (the row's mission)
-	const char *Unknown04;								// +0x04 (the row's request)
-	const char *Unknown08;								// +0x08
-	const char *Unknown0C;								// +0x0C (the description)
-	const char *Unknown10;								// +0x10 (the row's payout)
-};
+#include "pt_data.h"
 
-// pt_data.cpp's missions list (0x10 bytes: constructor 0x696320, destructor 0x696700)
-class Unknown696320Class  // NAME 1: neutral (D10)
-{
-public:
-	Unknown696320Class();								// 0x696320
-	~Unknown696320Class();								// 0x696700
-	Unknown696320RecordStruct *Unknown_6967A0(int idx);	// 0x6967A0 (G_ASSERT 'idx >= 0')  // NAME 3 [idx]: the G_ASSERT's
-	int Count() { return(List.size()); }				// NAME 1: what it returns
 
-	std::vector<Unknown696320RecordStruct *> List;		// +0x00  // NAME 1: what it holds
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -201,7 +201,7 @@ void UIPTMisClass::Unknown_5DF340(int index)
 		if (Unknown0C8 <= -1) {
 			font->Unknown_6D0A70("WRAP_Mission_desc_PT_MIS", "Select Mission");
 		} else {
-			font->Unknown_6D0A70("WRAP_Mission_desc_PT_MIS", Unknown0B4->Unknown_6967A0(Unknown0C8)->Unknown0C);
+			font->Unknown_6D0A70("WRAP_Mission_desc_PT_MIS", Unknown0B4->Unknown_6967A0(Unknown0C8)->Desc);
 		}
 	}
 }
@@ -235,9 +235,9 @@ void UIPTMisClass::Unknown_5DF410()
 		row++;
 		Unknown696320RecordStruct *record = Unknown0B4->Unknown_6967A0(index++);
 		if (record) {
-			(*it)->Mission->Change_Text(record->Unknown00, 0);
-			(*it)->Request->Change_Text(record->Unknown04, 0);
-			(*it)->Payout->Change_Text(record->Unknown10, 0);
+			(*it)->Mission->Change_Text(record->Type, 0);
+			(*it)->Request->Change_Text(record->Sponsor, 0);
+			(*it)->Payout->Change_Text(record->Payout, 0);
 		} else {
 			(*it)->Mission->Change_Text(" ", 0);
 			(*it)->Request->Change_Text(" ", 0);
@@ -267,7 +267,7 @@ void UIPTMisClass::Unknown_5DF410()
 **	(a shared break gives a compare chain, not the client's jump table); the description's test is
 **	'<= -1'; the count clamp reads Count() twice.
 **
-**	pt_data.cpp's missions list (0x696320) and the scroll bar class 0x675370 are not in the tree: both are
-**	declared here as far as this page uses them (neutral names, D10). The class is declared in ui_ptmis.h
-**	(PROVISIONAL name, D137).
+**	pt_data.cpp's missions list (0x696320) comes from pt_data.h (included where its local declaration stood,
+**	so no assert moves); the scroll bar class 0x675370 is not in the tree and is declared here as far as this
+**	page uses it (neutral name, D10). The class is declared in ui_ptmis.h (PROVISIONAL name, D137).
 */
