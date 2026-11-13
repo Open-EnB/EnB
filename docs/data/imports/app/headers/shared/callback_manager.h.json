@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: CallbackManager's header (CallbackClass, the callback list, the shared iterator registry 0xBE34E0); name from the .cpp's __FILE__ (interim placement, D137)"
+}
