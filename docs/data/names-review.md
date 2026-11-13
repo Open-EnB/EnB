@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1912 |
 | 2 | describes what the code does | 4684 |
-| 1 | neutral placeholder | 24620 |
+| 1 | neutral placeholder | 24627 |
 
 ## For review (score 3 and below)
 
@@ -7572,6 +7572,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_513F60` | `app/client/sclient.cpp:2306` | untagged neutral name (D10) |
 | 1 | `Unknown_745F30` | `app/client/sclient.cpp:2331` | untagged neutral name (D10) |
 | 1 | `Unknown_514010` | `app/client/sclient.cpp:2358` | untagged neutral name (D10) |
+| 1 | `Unknown_745FF0` | `app/client/sclient.cpp:2379` | untagged neutral name (D10) |
+| 1 | `Unknown_5638E0` | `app/client/sclient.cpp:2381` | untagged neutral name (D10) |
+| 1 | `Unknown1138` | `app/client/sclient.cpp:2522` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/sclient.cpp:2524` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/sclient.cpp:2527` | untagged neutral name (D10) |
+| 1 | `Unknown_BE71D4` | `app/client/sclient.cpp:2683` | untagged neutral name (D10) |
+| 1 | `Unknown_7472A0` | `app/client/sclient.cpp:2686` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/sclient.cpp:2692` | untagged neutral name (D10) |
+| 1 | `Unknown_747510` | `app/client/sclient.cpp:2751` | untagged neutral name (D10) |
+| 1 | `Unknown_747990, reason, quit` | `app/client/sclient.cpp:2802` | neutral (D10); what 0x74ABC0 does with them |
+| 1 | `Unknown_747990` | `app/client/sclient.cpp:2802` | untagged neutral name (D10) |
+| 1 | `Unknown_747AF0` | `app/client/sclient.cpp:2821` | untagged neutral name (D10) |
 | 1 | `Unknown_747C70` | `app/client/sclient.cpp:2843` | untagged neutral name (D10) |
 | 1 | `Unknown_747FA0` | `app/client/sclient.cpp:2885` | untagged neutral name (D10) |
 | 1 | `Unknown_765BE0` | `app/client/sclient.cpp:2890` | untagged neutral name (D10) |
@@ -7582,8 +7594,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_780810` | `app/client/sclient.cpp:3205` | untagged neutral name (D10) |
 | 1 | `Unknown_749590` | `app/client/sclient.cpp:3247` | untagged neutral name (D10) |
 | 1 | `Unknown_781760` | `app/client/sclient.cpp:3279` | untagged neutral name (D10) |
-| 1 | `Unknown1138` | `app/client/sclient.cpp:3280` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `app/client/sclient.cpp:3281` | untagged neutral name (D10) |
 | 1 | `Unknown_878D90` | `app/client/sclient.cpp:3282` | untagged neutral name (D10) |
 | 1 | `Unknown_7817E0` | `app/client/sclient.cpp:3282` | untagged neutral name (D10) |
 | 1 | `Unknown_5658B0` | `app/client/sclient.cpp:3287` | untagged neutral name (D10) |
@@ -7653,7 +7663,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6E9490` | `app/client/sclient.cpp:5292` | untagged neutral name (D10) |
 | 1 | `UnknownB00060EffectClass` | `app/client/sclient.cpp:5294` | untagged neutral name (D10) |
 | 1 | `UnknownB0009CEffectClass` | `app/client/sclient.cpp:5298` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/sclient.cpp:5302` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/sclient.cpp:5305` | untagged neutral name (D10) |
 | 1 | `Unknown_38` | `app/client/sclient.cpp:5309` | untagged neutral name (D10) |
 | 1 | `Unknown_7511A0` | `app/client/sclient.cpp:5330` | untagged neutral name (D10) |
@@ -7670,8 +7679,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Copy_Root` | `app/client/sclient.cpp:5488` | neutral (D10) |
 | 1 | `Unknown_BE5F20` | `app/client/sclient.cpp:5542` | neutral (D10) |
 | 1 | `Unknown_34` | `app/client/sclient.cpp:5546` | untagged neutral name (D10) |
-| 1 | `Unknown_747510` | `app/client/sclient.cpp:5549` | untagged neutral name (D10) |
-| 1 | `Unknown_745FF0` | `app/client/sclient.cpp:5552` | untagged neutral name (D10) |
 | 1 | `Unknown05` | `app/client/sclient.cpp:5584` | untagged neutral name (D10) |
 | 1 | `Unknown_640150` | `app/client/sclient.cpp:5626` | untagged neutral name (D10) |
 | 1 | `Unknown_6FF7A0` | `app/client/sclient.cpp:5672` | untagged neutral name (D10) |
@@ -8087,7 +8094,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_749ED0` | `app/client/sclient.h:899` | untagged neutral name (D10) |
 | 1 | `view` | `app/client/sclient.h:908` | what it gets |
 | 1 | `Unknown_742530` | `app/client/sclient.h:908` | untagged neutral name (D10) |
-| 1 | `text, arg, set_state` | `app/client/sclient.h:909` | the chat line; neutral; what it does |
+| 1 | `text, reason, quit` | `app/client/sclient.h:909` | the chat line; what 0x74ABC0 passes |
 | 1 | `Unknown_7429B0` | `app/client/sclient.h:909` | untagged neutral name (D10) |
 | 1 | `Unknown_743440` | `app/client/sclient.h:909` | untagged neutral name (D10) |
 | 1 | `Unknown_7472A0` | `app/client/sclient.h:909` | untagged neutral name (D10) |
@@ -26248,14 +26255,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Load` | `app/client/sclient.cpp:107` | what it does |
 | 2 | `INIUsers` | `app/client/sclient.cpp:299` | what it counts |
 | 2 | `SoundManager` | `app/client/sclient.cpp:779` | what it holds |
+| 2 | `ChatCommandHelp` | `app/client/sclient.cpp:2365` | 0x745FF0's '/chat' help lines |
+| 2 | `LogoffCommandStruct` | `app/client/sclient.cpp:2372` | what 0x74ABC0 does with an entry |
+| 2 | `LogoffCommands` | `app/client/sclient.cpp:2373` | what 0x74ABC0 sends for them |
+| 2 | `CampCommands` | `app/client/sclient.cpp:2374` | the command 0x74ABC0 refuses |
 | 2 | `Unknown_Player_Avatar` | `app/client/sclient.cpp:3201` | what it does (the callers pass Get_Avatar_ID()) |
 | 2 | `TestEffectStruct` | `app/client/sclient.cpp:4363` | testeffects.ini's record |
 | 2 | `Sample2DNames` | `app/client/sclient.cpp:5116` | what it holds |
 | 2 | `Sample3DNames` | `app/client/sclient.cpp:5117` | what it holds |
-| 2 | `ChatCommandHelp` | `app/client/sclient.cpp:5532` | 0x745FF0's '/chat' help lines |
-| 2 | `LogoffCommandStruct` | `app/client/sclient.cpp:5539` | what 0x74ABC0 does with an entry |
-| 2 | `LogoffCommands` | `app/client/sclient.cpp:5540` | what 0x74ABC0 sends for them |
-| 2 | `CampCommands` | `app/client/sclient.cpp:5541` | the command 0x74ABC0 refuses |
 | 2 | `BuddyRewardStruct` | `app/client/sclient.h:51` | what 0x751460 sums from it |
 | 2 | `SkillPoints` | `app/client/sclient.h:54` | the text it fills |
 | 2 | `Credits` | `app/client/sclient.h:55` | the text it fills |
