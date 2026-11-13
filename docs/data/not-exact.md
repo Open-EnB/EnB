@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-759 entries in 252 files.
+764 entries in 252 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -536,6 +536,11 @@ edit the comments in the code, not this file.
 | `app/client/ui_slot_info.cpp:135` | `UISlotInfoClass::Unknown_630070` | marker | NOT EXACT: functional (D64), from the pseudocode |
 | `app/client/ui_slot_scut.cpp:90` | `SlotDataShortcutInterface::Update` | marker | NOT EXACT: one out-of-line begin() more than the client in the last set's destructor (attempts.py show 0x6309F0) @0x6309F0 |
 | `app/client/ui_starbase.cpp:673` | `UIStarbaseClass::Unknown_54` | marker | NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four terminals, the four doors with their signs, the ship on the hangar's extents, the bar and table models and the '%s_%dmd' animated models 0x634140 |
+| `app/client/ui_starbase.cpp:1099` | `UIStarbaseClass::Unknown_63BC30` | marker | NOT EXACT: 0x63BC30, functional (loop shape: the client keeps the test of the count at the loop's top before the first sweep, ours rotates it; while, do-while, for(;;) and goto forms tried; C3) 0x63BC30 |
+| `app/client/ui_starbase.cpp:1132` | `UIStarbaseClass::Unknown_63D280` | marker | NOT EXACT: 0x63D280, functional (inline budget: the client inlines SGI's find with the vector's size 0x644470 out of line; ours calls the out-of-line find 0x643E60; C3) 0x63D280 |
+| `app/client/ui_starbase.cpp:1140` | `UIStarbaseClass::Unknown_63AAF0` | marker | NOT EXACT: 0x63AAF0, functional (inline budget: the client inlines SGI's begin with the vector's size 0x644470 out of line; ours calls begin 0x643DF0; C3) 0x63AAF0 |
+| `app/client/ui_starbase.cpp:1212` | `UIStarbaseClass::Unknown_8C` | marker | NOT EXACT: 0x638DA0, functional (register: the client takes the RefCountPtr temporary's address in eax after pushing the model, ours in ecx before; a named temporary is worse; C3) 0x638DA0 |
+| `app/client/ui_starbase.cpp:1268` | `UIStarbaseClass::Unknown_63C590` | marker | NOT EXACT: 0x63C590, functional (register: with 0x63BA70 inline, as the client has it, the shape is the client's; esi / edi swapped for the door and the avatar, the two flags' stores; C3) 0x63C590 |
 | `app/client/ui_starbase.cpp:1999` | `UIStarbaseClass::Unknown_63A100` | marker | NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1) 0x63A100 |
 | `app/client/ui_starbase.cpp:3089` | `UIStarbaseClass::Unknown_641C00` | marker | NOT EXACT: 0x641C00, functional (frame: the client keeps the NPC position's y / z in two more stack copies, sub esp 0x98 against 0x8C; B1) 0x641C00 |
 | `app/client/ui_starbase.cpp:3209` | `UIStarbaseClass::Unknown_640F50` | marker | NOT EXACT: 0x640F50, functional (the avatar dropped onto the room's model: a 0.5 box swept 50 down from its position at its height; the client copies the position through a Matrix3D temporary and keeps a smaller frame; B1) 0x640F50 |
