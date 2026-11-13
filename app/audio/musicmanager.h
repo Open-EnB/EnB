@@ -44,6 +44,7 @@ public:
 	void Queue_Sector_Themes();				// 0x43B7D0: Queue_Sector_Theme(Sector) for every type  // NAME 2: what it does
 	bool Queue_Sector_Theme(int sector);	// 0x43B860 (l.572, G_ASSERT 'theme', l.586): the current type's theme of that sector put alone in its list  // NAME 2: what it does
 	void Play_Music(int music_id);			// 0x43B970 (0x74BFB0: the 'MusicID' aux value): [MusicTheme-NNN]'s Component-00 played LoopCount times as SectorMusic  // NAME 2: what it does
+	void Stop_Sector_Music();				// 0x43BBA0 (no caller: the out-of-line copy of what the destructor, Stop, Set_Sector and Play_Music do inline): SectorMusic stopped and released  // NAME 2: what it does
 
 	std::vector<MusicThemeClass *> Themes[NUM_MUSIC_THEME_TYPES];	// +0x000: by Type (G_ASSERT 'theme')  // NAME 2: what it holds
 	MusicListClass Lists[NUM_MUSIC_THEME_TYPES];	// +0x050  // NAME 2: what it holds
