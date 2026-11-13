@@ -2360,6 +2360,187 @@ void SClient::Unknown_745F30(int type)
 }
 
 
+// The chat commands' tables (0xB98088, 0xB980F8, 0xB98138) and the client that shows the names under the mouse
+// (0xBE5F20, '/art name')
+static const char *ChatCommandHelp[] = {	// NAME 2: 0x745FF0's '/chat' help lines
+	"/chat", "/chat tell PERSON TEXT...", "/chat all TEXT", "/chat ignore PERSON", "/chat unignore PERSON", "/chat friend PERSON", "/chat unfriend PERSON",
+	"/chat list channels", "/chat list all_channels", "/chat list ignores", "/chat list friends", "/chat channel CHANNEL create ", "/chat channel CHANNEL remove ",
+	"/chat channel CHANNEL enter [PASSWORD]", "/chat channel CHANNEL exit ", "/chat channel CHANNEL say TEXT", "/chat channel CHANNEL invite PERSON",
+	"/chat channel CHANNEL uninvite PERSON", "/chat channel CHANNEL ban\tPERSON", "/chat channel CHANNEL unban PERSON", "/chat channel CHANNEL gag PERSON",
+	"/chat channel CHANNEL ungag PERSON", "/chat channel CHANNEL owner PERSON", "/chat channel CHANNEL unowner PERSON", "/chat channel CHANNEL access TYPE",
+	"/chat channel CHANNEL password PASSWORD", "/chat channel CHANNEL members", NULL };
+struct LogoffCommandStruct { const char *Name; bool Quit; };	// NAME 2: what 0x74ABC0 does with an entry
+static const LogoffCommandStruct LogoffCommands[] = { { "/logoff", false }, { "/log", false }, { "/quit", true }, { "", false } };	// NAME 2: what 0x74ABC0 sends for them
+static const char *CampCommands[] = { "/camp", NULL };	// NAME 2: the command 0x74ABC0 refuses
+
+// NOT EXACT: shape (explain.py: 51 masked rows, 1362 instructions against 1363): every block matches but the help lines' block, which VC6 places right after the 'help' test where the client keeps it after the request (je to it, jmp to the end); goto, a flag tested apart or first, the flag at the top: no better (attempts.py show 0x745FF0)
+// 0x745FF0 (0x74ABC0: '/chat ...'): the chat panel's own commands first, else one CLIENT_CHAT_REQUEST 163 (the
+// request type, the person, the channel and the text), or the help lines
+bool SClient::Unknown_745FF0(const char *text)
+{
+	if (ChatPanel && ChatPanel->Unknown_5638E0((int)text)) {
+		return(true);
+	}
+	bool ok = false;
+	char *copy = nstrdup(text);
+	char *token = strtok(copy, " ");
+	if (strcmp(token, ChatCommandHelp[0]) == 0) {
+		char *person = NULL;
+		char *channel = NULL;
+		char *message = NULL;
+		int type;
+		bool help = false;
+		token = strtok(NULL, " ");
+		if (token != NULL) {
+			if (strcmp(token, "channel") == 0) {
+				channel = strtok(NULL, " ");
+				if (channel != NULL && (token = strtok(NULL, " ")) != NULL) {
+					if (strcmp(token, "create") == 0) {
+						type = 4;
+						ok = true;
+					} else if (strcmp(token, "remove") == 0) {
+						type = 5;
+						ok = true;
+					} else if (strcmp(token, "enter") == 0) {
+						type = 6;
+						message = strtok(NULL, " ");
+						ok = true;
+					} else if (strcmp(token, "exit") == 0) {
+						type = 7;
+						ok = true;
+					} else if (strcmp(token, "say") == 0) {
+						type = 0;
+						message = strtok(NULL, "");
+						ok = message != NULL;
+					} else if (strcmp(token, "ban") == 0) {
+						type = 14;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "unban") == 0) {
+						type = 15;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "gag") == 0) {
+						type = 16;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "ungag") == 0) {
+						type = 17;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "invite") == 0) {
+						type = 12;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "uninvite") == 0) {
+						type = 13;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "kick") == 0) {
+						type = 20;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "members") == 0) {
+						type = 27;
+						ok = true;
+					} else if (strcmp(token, "access") == 0) {
+						type = 21;
+						message = strtok(NULL, " ");
+						ok = message != NULL;
+					} else if (strcmp(token, "owner") == 0) {
+						type = 18;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "unowner") == 0) {
+						type = 19;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "password") == 0) {
+						type = 22;
+						message = strtok(NULL, " ");
+						ok = message != NULL;
+					}
+				}
+			} else if (strcmp(token, "tell") == 0) {
+				type = 1;
+				person = strtok(NULL, " ");
+				message = strtok(NULL, "");
+				if (person == NULL || message == NULL) {
+					ok = false;
+				} else {
+					ok = true;
+				}
+			} else if (strcmp(token, "all") == 0) {
+				type = 3;
+				message = strtok(NULL, "");
+				ok = message != NULL;
+			} else if (strcmp(token, "ignore") == 0) {
+				type = 10;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "unignore") == 0) {
+				type = 11;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "friend") == 0) {
+				type = 8;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "unfriend") == 0) {
+				type = 9;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "gmgag") == 0) {
+				type = 31;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "gmungag") == 0) {
+				type = 32;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "list") == 0) {
+				token = strtok(NULL, " ");
+				if (token != NULL) {
+					if (strcmp(token, "ignores") == 0) {
+						type = 23;
+						ok = true;
+					} else if (strcmp(token, "friends") == 0) {
+						type = 24;
+						ok = true;
+					} else if (strcmp(token, "channels") == 0) {
+						type = 25;
+						ok = true;
+					} else if (strcmp(token, "all_channels") == 0) {
+						type = 26;
+						ok = true;
+					}
+				}
+			} else if (strcmp(token, "help") == 0) {
+				help = true;
+			}
+			if (ok) {
+				int id = Unknown1138; ClientChatRequestPacketClass packet(type, id);
+				if (person != NULL) {
+					packet.Unknown14 = std::string(person);
+				}
+				if (channel != NULL) {
+					packet.Unknown24 = std::string(channel);
+				}
+				if (message != NULL) {
+					packet.Unknown34 = std::string(message);
+				}
+				Connection->Send_Packet(&packet);
+			} else if (help) {
+				for (int i = 1; i < sizeof(ChatCommandHelp) / sizeof(ChatCommandHelp[0]) - 1; i++) {
+					Unknown_74D990(0x17, (char *)ChatCommandHelp[i], 0);
+				}
+				ok = true;
+			}
+		}
+	}
+	delete [] copy;
+	return(ok);
+}
 
 
 
@@ -2499,6 +2680,50 @@ void SClient::Unknown_745F30(int type)
 
 
 
+extern unsigned int Unknown_BE71D4;	// 0xBE71D4 (postate.cpp: the state blend time; 0x7472A0's waggle)
+// 0x7472A0 (no caller: dead code kept): '/latency get send|recv' and '/latency set send|recv|waggle = N' on the
+// connection's option slot +0x30 (0, 1 read; 2, 3 set), the waggle into the state blend time 0xBE71D4
+bool SClient::Unknown_7472A0(const char *text)
+{
+	G_ASSERT(Connection);
+	if (Connection) {
+		unsigned value;
+		if (strcmp(text, "/latency get send") == 0) {
+			if (!Connection->Unknown_30(0, (int *)&value)) return(false);
+			char buffer[256];
+			sprintf(buffer, "Send latency = %u", value);
+			Unknown_74D990(0x17, buffer, 0);
+			return(true);
+		}
+		if (strcmp(text, "/latency get recv") == 0) {
+			if (!Connection->Unknown_30(1, (int *)&value)) return(false);
+			char buffer[256];
+			sprintf(buffer, "Receive latency = %u", value);
+			Unknown_74D990(0x17, buffer, 0);
+			return(true);
+		}
+		if (sscanf(text, "/latency set send = %u", &value) == 1) {
+			if (Connection->Unknown_30(2, (int *)&value)) {
+				Unknown_74D990(0x17, "ok", 0);
+				return(true);
+			}
+			return(false);
+		}
+		if (sscanf(text, "/latency set recv = %u", &value) == 1) {
+			if (Connection->Unknown_30(3, (int *)&value)) {
+				Unknown_74D990(0x17, "ok", 0);
+				return(true);
+			}
+			return(false);
+		}
+		if (sscanf(text, "/latency set waggle = %u", &value) == 1) {
+			Unknown_BE71D4 = value;
+			Unknown_74D990(0x17, "ok", 0);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -2521,313 +2746,88 @@ void SClient::Unknown_745F30(int type)
 
 
 
+// 0x747510 (0x74ABC0: '/group ...'): one ACTION each (10 invite, 11 accept, 12 refuse, 15 kick, 13 disband,
+// 14 remove), the invite and the kick on the main view's target
+bool SClient::Unknown_747510(const char *text)
+{
+	G_ASSERT(Connection);
+	if (Connection) {
+		if (strcmp(text, "/group invite") == 0) {
+			ClientObjectClass *target = MainView->Unknown_5C();
+			if (target) {
+				Connection->Send_Packet(&ActionPacketClass(AvatarID, 10, target->Get_Game_ID(), 0));
+				return(true);
+			}
+			Unknown_74D990(0x11, "Cannot invite - no target.", 0);
+			return(true);
+		}
+		if (strcmp(text, "/group accept") == 0) {
+			Connection->Send_Packet(&ActionPacketClass(AvatarID, 11, AvatarID, 0));
+			return(true);
+		}
+		if (strcmp(text, "/group refuse") == 0) {
+			Connection->Send_Packet(&ActionPacketClass(AvatarID, 12, AvatarID, 0));
+			return(true);
+		}
+		if (strcmp(text, "/group kick") == 0) {
+			ClientObjectClass *target = MainView->Unknown_5C();
+			if (target) {
+				Connection->Send_Packet(&ActionPacketClass(AvatarID, 15, target->Get_Game_ID(), 0));
+				return(true);
+			}
+			Unknown_74D990(0x11, "Target required.", 0);
+			return(true);
+		}
+		if (strcmp(text, "/group disband") == 0) {
+			Connection->Send_Packet(&ActionPacketClass(AvatarID, 13, AvatarID, 0));
+			return(true);
+		}
+		if (strcmp(text, "/group remove") == 0) {
+			Connection->Send_Packet(&ActionPacketClass(AvatarID, 14, AvatarID, 0));
+			return(true);
+		}
+		if (strcmp(text, "/group help") == 0) {
+			Unknown_74D990(6, "Usage: /group [invite | accept | refuse | disband | kick | help]", 0);
+			Unknown_74D990(6, "For commands that need an object to act on, the target is used.", 0);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x747990 (0x74ABC0 inlines it: no call left): a logoff command at the line's start, the rest of the line the
+// reason, and whether it quits
+bool Unknown_747990(const char *text, std::string &reason, bool *quit)	// NAME 1 [Unknown_747990, reason, quit]: neutral (D10); what 0x74ABC0 does with them
+{
+	int len;
+	for (const LogoffCommandStruct *command = LogoffCommands; (len = strlen(command->Name)) != 0; command++) {
+		if (strnicmp(command->Name, text, len) == 0) {
+			const char *p = text + len;
+			while (*p == ' ') {
+				p++;
+			}
+			reason = p;
+			*quit = command->Quit;
+			return(true);
+		}
+	}
+	return(false);
+}
+// NOT EXACT: shape (explain.py: 2 rows): the client sets the packet's unwind state after pushing its address (lea eax), ours before (lea ecx); the temporary, copy-init, a block scope and a base reference: no better; 0x74ABC0's inlined copy shows the same
+// 0x747AF0 (0x74ABC0 inlines it: no call left): LOGOFF_REQUEST sent with Unknown138C = 1, then 0x743290's answer
+// when the command quits
+bool SClient::Unknown_747AF0(const std::string &reason, bool quit)
+{
+	Unknown138C = 1;
+	LogoffRequestPacketClass packet(Unknown1138);
+	Send_Packet(&packet);
+	if (quit) {
+		Unknown_743290();
+	}
+	return(true);
+}
 
 
 
@@ -5527,18 +5527,18 @@ void SClient::Unknown_755600()
 
 
 
-// The chat commands' tables (0xB98088, 0xB980F8, 0xB98138) and the client that shows the names under the mouse
-// (0xBE5F20, '/art name')
-static const char *ChatCommandHelp[] = {	// NAME 2: 0x745FF0's '/chat' help lines
-	"/chat", "/chat tell PERSON TEXT...", "/chat all TEXT", "/chat ignore PERSON", "/chat unignore PERSON", "/chat friend PERSON", "/chat unfriend PERSON",
-	"/chat list channels", "/chat list all_channels", "/chat list ignores", "/chat list friends", "/chat channel CHANNEL create ", "/chat channel CHANNEL remove ",
-	"/chat channel CHANNEL enter [PASSWORD]", "/chat channel CHANNEL exit ", "/chat channel CHANNEL say TEXT", "/chat channel CHANNEL invite PERSON",
-	"/chat channel CHANNEL uninvite PERSON", "/chat channel CHANNEL ban\tPERSON", "/chat channel CHANNEL unban PERSON", "/chat channel CHANNEL gag PERSON",
-	"/chat channel CHANNEL ungag PERSON", "/chat channel CHANNEL owner PERSON", "/chat channel CHANNEL unowner PERSON", "/chat channel CHANNEL access TYPE",
-	"/chat channel CHANNEL password PASSWORD", "/chat channel CHANNEL members", NULL };
-struct LogoffCommandStruct { const char *Name; bool Quit; };	// NAME 2: what 0x74ABC0 does with an entry
-static const LogoffCommandStruct LogoffCommands[] = { { "/logoff", false }, { "/log", false }, { "/quit", true }, { "", false } };	// NAME 2: what 0x74ABC0 sends for them
-static const char *CampCommands[] = { "/camp", NULL };	// NAME 2: the command 0x74ABC0 refuses
+
+
+
+
+
+
+
+
+
+
+
+
 SClient *Unknown_BE5F20;	// NAME 1: neutral (D10)
 
 // NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds
@@ -5555,24 +5555,24 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	std::string reason;
-	int len;
-	for (const LogoffCommandStruct *command = LogoffCommands; (len = strlen(command->Name)) != 0; command++) {
-		if (strnicmp(command->Name, text, len) == 0) {
-			const char *p = text + len;
-			while (*p == ' ') {
-				p++;
-			}
-			reason = p;
-			bool quit = command->Quit;
-			Unknown138C = 1;
-			LogoffRequestPacketClass packet(Unknown1138);
-			Send_Packet(&packet);
-			if (quit) {
-				Unknown_743290();
-			}
-			return(true);
-		}
+	bool quit;
+	if (Unknown_747990(text, reason, &quit)) {
+		Unknown_747AF0(reason, quit);
+		return(true);
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 	if (strnicmp(text, CampCommands[0], 4) == 0) {
 		MessageStringPacketClass message(0x11, "Unable to camp - insufficient marshmallows.");
 		message.Process_Packet(this);
