@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-821 entries in 270 files.
+823 entries in 271 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -239,6 +239,8 @@ edit the comments in the code, not this file.
 | `app/client/mainview.cpp:1408` | `MainViewClass::Unknown_512400` | marker | NOT EXACT: functional (MV2, from the disassembly) |
 | `app/client/mainview.cpp:1786` | `MainViewClass::Unknown_60` | marker | NOT EXACT: functional (MV2, from the disassembly) slot +0x60: the object under the screen point (x, y in 0..1): the avatar's model first unless skip_avatar, then the objects within the camera's far distance and 5 degrees of the ray (the planets and stations, types 2 / 3 / 10, within their apparent size), the one nearest the ray that no nearer occluder covers |
 | `app/client/mainview.cpp:2148` | `MainViewClass::Unknown_514010` | marker | NOT EXACT: shape (the second switch's case 0 / 5 block sits after the dispatch in the client); attempts.csv 0x514010 |
+| `app/client/manufacturing_category_ui_util.cpp:68` | `Unknown_7EA190` | marker | NOT EXACT: shape (explain.py; an inline budget: the client expands std::string assign inline at case 153, ours at 160; every other site and the length agree) (0x7EA190) |
+| `app/client/manufacturing_category_ui_util.cpp:162` | `Unknown_7EB4D0` | marker | NOT EXACT: shape (explain.py; an inline budget: the client expands std::string assign inline at case 153, ours at 160, as 0x7EA190) (0x7EB4D0) |
 | `app/client/mclient.cpp:133` | `MovieClientClass::Unknown_08` | marker | NOT EXACT: functional (M1): register allocation, the client keeps the next effect node in ebx where this keeps the flag constant 1 (two forms; attempts.py show 0x7EC7C0) 0x7EC7C0 |
 | `app/client/mclient.cpp:242` | `MovieClientClass::Render` | marker | NOT EXACT: functional (M1): register and stack allocation, the client holds this in esi and lays the matrix over the saved flags (two forms; attempts.py show 0x7ECDC0) 0x7ECDC0 |
 | `app/client/meshsnd.cpp:176` | `MeshSoundClass::Unknown_7ED6C0` | marker | NOT EXACT: functional (M1): appfile.py's diff shows no instruction apart, only the four float-literal rows (-1.0 / 0.0f); verify does not pair it (attempts.py show 0x7ED6C0) 0x7ED6C0 |
