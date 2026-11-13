@@ -653,7 +653,9 @@ public:
 static const char *Unknown_B8AA18[9] = { "VB_WEAPON", "VB_SYSTEM", "VB_CORE", "VB_CONSUMABLE", "VB_JUNK", "VB_COMPONENT", "VB_RESOURCE", "VB_BLACKMKT", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B90C2C[12] = { "ico_refinery", "ico_analyze", "ico_manufacture", "ico_jobs", "ico_browser", "ico_ship_con", "ico_ava_con", "ico_encyclo", "ico_encyclo", "ico_encyclo", "ico_encyclo", "ico_encyclo" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8AA3C[16] = { "door_forward", NULL, NULL, NULL, "door_forward", "door_left", "door_back", "door_right", "door_forward", "door_left", "door_back", "door_right", "door_forward", "door_left", "door_back", "door_right" };	// NAME 1: neutral (D10)
+static const char *Unknown_B8AA7C[16] = { "cam_door_fd_out", "", "", "", "cam_door_fd_out", "cam_door_lf_out", "cam_door_bk_out", "cam_door_rt_out", "", "cam_door_lf_out", "", "", "", "", "", "cam_door_rt_out" };	// NAME 1: neutral (D10): the doors' camera bones by room and column (0x63FCB0)
 static int Unknown_B8AABC[16] = { 1, -1, -1, -1, -1, 2, 0, 3, -1, 1, -1, -1, -1, -1, -1, 1 };	// NAME 1: neutral (D10)
+static int Unknown_B8AB3C[16] = { 1, -1, -1, -1, -1, 3, 0, 2, -1, 1, -1, -1, -1, -1, -1, 1 };	// NAME 1: neutral (D10): the room each door leads to (0x63FCB0)
 static const char *Unknown_B8A9A0[6] = { "sn_hangar", "sn_maindeck", "sn_npclounge", "sn_merchants", "sn_lounge", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A9B8[6] = { "sn_hangar", "sn_maindeck", "sn_npclounge", "sn_merchants", "sn_lounge", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A9D0[6] = { "sn_hangar", "sn_maindeck", "sn_npclounge", "sn_const", "sn_lounge", NULL };	// NAME 1: neutral (D10)
@@ -668,7 +670,6 @@ static const char *Unknown_B8ABBC[4][10] = {	// NAME 1: neutral (D10)
 	{ "tbar01", "jbar01", "pbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01", "nbar01" },
 };
 void Unknown_496DB0(RenderObjClass *robj);	// 0x496DB0 (ro_funcs.cpp, cdecl), as avatar.cpp's  // NAME 1 [robj]: avatar.cpp's
-
 inline UIStarbaseUnknownCCClass::UIStarbaseUnknownCCClass() : Unknown00(0), Avatar(NULL), AmbientAvatar(NULL), NameTag(NULL), Unknown10(NULL), Unknown14(0), Unknown18(0), Unknown1C(0), Unknown20(0), Unknown24(""), Unknown34(-1) {}
 // NOT EXACT: 0x634140, functional from the pseudocode (D64; SU1): the window's set-up (slot +0x54): the full-screen
 // gadget, the +0x1F8 interface, the player's avatar entry with its name and guild texts, the 14 NPC slots, the four
@@ -690,7 +691,6 @@ void UIStarbaseClass::Unknown_54()
 		Unknown1F8 = Create_NEW(new UIStarbaseUnknown1F8Class(((LineDisplayClientClass *)Client)->As_Space_Client()));
 		Unknown1F8->Unknown_54();
 		WW3D::Enable_Overbright_Modify_On_Load(true);
-
 		UnknownC0.D = new UIStarbaseUnknownCCClass;
 		UnknownB0->Unknown_6A1880(UnknownC0.D->NameTag, 0);
 		unsigned int id = ((LineDisplayClientClass *)Client)->AvatarID;
@@ -2757,50 +2757,50 @@ void UIStarbaseClass::Unknown_63C890()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x63CA50, functional (inline budget: the client calls the name string's assign out of line, ours inlines it; its client pointer in edi, the bool by a branch; O4)
+// 0x63CA50 ('(%s) Adding avatar %s in room %d': a known avatar's entry made, its name tags and gadget, into +0xD4)
+void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flags)
+{
+	InterfaceSortScopeClass scope(this);
+	Unknown5BB320Class::Unknown_5C();
+	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	UIStarbaseUnknownCCClass *savatar = new UIStarbaseUnknownCCClass;
+	savatar->Unknown00 = id;
+	savatar->Avatar = Create_NEW(sclient->Unknown_74C7B0(id));
+	savatar->Avatar->Set_Transform(transform);
+	savatar->Avatar->Unknown330 = transform;
+	savatar->Avatar->Unknown_785F20(true);
+	savatar->Avatar->Unknown_77E3D0(1);
+	savatar->Avatar->BodyObj->Set_LOD_Bias(1.0f);
+	UnknownB0->Unknown_6A1880(savatar->Unknown10, 3);
+	ClientObjectClass *object = sclient->Find_Object(savatar->Unknown00);
+	if (object && object->Unknown_6FFF00()) {
+		object->Unknown_6FFFF0(savatar->Unknown24);
+		Vector3 color(0.33f, 0.33f, 0.99f);
+		object->Unknown_700670(color);
+		savatar->Unknown10->Unknown494.Color = color;
+		savatar->Unknown10->Unknown4A4 = savatar->Unknown10->Unknown494;
+		savatar->Unknown34 = object->Unknown_6FFF50();
+	} else {
+		savatar->Unknown24 = "";
+	}
+	savatar->Unknown18 = flags;
+	savatar->Avatar->Unknown_784F60((flags & 1) != 0);
+	UnknownB0->Unknown_6A1880(savatar->NameTag, 0);
+	savatar->Unknown_633180();
+	UnknownD4[id] = savatar;
+	savatar->Unknown14 = new ButtonGadgetClass(savatar->Avatar->BodyObj.Peek(), *UnknownB0->Unknown80, 5, 0);
+	savatar->Unknown14->Unknown2C_0A = true;
+	savatar->Unknown14->Set_Last_Sort_Group(true);
+	Unknown64.Unknown_6870E0(savatar->Unknown14, id + 100, View, true, true);
+	((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(savatar->Avatar.Peek());
+	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(savatar->Avatar.Peek());
+	Unknown5BB320Class::Unknown_58();
+	if (flags & 0x40) {
+		savatar->Avatar->Unknown_7896B0(2);
+	}
+	Message_Info("Sbase", "", __FILE__, __LINE__, "(%s) Adding avatar %s in room %d", UnknownC0.D->Avatar->Desc.First_Name, savatar->Avatar->Desc.First_Name, Room);
+}
 
 
 
@@ -3297,37 +3297,37 @@ void UIStarbaseClass::Unknown_640F50(CharacterViewAvatarClass *avatar)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x63FCB0, functional (frame: sub esp 0x68 against the client's 0xBC, the door and avatar positions in other stack copies; O4)
+// 0x63FCB0 (0x638390's frame: the own avatar within 5 of a door's 'cam_door_*_out' bone leaves the room through it)
+void UIStarbaseClass::Unknown_63FCB0()
+{
+	for (int i = 0; i < 4; i++) {
+		int key = Unknown_B8AABC[Room * 4 + i];
+		if (key >= 0 && UnknownB0->Info->Find_Room(key)) {
+			char name[32];
+			_snprintf(name, sizeof(name), "%s", Unknown_B8AA7C[Room * 4 + i]);
+			if (strcmp(name, "") != 0) {
+				Vector3 door;
+				Unknown_Model()->Get_Bone_Transform(name).Get_Translation(&door);
+				Vector3 pos;
+				UnknownC0.D->Avatar->Get_Transform().Get_Translation(&pos);
+				Vector2 diff = Vector2(pos.X, pos.Y) - Vector2(door.X, door.Y);
+				if (diff.Length() < 5.0f) {
+					int room = Unknown_B8AB3C[Room * 4 + i];
+					UnknownB0->Unknown_69CBE0();
+					UnknownC0.E = 4;
+					Unknown_63E2B0();
+					Unknown_63E4B0(room, Room);
+					UnknownB0->Unknown_6A23E0(Unknown214, Unknown215, Unknown216, Unknown217, Unknown1B3);
+					UnknownB0->Unknown_69F460(room);
+					Unknown_641B00();
+					Unknown21C = true;
+					((SBaseViewClass *)View->Unknown_30())->Unknown1E0 = Vector3(diff.X * 0.9f, diff.Y * 0.9f, 0);
+				}
+			}
+		}
+	}
+}
 
 
 
@@ -4238,6 +4238,49 @@ UIStarbaseUnknownD4TableClass::iterator UIStarbaseUnknownD4TableClass::find(cons
 	it.Cur = first;
 	it.Table = this;
 	return(it);
+}
+
+// 0x644A20 (SGI's hashtable::find_or_insert, out of line)
+UIStarbaseUnknownD4TableClass::ValueType &UIStarbaseUnknownD4TableClass::find_or_insert(const ValueType &obj)
+{
+	resize(NumElements + 1);
+	unsigned int n = Bucket_Of_Key(obj.first);
+	NodeStruct *first = Buckets[n];
+	for (NodeStruct *cur = first; cur; cur = cur->Next) {
+		if (cur->Key == obj.first) {
+			return(cur->Get_Value());
+		}
+	}
+	NodeStruct *tmp = (NodeStruct *)operator new(sizeof(NodeStruct));
+	tmp->Next = 0;
+	new ((void *)&tmp->Get_Value()) ValueType(obj);
+	tmp->Next = first;
+	Buckets[n] = tmp;
+	++NumElements;
+	return(tmp->Get_Value());
+}
+
+// 0x644C10 (SGI's hashtable::resize, out of line)
+void UIStarbaseUnknownD4TableClass::resize(unsigned int hint)
+{
+	const unsigned int old_n = Buckets.size();
+	if (hint > old_n) {
+		const unsigned int n = Next_Size(hint);
+		if (n > old_n) {
+			std::vector<NodeStruct *, std::_Bucket_allocator<NodeStruct *> > tmp(n, (NodeStruct *)0);
+			for (unsigned int bucket = 0; bucket < old_n; ++bucket) {
+				NodeStruct *first = Buckets[bucket];
+				while (first) {
+					unsigned int new_bucket = Bucket_Of_Key(first->Key, n);
+					Buckets[bucket] = first->Next;
+					first->Next = tmp[new_bucket];
+					tmp[new_bucket] = first;
+					first = Buckets[bucket];
+				}
+			}
+			Buckets.swap(tmp);
+		}
+	}
 }
 
 #pragma auto_inline(on)

@@ -81,7 +81,8 @@ class UIStarbaseUnknownCCClass;
 class UIStarbaseUnknownD4TableClass	// NAME 1: neutral (D10)
 {
 public:
-	struct NodeStruct { NodeStruct *Next; unsigned int Key; UIStarbaseUnknownCCClass *Value; };	// the SGI table's _Node (0x641FA0: the key at +0x04, hashed as itself; the entry at +0x08)  // NAME 1: neutral (D10)
+	typedef std::pair<const unsigned int, UIStarbaseUnknownCCClass *> ValueType;	// SGI's value_type (0x644A20 copies one into a node)  // NAME 1: SGI's
+	struct NodeStruct { NodeStruct *Next; unsigned int Key; UIStarbaseUnknownCCClass *Value; ValueType &Get_Value() { return(*(ValueType *)&Key); } };	// the SGI table's _Node (0x641FA0: the key at +0x04, hashed as itself; the entry at +0x08)  // NAME 1: neutral (D10)
 	struct iterator	// SGI's _Hashtable_iterator, as far as 0x641FA0 walks it  // NAME 1: neutral (D10)
 	{
 		NodeStruct *Cur;	// SGI's _M_cur  // NAME 1: neutral (D10)
@@ -109,6 +110,8 @@ public:
 		bool operator==(const const_iterator &it) const { return(Cur == it.Cur); }
 	};
 	iterator begin();	// 0x643DF0 (out of line)
+	ValueType &find_or_insert(const ValueType &obj);	// 0x644A20 (out of line: 0x63CA50's operator[])  // NAME 1 [obj]: SGI's
+	void resize(unsigned int hint);	// 0x644C10 (out of line)  // NAME 1 [hint]: SGI's
 	iterator find(const unsigned int &key);	// 0x643E60 (out of line: 0x6437A0 passes an int, through a temporary)  // NAME 1 [key]: SGI's
 	unsigned int erase(const unsigned int &key)	// SGI's (inline in 0x63D060)  // NAME 1 [key]: SGI's
 	{
@@ -178,6 +181,7 @@ public:
 	UIStarbaseUnknownD4TableClass::iterator begin() { return(Table.begin()); }	// hash_map's (0x641FA0)
 	UIStarbaseUnknownD4TableClass::iterator end() { return(Table.end()); }	// hash_map's
 	UIStarbaseUnknownD4TableClass::iterator find(const unsigned int &key) { return(Table.find(key)); }	// hash_map's (0x6437A0)  // NAME 1 [key]: SGI's
+	UIStarbaseUnknownCCClass *&operator[](const unsigned int &key) { return(Table.find_or_insert(UIStarbaseUnknownD4TableClass::ValueType(key, (UIStarbaseUnknownCCClass *)0)).second); }	// hash_map's (0x63CA50)  // NAME 1 [key]: SGI's
 	unsigned int erase(const unsigned int &key) { return(Table.erase(key)); }	// hash_map's (0x63D060)  // NAME 1 [key]: SGI's
 };
 // What the starbase interface's +0xCC and +0x13C point to (ui_starbase.cpp's class with the destructor 0x632E50: RefCountPtrs at +0x04, +0x0C, ...)
