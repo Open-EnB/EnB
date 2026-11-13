@@ -27,6 +27,7 @@
 #include "..\packets\pkaction.h"	// ActionPacketClass (0x63DFE0)
 #include "env_map_manager.h"	// EnvironmentMapManagerClass (0x6366A0)
 #include "ui_talkt.h"	// UITalkTreeClass, the view's +0x190 (0x6390A0)
+#include "camera.h"	// CameraClass, the view's +0x6C (0x63F490)
 #include "..\..\ww3d2\ww3d.h"
 #include "..\shared\message.h"
 #include "local_interface_sort.h"
@@ -87,7 +88,6 @@ public:
 static int Unknown_B8A870[4] = { 0, 1, 3, 2 };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A880[4] = { "hangar", "main", "bazaar", "lounge" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A950[10] = { "t", "j", "p", "n", "n", "n", "n", "n", "n", "n" };	// NAME 1: neutral (D10)
-
 
 
 
@@ -3731,7 +3731,7 @@ Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
 	OBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.5f, 0.5f, 0.5f));
 	OBBoxClass world;
 	OBBoxClass::Transform(start, box, &world);
-	OBBoxCollisionTestClass test(world, move, &result, COLLISION_TYPE_1);
+	OBBoxCollisionTestClass test(world, move, &result, COLLISION_TYPE_0);
 	Matrix3D model_tm = Unknown_Model()->Get_Transform();
 	Matrix3D inv;
 	model_tm.Get_Orthogonal_Inverse(inv);
@@ -3752,24 +3752,24 @@ Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x63F0D0, functional (shape: the client tests the hit again (test al, al; setne al) before it returns; O4)
+// 0x63F0D0 (0x63F490: the room's model between two points: a 0.1 box swept from one to the other)
+bool UIStarbaseClass::Unknown_63F0D0(const Vector3 &from, const Vector3 &to)
+{
+	CastResultStruct result;
+	Matrix3D start(true);
+	start.Set_Translation(from);
+	Vector3 move = to - from;
+	OBBoxClass box(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.1f, 0.1f, 0.1f));
+	OBBoxClass world;
+	OBBoxClass::Transform(start, box, &world);
+	OBBoxCollisionTestClass test(world, move, &result, COLLISION_TYPE_0);
+	Matrix3D model_tm = Unknown_Model()->Get_Transform();
+	Matrix3D inv;
+	model_tm.Get_Orthogonal_Inverse(inv);
+	OBBoxCollisionTestClass local_test(test, inv);
+	return(Unknown_Model()->Cast_OBBox(local_test));
+}
 
 
 
@@ -4037,96 +4037,96 @@ void UIStarbaseClass::Unknown_6425D0(const char *name, const Vector3 &color)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void Unknown_585FD0(CameraClass *camera, const Vector3 &point, Vector3 *screen);	// 0x585FD0 (cdecl: a point to the screen, z < 0 in front)  // NAME 1 [camera, point, screen]: neutral
+// NOT EXACT: 0x63F490, functional (shape: the client's Matrix3D temporaries through ??_H and its x87 copies, as 0x63E930; O4)
+// 0x63F490 (0x63AC60: an avatar's name tags put on the screen above its 'ROOTTRANSFORM' bone, sized by its distance from
+// the camera (25 / distance, at most 2), hidden when it is too far or the room's model is between them)
+void UIStarbaseClass::Unknown_63F490(UIStarbaseUnknownCCClass *savatar)
+{
+	if (!savatar->Avatar && !savatar->AmbientAvatar) {
+		return;
+	}
+	if (!savatar->NameTag) {
+		return;
+	}
+	if (UnknownB0->Unknown_69CC10()) {
+		savatar->NameTag->Set_Hidden(true);
+		return;
+	}
+	Matrix3D tm(true);
+	if (savatar->Avatar) {
+		tm = savatar->Avatar->Get_Bone_Transform("ROOTTRANSFORM");
+		tm[2][3] += savatar->Avatar->Unknown_77D9F0(true) + 1.5f;
+	} else if (savatar->AmbientAvatar) {
+		tm = savatar->AmbientAvatar->Get_Bone_Transform("ROOTTRANSFORM");
+		tm[2][3] += savatar->AmbientAvatar->Unknown_77D9F0(true) + 1.5f;
+	}
+	Vector3 screen;
+	Unknown_585FD0(UnknownB0->Unknown6C.Peek(), tm.Get_Translation(), &screen);
+	Matrix3D tag_tm = savatar->NameTag->Get_Transform();
+	if (screen.Z < 0.0f) {
+		tag_tm[0][3] = screen.X * 640.0f;
+		tag_tm[1][3] = screen.Y * -480.0f;
+	} else {
+		tag_tm[0][3] = 3000.0f;
+		tag_tm[1][3] = 3000.0f;
+	}
+	tag_tm[2][3] = 0.0f;
+	savatar->NameTag->Set_Transform(tag_tm);
+	if (savatar->Unknown10) {
+		Matrix3D guild(true);
+		if (savatar->Avatar) {
+			guild = savatar->Avatar->Get_Bone_Transform("ROOTTRANSFORM");
+			guild[2][3] += savatar->Avatar->Unknown_77D9F0(true) + 0.5f;
+		} else if (savatar->AmbientAvatar) {
+			guild = savatar->AmbientAvatar->Get_Bone_Transform("ROOTTRANSFORM");
+			guild[2][3] += savatar->AmbientAvatar->Unknown_77D9F0(true) + 0.5f;
+		}
+		Unknown_585FD0(UnknownB0->Unknown6C.Peek(), guild.Get_Translation(), &screen);
+		Matrix3D guild_tm = savatar->Unknown10->Get_Transform();
+		if (screen.Z < 0.0f) {
+			guild_tm[0][3] = screen.X * 640.0f;
+			guild_tm[1][3] = screen.Y * -480.0f;
+		} else {
+			guild_tm[0][3] = 3000.0f;
+			guild_tm[1][3] = 3000.0f;
+		}
+		guild_tm[2][3] = 0.0f;
+		savatar->Unknown10->Set_Transform(guild_tm);
+	}
+	Vector3 camera = UnknownB0->Unknown6C->Get_Position();
+	Vector3 pos = tm.Get_Translation();
+	float scale = 25.0f / (pos - camera).Length();
+	if (scale > 2.0f) {
+		scale = 2.0f;
+	}
+	savatar->NameTag->Unknown2F4[0] = scale;
+	savatar->NameTag->Unknown4C5 = false;
+	if (savatar->Unknown10) {
+		savatar->Unknown10->Unknown4C5 = false;
+		savatar->Unknown10->Unknown2F4[0] = scale;
+	}
+	bool hidden = Unknown_63F0D0(camera, pos);
+	if (scale < 0.5f || hidden) {
+		if (savatar->NameTag->Unknown440 == 1) {
+			savatar->NameTag->Unknown_6CE7D0(2);
+		}
+		if (savatar->Unknown10 && savatar->Unknown10->Unknown440 == 1) {
+			savatar->Unknown10->Unknown_6CE7D0(2);
+		}
+	} else {
+		savatar->NameTag->Set_Hidden(false);
+		if (savatar->NameTag->Unknown440 == 2) {
+			savatar->NameTag->Unknown_6CE7D0(0);
+		}
+		if (savatar->Unknown10) {
+			savatar->Unknown10->Set_Hidden(false);
+		}
+		if (savatar->Unknown10 && savatar->Unknown10->Unknown440 == 2) {
+			savatar->Unknown10->Unknown_6CE7D0(0);
+		}
+	}
+}
 
 
 
