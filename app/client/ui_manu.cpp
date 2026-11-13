@@ -41,7 +41,7 @@ public:
 	virtual ~GadgetClass(); virtual void Unknown_04(); virtual void As_RObjGadget(); virtual void As_RObjProxyGadget();
 	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28();
-	virtual bool Unknown_2C(int a, int b, int c, int d);	// +0x2C (the check button's 0x7E7FC0: true when it toggled)  // NAME 1 [a, b, c, d]: neutral
+	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C (the check button's 0x7E7FC0: true when it toggled)  // NAME 1 [event, x, y, mask]: gadget.h's
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(bool on);					// +0x40  // NAME 1 [on]: neutral
 	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50();
@@ -299,9 +299,9 @@ void UIManuClass::Unknown_5C()
 class CheckBoxGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	CheckBoxGadgetClass(RenderObjClass *robj, LayerClass *layer, int arg);	// 0x7E7E70 (0x5B6410: 0, or 0x55 for the filter buttons)  // NAME 1 [robj, layer, arg]: neutral
+	CheckBoxGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int flags);	// 0x7E7E70 (0x5B6410: 0, or 0x55 for the filter buttons; unknown_7e7e00.h's)  // NAME 1 [robj, layer, flags]: unknown_7e7e00.h's
 	virtual ~CheckBoxGadgetClass();					// 0x7E7FA0
-	virtual bool Unknown_2C(int a, int b, int c, int d);	// +0x2C 0x7E7FC0
+	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x7E7FC0
 	void Unknown_7E8030(bool on);						// 0x7E8030: checked or not  // NAME 1 [on]: neutral
 
 	char Unknown34[0x64 - 0x34];						// +0x34
@@ -313,10 +313,10 @@ public:
 class UIManuTechLevelButtonClass : public CheckBoxGadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIManuTechLevelButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner, int tech_level) : CheckBoxGadgetClass(robj, layer, 0x55), Owner(owner), TechLevel(tech_level) {}	// NAME 1 [robj, layer, owner]: neutral; NAME 3 [tech_level]: the FAIL_IF's
-	virtual bool Unknown_2C(int a, int b, int c, int d)	// +0x2C 0x5B6680: 0x5B67C0 when it toggled (inline: emitted after 0x5B6410)
+	UIManuTechLevelButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner, int tech_level) : CheckBoxGadgetClass(robj, *layer, 0x55), Owner(owner), TechLevel(tech_level) {}	// NAME 1 [robj, layer, owner]: neutral; NAME 3 [tech_level]: the FAIL_IF's
+	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)	// +0x2C 0x5B6680: 0x5B67C0 when it toggled (inline: emitted after 0x5B6410)
 	{
-		bool result = CheckBoxGadgetClass::Unknown_2C(a, b, c, d);
+		bool result = CheckBoxGadgetClass::Unknown_2C(event, x, y, mask);
 		if (result) {
 			Owner->Unknown_5B67C0(TechLevel, Checked, USER_INPUT);
 		}
@@ -329,10 +329,10 @@ public:
 class UIManuAllLevelsButtonClass : public CheckBoxGadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIManuAllLevelsButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner) : CheckBoxGadgetClass(robj, layer, 0x55), Owner(owner) {}	// NAME 1 [robj, layer, owner]: neutral
-	virtual bool Unknown_2C(int a, int b, int c, int d)	// +0x2C 0x5B6720: 0x5B6A80 when it toggled (inline: emitted after 0x5B6410)
+	UIManuAllLevelsButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner) : CheckBoxGadgetClass(robj, *layer, 0x55), Owner(owner) {}	// NAME 1 [robj, layer, owner]: neutral
+	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)	// +0x2C 0x5B6720: 0x5B6A80 when it toggled (inline: emitted after 0x5B6410)
 	{
-		bool result = CheckBoxGadgetClass::Unknown_2C(a, b, c, d);
+		bool result = CheckBoxGadgetClass::Unknown_2C(event, x, y, mask);
 		if (result) {
 			Owner->Unknown_5B6A80(Checked, USER_INPUT);
 		}
@@ -1726,7 +1726,7 @@ CheckBoxGadgetClass *UIManuClass::Unknown_5B6410(int id, const char *bttn_name, 
 	Unknown_496AE0(robj.Peek(), 0);
 	CheckBoxGadgetClass *button;
 	if (plain) {
-		button = new CheckBoxGadgetClass(robj.Peek(), &Layer, 0);
+		button = new CheckBoxGadgetClass(robj.Peek(), Layer, 0);
 	} else if (tech_level == NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS) {
 		button = new UIManuAllLevelsButtonClass(robj.Peek(), &Layer, this);
 	} else {

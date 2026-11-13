@@ -1,14 +1,14 @@
 // Earth & Beyond client (reconstruction)
 /*
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
-**	Original location: unknown (PROVISIONAL, D137: a neutral name; the run 0x7E7E00-0x7E81B0 has no assert, its
+**	Original location: unknown (PROVISIONAL, D137: a neutral name; the object 0x7E7E70-0x7E81AF has no assert, its
 **	strings are 'if_check_on.tga' / 'if_check_off.tga')
 **
 **	The check box: a button gadget (unknown_675120.h's ButtonGadgetClass, mask 0x11) that shows one of two textures.
 **	Table 0xB075E4 (41 slots: RObjGadgetClass's, +0x2C its own), constructors 0x7E7E70 (with a layer) / 0x7E7F20,
-**	destructor 0x7E7FA0, 0x68 bytes. Its code is not rebuilt yet; the windows that tick boxes (ui_friends.cpp,
+**	destructor 0x7E7FA0, 0x68 bytes; code in unknown_7e7e00.cpp. The windows that tick boxes (ui_friends.cpp,
 **	ui_option_channel.cpp, ui_option_check.cpp) take the class from here. ui_manu.cpp still has its own view of
-**	it (it has its own ButtonGadgetClass too, so it cannot include this header yet).
+**	it (its own ButtonGadgetClass too, so it cannot include this header yet), declared to link to these definitions.
 */
 
 #if defined(_MSC_VER)
