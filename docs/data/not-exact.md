@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-778 entries in 253 files.
+777 entries in 253 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -300,13 +300,12 @@ edit the comments in the code, not this file.
 | `app/client/starbase_lights.cpp:97` | `Unknown_764480Class::Unknown_764AB0` | marker | NOT EXACT: 0x764AB0, functional (register / order: the client keeps the offset's y on the FPU across the branch and copies x / z as integers; B1) 0x764AB0 |
 | `app/client/starbase_lights.cpp:127` | `Unknown_764480Class::Unknown_764CF0` | marker | NOT EXACT: 0x764CF0, functional (register / order: the client keeps the colour's y on the FPU across the branch and copies x / z as integers; B1) 0x764CF0 |
 | `app/client/starmap_data.cpp:231` | `StarmapDataClass::Create_Mesh` | marker | NOT EXACT: frame and registers (the client keeps 0 in ebx and is_ship on the stack, the old transform above the rotation) @0x7BEF50 |
-| `app/client/starmap_pip.cpp:183` | `StarmapPipClass::Unknown_10` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C0C80 |
 | `app/client/starmap_pip.cpp:278` | `StarmapPipClass::Unknown_7C0440` | marker | NOT EXACT: shape (0.80): the client loads the gadget's Position.X through its address (add eax, 0x38) and puts the Unknown60 = 0 block after the return; forms tried in attempts.csv @0x7C0440 |
 | `app/client/starmap_pip.cpp:968` | `StarmapPipClass::Unknown_7C1770` | marker | NOT EXACT: stack (the client keeps diff at +0x24 and t at +0x1C, the other way round: 0.88) |
 | `app/client/starmap_pip.cpp:1181` | `StarmapPipClass::Unknown_7C2060` | marker | NOT EXACT: written from the pseudocode (D64), functional @0x7C2060 |
 | `app/client/starmap_pip.cpp:1257` | `StarmapPipClass::Is_Grouped` | marker | NOT EXACT: inline budget (0.78, attempts.py 0x7C2760): the client calls UnknownRTTIClass<DeltaCompoundClass>::Cast out of line in Unknown_Find_Field; here it is inlined (Find_Valid helpers one, two and three layers deep give the same) @0x7C2760 |
 | `app/client/starmap_pip.cpp:1278` | `StarmapPipClass::Unknown_7C2850` | marker | NOT EXACT: inline budget (0.32): the client calls Unknown_Find_Field (0x7C30E0) out of line and expands both label deletes as the scalar deleting destructor plus erase(begin, end); here the budget runs out the other way. attempts.csv @0x7C2850 |
-| `app/client/starmap_pip.cpp:1459` | `Unknown_7C3220Class::Unknown_7C3A90` | mention | NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 (the max's fcompp form), 0x7C2060 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68, which it copies whole), 0x7C2850 (inline budget). Not rebuilt: 0x7C2DA0-0x7C30E... |
+| `app/client/starmap_pip.cpp:1459` | `Unknown_7C3220Class::Unknown_7C3A90` | mention | NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 now exact (its max is a double compare, O5), 0x7C2060 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68, which it copies whole), 0x7C2850 (inline budget). Not rebui... |
 | `app/client/target_reticle.cpp:107` | `TargetReticleClass::Update` | marker | NOT EXACT: 0x7C5690, register rotation only (13 rows at the inlined time == LastTime: eax / ecx for ecx / eax, edx / eax for ecx / eax, eax for ecx at LastValue); same length (1990 bytes) @0x7C5690 |
 | `app/client/tasks/settings_store.cpp:376` | `Unknown_7CA2D0Class::Unknown_7CB8F0` | marker | NOT EXACT: order-only (the same 231 instructions: the client zeroes the count before the read's arguments are pushed and reloads a handle one instruction earlier at the end) |
 | `app/client/tasks/settings_store.cpp:545` | `Unknown_7CA2D0Class::Get_String` | mention | NOT EXACT (D64): 0x7CB8F0 (order-only: two instructions out of place). Other files still reach 0x7CB2E0 / 0x7CB240 / 0x7CA570 / 0x7CAD00 through local stand-in classes (ui_login.cpp, ui_popupmsg.cpp, ui_popup_browser.cpp, ui_registration.cpp, unknown_msgbox.cpp). |
