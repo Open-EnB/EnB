@@ -7,15 +7,18 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-763 entries in 252 files.
+766 entries in 253 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/audio/bridgesounds.cpp:8` | `BridgeSoundManagerClass::BridgeSoundManagerClass` | marker | NOT EXACT: register-only (explain.py: same length, 0.74): the client holds the 0 of m_channel in ecx and loads 0.5 into eax before it; here eax holds both in turn |
-| `app/audio/musicmanager.cpp:157` | `MusicManagerClass::Queue_Themes` | marker | NOT EXACT: register allocation and inline budget (explain.py: 488 bytes vs 494, 0.46): the client keeps type in ebx and calls the vector's _Destroy 0x43BC60 after the first erase, here type is in ebp and both erases are inline |
-| `app/audio/musicmanager.cpp:236` | `MusicManagerClass::Queue_Sector_Themes` | marker | NOT EXACT: order-only (explain.py: same length, 0.84): the client stores Sector = -1 before it saves CurrentMusicType to the stack, here after |
+| `app/audio/musicmanager.cpp:138` | `MusicManagerClass::Load_INI` | marker | NOT EXACT: inline budget (explain.py: 2287 bytes vs 2227, 0.61): the client calls push_back's _Ucopy / _Ufill / _Destroy (0x43BF20, 0x43BF60, 0x43BC60) and its last size() (0x43BC30) out of line, here they are inline; this and the section name swap edi / ebp |
+| `app/audio/musicmanager.cpp:269` | `MusicManagerClass::Queue_Themes` | marker | NOT EXACT: register allocation and inline budget (explain.py: 488 bytes vs 494, 0.46): the client keeps type in ebx and calls the vector's _Destroy 0x43BC60 after the first erase, here type is in ebp and both erases are inline |
+| `app/audio/musicmanager.cpp:348` | `MusicManagerClass::Queue_Sector_Themes` | marker | NOT EXACT: order-only (explain.py: same length, 0.84): the client stores Sector = -1 before it saves CurrentMusicType to the stack, here after |
+| `app/audio/musicmanager.cpp:638` | `EXACT` | mention | NOT EXACT (inline budget: |
 | `app/audio/sectorsound.cpp:56` | `SectorSoundClass::Load_INI` | marker | NOT EXACT: stack slots only (explain.py: same length, 0.68): the client keeps ini at esp+0x18 and its copy of 'this' at esp+0x28, here 'this' is at esp+0x18 and ini at esp+0x1C |
 | `app/audio/soundlib.cpp:157` | `SoundDefClass::SoundDefClass` | marker | NOT EXACT: inline budget (explain.py: 66 calls vs 67), reserve inlines size() and calls _Destroy where the client calls size() and inlines _Destroy; one more string destructor called |
+| `app/audio/unknown_431e30.cpp:128` | `Unknown431E30Class::Update` | marker | NOT EXACT: inline budget (explain.py: 10 calls, the client 11; 421 bytes, 0.59): the client calls the end() iterator copy 0x432C00 out of line in the inlined Get_Sector_Music, here it is inline; dead reads inside Get_Sector_Music, a const_iterator and an inline wrapper changed nothing |
 | `app/client/acticon.cpp:78` | `ActIconClass::Unknown_AC` | marker | NOT EXACT (0.73, attempts.py 0x6762B0): the client keeps one 12-byte temporary for both colour slots (+0x9C / +0xA0) and the UV offsets (frame 0x10); ours gives slot +0x9C its own (frame 0x1C) |
 | `app/client/aux_roots.cpp:2` | `ClientObjectClass::Unknown_Create_Aux_Root` | mention | NOT EXACT (D42): functional. NAME 1 [aux_roots.cpp]: provisional file name (the client's constructors are in co.cpp 0x6F6000-0x6FBEF0 and the Player object 0x751BE0) |
 | `app/client/aux_roots.h:10` | `Unknown_Hex_String` | mention | NOT EXACT (D42): functional; see the generator's docstring for what differs. |

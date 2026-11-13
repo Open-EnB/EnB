@@ -10,18 +10,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 195 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1830 |
-| 2 | describes what the code does | 4508 |
-| 1 | neutral placeholder | 23246 |
+| 2 | describes what the code does | 4529 |
+| 1 | neutral placeholder | 23251 |
 
 ## For review (score 3 and below)
 
 | Score | Name | Where | Evidence |
 |---|---|---|---|
 | 1 | `Unknown_BDBB84` | `app/audio/ambientsoundmanager.cpp:12` | neutral (D10), as avatar.cpp's |
+| 1 | `Unknown_437070` | `app/audio/bridgesounds.cpp:240` | untagged neutral name (D10) |
 | 1 | `Unknown_437070` | `app/audio/bridgesounds.h:20` | untagged neutral name (D10) |
 | 1 | `m_channel` | `app/audio/bridgesounds.h:29` | race / sound channel index |
 | 1 | `fade_in` | `app/audio/musiclist.h:28` | what Fade_In gets; NAME 2: what it does |
 | 1 | `Unknown_BDBB84` | `app/audio/musicmanager.cpp:11` | neutral (D10), as avatar.cpp's |
+| 1 | `Unknown_Get_Ticks` | `app/audio/musicmanager.cpp:12` | untagged neutral name (D10) |
 | 1 | `sector` | `app/audio/sectorsound.h:26` | what 0x750A70 passes; sectorsounds%d.ini's number |
 | 1 | `Unknown_Get_Ticks` | `app/audio/soundlib.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_442650` | `app/audio/soundlib.cpp:19` | 0x442650, surfacetypes.cpp's loader |
@@ -47,6 +49,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_442870` | `app/audio/surfacetypes.h:7` | neutral (D10) |
 | 1 | `Unknown_4428E0` | `app/audio/surfacetypes.h:8` | neutral (D10) |
 | 1 | `Unknown_442930` | `app/audio/surfacetypes.h:9` | neutral (D10) |
+| 1 | `Unknown431E30Class` | `app/audio/unknown_431e30.cpp:10` | untagged neutral name (D10) |
+| 1 | `unknown_431e30.h` | `app/audio/unknown_431e30.h:5` | PROVISIONAL, the object's first address (no __FILE__ in it) |
+| 1 | `Unknown431E30Class` | `app/audio/unknown_431e30.h:17` | neutral (D10), the constructor's address |
 | 1 | `Unknown_685E80Class` | `app/client/acticon.cpp:13` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/acticon.cpp:25` | as ui_avatr.cpp's |
 | 1 | `Unknown_497300` | `app/client/acticon.cpp:25` | untagged neutral name (D10) |
@@ -23342,20 +23347,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Queue_Sector_Themes` | `app/audio/musicmanager.h:44` | what it does |
 | 2 | `Queue_Sector_Theme` | `app/audio/musicmanager.h:45` | what it does |
 | 2 | `Play_Music` | `app/audio/musicmanager.h:46` | what it does |
-| 2 | `std:` | `app/audio/musicmanager.h:48` | what it holds |
-| 2 | `Lists` | `app/audio/musicmanager.h:49` | what it holds |
-| 2 | `PreviousMusicType` | `app/audio/musicmanager.h:51` | Set_Music_Type keeps the old type here |
-| 2 | `Level` | `app/audio/musicmanager.h:52` | what it is compared with |
-| 2 | `SectorThemeSector` | `app/audio/musicmanager.h:53` | what it holds |
-| 2 | `FadeIn` | `app/audio/musicmanager.h:54` | the ini's WanderFadeIn, CombatFadeIn, PlanetFadeIn |
-| 2 | `FadeOut` | `app/audio/musicmanager.h:55` | the ini's WanderFadeOut, CombatFadeOut, PlanetFadeOut |
-| 2 | `SilenceMin` | `app/audio/musicmanager.h:56` | the ini's SilenceMin |
-| 2 | `SilenceMax` | `app/audio/musicmanager.h:57` | the ini's SilenceMax |
-| 2 | `SilenceEnd` | `app/audio/musicmanager.h:58` | what it holds |
-| 2 | `IsLoaded` | `app/audio/musicmanager.h:59` | what it does |
-| 2 | `Sector` | `app/audio/musicmanager.h:60` | what it holds |
-| 2 | `SectorMusic` | `app/audio/musicmanager.h:61` | what it holds |
-| 2 | `Enabled` | `app/audio/musicmanager.h:63` | what it does |
+| 2 | `Stop_Sector_Music` | `app/audio/musicmanager.h:47` | what it does |
+| 2 | `std:` | `app/audio/musicmanager.h:49` | what it holds |
+| 2 | `Lists` | `app/audio/musicmanager.h:50` | what it holds |
+| 2 | `PreviousMusicType` | `app/audio/musicmanager.h:52` | Set_Music_Type keeps the old type here |
+| 2 | `Level` | `app/audio/musicmanager.h:53` | what it is compared with |
+| 2 | `SectorThemeSector` | `app/audio/musicmanager.h:54` | what it holds |
+| 2 | `FadeIn` | `app/audio/musicmanager.h:55` | the ini's WanderFadeIn, CombatFadeIn, PlanetFadeIn |
+| 2 | `FadeOut` | `app/audio/musicmanager.h:56` | the ini's WanderFadeOut, CombatFadeOut, PlanetFadeOut |
+| 2 | `SilenceMin` | `app/audio/musicmanager.h:57` | the ini's SilenceMin |
+| 2 | `SilenceMax` | `app/audio/musicmanager.h:58` | the ini's SilenceMax |
+| 2 | `SilenceEnd` | `app/audio/musicmanager.h:59` | what it holds |
+| 2 | `IsLoaded` | `app/audio/musicmanager.h:60` | what it does |
+| 2 | `Sector` | `app/audio/musicmanager.h:61` | what it holds |
+| 2 | `SectorMusic` | `app/audio/musicmanager.h:62` | what it holds |
+| 2 | `Enabled` | `app/audio/musicmanager.h:64` | what it does |
 | 2 | `musictheme.h` | `app/audio/musictheme.h:5` | musictheme.cpp is the client's; header name assumed |
 | 2 | `Add_Component` | `app/audio/musictheme.h:18` | what it does |
 | 2 | `Get_Component` | `app/audio/musictheme.h:20` | what it returns |
@@ -23455,6 +23461,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `INI` | `app/audio/starbasesound.h:39` | what it holds |
 | 2 | `SoundWalking` | `app/audio/surfacetypes.cpp:19` | what it holds |
 | 2 | `SoundRunning` | `app/audio/surfacetypes.cpp:20` | what it holds |
+| 2 | `MUSIC_SECTOR` | `app/audio/unknown_431e30.h:21` | State 4 plays the sector's DefaultMusic (Update 0x4328B0) |
+| 2 | `MUSIC_PAUSED` | `app/audio/unknown_431e30.h:22` | PlayingState once the fade-out of a pause ends |
+| 2 | `Load_INI` | `app/audio/unknown_431e30.h:27` | what it does |
+| 2 | `Set_Paused` | `app/audio/unknown_431e30.h:28` | what it does |
+| 2 | `Play` | `app/audio/unknown_431e30.h:29` | what it does |
+| 2 | `Stop` | `app/audio/unknown_431e30.h:30` | what it does |
+| 2 | `Resume` | `app/audio/unknown_431e30.h:31` | what it does |
+| 2 | `Is_Playing` | `app/audio/unknown_431e30.h:32` | what it returns |
+| 2 | `Update` | `app/audio/unknown_431e30.h:33` | what it does; NAME 1 [flag]: what Get_Sector_Music gets |
+| 2 | `Get_Sector_Music` | `app/audio/unknown_431e30.h:34` | what it returns; NAME 1 [flag] |
+| 2 | `Is_Active` | `app/audio/unknown_431e30.h:36` | what it tests |
+| 2 | `Sound` | `app/audio/unknown_431e30.h:38` | what it holds |
+| 2 | `Track` | `app/audio/unknown_431e30.h:39` | what it holds |
+| 2 | `State` | `app/audio/unknown_431e30.h:40` | what Update compares |
+| 2 | `PlayingState` | `app/audio/unknown_431e30.h:41` | what Update compares |
+| 2 | `Paused` | `app/audio/unknown_431e30.h:42` | what it does |
+| 2 | `Sector` | `app/audio/unknown_431e30.h:43` | what it holds |
+| 2 | `std:` | `app/audio/unknown_431e30.h:44` | what it holds |
+| 2 | `std:` | `app/audio/unknown_431e30.h:45` | what it holds |
+| 2 | `_Instance` | `app/audio/unknown_431e30.h:47` | what it holds |
 | 2 | `Actions` | `app/client/acticon.cpp:23` | what 0x6766E0 fills |
 | 2 | `Set_State` | `app/client/acticon.h:30` | what it does; NAME 1 [state, end_time]: what ui_cpit.cpp passes |
 | 2 | `Bar` | `app/client/acticon.h:32` | ui_cpit.cpp's 'WARP_BAR' |
