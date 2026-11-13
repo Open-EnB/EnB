@@ -34,13 +34,15 @@ FpTTClass::~FpTTClass()
 }
 
 // 0x449540
-// NOT EXACT: 0.36, frame (sub esp 0x4C against 0x44): the stack slots of the scoped temporaries differ
+// NOT EXACT: 0.44, frame (sub esp 0x48 against 0x44): the client shares stack slots between the target delta, the climb vector and the new axes
 int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch)
 {
 	Unknown2C = 0;
 	float xy_len = 1.0f;
 	Vector3 x_axis = transforms[Unknown_BE350C ^ 1].Get_X_Vector();
-	Vector2 heading(x_axis.X, x_axis.Y);
+	Vector2 heading;
+	heading.X = x_axis.X;
+	heading.Y = x_axis.Y;
 	double abs_z = fabs(x_axis.Z);
 	if (abs_z > 0.000001) {
 		float len2 = x_axis.X * x_axis.X + x_axis.Y * x_axis.Y;
@@ -50,20 +52,22 @@ int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dis
 		xy_len = inv * len2;
 	}
 	Vector3 pos = transforms[Unknown_BE350C ^ 1].Get_Translation();
-	Vector3 delta = target - pos;
 	Vector2 dir;
 	float slope;
-	float len2 = delta.X * delta.X + delta.Y * delta.Y;
-	if (len2 < 0.000000000001f) {
-		dir.X = 1.0f;
-		dir.Y = 0.0f;
-		slope = (delta.Z >= 0.0f) ? MaxSlope : -MaxSlope;
-	} else {
-		float inv = WWMath::Inv_Sqrt(len2);
-		dir.X = inv * delta.X;
-		dir.Y = inv * delta.Y;
-		slope = inv * delta.Z;
-		slope = WWMath::Clamp(slope, -MaxSlope, MaxSlope);
+	{
+		Vector3 delta = target - pos;
+		float len2 = delta.X * delta.X + delta.Y * delta.Y;
+		if (len2 < 0.000000000001f) {
+			dir.X = 1.0f;
+			dir.Y = 0.0f;
+			slope = (delta.Z >= 0.0f) ? MaxSlope : -MaxSlope;
+		} else {
+			float inv = WWMath::Inv_Sqrt(len2);
+			dir.X = inv * delta.X;
+			dir.Y = inv * delta.Y;
+			slope = inv * delta.Z;
+			slope = WWMath::Clamp(slope, -MaxSlope, MaxSlope);
+		}
 	}
 
 	bool aligned = false;
@@ -117,31 +121,38 @@ int FpTTClass::Unknown_04(const Vector3 &target, Matrix3D *transforms, float dis
 			break;
 	}
 
-	Vector2 climb;
+	float climb_c;
+	float climb_s;
 	if (MaxSlope <= 0.0f || (fabs(slope) < 0.0001 && abs_z < 0.0001)) {
-		climb.Set(1.0f, 0.0f);
+		climb_s = 0.0f;
+		climb_c = 1.0f;
 		pitch = 0.0f;
 		Unknown44 = 0.0f;
 	} else {
-		float inv = WWMath::Inv_Sqrt(slope * slope + 1.0f);
-		Vector2 want(inv, inv * slope);
-		climb.Set(xy_len, x_axis.Z);
-		bool up;
-		if (climb.Rotate_Towards_Vector(want, MaxPitchSin, MaxPitchCos, up)) {
-			pitch = 0.0f;
-		} else if (up) {
-			pitch = MaxPitch;
+		climb_c = WWMath::Inv_Sqrt(slope * slope + 1.0f);
+		climb_s = climb_c * slope;
+		if (climb_c * xy_len + climb_s * x_axis.Z < MaxPitchCos) {
+			if (climb_s * xy_len - climb_c * x_axis.Z <= 0.0f) {
+				climb_s = MaxPitchCos * x_axis.Z + -MaxPitchSin * xy_len;
+				climb_c = MaxPitchCos * xy_len - -MaxPitchSin * x_axis.Z;
+				pitch = -MaxPitch;
+				Unknown44 = slope;
+			} else {
+				climb_s = MaxPitchSin * xy_len + MaxPitchCos * x_axis.Z;
+				pitch = MaxPitch;
+				climb_c = MaxPitchCos * xy_len - MaxPitchSin * x_axis.Z;
+				Unknown44 = slope;
+			}
 		} else {
-			pitch = -MaxPitch;
+			pitch = 0.0f;
+			Unknown44 = slope;
 		}
-		Unknown44 = slope;
 	}
 
-	Vector3 x(climb.X * heading.X, climb.X * heading.Y, climb.Y);
-	Vector3 y(-heading.Y, heading.X, 0.0f);
-	Vector3 z;
-	Vector3::Cross_Product(x, y, &z);
+	Vector3 x(climb_c * heading.X, climb_c * heading.Y, climb_s);
 	pos += x * dist;
+	Vector3 y(-heading.Y, heading.X, 0.0f);
+	Vector3 z(-(climb_s * heading.X), y.X * climb_s, heading.X * x.X - y.X * x.Y);
 	transforms[Unknown_BE350C].Set(x, y, z, pos);
 
 	if (Unknown38 && !aligned) {

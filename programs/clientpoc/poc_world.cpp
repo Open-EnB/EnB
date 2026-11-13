@@ -63,9 +63,7 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
 // orbitalmanager.cpp (0x4F28A0-0x4F51C0) is real app code since WE4: its stand-in left here.
 
 // debrsint.cpp (0x53D250-0x53E968) and frameint.cpp (0x53E970-0x53F338) are real app code since O5: their stand-ins left here.
-// debris.cpp (0x6B8F20-0x6BB740) is real app code since O4 but for DebrisFieldClass::Render (0x6B9BF0, not rebuilt yet):
-// a field that draws nothing
-void DebrisFieldClass::Render(RenderInfoClass &rinfo) {}
+// debris.cpp (0x6B8F20-0x6BB740) is real app code since O4: its stand-in left here.
 
 // ui_mesh.cpp (0x5B8120-0x5BA4C0) is real app code since UM1: its stand-in left here.
 #include "..\..\ww3d2\assetmgr.h"

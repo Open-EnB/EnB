@@ -36,7 +36,7 @@ public:
 	virtual RenderObjClass *Clone(void) const;			// 0x6B9B70
 	virtual int Class_ID(void) const { return 0x10006; }	// 0x6B9620  // NAME 2: E&B's class id
 	virtual int Get_Num_Polys(void) const { if (PointGroup) { return PointGroup->Get_Polygon_Count(); } return LineGroup->Get_Polygon_Count(); }	// 0x6B9640
-	virtual void Render(RenderInfoClass &rinfo);		// 0x6B9BF0 (not rebuilt yet)
+	virtual void Render(RenderInfoClass &rinfo);		// 0x6B9BF0 (NOT EXACT)
 	int Unknown_6BB440();								// 0x6BB440 (0 or 1: what debrsint.cpp's keys 9 / 10 scale, the alpha or the colour)
 	void Unknown_6BB470();								// 0x6BB470 (the shader from Additive / UnknownBC; after +0xBC changes)
 	void Unknown_6BB640(const Vector3 &offset);			// 0x6BB640 (the main view's wind, through debrsint.cpp's 0x53E470)  // NAME 1 [offset]: neutral
