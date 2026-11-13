@@ -82,13 +82,13 @@ class UIPowerClass;	// ui_power.h's power gauges (+0xD0, constructor 0x5DBFC0)
 
 
 
-// The hulk (+0xC8) and harvest (+0xCC) windows (0xE4 bytes, constructor 0x5850E0 with 2 / 4; their file is unknown)
-class UICpitUnknownC8Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	UICpitUnknownC8Class(UICpitClass *cpit, SClient *sclient, int type);	// 0x5850E0  // NAME 1 [cpit, sclient, type]: what the set-up passes
-	char Unknown84[0xE4 - 0x84];						// +0x84
-};
+// The hulk (+0xC8) and harvest (+0xCC) windows (0xE4 bytes, constructor 0x5850E0 with 2 / 4): ui_cpit_inv.h's (O15)
+class UICpitInvClass;
+
+
+
+
+
 
 #include "ui_avatar_dialog.h"	// UIAvatarDialogClass: what +0xE0 holds (0x1B4 bytes, constructor 0x551FB0; the incapacitance question)
 

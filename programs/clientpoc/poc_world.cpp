@@ -11,16 +11,7 @@
 #include "..\..\stubs\stub_log.h"
 #include "..\..\app\client\sclient.h"
 
-// ---------------------------------------------------------------- ui_hotkeys.cpp (0x59C6F0, table 0xAF20D0): 0x84 bytes, no members
-class UIHotKeysClass : public InterfaceClass
-{
-public:
-	UIHotKeysClass(SClient *client);
-};
-UIHotKeysClass::UIHotKeysClass(SClient *client) : InterfaceClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC UIHotKeysClass: an empty InterfaceClass");
-}
+// ui_hot_keys.cpp's window (0x59C6F0) is real app code since O15 (ui_hot_keys.h): its stand-in left here.
 
 // pdaint.cpp's PDA is real app code since PD1 (pdaint.cpp); its windows' stand-ins are in poc_world3.cpp.
 
@@ -74,11 +65,7 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
 
 // ---------------------------------------------------------------- the cockpit's parts with no class in the tree (ui_cpit.h, ui_cpit.cpp's views)
 #include "..\..\app\client\unknown_671300.h"
-UICpitUnknownC8Class::UICpitUnknownC8Class(UICpitClass *cpit, SClient *sclient, int type) : InterfaceClass((LineDisplayClientClass *)sclient)
-{
-	STUB_CALLED("POC UICpitUnknownC8Class: an empty window");
-	memset(Unknown84, 0, sizeof(Unknown84));
-}
+// (the hulk and harvest windows, 0x5850E0, are rebuilt: app/client/ui_cpit_inv.cpp, O15)
 // (the cockpit's +0xE0, UIAvatarDialogClass 0x551FB0, is rebuilt: app/client/ui_avatar_dialog.cpp, O2)
 class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); virtual bool Unknown_30(float x, float y); char Unknown30[0x49 - 0x30]; bool Unknown49; char Unknown4A[0x5C - 0x4A]; };
 UICpitGadget6B56AClass::UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view) : GadgetClass(0xFF)
