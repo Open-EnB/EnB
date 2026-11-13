@@ -24,6 +24,7 @@
 #include "tasks\tsk_login.h"
 #include "..\shared\g_assert.h"
 #include "..\packets\pkstarbase_avatar_change.h"
+#include "..\packets\pkaction.h"	// ActionPacketClass (0x63DFE0)
 #include "..\..\ww3d2\ww3d.h"
 #include "..\shared\message.h"
 #include "local_interface_sort.h"
@@ -84,7 +85,6 @@ public:
 static int Unknown_B8A870[4] = { 0, 1, 3, 2 };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A880[4] = { "hangar", "main", "bazaar", "lounge" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A950[10] = { "t", "j", "p", "n", "n", "n", "n", "n", "n", "n" };	// NAME 1: neutral (D10)
-
 
 
 
@@ -515,7 +515,7 @@ void UIStarbaseClass::Unknown_639030(int arg)
 		}
 	}
 }
-
+#pragma auto_inline(on)
 // 0x63B5A0
 void UIStarbaseClass::Unknown_63B5A0()
 {
@@ -532,7 +532,7 @@ void UIStarbaseClass::Unknown_63B5A0()
 	}
 	UnknownB0->Unknown_6A0E50();
 }
-
+#pragma auto_inline(off)
 // 0x63E8F0
 bool UIStarbaseClass::Unknown_63E8F0(int id)
 {
@@ -552,7 +552,7 @@ void UIStarbaseClass::Unknown_640110(int state)
 		Unknown_63E2B0();
 	}
 }
-
+#pragma auto_inline(on)
 // 0x641AB0
 void UIStarbaseClass::Unknown_641AB0()
 {
@@ -591,7 +591,7 @@ void UIStarbaseClass::Unknown_641B70()
 	}
 }
 
-#pragma auto_inline(on)
+
 
 #include "co.h"
 
@@ -1509,10 +1509,7 @@ bool UIStarbaseClass::Unknown_68(int key)
 		case 1:
 			if (UnknownC0.D->Avatar && UnknownC0.D->Avatar->Unknown318.empty()) {
 				int column = UnknownB0->Info->Style;
-				SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client(); bool busy = false; ChatPanelInterface *panel = client->ChatPanel.Peek();	// 0x63B5A0's body, inline in the client
-				if (panel) { if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) { busy = true; } }
-				if (client->Mouse->Unknown_515320() != 2 && !busy) { client->Mouse->Unknown_515120(2); }
-				UnknownB0->Unknown_6A0E50();
+				Unknown_63B5A0();
 				UnknownB0->Unknown_69E6E0("camera_leave", 6, false, 0);
 				InterfaceMesh->Unknown_5B9830();
 				char anim[64];
@@ -1532,17 +1529,7 @@ bool UIStarbaseClass::Unknown_68(int key)
 				Unknown1FC = true;
 				Unknown201 = true;
 				Unknown1B2 = true;
-				if (UnknownC0.D->Avatar != NULL) {
-					UnknownC0.D->Avatar->Unknown_786E60();
-				}
-				Unknown214 = false;
-				Unknown215 = false;
-				Unknown216 = false;
-				Unknown217 = false;
-				Unknown218 = false;
-				Unknown219 = false;
-				Unknown21A = false;
-				Unknown1B3 = false;
+				Unknown_641B00();
 				UnknownB0->Unknown_6A23E0(Unknown214, Unknown215, Unknown216, Unknown217, Unknown1B3);
 			}
 			return(true);
@@ -1626,6 +1613,19 @@ bool UIStarbaseClass::Unknown_68(int key)
 	}
 	return(false);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2497,57 +2497,57 @@ void UIStarbaseClass::Unknown_63A100()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x63B630, functional (register: the black market booth's RefCountPtr temporary's address taken in ecx after the model's load in the client, in edx before it here, as 0x638DA0; O4)
+// 0x63B630 (0x638500's keys: 2 an NPC slot, 0x11 a terminal, 100 a symbol chat option; the camera turned to it)
+void UIStarbaseClass::Unknown_63B630(int type, int index)
+{
+	UnknownC0.A = -1;
+	UnknownC0.B = -1;
+	UnknownC0.C = -1;
+	switch (type) {
+		case 2:
+			UnknownC0.B = index;
+			UnknownC0.D->Avatar->Unknown_786E60();
+			Unknown_63D2F0(UnknownC0.B);
+			if (RoomInfo->Find_NPC(UnknownC0.B)->Booth == StarbaseNPCClass::BOOTH_BLACKMKT) {
+				UnknownB0->Unknown_69F540(Unknown_497300(((RObjGadgetClass *)Unknown13C[UnknownC0.B]->Unknown14)->RObj), "vb_blackmkt.vb_blackmkt-1", 0, false, false);
+				Unknown1B0 = true;
+			}
+			UnknownB0->Unknown_69CBE0();
+			UnknownC0.E = 0x20;
+			Unknown_63E2B0();
+			break;
+		case 0x11:
+			if (RoomInfo->Find_Facility(index)->Type == StarbaseFacilityClass::BROWSER && Unknown_7CA2D0()->Unknown34) {
+				((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_74D990(0x13, "Cannot activate web terminal while using the embedded browser feature", 0);
+				Unknown_63B5A0();
+				return;
+			}
+			UnknownC0.A = index;
+			UnknownC0.D->Avatar->Unknown_786E60();
+			Unknown_63DCD0(UnknownC0.A);
+			char name[32];
+			if (!Room && ExtraBones) {
+				_snprintf(name, sizeof(name), "cam_wterm%02d", index);
+				Matrix3D tm = ExtraBones->Get_Bone_Transform(name);
+				UnknownB0->Unknown_69EB20(tm, 1, true);
+			} else {
+				_snprintf(name, sizeof(name), "cam_terminal%02d", index);
+				UnknownB0->Unknown_69E6E0(name, 1, false, 0);
+			}
+			Unknown1FC = true;
+			UnknownB0->Unknown_69CBE0();
+			UnknownC0.E = 0x10;
+			Unknown_63E2B0();
+			break;
+		case 100:
+			UnknownC0.C = index;
+			((UIStarbaseUnknown1F8Class *)Unknown1F8.Peek())->Unknown_645CE0();
+			Unknown1F8->Unknown_58();
+			break;
+	}
+	Unknown_63B5A0();
+}
 
 
 
@@ -2959,53 +2959,53 @@ void UIStarbaseClass::Unknown_63DCD0(int facility)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x63DFE0, functional (frame: 0x50 against the client's 0x54, its three early-out blocks kept in place with their own epilogues where ours merges two at the end; O4)
+// 0x63DFE0 (0x638390's frame: the symbol chat menu's chosen option for the avatar UnknownC0.C: 2 a chat to it, 3 a trade
+// (ACTION 20), 4 ACTION 10)
+void UIStarbaseClass::Unknown_63DFE0()
+{
+	if (Unknown1F8->Active) {
+		if (UnknownB0->Unknown_69CCD0()) {
+			Unknown1F8->Unknown_5C();
+		}
+		SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+		UIStarbaseUnknownD4TableClass::const_iterator it = UnknownD4.find(UnknownC0.C);
+		UIStarbaseUnknownCCClass *savatar;
+		if (it == UnknownD4.end() || (savatar = it.Cur->Value) == NULL) {
+			sclient->Unknown_74D990(0x13, "The player you are interacting with has left the area.", 0);
+			Unknown1F8->Unknown_5C();
+			return;
+		}
+		if ((savatar->Unknown18 & 0x3E) || !savatar->Avatar->Unknown318.empty()) {
+			Unknown1F8->Unknown_5C();
+			return;
+		}
+		int option = ((UIStarbaseUnknown1F8Class *)Unknown1F8.Peek())->Unknown_645DC0();
+		if (option) {
+			switch (option) {
+				case 4:
+					sclient->Send_Packet(&ActionPacketClass(sclient->Get_Avatar_ID(), 10, savatar->Unknown00, 0));
+					break;
+				case 3:
+					{
+						SBaseViewClass *view = (SBaseViewClass *)sclient->Unknown135C;
+						if (view && view->PTrade && !view->PTrade->Active) {
+							sclient->Send_Packet(&ActionPacketClass(sclient->Get_Avatar_ID(), 0x14, savatar->Unknown00, 0));
+						}
+					}
+					break;
+				case 2:
+					if (savatar->Avatar) {
+						sclient->ChatPanel->Unknown_5658B0(savatar->Avatar->Desc.First_Name);
+						sclient->Unknown_744E70(false);
+					}
+					break;
+			}
+			Unknown1F8->Unknown_5C();
+			Unknown_641B00();
+		}
+	}
+}
 
 
 
@@ -4192,6 +4192,13 @@ void UIStarbaseClass::Unknown_6437A0(int unknown, AvatarDescClass *desc)
 
 // Out of line as the client's (auto-inlined into the callers above otherwise, though defined after them)
 #pragma auto_inline(off)
+// 0x6439B0 (SGI's _Hashtable_const_iterator(const iterator &), out of line)
+UIStarbaseUnknownD4TableClass::const_iterator::const_iterator(const iterator &it) :
+	Cur(it.Cur),
+	Table(it.Table)
+{
+}
+
 // @0x00643C20
 // 0x643C20 (SGI's hashtable(n, hf, eql) with _M_initialize_buckets inline: the next prime of the table, the vector's
 // reserve and insert(end(), n, 0) 0x644740)
@@ -4411,6 +4418,7 @@ void UIStarbaseUnknown1F8Class::Unknown_645CC0()
 {
 }
 
+#pragma auto_inline(off)
 // 0x645CE0
 void UIStarbaseUnknown1F8Class::Unknown_645CE0()
 {
@@ -4427,6 +4435,7 @@ int UIStarbaseUnknown1F8Class::Unknown_645DC0()
 	Unknown84 = 0;
 	return(option);
 }
+#pragma auto_inline(on)
 
 // The starbase lights panel (0x646170-0x648238): moved after the file's other functions, as the client's order (SU1)
 // The colour pad's gadget (0x80 bytes, constructor 0x671300), as ui_avatar_cust.cpp's UIAvatarCustGadget671300Class

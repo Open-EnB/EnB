@@ -101,6 +101,13 @@ public:
 		}
 		iterator operator++(int) { iterator tmp = *this; ++*this; return(tmp); }
 	};
+	struct const_iterator	// SGI's _Hashtable_const_iterator, as far as 0x63DFE0 uses it  // NAME 1: neutral (D10)
+	{
+		const NodeStruct *Cur;	// SGI's _M_cur  // NAME 1: neutral (D10)
+		const UIStarbaseUnknownD4TableClass *Table;	// SGI's _M_ht  // NAME 1: neutral (D10)
+		const_iterator(const iterator &it);	// 0x6439B0 (out of line in ui_starbase.cpp: 0x63DFE0 converts find's and end()'s)  // NAME 1 [it]: SGI's
+		bool operator==(const const_iterator &it) const { return(Cur == it.Cur); }
+	};
 	iterator begin();	// 0x643DF0 (out of line)
 	iterator find(const unsigned int &key);	// 0x643E60 (out of line: 0x6437A0 passes an int, through a temporary)  // NAME 1 [key]: SGI's
 	unsigned int erase(const unsigned int &key)	// SGI's (inline in 0x63D060)  // NAME 1 [key]: SGI's
