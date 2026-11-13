@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-786 entries in 259 files.
+797 entries in 260 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -772,6 +772,17 @@ edit the comments in the code, not this file.
 | `app/shared/symbol_substitution.cpp:156` | `Escape_Symbols` | mention | NOT EXACT: Substitute_Symbols, the client calls string::erase(iterator) 0x4E2A00 out of line in the unescape loop (inline budget). |
 | `app/shared/unique_design_id_lookup.cpp:92` | `UniqueDesignIDLookupClass::Add_Identifier` | marker | NOT EXACT: inline budget, the client calls the pair constructor 0x5024A0 out of line in Map[identifier] (frame 0xC0, ours 0xBC) |
 | `app/shared/unique_design_id_lookup.cpp:122` | `UniqueDesignIDLookupClass::Add_Identifier` | mention | NOT EXACT: Add_Identifier 0x500760 (inline budget). |
+| `app/shared/unknown_445740.cpp:91` | `SteeringClass::Avoid_Obstacles` | marker | NOT EXACT: frame (explain.py): the client keeps the avoidance vector's X (0.0f) on the FPU and its frame is 4 bytes smaller; the inverse rotation's terms load in another order 0x446000 |
+| `app/shared/unknown_445740.cpp:185` | `SteeringClass::Separation` | marker | NOT EXACT: shape (explain.py): one load order (the client loads the owner's radius and fsubr's the distance) 0x446810 |
+| `app/shared/unknown_445740.cpp:209` | `SteeringClass::Cohesion` | marker | NOT EXACT: register-only: the inlined Inverse_Transform_Vector's terms in another FPU order (fld st(1) / fld st(0)) 0x4469A0 |
+| `app/shared/unknown_445740.cpp:237` | `SteeringClass::Alignment` | marker | NOT EXACT: order-only (explain.py): the same 127 instructions in another order (the offset's length sums) 0x446CB0 |
+| `app/shared/unknown_445740.cpp:264` | `SteeringClass::Predict` | marker | NOT EXACT: shape (explain.py): the inlined Closing_Speed's Normalize multiplies in another FPU order 0x446E60 |
+| `app/shared/unknown_445740.cpp:289` | `SteeringClass::Follow` | marker | NOT EXACT: field-offset (explain.py): the client keeps the avoidance result's Y on the FPU (X and Z in memory) 0x447180 |
+| `app/shared/unknown_445740.cpp:311` | `SteeringClass::Seek` | marker | NOT EXACT: field-offset (explain.py): as Follow, the avoidance result's Y on the FPU in the client 0x447480 |
+| `app/shared/unknown_445740.cpp:325` | `SteeringClass::Evade` | marker | NOT EXACT: frame (explain.py): as Follow; frame 0x24 against 0x30 0x447690 |
+| `app/shared/unknown_445740.cpp:339` | `SteeringClass::Pursue` | marker | NOT EXACT: shape (explain.py): the client copies the result twice (a second local) and orders the length sums otherwise 0x4479F0 |
+| `app/shared/unknown_445740.cpp:348` | `SteeringClass::Arrive` | marker | NOT EXACT: shape (explain.py): as 0x4479F0 0x447B30 |
+| `app/shared/unknown_445740.cpp:382` | `SteeringTurnClass::Turn` | marker | NOT EXACT: shape (explain.py): the client copies the cosine into the angle's slot before comparing it with the limit (an inline helper's parameter?); one round tried 0x447E20 |
 | `app/shared/unknown_46c730.cpp:164` | `LandClass::Upload_Lightmap` | marker | NOT EXACT: shape (0x46D6B0: 64 masked rows, 29 with registers masked; the frame is the client's 0x20 once the four channels are separate pointers, the client's pointer-difference induction variables; the setup's load order and which difference stays in a register are left; attempts.csv) |
 | `app/shared/unknown_46c730.cpp:218` | `LandClass::Compute_Lighting` | marker | NOT EXACT: order-only (the shadowed vertex: the client loads +0x1F0's factor first; 64 rows masked; attempts.csv 0x46CAE0). The lit vertices: the sun's normal colour plus the sky's; the shadowed: the sky's; between the horizons a blend |
 | `app/shared/unknown_46c730.cpp:615` | `LandClass::Unknown_46F120` | marker | NOT EXACT: shape (688 masked rows, frame 0x1D8 vs the client's 0x19C: the client recomputes y + 1 per x step and fetches all eight heights before the differences; LD7's form, attempts.csv 0x46F120) |

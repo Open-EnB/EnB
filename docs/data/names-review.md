@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1857 |
 | 2 | describes what the code does | 4582 |
-| 1 | neutral placeholder | 23629 |
+| 1 | neutral placeholder | 23673 |
 
 ## For review (score 3 and below)
 
@@ -23060,6 +23060,50 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unused` | `app/shared/spln_db.h:163` | the client's copy takes a second argument (ret 8) it never reads |
 | 1 | `Unknown_8B44E0` | `app/shared/strconv_lib.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_8B44C0` | `app/shared/strconv_lib.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_4568E0` | `app/shared/unknown_445740.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn54` | `app/shared/unknown_445740.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn48` | `app/shared/unknown_445740.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/unknown_445740.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_Test` | `app/shared/unknown_445740.cpp:428` | untagged neutral name (D10) |
+| 1 | `unknown_445740.h` | `app/shared/unknown_445740.h:6` | provisional header name (D137: the client names neither file) |
+| 1 | `SteeringVehicleStruct` | `app/shared/unknown_445740.h:17` | what the behaviours read of it |
+| 1 | `Transform` | `app/shared/unknown_445740.h:19` | its type |
+| 1 | `Position` | `app/shared/unknown_445740.h:20` | what the behaviours do with it |
+| 1 | `Velocity` | `app/shared/unknown_445740.h:21` | as above |
+| 1 | `SteeringTargetStruct` | `app/shared/unknown_445740.h:25` | what the behaviours read of it |
+| 1 | `Position` | `app/shared/unknown_445740.h:27` | as SteeringVehicleStruct's |
+| 1 | `Velocity` | `app/shared/unknown_445740.h:28` | as SteeringVehicleStruct's |
+| 1 | `SteeringClass` | `app/shared/unknown_445740.h:34` | what its members do |
+| 1 | `Seek, vehicle, target` | `app/shared/unknown_445740.h:37` | Reynolds's name for what it does |
+| 1 | `Flee` | `app/shared/unknown_445740.h:38` | as Seek |
+| 1 | `Arrive` | `app/shared/unknown_445740.h:39` | as Seek |
+| 1 | `distance` | `app/shared/unknown_445740.h:40` | what it subtracts |
+| 1 | `Pursue` | `app/shared/unknown_445740.h:41` | as Seek |
+| 1 | `Evade` | `app/shared/unknown_445740.h:42` | as Seek |
+| 1 | `distance` | `app/shared/unknown_445740.h:43` | how far the point lies |
+| 1 | `Avoid_Obstacles` | `app/shared/unknown_445740.h:44` | as Seek; [proxim]: fp_tt.cpp's FAIL_IF 'proxim.Get_Avoidance()' |
+| 1 | `Avoid_Collisions` | `app/shared/unknown_445740.h:45` | after its settings |
+| 1 | `Separation` | `app/shared/unknown_445740.h:46` | as Seek |
+| 1 | `Cohesion` | `app/shared/unknown_445740.h:47` | as Seek |
+| 1 | `Alignment` | `app/shared/unknown_445740.h:48` | as Seek |
+| 1 | `Predict` | `app/shared/unknown_445740.h:49` | what it returns |
+| 1 | `Closing_Speed` | `app/shared/unknown_445740.h:50` | what it returns |
+| 1 | `Follow` | `app/shared/unknown_445740.h:51` | after its settings |
+| 1 | `Seek` | `app/shared/unknown_445740.h:52` | as Seek |
+| 1 | `Evade` | `app/shared/unknown_445740.h:53` | as Evade |
+| 1 | `Pursue` | `app/shared/unknown_445740.h:54` | as Pursue |
+| 1 | `Arrive` | `app/shared/unknown_445740.h:55` | as Arrive |
+| 1 | `Encode, encoder` | `app/shared/unknown_445740.h:57` | what it does |
+| 1 | `MaxSpeed` | `app/shared/unknown_445740.h:59` | what the behaviours do with it |
+| 1 | `SteeringTurnClass` | `app/shared/unknown_445740.h:64` | what it holds |
+| 1 | `yaw, pitch, level` | `app/shared/unknown_445740.h:67` | what 0x447E20 limits with them |
+| 1 | `Turn, desired` | `app/shared/unknown_445740.h:68` | what it does |
+| 1 | `MaxYaw` | `app/shared/unknown_445740.h:70` | as the constructor's |
+| 1 | `MaxPitch` | `app/shared/unknown_445740.h:71` | as above |
+| 1 | `MaxLevel` | `app/shared/unknown_445740.h:72` | as above |
+| 1 | `CosYaw` | `app/shared/unknown_445740.h:73` | as above |
+| 1 | `CosPitch` | `app/shared/unknown_445740.h:74` | as above |
+| 1 | `CosLevel` | `app/shared/unknown_445740.h:75` | as above |
 | 1 | `Unknown458710Class` | `app/shared/unknown_458710.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown45E850Class` | `app/shared/unknown_458710.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown48` | `app/shared/unknown_458710.cpp:22` | untagged neutral name (D10) |
