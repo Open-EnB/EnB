@@ -3297,7 +3297,7 @@ bool GuildRecruitConfirmSectorPacket::Process_Packet(void *instance)
 	return(true);
 }
 #include "..\shared\symbol_substitution.h"
-const char *Unknown_83D900(int message_type); const char *Unknown_83D970(int message_type);	// guild_strings.cpp (app\common): a guild message's text (with $OtherName$ / $GuildName$ symbols) and its sound, by type  // NAME 1 [message_type]: guild_strings.cpp's FAIL_IF 'message_type < GMSG_INVALID'
+#include "..\common\guild_strings.h"	// Unknown_83D900 / Unknown_83D970 (0x83D900 / 0x83D970): a guild message's text and sound, by type
 
 // 0x73E9E0
 bool GuildMessageSectorPacket::Process_Packet(void *instance)
