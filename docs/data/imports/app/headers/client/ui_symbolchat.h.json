@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "UISymbolChatClass and its row struct, laid out from the constructor 0x64A480 and the destructor 0x64A7D0 (provisional header name, NAME 1); moved out of ui_group.h"
+}
