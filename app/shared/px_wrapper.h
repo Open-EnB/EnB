@@ -44,7 +44,7 @@ public:
 	void Unknown_456730();												// 0x456730 (FAIL_IF '!List' l.154: leaves the list)
 	void Unknown_4567D0(bool value);									// 0x4567D0 (sets +0x0E)  // NAME 1 [value]: what it stores
 	void Unknown_456840(bool value);									// 0x456840 (sets +0x0C)  // NAME 1 [value]: what it stores
-	void Unknown_456890(bool value);									// 0x456890 (sets +0x0D)  // NAME 1 [value]: what it stores
+	void Unknown_456890(bool value); bool Get_Avoidance() const { return(Unknown0D); }	// 0x456890 (sets +0x0D); Get_Avoidance reads it (the client's name: fp_tt.cpp's G_ASSERT 'proxim.Get_Avoidance()' 0xB705E4)  // NAME 1 [value]: what it stores
 	std::vector<DynObj *> &Unknown_4568E0();								// 0x4568E0 (the callback box's Owners)
 	void Unknown_456900(const Vector3 &low, const Vector3 &high);		// 0x456900 (FAIL_IF '!low.Is_Valid()' l.247, '!high.Is_Valid()' l.248)
 	void Update(const Vector3 &pos, float radius);						// 0x456B60 'PxWrapper::Update' (FAIL_IF '!pos.Is_Valid()' l.272, '!WWMath::Is_Valid_Float(radius)')

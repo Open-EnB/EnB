@@ -21,6 +21,7 @@
 #include "matrix3d.h"
 
 class PxWrapper;
+class DynObj;
 
 // The fp_*.cpp family's base (table 0xAE7910): the slots fp_tt.cpp fills
 class FpBaseClass  // NAME 1 [FpBaseClass]: neutral (D10), the base of the fp_*.cpp classes
@@ -28,7 +29,7 @@ class FpBaseClass  // NAME 1 [FpBaseClass]: neutral (D10), the base of the fp_*.
 public:
 	virtual ~FpBaseClass() {}																	// 0x4492D0 (deleting, fp_ita.obj's copy)
 	virtual int Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch) = 0;	// +0x04  // NAME 1 [all]: what fp_tt.cpp's does with them
-	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, int unknown8, int unknown9) = 0;	// +0x08  // NAME 1 [all but proxim]: as Unknown_04; [proxim]: the FAIL_IF 'proxim.Get_Avoidance()' 0xB705E4
+	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims) = 0;	// +0x08  // NAME 1 [all but proxim]: as Unknown_04, what fp_tt.cpp's does with them; [proxim]: the G_ASSERT 'proxim.Get_Avoidance()' 0xB705E4
 	virtual void Unknown_0C(float &yaw, float &pitch) = 0;										// +0x0C  // NAME 1 [yaw, pitch]: the angles fp_tt.cpp's returns
 };
 
@@ -38,7 +39,7 @@ public:
 	FpTTClass(float max_yaw, float max_pitch, float max_slope, bool unknown38);	// 0x449360 (the angles clamped to 0..pi)  // NAME 1 [all]: what it does with them
 	virtual ~FpTTClass();																		// 0x449520 (deleting 0x4494F0)
 	virtual int Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch);	// 0x449540: 0 when Unknown39, else 2
-	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, int unknown8, int unknown9);	// 0x449EA0 (FAIL_IF 'proxim.Get_Avoidance()' l.323; not rebuilt yet)
+	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims);	// 0x449EA0 (G_ASSERT 'proxim.Get_Avoidance()' l.323): the result of Unknown_04, or 2
 	virtual void Unknown_0C(float &yaw, float &pitch);											// 0x44AC40: atan2 of +0x3C / +0x40 and of +0x44
 
 	float MaxYaw;							// +0x04 (0..pi)  // NAME 1: the angle the yaw turns by
@@ -51,7 +52,7 @@ public:
 	float MaxSlope;							// +0x20 (tan of the third angle)  // NAME 1: the clamp of the target's slope
 	float MaxYawHalfCos;					// +0x24 (cos(MaxYaw / 2))  // NAME 1: what it is
 	int Unknown28;							// +0x28 (0, 1, 2: 0x449540's switch)
-	int Unknown2C;							// +0x2C
+	DynObj *Unknown2C;						// +0x2C (0x449EA0: the obstacle states 1 / 2 turn around)
 	Vector2 Unknown30;						// +0x30 (the constructor: 1, 0)
 	bool Unknown38;							// +0x38 (the constructor's last argument)
 	bool Unknown39;							// +0x39
