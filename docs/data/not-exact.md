@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-797 entries in 260 files.
+802 entries in 263 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -291,13 +291,18 @@ edit the comments in the code, not this file.
 | `app/client/scriptedmovie.cpp:1819` | `ScriptedMovieViewClass::Add_Camera` | marker | NOT EXACT: frame 0x14, the client 0x18 (hfov in a local of its own; ours reuses the params slot), 2 masked rows 0x805420: a camera on a bone of the slot's model, last in CameraList (optionally its view plane, in degrees) |
 | `app/client/scriptedmovie.cpp:1918` | `ScriptedMovieViewClass::Attach_Light_To_Bone` | marker | NOT EXACT: after the loop the client knows parent is NULL (no second test before the G_ASSERT); forms: the slot and the mesh tested together, the mesh tested after the assignment (this one) |
 | `app/client/scriptedmovie.cpp:3626` | `ScriptedMovieViewClass::Unknown_8099B0` | marker | NOT EXACT: register (0.82, 2 masked rows): the client sets p (esi) before the tab loop, ours after it 0x8099B0: the script loaded: one command a line ('<frame> <command>,<parameters>', ';' a comment; FRAME_PAD and SOUNDTRACK set the view, CREATE_SFX lines also run at once), the lines sorted by frame (0x7FFEA0) |
+| `app/client/ship_equip_pip.cpp:153` | `ShipEquipPipClass::Unknown_542250` | marker | NOT EXACT: functional from the pseudocode (D64); its locals sit in other frame slots 0x542250 |
+| `app/client/ship_equip_pip.cpp:223` | `ShipEquipPipClass::Unknown_542A10` | marker | NOT EXACT: functional from the pseudocode (D64); the translations' products are summed in another order 0x542A10 |
+| `app/client/ship_equip_pip.cpp:277` | `ShipEquipPipClass::Unknown_542EE0` | marker | NOT EXACT: functional from the pseudocode (D64); the inlined Unknown_543270 reads Camera earlier (scheduling) 0x542EE0 (out of line in all three callers, 0x542250's included) |
 | `app/client/ship_pip.cpp:294` | `ShipPipClass::Unknown_7C` | marker | NOT EXACT: ShipPipClass, frame (sub esp 0xA0 against 0x74: the client keeps a Matrix3D temporary for +0x6C's Set(Vector3), the bone index in ebp) @0x80C640 |
 | `app/client/ship_pip.cpp:343` | `ShipPipClass::Unknown_84` | marker | NOT EXACT: ShipPipClass, frame (sub esp 0x48 against 0x44: the first clamp holds min on the FPU stack and spills max, ours the other way) @0x80CA30 |
 | `app/client/ship_pip.cpp:376` | `ShipPipClass::Unknown_78` | marker | NOT EXACT: ShipPipClass, frame (the trackball's Matrix3D inverse and Quaternion swap stack slots, 0x64 against 0x24) @0x80CE10 |
 | `app/client/ship_pip.cpp:457` | `ShipPipClass::Unknown_2C` | marker | NOT EXACT: ShipPipClass, literal (first: the left drag's Translate(-center) FPU stack order; one temp slot [esp + 0x14] against 0x10) @0x80D5E0 |
+| `app/client/ship_stats_display.cpp:149` | `ShipStatsDisplayClass::Unknown_6A34E0` | marker | NOT EXACT: functional from the pseudocode (D64); the arrow's texture pick takes eax / ecx the other way round 0x6A34E0 |
 | `app/client/shiputils.cpp:34` | `void` | marker | NOT EXACT: functional (D64), from the disassembly (attempts.py show 0x80EAF0): a mesh named '[prefix.]decalNN' gets slot NN's material (an empty slot's from the library, else the slot's decal tinted by its colour): the mesh made unique, its passes, two texture stages, shader and vertex material replaced and its material info rebuilt; anything else recurses over its sub-objects @0x80EAF0 |
 | `app/client/shiputils.cpp:142` | `Unknown_80EFF0` | marker | NOT EXACT: functional (D64): 0x80F020 from region 0 with the environment-map manager's axis (+0x10) @0x80EFF0 |
 | `app/client/shiputils.cpp:931` | `Unknown_812390` | marker | NOT EXACT: from the disassembly (D64), the client's own FAIL_IF / G_ASSERT lines; shape and frame residues (attempts.py show 0x812390) 0x812390: the region's two halves onto the mesh's '~S1' / '~S2' vertex materials (colour, stage 1 mapper, the shaders' post-detail colour function) and the skin colour onto '~SK' @0x812390 |
+| `app/client/shortcut_range_gauge.cpp:67` | `ShortcutRangeGaugeClass::Unknown_6A4020` | marker | NOT EXACT: functional from the pseudocode (D64); the hidden case and the turn's factors are laid out in another order 0x6A4020 |
 | `app/client/skill_data.cpp:144` | `SkillDataClass::Unknown_20` | marker | NOT EXACT: inline-budget, the client inlines only the -1 push_back and calls 0x4A0880 for the other two 0x6A4F40 |
 | `app/client/skill_data_peek.cpp:149` | `SkillDataPeekClass::Get_Affiliations` | marker | NOT EXACT: 0x6A57B5 has mov byte ptr [ebx + ecx], 0 where this has [ecx + ebx] (register-only, three forms of the return) 0x6A5730 |
 | `app/client/slot_data.cpp:32` | `SlotDataClass::Unknown_6A7730` | marker | NOT EXACT: shape (0.59: the client lays out the second emit before the shared failure exit; this form makes the copy 0x6A7860 inlines exact) 0x6A7730 |

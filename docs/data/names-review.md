@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 204 |
+| 5 | the client names it | 211 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1857 |
-| 2 | describes what the code does | 4582 |
-| 1 | neutral placeholder | 23673 |
+| 3 | by convention from a client-named file or sibling | 1860 |
+| 2 | describes what the code does | 4594 |
+| 1 | neutral placeholder | 23712 |
 
 ## For review (score 3 and below)
 
@@ -4733,7 +4733,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Back` | `app/client/gd_selct.h:45` | what slot +0x40 puts there |
 | 1 | `TextBack` | `app/client/gd_selct.h:46` | what slot +0x40 puts there |
 | 1 | `View` | `app/client/gd_selct.h:47` | its type |
-| 1 | `Unknown541DE0Class` | `app/client/gd_ship_equip_pip.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/gd_ship_equip_pip.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/gd_ship_equip_pip.cpp:59` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/gd_ship_equip_pip.cpp:62` | untagged neutral name (D10) |
@@ -4745,7 +4744,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_66DED0` | `app/client/gd_ship_equip_pip.cpp:86` | untagged neutral name (D10) |
 | 1 | `Unknown_542EE0` | `app/client/gd_ship_equip_pip.cpp:117` | untagged neutral name (D10) |
 | 1 | `Unknown_542A10` | `app/client/gd_ship_equip_pip.cpp:146` | untagged neutral name (D10) |
-| 1 | `Unknown541DE0Class` | `app/client/gd_ship_equip_pip.h:21` | untagged neutral name (D10) |
 | 1 | `pip` | `app/client/gd_ship_equip_pip.h:26` | the base's |
 | 1 | `event, x, y, mask` | `app/client/gd_ship_equip_pip.h:28` | GadgetClass's |
 | 1 | `Unknown_2C` | `app/client/gd_ship_equip_pip.h:28` | untagged neutral name (D10) |
@@ -5480,8 +5478,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_10` | `app/client/inv_render.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/inv_render.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/client/inv_render.cpp:26` | neutral (D10) |
-| 1 | `Unknown6A3D60Class` | `app/client/inv_render.cpp:27` | neutral (D10); skill_render.cpp's |
-| 1 | `Unknown_6A4020` | `app/client/inv_render.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown68E360Class` | `app/client/inv_render.cpp:29` | neutral (D10) |
 | 1 | `Unknown_496730` | `app/client/inv_render.cpp:31` | neutral (D10); NAME 1 [robj, a, b]: neutral |
 | 1 | `Unknown521B80Class` | `app/client/inv_render.cpp:34` | neutral (D10); NAME 1 [space_client, item, data, slot, visitor]: neutral |
@@ -5538,6 +5534,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `previous, flag, sclient, slot, target, self, data, state, moved, kind, type, ammo, weapon, device, now, done, on, wrong, sound` | `app/client/inv_render.cpp:636` | neutral |
 | 1 | `Unknown_6F5A10` | `app/client/inv_render.cpp:661` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5A40` | `app/client/inv_render.cpp:661` | untagged neutral name (D10) |
+| 1 | `Unknown_6A4020` | `app/client/inv_render.cpp:738` | untagged neutral name (D10) |
 | 1 | `update, on` | `app/client/inv_render.cpp:741` | neutral |
 | 1 | `ready` | `app/client/inv_render.cpp:785` | neutral |
 | 1 | `flags` | `app/client/inv_render.cpp:791` | neutral |
@@ -5547,7 +5544,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `_Zero` | `app/client/inv_render.cpp:1018` | neutral (D10) |
 | 1 | `buffer, seconds, whole, ms, hours, rest, minutes, s, m, h` | `app/client/inv_render.cpp:1021` | neutral |
 | 1 | `_One` | `app/client/inv_render.cpp:1027` | neutral (D10) |
-| 1 | `Unknown6A3D60Class` | `app/client/inv_render.h:24` | untagged neutral name (D10) |
 | 1 | `Unknown688830Item` | `app/client/inv_render.h:25` | untagged neutral name (D10) |
 | 1 | `arg` | `app/client/inv_render.h:30` | neutral |
 | 1 | `Unknown_08` | `app/client/inv_render.h:32` | untagged neutral name (D10) |
@@ -8321,6 +8317,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7FFD30` | `app/client/scriptedmovieline.h:15` | untagged neutral name (D10) |
 | 1 | `Unknown_7FFDC0` | `app/client/scriptedmovieline.h:16` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/scriptedmovieline.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/ship_equip_pip.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ship_equip_pip.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown50` | `app/client/ship_equip_pip.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/ship_equip_pip.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_542250` | `app/client/ship_equip_pip.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown_47FF70` | `app/client/ship_equip_pip.cpp:158` | untagged neutral name (D10) |
+| 1 | `Unknown_79B6B0` | `app/client/ship_equip_pip.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown_543270` | `app/client/ship_equip_pip.cpp:168` | untagged neutral name (D10) |
+| 1 | `Unknown_542EE0` | `app/client/ship_equip_pip.cpp:195` | untagged neutral name (D10) |
+| 1 | `Unknown_542A10` | `app/client/ship_equip_pip.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown_543200` | `app/client/ship_equip_pip.cpp:229` | untagged neutral name (D10) |
+| 1 | `ship_equip_pip.h` | `app/client/ship_equip_pip.h:5` | provisional header name for ship_equip_pip.cpp |
+| 1 | `client` | `app/client/ship_equip_pip.h:20` | what the window passes |
+| 1 | `Unknown_542250, robj` | `app/client/ship_equip_pip.h:22` | neutral (D10) |
+| 1 | `Unknown_542250` | `app/client/ship_equip_pip.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown_542A10, point, on` | `app/client/ship_equip_pip.h:23` | neutral (D10) |
+| 1 | `Unknown_542A10` | `app/client/ship_equip_pip.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_542EE0, zoom` | `app/client/ship_equip_pip.h:24` | what the wheel passes |
+| 1 | `Unknown_542EE0` | `app/client/ship_equip_pip.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_543200, point` | `app/client/ship_equip_pip.h:25` | neutral (D10); [dest_mouse]: the FAIL_IF's |
+| 1 | `Unknown_543200` | `app/client/ship_equip_pip.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_543270, tm` | `app/client/ship_equip_pip.h:26` | neutral (D10) |
+| 1 | `Unknown_543270` | `app/client/ship_equip_pip.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown48` | `app/client/ship_equip_pip.h:32` | neutral (D10) |
+| 1 | `Unknown4C` | `app/client/ship_equip_pip.h:33` | neutral (D10) |
+| 1 | `Unknown50` | `app/client/ship_equip_pip.h:34` | neutral (D10) |
+| 1 | `Unknown80` | `app/client/ship_equip_pip.h:35` | neutral (D10) |
 | 1 | `order` | `app/client/ship_pip.cpp:21` | neutral (D10), by address |
 | 1 | `Unknown_B07D78` | `app/client/ship_pip.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_B07D7C` | `app/client/ship_pip.cpp:23` | untagged neutral name (D10) |
@@ -8480,6 +8503,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0E8` | `app/client/ship_pip.h:93` | untagged neutral name (D10) |
 | 1 | `Unknown0EC` | `app/client/ship_pip.h:94` | untagged neutral name (D10) |
 | 1 | `Unknown0F0` | `app/client/ship_pip.h:95` | untagged neutral name (D10) |
+| 1 | `robj, arg` | `app/client/ship_stats_display.cpp:17` | as gadget.cpp's |
+| 1 | `Unknown_4960C0` | `app/client/ship_stats_display.cpp:17` | untagged neutral name (D10) |
+| 1 | `robj, tex, index` | `app/client/ship_stats_display.cpp:18` | as avatar.cpp's |
+| 1 | `Unknown_495FD0` | `app/client/ship_stats_display.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ship_stats_display.cpp:19` | neutral (D10) |
+| 1 | `Unknown_Find_Valid, string` | `app/client/ship_stats_display.cpp:23` | neutral (D10), as co.cpp's |
+| 1 | `Unknown_Find_Valid` | `app/client/ship_stats_display.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ship_stats_display.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ship_stats_display.cpp:23` | untagged neutral name (D10) |
+| 1 | `Get_String, i` | `app/client/ship_stats_display.cpp:79` | the FAIL_IF's i |
+| 1 | `Get_Higher_Is_Better, i` | `app/client/ship_stats_display.cpp:85` | what the update compares it with |
+| 1 | `ShipDisplayFields` | `app/client/ship_stats_display.cpp:94` | neutral (D10) |
+| 1 | `UnknownC8` | `app/client/ship_stats_display.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_6D2700` | `app/client/ship_stats_display.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown80` | `app/client/ship_stats_display.cpp:129` | untagged neutral name (D10) |
+| 1 | `Unknown_6A34E0` | `app/client/ship_stats_display.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE420` | `app/client/ship_stats_display.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown_6A3C10` | `app/client/ship_stats_display.cpp:246` | untagged neutral name (D10) |
+| 1 | `ship_stats_display.h` | `app/client/ship_stats_display.h:5` | provisional header name for ship_stats_display.cpp |
+| 1 | `NUM_FIELDS` | `app/client/ship_stats_display.h:21` | SSDC::NUM_SHIP_DISPLAY_FIELDS's value (the FAIL_IF text) |
+| 1 | `client` | `app/client/ship_stats_display.h:22` | what the window passes |
+| 1 | `Unknown_6A34E0, on` | `app/client/ship_stats_display.h:24` | neutral (D10) |
+| 1 | `Unknown_6A34E0` | `app/client/ship_stats_display.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_6A3C10` | `app/client/ship_stats_display.h:25` | neutral (D10) |
+| 1 | `Fonts` | `app/client/ship_stats_display.h:29` | neutral (D10) |
+| 1 | `Unknown80` | `app/client/ship_stats_display.h:31` | neutral (D10) |
+| 1 | `UnknownC8` | `app/client/ship_stats_display.h:35` | neutral (D10) |
 | 1 | `Unknown_80FCE0` | `app/client/shiputils.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown_80FD10` | `app/client/shiputils.cpp:27` | untagged neutral name (D10) |
 | 1 | `Unknown_812390` | `app/client/shiputils.cpp:28` | untagged neutral name (D10) |
@@ -8521,6 +8571,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `robj, name, color` | `app/client/shiputils.h:27` | what ui_shipcust.cpp passes |
 | 1 | `Unknown_80FF20` | `app/client/shiputils.h:27` | untagged neutral name (D10) |
 | 1 | `robj, on` | `app/client/shiputils.h:34` | what it does with them |
+| 1 | `robj, make_geometry_unique` | `app/client/shortcut_range_gauge.cpp:13` | as eff_o.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/shortcut_range_gauge.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_6A4500` | `app/client/shortcut_range_gauge.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/shortcut_range_gauge.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown4A13F0Class` | `app/client/shortcut_range_gauge.cpp:54` | untagged neutral name (D10) |
+| 1 | `Unknown_6A4020` | `app/client/shortcut_range_gauge.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_6A43D0` | `app/client/shortcut_range_gauge.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_4A1550` | `app/client/shortcut_range_gauge.cpp:104` | untagged neutral name (D10) |
+| 1 | `shortcut_range_gauge.h` | `app/client/shortcut_range_gauge.h:5` | provisional header name for shortcut_range_gauge.cpp |
+| 1 | `Unknown4A13F0Class` | `app/client/shortcut_range_gauge.h:12` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/shortcut_range_gauge.h:20` | what the slots pass |
+| 1 | `Unknown_6A4020, distance, range, state, arg` | `app/client/shortcut_range_gauge.h:22` | neutral (D10) |
+| 1 | `Unknown_6A4020` | `app/client/shortcut_range_gauge.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown_6A43D0, mode` | `app/client/shortcut_range_gauge.h:23` | neutral (D10) |
+| 1 | `Unknown_6A43D0` | `app/client/shortcut_range_gauge.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_6A4500` | `app/client/shortcut_range_gauge.h:24` | neutral (D10) |
+| 1 | `Unknown04` | `app/client/shortcut_range_gauge.h:27` | neutral (D10) |
 | 1 | `Unknown_4F7EF0` | `app/client/signal_list.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown_4F7F60` | `app/client/signal_list.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_813B00` | `app/client/skill_ability_data_peek.cpp:51` | untagged neutral name (D10) |
@@ -8610,8 +8677,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/skill_render.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/skill_render.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/skill_render.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown6A3D60Class` | `app/client/skill_render.cpp:25` | neutral (D10); NAME 1 [robj, distance, range, state, arg]: neutral |
-| 1 | `Unknown_6A4020` | `app/client/skill_render.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown815320Struct` | `app/client/skill_render.cpp:28` | neutral (D10); NAME 2 [Name]: 0x6A6A80 writes it as the ability |
 | 1 | `Unknown10` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/skill_render.cpp:28` | untagged neutral name (D10) |
@@ -8643,6 +8708,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_2C` | `app/client/skill_render.cpp:139` | untagged neutral name (D10) |
 | 1 | `Unknown_6A7310` | `app/client/skill_render.cpp:141` | untagged neutral name (D10) |
 | 1 | `Unknown_6A8FE0` | `app/client/skill_render.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown_6A4020` | `app/client/skill_render.cpp:230` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/skill_render.cpp:233` | untagged neutral name (D10) |
 | 1 | `Unknown_6A73C0` | `app/client/skill_render.cpp:236` | untagged neutral name (D10) |
 | 1 | `Unknown_6A72E0` | `app/client/skill_render.cpp:301` | untagged neutral name (D10) |
@@ -8655,7 +8721,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C` | `app/client/skill_render.cpp:416` | untagged neutral name (D10) |
 | 1 | `Unknown_6A7380` | `app/client/skill_render.cpp:439` | untagged neutral name (D10) |
 | 1 | `Unknown_6A8F00` | `app/client/skill_render.cpp:450` | untagged neutral name (D10) |
-| 1 | `Unknown6A3D60Class` | `app/client/skill_render.h:21` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/skill_render.h:30` | untagged neutral name (D10) |
 | 1 | `out` | `app/client/skill_render.h:31` | neutral |
 | 1 | `Unknown_0C` | `app/client/skill_render.h:31` | untagged neutral name (D10) |
@@ -15035,9 +15100,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5D0A50` | `app/client/ui_pda_cargo.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown_5D0D20` | `app/client/ui_pda_cargo.h:36` | untagged neutral name (D10) |
 | 1 | `Buttons5` | `app/client/ui_pda_cargo.h:40` | neutral (the base has Buttons) |
-| 1 | `robj` | `app/client/ui_pda_equip.cpp:26` | as ui_avatr.cpp's |
-| 1 | `Unknown_497300` | `app/client/ui_pda_equip.cpp:26` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_pda_equip.cpp:27` | neutral (D10) |
+| 1 | `robj` | `app/client/ui_pda_equip.cpp:27` | as ui_avatr.cpp's |
+| 1 | `Unknown_497300` | `app/client/ui_pda_equip.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_pda_equip.cpp:28` | neutral (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/ui_pda_equip.cpp:30` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_pda_equip.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_pda_equip.cpp:33` | untagged neutral name (D10) |
@@ -15070,8 +15135,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_62F4D0` | `app/client/ui_pda_equip.cpp:147` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/ui_pda_equip.cpp:149` | untagged neutral name (D10) |
 | 1 | `Unknown_686DA0` | `app/client/ui_pda_equip.cpp:149` | untagged neutral name (D10) |
-| 1 | `Unknown6A2ED0Class` | `app/client/ui_pda_equip.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown541DE0Class` | `app/client/ui_pda_equip.cpp:152` | untagged neutral name (D10) |
 | 1 | `UnknownMountSlotStruct` | `app/client/ui_pda_equip.cpp:170` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_pda_equip.cpp:187` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_pda_equip.cpp:219` | untagged neutral name (D10) |
@@ -15102,48 +15165,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown04` | `app/client/ui_pda_equip.cpp:462` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/ui_pda_equip.cpp:463` | untagged neutral name (D10) |
 | 1 | `ui_pda_equip.h` | `app/client/ui_pda_equip.h:5` | provisional header name for ui_pda_equip.cpp |
-| 1 | `Unknown541DE0Class` | `app/client/ui_pda_equip.h:25` | neutral (D10) |
-| 1 | `client` | `app/client/ui_pda_equip.h:28` | what the window passes |
-| 1 | `robj` | `app/client/ui_pda_equip.h:29` | neutral |
-| 1 | `Unknown_542250` | `app/client/ui_pda_equip.h:29` | untagged neutral name (D10) |
-| 1 | `point, on` | `app/client/ui_pda_equip.h:30` | neutral |
-| 1 | `Unknown_542A10` | `app/client/ui_pda_equip.h:30` | untagged neutral name (D10) |
-| 1 | `zoom` | `app/client/ui_pda_equip.h:31` | what the wheel passes |
-| 1 | `Unknown_542EE0` | `app/client/ui_pda_equip.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/ui_pda_equip.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown6A2ED0Class` | `app/client/ui_pda_equip.h:36` | neutral (D10) |
-| 1 | `client, mesh` | `app/client/ui_pda_equip.h:39` | what the window passes |
-| 1 | `on` | `app/client/ui_pda_equip.h:41` | neutral |
-| 1 | `Unknown_6A34E0` | `app/client/ui_pda_equip.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown_6A3C10` | `app/client/ui_pda_equip.h:42` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `app/client/ui_pda_equip.h:43` | untagged neutral name (D10) |
-| 1 | `UnknownMountSlotStruct` | `app/client/ui_pda_equip.h:47` | neutral (D10) |
-| 1 | `Unknown04` | `app/client/ui_pda_equip.h:50` | neutral (D10) |
-| 1 | `Unknown08` | `app/client/ui_pda_equip.h:51` | neutral (D10) |
-| 1 | `NUM_FRAMES` | `app/client/ui_pda_equip.h:61` | the set-up's loops ('w%02d', 's%02d', 'c%02d') |
-| 1 | `client` | `app/client/ui_pda_equip.h:63` | what the PDA passes |
-| 1 | `Unknown_54` | `app/client/ui_pda_equip.h:65` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_pda_equip.h:66` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_pda_equip.h:67` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_pda_equip.h:68` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/ui_pda_equip.h:69` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/ui_pda_equip.h:69` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/ui_pda_equip.h:70` | InterfaceClass's |
-| 1 | `Unknown_7C` | `app/client/ui_pda_equip.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown_A4` | `app/client/ui_pda_equip.h:71` | untagged neutral name (D10) |
-| 1 | `Unknown_B0` | `app/client/ui_pda_equip.h:72` | untagged neutral name (D10) |
-| 1 | `Unknown_5D2B90` | `app/client/ui_pda_equip.h:73` | untagged neutral name (D10) |
-| 1 | `Unknown_5D2C50` | `app/client/ui_pda_equip.h:74` | untagged neutral name (D10) |
-| 1 | `Unknown124` | `app/client/ui_pda_equip.h:81` | neutral (D10) |
-| 1 | `Unknown128` | `app/client/ui_pda_equip.h:82` | neutral (D10) |
-| 1 | `Unknown12C` | `app/client/ui_pda_equip.h:83` | neutral (D10) |
-| 1 | `Unknown130` | `app/client/ui_pda_equip.h:84` | neutral (D10) |
-| 1 | `Unknown134` | `app/client/ui_pda_equip.h:85` | neutral (D10) |
-| 1 | `Unknown138` | `app/client/ui_pda_equip.h:86` | neutral (D10) |
-| 1 | `Unknown13C` | `app/client/ui_pda_equip.h:87` | neutral (D10) |
-| 1 | `Unknown140` | `app/client/ui_pda_equip.h:88` | neutral (D10) |
-| 1 | `Unknown144` | `app/client/ui_pda_equip.h:89` | neutral (D10) |
-| 1 | `Unknown148` | `app/client/ui_pda_equip.h:90` | neutral (D10) |
+| 1 | `UnknownMountSlotStruct` | `app/client/ui_pda_equip.h:27` | neutral (D10) |
+| 1 | `Unknown04` | `app/client/ui_pda_equip.h:30` | neutral (D10) |
+| 1 | `Unknown08` | `app/client/ui_pda_equip.h:31` | neutral (D10) |
+| 1 | `NUM_FRAMES` | `app/client/ui_pda_equip.h:41` | the set-up's loops ('w%02d', 's%02d', 'c%02d') |
+| 1 | `client` | `app/client/ui_pda_equip.h:43` | what the PDA passes |
+| 1 | `Unknown_54` | `app/client/ui_pda_equip.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_pda_equip.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_pda_equip.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_pda_equip.h:48` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_pda_equip.h:49` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_pda_equip.h:49` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_pda_equip.h:50` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_pda_equip.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_pda_equip.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_pda_equip.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_5D2B90` | `app/client/ui_pda_equip.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_5D2C50` | `app/client/ui_pda_equip.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/ui_pda_equip.h:61` | neutral (D10) |
+| 1 | `Unknown128` | `app/client/ui_pda_equip.h:62` | neutral (D10) |
+| 1 | `Unknown12C` | `app/client/ui_pda_equip.h:63` | neutral (D10) |
+| 1 | `Unknown130` | `app/client/ui_pda_equip.h:64` | neutral (D10) |
+| 1 | `Unknown134` | `app/client/ui_pda_equip.h:65` | neutral (D10) |
+| 1 | `Unknown138` | `app/client/ui_pda_equip.h:66` | neutral (D10) |
+| 1 | `Unknown13C` | `app/client/ui_pda_equip.h:67` | neutral (D10) |
+| 1 | `Unknown140` | `app/client/ui_pda_equip.h:68` | neutral (D10) |
+| 1 | `Unknown144` | `app/client/ui_pda_equip.h:69` | neutral (D10) |
+| 1 | `Unknown148` | `app/client/ui_pda_equip.h:70` | neutral (D10) |
 | 1 | `Unknown_B83EC8` | `app/client/ui_petition_entry.cpp:20` | neutral (D10) |
 | 1 | `Unknown_B83EDC` | `app/client/ui_petition_entry.cpp:21` | neutral (D10) |
 | 1 | `Unknown_54` | `app/client/ui_petition_entry.cpp:46` | untagged neutral name (D10) |
@@ -23431,15 +23479,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_73FDB0` | `programs/clientpoc/poc_world2.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5090` | `programs/clientpoc/poc_world2.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown541DE0Class` | `programs/clientpoc/poc_world3.cpp:22` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `programs/clientpoc/poc_world3.cpp:25` | untagged neutral name (D10) |
-| 1 | `Unknown_542250` | `programs/clientpoc/poc_world3.cpp:27` | untagged neutral name (D10) |
-| 1 | `Unknown_542A10` | `programs/clientpoc/poc_world3.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown_542EE0` | `programs/clientpoc/poc_world3.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown6A2ED0Class` | `programs/clientpoc/poc_world3.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `programs/clientpoc/poc_world3.cpp:39` | untagged neutral name (D10) |
-| 1 | `Unknown_6A34E0` | `programs/clientpoc/poc_world3.cpp:44` | untagged neutral name (D10) |
-| 1 | `Unknown_6A3C10` | `programs/clientpoc/poc_world3.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `programs/clientpoc/poc_world4.cpp:40` | untagged neutral name (D10) |
 | 1 | `Unknown_466920Class` | `programs/clientpoc/poc_world4.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown688830Class` | `programs/clientpoc/poc_world4.cpp:75` | untagged neutral name (D10) |
@@ -25398,6 +25437,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `View` | `app/client/scriptedmovie.cpp:1621` | what it holds |
 | 2 | `Frame` | `app/client/scriptedmovieline.h:17` | what the order compares |
 | 2 | `Text` | `app/client/scriptedmovieline.h:18` | what it holds |
+| 2 | `Light` | `app/client/ship_equip_pip.h:28` | what it holds |
+| 2 | `Proxy` | `app/client/ship_equip_pip.h:29` | what it holds |
+| 2 | `LastMouse` | `app/client/ship_equip_pip.h:30` | what it holds |
+| 2 | `Distance` | `app/client/ship_equip_pip.h:31` | what it holds |
+| 2 | `HigherIsBetter` | `app/client/ship_stats_display.cpp:91` | what it holds (false for 'Visibility' only) |
+| 2 | `Up` | `app/client/ship_stats_display.h:32` | its texture |
+| 2 | `Down` | `app/client/ship_stats_display.h:33` | its texture |
+| 2 | `Values` | `app/client/ship_stats_display.h:34` | what it holds |
 | 2 | `_MetalDatabase` | `app/client/shiputils.cpp:153` | metal_equivalent_rgbs.ini, as 0x8117D0's _BloodDatabase |
 | 2 | `metal` | `app/client/shiputils.cpp:163` | metal_equivalent_rgbs.ini's 'Metal-%02d' |
 | 2 | `Apply_Ship_Colorization` | `app/client/shiputils.cpp:291` | what it does |
@@ -25422,6 +25469,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Play_State_Animation` | `app/client/shiputils.h:30` | what it does |
 | 2 | `Update_Damage_Particles` | `app/client/shiputils.h:39` | what it does |
 | 2 | `Update_Blood_Particles` | `app/client/shiputils.h:42` | what it does |
+| 2 | `Frame` | `app/client/shortcut_range_gauge.h:28` | what Unknown04 gets |
+| 2 | `Angle` | `app/client/shortcut_range_gauge.h:29` | what it holds |
+| 2 | `Sound` | `app/client/shortcut_range_gauge.h:30` | what it holds |
+| 2 | `SoundMode` | `app/client/shortcut_range_gauge.h:31` | what it holds |
 | 2 | `SkillAbilityFieldNames` | `app/client/skill_ability_data_peek.cpp:7` | describes what it does |
 | 2 | `Attach` | `app/client/skill_ability_data_peek.h:30` | describes what it does |
 | 2 | `Get_Has_Ability` | `app/client/skill_ability_data_peek.h:35` | the client's field name (0xBA7910) |
@@ -25947,13 +25998,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SortReverse` | `app/client/ui_pda_cargo.h:44` | the option's |
 | 2 | `std:` | `app/client/ui_pda_cargo.h:45` | the option's |
 | 2 | `Get_Ship` | `app/client/ui_pda_equip.cpp:37` | ClientClass's slot +0x30 |
-| 2 | `Type` | `app/client/ui_pda_equip.h:49` | what 0x5D2210 tests |
-| 2 | `Index` | `app/client/ui_pda_equip.h:52` | what it holds |
-| 2 | `ShipPip` | `app/client/ui_pda_equip.h:78` | what it shows |
-| 2 | `std:` | `app/client/ui_pda_equip.h:79` | what it holds |
-| 2 | `Frames` | `app/client/ui_pda_equip.h:80` | what they are |
-| 2 | `Stats` | `app/client/ui_pda_equip.h:91` | its tooltip's |
-| 2 | `Exit` | `app/client/ui_pda_equip.h:92` | its sub-object's name |
+| 2 | `Type` | `app/client/ui_pda_equip.h:29` | what 0x5D2210 tests |
+| 2 | `Index` | `app/client/ui_pda_equip.h:32` | what it holds |
+| 2 | `ShipPip` | `app/client/ui_pda_equip.h:58` | what it shows |
+| 2 | `std:` | `app/client/ui_pda_equip.h:59` | what it holds |
+| 2 | `Frames` | `app/client/ui_pda_equip.h:60` | what they are |
+| 2 | `Stats` | `app/client/ui_pda_equip.h:71` | its tooltip's |
+| 2 | `Exit` | `app/client/ui_pda_equip.h:72` | its sub-object's name |
 | 2 | `Slider` | `app/client/ui_petition_entry.h:44` | what it is |
 | 2 | `DetailsEditor` | `app/client/ui_petition_entry.h:46` | its tooltip |
 | 2 | `Pending` | `app/client/ui_petition_entry.h:48` | what it holds |
@@ -28798,16 +28849,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `textures, swatches, secret_textures` | `app/client/scriptedmovie.cpp:147` | the INI names (sclient.cpp's) |
 | 3 | `DAMAGE_PARTICLES_NO_CHANGE, DAMAGE_PARTICLES_3` | `app/client/scriptedmovie.cpp:3279` | the FAIL_IF's text (0x808FD0); values from its tests |
 | 3 | `DEFAULT_STRING_SIZE` | `app/client/scriptedmovie.cpp:3625` | the assert's 'count < DEFAULT_STRING_SIZE' (0x200) |
+| 3 | `ShipEquipPipClass` | `app/client/ship_equip_pip.h:17` | class-from-file (D24) for app\Client\ship_equip_pip.cpp |
 | 3 | `ship_pip.h` | `app/client/ship_pip.h:17` | header name assumed from the client's ship_pip.cpp |
 | 3 | `ShipPipClass` | `app/client/ship_pip.h:35` | class-from-file (D24) for app\client\ship_pip.cpp |
 | 3 | `PIPView` | `app/client/ship_pip.h:62` | the FAIL_IF's |
 | 3 | `FloatParent` | `app/client/ship_pip.h:88` | the assert's |
+| 3 | `ShipStatsDisplayClass` | `app/client/ship_stats_display.h:18` | class-from-file (D24) for app\Client\ship_stats_display.cpp |
 | 3 | `shiputils.cpp` | `app/client/shiputils.cpp:32` | the FAIL_IF's 'slot_id >= MAX_NUM_DECAL_SLOTS' |
 | 3 | `reg_mat_defs, current_region` | `app/client/shiputils.cpp:155` | the FAIL_IF; NAME 1 [Unknown_80F470]: neutral (D10); The region's first colour (a metal's from metal_equivalent_rgbs.ini) onto the '~s1' vertex materials once they differ |
 | 3 | `_BloodDatabase` | `app/client/shiputils.cpp:783` | the FAIL_IF '!_BloodDatabase.Find_Section(section)' |
 | 3 | `reg_mat_defs, current_region` | `app/client/shiputils.cpp:935` | the FAIL_IF |
 | 3 | `primary_material_present` | `app/client/shiputils.cpp:1007` | the FAIL_IF |
 | 3 | `secondary_material_present` | `app/client/shiputils.cpp:1008` | the FAIL_IF |
+| 3 | `ShortcutRangeGaugeClass` | `app/client/shortcut_range_gauge.h:17` | class-from-file (D24) for app\Client\shortcut_range_gauge.cpp |
 | 3 | `SkillAbilityDataPeekClass` | `app/client/skill_ability_data_peek.h:24` | by convention (D24) from the client's file skill_ability_data_peek.cpp |
 | 3 | `std:` | `app/client/skill_ability_names.cpp:23` | its asserts |
 | 3 | `std:` | `app/client/skill_ability_names.cpp:24` | its asserts |
@@ -29075,11 +29129,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Get_Client` | `app/client/ui_pda_cargo.h:35` | the FAIL_IF's |
 | 3 | `InterfaceMesh` | `app/client/ui_pda_cargo.h:39` | the FAIL_IF's |
 | 3 | `As_Space_Client` | `app/client/ui_pda_equip.cpp:35` | the FAIL_IF's in ui_manu.cpp |
-| 3 | `UIPdaEquipClass` | `app/client/ui_pda_equip.h:58` | class-from-file (D24) for app\Client\ui_pda_equip.cpp |
-| 3 | `ENGINE_SLOT` | `app/client/ui_pda_equip.h:62` | the asserts' (the last three: 0x5D2850's names) |
-| 3 | `bttn_idx` | `app/client/ui_pda_equip.h:71` | the assert's; NAME 1 [name, index]: the base's |
-| 3 | `Get_Client` | `app/client/ui_pda_equip.h:75` | the FAIL_IF's |
-| 3 | `InterfaceMesh` | `app/client/ui_pda_equip.h:77` | the FAIL_IF's |
+| 3 | `UIPdaEquipClass` | `app/client/ui_pda_equip.h:38` | class-from-file (D24) for app\Client\ui_pda_equip.cpp |
+| 3 | `ENGINE_SLOT` | `app/client/ui_pda_equip.h:42` | the asserts' (the last three: 0x5D2850's names) |
+| 3 | `bttn_idx` | `app/client/ui_pda_equip.h:51` | the assert's; NAME 1 [name, index]: the base's |
+| 3 | `Get_Client` | `app/client/ui_pda_equip.h:55` | the FAIL_IF's |
+| 3 | `InterfaceMesh` | `app/client/ui_pda_equip.h:57` | the FAIL_IF's |
 | 3 | `choice` | `app/client/ui_petition_entry.cpp:164` | the assert's |
 | 3 | `USER_SELECT_NO, USER_SELECT_OK` | `app/client/ui_petition_entry.h:17` | the asserts'; NAME 1 [USER_SELECT_YES]: neutral |
 | 3 | `Get_Client` | `app/client/ui_petition_entry.h:42` | the FAIL_IFs' |
