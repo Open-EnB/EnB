@@ -2324,7 +2324,7 @@ void StarbaseAvatarCreationInterface::Unknown_551BF0()
 // 0x551C40
 void StarbaseAvatarCreationInterface::Unknown_551C40(const RecustomizationCostClass &cost)
 {
-	Unknown390.Data = cost.Data;
+	Unknown390.Costs = cost.Costs;
 	Unknown3CC = true;
 }
 

@@ -18,47 +18,7 @@
 #include "pk.h"
 #include "..\shared\avatar_desc.h"
 #include "..\shared\shipcust_desc.h"
-
-// The 14 ints of recustomization_cost.cpp's wire object (0x38 bytes; the constructor 0x849320 copies one)
-struct RecustomizationCostDataStruct  // NAME 1: neutral (D10)
-{
-	int Unknown00[14];	// +0x00  // NAME 1: neutral (D10)
-};
-
-// recustomization_cost.cpp's wire object (client 0x848100-0x84A270, not rebuilt): vtable 0xB08C6C,
-// 0x3C bytes; Write 0x849920 / Read 0x849960 move its 14 ints, Get_Size 0x8499A0 returns 0x38
-class RecustomizationCostClass : public Unknown_PacketDataClass  // NAME 1: neutral, after the client's file recustomization_cost.cpp (D10)
-{
-public:
-	RecustomizationCostClass();	// 0x8492F0 (the 14 ints 0)
-	RecustomizationCostClass(const RecustomizationCostDataStruct &data);	// 0x849320
-	int Unknown_8493F0(AvatarDescClass *oldavatar, AvatarDescClass *newavatar);	// 0x8493F0 (FAIL_IFs '!oldavatar' / '!newavatar', lines 60 / 61): the costs of the slots that differ, summed  // NAME 3 [oldavatar, newavatar]: the FAIL_IFs'
-	virtual bool Write(LinearBufferClass *buffer);	// +0x00 0x849920
-	virtual bool Read(LinearBufferClass *buffer);	// +0x04 0x849960
-	virtual int Get_Size();	// +0x08 0x8499A0
-
-	RecustomizationCostDataStruct Data;	// +0x04  // NAME 2: what it holds
-};
-
-// The 12 ints of recustomization_cost.cpp's other wire object (0x30 bytes)
-struct ShipRecustomizationCostDataStruct  // NAME 1: neutral (D10)
-{
-	int Unknown00[12];	// +0x00  // NAME 1: neutral (D10)
-};
-
-// recustomization_cost.cpp's other wire object (not rebuilt): vtable 0xB08C7C, 0x34 bytes; Write 0x84A1D0 /
-// Read 0x84A210 move its 12 ints, Get_Size 0x84A250 returns 0x30
-class ShipRecustomizationCostClass : public Unknown_PacketDataClass  // NAME 1: neutral, the ship recustomization's (D10)
-{
-public:
-	ShipRecustomizationCostClass();	// 0x8499C0 (the 12 ints 0)
-	int Unknown_849AC0(ShipCustDescClass *olddesc, ShipCustDescClass *newdesc);	// 0x849AC0 (ui_ship_cust.cpp's 0x61F180: the window's ship before and after; the costs of the parts that differ, summed, as RecustomizationCostClass's 0x8493F0)  // NAME 1 [olddesc, newdesc]: as 0x8493F0's
-	virtual bool Write(LinearBufferClass *buffer);	// +0x00 0x84A1D0
-	virtual bool Read(LinearBufferClass *buffer);	// +0x04 0x84A210
-	virtual int Get_Size();	// +0x08 0x84A250
-
-	ShipRecustomizationCostDataStruct Data;	// +0x04  // NAME 2: what it holds
-};
+#include "..\common\recustomization_cost.h"	// the costs RECUSTOMIZE_AVATAR_START / _SHIP_START carry
 
 // opcode 129 (0x0081, RECUSTOMIZE_SHIP_START): vtable 0xB0B5C4, constructor 0x89FB50, 0x1B4 bytes
 class RecustomizeShipStartPacketClass : public PacketClass  // NAME 2: Net-7's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start'

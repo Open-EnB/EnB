@@ -5,7 +5,7 @@
 **	names it)
 **
 **	A character's race, alone and as a bit field, and its text converters (the key/value
-**	pairs' Type_Name / String_To_Value / Value_To_String, race.cpp 0x848FF0-0x8492A6; the rest of race.cpp is not rebuilt).
+**	pairs' Type_Name / String_To_Value / Value_To_String, race.cpp 0x848FF0-0x8492A6).
 */
 
 
