@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-776 entries in 253 files.
+777 entries in 253 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -175,7 +175,8 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_render.cpp:1610` | `GalaxyMapRenderGateClass::Unknown_7ACEF0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:1699` | `GalaxyMapRenderGateClass::Unknown_7AD090` | marker | NOT EXACT: inline-budget (the client inlines name's ~RefCountPtr and so keeps the pointer in esi; ours calls it); the matrix (identity, Set_Translation, Rotate_Z(s, c)), the branch order and '!line' are the client's |
 | `app/client/galaxy_map_render.cpp:1740` | `GalaxyMapRenderGateClass::Unknown_7AD5B0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
-| `app/client/galaxy_map_render.cpp:1761` | `GalaxyMapRenderGateClass::Unknown_7AD5B0` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1761` | `Unknown_7ADF80` | marker | NOT EXACT: written from the client's code (see attempts.csv) |
+| `app/client/galaxy_map_render.cpp:1854` | `GalaxyMapRenderGateClass::Unknown_7AD850` | marker | NOT EXACT: written whole from the client's code (0x7ADF80 called, 0x7AC7B0 and the positions inlined); register choice differs (see attempts.csv) |
 | `app/client/galaxy_map_render.cpp:2019` | `GalaxyMapRenderGateClass::Unknown_7AE220` | mention | NOT EXACT is listed in docs/data/attempts.csv (inline budgets in the long members, 0x7A8B70 above all, and three order-only residues). GalaxyMapRenderGateClass's constructor 0x7AC870 sits under auto_inline(off): its one caller, Create_Item<GalaxyMapRenderGateClass> 0x7B0E10, calls it (`new T(data)`, non-null branch), where /Ob2 would inline it; Create_Item returns false after the creating branch (... |
 | `app/client/galaxy_map_robj.cpp:52` | `GalaxyMapRObjClass::GalaxyMapRObjClass` | marker | NOT EXACT: registers only (Placement read through ecx, the client's eax; the Name temporary's address in edx, the client's ecx) @0x7B2B30 |
 | `app/client/galaxy_map_robj.cpp:412` | `GalaxyMapLineRObjClass::Render` | marker | NOT EXACT: x87 operand order (the client multiplies Color's members by the clamped Fade held in st(1), ours keeps a copy with fld st(0)) @0x7B43F0 |
