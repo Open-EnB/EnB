@@ -2837,293 +2837,293 @@ void SClient::Unknown_745F30(int type)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#include "..\packets\pktriggeremote.h"			// TriggerEmotePacketClass (TRIGGER_EMOTE 161): the emotes (0x747C70)
+
+// 0x747C70 (0x74ABC0): the emote commands, one TRIGGER_EMOTE each
+bool SClient::Unknown_747C70(const char *text)
+{
+	if (strncmp(text, "/wave", strlen("/wave")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 0));
+		return(true);
+	}
+	if (strncmp(text, "/loop", strlen("/loop")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 1));
+		return(true);
+	}
+	if (strncmp(text, "/dive", strlen("/dive")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 2));
+		return(true);
+	}
+	if (strncmp(text, "/roll", strlen("/roll")) == 0 || strncmp(text, "/rightroll", strlen("/rightroll")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 3));
+		return(true);
+	}
+	if (strncmp(text, "/leftroll", strlen("/leftroll")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 4));
+		return(true);
+	}
+	if (strncmp(text, "/spin", strlen("/spin")) == 0 || strncmp(text, "/rightspin", strlen("/rightspin")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 5));
+		return(true);
+	}
+	if (strncmp(text, "/leftspin", strlen("/leftspin")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 6));
+		return(true);
+	}
+	return(false);
+}
+
+
+
+
+
+
+#include "..\shared\unknown_4a1590.h"			// Bounded_Strcpy (0x4A1590): the chat commands' copies (0x747FA0, 0x749020)
+// NOT EXACT: shape (explain.py: 119 calls vs 121): '/seecolor' with no type: VC6 cross-jumps its two usage lines into the invalid type's identical tail, the client keeps them (its copy pushes the 0s from eax / edi); 11 forms (attempts.py show 0x747FA0)
+// 0x747FA0 (0x74ABC0): '/resetcolor', '/setcolor <type> <red> <green> <blue>', '/seecolor <type>' over the chat
+// line colours (+0x13CC)
+bool SClient::Unknown_747FA0(const char *text)
+{
+	char buffer[256];
+
+	if (strncmp(text, "/resetcolor", 11) == 0) {
+		Unknown13CC.Unknown_765BE0();
+		Unknown13CC.Unknown_765540();
+		Unknown_74D990(0x13, "All text colors have been reset to default values.", 0);
+		return(true);
+	}
+	if (strncmp(text, "/setcolor", 9) == 0) {
+		Bounded_Strcpy(buffer, 256, text);
+		strtok(buffer, " \t");
+		char *type = strtok(NULL, " \t");
+		char *red_text = strtok(NULL, " \t");
+		char *green_text = strtok(NULL, " \t");
+		char *blue_text = strtok(NULL, " \t");
+		if (type != NULL && red_text != NULL && green_text != NULL && blue_text != NULL) {
+			float red = atof(red_text);
+			float green = atof(green_text);
+			float blue = atof(blue_text);
+			if (stricmp(type, "context") == 0) {
+				Unknown13CC.Unknown_765E40(0, Vector3(red, green, blue));
+				Unknown_74D990(0, "This is the new (In Context) color.", 1);
+			} else if (stricmp(type, "ooc") == 0) {
+				Unknown13CC.Unknown_765E40(1, Vector3(red, green, blue));
+				Unknown_74D990(1, "This is the new (Out of Context) color.", 1);
+			} else if (stricmp(type, "broadcast") == 0) {
+				Unknown13CC.Unknown_765E40(2, Vector3(red, green, blue));
+				Unknown_74D990(2, "This is the new Broadcast message color.", 1);
+			} else if (stricmp(type, "tell") == 0 || stricmp(type, "reply") == 0) {
+				Unknown13CC.Unknown_765E40(3, Vector3(red, green, blue));
+				Unknown_74D990(3, "This is the new tell & reply color.", 1);
+			} else if (stricmp(type, "group") == 0) {
+				Unknown13CC.Unknown_765E40(4, Vector3(red, green, blue));
+				Unknown_74D990(4, "This is the new group messaging color.", 1);
+			} else if (stricmp(type, "npc") == 0) {
+				Unknown13CC.Unknown_765E40(5, Vector3(red, green, blue));
+				Unknown_74D990(5, "This is the new (NPC) color.", 1);
+			} else if (stricmp(type, "tip") == 0) {
+				Unknown13CC.Unknown_765E40(6, Vector3(red, green, blue));
+				Unknown_74D990(6, "This is the new (Tip) color.", 1);
+			} else if (stricmp(type, "local") == 0) {
+				Unknown13CC.Unknown_765E40(7, Vector3(red, green, blue));
+				Unknown_74D990(7, "This is the new local messaging color.", 1);
+			} else if (stricmp(type, "guild") == 0) {
+				Unknown13CC.Unknown_765E40(8, Vector3(red, green, blue));
+				Unknown_74D990(8, "This is the new guild messaging color.", 1);
+			} else if (stricmp(type, "general") == 0) {
+				Unknown13CC.Unknown_765E40(9, Vector3(red, green, blue));
+				Unknown_74D990(9, "This is the new general channel messaging color.", 1);
+			} else if (stricmp(type, "ooc_channel") == 0) {
+				Unknown13CC.Unknown_765E40(10, Vector3(red, green, blue));
+				Unknown_74D990(10, "This is the new ooc channel messaging color.", 1);
+			} else if (stricmp(type, "new_player") == 0) {
+				Unknown13CC.Unknown_765E40(11, Vector3(red, green, blue));
+				Unknown_74D990(11, "This is the new player channel messaging color.", 1);
+			} else if (stricmp(type, "market") == 0) {
+				Unknown13CC.Unknown_765E40(12, Vector3(red, green, blue));
+				Unknown_74D990(12, "This is the new market channel messaging color.", 1);
+			} else if (stricmp(type, "private") == 0) {
+				Unknown13CC.Unknown_765E40(13, Vector3(red, green, blue));
+				Unknown_74D990(13, "This is the new private channel messaging color.", 1);
+			} else if (stricmp(type, "race") == 0) {
+				Unknown13CC.Unknown_765E40(14, Vector3(red, green, blue));
+				Unknown_74D990(14, "This is the new race channel messaging color.", 1);
+			} else if (stricmp(type, "class") == 0) {
+				Unknown13CC.Unknown_765E40(15, Vector3(red, green, blue));
+				Unknown_74D990(15, "This is the new class channel messaging color.", 1);
+			} else if (stricmp(type, "echo") == 0) {
+				Unknown13CC.Unknown_765E40(16, Vector3(red, green, blue));
+				Unknown_74D990(16, "This is the new (Echo) color.", 1);
+			} else if (stricmp(type, "error_context") == 0) {
+				Unknown13CC.Unknown_765E40(17, Vector3(red, green, blue));
+				Unknown_74D990(17, "This is the new (In Context Error) color.", 1);
+			} else if (stricmp(type, "error_ooc") == 0) {
+				Unknown13CC.Unknown_765E40(18, Vector3(red, green, blue));
+				Unknown_74D990(18, "This is the new (Out of Context Error) color.", 1);
+			} else if (stricmp(type, "error_system") == 0) {
+				Unknown13CC.Unknown_765E40(19, Vector3(red, green, blue));
+				Unknown_74D990(19, "This is the new (System Error) color.", 1);
+			} else if (stricmp(type, "combat") == 0) {
+				Unknown13CC.Unknown_765E40(20, Vector3(red, green, blue));
+				Unknown_74D990(20, "This is the new combat messaging color.", 1);
+			} else if (stricmp(type, "warning") == 0) {
+				Unknown13CC.Unknown_765E40(21, Vector3(red, green, blue));
+				Unknown_74D990(21, "This is the new warning color.", 1);
+			} else {
+				Unknown_74D990(6, "Invalid type specified. No text colors have changed.", 1);
+				Unknown_74D990(6, "Usage: /setcolor <type> <red> <green> <blue>", 0);
+				Unknown_74D990(6, "type = context, ooc, broadcast, tell, group, npc, tip, local, guild, general, ooc_channel, new_player, market, private, race, class, echo, error_context, error_ooc, error_system, combat, warning.", 0);
+				Unknown_74D990(6, "red, green & blue = numbers between 0.0 and 1.0.", 0);
+			}
+			Unknown13CC.Unknown_765540();
+			return(true);
+		}
+		Unknown_74D990(6, "Usage: /setcolor <type> <red> <green> <blue>", 0);
+		Unknown_74D990(6, "type = context, ooc, broadcast, tell, group, npc, tip, local, guild, general, ooc_channel, new_player, market, private, race, class, echo, error_context, error_ooc, error_system, combat, warning.", 0);
+		Unknown_74D990(6, "red, green & blue = numbers between 0.0 to 1.0.", 0);
+		return(true);
+	}
+	if (strncmp(text, "/seecolor", 9) == 0) {
+		Bounded_Strcpy(buffer, 256, text);
+		strtok(buffer, " \t");
+		char *type = strtok(NULL, " \t");
+		if (type == NULL) {
+			Unknown_74D990(6, "Usage: /seecolor <type>", 0);
+			Unknown_74D990(6, "type = context, ooc, broadcast, tell, group, npc, tip, local, guild, general, ooc_channel, new_player, market, private, race, class, echo, error_context, error_ooc, error_system, combat, warning.", 0);
+		} else if (stricmp(type, "context") == 0) {
+			Unknown_74D990(0, "This is the current (In Context) color.", 1);
+		} else if (stricmp(type, "ooc") == 0) {
+			Unknown_74D990(1, "This is the current (Out of Context) color.", 1);
+		} else if (stricmp(type, "broadcast") == 0) {
+			Unknown_74D990(2, "This is the current Broadcast message color.", 1);
+		} else if (stricmp(type, "tell") == 0 || stricmp(type, "reply") == 0) {
+			Unknown_74D990(3, "This is the current tell & reply color.", 1);
+		} else if (stricmp(type, "group") == 0) {
+			Unknown_74D990(4, "This is the current group messaging color.", 1);
+		} else if (stricmp(type, "npc") == 0) {
+			Unknown_74D990(5, "This is the current (NPC) color.", 1);
+		} else if (stricmp(type, "tip") == 0) {
+			Unknown_74D990(6, "This is the current (Tip) color.", 1);
+		} else if (stricmp(type, "local") == 0) {
+			Unknown_74D990(7, "This is the current local messaging color.", 1);
+		} else if (stricmp(type, "guild") == 0) {
+			Unknown_74D990(8, "This is the current guild messaging color.", 1);
+		} else if (stricmp(type, "general") == 0) {
+			Unknown_74D990(9, "This is the current general channel messaging color.", 1);
+		} else if (stricmp(type, "ooc_channel") == 0) {
+			Unknown_74D990(10, "This is the current ooc channel messaging color.", 1);
+		} else if (stricmp(type, "new_player") == 0) {
+			Unknown_74D990(11, "This is the current new player channel messaging color.", 1);
+		} else if (stricmp(type, "market") == 0) {
+			Unknown_74D990(12, "This is the current market channel messaging color.", 1);
+		} else if (stricmp(type, "private") == 0) {
+			Unknown_74D990(13, "This is the current private channel messaging color.", 1);
+		} else if (stricmp(type, "race") == 0) {
+			Unknown_74D990(14, "This is the current race channelmessaging color.", 1);
+		} else if (stricmp(type, "class") == 0) {
+			Unknown_74D990(15, "This is the current class channel messaging color.", 1);
+		} else if (stricmp(type, "echo") == 0) {
+			Unknown_74D990(16, "This is the current (Echo) color.", 1);
+		} else if (stricmp(type, "error_context") == 0) {
+			Unknown_74D990(17, "This is the current (In Context Error) color.", 1);
+		} else if (stricmp(type, "error_ooc") == 0) {
+			Unknown_74D990(18, "This is the current (Out of Context Error) color.", 1);
+		} else if (stricmp(type, "error_system") == 0) {
+			Unknown_74D990(19, "This is the current (System Error) color.", 1);
+		} else if (stricmp(type, "combat") == 0) {
+			Unknown_74D990(20, "This is the current combat messaging color.", 1);
+		} else if (stricmp(type, "warning") == 0) {
+			Unknown_74D990(21, "This is the current warning color.", 1);
+		} else {
+			Unknown_74D990(6, "Invalid type specified.", 1);
+			Unknown_74D990(6, "Usage: /seecolor <type>", 0);
+			Unknown_74D990(6, "type = context, ooc, broadcast, tell, group, npc, tip, local, guild, general, ooc_channel, new_player, market, private, race, class, echo, error_context, error_ooc, error_system, combat, warning.", 0);
+		}
+		return(true);
+	}
+	return(false);
+}
+
+
+
+// 0x749020 (0x74ABC0): '/resethud', '/sethud <type> <value>' over the gutter icons' options
+bool SClient::Unknown_749020(const char *text)
+{
+	if (strncmp(text, "/resethud", 9) == 0) {
+		Unknown_74D990(1, "Hud option values have been reset.", 0);
+		OptionClass::Instance->Find_Float("Gutter_Icon_Min_Distance")->Value = 1000.0f;
+		OptionClass::Instance->Find_Float("Gutter_Icon_Max_Distance")->Value = 6000.0f;
+		OptionClass::Instance->Find_Float("Gutter_Icon_Min_Scale")->Value = 0.5f;
+		return(true);
+	}
+	if (strncmp(text, "/sethud", 7) == 0) {
+		char buffer[256];
+		Bounded_Strcpy(buffer, 256, text);
+		strtok(buffer, " \t");
+		char *type = strtok(NULL, " \t");
+		char *value_text = strtok(NULL, " \t");
+		float close_dist = OptionClass::Instance->Get_Float("Gutter_Icon_Min_Distance");
+		float far_dist = OptionClass::Instance->Get_Float("Gutter_Icon_Max_Distance");
+		float min_scale = OptionClass::Instance->Get_Float("Gutter_Icon_Min_Scale");
+		if (type != NULL) {
+			if (value_text == NULL) {
+				if (stricmp(type, "closedist") == 0) {
+					Print(0x13, "Current HUD closedist value is %d.", (int)close_dist);
+					return(true);
+				}
+				if (stricmp(type, "fardist") == 0) {
+					Print(0x13, "Current HUD fardist value is %d.", (int)far_dist);
+					return(true);
+				}
+				if (stricmp(type, "minscale") == 0) {
+					Print(0x13, "Current HUD minscale value is %0.2f.", min_scale);
+					return(true);
+				}
+				Unknown_74D990(0x13, "Invalid type specified.", 1);
+			} else {
+				float value = atof(value_text);
+				if (stricmp(type, "closedist") == 0) {
+					if (value >= 100.0f && value <= 20000.0f) {
+						if (value >= far_dist) {
+							Print(0x13, "closedist must be less than fardist. Current fardist is %d.", (int)far_dist);
+							return(true);
+						}
+						Print(0x13, "HUD closedist value is now set at %d.", (int)value);
+						OptionClass::Instance->Find_Float("Gutter_Icon_Min_Distance")->Value = value;
+						return(true);
+					}
+					Unknown_74D990(0x13, "closedist value out of range.", 1);
+				} else if (stricmp(type, "fardist") == 0) {
+					if (value >= 100.0f && value <= 20000.0f) {
+						if (value <= close_dist) {
+							Print(0x13, "fardist must be more than closedist. Current closedist is %d", (int)close_dist);
+							return(true);
+						}
+						Print(0x13, "HUD fardist value is now set at %d.", (int)value);
+						OptionClass::Instance->Find_Float("Gutter_Icon_Max_Distance")->Value = value;
+						return(true);
+					}
+					Unknown_74D990(0x13, "fardist value out of range.", 1);
+				} else if (stricmp(type, "minscale") == 0) {
+					if (value >= 0.25f && value <= 1.0f) {
+						Print(0x13, "HUD minscale value is now set at %0.2f", value);
+						OptionClass::Instance->Find_Float("Gutter_Icon_Min_Scale")->Value = value;
+						return(true);
+					}
+					Unknown_74D990(0x13, "minscale value out of range.", 1);
+				} else {
+					Unknown_74D990(0x13, "Invalid type specified.", 1);
+				}
+			}
+		}
+		Unknown_74D990(6, "Usage: /sethud <type> <value>", 0);
+		Unknown_74D990(6, "type = closedist, fardist, minscale", 0);
+		Unknown_74D990(6, "value = between 100 & 20000 for closedist, fardist", 0);
+		Unknown_74D990(6, "value = between 0.25 & 1.0 for minscale", 0);
+		return(true);
+	}
+	return(false);
+}
 
 
 
