@@ -58,7 +58,7 @@ public:
 	void Unknown_599F30(int sort);						// 0x599F30: PlayersInfo rebuilt from +0x148 without the player, sorted (0 name, 1 race / profession, 2 level)  // NAME 1 [sort]: neutral
 	void Unknown_59A1D0();								// 0x59A1D0: the rows under the pointer lit
 	void Unknown_59A290(int row);						// 0x59A290: a row clicked: its player targeted (FAIL_IFs 'index >= (int)PlayersInfo.size()', 'index < 0', '!targeting', '!co': index is Top + row)  // NAME 1 [row]: neutral
-	int Unknown_59A3D0(int a, int b);					// 0x59A3D0: -1, 0 or 1 as a is below, equal to or above b (this unused: ret 8; the sorts expand it)  // NAME 1 [a, b]: neutral
+	int Unknown_59A3D0(int a, int b);					// 0x59A3D0: -1, 0 or 1 as a is below, equal to or above b (this unused: ret 8; no caller: 0x599F30 compares the levels itself)  // NAME 1 [a, b]: neutral
 	void Unknown_59A400(FindMemberPacketClass *packet);	// 0x59A400 (cpacket.cpp: FIND_MEMBER 83; FAIL_IFs 'race >= NUMBER_PLAYER_RACES', 'prof >= MAX_PLAYER_PROFESSIONS')  // NAME 1 [packet]: the handler's
 
 	GadgetSlider *Slider;								// +0xA0 (the destructor's 0x66E460; 8 rows)  // NAME 1: neutral

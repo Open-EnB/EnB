@@ -98,23 +98,15 @@ void UIGroupFindClass::Unknown_54()
 	}
 }
 
-// NOT EXACT: shape (explain.py; inline budget: the client calls the players' destructor 0x599830 out of line in both loops and the list's erase 0x59AB80 out of line; attempts.py show 0x599660)
+
 // 0x599660
 void UIGroupFindClass::Unknown_58()
 {
 	if (!Is_Active()) {
 		InterfaceSortScopeClass sort(this);
 		ChatPanelUIBase::Unknown_58();
-		std::vector<UIGroupFindPlayerInfoClass *>::iterator it;
-		for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
-			delete *it;
-		}
-		PlayersInfo.erase(PlayersInfo.begin(), PlayersInfo.end());
-		std::list<UIGroupFindPlayerInfoClass *>::iterator node;
-		for (node = Unknown148.begin(); node != Unknown148.end(); node++) {
-			delete *node;
-		}
-		Unknown148.erase(Unknown148.begin(), Unknown148.end());
+		Unknown_599D00();
+		Unknown_599E60();
 		Top = -1;
 		Unknown_599B10(0);
 		if (Unknown0A8[0]) {
@@ -250,17 +242,13 @@ void UIGroupFindClass::Unknown_599E60()
 	Unknown148.clear();
 }
 
-// (0x59A3D0, defined below: the sorts expand it)
+// (0x59A3D0 is defined below, after 0x59A290, at its client position)
 
-// NOT EXACT: shape (explain.py; inline budget: the client calls the vector's clear 0x59A760 out of line and tests each sort's result on its own; attempts.py show 0x599F30)
+
 // 0x599F30
 void UIGroupFindClass::Unknown_599F30(int sort)
 {
-	std::vector<UIGroupFindPlayerInfoClass *>::iterator it;
-	for (it = PlayersInfo.begin(); it != PlayersInfo.end(); it++) {
-		delete *it;
-	}
-	PlayersInfo.clear();
+	Unknown_599D00();
 
 	for (std::list<UIGroupFindPlayerInfoClass *>::iterator node = Unknown148.begin(); node != Unknown148.end(); node++) {
 		UIGroupFindPlayerInfoClass *info = *node;
@@ -271,16 +259,16 @@ void UIGroupFindClass::Unknown_599F30(int sort)
 			int result;
 			if (sort == 0) {
 				result = wcscoll((const wchar_t *)info->Name, (const wchar_t *)other->Name);
+				if (result < 0) break;
 			} else if (sort == 1) {
 				result = wcscoll((const wchar_t *)info->Class, (const wchar_t *)other->Class);
-				if (!result) result = Unknown_59A3D0(info->Level, other->Level);
-				if (!result) result = wcscoll((const wchar_t *)info->Name, (const wchar_t *)other->Name);
+				if (!result) { if (other->Level > info->Level) break; if (other->Level < info->Level) continue; result = wcscoll((const wchar_t *)info->Name, (const wchar_t *)other->Name); }
+				if (result < 0) break;
 			} else {
-				result = Unknown_59A3D0(info->Level, other->Level);
-				if (!result) result = wcscoll((const wchar_t *)info->Class, (const wchar_t *)other->Class);
-				if (!result) result = wcscoll((const wchar_t *)info->Name, (const wchar_t *)other->Name);
+				if (other->Level > info->Level) break; if (other->Level < info->Level) continue;
+				result = wcscoll((const wchar_t *)info->Class, (const wchar_t *)other->Class); if (!result) result = wcscoll((const wchar_t *)info->Name, (const wchar_t *)other->Name);
+				if (result < 0) break;
 			}
-			if (result < 0) break;
 		}
 		UIGroupFindPlayerInfoClass *copy = new UIGroupFindPlayerInfoClass;
 		copy->Name = nstrdup(info->Name);
@@ -312,6 +300,18 @@ void UIGroupFindClass::Unknown_59A1D0()
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -426,5 +426,5 @@ void UIGroupFindClass::Unknown_59A400(FindMemberPacketClass *packet)
 ** <string> initialiser 0x59AC70 and the adjustor thunks 0x59ACA0 / 0x59ACB0; the next object (ui_groupopt.cpp)
 ** starts at 0x59AD10. The class name follows the file (D24) and its tooltips' 'UI_GROUPFIND'. The template
 ** instances 0x59A720-0x59AC40 (the vector's and list's destructors, clear, insert, erase; std::_Construct) are the
-** compiler's. 0x59A3D0 is a member that never uses this (ret 8): the sorts in 0x599F30 expand it.
+** compiler's. 0x59A3D0 is a member that never uses this (ret 8) and has no caller; 0x599F30 compares the levels itself.
 */
