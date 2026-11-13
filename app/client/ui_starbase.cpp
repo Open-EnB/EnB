@@ -2,6 +2,7 @@
 #define __INTRFACE_MEMBERS	// intrface.h's members (the constructor 0x540D30 with the client: the symbol chat menu's)
 // The starbase interface (constructor 0x6333E0, SB1), its helpers 0x638FF0-0x6437A0 as far as rebuilt (SB1, run 2026-11-09b), its lights helpers 0x640CC0-0x640F30 and the lights panel (0x646170-0x648238, ST1, at the end); the set-up 0x634140 (SU1) and the functions with asserts sit on the client's lines (862, 2004-4180).
 #include "eff_o.h"	// first: client.h then skips its partial EffectObjectClass
+#include "pdaint.h"	// first, before sclient.h: the PDA's character window (0x638390)
 #include <stdio.h>
 #include <string.h>
 #include <vector>
@@ -28,6 +29,9 @@
 #include "local_interface_sort.h"
 #include "unknown_675120.h"	// ButtonGadgetClass
 #include "hanim.h"
+#include "ui_cinfo.h"
+#include "ui_attrb_skills.h"
+#include "ui_attrb.h"
 
 // The client at InterfaceClass +0x40, as ui_chat_panel.cpp declares it
 class LineDisplayClientClass  // NAME 1: neutral (D10)
@@ -80,10 +84,6 @@ public:
 static int Unknown_B8A870[4] = { 0, 1, 3, 2 };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A880[4] = { "hangar", "main", "bazaar", "lounge" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8A950[10] = { "t", "j", "p", "n", "n", "n", "n", "n", "n", "n" };	// NAME 1: neutral (D10)
-
-
-
-
 
 
 
@@ -1432,41 +1432,41 @@ void UIStarbaseClass::Unknown_63C590()
 
 
 
+inline RefCountPtr<UICinfoClass> PDAInterfaceClass::Get_Character() { return(Character); }	// 0x6384D0 (out of line after 0x638390)
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @0x00638390
+// 0x638390 (slot +0x60, every frame: the arrival countdown, the room's updates, the base's frame, then the PDA's
+// attributes window when it is shown)
+void UIStarbaseClass::Unknown_60()
+{
+	if (!Room && Unknown1AC > 0 && --Unknown1AC == 0) {
+		Unknown_6415B0();
+	}
+	Unknown_640360();
+	Unknown_63FF80();
+	Unknown_63DFE0();
+	Unknown_63A100();
+	Unknown_639630();
+	Unknown_63E770();
+	Unknown_63AAF0();
+	Unknown_641C00();
+	Unknown_63B310();
+	Unknown_63AC60();
+	Unknown_63C590();
+	Unknown5BB320Class::Unknown_60();
+	Unknown_6390A0();
+	Unknown_63FCB0();
+	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	if (sclient && sclient->PDAInterface) {
+		UICinfoClass *cinfo = sclient->PDAInterface->Get_Character().Peek();
+		if (cinfo && cinfo->UnknownB4 && cinfo->UnknownB4->UnknownC0 && cinfo->UnknownB4->UnknownC0->Active) {
+			cinfo->UnknownB4->UnknownC0->Unknown_5473B0();
+		}
+	}
+}
 
 
 
@@ -4192,6 +4192,19 @@ void UIStarbaseClass::Unknown_6437A0(int unknown, AvatarDescClass *desc)
 
 // Out of line as the client's (auto-inlined into the callers above otherwise, though defined after them)
 #pragma auto_inline(off)
+// @0x00643C20
+// 0x643C20 (SGI's hashtable(n, hf, eql) with _M_initialize_buckets inline: the next prime of the table, the vector's
+// reserve and insert(end(), n, 0) 0x644740)
+UIStarbaseUnknownD4TableClass::UIStarbaseUnknownD4TableClass(unsigned int n, const UIStarbaseUnknownD4Hash &hf, const UIStarbaseUnknownD4Equal &eql) :
+	Hash(hf),
+	Equal(eql),
+	GetKey(UIStarbaseUnknownD4GetKey()),
+	Buckets(),
+	NumElements(0)
+{
+	Initialize_Buckets(n);
+}
+
 // NOT EXACT: 0x643DF0, functional (the client's loop re-tests the vector's start each pass; SB1)
 // 0x643DF0 (SGI's hashtable::begin, out of line)
 UIStarbaseUnknownD4TableClass::iterator UIStarbaseUnknownD4TableClass::begin()

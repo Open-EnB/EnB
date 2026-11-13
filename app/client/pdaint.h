@@ -83,6 +83,7 @@ public:
 	void Unknown_695E10(int type, int *num_items, int *num_slots);	// 0x695E10 (the three inventories' sums)  // NAME 3 [num_items, num_slots]: the FAIL_IFs'; NAME 1 [type]: neutral
 	void Unknown_695F40();								// 0x695F40 (SClient 0x742530, ui_chat_panel.cpp, on every change of view: all closed)
 	void Unknown_695FE0(bool on);						// 0x695FE0 (+0xBC; the starbase view's 0x69CDE0 passes true)  // NAME 1 [on]: neutral
+	RefCountPtr<UICinfoClass> Get_Character();	// 0x6384D0 (inline in ui_starbase.cpp, out of line after UIStarbaseClass::Unknown_60)  // NAME 1: its member's
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: the FAIL_IFs '!Get_Client()')  // NAME 3: the FAIL_IFs'
 
 	ButtonGadgetClass *Buttons[NUM_BUTTONS];			// +0x84 ('MAP_BUT', 'CHARACTER_BUT', 'SHIP_BUT', 'OPTIONS_BUT': gadgets 1..4)  // NAME 1: neutral

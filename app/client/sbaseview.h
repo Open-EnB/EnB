@@ -17,6 +17,7 @@
 #include "matrix3d.h"
 #include "unknown_490900.h"
 #include <list>		// the starbase interface's lists
+#include <hash_map.h>	// SGI's _Bucket_allocator (the +0xD4 table's buckets)
 
 class JobListPacketClass;
 class JobDescriptionPacketClass;
@@ -75,6 +76,7 @@ class StarbaseNPCClass;
 // constructor into 0x6333E0 and calls _M_initialize_buckets out of line (its vector _Ucopy then duplicates 0x644430)
 struct UIStarbaseUnknownD4Hash {};	// NAME 1: neutral (D10): the hasher
 struct UIStarbaseUnknownD4Equal {};	// NAME 1: neutral (D10): the key test
+struct UIStarbaseUnknownD4GetKey {};	// NAME 1: neutral (D10): the key getter (0x643C20 copies a default one's byte)
 class UIStarbaseUnknownCCClass;
 class UIStarbaseUnknownD4TableClass	// NAME 1: neutral (D10)
 {
@@ -135,6 +137,14 @@ public:
 	unsigned int Bucket_Of_Key(unsigned int key) const { return(Bucket_Of_Key(key, Buckets.size())); }	// SGI's _M_bkt_num_key  // NAME 1: neutral (D10)
 	unsigned int Bucket_Of_Key(unsigned int key, unsigned int n) const { return(key % n); }	// SGI's _M_bkt_num_key (the hasher: the key itself)  // NAME 1: neutral (D10)
 	UIStarbaseUnknownD4TableClass(unsigned int n, const UIStarbaseUnknownD4Hash &hf, const UIStarbaseUnknownD4Equal &eql);	// 0x643C20  // NAME 1 [n, hf, eql]: the SGI table's
+	unsigned int Next_Size(unsigned int n) const { return(std::__stl_next_prime(n)); }	// SGI's _M_next_size  // NAME 1: neutral (D10)
+	void Initialize_Buckets(unsigned int n)	// SGI's _M_initialize_buckets (inline in 0x643C20)  // NAME 1: neutral (D10)
+	{
+		const unsigned int n_buckets = Next_Size(n);
+		Buckets.reserve(n_buckets);
+		Buckets.insert(Buckets.end(), n_buckets, (NodeStruct *)0);
+		NumElements = 0;
+	}
 	~UIStarbaseUnknownD4TableClass() { clear(); }	// as SGI's (the map's implicit destructor 0x633AC0 inlines it all; 0x633B50 calls clear 0x644AE0 and the vector's 0x643ED0)
 	void clear()	// 0x644AE0 (SGI's)
 	{
@@ -149,8 +159,8 @@ public:
 		}
 		NumElements = 0;
 	}
-	char Unknown00[4];	// +0x00 (the hasher, key test and key getter bytes)
-	std::vector<NodeStruct *> Buckets;	// +0x04 (SGI's _M_buckets)  // NAME 1: neutral (D10)
+	UIStarbaseUnknownD4Hash Hash; UIStarbaseUnknownD4Equal Equal; UIStarbaseUnknownD4GetKey GetKey;	// +0x00 / +0x01 / +0x02 (SGI's _M_hash, _M_equals, _M_get_key: 0x643C20 copies their bytes)  // NAME 1: SGI's
+	std::vector<NodeStruct *, std::_Bucket_allocator<NodeStruct *> > Buckets;	// +0x04 (SGI's _M_buckets, its byte allocator: 0x643C20)  // NAME 1: neutral (D10)
 	unsigned int NumElements;	// +0x14 (SGI's _M_num_elements)  // NAME 1: neutral (D10)
 };
 class UIStarbaseUnknownD4Class	// NAME 1: neutral (D10)
@@ -280,6 +290,7 @@ public:
 	void Unknown_641FA0();	// 0x641FA0 (the gadgets' distances from the avatar, 1..999; 0x63E2B0, 0x63FF80)
 	Unknown78A910AvatarClass *Unknown_642740(StarbaseNPCClass *npc);	// 0x642740 (0x634140: an NPC slot's starbase avatar)  // NAME 1 [npc]: neutral
 	void Unknown_640360(); void Unknown_6415B0(); void Unknown_6417D0(); void Unknown_6418F0(); void Unknown_641C00();	// 0x640360 (the hangar's ship model and its gadget, rebuilt when +0x18C is set), 0x6415B0 (the arrival: the ship on 'ship', the room's '-in' or '-tele' animation), 0x6417D0 (the teleport effect 0x30E on +0x190), 0x6418F0 (+0x190 made for the ship), 0x641C00 (the avatar kept 5 units from the NPC avatars)
+	void Unknown_6390A0(); void Unknown_639630(); void Unknown_63AC60(); void Unknown_63DFE0(); void Unknown_63FCB0();	// 0x638390's frame (not rebuilt)
 	bool Unknown_641EB0(UIStarbaseUnknownCCClass *savatar);	// 0x641EB0 (the avatar's id among the five GroupInfo members)  // NAME 1 [savatar]: as the FAIL_IFs'
 	void Unknown_63AAF0();	// 0x63AAF0 (0x638390's frame: the avatars' per-frame update, the own avatar's step kept clear of the model)
 	void Unknown_63B310();	// 0x63B310 (0x638390's frame: the camera after the own avatar)
