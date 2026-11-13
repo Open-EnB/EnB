@@ -92,35 +92,3 @@ Matrix3D Unknown_82ECB0(const Vector3 &dir, const Vector3 &pos)
 	tm.Obj_Look_At(pos, pos + dir, 0.0f);
 	return tm;
 }
-
-// ui_item_examination_title.cpp's names (not rebuilt; gen_stubs skips a by-value std::string), linked since
-// ui_slot_info.cpp's 0x630280 news the item examination window
-std::string Unknown_7EA190(int id)
-{
-	// the client's switch (0x7EA190, its strings at 0xBA1648-0xBA18C4): ids 130 and 200-211 share im_03.tga,
-	// -1 and any other id im_default.tga (the client's default also asserts, manuf...cpp line 0x73)
-	static const struct { int id; const char *name; } names[] = {
-		{100, "im_000.tga"}, {101, "im_001.tga"}, {102, "im_002.tga"}, {103, "im_003.tga"},
-		{110, "im_010.tga"}, {111, "im_011.tga"}, {120, "im_020.tga"}, {121, "im_021.tga"}, {122, "im_022.tga"},
-		{140, "im_100.tga"}, {141, "im_101.tga"}, {142, "im_102.tga"},
-		{150, "im_110.tga"}, {151, "im_111.tga"}, {152, "im_112.tga"}, {153, "im_113.tga"},
-		{160, "im_120.tga"}, {161, "im_121.tga"}, {162, "im_122.tga"}, {163, "im_123.tga"},
-		{170, "im_130.tga"}, {171, "im_131.tga"}, {172, "im_132.tga"}, {173, "im_133.tga"},
-		{180, "im_140.tga"}, {181, "im_141.tga"}, {182, "im_142.tga"}, {183, "im_143.tga"},
-	};
-	STUB_CALLED("Unknown_7EA190 (0x7EA190): the client's icon name table");
-	for (int i = 0; i < sizeof(names) / sizeof(names[0]); i++) {
-		if (names[i].id == id) {
-			return std::string(names[i].name);
-		}
-	}
-	if (id == 130 || (id >= 200 && id <= 211)) {
-		return std::string("im_03.tga");
-	}
-	return std::string("im_default.tga");
-}
-std::string Unknown_7EB4D0(int type)
-{
-	STUB_CALLED("Unknown_7EB4D0 (0x7EB4D0): no item type name");
-	return std::string();
-}
