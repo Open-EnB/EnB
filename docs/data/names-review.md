@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 196 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1830 |
-| 2 | describes what the code does | 4529 |
+| 3 | by convention from a client-named file or sibling | 1836 |
+| 2 | describes what the code does | 4534 |
 | 1 | neutral placeholder | 23351 |
 
 ## For review (score 3 and below)
@@ -27602,6 +27602,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `NextRenderState` | `app/shared/rs_track.h:116` | the assert's text |
 | 2 | `Message` | `app/shared/rs_track.h:196` | rs.ini's MESSAGE |
 | 2 | `def, manager` | `app/shared/rs_track.h:295` | the caster's |
+| 2 | `Random` | `app/shared/selector.cpp:9` | the generator every selector rolls (0xBE3538, its initialiser 0x49FA80) |
+| 2 | `Select` | `app/shared/selector.h:21` | what it does |
+| 2 | `Get_Type` | `app/shared/selector.h:23` | what it does |
+| 2 | `Create` | `app/shared/selector.h:26` | what it does |
+| 2 | `Create` | `app/shared/selector.h:27` | what it does |
 | 2 | `ShipCustSettingsClass` | `app/shared/shipcust_desc.h:44` | the parts' key 'Settings%d' |
 | 2 | `ShipCustPartClass` | `app/shared/shipcust_desc.h:61` | the description's key 'PartAttributes%d' |
 | 2 | `Write_Short` | `app/shared/shipcust_desc.h:87` | what it does |
@@ -29712,6 +29717,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RS_THREAD_FLAG_MASK` | `app/shared/rs.h:25` | the asserts' text (the loader thread's bits 12 / 13) |
 | 3 | `RS_DATA_PRESENT` | `app/shared/rs.h:26` | rs_robj.cpp's assert text (Test_Flag(RS_DATA_PRESENT): bit 9, 0x200, set with the model) |
 | 3 | `RsTrackClass` | `app/shared/rs_track.h:203` | class-from-file (D24) for app\shared\rs_track.cpp |
+| 3 | `DependentSelectorClass` | `app/shared/selector.cpp:12` | the client's 'Dependent' (0x49FAB0), Westwood style (D24) |
+| 3 | `IndependentSelectorClass` | `app/shared/selector.cpp:22` | the client's 'Independent' (0x49FAB0), Westwood style (D24) |
+| 3 | `CountedSelectorClass` | `app/shared/selector.cpp:32` | the client's 'Counted' (0x49FAB0), Westwood style (D24) |
+| 3 | `selector.h` | `app/shared/selector.h:4` | provisional header name for selector.cpp |
+| 3 | `SelectorClass` | `app/shared/selector.h:11` | Westwood style (D24) after the client's selector.cpp |
+| 3 | `SelectorType` | `app/shared/selector.h:14` | the numbers 0x49FAB0 passes to 0x49FB70 for 'Dependent', 'Independent', 'Counted' |
 | 3 | `shipcust_desc.h` | `app/shared/shipcust_desc.h:20` | header name assumed from the client's shipcust_desc.cpp |
 | 3 | `ShipCustDescClass` | `app/shared/shipcust_desc.h:72` | by convention (D24) from the client's shipcust_desc.cpp |
 | 3 | `split_string.h` | `app/shared/split_string.h:18` | header name assumed from the client's split_string.cpp |
