@@ -232,7 +232,6 @@ check CHANGE_BASE_ASSET 38 (base asset 901, scale 1): the same object holds base
 check the old model was released and deleted: ok
 check at clock 5000 the new model follows the second packet: ok
 msg 5 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_74C530 4000
 mainview remove 4000
 model 8 'ship_test2' deleted
 aux data deleted (slot +0x04)
@@ -265,11 +264,9 @@ check type 28's constructor (0x70E5A0): no target, no parent, no bone, +0x1D0 1.
 msg 3 SET_TARGET (25) size 12: cpacket.cpp's handler
 check SET_TARGET 25 (target 4100 for object 4200): type 28's 0x70E750 stores the target and clears +0x1D0: ok
 msg 4 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_74C530 4100
 mainview remove 4100
 model 15 'ship_test' deleted
 msg 5 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_74C530 4200
 mainview remove 4200
 model 16 'ship_test2' deleted
 check REMOVE 7 deleted both through their destructors (0x70E380 / 0x70E0C0, 0x70E6B0) with their models: ok
@@ -1888,7 +1885,6 @@ msg 837 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 838 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 839 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 840 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_74C530 38957
 mainview remove 38957
 model 175 'missing' deleted
 aux data deleted (slot +0x04)
@@ -2011,7 +2007,6 @@ msg 897 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 898 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 899 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 900 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_74C530 39074
 mainview remove 39074
 model 21 'ship_14' deleted
 aux data deleted (slot +0x04)
@@ -2111,7 +2106,6 @@ msg 951 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 952 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 953 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 954 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_74C530 41213
 mainview remove 41213
 model 210 'ship_1028' deleted
 aux data deleted (slot +0x04)
@@ -2160,7 +2154,6 @@ msg 975 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 976 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 977 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 978 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_74C530 43912
 mainview remove 43912
 model 222 'ship_1028' deleted
 aux data deleted (slot +0x04)
@@ -2305,7 +2298,6 @@ check FORMATION 65 for the avatar 4302: the type-4 state (0x7171C0) with leader 
 msg 6 FORMATION_POSITIONAL_UPDATE (65) size 24: cpacket.cpp's handler
 check a second FORMATION 65 for 4301 updates its state in place (0x716220: a new extrapolator, the blend to the new node): ok
 msg 7 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_74C530 4300
 mainview remove 4300
 model 261 'ship_test' deleted
 aux data deleted (slot +0x04)
@@ -2316,7 +2308,6 @@ model 265 'part_617' deleted
 model 266 'part_73f' deleted
 model 267 'part_73f' deleted
 msg 8 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_74C530 4301
 mainview remove 4301
 model 268 'ship_test' deleted
 aux data deleted (slot +0x04)
@@ -2327,7 +2318,6 @@ model 272 'part_617' deleted
 model 273 'part_73f' deleted
 model 274 'part_73f' deleted
 msg 9 REMOVE (7) size 8: cpacket.cpp's handler
-stub SClient::Unknown_74C530 4302
 mainview remove 4302
 model 275 'ship_test' deleted
 aux data deleted (slot +0x04)

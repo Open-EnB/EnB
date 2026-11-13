@@ -927,36 +927,36 @@ int SClient::Do_Frame(bool focused)
 
 
 
+// 0x743290 (cpacket.cpp: LOGOFF_CONFIRMATION 186; 0x74ABC0 after a quitting logoff): Do_Frame's answer by
+// the logoff Unknown138C asked (0x74BB50: 1 desktop, 2 login screen, 3 character selection)
+void SClient::Unknown_743290()
+{
+	switch (Unknown138C) {
+		case 0:
 
 
 
 
+			G_ASSERT(0);
+			break;
+		case 1:
+			Unknown12D4 = 3;
+			break;
+		case 2:
+			Unknown12D4 = 1;
+			break;
+		case 3:
+			Unknown12D4 = 2;
+			break;
 
 
 
+		default:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			G_ASSERT(0);
+			break;
+	}
+}
 
 
 
@@ -1353,7 +1353,7 @@ void SClient::Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-		((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, turn, tilt, move_direction, fixed_speed);
+		Unknown717010Class *state = (Unknown717010Class *)avatar->Unknown98; state->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, turn, tilt, move_direction, fixed_speed);
 	}
 }
 
@@ -1362,7 +1362,7 @@ void SClient::Unknown_745B20(bool level, bool auto_level)
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-		((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, level, auto_level);
+		Unknown717010Class *state = (Unknown717010Class *)avatar->Unknown98; state->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, level, auto_level);
 	}
 }
 
@@ -1370,15 +1370,9 @@ void SClient::Unknown_745B20(bool level, bool auto_level)
 void SClient::Unknown_745B90(float turn)
 {
 	if (fabs(turn) < 0.0001f) {
-		ClientObjectClass *avatar = Get_Avatar();
-		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-			((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, true, false);
-		}
+		Unknown_745B20(true, false);
 	} else {
-		ClientObjectClass *avatar = Get_Avatar();
-		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-			((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, &turn, NULL, NULL, false);
-		}
+		Unknown_745AA0(&turn, NULL, NULL, false);
 	}
 }
 
@@ -1386,15 +1380,9 @@ void SClient::Unknown_745B90(float turn)
 void SClient::Unknown_745C70(float tilt)
 {
 	if (fabs(tilt) < 0.0001f) {
-		ClientObjectClass *avatar = Get_Avatar();
-		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-			((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, false, true);
-		}
+		Unknown_745B20(false, true);
 	} else {
-		ClientObjectClass *avatar = Get_Avatar();
-		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-			((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, NULL, &tilt, NULL, false);
-		}
+		Unknown_745AA0(NULL, &tilt, NULL, false);
 	}
 }
 
@@ -1419,11 +1407,23 @@ void SClient::Unknown_745DD0()
 // 0x745E40
 void SClient::Unknown_745E40(int move_direction, bool fixed_speed)
 {
-	ClientObjectClass *avatar = Get_Avatar();
-	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-		((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, NULL, NULL, &move_direction, fixed_speed);
-	}
+	Unknown_745AA0(NULL, NULL, &move_direction, fixed_speed);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4146,50 +4146,50 @@ ClientObjectClass *SClient::Unknown_74BF80()
 	return(NULL);
 }
 
+#include "..\shared\auxdata\auxdata.h"			// Unknown_Find_Field: 0x74BFB0 (l.4183), 0x744560
+#include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
+#include "sbaseview.h"	// UIStarbaseClass, SBaseViewClass (0x74BFB0's Info, '/starbase reset', 0x74D950, the chat-event colour)
+#include "sbase_info.h"	// StarbaseInfoClass: the starbase view's Info (0x74BFB0)
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// (cameraeffects.cpp's, ui_mfd.cpp's)  // NAME 1: neutral (D10)
+// NOT EXACT: inline budget (explain.py: 23 calls, the client 26): the client calls the const_iterator conversion 0x755BD0 twice, the first Unknown_Find_Field and the other three's Cast out of line, ours inlines them; four forms (attempts.py show 0x74BFB0)
+// 0x74BFB0 (0x744690, after the listener: every frame): MusicManagerClass::Update's type, level, race and theme race, then the aux data's MusicID
+void SClient::Unknown_74BFB0()
+{
+	int type = 0;
+	int theme_race = 8;
+	if (ViewMode == 6) {
+		type = -1;
+	} else if (CameraManager && CameraManager->Unknown_79B630()) {
+		type = -1;
+	} else if (CameraManager && CameraManager->Unknown_79B650()) {
+		type = 4;
+	} else if (CurrentView && CurrentView == Unknown135C) {
+		type = 3;
+		SBaseViewClass *view = (SBaseViewClass *)Unknown135C;
+		if (view && view->Info) {
+			theme_race = view->Info->Style;
+			if (theme_race > 2) theme_race = 8;
+		}
+	} else if (ViewMode == 1 || ViewMode == 5) {
+		type = 2;
+	}
+	if (Unknown_74D730()) type = 1;
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::const_iterator it = Unknown1394.find(Get_Avatar_ID());
+	if (it == Unknown1394.end() || !(*it).second) return;
+	AvatarDescClass *desc = &(*it).second->Desc;
+	if (!desc) return;
+	int race = desc->Race;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(AuxData);
+	int level = Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.CombatLevel"))->Value;
+	level += Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.TradeLevel"))->Value;
+	level += Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.ExploreLevel"))->Value;
+	MusicManager->Update(type, level, race, theme_race);
+	DeltaTemplateClass<int> *music = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("MusicID"));
+	if (music && music->Unknown70 > 1) {
+		MusicManager->Play_Music(music->Value);
+	}
+}
 
 
 
@@ -4267,7 +4267,20 @@ void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
 	Unknown1394[game_id] = object;
 	if (AvatarID == (unsigned)game_id) Bridge->Set_Avatar(&object->Desc);
 }
-#pragma auto_inline(on)	// 0x74C690
+#pragma auto_inline(on)
+// 0x74C530 (cpacket.cpp: REMOVE 7 passes the GameID; ui_starbase): the id's avatar object removed, released and
+// taken out of +0x1394
+void SClient::Unknown_74C530(unsigned id)
+{
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
+	if (it != Unknown1394.end() && (*it).second) {
+		CharacterViewAvatarClass *object = (*it).second;
+		object->Remove();
+		object->Release_Ref();
+		Unknown1394.erase(id);
+	}
+}
+// 0x74C690
 void SClient::Unknown_74C690()
 {
 	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
@@ -4332,19 +4345,6 @@ void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -4473,8 +4473,8 @@ void Unknown_74CA90(const char *filename)
 	}
 }
 
-#include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
+
+
 #include "aux_roots_send.h"			// DeltaHullClass (0x7518A0)
 // 0x74D570 (the player is in a group: one of GroupInfo.Members' first five has a name)
 bool SClient::Unknown_74D570()
@@ -5422,28 +5422,28 @@ void SClient::Unknown_751660()
 }
 
 
+// 0x7517E0 (cpacket.cpp: GUILD_PLAYER_PERMISSIONS 210): the guild window's rank rights, when it is up and the
+// player is in space
+void SClient::Unknown_7517E0(int a, int b, int c, int d)
+{
+	if (ChatPanel) {
+		UIGuildClass *panel = ChatPanel->UnknownE0;
+		if (panel && panel->Active && Unknown_728300()) {
+			panel->Unknown_81C5E0(a, b, c, d);
+		}
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x751850 (cpacket.cpp: GUILD_RANK_NAMES_SECTOR 211): the guild window's rank names, as 0x7517E0
+void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks)
+{
+	if (ChatPanel) {
+		UIGuildClass *panel = ChatPanel->UnknownE0;
+		if (panel && panel->Active && Unknown_728300()) {
+			panel->Unknown_81C630(ranks);
+		}
+	}
+}
 
 
 
@@ -5499,7 +5499,7 @@ void SClient::Unknown_7555B0()
 
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkincapacitancerequest.h"
-#include "sbaseview.h"	// UIStarbaseClass, SBaseViewClass ('/starbase reset', 0x74D950, the chat-event colour)
+
 
 
 
@@ -5796,6 +5796,51 @@ void SClient::Unknown_64()
 		SectorSound->Update(Unknown10BC, z);
 	}
 	SoundLibraryClass::Update();
+}
+
+#include "..\packets\pkstarbasetow.h"	// StarbaseRequestPacketClass (0x8A2D70): 0x74B680, 0x74BA30
+// 0x74B680 (cpacket.cpp: starbase tow 80 and STARBASE_SET 79's entry, request false): the avatar stopped (0x745E40,
+// 0x745B90, 0x745C70 inline), the starbase's sector (0x750A70 inline) and its view made current; request: the
+// STARBASE_REQUEST for it (action 0) unless one is up
+void SClient::Unknown_74B680(bool request, int starbase_id)
+{
+	if (request) {
+		if (!Unknown1324) {
+			int id = Unknown1138;
+			Send_Packet(&StarbaseRequestPacketClass(id, 0, starbase_id));
+		}
+	} else if (!Unknown135C) {
+		Unknown_745E40(0, false);
+		Unknown_745B90(0.0f);
+		Unknown_745C70(0.0f);
+		Unknown1324 = starbase_id;
+		Unknown_750A70(starbase_id);
+		Unknown135C = new SBaseViewClass(Task, Unknown1324);
+		Unknown135C->Unknown_04();
+		Unknown135C->Unknown_08();
+		Unknown_745F30(4);
+	}
+}
+
+// 0x74BA30 (cpacket.cpp: STARBASE_SET 79's exit; sbaseview.cpp's leave button, request true): the starbase view shut
+// and deleted, the view mode to mode; request: the loading view up and STARBASE_REQUEST action 1 for the starbase
+void SClient::Unknown_74BA30(bool request, int starbase_id, int mode)
+{
+	if (request) {
+		if (Unknown1324) {
+			if (LoadingView) {
+				LoadingView->Unknown_692160();
+			}
+			int id = Unknown1138;
+			Send_Packet(&StarbaseRequestPacketClass(id, 1, Unknown1324));
+		}
+	} else if (Unknown135C && starbase_id == Unknown1324) {
+		Unknown_745F30(mode);
+		Unknown135C->Unknown_10();
+		delete Unknown135C;
+		Unknown135C = NULL;
+		Unknown1324 = 0;
+	}
 }
 
 /*

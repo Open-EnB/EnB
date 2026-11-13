@@ -961,8 +961,8 @@ public:
 	int *Unknown_74C960(unsigned id);					// 0x74C960: Unknown1394's value's +0xF8  // NAME 1 [id]: the table's key
 	void Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree);	// 0x74C9D0: Unknown1298 set, or reset to Unknown129C  // NAME 1 [tree]: what it holds
 	void Unknown_745F30(int type);						// 0x745F30 (cpacket.cpp: CLIENT_TYPE 60 passes 0, 1 or 5 for the packet's Type 0, 1 or 2)  // NAME 1 [type]: what the handler passes
-	void Unknown_74B680(int a, int starbase_id);		// 0x74B680 (cpacket.cpp: starbase tow 80 passes 0 and StarbaseID1)  // NAME 1 [a, starbase_id]: what the handler passes
-	void Unknown_74BA30(int a, int starbase_id, int mode);	// 0x74BA30 (cpacket.cpp: STARBASE_SET 79 passes 0, StarbaseID and 0 / 1 / 5 by its exit mode)  // NAME 1 [a, starbase_id, mode]: what the handler passes
+	void Unknown_74B680(bool request, int starbase_id);	// 0x74B680 (cpacket.cpp: starbase tow 80 passes 0 and StarbaseID1; true sends STARBASE_REQUEST action 0, false enters the starbase view)  // NAME 1 [request, starbase_id]: what the flag does; what the handler passes
+	void Unknown_74BA30(bool request, int starbase_id, int mode);	// 0x74BA30 (cpacket.cpp: STARBASE_SET 79 passes 0, StarbaseID and 0 / 1 / 5 by its exit mode; sbaseview.cpp passes true: STARBASE_REQUEST action 1)  // NAME 1 [request, starbase_id, mode]: what the flag does; what the handler passes
 	void Unknown_750F70(const char *name, int channel);	// 0x750F70 (cpacket.cpp: CLIENT_CHAT_EVENT 165, the sender and 2..15 by the channel)  // NAME 1 [name, channel]: what the handler passes
 	void Unknown_74D990(int color, char *text, int a);	// 0x74D990 (cpacket.cpp: MESSAGE_STRING 29 passes 0 last)  // NAME 1 [color, text, a]: what the handler passes
 	void Unknown_74E710(const std::string &message, int id, int type);	// 0x74E710 (cpacket.cpp: CONFIRMED_ACTION_OFFER 190)  // NAME 1 [message, id, type]: the packet's fields
