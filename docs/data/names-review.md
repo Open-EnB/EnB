@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 215 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1910 |
+| 3 | by convention from a client-named file or sibling | 1912 |
 | 2 | describes what the code does | 4684 |
-| 1 | neutral placeholder | 24562 |
+| 1 | neutral placeholder | 24620 |
 
 ## For review (score 3 and below)
 
@@ -19269,6 +19269,60 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `on` | `app/client/ui_starmap.h:55` | MapPipClass::Unknown_0C's |
 | 1 | `Unknown_7C94C0` | `app/client/ui_starmap.h:55` | untagged neutral name (D10) |
 | 1 | `Unknown100` | `app/client/ui_starmap.h:82` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_string_list.cpp:14` | 0xBE67C4 |
+| 1 | `Unknown675370GadgetClass` | `app/client/ui_string_list.cpp:17` | neutral (D10) |
+| 1 | `Unknown_675120Class` | `app/client/ui_string_list.cpp:17` | untagged neutral name (D10) |
+| 1 | `screen, pull, bar, layer, a, b` | `app/client/ui_string_list.cpp:20` | what the pages pass |
+| 1 | `Unknown_A4` | `app/client/ui_string_list.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/ui_string_list.cpp:22` | untagged neutral name (D10) |
+| 1 | `count, a, b` | `app/client/ui_string_list.cpp:23` | neutral |
+| 1 | `Unknown_675CF0` | `app/client/ui_string_list.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/ui_string_list.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_string_list.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_string_list.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_string_list.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_string_list.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_string_list.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_string_list.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_5B9160` | `app/client/ui_string_list.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_string_list.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_string_list.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_string_list.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_string_list.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_string_list.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_string_list.cpp:157` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_string_list.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_649090` | `app/client/ui_string_list.cpp:268` | untagged neutral name (D10) |
+| 1 | `ui_string_list.h` | `app/client/ui_string_list.h:14` | provisional header name for ui_string_list.cpp |
+| 1 | `Unknown675370GadgetClass` | `app/client/ui_string_list.h:24` | untagged neutral name (D10) |
+| 1 | `UIStringListItemStruct` | `app/client/ui_string_list.h:27` | neutral (D10) |
+| 1 | `Id` | `app/client/ui_string_list.h:30` | neutral |
+| 1 | `String` | `app/client/ui_string_list.h:31` | what Change_Text gets |
+| 1 | `UIStringListLineStruct` | `app/client/ui_string_list.h:35` | neutral (D10) |
+| 1 | `Text` | `app/client/ui_string_list.h:38` | neutral |
+| 1 | `mesh, view, layer, format, owns_strings, unknown` | `app/client/ui_string_list.h:45` | what it does with them |
+| 1 | `Unknown_54` | `app/client/ui_string_list.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_string_list.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_string_list.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_string_list.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_string_list.h:51` | untagged neutral name (D10) |
+| 1 | `Add` | `app/client/ui_string_list.h:52` | what it does |
+| 1 | `Refresh` | `app/client/ui_string_list.h:53` | what it does |
+| 1 | `Clear` | `app/client/ui_string_list.h:54` | what it does |
+| 1 | `Set_Dirty` | `app/client/ui_string_list.h:55` | what it does |
+| 1 | `Find` | `app/client/ui_string_list.h:56` | what it does |
+| 1 | `Update_Scroll_Bar` | `app/client/ui_string_list.h:57` | what it does |
+| 1 | `Unknown_649090` | `app/client/ui_string_list.h:58` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_string_list.h:61` | neutral |
+| 1 | `std:` | `app/client/ui_string_list.h:62` | neutral |
+| 1 | `TopIndex` | `app/client/ui_string_list.h:63` | neutral |
+| 1 | `Unknown0B8` | `app/client/ui_string_list.h:64` | untagged neutral name (D10) |
+| 1 | `OwnsStrings` | `app/client/ui_string_list.h:65` | neutral |
+| 1 | `Dirty` | `app/client/ui_string_list.h:66` | neutral |
+| 1 | `ScrollBar` | `app/client/ui_string_list.h:67` | neutral |
+| 1 | `Unknown0C4` | `app/client/ui_string_list.h:68` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_string_list.h:69` | untagged neutral name (D10) |
+| 1 | `Selected` | `app/client/ui_string_list.h:70` | neutral |
 | 1 | `Unknown_BE67C4` | `app/client/ui_stringentry.cpp:17` | 0xBE67C4 |
 | 1 | `Unknown_B08C98` | `app/client/ui_stringentry.cpp:18` | neutral (D10) |
 | 1 | `Unknown_B08C9C` | `app/client/ui_stringentry.cpp:19` | neutral (D10) |
@@ -23925,6 +23979,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownD4` | `app/shared/rs_track.h:310` | neutral (D10) |
 | 1 | `UnknownD8` | `app/shared/rs_track.h:311` | neutral (D10) |
 | 1 | `UnknownE8` | `app/shared/rs_track.h:312` | neutral (D10) |
+| 1 | `SafePtrBaseClass` | `app/shared/safe_ptr.h:15` | file safe_ptr.cpp, assert 'm_prev' in 0x4F5ED0; the base of the pointer |
+| 1 | `Set` | `app/shared/safe_ptr.h:21` | 0x4F5ED0 unlinks the old target, links the new one |
+| 1 | `m_next` | `app/shared/safe_ptr.h:25` | beside the client's m_prev |
+| 1 | `SafePtrTargetClass` | `app/shared/safe_ptr.h:34` | vtable 0xAEC890, the head of the pointers' list at +4 |
 | 1 | `Unknown_BE56D8` | `app/shared/shipcust_desc.cpp:15` | 0xBE56D8, each race's two default settings (filled at run time) |
 | 1 | `Unknown_B75D28` | `app/shared/shipcust_desc.cpp:17` | 0xB75D28, the hull style per race and profession |
 | 1 | `Unknown_B75D4C` | `app/shared/shipcust_desc.cpp:18` | 0xB75D4C, the wing style per race and profession |
@@ -30236,6 +30294,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SectorName` | `app/client/ui_starmap.h:72` | the assert's |
 | 3 | `StarbaseTitle` | `app/client/ui_starmap.h:73` | the assert's |
 | 3 | `StarbaseName` | `app/client/ui_starmap.h:74` | the assert's |
+| 3 | `UIStringListClass` | `app/client/ui_string_list.h:42` | class-from-file (D24) for app\Client\ui_string_list.cpp |
+| 3 | `std:` | `app/client/ui_string_list.h:60` | the assert's |
 | 3 | `As_Space_Client` | `app/client/ui_talkt.cpp:31` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UITradeClass` | `app/client/ui_talkt.cpp:35` | class-from-file (D24) for ui_trade.cpp |
 | 3 | `BTTN_MORE` | `app/client/ui_talkt.cpp:57` | the FAIL_IF's; NAME 1 [the others]: neutral |
