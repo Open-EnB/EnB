@@ -532,7 +532,7 @@ void UIStarbaseClass::Unknown_63B5A0()
 	}
 	UnknownB0->Unknown_6A0E50();
 }
-#pragma auto_inline(off)
+
 // 0x63E8F0
 bool UIStarbaseClass::Unknown_63E8F0(int id)
 {
@@ -543,7 +543,7 @@ bool UIStarbaseClass::Unknown_63E8F0(int id)
 	}
 	return(false);
 }
-
+#pragma auto_inline(off)
 // 0x640110
 void UIStarbaseClass::Unknown_640110(int state)
 {
@@ -620,7 +620,7 @@ public:
 // SYMBOL_CHAT_SECTION, an option a row: Cancel, Chat, Trade, Group Invite); interim placement in this file, D137
 struct UIStarbaseSymbolChatOptionStruct	// NAME 1: neutral (D10): a row of the menu (0x0C bytes: 0x645510 news it)
 {
-	UIStarbaseSymbolChatOptionStruct() : Window(NULL), Text(NULL), Gadget(NULL) {}
+	UIStarbaseSymbolChatOptionStruct();								// 0x644E50 (uncalled out of line: 0x645510 inlines it)
 	~UIStarbaseSymbolChatOptionStruct();				// 0x644E70
 	RefCountPtr<DynamicWindowClass> Window;				// +0x00 (SYMBOL_CHAT_OPTION)
 	RefCountPtr<Unknown51C800Class> Text;				// +0x04 (the option's name)
@@ -651,11 +651,13 @@ public:
 // signs (0xB8A9A0 plain, 0xB8A9B8 / 0xB8A9D0 / 0xB8A9E8 / 0xB8AA00 by the column when the key's +0x0B is set), the
 // monitor models by column (0xB8A978), the bar parts by room (0xB8A8A0) and the '%s_%dmd' names by room and column (0xB8ABBC)
 static const char *Unknown_B8AA18[9] = { "VB_WEAPON", "VB_SYSTEM", "VB_CORE", "VB_CONSUMABLE", "VB_JUNK", "VB_COMPONENT", "VB_RESOURCE", "VB_BLACKMKT", NULL };	// NAME 1: neutral (D10)
+static const char *Unknown_B90BF8[13] = { "Refining", "Analyze", "Manufacturing", "Jobs", "Intergalactic Net", "Customize Ship", "Customize Avatar", "Training", "SolSec", "Bank", "Bar", "Pool Table", "Dressing Room" };	// NAME 1: neutral (D10): the facilities' tooltips by type (0x639630)
 static const char *Unknown_B90C2C[12] = { "ico_refinery", "ico_analyze", "ico_manufacture", "ico_jobs", "ico_browser", "ico_ship_con", "ico_ava_con", "ico_encyclo", "ico_encyclo", "ico_encyclo", "ico_encyclo", "ico_encyclo" };	// NAME 1: neutral (D10)
 static int Unknown_B90C60[12] = { 5, 6, 7, 8, 9, 13, 14, -1, -1, -1, -1, -1 };	// NAME 1: neutral (D10): the view's interface type by facility type (0x6390A0)
 static const char *Unknown_B8AA3C[16] = { "door_forward", NULL, NULL, NULL, "door_forward", "door_left", "door_back", "door_right", "door_forward", "door_left", "door_back", "door_right", "door_forward", "door_left", "door_back", "door_right" };	// NAME 1: neutral (D10)
 static const char *Unknown_B8AA7C[16] = { "cam_door_fd_out", "", "", "", "cam_door_fd_out", "cam_door_lf_out", "cam_door_bk_out", "cam_door_rt_out", "", "cam_door_lf_out", "", "", "", "", "", "cam_door_rt_out" };	// NAME 1: neutral (D10): the doors' camera bones by room and column (0x63FCB0)
 static int Unknown_B8AABC[16] = { 1, -1, -1, -1, -1, 2, 0, 3, -1, 1, -1, -1, -1, -1, -1, 1 };	// NAME 1: neutral (D10)
+static const char *Unknown_B8AAFC[16] = { "To Main Deck", NULL, NULL, NULL, "To Player Hall", "To Lounge", "To Hangar", "To Bazaar", NULL, "To Main Deck", NULL, NULL, NULL, NULL, NULL, "To Main Deck" };	// NAME 1: neutral (D10): the doors' tooltips by room and column (0x639630)
 static int Unknown_B8AB3C[16] = { 1, -1, -1, -1, -1, 3, 0, 2, -1, 1, -1, -1, -1, -1, -1, 1 };	// NAME 1: neutral (D10): the room each door leads to (0x63FCB0)
 static const char *Unknown_B8AB7C[16] = { "cam_door_fd_in", "", "", "", "cam_door_fd_in", "cam_door_lf_in", "cam_door_bk_in", "cam_door_rt_in", "", "cam_door_lf_in", "", "", "", "", "", "cam_door_rt_in" };	// NAME 1: neutral (D10): the doors' arrival camera bones by room and column (0x6366A0)
 static const char *Unknown_B8A9A0[6] = { "sn_hangar", "sn_maindeck", "sn_npclounge", "sn_merchants", "sn_lounge", NULL };	// NAME 1: neutral (D10)
@@ -800,7 +802,6 @@ void UIStarbaseClass::Unknown_54()
 				Unknown64.Unknown_6870E0(UnknownF8[i], i + 0x11, View, true, false);
 			}
 		}
-
 		for (i = 0; i < 4; i++) {
 			const char *bone = Unknown_B8AA3C[Room * 4 + i];
 			if (bone == NULL) {
@@ -849,7 +850,6 @@ void UIStarbaseClass::Unknown_54()
 				}
 			}
 		}
-
 		if (Room == 0 && ((ClientClass *)Client)->Get_Ship()) {
 			Unknown184 = Create_Get(((ClientClass *)Client)->Get_Ship()->Unknown_6F3BC0());
 			Unknown_496AE0(Unknown184.Peek(), false);
@@ -1869,132 +1869,132 @@ void UIStarbaseClass::Unknown_6390A0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: 0x639630, functional (shape: the client inlines the table's begin() in the second loop, ours calls 0x643DF0; frame 0x28 against 0x38; O4)
+// 0x639630 (0x638390's frame: the doors', exit's, terminals', NPCs' and avatars' gadgets lit and their tooltips and
+// cursors while the own avatar stands within reach of them; all unlit while it cannot act)
+void UIStarbaseClass::Unknown_639630()
+{
+	int i;
+	UnknownB0->Unknown_6A0E50();
+	SClient *sclient = ((LineDisplayClientClass *)Client)->As_Space_Client();
+	bool busy = false;
+	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
+	if (panel) {
+		if (Unknown_7CA2D0()->Unknown34 || panel->UnknownEC) {
+			busy = true;
+		}
+	}
+	if (!UnknownC0.D->Avatar || UnknownC0.D->Avatar->Unknown380 || Unknown1FC || Unknown1FD || Unknown1FE || Unknown1FF || Unknown200 || Unknown201 || !UnknownC0.D->Avatar->Unknown318.empty() || UnknownB0->Unknown_69CCD0() || Unknown1F8->Active || !sclient->Unknown_74B5E0()) {
+		if (Unknown180) {
+			Unknown180->Unknown_40(false);
+		}
+		for (i = 0; i < 4; i++) {
+			if (UnknownF8[i]) {
+				UnknownF8[i]->Unknown_40(false);
+			}
+		}
+		for (i = 0; i < 14; i++) {
+			if (Unknown13C[i]) {
+				Unknown13C[i]->Unknown14->Unknown_40(false);
+			}
+		}
+		UIStarbaseUnknownD4TableClass::iterator it;
+		for (it = UnknownD4.begin(); it != UnknownD4.end(); it++) {
+			UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+			FAIL_IF(!savatar) continue;
+			if (savatar->Unknown14) {
+				savatar->Unknown14->Unknown_40(false);
+			}
+		}
+		return;
+	}
+	if (Unknown21A) {
+		return;
+	}
+	CharacterViewAvatarClass *avatar = UnknownC0.D->Avatar.Peek();
+	for (i = 0; i < 4; i++) {
+		GadgetClass *gadget = Unknown118[i];
+		if (gadget && gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() && Unknown_63BA70(avatar, ((RObjGadgetClass *)gadget)->RObj, 10.0f)) {
+			if (!busy) {
+				sclient->Mouse->Unknown_515120(7);
+			}
+			UnknownB0->Unknown_6A0E80(Unknown_B8AAFC[Room * 4 + i]);
+		}
+	}
+	if (!Room && Unknown180) {
+		if (Unknown180->Is_Unknown2C_02() && Unknown180->Is_Unknown2C_04() && Unknown_63BA70(avatar, ((RObjGadgetClass *)Unknown180)->RObj, 100.0f)) {
+			Unknown_63BA70(UnknownC0.D->Avatar.Peek(), ((RObjGadgetClass *)Unknown180)->RObj, 100.0f);
+			Unknown180->Unknown_40(true);
+			if (!busy) {
+				sclient->Mouse->Unknown_515120(7);
+			}
+			UnknownB0->Unknown_6A0E80("Exit Starbase");
+		} else {
+			Unknown180->Unknown_40(false);
+		}
+	}
+	for (i = 0; i < 4; i++) {
+		GadgetClass *gadget = UnknownF8[i];
+		if (gadget) {
+			if (gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() && Unknown_63BA70(avatar, ((RObjGadgetClass *)gadget)->RObj, 5.0f)) {
+
+				StarbaseFacilityClass *facility = RoomInfo->Find_Facility(i);
+				FAIL_IF(!facility) {
+					gadget->Unknown_40(false);
+					continue;
+				}
+				gadget->Unknown_40(true);
+				UnknownB0->Unknown_6A0E80(Unknown_B90BF8[facility->Type]);
+				if (!busy) sclient->Mouse->Unknown_515120(6);
+			} else {
+				gadget->Unknown_40(false);
+			}
+		}
+	}
+	for (i = 0; i < 14; i++) {
+		UIStarbaseUnknownCCClass *slot = Unknown13C[i];
+		if (slot && slot->Unknown14) {
+			GadgetClass *gadget = slot->Unknown14;
+			RenderObjClass *obj = NULL;
+			if (slot->Avatar) {
+				obj = slot->Avatar.Peek();
+			} else if (slot->AmbientAvatar) {
+				obj = slot->AmbientAvatar.Peek();
+			}
+			if (gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() && !((RObjGadgetClass *)gadget)->RObj->Is_Hidden() && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), obj, 6.0f)) {
+				slot->Unknown14->Unknown_40(true);
+				if (!obj) UnknownB0->Unknown_6A0E80("Black Market");
+				if (!busy) sclient->Mouse->Unknown_515120(5);
+			} else {
+				slot->Unknown14->Unknown_40(false);
+			}
+		}
+	}
+	UIStarbaseUnknownD4TableClass::iterator it;
+
+
+
+	for (it = UnknownD4.begin(); it != UnknownD4.end(); it++) {
+		UIStarbaseUnknownCCClass *savatar = it.Cur->Value;
+		FAIL_IF(!savatar) continue;
+		if (savatar->Unknown14) {
+			if (savatar->Unknown14->Is_Unknown2C_02() && savatar->Unknown14->Is_Unknown2C_04() && Unknown_63BA70(UnknownC0.D->Avatar.Peek(), savatar->Avatar.Peek(), 6.0f)) {
+				if (!busy) {
+					sclient->Mouse->Unknown_515120(5);
+				}
+				if (!savatar->Unknown_633010() && !Unknown_63E8F0(savatar->Unknown00)) {
+					UnknownB0->Unknown_6A0E80("");
+					savatar->Unknown14->Unknown_40(true);
+				} else {
+					UnknownB0->Unknown_6A0E80("Busy");
+					savatar->Unknown14->Unknown_40(false);
+				}
+			} else {
+				savatar->Unknown14->Unknown_40(false);
+			}
+		}
+	}
+}
 
 // NOT EXACT: 0x63A100, functional (the busy flag in memory and the Q key in bl in the client, swapped here; branch order otherwise as the client's; SB1)
 // 0x63A100
@@ -3859,7 +3859,7 @@ void UIStarbaseClass::Unknown_6417D0()
 
 
 
-// NOT EXACT: 0x63E770, functional (the client compares the found iterator with end() through an out-of-line 8-byte copy 0x6439B0, a const_iterator conversion the stand-in table lacks; SB1)
+// NOT EXACT: 0x63E770, functional (order: end() through the const_iterator conversion 0x6439B0 as the client's; the frame time's 64-bit stores and a zero store in another order; SB1, O4)
 // 0x63E770
 void UIStarbaseClass::Unknown_63E770()
 {
@@ -3868,8 +3868,8 @@ void UIStarbaseClass::Unknown_63E770()
 	while (it != UnknownEC.end()) {
 		UIStarbaseUnknownECStruct *entry = *it;
 		entry->Time += time;
-		UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(entry->ID);
-		if (found != UnknownD4.end() && found.Cur->Value) {
+		UIStarbaseUnknownD4TableClass::iterator found = UnknownD4.find(entry->ID); UIStarbaseUnknownD4TableClass::const_iterator last = UnknownD4.end();
+		if (found.Cur != last.Cur && found.Cur->Value) {
 			CharacterViewAvatarClass *avatar = found.Cur->Value->Avatar.Peek();
 			if (avatar->Unknown318.size() && entry->Time <= 10.0f) {
 				++it;
@@ -4285,7 +4285,15 @@ void UIStarbaseUnknownD4TableClass::resize(unsigned int hint)
 
 #pragma auto_inline(on)
 
-// The symbol chat menu (0x644E70-0x645E80, the starbase interface's +0x1F8)
+// The symbol chat menu (0x644E50-0x645E80, the starbase interface's +0x1F8)
+// @0x00644E50
+UIStarbaseSymbolChatOptionStruct::UIStarbaseSymbolChatOptionStruct() :
+	Window(NULL),
+	Text(NULL),
+	Gadget(NULL)
+{
+}
+
 // 0x644E70
 UIStarbaseSymbolChatOptionStruct::~UIStarbaseSymbolChatOptionStruct()
 {
