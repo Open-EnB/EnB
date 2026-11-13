@@ -182,10 +182,10 @@ void LandClass::Render(RenderInfoClass &rinfo)
 	// the patch records' extra buffers (+0x00 / +0x04 and +0x08 / +0x0C), up to level 2
 	if (Unknown192) {
 		if (Unknown190) {
-			DX8Wrapper::Set_Texture(0, (TextureClass *)Unknown178.Peek());
+			DX8Wrapper::Set_Texture(0, Unknown178.Peek());
 			DX8Wrapper::Set_Texture(1, NULL);
 			DX8Wrapper::Set_Shader(Unknown17C);
-			DX8Wrapper::Set_Material((VertexMaterialClass *)Unknown180.Peek());
+			DX8Wrapper::Set_Material(Unknown180.Peek());
 			for (i = 0; i < PatchCount; i++) {
 				LandPatchRecordClass &record = PatchRecords[i];
 				if (record.Visible && record.Unknown10 > 0 && (unsigned int)record.Level < 3) {
@@ -196,10 +196,10 @@ void LandClass::Render(RenderInfoClass &rinfo)
 			}
 		}
 		if (Unknown191) {
-			DX8Wrapper::Set_Texture(0, (TextureClass *)Unknown178.Peek());
+			DX8Wrapper::Set_Texture(0, Unknown178.Peek());
 			DX8Wrapper::Set_Texture(1, NULL);
 			DX8Wrapper::Set_Shader(Unknown184);
-			DX8Wrapper::Set_Material((VertexMaterialClass *)Unknown188.Peek());
+			DX8Wrapper::Set_Material(Unknown188.Peek());
 			DX8Wrapper::Set_DX8_Render_State(D3DRS_ZBIAS, 1);
 			for (i = 0; i < PatchCount; i++) {
 				LandPatchRecordClass &record = PatchRecords[i];
@@ -684,8 +684,8 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 			TextureClass *texture = info->Get_Texture(0);
 			ShaderClass shader = trees[i]->Peek_Model()->Get_Shader(0, 0);
 			VertexMaterialClass *material = info->Peek_Vertex_Material(0);
-			if ((RefCountClass *)texture != Unknown178.Peek() || !(shader == Unknown17C)
-				|| material->Get_CRC() != ((VertexMaterialClass *)Unknown180.Peek())->Get_CRC()) {
+			if (texture != Unknown178.Peek() || !(shader == Unknown17C)
+				|| material->Get_CRC() != (Unknown180.Peek())->Get_CRC()) {
 				same = false;
 			}
 			REF_PTR_RELEASE(texture);
@@ -696,8 +696,8 @@ void LandClass::Build_Decorations(std::vector<std::string> &names, std::vector<L
 			TextureClass *texture = info->Get_Texture(0);
 			ShaderClass shader = shadows[i]->Peek_Model()->Get_Shader(0, 0);
 			VertexMaterialClass *material = info->Peek_Vertex_Material(0);
-			if ((RefCountClass *)texture != Unknown178.Peek() || !(shader == Unknown184)
-				|| material->Get_CRC() != ((VertexMaterialClass *)Unknown188.Peek())->Get_CRC()) {
+			if (texture != Unknown178.Peek() || !(shader == Unknown184)
+				|| material->Get_CRC() != (Unknown188.Peek())->Get_CRC()) {
 				same = false;
 			}
 			REF_PTR_RELEASE(texture);

@@ -1481,5 +1481,15 @@
   "address": "0x52E620",
   "symbol": "??1?$RefCountPtr@VClientItemPropertySpecialRaceRequirementClass@@@@QAE@XZ",
   "evidence": "ClientItemPropertySpecialRaceRequirementClass::Create 0x52DB60 destroys its returned RefCountPtr through it on unwind: the funclet 0xAAC9B0 tests the return flag ([ebp-0x30] & 1) and jumps to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x46BE90",
+  "symbol": "??1?$RefCountPtr@VTextureClass@@@@QAE@XZ",
+  "evidence": "land.obj's first RefCountPtr destructor: LandClass's destructor 0x46A480 unwinds its member +0x178 through it (funclet 0xAA3EC8 `add ecx, 0x178; jmp`), the member Render 0x474B30 hands DX8Wrapper::Set_Texture; vector<RefCountPtr<TextureClass> >::insert 0x75D280 calls it too. Byte-identical to 0x46BEC0, told apart by the member types (O1 2026-11-12)"
+ },
+ {
+  "address": "0x46BEC0",
+  "symbol": "??1?$RefCountPtr@VVertexMaterialClass@@@@QAE@XZ",
+  "evidence": "land.obj's second RefCountPtr destructor: LandClass's destructor 0x46A480 unwinds its members +0x180 and +0x188 through it (funclets 0xAA3ED6 / 0xAA3EE4), the materials Render 0x474B30 hands DX8Wrapper::Set_Material and the decoration loader fills from MaterialInfoClass::Get_Vertex_Material. Byte-identical to 0x46BE90 (O1 2026-11-12)"
  }
 ]

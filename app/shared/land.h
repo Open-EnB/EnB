@@ -270,11 +270,11 @@ protected:
 	float							SeaLevel;								// +0x160, [SEA] SEA_LEVEL
 	float							SeaDetailScales[MAX_SEAS][2];		// +0x164, [SEA] DETAIL_SCALE..DETAIL_SCALE4
 	int							SeaCount;								// +0x174
-	RefCountPtr<RefCountClass>	Unknown178;
+	RefCountPtr<TextureClass>	Unknown178;							// +0x178, the trees' texture (released by 0x46BE90, Render's Set_Texture)
 	ShaderClass					Unknown17C;
-	RefCountPtr<RefCountClass>	Unknown180;
+	RefCountPtr<VertexMaterialClass>	Unknown180;				// +0x180, the trees' material (released by 0x46BEC0, Render's Set_Material)
 	ShaderClass					Unknown184;
-	RefCountPtr<RefCountClass>	Unknown188;
+	RefCountPtr<VertexMaterialClass>	Unknown188;				// +0x188, the shadows' material (0x46BEC0)
 	LandPatchRecordClass *	PatchRecords;							// +0x18C, PatchCount
 	bool							Unknown190;
 	bool							Unknown191;
