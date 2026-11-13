@@ -90,17 +90,6 @@ char *Sector_Type_Name(int sector_type)
 	return names[sector_type];
 }
 
-// ------------------------------------------------------------------------- MANUFACTURE_ITEM_CATAGORY's Print
-
-// manufacturing_defs.cpp 0x845910: a manufacturing mode's name (the client's table 0xBAEF30), "error"
-// out of range
-char *Manufacturing_Mode_Name(char *buffer, int len, int mode)
-{
-	STUB_CALLED("Manufacturing_Mode_Name (0x845910)");
-	static char *names[] = { "None", "Manufacture", "Analyze", "Dismantle" };
-	return strncpy(buffer, (mode >= 0 && mode < 4) ? names[mode] : "error", len);
-}
-
 // ------------------------------------------------------------------------- the warp camera's placements (unknown_7979a0.cpp)
 
 // 0xBDB1C0: a global Random4Class with seed 0x1105 (its initialiser 0x444240; its home file is unknown). Data, so it

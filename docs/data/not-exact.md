@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-776 entries in 253 files.
+778 entries in 254 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -623,6 +623,8 @@ edit the comments in the code, not this file.
 | `app/common/lego_identifier.cpp:83` | `LegoIdentifierClass::LegoIdentifierClass` | marker | NOT EXACT: 0x843970, the client inlines Set_Name here (inline-budget; attempts.py show 0x843970) |
 | `app/common/lego_identifier.cpp:170` | `LegoIdentifierClass::Set_Name` | marker | NOT EXACT: 0x844CD0, registers (attempts.py show 0x844CD0) |
 | `app/common/lego_identifier.cpp:228` | `LegoSplitStruct::Is_Invalid` | mention | NOT EXACT 0.79); its Is_Invalid 0x8451A0 (exact) is placed here provisionally (D137): the 20-byte function at this object's end, before manufacturing_defs.cpp. * Written by builder P4 (2026-10-26) for the object-to-object effects (pkpointeffect.cpp, opcodes 11-14), which send an identifier's name and set one from the received string. |
+| `app/common/manufacturing_defs.cpp:408` | `String_To_Value` | marker | NOT EXACT: the failed lookup's path destroys the list's strings through the inlined _Tidy(true), the client's through ??_G(0) (inline budget, D89) 0x845AA0 |
+| `app/common/manufacturing_defs.cpp:432` | `Value_To_String` | marker | NOT EXACT: one exit (the client shares the string's destructor between both paths), but this compile inlines text += name's append, the client calls it (inline budget, D89) 0x845D40 |
 | `app/common/optdlg.cpp:4` | `Unknown_847630` | mention | NOT EXACT). Notes at the end. |
 | `app/common/optdlg.cpp:178` | `Unknown_846FC0` | marker | NOT EXACT: functional (D64), register 0.66: case 2 keeps the choices in edi where the client keeps the dialog and copies the name pointer (lea edi, [esi]); the client's 260-byte buffers and order are reproduced |
 | `app/common/optdlg.cpp:310` | `Unknown_847630` | marker | NOT EXACT: functional (D64), 0.77: the inlined 0x846CD0's first test; the client loads the first Type into ecx and the table into eax before comparing, this compares memory (0x847BB0 / 0x847C40 have the client's same shape) |

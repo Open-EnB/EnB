@@ -229,7 +229,7 @@ public:
 	int Value;											// +0x84  // NAME 2: what it holds
 };
 #include "aux_roots.h"				// (after auxdata.h, as ui_manu.cpp): 'Validity' is DeltaTemplateClass<UnknownB01394Enum>
-bool Unknown_846210(int validity);						// 0x846210: the attempt succeeded (the 'Validity' value)  // NAME 1 [validity]: neutral
+
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_manu.cpp's
 template<class C> inline C *Unknown_Manu_Raw_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Manu_Raw(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Manu_Raw_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_manu.cpp's
 template<class C> C *Unknown_Find_Changed(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): 0x5EEBA0 (out of line after 0x5EDFD0)
@@ -263,7 +263,7 @@ void UIRefineryClass::Unknown_60()
 			NameClass name("Validity");
 			DeltaTemplateClass<UnknownB01394Enum> *found = Unknown_Find_Field<DeltaTemplateClass<UnknownB01394Enum> >(Unknown0AEC, name); DeltaTemplateClass<UnknownB01394Enum> *validity = (found && found->Unknown70) ? found : NULL;
 			int value = validity->Value;
-			if (Unknown_846210(value)) {
+			if (Is_Validity_Attempt((UnknownB01394Enum)value)) {
 				Unknown0AF0 = 0;
 				Unknown_5ECBB0(4, true, Unknown_B85C60[1]);
 				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);

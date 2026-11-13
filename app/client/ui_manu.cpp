@@ -388,7 +388,7 @@ public:
 	static int UnknownGlobal;							// the per-class global at +0x04
 };
 int UIManuComponentsClass::UnknownGlobal;
-bool Unknown_846210(int validity);						// 0x846210: the attempt succeeded (the 'Validity' value)  // NAME 1 [validity]: neutral
+
 static const char *Unknown_B81880[] = { "Manufacturing Target", "Attempt Succeeded", "N/A", " " };	// NAME 1: neutral (D10)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 template<class C> inline C *Unknown_Find_Valid_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; C *t = Unknown_Find_Field<C>(r, n); if (t && t->Unknown70) return(t); return(NULL); } template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Find_Valid_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_analyze.cpp's (two inline layers: the client's finds 0x546780 / 0x5467F0 out of line in 0x5B4680)
@@ -509,7 +509,7 @@ void UIManuClass::Unknown_60()
 		if (Unknown0BA4 == 2) {
 			NameClass name("Validity");
 			DeltaTemplateClass<UnknownB01394Enum> *validity = Unknown_Find_Valid<DeltaTemplateClass<UnknownB01394Enum> >((DeltaCompoundClass *)Unknown0BA0, name);
-			if (Unknown_846210(validity->Value)) {
+			if (Is_Validity_Attempt(validity->Value)) {
 				Unknown0BA4 = 0;
 				Unknown_5B1AF0(4, true, Unknown_B81880[1]);
 				SoundLibraryClass::Play_2D_Sound("success_1.wav", 2);

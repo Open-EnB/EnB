@@ -1,0 +1,48 @@
+{
+ "ambiguous": [
+  "0x42A6C0"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe: the object 0x845200-0x846253 (+ guarded <string> static 0x846270); __FILE__ e:\\build\\beta\\G\\app\\Common\\manufacturing_defs.cpp and its asserts (MfgTypeStruct, MfgCategoryStruct, MfgSubCategoryStruct, MODE_DISMANTLE, MANUFACTURING_VALIDITY_COUNT, NUM_MANUFACTURING_DIFFICULTY); the name tables 0xBAED48-0xBAEFA8",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CF30",
+  "0x432B80",
+  "0x433A10",
+  "0x845200",
+  "0x845240",
+  "0x8452C0",
+  "0x845380",
+  "0x8454C0",
+  "0x845580",
+  "0x8456C0",
+  "0x845780",
+  "0x8458C0",
+  "0x845910",
+  "0x845990",
+  "0x845A10",
+  "0x846040",
+  "0x846090",
+  "0x846110",
+  "0x846160",
+  "0x8461E0",
+  "0x846210",
+  "0x846240",
+  "0x846270"
+ ],
+ "merged": [],
+ "name": "common/manufacturing_defs.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CF30",
+  "0x432B80",
+  "0x433A10"
+ ]
+}

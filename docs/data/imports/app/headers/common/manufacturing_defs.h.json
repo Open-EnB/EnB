@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: manufacturing_defs.cpp's declarations (name assumed from the .cpp; no string names the header); the enum constants are the client's FAIL_IF texts"
+}
