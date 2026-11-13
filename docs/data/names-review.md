@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1836 |
 | 2 | describes what the code does | 4534 |
-| 1 | neutral placeholder | 23351 |
+| 1 | neutral placeholder | 23353 |
 
 ## For review (score 3 and below)
 
@@ -4120,6 +4120,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7AC7B0` | `app/client/galaxy_map_render.cpp:1572` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/galaxy_map_render.cpp:1600` | untagged neutral name (D10) |
 | 1 | `Unknown_7B3F00` | `app/client/galaxy_map_render.cpp:1689` | untagged neutral name (D10) |
+| 1 | `Unknown_Distance` | `app/client/galaxy_map_render.cpp:1841` | what it computes |
+| 1 | `Unknown_7ADF80` | `app/client/galaxy_map_render.cpp:1930` | what it computes |
 | 1 | `GalaxyMapRenderItemClass` | `app/client/galaxy_map_render.h:66` | what it is |
 | 1 | `Release_Item` | `app/client/galaxy_map_render.h:69` | what it does |
 | 1 | `Needs_Update` | `app/client/galaxy_map_render.h:72` | 0x7A8B70 lists those that do |
