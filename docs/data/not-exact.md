@@ -25,12 +25,12 @@ edit the comments in the code, not this file.
 | `app/client/aux_roots_send.h:4` | `Type_Name` | mention | NOT EXACT (D42) where aux_roots.h is. NAME 1 [aux_roots_send.h]: provisional file name (a build aid: kept out of aux_roots.cpp, workflow.md 3.3) |
 | `app/client/avatar.cpp:1196` | `CharacterViewAvatarClass::Unknown_780810` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's vector insert and 0x780AC0 copies) |
 | `app/client/avatar.cpp:1310` | `CharacterViewAvatarClass::Unknown_780AF0` | marker | NOT EXACT: functional for POC (D64), literal (__LINE__) |
-| `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), relocation (0x78F640 a POC stand-in; the face animation calls not built) |
+| `app/client/avatar.cpp:1615` | `CharacterViewAvatarClass::Unknown_781EA0` | marker | NOT EXACT: functional for POC (D64), register (ebx for the zero where the client has ebp; the client keeps Unknown314 = 1 apart from = n) |
 | `app/client/avatar.cpp:1669` | `CharacterViewAvatarClass::Unknown_782200` | marker | NOT EXACT: functional for POC (D64) |
 | `app/client/avatar.cpp:2380` | `CharacterViewAvatarClass::Unknown_1C4` | marker | NOT EXACT: functional for POC (D64), inline-budget (the NLP, blink and face callees not built; the movement's branches merged) |
 | `app/client/avatar.cpp:3239` | `CharacterViewAvatarClass::Unknown_786410` | marker | NOT EXACT: register (the Set_Translation stores' y / z go through ecx / edx in the client, edx / eax here: 0.94) |
 | `app/client/avatar.cpp:3399` | `CharacterViewAvatarClass::Unknown_787450` | marker | NOT EXACT: order-only (the second Normalize sums z*z + y*y where the client sums y*y first, or the reverse: 0.92) |
-| `app/client/avatar.cpp:3524` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: shape (0.59: the goal tests' order and the inlined Vector3 temporaries) |
+| `app/client/avatar.cpp:3524` | `CharacterViewAvatarClass::Unknown_788900` | marker | NOT EXACT: shape (0.78: the client calls 0x784F20 out of line here (inline budget; its other callers inline it), and evaluates both X-vector temporaries before the first goal test) |
 | `app/client/avatar.cpp:3653` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs) |
 | `app/client/avatar_pip.cpp:198` | `AvatarPipClass::Unknown_7E3A20` | marker | NOT EXACT: shape (the client copies target into the light's translation first, then folds Translate's products: two zeroed floats per axis where ours multiplies; a release tail-merge and Rotate_Y's operand order; 0.83) |
 | `app/client/avatar_pip.cpp:294` | `AvatarPipClass::Unknown_7E4520` | marker | NOT EXACT: scheduling (the client converts budget * 0.1f to int before the vp's Get_Sort_Level call; ours after; 0.79) |
