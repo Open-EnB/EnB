@@ -1,5 +1,5 @@
 // Earth & Beyond client (reconstruction): app\client\ui_ptrade.cpp (the client's __FILE__
-// 'e:\build\beta\G\app\Client\ui_ptrade.cpp', 0x5E1B80-0x5E3EEF by its asserts and its callers).
+// 'e:\build\beta\G\app\Client\ui_ptrade.cpp', 0x5E1B90-0x5E3EEF by its asserts and its callers).
 // Every function 0x5E1BE0-0x5E40A1 is rebuilt, the credits button 0x5E3EF0 / 0x5E3F40 and its destructors 0x5E4010 / 0x5E4040 included (PT1, PT2).
 #include <stdlib.h>
 #include <string.h>
