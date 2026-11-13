@@ -280,7 +280,7 @@ MeshSoundListClass *Movie3DSoundClass::Unknown_7EE830(int id)
 **	The constructor sits inside '#pragma inline_depth(0)' (a device, not the client's: it sends Find out of line as the
 **	client has it, so 0x7EEBD0 is exact, and costs nothing elsewhere; a file-end inline_depth(0..3) loses 0x7EE690 ..
 **	0x7EE830). 0x7EE5C0 / 0x7EEAD0 (the two List destructors), their deleting 0x7EEAA0 / 0x7EEBA0 and the node's
-**	0x7EED80 / 0x7EEDB0 are compiled byte-identical but tie with other files' copies (objmatch 'multiple'); the
-**	range round does not reach them while 0x7EDCB0 and 0x7EE340 are not exact (the object's exact non-COMDAT range is
-**	0x7EE690-0x7EE830). 0x7EED40 and 0x7EEE00 come with 0x7EDCB0's Add(record, key).
+**	0x7EED80 / 0x7EEDB0 are compiled byte-identical and tie with other files' copies (objmatch 'multiple'): they are
+**	credited by their symbols_named.json rows (the unwind funclets of 0x7EE340 / 0x7EE8A0 and the tables, O5
+**	2026-11-12). 0x7EED40 and 0x7EEE00 come with 0x7EDCB0's Add(record, key).
 */

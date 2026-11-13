@@ -180,14 +180,14 @@ bool StarmapPipClass::Unknown_04(const RefCountPtr<InterfaceClass> &iface_ptr, c
 	return(true);
 }
 
-// NOT EXACT: written from the pseudocode (D64), functional
+// (the double compare is the client's fld X; fld Y; fcompp: a float compare gives fld X; fcomp Y)
 // @0x7C0C80
 bool StarmapPipClass::Unknown_10(const RefCountPtr<RenderObjClass> &vp)
 {
 	if (!MapPipClass::Unknown_10(vp)) {
 		return(false);
 	}
-	Unknown68.Z = (ViewportSize.Y < ViewportSize.X) ? ViewportSize.X : ViewportSize.Y;
+	Unknown68.Z = ((double)ViewportSize.X > ViewportSize.Y) ? ViewportSize.X : ViewportSize.Y;
 	Unknown_7C1510(false);
 	Vector3 position(Rect.Left, Rect.Bottom, 0.0f);
 	XPos->Set_Position(position);
@@ -1457,8 +1457,8 @@ void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int botto
 **	0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0, 0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1200, 0x7C1280,
 **	0x7C1350, 0x7C1510, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C1C50, 0x7C2280, 0x7C2340, 0x7C25B0, 0x7C2D30, 0x7C3220, 0x7C3720,
 **	0x7C3830, 0x7C3A90. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
-**	int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 (the max's
-**	fcompp form), 0x7C2060 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68,
+**	int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 now exact (its max is a
+**	double compare, O5), 0x7C2060 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68,
 **	which it copies whole), 0x7C2850 (inline budget). Not rebuilt: 0x7C2DA0-0x7C30E0 (template instances; the POC and
 **	clienttest get them from generated stubs).
 */
