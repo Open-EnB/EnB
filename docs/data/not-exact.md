@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-812 entries in 268 files.
+813 entries in 268 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -275,6 +275,7 @@ edit the comments in the code, not this file.
 | `app/client/sclient.cpp:1079` | `SClient::Unknown_7436A0` | marker | NOT EXACT: inline budget (explain.py: 731 instructions, the client's about twice as many): the client inlines more of std::string's construction (the last three key names copied in place) and its five camera blocks (0x744D80's body); first round 0x7436A0 (Do_Frame: an event no dispatcher took; the module 'sclient' keys, registered on the first call) |
 | `app/client/sclient.cpp:1301` | `SClient::Unknown_745750` | marker | NOT EXACT: shape (explain.py: 25 calls, the client 20; 283 instructions, 234): the client inlines the first two lists' First_Valid and Remove's next-valid helper for the objects (0x7559E0 out of line for the effects), ours calls GenericList::First_Valid 0x71BCC0 out of line 0x745750 (SERVER_HANDOFF 58: the sector's objects, effects and third-list records go, then the +0x1394 values) |
 | `app/client/sclient.cpp:2062` | `SClient::Unknown_744C10` | marker | NOT EXACT: shape (explain.py): the client keeps the chase module in ecx for the +0x34 test and zeroes the argument before the FAIL_IFs (attempts.py show 0x744C10) 0x744C10 |
+| `app/client/sclient.cpp:2882` | `SClient::Unknown_747FA0` | marker | NOT EXACT: shape (explain.py: 119 calls vs 121): '/seecolor' with no type: VC6 cross-jumps its two usage lines into the invalid type's identical tail, the client keeps them (its copy pushes the 0s from eax / edi); 11 forms (attempts.py show 0x747FA0) 0x747FA0 (0x74ABC0): '/resetcolor', '/setcolor <type> <red> <green> <blue>', '/seecolor <type>' over the chat line colours (+0x13CC) |
 | `app/client/sclient.cpp:4154` | `SClient::Unknown_74BFB0` | marker | NOT EXACT: inline budget (explain.py: 23 calls, the client 26): the client calls the const_iterator conversion 0x755BD0 twice, the first Unknown_Find_Field and the other three's Cast out of line, ours inlines them; 14 forms, the closest (21 rows) stashed (attempts.py show 0x74BFB0) 0x74BFB0 (0x744690, after the listener: every frame): MusicManagerClass::Update's type, level, race and theme race, t... |
 | `app/client/sclient.cpp:4261` | `SClient::Unknown_74C3B0` | marker | NOT EXACT: inline budget (explain.py: 11 calls, the client 7): ours inlines the hash table's resize 0x759660 into operator[] (and so std::__stl_next_prime), the client calls it and its bucket helper 0x756D10 |
 | `app/client/sclient.cpp:4320` | `SClient::Unknown_74C8D0` | marker | NOT EXACT: inline budget (explain.py frame, 31 masked rows): the client calls hash_map::find out of line (0x756820, the key in the argument slot) where ours inlines it, as itself or through 0x74C840; two forms 0x74C8D0 (0x74C840 for the named object's GameID) |

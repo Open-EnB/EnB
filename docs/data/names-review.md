@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 214 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1883 |
-| 2 | describes what the code does | 4622 |
-| 1 | neutral placeholder | 23908 |
+| 3 | by convention from a client-named file or sibling | 1894 |
+| 2 | describes what the code does | 4626 |
+| 1 | neutral placeholder | 24210 |
 
 ## For review (score 3 and below)
 
@@ -7526,6 +7526,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_513F60` | `app/client/sclient.cpp:2306` | untagged neutral name (D10) |
 | 1 | `Unknown_745F30` | `app/client/sclient.cpp:2331` | untagged neutral name (D10) |
 | 1 | `Unknown_514010` | `app/client/sclient.cpp:2358` | untagged neutral name (D10) |
+| 1 | `Unknown_747C70` | `app/client/sclient.cpp:2843` | untagged neutral name (D10) |
+| 1 | `Unknown_747FA0` | `app/client/sclient.cpp:2885` | untagged neutral name (D10) |
+| 1 | `Unknown_765BE0` | `app/client/sclient.cpp:2890` | untagged neutral name (D10) |
+| 1 | `Unknown_765540` | `app/client/sclient.cpp:2891` | untagged neutral name (D10) |
+| 1 | `Unknown_765E40` | `app/client/sclient.cpp:2907` | untagged neutral name (D10) |
+| 1 | `Unknown_749020` | `app/client/sclient.cpp:3050` | untagged neutral name (D10) |
 | 1 | `Unknown_74BB50` | `app/client/sclient.cpp:4059` | untagged neutral name (D10) |
 | 1 | `Unknown1138` | `app/client/sclient.cpp:4078` | untagged neutral name (D10) |
 | 1 | `Unknown_74BC20` | `app/client/sclient.cpp:4087` | untagged neutral name (D10) |
@@ -7609,11 +7615,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_34` | `app/client/sclient.cpp:5546` | untagged neutral name (D10) |
 | 1 | `Unknown_747510` | `app/client/sclient.cpp:5549` | untagged neutral name (D10) |
 | 1 | `Unknown_745FF0` | `app/client/sclient.cpp:5552` | untagged neutral name (D10) |
-| 1 | `Unknown_747C70` | `app/client/sclient.cpp:5554` | untagged neutral name (D10) |
 | 1 | `Unknown05` | `app/client/sclient.cpp:5584` | untagged neutral name (D10) |
 | 1 | `Unknown_640150` | `app/client/sclient.cpp:5626` | untagged neutral name (D10) |
-| 1 | `Unknown_747FA0` | `app/client/sclient.cpp:5658` | untagged neutral name (D10) |
-| 1 | `Unknown_749020` | `app/client/sclient.cpp:5658` | untagged neutral name (D10) |
 | 1 | `Unknown_749590` | `app/client/sclient.cpp:5658` | untagged neutral name (D10) |
 | 1 | `Unknown_749A70` | `app/client/sclient.cpp:5658` | untagged neutral name (D10) |
 | 1 | `Unknown_749ED0` | `app/client/sclient.cpp:5658` | untagged neutral name (D10) |
@@ -15279,6 +15282,51 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown140` | `app/client/ui_pda_equip.h:68` | neutral (D10) |
 | 1 | `Unknown144` | `app/client/ui_pda_equip.h:69` | neutral (D10) |
 | 1 | `Unknown148` | `app/client/ui_pda_equip.h:70` | neutral (D10) |
+| 1 | `robj, a, b, c` | `app/client/ui_petition.cpp:12` | as ui_group.h's |
+| 1 | `Unknown_496110` | `app/client/ui_petition.cpp:12` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5D58` | `app/client/ui_petition.cpp:15` | neutral (D10) |
+| 1 | `Unknown_BE5D48` | `app/client/ui_petition.cpp:16` | neutral (D10) |
+| 1 | `Unknown_BE5D38` | `app/client/ui_petition.cpp:17` | neutral (D10) |
+| 1 | `Unknown_B83CD0` | `app/client/ui_petition.cpp:20` | neutral (D10) |
+| 1 | `Unknown_B83CF0` | `app/client/ui_petition.cpp:21` | neutral (D10) |
+| 1 | `Unknown_B83D10` | `app/client/ui_petition.cpp:22` | neutral (D10) |
+| 1 | `Unknown_54` | `app/client/ui_petition.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_petition.cpp:41` | untagged neutral name (D10) |
+| 1 | `button` | `app/client/ui_petition.cpp:43` | neutral (D10) |
+| 1 | `Unknown_66B770Class` | `app/client/ui_petition.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/ui_petition.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown5C_03` | `app/client/ui_petition.cpp:47` | untagged neutral name (D10) |
+| 1 | `color` | `app/client/ui_petition.cpp:48` | neutral (D10) |
+| 1 | `robj` | `app/client/ui_petition.cpp:49` | neutral (D10) |
+| 1 | `offset` | `app/client/ui_petition.cpp:54` | neutral (D10) |
+| 1 | `frame` | `app/client/ui_petition.cpp:55` | neutral (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_petition.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_petition.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_5D3F80` | `app/client/ui_petition.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_petition.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_petition.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_94` | `app/client/ui_petition.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_petition.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_5417D0` | `app/client/ui_petition.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_petition.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown_5D4070` | `app/client/ui_petition.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_petition.cpp:168` | untagged neutral name (D10) |
+| 1 | `Unknown_5D40B0` | `app/client/ui_petition.cpp:171` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_petition.cpp:179` | untagged neutral name (D10) |
+| 1 | `ui_petition.h` | `app/client/ui_petition.h:4` | provisional header name |
+| 1 | `UIPetitionClass` | `app/client/ui_petition.h:12` | neutral, after its tooltips' section 'UI_PETITION' |
+| 1 | `client` | `app/client/ui_petition.h:15` | ChatPanelUIBase's |
+| 1 | `Unknown_54` | `app/client/ui_petition.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_petition.h:18` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_petition.h:19` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_petition.h:20` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_petition.h:20` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_petition.h:21` | intrface.h's |
+| 1 | `Unknown_7C` | `app/client/ui_petition.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_5D3F80` | `app/client/ui_petition.h:22` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_petition.h:23` | Unknown_68's |
+| 1 | `Unknown_5D4070` | `app/client/ui_petition.h:23` | untagged neutral name (D10) |
+| 1 | `Unknown_5D40B0` | `app/client/ui_petition.h:24` | untagged neutral name (D10) |
 | 1 | `Unknown_7E4350` | `app/client/ui_petition_avatar_pip.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_petition_avatar_pip.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_petition_avatar_pip.cpp:68` | untagged neutral name (D10) |
@@ -15348,6 +15396,48 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Has_Text, warn` | `app/client/ui_petition_entry.h:38` | what it does |
 | 1 | `Get_Text, subject, details` | `app/client/ui_petition_entry.h:40` | what it does |
 | 1 | `Has_Printable, text, count` | `app/client/ui_petition_entry.h:41` | what it does |
+| 1 | `robj, a, b, c` | `app/client/ui_petition_player.cpp:10` | as ui_group.h's |
+| 1 | `Unknown_496110` | `app/client/ui_petition_player.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown_B840FC` | `app/client/ui_petition_player.cpp:13` | neutral (D10) |
+| 1 | `Unknown_B84118` | `app/client/ui_petition_player.cpp:14` | neutral (D10) |
+| 1 | `Unknown_B84134` | `app/client/ui_petition_player.cpp:15` | neutral (D10) |
+| 1 | `Unknown_54` | `app/client/ui_petition_player.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_petition_player.cpp:34` | untagged neutral name (D10) |
+| 1 | `button` | `app/client/ui_petition_player.cpp:36` | neutral (D10) |
+| 1 | `Unknown_66B770Class` | `app/client/ui_petition_player.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/ui_petition_player.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown5C_03` | `app/client/ui_petition_player.cpp:40` | untagged neutral name (D10) |
+| 1 | `robj` | `app/client/ui_petition_player.cpp:41` | neutral (D10) |
+| 1 | `offset` | `app/client/ui_petition_player.cpp:44` | neutral (D10) |
+| 1 | `frame` | `app/client/ui_petition_player.cpp:45` | neutral (D10) |
+| 1 | `Unknown_58` | `app/client/ui_petition_player.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_petition_player.cpp:61` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_petition_player.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_petition_player.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown_5D5F40` | `app/client/ui_petition_player.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_petition_player.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_petition_player.cpp:87` | untagged neutral name (D10) |
+| 1 | `type` | `app/client/ui_petition_player.cpp:89` | neutral (D10) |
+| 1 | `Unknown_94` | `app/client/ui_petition_player.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_5417D0` | `app/client/ui_petition_player.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown_88` | `app/client/ui_petition_player.cpp:136` | untagged neutral name (D10) |
+| 1 | `Unknown_5D5F00` | `app/client/ui_petition_player.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_petition_player.cpp:155` | untagged neutral name (D10) |
+| 1 | `ui_petition_player.h` | `app/client/ui_petition_player.h:4` | provisional header name |
+| 1 | `UIPetitionPlayerClass` | `app/client/ui_petition_player.h:12` | neutral, after its tooltips' section 'UI_PETITION_PLAYER' |
+| 1 | `client` | `app/client/ui_petition_player.h:15` | ChatPanelUIBase's |
+| 1 | `Unknown_54` | `app/client/ui_petition_player.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_petition_player.h:18` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_petition_player.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_petition_player.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_petition_player.h:21` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_petition_player.h:22` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_petition_player.h:22` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_petition_player.h:23` | intrface.h's |
+| 1 | `Unknown_7C` | `app/client/ui_petition_player.h:23` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_petition_player.h:24` | Unknown_68's |
+| 1 | `Unknown_5D5F00` | `app/client/ui_petition_player.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_5D5F40` | `app/client/ui_petition_player.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C9C` | `app/client/ui_petition_player_entry.cpp:17` | neutral (D10) |
 | 1 | `Unknown0B8` | `app/client/ui_petition_player_entry.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_petition_player_entry.cpp:33` | untagged neutral name (D10) |
@@ -15755,6 +15845,215 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIProc5DD910Class` | `app/client/ui_proc_impl.h:108` | neutral (D10) |
 | 1 | `name` | `app/client/ui_proc_impl.h:111` | neutral |
 | 1 | `Name` | `app/client/ui_proc_impl.h:114` | neutral |
+| 1 | `Unknown_BE67C4` | `app/client/ui_ptmis.cpp:15` | 0xBE67C4 |
+| 1 | `Unknown675370GadgetClass` | `app/client/ui_ptmis.cpp:18` | neutral (D10) |
+| 1 | `Unknown_675120Class` | `app/client/ui_ptmis.cpp:18` | untagged neutral name (D10) |
+| 1 | `screen, pull, bar, layer, a, b` | `app/client/ui_ptmis.cpp:21` | what the pages pass |
+| 1 | `Unknown_A4` | `app/client/ui_ptmis.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/ui_ptmis.cpp:23` | untagged neutral name (D10) |
+| 1 | `count, a, b` | `app/client/ui_ptmis.cpp:24` | neutral |
+| 1 | `Unknown_675CF0` | `app/client/ui_ptmis.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/ui_ptmis.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_ptmis.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_ptmis.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_ptmis.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_ptmis.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown696320RecordStruct` | `app/client/ui_ptmis.cpp:34` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_ptmis.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_ptmis.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_ptmis.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_ptmis.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_ptmis.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown696320Class` | `app/client/ui_ptmis.cpp:44` | neutral (D10) |
+| 1 | `Unknown_6967A0` | `app/client/ui_ptmis.cpp:49` | untagged neutral name (D10) |
+| 1 | `Count` | `app/client/ui_ptmis.cpp:50` | what it returns |
+| 1 | `std:` | `app/client/ui_ptmis.cpp:52` | what it holds |
+| 1 | `Unknown0C8` | `app/client/ui_ptmis.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_ptmis.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_ptmis.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_ptmis.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_ptmis.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_ptmis.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_ptmis.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_ptmis.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_Make_Rows` | `app/client/ui_ptmis.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_Make_Buttons` | `app/client/ui_ptmis.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_ptmis.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown_5DF340` | `app/client/ui_ptmis.cpp:149` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_ptmis.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_ptmis.cpp:175` | untagged neutral name (D10) |
+| 1 | `Unknown_5DF410` | `app/client/ui_ptmis.cpp:179` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_ptmis.cpp:202` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_ptmis.cpp:226` | untagged neutral name (D10) |
+| 1 | `ui_ptmis.h` | `app/client/ui_ptmis.h:14` | provisional header name for ui_ptmis.cpp |
+| 1 | `Unknown675370GadgetClass` | `app/client/ui_ptmis.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown696320Class` | `app/client/ui_ptmis.h:25` | untagged neutral name (D10) |
+| 1 | `UIPTMisRowStruct` | `app/client/ui_ptmis.h:28` | neutral (D10) |
+| 1 | `Mission` | `app/client/ui_ptmis.h:30` | the style's name |
+| 1 | `Request` | `app/client/ui_ptmis.h:31` | the style's name |
+| 1 | `Payout` | `app/client/ui_ptmis.h:32` | the style's name |
+| 1 | `view, layer` | `app/client/ui_ptmis.h:39` | as LoginInterface's |
+| 1 | `Unknown_54` | `app/client/ui_ptmis.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_ptmis.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_ptmis.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_ptmis.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_ptmis.h:45` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_ptmis.h:46` | neutral |
+| 1 | `Unknown_5DF340` | `app/client/ui_ptmis.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_5DF410` | `app/client/ui_ptmis.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_Make_Rows` | `app/client/ui_ptmis.h:48` | neutral (D10) |
+| 1 | `Unknown_Make_Buttons` | `app/client/ui_ptmis.h:49` | neutral (D10) |
+| 1 | `Layer` | `app/client/ui_ptmis.h:51` | what it holds |
+| 1 | `Unknown0B0` | `app/client/ui_ptmis.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_ptmis.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_ptmis.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_ptmis.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_ptmis.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_ptmis.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_ptnew.cpp:15` | 0xBE67C4 |
+| 1 | `Unknown675370GadgetClass` | `app/client/ui_ptnew.cpp:18` | neutral (D10) |
+| 1 | `Unknown_675120Class` | `app/client/ui_ptnew.cpp:18` | untagged neutral name (D10) |
+| 1 | `screen, pull, bar, layer, a, b` | `app/client/ui_ptnew.cpp:21` | what the pages pass |
+| 1 | `Unknown_A4` | `app/client/ui_ptnew.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/ui_ptnew.cpp:23` | untagged neutral name (D10) |
+| 1 | `count, a, b` | `app/client/ui_ptnew.cpp:24` | neutral |
+| 1 | `Unknown_675CF0` | `app/client/ui_ptnew.cpp:24` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/ui_ptnew.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_ptnew.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_ptnew.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_ptnew.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_ptnew.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown696810RecordStruct` | `app/client/ui_ptnew.cpp:34` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_ptnew.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_ptnew.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_ptnew.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_ptnew.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown696810Class` | `app/client/ui_ptnew.cpp:43` | neutral (D10) |
+| 1 | `Unknown_696C60` | `app/client/ui_ptnew.cpp:48` | untagged neutral name (D10) |
+| 1 | `Count` | `app/client/ui_ptnew.cpp:49` | what it returns |
+| 1 | `std:` | `app/client/ui_ptnew.cpp:51` | what it holds |
+| 1 | `Unknown0C8` | `app/client/ui_ptnew.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_ptnew.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_ptnew.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_ptnew.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_ptnew.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_ptnew.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_ptnew.cpp:111` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_ptnew.cpp:113` | untagged neutral name (D10) |
+| 1 | `Unknown_Make_Rows` | `app/client/ui_ptnew.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_Make_Buttons` | `app/client/ui_ptnew.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_ptnew.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown_5E0470` | `app/client/ui_ptnew.cpp:170` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_ptnew.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_ptnew.cpp:196` | untagged neutral name (D10) |
+| 1 | `Unknown_5E03A0` | `app/client/ui_ptnew.cpp:209` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_ptnew.cpp:223` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_ptnew.cpp:247` | untagged neutral name (D10) |
+| 1 | `ui_ptnew.h` | `app/client/ui_ptnew.h:14` | provisional header name for ui_ptnew.cpp |
+| 1 | `Unknown675370GadgetClass` | `app/client/ui_ptnew.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown696810Class` | `app/client/ui_ptnew.h:25` | untagged neutral name (D10) |
+| 1 | `UIPTNewRowStruct` | `app/client/ui_ptnew.h:28` | neutral (D10) |
+| 1 | `Date` | `app/client/ui_ptnew.h:30` | the style's name |
+| 1 | `Location` | `app/client/ui_ptnew.h:31` | the style's name |
+| 1 | `Title` | `app/client/ui_ptnew.h:32` | the style's name |
+| 1 | `view, layer` | `app/client/ui_ptnew.h:39` | as LoginInterface's |
+| 1 | `Unknown_54` | `app/client/ui_ptnew.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_ptnew.h:42` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_ptnew.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_ptnew.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_ptnew.h:45` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_ptnew.h:46` | neutral |
+| 1 | `Unknown_5E03A0` | `app/client/ui_ptnew.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_5E0470` | `app/client/ui_ptnew.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_Make_Rows` | `app/client/ui_ptnew.h:48` | neutral (D10) |
+| 1 | `Unknown_Make_Buttons` | `app/client/ui_ptnew.h:49` | neutral (D10) |
+| 1 | `Layer` | `app/client/ui_ptnew.h:51` | what it holds |
+| 1 | `Unknown0B0` | `app/client/ui_ptnew.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_ptnew.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_ptnew.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_ptnew.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_ptnew.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_ptnew.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_ptppl.cpp:16` | 0xBE67C4 |
+| 1 | `Unknown675370GadgetClass` | `app/client/ui_ptppl.cpp:19` | neutral (D10) |
+| 1 | `Unknown_675120Class` | `app/client/ui_ptppl.cpp:19` | untagged neutral name (D10) |
+| 1 | `screen, pull, bar, layer, a, b` | `app/client/ui_ptppl.cpp:22` | what the pages pass |
+| 1 | `Unknown_A4` | `app/client/ui_ptppl.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/ui_ptppl.cpp:24` | untagged neutral name (D10) |
+| 1 | `count, a, b` | `app/client/ui_ptppl.cpp:25` | neutral |
+| 1 | `Unknown_675CF0` | `app/client/ui_ptppl.cpp:25` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/ui_ptppl.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_ptppl.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_ptppl.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_ptppl.cpp:30` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_ptppl.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown696CD0RecordStruct` | `app/client/ui_ptppl.cpp:35` | neutral (D10) |
+| 1 | `Unknown00` | `app/client/ui_ptppl.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/ui_ptppl.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/ui_ptppl.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/ui_ptppl.cpp:40` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/ui_ptppl.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/ui_ptppl.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown18` | `app/client/ui_ptppl.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown1C` | `app/client/ui_ptppl.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown696CD0Class` | `app/client/ui_ptppl.cpp:48` | neutral (D10) |
+| 1 | `idx` | `app/client/ui_ptppl.cpp:53` | as 0x6967A0's G_ASSERT |
+| 1 | `Unknown_6971B0` | `app/client/ui_ptppl.cpp:53` | untagged neutral name (D10) |
+| 1 | `Count` | `app/client/ui_ptppl.cpp:54` | what it returns |
+| 1 | `std:` | `app/client/ui_ptppl.cpp:56` | what it holds |
+| 1 | `Unknown0C4` | `app/client/ui_ptppl.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_ptppl.cpp:67` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_ptppl.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_ptppl.cpp:69` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_ptppl.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown0D8` | `app/client/ui_ptppl.cpp:71` | untagged neutral name (D10) |
+| 1 | `Unknown0DC` | `app/client/ui_ptppl.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown0E0` | `app/client/ui_ptppl.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_ptppl.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_ptppl.cpp:78` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_ptppl.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_ptppl.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_ptppl.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_Make_Rows` | `app/client/ui_ptppl.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_Make_Buttons` | `app/client/ui_ptppl.cpp:124` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_ptppl.cpp:148` | untagged neutral name (D10) |
+| 1 | `Unknown_5E1390` | `app/client/ui_ptppl.cpp:159` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_ptppl.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_ptppl.cpp:186` | untagged neutral name (D10) |
+| 1 | `Unknown_5E15F0` | `app/client/ui_ptppl.cpp:190` | untagged neutral name (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_ptppl.cpp:220` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE420` | `app/client/ui_ptppl.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_ptppl.cpp:255` | untagged neutral name (D10) |
+| 1 | `ui_ptppl.h` | `app/client/ui_ptppl.h:14` | provisional header name for ui_ptppl.cpp |
+| 1 | `Unknown675370GadgetClass` | `app/client/ui_ptppl.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown696CD0Class` | `app/client/ui_ptppl.h:27` | untagged neutral name (D10) |
+| 1 | `UIPTPplRowStruct` | `app/client/ui_ptppl.h:30` | neutral (D10) |
+| 1 | `Name` | `app/client/ui_ptppl.h:32` | the style's name |
+| 1 | `Prof` | `app/client/ui_ptppl.h:33` | the style's name |
+| 1 | `Loc` | `app/client/ui_ptppl.h:34` | the style's name |
+| 1 | `Level` | `app/client/ui_ptppl.h:35` | the style's name |
+| 1 | `view, layer` | `app/client/ui_ptppl.h:42` | as LoginInterface's |
+| 1 | `Unknown_54` | `app/client/ui_ptppl.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_ptppl.h:45` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_ptppl.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_ptppl.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_ptppl.h:48` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_ptppl.h:49` | neutral |
+| 1 | `Unknown_5E1390` | `app/client/ui_ptppl.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_5E15F0` | `app/client/ui_ptppl.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_Make_Rows` | `app/client/ui_ptppl.h:51` | neutral (D10) |
+| 1 | `Unknown_Make_Buttons` | `app/client/ui_ptppl.h:52` | neutral (D10) |
+| 1 | `Layer` | `app/client/ui_ptppl.h:54` | what it holds |
+| 1 | `Unknown0B0` | `app/client/ui_ptppl.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_ptppl.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_ptppl.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_ptppl.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_ptppl.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown0D0` | `app/client/ui_ptppl.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_ptppl.h:63` | untagged neutral name (D10) |
+| 1 | `Unknown0D8` | `app/client/ui_ptppl.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown0DC` | `app/client/ui_ptppl.h:65` | untagged neutral name (D10) |
+| 1 | `Unknown0E0` | `app/client/ui_ptppl.h:66` | untagged neutral name (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/ui_ptrade.cpp:27` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_ptrade.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_ptrade.cpp:30` | untagged neutral name (D10) |
@@ -19604,7 +19903,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown764FD0Class` | `app/client/unknown_764fd0.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/unknown_764fd0.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_765010` | `app/client/unknown_764fd0.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_765DF0` | `app/client/unknown_764fd0.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_765540` | `app/client/unknown_764fd0.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_765BE0` | `app/client/unknown_764fd0.cpp:147` | untagged neutral name (D10) |
+| 1 | `Unknown_765DF0` | `app/client/unknown_764fd0.cpp:176` | untagged neutral name (D10) |
+| 1 | `Unknown_765E40` | `app/client/unknown_764fd0.cpp:185` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/unknown_78a910.cpp:17` | neutral (D10), as eff_o.cpp's |
 | 1 | `Unknown_B9D55C` | `app/client/unknown_78a910.cpp:19` | neutral (D10): this object's own copy of avatar.cpp's 0xB9CD28 |
 | 1 | `Unknown78A910AnimStruct` | `app/client/unknown_78a910.cpp:22` | neutral (D10) |
@@ -26213,11 +26515,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Frames` | `app/client/ui_pda_equip.h:60` | what they are |
 | 2 | `Stats` | `app/client/ui_pda_equip.h:71` | its tooltip's |
 | 2 | `Exit` | `app/client/ui_pda_equip.h:72` | its sub-object's name |
+| 2 | `Page` | `app/client/ui_petition.h:26` | what it holds |
+| 2 | `Buttons` | `app/client/ui_petition.h:27` | what they are |
 | 2 | `Avatar` | `app/client/ui_petition_avatar_pip.h:25` | what it holds |
 | 2 | `Pip` | `app/client/ui_petition_avatar_pip.h:26` | what it holds |
 | 2 | `Slider` | `app/client/ui_petition_entry.h:44` | what it is |
 | 2 | `DetailsEditor` | `app/client/ui_petition_entry.h:46` | its tooltip |
 | 2 | `Pending` | `app/client/ui_petition_entry.h:48` | what it holds |
+| 2 | `Page` | `app/client/ui_petition_player.h:27` | what it holds |
+| 2 | `Buttons` | `app/client/ui_petition_player.h:28` | what they are |
 | 2 | `ExitButton` | `app/client/ui_popup_browser.h:23` | its model's name |
 | 2 | `Sound` | `app/client/ui_power.cpp:24` | what the warning's name takes |
 | 2 | `EnergyGauge` | `app/client/ui_power.h:31` | its tooltip |
@@ -29393,6 +29699,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DeleteSelf` | `app/client/ui_proc_impl.h:60` | the FAIL_IF's |
 | 3 | `StartFrame` | `app/client/ui_proc_impl.h:62` | the FAIL_IF's 'StartFrame > EndFrame' |
 | 3 | `EndFrame` | `app/client/ui_proc_impl.h:63` | the FAIL_IF's |
+| 3 | `idx` | `app/client/ui_ptmis.cpp:49` | the G_ASSERT's |
+| 3 | `UIPTMisClass` | `app/client/ui_ptmis.h:36` | class-from-file (D24) for app\Client\ui_ptmis.cpp |
+| 3 | `ListScreen` | `app/client/ui_ptmis.h:52` | the G_ASSERT's |
+| 3 | `DescScreen` | `app/client/ui_ptmis.h:53` | the G_ASSERT's |
+| 3 | `idx` | `app/client/ui_ptnew.cpp:48` | the G_ASSERT's |
+| 3 | `UIPTNewClass` | `app/client/ui_ptnew.h:36` | class-from-file (D24) for app\Client\ui_ptnew.cpp |
+| 3 | `ListScreen` | `app/client/ui_ptnew.h:52` | the G_ASSERT's |
+| 3 | `DescScreen` | `app/client/ui_ptnew.h:53` | the G_ASSERT's |
+| 3 | `UIPTPplClass` | `app/client/ui_ptppl.h:39` | class-from-file (D24) for app\Client\ui_ptppl.cpp |
+| 3 | `ListScreen` | `app/client/ui_ptppl.h:55` | the G_ASSERT's |
+| 3 | `DescScreen` | `app/client/ui_ptppl.h:56` | the G_ASSERT's |
 | 3 | `As_Space_Client` | `app/client/ui_ptrade.cpp:32` | ui_manu.cpp's FAIL_IF's |
 | 3 | `ui_radio_entry.h` | `app/client/ui_radio_entry.h:4` | header name assumed from the client's ui_radio_entry.cpp |
 | 3 | `UIRadioEntryClass` | `app/client/ui_radio_entry.h:14` | class-from-file (D24) for app\client\ui_radio_entry.cpp |
