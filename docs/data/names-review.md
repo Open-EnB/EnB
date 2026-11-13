@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 190 |
+| 5 | the client names it | 194 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1822 |
-| 2 | describes what the code does | 4491 |
-| 1 | neutral placeholder | 23320 |
+| 3 | by convention from a client-named file or sibling | 1825 |
+| 2 | describes what the code does | 4498 |
+| 1 | neutral placeholder | 23248 |
 
 ## For review (score 3 and below)
 
@@ -656,7 +656,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_47FF70` | `app/client/avatar_pip.cpp:278` | untagged neutral name (D10) |
 | 1 | `Unknown_65B7E0` | `app/client/avatar_pip.cpp:279` | untagged neutral name (D10) |
 | 1 | `Unknown_7E43E0` | `app/client/avatar_pip.cpp:286` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/avatar_pip.cpp:303` | untagged neutral name (D10) |
 | 1 | `Unknown_65B7A0` | `app/client/avatar_pip.cpp:304` | untagged neutral name (D10) |
 | 1 | `Unknown01C` | `app/client/avatar_pip.cpp:315` | untagged neutral name (D10) |
 | 1 | `Unknown_7E35D0` | `app/client/avatar_pip.h:41` | untagged neutral name (D10) |
@@ -708,7 +707,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown70` | `app/client/bridge_int.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown_5B8850` | `app/client/bridge_int.cpp:226` | untagged neutral name (D10) |
 | 1 | `Unknown_77E610` | `app/client/bridge_int.cpp:231` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/bridge_int.cpp:232` | untagged neutral name (D10) |
 | 1 | `Unknown_780810` | `app/client/bridge_int.cpp:233` | untagged neutral name (D10) |
 | 1 | `Unknown_77E3D0` | `app/client/bridge_int.cpp:234` | untagged neutral name (D10) |
 | 1 | `Unknown215` | `app/client/bridge_int.cpp:235` | untagged neutral name (D10) |
@@ -1065,7 +1063,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown28` | `app/client/camera_manager.cpp:57` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/camera_manager.cpp:78` | untagged neutral name (D10) |
 | 1 | `Unknown_7992F0` | `app/client/camera_manager.cpp:98` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/camera_manager.cpp:100` | untagged neutral name (D10) |
 | 1 | `Unknown_750B60` | `app/client/camera_manager.cpp:100` | untagged neutral name (D10) |
 | 1 | `Unknown_692160` | `app/client/camera_manager.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown13AC` | `app/client/camera_manager.cpp:106` | untagged neutral name (D10) |
@@ -1157,7 +1154,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Find_Field` | `app/client/cameraeffects.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/cameraeffects.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown_Accel_Value` | `app/client/cameraeffects.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/cameraeffects.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/cameraeffects.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/cameraeffects.cpp:102` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/cameraeffects.cpp:105` | untagged neutral name (D10) |
@@ -1603,7 +1599,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/client/chatgadg.cpp:28` | neutral (D10): what it holds |
 | 1 | `Unknown7C` | `app/client/chatgadg.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/chatgadg.cpp:80` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/chatgadg.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown68` | `app/client/chatgadg.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown_65DE90` | `app/client/chatgadg.cpp:90` | untagged neutral name (D10) |
 | 1 | `Unknown_565120` | `app/client/chatgadg.cpp:101` | untagged neutral name (D10) |
@@ -1695,7 +1690,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1138` | `app/client/client.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown113C` | `app/client/client.cpp:56` | untagged neutral name (D10) |
 | 1 | `Unknown1144` | `app/client/client.cpp:58` | untagged neutral name (D10) |
-| 1 | `Unknown763E00Class` | `app/client/client.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown831340List` | `app/client/client.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown831340Class` | `app/client/client.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/client.cpp:79` | untagged neutral name (D10) |
@@ -1748,7 +1742,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_831840` | `app/client/client.h:83` | untagged neutral name (D10) |
 | 1 | `Unknown24` | `app/client/client.h:91` | untagged neutral name (D10) |
 | 1 | `Unknown34` | `app/client/client.h:92` | untagged neutral name (D10) |
-| 1 | `Unknown763E00Class` | `app/client/client.h:110` | neutral (D10) |
 | 1 | `Unknown_763E70` | `app/client/client.h:114` | untagged neutral name (D10) |
 | 1 | `name` | `app/client/client.h:115` | neutral; 0x764030 (co.cpp's model loader: the render state list of a base asset's RSLID)  // NAME 2 [rslid]: the INI key it is read from |
 | 1 | `Unknown_764030` | `app/client/client.h:115` | untagged neutral name (D10) |
@@ -1756,7 +1749,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_763FF0` | `app/client/client.h:116` | untagged neutral name (D10) |
 | 1 | `Unknown00` | `app/client/client.h:119` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/client.h:134` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/client.h:136` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/client.h:137` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/client.h:138` | untagged neutral name (D10) |
 | 1 | `text` | `app/client/client.h:144` | SClient's |
@@ -1902,7 +1894,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F45E0` | `app/client/co.cpp:385` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/co.cpp:425` | untagged neutral name (D10) |
 | 1 | `Unknown_7E7A40` | `app/client/co.cpp:429` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/co.cpp:430` | untagged neutral name (D10) |
 | 1 | `Unknown_79B670` | `app/client/co.cpp:430` | untagged neutral name (D10) |
 | 1 | `Unknown_79B2B0` | `app/client/co.cpp:431` | untagged neutral name (D10) |
 | 1 | `Unknown_7E76E0` | `app/client/co.cpp:432` | untagged neutral name (D10) |
@@ -1934,6 +1925,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F4F30` | `app/client/co.cpp:776` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `app/client/co.cpp:788` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5090` | `app/client/co.cpp:788` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/co.cpp:803` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Valid` | `app/client/co.cpp:834` | neutral (D10) |
 | 1 | `Unknown4981E0Class` | `app/client/co.cpp:858` | neutral (D10) |
 | 1 | `create` | `app/client/co.cpp:861` | neutral |
@@ -2445,7 +2437,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `sclient, packet` | `app/client/cpacket.cpp:294` | what the handler passes |
 | 1 | `Unknown_70CD50` | `app/client/cpacket.cpp:294` | untagged neutral name (D10) |
 | 1 | `Unknown_6FEF70` | `app/client/cpacket.cpp:303` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/cpacket.cpp:312` | untagged neutral name (D10) |
 | 1 | `Unknown_74C3B0` | `app/client/cpacket.cpp:312` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/cpacket.cpp:324` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/cpacket.cpp:324` | untagged neutral name (D10) |
@@ -2572,6 +2563,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown08` | `app/client/cpacket.cpp:1684` | untagged neutral name (D10) |
 | 1 | `Unknown6EF4C0Class` | `app/client/cpacket.cpp:1688` | neutral (D10) |
 | 1 | `client, id, time, duration, unknown, text, offset, velocity` | `app/client/cpacket.cpp:1691` | what the handler passes |
+| 1 | `Unknown_18` | `app/client/cpacket.cpp:1699` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/cpacket.cpp:1700` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/cpacket.cpp:1701` | untagged neutral name (D10) |
 | 1 | `id` | `app/client/cpacket.cpp:1703` | the packet's Victim |
@@ -2712,7 +2704,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/client/ctrngadg.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/ctrngadg.cpp:120` | untagged neutral name (D10) |
 | 1 | `Unknown_74B5E0` | `app/client/ctrngadg.cpp:122` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ctrngadg.cpp:130` | untagged neutral name (D10) |
 | 1 | `Unknown12B0` | `app/client/ctrngadg.cpp:131` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/ctrngadg.cpp:131` | untagged neutral name (D10) |
 | 1 | `Unknown12B4` | `app/client/ctrngadg.cpp:132` | untagged neutral name (D10) |
@@ -3412,7 +3403,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Unknown98` | `app/client/fontdatabase.cpp:1068` | untagged neutral name (D10) |
 | 1 | `Unknown_6C47B0` | `app/client/fontdatabase.cpp:1093` | untagged neutral name (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.cpp:1118` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/fontdatabase.cpp:1159` | untagged neutral name (D10) |
 | 1 | `Unknown98` | `app/client/fontdatabase.h:66` | neutral (D10) |
 | 1 | `DefaultUnknown98` | `app/client/fontdatabase.h:70` | neutral (D10) |
 | 1 | `Unknown04` | `app/client/fontdatabase.h:147` | neutral (D10) |
@@ -3425,9 +3415,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6C1AA0` | `app/client/fontdatabase.h:217` | neutral (D10) |
 | 1 | `Unknown_6C47B0` | `app/client/fontdatabase.h:218` | neutral (D10) |
 | 1 | `Unknown_6C49C0` | `app/client/fontdatabase.h:219` | neutral (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/fontdatabase.h:229` | neutral (D10) |
 | 1 | `Unknown08` | `app/client/fontmanager.cpp:12` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/fontmanager.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_6CF930` | `app/client/fontmanager.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_6D1220` | `app/client/fontmanager.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5140` | `app/client/fontmanager.cpp:37` | untagged neutral name (D10) |
@@ -3586,7 +3574,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D28C0` | `app/client/fontmanager.h:223` | neutral (D10) |
 | 1 | `Peek_Font` | `app/client/fontmanager.h:225` | neutral (D10) |
 | 1 | `Unknown_6D2AE0` | `app/client/fontmanager.h:227` | neutral (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/fontsys.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5170` | `app/client/fontsys.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_6D6390` | `app/client/fontsys.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5D40` | `app/client/fontsys.cpp:35` | untagged neutral name (D10) |
@@ -5180,7 +5167,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown64` | `app/client/intrface.cpp:196` | untagged neutral name (D10) |
 | 1 | `Unknown_6871D0` | `app/client/intrface.cpp:196` | untagged neutral name (D10) |
 | 1 | `Get_Unknown04` | `app/client/intrface.cpp:196` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/intrface.cpp:197` | untagged neutral name (D10) |
 | 1 | `Unknown_70` | `app/client/intrface.cpp:198` | untagged neutral name (D10) |
 | 1 | `Unknown_541830` | `app/client/intrface.cpp:200` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/intrface.cpp:202` | untagged neutral name (D10) |
@@ -5599,9 +5585,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown3C` | `app/client/item/client_item_property_attribute.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown40` | `app/client/item/client_item_property_attribute.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_attribute.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_attribute.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_attribute.h:60` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_attribute.h:61` | untagged neutral name (D10) |
 | 1 | `std:` | `app/client/item/client_item_property_attribute.h:63` | neutral (D10) |
 | 1 | `Unknown_14` | `app/client/item/client_item_property_attribute.h:63` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/item/client_item_property_attribute.h:65` | neutral (D10) |
@@ -5701,38 +5685,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Data` | `app/client/item/client_item_property_builder.h:130` | neutral |
 | 1 | `Slot` | `app/client/item/client_item_property_builder.h:131` | neutral |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_description.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_description.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/item/client_item_property_description.cpp:29` | untagged neutral name (D10) |
 | 1 | `client_item_property_description.h` | `app/client/item/client_item_property_description.h:15` | provisional (D137), after client_item_property_icon.cpp |
 | 1 | `ClientItemPropertyDescriptionClass` | `app/client/item/client_item_property_description.h:23` | provisional (D137), class-from-file for the provisional client_item_property_description.cpp |
 | 1 | `Create, description` | `app/client/item/client_item_property_description.h:26` | as the icon's |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_description.h:30` | neutral (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_description.h:31` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_description.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_icon.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_icon.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/item/client_item_property_icon.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_icon.h:33` | neutral (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_icon.h:34` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_icon.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_name.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_name.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/item/client_item_property_name.cpp:29` | untagged neutral name (D10) |
 | 1 | `client_item_property_name.h` | `app/client/item/client_item_property_name.h:15` | provisional (D137), after client_item_property_icon.cpp |
 | 1 | `ClientItemPropertyNameClass` | `app/client/item/client_item_property_name.h:23` | provisional (D137), class-from-file for the provisional client_item_property_name.cpp |
 | 1 | `Create, name` | `app/client/item/client_item_property_name.h:26` | as the icon's |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_name.h:30` | neutral (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_name.h:31` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_name.h:31` | untagged neutral name (D10) |
 | 1 | `std:` | `app/client/item/client_item_property_name.h:34` | what it returns |
 | 1 | `Unknown08` | `app/client/item/client_item_property_option.cpp:4` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_option.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown2C` | `app/client/item/client_item_property_option.cpp:16` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_option.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/client/item/client_item_property_option.cpp:26` | untagged neutral name (D10) |
 | 1 | `sort, label, tooltip, unknown` | `app/client/item/client_item_property_option.h:54` | what the auto fire option passes (1, 'Auto Fire', its tooltip, 0) |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_option.h:56` | neutral (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_option.h:57` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_option.h:57` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/item/client_item_property_option.h:59` | neutral (D10) |
 | 1 | `Unknown_18` | `app/client/item/client_item_property_option.h:60` | neutral (D10); NAME 1 [value] |
 | 1 | `Unknown08` | `app/client/item/client_item_property_option.h:62` | neutral (D10) |
@@ -5754,7 +5727,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/client/item/client_item_property_special.cpp:6` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/item/client_item_property_special.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_special.cpp:15` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_special.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/item/client_item_property_special.cpp:27` | untagged neutral name (D10) |
 | 1 | `ClientItemPropertySpecialLineStruct` | `app/client/item/client_item_property_special.h:27` | what it holds |
 | 1 | `text, bold` | `app/client/item/client_item_property_special.h:29` | the members' |
@@ -5762,7 +5734,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Bold` | `app/client/item/client_item_property_special.h:32` | what it selects |
 | 1 | `sort_order, tooltip` | `app/client/item/client_item_property_special.h:68` | the members they fill; NAME 1 [unknown_1c, unknown_20]: neutral (D10) |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_special.h:70` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_special.h:71` | untagged neutral name (D10) |
 | 1 | `Get_Lines` | `app/client/item/client_item_property_special.h:73` | what the row 0x538350 does with them |
 | 1 | `Is_Usable` | `app/client/item/client_item_property_special.h:74` | the font's suffix |
 | 1 | `SortOrder` | `app/client/item/client_item_property_special.h:76` | what operator< does with it |
@@ -5820,14 +5791,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Skill` | `app/client/item/client_item_property_special_skill_requirement.h:42` | what Is_Usable does with it |
 | 1 | `Level` | `app/client/item/client_item_property_special_skill_requirement.h:43` | what Get_Lines and Is_Usable do with it |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_type.cpp:24` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_type.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/item/client_item_property_type.cpp:36` | untagged neutral name (D10) |
 | 1 | `DAMAGE_TYPE_NONE` | `app/client/item/client_item_property_type.h:26` | what Has_Damage_Type tests |
 | 1 | `Create` | `app/client/item/client_item_property_type.h:28` | as the name's; NAME 1 [level, damage_type, type]: the members they fill |
 | 1 | `level, damage_type, type` | `app/client/item/client_item_property_type.h:31` | the members they fill |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_type.h:33` | neutral (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_type.h:34` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_type.h:34` | untagged neutral name (D10) |
 | 1 | `Has_Damage_Type` | `app/client/item/client_item_property_type.h:37` | what it tests |
 | 1 | `Get_Level` | `app/client/item/client_item_property_type.h:38` | the member it returns |
 | 1 | `Get_Damage_Type` | `app/client/item/client_item_property_type.h:39` | the member it returns |
@@ -5838,14 +5806,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ClientItemPropertyUnknown529810Class` | `app/client/item/client_item_property_unknown_529810.cpp:3` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/item/client_item_property_unknown_529810.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_unknown_529810.cpp:17` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_unknown_529810.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/item/client_item_property_unknown_529810.cpp:29` | untagged neutral name (D10) |
 | 1 | `client_item_property_unknown_529810.h` | `app/client/item/client_item_property_unknown_529810.h:15` | provisional (D137), neutral |
 | 1 | `ClientItemPropertyUnknown529810Class` | `app/client/item/client_item_property_unknown_529810.h:23` | neutral (D10) |
 | 1 | `Create, id` | `app/client/item/client_item_property_unknown_529810.h:26` | as the icon's; neutral |
 | 1 | `Unknown_08` | `app/client/item/client_item_property_unknown_529810.h:30` | neutral (D10) |
-| 1 | `std:` | `app/client/item/client_item_property_unknown_529810.h:31` | neutral (D10) |
-| 1 | `Unknown_0C` | `app/client/item/client_item_property_unknown_529810.h:31` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/item/client_item_property_unknown_529810.h:34` | neutral |
 | 1 | `Unknown_20` | `app/client/item/client_item_property_visitor.cpp:3` | untagged neutral name (D10) |
 | 1 | `Unknown_1C` | `app/client/item/client_item_property_visitor.cpp:7` | untagged neutral name (D10) |
@@ -5881,7 +5846,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `last` | `app/client/loadingview.cpp:108` | what it holds |
 | 1 | `dots` | `app/client/loadingview.cpp:109` | what it holds |
 | 1 | `Unknown_Get_Ticks` | `app/client/loadingview.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/loadingview.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_750B60` | `app/client/loadingview.cpp:127` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/local_interface_sort.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown_541800` | `app/client/local_interface_sort.cpp:64` | untagged neutral name (D10) |
@@ -5924,7 +5888,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1E0` | `app/client/mainview.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown1E4` | `app/client/mainview.cpp:169` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/mainview.cpp:188` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/mainview.cpp:198` | untagged neutral name (D10) |
 | 1 | `Unknown_50` | `app/client/mainview.cpp:199` | untagged neutral name (D10) |
 | 1 | `Unknown144` | `app/client/mainview.cpp:206` | untagged neutral name (D10) |
 | 1 | `Unknown154` | `app/client/mainview.cpp:210` | untagged neutral name (D10) |
@@ -6072,6 +6035,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_514400` | `app/client/mainview.cpp:2267` | untagged neutral name (D10) |
 | 1 | `UnknownDC` | `app/client/mainview.cpp:2269` | untagged neutral name (D10) |
 | 1 | `Unknown_514450` | `app/client/mainview.cpp:2277` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/mainview.cpp:2356` | untagged neutral name (D10) |
 | 1 | `Unknown_7BCA40` | `app/client/mainview.cpp:2358` | untagged neutral name (D10) |
 | 1 | `Unknown514CC0ViewClass` | `app/client/mainview.cpp:2362` | untagged neutral name (D10) |
 | 1 | `Unknown5B7AB0Class` | `app/client/mainview.cpp:2376` | untagged neutral name (D10) |
@@ -8143,7 +8107,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown174` | `app/client/scriptedmovie.cpp:191` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/scriptedmovie.cpp:215` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/client/scriptedmovie.cpp:217` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/scriptedmovie.cpp:217` | untagged neutral name (D10) |
 | 1 | `Unknown1334` | `app/client/scriptedmovie.cpp:233` | untagged neutral name (D10) |
 | 1 | `Unknown_8099B0` | `app/client/scriptedmovie.cpp:242` | untagged neutral name (D10) |
 | 1 | `Unknown160` | `app/client/scriptedmovie.cpp:247` | untagged neutral name (D10) |
@@ -8440,7 +8403,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB000F0EffectClass` | `app/client/shiputils.cpp:917` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/shiputils.cpp:917` | untagged neutral name (D10) |
 | 1 | `Unknown_6E73F0` | `app/client/shiputils.cpp:920` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/shiputils.cpp:921` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/shiputils.cpp:925` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/shiputils.cpp:925` | untagged neutral name (D10) |
 | 1 | `shiputils.h` | `app/client/shiputils.h:4` | provisional header name for shiputils.cpp |
@@ -9157,7 +9119,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown60` | `app/client/tasks/settings_store.cpp:447` | untagged neutral name (D10) |
 | 1 | `Address, Port` | `app/client/tasks/tsk_game.cpp:20` | handed to Redirect |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_game.cpp:20` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_6C47B0` | `app/client/tasks/tsk_game.cpp:66` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.cpp:78` | untagged neutral name (D10) |
 | 1 | `Unknown_82E1D0` | `app/client/tasks/tsk_game.cpp:124` | untagged neutral name (D10) |
@@ -9247,7 +9208,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/client/tasks/tsk_game.h:182` | neutral (D10) |
 | 1 | `Unknown60` | `app/client/tasks/tsk_game.h:182` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/tasks/tsk_game.h:184` | a function-static instance |
-| 1 | `Unknown_BE67B8` | `app/client/tasks/tsk_game.h:187` | neutral (D10); fontdatabase.h declares it too |
 | 1 | `Unknown_Debug_Print` | `app/client/tasks/tsk_login.cpp:26` | 0x509E30 (dbgmgr.cpp), the log line |
 | 1 | `Unknown0C` | `app/client/tasks/tsk_login.cpp:27` | untagged neutral name (D10) |
 | 1 | `password` | `app/client/tasks/tsk_login.cpp:28` | '123456' |
@@ -12111,7 +12071,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_65FFA0` | `app/client/ui_cpit.cpp:294` | untagged neutral name (D10) |
 | 1 | `Unknown_5BB4F0` | `app/client/ui_cpit.cpp:295` | untagged neutral name (D10) |
 | 1 | `Unknown_65FFC0` | `app/client/ui_cpit.cpp:298` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_cpit.cpp:300` | untagged neutral name (D10) |
 | 1 | `UICpitUnknownC8Class` | `app/client/ui_cpit.cpp:301` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_cpit.cpp:303` | untagged neutral name (D10) |
 | 1 | `Unknown_6B4940` | `app/client/ui_cpit.cpp:309` | untagged neutral name (D10) |
@@ -12386,7 +12345,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_08` | `app/client/ui_experience.cpp:183` | untagged neutral name (D10) |
 | 1 | `UnknownObjectWatchClass` | `app/client/ui_experience.cpp:186` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_experience.cpp:190` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_experience.cpp:196` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/ui_experience.cpp:201` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_experience.cpp:202` | untagged neutral name (D10) |
 | 1 | `Set_Unknown14` | `app/client/ui_experience.cpp:205` | untagged neutral name (D10) |
@@ -13266,7 +13224,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Description` | `app/client/ui_item_examination.h:48` | neutral (D10) |
 | 1 | `Unknown_14` | `app/client/ui_item_examination_attributes.cpp:61` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/client/ui_item_examination_attributes.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_item_examination_attributes.cpp:66` | untagged neutral name (D10) |
 | 1 | `Set_Unknown14` | `app/client/ui_item_examination_attributes.cpp:69` | untagged neutral name (D10) |
 | 1 | `Unknown2C_06` | `app/client/ui_item_examination_attributes.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown84_08` | `app/client/ui_item_examination_attributes.cpp:71` | untagged neutral name (D10) |
@@ -13285,7 +13242,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Description` | `app/client/ui_item_examination_description.h:23` | what it holds |
 | 1 | `Unknown_14` | `app/client/ui_item_examination_options.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown_4F7EF0` | `app/client/ui_item_examination_options.cpp:72` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_item_examination_options.cpp:76` | untagged neutral name (D10) |
 | 1 | `Set_Unknown14` | `app/client/ui_item_examination_options.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown84_08` | `app/client/ui_item_examination_options.cpp:81` | untagged neutral name (D10) |
 | 1 | `Unknown84_10` | `app/client/ui_item_examination_options.cpp:81` | untagged neutral name (D10) |
@@ -13313,7 +13269,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `ClientItemPropertyUnknown529810Class` | `app/client/ui_item_examination_property_router.h:24` | untagged neutral name (D10) |
 | 1 | `ClientItemPropertyClass` | `app/client/ui_item_examination_property_router.h:28` | neutral (D10): the item property files' common base, interim |
 | 1 | `Unknown_08` | `app/client/ui_item_examination_property_router.h:33` | neutral (D10) |
-| 1 | `std:` | `app/client/ui_item_examination_property_router.h:34` | neutral (D10) |
 | 1 | `Accept, visitor` | `app/client/ui_item_examination_property_router.h:35` | what the router passes |
 | 1 | `ClientItemPropertyVisitorClass` | `app/client/ui_item_examination_property_router.h:39` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_item_examination_property_router.h:42` | neutral (D10); NAME 1 [property]: neutral |
@@ -13342,7 +13297,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Specials` | `app/client/ui_item_examination_property_router.h:81` | the panel |
 | 1 | `Options` | `app/client/ui_item_examination_property_router.h:82` | the panel |
 | 1 | `Description` | `app/client/ui_item_examination_property_router.h:83` | the panel |
-| 1 | `Unknown_0C` | `app/client/ui_item_examination_specials.cpp:67` | untagged neutral name (D10) |
 | 1 | `Set_Unknown14` | `app/client/ui_item_examination_specials.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown2C_06` | `app/client/ui_item_examination_specials.cpp:71` | untagged neutral name (D10) |
 | 1 | `Unknown84_08` | `app/client/ui_item_examination_specials.cpp:72` | untagged neutral name (D10) |
@@ -14249,13 +14203,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/ui_mfd.cpp:263` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/ui_mfd.cpp:266` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_mfd.cpp:270` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_mfd.cpp:280` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/ui_mfd.cpp:359` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_mfd.cpp:363` | untagged neutral name (D10) |
 | 1 | `UnknownObjectWatchClass` | `app/client/ui_mfd.cpp:384` | untagged neutral name (D10) |
 | 1 | `Unknown_90` | `app/client/ui_mfd.cpp:386` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_mfd.cpp:401` | untagged neutral name (D10) |
 | 1 | `Unknown_5BCB00` | `app/client/ui_mfd.cpp:410` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_mfd.cpp:412` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_mfd.cpp:426` | untagged neutral name (D10) |
 | 1 | `Unknown_5BD500` | `app/client/ui_mfd.cpp:489` | untagged neutral name (D10) |
 | 1 | `Unknown_5BD520` | `app/client/ui_mfd.cpp:493` | untagged neutral name (D10) |
@@ -14336,7 +14290,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5BF760` | `app/client/ui_mfd_extended_context_harvestable.cpp:26` | untagged neutral name (D10) |
 | 1 | `Unknown_5BF790` | `app/client/ui_mfd_extended_context_harvestable.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5E20` | `app/client/ui_mfd_extended_context_harvestable.cpp:47` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_mfd_extended_context_harvestable.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown_Client` | `app/client/ui_mfd_extended_context_harvestable.cpp:88` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/ui_mfd_extended_context_harvestable.cpp:93` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_mfd_extended_context_harvestable.cpp:115` | untagged neutral name (D10) |
@@ -14351,7 +14304,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_10` | `app/client/ui_mfd_extended_context_harvestable.h:28` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/ui_mfd_extended_context_harvestable.h:37` | untagged neutral name (D10) |
 | 1 | `UnknownCount` | `app/client/ui_mfd_extended_context_strings.cpp:14` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/ui_mfd_extended_context_strings.cpp:59` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_mfd_extended_context_strings.cpp:96` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/ui_mfd_extended_context_strings.cpp:121` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_mfd_extended_context_strings.cpp:134` | untagged neutral name (D10) |
@@ -14370,7 +14322,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/ui_mfdm.cpp:41` | untagged neutral name (D10) |
 | 1 | `UnknownBool` | `app/client/ui_mfdm.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_mfdm.cpp:157` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_mfdm.cpp:180` | untagged neutral name (D10) |
 | 1 | `Unknown_65B7A0` | `app/client/ui_mfdm.cpp:184` | untagged neutral name (D10) |
 | 1 | `Unknown_4F50D0` | `app/client/ui_mfdm.cpp:195` | untagged neutral name (D10) |
 | 1 | `Unknown_0C` | `app/client/ui_mfdm.cpp:202` | untagged neutral name (D10) |
@@ -14540,7 +14491,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_58` | `app/client/ui_option_account.cpp:61` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_option_account.cpp:77` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_option_account.cpp:79` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_option_account.cpp:79` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_option_account.cpp:80` | neutral (D10) |
 | 1 | `Unknown_565F30` | `app/client/ui_option_account.cpp:91` | untagged neutral name (D10) |
 | 1 | `title` | `app/client/ui_option_account.cpp:104` | neutral (D10) |
@@ -14585,7 +14535,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C9340` | `app/client/ui_option_channel.cpp:117` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_option_channel.cpp:131` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_option_channel.cpp:133` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_option_channel.cpp:133` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_option_channel.cpp:134` | neutral (D10) |
 | 1 | `Unknown_565F30` | `app/client/ui_option_channel.cpp:144` | untagged neutral name (D10) |
 | 1 | `Unknown_5C93B0` | `app/client/ui_option_channel.cpp:146` | untagged neutral name (D10) |
@@ -14639,7 +14588,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C9EB0` | `app/client/ui_option_check.cpp:99` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_option_check.cpp:113` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_option_check.cpp:115` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_option_check.cpp:115` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_option_check.cpp:116` | neutral (D10) |
 | 1 | `Unknown_565F30` | `app/client/ui_option_check.cpp:126` | untagged neutral name (D10) |
 | 1 | `Unknown_5C9F20` | `app/client/ui_option_check.cpp:128` | untagged neutral name (D10) |
@@ -14685,7 +14633,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown64` | `app/client/ui_option_control_keys.cpp:114` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_option_control_keys.cpp:114` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_option_control_keys.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_option_control_keys.cpp:167` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_option_control_keys.cpp:174` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_option_control_keys.cpp:187` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_option_control_keys.cpp:191` | neutral (D10) |
@@ -14743,7 +14690,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Context` | `app/client/ui_option_control_keys.h:40` | ControlKeyDefStruct's 'context' |
 | 1 | `Mode` | `app/client/ui_option_control_keys.h:52` | as UIOptionCheckClass's |
 | 1 | `Unknown_BE67C4` | `app/client/ui_option_font.cpp:17` | neutral (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/ui_option_font.cpp:18` | untagged neutral name (D10) |
 | 1 | `UnknownEventDispatcherClass` | `app/client/ui_option_font.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_540A20` | `app/client/ui_option_font.cpp:21` | neutral (D10) |
 | 1 | `Unknown_B832D8` | `app/client/ui_option_font.cpp:24` | neutral (D10) |
@@ -14815,7 +14761,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_58` | `app/client/ui_option_main.cpp:57` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_option_main.cpp:73` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_option_main.cpp:75` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_option_main.cpp:75` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_option_main.cpp:76` | neutral (D10) |
 | 1 | `Unknown_565F30` | `app/client/ui_option_main.cpp:87` | untagged neutral name (D10) |
 | 1 | `Unknown_5CE670` | `app/client/ui_option_main.cpp:124` | untagged neutral name (D10) |
@@ -14841,7 +14786,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5CECB0` | `app/client/ui_option_quit.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_option_quit.cpp:83` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_option_quit.cpp:85` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_option_quit.cpp:85` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_option_quit.cpp:86` | neutral (D10) |
 | 1 | `Unknown_565F30` | `app/client/ui_option_quit.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown_74BB50` | `app/client/ui_option_quit.cpp:102` | untagged neutral name (D10) |
@@ -14887,7 +14831,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5CF880` | `app/client/ui_option_slider.cpp:123` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_option_slider.cpp:128` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_option_slider.cpp:130` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_option_slider.cpp:130` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_option_slider.cpp:131` | neutral (D10) |
 | 1 | `Unknown_514480` | `app/client/ui_option_slider.cpp:136` | untagged neutral name (D10) |
 | 1 | `Unknown_5146D0` | `app/client/ui_option_slider.cpp:137` | untagged neutral name (D10) |
@@ -15107,7 +15050,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `button` | `app/client/ui_petition_entry.cpp:50` | neutral (D10) |
 | 1 | `Unknown_66E460` | `app/client/ui_petition_entry.cpp:55` | untagged neutral name (D10) |
 | 1 | `Unknown_66FA90` | `app/client/ui_petition_entry.cpp:56` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_petition_entry.cpp:60` | untagged neutral name (D10) |
 | 1 | `Unknown_B08CB0` | `app/client/ui_petition_entry.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown3B` | `app/client/ui_petition_entry.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown58` | `app/client/ui_petition_entry.cpp:65` | untagged neutral name (D10) |
@@ -15159,7 +15101,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08C9C` | `app/client/ui_petition_player_entry.cpp:17` | neutral (D10) |
 | 1 | `Unknown0B8` | `app/client/ui_petition_player_entry.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_petition_player_entry.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_petition_player_entry.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown_5417D0` | `app/client/ui_petition_player_entry.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_6B4940` | `app/client/ui_petition_player_entry.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown_88` | `app/client/ui_petition_player_entry.cpp:46` | untagged neutral name (D10) |
@@ -15676,7 +15617,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/client/ui_radio_admin.cpp:220` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/ui_radio_admin.cpp:221` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_radio_admin.cpp:233` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_radio_admin.cpp:233` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_radio_admin.cpp:234` | neutral (D10) |
 | 1 | `Unknown224` | `app/client/ui_radio_admin.cpp:235` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_radio_admin.cpp:252` | neutral (D10) |
@@ -15759,7 +15699,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5E6A20` | `app/client/ui_radio_entry.cpp:115` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_radio_entry.cpp:126` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_radio_entry.cpp:184` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_radio_entry.cpp:184` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_radio_entry.cpp:185` | neutral (D10) |
 | 1 | `Unknown_565F60` | `app/client/ui_radio_entry.cpp:193` | untagged neutral name (D10) |
 | 1 | `Unknown_5E6EC0` | `app/client/ui_radio_entry.cpp:198` | untagged neutral name (D10) |
@@ -15822,7 +15761,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5EB2F0` | `app/client/ui_radio_join.cpp:89` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_radio_join.cpp:95` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_radio_join.cpp:97` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_radio_join.cpp:97` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_radio_join.cpp:98` | neutral (D10) |
 | 1 | `Unknown_565F60` | `app/client/ui_radio_join.cpp:120` | untagged neutral name (D10) |
 | 1 | `Unknown_5EB0B0` | `app/client/ui_radio_join.cpp:135` | untagged neutral name (D10) |
@@ -15894,7 +15832,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/client/ui_radio_list.cpp:215` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/ui_radio_list.cpp:216` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_radio_list.cpp:238` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_radio_list.cpp:238` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_radio_list.cpp:239` | neutral (D10) |
 | 1 | `id` | `app/client/ui_radio_list.cpp:246` | neutral (D10) |
 | 1 | `Unknown1138` | `app/client/ui_radio_list.cpp:246` | untagged neutral name (D10) |
@@ -15968,7 +15905,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_68` | `app/client/ui_radio_main.cpp:76` | untagged neutral name (D10) |
 | 1 | `Unknown_5E9910` | `app/client/ui_radio_main.cpp:88` | untagged neutral name (D10) |
 | 1 | `sclient` | `app/client/ui_radio_main.cpp:97` | neutral (D10) |
-| 1 | `Unknown_18` | `app/client/ui_radio_main.cpp:97` | untagged neutral name (D10) |
 | 1 | `chat` | `app/client/ui_radio_main.cpp:98` | neutral (D10) |
 | 1 | `Unknown_5EA7F0` | `app/client/ui_radio_main.cpp:104` | untagged neutral name (D10) |
 | 1 | `Unknown_565F60` | `app/client/ui_radio_main.cpp:107` | untagged neutral name (D10) |
@@ -16802,7 +16738,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7C` | `app/client/ui_scut.cpp:612` | untagged neutral name (D10) |
 | 1 | `Unknown_20` | `app/client/ui_scut.cpp:798` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/ui_scut.cpp:799` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_scut.cpp:801` | untagged neutral name (D10) |
 | 1 | `Unknown_44` | `app/client/ui_scut.cpp:803` | untagged neutral name (D10) |
 | 1 | `Unknown_750B60` | `app/client/ui_scut.cpp:809` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/ui_scut.cpp:810` | untagged neutral name (D10) |
@@ -18697,7 +18632,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UIVerbButtonMatchStruct` | `app/client/ui_verb.cpp:34` | neutral (D10) |
 | 1 | `UnknownA0` | `app/client/ui_verb.cpp:94` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/ui_verb.cpp:99` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `app/client/ui_verb.cpp:99` | untagged neutral name (D10) |
 | 1 | `Unknown_88` | `app/client/ui_verb.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_verb.cpp:114` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_verb.cpp:114` | untagged neutral name (D10) |
@@ -19200,7 +19134,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown408` | `app/client/unknown_6cce60.cpp:369` | untagged neutral name (D10) |
 | 1 | `Clip_Text` | `app/client/unknown_6cce60.cpp:379` | what it does |
 | 1 | `Unknown_6CE4E0` | `app/client/unknown_6cce60.cpp:386` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/client/unknown_6cce60.cpp:398` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE7D0` | `app/client/unknown_6cce60.cpp:409` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:428` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:445` | untagged neutral name (D10) |
@@ -19218,13 +19151,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_75B8F0` | `app/client/unknown_75b7b0.h:9` | untagged neutral name (D10) |
 | 1 | `obj, phase` | `app/client/unknown_75b7b0.h:10` | neutral (D10); the 'plt_dn' textures' U offset |
 | 1 | `Unknown_75BB50` | `app/client/unknown_75b7b0.h:10` | untagged neutral name (D10) |
-| 1 | `Unknown763E00Class` | `app/client/unknown_763e00.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_763E70` | `app/client/unknown_763e00.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC0A0` | `app/client/unknown_763e00.cpp:38` | untagged neutral name (D10) |
 | 1 | `Unknown_763FF0` | `app/client/unknown_763e00.cpp:44` | untagged neutral name (D10) |
 | 1 | `Unknown_764030` | `app/client/unknown_763e00.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown_764060` | `app/client/unknown_763e00.cpp:63` | untagged neutral name (D10) |
-| 1 | `Unknown763E00Class` | `app/client/unknown_763e00.h:16` | neutral (D10) |
 | 1 | `ini_name` | `app/client/unknown_763e00.h:21` | neutral |
 | 1 | `Unknown_763E70` | `app/client/unknown_763e00.h:21` | untagged neutral name (D10) |
 | 1 | `Unknown_763FF0` | `app/client/unknown_763e00.h:22` | untagged neutral name (D10) |
@@ -20584,7 +20515,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_790940` | `app/main/main_client.cpp:129` | sets 0xBE856C  // NAME 1 [manager]: neutral |
 | 1 | `Unknown_BE856C` | `app/main/main_client.cpp:130` | neutral (D10) |
 | 1 | `Unknown_7CA2D0Class` | `app/main/main_client.cpp:154` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `app/main/main_client.cpp:164` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `app/main/main_client.cpp:164` | untagged neutral name (D10) |
 | 1 | `hInstance, hPrevInstance, lpCmdLine, nCmdShow` | `app/main/main_client.cpp:382` | Win32's |
 | 1 | `purchase` | `app/main/main_client.cpp:386` | its text |
@@ -23237,11 +23167,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `tests/clienttest/clienttest.cpp:2065` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `tests/clienttest/clienttest.cpp:2240` | untagged neutral name (D10) |
 | 1 | `SClientUnknown12C4Class` | `tests/clienttest/clienttest.cpp:2243` | untagged neutral name (D10) |
-| 1 | `Unknown_18` | `tests/clienttest/clienttest.cpp:2244` | untagged neutral name (D10) |
 | 1 | `Unknown688830Class` | `tests/clienttest/pda_stubs.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_68A720` | `tests/clienttest/pda_stubs.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_689DA0` | `tests/clienttest/pda_stubs.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67B8` | `tests/clienttest/tsk_game_stubs.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `tests/clienttest/tsk_game_stubs.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_5594B0` | `tests/clienttest/ui_avsel_stubs.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C90` | `tests/clienttest/ui_avsel_stubs.cpp:20` | untagged neutral name (D10) |
@@ -23338,7 +23266,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `tests/udpreplay/recust_stubs.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `tests/udpreplay/shipcust_stubs.cpp:27` | untagged neutral name (D10) |
 | 2 | `ambientsoundmanager.h` | `app/audio/ambientsoundmanager.h:5` | ambientsoundmanager.cpp is the client's; header name assumed |
-| 2 | `AmbientSoundManager` | `app/audio/ambientsoundmanager.h:23` | ambientsoundmanager.cpp is the client's; class name assumed |
 | 2 | `RandomSoundStruct` | `app/audio/ambientsoundmanager.h:27` | what it holds (the channel array's name is the client's RandomSounds) |
 | 2 | `std:` | `app/audio/ambientsoundmanager.h:31` | what Play_2D_Sound gets |
 | 2 | `MinDelay` | `app/audio/ambientsoundmanager.h:32` | the ini's MinDelay%d |
@@ -23370,7 +23297,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/audio/ambientsoundmanager.h:85` | as RandomSounds, attached to a model |
 | 2 | `ChannelPending` | `app/audio/ambientsoundmanager.h:88` | what it does |
 | 2 | `bridgesounds.h` | `app/audio/bridgesounds.h:5` | bridgesounds.cpp is the client's; header name assumed |
-| 2 | `BridgeSoundManager` | `app/audio/bridgesounds.h:12` | bridgesounds.cpp is the client's; class name assumed |
 | 2 | `Play_Sounds` | `app/audio/bridgesounds.h:18` | function name assumed |
 | 2 | `Update` | `app/audio/bridgesounds.h:19` | what it does |
 | 2 | `Load_INI` | `app/audio/bridgesounds.h:21` | function name assumed |
@@ -23444,10 +23370,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/audio/sectorsound.h:21` | what Play_Ambient_Sounds gets |
 | 2 | `MaxElevation` | `app/audio/sectorsound.h:22` | the ini's MaxElevation |
 | 2 | `MinElevation` | `app/audio/sectorsound.h:23` | what it holds |
-| 2 | `Reset` | `app/audio/sectorsound.h:28` | as BridgeSoundManager's |
+| 2 | `Reset` | `app/audio/sectorsound.h:28` | as BridgeSoundManagerClass's |
 | 2 | `Update` | `app/audio/sectorsound.h:29` | what it does |
-| 2 | `Load_INI` | `app/audio/sectorsound.h:30` | as BridgeSoundManager's |
-| 2 | `Load_Section` | `app/audio/sectorsound.h:31` | as BridgeSoundManager's |
+| 2 | `Load_INI` | `app/audio/sectorsound.h:30` | as BridgeSoundManagerClass's |
+| 2 | `Load_Section` | `app/audio/sectorsound.h:31` | as BridgeSoundManagerClass's |
 | 2 | `CurrentElevation` | `app/audio/sectorsound.h:33` | what it holds |
 | 2 | `std:` | `app/audio/sectorsound.h:34` | what it holds |
 | 2 | `Sector` | `app/audio/sectorsound.h:35` | what it holds |
@@ -23517,11 +23443,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `NUM_ROOMS` | `app/audio/starbasesound.h:20` | the channel count 0x441910 / 0x441A50 pass |
 | 2 | `starbase` | `app/audio/starbasesound.h:23` | starbasesounds%d.ini's number |
 | 2 | `Set_Room` | `app/audio/starbasesound.h:25` | what it does |
-| 2 | `Reset` | `app/audio/starbasesound.h:26` | as BridgeSoundManager's |
+| 2 | `Reset` | `app/audio/starbasesound.h:26` | as BridgeSoundManagerClass's |
 | 2 | `Update` | `app/audio/starbasesound.h:27` | what it does |
-| 2 | `Load_INI` | `app/audio/starbasesound.h:28` | as BridgeSoundManager's |
-| 2 | `Load_Section` | `app/audio/starbasesound.h:29` | as BridgeSoundManager's |
-| 2 | `Load_Section` | `app/audio/starbasesound.h:30` | as BridgeSoundManager's |
+| 2 | `Load_INI` | `app/audio/starbasesound.h:28` | as BridgeSoundManagerClass's |
+| 2 | `Load_Section` | `app/audio/starbasesound.h:29` | as BridgeSoundManagerClass's |
+| 2 | `Load_Section` | `app/audio/starbasesound.h:30` | as BridgeSoundManagerClass's |
 | 2 | `Starbase` | `app/audio/starbasesound.h:33` | what it holds |
 | 2 | `FadeOut` | `app/audio/starbasesound.h:34` | the ini's FadeOut |
 | 2 | `DefaultMinDelay` | `app/audio/starbasesound.h:35` | the ini's DefaultMinDelay |
@@ -24477,6 +24403,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `CountText` | `app/client/inv_render.h:48` | its string template |
 | 2 | `WrongTargetTypeIndicator` | `app/client/inv_render.h:84` | skill_render.cpp's, same model |
 | 2 | `ClientItemPropertyAttributeClass` | `app/client/item/client_item_property_attribute.h:55` | class from file (D24), client_item_property_attribute.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route); table 0xAEDC08, 0x44 bytes |
+| 2 | `std:` | `app/client/item/client_item_property_attribute.h:61` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
 | 2 | `NotTradable` | `app/client/item/client_item_property_builder.h:51` | its label |
 | 2 | `Temporary` | `app/client/item/client_item_property_builder.h:52` | its label |
 | 2 | `Unique` | `app/client/item/client_item_property_builder.h:53` | its label |
@@ -24488,12 +24415,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Flags` | `app/client/item/client_item_property_builder.h:76` | the specials 0x5285A0 makes of them |
 | 2 | `TemplateInfo` | `app/client/item/client_item_property_builder.h:77` | the FAIL_IFs '!template_info' |
 | 2 | `Build` | `app/client/item/client_item_property_builder.h:119` | what it does; NAME 1 [router]: what it gets |
+| 2 | `std:` | `app/client/item/client_item_property_description.h:31` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
 | 2 | `Description` | `app/client/item/client_item_property_description.h:34` | what it holds (the item's +0x24) |
+| 2 | `std:` | `app/client/item/client_item_property_icon.h:34` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
 | 2 | `IconTexture` | `app/client/item/client_item_property_icon.h:37` | the FAIL_IF's icon_texture |
+| 2 | `std:` | `app/client/item/client_item_property_name.h:31` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
 | 2 | `Name` | `app/client/item/client_item_property_name.h:36` | what it holds (the item's Name, +0x14) |
 | 2 | `ClientItemPropertyOptionClass` | `app/client/item/client_item_property_option.h:51` | class from file (D24), client_item_property_option.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route) |
+| 2 | `std:` | `app/client/item/client_item_property_option.h:57` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
 | 2 | `ClientItemPropertyOptionAutoFireClass` | `app/client/item/client_item_property_option_auto_fire.h:25` | its label 'Auto Fire' |
 | 2 | `ClientItemPropertySpecialClass` | `app/client/item/client_item_property_special.h:65` | class from file (D24), client_item_property_special.h; its base the router.h one (client_item_property_builder.cpp converts its RefCountPtrs to it for Route); table 0xAEDEB8, 0x24 bytes |
+| 2 | `std:` | `app/client/item/client_item_property_special.h:71` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
 | 2 | `client_item_property_special_effect.h` | `app/client/item/client_item_property_special_effect.h:14` | as its siblings, which the client names; 'Effect: ' is its label |
 | 2 | `ClientItemPropertySpecialEffectClass` | `app/client/item/client_item_property_special_effect.h:25` | class-from-file (D24) for client_item_property_special_effect.cpp, itself a NAME 2; table 0xAEDEDC, 0x34 bytes |
 | 2 | `client_item_property_special_flag.h` | `app/client/item/client_item_property_special_flag.h:14` | as its siblings, which the client names; the builder's flags use it |
@@ -24510,6 +24442,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ClientItemPropertySpecialSkillRequirementClass` | `app/client/item/client_item_property_special_skill_requirement.h:26` | class-from-file (D24) for client_item_property_special_skill_requirement.cpp (__FILE__ 0xB78430); table 0xAEE104, 0x3C bytes |
 | 2 | `client_item_property_type.h` | `app/client/item/client_item_property_type.h:15` | as its siblings, which the client names; 'type tooltip' is its key |
 | 2 | `ClientItemPropertyTypeClass` | `app/client/item/client_item_property_type.h:23` | class-from-file (D24) for client_item_property_type.cpp, itself a NAME 2; table 0xAEE14C, 0x14 bytes |
+| 2 | `std:` | `app/client/item/client_item_property_type.h:34` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
+| 2 | `std:` | `app/client/item/client_item_property_unknown_529810.h:31` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
 | 2 | `x10000` | `app/client/local_interface_sort.cpp:11` | the FAIL_IFs' |
 | 2 | `ui` | `app/client/local_interface_sort.h:32` | the FAIL_IF's |
 | 2 | `ui_scene` | `app/client/local_interface_sort.h:34` | the FAIL_IF's  // NAME 1 [front]: neutral |
@@ -25349,6 +25283,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `UIItemExaminationDescriptionClass` | `app/client/ui_item_examination_description.h:12` | its section 'ITEM_EXAMINATION_DESCRIPTION' |
 | 2 | `UIItemExaminationOptionClass` | `app/client/ui_item_examination_options.h:30` | from the file name and 'ItemOptionObject' |
 | 2 | `UIItemExaminationOptionsClass` | `app/client/ui_item_examination_options.h:45` | class from file (D24), ui_item_examination_options.cpp |
+| 2 | `std:` | `app/client/ui_item_examination_property_router.h:34` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
 | 2 | `UIItemExaminationSpecialClass` | `app/client/ui_item_examination_specials.h:30` | as the attributes panel's row |
 | 2 | `UIItemExaminationSpecialsClass` | `app/client/ui_item_examination_specials.h:41` | from 'ITEM_EXAMINATION_SPECIALS', as UIItemExaminationOptionsClass |
 | 2 | `UIItemExaminationTitleClass` | `app/client/ui_item_examination_title.h:20` | its text 'TITLE_IEI00' and ui_item_examination_title.cpp |
@@ -27828,6 +27763,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `RoundTripRound` | `app/wwudp/unknown_cordmsg.cpp:152` | 0xBB1DB8 |
 | 2 | `LossRound` | `app/wwudp/unknown_cordmsg.cpp:175` | 0xBB1DBC |
 | 2 | `LimitedAt` | `app/wwudp/unknown_cordmsg.cpp:202` | 0xBF4120 when the rate limit last held a send back |
+| 3 | `AmbientSoundManagerClass` | `app/audio/ambientsoundmanager.h:23` | class-from-file (D24) for audio/ambientsoundmanager.cpp (P-L18-2) |
+| 3 | `BridgeSoundManagerClass` | `app/audio/bridgesounds.h:12` | class-from-file (D24) for audio/bridgesounds.cpp (P-L18-2) |
 | 3 | `MusicComponentClass` | `app/audio/musiccomponent.h:10` | class-from-file (D24) for audio\musiccomponent.cpp |
 | 3 | `MusicListClass` | `app/audio/musiclist.h:20` | class-from-file (D24) for audio\musiclist.cpp |
 | 3 | `MusicManagerClass` | `app/audio/musicmanager.h:18` | class-from-file (D24) for audio\musicmanager.cpp |
@@ -27909,6 +27846,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `EffectUsage` | `app/client/client.h:97` | ITEM_BASE 37's Print text 'EffectUsage=' |
 | 3 | `Flags` | `app/client/client.h:98` | ITEM_BASE 37's Print text 'Flags=' |
 | 3 | `Info` | `app/client/client.h:99` | ITEM_BASE 37's FAIL_IF '!Info' |
+| 3 | `RSLRegistryClass` | `app/client/client.h:110` | ClientClass +0x18 holds it, named RSLRegistry by mclient.cpp's G_ASSERT 'RSLRegistry' (l.83); class name by D24 (P-M1b-1) |
 | 3 | `ClientClass` | `app/client/client.h:123` | class-from-file (D24) for client.cpp; the client names no class |
 | 3 | `Process_Packets` | `app/client/client.h:133` | SClient's string names its override |
 | 3 | `Px` | `app/client/client.h:174` | px.cpp's |
@@ -28605,7 +28543,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Secondary` | `app/client/ui_option_control_keys.h:46` | the FAIL_IF '!Secondary[lp]' |
 | 3 | `DialogBoxUI` | `app/client/ui_option_control_keys.h:50` | the FAIL_IF '!DialogBoxUI' |
 | 3 | `DialogBoxID` | `app/client/ui_option_control_keys.h:51` | the FAIL_IF '!DialogBoxID' |
-| 3 | `ui_option_font.cpp` | `app/client/ui_option_font.cpp:18` | the FAIL_IF '!::fontDatabase' (0x5CD780); fontdatabase.h still calls it Unknown_BE67B8 |
 | 3 | `std:` | `app/client/ui_option_font.h:53` | the FAIL_IF 'FontNames.empty()' |
 | 3 | `As_Space_Client` | `app/client/ui_pda_cargo.cpp:37` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIPdaCargoClass` | `app/client/ui_pda_cargo.h:21` | class-from-file (D24) for app\Client\ui_pda_cargo.cpp |
@@ -28770,6 +28707,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIVerbClass` | `app/client/ui_verb.h:39` | class-from-file (D24) for ui_verb.cpp |
 | 3 | `uiview.h` | `app/client/uiview.h:15` | the header of uiview.cpp (its __FILE__ 'e:\build\beta\G\app\Client\uiview.cpp') |
 | 3 | `InterfaceMesh` | `app/client/unknown_5bb250.h:36` | the FAIL_IFs' '!InterfaceMesh' (ui_faction.cpp's 0x58D400 l.118; ui_attrb_skills.cpp's 0x549AA0 l.121 names its own +0xBC) |
+| 3 | `RSLRegistryClass` | `app/client/unknown_763e00.h:16` | ClientClass +0x18 holds it, named RSLRegistry by mclient.cpp's G_ASSERT 'RSLRegistry' (l.83); class name by D24 (P-M1b-1) |
 | 3 | `SignalBaseClass` | `app/client/unknown_signalbase.h:17` | the client's RTTI (the scope of MemberCallback) |
 | 3 | `user_click_indicator.h` | `app/client/user_click_indicator.h:15` | header name assumed from the client's user_click_indicator.cpp |
 | 3 | `UserClickIndicatorClass` | `app/client/user_click_indicator.h:27` | class-from-file (D24) |
