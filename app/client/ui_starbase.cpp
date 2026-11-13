@@ -3752,7 +3752,7 @@ Matrix3D UIStarbaseClass::Unknown_63E930(const Matrix3D &tm)
 
 
 
-// NOT EXACT: 0x63F0D0, functional (shape: the client tests the hit again (test al, al; setne al) before it returns; O4)
+// The hit returned as "? true : false": the client tests it again (test al, al; setne al) after Cast_OBBox (O7)
 // 0x63F0D0 (0x63F490: the room's model between two points: a 0.1 box swept from one to the other)
 bool UIStarbaseClass::Unknown_63F0D0(const Vector3 &from, const Vector3 &to)
 {
@@ -3768,7 +3768,7 @@ bool UIStarbaseClass::Unknown_63F0D0(const Vector3 &from, const Vector3 &to)
 	Matrix3D inv;
 	model_tm.Get_Orthogonal_Inverse(inv);
 	OBBoxCollisionTestClass local_test(test, inv);
-	return(Unknown_Model()->Cast_OBBox(local_test));
+	return(Unknown_Model()->Cast_OBBox(local_test) ? true : false);
 }
 
 
