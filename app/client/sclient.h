@@ -84,7 +84,7 @@ class GutterRadarClass;
 class MainViewDazzleHandlerClass;
 class WWProfileIterator;
 class Render2DTextClass;
-class MusicManagerClass;		// NAME 3: class-from-file (D24) for audio\musicmanager.cpp (constructor 0x439E40, 0x1FC bytes)
+class MusicManagerClass;		// audio\musicmanager.h (constructor 0x439E40, 0x1FC bytes)
 class CameraManagerClass;		// NAME 3: class-from-file (D24) for camera_manager.cpp (constructor 0x798D20, 0x4C bytes)
 class ChatPanelInterface;			// NAME 5: the client's RTTI (the receiver in MemberCallback<OptionFontInterface, ChatPanelInterface, ...> 0xB7D308 and MemberCallback<ChatWindowInterface, ChatPanelInterface, ...> 0xB7D408); ui_chat_panel.cpp's (constructor 0x561DD0, 0x268 bytes)
 class UIGroupClass;			// NAME 3: class-from-file (D24) for ui_group.cpp (the main view's +0x1D8; cpacket.cpp: CLIENT_CHAT_EVENT 165)
@@ -101,7 +101,7 @@ class SClientUnknown1334Class;	// NAME 1: neutral (D10): 0xB8 bytes, destructor 
 class EnvironmentMapManagerClass;	// NAME 3: by convention (D24) from the client's env_map_manager.cpp: 0x24 bytes, an INIClass at +0x14; env_map_manager.cpp's 0x760360 loads 'envmaps.ini' into it
 class SClientUnknown12BCClass;	// NAME 1: neutral (D10): what SClient +0x12BC points to (a virtual destructor)
 class Unknown6D47C0Class;		// NAME 1: neutral (D10): the 0x4E8-byte text object CLIENT_DAMAGE 100 makes (constructor 0x6D47C0; cpacket.cpp)
-class SClientUnknown1330Class;	// NAME 1: neutral (D10): what SClient +0x1330 points to (destructor 0x43C560, musicmanager.cpp's neighbourhood)
+class SectorSoundClass;		// audio\sectorsound.h: what SClient +0x1330 points to (0x58 bytes, destructor 0x43C560)
 class ProjDecalManagerClass;		// NAME 3: class-from-file (D24) for proj_decal_manager.cpp (0x763050 loads 'proj_dec.ini' into it; 0x10 bytes, one vector)
 class CharacterViewAvatarClass;	// avatar.h: the values of SClient +0x1394 (0x77B870's 0x384 bytes)
 
@@ -886,7 +886,7 @@ public:
 	virtual void Process_Packets();						// +0x0C 0x7427C0 (S: 'SClient::Process_Packets')
 	virtual void Unknown_10();							// +0x10 0x7428F0: pumps the window's message queue (the base's name kept)
 	virtual int Do_Frame(bool focused);					// +0x14 0x742B60: ClientTaskClass::Sector, 0 .. 5
-	virtual int Unknown_18() { return((int)this); }		// +0x18 0x740AC0 (the base's returns 0)
+	virtual int As_Space_Client() { return((int)this); }		// +0x18 0x740AC0 (the base's returns 0)  // NAME 5: the FAIL_IF '!client->As_Space_Client()' (0xBA78A0)
 	virtual unsigned Set_Avatar_ID(unsigned id);		// +0x24 0x745730: the base's
 	virtual bool Unknown_34(const char *text);			// +0x34 0x74ABC0: the chat line's '/' commands ('/group', 'Unable to camp - insufficient marshmallows.'); true when it was one  // NAME 1 [text]: the chat line
 	bool Unknown_747510(const char *text);				// 0x747510 (0x74ABC0: '/group ...')  // NAME 1 [text]: the chat line
@@ -982,7 +982,7 @@ public:
 	void Unknown_74FEC0();								// 0x74FEC0 (0x750210)
 	void Unknown_750210();								// 0x750210: 0x74FA30, 0x74FEC0, then the chat panel's +0xE0
 	void Unknown_750260(bool reset);					// 0x750260 (the main view's 0x50D520 passes 0 with the options' +0x05): the audio debug page  // NAME 2 [reset]: true sets every sample name to NONE
-	void Unknown_750B30(int arg);						// 0x750B30: Unknown1330's 0x43C660  // NAME 1 [arg]: neutral
+	void Unknown_750B30(float elevation);				// 0x750B30: SectorSound's Update 0x43C660  // NAME 2 [elevation]: what SectorSoundClass::Update compares with the ini's MaxElevation
 	void Unknown_74E580(const char *text, const char *type, const char *value);	// 0x74E580 (the guild confirmations 0x73E720 / 0x73EEF0)  // NAME 1 [text, type, value]: what it does with them
 	void Unknown_74DFF0(int color, const char *text, int message_type, int arg);	// 0x74DFF0 (cpacket.cpp: GUILD_MESSAGE 208 passes 8, the substituted text, MessageType, 0)  // NAME 1 [color, text, message_type, arg]: what the handler passes
 	bool Unknown_750B60();								// 0x750B60 (camera_manager.cpp 0x7992F0 / 0x7993E0): the avatar is incapacitated (its aux data IsIncapacitated)
@@ -1020,7 +1020,7 @@ public:
 	int Unknown1324;									// +0x1324
 	int Unknown1328;									// +0x1328 (the constructor leaves it)
 	MusicManagerClass *MusicManager;					// +0x132C Init  // NAME 3: its file's
-	SClientUnknown1330Class *Unknown1330;				// +0x1330 (Shutdown deletes it: destructor 0x43C560)
+	SectorSoundClass *SectorSound;						// +0x1330: the sector's ambient sounds (0x750A70 makes it for SERVER_PARAMETERS' sector; Shutdown deletes it)  // NAME 2: what it holds
 	SClientUnknown1334Class *Unknown1334;	EnvironmentMapManagerClass *Peek_Environment_Map_Manager() { return(EnvironmentMapManager); }	// +0x1334; the getter reads +0x1338 below (ui_avatar_cust.cpp's 0x54E690 / 0x54E7F0)  // NAME 1 [Peek_Environment_Map_Manager]: neutral (D10)
 	EnvironmentMapManagerClass *EnvironmentMapManager;	// +0x1338  // NAME 3: option.cpp's and scriptedmovie.cpp's asserts 'sclient->EnvironmentMapManager'
 	ProjDecalManagerClass *ProjDecalManager;			// +0x133C  // NAME 3: its file's

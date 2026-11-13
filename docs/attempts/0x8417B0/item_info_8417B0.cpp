@@ -1,7 +1,7 @@
 // @0x8417B0
 // The tree's form (0.78, the same 287 instructions; 4 rows differ at the second substr: the client keeps
 // field_separator in esi and takes field_separator + 1 into eax (lea), ours increments esi in place).
-void ItemBaseInfoClass::Apply_Delta(const std::string &delta)
+void ItemInfoClass::Apply_Delta(const std::string &delta)
 {
 	Reset_Fields();
 	std::vector<std::string> fields;

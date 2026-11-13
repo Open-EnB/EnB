@@ -24,7 +24,7 @@ FrameInterfaceClass::FrameInterfaceClass(UIViewClass *view, SimpleSceneClass *sc
 	MinFrameRate(99.4f),
 	MaxFrameRate(0.0f)
 {
-	Unknown4C.Add(ControlKeyComboStruct(0x54, 0x400), NULL);
+	Unknown4C.Add(KernelEventClass(0x54, 0x400), NULL);
 }
 
 // 0x53EA70
@@ -204,10 +204,10 @@ void FrameInterfaceClass::Unknown_60()
 
 	if (((SClient *)Client)->Unknown14EC == 4) {
 		StringClass text;
-		unsigned frame_allocs = FastAllocatorGeneral::Get_Allocator()->Get_Unknown_E28();
-		unsigned frame_count = FastAllocatorGeneral::Get_Allocator()->Get_Unknown_E20();
-		unsigned malloc_size = FastAllocatorGeneral::Get_Allocator()->Get_Allocated_With_Malloc();
-		unsigned malloc_count = FastAllocatorGeneral::Get_Allocator()->Get_Allocated_With_Malloc_Count();
+		unsigned frame_allocs = FastAllocatorGeneral::Get_Allocator()->UnknownE20[2];
+		unsigned frame_count = FastAllocatorGeneral::Get_Allocator()->UnknownE20[0];
+		unsigned malloc_size = FastAllocatorGeneral::Get_Allocator()->AllocatedWithMalloc;
+		unsigned malloc_count = FastAllocatorGeneral::Get_Allocator()->AllocatedWithMallocCount;
 		text.Format(
 			"Total: %3.3fMb\n\n"
 			"Count: %d\n"

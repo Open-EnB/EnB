@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 94's object, 0x87DEC0-0x87E3F0 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
@@ -22,7 +20,8 @@
   "0x87E130",
   "0x87E1A0",
   "0x87E2C0",
-  "0x87E2E0"
+  "0x87E2E0",
+  "0x87E3F0"
  ],
  "merged": [],
  "name": "packets/pkunknown_87dec0.cpp",

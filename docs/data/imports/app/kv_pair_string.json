@@ -4,6 +4,8 @@
  "description": "KVPairStringClass, client 0x4B7FC0-0x4B84A0: the constructor (line 22, D25), destructor, Get_Type_Name, the value-string slots, Is_Changed, Update_Saved; the copy constructor (line 44) and Clone not exact",
  "expected": {},
  "in_tree": [
+  "0x4B7F70",
+  "0x4B7FA0",
   "0x4B7FC0",
   "0x4B8090",
   "0x4B80B0",

@@ -15,15 +15,15 @@ static const char *Unknown_B834B0[8] = { "exit", "bttn00", "bttn01", "bttn02", "
 static const char *Unknown_B834D4[8] = { NULL, "Camera_opt01a", "Control_opt01a", "Interface_opt01a", "Graphics_opt01a", "Sound_opt01a", "Credits_opt01a", "Fonts_opt01a" };	// NAME 1: neutral (D10)
 
 // kernel.h's input event, as ui_option_account.cpp's (Unknown_54's Escape)
-struct UIOptionMainKeyEventStruct	// NAME 1: neutral (D10)
-{
-	UIOptionMainKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+
+
+
+
+
+
+
+
+
 
 // 0x5CE240
 UIOptionMainClass::UIOptionMainClass(SClient *client) :
@@ -49,7 +49,7 @@ void UIOptionMainClass::Unknown_54()
 			GadgetClass::Set_Tooltip(Buttons[i], "UI_OPTION_MAIN", Unknown_B834B0[i]);
 		}
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIOptionMainKeyEventStruct(0x1B), (void *)1);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 	}
 }
 
@@ -72,7 +72,7 @@ void UIOptionMainClass::Unknown_5C()
 // 0x5CE4A0
 bool UIOptionMainClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 	switch (key) {

@@ -42,16 +42,16 @@ bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x49611
 
 
 // The control keys event (0x10 bytes) and InterfaceClass +0x4C, as ui_login.cpp declares them
-struct PopupKeyEventStruct	// NAME 1: neutral (D10)
-{
-	PopupKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0.0f), Unknown08(0.0f), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60, Remove 0x721EF0), as far as this file calls it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 // The settings store 0x7CA2D0 returns (tsk_game.h's Unknown_7CA2D0Class), as far as the site's link opens through it
 class PopupSettingsClass { public: void Unknown_7CB2E0(const char *url, int a); };	// NAME 1: neutral (D10)  // NAME 1 [url, a]: as ui_login.cpp's
@@ -116,7 +116,7 @@ Unknown5DB670InterfaceClass::Unknown5DB670InterfaceClass(UIViewClass *view, Laye
 			Unknown64.Unknown_6870E0(Buttons[i], i + 1, View, 1, 0);
 		}
 	}
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&PopupKeyEventStruct(0x1B), (void *)7);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)7);
 }
 
 // 0x5DB9F0

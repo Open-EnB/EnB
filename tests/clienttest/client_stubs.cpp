@@ -198,19 +198,11 @@ Matrix3D UnknownB02C90Class::Unknown_725AD0() { Trace("stub UnknownB02C90Class::
 // Unknown_6E9490 and the unary / binary ends are eff_o.cpp's real ones (app.lib); the concrete effects the
 // factory makes are clienttest.cpp's stand-ins, and effect.ini is the fixture in tests/clienttest/data
 
-// ------------------------------------------------------------------------- control_keys_manager.cpp's key reader
-
-// inpdsp.cpp's 0x42A1A0 (a key from an ini entry): control_keys_manager.obj links since SClient 0x7436A0 registers its keys;
-// gen_stubs.py cannot write a struct returned by value. clienttest never loads key maps: this only links.
-#include "..\..\..\app\client\control_keys_manager.h"
-ControlKeyComboStruct Unknown_42A1A0(INIClass &, const char *section, const char *entry) { Trace("stub Unknown_42A1A0 [%s] %s", section ? section : "(null)", entry ? entry : "(null)"); return(ControlKeyComboStruct(0, 0)); }
-
-
 // ui_missn.cpp / ui_manu.cpp (via ui_ship_cust.obj's chain) call GadgetClass's slots +0x08 / +0x14 as void functions; gen_stubs
 // writes one signature a name (the pointer-returning one) and clienttest.py does not apply link_aliases.txt, so these two
 // names link here. Never called: clienttest opens no such window.
-class GadgetClass { public: virtual void Unknown_08(); virtual void Unknown_14(); };
-void GadgetClass::Unknown_08() {}
-void GadgetClass::Unknown_14() {}
+class GadgetClass { public: virtual void As_RObjGadget(); virtual void As_UIScutProxyGadget(); };
+void GadgetClass::As_RObjGadget() {}
+void GadgetClass::As_UIScutProxyGadget() {}
 
 // (rs_eff_p.cpp's 'effect_pass' state 0x458C10 links from app.lib)

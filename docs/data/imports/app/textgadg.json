@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x46BE90",
   "0x474080",
   "0x497300"
@@ -45,7 +44,8 @@
   "0x6AACD0",
   "0x6AB080",
   "0x6AB0F0",
-  "0x6AB190"
+  "0x6AB190",
+  "0x6AB2F0"
  ],
  "merged": [],
  "name": "client/textgadg.cpp",

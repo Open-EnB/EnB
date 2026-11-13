@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "StrEditClass (stredit.h), client 0x84AA10-0x84B350, the whole object (__FILE__ 0xBB0FEC, asserts on the client's lines 335 / 382 / 400, D25; <string>'s initialiser at 0x84B330 ends it): all exact but Process_Key 0x84AAD0 NOT EXACT (the event's modifier bits as bit-fields) (GAD3, SE1)",
  "expected": {},
@@ -14,7 +12,8 @@
   "0x84B200",
   "0x84B270",
   "0x84B2B0",
-  "0x84B2F0"
+  "0x84B2F0",
+  "0x84B330"
  ],
  "merged": [],
  "name": "common/stredit.cpp",

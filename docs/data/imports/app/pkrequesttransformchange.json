@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 67) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -19,7 +17,8 @@
   "0x8A28C0",
   "0x8A2990",
   "0x8A2A80",
-  "0x8A2AA0"
+  "0x8A2AA0",
+  "0x8A2B40"
  ],
  "merged": [],
  "name": "packets/pkrequesttransformchange.cpp",

@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "opcodes 190 (CONFIRMED_ACTION_OFFER), 191 and 192 (CONFIRMED_ACTION_RESPONSE) written by hand (builder P4, 13 of 13 exact; 8 of 8 exact in appfile.py match), client 0x8703C0-0x870E60; the file name provisional (NAME 1)",
@@ -40,7 +39,8 @@
   "0x870C50",
   "0x870D20",
   "0x870E00",
-  "0x870E20"
+  "0x870E20",
+  "0x870E60"
  ],
  "merged": [],
  "name": "packets/pkconfirmedaction.cpp",

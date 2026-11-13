@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the galaxy map packets (opcodes 151 and 152 derived from it), client 0x870E90-0x8714C0: written by hand (builder P), 10 functions exact in appfile.py match; the file name provisional (NAME 1)",
  "expected": {},
@@ -28,7 +26,8 @@
   "0x871320",
   "0x871350",
   "0x871460",
-  "0x8714A0"
+  "0x8714A0",
+  "0x8714C0"
  ],
  "merged": [],
  "name": "packets/pkgalaxymap.cpp",

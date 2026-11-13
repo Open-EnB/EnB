@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "packet classes (opcode 44) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
@@ -30,7 +29,8 @@
   "0x8767B0",
   "0x876880",
   "0x876960",
-  "0x876980"
+  "0x876980",
+  "0x8769F0"
  ],
  "merged": [],
  "name": "packets/pkaction.cpp",

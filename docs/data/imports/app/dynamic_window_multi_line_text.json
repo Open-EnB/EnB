@@ -1,7 +1,6 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42B2F0",
   "0x46BE90",
   "0x474000",
   "0x474480"
@@ -61,7 +60,8 @@
   "0x51C660",
   "0x51C6C0",
   "0x51C710",
-  "0x51C780"
+  "0x51C780",
+  "0x51C7D0"
  ],
  "merged": [],
  "name": "client/dynamic_window_multi_line_text.cpp",
@@ -94,10 +94,6 @@
   "0x51BD30"
  ],
  "tiebreak": [
-  "0x5199F0",
-  "0x51C660",
-  "0x51C6C0",
-  "0x51C710",
-  "0x51C780"
+  "0x5199F0"
  ]
 }

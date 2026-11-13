@@ -277,7 +277,7 @@ bool UIMFDClass::Unknown_68(int key)
 				SoundLibraryClass::Play_2D_Sound("TextClick01.wav", 2);
 				if (shift) {
 					if (Unknown9C == 1) {
-						SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+						SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 
 
 

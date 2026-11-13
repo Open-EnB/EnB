@@ -209,7 +209,7 @@ Landing and bring-over (the lander does the landing; these are what you see arou
 - **The importer lock is the limit on parallel builders, not memory:** since D238 it is first-come among waiters with the
   new code (tools/vc6/lockq.py tickets; `importer.py lock-status`; a ticket untouched for 120 s loses its place). A
   worktree made before a lock change has the old code, waits without a ticket and starves behind the queue: rebase it, or copy the lock files in uncommitted and restore them before its report. A waiting
-  verify keeps its VM, and report.py takes the lock too (it gives up after 600 s: `--lock-wait`). With six builders a
+  verify keeps its VM, compiles the tree as it is when it gets the lock (tell builders not to edit while it waits), and report.py takes the lock too (it gives up after 600 s: `--lock-wait`). With six builders a
   verify cost 30 minutes. Briefs should point at the lock-free loops (workflow.md §3.4: `appfile.py match --pool`,
   `build.py --pool 1 --allow-dirty` + explain.py) and one verify per commit; keep a slot of lock time for the landings
   from two hours before the drain.
@@ -220,7 +220,7 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   a loss of only the three send pad addresses (0x758210, 0x702240, 0x74D990) is the pad, and the landing's retune
   confirms it. The lone-file sweep and the full verify can disagree for a branch (the audio branch: a window found,
   the verify after it still lost a pad address): the landing refuses that branch.
-- **Run `linkgate.py check --tree` after any rebase of a header-changing branch** (the rebase's verify builds app
+- **Run `linkgate.py check --tree .` (it needs a path) after any rebase of a header-changing branch** (the rebase's verify builds app
   only). A rename in one branch breaks files landed meanwhile that call the old names: it shows as "N lost outright"
   after the rebase; grep the rebased tree for the old names. A rebase stopped at a conflict keeps its start-time base;
   generated-file conflicts stay UU until `--continue`; a rebase whose verify hit compile errors leaves the generated
@@ -241,6 +241,7 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   `.work/log/sendpad.log` for the values where 0x758210, 0x702240 and 0x74D990 are all exact, and set the middle of that window.
 - **A worktree with uncommitted generated files (names-review.md, imports.md) makes the lander refuse at step 1:**
   discard them (`git checkout -- FILE`); the landing regenerates them.
+- **A check in a reused worktree name or a shared build dir can link another builder's objects** (a clienttest link failure and e2e crashes that the baseline did not show): use a fresh worktree name and a private lease, and compare against the baseline before calling a regression.
 - **A finished subagent (lander, checker) can keep re-sending its report:** stop it; the landing is intact.
 - **A lander that hands back while its rebase or verify still runs cannot report a second time** (the harness refuses
   it): read `.work/log/land-ID.log`'s `landed:` line.

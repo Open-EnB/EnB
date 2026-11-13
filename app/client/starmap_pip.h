@@ -100,6 +100,7 @@ public:
 	void Unknown_7C2060(int mode);						// 0x7C2060 (the coordinates' fonts in or out of the interface's scene)  // NAME 1 [mode]: what it stores
 	void Unknown_7C2340(unsigned id, std::string name, int type);	// 0x7C2340 (a label for the object id; 0x7C2850)  // NAME 1 [id, name, type]: what it does with them
 	void Unknown_7C2850(bool force);					// 0x7C2850 (the labels)  // NAME 1 [force]: neutral
+	bool Is_Grouped(ClientObjectClass *co);				// 0x7C2760 (no caller: the object is one of the avatar's group's five members; 0x7C2850 expands the same test)  // NAME 2: what it does
 	void Unknown_7C2D30();								// 0x7C2D30 (0x7C8E50)
 
 	bool Unknown50;										// +0x50 (0x7C0D70 clears it)

@@ -33,7 +33,7 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 	router.Route(ClientItemPropertyUnknown529810Class::Create(Item->Unknown08));
 	router.Route(ClientItemPropertyIconClass::Create(Create_Get(((Unknown831340Class *)Item)->Unknown_831840())));
 	int value = 0;
-	if (Item->Get_Template_Info()->Get_Int(6, &value)) {
+	if (Item->Get_Template_Info()->Get_Int(ITEM_INFO_TYPE, &value)) {
 		router.Route(ClientItemPropertyTypeClass::Create(Item->Unknown48, value, Item->Unknown08));
 	} else {
 		router.Route(ClientItemPropertyTypeClass::Create(Item->Unknown48, Item->Unknown08));
@@ -83,7 +83,7 @@ void ClientItemPropertyBuilderClass::Unknown_521C10(UIItemExaminationPropertyRou
 void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRouterBaseClass &router)
 {
 	Data->Unknown_688830()->Get_Quality(Slot);
-	const RefCountPtr<ItemBaseInfoClass> &template_info = Item->Get_Template_Info();	// NAME 1 [info, count, i, ok, base, actual, level and the cases' locals]: neutral
+	const RefCountPtr<ItemInfoClass> &template_info = Item->Get_Template_Info();	// NAME 1 [info, count, i, ok, base, actual, level and the cases' locals]: neutral
 
 
 
@@ -153,7 +153,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 
 
 	FAIL_IF(!template_info) return;
-	RefCountPtr<ItemBaseInfoClass> info = Create_NEW(new ItemBaseInfoClass);
+	RefCountPtr<ItemInfoClass> info = Create_NEW(new ItemInfoClass);
 	info->Apply_Delta(Data->Unknown_688830()->Get_Instance_Info(Slot));
 	unsigned int count = template_info->Get_Field_Count();
 	for (unsigned int i = 0; i < count; i++) {
@@ -162,12 +162,12 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			continue;
 		}
 		switch (id) {
-		case 0:
+		case ITEM_INFO_00:
 
 
 			G_ASSERT(0);
 			break;
-		case 1: {
+		case ITEM_INFO_AMMO: {
 			std::string ammo;
 			bool ok = template_info->Get_String(ammo, i);
 
@@ -177,24 +177,24 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 2:
+		case ITEM_INFO_AUTO_FIRE:
 			if (Data->Unknown50 == 2) {
 				RefCountPtr<ClientItemPropertyOptionClass> property = ClientItemPropertyOptionAutoFireClass::Create(SpaceClient, Data, Slot);
 				router.Route(property);
 			}
 			break;
-		case 3: {
+		case ITEM_INFO_PROFESSION: {
 			int profession = 0;
-			template_info->Get_Int(3, &profession);
+			template_info->Get_Int(ITEM_INFO_PROFESSION, &profession);
 			if (profession != 0) {
 				RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialProfessionRequirementClass::Create(SpaceClient, profession);
 				router.Route(property);
 			}
 			break;
 		}
-		case 4: {
+		case ITEM_INFO_COMBAT_LEVEL: {
 			int combat_level_required = 0;
-			template_info->Get_Int(4, &combat_level_required);
+			template_info->Get_Int(ITEM_INFO_COMBAT_LEVEL, &combat_level_required);
 
 
 
@@ -212,16 +212,16 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 5: {
+		case ITEM_INFO_DAMAGE: {
 			int base = 0;
-			bool ok = template_info->Get_Int(5, &base);
+			bool ok = template_info->Get_Int(ITEM_INFO_DAMAGE, &base);
 
 
 			G_ASSERT(ok);
 			int actual = base;
 			int level = 1;
-			if (info->Has_Field(5)) {
-				ok = info->Get_Int(5, &actual);
+			if (info->Has_Field(ITEM_INFO_DAMAGE)) {
+				ok = info->Get_Int(ITEM_INFO_DAMAGE, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -234,13 +234,13 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 7: {
+		case ITEM_INFO_EFFECT_RANGE: {
 			int base;
-			template_info->Get_Int(7, &base);
+			template_info->Get_Int(ITEM_INFO_EFFECT_RANGE, &base);
 			int level = 1;
 			int actual = base;
-			if (info->Has_Field(7)) {
-				info->Get_Int(7, &actual);
+			if (info->Has_Field(ITEM_INFO_EFFECT_RANGE)) {
+				info->Get_Int(ITEM_INFO_EFFECT_RANGE, &actual);
 				if (base <= actual) {
 					level = 2;
 				} else {
@@ -251,13 +251,13 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 8: {
+		case ITEM_INFO_EFFECT_RADIUS: {
 			int base;
-			template_info->Get_Int(8, &base);
+			template_info->Get_Int(ITEM_INFO_EFFECT_RADIUS, &base);
 			int level = 1;
 			int actual = base;
-			if (info->Has_Field(8)) {
-				info->Get_Int(8, &actual);
+			if (info->Has_Field(ITEM_INFO_EFFECT_RADIUS)) {
+				info->Get_Int(ITEM_INFO_EFFECT_RADIUS, &actual);
 				if (base <= actual) {
 					level = 2;
 				} else {
@@ -268,9 +268,9 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 9: {
+		case ITEM_INFO_ENERGY_USE: {
 			float base = 0.0f;
-			bool ok = template_info->Get_Float(9, &base);
+			bool ok = template_info->Get_Float(ITEM_INFO_ENERGY_USE, &base);
 
 
 
@@ -288,8 +288,8 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			G_ASSERT(ok);
 			int level = 1;
 			float actual = base;
-			if (info->Has_Field(9)) {
-				ok = info->Get_Float(9, &actual);
+			if (info->Has_Field(ITEM_INFO_ENERGY_USE)) {
+				ok = info->Get_Float(ITEM_INFO_ENERGY_USE, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -302,17 +302,17 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 10: {
+		case ITEM_INFO_ENERGY_DRAIN: {
 			float base = 0.0f;
-			bool ok = template_info->Get_Float(10, &base);
+			bool ok = template_info->Get_Float(ITEM_INFO_ENERGY_DRAIN, &base);
 
 
 
 			G_ASSERT(ok);
 			float actual = base;
 			int level = 1;
-			if (info->Has_Field(10)) {
-				ok = info->Get_Float(10, &actual);
+			if (info->Has_Field(ITEM_INFO_ENERGY_DRAIN)) {
+				ok = info->Get_Float(ITEM_INFO_ENERGY_DRAIN, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -325,17 +325,17 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 11: {
+		case ITEM_INFO_EQUIP_SKILL: {
 			std::string skill;
 			int unknown = Item->Unknown48;
-			template_info->Get_String(11, skill);
+			template_info->Get_String(ITEM_INFO_EQUIP_SKILL, skill);
 			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialSkillRequirementClass::Create(SpaceClient, skill, unknown, ClientItemPropertySpecialSkillRequirementClass::REQUIRED_TO_EQUIP);
 			router.Route(property);
 			break;
 		}
-		case 12: {
+		case ITEM_INFO_EXPLORE_LEVEL: {
 			int explore_level_required = 0;
-			template_info->Get_Int(12, &explore_level_required);
+			template_info->Get_Int(ITEM_INFO_EXPLORE_LEVEL, &explore_level_required);
 
 
 
@@ -348,9 +348,9 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 14: {
+		case ITEM_INFO_OVERALL_LEVEL: {
 			int total_level_required = 0;
-			template_info->Get_Int(14, &total_level_required);
+			template_info->Get_Int(ITEM_INFO_OVERALL_LEVEL, &total_level_required);
 
 
 
@@ -364,16 +364,16 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 15: {
+		case ITEM_INFO_MANEUVERABILITY: {
 			int base = 0;
-			bool ok = template_info->Get_Int(15, &base);
+			bool ok = template_info->Get_Int(ITEM_INFO_MANEUVERABILITY, &base);
 
 
 			G_ASSERT(ok);
 			int actual = base;
 			int level = 1;
-			if (info->Has_Field(15)) {
-				ok = info->Get_Int(15, &actual);
+			if (info->Has_Field(ITEM_INFO_MANEUVERABILITY)) {
+				ok = info->Get_Int(ITEM_INFO_MANEUVERABILITY, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -386,17 +386,17 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 16: {
+		case ITEM_INFO_MAX_POWER: {
 			int base = 0;
-			bool ok = template_info->Get_Int(16, &base);
+			bool ok = template_info->Get_Int(ITEM_INFO_MAX_POWER, &base);
 
 
 
 			G_ASSERT(ok);
 			int actual = base;
 			int level = 1;
-			if (info->Has_Field(16)) {
-				ok = info->Get_Int(16, &actual);
+			if (info->Has_Field(ITEM_INFO_MAX_POWER)) {
+				ok = info->Get_Int(ITEM_INFO_MAX_POWER, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -409,24 +409,24 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 18: {
+		case ITEM_INFO_RACES: {
 			int unknown = 0;
 			int race = 0;
-			template_info->Get_Int(18, &unknown);
-			template_info->Get_Int(17, &race);
+			template_info->Get_Int(ITEM_INFO_RACES, &unknown);
+			template_info->Get_Int(ITEM_INFO_RACE, &race);
 			if (race != 0 || unknown != 0) {
 				RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialRaceRequirementClass::Create(SpaceClient, unknown, race);
 				router.Route(property);
 			}
 			break;
 		}
-		case 19: {
+		case ITEM_INFO_RANGE: {
 			int base;
-			template_info->Get_Int(19, &base);
+			template_info->Get_Int(ITEM_INFO_RANGE, &base);
 			int level = 1;
 			int actual = base;
-			if (info->Has_Field(19)) {
-				info->Get_Int(19, &actual);
+			if (info->Has_Field(ITEM_INFO_RANGE)) {
+				info->Get_Int(ITEM_INFO_RANGE, &actual);
 				if (base <= actual) {
 					level = 2;
 				} else {
@@ -437,13 +437,13 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 20: {
+		case ITEM_INFO_RECHARGE: {
 			float base;
-			template_info->Get_Float(20, &base);
+			template_info->Get_Float(ITEM_INFO_RECHARGE, &base);
 			int level = 1;
 			float actual = base;
-			if (info->Has_Field(20)) {
-				info->Get_Float(20, &actual);
+			if (info->Has_Field(ITEM_INFO_RECHARGE)) {
+				info->Get_Float(ITEM_INFO_RECHARGE, &actual);
 				if (base <= actual) {
 					level = 2;
 				} else {
@@ -454,13 +454,13 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 21: {
+		case ITEM_INFO_RELOAD_TIME: {
 			float base;
-			template_info->Get_Float(21, &base);
+			template_info->Get_Float(ITEM_INFO_RELOAD_TIME, &base);
 			float actual = base;
 			int level = 1;
-			if (info->Has_Field(21)) {
-				info->Get_Float(21, &actual);
+			if (info->Has_Field(ITEM_INFO_RELOAD_TIME)) {
+				info->Get_Float(ITEM_INFO_RELOAD_TIME, &actual);
 				if (base <= actual) {
 					level = 2;
 				} else {
@@ -471,13 +471,13 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 22: {
+		case ITEM_INFO_ROUNDS_FIRED: {
 			int base;
-			template_info->Get_Int(22, &base);
+			template_info->Get_Int(ITEM_INFO_ROUNDS_FIRED, &base);
 			int level = 1;
 			int actual = base;
-			if (info->Has_Field(22)) {
-				info->Get_Int(22, &actual);
+			if (info->Has_Field(ITEM_INFO_ROUNDS_FIRED)) {
+				info->Get_Int(ITEM_INFO_ROUNDS_FIRED, &actual);
 				if (base <= actual) {
 					level = 2;
 				} else {
@@ -488,9 +488,9 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 23: {
+		case ITEM_INFO_SHIELD_USE: {
 			float base = 0.0f;
-			bool ok = template_info->Get_Float(23, &base);
+			bool ok = template_info->Get_Float(ITEM_INFO_SHIELD_USE, &base);
 
 
 
@@ -521,8 +521,8 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			G_ASSERT(ok);
 			float actual = base;
 			int level = 1;
-			if (info->Has_Field(23)) {
-				ok = info->Get_Float(23, &actual);
+			if (info->Has_Field(ITEM_INFO_SHIELD_USE)) {
+				ok = info->Get_Float(ITEM_INFO_SHIELD_USE, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -535,17 +535,17 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 24: {
+		case ITEM_INFO_CAPACITY: {
 			int base = 0;
-			bool ok = template_info->Get_Int(24, &base);
+			bool ok = template_info->Get_Int(ITEM_INFO_CAPACITY, &base);
 
 
 
 			G_ASSERT(ok);
 			int level = 1;
 			int actual = base;
-			if (info->Has_Field(24)) {
-				ok = info->Get_Int(24, &actual);
+			if (info->Has_Field(ITEM_INFO_CAPACITY)) {
+				ok = info->Get_Int(ITEM_INFO_CAPACITY, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -558,17 +558,17 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 25: {
+		case ITEM_INFO_SHIELD_DRAIN: {
 			float base = 0.0f;
-			bool ok = template_info->Get_Float(25, &base);
+			bool ok = template_info->Get_Float(ITEM_INFO_SHIELD_DRAIN, &base);
 
 
 
 			G_ASSERT(ok);
 			float actual = base;
 			int level = 1;
-			if (info->Has_Field(25)) {
-				ok = info->Get_Float(25, &actual);
+			if (info->Has_Field(ITEM_INFO_SHIELD_DRAIN)) {
+				ok = info->Get_Float(ITEM_INFO_SHIELD_DRAIN, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -581,13 +581,13 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 26: {
+		case ITEM_INFO_SHIELD_RECHARGE: {
 			float base;
-			template_info->Get_Float(26, &base);
+			template_info->Get_Float(ITEM_INFO_SHIELD_RECHARGE, &base);
 			int level = 1;
 			float actual = base;
-			if (info->Has_Field(26)) {
-				info->Get_Float(26, &actual);
+			if (info->Has_Field(ITEM_INFO_SHIELD_RECHARGE)) {
+				info->Get_Float(ITEM_INFO_SHIELD_RECHARGE, &actual);
 				if (base <= actual) {
 					level = 2;
 				} else {
@@ -598,18 +598,18 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 28: {
+		case ITEM_INFO_ACTIVATE_SKILL_LEVEL: {
 			int unknown = 1;
 			std::string skill;
-			template_info->Get_String(27, skill);
-			template_info->Get_Int(28, &unknown);
+			template_info->Get_String(ITEM_INFO_ACTIVATE_SKILL, skill);
+			template_info->Get_Int(ITEM_INFO_ACTIVATE_SKILL_LEVEL, &unknown);
 			RefCountPtr<ClientItemPropertySpecialClass> property = ClientItemPropertySpecialSkillRequirementClass::Create(SpaceClient, skill, unknown, ClientItemPropertySpecialSkillRequirementClass::REQUIRED_TO_ACTIVATE);
 			router.Route(property);
 			break;
 		}
-		case 29: {
+		case ITEM_INFO_SIGNATURE: {
 			int base = 0;
-			bool ok = template_info->Get_Int(29, &base);
+			bool ok = template_info->Get_Int(ITEM_INFO_SIGNATURE, &base);
 
 
 
@@ -628,8 +628,8 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			G_ASSERT(ok);
 			int actual = base;
 			int level = 1;
-			if (info->Has_Field(29)) {
-				ok = info->Get_Int(29, &actual);
+			if (info->Has_Field(ITEM_INFO_SIGNATURE)) {
+				ok = info->Get_Int(ITEM_INFO_SIGNATURE, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -642,9 +642,9 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 31: {
+		case ITEM_INFO_THRUST: {
 			int base = 0;
-			bool ok = template_info->Get_Int(31, &base);
+			bool ok = template_info->Get_Int(ITEM_INFO_THRUST, &base);
 
 
 
@@ -655,8 +655,8 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			G_ASSERT(ok);
 			int actual = base;
 			int level = 1;
-			if (info->Has_Field(31)) {
-				ok = info->Get_Int(31, &actual);
+			if (info->Has_Field(ITEM_INFO_THRUST)) {
+				ok = info->Get_Int(ITEM_INFO_THRUST, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -669,9 +669,9 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 32: {
+		case ITEM_INFO_TRADE_LEVEL: {
 			int trade_level_required;
-			template_info->Get_Int(32, &trade_level_required);
+			template_info->Get_Int(ITEM_INFO_TRADE_LEVEL, &trade_level_required);
 
 
 
@@ -682,16 +682,16 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 33: {
+		case ITEM_INFO_WARP: {
 			int base = 0;
-			bool ok = template_info->Get_Int(33, &base);
+			bool ok = template_info->Get_Int(ITEM_INFO_WARP, &base);
 
 
 			G_ASSERT(ok);
 			int actual = base;
 			int level = 1;
-			if (info->Has_Field(33)) {
-				ok = info->Get_Int(33, &actual);
+			if (info->Has_Field(ITEM_INFO_WARP)) {
+				ok = info->Get_Int(ITEM_INFO_WARP, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -704,17 +704,17 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 34: {
+		case ITEM_INFO_WARP_DRAIN: {
 			float base = 0.0f;
-			bool ok = template_info->Get_Float(34, &base);
+			bool ok = template_info->Get_Float(ITEM_INFO_WARP_DRAIN, &base);
 
 
 
 			G_ASSERT(ok);
 			int level = 1;
 			float actual = base;
-			if (info->Has_Field(34)) {
-				ok = info->Get_Float(34, &actual);
+			if (info->Has_Field(ITEM_INFO_WARP_DRAIN)) {
+				ok = info->Get_Float(ITEM_INFO_WARP_DRAIN, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -727,9 +727,9 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 35: {
+		case ITEM_INFO_MODES: {
 			int mode_flags = 0;
-			bool ok = template_info->Get_Int(35, &mode_flags);
+			bool ok = template_info->Get_Int(ITEM_INFO_MODES, &mode_flags);
 
 
 
@@ -747,9 +747,9 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			}
 			break;
 		}
-		case 36: {
+		case ITEM_INFO_BUILD_VALUE: {
 			float base = 0.0f;
-			bool ok = template_info->Get_Float(36, &base);
+			bool ok = template_info->Get_Float(ITEM_INFO_BUILD_VALUE, &base);
 
 
 
@@ -767,8 +767,8 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			G_ASSERT(ok);
 			float actual = base;
 			int level = 1;
-			if (info->Has_Field(36)) {
-				ok = info->Get_Float(36, &actual);
+			if (info->Has_Field(ITEM_INFO_BUILD_VALUE)) {
+				ok = info->Get_Float(ITEM_INFO_BUILD_VALUE, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -781,17 +781,17 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 			router.Route(property);
 			break;
 		}
-		case 37: {
+		case ITEM_INFO_CRITICAL: {
 			float base = 0.0f;
-			bool ok = template_info->Get_Float(37, &base);
+			bool ok = template_info->Get_Float(ITEM_INFO_CRITICAL, &base);
 
 
 
 			G_ASSERT(ok);
 			float actual = base;
 			int level = 1;
-			if (info->Has_Field(37)) {
-				ok = info->Get_Float(37, &actual);
+			if (info->Has_Field(ITEM_INFO_CRITICAL)) {
+				ok = info->Get_Float(ITEM_INFO_CRITICAL, &actual);
 
 				G_ASSERT(ok);
 			}
@@ -812,7 +812,7 @@ void ClientItemPropertyBuilderClass::Unknown_522860(UIItemExaminationPropertyRou
 // NOT EXACT: 0x527F40 (0.78: the same code; the client pushes esi at entry, ours after the FAIL_IF, and its frame is 8 bytes bigger)
 void ClientItemPropertyBuilderClass::Unknown_527F40(UIItemExaminationPropertyRouterBaseClass &router)
 {
-	const RefCountPtr<ItemBaseInfoClass> &template_info = Item->Get_Template_Info();
+	const RefCountPtr<ItemInfoClass> &template_info = Item->Get_Template_Info();
 
 
 	FAIL_IF(!template_info) return;

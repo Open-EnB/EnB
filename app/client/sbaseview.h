@@ -171,8 +171,13 @@ public:
 	~UIStarbaseUnknownCCClass();	// 0x632E50
 	int Unknown00;					// +0x00  // NAME 1: neutral
 	RefCountPtr<CharacterViewAvatarClass> Avatar;	// +0x04 (0x63BDB0 / 0x63C080 / 0x63D2F0)  // NAME 1: what it holds
-	RefCountPtr<Unknown78A910AvatarClass> Unknown08;	// +0x08 (0x63D2F0)  // NAME 1: neutral
-	RefCountPtr<FontSys> Unknown0C, Unknown10;	// +0x0C (the destructor removes both; 0x634140: the view's 0x6A1880 makes +0x0C a NameText_SBASE, +0x10 a GuildText_SBASE)
+	bool Unknown_633010();			// 0x633010 (no caller: +0x18's bits 1-5, or the avatar's path not empty)
+	void Unknown_633040();			// 0x633040 (no caller: +0x20 counted down by the frame time; at 0 the name tag's text back)
+	void Unknown_6330E0(const Vector3 &color);	// 0x6330E0 (no caller: the name tag '.....' in the colour for 2 seconds)  // NAME 1 [color]: what it sets
+	void Unknown_633180();			// 0x633180 (the name tag's and +0x10's texts: 0x6366A0, 0x63CA50)
+	RefCountPtr<Unknown78A910AvatarClass> AmbientAvatar;	// +0x08 (0x63D2F0)  // NAME 3: 0x633180's FAIL_IF '!Avatar && !AmbientAvatar'
+	RefCountPtr<FontSys> NameTag;	// +0x0C (the destructor removes it; 0x634140: the view's 0x6A1880 makes it a NameText_SBASE)  // NAME 3: 0x633180's FAIL_IF '!NameTag'
+	RefCountPtr<FontSys> Unknown10;	// +0x10 (the destructor removes it; 0x634140: a GuildText_SBASE)
 	GadgetClass *Unknown14;			// +0x14 (the destructor's GadgetClass::Destroy)
 	int Unknown18;					// +0x18 (0x6437A0 hands it to 0x63CA50 again)
 	int Unknown1C;					// +0x1C
@@ -276,6 +281,16 @@ public:
 	Unknown78A910AvatarClass *Unknown_642740(StarbaseNPCClass *npc);	// 0x642740 (0x634140: an NPC slot's starbase avatar)  // NAME 1 [npc]: neutral
 	void Unknown_640360(); void Unknown_6415B0(); void Unknown_6417D0(); void Unknown_6418F0(); void Unknown_641C00();	// 0x640360 (the hangar's ship model and its gadget, rebuilt when +0x18C is set), 0x6415B0 (the arrival: the ship on 'ship', the room's '-in' or '-tele' animation), 0x6417D0 (the teleport effect 0x30E on +0x190), 0x6418F0 (+0x190 made for the ship), 0x641C00 (the avatar kept 5 units from the NPC avatars)
 	bool Unknown_641EB0(UIStarbaseUnknownCCClass *savatar);	// 0x641EB0 (the avatar's id among the five GroupInfo members)  // NAME 1 [savatar]: as the FAIL_IFs'
+	void Unknown_63AAF0();	// 0x63AAF0 (0x638390's frame: the avatars' per-frame update, the own avatar's step kept clear of the model)
+	void Unknown_63B310();	// 0x63B310 (0x638390's frame: the camera after the own avatar)
+	bool Unknown_63BA70(RenderObjClass *a, RenderObjClass *b, float radius);	// 0x63BA70 (no caller: two objects within 3 units, 0x831E90)  // NAME 1 [a, b, radius]: neutral
+	void Unknown_63BC30(RefCountPtr<CharacterViewAvatarClass> &avatar);	// 0x63BC30 (0x63AAF0: the step retried 10 times against the model, else back to +0x1EC)  // NAME 1 [avatar]: neutral
+	void Unknown_63C4B0(RenderObjClass *obj, const char *bone);	// 0x63C4B0 (no caller: obj added to the scene on the mesh's bone)  // NAME 1 [obj, bone]: neutral
+	void Unknown_63C590();	// 0x63C590 (0x638390's frame: the four doors +0x118 opened or closed by an avatar within 3 units, '%sbar06.%sbar06-1' and the door sounds)
+	void Unknown_63C890();	// 0x63C890 ('(%s) Clearing avatar %s from room %d': every entry of +0xD4 deleted, the table cleared)
+	void Unknown_63DCD0(int facility);	// 0x63DCD0 (the own avatar turned to face facility's model +0x108)  // NAME 3 [facility]: its FAIL_IF's
+	UIStarbaseUnknownCCClass *Unknown_63D280(unsigned int id);	// 0x63D280 (no caller: the entry of +0xD4 with this id)  // NAME 1 [id]: neutral
+	Matrix3D Unknown_63E930(const Matrix3D &tm);	// 0x63E930 (0x63B310: the camera transform pulled in against the model)  // NAME 1 [tm]: neutral
 	void Unknown_641B00(); void Unknown_641B70();	// 0x641B00 (+0x214..+0x21A, +0x1B3 cleared), 0x641B70 (refilled by the view's 0x6A2430): as 0x63BDB0 / 0x63C080 have them
 };
 
@@ -323,17 +338,17 @@ struct SBaseViewChannelStruct	// NAME 1: neutral (D10)
 	float Frame;	// +0x0C  // NAME 2: what it holds
 	bool Backward;	// +0x10: played from the last frame down  // NAME 2: what it does
 };
-// the starbase view's +0x1F4 (0x4C bytes: the view is 0x240, SClient 0x74B680)
-class SBaseViewUnknown1F4Class	// NAME 1: neutral (D10): 0x441A50, starbasesound.cpp's neighbourhood
-{
-public:
-	SBaseViewUnknown1F4Class(int arg);	// 0x441910 (the view's constructor passes its second argument)  // NAME 1 [arg]: neutral
-	~SBaseViewUnknown1F4Class();	// 0x4419B0
-	void Unknown_441A50(int arg);	// 0x441A50  // NAME 1 [arg]: what 0x6A2480 passes
-	void Unknown_441A30(int index);	// 0x441A30 (the starbase view's 0x69D030 passes its index)  // NAME 1 [index]: what 0x69D030 passes
-	void Unknown_441A90(int a, int b);	// 0x441A90 (0x69C8F0: the client's +0x10BC, the starbase interface's +0x84)  // NAME 1 [a, b]: neutral
-	int Unknown00[0x4C / 4];	// +0x00 (0x441910 stores dwords up to +0x48)
-};
+#include "..\audio\starbasesound.h"	// StarbaseSoundClass: the starbase view's +0x1F4 (0x4C bytes: the view is 0x240, SClient 0x74B680)
+
+
+
+
+
+
+
+
+
+
 class SBaseViewClass : public Unknown65B810ViewClass	// NAME 3: class-from-file (D24) for app\client\sbaseview.cpp
 {
 public:
@@ -436,7 +451,7 @@ public:
 	Vector3 Unknown1D4;	// +0x1D4 (six zero dwords: as two Vector3s the constructor stores them before the +0x1F4 call, as the client)  // NAME 1 [Unknown1D4]: neutral; the type from the store order only
 	Vector3 Unknown1E0;	// +0x1E0  // NAME 1 [Unknown1E0]: neutral; as Unknown1D4
 	bool Unknown1EC; bool Unknown1ED; bool Unknown1EE; bool Unknown1EF; bool Unknown1F0;	// +0x1EC..+0x1F0 (0x6A23E0 / 0x6A2430)
-	SBaseViewUnknown1F4Class Unknown1F4;	// +0x1F4 (0x6A2480)
+	StarbaseSoundClass StarbaseSound;	// +0x1F4: the rooms' ambient sounds (0x6A2480 resets it)  // NAME 2: what it holds
 };
 
 /*

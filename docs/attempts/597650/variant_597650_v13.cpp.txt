@@ -30,7 +30,7 @@ void UIGroupClass::Unknown_597650()
 		button = Ask_Question(View, "GROUP_LEAVE");
 		if (button) {
 			if (button == 1) {
-				if (((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D690()) {
+				if (((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D690()) {
 					((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 13, ((ClientClass *)Client)->AvatarID, 0));
 				} else {
 					((ClientClass *)Client)->Send_Packet(&ActionPacketClass(((ClientClass *)Client)->AvatarID, 14, ((ClientClass *)Client)->AvatarID, 0));

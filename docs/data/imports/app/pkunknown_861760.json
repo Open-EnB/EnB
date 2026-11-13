@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the send-only opcode 30002's object, 0x861760-0x861B00 (no assert: the file name provisional, NAME 1): written by hand (builder P5)",
  "expected": {},
@@ -22,7 +20,8 @@
   "0x861980",
   "0x861A90",
   "0x861AB0",
-  "0x861AE0"
+  "0x861AE0",
+  "0x861B00"
  ],
  "merged": [],
  "name": "packets/pkunknown_861760.cpp",

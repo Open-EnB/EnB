@@ -1,4 +1,4 @@
-"""Link check (pipeline-plan §4 item 6b): build app.lib in a tree, link the POC and clienttest there, and refuse on a
+"""Link check (pipeline-plan §4 item 6b): build app.lib in a tree, link the three programs there, and refuse on a
 duplicate definition or an unresolved symbol the baseline does not list.
 
     python tools/vc6/linkgate.py check [--tree DIR] [--pool K] [--lib X ...] [--write-baseline]
@@ -10,8 +10,11 @@ from pool.py (vc6lock.pool_lease, released afterwards; default 1):
      the tree's own;
   3. `build.py link --program clientpoc --no-deploy` (its gen_stubs second pass and /force:unresolved as always; the
      POC's release folder is not touched);
-  4. `clienttest.py build` (with its own gen_stubs pass).
-Each step logs to LOG.<step>.log. Then judge() reads build/programs/{clientpoc,clienttest}/summary.json: refused on
+  4. `clienttest.py build` (with its own gen_stubs pass);
+  5. `udpreplay.py build` (app\wwudp and the connection sources compiled into the program, against the tree's
+     libraries; D244, P-H1-1: a landing that breaks udpreplay's link is refused like one that breaks the POC's).
+Each step logs to LOG.<step>.log. Then judge() reads build/programs/{clientpoc,clienttest,udpreplay}/summary.json:
+refused on
 a compile error, any LNK2005 / LNK1169 (a duplicate definition), an unresolved symbol (mangled name; after the
 gen_stubs pass, i.e. what gen_stubs cannot write) not in BASELINE, or no exe. Symbols of the baseline that are gone
 are printed (update it with --write-baseline).
@@ -31,13 +34,13 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 TREE = os.path.dirname(os.path.dirname(HERE))
 BASELINE = 'tools/vc6/link_baseline.json'
-PROGRAMS = ('clientpoc', 'clienttest')
-TOUCH = ('app/', 'stubs/', 'programs/clientpoc/', 'tests/clienttest/')
+PROGRAMS = ('clientpoc', 'clienttest', 'udpreplay')
+TOUCH = ('app/', 'stubs/', 'programs/clientpoc/', 'tests/clienttest/', 'tests/udpreplay/')
 DUPLICATE = ('LNK2005', 'LNK1169')
 
 
 def touches(paths):
-    """Whether any of PATHS is one the link depends on (the app, the stubs, the two programs' sources)."""
+    """Whether any of PATHS is one the link depends on (the app, the stubs, the three programs' sources)."""
     return any(p.replace('\\', '/').startswith(TOUCH) for p in paths)
 
 
@@ -116,11 +119,12 @@ def steps(tree, libs):
     build = [py, 'tools/vc6/build.py', 'build', '--allow-dirty'] + [x for lib in ['app', *libs] for x in ('--lib', lib)]
     return [('build', build),
             ('clientpoc', [py, 'tools/vc6/build.py', 'link', '--program', 'clientpoc', '--no-deploy']),
-            ('clienttest', [py, 'tools/harness/clienttest.py', 'build'])]
+            ('clienttest', [py, 'tools/harness/clienttest.py', 'build']),
+            ('udpreplay', [py, 'tools/harness/udpreplay.py', 'build'])]
 
 
 def run(tree, libs=(), pool=1, log=None, runner=None):
-    """The build and the two links in TREE (on POOL leased VMs; 0: the hosts already set); {program: summary or
+    """The build and the three links in TREE (on POOL leased VMs; 0: the hosts already set); {program: summary or
     None}. RUNNER(args, cwd, logfile) -> returncode (tests stub it)."""
     log = log or os.path.join(tree, '.work', 'linkgate')
     runner = runner or _run_logged

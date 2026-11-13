@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 76 written by hand (builder P4), client 0x89CAF0-0x89CD80; the file name provisional (NAME 1)",
  "expected": {},
@@ -20,7 +18,8 @@
   "0x89CBB0",
   "0x89CC50",
   "0x89CD20",
-  "0x89CD40"
+  "0x89CD40",
+  "0x89CD80"
  ],
  "merged": [],
  "name": "packets/pkmodechange.cpp",

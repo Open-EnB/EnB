@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 30025) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the client's file (its asserts' __FILE__; renamed from pkunknown_* under D95(c))",
  "expected": {},
@@ -43,7 +41,8 @@
   "0x8615D0",
   "0x8616C0",
   "0x8616E0",
-  "0x861710"
+  "0x861710",
+  "0x861730"
  ],
  "merged": [],
  "name": "packets/gameedit/pkgeplan.cpp",

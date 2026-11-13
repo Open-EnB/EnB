@@ -15,7 +15,7 @@
 #include "..\packets\pkitemba.h"
 
 // 0x831340
-Unknown831340Class::Unknown831340Class(int a, int b, int c, const RefCountPtr<ItemBaseInfoClass> &d, int e, int f, int g, int h, int i, int j, int k, int l,
+Unknown831340Class::Unknown831340Class(int a, int b, int c, const RefCountPtr<ItemInfoClass> &d, int e, int f, int g, int h, int i, int j, int k, int l,
 	const std::string &name, const std::string &m, const std::string &n) :
 	ItemTemplateID(a),
 	Category(b),
@@ -34,7 +34,7 @@ Unknown831340Class::Unknown831340Class(int a, int b, int c, const RefCountPtr<It
 	Info(d)
 {
 	if (!Info) {
-		Info = Create_NEW(new ItemBaseInfoClass);
+		Info = Create_NEW(new ItemInfoClass);
 	}
 	if (f != -1) {
 		static INIClass ini("basset.ini");

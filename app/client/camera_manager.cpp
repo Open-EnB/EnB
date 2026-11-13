@@ -97,7 +97,7 @@ CameraManagerClass::~CameraManagerClass()
 // 0x7992F0
 void CameraManagerClass::Unknown_7992F0()
 {
-	if (Client->Unknown_18() && ((SClient *)Client->Unknown_18())->Unknown_750B60()) {
+	if (Client->As_Space_Client() && ((SClient *)Client->As_Space_Client())->Unknown_750B60()) {
 		return;
 	}
 	if (Client->LoadingView) {
@@ -113,7 +113,7 @@ void CameraManagerClass::Unknown_7992F0()
 // 0x7993E0
 void CameraManagerClass::Unknown_7993E0()
 {
-	if (Client->Unknown_18() && ((SClient *)Client->Unknown_18())->Unknown_750B60()) {
+	if (Client->As_Space_Client() && ((SClient *)Client->As_Space_Client())->Unknown_750B60()) {
 		return;
 	}
 	if (Client->LoadingView) {

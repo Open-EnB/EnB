@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "Unknown763E00Class's declaration (provisional header beside unknown_763e00.cpp; client.h keeps its own layout-equal declaration: changing client.h moves nav_list_builder's 0x7B7EF0 off exact) (RS1)"
+ "description": "RSLRegistryClass's declaration (provisional header beside unknown_763e00.cpp; client.h keeps its own layout-equal declaration: changing client.h moves nav_list_builder's 0x7B7EF0 off exact) (RS1)"
 }

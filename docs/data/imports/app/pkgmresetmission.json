@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "opcode 237 (GM Reset Mission) written by hand (builder P4, 6 of 6 exact in appfile.py match), client 0x871A30-0x871F40; the file name provisional (NAME 1)",
@@ -23,7 +22,8 @@
   "0x871D80",
   "0x871DF0",
   "0x871EE0",
-  "0x871F00"
+  "0x871F00",
+  "0x871F40"
  ],
  "merged": [],
  "name": "packets/pkgmresetmission.cpp",

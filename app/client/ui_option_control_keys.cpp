@@ -33,16 +33,16 @@ public:
 // The buttons Unknown_54 makes, ids 1-11 (0xB82F58)
 static const char *Unknown_B82F58[CONTROL_KEYS_ROWS] = { "exit", "BUTTON03", "BUTTON00", "BUTTON01", "BUTTON02", "TOP_BUTTON00", "TOP_BUTTON01", "TOP_BUTTON02", "TOP_BUTTON03", "TOP_BUTTON04", "TOP_BUTTON05" };	// NAME 1: neutral (D10)
 
-// kernel.h's input event, as ui_option_main.cpp's (Unknown_54's Escape)
-struct UIOptionControlKeysKeyEventStruct	// NAME 1: neutral (D10)
-{
-	UIOptionControlKeysKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+// kernel.h's input event (KernelEventClass), as ui_option_main.cpp's (Unknown_54's Escape)
+
+
+
+
+
+
+
+
+
 
 static int Unknown_BE5D1C;								// 0xBE5D1C (Set_Key_Text: the buttons' width, measured once)  // NAME 1: neutral (D10)
 
@@ -80,7 +80,7 @@ UIOptionControlKeysClass::~UIOptionControlKeysClass()
 void UIOptionControlKeysClass::Unknown_54()
 {
 	if (Unknown_98("tsi31a", "tsi31a.ini")) {
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIOptionControlKeysKeyEventStruct(0x1B), (void *)1);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 		std::string text;
 		for (int i = 0; i < CONTROL_KEYS_ROWS; i++) {
 			int id = i + 1;								// NAME 1: neutral (D10)
@@ -164,7 +164,7 @@ void UIOptionControlKeysClass::Unknown_54()
 void UIOptionControlKeysClass::Unknown_58()
 {
 	if (!Active) {
-		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->Unknown_18());
+		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 		FAIL_IF(!key_manager) return;
 		ChatPanelUIBase::Unknown_58();
 	}
@@ -188,7 +188,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 {
 	if (DialogBoxUI) return(true);
 
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (key == 14) return(true);
 
@@ -208,7 +208,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 
 
 
-	ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->Unknown_18());
+	ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 	FAIL_IF(!key_manager) return(true);
 	if (key != 13) {
 		SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
@@ -320,7 +320,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 void UIOptionControlKeysClass::Unknown_60()
 {
 	if (EditKey && !DialogBoxUI && !KeyPress->Unknown_60()) {
-		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->Unknown_18());
+		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 		FAIL_IF(!key_manager) return;
 		KernelEventClass &event = KeyPress->Event;		// NAME 1: neutral (D10)
 		bool allowed = true;							// NAME 1: neutral (D10)
@@ -345,7 +345,7 @@ void UIOptionControlKeysClass::Unknown_60()
 		if (allowed) {
 			int set = EditPrimary ? 0 : 1;				// NAME 3: control_keys_manager.cpp's 'set'
 			if (event.Key == 0x1B && (event.Flags & 0x700) == 0) {
-				ControlKeyComboStruct combo = *(ControlKeyValueStruct *)&EditKey->Keys[set];	// NAME 1: neutral (D10)
+				KernelEventClass combo = *(ControlKeyValueStruct *)&EditKey->Keys[set];	// NAME 1: neutral (D10)
 				if (combo.Key == 0) {
 					EditKey = NULL;
 					allowed = false;
@@ -431,7 +431,7 @@ void UIOptionControlKeysClass::Unknown_60()
 		int button = DialogBoxUI->Unknown_5890B0(DialogBoxID);	// NAME 1: tsk_login.h's
 		if (button) {
 			if (button == 1 && EditKey) {
-				ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->Unknown_18());
+				ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 
 
 
@@ -465,7 +465,7 @@ void UIOptionControlKeysClass::Unknown_60()
 // 0x5CB8F0
 void UIOptionControlKeysClass::Set_Context(int context)
 {
-	ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->Unknown_18());
+	ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 	FAIL_IF(!key_manager) return;
 	Context = context;
 	key_manager->Find_Mappings(&CurrentKeys, context);
@@ -585,7 +585,7 @@ bool UIOptionControlKeysClass::Show_Dialog_Box(const char *dialog_name, const ch
 {
 	FAIL_IF(!dialog_name) return(false);
 
-	SClient *sclient = Client ? (SClient *)((ClientClass *)Client)->Unknown_18() : NULL;
+	SClient *sclient = Client ? (SClient *)((ClientClass *)Client)->As_Space_Client() : NULL;
 	FAIL_IF(!sclient) return(false);
 	FAIL_IF(!sclient->CurrentView) return(false);
 

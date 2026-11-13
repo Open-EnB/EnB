@@ -46,7 +46,7 @@ A job takes its VMs from `ENB_VC6_HOSTS=<user>@<ip>[,...]` (printed by `pool.py 
 | `build.py [--pool K] [--lib X]... [--out DIR] [--allow-dirty] [--root DIR]` | Build each library of the tree into DIR/<lib>/<lib>.lib (L1); refuses a dirty library unless `--allow-dirty`; never assembles. Every build.py command refuses a cwd outside the script's own tree (rootguard.py) |
 | `build.py unresolved [--out DIR] [--report FILE]` | External symbols no library defines, by library and cause |
 | `build.py link [--program vidtest] [--pool K] [--out DIR] [--no-deploy]` | Compile `programs/<name>` and `stubs/` and link against the libraries (L2); the test programs of `tools/harness` use this step. `--no-deploy`: the POC's exe is not copied to its release folder |
-| `linkgate.py check [--tree DIR] [--pool K] [--lib X ...] [--write-baseline]` | Pipeline-plan §4 item 6b, ~2-5 min: in DIR, `build.py build --lib app` (plus X), the POC linked (`--no-deploy`) and `clienttest.py build`; refuses on LNK2005 / LNK1169, a compile error, no exe, or an unresolved symbol not in `link_baseline.json` (the POC's 10 gen_stubs cannot write, recorded 2026-11-08; `--write-baseline` rewrites it from the run). `wt.py bring-over` runs it in its scratch worktree |
+| `linkgate.py check [--tree DIR] [--pool K] [--lib X ...] [--write-baseline]` | Pipeline-plan §4 item 6b, ~2-5 min: in DIR, `build.py build --lib app` (plus X), the POC linked (`--no-deploy`), `clienttest.py build` and `udpreplay.py build` (D244); refuses on LNK2005 / LNK1169, a compile error, no exe, or an unresolved symbol not in `link_baseline.json` (the POC's 10 gen_stubs cannot write, recorded 2026-11-08; `--write-baseline` rewrites it from the run). `wt.py bring-over` runs it in its scratch worktree |
 | `rootguard.py` (module) | D112(4): `check(__file__, a.root)` refuses (naming both) when the cwd's git tree (nearest `.git`: a worktree under .work/ is its own) is not the tree holding the script; `--root DIR` replaces the cwd test and must name that tree. Used by build.py, appfile.py draft/match, udpreplay.py, clienttest.py |
 | `mkmss32.py def` / `lib [--out DIR]` | Make `mss32.def` from the game's Mss32.dll exports, then the import library `mss32.lib` (D51) |
 | `mkauthlogin.py [--out DIR]` | Make `DIR/authlogin/authlogin.lib`, the import library of EA.Com's login component, from `authlogin.def` with VC6's `lib /def` (D90 9a; `build.py link` adds it when present) |
@@ -113,7 +113,7 @@ The pad sweeps (`sendpad.py`, `auxpad.py sweep`) take the lock per value by defa
 queue a sweep waits one round of every queued verify between two values. `--hold` takes it once, at the first
 value, and keeps it to the end of the sweep (given back on every exit, an exception or Ctrl-C included; the
 pool lease is released as before). `sendpad.py --first-window` tries the current pad first, then outward
-(cur, cur+1, cur-1, ...), and stops once a run of 3 or more full values has both neighbours known; the pad goes
+(cur, cur+1, cur-1, ...), and stops once a run of 2 or more full values (P-L18-4; 3 before) has both neighbours known; the pad goes
 to its middle (the full sweep's pick whenever that nearest run is the longest; with no such run it tries every
 value). `wt.py bring-over`'s retune passes `--hold --first-window` when the scratch tree's sendpad.py has them.
 

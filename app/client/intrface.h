@@ -57,28 +57,12 @@ class KeysSavedEvent;
 class ControlKeysManager;
 class GadgetGroupToFrontEvent;
 struct InterfaceKeyEntryStruct;
-struct ControlKeyComboStruct;
+
 struct InterfaceUnknown58EntryStruct;
 class RenderObjClass;
 class SceneClass;
 
-#ifndef __CONTROL_KEY_LIST_CLASS
-#define __CONTROL_KEY_LIST_CLASS
-// control_keys_manager.cpp's key list (InterfaceClass +0x4C, 0x0C bytes): control_keys_manager.h's ControlKeyListClass
-class ControlKeyListClass  // NAME 1: neutral (D10): the screen's key list Add_Keys / Remove_Keys fill ('keylist')
-{
-public:
-	ControlKeyListClass();																	// 0x721D50
-	~ControlKeyListClass();																	// 0x721D80
-	void Add(const ControlKeyComboStruct &combo, void *handler);							// 0x721E60
-	void Remove(const ControlKeyComboStruct &combo);										// 0x721EF0
-	void Unknown_721F40(LoginUnknown0CClass *dispatcher, RefCountClass *handler, InterfaceClass *iface);	// 0x721F40 (activated)  // NAME 1 [dispatcher, handler, iface]: what intrface.cpp passes
-	void Unknown_721F80(LoginUnknown0CClass *dispatcher, InterfaceClass *iface);			// 0x721F80 (deactivated)  // NAME 1 [dispatcher, iface]: what intrface.cpp passes
-
-	SList<InterfaceKeyEntryStruct> List;													// +0x00 (0x0C bytes)
-};
-typedef ControlKeyListClass InterfaceKeyListClass;
-#endif
+#include "control_key_list.h"	// ControlKeyListClass / InterfaceKeyListClass (+0x4C)
 
 // intrlist.cpp's (InterfaceClass +0x58, 0x0C bytes)
 class InterfaceUnknown58Class  // NAME 1: neutral (D10)

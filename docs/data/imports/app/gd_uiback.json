@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x46BE90"
  ],
  "copy": "reconstructed",
@@ -61,7 +60,8 @@
   "0x674D50",
   "0x674D70",
   "0x674DE0",
-  "0x674F00"
+  "0x674F00",
+  "0x674F60"
  ],
  "merged": [],
  "name": "client/gd_uiback.cpp",
@@ -124,8 +124,5 @@
   "0x6745D0",
   "0x674640",
   "0x674D50"
- ],
- "tiebreak": [
-  "0x674F00"
  ]
 }

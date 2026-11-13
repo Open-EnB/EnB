@@ -19,13 +19,13 @@
 #include "refcount.h"
 #include "ref_ptr.h"
 #include <string>
-#include "..\common\item_info.h"	// ItemBaseInfoClass
+#include "..\common\item_info.h"	// ItemInfoClass
 
 // opcode 37 (0x0025, ITEM_BASE): vtable 0xB0AE94, constructor 0x8955C0, 0x6C bytes
 class ItemBasePacketClass : public PacketClass  // NAME 3: the client's Print text 'Item_Base' and Net-7's ITEM_BASE
 {
 public:
-	ItemBasePacketClass(int item_template_id, int category, int subcategory, int item_type, const RefCountPtr<ItemBaseInfoClass> &info,
+	ItemBasePacketClass(int item_template_id, int category, int subcategory, int item_type, const RefCountPtr<ItemInfoClass> &info,
 		short game_basset, short icon_base_asset, short tech_level, int cost, int max_stack, unsigned int effect_usage, int flags,
 		const std::string &name, const std::string &unknown30, const std::string &unknown40, int channel);	// 0x895300
 	ItemBasePacketClass(RawPacketClass *raw);	// 0x8955C0
@@ -51,7 +51,7 @@ public:
 	short TechLevel;	// +0x5C  // NAME 3: the client's Print text 'TechLevel='
 	unsigned int EffectUsage;	// +0x60 (sent as an int, network order)  // NAME 3: the client's Print text 'EffectUsage='
 	int Flags;	// +0x64  // NAME 3: the client's Print text 'Flags='
-	RefCountPtr<ItemBaseInfoClass> Info;	// +0x68  // NAME 3: the client's FAIL_IF '!Info'
+	RefCountPtr<ItemInfoClass> Info;	// +0x68  // NAME 3: the client's FAIL_IF '!Info'
 };
 
 #endif

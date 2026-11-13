@@ -9,15 +9,15 @@
 
 class INIClass;
 
-class BridgeSoundManager : public AmbientSoundManager  // NAME 2: bridgesounds.cpp is the client's; class name assumed
+class BridgeSoundManagerClass : public AmbientSoundManagerClass  // NAME 3: class-from-file (D24) for audio/bridgesounds.cpp (P-L18-2)
 {
 public:
-	BridgeSoundManager();
-	~BridgeSoundManager();
+	BridgeSoundManagerClass();
+	~BridgeSoundManagerClass();
 	void Reset(int time);
 	void Play_Sounds(int channel, int time);  // NAME 2: function name assumed
-	void Stop_Sound(int channel);  // NAME 2: function name assumed
-	void Unknown_437070();  // 0x437070: AmbientSoundManager's 0x435FA0 with m_fade_out (bridge_int.cpp: the bridge left its scene)
+	void Update(int time);  // 0x436BD0: the base's Update 0x435AE0  // NAME 2: what it does
+	void Unknown_437070();  // 0x437070: AmbientSoundManagerClass's 0x435FA0 with m_fade_out (bridge_int.cpp: the bridge left its scene)
 	void Load_INI();  // NAME 2: function name assumed
 	void Load_Section(INIClass *ini, const char *section, int race);  // NAME 2: function name assumed
 

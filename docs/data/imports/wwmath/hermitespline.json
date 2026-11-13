@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x8D54B0"
- ],
+ "ambiguous": [],
  "best": "R",
  "copy": "R",
  "expected": {
@@ -32,6 +30,12 @@
   "0x6F23F0",
   "0x6F2490",
   "0x7186D0",
+  "0x8D5F50",
+  "0x8D5F70",
+  "0x8D5F80",
+  "0x8D5FA0",
+  "0x8D5FC0",
+  "0x8D5FD0",
   "0x8D5FF0",
   "0x8D60D0",
   "0x8D60F0",
@@ -56,10 +60,14 @@
   "0x8D6A80",
   "0x8D6A90",
   "0x8D6B20",
+  "0x8D6C20",
+  "0x8D6C30",
   "0x8D6C40",
+  "0x8D6CE0",
   "0x8D6D30",
   "0x8D6DD0",
-  "0x8D6DE0"
+  "0x8D6DE0",
+  "0x8D6E30"
  ],
  "merged": [],
  "name": "hermitespline.cpp",
@@ -85,6 +93,8 @@
   "0x6F23F0",
   "0x6F2490",
   "0x7186D0",
+  "0x8D6C20",
+  "0x8D6C30",
   "0x8D6DD0"
  ],
  "short_known": [
@@ -92,6 +102,8 @@
   "0x7186D0",
   "0x8D65F0",
   "0x8D6A80",
+  "0x8D6C20",
+  "0x8D6C30",
   "0x8D6DD0"
  ]
 }

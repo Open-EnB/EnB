@@ -52,9 +52,9 @@ ControlKeyListClass::~ControlKeyListClass()
 }
 
 // 0x721E60 (the entry's constructor is defined after it: defined before, VC6 knows it can't throw and drops the new's EH state)
-void ControlKeyListClass::Add(const ControlKeyComboStruct &combo, void *handler)
+void ControlKeyListClass::Add(const KernelEventClass &event, void *handler)
 {
-	List.Add_Head(new InterfaceKeyEntryStruct(*(const KernelEventClass *)&combo, (int)handler));
+	List.Add_Head(new InterfaceKeyEntryStruct(event, (int)handler));
 }
 
 #pragma auto_inline(off)
@@ -68,13 +68,13 @@ InterfaceKeyEntryStruct::InterfaceKeyEntryStruct(const KernelEventClass &event, 
 #pragma auto_inline(on)
 
 // 0x721EF0
-void ControlKeyListClass::Remove(const ControlKeyComboStruct &combo)
+void ControlKeyListClass::Remove(const KernelEventClass &event)
 {
 	SLNode<InterfaceKeyEntryStruct> *next;
 	for (SLNode<InterfaceKeyEntryStruct> *node = List.Head(); node != NULL; node = next) {
 		InterfaceKeyEntryStruct *entry = node->Data();
 		next = node->Next();
-		if (entry->Event.Key == combo.Key) {
+		if (entry->Event.Key == event.Key) {
 			List.Remove(entry);
 			delete entry;
 		}

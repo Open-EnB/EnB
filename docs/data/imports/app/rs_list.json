@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x45A750"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the render state list RenderStateListClass and the state maker Unknown45C430Class, client 0x45A2B0-0x45C9D9 and its template copies to 0x45D820 (__FILE__ e:\\build\\beta\\G\\app\\shared\\rs_list.cpp in its asserts, lines 198 215 226 625 656, D25): the INI readers, the lookups, the per-TYPE state makers, the constructors from rs.ini, a source list and nothing, the destructor, the global maker 0xBDC0A0 (RS1)",
  "expected": {},
@@ -9,6 +7,7 @@
   "0x42A100",
   "0x42F250",
   "0x457FA0",
+  "0x45A2B0",
   "0x45A2D0",
   "0x45A300",
   "0x45A340",
@@ -22,6 +21,8 @@
   "0x45A530",
   "0x45A6F0",
   "0x45A720",
+  "0x45A750",
+  "0x45A7E0",
   "0x45A870",
   "0x45A8F0",
   "0x45A970",

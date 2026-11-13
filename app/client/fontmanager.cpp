@@ -10,7 +10,7 @@ ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 	Name = object->Get_Name();
 	Id = object;
 	Unknown08 = 0;
-	for (std::hash_map<std::string, FontStringStruct *>::iterator it = Unknown_BE67B8->Strings.begin(); it != Unknown_BE67B8->Strings.end(); ++it) {
+	for (std::hash_map<std::string, FontStringStruct *>::iterator it = fontDatabase->Strings.begin(); it != fontDatabase->Strings.end(); ++it) {
 		FontStringStruct *def = it->second;
 		if (stricmp(def->RenderObj, Name) == 0) {
 			if (def->StringID[0] == 'W') {
@@ -24,7 +24,7 @@ ManagedFontClass::ManagedFontClass(RenderObjClass *object)
 
 ManagedFontClass::ManagedFontClass(const char *name, RenderObjClass *object)
 {
-	FontStringStruct *def = Unknown_BE67B8->Find_String(name);
+	FontStringStruct *def = fontDatabase->Find_String(name);
 	Styles.clear();
 	if (def) {
 		Unknown_6CF930(def, object);
@@ -50,7 +50,7 @@ void ManagedFontClass::Unknown_6CF930(FontStringStruct *def, RenderObjClass *obj
 		def->Text = " ";
 	}
 	float scale;
-	FontStruct *font = Unknown_BE67B8->Find_Font(def->FontType[0], scale);
+	FontStruct *font = fontDatabase->Find_Font(def->FontType[0], scale);
 	Name = object->Get_Name();
 	Id = object;
 	Unknown08 = 1;

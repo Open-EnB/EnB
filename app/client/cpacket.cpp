@@ -309,7 +309,7 @@ bool SubPartsPacket::Process_Packet(void *instance)
 bool AvatarDescPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("AvatarDescPacketClass::Process_Packet()");
-	((SClient *)((ClientClass *)instance)->Unknown_18())->Unknown_74C3B0(GameID, Desc);
+	((SClient *)((ClientClass *)instance)->As_Space_Client())->Unknown_74C3B0(GameID, Desc);
 	return(true);
 }
 
@@ -867,8 +867,8 @@ bool RemovePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("RemovePacketClass::Process_Packet()");
 	ClientClass *client = (ClientClass *)instance;
-	if (!((SClient *)client->Unknown_18())->Unknown_744B60()) {
-		((SClient *)client->Unknown_18())->Unknown_74C530(GameID);
+	if (!((SClient *)client->As_Space_Client())->Unknown_744B60()) {
+		((SClient *)client->As_Space_Client())->Unknown_74C530(GameID);
 	}
 	ClientObjectClass *object = client->Find_Object(GameID);
 	client->Remove_Object(GameID);
@@ -1081,18 +1081,18 @@ bool NameDecalPacketClass::Process_Packet(void *instance)
 
 
 
-// audio\musicmanager.cpp's class (sclient.cpp declares its other members)
-class MusicManagerClass
-{
-public:
-	void Unknown_43ADF0();	// 0x43ADF0 (CAMERA_CONTROL 146's case 5, after the 'Docking_Init' sound)
-};
+#include "..\audio\musicmanager.h"	// MusicManagerClass (SClient's MusicManager)
+
+
+
+
+
 
 // 0x739FF0 (placed here, out of address order, so that no assert line moves; the GameID locals put the id in the dead 'this' register as the client does)
 bool CameraControlPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("CameraControlPacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	switch (Message) {
 		case 0:
 			sclient->CameraManager->Unknown_79B2B0(0x0C);
@@ -1122,7 +1122,7 @@ bool CameraControlPacketClass::Process_Packet(void *instance)
 			sclient->Get_Ship()->Unknown_6FC880();
 			SoundLibraryClass::Play_2D_Sound("Docking_Init", 2);
 			if (sclient->MusicManager) {
-				sclient->MusicManager->Unknown_43ADF0();
+				sclient->MusicManager->Fade_Out();
 			}
 			break;
 		case 6:
@@ -1488,7 +1488,7 @@ bool ServerParametersPacketClass::Process_Packet(void *instance)
 bool ModeChangePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ModeChangePacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	switch (Mode) {
 		case 0:
 			sclient->Unknown_74B600();
@@ -1515,7 +1515,7 @@ bool ModeChangePacketClass::Process_Packet(void *instance)
 bool StarbaseSetPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("StarbaseSetPacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	switch (Action) {
 		case 0:
 			sclient->Unknown_74B680(0, StarbaseID);
@@ -1551,7 +1551,7 @@ bool StarbaseSetPacketClass::Process_Packet(void *instance)
 bool StarbaseTowPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("StarbaseTowPacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	sclient->Unknown_74B680(0, StarbaseID1);
 	return(true);
 }
@@ -1594,7 +1594,7 @@ bool SoundCommandPacketClass::Process_Packet(void *instance)
 bool LoungeNPCPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("LoungeNPCPacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown135C) {
 		((SBaseViewClass *)sclient->Unknown135C)->Unknown_6A0FD0(this);
 	}
@@ -1605,7 +1605,7 @@ bool LoungeNPCPacketClass::Process_Packet(void *instance)
 bool TalkTreePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("TalkTreePacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown1298) {
 		sclient->Unknown1298->Unknown_90(this);
 	}
@@ -1616,7 +1616,7 @@ bool TalkTreePacketClass::Process_Packet(void *instance)
 bool TalkTreeActionPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("TalkTreeActionPacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown1298) {
 		sclient->Unknown1298->Unknown_64D230(Action);
 	}
@@ -1819,8 +1819,8 @@ class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
 public:
 	virtual void Unknown_00(); virtual void Unknown_04();
-	virtual UIGadgetInterfaceClass *Unknown_08();	// +0x08 (GADGET 103)
-	virtual void Unknown_0C(); virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18();
+	virtual UIGadgetInterfaceClass *As_RObjGadget();	// +0x08 (GADGET 103)
+	virtual void As_RObjProxyGadget(); virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18();
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28();
 	virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38();
 	virtual void Unknown_3C();
@@ -1846,10 +1846,10 @@ public:
 bool GadgetPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("GadgetPacketClass::Process_Packet()");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	GadgetClass *gadget = ((GadgetListManagerClass *)sclient->Unknown1278)->Unknown_661940(Name);
 	FAIL_IF(!gadget) return(true);
-	UIGadgetInterfaceClass *iface = gadget->Unknown_08();
+	UIGadgetInterfaceClass *iface = gadget->As_RObjGadget();
 	if ((Function & 1) && iface) iface->Unknown_8C(true);
 	if ((Function & 2) && iface) iface->Unknown_8C(false);
 	if (Function & 4) gadget->Unknown_40(true);
@@ -1888,7 +1888,7 @@ bool GadgetPacketClass::Process_Packet(void *instance)
 bool ManufactureSetPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ManufactureSetPacketClass::Process_Packet(void * instance)");
-	((SClient *)((ClientClass *)instance)->Unknown_18())->Unknown1328 = ManufactureID;
+	((SClient *)((ClientClass *)instance)->As_Space_Client())->Unknown1328 = ManufactureID;
 	return(true);
 }
 
@@ -1896,7 +1896,7 @@ bool ManufactureSetPacketClass::Process_Packet(void *instance)
 bool ClickIndicatorPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ClickIndicatorPacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	FAIL_IF(!sclient) return(true);
 	ClientObjectClass *co = sclient->Find_Object(ObjID);
 
@@ -1920,7 +1920,7 @@ bool HullUpgradePacketClass::Process_Packet(void *instance)
 bool LootHulkPermissionPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("LootHulkPermissionPacketClass::Process_Packet()");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (!sclient->MainView) return(true);
 	UICpitClass *cpit = sclient->MainView->Cpit;
 	if (!cpit) return(true);
@@ -1987,7 +1987,7 @@ bool LootHulkPermissionPacketClass::Process_Packet(void *instance)
 bool OpenInterfacePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("OpenInterfacePacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (!sclient->MainView) return(true);
 	UICpitClass *cpit = sclient->MainView->Cpit; if (!cpit) return(true);
 	if (UIType) {
@@ -2004,7 +2004,7 @@ bool PlayerObjectRelationshipPacket::Process_Packet(void *instance)
 	WWPROFILE("PlayerObjectRelationshipPacket::Process_Packet(void * instance)");
 	ClientClass *client = (ClientClass *)instance;
 	FAIL_IF(!client) return(true);
-	SClient *sclient = (SClient *)client->Unknown_18();
+	SClient *sclient = (SClient *)client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(true);
 	Unknown_70CC40(sclient, this);
@@ -2018,7 +2018,7 @@ bool PlayerObjectReactionUpdatePacket::Process_Packet(void *instance)
 	WWPROFILE("PlayerObjectReactionUpdatePacket::Process_Packet(void * instance)");
 	ClientClass *client = (ClientClass *)instance;
 	FAIL_IF(!client) return(true);
-	SClient *sclient = (SClient *)client->Unknown_18();
+	SClient *sclient = (SClient *)client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(true);
 	Unknown_70CC90(sclient, this);
@@ -2032,7 +2032,7 @@ bool PlayerObjectIsAttackingUpdatePacket::Process_Packet(void *instance)
 	WWPROFILE("PlayerObjectIsAttackingUpdatePacket::Process_Packet(void * instance)");
 	ClientClass *client = (ClientClass *)instance;
 	FAIL_IF(!client) return(true);
-	SClient *sclient = (SClient *)client->Unknown_18();
+	SClient *sclient = (SClient *)client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(true);
 	Unknown_70CD50(sclient, this);
@@ -2046,7 +2046,7 @@ bool IncapacitanceDetailsPacket::Process_Packet(void *instance)
 	WWPROFILE("IncapacitanceDetailsPacket::Process_Packet(void * instance)");
 	ClientClass *client = (ClientClass *)instance;
 	FAIL_IF(!client) return(true);
-	SClient *sclient = (SClient *)client->Unknown_18();
+	SClient *sclient = (SClient *)client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(true);
 	sclient->CameraManager->Unknown_79B2B0(0x19);
@@ -2063,7 +2063,7 @@ bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *instance)
 	WWPROFILE("IncapacitanceRescueConfirmationPacket::Process_Packet(void * instance)");
 	ClientClass *client = (ClientClass *)instance;
 	FAIL_IF(!client) return(true);
-	SClient *sclient = (SClient *)client->Unknown_18();
+	SClient *sclient = (SClient *)client->As_Space_Client();
 
 	FAIL_IF(!sclient) return(true);
 	sclient->Print(5, "%s", Unknown0C.c_str());
@@ -2074,7 +2074,7 @@ bool IncapacitanceRescueConfirmationPacket::Process_Packet(void *instance)
 bool JobListPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("JobListPacketClass::Process_Packet()");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown135C) {
 		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
 		if (jobs) {
@@ -2088,7 +2088,7 @@ bool JobListPacketClass::Process_Packet(void *instance)
 bool JobDescriptionPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("JobDescriptionPacketClass::Process_Packet()");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown135C) {
 		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
 		if (jobs) {
@@ -2102,7 +2102,7 @@ bool JobDescriptionPacketClass::Process_Packet(void *instance)
 bool JobDeletePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("JobDeletePacketClass::Process_Packet()");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown135C) {
 		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
 		if (jobs) {
@@ -2116,7 +2116,7 @@ bool JobDeletePacketClass::Process_Packet(void *instance)
 bool JobAcceptReplyPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("JobAcceptReplyPacketClass::Process_Packet()");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	if (sclient->Unknown135C) {
 		RefCountPtr<UIJobsClass> jobs = ((SBaseViewClass *)sclient->Unknown135C)->Get_Jobs();
 		if (jobs) {
@@ -2163,7 +2163,7 @@ bool TradePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("TradePacketClass::Process_Packet(void * instance)");
 	ClientClass *client = (ClientClass *)instance;
-	SClient *sclient = (SClient *)client->Unknown_18();
+	SClient *sclient = (SClient *)client->As_Space_Client();
 	UIStarbaseClass *starbase = NULL;
 	UIPTradeClass *trade = NULL;
 	if (sclient->Unknown_744B60() && sclient->Unknown135C) {
@@ -2814,7 +2814,7 @@ bool MessageChatstreamPacketClass::Process_Packet(void *instance)
 bool FindMemberPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("FindMemberPacketClass::Process_Packet(void * instance)");
-	SClient *sclient = (SClient *)((ClientClass *)instance)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (panel == NULL || panel->Get_UnknownF8() == NULL) return(true);
 	UIChatPanelUnknownF890Class *find = ((UIChatPanelUnknownF8Class *)panel->Get_UnknownF8().Peek())->Unknown_90();

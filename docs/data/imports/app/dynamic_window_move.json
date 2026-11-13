@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x46BE90"
  ],
  "copy": "reconstructed",
@@ -41,7 +40,8 @@
   "0x51AE00",
   "0x51AE90",
   "0x51AEE0",
-  "0x51AF40"
+  "0x51AF40",
+  "0x51AF70"
  ],
  "merged": [],
  "name": "client/dynamic_window_move.cpp",
@@ -97,8 +97,5 @@
   "0x51ADA0",
   "0x51ADC0",
   "0x51ADE0"
- ],
- "tiebreak": [
-  "0x51AF40"
  ]
 }

@@ -28,6 +28,12 @@
 // client's pattern but for one const_iterator conversion, and Remove_All keeps Has out of line at its
 // first three removals (the last two expand it).
 //
+// P-L7-2 round (run 2026-11-12, builder C2, Opus): that constructor written on the tag's brace line
+// (the asserts keep their lines) with the dead reads all off, Get's off, Bind's off, Remove_All's off
+// too, and all on: none is better than the tree's form. Get's read off (or all on): shape, 30 calls vs
+// the client's 31 (edi pushed before the jne, one 0x7A0920 conversion short); Get's kept and Bind's off:
+// inline-budget (basic_string::assign called). The lead is spent.
+//
 // Forms that did not swap the two registers (all 41-43 objdiff rows, the same 10 real ones): the locals'
 // declaration order; 'void *' and reference locals in Make_Value_Map and Bind; the name as Bind's local
 // passed to Make_Value_Map (either parameter position); 'Types[name] = value_map = new ...'; an early

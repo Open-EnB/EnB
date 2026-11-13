@@ -55,7 +55,7 @@ public:
 
 // @0x50A850
 CtrnGadgetClass::CtrnGadgetClass(int x, int y, int width, int height, LineDisplayClientClass *client) :
-	InterfaceDeactivationGadgetClass(x, y, width, height, 0x1080),
+	RectangleGadgetClass(x, y, width, height, 0x1080),
 	Client(client),
 	Unknown44(true),
 	Unknown48(0),
@@ -66,7 +66,7 @@ CtrnGadgetClass::CtrnGadgetClass(int x, int y, int width, int height, LineDispla
 // @0x50AB30
 bool CtrnGadgetClass::Unknown_30(float x, float y)
 {
-	if (InterfaceDeactivationGadgetClass::Unknown_30(x, y)) {
+	if (RectangleGadgetClass::Unknown_30(x, y)) {
 		if (!Unknown44) return(true);
 		if (!Unknown_42EC60(0x12, 0) && (Unknown_42EC60(0x10, 0) || Unknown_42EC60(0x11, 0))) return(true);	// VK_MENU; VK_SHIFT, VK_CONTROL
 	}
@@ -127,7 +127,7 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 	Unknown48 = x;
 	Unknown4C = y;
 	if (shift || ctrl) {
-		SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 		sclient->Unknown12B0 = sclient->Unknown10BC;
 		sclient->Unknown12B4 = 0;
 	}
@@ -203,11 +203,11 @@ bool CtrnGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsi
 		}
 	}
 	Unknown_42ED20(0.5f, 0.5f);
-	((SClient *)((ClientClass *)Client)->Unknown_18())->Mouse->Unknown_5153B0();
+	((SClient *)((ClientClass *)Client)->As_Space_Client())->Mouse->Unknown_5153B0();
 	return(true);
 release:
 	((SClient *)Client)->CameraManager->Unknown28 = false;
-	((SClient *)((ClientClass *)Client)->Unknown_18())->Mouse->Unknown_515400();
+	((SClient *)((ClientClass *)Client)->As_Space_Client())->Mouse->Unknown_515400();
 	Unknown44 = true;
 	CtrnValueHolderClass<unsigned int> holder(Unknown_BE5F34, 1);
 	Unknown_6C();

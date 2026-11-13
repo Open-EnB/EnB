@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 134, 135) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -27,7 +25,8 @@
   "0x89C900",
   "0x89C9A0",
   "0x89CA70",
-  "0x89CA90"
+  "0x89CA90",
+  "0x89CAC0"
  ],
  "merged": [],
  "name": "packets/pkmissionforfeit.cpp",

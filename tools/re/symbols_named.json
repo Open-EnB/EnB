@@ -1373,5 +1373,113 @@
   "address": "0x6C6370",
   "symbol": "??0?$_Hashtable_const_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringFileStruct@@@2@@std@@QAE@ABU?$_Hashtable_iterator@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@@std@@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@U?$hash@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@U?$_Select1st@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PAUFontStringFileStruct@@@std@@@2@U?$equal_to@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@V?$allocator@PAUFontStringFileStruct@@@2@@1@@Z",
   "evidence": "the iterator -> const_iterator conversion of FontStringFilesClass's Files table: FontStringFilesClass::Load 0x6C52B0 calls it (0x6C534C, 0x6C5372) on what its call 0x6C5342 to hash_map<string, FontStringFileStruct *>::find returns; an 8-byte copy, ret 4; F2 2026-11-11"
+ },
+ {
+  "address": "0x50A8C0",
+  "symbol": "?As_RObjGadget@GadgetClass@@UAEPAVRObjGadgetClass@@XZ",
+  "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
+  "replaces": "?Unknown_08@GadgetClass@@UAEPAUGadgetUnknown08Struct@@XZ"
+ },
+ {
+  "address": "0x50A8E0",
+  "symbol": "?As_RObjProxyGadget@GadgetClass@@UAEPAVRObjProxyGadgetClass@@XZ",
+  "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
+  "replaces": "?Unknown_0C@GadgetClass@@UAEHXZ"
+ },
+ {
+  "address": "0x50A900",
+  "symbol": "?As_SlotDataGadget@GadgetClass@@UAEPAVSlotDataGadgetClass@@XZ",
+  "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
+  "replaces": "?Unknown_10@GadgetClass@@UAEHXZ"
+ },
+ {
+  "address": "0x50A920",
+  "symbol": "?As_UIScutProxyGadget@GadgetClass@@UAEPAVUIScutProxyGadgetClass@@XZ",
+  "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
+  "replaces": "?Unknown_14@GadgetClass@@UAEHXZ"
+ },
+ {
+  "address": "0x50A940",
+  "symbol": "?Unknown_18@GadgetClass@@UAEPAV1@XZ",
+  "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
+  "replaces": "?Unknown_18@GadgetClass@@UAEHXZ"
+ },
+ {
+  "address": "0x50A960",
+  "symbol": "?Unknown_1C@GadgetClass@@UAEPAV1@XZ",
+  "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
+  "replaces": "?Unknown_1C@GadgetClass@@UAEHXZ"
+ },
+ {
+  "address": "0x51AD20",
+  "symbol": "?As_RObjGadget@RObjGadgetClass@@UAEPAV1@XZ",
+  "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
+  "replaces": "?Unknown_08@RObjGadgetClass@@UAEPAUGadgetUnknown08Struct@@XZ"
+ },
+ {
+  "address": "0x670740",
+  "symbol": "?As_SlotDataGadget@SlotDataGadgetClass@@UAEPAV1@XZ",
+  "evidence": "GadgetClass's 'are you a ...' slots +0x08..+0x1C retyped to gadget pointers and named after the client's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (D239, P-L12-2; R1 2026-11-11)",
+  "replaces": "?Unknown_10@SlotDataGadgetClass@@UAEHXZ"
+ },
+ {
+  "address": "0x721E60",
+  "symbol": "?Add@ControlKeyListClass@@QAEXABUKernelEventClass@@PAX@Z",
+  "evidence": "the key event type is kernel.h's KernelEventClass (L21 2026-11-12, f2206285: inpdsp.cpp's 0x42A1A0 / 0x42A410 and inpkeys.cpp's 0x42B7E0 take it; InterfaceKeyEntryStruct 0x721C70 copies Add's argument into one); the ControlKeyComboStruct mangle was the retired private struct's",
+  "replaces": "?Add@ControlKeyListClass@@QAEXABUControlKeyComboStruct@@PAX@Z"
+ },
+ {
+  "address": "0x721EF0",
+  "symbol": "?Remove@ControlKeyListClass@@QAEXABUKernelEventClass@@@Z",
+  "evidence": "the key event type is kernel.h's KernelEventClass (L21 2026-11-12, f2206285: inpdsp.cpp's 0x42A1A0 / 0x42A410 and inpkeys.cpp's 0x42B7E0 take it; InterfaceKeyEntryStruct 0x721C70 copies Add's argument into one); the ControlKeyComboStruct mangle was the retired private struct's",
+  "replaces": "?Remove@ControlKeyListClass@@QAEXABUControlKeyComboStruct@@@Z"
+ },
+ {
+  "address": "0x71CA20",
+  "symbol": "??BControlKeyValueStruct@@QBE?AUKernelEventClass@@XZ",
+  "evidence": "the key event type is kernel.h's KernelEventClass (L21 2026-11-12, f2206285: inpdsp.cpp's 0x42A1A0 / 0x42A410 and inpkeys.cpp's 0x42B7E0 take it; InterfaceKeyEntryStruct 0x721C70 copies Add's argument into one); the ControlKeyComboStruct mangle was the retired private struct's",
+  "replaces": "??BControlKeyValueStruct@@QBE?AUControlKeyComboStruct@@XZ"
+ },
+ {
+  "address": "0x7268E0",
+  "symbol": "?As_Space_Client@ClientClass@@UAEHXZ",
+  "evidence": "ClientClass's slot +0x18 named after the client's FAIL_IF '!client->As_Space_Client()' (0xBA78A0; D243, P-G2-1; RN 2026-11-12); was Unknown_18",
+  "replaces": "?Unknown_18@ClientClass@@UAEHXZ"
+ },
+ {
+  "address": "0x740AC0",
+  "symbol": "?As_Space_Client@SClient@@UAEHXZ",
+  "evidence": "ClientClass's slot +0x18 named after the client's FAIL_IF '!client->As_Space_Client()' (0xBA78A0; D243, P-G2-1; RN 2026-11-12); was Unknown_18 (SClient's override returns this)",
+  "replaces": "?Unknown_18@SClient@@UAEHXZ"
+ },
+ {
+  "address": "0x697A10",
+  "symbol": "??1?$hash_map@IPAVStarbaseFacilityClass@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVStarbaseFacilityClass@@@3@@std@@QAE@XZ",
+  "evidence": "StarbaseRoomClass's constructor 0x697720 and destructor 0x697AA0 unwind its Facilities (+0x24, sbase_info.h) through it: the funclets 0xAC01EB / 0xAC0220 are `mov ecx, [ebp-N]; add ecx, 0x24; jmp` to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x697D70",
+  "symbol": "??1?$hash_map@IPAVStarbaseNPCClass@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVStarbaseNPCClass@@@3@@std@@QAE@XZ",
+  "evidence": "StarbaseRoomClass's destructor 0x697AA0 unwinds its NPCs (+0x3C, sbase_info.h) through it: the funclet 0xAC022B is `mov ecx, [ebp-N]; add ecx, 0x3c; jmp` to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x698530",
+  "symbol": "??1?$hash_map@IPAVStarbaseRoomClass@@U?$hash@I@std@@U?$equal_to@I@3@V?$allocator@PAVStarbaseRoomClass@@@3@@std@@QAE@XZ",
+  "evidence": "StarbaseInfoClass's destructor 0x698370 unwinds its Rooms (+0x00, sbase_info.h) through it: the funclet 0xAC02A0 is `mov ecx, [ebp-N]; jmp` to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x841F60",
+  "symbol": "??1?$vector@UItemFieldStruct@@V?$allocator@UItemFieldStruct@@@std@@@std@@QAE@XZ",
+  "evidence": "ItemInfoClass's constructors 0x83F490 / 0x83F710 and destructor 0x83F580 unwind its Fields (+0x08, item_info.h) through it: the funclets 0xAD7668 / 0xAD76A8 are `mov ecx, [ebp-N]; add ecx, 8; jmp` to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x52DA20",
+  "symbol": "??1?$RefCountPtr@VClientItemPropertySpecialProfessionRequirementClass@@@@QAE@XZ",
+  "evidence": "ClientItemPropertySpecialProfessionRequirementClass::Create 0x52CF90 destroys its returned RefCountPtr through it on unwind: the funclet 0xAAC8D0 tests the return flag ([ebp-0x34] & 1) and jumps to it (C5 2026-11-12)"
+ },
+ {
+  "address": "0x52E620",
+  "symbol": "??1?$RefCountPtr@VClientItemPropertySpecialRaceRequirementClass@@@@QAE@XZ",
+  "evidence": "ClientItemPropertySpecialRaceRequirementClass::Create 0x52DB60 destroys its returned RefCountPtr through it on unwind: the funclet 0xAAC9B0 tests the return flag ([ebp-0x30] & 1) and jumps to it (C5 2026-11-12)"
  }
 ]

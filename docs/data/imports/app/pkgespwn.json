@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcodes 30017 and 30018 (send-only), client 0x862350-0x862970, the client's file (its asserts' __FILE__ e:\\build\\beta\\G\\app\\Packets\\gameedit\\pkgespwn.cpp): written by hand (builder P5)",
  "expected": {},
@@ -28,7 +26,8 @@
   "0x862820",
   "0x862900",
   "0x862920",
-  "0x862950"
+  "0x862950",
+  "0x862970"
  ],
  "merged": [],
  "name": "packets/gameedit/pkgespwn.cpp",

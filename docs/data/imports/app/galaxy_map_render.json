@@ -18,8 +18,7 @@
   "0x5988A0",
   "0x62A5D0",
   "0x731EA0",
-  "0x7A9470",
-  "0x7AA8C0"
+  "0x7A9470"
  ],
  "copy": "reconstructed",
  "description": "galaxy_map_render.cpp (the client's __FILE__ 0xB9E970), client 0x7A6020-0x7B2B30: FAIL_IFs at lines 124-1912, the constructor 0x7A6020 follows the focal point's object; the object's <string> initialiser 0x7B2500 is followed by its late templates (hashtable::resize 0x7B2530-0x7B28D0, std::_Construct 0x7B2AA0-0x7B2B00) before galaxy_map_robj.cpp's first function 0x7B2B30",
@@ -80,6 +79,7 @@
   "0x7AA630",
   "0x7AA660",
   "0x7AA7E0",
+  "0x7AA8C0",
   "0x7AA950",
   "0x7AAB60",
   "0x7AADA0",
@@ -100,6 +100,7 @@
   "0x7ABC10",
   "0x7ABC60",
   "0x7ABDD0",
+  "0x7ABFE0",
   "0x7AC070",
   "0x7AC7B0",
   "0x7AC830",

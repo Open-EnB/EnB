@@ -1,7 +1,6 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42B2F0",
   "0x46BE90"
  ],
  "copy": "reconstructed",
@@ -20,7 +19,8 @@
   "0x534F50",
   "0x534F80",
   "0x535060",
-  "0x5351D0"
+  "0x5351D0",
+  "0x5352A0"
  ],
  "merged": [],
  "name": "client/ui_item_examination_description.cpp",

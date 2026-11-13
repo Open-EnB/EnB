@@ -15,7 +15,7 @@
 #include "..\shared\g_assert.h"
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
-#define fontDatabase Unknown_BE67B8		// NAME 3: the FAIL_IF '!::fontDatabase' (0x5CD780); fontdatabase.h still calls it Unknown_BE67B8
+// fontDatabase (0xBE67B8) is declared by fontdatabase.h / tsk_game.h under the client's FAIL_IF name
 
 class UnknownEventDispatcherClass;
 UnknownEventDispatcherClass *Unknown_540A20();			// 0x540A20 (intrface.cpp: the interfaces' signal map)  // NAME 1: neutral (D10)
@@ -24,16 +24,16 @@ UnknownEventDispatcherClass *Unknown_540A20();			// 0x540A20 (intrface.cpp: the 
 static const char *Unknown_B832D8[4] = { "exit", "ok", "cancel", "resolution" };	// NAME 1: neutral (D10)
 static const char *Unknown_B832E8[4] = { NULL, "ok_opt_font", "cancel_opt_font", "next_opt_font" };	// NAME 1: neutral (D10)
 
-// kernel.h's input event, as ui_option_main.cpp's (Unknown_54's Escape)
-struct OptionFontKeyEventStruct	// NAME 1: neutral (D10)
-{
-	OptionFontKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+// kernel.h's input event (KernelEventClass), as ui_option_main.cpp's (Unknown_54's Escape)
+
+
+
+
+
+
+
+
+
 // NOT EXACT: shape (similarity 0.49; forms: indexed for, for with break, two-pointer while): the client builds the first string's copy with _Tidy out of line and the second inline
 // 0x5CC350
 OptionFontInterface::OptionFontInterface(SClient *client, const char **font_names, const char **labels, const std::string &title) :
@@ -126,7 +126,7 @@ OptionFontInterface::~OptionFontInterface()
 void OptionFontInterface::Unknown_54()
 {
 	if (Unknown_98("opt04a", "fc_option_font.ini")) {
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&OptionFontKeyEventStruct(0x1B), (void *)1);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 		FAIL_IF(FontNames.empty()) return;
 
 		RefCountPtr<FontSys> title = Unknown_BE67C4->Unknown_6D2700("title_opt_font", InterfaceMesh);	// NAME 1: neutral (D10)

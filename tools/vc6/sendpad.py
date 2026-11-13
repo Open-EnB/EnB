@@ -14,8 +14,8 @@ the pad at the middle of it.
                   every exit, exceptions and Ctrl-C included): a sweep queues once on the first-come lock (D238)
                   instead of once per value. wt.py bring-over's retune passes it, with --first-window.
   --first-window  try the current pad first, then outward (cur, cur+1, cur-1, cur+2, ...) and stop once a run of at
-                  least 3 full values has both neighbours known (failed, or outside the range); the pad goes to its
-                  middle. That is the full sweep's pick whenever the run nearest the current pad is the longest; with
+                  least 2 full values has both neighbours known (failed, or outside the range; 2, not 3, since P-L18-4: a
+                  2-wide window such as 46..47 swept all 64 values); the pad goes to its (lower) middle. That is the full sweep's pick whenever the run nearest the current pad is the longest; with
                   no such run every value is tried and the pick is the full sweep's. Per-value output covers only
                   the values tried.
 
@@ -206,10 +206,10 @@ def outward(lo, hi, cur):
 
 
 def settled(ok, tried, lo, hi):
-    """The first run of 3 or more full values whose two neighbours are known (tried and not full, or outside lo..hi),
+    """The first run of 2 or more full values (P-L18-4) whose two neighbours are known (tried and not full, or outside lo..hi),
     or None."""
     for x, y in windows(sorted(ok)):
-        if y - x >= 2 and (x - 1 < lo or x - 1 in tried) and (y + 1 > hi or y + 1 in tried):
+        if y - x >= 1 and (x - 1 < lo or x - 1 in tried) and (y + 1 > hi or y + 1 in tried):
             return x, y
     return None
 
@@ -268,7 +268,7 @@ def main(argv=None):
     ap.add_argument('--holder-pid', type=int, help="the lease's holder pid (pool.py's default otherwise)")
     ap.add_argument('--hold', action='store_true', help='take the importer lock once and hold it for the whole sweep')
     ap.add_argument('--first-window', action='store_true',
-                    help='current pad first, then outward; stop at the first settled window of 3 or more values')
+                    help='current pad first, then outward; stop at the first settled window of 2 or more values')
     ap.add_argument('--watch-from', metavar='REV',
                     help="the ledger the watch set comes from (default HEAD's, or the onto commit's when HEAD is a "
                          "wt.py rebase record commit)")

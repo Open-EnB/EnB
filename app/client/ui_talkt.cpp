@@ -43,16 +43,16 @@ extern FontManagerClass *Unknown_BE67C4;				// NAME 1: neutral (D10)
 #include "..\shared\unknown_4a1590.h"
 void Unknown_42EB20();									// 0x42EB20  // NAME 1: neutral (D10)
 
-struct UITalkTreeKeyEventStruct  // NAME 1: neutral (D10): as ui_avatr.cpp's
-{
-	UITalkTreeKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;
-	short Unknown02;
-	float Unknown04;
-	float Unknown08;
-	int Unknown0C;
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); };
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 enum { NPC_LINE_COUNT = 6, ANSWER_COUNT = 5, BTTN_EXIT = 6, BTTN_MORE = 7, BTTN_SKILL = 8, BTTN_TRADE = 9, TALK_TREE_QUIT = -26 };	// NAME 3 [BTTN_MORE]: the FAIL_IF's; NAME 1 [the others]: neutral
 
@@ -197,10 +197,10 @@ void UITalkTreeClass::Unknown_54()
 	Buttons[BTTN_EXIT] = new ButtonGadgetClass(InterfaceMesh, "EXIT", 0x55, 3);
 	Unknown64.Unknown_6870E0(Buttons[BTTN_EXIT], BTTN_EXIT, View, 1, 0);
 	GadgetClass::Set_Tooltip(Buttons[BTTN_EXIT], "UI_TALKTREE", "EXIT");
-	RefCountPtr<RenderObjClass> frame = Create_Get(InterfaceMesh->Unknown_5B8B40("frame01"));
+	RefCountPtr<RenderObjClass> frame = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("frame01"));
 	Unknown64.Unknown_6870E0(new UIBackGadget(frame), 12, View, 1, 0);
-	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UITalkTreeKeyEventStruct(0x1B), (void *)11);
-	RenderObjClass *npc_line = InterfaceMesh->Unknown_5B8B40("TALK00");
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)11);
+	RenderObjClass *npc_line = InterfaceMesh->Get_Sub_Object_By_Name("TALK00");
 	if (npc_line) {
 		float width = npc_line->Get_Bounding_Box().Extent.X * 2;
 		NPCLineWidth = (int)(width * 0.95f);
@@ -226,7 +226,7 @@ void UITalkTreeClass::Unknown_54()
 		G_ASSERT(npc_line);
 		NPCLineWidth = 400;
 	}
-	RenderObjClass *player_line = InterfaceMesh->Unknown_5B8B40("ANSWER00");
+	RenderObjClass *player_line = InterfaceMesh->Get_Sub_Object_By_Name("ANSWER00");
 	if (player_line) {
 		float width = player_line->Get_Bounding_Box().Extent.X * 2;
 		PlayerLineWidth = (int)(width * 0.95f);

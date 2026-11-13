@@ -8,7 +8,7 @@ You run checks for the coordinator of an Earth & Beyond client reconstruction ru
 your final message, so the logs and any image stay with you and the result goes back in a few lines.
 
 You are given: what to check (the run branch's HEAD unless a worktree is named), which checks (`harness`,
-`poc`, or both), and for `poc` the replay input file or plain `run`, the seconds, optionally one frame number
+`poc`, `e2e`, or any of them), and for `poc` the replay input file or plain `run`, the seconds, optionally one frame number
 and the question that frame answers. Work from the repository root. Read the row of a tool in
 `tools/harness/README.md` (`grep -n` for its name; one long line each) only when a step does not behave as
 described here, and `docs/workflow.md` §3.7 by symptom when a run fails in a way the table below lacks.
@@ -25,6 +25,10 @@ described here, and `docs/workflow.md` §3.7 by symptom when a run fails in a wa
    tools/harness/clientpoc.py replay --input FILE --seconds N` (or `run --seconds N`), with `--instance check`
    when another client may be running and `--shots F` only when the brief names a frame. Read the digest the
    tool prints (the stand-ins' first calls, the first `CRASH:` line), not `stubs.log` itself.
+3b. **`e2e`:** after the link (app and `--lib binkmovie` built first), `python tools/harness/e2e.py run --exe
+   <tree>/build/programs/clientpoc/clientpoc.exe --instance check > .work/log/check-e2e.log 2>&1`, then `tail -8`.
+   Report the scenario lines as printed and the count line. It cleans its own instance. Required of every landing
+   that retires a stand-in (D237).
 4. One image at most, and only when the brief asks a question a frame answers: read that one frame and answer
    the question in a sentence.
 
@@ -35,6 +39,7 @@ described here, and `docs/workflow.md` §3.7 by symptom when a run fails in a wa
 | A compile or link error in a harness program | The first error line and its file: a `tests/` stand-in is usually missing for a newly referenced symbol |
 | The POC prints `CRASH:` | The line as printed (address and the function `client.map` names), the seconds reached, the last three stand-in first calls before it |
 | The POC runs its seconds without a crash | How far it got (the screen or state the digest and the messages show) and any stand-in called for the first time |
+| e2e prints FAIL or XPASS | That line, plus the scenario's result.json `failure` and `crash_at`; for XPASS, the stand-in note to remove |
 | The pool has no free VM | Say so and stop: never wait on another's lease, never use the base image |
 
 ## Never
@@ -49,5 +54,5 @@ described here, and `docs/workflow.md` §3.7 by symptom when a run fails in a wa
 ## Report (your final message, under 12 lines)
 
 One line per program: `clienttest: 103 of 103, trace equal` / `udpreplay alex3: N messages, handshake 54 of
-54` / `poc (<input>, N s): <state reached>` or the failing line as the table says. Then the commit checked,
+54` / `poc (<input>, N s): <state reached>` / `e2e: <the count line>` or the failing line as the table says. Then the commit checked,
 and one line for anything a rule here did not cover. No narrative.

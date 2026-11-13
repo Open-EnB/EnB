@@ -58,7 +58,7 @@ public:
 	ClientItemPropertyAttributeClass(int sort, const std::string &label, const std::string &units, const std::string &tooltip, int unknown, int level);	// 0x51F9C0 (FAIL_IFs 'label.empty()', 'tooltip.empty()' in the subclasses' Create)  // NAME 3 [label, tooltip]: the subclasses' FAIL_IFs; NAME 1 [sort, units, unknown, level]: as client_item_property_builder.h names its subclasses' Create
 	virtual ~ClientItemPropertyAttributeClass();											// 0x51FBD0 (deleting 0x51FBA0)
 	virtual int Unknown_08();																// +0x08 0x51FCB0 (Unknown3C)
-	virtual std::string Unknown_0C();														// +0x0C 0x51FCD0 (Tooltip)
+	virtual std::string Get_Tooltip();														// +0x0C 0x51FCD0 (Tooltip)  // NAME 2: what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2)
 	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10 0x51FE50 (the visitor's slot +0x08)
 	virtual std::string Unknown_14() = 0;													// +0x14 (pure; distance 0x520210 formats its value)  // NAME 1: neutral (D10)
 

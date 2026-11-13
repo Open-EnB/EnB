@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RObjGadgetClass (D24 class-from-file), the gadget over a model (table 0xAFAAA0, 41 slots, 0x60 bytes), client 0x66BDF0-0x66C8A1 (__FILE__ 0xB8D374, G_ASSERT 'RObj' on the client's line 250, D25): the constructors, the destructor, Set_Render_Obj 0x66C000, the highlight, the slots 0x66C1E0-0x66C890; NOT EXACT (D64): the constructor 0x66BDF0 (scheduling) (GAD4)",
  "expected": {},
@@ -49,7 +47,8 @@
   "0x66C6C0",
   "0x66C7D0",
   "0x66C860",
-  "0x66C890"
+  "0x66C890",
+  "0x66C8C0"
  ],
  "merged": [],
  "name": "client/gd_robj.cpp",

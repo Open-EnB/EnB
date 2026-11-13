@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A6C0",
-  "0x42B2F0"
+  "0x42A6C0"
  ],
  "copy": "reconstructed",
  "description": "UIScutGadgetsClass (D24 class-from-file), the shortcut bars' gadgets and shortcut.ini (the client's __FILE__ 0xB88EBC, asserts l.65-434; client 0x6136D0-0x6153B0 and its vector / list instances to 0x6159F0) (SG1)",
@@ -17,6 +16,8 @@
   "0x42D120",
   "0x42F250",
   "0x4B58D0",
+  "0x613680",
+  "0x6136B0",
   "0x6136D0",
   "0x6139D0",
   "0x6139F0",
@@ -49,7 +50,8 @@
   "0x6157B0",
   "0x6157F0",
   "0x615830",
-  "0x6159F0"
+  "0x6159F0",
+  "0x615A20"
  ],
  "merged": [],
  "name": "client/ui_scut_gadgets.cpp",
@@ -71,8 +73,5 @@
   "0x42D120",
   "0x6139D0",
   "0x615620"
- ],
- "tiebreak": [
-  "0x6159F0"
  ]
 }

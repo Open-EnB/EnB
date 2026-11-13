@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the object 0x4FA8F0-0x4FAC0F after split_string.cpp (its guarded static 0x4FABF0; no __FILE__, neutral name D10, placement provisional D137): FontSplitStringClass, all exact (LS1)",
  "expected": {},
@@ -13,7 +11,8 @@
   "0x4FAAC0",
   "0x4FAB30",
   "0x4FAB70",
-  "0x4FABB0"
+  "0x4FABB0",
+  "0x4FABF0"
  ],
  "merged": [],
  "name": "shared/unknown_font_split_string.cpp",

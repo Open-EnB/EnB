@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x457CA0"
  ],
  "copy": "reconstructed",
@@ -42,7 +41,8 @@
   "0x6EFF20",
   "0x6EFF90",
   "0x6F0060",
-  "0x6F0130"
+  "0x6F0130",
+  "0x6F01D0"
  ],
  "merged": [],
  "name": "client/eff_robj.cpp",

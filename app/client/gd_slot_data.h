@@ -48,7 +48,7 @@ class SlotDataGadgetClass : public Unknown_675120Class  // NAME 3: class-from-fi
 public:
 	SlotDataGadgetClass(SlotDataIFaceClass *slot_iface, SlotDataRenderClass *slot_render);	// 0x670650 (mask 0xE55)  // NAME 2 [slot_iface, slot_render]: the asserts' members; ui_slot_data.cpp's '!slot_render'
 	virtual ~SlotDataGadgetClass();										// +0x00 0x6707B0 (deleting 0x670780)
-	virtual int Unknown_10() { return((int)this); }						// +0x10 0x670740 (itself; the base's slot is an int)
+	virtual SlotDataGadgetClass *As_SlotDataGadget() { return(this); }						// +0x10 0x670740 (itself)
 	virtual void Unknown_20(int arg);									// +0x20 0x670990 (the tooltip from the render)  // NAME 1 [arg]: the base's
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator);	// +0x24 0x670CF0
 	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x670B20 (highlight, press, report to SlotIFace)

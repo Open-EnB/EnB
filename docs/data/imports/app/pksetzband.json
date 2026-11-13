@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "packet classes (opcode 42, 43) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -26,7 +24,8 @@
   "0x8A4580",
   "0x8A4620",
   "0x8A46F0",
-  "0x8A4710"
+  "0x8A4710",
+  "0x8A4760"
  ],
  "merged": [],
  "name": "packets/pksetzband.cpp",

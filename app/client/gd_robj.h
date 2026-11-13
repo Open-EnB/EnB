@@ -7,8 +7,8 @@
 **	gd_robj.cpp's gadget over a model: GadgetClass with the model (+0x30, G_ASSERT 'RObj'), a font style
 **	shown with it (+0x34), its own layer (+0x38) and four flags (+0x5C). Table 0xAFAAA0 (41 slots),
 **	constructors 0x66BDF0 (with a layer) / 0x66BEC0, destructor 0x66BF60, 0x60 bytes. gd_resize.cpp's
-**	gadget derives from it ('!Peek_Render_Obj()' l.64); gadget.h's GadgetUnknown08Struct (slot +0x08's
-**	answer, its model at +0x30) is this class seen from outside.
+**	gadget derives from it ('!Peek_Render_Obj()' l.64); GadgetClass's slot +0x08 (As_RObjGadget)
+**	answers with it.
 */
 
 #if defined(_MSC_VER)
@@ -32,7 +32,7 @@ public:
 	RObjGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask);	// 0x66BDF0  // NAME 1 [robj, layer, mask]: what it does with them
 	RObjGadgetClass(RenderObjClass *robj, unsigned int mask);			// 0x66BEC0 (an empty layer)  // NAME 1 [robj, mask]: what it does with them
 	virtual ~RObjGadgetClass();											// +0x00 0x66BF60 (deleting 0x66BE90)
-	virtual GadgetUnknown08Struct *Unknown_08() { return((GadgetUnknown08Struct *)this); }	// +0x08 0x51AD20 (itself)
+	virtual RObjGadgetClass *As_RObjGadget() { return(this); }	// +0x08 0x51AD20 (itself)
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator);	// +0x24 0x66C530 (the model and its position, while bit 3)
 	virtual void Unknown_28(LayerClass *layer);							// +0x28 0x66C5B0 (the layer replaced, the model moved with it)
 	virtual bool Unknown_30(float x, float y);							// +0x30 0x66C4C0 (the pointer on the model: ro_funcs.cpp's pick)

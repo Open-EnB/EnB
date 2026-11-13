@@ -16,7 +16,7 @@ int ClientItemPropertyOptionClass::Unknown_08()
 	return(Unknown2C);
 }
 
-std::string ClientItemPropertyOptionClass::Unknown_0C()
+std::string ClientItemPropertyOptionClass::Get_Tooltip()
 {
 	return(Tooltip);
 }

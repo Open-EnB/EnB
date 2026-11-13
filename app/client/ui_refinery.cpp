@@ -27,7 +27,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::Unknown_18; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
+	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
@@ -35,15 +35,15 @@ RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (c
 #include "..\shared\unknown_4a1590.h"
 
 // The control keys event slot +0x54 registers (0x10 bytes; as ui_jobs.cpp's)
-struct UIRefineryKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
-{
-	UIRefineryKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+
+
+
+
+
+
+
+
+
 
 enum
 {
@@ -121,7 +121,7 @@ void UIRefineryClass::Unknown_54()
 	}
 	GadgetClass::Set_Tooltip(Unknown0BC[2], "UI_REFINE", "ICON_GO");
 	GadgetClass::Set_Tooltip(Unknown0BC[3], "UI_REFINE", "ICON_STACK");
-	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIRefineryKeyEventStruct(0x1B), (void *)1);
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 	Unknown0B0 = new GadgetSlider(false, &Layer);
 	Unknown0B0->Unknown_66E460(Unknown_497300(InterfaceMesh->Peek_Object()), 0, 1);
 	Unknown64.Unknown_6870E0(Unknown0B0, 15, View, 1, 0);

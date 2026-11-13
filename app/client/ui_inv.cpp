@@ -831,13 +831,13 @@ bool UIInvClass::Unknown_5A0740(SlotDataGadgetClass *slot_gadget)
 	} else {
 		GadgetClass *target = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)Client->As_Space_Client()->Unknown1278, true, false);
 		UIScutProxyGadgetClass *button;
-		if (target && (button = (UIScutProxyGadgetClass *)target->Unknown_14()) != NULL) {
+		if (target && (button = (UIScutProxyGadgetClass *)target->As_UIScutProxyGadget()) != NULL) {
 			if (ShortcutUI) {
 				ShortcutUI->Create_Shortcut(from_slot, button);
 				ShortcutUI->Save_Current();
 			}
 		} else if (!gadget->As_SlotDataShortcutGadget() && target) {
-			SlotDataGadgetClass *inv_gadget = (SlotDataGadgetClass *)target->Unknown_10();
+			SlotDataGadgetClass *inv_gadget = (SlotDataGadgetClass *)target->As_SlotDataGadget();
 			if (inv_gadget && inv_gadget->Unknown_670950() && ((SlotDataClass *)inv_gadget->Unknown_670950())->Unknown_10()) {
 				if (!((UIInvSlotGadgetStruct *)inv_gadget)->Unknown68) return(handled);
 				Unknown_5A0D00(from_slot, inv_gadget);

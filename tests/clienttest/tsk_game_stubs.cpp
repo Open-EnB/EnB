@@ -6,7 +6,7 @@
 #include <string.h>
 #include "..\..\..\app\client\fontdatabase.h"
 
-FontDatabaseClass *Unknown_BE67B8 = 0;			// 0xBE67B8
+FontDatabaseClass *fontDatabase = 0;			// 0xBE67B8
 
 static FontStringFilesClass *Empty_String_Files()
 {

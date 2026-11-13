@@ -248,13 +248,13 @@ void UISkillsClass::Unknown_62DA30(SlotDataGadgetClass *gadget)
 		if (from_slot != -1) {
 			GadgetClass *target = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)Client->As_Space_Client()->Unknown1278, true, false);
 			if (target) {
-				UIScutProxyGadgetClass *button = (UIScutProxyGadgetClass *)target->Unknown_14();
+				UIScutProxyGadgetClass *button = (UIScutProxyGadgetClass *)target->As_UIScutProxyGadget();
 				if (button && ShortcutUI) {
-					SkillRenderClass *render = Unknown_6A7380((SlotDataGadgetClass *)gadget->Unknown_10());
+					SkillRenderClass *render = Unknown_6A7380((SlotDataGadgetClass *)gadget->As_SlotDataGadget());
 					int ability = render->Unknown34;
 					int slot = render->Get_Slot();
 					RObjGadgetClass *shortcut = ShortcutUI->Create_Shortcut(from_slot, button);
-					SkillRenderClass *new_render = Unknown_6A7380((SlotDataGadgetClass *)shortcut->Unknown_10());
+					SkillRenderClass *new_render = Unknown_6A7380((SlotDataGadgetClass *)shortcut->As_SlotDataGadget());
 
 
 

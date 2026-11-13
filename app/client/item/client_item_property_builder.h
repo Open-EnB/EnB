@@ -31,7 +31,7 @@
 #include "..\..\ww3d2\texture.h"
 #include <string>
 #include <vector>
-#include "..\..\common\item_info.h"	// ItemBaseInfoClass, ItemEffectDescriptionClass, ItemEffectClass
+#include "..\..\common\item_info.h"	// ItemInfoClass, ItemEffectDescriptionClass, ItemEffectClass
 #include "..\inv_data_peek.h"	// InvDataPeekClass (InvDataClass::Unknown_688830)
 
 class SClient;
@@ -62,7 +62,7 @@ struct ItemFlagsStruct  // NAME 1: neutral (D10)
 class Unknown688830Item  // NAME 1: neutral (D10)
 {
 public:
-	const RefCountPtr<ItemBaseInfoClass> &Get_Template_Info() const { return(TemplateInfo); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
+	const RefCountPtr<ItemInfoClass> &Get_Template_Info() const { return(TemplateInfo); }	// NAME 1: neutral (D10); an inline layer the client spends budget on
 	// (0x831840 is client.h's item template's Unknown_831840: callers cast)																		// 0x831840 (its +0x10, with a reference)  // NAME 1: neutral (D10)
 	char Unknown00[0x08];
 	int Unknown08;																						// +0x08 (0x529810's)  // NAME 1: neutral
@@ -74,7 +74,7 @@ public:
 	int Unknown48;																						// +0x48 (0x52FFB0 / 0x530070's)  // NAME 1: neutral
 	char Unknown4C[0x58 - 0x4C];
 	ItemFlagsStruct Flags;																				// +0x58  // NAME 2: the specials 0x5285A0 makes of them
-	RefCountPtr<ItemBaseInfoClass> TemplateInfo;													// +0x5C  // NAME 2: the FAIL_IFs '!template_info'
+	RefCountPtr<ItemInfoClass> TemplateInfo;													// +0x5C  // NAME 2: the FAIL_IFs '!template_info'
 };
 
 class MoneyClass;

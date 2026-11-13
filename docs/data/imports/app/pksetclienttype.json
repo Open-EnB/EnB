@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 60 (CLIENT_TYPE) written by hand (builder P4, 4 of 4 exact in appfile.py match), client 0x87FCF0-0x87FF30; the file name provisional (NAME 1)",
  "expected": {},
@@ -20,7 +18,8 @@
   "0x87FD80",
   "0x87FE10",
   "0x87FED0",
-  "0x87FEF0"
+  "0x87FEF0",
+  "0x87FF30"
  ],
  "merged": [],
  "name": "packets/pksetclienttype.cpp",

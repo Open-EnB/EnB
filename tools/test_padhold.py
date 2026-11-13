@@ -3,7 +3,7 @@
   --hold          the importer lock is taken once, at the first value, and held to the end of the sweep; it is
                   given back on every exit (an exception or Ctrl-C in a variant included) and the pool lease too
   --first-window  values from the current pad outward (cur, cur+1, cur-1, ...); the sweep stops at the first run
-                  of 3 or more full values whose neighbours are known, and picks what the full sweep picks when
+                  of 2 or more full values whose neighbours are known, and picks what the full sweep picks when
                   that run is the longest (otherwise the nearest run, by design)
   wt.py bring-over's retune passes both when the scratch tree's sendpad.py has them
 
@@ -203,10 +203,22 @@ class FirstWindow(Base):
         full, fast, _ = self.compare(table((30, 33), (50, 60)), 31, equal=False)
         self.assertEqual((full[1], fast[1]), (55, 31))
 
-    def test_short_runs_sweep_everything(self):
-        for tab in (table((5, 6), (30, 31), (62, 63)), table((7, 7)), table((0, 1))):
+    def test_single_values_sweep_everything(self):
+        for tab in (table((5, 5), (30, 30), (62, 62)), table((7, 7))):
             _, fast, imp = self.compare(tab, 30)
             self.assertEqual(sorted(imp.tried), list(range(64)))
+
+    def test_two_wide_window_settles(self):
+        # P-L18-4: a 2-wide window with both neighbours failed stops the sweep (it used to try all 64 values)
+        _, fast, imp = self.compare(table((46, 47)), 49)
+        self.assertEqual((fast[1], fast[2]), (46, [(46, 47)]))
+        self.assertEqual(sorted(imp.tried), list(range(45, 54)))           # 49, 50, 48, ... 45: 9 values
+        _, fast, imp = self.compare(table((0, 1)), 30)                      # at the edge: no neighbour below 0
+        self.assertEqual(fast[1], 0)
+        self.assertLess(len(imp.tried), 64)
+        # the nearest 2-wide run wins over a longer far one, as for 3-wide runs (the full sweep picks the longest)
+        full, fast, _ = self.compare(table((5, 6), (30, 31), (62, 63)), 30, equal=False)
+        self.assertEqual((full[1], fast[1]), (5, 30))
 
     def test_no_window(self):
         _, fast, imp = self.compare({}, 49)

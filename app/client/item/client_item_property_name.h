@@ -28,7 +28,7 @@ public:
 	ClientItemPropertyNameClass(const std::string &name);									// 0x52A430
 	virtual ~ClientItemPropertyNameClass();													// 0x52A620 (deleting 0x52A5F0)
 	virtual int Unknown_08();																// +0x08 0x52A690  // NAME 1: neutral (D10)
-	virtual std::string Unknown_0C();														// +0x0C 0x52A6B0 ('name tooltip')  // NAME 1: neutral (D10)
+	virtual std::string Get_Tooltip();														// +0x0C 0x52A6B0 ('name tooltip')  // NAME 2: what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2)
 	virtual void Accept(ClientItemPropertyVisitorClass *visitor);							// +0x10 0x52A7C0 (the visitor's +0x1C)
 
 	std::string Get_Name() const { return(Name); }											// 0x53A140 (out of line in ui_item_examination_title.cpp)  // NAME 1: what it returns

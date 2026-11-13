@@ -6,7 +6,7 @@
 
 #include "ui_chat_panel_base.h"
 
-class UIManuCheckButtonClass;	// ui_manu.cpp's check button (0x7E8030: checked or not; +0x64)
+class CheckBoxGadgetClass;	// ui_manu.cpp's check button (0x7E8030: checked or not; +0x64)
 
 // The check pages (0xE4 bytes, tables 0xAF428C / 0xAF4280 / 0xAF4274): the chat messages (page 0) or the cameras (page 1)
 class UIOptionCheckClass : public ChatPanelUIBase	// NAME 1: neutral, after its tooltips' section 'UI_OPTION_CHECK'
@@ -25,7 +25,7 @@ public:
 	int Page;											// +0xA0 (the constructor's; 0 chat, 1 camera: the ini, the texts and the options)  // NAME 1: neutral (D10)
 	bool Mode;											// +0xA4 (the constructor's; false: ok and cancel go back to the chat panel's page 1)  // NAME 1: neutral (D10)
 	GadgetClass *Buttons[3];							// +0xA8 'exit', 'ok', 'cancel'  // NAME 2: what they are
-	UIManuCheckButtonClass *Checks[12];					// +0xB4 'check00'-'check11', one per option  // NAME 2: what they are
+	CheckBoxGadgetClass *Checks[12];					// +0xB4 'check00'-'check11', one per option  // NAME 2: what they are
 };
 
 #endif // UI_OPTION_CHECK_H

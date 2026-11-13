@@ -1,8 +1,7 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42B250",
-  "0x42B2F0"
+  "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "ComboFileFactoryClass, client 0x4E4D10-0x4E5A00 with the table's and list's instances after it: the asserts on the client's lines 29 / 30 / 85 / 101 (D25); NOT EXACT: the destructor 0x4E5230, Get_File 0x4E57A0",
@@ -58,7 +57,9 @@
   "0x4E6CE0",
   "0x4E6D00",
   "0x4E6D30",
-  "0x4E6F10"
+  "0x4E6F10",
+  "0x4E7000",
+  "0x4E71B0"
  ],
  "merged": [],
  "name": "shared/combo_ffactory.cpp",

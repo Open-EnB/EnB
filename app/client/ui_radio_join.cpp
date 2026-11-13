@@ -94,7 +94,7 @@ void UIRadioJoinClass::Unknown_60()
 // 0x5EAF30
 bool UIRadioJoinClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
@@ -161,10 +161,10 @@ void UIRadioJoinClass::Unknown_5EB140()
 // NOT EXACT: the string temporaries' inline expansions and register choices differ (inline budget)
 void UIRadioJoinClass::Unknown_5EB2F0()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (Is_Request_Pending(chat)) {
-		((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0x13, "Another request is pending. Cannot join a new channel. ", 0);
+		((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x13, "Another request is pending. Cannot join a new channel. ", 0);
 		return;
 	}
 	if (chat->Unknown_5682C0() != "") {

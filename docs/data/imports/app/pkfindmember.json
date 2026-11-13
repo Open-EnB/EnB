@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "FIND_MEMBER 83's object, 0x886580-0x886C40, the client's file (its assert's __FILE__): written by hand (builder A-opus)",
  "expected": {},
@@ -25,7 +23,8 @@
   "0x886B30",
   "0x886B60",
   "0x886BD0",
-  "0x886C20"
+  "0x886C20",
+  "0x886C40"
  ],
  "merged": [],
  "name": "packets/pkfindmember.cpp",
@@ -45,9 +44,5 @@
   "0x52B310",
   "0x52B330",
   "0x886620"
- ],
- "tiebreak": [
-  "0x886BD0",
-  "0x886C20"
  ]
 }

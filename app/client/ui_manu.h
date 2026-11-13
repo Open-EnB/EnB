@@ -8,7 +8,7 @@
 #include "ui_inv.h"		// UIInvRobjStripClass, the strips of slots
 
 class GadgetClass;			// gadget.cpp's
-class UIManuCheckButtonClass;	// the check buttons (the tech level filters at +0x11C)
+class CheckBoxGadgetClass;	// the check buttons (the tech level filters at +0x11C)
 class FontSys;		// fontmanager.h's text objects (+0x16C, +0x194)
 class SBaseViewClass;		// sbaseview.cpp's starbase view (+0xAC)
 class GadgetSlider;	// gd_slider.cpp's slider (+0xB0)
@@ -40,8 +40,8 @@ public:
 // One tech level filter (8 bytes, ten at +0x11C: levels 1..9, then all)
 struct UIManuRowStruct	// NAME 1: neutral (D10)
 {
-	UIManuCheckButtonClass *Gadget;						// +0x00 'T_LEV_ON_%02d' (slots +0x40 / +0x8C)  // NAME 2: what it holds
-	UIManuCheckButtonClass *Unknown04;					// +0x04 'T_LEV_OFF_%02d'
+	CheckBoxGadgetClass *Gadget;						// +0x00 'T_LEV_ON_%02d' (slots +0x40 / +0x8C)  // NAME 2: what it holds
+	CheckBoxGadgetClass *Unknown04;					// +0x04 'T_LEV_OFF_%02d'
 };
 
 // The levels of the category tree that 0x5B3B90 / 0x5B3CA0 / 0x5B3D70 walk, as far as they read them
@@ -130,7 +130,7 @@ public:
 	bool Unknown_5B3B90(UIManuNodeClass *tree, int a);	// 0x5B3B90: no item under the primary category a is flagged  // NAME 1 [tree, a]: neutral
 	bool Unknown_5B3CA0(UIManuNodeClass *tree, int a, int b);	// 0x5B3CA0: the same under a / b  // NAME 1 [tree, a, b]: neutral
 	bool Unknown_5B3D70(UIManuNodeClass *tree, int a, int b, int c);	// 0x5B3D70: the same for a / b / c  // NAME 1 [tree, a, b, c]: neutral
-	UIManuCheckButtonClass *Unknown_5B6410(int id, const char *bttn_name, int tech_level, bool plain);	// 0x5B6410: a check button over the mesh's sub-object (FAIL_IFs '!bttn_name || !*bttn_name' l.1722, '!robj' l.1725)  // NAME 3 [bttn_name]: the FAIL_IF's; NAME 1 [id, tech_level, plain]: neutral
+	CheckBoxGadgetClass *Unknown_5B6410(int id, const char *bttn_name, int tech_level, bool plain);	// 0x5B6410: a check button over the mesh's sub-object (FAIL_IFs '!bttn_name || !*bttn_name' l.1722, '!robj' l.1725)  // NAME 3 [bttn_name]: the FAIL_IF's; NAME 1 [id, tech_level, plain]: neutral
 	bool Unknown_All_Levels_Checked();					// (inline in 0x5B67C0) every tech level filter checked  // NAME 1: neutral (D10)
 	void Unknown_5B67C0(int tech_level, bool on, int source);	// 0x5B67C0: a tech level filter set (FAIL_IF l.1746, G_ASSERT 'source != USER_INPUT' l.1755)  // NAME 3 [tech_level, source]: the asserts'; NAME 1 [on]: neutral
 	void Unknown_5B6A80(bool on, int source);			// 0x5B6A80: every tech level filter set (G_ASSERT l.1808)  // NAME 3 [source]: the assert's; NAME 1 [on]: neutral

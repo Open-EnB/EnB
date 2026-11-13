@@ -1,0 +1,30 @@
+{
+ "ambiguous": [
+  "0x42A900",
+  "0x42AFF0",
+  "0x4333D0"
+ ],
+ "copy": "reconstructed",
+ "description": "MusicThemeClass (NAME 3), client 0x43BFD0-0x43C4A0: G_ASSERT '*itor' l.70, 'component < Get_Num_Components()' l.134 and 'component >= 0' l.135 give the path e:\\build\\beta\\G\\app\\Audio\\musictheme.cpp (D25)",
+ "expected": {},
+ "in_tree": [
+  "0x438E00",
+  "0x43BFD0",
+  "0x43C010",
+  "0x43C100",
+  "0x43C3A0",
+  "0x43C3D0",
+  "0x43C460"
+ ],
+ "merged": [],
+ "name": "audio/musictheme.cpp",
+ "shared": [
+  "0x438E00"
+ ],
+ "short_known": [
+  "0x438E00"
+ ],
+ "tiebreak": [
+  "0x43C460"
+ ]
+}

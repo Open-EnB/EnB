@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ClientItemPropertyClass (NAME 1, interim D137), the item property files' common base (table 0xAEDBF0), client 0x51F900-0x51F9AF: ctor 0x51F900, dtors 0x51F950 / 0x51F920, Accept 0x51F970, <string>'s guarded static 0x51F990; no assert, file name provisional (D137)",
  "expected": {},
@@ -11,7 +9,8 @@
   "0x51F900",
   "0x51F920",
   "0x51F950",
-  "0x51F970"
+  "0x51F970",
+  "0x51F990"
  ],
  "merged": [],
  "name": "client/item/client_item_property.cpp",

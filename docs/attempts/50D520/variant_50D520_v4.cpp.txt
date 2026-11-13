@@ -2,7 +2,7 @@
 // idea: Use the Matrix3x3 rotation, and cache Client in a local read before the Format arguments so VC6 loads +0x4c first, as the client does.
 void MainViewClass::Unknown_50D520()
 {
-	SClient *sclient = (SClient *)Client->Unknown_18();
+	SClient *sclient = (SClient *)Client->As_Space_Client();
 	BridgeInterfaceClass *bridge = sclient->BridgeInterface;
 	if (bridge && bridge->Unknown14) {
 		CameraClass *camera = Camera;

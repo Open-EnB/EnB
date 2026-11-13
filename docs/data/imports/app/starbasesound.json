@@ -1,0 +1,21 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "StarbaseSoundClass (NAME 3), client 0x441910-0x4428E0: FAIL_IF 'mesh == NULL' l.155, 'obj == NULL' l.157 and 'ini == NULL' l.235 give the path e:\\build\\beta\\G\\app\\Audio\\starbasesound.cpp (D25); the strings starbasesounds%d.ini, TrackedMesh%d, FixedPosition%d",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x441910",
+  "0x4419B0",
+  "0x441A50",
+  "0x441A90",
+  "0x441C40",
+  "0x441DD0",
+  "0x442620"
+ ],
+ "merged": [],
+ "name": "audio/starbasesound.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

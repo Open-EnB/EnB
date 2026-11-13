@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 30's object, 0x888690-0x888B30 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 7 of 7 exact in appfile.py match",
  "expected": {},
@@ -23,7 +21,8 @@
   "0x888960",
   "0x8889A0",
   "0x888A80",
-  "0x888AA0"
+  "0x888AA0",
+  "0x888B30"
  ],
  "merged": [],
  "name": "packets/pkgroup.cpp",

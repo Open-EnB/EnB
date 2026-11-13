@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the client's file, 0x887570-0x8878D0: the flagged packets' field helpers and FlagPacketClass's mask (Write_Flags / Read_Flags / Get_Flag_Size, 1, 2 or 4 bytes by Get_Flag_Count), asserts on the client's lines 51-90 (D25): written by hand (builder P), 8 of 8 exact in appfile.py match",
  "expected": {},
@@ -13,7 +11,8 @@
   "0x887650",
   "0x887680",
   "0x8877B0",
-  "0x887880"
+  "0x887880",
+  "0x8878D0"
  ],
  "merged": [],
  "name": "packets/pkflag.cpp"

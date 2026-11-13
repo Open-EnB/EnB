@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "provisional file (D137, no assert, neutral name): ClientItemPropertyUnknown529810Class, an int of the item as a property (12 bytes, table 0xAEDD58): 0x529810-0x529AAF, Create 0x529810, constructor 0x5298B0, destructors 0x529910 / 0x5298E0, slots 0x529930 / 0x529950 / 0x529A60, Create_NEW 0x529A80",
  "expected": {},
@@ -16,7 +14,8 @@
   "0x529930",
   "0x529950",
   "0x529A60",
-  "0x529A80"
+  "0x529A80",
+  "0x529AB0"
  ],
  "merged": [],
  "name": "client/item/client_item_property_unknown_529810.cpp",
@@ -28,8 +27,5 @@
  "short_known": [
   "0x529910",
   "0x529930"
- ],
- "tiebreak": [
-  "0x529A80"
  ]
 }

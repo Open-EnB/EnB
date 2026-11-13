@@ -150,7 +150,7 @@ void SlotDataShortcutInterface::Update(SlotDataClass *slotdata)
 		if (added.size()) {
 			std::set<int> unused;
 			for (std::vector<RObjGadgetClass *>::iterator it = ShortcutGadgets.begin(); it != ShortcutGadgets.end(); ++it) {
-				SlotDataGadgetClass *sdata_gadg = (SlotDataGadgetClass *)(*it)->Unknown_10();
+				SlotDataGadgetClass *sdata_gadg = (SlotDataGadgetClass *)(*it)->As_SlotDataGadget();
 
 
 
@@ -198,7 +198,7 @@ void SlotDataShortcutInterface::Update(SlotDataClass *slotdata)
 	Slots.swap(slots);
 	int dead = slots.size();	// (a budget lever: it keeps the set_difference and the destructors as the client has them)
 	for (std::vector<RObjGadgetClass *>::iterator it = ShortcutGadgets.begin(); it != ShortcutGadgets.end(); ++it) {
-		SlotDataGadgetClass *sdata_gadg = (SlotDataGadgetClass *)(*it)->Unknown_10();
+		SlotDataGadgetClass *sdata_gadg = (SlotDataGadgetClass *)(*it)->As_SlotDataGadget();
 
 
 
@@ -282,7 +282,7 @@ RObjGadgetClass *SlotDataShortcutInterface::Unknown_14(const char *key)
 // @0x631540
 bool SlotDataShortcutInterface::Unknown_10(RObjGadgetClass *gadget, std::string &key)
 {
-	SlotDataGadgetClass *sdata_gadg = (SlotDataGadgetClass *)gadget->Unknown_10();
+	SlotDataGadgetClass *sdata_gadg = (SlotDataGadgetClass *)gadget->As_SlotDataGadget();
 
 
 

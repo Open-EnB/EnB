@@ -37,15 +37,15 @@ static const char *Unknown_B82D98[2][12] = {	// NAME 1: neutral (D10)
 
 
 // kernel.h's input event, as ui_option_account.cpp's (Unknown_54's Escape)
-struct UIOptionCheckKeyEventStruct	// NAME 1: neutral (D10)
-{
-	UIOptionCheckKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
+
+
+
+
+
+
+
+
+
 
 // 0x5C9910
 UIOptionCheckClass::UIOptionCheckClass(SClient *client, int page, bool mode) :
@@ -87,7 +87,7 @@ void UIOptionCheckClass::Unknown_54()
 			}
 		}
 		Add_Back_Gadget(0, Vector3(0.0f, 0.0f, 0.0f));
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIOptionCheckKeyEventStruct(0x1B), (void *)1);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 	}
 }
 
@@ -112,7 +112,7 @@ void UIOptionCheckClass::Unknown_5C()
 // 0x5C9D00
 bool UIOptionCheckClass::Unknown_68(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (key) {
 		case 1:
@@ -190,7 +190,7 @@ void UIOptionCheckClass::Unknown_5C9F20()
 	}
 	options->Save();
 	if (Page == 0) {
-		SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 		ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 		if (chat) {
 			chat->Unknown_5689D0(0);

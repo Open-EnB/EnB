@@ -3,8 +3,7 @@
   "0x42A6C0",
   "0x42A900",
   "0x42AC90",
-  "0x42B250",
-  "0x42B2F0"
+  "0x42B250"
  ],
  "copy": "reconstructed",
  "description": "the key names, client 0x42B3D0-0x42E350 (the object after inpdsp.cpp; builder H19): the name -> code and code -> name lookups 0x42B610 / 0x42B6A0, the event text 0x42B7E0, the table fill 0x42BAE0 / 0x42BC90 and the tables' instances",
@@ -14,7 +13,11 @@
   "0x42A940",
   "0x42A970",
   "0x42AB30",
+  "0x42B3D0",
+  "0x42B400",
   "0x42B420",
+  "0x42B4F0",
+  "0x42B520",
   "0x42B540",
   "0x42B610",
   "0x42B6A0",
@@ -44,7 +47,8 @@
   "0x42DC10",
   "0x42DDF0",
   "0x42DFC0",
-  "0x42E190"
+  "0x42E190",
+  "0x42E360"
  ],
  "merged": [],
  "name": "input/inpkeys.cpp",
@@ -70,9 +74,5 @@
  "short_known": [
   "0x42D120",
   "0x42D140"
- ],
- "tiebreak": [
-  "0x42DDF0",
-  "0x42E190"
  ]
 }

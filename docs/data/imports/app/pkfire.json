@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "Fire 21 (FireEquipped 22 derives from it), the object 0x887290-0x887560 after pkfindplayerrequest.cpp (no assert: the name provisional, pk + the class's Get_Name): written by hand (builder P10)",
  "expected": {},
@@ -24,7 +22,8 @@
   "0x887370",
   "0x887410",
   "0x8874E0",
-  "0x887500"
+  "0x887500",
+  "0x887540"
  ],
  "merged": [],
  "name": "packets/pkfire.cpp",

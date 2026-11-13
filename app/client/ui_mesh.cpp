@@ -123,7 +123,7 @@ RenderObjClass *UIMeshClass::Unknown_5B8B20()
 	return(InterfaceMesh);
 }
 
-RenderObjClass *UIMeshClass::Unknown_5B8B40(const char *name)
+RenderObjClass *UIMeshClass::Get_Sub_Object_By_Name(const char *name)
 {
 	RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(name);
 	if (robj == NULL) {
@@ -135,7 +135,7 @@ RenderObjClass *UIMeshClass::Unknown_5B8B40(const char *name)
 			if (robj != NULL) {
 				RenderObjClass *mesh = InterfaceMesh;
 				InterfaceMesh = robj;
-				robj = Unknown_5B8B40(dot + 1);
+				robj = Get_Sub_Object_By_Name(dot + 1);
 				InterfaceMesh->Release_Ref();
 				InterfaceMesh = mesh;
 			}
@@ -442,7 +442,7 @@ void UIMeshClass::Unknown_5B9BC0(int slot, const char *name, int arg)
 
 void UIMeshClass::Unknown_5B9D80(const char *name, TextureClass *texture)
 {
-	RenderObjClass *robj = Unknown_5B8B40(name);
+	RenderObjClass *robj = Get_Sub_Object_By_Name(name);
 	G_ASSERT(robj);
 	Unknown_495FD0(robj, texture, 0);
 	robj->Release_Ref();
@@ -457,7 +457,7 @@ void UIMeshClass::Unknown_5B9DF0(int slot, const char *name, bool on)
 
 void UIMeshClass::Unknown_5B9FB0(const char *name, bool hide)
 {
-	RenderObjClass *robj = Unknown_5B8B40(name);
+	RenderObjClass *robj = Get_Sub_Object_By_Name(name);
 	G_ASSERT(robj);
 	if (robj != NULL) {
 		robj->Set_Hidden(hide);
@@ -468,7 +468,7 @@ void UIMeshClass::Unknown_5B9FB0(const char *name, bool hide)
 
 bool UIMeshClass::Unknown_5BA030(const char *name)
 {
-	RenderObjClass *robj = Unknown_5B8B40(name);
+	RenderObjClass *robj = Get_Sub_Object_By_Name(name);
 	G_ASSERT(robj);
 	if (robj == NULL) {
 		return(true);

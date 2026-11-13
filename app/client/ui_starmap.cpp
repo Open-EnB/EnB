@@ -361,7 +361,7 @@ bool UIStarmapClass::Unknown_68(int key)
 	case 1:
 		SoundLibraryClass::Play_2D_Sound("TextClick03.wav", 2);
 		{
-			SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+			SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 			sclient->PDAInterface->Unknown_695A00(4, 1);
 		}
 		return(true);
@@ -370,9 +370,9 @@ bool UIStarmapClass::Unknown_68(int key)
 		HowToStarmap->Unknown_5C();
 		HowToGalaxyMap->Unknown_5C();
 		if (Maximized) {
-			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_744560(0x16);
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(0x16);
 		} else {
-			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_744560(0x15);
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_744560(0x15);
 		}
 		Maximized = !Maximized;
 		ResizeUp->Set_Hidden(Maximized);
@@ -695,7 +695,7 @@ bool UIStarmapClass::Unknown_7C8E50(bool force)
 	if (((UIStarmapPipViewClass *)StarmapPip)->Unknown_693040()) {
 
 		FAIL_IF(!Client) return(false);
-		SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();
+		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 
 		FAIL_IF(!sclient) return(false);
 		UIStarmapGalaxyMapClass *galaxy_map = (UIStarmapGalaxyMapClass *)sclient->GalaxyMap;

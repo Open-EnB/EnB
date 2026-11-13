@@ -7,7 +7,7 @@
 
 #include "ui_chat_panel_base.h"
 
-class UIManuCheckButtonClass;	// ui_manu.cpp's check button (0x7E8030: checked or not; +0x64)
+class CheckBoxGadgetClass;	// ui_manu.cpp's check button (0x7E8030: checked or not; +0x64)
 class GadgetSlider;				// gd_slider.h's
 
 // The slider pages (0xE4 bytes, tables 0xAF4974 / 0xAF4968 / 0xAF495C): the graphics (page 0), the sound (page 1) or the
@@ -29,7 +29,7 @@ public:
 
 	int Page;											// +0xA0 (the constructor's; 0 graphics, 1 sound, 2 interface: the ini, the texts and the options)  // NAME 1: neutral (D10)
 	bool Mode;											// +0xA4 (the constructor's; false: ok and cancel go back to the chat panel's page 1)  // NAME 1: neutral (D10)
-	UIManuCheckButtonClass *Check;						// +0xA8 'check00' (page 0: Graphics_Default, 1: Doppler_Enabled)  // NAME 2: what it is
+	CheckBoxGadgetClass *Check;						// +0xA8 'check00' (page 0: Graphics_Default, 1: Doppler_Enabled)  // NAME 2: what it is
 	GadgetClass *Buttons[4];							// +0xAC 'exit', 'ok', 'cancel', 'resolution'  // NAME 2: what they are
 	GadgetSlider *Sliders[5];							// +0xBC ids 6-10, one per option  // NAME 2: what they are
 	float Values[5];									// +0xD0 the options' values when the page opened (0x5CF6C0)  // NAME 2: what they hold

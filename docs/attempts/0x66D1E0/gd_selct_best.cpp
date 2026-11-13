@@ -21,7 +21,7 @@ extern const int Unknown_B08CAC;			// 0xB08CAC (0x80)  // NAME 1: neutral (D10),
 
 
 SelectGadgetClass::SelectGadgetClass(UIViewClass *view, int max) :
-	InterfaceDeactivationGadgetClass(0, 0, 1, 1, 0x1FF),
+	RectangleGadgetClass(0, 0, 1, 1, 0x1FF),
 	Finished(false),
 	Armed(false),
 	Max(max),

@@ -22,7 +22,7 @@
 
 class LineDisplayClientClass;
 
-class CtrnGadgetClass : public InterfaceDeactivationGadgetClass  // NAME 3: class-from-file (D24) for app\client\ctrngadg.cpp
+class CtrnGadgetClass : public RectangleGadgetClass  // NAME 3: class-from-file (D24) for app\client\ctrngadg.cpp
 {
 public:
 	CtrnGadgetClass(int x, int y, int width, int height, LineDisplayClientClass *client);	// 0x50A850 (mask 0x1080)  // NAME 1 [x, y, width, height, client]: what the cockpit passes (0, 0, 640, 480)

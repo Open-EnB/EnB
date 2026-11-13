@@ -123,8 +123,8 @@ int LoadingViewClass::Unknown_0C(bool on)
 		last = now;
 	}
 	int result = UIViewClass::Unknown_0C(on);
-	((SClient *)Client->Unknown_18())->Text->Reset();
-	if (((SClient *)Client->Unknown_18())->Unknown_750B60()) {
+	((SClient *)Client->As_Space_Client())->Text->Reset();
+	if (((SClient *)Client->As_Space_Client())->Unknown_750B60()) {
 		if (Unknown68) {
 			if (Unknown64) {
 				Unknown64->Remove();

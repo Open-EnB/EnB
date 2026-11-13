@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcodes 103 and 104 written by hand (builder P4), client 0x887900-0x887EF0; the file name provisional (NAME 1)",
  "expected": {},
@@ -30,7 +28,8 @@
   "0x887D60",
   "0x887DB0",
   "0x887EA0",
-  "0x887EC0"
+  "0x887EC0",
+  "0x887EF0"
  ],
  "merged": [],
  "name": "packets/pkgadget.cpp",

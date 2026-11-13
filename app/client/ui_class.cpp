@@ -30,16 +30,16 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, bool a); };
 
 // The control keys event the constructor registers (0x10 bytes) and what InterfaceClass +0x4C is (as ui_avsel.cpp's)
-struct UIClassKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
-{
-	UIClassKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B, 0x0D)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// control_keys_manager.h's (InterfaceClass +0x4C, 0x721E60 / 0x721EF0), as ui_login.cpp declares it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 #include "gd_slider.h"
 #include "ww3d.h"
@@ -231,8 +231,8 @@ ClassSelectInterface::ClassSelectInterface(UIViewClass *view, LayerClass *layer)
 	((GadgetSlider *)Slider)->Unknown_66E460(Unknown_497300(model), 0, 0);
 	Unknown64.Unknown_6870E0(Slider, 0x1A, View, 1, 0);
 
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIClassKeyEventStruct(0x1B), (void *)0x10);
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIClassKeyEventStruct(0x0D), (void *)1);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x10);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x0D), (void *)1);
 
 	Unknown_5760C0(true);
 

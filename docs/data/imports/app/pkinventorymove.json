@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcodes 39 (INVENTORY_MOVE) and 40 (INVENTORY_SORT) written by hand (builder P4, 4 of 4 exact in appfile.py match), client 0x894CA0-0x8952D0; the file name provisional (NAME 1)",
  "expected": {},
@@ -27,7 +25,8 @@
   "0x895070",
   "0x895150",
   "0x895260",
-  "0x895280"
+  "0x895280",
+  "0x8952D0"
  ],
  "merged": [],
  "name": "packets/pkinventorymove.cpp",

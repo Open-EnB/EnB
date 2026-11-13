@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A900",
-  "0x42B2F0"
+  "0x42A900"
  ],
  "copy": "reconstructed",
  "description": "opcode 16 (DECAL) written by hand (builder P4: Build, Get_Data_Size, Print exact, both constructors NOT EXACT); packet classes (opcode 178) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
@@ -36,7 +35,8 @@
   "0x881150",
   "0x8811A0",
   "0x8811E0",
-  "0x881250"
+  "0x881250",
+  "0x8812D0"
  ],
  "merged": [],
  "name": "packets/pknamedecal.cpp",

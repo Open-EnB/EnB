@@ -1,8 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0",
-  "0x8A86D0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcodes 5000, 5001 and 5010 and their two structs written by hand (builder P5); opcodes 5004, 5005, 5006 and 5009 written by hand (builder P4, 23 of 23 exact); packet classes (opcode 5002, 5003, 5011) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build (its opcode from Get_Type where the client calls it), Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -17,6 +14,8 @@
   "0x52B350",
   "0x8A8610",
   "0x8A8640",
+  "0x8A86D0",
+  "0x8A8750",
   "0x8A87D0",
   "0x8A8810",
   "0x8A88B0",
@@ -98,7 +97,8 @@
   "0x8AA970",
   "0x8AA990",
   "0x8AA9C0",
-  "0x8AAA30"
+  "0x8AAA30",
+  "0x8AAA80"
  ],
  "merged": [],
  "name": "packets/pktask.cpp",
@@ -144,8 +144,5 @@
   "0x8AA850",
   "0x8AA950",
   "0x8AA970"
- ],
- "tiebreak": [
-  "0x8AAA30"
  ]
 }

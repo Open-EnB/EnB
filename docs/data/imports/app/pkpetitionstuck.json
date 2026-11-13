@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 136 written by hand (builder P4), client 0x89F740-0x89FB20; the file name provisional (NAME 1)",
  "expected": {},
@@ -20,7 +18,8 @@
   "0x89F930",
   "0x89F9A0",
   "0x89FA90",
-  "0x89FAE0"
+  "0x89FAE0",
+  "0x89FB20"
  ],
  "merged": [],
  "name": "packets/pkpetitionstuck.cpp",

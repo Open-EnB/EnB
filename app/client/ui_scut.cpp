@@ -370,7 +370,7 @@ UIScutProxyGadgetClass *UIScutClass::Unknown_610F30()
 {
 	GadgetClass *gadget = Unknown_6123F0(View);
 	if (gadget) {
-		return((UIScutProxyGadgetClass *)gadget->Unknown_14());
+		return((UIScutProxyGadgetClass *)gadget->As_UIScutProxyGadget());
 	}
 	return(NULL);
 }
@@ -399,7 +399,7 @@ UIScutBarClass::UIScutBarClass(UIScutClass *owner, UIMeshClass *mesh, LayerClass
 	char name[32];
 	for (lp = 0; lp < NUM_SHORTCUT_BUTTONS; lp++) {
 		sprintf(name, "bttn_%d_%02d", bar, lp);
-		RenderObjClass *object = mesh->Unknown_5B8B40(name);
+		RenderObjClass *object = mesh->Get_Sub_Object_By_Name(name);
 		ProxyButtons[lp] = new UIScutProxyGadgetClass(this, object, *layer, 0x55, lp);
 		GadgetClass::Set_Tooltip(ProxyButtons[lp], "UI_SCUT", "SHORTCUTS");
 		Get_Owner()->Unknown64.Unknown_6870E0(ProxyButtons[lp], FirstId + lp, Get_Owner()->View, 1, 0);
@@ -798,7 +798,7 @@ bool UIScutBarClass::Unknown_6120E0(int key)
 	if (Get_Owner()->View->Unknown_20() == NULL) return(true);
 	Unknown65B810ViewClass *view = (Unknown65B810ViewClass *)Get_Owner()->View->Unknown_20();
 	if (view->Client == NULL) return(true);
-	SClient *sclient = (SClient *)((ClientClass *)view->Client)->Unknown_18();
+	SClient *sclient = (SClient *)((ClientClass *)view->Client)->As_Space_Client();
 	if (sclient == NULL) return(true);
 	UIScutMouseClass *mouse = (UIScutMouseClass *)Get_Owner()->View->Unknown_44();
 	G_ASSERT(mouse);
@@ -849,7 +849,7 @@ GadgetClass *Unknown_6123F0(UIViewClass *view)
 	SClient *client = ((Unknown65B810ViewClass *)view->Unknown_20())->Client;
 	GadgetClass *gadget = GadgetClass::Unknown_65F5F0((GadgetListManagerClass *)client->Unknown1278, true, true);
 	if (gadget) {
-		return((GadgetClass *)gadget->Unknown_08());
+		return((GadgetClass *)gadget->As_RObjGadget());
 	}
 	return(NULL);
 }
@@ -969,12 +969,12 @@ UIScutBankGadgetClass::UIScutBankGadgetClass(int bar, UIMeshClass *mesh, LayerCl
 	}
 	char name[32];
 	sprintf(name, "bank_%d", bar);
-	RenderObjClass *object = mesh->Unknown_5B8B40(name);
+	RenderObjClass *object = mesh->Get_Sub_Object_By_Name(name);
 	Set_Render_Obj(object);
 	object->Release_Ref();
 	for (lp = 0; lp < NUM_GROUPS; lp++) {
 		sprintf(name, "bank_%d_%d", bar, lp);
-		GroupRObj[lp] = mesh->Unknown_5B8B40(name);
+		GroupRObj[lp] = mesh->Get_Sub_Object_By_Name(name);
 		FAIL_IF(!GroupRObj[lp]) continue;
 		GroupRObj[lp]->Set_Hidden(true);
 	}

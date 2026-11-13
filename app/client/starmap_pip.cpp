@@ -130,19 +130,19 @@ void StarmapPipClass::Unknown_24(int arg)
 	switch (Label) {
 		case 0:
 			Label = 1;
-			((SClient *)Client->Unknown_18())->Unknown_74D990(0, "Starmap PIP will now display labels of your own ship and other group member ships only.", 0);
+			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display labels of your own ship and other group member ships only.", 0);
 			break;
 		case 1:
 			Label = 2;
-			((SClient *)Client->Unknown_18())->Unknown_74D990(0, "Starmap PIP will now display labels of all visible ships.", 0);
+			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display labels of all visible ships.", 0);
 			break;
 		case 2:
 			Label = 3;
-			((SClient *)Client->Unknown_18())->Unknown_74D990(0, "Starmap PIP will now display all visible labels in the sector.", 0);
+			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now display all visible labels in the sector.", 0);
 			break;
 		case 3:
 			Label = 0;
-			((SClient *)Client->Unknown_18())->Unknown_74D990(0, "Starmap PIP will now not display any labels.", 0);
+			((SClient *)Client->As_Space_Client())->Unknown_74D990(0, "Starmap PIP will now not display any labels.", 0);
 			break;
 	}
 	IntOptionStruct *option = OptionClass::Instance->Find_Int("Starmap_Label");
@@ -1230,7 +1230,7 @@ void StarmapPipClass::Unknown_7C2280()
 // @0x7C2340
 void StarmapPipClass::Unknown_7C2340(unsigned id, std::string name, int type)
 {
-	ClientObjectClass *co = ((SClient *)Client->Unknown_18())->Find_Object(id);
+	ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object(id);
 	if (!co) {
 		return;
 	}
@@ -1254,6 +1254,27 @@ void Unknown_7C3220Class::Set_Name(std::string name)
 #include "..\shared\auxdata\auxdata.h"
 #include "aux_roots.h"					// DeltaGroupInfoClass (0x7C2850)
 
+// NOT EXACT: inline budget (0.78, attempts.py 0x7C2760): the client calls UnknownRTTIClass<DeltaCompoundClass>::Cast out of line in Unknown_Find_Field; here it is inlined (Find_Valid helpers one, two and three layers deep give the same)
+// @0x7C2760
+bool StarmapPipClass::Is_Grouped(ClientObjectClass *co)
+{
+	if (co->Unknown_6F5A40()) {
+		DeltaCompoundClass *aux = ((SClient *)Client->As_Space_Client())->AuxData;
+		if (aux) {
+			NameClass name("GroupInfo");
+			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(aux, name);
+			if (group && group->Unknown70) {
+				for (int i = 0; i < 5; i++) {
+					if (co->Get_Game_ID() == ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value) {
+						return(true);
+					}
+				}
+			}
+		}
+	}
+	return(false);
+}
+
 // NOT EXACT: inline budget (0.32): the client calls Unknown_Find_Field (0x7C30E0) out of line and expands both label
 // deletes as the scalar deleting destructor plus erase(begin, end); here the budget runs out the other way. attempts.csv
 // @0x7C2850
@@ -1265,7 +1286,7 @@ void StarmapPipClass::Unknown_7C2850(bool force)
 	}
 	if (!Client->Get_Objects_Changed() && Labels.size() && !force) {
 		for (std::vector<Unknown_7C3220Class *>::iterator it = Labels.begin(); it != Labels.end(); it++) {
-			ClientObjectClass *co = ((SClient *)Client->Unknown_18())->Find_Object((*it)->ObjectID);
+			ClientObjectClass *co = ((SClient *)Client->As_Space_Client())->Find_Object((*it)->ObjectID);
 			if (co) {
 				(*it)->Unknown_7C3830(co);
 			}
@@ -1282,9 +1303,9 @@ void StarmapPipClass::Unknown_7C2850(bool force)
 			continue;
 		}
 		bool grouped;
-		if (co->Unknown_6F5A40() && ((SClient *)Client->Unknown_18())->AuxData) {
+		if (co->Unknown_6F5A40() && ((SClient *)Client->As_Space_Client())->AuxData) {
 			NameClass name("GroupInfo");
-			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(((SClient *)Client->Unknown_18())->AuxData, name);
+			DeltaGroupInfoClass *group = (DeltaGroupInfoClass *)Unknown_Find_Field<DeltaCompoundClass>(((SClient *)Client->As_Space_Client())->AuxData, name);
 			if (group) {
 				for (int i = 0; i < 5; i++) {
 					if (co->Get_Game_ID() == ((DeltaGroupMemberClass *)group->Members.Children[i])->GameID.Value) {

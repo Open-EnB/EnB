@@ -1,7 +1,6 @@
 {
  "ambiguous": [
-  "0x42A900",
-  "0x42B2F0"
+  "0x42A900"
  ],
  "copy": "reconstructed",
  "description": "opcode 17's object, 0x87F2F0-0x87F8F0 (no assert: the file name provisional, NAME 1): written by hand (builder P3), 4 of 5 exact in appfile.py match (the value constructor 0x87F320 NOT EXACT, parked)",
@@ -25,7 +24,8 @@
   "0x87F510",
   "0x87F730",
   "0x87F870",
-  "0x87F8A0"
+  "0x87F8A0",
+  "0x87F8F0"
  ],
  "merged": [],
  "name": "packets/pkcolorization.cpp",

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "provisional file (D137, no assert): ClientItemPropertyDescriptionClass, the item's description as a property (0x18 bytes, table 0xAEDD70): 0x529AE0-0x529FAF, Create 0x529AE0, constructor 0x529BB0, destructors 0x529DA0 / 0x529D70, slots 0x529E10 / 0x529E30 / 0x529F40, Create_NEW 0x529F60",
  "expected": {},
@@ -21,7 +19,8 @@
   "0x529E10",
   "0x529E30",
   "0x529F40",
-  "0x529F60"
+  "0x529F60",
+  "0x529F90"
  ],
  "merged": [],
  "name": "client/item/client_item_property_description.cpp",
@@ -38,8 +37,5 @@
  "short_known": [
   "0x42D120",
   "0x529E10"
- ],
- "tiebreak": [
-  "0x529F60"
  ]
 }

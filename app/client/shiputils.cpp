@@ -918,10 +918,10 @@ int Add_Looping_Sound_Effect(const char *sound, ClientClass *client, unsigned ob
 	effect->Set_Source_Object_ID(object_id);
 	effect->Flags |= 0x100;	// the unary end's GoAwayWhenSourceDoes
 	effect->Unknown_6E73F0(sound, false, -1.0f, 0, 0);
-	FAIL_IF(!client->Unknown_18()) {
+	FAIL_IF(!client->As_Space_Client()) {
 		return(effect_id);
 	}
-	MainViewClass *view = ((SClient *)client->Unknown_18())->MainView;
+	MainViewClass *view = ((SClient *)client->As_Space_Client())->MainView;
 	client->Add_Effect(effect, (int)view->Unknown_64(), view->Unknown_7C());
 	return(effect_id);
 }

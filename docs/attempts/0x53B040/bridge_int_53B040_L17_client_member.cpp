@@ -162,7 +162,7 @@ void BridgeInterface::Set_Avatar(AvatarDescClass *desc)
 		pilot.Personality = pilot.Gender ? 9 : 8;
 		Avatar = Create_NEW(new CharacterViewAvatarClass(&pilot, false, false, NULL));
 		Avatar->Unknown_77E610();
-		EnvironmentMapManagerClass *env_maps = ((SClient *)Peek_Client()->Unknown_18())->EnvironmentMapManager;
+		EnvironmentMapManagerClass *env_maps = ((SClient *)Peek_Client()->As_Space_Client())->EnvironmentMapManager;
 		Avatar->Unknown_780810(env_maps);
 		Avatar->Unknown_77E3D0(1);
 		Avatar->Unknown215 = true;

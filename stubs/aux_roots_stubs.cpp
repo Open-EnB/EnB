@@ -137,24 +137,6 @@ char *Value_To_String(char *buf, int size, UnknownB013ECEnum value)
 	return buf;
 }
 
-bool String_To_Value(const char *text, ItemStateEnum *value)
-{
-	STUB_CALLED("String_To_Value(ItemStateEnum) (0x842930)");
-	int v;
-	if (sscanf(text, "%d", &v) != 1) {
-		return false;
-	}
-	*value = (ItemStateEnum)v;
-	return true;
-}
-
-char *Value_To_String(char *buf, int size, ItemStateEnum value)
-{
-	STUB_CALLED("Value_To_String(ItemStateEnum) (0x842970)");
-	_snprintf(buf, size, "%d", (int)value);
-	return buf;
-}
-
 const char *Type_Name(GameActionValidityBitFlag)
 {
 	return "GameActionValidityBitFlag";	// the client's 0x83D270

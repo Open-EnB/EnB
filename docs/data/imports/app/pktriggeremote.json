@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcodes 161 (TRIGGER_EMOTE) and 162 (NOTIFY_EMOTE) written by hand (builder P4, 8 of 8 exact in appfile.py match), client 0x886000-0x886550; the file name provisional (NAME 1)",
  "expected": {},
@@ -29,7 +27,8 @@
   "0x886380",
   "0x886420",
   "0x8864F0",
-  "0x886510"
+  "0x886510",
+  "0x886550"
  ],
  "merged": [],
  "name": "packets/pktriggeremote.cpp",

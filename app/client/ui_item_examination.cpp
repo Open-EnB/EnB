@@ -128,7 +128,7 @@ UISlotInfoItemClass *UIItemExaminationClass::Unknown_90()
 
 void UIItemExaminationClass::Unknown_54()
 {
-	Keys.Add(ControlKeyComboStruct(0x1B, 0), (void *)1);
+	Keys.Add(KernelEventClass(0x1B, 0), (void *)1);
 	InterfaceClass::Unknown_54();
 }
 

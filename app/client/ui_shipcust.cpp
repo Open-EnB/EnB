@@ -41,16 +41,16 @@ void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (cdecl): the pointer's position, 0..1, as scriptedmovie.cpp's
 
 // The control keys (0x10 bytes) and InterfaceClass +0x4C's list, as ui_login.cpp declares them
-struct UIShipCustKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
-{
-	UIShipCustKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	float Unknown04;									// +0x04
-	float Unknown08;									// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); };	// InterfaceClass +0x4C: control_keys_manager.h's key list (Add 0x721E60), as ui_login.cpp declares it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 // The gadget events' callback and the signal map, as ui_login.cpp declares them
 // (the signal map: unknown_signalbase.h's SignalMap, its Add / Remove)
@@ -587,7 +587,7 @@ ShipCustomizeInterface::ShipCustomizeInterface(UIViewClass *view, LayerClass *la
 	CharacterView->Unknown_67A8D0(true);
 	Unknown268 = new SClientUnknown1334Class;
 	Unknown268->Load("decal_textures.ini", "decal_swatches.ini", "secret_decal_textures.ini");
-	((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShipCustKeyEventStruct(0x1B), (void *)0x1C);
+	((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)0x1C);
 	Unknown_621790(CharacterView->Unknown3A4, Unknown264, Unknown268);
 	if (Unknown22C->Unknown054.Peek() == NULL) {
 		Unknown22C->Unknown_7C(Unknown160);
@@ -1300,7 +1300,7 @@ void ShipCustomizeInterface::Unknown_624B50(int id, const char *name, const char
 	Gadgets.insert(std::map<int, ShipCustGadgetStruct>::value_type(id, entry));
 	Unknown64.Unknown_6870E0(button, id, View, 1, 0);
 	if (key != 0) {
-		((ControlKeyListClass *)&Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIShipCustKeyEventStruct(key), (void *)id);
+		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(key), (void *)id);
 	}
 	sub->Release_Ref();
 }
@@ -1388,7 +1388,7 @@ void ShipCustomizeInterface::Unknown_624E50()
 		float u = (x - (box.Center.X - box.Extent.X)) / (box.Extent.X + box.Extent.X);
 		float v = (y - (box.Center.Y - box.Extent.Y)) / (box.Extent.Y + box.Extent.Y);
 		Vector3 *color = (Page == 1) ? &Desc.Parts[Unknown258].Settings[Unknown25C].Color : &Desc.Ship_Name_Color;
-		Unknown_496C00(((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj, u, 1.0f - v, color);
+		Unknown_496C00(((RObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj, u, 1.0f - v, color);
 		Unknown_6251F0(Vector2(u, v));
 		if (Page == 1) {
 			Unknown_6211D0(CharacterView->Unknown3A4);
@@ -1937,7 +1937,7 @@ void ShipCustomizeInterface::Unknown_627200()
 				if (metal_or_paint == 0) {
 					uv.X = (float)Unknown_BDBB84(0, 100) * 0.01f;
 					uv.Y = (float)Unknown_BDBB84(0, 100) * 0.01f;
-					RenderObjClass *robj = ((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj; Unknown_496C00(robj, uv.X, 1.0f - uv.Y, &color);
+					RenderObjClass *robj = ((RObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj; Unknown_496C00(robj, uv.X, 1.0f - uv.Y, &color);
 				}
 				for (int p = 0; p < 4; p++) {
 					Unknown258 = p;
@@ -1980,7 +1980,7 @@ void ShipCustomizeInterface::Unknown_627200()
 			Vector2 *position = &Desc.Unknown3C;
 			position->X = (float)Unknown_BDBB84(0, 100) * 0.01f; position->Y = (float)Unknown_BDBB84(0, 100) * 0.01f;
 			Vector3 color;
-			RenderObjClass *robj = ((RObjGadgetClass *)Unknown24C->Gadget->Unknown_08())->RObj; Unknown_496C00(robj, Desc.Unknown3C.X, 1.0f - Desc.Unknown3C.Y, &color);
+			RenderObjClass *robj = ((RObjGadgetClass *)Unknown24C->Gadget->As_RObjGadget())->RObj; Unknown_496C00(robj, Desc.Unknown3C.X, 1.0f - Desc.Unknown3C.Y, &color);
 			Unknown_627730(color);
 			Unknown_6251F0(Desc.Unknown3C);
 			Unknown_625260();

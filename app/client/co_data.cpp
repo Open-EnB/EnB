@@ -61,7 +61,7 @@ int ClientObjectDataClass::Unknown_18()
 {
 	ClientClass *client = Get_Client();
 	if (client != 0) {
-		return(client->Unknown_18());
+		return(client->As_Space_Client());
 	}
 	return(0);
 }

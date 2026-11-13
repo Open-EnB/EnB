@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "ui_item_examination_property_router.cpp (the client's __FILE__ 0xB78AB0, lines 56 / 64): the object 0x537830-0x537ABF, the constructor, destructors, Clear, Route and the visitor slots, all exact (IE2)",
  "expected": {},
@@ -19,7 +17,8 @@
   "0x537A10",
   "0x537A40",
   "0x537A60",
-  "0x537A80"
+  "0x537A80",
+  "0x537AA0"
  ],
  "merged": [],
  "name": "client/ui_item_examination_property_router.cpp",

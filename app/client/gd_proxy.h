@@ -47,7 +47,7 @@ class RObjProxyGadgetClass : public ProxyGadgetClass  // NAME 1: neutral (D10): 
 public:
 	RObjProxyGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask);	// 0x66B4C0 (the base's constructor inline)  // NAME 1 [robj, layer, mask]: the base's
 	virtual ~RObjProxyGadgetClass();					// +0x00 0x66B560 (deleting 0x66B530)
-	virtual int Unknown_0C() { return((int)this); }		// +0x0C 0x66B510 (inline; itself: GadgetClass's slots +0x08 to +0x1C answer 'are you a ...' with the gadget or NULL)
+	virtual RObjProxyGadgetClass *As_RObjProxyGadget() { return(this); }		// +0x0C 0x66B510 (inline; itself: GadgetClass's slots +0x08 to +0x1C answer 'are you a ...' with the gadget or NULL)
 	virtual RenderObjClass *Unknown_24(Vector3 *position, float *frame, bool indicator);	// +0x24 0x66B5F0 (the target's, at this model's position)  // NAME 1 [position, frame, indicator]: the base's
 	virtual void Set_Target(RObjGadgetClass *target);	// +0xA4 0x66B690 (the old target's model off this one, the new target's top model onto it, its mask taken)  // NAME 1 [target]: the base's
 

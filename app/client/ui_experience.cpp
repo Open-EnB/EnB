@@ -193,7 +193,7 @@ void UIExperienceClass::Unknown_10()
 
 	ClientClass *client = Object->Client;
 	FAIL_IF(!client) return;
-	SClient *sclient = (SClient *)client->Unknown_18();
+	SClient *sclient = (SClient *)client->As_Space_Client();
 	FAIL_IF(!sclient) return;
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)sclient->AuxData;
 	char text[32];

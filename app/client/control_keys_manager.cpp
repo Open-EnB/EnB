@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "..\shared\unknown_8b4560.h"
-ControlKeyComboStruct Unknown_42A1A0(INIClass &ini, const char *section, const char *entry);	// NAME 1 [Unknown_42A1A0]: neutral (D10): 0x42A1A0 (app\input), a key read from an ini entry
-void Unknown_42A410(INIClass &ini, const char *section, const char *entry, const ControlKeyComboStruct &key);	// NAME 1 [Unknown_42A410]: neutral (D10): 0x42A410 (app\input), a key written to an ini entry
+#include "..\shared\unknown_8b4560.h"	// 0x8B44E0: _i64toa(value, buffer, 10)
+#include "..\input\inpdsp.h"	// 0x42A1A0 / 0x42A410: a key event read from and written to an ini entry
+
 #include "..\input\inpkeys.h"	// 0x42B7E0, the key's text: it takes the kernel's event (its mangled name)
 
 struct ContextEqualStruct  // NAME 2: describes what it does (the SGI documentation's eqstr; strcmp inlined in 0x71ECD0)
@@ -216,6 +216,11 @@ KeyMappingStruct *ControlKeysManager::Set_Key(KeyMappingStruct *entry, int set, 
 	return NULL;
 }
 
+// 0x71A940 (no caller in the client: Add_Keys / Remove_Keys inline it)
+ControlKeyStruct &ControlKeysManager::Get_Key(KeyMappingStruct *entry, int set)
+{
+	return entry->Keys[set];
+}
 
 
 
@@ -228,17 +233,12 @@ KeyMappingStruct *ControlKeysManager::Set_Key(KeyMappingStruct *entry, int set, 
 
 
 
-
-
-
-
-
-// NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv)
-int ControlKeysManager::Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, unsigned short modifiers)
+// 0x71A960 (modifiers is an int: the client loads the whole argument into ebx)
+int ControlKeysManager::Add_Keys(ControlKeyListClass *keylist, const std::string &name, void *handler, int modifiers)
 {
 	FAIL_IF(!keylist) return -1;
 
-	std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::iterator def_it = _KeyDefinitions.find(name);
+	std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::const_iterator def_it = _KeyDefinitions.find(name);
 	FAIL_IF(def_it == _KeyDefinitions.end()) return -1;
 
 	ControlKeyDefStruct *def = def_it->second.get();
@@ -249,9 +249,9 @@ int ControlKeysManager::Add_Keys(ControlKeyListClass *keylist, const std::string
 	int count = 0;
 	KeyMappingStruct &mapping = UserKeys[def->Get_Index()];
 	for (int set = 0; set < NUM_MAPPING_SETS; set++) {
-		ControlKeyComboStruct key(mapping.Keys[set].Key, mapping.Keys[set].Modifiers);
-		ControlKeyComboStruct combo = key;
-		combo.Modifiers |= modifiers;
+		KernelEventClass combo = Get_Key(&mapping, set);
+
+		combo.Flags |= modifiers;
 		if (combo.Key) {
 			keylist->Add(combo, handler);
 			count++;
@@ -260,12 +260,12 @@ int ControlKeysManager::Add_Keys(ControlKeyListClass *keylist, const std::string
 	return count;
 }
 
-// NOT EXACT: frame 0x2C vs the client 0x28, ~60 rows; the client keeps count in the dead name argument slot and builds the converted key once per set (attempts.csv)
-int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::string &name, unsigned short modifiers)
+// 0x71AB40 (modifiers is an int, as Add_Keys')
+int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::string &name, int modifiers)
 {
 	FAIL_IF(!keylist) return -1;
 
-	std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::iterator def_it = _KeyDefinitions.find(name);
+	std::hash_map<std::string, std::auto_ptr<ControlKeyDefStruct> >::const_iterator def_it = _KeyDefinitions.find(name);
 	FAIL_IF(def_it == _KeyDefinitions.end()) return -1;
 
 	ControlKeyDefStruct *def = def_it->second.get();
@@ -278,9 +278,9 @@ int ControlKeysManager::Remove_Keys(ControlKeyListClass *keylist, const std::str
 	int count = 0;
 	KeyMappingStruct &mapping = RestoreKeys[def->Get_Index()];
 	for (int set = 0; set < NUM_MAPPING_SETS; set++) {
-		ControlKeyComboStruct key(mapping.Keys[set].Key, mapping.Keys[set].Modifiers);
-		ControlKeyComboStruct combo = key;
-		combo.Modifiers |= modifiers;
+		KernelEventClass combo = Get_Key(&mapping, set);
+
+		combo.Flags |= modifiers;
 		if (combo.Key) {
 			keylist->Remove(combo);
 			count++;
@@ -521,7 +521,7 @@ void ControlKeysManager::Load_Keys(std::vector<KeyMappingStruct> *keys, const ch
 	}
 }
 
-// NOT EXACT: shape, 12 rows: the client keeps the 1-based set count in a register (inc at the loop top), ours in a frame slot (attempts.csv)
+
 void ControlKeysManager::Save_Keys(std::vector<KeyMappingStruct> *keys, const char *section)
 {
 	FAIL_IF(!keys) return;
@@ -531,12 +531,12 @@ void ControlKeysManager::Save_Keys(std::vector<KeyMappingStruct> *keys, const ch
 	ini.Clear(section);
 	ini.Put_String("Default", "User", section);
 	for (std::vector<KeyMappingStruct>::iterator it = keys->begin(); it != keys->end(); ++it) {
-		for (int set = 1; set <= NUM_MAPPING_SETS; set++) {
+		for (int set = 0; set < NUM_MAPPING_SETS; set++) {
 			char buffer[32];
-			sprintf(buffer, "%d_", set);
+			sprintf(buffer, "%d_", set + 1);
 			std::string entry(buffer);
 			entry += it->Get_Name();
-			Unknown_42A410(ini, section, entry.c_str(), ControlKeyComboStruct(it->Keys[set - 1].Key, it->Keys[set - 1].Modifiers));
+			Unknown_42A410(ini, section, entry.c_str(), it->Keys[set]);
 		}
 	}
 	ini.Save("keymap.ini");
@@ -610,9 +610,9 @@ ControlKeyValueStruct &ControlKeyValueStruct::operator=(const ControlKeyValueStr
 	return *this;
 }
 
-ControlKeyValueStruct::operator ControlKeyComboStruct() const
+ControlKeyValueStruct::operator KernelEventClass() const
 {
-	return ControlKeyComboStruct(Key, Modifiers);
+	return KernelEventClass(Key, Modifiers);
 }
 
 ControlKeyValueStruct::operator unsigned int() const
@@ -693,5 +693,10 @@ int ControlKeyDefClass::Get_Index() const
 **	Load_Definitions loads into _DefaultUser (0xBE7BF8). control_keys.ini (Load_Definitions
 **	0x71B1F0): one section per key definition (Text, Context, KEY, PSW_1/2, SIM_1/2; a name starting
 **	with '-' is skipped). Save 0x71AD20 emits KeysSavedEvent on the SignalMap 0x71B0F0 returns.
+**	The key events are kernel.h's KernelEventClass (16 bytes: the float +4 / +8 members are the frame
+**	slots Add_Keys / Remove_Keys store 0 in). A mapping's 4-byte key converts through ControlKeyStruct's
+**	inline operator KernelEventClass (Save_Keys 0x71C170 is exact only with it; Add_Keys / Remove_Keys get
+**	the client's two 16-byte objects per set from it), read through Get_Key 0x71A940, which the client
+**	keeps out of line between Set_Key and Add_Keys with no caller.
 **	P-H11-2: the private destructor (control_keys_manager.h) makes 0x71D4D0 / 0x71EE00 exact, 0x7198B0 identical (ambiguous); 0x71BCE0 unbuilt.
 */

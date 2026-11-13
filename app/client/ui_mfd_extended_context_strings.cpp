@@ -56,7 +56,7 @@ void UIMFDExtendedContextStringsClass::Create_Fonts()
 		if (name.length() == 0) {
 			break;
 		}
-		if (Unknown_BE67B8->Find_String(name.c_str()) == NULL) {
+		if (fontDatabase->Find_String(name.c_str()) == NULL) {
 			break;
 		}
 		FontSys *font = new FontSys(name.c_str(), 0, 0);

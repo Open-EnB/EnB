@@ -38,8 +38,8 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
 {
 public:
-	virtual ~GadgetClass(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
+	virtual ~GadgetClass(); virtual void Unknown_04(); virtual void As_RObjGadget(); virtual void As_RObjProxyGadget();
+	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
 	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28();
 	virtual bool Unknown_2C(int a, int b, int c, int d);	// +0x2C (the check button's 0x7E7FC0: true when it toggled)  // NAME 1 [a, b, c, d]: neutral
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
@@ -151,16 +151,16 @@ UIManuClass::~UIManuClass()
 }
 
 // The control keys event slot +0x54 registers (0x10 bytes) and what InterfaceClass +0x4C is, as far as this file calls it
-struct UIManuKeyEventStruct	// NAME 1: neutral (D10): kernel.h's input event
-{
-	UIManuKeyEventStruct(short key) : Key(key), Unknown02(0), Unknown04(0), Unknown08(0), Unknown0C(0) {}	// NAME 1 [key]: neutral
-	short Key;											// +0x00 (0x1B)  // NAME 1: neutral (D10)
-	short Unknown02;									// +0x02
-	int Unknown04;										// +0x04
-	int Unknown08;										// +0x08
-	int Unknown0C;										// +0x0C
-};
-struct ControlKeyComboStruct; class ControlKeyListClass { public: void Add(const ControlKeyComboStruct &combo, void *handler); void Remove(const ControlKeyComboStruct &combo); };	// control_keys_manager.h's (InterfaceClass +0x4C, 0x721E60 / 0x721EF0), as ui_class.cpp declares it
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
+
+
+
+
+
+
+
+
+
 
 // gadget.cpp's button gadgets (100 bytes), as slot +0x54 makes them: over a render object (0x675240) or over a mesh's
 // named sub-object (0x675170)
@@ -183,7 +183,7 @@ class LineDisplayClientClass  // NAME 1: neutral (D10)
 public:
 	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
 	virtual void Unknown_10(); virtual void Unknown_14();
-	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::Unknown_18; SClient's returns itself)  // NAME 3: the FAIL_IF's
+	virtual SClient *As_Space_Client();					// +0x18 (ClientClass::As_Space_Client; SClient's returns itself)  // NAME 3: the FAIL_IF's
 };
 
 
@@ -296,11 +296,11 @@ void UIManuClass::Unknown_5C()
 }
 
 // The check button (0x68 bytes; constructor 0x7E7E70 over a render object and a layer, destructor 0x7E7FA0, table 0xB075E4)
-class UIManuCheckButtonClass : public GadgetClass	// NAME 1: neutral (D10)
+class CheckBoxGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIManuCheckButtonClass(RenderObjClass *robj, LayerClass *layer, int arg);	// 0x7E7E70 (0x5B6410: 0, or 0x55 for the filter buttons)  // NAME 1 [robj, layer, arg]: neutral
-	virtual ~UIManuCheckButtonClass();					// 0x7E7FA0
+	CheckBoxGadgetClass(RenderObjClass *robj, LayerClass *layer, int arg);	// 0x7E7E70 (0x5B6410: 0, or 0x55 for the filter buttons)  // NAME 1 [robj, layer, arg]: neutral
+	virtual ~CheckBoxGadgetClass();					// 0x7E7FA0
 	virtual bool Unknown_2C(int a, int b, int c, int d);	// +0x2C 0x7E7FC0
 	void Unknown_7E8030(bool on);						// 0x7E8030: checked or not  // NAME 1 [on]: neutral
 
@@ -310,13 +310,13 @@ public:
 
 // The tech level filter buttons: one per level (0x70 bytes, table 0xAF2DF8) and the "all levels" one (0x6C bytes,
 // table 0xAF2EBC), made by 0x5B6410; a toggle calls the window back
-class UIManuTechLevelButtonClass : public UIManuCheckButtonClass	// NAME 1: neutral (D10)
+class UIManuTechLevelButtonClass : public CheckBoxGadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIManuTechLevelButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner, int tech_level) : UIManuCheckButtonClass(robj, layer, 0x55), Owner(owner), TechLevel(tech_level) {}	// NAME 1 [robj, layer, owner]: neutral; NAME 3 [tech_level]: the FAIL_IF's
+	UIManuTechLevelButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner, int tech_level) : CheckBoxGadgetClass(robj, layer, 0x55), Owner(owner), TechLevel(tech_level) {}	// NAME 1 [robj, layer, owner]: neutral; NAME 3 [tech_level]: the FAIL_IF's
 	virtual bool Unknown_2C(int a, int b, int c, int d)	// +0x2C 0x5B6680: 0x5B67C0 when it toggled (inline: emitted after 0x5B6410)
 	{
-		bool result = UIManuCheckButtonClass::Unknown_2C(a, b, c, d);
+		bool result = CheckBoxGadgetClass::Unknown_2C(a, b, c, d);
 		if (result) {
 			Owner->Unknown_5B67C0(TechLevel, Checked, USER_INPUT);
 		}
@@ -326,13 +326,13 @@ public:
 	UIManuClass *Owner;									// +0x68  // NAME 2: what it holds
 	int TechLevel;										// +0x6C (1..9)  // NAME 3: the FAIL_IF's
 };
-class UIManuAllLevelsButtonClass : public UIManuCheckButtonClass	// NAME 1: neutral (D10)
+class UIManuAllLevelsButtonClass : public CheckBoxGadgetClass	// NAME 1: neutral (D10)
 {
 public:
-	UIManuAllLevelsButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner) : UIManuCheckButtonClass(robj, layer, 0x55), Owner(owner) {}	// NAME 1 [robj, layer, owner]: neutral
+	UIManuAllLevelsButtonClass(RenderObjClass *robj, LayerClass *layer, UIManuClass *owner) : CheckBoxGadgetClass(robj, layer, 0x55), Owner(owner) {}	// NAME 1 [robj, layer, owner]: neutral
 	virtual bool Unknown_2C(int a, int b, int c, int d)	// +0x2C 0x5B6720: 0x5B6A80 when it toggled (inline: emitted after 0x5B6410)
 	{
-		bool result = UIManuCheckButtonClass::Unknown_2C(a, b, c, d);
+		bool result = CheckBoxGadgetClass::Unknown_2C(a, b, c, d);
 		if (result) {
 			Owner->Unknown_5B6A80(Checked, USER_INPUT);
 		}
@@ -432,7 +432,7 @@ void UIManuClass::Unknown_54()
 		Unknown11C[level - 1].Unknown04->Unknown_7E8030(false);
 	}
 	}
-	((ControlKeyListClass *)Unknown4C)->Add(*(const ControlKeyComboStruct *)&UIManuKeyEventStruct(0x1B), (void *)1);
+	((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
 	Unknown0B0 = new GadgetSlider(false, &Layer);
 	Unknown0B0->Unknown_66E460(Create_Peek(InterfaceMesh->Peek_Object()), 0, 1);
 	Unknown64.Unknown_6870E0(Unknown0B0, 0x35, View, 1, 0);
@@ -1567,7 +1567,7 @@ void UIManuClass::Unknown_5B5320()
 		if (reason.length() && !Unknown0BB4) {
 			std::string item = Unknown_5B5CD0((DeltaCompoundClass *)Unknown0BA0, Client);
 			std::string message = "Unable to create " + item + std::string(". ") + reason + ".";
-			((SClient *)((ClientClass *)Client)->Unknown_18())->Unknown_74D990(0x11, (char *)message.c_str(), 0);
+			((SClient *)((ClientClass *)Client)->As_Space_Client())->Unknown_74D990(0x11, (char *)message.c_str(), 0);
 		}
 	}
 
@@ -1717,16 +1717,16 @@ void UIManuClass::Unknown_5B5320()
 
 
 // 0x5B6410
-UIManuCheckButtonClass *UIManuClass::Unknown_5B6410(int id, const char *bttn_name, int tech_level, bool plain)
+CheckBoxGadgetClass *UIManuClass::Unknown_5B6410(int id, const char *bttn_name, int tech_level, bool plain)
 {
 	FAIL_IF(!bttn_name || !*bttn_name) return(NULL);
 
 	RefCountPtr<RenderObjClass> robj = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name(bttn_name));
 	FAIL_IF(!robj) return(NULL);
 	Unknown_496AE0(robj.Peek(), 0);
-	UIManuCheckButtonClass *button;
+	CheckBoxGadgetClass *button;
 	if (plain) {
-		button = new UIManuCheckButtonClass(robj.Peek(), &Layer, 0);
+		button = new CheckBoxGadgetClass(robj.Peek(), &Layer, 0);
 	} else if (tech_level == NUM_TECH_LEVEL_FILTER_CHECK_BUTTONS) {
 		button = new UIManuAllLevelsButtonClass(robj.Peek(), &Layer, this);
 	} else {

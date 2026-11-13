@@ -235,7 +235,7 @@ void UIRadioListClass::Unknown_5E8580(int index)
 // NOT EXACT: inline budget (the client calls basic_string::erase out of line in the assignment's self-assign branch; ours expands it)
 void UIRadioListClass::Unknown_5E85F0(int key)
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	switch (State) {
 		case 0:
@@ -295,7 +295,7 @@ void UIRadioListClass::Unknown_5E8860(bool on)
 // 0x5E8930
 void UIRadioListClass::Unknown_5E8930()
 {
-	SClient *sclient = (SClient *)((ClientClass *)Client)->Unknown_18();	// NAME 1: neutral (D10)
+	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();	// NAME 1: neutral (D10)
 	ChatPanelInterface *chat = sclient->ChatPanel.Peek();	// NAME 1: neutral (D10)
 	if (State == 0) {
 		int id = ((ClientClass *)Client)->Unknown1138;	// NAME 1: neutral (D10)

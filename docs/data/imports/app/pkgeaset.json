@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "the send-only opcode 30020, client 0x85DAA0-0x85DE00, the client's file (its asserts' __FILE__): written by hand (builder P5)",
  "expected": {},
@@ -21,7 +19,8 @@
   "0x85DCB0",
   "0x85DD90",
   "0x85DDB0",
-  "0x85DDE0"
+  "0x85DDE0",
+  "0x85DE00"
  ],
  "merged": [],
  "name": "packets/gameedit/pkgeaset.cpp",

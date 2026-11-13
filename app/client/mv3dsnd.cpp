@@ -139,8 +139,8 @@
 
 
 
-// NOT EXACT: functional (M1): inline budget, the client calls GenericList's constructor and HashListClass::Find (0x7EEBD0) out of line and lays the Name assert out of the loop's path (two forms; attempts.py show 0x7EDCB0)
-
+// NOT EXACT: functional (M1): inline budget (0.45 with the inline_depth(0) below, 0.30 without; attempts.py show 0x7EDCB0): the client calls GenericList's constructor, HashListClass::Find (0x7EEBD0), the node's constructor (0x7EED40) and Add(node) (0x7EEE00) out of line but expands Add(record, key) around the last two; inline_depth(0) gives Find, leaves Add(record, key) out of line too, and lays the Name assert on the loop's path
+#pragma inline_depth(0)
 // 0x7EDCB0
 Movie3DSoundClass::Movie3DSoundClass(INIClass &ini, const char *section)
 {
@@ -206,7 +206,7 @@ Movie3DSoundClass::Movie3DSoundClass(INIClass &ini, const char *section)
 		}
 	}
 }
-
+#pragma inline_depth()
 // NOT EXACT: functional (M1): exception states, the client's inlined ~HashListClass sets none for the list's two nodes (base and member forms of the hash list give the same; attempts.py show 0x7EE340)
 // 0x7EE340
 Movie3DSoundClass::~Movie3DSoundClass()
@@ -276,4 +276,11 @@ MeshSoundListClass *Movie3DSoundClass::Unknown_7EE830(int id)
 **	tables 0xB079F4 / 0xB079F8. Whether the hash list is Movie3DSoundClass's base or its first member the bytes do
 **	not tell (both forms compile every function the same); the base is kept. asserts.txt's 'movie3d.ini' for this
 **	file is mv3dview.cpp's 0x7EEF90: no function here names the file.
+**
+**	The constructor sits inside '#pragma inline_depth(0)' (a device, not the client's: it sends Find out of line as the
+**	client has it, so 0x7EEBD0 is exact, and costs nothing elsewhere; a file-end inline_depth(0..3) loses 0x7EE690 ..
+**	0x7EE830). 0x7EE5C0 / 0x7EEAD0 (the two List destructors), their deleting 0x7EEAA0 / 0x7EEBA0 and the node's
+**	0x7EED80 / 0x7EEDB0 are compiled byte-identical but tie with other files' copies (objmatch 'multiple'); the
+**	range round does not reach them while 0x7EDCB0 and 0x7EE340 are not exact (the object's exact non-COMDAT range is
+**	0x7EE690-0x7EE830). 0x7EED40 and 0x7EEE00 come with 0x7EDCB0's Add(record, key).
 */

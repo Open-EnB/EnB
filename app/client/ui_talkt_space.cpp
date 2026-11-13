@@ -114,7 +114,7 @@ void UITalkTreeSpaceClass::Unknown_5C()
 void UITalkTreeSpaceClass::Unknown_90(TalkTreePacketClass *packet)
 {
 	if (!Active) {
-		AvatarPIP->Unknown_7E36B0(Client->As_Space_Client(), Create_NEW(InterfaceMesh->Unknown_5B8B40("PICTURE")), 0);
+		AvatarPIP->Unknown_7E36B0(Client->As_Space_Client(), Create_NEW(InterfaceMesh->Get_Sub_Object_By_Name("PICTURE")), 0);
 	}
 	UITalkTreeClass::Unknown_90(packet);
 }

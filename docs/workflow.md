@@ -154,7 +154,7 @@ UTF-8 docs, never waiting for a clean tree) are in CLAUDE.md and builders.md §2
   text mode writes CRLF on Windows (`open(p, 'w')`, `Path.write_text`): write with `newline='\n'` (or bytes),
   read in the default text mode, and assert each replacement's match count. After a scripted edit `python
   tools/eol.py check` (and `fix`). (Conflicting reports, unresolved: D147's test found the Write tool writes
-  LF, one later report saw it create CRLF; `eol.py check` settles each case.)
+  LF, one later report saw it create CRLF; `eol.py check` settles each case.) A CRLF file list breaks `xargs git add` (strip the CRs).
 
 ### 3.1 VC6 code generation
 
@@ -222,14 +222,15 @@ unless `--lever` cites a new row of the table in §3.1.2.
   for a destructor reached from `delete` and `delete []`), or define it at the client's position. The pragma
   does not reach in-class or `inline` functions (rtti.h's Cast) and does not stop Unknown_Find_Field's
   inlining. `#pragma inline_depth(N)` at a file's end changes every template member's inlining in the file:
-  a lever, but check every marker (one file fell from 21 exact to 8); function-scope inline_depth does nothing.
+  a lever, but check every marker (one file fell from 21 exact to 8); around one function, inline_depth(1..3) does
+  nothing, but inline_depth(0) does act (it sends that function's template callees out of line, see below).
 * **`__LINE__` moves with every line above it:** FAIL_IF / G_ASSERT / WWASSERT / WWDEBUG_SAY push `__LINE__`,
   so any added or removed line above them (a comment, a multi-line `// NOT EXACT:`, an `#include`, a deleted
   `#define`, a pragma, a helper, a shorter `#include` replacing a stand-in block, a trailing blank line from
   the Edit tool, a variant or marker a runner inserts) moves every later assert: later functions go `none`,
   variants show false losses and can look exact while losing later ones. In an EA-derived file a comment
   line above an assert loses its pair: E&B notes go in the end-of-file `// EnB:` block (D211). Keep the
-  line count (techniques: "Keeping `__LINE__`" in §3.1.2) and check: `git diff --numstat`, then every
+  line count (techniques: "Keeping `__LINE__`" in §3.1.2; a member line added above data_binder.h's asserts shifts their immediates and explain.py then says `literal`, hiding the real class: put additions on an existing line) and check: `git diff --numstat`, then every
   FAIL_IF / G_ASSERT line against HEAD and the client's pushed line numbers, not only the pair count. A function that goes `none` after a `#define` or
   guard line is removed or added above it is this, not inline depth: compare the push immediates (`client.py dis`,
   our .obj) before looking for an inline cause; a blank or comment line in its place keeps every line.
@@ -237,7 +238,7 @@ unless `--lever` cites a new row of the table in §3.1.2.
   helper) can make it small enough to inline into callers that then stop matching; added code can make the
   file's other near misses exact (re-verify its NOT EXACT functions); a header with inline bodies, a changed
   macro (FAIL_IF's form) or an unused declaration in a widely included header (duration.h,
-  delta_template.h) moves the budget in files that never use it. Try such edits in a draft and run a full
+  delta_template.h) moves the budget in files that never use it; even a body-less member declaration in a widely included class can move a stack slot in a function that never names it (prefer a `friend` declaration for an app file's access to protected members). Try such edits in a draft and run a full
   verify; compare pairs over every file that includes the header. Whether a header HAS an inline function at all (not
   its name) can flip register allocation in other files that include it (a forwarder removed from ui_mesh.h
   changed one constructor's registers; so did removing an accessor): `appfile.py match` compiles a draft apart
@@ -282,6 +283,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | The client expands std::string assign in some of many temporaries | Mix explicit and implicit constructions: the split tunes the budget | ui_cpit |
 | Which helpers an out-of-line insert calls | A probe, not a shippable form: a non-inline same-file helper holding the push_back emits exactly those | Get_Triangles |
 | The client calls a `hash_map()` constructor out of line with the hashtable constructor inlined in it, ours inlines it | A missing inline layer, not budget: a struct that derives from (or holds) the hash_map and has an implicit constructor sends `hash_map()` out of line (gives the client's frame too) | LookupTableSetClass::Load 0x4EC7D0 |
+| One `hash_map()` is flat where the client calls it out of line, but calls `_M_initialize_buckets` out of line where it is inlined into a large owner constructor | Two inline layers of the same source: no header form gives both (a flat `hashtable(n)` gains the first and loses the second; `m(100)` initializers spend the owner's budget). Leave sgistl as it is; attempts row 0x71DCE0 | ckm 0x71DCE0 vs OptionClass 0x7F0F60 |
 | Temporaries' stack slots or flags differ, and they follow the inline decisions; arguments built from `const char *` | VC6 builds an implicit-conversion temporary before the explicit ones in one argument list: write the string arguments as implicit conversions (only that form gave the client's order, slots and flags) | ClientClass constructor 0x726100 |
 | Dead reads change later sites' inlining in narrow steps, and a position change does nothing | They act by their total and the callee they inline, not by position (before the function's last branch): sweep every count (7 exact, 8 over); an inline accessor costs about two thirds of a `size()` | client_lego_impl Add 0x72B7F0 |
 | `if (a && b)` against two nested `if`s: the same bytes, but callers inline differently | The cost is in the source's structure: try both forms when a caller's inlining is off | unknown_6af220.cpp |
@@ -384,7 +386,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | 0x9CCD10 (`xor eax,eax; ret`) in a vtable | A pure virtual slot: `= 0` | |
 | A static function right after an unrelated one (misplaced start) | A static sits right after its first out-of-line caller | 0x4B43E0 |
 | A helper the client calls out of line from one site | A file-static helper defined after its caller | 0x872E30 |
-| An unreferenced client function next to a not-exact caller | The out-of-line copy of a non-static helper the caller inlines: define it non-static, non-inline in the .cpp | land 0x46EE60 |
+| An unreferenced client function next to a not-exact caller | The out-of-line copy of a non-static helper the caller inlines: define it non-static, non-inline in the .cpp; a callerless function beside siblings inside `auto_inline(off)` may be such a copy of an everywhere-inlined one: keep it outside the bracket | land 0x46EE60 |
 | C2660 on wwlib vector.h's placement `new[]` | Declaring `operator new[]` in a file makes VC6 resolve it there: declare the allocator's members instead of including FastAllocator.h | unknown_new.cpp |
 | A direct call to a client virtual where ours goes through the vtable | Qualify it: `client->ClientClass::Add_Object(...)` | scriptedmovie |
 | A call order or frame off around by-value arguments | `Get_Client()` inside the argument list; a named copy before a by-value argument; block-scoped temporaries | 0x808330 |
@@ -1205,7 +1207,7 @@ are in 3.0.
   file hid them; fix it first. A failed verify records its errors only in the working ledger: read them (or rerun
   the file through `appfile.py match`) before restoring the shards. A HEAD that briefly does not compile shows as
   many losses in a worktree verify: read `compile_errors` before pairs_cmp. The log's "N errors" names no file
-  ("2 errors" there means build.py shows FAILED): compile the suspect file alone with
+  ("2 errors" there means build.py shows FAILED; a rebased retype that removes a type landed files still use shows only so): compile the suspect file alone with
   `importer.compile_and_match` (verify's includes, defines, flags and `source_alias`) to see the errors.
 * **Verify compiles the tree as it is:** chain a tree writer and verify with `&&` (a failed writer leaves verify
   compiling new headers with old sources), and a worktree script must `git checkout -- .` before `checkout
@@ -1285,7 +1287,7 @@ are in 3.0.
   makes them "held by two objects", and the other object's range stops widening: its range-credited COMDATs near
   the boundary are lost outright. Name them in `tools/re/symbols_named.json` from structural evidence (unwind
   funclets' `add ecx, member; jmp`), then `symbols.py --apply-named` (P-IS-1). objmatch's tie-break never proposes a
-  template destructor whose only callers are unwind funclets: name those the same way (no source change). Crediting a COMDAT to every holder
+  template destructor whose only callers are unwind funclets: name those the same way (no source change). appfile's `exact` for such a destructor may point at a neighbour file's identical copy: trace the funclet to its owner (`clientimage.eh_stub_area()`) and add the symbols_named row. Crediting a COMDAT to every holder
   lets the later object's range reach over the first object's code (the linker keeps the copy with the object it
   meets first): widen only the nearest holder (P-IS-2). A new template instance (e.g. MemberCallback `??_G`
   copies) can propose an address in objmatch's range round and take another function's tie-break (P-CW1-1).
@@ -1300,7 +1302,7 @@ are in 3.0.
   empty body or a visitor slot's parameters renames the short stubs and loses their pairs until
   `tools/re/symbols_named.json` carries `replaces` rows (then `symbols.py --apply-named`). Renaming a generated or
   exact-vtable type likewise changes the mangled names its symbols_named.json rows rely on: add `replaces`
-  entries (`--apply-named` rewrites them as source `named`, dropping length and proof); out-of-line conversions
+  entries (a retype or the rename of a short virtual does the same; `--apply-named` rewrites them as source `named`, dropping length and proof); out-of-line conversions
   need their client addresses named there before their callers match. A symbols_named.json
   rename alone can change pairs: rerun the verify before keeping such a gain. Check `lost outright` for short
   pairs before keeping a change. Example: an inline `Get_Desc` lost a folded RefCountPtr `Peek` / `operator->`.
@@ -1506,7 +1508,7 @@ are in 3.0.
   `__FILE__`) and hides the real class; a static's atexit `$E` shows as a relocation before the real class;
   and libc names in symbols.json can be wrong (0xA297A7 `_wcscoll` is `strcoll`; 0xA27B12 / 0xA284C7 `_wfopen` /
   `_fwprintf` are fopen / fprintf): check a libc body before relying on its name.
-* **On a big function objdiff's similarity hardly moves:** read explain.py's instruction count and
+* **On a big function objdiff's similarity hardly moves:** (appfile's `none` / similarity can also come from relocation-only differences: count the non-REL `*` rows in `--diff`) read explain.py's instruction count and
   register-masked residue instead, and compare the call relocations per callee (`objrel.py`) to see which callees
   inline. For a function with a different instruction count, `.work/t20/align.py` lines up explain.py's
   `--window` columns.
@@ -1533,7 +1535,7 @@ are in 3.0.
   Byte-identical twin functions report losses and gains: apply the form to both. Distrust an 'exact' that needs
   inline asm (D70); don't apply a gain-only variant that lowers its own function's similarity by more than 0.1; a
   stash in docs/attempts holds one function at given lines: check they still hold it before splicing.
-* **tryv2.py:** it refuses an anchor that occurs twice. It writes tree files with `open(..., 'w')`: a concurrent
+* **tryv2.py:** its single-file verdict on register allocation needs the full verify to confirm. It refuses an anchor that occurs twice. It writes tree files with `open(..., 'w')`: a concurrent
   reader makes it fail (OSError 22 / PermissionError, also while restoring), later variants are skipped silently
   and a variant can stay in the tree file: check the log's variant lines and grep / `git status` after every run.
   It deletes its variant objects (`.work/lg3/keep.py` keeps each .obj); copy `tryv2-base` objects out at once
@@ -1736,8 +1738,8 @@ clienttest (`python tools/harness/clienttest.py build|run`):
   A real class that indexes a sub-object through a zeroed fake crashes (0xC0000005; DebrisInterfaceClass +0x58 indexes `Fields[Mode]`):
   grow the fake with one zeroed sub-object.
 * **linkgate, clienttest and `build.py` build only tracked files** (`git add -N` a new file or commit, then run them;
-  linkgate's occasional sync.tar failure passes on a rerun; run `linkgate.py check --tree` after any rebase of a
-  header-changing branch); clienttest has its own library list: a commit
+  linkgate's occasional sync.tar failure passes on a rerun; run `linkgate.py check --tree .` after any rebase of a
+  header-changing branch; `--tree` needs a path); clienttest has its own library list: a commit
   that adds a Win32 import (ShellExecuteExA) fails linkgate with an unresolved `__imp__...` until the library (SHELL32.LIB) is added to clienttest.py and
   the program's build.py entry. ATL headers compile in the VMs. A virtual destructor in a layout header breaks the
   harness stand-ins: run linkgate after the layout commit, before the first verify.

@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "opcode 153 NAVIGATION and NavDelete's value constructor written by hand (builder P3, 7 of 7 exact in appfile.py match); packet classes (opcode 154) drafted from the client by tools/re/pkdecode.py / pkemit.py: constructors, Build, Get_Data_Size, Print; the file name provisional (NAME 1) unless an assert names it",
  "expected": {},
@@ -29,7 +27,8 @@
   "0x89ED50",
   "0x89EDE0",
   "0x89EEA0",
-  "0x89EEC0"
+  "0x89EEC0",
+  "0x89EEF0"
  ],
  "merged": [],
  "name": "packets/pknavdelete.cpp",

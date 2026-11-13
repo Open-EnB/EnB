@@ -10,7 +10,7 @@
 
 class FontSys;
 class GadgetSlider;
-class UIManuCheckButtonClass;	// unknown_7e7e00.h's check box (0x7E8030: checked or not; +0x64)
+class CheckBoxGadgetClass;	// unknown_7e7e00.h's check box (0x7E8030: checked or not; +0x64)
 
 #define OPTION_FONT_SLIDERS	5	// NAME 1: neutral (D10): 'slider_text_opt_font_%02d' / 'track%02d' 00-04 (ids 6-10)
 
@@ -45,7 +45,7 @@ public:
 	void Update_Slider(int index, bool init);			// 0x5CD780 (FAIL_IF '!::fontDatabase', '!slider': one slider and its text from the font shown)  // NAME 1 [Update_Slider, index, init]: what it does
 	void Apply_To_All();								// 0x5CDCC0 (the font shown's settings onto the others)  // NAME 1: what it does
 
-	UIManuCheckButtonClass *SameCheck;					// +0xA0 'check00' (id 12: every font the same)  // NAME 2: what it does
+	CheckBoxGadgetClass *SameCheck;					// +0xA0 'check00' (id 12: every font the same)  // NAME 2: what it does
 	GadgetClass *Buttons[4];							// +0xA4 'exit', 'ok', 'cancel', 'resolution' (ids 1-4)  // NAME 2: what they are
 	GadgetSlider *Sliders[OPTION_FONT_SLIDERS];			// +0xB4 (ids 6-10)  // NAME 2: what they are
 	RefCountPtr<RenderObjClass> Tracks[OPTION_FONT_SLIDERS];	// +0xC8 'track%02d'  // NAME 2: the sub-objects' names

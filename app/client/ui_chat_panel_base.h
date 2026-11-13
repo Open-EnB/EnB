@@ -12,7 +12,7 @@ class GadgetClass;			// gadget.cpp's
 class GadgetSlider;			// gd_slider.h's
 class UIBackGadget;			// gd_uiback.h's
 class MovableUIBackGadget;	// gd_uiback.h's
-class UIManuCheckButtonClass;	// unknown_7e7e00.h's check box
+class CheckBoxGadgetClass;	// unknown_7e7e00.h's check box
 class DestroyGadgetEvent;
 
 // ui_chat_panel_base.cpp's class (0xA0 bytes; constructor 0x56D280 (the client to 0x540D30), destructor 0x56D300,
@@ -34,7 +34,7 @@ public:
 	virtual void Unknown_9C() {}						// +0x9C 0x5623F0 (the movable back gadget moved the window: 0x56DEE0 calls it)
 
 	GadgetClass *Add_Button(int id, const char *bttn_name, const char *text);	// 0x56D510 (a button over the model's sub-object bttn_name, with the font style 'text' when given; the lights panel's 0x646360)  // NAME 2 [Add_Button]: what it does; NAME 1 [id, text]: what 0x646360 passes; NAME 3 [bttn_name]: the FAIL_IF's
-	UIManuCheckButtonClass *Add_Check_Button(int id, const char *bttn_name, const char *text);	// 0x56D6F0 (FAIL_IF '!bttn_name || !*bttn_name', '!robj': a check button over the model's sub-object, 0x7E7F20; ui_option_channel.cpp passes 'check%02d' and NULL)  // NAME 2 [Add_Check_Button]: what it does; NAME 1 [id, text]: as 0x56D510's; NAME 3 [bttn_name]: the FAIL_IF's
+	CheckBoxGadgetClass *Add_Check_Button(int id, const char *bttn_name, const char *text);	// 0x56D6F0 (FAIL_IF '!bttn_name || !*bttn_name', '!robj': a check button over the model's sub-object, 0x7E7F20; ui_option_channel.cpp passes 'check%02d' and NULL)  // NAME 2 [Add_Check_Button]: what it does; NAME 1 [id, text]: as 0x56D510's; NAME 3 [bttn_name]: the FAIL_IF's
 	GadgetSlider *Add_Slider(int id, bool unknown);	// 0x56D8D0 (0x646360: its four sliders, ids 8-11; unknown is GadgetSlider's bool: the client pushes the argument's dword as loaded)  // NAME 2 [Add_Slider]: what it does; NAME 1 [id, unknown]: neutral
 	UIBackGadget *Add_Back_Gadget(bool movable, const Vector3 &offset);	// 0x56D970 (FAIL_IF 'MovableBackGadget'; the back gadget over the whole model, id 0: movable, a MovableUIBackGadget kept in MovableBackGadget, with the offset; else a plain UIBackGadget)  // NAME 2 [Add_Back_Gadget]: what it does; NAME 1 [movable, offset]: what it does with them
 	void On_Back_Gadget_Moved(DestroyGadgetEvent *event, GadgetClass *sender);	// 0x56DEE0 (MovableBackGadget moved the window: slot +0x9C. The client's RTTI 0xB7D5E8 gives the types: the event is MovableUIBackGadgetMoved and the sender MovableUIBackGadget; the tree's types stay until symbols.json's names of the callback's short functions 0x56DF10-0x56E130 follow)  // NAME 2 [On_Back_Gadget_Moved]: what it handles; NAME 1 [event, sender]: what the signal passes
