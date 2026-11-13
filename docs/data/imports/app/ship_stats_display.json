@@ -1,0 +1,41 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x42B2F0",
+  "0x46BE90",
+  "0x474080",
+  "0x497300"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe 0x6A2D50-0x6A3D50: __FILE__ e:\\build\\beta\\G\\app\\Client\\ship_stats_display.cpp (asserts l.76, 81, 87, 113, 114, 128, 155, 217); the PDA equipment window's ship statistics (SSDC table 0xBE65E0)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42D050",
+  "0x42F250",
+  "0x4407B0",
+  "0x46BE90",
+  "0x514B60",
+  "0x546710",
+  "0x6A2DA0",
+  "0x6A2ED0",
+  "0x6A33B0"
+ ],
+ "merged": [],
+ "name": "client/ship_stats_display.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42D050",
+  "0x42F250",
+  "0x4407B0",
+  "0x46BE90",
+  "0x514B60",
+  "0x546710"
+ ]
+}

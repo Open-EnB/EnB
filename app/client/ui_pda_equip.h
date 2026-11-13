@@ -17,8 +17,9 @@ class SClient;
 class RenderObjClass;
 class ButtonGadgetClass;		// unknown_675120.h's buttons
 
-// D137 interim placement (PW1, 2026-11-09): two of the classes the equipment window makes, not rebuilt; their files by
-// their asserts' neighbourhoods are not confirmed (triage's hints: ship_equip_pip.cpp, ship_stats_display.cpp; the
+// D137 interim placement (PW1, 2026-11-09): one of the classes the equipment window makes, not rebuilt; its file by
+// its asserts' neighbourhood is not confirmed (triage's hint: ship_equip_pip.cpp; the stats display is O18's
+// ship_stats_display.h; the
 // third, the PIP's gadget, is gd_ship_equip_pip.h's). Declared as far as ui_pda_equip.cpp and its gadget call them.
 
 // The ship's PIP (0xB0 bytes, constructor 0x541DE0; a PipSceneClass)
@@ -32,16 +33,8 @@ public:
 	char Unknown34[0xB0 - 0x34];
 };
 
-// The ship's statistics on the window (0xCC bytes, constructor 0x6A2ED0; no table: deleted after 0x6A33B0)
-class Unknown6A2ED0Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown6A2ED0Class(SClient *client, RefCountPtr<RenderObjClass> &mesh);	// 0x6A2ED0 (not rebuilt)  // NAME 1 [client, mesh]: what the window passes
-	~Unknown6A2ED0Class();								// 0x6A33B0 (not rebuilt)
-	void Unknown_6A34E0(bool on);						// 0x6A34E0 (not rebuilt: slot +0x58 passes true, +0x60 false)  // NAME 1 [on]: neutral
-	void Unknown_6A3C10();								// 0x6A3C10 (not rebuilt: the stats panel's key 16)
-	char Unknown00[0xCC];
-};
+// The ship's statistics on the window: ship_stats_display.h's
+class ShipStatsDisplayClass;
 
 // One mount of the ship on the window (0x10 bytes; 0x5D2C50 news it from an 'Inventory.Mounts' element)
 struct UnknownMountSlotStruct	// NAME 1: neutral (D10)
@@ -88,7 +81,7 @@ public:
 	int Unknown140;									// +0x140 (zeroed)  // NAME 1: neutral (D10)
 	int Unknown144;									// +0x144 (zeroed)  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> Unknown148;				// +0x148  // NAME 1: neutral (D10)
-	Unknown6A2ED0Class *Stats;							// +0x14C (the 'STATS_PANEL')  // NAME 2: its tooltip's
+	ShipStatsDisplayClass *Stats;							// +0x14C (the 'STATS_PANEL')  // NAME 2: its tooltip's
 	ButtonGadgetClass *Exit;							// +0x150 ('exit', gadget 17)  // NAME 2: its sub-object's name
 };
 
