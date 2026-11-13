@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 196 |
+| 5 | the client names it | 204 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1836 |
-| 2 | describes what the code does | 4534 |
-| 1 | neutral placeholder | 23353 |
+| 2 | describes what the code does | 4532 |
+| 1 | neutral placeholder | 23368 |
 
 ## For review (score 3 and below)
 
@@ -20214,6 +20214,32 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_847CD0` | `app/common/optdlg.cpp:622` | neutral (D10), a page's control by its dialog item (NULL past the table's end)  // NAME 1 [id, controls]: neutral |
 | 1 | `ProfessionNames` | `app/common/prof.cpp:10` | what it holds |
 | 1 | `RaceNames` | `app/common/race.cpp:10` | what it holds |
+| 1 | `Unknown_849360` | `app/common/recustomization_cost.cpp:48` | untagged neutral name (D10) |
+| 1 | `Unknown_8493F0` | `app/common/recustomization_cost.cpp:57` | untagged neutral name (D10) |
+| 1 | `Unknown_8494C0` | `app/common/recustomization_cost.cpp:64` | untagged neutral name (D10) |
+| 1 | `Color_Moved` | `app/common/recustomization_cost.cpp:72` | what it does |
+| 1 | `Metal_Changed` | `app/common/recustomization_cost.cpp:79` | what it does |
+| 1 | `Unknown_849A30` | `app/common/recustomization_cost.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown_849AC0` | `app/common/recustomization_cost.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown_849B90` | `app/common/recustomization_cost.cpp:263` | untagged neutral name (D10) |
+| 1 | `Unknown_84A150` | `app/common/recustomization_cost.cpp:279` | untagged neutral name (D10) |
+| 1 | `RecustomizationCostDataStruct` | `app/common/recustomization_cost.h:29` | neutral (D10) |
+| 1 | `RecustomizationCostClass` | `app/common/recustomization_cost.h:36` | neutral, after the client's file recustomization_cost.cpp (D10) |
+| 1 | `Unknown_PacketDataClass` | `app/common/recustomization_cost.h:36` | untagged neutral name (D10) |
+| 1 | `data` | `app/common/recustomization_cost.h:40` | neutral |
+| 1 | `Unknown_849360` | `app/common/recustomization_cost.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_8493F0` | `app/common/recustomization_cost.h:42` | untagged neutral name (D10) |
+| 1 | `slot, oldavatar, newavatar` | `app/common/recustomization_cost.h:43` | as 0x849360's |
+| 1 | `Unknown_8494C0` | `app/common/recustomization_cost.h:43` | untagged neutral name (D10) |
+| 1 | `ShipRecustomizationCostDataStruct` | `app/common/recustomization_cost.h:52` | neutral (D10) |
+| 1 | `ShipRecustomizationCostClass` | `app/common/recustomization_cost.h:59` | neutral, the ship recustomization's (D10) |
+| 1 | `data` | `app/common/recustomization_cost.h:63` | neutral |
+| 1 | `Unknown_849A30` | `app/common/recustomization_cost.h:64` | untagged neutral name (D10) |
+| 1 | `Unknown_849AC0` | `app/common/recustomization_cost.h:65` | untagged neutral name (D10) |
+| 1 | `slot, oldship, newship` | `app/common/recustomization_cost.h:66` | as 0x849A30's |
+| 1 | `Unknown_849B90` | `app/common/recustomization_cost.h:66` | untagged neutral name (D10) |
+| 1 | `oldsettings, newsettings` | `app/common/recustomization_cost.h:67` | neutral |
+| 1 | `Unknown_84A150` | `app/common/recustomization_cost.h:67` | untagged neutral name (D10) |
 | 1 | `Unknown_42EB80` | `app/common/stredit.cpp:277` | untagged neutral name (D10) |
 | 1 | `Get_Max_Len` | `app/common/stredit.h:42` | the member it returns |
 | 1 | `Get_Insert_Mode` | `app/common/stredit.h:43` | the member it returns |
@@ -21118,25 +21144,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown48` | `app/packets/pkrecustomize.cpp:89` | untagged neutral name (D10) |
 | 1 | `Unknown118` | `app/packets/pkrecustomize.cpp:124` | untagged neutral name (D10) |
 | 1 | `pkrecustomize` | `app/packets/pkrecustomize.h:15` | provisional, pk + what its classes share |
-| 1 | `RecustomizationCostDataStruct` | `app/packets/pkrecustomize.h:23` | neutral (D10) |
-| 1 | `Unknown00` | `app/packets/pkrecustomize.h:25` | neutral (D10) |
-| 1 | `RecustomizationCostClass` | `app/packets/pkrecustomize.h:30` | neutral, after the client's file recustomization_cost.cpp (D10) |
-| 1 | `Unknown_PacketDataClass` | `app/packets/pkrecustomize.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown_8493F0` | `app/packets/pkrecustomize.h:35` | untagged neutral name (D10) |
-| 1 | `ShipRecustomizationCostDataStruct` | `app/packets/pkrecustomize.h:44` | neutral (D10) |
-| 1 | `Unknown00` | `app/packets/pkrecustomize.h:46` | neutral (D10) |
-| 1 | `ShipRecustomizationCostClass` | `app/packets/pkrecustomize.h:51` | neutral, the ship recustomization's (D10) |
-| 1 | `olddesc, newdesc` | `app/packets/pkrecustomize.h:55` | as 0x8493F0's |
-| 1 | `Unknown_849AC0` | `app/packets/pkrecustomize.h:55` | untagged neutral name (D10) |
-| 1 | `Unknown1A0` | `app/packets/pkrecustomize.h:77` | neutral (D10) |
-| 1 | `Unknown1A4` | `app/packets/pkrecustomize.h:78` | neutral (D10) |
-| 1 | `Unknown1A8` | `app/packets/pkrecustomize.h:79` | neutral (D10) |
-| 1 | `Unknown1AC` | `app/packets/pkrecustomize.h:80` | neutral (D10) |
-| 1 | `Unknown1B0` | `app/packets/pkrecustomize.h:81` | neutral (D10) |
-| 1 | `Unknown16C` | `app/packets/pkrecustomize.h:97` | neutral (D10) |
-| 1 | `Unknown48` | `app/packets/pkrecustomize.h:113` | neutral (D10) |
-| 1 | `Unknown118` | `app/packets/pkrecustomize.h:129` | neutral (D10) |
-| 1 | `Unknown118` | `app/packets/pkrecustomize.h:145` | neutral (D10) |
+| 1 | `Unknown1A0` | `app/packets/pkrecustomize.h:37` | neutral (D10) |
+| 1 | `Unknown1A4` | `app/packets/pkrecustomize.h:38` | neutral (D10) |
+| 1 | `Unknown1A8` | `app/packets/pkrecustomize.h:39` | neutral (D10) |
+| 1 | `Unknown1AC` | `app/packets/pkrecustomize.h:40` | neutral (D10) |
+| 1 | `Unknown1B0` | `app/packets/pkrecustomize.h:41` | neutral (D10) |
+| 1 | `Unknown16C` | `app/packets/pkrecustomize.h:57` | neutral (D10) |
+| 1 | `Unknown48` | `app/packets/pkrecustomize.h:73` | neutral (D10) |
+| 1 | `Unknown118` | `app/packets/pkrecustomize.h:89` | neutral (D10) |
+| 1 | `Unknown118` | `app/packets/pkrecustomize.h:105` | neutral (D10) |
 | 1 | `pkreferralpointsavailable` | `app/packets/pkreferralpointsavailable.h:16` | provisional, pk + its first named class's name |
 | 1 | `pkremove` | `app/packets/pkremove.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown10` | `app/packets/pkremove.h:30` | untagged neutral name (D10) |
@@ -23368,7 +23384,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Debug_End_Step` | `tests/udpreplay/connect_stubs.cpp:33` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Print` | `tests/udpreplay/connect_stubs.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `tests/udpreplay/connect_stubs.cpp:35` | untagged neutral name (D10) |
-| 1 | `Unknown00` | `tests/udpreplay/recust_stubs.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `tests/udpreplay/shipcust_stubs.cpp:27` | untagged neutral name (D10) |
 | 2 | `ambientsoundmanager.h` | `app/audio/ambientsoundmanager.h:5` | ambientsoundmanager.cpp is the client's; header name assumed |
 | 2 | `RandomSoundStruct` | `app/audio/ambientsoundmanager.h:27` | what it holds (the channel array's name is the client's RandomSounds) |
@@ -26540,19 +26555,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Channel` | `app/packets/pkpointeffect.h:152` | Get_Channel returns it |
 | 2 | `SourceLego` | `app/packets/pkpointeffect.h:170` | what it holds |
 | 2 | `Channel` | `app/packets/pkpointeffect.h:181` | Get_Channel returns it |
-| 2 | `Data` | `app/packets/pkrecustomize.h:40` | what it holds |
-| 2 | `Data` | `app/packets/pkrecustomize.h:60` | what it holds |
-| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pkrecustomize.h:64` | Net-7's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start' |
-| 2 | `Desc` | `app/packets/pkrecustomize.h:75` | what it holds |
-| 2 | `Cost` | `app/packets/pkrecustomize.h:76` | what it holds (its class's file) |
-| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pkrecustomize.h:85` | Net-7's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done' |
-| 2 | `Desc` | `app/packets/pkrecustomize.h:96` | what it holds |
-| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pkrecustomize.h:101` | Net-7's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Start' |
-| 2 | `Cost` | `app/packets/pkrecustomize.h:112` | what it holds (its class's file) |
-| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pkrecustomize.h:117` | Net-7's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done' |
-| 2 | `Desc` | `app/packets/pkrecustomize.h:128` | what it holds |
-| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pkrecustomize.h:133` | Net-7's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update' |
-| 2 | `Desc` | `app/packets/pkrecustomize.h:144` | what it holds |
+| 2 | `RecustomizeShipStartPacketClass` | `app/packets/pkrecustomize.h:24` | Net-7's opcode name RECUSTOMIZE_SHIP_START (the Net-7 opcode table), the client's Print text 'Recustomize Ship Start' |
+| 2 | `Desc` | `app/packets/pkrecustomize.h:35` | what it holds |
+| 2 | `Cost` | `app/packets/pkrecustomize.h:36` | what it holds (its class's file) |
+| 2 | `RecustomizeShipDonePacketClass` | `app/packets/pkrecustomize.h:45` | Net-7's opcode name RECUSTOMIZE_SHIP_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Ship Done' |
+| 2 | `Desc` | `app/packets/pkrecustomize.h:56` | what it holds |
+| 2 | `RecustomizeAvatarStartPacketClass` | `app/packets/pkrecustomize.h:61` | Net-7's opcode name RECUSTOMIZE_AVATAR_START (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Start' |
+| 2 | `Cost` | `app/packets/pkrecustomize.h:72` | what it holds (its class's file) |
+| 2 | `RecustomizeAvatarDonePacketClass` | `app/packets/pkrecustomize.h:77` | Net-7's opcode name RECUSTOMIZE_AVATAR_DONE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Done' |
+| 2 | `Desc` | `app/packets/pkrecustomize.h:88` | what it holds |
+| 2 | `RecustomizeAvatarUpdatePacketClass` | `app/packets/pkrecustomize.h:93` | Net-7's opcode name RECUSTOMIZE_AVATAR_UPDATE (the Net-7 opcode table), the client's Print text 'Recustomize Avatar Update' |
+| 2 | `Desc` | `app/packets/pkrecustomize.h:104` | what it holds |
 | 2 | `RequestTargetPacketClass` | `app/packets/pkrequesttarget.h:22` | Net-7's opcode name REQUEST_TARGET (the Net-7 opcode table; no structure check) |
 | 2 | `RequestTargetsTargetPacketClass` | `app/packets/pkrequesttarget.h:38` | Net-7's opcode name REQUEST_TARGETS_TARGET (the Net-7 opcode table; no structure check) |
 | 2 | `RequestTimePacketClass` | `app/packets/pkrequesttime.h:21` | Net-7's opcode name REQUEST_TIME (the Net-7 opcode table; no structure check) |
@@ -28890,6 +28903,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `race.h` | `app/common/race.h:17` | header name assumed from the client's race.cpp |
 | 3 | `RaceType` | `app/common/race.h:20` | the client's Type_Name 'RaceType' |
 | 3 | `RaceBitFieldType` | `app/common/race.h:21` | the client's Type_Name 'RaceBitFieldType' |
+| 3 | `recustomization_cost.h` | `app/common/recustomization_cost.h:18` | header name assumed from the client's recustomization_cost.cpp |
 | 3 | `stredit.h` | `app/common/stredit.h:18` | header name assumed from the client's stredit.cpp |
 | 3 | `StrEditClass` | `app/common/stredit.h:28` | class-from-file (D24) for app\common\stredit.cpp |
 | 3 | `maxlen` | `app/common/stredit.h:31` | the asserts' MaxLen; NAME 1 [string, flags, chars]: neutral |
@@ -29350,7 +29364,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `HSVShift` | `app/packets/pkpointeffect.h:179` | the client's Print text 'HSVShift=' |
 | 3 | `Speedup` | `app/packets/pkpointeffect.h:180` | the client's Print text 'Speedup=' |
 | 3 | `EffectID` | `app/packets/pkpointeffect.h:195` | the client's Print text 'EffectID=' |
-| 3 | `oldavatar, newavatar` | `app/packets/pkrecustomize.h:35` | the FAIL_IFs' |
 | 3 | `PointsTotal` | `app/packets/pkreferralpointsavailable.h:31` | the client's Print text 'PointsTotal=' |
 | 3 | `PointsSpent` | `app/packets/pkreferralpointsavailable.h:32` | the client's Print text 'PointsSpent=' |
 | 3 | `GameID` | `app/packets/pkremove.h:33` | the client's Print text 'GameID=' |
