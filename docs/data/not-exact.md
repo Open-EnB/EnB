@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-806 entries in 265 files.
+812 entries in 268 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -94,6 +94,9 @@ edit the comments in the code, not this file.
 | `app/client/cpacket.cpp:2845` | `ClientChatListPacketClass::Process_Packet` | marker | NOT EXACT: shape (the cases' early returns: the client jumps from each to the one exit, ours repeats the profile tail per case; the profile flag in al, sclient in ebx; attempts.py show 0x73CC90) 0x73CC90 |
 | `app/client/ctrngadg.cpp:118` | `CtrnGadgetClass::Unknown_2C` | marker | NOT EXACT: shape, 0.69 (explain.py): the release block is laid out after the Ctrl test, the wheel's default gets its own epilogue, 0 for +0x12B4 from ebx (see attempts.csv) @0x50ABC0 |
 | `app/client/ctrngadg.cpp:226` | `CtrnGadgetClass::Unknown_2C` | mention | NOT EXACT): with the window focused (input.cpp 0x42EE90) and the task focused (SClient 0x74B5E0), a pointer move (+0x48 / +0x4C its last x, y) turns the camera (camera_manager.cpp's 0x79B370-0x79B410, the pitch clamped to +-1.4835 = 85 degrees, scaled by the frame time and 0.1) or the bridge's view (bridge_int.cpp 0x53CA00 / 0x53C980) while Shift or Ctrl is down; the wheel (0x101 / 0x102) zooms by... |
+| `app/client/debris.cpp:230` | `DebrisFieldClass::Render` | marker | NOT EXACT: 0.53, frame (sub esp 0xA5C against 0xA54); written from the client's code, the loops and the stack slots differ |
+| `app/client/debris.cpp:681` | `DebrisFieldClass::Unknown_6BB640` | mention | NOT EXACT. Unknown_B92080 is the object's first data (after bar3d.cpp's __FILE__ string), 256 hash bytes. |
+| `app/client/debris.h:39` | `?` | mention | NOT EXACT) |
 | `app/client/debrsint.cpp:9` | `DebrisInterfaceClass::DebrisInterfaceClass` | marker | NOT EXACT: functional (D64), register-only (ebx / edi / ebp swapped; two rounds: the fade clamps' temporaries) 0x53D250 |
 | `app/client/debrsint.cpp:150` | `DebrisInterfaceClass::Unknown_68` | marker | NOT EXACT: functional (D64), order-only (key 10's colour: the red's spill after the blue's multiply) 0x53D9F0 |
 | `app/client/debrsint.cpp:251` | `DebrisInterfaceClass::Unknown_6C` | marker | NOT EXACT: functional (D64), frame (0x10C vs 0x108: the colour's copy; the client passes the red through the FPU, the green and blue from two spills) 0x53DDE0 |
@@ -698,6 +701,9 @@ edit the comments in the code, not this file.
 | `app/shared/expr/expr_math_int.cpp:93` | `ExprMathIntFactoryClass::Create_Unary` | marker | NOT EXACT: 0x4CC120 similarity 0.78: the client inlines more of the five groups' assignments (float's form, 0x4C8370, is exact) @0x4CC120 |
 | `app/shared/expr/expr_math_parser_impl.cpp:33` | `ExprMathParserImplClass::Add_Similar` | marker | NOT EXACT: the loop latch reloads it / &it->Ops in the other order (2 instructions swapped, same length) |
 | `app/shared/expr/expr_math_parser_impl.cpp:81` | `ExprMathParserImplClass::Parse_Level` | marker | NOT EXACT: the level > size guard keeps its own return NULL, and the token's destructor is inline / called on the other two exits |
+| `app/shared/fp_tt.cpp:41` | `FpTTClass::Unknown_04` | marker | NOT EXACT: 0.44, frame (sub esp 0x48 against 0x44): the client shares stack slots between the target delta, the climb vector and the new axes |
+| `app/shared/fp_tt.cpp:320` | `FpTTClass::Unknown_08` | marker | NOT EXACT: written from the client's code (the obstacle pass, then 0x449540's steer around or away from the nearest) |
+| `app/shared/fp_tt.cpp:529` | `FpTTClass::Unknown_0C` | mention | NOT EXACT. - 0x449CC0 (the out-of-line destructor of unknown_7cef30.h's RegistrationUnknown568Struct) and 0x44A980 (vector<SubsCouponStruct>::operator=) lie inside this object's span: COMDAT copies of a header this file reached (or the linker's identical-code folding); no source form here produces them yet. |
 | `app/shared/gclass.cpp:12` | `GClass::Unknown_4A17B0` | marker | NOT EXACT: order-only (0.65; the client saves esi before the first test, VC6 after the Is_Valid tests; fifteen forms, attempts.py show 0x4A17B0) |
 | `app/shared/heightfield.cpp:34` | `HeightFieldClass::Load` | marker | NOT EXACT: order-only (the client loads Size before Count - 1 and copies it for HalfSize), parked |
 | `app/shared/heightfield.cpp:202` | `HeightFieldClass::Get_Downhill` | marker | NOT EXACT: shape (0x463F00, 27 masked rows: the client pops edi before the last height and doesn't merge case 2's tail into case 3's; attempts.csv) |

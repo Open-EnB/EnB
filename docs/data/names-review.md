@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 211 |
+| 5 | the client names it | 214 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1880 |
-| 2 | describes what the code does | 4617 |
-| 1 | neutral placeholder | 23825 |
+| 3 | by convention from a client-named file or sibling | 1883 |
+| 2 | describes what the code does | 4622 |
+| 1 | neutral placeholder | 23908 |
 
 ## For review (score 3 and below)
 
@@ -2724,6 +2724,38 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown44` | `app/client/ctrngadg.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown48` | `app/client/ctrngadg.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/ctrngadg.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_B92080` | `app/client/debris.cpp:14` | neutral (D10) |
+| 1 | `UnknownB4` | `app/client/debris.cpp:43` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/debris.cpp:45` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/debris.cpp:48` | untagged neutral name (D10) |
+| 1 | `UnknownCC` | `app/client/debris.cpp:49` | untagged neutral name (D10) |
+| 1 | `UnknownD0` | `app/client/debris.cpp:50` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/debris.cpp:51` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/debris.cpp:52` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/debris.cpp:53` | untagged neutral name (D10) |
+| 1 | `UnknownE0` | `app/client/debris.cpp:54` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/debris.cpp:55` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/debris.cpp:56` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/debris.cpp:58` | untagged neutral name (D10) |
+| 1 | `Unknown_6BB470` | `app/client/debris.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_6BB440` | `app/client/debris.cpp:350` | untagged neutral name (D10) |
+| 1 | `Unknown_6BB640` | `app/client/debris.cpp:655` | untagged neutral name (D10) |
+| 1 | `Unknown_6BB440` | `app/client/debris.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_6BB470` | `app/client/debris.h:41` | untagged neutral name (D10) |
+| 1 | `offset` | `app/client/debris.h:42` | neutral |
+| 1 | `Unknown_6BB640` | `app/client/debris.h:42` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/debris.h:53` | untagged neutral name (D10) |
+| 1 | `UnknownBC` | `app/client/debris.h:55` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/debris.h:58` | untagged neutral name (D10) |
+| 1 | `UnknownCC` | `app/client/debris.h:59` | untagged neutral name (D10) |
+| 1 | `UnknownD0` | `app/client/debris.h:60` | untagged neutral name (D10) |
+| 1 | `UnknownD4` | `app/client/debris.h:61` | untagged neutral name (D10) |
+| 1 | `UnknownD8` | `app/client/debris.h:62` | untagged neutral name (D10) |
+| 1 | `UnknownDC` | `app/client/debris.h:63` | untagged neutral name (D10) |
+| 1 | `UnknownE0` | `app/client/debris.h:64` | untagged neutral name (D10) |
+| 1 | `UnknownE4` | `app/client/debris.h:65` | untagged neutral name (D10) |
+| 1 | `UnknownE8` | `app/client/debris.h:66` | untagged neutral name (D10) |
+| 1 | `UnknownF8` | `app/client/debris.h:68` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/debrsint.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/debrsint.cpp:91` | untagged neutral name (D10) |
 | 1 | `Unknown_60` | `app/client/debrsint.cpp:98` | untagged neutral name (D10) |
@@ -2737,17 +2769,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_53E0B0` | `app/client/debrsint.cpp:300` | untagged neutral name (D10) |
 | 1 | `Unknown_53E470` | `app/client/debrsint.cpp:407` | untagged neutral name (D10) |
 | 1 | `Unknown_6BB640` | `app/client/debrsint.cpp:409` | untagged neutral name (D10) |
-| 1 | `Unknown_6BB440` | `app/client/debrsint.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown_6BB470` | `app/client/debrsint.h:27` | untagged neutral name (D10) |
-| 1 | `offset` | `app/client/debrsint.h:28` | neutral |
-| 1 | `Unknown_6BB640` | `app/client/debrsint.h:28` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/debrsint.h:39` | untagged neutral name (D10) |
-| 1 | `UnknownBC` | `app/client/debrsint.h:41` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `app/client/debrsint.h:42` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `app/client/debrsint.h:43` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/client/debrsint.h:44` | untagged neutral name (D10) |
-| 1 | `UnknownCC` | `app/client/debrsint.h:45` | untagged neutral name (D10) |
-| 1 | `UnknownF8` | `app/client/debrsint.h:47` | untagged neutral name (D10) |
 | 1 | `view, scene, ini` | `app/client/debrsint.h:56` | what 0x50C690 passes |
 | 1 | `Unknown_58` | `app/client/debrsint.h:58` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/debrsint.h:59` | untagged neutral name (D10) |
@@ -22017,6 +22038,33 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4C15F0` | `app/shared/avatar_desc.h:50` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/shared/avatar_desc.h:66` | untagged neutral name (D10) |
 | 1 | `BoolContext` | `app/shared/boolpars.cpp:7` | 0xBE34D8, set only around BoolExpressionClass::Evaluate |
+| 1 | `callback_manager.h` | `app/shared/callback_manager.h:4` | the .cpp's name (D137) |
+| 1 | `CallbackClass` | `app/shared/callback_manager.h:12` | neutral (D10) |
+| 1 | `Delete_When_Removed` | `app/shared/callback_manager.h:16` | what it does |
+| 1 | `Execute` | `app/shared/callback_manager.h:17` | what it does |
+| 1 | `CallbackEntry` | `app/shared/callback_manager.h:24` | neutral (D10) |
+| 1 | `Owner` | `app/shared/callback_manager.h:28` | what it holds |
+| 1 | `Time` | `app/shared/callback_manager.h:29` | what it holds |
+| 1 | `Callback` | `app/shared/callback_manager.h:30` | what it holds |
+| 1 | `std:` | `app/shared/callback_manager.h:32` | neutral (D10) |
+| 1 | `ActiveIteratorsClass` | `app/shared/callback_manager.h:38` | neutral (D10) |
+| 1 | `Erasing` | `app/shared/callback_manager.h:42` | what it does |
+| 1 | `Invalidate` | `app/shared/callback_manager.h:52` | what it does |
+| 1 | `Pop` | `app/shared/callback_manager.h:62` | what it does |
+| 1 | `std:` | `app/shared/callback_manager.h:72` | what it holds |
+| 1 | `ActiveIterators` | `app/shared/callback_manager.h:74` | what it holds |
+| 1 | `Is_Due` | `app/shared/callback_manager.h:88` | what it does |
+| 1 | `Add` | `app/shared/callback_manager.h:89` | what it does |
+| 1 | `Remove` | `app/shared/callback_manager.h:90` | what it does |
+| 1 | `Remove` | `app/shared/callback_manager.h:91` | what it does |
+| 1 | `Remove_Last` | `app/shared/callback_manager.h:92` | what it does |
+| 1 | `Remove_Last` | `app/shared/callback_manager.h:93` | what it does |
+| 1 | `Remove_All` | `app/shared/callback_manager.h:94` | what it does |
+| 1 | `Remove_All` | `app/shared/callback_manager.h:95` | what it does |
+| 1 | `Clear` | `app/shared/callback_manager.h:96` | what it does |
+| 1 | `Remove` | `app/shared/callback_manager.h:97` | what it does |
+| 1 | `Erase` | `app/shared/callback_manager.h:101` | what it does |
+| 1 | `Erase_Protected` | `app/shared/callback_manager.h:102` | what it does |
 | 1 | `Unknown_ChatStreamClass` | `app/shared/chat_edit_stream.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/shared/chat_edit_stream.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/shared/chat_edit_stream.cpp:11` | untagged neutral name (D10) |
@@ -22196,6 +22244,49 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:44` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/event.cpp:87` | the iterators of the Send_Event calls in progress (0xBE5610), fixed up by Remove_Listener and ~Subject |
 | 1 | `Pop_Iterator` | `app/shared/event.cpp:196` | pops Send_Event's iterator; false once ~Subject cleared it (inlined into 0x4E8E40) |
+| 1 | `Unknown_BE350C` | `app/shared/fp_tt.cpp:10` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
+| 1 | `Unknown28` | `app/shared/fp_tt.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/shared/fp_tt.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/shared/fp_tt.cpp:16` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/shared/fp_tt.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown39` | `app/shared/fp_tt.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/shared/fp_tt.cpp:19` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/shared/fp_tt.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/shared/fp_tt.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/shared/fp_tt.cpp:321` | untagged neutral name (D10) |
+| 1 | `Unknown_4568E0` | `app/shared/fp_tt.cpp:326` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/shared/fp_tt.cpp:337` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn48` | `app/shared/fp_tt.cpp:338` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn4C` | `app/shared/fp_tt.cpp:413` | untagged neutral name (D10) |
+| 1 | `Unknown_Dyn58` | `app/shared/fp_tt.cpp:415` | untagged neutral name (D10) |
+| 1 | `Unknown_44AFD0` | `app/shared/fp_tt.cpp:416` | untagged neutral name (D10) |
+| 1 | `Unknown_456900` | `app/shared/fp_tt.cpp:504` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/shared/fp_tt.cpp:509` | untagged neutral name (D10) |
+| 1 | `RegistrationUnknown568Struct` | `app/shared/fp_tt.cpp:530` | untagged neutral name (D10) |
+| 1 | `FpBaseClass` | `app/shared/fp_tt.h:27` | neutral (D10), the base of the fp_*.cpp classes |
+| 1 | `all` | `app/shared/fp_tt.h:31` | what fp_tt.cpp's does with them |
+| 1 | `Unknown_04` | `app/shared/fp_tt.h:31` | untagged neutral name (D10) |
+| 1 | `all but proxim` | `app/shared/fp_tt.h:32` | as Unknown_04, what fp_tt.cpp's does with them; [proxim]: the G_ASSERT 'proxim.Get_Avoidance()' 0xB705E4 |
+| 1 | `Unknown_08` | `app/shared/fp_tt.h:32` | untagged neutral name (D10) |
+| 1 | `yaw, pitch` | `app/shared/fp_tt.h:33` | the angles fp_tt.cpp's returns |
+| 1 | `Unknown_0C` | `app/shared/fp_tt.h:33` | untagged neutral name (D10) |
+| 1 | `all` | `app/shared/fp_tt.h:39` | what it does with them |
+| 1 | `MaxYaw` | `app/shared/fp_tt.h:45` | the angle the yaw turns by |
+| 1 | `MaxYawCos` | `app/shared/fp_tt.h:46` | its cosine |
+| 1 | `MaxYawSin` | `app/shared/fp_tt.h:47` | its sine |
+| 1 | `MaxYawInv` | `app/shared/fp_tt.h:48` | its inverse |
+| 1 | `MaxPitch` | `app/shared/fp_tt.h:49` | the angle the pitch turns by |
+| 1 | `MaxPitchCos` | `app/shared/fp_tt.h:50` | its cosine |
+| 1 | `MaxPitchSin` | `app/shared/fp_tt.h:51` | its sine |
+| 1 | `MaxSlope` | `app/shared/fp_tt.h:52` | the clamp of the target's slope |
+| 1 | `MaxYawHalfCos` | `app/shared/fp_tt.h:53` | what it is |
+| 1 | `Unknown28` | `app/shared/fp_tt.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown2C` | `app/shared/fp_tt.h:55` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/shared/fp_tt.h:56` | untagged neutral name (D10) |
+| 1 | `Unknown38` | `app/shared/fp_tt.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown39` | `app/shared/fp_tt.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown3C` | `app/shared/fp_tt.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/shared/fp_tt.h:60` | untagged neutral name (D10) |
 | 1 | `_Nodes` | `app/shared/gclass.cpp:9` | neutral (D10) |
 | 1 | `UnknownGadgetBase00Class` | `app/shared/gclass.cpp:9` | untagged neutral name (D10) |
 | 1 | `_DirtyList` | `app/shared/gclass.cpp:10` | neutral (D10) |
@@ -23575,26 +23666,18 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42F940` | `programs/clientpoc/poc_window.cpp:79` | untagged neutral name (D10) |
 | 1 | `Unknown_42FAC0` | `programs/clientpoc/poc_window.cpp:80` | untagged neutral name (D10) |
 | 1 | `Unknown_42FBA0` | `programs/clientpoc/poc_window.cpp:81` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `programs/clientpoc/poc_world.cpp:69` | untagged neutral name (D10) |
-| 1 | `UnknownBC` | `programs/clientpoc/poc_world.cpp:69` | untagged neutral name (D10) |
-| 1 | `UnknownC0` | `programs/clientpoc/poc_world.cpp:69` | untagged neutral name (D10) |
-| 1 | `UnknownC4` | `programs/clientpoc/poc_world.cpp:69` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `programs/clientpoc/poc_world.cpp:69` | untagged neutral name (D10) |
-| 1 | `Unknown_6BB440` | `programs/clientpoc/poc_world.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown_6BB470` | `programs/clientpoc/poc_world.cpp:76` | untagged neutral name (D10) |
-| 1 | `Unknown_6BB640` | `programs/clientpoc/poc_world.cpp:77` | untagged neutral name (D10) |
-| 1 | `UICpitUnknownC8Class` | `programs/clientpoc/poc_world.cpp:88` | untagged neutral name (D10) |
-| 1 | `Unknown84` | `programs/clientpoc/poc_world.cpp:91` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `programs/clientpoc/poc_world.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `programs/clientpoc/poc_world.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown49` | `programs/clientpoc/poc_world.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown4A` | `programs/clientpoc/poc_world.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown_79B9E0` | `programs/clientpoc/poc_world.cpp:108` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown_5689D0` | `programs/clientpoc/poc_world.cpp:160` | untagged neutral name (D10) |
-| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:164` | untagged neutral name (D10) |
-| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:165` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:178` | untagged neutral name (D10) |
+| 1 | `UICpitUnknownC8Class` | `programs/clientpoc/poc_world.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `programs/clientpoc/poc_world.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `programs/clientpoc/poc_world.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `programs/clientpoc/poc_world.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown49` | `programs/clientpoc/poc_world.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown4A` | `programs/clientpoc/poc_world.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_79B9E0` | `programs/clientpoc/poc_world.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:119` | untagged neutral name (D10) |
+| 1 | `Unknown_5689D0` | `programs/clientpoc/poc_world.cpp:149` | untagged neutral name (D10) |
+| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:167` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
@@ -24360,18 +24443,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `PlayerID` | `app/client/control_keys_manager.h:179` | what it holds |
 | 2 | `cpacket.cpp` | `app/client/cpacket.cpp:75` | the class id the handlers test |
 | 2 | `SoundManager` | `app/client/cpacket.cpp:94` | what it holds |
-| 2 | `all` | `app/client/debrsint.h:23` | the Debris%02d keys they come from |
-| 2 | `Set_Color` | `app/client/debrsint.h:29` | what it sets |
-| 2 | `Spacing` | `app/client/debrsint.h:31` | the key's |
-| 2 | `Size` | `app/client/debrsint.h:32` | the key's |
-| 2 | `MinDist` | `app/client/debrsint.h:33` | the key's |
-| 2 | `MaxDist` | `app/client/debrsint.h:34` | the key's |
-| 2 | `Color` | `app/client/debrsint.h:35` | the keys' |
-| 2 | `Alpha` | `app/client/debrsint.h:36` | the key's |
-| 2 | `FadeIn` | `app/client/debrsint.h:37` | the key's |
-| 2 | `FadeOut` | `app/client/debrsint.h:38` | the key's |
-| 2 | `Additive` | `app/client/debrsint.h:40` | the key's |
-| 2 | `BlurTime` | `app/client/debrsint.h:46` | the key's |
+| 2 | `all` | `app/client/debris.h:31` | the Debris%02d keys they come from |
+| 2 | `Class_ID` | `app/client/debris.h:37` | E&B's class id |
+| 2 | `Set_Color` | `app/client/debris.h:43` | what it sets |
+| 2 | `Spacing` | `app/client/debris.h:45` | the key's |
+| 2 | `Size` | `app/client/debris.h:46` | the key's |
+| 2 | `MinDist` | `app/client/debris.h:47` | the key's |
+| 2 | `MaxDist` | `app/client/debris.h:48` | the key's |
+| 2 | `Color` | `app/client/debris.h:49` | the keys' |
+| 2 | `Alpha` | `app/client/debris.h:50` | the key's |
+| 2 | `FadeIn` | `app/client/debris.h:51` | the key's |
+| 2 | `FadeOut` | `app/client/debris.h:52` | the key's |
+| 2 | `Additive` | `app/client/debris.h:54` | the key's |
+| 2 | `PointGroup` | `app/client/debris.h:56` | its type |
+| 2 | `LineGroup` | `app/client/debris.h:57` | its type |
+| 2 | `BlurTime` | `app/client/debris.h:67` | the key's |
+| 2 | `Primitive` | `app/client/debris.h:69` | the key's |
 | 2 | `Set_Mode` | `app/client/debrsint.h:64` | what it sets; NAME 2 [mode]: DebrisMode |
 | 2 | `Get_Spacing` | `app/client/debrsint.h:67` | the field it reads |
 | 2 | `Set_Spacing` | `app/client/debrsint.h:68` | the field it sets |
@@ -27629,6 +27716,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Create_Constant` | `app/shared/boolpars.h:182` | describes what it does |
 | 2 | `Create_Function` | `app/shared/boolpars.h:183` | describes what it does |
 | 2 | `Get_Callback` | `app/shared/boolpars.h:184` | describes what it does |
+| 2 | `Iterator` | `app/shared/callback_manager.h:77` | the assert's variable 'iter' (its member is 'Iter') |
 | 2 | `Type` | `app/shared/chat_edit_stream.h:17` | 0x4C45B0's 'type' assert |
 | 2 | `Add_Mix` | `app/shared/combo_ffactory.h:38` | describes what it does |
 | 2 | `Simple` | `app/shared/combo_ffactory.h:41` | describes what it holds |
@@ -28579,7 +28667,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIGroupFindClass` | `app/client/cpacket.cpp:2481` | class-from-file (D24) for app\client\ui_groupfind.cpp  // NAME 1 [packet]: the handler's packet |
 | 3 | `ctrngadg.h` | `app/client/ctrngadg.h:18` | header name assumed from the client's ctrngadg.cpp |
 | 3 | `CtrnGadgetClass` | `app/client/ctrngadg.h:25` | class-from-file (D24) for app\client\ctrngadg.cpp |
-| 3 | `DebrisFieldClass` | `app/client/debrsint.h:20` | the profile name's |
+| 3 | `debris.h` | `app/client/debris.h:16` | the header of debris.cpp |
+| 3 | `DebrisFieldClass` | `app/client/debris.h:28` | the profile name's ('DebrisFieldClass::Render' 0xB921E4) |
 | 3 | `DebrisInterfaceClass` | `app/client/debrsint.h:53` | class-from-file (D24) for debrsint.cpp, as backint.cpp's BackInterfaceClass |
 | 3 | `decal.cpp` | `app/client/decal.cpp:15` | the FAIL_IF's 'i - SECRET_DECALS' |
 | 3 | `i, mat_desc` | `app/client/decal.h:39` | the FAIL_IFs'; NAME 1 [color]: neutral |
@@ -30250,6 +30339,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `expr_math_tree.h` | `app/shared/expr/expr_math_tree.h:17` | header name assumed from the client's expr_math_tree.cpp |
 | 3 | `ExprMathTreeClass` | `app/shared/expr/expr_math_tree.h:26` | class-from-file (D24) |
 | 3 | `m_token` | `app/shared/expr/expr_math_tree.h:36` | m_ as the asserts' m_left / m_child |
+| 3 | `fp_tt.h` | `app/shared/fp_tt.h:16` | the header of fp_tt.cpp |
+| 3 | `FpTTClass` | `app/shared/fp_tt.h:36` | class-from-file (D24) for fp_tt.cpp |
 | 3 | `gclass.h` | `app/shared/gclass.h:21` | header name assumed from the client's gclass.cpp |
 | 3 | `Get_Target_Node` | `app/shared/gclass.h:82` | the client's assert 'Get_Target_Node()' |
 | 3 | `Get_Targeting_List` | `app/shared/gclass.h:83` | the client's assert 'Get_Targeting_List() != NULL' |
