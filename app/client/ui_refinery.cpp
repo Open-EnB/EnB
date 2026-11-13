@@ -229,7 +229,7 @@ public:
 	int Value;											// +0x84  // NAME 2: what it holds
 };
 #include "aux_roots.h"				// (after auxdata.h, as ui_manu.cpp): 'Validity' is DeltaTemplateClass<UnknownB01394Enum>
-
+bool Is_Validity_Attempt(UnknownB01394Enum validity);				// 0x846210 (manufacturing_defs.h keeps it from aux_roots.cpp's declaration count)
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as ui_manu.cpp's
 template<class C> inline C *Unknown_Manu_Raw_Field(DeltaCompoundClass *const &root, const char *name) { NameClass n(name); DeltaCompoundClass *r = root; return(Unknown_Find_Field<C>(r, n)); } template<class C> inline C *Unknown_Manu_Raw(DeltaCompoundClass *const &root, const char *name) { return(Unknown_Manu_Raw_Field<C>(root, name)); }	// NAME 1: neutral (D10): as ui_manu.cpp's
 template<class C> C *Unknown_Find_Changed(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70 > 1) return(t); return(NULL); }	// NAME 1: neutral (D10): 0x5EEBA0 (out of line after 0x5EDFD0)

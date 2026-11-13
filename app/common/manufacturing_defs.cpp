@@ -1,6 +1,7 @@
 // Earth & Beyond client (reconstruction): app\common\manufacturing_defs.cpp
 // Client 0x845200-0x846253 and the guarded <string> static 0x846270: the whole object (the
 // manufacturing lab's value converters). Notes at the end of the file.
+#define __MANUFACTURING_DEFS_ALL
 #include "manufacturing_defs.h"
 #include <string.h>
 #include "..\shared\g_assert.h"
@@ -144,7 +145,6 @@ static char *_DifficultyNames[] = { "Invalid", "Automatic", "Easy", "Moderate", 
 // 0x8452C0
 bool String_To_Value(const char *buf, MfgTypeEnum *value)
 {
-
 
 
 
@@ -394,15 +394,15 @@ ManufacturingModeBitFlag Mode_To_Bit_Flag(UnknownB013ECEnum mode)
 UnknownB013ECEnum Bit_Flag_To_Mode(ManufacturingModeBitFlag flag)
 {
 	switch (flag) {
-		case 0:	return(MODE_NONE);
-		case 1:	return(MODE_MANUFACTURE);
-		case 2:	return(MODE_ANALYZE);
-		case 4:	return(MODE_DISMANTLE);
-		case 8:	return(MODE_REFINE);
+		case 0:	return((UnknownB013ECEnum)MODE_NONE);
+		case 1:	return((UnknownB013ECEnum)MODE_MANUFACTURE);
+		case 2:	return((UnknownB013ECEnum)MODE_ANALYZE);
+		case 4:	return((UnknownB013ECEnum)MODE_DISMANTLE);
+		case 8:	return((UnknownB013ECEnum)MODE_REFINE);
 		default:
 			G_ASSERT(0);
 	}
-	return(MODE_NONE);
+	return((UnknownB013ECEnum)MODE_NONE);
 }
 
 // NOT EXACT: the failed lookup's path destroys the list's strings through the inlined _Tidy(true), the client's through ??_G(0) (inline budget, D89)
@@ -446,7 +446,7 @@ char *Value_To_String(char *buf, int size, ManufacturingModeBitFlag value)
 	}
 	char *result;
 	if (text.length() == 0) {
-		result = Value_To_String(buf, size, MODE_NONE);
+		result = Value_To_String(buf, size, (UnknownB013ECEnum)MODE_NONE);
 	} else {
 		Bounded_Strcpy(buf, size, text.c_str());
 		result = buf;
