@@ -17,21 +17,8 @@ class SClient;
 class RenderObjClass;
 class ButtonGadgetClass;		// unknown_675120.h's buttons
 
-// D137 interim placement (PW1, 2026-11-09): one of the classes the equipment window makes, not rebuilt; its file by
-// its asserts' neighbourhood is not confirmed (triage's hint: ship_equip_pip.cpp; the stats display is O18's
-// ship_stats_display.h; the
-// third, the PIP's gadget, is gd_ship_equip_pip.h's). Declared as far as ui_pda_equip.cpp and its gadget call them.
-
-// The ship's PIP (0xB0 bytes, constructor 0x541DE0; a PipSceneClass)
-class Unknown541DE0Class : public PipSceneClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown541DE0Class(SClient *client);				// 0x541DE0 (not rebuilt)  // NAME 1 [client]: what the window passes
-	void Unknown_542250(const RefCountPtr<RenderObjClass> &robj);	// 0x542250 (not rebuilt: the ship's model, 0x5D2B90)  // NAME 1 [robj]: neutral
-	void Unknown_542A10(const Vector2 &point, bool on);	// 0x542A10 (not rebuilt: gd_ship_equip_pip.cpp's drag, from the point)  // NAME 1 [point, on]: neutral
-	void Unknown_542EE0(float zoom);					// 0x542EE0 (not rebuilt: gd_ship_equip_pip.cpp's wheel, +-0.05)  // NAME 1 [zoom]: what the wheel passes
-	char Unknown34[0xB0 - 0x34];
-};
+// The ship's PIP on the window: ship_equip_pip.h's (the PIP's gadget is gd_ship_equip_pip.h's)
+class ShipEquipPipClass;
 
 // The ship's statistics on the window: ship_stats_display.h's
 class ShipStatsDisplayClass;
@@ -68,7 +55,7 @@ public:
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: the FAIL_IF '!Get_Client()')  // NAME 3: the FAIL_IF's
 
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0xD0 ('tsi07a'; FAIL_IF '!InterfaceMesh')  // NAME 3: the FAIL_IF's
-	Unknown541DE0Class *ShipPip;						// +0xD4 (the ship's PIP)  // NAME 2: what it shows
+	ShipEquipPipClass *ShipPip;						// +0xD4 (the ship's PIP)  // NAME 2: what it shows
 	std::vector<UnknownMountSlotStruct *> Mounts;		// +0xD8 (0x5D2C50: one per 'Inventory.Mounts' element)  // NAME 2: what it holds
 	RefCountPtr<RenderObjClass> Frames[NUM_FRAMES];		// +0xE8 ('w%02df' 0..5, 's%02df' 6..11, 'c%02df' 12..14: shown with a mount)  // NAME 2: what they are
 	int Unknown124;									// +0x124 (zeroed)  // NAME 1: neutral (D10)

@@ -23,9 +23,9 @@
 #include "..\shared\auxdata\auxdata.h"
 #include "..\shared\g_assert.h"
 #include "ship_stats_display.h"
+#include "ship_equip_pip.h"
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
-
 // What InterfaceClass's +0x40 points to, as far as this file calls it (as pdaint.cpp declares it)
 class LineDisplayClientClass  // NAME 1: neutral (D10)
 {
@@ -149,7 +149,7 @@ void UIPdaEquipClass::Unknown_54()
 	Unknown58.Unknown_686DA0(mesh, NULL);
 	Unknown_BE67C4->Add(InterfaceMesh);
 	Stats = new ShipStatsDisplayClass(Client->As_Space_Client(), InterfaceMesh);
-	ShipPip = new Unknown541DE0Class(Client->As_Space_Client());
+	ShipPip = new ShipEquipPipClass(Client->As_Space_Client());
 	GadgetShipEquipPipClass *pip = new GadgetShipEquipPipClass(ShipPip);
 	Unknown64.Unknown_6870E0(pip, 0x12, View, 1, 0);
 	pip->Unknown_65FFC0(1, (GadgetClass *)first);
