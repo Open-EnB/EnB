@@ -11,16 +11,16 @@
 
 bool Unknown_495FD0(RenderObjClass *robj, TextureClass *texture, int unknown);	// 0x495FD0 (ro_funcs.cpp, cdecl): the texture onto the model  // NAME 1 [robj, texture, unknown]: as ui_manu.cpp
 
-template <class T> inline void Set_All(T *array, const T &value) { for (int i = 0; i < 5; i++) array[i] = value; }	// NAME 1: neutral (D10): the constructor's three arrays
-// NOT EXACT: shape (explain.py: the client keeps a pointer per array, lea ecx, [this + 0x14] / [this + 0x28], and stores the first element of the second through this) (0x5B73C0)
+#include <string.h>	// memset (the constructor's three arrays)
+
 UIManuUnknownC0Class::UIManuUnknownC0Class(int column) :
 	Unknown3C(0),
 	Unknown40(0),
 	Unknown48(column)
 {
-	Set_All(Gadgets, (ButtonGadgetClass *)NULL);
-	Set_All(Unknown14, (RenderObjClass *)NULL);
-	Set_All(IDs, -1);
+	memset(Gadgets, 0, sizeof(Gadgets));
+	memset(Unknown14, 0, sizeof(Unknown14));
+	memset(IDs, -1, sizeof(IDs));
 
 }
 
