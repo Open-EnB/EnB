@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 204 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1856 |
-| 2 | describes what the code does | 4581 |
-| 1 | neutral placeholder | 23591 |
+| 3 | by convention from a client-named file or sibling | 1857 |
+| 2 | describes what the code does | 4582 |
+| 1 | neutral placeholder | 23629 |
 
 ## For review (score 3 and below)
 
@@ -5133,11 +5133,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D5B10` | `app/client/gutter_data.cpp:484` | untagged neutral name (D10) |
 | 1 | `Unknown300` | `app/client/gutter_data.cpp:486` | untagged neutral name (D10) |
 | 1 | `Set_Sort_Group, unused, group` | `app/client/gutter_data.h:38` | what it does; the first is never read |
-| 1 | `Unknown_831E90` | `app/client/gutter_radar.cpp:20` | neutral (D10) |
 | 1 | `Unknown_64` | `app/client/gutter_radar.cpp:108` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/gutter_radar.cpp:108` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/gutter_radar.cpp:142` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/gutter_radar.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown_831E90` | `app/client/gutter_radar.cpp:240` | untagged neutral name (D10) |
 | 1 | `Reticle08` | `app/client/gutter_radar.h:45` | neutral (D10) |
 | 1 | `Reticle0C` | `app/client/gutter_radar.h:46` | neutral (D10) |
 | 1 | `TableDepth` | `app/client/html/htmlview.cpp:456` | 0xBE83F0, counted up by <table>, down by </table>; nothing reads it |
@@ -6357,7 +6357,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Loaded` | `app/client/mv3dview.h:137` | what sets it |
 | 1 | `SectionName` | `app/client/mv3dview.h:139` | what the INI calls take it as |
 | 1 | `EntryName` | `app/client/mv3dview.h:140` | what the INI calls take it as |
-| 1 | `Unknown_832010` | `app/client/nav_list_builder.cpp:11` | neutral: bit 0 within radius1, bit 1 within radius2 |
 | 1 | `NavLinkStruct` | `app/client/nav_list_builder.cpp:14` | neutral; the assert's 'link' |
 | 1 | `NavNodeStruct` | `app/client/nav_list_builder.cpp:23` | neutral; the asserts' 'nav_points' |
 | 1 | `Unknown1C` | `app/client/nav_list_builder.cpp:32` | neutral |
@@ -6367,6 +6366,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown08` | `app/client/nav_list_builder.cpp:282` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/nav_list_builder.cpp:287` | untagged neutral name (D10) |
 | 1 | `Unknown10` | `app/client/nav_list_builder.cpp:302` | untagged neutral name (D10) |
+| 1 | `Unknown_832010` | `app/client/nav_list_builder.cpp:346` | untagged neutral name (D10) |
 | 1 | `from, to` | `app/client/nav_list_builder.h:28` | FAIL_IF '!from' |
 | 1 | `Unknown_7B7C80` | `app/client/nav_list_builder.h:28` | untagged neutral name (D10) |
 | 1 | `range, to` | `app/client/nav_list_builder.h:29` | neutral; co_from: the FAIL_IF |
@@ -13820,7 +13820,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_20` | `app/client/ui_manu.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown_24` | `app/client/ui_manu.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_manu.cpp:43` | untagged neutral name (D10) |
-| 1 | `a, b, c, d` | `app/client/ui_manu.cpp:44` | neutral |
+| 1 | `event, x, y, mask` | `app/client/ui_manu.cpp:44` | gadget.h's |
 | 1 | `Unknown_2C` | `app/client/ui_manu.cpp:44` | untagged neutral name (D10) |
 | 1 | `Unknown_30` | `app/client/ui_manu.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_34` | `app/client/ui_manu.cpp:45` | untagged neutral name (D10) |
@@ -13939,7 +13939,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_69DC60` | `app/client/ui_manu.cpp:273` | untagged neutral name (D10) |
 | 1 | `Unknown_695A00` | `app/client/ui_manu.cpp:282` | untagged neutral name (D10) |
 | 1 | `CheckBoxGadgetClass` | `app/client/ui_manu.cpp:299` | neutral (D10) |
-| 1 | `robj, layer, arg` | `app/client/ui_manu.cpp:302` | neutral |
+| 1 | `robj, layer, flags` | `app/client/ui_manu.cpp:302` | unknown_7e7e00.h's |
 | 1 | `on` | `app/client/ui_manu.cpp:305` | neutral |
 | 1 | `Unknown_7E8030` | `app/client/ui_manu.cpp:305` | untagged neutral name (D10) |
 | 1 | `UIManuTechLevelButtonClass` | `app/client/ui_manu.cpp:313` | neutral (D10) |
@@ -18202,7 +18202,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_788700` | `app/client/ui_starbase.cpp:1051` | untagged neutral name (D10) |
 | 1 | `Unknown_787450` | `app/client/ui_starbase.cpp:1054` | untagged neutral name (D10) |
 | 1 | `Unknown_78A080` | `app/client/ui_starbase.cpp:1058` | untagged neutral name (D10) |
-| 1 | `Unknown_831E90` | `app/client/ui_starbase.cpp:1078` | neutral (D10) |
 | 1 | `Unknown_63B310` | `app/client/ui_starbase.cpp:1081` | untagged neutral name (D10) |
 | 1 | `Unknown2F5` | `app/client/ui_starbase.cpp:1085` | untagged neutral name (D10) |
 | 1 | `Unknown_63E930` | `app/client/ui_starbase.cpp:1086` | untagged neutral name (D10) |
@@ -18216,6 +18215,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_63AAF0` | `app/client/ui_starbase.cpp:1142` | untagged neutral name (D10) |
 | 1 | `Unknown_1C4` | `app/client/ui_starbase.cpp:1145` | untagged neutral name (D10) |
 | 1 | `Unknown_63BA70` | `app/client/ui_starbase.cpp:1172` | untagged neutral name (D10) |
+| 1 | `Unknown_831E90` | `app/client/ui_starbase.cpp:1176` | untagged neutral name (D10) |
 | 1 | `Unknown_88` | `app/client/ui_starbase.cpp:1183` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ui_starbase.cpp:1214` | untagged neutral name (D10) |
 | 1 | `Unknown_69F540` | `app/client/ui_starbase.cpp:1222` | untagged neutral name (D10) |
@@ -19899,6 +19899,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown3C` | `app/client/unknown_7e1e40.h:58` | untagged neutral name (D10) |
 | 1 | `Unknown40` | `app/client/unknown_7e1e40.h:59` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/client/unknown_7e1e40.h:60` | untagged neutral name (D10) |
+| 1 | `robj, texture, index` | `app/client/unknown_7e7e00.cpp:7` | gd_robj.cpp's |
+| 1 | `Unknown_495FD0` | `app/client/unknown_7e7e00.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown_7E8050` | `app/client/unknown_7e7e00.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/unknown_7e7e00.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/unknown_7e7e00.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown_7E8030` | `app/client/unknown_7e7e00.cpp:38` | untagged neutral name (D10) |
 | 1 | `unknown_7e7e00.h` | `app/client/unknown_7e7e00.h:18` | neutral (D137) |
 | 1 | `robj, layer, flags` | `app/client/unknown_7e7e00.h:26` | the base's |
 | 1 | `robj, flags` | `app/client/unknown_7e7e00.h:27` | the base's |
@@ -20152,6 +20158,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BA8A08` | `app/common/chartemplate.cpp:15` | neutral (D10) |
 | 1 | `Unknown_82F350` | `app/common/chartemplate.cpp:83` | untagged neutral name (D10) |
 | 1 | `Unknown_82F3C0` | `app/common/chartemplate.cpp:90` | untagged neutral name (D10) |
+| 1 | `Unknown_831A70` | `app/common/color_common.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_BA928C` | `app/common/color_common.cpp:54` | neutral (D10) |
+| 1 | `Unknown_831C80` | `app/common/color_common.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_831CF0` | `app/common/color_common.cpp:96` | untagged neutral name (D10) |
+| 1 | `first` | `app/common/color_common.cpp:98` | neutral (D10) |
+| 1 | `textures` | `app/common/color_common.cpp:99` | neutral (D10) |
+| 1 | `swatches` | `app/common/color_common.cpp:100` | neutral (D10) |
+| 1 | `secret` | `app/common/color_common.cpp:101` | neutral (D10) |
+| 1 | `textures_ini` | `app/common/color_common.cpp:103` | neutral (D10) |
+| 1 | `swatches_ini` | `app/common/color_common.cpp:104` | neutral (D10) |
+| 1 | `secret_ini` | `app/common/color_common.cpp:105` | neutral (D10) |
+| 1 | `type, color` | `app/common/color_common.h:21` | neutral (D10) |
+| 1 | `Unknown_831A70` | `app/common/color_common.h:21` | untagged neutral name (D10) |
+| 1 | `name, type` | `app/common/color_common.h:22` | neutral (D10) |
+| 1 | `Unknown_831C80` | `app/common/color_common.h:22` | untagged neutral name (D10) |
+| 1 | `index, special` | `app/common/color_common.h:23` | neutral (D10): special also allows the swatches (< 0) and the secret textures (1000..) |
+| 1 | `Unknown_831CF0` | `app/common/color_common.h:23` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `app/common/connect.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Begin_Step` | `app/common/connect.cpp:33` | 0x509EF0 (dbgmgr.cpp), WinMain's step log |
 | 1 | `Unknown_Debug_End_Step` | `app/common/connect.cpp:34` | 0x50A1E0 (dbgmgr.cpp) |
@@ -20181,6 +20204,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/common/connect.h:197` | untagged neutral name (D10) |
 | 1 | `Unknown2A` | `app/common/dbgconn.cpp:88` | untagged neutral name (D10) |
 | 1 | `Unknown_Get_Ticks` | `app/common/dbgconn.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_831E90` | `app/common/distance_calc.cpp:6` | untagged neutral name (D10) |
+| 1 | `distance` | `app/common/distance_calc.cpp:9` | neutral (D10) |
+| 1 | `Unknown_831F10` | `app/common/distance_calc.cpp:16` | untagged neutral name (D10) |
+| 1 | `distance` | `app/common/distance_calc.cpp:19` | neutral (D10) |
+| 1 | `Unknown_831F90` | `app/common/distance_calc.cpp:26` | untagged neutral name (D10) |
+| 1 | `r` | `app/common/distance_calc.cpp:29` | neutral (D10) |
+| 1 | `Unknown_832010` | `app/common/distance_calc.cpp:36` | untagged neutral name (D10) |
+| 1 | `flags` | `app/common/distance_calc.cpp:38` | neutral (D10) |
+| 1 | `d2` | `app/common/distance_calc.cpp:40` | neutral (D10) |
+| 1 | `r1` | `app/common/distance_calc.cpp:41` | neutral (D10) |
+| 1 | `r2` | `app/common/distance_calc.cpp:45` | neutral (D10) |
+| 1 | `Unknown_831E90` | `app/common/distance_calc.h:23` | neutral (D10) |
+| 1 | `Unknown_831F10` | `app/common/distance_calc.h:24` | neutral (D10) |
+| 1 | `Unknown_831F90` | `app/common/distance_calc.h:25` | neutral (D10) |
+| 1 | `Unknown_832010` | `app/common/distance_calc.h:26` | neutral (D10) |
 | 1 | `Unknown00` | `app/common/effect_description.cpp:14` | untagged neutral name (D10) |
 | 1 | `size` | `app/common/effect_description.cpp:55` | neutral |
 | 1 | `it, count, value, i` | `app/common/effect_description.cpp:71` | neutral |
@@ -26219,6 +26257,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `In` | `app/common/dbgconn.h:97` | what it holds |
 | 2 | `Out` | `app/common/dbgconn.h:98` | what it holds |
 | 2 | `StatsConnectionClass` | `app/common/dbgconn.h:102` | what it does (-PACKET_STATS) |
+| 2 | `distance_calc.h` | `app/common/distance_calc.h:17` | after distance_calc_client.cpp (PROVISIONAL, D137) |
 | 2 | `EffectDescriptionClass` | `app/common/effect_description.h:30` | the client's file effect_description.cpp |
 | 2 | `Add_Name_Value` | `app/common/effect_description.h:35` | what it does |
 | 2 | `Add_Description_Value` | `app/common/effect_description.h:36` | what it does |
@@ -29167,6 +29206,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `CharTemplateClass` | `app/common/chartemplate.h:32` | built by convention from chartemplate.cpp (D24) |
 | 3 | `circbuff.h` | `app/common/circbuff.h:17` | header name assumed from the client's circbuff.cpp |
 | 3 | `CircBuffClass` | `app/common/circbuff.h:20` | by convention (D24) from the client's file circbuff.cpp |
+| 3 | `color_common.h` | `app/common/color_common.h:16` | header name assumed from the client's color_common.cpp |
 | 3 | `dbgconn.h` | `app/common/dbgconn.h:19` | a .h paired with the client's dbgconn.cpp (D24) |
 | 3 | `faction_and_reputation.h` | `app/common/faction_and_reputation.h:18` | header name assumed from the client's faction_and_reputation.cpp (D57) |
 | 3 | `NOT_IN_GALAXY_MAP` | `app/common/galaxy_map.h:156` | the asserts' 'GalaxyMapID != NOT_IN_GALAXY_MAP' |

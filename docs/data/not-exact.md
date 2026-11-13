@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-785 entries in 258 files.
+786 entries in 259 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -593,6 +593,7 @@ edit the comments in the code, not this file.
 | `app/client/unknown_79c8e0.cpp:20` | `CameraModule79C8E0Class::Unknown_08` | marker | NOT EXACT: shape (0.52: the client's Normalize of the direction stores the difference first, the cross products load in another order) |
 | `app/client/unknown_7cef30.cpp:379` | `RegistrationUnknown1ACClass::Unknown_7D4E30` | marker | NOT EXACT: inline budget (0.71: the client inlines Add_Param(int) for bdateyear too, ours calls it from there on; the rest is the client's) |
 | `app/client/unknown_7e1e40.cpp:24` | `Sub14CUnknown18Class::~Sub14CUnknown18Class` | marker | NOT EXACT: the client's has an EH frame (states 1, 0 around the _bstr_t members' destruction); /GX gives none here (/EHa gives it, and an EH frame in the constructor the client lacks) |
+| `app/client/unknown_7e7e00.cpp:44` | `CheckBoxGadgetClass::Unknown_7E8050` | marker | NOT EXACT: register residue only (the last Release_Ref's vtable in edx, the client's in eax); D89 |
 | `app/client/unknown_creator.cpp:68` | `CharacterCreatorClass::Unknown_78D480` | marker | NOT EXACT: shape (through Get_File_Name, inlined, the appends come out of line as in the client; the inlined byte sum's loop still differs, nine forms: attempts.py show 0x78D480) 0x78D480 |
 | `app/client/unknown_creator.cpp:103` | `CharacterCreatorClass::Unknown_78D8A0` | marker | NOT EXACT: inline budget (through Get_File_Name one append still inlines in ours) 0x78D8A0 |
 | `app/client/unknown_creator.cpp:126` | `CharacterCreatorClass::Unknown_78DAF0` | marker | NOT EXACT: shape (through Get_File_Name; the inlined byte sum as in 0x78D480) 0x78DAF0 |
