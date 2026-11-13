@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-804 entries in 264 files.
+806 entries in 265 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -355,6 +355,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_avatar_cust.cpp:2356` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT (register) 0x54E690 / 0x54E7F0 (the body and pants types), 0x54E950 (+0x368's value) and 0x54EAD0 (+0x36C's value); 0x54E3C0 (the model's turn while a turn button is held: 0x54E610 calls it), 0x54EE40 / 0x54EE80 (reached only through a table) exact. +0xBC is a RefCountPtr (0x54E690 hands it to +0xB8's slot +0x84 through a converted temporary). The file starts at 0x54B760, its PermStringI... |
 | `app/client/ui_avatar_cust.cpp:2370` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT: 0x54DFE0 (the tab switch: inline budget, as ui_avatr.cpp's 0x556B20), 0x54F390 (the head pull dragged: one byte), 0x54F6F0 (the tattoo pull: order-only), 0x54FFC0 (order-only) and 0x5502F0 (two bools' stack slots). Not rebuilt: Init |
 | `app/client/ui_avatar_cust.cpp:2373` | `StarbaseAvatarCreationInterface::Unknown_551C80` | mention | NOT EXACT 0.42). +0xC0 is the old look (an AvatarDescClass, 0x10C bytes, up to the gadgets at +0x1CC), the avatar's +0xF8 the new one; the +0xB8 gadget is ship_pip.cpp's (ui_avatr.cpp's ShipPipClass). |
+| `app/client/ui_avatar_dialog.cpp:140` | `UIAvatarDialogClass::Unknown_58` | marker | NOT EXACT: register (the client keeps this in edi and the button pointer / the space client in esi, ours the other way round; tried: an early return, a 5-based loop, a button pointer, the space client declared first) 0x552980 |
+| `app/client/ui_avatar_dialog.cpp:299` | `UIAvatarDialogClass::Unknown_552FC0` | marker | NOT EXACT: register (one load: the client reads the new avatar into ecx for the store to AvatarRObj, ours reuses edi; the template operator= and the inline env-map read fixed the rest) 0x552FC0 |
 | `app/client/ui_avatr.cpp:472` | `AvatarCreationInterface::AvatarCreationInterface` | marker | NOT EXACT: functional (D64), from the client's 0x553AF0: the pip (+0x94, ship_pip.cpp) is ShipPipClass; the AvatarDescClass at +0x1CC is constructed in place over this file's char block 0x553AF0 |
 | `app/client/ui_avatr.cpp:676` | `AvatarCreationInterface::Unknown_68` | marker | NOT EXACT: inline budget (0.27, 3742 bytes against about 0xC50): the client has its own case per key for 0x16-0x1F (585CC0 / 585C90, no `key ==` test) and shares its sound tails; it calls basic_string's assign out of line for the six tutorial names (Unknown_67C920 takes a std::string by value: _Tidy(false) + assign(s, len), both out of line) where VC6 here inlines assign. Dead desc.Peek()s after t... |
 | `app/client/ui_avatr.cpp:1119` | `CharacterViewClass::Unknown_5594B0` | marker | NOT EXACT: functional (D64), from the client's 0x5594B0 (AvatarDescClass's assignment) 0x5594B0 |
