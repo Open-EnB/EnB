@@ -21,7 +21,7 @@
 
 class FontSys;
 class InvDataClass;
-class Unknown6A3D60Class;
+class ShortcutRangeGaugeClass;	// shortcut_range_gauge.h
 class Unknown688830Item;
 
 class InvRenderClass : public SlotDataRenderClass	// NAME 3: class-from-file (D24) for app\Client\inv_render.cpp
@@ -83,7 +83,7 @@ public:
 	RefCountPtr<RenderObjClass> ValidityIndicator;	// +0x60  // NAME 3: 0x68DCC0's assert
 	RefCountPtr<RenderObjClass> WrongTargetTypeIndicator;	// +0x64 ('item_noskill')  // NAME 2: skill_render.cpp's, same model
 	RefCountPtr<RenderObjClass> RechargeIndicator;	// +0x68  // NAME 3: 0x68DCC0's assert
-	Unknown6A3D60Class *Unknown6C;											// +0x6C (destructor 0x6A3F10)
+	ShortcutRangeGaugeClass *Unknown6C;											// +0x6C (destructor 0x6A3F10)
 	float Unknown70;														// +0x70 (the range)
 	float Unknown74;														// +0x74 (-1)
 	DurationClass Unknown78;												// +0x78

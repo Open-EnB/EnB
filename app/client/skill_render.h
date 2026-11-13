@@ -18,7 +18,7 @@
 #include "slot_data_render.h"
 
 class GaugeGadgetClass;	// gd_gauge.h
-class Unknown6A3D60Class;
+class ShortcutRangeGaugeClass;	// shortcut_range_gauge.h
 class SkillDataClass;
 class SlotDataGadgetClass;
 
@@ -51,7 +51,7 @@ public:
 	RefCountPtr<RenderObjClass> ValidityIndicator;						// +0x3C ('item_dark')  // NAME 3: its assert
 	RefCountPtr<RenderObjClass> WrongTargetTypeIndicator;				// +0x40 ('item_noskill')  // NAME 3: its assert
 	RefCountPtr<RenderObjClass> RechargeIndicator;						// +0x44 ('item_timer')  // NAME 3: its assert
-	Unknown6A3D60Class *Unknown48;										// +0x48 (the range gauge)
+	ShortcutRangeGaugeClass *Unknown48;										// +0x48 (the range gauge)
 	float Unknown4C;													// +0x4C (the target's distance; -1)
 	float Unknown50;													// +0x50 (the ability's range)
 	unsigned int Unknown54;												// +0x54 (the flags last shown)

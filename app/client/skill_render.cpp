@@ -22,7 +22,7 @@ class SkillDataClass : public Unknown6A7A00Base, public SkillDataPeekClass, publ
 class SlotDataClass { public: virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C(); virtual void Unknown_10(); virtual SkillDataClass *Unknown_14(); };	// NAME 3: its local sd (0x6A7310)
 // gd_gauge.cpp's gauge (ui_faction.cpp's), shortcut_range_gauge.cpp's
 #include "gd_gauge.h"	// GaugeGadgetClass (0x669570)
-class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Unknown6A3D60Class(); void Unknown_6A4020(float distance, float range, int state, bool arg); char Unknown00[0x18]; };	// NAME 1: neutral (D10); NAME 1 [robj, distance, range, state, arg]: neutral
+#include "shortcut_range_gauge.h"	// ShortcutRangeGaugeClass (0x6A3D60)
 
 // skill_ability_names.cpp's, skillnam.cpp's, slot_data_render.cpp's, ro_funcs.cpp's, distance_calc_client.cpp's
 struct Unknown815320Struct { std::string Name; int Unknown10; int Unknown14; unsigned int Unknown18; bool Unknown1C; Vector3 Unknown20; };	// NAME 1: neutral (D10); NAME 2 [Name]: 0x6A6A80 writes it as the ability
@@ -117,7 +117,7 @@ bool SkillRenderClass::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 
 	RenderObjClass *render_object = Mesh;
 	FAIL_IF(!render_object) return(false);
-	Unknown48 = new Unknown6A3D60Class(render_object);
+	Unknown48 = new ShortcutRangeGaugeClass(render_object);
 	return(true);
 }
 

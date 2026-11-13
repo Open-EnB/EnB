@@ -24,7 +24,7 @@ class LineDisplayClientClass { public: virtual void Unknown_00(); virtual void U
 #include "inv_data.h"	// InvDataClass (Peek_Inv_Data)
 // (InvDataClass's client is SClient: its slot +0x18 Unknown_18 answers itself, 0x740AC0)
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10)
-class Unknown6A3D60Class { public: Unknown6A3D60Class(RenderObjClass *robj); ~Unknown6A3D60Class(); void Unknown_6A4020(float distance, float range, int state, bool arg); char Unknown00[0x18]; };	// NAME 1: neutral (D10); skill_render.cpp's
+#include "shortcut_range_gauge.h"	// ShortcutRangeGaugeClass (0x6A3D60)
 // the zero 0x68E360 compares with: its destructor is the empty 0x68EAC0
 class Unknown68E360Class : public DurationClass { public: Unknown68E360Class(__int64 time = 0) : DurationClass(time) {} ~Unknown68E360Class() {} };	// NAME 1: neutral (D10)
 // ro_funcs.cpp's
@@ -545,7 +545,7 @@ bool Unknown68DC20Class::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 	G_ASSERT(RechargeIndicator);
 	RenderObjClass *mesh = Mesh;
 	if (mesh) {
-		Unknown6C = new Unknown6A3D60Class(mesh);
+		Unknown6C = new ShortcutRangeGaugeClass(mesh);
 	}
 	return(true);
 }
