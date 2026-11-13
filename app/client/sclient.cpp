@@ -263,28 +263,28 @@ typedef SignalBaseClass::CallbackClass SClientCallbackBaseClass;	// NAME 1 [SCli
 typedef SignalBaseClass::MemberCallback<CameraModuleClass, SClient, void (SClient::*)(CameraModuleSignal *, CameraModuleClass *), CameraModuleSignal> SClientCallbackClass;	// NAME 1 [SClientCallbackClass]: neutral (D10)
 #include "cammod.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x73FEF0 (0x749590, 0x749A70, 0x749ED0): the text without its leading and trailing white space
+static std::string Unknown_73FEF0(const char *text) {
+	const char *end = text + strlen(text) - 1;
+	while (isspace(*text)) text++;
+	while (end > text && isspace(*end)) end--;
+	return(std::string(text, end + 1)); }
+// 0x740050 (0x749590, 0x749ED0): the text cut at the delimiters into at most max words, the last one the rest of it
+static void Unknown_740050(const char *text, const char *delimiters, unsigned max, std::vector<std::string> &words) {	// NAME 1 [Unknown_740050, words]: neutral (D10)
+	if (max == 0) return;
+	if (max == 1) { words.push_back(text); return; }
+	char *copy = nstrdup(text);
+	char *token = strtok(copy, delimiters);
+	while (token != NULL && max > 2) { words.push_back(token); token = strtok(NULL, delimiters); max--; }
+	if (token != NULL) {
+		words.push_back(token);
+		token = strtok(NULL, "");
+		if (token != NULL) words.push_back(token); }
+	delete [] copy; }
 // The font database Init asks: sclient.h's SClientFontDatabaseClass (fontdatabase.cpp's at 0xBE67BC; the options
 // at 0xBE8B38 are option.h's OptionClass::Instance)
 
-
+#define __CHATGADG_MEMBERS	// pkclientchat.h's 0x878D90: the tells' chat stream (0x749590, 0x749A70)
 
 
 
@@ -3197,6 +3197,14 @@ bool SClient::Unknown_749020(const char *text)
 
 
 
+// The player's avatar object, as 0x74C7B0 for Get_Avatar_ID() through a const_iterator: inlined (0x749590, 0x749A70)
+static inline CharacterViewAvatarClass *Unknown_Player_Avatar(SClient *client, unsigned id) {	// NAME 2: what it does (the callers pass Get_Avatar_ID())
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::const_iterator it = client->Unknown1394.find(id);
+	if (it != client->Unknown1394.end() && (*it).second) {
+		CharacterViewAvatarClass *object = (*it).second->Unknown_77E3F0();
+		object->Unknown_780810(client->EnvironmentMapManager);
+		return(object); }
+	return(NULL); }
 
 
 
@@ -3234,183 +3242,175 @@ bool SClient::Unknown_749020(const char *text)
 
 
 
+// NOT EXACT: register (explain.py relocation through __FILE__, then register): 296 against 297 instructions, every call as the client's; `buffer + skip` and the EH state are scheduled after the vector's members, eax / ecx swapped around the packet's assigns and Send_Packet
+// 0x749590 (0x74ABC0): '/tell <player> <message>' ('/t'): the avatar's chat stream and the line to the server
+bool SClient::Unknown_749590(const char *text)
+{
+	int skip = 0;
+	if (strncmp(text, "/tell", 5) == 0) {
+		skip = 6;
+	} else if (strncmp(text, "/t", 2) == 0 && (strlen(text) == 2 || text[2] == ' ')) {
+		skip = 3;
+	}
+	if (skip == 0) return(false);
+	ChatPanelInterface *chat_panel = ChatPanel.Peek();
+	G_ASSERT(chat_panel);
+	char buffer[512];
+	Bounded_Strcpy(buffer, 512, text);
+	if ((int)strlen(buffer) <= skip) {
+		if (skip == 6) {
+			Unknown_74D990(6, "Usage: /tell <player> <message>.", 0);
+		} else {
+			Unknown_74D990(6, "Usage: /t <player> <message>.", 0);
+		}
+		return(true);
+	}
+	std::vector<std::string> words;
+	Unknown_740050(buffer + skip, " ", 2, words);
+	if (words.size() != 2) {
+		if (skip == 6) Unknown_74D990(6, "Usage: /tell <player> <message>.", 0);
+		else Unknown_74D990(6, "Usage: /t <player> <message>.", 0);
+		return(true);
+	}
+	std::string name = Unknown_73FEF0(words[0].c_str());
+	std::string message = Unknown_73FEF0(words[1].c_str());
+	CharacterViewAvatarClass *avatar = Unknown_Player_Avatar(this, Get_Avatar_ID());
+	if (avatar) {
+		avatar->Unknown_781760(message.c_str());
+		int id = Unknown1138; ClientChatRequestPacketClass packet(1, id);
+		packet.Unknown14 = name;
+		packet.Unknown_878D90(avatar->Unknown_7817E0());
+		packet.Unknown34 = message;
+		Send_Packet(&packet);
+		Print(0x10, "To %s: %s", name.c_str(), message.c_str());
+	}
+	chat_panel->Unknown_5658B0(name.c_str());
+	return(true);
+}
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: register-only (explain.py): 264 instructions as the client's; the client pushes ebp in the prologue (ours after the '/reply' test), eax / ecx swapped at 0x780810's argument and the assigns
+// 0x749A70 (0x74ABC0): '/reply <message>' ('/r'): as '/tell', to the chat panel's last sender (its Unknown1D8)
+bool SClient::Unknown_749A70(const char *text)
+{
+	int skip = 0;
+	if (strncmp(text, "/reply", 6) == 0) {
+		skip = 7;
+	} else if (strncmp(text, "/r", 2) == 0 && (strlen(text) == 2 || text[2] == ' ')) {
+		skip = 3;
+	}
+	if (skip == 0) return(false);
+	char buffer[512];
+	Bounded_Strcpy(buffer, 512, text);
+	if ((int)strlen(buffer) > skip) {
+		if (strcmp(ChatPanel->Unknown1D8.c_str(), "") == 0) {
+			Unknown_74D990(0x11, "Unable to reply - nothing to reply to.", 0);
+		} else {
+			CharacterViewAvatarClass *avatar = Unknown_Player_Avatar(this, Get_Avatar_ID());
+			if (avatar) {
+				char *message = buffer + skip;
+				avatar->Unknown_781760(message);
+				ClientChatRequestPacketClass packet(1, Unknown1138);
+				packet.Unknown14 = std::string(ChatPanel->Unknown1D8.c_str());
+				packet.Unknown_878D90(avatar->Unknown_7817E0());
+				packet.Unknown34 = std::string(message);
+				Send_Packet(&packet);
+				Print(0x10, "To %s: %s", ChatPanel->Unknown1D8.c_str(), message);
+			}
+		}
+	} else {
+		ChatPanel->Unknown_567540(1);
+	}
+	return(true);
+}
+
+
+
+
+
+
+
+// NOT EXACT: inline budget (explain.py): 800 against 818 instructions, 69 calls against 71: the client inlines the "" channel's assign(const char *, n) and shares the channels' copy tail; ours calls it
+// 0x749ED0 (0x74ABC0): the channel lines '/gen /ooc /mkt /new /jen /ter /pro /exp /tra /war /sen /def /enf <message>'
+// (each when its 'Channel_*' option is on) and '/rad' (the chat panel's private channel)
+bool SClient::Unknown_749ED0(const char *text)
+{
+	OptionClass *options = OptionClass::Instance;
+	std::string channel = "";
+	if (strncmp(text, "/gen", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_General")) channel = "General";
+	} else if (strncmp(text, "/ooc", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_OOC")) channel = "OOC";
+	} else if (strncmp(text, "/mkt", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Market")) channel = "Market";
+	} else if (strncmp(text, "/new", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Newbie")) channel = "New Players";
+	} else if (strncmp(text, "/jen", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Jenquai")) channel = "Jenquai";
+	} else if (strncmp(text, "/ter", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Terran")) channel = "Terran";
+	} else if (strncmp(text, "/pro", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Progen")) channel = "Progen";
+	} else if (strncmp(text, "/exp", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Explorers")) channel = "Explorers";
+	} else if (strncmp(text, "/tra", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Traders")) channel = "Tradesmen";
+	} else if (strncmp(text, "/war", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Warriors")) channel = "Warriors";
+	} else if (strncmp(text, "/sen", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Sentinels")) channel = "Sentinels";
+	} else if (strncmp(text, "/def", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Defenders")) channel = "Defenders";
+	} else if (strncmp(text, "/enf", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Enforcers")) channel = "Enforcers";
+	} else {
+		if (strncmp(text, "/rad", 4) != 0 || (text[4] != '\0' && text[4] != ' ')) return(false);
+		channel = ChatPanel->Unknown_5682C0();
+		if (channel.length() == 0) {
+			Unknown_74D990(0x11, "Not monitoring a private channel.", 0);
+			return(true);
+		}
+	}
+	if (channel.length() == 0) {
+		Unknown_74D990(0x11, "Not monitoring that channel.", 0);
+		return(true);
+	}
+	char buffer[512];
+	Bounded_Strcpy(buffer, 512, text);
+	std::vector<std::string> words;
+	Unknown_740050(buffer, " ", 2, words);
+	if (words.size() != 2) {
+		Unknown_74D990(0x11, "No message to send.", 0);
+		return(true);
+	}
+	std::string message = Unknown_73FEF0(words[1].c_str());
+	if (message.length() == 0) {
+		Unknown_74D990(0x11, "No message to send.", 0);
+		return(true);
+	}
+	ClientChatRequestPacketClass packet(0, Unknown1138);
+	packet.Unknown14 = channel;
+	packet.Unknown34 = message;
+	Send_Packet(&packet);
+	return(true);
+}
 
 
 
@@ -4317,12 +4317,12 @@ CharacterViewAvatarClass *SClient::Unknown_74C840(unsigned id)
 	return(NULL);
 }
 
-// NOT EXACT: inline budget (explain.py frame, 31 masked rows): the client calls hash_map::find out of line (0x756820, the key in the argument slot) where ours inlines it, as itself or through 0x74C840; two forms
+// Exact with one dead read after the last return (D130, not the client's): it spends the budget that sends 0x74C840's nested hash_map::find out of line (0x756820, the key in the argument slot) as the client has it
 // 0x74C8D0 (0x74C840 for the named object's GameID)
 CharacterViewAvatarClass *SClient::Unknown_74C8D0(const char *name) {
 	ClientObjectClass *object = Find_Object(name);
 	if (object) return(Unknown_74C840(object->GameID));
-	return(NULL); }
+	return(NULL); Unknown1394.size(); }	// (dead, D130)
 
 // 0x74C960
 int *SClient::Unknown_74C960(unsigned id)
