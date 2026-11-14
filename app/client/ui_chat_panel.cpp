@@ -77,7 +77,7 @@ public:
 
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 bool Unknown_42EC60(int a, int b);						// 0x42EC60 (cdecl): *0xBDAA70's slot +0x0C (0x567760: 1, 0 and 2, 0)  // NAME 1 [a, b]: what 0x567760 passes
-
+extern char *Unknown_BA8C20, *Unknown_BA8C24, *Unknown_BA8C28, *Unknown_BA8C2C, *Unknown_BA8C30, *Unknown_BA8C34, *Unknown_BA8C38, *Unknown_BA8C3C, *Unknown_BA8C40, *Unknown_BA8C44, *Unknown_BA8C48, *Unknown_BA8C4C, *Unknown_BA8C50;	// ui_option_channel.cpp's view of the chat channels' names (.data 0xBA8C20-0xBA8C50: General .. Enforcers)  // NAME 1: neutral (D10)
 // The chat channels the panel offers (0xB7C530: name, option, the destination's number as text), NULL-ended
 struct ChatChannelStruct	// NAME 1: neutral (D10)
 {
@@ -85,13 +85,13 @@ struct ChatChannelStruct	// NAME 1: neutral (D10)
 	const char *Option;									// NAME 2: the option tested (OptionClass::Get_Bool)
 	const char *Number;									// NAME 2: what 0x565390 passes to atoi
 };
-static ChatChannelStruct Unknown_B7C530[17] = {	// NAME 1: neutral (D10): 17 entries (0x56B700 walks to 0xB7C5FC), four filled
+static ChatChannelStruct Unknown_B7C530[18] = {	// NAME 1: neutral (D10): 17 entries and a NULL one (0x56B700 walks to 0xB7C5FC); entries 4-17 by the initialiser 0x568700 (the channels' names from 0xBA8C20, each "5")
 	{ "Broadcast", "Channel_Broadcast", "0" },
 	{ "Local", "Channel_Local", "1" },
 	{ "Guild", "Channel_Guild", "2" },
 	{ "Group", "Channel_Group", "3" },
-};
-
+	{ Unknown_BA8C20, "Channel_General", "5" }, { Unknown_BA8C24, "Channel_OOC", "5" }, { Unknown_BA8C28, "Channel_Market", "5" }, { Unknown_BA8C2C, "Channel_Newbie", "5" }, { Unknown_BA8C30, "Channel_Terran", "5" }, { Unknown_BA8C34, "Channel_Jenquai", "5" }, { Unknown_BA8C38, "Channel_Progen", "5" }, { Unknown_BA8C3C, "Channel_Explorers", "5" }, { Unknown_BA8C40, "Channel_Warriors", "5" }, { Unknown_BA8C44, "Channel_Traders", "5" }, { Unknown_BA8C48, "Channel_Sentinels", "5" }, { Unknown_BA8C4C, "Channel_Defenders", "5" }, { Unknown_BA8C50, "Channel_Enforcers", "5" },
+	{ NULL, NULL, NULL } };
 // What the +0xF8 window's events carry (an empty type: 0x5685C0 passes one to name the handler)
 #include "ui_option_font.h"	// OptionFontInterface (0x5CC350, 0x138 bytes: request 12, 0x56C7E0) and OptionFontInterfaceEvent (the +0xF8 window's event)
 

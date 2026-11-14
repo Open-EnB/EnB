@@ -120,6 +120,12 @@ void __cdecl FontSys::Unknown_6CE420(int unknown, const char *format, ...)
 
 // (chatgadg.cpp's text entry ChatGadgetClass 0x65BFD0 is rebuilt in app.lib)
 #include "..\..\app\client\textgadg.h"
+// The chat channels' names (.data 0xBA8C20-0xBA8C50, their file not in the tree yet; a generated stand-in left them NULL and
+// ui_chat_panel.cpp's 0x569A00 then read a NULL name in its channel search): the client's strings
+char *Unknown_BA8C20 = "General", *Unknown_BA8C24 = "Out of Context", *Unknown_BA8C28 = "Market", *Unknown_BA8C2C = "New Players",
+	*Unknown_BA8C30 = "Terran", *Unknown_BA8C34 = "Jenquai", *Unknown_BA8C38 = "Progen", *Unknown_BA8C3C = "Explorers",
+	*Unknown_BA8C40 = "Warriors", *Unknown_BA8C44 = "Tradesmen", *Unknown_BA8C48 = "Sentinels", *Unknown_BA8C4C = "Defenders",
+	*Unknown_BA8C50 = "Enforcers";
 // (the chat panel's combos, ChatPanelInterface::Unknown_5689D0, and the windows its options combo opens, 0x569A00, are
 // rebuilt in ui_chat_panel.cpp: the real UIComboBoxClass from ui_combobox.cpp, O19)
 class UnknownEventDispatcherClass;
