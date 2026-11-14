@@ -4,8 +4,9 @@ name: a recorded session in the world: /play 1 on the Broadcast channel (ea/alex
 # which the server does not read commands from). /play hands the client off into the recording's first sector: its
 # objects, effects and packets are a real session's, far more than the empty home sector's.
 # _wip_: 2026-11-14 (F1) the handoff, the recording's starbase (session 1) and its own SERVER_HANDOFF into sector 4505 run;
-# the client then crashes in co.cpp's Unknown_6F51D0 (Add_Ref on the line of the generated stand-in Unknown4981E0Class,
-# 0x4981E0 / 0x4983A0) about 7 s into session 2. Rename to play1.scn when it passes.
+# 2026-11-14 (H1) with segline_create.cpp's Unknown4981E0Class rebuilt the line is real; about 7 s into session 2 the
+# client crashes in eff_o.cpp's Unknown_6E9490 (0x48CC93 in clientpoc: call [vtable+0x10] on a null table) on the
+# object of the generated stand-in constructor Unknown6F25A0EffectClass (0x6F25A0). Rename to play1.scn when it passes.
 timeout: 400
 include _login
 key 0x08
