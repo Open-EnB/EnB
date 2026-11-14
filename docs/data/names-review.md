@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 220 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1930 |
-| 2 | describes what the code does | 4870 |
-| 1 | neutral placeholder | 25155 |
+| 2 | describes what the code does | 4871 |
+| 1 | neutral placeholder | 25176 |
 
 ## For review (score 3 and below)
 
@@ -4133,9 +4133,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_24` | `app/client/galaxy_map_pip.cpp:444` | untagged neutral name (D10) |
 | 1 | `Unknown_7A5540` | `app/client/galaxy_map_pip.cpp:475` | untagged neutral name (D10) |
 | 1 | `Unknown_74D990` | `app/client/galaxy_map_pip.cpp:476` | untagged neutral name (D10) |
-| 1 | `pip` | `app/client/galaxy_map_pip.h:37` | what the caller passes |
-| 1 | `x, y` | `app/client/galaxy_map_pip.h:39` | GadgetClass's |
-| 1 | `Unknown_30` | `app/client/galaxy_map_pip.h:39` | untagged neutral name (D10) |
 | 1 | `client` | `app/client/galaxy_map_pip.h:47` | neutral |
 | 1 | `Unknown_04` | `app/client/galaxy_map_pip.h:49` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/galaxy_map_pip.h:50` | untagged neutral name (D10) |
@@ -4541,6 +4538,31 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/client/gd_dynamicwindow.h:31` | untagged neutral name (D10) |
 | 1 | `Set_Dynamic_Object, object` | `app/client/gd_dynamicwindow.h:33` | the FAIL_IF's DynamicObject |
 | 1 | `Highlight` | `app/client/gd_dynamicwindow.h:36` | what it does |
+| 1 | `button, arg` | `app/client/gd_galaxy_map.cpp:7` | neutral |
+| 1 | `Unknown_42EC60` | `app/client/gd_galaxy_map.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/gd_galaxy_map.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/gd_galaxy_map.cpp:77` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/gd_galaxy_map.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_53FE10` | `app/client/gd_galaxy_map.cpp:81` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/gd_galaxy_map.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/gd_galaxy_map.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/gd_galaxy_map.cpp:89` | untagged neutral name (D10) |
+| 1 | `Unknown_53FDA0` | `app/client/gd_galaxy_map.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_6692E0` | `app/client/gd_galaxy_map.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_6693A0` | `app/client/gd_galaxy_map.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_669460` | `app/client/gd_galaxy_map.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_galaxy_map.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_53FD60` | `app/client/gd_galaxy_map.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_53FD10` | `app/client/gd_galaxy_map.cpp:183` | untagged neutral name (D10) |
+| 1 | `Unknown_53FCA0` | `app/client/gd_galaxy_map.cpp:203` | untagged neutral name (D10) |
+| 1 | `pip` | `app/client/gd_galaxy_map.h:27` | the base's |
+| 1 | `event, x, y, mask` | `app/client/gd_galaxy_map.h:29` | GadgetClass's |
+| 1 | `Unknown_2C` | `app/client/gd_galaxy_map.h:29` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/gd_galaxy_map.h:30` | GadgetClass's |
+| 1 | `Unknown_30` | `app/client/gd_galaxy_map.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_6692E0` | `app/client/gd_galaxy_map.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_6693A0` | `app/client/gd_galaxy_map.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_669460` | `app/client/gd_galaxy_map.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown_496AE0` | `app/client/gd_gauge.cpp:11` | untagged neutral name (D10) |
 | 1 | `GAUGE_OBJ_NAME_SIZE` | `app/client/gd_gauge.cpp:14` | neutral (D10): the asserts' 'size' |
 | 1 | `gd_gauge.cpp` | `app/client/gd_gauge.cpp:17` | neutral (D10) |
@@ -24940,11 +24962,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_73FDB0` | `programs/clientpoc/poc_world2.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5090` | `programs/clientpoc/poc_world2.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `programs/clientpoc/poc_world4.cpp:34` | untagged neutral name (D10) |
-| 1 | `Unknown_466920Class` | `programs/clientpoc/poc_world4.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown688830Class` | `programs/clientpoc/poc_world4.cpp:65` | untagged neutral name (D10) |
-| 1 | `Unknown_68A720` | `programs/clientpoc/poc_world4.cpp:65` | untagged neutral name (D10) |
-| 1 | `Unknown_689DA0` | `programs/clientpoc/poc_world4.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_466920Class` | `programs/clientpoc/poc_world4.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown688830Class` | `programs/clientpoc/poc_world4.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_68A720` | `programs/clientpoc/poc_world4.cpp:53` | untagged neutral name (D10) |
+| 1 | `Unknown_689DA0` | `programs/clientpoc/poc_world4.cpp:53` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:84` | untagged neutral name (D10) |
@@ -26153,6 +26174,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/gd_buffgadg.h:56` | the aux field's |
 | 2 | `IsPermanent` | `app/client/gd_buffgadg.h:57` | the aux field's |
 | 2 | `BuffRemovalTime` | `app/client/gd_buffgadg.h:58` | the aux field's |
+| 2 | `GadgetGalaxyMapClass` | `app/client/gd_galaxy_map.h:24` | class-from-file (D24) for app\client\gd_galaxy_map.cpp, as gd_pip_scene.cpp's GadgetPipSceneClass |
 | 2 | `Set_Value` | `app/client/gd_gauge.h:84` | what it does; NAME 1 [value]: what it stores |
 | 2 | `Force_Value` | `app/client/gd_gauge.h:85` | what it does; NAME 1 [value]: what it stores |
 | 2 | `Get_Value` | `app/client/gd_gauge.h:86` | what it returns |
@@ -30283,8 +30305,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `galaxy_map_focal_point.h` | `app/client/galaxy_map_focal_point.h:16` | header name assumed from the client's galaxy_map_focal_point.cpp |
 | 3 | `GalaxyMapFocalPointClass` | `app/client/galaxy_map_focal_point.h:26` | class-from-file (D24) for app\Client\galaxy_map_focal_point.cpp |
 | 3 | `galaxy_map_pip.h` | `app/client/galaxy_map_pip.h:16` | header name assumed from the client's galaxy_map_pip.cpp |
-| 3 | `GadgetGalaxyMapClass` | `app/client/galaxy_map_pip.h:34` | class-from-file (D24) for app\client\gd_galaxy_map.cpp |
-| 3 | `GalaxyMap` | `app/client/galaxy_map_pip.h:41` | the assert's |
 | 3 | `GalaxyMapPipClass` | `app/client/galaxy_map_pip.h:44` | class-from-file (D24) for app\client\galaxy_map_pip.cpp |
 | 3 | `GalaxyBackground` | `app/client/galaxy_map_pip.h:74` | the FAIL_IF's |
 | 3 | `Grid` | `app/client/galaxy_map_pip.h:75` | the FAIL_IF's |
@@ -30322,6 +30342,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `gd_dynamicwindow.h` | `app/client/gd_dynamicwindow.h:16` | header name assumed from the client's gd_dynamicwindow.cpp |
 | 3 | `DynamicWindowGadgetClass` | `app/client/gd_dynamicwindow.h:24` | class-from-file (D24) for app\Client\gd_dynamicwindow.cpp |
 | 3 | `DynamicObject` | `app/client/gd_dynamicwindow.h:35` | the FAIL_IF's |
+| 3 | `gd_galaxy_map.h` | `app/client/gd_galaxy_map.h:17` | header name assumed from the client's gd_galaxy_map.cpp |
+| 3 | `GalaxyMap` | `app/client/gd_galaxy_map.h:36` | the asserts' |
 | 3 | `Gauge` | `app/client/gd_gauge.h:72` | the asserts' |
 | 3 | `GaugeGadgetClass` | `app/client/gd_gauge.h:77` | class-from-file (D24) for app\Client\gd_gauge.cpp |
 | 3 | `Current` | `app/client/gd_gauge.h:89` | the assert's |

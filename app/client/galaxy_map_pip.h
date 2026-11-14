@@ -28,18 +28,18 @@
 class GalaxyMapClientClass;
 class SceneClass;
 
-// gd_galaxy_map.cpp's gadget (not in the tree yet), as far as this file calls it. 0x50 bytes.
-// PLACEMENT: provisional (D137): the client's gd_galaxy_map.cpp gives it a file; no other user in the tree yet
-class GalaxyMapPipClass;
-class GadgetGalaxyMapClass : public GadgetPipSceneClass  // NAME 3: class-from-file (D24) for app\client\gd_galaxy_map.cpp
-{
-public:
-	GadgetGalaxyMapClass(GalaxyMapPipClass *pip);		// 0x668E30 (G_ASSERT 'GalaxyMap', +0x4C)  // NAME 1 [pip]: what the caller passes
+// gd_galaxy_map.cpp's gadget, which slot +0x18 news (the blank lines keep the inline asserts below on their lines, D25)
+#include "gd_galaxy_map.h"
 
-	virtual bool Unknown_30(float x, float y);			// +0x30 (GadgetClass's pure slot; table 0xAFA120)  // NAME 1 [x, y]: GadgetClass's
 
-	GalaxyMapPipClass *GalaxyMap;						// +0x4C  // NAME 3: the assert's
-};
+
+
+
+
+
+
+
+
 
 class GalaxyMapPipClass : public MapPipClass  // NAME 3: class-from-file (D24) for app\client\galaxy_map_pip.cpp
 {
@@ -59,7 +59,7 @@ public:
 	void Unknown_53FD10(const Vector2 &arg);			// 0x53FD10 (gd_galaxy_map's 0x668F20, 0x6693A0)  // NAME 1 [arg]: neutral
 	void Unknown_53FD60(const Vector2 &arg);			// 0x53FD60 (gd_galaxy_map's 0x668F20, 0x6692E0)  // NAME 1 [arg]: neutral
 	void Unknown_53FDA0(bool arg);						// 0x53FDA0 (gd_galaxy_map's 0x668F20)  // NAME 1 [arg]: neutral
-	void Unknown_53FE10();								// 0x53FE10 (gd_galaxy_map's 0x668F20)
+	bool Unknown_53FE10();								// 0x53FE10 (gd_galaxy_map's 0x668F20: the renderer's 0x7A6A70, tail-called)
 	void Unknown_53FE30();								// 0x53FE30 (loads the background and the grid)
 	void Unknown_5404E0(bool arg);						// 0x5404E0  // NAME 1 [arg]: neutral
 	void Unknown_5406A0(const SphereClass &sphere, float angle);	// 0x5406A0 (where the ease goes)  // NAME 2 [sphere]: Center, then Radius / tan(fov / 2)  // NAME 1 [angle]: what it does with it

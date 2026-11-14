@@ -24,18 +24,6 @@
 #include "..\..\app\client\galaxy_map_pip.h"
 #include "..\..\ww3d2\ww3d.h"
 
-// ---------------------------------------------------------------- gd_galaxy_map.cpp's gadget (0x668E30, galaxy_map_pip.h): 0x50 bytes
-// As the client's 0x668E30: the base, GalaxyMap (+0x4C), its table. The generated constructor left no table, and
-// MapPipClass::Unknown_04's ViewportGadget->Unknown_40 crashed the second PIP the star map window opens.
-GadgetGalaxyMapClass::GadgetGalaxyMapClass(GalaxyMapPipClass *pip) : GadgetPipSceneClass(pip), GalaxyMap(pip)
-{
-	STUB_CALLED("POC GadgetGalaxyMapClass: the PIP only");
-}
-bool GadgetGalaxyMapClass::Unknown_30(float x, float y)
-{
-	return(false);
-}
-
 // ---------------------------------------------------------------- the star map PIP's lines (0x466920, starmap_pip_support.h): 0x10C bytes
 // MapPipClass's constructor makes two StarmapPipSupportClass (+0x48, +0x4C) over this base. The generated constructor left
 // Line3DClass unbuilt (no reference count: the first release freed both, and StarmapPipClass::Unknown_14's Set_Hidden

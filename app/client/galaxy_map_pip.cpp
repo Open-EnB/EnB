@@ -203,9 +203,9 @@ void GalaxyMapPipClass::Unknown_53FDA0(bool arg)
 }
 
 // @0x53FE10
-void GalaxyMapPipClass::Unknown_53FE10()
+bool GalaxyMapPipClass::Unknown_53FE10()
 {
-	Render->Unknown_7A6A70();
+	return(Render->Unknown_7A6A70());
 }
 
 // @0x53FE30
