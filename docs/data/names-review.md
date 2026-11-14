@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 220 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1930 |
-| 2 | describes what the code does | 4869 |
-| 1 | neutral placeholder | 25136 |
+| 2 | describes what the code does | 4870 |
+| 1 | neutral placeholder | 25155 |
 
 ## For review (score 3 and below)
 
@@ -5012,6 +5012,28 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `arg` | `app/client/gd_slot_data.h:79` | the base's |
 | 1 | `arg` | `app/client/gd_slot_data.h:80` | the base's |
 | 1 | `arg` | `app/client/gd_slot_data.h:81` | the base's |
+| 1 | `Unknown_2C` | `app/client/gd_starmap.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/gd_starmap.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/gd_starmap.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_7C1060` | `app/client/gd_starmap.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F24` | `app/client/gd_starmap.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_BE5F28` | `app/client/gd_starmap.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_6C` | `app/client/gd_starmap.cpp:88` | untagged neutral name (D10) |
+| 1 | `Unknown_7C0FA0` | `app/client/gd_starmap.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_7C10D0` | `app/client/gd_starmap.cpp:92` | untagged neutral name (D10) |
+| 1 | `Unknown_7B4BD0` | `app/client/gd_starmap.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_7B4C50` | `app/client/gd_starmap.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_7B4D80` | `app/client/gd_starmap.cpp:106` | untagged neutral name (D10) |
+| 1 | `Unknown_7C1200` | `app/client/gd_starmap.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown_7C0EA0` | `app/client/gd_starmap.cpp:155` | untagged neutral name (D10) |
+| 1 | `Unknown_7C1770` | `app/client/gd_starmap.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown_7C1120` | `app/client/gd_starmap.cpp:198` | untagged neutral name (D10) |
+| 1 | `pip` | `app/client/gd_starmap.h:27` | the base's |
+| 1 | `event, x, y, mask` | `app/client/gd_starmap.h:29` | GadgetClass's |
+| 1 | `Unknown_2C` | `app/client/gd_starmap.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_7B4BD0` | `app/client/gd_starmap.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_7B4C50` | `app/client/gd_starmap.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_7B4D80` | `app/client/gd_starmap.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F34` | `app/client/gd_text_editor.cpp:26` | neutral (D10) |
 | 1 | `Unknown_671300Class` | `app/client/gd_text_editor.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/gd_text_editor.cpp:30` | untagged neutral name (D10) |
@@ -9356,9 +9378,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6D87D0` | `app/client/starmap_pip.cpp:1399` | untagged neutral name (D10) |
 | 1 | `Unknown` | `app/client/starmap_pip.cpp:1401` | untagged neutral name (D10) |
 | 1 | `Unknown_6D88F0` | `app/client/starmap_pip.cpp:1429` | untagged neutral name (D10) |
-| 1 | `pip` | `app/client/starmap_pip.h:43` | what the caller passes |
-| 1 | `x, y` | `app/client/starmap_pip.h:44` | GadgetClass's |
-| 1 | `Unknown_30` | `app/client/starmap_pip.h:44` | untagged neutral name (D10) |
 | 1 | `Unknown_7C3220Class` | `app/client/starmap_pip.h:49` | neutral (D10) |
 | 1 | `scene, arg, type` | `app/client/starmap_pip.h:52` | what it does with them |
 | 1 | `left, top, right, bottom` | `app/client/starmap_pip.h:54` | FontSys 0x6D88F0's |
@@ -24921,11 +24940,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_73FDB0` | `programs/clientpoc/poc_world2.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5090` | `programs/clientpoc/poc_world2.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:82` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `programs/clientpoc/poc_world4.cpp:40` | untagged neutral name (D10) |
-| 1 | `Unknown_466920Class` | `programs/clientpoc/poc_world4.cpp:49` | untagged neutral name (D10) |
-| 1 | `Unknown688830Class` | `programs/clientpoc/poc_world4.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown_68A720` | `programs/clientpoc/poc_world4.cpp:75` | untagged neutral name (D10) |
-| 1 | `Unknown_689DA0` | `programs/clientpoc/poc_world4.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `programs/clientpoc/poc_world4.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_466920Class` | `programs/clientpoc/poc_world4.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown688830Class` | `programs/clientpoc/poc_world4.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_68A720` | `programs/clientpoc/poc_world4.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown_689DA0` | `programs/clientpoc/poc_world4.cpp:65` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:84` | untagged neutral name (D10) |
@@ -26162,6 +26181,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `MaxBoneIdx` | `app/client/gd_slider.h:55` | G_ASSERT 'MaxBoneIdx' |
 | 2 | `PressedObject` | `app/client/gd_slider.h:84` | FAIL_IF 'PressedObject' |
 | 2 | `slot_iface, slot_render` | `app/client/gd_slot_data.h:49` | the asserts' members; ui_slot_data.cpp's '!slot_render' |
+| 2 | `GadgetStarmapClass` | `app/client/gd_starmap.h:24` | class-from-file (D24) for app\client\gd_starmap.cpp, as gd_pip_scene.cpp's GadgetPipSceneClass |
 | 2 | `Set_Render_Obj` | `app/client/gd_text_editor.h:40` | the base's |
 | 2 | `std:` | `app/client/gd_text_editor.h:42` | what it answers |
 | 2 | `Set_Text` | `app/client/gd_text_editor.h:43` | what it does; NAME 1 [text]: neutral |
@@ -30337,6 +30357,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SlotRender` | `app/client/gd_slot_data.h:69` | the asserts' |
 | 3 | `SlotDataShortcutGadgetClass` | `app/client/gd_slot_data.h:73` | ui_inv.cpp's FAIL_IF '!gadget->As_SlotDataShortcutGadget()' (its +0xA4 returns this) |
 | 3 | `ShortcutOwner` | `app/client/gd_slot_data.h:85` | the asserts' |
+| 3 | `gd_starmap.h` | `app/client/gd_starmap.h:17` | header name assumed from the client's gd_starmap.cpp |
+| 3 | `StarmapPIP` | `app/client/gd_starmap.h:35` | the asserts' |
 | 3 | `TextEditorGadgetClass` | `app/client/gd_text_editor.h:29` | class-from-file (D24) for app\Client\gd_text_editor.cpp |
 | 3 | `Slider` | `app/client/gd_text_editor.h:73` | the FAIL_IF's |
 | 3 | `GD_UIBACK_H` | `app/client/gd_uiback.h:12` | header name from gd_uiback.cpp's __FILE__ (D24) |
@@ -30627,8 +30649,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `starbase_lights.h` | `app/client/starbase_lights.h:16` | its INI file's name |
 | 3 | `starmap_data.h` | `app/client/starmap_data.h:16` | header name assumed from the client's starmap_data.cpp |
 | 3 | `starmap_pip.h` | `app/client/starmap_pip.h:16` | header name assumed from the client's starmap_pip.cpp |
-| 3 | `GadgetStarmapClass` | `app/client/starmap_pip.h:40` | class-from-file (D24) for app\client\gd_starmap.cpp |
-| 3 | `StarmapPIP` | `app/client/starmap_pip.h:45` | the assert's |
 | 3 | `StarmapPipClass` | `app/client/starmap_pip.h:64` | class-from-file (D24) for app\client\starmap_pip.cpp |
 | 3 | `ScaleMult` | `app/client/starmap_pip.h:109` | 0x7C1770's FAIL_IF 'ScaleMult < WWMATH_EPSILON' |
 | 3 | `CurMult` | `app/client/starmap_pip.h:110` | the FAIL_IF's |
