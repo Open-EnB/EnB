@@ -190,11 +190,4 @@ Matrix3D UnknownB02C90Class::Unknown_725AD0() { Trace("stub UnknownB02C90Class::
 // Unknown_6E9490 and the unary / binary ends are eff_o.cpp's real ones (app.lib); the concrete effects the
 // factory makes are clienttest.cpp's stand-ins, and effect.ini is the fixture in tests/clienttest/data
 
-// The app files that still have a local GadgetClass view (cpacket.cpp, ui_avatr.cpp, ...) call GadgetClass's slots +0x08 / +0x14 as void functions; gen_stubs
-// writes one signature a name (the pointer-returning one) and clienttest.py does not apply link_aliases.txt, so these two
-// names link here. Never called: clienttest opens no such window.
-class GadgetClass { public: virtual void As_RObjGadget(); virtual void As_UIScutProxyGadget(); };
-void GadgetClass::As_RObjGadget() {}
-void GadgetClass::As_UIScutProxyGadget() {}
-
 // (rs_eff_p.cpp's 'effect_pass' state 0x458C10 links from app.lib)
