@@ -1,10 +1,16 @@
 {
  "ambiguous": [],
  "copy": "reconstructed",
- "description": "gifload.cpp (its __FILE__ 0xB9C900, asserts lines 409 / 417 / 439 / 456; .data code_mask 0xB9C8B8 then Set_Data's 'GIF87a' 0xB9C8D8): HtmlGifImageClass's Bennett LZW decoder 0x76D990-0x76E4A4 (Decode, Get_Next_Code, Init, Get_Byte, Get_Bytes, Out_Line; Get_Byte / Get_Bytes inlined into their callers, so this file's); the object starts at the gif's constructor 0x76D3E0 (not rebuilt yet); O17b",
+ "description": "gifload.cpp (its __FILE__ 0xB9C900, asserts lines 409 / 417 / 439 / 456; .data code_mask 0xB9C8B8 then Set_Data's 'GIF87a' 0xB9C8D8): HtmlGifImageClass, Bennett's LZW decoder made members; object 0x76D340-0x76E4F0: Build_Pixel 0x76D340 (provisionally this file's), the constructor 0x76D3E0, destructor 0x76D480, Set_Data 0x76D4A0, Decode 0x76D990, Get_Next_Code, Init, Get_Byte, Get_Bytes, Out_Line (Get_Byte / Get_Bytes inlined into Set_Data and Get_Next_Code, so this file's); O17b",
  "expected": {},
  "in_tree": [
   "0x42F250",
+  "0x76D340",
+  "0x76D3E0",
+  "0x76D410",
+  "0x76D430",
+  "0x76D450",
+  "0x76D480",
   "0x76E200",
   "0x76E310",
   "0x76E350",
@@ -13,6 +19,13 @@
  "merged": [],
  "name": "client/html/image/gifload.cpp",
  "shared": [
-  "0x42F250"
+  "0x42F250",
+  "0x76D410",
+  "0x76D430"
+ ],
+ "short_known": [
+  "0x76D410",
+  "0x76D430",
+  "0x76D480"
  ]
 }

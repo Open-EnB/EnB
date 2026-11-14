@@ -18,127 +18,127 @@ static unsigned short code_mask[13] = {
 static unsigned char b1;
 static unsigned short ret;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+int Build_Pixel(DSurface *surface, int red, int green, int blue)
+{
+	int pixel = 0;
+	if (surface->Bytes_Per_Pixel() == 4 || surface->Bytes_Per_Pixel() == 3) {
+		pixel = (((red << 8) | green) << 8) | blue;
+	} else if (surface->Bytes_Per_Pixel() == 2) {
+		pixel = ((green >> surface->ThisGreenLeft) << surface->ThisGreenRight) | ((blue >> surface->ThisBlueLeft) << surface->ThisBlueRight) | ((red >> surface->ThisRedLeft) << surface->ThisRedRight);
+	}
+	return(pixel);
+}
+
+HtmlGifImageClass::HtmlGifImageClass(char *name, int bits) : HtmlImageClass(name, bits)
+{
+}
+
+HtmlGifImageClass::~HtmlGifImageClass(void)
+{
+}
+
+// NOT EXACT: 0x76D4A0, functional (D64): the client keeps i / c / count in registers and the result in the dead
+// data argument's slot (frame 0x10 vs 0x20, the header and descriptor share one 13-byte buffer)
+int HtmlGifImageClass::Set_Data(char *data, int length)
+{
+	unsigned char buffer[13];
+	int status = 0;
+	int i;
+	int c;
+
+	Data = data;
+	Length = length;
+	Position = 0;
+	memset(Line, 0, sizeof(Line));
+
+	for (i = 0; i < 13; i++) {
+		c = Get_Byte();
+		buffer[i] = (unsigned char)c;
+		if (c < 0)
+			return(-1);
+	}
+
+	if (strncmp((char *)buffer, "GIF87a", 3) == 0 && buffer[3] >= '0' && buffer[3] <= '9' && buffer[4] >= '0' && buffer[4] <= '9' && buffer[5] >= 'A' && buffer[5] <= 'z') {
+		Width = (buffer[7] << 8) | buffer[6];
+		Height = (buffer[9] << 8) | buffer[8];
+		if (Width <= 0x800 && Height <= 0x800) {
+			Create_Surface(Width, Height);
+			if (buffer[10] & 0x80) {
+				ColorCount = 1 << ((buffer[10] & 0x0F) + 1);
+				for (i = 0; i < ColorCount * 3; i++) {
+					c = Get_Byte();
+					if (c < 0)
+						return(-1);
+					Palette[i] = (unsigned char)c;
+				}
+				for (i = 0; i < 256; i++)
+					Colors[i] = Build_Pixel(Surf, Palette[i * 3], Palette[i * 3 + 1], Palette[i * 3 + 2]);
+
+				for (;;) {
+					c = Get_Byte();
+					if (c < 0) {
+						status = -1;
+						break;
+					}
+
+					if (c == '!') {
+						if (Get_Byte() == 0xF9) {
+							Get_Byte();
+							if (Get_Byte() & 1)
+								Get_Byte();
+							Get_Byte();
+							Transparent = Get_Byte();
+							Get_Byte();
+						} else {
+							int count;
+							while ((count = Get_Byte()) > 0) {
+								do {
+									Get_Byte();
+								} while (--count);
+							}
+						}
+					} else if (c == ',') {
+						for (i = 0; i < 9; i++) {
+							c = Get_Byte();
+							buffer[i] = (unsigned char)c;
+							if (c < 0)
+								break;
+						}
+						if (c < 0) {
+							status = -1;
+							break;
+						}
+						if (status < 0)
+							break;
+						if ((buffer[8] & 0x80) == 0x80) {
+							int count = 1 << ((buffer[8] & 0x0F) + 1);
+							for (i = 0; i < count; i++) {
+								for (int j = 0; j < 3; j++) {
+									if (Get_Byte() < 0)
+										return(-1);
+								}
+							}
+						}
+						memset(Line, 0, sizeof(Line));
+						status = Decode((short)Width);
+						if (Get_Byte() != 0) {
+							status = -1;
+							break;
+						}
+					} else {
+						if (c == ';')
+							status = 0;
+						else
+							status = -1;
+						break;
+					}
+				}
+				return(status);
+			}
+		}
+	}
+	return(-1);
+}
 
 
 
@@ -588,8 +588,8 @@ void HtmlGifImageClass::Out_Line(unsigned char *pixels, int length, int row)
 **	  ('code < 4096' lines 409 / 417 / 439, 'slot < 4096' 456). Its .data: code_mask (0xB9C8B8), then 'GIF87a'
 **	  (0xB9C8D8, Set_Data 0x76D4A0's), then the assert texts: Set_Data and so the gif's constructor 0x76D3E0, its
 **	  destructors 0x76D450 / 0x76D480 and the inline Get_Surface / Get_Name copies 0x76D410 / 0x76D430 are this
-**	  file's too (0x76D3E0-0x76D990: not rebuilt yet; the blank lines above Decode are their room). Its bss: b1
-**	  0xBE82DC, ret 0xBE82DE.
+**	  file's too (0x76D3E0-0x76D990), and Build_Pixel 0x76D340 before them (Set_Data's only callee there; its
+**	  name and the file are provisional, D246). Its bss: b1 0xBE82DC, ret 0xBE82DE.
 **	* Get_Byte and Get_Bytes are ordinary members defined after their callers: /Ob2 inlines them into Set_Data and
 **	  Get_Next_Code, and their copies (0x76E310, 0x76E350) stay with no caller; Init 0x76E200 has none either.
 **	  So 0x76E200-0x76E4A4 are this file's, not image.cpp's (whose object starts at its constructor 0x76E4F0).

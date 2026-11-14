@@ -4,6 +4,8 @@
 
 #include "image.h"
 
+int Build_Pixel(DSurface *surface, int red, int green, int blue);  // 0x76D340  // NAME 1: a pixel of surface's format (Build_Hicolor_Pixel with the surface's own shifts for 2 bytes per pixel, 0x00RRGGBB for 3 / 4); Set_Data's palette
+
 // The image the parser makes for <img src> and <body background>: 0x22A04 bytes (the parser's operator new),
 // vtable 0xB043B8. Set_Data reads a GIF87a stream; Decode is Steven A. Bennett's LZW decoder (decoder /
 // get_next_code / init_exp, its BAD_CODE_SIZE -20 and code_mask) made members, with a string length table
