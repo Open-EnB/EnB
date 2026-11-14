@@ -378,7 +378,7 @@ bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && Velocity.Is_Valid())) return(true);
 	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
-	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
+	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp); sclient->Unknown10D0++;
 	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
 	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
 		sclient->Unknown_728180();
@@ -408,7 +408,7 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && WWMath::Is_Valid_Float(CurrentSpeed) && ImpartedVelocity.Is_Valid())) return(true);
 	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
-	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
+	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp); sclient->Unknown10D0++;
 	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
 	if (fabs(Unknown_Lag_Average(sclient)) > 50.0 && sclient->Unknown10D0 > 64) {
 		sclient->Unknown_728180();
