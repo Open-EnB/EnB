@@ -2423,8 +2423,8 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 
 
 
-// What the chat panel's +0xF8 window is, as far as FIND_MEMBER 83 calls its slot +0x90
-class UIChatPanelUnknownF890Class; class UIChatPanelUnknownF8Class : public InterfaceClass { public: virtual void Unknown_88(); virtual void Unknown_8C(); virtual UIChatPanelUnknownF890Class *Unknown_90(); };	// NAME 1: neutral (D10): the chat panel's +0xF8 (an InterfaceClass: the count at +0x3C; slot +0x90 FIND_MEMBER 83)
+
+
 
 
 
@@ -2477,9 +2477,9 @@ class UIChatPanelUnknownF890Class; class UIChatPanelUnknownF8Class : public Inte
 #include "..\packets\pkfindmember.h"
 #include "..\packets\pkmessagechatstream.h"
 #include "..\packets\pktrade.h"
-// ui_groupfind.cpp's interface (what +0xA8 of the chat panel's +0xF8 interface's slot +0x90 result points to), as far as FIND_MEMBER 83 calls it
-#include "ui_groupfind.h"	// UIGroupFindClass (ui_groupfind.cpp's list window: FIND_MEMBER 83 calls its 0x59A400 while it is active)
-class UIChatPanelUnknownF890Class { public: char Unknown00[0xA8]; UIGroupFindClass *UnknownA8; };	// NAME 1: neutral (D10): the chat panel's +0xF8 interface's slot +0x90 result
+// The chat panel's +0xF8 window FIND_MEMBER 83 reaches through slot +0x90: ui_groupopt.cpp's (0x59AE90 returns it), whose FindUI is ui_groupfind.cpp's list
+#include "ui_groupopt.h"	// UIGroupOptClass (ui_chat_panel.cpp's 0x569A00 opens it for 'Find / Leave'); ui_groupfind.h's UIGroupFindClass (its 0x59A400 while it is active)
+
 
 
 
@@ -2817,10 +2817,10 @@ bool FindMemberPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (panel == NULL || panel->Get_UnknownF8() == NULL) return(true);
-	UIChatPanelUnknownF890Class *find = ((UIChatPanelUnknownF8Class *)panel->Get_UnknownF8().Peek())->Unknown_90();
+	UIGroupOptClass *find = (UIGroupOptClass *)panel->Get_UnknownF8().Peek()->Unknown_90();
 	if (!find) return(true);
-	if (find->UnknownA8 && find->UnknownA8->Is_Active()) {
-		find->UnknownA8->Unknown_59A400(this);
+	if (find->FindUI && find->FindUI->Is_Active()) {
+		find->FindUI->Unknown_59A400(this);
 	}
 	return(true);
 }

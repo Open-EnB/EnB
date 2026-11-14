@@ -27,8 +27,8 @@ extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class CharacterViewAvatarClass : public RenderObjClass	// avatar.h's (avatar_pip.h's +0x2C), as far as this file uses it
 {
 public:
-	void Unknown_77E3D0(int arg);						// 0x77E3D0 (avatar.cpp; 0x563910 passes 1 or 2)  // NAME 1 [arg]: neutral
-	struct UnknownF8Struct { char Unknown00[0xD4]; char Name[0x10C - 0xD4]; };	// NAME 1: neutral (D10): +0xD4 the name 0x563910 copies
+	void Unknown_77E3D0(int arg); void Unknown_781760(const char *text); class Unknown_ChatStreamClass *Unknown_7817E0();	// 0x77E3D0 (avatar.cpp; 0x563910 passes 1 or 2); 0x781760, 0x7817E0 (avatar.h's: 0x569A00's emotes)  // NAME 1 [arg, text]: neutral
+	struct UnknownF8Struct { char Unknown00[0x18]; int Gender; char Unknown1C[0xD4 - 0x1C]; char Name[0x10C - 0xD4]; };	// NAME 1: neutral (D10): +0xD4 the name 0x563910 copies; +0x18 AvatarDescClass's Gender (0x5689D0, 0x569A00)  // NAME 2 [Gender]: avatar_desc.h's
 	UnknownF8Struct *Get_UnknownF8() { return(&UnknownF8); }	// NAME 1: neutral (D10): the client tests the address
 
 	char Unknown_Pad[0xF8 - sizeof(RenderObjClass)];
@@ -123,13 +123,13 @@ static const char *Unknown_B7C2E0[] = { NULL, "if_chat.tga", "if_chat02.tga", "i
 // The asset manager (*0xBFAEE0)
 #include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
 
-
-
-
-
-
-
-
+// The combos' items (0xB7C2F4 'b00' .. 0xB7C344 'b03': NULL-ended), the ship's emotes (0xB7C358: name, command) and the avatar's (0xB7C398: by gender, then the command)
+static const char *Unknown_B7C2F4[] = { "Set Channels", "Set Messages", "Ignore List", "Reply List", "Private Channel", "---------------------", "-send to:-", NULL };	// NAME 1: neutral (D10)
+static const char *Unknown_B7C314[] = { "Find / Leave", "Friends List", "Guild Info", NULL };	// NAME 1: neutral (D10)
+static const char *Unknown_B7C324[] = { "Camera", "Control", "Interface", "Graphics", "Sound", "Chat Font", "Credits", NULL };	// NAME 1: neutral (D10)
+static const char *Unknown_B7C344[] = { "Commands", "Get Help", "Self Help", "Captain's Log", NULL };	// NAME 1: neutral (D10)
+static const char *Unknown_B7C358[][2] = { { "Loop", "/loop" }, { "Dive", "/dive" }, { "Barrel Left", "/leftroll" }, { "Barrel Right", "/rightroll" }, { "Spin Left", "/leftspin" }, { "Spin Right", "/rightspin" }, { "Wing Wave", "/wave" }, { NULL, NULL } };	// NAME 1: neutral (D10)
+static const char *Unknown_B7C398[][3] = { { "Agree", "Agree", "/agree" }, { "Bored", "Bored", "/bored" }, { "Bow", "Bow", "/bow" }, { "Celebrate", "Celebrate", "/celebrate" }, { "Chuckle", "Chuckle", "/chuckle" }, { "Clap", "Clap", "/clap" }, { "Crash", "Crash", "/crash" }, { "Crazy", "Crazy", "/crazy" }, { "Give", "Give", "/give" }, { "No", "No", "/no" }, { "No Way!", "No Way!", "/noway" }, { "Point", "Point", "/point" }, { "Rude", "Rude", "/rude" }, { "Shocked", "Shocked", "/shocked" }, { "Shoot", "Shoot", "/shoot" }, { "Shrug", "Shrug", "/shrug" }, { "Sick", "Sick", "/sick" }, { "Sleep", "Sleep", "/sleep" }, { "Smash", "Smash", "/smash" }, { "Take", "Take", "/take" }, { "Threaten", "Threaten", "/threaten" }, { "Thumbs", "Thumbs", "/thumbs" }, { "Wave", "Wave", "/handwave" }, { "Mime", "Mime", "/mime" }, { "Disco", "Disco", "/disco" }, { "Robot", "Robot", "/robot" }, { "Drunk", "Drunk", "/drunk" }, { "Drink", "Drink", "/drink" }, { "Sneak", "Sneak", "/sneak" }, { "Salute", "Salute", "/salute" }, { "Doh", "Flip", "/gender1" }, { "Judo", "Pirouette", "/gender2" }, { "Moonwalk", "Rumpshake", "/gender3" }, { NULL, NULL, NULL } };	// NAME 1: neutral (D10)
 
 extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (as sclient.cpp declares it; 0x70 for slot +0x68's key 3)
 
@@ -251,17 +251,17 @@ ChatPanelInterface::ChatPanelInterface(SClient *client) :
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
+// The windows 0x569A00 opens from the combos (each over the window base; stored at +0xF8)
+#include "ui_option_channel.h"	// UIOptionChannelClass (0x5C8DB0, 0x104 bytes: 'Set Channels')
+#include "ui_playeropt.h"	// UIPlayerOptClass (0x5D8C40, 0x114 bytes: 'Ignore List', kept at +0xD8)
+#include "ui_groupopt.h"	// UIGroupOptClass (0x59AD10, 0xD4 bytes: 'Find / Leave')
+#include "ui_friends.h"	// UIFriendsClass (0x58F210, 0x14C bytes: 'Friends List', kept at +0xDC)
+#include "ui_guild.h"	// UIGuildClass (0x819420, 0x190 bytes: 'Guild Info', kept at +0xE0)
+#include "ui_commands.h"	// UICommandsClass (0x57BAD0, 0xFC bytes: 'Commands')
+#include "ui_petition.h"	// UIPetitionClass (0x5D33B0, 0xCC bytes: 'Get Help')
+class UILogClass : public ChatPanelUIBase { public: UILogClass(SClient *client); char Unknown0A0[0xCC - 0xA0]; };	// ui_log.cpp's log book (0x5AAE40, 0xCC bytes: 'Captain's Log'; declared in ui_log.cpp, no header)
+#include "..\packets\pkunknown_87dec0.h"	// AvatarEmotePacketClass (0x87DEC0: the avatar's emotes)
+#include "camera_manager.h"	// CameraManagerClass (SClient +0x12A8; 0x79B600 before the ship's emotes)
 
 
 
@@ -1414,159 +1414,159 @@ void ChatPanelInterface::Unknown_568950()
 	Unknown_5689D0(4);
 	UnknownD4 = NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline-budget (functional, written from the disassembly: the client calls string::assign out of line for the early copies and expands _Grow for the label in the last branch; ours the reverse; 3196 bytes vs 3084)
+// 0x5689D0
+void ChatPanelInterface::Unknown_5689D0(int index)
+{
+	SClient *sclient = Client->As_Space_Client();
+	if (!sclient) return;
+	CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(((ClientClass *)Client)->AvatarID);
+	int gender = 0;
+	if (avatar) gender = avatar->Get_UnknownF8()->Gender;
+	InterfaceSortScopeClass sort(this);
+	switch (index) {
+		case 0: {
+			if (Combo[0]) {
+				Combo[0]->Close_Drop_Down();
+				Combo[0]->Unknown_5C();
+				Combo[0]->Clear_Items();
+			} else {
+				Combo[0] = Create_Get(new UIComboBoxClass(this, sclient, InterfaceMesh.Peek(), "b00", 15, 8, 20, 32, "Combo01"));
+				Combo[0]->Unknown_5417D0(this);
+				Combo[0]->Unknown_54();
+			}
+			Combo[0]->Add_Items(Unknown_B7C2F4);
+			Combo[0]->Set_Hover_Only(0, Unknown_5688E0((void **)Unknown_B7C2F4));
+			Combo[0]->Hide_Arrow(true);
+			Combo[0]->Set_Label("Chat");
+			bool missing = false;
+			bool chosen = false;
+			std::string name("");
+			int channel = -1;
+			OptionClass *options = OptionClass::Instance;
+			char buffer[64];
+			for (ChatChannelStruct *entry = Unknown_B7C530; entry < &Unknown_B7C530[17]; entry++) {
+				if (entry->Name) {
+					if (options->Get_Bool(entry->Option)
+						&& (strcmp(entry->Name, "Guild") || sclient->Unknown_728300())
+						&& (strcmp(entry->Name, "Group") || sclient->Unknown_74D570())) {
+						Combo[0]->Add_Item(entry->Name);
+						if (!chosen) {
+							name = entry->Name;
+							channel = atoi(entry->Number);
+							chosen = true;
+						}
+					} else if (!stricmp(entry->Name, Unknown1F4.c_str())) {
+						missing = true;
+					}
+				}
+			}
+			if (Unknown214.length() && options->Get_Bool("Channel_Private")) {
+				_snprintf(buffer, sizeof(buffer), "Private %s", Unknown214.c_str());
+				Combo[0]->Add_Item(buffer);
+				if (!chosen) {
+					name = buffer;
+					channel = 4;
+					chosen = true;
+				}
+			} else if (!strncmp("Private", Unknown1F4.c_str(), 7)) {
+				missing = true;
+			}
+			if (missing) {
+				if (chosen) {
+					_snprintf(buffer, sizeof(buffer), "Defaulting chat channel to %s.", name.c_str());
+					sclient->Unknown_74D990(0x13, buffer, 0);
+					Unknown144 = channel;
+					IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
+					if (option) option->Value = channel;
+					Unknown1F4 = name;
+				} else {
+					Unknown1F4 = "";
+					sclient->Unknown_74D990(0x13, "No default destination available for chat.", 0);
+					Unknown144 = -1;
+					IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
+					if (option) option->Value = -1;
+				}
+				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
+				if (label) label->Value = Unknown1F4.c_str();
+			} else if (chosen && !strcmp(Unknown1F4.c_str(), "")) {
+				_snprintf(buffer, sizeof(buffer), "Defaulting chat channel to %s.", name.c_str());
+				sclient->Unknown_74D990(0x13, buffer, 0);
+				Unknown144 = channel;
+				IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
+				if (option) option->Value = channel;
+				Unknown1F4 = name;
+				StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
+				if (label) label->Value = Unknown1F4.c_str();
+			}
+			Combo[0]->Unknown_7C(View, 1);
+			break;
+		}
+		case 1:
+			if (!Combo[1]) {
+				int count = Unknown_5688E0((void **)Unknown_B7C314);
+				Combo[1] = Create_Get(new UIComboBoxClass(this, sclient, InterfaceMesh.Peek(), "b01", 15, 9, 18, Unknown_5688E0((void **)Unknown_B7C314), "Combo01"));
+				Combo[1]->Unknown_5417D0(this);
+				Combo[1]->Unknown_54();
+				Combo[1]->Add_Items(Unknown_B7C314);
+				Combo[1]->Set_Hover_Only(0, count);
+				Combo[1]->Hide_Arrow(true);
+				Combo[1]->Set_Label("Group");
+			}
+			break;
+		case 2:
+			if (!Combo[2]) {
+				int count = Unknown_5688E0((void **)Unknown_B7C324);
+				Combo[2] = Create_Get(new UIComboBoxClass(this, sclient, InterfaceMesh.Peek(), "b02", 15, 10, 18, Unknown_5688E0((void **)Unknown_B7C324), "Combo01"));
+				Combo[2]->Unknown_5417D0(this);
+				Combo[2]->Unknown_54();
+				Combo[2]->Add_Items(Unknown_B7C324);
+				Combo[2]->Set_Hover_Only(0, count);
+				Combo[2]->Hide_Arrow(true);
+				Combo[2]->Set_Label("Options");
+			}
+			break;
+		case 3:
+			if (!Combo[3]) {
+				int count = Unknown_5688E0((void **)Unknown_B7C344);
+				Combo[3] = Create_Get(new UIComboBoxClass(this, sclient, InterfaceMesh.Peek(), "b03", 15, 11, 18, Unknown_5688E0((void **)Unknown_B7C344), "Combo01"));
+				Combo[3]->Unknown_5417D0(this);
+				Combo[3]->Unknown_54();
+				Combo[3]->Add_Items(Unknown_B7C344);
+				Combo[3]->Set_Hover_Only(0, count);
+				Combo[3]->Hide_Arrow(true);
+				Combo[3]->Set_Label("Help");
+			}
+			break;
+		case 4: {
+			if (Combo[4]) {
+				Combo[4]->Close_Drop_Down();
+				Combo[4]->Unknown_5C();
+				Combo[4]->Clear_Items();
+			} else {
+				Combo[4] = Create_Get(new UIComboBoxClass(this, sclient, InterfaceMesh.Peek(), "b04", 15, 12, 18, 33, "Combo01"));
+				Combo[4]->Unknown_5417D0(this);
+				Combo[4]->Unknown_54();
+			}
+			int count;
+			if (!sclient->Unknown_744B60()) {
+				count = 7;
+				for (int i = 0; i < 7; i++) {
+					if (Unknown_B7C358[i][0]) Combo[4]->Add_Item(Unknown_B7C358[i][0]);
+				}
+			} else {
+				count = 33;
+				for (int i = 0; i < 33; i++) {
+					if (Unknown_B7C398[i][gender]) Combo[4]->Add_Item(Unknown_B7C398[i][gender]);
+				}
+			}
+			Combo[4]->Set_Hover_Only(0, count);
+			Combo[4]->Hide_Arrow(true);
+			Combo[4]->Set_Label("Emote");
+			break;
+		}
+	}
+}
 
 
 
@@ -1983,6 +1983,272 @@ void ChatPanelInterface::Unknown_5698F0(int id)
 	UnknownD4 = Combo[index];
 	if (id == 8) UnknownD4->Select_Text(Unknown1F4.c_str());
 }
+// NOT EXACT: shape (functional, written from the disassembly: the client places the Font Size test's fall-through into the channel search and keeps two destructor forms; 5966 bytes vs 5929)
+// 0x569A00
+void ChatPanelInterface::Unknown_569A00()
+{
+	if (!UnknownD4) return;
+	SClient *sclient = Client->As_Space_Client();
+	CharacterViewAvatarClass *avatar = sclient->Unknown_74C840(((ClientClass *)Client)->AvatarID);
+	std::string text(UnknownD4->Get_Item_Text(UnknownD4->Selected));
+	int gender = 0;
+	if (avatar) gender = avatar->Get_UnknownF8()->Gender;
+	if (!strcmp(text.c_str(), "Set Channels")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIOptionChannelClass(Client->As_Space_Client(), 1));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	}
+	if (!strcmp(text.c_str(), "Set Messages")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIOptionCheckClass(Client->As_Space_Client(), 0, 1));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	}
+	if (!strcmp(text.c_str(), "Ignore List")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPlayerOptClass(Client->As_Space_Client()));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		UnknownD8 = (UIPlayerOptClass *)UnknownF8.Peek();
+		return;
+	}
+	if (!strcmp(text.c_str(), "Reply List")) {
+		Unknown_567540(1);
+		return;
+	}
+	if (!strcmp(text.c_str(), "Private Channel")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIRadioMainClass(Client->As_Space_Client(), 0, Unknown214));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	}
+	if (!strcmp(text.c_str(), "Font Size")) {
+		sclient->Unknown_74D990(0x13, "Not implemented at this time", 0);
+	} else if (!strcmp(text.c_str(), "Find / Leave")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIGroupOptClass(Client->As_Space_Client()));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	} else if (!strcmp(text.c_str(), "Friends List")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIFriendsClass(Client->As_Space_Client()));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		UnknownDC = (UIFriendsClass *)UnknownF8.Peek();
+		return;
+	} else if (!strcmp(text.c_str(), "Guild Info")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIGuildClass(Client->As_Space_Client()));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		UnknownE0 = (UIGuildClass *)UnknownF8.Peek();
+		return;
+	} else if (!strcmp(text.c_str(), "Camera")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIOptionCheckClass(Client->As_Space_Client(), 1, 1));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	} else if (!strcmp(text.c_str(), "Control")) {
+		Unknown_5685C0();
+		Unknown10C = false;
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIOptionControlKeysClass(Client->As_Space_Client(), 1));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	} else if (!strcmp(text.c_str(), "Interface")) {
+		Unknown_5685C0();
+		Unknown10C = false;
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIOptionSliderClass(Client->As_Space_Client(), 2, 1));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	} else if (!strcmp(text.c_str(), "Graphics")) {
+		Unknown_5685C0();
+		Unknown10C = false;
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIOptionSliderClass(Client->As_Space_Client(), 0, 1));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	} else if (!strcmp(text.c_str(), "Sound")) {
+		Unknown_5685C0();
+		Unknown10C = false;
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIOptionSliderClass(Client->As_Space_Client(), 1, 1));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	} else if (!strcmp(text.c_str(), "Chat Font")) {
+		Unknown_56C7E0();
+		return;
+	} else if (!strcmp(text.c_str(), "Credits")) {
+		if (!Unknown_7CA2D0()->Unknown34) {
+			Unknown_5685C0();
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 5, "Credits", 0));
+			UnknownF8->Unknown_54();
+			UnknownF8->Unknown_7C(View, 1);
+			UnknownEC = UnknownF8.Peek();
+		}
+		return;
+	} else if (!strcmp(text.c_str(), "Self Help")) {
+		if (!Unknown_7CA2D0()->Unknown34) {
+			Unknown_5685C0();
+			UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPopupBrowserClass(Client->As_Space_Client(), 0, "Knowledgebase", 0));
+			UnknownF8->Unknown_54();
+			UnknownF8->Unknown_7C(View, 1);
+			UnknownEC = UnknownF8.Peek();
+		}
+		return;
+	} else if (!strcmp(text.c_str(), "Commands")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UICommandsClass(Client->As_Space_Client()));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	} else if (!strcmp(text.c_str(), "Get Help")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UIPetitionClass(Client->As_Space_Client()));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	} else if (!strcmp(text.c_str(), "Captain's Log")) {
+		Unknown_5685C0();
+		UnknownF8 = Create_Get((ChatPanelUIBase *)new UILogClass(Client->As_Space_Client()));
+		UnknownF8->Unknown_54();
+		UnknownF8->Unknown_7C(View, 1);
+		return;
+	}
+	int i;
+	for (i = 0; i < 17; i++) {
+		if (!strcmp(Unknown_B7C530[i].Name, text.c_str())) {
+			Unknown1F4 = Unknown_B7C530[i].Name;
+			StringOptionStruct *label = OptionClass::Instance->Find_String("Channel_Label");
+			if (label) label->Value = Unknown1F4.c_str();
+			int channel = atoi(Unknown_B7C530[i].Number);
+			Unknown144 = channel;
+			IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
+			if (option) option->Value = channel;
+			char buffer[64];
+			_snprintf(buffer, sizeof(buffer), "Setting chat channel to %s.", text.c_str());
+			sclient->Unknown_74D990(0x13, buffer, 0);
+			return;
+		}
+	}
+	char name[64];
+	_snprintf(name, sizeof(name), "Private %s", Unknown214.c_str());
+	if (!strcmp(text.c_str(), name)) {
+		char buffer[64];
+		_snprintf(buffer, sizeof(buffer), "Setting chat channel to %s.", text.c_str());
+		sclient->Unknown_74D990(0x13, buffer, 0);
+		Unknown1F4 = name;
+		Unknown144 = 4;
+		IntOptionStruct *option = OptionClass::Instance->Find_Int("Chat_Default_Channel");
+		if (option) option->Value = 4;
+		return;
+	}
+	if (sclient->Unknown_744B60()) {
+		for (i = 0; i < 33; i++) {
+			if (!strcmp(text.c_str(), Unknown_B7C398[i][gender]) && avatar) {
+				avatar->Unknown_781760(Unknown_B7C398[i][2]);
+				AvatarEmotePacketClass packet(((ClientClass *)Client)->AvatarID, avatar->Unknown_7817E0(), 1, NULL);
+				((ClientClass *)Client)->Send_Packet(&packet);
+				return;
+			}
+		}
+	} else if (sclient->CameraManager && !sclient->CameraManager->Unknown_79B600()) {
+		for (i = 0; i < 7; i++) {
+			if (!strcmp(text.c_str(), Unknown_B7C358[i][0])) {
+				((ClientClass *)Client)->Unknown_34(Unknown_B7C358[i][1]);
+				return;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178)
 // 0x56B700
@@ -2019,272 +2285,6 @@ bool ChatPanelInterface::Unknown_56BA80()
 {
 	return(Unknown25C);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 0x56BAA0
 void ChatPanelInterface::Unknown_56BAA0(bool show, const char *text)
@@ -2483,8 +2483,8 @@ void ChatPanelInterface::Unknown_56C7E0()
 ** control keys, +0x7C 0x563620; +0x88 / +0x8C / +0x98 the base's, +0x90 / +0x94 / +0x9C the base's inline defaults
 ** (0x5623B0 / 0x5623D0 / 0x5623F0, emitted with this file's table).
 **
-** The asserts sit on the client's lines (D25); the functions not written yet (0x5689D0, 0x569A00) leave
-** their lines blank (0x5646A0 took 87 of 0x5689D0's, CW1). 0x56C7E0 (request 12, CP3) has no assert: it follows
+** The asserts sit on the client's lines (D25); 0x5689D0 (the five combos) and 0x569A00 (the window the options combo's item
+** opens, at +0xF8; O19) fill the blank runs between asserts, 0x56B700-0x56BA80 moved below 0x569A00 (no asserts). 0x56C7E0 (request 12, CP3) has no assert: it follows
 ** 0x56C7B0; a one-font list for the single chat window (+0x134 1, its label empty) or both chat fonts. docs/data/asserts.txt files the strings
 ** 0xB7CB6C-0xB7CD30 (if_chat*.tga, fa_tsi05b.ini, TextClick03.wav, SR_scifielectronic42.wav, the NUM_COMBO assert)
 ** under ui_buff.cpp: they are this file's (0x5629FC reads fa_tsi05b.ini; the NUM_COMBO assert passes this file's
