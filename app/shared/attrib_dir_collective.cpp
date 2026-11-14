@@ -408,6 +408,14 @@ void AttribDirCollective::MemberCallbackClass::Value_Changed(const char *name, f
 	}
 }
 
+AttribDirCollective::DestinationStruct::DestinationStruct(const std::string &name, const RefCountPtr<AttribValueFunctionClass> &function) : Name(name), Function(function)
+{
+}
+
+AttribDirCollective::DestinationStruct::~DestinationStruct()
+{
+}
+
 
 /*
 **	Reconstruction notes
@@ -422,5 +430,7 @@ void AttribDirCollective::MemberCallbackClass::Value_Changed(const char *name, f
 **	the tables' instances. Members are keyed by the member AttribDir's address as an unsigned int (the
 **	client converts it into a temporary for every find); the loops keep references to the key and the
 **	destination. Link_Attribute 0x4DFBF0 (links a member's bound to Dir) and Detach_Owner_Mods 0x4E0700 are the
-**	next two objects': unknown_4dfbf0.cpp and unknown_4e0700.cpp.
+**	next two objects': unknown_4dfbf0.cpp and unknown_4e0700.cpp. DestinationStruct's constructor and
+**	destructor are defined here, last (0x4DCFF0 / 0x4DD110, after the member callback): the client emits
+**	them out of line with no caller, so they are the file's own functions, not inline ones.
 */

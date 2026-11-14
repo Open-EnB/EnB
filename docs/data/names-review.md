@@ -28264,19 +28264,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Type` | `app/shared/attrib_dir_collective.h:100` | as AttribModValueClass |
 | 2 | `Owner` | `app/shared/attrib_dir_collective.h:101` | as AttribModValueClass |
 | 2 | `DestinationStruct` | `app/shared/attrib_dir_collective.h:110` | what it holds |
-| 2 | `std:` | `app/shared/attrib_dir_collective.h:113` | what it holds |
-| 2 | `Function` | `app/shared/attrib_dir_collective.h:114` | what it holds |
-| 2 | `MemberCallbackClass` | `app/shared/attrib_dir_collective.h:118` | what it is |
-| 2 | `Member` | `app/shared/attrib_dir_collective.h:124` | what it holds |
-| 2 | `MemberStruct` | `app/shared/attrib_dir_collective.h:128` | what it holds |
-| 2 | `std:` | `app/shared/attrib_dir_collective.h:131` | what it holds |
-| 2 | `Callback` | `app/shared/attrib_dir_collective.h:132` | what it holds |
-| 2 | `Add_Destination` | `app/shared/attrib_dir_collective.h:141` | what it does |
-| 2 | `Add_Member` | `app/shared/attrib_dir_collective.h:142` | what it does |
-| 2 | `Remove_Member` | `app/shared/attrib_dir_collective.h:143` | what it does |
-| 2 | `Link` | `app/shared/attrib_dir_collective.h:144` | what it does |
-| 2 | `Detach_Owned_Mods` | `app/shared/attrib_dir_collective.h:145` | what it does |
-| 2 | `Dir` | `app/shared/attrib_dir_collective.h:149` | what it holds |
+| 2 | `std:` | `app/shared/attrib_dir_collective.h:114` | what it holds |
+| 2 | `Function` | `app/shared/attrib_dir_collective.h:115` | what it holds |
+| 2 | `MemberCallbackClass` | `app/shared/attrib_dir_collective.h:119` | what it is |
+| 2 | `Member` | `app/shared/attrib_dir_collective.h:125` | what it holds |
+| 2 | `MemberStruct` | `app/shared/attrib_dir_collective.h:129` | what it holds |
+| 2 | `std:` | `app/shared/attrib_dir_collective.h:132` | what it holds |
+| 2 | `Callback` | `app/shared/attrib_dir_collective.h:133` | what it holds |
+| 2 | `Add_Destination` | `app/shared/attrib_dir_collective.h:142` | what it does |
+| 2 | `Add_Member` | `app/shared/attrib_dir_collective.h:143` | what it does |
+| 2 | `Remove_Member` | `app/shared/attrib_dir_collective.h:144` | what it does |
+| 2 | `Link` | `app/shared/attrib_dir_collective.h:145` | what it does |
+| 2 | `Detach_Owned_Mods` | `app/shared/attrib_dir_collective.h:146` | what it does |
+| 2 | `Dir` | `app/shared/attrib_dir_collective.h:150` | what it holds |
 | 2 | `Swap` | `app/shared/auxdata/bitset.h:26` | describes what it does |
 | 2 | `Is_Set` | `app/shared/auxdata/bitset.h:30` | describes what it does |
 | 2 | `Set` | `app/shared/auxdata/bitset.h:32` | describes what it does |
