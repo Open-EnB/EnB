@@ -2,7 +2,8 @@
 /*
 **	A stub stands for a function the client has and the tree does not yet. Every stub logs its
 **	first call: one line to OutputDebugString, stderr and the stub log (the file named by the
-**	environment variable ENB_STUB_LOG, else stubs.log in the current directory).
+**	environment variable ENB_STUB_LOG, else stubs.log in the current directory). Stub_Log_Mark writes a
+**	marker line and lets every stub log its next call as a first call again.
 */
 
 
@@ -15,6 +16,7 @@ extern "C" {
 
 void Stub_Log_First_Call(const char *name, int *seen);
 void Stub_Log_Line(const char *format, ...);
+__declspec(dllexport) void Stub_Log_Mark(const char *name);
 
 #ifdef __cplusplus
 }

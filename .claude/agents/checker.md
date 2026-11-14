@@ -39,8 +39,8 @@ described here, and `docs/workflow.md` §3.7 by symptom when a run fails in a wa
 | A compile or link error in a harness program | The first error line and its file: a `tests/` stand-in is usually missing for a newly referenced symbol |
 | The POC prints `CRASH:` | The line as printed (address and the function `client.map` names), the seconds reached, the last three stand-in first calls before it |
 | The POC runs its seconds without a crash | How far it got (the screen or state the digest and the messages show) and any stand-in called for the first time |
-| e2e prints FAIL or XPASS | That line, plus the scenario's result.json `failure` and `crash_at`; for XPASS, the stand-in note to remove |
-| Every e2e scenario fails at `_login:11` (wait-event VERSION_RESPONSE not seen) | Say the client was linked without binkmovie; build `--lib binkmovie`, relink, rerun once (step 3b) |
+| e2e prints FAIL or XPASS | That line, plus the scenario's `result-NAME.json` (in the run's `.work/e2e/HHMMSS-session/`) `failure` and `crash_at`; for XPASS, the stand-in note to remove. `FAIL ... not run` lines (a second crash at the same place, or the login failed twice) are reported as one line with their reason |
+| e2e fails at `_login:11` (click until VERSION_RESPONSE: not seen) | Say the client was linked without binkmovie; build `--lib binkmovie`, relink, rerun once (step 3b) |
 | The pool has no free VM | Say so and stop: never wait on another's lease, never use the base image |
 
 ## Never

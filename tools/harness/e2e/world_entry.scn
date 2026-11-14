@@ -1,11 +1,11 @@
-name: login, character select, enter the world (START_ACK), 30 s alive, no CRASH; a stray (untagged) click is dropped
+name: login, character select, enter the world (START_ACK), alive, no CRASH; a stray (untagged) click is dropped
 timeout: 360
 include _login
-alive 8
 shot world
 # the tag's self-test: an untagged click on the navigation map button, as a person's would be, must be dropped
-# (programs/clientpoc/poc_input.cpp logs it) and must not open the map
+# (the d3d8shot proxy logs it) and must not open the map
 stray click gadget hud.navmap
-expect-event stubs '^POC input: NOT REPLAYED \(dropped\) 0x201'
+expect-event proxy '^input: NOT REPLAYED \(dropped\) 0x201'
 expect-no stubs 'UIStarmapPipViewClass'
-alive 22
+# alone this is the whole check of the world staying up; in a session the other scenarios follow in the same client
+alive 5

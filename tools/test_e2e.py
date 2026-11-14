@@ -44,6 +44,20 @@ class ParserTest(unittest.TestCase):
         self.assertEqual(sc['steps'][7]['source'], 'stubs')
         self.assertEqual(sc['steps'][8]['within'], 15.0)       # expect-event's default
 
+    def test_wait_quiet_and_click_until(self):
+        sc = P("wait-quiet files 1.5\nwait-quiet proxy 0.5 within 9\n"
+               "click 640,512 until antprox 'VERSION_RESPONSE' every 0.25 within 100\n"
+               "click 1,2 until msg x redo 1\n")
+        q, q2, c, c2 = sc['steps']
+        self.assertEqual((q['source'], q['quiet'], q['within']), ('proxy', 1.5, 30.0))      # files: the proxy's log
+        self.assertEqual((q2['quiet'], q2['within']), (0.5, 9.0))
+        self.assertEqual((c['x'], c['until']['source'], c['until']['every'], c['until']['within'], c['until']['redo']),
+                         (640, 'antprox', 0.25, 100.0, 0))
+        self.assertEqual((c2['until']['every'], c2['until']['within'], c2['until']['redo']), (0.5, 60.0, 1))
+        for bad in ("wait-quiet proxy\n", "wait-quiet any 1\n", "wait-quiet proxy soon\n", "click 1,2 until msg\n"):
+            with self.assertRaises(e2e.ScenarioError, msg=bad):
+                P(bad)
+
     def test_stand_in_step(self):
         sc = P("stand-in '^STUB first call: POC Unknown5CE240Class'\n")
         st = sc['steps'][0]
@@ -129,9 +143,17 @@ class EventsTest(unittest.TestCase):
 class SummaryTest(unittest.TestCase):
     def test_gen_lines_in_order_once(self):
         text = ['STUB first call: gen A::B', 'STUB first call: POC X', 'STUB first call: gen C',
-                'STUB first call: gen A::B', 'POC input: NOT REPLAYED (dropped) 0x201 wparam 0x1 lparam 0x0']
+                'STUB first call: gen A::B', 'input: NOT REPLAYED (dropped) 0x201 wparam 0x1 lparam 0x0']
         self.assertEqual(e2e.gen_lines(text), ['A::B', 'C'])
         self.assertEqual(len(e2e.human_lines(text)), 1)
+
+    def test_crash_place_ignores_the_data_address(self):
+        a = {'crash': ['CRASH: code C0000005 at 00400007 (address 1EF08400) stack: 004EBDA5 004EB915 0048812A 0052A1E7 004BABDF']}
+        b = {'crash': ['CRASH: code C0000005 at 00400007 (address 1ED5C600) stack: 004EBDA5 004EB915 0048812A 0052A1E7 006BD100']}
+        c = {'crash': ['CRASH: code C0000005 at 00400007 (address 1ED5C600) stack: 004EBDA5 004EB915 0048812A 0052A1E0']}
+        self.assertEqual(e2e.crash_place(a), e2e.crash_place(b))
+        self.assertNotEqual(e2e.crash_place(a), e2e.crash_place(c))
+        self.assertIsNone(e2e.crash_place({'crash': []}))
 
     def test_verdicts(self):
         base = {'name': 'n', 'gen': [], 'gen_own': [], 'human_dropped': 0, 'failure': None}
