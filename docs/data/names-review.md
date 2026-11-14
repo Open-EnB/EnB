@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1929 |
 | 2 | describes what the code does | 4868 |
-| 1 | neutral placeholder | 24891 |
+| 1 | neutral placeholder | 24896 |
 
 ## For review (score 3 and below)
 
@@ -18889,7 +18889,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B8A8B0` | `app/client/ui_starbase.cpp:605` | neutral (D10) |
 | 1 | `Unknown_B8A8D8` | `app/client/ui_starbase.cpp:606` | neutral (D10): the undocking sounds (0x638500) |
 | 1 | `UIStarbaseGadget6B6050Class` | `app/client/ui_starbase.cpp:609` | neutral (D10) |
-| 1 | `x, y, width, height, view` | `app/client/ui_starbase.cpp:612` | what 0x634140 passes |
+| 1 | `x, y, width, height, view` | `app/client/ui_starbase.cpp:611` | what 0x634140 passes |
 | 1 | `Unknown40` | `app/client/ui_starbase.cpp:613` | untagged neutral name (D10) |
 | 1 | `UIStarbaseSymbolChatOptionStruct` | `app/client/ui_starbase.cpp:621` | neutral (D10): a row of the menu (0x0C bytes: 0x645510 news it) |
 | 1 | `Unknown51C800Class` | `app/client/ui_starbase.cpp:626` | untagged neutral name (D10) |
@@ -24684,6 +24684,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_73FDB0` | `programs/clientpoc/poc_world2.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5090` | `programs/clientpoc/poc_world2.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:82` | untagged neutral name (D10) |
+| 1 | `Unknown_1C` | `programs/clientpoc/poc_world2.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `programs/clientpoc/poc_world2.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown_34` | `programs/clientpoc/poc_world2.cpp:100` | untagged neutral name (D10) |
+| 1 | `Unknown40` | `programs/clientpoc/poc_world2.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `programs/clientpoc/poc_world2.cpp:136` | untagged neutral name (D10) |
 | 1 | `Unknown_466920Class` | `programs/clientpoc/poc_world4.cpp:31` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
