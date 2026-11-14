@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 215 |
+| 5 | the client names it | 216 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1915 |
-| 2 | describes what the code does | 4701 |
-| 1 | neutral placeholder | 24690 |
+| 3 | by convention from a client-named file or sibling | 1921 |
+| 2 | describes what the code does | 4765 |
+| 1 | neutral placeholder | 24697 |
 
 ## For review (score 3 and below)
 
@@ -4373,6 +4373,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Color` | `app/client/galaxy_map_robj.h:73` | what it holds |
 | 1 | `Hidden` | `app/client/galaxy_map_robj.h:74` | what it does |
 | 1 | `Fade` | `app/client/galaxy_map_robj.h:75` | what it holds |
+| 1 | `FLAG_FADE` | `app/client/gauge3d.h:51` | the color fades from Color0 to Color1 with the value |
+| 1 | `FLAG_KEEP_EMPTY` | `app/client/gauge3d.h:52` | the empty edge's two vertices keep their color |
+| 1 | `Color0` | `app/client/gauge3d.h:63` | the color at value 0 |
+| 1 | `Color1` | `app/client/gauge3d.h:64` | the color at value 1 |
+| 1 | `Color2` | `app/client/gauge3d.h:65` | stored, never read |
 | 1 | `Unknown_B0804C` | `app/client/gd_attrb_skills.cpp:16` | neutral (D10) |
 | 1 | `SkillLevelAvailabilityStruct` | `app/client/gd_attrb_skills.cpp:19` | neutral (D10), as ui_attrb.cpp's |
 | 1 | `Unknown00` | `app/client/gd_attrb_skills.cpp:19` | untagged neutral name (D10) |
@@ -20335,6 +20340,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6CE7D0` | `app/client/unknown_6cce60.cpp:409` | untagged neutral name (D10) |
 | 1 | `Unknown_6D5D40` | `app/client/unknown_6cce60.cpp:428` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/unknown_6cce60.cpp:445` | untagged neutral name (D10) |
+| 1 | `Unknown6E1AB0Class` | `app/client/unknown_6e1ab0.cpp:8` | untagged neutral name (D10) |
 | 1 | `unknown_6e1ab0.h` | `app/client/unknown_6e1ab0.h:19` | neutral (D10): the object's file is not known |
 | 1 | `Unknown6E1AB0Class` | `app/client/unknown_6e1ab0.h:26` | neutral (D10) |
 | 1 | `color, position, size` | `app/client/unknown_6e1ab0.h:29` | what Line2DClass passes (its color, (0, 0), (0.1, 0.1)) |
@@ -22903,6 +22909,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Damage_Spread_From_Name` | `app/shared/damtype.h:58` | what it does; NAME 1 [name, spread]: neutral |
 | 1 | `Damage_Spread_Name` | `app/shared/damtype.h:59` | what it does; NAME 1 [buffer, size]: Bounded_Strcpy's |
 | 1 | `DataBinderType` | `app/shared/data_binder.h:30` | neutral (D10), an empty tag type |
+| 1 | `debug_view_statistic.h` | `app/shared/debug_view_statistic.h:4` | the .cpp's name (D137) |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:37` | neutral placeholder (D10) |
 | 1 | `Unknown08` | `app/shared/definition_manager.h:221` | neutral placeholder (D10) |
 | 1 | `Unknown04` | `app/shared/dynamic_obj.cpp:11` | untagged neutral name (D10) |
@@ -24936,6 +24943,34 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `SpeechSound` | `app/client/avatar.h:251` | plays speech sound |
 | 2 | `sclient, vp` | `app/client/avatar_pip.h:42` | the FAIL_IFs'; NAME 1 [arg]: neutral |
 | 2 | `BackInterfaceClass` | `app/client/backint.h:17` | the member's name 'BackInterface' (the scripted movie's asserts, 0x804800) and the file's |
+| 2 | `Bar2DClass` | `app/client/bar2d.h:25` | bar2d.cpp's class (the file name, Westwood's Class suffix, Rect3DClass's precedent) |
+| 2 | `color0..3, height, width, x, y, percent, rate, orientation` | `app/client/bar2d.h:29` | what it does with them |
+| 2 | `Class_ID` | `app/client/bar2d.h:35` | E&B's class id |
+| 2 | `Set_Percent` | `app/client/bar2d.h:41` | what it does |
+| 2 | `Set_Percent_Now` | `app/client/bar2d.h:42` | what it does |
+| 2 | `Set_Colors` | `app/client/bar2d.h:43` | what it does |
+| 2 | `Rate` | `app/client/bar2d.h:46` | what it is |
+| 2 | `Percent` | `app/client/bar2d.h:47` | what it holds |
+| 2 | `Width` | `app/client/bar2d.h:48` | what it is |
+| 2 | `Height` | `app/client/bar2d.h:49` | what it is |
+| 2 | `Color0` | `app/client/bar2d.h:50` | Set_Colors' order |
+| 2 | `Color1` | `app/client/bar2d.h:51` | Set_Colors' order |
+| 2 | `Color2` | `app/client/bar2d.h:52` | Set_Colors' order |
+| 2 | `Color3` | `app/client/bar2d.h:53` | Set_Colors' order |
+| 2 | `Bar3DClass` | `app/client/bar3d.h:25` | bar3d.cpp's class (the file name, Westwood's Class suffix, Rect3DClass's precedent) |
+| 2 | `all parameters` | `app/client/bar3d.h:30` | what it does with them |
+| 2 | `Class_ID` | `app/client/bar3d.h:36` | E&B's class id |
+| 2 | `Set_Target` | `app/client/bar3d.h:44` | what it does |
+| 2 | `Set_Colors` | `app/client/bar3d.h:45` | what it does |
+| 2 | `Target` | `app/client/bar3d.h:50` | what it is |
+| 2 | `Offset` | `app/client/bar3d.h:51` | what it is |
+| 2 | `OffsetScale` | `app/client/bar3d.h:52` | what it is |
+| 2 | `Height` | `app/client/bar3d.h:53` | what it is |
+| 2 | `Width` | `app/client/bar3d.h:54` | what it is |
+| 2 | `HeightScale` | `app/client/bar3d.h:55` | what it is |
+| 2 | `WidthScale` | `app/client/bar3d.h:56` | what it is |
+| 2 | `Rate` | `app/client/bar3d.h:57` | what it is |
+| 2 | `Percent` | `app/client/bar3d.h:58` | what it holds |
 | 2 | `ANIM_LOSE_CONTROL` | `app/client/bridge_int.h:44` | the tag's |
 | 2 | `ANIM_STOP_HARD` | `app/client/bridge_int.h:45` | the tag's |
 | 2 | `ANIM_START_WARP` | `app/client/bridge_int.h:46` | the tag's |
@@ -25639,6 +25674,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Bounds` | `app/client/galaxy_map_render.h:356` | what 0x7A9500 stores |
 | 2 | `Line` | `app/client/galaxy_map_robj.cpp:21` | what it holds |
 | 2 | `system` | `app/client/galaxy_map_robj.h:31` | 0x7AA420 passes its data |
+| 2 | `Gauge3DClass` | `app/client/gauge3d.h:28` | gauge3d.cpp's class (the file name, Westwood's Class suffix, as Rect3DClass) |
+| 2 | `all parameters` | `app/client/gauge3d.h:34` | what it does with them |
+| 2 | `Class_ID` | `app/client/gauge3d.h:40` | E&B's class id |
+| 2 | `Set_Value` | `app/client/gauge3d.h:46` | what it does |
+| 2 | `Set_Target` | `app/client/gauge3d.h:47` | what it does |
+| 2 | `Set_Colors` | `app/client/gauge3d.h:48` | what it does |
+| 2 | `Direction` | `app/client/gauge3d.h:56` | the edge the gauge fills from |
+| 2 | `Flags` | `app/client/gauge3d.h:57` | FLAG_* |
+| 2 | `Dirty` | `app/client/gauge3d.h:58` | the vertices need moving |
+| 2 | `Speed` | `app/client/gauge3d.h:59` | the AccelClass rate |
+| 2 | `Value` | `app/client/gauge3d.h:60` | the gauge's value 0..1 |
+| 2 | `Position` | `app/client/gauge3d.h:61` | the rectangle's left, top (y down by the height) |
+| 2 | `Size` | `app/client/gauge3d.h:62` | width, height; the copy constructor copies only Size |
 | 2 | `std:` | `app/client/gd_buffgadg.h:35` | the aux field's |
 | 2 | `std:` | `app/client/gd_buffgadg.h:36` | the aux field's |
 | 2 | `ExpirationTime` | `app/client/gd_buffgadg.h:37` | the aux field's |
@@ -28613,6 +28661,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Remove` | `app/shared/data_binder.h:130` | what it does |
 | 2 | `std:` | `app/shared/data_binder.h:143` | what it does |
 | 2 | `Types` | `app/shared/data_binder.h:154` | what it holds |
+| 2 | `Display` | `app/shared/debug_view_statistic.h:16` | what it does |
+| 2 | `Reset` | `app/shared/debug_view_statistic.h:17` | what it does |
+| 2 | `Display_All` | `app/shared/debug_view_statistic.h:19` | what it does |
+| 2 | `Reset_All` | `app/shared/debug_view_statistic.h:20` | what it does |
+| 2 | `Register` | `app/shared/debug_view_statistic.h:21` | what it does |
+| 2 | `Unregister` | `app/shared/debug_view_statistic.h:22` | what it does |
+| 2 | `std:` | `app/shared/debug_view_statistic.h:23` | what it returns |
+| 2 | `DebugViewAverageStatistic` | `app/shared/debug_view_statistic.h:27` | what it shows |
+| 2 | `Name` | `app/shared/debug_view_statistic.h:36` | what it holds ('%s: %f (%d samples)') |
+| 2 | `Total` | `app/shared/debug_view_statistic.h:37` | divided by Count |
+| 2 | `Count` | `app/shared/debug_view_statistic.h:38` | '%d samples' |
+| 2 | `DebugViewMedianStatistic` | `app/shared/debug_view_statistic.h:42` | what it shows |
+| 2 | `Name` | `app/shared/debug_view_statistic.h:51` | what it holds |
+| 2 | `std:` | `app/shared/debug_view_statistic.h:52` | what it holds |
 | 2 | `Peek` | `app/shared/definition_auto_ptr.h:45` | as ref_ptr.h's |
 | 2 | `Set` | `app/shared/definition_auto_ptr.h:47` | what it does |
 | 2 | `Release` | `app/shared/definition_auto_ptr.h:111` | what it does |
@@ -28624,7 +28686,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Release` | `app/shared/definition_manager.h:143` | what it does |
 | 2 | `Free_Unused` | `app/shared/definition_manager.h:154` | what it does |
 | 2 | `Remove` | `app/shared/definition_manager.h:209` | what it does |
-| 2 | `As_Int` | `app/shared/duration.h:188` | describes what it does |
+| 2 | `MillisecondsClass` | `app/shared/duration.h:200` | the unit of DurationClass |
+| 2 | `SecondsClass` | `app/shared/duration.h:201` | the unit (time_string_format.cpp's " second") |
+| 2 | `MinutesClass` | `app/shared/duration.h:202` | the unit (" minute") |
+| 2 | `HoursClass` | `app/shared/duration.h:203` | the unit (" hour") |
+| 2 | `DaysClass` | `app/shared/duration.h:204` | the unit (" day") |
 | 2 | `ListenerData` | `app/shared/event.cpp:7` | the heap block behind Listener::Data (assert "Data->Subjects.size() != 0") |
 | 2 | `SubjectData` | `app/shared/event.cpp:12` | the heap block behind Subject::Data (assert "find_result == Data->Listeners.end()") |
 | 2 | `Event` | `app/shared/event.h:12` | what Subject::Send_Event hands each Listener (never dereferenced in event.cpp) |
@@ -29201,6 +29267,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/shared/symbol_substitution.h:35` | describes what it holds |
 | 2 | `Substitute_Symbols` | `app/shared/symbol_substitution.h:38` | describes what it does |
 | 2 | `Escape_Symbols` | `app/shared/symbol_substitution.h:39` | describes what it does |
+| 2 | `std:` | `app/shared/time_string_format.h:19` | what it does |
+| 2 | `Add_Unit` | `app/shared/time_string_format.h:22` | what it does |
+| 2 | `std:` | `app/shared/time_string_format.h:23` | what it does |
+| 2 | `Add` | `app/shared/time_string_format.h:27` | what it does |
+| 2 | `std:` | `app/shared/time_string_format.h:40` | what it does |
 | 2 | `TimerManager` | `app/shared/timer_manager.h:45` | the file's name (timer_manager.cpp) |
 | 2 | `Add_Identifier` | `app/shared/unique_design_id_lookup.h:31` | describes what it does |
 | 2 | `Get_ID` | `app/shared/unique_design_id_lookup.h:33` | describes what it does |
@@ -29440,6 +29511,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Client` | `app/client/avatar_pip.h:49` | the FAIL_IF's |
 | 3 | `PIPView` | `app/client/avatar_pip.h:50` | the FAIL_IF's |
 | 3 | `robj` | `app/client/backint.h:26` | the assert's |
+| 3 | `bar2d.h` | `app/client/bar2d.h:17` | the header of bar2d.cpp |
+| 3 | `bar3d.h` | `app/client/bar3d.h:17` | the header of bar3d.cpp |
 | 3 | `AnimName` | `app/client/bridge_int.cpp:37` | the FAIL_IF's '!anim.AnimName' |
 | 3 | `client` | `app/client/bridge_int.h:34` | the member's |
 | 3 | `buff_database.h` | `app/client/buff_database.h:18` | header name assumed from the client's buff_database.cpp |
@@ -29666,6 +29739,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Camera` | `app/client/galaxy_map_render.h:342` | the FAIL_IF's |
 | 3 | `SystemZoomMinRadius` | `app/client/galaxy_map_render.h:358` | the ini's |
 | 3 | `_name_scale` | `app/client/galaxy_map_robj.cpp:26` | the FAIL_IF's |
+| 3 | `gauge3d.h` | `app/client/gauge3d.h:17` | the header of gauge3d.cpp |
 | 3 | `gd_attrb_skills.cpp` | `app/client/gd_attrb_skills.cpp:17` | the assert's; the dots' array |
 | 3 | `Abilities` | `app/client/gd_attrb_skills.cpp:43` | its assert |
 | 3 | `gd_attrb_skills.h` | `app/client/gd_attrb_skills.h:16` | header name assumed from the client's gd_attrb_skills.cpp |
@@ -31172,7 +31246,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `DefinitionAutoPtr` | `app/shared/definition_auto_ptr.h:25` | from the client's file definition_auto_ptr.h |
 | 3 | `DefinitionRefCount` | `app/shared/definition_manager.h:31` | from the client's 'drc->RefCount' |
 | 3 | `DefinitionManagerClass` | `app/shared/definition_manager.h:42` | by convention (D24) from the client's definition_manager.h |
-| 3 | `DurationClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
+| 3 | `DurationTemplateClass` | `app/shared/duration.h:25` | by convention (D24) from the client's file duration.h (D37) |
+| 3 | `DurationClass` | `app/shared/duration.h:206` | by convention (D24) from the client's file duration.h (D37) |
 | 3 | `AABoxClass` | `app/shared/dynamic_obj.h:87` | 6 dwords returned by value; type a guess |
 | 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.cpp:445` | EA hueshift style for CLASSID_SPHERE |
 | 3 | `Recolor_Ring` | `app/shared/enbassetmgr.cpp:473` | EA hueshift style for CLASSID_RING |
@@ -31317,6 +31392,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `strconv_lib.h` | `app/shared/strconv_lib.h:22` | header name assumed from the client's strconv_lib.cpp (D57) |
 | 3 | `symbol_substitution.h` | `app/shared/symbol_substitution.h:18` | header name assumed from the client's symbol_substitution.cpp |
 | 3 | `SymbolSubstitutionClass` | `app/shared/symbol_substitution.h:24` | by convention (D24) from the client's file symbol_substitution.cpp |
+| 3 | `time_string_format.h` | `app/shared/time_string_format.h:5` | see above |
+| 3 | `TimeStringFormatClass` | `app/shared/time_string_format.h:11` | by convention (D24) from the client's file time_string_format.cpp (D37) |
 | 3 | `unique_design_id_lookup.h` | `app/shared/unique_design_id_lookup.h:19` | header name assumed from the client's unique_design_id_lookup.cpp |
 | 3 | `UniqueDesignIDLookupClass` | `app/shared/unique_design_id_lookup.h:26` | by convention (D24) from the client's file unique_design_id_lookup.cpp (vtable 0xAECCF4) |
 | 3 | `uvcontrl.h` | `app/shared/uvcontrl.h:15` | header-from-file (D137) for app\shared\uvcontrl.cpp |

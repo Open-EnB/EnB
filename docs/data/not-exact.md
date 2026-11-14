@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-829 entries in 275 files.
+839 entries in 279 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -34,6 +34,8 @@ edit the comments in the code, not this file.
 | `app/client/avatar.cpp:3653` | `CharacterViewAvatarClass::Unknown_788F90` | marker | NOT EXACT: functional for POC (D64), inline-budget (the client's +0x370 / +0x374 are RefCountPtrs) |
 | `app/client/avatar_pip.cpp:198` | `AvatarPipClass::Unknown_7E3A20` | marker | NOT EXACT: shape (the client copies target into the light's translation first, then folds Translate's products: two zeroed floats per axis where ours multiplies; a release tail-merge and Rotate_Y's operand order; 0.83) |
 | `app/client/avatar_pip.cpp:294` | `AvatarPipClass::Unknown_7E4520` | marker | NOT EXACT: scheduling (the client converts budget * 0.1f to int before the vp's Get_Sort_Level call; ours after; 0.79) |
+| `app/client/bar2d.cpp:10` | `?` | marker | NOT EXACT: 0.76, shape (inline budget): the client inlines Rotate_Z only in case 1 (2 and 3 call 0x577940) and Set_Dirty, and calls the last vertex's UV (0x6B71E0); ours inlines Rotate_Z in cases 1 and 2, all eight UVs and calls Set_Dirty |
+| `app/client/bar3d.cpp:214` | `Bar3DClass::Render` | marker | NOT EXACT: 0.93, shape: the client stores distance * OffsetScale and compares Offset against it in memory (fcom [esp+0x10], Offset kept on je); every Max / MAX / max / if / ternary form tried keeps it on the FPU stack (fcomp st(1)); std::_cpp_max stores it but selects through a pointer |
 | `app/client/bridge_int.cpp:310` | `BridgeInterface::Do_Frame` | marker | NOT EXACT: order (explain.py; the same length, 1866 bytes, 0.94): three operand-order pairs, the client loads the other factor first in Pre_Rotate_Z's sine / cosine products and in the last Rotate_Z's 0x53BD40 |
 | `app/client/bridge_int.cpp:476` | `BridgeInterface::Update_Avatar` | marker | NOT EXACT: shape (explain.py): the same instructions in another block order (the client puts the compare with Animation right after the left turn's assignment and the right turn's test after it, the frame code last) 0x53CB40 |
 | `app/client/bridge_int.cpp:534` | `BridgeInterface::Play_Animation` | marker | NOT EXACT: shape (explain.py): the same instructions in another block order (the client's numbered code follows 'get_hit' and runs into the call, 'use_controls' jumps back to it; the goto is the nearest form, not the client's) 0x53CD60 |
@@ -187,6 +189,7 @@ edit the comments in the code, not this file.
 | `app/client/galaxy_map_render.cpp:2019` | `GalaxyMapRenderGateClass::Unknown_7AE220` | mention | NOT EXACT is listed in docs/data/attempts.csv (inline budgets in the long members, 0x7A8B70 above all, and three order-only residues). GalaxyMapRenderGateClass's constructor 0x7AC870 sits under auto_inline(off): its one caller, Create_Item<GalaxyMapRenderGateClass> 0x7B0E10, calls it (`new T(data)`, non-null branch), where /Ob2 would inline it; Create_Item returns false after the creating branch (... |
 | `app/client/galaxy_map_robj.cpp:52` | `GalaxyMapRObjClass::GalaxyMapRObjClass` | marker | NOT EXACT: registers only (Placement read through ecx, the client's eax; the Name temporary's address in edx, the client's ecx) @0x7B2B30 |
 | `app/client/galaxy_map_robj.cpp:412` | `GalaxyMapLineRObjClass::Render` | marker | NOT EXACT: x87 operand order (the client multiplies Color's members by the clamped Fade held in st(1), ours keeps a copy with fld st(0)) @0x7B43F0 |
+| `app/client/gauge3d.cpp:163` | `Gauge3DClass::Gauge3DClass` | marker | NOT EXACT: 0.83, order-only: the client pushes both of G_ASSERT's strings before storing Size.Y; ours stores between them |
 | `app/client/gd_buffgadg.cpp:188` | `BuffGadgetClass::Unknown_AC` | marker | NOT EXACT: frame (the client keeps the time now on the stack, ours in registers; the body after it matches) 0x665F20 |
 | `app/client/gd_buffgadg.cpp:227` | `BuffGadgetClass::Unknown_6661F0` | marker | NOT EXACT: register (explain.py: identical once registers are normalised; ecx / edx swapped at the time compare) 0x6661F0 |
 | `app/client/gd_inv_slider.cpp:20` | `Unknown669FB0Class::Unknown669FB0Class` | marker | NOT EXACT: functional from the pseudocode (D64) 0x669FB0 |
@@ -801,6 +804,13 @@ edit the comments in the code, not this file.
 | `app/shared/stars.cpp:279` | `StarFieldClass::Get_Cost` | mention | NOT EXACT: Load and Init only (the other functions are exact). Load (0.70): the asserts on the client's lines, the frames store as one ternary and powf (r stored before pow) match; left: the Hemisphere branch loads z (sample[1]) last where the client loads it first, the fifth Create_NEW temporary zeroed after its release, frame 0x4C vs 0x50. Init (0.72): the client compares Load's result with cmp ... |
 | `app/shared/symbol_substitution.cpp:99` | `Substitute_Symbols` | marker | NOT EXACT: inline budget, the client calls string::erase(iterator) 0x4E2A00 out of line in the last loop |
 | `app/shared/symbol_substitution.cpp:156` | `Escape_Symbols` | mention | NOT EXACT: Substitute_Symbols, the client calls string::erase(iterator) 0x4E2A00 out of line in the unescape loop (inline budget). |
+| `app/shared/time_string_format.cpp:9` | `Time_String` | marker | NOT EXACT: inline-budget (explain.py): the formatter's string constructor inlines _Tidy, the client calls it @0x4FE780 |
+| `app/shared/time_string_format.cpp:18` | `TimeStringFormatClass::Format` | marker | NOT EXACT: inline-budget: two of the four unit conversions (0x4FF940, 0x4FF9E0) inline here, the client calls all four @0x4FE890 |
+| `app/shared/time_string_format.cpp:38` | `TimeStringFormatClass::Add_Unit` | marker | NOT EXACT: inline-budget: Result's two appends inline here, the client calls append(ptr, n) and append(str, 0, npos) @0x4FEDB0 |
+| `app/shared/time_string_format.cpp:90` | `Time_String` | marker | NOT EXACT: inline-budget (explain.py): the static formatter's string constructor inlines _Tidy, the client calls it @0x4FF390 |
+| `app/shared/time_string_format.cpp:99` | `Time_String` | marker | NOT EXACT: inline-budget (explain.py): the static formatter's string constructor inlines _Tidy, the client calls it @0x4FF490 |
+| `app/shared/time_string_format.cpp:108` | `Time_String` | marker | NOT EXACT: inline-budget (explain.py): the static formatter's string constructor inlines _Tidy, the client calls it @0x4FF590 |
+| `app/shared/time_string_format.cpp:117` | `Time_String` | marker | NOT EXACT: inline-budget (explain.py): the static formatter's string constructor inlines _Tidy, the client calls it @0x4FF6A0 |
 | `app/shared/unique_design_id_lookup.cpp:92` | `UniqueDesignIDLookupClass::Add_Identifier` | marker | NOT EXACT: inline budget, the client calls the pair constructor 0x5024A0 out of line in Map[identifier] (frame 0xC0, ours 0xBC) |
 | `app/shared/unique_design_id_lookup.cpp:122` | `UniqueDesignIDLookupClass::Add_Identifier` | mention | NOT EXACT: Add_Identifier 0x500760 (inline budget). |
 | `app/shared/unknown_445740.cpp:91` | `SteeringClass::Avoid_Obstacles` | marker | NOT EXACT: frame (explain.py): the client keeps the avoidance vector's X (0.0f) on the FPU and its frame is 4 bytes smaller; the inverse rotation's terms load in another order 0x446000 |
