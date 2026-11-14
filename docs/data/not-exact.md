@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-858 entries in 285 files.
+860 entries in 285 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -408,7 +408,9 @@ edit the comments in the code, not this file.
 | `app/client/ui_chat_panel.cpp:1203` | `ChatPanelInterface::Unknown_567540` | marker | NOT EXACT: inline-budget (the client calls string::compare and list::_Buynode out of line; 183 instructions vs 141) 0x567540 |
 | `app/client/ui_chat_panel.cpp:1229` | `ChatPanelInterface::Unknown_567760` | marker | NOT EXACT: inline-budget (the client calls string::assign(const char *, size_t) out of line for +0x248, ours inlines it with _Grow; frame 0x40 vs 0x44; calling 0x565C40 instead does not change it) 0x567760 |
 | `app/client/ui_chat_panel.cpp:1314` | `ChatPanelInterface::Unknown_567DF0` | marker | NOT EXACT: inline-budget (the client builds the two empty strings differently: case 2 expands the constructor with _Grow / _Eos, case 10 calls assign; 185 instructions vs 169) 0x567DF0 |
-| `app/client/ui_chat_panel.cpp:1987` | `ChatPanelInterface::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
+| `app/client/ui_chat_panel.cpp:1417` | `ChatPanelInterface::Unknown_5689D0` | marker | NOT EXACT: inline-budget (functional, written from the disassembly: the client calls string::assign out of line for the early copies and expands _Grow for the label in the last branch; ours the reverse; 3196 bytes vs 3084) 0x5689D0 |
+| `app/client/ui_chat_panel.cpp:1986` | `ChatPanelInterface::Unknown_569A00` | marker | NOT EXACT: shape (functional, written from the disassembly: the client places the Font Size test's fall-through into the channel search and keeps two destructor forms; 5966 bytes vs 5929) 0x569A00 |
+| `app/client/ui_chat_panel.cpp:2253` | `ChatPanelInterface::Unknown_56B700` | marker | NOT EXACT: inline-budget (the client expands the channel-name temporary's constructor with _Grow and calls _Tidy, and keeps the options pointer and this on the stack; 173 instructions vs 178) 0x56B700 |
 | `app/client/ui_chat_panel.cpp:2382` | `ChatPanelInterface::Unknown_56C180` | marker | NOT EXACT: frame (0x18 vs the client's 0x1C: the client keeps &ChatInt in edi and calls RefCountPtr's operator=(NULL) 0x56CD50 out of line; 349 instructions vs 346) 0x56C180 |
 | `app/client/ui_chat_window.cpp:170` | `ChatWindowInterface::Unknown_A0` | marker | NOT EXACT: functional (CW2): frame 0x54 vs the client's 0x50 and the history loop (0.40) |
 | `app/client/ui_chat_window.cpp:246` | `ChatWindowInterface::Unknown_7C` | marker | NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (eax / edx swapped; 0.81) |
