@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1930 |
 | 2 | describes what the code does | 4869 |
-| 1 | neutral placeholder | 25110 |
+| 1 | neutral placeholder | 25136 |
 
 ## For review (score 3 and below)
 
@@ -11679,8 +11679,21 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_14` | `app/client/ui_chat_panel.cpp:56` | untagged neutral name (D10) |
 | 1 | `a, b` | `app/client/ui_chat_panel.cpp:79` | what 0x567760 passes |
 | 1 | `Unknown_42EC60` | `app/client/ui_chat_panel.cpp:79` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C50` | `app/client/ui_chat_panel.cpp:80` | neutral (D10) |
+| 1 | `Unknown_BA8C20` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C24` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C28` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C2C` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C30` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C34` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C38` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C3C` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C40` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C44` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C48` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C4C` | `app/client/ui_chat_panel.cpp:80` | untagged neutral name (D10) |
 | 1 | `ChatChannelStruct` | `app/client/ui_chat_panel.cpp:82` | neutral (D10) |
-| 1 | `Unknown_B7C530` | `app/client/ui_chat_panel.cpp:88` | neutral (D10): 17 entries (0x56B700 walks to 0xB7C5FC), four filled |
+| 1 | `Unknown_B7C530` | `app/client/ui_chat_panel.cpp:88` | neutral (D10): 17 entries and a NULL one (0x56B700 walks to 0xB7C5FC); entries 4-17 by the initialiser 0x568700 (the channels' names from 0xBA8C20, each "5") |
 | 1 | `UnknownEventDispatcherClass` | `app/client/ui_chat_panel.cpp:107` | neutral (D10) |
 | 1 | `Unknown_540A20` | `app/client/ui_chat_panel.cpp:115` | neutral (D10) |
 | 1 | `Unknown_B7C2B8` | `app/client/ui_chat_panel.cpp:118` | neutral (D10) |
@@ -24883,9 +24896,22 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown4A` | `programs/clientpoc/poc_world.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown_79B9E0` | `programs/clientpoc/poc_world.cpp:84` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:106` | untagged neutral name (D10) |
-| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:139` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C20` | `programs/clientpoc/poc_world.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C24` | `programs/clientpoc/poc_world.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C28` | `programs/clientpoc/poc_world.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C2C` | `programs/clientpoc/poc_world.cpp:125` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C30` | `programs/clientpoc/poc_world.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C34` | `programs/clientpoc/poc_world.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C38` | `programs/clientpoc/poc_world.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C3C` | `programs/clientpoc/poc_world.cpp:126` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C40` | `programs/clientpoc/poc_world.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C44` | `programs/clientpoc/poc_world.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C48` | `programs/clientpoc/poc_world.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C4C` | `programs/clientpoc/poc_world.cpp:127` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C50` | `programs/clientpoc/poc_world.cpp:128` | untagged neutral name (D10) |
+| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:145` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
