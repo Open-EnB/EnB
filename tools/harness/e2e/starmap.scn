@@ -1,13 +1,10 @@
 name: open the navigation (star) map from its HUD button, then close it
-# The window opens and closes (shots); its map is two POC stand-ins that draw the PIP only (programs/clientpoc/
-# poc_world4.cpp: GadgetStarmapClass, GadgetGalaxyMapClass), so the goal "the map shows" waits for them.
-expected-fail: the map gadgets are POC stand-ins GadgetStarmapClass / GadgetGalaxyMapClass (the PIP only)
+# The window opens and closes (shots); its map gadgets are the client's (gd_starmap.cpp, gd_galaxy_map.cpp).
 timeout: 400
 include _login
 alive 8
 click gadget hud.navmap
 expect-event stubs '^POC input: replayed mouse 0x202 at 140, 946'
-stand-in '^STUB first call: POC Gadget(Starmap|GalaxyMap)Class'
 alive 4
 shot starmap_open
 click gadget hud.navmap
