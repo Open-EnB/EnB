@@ -24,7 +24,7 @@ public:
 	virtual void Unknown_60();																// 0x62C9B0 (UnknownA8: the gadget's bit 2 clear)  // NAME 1: neutral (D10)
 	virtual bool Unknown_68(int key);														// 0x62C910 (key 1..n: the n-th ability into the shortcut)  // NAME 1 [key]: InterfaceClass's
 	virtual int Unknown_8C() { return((int)this); }									// +0x8C 0x62BA20 (itself: ui_skills.cpp reads it as UISkillInfoClass *; the base keeps int, retyping it loses 0x532170's short credit)  // NAME 1: neutral (D10)
-	virtual UISlotInfoItemClass *Unknown_90();												// +0x90 0x62C500 (SkillData)  // NAME 1: neutral (D10)
+	virtual SlotDataClass *Unknown_90();													// +0x90 0x62C500 (SkillData)  // NAME 1: neutral (D10)
 	virtual bool Unknown_94();																// +0x94 0x62BC40 (the abilities' rows rebuilt: FAIL_IF '!SkillRender', '!SkillData', '!font_group')  // NAME 1: neutral (D10)
 
 	SkillDataClass *Unknown_62C9E0();														// 0x62C9E0 (no caller; FAIL_IF '!SkillData', its slot +0x14)  // NAME 1: neutral (D10)

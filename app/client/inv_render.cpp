@@ -30,8 +30,8 @@ class Unknown68E360Class : public DurationClass { public: Unknown68E360Class(__i
 // ro_funcs.cpp's
 void Unknown_496730(RenderObjClass *robj, int a, bool b);	// NAME 1: neutral (D10); NAME 1 [robj, a, b]: neutral
 bool operator!=(const MoneyClass &a, const MoneyClass &b);	// 0x4F0640: money.cpp's inequality
-// 0x521B80: what walks an item's properties
-class Unknown521B80Class { public: Unknown521B80Class(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot); ~Unknown521B80Class(); void Unknown_521BD0(UIItemExaminationPropertyRouterBaseClass &visitor); int Unknown00[4]; };	// NAME 1: neutral (D10); NAME 1 [space_client, item, data, slot, visitor]: neutral
+// 0x521B80: what walks an item's properties (client_item_property_builder.h's class, declared here as far as 0x68C3E0 uses it: that header's Unknown688830Item differs from this file's)
+class ClientItemPropertyBuilderClass { public: ClientItemPropertyBuilderClass(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot); ~ClientItemPropertyBuilderClass(); void Build(UIItemExaminationPropertyRouterBaseClass &router); int Unknown00[4]; };	// 0x521B80 / 0x521BB0 / 0x521BD0
 #include "item\client_item_property_special.h"	// ClientItemPropertySpecialClass (0x68C680 asks Is_Usable)
 
 const char *Get_Roman_Numeral(int value);
@@ -124,8 +124,8 @@ bool InvRenderClass::Unknown_08(SlotDataClass *sd, RenderObjClass *robj)
 bool Unknown_68C3E0(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot)	// NAME 1: neutral (D10); NAME 1 [space_client, item, data, slot]: neutral
 {
 	Unknown68C5A0Class visitor;	// NAME 1 [visitor]: neutral
-	Unknown521B80Class info(space_client, item, data, slot);	// NAME 1 [info]: neutral
-	info.Unknown_521BD0(visitor);
+	ClientItemPropertyBuilderClass info(space_client, item, data, slot);	// NAME 1 [info]: neutral
+	info.Build(visitor);
 	return(visitor.Usable);
 }
 

@@ -77,17 +77,18 @@ public:
 	RefCountPtr<ItemInfoClass> TemplateInfo;													// +0x5C  // NAME 2: the FAIL_IFs '!template_info'
 };
 
-class MoneyClass;
-// inv_data.h's Unknown_688870 argument (libs/sgistl/hash_set.h's hash_set<int>), declared as kv_list.h declares the class
-namespace std { template <class _Key> struct hash; template <class _Value, class _HashFcn, class _EqualKey, class _Alloc> class hash_set; }
-class InvDataClass : public RefCountClass  // NAME 3: Peek_Inv_Data, inv_data's __FILE__ 0xB90004
-{
-public:
-	InvDataPeekClass *Unknown_688830();																	// 0x688830 (+0x54)  // NAME 1: neutral (D10)
-	void Unknown_688870(unsigned int mask, const std::hash_set<int, std::hash<int>, std::equal_to<int>, std::allocator<int> > *ids);	// 0x688870 (ui_trade.cpp: a category's bit, 0 for all)  // NAME 1 [mask, ids]: neutral
-	char Unknown08[0x50 - 0x08];
-	int Unknown50;																						// +0x50 (0x522860 routes 0x52AD00's property when 2)  // NAME 1: neutral
-};
+#include "..\inv_data.h"	// InvDataClass (Unknown_688830, Unknown50: 0x522860 routes 0x52AD00's property when 2)
+
+
+
+
+
+
+
+
+
+
+
 
 // An effect as a special property: ClientItemPropertySpecialEffectClass, client_item_property_special_effect.h
 // (two lines for three here and the #include above: the inline FAIL_IFs below keep their lines)

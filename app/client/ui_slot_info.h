@@ -6,14 +6,14 @@
 
 #include "ui_dynamicwindow.h"
 
-// What the screens show (0x630280 gets it from its argument's slot +0x10): reference counted at +0x18
-struct UISlotInfoItemBaseStruct { virtual void Unknown_00(); char Unknown04[0x18 - 4]; };								// NAME 1: neutral (D10)
-class UISlotInfoItemUnknown54Class;
-class UISlotInfoItemClass : public UISlotInfoItemBaseStruct, public RefCountClass			// NAME 1: neutral (D10)
-{
-public:
-	UISlotInfoItemUnknown54Class *Unknown_688830();										// 0x688830 (+0x54)  // NAME 1: neutral (D10)
-};
+// What the screens show: an inventory's or a skill's slot data (slot_data.h; 0x630280 gets it from its argument's slot +0x10)
+class SlotDataClass;
+
+
+
+
+
+
 
 // ui_slot_info.cpp's screen (0xB0 bytes; tables 0xAF814C / 0xAF8140 / 0xAF8134 / 0xAF811C; 0x630280 makes the
 // item examination window or 0x62B930's)
@@ -26,7 +26,7 @@ public:
 	virtual void Unknown_5C();																// 0x630020 (G_ASSERT 'this == _ActiveInterface')  // NAME 1: neutral (D10)
 	virtual int Unknown_88() { return(0); }													// +0x88 0x532150 (inline: emitted in ui_item_examination.cpp)  // NAME 1: neutral (D10)
 	virtual int Unknown_8C() { return(0); }													// +0x8C 0x532170 (inline: emitted in ui_item_examination.cpp)  // NAME 1: neutral (D10)
-	virtual UISlotInfoItemClass *Unknown_90() = 0;											// +0x90  // NAME 1: neutral (D10)
+	virtual SlotDataClass *Unknown_90() = 0;												// +0x90  // NAME 1: neutral (D10)
 	virtual bool Unknown_94() = 0;															// +0x94  // NAME 1: neutral (D10)
 
 	bool Unknown_630070(UIViewClass *view, int slot, bool a, bool b);						// 0x630070 (the slot's information shown beside it; SlotDataInterface's 0x62E8B0)  // NAME 1 [view, slot, a, b]: what 0x62E8B0 passes

@@ -1,7 +1,7 @@
 #include "client_item_property_builder.h"
 #include "..\ui_item_examination_property_router.h"
 #include "..\..\shared\g_assert.h"
-class Unknown831340Class { public: class TextureClass *Unknown_831840(); };	// client.h's item template (item_template.cpp's 0x831840)
+// Unknown831340Class (0x831840): client.h's item template, through inv_data.h
 ClientItemPropertyBuilderClass::ClientItemPropertyBuilderClass(SClient *space_client, Unknown688830Item *item, const RefCountPtr<InvDataClass> &data, int slot) :
 	SpaceClient(space_client),
 	Item(item),
