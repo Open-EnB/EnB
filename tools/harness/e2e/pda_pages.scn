@@ -1,7 +1,7 @@
 name: the PDA's pages by their keys (control_keys.ini: Y character, U missions, I equipment), each opened and closed
 # Each key's page code reports itself: the missions page's FAIL_IF '!ad_missions' (ui_missn.cpp) and the equipment
 # page's FAIL_IF '!future_weapons' (ui_pda_equip.cpp) come from those pages' own code on the replay's data. The
-# galaxy map page (G) is the starmap scenario's (its gadgets are stand-ins).
+# galaxy map page (G) is the starmap scenario's.
 timeout: 400
 include _login
 alive 8

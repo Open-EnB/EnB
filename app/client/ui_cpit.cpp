@@ -1391,7 +1391,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 						Unknown_5845A0();
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_WAIT");
 						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
-						if (time) Unknown0B4->Set_State(4, time->Value.As_Int());
+						if (time) Unknown0B4->Set_State(4, time->Value.Get());
 						Unknown0B4->Unknown_A4(0);
 						SClient *client = (SClient *)((ClientClass *)Client)->As_Space_Client();
 						if (client && client->Bridge) client->Bridge->Stop_Hard();
@@ -1402,7 +1402,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 					{
 						GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "WARP_DONE");
 						DeltaTemplateClass<DurationClass> *time = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(aux, "WarpTriggerTime");
-						if (time) Unknown0B4->Set_State(1, time->Value.As_Int());
+						if (time) Unknown0B4->Set_State(1, time->Value.Get());
 						Unknown0B4->Unknown_A4(0);
 						break;
 					}

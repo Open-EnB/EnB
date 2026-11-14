@@ -1,7 +1,5 @@
 {
- "clientpoc": [
-  "?Unknown_49F300@Unknown49F200Class@@QAE?AV?$vector@UBuddyRewardStruct@@V?$allocator@UBuddyRewardStruct@@@std@@@std@@HH@Z"
- ],
+ "clientpoc": [],
  "clienttest": [],
  "udpreplay": []
 }

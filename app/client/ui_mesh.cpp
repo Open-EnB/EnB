@@ -219,7 +219,7 @@ void UIMeshClass::Unknown_5B9130(const char *bone_name, UIMeshClass *child)
 	InterfaceMesh->Add_Sub_Object_To_Bone(child->InterfaceMesh, bone_name);
 }
 
-int UIMeshClass::Unknown_5B9160(const char *bone_name)
+int UIMeshClass::Get_Bone_Index(const char *bone_name)
 {
 	return(InterfaceMesh->Get_Bone_Index(bone_name));
 }

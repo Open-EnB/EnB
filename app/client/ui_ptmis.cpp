@@ -7,28 +7,28 @@
 #include "..\shared\g_assert.h"
 #include "gadget.h"
 #include "fontmanager.h"
-#include "unknown_675120.h"
+#include "gd_uisld.h"
 #include "local_interface_sort.h"
 #include "assetmgr.h"
 #include "ui_ptmis.h"
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-// The list's scroll bar (0xD0 bytes, table 0xAFBA80 over unknown_675120.h's base; constructor 0x675370)
-class Unknown675370GadgetClass : public Unknown_675120Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown675370GadgetClass(RenderObjClass *screen, const char *pull, const char *bar, const LayerClass *layer, int a, int b);	// 0x675370  // NAME 1 [screen, pull, bar, layer, a, b]: what the pages pass
-	virtual void Unknown_A4();							// +0xA4 0x675D30
-	virtual int Unknown_A8();							// +0xA8 0x675460 (the first row shown)
-	void Unknown_675CF0(int count, int a, int b);		// 0x675CF0  // NAME 1 [count, a, b]: neutral
 
-	char Unknown60[0xAC - 0x60];						// +0x60
-	int Unknown0AC;										// +0xAC (the count)
-	int Unknown0B0;										// +0xB0
-	int Unknown0B4;										// +0xB4
-	char Unknown0B8[0xD0 - 0xB8];						// +0xB8
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #include "pt_data.h"
 
@@ -70,7 +70,7 @@ UIPTMisClass::UIPTMisClass(UIViewClass *view, LayerClass *layer) :
 {
 	ListScreen = WW3DAssetManager::Get_Instance()->Create_Render_Obj("TLI03A"); G_ASSERT(ListScreen);
 	DescScreen = WW3DAssetManager::Get_Instance()->Create_Render_Obj("TLI06A"); G_ASSERT(DescScreen);
-	Unknown0B0 = new Unknown675370GadgetClass(ListScreen, "pull_cargo02", "bar_cargo03", &Layer, 0, 0);
+	Unknown0B0 = new UISliderGadget(ListScreen, "pull_cargo02", "bar_cargo03", &Layer, 0, 0);
 	Unknown64.Unknown_6870E0(Unknown0B0, 1, View, 1, 1);
 	Unknown0B4 = new Unknown696320Class;
 }
@@ -268,6 +268,6 @@ void UIPTMisClass::Unknown_5DF410()
 **	'<= -1'; the count clamp reads Count() twice.
 **
 **	pt_data.cpp's missions list (0x696320) comes from pt_data.h (included where its local declaration stood,
-**	so no assert moves); the scroll bar class 0x675370 is not in the tree and is declared here as far as this
-**	page uses it (neutral name, D10). The class is declared in ui_ptmis.h (PROVISIONAL name, D137).
+**	so no assert moves); the scroll bar 0x675370 is gd_uisld.h's UISliderGadget (included where unknown_675120.h
+**	stood, its local declaration's lines left blank). The class is declared in ui_ptmis.h (PROVISIONAL name, D137).
 */

@@ -1,0 +1,42 @@
+{
+ "ambiguous": [
+  "0x42A6C0",
+  "0x4FFA80"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe: the __FILE__ string 'e:\\build\\beta\\G\\app\\shared\\time_string_format.cpp' (FAIL_IF 'RemainingTime.Get() < 0', line 56, in 0x4FEDB0); the formatter and its Time_String functions 0x4FE780-0x4FF7B0, duration.h's unit instances to 0x4FFBD0",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D050",
+  "0x42D120",
+  "0x4F5C60",
+  "0x4FF050",
+  "0x4FF340",
+  "0x4FF7B0",
+  "0x4FF990",
+  "0x4FFA30",
+  "0x4FFC40"
+ ],
+ "merged": [],
+ "name": "shared/time_string_format.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D050",
+  "0x42D120",
+  "0x4F5C60"
+ ],
+ "short_known": [
+  "0x42D120"
+ ]
+}

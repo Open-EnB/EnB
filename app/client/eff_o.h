@@ -39,6 +39,7 @@ class INIClass;
 class UnknownB00060EffectClass;
 class UnknownB0009CEffectClass;
 
+#ifndef CLIENT_H	// client.h, included first, declares it
 // An object watcher: the base with only a virtual destructor (vtable 0xAF0DD0, its deleting destructor 0x57DBC0 first emitted
 // in ui_cpit.cpp; influence.h's record has the same base)
 class UnknownAF0DD0Class	// NAME 1: neutral (D10)
@@ -47,6 +48,7 @@ public:
 	virtual ~UnknownAF0DD0Class() {}
 	void Unknown_73FDB0(DataNode<UnknownAF0DD0Class *> *node, ClientObjectClass *object);	// 0x73FDB0 (the node out of its list, then into the object's (0x6F5090) with this as its value)  // NAME 1 [node, object]: what the effects pass
 };
+#endif
 
 class EffectObjectClass : public UnknownAF0DD0Class	// NAME 3: class-from-file (D24) for eff_o.cpp
 {

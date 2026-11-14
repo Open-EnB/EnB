@@ -19,16 +19,7 @@ class AvatarDescClass;
 class Unknown6D47C0Class;
 class UICpitClass;
 
-#ifndef EFF_O_H	// eff_o.h's object watcher (eff_o.h, included first where it is used, declares it there)
-// An object watcher: the base with only a virtual destructor (vtable 0xAF0DD0, its deleting destructor 0x57DBC0 first emitted
-// in ui_cpit.cpp; influence.h's record has the same base)
-class UnknownAF0DD0Class	// NAME 1: neutral (D10)
-{
-public:
-	virtual ~UnknownAF0DD0Class() {}
-	void Unknown_73FDB0(DataNode<UnknownAF0DD0Class *> *node, ClientObjectClass *object);	// 0x73FDB0 (the node out of its list, then into the object's (0x6F5090) with this as its value)  // NAME 1 [node, object]: what the effects pass
-};
-#endif
+// UnknownAF0DD0Class, the object watcher's base: client.h (through sclient.h) or eff_o.h declares it
 
 // A watched object pointer over UnknownAF0DD0Class (0x18 bytes before a subclass's own members; slots +0x04 / +0x08
 // 0x57DC20 / 0x57DBF0 first emitted in ui_cpit.cpp, shared by the cockpit's two watchers and the 0x28-byte object

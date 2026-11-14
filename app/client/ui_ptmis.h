@@ -21,7 +21,7 @@
 class UIViewClass;
 class RenderObjClass;
 class FontSys;
-class Unknown675370GadgetClass;
+class UISliderGadget;
 class Unknown696320Class;
 
 // One row of the missions list (0x0C bytes): its three text styles
@@ -51,7 +51,7 @@ public:
 	LayerClass Layer;									// +0x84 (a copy of the constructor's layer)  // NAME 1: what it holds
 	RenderObjClass *ListScreen;							// +0xA8 ('TLI03A')  // NAME 3: the G_ASSERT's
 	RenderObjClass *DescScreen;							// +0xAC ('TLI06A')  // NAME 3: the G_ASSERT's
-	Unknown675370GadgetClass *Unknown0B0;				// +0xB0 (the list's scroll bar)
+	UISliderGadget *Unknown0B0;				// +0xB0 (the list's scroll bar)
 	Unknown696320Class *Unknown0B4;						// +0xB4 (pt_data.cpp's missions list)
 	std::vector<UIPTMisRowStruct *> Unknown0B8;			// +0xB8 (the rows)
 	int Unknown0C8;										// +0xC8 (the selected mission, -1 none)

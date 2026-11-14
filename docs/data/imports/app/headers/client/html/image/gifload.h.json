@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "gifload.h: HtmlGifImageClass (moved from htmlview.h), its fields from Set_Data / Decode / Init; O17b"
+}

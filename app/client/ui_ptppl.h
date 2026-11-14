@@ -23,7 +23,7 @@ class RenderObjClass;
 class RefCountClass;
 class TextureClass;
 class FontSys;
-class Unknown675370GadgetClass;
+class UISliderGadget;
 class Unknown696CD0Class;
 
 // One row of the people list (0x10 bytes): its four text styles
@@ -56,7 +56,7 @@ public:
 	RenderObjClass *DescScreen;							// +0xAC ('TLI09A')  // NAME 3: the G_ASSERT's
 	Unknown696CD0Class *Unknown0B0;						// +0xB0 (pt_data.cpp's people list)
 	std::vector<UIPTPplRowStruct *> Unknown0B4;			// +0xB4 (the rows)
-	Unknown675370GadgetClass *Unknown0C4;				// +0xC4 (the list's scroll bar)
+	UISliderGadget *Unknown0C4;				// +0xC4 (the list's scroll bar)
 	RefCountClass *Unknown0C8;							// +0xC8 (released on close; nothing here sets it)
 	int Unknown0CC;										// +0xCC
 	TextureClass *Unknown0D0;							// +0xD0 ('IF_TERR.TGA')

@@ -1,0 +1,54 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe 0x437180-0x439C40: __FILE__ e:\\build\\beta\\G\\app\\Audio\\musiclist.cpp (0xB6EFF8), asserts l.97-98 / 160-161 / 364-365; MusicListClass (layout musiclist.h) and its std::deque<std::vector<MusicComponentClass *> > instances; its own object before musicmanager.cpp (musicmanager.cpp calls its members out of line)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x437180",
+  "0x437540",
+  "0x437920",
+  "0x438070",
+  "0x4381E0",
+  "0x438230",
+  "0x438430",
+  "0x438460",
+  "0x438800",
+  "0x438970",
+  "0x438A80",
+  "0x438B60",
+  "0x438BA0",
+  "0x438D60",
+  "0x438E00",
+  "0x438E20",
+  "0x438E60",
+  "0x439020",
+  "0x439050",
+  "0x4390E0",
+  "0x439170",
+  "0x4391E0",
+  "0x439480",
+  "0x439540",
+  "0x439580",
+  "0x4397E0",
+  "0x439810",
+  "0x439A70",
+  "0x439B40",
+  "0x439B70",
+  "0x439BC0",
+  "0x439C00",
+  "0x439C40"
+ ],
+ "merged": [],
+ "name": "audio/musiclist.cpp",
+ "shared": [
+  "0x42F250",
+  "0x438E00"
+ ],
+ "short_known": [
+  "0x438E00"
+ ],
+ "tiebreak": [
+  "0x439C40"
+ ]
+}

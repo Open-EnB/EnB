@@ -1,0 +1,24 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe 0x49EF10-0x49FA7F: the referral rewards (strings 'referral.ini', 'RewardLevel%d', keys 'RewardLevel' / 'SkillBoost' / 'CreditBoost'; vtable 0xAEA9BC, constructor 0x49EFE0, instance 0x49F200, 0x49F300 for SClient 0x751460); between observer.cpp and selector.cpp, name provisional (NAME 1)",
+ "expected": {},
+ "in_tree": [
+  "0x49EF10",
+  "0x49EFE0",
+  "0x49F190",
+  "0x49F1C0",
+  "0x49F200",
+  "0x49F270",
+  "0x49F300",
+  "0x49F5D0",
+  "0x49F610",
+  "0x49FA20",
+  "0x49FA50"
+ ],
+ "merged": [],
+ "name": "shared/referral.cpp",
+ "shared": [
+  "0x49F5D0"
+ ]
+}

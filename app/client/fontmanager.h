@@ -85,10 +85,12 @@ public:
 	void Change_Text(const char *text, int unknown);						// 0x6CDBC0: the client's profile label 'FontSys::Change_Text'  // NAME 3: the client's label
 	void Unknown_6D5A80(float &width, float &height);					// 0x6D5A80: a character cell's size (+0x420.. extents over +0x2B4 / +0x2B8, times Scale; dynamic_window_multi_line_text.cpp's 'CharacterHeight')  // NAME 1: neutral (D10)
 	void Unknown_6D5D40();													// 0x6D5D40  // NAME 1 [Unknown_6D5D40]: neutral (D10)
+	void Unknown_6D5EF0(int onoff);										// 0x6D5EF0 (ui_registration.cpp's 0x5F8DB0): RenderObjClass::Set_Hidden, but showing only while +0x300 (not hidden by Set_Hidden) is set  // NAME 1 [Unknown_6D5EF0, onoff]: neutral (D10), onoff as Set_Hidden's
 	void Unknown_6CD950(int index, float time);							// 0x6CD950: triggers EffectTriggered[index] for time seconds (+0x2A4 in ms) and restarts its state  // NAME 1 [Unknown_6CD950, index, time]: neutral (D10)
 	bool Unknown_6D89C0(); /* 0x6D89C0 (ui_line_display.cpp), NAME 1: neutral (D10) */	void Unknown_6CE910(bool on);											// 0x6CE910 (textgadg.cpp: on while the box has the focus)  // NAME 1 [on]: neutral
 	void Unknown_6D88F0(int left, int top, int right, int bottom);			// 0x6D88F0 (textgadg.cpp: the box's rectangle, from the bounding box and the position)  // NAME 1 [left, top, right, bottom]: what textgadg.cpp passes
 	Vector3 Unknown_6D8650();											// 0x6D8650: the text's position (+0x464 with +0x302 set, else the transform's; plus +0x47C and the effects' offset +0x488)  // NAME 1 [Unknown_6D8650]: neutral (D10)
+	void Unknown_6D8780(float x, float y);								// 0x6D8780: Render's x / y scales +0x4DC / +0x4E0, each kept only from 1 up (cpacket.cpp's CLIENT_DAMAGE 100 passes 320, 240)  // NAME 1 [Unknown_6D8780, x, y]: neutral (D10)
 	void Set_Offset(float x, float y) { Unknown47C.X = x; Unknown47C.Y = y; }	// (inline: gutter_data.cpp's 0x7B63C0)  // NAME 2: what it does
 	void Set_Justify(int vertical, int horizontal) { Info.Justify[0] = vertical; Info.Justify[1] = horizontal; }	// (inline: gutter_data.cpp's 0x7B63C0)  // NAME 2 [vertical, horizontal]: 1 / 2 and 3 / 4
 	void Unknown_6D8A80(bool on);											// 0x6D8A80: +0x4E6 set; off sets +0x4A0 to 1 (gutter_data.cpp)  // NAME 1 [Unknown_6D8A80, on]: neutral (D10)

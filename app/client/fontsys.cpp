@@ -285,6 +285,13 @@ void FontSys::Unknown_6D5D40()
 	}
 }
 
+void FontSys::Unknown_6D5EF0(int onoff)
+{
+	if (Unknown300 || onoff) {
+		RenderObjClass::Set_Hidden(onoff);
+	}
+}
+
 // 0x6D6390: the text printed, sized and shown; +0x408 says it is the blank " " (the constructors' default)
 void FontSys::Unknown_6D6390()
 {
@@ -899,44 +906,11 @@ void FontSys::Update_Text(bool unknown)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched
+// NOT EXACT: frame (attempts.csv): the client keeps y on the x87 stack (no home), its frame 0x84 against 0x88
 void FontSys::Render(RenderInfoClass &rinfo)
 {
 	Unknown4C4 = false;
-	if (Unknown440 < 3) {
+	if (Unknown440 <= 2) {
 		G_ASSERT(SortLevel == SORT_LEVEL_NONE || !Model->Get_Flag(MeshGeometryClass::SORT));
 		if (WW3D::Are_Static_Sort_Lists_Enabled() && SortLevel != SORT_LEVEL_NONE) {
 			WW3D::Add_To_Static_Sort_List(this, SortLevel);
@@ -944,25 +918,29 @@ void FontSys::Render(RenderInfoClass &rinfo)
 		}
 		Vector3 pos = Get_Position();
 		Update_Text(true);
-		if (PolyCount != 0 && Is_Not_Hidden_At_All() && Unknown26C <= Unknown270) {
+		if (PolyCount != 0 && Is_Not_Hidden_At_All() && Unknown270 >= Unknown26C) {
+			float x = Transform.Get_X_Translation();
+			float y = Transform.Get_Y_Translation();
 			Matrix3D tm = Transform;
-			float x = tm[0][3];
-			float y = tm[1][3];
 			if (Unknown4DC > 1.0f) x *= Unknown4DC;
 			if (Unknown4E0 > 1.0f) y *= Unknown4E0;
-			float px = (float)floor(x / (640.0f / (float)Width));
-			float py = (float)floor(y / (480.0f / (float)Height));
-			x = (px + 0.5f) * (640.0f / (float)Width);
-			y = (py + 0.5f) * (480.0f / (float)Height);
+			float sx = 640.0f / (float)Width;
+			float sy = 480.0f / (float)Height;
+			float px = x / sx;
+			float py = y / sy;
+			px = floor(px) + 0.5;
+			py = floor(py) + 0.5;
+			x = px * sx;
+			y = py * sy;
 			if (Unknown4DC > 1.0f) x /= Unknown4DC;
 			if (Unknown4E0 > 1.0f) y /= Unknown4E0;
-			tm.Set_Translation(Vector3(x, y, 0.001f));
+			tm.Set_X_Translation(x);
+			tm.Set_Y_Translation(y);
+			tm.Set_Z_Translation(0.001f);
 			DX8Wrapper::Set_Transform(D3DTS_WORLD, tm);
 			Model->Render(rinfo);
 		}
-		Transform[0][3] = pos.X;
-		Transform[1][3] = pos.Y;
-		Transform[2][3] = pos.Z;
+		Transform.Set_Translation(pos);
 	}
 }
 
@@ -976,6 +954,12 @@ Vector3 FontSys::Unknown_6D8650()
 		pos = Get_Position() + Unknown47C + Unknown488;
 	}
 	return pos;
+}
+
+void FontSys::Unknown_6D8780(float x, float y)
+{
+	if (x >= 1.0f) Unknown4DC = x;
+	if (y >= 1.0f) Unknown4E0 = y;
 }
 
 // 0x6D87D0: the text (Info.Text)
@@ -1013,6 +997,42 @@ void FontSys::Unknown_6D88F0(int left, int top, int right, int bottom)
 	Unknown4C5 = false;
 }
 
+void FontSys::Unknown_6D8940(float height)
+{
+	Unknown4C5 = false;
+	Unknown2F4[0] = height;
+}
+
+void FontSys::Unknown_6D8970(bool on)
+{
+	Underline = on;
+	if (on) {
+		Unknown2E0.Unknown_6D8DC0(&Font, "_", 0);
+	}
+	Unknown4C5 = false;
+}
+
+bool FontSys::Unknown_6D89C0()
+{
+	switch (Unknown440) {
+		case 0:
+			return Effects[0][0] == NULL && Effects[0][1] == NULL && Effects[0][2] == NULL;
+		case 1:
+			return Effects[1][0] == NULL && Effects[1][1] == NULL && Effects[1][2] == NULL;
+		case 2:
+			return Effects[2][0] == NULL && Effects[2][1] == NULL && Effects[2][2] == NULL;
+	}
+	return true;
+}
+
+void FontSys::Unknown_6D8A80(bool on)
+{
+	Unknown4E6 = on;
+	if (!on) {
+		Unknown494.Unknown0C = 1.0f;
+	}
+}
+
 /*
 **	Reconstruction notes (fontsys.cpp)
 **
@@ -1027,4 +1047,10 @@ void FontSys::Unknown_6D88F0(int left, int top, int right, int bottom)
 **	Is_Complete 0x67EEE0.
 **	Functional (D64) for the POC client: TextGadgetClass's constructor needs a real object with a table. Not yet
 **	rebuilt: Update_Text 0x6D64C0, 0x6D8C50, 0x6D8DC0 (fonttexture.cpp).
+**	The small setters 0x6D5EF0 (ui_registration.cpp's 0x5F8DB0), 0x6D8780 (cpacket.cpp's CLIENT_DAMAGE 100),
+**	0x6D8940, 0x6D8970, 0x6D89C0 (ui_line_display.cpp) and 0x6D8A80 (gutter_data.cpp, ui_starbase.cpp) sit in the
+**	client's address order. Compiler-made, not written: 0x6D8080 (`mov eax, ecx`: the out-of-line Vector2()
+**	Update_Text's `??_H` calls with 8-byte elements), 0x6D8B70 / 0x6D8B80 (this -8 / -0x10 adjustor thunks to the
+**	deleting destructor 0x6D4C40, from the secondary-base vtables). Render's G_ASSERT stands on the
+**	client's line 914 (33 of the padding lines after Update_Text dropped).
 */

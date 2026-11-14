@@ -1,6 +1,5 @@
 {
  "ambiguous": [
-  "0x42B2F0",
   "0x46BE90",
   "0x497300"
  ],
@@ -36,7 +35,8 @@
   "0x6689C0",
   "0x668B20",
   "0x668BE0",
-  "0x668C80"
+  "0x668C80",
+  "0x668E00"
  ],
  "merged": [],
  "name": "client/gd_dynamicwindow.cpp",

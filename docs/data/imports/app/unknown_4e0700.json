@@ -1,0 +1,12 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "client 0x4E0700-0x4E082F, a one-function object between <string>'s guarded initialisers 0x4E06D0 and 0x4E0810 (chat_filter.cpp's object follows): Detach_Owner_Mods, called by AttribDirCollective; no string of its own, the file name provisional (D137); rebuilt by builder O13b (2026-11-13), exact",
+ "expected": {},
+ "in_tree": [
+  "0x4E0700",
+  "0x4E0810"
+ ],
+ "merged": [],
+ "name": "shared/unknown_4e0700.cpp"
+}

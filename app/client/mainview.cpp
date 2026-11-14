@@ -904,7 +904,7 @@ void MainViewClass::Update(CameraClass *camera, bool under)
 	FAIL_IF(!client) return;
 	DurationClass now((unsigned)client->Unknown10BC);
 	now.Time += client->Unknown10C0.Time;
-	float hours = now.As_Int() * 2.777778e-07f;
+	float hours = now.Get() * 2.777778e-07f;
 	if (Client->DebugMode) {
 		hours += Client->Unknown1390;
 	}

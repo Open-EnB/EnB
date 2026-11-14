@@ -52,7 +52,7 @@ template<> bool DeltaTemplateClass<DurationClass>::Read(LinearBufferClass &buf, 
 
 template<> bool DeltaTemplateClass<DurationClass>::Write(LinearBufferClass &buf)
 {
-	int value = Value.As_Int();
+	int value = Value.Get();
 	if (buf.Write(&value, sizeof(value)) != sizeof(value)) {
 
 		G_ASSERT(0);
@@ -104,7 +104,7 @@ const unsigned int &DurationAccessorClass::Get()
 	unsigned int ticks = Unknown_Get_Ticks();
 	__int64 now = (__int64)time(NULL) * 1000;
 	DurationClass seconds((now + Duration->Time - ticks) / 1000);
-	Seconds = seconds.As_Int();
+	Seconds = seconds.Get();
 	return Seconds;
 }
 
@@ -129,7 +129,7 @@ KVAccessorClass<unsigned int> *DurationAccessorClass::Clone() const
 **	client.exe: the time field's Read (0x4A81D0) and Write (0x4A8270), DeltaTemplateClass<DurationClass>
 **	specialisations (slots 0x2C and 0x30). The value is 8 bytes at +0x88 but goes on the wire as 4:
 **	Read stores 0 for 0, otherwise the value less the base Read is given; Write clamps with
-**	DurationClass::As_Int (duration.h line 190). The asserts' expression is "0" (0xB6E944), on the
+**	DurationClass::Get (duration.h line 190). The asserts' expression is "0" (0xB6E944), on the
 **	client's lines 31 and 58. The constructor 0x4A8150 (vtable 0xAEB1EC) and the visitor slot
 **	0x4A8330 (Unknown_00: a key/value pair through DurationAccessorClass, vtable 0xAEB244, made by
 **	the static 0x4A8370; its Get 0x4A83B0, Set 0x4A84E0, Clone 0x4A8550), with the unsigned int

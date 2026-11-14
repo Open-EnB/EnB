@@ -4,7 +4,6 @@
  "description": "Listener (0x4E81B0-0x4E8590, vtable 0xAEC630), the static ActiveIterators (0xBE5610) and Subject (0x4E8730-0x4E8E40, vtable 0xAEC640): class names from the client's asserts (Is_Subject, Is_Listener, Data->Subjects, Data->Listeners); asserts on the client's lines 27 / 34 / 37 / 51 / 66 / 78 / 81 / 107 / 114 / 141 / 144 / 147 / 161 / 164 / 167 / 176 / 189 / 201 (D25)",
  "expected": {},
  "in_tree": [
-  "0x4E7690",
   "0x4E81B0",
   "0x4E8280",
   "0x4E8370",

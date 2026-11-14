@@ -109,7 +109,8 @@ public:
 	// A member attribute's destination: its name in Dir and the value function (0x14 bytes)
 	struct DestinationStruct  // NAME 2: what it holds
 	{
-		DestinationStruct(const std::string &name, const RefCountPtr<AttribValueFunctionClass> &function) : Name(name), Function(function) {}
+		DestinationStruct(const std::string &name, const RefCountPtr<AttribValueFunctionClass> &function);	// 0x4DCFF0
+		~DestinationStruct();	// 0x4DD110
 		std::string Name;																			// +0x00  // NAME 2: what it holds
 		RefCountPtr<AttribValueFunctionClass> Function;									// +0x10  // NAME 2: what it holds
 	};

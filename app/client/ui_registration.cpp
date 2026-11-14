@@ -175,7 +175,7 @@ static const char *RegistrationSubscribeURL = "https://jump-subs.ea.com/Subscrib
 
 
 
-class RegistrationFontClass : public FontSys { public: void Unknown_6D5EF0(bool on); };  // NAME 1 [RegistrationFontClass, on]: neutral (D10): 0x6D5EF0 (0x5F8DB0)
+
 static const int CardDoubled[10] = { 0, 2, 4, 6, 8, 1, 3, 5, 7, 9 };  // NAME 1 [CardDoubled]: client .rdata 0xAF6F88 (0x603820: a digit doubled, Luhn)
 
 static inline RegistrationUnknown1ACClass *Get_Unknown1AC()  // NAME 1 [Get_Unknown1AC]: 0xBDA960, inlined in 0x5EF0B0
@@ -1992,7 +1992,7 @@ void RegistrationInterface::Unknown_5F8DB0(bool arg)
 		if (style) {
 			style->Unknown4E4 = true;
 			style->Set_Animation_Hidden(0);
-			((RegistrationFontClass *)style)->Unknown_6D5EF0(0);
+			style->Unknown_6D5EF0(0);
 			style->Set_Hidden(0);
 		}
 	} else {
@@ -2000,7 +2000,7 @@ void RegistrationInterface::Unknown_5F8DB0(bool arg)
 		if (style) {
 			style->Unknown4E4 = false;
 			style->Set_Animation_Hidden(1);
-			((RegistrationFontClass *)style)->Unknown_6D5EF0(1);
+			style->Unknown_6D5EF0(1);
 			style->Set_Hidden(1);
 		}
 	}

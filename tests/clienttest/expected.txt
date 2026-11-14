@@ -2405,8 +2405,7 @@ stub ChatPanelInterface::Unknown_563760 0x6 'TIP: third'
 check NOTE_CONTENT 184: 'From:', 'Sent:' and the note's three lines, each (type 6) on the line display and the chat panel: ok
 check MESSAGE_CHATSTREAM 95 with no avatar for its ShipID: nothing happens: ok
 check FIND_MEMBER 83 without a chat panel: nothing called: ok
-find calls: 59A400(1 players) 
-check FIND_MEMBER 83: the group-find interface gets the packet only with the +0xF8 interface and +0x7C set; the count back to 5: ok
+check FIND_MEMBER 83: with the +0xF8 interface and the group-find window's +0x7C not set nothing is called; the count back to 5: ok
 == (4k) GUILD_RECRUIT_CONFIRM_SECTOR 200, GUILD_MESSAGE_SECTOR 208, 216
 msg 1 GUILD_RECRUIT_CONFIRM_SECTOR (200) size 22: cpacket.cpp's handler
 check GUILD_RECRUIT_CONFIRM_SECTOR 200: the question to the current view's dialog, +0x119C = the inviter: ok

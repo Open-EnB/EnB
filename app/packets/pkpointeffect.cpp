@@ -10,9 +10,9 @@ const float DefaultSpeedup = 1.0f;	// 0xB0A398: the effects' default Speedup  //
 
 ObjectEffectPacketClass::ObjectEffectPacketClass(int effect_id, const DurationClass &time_stamp, int game_id, const DurationClass &duration, short effect_desc_id, float scale, const Vector3 &hsv_shift) :
 	EffectID(effect_id),
-	TimeStamp(time_stamp.As_Int()),
+	TimeStamp(time_stamp.Get()),
 	GameID(game_id),
-	Duration((short)duration.As_Int()),
+	Duration((short)duration.Get()),
 	EffectDescID(effect_desc_id),
 	Scale(scale),
 	HSVShift(hsv_shift)
@@ -107,9 +107,9 @@ int ObjectEffectPacketClass::Print(char *buffer, int)
 
 PointEffectPacketClass::PointEffectPacketClass(int effect_id, const DurationClass &time_stamp, const Vector3 &location, const DurationClass &duration, short effect_desc_id, float scale, const Vector3 &hsv_shift) :
 	EffectID(effect_id),
-	TimeStamp(time_stamp.As_Int()),
+	TimeStamp(time_stamp.Get()),
 	Location(location),
-	Duration((short)duration.As_Int()),
+	Duration((short)duration.Get()),
 	EffectDescID(effect_desc_id),
 	Scale(scale),
 	HSVShift(hsv_shift)
@@ -156,11 +156,11 @@ int PointEffectPacketClass::Print(char *buffer, int)
 
 ObjectToObjectEffectPacketClass::ObjectToObjectEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, const DurationClass &duration, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, bool outside_target_radius, float scale, const Vector3 &hsv_shift, float speedup) :
 	EffectID(effect_id),
-	TimeStamp(time_stamp.As_Int()),
+	TimeStamp(time_stamp.Get()),
 	SourceGameID(source_game_id),
 	SourceLego(source_lego),
 	TargetGameID(target_game_id),
-	Duration((short)duration.As_Int()),
+	Duration((short)duration.Get()),
 	EffectDescID(effect_desc_id),
 	Unknown34(unknown34),
 	Unknown36(unknown36),
@@ -293,11 +293,11 @@ int ObjectToObjectEffectPacketClass::Print(char *buffer, int)
 
 ObjectToEffectEffectPacketClass::ObjectToEffectEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, const DurationClass &duration, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, float scale, const Vector3 &hsv_shift, float speedup) :
 	EffectID(effect_id),
-	TimeStamp(time_stamp.As_Int()),
+	TimeStamp(time_stamp.Get()),
 	SourceGameID(source_game_id),
 	SourceLego(source_lego),
 	TargetGameID(target_game_id),
-	Duration((short)duration.As_Int()),
+	Duration((short)duration.Get()),
 	EffectDescID(effect_desc_id),
 	Unknown34(unknown34),
 	Unknown36(unknown36),
@@ -364,11 +364,11 @@ int ObjectToEffectEffectPacketClass::Print(char *buffer, int)
 
 ObjectToPointEffectPacketClass::ObjectToPointEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, const Vector3 &target_point, const DurationClass &duration, short effect_desc_id, float scale, const Vector3 &hsv_shift, float speedup) :
 	EffectID(effect_id),
-	TimeStamp(time_stamp.As_Int()),
+	TimeStamp(time_stamp.Get()),
 	SourceGameID(source_game_id),
 	SourceLego(source_lego),
 	TargetPoint(target_point),
-	Duration((short)duration.As_Int()),
+	Duration((short)duration.Get()),
 	EffectDescID(effect_desc_id),
 	Scale(scale),
 	HSVShift(hsv_shift),
@@ -426,7 +426,7 @@ int ObjectToPointEffectPacketClass::Print(char *buffer, int)
 
 ObjectToObjectDurationLinkedEffectPacketClass::ObjectToObjectDurationLinkedEffectPacketClass(int effect_id, const DurationClass &time_stamp, int source_game_id, const LegoIdentifierClass &source_lego, int target_game_id, short duration_linked_effect_desc_id, short effect_desc_id, const Vector3 &target_offset, short unknown34, short unknown36, bool outside_target_radius, float scale, const Vector3 &hsv_shift, float speedup) :
 	EffectID(effect_id),
-	TimeStamp(time_stamp.As_Int()),
+	TimeStamp(time_stamp.Get()),
 	SourceGameID(source_game_id),
 	SourceLego(source_lego),
 	TargetGameID(target_game_id),
@@ -532,7 +532,7 @@ int RemoveEffectPacketClass::Print(char *buffer, int)
 **	  9 derives from FlagPacketClass (pkflag.cpp); Get_Flags 0x882F20 sets bit 5 for HSVShift's Y and
 **	  again for its Z, so bit 6 is counted and read but never sent (the client's). The defaults Scale
 **	  and HSVShift are the client's data (0xB0A394, the static 0xBF4150): compared from memory, not as
-**	  constants. The value constructors take the times as 64-bit spans (duration.h's As_Int, its
+**	  constants. The value constructors take the times as 64-bit spans (duration.h's Get, its
 **	  FAIL_IF on line 190).
 **	* Not rebuilt yet: opcode 11, 12, 13, 14 (declared in pk_classes.h).
 */

@@ -1,11 +1,29 @@
 {
  "ambiguous": [],
  "copy": "reconstructed",
- "description": "E&B's spline.cpp (the client's assert __FILE__), client 0x483000-0x4845F0: only SplineFloatArrayClass::Resize 0x483820 (assert line 29), which spln_db.cpp's evaluation helpers call",
+ "description": "E&B's spline.cpp (the client's assert __FILE__), client 0x4837B0-0x4845F0: the float array's int constructor 0x4837B0, destructor 0x4837F0, Resize 0x483820 (assert line 29), Load 0x4838B0, Read 0x483A20 (assert 'Size >= 2' line 67), Save 0x483AF0 and Create 0x483BB0; the offset array's Get_Value 0x483CF0; the colour array's Load 0x483DB0, Save 0x483EE0 and Create 0x4842E0 ('XC', channels X, Y, Z)",
  "expected": {},
  "in_tree": [
-  "0x483820"
+  "0x481520",
+  "0x481610",
+  "0x481810",
+  "0x4837B0",
+  "0x4837F0",
+  "0x483820",
+  "0x4838B0",
+  "0x483A20",
+  "0x483AF0",
+  "0x483BB0",
+  "0x483CF0",
+  "0x483DB0",
+  "0x483EE0",
+  "0x4842E0"
  ],
  "merged": [],
- "name": "shared/spline.cpp"
+ "name": "shared/spline.cpp",
+ "shared": [
+  "0x481520",
+  "0x481610",
+  "0x481810"
+ ]
 }

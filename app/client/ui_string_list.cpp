@@ -7,27 +7,27 @@
 #include "..\shared\g_assert.h"
 #include "gadget.h"
 #include "fontmanager.h"
-#include "unknown_675120.h"
+#include "gd_uisld.h"
 #include "ui_mesh.h"
 #include "ui_string_list.h"
 
 extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
-// The list's scroll bar (0xD0 bytes, table 0xAFBA80 over unknown_675120.h's base; constructor 0x675370)
-class Unknown675370GadgetClass : public Unknown_675120Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown675370GadgetClass(RenderObjClass *screen, const char *pull, const char *bar, const LayerClass *layer, int a, int b);	// 0x675370  // NAME 1 [screen, pull, bar, layer, a, b]: what the pages pass
-	virtual void Unknown_A4();							// +0xA4 0x675D30
-	virtual int Unknown_A8();							// +0xA8 0x675460 (the first row shown)
-	void Unknown_675CF0(int count, int a, int b);		// 0x675CF0  // NAME 1 [count, a, b]: neutral
 
-	char Unknown60[0xAC - 0x60];						// +0x60
-	int Unknown0AC;										// +0xAC (the count)
-	int Unknown0B0;										// +0xB0
-	int Unknown0B4;										// +0xB4
-	char Unknown0B8[0xD0 - 0xB8];						// +0xB8
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -47,7 +47,7 @@ UIStringListClass::UIStringListClass(UIMeshClass *mesh, UIViewClass *view, Layer
 	do {
 		i++;
 		sprintf(name, "DESC%02d", i);
-	} while (mesh->Unknown_5B9160(name));
+	} while (mesh->Get_Bone_Index(name));
 	int count = i;
 	Lines.resize(count);
 
@@ -63,7 +63,7 @@ UIStringListClass::UIStringListClass(UIMeshClass *mesh, UIViewClass *view, Layer
 		Lines[i] = new UIStringListLineStruct(string);
 	}
 
-	ScrollBar = new Unknown675370GadgetClass(mesh->Peek_Object(), "pull_cargo01", "bar_cargo01", layer, 0, 0);
+	ScrollBar = new UISliderGadget(mesh->Peek_Object(), "pull_cargo01", "bar_cargo01", layer, 0, 0);
 	Unknown64.Unknown_6870E0(ScrollBar, 1, view, 1, 0);
 }
 

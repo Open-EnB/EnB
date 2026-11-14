@@ -84,7 +84,7 @@ int ItemEffectDescriptionClass::Get_Size()
 	for (std::vector<ItemEffectClass>::iterator it = Effects.begin(); it != Effects.end(); ++it) {
 		size += it->Get_Size();
 	}
-	int time = Duration.As_Int();
+	int time = Duration.Get();
 	size += sizeof(time);
 	size += sizeof(Unknown18);
 	size += sizeof(Range);
@@ -103,7 +103,7 @@ void ItemEffectDescriptionClass::Write(RawPacketClass *raw)
 	for (std::vector<ItemEffectClass>::iterator it = Effects.begin(); it != Effects.end(); ++it) {
 		it->Write(raw);
 	}
-	int time = Duration.As_Int();
+	int time = Duration.Get();
 	raw->Add(time);
 	raw->Add(Unknown18);
 	raw->Add(Range);

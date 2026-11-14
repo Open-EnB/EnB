@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe: Line2DClass (vtable 0xAFF350); its asserting setters on lines 39 / 40 (__FILE__ 0xB92B80)"
+}

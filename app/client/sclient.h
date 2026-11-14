@@ -46,20 +46,20 @@ class FileClass;
 class RefCountClass;
 class LayerClass;
 class StarmapPipClass;	// starmap_pip.h: what the PDA's +0xA8 object's 0x7C8DB0 returns (its +0xA0)
-// what 0x49F200 returns (the referral rewards), as far as SClient 0x751460 calls it: 0x49F300 gives one entry per
-// point to spend, 12 bytes each
-struct BuddyRewardStruct	// NAME 2: what 0x751460 sums from it
-{
-	int Unknown00;										// +0x00
-	int SkillPoints;									// +0x04 (0x751460's '+%d Skill Points')  // NAME 2: the text it fills
-	int Credits;										// +0x08 (0x751460's '+%d Credits')  // NAME 2: the text it fills
-};
-class Unknown49F200Class	// NAME 1: neutral (D10)
-{
-public:
-	std::vector<BuddyRewardStruct> Unknown_49F300(int points_spent, int points);	// 0x49F300 (SClient 0x751460)  // NAME 1 [points_spent, points]: what 0x751460 passes
-};
-Unknown49F200Class *Unknown_49F200();					// 0x49F200 (no this: the rewards' instance)
+#include "..\shared\referral.h"	// the referral rewards SClient 0x751460 sums (Unknown49F200Class, BuddyRewardStruct)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class MainViewClass;
 class CameraClass;

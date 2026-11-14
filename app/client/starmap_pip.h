@@ -35,15 +35,15 @@ class MouseTargetClass;
 class RadarSystemDataCacheClass;
 class StarmapPipClass;
 
-// gd_starmap.cpp's gadget (not in the tree yet), as far as this file calls it. 0x50 bytes, table 0xB05F54.
-// PLACEMENT: provisional (D137): the client's gd_starmap.cpp gives it a file; no other user in the tree yet
-class GadgetStarmapClass : public GadgetPipSceneClass  // NAME 3: class-from-file (D24) for app\client\gd_starmap.cpp
-{
-public:
-	GadgetStarmapClass(StarmapPipClass *pip);			// 0x7B4700 (G_ASSERT 'StarmapPIP', +0x4C)  // NAME 1 [pip]: what the caller passes
-	virtual bool Unknown_30(float x, float y);			// +0x30 (GadgetClass's pure slot)  // NAME 1 [x, y]: GadgetClass's
-	StarmapPipClass *StarmapPIP;						// +0x4C  // NAME 3: the assert's
-};
+// gd_starmap.cpp's gadget, which slot +0x18 news (the blank lines keep the inline asserts below on their lines, D25)
+#include "gd_starmap.h"
+
+
+
+
+
+
+
 
 // A label on the star map: an object's name in a font, in the PIP's scene. 0x1C bytes, no table.
 class Unknown_7C3220Class  // NAME 1: neutral (D10)

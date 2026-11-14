@@ -21,7 +21,7 @@ class UIMeshClass;
 class UIViewClass;
 class LayerClass;
 class FontSys;
-class Unknown675370GadgetClass;
+class UISliderGadget;
 
 // One entry of the list (8 bytes)
 struct UIStringListItemStruct  // NAME 1: neutral (D10)
@@ -64,7 +64,7 @@ public:
 	int Unknown0B8;										// +0xB8
 	bool OwnsStrings;									// +0xBC  // NAME 1: neutral
 	bool Dirty;											// +0xBD  // NAME 1: neutral
-	Unknown675370GadgetClass *ScrollBar;				// +0xC0 ('pull_cargo01', 'bar_cargo01')  // NAME 1: neutral
+	UISliderGadget *ScrollBar;				// +0xC0 ('pull_cargo01', 'bar_cargo01')  // NAME 1: neutral
 	int Unknown0C4;										// +0xC4
 	int Unknown0C8;										// +0xC8
 	UIStringListItemStruct *Selected;					// +0xCC  // NAME 1: neutral

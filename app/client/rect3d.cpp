@@ -6,11 +6,10 @@
 #include "..\..\wwmath\matrix3d.h"
 #include "..\shared\g_assert.h"
 
-// NOT EXACT: 0.79, inline budget: the client calls Switch_To_Multi_Vertex_Color out of line (0x6B7230, its Convert_Color_Clamp inlined) and inlines all four Vertex calls; ours inlines Switch (calling Convert_Color_Clamp) and calls the last UV
 Rect3DClass::Rect3DClass(const Vector4 &color, const Vector4 &rect) :
 	DynamicMeshClass(2, 4)
 {
-	Bits |= IS_FORCE_VISIBLE;
+	Set_Force_Visible(true);
 
 	VertexMaterialClass *material = new VertexMaterialClass;
 	material->Set_Diffuse(0, 0, 0);
@@ -33,6 +32,7 @@ Rect3DClass::Rect3DClass(const Vector4 &color, const Vector4 &rect) :
 	Vertex(rect.Z + rect.X, rect.Y, 0, 0, 0);
 	Vertex(rect.X, rect.Y - rect.W, 0, 0, 0);
 	Vertex(rect.Z + rect.X, rect.Y - rect.W, 0, 0, 0);
+
 
 
 
@@ -150,4 +150,9 @@ void Rect3DClass::Set_Rect(const Vector4 &rect)
 **	Class_ID (0x1000A) is inline: the linker kept fontsys_cursor.obj's copy (0x685840), which the
 **	cursor's table shares. 0x6E2B30 / 0x6E2B40 are the compiler's adjustor thunks for the second and
 **	third tables.
+**
+**	The constructor's Set_Force_Visible(true) (RenderObjClass's inline virtual, called directly and folded to
+**	`Bits |= IS_FORCE_VISIBLE`) is the client's form: its inline cost leaves Switch_To_Multi_Vertex_Color out of
+**	line (0x6B7230) and all four Vertex calls' UV inline, as the client has them; the bare `Bits |=` inlined
+**	Switch and called the last UV.
 */

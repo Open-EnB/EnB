@@ -4,17 +4,7 @@
 
 #include "..\..\..\wwlib\dsurface.h"
 #include "unknown_htmlblock.h"
-
-HFONT Get_Font(HDC hdc, char *face, int unknown, int height, int flags);  // 0x76EB70  // NAME 2: a cached CreateFontIndirect (not placed: before unknown_htmlblock.cpp)
-
-// What the view hands a url to: slot +4 opens it, slot +8 is polled by Update (no implementation found yet).
-class HtmlLoaderClass  // NAME 1: the object at the view's +4 (slots +4 / +8 called)
-{
-public:
-	virtual void Unknown_00(void) = 0;  // slot +0, not called here
-	virtual void Open(char *url) = 0;  // slot +4  // NAME 2: given the view's url by Open
-	virtual void Update(void) = 0;  // slot +8  // NAME 2: polled by the view's Update
-};
+#include "image\gifload.h"
 
 // 0x210 bytes; the view's Links (0x770860 builds one on its stack and looks them up by Name). Its destructor
 // 0x770430 is called out of line by Clear.
@@ -23,32 +13,6 @@ struct HtmlLinkStruct  // NAME 1: element of the view's +0x14 list
 	ArrayList<char> Data;  // +0x000  // NAME 2: Add_Data appends to it and keeps it NUL-terminated
 	char Name[257];  // +0x00C  // NAME 2: 0x770860 compares it with its first argument
 	char MimeType[257];  // +0x10D  // NAME 2: 0x770860's second argument copied in (0x76E9D0 passes Get_Mime_Type's result; Parse compares it with "image/gif") (257: the copy in 0x7789F0 moves 0x40 dwords and a byte)
-};
-
-// What the view's +0x20 list holds: Find_Image compares slot +0xC's string with a name.
-class HtmlImageClass  // NAME 1: element of the view's +0x20 list (image.cpp's class, not placed yet)
-{
-public:
-	virtual void Unknown_00(void) = 0;
-	virtual void Set_Data(char *data, int length) = 0;  // slot +4  // NAME 2: the parser hands it the data of the link named like the image
-	virtual Surface *Get_Surface(void) = 0;  // slot +8  // NAME 2: Draw_Block tiles it (Get_Width / Get_Height)
-	virtual char *Get_Name(void) = 0;  // slot +0xC  // NAME 2: Find_Image's key
-	virtual void Draw(Surface *surface, int x, int y, int clipx, int clipy, int clipw, int cliph) = 0;  // slot +0x10  // NAME 2: Draw_Block's tiles
-};
-
-// The image the parser makes for <img src> and <body background>: 0x22A04 bytes, its constructor 0x76D3E0 (on
-// image.cpp's base constructor 0x76E4F0; its vtable 0xB043B8). Declared for the parser; not rebuilt yet.
-class HtmlGifImageClass : public HtmlImageClass  // NAME 1: image.cpp's image (sits before gifload.cpp; 'image/gif' links)
-{
-public:
-	HtmlGifImageClass(char *name, int bits);  // 0x76D3E0  // NAME 2: the src and the surface's bits per pixel
-	virtual void Unknown_00(void);
-	virtual void Set_Data(char *data, int length);
-	virtual Surface *Get_Surface(void);
-	virtual char *Get_Name(void);
-	virtual void Draw(Surface *surface, int x, int y, int clipx, int clipy, int clipw, int cliph);
-
-	char Unknown04[0x22A00];  // +0x004  // the size from the parser's operator new (0x22A04)
 };
 
 class HtmlViewClass  // NAME 3: htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0

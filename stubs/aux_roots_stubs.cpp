@@ -24,25 +24,3 @@ char *Value_To_String(char *buf, int size, WW3DLightAttenuationType value)
 	return buf;
 }
 
-const char *Type_Name(GameActionValidityBitFlag)
-{
-	return "GameActionValidityBitFlag";	// the client's 0x83D270
-}
-
-bool String_To_Value(const char *text, GameActionValidityBitFlag *value)
-{
-	STUB_CALLED("String_To_Value(GameActionValidityBitFlag) (0x83D290)");
-	int v;
-	if (sscanf(text, "%d", &v) != 1) {
-		return false;
-	}
-	*value = (GameActionValidityBitFlag)v;
-	return true;
-}
-
-char *Value_To_String(char *buf, int size, GameActionValidityBitFlag value)
-{
-	STUB_CALLED("Value_To_String(GameActionValidityBitFlag) (0x83D490)");
-	_snprintf(buf, size, "%d", (int)value);
-	return buf;
-}
