@@ -3562,8 +3562,10 @@ below name only the work items, the blocked work, the leads and the queues.
    * **debris.cpp:121:** try the `Set_Force_Visible(true)` lever (workflow.md §3.1.2, inline budget) if its function is an inline-budget miss.
    * **Shared headers (each at its users' next edit):** RObj2Texture (0x4973E0 / 0x497700 / 0x4976B0) with `Vector2i` from the client's int pushes; UIAvatrPullClass; `ui_log.h` for UILogClass (declared locally in ui_chat_panel.cpp); client_item_property_builder.h's InvDataClass merged into inv_data.h.
    * **sclient.cpp:** include unknown_723210.h for SClientUnknown12BCClass (line-neutral; pad check). **ui_skill_info.cpp:** its notes say the object starts at 0x62B930; it starts at 0x62B8D0 (fix at its next edit).
+   * **app/shared/unknown_8b4560.cpp (0x8B44C0-0x8B4560) is probably part of wlib's unknown_8b45b0.cpp object** (0x8B4F10 calls its 0x8B44E0; O29, 2026-11-14): merge the two (unknown_8b45b0.cpp is PROVISIONAL, D137, NAME 1: file name from the address).
    * **D237 (e2e):** one more scenario that picks an item of the options combo (UIComboBoxClass; the options window opens 15 windows).
-   * New-file work for the week (D225): `.work/week-2026-11-10/queue.md` (574 rows; states in state.tsv; `merge.py` regenerates) is the source.
+   * New-file work for the week (D225): `.work/week-2026-11-10/queue.md` (574 rows; states in state.tsv; `merge.py` regenerates) is the source. The mousetbl.cpp row's note is wrong: 0x723210 / 0x723230 are unknown_723210.cpp's (O22), not
+     mousetbl's.
    * Types: P-SM1-2 (OrbitalManager's ctor takes a shared callback base and ClientClass). strconv: D57's range and
      milestones.md still give the root object 0x4A3990 (it starts at 0x4A3B40).
    * Data and records: the .bss int Unknown_BE71D4 (in postate.cpp) moves to its owner, CLIENT_SET_TIME 0x737960's
@@ -3715,8 +3717,7 @@ below name only the work items, the blocked work, the leads and the queues.
      display) has no file yet; the strips (object 0x59E9B0-0x5A1110) are rebuilt. Near misses: see Parked leftovers.
    * **From the 2026-11-09 day run (OP1):** ui_chat_panel.cpp's local Unknown5C8870Class / Unknown5C9910Class onto ui_option_account.h /
      ui_option_check.h (ctor (client, page, mode)), and 0x5C8DB0's caller 0x569B5A (in 0x569A00) onto
-     ui_option_channel.h; ui_chat_panel's ChatChannelStruct initialiser 0x568700 (reads the channel-name globals
-     0xBA8C20-0xBA8C50); ui_chat_panel 0x56B700's NOT EXACT may be request 6's fields (the client: channel in Unknown24,
+     ui_option_channel.h; ui_chat_panel 0x56B700's NOT EXACT may be request 6's fields (the client: channel in Unknown24,
      " " in Unknown34; ours Unknown14 / Unknown24).
    * **From the 2026-11-09 day run (MT1, FN4):** ui_mount Build 0x5C77A0 (0.53, inline-budget: rtti.h's Cast out of line in the client,
      frame 0x164 vs 0x1A8) and the uncalled lookup 0x5C8710 (0.58, order); fontsys 0x6CCE60 (Update_Text's countdowns,
@@ -4183,6 +4184,8 @@ below name only the work items, the blocked work, the leads and the queues.
    * **tools/re/auxroots.py `generate`** no longer reproduces the checked-in aux_roots.h / aux_roots_stubs.cpp (about 86 and 117 lines differ; game_action_validity's 0xB018F4 is in ENUM_REBUILT): find the drift before the next regeneration.
    * **appfile.py size data for 0x76E9D0** (html loader Open) includes the static initializer (reported PREFIX): its range should end at the function's ret.
    * **0x6E0100 (~LineBoxClass) is credited to no file** although explain.py says identical (masked): a pairing question for objmatch / verify.
+   * **ledger.py describe should add copy / expected / in_tree / merged / ambiguous / headers_from for non-app libraries** (O29: `describe wlib` raises KeyError 'expected').
+   * **names.py should scan libs/wwonline** (O29).
    * **symbols.json:** 0x695680's return type is UIPdaCargoClass (rename in tools/re/symbols_named.json, then `symbols.py`).
 
 10. **Parked leftovers** (each waits for a lever; `attempts.py show ADDR`): inv_data_peek 0x68A090 / 0x68A270 /
@@ -4311,6 +4314,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * ui_treem 0x655460 (inline-budget 0.27), 0x655700 (order 0.80); unknown_586240 0x586F60 (order); gd_uisld 0x6755E0, 0x675F00 (order); musiclist 0x437C30 (shape 0.74); unknown_761c80 0x762410 (inline-budget 0.78); game_action_validity 0x83CA30 (inline-budget, 38 forms)
    * html image / gifload: Set_Data 0x76D4A0 (literal), Decode 0x76D990 (frame), Get_Next_Code 0x76DF60 (shape), Draw 0x76E610 (shape), Get_Font 0x76EB70 (frame); the loader's Open 0x76E9D0 is PREFIX (Tools)
    * ui_chat_panel 0x5689D0 (inline-budget 0.63), 0x569A00 (shape 0.64); attrib_dir_collective: the rest of 0x4DA7D0-0x4E0700 hangs on the three parked parents 0x4DBFD0, 0x4DC310, 0x4DC720
+   * wlib unknown_8b45b0.cpp (O29): Cord_SHA 0x8B4A90 NOT EXACT, register only (911 vs 912 bytes; logic = hashlib SHA-1; no lever found). unknown_5dd960.cpp (O28): ctor 0x5DD960 order (shape 0.87, parked; dead code, no caller).
 
 11. **Reminders:** D7 (revisited 2026-11-10, D224: byte-exact stays the goal; check in again if it becomes too costly;
    `docs/data/not-exact.md` shows how much functional code waits); which bool-return form gives a bare

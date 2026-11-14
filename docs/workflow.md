@@ -764,6 +764,10 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   the block avoids the array ctor, inside the block it emits `??_H`.
 * **A frame 4 bytes larger with a named local and a `new` temp in separate slots:** split the function into inline
   helpers each with its own buffer; `char[1025]` with 1024 passed also gives a one-dword-larger frame.
+* **A non-virtual inline helper's out-of-line copy and the virtual that inlines it differ only in stack slots
+  (2026-11-14, O26, unknown_480b10.cpp SplineLightClass):** when the client keeps the helper's out-of-line copy and the
+  virtual that inlines it as two functions, expect the frame / slot class on both (explain.py), and judge each against
+  its own bytes: the helper's slots do not carry over to the inlined copy.
 
 **Constructors, destructors, vtables**
 
@@ -1149,6 +1153,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   run branch after yours was cut: after the rebase they show as N lost outright (their compile fails): grep the
   rebased tree for the old names. `udpreplay` compiles files (effect_description.cpp, item_effect.cpp) that neither
   verify's app build nor the link gate's two programs reach.
+* **A static counter or id seed starts at the client's `.data` value, not 0 (2026-11-14, O19c):** symptom: the real
+  combos' row gadget ids equalled key codes (Y 0x59, U 0x55), so 0x6871D0 registered them as key records and the key
+  picked a combo item (the POC's e2e pda_pages scenario failed after O19 landed its real combos). Cause: the gadget id
+  counter 0xB8C9E0 starts at 0x8000 in client.exe's `.data`, ours at 0. Remedy: `static int Unknown_B8C9E0 = 0x8000;`
+  (gadget.cpp). Read the initial value of every static counter / seed from the client's data section when you write it.
 
 **Classes, vtables and layout**
 
@@ -1282,6 +1291,10 @@ are in 3.0.
 * **`wt.py bring-over NAME` without `--target`** lands on the main tree's branch when that is `run/*` and refuses
   on any other; in a run still pass `--target run/<date>`.
 * **`ledger.py describe` takes the plain path:** `describe app shared/damtype.h`, not `headers/shared/damtype.h` (that writes a doubled `headers/headers/` shard; Tools item: make describe strip it).
+* **`ledger.py describe` for a non-app library leaves out the verify keys (2026-11-14, O29):** `describe wlib ...` died
+  with `KeyError: 'expected'` in the verify step; the shard lacks copy / expected / in_tree / merged / ambiguous /
+  headers_from (an app file gets them). Add them by hand in a private record and take care to commit through
+  commit_mine; the tool fix is a progress.md §4 Tools item.
 * **A `ledger.py describe` while a verify waits:** makes that verify exit 1; describe before or after a verify, not
   while one waits. A file-static helper byte-exact in objmatch stays uncredited by verify when same-bytes copies
   live outside the file's range (progress.md §4 Tools).
@@ -1479,6 +1492,8 @@ are in 3.0.
 * **A one-off C1083 on a tracked, unchanged header:** a worktree's first `build.py build --lib app` failed one file
   with "Cannot open include file '..\packets\pkcolorization.h'"; the rerun built every file. Rerun once before
   blaming a commit; a new file can fail the same way while other worktrees verify (read `compile_errors` in the app library.json).
+* **An app build that compiles "0/690" after a chained binkmovie build (2026-11-14, O25):** a transient tool failure,
+  not your source: rerun the app build alone (the chained command is the trigger).
 * **A pool VM failing with "tar: Can't unlink" during the source sync:** rerun once; it passed the second time.
 * **Background jobs:** a Bash `&` job is killed when the tool call ends (`cmd &` also leaves a verify detached):
   use the tool's run_in_background. Claude
@@ -2346,7 +2361,8 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   EnB:` block); matchbot, mangler and Renegade's Tools\wlib are one text (tell: no Joe Howes / MDC additions).
 * wlib is built with /GX (`LIB_FLAGS['wlib']`): a by-value return of a class with a destructor leaves a
   construction flag (`push ecx; mov [esp+8],0`) even without an EH frame, a cheap sign of /GX.
-  `tools/re/names.py` does not scan libs/wwonline (not re-verified).
+  `tools/re/names.py` does not scan libs/wwonline (not re-verified; O29, 2026-11-14: unknown_8b45b0.cpp's functions
+  got no NOT EXACT / name marker rows from it; progress.md §4 Tools item).
 * gaps.py pairs configfile wrongly (the client's object is 0x8B23C0-0x8B3E70: ctor, dtor, clear, readFile,
   enumerate, getString x2, getInt x4): confirm with `client.py callers`. A static helper whose last caller is
   one function gets inlined (Get_Date_From_Day into getTime once getYDay is gone).
