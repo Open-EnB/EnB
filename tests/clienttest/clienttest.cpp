@@ -894,7 +894,7 @@ static void Test_Packets(SClient *client, const char *path)
 			__int64 correction = ((sr + ss) - (cs + cr)) / 2, rtt = (cr - cs) - (ss - sr);
 			set_times++;
 			Trace("state CLIENT_SET_TIME correction %d rtt %d", (int)correction, (int)rtt);
-			if (client->Unknown10C0.Time == correction && client->Unknown10C8 == 0 && client->Unknown10D0 == 0 && Unknown_BE71D4 == DurationClass(rtt).As_Int()) {
+			if (client->Unknown10C0.Time == correction && client->Unknown10C8 == 0 && client->Unknown10D0 == 0 && Unknown_BE71D4 == DurationClass(rtt).Get()) {
 				set_timed++;
 			}
 		}

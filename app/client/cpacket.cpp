@@ -377,7 +377,7 @@ bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("SimplePositionalUpdatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && Velocity.Is_Valid())) return(true);
-	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
 	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
 	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
@@ -407,7 +407,7 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("AdvancedPositionalUpdatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && WWMath::Is_Valid_Float(CurrentSpeed) && ImpartedVelocity.Is_Valid())) return(true);
-	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
 	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
 	if (fabs(Unknown_Lag_Average(sclient)) > 50.0 && sclient->Unknown10D0 > 64) {
@@ -460,7 +460,7 @@ bool PlanetPositionalUpdatePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("PlanetPositionalUpdatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	TimeStamp = (DurationClass((unsigned)TimeStamp) - sclient->Unknown10C0).As_Int();
+	TimeStamp = (DurationClass((unsigned)TimeStamp) - sclient->Unknown10C0).Get();
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
 		if (!object->Unknown98) {
@@ -581,7 +581,7 @@ bool ComponentPositionalUpdatePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ComponentPositionalUpdatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	ClientObjectClass *obj = sclient->Find_Object(GameID);
 	if (!obj) return(true);
 	G_ASSERT(obj->Is_Component());
@@ -609,7 +609,7 @@ bool ObjectEffectPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ObjectEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
 	FAIL_IF(!effect) return(true);
@@ -637,7 +637,7 @@ bool PointEffectPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("PointEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass((unsigned)TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass((unsigned)TimeStamp) - sclient->Unknown10C0).Get();
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
 	FAIL_IF(!effect) return(true);
@@ -664,7 +664,7 @@ bool ObjectToObjectEffectPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ObjectToObjectEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
@@ -702,7 +702,7 @@ bool ObjectToEffectEffectPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ObjectToEffectEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
@@ -753,7 +753,7 @@ bool ObjectToObjectDurationLinkedEffectPacketClass::Process_Packet(void *instanc
 {
 	WWPROFILE("ObjectToObjectDurationLinkedEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, 0, time, sclient, Scale, HSVShift, Speedup, DurationLinkedEffectDescID, 0);
 	FAIL_IF(!effect) return(true);
@@ -792,7 +792,7 @@ bool ObjectToPointEffectPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ObjectToPointEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
@@ -1351,13 +1351,13 @@ bool SetClientTimePacketClass::Process_Packet(void *instance)
 	__int64 client_received = ClientReceived;
 	__int64 client_total = client_received + client_sent; __int64 server_total = server_sent + server_received;
 	__int64 client_time = client_received - client_sent; __int64 server_time = server_sent - server_received; DurationClass rtt(client_time - server_time); __int64 correction = (server_total - client_total) / 2;
-	Unknown_BE71D4 = rtt.As_Int();
+	Unknown_BE71D4 = rtt.Get();
 	sclient->Unknown10C0 = correction;
 	sclient->Unknown10D0 = 0;
 	sclient->Unknown10C8 = 0;
 	if (sclient->DebugMode) {
 		char buffer[256];
-		sprintf(buffer, "rtt = %u  correction = %d", rtt.As_Int(), sclient->Unknown10C0.As_Int());
+		sprintf(buffer, "rtt = %u  correction = %d", rtt.Get(), sclient->Unknown10C0.Get());
 		sclient->Unknown_74D990(0x17, buffer, 0);
 	}
 	return(true);

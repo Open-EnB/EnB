@@ -1038,9 +1038,9 @@ const char *Unknown68DC20Class::Unknown_28(std::string *string)
 		__int64 rest = ms + hours * -3600000;
 		__int64 minutes = rest / 60000;
 		DurationClass secs((rest - minutes * 60000) / 1000);
-		int s = secs.As_Int();
-		int m = DurationClass(minutes).As_Int();
-		int h = DurationClass(hours).As_Int();
+		int s = secs.Get();
+		int m = DurationClass(minutes).Get();
+		int h = DurationClass(hours).Get();
 		if (h) {
 			sprintf(buffer, "Time: %d:02%d:02%d\n", h, m, s);
 		} else if (m) {

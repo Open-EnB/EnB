@@ -72,7 +72,7 @@ int SkillDataClass::Get_Skill_Powerup_Start()
 	FAIL_IF(!Peek_Aux_Data()) return(0);
 	NameClass name("RPGInfo.SkillPowerupStart"); DeltaTemplateClass<DurationClass> *time_ptr = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(Peek_Aux_Data(), name);
 	FAIL_IF(!time_ptr) return(0);
-	return(time_ptr->Value.As_Int());
+	return(time_ptr->Value.Get());
 }
 // 0x6A4A00
 int SkillDataClass::Get_Skill_Powerup_End()
@@ -80,7 +80,7 @@ int SkillDataClass::Get_Skill_Powerup_End()
 	FAIL_IF(!Peek_Aux_Data()) return(0);
 	NameClass name("RPGInfo.SkillPowerupEnd"); DeltaTemplateClass<DurationClass> *time_ptr = Unknown_Find_Valid<DeltaTemplateClass<DurationClass> >(Peek_Aux_Data(), name);
 	FAIL_IF(!time_ptr) return(0);
-	return(time_ptr->Value.As_Int());
+	return(time_ptr->Value.Get());
 }
 
 // 0x6A4B40

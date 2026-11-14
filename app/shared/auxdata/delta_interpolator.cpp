@@ -43,7 +43,7 @@ float DeltaInterpolatorClass::Update(const DurationClass &time)
 		}
 		return LastValue;
 	}
-	float step = (end - time).As_Int() * change;
+	float step = (end - time).Get() * change;
 	if (change >= 0.0f) {
 		LastValue = 1.0f - step;
 		if (LastValue < 0.0f) {
@@ -215,7 +215,7 @@ const float &DeltaInterpolatorValueClass::Get()
 **	client.exe 0x4A6110-0x4A6913: DeltaInterpolatorClass (D24), vtable 0xAEAE54 (slot 0 0x4A6930
 **	and slot 0x3C 0x4A68E0 overridden), size 0x250. Rebuilt: the constructor 0x4A6110 (the field
 **	names are its strings), the destructor 0x4A6330 (implicit), Get_Change 0x4A6360, Update 0x4A6380
-**	(As_Int's FAIL_IF from duration.h line 190), Set 0x4A6590 (asserts on the client's lines 111-113),
+**	(Get's FAIL_IF from duration.h line 190), Set 0x4A6590 (asserts on the client's lines 111-113),
 **	Set 0x4A67A0, Set_Change 0x4A67D0 (line 159, and Get_Value's on delta_interpolator.h line 54),
 **	Unknown_3C 0x4A68E0. The forms the bytes decide: DurationClass's user-defined operator= (Set
 **	stores both halves of EndTime before the vtable load; Update loads EndTime before the test of
