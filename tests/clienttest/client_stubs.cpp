@@ -69,8 +69,6 @@ void ChatPanelInterface::Clienttest_Unknown_563760(int type, const std::string &
 	Trace("stub ChatPanelInterface::Unknown_563760 0x%X '%s'", type, Chat_Trace_Text(text.c_str()).c_str());
 }
 // (the chat colour 0x765DF0 SClient 0x750F70 reads is rebuilt: app/client/unknown_764fd0.cpp, GS1)
-// gen_stubs cannot return a class by value (P-T18-2): the referral rewards SClient 0x751460 sums
-std::vector<BuddyRewardStruct> Unknown49F200Class::Unknown_49F300(int points_spent, int points) { Trace("stub Unknown49F200Class::Unknown_49F300 %d %d", points_spent, points); return(std::vector<BuddyRewardStruct>()); }
 
 // SClient's slots declared only (sclient.h): never called by the tests
 
