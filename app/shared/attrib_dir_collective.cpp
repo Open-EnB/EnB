@@ -2,8 +2,8 @@
 #include <algorithm>
 #include "..\shared\g_assert.h"
 #include "attrib_dir_collective.h"
-
-
+#include "unknown_4dfbf0.h"
+#include "unknown_4e0700.h"
 
 
 
@@ -208,8 +208,8 @@ float AttribFunctionModClass::Get_Value()
 }
 
 
-int Unknown_4E0700(AttribDir *dir, AttribModIterator mods, void *owner, bool keep);	// 0x4E0700: detaches (and unless keep deletes) owner's mods  // NAME 1: neutral placeholder (D10)
-AttribModClass *Unknown_4DFBF0(AttribDir *dir, const std::string &name, AttribDir *member, const std::string &member_name, int type, void *owner);	// 0x4DFBF0: links a member's bound (type 4 / 5) into dir  // NAME 1: neutral placeholder (D10)
+
+
 
 
 
@@ -367,13 +367,13 @@ void AttribDirCollective::Remove_Member(AttribDir *member)
 
 void AttribDirCollective::Link(AttribDir *member, const std::string &destination)
 {
-	Unknown_4DFBF0(&Dir, destination, member, destination, 4, this);
-	Unknown_4DFBF0(&Dir, destination, member, destination, 5, this);
+	Link_Attribute(&Dir, destination, member, destination, 4, this);
+	Link_Attribute(&Dir, destination, member, destination, 5, this);
 }
 
 void AttribDirCollective::Detach_Owned_Mods(AttribDir *dir)
 {
-	Unknown_4E0700(dir, dir->Get_All_Mods(), this, false);
+	Detach_Owner_Mods(dir, dir->Get_All_Mods(), this, false);
 }
 
 AttribDirCollective::MemberStruct::MemberStruct()
@@ -421,6 +421,6 @@ void AttribDirCollective::MemberCallbackClass::Value_Changed(const char *name, f
 **	(299), Remove_Member (332), Link, Detach_Owned_Mods, the member callback (0xAEC344, 390-401) and
 **	the tables' instances. Members are keyed by the member AttribDir's address as an unsigned int (the
 **	client converts it into a temporary for every find); the loops keep references to the key and the
-**	destination. 0x4DFBF0 (links a member's bound into Dir) and 0x4E0700 (detaches an owner's mods)
-**	are another object's: declared here.
+**	destination. Link_Attribute 0x4DFBF0 (links a member's bound to Dir) and Detach_Owner_Mods 0x4E0700 are the
+**	next two objects': unknown_4dfbf0.cpp and unknown_4e0700.cpp.
 */

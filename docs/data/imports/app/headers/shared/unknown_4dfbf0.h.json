@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "the declarations of unknown_4dfbf0.cpp (client 0x4DFBF0-0x4E06EF): AttribLinkModClass, AttribBinaryModClass, AttribSumModClass, Link_Attribute, Create_Sum_Mod; layouts from their constructors 0x4DFCD0 / 0x4E00A0"
+}
