@@ -17,18 +17,18 @@
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 
-// gd_key_press.cpp's gadget (0x48 bytes, table 0xAFA548), as far as this page uses it
-class KeyPressGadget : public GadgetClass	// NAME 5: the client's (the queue's class name for gd_key_press.cpp)
-{
-public:
-	KeyPressGadget();									// 0x66A700 (mask 0xFFFF; off)
-	virtual bool Unknown_30(float x, float y);			// +0x30 (GadgetClass's pure slot)  // NAME 1 [x, y]: GadgetClass's
-	void Unknown_66AAD0(const RefCountPtr<FontSys> &font);	// 0x66AAD0 (the text the key is shown in)  // NAME 1 [font]: its type
-	void Clear_Event() { memset(&Event, 0, sizeof(Event)); }	// (inline: Unknown_60's Escape)  // NAME 1: what it does
-	RefCountPtr<FontSys> Unknown30;						// +0x30
-	KernelEventClass Event;								// +0x34 (the key taken)  // NAME 2: what it holds
-	int Unknown44;										// +0x44
-};
+#include "gd_key_press.h"
+
+
+
+
+
+
+
+
+
+
+
 
 // The buttons Unknown_54 makes, ids 1-11 (0xB82F58)
 static const char *Unknown_B82F58[CONTROL_KEYS_ROWS] = { "exit", "BUTTON03", "BUTTON00", "BUTTON01", "BUTTON02", "TOP_BUTTON00", "TOP_BUTTON01", "TOP_BUTTON02", "TOP_BUTTON03", "TOP_BUTTON04", "TOP_BUTTON05" };	// NAME 1: neutral (D10)
@@ -297,7 +297,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 	if (keys_it != CurrentKeys.end()) {
 		EditKey = *keys_it;
 		if (EditKey) {
-			KeyPress->Unknown_66AAD0(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));
+			KeyPress->Set_Text(Create_Peek(((RObjGadgetClass *)bttn)->Unknown34));
 			KeyPress->Unknown_40(true);
 			return(true);
 		}

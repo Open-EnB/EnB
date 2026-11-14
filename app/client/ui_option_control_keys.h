@@ -10,7 +10,7 @@
 class FontSys;
 class GadgetSlider;
 class ViewUnknown34Class;
-class KeyPressGadget;			// gd_key_press.cpp's (0x66A700, 0x48 bytes: the key pressed while it is on)
+class KeyPressGadget;			// gd_key_press.h's (0x66A700, 0x48 bytes: the key pressed while it is on)
 struct KeyMappingStruct;		// control_keys_manager.h's
 
 #define CONTROL_KEYS_ROWS	11	// NAME 1: neutral (D10): the rows the page shows ('LABEL_TEXT%02d_tsi31a' 00-10)
