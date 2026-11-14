@@ -3,10 +3,12 @@ name: a recorded session in the world: /play 1 on the Broadcast channel (ea/alex
 # are read from the Broadcast channel; Backspace opens the chat entry on Broadcast (Return opens the current channel,
 # which the server does not read commands from). /play hands the client off into the recording's first sector: its
 # objects, effects and packets are a real session's, far more than the empty home sector's.
-# _wip_: 2026-11-14 (F1) the handoff, the recording's starbase (session 1) and its own SERVER_HANDOFF into sector 4505 run;
-# 2026-11-14 (H1) with segline_create.cpp's Unknown4981E0Class rebuilt the line is real; about 7 s into session 2 the
-# client crashes in eff_o.cpp's Unknown_6E9490 (0x48CC93 in clientpoc: call [vtable+0x10] on a null table) on the
-# object of the generated stand-in constructor Unknown6F25A0EffectClass (0x6F25A0). Rename to play1.scn when it passes.
+# _wip_: 2026-11-14: the handoff, the recording's starbase (session 1) and its own SERVER_HANDOFF into sector 4505
+# run (F1, H1, E1: eff_warp.cpp's WarpEffectClass 0x6F25A0 and eff_attach.cpp's AttachEffectClass 0x6E4750 rebuilt).
+# The present fault: about 20 s into session 2 the main thread stalls in extrap.cpp's stepping loop
+# (Unknown710530Class::Unknown_04 from postate's ADVANCED_POSITIONAL_UPDATE path, FAIL_IF 'Time > INT_MAX'
+# duration.h 190), so /stop is never read. antreplay logs no START_ACK for a playback's connections: session 2 is
+# waited on by its playback line (connection #3, after #2's session 1). Rename to play1.scn when it passes.
 timeout: 400
 include _login
 key 0x08
@@ -18,7 +20,7 @@ expect-event antprox 'command "/play 1"' within 10
 wait-event antprox 'sent SERVER_HANDOFF' within 20
 expect-event proxy 'fc_map_load00' within 10
 shot handoff_loading
-wait-event antprox 'Sector connection #2: received START_ACK' within 120
+wait-event antprox 'Sector connection #3: playback of 1, sector session 2 of 2' within 60
 wait-quiet proxy 2 within 60
 shot play1_entered
 alive 20
@@ -28,5 +30,9 @@ alive 1
 text '/stop'
 key 0x0D
 expect-event antprox 'command "/stop"' within 10
+wait-event antprox 'playback of 1 stopped \(/stop\)' within 10
+wait-event antprox 'sent SERVER_HANDOFF.*back to' within 10
+wait-event antprox 'Sector connection #4: received START_ACK' within 120
+wait-quiet proxy 2 within 60
 alive 8
 shot play1_stopped
