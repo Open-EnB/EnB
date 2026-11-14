@@ -3,12 +3,10 @@ name: a recorded session in the world: /play 1 on the Broadcast channel (ea/alex
 # are read from the Broadcast channel; Backspace opens the chat entry on Broadcast (Return opens the current channel,
 # which the server does not read commands from). /play hands the client off into the recording's first sector: its
 # objects, effects and packets are a real session's, far more than the empty home sector's.
-# _wip_: 2026-11-14: the handoff, the recording's starbase (session 1) and its own SERVER_HANDOFF into sector 4505
-# run (F1, H1, E1: eff_warp.cpp's WarpEffectClass 0x6F25A0 and eff_attach.cpp's AttachEffectClass 0x6E4750 rebuilt).
-# The present fault: about 20 s into session 2 the main thread stalls in extrap.cpp's stepping loop
-# (Unknown710530Class::Unknown_04 from postate's ADVANCED_POSITIONAL_UPDATE path, FAIL_IF 'Time > INT_MAX'
-# duration.h 190), so /stop is never read. antreplay logs no START_ACK for a playback's connections: session 2 is
-# waited on by its playback line (connection #3, after #2's session 1). Rename to play1.scn when it passes.
+# The recording's starbase (session 1) hands the client on into sector 4505 (session 2, a combat scene), which runs
+# 20 s; /stop then hands it back to the home sector, whose new connection (#4) answers START_ACK, and input works
+# there again. antreplay logs no START_ACK for a playback's connections: session 2 is waited on by its playback line
+# (connection #3, after #2's session 1).
 timeout: 400
 include _login
 key 0x08
