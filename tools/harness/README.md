@@ -560,7 +560,8 @@ items browser_credits, browser_selfhelp, browser_manual, browser_petition_faq / 
 names scenarios that must run after everything else (none today). The browser items load live pages (the URLs are client.exe's
 strings in the settings store's table, settings_store.cpp 0x7C97B0); a scenario asserts the window
 (fc_jweb01.ini), never the page, so a dead URL passes too. `_wip_NAME.scn` crashes the client today (its header
-names the fault) and runs only when named;
+names the fault) and runs only when named (_wip_play1: the recorded session `/play 1`; _wip_play1_windows: inside
+it the PDA's Skills / Faction / missions / equipment pages, cargo and a right-click's item details, retail passing);
 `_login.scn` is included by each, not run alone; it turns on `messages` (WinMain's 'Server initialized & ready to
 go' starts the movie step). The format is in e2e.py's docstring: headers `name:`, `expected-fail:`, `timeout:`,
 `messages:`; steps `include`, `wait-event SOURCE PATTERN [within S]`, `expect-event ...`, `wait-quiet SOURCE S

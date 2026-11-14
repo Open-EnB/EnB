@@ -65,6 +65,9 @@ pda.char.skills    70 258    # the PDA's character page (Y; e2e shot pda_charact
 pda.char.faction   261 258   # the same: tab 'Faction' (tooltip 'Click to view your faction standings', P1's shot)
 hud.inventory      44 928    # tooltip 'Open Inventory.' (P1's shot, 2026-11-14)
 hud.character      87 928    # tooltip 'Open Character Information screen.' (the same)
+# Inside /play 1's sector 4505 (Heidl's ship and cargo; retail's shots in _wip_play1_windows, P3, 2026-11-14)
+equip.shield       480 788   # the equipment page (I): the 'Shields' slot; right-click: 'No 1 Most Amazing Shield Model Z'
+cargo.slot0        56 442    # the cargo window (O): first item slot; right-click: 'Arduinne Security Pass' (shot w_cargo_details)
 # The pop-up browser (UIPopupBrowserClass, fc_jweb01.ini) and the items that open it (P2, 2026-11-14)
 options.credits    508 208   # Options: 'Credits' (P1's probe shot of the list; UIPopupBrowserClass 5, e2e shot browser_credits)
 help.selfhelp      601 115   # Help: 'Self Help' (0xB7C344's third item; UIPopupBrowserClass 0 'Knowledgebase')

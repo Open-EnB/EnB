@@ -1,0 +1,86 @@
+name: the data windows inside a recorded session: /play 1, then in sector 4505 the PDA's character page (Skills, Faction), missions, equipment, cargo and the item details of a right-click, then /stop
+# The replay's home sector has an empty skill list, unnamed faction bars and bare missions / equipment; the
+# recording (ea/alex3, Heidl, 2004-04-14) has the real ones. Retail is the reference (2026-11-14, P3): Heidl
+# level 147 Terran Tradesman, skills Beam Weapon / Befriend / Build Components / Build Devices, 'You are affiliated
+# with: InfinitiCorp Traders' over named bars, three missions, the ship's stats and equipment, cargo items, and a
+# right-click on an item opens its details (an equipped shield: 'No 1 Most Amazing Shield Model Z'; the first
+# cargo slot: 'Arduinne Security Pass'), closed with its page. The windows open no file and send no packet; the
+# equipment and cargo pages write player<ID>_options.ini when they close.
+# Session 2's loading takes 6 to 25 s on retail: the world is waited on by the first 'Render: Frame Rate' line
+# after a mouse move (event steps look at the lines since the last input step: the home sector's own frame lines
+# come before it). The windows part takes about 15 s of the playback's recorded pace.
+# _wip_: our client crashes at the hand-off home after /stop (ClientObjectDataClass::Remove_All, see _wip_play1).
+# Ours before it (2026-11-14): Faction, missions, equipment and cargo as retail; Skills lacks Befriend's row of
+# ability icons; a right-click opens no item details (ui_item_examination.cpp's Unknown_94 on the generated
+# stand-ins UISlotInfoItemClass::Unknown_688830 / UISlotInfoItemUnknown54Class::Unknown_68AAA0), only the tooltip.
+timeout: 400
+include _login
+key 0x08
+expect-event proxy '^input: replayed key 0x8'
+alive 1
+text '/play 1'
+key 0x0D
+expect-event antprox 'command "/play 1"' within 10
+wait-event antprox 'sent SERVER_HANDOFF' within 20
+wait-event antprox 'Sector connection #3: playback of 1, sector session 2 of 2' within 60
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+wait-quiet proxy 2 within 60
+shot w_entered
+# Y: [Character], its Skills tab, then its Faction tab
+key 0x59
+expect-event proxy '^input: replayed key 0x59'
+wait-quiet proxy 1.0 within 15
+click gadget pda.char.skills
+expect-event proxy '^input: replayed mouse 0x202 at 70, 258'
+wait-quiet proxy 0.7 within 15
+shot w_skills
+click gadget pda.char.faction
+expect-event proxy '^input: replayed mouse 0x202 at 261, 258'
+wait-quiet proxy 0.7 within 15
+shot w_faction
+key 0x59
+wait-quiet proxy 0.7 within 15
+# U: [Missions]
+key 0x55
+expect-event proxy '^input: replayed key 0x55'
+wait-quiet proxy 1.0 within 15
+shot w_missions
+key 0x55
+wait-quiet proxy 0.7 within 15
+# I: [Equipment], the details of the equipped shield, closed with the page
+key 0x49
+expect-event proxy '^input: replayed key 0x49'
+wait-quiet proxy 1.0 within 15
+shot w_equipment
+rclick gadget equip.shield
+expect-event proxy '^input: replayed mouse 0x205 at 480, 788'
+wait-quiet proxy 0.7 within 15
+shot w_equip_details
+key 0x49
+expect-event proxy 'player\d+_options\.ini", W'
+wait-quiet proxy 0.7 within 15
+# O: [Cargo], the details of the first slot's item, closed with the window
+key 0x4F
+expect-event proxy '^input: replayed key 0x4F'
+wait-quiet proxy 1.0 within 15
+shot w_cargo
+rclick gadget cargo.slot0
+expect-event proxy '^input: replayed mouse 0x205 at 56, 442'
+wait-quiet proxy 0.7 within 15
+shot w_cargo_details
+key 0x4F
+expect-event proxy 'player\d+_options\.ini", W'
+wait-quiet proxy 0.7 within 15
+shot w_closed
+key 0x08
+alive 1
+text '/stop'
+key 0x0D
+expect-event antprox 'command "/stop"' within 10
+wait-event antprox 'playback of 1 stopped \(/stop\)' within 10
+wait-event antprox 'sent SERVER_HANDOFF.*back to' within 10
+wait-event antprox 'Sector connection #4: received START_ACK' within 120
+wait-quiet proxy 2 within 60
+alive 4
+shot w_stopped
