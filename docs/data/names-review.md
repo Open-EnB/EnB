@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 219 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1924 |
-| 2 | describes what the code does | 4793 |
-| 1 | neutral placeholder | 24810 |
+| 3 | by convention from a client-named file or sibling | 1925 |
+| 2 | describes what the code does | 4801 |
+| 1 | neutral placeholder | 24814 |
 
 ## For review (score 3 and below)
 
@@ -18440,6 +18440,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown264` | `app/client/ui_shipcust.h:132` | untagged neutral name (D10) |
 | 1 | `Unknown268` | `app/client/ui_shipcust.h:133` | untagged neutral name (D10) |
 | 1 | `Unknown622180InterfaceClass` | `app/client/ui_shipcust.h:136` | transition alias (charview.cpp) |
+| 1 | `Unknown0` | `app/client/ui_sinfo.cpp:11` | untagged neutral name (D10) |
+| 1 | `ui_sinfo.h` | `app/client/ui_sinfo.h:4` | provisional header name for ui_sinfo.cpp |
+| 1 | `Unknown0` | `app/client/ui_sinfo.h:19` | neutral (D10) |
+| 1 | `Unknown0` | `app/client/ui_sinfo.h:32` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_skill_info.cpp:16` | neutral (D10), as inv_trade_render.cpp declares it |
 | 1 | `Unknown_496AE0` | `app/client/ui_skill_info.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_495FD0` | `app/client/ui_skill_info.cpp:18` | untagged neutral name (D10) |
@@ -27284,6 +27288,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ShortcutBeenCreated` | `app/client/ui_scut_gadgets.h:69` | the entry's |
 | 2 | `Pull` | `app/client/ui_ship_cust.cpp:90` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `Pull` | `app/client/ui_shipcust.cpp:118` | what ui_avatr.cpp's 0x556290 puts there |
+| 2 | `UISInfoCornerClass` | `app/client/ui_sinfo.h:13` | the corner names 'tl' / 'tr' / 'br' / 'bl' it builds its strings from |
+| 2 | `corner, object` | `app/client/ui_sinfo.h:16` | the switch's 0..3, FontSys's model |
+| 2 | `Title` | `app/client/ui_sinfo.h:20` | its string |
+| 2 | `Value` | `app/client/ui_sinfo.h:21` | its string |
+| 2 | `object` | `app/client/ui_sinfo.h:28` | the model the texts go on |
+| 2 | `Add_Corner` | `app/client/ui_sinfo.h:30` | what it does |
+| 2 | `Model` | `app/client/ui_sinfo.h:33` | FontSys's model |
+| 2 | `Corners` | `app/client/ui_sinfo.h:34` | what it holds |
 | 2 | `slot` | `app/client/ui_slot_data.cpp:64` | as ui_slot_scut.h's |
 | 2 | `gadget, key` | `app/client/ui_slot_data.cpp:65` | as ui_slot_scut.h's |
 | 2 | `Slot_Data_Changed` | `app/client/ui_slot_data.h:62` | as ui_slot_scut.cpp's; NAME 3 [event, slot_data]: the FAIL_IFs' |
@@ -30551,6 +30563,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `decalmaterialmanager` | `app/client/ui_shipcust.h:34` | the assert's; NAME 1 [decal]: neutral |
 | 3 | `event` | `app/client/ui_shipcust.h:108` | the FAIL_IF's; NAME 1 [sender]: the callback's type |
 | 3 | `ColorSliderTexture` | `app/client/ui_shipcust.h:127` | the G_ASSERT's |
+| 3 | `UISInfoClass` | `app/client/ui_sinfo.h:25` | class-from-file (D24) for app\Client\ui_sinfo.cpp |
 | 3 | `FontGroup` | `app/client/ui_skill_info.cpp:38` | the FAIL_IF's 'font_group' |
 | 3 | `UISkillInfoClass` | `app/client/ui_skill_info.h:17` | class-from-file (D24) for app\Client\ui_skill_info.cpp |
 | 3 | `SkillRender` | `app/client/ui_skill_info.h:35` | the FAIL_IFs' |
