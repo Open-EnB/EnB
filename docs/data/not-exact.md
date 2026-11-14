@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-842 entries in 280 files.
+844 entries in 281 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -611,6 +611,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_vault.cpp:214` | `UIVaultClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x657AA0 |
 | `app/client/ui_vault.cpp:254` | `UIVaultClass::Unknown_657DA0` | marker | NOT EXACT: functional from the pseudocode (D64) 0x657DA0 |
 | `app/client/ui_verb.cpp:262` | `UIVerbClass::Unknown_88` | marker | NOT EXACT: inline budget (the first Clear_Buttons copy: the client calls size(), inlines erase); the second copy matches |
+| `app/client/unknown_586240.cpp:268` | `UISpaceLightsClass::Unknown_586F60` | marker | NOT EXACT: order (the address of Color[Current] after 1.0f - v in the client), D89; the pseudocode-faithful form 0x586F60 |
+| `app/client/unknown_586240.cpp:352` | `UISpaceLightsClass::Unknown_587310` | mention | NOT EXACT, an order-only residue: the address of Color[Current] is computed after 1.0f - v in the client) clamps with WWMath::Min / Max, y declared before x. |
 | `app/client/unknown_6ca0c0.cpp:94` | `FontSys::Unknown_6CA0C0` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes |
 | `app/client/unknown_6cce60.cpp:36` | `FontSys::Unknown_6CCE60` | marker | NOT EXACT: functional (D64), not yet worked toward the client's bytes (0x6CCE60) |
 | `app/client/unknown_6cce60.cpp:183` | `FontSys::Unknown_6CD950` | marker | NOT EXACT: registers (D64; attempts.csv): the cases in the client's body order, the clamp in its shape; VC6 gives the clamped slot edi and index ebp, the client the reverse (0x6CD950) |
