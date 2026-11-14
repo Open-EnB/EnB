@@ -204,8 +204,9 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   moved:** bring-over reads the committed record before any retune (the fast-forward path, target still at the base,
   and a moved target alike), so a branch whose header change needs a new pad is refused "lost outright" and a pad
   commit alone does not fix it (the record still says lost). Remedy: `wt.py rebase ID`, then if the three pad
-  addresses are still lost `tools/vc6/sendpad.py --watch-from HEAD` (a plain sweep takes its watch set from HEAD's
-  ledger, which already recorded the loss, and picks a wrong value), then verify and commit the shards. Or land a
+  addresses are still lost `tools/vc6/sendpad.py --watch-from run/<date>` (the target branch, or the last commit
+  before the loss; not HEAD: after the rebase HEAD is the rebase record, which already recorded the loss, and a sweep
+  watching it, like a plain sweep, picks a wrong value), then verify and commit the shards. Or land a
   pad-neutral branch first. Every later branch leaves the pad uncommitted and the landing retunes it.
 - **A verify that reports "0 client functions" is a tool failure, never a loss:** a bring-over that then reports
   thousands lost outright compared against an empty app. The cause was app's `cl` command line passing Windows'
