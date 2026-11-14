@@ -155,29 +155,29 @@ extern int Unknown_BE5F34;								// NAME 1: neutral (D10): the key modifiers (a
 // pdaint.cpp's PDA (SClient +0x1284), as far as 0x565F80 calls it
 
 
-// gadget.cpp's gadget, as far as the chat panel calls it
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public: static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h's: static, cdecl, variadic)
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void As_RObjGadget(); virtual void As_RObjProxyGadget();
-	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40 (the panel's buttons shown)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
-	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88();
-	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
-	virtual void Unknown_90(TextureClass *texture);		// +0x90 (0x56C180: the chat window's icon)  // NAME 1 [texture]: neutral
+// gadget.cpp's gadget and the panel's buttons (ChatPanelUIBase::Add_Button's, 0x56D510: unknown_675120.h's
+// ButtonGadgetClass; the model at +0x30 is gd_robj.h's RObj)
+#include "gadget.h"
+#include "unknown_675120.h"
 
-	void Set_Unknown14(const char *text);				// 0x65F2D0 (gadget.h; 0x564400 passes NULL)
 
-	char Unknown04[0x30 - 0x04];						// +0x04
-	RenderObjClass *Unknown30;							// +0x30 (slot +0x58 0x562F50 hands it to 0x497300)
-	RenderObjClass *Peek_Unknown30() { return(Unknown30); }	// NAME 1: neutral (D10)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl): slot +0x58 hands the result to the pip  // NAME 1 [robj]: neutral
 // 0x65EFB0 is GadgetClass::Set_Tooltip (variadic as gadget.h declares it)
 
@@ -477,7 +477,7 @@ void ChatPanelInterface::Unknown_54()
 		Unknown258->Set_Hidden(1);
 	}
 	for (int i = 0; i < 6; i++) {
-		UnknownA4[i + 1] = Add_Button(i + 1, buttons[i], texts[i]);
+		UnknownA4[i + 1] = (ButtonGadgetClass *)Add_Button(i + 1, buttons[i], texts[i]);
 		if (tips[i]) {
 			GadgetClass::Set_Tooltip(UnknownA4[i + 1], "UI_CHAT_PANEL", tips[i]);
 		}
@@ -503,7 +503,7 @@ void ChatPanelInterface::Unknown_54()
 void ChatPanelInterface::Unknown_58()
 {
 	InterfaceSortScopeClass sort(this);
-	Unknown110->Unknown_7E36B0(Client->As_Space_Client(), Unknown_497300(UnknownA4[5]->Peek_Unknown30()), 0);
+	Unknown110->Unknown_7E36B0(Client->As_Space_Client(), Unknown_497300(UnknownA4[5]->Peek_Render_Obj()), 0);
 	ChatInt->Unknown_58();
 	ChatPanelUIBase::Unknown_58();
 	UIViewClass *view = View;
