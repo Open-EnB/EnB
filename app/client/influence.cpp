@@ -122,6 +122,7 @@ void UnknownObjectInfluenceClass::Update_Sphere()
 }
 
 
+// NOT EXACT (0.68, attempts.py 0x7E87C0): inline budget: the client calls DataNode<UnknownAF0DD0Class *>(T) 0x7E9910 out of line inside the inlined base constructor, ours inlines it; frame 0x34C against 0x340 (the client's three 256-byte buffers at function scope and a hsv temporary sharing the base's Vector3 slot reach 0.76 but push SphereClass::Init's copy and 0x7E9910 out: kept this form)
 NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model) :
 	UnknownObjectInfluenceClass(client, id),
 	CurrentRoom(NULL),
@@ -199,7 +200,6 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 
 
 
-
 		G_ASSERT(hlod->Get_Lod_Count() == 1);
 		int count = hlod->Get_Lod_Model_Count(0);
 		const char *htree_name = hlod->Get_HTree()->Get_Name();
@@ -207,7 +207,7 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 		sprintf(root_name, "%s.%s", htree_name, "NEBULA_ROOT");
 		for (int j = 0; j < count; j++) {
 			int bidx = hlod->Get_Lod_Model_Bone(0, j);
-			RenderObjClass *robj = hlod->Get_Lod_Model(0, j)->Clone();
+			RenderObjClass *robj = hlod->Peek_Lod_Model(0, j)->Clone();
 			TempRoomPtrs[bidx]->Model->Add_Sub_Object(robj);
 			char bone_name[256];
 			sprintf(bone_name, "%s.%s", htree_name, hlod->Get_Bone_Name(bidx));
@@ -226,7 +226,7 @@ NebulaClass::NebulaClass(ClientClass *client, unsigned id, RenderObjClass *model
 		int extra = hlod->Get_Additional_Model_Count();
 		for (int k = 0; k < extra; k++) {
 			int bidx = hlod->Get_Additional_Model_Bone(k);
-			RenderObjClass *robj = hlod->Get_Additional_Model(k)->Clone();
+			RenderObjClass *robj = hlod->Peek_Additional_Model(k)->Clone();
 			if (TempRoomPtrs[bidx]->Model->Class_ID() != RenderObjClass::CLASSID_HLOD) {
 				RenderObjClass *old = TempRoomPtrs[bidx]->Model;
 				TempRoomPtrs[bidx]->Model = new HLodClass(old->Get_Name(), &old, 1);
@@ -332,6 +332,7 @@ NebulaClass::~NebulaClass()
 }
 
 
+// NOT EXACT (0.86, attempts.py 0x7E9560): shape: the client saves ebx / ebp / esi after the Object == NULL return, ours saves ebp / esi at entry
 bool NebulaClass::Unknown_08(const Vector3 &position)
 {
 	if (Object == NULL) {
@@ -341,7 +342,6 @@ bool NebulaClass::Unknown_08(const Vector3 &position)
 		return(false);
 	}
 	if (!Initialized) {
-
 
 
 
@@ -365,21 +365,21 @@ bool NebulaClass::Unknown_08(const Vector3 &position)
 		TempRoomPtrs = NULL;
 		Initialized = true;
 	}
-	if (CurrentRoom == NULL || !(CurrentRoom->BoundaryMesh->Contains(position) ^ CurrentRoom->Inverted)) {
+	if (CurrentRoom == NULL || !CurrentRoom->Contains(position)) {
 		if (CurrentRoom) {
 			CurrentRoom->Model->Remove();
 		}
 		RoomTree.Reset_Collection();
 		RoomTree.Collect_Objects(position);
 		RoomClass *found = NULL;
-		RoomClass *room = RoomTree.Get_First_Collected_Object();
+		RoomClass *room = RoomTree.Peek_First_Collected_Object();
 		if (room != NULL) {
 			while (room) {
-				if (room->BoundaryMesh->Contains(position) ^ room->Inverted) {
+				if (room->Contains(position)) {
 					found = room;
 					break;
 				}
-				room = RoomTree.Get_Next_Collected_Object(room);
+				room = RoomTree.Peek_Next_Collected_Object(room);
 			}
 		} else {
 			found = DefaultRoom;

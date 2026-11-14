@@ -52,6 +52,7 @@ class RoomClass : public CullableClass	// NAME 2: influence.cpp's assert 'TempRo
 public:
 	RoomClass() : Model(NULL), BoundaryMesh(NULL), Inverted(false) {}
 	~RoomClass() { REF_PTR_RELEASE(Model); REF_PTR_RELEASE(BoundaryMesh); }
+	bool Contains(const Vector3 &point) { return(BoundaryMesh->Contains(point) ^ Inverted); }
 
 	RenderObjClass *Model;								// +0x28 (a collection named 'Room%02d', an HLod once it has additional models)  // NAME 1: what it holds
 	MeshClass *BoundaryMesh;							// +0x2C  // NAME 3: the assert's
