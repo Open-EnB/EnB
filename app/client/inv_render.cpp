@@ -213,7 +213,7 @@ void InvRenderClass::Unknown_2C(bool force)
 			if (!force && Unknown38.Time <= now.Time) {
 				goto done;
 			}
-			RefCountPtr<InvDataClass> inv_data = Create_Get(Peek_Inv_Data());
+			RefCountPtr<InvDataClass> inv_data = Create_Peek(Peek_Inv_Data());
 			usable = Unknown_68C3E0(space_client, item, inv_data, slot);
 			Unknown38 = now.Time + _Unknown_BE6588.Time * 1000;
 			level = item_level;
