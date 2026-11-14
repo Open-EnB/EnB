@@ -583,6 +583,14 @@ appears), not as a wait. Gadget names come from `e2e/gadgets.txt` (NAME X Y at 1
 the tooltip in a shot that found it): the client does not log gadgets' names or rectangles, so a name is a table
 entry, not a lookup in the running client.
 
+**Writing a scenario:** a `stand-in` step watches stubs.log only from its own line on: put it before the step that
+hits the stand-in. A minimized client window stops taking the harness's posted input (the client does not come back
+well from the tray): check for it before blaming the harness. Write each wait against a line a run has actually
+logged (antreplay logs no START_ACK for a playback connection). Window behaviour the scenarios met: a window's
+fa_*.ini opens again when it closes; chat-panel drop-down items act on mouse-down; chat-panel requests queue while a
+window is open (an Esc during the options window opens the quit menu after it closes); the chat panel's browser items
+do nothing while the settings store's +0x34 is set.
+
 **The exe carries no test code (2026-11-14):** programs/clientpoc/poc_input.cpp and poc_multi.cpp are gone. The
 d3d8shot proxy, copied beside the instance's exe for every run, gives the client its virtual cursor and keyboard
 (`D3D8SHOT_INPUT=1`, d3d8shot.c `Hook_Input`: the exe's user32 imports), exactly as it does for the retail

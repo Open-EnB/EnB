@@ -3523,7 +3523,14 @@ below name only the work items, the blocked work, the leads and the queues.
 
 1. **Work items** (each at its file's next edit, unless it says otherwise):
    * **D237 / D248 (the end-to-end harness):** left after the one-session, event-driven e2e.py (48 s for the six scenarios) and the hooks' move into the d3d8shot proxy: (a) the retail comparison: `e2e.py run --retail` and `e2e.py compare` exist (packets sent per scenario; five scenarios SAME on first use); left: run the whole set and the recorded sessions (`/play N`) against retail, compare the shots per step (the same step's back buffer: a tolerance or a per-region diff), and give the checker a `retail` check; (b) poc_window.cpp's `CRASH:` line and read-only registry are still compiled into the exe (the proxy loads only at Direct3DCreate8, after WinMain's start: an earlier loader, or antprox, would be needed to move them); (c) gadget names come from a hand-kept table (tools/harness/e2e/gadgets.txt; the client does not log gadget names or rectangles: a proxy-side lookup); (d) the in-world `wait-quiet proxy` steps pass on their minimum when a window opens no file: a draw-count-stable event from the proxy would be a real "drawn" signal; (e) e2e.py refuses nothing when the exe was linked from stale libraries (a main-tree build of 11-11 crashed at world entry on 60 unresolved symbols: check the link's summary.json `unresolved` before the run); (f) the checker's definition (P-T1-1), the smoke-set rule in builders.md.
-   * **D239:** left after R1's landing: P-L13-2's move of ui_manu.cpp onto gadget.h (a draft loses 15 addresses; patch `.work/wt/R1/.work/r1-ui_manu-onto-gadget.patch`) and P-L12-4 (the private GadgetClass views per file).
+   * **D239:** left after R1's landing: P-L12-4 (the private GadgetClass views per file).
+   * **Starbase gadget file:** UIStarbaseGadget6B6050Class as its own file, 0x6B6050-0x6B6170, between viewbttn.cpp and wnd_file.cpp (interim, D137: its five functions sit in programs/clientpoc/poc_world2.cpp; in ui_starbase.cpp they cost 0x643BA0 / 0x646120); delete the POC copy when it lands.
+   * **sclient.h** (at the next pad sweep): LoadingViewClass +0x64 as RefCountPtr<GalaxyMapLineRObjClass> (loadingview.cpp's file-local Unknown7B3E30Class derives from it today) and the file-static Release_Screen layer as an inline member.
+   * **loadingview.cpp:** 0x6912A0 and 0x691320 are not written (no callers).
+   * **chat_panel_ui_base.h** (at the header's next edit): Add_Button returns ButtonGadgetClass * (it news one at 0x56D510); drop the cast in ui_chat_panel.cpp.
+   * **The two remaining pip views** (ShipPipClass in ui_avatr.cpp, UIAvatarCustPipClass in ui_avatar_cust.cpp) onto ship_pip.h.
+   * **tests/clienttest/data/basset.ini:** line 61's comment (0x4981E0 "not rebuilt") is stale; clienttest could use BASE-1091's Width= line.
+   * **e2e, the recorded session and the windows no scenario reaches:** (a) `_wip_play1.scn`: next fault after the stall fix: see the newest log entry. (b) Possible faults for the retail comparison: on the PDA's Faction tab the six bars have no names and the Skills list is empty though Skill Points shows 6 (pda_faction's shots; compare with `e2e.py run --retail`). (c) Windows no scenario reaches in the replay's home sector: ui_vault (starbase, Shift+I: e2e has no modifier keys), ui_pterm / ptmis / ptnew / ptppl, ui_manu_util, ui_avatar_dialog, ui_interrupt, ui_symbolchat, ui_skill_info, ui_dynamicwindow; ui_treem / ui_test / ui_sinfo / ui_string_list are created by nothing in the built tree yet. A recorded session (`/play N`) is the way to reach the station ones.
    * **D240, the match audit (a queue of items to review / rework):** tools/re/matchaudit.py and docs/data/match-audit.md / .json hold classes 1, 2 and 4; losses of a rework are recorded in accepted-corrections.json until regained. Left: class (3), contradicted (a client.exe form not yet applied: an assert / FAIL_IF text in asserts.txt, RTTI or class-methods drops the pair when applied; batch, one compile per form); class (2)'s confirmation beyond five files (6,602 unconfirmed pairs in 114 files; the sample: 7 of 406 fell); full pad sets (a full `sendpad.py` and `auxpad.py` sweep with `--hold`, which writes the per-value sets, then `matchaudit.py pad && matchaudit.py table`; class 1 so far from partial sweeps: sclient 0x702240 / 0x74D990 / 0x758210, aux_roots 0x6FB1E0 / 0x7014B0 / 0x701D70 / 0x702240 / 0x7045F0). Review queue: R-D130, the seven confirmed pairs (control_keys_manager 0x71BCC0, ui_mfd 0x5BF210, ui_chat_panel 0x565D80, ui_radio_main 0x5EA370, eff_robj 0x6EF4C0 / 0x6EFA70 / 0x6EFDE0); the D130 dead reads added by run 2026-11-11b (attrib_dir 0x4D6820; unknown_7cef30's shared inline constructor, three reads, behind 0x7D5600, 0x7D6180, 0x7D6A60, 0x7D9790, 0x7DA760, 0x7DAD50, 0x7DB2D0); R-view / guard files by pairs held (sclient 468, ui_registration 197, cpacket 148, fontdatabase 145, ui_starbase 145, client_lego_impl 142, scriptedmovie 128, galaxy_map_robj 124, co 121; LineDisplayClientClass's view in 33 files); R-unstable (43 pairs with two or more flips: aux_roots 9, land 5, sclient 4); `__INTRFACE_MEMBERS` (about 30 files cast the guarded view). The D240 entry for 0x6D80A0 (DX8Wrapper::Convert_Color_Clamp, inlined into the client's Switch) is deleted when fontsys.cpp emits it (rect3d's Set_Force_Visible form lost it).
    * **Builder proposals settled under D246** (moved from section 3; apply at each file's next edit unless the call says otherwise):
      * **P-L15-1** (2026-11-11, L15; recommend as stated, with aux pad time): strconv_lib.h's MoneyClass `Type_Name` / `Value_To_String` take the value by value (the client pushes the 8-byte value; the stub's Type_Name returns 'MoneyClass', the client's string is 'MoneyType'). **Call (coordinator, D246, 2026-11-12):** accepted (the client pushes the 8-byte value; its string is MoneyType): at strconv_lib.h's next edit, with an aux pad check at the landing.
@@ -3678,8 +3685,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * ui_playeropt.cpp (CP1, 2026-11-05 night; UIPlayerOptClass 0x114, ui_friends' twin, 0x5D8C40-0x5DAE8F): NOT EXACT only
      0x5D9D10 (inline budget, 8 forms). Its levers for ui_friends.cpp: 0x590E50 with `X.Peek() != NULL && X->Is_Active()`,
      0x591A30 taking its target from its own 0x592150 (as 0x5DAB50), perhaps 0x58FBA0 by calling the file's own helper.
-     clienttest.cpp:1857's stand-in UIChatPanelUnknownD8Class::Unknown_5DA600 now has a real definition (no clash): retire
-     it with the next tests/ edit. Next object ui_popup_browser.cpp 0x5DAE90.
+     Next object ui_popup_browser.cpp 0x5DAE90.
    * avatar_pip.cpp (AP1, 2026-11-05 night; AvatarPipClass 0x3C, 0x7E31B0-0x7E49AF): NOT EXACT 0x7E4520 (shape: the client
      converts `* 0.1f` before Get_Sort_Level), 0x7E3A20 0.83 (shape: the light translation folded into zeroed floats, a release
      tail-merge, Rotate_Y's operand order); the model carrier Unknown47FA70Class (ctor 0x47FA70, table 0xAE9D88; ro_proxy.cpp
@@ -3692,8 +3698,7 @@ below name only the work items, the blocked work, the leads and the queues.
    * ui_friends.cpp (FR1 / FR2; UIFriendsClass 0x14C over UIChatPanelBaseClass, 0x58F0F0-0x5921F0): NOT EXACT dtor 0x58F450
      (inline budget: ours inlines 0x5906C0 inside the inlined slot +0x5C, the client calls it; 11 forms; 12 dead reads push it
      out but lose 0x592300: try a deeper inline level for 0x5906C0's delete), 0x58FBA0 (the inlined player dtor's EH state
-     between its two strings: client 2, ours 1), 0x5908B0 (register, 6 loop forms), 0x5913E0 (inline budget). cpacket.cpp's
-     stand-in `class UIFriendsClass` waits for its stand-in ChatPanelInterface to go (ui_friends.h brings the real one).
+     between its two strings: client 2, ours 1), 0x5908B0 (register, 6 loop forms), 0x5913E0 (inline budget).
      ui_friends.h interim (NAME 1).
    * The item examination window (IE1 / IE2, 2026-11-05 night; ui_item_examination*.cpp, 0x531430-0x53AB4F): NOT EXACT the
      description ctor 0x534CA0 (frame 0x2C vs 0x24; a named Vector2 gets the frame but inlines the second string's `_Eos`),
@@ -3749,7 +3754,7 @@ below name only the work items, the blocked work, the leads and the queues.
      `build.py build --lib app --allow-dirty`, mkauthlogin, `build.py link --program clientpoc`, run `clientpoc.py run
      --seconds 40 --shots 60000,120000` (the client's own back buffer, PNGs in `.work/poc/shots/`; `git add -N` new files
      first; build in a `wt.py` worktree when others' edits are in the main tree: workflow.md §3.0). State (run
-     2026-11-02 agy night): the mouse and keyboard log in (`clientpoc.py --input FILE` with poc_input.cpp's virtual
+     2026-11-02 agy night): the mouse and keyboard log in (`clientpoc.py --input FILE` with the d3d8shot proxy's virtual
      cursor; against antprox /REPLAY, allowed unattended by D181, with `.work/coord/replay.py INPUT SECONDS SHOTS`); the
      29 combo_ffactory.cpp(101) FAIL_IF lines are retail behaviour. Next, in order: avatar.cpp's functional NOT EXACT functions toward exact (RefCountPtr members +0x2B0..+0x2E4 /
      +0xBC as the client has them; 0x782200 / 0x7826A0 / 0x782850); the dtor 0x77C080's queue release if AVX did not
@@ -3782,8 +3787,7 @@ below name only the work items, the blocked work, the leads and the queues.
      dynamic windows' Set_Alignment; ui_avsel 0x55F140 (erase inline on the FAIL_IF path), 0x55E070
      (register); htmlview Parse exact (frame: 16 Wstrings, 4 attribute stacks; `.work/HV3`) and a harness test for it.
      Files next to today's: gd_proxy.cpp (settles unknown_66b770.cpp), 0x66C8F0-0x66C9A0 (a 640x480 gadget,
-     vtable 0xAFAB64), interface_scene's 0x6DAD40. Header merges: gadget.h's GadgetUnknown08Struct and ui_scut's local GadgetClass are RObjGadgetClass;
-     ui_manu / ui_group / ui_scut button stand-ins onto unknown_675120.h (P-BTN-1; ui_manu / ui_group first need gadget.h);
+     vtable 0xAFAB64), interface_scene's 0x6DAD40. Header merges: gadget.h's GadgetUnknown08Struct is RObjGadgetClass;
      ui_avsel's UIAvselEditClass onto textgadg.h; P-UI-2 (intrface.h's __INTRFACE_MEMBERS guard); P-MC-2 / P-LINK-2 (the font
      globals 0xBE67B8 / BC / C4 and Unknown_496110 one type each).
    * gd_slider.cpp (CS14 / CS16 / GS1, 2026-11-05; the class screen's skill slider, all 19 exact). ui_combobox.cpp's stand-in GadgetClass -> the real gadget.h (then gd_slider.h can be included; the rows and the
@@ -4048,7 +4052,7 @@ below name only the work items, the blocked work, the leads and the queues.
      Jupiter needs its CREATE + PLANET_POSITIONAL_UPDATE in antprox's replay (antprox repo); the render states:
      rs_list's twins 0x45A750 / 0x45A7E0; enbscene's NOT EXACT 0x75F8B0 (field-offset) and 0x75FB00 (FP order);
      camera_manager.cpp / camctrl_takeoff.cpp's local MainViewSceneClass -> enbscene.h where lines hold; the stand-ins
-     listed in poc_world.cpp / poc_world2.cpp / poc_world3.cpp / poc_world4.cpp / poc_gadget_*.cpp. Evidence-backed
+     listed in poc_world.cpp / poc_world2.cpp / poc_world3.cpp / poc_world4.cpp. Evidence-backed
      cleanups: the 0x755AF0-0x755C30 COMDAT copies are sclient.cpp's, tied to SClient::Init 0x741180 (NOT EXACT).
 
 6. **Step 8's tail:** at LIMIT (Rate Count, the UDP constructor 0x82CBF0 register, Listen 0x82A470 register: try
@@ -4136,6 +4140,7 @@ below name only the work items, the blocked work, the leads and the queues.
    Also provisional (D137, mark `// PLACEMENT: provisional (D137)` at the next edit): unknown_431e30.cpp (the audio object after musicmanager; NAME 1, file name from the queue, no `__FILE__`) with 0x433CB0 moved into it (D66); selector.cpp's derived classes in the .cpp (object 0x49FA80-0x4A0B70; class names SelectorClass etc. NAME 3); manufacturing_defs.cpp's UnknownBufferClass ctors 0x845200 / 0x845240 (they open the object 0x845200-0x8462A0); unknown_56e170.cpp (no `__FILE__`; bounds ChatPanelUIBase 0x56E160 and ChatWindowInterface's ctor 0x56F420); ui_vault.h; distance_calc.cpp / .h (0x831E90-0x83209F, after color_common's object; sorts between color_common and effect_description) and unknown_490900.cpp / .h (0x490900-0x491660); emote_data.cpp's SegmentedLineClass::Get_Noise_Amplitude / Get_Width 0x9692B0 / 0x9691B0 (segline.cpp order) and eff_line.cpp's LineEffectClass; UnknownSectorPairClass (NAME 1, sector_types); unknown_445740.cpp (steering object 0x445740-0x448BD0, between main.cpp's object and fp_ita.cpp's).
    Also provisional (D137, mark `// PLACEMENT: provisional (D137)` at the next edit): chat_filter.cpp (0x4E0840-0x4E42B0: ChatFilterClass, ChatWordFilterClass, ChatTreeFilterClass, ChatFilterNodeClass, ChatFilterSymbolsClass, NAME 2; the object next to chat_filter_util.cpp, which has a `__FILE__`; split by the guard bytes 0x4E0810 / 0x4E4290); ui_pterm.cpp (0x5DDCA0-0x5DE6D8) with pt_data.h (record fields named from their ini keys, NAME 2) and unknown_5de6e0.cpp (0x5DE6E0-0x5DE88A: VC6 inlined these tiny functions when defined in ui_pterm.cpp, the client calls them out of line); ui_petition.cpp / ui_petition_player.cpp (UIPetitionClass 0xCC, UIPetitionPlayerClass 0xC8: class names from the tooltip sections UI_PETITION / UI_PETITION_PLAYER, NAME 1; file names by link order and guarded ctype ends); ui_manu_util.h (UIManuUnknownC0Class 0x5B7370-0x5B7A8A, moved out of ui_manu.h; placement by object bounds); timer_manager.h (TimerManager, TimerClientClass, MemberCallbackClass<T,F,A>; object 0x4A0C40-0x4A0F9B, the counter 0x4A0F90 placed by its .bss 0xBE39F4 before uvcontrl's 0xBE39F8); callback_manager.h (CallbackManager, object 0x49B920-0x49D2CF; names from the WWPROFILE label and assert text); safe_ptr.h (SafePtrBaseClass / SafePtrTargetClass, 0x4F5E10-0x4F5F3C; m_prev from a G_ASSERT; 0x4F6160 / 0x4F6190 belong to shipcust_desc.cpp); ui_string_list.h (UIStringListClass).
    Also provisional (D137, mark `// PLACEMENT: provisional (D137)` at the next edit): line2d.cpp (0x6DFD80 splits it from linebox.cpp; no string) with its base Unknown6E1AB0Class (unknown_6e1ab0.cpp, vtable 0xAFF894); time_string_format.h's placement; unknown_4dfbf0.cpp / unknown_4e0700.cpp (AttribLinkModClass, AttribBinaryModClass, AttribSumModClass; objects split by the <string> guards 0x4DF820 / 0x4E06D0 / 0x4E0810); unknown_586240.cpp (UISpaceLightsClass) and unknown_58b680.cpp (UIMountHullClass); unknown_723210.cpp / .h; unknown_761c80.cpp; game_action_validity.cpp (named from the GameActionValidityBitFlag enum's Type_Name, no `__FILE__`); ui_commands.cpp (UICommandsClass, NAME 1).
+   Also provisional (D137, mark `// PLACEMENT: provisional (D137)` at the next edit): eff_warp.cpp's name (no __FILE__; object 0x6F25A0-0x6F27C0; 0x6F2690 PREFIX).
 
 9. **Tools:** the Claims Action: check that the next merged run PR's pull_request_target (closed) run succeeds and drops
    its claims from `claims-state` (11 startup_failure runs 2026-11-09 16:02Z-18:11Z only, none since, workflow unchanged;
@@ -4202,6 +4207,8 @@ below name only the work items, the blocked work, the leads and the queues.
    * **A bring-over verify that reports 0 client functions after a lock wait should fail loudly, not compare** (the command-line cause is fixed in vc6.py; another cause would give the same bogus 'lost outright').
    * **tools/re/auxroots.py `generate`** no longer reproduces the checked-in aux_roots.h / aux_roots_stubs.cpp (about 86 and 117 lines differ; game_action_validity's 0xB018F4 is in ENUM_REBUILT): find the drift before the next regeneration.
    * **appfile.py size data for 0x76E9D0** (html loader Open) includes the static initializer (reported PREFIX): its range should end at the function's ret.
+   * **D188 should credit each call-target address when the client holds two copies of one COMDAT symbol** (0x692720 / 0x498BF0 RefCountPtr<SegmentedLineClass>::operator->, Create_NEW 0x692680 / 0x498B90).
+   * **A disassembler for OUR linked exe under tools/harness** (pefile + capstone; tools/re/client.py refuses a non-retail exe): to confirm a CRASH line's call chain, whose client.map frames are a raw stack scan.
    * **0x6E0100 (~LineBoxClass) is credited to no file** although explain.py says identical (masked): a pairing question for objmatch / verify.
    * **ledger.py describe should add copy / expected / in_tree / merged / ambiguous / headers_from for non-app libraries** (O29: `describe wlib` raises KeyError 'expected').
    * **names.py should scan libs/wwonline** (O29).
@@ -4339,6 +4346,7 @@ below name only the work items, the blocked work, the leads and the queues.
    `docs/data/not-exact.md` shows how much functional code waits); which bool-return form gives a bare
    `setcc al` without the `xor`; the inline budget blocks most parked UI rows: a study of VC6's /Ob2 budget (F8 /
    IB3's levers, workflow.md §3.1.1's budget model) is the shared lead.
+   antprox note (the user's other repository, not a task here): REQUEST_TIME's answers (RecordingClock) run about 13.6 s behind sector session 2's positional TimeStamps in recording 1; the retail client absorbs it.
    antprox's build table (AntaresProxy repo) calls 249f8524 EA's last client (D199): it is EA's 82663b2f plus Net-7's
    URL edits; correct the label there, and add 82663b2f if EA's exe should be recognised.
 

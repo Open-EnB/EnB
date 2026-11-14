@@ -917,6 +917,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   first with one destination load is `int *to = ...; int j0 = from[0]; int j1 = from[1]; to[0] = j0; to[1] =
   j1;` (a struct or `__int64` copy does not give it); a run of `mov [x], 0` with no zero register is float
   members set to 0.0f; `lea reg,[this+N]` then stores through reg is an inlined `memset` of a member array.
+* **Retyping a field to unsigned is checked only by exact functions:** a NOT EXACT user can silently change from a
+  signed to a zero-extended conversion (`(float)(u - i)`). After such a retype read the client's instruction at
+  each NOT EXACT use: `fild dword` is signed; `fild qword` of a zero-extended value, `jae` or `jb` is unsigned.
 * **Signed, unsigned and compare forms:** an `int` index gives `jl` where the client has `jb`: use `unsigned`
   (a pointer loop gives `jb`; an unsigned index test gives `jae`); `test r,r; jbe` is an unsigned `x > 0`,
   `!= 0` gives `je`; a bare `return a == b;` gives `xor eax,eax; cmp; sete al`, the client's form without the
@@ -1101,7 +1104,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   stubs.log `gen` lines (in the POC's in-world run) whose `client.py name ADDR` exists in the tree;
   explain.py's "relocation: unresolved ... a different declaration?". Fix: call the real name and include its
   header (a new include: D25 above and the pads in 3.4; when an include costs a pair, declare locally). Grep
-  the callers' declarations before writing a "missing" function.
+  the callers' declarations before writing a "missing" function. A phantom class (a file-local class declared
+  only to call one member of a real class through a cast of a singleton accessor) is the same: the code is
+  byte-exact and the window does nothing; grep for such casts.
 * **Renames and retypes break other files:** grep `->Member` across app/ (and the run branch's head) before
   renaming a member or replacing a char-array stand-in (`->Unknown0..\[0x`); a by-value parameter added to a
   shared header needs a forward declaration. One compile error drops every pair of that file (C2039, C2059
@@ -1274,7 +1279,7 @@ are in 3.0.
   lock-status`):** a ticket untouched for 120 s loses its place, and a worktree made before that code (or before any
   lock change) waits without a ticket and starves behind the queue: rebase it or copy the lock files. Every verify, report.py, auxpad.py /
   sendpad.py sweep and `wt.py bring-over` takes it, and with 6-9 builders a verify waited 20-50 minutes; the
-  default wait (600 s, vc6lock, `ENB_LOCK_WAIT`) gives up. Pass `--lock-wait 6000` to verify.py and (never wrap a verify in `timeout`: the queue wait counts, and verify's own 600 s default expires behind a `--hold` sweep)
+  default wait (600 s, vc6lock, `ENB_LOCK_WAIT`) gives up. Pass `--lock-wait 6000` to verify.py (it has no `--allow-dirty`; build.py has) and (never wrap a verify in `timeout`: the queue wait counts, and verify's own 600 s default expires behind a `--hold` sweep)
   `wt.py bring-over` (wt.py's default is 3000; it passes it on to its report.py step), set `ENB_LOCK_WAIT` for auxpad.py, iterate with the lock-free
   `appfile.py match FILE --pool` (about 1 minute or ~20 s a form, against a 30-minute lock wait; `--allow-missing`
   runs a variant of one function in ~15 s; for draft rounds `build.py --pool 1 --allow-dirty` plus `explain.py`
@@ -1350,6 +1355,10 @@ are in 3.0.
 * **One tree file can be several client objects, and objmatch's own-range rule assumes one:** a file that spans
   objects (land.cpp: three) credits across the boundaries wrongly. Splitting it regained functions and moved the
   rest by D66 between the files (interim names, D137).
+* **Code at far-off addresses added to a file widens its range, and identical twins elsewhere in that range turn
+  ambiguous (lost outright):** recognise it by a file that gained a function far from its object and an address in
+  the middle that was exact before. Give the far code its own file (the 0x6B6050 gadget in ui_starbase.cpp cost
+  0x643BA0 / 0x646120).
 * **Shared COMDATs move range credits (D114(b)):** a new file that instantiates another file's inline COMDATs
   makes them "held by two objects", and the other object's range stops widening: its range-credited COMDATs near
   the boundary are lost outright. Name them in `tools/re/symbols_named.json` from structural evidence (unwind
@@ -1487,6 +1496,11 @@ are in 3.0.
   remove it with `pool.py destroy`). (Reported once; the limit is not measured.)
 * **`appfile.py match --pool` refuses a stale object** (the object older than the draft, or lacking a marked
   non-inline function): rerun.
+* **`appfile.py match --pool` on a scratch copy takes no importer lock** (about 24 s a variant). When the draft's own
+  header changes, the copy needs that header too (the invocation bullet below says a header beside the draft is
+  not used: unresolved); move scratch files out of app/ before names.py runs, else they land in not-exact.md;
+  trydiff.py's FILE is relative to the library root, and its `%TEMP%\td_<name>` folders are shared between builders
+  (short names collide).
 * **A worktree verify on a freshly leased VM can fail with "cannot open linearbu.h":** delete
   `%TEMP%\enb_vc6_synccache_<ip>.json` or run a full verify first.
 * **A one-off C1083 on a tracked, unchanged header:** a worktree's first `build.py build --lib app` failed one file
@@ -1632,7 +1646,7 @@ are in 3.0.
 * **names.py run while a tryv2 variant is in the tree** writes the variant's line numbers into not-exact.md: rerun
   names.py on the restored file before committing.
 * **attempts.py:** never split attempts.csv on line endings (its rows hold quoted multi-line text; one split
-  truncated 157 rows): use attempts.py or the csv module. `record` takes `--score` float, `--forms` a count,
+  truncated 157 rows): use attempts.py or the csv module. `check` matches by unqualified name: a new file's `Unknown_2C` / `Unknown_60` are flagged against other classes' parked rows (false positives). `record` takes `--score` float, `--forms` a count,
   `--stash` (function only), the description in `--evidence`; it has no `--lever` (`check --lever` has) and
   refuses a `--blocker` outside its classes (no class for "identical copies waiting on a tie-break": use
   `relocation`). `check` matches by bare member name across classes, flags any address named in a comment, and
@@ -1670,6 +1684,9 @@ are in 3.0.
   immediates for source paths can hit by accident (0x449EA0 "references" two files; app-functions.json leaves it unattributed): check
   the assert call. `.inl` asserts (spline.inl) mark template code instantiated in the using object, not the .cpp of the same name.
   The map's function counts can omit `<string>` initialisers and adjustor thunks.
+* **client.map stack frames in a CRASH line are a raw stack scan, and some are stale:** confirm a call chain by
+  disassembling OUR linked exe (pefile + capstone; `tools/re/client.py` refuses a non-retail exe). There is no
+  tool for it in the tree yet (progress.md §4, Tools).
 
 ### 3.7 Harnesses, programs, unattended runs
 
@@ -1704,7 +1721,7 @@ Builds and links (every program: clienttest, udpreplay, kerneltest, VIDTEST, the
   subject must not claim a program links unless that command ran at that commit. New Win32 imports in app code
   (WinInet) need the library in clienttest.py's and build.py clientpoc's `sys` lists; any harness linking
   CordCon needs the old iostream (LIBCIMT); a file-local `Stub_Log_Line` declaration needs `extern "C"` (else
-  LNK2005). Any program that constructs an SClient needs a stub for the registry read 0x75A280 (D69).
+  LNK2005: the generated stand-in collides). Scratch `Stub_Log_Line` calls are never committed. Any program that constructs an SClient needs a stub for the registry read 0x75A280 (D69).
 * **A link with unresolved symbols still writes and deploys the exe.** `build.py link` prints "clientpoc: exe
   NOT written; N unresolved" and deploys anyway: read the 'deployed' line and the link log's `unresolved:`
   lines. A call to an unresolved symbol (/force:unresolved) jumps into the PE header: EIP 0x400003 with no
@@ -1761,6 +1778,9 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
   that builds the class without T complete (clienttest): keep it a raw pointer until the constructor is
   rebuilt. clienttest's fakes must cover every function that goes from stub to real; removing a clienttest
   stub means the test sets the state the real code reads (expected.txt updated).
+* **A generated stand-in for a constructor leaves the object without its vtable:** the usual cause of a crash right
+  after a `gen X::X` line in stubs.log. gen_stubs also skips some overloads (ENBAssetManager::Recolor_Texture
+  0x48B7B0 needed a hand stand-in).
 * **What gen_stubs cannot write.** A struct or class by value (parameter or return: std::string, Vector3,
   KernelEventClass, MoneyClass operator+), `std::vector<struct>` (the call links to 0), a Matrix3D return, a
   non-const global object, `const int` data, `const RefCountPtr<T>&`, template-pointer signatures, data
@@ -2153,6 +2173,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * gadget.h's GadgetClass is 0x30 bytes; ui_manu.cpp's local one is 0x34 and pads UIManuCheckButtonClass from
   +0x34, so a copy over gadget.h puts Checked at +0x60, not +0x64: pad from 0x30. ui_manu.h's UIManuClass had
   a stray `#pragma pack(4)` (new size 0xBC8, 4 over).
+* A gd_robj.h inline getter and a direct member access compile differently: keep the form the local view had.
 
 #### gd_text_editor.cpp
 
@@ -2237,6 +2258,9 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * A class sclient.cpp newly sees whole (six audio classes; BridgeInterface's enums and uncalled members) can leave
   no pad window: BridgeInterface's first answer was a member guard in the header; the unguarded form worked once
   its deleted `#define` lines became blank lines (a removed line costs `__LINE__`). sendpad's "no value" line reads as if the pad moved; appfile is no predictor for sclient's pad.
+* Any declaration added to charview.h or avatar.h, even an inline accessor, moves the 0x702240 window (tsk_login.h
+  includes charview.h): guard a file-specific addition with a macro only that file defines, defined before
+  `tasks\tsk_login.h`.
 * client.h's partial EffectObjectClass clashes with eff_o.h (C2011): include eff_o.h before client.h /
   sclient.h. Including auxdata.h in sclient.cpp breaks kv_pair.h's Type_Name overloads (C2665; blocks
   0x750B60). Headers sclient.cpp includes take ChatPanelUIBase from ui_chat_panel_base.h, not ui_chat_panel.h;
@@ -2284,7 +2308,8 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   spills / scheduling: box edges or float locals declared up front, a Vector2 set member by member, an inline
   Set(u, v), Matrix3D Set_X / Set_Y_Translation instead of `tm[i][3]` stores, a named local for a virtual's
   result. Adding 0x5513E0-0x551C80 made 0x550A10 inline a third Rotate_Y, and 0x551BF0's form flips with
-  0x551520's body.
+  0x551520's body. Switching the file from a local view to real headers added inline slots and grew the TU's
+  inline budget: 0x550A10 needed one more D130 dead find; recheck such functions after every view-to-header switch.
 
 #### ui_avatar_dialog.cpp
 
@@ -2301,6 +2326,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 * The client's two fmuls need the intermediate in a named local; a flag the client stores before an unrelated
   load needed `volatile` (0x57AC70 / 0x57AD50).
+* ui_combobox.cpp has a `#line 310` (l.238): compile-error line numbers below it are shifted.
 
 #### ui_dynamicwindow.cpp (the dynamic window family)
 

@@ -260,6 +260,15 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   discard them (`git checkout -- FILE`); the landing regenerates them.
 - **A check in a reused worktree name or a shared build dir can link another builder's objects** (a clienttest link failure and e2e crashes that the baseline did not show): use a fresh worktree name and a private lease, and compare against the baseline before calling a regression.
 - **A finished subagent (lander, checker) can keep re-sending its report:** stop it; the landing is intact.
+- **Lander and builder subagents leave `tail -f LOG | grep` monitors and `until ...; do sleep; done` loops running
+  after they finish,** which keeps a finished agent "waiting on its own background work" and re-notifying. Briefs say
+  bounded waits and stop your loops; the coordinator kills leftovers by their log name.
+- **Two branches editing one e2e scenario file conflict at the rebase:** the lander stops; the builder merges the
+  steps by hand.
+- **linkgate run while another build runs in the same worktree races on build/programs:** a false "REFUSED:
+  clienttest: N unresolved". Run it alone.
+- **A main-tree build/ can be days old:** rebuild every library at HEAD before linking the client there (a stale
+  app.lib gave 60 unresolved symbols and a crash at world entry).
 - **A lander that hands back while its rebase or verify still runs cannot report a second time** (the harness refuses
   it): read `.work/log/land-ID.log`'s `landed:` line.
 - **After a host reboot:** the pool VMs are Off and start on lease; run `vc6.py discover`, resume cut-off builders from
