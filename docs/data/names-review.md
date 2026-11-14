@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1930 |
 | 2 | describes what the code does | 4871 |
-| 1 | neutral placeholder | 25176 |
+| 1 | neutral placeholder | 25169 |
 
 ## For review (score 3 and below)
 
@@ -24935,24 +24935,23 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown30` | `programs/clientpoc/poc_world.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown49` | `programs/clientpoc/poc_world.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown4A` | `programs/clientpoc/poc_world.cpp:70` | untagged neutral name (D10) |
-| 1 | `Unknown_79B9E0` | `programs/clientpoc/poc_world.cpp:84` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:106` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C20` | `programs/clientpoc/poc_world.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C24` | `programs/clientpoc/poc_world.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C28` | `programs/clientpoc/poc_world.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C2C` | `programs/clientpoc/poc_world.cpp:125` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C30` | `programs/clientpoc/poc_world.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C34` | `programs/clientpoc/poc_world.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C38` | `programs/clientpoc/poc_world.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C3C` | `programs/clientpoc/poc_world.cpp:126` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C40` | `programs/clientpoc/poc_world.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C44` | `programs/clientpoc/poc_world.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C48` | `programs/clientpoc/poc_world.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C4C` | `programs/clientpoc/poc_world.cpp:127` | untagged neutral name (D10) |
-| 1 | `Unknown_BA8C50` | `programs/clientpoc/poc_world.cpp:128` | untagged neutral name (D10) |
-| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:145` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE420` | `programs/clientpoc/poc_world.cpp:97` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C20` | `programs/clientpoc/poc_world.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C24` | `programs/clientpoc/poc_world.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C28` | `programs/clientpoc/poc_world.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C2C` | `programs/clientpoc/poc_world.cpp:116` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C30` | `programs/clientpoc/poc_world.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C34` | `programs/clientpoc/poc_world.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C38` | `programs/clientpoc/poc_world.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C3C` | `programs/clientpoc/poc_world.cpp:117` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C40` | `programs/clientpoc/poc_world.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C44` | `programs/clientpoc/poc_world.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C48` | `programs/clientpoc/poc_world.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C4C` | `programs/clientpoc/poc_world.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown_BA8C50` | `programs/clientpoc/poc_world.cpp:119` | untagged neutral name (D10) |
+| 1 | `UnknownEventDispatcherClass` | `programs/clientpoc/poc_world.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_540A20` | `programs/clientpoc/poc_world.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_B70E40` | `programs/clientpoc/poc_world.cpp:136` | untagged neutral name (D10) |
 | 1 | `UnknownB02C90Class` | `programs/clientpoc/poc_world2.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown04` | `programs/clientpoc/poc_world2.cpp:17` | untagged neutral name (D10) |
 | 1 | `Unknown_725AD0` | `programs/clientpoc/poc_world2.cpp:38` | untagged neutral name (D10) |
@@ -24963,9 +24962,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5090` | `programs/clientpoc/poc_world2.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown_466920Class` | `programs/clientpoc/poc_world4.cpp:31` | untagged neutral name (D10) |
-| 1 | `Unknown688830Class` | `programs/clientpoc/poc_world4.cpp:53` | untagged neutral name (D10) |
-| 1 | `Unknown_68A720` | `programs/clientpoc/poc_world4.cpp:53` | untagged neutral name (D10) |
-| 1 | `Unknown_689DA0` | `programs/clientpoc/poc_world4.cpp:53` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:84` | untagged neutral name (D10) |
@@ -25096,9 +25092,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `tests/clienttest/clienttest.cpp:2020` | untagged neutral name (D10) |
 | 1 | `LoginUnknown18Class` | `tests/clienttest/clienttest.cpp:2195` | untagged neutral name (D10) |
 | 1 | `SClientUnknown12C4Class` | `tests/clienttest/clienttest.cpp:2198` | untagged neutral name (D10) |
-| 1 | `Unknown688830Class` | `tests/clienttest/pda_stubs.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown_68A720` | `tests/clienttest/pda_stubs.cpp:18` | untagged neutral name (D10) |
-| 1 | `Unknown_689DA0` | `tests/clienttest/pda_stubs.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `tests/clienttest/tsk_game_stubs.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_5594B0` | `tests/clienttest/ui_avsel_stubs.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C90` | `tests/clienttest/ui_avsel_stubs.cpp:20` | untagged neutral name (D10) |

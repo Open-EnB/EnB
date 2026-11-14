@@ -78,17 +78,8 @@ UICpitGadget6B56AClass::UICpitGadget6B56AClass(int x, int y, int width, int heig
 
 // (ui_symbolchat.cpp's UISymbolChatClass, 0x64A480, is rebuilt: app/client/ui_symbolchat.cpp, O12)
 
-// ---------------------------------------------------------------- 0x79B9E0: the camera modules' signal map, a function-local static (camera_manager.cpp's neighbourhood)
+// (0x79B9E0, the camera modules' signal map, is rebuilt: app/client/cammod.cpp's CameraModuleClass::Get_Signal_Map)
 #include "..\..\app\client\unknown_signalbase.h"
-class SClientNotifierClass;
-SClientNotifierClass *Unknown_79B9E0()
-{
-	static SignalMap map;
-	return((SClientNotifierClass *)&map);
-}
-class SClientNotifierClass { public: void Add(int id, SignalBaseClass::CallbackClass *callback); void Remove(int id, SignalBaseClass::CallbackClass *callback); };
-void SClientNotifierClass::Add(int id, SignalBaseClass::CallbackClass *callback) { ((SignalMap *)this)->connect((void *)id, callback); }	// 0x4F9740 by sclient.cpp's name
-void SClientNotifierClass::Remove(int id, SignalBaseClass::CallbackClass *callback) { ((SignalMap *)this)->disconnect((void *)id, *callback); }	// 0x4F98D0
 
 // ---------------------------------------------------------------- the chat panel's parts (ui_chat_panel.cpp's slot +0x54): empty windows
 #define POC_WINDOW_CTOR

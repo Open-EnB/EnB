@@ -47,17 +47,4 @@ void Unknown_466920Class::Render(RenderInfoClass &rinfo)
 	Line3DClass::Render(rinfo);
 }
 
-// ---------------------------------------------------------------- inv_render.cpp's inventory data (0x688830; its view): by-value results gen_stubs cannot write
-#include "..\..\app\shared\money.h"
-#include "..\..\app\shared\duration.h"
-class Unknown688830Class { public: DurationClass Unknown_68A720(int slot); MoneyClass Unknown_689DA0(int slot); };
-MoneyClass Unknown688830Class::Unknown_689DA0(int slot)
-{
-	STUB_CALLED("POC Unknown688830Class::Unknown_689DA0 (0x689DA0): no price");
-	return(MoneyClass());
-}
-DurationClass Unknown688830Class::Unknown_68A720(int slot)
-{
-	STUB_CALLED("POC Unknown688830Class::Unknown_68A720 (0x68A720): no time");
-	return(DurationClass(0));
-}
+// (inv_render.cpp's inventory data view, 0x689DA0 / 0x68A720, is rebuilt: inv_data_peek.cpp's InvDataPeekClass::Get_Price / Get_Ready_Time)
