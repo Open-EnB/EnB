@@ -163,9 +163,9 @@ edit the comments in the code, not this file.
 | `app/client/fontsys.cpp:64` | `FontSys::Unknown_6D5170` | marker | NOT EXACT: shape (attempts.csv): the client reaches Width..Scale (+0x2B4..+0x2CC) through one pointer, as a sub-object's inline would, and stores +0x430 / +0x4C5 after the resolution call's arguments; the colours from TXT1 |
 | `app/client/fontsys.cpp:182` | `FontSys::Set_Container` | marker | NOT EXACT: register (attempts.csv): the client keeps i in ebp and spills this across the loop (14 rows) |
 | `app/client/fontsys.cpp:239` | `FontSys::Get_Obj_Space_Bounding_Box` | marker | NOT EXACT: written from the client's code (0x6D5C10) for the POC, not yet matched |
-| `app/client/fontsys.cpp:346` | `FontSys::Unknown_6D60C0` | marker | NOT EXACT: inline-budget (attempts.csv): the client's first Play copy calls Get_Length / Store_Length out of line, its second operator= |
-| `app/client/fontsys.cpp:399` | `FontSys::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
-| `app/client/fontsys.cpp:935` | `FontSys::Render` | marker | NOT EXACT: written from the client's code (0x6D8270) for the POC, not yet matched |
+| `app/client/fontsys.cpp:353` | `FontSys::Unknown_6D60C0` | marker | NOT EXACT: inline-budget (attempts.csv): the client's first Play copy calls Get_Length / Store_Length out of line, its second operator= |
+| `app/client/fontsys.cpp:406` | `FontSys::Update_Text` | marker | NOT EXACT: written from the client's code (0x6D64C0) for the POC, not yet matched |
+| `app/client/fontsys.cpp:909` | `FontSys::Render` | marker | NOT EXACT: frame (attempts.csv): the client keeps y on the x87 stack (no home), its frame 0x84 against 0x88 |
 | `app/client/frameint.cpp:195` | `FrameInterfaceClass::Unknown_60` | marker | NOT EXACT: functional (D64), register-only and order-only (the three subtractions call their right operand first in the client) 0x53EB00 |
 | `app/client/gadget.cpp:438` | `GadgetClass::Process_Input` | marker | NOT EXACT: shape (written from the client's 0x65F780 for the proof-of-concept client: the input's next event to the manager's gadgets: the held gadget first, then every gadget under the pointer) |
 | `app/client/gadget.cpp:1032` | `GadgetClass::Unknown_6609A0` | marker | NOT EXACT: shape (written from the client's 0x6609A0 for the proof-of-concept client: the flash's frame, a one-second pulse unless the gadget is held under the pointer) |
