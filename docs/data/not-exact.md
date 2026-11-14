@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-824 entries in 272 files.
+827 entries in 274 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -227,6 +227,9 @@ edit the comments in the code, not this file.
 | `app/client/item/client_item_property_special_profession_requirement.cpp:102` | `ClientItemPropertySpecialProfessionRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52D900 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines) |
 | `app/client/item/client_item_property_special_race_requirement.cpp:108` | `ClientItemPropertySpecialRaceRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52E500 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines) |
 | `app/client/item/client_item_property_special_skill_requirement.cpp:88` | `ClientItemPropertySpecialSkillRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52F010 (inline-budget: the client calls UnknownRTTIClass<DeltaItemArrayClass<DeltaSkillClass> >::Cast out of line, 0x52F990 (emitted in this object); ours inlines it; the rest, asserts and lines match) |
+| `app/client/line2d.cpp:15` | `Line2DClass::Set` | marker | NOT EXACT: 0.64, stack layout: the client spills end.Y, the width and the angle into dead parameter slots (frame 0x58, ours 0x60) and copies the translation with integer moves |
+| `app/client/linebox.cpp:66` | `LineBoxClass::~LineBoxClass` | marker | NOT EXACT: objdiff identical with relocations, stack offsets and targets masked (explain.py: identical); objmatch does not pair it (0.80), cause not found |
+| `app/client/linebox.cpp:83` | `LineBoxClass::Render` | marker | NOT EXACT: 0.93, scheduling: the client copies -extent.Z for the lower corners later, and loads NumLines before clearing the last loop's counter |
 | `app/client/local_interface_sort.cpp:56` | `InterfaceSortClass::InterfaceSortClass` | marker | NOT EXACT: inline-budget (0.48; the client's case 2 calls RefCountPtr's assignment out of line, 0x6B55D0, EH state 5) 0x6E0E80 |
 | `app/client/mainview.cpp:157` | `MainViewClass::MainViewClass` | marker | NOT EXACT: scheduling only (the array-ctor pushes, the 0.5 / 1.0 constants, one register); attempts.csv 0x50B360 |
 | `app/client/mainview.cpp:487` | `MainViewClass::Unknown_50D060` | marker | NOT EXACT: register / order only (the client reloads ViewMode after the +0x10FA test; ours keeps it in eax); attempts.csv 0x50D060 |
