@@ -545,7 +545,8 @@ end (`clientpoc.py clean`) unless `--keep`.
 **One client session for the whole run (2026-11-14):** the first scenario runs its `include`s (the start-up movie,
 login, character select, the world); every later scenario runs only its own steps in the same world, so a scenario
 must leave the world as it found it (close what it opens). After a scenario that fails, the client is stopped and
-the rest run in a fresh session (a crash or a window left open does not fail the others). The run ends early, the
+the rest run in a fresh session (a crash or a window left open does not fail the others); after an `XFAIL` too
+(2026-11-14: its stand-in left the world changed, e.g. the pop-up browser never destroyed). The run ends early, the
 rest printed `FAIL ... not run`, when a second crash is at the same place as an earlier one (the same exception
 code, instruction and first return addresses) or when two sessions in a row fail before the world. `--separate` gives every
 scenario its own client. Logs in `.work/e2e/HHMMSS-session/` (`HHMMSS-NAME` for a single scenario): `e2e.log`
@@ -554,7 +555,13 @@ its time), `result-NAME.json`, `stubs.log`, `antprox.out`, `d3d8shot.log`, the s
 
 **Scenarios** are `tools/harness/e2e/NAME.scn`, in the order world_entry, starmap, options, pda_pages, cargo, chat,
 then the rest by name (2026-11-14: the chat panel's windows chat_windows, group_windows, help_windows, petition,
-option_pages, options_combo, quit_menu; hot_keys; pda_faction). `_wip_NAME.scn` crashes the client today (its header
+option_pages, options_combo, quit_menu; hot_keys; pda_faction), and last (e2e.py's `LAST`) browser_credits, the
+pop-up browser: `XFAIL` today, the browser is never destroyed (see its header), so it leaves the page drawn over the
+world and nothing may follow it in that client. The pop-up browser's other items (Self Help, F1's Online Manual,
+the Help System's FAQ, bug and billing buttons) are `_wip_browser_*.scn` until that stand-in is real: each would
+cost a client start. The browser items load live pages (the URLs are client.exe's
+strings in the settings store's table, settings_store.cpp 0x7C97B0); a scenario asserts the window
+(fc_jweb01.ini), never the page, so a dead URL passes too. `_wip_NAME.scn` crashes the client today (its header
 names the fault) and runs only when named;
 `_login.scn` is included by each, not run alone; it turns on `messages` (WinMain's 'Server initialized & ready to
 go' starts the movie step). The format is in e2e.py's docstring: headers `name:`, `expected-fail:`, `timeout:`,

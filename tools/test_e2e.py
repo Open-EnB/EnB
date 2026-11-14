@@ -98,6 +98,7 @@ class ParserTest(unittest.TestCase):
     def test_the_repo_scenarios_parse(self):
         names = e2e.scenario_names()
         self.assertEqual(names[:6], e2e.ORDER)
+        self.assertEqual(names[-len(e2e.LAST):], e2e.LAST)
         for n in names:
             sc = e2e.load(n)
             self.assertTrue(sc['steps'])
@@ -165,6 +166,11 @@ class SummaryTest(unittest.TestCase):
         self.assertEqual(e2e.verdict(dict(base, passed=False, expected_fail='stand-in', failure='the client exited')),
                          'FAIL')
         self.assertEqual(e2e.verdict(dict(base, passed=True, expected_fail='stand-in')), 'XPASS')
+        # only a PASS keeps the client for the next scenario: an XFAIL's stand-in left the world changed
+        self.assertTrue(e2e.keeps_session(dict(base, passed=True, expected_fail=None)))
+        self.assertFalse(e2e.keeps_session(dict(base, passed=False, expected_fail='stand-in',
+                                                failure='stand-in hit: t:3: STUB first call: POC X')))
+        self.assertFalse(e2e.keeps_session(dict(base, passed=False, expected_fail=None)))
         line = e2e.summary_line(dict(base, passed=True, expected_fail=None, gen=['A', 'B'], gen_own=['B'],
                                      human_dropped=2))
         self.assertEqual(line, 'PASS  n: gen 2 hit, 1 own (B); 2 untagged (human) input dropped')

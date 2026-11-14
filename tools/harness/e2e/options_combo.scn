@@ -1,7 +1,7 @@
 name: the chat panel's Options tab: Interface, Graphics, Sound and Chat Font picked from its drop-down, each shown and cancelled
 # ui_chat_panel.cpp's 0x569A00 opens the item's window over the panel (+0xF8): UIOptionSliderClass in mode 1, whose
 # Cancel only closes it (no return to the main page, 'opt01a'); 'Chat Font' is 0x56C7E0's font window
-# (ui_option_font.cpp). Control is _wip_option_control's; Credits and Self Help are web pages (UIPopupBrowserClass).
+# (ui_option_font.cpp). Control is _wip_option_control's; Credits (the pop-up browser) is browser_credits'.
 timeout: 400
 include _login
 expect-no proxy 'fa_opt01a\.ini'

@@ -8,7 +8,8 @@ Each scenario is tools/harness/e2e/NAME.scn. A run is ONE client session for all
 starts the client (tools/harness/clientpoc.py's instance and antprox code), the first scenario's steps run from
 its `include`s (the login), and every later scenario runs only its own steps in the same world; a scenario leaves
 the world as it found it (it closes what it opens). After a scenario that fails, the client is stopped and the
-rest run in a fresh session (a crash or a window left open must not fail the others). The run stops, the rest
+rest run in a fresh session (a crash or a window left open must not fail the others); so do they after an XFAIL,
+whose stand-in left the world changed. The run stops, the rest
 printed FAIL 'not run', when a second crash is at the same place as an earlier one (the same exception code,
 address and first return addresses: repeating it tells nothing new), or when two sessions in a row fail before
 their first scenario's own steps (the login). --separate gives every
@@ -75,6 +76,10 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 SCN = os.path.join(HERE, 'e2e')
 OUT = os.path.join(ROOT, '.work', 'e2e')
 ORDER = ['world_entry', 'starmap', 'options', 'pda_pages', 'cargo', 'chat']
+# Run after everything else: browser_credits leaves the pop-up browser's page drawn over the world (its close calls
+# the stand-in PopupBrowserSettingsClass::Unknown_7CB240, not the settings store's 0x7CB240 DestroyBrowser), so no
+# scenario may follow it in the same client; last, it costs no extra client start. Drop it here once 0x7CB240 is real.
+LAST = ['browser_credits']
 STANDIN_HIT = 'stand-in hit:'
 SOURCES = ('antprox', 'stubs', 'msg', 'proxy', 'files', 'any')
 ACTIONS = ('click', 'rclick', 'move', 'key', 'text', 'stray')
@@ -267,7 +272,8 @@ def load(name, gadgets=None):
 
 def scenario_names():
     have = sorted(f[:-4] for f in os.listdir(SCN) if f.endswith('.scn') and not f.startswith('_'))
-    return [n for n in ORDER if n in have] + [n for n in have if n not in ORDER]
+    return ([n for n in ORDER if n in have] + [n for n in have if n not in ORDER and n not in LAST]
+            + [n for n in LAST if n in have])
 
 
 # ---------------------------------------------------------------- the event stream and the matcher
@@ -658,7 +664,7 @@ def run_all(scs, args, report):
                             f'({(res.get("crash_at") or [place[1]])[0]})')
                 elif place is not None:
                     places[place] = sc['name']
-                if verdict(res) not in ('PASS', 'XFAIL') or sess.dead:
+                if not keeps_session(res) or sess.dead:
                     break                   # the rest get a fresh client: this one's state is not trusted
         finally:
             sess.close()
@@ -690,6 +696,12 @@ def _alive(pid):
     k.GetExitCodeProcess(h, ctypes.byref(code))
     k.CloseHandle(h)
     return code.value == 259                     # STILL_ACTIVE
+
+
+def keeps_session(res):
+    """Whether the next scenario may run in this client: only after a PASS. An XFAIL's stand-in left its goal unmet
+    (browser_credits: the pop-up browser is never destroyed), so the world is not as the scenario found it."""
+    return verdict(res) == 'PASS'
 
 
 def verdict(res):
