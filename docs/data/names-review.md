@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 220 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1930 |
-| 2 | describes what the code does | 4866 |
-| 1 | neutral placeholder | 25092 |
+| 2 | describes what the code does | 4869 |
+| 1 | neutral placeholder | 25110 |
 
 ## For review (score 3 and below)
 
@@ -20333,6 +20333,24 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5BB4F0` | `app/client/unknown_5bb250.h:33` | untagged neutral name (D10) |
 | 1 | `gadget` | `app/client/unknown_5bb250.h:34` | UIMeshClass's |
 | 1 | `Unknown_5BB520` | `app/client/unknown_5bb250.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown5DD960Class` | `app/client/unknown_5dd960.cpp:17` | untagged neutral name (D10) |
+| 1 | `Unknown5BE4F0Class` | `app/client/unknown_5dd960.cpp:18` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/unknown_5dd960.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/unknown_5dd960.cpp:22` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/unknown_5dd960.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/unknown_5dd960.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/unknown_5dd960.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_74D990` | `app/client/unknown_5dd960.cpp:50` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/unknown_5dd960.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown5BE4F0Class` | `app/client/unknown_5dd960.h:6` | untagged neutral name (D10) |
+| 1 | `unknown_5dd960.h` | `app/client/unknown_5dd960.h:10` | neutral (D137) |
+| 1 | `Unknown5DD960Class` | `app/client/unknown_5dd960.h:20` | neutral (D10) |
+| 1 | `view, mesh, layer` | `app/client/unknown_5dd960.h:23` | what it does with them |
+| 1 | `Unknown_58` | `app/client/unknown_5dd960.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/unknown_5dd960.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/unknown_5dd960.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/unknown_5dd960.h:28` | untagged neutral name (D10) |
+| 1 | `Unknown_8C` | `app/client/unknown_5dd960.h:29` | untagged neutral name (D10) |
 | 1 | `Unknown5DE6E0Class` | `app/client/unknown_5de6e0.cpp:8` | untagged neutral name (D10) |
 | 1 | `Unknown_5DE7F0` | `app/client/unknown_5de6e0.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9290` | `app/client/unknown_5de6e0.cpp:26` | untagged neutral name (D10) |
@@ -27687,6 +27705,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Pull` | `app/client/unknown_585920.cpp:27` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `Pull` | `app/client/unknown_586240.cpp:34` | what ui_avatr.cpp's 0x556290 puts there |
 | 2 | `Layer` | `app/client/unknown_5bb250.h:37` | what it is |
+| 2 | `Unknown5DD960ButtonNames` | `app/client/unknown_5dd960.cpp:10` | what it holds |
+| 2 | `key` | `app/client/unknown_5dd960.h:28` | InterfaceClass's |
+| 2 | `Buttons` | `app/client/unknown_5dd960.h:31` | what it holds |
 | 2 | `Get_Type` | `app/client/unknown_67d430.h:20` | reads Type |
 | 2 | `Type` | `app/client/unknown_67d430.h:21` | 0x67DB40 switches on it |
 | 2 | `std:` | `app/client/unknown_67d430.h:22` | 0x67D780's second argument |
