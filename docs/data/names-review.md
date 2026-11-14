@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1912 |
 | 2 | describes what the code does | 4684 |
-| 1 | neutral placeholder | 24627 |
+| 1 | neutral placeholder | 24628 |
 
 ## For review (score 3 and below)
 
@@ -15190,6 +15190,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_30` | `app/client/ui_option_control_keys.cpp:25` | untagged neutral name (D10) |
 | 1 | `font` | `app/client/ui_option_control_keys.cpp:26` | its type |
 | 1 | `Unknown_66AAD0` | `app/client/ui_option_control_keys.cpp:26` | untagged neutral name (D10) |
+| 1 | `Clear_Event` | `app/client/ui_option_control_keys.cpp:27` | what it does |
 | 1 | `Unknown30` | `app/client/ui_option_control_keys.cpp:28` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/client/ui_option_control_keys.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_B82F58` | `app/client/ui_option_control_keys.cpp:34` | neutral (D10) |
@@ -15221,13 +15222,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42B6A0` | `app/client/ui_option_control_keys.cpp:336` | untagged neutral name (D10) |
 | 1 | `refresh` | `app/client/ui_option_control_keys.cpp:344` | neutral (D10) |
 | 1 | `combo` | `app/client/ui_option_control_keys.cpp:348` | neutral (D10) |
-| 1 | `std:` | `app/client/ui_option_control_keys.cpp:353` | neutral (D10) |
-| 1 | `Unknown_42B7E0` | `app/client/ui_option_control_keys.cpp:354` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_option_control_keys.cpp:355` | neutral (D10) |
-| 1 | `Get_Unknown10` | `app/client/ui_option_control_keys.cpp:359` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_option_control_keys.cpp:350` | neutral (D10) |
+| 1 | `Unknown_42B7E0` | `app/client/ui_option_control_keys.cpp:351` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_option_control_keys.cpp:352` | neutral (D10) |
+| 1 | `Get_Unknown10` | `app/client/ui_option_control_keys.cpp:356` | untagged neutral name (D10) |
 | 1 | `value` | `app/client/ui_option_control_keys.cpp:365` | neutral (D10) |
 | 1 | `tied` | `app/client/ui_option_control_keys.cpp:366` | neutral (D10) |
-| 1 | `std:` | `app/client/ui_option_control_keys.cpp:370` | neutral (D10) |
+| 1 | `std:` | `app/client/ui_option_control_keys.cpp:368` | neutral (D10) |
 | 1 | `std:` | `app/client/ui_option_control_keys.cpp:379` | neutral (D10) |
 | 1 | `Unknown_588870` | `app/client/ui_option_control_keys.cpp:430` | untagged neutral name (D10) |
 | 1 | `button` | `app/client/ui_option_control_keys.cpp:431` | tsk_login.h's |

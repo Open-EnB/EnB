@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-826 entries in 272 files.
+824 entries in 272 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -490,8 +490,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_mount.cpp:262` | `UIMountClass::Build` | marker | NOT EXACT: functional, from the pseudocode (D64); 0.53: the client calls rtti.h's Cast out of line (0x5469C0, 0x5C8780, 0x5C87D0), this inlines it; the frame is 0x1A8 against 0x164 0x5C77A0 |
 | `app/client/ui_mount.cpp:522` | `Unknown_5C8710` | marker | NOT EXACT: 0.58: the client sets the table pointer after the first name's null test, this before it (scheduling; 4 loop forms) 0x5C8710 |
 | `app/client/ui_option_control_keys.cpp:185` | `UIOptionControlKeysClass::Unknown_68` | marker | NOT EXACT: register allocation (similarity 0.69): the client computes the row (key - 15 / key - 26) with lea into eax, this form adds into ebx; the rest aligns 0x5CA9F0 |
-| `app/client/ui_option_control_keys.cpp:318` | `UIOptionControlKeysClass::Unknown_60` | marker | NOT EXACT: shape (similarity 0.58): functional from the client's strings and calls; the message strings' assembly and the refresh flag are guesses 0x5CB000 |
-| `app/client/ui_option_control_keys.cpp:602` | `UIOptionControlKeysClass::Set_Key_Text` | marker | NOT EXACT: inline budget (similarity 0.56): the client calls the copy's _Tidy out of line (push 0, call) and keeps no zero register; this form inlines it 0x5CC030 |
 | `app/client/ui_option_font.cpp:37` | `OptionFontInterface::OptionFontInterface` | marker | NOT EXACT: shape (similarity 0.49; forms: indexed for, for with break, two-pointer while): the client builds the first string's copy with _Tidy out of line and the second inline 0x5CC350 |
 | `app/client/ui_option_font.cpp:124` | `OptionFontInterface::Unknown_54` | marker | NOT EXACT: frame (similarity 0.74): the client's frame is 0x10 bytes larger (0xD4); the rest aligns 0x5CC9D0 |
 | `app/client/ui_option_font.cpp:367` | `OptionFontInterface::Update_Slider` | marker | NOT EXACT: layout (similarity 0.77): the code aligns instruction for instruction; the difference is in the switch's jump table 0x5CD780 |
