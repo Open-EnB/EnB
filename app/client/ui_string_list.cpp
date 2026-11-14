@@ -47,7 +47,7 @@ UIStringListClass::UIStringListClass(UIMeshClass *mesh, UIViewClass *view, Layer
 	do {
 		i++;
 		sprintf(name, "DESC%02d", i);
-	} while (mesh->Unknown_5B9160(name));
+	} while (mesh->Get_Bone_Index(name));
 	int count = i;
 	Lines.resize(count);
 

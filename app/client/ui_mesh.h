@@ -42,7 +42,7 @@ public:
 	void Unknown_5B8FF0(int slot, int id, const char *morph_anim, bool loop, bool a, bool b, int c, int d);	// 0x5B8FF0: a morph onto a channel  // NAME 2 [morph_anim]: 0x5DCF00's FAIL_IF; NAME 1 [slot, id, loop, a..d]: neutral
 	void Unknown_5B9100(const char *bone_name, RenderObjClass *object);	// 0x5B9100: object onto the mesh's bone  // NAME 2 [bone_name]: the FAIL_IF's 'Need bone name'; NAME 1 [object]: neutral
 	void Unknown_5B9130(const char *bone_name, UIMeshClass *child);	// 0x5B9130: child onto the mesh's bone (Attach_To_Bone)  // NAME 2 [bone_name, child]: the asserts' / FAIL_IF's
-	int Unknown_5B9160(const char *bone_name);			// 0x5B9160: the bone's index  // NAME 1 [bone_name]: neutral
+	int Get_Bone_Index(const char *bone_name);			// 0x5B9160: the bone's index  // NAME 5 [Get_Bone_Index]: ui_treem.cpp's assert 'mesh.Get_Bone_Index(name)'; [bone_name] NAME 1: neutral
 	Matrix3D Unknown_5B9190(int bone);					// 0x5B9190: the bone's transform  // NAME 1 [bone]: neutral
 	Matrix3D Unknown_5B9210(const char *bone_name);		// 0x5B9210: the bone's transform  // NAME 1 [bone_name]: neutral
 	void Unknown_5B9290(SimpleSceneClass *scene);		// 0x5B9290: the model into the scene  // NAME 1 [scene]: neutral
