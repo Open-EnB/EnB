@@ -25,8 +25,8 @@
 
 // InterfaceClass +0x4C's key list (control_key_list.cpp): as ui_avsel.cpp's
 #include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
-// tsk_game.h's settings store: the web browser windows (0x7CA570 asks DX8WebBrowser::Is_Browser_Open)
-class MsgBoxBrowsersClass { public: bool Unknown_7CA570(int index); void Unknown_7CAD00(int index, const AABoxClass &box, const char *url); void Unknown_7CB240(int index); };	// NAME 1: neutral (D10)  // NAME 1 [index, box, url]: what the box passes
+
+
 void Unknown_497240(RenderObjClass *robj, bool on);	// 0x497240 (ro_funcs.cpp: MeshGeometryClass::ALLOW_NPATCHES on every mesh's model, through the sub-objects)  // NAME 1 [Unknown_497240, robj, on]: neutral (D10)
 
 // (inline: the destructor and 0x588A70 call the message's destructor 0x587570 and the deque's _Freefront 0x589B30 out of line)
@@ -238,7 +238,7 @@ void ViewUnknown34Class::Unknown_5C()
 	if (Active) {
 		InterfaceClass::Unknown_5C();
 		if (HTML) {
-			((MsgBoxBrowsersClass *)Unknown_7CA2D0())->Unknown_7CB240(7);
+			Unknown_7CA2D0()->Unknown_7CB240(7);
 		}
 		for (int i = 0; i < OptionCount; i++) {
 			if (Keys[i].Key) {
@@ -273,9 +273,9 @@ void ViewUnknown34Class::Unknown_588870()
 				Matrix3D tm(true);
 				tm.Scale(0.93f, 0.9f, 1.0f);
 				tm.Transform_Center_Extent_AABox(center, extent, &box.Center, &box.Extent);
-				((MsgBoxBrowsersClass *)Unknown_7CA2D0())->Unknown_7CAD00(7, box, URL.c_str());
+				Unknown_7CA2D0()->Unknown_7CAD00(7, box, URL.c_str());
 			}
-		} else if (!((MsgBoxBrowsersClass *)Unknown_7CA2D0())->Unknown_7CA570(7)) {
+		} else if (!Unknown_7CA2D0()->Unknown_7CA570(7)) {
 			Unknown_68(1);
 		}
 	}
