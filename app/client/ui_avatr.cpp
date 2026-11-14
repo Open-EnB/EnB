@@ -16,44 +16,44 @@
 #include "aabox.h"
 #include "..\shared\avatar_desc.h"
 #include "avatar.h"
-class SignalMap; struct UIAvatrGadgetUnknown08Struct { char Unknown00[0x30]; RenderObjClass *Unknown30; };	// gadget.h's slot +0x08 return: the model at +0x30  // NAME 1: neutral (D10)
+class SignalMap;
 class AABoxClass;
-// gadget.cpp's gadget, as far as this file calls it
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual UIAvatrGadgetUnknown08Struct *As_RObjGadget(); virtual void As_RObjProxyGadget();
-	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40 (shown)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60();
-	virtual void Unknown_64(AABoxClass &box);			// +0x64 (gadget.h's: the box)  // NAME 1 [box]: gadget.h's
-	virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
-	virtual void Unknown_80(); virtual void Unknown_84(); virtual void Unknown_88();
-	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
-	static void Destroy(GadgetClass *del_me);			// 0x65EED0 (gadget.h's)  // NAME 2 [del_me]: gadget.h's
+// gadget.cpp's gadget, gd_robj.h's model gadget (slot +0x08's answer), the buttons (unknown_675120.h's
+// ButtonGadgetClass) and the pulls' gadget (unknown_671300.h's Unknown_671300Class)
+#include "gadget.h"
+#include "gd_robj.h"
+#include "unknown_675120.h"
+#include "unknown_671300.h"
 
-	static SignalMap &Get_Signal_Map();					// 0x65ECE0 (gadget.h's)
-	void Unknown_6603A0(bool indicator, UIViewClass *view); void Unknown_6607D0(); void Unknown_6608F0(); bool Is_Unknown2C_02() { return(Unknown2C_02); } void Unknown_65FFC0(int arg, GadgetClass *gadget);	// 0x65FFC0 (gadget.h's)  // NAME 1 [arg, gadget]: gadget.h's
-	char Unknown04[0x20 - 0x04];						// +0x04
-	void *Flash;										// +0x20 (gadget.h's GadgetFlashStruct *: 0x55C280 tests it)  // NAME 3: gadget.h's
-	char Unknown24[0x2C - 0x24];						// +0x24
-	union { unsigned int Unknown2C; struct { unsigned int Unknown2C_00 : 2; unsigned int Unknown2C_02 : 1; }; };	// +0x2C (0x556290 sets 0x400; bit 2 under the pointer: 0x55C280)  // NAME 1: neutral (D10)
-	RenderObjClass *Unknown30;							// +0x30 (the gadget's model: 0x55BAC0 turns it)
-};
 
-// The pulls' gadget (0x80 bytes, constructor 0x671300), as far as 0x556290 makes it
-class LayerClass; class Unknown_671300Class : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_671630();	Unknown_671300Class(RenderObjClass *area, int a, const LayerClass &layer, int b, int c, int d);	// 0x671630 (the buttons' flags off); 0x671300 (0x556290: the area model, 0, the window's mesh, 0, 0, 0)  // NAME 1 [area, a, layer, b, c, d]: neutral
 
-	char Unknown34[0x64 - 0x34]; bool Unknown64; bool Unknown65; char Unknown66[0x80 - 0x66];	// +0x34; +0x64 / +0x65 the left / right button held (0x671570)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// (the pulls' gadget, 0x80 bytes, constructor 0x671300: unknown_671300.h's Unknown_671300Class)
+
+
+
+
+
+
+
 
 // A gadget with its pull model (0x10 bytes, constructor 0x585920; the window's +0x160 / +0x16C / +0x180)
 class UIAvatrPullClass	// NAME 1: neutral (D10)
@@ -69,7 +69,7 @@ public:
 		Pull->Set_Hidden(!on);
 	}
 
-	GadgetClass *Gadget;								// +0x00  // NAME 1: neutral (D10)
+	Unknown_671300Class *Gadget;						// +0x00  // NAME 1: neutral (D10)
 	RenderObjClass *Pull;								// +0x04 ('BODY_PULL' / 'HEAD_PULL', 0x556290)  // NAME 2: what 0x556290 puts there
 	bool Unknown08;										// +0x08
 	float Unknown0C;									// +0x0C (0.5)
@@ -271,7 +271,7 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 // The gadget events' callbacks (SignalBaseClass's, unknown_signalbase.h: vtable 0xAEDB58) and what 0x65ECE0 returns
 #include "unknown_signalbase.h"
 typedef SignalBaseClass::CallbackClass UIAvatrCallbackBaseClass;	// NAME 1 [UIAvatrCallbackBaseClass]: neutral (D10)
-class FlashingGadgetEvent { public: GadgetClass *Gadget; };	// the client's RTTI (.?AVFlashingGadgetEvent@@); gadget.h's (+0x00 the gadget: 0x55C280)  // NAME 1 [Gadget]: gadget.h's
+// (FlashingGadgetEvent: gadget.h's; +0x00 the gadget, 0x55C280)
 
 
 
@@ -406,7 +406,7 @@ public:
 	CharacterViewClass *Unknown08C;					// +0x8C
 	UIAvatrLoginTaskClass *Unknown090;					// +0x90 (the view's task)
 	ShipPipClass *Unknown094;					// +0x94
-	GadgetClass *Unknown098[50];						// +0x98 (UIAvatrParts' gadgets)
+	ButtonGadgetClass *Unknown098[50];					// +0x98 (UIAvatrParts' gadgets)
 	UIAvatrPullClass *Unknown160;						// +0x160 (the body's pull)
 	Vector2 Unknown164;									// +0x164 (0x558060's point)
 	UIAvatrPullClass *Unknown16C;						// +0x16C (the head's pull)
@@ -461,12 +461,12 @@ class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, b
 
 
 
-class ButtonGadgetClass : public GadgetClass	// NAME 1 [ButtonGadgetClass]: unknown_675120.h's (0x64 bytes), as far as this file makes it
-{
-public:
-	ButtonGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask, unsigned int flags);	// 0x675240 (the screens pass 0x55, 3)
-	char Unknown30[0x64 - 0x30];						// +0x30
-};
+// (the parts' buttons, 0x675240: unknown_675120.h's ButtonGadgetClass)
+
+
+
+
+
 static int UIAvatrEnvMaps[3] = { 100003, 100004, 100002 };	// 0xB7B128: the environment maps' base asset by race  // NAME 1: neutral (D10)
 
 // NOT EXACT: functional (D64), from the client's 0x553AF0: the pip (+0x94, ship_pip.cpp) is ShipPipClass; the
@@ -871,7 +871,7 @@ void AvatarCreationInterface::Unknown_5560E0()
 	RenderObjClass *palette = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("COLOR_PALETTE");
 	Unknown_496AE0(palette, 0);
 	Unknown180->Gadget = new Unknown_671300Class(palette, 0, *(LayerClass *)Unknown084, 0, 0, 0);
-	Unknown180->Gadget->Unknown2C |= 0x400;
+	Unknown180->Gadget->Unknown2C_0A = 1;
 	Unknown180->Unknown_5859A0();
 	palette->Release_Ref();
 	Unknown180->Pull = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("PULL_COLOR");
@@ -888,7 +888,7 @@ void AvatarCreationInterface::Unknown_556290()
 	RefCountPtr<RenderObjClass> area = Create_Get(Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("BODY_AREA"));
 	Unknown_496AE0(area.Peek(), 0);
 	Unknown160->Gadget = new Unknown_671300Class(area.Peek(), 0, *(LayerClass *)Unknown084, 0, 0, 0);
-	Unknown160->Gadget->Unknown2C |= 0x400;
+	Unknown160->Gadget->Unknown2C_0A = 1;
 	Unknown160->Unknown_5859A0();
 	Unknown160->Pull = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("BODY_PULL");
 	Unknown_496AE0(Unknown160->Pull, 1);
@@ -896,7 +896,7 @@ void AvatarCreationInterface::Unknown_556290()
 	area = Create_Get(Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("HEAD_AREA"));
 	Unknown_496AE0(area.Peek(), 0);
 	Unknown16C->Gadget = new Unknown_671300Class(area.Peek(), 0, *(LayerClass *)Unknown084, 0, 0, 0);
-	Unknown16C->Gadget->Unknown2C |= 0x400;
+	Unknown16C->Gadget->Unknown2C_0A = 1;
 	Unknown16C->Unknown_5859A0();
 	Unknown16C->Pull = Unknown08C->Peek_Model()->Get_Sub_Object_By_Name("HEAD_PULL");
 	Unknown_496AE0(Unknown16C->Pull, 1);
@@ -1312,7 +1312,7 @@ void AvatarCreationInterface::Unknown_55BAC0()
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	float slow = time * 0.3f;
 	float fast = time + time;
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown098[47]->Unknown30);
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown098[47]->RObj);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown1C0 == 0) {
@@ -1323,7 +1323,7 @@ void AvatarCreationInterface::Unknown_55BAC0()
 		model->Set_Transform(tm);
 		Unknown098[47]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown098[48]->Unknown30);
+	model = Unknown_497300(Unknown098[48]->RObj);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		float angle = slow;
@@ -1334,7 +1334,7 @@ void AvatarCreationInterface::Unknown_55BAC0()
 		model->Set_Transform(tm);
 		Unknown098[48]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown098[49]->Unknown30);
+	model = Unknown_497300(Unknown098[49]->RObj);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		float angle = slow;
@@ -1506,7 +1506,7 @@ void AvatarCreationInterface::Unknown_55A960()
 		float u; if (point.X < 0.01f) { u = 0.01f; } else if (point.X > 0.99f) { u = 0.99f; } else { u = point.X; }
 		float v; if (point.Y < 0.01f) { v = 0.01f; } else if (point.Y > 0.99f) { v = 0.99f; } else { v = point.Y; }
 		Vector3 color;
-		UIAvatrGadgetUnknown08Struct *area = Unknown180->Gadget->As_RObjGadget(); Unknown_496C00(area->Unknown30, u, 1.0f - v, &color);
+		RObjGadgetClass *area = Unknown180->Gadget->As_RObjGadget(); Unknown_496C00(area->RObj, u, 1.0f - v, &color);
 		Unknown184[Unknown1BC].Set(u, v);
 
 		CharacterViewAvatarClass *avatar = Unknown08C->Peek_Unknown194();
@@ -1876,10 +1876,10 @@ void AvatarCreationInterface::Unknown_55A550(int a, bool random, float c, float 
 //          if (stop_first) {
 //              gadget->Unknown_6607D0();
 //          }
-//          gadget->Unknown2C |= 0x800;
+//          gadget->Unknown2C_0B = 1;
 //          gadget->Unknown_6603A0(false, NULL);
 //      } else {
-//          gadget->Unknown2C &= ~0x800;
+//          gadget->Unknown2C_0B = 0;
 //          gadget->Unknown_6607D0();
 //      }
 //  }
@@ -1889,16 +1889,16 @@ void AvatarCreationInterface::Unknown_55A550(int a, bool random, float c, float 
 // 0x55B650
 void AvatarCreationInterface::Unknown_55B650()
 {
-	if (Unknown088 == 0) { Unknown098[0]->Unknown2C |= 0x800; Unknown098[0]->Unknown_6603A0(false, NULL); } else { Unknown098[0]->Unknown2C &= ~0x800; Unknown098[0]->Unknown_6607D0(); }
-	if (Unknown088 == 1) { Unknown098[1]->Unknown2C |= 0x800; Unknown098[1]->Unknown_6603A0(false, NULL); } else { Unknown098[1]->Unknown2C &= ~0x800; Unknown098[1]->Unknown_6607D0(); }
-	if (Unknown088 == 2) { Unknown098[2]->Unknown2C |= 0x800; Unknown098[2]->Unknown_6603A0(false, NULL); } else { Unknown098[2]->Unknown2C &= ~0x800; Unknown098[2]->Unknown_6607D0(); }
-	if (Unknown1BC == 0) { Unknown098[30]->Unknown_6607D0(); Unknown098[30]->Unknown2C |= 0x800; Unknown098[30]->Unknown_6603A0(false, NULL); } else { Unknown098[30]->Unknown2C &= ~0x800; Unknown098[30]->Unknown_6607D0(); }
-	if (Unknown1BC == 1) { Unknown098[31]->Unknown2C |= 0x800; Unknown098[31]->Unknown_6603A0(false, NULL); } else { Unknown098[31]->Unknown2C &= ~0x800; Unknown098[31]->Unknown_6607D0(); }
-	if (Unknown1BC == 2) { Unknown098[32]->Unknown2C |= 0x800; Unknown098[32]->Unknown_6603A0(false, NULL); } else { Unknown098[32]->Unknown2C &= ~0x800; Unknown098[32]->Unknown_6607D0(); }
-	if (Unknown1BC == 3) { Unknown098[39]->Unknown_6607D0(); Unknown098[39]->Unknown2C |= 0x800; Unknown098[39]->Unknown_6603A0(false, NULL); } else { Unknown098[39]->Unknown2C &= ~0x800; Unknown098[39]->Unknown_6607D0(); }
-	if (Unknown1BC == 4) { Unknown098[40]->Unknown2C |= 0x800; Unknown098[40]->Unknown_6603A0(false, NULL); } else { Unknown098[40]->Unknown2C &= ~0x800; Unknown098[40]->Unknown_6607D0(); }
-	if (Unknown1BC == 5) { Unknown098[41]->Unknown2C |= 0x800; Unknown098[41]->Unknown_6603A0(false, NULL); } else { Unknown098[41]->Unknown2C &= ~0x800; Unknown098[41]->Unknown_6607D0(); }
-	if (Unknown1BC == 6) { Unknown098[42]->Unknown2C |= 0x800; Unknown098[42]->Unknown_6603A0(false, NULL); } else { Unknown098[42]->Unknown2C &= ~0x800; Unknown098[42]->Unknown_6607D0(); }
+	if (Unknown088 == 0) { Unknown098[0]->Unknown2C_0B = 1; Unknown098[0]->Unknown_6603A0(false, NULL); } else { Unknown098[0]->Unknown2C_0B = 0; Unknown098[0]->Unknown_6607D0(); }
+	if (Unknown088 == 1) { Unknown098[1]->Unknown2C_0B = 1; Unknown098[1]->Unknown_6603A0(false, NULL); } else { Unknown098[1]->Unknown2C_0B = 0; Unknown098[1]->Unknown_6607D0(); }
+	if (Unknown088 == 2) { Unknown098[2]->Unknown2C_0B = 1; Unknown098[2]->Unknown_6603A0(false, NULL); } else { Unknown098[2]->Unknown2C_0B = 0; Unknown098[2]->Unknown_6607D0(); }
+	if (Unknown1BC == 0) { Unknown098[30]->Unknown_6607D0(); Unknown098[30]->Unknown2C_0B = 1; Unknown098[30]->Unknown_6603A0(false, NULL); } else { Unknown098[30]->Unknown2C_0B = 0; Unknown098[30]->Unknown_6607D0(); }
+	if (Unknown1BC == 1) { Unknown098[31]->Unknown2C_0B = 1; Unknown098[31]->Unknown_6603A0(false, NULL); } else { Unknown098[31]->Unknown2C_0B = 0; Unknown098[31]->Unknown_6607D0(); }
+	if (Unknown1BC == 2) { Unknown098[32]->Unknown2C_0B = 1; Unknown098[32]->Unknown_6603A0(false, NULL); } else { Unknown098[32]->Unknown2C_0B = 0; Unknown098[32]->Unknown_6607D0(); }
+	if (Unknown1BC == 3) { Unknown098[39]->Unknown_6607D0(); Unknown098[39]->Unknown2C_0B = 1; Unknown098[39]->Unknown_6603A0(false, NULL); } else { Unknown098[39]->Unknown2C_0B = 0; Unknown098[39]->Unknown_6607D0(); }
+	if (Unknown1BC == 4) { Unknown098[40]->Unknown2C_0B = 1; Unknown098[40]->Unknown_6603A0(false, NULL); } else { Unknown098[40]->Unknown2C_0B = 0; Unknown098[40]->Unknown_6607D0(); }
+	if (Unknown1BC == 5) { Unknown098[41]->Unknown2C_0B = 1; Unknown098[41]->Unknown_6603A0(false, NULL); } else { Unknown098[41]->Unknown2C_0B = 0; Unknown098[41]->Unknown_6607D0(); }
+	if (Unknown1BC == 6) { Unknown098[42]->Unknown2C_0B = 1; Unknown098[42]->Unknown_6603A0(false, NULL); } else { Unknown098[42]->Unknown2C_0B = 0; Unknown098[42]->Unknown_6607D0(); }
 }
 
 // The body tab's weight and height ranges by race * 2 + gender (0xB7B134 / 0xB7B14C: lbs, 0xB7B164 / 0xB7B17C: inches)
