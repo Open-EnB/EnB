@@ -18,13 +18,13 @@
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (avatar.cpp's declaration)
 #include "..\common\itemtype.h"	// Unknown_843440 (0x843440): a mount's type as text
 
-// The line from a button to its mount point (0xF4 bytes, constructor 0x6DF890; line2d.h's neighbourhood)
-class Unknown6DF890Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown6DF890Class(const Vector4 &color, const Vector2 &from, const Vector2 &to, float width);	// 0x6DF890  // NAME 1 [color, from, to, width]: what Build passes
-	char Unknown00[0xF4];
-};
+#include "line2d.h"	// Line2DClass (0x6DF890): the line from a button to its mount point
+
+
+
+
+
+
 
 extern Matrix3D UnknownBF9330;	// 0xBF9330 (the model's transform)  // NAME 1: neutral (D10)
 extern Matrix3D UnknownBF92D0;	// 0xBF92D0 (the model's transform with +0x402)  // NAME 1: neutral (D10)
@@ -463,7 +463,7 @@ void UIMountClass::Build()
 			p.Y = 240.0f - p.Y * 480.0f;
 			p.Y = (float)floor(p.Y);
 			p.Button->Set_Position(Vector3(p.X, p.Y, 0.0f));
-			p.Line = (RenderObjClass *)new Unknown6DF890Class(Vector4(1.0f, 0.0f, 0.0f, 0.5f), *(Vector2 *)&p.X, *(Vector2 *)&p.PointX, 1.0f);
+			p.Line = new Line2DClass(Vector4(1.0f, 0.0f, 0.0f, 0.5f), *(Vector2 *)&p.X, *(Vector2 *)&p.PointX, 1.0f);
 		}
 	}
 	Camera->Set_Transform(saved);
