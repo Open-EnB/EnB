@@ -23,7 +23,7 @@ class LayerClass;
 class FontSys;
 class TextureClass;
 class ButtonGadgetClass;
-class Unknown675370GadgetClass;
+class UISliderGadget;
 
 // One item of the tree (16 bytes; the vector instances compare items by address)
 struct UITreeMItemStruct  // NAME 1: neutral (D10)
@@ -84,7 +84,7 @@ public:
 	bool Unknown0D5;									// +0xD5 (set by the constructor, cleared by Refresh)
 	bool Dirty;											// +0xD6  // NAME 1: neutral
 	int Unknown0D8;										// +0xD8
-	Unknown675370GadgetClass *ScrollBar;				// +0xDC ('pull_cargo01', 'bar_cargo01')  // NAME 1: neutral
+	UISliderGadget *ScrollBar;				// +0xDC ('pull_cargo01', 'bar_cargo01')  // NAME 1: neutral
 	unsigned int ClickTime;								// +0xE0 (a text's first click, for the double click)  // NAME 1: neutral
 	int ClickIndex;										// +0xE4  // NAME 1: neutral
 	UITreeMItemStruct *Selected;						// +0xE8  // NAME 1: neutral
