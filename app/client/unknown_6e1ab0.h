@@ -3,7 +3,7 @@
 **	This file is a reconstruction from the retail client.exe (SHA-256 249f8524...51c4).
 **	Original location: unknown (PROVISIONAL). The class's own object (0x6E1AB0-0x6E2290) links after
 **	local_interface_sort.obj (its <string> guard 0x6E1A80) and before rect3d.obj (0x6E2290), so its file name
-**	sorts between the two; the client holds no string of it. Only the declaration is here, for line2d.h.
+**	sorts between the two; the client holds no string of it. Its functions are in unknown_6e1ab0.cpp.
 **
 **	Unknown6E1AB0Class: a flat DynamicMeshClass (DynamicMeshClass(4, 8)) of one color at a screen position
 **	and size, the size of DynamicMeshClass (0xF4), vtable 0xAFF894 (0xAFF87C / 0xAFF878 for the other bases).
