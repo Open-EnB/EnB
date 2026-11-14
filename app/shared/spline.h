@@ -39,9 +39,9 @@ public:
 	virtual float				Evaluate(float t);	// +0x04 0x481520 (spline.inl)
 	float						Get_Value(float t);	// 0x481960 (spline.inl: the value at t, 0..1, linear between the points)
 	int							Find_Index(float &t);	// 0x4818C0 (spline.inl: the point before t; t becomes the fraction)
-
-
-
+// NAME 1 [Read, Create]: what they do (0x483A20 has no caller: Load 0x4838B0 and Create 0x483BB0 inline it; Create has none)
+	void						Read(INIClass &ini, const char *section, const char *prefix);	// 0x483A20 (spline.cpp: assert 'Size >= 2' line 67)
+	static SplineFloatArrayClass *	Create(INIClass &ini, const char *section, const char *prefix);	// 0x483BB0 (spline.cpp: NULL when '%sC' is not above 0)
 
 	void						Set(int index, float value)
 	{
@@ -57,13 +57,13 @@ public:
 };
 
 
-
-
-
-
-
-
-
+// NAME 1: a float array read at t plus a phase (0x483CF0 adds the float at +0x10 to t; the class is ours, no caller, no vtable)
+class SplineFloatArrayOffsetClass : public SplineFloatArrayClass
+{
+public:
+	float						Get_Value(float t);	// 0x483CF0 (spline.cpp)
+	float						Offset;
+};
 
 
 
@@ -181,12 +181,13 @@ public:
 	}
 // NAME 2 [ctor, ~, Load, Save, Evaluate, Get_Value]: what they do (unknown_480b10.cpp 0x480B10 news one)
 							SplineColorArrayClass(void) : Red(0), Green(0), Blue(0), Size(0), Last(-1) {}
+							SplineColorArrayClass(int size) : Red(size), Green(size), Blue(size), Size(size), Last(size - 1) {}	// inlined in 0x4842E0
 	virtual					~SplineColorArrayClass(void) {}	// +0x00 0x481840 (scalar deleting 0x481810)
 	void						Load(INIClass &ini, const char *section, const char *prefix);	// 0x483DB0 (spline.cpp)
 	void						Save(INIClass &ini, const char *section, const char *prefix);	// 0x483EE0 (spline.cpp)
 	virtual Vector3				Evaluate(float t);	// +0x04 0x481610 (spline.inl)
 	Vector3						Get_Value(float t);	// inlined in 0x4811A0 (spline.inl)
-
+	static SplineColorArrayClass *	Create(INIClass &ini, const char *section);	// 0x4842E0 (spline.cpp: 'XC', then X, Y, Z)
 // NAME 1: members after their offsets (0x485790, 0x480B10); +0x00 the vtable 0xAE9FB8
 	SplineFloatArrayClass	Red;
 	SplineFloatArrayClass	Green;
