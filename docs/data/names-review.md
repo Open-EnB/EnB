@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 220 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1930 |
-| 2 | describes what the code does | 4863 |
-| 1 | neutral placeholder | 25081 |
+| 2 | describes what the code does | 4868 |
+| 1 | neutral placeholder | 25084 |
 
 ## For review (score 3 and below)
 
@@ -24462,10 +24462,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_PacketDataClass` | `app/shared/shipcust_desc.h:72` | untagged neutral name (D10) |
 | 1 | `Unknown3C` | `app/shared/shipcust_desc.h:77` | untagged neutral name (D10) |
 | 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:119` | what the constructor stores |
-| 1 | `SplineFloatArrayClass` | `app/shared/spline.h:26` | a float array of a set size (0x10 bytes: +0x04 the values, +0x08 their count, +0x0C the last index) |
-| 1 | `Unknown00` | `app/shared/spline.h:52` | members after their offsets (Resize 0x483820); +0x00 unknown |
-| 1 | `SplineColorArrayClass` | `app/shared/spline.h:170` | three float arrays (red, green, blue) and a count (0x38 bytes: +0x04, +0x14, +0x24, +0x34) |
-| 1 | `Unknown00` | `app/shared/spline.h:183` | members after their offsets (0x485790); +0x00 unknown |
+| 1 | `SplineFloatArrayClass` | `app/shared/spline.h:26` | a float array of a set size (0x10 bytes: +0x00 the vtable, +0x04 the values, +0x08 their count, +0x0C the last index) |
+| 1 | `Evaluate, Get_Value, Find_Index` | `app/shared/spline.h:38` | what they do (spline.inl, assert line 33) |
+| 1 | `Data` | `app/shared/spline.h:52` | members after their offsets (Resize 0x483820, Get_Value 0x481960); +0x00 the vtable 0xAE9FAC |
+| 1 | `SplineColorArrayClass` | `app/shared/spline.h:170` | three float arrays (red, green, blue) and a count (0x3C bytes: +0x04, +0x14, +0x24, +0x34, +0x38) |
+| 1 | `Red` | `app/shared/spline.h:190` | members after their offsets (0x485790, 0x480B10); +0x00 the vtable 0xAE9FB8 |
 | 1 | `Set_Escaped_New_Lines, on` | `app/shared/split_string.h:33` | the member it sets |
 | 1 | `Set_Trim_Last, on` | `app/shared/split_string.h:34` | the member it sets |
 | 1 | `Set_Trim_Lines, on` | `app/shared/split_string.h:35` | the member it sets |
@@ -24646,6 +24647,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1C` | `app/shared/unknown_474530.cpp:209` | untagged neutral name (D10) |
 | 1 | `Add_Unknown1218` | `app/shared/unknown_474530.cpp:306` | untagged neutral name (D10) |
 | 1 | `Clear_Unknown1218` | `app/shared/unknown_474530.cpp:311` | untagged neutral name (D10) |
+| 1 | `unknown_480b10.h` | `app/shared/unknown_480b10.h:16` | no assert or __FILE__ names the file |
+| 1 | `SplineLightClass` | `app/shared/unknown_480b10.h:26` | a LightClass driven by splines (descriptive, D10; no RTTI names it) |
 | 1 | `Unknown_B721A0` | `app/shared/unknown_490900.cpp:10` | neutral (D10) |
 | 1 | `Unknown_B721A4` | `app/shared/unknown_490900.cpp:11` | neutral (D10) |
 | 1 | `Unknown_BE34D0` | `app/shared/unknown_490900.cpp:12` | neutral (D10) |
@@ -29648,8 +29651,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Set_Profession` | `app/shared/shipcust_desc.h:113` | what it does |
 | 2 | `Ship_Name` | `app/shared/shipcust_desc.h:120` | its key 'ShipName' |
 | 2 | `spline.h` | `app/shared/spline.h:19` | the client's __FILE__ |
-| 2 | `Resize` | `app/shared/spline.h:30` | after what it does (0x483820: deletes the values, news size of them set to value) |
+| 2 | `ctors, ~, Load, Save` | `app/shared/spline.h:30` | what they do; the ints are inline (unknown_480b10.cpp 0x480B10 news one: +0x04, +0x08 zeroed) |
+| 2 | `Resize` | `app/shared/spline.h:34` | after what it does (0x483820: deletes the values, news size of them set to value) |
 | 2 | `Set` | `app/shared/spline.h:174` | after what it does (inlined in 0x485790) |
+| 2 | `ctor, ~, Load, Save, Evaluate, Get_Value` | `app/shared/spline.h:182` | what they do (unknown_480b10.cpp 0x480B10 news one) |
 | 2 | `Split` | `app/shared/split_string.h:30` | what it does |
 | 2 | `Count` | `app/shared/split_string.h:31` | what it returns |
 | 2 | `Get` | `app/shared/split_string.h:32` | what it returns |
@@ -29753,6 +29758,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Land_Find_Decoration_Mesh` | `app/shared/unknown_474530.cpp:538` | after what it does |
 | 2 | `std:` | `app/shared/unknown_474530.cpp:574` | after what it does |
 | 2 | `LandVertexStruct` | `app/shared/unknown_474530.cpp:852` | the patch vertex, FVF 0x202 (0x4746C0) |
+| 2 | `type, ini, name` | `app/shared/unknown_480b10.h:30` | what they are |
+| 2 | `Save` | `app/shared/unknown_480b10.h:33` | what it does |
+| 2 | `Update` | `app/shared/unknown_480b10.h:34` | what it does |
 | 2 | `BackgroundColor` | `app/shared/unknown_490900.h:31` | what Begin_Render gets (scriptedmovie.cpp) |
 | 2 | `Bounded_Strcpy` | `app/shared/unknown_4a1590.h:24` | what it does (no client string names it) |
 | 2 | `AttribLinkModClass` | `app/shared/unknown_4dfbf0.h:26` | what it is |
