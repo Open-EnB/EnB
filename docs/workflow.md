@@ -233,7 +233,7 @@ unless `--lever` cites a new row of the table in §3.1.2.
   line count (techniques: "Keeping `__LINE__`" in §3.1.2; a member line added above data_binder.h's asserts shifts their immediates and explain.py then says `literal`, hiding the real class: put additions on an existing line) and check: `git diff --numstat`, then every
   FAIL_IF / G_ASSERT line against HEAD and the client's pushed line numbers, not only the pair count. A function that goes `none` after a `#define` or
   guard line is removed or added above it is this, not inline depth: compare the push immediates (`client.py dis`,
-  our .obj) before looking for an inline cause; a blank or comment line in its place keeps every line.
+  our .obj) before looking for an inline cause; a blank or comment line in its place keeps every line. Deleting a NOT EXACT comment line or cutting blank padding shifts every later assert line the same way: recheck the pushed lines after each such edit.
 * **Re-verify the whole file after a change:** shrinking a function (or wrapping a find in an early-return
   helper) can make it small enough to inline into callers that then stop matching; added code can make the
   file's other near misses exact (re-verify its NOT EXACT functions); a header with inline bodies, a changed
@@ -416,6 +416,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Inline budget: more levers** (the model and the dead-read rule are in §3.1.1)
 
+* **An inline RenderObj setter spends inline budget like any accessor:** `Set_Force_Visible(true)` before a neighbour's call (the client's bytes show one call fewer) put an out-of-line `Switch` and an inlined `Convert_Color_Clamp` back (Rect3DClass ctor); a setter added or dropped for another function's lever moves pairs elsewhere.
 * **A function with no caller in the client is its neighbour's inline layer:** draft its body as that layer, not as a
   function of its own (land.cpp's Load_Prototype_Names). **Dead reads act by their total**, not their place: sweep the
   count of identical reads. **Your own statement mass moves the budget both ways:** statements added to a function
@@ -636,6 +637,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Shape: returns, tails, loops, switches**
 
+* **Branch and loop spellings seen once:** `if (a || b) x.Set_Hidden(...)` against `if (a) {...} else if (b) {...}` (try both when the qualified setter's jumps differ); a `^` gives the client's `xor al` bool test; a bool local read by two conditions emits `sete` + `test`, not a re-test; a `DynamicVectorClass` delete loop is `while ((count = Count()) != 0)`.
 * **Shape forms seen once:** a shared tail after a switch merges a case's ending: one `return` per case keeps them
   apart; two `return(call())` statements give the tail-merged form; return by value gives a dead store of 0; `break`
   against `if` can differ by one jump target, visible only in the bytes; a derived-to-base reference conversion is
@@ -735,6 +737,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Frame and stack slots**
 
+* **Temporaries that hold a frame slot:** named `Vector3` locals reproduce a frame holding two temporaries; a float ternary argument makes a temporary (write an if / else with two calls); a `rand()` packet argument needs a local before the temporary.
 * **Stack slots follow scopes:** sibling block scopes share frame slots; a client frame equal to the sum of
   its cases' locals means one case's locals sit at function scope. A local declared later at the enclosing
   level does not overlap a closed block: place declarations from `sub esp` and `lea [esp+X]`. Two
@@ -764,6 +767,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Constructors, destructors, vtables**
 
+* **Initialiser lists and helper placement:** `: Field(0)` initialisers put the vtable store last; heap helpers can sit after the object's ctype guard (not a second object).
 * **Constructor forms seen once:** a vtable store after the member initialisers says whose `+0x04` member it is (a
   listener base of 4 bytes, the subclass's own member after it); a file-static pointer global gives the client's
   release sequence, an extern one does not.
@@ -831,6 +835,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Relocation**
 
+* **`Peek_*` against `Get_*` (and similar twin accessors) differ only by the vtable slot,** visible in explain.py's relocation rows, not in the instruction count: read the relocation list before blaming order.
 * **Symbols that differ only in decoration or relocation:** a file-static reached by displacement
   (`[GutterColors+8]`) is unrelocated in objdiff: make it a global. VC6's decorated name of a static data
   member encodes its access (public / protected / private change the mangled name). A file `static` the
@@ -842,6 +847,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Literal, floats**
 
+* **VC6 factors `a*2 + b*2*c` into `2*(a + b*c)`;** `c*(b*2.0f)` stops it; `x*(WWMATH_PI/4.0)` gives the client's `fmul qword`. `Matrix3D(true)` + `Set_Translation` and the 12-float constructor store in different orders: read the client's store order; `Transform_Vector` on a camera-depth term gives the client's stack layout.
 * **Floats through integer registers or the FPU:** an int-register copy of a float member means a reference
   accessor or a plain assignment; an inline accessor is the form when the client copies the float through the FPU
   (`fld` / `fstp`); `c + 0, 0 - s` is `Matrix3D::Rotate_Z` on an identity; `WWMath::Sin` / `Cos` are asm inlines; a
@@ -937,6 +943,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 **Reading the client**
 
+* **Object boundaries:** a missing `<string>` guard is no evidence of one object; a small member the client calls out of line from another file is evidence of separate objects (an included .cpp would inline it); a function record can join a trailing thunk to the next object; check where an object really starts (`appfile.py show` lists unattributed neighbours).
 * **Out-parameters, thunks and calling conventions:** a `ret 4` function writing its result through eax with
   no copy on the early return takes an out-reference (`void Get_Bounds(AABoxClass &box)`); a function that
   reads its first argument as an output pointer and leaves eax unset returns void through a pointer; a
@@ -1258,7 +1265,7 @@ are in 3.0.
   lock-status`):** a ticket untouched for 120 s loses its place, and a worktree made before that code (or before any
   lock change) waits without a ticket and starves behind the queue: rebase it or copy the lock files. Every verify, report.py, auxpad.py /
   sendpad.py sweep and `wt.py bring-over` takes it, and with 6-9 builders a verify waited 20-50 minutes; the
-  default wait (600 s, vc6lock, `ENB_LOCK_WAIT`) gives up. Pass `--lock-wait 6000` to verify.py and
+  default wait (600 s, vc6lock, `ENB_LOCK_WAIT`) gives up. Pass `--lock-wait 6000` to verify.py and (never wrap a verify in `timeout`: the queue wait counts, and verify's own 600 s default expires behind a `--hold` sweep)
   `wt.py bring-over` (wt.py's default is 3000; it passes it on to its report.py step), set `ENB_LOCK_WAIT` for auxpad.py, iterate with the lock-free
   `appfile.py match FILE --pool` (about 1 minute or ~20 s a form, against a 30-minute lock wait; `--allow-missing`
   runs a variant of one function in ~15 s; for draft rounds `build.py --pool 1 --allow-dirty` plus `explain.py`
@@ -1499,8 +1506,8 @@ are in 3.0.
   placed beside the draft is not used (the tree's header is); parallel runs under one agent name share one objects
   directory, so give each run its own `--agent`; `-D V=1` breaks `<utility>`; the markers over blank lines count the
   blank lines; a static generated stand-in is reported "defined but not compiled"; `explain.py` wants appfile's own
-  object path (`.work/<agent>/appfile/obj/X.obj`).
-* **appfile.py, `match` and `show` limits:** `match` wipes the agent's `appfile/obj` on every run, so two runs of same-named drafts under one `--agent` overwrite each other's object (FileNotFoundError or another variant's result): run variants in series or one `ENB_AGENT` each. `match` refuses "the object lacks void" for a parenthesised definition `static void (Name)(...)` unless `--allow-missing`. `show` refuses a file app-functions.json does not attribute (a new file): a throwaway wrapper that sets the range's `file` in memory gives show and draft (Tools item: a `--range` option). A `#line` in a draft is easy to lose when the file goes into the tree: count the padding from the draft without it.
+  object path (`.work/<agent>/appfile/obj/X.obj`). `match --pool` reads stdin: inside a `while read` loop it eats the loop's input (add `< /dev/null`).
+* **appfile.py, `match` and `show` limits:** `match` wipes the agent's `appfile/obj` on every run, so two runs of same-named drafts under one `--agent` overwrite each other's object (FileNotFoundError or another variant's result): run variants in series or one `ENB_AGENT` each. `match` refuses "the object lacks void" for a parenthesised definition `static void (Name)(...)` unless `--allow-missing`. Operator members (`??_5`, `??U`) and nested-class members (the demangled name drops the outer class) show as no marker: `--allow-missing` too. `show` refuses a file app-functions.json does not attribute (a new file): a throwaway wrapper that sets the range's `file` in memory gives show and draft (Tools item: a `--range` option). A `#line` in a draft is easy to lose when the file goes into the tree: count the padding from the draft without it.
 * **appfile.py, markers and includes:** a `// @0xADDR` marker skips a `template <...>` line on its own, so it never attaches to a template function: join the template line to the definition line. `--diff` prints nothing once the marker line is replaced by a `// NOT EXACT` line: run explain.py on `.work/<agent>/appfile/obj/X.obj`. A draft outside app/ with relative `..\..\wwlib\x.h` includes needs `-I app/shared -I wwlib -I wwdebug -I wwmath`; `-I DIR` did not resolve app/shared's subdirectory includes (`auxdata\permstr.h`) even absolute: run `match` on the tree path with the default `-I auto`. A draft can be tried lock-free while your own verify waits: copy the .cpp and the edited header into `.work/<id>/dr/` (reported: quoted includes resolve from the draft's folder first, against the invocation bullet above: check which header the object used).
 * **appfile.py PREFIX means "ours is a prefix of the client's measured size":** the client size runs to the next
   verified function start, so it can include int3 padding after the client's `ret`, inter-object padding, or a
@@ -2195,6 +2202,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 #### ref_ptr.h
 
 * A `Create` returning `RefCountPtr<Derived>` wants a named local of that type (item property files).
+* `RefCountPtr::Clear()` does not NULL the pointer: the client's `X.Clear(); X = NULL;` is two statements.
 * Including it needs g_assert.h first (G_ASSERT). A script that finds `G_ASSERT(0 != Referent)` by text also
   hits ref_ptr.h's header note: match the whole statement line.
 
