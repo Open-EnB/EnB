@@ -14,9 +14,8 @@ class AudibleSoundClass;
 // The play list of one kind of music (wander, combat, ...): a queue of themes, each a list of components
 // played in order, and the sound playing now. 0x44 bytes (MusicManagerClass holds five at +0x50).
 // Its functions (0x437180-0x438800, the deque's instances to 0x439C40) lie right before musicmanager.cpp's in the
-// client, and MusicManagerClass's 0x43B190 holds Get_Current_Name inline with musiclist.cpp's own G_ASSERT lines
-// (l.364 / l.365): musiclist.cpp is compiled in musicmanager.cpp's object (included by it, or its functions are
-// inline). Open: how the tree's musiclist.cpp is built (see musicmanager.cpp's notes).
+// client, an object of its own (musicmanager.cpp calls Reset, Fade_Out, Fade_In, Add_Theme and Get_Current_Name out
+// of line; 0x43B190 tail-calls 0x438800, whose asserts l.364 / l.365 are). musiclist.cpp's notes give the evidence.
 class MusicListClass  // NAME 3: class-from-file (D24) for audio\musiclist.cpp
 {
 public:
