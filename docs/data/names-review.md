@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 219 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1932 |
-| 2 | describes what the code does | 4868 |
-| 1 | neutral placeholder | 24901 |
+| 3 | by convention from a client-named file or sibling | 1933 |
+| 2 | describes what the code does | 4866 |
+| 1 | neutral placeholder | 24910 |
 
 ## For review (score 3 and below)
 
@@ -1946,10 +1946,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5090` | `app/client/co.cpp:788` | untagged neutral name (D10) |
 | 1 | `Unknown_18` | `app/client/co.cpp:803` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Valid` | `app/client/co.cpp:834` | neutral (D10) |
-| 1 | `Unknown4981E0Class` | `app/client/co.cpp:858` | neutral (D10) |
-| 1 | `create` | `app/client/co.cpp:861` | neutral |
-| 1 | `ini .. hsv` | `app/client/co.cpp:863` | what 0x6F51D0 passes |
-| 1 | `Unknown_4983A0` | `app/client/co.cpp:863` | untagged neutral name (D10) |
 | 1 | `Unknown_6F51D0` | `app/client/co.cpp:868` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5140` | `app/client/co.cpp:871` | untagged neutral name (D10) |
 | 1 | `Unknown1320` | `app/client/co.cpp:875` | untagged neutral name (D10) |
@@ -1958,6 +1954,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_4604D0` | `app/client/co.cpp:914` | untagged neutral name (D10) |
 | 1 | `Unknown_460880` | `app/client/co.cpp:917` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `app/client/co.cpp:926` | untagged neutral name (D10) |
+| 1 | `Unknown4981E0Class` | `app/client/co.cpp:944` | untagged neutral name (D10) |
+| 1 | `Unknown_4983A0` | `app/client/co.cpp:945` | untagged neutral name (D10) |
 | 1 | `Unknown_2C` | `app/client/co.cpp:955` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/co.cpp:957` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5850` | `app/client/co.cpp:1001` | untagged neutral name (D10) |
@@ -4322,10 +4320,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Version` | `app/client/galaxy_map_render.h:345` | GalaxyMapClientClass's Version, last seen |
 | 1 | `Unknown28` | `app/client/galaxy_map_render.h:346` | untagged neutral name (D10) |
 | 1 | `UnknownB8` | `app/client/galaxy_map_render.h:357` | untagged neutral name (D10) |
-| 1 | `Unknown4981E0Class` | `app/client/galaxy_map_robj.cpp:15` | neutral (D10) |
-| 1 | `line` | `app/client/galaxy_map_robj.cpp:18` | what it holds |
-| 1 | `ini .. hsv` | `app/client/galaxy_map_robj.cpp:20` | what co.cpp's 0x6F51D0 passes |
-| 1 | `Unknown_4983A0` | `app/client/galaxy_map_robj.cpp:20` | untagged neutral name (D10) |
 | 1 | `_max_polys` | `app/client/galaxy_map_robj.cpp:24` | what DynamicMeshClass takes |
 | 1 | `_max_verts` | `app/client/galaxy_map_robj.cpp:25` | what DynamicMeshClass takes |
 | 1 | `_max_tile` | `app/client/galaxy_map_robj.cpp:27` | what it holds |
@@ -4343,6 +4337,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Swap_UV` | `app/client/galaxy_map_robj.cpp:205` | what it does |
 | 1 | `Unknown_7B3CD0` | `app/client/galaxy_map_robj.cpp:296` | untagged neutral name (D10) |
 | 1 | `Unknown_7B3F00` | `app/client/galaxy_map_robj.cpp:367` | untagged neutral name (D10) |
+| 1 | `Unknown4981E0Class` | `app/client/galaxy_map_robj.cpp:371` | untagged neutral name (D10) |
+| 1 | `Unknown_4983A0` | `app/client/galaxy_map_robj.cpp:373` | untagged neutral name (D10) |
 | 1 | `GalaxyMapRObjClass` | `app/client/galaxy_map_robj.h:28` | what it is |
 | 1 | `points` | `app/client/galaxy_map_robj.h:39` | what it walks |
 | 1 | `Unknown_7B3440` | `app/client/galaxy_map_robj.h:39` | untagged neutral name (D10) |
@@ -6122,7 +6118,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Width` | `app/client/linebox.h:58` | what Render does with it |
 | 1 | `MinSize` | `app/client/linebox.h:59` | what Render does with it |
 | 1 | `Unknown_BE67C4` | `app/client/loadingview.cpp:15` | neutral (D10) |
-| 1 | `Unknown7B3E30Class` | `app/client/loadingview.cpp:20` | untagged neutral name (D10) |
+| 1 | `Unknown7B3E30Class` | `app/client/loadingview.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/loadingview.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/loadingview.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown54` | `app/client/loadingview.cpp:48` | untagged neutral name (D10) |
@@ -6136,16 +6132,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown5C` | `app/client/loadingview.cpp:72` | untagged neutral name (D10) |
 | 1 | `Unknown60` | `app/client/loadingview.cpp:73` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/loadingview.cpp:74` | untagged neutral name (D10) |
-| 1 | `Unknown_692160` | `app/client/loadingview.cpp:78` | untagged neutral name (D10) |
-| 1 | `Unknown_691830` | `app/client/loadingview.cpp:81` | untagged neutral name (D10) |
-| 1 | `Unknown_692330` | `app/client/loadingview.cpp:85` | untagged neutral name (D10) |
-| 1 | `Unknown_6D2310` | `app/client/loadingview.cpp:92` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67BC` | `app/client/loadingview.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/loadingview.cpp:106` | untagged neutral name (D10) |
-| 1 | `last` | `app/client/loadingview.cpp:108` | what it holds |
-| 1 | `dots` | `app/client/loadingview.cpp:109` | what it holds |
-| 1 | `Unknown_Get_Ticks` | `app/client/loadingview.cpp:110` | untagged neutral name (D10) |
-| 1 | `Unknown_750B60` | `app/client/loadingview.cpp:127` | untagged neutral name (D10) |
+| 1 | `Release_Screen` | `app/client/loadingview.cpp:78` | what it does |
+| 1 | `Unknown_6D2310` | `app/client/loadingview.cpp:85` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/loadingview.cpp:86` | untagged neutral name (D10) |
+| 1 | `Unknown_691830` | `app/client/loadingview.cpp:99` | untagged neutral name (D10) |
+| 1 | `m_Unknown19A5` | `app/client/loadingview.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_50` | `app/client/loadingview.cpp:108` | untagged neutral name (D10) |
+| 1 | `Unknown_7B3F00` | `app/client/loadingview.cpp:188` | untagged neutral name (D10) |
+| 1 | `Unknown_692160` | `app/client/loadingview.cpp:197` | untagged neutral name (D10) |
+| 1 | `Unknown_692330` | `app/client/loadingview.cpp:204` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/loadingview.cpp:225` | untagged neutral name (D10) |
+| 1 | `last` | `app/client/loadingview.cpp:227` | what it holds |
+| 1 | `dots` | `app/client/loadingview.cpp:228` | what it holds |
+| 1 | `Unknown_Get_Ticks` | `app/client/loadingview.cpp:229` | untagged neutral name (D10) |
+| 1 | `Unknown_750B60` | `app/client/loadingview.cpp:246` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/local_interface_sort.cpp:62` | untagged neutral name (D10) |
 | 1 | `Unknown_541800` | `app/client/local_interface_sort.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/local_interface_sort.cpp:66` | untagged neutral name (D10) |
@@ -23253,10 +23253,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Recolored_Texture` | `app/shared/enbassetmgr.cpp:335` | descriptive (inlined) |
 | 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.cpp:644` | untagged neutral name (D10) |
 | 1 | `Unknown_78` | `app/shared/enbassetmgr.h:28` | compatibility alias for Create_Render_Obj |
-| 1 | `Unknown_48CF90, name, hsv` | `app/shared/enbassetmgr.h:37` | neutral (D10) |
-| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:37` | untagged neutral name (D10) |
-| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:44` | neutral (D10) |
-| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:44` | untagged neutral name (D10) |
+| 1 | `name, mip` | `app/shared/enbassetmgr.h:37` | what it passes on |
+| 1 | `Unknown_48CF90, name, hsv` | `app/shared/enbassetmgr.h:38` | neutral (D10) |
+| 1 | `Unknown_48CF90` | `app/shared/enbassetmgr.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_48ECA0, textures, count` | `app/shared/enbassetmgr.h:45` | neutral (D10) |
+| 1 | `Unknown_48ECA0` | `app/shared/enbassetmgr.h:45` | untagged neutral name (D10) |
 | 1 | `std:` | `app/shared/event.cpp:87` | the iterators of the Send_Event calls in progress (0xBE5610), fixed up by Remove_Listener and ~Subject |
 | 1 | `Pop_Iterator` | `app/shared/event.cpp:196` | pops Send_Event's iterator; false once ~Subject cleared it (inlined into 0x4E8E40) |
 | 1 | `Unknown_BE350C` | `app/shared/fp_tt.cpp:10` | neutral (D10): SClient::Do_Frame's frame toggle (sclient.cpp) |
@@ -24312,6 +24313,14 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set` | `app/shared/safe_ptr.h:21` | 0x4F5ED0 unlinks the old target, links the new one |
 | 1 | `m_next` | `app/shared/safe_ptr.h:25` | beside the client's m_prev |
 | 1 | `SafePtrTargetClass` | `app/shared/safe_ptr.h:34` | vtable 0xAEC890, the head of the pointers' list at +4 |
+| 1 | `Unknown4981E0Class` | `app/shared/segline_create.cpp:15` | untagged neutral name (D10) |
+| 1 | `Unknown_498350` | `app/shared/segline_create.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown_4983A0` | `app/shared/segline_create.cpp:70` | untagged neutral name (D10) |
+| 1 | `Unknown4981E0Class` | `app/shared/segline_create.h:14` | neutral (D10) |
+| 1 | `create` | `app/shared/segline_create.h:17` | neutral |
+| 1 | `Unknown_498350` | `app/shared/segline_create.h:20` | neutral (D10) |
+| 1 | `Unknown_4983A0, hsv_shift` | `app/shared/segline_create.h:21` | EA's Recolor argument |
+| 1 | `Unknown_4983A0` | `app/shared/segline_create.h:21` | untagged neutral name (D10) |
 | 1 | `Unknown_BE56D8` | `app/shared/shipcust_desc.cpp:15` | 0xBE56D8, each race's two default settings (filled at run time) |
 | 1 | `Unknown_B75D28` | `app/shared/shipcust_desc.cpp:17` | 0xB75D28, the hull style per race and profession |
 | 1 | `Unknown_B75D4C` | `app/shared/shipcust_desc.cpp:18` | 0xB75D4C, the wing style per race and profession |
@@ -25359,7 +25368,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Pass` | `app/client/co.cpp:250` | what it holds |
 | 2 | `std:` | `app/client/co.cpp:260` | what it holds |
 | 2 | `co.cpp` | `app/client/co.cpp:836` | the class id the handlers test |
-| 2 | `Line` | `app/client/co.cpp:865` | what it holds |
 | 2 | `Unknown_Get_Item` | `app/client/co.cpp:1730` | what it does; the client's name is unknown (D198) |
 | 2 | `base_asset` | `app/client/co.h:125` | what CREATE passes |
 | 2 | `Bone` | `app/client/co.h:141` | what it holds |
@@ -25876,7 +25884,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `PickedGate` | `app/client/galaxy_map_render.h:354` | 0x7A7560 |
 | 2 | `PickedGatePoint` | `app/client/galaxy_map_render.h:355` | 0x7A7560 |
 | 2 | `Bounds` | `app/client/galaxy_map_render.h:356` | what 0x7A9500 stores |
-| 2 | `Line` | `app/client/galaxy_map_robj.cpp:21` | what it holds |
 | 2 | `system` | `app/client/galaxy_map_robj.h:31` | 0x7AA420 passes its data |
 | 2 | `Gauge3DClass` | `app/client/gauge3d.h:28` | gauge3d.cpp's class (the file name, Westwood's Class suffix, as Rect3DClass) |
 | 2 | `all parameters` | `app/client/gauge3d.h:34` | what it does with them |
@@ -31570,9 +31577,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.cpp:445` | EA hueshift style for CLASSID_SPHERE |
 | 3 | `Recolor_Ring` | `app/shared/enbassetmgr.cpp:473` | EA hueshift style for CLASSID_RING |
 | 3 | `Post_Process` | `app/shared/enbassetmgr.h:30` | its profile string |
-| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.h:41` | EA hueshift style for CLASSID_SPHERE |
-| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.h:42` | EA hueshift style for CLASSID_RING |
-| 3 | `AssetManager` | `app/shared/enbassetmgr.h:46` | 0xBDADC0, scriptedmovie.cpp's G_ASSERT 'AssetManager' (0x802D30) |
+| 3 | `Recolor_Sphere` | `app/shared/enbassetmgr.h:42` | EA hueshift style for CLASSID_SPHERE |
+| 3 | `Recolor_Ring` | `app/shared/enbassetmgr.h:43` | EA hueshift style for CLASSID_RING |
+| 3 | `AssetManager` | `app/shared/enbassetmgr.h:47` | 0xBDADC0, scriptedmovie.cpp's G_ASSERT 'AssetManager' (0x802D30) |
 | 3 | `event.h` | `app/shared/event.h:6` | by convention from event.cpp (D24) |
 | 3 | `expr_lexer_impl.h` | `app/shared/expr/expr_lexer_impl.h:15` | header name assumed from the client's expr_lexer_impl.cpp |
 | 3 | `ExprLexerImplClass` | `app/shared/expr/expr_lexer_impl.h:24` | class-from-file (D24) |
@@ -31695,6 +31702,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `RS_THREAD_FLAG_MASK` | `app/shared/rs.h:25` | the asserts' text (the loader thread's bits 12 / 13) |
 | 3 | `RS_DATA_PRESENT` | `app/shared/rs.h:26` | rs_robj.cpp's assert text (Test_Flag(RS_DATA_PRESENT): bit 9, 0x200, set with the model) |
 | 3 | `RsTrackClass` | `app/shared/rs_track.h:203` | class-from-file (D24) for app\shared\rs_track.cpp |
+| 3 | `Line` | `app/shared/segline_create.h:25` | the FAIL_IF '!Line' |
 | 3 | `DependentSelectorClass` | `app/shared/selector.cpp:12` | the client's 'Dependent' (0x49FAB0), Westwood style (D24) |
 | 3 | `IndependentSelectorClass` | `app/shared/selector.cpp:22` | the client's 'Independent' (0x49FAB0), Westwood style (D24) |
 | 3 | `CountedSelectorClass` | `app/shared/selector.cpp:32` | the client's 'Counted' (0x49FAB0), Westwood style (D24) |
