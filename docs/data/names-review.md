@@ -7,11 +7,11 @@ are listed here until better evidence raises their tag. Regenerate with
 
 | Score | Meaning | Names |
 |---|---|---|
-| 5 | the client names it | 216 |
+| 5 | the client names it | 219 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1921 |
-| 2 | describes what the code does | 4765 |
-| 1 | neutral placeholder | 24697 |
+| 3 | by convention from a client-named file or sibling | 1924 |
+| 2 | describes what the code does | 4793 |
+| 1 | neutral placeholder | 24810 |
 
 ## For review (score 3 and below)
 
@@ -21,7 +21,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_437070` | `app/audio/bridgesounds.cpp:240` | untagged neutral name (D10) |
 | 1 | `Unknown_437070` | `app/audio/bridgesounds.h:20` | untagged neutral name (D10) |
 | 1 | `m_channel` | `app/audio/bridgesounds.h:29` | race / sound channel index |
-| 1 | `fade_in` | `app/audio/musiclist.h:28` | what Fade_In gets; NAME 2: what it does |
+| 1 | `Unknown_BDBB84` | `app/audio/musiclist.cpp:8` | neutral (D10), as avatar.cpp's |
+| 1 | `fade_in` | `app/audio/musiclist.h:27` | what Fade_In gets; NAME 2: what it does |
 | 1 | `Unknown_BDBB84` | `app/audio/musicmanager.cpp:11` | neutral (D10), as avatar.cpp's |
 | 1 | `Unknown_Get_Ticks` | `app/audio/musicmanager.cpp:12` | untagged neutral name (D10) |
 | 1 | `sector` | `app/audio/sectorsound.h:26` | what 0x750A70 passes; sectorsounds%d.ini's number |
@@ -12421,6 +12422,53 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/client/ui_combobox.h:87` | neutral |
 | 1 | `Layer` | `app/client/ui_combobox.h:91` | its type |
 | 1 | `Owner` | `app/client/ui_combobox.h:95` | what the constructors are given |
+| 1 | `Unknown_BE67C4` | `app/client/ui_commands.cpp:18` | 0xBE67C4 |
+| 1 | `Unknown_B7E4D4` | `app/client/ui_commands.cpp:21` | neutral (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_commands.cpp:36` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_commands.cpp:38` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_commands.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_commands.cpp:46` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/ui_commands.cpp:56` | untagged neutral name (D10) |
+| 1 | `Unknown_57C480` | `app/client/ui_commands.cpp:63` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_commands.cpp:68` | untagged neutral name (D10) |
+| 1 | `Unknown_57C8B0` | `app/client/ui_commands.cpp:73` | untagged neutral name (D10) |
+| 1 | `Unknown_57CB20` | `app/client/ui_commands.cpp:74` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/ui_commands.cpp:76` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_commands.cpp:91` | untagged neutral name (D10) |
+| 1 | `Unknown_57C980` | `app/client/ui_commands.cpp:93` | untagged neutral name (D10) |
+| 1 | `Unknown_57CA20` | `app/client/ui_commands.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_commands.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown_57CB60` | `app/client/ui_commands.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_commands.cpp:122` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_commands.cpp:164` | untagged neutral name (D10) |
+| 1 | `Unknown_57CAA0` | `app/client/ui_commands.cpp:174` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/client/ui_commands.cpp:182` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_commands.cpp:185` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_commands.cpp:210` | untagged neutral name (D10) |
+| 1 | `font` | `app/client/ui_commands.cpp:220` | neutral (D10) |
+| 1 | `Unknown_6D0A70` | `app/client/ui_commands.cpp:222` | untagged neutral name (D10) |
+| 1 | `ui_commands.h` | `app/client/ui_commands.h:5` | provisional header name |
+| 1 | `SlashCommandStruct` | `app/client/ui_commands.h:18` | neutral, after the file it is read from |
+| 1 | `UICommandsClass` | `app/client/ui_commands.h:27` | neutral, after its tooltips' section 'UI_COMMANDS' |
+| 1 | `client` | `app/client/ui_commands.h:30` | ChatPanelUIBase's |
+| 1 | `Unknown_54` | `app/client/ui_commands.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_commands.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_commands.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_commands.h:35` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_commands.h:36` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_commands.h:36` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_commands.h:37` | InterfaceClass's |
+| 1 | `Unknown_7C` | `app/client/ui_commands.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_57C480` | `app/client/ui_commands.h:38` | untagged neutral name (D10) |
+| 1 | `count` | `app/client/ui_commands.h:39` | what 0x57C080 passes |
+| 1 | `Unknown_57C8B0` | `app/client/ui_commands.h:39` | untagged neutral name (D10) |
+| 1 | `Unknown_57C980` | `app/client/ui_commands.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_57CA20` | `app/client/ui_commands.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_57CAA0` | `app/client/ui_commands.h:42` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/ui_commands.h:43` | GadgetClass's |
+| 1 | `Unknown_57CB20` | `app/client/ui_commands.h:43` | untagged neutral name (D10) |
+| 1 | `row` | `app/client/ui_commands.h:44` | neutral |
+| 1 | `Unknown_57CB60` | `app/client/ui_commands.h:44` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_cpit.cpp:36` | neutral (D10) |
 | 1 | `robj, a, b` | `app/client/ui_cpit.cpp:46` | what the constructor passes |
 | 1 | `Unknown_496730` | `app/client/ui_cpit.cpp:46` | untagged neutral name (D10) |
@@ -14706,7 +14754,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B8FF0` | `app/client/ui_mesh.cpp:204` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9100` | `app/client/ui_mesh.cpp:212` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9130` | `app/client/ui_mesh.cpp:217` | untagged neutral name (D10) |
-| 1 | `Unknown_5B9160` | `app/client/ui_mesh.cpp:222` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9190` | `app/client/ui_mesh.cpp:227` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9210` | `app/client/ui_mesh.cpp:232` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9290` | `app/client/ui_mesh.cpp:237` | untagged neutral name (D10) |
@@ -14757,8 +14804,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5B8FF0` | `app/client/ui_mesh.h:42` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9100` | `app/client/ui_mesh.h:43` | untagged neutral name (D10) |
 | 1 | `Unknown_5B9130` | `app/client/ui_mesh.h:44` | untagged neutral name (D10) |
-| 1 | `bone_name` | `app/client/ui_mesh.h:45` | neutral |
-| 1 | `Unknown_5B9160` | `app/client/ui_mesh.h:45` | untagged neutral name (D10) |
 | 1 | `bone` | `app/client/ui_mesh.h:46` | neutral |
 | 1 | `Unknown_5B9190` | `app/client/ui_mesh.h:46` | untagged neutral name (D10) |
 | 1 | `bone_name` | `app/client/ui_mesh.h:47` | neutral |
@@ -19354,7 +19399,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0B8` | `app/client/ui_string_list.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown0C4` | `app/client/ui_string_list.cpp:41` | untagged neutral name (D10) |
 | 1 | `Unknown0C8` | `app/client/ui_string_list.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_5B9160` | `app/client/ui_string_list.cpp:50` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_string_list.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown_6870E0` | `app/client/ui_string_list.cpp:67` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_string_list.cpp:108` | untagged neutral name (D10) |
@@ -19728,6 +19772,75 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `std:` | `app/client/ui_trade.h:56` | neutral (D10) |
 | 1 | `Unknown17C` | `app/client/ui_trade.h:56` | untagged neutral name (D10) |
 | 1 | `Unknown18C` | `app/client/ui_trade.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_treem.cpp:20` | 0xBE67C4 |
+| 1 | `Unknown675370GadgetClass` | `app/client/ui_treem.cpp:23` | neutral (D10) |
+| 1 | `Unknown_675120Class` | `app/client/ui_treem.cpp:23` | untagged neutral name (D10) |
+| 1 | `screen, pull, bar, layer, a, b` | `app/client/ui_treem.cpp:26` | what the pages pass |
+| 1 | `Unknown_A4` | `app/client/ui_treem.cpp:27` | untagged neutral name (D10) |
+| 1 | `Unknown_A8` | `app/client/ui_treem.cpp:28` | untagged neutral name (D10) |
+| 1 | `count, a, b` | `app/client/ui_treem.cpp:29` | neutral |
+| 1 | `Unknown_675CF0` | `app/client/ui_treem.cpp:29` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/ui_treem.cpp:31` | untagged neutral name (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_treem.cpp:32` | untagged neutral name (D10) |
+| 1 | `Unknown0B0` | `app/client/ui_treem.cpp:33` | untagged neutral name (D10) |
+| 1 | `Unknown0B4` | `app/client/ui_treem.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown0B8` | `app/client/ui_treem.cpp:35` | untagged neutral name (D10) |
+| 1 | `Unknown0D5` | `app/client/ui_treem.cpp:64` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_treem.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_treem.cpp:80` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_treem.cpp:105` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_treem.cpp:165` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_treem.cpp:176` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_treem.cpp:184` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_treem.cpp:191` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_treem.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_treem.cpp:299` | untagged neutral name (D10) |
+| 1 | `ui_treem.h` | `app/client/ui_treem.h:14` | provisional header name for ui_treem.cpp |
+| 1 | `Unknown675370GadgetClass` | `app/client/ui_treem.h:26` | untagged neutral name (D10) |
+| 1 | `UITreeMItemStruct` | `app/client/ui_treem.h:29` | neutral (D10) |
+| 1 | `Id` | `app/client/ui_treem.h:34` | neutral |
+| 1 | `String` | `app/client/ui_treem.h:35` | neutral |
+| 1 | `Flags` | `app/client/ui_treem.h:37` | neutral |
+| 1 | `UITreeMLineStruct` | `app/client/ui_treem.h:41` | neutral (D10) |
+| 1 | `Desc` | `app/client/ui_treem.h:46` | the bone's |
+| 1 | `PlusMinus` | `app/client/ui_treem.h:47` | the bone's |
+| 1 | `view, layer, format, owns_strings` | `app/client/ui_treem.h:55` | what it does with them; [mesh] the assert's |
+| 1 | `Unknown_54` | `app/client/ui_treem.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_treem.h:58` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_treem.h:59` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_treem.h:60` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_treem.h:61` | untagged neutral name (D10) |
+| 1 | `Add` | `app/client/ui_treem.h:62` | what it does |
+| 1 | `Add_Child` | `app/client/ui_treem.h:63` | what it does |
+| 1 | `Refresh` | `app/client/ui_treem.h:64` | what it does |
+| 1 | `Prev` | `app/client/ui_treem.h:65` | what it does |
+| 1 | `Next` | `app/client/ui_treem.h:66` | what it does |
+| 1 | `Next_Shown` | `app/client/ui_treem.h:67` | what it does |
+| 1 | `Parent` | `app/client/ui_treem.h:68` | what it does |
+| 1 | `Next_Sibling` | `app/client/ui_treem.h:69` | what it does |
+| 1 | `Open` | `app/client/ui_treem.h:70` | what it does |
+| 1 | `Close` | `app/client/ui_treem.h:71` | what it does |
+| 1 | `Toggle` | `app/client/ui_treem.h:72` | what it does |
+| 1 | `Find` | `app/client/ui_treem.h:73` | what it does |
+| 1 | `Update_Scroll_Bar` | `app/client/ui_treem.h:74` | what it does |
+| 1 | `Items` | `app/client/ui_treem.h:76` | neutral |
+| 1 | `Lines` | `app/client/ui_treem.h:77` | neutral |
+| 1 | `Shown` | `app/client/ui_treem.h:78` | neutral |
+| 1 | `Opened` | `app/client/ui_treem.h:79` | neutral |
+| 1 | `TopIndex` | `app/client/ui_treem.h:80` | neutral |
+| 1 | `ShownCount` | `app/client/ui_treem.h:81` | neutral |
+| 1 | `TopCount` | `app/client/ui_treem.h:82` | neutral |
+| 1 | `OwnsStrings` | `app/client/ui_treem.h:83` | neutral |
+| 1 | `Unknown0D5` | `app/client/ui_treem.h:84` | untagged neutral name (D10) |
+| 1 | `Dirty` | `app/client/ui_treem.h:85` | neutral |
+| 1 | `Unknown0D8` | `app/client/ui_treem.h:86` | untagged neutral name (D10) |
+| 1 | `ScrollBar` | `app/client/ui_treem.h:87` | neutral |
+| 1 | `ClickTime` | `app/client/ui_treem.h:88` | neutral |
+| 1 | `ClickIndex` | `app/client/ui_treem.h:89` | neutral |
+| 1 | `Selected` | `app/client/ui_treem.h:90` | neutral |
+| 1 | `MinusTexture` | `app/client/ui_treem.h:91` | neutral |
+| 1 | `PlusTexture` | `app/client/ui_treem.h:92` | neutral |
+| 1 | `NoneTexture` | `app/client/ui_treem.h:93` | neutral |
 | 1 | `robj, make_geometry_unique` | `app/client/ui_vault.cpp:24` | as eff_o.cpp's |
 | 1 | `Unknown_496AE0` | `app/client/ui_vault.cpp:24` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_vault.cpp:25` | neutral (D10) |
@@ -22655,8 +22768,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `pkwarpindex` | `app/packets/pkwarpindex.h:15` | provisional, pk + its first named class's name |
 | 1 | `Unknown` | `app/shared/attrib_dir.cpp:1092` | untagged neutral name (D10) |
 | 1 | `Unknown1C` | `app/shared/attrib_dir_collective.cpp:33` | untagged neutral name (D10) |
-| 1 | `Unknown_4E0700` | `app/shared/attrib_dir_collective.cpp:211` | neutral placeholder (D10) |
-| 1 | `Unknown_4DFBF0` | `app/shared/attrib_dir_collective.cpp:212` | neutral placeholder (D10) |
 | 1 | `Unknown1C` | `app/shared/attrib_dir_collective.h:52` | neutral placeholder (D10) |
 | 1 | `Unknown_Find_Field` | `app/shared/auxdata/auxdata.h:147` | neutral (D10) |
 | 1 | `UnknownRTTIClass` | `app/shared/auxdata/auxdata.h:154` | untagged neutral name (D10) |
@@ -24279,6 +24390,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `unknown_4a1590.h` | `app/shared/unknown_4a1590.h:19` | neutral header name (D10) |
 | 1 | `unknown_4be9d0.h` | `app/shared/unknown_4be9d0.h:15` | neutral (D137) |
 | 1 | `Unknown_4BE9D0` | `app/shared/unknown_4be9d0.h:20` | neutral (D10); callers avatar_desc.cpp's 0x4C1460 / 0x4C15F0 / Convert_Names, 0x5D6DC0, 0x616220, 0x649FE0 |
+| 1 | `unknown_4dfbf0.h` | `app/shared/unknown_4dfbf0.h:19` | provisional file name (D137) |
+| 1 | `unknown_4e0700.h` | `app/shared/unknown_4e0700.h:15` | provisional file name (D137) |
 | 1 | `unknown_4fac20.h` | `app/shared/unknown_4fac20.h:21` | neutral header name (D10) |
 | 1 | `Unknown_8B44C0` | `app/shared/unknown_8b4560.cpp:9` | neutral placeholder (D10) |
 | 1 | `Unknown_8B44E0` | `app/shared/unknown_8b4560.cpp:15` | neutral placeholder (D10) |
@@ -24760,19 +24873,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `FadeIn` | `app/audio/musiccomponent.h:17` | the ini's FadeIn-NN |
 | 2 | `FadeOut` | `app/audio/musiccomponent.h:18` | the second time |
 | 2 | `musiclist.h` | `app/audio/musiclist.h:5` | musiclist.cpp is the client's; header name assumed |
-| 2 | `std:` | `app/audio/musiclist.h:23` | what it holds |
-| 2 | `Add_Theme` | `app/audio/musiclist.h:27` | what it does |
-| 2 | `Update_Fade_Out` | `app/audio/musiclist.h:29` | what it does |
-| 2 | `Stop` | `app/audio/musiclist.h:30` | what it does |
-| 2 | `Fade_Out` | `app/audio/musiclist.h:31` | what it does |
-| 2 | `Fade_In` | `app/audio/musiclist.h:32` | what it does |
-| 2 | `Reset` | `app/audio/musiclist.h:33` | what it does |
-| 2 | `Get_Current_Name` | `app/audio/musiclist.h:34` | what it returns |
-| 2 | `std:` | `app/audio/musiclist.h:36` | what it holds |
-| 2 | `FadingOut` | `app/audio/musiclist.h:39` | what it does |
-| 2 | `FadingIn` | `app/audio/musiclist.h:40` | what it does |
-| 2 | `LastTheme` | `app/audio/musiclist.h:41` | what it holds |
-| 2 | `Looping` | `app/audio/musiclist.h:42` | what it does |
+| 2 | `std:` | `app/audio/musiclist.h:22` | what it holds |
+| 2 | `Add_Theme` | `app/audio/musiclist.h:26` | what it does |
+| 2 | `Update_Fade_Out` | `app/audio/musiclist.h:28` | what it does |
+| 2 | `Stop` | `app/audio/musiclist.h:29` | what it does |
+| 2 | `Fade_Out` | `app/audio/musiclist.h:30` | what it does |
+| 2 | `Fade_In` | `app/audio/musiclist.h:31` | what it does |
+| 2 | `Reset` | `app/audio/musiclist.h:32` | what it does |
+| 2 | `Get_Current_Name` | `app/audio/musiclist.h:33` | what it returns |
+| 2 | `std:` | `app/audio/musiclist.h:35` | what it holds |
+| 2 | `FadingOut` | `app/audio/musiclist.h:38` | what it does |
+| 2 | `FadingIn` | `app/audio/musiclist.h:39` | what it does |
+| 2 | `LastTheme` | `app/audio/musiclist.h:40` | what it holds |
+| 2 | `Looping` | `app/audio/musiclist.h:41` | what it does |
 | 2 | `musicmanager.h` | `app/audio/musicmanager.h:5` | musicmanager.cpp is the client's; header name assumed |
 | 2 | `MUSIC_THEME_NONE` | `app/audio/musicmanager.h:23` | CurrentMusicType's -1 |
 | 2 | `MUSIC_THEME_WANDER` | `app/audio/musicmanager.h:24` | the ini's WANDER |
@@ -26831,6 +26944,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/ui_combobox.h:106` | what they are |
 | 2 | `std:` | `app/client/ui_combobox.h:107` | what Set_Label shows |
 | 2 | `ArrowHidden` | `app/client/ui_combobox.h:108` | what Hide_Arrow sets |
+| 2 | `Slider` | `app/client/ui_commands.h:46` | what it is |
+| 2 | `Top` | `app/client/ui_commands.h:47` | what it holds |
+| 2 | `Selected` | `app/client/ui_commands.h:48` | what it holds |
+| 2 | `Buttons` | `app/client/ui_commands.h:49` | what they are |
+| 2 | `Rows` | `app/client/ui_commands.h:50` | what they are |
+| 2 | `Texts` | `app/client/ui_commands.h:51` | what they are |
+| 2 | `std:` | `app/client/ui_commands.h:52` | what it holds |
 | 2 | `SoundManager` | `app/client/ui_cpit.cpp:394` | what it holds |
 | 2 | `Object` | `app/client/ui_cpit.h:37` | what it holds |
 | 2 | `Node` | `app/client/ui_cpit.h:38` | eff_o.h's watch nodes' |
@@ -29294,6 +29414,27 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `LandVertexStruct` | `app/shared/unknown_474530.cpp:852` | the patch vertex, FVF 0x202 (0x4746C0) |
 | 2 | `BackgroundColor` | `app/shared/unknown_490900.h:31` | what Begin_Render gets (scriptedmovie.cpp) |
 | 2 | `Bounded_Strcpy` | `app/shared/unknown_4a1590.h:24` | what it does (no client string names it) |
+| 2 | `AttribLinkModClass` | `app/shared/unknown_4dfbf0.h:26` | what it is |
+| 2 | `Shadow` | `app/shared/unknown_4dfbf0.h:36` | what it holds |
+| 2 | `Src` | `app/shared/unknown_4dfbf0.h:37` | what it holds |
+| 2 | `std:` | `app/shared/unknown_4dfbf0.h:38` | what it holds |
+| 2 | `Dst` | `app/shared/unknown_4dfbf0.h:39` | what it holds |
+| 2 | `std:` | `app/shared/unknown_4dfbf0.h:40` | what it holds |
+| 2 | `Type` | `app/shared/unknown_4dfbf0.h:41` | as AttribModValueClass |
+| 2 | `Owner` | `app/shared/unknown_4dfbf0.h:42` | as AttribModValueClass |
+| 2 | `AttribBinaryModClass` | `app/shared/unknown_4dfbf0.h:46` | what it is |
+| 2 | `Type` | `app/shared/unknown_4dfbf0.h:54` | as AttribModValueClass |
+| 2 | `Owner` | `app/shared/unknown_4dfbf0.h:55` | as AttribModValueClass |
+| 2 | `Dir` | `app/shared/unknown_4dfbf0.h:56` | what it holds |
+| 2 | `std:` | `app/shared/unknown_4dfbf0.h:57` | what it holds |
+| 2 | `std:` | `app/shared/unknown_4dfbf0.h:58` | what it holds |
+| 2 | `std:` | `app/shared/unknown_4dfbf0.h:59` | what it holds |
+| 2 | `ShadowA` | `app/shared/unknown_4dfbf0.h:60` | what it holds |
+| 2 | `ShadowB` | `app/shared/unknown_4dfbf0.h:61` | what it holds |
+| 2 | `AttribSumModClass` | `app/shared/unknown_4dfbf0.h:65` | what it computes |
+| 2 | `Link_Attribute` | `app/shared/unknown_4dfbf0.h:73` | what it does |
+| 2 | `Create_Sum_Mod` | `app/shared/unknown_4dfbf0.h:74` | what it does |
+| 2 | `Detach_Owner_Mods` | `app/shared/unknown_4e0700.h:20` | what it does |
 | 2 | `String_Trim` | `app/shared/unknown_4fac20.h:29` | what it does |
 | 2 | `String_Trim` | `app/shared/unknown_4fac20.h:30` | what it does |
 | 2 | `String_Insert_Commas` | `app/shared/unknown_4fac20.h:34` | what it does (money.cpp's 0x4F00C0 calls it) |
@@ -29482,7 +29623,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `AmbientSoundManagerClass` | `app/audio/ambientsoundmanager.h:23` | class-from-file (D24) for audio/ambientsoundmanager.cpp (P-L18-2) |
 | 3 | `BridgeSoundManagerClass` | `app/audio/bridgesounds.h:12` | class-from-file (D24) for audio/bridgesounds.cpp (P-L18-2) |
 | 3 | `MusicComponentClass` | `app/audio/musiccomponent.h:10` | class-from-file (D24) for audio\musiccomponent.cpp |
-| 3 | `MusicListClass` | `app/audio/musiclist.h:20` | class-from-file (D24) for audio\musiclist.cpp |
+| 3 | `MusicListClass` | `app/audio/musiclist.h:19` | class-from-file (D24) for audio\musiclist.cpp |
 | 3 | `MusicManagerClass` | `app/audio/musicmanager.h:18` | class-from-file (D24) for audio\musicmanager.cpp |
 | 3 | `MusicThemeClass` | `app/audio/musictheme.h:13` | class-from-file (D24) for audio\musictheme.cpp |
 | 3 | `SectorSoundClass` | `app/audio/sectorsound.h:15` | class-from-file (D24) for audio/sectorsound.cpp |
@@ -30173,6 +30314,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `ui_combobox.h` | `app/client/ui_combobox.h:5` | header name by convention (D24) from the client's ui_combobox.cpp |
 | 3 | `UIComboBoxClass` | `app/client/ui_combobox.h:50` | class-from-file (D24) |
 | 3 | `AttachBone` | `app/client/ui_combobox.h:85` | the assert's |
+| 3 | `std:` | `app/client/ui_commands.h:21` | the ini key |
+| 3 | `std:` | `app/client/ui_commands.h:22` | the ini key |
 | 3 | `CtrnGadgetClass` | `app/client/ui_cpit.cpp:206` | ctrngadg.h's (D24 class-from-file) |
 | 3 | `SoundManagerClass` | `app/client/ui_cpit.cpp:389` | class-from-file (D24) for app\client\sound_manager.cpp |
 | 3 | `UICpitClass` | `app/client/ui_cpit.h:103` | class-from-file (D24) for ui_cpit.cpp |
@@ -30480,6 +30623,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `As_Space_Client` | `app/client/ui_trade.cpp:44` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UITradeClass` | `app/client/ui_trade.h:21` | class-from-file (D24) for ui_trade.cpp |
 | 3 | `PDA` | `app/client/ui_trade.h:50` | the assert's |
+| 3 | `UITreeMClass` | `app/client/ui_treem.h:52` | class-from-file (D24) for app\Client\ui_treem.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_vault.cpp:33` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIVaultClass` | `app/client/ui_vault.h:19` | class-from-file (D24) for app\Client\ui_vault.cpp |
 | 3 | `InterfaceMesh` | `app/client/ui_vault.h:33` | the FAIL_IF's |

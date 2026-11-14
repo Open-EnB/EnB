@@ -7,11 +7,13 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-839 entries in 279 files.
+842 entries in 280 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
 | `app/audio/bridgesounds.cpp:8` | `BridgeSoundManagerClass::BridgeSoundManagerClass` | marker | NOT EXACT: register-only (explain.py: same length, 0.74): the client holds the 0 of m_channel in ecx and loads 0.5 into eax before it; here eax holds both in turn |
+| `app/audio/musiclist.cpp:137` | `MusicListClass::Update` | marker | NOT EXACT: shape (explain.py: a merged or split tail, 0.74): the client shares one `return 3` tail between the two pop_front exits and keeps the stop branch's size in ecx; a `?:` return in the stop branch gives 0.80 with setcc code the client does not have |
+| `app/audio/musiclist.cpp:381` | `x437C30` | mention | NOT EXACT: Update 0x437C30 (0.74, shape: the client shares the `return 3` tail of both pop_front branches and |
 | `app/audio/musicmanager.cpp:138` | `MusicManagerClass::Load_INI` | marker | NOT EXACT: inline budget (explain.py: 2287 bytes vs 2227, 0.61): the client calls push_back's _Ucopy / _Ufill / _Destroy (0x43BF20, 0x43BF60, 0x43BC60) and its last size() (0x43BC30) out of line, here they are inline; this and the section name swap edi / ebp |
 | `app/audio/musicmanager.cpp:269` | `MusicManagerClass::Queue_Themes` | marker | NOT EXACT: register allocation and inline budget (explain.py: 488 bytes vs 494, 0.46): the client keeps type in ebx and calls the vector's _Destroy 0x43BC60 after the first erase, here type is in ebp and both erases are inline |
 | `app/audio/musicmanager.cpp:348` | `MusicManagerClass::Queue_Sector_Themes` | marker | NOT EXACT: order-only (explain.py: same length, 0.84): the client stores Sector = -1 before it saves CurrentMusicType to the stack, here after |
@@ -275,7 +277,6 @@ edit the comments in the code, not this file.
 | `app/client/radar_data.cpp:223` | `RadarDataClass::Unknown_7BBC00` | marker | NOT EXACT: inline budget (the client calls GutterColorStruct::operator= 0x70AC60 for the last of the four, ours inlines all four) @0x7BBC00 |
 | `app/client/radar_system.cpp:86` | `RadarSystemClass::Unknown_7BCA70` | marker | NOT EXACT: register (ours keeps a zero register and this in edi; the client gutter in ebx, starmap in edi, this in ebp) @0x7BCA70 |
 | `app/client/radar_system_data_cache.cpp:157` | `RadarSystemDataCacheClass::Get_Is_In_Range` | marker | NOT EXACT: order (the client's always-in-range path returns on its own, before the distance test; ours shares the tail) @0x7BE3A0 |
-| `app/client/rect3d.cpp:9` | `Rect3DClass::Rect3DClass` | marker | NOT EXACT: 0.79, inline budget: the client calls Switch_To_Multi_Vertex_Color out of line (0x6B7230, its Convert_Color_Clamp inlined) and inlines all four Vertex calls; ours inlines Switch (calling Convert_Color_Clamp) and calls the last UV |
 | `app/client/sbaseview.cpp:405` | `SBaseViewClass::Unknown_69D030` | marker | NOT EXACT: literal (explain.py; 0.87): Rotate_Z's first row multiplies c * x before s * y in the client |
 | `app/client/sbaseview.cpp:1242` | `SBaseViewClass::Unknown_6A0590` | marker | NOT EXACT: frame (0.72): the frame slots (the matrix rows, the cross products' temporaries) and the rotation's row order (the client computes Z, Y, X) |
 | `app/client/sclient.cpp:406` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
@@ -603,6 +604,8 @@ edit the comments in the code, not this file.
 | `app/client/ui_talkt.cpp:618` | `UITalkTreeClass::Unknown_60` | marker | NOT EXACT: 0x64D770 (Unknown_60: this in edi, one slot fewer) |
 | `app/client/ui_talkt.cpp:839` | `UITalkTreeClass::Unknown_64E7A0` | marker | NOT EXACT: 0x64E7A0 (Unknown_64E7A0: one slot fewer) |
 | `app/client/ui_trade.cpp:600` | `UITradeClass::Unknown_651F60` | marker | NOT EXACT: 0x651F60's -1 call pushes a zeroed edx twice, ours shares the other call's push 0 (register residue) @0x651F60 |
+| `app/client/ui_treem.cpp:190` | `UITreeMClass::Unknown_68` | marker | NOT EXACT (0.27, inline-budget): the client calls Next_Sibling (0x655DE0) out of line in the inlined Open / Close loops; ours inlines it |
+| `app/client/ui_treem.cpp:270` | `UITreeMClass::Refresh` | marker | NOT EXACT (0.80, order-only): the client loads the line offset before Lines.Vector (0x6557D7); the rest is the same |
 | `app/client/ui_vault.cpp:60` | `UIVaultClass::UIVaultClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x656FF0 |
 | `app/client/ui_vault.cpp:109` | `UIVaultClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x657430 |
 | `app/client/ui_vault.cpp:214` | `UIVaultClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x657AA0 |
