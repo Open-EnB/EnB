@@ -854,16 +854,16 @@ template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const N
 
 
 
-// a holder of a segmented line (0x4981E0 makes one when asked; 0x4983A0 reads it from an INI section)
-class Unknown4981E0Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown4981E0Class(bool create);			// 0x4981E0  // NAME 1 [create]: neutral
-	~Unknown4981E0Class();						// 0x498320
-	void Unknown_4983A0(INIClass *ini, const char *section, float scale, float *hsv);	// 0x4983A0  // NAME 1 [ini .. hsv]: what 0x6F51D0 passes
-	bool operator!() const { return(Line == NULL); }
-	RenderObjClass *Line;						// +0x00  // NAME 2: what it holds
-};
+// the holder of a segmented line (segline_create.cpp: 0x4981E0 makes one, 0x4983A0 reads it from an INI section)
+#include "..\shared\segline_create.h"
+
+
+
+
+
+
+
+
 void Message_Error(const char *sender, const char *category, const char *file, int line, const char *format, ...);	// 0x4BC260 (g_assert.h's reporter)
 static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float scale, float *hsv);
 
@@ -943,7 +943,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 	if (ini.Is_Present(section, "Width")) {
 		Unknown4981E0Class segline(true);
 		segline.Unknown_4983A0(&ini, section, scale, hsv);
-		RenderObjClass *line = segline.Line;
+		RenderObjClass *line = segline.Line.Peek();
 		FAIL_IF(!segline) return(NULL);
 		line->Add_Ref();
 		return(line);
