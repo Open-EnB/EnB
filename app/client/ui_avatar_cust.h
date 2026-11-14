@@ -14,6 +14,7 @@ class SBaseViewClass;
 class UIViewClass;
 class LayerClass;
 class GadgetClass;
+class RObjGadgetClass;		// gd_robj.h's (the buttons at +0x1CC / +0x204 / +0x240: their slot +0x8C, the model at +0x30)
 class FlashingGadgetEvent;
 class UIAvatarCustPipClass;
 class CharacterViewAvatarClass;	// avatar.h
@@ -80,9 +81,9 @@ public:
 	UIAvatarCustPipClass *Unknown0B8;					// +0xB8 (ship_pip.cpp's gadget)
 	RefCountPtr<CharacterViewAvatarClass> Unknown0BC;	// +0xBC (a RefCountPtr: the destructor 0x54BAB0 releases it twice, by hand and as a member)
 	AvatarDescClass Unknown0C0;							// +0xC0 (the old look: 0x551BF0)
-	GadgetClass *Unknown1CC[14];						// +0x1CC ([0] on in mode 1, [1] in mode 2)
-	GadgetClass *Unknown204[15];						// +0x204 ([10]-[12]: parts 0-2)
-	GadgetClass *Unknown240[11];						// +0x240 ([4]-[7]: parts 3-6; [8]-[10] the metal models' gadgets)
+	RObjGadgetClass *Unknown1CC[14];					// +0x1CC ([0] on in mode 1, [1] in mode 2)
+	RObjGadgetClass *Unknown204[15];					// +0x204 ([10]-[12]: parts 0-2)
+	RObjGadgetClass *Unknown240[11];					// +0x240 ([4]-[7]: parts 3-6; [8]-[10] the metal models' gadgets)
 	Matrix3D Unknown26C[3];								// +0x26C (the models' turning frames; the constructor's loop)
 	UIAvatarCustGadgetHolderStruct *Unknown2FC;			// +0x2FC
 	Vector2 Unknown300;									// +0x300 (0.5, 0.5)
