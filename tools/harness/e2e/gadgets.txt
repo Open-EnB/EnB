@@ -72,3 +72,4 @@ petition.faq       706 300   # Help System (hsi01a): 'Open Game Knowledge Base (
 petition.bug       706 340   # the same: 'I want to report a bug'
 petition.billing   706 379   # the same: 'I have a tech support, billing, or account question'
 browser.close      1162 255  # the pop-up browser (jweb01): its close box (e2e shot browser_credits)
+optctl.cancel      929 821   # Control Options (ui_option_control_keys, e2e shot option_control): 'Cancel'

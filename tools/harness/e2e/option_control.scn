@@ -1,0 +1,19 @@
+name: the control keys page (ui_option_control_keys.cpp) from the chat panel's Options tab, shown and cancelled
+# Picking 'Control' builds UIOptionControlKeysClass (mode 1): 'Control Options', six category buttons and a list of
+# key rows, each row two gd_key_press.cpp KeyPressGadgets (primary, alternate; 0x66A700). The page reads no file of
+# its own name (its model comes from the art mix files), so the checks are the standing no-CRASH (the gadget list
+# walk of InterfaceClass::Unknown_7C crashed while KeyPressGadget was a stand-in), the shot, and the world taking
+# input again after Cancel (` targets self: REQUEST_TARGET).
+timeout: 400
+include _login
+click gadget chat.tab.options
+alive 0.5
+click gadget options.control
+expect-event proxy '^input: replayed mouse 0x201 at 508, 91'
+wait-quiet proxy 1.0 within 15
+shot option_control
+click gadget optctl.cancel
+wait-quiet proxy 1.0 within 15
+shot option_control_closed
+key 0xC0
+expect-event antprox 'received REQUEST_TARGET 0x0017, 8 bytes' within 10

@@ -76,10 +76,9 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 SCN = os.path.join(HERE, 'e2e')
 OUT = os.path.join(ROOT, '.work', 'e2e')
 ORDER = ['world_entry', 'starmap', 'options', 'pda_pages', 'cargo', 'chat']
-# Run after everything else: browser_credits leaves the pop-up browser's page drawn over the world (its close calls
-# the stand-in PopupBrowserSettingsClass::Unknown_7CB240, not the settings store's 0x7CB240 DestroyBrowser), so no
-# scenario may follow it in the same client; last, it costs no extra client start. Drop it here once 0x7CB240 is real.
-LAST = ['browser_credits']
+# Scenarios that must run after everything else (one that leaves the world changed where no following scenario may
+# use it: it then costs no extra client start). None today.
+LAST = []
 STANDIN_HIT = 'stand-in hit:'
 SOURCES = ('antprox', 'stubs', 'msg', 'proxy', 'files', 'any')
 ACTIONS = ('click', 'rclick', 'move', 'key', 'text', 'stray')

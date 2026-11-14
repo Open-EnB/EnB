@@ -98,7 +98,7 @@ class ParserTest(unittest.TestCase):
     def test_the_repo_scenarios_parse(self):
         names = e2e.scenario_names()
         self.assertEqual(names[:6], e2e.ORDER)
-        self.assertEqual(names[-len(e2e.LAST):], e2e.LAST)
+        self.assertEqual(names[len(names) - len(e2e.LAST):], e2e.LAST)
         for n in names:
             sc = e2e.load(n)
             self.assertTrue(sc['steps'])

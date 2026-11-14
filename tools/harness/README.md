@@ -555,11 +555,9 @@ its time), `result-NAME.json`, `stubs.log`, `antprox.out`, `d3d8shot.log`, the s
 
 **Scenarios** are `tools/harness/e2e/NAME.scn`, in the order world_entry, starmap, options, pda_pages, cargo, chat,
 then the rest by name (2026-11-14: the chat panel's windows chat_windows, group_windows, help_windows, petition,
-option_pages, options_combo, quit_menu; hot_keys; pda_faction), and last (e2e.py's `LAST`) browser_credits, the
-pop-up browser: `XFAIL` today, the browser is never destroyed (see its header), so it leaves the page drawn over the
-world and nothing may follow it in that client. The pop-up browser's other items (Self Help, F1's Online Manual,
-the Help System's FAQ, bug and billing buttons) are `_wip_browser_*.scn` until that stand-in is real: each would
-cost a client start. The browser items load live pages (the URLs are client.exe's
+option_pages, options_combo, option_control, quit_menu; group_looking; hot_keys; pda_faction; the pop-up browser's
+items browser_credits, browser_selfhelp, browser_manual, browser_petition_faq / _bug / _billing). e2e.py's `LAST`
+names scenarios that must run after everything else (none today). The browser items load live pages (the URLs are client.exe's
 strings in the settings store's table, settings_store.cpp 0x7C97B0); a scenario asserts the window
 (fc_jweb01.ini), never the page, so a dead URL passes too. `_wip_NAME.scn` crashes the client today (its header
 names the fault) and runs only when named;
