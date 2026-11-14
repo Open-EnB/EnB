@@ -158,7 +158,7 @@ void UIMissnClass::Unknown_54()
 	Unknown64.Unknown_6870E0(button, 4, View, 1, 0);
 	Unknown_5BB4F0(button);
 	forfeit->Release_Ref();
-	if (UnknownD8[4]->Unknown_60()) {
+	if (UnknownD8[4]->Is_Enabled()) {
 		FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
 		UnknownD8[4]->Unknown_40(false);
 		if (font) {
@@ -236,7 +236,7 @@ void UIMissnClass::Unknown_60()
 		}
 	}
 	if (!on) {
-		if (UnknownD8[4]->Unknown_60() != false) {
+		if (UnknownD8[4]->Is_Enabled() != false) {
 			FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
 			UnknownD8[4]->Unknown_40(false);
 			if (font) {
@@ -244,7 +244,7 @@ void UIMissnClass::Unknown_60()
 			}
 		}
 	} else {
-		if (UnknownD8[4]->Unknown_60() != true) {
+		if (UnknownD8[4]->Is_Enabled() != true) {
 			FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
 			UnknownD8[4]->Unknown_40(true);
 			if (font) {
@@ -517,7 +517,7 @@ void UIMissnClass::Unknown_5C5DB0(int new_mission)
 	if (UnknownC4 && UnknownC4->Active) {
 		UnknownC4->Unknown_5C();
 	}
-	if (UnknownD8[4]->Unknown_60()) {
+	if (UnknownD8[4]->Is_Enabled()) {
 		FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
 		UnknownD8[4]->Unknown_40(false);
 		if (font) {
@@ -608,7 +608,7 @@ void UIMissnClass::Unknown_5C5DB0(int new_mission)
 			font->Change_Text(label, 0);
 		}
 		if (!sclient->Unknown1298 || !sclient->Unknown1298->Active) {
-			if (UnknownD8[4]->Unknown_60() != true) {
+			if (UnknownD8[4]->Is_Enabled() != true) {
 				FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
 				UnknownD8[4]->Unknown_40(true);
 				if (font) {
@@ -617,7 +617,7 @@ void UIMissnClass::Unknown_5C5DB0(int new_mission)
 			}
 		}
 	} else {
-		if (UnknownD8[4]->Unknown_60()) {
+		if (UnknownD8[4]->Is_Enabled()) {
 			FontSys *font = Unknown_BE67C4->Get_Style("Forfeit_TSI22A", DescriptionPanel);
 			UnknownD8[4]->Unknown_40(false);
 			if (font) {

@@ -1,9 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0",
-  "0x51E9E0",
-  "0x51EA50"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "gd_inv_slider.cpp: the inventory windows' slider (Unknown669FB0Class), 0x669FB0-0x66A6D0 by its __FILE__ asserts ('e:\\build\\beta\\G\\app\\Client\\gd_inv_slider.cpp', 0xB8D080) and its table 0xAFA3F4; functional from the pseudocode (D64)",
  "expected": {},
@@ -29,10 +25,15 @@
   "0x51AD80",
   "0x51ADA0",
   "0x51E220",
+  "0x669F60",
+  "0x669F90",
   "0x66A280",
   "0x66A2B0",
   "0x66A300",
-  "0x66A3C0"
+  "0x66A3C0",
+  "0x66A600",
+  "0x66A670",
+  "0x66A6A0"
  ],
  "merged": [],
  "name": "client/gd_inv_slider.cpp",

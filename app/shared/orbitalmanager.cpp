@@ -161,15 +161,15 @@ OrbitalObject *OrbitalObject::Create(INIClass &ini, const char *section, ClientC
 }
 
 
-// NOT EXACT: the first rotation's sin / cos order and the temporaries' stack slots differ (similarity 0.53)
+// NOT EXACT: the products' order and the temporaries' stack slots differ (similarity 0.53 before the rotations took the client's axes, Z then X)
 void OrbitalObject::Update(CameraClass *camera, float time)
 {
 	WWPROFILE("OrbitalObject::Update");
 	float orbit = (time * OrbitsPerHour * 2.0f + StartAngle) * WWMATH_PI;
 	Matrix3D rot(true);
-	rot.Rotate_Y(RZ * WWMATH_PI);
+	rot.Rotate_Z(RZ * WWMATH_PI);
 	float a = RX * WWMATH_PI;
-	rot.Rotate_Z(sinf(a), cosf(a));
+	rot.Rotate_X(sinf(a), cosf(a));
 	rot.Rotate_Y(sinf(-orbit), cosf(-orbit));
 	Matrix3D::Rotate_Vector(rot, Vector3(0, 0, -1), &Direction);
 	Vector3 pos = Distance * Direction + camera->Get_Transform().Get_Translation();

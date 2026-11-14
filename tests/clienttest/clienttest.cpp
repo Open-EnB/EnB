@@ -517,26 +517,9 @@ static EffectObjectClass *New_Effect(unsigned id)
 	return effect;
 }
 
-// The concrete effects eff_o.cpp's factory 0x6E9490 makes for clienttest's effect.ini (tests/clienttest/data): their
-// files (eff_robj.cpp, the warp's, eff_line.cpp) are not rebuilt, so these stand in for the constructors the helpers
-// call. Each is built as the client's is, on the real end its constructor calls (client.py dis: 0x6EEEA0 calls the
-// unary end's 0x6E7540, 0x6F25A0 calls 0x6EEEA0, 0x6E5040 the binary end's 0x6E7D70), so the packets' slot +0x10 /
-// +0x14 calls and the per-frame update run eff_o.cpp's real slots; each keeps a reference to its render object
-// (the helper releases its own after the constructor) at the end of the client's size.
-// (RObjEffect, 0x6EEEA0, is eff_robj.cpp's real RObjEffectClass since L2: app.lib defines it, the warp stands on it)
-class Unknown6F25A0EffectClass : public RObjEffectClass	// WarpEffect (0xE0 bytes)
-{
-public:
-	Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj);
-	virtual void Unknown_24(int next);
-	char Unknown_DC[4];
-};
-Unknown6F25A0EffectClass::Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj) :
-	RObjEffectClass(client, id, start_time, duration, cycle_time, robj)
-{
-	Trace("stub Unknown6F25A0EffectClass %u", id);
-}
-void Unknown6F25A0EffectClass::Unknown_24(int next) { Trace("stub Unknown6F25A0EffectClass::Unknown_24 %u %d", ID, next); }
+// The concrete effects eff_o.cpp's factory 0x6E9490 makes for clienttest's effect.ini (tests/clienttest/data) are
+// app.lib's real classes: RObjEffect (eff_robj.cpp's RObjEffectClass, 0x6EEEA0, since L2) and WarpEffect
+// (eff_warp.cpp's WarpEffectClass, 0x6F25A0, since E1, 2026-11-14).
 
 // ------------------------------------------------------------------------- the memory connection
 

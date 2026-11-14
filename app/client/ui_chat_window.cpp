@@ -227,7 +227,7 @@ void ChatWindowInterface::Unknown_A0(unsigned int count)
 void ChatWindowInterface::Unknown_58()
 {
 	UnknownA4->Unknown_40(true);
-	if (UnknownDC->Unknown_60()) {
+	if (UnknownDC->Is_Enabled()) {
 		Unknown_5715F0(true, true);
 		Unknown_571470(true);
 	}
@@ -509,7 +509,7 @@ void ChatWindowInterface::Unknown_571470(bool force)
 // 0x5715F0  // NOT EXACT: functional (CW2): register residue around Create_Peek(Peek_Scene()) (0.71)
 void ChatWindowInterface::Unknown_5715F0(bool on, bool force)
 {
-	if (on == UnknownDC->Unknown_60() && !force) return;
+	if (on == UnknownDC->Is_Enabled() && !force) return;
 	if (on) {
 		if (!Unknown44) return;
 		InterfaceSortScopeClass scope(this);

@@ -8,7 +8,7 @@
 #include "control_keys_manager.h"
 #include "..\shared\auxdata\permstr.h"
 extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1: neutral (D10), as sclient.h declares it
-
+#include "inv_data.h"	// InvDataClass::Unknown_688830 (0x688830) and inv_data_peek.h's Get_Item (0x68AAA0)
 static Vector2 CloseButtonSize(16.0f, 16.0f);	// 0xBE5A50 (0x531630)  // NAME 1: what it sizes
 
 
@@ -68,7 +68,7 @@ static Vector2 CloseButtonSize(16.0f, 16.0f);	// 0xBE5A50 (0x531630)  // NAME 1:
 
 
 
-UIItemExaminationClass::UIItemExaminationClass(LineDisplayClientClass *client, const RefCountPtr<UISlotInfoItemClass> &item) :
+UIItemExaminationClass::UIItemExaminationClass(LineDisplayClientClass *client, const RefCountPtr<InvDataClass> &item) :
 	UISlotInfoClass(client, "ITEM_EXAMINATION_MAIN"),
 	Item(item),
 	State(UI_CLOSED)
@@ -121,7 +121,7 @@ UIItemExaminationClass::~UIItemExaminationClass()
 	Unknown_BE67BC->Unload("FA_IEI00.INI");
 }
 
-UISlotInfoItemClass *UIItemExaminationClass::Unknown_90()
+SlotDataClass *UIItemExaminationClass::Unknown_90()
 {
 	return(Item.Peek());
 }
@@ -206,23 +206,23 @@ public:
 	virtual void Unknown_10(); virtual void Unknown_14();
 	virtual SClient *As_Space_Client();							// +0x18 (as ui_manu.cpp's)  // NAME 3: the FAIL_IF's in ui_manu.cpp
 };
-class UISlotInfoItemUnknown54Class { public: int *Unknown_68AAA0(int slot, bool arg); };	// the item's +0x54 (inv_d*.cpp's 0x68AAA0)  // NAME 1 [slot, arg]: neutral
-class Unknown537830Class  // NAME 1: neutral (D10): 0x1C bytes, tables 0xAEE6CC / 0xAEE6A0, the panels it fills
-{
-public:
-	Unknown537830Class(UIItemExaminationTitleClass &title, UIItemExaminationAttributesClass &attributes, UIItemExaminationSpecialsClass &specials, UIItemExaminationOptionsClass &options, UIItemExaminationDescriptionClass &description);	// 0x537830  // NAME 1 [title, attributes, specials, options, description]
-	~Unknown537830Class();																	// 0x5378C0
-	char Unknown00[0x1C];
-};
-class Unknown521B80Class { public: Unknown521B80Class(SClient *space_client, int *entry, const RefCountPtr<UISlotInfoItemClass> &item, int slot); ~Unknown521B80Class(); void Unknown_521BD0(Unknown537830Class &visitor); int Unknown00[4]; };	// NAME 1: neutral (D10): 0x521B80 / 0x521BB0 / 0x521BD0  // NAME 1 [space_client, entry, item, slot, visitor]
+
+#include "item\client_item_property_builder.h"	// ClientItemPropertyBuilderClass (0x521B80 / 0x521BB0 / 0x521BD0)
+#include "ui_item_examination_property_router.h"	// UIItemExaminationPropertyRouterClass (0x537830 / 0x5378C0)
+
+
+
+
+
+
 
 bool UIItemExaminationClass::Unknown_94()
 {
 	FAIL_IF(State != UI_CLOSED) return(false);
-	UISlotInfoItemUnknown54Class *holder = Item->Unknown_688830();	// NAME 1 [holder, slot, entry]: neutral
+	InvDataPeekClass *holder = Item->Unknown_688830();	// NAME 1 [holder, slot, entry]: neutral
 	int slot = UnknownAC;
-	int *entry = holder->Unknown_68AAA0(slot, false);
-	if (entry == NULL || *entry == -1 || *entry == -2) {
+	InvDataPeekItemStruct *entry = holder->Get_Item(slot, false);
+	if (entry == NULL || *(int *)entry == -1 || *(int *)entry == -2) {
 		return(false);
 	}
 
@@ -236,9 +236,9 @@ bool UIItemExaminationClass::Unknown_94()
 	FAIL_IF(!client) return(false);
 	SClient *space_client = client->As_Space_Client();
 	FAIL_IF(!space_client) return(false);
-	Unknown521B80Class info(space_client, entry, Item, slot);	// NAME 1 [info]: neutral
-	Unknown537830Class visitor(*Title, *Attributes, *Specials, *Options, *Description);	// NAME 1 [visitor]: neutral
-	info.Unknown_521BD0(visitor);
+	ClientItemPropertyBuilderClass info(space_client, (Unknown688830Item *)entry, Item, slot);	// NAME 1 [info]: neutral
+	UIItemExaminationPropertyRouterClass visitor(*Title, *Attributes, *Specials, *Options, *Description);	// NAME 1 [visitor]: neutral
+	info.Build(visitor);
 	Attributes->Rebuild();
 	Specials->Rebuild();
 	Options->Rebuild();
@@ -256,4 +256,8 @@ bool UIItemExaminationClass::Unknown_94()
 **	the Create_NEW copies 0x532930-0x532AB0 and the adjustor thunks 0x532B70 / 0x532B80 / 0x532B90. The bases
 **	(ui_slot_info.cpp's, ui_dynamicwindow.cpp's) and the title, description and specials panels are declared only.
 **	Unknown_94's lookup needs the call before the slot read (one expression loaded UnknownAC first).
+**
+**	X1 (run 2026-11-14): Item is the InvDataClass 0x630280 passes (no UISlotInfoItemClass view); Unknown_94 calls
+**	InvDataClass::Unknown_688830, InvDataPeekClass::Get_Item, ClientItemPropertyBuilderClass and
+**	UIItemExaminationPropertyRouterClass by their own names (phantom views before: the window never opened).
 */

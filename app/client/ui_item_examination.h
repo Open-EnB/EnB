@@ -15,6 +15,7 @@
 
 class UIItemExaminationAttributesClass;
 class UIItemExaminationOptionsClass;
+class InvDataClass;
 
 // From dynamic_window_move.cpp (not in the tree yet)
 GadgetClass *Unknown_51A9C0(UIDynamicWindowClass *window);									// 0x51A9C0 (dynamic_window_move.cpp: the window's move gadget)  // NAME 1 [window]: neutral
@@ -24,7 +25,7 @@ GadgetClass *Unknown_51A9C0(UIDynamicWindowClass *window);									// 0x51A9C0 (
 class UIItemExaminationClass : public UISlotInfoClass  // NAME 3: class-from-file (D24) for app\Client\ui_item_examination.cpp
 {
 public:
-	UIItemExaminationClass(LineDisplayClientClass *client, const RefCountPtr<UISlotInfoItemClass> &item);	// 0x531660  // NAME 1 [client, item]: neutral
+	UIItemExaminationClass(LineDisplayClientClass *client, const RefCountPtr<InvDataClass> &item);	// 0x531660  // NAME 1 [client, item]: neutral
 	virtual ~UIItemExaminationClass();														// 0x5321C0 (deleting 0x532190)
 	virtual void Unknown_54();																// 0x532480 (Escape into the key list)  // NAME 1: neutral (D10)
 	virtual void Unknown_58();																// 0x5324D0  // NAME 1: neutral (D10)
@@ -32,12 +33,12 @@ public:
 	virtual void Unknown_60();																// 0x5325C0 (the base's)  // NAME 1: neutral (D10)
 	virtual bool Unknown_68(int key);														// 0x5325E0 (key 1 closes)  // NAME 1 [key]: InterfaceClass's
 	virtual void Unknown_7C(UIViewClass *view, bool arg);									// 0x532610 (the base's)  // NAME 1 [view, arg]: InterfaceClass's
-	virtual UISlotInfoItemClass *Unknown_90();												// 0x532460 (Item)  // NAME 1: neutral (D10)
+	virtual SlotDataClass *Unknown_90();													// 0x532460 (Item)  // NAME 1: neutral (D10)
 	virtual bool Unknown_94();																// 0x532640 (FAIL_IF 'State != UI_CLOSED', '!client', '!space_client')  // NAME 1: neutral (D10)
 
 	enum { UI_CLOSED = 0 };																	// (the FAIL_IF 'State != UI_CLOSED')  // NAME 3: the FAIL_IF's
 
-	RefCountPtr<UISlotInfoItemClass> Item;													// +0xB0  // NAME 1: neutral (D10)
+	RefCountPtr<InvDataClass> Item;														// +0xB0  // NAME 1: neutral (D10)
 	ControlKeyListClass Keys;																// +0xB4  // NAME 1: neutral (D10)
 	int State;																				// +0xC0 (FAIL_IF 'State != UI_CLOSED')  // NAME 3: the FAIL_IF's
 	RefCountPtr<UIItemExaminationTitleClass> Title;											// +0xC4  // NAME 1: neutral (D10)

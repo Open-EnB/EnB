@@ -34,51 +34,51 @@
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
-// gadget.cpp's gadget, as far as this file calls it
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual ~GadgetClass(); virtual void Unknown_04(); virtual void As_RObjGadget(); virtual void As_RObjProxyGadget();
-	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28();
-	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C (the check button's 0x7E7FC0: true when it toggled)  // NAME 1 [event, x, y, mask]: gadget.h's
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50();
-	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual bool Unknown_60();							// +0x60 (0x5B2060: the entry picked)
-	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
-	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
-	virtual void Unknown_84(); virtual void Unknown_88();
-	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
-	virtual void Unknown_90(); virtual void Unknown_94(); virtual void Unknown_98(); virtual void Unknown_9C();
-	virtual void Unknown_A0();
-	virtual void Unknown_A4(float value, int unknown);	// +0xA4 (the slider's: its position)  // NAME 1 [value, unknown]: neutral
-	void Unknown_65FFA0(int arg);						// 0x65FFA0 (0x5B6410 passes -1)  // NAME 1 [arg]: neutral
-	static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h's: static, cdecl, variadic)
-	void Unknown_6603A0(bool indicator, UIViewClass *view);	// 0x6603A0  // NAME 1 [indicator, view]: gadget.h's
-	void Unknown_6607D0();								// 0x6607D0
+// gadget.cpp's gadget, gd_slider.cpp's slider, the buttons (unknown_675120.h's ButtonGadgetClass) and the
+// check buttons (unknown_7e7e00.h's CheckBoxGadgetClass)
+#include "gadget.h"
+#include "gd_slider.h"
+#include "unknown_7e7e00.h"
 
-	char Unknown04[0x2C - 0x04];						// +0x04
-	unsigned int Unknown2CLow : 6;						// +0x2C
-	unsigned int Unknown2C40 : 1;						// +0x2C bit 0x40 (0x5B42F0 clears it)
-	unsigned int Unknown2C80 : 4;						// +0x2C
-	unsigned int Unknown2C800 : 1;						// +0x2C bit 0x800 (0x5B2480: set on the current level's column)
-	RenderObjClass *Unknown30;							// +0x30: the gadget's model (0x5B42F0 puts the icon on it)
-};
 
-// gd_slider.cpp's slider, as far as this file calls it
-class GadgetSlider : public GadgetClass	// NAME 5: the client's RTTI .?AVGadgetSlider@@ (gd_slider.h), as far as this file calls it
-{
-public:
-	GadgetSlider(bool arg, LayerClass *layer);		// 0x66DFC0 (0x128 bytes; slot +0x54 passes 0 and the window's layer)  // NAME 1 [arg, layer]: what slot +0x54 passes
-	void Unknown_66E460(const RefCountPtr<RenderObjClass> &model, bool a, int b);	// 0x66E460 (the destructor passes none, 0, 0)  // NAME 1 [model, a, b]: neutral
-	void Unknown_66FA90(float value, float rows, bool update);	// 0x66FA90 (this file: a row, 10.0f, true)  // NAME 1 [value, rows, update]: neutral
 
-	char Unknown34[0xD4 - 0x34];						// +0x34
-	float Unknown0D4;									// +0xD4: the position (the first row shown)
-	char Unknown0D8[0x128 - 0xD8];						// +0xD8
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -162,15 +162,15 @@ UIManuClass::~UIManuClass()
 
 
 
-// gadget.cpp's button gadgets (100 bytes), as slot +0x54 makes them: over a render object (0x675240) or over a mesh's
-// named sub-object (0x675170)
-class ButtonGadgetClass : public GadgetClass	// NAME 1 [ButtonGadgetClass]: unknown_675120.h's (0x64 bytes), as far as this file makes it (as ui_avatr.cpp)
-{
-public:
-	ButtonGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask, unsigned int flags);	// 0x675240 (0x55, 3)  // NAME 1 [robj, layer, mask, flags]: unknown_675120.h's
-	ButtonGadgetClass(UIMeshClass *mesh, const char *name, const LayerClass &layer, unsigned int mask, unsigned int flags);	// 0x675170 (0x55, 3)  // NAME 1 [mesh, name, layer, mask, flags]: unknown_675120.h's
-	char Unknown34[0x64 - 0x34];						// +0x34
-};
+// (the button gadgets slot +0x54 makes, 0x675240 / 0x675170: unknown_675120.h's ButtonGadgetClass)
+
+
+
+
+
+
+
+
 
 // The window's buttons, the category columns' names and their ids (0xB81850, 0xB81840, 0xB818A8)
 static const char *Unknown_B81850[] = { "exit", "item00", "cat00", "sub00", "recent00", "go" };	// NAME 1: neutral (D10)
@@ -242,7 +242,7 @@ void UIManuClass::Unknown_58()
 		for (int i = 0; i < 10; i++) {
 			sprintf(buffer, "desc%02d_tsm01a", i);
 			Unknown16C[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
-			Unknown16C[i]->Set_Sort_Level(Unknown0E8[i]->Unknown30->Get_Sort_Level() + 1);
+			Unknown16C[i]->Set_Sort_Level(Unknown0E8[i]->RObj->Get_Sort_Level() + 1);
 			Unknown16C[i]->Change_Text("", 0);
 			sprintf(buffer, "var%02d_tsm01a", i);
 			Unknown194[i] = Create_Peek(Unknown_BE67C4->Get_Style(buffer, InterfaceMesh->Peek_Mesh_Object()));
@@ -295,18 +295,18 @@ void UIManuClass::Unknown_5C()
 	}
 }
 
-// The check button (0x68 bytes; constructor 0x7E7E70 over a render object and a layer, destructor 0x7E7FA0, table 0xB075E4)
-class CheckBoxGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	CheckBoxGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int flags);	// 0x7E7E70 (0x5B6410: 0, or 0x55 for the filter buttons; unknown_7e7e00.h's)  // NAME 1 [robj, layer, flags]: unknown_7e7e00.h's
-	virtual ~CheckBoxGadgetClass();					// 0x7E7FA0
-	virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask);	// +0x2C 0x7E7FC0
-	void Unknown_7E8030(bool on);						// 0x7E8030: checked or not  // NAME 1 [on]: neutral
+// (the check button, 0x7E7E70: unknown_7e7e00.h's CheckBoxGadgetClass)
 
-	char Unknown34[0x64 - 0x34];						// +0x34
-	bool Checked;										// +0x64  // NAME 2: what 0x7E8030 sets
-};
+
+
+
+
+
+
+
+
+
+
 
 // The tech level filter buttons: one per level (0x70 bytes, table 0xAF2DF8) and the "all levels" one (0x6C bytes,
 // table 0xAF2EBC), made by 0x5B6410; a toggle calls the window back
@@ -406,8 +406,8 @@ void UIManuClass::Unknown_54()
 	}
 	RefCountPtr<TextureClass> recent = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("IM_recent.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 	if (recent) {
-		Unknown_495FD0(Unknown0CC[5]->Unknown30, recent.Peek(), 0);
-		Unknown0CC[5]->Unknown2C40 = 0;
+		Unknown_495FD0(Unknown0CC[5]->RObj, recent.Peek(), 0);
+		Unknown0CC[5]->Unknown2C_06 = 0;
 		GadgetClass::Set_Tooltip(Unknown0CC[5], "UI_MANUFACTURE", "ICON_RECENT");
 	}
 	GadgetClass::Set_Tooltip(Unknown0CC[6], "UI_MANUFACTURE", "ICON_GO");
@@ -720,7 +720,7 @@ void UIManuClass::Unknown_5B1ED0(int row)
 void UIManuClass::Unknown_5B2060(int index)
 {
 	if (Unknown0B98 < 3) {
-		if (Unknown0C0[Unknown0B98]->Gadgets[index]->Unknown_60()) {
+		if (Unknown0C0[Unknown0B98]->Gadgets[index]->Is_Enabled()) {
 			Unknown0B80[Unknown0B98] = Unknown0C0[Unknown0B98]->IDs[index];
 			for (int i = Unknown0B98 + 1; i <= 3; i++) {
 				Unknown0B80[i] = -1;
@@ -790,10 +790,10 @@ void UIManuClass::Unknown_5B2480()
 		Unknown_5B42F0(i);
 		if (Unknown0B98 == i) {
 			Unknown0CC[i + 2]->Unknown_6603A0(0, 0);
-			Unknown0CC[i + 2]->Unknown2C800 = 1;
+			Unknown0CC[i + 2]->Unknown2C_0B = 1;
 		} else {
 			Unknown0CC[i + 2]->Unknown_6607D0();
-			Unknown0CC[i + 2]->Unknown2C800 = 0;
+			Unknown0CC[i + 2]->Unknown2C_0B = 0;
 		}
 	}
 	go = Create_Peek(Unknown_BE67C4->Get_Style(Unknown_B81868[0], InterfaceMesh->Peek_Mesh_Object()));
@@ -836,7 +836,7 @@ void UIManuClass::Unknown_5B28E0(int top)
 // 0x5B2950
 void UIManuClass::Unknown_5B2950()
 {
-	int top = (int)Unknown0B0->Unknown0D4;
+	int top = (int)Unknown0B0->Value;
 	if (Unknown0B90 != top) {
 		Unknown0B90 = top;
 		Unknown_5B2230();
@@ -847,7 +847,7 @@ void UIManuClass::Unknown_5B2950()
 void UIManuClass::Unknown_5B2990()
 {
 	GadgetSlider *slider = Unknown0B0;
-	int top = (int)slider->Unknown0D4;
+	int top = (int)slider->Value;
 	int bottom = top + 9;
 	int pick = Unknown0B80[3];
 	if (pick >= 0) {
@@ -1229,7 +1229,7 @@ void UIManuClass::Unknown_5B42F0(int level)
 			}
 			break;
 	}
-	Unknown0CC[level + 2]->Unknown2C40 = 0;
+	Unknown0CC[level + 2]->Unknown2C_06 = 0;
 	GadgetClass::Set_Tooltip(Unknown0CC[level + 2], "UI_MANUFACTURE", name);
 	RefCountPtr<TextureClass> texture = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture(file, MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 	if (texture) {
@@ -1238,7 +1238,7 @@ void UIManuClass::Unknown_5B42F0(int level)
 		}
 	}
 	if (texture && !texture->Is_Missing_Texture()) {
-		RenderObjClass *robj = Unknown0CC[level + 2]->Unknown30; Unknown_495FD0(robj, texture.Peek(), 0);
+		RenderObjClass *robj = Unknown0CC[level + 2]->RObj; Unknown_495FD0(robj, texture.Peek(), 0);
 		Unknown0CC[level + 2]->Unknown_40(true);
 		Unknown0CC[level + 2]->Unknown_8C(false);
 		Unknown110[level]->Set_Hidden(false);

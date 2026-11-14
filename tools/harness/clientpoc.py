@@ -16,12 +16,14 @@ each start: with one shared auth.ini the first-started client sent its account l
 failed, and crashed in the error message box). The release folder is filled from release\\ on each run (client.exe and client.map, or --exe PATH's exe and map beside it; the DLLs and data files when
 they differ), with its own stubs.log, _except.txt and d3d8.dll proxy, and shots in
 .work/poc/shots/NAME-HHMMSS. The PID of the client is printed ("client pid N"); kill it by that PID only.
-programs/clientpoc/poc_multi.cpp makes that possible without app code changes (mutex per process, no cursor
-warp). --exe runs a worktree's own link output (WT\\build\\programs\\clientpoc\\clientpoc.exe, its map beside it) whatever
+The exe carries no test code for this: an instance's COPY of the exe gets its own mutex name (prepare() rewrites
+the string "enb_mutex_lock" in the copy to a name of the same length made from the instance's name; antprox does
+the same in memory for the retail build it knows), and the d3d8shot proxy beside it makes SetCursorPos / ClipCursor
+no-ops (D3D8SHOT_CURSOR=off) or gives the client its virtual input (D3D8SHOT_INPUT=1). --exe runs a worktree's own link output (WT\\build\\programs\\clientpoc\\clientpoc.exe, its map beside it) whatever
 release\\ holds: builders' checks use it (docs/builders.md, POC instances); it must exist.
 
 replay: antprox /REPLAY (D181; the loopback server for one client; each instance gets its own address, so
-several replays run at once) starts the client (/CLIENT:<instance exe>), ENB_POC_INPUT=1, the --input steps
+several replays run at once) starts the client (/CLIENT:<instance exe>), the proxy's D3D8SHOT_INPUT=1, the --input steps
 are posted to the window of the client.exe whose parent is that antprox (found by parent PID, not by name),
 then both are killed by PID. antprox's console output and its per-run files go in the shot folder
 (antprox.out, antprox-logs\\).
@@ -63,7 +65,8 @@ lines of _except.txt. Nothing is run against a server (antprox stays off: it wri
 
 --input FILE: posts window messages to the client's top-level window (found by its PID) at the times the
 file gives; never the real cursor or keyboard (PostMessage only: nothing reaches other programs). It sets
-ENB_POC_INPUT=1: programs/clientpoc/poc_input.cpp then gives the client a virtual cursor and keyboard (the
+D3D8SHOT_INPUT=1: the d3d8shot proxy (tools/harness/d3d8shot.c Hook_Input, copied beside the exe for the run)
+then gives the client a virtual cursor and keyboard, our build and the retail client alike (the
 client reads GetCursorPos / GetMessagePos, not the message's coordinates, and takes input only while its
 window is in the foreground). One step
 a line, '#' comments; T is milliseconds after the window first appears, X Y client-area pixels:
@@ -177,12 +180,51 @@ class Inst:
                 if f.lower() not in skip and os.path.isfile(os.path.join(self.source, f)):
                     self._copy(os.path.join(self.source, f), os.path.join(self.dir, f))
             self._copy(self.src_exe, self.exe)
+            if not self.retail:
+                self._own_mutex()
             m = os.path.splitext(self.src_exe)[0] + '.map'
             if not self.retail:
                 self._copy(m if os.path.exists(m) else MAP, self.map)
         for f in (self.log, self.exc):
             if os.path.exists(f):
                 os.remove(f)
+
+    def _own_mutex(self):
+        """The instance's copy of the exe gets a mutex name of its own (same length), so several clients run side by
+        side: WinMain refuses to start while another process holds "enb_mutex_lock". Only the copy is changed."""
+        import hashlib
+        old = b'enb_mutex_lock\x00'
+        new = b'enb_mutex_' + hashlib.sha1(self.name.encode()).hexdigest()[:4].encode() + b'\x00'
+        with open(self.exe, 'rb') as f:
+            data = f.read()
+        if data.count(old) == 1:
+            st = os.stat(self.exe)
+            with open(self.exe, 'wb') as f:
+                f.write(data.replace(old, new))
+            os.utime(self.exe, (st.st_atime, st.st_mtime))      # _copy compares size and time: no recopy next run
+        elif new not in data:
+            print(f'{self.exe}: "enb_mutex_lock" found {data.count(old)} times: the mutex name is left alone '
+                  f'(a second client will refuse to start)', flush=True)
+
+    def use_proxy(self, env, out, input=False, tag=False):
+        """Copies the d3d8shot proxy beside the exe and sets its environment (the log and shots go to out): the
+        virtual input when input, else the cursor guard for an instance. Returns the proxy's path (remove it after
+        the run)."""
+        if not os.path.exists(PROXY):
+            raise SystemExit(f'{PROXY} missing: python tools/harness/run_reference.py build')
+        proxy = os.path.join(self.dir, 'd3d8.dll')
+        if os.path.exists(proxy) and self.dir == RELEASE:
+            raise SystemExit(f'{proxy} exists already: not ours, not overwritten')
+        shutil.copyfile(PROXY, proxy)
+        env['D3D8SHOT_DIR'] = out
+        env['D3D8SHOT_NOREGISTER'] = '1'     # D249: the client's DllRegisterServer call for BrowserEngine.dll does nothing
+        if input:
+            env['D3D8SHOT_INPUT'] = '1'
+            if tag:
+                env['D3D8SHOT_INPUT_TAG'] = '1'
+        elif self.name:
+            env['D3D8SHOT_CURSOR'] = 'off'
+        return proxy
 
     # Data\client's folders the instance gets its own copy of (antprox writes ini\auth.ini); the rest are junctions
     OWN = {'ini', 'output'}
@@ -322,12 +364,12 @@ def find_window(pid, skip_dialogs=False):
     return found[0] if found else None
 
 
-TAG = 0x5043 << 16      # programs/clientpoc/poc_input.cpp's POC_TAG: the high word of a replayed message's wParam
+TAG = 0x5043 << 16      # tools/harness/d3d8shot.c's IN_TAG: the high word of a replayed message's wParam
 
 
 def post_step(hwnd, op, rest, tag=False):
-    """Posts one input step. tag: wParam's high word carries TAG (poc_input.cpp strips it and logs the message as
-    'replayed'; with ENB_POC_INPUT_TAG=1 it drops untagged input, a human's). Only for a POC built with that hook."""
+    """Posts one input step. tag: wParam's high word carries TAG (the d3d8shot proxy strips it and logs the message
+    as 'replayed'; with D3D8SHOT_INPUT_TAG=1 it drops untagged input, a person's)."""
     user32 = ctypes.windll.user32
     t = TAG if tag else 0
     post = lambda m, w, l: user32.PostMessageW(hwnd, m, w | t, l)
@@ -424,25 +466,18 @@ def run(seconds, fullscreen, args, shots=None, steps=None, inst=None, messages=F
     env = dict(os.environ)
     if not fullscreen:
         env['ENB_POC_WINDOWED'] = '1'
-    if steps:
-        env['ENB_POC_INPUT'] = '1'
-    proxy = os.path.join(RELEASE, 'd3d8.dll')
-    if shots:
-        if not os.path.exists(PROXY):
-            raise SystemExit(f'{PROXY} missing: python tools/harness/run_reference.py build')
-        if os.path.exists(proxy):
-            raise SystemExit(f'{proxy} exists already: not ours, not overwritten')
+    proxy = None
+    hooks = True        # the proxy, always: shots, the virtual input, an instance's cursor guard, no DllRegisterServer (D249)
+    if hooks or messages:
         out = inst.shots_dir()
         os.makedirs(out, exist_ok=True)
-        shutil.copyfile(PROXY, proxy)
-        env['D3D8SHOT_DIR'] = out
-        env['D3D8SHOT_FRAMES'] = shots
+    if hooks:
+        proxy = inst.use_proxy(env, out, input=bool(steps))
+        if shots:
+            env['D3D8SHOT_FRAMES'] = shots
     listener = None
     if messages:
         args = ['-ENABLE_MESSAGES'] + list(args)
-        if not shots:
-            out = inst.shots_dir()
-            os.makedirs(out, exist_ok=True)
     try:
         p = subprocess.Popen([EXE] + list(args), cwd=RELEASE, env=env)
         print(f'client pid {p.pid}', flush=True)
@@ -471,7 +506,7 @@ def run(seconds, fullscreen, args, shots=None, steps=None, inst=None, messages=F
         else:
             print(f'exited with code {p.returncode} (0x{p.returncode & 0xFFFFFFFF:08X})')
     finally:
-        if shots and os.path.exists(proxy):
+        if proxy and os.path.exists(proxy):
             os.remove(proxy)
         stop_listener(listener, inst, out if messages else None)
     digest(inst)
@@ -540,20 +575,11 @@ def start_antprox(inst, out, env, args):
 def replay(seconds, shots, steps, inst, messages=False, args=()):
     inst.prepare()
     env = dict(os.environ)
-    env['ENB_POC_INPUT'] = '1'
     env['ENB_POC_WINDOWED'] = '1'
-    if inst.retail:
-        env['D3D8SHOT_INPUT'] = '1'      # d3d8shot.c Hook_Input: the retail client reads the posted messages
-        if not shots:
-            raise SystemExit('--retail needs --shots (the d3d8shot proxy carries the input hooks)')
-    proxy = os.path.join(inst.dir, 'd3d8.dll')
-    if os.path.exists(proxy) and inst.dir == RELEASE:
-        raise SystemExit(f'{proxy} exists already: not ours, not overwritten')
     out = inst.shots_dir('replay-' if not inst.name else '')
     os.makedirs(out, exist_ok=True)
+    proxy = inst.use_proxy(env, out, input=True)    # d3d8shot.c Hook_Input: the client reads the posted messages
     if shots:
-        shutil.copyfile(PROXY, proxy)
-        env['D3D8SHOT_DIR'] = out
         env['D3D8SHOT_FRAMES'] = shots
     args = (['-ENABLE_MESSAGES'] if messages else []) + list(args)
     listener = None
@@ -595,7 +621,7 @@ def replay(seconds, shots, steps, inst, messages=False, args=()):
             subprocess.run(['taskkill', '/F', '/PID', str(pid)], capture_output=True)
         subprocess.run(['taskkill', '/F', '/T', '/PID', str(a.pid)], capture_output=True)
         time.sleep(1)
-        if shots and os.path.exists(proxy):
+        if os.path.exists(proxy):
             os.remove(proxy)
         stop_listener(listener, inst, out if messages else None)
     digest(inst)

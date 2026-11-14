@@ -1,0 +1,38 @@
+name: the chat panel's Chat tab: Set Channels, Set Messages, Ignore List and Private Channel, each shown and closed
+# ui_chat_panel.cpp's 0x569A00: UIOptionChannelClass ('opt06a'), UIOptionCheckClass mode 0, 1 ('opt03a-chat'),
+# UIPlayerOptClass ('tsi27a') and UIRadioMainClass with no channel (cht01.ini, 'No Channel').
+timeout: 400
+include _login
+click gadget chat.tab.chat
+alive 0.5
+click gadget chat.channels
+expect-event proxy 'fa_opt06a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot chat_channels
+click gadget channels.cancel
+expect-event proxy 'fa_opt06a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget chat.tab.chat
+alive 0.5
+click gadget chat.messages
+expect-event proxy 'fa_opt03a-chat\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget messages.cancel
+expect-event proxy 'fa_opt03a-chat\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget chat.tab.chat
+alive 0.5
+click gadget chat.ignore
+expect-event proxy 'fa_tsi27a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget ignore.close
+expect-event proxy 'fa_tsi27a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget chat.tab.chat
+alive 0.5
+click gadget chat.private
+expect-event proxy 'cht01\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget private.cancel
+expect-event proxy 'cht01\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15

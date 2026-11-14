@@ -131,9 +131,9 @@ bool UISkillInfoClass::Unknown_94()
 }
 
 // 0x62C500
-UISlotInfoItemClass *UISkillInfoClass::Unknown_90()
+SlotDataClass *UISkillInfoClass::Unknown_90()
 {
-	return((UISlotInfoItemClass *)SkillData);
+	return((SlotDataClass *)SkillData);
 }
 
 

@@ -42,41 +42,41 @@ public:
 	virtual void Unknown_1C4();							// +0x1C4 (0x54CAE0, last)
 };
 
-struct UIAvatarCustGadgetUnknown08Struct { char Unknown00[0x30]; RenderObjClass *Unknown30; };	// gadget.h's slot +0x08 return: the model at +0x30 (as ui_avatr.cpp's)  // NAME 1: neutral (D10)
-// gadget.cpp's gadget, as far as this file calls it
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual UIAvatarCustGadgetUnknown08Struct *As_RObjGadget(); virtual void As_RObjProxyGadget();
-	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40 (shown; 0x551B20 passes its argument to every gadget)  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50();
-	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60();
-	virtual void Unknown_64(AABoxClass &box);			// +0x64 (gadget.h's: the box)  // NAME 1 [box]: gadget.h's
-	virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
-	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
-	virtual void Unknown_84(const RefCountPtr<RefCountClass> &object);	// +0x84 (the window's +0xB8: the avatar after a change, 0x54E690, through a converted temporary; the pointer's class not known)  // NAME 1 [object]: neutral
-	virtual void Unknown_88();
-	virtual void Unknown_8C(bool on);					// +0x8C (0x54DC20: !on)  // NAME 1 [on]: as ui_avatr.cpp's
+// gadget.cpp's gadget, gd_robj.h's model gadget (slot +0x08's answer) and the pulls' gadget (unknown_671300.h's
+// Unknown_671300Class)
+#include "gadget.h"
+#include "gd_robj.h"
+#include "unknown_671300.h"
 
-	bool Is_Unknown2C_02() { return(Unknown2C_02); }	// (gadget.h's inline)  // NAME 1: neutral (D10)
-	static SignalMap &Get_Signal_Map();					// 0x65ECE0 (gadget.h's)
-	void Unknown_6603A0(bool indicator, UIViewClass *view);	// 0x6603A0  // NAME 1 [indicator, view]: gadget.h's
-	void Unknown_6607D0();								// 0x6607D0
 
-	char Unknown04[0x20 - 0x04];						// +0x04
-	void *Flash;										// +0x20 (gadget.h's GadgetFlashStruct *: 0x551320 tests it)  // NAME 3: gadget.h's
-	char Unknown24[0x2C - 0x24];						// +0x24
-	unsigned int Unknown2C_00 : 2;						// +0x2C
-	unsigned int Unknown2C_02 : 1;						// +0x2C bit 2 (gadget.h's: under the pointer; 0x551320's mouse-over sound)
-	unsigned int Unknown2C_03 : 7;						// +0x2C
-	unsigned int Unknown2C400 : 1;						// +0x2C bit 0x400 (0x54D8A0 sets it on the colour pull's gadget)
-	unsigned int Unknown2C800 : 1;						// +0x2C bit 0x800 (0x550670 sets it with 0x6603A0, clears it with 0x6607D0)
-	RenderObjClass *Unknown30;							// +0x30 (0x550A10 hands it to 0x497300)
-	void Unknown_6608F0();								// 0x6608F0 (0x550A10, after the model's turn)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // The window's +0xB8: ship_pip.cpp's gadget (ui_avatr.cpp's ShipPipClass, its +0x94), as far as this file calls it
 class UIAvatarCustPipClass	// NAME 1: neutral (D10)
@@ -88,7 +88,7 @@ public:
 	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
 	virtual void Unknown_40(bool on);					// +0x40 (shown)  // NAME 1 [on]: neutral
 	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50();
-	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60();
+	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Is_Enabled();
 	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
 	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
 	virtual void Unknown_84(const RefCountPtr<RefCountClass> &object);	// +0x84 (the avatar after a change, 0x54E690, through a converted temporary; the pointer's class not known)  // NAME 1 [object]: neutral
@@ -104,24 +104,24 @@ public:
 	bool UnknownDC;	void Set_UnknownDC(bool on) { UnknownDC = on; }	// +0xDC (0x54DFE0: set in mode 1, the head, through an inline setter: the client's eax for the store)  // NAME 1 [Set_UnknownDC]: neutral (D10)
 };
 
-// The pulls' gadget (0x80 bytes, constructor 0x671300), as ui_avatr.cpp's UIAvatrGadget671300Class
-class Unknown_671300Class : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	Unknown_671300Class(RenderObjClass *area, int a, const LayerClass &layer, int b, int c, int d);	// 0x671300 (0x54D8A0: the palette, 0, the window's layer +0xAC, 0, 0, 0)  // NAME 1 [area, a, layer, b, c, d]: neutral
-	void Unknown_671630();								// 0x671630 (the buttons' flags off, as ui_avatr.cpp's)
-	char Unknown34[0x64 - 0x34];						// +0x34
-	bool Unknown64;										// +0x64 (the left button held, as ui_avatr.cpp's)
-	bool Unknown65;										// +0x65 (the right button held)
-	char Unknown66[0x80 - 0x66];						// +0x66
-};
+// (the pulls' gadget, 0x80 bytes, constructor 0x671300: unknown_671300.h's Unknown_671300Class)
 
-// gadget.h's FlashingGadgetEvent (its header cannot be included next to this file's GadgetClass)
-class FlashingGadgetEvent	// NAME 5: the client's RTTI .?AVFlashingGadgetEvent@@
-{
-public:
-	GadgetClass *Gadget;								// +0x00  // NAME 1: as gadget.h's
-};
+
+
+
+
+
+
+
+
+
+
+// (FlashingGadgetEvent: gadget.h's)
+
+
+
+
+
 
 void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color);	// 0x496C00 (ro_funcs: the texture's colour at u, v)  // NAME 1 [robj, u, v, color]: as ro_funcs.cpp's
 void Unknown_42ECF0(float *x, float *y);			// 0x42ECF0 (the pointer, 0..1)  // NAME 1 [x, y]: as gadget.cpp's
@@ -146,7 +146,7 @@ struct UIAvatarCustGadgetHolderStruct	// NAME 1: neutral (D10)
 	UIAvatarCustGadgetHolderStruct();					// 0x585920 (0x10 bytes)
 	~UIAvatarCustGadgetHolderStruct();					// 0x585950 (the window's destructor)
 	void Unknown_5859A0();								// 0x5859A0 (once the gadget is in)
-	GadgetClass *Unknown00;								// +0x00
+	Unknown_671300Class *Unknown00;						// +0x00 (unknown_671300.h's: 0x54D8A0 makes it)
 	RenderObjClass *Unknown04;							// +0x04 (the pull: 'PULL_COLOR')
 	bool Unknown08;										// +0x08 (dragged: 0x54F390)
 	char Unknown09[0x10 - 0x09];						// +0x09
@@ -458,7 +458,7 @@ StarbaseAvatarCreationInterface::~StarbaseAvatarCreationInterface()
 	Unknown_54F2B0();
 	Unknown_BE67C4->Remove(InterfaceMesh->Peek_Object());
 	Unknown_BE67BC->Unload("fa_buy_avatar00.ini");
-	GadgetClass::Get_Signal_Map().Remove((GadgetClass *)NULL, this, &StarbaseAvatarCreationInterface::Unknown_551320, FlashingGadgetEvent());
+	GadgetClass::Get_Signal_Map().Remove((GadgetClass *)NULL, this, &StarbaseAvatarCreationInterface::Unknown_551320, FlashingGadgetEvent(NULL));
 }
 
 // 0x54CAE0
@@ -617,7 +617,7 @@ void StarbaseAvatarCreationInterface::Unknown_54D8A0()
 	RenderObjClass *palette = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("COLOR_PALETTE");
 	Unknown_496AE0(palette, 0);
 	Unknown31C->Unknown00 = new Unknown_671300Class(palette, 0, *Unknown0AC, 0, 0, 0);
-	Unknown31C->Unknown00->Unknown2C400 = true;
+	Unknown31C->Unknown00->Unknown2C_0A = true;
 	Unknown31C->Unknown_5859A0();
 	palette->Release_Ref();
 	Unknown31C->Unknown04 = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("PULL_COLOR");
@@ -633,7 +633,7 @@ void StarbaseAvatarCreationInterface::Unknown_54DA50()
 	RefCountPtr<RenderObjClass> area = Create_Get(InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("HEAD_AREA"));
 	Unknown_496AE0(area.Peek(), 0);
 	Unknown308->Unknown00 = new Unknown_671300Class(area.Peek(), 0, *Unknown0AC, 0, 0, 0);
-	Unknown308->Unknown00->Unknown2C400 = true;
+	Unknown308->Unknown00->Unknown2C_0A = true;
 	Unknown308->Unknown_5859A0();
 	Unknown308->Unknown04 = InterfaceMesh->Peek_Object()->Get_Sub_Object_By_Name("HEAD_PULL");
 	Unknown_496AE0(Unknown308->Unknown04, 1);
@@ -1090,8 +1090,8 @@ void StarbaseAvatarCreationInterface::Unknown_54FAA0()
 			cv = point.Y;
 		}
 		Vector3 color;
-		UIAvatarCustGadgetUnknown08Struct *area = Unknown31C->Unknown00->As_RObjGadget();
-		Unknown_496C00(area->Unknown30, cu, 1.0f - cv, &color);
+		RObjGadgetClass *area = Unknown31C->Unknown00->As_RObjGadget();
+		Unknown_496C00(area->RObj, cu, 1.0f - cv, &color);
 		Unknown320[Unknown358].Set(cu, cv);
 		switch (Unknown358) {
 			case 0:
@@ -1240,68 +1240,68 @@ void StarbaseAvatarCreationInterface::Unknown_550550(int dir)
 void StarbaseAvatarCreationInterface::Unknown_550670()
 {
 	if (Unknown0B0 == 1) {
-		Unknown1CC[0]->Unknown2C800 = true;
+		Unknown1CC[0]->Unknown2C_0B = true;
 		Unknown1CC[0]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown1CC[0]->Unknown2C800 = false;
+		Unknown1CC[0]->Unknown2C_0B = false;
 		Unknown1CC[0]->Unknown_6607D0();
 	}
 	if (Unknown0B0 == 2) {
-		Unknown1CC[1]->Unknown2C800 = true;
+		Unknown1CC[1]->Unknown2C_0B = true;
 		Unknown1CC[1]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown1CC[1]->Unknown2C800 = false;
+		Unknown1CC[1]->Unknown2C_0B = false;
 		Unknown1CC[1]->Unknown_6607D0();
 	}
 	if (Unknown358 == 0) {
 		Unknown204[10]->Unknown_6607D0();
-		Unknown204[10]->Unknown2C800 = true;
+		Unknown204[10]->Unknown2C_0B = true;
 		Unknown204[10]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown204[10]->Unknown2C800 = false;
+		Unknown204[10]->Unknown2C_0B = false;
 		Unknown204[10]->Unknown_6607D0();
 	}
 	if (Unknown358 == 1) {
-		Unknown204[11]->Unknown2C800 = true;
+		Unknown204[11]->Unknown2C_0B = true;
 		Unknown204[11]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown204[11]->Unknown2C800 = false;
+		Unknown204[11]->Unknown2C_0B = false;
 		Unknown204[11]->Unknown_6607D0();
 	}
 	if (Unknown358 == 2) {
-		Unknown204[12]->Unknown2C800 = true;
+		Unknown204[12]->Unknown2C_0B = true;
 		Unknown204[12]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown204[12]->Unknown2C800 = false;
+		Unknown204[12]->Unknown2C_0B = false;
 		Unknown204[12]->Unknown_6607D0();
 	}
 	if (Unknown358 == 3) {
 		Unknown240[4]->Unknown_6607D0();
-		Unknown240[4]->Unknown2C800 = true;
+		Unknown240[4]->Unknown2C_0B = true;
 		Unknown240[4]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown240[4]->Unknown2C800 = false;
+		Unknown240[4]->Unknown2C_0B = false;
 		Unknown240[4]->Unknown_6607D0();
 	}
 	if (Unknown358 == 4) {
-		Unknown240[5]->Unknown2C800 = true;
+		Unknown240[5]->Unknown2C_0B = true;
 		Unknown240[5]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown240[5]->Unknown2C800 = false;
+		Unknown240[5]->Unknown2C_0B = false;
 		Unknown240[5]->Unknown_6607D0();
 	}
 	if (Unknown358 == 5) {
-		Unknown240[6]->Unknown2C800 = true;
+		Unknown240[6]->Unknown2C_0B = true;
 		Unknown240[6]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown240[6]->Unknown2C800 = false;
+		Unknown240[6]->Unknown2C_0B = false;
 		Unknown240[6]->Unknown_6607D0();
 	}
 	if (Unknown358 == 6) {
-		Unknown240[7]->Unknown2C800 = true;
+		Unknown240[7]->Unknown2C_0B = true;
 		Unknown240[7]->Unknown_6603A0(0, NULL);
 	} else {
-		Unknown240[7]->Unknown2C800 = false;
+		Unknown240[7]->Unknown2C_0B = false;
 		Unknown240[7]->Unknown_6607D0();
 	}
 }
@@ -1327,14 +1327,14 @@ void StarbaseAvatarCreationInterface::Unknown_550970(int value)
 // 0x550A10
 void StarbaseAvatarCreationInterface::Unknown_550A10()
 {
-	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (D130; not the client's): they spend VC6's inline budget, so the third Rotate_Y stays out of line as the client's (matrix3d.h's copy 0x551270; four were enough before 0x5513E0-0x551C80 joined the file, with four now it is inlined)
+	Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaTemplateClass<float> >(NULL, *(NameClass *)this);	// dead finds (D130; not the client's): they spend VC6's inline budget, so the third Rotate_Y stays out of line as the client's (matrix3d.h's copy 0x551270; four were enough before 0x5513E0-0x551C80 joined the file, five before gadget.h's, gd_robj.h's and unknown_671300.h's inline slots did; with five now it is inlined)
 	if (Unknown0B0 != 2) {
 		return;
 	}
 	float time = WW3D::Get_Frame_Time() * 0.001f;
 	float slow = time * 0.3f;
 	float fast = time + time;
-	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown240[8]->Unknown30);
+	RefCountPtr<RenderObjClass> model = Unknown_497300(Unknown240[8]->RObj);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown35C == 0) {
@@ -1352,7 +1352,7 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 		model->Set_Transform(newtm);
 		Unknown240[8]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown240[9]->Unknown30);
+	model = Unknown_497300(Unknown240[9]->RObj);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		if (Unknown35C == 1) {
@@ -1370,7 +1370,7 @@ void StarbaseAvatarCreationInterface::Unknown_550A10()
 		model->Set_Transform(newtm);
 		Unknown240[9]->Unknown_6608F0();
 	}
-	model = Unknown_497300(Unknown240[10]->Unknown30);
+	model = Unknown_497300(Unknown240[10]->RObj);
 	if (model) {
 		Matrix3D tm = model->Get_Transform();
 		float angle = slow;

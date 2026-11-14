@@ -18,7 +18,21 @@
 **   D3D8SHOT_DUMP   dump every draw call of these frames, comma-separated (M2.4: the land's geometry)
 **   D3D8SHOT_TRIGGER a file path: when it exists at a Present (looked at every 8th), that frame is saved as
 **                   shot_<the file's first line>_NNNNN.bmp and the file deleted (tools/harness/e2e.py's 'shot' step:
-**                   a shot on an event, not at a frame number)
+**                   a shot on an event, not at a frame number). A first line 'mark NAME' is a marker instead:
+**                   logged, and passed to the program's exported Stub_Log_Mark when it has one
+**   D3D8SHOT_INPUT  1: the program's user32 imports (GetMessageA, PeekMessageA, GetCursorPos, GetKeyState, ...)
+**                   read the messages a harness posts: a virtual cursor and keyboard, the real ones never read
+**                   or moved. The same for the retail client and the project's own builds
+**   D3D8SHOT_INPUT_TAG 1: only messages carrying the harness's tag (IN_TAG in wParam's high word) are input;
+**                   untagged mouse and key messages, a person's, are dropped and logged 'NOT REPLAYED'
+**   D3D8SHOT_CURSOR off (without D3D8SHOT_INPUT): SetCursorPos and ClipCursor do nothing, so several clients
+**                   side by side leave the real cursor alone
+**   D3D8SHOT_NOREGISTER 1: the program's GetProcAddress(module, "DllRegisterServer") gets a function that does
+**                   nothing and returns S_OK. The client registers BrowserEngine.dll's COM class at every start
+**                   (ww3d2 dx8webbrowser.cpp, DX8WebBrowser::Initialize); the keys are that DLL's own
+**                   (HKCR CLSID {2B2CC8B0-2DC0-48c6-B6FD-C07820A6477E} InprocServer32 = the registering copy's
+**                   path, BrowserEngine.FEBrowserEngine2, its type library), and a test run must not write the
+**                   registry (D69, D249): the class the install registered stays as it is
 ** Output: d3d8shot.log, frame_NNNNN.bmp (24-bit), draws_NNNNN.bin.
 **
 ** The draw dump (D3D8SHOT_DUMP): every vertex and index buffer the program locks is shadowed (the
@@ -764,6 +778,20 @@ static HRESULT STDMETHODCALLTYPE Hook_Present(void *dev, const RECT *src, const 
 			if (!fgets(TriggerName, sizeof(TriggerName), t)) TriggerName[0] = 0;
 			fclose(t);
 		}
+		if (!strncmp(TriggerName, "mark ", 5)) {
+			/* a marker, not a shot: logged here, and passed to the program's own Stub_Log_Mark when it exports one
+			   (stubs/stub_log.cpp: the stand-ins' first-call flags start over, so each part of a session lists
+			   the stand-ins it hits); the retail client has none */
+			typedef void (__cdecl *MarkType)(const char *);
+			MarkType mark = (MarkType)GetProcAddress(GetModuleHandleA(NULL), "Stub_Log_Mark");
+			for (i = 5; TriggerName[i] && TriggerName[i] != '\r' && TriggerName[i] != '\n'; i++) ;
+			TriggerName[i] = 0;
+			DeleteFileA(Trigger);
+			Log("frame %d: mark %s%s\n", Presented, TriggerName + 5, mark ? "" : " (no Stub_Log_Mark export)");
+			if (mark) mark(TriggerName + 5);
+			TriggerName[0] = 0;
+			return RealPresent(dev, src, dst, wnd, dirty);
+		}
 		for (i = 0; TriggerName[i]; i++) {		/* a file name: letters, digits, '-' and '_' only */
 			char c = TriggerName[i];
 			if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '-' || c == '_')) {
@@ -796,6 +824,26 @@ static HRESULT STDMETHODCALLTYPE Hook_Create_Device(void *d3d, UINT adapter, UIN
 	return hr;
 }
 
+/* D3D8SHOT_NOREGISTER: no COM self-registration from a test run */
+typedef FARPROC (WINAPI *GetProcAddressType)(HMODULE, LPCSTR);
+static GetProcAddressType RealGetProcAddress = NULL;
+static HRESULT WINAPI No_Register_Server(void)
+{
+	Log("DllRegisterServer: not called (D3D8SHOT_NOREGISTER); S_OK returned\n");
+	return 0;
+}
+static FARPROC WINAPI Hook_GetProcAddress(HMODULE module, LPCSTR name)
+{
+	if (((DWORD)name >> 16) != 0 && strcmp(name, "DllRegisterServer") == 0) {		/* a name, not an ordinal */
+		char path[MAX_PATH];
+		path[0] = 0;
+		GetModuleFileNameA(module, path, sizeof(path));
+		Log("GetProcAddress(%s, DllRegisterServer): the no-op given\n", path);
+		return (FARPROC)No_Register_Server;
+	}
+	return RealGetProcAddress(module, name);
+}
+
 static HANDLE WINAPI Hook_CreateFileA(LPCSTR name, DWORD access, DWORD share, LPSECURITY_ATTRIBUTES sa,
 	DWORD disposition, DWORD flags, HANDLE templ)
 {
@@ -813,6 +861,8 @@ static void Hook_Imports(void)
 	IMAGE_NT_HEADERS *nt = (IMAGE_NT_HEADERS *)(base + ((IMAGE_DOS_HEADER *)base)->e_lfanew);
 	IMAGE_DATA_DIRECTORY *dir = &nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT];
 	IMAGE_IMPORT_DESCRIPTOR *imp;
+	char v[8];
+	int noregister = GetEnvironmentVariableA("D3D8SHOT_NOREGISTER", v, sizeof(v)) && v[0] == '1';
 	if (!dir->VirtualAddress) return;
 	for (imp = (IMAGE_IMPORT_DESCRIPTOR *)(base + dir->VirtualAddress); imp->Name; imp++) {
 		IMAGE_THUNK_DATA *names, *funcs;
@@ -829,13 +879,19 @@ static void Hook_Imports(void)
 				Patch((void **)&funcs->u1.Function, (void *)Hook_CreateFileA);
 				Log("hooked the program's CreateFileA import\n");
 			}
+			if (noregister && strcmp((const char *)ibn->Name, "GetProcAddress") == 0) {
+				RealGetProcAddress = (GetProcAddressType)funcs->u1.Function;
+				Patch((void **)&funcs->u1.Function, (void *)Hook_GetProcAddress);
+				Log("hooked the program's GetProcAddress import (DllRegisterServer gets a no-op)\n");
+			}
 		}
 	}
 }
 
 
-/* LIGHT (run 2026-11-04): virtual input for the RETAIL client (as programs/clientpoc/poc_input.cpp does for the POC):
-   with D3D8SHOT_INPUT=1 the program's user32 imports read the messages a harness posts, never the real cursor */
+/* Virtual input, for the retail client and for the project's own builds alike (the exe carries no test code):
+   with D3D8SHOT_INPUT=1 the program's user32 imports read the messages a harness posts, never the real cursor
+   or keyboard (an unattended run must not touch the desktop) */
 static POINT In_Cursor = { 0, 0 };
 static HWND In_Window = NULL;
 static BYTE In_Keys[256];
@@ -844,10 +900,34 @@ typedef BOOL (WINAPI *PeekMessageType)(LPMSG, HWND, UINT, UINT, UINT);
 static GetMessageType Real_GetMessageA = NULL;
 static PeekMessageType Real_PeekMessageA = NULL;
 static void In_Screen(POINT *p) { *p = In_Cursor; if (In_Window) ClientToScreen(In_Window, p); }
+/* The harness's tag (tools/harness/clientpoc.py post_step(tag=True), e2e.py): IN_TAG in the high word of a mouse
+   or key message's wParam (MK_ flags and virtual keys fit the low word), stripped here before the program sees
+   the message. With D3D8SHOT_INPUT_TAG=1 an untagged mouse or key message (a person's click or keystroke in the
+   test window, or the real cursor crossing it) is logged and dropped, so only replayed input reaches the program. */
+#define IN_TAG 0x5043
+static int In_Tag_Only = 0;
 static void In_Take(LPMSG msg)
 {
 	POINT p;
+	const char *who = "untagged";
+	int input;
 	if (msg->hwnd == NULL) return;
+	input = (msg->message >= WM_MOUSEFIRST && msg->message <= WM_MBUTTONDBLCLK) || msg->message == WM_KEYDOWN
+		|| msg->message == WM_KEYUP || msg->message == WM_SYSKEYDOWN || msg->message == WM_SYSKEYUP;
+	if (input && HIWORD(msg->wParam) == IN_TAG) {
+		msg->wParam &= 0xFFFF;
+		who = "replayed";
+	} else if (input && In_Tag_Only) {
+		if (msg->message != WM_MOUSEMOVE) {
+			Log("input: NOT REPLAYED (dropped) 0x%X wparam 0x%X lparam 0x%X\n", msg->message, (unsigned)msg->wParam,
+				(unsigned)msg->lParam);
+		}
+		msg->message = WM_NULL;
+		return;
+	}
+	if (msg->message == WM_KEYDOWN || msg->message == WM_SYSKEYDOWN) {
+		Log("input: %s key 0x%X\n", who, (unsigned)msg->wParam);
+	}
 	if ((msg->message >= WM_MOUSEFIRST && msg->message <= WM_MBUTTONDBLCLK) || msg->message == WM_KEYDOWN
 		|| msg->message == WM_CHAR) {
 		if (In_Window != msg->hwnd) Log("input: window %p\n", msg->hwnd);
@@ -860,7 +940,7 @@ static void In_Take(LPMSG msg)
 		if (msg->message == WM_LBUTTONUP) In_Keys[VK_LBUTTON] &= ~0x80;
 		if (msg->message == WM_RBUTTONDOWN) In_Keys[VK_RBUTTON] |= 0x80;
 		if (msg->message == WM_RBUTTONUP) In_Keys[VK_RBUTTON] &= ~0x80;
-		if (msg->message != WM_MOUSEMOVE) Log("input: mouse 0x%X at %d, %d\n", msg->message, In_Cursor.x, In_Cursor.y);
+		if (msg->message != WM_MOUSEMOVE) Log("input: %s mouse 0x%X at %d, %d\n", who, msg->message, In_Cursor.x, In_Cursor.y);
 	} else if (msg->message == WM_KEYDOWN || msg->message == WM_SYSKEYDOWN) {
 		if (!(In_Keys[msg->wParam & 0xFF] & 0x80)) In_Keys[msg->wParam & 0xFF] ^= 0x01;
 		In_Keys[msg->wParam & 0xFF] |= 0x80;
@@ -896,6 +976,7 @@ static HWND WINAPI In_GetActiveWindow(void) { return In_Window; }
 static SHORT WINAPI In_GetKeyState(int k) { BYTE s = In_Keys[k & 0xFF]; return (SHORT)(((s & 0x80) ? 0x8000 : 0) | (s & 1)); }
 static SHORT WINAPI In_GetAsyncKeyState(int k) { return (SHORT)((In_Keys[k & 0xFF] & 0x80) ? 0x8000 : 0); }
 static BOOL WINAPI In_ClipCursor(const RECT *r) { return TRUE; }
+static BOOL WINAPI In_NoSetCursorPos(int x, int y) { return TRUE; }
 
 static void Hook_Input(void)
 {
@@ -904,7 +985,15 @@ static void Hook_Input(void)
 	IMAGE_NT_HEADERS *nt = (IMAGE_NT_HEADERS *)(base + ((IMAGE_DOS_HEADER *)base)->e_lfanew);
 	IMAGE_DATA_DIRECTORY *dir = &nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT];
 	IMAGE_IMPORT_DESCRIPTOR *imp;
-	if (!GetEnvironmentVariableA("D3D8SHOT_INPUT", v, sizeof(v)) || v[0] != '1') return;
+	int hooked = 0, guard = 0;
+	/* D3D8SHOT_INPUT=1: the virtual cursor and keyboard. D3D8SHOT_CURSOR=off (without it): only SetCursorPos and
+	   ClipCursor become no-ops, so several clients side by side do not fight over the real cursor (the client
+	   warps it back each frame, 0x431C30) */
+	if (!GetEnvironmentVariableA("D3D8SHOT_INPUT", v, sizeof(v)) || v[0] != '1') {
+		if (!GetEnvironmentVariableA("D3D8SHOT_CURSOR", v, sizeof(v)) || stricmp(v, "off") != 0) return;
+		guard = 1;
+	}
+	In_Tag_Only = GetEnvironmentVariableA("D3D8SHOT_INPUT_TAG", v, sizeof(v)) && v[0] == '1';
 	if (!dir->VirtualAddress) return;
 	for (imp = (IMAGE_IMPORT_DESCRIPTOR *)(base + dir->VirtualAddress); imp->Name; imp++) {
 		IMAGE_THUNK_DATA *names, *funcs;
@@ -917,7 +1006,11 @@ static void Hook_Input(void)
 			void *to = NULL;
 			if (names->u1.Ordinal & IMAGE_ORDINAL_FLAG) continue;
 			n = (const char *)((IMAGE_IMPORT_BY_NAME *)(base + (DWORD)names->u1.AddressOfData))->Name;
-			if (!strcmp(n, "GetMessageA")) { Real_GetMessageA = (GetMessageType)funcs->u1.Function; to = (void *)In_GetMessageA; }
+			if (guard) {
+				if (!strcmp(n, "SetCursorPos")) to = (void *)In_NoSetCursorPos;
+				else if (!strcmp(n, "ClipCursor")) to = (void *)In_ClipCursor;
+			}
+			else if (!strcmp(n, "GetMessageA")) { Real_GetMessageA = (GetMessageType)funcs->u1.Function; to = (void *)In_GetMessageA; }
 			else if (!strcmp(n, "PeekMessageA")) { Real_PeekMessageA = (PeekMessageType)funcs->u1.Function; to = (void *)In_PeekMessageA; }
 			else if (!strcmp(n, "GetCursorPos")) to = (void *)In_GetCursorPos;
 			else if (!strcmp(n, "GetMessagePos")) to = (void *)In_GetMessagePos;
@@ -927,9 +1020,12 @@ static void Hook_Input(void)
 			else if (!strcmp(n, "GetKeyState")) to = (void *)In_GetKeyState;
 			else if (!strcmp(n, "GetAsyncKeyState")) to = (void *)In_GetAsyncKeyState;
 			else if (!strcmp(n, "ClipCursor")) to = (void *)In_ClipCursor;
-			if (to) { Patch((void **)&funcs->u1.Function, to); Log("input: hooked %s\n", n); }
+			if (to) { Patch((void **)&funcs->u1.Function, to); Log("input: hooked %s\n", n); hooked++; }
 		}
 	}
+	if (guard) Log("input: cursor guard, %d user32 imports redirected\n", hooked);
+	else Log("input: virtual input, %d user32 imports redirected; tagged input read%s\n", hooked,
+		In_Tag_Only ? ", untagged dropped" : "");
 }
 
 static void Init(void)

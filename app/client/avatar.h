@@ -237,6 +237,9 @@ void Unknown_780AF0();								// 0x780AF0 (the body morph: ARM / SHIRT / PANT me
 	RefCountPtr<RenderObjClass> HeadSource;	// +0x2B0  // NAME 2: '!HeadSource || !BodyObj' assert
 	RefCountPtr<RenderObjClass> BodySource;	// +0x2B4  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> HeadObj;				// +0x2B8  // NAME 2: '!HeadObj' assert (0x786370 sets hidden)
+#ifdef __CHARVIEW_AVSEL_MEMBERS	// ui_avsel.cpp only (charview.h's guard: sclient.cpp's SEND_SYMBOL_PAD window)
+	RenderObjClass *Peek_Body_Obj() { return(BodyObj.Peek()); }	// (inline: ui_avsel.cpp's 0x55E370 reads +0x2BC through it)  // NAME 1: neutral (D10)
+#endif
 	RefCountPtr<RenderObjClass> BodyObj;	// +0x2BC  // NAME 2: '!HeadSource || !BodyObj' assert (0x786370 / 0x7863E0)
 	RefCountPtr<RenderObjClass> CollisionObj;	// +0x2C0  // NAME 1: neutral (D10)
 	RefCountPtr<RenderObjClass> Unknown2C4;	// +0x2C4

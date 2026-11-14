@@ -2,6 +2,12 @@
 #include "pkoption.h"
 #include <stdio.h>
 
+OptionPacketClass::OptionPacketClass(int game_id, int option_type, bool option_var) :
+	GameID(game_id),
+	OptionType(option_type),
+	OptionVar(option_var)
+{
+}
 
 OptionPacketClass::OptionPacketClass(RawPacketClass *raw)
 {

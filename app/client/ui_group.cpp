@@ -20,49 +20,49 @@
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
 class UIGroupAvatarClass : public RefCountClass { public: char Unknown[0x1CC - sizeof(RefCountClass)]; char Name[1]; };	// NAME 1: neutral (D10): what SClient 0x74C7B0 returns, as far as 0x595530 reads it (the name at +0x1CC)
-// gadget.cpp's gadget, as far as the group window calls it (the formation buttons, the members' buttons)
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void As_RObjGadget(); virtual void As_RObjProxyGadget();
-	virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24();
-	virtual void Unknown_28(LayerClass *layer);			// +0x28 (0x597080: the window's layer)  // NAME 1 [layer]: what 0x597080 passes
-	virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);					// +0x40  // NAME 1 [on]: neutral
-	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C(); virtual void Unknown_50();
-	virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C(); virtual void Unknown_60();
-	virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C(); virtual void Unknown_70();
-	virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C(); virtual void Unknown_80();
-	virtual void Unknown_84(); virtual void Unknown_88();
-	virtual void Unknown_8C(bool on);					// +0x8C  // NAME 1 [on]: neutral
-	virtual void Unknown_90(); static void Destroy(GadgetClass *gadget); static void Set_Tooltip(GadgetClass *gadget, const char *section, const char *entry, ...);	// 0x65EFB0 (gadget.h)
-	virtual void Unknown_94(RenderObjClass *object);	// +0x94 (0x598370: the formation model, or NULL)  // NAME 1 [object]: neutral
-	virtual void Unknown_98(FontSys *style);		// +0x98 (0x594040: the button's font style)  // NAME 1 [style]: neutral
-	void Unknown_6603A0(bool indicator, UIViewClass *view);	// 0x6603A0  // NAME 1 [indicator, view]: gadget.h's
-	void Unknown_6607D0();								// 0x6607D0
-	void Unknown_65FFA0(int arg);						// 0x65FFA0 (0x5938A0 passes -1)  // NAME 1 [arg]: neutral
+// gadget.cpp's gadget and the buttons (unknown_675120.h's ButtonGadgetClass: 0x675240 / 0x675310)
+#include "gadget.h"
+#include "unknown_675120.h"
 
-	char Unknown04[0x2C - 0x04];						// +0x04
-	unsigned int Unknown2CLow : 11;						// +0x2C
-	unsigned int Unknown2C800 : 1;						// +0x2C bit 0x800 (0x598200 sets it with 0x6603A0, clears it with 0x6607D0)
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 #include "..\..\ww3d2\ww3d.h"	// WW3D::Get_Frame_Time / Get_Sync_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, written by WW3D::Sync 0x918200, read inline)
 
-// gadget.cpp's icon gadget (100 bytes, constructor 0x675310 over a render object), as far as 0x5938A0 makes it
-class UIGroupIconGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	// (made as ButtonGadgetClass: 0x675310 (0x5938A0 passes the symbol, 5, 3)
-	char Unknown30[0x64 - 0x30];						// +0x30
-};
+// (the icon gadget, 0x675310 over a render object: unknown_675120.h's ButtonGadgetClass)
+
+
+
+
+
+
 // The asset manager (*0xBFAEE0)
 #include "assetmgr.h"	// WW3DAssetManager: 0xBFAEE0 is WW3DAssetManager::TheInstance (its constructor 0x91C2C0 stores it)
-class ButtonGadgetClass : public GadgetClass { public: ButtonGadgetClass(RenderObjClass *robj, const LayerClass &layer, unsigned int mask, unsigned int flags); ButtonGadgetClass(RenderObjClass *robj, unsigned int mask, unsigned int flags); char Unknown30[0x64 - 0x30]; };	// unknown_675120.h's 0x675240 / 0x675310, as far as this file makes them (this file has its own view of GadgetClass)
+
 
 
 
@@ -75,13 +75,13 @@ void Message_Error(const char *sender, const char *category, const char *file, i
 static const char *Unknown_B7F4B8[] = { "hull_bar0", "shield_bar0", NULL };	// NAME 1: neutral (D10)
 static const char *Unknown_B7F4C4[] = { "hull_bar1", "shield_bar1", NULL };	// NAME 1: neutral (D10)
 
-// gadget.cpp's button gadget (100 bytes, constructor 0x675240 over a render object and a layer), as far as 0x594040 makes it
-class UIGroupButtonGadgetClass : public GadgetClass	// NAME 1: neutral (D10)
-{
-public:
-	// (made as ButtonGadgetClass: 0x675240 (0x594040 passes the button model, the window's layer, 0x55, 3)  // NAME 1 [object, layer, unknown1, unknown2]: neutral
-	char Unknown30[0x64 - 0x30];						// +0x30
-};
+// (the button gadget, 0x675240 over a render object and a layer: unknown_675120.h's ButtonGadgetClass)
+
+
+
+
+
+
 // The formation buttons' bones, string ids and font styles (0xB7F4D0, 0xB7F4F4, 0xB7F518; 0x594040)
 static const char *Unknown_B7F4D0[] = { "FORMATION_BTN", "target", "disband_icon", "form_up", "leave", "disband", "formation01", "formation02", "formation03" };	// NAME 1: neutral (D10)
 static const char *Unknown_B7F4F4[] = { "FORMATION", "GROUP_HELP", "GRP_LEAVE", "FORM", "LEAVE", "BREAK", "SLOT", "PIPE", "BLOCK" };	// NAME 1: neutral (D10)
@@ -477,7 +477,7 @@ void UIGroupMemberClass::Unknown_5935C0()
 		Unknown20 -= elapsed;
 		if (Unknown20 < 0.0f) {
 			Unknown20 = 0.0f;
-			Unknown48->Unknown2C800 = false;
+			Unknown48->Unknown2C_0B = false;
 			Unknown48->Unknown_6607D0();
 		}
 	}
@@ -553,7 +553,7 @@ void UIGroupMemberClass::Unknown_5938A0(const char *text, float time, int index)
 		Unknown_496AE0(Unknown38.Peek(), 0);
 		Unknown30->Add_Sub_Object_To_Bone(Unknown38.Peek(), "icon");
 		if (Unknown1D) {
-			Unknown3C = (UIGroupIconGadgetClass *)new ButtonGadgetClass(Unknown38.Peek(), 5, 3);
+			Unknown3C = new ButtonGadgetClass(Unknown38.Peek(), 5, 3);
 			Get_Interface()->Unknown64.Unknown_6870E0(Unknown3C, index + 0x17, Get_Interface()->View, 1, 1);
 			Unknown3C->Unknown_65FFA0(-1);
 			GadgetClass::Set_Tooltip(Unknown3C, "UI_GROUP", "CONTEXT");
@@ -658,7 +658,7 @@ void UIGroupClass::Unknown_54()
 		}
 		if (model != NULL) {
 			Unknown_496AE0(model.Peek(), 0);
-			Unknown0C0[i] = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(model.Peek(), Layer, 0x55, 3);
+			Unknown0C0[i] = new ButtonGadgetClass(model.Peek(), Layer, 0x55, 3);
 			if (Unknown_B7F4F4[i]) {
 				GadgetClass::Set_Tooltip(Unknown0C0[i], "UI_FORMATION", Unknown_B7F4F4[i]);
 			}
@@ -698,8 +698,8 @@ void UIGroupClass::Unknown_60()
 		Unknown0EC -= (WW3D::Get_Frame_Time()) * 0.001f;
 		if (Unknown0EC < 0.0f) {
 			Unknown0EC = 0;
-			GadgetClass **buttons = Unknown0C0;
-			(*buttons)->Unknown2C800 = false;
+			ButtonGadgetClass **buttons = Unknown0C0;
+			(*buttons)->Unknown2C_0B = false;
 			(*buttons)->Unknown_6607D0();
 			Unknown5BB320Class::Unknown_60();
 			return;
@@ -790,7 +790,7 @@ bool UIGroupClass::Unknown_68(int key)
 				((ClientClass *)Client)->Send_Packet(&RequestTargetsTargetPacketClass(((ClientClass *)Client)->AvatarID, Members[key - 41]->ID));
 
 				if (Members[key - 41] && Members[key - 41]->Unknown48) {
-					Members[key - 41]->Unknown48->Unknown2C800 = false;
+					Members[key - 41]->Unknown48->Unknown2C_0B = false;
 					Members[key - 41]->Unknown48->Unknown_6607D0();
 					Members[key - 41]->Unknown20 = 0;
 				}
@@ -826,7 +826,7 @@ bool UIGroupClass::Unknown_68(int key)
 		case 1:
 			if (modifier) return(true);
 			if (!Unknown0F1 && Unknown0C0[0]) {
-				Unknown0C0[0]->Unknown2C800 = false;
+				Unknown0C0[0]->Unknown2C_0B = false;
 				Unknown0C0[0]->Unknown_6607D0();
 				Unknown0EC = 0;
 			}
@@ -1033,7 +1033,7 @@ void UIGroupClass::Unknown_595530()
 			_snprintf(bone, sizeof(bone), "group%02d", index);
 			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(member->Unknown34.Peek(), bone);
 			RefCountPtr<RenderObjClass> frame = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("group"));
-			member->Unknown40 = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(frame.Peek(), Layer, 5, 3);
+			member->Unknown40 = new ButtonGadgetClass(frame.Peek(), Layer, 5, 3);
 			member->Unknown40->Unknown_65FFA0(-1);
 			Unknown64.Unknown_6870E0(member->Unknown40, index + 11, View, 1, 1);
 			Unknown_5BB4F0(member->Unknown40);
@@ -1041,7 +1041,7 @@ void UIGroupClass::Unknown_595530()
 			if (Unknown0F1) {
 				member->Unknown40->Unknown_40(false);
 			}
-			member->Unknown44 = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(frame.Peek(), Layer, 0x50, 3);
+			member->Unknown44 = new ButtonGadgetClass(frame.Peek(), Layer, 0x50, 3);
 			member->Unknown44->Unknown_65FFA0(-1);
 			Unknown64.Unknown_6870E0(member->Unknown44, index + 17, View, 1, 1);
 			Unknown_5BB4F0(member->Unknown44);
@@ -1050,7 +1050,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			RefCountPtr<RenderObjClass> target = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("p_intarget01"));
 			Unknown_496AE0(target.Peek(), 1);
-			member->Unknown48 = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
+			member->Unknown48 = new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
 			member->Unknown48->Unknown_65FFA0(-1);
 			GadgetClass::Set_Tooltip(member->Unknown48, "UI_FORMATION", "ASSIST");
 			Unknown64.Unknown_6870E0(member->Unknown48, index + 41, View, 1, 1);
@@ -1060,7 +1060,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			target = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("p_outtarget01"));
 			Unknown_496AE0(target.Peek(), 1);
-			member->Unknown4C = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
+			member->Unknown4C = new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
 			member->Unknown4C->Unknown_65FFA0(-1);
 			GadgetClass::Set_Tooltip(member->Unknown4C, "UI_FORMATION", "HELP");
 			Unknown64.Unknown_6870E0(member->Unknown4C, index + 29, View, 1, 1);
@@ -1070,7 +1070,7 @@ void UIGroupClass::Unknown_595530()
 			}
 			target = Create_Get(member->Unknown34->Get_Sub_Object_By_Name("p_boot01"));
 			Unknown_496AE0(target.Peek(), 1);
-			member->Unknown50 = (UIGroupButtonGadgetClass *)new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
+			member->Unknown50 = new ButtonGadgetClass(target.Peek(), Layer, 0x55, 3);
 			member->Unknown50->Unknown_65FFA0(-1);
 			Unknown64.Unknown_6870E0(member->Unknown50, index + 35, View, 1, 1);
 			Unknown_5BB4F0(member->Unknown50);
@@ -1721,7 +1721,7 @@ void UIGroupClass::Unknown_597D10()
 		Unknown0C0[i]->Unknown_8C(true);
 	}
 	if (Unknown0C0[0]) {
-		Unknown0C0[0]->Unknown2C800 = false;
+		Unknown0C0[0]->Unknown2C_0B = false;
 		Unknown0C0[0]->Unknown_6607D0();
 	}
 	Unknown0EC = 0;
@@ -1807,7 +1807,7 @@ void UIGroupClass::Unknown_5981B0()
 {
 	if (!Unknown0F1) {
 		if (Unknown0C0[0]) {
-			Unknown0C0[0]->Unknown2C800 = false;
+			Unknown0C0[0]->Unknown2C_0B = false;
 			Unknown0C0[0]->Unknown_6607D0();
 		}
 		Unknown0EC = 0;
@@ -1820,7 +1820,7 @@ void UIGroupClass::Unknown_598200(bool on)
 {
 	if (!Unknown0F1) {
 		if (Unknown0C0[0]) {
-			Unknown0C0[0]->Unknown2C800 = on;
+			Unknown0C0[0]->Unknown2C_0B = on;
 			if (on) {
 				Unknown0C0[0]->Unknown_6603A0(0, NULL);
 				Unknown0EC = 15.0f;
@@ -1846,7 +1846,7 @@ void UIGroupClass::Unknown_5982A0(int avatar_id)
 			if (index < (int)Members.size()) {
 				UIGroupMemberClass *member = Members[index];
 				if (member && member->Unknown48) {
-					member->Unknown48->Unknown2C800 = true;
+					member->Unknown48->Unknown2C_0B = true;
 					member->Unknown48->Unknown_6603A0(0, NULL);
 					member->Unknown20 = 15.0f;
 				}
@@ -1863,11 +1863,11 @@ void UIGroupClass::Unknown_598370()
 {
 	if (!Unknown0F1) {
 		if (Unknown0C0[0]) {
-			Unknown0C0[0]->Unknown_94(NULL);
+			Unknown0C0[0]->Set_Render_Obj(NULL);
 			InterfaceMesh->Peek_Object()->Remove_Sub_Objects_From_Bone("formation_bone");
 			Unknown0E8->Unknown_592C50();
 			InterfaceMesh->Peek_Object()->Add_Sub_Object_To_Bone(Unknown0E8->Unknown_5944A0().Peek(), "formation_bone");
-			Unknown0C0[0]->Unknown_94(Unknown0E8->Unknown_5944A0().Peek());
+			Unknown0C0[0]->Set_Render_Obj(Unknown0E8->Unknown_5944A0().Peek());
 		}
 		SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
 		DeltaCompoundClass *aux = sclient->AuxData;

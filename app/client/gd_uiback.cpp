@@ -17,7 +17,7 @@ Unknown_673EE0Class::~Unknown_673EE0Class() {}
 // @0x673F80
 bool Unknown_673EE0Class::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
-	if (Unknown_60()) {
+	if (Is_Enabled()) {
 		if (mask & 0x11) {
 			ButtonGadgetClass::Unknown_2C(event, x, y, mask);
 			Unknown84 = 0;

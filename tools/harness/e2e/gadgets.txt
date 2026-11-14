@@ -8,3 +8,71 @@ select.slot0       250 70    # the same, character select's first slot (Karen in
 select.enter       1060 950  # the same, "Enter" on character select
 hud.navmap         140 946   # progress.md 2026-11-11 (P2, "the starmap button"); e2e starmap shot: tooltip 'Open Navigation Map'
 hud.options        176 933   # progress.md 2026-11-11 (P2): the options button (the chat panel's request 1)
+# The chat panel's tabs (ui_chat_panel.cpp's combos b00..b03 and the emotes; 0x5689D0): e2e shot options_open (the
+# tabs' labels) and P1's probe shot (tooltip 'Change game options.' over the Options tab, 2026-11-14)
+chat.tab.chat      267 38    # 'Chat' (0xB7C2F4's items)
+chat.tab.group     387 38    # 'Group' (0xB7C314's items)
+chat.tab.options   508 38    # 'Options' (0xB7C324's items)
+chat.tab.help      601 38    # 'Help' (0xB7C344's items)
+# A tab's drop-down lists its items from y 68 down, about 23.4 px apart (P1's probe shot of the Options tab's list:
+# Camera 68, Control 91, Interface 115, Graphics 139, Sound 162, Chat Font 185, Credits 208); selected on mouse-down
+chat.channels      267 68    # Chat: 'Set Channels' (UIOptionChannelClass, fa_opt06a.ini)
+chat.messages      267 91    # Chat: 'Set Messages' (UIOptionCheckClass, fa_opt03a-chat.ini)
+chat.ignore        267 115   # Chat: 'Ignore List' (UIPlayerOptClass, fa_tsi27a.ini)
+chat.private       267 162   # Chat: 'Private Channel' (UIRadioMainClass, cht01.ini)
+group.findleave    387 68    # Group: 'Find / Leave' (UIGroupOptClass, fa_tsi25a.ini)
+group.friends      387 91    # Group: 'Friends List' (UIFriendsClass, fa_tsi28a.ini)
+group.guild        387 115   # Group: 'Guild Info' (UIGuildClass, fa_tsi36a.ini)
+options.control    508 91    # Options: 'Control' (UIOptionControlKeysClass mode 1)
+options.interface  508 115   # Options: 'Interface' (UIOptionSliderClass 2, 1: fa_opt04a-interface.ini)
+options.graphics   508 139   # Options: 'Graphics' (UIOptionSliderClass 0, 1)
+options.sound      508 162   # Options: 'Sound' (UIOptionSliderClass 1, 1)
+options.chatfont   508 185   # Options: 'Chat Font' (0x56C7E0's font window, fc_option_font.ini)
+help.commands      601 68    # Help: 'Commands' (UICommandsClass, fa_tsi29a.ini)
+help.gethelp       601 91    # Help: 'Get Help' (UIPetitionClass, fa_hsi01a.ini)
+help.log           601 139   # Help: "Captain's Log" (UILogClass, fa_log00a.ini)
+# The windows' own buttons, each from the e2e shot of its window (P1, 2026-11-14: the label drawn on the button)
+optmain.control    790 319   # Game Options (opt01a, shot options_open): 'Control'
+optmain.interface  500 361   # the same: 'Interface'
+optmain.graphics   790 361   # the same: 'Graphics'
+optmain.sound      500 404   # the same: 'Sound'
+optmain.fonts      640 446   # the same: 'Fonts'
+optslider.cancel   838 548   # Interface / Graphics / Sound Options (opt04a): 'Cancel'
+optfont.cancel     838 548   # Chat Font Settings (fc_option_font): 'Cancel'
+quit.cancel        645 469   # Quit Menu (opt02a): 'Cancel'
+groupopt.close     870 258   # Find / Leave (tsi25a): its close box
+friends.close      1059 322  # Friends (tsi28a): its close box
+guild.create.cancel 574 616  # Guild Info without a guild: 'Create a new Guild' entry's 'Cancel'
+commands.close     640 606   # Commands Help (tsi29a): 'Close'
+petition.close     998 250   # Help System (hsi01a): its close box
+log.close          998 338   # Captain's Log (log00a): its close box
+channels.cancel    808 596   # Set Channels To Monitor (opt06a): 'Cancel'
+messages.cancel    790 538   # Set Message Filters (opt03a-chat): 'Cancel'
+ignore.close       894 388   # Ignore Players (tsi27a): its close box
+private.cancel     450 546   # No Channel (cht01): 'Cancel'
+petition.stuck     706 456   # Help System (hsi01a): 'I am stuck, trapped, or blackholed' (P1's probe shot: its tooltip)
+petition.question  706 418   # the same: 'I have a question about game play' (tooltip in P1's probe shot)
+petition.player    706 496   # the same: 'I am having a problem with another player'
+petentry.exit      932 760   # the petition entry below it (hsi02a): 'Exit'
+petentry.back      612 760   # the same: 'Back'
+petplayer.name     704 362   # Player Complaint Form (hsi04a): '...has a bad or offensive name.'
+petplayer.close    998 240   # the same: its close box
+groupopt.looking   514 300   # Find / Leave (tsi25a): 'Look for new Group' (ui_groupopt.cpp key 2: sends OPTION)
+groupopt.recruits  764 300   # the same: 'Available Recruits' (key 3: UIGroupFindClass)
+groupfind.close    764 300   # the same button once the list is open: 'Close' (tooltip 'Close the Available Recruits list', P1's shot)
+petplayerentry.exit 934 822  # the offending player's entry below the complaint form (hsi03a): 'Exit' (P1's shot)
+pda.char.skills    70 258    # the PDA's character page (Y; e2e shot pda_character): tab 'Skills'
+pda.char.faction   261 258   # the same: tab 'Faction' (tooltip 'Click to view your faction standings', P1's shot)
+hud.inventory      44 928    # tooltip 'Open Inventory.' (P1's shot, 2026-11-14)
+hud.character      87 928    # tooltip 'Open Character Information screen.' (the same)
+# Inside /play 1's sector 4505 (Heidl's ship and cargo; retail's shots in _wip_play1_windows, P3, 2026-11-14)
+equip.shield       480 788   # the equipment page (I): the 'Shields' slot; right-click: 'No 1 Most Amazing Shield Model Z'
+cargo.slot0        56 442    # the cargo window (O): first item slot; right-click: 'Arduinne Security Pass' (shot w_cargo_details)
+# The pop-up browser (UIPopupBrowserClass, fc_jweb01.ini) and the items that open it (P2, 2026-11-14)
+options.credits    508 208   # Options: 'Credits' (P1's probe shot of the list; UIPopupBrowserClass 5, e2e shot browser_credits)
+help.selfhelp      601 115   # Help: 'Self Help' (0xB7C344's third item; UIPopupBrowserClass 0 'Knowledgebase')
+petition.faq       706 300   # Help System (hsi01a): 'Open Game Knowledge Base (FAQs)' (P1's shot help_gethelp)
+petition.bug       706 340   # the same: 'I want to report a bug'
+petition.billing   706 379   # the same: 'I have a tech support, billing, or account question'
+browser.close      1162 255  # the pop-up browser (jweb01): its close box (e2e shot browser_credits)
+optctl.cancel      929 821   # Control Options (ui_option_control_keys, e2e shot option_control): 'Cancel'

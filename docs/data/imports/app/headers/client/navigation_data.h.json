@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "NavigationDataClass (the client's typeid name), declared as far as co_data.cpp needs it (0x18 bytes)"
+ "description": "RECONSTRUCTED: NavigationDataClass (vtable 0xB065C8, 0x18 bytes; constructor 0x7BA8B0)"
 }

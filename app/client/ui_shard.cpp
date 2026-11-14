@@ -169,14 +169,14 @@ Unknown615A50InterfaceClass::~Unknown615A50InterfaceClass()
 void Unknown615A50InterfaceClass::Unknown_60()
 {
 	if (!UnknownD0 && !UnknownD1 && !UnknownD2 && !UnknownD3 && !UnknownD4 && !UnknownD5 && !UnknownE8) {
-		if (Buttons[8]->Unknown_60()) {
+		if (Buttons[8]->Is_Enabled()) {
 			if (NameGadget->Get_Text_Length() == 0) {
 				Unknown9C = false;
 				Unknown_617660(false);
 				Unknown_617310();
 			}
 		}
-		if (!Buttons[8]->Unknown_60()) {
+		if (!Buttons[8]->Is_Enabled()) {
 			if (NameGadget->Get_Text_Length() != 0 && strcmp(NameGadget->Get_Text(), Unknown_B8909C) != 0) {
 				Unknown9C = true;
 				Unknown_617660(true);

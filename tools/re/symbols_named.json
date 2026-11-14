@@ -1521,5 +1521,29 @@
   "address": "0x7EEDB0",
   "symbol": "??1?$HashNodeClass@PAVMeshSoundListClass@@VHashDefaultUserClass@@@@UAE@XZ",
   "evidence": "HashNodeClass<MeshSoundListClass *, HashDefaultUserClass>'s destructor: its only caller is 0x7EED80, the deleting destructor of the node table 0xB079FC that 0x7EED40 stores (O5 2026-11-12)"
+ },
+ {
+  "address": "0x50AAC0",
+  "symbol": "?Is_Enabled@GadgetClass@@UAE_NXZ",
+  "evidence": "GadgetClass's slot +0x60 (table 0xAF9AF0; bit 5 of +0x2C), named after gd_key_press.cpp's FAIL_IF 'Is_Enabled()' l.135, where 0x66AAD0 calls this slot (S2, 2026-11-14)",
+  "replaces": "?Unknown_60@GadgetClass@@UAE_NXZ"
+ },
+ {
+  "address": "0x532460",
+  "symbol": "?Unknown_90@UIItemExaminationClass@@UAEPAVSlotDataClass@@XZ",
+  "evidence": "ui_slot_info.h's phantom UISlotInfoItemClass retired: the item examination window holds the InvDataClass ui_slot_info.cpp's 0x630280 passes it (slot_data's +0x10 Unknown_10), and the slot +0x90 returns its SlotDataClass (X1, 2026-11-14)",
+  "replaces": "?Unknown_90@UIItemExaminationClass@@UAEPAVUISlotInfoItemClass@@XZ"
+ },
+ {
+  "address": "0x531660",
+  "symbol": "??0UIItemExaminationClass@@QAE@PAVLineDisplayClientClass@@ABV?$RefCountPtr@VInvDataClass@@@@@Z",
+  "evidence": "ui_slot_info.h's phantom UISlotInfoItemClass retired: the item examination window holds the InvDataClass ui_slot_info.cpp's 0x630280 passes it (slot_data's +0x10 Unknown_10), and the slot +0x90 returns its SlotDataClass (X1, 2026-11-14)",
+  "replaces": "??0UIItemExaminationClass@@QAE@PAVLineDisplayClientClass@@ABV?$RefCountPtr@VUISlotInfoItemClass@@@@@Z"
+ },
+ {
+  "address": "0x5328F0",
+  "symbol": "??1?$RefCountPtr@VInvDataClass@@@@QAE@XZ",
+  "evidence": "ui_slot_info.h's phantom UISlotInfoItemClass retired: the item examination window holds the InvDataClass ui_slot_info.cpp's 0x630280 passes it (slot_data's +0x10 Unknown_10), and the slot +0x90 returns its SlotDataClass (X1, 2026-11-14)",
+  "replaces": "??1?$RefCountPtr@VUISlotInfoItemClass@@@@QAE@XZ"
  }
 ]

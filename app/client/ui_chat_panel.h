@@ -10,6 +10,7 @@
 
 class RenderObjClass;
 class GadgetClass;			// gadget.cpp's
+class ButtonGadgetClass;	// unknown_675120.h's (the panel's buttons, +0xA4: Add_Button's)
 class GadgetSlider;			// gd_slider.h's
 
 class AvatarPipClass;		// avatar_pip.h's (the panel's +0x110)
@@ -100,7 +101,7 @@ public:
 	void Unknown_56C7B0(OptionFontInterfaceEvent *event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
 
 	int UnknownA0;										// +0xA0
-	GadgetClass *UnknownA4[7];							// +0xA4 (the constructor clears all seven)
+	ButtonGadgetClass *UnknownA4[7];						// +0xA4 (the constructor clears all seven)
 	RefCountPtr<UIComboBoxClass> Combo[NUM_COMBO];				// +0xC0 (NUM_COMBO, the assert's)  // NAME 2: the assert's NUM_COMBO
 	RefCountPtr<UIComboBoxClass> UnknownD4;				// +0xD4: the combo shown (0x5698F0)
 	UIPlayerOptClass *UnknownD8;									// +0xD8 (the +0xF8 window's parts: 0x5685C0 clears +0xD8..+0xEC)

@@ -543,7 +543,7 @@ bool UITalkTreeClass::Unknown_68(int event_id)
 			Unknown150 = true;
 			return(true);
 		case 7:
-			if (!Buttons[BTTN_MORE]->Unknown_60()) {
+			if (!Buttons[BTTN_MORE]->Is_Enabled()) {
 				return(true);
 			}
 			SoundLibraryClass::Play_2D_Sound("fontclick.wav", 2);
@@ -842,7 +842,7 @@ void UITalkTreeClass::Unknown_64E7A0()
 	RefCountPtr<RenderObjClass> bttn_obj;
 	int active = -1;
 	for (int lp = 1; lp <= ANSWER_COUNT; lp++) {
-		if (!Buttons[lp]->Unknown_60()) {
+		if (!Buttons[lp]->Is_Enabled()) {
 			break;
 		}
 		if (Buttons[lp]->Is_Unknown2C_02() && Is_Unknown2C_03(Buttons[lp])) {

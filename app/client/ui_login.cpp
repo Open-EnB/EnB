@@ -211,15 +211,15 @@ typedef SignalBaseClass::CallbackClass LoginCallbackBaseClass;	// NAME 1 [LoginC
 class EnvironmentMapManagerClass { public: void Unknown_760770(int base_asset, bool a); };	// NAME 3: by convention (D24) from the client's env_map_manager.cpp
 bool Unknown_5FAE70();									// NAME 1 [Unknown_5FAE70]: ui_registration.cpp
 
-// The settings store 0x7CA2D0 returns (tsk_game.h's Unknown_7CA2D0Class), as far as the constructor clears it
-class LoginSettingsClass	// NAME 1: neutral (D10)
-{
-public:
-	char Unknown00[0x60];								// +0x00
-	void Unknown_7CB2E0(const char *url, int a);		// 0x7CB2E0 (the account management site)  // NAME 1 [url, a]: neutral
-	void Unknown_Clear() { Unknown60.clear(); }			// NAME 1: neutral (D10)
-	std::map<std::string, std::string> Unknown60;		// +0x60 (the constructor empties it)
-};
+
+
+
+
+
+
+
+
+
 
 // The login screen (0xDC bytes, table 0xAF2BF0; charview.cpp's 0x679160 makes it for step 1)
 class LoginInterface : public InterfaceClass	// NAME 5: the client's RTTI (0xB817A8: SignalBaseClass::MemberCallback<GadgetClass,LoginInterface,...>)
@@ -315,7 +315,7 @@ LoginInterface::LoginInterface(UIViewClass *view, LayerClass *layer) :
 	for (int j = 0; j < 4; j++) {
 		AccountButtons[j] = NULL;
 	}
-	((LoginSettingsClass *)Unknown_7CA2D0())->Unknown_Clear();
+	Unknown_7CA2D0()->Unknown60.clear();
 	CharacterView = (LoginViewClass *)View->Unknown_28();
 	Task = (LoginTaskClass *)Get_Character_View()->Unknown14->Unknown_08();
 	Get_Task()->Close_Global_Connection();
@@ -626,7 +626,7 @@ void LoginInterface::Unknown_5ADA50()
 		if (button) {
 			if (button == 1) {
 				CharacterView->Get_Unknown034()->Unknown_5C();
-				((LoginSettingsClass *)Unknown_7CA2D0())->Unknown_7CB2E0("https://jump-subs.ea.com/SubscribeEntry.jsp?prodID=REG-EB&iPath=3&CancelURL=http%3A%2F%2Fwww.earthandbeyond.ea.com%2F", 1);
+				Unknown_7CA2D0()->Unknown_7CB2E0("https://jump-subs.ea.com/SubscribeEntry.jsp?prodID=REG-EB&iPath=3&CancelURL=http%3A%2F%2Fwww.earthandbeyond.ea.com%2F", 1);
 				Unknown0D8 = false;
 				Get_Task()->Unknown_6C();
 				return;

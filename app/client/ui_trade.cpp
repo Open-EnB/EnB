@@ -310,8 +310,8 @@ void UITradeClass::Unknown_60()
 			if (item->Unknown50 > 1) can_buy_stack = true;
 		}
 	}
-	if (Unknown0D4[6]->Unknown_60() != can_buy) Unknown0D4[6]->Unknown_40(can_buy);
-	if (Unknown0D4[7]->Unknown_60() != can_buy_stack) Unknown0D4[7]->Unknown_40(can_buy_stack);
+	if (Unknown0D4[6]->Is_Enabled() != can_buy) Unknown0D4[6]->Unknown_40(can_buy);
+	if (Unknown0D4[7]->Is_Enabled() != can_buy_stack) Unknown0D4[7]->Unknown_40(can_buy_stack);
 	if (!PDA->Unknown_695CE0()) Unknown_5C();
 	UIInvClass::Unknown_60();
 }
@@ -409,7 +409,7 @@ bool UITradeClass::Unknown_68(int key)
 		case 25:
 			return(true);
 		case 12:
-			if (Unknown0D4[6]->Unknown_60()) {
+			if (Unknown0D4[6]->Is_Enabled()) {
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_5A02E0(false);
@@ -417,7 +417,7 @@ bool UITradeClass::Unknown_68(int key)
 			}
 			return(true);
 		case 13:
-			if (Unknown0D4[7]->Unknown_60()) {
+			if (Unknown0D4[7]->Is_Enabled()) {
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_652890();
@@ -425,7 +425,7 @@ bool UITradeClass::Unknown_68(int key)
 			}
 			return(true);
 		case 14:
-			if (Unknown0D4[8]->Unknown_60()) {
+			if (Unknown0D4[8]->Is_Enabled()) {
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_6531F0(false);
@@ -433,7 +433,7 @@ bool UITradeClass::Unknown_68(int key)
 			}
 			return(true);
 		case 15:
-			if (Unknown0D4[9]->Unknown_60()) {
+			if (Unknown0D4[9]->Is_Enabled()) {
 				SoundLibraryClass::Play_2D_Sound("Roll_Select02b.wav", 2);
 				Close_Box();
 				Unknown_652C60();

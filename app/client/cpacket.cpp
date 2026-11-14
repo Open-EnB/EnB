@@ -93,13 +93,13 @@ public:
 };
 extern SoundManagerClass *SoundManager;	// 0xBE82A4  // NAME 2: what it holds
 
-// navigation_data.cpp's and the emote data's per-object records (co_data.h's Get_Navigation_Data /
-// Get_Emote_Data), declared as far as the handlers call them
-class NavigationDataClass	// NAME 3: class-from-file (D24) for app\client\navigation_data.cpp
-{
-public:
-	void Unknown_7BA940(NavigationPacketClass *packet);	// 0x7BA940 (NAVIGATION 153)  // NAME 1 [packet]: the handler's packet
-};
+// the per-object records of navigation_data.cpp, the gutter data and the emote data (co_data.h's
+// Get_Navigation_Data, Get_Gutter_Data, Get_Emote_Data); the gutter data's declared as far as the handlers call it
+#include "navigation_data.h"
+
+
+
+
 class GutterDataClass	// NAME 3: class-from-file (D24) for app\client\gutter_data.cpp
 {
 public:
@@ -378,7 +378,7 @@ bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && Velocity.Is_Valid())) return(true);
 	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
-	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
+	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp); sclient->Unknown10D0++;
 	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
 	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
 		sclient->Unknown_728180();
@@ -408,7 +408,7 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && WWMath::Is_Valid_Float(CurrentSpeed) && ImpartedVelocity.Is_Valid())) return(true);
 	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
-	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
+	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp); sclient->Unknown10D0++;
 	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
 	if (fabs(Unknown_Lag_Average(sclient)) > 50.0 && sclient->Unknown10D0 > 64) {
 		sclient->Unknown_728180();
@@ -1807,32 +1807,32 @@ bool DamagePacketClass::Process_Packet(void *instance)
 
 
 
-// gadget.cpp's gadget, its slot +0x08's interface and gadget_list_manager.cpp's list (SClient +0x1278),
-// declared as far as GADGET 103 calls them
-class UIGadgetInterfaceClass : public InterfaceClass	// NAME 1: neutral (D10): what a gadget's slot +0x08 returns
-{
-public:
-	virtual void Unknown_88();
-	virtual void Unknown_8C(bool on);	// +0x8C (GADGET 103: Function bits 1 / 2)  // NAME 1 [on]: what the handler passes
-};
-class GadgetClass	// NAME 3: class-from-file (D24) for app\client\gadget.cpp
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04();
-	virtual UIGadgetInterfaceClass *As_RObjGadget();	// +0x08 (GADGET 103)
-	virtual void As_RObjProxyGadget(); virtual void As_SlotDataGadget(); virtual void As_UIScutProxyGadget(); virtual void Unknown_18();
-	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28();
-	virtual void Unknown_2C(); virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38();
-	virtual void Unknown_3C();
-	virtual void Unknown_40(bool on);	// +0x40 (GADGET 103: Function bits 4 / 8)  // NAME 1 [on]: what the handler passes
-	void Unknown_6603A0(bool indicator, UIViewClass *view);	// 0x6603A0 (GADGET 103: bit 0x10, the current view's slot +0x1C)  // NAME 1 [indicator, view]: gadget.h's
-	void Unknown_6607D0();	// 0x6607D0 (GADGET 103: bit 0x20)
-};
-class GadgetListManagerClass	// NAME 3: class-from-file (D24) for app\client\gadget_list_manager.cpp (its FAIL_IF '!Manager' on this)
-{
-public:
-	GadgetClass *Unknown_661940(const char *name);	// 0x661940 (FAIL_IF '!name')  // NAME 3 [name]: its FAIL_IF's
-};
+// gadget.cpp's gadget, its slot +0x08's answer (gd_robj.h's RObjGadgetClass) and gadget_list_manager.cpp's list
+// (SClient +0x1278), as GADGET 103 calls them
+#include "gadget.h"
+#include "gd_robj.h"
+#include "gadget_list_manager.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1849,7 +1849,7 @@ bool GadgetPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	GadgetClass *gadget = ((GadgetListManagerClass *)sclient->Unknown1278)->Unknown_661940(Name);
 	FAIL_IF(!gadget) return(true);
-	UIGadgetInterfaceClass *iface = gadget->As_RObjGadget();
+	RObjGadgetClass *iface = gadget->As_RObjGadget();
 	if ((Function & 1) && iface) iface->Unknown_8C(true);
 	if ((Function & 2) && iface) iface->Unknown_8C(false);
 	if (Function & 4) gadget->Unknown_40(true);

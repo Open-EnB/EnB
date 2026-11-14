@@ -53,8 +53,8 @@ bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x49611
 
 
 
-// The settings store 0x7CA2D0 returns (tsk_game.h's Unknown_7CA2D0Class), as far as the site's link opens through it
-class PopupSettingsClass { public: void Unknown_7CB2E0(const char *url, int a); };	// NAME 1: neutral (D10)  // NAME 1 [url, a]: as ui_login.cpp's
+
+
 
 #include "ww3d.h"										// WW3D::Get_Frame_Time (0xBFAE3C / 0xBFAE40: WW3D::SyncTime / PreviousSyncTime, read inline)
 
@@ -184,7 +184,7 @@ void Unknown5DB670InterfaceClass::Unknown_5DBD50(int site)
 {
 	StringClass url = Get_Site_URL(site);
 	if (!url.Is_Empty()) {
-		((PopupSettingsClass *)Unknown_7CA2D0())->Unknown_7CB2E0(url, 0);
+		Unknown_7CA2D0()->Unknown_7CB2E0(url, 0);
 	}
 }
 

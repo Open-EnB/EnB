@@ -8,10 +8,8 @@
 #include <string>
 #include "clienttest.h"
 #include "..\..\..\app\client\unknown_signalbase.h"
-#include "..\..\..\app\shared\avatar_desc.h"
 
-class UIAvselCharacterViewClass { public: void Unknown_5594B0(AvatarDescClass desc); };
-void UIAvselCharacterViewClass::Unknown_5594B0(AvatarDescClass) { Trace("stub UIAvselCharacterViewClass::Unknown_5594B0 (0x5594B0)"); }
+// (0x5594B0, CharacterViewClass's descriptor by value: ui_avatr.obj's, linked from app.lib)
 
 
 

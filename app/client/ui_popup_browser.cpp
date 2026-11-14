@@ -21,8 +21,8 @@ public:
 	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
-// The settings store's browser calls, as ui_registration.cpp's
-class PopupBrowserSettingsClass { public: void Unknown_7CB240(int a); };	// NAME 1 [PopupBrowserSettingsClass, a]: as ui_registration.cpp's
+
+
 
 // NOT EXACT: inline-budget (0.52, 160 instructions vs 189: the client calls Url's _Tidy(false) out of line; ours expands it)
 // @0x5DAE90
@@ -49,7 +49,7 @@ UIPopupBrowserClass::UIPopupBrowserClass(SClient *client, int browser_id, const 
 UIPopupBrowserClass::~UIPopupBrowserClass()
 {
 	if (Active) {
-		((PopupBrowserSettingsClass *)Unknown_7CA2D0())->Unknown_7CB240(UnknownC8);
+		Unknown_7CA2D0()->Unknown_7CB240(UnknownC8);
 		InterfaceClass::Unknown_5C();
 		((LineDisplayClientClass *)Client)->As_Space_Client()->Mouse->Unknown_515400();
 	}
@@ -105,7 +105,7 @@ void UIPopupBrowserClass::Unknown_58()
 void UIPopupBrowserClass::Unknown_5C()
 {
 	if (Active) {
-		((PopupBrowserSettingsClass *)Unknown_7CA2D0())->Unknown_7CB240(UnknownC8);
+		Unknown_7CA2D0()->Unknown_7CB240(UnknownC8);
 		InterfaceClass::Unknown_5C();
 		((LineDisplayClientClass *)Client)->As_Space_Client()->Mouse->Unknown_515400();
 	}

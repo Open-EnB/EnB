@@ -17,8 +17,8 @@ class SkillNamesDatabase { public: static int Max_Skill();	// NAME 5: 0x6A4F40's
 	static int Unknown_818170(const std::string &name);	// NAME 1: neutral (D10)
 	static int Unknown_818340(int skill, unsigned int level);	// NAME 1: neutral (D10)
 	static TextureClass *Unknown_818430(int skill); };	// NAME 1: neutral (D10)
-// kv_util.cpp's (not rebuilt yet)
-void Unknown_4BB3F0(KVTripleListClass &list, INIClass &ini, const char *section);	// NAME 1: neutral (D10)
+// kv_util.cpp's
+bool Unknown_4BB3F0(KVTripleListClass &list, INIClass &ini, const char *section);	// NAME 1: neutral (D10)
 
 std::vector<Unknown815320Struct *> SkillAbilityNamesDatabase::_AllAbilities;					// 0xBE8DA8  // NAME 3: its asserts
 std::vector<Unknown8155B0Struct> SkillAbilityNamesDatabase::_SkillAbilities;					// 0xBE8DB8  // NAME 3: its asserts

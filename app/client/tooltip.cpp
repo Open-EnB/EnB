@@ -341,7 +341,7 @@ void UIViewUnknown30Class::Unknown_6ABC60()
 fits:
 	for (int i = 0; i < lines; i++) {
 		Lines[i]->Change_Text(split.Get(i), 2);
-		Lines[i]->Unknown_6CE910(!CurGadget->Unknown_60());
+		Lines[i]->Unknown_6CE910(!CurGadget->Is_Enabled());
 		Unknown51C800Class *element = new Unknown51C800Class(Lines[i], 6);
 		Window->Add_Object(element, i);
 		element->Release_Ref();

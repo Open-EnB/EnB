@@ -160,7 +160,7 @@ extern const int Unknown_B08CBC;  // NAME 1 [Unknown_B08CBC]: 0x800, what 0x5F2D
 extern const int Unknown_B08CC0;  // NAME 1 [Unknown_B08CC0]: 0x1000
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);
 void Unknown_Debug_Printf(const char *format, ...);
-class RegistrationSettingsClass { public: void Unknown_7CB240(int a); void Unknown_7CB2E0(const char *url, int a); };  // NAME 1 [RegistrationSettingsClass, a, url]: as ui_login.cpp's
+
 
 static const char *RegistrationSubscribeURL = "https://jump-subs.ea.com/SubscribeEntry.jsp?prodID=REG-EB&iPath=3&CancelURL=http%3A%2F%2Fwww.earthandbeyond.ea.com%2F";  // NAME 1 [RegistrationSubscribeURL]: the literal 0xB8139C (0x5F2280)
 
@@ -703,7 +703,7 @@ void RegistrationInterface::Unknown_5F2280()
 		if (button != 0) {
 			if (button == 1) {
 				UnknownBC->Get_Unknown34()->Unknown_5C();
-				((RegistrationSettingsClass *)Unknown_7CA2D0())->Unknown_7CB2E0(RegistrationSubscribeURL, 1);
+				Unknown_7CA2D0()->Unknown_7CB2E0(RegistrationSubscribeURL, 1);
 				Unknown11A = false;
 				UnknownC0->Unknown_6C();
 			} else {
@@ -1031,7 +1031,7 @@ void RegistrationInterface::Unknown_5F3600()
 			Unknown1BC = NULL;
 			break;
 		case 0x15:
-			((RegistrationSettingsClass *)Unknown_7CA2D0())->Unknown_7CB240(4);
+			Unknown_7CA2D0()->Unknown_7CB240(4);
 			UnknownC0->Unknown0018->Unknown_515400();
 			break;
 	}

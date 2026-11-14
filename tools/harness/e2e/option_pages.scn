@@ -1,0 +1,38 @@
+name: the options window's pages (ui_option_main.cpp's buttons): Interface, Graphics, Sound and Fonts, each shown and cancelled
+# From the main page (hud.options, 'opt01a') a page opens in its place: UIOptionSliderClass (ui_option_slider.cpp,
+# mode 0) loads 'opt04a' with its kind's file; its Cancel returns to the main page (ChatPanel request 1). Fonts opens
+# the chat panel's font window (0x56C7E0, ui_option_font.cpp's fc_option_font.ini), whose Cancel only closes it.
+# Control (ui_option_control_keys.cpp) is _wip_option_control's.
+timeout: 400
+include _login
+click gadget hud.options
+expect-event proxy 'fa_opt01a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget optmain.interface
+expect-event proxy 'fa_opt04a-interface\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot options_interface
+click gadget optslider.cancel
+expect-event proxy 'fa_opt01a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget optmain.graphics
+expect-event proxy 'fa_opt04a-graphics\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot options_graphics
+click gadget optslider.cancel
+expect-event proxy 'fa_opt01a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget optmain.sound
+expect-event proxy 'fa_opt04a-sound\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot options_sound
+click gadget optslider.cancel
+expect-event proxy 'fa_opt01a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget optmain.fonts
+expect-event proxy 'fc_option_font\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot options_fonts
+click gadget optfont.cancel
+expect-event proxy 'fc_option_font\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15

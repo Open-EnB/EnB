@@ -88,6 +88,77 @@ Unknown8CClass::Unknown8CClass()
 	p[2] = (int)(p + 4);
 }
 
+// ---------------------------------------------------------------- 0x6B6050-0x6B6170: the starbase interface's +0xB8 gadget (declared in ui_starbase.cpp)
+// The client's five functions as they are (table 0xAFE174); the generated constructor left the object without its table, and
+// intrlist.cpp's 0x6871D0 called through it from UIStarbaseClass's constructor. Its own app file is still to make (the client's
+// object sits between viewbttn.cpp and wnd_file.cpp: defining it in ui_starbase.cpp widened that file's range and lost two pairs)
+#include "..\..\app\client\gadget.h"
+class SBaseViewClass;
+class UIStarbaseGadget6B6050Class : public RectangleGadgetClass
+{	public:
+	UIStarbaseGadget6B6050Class(int x, int y, int width, int height, SBaseViewClass *view);
+	virtual ~UIStarbaseGadget6B6050Class(); virtual GadgetClass *Unknown_1C(); virtual bool Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask); virtual bool Unknown_34(KernelEventClass *event, float x, float y, unsigned int mask);
+	SBaseViewClass *Unknown40;
+};
+// 0x6B6050: RectangleGadgetClass(x, y, width, height, 0xFF), then the view
+UIStarbaseGadget6B6050Class::UIStarbaseGadget6B6050Class(int x, int y, int width, int height, SBaseViewClass *view) : RectangleGadgetClass(x, y, width, height, 0xFF), Unknown40(view)
+{
+}
+// 0x6B60A0: slot +0x1C answers with the gadget itself
+GadgetClass *UIStarbaseGadget6B6050Class::Unknown_1C()
+{
+	return(this);
+}
+// 0x6B60F0 (deleting 0x6B60C0): the table, then GadgetClass's destructor
+UIStarbaseGadget6B6050Class::~UIStarbaseGadget6B6050Class()
+{
+}
+// 0x6B6110: no event; true when the mask holds a bit of its own (+0x10)
+bool UIStarbaseGadget6B6050Class::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
+{
+	return((mask & Mask) != 0);
+}
+// 0x6B6130: the base's; when it declined, bits 0x44 go to slot +0x2C and the answer is false
+bool UIStarbaseGadget6B6050Class::Unknown_34(KernelEventClass *event, float x, float y, unsigned int mask)
+{
+	if (GadgetClass::Unknown_34(event, x, y, mask)) {
+		return(true);
+	}
+	if (mask & 0x44) {
+		Unknown_2C(event, x, y, mask & 0x44);
+	}
+	return(false);
+}
+
+// 0x73FB20: the list's destructor tells each watcher still on it that the object goes (the watcher's slot +0x04 with its
+// node: UnknownObjectWatchClass's Unknown_Watch_0C, then its node off the list), then unlinks the node; without it the slot
+// data of an object deleted at a handoff kept the freed aux tree (CRASH in InvDataPeekClass::Get_Slot)
+class Poc8CWatcherClass { public: virtual ~Poc8CWatcherClass() {} virtual void Unknown_04(int node) = 0; };	// UnknownAF0DD0Class's first two slots
+Unknown8CClass::~Unknown8CClass()
+{
+	int *p = (int *)this;
+	int *node = (int *)p[2];
+	if (node != NULL && node[1] == 0) {
+		node = NULL;
+	}
+	while (node != NULL) {
+		int *next = (int *)node[1];
+		if (next != NULL && next[1] == 0) {
+			next = NULL;
+		}
+		if (node[3] != 0) {
+			((Poc8CWatcherClass *)node[3])->Unknown_04((int)node);
+		}
+		if (node[1] != 0 && node[2] != 0) {
+			((int *)node[2])[1] = node[1];
+			((int *)node[1])[2] = node[2];
+			node[2] = 0;
+			node[1] = 0;
+		}
+		node = next;
+	}
+}
+
 // ---------------------------------------------------------------- a watchdog (POC only): every 5 s the main thread's EIP and the code addresses on its stack, in the stub log
 #include <windows.h>
 #include <stdio.h>

@@ -96,6 +96,11 @@ public:
 	CharacterViewAvatarClass *Get_Unknown198() { return(NarratorRObj); }	// NAME 1: neutral (D10)
 	int Get_Unknown1B0() { return(Unknown1B0); }		// NAME 1: neutral (D10)
 	RenderObjClass *Peek_Model() { return(ViewRObjs[0]); }	// NAME 1: neutral (D10), as ui_avatr.cpp's
+#ifdef __CHARVIEW_AVSEL_MEMBERS	// ui_avsel.cpp only: other files' declaration counts move sclient.cpp's SEND_SYMBOL_PAD window (workflow.md 3.4), so they do not see these
+	LayerClass *Get_Unknown070() { return(Unknown070); }	// (ui_avsel.cpp's 0x55E370 reads +0x70 through it)  // NAME 1: neutral (D10)
+	EnvironmentMapManagerClass *Get_Unknown3A4() { return(Unknown3A4); }	// (ui_avsel.cpp's 0x55E370 reads +0x3A4 through it)  // NAME 1: neutral (D10)
+	void Unknown_5594B0(AvatarDescClass desc);			// 0x5594B0 (+0x88 = desc, by value; out of line in ui_avatr.cpp, ui_avsel.cpp calls it)  // NAME 1 [desc]: neutral
+#endif
 	void Unknown_67A250();								// 0x67A250 (every +0x1CC set: 0x67A9B0)
 	void Unknown_67A290(const Vector3 &position, const Vector3 &rotation, float fov);	// 0x67A290 (the camera's: +0x4C, +0x58, +0x64)  // NAME 1 [position, rotation, fov]: what it stores
 	void Unknown_67A300();								// 0x67A300 (LoginTaskClass::Run: the screen off and released)

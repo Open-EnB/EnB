@@ -1,0 +1,40 @@
+name: the chat panel's Group tab: Find / Leave with its recruits list, Friends List and Guild Info, each shown and closed
+# ui_chat_panel.cpp's 0x569A00 opens each over the panel (+0xF8): UIGroupOptClass (ui_groupopt.cpp, 'tsi25a'),
+# UIFriendsClass (ui_friends.cpp, 'tsi28a'), UIGuildClass (ui_guild.cpp, 'tsi35a' / 'tsi36a'; Karen has no guild,
+# so it shows ui_stringentry.cpp's 'Create a new Guild' entry). A window's close loads its file again.
+timeout: 400
+include _login
+click gadget chat.tab.group
+alive 0.5
+click gadget group.findleave
+expect-event proxy 'fa_tsi25a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+# 'Available Recruits' (key 3) asks the server for the list (ACTION 16) and opens ui_groupfind.cpp's
+# UIGroupFindClass under the window; the same button, now 'Close', closes the list
+click gadget groupopt.recruits
+expect-event antprox 'received ACTION 0x002c, 16 bytes' within 10
+wait-quiet proxy 1.0 within 15
+shot group_findleave
+click gadget groupfind.close
+wait-quiet proxy 1.0 within 15
+click gadget groupopt.close
+expect-event proxy 'fa_tsi25a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget chat.tab.group
+alive 0.5
+click gadget group.friends
+expect-event proxy 'fa_tsi28a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot group_friends
+click gadget friends.close
+expect-event proxy 'fa_tsi28a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget chat.tab.group
+alive 0.5
+click gadget group.guild
+expect-event proxy 'fa_tsi36a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot group_guild
+click gadget guild.create.cancel
+wait-quiet proxy 1.0 within 15
+alive 0.5

@@ -1,0 +1,26 @@
+name: the chat panel's Help tab: Self Help opens the pop-up browser (UIPopupBrowserClass 0 'RNW' titled Knowledgebase: http://support.net-7.org/, a string in client.exe) and its close box closes it
+# Unknown_7CB240 is the settings store's real Unknown_7CA2D0Class::Unknown_7CB240 (0x7CB240, DestroyBrowser):
+# until then each XFAIL leaves the page drawn and would cost the default run a client start.
+# ui_chat_panel.cpp's 0x569A00 ('Self Help') makes UIPopupBrowserClass (ui_popup_browser.cpp, 'JWEB01', fc_jweb01.ini);
+# its Unknown_60 hands the browser model's 'BROWSER' box to the settings store's 0x7CA5C0 (settings_store.cpp),
+# which takes the URL from the store's table (0x7C97B0: client.exe's strings at 0x79FE90 ff.) and calls
+# DX8WebBrowser::CreateBrowser (BrowserEngine.dll, in-game: no external browser). The page is live: it may load or
+# fail, the scenario asserts only the window. Closing it calls ui_popup_browser.cpp's PopupBrowserSettingsClass::
+# Unknown_7CB240, a stand-in in place of the store's own 0x7CB240 (DestroyBrowser): the page stays drawn over the
+# world and the store's +0x34 stays set, so no other chat-panel browser opens in this session (hence the XFAIL,
+# and the harness's fresh client after it).
+timeout: 400
+include _login
+click gadget chat.tab.help
+alive 0.5
+click gadget help.selfhelp
+expect-event proxy 'fc_jweb01\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 2.0 within 30
+alive 3
+shot browser_selfhelp
+click gadget browser.close
+expect-event proxy 'fc_jweb01\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot browser_selfhelp_closed
+key 0xC0
+expect-event antprox 'received REQUEST_TARGET 0x0017, 8 bytes' within 10

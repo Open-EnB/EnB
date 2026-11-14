@@ -26,7 +26,7 @@ CheckBoxGadgetClass::~CheckBoxGadgetClass()
 
 bool CheckBoxGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
-	if (Unknown_60() && (mask & 0x11) != 0) {
+	if (Is_Enabled() && (mask & 0x11) != 0) {
 		ButtonGadgetClass::Unknown_2C(event, x, y, mask);
 		Checked = !Checked;
 		Unknown_7E8050();

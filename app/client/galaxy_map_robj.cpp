@@ -11,15 +11,15 @@
 #include "wwmath.h"
 #include "..\shared\g_assert.h"
 
-// segline_create.cpp's holder of a segmented line (as co.cpp declares it)
-class Unknown4981E0Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown4981E0Class(const RefCountPtr<RenderObjClass> &line);	// 0x4982F0  // NAME 1 [line]: what it holds
-	~Unknown4981E0Class();						// 0x498320
-	void Unknown_4983A0(INIClass *ini, const char *section, float scale, const Vector3 &hsv);	// 0x4983A0 (co.cpp declares the last as float *)  // NAME 1 [ini .. hsv]: what co.cpp's 0x6F51D0 passes
-	RenderObjClass *Line;						// +0x00  // NAME 2: what it holds
-};
+// the holder of a segmented line (segline_create.cpp: 0x4981E0 makes one, 0x4983A0 reads it from an INI section)
+#include "..\shared\segline_create.h"
+
+
+
+
+
+
+
 
 static int _max_polys = 2;			// 0xB9EB1C  // NAME 1: what DynamicMeshClass takes
 static int _max_verts = 4;			// 0xB9EB20  // NAME 1: what DynamicMeshClass takes
@@ -368,7 +368,7 @@ bool GalaxyMapLineRObjClass::Unknown_7B3F00(INIClass &ini, const char *name, con
 {
 	FAIL_IF(!from) return(false);
 	FAIL_IF(!to) return(false);
-	Unknown4981E0Class segline(Create_Peek((RenderObjClass *)this));
+	Unknown4981E0Class segline(Create_Peek((SegmentedLineClass *)this));
 
 	segline.Unknown_4983A0(&ini, name, 1.0f, Vector3(0, 0, 0));
 	RefCountPtr<TextureClass> texture = Create_Get(Get_Texture());

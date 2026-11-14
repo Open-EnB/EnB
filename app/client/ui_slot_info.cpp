@@ -10,7 +10,7 @@
 void Unknown_42ECF0(float *x, float *y);				// 0x42ECF0 (input.h: the pointer's position, 0..1)  // NAME 1 [x, y]: as input.h's
 
 #include "ui_skill_info.h"	// ui_skill_info.cpp's window (0x630280 makes it)
-
+#include "inv_data.h"	// InvDataClass (0x630280's window holds it)
 
 
 
@@ -243,7 +243,7 @@ UISlotInfoClass *Unknown_630280(SClient *client, SlotDataClass *slot_data)
 {
 	InvDataClass *inv = slot_data->Unknown_10();
 	if (inv) {
-		return(new UIItemExaminationClass((LineDisplayClientClass *)client, Create_Peek((UISlotInfoItemClass *)inv)));
+		return(new UIItemExaminationClass((LineDisplayClientClass *)client, Create_Peek(inv)));
 	}
 	SkillDataClass *skill = slot_data->Unknown_14();
 	if (skill) {

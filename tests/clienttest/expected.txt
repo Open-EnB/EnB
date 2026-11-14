@@ -478,8 +478,6 @@ msg 137 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 138 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 139 AUX_DATA (27) size 44: cpacket.cpp's handler
 msg 140 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::NavigationDataClass
-gen NavigationDataClass::Unknown_7BA940
 msg 141 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 34
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -544,8 +542,6 @@ msg 174 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 175 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 176 AUX_DATA (27) size 38: cpacket.cpp's handler
 msg 177 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::NavigationDataClass
-gen NavigationDataClass::Unknown_7BA940
 msg 178 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 43
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -645,8 +641,6 @@ msg 231 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 232 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 233 AUX_DATA (27) size 35: cpacket.cpp's handler
 msg 234 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::NavigationDataClass
-gen NavigationDataClass::Unknown_7BA940
 msg 235 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 57
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -667,8 +661,6 @@ msg 240 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 241 SIMPLE_POSITIONAL_UDPATE (8) size 52: cpacket.cpp's handler
 msg 242 AUX_DATA (27) size 29: cpacket.cpp's handler
 msg 243 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::NavigationDataClass
-gen NavigationDataClass::Unknown_7BA940
 msg 244 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 58
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -901,8 +893,6 @@ msg 345 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 346 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 347 AUX_DATA (27) size 36: cpacket.cpp's handler
 msg 348 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::NavigationDataClass
-gen NavigationDataClass::Unknown_7BA940
 msg 349 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 94
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -918,8 +908,6 @@ msg 354 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 355 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 356 AUX_DATA (27) size 38: cpacket.cpp's handler
 msg 357 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::NavigationDataClass
-gen NavigationDataClass::Unknown_7BA940
 msg 358 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 96
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1137,8 +1125,6 @@ msg 455 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 456 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 457 AUX_DATA (27) size 34: cpacket.cpp's handler
 msg 458 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::NavigationDataClass
-gen NavigationDataClass::Unknown_7BA940
 msg 459 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 131
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1224,8 +1210,6 @@ msg 501 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 502 PLANET_POSITIONAL_UPDATE (63) size 52: cpacket.cpp's handler
 msg 503 AUX_DATA (27) size 21: cpacket.cpp's handler
 msg 504 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::NavigationDataClass
-gen NavigationDataClass::Unknown_7BA940
 msg 505 CREATE (4) size 27: cpacket.cpp's handler
 asset manager Create_Render_Obj 'missing' -> model 142
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1323,8 +1307,6 @@ msg 555 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 556 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 557 AUX_DATA (27) size 27: cpacket.cpp's handler
 msg 558 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::NavigationDataClass
-gen NavigationDataClass::Unknown_7BA940
 msg 559 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 155
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1564,8 +1546,6 @@ msg 692 RELATIONSHIP (137) size 13: cpacket.cpp's handler
 msg 693 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 694 AUX_DATA (27) size 34: cpacket.cpp's handler
 msg 695 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::NavigationDataClass
-gen NavigationDataClass::Unknown_7BA940
 msg 696 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'deco_1441' scale 1 hsv (0 0 0) -> model 189
 stub UnknownB02C90Class::BufferStruct::Insert 0
@@ -1782,7 +1762,6 @@ asset manager +0x78 'eff_wrp01': not loaded
 asset manager Load_3D_Assets 'eff_wrp01.w3d'
 asset manager +0x78 'eff_wrp01' scale 1 hsv (0 0 0) -> model 1006
 model 1006 Set_Transform (0, 0, 0)
-stub Unknown6F25A0EffectClass 48901090
 stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C
@@ -1905,7 +1884,6 @@ msg 848 CONSTANT_POSITIONAL_UPDATE (64) size 36: cpacket.cpp's handler
 msg 849 AUX_DATA (27) size 31: cpacket.cpp's handler
 msg 850 ADVANCED_POSITIONAL_UPDATE (62) size 54: cpacket.cpp's handler
 msg 851 NAVIGATION (153) size 18: cpacket.cpp's handler
-gen NavigationDataClass::Unknown_7BA940
 msg 852 CREATE (4) size 27: cpacket.cpp's handler
 asset manager +0x78 'ship_1028' scale 0.2 hsv (0 0 0) -> model 222
 asset manager +0x78 'part_618' scale 1 hsv (0 0 0) -> model 223

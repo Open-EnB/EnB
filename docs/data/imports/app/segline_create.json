@@ -1,0 +1,39 @@
+{
+ "ambiguous": [
+  "0x46BE90",
+  "0x474080"
+ ],
+ "copy": "reconstructed",
+ "description": "the segmented-line holder Unknown4981E0Class, client 0x4981E0-0x4989CB plus its templates 0x498B90-0x498BF2 (__FILE__ e:\\build\\beta\\G\\app\\shared\\segline_create.cpp, asserts on lines 72 '!Line' and 189 'pcount == 0'): the holder of a RefCountPtr<SegmentedLineClass> co.cpp's Unknown_6F51D0 and galaxy_map_robj.cpp's Unknown_7B3F00 fill from an INI section (Unknown_4983A0)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x46BE90",
+  "0x46C620",
+  "0x48F3A0",
+  "0x490150",
+  "0x4902D0",
+  "0x4981E0",
+  "0x4982F0",
+  "0x498320",
+  "0x498350",
+  "0x4983A0",
+  "0x498B90"
+ ],
+ "merged": [],
+ "name": "shared/segline_create.cpp",
+ "shared": [
+  "0x42F250",
+  "0x46BE90",
+  "0x46C620",
+  "0x48F3A0",
+  "0x490150",
+  "0x4902D0"
+ ],
+ "short_known": [
+  "0x46C620"
+ ],
+ "tiebreak": [
+  "0x498B90"
+ ]
+}

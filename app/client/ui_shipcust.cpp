@@ -2015,10 +2015,10 @@ void ShipCustomizeInterface::Unknown_6277A0()
 			unsigned int count = Unknown268->TextureArray.size();
 			bool right = (unsigned int)Unknown260 < count - 9;
 			bool left = (unsigned int)Unknown260 > 0;
-			if (Gadgets[0x2A].Gadget->Unknown_60() != right) {
+			if (Gadgets[0x2A].Gadget->Is_Enabled() != right) {
 				Gadgets[0x2A].Gadget->Unknown_40(right);
 			}
-			if (Gadgets[0x29].Gadget->Unknown_60() != left) {
+			if (Gadgets[0x29].Gadget->Is_Enabled() != left) {
 				Gadgets[0x29].Gadget->Unknown_40(left);
 			}
 			Unknown_6257A0(2);

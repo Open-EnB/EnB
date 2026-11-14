@@ -5,7 +5,7 @@
   "0x46BE90",
   "0x474080",
   "0x474480",
-  "0x5328F0"
+  "0x630400"
  ],
  "copy": "reconstructed",
  "description": "InvRenderClass (D24 class-from-file), what draws an inventory item's slot (the client's __FILE__ 0xB90220, asserts on lines 119-1107; object from 0x68BF10); started: see its notes (IR1)",
@@ -25,6 +25,7 @@
   "0x45CC10",
   "0x46BE90",
   "0x4CBA10",
+  "0x5328F0",
   "0x68B410",
   "0x68B450",
   "0x68B470",
@@ -91,6 +92,7 @@
   "0x45CC10",
   "0x46BE90",
   "0x4CBA10",
+  "0x5328F0",
   "0x68B410",
   "0x68B450",
   "0x68B470",

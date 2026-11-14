@@ -112,5 +112,5 @@ void UIItemExaminationPropertyRouterClass::Unknown_00(ClientItemPropertyOptionCl
 **	0x5378C0 (deleting 0x537880), Clear 0x5378E0, Route 0x537910 and the visitor slots 0x537960-0x537A80. Its own side
 **	has no destructor of its own (the client's deleting destructor inlines only this class's vptr stores); the
 **	visitor's default slots 0x530390-0x530490 belong to the item property files. ui_item_examination.cpp's
-**	Unknown_94 still declares this class locally as Unknown537830Class.
+**	Unknown_94 calls it by its own name since X1 (2026-11-14).
 */

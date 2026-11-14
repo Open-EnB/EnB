@@ -235,7 +235,7 @@ bool UISliderGadget::Unknown_30(float x, float y)
 
 bool UISliderGadget::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
-	if (!Unknown_60()) {
+	if (!Is_Enabled()) {
 		return(false);
 	}
 	Unknown0C8.X = x * 640.0f - 320.0f;

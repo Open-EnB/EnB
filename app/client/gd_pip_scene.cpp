@@ -62,7 +62,7 @@ GadgetPipSceneClass::~GadgetPipSceneClass()
 bool GadgetPipSceneClass::Unknown_30(float x, float y)
 {
 	FAIL_IF(!PIPScene) return(false);
-	if (!Unknown_60()) {
+	if (!Is_Enabled()) {
 		return(false);
 	}
 	bool wrapped = false;

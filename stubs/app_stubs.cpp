@@ -92,3 +92,15 @@ Matrix3D Unknown_82ECB0(const Vector3 &dir, const Vector3 &pos)
 	tm.Obj_Look_At(pos, pos + dir, 0.0f);
 	return tm;
 }
+
+// ------------------------------------------------------------------------- enbassetmgr.cpp
+
+#include "enbassetmgr.h"
+
+// 0x48B7B0 (not rebuilt; gen_stubs skips the overload): the named texture recoloured by hsv, cached in the client under
+// '#name!H%gS%gV%g'. A stand-in that works: the texture as loaded, not recoloured
+TextureClass *ENBAssetManager::Recolor_Texture(const char *name, float *hsv, MipCountType mip)
+{
+	STUB_CALLED("ENBAssetManager::Recolor_Texture(name) (0x48B7B0)");
+	return Get_Texture(name, mip);
+}

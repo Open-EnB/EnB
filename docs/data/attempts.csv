@@ -3163,3 +3163,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-14 03:57,0x8B49A0,,libs/wwonline/wlib/unknown_8b45b0.cpp,wlib,exact,,1,,D99: too short to count; byte-identical at its marker (appfile.py match),,opus
 2026-11-14 03:57,0x8B49C0,,libs/wwonline/wlib/unknown_8b45b0.cpp,wlib,exact,,1,,D99: too short to count; byte-identical at its marker (appfile.py match),,opus
 2026-11-14 03:57,0x8B49E0,,libs/wwonline/wlib/unknown_8b45b0.cpp,wlib,exact,,1,,D99: too short to count; byte-identical at its marker (appfile.py match),,opus
+2026-11-14 11:15,0x691830,LoadingViewClass::Unknown_691830,app/client/loadingview.cpp,app,exact,,12,,"loadingview.cpp __FILE__; exact with START teardown via a file-static inline layer (out-of-line RefCountPtr clears), string empty() tests, Dest text (both empty)/(system empty) Docking/else Entering, from declared before to",,claude-opus-5-5

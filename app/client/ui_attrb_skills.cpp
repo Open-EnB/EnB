@@ -660,7 +660,7 @@ void UIAttrbSkillsClass::Unknown_D0()
 {
 	for (std::vector<Unknown664500Class *>::iterator it = UnknownC4.begin(); it != UnknownC4.end(); it++) {
 		Unknown664500Class *gadget = *it;
-		if (gadget->Unknown_60()) {
+		if (gadget->Is_Enabled()) {
 			gadget->Unknown_664500();
 		}
 	}

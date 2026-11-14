@@ -163,7 +163,7 @@ void UIManuUnknownC0Class::Unknown_5B7880()
 		if (Unknown44 >= 0.1f) {
 			Unknown44 -= 0.1f;
 			if (Unknown3C == 1) {
-				if (Unknown40 < 5 && Gadgets[Unknown40] != NULL && Gadgets[Unknown40]->Unknown_60()) {
+				if (Unknown40 < 5 && Gadgets[Unknown40] != NULL && Gadgets[Unknown40]->Is_Enabled()) {
 					Gadgets[Unknown40]->Unknown_8C(false);
 					Unknown14[Unknown40]->Set_Hidden(false);
 					Unknown40++;
