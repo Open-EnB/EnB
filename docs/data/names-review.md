@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 218 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1928 |
-| 2 | describes what the code does | 4868 |
-| 1 | neutral placeholder | 24828 |
+| 2 | describes what the code does | 4872 |
+| 1 | neutral placeholder | 24829 |
 
 ## For review (score 3 and below)
 
@@ -23326,6 +23326,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Add_Nothing` | `app/shared/kv_time_adds.cpp:7` | the prefix pushed and popped |
 | 1 | `Type` | `app/shared/kv_tripl.h:47` | neutral guess, a short string beside the value |
 | 1 | `Get_Type` | `app/shared/kv_tripl.h:66` | neutral guess |
+| 1 | `Unknown_4BB3F0` | `app/shared/kv_util.cpp:203` | neutral (D10) |
 | 1 | `Unknown_BDC0D8` | `app/shared/land.cpp:45` | unknown |
 | 1 | `LandUnknown466BE0Class` | `app/shared/land.cpp:45` | untagged neutral name (D10) |
 | 1 | `LandClass::LandClass` | `app/shared/land.cpp:49` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
@@ -29017,6 +29018,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Count` | `app/shared/kv_tripl.h:69` | describes what it does |
 | 2 | `Get` | `app/shared/kv_tripl.h:70` | describes what it does |
 | 2 | `Index` | `app/shared/kv_tripl.h:73` | describes what it does |
+| 2 | `KeyBuffer` | `app/shared/kv_util.cpp:8` | describes what it does |
+| 2 | `Replace_Char` | `app/shared/kv_util.cpp:18` | describes what it does |
+| 2 | `Make_Key` | `app/shared/kv_util.cpp:81` | describes what it does |
+| 2 | `Add_Section` | `app/shared/kv_util.cpp:108` | describes what it does |
 | 2 | `LandLodDistances` | `app/shared/land.cpp:46` | the distance (in field cells) of level 1 per lod setting, doubled per level (0xB7188C: eight entries, VIDTEST's |
 | 2 | `land.h` | `app/shared/land.h:36` | after LandClass; no assert or __FILE__ names the file |
 | 2 | `LandDecorationStruct` | `app/shared/land.h:63` | one decoration, 0x38 bytes (Create_Decorations 0x479D00's local, the .dcb reader 0x4795D0); a tree's |
