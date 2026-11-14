@@ -595,6 +595,15 @@ gives the instance's COPY of the exe its own mutex name (the string `enb_mutex_l
 length), and without virtual input the proxy's `D3D8SHOT_CURSOR=off` makes SetCursorPos / ClipCursor no-ops. Left
 in the exe as stand-in-layer code, not hooks: poc_window.cpp's read-only registry (D69) and its `CRASH:` line.
 
+**The retail client as the expected result (D190, D248):** `e2e.py run [NAME...] --retail --instance NAME` drives a
+COPY of the retail client (in the instance folder, never the install) through the same scenarios: the same proxy,
+the same tagged input, its terms box's "I Agree" clicked for it. It writes no stubs.log, so steps on the `stubs`
+source are ours only and are skipped there (e2e.log says so); a retail crash shows as 'the client exited'.
+`e2e.py compare DIR_OURS DIR_RETAIL` (two run folders) prints per scenario whether the two clients SENT the same
+packets (antprox.out's 'received NAME, N bytes' lines between the scenarios' marks; keep-alives, time requests
+and DEBUG left out: they follow the wall clock) and the first differences. First use, 2026-11-14: world_entry,
+options, cargo, chat, group_looking: retail 5 of 5 in 46 s, and all five SAME. Not compared yet: the shots.
+
 **No registry write (D249):** the client calls BrowserEngine.dll's `DllRegisterServer` at every start (the DLL's own
 COM keys, the server path being the registering copy's). Every harness run sets `D3D8SHOT_NOREGISTER=1`: the proxy
 hands the client's `GetProcAddress(.., "DllRegisterServer")` a no-op (d3d8shot.log: `DllRegisterServer: not

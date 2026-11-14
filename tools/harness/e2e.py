@@ -1,6 +1,8 @@
 r"""End-to-end scenarios for client builds (D237): an input script plus log-event assertions.
 
     python tools/harness/e2e.py run [NAME...] [--instance ID] [--exe PATH] [--messages] [--keep] [--separate]
+    python tools/harness/e2e.py run --retail [NAME...] --instance ID    the same scenarios against the retail client
+    python tools/harness/e2e.py compare DIR_OURS DIR_RETAIL    the two runs' packets per scenario, side by side
     python tools/harness/e2e.py list                       the scenarios, in order, with their expected-fail notes
     python tools/harness/e2e.py check [NAME...]            parse only (no client)
 
@@ -53,6 +55,14 @@ gives the client a virtual cursor and keyboard (D3D8SHOT_INPUT=1), our build and
 is posted with the harness's tag (IN_TAG in wParam's high word) and the proxy runs with D3D8SHOT_INPUT_TAG=1:
 untagged input, a person's click or keystroke in the test window, is dropped and logged 'input: NOT REPLAYED';
 the result line counts such lines.
+
+--retail (D190, D248): the scenarios drive a COPY of the retail client (clientpoc.py's Inst(retail=True): the copy
+in the instance folder, never the install), through the same proxy and the same tagged input; the terms box's
+"I Agree" is clicked for it. The retail client writes no stubs.log, so a step on the `stubs` source is ours only:
+wait-event / expect-event / expect-no / stand-in steps on it are skipped (noted in e2e.log), and a crash shows as
+'the client exited'. `compare` then reads two runs' events.log (ours, retail's) and prints, per scenario, the
+packets the client sent (antprox.out's 'received NAME' lines between the scenario's marks) where the two differ:
+the retail run is the expected result.
 
 stubs.log's 'STUB first call: gen NAME' lines are summarised per scenario: every generated stand-in hit while
 it ran, and those hit during its own steps that the session's login had not hit (the queue's score input,
@@ -356,7 +366,8 @@ class Session:
         self.out = os.path.join(OUT, time.strftime('%H%M%S') + '-' + tag)
         os.makedirs(self.out, exist_ok=True)
         self.elog = open(os.path.join(self.out, 'e2e.log'), 'w', encoding='utf-8', newline='\n')
-        self.inst = clientpoc.Inst(args.instance, args.exe)
+        self.retail = bool(getattr(args, 'retail', False))
+        self.inst = clientpoc.Inst(args.instance, None if self.retail else args.exe, self.retail)
         self.inst.prepare()
         env = dict(os.environ)
         env.update(ENB_POC_WINDOWED='1')
@@ -373,7 +384,10 @@ class Session:
         self.a, self.pid, _ = clientpoc.start_antprox(self.inst, self.out, env,
                                                       ['-ENABLE_MESSAGES'] if self.messages else [])
         self.ev = Events(files)
-        self.note(f'antprox pid {self.a.pid}, client pid {self.pid}')
+        self.note(f'antprox pid {self.a.pid}, client pid {self.pid}' + (' (the retail client)' if self.retail else ''))
+        if self.retail and self.pid:
+            import threading
+            threading.Thread(target=clientpoc.click_agree, args=(self.pid, 60), daemon=True).start()
         self.listener = None
         if self.messages and self.pid:
             self.listener = clientpoc.start_listener(self.pid, self.out, sum(sc['timeout'] for sc in scs) + 10)
@@ -420,6 +434,7 @@ class Session:
         deadline = time.time() + sc['timeout']
         standing.append({'source': 'stubs', 'pattern': re.compile('^CRASH:'), 'line': '(always)', 'from': start_line})
         note(f'scenario {sc["name"]}' + ('' if first else ' (own steps only: the session is in the world)'))
+        ev.add('e2e', f'scenario {sc["name"]}')
 
         def tick():
             ev.poll()
@@ -433,7 +448,7 @@ class Session:
             if time.time() > deadline:
                 return f'scenario timeout ({sc["timeout"]:.0f} s)'
             if self.hwnd is None and self.pid:
-                self.hwnd = cp.find_window(self.pid)
+                self.hwnd = cp.find_window(self.pid, self.retail)      # retail: not its terms dialog
                 if self.hwnd:
                     note(f'window 0x{self.hwnd:X}')
             return None
@@ -489,6 +504,9 @@ class Session:
                 own_from = len(ev.lines)
             note(f'step {st["line"]}: {st["op"]} {_desc(st)}')
             op = st['op']
+            if self.retail and st.get('source') == 'stubs' and op in ('wait-event', 'expect-event', 'expect-no', 'stand-in'):
+                note('  skipped: the retail client writes no stubs.log (a step of ours only)')
+                continue
             if op in ('wait-event', 'expect-event'):
                 fail, _ = wait_for(st['source'], st['pattern'], st['within'],
                                    f'{st["line"]}: {op} {st["source"]} {st["pattern"].pattern!r}: not seen within '
@@ -697,6 +715,50 @@ def _alive(pid):
     return code.value == 259                     # STILL_ACTIVE
 
 
+def sent_packets(run_dir):
+    """A run folder's events.log -> {scenario: [packet names the client sent, in order]} ('received NAME 0x..' lines
+    of antprox.out between the harness's 'scenario NAME' notes). Keep-alives and time requests are left out: their
+    count follows the wall clock, not the scenario."""
+    out, cur = {}, None
+    skip = ('KEEP_ALIVE', 'KEEPALIVE', 'REQUEST_TIME', 'DEBUG')
+    with open(os.path.join(run_dir, 'events.log'), encoding='utf-8', errors='replace') as f:
+        for line in f:
+            m = re.match(r'\s*[\d.]+ (\S+)\s+(.*)', line)
+            if not m:
+                continue
+            src, text = m.groups()
+            if src == 'e2e' and text.startswith('scenario '):
+                cur = text.split()[1]
+                out.setdefault(cur, [])
+            elif src == 'antprox' and cur:
+                p = re.search(r'connection #\d+: received (\w+) 0x[0-9a-f]+, (\d+) bytes', text)
+                if p and not p.group(1).startswith(skip):
+                    out[cur].append(f'{p.group(1)} {p.group(2)}')
+    return out
+
+
+def compare(ours, retail):
+    """Prints, per scenario both runs have, whether the client sent the same packets (name and size, in order) and
+    the first difference. Exit 1 when any differs."""
+    import difflib
+    a, b = sent_packets(ours), sent_packets(retail)
+    bad = 0
+    for name in a:
+        if name not in b:
+            print(f'-     {name}: not in the retail run')
+            continue
+        if a[name] == b[name]:
+            print(f'SAME  {name}: {len(a[name])} packets sent')
+            continue
+        bad += 1
+        d = [l for l in difflib.unified_diff(b[name], a[name], 'retail', 'ours', lineterm='', n=1)][2:]
+        print(f'DIFF  {name}: ours {len(a[name])} packets, retail {len(b[name])}; first differences (- retail, + ours):')
+        for l in d[:12]:
+            print('        ' + l)
+    print(f'compare: {len([n for n in a if n in b]) - bad} of {len([n for n in a if n in b])} scenarios send the same packets')
+    return 1 if bad else 0
+
+
 def keeps_session(res):
     """Whether the next scenario may run in this client: only after a PASS. An XFAIL's stand-in left its goal unmet
     (browser_credits: the pop-up browser is never destroyed), so the world is not as the scenario found it."""
@@ -739,7 +801,7 @@ def default_exe():
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
-    ap.add_argument('command', choices=['run', 'list', 'check'])
+    ap.add_argument('command', choices=['run', 'list', 'check', 'compare'])
     ap.add_argument('names', nargs='*')
     ap.add_argument('--instance', default='e2e', help='clientpoc.py instance name (default e2e)')
     ap.add_argument('--exe', help='the POC exe (default: this tree\'s build/programs/clientpoc/clientpoc.exe, '
@@ -747,7 +809,13 @@ def main(argv=None):
     ap.add_argument('--messages', action='store_true', help='-ENABLE_MESSAGES and msglisten (source msg)')
     ap.add_argument('--keep', action='store_true', help='keep the instance (default: clientpoc.py clean it at the end)')
     ap.add_argument('--separate', action='store_true', help='a client of its own for every scenario (default: one session)')
+    ap.add_argument('--retail', action='store_true', help='run a copy of the retail client (needs --instance; D190)')
     args = ap.parse_args(argv)
+    if args.command == 'compare':
+        if len(args.names) != 2:
+            print('e2e: compare DIR_OURS DIR_RETAIL (two run folders under .work/e2e)')
+            return 2
+        return compare(args.names[0], args.names[1])
     names = args.names or scenario_names()
     try:
         gadgets = load_gadgets()
@@ -760,7 +828,10 @@ def main(argv=None):
             print(f'{sc["name"]}: {len(sc["steps"])} steps ({len(sc["steps"]) - sc["own"]} own)'
                   + (f'; expected-fail: {sc["expected_fail"]}' if sc['expected_fail'] else ''))
         return 0
-    if args.exe is None:
+    if args.retail and (args.exe or args.instance == 'e2e'):
+        print('e2e: --retail needs --instance NAME of its own and no --exe')
+        return 2
+    if args.exe is None and not args.retail:
         args.exe = default_exe()
     os.makedirs(OUT, exist_ok=True)
     sys.path.insert(0, HERE)
