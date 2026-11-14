@@ -52,18 +52,18 @@ public:
 #include "local_interface_sort.h"
 #include "ui_line_display.h"
 
-inline float Get_Slider_Value(GadgetSlider *slider) { return(slider->Value); }	// (0x651510 reads it through st0: an accessor's return)  // NAME 1: neutral (D10)
 
+#include "assetmgr.h"
+#include "gd_uiback.h"
+#include "gd_inv_slider.h"
 
-
-
-
-
-
-
-
-
-
+static const char *Unknown_B8BE98[13] = { "category00", "category01", "category02", "category03", "category04", "category05", "buy", "buy_stack", "sell", "sellall", "compare", "sort", "exit" };	// (0xB8BE98: the buttons' sub-objects, Init's)  // NAME 1: neutral (D10)
+#include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C, keyed by kernel.h's KernelEventClass
+// intrlist.cpp's list (InterfaceClass +0x58; intrface.h declares it only under __INTRFACE_MEMBERS), as far as this file calls it
+class InterfaceUnknown58Class { public: void Unknown_686CC0(RenderObjClass *robj, SceneClass *scene); };	// 0x686CC0  // NAME 1: neutral (D10)
+void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (ro_funcs.cpp, cdecl)  // NAME 1 [robj, make_geometry_unique]: as ui_manu.cpp's
+inline float Get_Slider_Value(Unknown669FB0Class *slider) { return(slider->Value); }	// (0x651510 reads it through st0: an accessor's return)  // NAME 1: neutral (D10)
+inline void UITradeClass::Close_Box() { if (View && View->Unknown34) View->Unknown34->Unknown_5896C0("BUY_CONFIRMATION"); Unknown174 = 0; }	// (0x652E70's body)
 
 
 
@@ -128,6 +128,13 @@ UITradeClass::~UITradeClass()
 
 
 
+// NOT EXACT: shape (explain.py; register and hoisting): the first id through ecx, the style call's register, 0x653A80's shared Change_Text set-up not hoisted
+// @0x650A40
+void UITradeClass::Unknown_54()
+{
+	UIInvClass::Unknown_54();
+	InterfaceMesh = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj("ce02a"));
+	FAIL_IF(!InterfaceMesh) return;
 
 
 
@@ -141,11 +148,35 @@ UITradeClass::~UITradeClass()
 
 
 
+	Unknown_BE67C4->Add(InterfaceMesh.Peek());
+	((InterfaceUnknown58Class *)&Unknown4C[0x58 - 0x4C])->Unknown_686CC0(InterfaceMesh.Peek(), NULL);
+	if (Unknown_C4(InterfaceMesh.Peek(), "ce02a.W%02d", 5) && Buttons[0]) {
+		int id = Buttons[0]->Unknown0C;
+		int i;
+		for (i = 0; i < 5; i++) {
+			SlotDataGadgetClass *bttn = Buttons[i];
+			FAIL_IF(!bttn) continue;
 
+			SlotDataRenderClass *sd_render = bttn->SlotRender;
+			FAIL_IF(!sd_render) continue;
 
+			InvTradeRenderClass *trade_render = (InvTradeRenderClass *)sd_render->Unknown_24();
+			FAIL_IF(!trade_render) continue;
 
+			trade_render->Unknown_6902E0(InterfaceMesh.Peek(), i, "ce02a");
 
+			char name[64];
+			sprintf(name, "HIGHLIGHT%02d", i);
+			RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(name);
+			FAIL_IF(!robj) continue;
+			Unknown_496AE0(robj, false);
+			ProxyGadgetClass *proxy = Unknown108[i] = new ProxyGadgetClass(robj, LayerClass(), 0x55);
 
+			robj->Release_Ref();
+			proxy->Set_Target(bttn);
+			proxy->Unknown_65FFC0(-1, bttn);
+			Unknown64.Unknown_6870E0(proxy, i + 20, View, 1, 0);
+		}
 
 
 
@@ -155,79 +186,48 @@ UITradeClass::~UITradeClass()
 
 
 
+		StandardBttnTexture = Create_Peek(Unknown108[0]->Unknown_66C4A0());
+		G_ASSERT(StandardBttnTexture);
 
 
+		SelectedBttnTexture = Create_Peek(WW3DAssetManager::Get_Instance()->Get_Texture("I_blank_SEL.tga", MIP_LEVELS_1, WW3D_FORMAT_UNKNOWN, true));
+		G_ASSERT(SelectedBttnTexture);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		for (i = 0; i < 13; i++) {
+			RenderObjClass *robj = InterfaceMesh->Get_Sub_Object_By_Name(Unknown_B8BE98[i]);
+			FAIL_IF(!robj) continue;
+			Unknown_496AE0(robj, false);
+			ButtonGadgetClass *button = new ButtonGadgetClass(robj, 0x55, 4);
+			Unknown0D4[i] = button;
+			button->Unknown_65FFA0(id);
+			robj->Release_Ref(); Unknown64.Unknown_6870E0(button, i + 6, View, 1, 0);
+			if (i != 12) {
+				char style[64];
+				sprintf(style, "%s_ce02a", Unknown_B8BE98[i]);
+				button->Unknown_98(Unknown_BE67C4->Get_Style(style, InterfaceMesh.Peek()));
+			}
+		}
+		GadgetClass *back = new UIBackGadget(InterfaceMesh);
+		Unknown64.Unknown_6870E0(back, 5, View, 1, 0);
+		Slider = new Unknown669FB0Class(this, NULL);
+		Slider->Unknown_66E460(InterfaceMesh, 0, 0);
+		Slider->Unknown_66A300(5, 1);
+		Slider->Unknown_65FFA0(id);
+		Unknown64.Unknown_6870E0(Slider, 25, View, 1, 1);
+		((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x53, 0x400), (void *)14);
+		((ControlKeyListClass *)Unknown4C)->Add(KernelEventClass(0x42, 0x400), (void *)12);
+		if (Unknown0D4[10]) GadgetClass::Set_Tooltip(Unknown0D4[10], "UI_TRADE", "COMPARE");
+		RefCountPtr<RenderObjClass> tutorial = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("tutorial"));
+		if (tutorial) {
+			tutorial->Set_Hidden(true);
+		}
+		Unknown_653A80();
+	} else {
+		InterfaceMesh.Clear();
+		InterfaceMesh = NULL;
+	}
+}
 
 
 
@@ -995,7 +995,7 @@ void UITradeClass::Unknown_653A80()
 ** destructor for the unwind), 0x652360, 0x652450, 0x652670, 0x652890-0x6531F0, 0x653450, 0x6538E0, 0x6539A0 (no
 ** caller: 0x651830 inlines it), 0x653A80; then the instances 0x653B10-0x654850 (Create_Peek / Create_Get, the vectors'
 ** and the hash_set's members, the thunks 0x654840 / 0x654850 for the second and third tables).
-** Init 0x650A40 (FAIL_IFs l.137-199) is not written yet; its lines are kept blank.
+** Init 0x650A40 (FAIL_IFs l.137-199) is written NOT EXACT.
 ** Evidence: the asserts' names ('PDA', '!InterfaceMesh', 'StandardBttnTexture', 'SelectedBttnTexture'); the buttons'
 ** sub-objects from the table 0xB8BE98 ('category00'..'category05', 'buy', 'buy_stack', 'sell', 'sellall', 'compare',
 ** 'sort', 'exit'); +0x150 holds three InvDataClass (0x688410 with types 1-3), +0x160 is gd_inv_slider.cpp's slider.

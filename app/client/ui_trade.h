@@ -14,7 +14,7 @@
 
 class ButtonGadgetClass;		// unknown_675120.h's buttons (+0xD4)
 class ProxyGadgetClass;			// gd_proxy.h's highlights (+0x108)
-class GadgetSlider;				// gd_slider.h's (+0x160)
+class Unknown669FB0Class;		// gd_inv_slider.h's (+0x160)
 class SlotDataGadgetClass;		// gd_slot_data.h's slot gadgets (the base's +0x88)
 class RenderObjClass;
 class TextureClass;
@@ -53,7 +53,7 @@ public:
 	void Unknown_6539A0();								// 0x6539A0 (the sort toggled; no caller: 0x651830 inlines it)
 	void Unknown_653A80();								// 0x653A80 (the sort button's text and tooltip)
 	RenderObjClass *Get_Unknown0D0() { return(InterfaceMesh.Peek()); }	// (inline: 0x652450's register)  // NAME 1: neutral (D10)
-	void Close_Box() { if (View && View->Unknown34) View->Unknown34->Unknown_5896C0("BUY_CONFIRMATION"); Unknown174 = 0; }	// (inline: 0x652E70's body)  // NAME 1: describes what it does
+	void Close_Box();									// (inline, ui_trade.cpp: 0x652E70's body)  // NAME 1: describes what it does
 	int Get_Shown(unsigned int index) { int slot = -1; if (index < Unknown17C.size()) slot = Unknown17C[index]; return(slot); }	// (inline in 0x6538E0)  // NAME 1: neutral (D10)
 	int Find_Shown(int slot) { int pos = 0; for (int i = 0; i < (int)Unknown17C.size(); i++) { if (Unknown17C[i] == slot) { pos = i; break; } } return(pos); }	// (inline in 0x651DB0)  // NAME 1: neutral (D10)
 
@@ -68,7 +68,7 @@ public:
 	int Unknown144;										// +0x144
 	MoneyClass Money;									// +0x148 (the credits shown; 0xFFFFFFFF without the field)  // NAME 2: what it holds
 	std::vector<RefCountPtr<InvDataClass> > Unknown150;	// +0x150 (0x652670's three inventories)  // NAME 1: neutral (D10)
-	GadgetSlider *Slider;								// +0x160 (destroyed by the destructor)  // NAME 2: as the other windows'
+	Unknown669FB0Class *Slider;								// +0x160 (destroyed by the destructor)  // NAME 2: as the other windows'
 	RefCountPtr<PDAInterfaceClass> PDA;					// +0x164 (0x653B90's, the client's +0x1284; G_ASSERT 'PDA' l.106)  // NAME 3: the assert's
 	RefCountPtr<TextureClass> StandardBttnTexture;		// +0x168 (G_ASSERT 'StandardBttnTexture' l.190)  // NAME 3: the assert's
 	RefCountPtr<TextureClass> SelectedBttnTexture;		// +0x16C ('I_blank_SEL.tga'; G_ASSERT 'SelectedBttnTexture' l.194)  // NAME 3: the assert's
