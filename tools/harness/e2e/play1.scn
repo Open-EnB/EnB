@@ -6,7 +6,7 @@ name: a recorded session in the world: /play 1 on the Broadcast channel (ea/alex
 # The recording's starbase (session 1) hands the client on into sector 4505 (session 2, a combat scene), which runs
 # 20 s; /stop then hands it back to the home sector, whose new connection (#4) answers START_ACK, and input works
 # there again. antreplay logs no START_ACK for a playback's connections: session 2 is waited on by its playback line
-# (connection #3, after #2's session 1).
+# (the next connection after session 1's; its number depends on what ran before in the client's session).
 timeout: 400
 include _login
 key 0x08
@@ -18,7 +18,7 @@ expect-event antprox 'command "/play 1"' within 10
 wait-event antprox 'sent SERVER_HANDOFF' within 20
 expect-event proxy 'fc_map_load00' within 10
 shot handoff_loading
-wait-event antprox 'Sector connection #3: playback of 1, sector session 2 of 2' within 60
+wait-event antprox 'Sector connection #[0-9]+: playback of 1, sector session 2 of 2' within 60
 wait-quiet proxy 2 within 60
 shot play1_entered
 alive 20
@@ -30,7 +30,7 @@ key 0x0D
 expect-event antprox 'command "/stop"' within 10
 wait-event antprox 'playback of 1 stopped \(/stop\)' within 10
 wait-event antprox 'sent SERVER_HANDOFF.*back to' within 10
-wait-event antprox 'Sector connection #4: received START_ACK' within 120
+wait-event antprox 'Sector connection #[0-9]+: received START_ACK' within 120
 wait-quiet proxy 2 within 60
 alive 8
 shot play1_stopped

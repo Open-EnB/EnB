@@ -560,19 +560,11 @@ items browser_credits, browser_selfhelp, browser_manual, browser_petition_faq / 
 names scenarios that must run after everything else (none today). The browser items load live pages (the URLs are client.exe's
 strings in the settings store's table, settings_store.cpp 0x7C97B0); a scenario asserts the window
 (fc_jweb01.ini), never the page, so a dead URL passes too. `_wip_NAME.scn` crashes the client today (its header
-names the fault) and runs only when named (_wip_play1: the recorded session `/play 1`; _wip_play1_windows: inside
-it the PDA's Skills / Faction / missions / equipment pages, cargo and a right-click's item details, retail passing);
-`_login.scn` is included by each, not run alone; it turns on `messages` (WinMain's 'Server initialized & ready to
-go' starts the movie step). The format is in e2e.py's docstring: headers `name:`, `expected-fail:`, `timeout:`,
-`messages:`; steps `include`, `wait-event SOURCE PATTERN [within S]`, `expect-event ...`, `wait-quiet SOURCE S
-[within T]`, `expect-no SOURCE PATTERN` / `expect-no CRASH` (always on), `click gadget NAME` / `click X,Y`
-(`rclick`, `move`), `click ... until SOURCE PATTERN [redo K] [every S] [within T]`, `key VK`, `text STRING`,
-`alive S`, `shot NAME`, `stand-in PATTERN` (the goal is not met while stubs.log shows PATTERN, a stand-in's first
-call; checked at the end so every other step still runs). `stray click ...` / `stray key VK` posts the input
-untagged, as a person's would be: world_entry's self-test that it is dropped. SOURCE is `antprox` (antprox.out:
-antprox, the replay server and the client's stderr), `stubs`, `msg` (`--messages`), `proxy` (d3d8shot.log without
-its tick column: the client's file opens and the input the proxy passed on; `files` is the same) or `any`; an
-event step looks at the lines since the last input step, so a fast event is not missed.
+names the fault) and runs only when named (none today). The recorded session has two scenarios in the default set: play1 (`/play 1` on
+Broadcast, the loading screen, the recording's starbase and sector 4505, `/stop`, the hand-off home) and
+play1_windows (inside sector 4505: the PDA's Skills and Faction tabs, missions, equipment, cargo and the item
+details of a right-click). Data windows belong inside a playback: the home sector has no skills, missions or
+items to show.
 
 **No timed waits where an event exists:** steps advance on events (the replay server's `VERSION_RESPONSE`,
 `GLOBAL_AVATAR_LIST`, `GLOBAL_TICKET_REQUEST`, `START_ACK`). Where the client logs nothing at "ready", two steps
