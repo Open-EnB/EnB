@@ -130,6 +130,35 @@ bool UIStarbaseGadget6B6050Class::Unknown_34(KernelEventClass *event, float x, f
 	return(false);
 }
 
+// 0x73FB20: the list's destructor tells each watcher still on it that the object goes (the watcher's slot +0x04 with its
+// node: UnknownObjectWatchClass's Unknown_Watch_0C, then its node off the list), then unlinks the node; without it the slot
+// data of an object deleted at a handoff kept the freed aux tree (CRASH in InvDataPeekClass::Get_Slot)
+class Poc8CWatcherClass { public: virtual ~Poc8CWatcherClass() {} virtual void Unknown_04(int node) = 0; };	// UnknownAF0DD0Class's first two slots
+Unknown8CClass::~Unknown8CClass()
+{
+	int *p = (int *)this;
+	int *node = (int *)p[2];
+	if (node != NULL && node[1] == 0) {
+		node = NULL;
+	}
+	while (node != NULL) {
+		int *next = (int *)node[1];
+		if (next != NULL && next[1] == 0) {
+			next = NULL;
+		}
+		if (node[3] != 0) {
+			((Poc8CWatcherClass *)node[3])->Unknown_04((int)node);
+		}
+		if (node[1] != 0 && node[2] != 0) {
+			((int *)node[2])[1] = node[1];
+			((int *)node[1])[2] = node[2];
+			node[2] = 0;
+			node[1] = 0;
+		}
+		node = next;
+	}
+}
+
 // ---------------------------------------------------------------- a watchdog (POC only): every 5 s the main thread's EIP and the code addresses on its stack, in the stub log
 #include <windows.h>
 #include <stdio.h>
