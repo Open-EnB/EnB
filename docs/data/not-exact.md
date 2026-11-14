@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-846 entries in 282 files.
+851 entries in 284 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -213,6 +213,11 @@ edit the comments in the code, not this file.
 | `app/client/html/htmlview.cpp:1486` | `HtmlViewClass::Hit_Test` | marker | NOT EXACT: 0x7772C0, the loop top reloads this before i (the client i first); Click's twin |
 | `app/client/html/htmlview.cpp:1644` | `Get_Value` | mention | NOT EXACT: Render (the parent bounds' stores), Hit_Test (its loop top), Add_Text (one frame slot more than the client's), Draw_Item (the client saves ebx / esi after the Type test). |
 | `app/client/html/htmlview.cpp:1646` | `Get_Value` | mention | NOT EXACT (functional, D64, from the pseudocode): an if / else chain of tag names (p, font, br, a, title, i, b / strong, center, table, tr, td, h1-h4, /hN, body, hr, ul, li, img); <td> lays its cell out in a child block by recursing, and </td> returns the characters used. Its assert (body background with no link of that name) on line 926. Get_Value 0x7784D0 exact: defined after Draw_Line_24 under ... |
+| `app/client/html/image/gifload.cpp:40` | `HtmlGifImageClass::Set_Data` | marker | NOT EXACT: 0x76D4A0, functional (D64): the client keeps i / c / count in registers and the result in the dead data argument's slot (frame 0x10 vs 0x20, the header and descriptor share one 13-byte buffer) |
+| `app/client/html/image/gifload.cpp:334` | `HtmlGifImageClass::Decode` | marker | NOT EXACT: 0x76D990, functional (D64): Bennett's structure and the client's branch order, but the register allocation differs throughout (the client keeps 0 in edi and bufptr in edi later, frame 0x40 vs 0x3C) |
+| `app/client/html/image/gifload.cpp:491` | `HtmlGifImageClass::Get_Next_Code` | marker | NOT EXACT: 0x76DF60, one instruction: the client reads ret for the final mask with a word load, ours a dword |
+| `app/client/html/image/image.cpp:27` | `HtmlImageClass::Draw` | marker | NOT EXACT: 0x76E610, functional (D64): the client builds dest at x, y and subtracts the clip origin in place after the second Get_Width / Get_Height pair (frame order); no form tried matches (see attempts.csv) |
+| `app/client/html/image/image.cpp:157` | `Get_Font` | marker | NOT EXACT: 0x76EB70, functional (D64): frame 0x118 vs 0x110 (the client keeps add()'s pos in the POINT's slot and does not fold its pos > Entries_ test) |
 | `app/client/influence.cpp:125` | `NebulaClass::NebulaClass` | marker | NOT EXACT (0.68, attempts.py 0x7E87C0): inline budget: the client calls DataNode<UnknownAF0DD0Class *>(T) 0x7E9910 out of line inside the inlined base constructor, ours inlines it; frame 0x34C against 0x340 (the client's three 256-byte buffers at function scope and a hsv temporary sharing the base's Vector3 slot reach 0.76 but push SphereClass::Init's copy and 0x7E9910 out: kept this form) |
 | `app/client/influence.cpp:335` | `NebulaClass::Unknown_08` | marker | NOT EXACT (0.86, attempts.py 0x7E9560): shape: the client saves ebx / ebp / esi after the Object == NULL return, ours saves ebp / esi at entry |
 | `app/client/inv_data.cpp:163` | `InvDataClass::Unknown_20` | marker | NOT EXACT: functional from the pseudocode (D64) 0x688B90 |

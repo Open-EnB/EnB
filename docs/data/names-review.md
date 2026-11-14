@@ -10,8 +10,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 5 | the client names it | 219 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1927 |
-| 2 | describes what the code does | 4807 |
-| 1 | neutral placeholder | 24933 |
+| 2 | describes what the code does | 4843 |
+| 1 | neutral placeholder | 24965 |
 
 ## For review (score 3 and below)
 
@@ -5248,16 +5248,25 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Unknown13C` | `app/client/html/htmlview.cpp:1538` | untagged neutral name (D10) |
 | 1 | `Get_Unknown138` | `app/client/html/htmlview.cpp:1543` | untagged neutral name (D10) |
 | 1 | `UnknownHtmlDrawClass` | `app/client/html/htmlview.cpp:1639` | untagged neutral name (D10) |
-| 1 | `HtmlLoaderClass` | `app/client/html/htmlview.h:11` | the object at the view's +4 (slots +4 / +8 called) |
-| 1 | `Unknown_00` | `app/client/html/htmlview.h:14` | untagged neutral name (D10) |
-| 1 | `HtmlLinkStruct` | `app/client/html/htmlview.h:21` | element of the view's +0x14 list |
-| 1 | `HtmlImageClass` | `app/client/html/htmlview.h:29` | element of the view's +0x20 list (image.cpp's class, not placed yet) |
-| 1 | `HtmlGifImageClass` | `app/client/html/htmlview.h:41` | image.cpp's image (sits before gifload.cpp; 'image/gif' links) |
-| 1 | `Unknown04` | `app/client/html/htmlview.h:51` | untagged neutral name (D10) |
-| 1 | `Get_Unknown13C` | `app/client/html/htmlview.h:78` | untagged neutral name (D10) |
-| 1 | `Get_Unknown138` | `app/client/html/htmlview.h:79` | untagged neutral name (D10) |
-| 1 | `Unknown138` | `app/client/html/htmlview.h:97` | untagged neutral name (D10) |
-| 1 | `Unknown13C` | `app/client/html/htmlview.h:98` | untagged neutral name (D10) |
+| 1 | `HtmlLinkStruct` | `app/client/html/htmlview.h:11` | element of the view's +0x14 list |
+| 1 | `Get_Unknown13C` | `app/client/html/htmlview.h:42` | untagged neutral name (D10) |
+| 1 | `Get_Unknown138` | `app/client/html/htmlview.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `app/client/html/htmlview.h:61` | untagged neutral name (D10) |
+| 1 | `Unknown13C` | `app/client/html/htmlview.h:62` | untagged neutral name (D10) |
+| 1 | `Unknown124` | `app/client/html/image/gifload.cpp:530` | untagged neutral name (D10) |
+| 1 | `Unknown128` | `app/client/html/image/gifload.cpp:531` | untagged neutral name (D10) |
+| 1 | `Build_Pixel` | `app/client/html/image/gifload.h:7` | a pixel of surface's format (Build_Hicolor_Pixel with the surface's own shifts for 2 bytes per pixel, 0x00RRGGBB for 3 / 4); Set_Data's palette |
+| 1 | `HtmlGifImageClass` | `app/client/html/image/gifload.h:13` | gifload.cpp's image ('GIF87a'; 'image/gif' links) |
+| 1 | `Init` | `app/client/html/image/gifload.h:23` | every field from +0x118 zeroed, the palette a grey ramp (no caller found) |
+| 1 | `Get_Bytes` | `app/client/html/image/gifload.h:25` | up to count bytes of Data (inlined in Get_Next_Code) |
+| 1 | `Unknown124` | `app/client/html/image/gifload.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown128` | `app/client/html/image/gifload.h:35` | untagged neutral name (D10) |
+| 1 | `Lengths` | `app/client/html/image/gifload.h:45` | the length of each code's string, less one |
+| 1 | `Unknown885A` | `app/client/html/image/gifload.h:50` | untagged neutral name (D10) |
+| 1 | `HtmlImageClass` | `app/client/html/image/image.h:11` | element of the view's +0x20 list (image.cpp's class) |
+| 1 | `HtmlLoaderClass` | `app/client/html/image/image.h:30` | the object at the view's +4 (slots +4 / +8 called) |
+| 1 | `HtmlFileLoaderClass` | `app/client/html/image/image.h:40` | sprintf('%s\\%s', Path, url) and fopen 'rb' |
+| 1 | `HtmlFontStruct` | `app/client/html/image/image.h:55` | Get_Font's cache entry |
 | 1 | `Unknown98` | `app/client/html/unknown_htmlblock.cpp:13` | untagged neutral name (D10) |
 | 1 | `Unknown99` | `app/client/html/unknown_htmlblock.cpp:42` | untagged neutral name (D10) |
 | 1 | `Unknown08` | `app/client/html/unknown_htmlblock.h:10` | untagged neutral name (D10) |
@@ -19703,6 +19712,29 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `packet` | `app/client/ui_talkt_space.h:18` | the base's |
 | 1 | `Unknown_90` | `app/client/ui_talkt_space.h:18` | untagged neutral name (D10) |
 | 1 | `Unknown_64F630` | `app/client/ui_talkt_space.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_test.cpp:13` | neutral (D10) |
+| 1 | `Unknown_54` | `app/client/ui_test.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_test.cpp:39` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_test.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_test.cpp:72` | untagged neutral name (D10) |
+| 1 | `Unknown_6B4940` | `app/client/ui_test.cpp:75` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_test.cpp:83` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_test.cpp:87` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_test.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_test.cpp:107` | untagged neutral name (D10) |
+| 1 | `ui_test.h` | `app/client/ui_test.h:4` | provisional header name |
+| 1 | `Unknown5BB320Class` | `app/client/ui_test.h:13` | untagged neutral name (D10) |
+| 1 | `UITestClass` | `app/client/ui_test.h:19` | neutral, after its 'UITEST' strings |
+| 1 | `view, layer` | `app/client/ui_test.h:22` | Unknown5BB320Class's |
+| 1 | `Unknown_54` | `app/client/ui_test.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_test.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_test.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_test.h:27` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_test.h:28` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_test.h:28` | untagged neutral name (D10) |
+| 1 | `Windows` | `app/client/ui_test.h:30` | what it holds |
+| 1 | `Files` | `app/client/ui_test.h:31` | what it holds |
+| 1 | `Ini` | `app/client/ui_test.h:32` | what it is |
 | 1 | `Unknown_BE67C4` | `app/client/ui_trade.cpp:21` | neutral (D10) |
 | 1 | `a, b` | `app/client/ui_trade.cpp:23` | neutral |
 | 1 | `a, b` | `app/client/ui_trade.cpp:24` | neutral |
@@ -26019,39 +26051,74 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Scene` | `app/client/gutter_radar.h:44` | what it holds |
 | 2 | `Position` | `app/client/gutter_radar.h:47` | what it holds |
 | 2 | `Size` | `app/client/gutter_radar.h:48` | what it holds |
-| 2 | `Get_Font` | `app/client/html/htmlview.h:8` | a cached CreateFontIndirect (not placed: before unknown_htmlblock.cpp) |
-| 2 | `Open` | `app/client/html/htmlview.h:15` | given the view's url by Open |
-| 2 | `Update` | `app/client/html/htmlview.h:16` | polled by the view's Update |
-| 2 | `Data` | `app/client/html/htmlview.h:23` | Add_Data appends to it and keeps it NUL-terminated |
-| 2 | `Name` | `app/client/html/htmlview.h:24` | 0x770860 compares it with its first argument |
-| 2 | `MimeType` | `app/client/html/htmlview.h:25` | 0x770860's second argument copied in (0x76E9D0 passes Get_Mime_Type's result; Parse compares it with "image/gif") (257: the copy in 0x7789F0 moves 0x40 dwords and a byte) |
-| 2 | `Set_Data` | `app/client/html/htmlview.h:33` | the parser hands it the data of the link named like the image |
-| 2 | `Get_Surface` | `app/client/html/htmlview.h:34` | Draw_Block tiles it (Get_Width / Get_Height) |
-| 2 | `Get_Name` | `app/client/html/htmlview.h:35` | Find_Image's key |
-| 2 | `Draw` | `app/client/html/htmlview.h:36` | Draw_Block's tiles |
-| 2 | `HtmlGifImageClass` | `app/client/html/htmlview.h:44` | the src and the surface's bits per pixel |
-| 2 | `Clear` | `app/client/html/htmlview.h:60` | Links and Blocks emptied (the blocks deleted) |
-| 2 | `Open` | `app/client/html/htmlview.h:61` | Clear, url kept, handed to the loader |
-| 2 | `Update` | `app/client/html/htmlview.h:63` | polls the loader; returns and clears Dirty |
-| 2 | `Set_Surface` | `app/client/html/htmlview.h:64` | Surf = surface, then Layout |
-| 2 | `Add_Data` | `app/client/html/htmlview.h:67` | appends to the link named name (made with mimetype if missing; 0x76E9D0 passes Get_Mime_Type's result); render: Layout and Render |
-| 2 | `Layout` | `app/client/html/htmlview.h:68` | one block the surface's size for Url's link, then Parse |
-| 2 | `Parse` | `app/client/html/htmlview.h:69` | lays link's data out from offset into block (a cell recursively); returns the characters it used (to its </td>) |
-| 2 | `Add_Text` | `app/client/html/htmlview.h:70` | lays text out in lines of items (asserts 'maxlength > 0', 'cptr_in') |
-| 2 | `Render` | `app/client/html/htmlview.h:71` | draws every block clipped to the rectangle |
-| 2 | `Draw_Block` | `app/client/html/htmlview.h:72` | the background (BackgroundPointer image tiles or BackgroundColorref) and the visible items |
-| 2 | `Draw_Item` | `app/client/html/htmlview.h:73` | by its Type: Text (wrapped TextOut), HR / Table / Cell (bevels), LI (a filled box), Image |
-| 2 | `Click` | `app/client/html/htmlview.h:74` | opens the 'Anchor.HREF' of the item under x, y |
-| 2 | `Hit_Test` | `app/client/html/htmlview.h:75` | the item under x, y: its index, its href (type 2) or none (1) |
-| 2 | `Get_Title` | `app/client/html/htmlview.h:80` | the first block's 'Title' attribute, else "" |
-| 2 | `Surf` | `app/client/html/htmlview.h:88` | Set_Surface; Lock / Stride / Get_Width / Get_Height, GetDC (HV1's UnknownHtmlDrawClass) |
-| 2 | `Loader` | `app/client/html/htmlview.h:89` | Set_Loader |
-| 2 | `Blocks` | `app/client/html/htmlview.h:90` | owned (Clear deletes them) |
-| 2 | `Images` | `app/client/html/htmlview.h:92` | Find_Image |
-| 2 | `Dirty` | `app/client/html/htmlview.h:93` | Update returns and clears it (a byte tested, not a bool) |
-| 2 | `Url` | `app/client/html/htmlview.h:94` | Open's strcpy; 259 bytes up to +0x130 |
-| 2 | `ScrollX` | `app/client/html/htmlview.h:95` | Render's first argument (also given to the first block's Set_X); zeroed by Clear |
-| 2 | `ScrollY` | `app/client/html/htmlview.h:96` | Render's second argument; zeroed by Clear |
+| 2 | `Data` | `app/client/html/htmlview.h:13` | Add_Data appends to it and keeps it NUL-terminated |
+| 2 | `Name` | `app/client/html/htmlview.h:14` | 0x770860 compares it with its first argument |
+| 2 | `MimeType` | `app/client/html/htmlview.h:15` | 0x770860's second argument copied in (0x76E9D0 passes Get_Mime_Type's result; Parse compares it with "image/gif") (257: the copy in 0x7789F0 moves 0x40 dwords and a byte) |
+| 2 | `Clear` | `app/client/html/htmlview.h:24` | Links and Blocks emptied (the blocks deleted) |
+| 2 | `Open` | `app/client/html/htmlview.h:25` | Clear, url kept, handed to the loader |
+| 2 | `Update` | `app/client/html/htmlview.h:27` | polls the loader; returns and clears Dirty |
+| 2 | `Set_Surface` | `app/client/html/htmlview.h:28` | Surf = surface, then Layout |
+| 2 | `Add_Data` | `app/client/html/htmlview.h:31` | appends to the link named name (made with mimetype if missing; 0x76E9D0 passes Get_Mime_Type's result); render: Layout and Render |
+| 2 | `Layout` | `app/client/html/htmlview.h:32` | one block the surface's size for Url's link, then Parse |
+| 2 | `Parse` | `app/client/html/htmlview.h:33` | lays link's data out from offset into block (a cell recursively); returns the characters it used (to its </td>) |
+| 2 | `Add_Text` | `app/client/html/htmlview.h:34` | lays text out in lines of items (asserts 'maxlength > 0', 'cptr_in') |
+| 2 | `Render` | `app/client/html/htmlview.h:35` | draws every block clipped to the rectangle |
+| 2 | `Draw_Block` | `app/client/html/htmlview.h:36` | the background (BackgroundPointer image tiles or BackgroundColorref) and the visible items |
+| 2 | `Draw_Item` | `app/client/html/htmlview.h:37` | by its Type: Text (wrapped TextOut), HR / Table / Cell (bevels), LI (a filled box), Image |
+| 2 | `Click` | `app/client/html/htmlview.h:38` | opens the 'Anchor.HREF' of the item under x, y |
+| 2 | `Hit_Test` | `app/client/html/htmlview.h:39` | the item under x, y: its index, its href (type 2) or none (1) |
+| 2 | `Get_Title` | `app/client/html/htmlview.h:44` | the first block's 'Title' attribute, else "" |
+| 2 | `Surf` | `app/client/html/htmlview.h:52` | Set_Surface; Lock / Stride / Get_Width / Get_Height, GetDC (HV1's UnknownHtmlDrawClass) |
+| 2 | `Loader` | `app/client/html/htmlview.h:53` | Set_Loader |
+| 2 | `Blocks` | `app/client/html/htmlview.h:54` | owned (Clear deletes them) |
+| 2 | `Images` | `app/client/html/htmlview.h:56` | Find_Image |
+| 2 | `Dirty` | `app/client/html/htmlview.h:57` | Update returns and clears it (a byte tested, not a bool) |
+| 2 | `Url` | `app/client/html/htmlview.h:58` | Open's strcpy; 259 bytes up to +0x130 |
+| 2 | `ScrollX` | `app/client/html/htmlview.h:59` | Render's first argument (also given to the first block's Set_X); zeroed by Clear |
+| 2 | `ScrollY` | `app/client/html/htmlview.h:60` | Render's second argument; zeroed by Clear |
+| 2 | `HtmlGifImageClass` | `app/client/html/image/gifload.h:16` | the src and the surface's bits per pixel |
+| 2 | `Set_Data` | `app/client/html/image/gifload.h:19` | the header, the palette (Colors through 0x76D340), the extensions and each image's Decode |
+| 2 | `Decode` | `app/client/html/image/gifload.h:21` | Bennett's decoder(linewidth); 0, -1 at the end of the data, -20 for a bad code size |
+| 2 | `Get_Next_Code` | `app/client/html/image/gifload.h:22` | Bennett's get_next_code |
+| 2 | `Get_Byte` | `app/client/html/image/gifload.h:24` | Bennett's get_byte, from Data (inlined everywhere; the copy has no caller) |
+| 2 | `Out_Line` | `app/client/html/image/gifload.h:26` | Bennett's out_line: the row's pixels through Colors into Surf (32 / 16 bits) |
+| 2 | `Data` | `app/client/html/image/gifload.h:28` | Set_Data's data |
+| 2 | `Length` | `app/client/html/image/gifload.h:29` | Set_Data's length |
+| 2 | `Position` | `app/client/html/image/gifload.h:30` | Get_Byte's read offset |
+| 2 | `Width` | `app/client/html/image/gifload.h:31` | the screen descriptor's width (Create_Surface's; Decode's linewidth) |
+| 2 | `Height` | `app/client/html/image/gifload.h:32` | the screen descriptor's height |
+| 2 | `ColorCount` | `app/client/html/image/gifload.h:33` | 1 << (bits + 1) of the global color table |
+| 2 | `Palette` | `app/client/html/image/gifload.h:36` | the global color table, read 3 bytes per color |
+| 2 | `Colors` | `app/client/html/image/gifload.h:37` | Out_Line's pixel values (0x76D340 of each palette entry) |
+| 2 | `Transparent` | `app/client/html/image/gifload.h:38` | the graphic control extension's color index (-1 none) |
+| 2 | `CodeSize` | `app/client/html/image/gifload.h:39` | Bennett's curr_size |
+| 2 | `BytesLeft` | `app/client/html/image/gifload.h:40` | Bennett's navail_bytes |
+| 2 | `BitsLeft` | `app/client/html/image/gifload.h:41` | Bennett's nbits_left |
+| 2 | `Block` | `app/client/html/image/gifload.h:42` | Bennett's byte_buff |
+| 2 | `BlockPointer` | `app/client/html/image/gifload.h:43` | Bennett's pbytes |
+| 2 | `BadCodes` | `app/client/html/image/gifload.h:44` | Bennett's bad_code_count |
+| 2 | `Prefix` | `app/client/html/image/gifload.h:46` | Bennett's prefix |
+| 2 | `Suffix` | `app/client/html/image/gifload.h:47` | Bennett's suffix (10001: Init clears 10000 and Stack follows at +0x7059) |
+| 2 | `Stack` | `app/client/html/image/gifload.h:48` | Bennett's stack |
+| 2 | `Line` | `app/client/html/image/gifload.h:49` | Bennett's buf (a width up to 0x800) |
+| 2 | `HtmlImageClass` | `app/client/html/image/image.h:14` | the name copied to +0xC, bits per pixel kept |
+| 2 | `Set_Data` | `app/client/html/image/image.h:17` | the parser hands it the data of the link named like the image; here G_ASSERT(0) (line 23) |
+| 2 | `Get_Surface` | `app/client/html/image/image.h:18` | Draw_Block tiles it (Get_Width / Get_Height) |
+| 2 | `Get_Name` | `app/client/html/image/image.h:19` | Find_Image's key |
+| 2 | `Draw` | `app/client/html/image/image.h:20` | Blit_From of Surf at x, y clipped to the rectangle |
+| 2 | `Create_Surface` | `app/client/html/image/image.h:21` | a system-memory DSurface of Bits (asserts 'Surf', 'Surf->In_Video_Ram()==false') |
+| 2 | `Surf` | `app/client/html/image/image.h:23` | the asserts' 'Surf' |
+| 2 | `Bits` | `app/client/html/image/image.h:24` | the view passes Bytes_Per_Pixel() << 3; Create_Surface's 32 / 24 / 16 |
+| 2 | `Name` | `app/client/html/image/image.h:25` | Get_Name; 256: the gif's fields start at +0x10C |
+| 2 | `Open` | `app/client/html/image/image.h:34` | given the view's url by Open |
+| 2 | `Update` | `app/client/html/image/image.h:35` | polled by the view's Update |
+| 2 | `Open` | `app/client/html/image/image.h:46` | the file's data to the view's Add_Data, 256 bytes at a time |
+| 2 | `Update` | `app/client/html/image/image.h:47` | after an Open, the view's Add_Data(NULL, ..., true) (Layout and Render) |
+| 2 | `View` | `app/client/html/image/image.h:49` | Add_Data's this |
+| 2 | `Loaded` | `app/client/html/image/image.h:50` | set by Open, cleared by Update |
+| 2 | `Path` | `app/client/html/image/image.h:51` | the directory sprintf puts before the url (size not settled: nothing after it) |
+| 2 | `Face` | `app/client/html/image/image.h:57` | compared with Get_Font's face |
+| 2 | `Get_Font` | `app/client/html/image/image.h:64` | Petzold's EzCreateFont (SaveDC, GM_ADVANCED, DPtoLP, the tmAveCharWidth width) with a cache; flags 1 bold, 2 italic, 4 underline, 8 strikeout |
 | 2 | `HtmlAttributeStackClass` | `app/client/html/unknown_htmlattrib.h:12` | htmlview's tag handlers set / push / pop per key ('Font.Bold', 'p.%s', 'Anchor.HREF') |
 | 2 | `Add_All` | `app/client/html/unknown_htmlattrib.h:18` | every key of other, added here (no result, not an operator=) |
 | 2 | `Set` | `app/client/html/unknown_htmlattrib.h:19` | the key's stack becomes value alone |
@@ -27469,6 +27536,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `TradeUI` | `app/client/ui_talkt.h:67` | what it holds (0x650560) |
 | 2 | `avatar` | `app/client/ui_talkt_space.cpp:136` | the PIP's +0x2C avatar |
 | 2 | `std:` | `app/client/ui_talkt_space.cpp:137` | what Get_Full_Name fills |
+| 2 | `Layer` | `app/client/ui_test.h:33` | what it is |
 | 2 | `std:` | `app/client/ui_trade.cpp:33` | as ui_mfd_extended_context_harvestable.h's |
 | 2 | `Money` | `app/client/ui_trade.h:47` | what it holds |
 | 2 | `reverse` | `app/client/ui_vault.h:31` | what it toggles |
@@ -30081,7 +30149,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `gutter_data.h` | `app/client/gutter_data.h:16` | header name assumed from the client's gutter_data.cpp |
 | 3 | `gutter_radar.h` | `app/client/gutter_radar.h:15` | header name assumed from the client's gutter_radar.cpp |
 | 3 | `GutterRadarClass` | `app/client/gutter_radar.h:29` | class-from-file (D24) for gutter_radar.cpp |
-| 3 | `HtmlViewClass` | `app/client/html/htmlview.h:54` | htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0 |
+| 3 | `HtmlViewClass` | `app/client/html/htmlview.h:18` | htmlview.cpp's class (D24); its template copy ArrayList<HtmlLinkStruct>::~ArrayList is 0x7787C0 |
 | 3 | `influence.h` | `app/client/influence.h:19` | header name assumed from the client's influence.cpp |
 | 3 | `BoundaryMesh` | `app/client/influence.h:58` | the assert's |
 | 3 | `TempRoomPtrs` | `app/client/influence.h:81` | the asserts' |
