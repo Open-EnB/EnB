@@ -1947,7 +1947,7 @@ Base copy: reconstructed. Headers: 660 from reconstructed.
 | client/ui_line_display.cpp | reconstructed | 98 | 7 | - | - | - |  |
 | client/ui_log.cpp | reconstructed | 53 | 4 | - | - | - |  |
 | client/ui_login.cpp | reconstructed | 59 | 4 | - | - | - |  |
-| client/ui_manu.cpp | reconstructed | 87 | 6 | - | - | - |  |
+| client/ui_manu.cpp | reconstructed | 108 | 6 | - | - | - |  |
 | client/ui_manu_util.cpp | reconstructed | 6 | 1 | - | - | - |  |
 | client/ui_mesh.cpp | reconstructed | 99 | 4 | - | - | - |  |
 | client/ui_mfd.cpp | reconstructed | 97 | 3 | - | - | - |  |

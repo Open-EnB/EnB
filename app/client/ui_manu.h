@@ -126,8 +126,8 @@ public:
 	RefCountPtr<UIInvRobjStripClass> Unknown0B8;				// +0x0B8 'TSM01A.RESULT'
 	RefCountPtr<UIInvRobjStripClass> Unknown0BC;				// +0x0BC 'TSM01A.OVER'
 	UIManuUnknownC0Class *Unknown0C0[3];				// +0x0C0 (the destructor deletes them)
-	GadgetClass *Unknown0CC[7];							// +0x0CC (+0xD0..+0xE4: slot +0x54's buttons 'exit', the category columns 'item00' / 'cat00' / 'sub00', 'recent00', 'go')
-	GadgetClass *Unknown0E8[10];						// +0x0E8 the rows' buttons ('desc%02d')
+	ButtonGadgetClass *Unknown0CC[7];							// +0x0CC (+0xD0..+0xE4: slot +0x54's buttons 'exit', the category columns 'item00' / 'cat00' / 'sub00', 'recent00', 'go')
+	ButtonGadgetClass *Unknown0E8[10];						// +0x0E8 the rows' buttons ('desc%02d')
 	RefCountPtr<RenderObjClass> Unknown110[3];			// +0x110
 	UIManuRowStruct Unknown11C[10];						// +0x11C the list's rows
 	RefCountPtr<FontSys> Unknown16C[10];			// +0x16C the rows' first texts
