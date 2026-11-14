@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "InfluenceClass (D24 from influence.cpp), CREATE 4's type 10 record for ClientClass's +0x86C list (0x7E87C0, 0xB8 bytes), declared as far as CREATE calls it"
+ "description": "RECONSTRUCTED: influence.cpp's classes (the object's influence 0xB07748, RoomClass 0xB0776C, NebulaClass 0xB07778) from the client's vtables, constructors 0x7E82E0 / 0x7E87C0 and asserts"
 }

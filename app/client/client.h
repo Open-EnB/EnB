@@ -54,16 +54,30 @@ public:
 	unsigned ID;										// +0x30 the list's key  // NAME 2: what it is
 };
 #endif
-// The objects of ClientClass's third list (class and file unknown)
-class Unknown86CRecordClass	// NAME 1: neutral (D10)
+#ifndef EFF_O_H	// eff_o.h, included first, declares it
+// An object watcher: the base with only a virtual destructor (vtable 0xAF0DD0, its deleting destructor 0x57DBC0 first emitted
+// in ui_cpit.cpp; influence.h's record has the same base)
+class UnknownAF0DD0Class	// NAME 1: neutral (D10)
 {
 public:
-	virtual ~Unknown86CRecordClass();					// +0x00 (ClientClass's destructor deletes through it)
-	virtual void Unknown_04();							// +0x04
-	virtual bool Unknown_08(const Vector3 &position);	// +0x08 (SClient::Process_AI passes the main view camera's position; false: the record goes)  // NAME 1 [position]: what it gets
+	virtual ~UnknownAF0DD0Class() {}
+	void Unknown_73FDB0(DataNode<UnknownAF0DD0Class *> *node, ClientObjectClass *object);	// 0x73FDB0 (the node out of its list, then into the object's (0x6F5090) with this as its value)  // NAME 1 [node, object]: what the effects pass
+};
+#endif
+
+// The objects of ClientClass's third list: influence.cpp's base (vtable 0xB07730, 0x28 bytes; NebulaClass in influence.h
+// derives from it through UnknownObjectInfluenceClass)
+class Unknown86CRecordClass : public UnknownAF0DD0Class	// NAME 1: neutral (D10)
+{
+public:
+	Unknown86CRecordClass(ClientClass *client, unsigned id);	// 0x7E81B0 (influence.cpp; inlined by its subclasses)  // NAME 1 [client, id]: what CREATE passes
+	virtual ~Unknown86CRecordClass();					// +0x00 0x7E8270 (ClientClass's destructor deletes through it)
+	virtual void Unknown_04(int arg);					// +0x04 0x7E8200 (empty: the watcher's notice)  // NAME 1 [arg]: eff_o.h's
+	virtual bool Unknown_08(const Vector3 &position) = 0;	// +0x08 (SClient::Process_AI passes the main view camera's position; false: the record goes)  // NAME 1 [position]: what it gets
+	virtual class UnknownObjectInfluenceClass *Unknown_0C();	// +0x0C 0x7E8220 (NULL; the object's influence returns itself)
 
 	HashNodeClass<Unknown86CRecordClass *> Node;		// +0x04 the list's node  // NAME 2: what it is
-	char Unknown20[0x24 - 0x20];						// +0x20
+	ClientClass *Client;								// +0x20  // NAME 2: what it holds
 	unsigned ID;										// +0x24 the list's key  // NAME 2: what it is
 };
 

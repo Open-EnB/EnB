@@ -104,7 +104,7 @@ void SClient::Unknown_744240(KernelEventClass event) { Trace("stub SClient::Unkn
 // ------------------------------------------------------------------------- eff_o.cpp's effect, the third list's records
 
 // eff_o.cpp (app.lib) defines EffectObjectClass's members and UnknownB0009CEffectClass's Unknown_28 / _30 / _38 since EF1; no stand-ins here
-Unknown86CRecordClass::~Unknown86CRecordClass() { Trace("stub Unknown86CRecordClass::~Unknown86CRecordClass %u", ID); }
+// influence.cpp (app.lib) defines Unknown86CRecordClass, the third list's records, since O5b (2026-11-13b): no stand-in here
 
 // ------------------------------------------------------------------------- ClientClass's members (client.h)
 

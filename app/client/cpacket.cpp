@@ -230,9 +230,9 @@ bool CreatePacketClass::Process_Packet(void *instance)
 	obj->Unknown_04(BaseAsset);
 	sclient->Add_Object(obj);
 	if (Type == 10) {
-		InfluenceClass *influence = new InfluenceClass(sclient, --sclient->Unknown113C, robj);
-		influence->Unknown_10(GameID);
-		sclient->Add_Unknown86C(influence);
+		NebulaClass *nebula = new NebulaClass(sclient, --sclient->Unknown113C, robj);
+		nebula->Unknown_10(GameID);
+		sclient->Add_Unknown86C(nebula);
 		RenderObjClass *null_obj = new Null3DObjClass("NULL");
 		obj->Unknown_6F33F0(null_obj, -1, 1.0f);
 		null_obj->Release_Ref();
