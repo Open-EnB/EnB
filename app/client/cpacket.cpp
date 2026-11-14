@@ -93,13 +93,13 @@ public:
 };
 extern SoundManagerClass *SoundManager;	// 0xBE82A4  // NAME 2: what it holds
 
-// navigation_data.cpp's and the emote data's per-object records (co_data.h's Get_Navigation_Data /
-// Get_Emote_Data), declared as far as the handlers call them
-class NavigationDataClass	// NAME 3: class-from-file (D24) for app\client\navigation_data.cpp
-{
-public:
-	void Unknown_7BA940(NavigationPacketClass *packet);	// 0x7BA940 (NAVIGATION 153)  // NAME 1 [packet]: the handler's packet
-};
+// the per-object records of navigation_data.cpp, the gutter data and the emote data (co_data.h's
+// Get_Navigation_Data, Get_Gutter_Data, Get_Emote_Data); the gutter data's declared as far as the handlers call it
+#include "navigation_data.h"
+
+
+
+
 class GutterDataClass	// NAME 3: class-from-file (D24) for app\client\gutter_data.cpp
 {
 public:

@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 218 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1929 |
+| 3 | by convention from a client-named file or sibling | 1928 |
 | 2 | describes what the code does | 4868 |
-| 1 | neutral placeholder | 24822 |
+| 1 | neutral placeholder | 24828 |
 
 ## For review (score 3 and below)
 
@@ -2410,8 +2410,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_75B170` | `app/client/cpacket.cpp:91` | untagged neutral name (D10) |
 | 1 | `channel` | `app/client/cpacket.cpp:92` | the packet's field |
 | 1 | `Unknown_75B2B0` | `app/client/cpacket.cpp:92` | untagged neutral name (D10) |
-| 1 | `packet` | `app/client/cpacket.cpp:101` | the handler's packet |
-| 1 | `Unknown_7BA940` | `app/client/cpacket.cpp:101` | untagged neutral name (D10) |
 | 1 | `model, decals, decal_ini` | `app/client/cpacket.cpp:115` | what DECAL 16 passes |
 | 1 | `Unknown_80E8C0` | `app/client/cpacket.cpp:115` | untagged neutral name (D10) |
 | 1 | `SClientUnknown1334Class` | `app/client/cpacket.cpp:115` | untagged neutral name (D10) |
@@ -2614,6 +2612,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5E3130` | `app/client/cpacket.cpp:2179` | untagged neutral name (D10) |
 | 1 | `Unknown_5E2F70` | `app/client/cpacket.cpp:2180` | untagged neutral name (D10) |
 | 1 | `Unknown_5E3050` | `app/client/cpacket.cpp:2182` | untagged neutral name (D10) |
+| 1 | `Unknown_7BA940` | `app/client/cpacket.cpp:2259` | untagged neutral name (D10) |
 | 1 | `Unknown_7BD920` | `app/client/cpacket.cpp:2293` | untagged neutral name (D10) |
 | 1 | `Unknown_7E6650` | `app/client/cpacket.cpp:2311` | untagged neutral name (D10) |
 | 1 | `Unknown_63E5C0` | `app/client/cpacket.cpp:2323` | untagged neutral name (D10) |
@@ -6634,12 +6633,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Opacity` | `app/client/nav_list_line_draw.h:49` | 0x466920's last argument |
 | 1 | `Width` | `app/client/nav_list_line_draw.h:50` | 0x466920's first argument |
 | 1 | `Sort` | `app/client/nav_list_line_draw.h:51` | what the line keeps |
-| 1 | `Unknown08` | `app/client/navigation_data.h:26` | neutral (D10) |
-| 1 | `Unknown0C` | `app/client/navigation_data.h:27` | neutral (D10) |
-| 1 | `Unknown0D` | `app/client/navigation_data.h:28` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `app/client/navigation_data.h:29` | neutral (D10) |
-| 1 | `Unknown14` | `app/client/navigation_data.h:30` | neutral (D10) |
-| 1 | `Unknown15` | `app/client/navigation_data.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/navigation_data.cpp:8` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `app/client/navigation_data.cpp:9` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/navigation_data.cpp:10` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `app/client/navigation_data.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_7BA940` | `app/client/navigation_data.cpp:53` | untagged neutral name (D10) |
+| 1 | `packet` | `app/client/navigation_data.h:27` | the client's FAIL_IF '!packet' |
+| 1 | `Unknown_7BA940` | `app/client/navigation_data.h:27` | untagged neutral name (D10) |
+| 1 | `Unknown08` | `app/client/navigation_data.h:29` | neutral (D10) |
+| 1 | `Unknown0C` | `app/client/navigation_data.h:30` | neutral (D10) |
+| 1 | `Unknown0D` | `app/client/navigation_data.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `app/client/navigation_data.h:32` | neutral (D10) |
+| 1 | `Unknown14` | `app/client/navigation_data.h:33` | neutral (D10) |
+| 1 | `Unknown15` | `app/client/navigation_data.h:34` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/nlp.cpp:14` | neutral (D10), as eff_o.cpp's |
 | 1 | `Unknown_B9D668` | `app/client/nlp.cpp:17` | neutral (D10) |
 | 1 | `Unknown_78E190` | `app/client/nlp.cpp:20` | neutral (D10) |
@@ -29819,7 +29825,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `control_key_list.h` | `app/client/control_key_list.h:17` | header name assumed from control_key_list.cpp (PROVISIONAL) |
 | 3 | `control_keys_manager.h` | `app/client/control_keys_manager.h:18` | header name assumed from the client's control_keys_manager.cpp |
 | 3 | `SoundManagerClass` | `app/client/cpacket.cpp:86` | class-from-file (D24) for app\client\sound_manager.cpp |
-| 3 | `NavigationDataClass` | `app/client/cpacket.cpp:98` | class-from-file (D24) for app\client\navigation_data.cpp |
 | 3 | `GutterDataClass` | `app/client/cpacket.cpp:103` | class-from-file (D24) for app\client\gutter_data.cpp |
 | 3 | `UITalkTreeSpaceClass` | `app/client/cpacket.cpp:274` | class-from-file (D24) for app\client\ui_talkt_space.cpp |
 | 3 | `GalaxyMapClientClass` | `app/client/cpacket.cpp:280` | class-from-file (D24) for app\client\galaxy_map_client.cpp |
@@ -30132,7 +30137,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `Client` | `app/client/nav_list_line_draw.h:41` | 0x7B9DC0's FAIL_IF '!Client' |
 | 3 | `std:` | `app/client/nav_list_line_draw.h:44` | 0x7B9DC0's G_ASSERT 'line == Lines.end()' |
 | 3 | `CurLine` | `app/client/nav_list_line_draw.h:45` | 0x7B9DC0's G_ASSERT 'lines_drawn < CurLine' |
-| 3 | `navigation_data.h` | `app/client/navigation_data.h:16` | header name assumed from the client's navigation_data.cpp |
+| 3 | `navigation_data.h` | `app/client/navigation_data.h:14` | header name assumed from the client's navigation_data.cpp |
 | 3 | `nlp.h` | `app/client/nlp.h:13` | by convention from nlp.cpp |
 | 3 | `option.h` | `app/client/option.h:22` | header name assumed from the client's option.cpp |
 | 3 | `OptionClass` | `app/client/option.h:91` | by convention (D24) from the client's file option.cpp (WinMain's 'options manager') |
