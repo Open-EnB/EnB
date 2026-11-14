@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 219 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1929 |
+| 3 | by convention from a client-named file or sibling | 1932 |
 | 2 | describes what the code does | 4868 |
-| 1 | neutral placeholder | 24896 |
+| 1 | neutral placeholder | 24901 |
 
 ## For review (score 3 and below)
 
@@ -4615,6 +4615,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `force` | `app/client/gd_inv_slider.h:23` | neutral |
 | 1 | `Unknown_66A3C0` | `app/client/gd_inv_slider.h:23` | untagged neutral name (D10) |
 | 1 | `Unknown_66A4E0` | `app/client/gd_inv_slider.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_42EC60, button, arg` | `app/client/gd_key_press.cpp:7` | neutral (D10), as ctrngadg.cpp's |
+| 1 | `Unknown_42EC60` | `app/client/gd_key_press.cpp:7` | untagged neutral name (D10) |
+| 1 | `Unknown44` | `app/client/gd_key_press.cpp:11` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFA0` | `app/client/gd_key_press.cpp:13` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/gd_key_press.cpp:14` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/gd_key_press.cpp:21` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/gd_key_press.cpp:23` | untagged neutral name (D10) |
+| 1 | `Unknown_2C` | `app/client/gd_key_press.cpp:26` | untagged neutral name (D10) |
+| 1 | `Unknown_66AB50` | `app/client/gd_key_press.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/gd_key_press.cpp:123` | untagged neutral name (D10) |
+| 1 | `Unknown_42B7E0` | `app/client/gd_key_press.cpp:153` | untagged neutral name (D10) |
+| 1 | `event, x, y, mask` | `app/client/gd_key_press.h:31` | GadgetClass's |
+| 1 | `Unknown_2C` | `app/client/gd_key_press.h:31` | untagged neutral name (D10) |
+| 1 | `x, y` | `app/client/gd_key_press.h:32` | GadgetClass's |
+| 1 | `Unknown_30` | `app/client/gd_key_press.h:32` | untagged neutral name (D10) |
+| 1 | `on` | `app/client/gd_key_press.h:33` | GadgetClass's |
+| 1 | `Unknown_40` | `app/client/gd_key_press.h:33` | untagged neutral name (D10) |
+| 1 | `Unknown_66AB50` | `app/client/gd_key_press.h:36` | untagged neutral name (D10) |
+| 1 | `Clear_Event` | `app/client/gd_key_press.h:37` | what it does |
+| 1 | `Unknown44` | `app/client/gd_key_press.h:41` | untagged neutral name (D10) |
 | 1 | `gd_pip_scene.cpp` | `app/client/gd_pip_scene.cpp:11` | neutral (D10) |
 | 1 | `gd_pip_scene.cpp` | `app/client/gd_pip_scene.cpp:12` | neutral (D10) |
 | 1 | `Unknown_30` | `app/client/gd_pip_scene.cpp:62` | untagged neutral name (D10) |
@@ -14219,12 +14239,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `LoginCallbackBaseClass` | `app/client/ui_login.cpp:194` | neutral (D10) |
 | 1 | `Unknown_760770` | `app/client/ui_login.cpp:211` | untagged neutral name (D10) |
 | 1 | `Unknown_5FAE70` | `app/client/ui_login.cpp:212` | ui_registration.cpp |
-| 1 | `LoginSettingsClass` | `app/client/ui_login.cpp:215` | neutral (D10) |
-| 1 | `Unknown00` | `app/client/ui_login.cpp:218` | untagged neutral name (D10) |
-| 1 | `url, a` | `app/client/ui_login.cpp:219` | neutral |
-| 1 | `Unknown_7CB2E0` | `app/client/ui_login.cpp:219` | untagged neutral name (D10) |
-| 1 | `Unknown_Clear` | `app/client/ui_login.cpp:220` | neutral (D10) |
-| 1 | `Unknown60` | `app/client/ui_login.cpp:220` | untagged neutral name (D10) |
 | 1 | `view, layer` | `app/client/ui_login.cpp:228` | what 0x679160 passes |
 | 1 | `Unknown_60` | `app/client/ui_login.cpp:230` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_login.cpp:231` | untagged neutral name (D10) |
@@ -14269,6 +14283,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B8110C` | `app/client/ui_login.cpp:284` | neutral (D10) |
 | 1 | `Unknown_B8111C` | `app/client/ui_login.cpp:285` | neutral (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/ui_login.cpp:318` | untagged neutral name (D10) |
+| 1 | `Unknown60` | `app/client/ui_login.cpp:318` | untagged neutral name (D10) |
 | 1 | `Unknown_28` | `app/client/ui_login.cpp:319` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/ui_login.cpp:320` | untagged neutral name (D10) |
 | 1 | `Unknown_08` | `app/client/ui_login.cpp:320` | untagged neutral name (D10) |
@@ -14316,6 +14331,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Get_Unknown034` | `app/client/ui_login.cpp:592` | untagged neutral name (D10) |
 | 1 | `Unknown_67B2B0` | `app/client/ui_login.cpp:611` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_login.cpp:625` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB2E0` | `app/client/ui_login.cpp:629` | untagged neutral name (D10) |
 | 1 | `Unknown_6C` | `app/client/ui_login.cpp:631` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_login.cpp:664` | untagged neutral name (D10) |
 | 1 | `Unknown_Set_2FC` | `app/client/ui_login.cpp:667` | untagged neutral name (D10) |
@@ -15193,13 +15209,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Page` | `app/client/ui_option_check.h:25` | neutral (D10) |
 | 1 | `Mode` | `app/client/ui_option_check.h:26` | neutral (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_option_control_keys.cpp:18` | neutral (D10) |
-| 1 | `x, y` | `app/client/ui_option_control_keys.cpp:25` | GadgetClass's |
-| 1 | `Unknown_30` | `app/client/ui_option_control_keys.cpp:25` | untagged neutral name (D10) |
-| 1 | `font` | `app/client/ui_option_control_keys.cpp:26` | its type |
-| 1 | `Unknown_66AAD0` | `app/client/ui_option_control_keys.cpp:26` | untagged neutral name (D10) |
-| 1 | `Clear_Event` | `app/client/ui_option_control_keys.cpp:27` | what it does |
-| 1 | `Unknown30` | `app/client/ui_option_control_keys.cpp:28` | untagged neutral name (D10) |
-| 1 | `Unknown44` | `app/client/ui_option_control_keys.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_B82F58` | `app/client/ui_option_control_keys.cpp:34` | neutral (D10) |
 | 1 | `Unknown_BE5D1C` | `app/client/ui_option_control_keys.cpp:47` | neutral (D10) |
 | 1 | `Unknown_54` | `app/client/ui_option_control_keys.cpp:80` | untagged neutral name (D10) |
@@ -15980,11 +15989,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/ui_popup_browser.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_popup_browser.cpp:20` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_popup_browser.cpp:20` | untagged neutral name (D10) |
-| 1 | `PopupBrowserSettingsClass, a` | `app/client/ui_popup_browser.cpp:25` | as ui_registration.cpp's |
-| 1 | `Unknown_7CB240` | `app/client/ui_popup_browser.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/ui_popup_browser.cpp:33` | untagged neutral name (D10) |
 | 1 | `UnknownC8` | `app/client/ui_popup_browser.cpp:45` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/ui_popup_browser.cpp:52` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB240` | `app/client/ui_popup_browser.cpp:52` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/ui_popup_browser.cpp:53` | untagged neutral name (D10) |
 | 1 | `Unknown_515400` | `app/client/ui_popup_browser.cpp:54` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_popup_browser.cpp:59` | neutral (D10) |
@@ -16016,8 +16024,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_496AE0` | `app/client/ui_popupmsg.cpp:32` | untagged neutral name (D10) |
 | 1 | `robj, a, b, c` | `app/client/ui_popupmsg.cpp:33` | as ui_group.cpp's |
 | 1 | `Unknown_496110` | `app/client/ui_popupmsg.cpp:33` | untagged neutral name (D10) |
-| 1 | `PopupSettingsClass` | `app/client/ui_popupmsg.cpp:57` | neutral (D10)  // NAME 1 [url, a]: as ui_login.cpp's |
-| 1 | `Unknown_7CB2E0` | `app/client/ui_popupmsg.cpp:57` | untagged neutral name (D10) |
 | 1 | `Unknown_B846BC` | `app/client/ui_popupmsg.cpp:83` | neutral (D10) |
 | 1 | `Unknown_B846DC` | `app/client/ui_popupmsg.cpp:84` | neutral (D10) |
 | 1 | `Unknown5DB670InterfaceClass` | `app/client/ui_popupmsg.cpp:94` | untagged neutral name (D10) |
@@ -16038,6 +16044,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_68` | `app/client/ui_popupmsg.cpp:165` | untagged neutral name (D10) |
 | 1 | `Unknown_5DBD50` | `app/client/ui_popupmsg.cpp:174` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/ui_popupmsg.cpp:187` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB2E0` | `app/client/ui_popupmsg.cpp:187` | untagged neutral name (D10) |
 | 1 | `ui_popupmsg.h` | `app/client/ui_popupmsg.h:14` | provisional header name for ui_popupmsg.cpp |
 | 1 | `Unknown5DB670InterfaceClass` | `app/client/ui_popupmsg.h:29` | neutral (D10): charview.cpp's |
 | 1 | `view, layer` | `app/client/ui_popupmsg.h:32` | as LoginInterface's |
@@ -17044,9 +17051,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_B08CC0` | `app/client/ui_registration.cpp:160` | 0x1000 |
 | 1 | `Unknown_496AE0` | `app/client/ui_registration.cpp:161` | untagged neutral name (D10) |
 | 1 | `Unknown_Debug_Printf` | `app/client/ui_registration.cpp:162` | untagged neutral name (D10) |
-| 1 | `RegistrationSettingsClass, a, url` | `app/client/ui_registration.cpp:163` | as ui_login.cpp's |
-| 1 | `Unknown_7CB240` | `app/client/ui_registration.cpp:163` | untagged neutral name (D10) |
-| 1 | `Unknown_7CB2E0` | `app/client/ui_registration.cpp:163` | untagged neutral name (D10) |
 | 1 | `RegistrationSubscribeURL` | `app/client/ui_registration.cpp:165` | the literal 0xB8139C (0x5F2280) |
 | 1 | `CardDoubled` | `app/client/ui_registration.cpp:179` | client .rdata 0xAF6F88 (0x603820: a digit doubled, Luhn) |
 | 1 | `Get_Unknown1AC` | `app/client/ui_registration.cpp:181` | 0xBDA960, inlined in 0x5EF0B0 |
@@ -17175,6 +17179,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_7863E0` | `app/client/ui_registration.cpp:673` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_registration.cpp:681` | untagged neutral name (D10) |
 | 1 | `Unknown_6C` | `app/client/ui_registration.cpp:687` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB2E0` | `app/client/ui_registration.cpp:706` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_registration.cpp:748` | untagged neutral name (D10) |
 | 1 | `Unknown_Set_2FC` | `app/client/ui_registration.cpp:753` | untagged neutral name (D10) |
 | 1 | `Unknown_5F2B20` | `app/client/ui_registration.cpp:889` | untagged neutral name (D10) |
@@ -17194,6 +17199,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5F33E0` | `app/client/ui_registration.cpp:984` | untagged neutral name (D10) |
 | 1 | `Unknown_5F3510` | `app/client/ui_registration.cpp:1010` | untagged neutral name (D10) |
 | 1 | `Unknown_8C` | `app/client/ui_registration.cpp:1014` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB240` | `app/client/ui_registration.cpp:1034` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/ui_registration.cpp:1274` | untagged neutral name (D10) |
 | 1 | `Unknown_5F8DB0` | `app/client/ui_registration.cpp:1289` | untagged neutral name (D10) |
 | 1 | `Unknown_784C90` | `app/client/ui_registration.cpp:1302` | untagged neutral name (D10) |
@@ -21103,10 +21109,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Log` | `app/client/unknown_log.cpp:16` | neutral (D10) |
 | 1 | `Unknown_7E5F70` | `app/client/unknown_log.h:6` | neutral (D10); resets enb_client.log |
 | 1 | `Unknown_Log` | `app/client/unknown_log.h:7` | 0x7E5F90, the 'HANDOFF:INF' / 'LOGIN:INF' log |
-| 1 | `MsgBoxBrowsersClass` | `app/client/unknown_msgbox.cpp:29` | neutral (D10)  // NAME 1 [index, box, url]: what the box passes |
-| 1 | `Unknown_7CA570` | `app/client/unknown_msgbox.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_7CAD00` | `app/client/unknown_msgbox.cpp:29` | untagged neutral name (D10) |
-| 1 | `Unknown_7CB240` | `app/client/unknown_msgbox.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_497240, robj, on` | `app/client/unknown_msgbox.cpp:30` | neutral (D10) |
 | 1 | `Unknown_497240` | `app/client/unknown_msgbox.cpp:30` | untagged neutral name (D10) |
 | 1 | `ViewUnknown34Class` | `app/client/unknown_msgbox.cpp:33` | untagged neutral name (D10) |
@@ -21126,8 +21128,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42ECF0` | `app/client/unknown_msgbox.cpp:215` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/unknown_msgbox.cpp:225` | untagged neutral name (D10) |
 | 1 | `Unknown_7CA2D0` | `app/client/unknown_msgbox.cpp:241` | untagged neutral name (D10) |
+| 1 | `Unknown_7CB240` | `app/client/unknown_msgbox.cpp:241` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/unknown_msgbox.cpp:254` | untagged neutral name (D10) |
 | 1 | `Unknown_588870` | `app/client/unknown_msgbox.cpp:264` | untagged neutral name (D10) |
+| 1 | `Unknown_7CAD00` | `app/client/unknown_msgbox.cpp:276` | untagged neutral name (D10) |
+| 1 | `Unknown_7CA570` | `app/client/unknown_msgbox.cpp:278` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/unknown_msgbox.cpp:279` | untagged neutral name (D10) |
 | 1 | `Unknown_589140` | `app/client/unknown_msgbox.cpp:317` | untagged neutral name (D10) |
 | 1 | `Unknown_588DC0` | `app/client/unknown_msgbox.cpp:324` | untagged neutral name (D10) |
@@ -25900,6 +25905,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Value` | `app/client/gd_gauge.h:86` | what it returns |
 | 2 | `Exists` | `app/client/gd_gauge.h:88` | as ui_experience.cpp's bars' |
 | 2 | `Count` | `app/client/gd_inv_slider.h:31` | what it holds |
+| 2 | `Event` | `app/client/gd_key_press.h:40` | what it holds |
 | 2 | `Wrap_Pointer` | `app/client/gd_pip_scene.h:34` | what it does |
 | 2 | `Set_Cursor` | `app/client/gd_pip_scene.h:35` | what it does; NAME 1 [cursor]: tsk_login.h's |
 | 2 | `Set_Target` | `app/client/gd_proxy.h:32` | the member it sets; NAME 1 [target]: neutral |
@@ -27290,7 +27296,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Checks` | `app/client/ui_option_channel.h:30` | what they are |
 | 2 | `Buttons` | `app/client/ui_option_check.h:27` | what they are |
 | 2 | `Checks` | `app/client/ui_option_check.h:28` | what they are |
-| 2 | `Event` | `app/client/ui_option_control_keys.cpp:29` | what it holds |
 | 2 | `Slider` | `app/client/ui_option_control_keys.h:41` | what it is |
 | 2 | `TopRow` | `app/client/ui_option_control_keys.h:42` | what it holds |
 | 2 | `KeyPress` | `app/client/ui_option_control_keys.h:47` | its class |
@@ -30072,6 +30077,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `SlotData` | `app/client/gd_inv_slider.h:28` | the FAIL_IF's |
 | 3 | `SlotsPerNotch` | `app/client/gd_inv_slider.h:29` | the FAIL_IF's |
 | 3 | `VisibleNotches` | `app/client/gd_inv_slider.h:30` | the FAIL_IF's |
+| 3 | `gd_key_press.h` | `app/client/gd_key_press.h:16` | header name assumed from the client's gd_key_press.cpp |
+| 3 | `Set_Text` | `app/client/gd_key_press.h:35` | the client's FAIL_IF 'KeyPressGadget::Set_Text()'; NAME 2 [text]: the member it sets |
+| 3 | `Text` | `app/client/gd_key_press.h:39` | the client's FAIL_IF '!Text' |
 | 3 | `gd_pip_scene.h` | `app/client/gd_pip_scene.h:17` | header name assumed from the client's gd_pip_scene.cpp |
 | 3 | `GadgetPipSceneClass` | `app/client/gd_pip_scene.h:27` | class-from-file (D24) for app\client\gd_pip_scene.cpp |
 | 3 | `PIPScene` | `app/client/gd_pip_scene.h:37` | the assert's |
