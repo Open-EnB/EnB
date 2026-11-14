@@ -597,6 +597,11 @@ gives the instance's COPY of the exe its own mutex name (the string `enb_mutex_l
 length), and without virtual input the proxy's `D3D8SHOT_CURSOR=off` makes SetCursorPos / ClipCursor no-ops. Left
 in the exe as stand-in-layer code, not hooks: poc_window.cpp's read-only registry (D69) and its `CRASH:` line.
 
+**No registry write (D249):** the client calls BrowserEngine.dll's `DllRegisterServer` at every start (the DLL's own
+COM keys, the server path being the registering copy's). Every harness run sets `D3D8SHOT_NOREGISTER=1`: the proxy
+hands the client's `GetProcAddress(.., "DllRegisterServer")` a no-op (d3d8shot.log: `DllRegisterServer: not
+called`), and the browser opens through the registration the install made.
+
 **Stand-ins per scenario:** stubs.log lists a stand-in's first call only. At each scenario's first own step e2e
 writes `mark NAME` through the proxy's trigger file; the proxy calls the exe's exported `Stub_Log_Mark`
 (stubs/stub_log.cpp), which writes `MARK NAME` and clears every first-call flag, so the stand-ins a later

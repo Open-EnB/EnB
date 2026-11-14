@@ -217,6 +217,7 @@ class Inst:
             raise SystemExit(f'{proxy} exists already: not ours, not overwritten')
         shutil.copyfile(PROXY, proxy)
         env['D3D8SHOT_DIR'] = out
+        env['D3D8SHOT_NOREGISTER'] = '1'     # D249: the client's DllRegisterServer call for BrowserEngine.dll does nothing
         if input:
             env['D3D8SHOT_INPUT'] = '1'
             if tag:
@@ -466,7 +467,7 @@ def run(seconds, fullscreen, args, shots=None, steps=None, inst=None, messages=F
     if not fullscreen:
         env['ENB_POC_WINDOWED'] = '1'
     proxy = None
-    hooks = bool(shots or steps or inst.name)       # the proxy: shots, the virtual input, an instance's cursor guard
+    hooks = True        # the proxy, always: shots, the virtual input, an instance's cursor guard, no DllRegisterServer (D249)
     if hooks or messages:
         out = inst.shots_dir()
         os.makedirs(out, exist_ok=True)

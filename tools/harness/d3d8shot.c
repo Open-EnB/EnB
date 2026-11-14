@@ -27,6 +27,12 @@
 **                   untagged mouse and key messages, a person's, are dropped and logged 'NOT REPLAYED'
 **   D3D8SHOT_CURSOR off (without D3D8SHOT_INPUT): SetCursorPos and ClipCursor do nothing, so several clients
 **                   side by side leave the real cursor alone
+**   D3D8SHOT_NOREGISTER 1: the program's GetProcAddress(module, "DllRegisterServer") gets a function that does
+**                   nothing and returns S_OK. The client registers BrowserEngine.dll's COM class at every start
+**                   (ww3d2 dx8webbrowser.cpp, DX8WebBrowser::Initialize); the keys are that DLL's own
+**                   (HKCR CLSID {2B2CC8B0-2DC0-48c6-B6FD-C07820A6477E} InprocServer32 = the registering copy's
+**                   path, BrowserEngine.FEBrowserEngine2, its type library), and a test run must not write the
+**                   registry (D69, D249): the class the install registered stays as it is
 ** Output: d3d8shot.log, frame_NNNNN.bmp (24-bit), draws_NNNNN.bin.
 **
 ** The draw dump (D3D8SHOT_DUMP): every vertex and index buffer the program locks is shadowed (the
@@ -818,6 +824,26 @@ static HRESULT STDMETHODCALLTYPE Hook_Create_Device(void *d3d, UINT adapter, UIN
 	return hr;
 }
 
+/* D3D8SHOT_NOREGISTER: no COM self-registration from a test run */
+typedef FARPROC (WINAPI *GetProcAddressType)(HMODULE, LPCSTR);
+static GetProcAddressType RealGetProcAddress = NULL;
+static HRESULT WINAPI No_Register_Server(void)
+{
+	Log("DllRegisterServer: not called (D3D8SHOT_NOREGISTER); S_OK returned\n");
+	return 0;
+}
+static FARPROC WINAPI Hook_GetProcAddress(HMODULE module, LPCSTR name)
+{
+	if (((DWORD)name >> 16) != 0 && strcmp(name, "DllRegisterServer") == 0) {		/* a name, not an ordinal */
+		char path[MAX_PATH];
+		path[0] = 0;
+		GetModuleFileNameA(module, path, sizeof(path));
+		Log("GetProcAddress(%s, DllRegisterServer): the no-op given\n", path);
+		return (FARPROC)No_Register_Server;
+	}
+	return RealGetProcAddress(module, name);
+}
+
 static HANDLE WINAPI Hook_CreateFileA(LPCSTR name, DWORD access, DWORD share, LPSECURITY_ATTRIBUTES sa,
 	DWORD disposition, DWORD flags, HANDLE templ)
 {
@@ -835,6 +861,8 @@ static void Hook_Imports(void)
 	IMAGE_NT_HEADERS *nt = (IMAGE_NT_HEADERS *)(base + ((IMAGE_DOS_HEADER *)base)->e_lfanew);
 	IMAGE_DATA_DIRECTORY *dir = &nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT];
 	IMAGE_IMPORT_DESCRIPTOR *imp;
+	char v[8];
+	int noregister = GetEnvironmentVariableA("D3D8SHOT_NOREGISTER", v, sizeof(v)) && v[0] == '1';
 	if (!dir->VirtualAddress) return;
 	for (imp = (IMAGE_IMPORT_DESCRIPTOR *)(base + dir->VirtualAddress); imp->Name; imp++) {
 		IMAGE_THUNK_DATA *names, *funcs;
@@ -850,6 +878,11 @@ static void Hook_Imports(void)
 				RealCreateFileA = (CreateFileAType)funcs->u1.Function;
 				Patch((void **)&funcs->u1.Function, (void *)Hook_CreateFileA);
 				Log("hooked the program's CreateFileA import\n");
+			}
+			if (noregister && strcmp((const char *)ibn->Name, "GetProcAddress") == 0) {
+				RealGetProcAddress = (GetProcAddressType)funcs->u1.Function;
+				Patch((void **)&funcs->u1.Function, (void *)Hook_GetProcAddress);
+				Log("hooked the program's GetProcAddress import (DllRegisterServer gets a no-op)\n");
 			}
 		}
 	}
