@@ -31,7 +31,7 @@
 #include "..\packets\pkstarbasetow.h"	// StarbaseRequestPacketClass (0x69F8F0)
 #include "ini.h"	// INIClass (the lights loader 0x6A0590)
 // the +0x70 scene (0xC8 bytes, constructor 0x761C80; 0x69B5E0 sets its ambient light)
-class SBaseViewUnknown70Class : public SimpleSceneClass { public: SBaseViewUnknown70Class(); char Unknown98[0xC8 - 0x98]; };	// NAME 1: neutral (D10)
+#include "unknown_761c80.h"	// Unknown761C80Class
 #include "ui_refinery.h"	// UIRefineryClass (+0x184, 0x69F8F0)
 float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAME 1 [Unknown_77B7D0, t]: neutral (D10)
 #include "sbase_info.h"	// StarbaseInfoClass (+0x1B4; LOUNGE_NPC 0x6A0FD0, 0x6A2120)
@@ -120,7 +120,7 @@ void SBaseViewClass::Unknown_04()
 	UIViewClass::Unknown_04();
 	InterfaceSortClass sort(this, true);
 	Unknown68 = new ScriptedMovieViewerSettingsStruct;
-	Unknown70 = Create_NEW(new SBaseViewUnknown70Class);
+	Unknown70 = Create_NEW(new Unknown761C80Class);
 	Unknown70->Set_Ambient_Light(Vector3(0.5f, 0.5f, 0.5f));
 	Unknown6C = Create_NEW(new CameraClass);
 	Unknown6C->Set_Position(Vector3(0.0f, 0.0f, 100.0f));

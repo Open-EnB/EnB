@@ -59,14 +59,14 @@ void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE
 bool Unknown_42EC60(int button, int arg);		// 0x42EC60 (input.cpp: a button or key down)  // NAME 1 [button, arg]: neutral
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: as ui_avatr.cpp's
 
-// The starbase view's +0x70 scene (sbaseview.cpp's SBaseViewUnknown70Class), as far as the starbase interface calls it
-class UIStarbaseSceneClass : public SceneClass	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_7621A0(RenderObjClass *obj);			// 0x7621A0  // NAME 1 [obj]: neutral
-	void Unknown_762920(float fill);					// 0x762920 (its +0xAC)  // NAME 1 [fill]: what 0x640EC0 passes
-	void Unknown_762940(const Vector3 &color);			// 0x762940 (its +0xA0: the ambient colour)  // NAME 1 [color]: what 0x640E90 passes
-};
+// The starbase view's +0x70 scene: unknown_761c80.h's Unknown761C80Class. The starbase interface gives its avatars
+// and ships a light environment of their own (Add_Light_Environment 0x7621A0) and sets the environments' fill
+// intensity and ambient (Set_Fill_Intensity 0x762920, Set_Environment_Ambient 0x762940) from the room's lights.
+// (These lines keep the file's line count: the asserts below sit on the client's __LINE__.)
+
+#include "unknown_761c80.h"
+
+
 
 // The starbase avatar (unknown_78a910.cpp's Unknown78A910AvatarClass)
 class Unknown78A910AvatarClass : public CharacterViewAvatarClass	// NAME 1: neutral (D10)
@@ -413,9 +413,9 @@ void UIStarbaseClass::Unknown_640810()
 	}
 	if (i) {
 		Vector3 color = Unknown_BE82D0->Unknown_764CF0(a, room, c);
-		((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_762940(color);
+		UnknownB0->Unknown70.Peek()->Set_Environment_Ambient(color);
 		float fill = Unknown_BE82D0->Unknown_764EA0(a, room, c);
-		((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_762920(fill);
+		UnknownB0->Unknown70.Peek()->Set_Fill_Intensity(fill);
 	} else {
 		Matrix3D tm(true);
 		tm.Set_Translation(Vector3(100.0f, 50.0f, 10.0f));
@@ -430,7 +430,7 @@ void UIStarbaseClass::Unknown_640810()
 		((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(light);
 		light->Add_Ref();
 		Lights.push_back(light);
-		((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_762920(0.7f);
+		UnknownB0->Unknown70.Peek()->Set_Fill_Intensity(0.7f);
 	}
 }
 
@@ -470,13 +470,13 @@ std::vector<LightClass *> UIStarbaseClass::Unknown_640DF0()
 // 0x640E90
 void UIStarbaseClass::Unknown_640E90(const Vector3 &color)
 {
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_762940(color);
+	UnknownB0->Unknown70.Peek()->Set_Environment_Ambient(color);
 }
 
 // 0x640EC0
 void UIStarbaseClass::Unknown_640EC0(float fill)
 {
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_762920(fill);
+	UnknownB0->Unknown70.Peek()->Set_Fill_Intensity(fill);
 }
 
 // 0x640EF0
@@ -939,8 +939,8 @@ void UIStarbaseClass::Unknown_63BDB0(const Matrix3D &transform)
 		return;
 	}
 	UnknownC0.D->Avatar->Remove();
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(UnknownC0.D->Avatar.Peek());
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(UnknownC0.D->Avatar.Peek());
+	UnknownB0->Unknown70.Peek()->Add_Render_Object(UnknownC0.D->Avatar.Peek());
+	UnknownB0->Unknown70.Peek()->Add_Light_Environment(UnknownC0.D->Avatar.Peek());
 	UnknownB0->Unknown_69DFC0(UnknownC0.D->Avatar, transform, false);
 	UnknownB0->Unknown_69EB20(UnknownC0.D->Avatar->Unknown_787A90(), 1, 1);
 	UnknownC0.D->Avatar->Unknown_77E3D0(1);
@@ -988,8 +988,8 @@ void UIStarbaseClass::Unknown_63C080(const char *name, bool a, bool b)
 	UnknownC0.D->Avatar = NULL;
 	unsigned int id = ((LineDisplayClientClass *)Client)->AvatarID;
 	UnknownC0.D->Avatar = Create_NEW((CharacterViewAvatarClass *)((LineDisplayClientClass *)Client)->As_Space_Client()->Unknown_74C7B0(id));
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(UnknownC0.D->Avatar.Peek());
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(UnknownC0.D->Avatar.Peek());
+	UnknownB0->Unknown70.Peek()->Add_Render_Object(UnknownC0.D->Avatar.Peek());
+	UnknownB0->Unknown70.Peek()->Add_Light_Environment(UnknownC0.D->Avatar.Peek());
 	UnknownB0->Unknown_69DC80(UnknownC0.D->Avatar, name, b);
 	if (a) {
 		UnknownB0->Unknown_69E510(UnknownC0.D->Avatar->Unknown_787A90());
@@ -1125,7 +1125,7 @@ void UIStarbaseClass::Unknown_63C4B0(RenderObjClass *obj, const char *bone)
 {
 	Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform(bone);
 	((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(obj);
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(obj);
+	UnknownB0->Unknown70.Peek()->Add_Light_Environment(obj);
 	obj->Set_Transform(tm);
 }
 
@@ -1657,7 +1657,7 @@ void UIStarbaseClass::Unknown_58()
 			Matrix3D tm;
 			tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
 			((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
-			((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(ship);
+			UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship);
 			ship->Set_Transform(tm);
 		}
 		char anim[32];
@@ -1691,10 +1691,10 @@ void UIStarbaseClass::Unknown_58()
 		if (Unknown13C[i]) {
 			if (Unknown13C[i]->Avatar) {
 				((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(Unknown13C[i]->Avatar.Peek());
-				((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(Unknown13C[i]->Avatar.Peek());
+				UnknownB0->Unknown70.Peek()->Add_Light_Environment(Unknown13C[i]->Avatar.Peek());
 			} else if (Unknown13C[i]->AmbientAvatar) {
 				((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(Unknown13C[i]->AmbientAvatar.Peek());
-				((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(Unknown13C[i]->AmbientAvatar.Peek());
+				UnknownB0->Unknown70.Peek()->Add_Light_Environment(Unknown13C[i]->AmbientAvatar.Peek());
 			}
 			UnknownB0->Unknown_6A1880(Unknown13C[i]->NameTag, 1);
 			if (Unknown13C[i]->Unknown24.length()) {
@@ -2794,7 +2794,7 @@ void UIStarbaseClass::Unknown_63CA50(int id, const Matrix3D &transform, int flag
 	savatar->Unknown14->Set_Last_Sort_Group(true);
 	Unknown64.Unknown_6870E0(savatar->Unknown14, id + 100, View, true, true);
 	((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(savatar->Avatar.Peek());
-	((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(savatar->Avatar.Peek());
+	UnknownB0->Unknown70.Peek()->Add_Light_Environment(savatar->Avatar.Peek());
 	Unknown5BB320Class::Unknown_58();
 	if (flags & 0x40) {
 		savatar->Avatar->Unknown_7896B0(2);
@@ -3162,7 +3162,7 @@ void UIStarbaseClass::Unknown_6415B0()
 	if (ship) {
 		Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
 		((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
-		((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(ship);
+		UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship);
 		ship->Set_Transform(tm);
 	}
 	char anim[64];
@@ -3489,7 +3489,7 @@ void UIStarbaseClass::Unknown_640360()
 			RenderObjClass *ship = Unknown184.Peek();
 			Matrix3D tm = InterfaceMesh->Peek_Object()->Get_Bone_Transform("ship");
 			((SceneClass *)UnknownB0->Unknown70.Peek())->Add_Render_Object(ship);
-			((UIStarbaseSceneClass *)UnknownB0->Unknown70.Peek())->Unknown_7621A0(ship);
+			UnknownB0->Unknown70.Peek()->Add_Light_Environment(ship);
 			ship->Set_Transform(tm);
 			Play_State_Animation(Unknown184.Peek(), 1, 1.0f);
 			RefCountPtr<RenderObjClass> extents;
