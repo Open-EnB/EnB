@@ -7,7 +7,8 @@
 #include <vector>
 #include "sclient.h"
 
-class GadgetClass;			// gadget.cpp's (the formation buttons at +0xC0, deleted through 0x65EED0)
+class GadgetClass;			// gadget.cpp's
+class ButtonGadgetClass;	// unknown_675120.h's (the formation buttons at +0xC0, the members' buttons; deleted through gadget.h's 0x65EED0)
 class UIGroupClass;
 
 // (The interface base, Unknown5BB320Class, is in unknown_5bb250.h, which sclient.h includes: D137)
@@ -41,12 +42,12 @@ public:
 	RefCountPtr<RenderObjClass> Unknown30;				// +0x30 (0x593830 sets it)
 	RefCountPtr<RenderObjClass> Unknown34;				// +0x34 (0x5934A0: slot +0x38, released)
 	RefCountPtr<RenderObjClass> Unknown38;				// +0x38 (slot +0x38, released)
-	GadgetClass *Unknown3C;								// +0x3C
-	GadgetClass *Unknown40;								// +0x40 (0x597000: the four buttons' slot +0x40)
-	GadgetClass *Unknown44;								// +0x44
-	GadgetClass *Unknown48;								// +0x48 (0x5982A0: flag 0x800, 0x6603A0)
-	GadgetClass *Unknown4C;								// +0x4C
-	GadgetClass *Unknown50;								// +0x50 (0x595530: the BOOT button)
+	ButtonGadgetClass *Unknown3C;								// +0x3C
+	ButtonGadgetClass *Unknown40;								// +0x40 (0x597000: the four buttons' slot +0x40)
+	ButtonGadgetClass *Unknown44;								// +0x44
+	ButtonGadgetClass *Unknown48;								// +0x48 (0x5982A0: flag 0x800, 0x6603A0)
+	ButtonGadgetClass *Unknown4C;								// +0x4C
+	ButtonGadgetClass *Unknown50;								// +0x50 (0x595530: the BOOT button)
 };
 
 bool Unknown_496110(RenderObjClass *robj, float a, float b, float c);	// 0x496110 (ro_funcs.cpp, cdecl): a model's highlight (1, 0.6, 0; 1, 1, 1 to reset)  // NAME 1 [robj, a, b, c]: neutral
@@ -124,7 +125,7 @@ public:
 
 	RefCountPtr<UISymbolChatClass> SymbolChatUI;			// +0xAC (FAIL_IF '!SymbolChatUI'; 0x594040 makes it, 0xAC bytes, 0x64A480)  // NAME 3: the FAIL_IF's
 	std::vector<UIGroupMemberClass *> Members;			// +0xB0 (constructed with a count of 0)  // NAME 3 [Members]: the asserts'
-	GadgetClass *Unknown0C0[9];							// +0xC0 the formation buttons (0x594040)
+	ButtonGadgetClass *Unknown0C0[9];							// +0xC0 the formation buttons (0x594040)
 	RefCountPtr<RenderObjClass> Unknown0E4;				// +0xE4 (0x597D10 hides it: slot +0x184)
 	UIGroupUnknownE8Class *Unknown0E8;					// +0xE8 (0x594040 news it; the destructor deletes it)
 	float Unknown0EC;									// +0xEC (0x598200: 15.0f or 0)
