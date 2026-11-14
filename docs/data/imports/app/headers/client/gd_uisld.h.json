@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "gd_uisld.cpp's class UISliderGadget, the windows' scroll bar (D24 header name from its __FILE__; the client holds no string of it); shared by ui_ptmis, ui_ptnew, ui_ptppl, ui_string_list"
+}
