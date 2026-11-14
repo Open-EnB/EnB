@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 220 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1929 |
-| 2 | describes what the code does | 4860 |
-| 1 | neutral placeholder | 25071 |
+| 3 | by convention from a client-named file or sibling | 1930 |
+| 2 | describes what the code does | 4863 |
+| 1 | neutral placeholder | 25081 |
 
 ## For review (score 3 and below)
 
@@ -21622,6 +21622,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `map` | `app/common/galaxy_map.h:347` | what it walks |
 | 1 | `std:` | `app/common/galaxy_map.h:353` | the position |
 | 1 | `Current` | `app/common/galaxy_map.h:354` | the entry at It, NULL at the end |
+| 1 | `result` | `app/common/game_action_validity.cpp:45` | neutral |
+| 1 | `std:` | `app/common/game_action_validity.cpp:55` | what it is |
+| 1 | `GameActionValidityNameStruct` | `app/common/game_action_validity.cpp:58` | what it is |
+| 1 | `GameActionValidityNames` | `app/common/game_action_validity.cpp:68` | what it is |
+| 1 | `list, found, it, i, entry` | `app/common/game_action_validity.cpp:100` | neutral |
+| 1 | `text, entry` | `app/common/game_action_validity.cpp:119` | neutral |
+| 1 | `flags, reason` | `app/common/game_action_validity.h:13` | what they hold |
+| 1 | `Is_Valid` | `app/common/game_action_validity.h:16` | what it tests |
+| 1 | `Flags` | `app/common/game_action_validity.h:20` | what it holds |
+| 1 | `std:` | `app/common/game_action_validity.h:21` | what it holds |
 | 1 | `Is_Valid_Guild_Rank` | `app/common/guild_defs.cpp:18` | what it does |
 | 1 | `NUM_GUILD_RANKS` | `app/common/guild_defs.h:29` | what they bound (no client string names them) |
 | 1 | `GuildStringStruct` | `app/common/guild_strings.cpp:8` | what it holds (no client string names it) |
@@ -27976,6 +27986,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `First` | `app/common/galaxy_map.h:349` | what it does |
 | 2 | `Reset` | `app/common/galaxy_map.h:350` | what it does |
 | 2 | `Map` | `app/common/galaxy_map.h:352` | what it walks |
+| 2 | `flag, name` | `app/common/game_action_validity.cpp:61` | what they hold |
+| 2 | `Flag` | `app/common/game_action_validity.cpp:63` | what it holds |
+| 2 | `std:` | `app/common/game_action_validity.cpp:64` | what it holds |
 | 2 | `Sound` | `app/common/guild_strings.cpp:9` | what it holds |
 | 2 | `Text` | `app/common/guild_strings.cpp:10` | what it holds |
 | 2 | `ItemEffectDescriptionClass` | `app/common/item_effect_description.h:30` | item_effect_description.cpp's 0x83E5F0 |
@@ -30993,6 +31006,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `std:` | `app/common/galaxy_map.h:296` | the asserts' |
 | 3 | `std:` | `app/common/galaxy_map.h:297` | the asserts' |
 | 3 | `MaxDataObjects` | `app/common/galaxy_map.h:298` | Add_Data's FAIL_IF '(int)id >= MaxDataObjects' |
+| 3 | `GameActionValidityClass` | `app/common/game_action_validity.h:9` | the client's 'GameActionValidityBitFlag' (Type_Name 0x83D270), whose bits Flags holds |
 | 3 | `guild_defs.h` | `app/common/guild_defs.h:17` | header name assumed from the client's guild_defs.cpp |
 | 3 | `guild_strings.h` | `app/common/guild_strings.h:16` | header name assumed from the client's guild_strings.cpp |
 | 3 | `interrupt_defs.h` | `app/common/interrupt_defs.h:17` | header name assumed from the client's interrupt_defs.cpp |

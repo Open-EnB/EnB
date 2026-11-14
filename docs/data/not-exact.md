@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-860 entries in 285 files.
+861 entries in 286 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -674,6 +674,7 @@ edit the comments in the code, not this file.
 | `app/common/galaxy_map.cpp:506` | `GalaxyMapGateIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x839740) |
 | `app/common/galaxy_map.cpp:540` | `GalaxyMapStarbaseIteratorClass::Next` | mention | NOT EXACT: the client recomputes &(*It).second after the end test, edi (VC6 keeps the node in edi; attempts.py show 0x8399D0) |
 | `app/common/galaxy_map.cpp:609` | `GalaxyMapStarbaseIteratorClass::First` | mention | NOT EXACT (the client recomputes the value's address after the end test). |
+| `app/common/game_action_validity.cpp:23` | `GameActionValidityClass operator|` | marker | NOT EXACT: inline-budget (the client's second assign leaves _Tidy and erase(0, 0) out of line; ours inlines _Tidy) |
 | `app/common/item_info.cpp:111` | `ItemInfoClass::ItemInfoClass` | marker | NOT EXACT: 0x83F490 (0.86, order-only: the same 39 instructions; the client takes EnumMapping's address before the count and fill of the memset, ours after) |
 | `app/common/item_info.cpp:123` | `ItemInfoClass::ItemInfoClass` | marker | NOT EXACT: 0x83F710 (0.88, order-only: the same 44 instructions, as 0x83F490) |
 | `app/common/item_info.cpp:530` | `ItemInfoClass::Apply_Delta` | marker | NOT EXACT: 0x8417B0 (0.78, the same 287 instructions but 4: the client keeps field_separator and takes field_separator + 1 into another register for the second substr) Replaces the fields by those of a delta string ('id:value' pieces between DeltaSeparator) |
