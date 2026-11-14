@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: skill_level_availability.h (name assumed from skill_level_availability.cpp): SkillLevelAvailabilityStruct (aux_roots.h's view) and, behind __SKILL_LEVEL_AVAILABILITY_ALL, ClassQualificationType's converters"
+}

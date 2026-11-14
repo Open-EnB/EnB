@@ -596,6 +596,13 @@ void UIGuildClass::Unknown_81C5E0(int rights, int unknown1, int unknown2, int un
 	Unknown_81BA60(true);
 }
 
+// 0x81C630 (sclient.cpp 0x751850: GUILD_RANK_NAMES_SECTOR 211's rank names; vector::operator= inline)
+void UIGuildClass::Unknown_81C630(std::vector<GuildRankNameStruct> &ranks)
+{
+	Unknown180 = ranks;
+	Unknown_81BA60(true);
+}
+
 // 0x81C930
 int UIGuildClass::Unknown_81C930(std::string rank)
 {

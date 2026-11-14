@@ -53,23 +53,23 @@ inline char *Unknown_Hex_String(char *buf, int size, const unsigned char *data, 
 	return buf;
 }
 
-// NAME 5: the client's Get_Type_Name string 'InterruptStateType' (KVPair vtable 0xB01B40, 0x7083B0 inline), leaf vtable 0xB009A8
-enum InterruptStateType { UNKNOWN_B009A8_0 };	// vtable 0xB009A8, 4 bytes
-inline const char *Type_Name(InterruptStateType *) { return "InterruptStateType"; }
-bool String_To_Value(const char *text, InterruptStateType *value);	// 0x83DA80
-char *Value_To_String(char *buf, int size, InterruptStateType value);	// 0x83D9E0
+#include "..\common\interrupt_defs.h"	// InterruptStateType (KVPair vtable 0xB01B40, leaf vtable 0xB009A8) and its converters 0x83D9E0 / 0x83DA80
+
+
+
+
 // NAME 1: the value type of the leaf vtable 0xB00A00 (no name in the client, Net-7 or C#)
 struct UnknownB00A00Type { float R; float G; float B; UnknownB00A00Type() {} UnknownB00A00Type(const UnknownB00A00Type &v) { R = v.R; G = v.G; B = v.B; } };	// vtable 0xB00A00, three floats (a colour), constructor empty
 inline bool operator!=(const UnknownB00A00Type &a, const UnknownB00A00Type &b) { return *(const int *)&a.R != *(const int *)&b.R || *(const int *)&a.G != *(const int *)&b.G || *(const int *)&a.B != *(const int *)&b.B; }
 inline const char *Type_Name(UnknownB00A00Type *) { return "UnknownB00A00Type"; }
 inline char *Value_To_String(char *buf, int size, const UnknownB00A00Type &value) { return Unknown_Hex_String(buf, size, (const unsigned char *)&value, sizeof(value)); }
 inline bool String_To_Value(const char *, UnknownB00A00Type *) { return false; }
-// NAME 5: the client's Get_Type_Name string 'GuildRankType' (KVPair vtable 0xB01AF4, 0x708240, Type_Name 0x83D8B0), leaf vtable 0xB00A58
-enum GuildRankType { UNKNOWN_B00A58_0 };	// vtable 0xB00A58, 4 bytes
-const char *Type_Name(GuildRankType value);	// 0x83D8B0 ('GuildRankType')
+#include "..\common\guild_defs.h"	// GuildRankType (KVPair vtable 0xB01AF4, leaf vtable 0xB00A58), its Type_Name 0x83D8B0 and converters 0x83D7D0 / 0x83D860
+
+
 template<> inline const char *KVPairTemplateClass<GuildRankType>::Get_Type_Name() const { return Type_Name(Value); }	// 0x708240
-bool String_To_Value(const char *text, GuildRankType *value);	// 0x83D7D0
-char *Value_To_String(char *buf, int size, GuildRankType value);	// 0x83D860
+
+
 // NAME 5: the client's Get_Type_Name string 'WW3DLightAttenuationType' (KVPair vtable 0xB01B78, 0x708520 inline), leaf vtable 0xB0100C
 enum WW3DLightAttenuationType { UNKNOWN_B0100C_0 };	// vtable 0xB0100C, 4 bytes
 inline const char *Type_Name(WW3DLightAttenuationType *) { return "WW3DLightAttenuationType"; }
@@ -145,12 +145,12 @@ enum UnknownB035E0Enum { UNKNOWN_B035E0_0 };	// vtable 0xB035E0, 4 bytes
 inline const char *Type_Name(UnknownB035E0Enum *) { return "UnknownB035E0Enum"; }
 inline char *Value_To_String(char *buf, int size, UnknownB035E0Enum value) { _snprintf(buf, size, "%d", (int)value); return buf; }
 inline bool String_To_Value(const char *text, UnknownB035E0Enum *value) { int v; if (sscanf(text, "%d", &v) != 1) return false; *value = (UnknownB035E0Enum)v; return true; }
-// NAME 5: the client's Get_Type_Name string 'SkillLevelAvailabilityStruct' (KVPair vtable 0xB03AB4, 0x759CE0 inline), leaf vtable 0xB03694
-struct SkillLevelAvailabilityStruct { int I00; int I04; int I08; int I0C; SkillLevelAvailabilityStruct() : I00(0), I04(0), I08(0), I0C(0) {} };	// vtable 0xB03694, 16 bytes, zeroed (0x757B00)
-inline bool operator!=(const SkillLevelAvailabilityStruct &a, const SkillLevelAvailabilityStruct &b) { return a.I00 != b.I00 || a.I04 != b.I04 || a.I08 != b.I08 || a.I0C != b.I0C; }
-inline const char *Type_Name(SkillLevelAvailabilityStruct *) { return "SkillLevelAvailabilityStruct"; }
-bool String_To_Value(const char *text, SkillLevelAvailabilityStruct *value);	// 0x84A600
-char *Value_To_String(char *buf, int size, const SkillLevelAvailabilityStruct &value);	// 0x84A560
+#include "..\common\skill_level_availability.h"	// SkillLevelAvailabilityStruct (KVPair vtable 0xB03AB4, leaf vtable 0xB03694) and its converters 0x84A560 / 0x84A600
+
+
+
+
+
 // NAME 5: the client's Get_Type_Name string 'FormationState' (KVPair 0x759E80 hands the saved value to Type_Name 0x835CF0; 0x759EA0 / 0x75A200 call 0x835D80 / 0x835D10), leaf vtable 0xB03970: the groups' 'Formation'
 #include "..\common\faction_and_reputation.h"	// FormationState and its three converters (4 bytes)
 template<> inline const char *KVPairTemplateClass<FormationState>::Get_Type_Name() const { return Type_Name(Value); }	// 0x759E80

@@ -19,7 +19,7 @@
 #include "..\shared\g_assert.h"
 
 extern FontManagerClass *Unknown_BE67C4;	// NAME 1: neutral (D10)
-extern const char *Unknown_BAE854[];		// 0xBAE854: the categories' names ('Devices', ...)  // NAME 1: neutral (D10)
+#include "..\common\itemtype.h"	// Unknown_BAE854 (0xBAE854): the categories' names ('Devices', ...)
 bool operator!=(const MoneyClass &a, const MoneyClass &b);	// money.cpp's (out of line, ??9@YA_NABVMoneyClass@@0@Z)  // NAME 1 [a, b]: neutral
 bool operator<(const MoneyClass &a, const MoneyClass &b);	// money.cpp's (out of line, ??M@YA_NABVMoneyClass@@0@Z)  // NAME 1 [a, b]: neutral
 MoneyClass operator*(const MoneyClass &a, float b);			// money.cpp's (out of line, ??D@YA?AVMoneyClass@@ABV0@M@Z)  // NAME 1 [a, b]: neutral

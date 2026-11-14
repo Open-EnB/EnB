@@ -1,0 +1,6 @@
+// 0x4E2040 best form (0.85): chat_filter.h gets this in-class helper in ChatFilterNodeClass:
+	ChatFilterNodeClass *Add_Child(char c, bool bad, bool good) { ChatFilterNodeClass *child = Find_Child(c); if (child == NULL) { child = new ChatFilterNodeClass; Children[c] = child; } if (bad) { child->Bad = bad; } if (good) { child->Good = good; } return(child); }	// 0x4E1F20  // NAME 2: finds or adds
+// and the constructor body is:
+//	Root = new ChatFilterNodeClass;
+//	Root->Add_Child(' ', false, true);
+// left: the client calls map's 2-argument constructor 0x4E2B20 for the second node; ours calls _Tree's 3-argument one

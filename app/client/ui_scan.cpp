@@ -630,13 +630,13 @@ void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
 // @0x60EC70
 void Unknown59E2C0Class::Unknown_60EC70(DurationClass time)
 {
-	Unknown28 = time;
+	StartTime = time;
 }
 
 // @0x60ECA0
 void Unknown59E2C0Class::Unknown_60ECA0(DurationClass time)
 {
-	Unknown30 = time;
+	ActivationTime = time;
 }
 #pragma auto_inline(on)
 

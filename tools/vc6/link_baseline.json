@@ -1,9 +1,7 @@
 {
  "clientpoc": [
-  "?Unknown_49F300@Unknown49F200Class@@QAE?AV?$vector@UBuddyRewardStruct@@V?$allocator@UBuddyRewardStruct@@@std@@@std@@HH@Z",
-  "?Unknown_553500@UICpitUnknownE0Class@@QAEXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@@Z",
-  "?Unknown_5537A0@UICpitUnknownE0Class@@QAEXV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@@Z",
-  "?Unknown_751850@SClient@@QAEXAAV?$vector@UGuildRankNameStruct@@V?$allocator@UGuildRankNameStruct@@@std@@@std@@@Z"
+  "?Unknown_49F300@Unknown49F200Class@@QAE?AV?$vector@UBuddyRewardStruct@@V?$allocator@UBuddyRewardStruct@@@std@@@std@@HH@Z"
  ],
- "clienttest": []
+ "clienttest": [],
+ "udpreplay": []
 }

@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: interrupt_defs.h (name assumed from interrupt_defs.cpp): InterruptStateType, its inline Type_Name and converters (aux_roots.h's view)"
+}

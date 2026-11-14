@@ -263,28 +263,28 @@ typedef SignalBaseClass::CallbackClass SClientCallbackBaseClass;	// NAME 1 [SCli
 typedef SignalBaseClass::MemberCallback<CameraModuleClass, SClient, void (SClient::*)(CameraModuleSignal *, CameraModuleClass *), CameraModuleSignal> SClientCallbackClass;	// NAME 1 [SClientCallbackClass]: neutral (D10)
 #include "cammod.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x73FEF0 (0x749590, 0x749A70, 0x749ED0): the text without its leading and trailing white space
+static std::string Unknown_73FEF0(const char *text) {
+	const char *end = text + strlen(text) - 1;
+	while (isspace(*text)) text++;
+	while (end > text && isspace(*end)) end--;
+	return(std::string(text, end + 1)); }
+// 0x740050 (0x749590, 0x749ED0): the text cut at the delimiters into at most max words, the last one the rest of it
+static void Unknown_740050(const char *text, const char *delimiters, unsigned max, std::vector<std::string> &words) {	// NAME 1 [Unknown_740050, words]: neutral (D10)
+	if (max == 0) return;
+	if (max == 1) { words.push_back(text); return; }
+	char *copy = nstrdup(text);
+	char *token = strtok(copy, delimiters);
+	while (token != NULL && max > 2) { words.push_back(token); token = strtok(NULL, delimiters); max--; }
+	if (token != NULL) {
+		words.push_back(token);
+		token = strtok(NULL, "");
+		if (token != NULL) words.push_back(token); }
+	delete [] copy; }
 // The font database Init asks: sclient.h's SClientFontDatabaseClass (fontdatabase.cpp's at 0xBE67BC; the options
 // at 0xBE8B38 are option.h's OptionClass::Instance)
 
-
+#define __CHATGADG_MEMBERS	// pkclientchat.h's 0x878D90: the tells' chat stream (0x749590, 0x749A70)
 
 
 
@@ -927,36 +927,36 @@ int SClient::Do_Frame(bool focused)
 
 
 
+// 0x743290 (cpacket.cpp: LOGOFF_CONFIRMATION 186; 0x74ABC0 after a quitting logoff): Do_Frame's answer by
+// the logoff Unknown138C asked (0x74BB50: 1 desktop, 2 login screen, 3 character selection)
+void SClient::Unknown_743290()
+{
+	switch (Unknown138C) {
+		case 0:
 
 
 
 
+			G_ASSERT(0);
+			break;
+		case 1:
+			Unknown12D4 = 3;
+			break;
+		case 2:
+			Unknown12D4 = 1;
+			break;
+		case 3:
+			Unknown12D4 = 2;
+			break;
 
 
 
+		default:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			G_ASSERT(0);
+			break;
+	}
+}
 
 
 
@@ -1353,7 +1353,7 @@ void SClient::Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-		((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, turn, tilt, move_direction, fixed_speed);
+		Unknown717010Class *state = (Unknown717010Class *)avatar->Unknown98; state->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, turn, tilt, move_direction, fixed_speed);
 	}
 }
 
@@ -1362,7 +1362,7 @@ void SClient::Unknown_745B20(bool level, bool auto_level)
 {
 	ClientObjectClass *avatar = Get_Avatar();
 	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-		((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, level, auto_level);
+		Unknown717010Class *state = (Unknown717010Class *)avatar->Unknown98; state->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, level, auto_level);
 	}
 }
 
@@ -1370,15 +1370,9 @@ void SClient::Unknown_745B20(bool level, bool auto_level)
 void SClient::Unknown_745B90(float turn)
 {
 	if (fabs(turn) < 0.0001f) {
-		ClientObjectClass *avatar = Get_Avatar();
-		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-			((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, true, false);
-		}
+		Unknown_745B20(true, false);
 	} else {
-		ClientObjectClass *avatar = Get_Avatar();
-		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-			((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, &turn, NULL, NULL, false);
-		}
+		Unknown_745AA0(&turn, NULL, NULL, false);
 	}
 }
 
@@ -1386,15 +1380,9 @@ void SClient::Unknown_745B90(float turn)
 void SClient::Unknown_745C70(float tilt)
 {
 	if (fabs(tilt) < 0.0001f) {
-		ClientObjectClass *avatar = Get_Avatar();
-		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-			((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, false, true);
-		}
+		Unknown_745B20(false, true);
 	} else {
-		ClientObjectClass *avatar = Get_Avatar();
-		if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-			((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, NULL, &tilt, NULL, false);
-		}
+		Unknown_745AA0(NULL, &tilt, NULL, false);
 	}
 }
 
@@ -1419,11 +1407,23 @@ void SClient::Unknown_745DD0()
 // 0x745E40
 void SClient::Unknown_745E40(int move_direction, bool fixed_speed)
 {
-	ClientObjectClass *avatar = Get_Avatar();
-	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-		((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, NULL, NULL, &move_direction, fixed_speed);
-	}
+	Unknown_745AA0(NULL, NULL, &move_direction, fixed_speed);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2360,6 +2360,187 @@ void SClient::Unknown_745F30(int type)
 }
 
 
+// The chat commands' tables (0xB98088, 0xB980F8, 0xB98138) and the client that shows the names under the mouse
+// (0xBE5F20, '/art name')
+static const char *ChatCommandHelp[] = {	// NAME 2: 0x745FF0's '/chat' help lines
+	"/chat", "/chat tell PERSON TEXT...", "/chat all TEXT", "/chat ignore PERSON", "/chat unignore PERSON", "/chat friend PERSON", "/chat unfriend PERSON",
+	"/chat list channels", "/chat list all_channels", "/chat list ignores", "/chat list friends", "/chat channel CHANNEL create ", "/chat channel CHANNEL remove ",
+	"/chat channel CHANNEL enter [PASSWORD]", "/chat channel CHANNEL exit ", "/chat channel CHANNEL say TEXT", "/chat channel CHANNEL invite PERSON",
+	"/chat channel CHANNEL uninvite PERSON", "/chat channel CHANNEL ban\tPERSON", "/chat channel CHANNEL unban PERSON", "/chat channel CHANNEL gag PERSON",
+	"/chat channel CHANNEL ungag PERSON", "/chat channel CHANNEL owner PERSON", "/chat channel CHANNEL unowner PERSON", "/chat channel CHANNEL access TYPE",
+	"/chat channel CHANNEL password PASSWORD", "/chat channel CHANNEL members", NULL };
+struct LogoffCommandStruct { const char *Name; bool Quit; };	// NAME 2: what 0x74ABC0 does with an entry
+static const LogoffCommandStruct LogoffCommands[] = { { "/logoff", false }, { "/log", false }, { "/quit", true }, { "", false } };	// NAME 2: what 0x74ABC0 sends for them
+static const char *CampCommands[] = { "/camp", NULL };	// NAME 2: the command 0x74ABC0 refuses
+
+// NOT EXACT: shape (explain.py: 51 masked rows, 1362 instructions against 1363): every block matches but the help lines' block, which VC6 places right after the 'help' test where the client keeps it after the request (je to it, jmp to the end); goto, a flag tested apart or first, the flag at the top: no better (attempts.py show 0x745FF0)
+// 0x745FF0 (0x74ABC0: '/chat ...'): the chat panel's own commands first, else one CLIENT_CHAT_REQUEST 163 (the
+// request type, the person, the channel and the text), or the help lines
+bool SClient::Unknown_745FF0(const char *text)
+{
+	if (ChatPanel && ChatPanel->Unknown_5638E0((int)text)) {
+		return(true);
+	}
+	bool ok = false;
+	char *copy = nstrdup(text);
+	char *token = strtok(copy, " ");
+	if (strcmp(token, ChatCommandHelp[0]) == 0) {
+		char *person = NULL;
+		char *channel = NULL;
+		char *message = NULL;
+		int type;
+		bool help = false;
+		token = strtok(NULL, " ");
+		if (token != NULL) {
+			if (strcmp(token, "channel") == 0) {
+				channel = strtok(NULL, " ");
+				if (channel != NULL && (token = strtok(NULL, " ")) != NULL) {
+					if (strcmp(token, "create") == 0) {
+						type = 4;
+						ok = true;
+					} else if (strcmp(token, "remove") == 0) {
+						type = 5;
+						ok = true;
+					} else if (strcmp(token, "enter") == 0) {
+						type = 6;
+						message = strtok(NULL, " ");
+						ok = true;
+					} else if (strcmp(token, "exit") == 0) {
+						type = 7;
+						ok = true;
+					} else if (strcmp(token, "say") == 0) {
+						type = 0;
+						message = strtok(NULL, "");
+						ok = message != NULL;
+					} else if (strcmp(token, "ban") == 0) {
+						type = 14;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "unban") == 0) {
+						type = 15;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "gag") == 0) {
+						type = 16;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "ungag") == 0) {
+						type = 17;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "invite") == 0) {
+						type = 12;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "uninvite") == 0) {
+						type = 13;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "kick") == 0) {
+						type = 20;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "members") == 0) {
+						type = 27;
+						ok = true;
+					} else if (strcmp(token, "access") == 0) {
+						type = 21;
+						message = strtok(NULL, " ");
+						ok = message != NULL;
+					} else if (strcmp(token, "owner") == 0) {
+						type = 18;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "unowner") == 0) {
+						type = 19;
+						person = strtok(NULL, " ");
+						ok = person != NULL;
+					} else if (strcmp(token, "password") == 0) {
+						type = 22;
+						message = strtok(NULL, " ");
+						ok = message != NULL;
+					}
+				}
+			} else if (strcmp(token, "tell") == 0) {
+				type = 1;
+				person = strtok(NULL, " ");
+				message = strtok(NULL, "");
+				if (person == NULL || message == NULL) {
+					ok = false;
+				} else {
+					ok = true;
+				}
+			} else if (strcmp(token, "all") == 0) {
+				type = 3;
+				message = strtok(NULL, "");
+				ok = message != NULL;
+			} else if (strcmp(token, "ignore") == 0) {
+				type = 10;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "unignore") == 0) {
+				type = 11;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "friend") == 0) {
+				type = 8;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "unfriend") == 0) {
+				type = 9;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "gmgag") == 0) {
+				type = 31;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "gmungag") == 0) {
+				type = 32;
+				person = strtok(NULL, "");
+				ok = person != NULL;
+			} else if (strcmp(token, "list") == 0) {
+				token = strtok(NULL, " ");
+				if (token != NULL) {
+					if (strcmp(token, "ignores") == 0) {
+						type = 23;
+						ok = true;
+					} else if (strcmp(token, "friends") == 0) {
+						type = 24;
+						ok = true;
+					} else if (strcmp(token, "channels") == 0) {
+						type = 25;
+						ok = true;
+					} else if (strcmp(token, "all_channels") == 0) {
+						type = 26;
+						ok = true;
+					}
+				}
+			} else if (strcmp(token, "help") == 0) {
+				help = true;
+			}
+			if (ok) {
+				int id = Unknown1138; ClientChatRequestPacketClass packet(type, id);
+				if (person != NULL) {
+					packet.Unknown14 = std::string(person);
+				}
+				if (channel != NULL) {
+					packet.Unknown24 = std::string(channel);
+				}
+				if (message != NULL) {
+					packet.Unknown34 = std::string(message);
+				}
+				Connection->Send_Packet(&packet);
+			} else if (help) {
+				for (int i = 1; i < sizeof(ChatCommandHelp) / sizeof(ChatCommandHelp[0]) - 1; i++) {
+					Unknown_74D990(0x17, (char *)ChatCommandHelp[i], 0);
+				}
+				ok = true;
+			}
+		}
+	}
+	delete [] copy;
+	return(ok);
+}
 
 
 
@@ -2499,6 +2680,50 @@ void SClient::Unknown_745F30(int type)
 
 
 
+extern unsigned int Unknown_BE71D4;	// 0xBE71D4 (postate.cpp: the state blend time; 0x7472A0's waggle)
+// 0x7472A0 (no caller: dead code kept): '/latency get send|recv' and '/latency set send|recv|waggle = N' on the
+// connection's option slot +0x30 (0, 1 read; 2, 3 set), the waggle into the state blend time 0xBE71D4
+bool SClient::Unknown_7472A0(const char *text)
+{
+	G_ASSERT(Connection);
+	if (Connection) {
+		unsigned value;
+		if (strcmp(text, "/latency get send") == 0) {
+			if (!Connection->Unknown_30(0, (int *)&value)) return(false);
+			char buffer[256];
+			sprintf(buffer, "Send latency = %u", value);
+			Unknown_74D990(0x17, buffer, 0);
+			return(true);
+		}
+		if (strcmp(text, "/latency get recv") == 0) {
+			if (!Connection->Unknown_30(1, (int *)&value)) return(false);
+			char buffer[256];
+			sprintf(buffer, "Receive latency = %u", value);
+			Unknown_74D990(0x17, buffer, 0);
+			return(true);
+		}
+		if (sscanf(text, "/latency set send = %u", &value) == 1) {
+			if (Connection->Unknown_30(2, (int *)&value)) {
+				Unknown_74D990(0x17, "ok", 0);
+				return(true);
+			}
+			return(false);
+		}
+		if (sscanf(text, "/latency set recv = %u", &value) == 1) {
+			if (Connection->Unknown_30(3, (int *)&value)) {
+				Unknown_74D990(0x17, "ok", 0);
+				return(true);
+			}
+			return(false);
+		}
+		if (sscanf(text, "/latency set waggle = %u", &value) == 1) {
+			Unknown_BE71D4 = value;
+			Unknown_74D990(0x17, "ok", 0);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
@@ -2521,9 +2746,88 @@ void SClient::Unknown_745F30(int type)
 
 
 
+// 0x747510 (0x74ABC0: '/group ...'): one ACTION each (10 invite, 11 accept, 12 refuse, 15 kick, 13 disband,
+// 14 remove), the invite and the kick on the main view's target
+bool SClient::Unknown_747510(const char *text)
+{
+	G_ASSERT(Connection);
+	if (Connection) {
+		if (strcmp(text, "/group invite") == 0) {
+			ClientObjectClass *target = MainView->Unknown_5C();
+			if (target) {
+				Connection->Send_Packet(&ActionPacketClass(AvatarID, 10, target->Get_Game_ID(), 0));
+				return(true);
+			}
+			Unknown_74D990(0x11, "Cannot invite - no target.", 0);
+			return(true);
+		}
+		if (strcmp(text, "/group accept") == 0) {
+			Connection->Send_Packet(&ActionPacketClass(AvatarID, 11, AvatarID, 0));
+			return(true);
+		}
+		if (strcmp(text, "/group refuse") == 0) {
+			Connection->Send_Packet(&ActionPacketClass(AvatarID, 12, AvatarID, 0));
+			return(true);
+		}
+		if (strcmp(text, "/group kick") == 0) {
+			ClientObjectClass *target = MainView->Unknown_5C();
+			if (target) {
+				Connection->Send_Packet(&ActionPacketClass(AvatarID, 15, target->Get_Game_ID(), 0));
+				return(true);
+			}
+			Unknown_74D990(0x11, "Target required.", 0);
+			return(true);
+		}
+		if (strcmp(text, "/group disband") == 0) {
+			Connection->Send_Packet(&ActionPacketClass(AvatarID, 13, AvatarID, 0));
+			return(true);
+		}
+		if (strcmp(text, "/group remove") == 0) {
+			Connection->Send_Packet(&ActionPacketClass(AvatarID, 14, AvatarID, 0));
+			return(true);
+		}
+		if (strcmp(text, "/group help") == 0) {
+			Unknown_74D990(6, "Usage: /group [invite | accept | refuse | disband | kick | help]", 0);
+			Unknown_74D990(6, "For commands that need an object to act on, the target is used.", 0);
+			return(true);
+		}
+	}
+	return(false);
+}
 
 
 
+// 0x747990 (0x74ABC0 inlines it: no call left): a logoff command at the line's start, the rest of the line the
+// reason, and whether it quits
+bool Unknown_747990(const char *text, std::string &reason, bool *quit)	// NAME 1 [Unknown_747990, reason, quit]: neutral (D10); what 0x74ABC0 does with them
+{
+	int len;
+	for (const LogoffCommandStruct *command = LogoffCommands; (len = strlen(command->Name)) != 0; command++) {
+		if (strnicmp(command->Name, text, len) == 0) {
+			const char *p = text + len;
+			while (*p == ' ') {
+				p++;
+			}
+			reason = p;
+			*quit = command->Quit;
+			return(true);
+		}
+	}
+	return(false);
+}
+// NOT EXACT: shape (explain.py: 2 rows): the client sets the packet's unwind state after pushing its address (lea eax), ours before (lea ecx); the temporary, copy-init, a block scope and a base reference: no better; 0x74ABC0's inlined copy shows the same
+// 0x747AF0 (0x74ABC0 inlines it: no call left): LOGOFF_REQUEST sent with Unknown138C = 1, then 0x743290's answer
+// when the command quits
+bool SClient::Unknown_747AF0(const std::string &reason, bool quit)
+{
+	Unknown138C = 1;
+	LogoffRequestPacketClass packet(Unknown1138);
+	Send_Packet(&packet);
+	if (quit) {
+		Unknown_743290();
+	}
+	return(true);
+}
 
 
 
@@ -2533,17 +2837,293 @@ void SClient::Unknown_745F30(int type)
 
 
 
+#include "..\packets\pktriggeremote.h"			// TriggerEmotePacketClass (TRIGGER_EMOTE 161): the emotes (0x747C70)
 
+// 0x747C70 (0x74ABC0): the emote commands, one TRIGGER_EMOTE each
+bool SClient::Unknown_747C70(const char *text)
+{
+	if (strncmp(text, "/wave", strlen("/wave")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 0));
+		return(true);
+	}
+	if (strncmp(text, "/loop", strlen("/loop")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 1));
+		return(true);
+	}
+	if (strncmp(text, "/dive", strlen("/dive")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 2));
+		return(true);
+	}
+	if (strncmp(text, "/roll", strlen("/roll")) == 0 || strncmp(text, "/rightroll", strlen("/rightroll")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 3));
+		return(true);
+	}
+	if (strncmp(text, "/leftroll", strlen("/leftroll")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 4));
+		return(true);
+	}
+	if (strncmp(text, "/spin", strlen("/spin")) == 0 || strncmp(text, "/rightspin", strlen("/rightspin")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 5));
+		return(true);
+	}
+	if (strncmp(text, "/leftspin", strlen("/leftspin")) == 0) {
+		Connection->Send_Packet(&TriggerEmotePacketClass(Get_Avatar_ID(), 6));
+		return(true);
+	}
+	return(false);
+}
 
 
 
 
 
 
+#include "..\shared\unknown_4a1590.h"			// Bounded_Strcpy (0x4A1590): the chat commands' copies (0x747FA0, 0x749020)
+// NOT EXACT: shape (explain.py: 119 calls vs 121): '/seecolor' with no type: VC6 cross-jumps its two usage lines into the invalid type's identical tail, the client keeps them (its copy pushes the 0s from eax / edi); 11 forms (attempts.py show 0x747FA0)
+// 0x747FA0 (0x74ABC0): '/resetcolor', '/setcolor <type> <red> <green> <blue>', '/seecolor <type>' over the chat
+// line colours (+0x13CC)
+bool SClient::Unknown_747FA0(const char *text)
+{
+	char buffer[256];
 
+	if (strncmp(text, "/resetcolor", 11) == 0) {
+		Unknown13CC.Unknown_765BE0();
+		Unknown13CC.Unknown_765540();
+		Unknown_74D990(0x13, "All text colors have been reset to default values.", 0);
+		return(true);
+	}
+	if (strncmp(text, "/setcolor", 9) == 0) {
+		Bounded_Strcpy(buffer, 256, text);
+		strtok(buffer, " \t");
+		char *type = strtok(NULL, " \t");
+		char *red_text = strtok(NULL, " \t");
+		char *green_text = strtok(NULL, " \t");
+		char *blue_text = strtok(NULL, " \t");
+		if (type != NULL && red_text != NULL && green_text != NULL && blue_text != NULL) {
+			float red = atof(red_text);
+			float green = atof(green_text);
+			float blue = atof(blue_text);
+			if (stricmp(type, "context") == 0) {
+				Unknown13CC.Unknown_765E40(0, Vector3(red, green, blue));
+				Unknown_74D990(0, "This is the new (In Context) color.", 1);
+			} else if (stricmp(type, "ooc") == 0) {
+				Unknown13CC.Unknown_765E40(1, Vector3(red, green, blue));
+				Unknown_74D990(1, "This is the new (Out of Context) color.", 1);
+			} else if (stricmp(type, "broadcast") == 0) {
+				Unknown13CC.Unknown_765E40(2, Vector3(red, green, blue));
+				Unknown_74D990(2, "This is the new Broadcast message color.", 1);
+			} else if (stricmp(type, "tell") == 0 || stricmp(type, "reply") == 0) {
+				Unknown13CC.Unknown_765E40(3, Vector3(red, green, blue));
+				Unknown_74D990(3, "This is the new tell & reply color.", 1);
+			} else if (stricmp(type, "group") == 0) {
+				Unknown13CC.Unknown_765E40(4, Vector3(red, green, blue));
+				Unknown_74D990(4, "This is the new group messaging color.", 1);
+			} else if (stricmp(type, "npc") == 0) {
+				Unknown13CC.Unknown_765E40(5, Vector3(red, green, blue));
+				Unknown_74D990(5, "This is the new (NPC) color.", 1);
+			} else if (stricmp(type, "tip") == 0) {
+				Unknown13CC.Unknown_765E40(6, Vector3(red, green, blue));
+				Unknown_74D990(6, "This is the new (Tip) color.", 1);
+			} else if (stricmp(type, "local") == 0) {
+				Unknown13CC.Unknown_765E40(7, Vector3(red, green, blue));
+				Unknown_74D990(7, "This is the new local messaging color.", 1);
+			} else if (stricmp(type, "guild") == 0) {
+				Unknown13CC.Unknown_765E40(8, Vector3(red, green, blue));
+				Unknown_74D990(8, "This is the new guild messaging color.", 1);
+			} else if (stricmp(type, "general") == 0) {
+				Unknown13CC.Unknown_765E40(9, Vector3(red, green, blue));
+				Unknown_74D990(9, "This is the new general channel messaging color.", 1);
+			} else if (stricmp(type, "ooc_channel") == 0) {
+				Unknown13CC.Unknown_765E40(10, Vector3(red, green, blue));
+				Unknown_74D990(10, "This is the new ooc channel messaging color.", 1);
+			} else if (stricmp(type, "new_player") == 0) {
+				Unknown13CC.Unknown_765E40(11, Vector3(red, green, blue));
+				Unknown_74D990(11, "This is the new player channel messaging color.", 1);
+			} else if (stricmp(type, "market") == 0) {
+				Unknown13CC.Unknown_765E40(12, Vector3(red, green, blue));
+				Unknown_74D990(12, "This is the new market channel messaging color.", 1);
+			} else if (stricmp(type, "private") == 0) {
+				Unknown13CC.Unknown_765E40(13, Vector3(red, green, blue));
+				Unknown_74D990(13, "This is the new private channel messaging color.", 1);
+			} else if (stricmp(type, "race") == 0) {
+				Unknown13CC.Unknown_765E40(14, Vector3(red, green, blue));
+				Unknown_74D990(14, "This is the new race channel messaging color.", 1);
+			} else if (stricmp(type, "class") == 0) {
+				Unknown13CC.Unknown_765E40(15, Vector3(red, green, blue));
+				Unknown_74D990(15, "This is the new class channel messaging color.", 1);
+			} else if (stricmp(type, "echo") == 0) {
+				Unknown13CC.Unknown_765E40(16, Vector3(red, green, blue));
+				Unknown_74D990(16, "This is the new (Echo) color.", 1);
+			} else if (stricmp(type, "error_context") == 0) {
+				Unknown13CC.Unknown_765E40(17, Vector3(red, green, blue));
+				Unknown_74D990(17, "This is the new (In Context Error) color.", 1);
+			} else if (stricmp(type, "error_ooc") == 0) {
+				Unknown13CC.Unknown_765E40(18, Vector3(red, green, blue));
+				Unknown_74D990(18, "This is the new (Out of Context Error) color.", 1);
+			} else if (stricmp(type, "error_system") == 0) {
+				Unknown13CC.Unknown_765E40(19, Vector3(red, green, blue));
+				Unknown_74D990(19, "This is the new (System Error) color.", 1);
+			} else if (stricmp(type, "combat") == 0) {
+				Unknown13CC.Unknown_765E40(20, Vector3(red, green, blue));
+				Unknown_74D990(20, "This is the new combat messaging color.", 1);
+			} else if (stricmp(type, "warning") == 0) {
+				Unknown13CC.Unknown_765E40(21, Vector3(red, green, blue));
+				Unknown_74D990(21, "This is the new warning color.", 1);
+			} else {
+				Unknown_74D990(6, "Invalid type specified. No text colors have changed.", 1);
+				Unknown_74D990(6, "Usage: /setcolor <type> <red> <green> <blue>", 0);
+				Unknown_74D990(6, "type = context, ooc, broadcast, tell, group, npc, tip, local, guild, general, ooc_channel, new_player, market, private, race, class, echo, error_context, error_ooc, error_system, combat, warning.", 0);
+				Unknown_74D990(6, "red, green & blue = numbers between 0.0 and 1.0.", 0);
+			}
+			Unknown13CC.Unknown_765540();
+			return(true);
+		}
+		Unknown_74D990(6, "Usage: /setcolor <type> <red> <green> <blue>", 0);
+		Unknown_74D990(6, "type = context, ooc, broadcast, tell, group, npc, tip, local, guild, general, ooc_channel, new_player, market, private, race, class, echo, error_context, error_ooc, error_system, combat, warning.", 0);
+		Unknown_74D990(6, "red, green & blue = numbers between 0.0 to 1.0.", 0);
+		return(true);
+	}
+	if (strncmp(text, "/seecolor", 9) == 0) {
+		Bounded_Strcpy(buffer, 256, text);
+		strtok(buffer, " \t");
+		char *type = strtok(NULL, " \t");
+		if (type == NULL) {
+			Unknown_74D990(6, "Usage: /seecolor <type>", 0);
+			Unknown_74D990(6, "type = context, ooc, broadcast, tell, group, npc, tip, local, guild, general, ooc_channel, new_player, market, private, race, class, echo, error_context, error_ooc, error_system, combat, warning.", 0);
+		} else if (stricmp(type, "context") == 0) {
+			Unknown_74D990(0, "This is the current (In Context) color.", 1);
+		} else if (stricmp(type, "ooc") == 0) {
+			Unknown_74D990(1, "This is the current (Out of Context) color.", 1);
+		} else if (stricmp(type, "broadcast") == 0) {
+			Unknown_74D990(2, "This is the current Broadcast message color.", 1);
+		} else if (stricmp(type, "tell") == 0 || stricmp(type, "reply") == 0) {
+			Unknown_74D990(3, "This is the current tell & reply color.", 1);
+		} else if (stricmp(type, "group") == 0) {
+			Unknown_74D990(4, "This is the current group messaging color.", 1);
+		} else if (stricmp(type, "npc") == 0) {
+			Unknown_74D990(5, "This is the current (NPC) color.", 1);
+		} else if (stricmp(type, "tip") == 0) {
+			Unknown_74D990(6, "This is the current (Tip) color.", 1);
+		} else if (stricmp(type, "local") == 0) {
+			Unknown_74D990(7, "This is the current local messaging color.", 1);
+		} else if (stricmp(type, "guild") == 0) {
+			Unknown_74D990(8, "This is the current guild messaging color.", 1);
+		} else if (stricmp(type, "general") == 0) {
+			Unknown_74D990(9, "This is the current general channel messaging color.", 1);
+		} else if (stricmp(type, "ooc_channel") == 0) {
+			Unknown_74D990(10, "This is the current ooc channel messaging color.", 1);
+		} else if (stricmp(type, "new_player") == 0) {
+			Unknown_74D990(11, "This is the current new player channel messaging color.", 1);
+		} else if (stricmp(type, "market") == 0) {
+			Unknown_74D990(12, "This is the current market channel messaging color.", 1);
+		} else if (stricmp(type, "private") == 0) {
+			Unknown_74D990(13, "This is the current private channel messaging color.", 1);
+		} else if (stricmp(type, "race") == 0) {
+			Unknown_74D990(14, "This is the current race channelmessaging color.", 1);
+		} else if (stricmp(type, "class") == 0) {
+			Unknown_74D990(15, "This is the current class channel messaging color.", 1);
+		} else if (stricmp(type, "echo") == 0) {
+			Unknown_74D990(16, "This is the current (Echo) color.", 1);
+		} else if (stricmp(type, "error_context") == 0) {
+			Unknown_74D990(17, "This is the current (In Context Error) color.", 1);
+		} else if (stricmp(type, "error_ooc") == 0) {
+			Unknown_74D990(18, "This is the current (Out of Context Error) color.", 1);
+		} else if (stricmp(type, "error_system") == 0) {
+			Unknown_74D990(19, "This is the current (System Error) color.", 1);
+		} else if (stricmp(type, "combat") == 0) {
+			Unknown_74D990(20, "This is the current combat messaging color.", 1);
+		} else if (stricmp(type, "warning") == 0) {
+			Unknown_74D990(21, "This is the current warning color.", 1);
+		} else {
+			Unknown_74D990(6, "Invalid type specified.", 1);
+			Unknown_74D990(6, "Usage: /seecolor <type>", 0);
+			Unknown_74D990(6, "type = context, ooc, broadcast, tell, group, npc, tip, local, guild, general, ooc_channel, new_player, market, private, race, class, echo, error_context, error_ooc, error_system, combat, warning.", 0);
+		}
+		return(true);
+	}
+	return(false);
+}
 
 
 
+// 0x749020 (0x74ABC0): '/resethud', '/sethud <type> <value>' over the gutter icons' options
+bool SClient::Unknown_749020(const char *text)
+{
+	if (strncmp(text, "/resethud", 9) == 0) {
+		Unknown_74D990(1, "Hud option values have been reset.", 0);
+		OptionClass::Instance->Find_Float("Gutter_Icon_Min_Distance")->Value = 1000.0f;
+		OptionClass::Instance->Find_Float("Gutter_Icon_Max_Distance")->Value = 6000.0f;
+		OptionClass::Instance->Find_Float("Gutter_Icon_Min_Scale")->Value = 0.5f;
+		return(true);
+	}
+	if (strncmp(text, "/sethud", 7) == 0) {
+		char buffer[256];
+		Bounded_Strcpy(buffer, 256, text);
+		strtok(buffer, " \t");
+		char *type = strtok(NULL, " \t");
+		char *value_text = strtok(NULL, " \t");
+		float close_dist = OptionClass::Instance->Get_Float("Gutter_Icon_Min_Distance");
+		float far_dist = OptionClass::Instance->Get_Float("Gutter_Icon_Max_Distance");
+		float min_scale = OptionClass::Instance->Get_Float("Gutter_Icon_Min_Scale");
+		if (type != NULL) {
+			if (value_text == NULL) {
+				if (stricmp(type, "closedist") == 0) {
+					Print(0x13, "Current HUD closedist value is %d.", (int)close_dist);
+					return(true);
+				}
+				if (stricmp(type, "fardist") == 0) {
+					Print(0x13, "Current HUD fardist value is %d.", (int)far_dist);
+					return(true);
+				}
+				if (stricmp(type, "minscale") == 0) {
+					Print(0x13, "Current HUD minscale value is %0.2f.", min_scale);
+					return(true);
+				}
+				Unknown_74D990(0x13, "Invalid type specified.", 1);
+			} else {
+				float value = atof(value_text);
+				if (stricmp(type, "closedist") == 0) {
+					if (value >= 100.0f && value <= 20000.0f) {
+						if (value >= far_dist) {
+							Print(0x13, "closedist must be less than fardist. Current fardist is %d.", (int)far_dist);
+							return(true);
+						}
+						Print(0x13, "HUD closedist value is now set at %d.", (int)value);
+						OptionClass::Instance->Find_Float("Gutter_Icon_Min_Distance")->Value = value;
+						return(true);
+					}
+					Unknown_74D990(0x13, "closedist value out of range.", 1);
+				} else if (stricmp(type, "fardist") == 0) {
+					if (value >= 100.0f && value <= 20000.0f) {
+						if (value <= close_dist) {
+							Print(0x13, "fardist must be more than closedist. Current closedist is %d", (int)close_dist);
+							return(true);
+						}
+						Print(0x13, "HUD fardist value is now set at %d.", (int)value);
+						OptionClass::Instance->Find_Float("Gutter_Icon_Max_Distance")->Value = value;
+						return(true);
+					}
+					Unknown_74D990(0x13, "fardist value out of range.", 1);
+				} else if (stricmp(type, "minscale") == 0) {
+					if (value >= 0.25f && value <= 1.0f) {
+						Print(0x13, "HUD minscale value is now set at %0.2f", value);
+						OptionClass::Instance->Find_Float("Gutter_Icon_Min_Scale")->Value = value;
+						return(true);
+					}
+					Unknown_74D990(0x13, "minscale value out of range.", 1);
+				} else {
+					Unknown_74D990(0x13, "Invalid type specified.", 1);
+				}
+			}
+		}
+		Unknown_74D990(6, "Usage: /sethud <type> <value>", 0);
+		Unknown_74D990(6, "type = closedist, fardist, minscale", 0);
+		Unknown_74D990(6, "value = between 100 & 20000 for closedist, fardist", 0);
+		Unknown_74D990(6, "value = between 0.25 & 1.0 for minscale", 0);
+		return(true);
+	}
+	return(false);
+}
 
 
 
@@ -2617,6 +3197,14 @@ void SClient::Unknown_745F30(int type)
 
 
 
+// The player's avatar object, as 0x74C7B0 for Get_Avatar_ID() through a const_iterator: inlined (0x749590, 0x749A70)
+static inline CharacterViewAvatarClass *Unknown_Player_Avatar(SClient *client, unsigned id) {	// NAME 2: what it does (the callers pass Get_Avatar_ID())
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::const_iterator it = client->Unknown1394.find(id);
+	if (it != client->Unknown1394.end() && (*it).second) {
+		CharacterViewAvatarClass *object = (*it).second->Unknown_77E3F0();
+		object->Unknown_780810(client->EnvironmentMapManager);
+		return(object); }
+	return(NULL); }
 
 
 
@@ -2654,12 +3242,91 @@ void SClient::Unknown_745F30(int type)
 
 
 
+// NOT EXACT: register (explain.py relocation through __FILE__, then register): 296 against 297 instructions, every call as the client's; `buffer + skip` and the EH state are scheduled after the vector's members, eax / ecx swapped around the packet's assigns and Send_Packet
+// 0x749590 (0x74ABC0): '/tell <player> <message>' ('/t'): the avatar's chat stream and the line to the server
+bool SClient::Unknown_749590(const char *text)
+{
+	int skip = 0;
+	if (strncmp(text, "/tell", 5) == 0) {
+		skip = 6;
+	} else if (strncmp(text, "/t", 2) == 0 && (strlen(text) == 2 || text[2] == ' ')) {
+		skip = 3;
+	}
+	if (skip == 0) return(false);
+	ChatPanelInterface *chat_panel = ChatPanel.Peek();
+	G_ASSERT(chat_panel);
+	char buffer[512];
+	Bounded_Strcpy(buffer, 512, text);
+	if ((int)strlen(buffer) <= skip) {
+		if (skip == 6) {
+			Unknown_74D990(6, "Usage: /tell <player> <message>.", 0);
+		} else {
+			Unknown_74D990(6, "Usage: /t <player> <message>.", 0);
+		}
+		return(true);
+	}
+	std::vector<std::string> words;
+	Unknown_740050(buffer + skip, " ", 2, words);
+	if (words.size() != 2) {
+		if (skip == 6) Unknown_74D990(6, "Usage: /tell <player> <message>.", 0);
+		else Unknown_74D990(6, "Usage: /t <player> <message>.", 0);
+		return(true);
+	}
+	std::string name = Unknown_73FEF0(words[0].c_str());
+	std::string message = Unknown_73FEF0(words[1].c_str());
+	CharacterViewAvatarClass *avatar = Unknown_Player_Avatar(this, Get_Avatar_ID());
+	if (avatar) {
+		avatar->Unknown_781760(message.c_str());
+		int id = Unknown1138; ClientChatRequestPacketClass packet(1, id);
+		packet.Unknown14 = name;
+		packet.Unknown_878D90(avatar->Unknown_7817E0());
+		packet.Unknown34 = message;
+		Send_Packet(&packet);
+		Print(0x10, "To %s: %s", name.c_str(), message.c_str());
+	}
+	chat_panel->Unknown_5658B0(name.c_str());
+	return(true);
+}
 
 
 
 
 
 
+// NOT EXACT: register-only (explain.py): 264 instructions as the client's; the client pushes ebp in the prologue (ours after the '/reply' test), eax / ecx swapped at 0x780810's argument and the assigns
+// 0x749A70 (0x74ABC0): '/reply <message>' ('/r'): as '/tell', to the chat panel's last sender (its Unknown1D8)
+bool SClient::Unknown_749A70(const char *text)
+{
+	int skip = 0;
+	if (strncmp(text, "/reply", 6) == 0) {
+		skip = 7;
+	} else if (strncmp(text, "/r", 2) == 0 && (strlen(text) == 2 || text[2] == ' ')) {
+		skip = 3;
+	}
+	if (skip == 0) return(false);
+	char buffer[512];
+	Bounded_Strcpy(buffer, 512, text);
+	if ((int)strlen(buffer) > skip) {
+		if (strcmp(ChatPanel->Unknown1D8.c_str(), "") == 0) {
+			Unknown_74D990(0x11, "Unable to reply - nothing to reply to.", 0);
+		} else {
+			CharacterViewAvatarClass *avatar = Unknown_Player_Avatar(this, Get_Avatar_ID());
+			if (avatar) {
+				char *message = buffer + skip;
+				avatar->Unknown_781760(message);
+				ClientChatRequestPacketClass packet(1, Unknown1138);
+				packet.Unknown14 = std::string(ChatPanel->Unknown1D8.c_str());
+				packet.Unknown_878D90(avatar->Unknown_7817E0());
+				packet.Unknown34 = std::string(message);
+				Send_Packet(&packet);
+				Print(0x10, "To %s: %s", ChatPanel->Unknown1D8.c_str(), message);
+			}
+		}
+	} else {
+		ChatPanel->Unknown_567540(1);
+	}
+	return(true);
+}
 
 
 
@@ -2667,750 +3334,83 @@ void SClient::Unknown_745F30(int type)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// NOT EXACT: inline budget (explain.py): 800 against 818 instructions, 69 calls against 71: the client inlines the "" channel's assign(const char *, n) and shares the channels' copy tail; ours calls it
+// 0x749ED0 (0x74ABC0): the channel lines '/gen /ooc /mkt /new /jen /ter /pro /exp /tra /war /sen /def /enf <message>'
+// (each when its 'Channel_*' option is on) and '/rad' (the chat panel's private channel)
+bool SClient::Unknown_749ED0(const char *text)
+{
+	OptionClass *options = OptionClass::Instance;
+	std::string channel = "";
+	if (strncmp(text, "/gen", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_General")) channel = "General";
+	} else if (strncmp(text, "/ooc", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_OOC")) channel = "OOC";
+	} else if (strncmp(text, "/mkt", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Market")) channel = "Market";
+	} else if (strncmp(text, "/new", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Newbie")) channel = "New Players";
+	} else if (strncmp(text, "/jen", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Jenquai")) channel = "Jenquai";
+	} else if (strncmp(text, "/ter", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Terran")) channel = "Terran";
+	} else if (strncmp(text, "/pro", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Progen")) channel = "Progen";
+	} else if (strncmp(text, "/exp", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Explorers")) channel = "Explorers";
+	} else if (strncmp(text, "/tra", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Traders")) channel = "Tradesmen";
+	} else if (strncmp(text, "/war", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Warriors")) channel = "Warriors";
+	} else if (strncmp(text, "/sen", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Sentinels")) channel = "Sentinels";
+	} else if (strncmp(text, "/def", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Defenders")) channel = "Defenders";
+	} else if (strncmp(text, "/enf", 4) == 0) {
+		if (text[4] != '\0' && text[4] != ' ') return(false);
+		if (options->Get_Bool("Channel_Enforcers")) channel = "Enforcers";
+	} else {
+		if (strncmp(text, "/rad", 4) != 0 || (text[4] != '\0' && text[4] != ' ')) return(false);
+		channel = ChatPanel->Unknown_5682C0();
+		if (channel.length() == 0) {
+			Unknown_74D990(0x11, "Not monitoring a private channel.", 0);
+			return(true);
+		}
+	}
+	if (channel.length() == 0) {
+		Unknown_74D990(0x11, "Not monitoring that channel.", 0);
+		return(true);
+	}
+	char buffer[512];
+	Bounded_Strcpy(buffer, 512, text);
+	std::vector<std::string> words;
+	Unknown_740050(buffer, " ", 2, words);
+	if (words.size() != 2) {
+		Unknown_74D990(0x11, "No message to send.", 0);
+		return(true);
+	}
+	std::string message = Unknown_73FEF0(words[1].c_str());
+	if (message.length() == 0) {
+		Unknown_74D990(0x11, "No message to send.", 0);
+		return(true);
+	}
+	ClientChatRequestPacketClass packet(0, Unknown1138);
+	packet.Unknown14 = channel;
+	packet.Unknown34 = message;
+	Send_Packet(&packet);
+	return(true);
+}
 
 
 
@@ -4146,50 +4146,50 @@ ClientObjectClass *SClient::Unknown_74BF80()
 	return(NULL);
 }
 
+#include "..\shared\auxdata\auxdata.h"			// Unknown_Find_Field: 0x74BFB0 (l.4183), 0x744560
+#include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
+#include "sbaseview.h"	// UIStarbaseClass, SBaseViewClass (0x74BFB0's Info, '/starbase reset', 0x74D950, the chat-event colour)
+#include "sbase_info.h"	// StarbaseInfoClass: the starbase view's Info (0x74BFB0)
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); return((t != NULL && t->Unknown70 != 0) ? t : NULL); }	// (cameraeffects.cpp's, ui_mfd.cpp's)  // NAME 1: neutral (D10)
+// NOT EXACT: inline budget (explain.py: 23 calls, the client 26): the client calls the const_iterator conversion 0x755BD0 twice, the first Unknown_Find_Field and the other three's Cast out of line, ours inlines them; 14 forms, the closest (21 rows) stashed (attempts.py show 0x74BFB0)
+// 0x74BFB0 (0x744690, after the listener: every frame): MusicManagerClass::Update's type, level, race and theme race, then the aux data's MusicID
+void SClient::Unknown_74BFB0()
+{
+	int type = 0;
+	int theme_race = 8;
+	if (ViewMode == 6) {
+		type = -1;
+	} else if (CameraManager && CameraManager->Unknown_79B630()) {
+		type = -1;
+	} else if (CameraManager && CameraManager->Unknown_79B650()) {
+		type = 4;
+	} else if (CurrentView && CurrentView == Unknown135C) {
+		type = 3;
+		SBaseViewClass *view = (SBaseViewClass *)Unknown135C;
+		if (view && view->Info) {
+			theme_race = view->Info->Style;
+			if (theme_race > 2) theme_race = 8;
+		}
+	} else if (ViewMode == 1 || ViewMode == 5) {
+		type = 2;
+	}
+	if (Unknown_74D730()) type = 1;
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::const_iterator it = Unknown1394.find(Get_Avatar_ID());
+	if (it == Unknown1394.end() || !(*it).second) return;
+	AvatarDescClass *desc = &(*it).second->Desc;
+	if (!desc) return;
+	int race = desc->Race;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	G_ASSERT(AuxData);
+	int level = Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.CombatLevel"))->Value;
+	level += Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.TradeLevel"))->Value;
+	level += Unknown_Find_Valid<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("RPGInfo.ExploreLevel"))->Value;
+	MusicManager->Update(type, level, race, theme_race);
+	DeltaTemplateClass<int> *music = Unknown_Find_Field<DeltaTemplateClass<int> >((DeltaCompoundClass *)AuxData, NameClass("MusicID"));
+	if (music && music->Unknown70 > 1) {
+		MusicManager->Play_Music(music->Value);
+	}
+}
 
 
 
@@ -4267,7 +4267,20 @@ void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
 	Unknown1394[game_id] = object;
 	if (AvatarID == (unsigned)game_id) Bridge->Set_Avatar(&object->Desc);
 }
-#pragma auto_inline(on)	// 0x74C690
+#pragma auto_inline(on)
+// 0x74C530 (cpacket.cpp: REMOVE 7 passes the GameID; ui_starbase): the id's avatar object removed, released and
+// taken out of +0x1394
+void SClient::Unknown_74C530(unsigned id)
+{
+	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it = Unknown1394.find(id);
+	if (it != Unknown1394.end() && (*it).second) {
+		CharacterViewAvatarClass *object = (*it).second;
+		object->Remove();
+		object->Release_Ref();
+		Unknown1394.erase(id);
+	}
+}
+// 0x74C690
 void SClient::Unknown_74C690()
 {
 	std::hash_map<unsigned, CharacterViewAvatarClass *>::iterator it;
@@ -4304,12 +4317,12 @@ CharacterViewAvatarClass *SClient::Unknown_74C840(unsigned id)
 	return(NULL);
 }
 
-// NOT EXACT: inline budget (explain.py frame, 31 masked rows): the client calls hash_map::find out of line (0x756820, the key in the argument slot) where ours inlines it, as itself or through 0x74C840; two forms
+// Exact with one dead read after the last return (D130, not the client's): it spends the budget that sends 0x74C840's nested hash_map::find out of line (0x756820, the key in the argument slot) as the client has it
 // 0x74C8D0 (0x74C840 for the named object's GameID)
 CharacterViewAvatarClass *SClient::Unknown_74C8D0(const char *name) {
 	ClientObjectClass *object = Find_Object(name);
 	if (object) return(Unknown_74C840(object->GameID));
-	return(NULL); }
+	return(NULL); Unknown1394.size(); }	// (dead, D130)
 
 // 0x74C960
 int *SClient::Unknown_74C960(unsigned id)
@@ -4332,19 +4345,6 @@ void SClient::Unknown_74C9D0(const RefCountPtr<UITalkTreeClass> &tree)
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -4473,8 +4473,8 @@ void Unknown_74CA90(const char *filename)
 	}
 }
 
-#include "..\shared\auxdata\auxdata.h"
-#include "aux_roots.h"				// (after auxdata.h: its Type_Name(int *) for kv_pair.h, C2665 without)
+
+
 #include "aux_roots_send.h"			// DeltaHullClass (0x7518A0)
 // 0x74D570 (the player is in a group: one of GroupInfo.Members' first five has a name)
 bool SClient::Unknown_74D570()
@@ -5422,28 +5422,28 @@ void SClient::Unknown_751660()
 }
 
 
+// 0x7517E0 (cpacket.cpp: GUILD_PLAYER_PERMISSIONS 210): the guild window's rank rights, when it is up and the
+// player is in space
+void SClient::Unknown_7517E0(int a, int b, int c, int d)
+{
+	if (ChatPanel) {
+		UIGuildClass *panel = ChatPanel->UnknownE0;
+		if (panel && panel->Active && Unknown_728300()) {
+			panel->Unknown_81C5E0(a, b, c, d);
+		}
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x751850 (cpacket.cpp: GUILD_RANK_NAMES_SECTOR 211): the guild window's rank names, as 0x7517E0
+void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks)
+{
+	if (ChatPanel) {
+		UIGuildClass *panel = ChatPanel->UnknownE0;
+		if (panel && panel->Active && Unknown_728300()) {
+			panel->Unknown_81C630(ranks);
+		}
+	}
+}
 
 
 
@@ -5484,6 +5484,28 @@ void SClient::Unknown_7555B0()
 	}
 }
 
+// the root to's state set from from's encoding (0x755600's two roots)
+template<class T> inline void Unknown_Copy_Root(T *to, T *from)	// NAME 1: neutral (D10)
+{
+	LinearBufferClass buf(0x400, 0x400);
+	DurationClass base(0);
+	from->Unknown_0C(buf);
+	buf.Seek(0);
+	to->Unknown_10(buf, base);
+	to->Unknown_1C();
+}
+
+// 0x755600 (0x745750: SERVER_HANDOFF 58): the roots back to their defaults: a new root's encoding decoded into each
+void SClient::Unknown_755600()
+{
+	DeltaPlayerClass *player = new DeltaPlayerClass;
+	Unknown_Copy_Root(AuxData, player);
+	delete player;
+	DeltaHullClass *hull = new DeltaHullClass(AvatarID);
+	Unknown_Copy_Root((DeltaHullClass *)PlayerVarAuxData[0], hull);
+	delete hull;
+}
+
 
 
 
@@ -5499,24 +5521,24 @@ void SClient::Unknown_7555B0()
 
 #include "..\packets\pkmessagestring.h"
 #include "..\packets\pkincapacitancerequest.h"
-#include "sbaseview.h"	// UIStarbaseClass, SBaseViewClass ('/starbase reset', 0x74D950, the chat-event colour)
 
 
 
 
 
-// The chat commands' tables (0xB98088, 0xB980F8, 0xB98138) and the client that shows the names under the mouse
-// (0xBE5F20, '/art name')
-static const char *ChatCommandHelp[] = {	// NAME 2: 0x745FF0's '/chat' help lines
-	"/chat", "/chat tell PERSON TEXT...", "/chat all TEXT", "/chat ignore PERSON", "/chat unignore PERSON", "/chat friend PERSON", "/chat unfriend PERSON",
-	"/chat list channels", "/chat list all_channels", "/chat list ignores", "/chat list friends", "/chat channel CHANNEL create ", "/chat channel CHANNEL remove ",
-	"/chat channel CHANNEL enter [PASSWORD]", "/chat channel CHANNEL exit ", "/chat channel CHANNEL say TEXT", "/chat channel CHANNEL invite PERSON",
-	"/chat channel CHANNEL uninvite PERSON", "/chat channel CHANNEL ban\tPERSON", "/chat channel CHANNEL unban PERSON", "/chat channel CHANNEL gag PERSON",
-	"/chat channel CHANNEL ungag PERSON", "/chat channel CHANNEL owner PERSON", "/chat channel CHANNEL unowner PERSON", "/chat channel CHANNEL access TYPE",
-	"/chat channel CHANNEL password PASSWORD", "/chat channel CHANNEL members", NULL };
-struct LogoffCommandStruct { const char *Name; bool Quit; };	// NAME 2: what 0x74ABC0 does with an entry
-static const LogoffCommandStruct LogoffCommands[] = { { "/logoff", false }, { "/log", false }, { "/quit", true }, { "", false } };	// NAME 2: what 0x74ABC0 sends for them
-static const char *CampCommands[] = { "/camp", NULL };	// NAME 2: the command 0x74ABC0 refuses
+
+
+
+
+
+
+
+
+
+
+
+
+
 SClient *Unknown_BE5F20;	// NAME 1: neutral (D10)
 
 // NOT EXACT: shape (explain.py: 606 instructions, the client 640, 127 masked rows; 69 calls, the client 70): VC6 merges the two beacon sends' tails here, the client keeps both; the logoff packet a named local, '/fps' enable first and the dialog read once moved nothing; two rounds
@@ -5533,24 +5555,24 @@ bool SClient::Unknown_34(const char *text)
 		return(true);
 	}
 	std::string reason;
-	int len;
-	for (const LogoffCommandStruct *command = LogoffCommands; (len = strlen(command->Name)) != 0; command++) {
-		if (strnicmp(command->Name, text, len) == 0) {
-			const char *p = text + len;
-			while (*p == ' ') {
-				p++;
-			}
-			reason = p;
-			bool quit = command->Quit;
-			Unknown138C = 1;
-			LogoffRequestPacketClass packet(Unknown1138);
-			Send_Packet(&packet);
-			if (quit) {
-				Unknown_743290();
-			}
-			return(true);
-		}
+	bool quit;
+	if (Unknown_747990(text, reason, &quit)) {
+		Unknown_747AF0(reason, quit);
+		return(true);
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 	if (strnicmp(text, CampCommands[0], 4) == 0) {
 		MessageStringPacketClass message(0x11, "Unable to camp - insufficient marshmallows.");
 		message.Process_Packet(this);
@@ -5796,6 +5818,51 @@ void SClient::Unknown_64()
 		SectorSound->Update(Unknown10BC, z);
 	}
 	SoundLibraryClass::Update();
+}
+
+#include "..\packets\pkstarbasetow.h"	// StarbaseRequestPacketClass (0x8A2D70): 0x74B680, 0x74BA30
+// 0x74B680 (cpacket.cpp: starbase tow 80 and STARBASE_SET 79's entry, request false): the avatar stopped (0x745E40,
+// 0x745B90, 0x745C70 inline), the starbase's sector (0x750A70 inline) and its view made current; request: the
+// STARBASE_REQUEST for it (action 0) unless one is up
+void SClient::Unknown_74B680(bool request, int starbase_id)
+{
+	if (request) {
+		if (!Unknown1324) {
+			int id = Unknown1138;
+			Send_Packet(&StarbaseRequestPacketClass(id, 0, starbase_id));
+		}
+	} else if (!Unknown135C) {
+		Unknown_745E40(0, false);
+		Unknown_745B90(0.0f);
+		Unknown_745C70(0.0f);
+		Unknown1324 = starbase_id;
+		Unknown_750A70(starbase_id);
+		Unknown135C = new SBaseViewClass(Task, Unknown1324);
+		Unknown135C->Unknown_04();
+		Unknown135C->Unknown_08();
+		Unknown_745F30(4);
+	}
+}
+
+// 0x74BA30 (cpacket.cpp: STARBASE_SET 79's exit; sbaseview.cpp's leave button, request true): the starbase view shut
+// and deleted, the view mode to mode; request: the loading view up and STARBASE_REQUEST action 1 for the starbase
+void SClient::Unknown_74BA30(bool request, int starbase_id, int mode)
+{
+	if (request) {
+		if (Unknown1324) {
+			if (LoadingView) {
+				LoadingView->Unknown_692160();
+			}
+			int id = Unknown1138;
+			Send_Packet(&StarbaseRequestPacketClass(id, 1, Unknown1324));
+		}
+	} else if (Unknown135C && starbase_id == Unknown1324) {
+		Unknown_745F30(mode);
+		Unknown135C->Unknown_10();
+		delete Unknown135C;
+		Unknown135C = NULL;
+		Unknown1324 = 0;
+	}
 }
 
 /*

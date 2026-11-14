@@ -2478,7 +2478,7 @@ class UIChatPanelUnknownF890Class; class UIChatPanelUnknownF8Class : public Inte
 #include "..\packets\pkmessagechatstream.h"
 #include "..\packets\pktrade.h"
 // ui_groupfind.cpp's interface (what +0xA8 of the chat panel's +0xF8 interface's slot +0x90 result points to), as far as FIND_MEMBER 83 calls it
-class UIGroupFindClass { public: void Unknown_59A400(FindMemberPacketClass *packet); char Unknown00[0x7C]; bool Unknown7C; };	// NAME 3: class-from-file (D24) for app\client\ui_groupfind.cpp  // NAME 1 [packet]: the handler's packet
+#include "ui_groupfind.h"	// UIGroupFindClass (ui_groupfind.cpp's list window: FIND_MEMBER 83 calls its 0x59A400 while it is active)
 class UIChatPanelUnknownF890Class { public: char Unknown00[0xA8]; UIGroupFindClass *UnknownA8; };	// NAME 1: neutral (D10): the chat panel's +0xF8 interface's slot +0x90 result
 
 
@@ -2819,7 +2819,7 @@ bool FindMemberPacketClass::Process_Packet(void *instance)
 	if (panel == NULL || panel->Get_UnknownF8() == NULL) return(true);
 	UIChatPanelUnknownF890Class *find = ((UIChatPanelUnknownF8Class *)panel->Get_UnknownF8().Peek())->Unknown_90();
 	if (!find) return(true);
-	if (find->UnknownA8 && find->UnknownA8->Unknown7C) {
+	if (find->UnknownA8 && find->UnknownA8->Is_Active()) {
 		find->UnknownA8->Unknown_59A400(this);
 	}
 	return(true);
@@ -2931,8 +2931,8 @@ bool ClientChatListPacketClass::Process_Packet(void *instance)
 
 
 
-// chat_defs.cpp (app\common): the text of a chat error code into a buffer
-void Unknown_830AA0(char *buffer, int size, int code);	// NAME 1 [buffer, size, code]: what CLIENT_CHAT_ERROR 166 passes
+// chat_defs.cpp (app\common): the text of a chat error code into a buffer (Value_To_String 0x830AA0)
+#include "..\common\chat_defs.h"
 
 // 0x73D170
 bool ClientChatErrorPacketClass::Process_Packet(void *instance)
@@ -2950,7 +2950,7 @@ bool ClientChatErrorPacketClass::Process_Packet(void *instance)
 	buffer[0] = 0;
 	_snprintf(buffer, sizeof(buffer), "");
 	if (Unknown0C) {
-		Unknown_830AA0(error, sizeof(error), Unknown0C);
+		Value_To_String(error, sizeof(error), (ChatErrorType)Unknown0C);
 		switch (Unknown10) {
 			case 2:
 				if (!stricmp(error, "is_gagged")) {
@@ -3297,7 +3297,7 @@ bool GuildRecruitConfirmSectorPacket::Process_Packet(void *instance)
 	return(true);
 }
 #include "..\shared\symbol_substitution.h"
-const char *Unknown_83D900(int message_type); const char *Unknown_83D970(int message_type);	// guild_strings.cpp (app\common): a guild message's text (with $OtherName$ / $GuildName$ symbols) and its sound, by type  // NAME 1 [message_type]: guild_strings.cpp's FAIL_IF 'message_type < GMSG_INVALID'
+#include "..\common\guild_strings.h"	// Unknown_83D900 / Unknown_83D970 (0x83D900 / 0x83D970): a guild message's text and sound, by type
 
 // 0x73E9E0
 bool GuildMessageSectorPacket::Process_Packet(void *instance)

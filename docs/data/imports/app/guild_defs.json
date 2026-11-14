@@ -1,0 +1,17 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: guild_defs.cpp (__FILE__ 0xBA9AB8), 0x83D7D0-0x83D8EF: GuildRankType's String_To_Value / Value_To_String (FAIL_IFs l.23/45) and Type_Name, the guarded <string> initialiser",
+ "expected": {},
+ "in_tree": [
+  "0x83D7D0",
+  "0x83D860",
+  "0x83D8B0",
+  "0x83D8D0"
+ ],
+ "merged": [],
+ "name": "common/guild_defs.cpp",
+ "short_known": [
+  "0x83D8B0"
+ ]
+}

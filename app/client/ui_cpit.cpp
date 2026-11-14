@@ -21,7 +21,7 @@
 #include "control_keys_manager.h"
 #include "fontmanager.h"	// FontSys, FontManagerClass (0xBE67C4) and fontdatabase.h's FontStringFilesClass (0xBE67BC)
 #include "ui_power.h"		// UIPowerClass (+0xD0)
-
+#include "ui_cpit_inv.h"	// UICpitInvClass (+0xC8 / +0xCC)
 
 
 
@@ -298,10 +298,10 @@ void UICpitClass::Unknown_54()
 	gadget->Unknown_65FFC0(-1, Unknown0AC);
 	Unknown64.Unknown_6870E0(gadget, 0x4D, View, 1, 0);
 	SClient *sclient = (SClient *)((ClientClass *)Client)->As_Space_Client();
-	HulkUI = new UICpitUnknownC8Class(this, sclient, 2);
+	HulkUI = new UICpitInvClass(this, sclient, 2);
 	HulkUI->Unknown_54();
 	HulkUI->Unknown_7C(View, 0);
-	Unknown0CC = new UICpitUnknownC8Class(this, sclient, 4);
+	Unknown0CC = new UICpitInvClass(this, sclient, 4);
 	Unknown0CC->Unknown_54();
 	Unknown0CC->Unknown_7C(View, 0);
 	Scan = new UIScanClass(View->As_Main_View(), &Layer);
@@ -312,7 +312,7 @@ void UICpitClass::Unknown_54()
 	UnknownDC->Unknown_5417D0(this);
 	UnknownDC->Unknown_54();
 	View->Unknown_6B4940(UnknownDC);
-	Unknown0E0 = Create_NEW(new UICpitUnknownE0Class(sclient));
+	Unknown0E0 = Create_NEW(new UIAvatarDialogClass(sclient));
 	Unknown0E0->Unknown_54();
 	Unknown0E0->Unknown_7C(View, 0);
 

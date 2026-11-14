@@ -34,8 +34,7 @@ protected:
 	RefCountPtr<DynamicWindowHorizontalClass> Subtitles;									// +0x6C (0x53A2F0's 'SUBTITLE_..._IEI00' texts)  // NAME 1 [Subtitles]: what it holds
 };
 
-std::string Unknown_7EA190(int id);														// 0x7EA190 (an icon's texture name by id; the title asks for 100)  // NAME 1: neutral (D10); NAME 1 [id]: neutral
+#include "manufacturing_category_ui_util.h"	// Unknown_7EA190 0x7EA190 (an icon's texture name by id; the title asks for 100), Unknown_7EB4D0 0x7EB4D0 (an item type's name)
 #include "..\shared\damtype.h"	// Unknown_49E210 0x49E210 (a damage type's name)
-std::string Unknown_7EB4D0(int type);												// 0x7EB4D0 (an item type's name)  // NAME 1: neutral (D10); NAME 1 [type]: neutral
 
 #endif

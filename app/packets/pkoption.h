@@ -22,6 +22,7 @@
 class OptionPacketClass : public PacketClass  // NAME 2: Net-7's opcode name OPTION (the Net-7 opcode table; no structure check)
 {
 public:
+	OptionPacketClass(int game_id, int option_type, bool option_var);	// 0x89F490 (ui_groupopt.cpp: the avatar's id, the option, its value)  // NAME 3 [game_id, option_type, option_var]: the Print text's members
 	OptionPacketClass(RawPacketClass *raw);	// 0x89F510
 	virtual RawPacketClass *Build();	// +0x04 0x89F5D0
 	virtual bool Process_Packet(void *client);	// +0x08 0x868AC0 (clientstub.cpp l.272)

@@ -1,0 +1,28 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: the client's manufacturing_category_ui_util.cpp per its asserts' __FILE__ (G_ASSERT(0) at lines 36, 60, 115, 130, 154, 209); object 0x7E9B20-0x7EC3D0 between the guarded <string> ids initialisers 0x7E9AF0 and 0x7EC3B0; six std::string switches over the manufacturing category ids (icons and names)",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42D050",
+  "0x7E9B20",
+  "0x7E9CB0",
+  "0x7EAE30",
+  "0x7EAFE0"
+ ],
+ "merged": [],
+ "name": "client/manufacturing_category_ui_util.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42D050"
+ ]
+}

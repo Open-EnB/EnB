@@ -45,10 +45,6 @@ void RadarSystemClass::Unknown_7BCA70(GutterRadarClass *, StarmapPipClass *arg, 
 
 // ------------------------------------------------------------------------- SClient's methods the handlers call (sclient.cpp, not rebuilt)
 
-void SClient::Unknown_743290() { Trace("stub SClient::Unknown_743290"); }
-void SClient::Unknown_74C530(unsigned id) { Trace("stub SClient::Unknown_74C530 %u", id); }
-void SClient::Unknown_74B680(int a, int starbase_id) { Trace("stub SClient::Unknown_74B680 %d %d", a, starbase_id); }
-void SClient::Unknown_74BA30(int a, int starbase_id, int mode) { Trace("stub SClient::Unknown_74BA30 %d %d %d", a, starbase_id, mode); }
 // SClient's chat line 0x74D990 is sclient.cpp's real one: its call of the chat panel's 0x563760 (the line with its
 // type's prefix) comes here, renamed in sclient.cpp's object only (clienttest.py build; ui_chat_panel.obj keeps its own)
 // MESSAGE_TIME's and NOTE_CONTENT's lines carry the local time: the trace keeps the text up to it
@@ -75,8 +71,6 @@ void ChatPanelInterface::Clienttest_Unknown_563760(int type, const std::string &
 // (the chat colour 0x765DF0 SClient 0x750F70 reads is rebuilt: app/client/unknown_764fd0.cpp, GS1)
 // gen_stubs cannot return a class by value (P-T18-2): the referral rewards SClient 0x751460 sums
 std::vector<BuddyRewardStruct> Unknown49F200Class::Unknown_49F300(int points_spent, int points) { Trace("stub Unknown49F200Class::Unknown_49F300 %d %d", points_spent, points); return(std::vector<BuddyRewardStruct>()); }
-void SClient::Unknown_7517E0(int a, int b, int c, int d) { Trace("stub SClient::Unknown_7517E0 %d %d %d %d", a, b, c, d); }
-void SClient::Unknown_751850(std::vector<GuildRankNameStruct> &ranks) { Trace("stub SClient::Unknown_751850 %d ranks", (int)ranks.size()); }
 
 // SClient's slots declared only (sclient.h): never called by the tests
 

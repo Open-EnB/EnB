@@ -332,7 +332,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | A duplicated WWPROFILE destructor test at a branch's end | An early `return` in that branch; a guarded reporter matches only as `if(!cond) return` | land |
 | The client leaves a loop by a jump to the single return | A `goto` to the single return | `Get_Log_Directory` |
 | `jb top` against `jae exit; jmp top` | A for loop gives `jb top`; `jae exit; jmp top` is a do-while behind a count test | the array templates |
-| A pump loop duplicated / rotated | `while (true)` where ours had `for (;;)` | tcpconn.cpp |
+| A pump loop duplicated / rotated | `while (true)` where ours had `for (;;)`; a loop with a mid-body break rotates as `for (;;)`, not as `while (true)` | tcpconn.cpp |
 | A near jcc where a short one fits in an "if NULL create; Add_Ref; return" getter | Return inside the creating branch too | proj_man 0x492290 |
 | A strtok path walk with one strtok call at the loop top | `while (name) { next = strtok(NULL, sep); if (!next) { last step; break; } ...; name = next; }` | rs_track |
 | `push_back` keeps 0 in a register and calls insert out of line | `push_back(T(x))`; three field stores into a named local don't | |
@@ -527,6 +527,17 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 * **A dead read inside the callee sends the callee out of line** (ui_inv.cpp, UIInvClass::Unknown_5A0740's
   helper): the dead-read rule of §3.1.1 also acts inside the callee, not only after the call site.
+* **A file-local `static` the client keeps as a function but every caller inlines is never emitted:** the object
+  then lacks the function. Give it external linkage.
+* **Inline inside inline:** one caller calls a function out of line where another inlines it when the first caller
+  inlines an intermediate helper that holds the call (one inline level deeper, VC6 keeps it out of line): rebuild
+  that intermediate as its own inline function. A wrapper the client inlines can be closed by rewriting it as a
+  layer over its siblings; an out-of-line `map::find` inside an inlined `Find_Child` comes only from calling
+  `Find_Child` itself; call the client's own helper functions (an rtti `Cast`) so nested calls stay out of line.
+* **A destructor's inlined helper whose callees all go out of line:** write `Clear(); X.Invalidate(...)` (the inline
+  after the call site spends the budget); an SGI `const_iterator` conversion the client calls out of line needs an
+  inline layer, a file-static helper holding the find and its test. Landing a member body can make a same-file
+  caller inline it: re-check the callers after the landing.
 
 **Register-only, order-only** (two attempts, then the stop rule)
 
@@ -621,6 +632,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   up-front locals did not change it in the open cases (htmlview Draw_Item 0x7767A0, Value_To_String 0x84C470,
   Play_Audio 0x806BD0), against the table row "declare locals at first use": prove a lever on a test
   function first.
+* **A member read loaded between a table load and its test:** needs a named local, or the register order differs.
 
 **Shape: returns, tails, loops, switches**
 
@@ -714,6 +726,12 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A shared `return true` exit** (the client's single `mov al,1` the early returns reach): write the early
   returns as the literal `true` and use a result variable from the transfer's first return on
   (UIInvClass::Unknown_5A0740, 0.68 to 0.74; a register-only residue remains). Its placement is the lever.
+* **A `virtual bool` override with no `return` at all:** is error C4716; a missing return on one path only is
+  warning C4715 and eax keeps what it had (the client's form). `return ++global` is mov / inc / mov / ret; `if (p)
+  f(p, 0); else f(NULL, 0);` keeps the client's branch; a `jle` loop is `i <= N`.
+* **Twin loops and merged tails:** twin loops reuse one count variable, and a counter the client spills after the
+  loop wants the count kept in a second variable; per-branch locals (own buffer each) stop cross-jumping; a separate
+  `result < 0` per sort branch gives the merged tails.
 
 **Frame and stack slots**
 
@@ -741,6 +759,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   into the argument's slot; `char pad[n]` after a bool packs at alignment 1 (use int arrays); a `Vector2 uv[4]`
   array gives an `and esp,-8` ebp frame, four locals the esp frame; `IntersectionResultClass` declared before
   the block avoids the array ctor, inside the block it emits `??_H`.
+* **A frame 4 bytes larger with a named local and a `new` temp in separate slots:** split the function into inline
+  helpers each with its own buffer; `char[1025]` with 1024 passed also gives a one-dword-larger frame.
 
 **Constructors, destructors, vtables**
 
@@ -790,6 +810,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 
 * **An extra vtable-pointer store in a destructor the client keeps bare:** a declared empty destructor stores
   the vtable pointer (gd_scut_proxy.cpp); a bit-field read needs a `(bool)` cast.
+* **Zero-fills:** `memset` of 0x10-0x14 bytes is unrolled stores, 0x20 bytes `rep stosd`; a `rep stosd` after the
+  vtable stores is the member-array memset.
 
 **Field offset, layout**
 
@@ -815,6 +837,8 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   asserts read unqualified (`_AllSkills`) gives other registers in its users and a plain global loses the
   guarded atexit stubs; only a class static member gives both (look for it in parked files whose statics are
   `_Xxx`).
+* **`explain.py` says relocation for a function whose `__FILE__` text sits in an aux header (auxdata.h):** the real
+  class can be inline-budget; compare the call counts (23 against 26) before chasing names.
 
 **Literal, floats**
 
@@ -907,6 +931,9 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **File-scope `const float` operand order** (gd_gauge.cpp, gd_pip_scene.cpp, gd_proxy.cpp): where a
   file-scope const stands in the expression decides the instruction's operand order; try it in both positions
   before reaching for the named function-static form above.
+* **Float calls:** `atan(x)` compiles to `fld1; fpatan`, `atan2(x, 1.0)` loads a double; `Min(Max(x, 0), C)` reloads
+  x; `fabs()` on a float kept as a double local gives `fst qword`; `(e + e) * 0.95f` gives `fadd st0,st0`; an inline
+  accessor for a member next to a known constant (`Get_Avatar_ID()`) gives `push 0`.
 
 **Reading the client**
 
@@ -1248,6 +1275,9 @@ are in 3.0.
 * **`wt.py bring-over NAME` without `--target`** lands on the main tree's branch when that is `run/*` and refuses
   on any other; in a run still pass `--target run/<date>`.
 * **`ledger.py describe` takes the plain path:** `describe app shared/damtype.h`, not `headers/shared/damtype.h` (that writes a doubled `headers/headers/` shard; Tools item: make describe strip it).
+* **A `ledger.py describe` while a verify waits:** makes that verify exit 1; describe before or after a verify, not
+  while one waits. A file-static helper byte-exact in objmatch stays uncredited by verify when same-bytes copies
+  live outside the file's range (progress.md §4 Tools).
 * **A background verify's output lags:** its "waiting" lines can be minutes stale even with PYTHONUNBUFFERED: read `importer.py lock-status` instead.
 * **Library flags (D12):** library-matching.md §3.5 (wwshade `/GX /Ob1`, the other EA libraries `/Ob2` without
   `/GX`, app `/GX`, D23). Signs of wrong flags: EH prologs (`push -1; push handler; mov eax, fs:[0]`) only in the
@@ -1499,6 +1529,9 @@ are in 3.0.
   not re-tested). In a worktree it needs `--pool`. A match takes ~1 min per form under lock contention. It reads
   stdin (`< /dev/null` in loops; reported). Its definition regex reads `static void (Name)(` as a function named
   `void` (harmless).
+* **appfile.py markers:** a marker on the blank line above an `extern` attaches to the extern, not to the function
+  below; a function followed by the 32-byte `$E` initialiser takes a PREFIX (verify credits both); `attempts.py
+  record --forms` takes a count.
 * **appfile.py includes:** `-I auto` is the default; an explicit `-I` list without `auto` sends no headers to
   the VM, so a VM holding an old copy fails with C1083: add `-I auto` to the list. A header's relative includes
   resolve from the including file. Where a client/ draft may sit (conflicting reports, unresolved): in
@@ -1974,6 +2007,11 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * A file's table can start at the pooled "not used" string (0xB85C38) and be indexed by id; a wrong table
   start showed only as one load-order swap.
 
+#### callback_manager.cpp / timer_manager.cpp
+
+* VC6 guards the atexit destructor of a plain class static too, so a guarded initialiser points to a template
+  static, not to a plain class one.
+
 #### chat windows (cht01..cht05, ui_chat_panel.h)
 
 * ClientChatRequestPacketClass: request 6 (join) has the text and "" in Unknown24 / Unknown34, 21 'none' in
@@ -2225,6 +2263,11 @@ are alphabetical; add a note under its file's heading (merge with what is there)
   result. Adding 0x5513E0-0x551C80 made 0x550A10 inline a third Rotate_Y, and 0x551BF0's form flips with
   0x551520's body.
 
+#### ui_avatar_dialog.cpp
+
+* A `std::string` member initialiser is inlined only when the +0x1C member is read through `Peek_Mesh_Object()`; a
+  direct field read calls it.
+
 #### ui_class.cpp
 
 * The float-field key event `ControlKeyComboStruct(0x1B, 0)` cuts 0x646360's zero count; GadgetSlider's Value
@@ -2240,10 +2283,23 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 
 * In the family a factory's RefCountPtr result passed on wants a named local (bullet in §3.3.2).
 
+#### ui_hot_keys.cpp
+
+* Key-name lists passed to `Add_Keys` / `Remove_Keys` all as implicit `const char *` give the client's assign split.
+  `(float)i64 / (float)i64` is `fidiv`; the client's two `fild qword` and `fdivp` are `(double)` casts. A toggle
+  with flag-dependent arguments: if / else with constants per call (passing `!flag` gives `sete`).
+
 #### ui_mfd.cpp
 
 * Worth trying the "find out of line, Get_Value inline" codeless-layer form (target_reticle.cpp 0x7C5690) on
   0x5BDED0 / 0x5BE120.
+
+#### ui_pterm.cpp / pt_data.h
+
+* VC6 inlines a member defined later in the same .cpp: a tiny function the client calls out of line lives in another
+  object (unknown_5de6e0.cpp). Read `Layer.Scene` directly (`Peek_Scene` is out of line); reset a shared pointer to
+  NULL inside the `if (p)` block; a ternary computed before a `new` is a local; a switch with shared break / return
+  compiles to a compare chain, a `return(true)` per case gives the jump table.
 
 #### ui_registration.cpp (msxml, D222)
 

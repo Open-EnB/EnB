@@ -1,0 +1,12 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: interrupt_defs.cpp (__FILE__ 0xBAE148), 0x83D9E0-0x83DAD9: InterruptStateType's names 0xBAE0B8 and converters (FAIL_IFs l.24/28/32/41)",
+ "expected": {},
+ "in_tree": [
+  "0x83D9E0",
+  "0x83DA80"
+ ],
+ "merged": [],
+ "name": "common/interrupt_defs.cpp"
+}

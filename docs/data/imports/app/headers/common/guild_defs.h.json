@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: guild_defs.h (name assumed from guild_defs.cpp): GuildRankType and its converters (aux_roots.h's view; the rank bounds behind __GUILD_DEFS_ALL)"
+}

@@ -16,7 +16,7 @@
 #include "..\shared\enbassetmgr.h"
 
 void Unknown_496AE0(RenderObjClass *robj, bool make_geometry_unique);	// 0x496AE0 (avatar.cpp's declaration)
-const char *Unknown_843440(int mount_type);	// 0x843440: a mount's type as text  // NAME 1: neutral (D10); NAME 1 [mount_type]: what it is given
+#include "..\common\itemtype.h"	// Unknown_843440 (0x843440): a mount's type as text
 
 // The line from a button to its mount point (0xF4 bytes, constructor 0x6DF890; line2d.h's neighbourhood)
 class Unknown6DF890Class	// NAME 1: neutral (D10)

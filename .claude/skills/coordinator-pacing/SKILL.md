@@ -200,12 +200,16 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   landing's retune leaves tools/re/auxroots.py dirty and wt.py's regen_and_commit refuses ("regenerating changed other
   files as well"). Repair: `wt.py rebase ID`, commit in the branch the pad that holds on the run head, land. Briefs
   should forbid committing a pad, or say this.
-- **The first landing on an unmoved run head must carry its pad:** bring-over's fast-forward path (target still at the
-  branch's base) checks the branch's committed ledger record before any retune, so a branch whose header change needs a
-  new pad and that left the pad uncommitted is refused "lost outright". Have that builder commit the pad
-  (`tools/vc6/sendpad.py --watch-from <base>`: a plain sweep takes its watch set from HEAD's ledger, which already
-  recorded the loss, and picks a wrong value), or land a pad-neutral branch first. Every later branch leaves the pad
-  uncommitted and the landing retunes it.
+- **A pad-only loss in a branch's committed ledger record is refused at the record check, whether or not the target
+  moved:** bring-over reads the committed record before any retune (the fast-forward path, target still at the base,
+  and a moved target alike), so a branch whose header change needs a new pad is refused "lost outright" and a pad
+  commit alone does not fix it (the record still says lost). Remedy: `wt.py rebase ID`, then if the three pad
+  addresses are still lost `tools/vc6/sendpad.py --watch-from HEAD` (a plain sweep takes its watch set from HEAD's
+  ledger, which already recorded the loss, and picks a wrong value), then verify and commit the shards. Or land a
+  pad-neutral branch first. Every later branch leaves the pad uncommitted and the landing retunes it.
+- **A verify that reports "0 client functions" is a tool failure, never a loss:** a bring-over that then reports
+  thousands lost outright compared against an empty app. The cause was app's `cl` command line passing Windows'
+  32767-character limit (664 sources); `tools/vc6/vc6.py` now uses a response file over 8000 characters.
 - **The importer lock is the limit on parallel builders, not memory:** since D238 it is first-come among waiters with the
   new code (tools/vc6/lockq.py tickets; `importer.py lock-status`; a ticket untouched for 120 s loses its place). A
   worktree made before a lock change has the old code, waits without a ticket and starves behind the queue: rebase it, or copy the lock files in uncommitted and restore them before its report. A waiting

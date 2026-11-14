@@ -82,26 +82,26 @@ class UIPowerClass;	// ui_power.h's power gauges (+0xD0, constructor 0x5DBFC0)
 
 
 
-// The hulk (+0xC8) and harvest (+0xCC) windows (0xE4 bytes, constructor 0x5850E0 with 2 / 4; their file is unknown)
-class UICpitUnknownC8Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	UICpitUnknownC8Class(UICpitClass *cpit, SClient *sclient, int type);	// 0x5850E0  // NAME 1 [cpit, sclient, type]: what the set-up passes
-	char Unknown84[0xE4 - 0x84];						// +0x84
-};
+// The hulk (+0xC8) and harvest (+0xCC) windows (0xE4 bytes, constructor 0x5850E0 with 2 / 4): ui_cpit_inv.h's (O15)
+class UICpitInvClass;
 
-// What +0xE0 holds (0x1B4 bytes, constructor 0x551FB0; its file is unknown): the incapacitance question
-class UICpitUnknownE0Class : public InterfaceClass	// NAME 1: neutral (D10)
-{
-public:
-	UICpitUnknownE0Class(SClient *sclient);			// 0x551FB0  // NAME 1 [sclient]: what the set-up passes
-	char Unknown84[0x1B4 - 0x84];						// +0x84
-	void Unknown_552FC0(AvatarDescClass *desc);			// 0x552FC0 (0x584690: the packet's Desc)  // NAME 1 [desc]: what 0x584690 passes
-	void Unknown_553370(std::string text);				// 0x553370 (0x584690: the packet's +0x128, by value)  // NAME 1 [text]: neutral
-	void Unknown_553500(std::vector<std::string> lines);	// 0x553500 (0x584690: the packet's +0x138 .. +0x158, by value)  // NAME 1 [lines]: neutral
-	void Unknown_5537A0(std::vector<std::string> lines);	// 0x5537A0 (0x584690: the packet's +0x168 .. +0x188, by value)  // NAME 1 [lines]: neutral
-	int Unknown_553A40();								// 0x553A40: the answer once it closes (-1 none, 0 / 1: slot +0x60's Packet_008FClass / distress beacon)
-};
+
+
+
+
+
+#include "ui_avatar_dialog.h"	// UIAvatarDialogClass: what +0xE0 holds (0x1B4 bytes, constructor 0x551FB0; the incapacitance question)
+
+
+
+
+
+
+
+
+
+
+
 
 class UIScutClass;
 #include "ui_scut.h"		// ui_scut.cpp's shortcut bars (the cockpit's +0xDC; moved to ui_scut.h, SC2)
@@ -155,7 +155,7 @@ public:
 	UIScanClass *Scan;									// +0xD4 (0x1B0 bytes, 0x60D800; the main view's 0x5136A0 returns it, 0x513630 calls 0x60E540 on it)  // NAME 3: its file's (ui_scan.cpp)
 	int Unknown0D8;										// +0xD8
 	UIScutClass *UnknownDC;								// +0xDC (0xB8 bytes, 0x610570; the main view's 0x514400 returns it)
-	RefCountPtr<UICpitUnknownE0Class> Unknown0E0;				// +0xE0 (0x1B4 bytes, 0x551FB0)
+	RefCountPtr<UIAvatarDialogClass> Unknown0E0;				// +0xE0 (0x1B4 bytes, 0x551FB0)
 	bool Unknown0E4;									// +0xE4 (0x584A20 clears it)
 	int Unknown0E8;										// +0xE8
 	char Unknown0EC[0xF4 - 0xEC];						// +0xEC

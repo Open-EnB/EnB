@@ -11,16 +11,7 @@
 #include "..\..\stubs\stub_log.h"
 #include "..\..\app\client\sclient.h"
 
-// ---------------------------------------------------------------- ui_hotkeys.cpp (0x59C6F0, table 0xAF20D0): 0x84 bytes, no members
-class UIHotKeysClass : public InterfaceClass
-{
-public:
-	UIHotKeysClass(SClient *client);
-};
-UIHotKeysClass::UIHotKeysClass(SClient *client) : InterfaceClass((LineDisplayClientClass *)client)
-{
-	STUB_CALLED("POC UIHotKeysClass: an empty InterfaceClass");
-}
+// ui_hot_keys.cpp's window (0x59C6F0) is real app code since O15 (ui_hot_keys.h): its stand-in left here.
 
 // pdaint.cpp's PDA is real app code since PD1 (pdaint.cpp); its windows' stand-ins are in poc_world3.cpp.
 
@@ -63,18 +54,7 @@ CameraEffectsClass::CameraEffectsClass(MainViewClass *view, SClient *client)
 // orbitalmanager.cpp (0x4F28A0-0x4F51C0) is real app code since WE4: its stand-in left here.
 
 // debrsint.cpp (0x53D250-0x53E968) and frameint.cpp (0x53E970-0x53F338) are real app code since O5: their stand-ins left here.
-// debris.cpp's DebrisFieldClass (0x6B8F20, not in the tree): a field that draws nothing, so the debris interface's
-// fields are real objects (the gen stand-in constructor would leave a garbage table for Add / Remove / Release_Ref)
-DebrisFieldClass::DebrisFieldClass(float spacing, float size, float min_dist, float max_dist, float r, float g, float b, float a, bool additive, TextureClass *texture, float fade_in, float fade_out, int primitive, unsigned rows_columns_log2, float blur_time) :
-	Spacing(spacing), Size(size), MinDist(min_dist), MaxDist(max_dist), Color(r, g, b), Alpha(a), FadeIn(fade_in), FadeOut(fade_out), UnknownB4(10000), Additive(additive), UnknownBC(2), UnknownC0(0), UnknownC4(0), UnknownC8(1.0f), BlurTime(blur_time)
-{
-	STUB_CALLED("POC DebrisFieldClass: a debris field that draws nothing");
-}
-RenderObjClass *DebrisFieldClass::Clone(void) const { return(NULL); }
-void DebrisFieldClass::Render(RenderInfoClass &rinfo) {}
-int DebrisFieldClass::Unknown_6BB440() { return(0); }
-void DebrisFieldClass::Unknown_6BB470() {}
-void DebrisFieldClass::Unknown_6BB640(const Vector3 &offset) {}
+// debris.cpp (0x6B8F20-0x6BB740) is real app code since O4: its stand-in left here.
 
 // ui_mesh.cpp (0x5B8120-0x5BA4C0) is real app code since UM1: its stand-in left here.
 #include "..\..\ww3d2\assetmgr.h"
@@ -85,16 +65,8 @@ void DebrisFieldClass::Unknown_6BB640(const Vector3 &offset) {}
 
 // ---------------------------------------------------------------- the cockpit's parts with no class in the tree (ui_cpit.h, ui_cpit.cpp's views)
 #include "..\..\app\client\unknown_671300.h"
-UICpitUnknownC8Class::UICpitUnknownC8Class(UICpitClass *cpit, SClient *sclient, int type) : InterfaceClass((LineDisplayClientClass *)sclient)
-{
-	STUB_CALLED("POC UICpitUnknownC8Class: an empty window");
-	memset(Unknown84, 0, sizeof(Unknown84));
-}
-UICpitUnknownE0Class::UICpitUnknownE0Class(SClient *sclient) : InterfaceClass((LineDisplayClientClass *)sclient)
-{
-	STUB_CALLED("POC UICpitUnknownE0Class: an empty window");
-	memset(Unknown84, 0, sizeof(Unknown84));
-}
+// (the hulk and harvest windows, 0x5850E0, are rebuilt: app/client/ui_cpit_inv.cpp, O15)
+// (the cockpit's +0xE0, UIAvatarDialogClass 0x551FB0, is rebuilt: app/client/ui_avatar_dialog.cpp, O2)
 class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); virtual bool Unknown_30(float x, float y); char Unknown30[0x49 - 0x30]; bool Unknown49; char Unknown4A[0x5C - 0x4A]; };
 UICpitGadget6B56AClass::UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view) : GadgetClass(0xFF)
 {

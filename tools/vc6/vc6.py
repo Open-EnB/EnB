@@ -257,7 +257,17 @@ def _compile(srcs, incs, defines, flags, out, setup=()):
     objdir = f'{WORK}\\obj_{stamp}'
     cmd = [flags] + [f'/I "{f}"' for f, _ in incs] + [f'/D "{d}"' for d in defines]
     cmd += [f'/Fo"{objdir}\\\\"'] + [f'"{f}"' for f, _ in srcs]
-    p = run_bat(list(setup) + [f'mkdir "{objdir}"', 'cl ' + ' '.join(cmd),
+    cl = 'cl ' + ' '.join(cmd)
+    if len(cl) > 8000:
+        # past cmd.exe's 8191-character line and CreateProcess's 32767 (app's 664 sources made 32786:
+        # "The system cannot execute the specified program", no objects, 0 pairs): a response file
+        rsp = f'cl_{stamp}.rsp'
+        local = os.path.join(os.environ.get('TEMP', '.'), 'enb_vc6_' + rsp)
+        open(local, 'w', newline='').write('\r\n'.join(cmd) + '\r\n')
+        ensure_work()
+        scp(local, remote(WORK + '\\' + rsp))
+        cl = f'cl @"{WORK}\\{rsp}"'
+    p = run_bat(list(setup) + [f'mkdir "{objdir}"', cl,
                  f'cd /d "{objdir}" && tar -cf ..\\obj_{stamp}.tar *.obj 2>nul'])
     os.makedirs(out, exist_ok=True)
     local = os.path.join(out, 'objs.tar')

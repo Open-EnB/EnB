@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED: guild_strings.h (name assumed from guild_strings.cpp): GMSG_INVALID / GMSG_MAX (FAIL_IF texts) and the text / sound lookups"
+}
