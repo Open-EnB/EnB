@@ -42,7 +42,7 @@ Matrix3D Unknown_82ECB0(const Vector3 &direction, const Vector3 &position);	// 0
 
 #include "eff_robj.h"
 // (eff_robj.h: RObjLookAtEffectClass, 0x6EFC70, the effect of 0x6EA5E0, and RObjEffectClass, 0x6EEEA0, the effect of 0x6EA830)
-class Unknown6F25A0EffectClass : public EffectObjectClass { public: Unknown6F25A0EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *robj); virtual void Unknown_24(int next); char Unknown80[0xE0 - 0x80]; };	// NAME 1: neutral (D10); 0x6F25A0, the effect of 0x6EAA40 (its file after eff_seek.cpp) (not rebuilt)  // NAME 1 [client .. robj, next]: what the helper passes
+#include "eff_warp.h"	// WarpEffectClass, 0x6F25A0, the effect of 0x6EAA40 (eff_warp.cpp by a provisional name, D137)
 class Unknown6E4750EffectClass : public EffectObjectClass { public: Unknown6E4750EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, const RefCountPtr<RenderObjClass> &robj, const char *bone_prefix); virtual void Unknown_24(int next); char Unknown80[0xF4 - 0x80]; };	// NAME 1: neutral (D10); 0x6E4750, eff_attach.cpp's effect of 0x6EC570 (not rebuilt)  // NAME 1 [client .. bone_prefix, next]: what the helper passes
 class Unknown6ECC50EffectClass : public EffectObjectClass { public: Unknown6ECC50EffectClass(ClientClass *client, unsigned id, unsigned start_time, unsigned duration, unsigned cycle_time, RenderObjClass *emitter, float min_lifetime); virtual void Unknown_24(int next); char Unknown80[0xF0 - 0x80]; };	// NAME 1: neutral (D10); 0x6ECC50, eff_particlejet.cpp's effect of 0x6EC950 (not rebuilt)  // NAME 1 [client .. min_lifetime, next]: what the helper passes
 #include "eff_line.h"
@@ -1298,7 +1298,7 @@ EffectObjectClass *Unknown_6EAA40(INIClass *ini, const char *section, unsigned i
 	if (reset_mappers) {
 		Unknown_496AE0(robj, 0);
 	}
-	Unknown6F25A0EffectClass *effect = new Unknown6F25A0EffectClass(client, id, start_time, duration, cycle_time, robj);
+	WarpEffectClass *effect = new WarpEffectClass(client, id, start_time, duration, cycle_time, robj);
 	effect->Set_Flag(0x200, scale_to_radius);
 	effect->Set_Flag(0x400, in_front_of_object);
 	effect->Set_Flag(0x800, face_camera);

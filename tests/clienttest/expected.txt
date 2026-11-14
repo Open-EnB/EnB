@@ -1782,7 +1782,6 @@ asset manager +0x78 'eff_wrp01': not loaded
 asset manager Load_3D_Assets 'eff_wrp01.w3d'
 asset manager +0x78 'eff_wrp01' scale 1 hsv (0 0 0) -> model 1006
 model 1006 Set_Transform (0, 0, 0)
-stub Unknown6F25A0EffectClass 48901090
 stub UnknownAF0DD0Class::Unknown_73FDB0 (0x73FDB0)
 stub UnknownB02C90Class::Unknown_725AD0
 mainview 7C

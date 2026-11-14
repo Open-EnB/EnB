@@ -1,7 +1,5 @@
 {
- "ambiguous": [
-  "0x42B2F0"
- ],
+ "ambiguous": [],
  "copy": "reconstructed",
  "description": "RECONSTRUCTED from the client: e:\\build\\beta\\G\\app\\Client\\eff_seek.cpp (the __FILE__ 0xB939E4; G_ASSERT l.39 / 40, FAIL_IF l.56 / 200 / 204 / 308 / 312 / 316), client 0x6F0580-0x6F1F08 after eff_rs's static 0x6F0550, its two Random3Class statics' initialisers 0x6F0FB0 / 0x6F1740 inside",
  "expected": {},
@@ -27,6 +25,7 @@
   "0x6F0C70",
   "0x6F0CA0",
   "0x6F0CC0",
+  "0x6F0FB0",
   "0x6F0FD0",
   "0x6F11D0",
   "0x6F1200",
@@ -34,6 +33,7 @@
   "0x6F12F0",
   "0x6F1320",
   "0x6F1590",
+  "0x6F1740",
   "0x6F1760",
   "0x6F1970",
   "0x6F19A0",
@@ -52,7 +52,8 @@
   "0x6F23F0",
   "0x6F2490",
   "0x6F2500",
-  "0x6F2530"
+  "0x6F2530",
+  "0x6F2570"
  ],
  "merged": [],
  "name": "client/eff_seek.cpp",
