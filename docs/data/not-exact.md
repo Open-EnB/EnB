@@ -203,6 +203,8 @@ edit the comments in the code, not this file.
 | `app/client/gd_text_editor.cpp:162` | `TextEditorGadgetClass::Set_Render_Obj` | marker | NOT EXACT: registers (client this esi, it ebp, line edi with a home at +0x24; here ebx, edi, esi) and the slots of first and height swapped @0x671CB0 |
 | `app/client/gd_text_editor.cpp:560` | `TextEditorGadgetClass::Unknown_6732F0` | marker | NOT EXACT: ebx and ebp swapped (length / line), one fcomp scheduled after the column's copy @0x6732F0 |
 | `app/client/gd_text_editor.cpp:612` | `TextEditorGadgetClass::Unknown_6735A0` | marker | NOT EXACT: registers (the client hoists the load of Client between the test and the branch; x and y in edx and ecx) @0x6735A0 |
+| `app/client/gd_uisld.cpp:87` | `UISliderGadget::Unknown_6755E0` | marker | NOT EXACT: 0x6755E0 order: the client works out pull_box.Extent * 2 * extra before (bar - pull) * 2 (every form tried factors or swaps them) |
+| `app/client/gd_uisld.cpp:354` | `UISliderGadget::Unknown_675F00` | marker | NOT EXACT: 0x675F00 order: the client loads Length * 0.5f before IsHorizontal |
 | `app/client/gutter_data.cpp:119` | `GutterDataClass::Update_Guild_Label` | marker | NOT EXACT: tail merge and register (the client keeps the first Set_Color's first stores and jumps to the third; this in esi, ours edi) @0x7B54E0 |
 | `app/client/gutter_data.cpp:401` | `GutterDataClass::Update_Labels` | marker | NOT EXACT: register and slots (ours spills rdata and holds old_horizontal in ebp; the client the reverse) @0x7B63C0 |
 | `app/client/gutter_radar.cpp:230` | `GutterRadarClass::Get_Icon_Scale` | marker | NOT EXACT: tail merge (the client keeps the first return(1.0f)'s own epilogue; ours jumps to the last one) |
