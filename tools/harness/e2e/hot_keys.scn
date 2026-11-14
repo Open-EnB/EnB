@@ -1,0 +1,11 @@
+name: the targeting hot keys (ui_hot_keys.cpp's UIHotKeysClass: control_keys.ini [Target Self] ` and [Next Target] N) ask the server for a target
+# Each key reaches the server as REQUEST_TARGET; the replay ignores it (no target is set, the world stays as found).
+timeout: 400
+include _login
+key 0xC0
+expect-event antprox 'received REQUEST_TARGET 0x0017, 8 bytes' within 10
+wait-quiet proxy 0.7 within 15
+key 0x4E
+expect-event antprox 'received REQUEST_TARGET 0x0017, 8 bytes' within 10
+wait-quiet proxy 0.7 within 15
+shot hot_keys

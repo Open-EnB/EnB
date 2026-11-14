@@ -1,0 +1,15 @@
+name: Find / Leave's 'Look for new Group' (ui_groupopt.cpp key 2): CRASHES (OptionPacketClass stand-in)
+# The toggle sends OPTION (pkoption.cpp's OptionPacketClass(int, int, bool), 0x89F490): a generated stand-in in this
+# build (gen_own OptionPacketClass::OptionPacketClass), so the packet has no vtable and RateConnectionClass::Send_Packet
+# (dbgconn.cpp) calls through garbage (EIP 0x31306E01). Rename to group_looking.scn once 0x89F490 is built: then
+# expect antprox 'received OPTION', click the button again (the option back), close the window.
+timeout: 400
+include _login
+click gadget chat.tab.group
+alive 0.5
+click gadget group.findleave
+expect-event proxy 'fa_tsi25a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget groupopt.looking
+wait-quiet proxy 1.0 within 15
+shot group_looking

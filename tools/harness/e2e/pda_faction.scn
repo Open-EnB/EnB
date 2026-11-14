@@ -1,0 +1,18 @@
+name: the PDA character page's Faction tab (ui_faction.cpp's UIFactionPanelClass rows, ui_faction_panel.cpp), then Skills, then the page closed
+# The page (Y) shows 'You are affiliated with: Shinwa Warriors' and one bar per faction; no file is opened and no
+# packet sent, so the check is that none of the page's FAIL_IFs fires and the client stays up.
+timeout: 400
+include _login
+expect-no stubs 'ui_faction|ui_faction_panel|ui_skills|ui_experience'
+key 0x59
+expect-event proxy '^input: replayed key 0x59'
+wait-quiet proxy 1.0 within 15
+click gadget pda.char.faction
+expect-event proxy '^input: replayed mouse 0x202 at 261, 258'
+wait-quiet proxy 0.7 within 15
+alive 0.5
+shot pda_faction
+click gadget pda.char.skills
+wait-quiet proxy 0.7 within 15
+key 0x59
+wait-quiet proxy 0.7 within 15

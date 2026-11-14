@@ -552,7 +552,10 @@ scenario its own client. Logs in `.work/e2e/HHMMSS-session/` (`HHMMSS-NAME` for 
 (each step, each match), `events.log` (every line of antprox.out, stubs.log, messages.log and d3d8shot.log with
 its time), `result-NAME.json`, `stubs.log`, `antprox.out`, `d3d8shot.log`, the shots.
 
-**Scenarios** are `tools/harness/e2e/NAME.scn`, in the order world_entry, starmap, options, pda_pages, cargo, chat;
+**Scenarios** are `tools/harness/e2e/NAME.scn`, in the order world_entry, starmap, options, pda_pages, cargo, chat,
+then the rest by name (2026-11-14: the chat panel's windows chat_windows, group_windows, help_windows, petition,
+option_pages, options_combo, quit_menu; hot_keys; pda_faction). `_wip_NAME.scn` crashes the client today (its header
+names the fault) and runs only when named;
 `_login.scn` is included by each, not run alone; it turns on `messages` (WinMain's 'Server initialized & ready to
 go' starts the movie step). The format is in e2e.py's docstring: headers `name:`, `expected-fail:`, `timeout:`,
 `messages:`; steps `include`, `wait-event SOURCE PATTERN [within S]`, `expect-event ...`, `wait-quiet SOURCE S

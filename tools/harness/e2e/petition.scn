@@ -1,0 +1,41 @@
+name: the Help System's pages (Help tab, Get Help): the stuck and game play question entries, the player complaint form and its name entry
+# ui_petition.cpp's UIPetitionClass ('hsi01a') opens below itself ui_petition_entry.cpp's entry ('hsi02a': the stuck
+# and question kinds, ui_petition_stuck.cpp for the first) and ui_petition_player.cpp's complaint form ('hsi04a'),
+# whose items open ui_petition_player_entry.cpp's name entry ('hsi03a'). Nothing is submitted. The bug and billing
+# buttons and the FAQ are web pages (UIPopupBrowserClass, fc_jweb01.ini: it loads a live internet page): not used.
+timeout: 400
+include _login
+click gadget chat.tab.help
+alive 0.5
+click gadget help.gethelp
+expect-event proxy 'fa_hsi01a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget petition.stuck
+expect-event proxy 'fa_hsi02a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot petition_stuck
+click gadget petentry.back
+expect-event proxy 'fa_hsi02a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget petition.question
+expect-event proxy 'fa_hsi02a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget petentry.exit
+expect-event proxy 'fa_hsi01a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget chat.tab.help
+alive 0.5
+click gadget help.gethelp
+wait-quiet proxy 1.0 within 15
+click gadget petition.player
+expect-event proxy 'fa_hsi04a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget petplayer.name
+expect-event proxy 'fa_hsi03a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot petition_player
+# Exit closes the whole Help System: the entry, the form and the main page each load their file again
+click gadget petplayerentry.exit
+expect-event proxy 'fa_hsi04a\.ini", R, disposition 3\) = ok' within 10
+expect-event proxy 'fa_hsi01a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15

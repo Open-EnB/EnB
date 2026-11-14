@@ -1,0 +1,33 @@
+name: the chat panel's Help tab: Commands, Get Help and Captain's Log, each shown and closed
+# ui_chat_panel.cpp's 0x569A00: UICommandsClass (ui_commands.cpp, 'tsi29a', reads slash_commands.ini), UIPetitionClass
+# (ui_petition.cpp, 'hsi01a') and UILogClass (ui_log.cpp, 'log00a'). Self Help is a web page (UIPopupBrowserClass).
+timeout: 400
+include _login
+click gadget chat.tab.help
+alive 0.5
+click gadget help.commands
+expect-event proxy 'fa_tsi29a\.ini", R, disposition 3\) = ok' within 10
+expect-event proxy 'slash_commands\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot help_commands
+click gadget commands.close
+expect-event proxy 'fa_tsi29a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget chat.tab.help
+alive 0.5
+click gadget help.gethelp
+expect-event proxy 'fa_hsi01a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot help_gethelp
+click gadget petition.close
+expect-event proxy 'fa_hsi01a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+click gadget chat.tab.help
+alive 0.5
+click gadget help.log
+expect-event proxy 'fa_log00a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot help_log
+click gadget log.close
+expect-event proxy 'fa_log00a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15

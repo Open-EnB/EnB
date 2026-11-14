@@ -1,0 +1,12 @@
+name: the quit menu by Esc (control_keys.ini [Activate/Deactivate Quit], hard coded), shown, then closed by its Cancel
+# Esc is SClient's own key (sclient.cpp 0x7436A0: ChatPanel request 2): ui_option_quit.cpp's UIOptionQuitClass (mode 1)
+# loads 'opt02a' (fa_opt02a.ini); its Cancel (key 1) only closes it, and the window's close loads the file again.
+timeout: 400
+include _login
+key 0x1B
+expect-event proxy 'fa_opt02a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15
+shot quit_menu
+click gadget quit.cancel
+expect-event proxy 'fa_opt02a\.ini", R, disposition 3\) = ok' within 10
+wait-quiet proxy 1.0 within 15

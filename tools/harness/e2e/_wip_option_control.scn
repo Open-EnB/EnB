@@ -1,0 +1,12 @@
+name: the control keys page (ui_option_control_keys.cpp) from the chat panel's Options tab: CRASHES (KeyPressGadget stand-in)
+# Picking 'Control' builds UIOptionControlKeysClass (mode 1), whose constructor makes gd_key_press.cpp's KeyPressGadget
+# (0x66A700): a generated stand-in in this build (gen_own KeyPressGadget::KeyPressGadget), so the gadget list walk
+# (InterfaceClass::Unknown_7C -> intrlist.cpp's 0x687360) reads address 0x28 and the client crashes. Rename to
+# option_control.scn (and add the close) once gd_key_press.cpp is built.
+timeout: 400
+include _login
+click gadget chat.tab.options
+alive 0.5
+click gadget options.control
+wait-quiet proxy 1.0 within 15
+shot option_control
