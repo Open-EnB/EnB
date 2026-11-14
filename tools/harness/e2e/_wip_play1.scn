@@ -1,0 +1,28 @@
+name: a recorded session in the world: /play 1 on the Broadcast channel (ea/alex3, Heidl, 2004-04-14), then /stop
+# antprox /REPLAY's chat commands (/help, /list, /play ID, /pause, /resume, /stop: Antares.Replay ReplayCommands.cs)
+# are read from the Broadcast channel; Backspace opens the chat entry on Broadcast (Return opens the current channel,
+# which the server does not read commands from). /play hands the client off into the recording's first sector: its
+# objects, effects and packets are a real session's, far more than the empty home sector's.
+# _wip_: 2026-11-14 the client crashes at the handoff (InvDataPeekClass::Get_Field 0x636828 reading +0x158 of a null,
+# from InvRenderClass::Unknown_34 <- SlotDataRenderClass::Unknown_2C). Rename to play1.scn when it passes.
+timeout: 400
+include _login
+key 0x08
+expect-event proxy '^input: replayed key 0x8'
+alive 1
+text '/play 1'
+key 0x0D
+expect-event antprox 'command "/play 1"' within 10
+wait-event antprox 'sent SERVER_HANDOFF' within 20
+wait-event antprox 'Sector connection #2: received START_ACK' within 120
+wait-quiet proxy 2 within 60
+shot play1_entered
+alive 20
+shot play1_20s
+key 0x08
+alive 1
+text '/stop'
+key 0x0D
+expect-event antprox 'command "/stop"' within 10
+alive 8
+shot play1_stopped
