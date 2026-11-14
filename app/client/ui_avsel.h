@@ -12,8 +12,8 @@ class LayerClass;
 class LoginTaskClass;
 class RenderObjClass;
 class FlashingGadgetEvent;
-class UIAvselCharacterViewClass;
-class UIAvselAvatarClass;
+class CharacterViewClass;
+class CharacterViewAvatarClass;
 class UIAvselEditClass;
 
 // The character select window (ui_avsel.cpp's __FILE__; the client's RTTI: the type name of its FlashingGadgetEvent
@@ -42,7 +42,7 @@ public:
 	void Unknown_55FDC0(bool on);						// 0x55FDC0 (the referral dialog's buttons)  // NAME 1 [on]: neutral
 	void Unknown_55FE50(bool on);						// 0x55FE50 ('click_me', the referral button and text shown)  // NAME 1 [on]: neutral
 
-	UIAvselCharacterViewClass *Unknown084;				// +0x84 (the view's slot +0x28)
+	CharacterViewClass *Unknown084;				// +0x84 (the view's slot +0x28)
 	LoginTaskClass *Unknown088;							// +0x88 (the character view's task)
 	int Unknown08C;										// +0x8C
 	int Unknown090;										// +0x90 (the selected slot, -1 for none)
@@ -52,7 +52,7 @@ public:
 	bool Unknown097;									// +0x97
 	bool Unknown098;									// +0x98
 	GadgetClass *Unknown09C[8];							// +0x9C (Unknown_B7B8E0's buttons)
-	UIAvselAvatarClass *Unknown0BC[5];					// +0xBC (the five avatars)
+	CharacterViewAvatarClass *Unknown0BC[5];					// +0xBC (the five avatars)
 	GadgetClass *Unknown0D0[5];							// +0xD0
 	bool Unknown0E4[5];									// +0xE4
 	float Unknown0EC;									// +0xEC (slot +0x60: a countdown, then +0xF4 is selected)

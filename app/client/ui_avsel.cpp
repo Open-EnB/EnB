@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "sclient.h"
+#define __CHARVIEW_AVSEL_MEMBERS	// charview.h's and avatar.h's accessors for this file (tsk_login.h includes charview.h)
 #include "tasks\tsk_login.h"
 #include "rendobj.h"
 #include "camera.h"
@@ -17,7 +18,6 @@
 // gadget.cpp's gadget: gadget.h, and gd_robj.h's gadget its slot +0x08 answers with
 #include "gadget.h"
 #include "gd_robj.h"
-
 
 
 
@@ -112,110 +112,110 @@ extern FontManagerClass *Unknown_BE67C4;			// NAME 1 [Unknown_BE67C4]: 0xBE67C4
 
 
 
-class UIAvselEnvMapClass;
-// An avatar's table as far as its slot +0x1C4 (0x55D9C0 calls it for the five every frame; ui_avatr.cpp's +0x94's +0x54)
-class UIAvselAvatarVirtualsClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_000(); virtual void Unknown_004(); virtual void Unknown_008(); virtual void Unknown_00C(); virtual void Unknown_010(); virtual void Unknown_014(); virtual void Unknown_018(); virtual void Unknown_01C();
-	virtual void Unknown_020(); virtual void Unknown_024(); virtual void Unknown_028(); virtual void Unknown_02C(); virtual void Unknown_030(); virtual void Unknown_034(); virtual void Unknown_038(); virtual void Unknown_03C();
-	virtual void Unknown_040(); virtual void Unknown_044(); virtual void Unknown_048(); virtual void Unknown_04C(); virtual void Unknown_050(); virtual void Unknown_054(); virtual void Unknown_058(); virtual void Unknown_05C();
-	virtual void Unknown_060(); virtual void Unknown_064(); virtual void Unknown_068(); virtual void Unknown_06C(); virtual void Unknown_070(); virtual void Unknown_074(); virtual void Unknown_078(); virtual void Unknown_07C();
-	virtual void Unknown_080(); virtual void Unknown_084(); virtual void Unknown_088(); virtual void Unknown_08C(); virtual void Unknown_090(); virtual void Unknown_094(); virtual void Unknown_098(); virtual void Unknown_09C();
-	virtual void Unknown_0A0(); virtual void Unknown_0A4(); virtual void Unknown_0A8(); virtual void Unknown_0AC(); virtual void Unknown_0B0(); virtual void Unknown_0B4(); virtual void Unknown_0B8(); virtual void Unknown_0BC();
-	virtual void Unknown_0C0(); virtual void Unknown_0C4(); virtual void Unknown_0C8(); virtual void Unknown_0CC(); virtual void Unknown_0D0(); virtual void Unknown_0D4(); virtual void Unknown_0D8(); virtual void Unknown_0DC();
-	virtual void Unknown_0E0(); virtual void Unknown_0E4(); virtual void Unknown_0E8(); virtual void Unknown_0EC(); virtual void Unknown_0F0(); virtual void Unknown_0F4(); virtual void Unknown_0F8(); virtual void Unknown_0FC();
-	virtual void Unknown_100(); virtual void Unknown_104(); virtual void Unknown_108(); virtual void Unknown_10C(); virtual void Unknown_110(); virtual void Unknown_114(); virtual void Unknown_118(); virtual void Unknown_11C();
-	virtual void Unknown_120(); virtual void Unknown_124(); virtual void Unknown_128(); virtual void Unknown_12C(); virtual void Unknown_130(); virtual void Unknown_134(); virtual void Unknown_138(); virtual void Unknown_13C();
-	virtual void Unknown_140(); virtual void Unknown_144(); virtual void Unknown_148(); virtual void Unknown_14C(); virtual void Unknown_150(); virtual void Unknown_154(); virtual void Unknown_158(); virtual void Unknown_15C();
-	virtual void Unknown_160(); virtual void Unknown_164(); virtual void Unknown_168(); virtual void Unknown_16C(); virtual void Unknown_170(); virtual void Unknown_174(); virtual void Unknown_178(); virtual void Unknown_17C();
-	virtual void Unknown_180(); virtual void Unknown_184(); virtual void Unknown_188(); virtual void Unknown_18C(); virtual void Unknown_190(); virtual void Unknown_194(); virtual void Unknown_198(); virtual void Unknown_19C();
-	virtual void Unknown_1A0(); virtual void Unknown_1A4(); virtual void Unknown_1A8(); virtual void Unknown_1AC(); virtual void Unknown_1B0(); virtual void Unknown_1B4(); virtual void Unknown_1B8(); virtual void Unknown_1BC();
-	virtual void Unknown_1C0();
-	virtual void Unknown_1C4();							// +0x1C4
-};
+// charview.h's CharacterViewClass (the view's slot +0x28), avatar.h's CharacterViewAvatarClass (the five avatars)
+// and env_map_manager.h's EnvironmentMapManagerClass (the view's +0x3A4)
+#include "charview.h"
+#include "env_map_manager.h"
 
-// One of the five avatars on the screen (avatar.cpp's render object), as far as this file calls it
-class UIAvselAvatarClass : public RenderObjClass	// NAME 1: neutral (D10)
-{
-public:
-	UIAvselAvatarClass(AvatarDescClass *desc, int a, int b, UIAvselEnvMapClass *env);	// 0x77B870 (900 bytes; 0x55E370: a copy of the slot's descriptor, 1, 0, the view's +0x3A4)  // NAME 1 [desc, a, b, env]: neutral
-	bool Unknown_7863E0();								// 0x7863E0 (slot +0x60: false starts it, 0x786370)
-	void Unknown_786370(int on);						// 0x786370  // NAME 1 [on]: neutral
-	void Unknown_77E3D0(int arg);						// 0x77E3D0 (0x55E370 passes 1)  // NAME 1 [arg]: neutral
-	void Unknown_784A50(const char *emote, int a, int b);	// 0x784A50 ('/happy at your service', 1, 0)  // NAME 1 [emote, a, b]: neutral
-	void Unknown_7896B0(int arg);						// 0x7896B0 (0x55D9C0: 1, the deleted character's)  // NAME 1 [arg]: neutral
-	virtual RenderObjClass *Clone() const;				// (RenderObjClass's pure ones, avatar.cpp's)
-	virtual void Render(RenderInfoClass &rinfo);
-	char Unknown_Pad[0x108 - sizeof(RenderObjClass)];
-	int Unknown108;										// +0x108 (0x55F140: the race, 0 .. 2)
-	int Unknown10C;										// +0x10C (0x55F140: the profession, 0 .. 2)
-	char Unknown110[0x2BC - 0x110];						// +0x110
-	RenderObjClass *Get_Unknown2BC() { return(Unknown2BC); }	// NAME 1: neutral (D10)
-	RenderObjClass *Unknown2BC;							// +0x2BC (0x55E370's button is made over it)
-	char Unknown2C0[0x384 - 0x2C0];						// +0x2C0 (900 bytes)
-};
 
-// env_map_manager.cpp's object at the character view's +0x3A4 (as sclient.cpp declares it)
-class UIAvselEnvMapClass { public: void Unknown_760770(int base_asset, bool a); };	// NAME 1: neutral (D10)  // NAME 1 [base_asset, a]: sclient.cpp's
 
-// What the character view's +0x1BC points to, as far as 0x55E370 calls it
-class UIAvselUnknown1BCClass	// NAME 1: neutral (D10)
-{
-public:
-	virtual void Unknown_00(); virtual void Unknown_04(); virtual void Unknown_08(); virtual void Unknown_0C();
-	virtual void Unknown_10(); virtual void Unknown_14(); virtual void Unknown_18(); virtual void Unknown_1C();
-	virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
-	virtual void Unknown_30(); virtual void Unknown_34(); virtual void Unknown_38(); virtual void Unknown_3C();
-	virtual void Unknown_40(); virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
-	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
-	virtual void Unknown_70(); virtual void Unknown_74(); virtual void Unknown_78(); virtual void Unknown_7C();
-	virtual void Unknown_80(RenderObjClass *robj, const char *name);	// +0x80 (0x55E370: an avatar, 'DUDE%02d')  // NAME 1 [robj, name]: neutral
-};
 
-// tsk_login.h's CharacterViewClass (charview.cpp), as far as this file calls it
-class UIAvselCharacterViewClass	// NAME 1: neutral (D10)
-{
-public:
-	void Unknown_67A250();								// 0x67A250
-	void Unknown_67ACE0(int arg);						// 0x67ACE0 (the constructor: 0)  // NAME 1 [arg]: neutral
-	void Unknown_67AB20(int slot, const char *name);	// 0x67AB20 (0 'FE12A', 1 'FE01C', 2 'FE_ROOM')  // NAME 1 [slot, name]: neutral
-	void Unknown_67B7A0(int arg);						// 0x67B7A0 (the constructor: 1)  // NAME 1 [arg]: neutral
-	void Unknown_67A290(const Vector3 &a, const Vector3 &b, float fov);	// 0x67A290 ((0, 0, 0), (0, -90, -90), 45)  // NAME 1 [a, b, fov]: neutral
-	bool Unknown_67AD30(int slot, const char *name);	// 0x67AD30 (1, 'FE01C.FE01C-1')  // NAME 1 [slot, name]: neutral
-	void Unknown_67AE20(int slot);						// 0x67AE20  // NAME 1 [slot]: neutral
-	void Unknown_67AE60(int slot);						// 0x67AE60  // NAME 1 [slot]: neutral
-	void Unknown_67A9B0(int arg);						// 0x67A9B0 (the destructor: 0)  // NAME 1 [arg]: neutral
-	bool Unknown_67AEA0(int slot);						// 0x67AEA0 (0x55D9C0)  // NAME 1 [slot]: neutral
-	void Unknown_67ADD0(int slot);						// 0x67ADD0 (0x55D9C0)  // NAME 1 [slot]: neutral
-	bool Unknown_67B2B0();								// 0x67B2B0 (0x55D9C0; ui_avatr.cpp's)
-	void Unknown_67B270();								// 0x67B270 (slot +0x68, key 10)
-	void Unknown_5594B0(AvatarDescClass desc);			// 0x5594B0 (slot +0x68: the selected character's descriptor, by value)  // NAME 1 [desc]: neutral
 
-	char Unknown000[0x14];								// +0x00
-	LoginTaskClass *Task;								// +0x14 (its slot +0x08 returns itself: docs/kernel-map-step9.md 3.3)  // NAME 1: neutral
-	char Unknown018[0x34 - 0x18];						// +0x18
-	ViewUnknown34Class *Unknown034;						// +0x34 (the message box: 0x55D9C0's 'OK' and 'YES_NO')
-	char Unknown038[0x68 - 0x38];						// +0x38
-	CameraClass *Camera;								// +0x68 (the constructor's clip planes)  // NAME 2: what it holds
-	char Unknown06C[0x70 - 0x6C];						// +0x6C
-	LayerClass *Get_Unknown070() { return(Unknown070); }	// NAME 1: neutral (D10)
-	LayerClass *Unknown070;								// +0x70 (0x55E370's avatar buttons are made over it)
-	char Unknown074[0x1B8 - 0x74];						// +0x74
-	RenderObjClass *Peek_Model() { return(Model); }		// NAME 1: neutral (D10)
-	RenderObjClass *Model;								// +0x1B8 (the screen's model: its texts and buttons by name)  // NAME 2: what it holds
-	UIAvselUnknown1BCClass *Unknown1BC;					// +0x1BC (0x55E370 hands it the avatars by name)
-	char Unknown1C0[0x1CD - 0x1C0];						// +0x1C0
-	bool Unknown1CD;										// +0x1CD (0x55D9C0; tsk_login.h's)
-	bool Unknown1CE;										// +0x1CE
-	char Unknown1CF[0x1E4 - 0x1CF];						// +0x1CF
-	int Unknown1E4;										// +0x1E4 (slot +0x8C)
-	char Unknown1E8[0x244 - 0x1E8];						// +0x1E8
-	ShipCustDescClass Unknown244;						// +0x244 (slot +0x68 copies the selected character's into it; 0x160 bytes)
-	UIAvselEnvMapClass *Get_Unknown3A4() { return(Unknown3A4); }	// NAME 1: neutral (D10)
-	UIAvselEnvMapClass *Unknown3A4;						// +0x3A4
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // The window's FlashingGadgetEvent callback: SignalBaseClass::MemberCallback (vtable 0xAEFAEC over 0xAEDB58; its
 // members out of line after the galaxy list's: the destructor 0x560250, 0x560270, 0x560290, 0x5602B0, 0x560330 and
@@ -311,17 +311,17 @@ AvatarSelectionInterface::AvatarSelectionInterface(UIViewClass *view, LayerClass
 		Unknown0D0[i] = NULL;
 		Unknown0E4[i] = false;
 	}
-	Unknown084 = (UIAvselCharacterViewClass *)View->Unknown_28();
-	Unknown088 = (LoginTaskClass *)Unknown084->Task->Unknown_08();
+	Unknown084 = (CharacterViewClass *)View->Unknown_28();
+	Unknown088 = (LoginTaskClass *)Unknown084->Unknown14->Unknown_08();
 	Unknown084->Unknown_67A250();
 	Unknown084->Unknown_67ACE0(0);
 	Unknown084->Unknown_67AB20(0, "FE12A");
-	RenderObjClass *model = Unknown084->Model;
+	RenderObjClass *model = Unknown084->ViewRObjs[0];
 	Unknown084->Unknown_67AB20(1, "FE01C");
 	Unknown084->Unknown_67AB20(2, "FE_ROOM");
 	Unknown084->Unknown_67B7A0(1);
 	Unknown084->Unknown_67A290(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, -90.0f, -90.0f), 45.0f);
-	Unknown084->Camera->Set_Clip_Planes(1.0f, 500.0f);
+	Unknown084->Unknown068->Set_Clip_Planes(1.0f, 500.0f);
 	Unknown_BE67BC->Load("FA_FE12A.ini");
 	Unknown_BE67C4->Add(model);
 	for (i = 0; i < 8; i++) {
@@ -422,7 +422,7 @@ void AvatarSelectionInterface::Unknown_60()
 			}
 		} else if (Unknown0EC < 0.7f && Unknown0F4 > -1) {
 			if (!Unknown0BC[Unknown0F4]->Unknown_7863E0()) {
-				Unknown0BC[Unknown0F4]->Unknown_786370(1);
+				Unknown0BC[Unknown0F4]->Unknown_786370(true);
 			}
 		}
 		Unknown_55EF90();
@@ -467,7 +467,7 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 				SoundLibraryClass::Play_2D_Sound("Avatar_Delete_Character", 2);
 				if (Unknown090 >= 0) {
 					Unknown0BC[Unknown090]->Unknown_784A50("/angry please no", 1, 0);
-					Unknown084->Unknown034->Unknown_588A70("YES_NO", 0, "Confirm deletion of the character?", 0x140, 0, 0);
+					Unknown084->Unknown34->Unknown_588A70("YES_NO", 0, "Confirm deletion of the character?", 0x140, 0, 0);
 					Unknown097 = true;
 					Unknown0F9 = true;
 					Unknown_55EF90();
@@ -489,8 +489,8 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 						Unknown084->Unknown_5594B0(task->Get_Avatar_Descs()[task->Get_Selected()]);
 						Unknown084->Unknown244 = Unknown088->Unknown088C[Unknown088->Selected];
 						Unknown084->Unknown_67ACE0(1);
-						Unknown084->Unknown1CD = true;
-						Unknown084->Unknown1CE = true;
+						Unknown084->Unknown1CC[1] = true;
+						Unknown084->Unknown1CC[2] = true;
 						Unknown088->Go_Next_Step();
 						return true;
 					}
@@ -551,11 +551,11 @@ bool AvatarSelectionInterface::Unknown_68(int key)
 					delete text;
 				}
 				if (strcmp(Unknown11C, "") == 0) {
-					Unknown084->Unknown034->Unknown_588A70("OK", 0, "Please enter a valid EA Member Name.", 0x140, 0, 0);
+					Unknown084->Unknown34->Unknown_588A70("OK", 0, "Please enter a valid EA Member Name.", 0x140, 0, 0);
 					return false;
 				}
 				if (stricmp(Unknown11C, Unknown088->Ticket_Info.EA_Customer.c_str()) == 0) {
-					Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, you cannot refer yourself.", 0x140, 0, 0);
+					Unknown084->Unknown34->Unknown_588A70("OK", 0, "Sorry, you cannot refer yourself.", 0x140, 0, 0);
 					return false;
 				}
 				Unknown_55FBB0();
@@ -573,22 +573,22 @@ void AvatarSelectionInterface::Unknown_55D9C0()
 	if (Unknown120 && Unknown088->Referrer_Result) {
 		switch (Unknown088->Referrer_Result) {
 			case 2:
-				Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, you have already been referred by someone.  You cannot be referred more than once.", 0x140, 0, 0);
+				Unknown084->Unknown34->Unknown_588A70("OK", 0, "Sorry, you have already been referred by someone.  You cannot be referred more than once.", 0x140, 0, 0);
 				break;
 			case 3:
-				Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, that account does not exist.  Please check the name and try again.", 0x140, 0, 0);
+				Unknown084->Unknown34->Unknown_588A70("OK", 0, "Sorry, that account does not exist.  Please check the name and try again.", 0x140, 0, 0);
 				break;
 			case 4:
-				Unknown084->Unknown034->Unknown_588A70("OK", 0, "A system error occurred.  Please try again later.", 0x140, 0, 0);
+				Unknown084->Unknown34->Unknown_588A70("OK", 0, "A system error occurred.  Please try again later.", 0x140, 0, 0);
 				break;
 			case 5:
-				Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, your account is about to expire.", 0x140, 0, 0);
+				Unknown084->Unknown34->Unknown_588A70("OK", 0, "Sorry, your account is about to expire.", 0x140, 0, 0);
 				break;
 			case 6:
-				Unknown084->Unknown034->Unknown_588A70("OK", 0, "Sorry, you cannot refer yourself.", 0x140, 0, 0);
+				Unknown084->Unknown34->Unknown_588A70("OK", 0, "Sorry, you cannot refer yourself.", 0x140, 0, 0);
 				break;
 			case 1:
-				Unknown084->Unknown034->Unknown_588A70("OK", 0, "Your referral was registered successfully.  The person who referred you has received credit for your referral.", 0x140, 0, 0);
+				Unknown084->Unknown34->Unknown_588A70("OK", 0, "Your referral was registered successfully.  The person who referred you has received credit for your referral.", 0x140, 0, 0);
 				break;
 		}
 		if (!Unknown088->Unknown1138) {
@@ -603,7 +603,7 @@ void AvatarSelectionInterface::Unknown_55D9C0()
 	}
 	for (int i = 0; i < 5; i++) {
 		if (Unknown0BC[i]) {
-			((UIAvselAvatarVirtualsClass *)Unknown0BC[i])->Unknown_1C4();
+			Unknown0BC[i]->Unknown_1C4();
 		}
 	}
 	if (Unknown095 && Unknown084->Unknown_67AEA0(1)) {
@@ -666,8 +666,8 @@ void AvatarSelectionInterface::Unknown_55D9C0()
 	}
 	if (!Unknown0FB && Unknown0FD && Unknown084->Unknown_67AEA0(1)) {
 		Unknown084->Unknown_67ACE0(1);
-		Unknown084->Unknown1CD = true;
-		Unknown084->Unknown1CE = true;
+		Unknown084->Unknown1CC[1] = true;
+		Unknown084->Unknown1CC[2] = true;
 		if (Unknown0F4 > -1) {
 			Unknown088->Selected = Unknown0F4;
 			Unknown088->Unknown_50();
@@ -686,9 +686,9 @@ void AvatarSelectionInterface::Unknown_55D9C0()
 		}
 	}
 	if (Unknown097) {
-		int answer = Unknown084->Unknown034->Unknown_5890B0("YES_NO");
+		int answer = Unknown084->Unknown34->Unknown_5890B0("YES_NO");
 		if (answer) {
-			Unknown084->Unknown034->Unknown_5C();
+			Unknown084->Unknown34->Unknown_5C();
 			Unknown0F9 = false;
 			Unknown097 = false;
 			if (answer == 1) {
@@ -704,10 +704,10 @@ void AvatarSelectionInterface::Unknown_55D9C0()
 			}
 		}
 	}
-	if (Unknown084->Unknown034->Active && !Unknown0F9) {
+	if (Unknown084->Unknown34->Active && !Unknown0F9) {
 		Unknown0F9 = true;
 		Unknown_55EF90();
-	} else if (!Unknown084->Unknown034->Active && Unknown0F9) {
+	} else if (!Unknown084->Unknown34->Active && Unknown0F9) {
 		Unknown0F9 = false;
 		if (!Unknown095 && !Unknown094) {
 			Unknown_55ED20();
@@ -800,13 +800,13 @@ void AvatarSelectionInterface::Unknown_55E370(bool active)
 				Unknown_55E2E0(i, descs[i].Get_Full_Name().c_str(), i == Unknown090);
 				Unknown0E4[i] = true;
 				AvatarDescClass *desc = new AvatarDescClass(descs[i]);
-				Unknown0BC[i] = new UIAvselAvatarClass(desc, 1, 0, Unknown084->Get_Unknown3A4());
+				Unknown0BC[i] = new CharacterViewAvatarClass(desc, true, false, Unknown084->Get_Unknown3A4());
 				if (Unknown0BC[i]) {
 					char name[64];
 					sprintf(name, "DUDE%02d", i);
-					Unknown084->Unknown1BC->Unknown_80(Unknown0BC[i], name);
+					Unknown084->ViewRObjs[1]->Add_Sub_Object_To_Bone(Unknown0BC[i], name);
 					Unknown0BC[i]->Unknown_77E3D0(1);
-					Unknown0D0[i] = new ButtonGadgetClass(Unknown0BC[i]->Get_Unknown2BC(), *Unknown084->Get_Unknown070(), 0x55, 0);
+					Unknown0D0[i] = new ButtonGadgetClass(Unknown0BC[i]->Peek_Body_Obj(), *Unknown084->Get_Unknown070(), 0x55, 0);
 					Unknown0D0[i]->Unknown2C_0A = true;
 					Unknown0D0[i]->Set_Last_Sort_Group(true);
 					Unknown64.Unknown_6870E0(Unknown0D0[i], i + 11, View, 1, 1);
@@ -880,7 +880,7 @@ void AvatarSelectionInterface::Unknown_88()
 // 0x55ECB0
 void AvatarSelectionInterface::Unknown_8C()
 {
-	if (Unknown084->Unknown1E4) {
+	if (Unknown084->Unknown1D4[1].Anim) {
 		Unknown084->Unknown_67AE60(1);
 		Unknown094 = true;
 		Unknown096 = false;
@@ -1045,13 +1045,13 @@ void AvatarSelectionInterface::Unknown_55F140()
 	}
 	FontSys *textptr = Unknown_BE67C4->Get_Style("fe12_Race_Title", Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
-	int race = Unknown0BC[Unknown090]->Unknown108;
+	int race = Unknown0BC[Unknown090]->Desc.Race;
 	textptr->Change_Text(Unknown_B7B928[race], 0);
 
 
 	textptr = Unknown_BE67C4->Get_Style("fe12_Prof_Title", Unknown084->Peek_Model());
 	FAIL_IF(!textptr) return;
-	textptr->Change_Text(Unknown_B7B934[Unknown0BC[Unknown090]->Unknown10C + race * 3], 0);
+	textptr->Change_Text(Unknown_B7B934[Unknown0BC[Unknown090]->Desc.Profession + race * 3], 0);
 
 
 
@@ -1294,5 +1294,6 @@ void AvatarSelectionInterface::Unknown_55FE50(bool on)
 **	texts: race, profession, level, location, galaxy; FAIL_IFs 1047 / 1053 / 1059 / 1088; the
 **	galaxies' list copied) NOT EXACT (register, 0.78). The class is declared in ui_avsel.h (a
 **	provisional name: with it in this file the functions before line 769 do not fit above it), the
-**	other types only as far as these functions use them.
+**	other types only as far as these functions use them; the character view, its avatars and the env maps are
+**	charview.h's, avatar.h's and env_map_manager.h's (S1, run 2026-11-14).
 */
