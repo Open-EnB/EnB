@@ -241,7 +241,8 @@ Landing and bring-over (the lander does the landing; these are what you see arou
   programs/clientpoc for the retired names before reporting.
 - **e2e on a client linked without `build.py build --lib binkmovie` fails every scenario at `_login:11`** (wait-event
   VERSION_RESPONSE not seen): without the movie library the client connects at once, before the scenario's
-  movie-skip step starts its wait. Build binkmovie first for every e2e or POC run (Tools item: e2e.py should refuse or
+  movie-skip step starts its wait. A worktree's own stale build/binkmovie lib does the same (a generated stand-in for
+  BINKMovie::Play). Build binkmovie first for every e2e or POC run, in that tree (Tools item: e2e.py should refuse or
   warn when the linked client has no movie library).
 - **Stacked builders (`--base wt/P`) pay a rebase with its own verify** after P lands, and conflict when another landed
   branch touched the same file (a shared header's users): prefer landing P first when the lock is free.
@@ -292,6 +293,15 @@ Claims and briefs:
   (`.work/coord/claim_many.ps1` normalises them).
 - **Check a §4 item's addresses against the ledger and attempts.py before briefing it** (five items of one brief
   were all done or at LIMIT).
+- **Queue rows go stale: an "open" or "new" row can name a file already in the tree and exact.** Claim the range
+  first (`run_branch.py claim` says "nothing left to rebuild") and `ls` / `git log` the file; refresh the whole queue
+  with `.work/coord/open_rows.py` (it counts not-exact functions per open row read-only) and mark the stale ones.
+- **An object is often larger than its queue row** (its constructor or a PermStringInit static before the range,
+  thunks or heap helpers after it): briefs say "confirm where the object starts and ends"; claim the extra range for
+  the builder after the fact when `claims.py check` showed it free.
+- **A branch that starts calling a real method can clash with a clienttest local stub of it** (LNK2005 at the
+  landing's link check only; the verify and the builder's own checks pass): briefs for code that makes a stand-in's
+  caller real say "grep tests/clienttest for local stubs of the classes you now link"; the fix is the builder's (tests/).
 
 Stop times, launchers and POC checks:
 - **Stop times carry the zone** (the clock fell back an hour at 02:00 PDT on 2026-11-01; next change 2027-03-14).
