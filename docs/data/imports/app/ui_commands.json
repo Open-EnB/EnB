@@ -5,7 +5,7 @@
   "0x497300"
  ],
  "copy": "reconstructed",
- "description": "RECONSTRUCTED: the slash commands window (0x57BAD0-0x57D530: vtables 0xAF0B9C / 0xAF0B90 / 0xAF0B84, model 'tsi29a', tooltips 'UI_COMMANDS', list 'slash_commands.ini'); provisional file name (NAME 1, D137) by object order between ui_combobox.cpp and ui_cpit.cpp",
+ "description": "RECONSTRUCTED: the slash commands window (0x57BAD0-0x57D540: vtables 0xAF0B9C / 0xAF0B90 / 0xAF0B84, model 'tsi29a', tooltips 'UI_COMMANDS', list 'slash_commands.ini'); provisional file name (NAME 1, D137) by object order between ui_combobox.cpp and ui_cpit.cpp",
  "expected": {},
  "in_tree": [
   "0x42A820",

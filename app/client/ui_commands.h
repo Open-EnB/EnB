@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\client\ui_commands.h, the slash commands window (its model 'tsi29a',
 // 'fa_tsi29a.ini'; the tooltips' section 'UI_COMMANDS'; the list from 'slash_commands.ini'). No string names the file:
 // ui_commands.cpp and this header are provisional names (NAME 1, D137), between ui_combobox.cpp and ui_cpit.cpp in the
-// client (its object 0x57BAD0-0x57D530).
+// client (its object 0x57BAD0-0x57D540).
 #ifndef UI_COMMANDS_H  // NAME 1 [ui_commands.h]: provisional header name
 #define UI_COMMANDS_H
 
