@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1930 |
 | 2 | describes what the code does | 4866 |
-| 1 | neutral placeholder | 25090 |
+| 1 | neutral placeholder | 25092 |
 
 ## For review (score 3 and below)
 
@@ -24472,9 +24472,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Ship_Name_Empty` | `app/shared/shipcust_desc.h:119` | what the constructor stores |
 | 1 | `SplineFloatArrayClass` | `app/shared/spline.h:26` | a float array of a set size (0x10 bytes: +0x00 the vtable, +0x04 the values, +0x08 their count, +0x0C the last index) |
 | 1 | `Evaluate, Get_Value, Find_Index` | `app/shared/spline.h:38` | what they do (spline.inl, assert line 33) |
+| 1 | `Read, Create` | `app/shared/spline.h:42` | what they do (0x483A20 has no caller: Load 0x4838B0 and Create 0x483BB0 inline it; Create has none) |
 | 1 | `Data` | `app/shared/spline.h:52` | members after their offsets (Resize 0x483820, Get_Value 0x481960); +0x00 the vtable 0xAE9FAC |
+| 1 | `SplineFloatArrayOffsetClass` | `app/shared/spline.h:60` | a float array read at t plus a phase (0x483CF0 adds the float at +0x10 to t; the class is ours, no caller, no vtable) |
 | 1 | `SplineColorArrayClass` | `app/shared/spline.h:170` | three float arrays (red, green, blue) and a count (0x3C bytes: +0x04, +0x14, +0x24, +0x34, +0x38) |
-| 1 | `Red` | `app/shared/spline.h:190` | members after their offsets (0x485790, 0x480B10); +0x00 the vtable 0xAE9FB8 |
+| 1 | `Red` | `app/shared/spline.h:191` | members after their offsets (0x485790, 0x480B10); +0x00 the vtable 0xAE9FB8 |
 | 1 | `Set_Escaped_New_Lines, on` | `app/shared/split_string.h:33` | the member it sets |
 | 1 | `Set_Trim_Last, on` | `app/shared/split_string.h:34` | the member it sets |
 | 1 | `Set_Trim_Lines, on` | `app/shared/split_string.h:35` | the member it sets |
