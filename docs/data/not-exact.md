@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-851 entries in 284 files.
+858 entries in 285 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -610,7 +610,13 @@ edit the comments in the code, not this file.
 | `app/client/ui_talkt.cpp:535` | `UITalkTreeClass::Unknown_68` | marker | NOT EXACT: 0x64D400 (Unknown_68: the second append's _Grow out of line in the client) |
 | `app/client/ui_talkt.cpp:618` | `UITalkTreeClass::Unknown_60` | marker | NOT EXACT: 0x64D770 (Unknown_60: this in edi, one slot fewer) |
 | `app/client/ui_talkt.cpp:839` | `UITalkTreeClass::Unknown_64E7A0` | marker | NOT EXACT: 0x64E7A0 (Unknown_64E7A0: one slot fewer) |
+| `app/client/ui_trade.cpp:96` | `UITradeClass::~UITradeClass` | marker | NOT EXACT: register-only (explain.py): the client loads client->PDAInterface into ebx and schedules PDA's assignment around it @0x650560 |
+| `app/client/ui_trade.cpp:131` | `UITradeClass::Unknown_54` | marker | NOT EXACT: shape (explain.py; register and hoisting): the first id through ecx, the style call's register, 0x653A80's shared Change_Text set-up not hoisted @0x650A40 |
+| `app/client/ui_trade.cpp:265` | `UITradeClass::Unknown_60` | marker | NOT EXACT: register (the box's +0x34 through edx, -1 kept in ebx; explain.py names a relocation: symbols.json's stale return type for 0x695680) @0x651510 |
+| `app/client/ui_trade.cpp:403` | `UITradeClass::Unknown_68` | marker | NOT EXACT: inline budget (explain.py): ours inlines 0x653A80 inside the inlined 0x6539A0 (case 17); the client calls it out of line @0x651830 |
 | `app/client/ui_trade.cpp:600` | `UITradeClass::Unknown_651F60` | marker | NOT EXACT: 0x651F60's -1 call pushes a zeroed edx twice, ours shares the other call's push 0 (register residue) @0x651F60 |
+| `app/client/ui_trade.cpp:906` | `UITradeClass::Unknown_653450` | marker | NOT EXACT: inline budget, as TR1's stash (docs/attempts/0x653450): ours inlines the string assigns the client calls out of line @0x653450 |
+| `app/client/ui_trade.cpp:998` | `UITradeClass::Unknown_653A80` | mention | NOT EXACT. Evidence: the asserts' names ('PDA', '!InterfaceMesh', 'StandardBttnTexture', 'SelectedBttnTexture'); the buttons' sub-objects from the table 0xB8BE98 ('category00'..'category05', 'buy', 'buy_stack', 'sell', 'sellall', 'compare', 'sort', 'exit'); +0x150 holds three InvDataClass (0x688410 with types 1-3), +0x160 is gd_inv_slider.cpp's slider. Forms: the box is reached through Get_View()-... |
 | `app/client/ui_treem.cpp:190` | `UITreeMClass::Unknown_68` | marker | NOT EXACT (0.27, inline-budget): the client calls Next_Sibling (0x655DE0) out of line in the inlined Open / Close loops; ours inlines it |
 | `app/client/ui_treem.cpp:270` | `UITreeMClass::Refresh` | marker | NOT EXACT (0.80, order-only): the client loads the line offset before Lines.Vector (0x6557D7); the rest is the same |
 | `app/client/ui_vault.cpp:60` | `UIVaultClass::UIVaultClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x656FF0 |
@@ -626,6 +632,7 @@ edit the comments in the code, not this file.
 | `app/client/unknown_6cce60.cpp:276` | `FontSys::Change_Text` | marker | NOT EXACT: shape (D64; attempts.csv): the client calls Store_Length out of line in the first " " assignment and hoists three member loads above stores (27 masked rows) |
 | `app/client/unknown_75b7b0.cpp:29` | `Unknown_75B8F0` | marker | NOT EXACT: functional (D64), 0.83: the x87 order of the cross product's length and the dot product (WE5) @0x75B8F0 |
 | `app/client/unknown_75b7b0.cpp:57` | `Unknown_75BB50` | marker | NOT EXACT: functional (D64), 0.37: ours calls StringClass::operator= where the client inlines it, so the registers differ (WE5) @0x75BB50 |
+| `app/client/unknown_761c80.cpp:65` | `Unknown761C80Class::Remove_Render_Object` | marker | NOT EXACT: inline budget: the client calls the bucket vector's size() (0x762C30) in the inlined erase, this inlines it (9 bytes longer; the rest is the client's) |
 | `app/client/unknown_7979a0.cpp:178` | `CameraController02Class::Unknown_7981B0` | marker | NOT EXACT: 0x7981B0 (the frame's size and the statements' order are the client's; the two offsets, the two results and the camera's copy sit in other frame slots, and the products' operand order follows the slots) 0x7981B0 |
 | `app/client/unknown_7979a0.cpp:218` | `CameraController02Class::Unknown_798570` | marker | NOT EXACT: 0x798570 (the frame's size is the client's; the angle and the offset swap frame slots (the client: the offset at ebp-0xC, the angle at ebp-0x10), the products' operand order follows them, and the client stores Y and Z before doubling them) 0x798570 |
 | `app/client/unknown_7979a0.cpp:247` | `CameraController02Class::Unknown_7987F0` | marker | NOT EXACT: 0x7987F0 (the frame's size is the client's; the destination's position and the offset sit in other frame slots (the client: both at ebp-0xC), and the speed's square root keeps a slot of its own in the client) 0x7987F0 |

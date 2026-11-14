@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 219 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1927 |
-| 2 | describes what the code does | 4843 |
-| 1 | neutral placeholder | 24965 |
+| 3 | by convention from a client-named file or sibling | 1929 |
+| 2 | describes what the code does | 4860 |
+| 1 | neutral placeholder | 25064 |
 
 ## For review (score 3 and below)
 
@@ -7028,8 +7028,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown10` | `app/client/sbase_info.h:118` | untagged neutral name (D10) |
 | 1 | `Unknown14` | `app/client/sbase_info.h:119` | untagged neutral name (D10) |
 | 1 | `Unknown18` | `app/client/sbase_info.h:120` | untagged neutral name (D10) |
-| 1 | `SBaseViewUnknown70Class` | `app/client/sbaseview.cpp:34` | neutral (D10) |
-| 1 | `Unknown98` | `app/client/sbaseview.cpp:34` | untagged neutral name (D10) |
 | 1 | `Unknown_77B7D0, t` | `app/client/sbaseview.cpp:36` | neutral (D10) |
 | 1 | `Unknown_77B7D0` | `app/client/sbaseview.cpp:36` | untagged neutral name (D10) |
 | 1 | `Unknown84` | `app/client/sbaseview.cpp:43` | untagged neutral name (D10) |
@@ -7060,6 +7058,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5C` | `app/client/sbaseview.cpp:97` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/sbaseview.cpp:99` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/sbaseview.cpp:118` | untagged neutral name (D10) |
+| 1 | `Unknown761C80Class` | `app/client/sbaseview.cpp:123` | untagged neutral name (D10) |
 | 1 | `Unknown6C` | `app/client/sbaseview.cpp:125` | untagged neutral name (D10) |
 | 1 | `Unknown78` | `app/client/sbaseview.cpp:129` | untagged neutral name (D10) |
 | 1 | `Unknown74` | `app/client/sbaseview.cpp:131` | untagged neutral name (D10) |
@@ -7385,7 +7384,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown84` | `app/client/sbaseview.h:325` | untagged neutral name (D10) |
 | 1 | `SBaseViewUnknown188Class` | `app/client/sbaseview.h:326` | neutral (D10): the starbase view's +0x188 (0x69F8F0 case 6: 0x5435D0, 0x11C bytes; 'FA_TSM02A.INI')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
 | 1 | `SBaseViewUnknown198Class` | `app/client/sbaseview.h:327` | neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes |
-| 1 | `SBaseViewUnknown70Class` | `app/client/sbaseview.h:347` | untagged neutral name (D10) |
+| 1 | `Unknown761C80Class` | `app/client/sbaseview.h:347` | untagged neutral name (D10) |
 | 1 | `SBaseViewChannelStruct` | `app/client/sbaseview.h:354` | neutral (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/sbaseview.h:376` | untagged neutral name (D10) |
 | 1 | `task, arg` | `app/client/sbaseview.h:379` | what the base / +0x1F4 get |
@@ -18923,13 +18922,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_42EC60` | `app/client/ui_starbase.cpp:59` | untagged neutral name (D10) |
 | 1 | `robj` | `app/client/ui_starbase.cpp:60` | as ui_avatr.cpp's |
 | 1 | `Unknown_497300` | `app/client/ui_starbase.cpp:60` | untagged neutral name (D10) |
-| 1 | `UIStarbaseSceneClass` | `app/client/ui_starbase.cpp:63` | neutral (D10) |
-| 1 | `obj` | `app/client/ui_starbase.cpp:66` | neutral |
-| 1 | `Unknown_7621A0` | `app/client/ui_starbase.cpp:66` | untagged neutral name (D10) |
-| 1 | `fill` | `app/client/ui_starbase.cpp:67` | what 0x640EC0 passes |
-| 1 | `Unknown_762920` | `app/client/ui_starbase.cpp:67` | untagged neutral name (D10) |
-| 1 | `color` | `app/client/ui_starbase.cpp:68` | what 0x640E90 passes |
-| 1 | `Unknown_762940` | `app/client/ui_starbase.cpp:68` | untagged neutral name (D10) |
 | 1 | `Unknown78A910AvatarClass` | `app/client/ui_starbase.cpp:72` | neutral (D10) |
 | 1 | `b` | `app/client/ui_starbase.cpp:75` | neutral |
 | 1 | `Unknown_78B570` | `app/client/ui_starbase.cpp:75` | untagged neutral name (D10) |
@@ -19582,8 +19574,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_0C` | `app/client/ui_talkt.cpp:29` | untagged neutral name (D10) |
 | 1 | `Unknown_10` | `app/client/ui_talkt.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_talkt.cpp:30` | untagged neutral name (D10) |
-| 1 | `Unknown5BB320Class` | `app/client/ui_talkt.cpp:35` | untagged neutral name (D10) |
-| 1 | `UnknownAC` | `app/client/ui_talkt.cpp:39` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_talkt.cpp:42` | neutral (D10) |
 | 1 | `Unknown_42EB20` | `app/client/ui_talkt.cpp:44` | neutral (D10) |
 | 1 | `Unknown_B8BBC4` | `app/client/ui_talkt.cpp:59` | neutral (D10) |
@@ -19593,6 +19583,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_Append` | `app/client/ui_talkt.cpp:65` | neutral (D10): a codeless layer |
 | 1 | `Is_Unknown2C_03` | `app/client/ui_talkt.cpp:66` | neutral (D10) |
 | 1 | `Unknown2C_03` | `app/client/ui_talkt.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/ui_talkt.cpp:70` | untagged neutral name (D10) |
 | 1 | `Unknown150` | `app/client/ui_talkt.cpp:77` | untagged neutral name (D10) |
 | 1 | `Unknown154` | `app/client/ui_talkt.cpp:78` | untagged neutral name (D10) |
 | 1 | `Unknown158` | `app/client/ui_talkt.cpp:79` | untagged neutral name (D10) |
@@ -19745,90 +19736,159 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown00` | `app/client/ui_trade.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown0C` | `app/client/ui_trade.cpp:31` | neutral (D10) |
 | 1 | `Unknown10` | `app/client/ui_trade.cpp:32` | untagged neutral name (D10) |
-| 1 | `Unknown_Find_Valid` | `app/client/ui_trade.cpp:36` | neutral (D10)	// money.cpp's (out of line, ??9@YA_NABVMoneyClass@@0@Z)  // NAME 1 [a, b]: neutral |
-| 1 | `Unknown_Find_Field` | `app/client/ui_trade.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown70` | `app/client/ui_trade.cpp:36` | untagged neutral name (D10) |
-| 1 | `LineDisplayClientClass` | `app/client/ui_trade.cpp:39` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/ui_trade.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/ui_trade.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_trade.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_trade.cpp:42` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_trade.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/ui_trade.cpp:43` | untagged neutral name (D10) |
-| 1 | `Unknown_651F60` | `app/client/ui_trade.cpp:602` | untagged neutral name (D10) |
-| 1 | `Unknown_59FE10` | `app/client/ui_trade.cpp:604` | untagged neutral name (D10) |
-| 1 | `Unknown138` | `app/client/ui_trade.cpp:605` | untagged neutral name (D10) |
-| 1 | `Unknown_688870` | `app/client/ui_trade.cpp:607` | untagged neutral name (D10) |
-| 1 | `Unknown13C` | `app/client/ui_trade.cpp:608` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/client/ui_trade.cpp:613` | untagged neutral name (D10) |
-| 1 | `Unknown_652360` | `app/client/ui_trade.cpp:622` | untagged neutral name (D10) |
-| 1 | `UnknownB4` | `app/client/ui_trade.cpp:623` | untagged neutral name (D10) |
-| 1 | `Unknown_C8` | `app/client/ui_trade.cpp:624` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/ui_trade.cpp:625` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/ui_trade.cpp:34` | neutral (D10) |
+| 1 | `Unknown50` | `app/client/ui_trade.cpp:34` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_trade.cpp:37` | neutral (D10)	// money.cpp's (out of line, ??9@YA_NABVMoneyClass@@0@Z)  // NAME 1 [a, b]: neutral |
+| 1 | `Unknown_Find_Field` | `app/client/ui_trade.cpp:37` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_trade.cpp:37` | untagged neutral name (D10) |
+| 1 | `LineDisplayClientClass` | `app/client/ui_trade.cpp:40` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_trade.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_trade.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_trade.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_trade.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_trade.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_trade.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown_B8BE98` | `app/client/ui_trade.cpp:60` | neutral (D10) |
+| 1 | `InterfaceUnknown58Class` | `app/client/ui_trade.cpp:63` | neutral (D10) |
+| 1 | `Unknown_686CC0` | `app/client/ui_trade.cpp:63` | untagged neutral name (D10) |
+| 1 | `robj, make_geometry_unique` | `app/client/ui_trade.cpp:64` | as ui_manu.cpp's |
+| 1 | `Unknown_496AE0` | `app/client/ui_trade.cpp:64` | untagged neutral name (D10) |
+| 1 | `Get_Slider_Value` | `app/client/ui_trade.cpp:65` | neutral (D10) |
+| 1 | `Unknown669FB0Class` | `app/client/ui_trade.cpp:65` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/ui_trade.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown_5896C0` | `app/client/ui_trade.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/ui_trade.cpp:66` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_trade.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `app/client/ui_trade.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown13C` | `app/client/ui_trade.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown140` | `app/client/ui_trade.cpp:98` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/ui_trade.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/client/ui_trade.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_trade.cpp:101` | untagged neutral name (D10) |
+| 1 | `Unknown108` | `app/client/ui_trade.cpp:102` | untagged neutral name (D10) |
+| 1 | `Unknown120` | `app/client/ui_trade.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67BC` | `app/client/ui_trade.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_BC` | `app/client/ui_trade.cpp:112` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_trade.cpp:115` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_trade.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown4C` | `app/client/ui_trade.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_C4` | `app/client/ui_trade.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_24` | `app/client/ui_trade.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown_6902E0` | `app/client/ui_trade.cpp:166` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFC0` | `app/client/ui_trade.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown64` | `app/client/ui_trade.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown_6870E0` | `app/client/ui_trade.cpp:178` | untagged neutral name (D10) |
+| 1 | `Unknown_66C4A0` | `app/client/ui_trade.cpp:189` | untagged neutral name (D10) |
+| 1 | `Unknown_65FFA0` | `app/client/ui_trade.cpp:203` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_trade.cpp:208` | untagged neutral name (D10) |
+| 1 | `Unknown_66A300` | `app/client/ui_trade.cpp:215` | untagged neutral name (D10) |
+| 1 | `Unknown_653A80` | `app/client/ui_trade.cpp:225` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_trade.cpp:244` | untagged neutral name (D10) |
+| 1 | `Unknown_695DC0` | `app/client/ui_trade.cpp:248` | untagged neutral name (D10) |
+| 1 | `Unknown_652450` | `app/client/ui_trade.cpp:250` | untagged neutral name (D10) |
+| 1 | `Unknown_651F60` | `app/client/ui_trade.cpp:251` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_trade.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown17C` | `app/client/ui_trade.cpp:262` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_trade.cpp:267` | untagged neutral name (D10) |
+| 1 | `Unknown_652FF0` | `app/client/ui_trade.cpp:270` | untagged neutral name (D10) |
+| 1 | `Unknown_695680` | `app/client/ui_trade.cpp:273` | untagged neutral name (D10) |
+| 1 | `UnknownB4` | `app/client/ui_trade.cpp:275` | untagged neutral name (D10) |
+| 1 | `Unknown_59FE10` | `app/client/ui_trade.cpp:280` | untagged neutral name (D10) |
+| 1 | `Unknown_688830` | `app/client/ui_trade.cpp:280` | untagged neutral name (D10) |
+| 1 | `Unknown_C8` | `app/client/ui_trade.cpp:285` | untagged neutral name (D10) |
+| 1 | `Unknown_18` | `app/client/ui_trade.cpp:290` | untagged neutral name (D10) |
+| 1 | `Unknown_652030` | `app/client/ui_trade.cpp:294` | untagged neutral name (D10) |
+| 1 | `Unknown_688870` | `app/client/ui_trade.cpp:296` | untagged neutral name (D10) |
+| 1 | `Unknown_A4` | `app/client/ui_trade.cpp:298` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_trade.cpp:301` | untagged neutral name (D10) |
+| 1 | `Unknown_695CE0` | `app/client/ui_trade.cpp:315` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_trade.cpp:405` | untagged neutral name (D10) |
+| 1 | `Unknown_5A02E0` | `app/client/ui_trade.cpp:415` | untagged neutral name (D10) |
+| 1 | `Unknown_652890` | `app/client/ui_trade.cpp:423` | untagged neutral name (D10) |
+| 1 | `Unknown_6531F0` | `app/client/ui_trade.cpp:431` | untagged neutral name (D10) |
+| 1 | `Unknown_652C60` | `app/client/ui_trade.cpp:439` | untagged neutral name (D10) |
+| 1 | `Unknown_6539A0` | `app/client/ui_trade.cpp:450` | untagged neutral name (D10) |
+| 1 | `Unknown_CC` | `app/client/ui_trade.cpp:475` | untagged neutral name (D10) |
+| 1 | `Unknown_651EC0` | `app/client/ui_trade.cpp:477` | untagged neutral name (D10) |
+| 1 | `Unknown_D0` | `app/client/ui_trade.cpp:488` | untagged neutral name (D10) |
+| 1 | `Unknown_90` | `app/client/ui_trade.cpp:497` | untagged neutral name (D10) |
+| 1 | `UnknownA8` | `app/client/ui_trade.cpp:502` | untagged neutral name (D10) |
+| 1 | `Unknown160` | `app/client/ui_trade.cpp:513` | untagged neutral name (D10) |
+| 1 | `Unknown_652360` | `app/client/ui_trade.cpp:526` | untagged neutral name (D10) |
 | 1 | `Unknown_653450` | `app/client/ui_trade.cpp:626` | untagged neutral name (D10) |
-| 1 | `Unknown0D4` | `app/client/ui_trade.cpp:673` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_trade.cpp:675` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/ui_trade.cpp:679` | untagged neutral name (D10) |
+| 1 | `Unknown_652670` | `app/client/ui_trade.cpp:639` | untagged neutral name (D10) |
+| 1 | `Unknown150` | `app/client/ui_trade.cpp:641` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7860` | `app/client/ui_trade.cpp:643` | untagged neutral name (D10) |
+| 1 | `Unknown_688850` | `app/client/ui_trade.cpp:645` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7990` | `app/client/ui_trade.cpp:646` | untagged neutral name (D10) |
+| 1 | `Unknown_6A7A00` | `app/client/ui_trade.cpp:648` | untagged neutral name (D10) |
 | 1 | `Unknown_BAE854` | `app/client/ui_trade.cpp:681` | untagged neutral name (D10) |
 | 1 | `Unknown_6CE910` | `app/client/ui_trade.cpp:682` | untagged neutral name (D10) |
-| 1 | `Unknown_652450` | `app/client/ui_trade.cpp:690` | untagged neutral name (D10) |
 | 1 | `Get_Unknown0D0` | `app/client/ui_trade.cpp:698` | untagged neutral name (D10) |
-| 1 | `Unknown_652890` | `app/client/ui_trade.cpp:725` | untagged neutral name (D10) |
-| 1 | `Unknown_24` | `app/client/ui_trade.cpp:734` | untagged neutral name (D10) |
-| 1 | `Unknown_688830` | `app/client/ui_trade.cpp:736` | untagged neutral name (D10) |
 | 1 | `Unknown20` | `app/client/ui_trade.cpp:737` | untagged neutral name (D10) |
 | 1 | `Unknown_5A00C0` | `app/client/ui_trade.cpp:741` | untagged neutral name (D10) |
 | 1 | `Get_Unknown34` | `app/client/ui_trade.cpp:745` | untagged neutral name (D10) |
 | 1 | `Unknown_588A70` | `app/client/ui_trade.cpp:745` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/ui_trade.cpp:746` | untagged neutral name (D10) |
 | 1 | `Unknown_652BA0` | `app/client/ui_trade.cpp:761` | untagged neutral name (D10) |
-| 1 | `Unknown_652C60` | `app/client/ui_trade.cpp:781` | untagged neutral name (D10) |
 | 1 | `Unknown_695630` | `app/client/ui_trade.cpp:785` | untagged neutral name (D10) |
 | 1 | `Unknown_652E70` | `app/client/ui_trade.cpp:813` | untagged neutral name (D10) |
-| 1 | `Unknown_5896C0` | `app/client/ui_trade.cpp:815` | untagged neutral name (D10) |
 | 1 | `Unknown_652EB0` | `app/client/ui_trade.cpp:823` | untagged neutral name (D10) |
-| 1 | `Unknown_652FF0` | `app/client/ui_trade.cpp:843` | untagged neutral name (D10) |
 | 1 | `Unknown_5890B0` | `app/client/ui_trade.cpp:850` | untagged neutral name (D10) |
-| 1 | `Unknown_5A02E0` | `app/client/ui_trade.cpp:855` | untagged neutral name (D10) |
 | 1 | `Unknown_5A03B0` | `app/client/ui_trade.cpp:859` | untagged neutral name (D10) |
-| 1 | `Unknown_6531F0` | `app/client/ui_trade.cpp:869` | untagged neutral name (D10) |
-| 1 | `ui_trade.h` | `app/client/ui_trade.h:4` | provisional header name for ui_trade.cpp |
-| 1 | `index` | `app/client/ui_trade.h:25` | neutral |
-| 1 | `Unknown_651F60` | `app/client/ui_trade.h:25` | untagged neutral name (D10) |
-| 1 | `Unknown_652360` | `app/client/ui_trade.h:26` | untagged neutral name (D10) |
-| 1 | `force` | `app/client/ui_trade.h:27` | neutral |
-| 1 | `Unknown_652450` | `app/client/ui_trade.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown_652890` | `app/client/ui_trade.h:28` | untagged neutral name (D10) |
-| 1 | `arg, significant` | `app/client/ui_trade.h:29` | neutral |
-| 1 | `Unknown_652BA0` | `app/client/ui_trade.h:29` | untagged neutral name (D10) |
-| 1 | `Unknown_652C60` | `app/client/ui_trade.h:30` | untagged neutral name (D10) |
-| 1 | `Unknown_652E70` | `app/client/ui_trade.h:31` | untagged neutral name (D10) |
-| 1 | `Unknown_652EB0` | `app/client/ui_trade.h:32` | untagged neutral name (D10) |
-| 1 | `Unknown_652FF0` | `app/client/ui_trade.h:33` | untagged neutral name (D10) |
-| 1 | `arg` | `app/client/ui_trade.h:34` | neutral |
-| 1 | `Unknown_6531F0` | `app/client/ui_trade.h:34` | untagged neutral name (D10) |
-| 1 | `Unknown_653450` | `app/client/ui_trade.h:35` | untagged neutral name (D10) |
-| 1 | `Get_Unknown0D0` | `app/client/ui_trade.h:36` | neutral (D10)								// 0x653450 (FAIL_IFs '!button' l.911, '!sd_render' l.914, '!trade_render' l.917) |
-| 1 | `Unknown0D0` | `app/client/ui_trade.h:38` | neutral (D10) |
-| 1 | `Unknown0D4` | `app/client/ui_trade.h:39` | neutral (D10) |
-| 1 | `Unknown108` | `app/client/ui_trade.h:40` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/ui_trade.h:41` | untagged neutral name (D10) |
-| 1 | `Unknown120` | `app/client/ui_trade.h:42` | neutral (D10) |
-| 1 | `Unknown138` | `app/client/ui_trade.h:43` | neutral (D10) |
-| 1 | `Unknown13C` | `app/client/ui_trade.h:44` | neutral (D10) |
-| 1 | `Unknown140` | `app/client/ui_trade.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown144` | `app/client/ui_trade.h:46` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_trade.h:48` | neutral (D10) |
-| 1 | `Unknown150` | `app/client/ui_trade.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown160` | `app/client/ui_trade.h:49` | untagged neutral name (D10) |
-| 1 | `Unknown168` | `app/client/ui_trade.h:51` | untagged neutral name (D10) |
-| 1 | `Unknown16C` | `app/client/ui_trade.h:52` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/ui_trade.h:53` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/ui_trade.h:54` | neutral (D10) |
-| 1 | `Unknown178` | `app/client/ui_trade.h:55` | untagged neutral name (D10) |
-| 1 | `std:` | `app/client/ui_trade.h:56` | neutral (D10) |
-| 1 | `Unknown17C` | `app/client/ui_trade.h:56` | untagged neutral name (D10) |
-| 1 | `Unknown18C` | `app/client/ui_trade.h:57` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_trade.cpp:942` | untagged neutral name (D10) |
+| 1 | `Unknown_B4` | `app/client/ui_trade.cpp:952` | untagged neutral name (D10) |
+| 1 | `ui_trade.h` | `app/client/ui_trade.h:5` | provisional header name for ui_trade.cpp |
+| 1 | `Unknown669FB0Class` | `app/client/ui_trade.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_trade.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_trade.h:31` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_trade.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_trade.h:33` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_trade.h:34` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_trade.h:34` | untagged neutral name (D10) |
+| 1 | `Unknown_B0` | `app/client/ui_trade.h:35` | untagged neutral name (D10) |
+| 1 | `Unknown_C8` | `app/client/ui_trade.h:36` | untagged neutral name (D10) |
+| 1 | `Unknown_CC` | `app/client/ui_trade.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_D0` | `app/client/ui_trade.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown_651EC0` | `app/client/ui_trade.h:39` | untagged neutral name (D10) |
+| 1 | `index` | `app/client/ui_trade.h:40` | neutral |
+| 1 | `Unknown_651F60` | `app/client/ui_trade.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_652030` | `app/client/ui_trade.h:41` | untagged neutral name (D10) |
+| 1 | `Unknown_652360` | `app/client/ui_trade.h:42` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/ui_trade.h:43` | neutral |
+| 1 | `Unknown_652450` | `app/client/ui_trade.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown_652670` | `app/client/ui_trade.h:44` | untagged neutral name (D10) |
+| 1 | `Unknown_652890` | `app/client/ui_trade.h:45` | untagged neutral name (D10) |
+| 1 | `arg, significant` | `app/client/ui_trade.h:46` | neutral |
+| 1 | `Unknown_652BA0` | `app/client/ui_trade.h:46` | untagged neutral name (D10) |
+| 1 | `Unknown_652C60` | `app/client/ui_trade.h:47` | untagged neutral name (D10) |
+| 1 | `Unknown_652E70` | `app/client/ui_trade.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown_652EB0` | `app/client/ui_trade.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_652FF0` | `app/client/ui_trade.h:50` | untagged neutral name (D10) |
+| 1 | `arg` | `app/client/ui_trade.h:51` | neutral |
+| 1 | `Unknown_6531F0` | `app/client/ui_trade.h:51` | untagged neutral name (D10) |
+| 1 | `Unknown_653450` | `app/client/ui_trade.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_6539A0` | `app/client/ui_trade.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_653A80` | `app/client/ui_trade.h:54` | untagged neutral name (D10) |
+| 1 | `Get_Unknown0D0` | `app/client/ui_trade.h:55` | neutral (D10) |
+| 1 | `Close_Box` | `app/client/ui_trade.h:56` | describes what it does |
+| 1 | `Get_Shown` | `app/client/ui_trade.h:57` | neutral (D10) |
+| 1 | `Unknown17C` | `app/client/ui_trade.h:57` | untagged neutral name (D10) |
+| 1 | `Find_Shown` | `app/client/ui_trade.h:58` | neutral (D10) |
+| 1 | `Unknown0D4` | `app/client/ui_trade.h:61` | neutral (D10) |
+| 1 | `Unknown108` | `app/client/ui_trade.h:62` | neutral (D10) |
+| 1 | `Unknown11C` | `app/client/ui_trade.h:63` | neutral (D10) |
+| 1 | `Unknown120` | `app/client/ui_trade.h:64` | neutral (D10) |
+| 1 | `Unknown138` | `app/client/ui_trade.h:65` | neutral (D10) |
+| 1 | `Unknown13C` | `app/client/ui_trade.h:66` | neutral (D10) |
+| 1 | `Unknown140` | `app/client/ui_trade.h:67` | neutral (D10) |
+| 1 | `Unknown144` | `app/client/ui_trade.h:68` | untagged neutral name (D10) |
+| 1 | `std:` | `app/client/ui_trade.h:70` | neutral (D10) |
+| 1 | `Unknown150` | `app/client/ui_trade.h:70` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/ui_trade.h:75` | neutral (D10) |
+| 1 | `Unknown174` | `app/client/ui_trade.h:76` | neutral (D10) |
+| 1 | `Unknown178` | `app/client/ui_trade.h:77` | neutral (D10) |
+| 1 | `std:` | `app/client/ui_trade.h:78` | neutral (D10) |
+| 1 | `Unknown18C` | `app/client/ui_trade.h:79` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_treem.cpp:20` | 0xBE67C4 |
 | 1 | `Unknown0D5` | `app/client/ui_treem.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown64` | `app/client/ui_treem.cpp:80` | untagged neutral name (D10) |
@@ -20615,6 +20675,42 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Set_Color` | `app/client/unknown_6e1ab0.h:33` | what it does |
 | 1 | `Set_Size` | `app/client/unknown_6e1ab0.h:34` | what it does |
 | 1 | `Set_Screen_Position` | `app/client/unknown_6e1ab0.h:35` | what it does |
+| 1 | `Unknown_BE7CF0` | `app/client/unknown_723210.cpp:17` | neutral (D10) |
+| 1 | `UnknownB02C74Class` | `app/client/unknown_723210.cpp:20` | neutral (D10), its vtable's |
+| 1 | `UnknownB02C78ActionClass` | `app/client/unknown_723210.cpp:20` | untagged neutral name (D10) |
+| 1 | `UnknownB02C70Class` | `app/client/unknown_723210.cpp:29` | neutral (D10), its vtable's |
+| 1 | `UnknownB02C6CClass` | `app/client/unknown_723210.cpp:38` | neutral (D10), its vtable's |
+| 1 | `UnknownB02C60Class` | `app/client/unknown_723210.cpp:46` | neutral (D10), its vtable's |
+| 1 | `UnknownB02C5CClass` | `app/client/unknown_723210.cpp:54` | neutral (D10), its vtable's |
+| 1 | `UnknownB02C58Class` | `app/client/unknown_723210.cpp:62` | neutral (D10), its vtable's |
+| 1 | `UnknownB02C54Class` | `app/client/unknown_723210.cpp:70` | neutral (D10), its vtable's |
+| 1 | `UnknownB02C64Class` | `app/client/unknown_723210.cpp:78` | neutral (D10), its vtable's |
+| 1 | `UnknownB02C68Class` | `app/client/unknown_723210.cpp:87` | neutral (D10), its vtable's |
+| 1 | `Unknown_723210` | `app/client/unknown_723210.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/unknown_723210.cpp:96` | untagged neutral name (D10) |
+| 1 | `Unknown_723230` | `app/client/unknown_723210.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_7232D0` | `app/client/unknown_723210.cpp:104` | untagged neutral name (D10) |
+| 1 | `Unknown_6F5A10` | `app/client/unknown_723210.cpp:110` | untagged neutral name (D10) |
+| 1 | `Unknown_7234B0` | `app/client/unknown_723210.cpp:128` | untagged neutral name (D10) |
+| 1 | `UnknownB02C78Class` | `app/client/unknown_723210.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/unknown_723210.cpp:177` | untagged neutral name (D10) |
+| 1 | `Unknown10BC` | `app/client/unknown_723210.cpp:180` | untagged neutral name (D10) |
+| 1 | `Unknown_745B90` | `app/client/unknown_723210.cpp:203` | untagged neutral name (D10) |
+| 1 | `Unknown_745C70` | `app/client/unknown_723210.cpp:221` | untagged neutral name (D10) |
+| 1 | `Unknown_745E40` | `app/client/unknown_723210.cpp:234` | untagged neutral name (D10) |
+| 1 | `unknown_723210` | `app/client/unknown_723210.h:6` | interim file name (D137) |
+| 1 | `SClientUnknown12BCClass` | `app/client/unknown_723210.h:16` | neutral (D10), sclient.cpp's |
+| 1 | `Unknown_04` | `app/client/unknown_723210.h:20` | untagged neutral name (D10) |
+| 1 | `UnknownB02C78ActionClass` | `app/client/unknown_723210.h:25` | neutral (D10), the robot's |
+| 1 | `Execute, client` | `app/client/unknown_723210.h:29` | neutral (D10) |
+| 1 | `Time` | `app/client/unknown_723210.h:31` | what it holds |
+| 1 | `UnknownB02C78CompareStruct` | `app/client/unknown_723210.h:35` | neutral (D10) |
+| 1 | `UnknownB02C78Class` | `app/client/unknown_723210.h:41` | neutral (D10), its vtable's |
+| 1 | `std:` | `app/client/unknown_723210.h:48` | what it holds |
+| 1 | `Unknown_723210` | `app/client/unknown_723210.h:52` | untagged neutral name (D10) |
+| 1 | `Unknown_723230` | `app/client/unknown_723210.h:53` | untagged neutral name (D10) |
+| 1 | `Unknown_7232D0` | `app/client/unknown_723210.h:54` | untagged neutral name (D10) |
+| 1 | `Unknown_7234B0` | `app/client/unknown_723210.h:55` | untagged neutral name (D10) |
 | 1 | `Unknown729990Struct` | `app/client/unknown_7294d0.cpp:8` | neutral (D10) |
 | 1 | `client, base_asset, scale` | `app/client/unknown_7294d0.cpp:17` | what 0x7294D0 passes |
 | 1 | `Unknown_729770` | `app/client/unknown_7294d0.cpp:17` | untagged neutral name (D10) |
@@ -20629,6 +20725,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_75B8F0` | `app/client/unknown_75b7b0.h:9` | untagged neutral name (D10) |
 | 1 | `obj, phase` | `app/client/unknown_75b7b0.h:10` | neutral (D10); the 'plt_dn' textures' U offset |
 | 1 | `Unknown_75BB50` | `app/client/unknown_75b7b0.h:10` | untagged neutral name (D10) |
+| 1 | `Unknown761C80Class` | `app/client/unknown_761c80.cpp:12` | untagged neutral name (D10) |
+| 1 | `unknown_761c80.h` | `app/client/unknown_761c80.h:5` | interim header name (D137) |
+| 1 | `Unknown761C80Class` | `app/client/unknown_761c80.h:22` | neutral (D10) |
 | 1 | `Unknown_763E70` | `app/client/unknown_763e00.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_BDC0A0` | `app/client/unknown_763e00.cpp:38` | untagged neutral name (D10) |
 | 1 | `Unknown_763FF0` | `app/client/unknown_763e00.cpp:44` | untagged neutral name (D10) |
@@ -27538,7 +27637,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `std:` | `app/client/ui_talkt_space.cpp:137` | what Get_Full_Name fills |
 | 2 | `Layer` | `app/client/ui_test.h:33` | what it is |
 | 2 | `std:` | `app/client/ui_trade.cpp:33` | as ui_mfd_extended_context_harvestable.h's |
-| 2 | `Money` | `app/client/ui_trade.h:47` | what it holds |
+| 2 | `Money` | `app/client/ui_trade.h:69` | what it holds |
+| 2 | `Slider` | `app/client/ui_trade.h:71` | as the other windows' |
 | 2 | `reverse` | `app/client/ui_vault.h:31` | what it toggles |
 | 2 | `Filter` | `app/client/ui_vault.h:35` | its sub-object's name |
 | 2 | `SortIndex` | `app/client/ui_vault.h:36` | what it holds |
@@ -27573,8 +27673,24 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `FontEffectStruct::EffectType` | `app/client/unknown_6ca0c0.h:7` | the client's ini words |
 | 2 | `FontEffectStruct::Direction` | `app/client/unknown_6ca0c0.h:33` | the client's ini words |
 | 2 | `Class_ID` | `app/client/unknown_6e1ab0.h:32` | E&B's class id |
+| 2 | `Turn` | `app/client/unknown_723210.cpp:25` | TurnPacketClass's sign |
+| 2 | `Tilt` | `app/client/unknown_723210.cpp:34` | TiltPacketClass's sign |
+| 2 | `Attacked` | `app/client/unknown_723210.cpp:83` | what it holds |
+| 2 | `client` | `app/client/unknown_723210.h:44` | what the actions get |
+| 2 | `Client` | `app/client/unknown_723210.h:49` | the constructor's argument |
+| 2 | `target` | `app/client/unknown_723210.h:53` | the packet's |
 | 2 | `AssetId` | `app/client/unknown_7294d0.cpp:13` | what 0x7294D0 passes to Create as the asset id |
 | 2 | `Model` | `app/client/unknown_7294d0.cpp:14` | what it holds |
+| 2 | `Add_Light_Environment` | `app/client/unknown_761c80.h:33` | what it does |
+| 2 | `Peek_Light_Environment` | `app/client/unknown_761c80.h:34` | what it does |
+| 2 | `Remove_Light_Environment` | `app/client/unknown_761c80.h:35` | what it does |
+| 2 | `Set_Fill_Intensity` | `app/client/unknown_761c80.h:36` | LightEnvironmentClass's |
+| 2 | `Set_Environment_Ambient` | `app/client/unknown_761c80.h:37` | what it does |
+| 2 | `Light` | `app/client/unknown_761c80.h:42` | its type |
+| 2 | `DefaultLightEnvironment` | `app/client/unknown_761c80.h:43` | what it holds |
+| 2 | `EnvironmentAmbient` | `app/client/unknown_761c80.h:44` | what it holds |
+| 2 | `FillIntensity` | `app/client/unknown_761c80.h:45` | LightEnvironmentClass's |
+| 2 | `std:` | `app/client/unknown_761c80.h:46` | what it holds |
 | 2 | `rslid` | `app/client/unknown_763e00.h:23` | the INI key it is read from |
 | 2 | `CheckBoxGadgetClass` | `app/client/unknown_7e7e00.h:23` | what it is, a check box ('if_check_on.tga' / 'if_check_off.tga'; D239 renamed it from UIManuCheckButtonClass) |
 | 2 | `Checked` | `app/client/unknown_7e7e00.h:33` | what 0x7E8030 sets |
@@ -30812,7 +30928,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `UIStringListClass` | `app/client/ui_string_list.h:42` | class-from-file (D24) for app\Client\ui_string_list.cpp |
 | 3 | `std:` | `app/client/ui_string_list.h:60` | the assert's |
 | 3 | `As_Space_Client` | `app/client/ui_talkt.cpp:31` | ui_manu.cpp's FAIL_IF's |
-| 3 | `UITradeClass` | `app/client/ui_talkt.cpp:35` | class-from-file (D24) for ui_trade.cpp |
 | 3 | `BTTN_MORE` | `app/client/ui_talkt.cpp:57` | the FAIL_IF's; NAME 1 [the others]: neutral |
 | 3 | `Quit_Talk_Tree` | `app/client/ui_talkt.cpp:61` | the FAIL_IF's |
 | 3 | `UITalkTreeClass` | `app/client/ui_talkt.h:16` | class-from-file (D24) for app\client\ui_talkt.cpp |
@@ -30828,9 +30943,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `As_Space_Client` | `app/client/ui_talkt_space.cpp:15` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UITalkTreeSpaceClass` | `app/client/ui_talkt_space.h:10` | class-from-file (D24) for app\client\ui_talkt_space.cpp |
 | 3 | `AvatarPIP` | `app/client/ui_talkt_space.h:22` | the FAIL_IF's 'AvatarPIP' (0x64F430, l.102) |
-| 3 | `As_Space_Client` | `app/client/ui_trade.cpp:44` | ui_manu.cpp's FAIL_IF's |
-| 3 | `UITradeClass` | `app/client/ui_trade.h:21` | class-from-file (D24) for ui_trade.cpp |
-| 3 | `PDA` | `app/client/ui_trade.h:50` | the assert's |
+| 3 | `As_Space_Client` | `app/client/ui_trade.cpp:45` | ui_manu.cpp's FAIL_IF's |
+| 3 | `UITradeClass` | `app/client/ui_trade.h:25` | class-from-file (D24) for ui_trade.cpp |
+| 3 | `InterfaceMesh` | `app/client/ui_trade.h:60` | the FAIL_IF's |
+| 3 | `PDA` | `app/client/ui_trade.h:72` | the assert's |
+| 3 | `StandardBttnTexture` | `app/client/ui_trade.h:73` | the assert's |
+| 3 | `SelectedBttnTexture` | `app/client/ui_trade.h:74` | the assert's |
 | 3 | `UITreeMClass` | `app/client/ui_treem.h:52` | class-from-file (D24) for app\Client\ui_treem.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_vault.cpp:33` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIVaultClass` | `app/client/ui_vault.h:19` | class-from-file (D24) for app\Client\ui_vault.cpp |
