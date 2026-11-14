@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "E&B's spline.h (its name from the client's assert __FILE__): only the float and colour arrays spln_db.cpp's Evaluate_Curve 0x485620 / Evaluate_Color 0x485790 use, asserts on lines 48 and 177; Resize 0x483820 (spline.cpp) declared"
+ "description": "E&B's spline.h (its name from the client's assert __FILE__): the float and colour arrays (vtables 0xAE9FAC / 0xAE9FB8) spln_db.cpp's Evaluate_Curve 0x485620 / Evaluate_Color 0x485790 and unknown_480b10.cpp use, asserts on lines 48 and 177; includes spline.inl; Resize 0x483820, the int ctor 0x4837B0, ~ 0x4837F0, Load / Save (spline.cpp) declared"
 }

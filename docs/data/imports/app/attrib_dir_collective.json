@@ -6,7 +6,7 @@
   "0x4B9D80"
  ],
  "copy": "reconstructed",
- "description": "the collective, client 0x4DA7F0-0x4DCFF0 with the tables' instances: the asserts on the client's lines 54-401 (D25); NOT EXACT: the destructor 0x4DBFD0, Add_Destination 0x4DC310, Add_Member 0x4DC720",
+ "description": "the collective, client 0x4DA7F0-0x4DD110 with the tables' instances: the asserts on the client's lines 54-401 (D25), DestinationStruct's constructor / destructor 0x4DCFF0 / 0x4DD110 defined last (out of line, no caller); NOT EXACT: the destructor 0x4DBFD0, Add_Destination 0x4DC310, Add_Member 0x4DC720",
  "expected": {},
  "in_tree": [
   "0x42A820",
@@ -23,6 +23,7 @@
   "0x441480",
   "0x45CC10",
   "0x45CC30",
+  "0x4B5740",
   "0x4D76A0",
   "0x4D76C0",
   "0x4DA7F0",
@@ -64,6 +65,8 @@
   "0x4DCCD0",
   "0x4DCD10",
   "0x4DCD40",
+  "0x4DCFF0",
+  "0x4DD110",
   "0x4DD1B0",
   "0x4DD1E0",
   "0x4DD210",
@@ -131,6 +134,7 @@
   "0x441480",
   "0x45CC10",
   "0x45CC30",
+  "0x4B5740",
   "0x4D76A0",
   "0x4D76C0",
   "0x4DBB40",
@@ -138,7 +142,8 @@
   "0x4DD6D0",
   "0x4DDD40",
   "0x4DDD90",
-  "0x4DF970"
+  "0x4DF970",
+  "0x4DFAE0"
  ],
  "short_known": [
   "0x42D120",

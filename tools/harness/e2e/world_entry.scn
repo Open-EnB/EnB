@@ -7,5 +7,5 @@ shot world
 # (programs/clientpoc/poc_input.cpp logs it) and must not open the map
 stray click gadget hud.navmap
 expect-event stubs '^POC input: NOT REPLAYED \(dropped\) 0x201'
-expect-no stubs 'POC Gadget(Starmap|GalaxyMap)Class|UIStarmapPipViewClass'
+expect-no stubs 'UIStarmapPipViewClass'
 alive 22

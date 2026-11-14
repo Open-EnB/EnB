@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "image.h: HtmlImageClass, HtmlLoaderClass, HtmlFileLoaderClass, HtmlFontStruct, Get_Font (moved from htmlview.h); O17b"
+}

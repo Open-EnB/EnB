@@ -120,23 +120,14 @@ void __cdecl FontSys::Unknown_6CE420(int unknown, const char *format, ...)
 
 // (chatgadg.cpp's text entry ChatGadgetClass 0x65BFD0 is rebuilt in app.lib)
 #include "..\..\app\client\textgadg.h"
-// The chat panel's combos while 0x5689D0 is a stand-in: an empty interface of the combo box's size, its state zero (the
-// drop-down up: the real Close_Drop_Down 0x57B440 reads +0xC8), with InterfaceClass's slots. Not a UIComboBoxClass: the
-// real constructor 0x5786C0 and destructor 0x578D50 (ui_combobox.cpp) need the layer, the model and the gadgets.
-class PocEmptyComboClass : public InterfaceClass
-{
-public:
-	PocEmptyComboClass(InterfaceClass *owner) : InterfaceClass(owner->Client)
-	{
-		STUB_CALLED("POC UIComboBoxClass: an empty window");
-		memset(Zero, 0, sizeof(Zero));
-	}
-	char Zero[sizeof(UIComboBoxClass) - sizeof(InterfaceClass)];
-};
-void ChatPanelInterface::Unknown_5689D0(int index)
-{
-	Combo[index] = Create_NEW((UIComboBoxClass *)new PocEmptyComboClass(this));
-}
+// The chat channels' names (.data 0xBA8C20-0xBA8C50, their file not in the tree yet; a generated stand-in left them NULL and
+// ui_chat_panel.cpp's 0x569A00 then read a NULL name in its channel search): the client's strings
+char *Unknown_BA8C20 = "General", *Unknown_BA8C24 = "Out of Context", *Unknown_BA8C28 = "Market", *Unknown_BA8C2C = "New Players",
+	*Unknown_BA8C30 = "Terran", *Unknown_BA8C34 = "Jenquai", *Unknown_BA8C38 = "Progen", *Unknown_BA8C3C = "Explorers",
+	*Unknown_BA8C40 = "Warriors", *Unknown_BA8C44 = "Tradesmen", *Unknown_BA8C48 = "Sentinels", *Unknown_BA8C4C = "Defenders",
+	*Unknown_BA8C50 = "Enforcers";
+// (the chat panel's combos, ChatPanelInterface::Unknown_5689D0, and the windows its options combo opens, 0x569A00, are
+// rebuilt in ui_chat_panel.cpp: the real UIComboBoxClass from ui_combobox.cpp, O19)
 class UnknownEventDispatcherClass;
 UnknownEventDispatcherClass *Unknown_540A20()	// 0x540A20 (intrface.cpp's function-local static SignalMap 0xBE5AF0): a real map, ui_chat_panel.cpp connects to it
 {

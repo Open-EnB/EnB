@@ -205,7 +205,7 @@ void BuffGadgetClass::Unknown_AC()
 			Unknown_66C2A0(Unknown_BC / Unknown_B8);
 		}
 	} else if (!Info.IsPermanent && left < DurationClass(PulseTime.Time * 1000)) {
-		float speed = (DurationClass(PulseTime.Time * 1000) - left).As_Int() * 0.0005f;
+		float speed = (DurationClass(PulseTime.Time * 1000) - left).Get() * 0.0005f;
 		if (speed < 3.0f) {
 			speed = 3.0f;
 		} else if (speed > 15.0f) {

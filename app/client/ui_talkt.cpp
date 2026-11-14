@@ -1,7 +1,7 @@
 // Earth & Beyond client (reconstruction): app\Client\ui_talkt.cpp (the client's __FILE__ 0xB8BC9C). Notes at the end.
 #include <stdio.h>
 #include <string>
-#include "sclient.h"
+#include "ui_trade.h"	// UITradeClass (0x650560; before sclient.h: pdaint.h first)
 #include "rendobj.h"
 #include "layer.h"
 #include "aabox.h"
@@ -31,13 +31,13 @@ public:
 	virtual SClient *As_Space_Client();					// +0x18 (SClient's returns itself)  // NAME 3: ui_manu.cpp's FAIL_IF's
 };
 
-// ui_trade.cpp's window (0x190 bytes), as far as this file makes it
-class UITradeClass : public Unknown5BB320Class  // NAME 3: class-from-file (D24) for ui_trade.cpp
-{
-public:
-	UITradeClass(SClient *client);						// 0x650560
-	char UnknownAC[0x190 - 0xAC];						// +0xAC
-};
+
+
+
+
+
+
+
 
 extern FontManagerClass *Unknown_BE67C4;				// NAME 1: neutral (D10)
 #include "..\shared\unknown_4a1590.h"
@@ -953,5 +953,5 @@ void UITalkTreeClass::Unknown_64EED0()
 ** 0x64B6E0 to the response vector's destructor 0x64EF40 and its COMDATs; ui_talkt_space.cpp follows at 0x64F310.
 ** Line 267's FAIL_IF '!NPCName' and line 812's G_ASSERT '!ActiveUI' occur twice: 0x64C7B0 and 0x64E370 inlined in their callers.
 ** Member names come from the asserts where they have one ('Buttons[BTTN_MORE]', 'NPCLines[lp]', 'NPCSpeechHandle', 'ActiveUI',
-** 'Responses'); UITradeClass is ui_trade.cpp's (0x650560), declared here as far as this file makes it.
+** 'Responses'); UITradeClass is ui_trade.h's (0x650560; the local stand-in retired 2026-11-14, O23).
 */

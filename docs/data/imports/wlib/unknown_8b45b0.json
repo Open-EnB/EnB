@@ -1,0 +1,16 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "E&B's object 0x8B45B0-0x8B4F60 between monod.cpp and streamer.cpp in the client's link order (PROVISIONAL name, D137; no __FILE__ string, no EA copy): a qsort with a context argument, a class of empty members, a 20-byte digest printer, a one-shot SHA-1 (Cord_SHA, CordMgr::Compute_Ticks's) and an ostream inserter for __int64",
+ "expected": {
+  "Z": 0
+ },
+ "headers_from": null,
+ "in_tree": [
+  "0x8B45B0",
+  "0x8B4A00",
+  "0x8B4F10"
+ ],
+ "merged": [],
+ "name": "unknown_8b45b0.cpp"
+}

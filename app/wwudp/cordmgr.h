@@ -33,9 +33,9 @@
 #include "ffactory.h"		// file_auto_ptr (Init's key file)
 #include <time.h>
 
-// 0x8B4A90 (WWOnline's library, cdecl; not in the tree): SHA-1 of len bytes into digest[5]. A program that
-// links CordMgr defines it (tests/udpreplay does).
-void Cord_SHA(const void *data, int len, unsigned int *digest);	// NAME 1: placeholder
+// 0x8B4A90 (WWOnline's library, cdecl; libs\wwonline\wlib\unknown_8b45b0.cpp): SHA-1 of len bytes into
+// digest[5]; returns true. A program that links CordMgr without wlib defines it (tests/udpreplay does).
+bool Cord_SHA(const void *data, int len, unsigned int *digest);	// NAME 1: placeholder
 
 struct CordDataSocketClass		// NAME 2: a data socket's record (the +0x40 list, 16 bytes)
 {

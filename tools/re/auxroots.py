@@ -162,8 +162,8 @@ INT_NAMED = {0xB0122C: 0x708690, 0xB013EC: 0x708800, 0xB01394: 0x708970, 0xB0133
 # Value_To_String), from the KVPair's slots +0x08 (Get_Type_Name), +0x10 (Set_Value_String 0x709680..)
 # and +0x0C (Get_Value_String). An out-of-line Type_Name takes the saved value (`push [ecx+0x10]`):
 # the KVPair's Get_Type_Name is specialised to pass it, as shipcust_desc.h does for ProfessionType.
-# Conversions now rebuilt in the tree: declared as ENUM_EXTERN says, no stand-in (target_generator_summary.cpp's, GD1; item_effect.cpp's, E1; item_state.cpp's, C5 2026-11-12).
-ENUM_REBUILT = {0xB0189C, 0xB01844, 0xB017EC}
+# Conversions now rebuilt in the tree: declared as ENUM_EXTERN says, no stand-in (target_generator_summary.cpp's, GD1; item_effect.cpp's, E1; item_state.cpp's, C5 2026-11-12; game_action_validity.cpp's, O24 2026-11-14).
+ENUM_REBUILT = {0xB0189C, 0xB01844, 0xB017EC, 0xB018F4}
 ENUM_EXTERN = {
     0xB01844: (0x835370, 0x835390, 0x835590),
     0xB0189C: (0x84BE40, 0x84BE60, 0x84C060),
@@ -795,7 +795,7 @@ enum AuxRootsSymbolPadType { %s };	// NAME 1: a build aid (HX1)
 # 46-49 (and 44; same sweep). ST1's sbaseview.h retype (AvatarUI +0x19C onto ui_avatar_cust.h's
 # StarbaseAvatarCreationInterface, the stand-in class gone): 1-7 (and 62-63; .work/st1/sendpad_imp.py).
 # TC1's ui_stringentry.h (UIPTradeCreditsClass out of sclient.h): 0x758210 and 0x702240 both only at 33 and 55-57: 56.
-SEND_SYMBOL_PAD = 16
+SEND_SYMBOL_PAD = 0
 SEND_PAD = '''// VC6 symbol pad (not the client's code): sclient.cpp's copy of 0x758210 matches only when the count of
 // the declarations it sees falls in a window (tools/re/auxroots.py SEND_SYMBOL_PAD)
 enum AuxRootsSendSymbolPadType { %s };	// NAME 1: a build aid (SC1)

@@ -1,0 +1,36 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "image.cpp (its __FILE__ 0xB9C93C, asserts lines 23 / 105 / 106): object 0x76E4F0-0x76F0F0, after gifload.cpp's Out_Line, before unknown_htmlblock.cpp; HtmlImageClass (vtable 0xB043D4), HtmlFileLoaderClass (0xB043F0, base HtmlLoaderClass 0xB04400) and Get_Font with its ArrayList cache (provisionally this file's: its literal and bss follow the asserts' with no other __FILE__ between); O17b",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x76D410",
+  "0x76D430",
+  "0x76E4F0",
+  "0x76E560",
+  "0x76E5B0",
+  "0x76E5E0",
+  "0x76E730",
+  "0x76E8A0",
+  "0x76E910",
+  "0x76E940",
+  "0x76E960",
+  "0x76E990",
+  "0x76E9D0",
+  "0x76EB10",
+  "0x76EB40"
+ ],
+ "merged": [],
+ "name": "client/html/image/image.cpp",
+ "shared": [
+  "0x42F250",
+  "0x76D410",
+  "0x76D430"
+ ],
+ "short_known": [
+  "0x76D410",
+  "0x76D430",
+  "0x76E940"
+ ]
+}

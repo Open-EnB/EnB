@@ -1,0 +1,62 @@
+{
+ "ambiguous": [
+  "0x42A6C0"
+ ],
+ "copy": "reconstructed",
+ "description": "client 0x4DFBF0-0x4E06EF, the object after attrib_dir_collective.cpp's (ends with <string>'s guarded initialiser 0x4E06D0; vtables 0xAEC3D0-0xAEC410 between the two objects' __stl_prime_list copies 0xAEC348 / 0xAEC414): Link_Attribute (AttribDirCollective::Link's callee), the link mod AttribLinkModClass, the two-source mod and its sum; no string of its own, the file name provisional (D137); rebuilt by builder O13b (2026-11-13), every function exact",
+ "expected": {},
+ "in_tree": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x4B5740",
+  "0x4D76A0",
+  "0x4D76C0",
+  "0x4DFBF0",
+  "0x4DFCD0",
+  "0x4DFED0",
+  "0x4DFF00",
+  "0x4E0010",
+  "0x4E0030",
+  "0x4E0050",
+  "0x4E0070",
+  "0x4E00A0",
+  "0x4E0260",
+  "0x4E0280",
+  "0x4E02A0",
+  "0x4E02D0",
+  "0x4E0430",
+  "0x4E04C0",
+  "0x4E0510",
+  "0x4E0540",
+  "0x4E06A0",
+  "0x4E06D0"
+ ],
+ "merged": [],
+ "name": "shared/unknown_4dfbf0.cpp",
+ "shared": [
+  "0x42A820",
+  "0x42A940",
+  "0x42A970",
+  "0x42AB30",
+  "0x42CAB0",
+  "0x42CD30",
+  "0x42D120",
+  "0x4B5740",
+  "0x4D76A0",
+  "0x4D76C0"
+ ],
+ "short_known": [
+  "0x42D120",
+  "0x4D76A0",
+  "0x4E0010",
+  "0x4E0030",
+  "0x4E0050",
+  "0x4E0260",
+  "0x4E0280"
+ ]
+}

@@ -5372,8 +5372,8 @@ void SClient::Unknown_751460(int points_total, int points_spent)
 	int skill_points = 0;
 	int credits = 0;
 	for (std::vector<BuddyRewardStruct>::iterator it = rewards.begin(); it != rewards.end(); it++) {
-		skill_points += (*it).SkillPoints;
-		credits += (*it).Credits;
+		skill_points += (*it).SkillBoost;
+		credits += (*it).CreditBoost;
 	}
 	char text[1024];
 	_snprintf(text, sizeof(text), "You have %d Bonus %s to spend!\nSpending %s now will earn you:\n\n+%d Skill Points & +%d Credits\n\nDo you wish to spend %s now?",

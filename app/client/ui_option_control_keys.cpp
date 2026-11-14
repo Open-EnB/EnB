@@ -24,7 +24,7 @@ public:
 	KeyPressGadget();									// 0x66A700 (mask 0xFFFF; off)
 	virtual bool Unknown_30(float x, float y);			// +0x30 (GadgetClass's pure slot)  // NAME 1 [x, y]: GadgetClass's
 	void Unknown_66AAD0(const RefCountPtr<FontSys> &font);	// 0x66AAD0 (the text the key is shown in)  // NAME 1 [font]: its type
-
+	void Clear_Event() { memset(&Event, 0, sizeof(Event)); }	// (inline: Unknown_60's Escape)  // NAME 1: what it does
 	RefCountPtr<FontSys> Unknown30;						// +0x30
 	KernelEventClass Event;								// +0x34 (the key taken)  // NAME 2: what it holds
 	int Unknown44;										// +0x44
@@ -315,7 +315,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 
 
 
-// NOT EXACT: shape (similarity 0.58): functional from the client's strings and calls; the message strings' assembly and the refresh flag are guesses
+
 // 0x5CB000
 void UIOptionControlKeysClass::Unknown_60()
 {
@@ -334,7 +334,7 @@ void UIOptionControlKeysClass::Unknown_60()
 			default:
 				if (event.Flags == 0x400) {
 					const char *name = Unknown_42B6A0(event.Key).c_str();	// NAME 1: neutral (D10)
-					if (name[0] != '\0' && name[1] == '\0') {
+					if (name != NULL && name[0] != '\0' && name[1] == '\0') {
 						if (name[0] >= 'A' && name[0] <= 'Z') allowed = false;
 						if (name[0] >= '0' && name[0] <= '9') allowed = false;
 					}
@@ -346,42 +346,42 @@ void UIOptionControlKeysClass::Unknown_60()
 			int set = EditPrimary ? 0 : 1;				// NAME 3: control_keys_manager.cpp's 'set'
 			if (event.Key == 0x1B && (event.Flags & 0x700) == 0) {
 				KernelEventClass combo = *(ControlKeyValueStruct *)&EditKey->Keys[set];	// NAME 1: neutral (D10)
-				if (combo.Key == 0) {
-					EditKey = NULL;
-					allowed = false;
-				} else {
+				if (combo.Key != 0) {
 					std::string key_name;				// NAME 1: neutral (D10)
 					Unknown_42B7E0(*(KernelEventClass *)&combo, key_name);
-					std::string text;					// NAME 1: neutral (D10)
-					text = "Do you wish to clear ";
+					std::string text("Do you wish to clear ");	// NAME 1: neutral (D10)
+
 					text += key_name;
 					text += " from ";
 					text += EditKey->Get_Unknown10();
 					text += "?";
 					Show_Dialog_Box("YES_NO", text.c_str());
-					event = KernelEventClass();
+					KeyPress->Clear_Event();
+				} else {
+					EditKey = NULL;
+					allowed = false;
 				}
 			} else {
 				ControlKeyValueStruct value(*(ControlKeyValueStruct *)&event);	// NAME 1: neutral (D10)
 				KeyMappingStruct *tied = key_manager->Set_Key(EditKey, set, *(ControlKeyStruct *)&value, false);	// NAME 1: neutral (D10)
-				if (!tied) {
-					EditKey = NULL;
-				} else {
+				if (tied != NULL) {
 					std::string text;					// NAME 1: neutral (D10)
-					Unknown_42B7E0(event, text);
+					Unknown_42B7E0(KeyPress->Event, text);
 					text += " is already tied to:\n";
 					text += tied->Get_Unknown10() + "\nDo you want to change it to:\n" + EditKey->Get_Unknown10() + "?";
-					refresh = !Show_Dialog_Box("YES_NO", text.c_str());
+					if (Show_Dialog_Box("YES_NO", text.c_str())) refresh = false;
+				} else {
+					EditKey = NULL;
 				}
 			}
 		}
 		if (!allowed) {
 			std::string text;							// NAME 1: neutral (D10)
-			if (event.Key == 0) {
-				text = "Ctrl, Alt, and Shift cannot be used alone.  They can be used as modifiers to other keys.";
-			} else {
-				Unknown_42B7E0(event, text);
+			if (event.Key != 0) {
+				Unknown_42B7E0(KeyPress->Event, text);
 				text += "\nis not allowed as a hot key!\n";
+			} else {
+				text = "Ctrl, Alt, and Shift cannot be used alone.  They can be used as modifiers to other keys.";
 			}
 			Show_Dialog_Box("OK", text.c_str());
 			EditKey = NULL;
@@ -599,7 +599,7 @@ bool UIOptionControlKeysClass::Show_Dialog_Box(const char *dialog_name, const ch
 	return(true);
 }
 
-// NOT EXACT: inline budget (similarity 0.56): the client calls the copy's _Tidy out of line (push 0, call) and keeps no zero register; this form inlines it
+// Exact with three dead c_str() reads (D130, marked): two leave the copy constructor's _Tidy inlined (attempts.py show 0x5CC030)
 // 0x5CC030
 void UIOptionControlKeysClass::Set_Key_Text(GadgetClass *bttn, const std::string &text)
 {
@@ -627,9 +627,9 @@ void UIOptionControlKeysClass::Set_Key_Text(GadgetClass *bttn, const std::string
 	}
 
 	std::string str(text);
-
-
-
+	str.c_str();  // (dead, D130: spends the copy's nested budget, so its _Tidy is called as the client's)
+	str.c_str();  // (dead, D130)
+	str.c_str();  // (dead, D130)
 	Font32Class *f32 = font->Font.Peek();
 	G_ASSERT(f32);
 	font->Change_Text(str.c_str(), 0);

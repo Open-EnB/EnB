@@ -488,9 +488,9 @@ void UIMissnClass::Unknown_5C5AC0(unsigned int cur_mission_idx, bool arg)
 
 		G_ASSERT(stage_idx >= 0);
 		if (stage_idx >= 0 && ((DeltaMissionStageClass *)mission->Stages.Children[stage_idx])->IsTimed.Value) {
-			time = mission->StageExpirationTime.Value.As_Int();
+			time = mission->StageExpirationTime.Value.Get();
 		} else if (mission->IsTimed.Value) {
-			time = mission->ExpirationTime.Value.As_Int();
+			time = mission->ExpirationTime.Value.Get();
 		}
 	}
 	time -= ((ClientClass *)Client)->Unknown10BC;

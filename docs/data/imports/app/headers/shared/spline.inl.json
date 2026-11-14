@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "E&B's spline.inl (the client's __FILE__ 0xB71BD4): the float / colour arrays' inline evaluation, assert '(array_index >= 0) && ((array_index + 1) < Size)' on line 33; out-of-line copies 0x481520, 0x481610, 0x4818C0, 0x481960"
+}

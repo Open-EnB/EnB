@@ -1,0 +1,33 @@
+{
+ "ambiguous": [
+  "0x42B2F0"
+ ],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe: UISInfoClass, the MFD's corner texts 'MESSAGE_MFD_<tl|tr|br|bl>_TITLE' / '_VAL' (ui_sinfo.cpp's __FILE__ 0xB8A2CC and its assert line 92), object 0x62B020-0x62B8CF (no caller: dead code)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x62B020",
+  "0x62B0B0",
+  "0x62B1C0",
+  "0x62B200",
+  "0x62B2E0",
+  "0x62B450",
+  "0x62B490",
+  "0x62B4D0",
+  "0x62B500",
+  "0x62B550",
+  "0x62B630",
+  "0x62B670",
+  "0x62B6C0",
+  "0x62B6F0",
+  "0x62B7D0",
+  "0x62B810",
+  "0x62B880"
+ ],
+ "merged": [],
+ "name": "client/ui_sinfo.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}

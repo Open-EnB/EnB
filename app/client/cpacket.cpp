@@ -230,9 +230,9 @@ bool CreatePacketClass::Process_Packet(void *instance)
 	obj->Unknown_04(BaseAsset);
 	sclient->Add_Object(obj);
 	if (Type == 10) {
-		InfluenceClass *influence = new InfluenceClass(sclient, --sclient->Unknown113C, robj);
-		influence->Unknown_10(GameID);
-		sclient->Add_Unknown86C(influence);
+		NebulaClass *nebula = new NebulaClass(sclient, --sclient->Unknown113C, robj);
+		nebula->Unknown_10(GameID);
+		sclient->Add_Unknown86C(nebula);
 		RenderObjClass *null_obj = new Null3DObjClass("NULL");
 		obj->Unknown_6F33F0(null_obj, -1, 1.0f);
 		null_obj->Release_Ref();
@@ -377,7 +377,7 @@ bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("SimplePositionalUpdatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && Velocity.Is_Valid())) return(true);
-	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
 	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
 	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
@@ -407,7 +407,7 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 	WWPROFILE("AdvancedPositionalUpdatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && WWMath::Is_Valid_Float(CurrentSpeed) && ImpartedVelocity.Is_Valid())) return(true);
-	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	float delta = (float)(sclient->Unknown10BC - (int)TimeStamp); sclient->Unknown10D0++;
 	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
 	if (fabs(Unknown_Lag_Average(sclient)) > 50.0 && sclient->Unknown10D0 > 64) {
@@ -460,7 +460,7 @@ bool PlanetPositionalUpdatePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("PlanetPositionalUpdatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	TimeStamp = (DurationClass((unsigned)TimeStamp) - sclient->Unknown10C0).As_Int();
+	TimeStamp = (DurationClass((unsigned)TimeStamp) - sclient->Unknown10C0).Get();
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
 		if (!object->Unknown98) {
@@ -581,7 +581,7 @@ bool ComponentPositionalUpdatePacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ComponentPositionalUpdatePacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	ClientObjectClass *obj = sclient->Find_Object(GameID);
 	if (!obj) return(true);
 	G_ASSERT(obj->Is_Component());
@@ -609,7 +609,7 @@ bool ObjectEffectPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ObjectEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
 	FAIL_IF(!effect) return(true);
@@ -637,7 +637,7 @@ bool PointEffectPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("PointEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass((unsigned)TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass((unsigned)TimeStamp) - sclient->Unknown10C0).Get();
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, 1.0f, -1, 0);
 	FAIL_IF(!effect) return(true);
@@ -664,7 +664,7 @@ bool ObjectToObjectEffectPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ObjectToObjectEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
@@ -702,7 +702,7 @@ bool ObjectToEffectEffectPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ObjectToEffectEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
@@ -753,7 +753,7 @@ bool ObjectToObjectDurationLinkedEffectPacketClass::Process_Packet(void *instanc
 {
 	WWPROFILE("ObjectToObjectDurationLinkedEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, 0, time, sclient, Scale, HSVShift, Speedup, DurationLinkedEffectDescID, 0);
 	FAIL_IF(!effect) return(true);
@@ -792,7 +792,7 @@ bool ObjectToPointEffectPacketClass::Process_Packet(void *instance)
 {
 	WWPROFILE("ObjectToPointEffectPacketClass::Process_Packet()");
 	SClient *sclient = (SClient *)instance;
-	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).As_Int();
+	int time = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
 	int duration = Duration >= 0 ? Duration : -1;
 	EffectObjectClass *effect = Unknown_6E9490(EffectDescID, EffectID, duration, time, sclient, Scale, HSVShift, Speedup, -1, 0);
 	FAIL_IF(!effect) return(true);
@@ -1351,13 +1351,13 @@ bool SetClientTimePacketClass::Process_Packet(void *instance)
 	__int64 client_received = ClientReceived;
 	__int64 client_total = client_received + client_sent; __int64 server_total = server_sent + server_received;
 	__int64 client_time = client_received - client_sent; __int64 server_time = server_sent - server_received; DurationClass rtt(client_time - server_time); __int64 correction = (server_total - client_total) / 2;
-	Unknown_BE71D4 = rtt.As_Int();
+	Unknown_BE71D4 = rtt.Get();
 	sclient->Unknown10C0 = correction;
 	sclient->Unknown10D0 = 0;
 	sclient->Unknown10C8 = 0;
 	if (sclient->DebugMode) {
 		char buffer[256];
-		sprintf(buffer, "rtt = %u  correction = %d", rtt.As_Int(), sclient->Unknown10C0.As_Int());
+		sprintf(buffer, "rtt = %u  correction = %d", rtt.Get(), sclient->Unknown10C0.Get());
 		sclient->Unknown_74D990(0x17, buffer, 0);
 	}
 	return(true);
@@ -2423,8 +2423,8 @@ bool NoteListPacketClass::Process_Packet(void *instance)
 
 
 
-// What the chat panel's +0xF8 window is, as far as FIND_MEMBER 83 calls its slot +0x90
-class UIChatPanelUnknownF890Class; class UIChatPanelUnknownF8Class : public InterfaceClass { public: virtual void Unknown_88(); virtual void Unknown_8C(); virtual UIChatPanelUnknownF890Class *Unknown_90(); };	// NAME 1: neutral (D10): the chat panel's +0xF8 (an InterfaceClass: the count at +0x3C; slot +0x90 FIND_MEMBER 83)
+
+
 
 
 
@@ -2477,9 +2477,9 @@ class UIChatPanelUnknownF890Class; class UIChatPanelUnknownF8Class : public Inte
 #include "..\packets\pkfindmember.h"
 #include "..\packets\pkmessagechatstream.h"
 #include "..\packets\pktrade.h"
-// ui_groupfind.cpp's interface (what +0xA8 of the chat panel's +0xF8 interface's slot +0x90 result points to), as far as FIND_MEMBER 83 calls it
-#include "ui_groupfind.h"	// UIGroupFindClass (ui_groupfind.cpp's list window: FIND_MEMBER 83 calls its 0x59A400 while it is active)
-class UIChatPanelUnknownF890Class { public: char Unknown00[0xA8]; UIGroupFindClass *UnknownA8; };	// NAME 1: neutral (D10): the chat panel's +0xF8 interface's slot +0x90 result
+// The chat panel's +0xF8 window FIND_MEMBER 83 reaches through slot +0x90: ui_groupopt.cpp's (0x59AE90 returns it), whose FindUI is ui_groupfind.cpp's list
+#include "ui_groupopt.h"	// UIGroupOptClass (ui_chat_panel.cpp's 0x569A00 opens it for 'Find / Leave'); ui_groupfind.h's UIGroupFindClass (its 0x59A400 while it is active)
+
 
 
 
@@ -2817,10 +2817,10 @@ bool FindMemberPacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)((ClientClass *)instance)->As_Space_Client();
 	ChatPanelInterface *panel = sclient->ChatPanel.Peek();
 	if (panel == NULL || panel->Get_UnknownF8() == NULL) return(true);
-	UIChatPanelUnknownF890Class *find = ((UIChatPanelUnknownF8Class *)panel->Get_UnknownF8().Peek())->Unknown_90();
+	UIGroupOptClass *find = (UIGroupOptClass *)panel->Get_UnknownF8().Peek()->Unknown_90();
 	if (!find) return(true);
-	if (find->UnknownA8 && find->UnknownA8->Is_Active()) {
-		find->UnknownA8->Unknown_59A400(this);
+	if (find->FindUI && find->FindUI->Is_Active()) {
+		find->FindUI->Unknown_59A400(this);
 	}
 	return(true);
 }

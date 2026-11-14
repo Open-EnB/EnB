@@ -272,6 +272,14 @@
    "moved_to": null,
    "decision": "D66",
    "note": "D66 (vi), run 2026-11-12b (O18 97014f30): 0x6A4550 is the guarded <string> initialiser that closes shortcut_range_gauge.cpp's object (skill_data's object starts after it at 0x6A4580), so skill_data's credit was false; shortcut_range_gauge.obj now emits the byte-identical copy and the address goes ambiguous between the two copies: not a code loss (D196 precedent)."
+  },
+  {
+   "address": "0x6D80A0",
+   "lib": "app",
+   "file": "rect3d",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "D240, run 2026-11-13b (O12b cbfe2162): Rect3DClass's constructor 0x6E2290 takes the client's form Set_Force_Visible(true) (its bytes: Switch_To_Multi_Vertex_Color called out of line, DX8Wrapper::Convert_Color_Clamp inlined into 0x6B7230); rect3d.obj no longer emits its own out-of-line Convert_Color_Clamp, which it only did with the wrong form. The client's copy at 0x6D80A0 belongs to FontSys (callers 0x6D64C0, 0x6D9360): regained when fontsys emits it."
   }
  ]
 }

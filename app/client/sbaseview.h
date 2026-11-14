@@ -344,7 +344,7 @@ class FontSys;	// fontsys.cpp's text object, a render object (sbaseview.cpp decl
 // ui_talkt.cpp's talk tree UITalkTreeClass (the view's +0x190): sclient.h
 // the view's +0x1B4: sbase_info.h's StarbaseInfoClass (0x6A2120 tests its rooms' +0x0A / +0x0B; the view's destructor 0x69B0C0 deletes it)
 
-class SBaseViewUnknown70Class;	// the +0x70 scene (sbaseview.cpp declares it)
+class Unknown761C80Class;	// the +0x70 scene (unknown_761c80.h)
 class LightClass;
 class HAnimClass;
 class AudibleSoundClass;
@@ -443,7 +443,7 @@ public:
 	RefCountPtr<InterfaceClass> Unknown64;	// +0x64 (0x69CDE0: its slot +0x7C with NULL, 0, then released)
 	ScriptedMovieViewerSettingsStruct *Unknown68;	// +0x68 (0x6A0540 removes its +0x00's render object; the destructor leaves it)
 	RefCountPtr<CameraClass> Unknown6C;	// +0x6C (+0x70's camera: 0x69C5E0)
-	RefCountPtr<SBaseViewUnknown70Class> Unknown70;	// +0x70 (ViewRObjs[1]'s scene; 0x6A20C0 / 0x6A2100: its fog)
+	RefCountPtr<Unknown761C80Class> Unknown70;	// +0x70 (ViewRObjs[1]'s scene; 0x6A20C0 / 0x6A2100: its fog)
 	RefCountPtr<CameraClass> Unknown74;	// +0x74 (+0x78's camera: 0x69C5E0)
 	RefCountPtr<SimpleSceneClass> Unknown78;	// +0x78 (ViewRObjs[2]'s scene)
 	LayerClass *Unknown7C;	// +0x7C (0x69B5E0: a layer of the base's +0x1C scene and +0x20 camera; 0x69C0D0 deletes it)

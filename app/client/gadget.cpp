@@ -23,7 +23,7 @@ GadgetClass *Unknown_BE5F30 = NULL;		// 0xBE5F30 (0x65F780: the gadget under the
 unsigned int Unknown_BE5F34 = 0;		// 0xBE5F34 (slot +0x2C: its mask)  // NAME 1: neutral (D10)
 static char Unknown_BE5EC4[32];			// 0xBE5EC4 (0x65F340: the last tooltip name)  // NAME 1: neutral (D10)
 static int Unknown_BE5F38;				// 0xBE5F38 (0x65F340: its count)  // NAME 1: neutral (D10)
-static int Unknown_B8C9E0 = 0;			// 0xB8C9E0 (the gadgets' ids)  // NAME 1: neutral (D10)
+static int Unknown_B8C9E0 = 0x8000;		// 0xB8C9E0 (the gadgets' ids, from 0x8000 as the client's .data: above every key code the key lists match)  // NAME 1: neutral (D10)
 
 void Unknown_Debug_Print(const char *text);			// NAME 1 [Unknown_Debug_Print]: 0x509E30 (dbgmgr.cpp), the log line
 
