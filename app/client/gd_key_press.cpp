@@ -20,7 +20,7 @@ KeyPressGadget::~KeyPressGadget()
 
 bool KeyPressGadget::Unknown_30(float x, float y)
 {
-	return(Unknown_60() ? true : false);
+	return(Is_Enabled() ? true : false);
 }
 
 bool KeyPressGadget::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
@@ -132,7 +132,7 @@ void KeyPressGadget::Unknown_40(bool on)
 
 void KeyPressGadget::Set_Text(const RefCountPtr<FontSys> &text)
 {
-	FAIL_IF(Unknown_60()) return;
+	FAIL_IF(Is_Enabled()) return;
 	Text = text;
 }
 
@@ -164,7 +164,6 @@ void KeyPressGadget::Unknown_66AB50()
 **	(slots +0x2C 0x66A880, +0x30 0x66A860, +0x40 0x66A9C0 its own). The deleting destructor 0x66A7A0 sits between
 **	the constructor and the destructor; the object ends with <string>'s guarded static 0x66ACB0 (guard 0xC416FC,
 **	atexit 0x42B320), as every file including it. FAIL_IF 'Is_Enabled()' (l.135) is GadgetClass's slot +0x60
-**	(gadget.h's Unknown_60): the call is written with gadget.h's name; the string differs, the bytes match
-**	(through the relocation). The asserts sit on the client's lines (D25); the blank lines keep them there.
+**	(gadget.h's Is_Enabled, named after this FAIL_IF): the call and the FAIL_IF's string agree. The asserts sit on the client's lines (D25); the blank lines keep them there.
 **	0x42EC60 (input.cpp's: a key down) has no header; declared here as ctrngadg.cpp does.
 */

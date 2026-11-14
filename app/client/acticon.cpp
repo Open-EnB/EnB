@@ -88,7 +88,7 @@ void ActIconClass::Unknown_AC()
 		}
 		Flash = flash;
 		if (Flash == 0.0f) {
-			Unknown_66C260(Unknown_60() ? Unknown_A0() : Unknown_9C());
+			Unknown_66C260(Is_Enabled() ? Unknown_A0() : Unknown_9C());
 		}
 	}
 	if (Unknown68 && Unknown74) {

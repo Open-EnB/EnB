@@ -42,7 +42,7 @@ void Unknown_66B770Class::Unknown_40(bool on)
 // 0x66B910
 bool Unknown_66B770Class::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
-	if (!Unknown_60()) {
+	if (!Is_Enabled()) {
 		return(false);
 	}
 	if (mask & 0x11) {

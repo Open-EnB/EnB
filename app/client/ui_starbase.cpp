@@ -4768,7 +4768,7 @@ void UIStarbaseLightsClass::Unknown_646F70(bool force)
 	bool changed = false;
 	int i;
 	for (i = 0; i < 4; i++) {
-		if (Slider[i]->Unknown_60()) {
+		if (Slider[i]->Is_Enabled()) {
 			Slider[i]->Unknown_66FD80();
 			if (Slider[i]->Value != SliderValue[i]) {
 				changed = true;
@@ -4790,7 +4790,7 @@ void UIStarbaseLightsClass::Unknown_646F70(bool force)
 		Starbase->Unknown_640EC0(Fill);
 		Starbase->Unknown_640F30(Current, Atten[Current].Y);
 		for (i = 0; i < 4; i++) {
-			if (Slider[i]->Unknown_60()) {
+			if (Slider[i]->Is_Enabled()) {
 				SliderValue[i] = Slider[i]->Get_Value();
 			}
 		}

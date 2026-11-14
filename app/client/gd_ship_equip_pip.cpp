@@ -59,7 +59,7 @@ bool GadgetShipEquipPipClass::Unknown_30(float x, float y)
 bool GadgetShipEquipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	FAIL_IF(!ShipPIP) return(false);
-	if (Unknown_60()) {
+	if (Is_Enabled()) {
 		if (mask & 0x11) {
 			GadgetPipSceneClass::Unknown_2C(event, x, y, mask);
 			Unknown_68();

@@ -720,7 +720,7 @@ void UIManuClass::Unknown_5B1ED0(int row)
 void UIManuClass::Unknown_5B2060(int index)
 {
 	if (Unknown0B98 < 3) {
-		if (Unknown0C0[Unknown0B98]->Gadgets[index]->Unknown_60()) {
+		if (Unknown0C0[Unknown0B98]->Gadgets[index]->Is_Enabled()) {
 			Unknown0B80[Unknown0B98] = Unknown0C0[Unknown0B98]->IDs[index];
 			for (int i = Unknown0B98 + 1; i <= 3; i++) {
 				Unknown0B80[i] = -1;

@@ -87,7 +87,7 @@ void UIComboBoxTextClass::Init()
 // 0x578490: the pointer (0..1 across the screen) in the 640 x 480 layout the text sits in
 bool UIComboBoxTextClass::Unknown_30(float x, float y)
 {
-	if (RObj && !RObj->Is_Hidden() && RObj->Peek_Scene() && Unknown_60()) {
+	if (RObj && !RObj->Is_Hidden() && RObj->Peek_Scene() && Is_Enabled()) {
 		Vector3 pos = Text->Get_Position();
 		float height = Text->Get_Bounding_Box().Extent.Y * 0.9f;
 		int px = (int)(x * 640.0f - 320.0f);
@@ -425,7 +425,7 @@ void UIComboBoxClass::Update_Drop_Down()
 			Update_Rows();
 			Anim->Set_Frame(1, RowsShown);
 			Mesh->Peek_Object()->Update_Sub_Object_Transforms();
-			if ((int)Items.size() > NumRows && Slider->Unknown_60()) {
+			if ((int)Items.size() > NumRows && Slider->Is_Enabled()) {
 				Slider->Unknown_66FD80(false);
 			}
 			if (State == 0) {
@@ -445,7 +445,7 @@ void UIComboBoxClass::Update_Drop_Down()
 					Slider->Unknown_66FD80(false);
 					Slider->Unknown_A4((float)TopItem, 0);
 				}
-				if ((int)Items.size() > NumRows && Slider->Unknown_60()) {
+				if ((int)Items.size() > NumRows && Slider->Is_Enabled()) {
 					TopItem = min((unsigned)Selected, Items.size() - NumRows);
 					TopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);
 				} else {
@@ -458,7 +458,7 @@ void UIComboBoxClass::Update_Drop_Down()
 				RowsShown = (float)NumRows;
 				State = 3;
 				Unknown_5C();
-				if ((int)Items.size() > NumRows && Slider->Unknown_60()) {
+				if ((int)Items.size() > NumRows && Slider->Is_Enabled()) {
 					TopItem = min((unsigned)Selected, Items.size() - NumRows);
 					TopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);
 				} else {
@@ -476,7 +476,7 @@ void UIComboBoxClass::Update_Drop_Down()
 			Update_Rows();
 			Anim->Set_Frame(1, RowsShown);
 			Mesh->Peek_Object()->Update_Sub_Object_Transforms();
-			if ((int)Items.size() > NumRows && Slider->Unknown_60()) {
+			if ((int)Items.size() > NumRows && Slider->Is_Enabled()) {
 				Slider->Unknown_66FD80(false);
 			}
 			break;
@@ -542,7 +542,7 @@ void UIComboBoxClass::Clear_Items()
 // 0x57B2F0
 void UIComboBoxClass::Scroll_To_Selected()
 {
-	if ((int)Items.size() > NumRows && Slider->Unknown_60()) {
+	if ((int)Items.size() > NumRows && Slider->Is_Enabled()) {
 		TopItem = min((unsigned)Selected, Items.size() - NumRows);
 		TopItem = Unknown_Clamp(TopItem, 0u, Items.size() - NumRows);
 	} else {

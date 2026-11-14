@@ -55,7 +55,7 @@ Unknown_671300Class::~Unknown_671300Class()
 // @0x671570
 bool Unknown_671300Class::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
-	if (Unknown_60()) {
+	if (Is_Enabled()) {
 		if (mask & 0x11) {
 			Unknown_66B770Class::Unknown_2C(event, x, y, mask);
 			Unknown64 = true;

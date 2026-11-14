@@ -908,7 +908,7 @@ void AvatarSelectionInterface::Unknown_55ED20()
 		return;
 	}
 	for (i = 0; i < 8; i++) {
-		if (Unknown09C[i] && !Unknown09C[i]->Unknown_60()) {
+		if (Unknown09C[i] && !Unknown09C[i]->Is_Enabled()) {
 			Unknown09C[i]->Unknown_40(true);
 			text = Unknown_BE67C4->Get_Style(Unknown_B7B904[i], Unknown084->Peek_Model());
 			if (text) {
@@ -916,7 +916,7 @@ void AvatarSelectionInterface::Unknown_55ED20()
 			}
 		}
 	}
-	if (Unknown118 && !Unknown118->Unknown_60()) {
+	if (Unknown118 && !Unknown118->Is_Enabled()) {
 		Unknown118->Unknown_40(true);
 		text = Unknown_BE67C4->Get_Style("fe12_ReferralButton", Unknown084->Peek_Model());
 		if (text) {
@@ -962,7 +962,7 @@ void AvatarSelectionInterface::Unknown_55EF90()
 		return;
 	}
 	for (i = 0; i < 8; i++) {
-		if (Unknown09C[i] && Unknown09C[i]->Unknown_60()) {
+		if (Unknown09C[i] && Unknown09C[i]->Is_Enabled()) {
 			Unknown09C[i]->Unknown_40(false);
 			text = Unknown_BE67C4->Get_Style(Unknown_B7B904[i], Unknown084->Peek_Model());
 			if (text) {
@@ -970,7 +970,7 @@ void AvatarSelectionInterface::Unknown_55EF90()
 			}
 		}
 	}
-	if (Unknown118 && Unknown118->Unknown_60()) {
+	if (Unknown118 && Unknown118->Is_Enabled()) {
 		Unknown118->Unknown_40(false);
 		text = Unknown_BE67C4->Get_Style("fe12_ReferralButton", Unknown084->Peek_Model());
 		if (text) {

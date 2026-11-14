@@ -442,7 +442,7 @@ void ShipPipClass::Unknown_78()
 // @0x80D540
 bool ShipPipClass::Unknown_30(float x, float y)
 {
-	if (Unknown_60()) {
+	if (Is_Enabled()) {
 		int px = (int)(x * 640.0f - Unknown064.X);
 		Unknown0A4 = px;
 		int py = (int)(y * 480.0f - Unknown064.Y);
@@ -458,7 +458,7 @@ bool ShipPipClass::Unknown_30(float x, float y)
 // @0x80D5E0
 bool ShipPipClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
-	if (!Unknown_60()) {
+	if (!Is_Enabled()) {
 		return(false);
 	}
 	GadgetClass::Unknown_2C(event, x, y, mask);

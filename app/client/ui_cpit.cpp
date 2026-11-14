@@ -707,13 +707,13 @@ bool UICpitClass::Unknown_68(int key)
 	Unknown_57D6C0(sclient, &lock_speed, &lock_orient);
 	switch (key) {
 		case 2:
-			if (Unknown0B4->Unknown_60()) {
+			if (Unknown0B4->Is_Enabled()) {
 				Unknown0B4->Unknown_2C(&KernelEventClass(), 0, 0, 1);
 				return(true);
 			}
 			return(true);
 		case 3:
-			if (Unknown0B4->Unknown_60()) {
+			if (Unknown0B4->Is_Enabled()) {
 				Unknown0B4->Unknown_2C(&KernelEventClass(), 0, 0, 4);
 				return(true);
 			}
@@ -1310,7 +1310,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 	}
 	CameraManagerClass *camera = ((SClient *)((ClientClass *)Client)->As_Space_Client())->CameraManager;
 	if (camera && camera->Unknown_79B600()) {
-		if (Unknown0B4->Unknown_60()) {
+		if (Unknown0B4->Is_Enabled()) {
 			Unknown0B4->Unknown_40(0);
 			GadgetClass::Set_Tooltip(Unknown0B4, "UI_CPIT", "CANNOT_WARP");
 			Unknown13E = true;
@@ -1600,7 +1600,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 // 0x583250: the warp button (+0xB4)
 void UICpitClass::Unknown_583250()
 {
-	if (Unknown0B4->Unknown_60()) {
+	if (Unknown0B4->Is_Enabled()) {
 		if (!Client) return;
 		if (Unknown0B4->Unknown64) {
 			SoundLibraryClass::Play_2D_Sound("ButtonClick01.wav", 2);
@@ -1700,7 +1700,7 @@ void UICpitClass::Unknown_583250()
 // 0x583510: the turn buttons (LEFT +0xC0, RIGHT +0xC4)
 void UICpitClass::Unknown_583510()
 {
-	if (!Unknown0C0->Unknown_60() && !Unknown0C4->Unknown_60()) return;
+	if (!Unknown0C0->Is_Enabled() && !Unknown0C4->Is_Enabled()) return;
 	SClient *sclient = (SClient *)Client;
 	if (!sclient) return;
 	if (Unknown0C0->Unknown66 || Unknown0C4->Unknown66) {
@@ -1734,7 +1734,7 @@ template<class C> inline C *Unknown_Find_Changed(char *const &root, const char *
 // The IsAutoFollowing find through two inline layers, the root by reference: its Cast out of line as the client's (0x584FF0)
 void UICpitClass::Unknown_583790()
 {
-	if (!Unknown0B8->Unknown_60() && !Unknown0BC->Unknown_60()) return;
+	if (!Unknown0B8->Is_Enabled() && !Unknown0BC->Is_Enabled()) return;
 	SClient *sclient = (SClient *)Client;
 	if (!sclient) return;
 	ClientObjectClass *avatar = sclient->Get_Avatar();
@@ -2007,7 +2007,7 @@ void UICpitClass::Unknown_5845A0()
 	RefCountPtr<FontSys> style = Create_Peek(Unknown_BE67C4->Get_Style("WARP_CPIT", InterfaceMesh->Peek_Object()));
 	if (style) {
 		FontSys *font;
-		if (Unknown0B4->Unknown_60()) {
+		if (Unknown0B4->Is_Enabled()) {
 			(font = style.Peek())->Unknown2F4[2] = 1.0f;
 		} else {
 			(font = style.Peek())->Unknown2F4[2] = 0.5f;

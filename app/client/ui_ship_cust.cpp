@@ -1379,10 +1379,10 @@ void StarbaseShipCustomizeInterface::Unknown_61D260()
 			unsigned int count = Unknown330->TextureArray.size();
 			bool right = (unsigned int)Unknown314 < count - 8;
 			bool left = (unsigned int)Unknown314 > 0;
-			if (Gadgets[0x29].Gadget->Unknown_60() != right) {
+			if (Gadgets[0x29].Gadget->Is_Enabled() != right) {
 				Gadgets[0x29].Gadget->Unknown_40(right);
 			}
-			if (Gadgets[0x28].Gadget->Unknown_60() != left) {
+			if (Gadgets[0x28].Gadget->Is_Enabled() != left) {
 				Gadgets[0x28].Gadget->Unknown_40(left);
 			}
 			Unknown_61BAC0(2);

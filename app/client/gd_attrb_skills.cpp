@@ -324,7 +324,7 @@ void Unknown664500Class::Unknown_664500()
 {
 	for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {
 		SlotDataGadgetClass *gadget = *it;
-		if (gadget->Unknown_60()) {
+		if (gadget->Is_Enabled()) {
 			Unknown815320Struct *ability = SkillAbilityNamesDatabase::Unknown_815320(Unknown_6A7380(gadget)->Get_34());
 			bool on = ability->Get_18() <= (unsigned int)Unknown104;
 			if (on != gadget->Unknown68) {
@@ -400,7 +400,7 @@ int Unknown664500Class::Unknown_6645A0(int level, bool arg)
 // 0x6647F0
 void Unknown664500Class::Unknown_6647F0()
 {
-	if (Unknown_60()) {
+	if (Is_Enabled()) {
 		Unknown_66B770Class::Unknown_40(false);
 		int lp = 0;
 		for (std::vector<SlotDataGadgetClass *>::iterator it = UnknownF0.begin(); it != UnknownF0.end(); it++) {

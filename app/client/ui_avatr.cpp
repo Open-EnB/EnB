@@ -243,7 +243,7 @@ public:
 	virtual void Unknown_40(bool on);					// +0x40 (0x554D60)  // NAME 1 [on]: neutral
 	virtual void Unknown_44(); virtual void Unknown_48(); virtual void Unknown_4C();
 	virtual void Unknown_50(); virtual void Unknown_54(); virtual void Unknown_58(); virtual void Unknown_5C();
-	virtual void Unknown_60(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
+	virtual void Is_Enabled(); virtual void Unknown_64(); virtual void Unknown_68(); virtual void Unknown_6C();
 	virtual void Unknown_70();
 	virtual void Unknown_74(int race);					// +0x74 0x80BAB0 (the lights by race)  // NAME 1 [race]: neutral
 	virtual void Unknown_78();							// +0x78 (0x554D60)

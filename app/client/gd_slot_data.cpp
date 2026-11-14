@@ -191,7 +191,7 @@ bool SlotDataGadgetClass::Unknown_30(float x, float y)
 bool SlotDataGadgetClass::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
 	bool handled = false;
-	if (Unknown_60()) {
+	if (Is_Enabled()) {
 		if (mask & 0x11) {
 			Unknown_66C2D0();
 			GadgetClass::Unknown_2C(event, x, y, mask);

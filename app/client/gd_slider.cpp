@@ -412,11 +412,11 @@ bool GadgetSlider::Unknown_30(float x, float y)
 
 
 // @0x66F330
-// The body inside `if (Unknown_60())` with one return(false) after it: the failed test jumps into
+// The body inside `if (Is_Enabled())` with one return(false) after it: the failed test jumps into
 // the assert path's epilogue, as in the client (an early return(false) keeps its own epilogue).
 bool GadgetSlider::Unknown_2C(KernelEventClass *event, float x, float y, unsigned int mask)
 {
-	if (Unknown_60()) {
+	if (Is_Enabled()) {
 		unsigned int now = Unknown_Get_Ticks();
 		int delay = Unknown_B8D434;
 		if (mask & 0x11) {

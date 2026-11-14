@@ -136,7 +136,7 @@ GadgetClass *GadgetListManagerClass::Unknown_661AA0(bool shown, bool flag)
 	for (std::vector<GadgetClass *>::iterator it = Unknown3C.begin(); it != Unknown3C.end(); ++it) {
 		GadgetClass *gadget = *it;
 		FAIL_IF(!gadget) continue;
-		if ((!shown || gadget->Unknown_60()) && gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() == flag) {
+		if ((!shown || gadget->Is_Enabled()) && gadget->Is_Unknown2C_02() && gadget->Is_Unknown2C_04() == flag) {
 			return(gadget);
 		}
 	}

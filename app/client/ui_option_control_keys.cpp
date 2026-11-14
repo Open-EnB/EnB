@@ -319,7 +319,7 @@ bool UIOptionControlKeysClass::Unknown_68(int key)
 // 0x5CB000
 void UIOptionControlKeysClass::Unknown_60()
 {
-	if (EditKey && !DialogBoxUI && !KeyPress->Unknown_60()) {
+	if (EditKey && !DialogBoxUI && !KeyPress->Is_Enabled()) {
 		ControlKeysManager *key_manager = ControlKeysManager::Get((SClient *)((ClientClass *)Client)->As_Space_Client());
 		FAIL_IF(!key_manager) return;
 		KernelEventClass &event = KeyPress->Event;		// NAME 1: neutral (D10)
