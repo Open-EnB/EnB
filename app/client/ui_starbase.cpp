@@ -3086,8 +3086,8 @@ void UIStarbaseClass::Unknown_640150()
 	UnknownC0.D->Avatar->Unknown330 = tm;
 	Unknown_63E2B0();
 }
-// NOT EXACT: 0x641C00, functional (frame: the client keeps the NPC position's y / z in two more stack copies, sub esp 0x98 against 0x8C; B1)
-// 0x641C00
+// 0x641C00 (the own avatar pushed 5 away from each NPC: the NPC's transform is a Matrix3D copy, the push in place:
+// diff *= push, Adjust_Translation; the frame 0x98 counts the copy)
 void UIStarbaseClass::Unknown_641C00()
 {
 	if (UnknownC0.D->Avatar) {
@@ -3095,13 +3095,14 @@ void UIStarbaseClass::Unknown_641C00()
 			if (Unknown13C[i] && Unknown13C[i]->Avatar) {
 				CharacterViewAvatarClass *npc = Unknown13C[i]->Avatar.Peek();
 				Matrix3D tm = UnknownC0.D->Avatar->Unknown330;
-				Vector3 pos = npc->Get_Transform().Get_Translation();
-				Vector3 diff = tm.Get_Translation() - pos;
+				Matrix3D npc_tm = npc->Get_Transform();
+				Vector3 diff = tm.Get_Translation() - npc_tm.Get_Translation();
 				float distance = diff.Length();
 				if (distance < 5.0f) {
 					float push = 5.0f - distance;
 					diff.Normalize();
-					tm.Set_Translation(tm.Get_Translation() + diff * push);
+					diff *= push;
+					tm.Adjust_Translation(diff);
 					UnknownC0.D->Avatar->Unknown330 = tm;
 				}
 			}
@@ -3187,7 +3188,6 @@ void UIStarbaseClass::Unknown_6415B0()
 	Unknown200 = true;
 	client->Unknown13C1 = false;
 }
-
 
 
 
@@ -3297,8 +3297,8 @@ void UIStarbaseClass::Unknown_640F50(CharacterViewAvatarClass *avatar)
 
 
 
-// NOT EXACT: 0x63FCB0, functional (frame: sub esp 0x68 against the client's 0xBC, the door and avatar positions in other stack copies; O4)
-// 0x63FCB0 (0x638390's frame: the own avatar within 5 of a door's 'cam_door_*_out' bone leaves the room through it)
+// 0x63FCB0 (the frame 0xBC counts two Matrix3D copies, the bone's and the avatar's, both declared before the positions;
+// 0x638390's frame: the own avatar within 5 of a door's 'cam_door_*_out' bone leaves the room through it)
 void UIStarbaseClass::Unknown_63FCB0()
 {
 	for (int i = 0; i < 4; i++) {
@@ -3307,12 +3307,12 @@ void UIStarbaseClass::Unknown_63FCB0()
 			char name[32];
 			_snprintf(name, sizeof(name), "%s", Unknown_B8AA7C[Room * 4 + i]);
 			if (strcmp(name, "") != 0) {
-				Vector3 door;
-				Unknown_Model()->Get_Bone_Transform(name).Get_Translation(&door);
-				Vector3 pos;
-				UnknownC0.D->Avatar->Get_Transform().Get_Translation(&pos);
-				Vector2 diff = Vector2(pos.X, pos.Y) - Vector2(door.X, door.Y);
-				if (diff.Length() < 5.0f) {
+				Matrix3D door_tm = Unknown_Model()->Get_Bone_Transform(name);
+				Matrix3D tm = UnknownC0.D->Avatar->Get_Transform();
+				Vector3 door = door_tm.Get_Translation();
+				Vector3 pos = tm.Get_Translation();
+				Vector3 diff = pos - door;
+				if (WWMath::Sqrt(diff.X * diff.X + diff.Y * diff.Y) < 5.0f) {
 					int room = Unknown_B8AB3C[Room * 4 + i];
 					UnknownB0->Unknown_69CBE0();
 					UnknownC0.E = 4;
@@ -4360,13 +4360,13 @@ UIStarbaseUnknown1F8Class::~UIStarbaseUnknown1F8Class()
 	Unknown_BE67BC->Unload("fc_symbolchat.ini");
 }
 
-// NOT EXACT: 0x645510, functional (frame: two more stack slots in ours, every local 8 bytes up; the client's order otherwise; B1)
+// 0x645510 (the four options made, those the player cannot use greyed; the loop's bound is i < 5: cmp esi, 5 / jl)
 // 0x645510
 void UIStarbaseUnknown1F8Class::Unknown_645510()
 {
 	InterfaceSortScopeClass scope(this);
 	SClient *client = ((LineDisplayClientClass *)Client)->As_Space_Client();
-	for (int i = 1; i <= 4; i++) {
+	for (int i = 1; i < 5; i++) {
 		char name[32];
 		bool usable = false;
 		switch (i) {
