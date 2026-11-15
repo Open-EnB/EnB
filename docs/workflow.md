@@ -288,7 +288,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 | Dead reads change later sites' inlining in narrow steps, and a position change does nothing | They act by their total and the callee they inline, not by position (before the function's last branch): sweep every count (7 exact, 8 over); an inline accessor costs about two thirds of a `size()` | client_lego_impl Add 0x72B7F0 |
 | `if (a && b)` against two nested `if`s: the same bytes, but callers inline differently | The cost is in the source's structure: try both forms when a caller's inlining is off | unknown_6af220.cpp |
 | A wrapper template calling through a second template | Costs one inline level (§3.1.1): count it | signal_list.cpp |
-| A static helper defined later in the file is inlined into earlier callers; the client calls it | `#pragma auto_inline(off)` around the helper. The client's callers are the evidence (`client.py callers`: a function with no callers in the client is always inlined there, keep it outside the bracket); definition order is not an inline barrier in VC6 | steering `Predict` / `Avoid_Obstacles`; damtype's section reader |
+| A static helper defined later in the file is inlined into earlier callers; the client calls it | `#pragma auto_inline(off)` around the helper. The client's callers are the evidence (`client.py callers`: a function with no callers in the client is always inlined there, keep it outside the bracket); definition order is not an inline barrier in VC6 | steering `Predict` / `Avoid_Obstacles`; damtype's section reader; sclient 0x7555B0 (/Ob2 inlined it into Shutdown 0x741BB0; the pragma sat on its existing blank lines, every `__LINE__` kept; B96, 2026-11-15) |
 | The client calls a function out of line from one caller but its other callers inline it | Try `auto_inline(off)` only after an `appfile.py match` over those other callers shows they still inline it | avatar.cpp |
 | The client inlines `std::string` assign at the later call sites of a long function, not the earlier ones | The budget ran out inside the function: classify inline-budget, park | ui_starbase 0x637130 |
 | A callee taking a by-value `Vector2` stays out of line as in the client | Keep the by-value parameter (a const reference inlines it) | 0x543200 |
@@ -469,7 +469,12 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **Clearing forms inline differently:** `Set_Contents(NULL)` vs a `RefCountPtr<>()` temporary, and `clear()`
   vs `erase(begin, end)` (`??_G(0)` calls vs inlined destroy loops): try both. Top-level code empties a VC6
   vector with `clear()`; `vector::insert(end(), 1, x)` written out is inlined while push_back keeps the
-  3-argument insert out of line. A hash_map node with an inline recursive dtor: `delete node` in both places.
+  3-argument insert out of line (sclient 0x74CA90: `insert(end(), 1, record)` was the client's form, push_back reaches the
+  fill-insert one layer deeper; B97, 2026-11-15). A hash_map node with an inline recursive dtor: `delete node` in both places.
+* **Vector destructors inlined late in a function come out as `??_G(this, 0)` calls in the client** (SClient::Shutdown
+  0x741BB0: the +0x133C element's destructor after the decal views' inlined ones): the inline budget is spent by then, so no
+  destructor form changes it; the function stays NOT EXACT on it (B96, 2026-11-15: 0.32 -> 0.73 by the client's camera-callback
+  removal and real member views).
 * **`std::string` construction forms:** `name(p)` and `std::string name; name = p;` give different inline
   profiles; where the client stores the string's EH state before its inline assign, default-construct then
   assign. An inlined `std::string::find` needs `find(s, 0, strlen(s))` inside `while (>= 0)`.
@@ -1029,7 +1034,11 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
 * **A hash_map value whose destructor the client never runs** (operator[] 0x71D4D0 leaves its pair temporary
   alive, 0x7198B0 frees nodes bare): give the value class a private, empty, inline destructor and make the
   `std::hash_map<K, V>` its friend (a private destructor alone is C2248 in operator[]). It also frees
-  operator[]'s inline budget, sending the hashtable copy constructor out of line as the client has it.
+  operator[]'s inline budget, sending the hashtable copy constructor out of line as the client has it. The client's
+  out-of-line `resize` / `_M_new_node` under an operator[] site (sclient 0x74C3B0: call 0x759660, call 0x759030) come from two dead
+  `size()` reads after the site (marked `// (dead, D130)`), which take operator[]'s nested budget (B97, 2026-11-15).
+* **sgistl's `__STL_TRY` is empty** (B97, 2026-11-15): it emits no try / catch, so an STL function's source shape says nothing
+  about the client's frame there.
 * **SGI hash_map and vector inlining.** Leave hash_map members the source default-constructs as they are (100
   buckets already): writing `Systems(100)` moves `_M_initialize_buckets` inline into another member. Partial
   inlining depends on the iterator type: a member declared `const_iterator` (begin()'s iterator converted)
@@ -1667,13 +1676,17 @@ are in 3.0.
   0x65C920 "folded"): read the client's slot (`clientimage.ClientImage().u32(vt + 4 * slot)`, then the thunk)
   before suspecting them.
 * **Pseudocode and Ghidra:** pseudocode can be wrong (check `client.py dis`); pseudocode.py drops call arguments
-  in long functions (0x600000: the pushes in `client.py dis` are the check), and a concurrent `pseudocode.py`
+  in long functions (0x600000: the pushes in `client.py dis` are the check; in a big function that calls thunks it also
+  omits the string pushes: O9, 2026-11-15, every string and argument of the registration reply handler came from `client.py dis`), and a concurrent `pseudocode.py`
   run clobbers the shared `.work/ghidra/targets.tsv` (rerun if "ok N" is short). capstone shows the CRT's
   `fpatan` helpers as plain calls: read the callee's body before trusting a doc's asin / acos. A `__thiscall`
   can be a cdecl free function, and Ghidra can attribute an argument pushed for a later call to the call before
   it: check each callee's `ret N` and the caller's pushes before writing a member. Read a template's value type
   from Ghidra's mangled name (`...I_` is unsigned int: a `hash_map<string, int>` lost two pairs to the other
   instance).
+* **A map field's name is not its meaning** (ui_registration 'Next' 0x5FBD30: the radio-driven states could never advance):
+  RegistrationButtonStruct +0x04 was named RObj, but 0x5F2B20's stack slot that fills it holds the button's id (renamed int
+  `Id`; 0x5F33E0 returns int, still exact). Read the filling function's stack slot before trusting a map field's name (O8, 2026-11-15).
 * **Scripts on Windows:** Python's `subprocess` 'bash' can resolve to WSL's bash (empty output): use Git's
   `C:\Program Files\Git\usr\bin\bash.exe` by full path. In Git Bash `cmd //c mklink //J` makes broken links: use
   PowerShell `New-Item -ItemType Junction`. `client.py dis` on a cp1252 console: `PYTHONIOENCODING=utf-8`.
@@ -1740,7 +1753,9 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
 
 * **e2e.py (D237, tools/harness/README.md):** every POC check builds `--lib binkmovie` before the link, else `Play`
   is a generated stand-in and the start-up movie runs to its end; `build.py` has no `--lock-wait`; a trigger file
-  must be renamed into place; input is tagged 0x5043 and `ENB_POC_INPUT_TAG=1` drops untagged input. Counting asserts in messages.log (stubs.log's copy is appended to it): count timestamped lines only and normalise by frames; retail fires effect_description.cpp's asserts 266 / 318 / 348 in the same 4:3:3 ratio, so a flood there is the client's own (F1, 2026-11-14).
+  must be renamed into place; input is tagged 0x5043 and `ENB_POC_INPUT_TAG=1` drops untagged input. Counting asserts in messages.log (stubs.log's copy is appended to it): count timestamped lines only and normalise by frames; retail fires effect_description.cpp's asserts 266 / 318 / 348 in the same 4:3:3 ratio, so a flood there is the client's own (F1, 2026-11-14). A recording that starts docked logs no 'Render: Frame Rate' on either
+  client (tools/harness/README.md); a ~5700 s session (/play 7's session 5) grew messages.log to 2 GB and e2e.py's in-memory
+  Events list until the host ran low on memory (E2, 2026-11-15; progress.md §4 Tools).
 * **Retiring a stand-in must not take its neighbours with it** (deleting a hand stand-in from stubs/app_stubs.cpp
   also removed the CRT wrappers beside it): gen_stubs' generated stand-ins return null, `standins.py check` and the
   link gate pass, and only a POC run shows it (a crash on a null inside the real function that copies it). Run
