@@ -14,7 +14,7 @@ public:
 	// the static formatters (0x4FF390 ..) store the three limits and zero RemainingTime; Started is
 	// left alone (set by Format)
 	TimeStringFormatClass(const MillisecondsClass &largest, const MillisecondsClass &smallest, const MillisecondsClass &minimum)
-		: Largest(largest), Smallest(smallest), Minimum(minimum), RemainingTime(0) {}
+		: Largest(largest), Smallest(smallest), Minimum(minimum) { RemainingTime = 0; }
 
 	std::string Format(const MillisecondsClass &time);  // NAME 2: what it does
 
@@ -26,7 +26,7 @@ private:
 	// 0x4FF940 .. 0x4FFA30 and Get 0x4FFA80 .. 0x4FFBD0 are called from Format: this layer's)
 	template<class UNIT> bool Add(const UNIT &unit, const std::string &name, bool plural)  // NAME 2: what it does
 	{
-		return Add_Unit(MillisecondsClass(unit), unit.Get(), name, plural);
+		MillisecondsClass portion(unit); return Add_Unit(portion, unit.Get(), name, plural);
 	}
 
 	MillisecondsClass Largest;			// +0x00 NAME 2: a unit this long or longer is left out (0: none)

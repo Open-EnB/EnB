@@ -6,7 +6,7 @@
 #include "time_string_format.h"
 
 
-// NOT EXACT: inline-budget (explain.py): the formatter's string constructor inlines _Tidy, the client calls it
+// any limits: a formatter of its own per call
 // @0x4FE780
 std::string Time_String(const MillisecondsClass &time, const MillisecondsClass &largest, const MillisecondsClass &smallest, const MillisecondsClass &minimum)
 {
@@ -15,7 +15,7 @@ std::string Time_String(const MillisecondsClass &time, const MillisecondsClass &
 }
 
 // "1 day, 2 hours, 3 minutes, 4 seconds, 5ms": the units from the largest down
-// NOT EXACT: inline-budget: two of the four unit conversions (0x4FF940, 0x4FF9E0) inline here, the client calls all four
+// NOT EXACT: inline-budget: the Days conversion (0x4FF940) inlines here, the client calls all four out of line
 // @0x4FE890
 std::string TimeStringFormatClass::Format(const MillisecondsClass &time)
 {
@@ -87,7 +87,6 @@ std::string TimeStringFormatClass::Unit_String(int count, const std::string &nam
 }
 
 // days and hours, at least one day
-// NOT EXACT: inline-budget (explain.py): the static formatter's string constructor inlines _Tidy, the client calls it
 // @0x4FF390
 std::string Time_String(const DaysClass &time)
 {
@@ -96,7 +95,6 @@ std::string Time_String(const DaysClass &time)
 }
 
 // days and hours, at least one hour
-// NOT EXACT: inline-budget (explain.py): the static formatter's string constructor inlines _Tidy, the client calls it
 // @0x4FF490
 std::string Time_String(const HoursClass &time)
 {
@@ -105,7 +103,6 @@ std::string Time_String(const HoursClass &time)
 }
 
 // hours and minutes, at least one minute
-// NOT EXACT: inline-budget (explain.py): the static formatter's string constructor inlines _Tidy, the client calls it
 // @0x4FF590
 std::string Time_String(const MinutesClass &time)
 {
@@ -114,7 +111,6 @@ std::string Time_String(const MinutesClass &time)
 }
 
 // minutes and seconds, at least one second
-// NOT EXACT: inline-budget (explain.py): the static formatter's string constructor inlines _Tidy, the client calls it
 // @0x4FF6A0
 std::string Time_String(const SecondsClass &time)
 {
