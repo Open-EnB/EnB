@@ -1,0 +1,16 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "Runnable (client 0x8B5450-0x8B5500, second half of wlib/threadfac.cpp; provisional file name D137): constructor 0x8B5450, scalar deleting dtor 0x8B5480, destructor 0x8B54B0 exact in verify; isRunning 0x8B54D0 and getThreadCount 0x8B54F0 byte-identical (too short to count). 0x8B5510/0x8B5540 in queue row 492 are already wlib/wdebug.cpp's DebugLibSemaphore init/dtor",
+ "expected": {},
+ "in_tree": [
+  "0x8B5450",
+  "0x8B5480",
+  "0x8B54B0"
+ ],
+ "merged": [],
+ "name": "client/unknown_8b5450.cpp",
+ "short_known": [
+  "0x8B54B0"
+ ]
+}
