@@ -37,6 +37,20 @@ void Unknown_82EF50()
 {
 }
 
+// 0x82EF70
+TextureClass *Unknown_82EF70(INIClass &ini, const char *section)
+{
+	char name[50];
+	ini.Get_String(section, "File", "default.tga", name, sizeof(name));
+	bool wrap = ini.Get_Bool(section, "TextureWrap", true);
+	TextureClass *texture = AssetManager->Get_Texture(name);
+	if (!wrap) {
+		texture->Set_U_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
+		texture->Set_V_Addr_Mode(TextureClass::TEXTURE_ADDRESS_CLAMP);
+	}
+	return texture;
+}
+
 // 0x82F000
 TextureClass *Unknown_82F000(INIClass &ini, const char *section, float *hsv)
 {
@@ -96,14 +110,16 @@ char *Value_To_String(char *buf, int size, WW3DLightAttenuationType value)
 **
 **	Object boundaries: follows app\common\udpconn.cpp (which ends with its guarded <string> initialiser at
 **	0x82EC80) and precedes app\common\chartemplate.cpp (which begins with its .CRT$XCU vector initialiser at
-**	0x82F210). No __FILE__, assert or RTTI names this object. 0x82EF70 (Unknown_82EF70, currently interim in
-**	app\client\decal.cpp under D137) sits inside this range and shares the strings "File", "default.tga" and
-**	"TextureWrap" (0xBA89A0..0xBA89B8) with 0x82F000; it is left in decal.cpp untouched (outside claim).
+**	0x82F210). No __FILE__, assert or RTTI names this object. 0x82EF70 (Unknown_82EF70, moved from app\client\decal.cpp
+**	under D66) sits inside this range and shares the strings "File", "default.tga" and "TextureWrap"
+**	(0xBA89A0..0xBA89B8) with 0x82F000.
 **
-**	All six claimed functions in the range are byte-exact:
+**	All seven functions in the range are byte-exact:
 **	- 0x82ECB0 (514 bytes): builds an orthonormal right-handed Matrix3D at position with X along direction
 **	  and Y horizontal (Cross(up, x)); a local const Vector3 up(0,0,1) gives the client's Normalize() order.
 **	- 0x82EF50 (1 byte): empty ret stub (D99).
+**	- 0x82EF70 (103 bytes): loads an INI texture ("File", default "default.tga"; clamped unless "TextureWrap")
+**	  via ENBAssetManager.
 **	- 0x82F000 (104 bytes): loads and recolours an INI texture ("File", "TextureWrap") via ENBAssetManager.
 **	- 0x82F090 (178 bytes): recursively picks the first sub-object / object with non-null User_Data under
 **	  IntersectionClass::Intersect_Screen_Point_RenderObject.
