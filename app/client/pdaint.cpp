@@ -527,7 +527,7 @@ RefCountPtr<InterfaceClass> PDAInterfaceClass::Unknown_6956C0(int index)
 }
 
 
-// 0x695780 (NOT EXACT: shape (the client's FAIL_IF returns share one tail: 0.15))
+// 0x695780 (NOT EXACT: shape (the client places the epilogue after the first FAIL_IF and copies the Set_View tail into each case: 0.64))
 bool PDAInterfaceClass::Unknown_695780(int index)
 {
 	FAIL_IF(!Get_Client()) return(false);
@@ -549,26 +549,26 @@ bool PDAInterfaceClass::Unknown_695780(int index)
 			Unknown_695A00(i, false);
 		}
 	}
+	int view;
 	switch (index) {
 	case 0:
 		sc->Unknown_744560(0);
-		sc->Bridge->Set_View(BridgeInterface::VIEW_CARGO);
-		return(true);
-	case 1:
-		sc->Unknown_744560(0xF);
-		return(true);
+		view = BridgeInterface::VIEW_CARGO;
+		break;
+	case 1: sc->Unknown_744560(0xF); return(true);
+	case 3: sc->Unknown_744560(0x11); return(true);
 	case 2:
 		sc->Unknown_744560(2);
-		sc->Bridge->Set_View(BridgeInterface::VIEW_CHARACTER);
-		return(true);
-	case 3:
-		sc->Unknown_744560(0x11);
-		return(true);
+		view = BridgeInterface::VIEW_CHARACTER;
+		break;
 	case 4:
 		sc->Unknown_744560(0x13);
-		sc->Bridge->Set_View(BridgeInterface::VIEW_STAR_MAP);
+		view = BridgeInterface::VIEW_STAR_MAP;
+		break;
+	default:
 		return(true);
 	}
+	sc->Bridge->Set_View(view);
 	return(true);
 }
 
@@ -600,7 +600,7 @@ bool PDAInterfaceClass::Unknown_695780(int index)
 
 
 
-// 0x695A00 (NOT EXACT: shape (cases 1 and 3 jump to the common return-true tail: 0.36))
+// 0x695A00: cases 1 and 3 clear arg (the client jumps from them straight to the return-true tail), case 3 before case 2 as the client lays them out
 bool PDAInterfaceClass::Unknown_695A00(int index, bool arg)
 {
 	RefCountPtr<InterfaceClass> window = Unknown_6956C0(index);
@@ -617,21 +617,21 @@ bool PDAInterfaceClass::Unknown_695A00(int index, bool arg)
 		break;
 	case 1:
 		Get_Client()->As_Space_Client()->Unknown_744560(0x10);
-		return(true);
+		arg = false; break;
+	case 3:
+		Get_Client()->As_Space_Client()->Unknown_744560(0x12);
+		arg = false; break;
 	case 2:
 		Get_Client()->As_Space_Client()->Unknown_744560(3);
 		break;
-	case 3:
-		Get_Client()->As_Space_Client()->Unknown_744560(0x12);
-		return(true);
 	case 4:
 		Get_Client()->As_Space_Client()->Unknown_744560(0x14);
 		break;
 	}
 	if (arg) {
 		FAIL_IF(!Get_Client()) return(false);
-		if (Get_Client()->As_Space_Client()->Bridge) {
-			Get_Client()->As_Space_Client()->Bridge->Set_View(BridgeInterface::VIEW_MAIN);
+		SClient *sc = Get_Client()->As_Space_Client(); if (sc->Bridge) {
+			sc->Bridge->Set_View(BridgeInterface::VIEW_MAIN);
 		}
 	}
 	return(true);

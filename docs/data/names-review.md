@@ -4646,16 +4646,16 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6A7990` | `app/client/gd_inv_slider.cpp:111` | untagged neutral name (D10) |
 | 1 | `Unknown_66FA90` | `app/client/gd_inv_slider.cpp:114` | untagged neutral name (D10) |
 | 1 | `gd_inv_slider.h` | `app/client/gd_inv_slider.h:4` | provisional header name for gd_inv_slider.cpp |
-| 1 | `Unknown669FB0Class` | `app/client/gd_inv_slider.h:15` | neutral (D10) |
-| 1 | `x, y` | `app/client/gd_inv_slider.h:20` | GadgetClass's |
-| 1 | `Unknown_30` | `app/client/gd_inv_slider.h:20` | untagged neutral name (D10) |
-| 1 | `val, arg2` | `app/client/gd_inv_slider.h:21` | GadgetSlider's |
-| 1 | `Unknown_A4` | `app/client/gd_inv_slider.h:21` | untagged neutral name (D10) |
-| 1 | `a, b` | `app/client/gd_inv_slider.h:22` | neutral |
-| 1 | `Unknown_66A300` | `app/client/gd_inv_slider.h:22` | untagged neutral name (D10) |
-| 1 | `force` | `app/client/gd_inv_slider.h:23` | neutral |
-| 1 | `Unknown_66A3C0` | `app/client/gd_inv_slider.h:23` | untagged neutral name (D10) |
-| 1 | `Unknown_66A4E0` | `app/client/gd_inv_slider.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown669FB0Class` | `app/client/gd_inv_slider.h:16` | neutral (D10) |
+| 1 | `x, y` | `app/client/gd_inv_slider.h:21` | GadgetClass's |
+| 1 | `Unknown_30` | `app/client/gd_inv_slider.h:21` | untagged neutral name (D10) |
+| 1 | `val, arg2` | `app/client/gd_inv_slider.h:22` | GadgetSlider's |
+| 1 | `Unknown_A4` | `app/client/gd_inv_slider.h:22` | untagged neutral name (D10) |
+| 1 | `a, b` | `app/client/gd_inv_slider.h:23` | neutral |
+| 1 | `Unknown_66A300` | `app/client/gd_inv_slider.h:23` | untagged neutral name (D10) |
+| 1 | `force` | `app/client/gd_inv_slider.h:24` | neutral |
+| 1 | `Unknown_66A3C0` | `app/client/gd_inv_slider.h:24` | untagged neutral name (D10) |
+| 1 | `Unknown_66A4E0` | `app/client/gd_inv_slider.h:25` | untagged neutral name (D10) |
 | 1 | `Unknown_42EC60, button, arg` | `app/client/gd_key_press.cpp:7` | neutral (D10), as ctrngadg.cpp's |
 | 1 | `Unknown_42EC60` | `app/client/gd_key_press.cpp:7` | untagged neutral name (D10) |
 | 1 | `Unknown44` | `app/client/gd_key_press.cpp:11` | untagged neutral name (D10) |
@@ -6760,7 +6760,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74` | `app/client/pdaint.cpp:470` | untagged neutral name (D10) |
 | 1 | `Unknown_695630` | `app/client/pdaint.cpp:485` | untagged neutral name (D10) |
 | 1 | `Unknown_695680` | `app/client/pdaint.cpp:494` | untagged neutral name (D10) |
-| 1 | `Unknown_744560` | `app/client/pdaint.cpp:554` | untagged neutral name (D10) |
+| 1 | `Unknown_744560` | `app/client/pdaint.cpp:555` | untagged neutral name (D10) |
 | 1 | `Unknown_695CE0` | `app/client/pdaint.cpp:651` | untagged neutral name (D10) |
 | 1 | `Unknown_695D70` | `app/client/pdaint.cpp:672` | untagged neutral name (D10) |
 | 1 | `Unknown_695DC0` | `app/client/pdaint.cpp:683` | untagged neutral name (D10) |
@@ -25957,7 +25957,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Force_Value` | `app/client/gd_gauge.h:85` | what it does; NAME 1 [value]: what it stores |
 | 2 | `Get_Value` | `app/client/gd_gauge.h:86` | what it returns |
 | 2 | `Exists` | `app/client/gd_gauge.h:88` | as ui_experience.cpp's bars' |
-| 2 | `Count` | `app/client/gd_inv_slider.h:31` | what it holds |
+| 2 | `Count` | `app/client/gd_inv_slider.h:32` | what it holds |
 | 2 | `Event` | `app/client/gd_key_press.h:40` | what it holds |
 | 2 | `Wrap_Pointer` | `app/client/gd_pip_scene.h:34` | what it does |
 | 2 | `Set_Cursor` | `app/client/gd_pip_scene.h:35` | what it does; NAME 1 [cursor]: tsk_login.h's |
@@ -30194,13 +30194,13 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `GaugeGadgetClass` | `app/client/gd_gauge.h:77` | class-from-file (D24) for app\Client\gd_gauge.cpp |
 | 3 | `Current` | `app/client/gd_gauge.h:89` | the assert's |
 | 3 | `InvDataClass` | `app/client/gd_inv_slider.cpp:10` | Peek_Inv_Data, inv_data's __FILE__ 0xB90004 |
-| 3 | `inventory` | `app/client/gd_inv_slider.h:18` | the FAIL_IF's; NAME 1 [layer]: GadgetSlider's |
-| 3 | `event` | `app/client/gd_inv_slider.h:24` | the FAIL_IF's; NAME 1 [slot_data]: as ui_slot_data.cpp's |
-| 3 | `Is_Attached` | `app/client/gd_inv_slider.h:25` | the FAIL_IFs' |
-| 3 | `Inventory` | `app/client/gd_inv_slider.h:27` | the FAIL_IF's |
-| 3 | `SlotData` | `app/client/gd_inv_slider.h:28` | the FAIL_IF's |
-| 3 | `SlotsPerNotch` | `app/client/gd_inv_slider.h:29` | the FAIL_IF's |
-| 3 | `VisibleNotches` | `app/client/gd_inv_slider.h:30` | the FAIL_IF's |
+| 3 | `inventory` | `app/client/gd_inv_slider.h:19` | the FAIL_IF's; NAME 1 [layer]: GadgetSlider's |
+| 3 | `event` | `app/client/gd_inv_slider.h:25` | the FAIL_IF's; NAME 1 [slot_data]: as ui_slot_data.cpp's |
+| 3 | `Is_Attached` | `app/client/gd_inv_slider.h:26` | the FAIL_IFs' |
+| 3 | `Inventory` | `app/client/gd_inv_slider.h:28` | the FAIL_IF's |
+| 3 | `SlotData` | `app/client/gd_inv_slider.h:29` | the FAIL_IF's |
+| 3 | `SlotsPerNotch` | `app/client/gd_inv_slider.h:30` | the FAIL_IF's |
+| 3 | `VisibleNotches` | `app/client/gd_inv_slider.h:31` | the FAIL_IF's |
 | 3 | `gd_key_press.h` | `app/client/gd_key_press.h:16` | header name assumed from the client's gd_key_press.cpp |
 | 3 | `Set_Text` | `app/client/gd_key_press.h:35` | the client's FAIL_IF 'KeyPressGadget::Set_Text()'; NAME 2 [text]: the member it sets |
 | 3 | `Text` | `app/client/gd_key_press.h:39` | the client's FAIL_IF '!Text' |
