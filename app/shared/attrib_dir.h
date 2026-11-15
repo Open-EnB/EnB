@@ -192,7 +192,7 @@ public:
 class AttribInfoModIteratorClass : public AttribModIteratorClass  // NAME 2: what it does
 {
 public:
-	AttribInfoModIteratorClass(AttributeInfo *info) : Cur(info->Mods.begin()), End(info->Mods.end()), Info(info) {}	// 0x4D7E20
+	AttribInfoModIteratorClass(AttributeInfo *info);										// 0x4D7E20 (no caller: Get_Mods inlines it)
 	virtual AttribModClass *Get_Mod() { return *Cur; }							// 0x4D7BB0
 	virtual const char *Get_Name() { return Info->Name.c_str(); }				// 0x4D7BD0
 	virtual bool Is_Done() { return Cur == End; }									// 0x4D7BF0
@@ -246,6 +246,18 @@ public:
 	AttribModIteratorClass *Iterator;												// +0x00  // NAME 2: what it holds
 };
 
+// Walks the attributes (0x10 bytes; its members out of line with no callers, AttribDir::Get_Attributes 0x4D5BE0)
+class AttribIterator  // NAME 2: what it does
+{
+public:
+	AttribIterator(std::hash_map<std::string, AttributeInfo *>::iterator cur, std::hash_map<std::string, AttributeInfo *>::iterator end);	// 0x4D7750
+	const char *Get_Name();															// 0x4D7780: the attribute's  // NAME 2: as AttribModIterator's
+	float Get_Value();																// 0x4D77B0  // NAME 2: as AttribDir's
+
+	std::hash_map<std::string, AttributeInfo *>::iterator Cur;			// +0x00  // NAME 2: as AttribDirModIteratorClass's MapCur
+	std::hash_map<std::string, AttributeInfo *>::iterator End;			// +0x08  // NAME 2: as AttribDirModIteratorClass's MapEnd
+};
+
 // The directory (0x18 bytes)
 class AttribDir
 {
@@ -265,6 +277,7 @@ public:
 	float Get_Value(const char *name) const;									// 0x4D57E0
 	float Get_Base(const char *name) const;									// 0x4D5950
 	AttribShadowClass Get_Shadow(const char *name);							// 0x4D5B00
+	AttribIterator Get_Attributes();										// 0x4D5BE0 (no caller)  // NAME 2: what it returns
 
 	AttribModIterator Detach_Mod(AttribModIterator &iter);				// 0x4D4BD0: returns the next  // NAME 2: as the other Detach_Mod
 	AttribModIterator Get_All_Mods();												// 0x4D77D0  // NAME 2: what it returns
