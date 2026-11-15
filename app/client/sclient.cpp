@@ -1151,11 +1151,11 @@ bool SClient::Unknown_7436A0(KernelEventClass event)
 				if (CurrentView && CurrentView == Unknown135C) break;
 				if (CameraMode == 0) {
 					Unknown28 = !Unknown28;
-					if (CameraMode == 0 && Unknown28) {
-						Unknown_74D990(0x17, "Camera set to 1st person mode with bridge.", 0);
-					} else {
-						Unknown_74D990(0x17, "Camera set to 1st person mode without bridge.", 0);
-					}
+					Unknown_74D990(0x17, (CameraMode == 0 && Unknown28) ? "Camera set to 1st person mode with bridge." : "Camera set to 1st person mode without bridge.", 0);
+
+
+
+
 					Unknown_744D80();
 					return(true);
 				}
@@ -4370,7 +4370,7 @@ struct TestEffectStruct	// NAME 2: testeffects.ini's record
 extern std::vector<TestEffectStruct> Unknown_BE7D80;	// 0xBE7D80: testeffects.ini's records (0x74CA90)  // NAME 1: neutral (D10)
 #include "..\shared\unknown_4a1590.h"
 
-// NOT EXACT: functional, from the disassembly (first round, SC1): the INI accessors, the volley defaults and the record copy
+// NOT EXACT: inline budget (B97, 0.47): the record goes in through insert(end(), 1, record), whose body the client inlines (push_back calls it out of line); the client still calls size() and assign out of line and inlines _Tidy
 // 0x74CA90 (Load_INIs: testeffects.ini): one record per section but [Defaults], each entry from the section or [Defaults];
 // a zero duration is the distance over effect.ini's AmmoSpeed of its EFFECT-<descid>\Weapon Usage section
 void Unknown_74CA90(const char *filename)
@@ -4469,7 +4469,7 @@ void Unknown_74CA90(const char *filename)
 		FAIL_IF(f_advance < 0.0f) f_advance = 0.0f;
 		record.Delay = (int)(f_advance * 1000.0f);
 		Bounded_Strcpy(record.Name, sizeof(record.Name), section->Section);
-		Unknown_BE7D80.push_back(record);
+		Unknown_BE7D80.insert(Unknown_BE7D80.end(), 1, record);
 	}
 }
 
