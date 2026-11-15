@@ -1,8 +1,7 @@
 {
  "ambiguous": [
   "0x42A6C0",
-  "0x42B2F0",
-  "0x4406E0"
+  "0x42B2F0"
  ],
  "copy": "reconstructed",
  "description": "ClientItemPropertySpecialLevelRequirementClass (the client's __FILE__ e:\\build\\beta\\G\\app\\Client\\item\\client_item_property_special_level_requirement.cpp, 0xB785C0), a level requirement as a special property (table 0xAEE1EC, 0x30 bytes, 'Requires Combat level 12'), client 0x530530-0x53164F: Create 0x530530, the static Kind_Name 0x530820 (G_ASSERT(0) line 43), ctor 0x530A00, dtors 0x530A80 / 0x530A50, Get_Lines 0x530AA0, Is_Usable 0x531080 (FAIL_IFs lines 95, 101, 113), Create_NEW 0x531430, auxdata.h's Unknown_Find_Field 0x5314D0, UnknownRTTIClass<DeltaTemplateClass<int> >::Cast 0x531590",
@@ -23,6 +22,7 @@
   "0x52BFA0",
   "0x52C3D0",
   "0x52F1F0",
+  "0x52F450",
   "0x52F490",
   "0x52F4D0",
   "0x52F520",
@@ -33,6 +33,7 @@
   "0x530A00",
   "0x530A50",
   "0x530A80",
+  "0x530AA0",
   "0x531430"
  ],
  "merged": [],
@@ -53,17 +54,22 @@
   "0x52BFA0",
   "0x52C3D0",
   "0x52F1F0",
+  "0x52F450",
   "0x52F490",
   "0x52F4D0",
   "0x52F520",
   "0x52F560",
   "0x52F710"
  ],
+ "shared_callers": [
+  "0x52F450"
+ ],
  "short_known": [
   "0x42D120",
   "0x530A80"
  ],
  "tiebreak": [
+  "0x52F450",
   "0x531430"
  ]
 }

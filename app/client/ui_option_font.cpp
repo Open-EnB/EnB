@@ -121,12 +121,12 @@ OptionFontInterface::~OptionFontInterface()
 
 
 
-// NOT EXACT: frame (similarity 0.74): the client's frame is 0x10 bytes larger (0xD4); the rest aligns
+// The Escape event is a named local: the client keeps its slot apart from the loops' buffers (frame 0xD4)
 // 0x5CC9D0
 void OptionFontInterface::Unknown_54()
 {
 	if (Unknown_98("opt04a", "fc_option_font.ini")) {
-		((ControlKeyListClass *)&Unknown4C)->Add(KernelEventClass(0x1B), (void *)1);
+		KernelEventClass escape(0x1B);	((ControlKeyListClass *)&Unknown4C)->Add(escape, (void *)1);	// NAME 1: neutral (D10)
 		FAIL_IF(FontNames.empty()) return;
 
 		RefCountPtr<FontSys> title = Unknown_BE67C4->Unknown_6D2700("title_opt_font", InterfaceMesh);	// NAME 1: neutral (D10)

@@ -1140,10 +1140,10 @@ FontStringFilesClass::FontStringFilesClass()
 FontStringFileStruct *FontStringFilesClass::Find(const char *name)
 {
 	std::hash_map<std::string, FontStringFileStruct *>::const_iterator it = Files.find(std::string(name));
-	return it == Files.end() ? NULL : (*it).second;
+	if (it == Files.end()) return NULL; return (*it).second;
 }
 
-// NOT EXACT: frame: 0x50 vs 0x40 (the stack slots), nothing else once they are masked (FN1: the found branch first); 199 = 199 instructions
+// Find's if / return: inlined here, its find temporaries share slots with the end() compare's as in the client's frame (0x40)
 void FontStringFilesClass::Load(const char *name)
 {
 	if (name == NULL || *name == 0) return;
