@@ -771,8 +771,8 @@ StateNode *Unknown710110Class::Unknown_710260()
 }
 
 
-// NOT EXACT: 0x7102B0 shape: the client keeps Unknown3C on the stack past the flag store (fst) and negates the
-// acceleration before the multiply (fchs, both branches' fmul merged); here the flag store comes first and -a * 10000 folds
+// NOT EXACT: 0x7102B0 shape (3 rows): the client stores Unknown3C (fst) before the flag; here the flag store comes first.
+// (-1.0f * a) * 10000 keeps the client's fchs and the two branches' merged fmul (-a * 10000 folds into one constant)
 void Unknown710110Class::Set_Motion(int time, float *speed, float *acceleration, float *turn_rate, float *tilt_rate)
 {
 	Unknown710530Class *motion = (Unknown710530Class *)Current;
@@ -787,7 +787,7 @@ void Unknown710110Class::Set_Motion(int time, float *speed, float *acceleration,
 		} else if (diff > 0.0f) {
 			motion->Unknown44 = *acceleration * 10000.0f;
 		} else if (diff < 0.0f) {
-			motion->Unknown44 = -*acceleration * 10000.0f;
+			motion->Unknown44 = (-1.0f * *acceleration) * 10000.0f;
 		}
 	}
 	if (turn_rate) {
@@ -824,7 +824,7 @@ bool Unknown710110Class::Unknown_7104A0()
 }
 
 
-// NOT EXACT: 0x710530 shape: the speed block as Set_Motion 0x7102B0's (the flag store before the fst, the negation folded)
+// NOT EXACT: 0x710530 shape: the flag store before the fst as Set_Motion 0x7102B0's; the decay test's two blocks swapped
 Unknown710530Class::Unknown710530Class(AdvancedPositionalUpdatePacketClass *packet)
 {
 	Time = packet->TimeStamp;
@@ -840,7 +840,7 @@ Unknown710530Class::Unknown710530Class(AdvancedPositionalUpdatePacketClass *pack
 	} else if (diff > 0.0f) {
 		Unknown44 = packet->Acceleration * 10000.0f;
 	} else if (diff < 0.0f) {
-		Unknown44 = -packet->Acceleration * 10000.0f;
+		Unknown44 = (-1.0f * packet->Acceleration) * 10000.0f;
 	}
 	Unknown6C = packet->ImpartedVelocity * 100.0f;
 	if (WWMath::Fabs(Unknown6C.X) >= 0.000001f || WWMath::Fabs(Unknown6C.Y) >= 0.000001f || WWMath::Fabs(Unknown6C.Z) >= 0.000001f) {
