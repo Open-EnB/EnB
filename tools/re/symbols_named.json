@@ -2671,5 +2671,115 @@
   "address": "0x431A80",
   "symbol": "??1MouseClass@@UAE@XZ",
   "evidence": "Win32MouseHandlerClass::Win32MouseHandlerClass 0x430D90 (also 0x430EE0) (w32mouse.cpp): unwind funclet 0xAA1F30 'mov ecx, dword ptr [ebp - 0x10]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x431A80 (funclet-only callers, objmatch's tie-break never proposes it; short: no pair until D188 takes funclet evidence); FD 2026-11-15"
+ },
+ {
+  "address": "0x4E2250",
+  "symbol": "??1ChatFilterClass@@UAE@XZ",
+  "evidence": "ChatTreeFilterClass::~ChatTreeFilterClass 0x4E22D0 (also 0x4E42C0) (chat_filter.cpp; not exact: paired by its whole unwind map, 2 states, found at no other client function): unwind funclet 0xAA8BC0 'mov ecx, dword ptr [ebp - 0x1c]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x4E2250 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x65BBC0",
+  "symbol": "??1RectangleGadgetClass@@UAE@XZ",
+  "evidence": "SelectGadgetClass::SelectGadgetClass 0x66CC00 (gd_selct.cpp; not exact: paired by its whole unwind map, 7 states, found at no other client function): unwind funclet 0xABDC30 'mov ecx, dword ptr [ebp - 0x30]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x65BBC0 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x653E40",
+  "symbol": "??1?$vector@PAU?$_Hashtable_node@H@std@@V?$_Bucket_allocator@PAU?$_Hashtable_node@H@std@@@2@@std@@QAE@XZ",
+  "evidence": "InvDataClass::InvDataClass 0x688410 (inv_data.cpp; not exact: paired by its whole unwind map, 4 states, found at no other client function): unwind funclet 0xABF611 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 4; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x653E40; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x5296D0",
+  "symbol": "??1ItemEffectClass@@QAE@XZ",
+  "evidence": "ItemEffectDescriptionClass::Read 0x83E040 (item_effect_description.cpp; not exact: paired by its whole unwind map, 5 states, found at no other client function): unwind funclet 0xAD75D0 'lea ecx, [ebp - 0x64]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x5296D0; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x697300",
+  "symbol": "??1?$vector@PAUUnknown696CD0RecordStruct@@V?$allocator@PAUUnknown696CD0RecordStruct@@@std@@@std@@QAE@XZ",
+  "evidence": "Unknown696CD0Class::Unknown696CD0Class 0x696CD0 (pt_data.cpp; not exact: paired by its whole unwind map, 2 states, found at no other client function): unwind funclet 0xAC0180 'mov ecx, dword ptr [ebp - 0x414]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x697300; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x7BD4A0",
+  "symbol": "??1MouseTargetClass@@QAE@XZ",
+  "evidence": "RadarSystemClass::Unknown_7BCA70 0x7BCA70 (radar_system.cpp; not exact: paired by its whole unwind map, 3 states, found at no other client function): unwind funclet 0xAD0EAB 'lea ecx, [ebp - 0x94]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x7BD4A0 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x49F170",
+  "symbol": "??1BuddyRewardStruct@@QAE@XZ",
+  "evidence": "Unknown49F200Class::Unknown49F200Class 0x49EFE0 (also 0x49F300) (referral.cpp; not exact: paired by its whole unwind map, 3 states, found at no other client function): unwind funclet 0xAA54D3 'lea ecx, [ebp - 0x3c]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x49F170 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x6ABBF0",
+  "symbol": "??1Packet_0068Class@@UAE@XZ",
+  "evidence": "UIViewUnknown30Class::Unknown_6AB930 0x6AB930 (tooltip.cpp; not exact: paired by its whole unwind map, 2 states, found at no other client function): unwind funclet 0xAC1500 'lea ecx, [ebp - 0x28]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x6ABBF0 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x6ABFD0",
+  "symbol": "??1?$MemberCallback@VGadgetClass@@VUIViewUnknown30Class@@P82@AEXPAVDestroyGadgetEvent@@PAV1@@ZV3@@SignalBaseClass@@UAE@XZ",
+  "evidence": "UIViewUnknown30Class::Unknown_6AB930 0x6AB930 (tooltip.cpp; not exact: paired by its whole unwind map, 2 states, found at no other client function): unwind funclet 0xAC1508 'lea ecx, [ebp - 0x34]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x6ABFD0 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x56CC70",
+  "symbol": "??1?$RefCountPtr@VUIComboBoxClass@@@@QAE@XZ",
+  "evidence": "ChatPanelInterface::Unknown_5689D0 0x5689D0 (also 0x5689D0, 0x5689D0, 0x5689D0, 0x5689D0, 0x5CF9B0, 0x5CFCE0, 0x656FF0, 0x6572F0) (ui_chat_panel.cpp; not exact: paired by its whole unwind map, 12 states, found at no other client function): unwind funclet 0xAB06B3 'lea ecx, [ebp - 0x7c]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x56CC70; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x58A030",
+  "symbol": "??1GadgetCollectionInterface@@UAE@XZ",
+  "evidence": "UIDynamicWindowClass::UIDynamicWindowClass 0x589D30 (ui_dynamicwindow.cpp; not exact: paired by its whole unwind map, 10 states, found at no other client function): unwind funclet 0xAB2468 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 0x84; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x58A030 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x81D5A0",
+  "symbol": "??1?$RefCountPtr@VUIGuildListClass@@@@QAE@XZ",
+  "evidence": "UIGuildClass::UIGuildClass 0x819420 (also 0x8196D0, 0x8199F0) (ui_guild.cpp; not exact: paired by its whole unwind map, 10 states, found at no other client function): unwind funclet 0xAD5B26 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 0xbc; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x81D5A0; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x62CDC0",
+  "symbol": "??1?$RefCountPtr@VSkillRenderClass@@@@QAE@XZ",
+  "evidence": "UISkillInfoClass::UISkillInfoClass 0x62B930 (also 0x62BA70) (ui_skill_info.cpp; not exact: paired by its whole unwind map, 3 states, found at no other client function): unwind funclet 0xABA8C8 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 0xb4; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x62CDC0; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x643960",
+  "symbol": "??1?$RefCountPtr@VUnknown78A910AvatarClass@@@@QAE@XZ",
+  "evidence": "UIStarbaseUnknownCCClass::~UIStarbaseUnknownCCClass 0x632E50 (also 0x63CA50) (ui_starbase.cpp; not exact: paired by its whole unwind map, 5 states, found at no other client function): unwind funclet 0xABAE1B 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 8; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x643960; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x649170",
+  "symbol": "??1?$vector@PAUUIStringListItemStruct@@V?$allocator@PAUUIStringListItemStruct@@@std@@@std@@QAE@XZ",
+  "evidence": "UIStringListClass::UIStringListClass 0x6483D0 (also 0x6483D0, 0x648770, 0x648770) (ui_string_list.cpp; not exact: paired by its whole unwind map, 5 states, found at no other client function): unwind funclet 0xABBB9B 'mov ecx, dword ptr [ebp - 0x110]; add ecx, 0x84; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x649170; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x6491B0",
+  "symbol": "??1?$vector@PAUUIStringListLineStruct@@V?$allocator@PAUUIStringListLineStruct@@@std@@@std@@QAE@XZ",
+  "evidence": "UIStringListClass::UIStringListClass 0x6483D0 (also 0x648770) (ui_string_list.cpp; not exact: paired by its whole unwind map, 5 states, found at no other client function): unwind funclet 0xABBBBD 'mov ecx, dword ptr [ebp - 0x110]; add ecx, 0xa4; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x6491B0; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x653BC0",
+  "symbol": "??1?$RefCountPtr@VPDAInterfaceClass@@@@QAE@XZ",
+  "evidence": "UITradeClass::UITradeClass 0x650560 (also 0x650560, 0x6507C0) (ui_trade.cpp; not exact: paired by its whole unwind map, 9 states, found at no other client function): unwind funclet 0xABC492 'mov ecx, dword ptr [ebp - 0x10]; add ecx, 0x164; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x653BC0; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x723A90",
+  "symbol": "??1SClientUnknown12BCClass@@UAE@XZ",
+  "evidence": "UnknownB02C78Class::~UnknownB02C78Class 0x723B50 (unknown_723210.cpp; not exact: paired by its whole unwind map, 2 states, found at no other client function): unwind funclet 0xAC8C00 'mov ecx, dword ptr [ebp - 0x14]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x723A90 (short: no pair until D188 takes funclet evidence); FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x7E1CA0",
+  "symbol": "??1?$_com_ptr_t@V?$_com_IIID@UIXMLDOMNode@MSXML@@$1?_GUID_2933bf80_7b36_11d2_b20e_00c04f983e60@@3U__s_GUID@@A@@@@QAE@XZ",
+  "evidence": "Sub14CImplClass::Slot3 0x7E01B0 (also 0x7E01B0, 0x7E0BC0, 0x7E0BC0, 0x7E0BC0, 0x7E0BC0) (unknown_7dfed0.cpp; not exact: paired by its whole unwind map, 9 states, found at no other client function): unwind funclet 0xAD319E 'lea ecx, [ebp + 8]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x7E1CA0; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x7E1CF0",
+  "symbol": "??1?$_com_ptr_t@V?$_com_IIID@UIXMLDOMNodeList@MSXML@@$1?_GUID_2933bf82_7b36_11d2_b20e_00c04f983e60@@3U__s_GUID@@A@@@@QAE@XZ",
+  "evidence": "Sub14CImplClass::Slot3 0x7E01B0 (also 0x7E0A80, 0x7E0BC0) (unknown_7dfed0.cpp; not exact: paired by its whole unwind map, 9 states, found at no other client function): unwind funclet 0xAD3196 'lea ecx, [ebp - 0x18]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x7E1CF0; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x7E1D10",
+  "symbol": "??1?$_com_ptr_t@V?$_com_IIID@UIXMLDOMNamedNodeMap@MSXML@@$1?_GUID_2933bf83_7b36_11d2_b20e_00c04f983e60@@3U__s_GUID@@A@@@@QAE@XZ",
+  "evidence": "Sub14CImplClass::Slot7 0x7E0BC0 (also 0x7E0BC0) (unknown_7dfed0.cpp; not exact: paired by its whole unwind map, 17 states, found at no other client function): unwind funclet 0xAD32D1 'lea ecx, [ebp + 0x14]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x7E1D10; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x7E1D90",
+  "symbol": "??1?$_com_ptr_t@V?$_com_IIID@UIXMLDOMDocumentType@MSXML@@$1?_GUID_2933bf8b_7b36_11d2_b20e_00c04f983e60@@3U__s_GUID@@A@@@@QAE@XZ",
+  "evidence": "Sub14CImplClass::Slot16 0x7E15B0 (unknown_7dfed0.cpp; not exact: paired by its whole unwind map, 4 states, found at no other client function): unwind funclet 0xAD33B8 'lea ecx, [ebp - 0x28]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x7E1D90; FD2 2026-11-15 (C37)"
  }
 ]
