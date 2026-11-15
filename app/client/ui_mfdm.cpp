@@ -22,16 +22,16 @@
 
 void Unknown_496E90(SphereClass &sphere, RenderObjClass *robj);	// 0x496E90 (ro_funcs.cpp's neighbourhood: a render object's bounding sphere)  // NAME 1: neutral (D10)
 
-struct Unknown4973E0Point { Unknown4973E0Point(int x, int y) : X(x), Y(y) {} int X; int Y; };	// NAME 1: neutral (D10)
-// An off-screen render of an object, 0x5C3150's (0x2C bytes; 0x4973E0, 0x497700, 0x4976B0: not rebuilt yet)
-class Unknown4973E0Class	// NAME 1: neutral (D10)
-{
-public:
-	Unknown4973E0Class(const Unknown4973E0Point &size, const Unknown4973E0Point &a, const Unknown4973E0Point &b);	// 0x4973E0  // NAME 1 [size, a, b]: neutral (D10)
-	~Unknown4973E0Class();								// 0x4976B0
-	TextureClass *Unknown_497700(RenderObjClass *robj, int arg);	// 0x497700  // NAME 1 [robj, arg]: neutral (D10)
-	char Unknown00[0x2C];
-};
+#include "..\shared\robj2texture.h"
+
+
+
+
+
+
+
+
+
 
 static const char *UIMFDDirectionNames[] = {	// 0xB82554  // NAME 2: what it holds
 	"MFD_X_DIRECTION", "MFD_X_VALUE", "MFD_Y_DIRECTION", "MFD_Y_VALUE", "MFD_Z_DIRECTION", "MFD_Z_VALUE", "MFD_HEADING", "MFD_PITCH"
@@ -389,8 +389,8 @@ void Unknown5C3030Class::Unknown_08()
 	robj->Set_Transform(tm);
 	bool hidden = object->UnknownB0;
 	object->Unknown_6FCB20(false);
-	Unknown4973E0Class render(Unknown4973E0Point(0x80, 0x80), Unknown4973E0Point(0, 0), Unknown4973E0Point(0, 0));
-	TextureClass *texture = render.Unknown_497700(robj, 0);
+	RObj2Texture render(Vector2i(0x80, 0x80), Vector2i(0, 0), Vector2i(0, 0));
+	TextureClass *texture = render.Render_TextureMap(robj);
 	robj->Set_Transform(saved);
 	object->Unknown_6FCB20(!hidden);
 	MeshClass *mesh = (MeshClass *)Owner->RObj->Get_Sub_Object_By_Name("scanner_click");

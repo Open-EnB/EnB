@@ -1,0 +1,4 @@
+{
+ "copy": "reconstructed",
+ "description": "RObj2Texture's class (0x2C bytes; the constructor 0x4973E0's stores) and Create_Projector_Render_Target, for robj2texture.cpp and its callers starmap_data, ui_mfdm, unknown_58b680"
+}
