@@ -551,7 +551,7 @@ rest printed `FAIL ... not run`, when a second crash is at the same place as an 
 code, instruction and first return addresses) or when two sessions in a row fail before the world. `--separate` gives every
 scenario its own client. Logs in `.work/e2e/HHMMSS-session/` (`HHMMSS-NAME` for a single scenario): `e2e.log`
 (each step, each match), `events.log` (every line of antprox.out, stubs.log, messages.log and d3d8shot.log with
-its time), `result-NAME.json`, `stubs.log`, `antprox.out`, `d3d8shot.log`, the shots.
+its time, written as lines arrive with repeated identical `G_ASSERT` / `FAIL_IF` lines folded to counts), `result-NAME.json`, `stubs.log`, `antprox.out`, `d3d8shot.log`, the shots.
 
 **Scenarios** are `tools/harness/e2e/NAME.scn`, in the order world_entry, starmap, options, pda_pages, cargo, chat,
 then the rest by name (2026-11-14: the chat panel's windows chat_windows, group_windows, help_windows, petition,
