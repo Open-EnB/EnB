@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-875 entries in 299 files.
+874 entries in 299 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -93,7 +93,7 @@ edit the comments in the code, not this file.
 | `app/client/co_player_relationship.cpp:149` | `Unknown_70B450` | marker | NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450) |
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |
 | `app/client/co_subtypes.cpp:112` | `Unknown70E5A0Class::Unknown_20` | marker | NOT EXACT: shape (the frame, 0x128, and the temporaries are the client's; the x87 order of the inverse rotation's and the length's sums and of z's Y differs; attempts.py show 0x70E850) 0x70E850 |
-| `app/client/co_subtypes.cpp:177` | `Unknown70E5A0Class::Unknown_20` | mention | NOT EXACT (shape): Inverse_Transform_Vector gives the client's subtractions from memory; the client normalises with one Length2 (the result copied first, vector3.h's Normalize computes it twice), builds the aim in a Matrix3D temporary and takes the CRT's fabs (the fabs instruction, not WWMath::Fabs's and): frame 0x128 as the client's; z is Vector3::Cross_Product(dir, y) (the same bytes as the term... |
+| `app/client/co_subtypes.cpp:170` | `Unknown70E5A0Class::Unknown_20` | mention | NOT EXACT (shape): Inverse_Transform_Vector gives the client's subtractions from memory; the client normalises with vector3.h's free Normalize (one Length2, the result copied first; NF: the same bytes as the member-wise copy-and-scale S9A wrote out), builds the aim in a Matrix3D temporary and takes the CRT's fabs (the fabs instruction, not WWMath::Fabs's and): frame 0x128 as the client's; z is Vec... |
 | `app/client/control_keys_manager.cpp:375` | `ControlKeysManager::Load_Definitions` | marker | NOT EXACT: inline budget, 25 rows: the client calls the first First_Valid 0x71BCC0 out of line and inlines the last KeyMappingStruct() temporary's array constructor, ours the reverse; frame 0x3e0 for 0x3dc (attempts.csv) |
 | `app/client/cpacket.cpp:128` | `StartPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads PlayerID for START_ACK into eax before the temporary's lea and stores the EH state after the push; attempts.py show 0x733440) 0x733440 (placed here, out of address order, so that no assert line moves) |
 | `app/client/cpacket.cpp:403` | `AdvancedPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: register (the clock drift is the client's through Lag_Add; left: the client loads object->Unknown98 into ebp before the three state calls (0x7343CA, 0x734458, 0x7344DB), ours into ecx; cast locals there change the Is_Valid chain's inline budget; attempts.py show 0x734130) 0x734130 |
@@ -573,7 +573,6 @@ edit the comments in the code, not this file.
 | `app/client/ui_shipcust.cpp:264` | `Unknown620D20Class::Unknown_621530` | marker | NOT EXACT: functional (D64) @0x621530 |
 | `app/client/ui_shipcust.cpp:531` | `ShipCustomizeInterface::ShipCustomizeInterface` | marker | NOT EXACT: functional (D64) @0x622180 |
 | `app/client/ui_shipcust.cpp:669` | `ShipCustomizeInterface::Unknown_68` | marker | NOT EXACT: functional (D64) @0x623080 |
-| `app/client/ui_shipcust.cpp:1147` | `ShipCustomizeInterface::Unknown_624270` | marker | NOT EXACT: functional (D64) @0x624270 |
 | `app/client/ui_shipcust.cpp:1349` | `ShipCustomizeInterface::Unknown_624E50` | marker | NOT EXACT: functional (D64) @0x624E50 |
 | `app/client/ui_shipcust.cpp:1668` | `ShipCustomizeInterface::Unknown_625A60` | marker | NOT EXACT: functional (D64) @0x625A60 |
 | `app/client/ui_shipcust.cpp:1908` | `ShipCustomizeInterface::Unknown_627200` | marker | NOT EXACT: functional (D64) @0x627200 |
