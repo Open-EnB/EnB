@@ -8,7 +8,7 @@
 #include "layer.h"
 #include "g_assert.h"
 
-
+#include "part_emt.h"
 
 
 
@@ -382,10 +382,8 @@ void Unknown_496C00(RenderObjClass *robj, float u, float v, Vector3 *color)	// N
 	surf->Release_Ref();
 	material->Release_Ref();
 }
-
 #include "ref_ptr.h"
-// 0x496DB0: every LOD level to its highest (Get_LOD_Count - 1), each sub-object's too (avatar.cpp's body 0x77E9D0,
-// ui_class.cpp's 0x577B80)
+// 0x496DB0: every LOD level to its highest, each sub-object's too (avatar.cpp's 0x77E9D0, ui_class.cpp's 0x577B80)
 void Unknown_496DB0(RenderObjClass *robj)	// NAME 1 [Unknown_496DB0, robj]: neutral (D10)
 {
 	robj->Set_LOD_Level(robj->Get_LOD_Count() - 1);
@@ -394,6 +392,28 @@ void Unknown_496DB0(RenderObjClass *robj)	// NAME 1 [Unknown_496DB0, robj]: neut
 		RefCountPtr<RenderObjClass> sub = Create_Get(robj->Get_Sub_Object(i));
 		Unknown_496DB0(sub.Peek());
 	}
+}
+int Unknown_496E90(SphereClass *sphere, RenderObjClass *robj)	// NAME 1 [Unknown_496E90, sphere, robj]: neutral (D10)
+{
+	FAIL_IF(!sphere) return 0;
+	if (robj == NULL) {
+		return 0;
+	}
+	*sphere = robj->Get_Bounding_Sphere();
+	int count = robj->Get_Num_Sub_Objects();
+	int found = 0;
+	for (int i = 0; i < count; i++) {
+		RefCountPtr<RenderObjClass> subobj = Create_Get(robj->Get_Sub_Object(i));
+		if (subobj->Class_ID() == RenderObjClass::CLASSID_PARTICLEEMITTER) {
+			// 0x496E90: the bounding sphere of robj grown by each particle emitter's buffer (0x497300 is
+			// Create_Peek<ParticleBufferClass> out of line); returns how many were added
+			subobj = Create_Peek(((ParticleEmitterClass *)subobj.Peek())->Peek_Buffer());
+			FAIL_IF(!subobj) continue;
+			sphere->Add_Sphere(subobj->Get_Bounding_Sphere());
+			found++;
+		}
+	}
+	return found;
 }
 
 // 0x497240
@@ -434,5 +454,7 @@ void Unknown_497240(RenderObjClass *robj, bool on)	// NAME 1 [Unknown_497240, ro
 **	- 0x496AE0 (exact)
 **	- 0x496C00 (exact: in the client's order after 0x496AE0, its FAIL_IFs on lines 365 / 367 / 374, the client's '!tex')
 **	- 0x496DB0 (exact: each sub-object through RefCountPtr's Create_Get, 0x474080 out of line)
+**	- 0x496E90 (exact: FAIL_IFs '!sphere' / '!subobj' on lines 398 / 411, SphereClass::Add_Sphere inlined;
+**	  part_emt.h included in the top padding so the lines hold; its Create_Peek<ParticleBufferClass> is 0x497300)
 **	- 0x497240 (exact)
 */

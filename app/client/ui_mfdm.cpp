@@ -20,7 +20,7 @@
 #include "ui_mfd.h"
 #include "ui_mfd_extended_context.h"
 
-void Unknown_496E90(SphereClass &sphere, RenderObjClass *robj);	// 0x496E90 (ro_funcs.cpp's neighbourhood: a render object's bounding sphere)  // NAME 1: neutral (D10)
+int Unknown_496E90(SphereClass *sphere, RenderObjClass *robj);	// 0x496E90 (ro_funcs.cpp: the bounding sphere grown by each particle emitter's)  // NAME 1: neutral (D10)
 
 #include "..\shared\robj2texture.h"
 
@@ -222,7 +222,7 @@ void UIMFDPIPItemClass::Unknown_10()
 	Vector3 pos = tm.Get_Translation();
 	SphereClass sphere = robj->Get_Bounding_Sphere();
 	if (sphere.Radius <= 0.0f) {
-		Unknown_496E90(sphere, robj);
+		Unknown_496E90(&sphere, robj);
 	}
 	Matrix3D camera(true);
 	if (UnknownBool) {
