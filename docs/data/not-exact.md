@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-882 entries in 296 files.
+882 entries in 297 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -85,7 +85,7 @@ edit the comments in the code, not this file.
 | `app/client/co.cpp:2608` | `ClientObjectClass::Unknown_6FF7A0` | marker | NOT EXACT: inline-budget (the client calls the string lookup 0x514BD0 at all six sites and inlines more of std::string; ours the reverse) |
 | `app/client/co.cpp:2654` | `ClientObjectClass::Unknown_6FF7A0` | mention | NOT EXACT), 0x6FEF70 (l.2284) and 0x6F5F60. The aux-data roots' constructors and the CREATE factory 0x6F6000-0x6FBEF0 are in aux_roots.cpp (generated). The asserts sit on the client's lines (D25): the blank stretches hold the members not yet written; members without asserts (0x6FF4B0-0x700400, 0x6FF7A0) sit where room was. The constructor (T17's reading of 0x6F2820, for whoever rebuilds it): Clien... |
 | `app/client/co.h:119` | `Set_Engine_Glow` | mention | NOT EXACT), 0x725120, 0x725610, 0x7257F0. |
-| `app/client/co.h:258` | `Set_Engine_Glow` | mention | NOT EXACT) |
+| `app/client/co.h:259` | `Set_Engine_Glow` | mention | NOT EXACT) |
 | `app/client/co_data.h:55` | `?` | marker | NOT EXACT: register-only (the type name in edi and the type's map in esi where the client's 0x79E300 has esi and edi; the calls and the frame are the client's). The dead Get_Game_ID read is not the client's (D130): with the one in the binder's Bind it gives the client's inlining (the type map's (n, hash, equal) constructor 0x79E6E0, the const_iterator conversions 0x7A0920 and the value map's const... |
 | `app/client/co_player_relationship.cpp:149` | `Unknown_70B450` | marker | NOT EXACT: inline budget (the client calls the name string's assign and the copies out of line; attempts.py show 0x70B450) |
 | `app/client/co_player_relationship.cpp:351` | `Unknown_70CD50` | mention | NOT EXACT), Attacking 0x70B790, Group 0x70BC30 (through 0x70BAC0, the GroupInfo aux-data test with asserts on lines 207 / 210 on SClient's AuxData +0x12C0; rtti.h's DeltaCompoundClass cast 0x598D80 out of line), PVPAttackable 0x70BF90 (through 0x70BF60), Player 0x70C2A0 and the reaction colours 0x70C5D0; the three packet handlers cpacket.cpp calls (0x70CC40, 0x70CC90, 0x70CD50) and the table's out... |
@@ -524,13 +524,10 @@ edit the comments in the code, not this file.
 | `app/client/ui_pda_cargo.cpp:216` | `UIPdaCargoClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0620 |
 | `app/client/ui_pda_cargo.cpp:293` | `UIPdaCargoClass::Unknown_5D0A50` | marker | NOT EXACT: functional from the pseudocode (D64): ui_attrb.cpp's 0x547C20 for this window's 'Credits' 0x5D0A50 |
 | `app/client/ui_pda_cargo.cpp:319` | `UIPdaCargoClass::Unknown_5D0D20` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D0D20 |
-| `app/client/ui_pda_equip.cpp:103` | `UIPdaEquipClass::Unknown_54` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1250 |
-| `app/client/ui_pda_equip.cpp:158` | `UIPdaEquipClass::~UIPdaEquipClass` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1A00 |
-| `app/client/ui_pda_equip.cpp:217` | `UIPdaEquipClass::Unknown_58` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D1CA0 |
-| `app/client/ui_pda_equip.cpp:273` | `UIPdaEquipClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2180 |
-| `app/client/ui_pda_equip.cpp:294` | `UIPdaEquipClass::Unknown_B0` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2210 |
-| `app/client/ui_pda_equip.cpp:398` | `UIPdaEquipClass::Unknown_A4` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2850 |
-| `app/client/ui_pda_equip.cpp:441` | `UIPdaEquipClass::Unknown_5D2C50` | marker | NOT EXACT: functional from the pseudocode (D64) 0x5D2C50 |
+| `app/client/ui_pda_equip.cpp:159` | `UIPdaEquipClass::~UIPdaEquipClass` | marker | NOT EXACT: functional from the pseudocode (D64) @0x5D1A00 |
+| `app/client/ui_pda_equip.cpp:273` | `UIPdaEquipClass::Unknown_68` | marker | NOT EXACT: functional from the pseudocode (D64) @0x5D2180 |
+| `app/client/ui_pda_equip.cpp:294` | `UIPdaEquipClass::Unknown_B0` | marker | NOT EXACT: functional from the pseudocode (D64) @0x5D2210 |
+| `app/client/ui_pda_equip.cpp:441` | `UIPdaEquipClass::Unknown_5D2C50` | marker | NOT EXACT: functional from the pseudocode (D64) @0x5D2C50 |
 | `app/client/ui_petition_entry.cpp:44` | `UIPetitionEntryClass::Unknown_54` | marker | NOT EXACT: shape (the client stores the subject box's +0x58 and +0x38 through one load, as an inline setter would; the message model's Create_NEW and the flags' registers; 0.77 with a local setter, CP3) 0x5D4890 |
 | `app/client/ui_petition_entry.cpp:152` | `UIPetitionEntryClass::Unknown_60` | marker | NOT EXACT: shape (case 0 tests the second answer with sete / test, ours jne; the closed value's store scheduled before pop edi in the client) 0x5D4C60 |
 | `app/client/ui_petition_player_entry.cpp:196` | `UIPetitionPlayerEntryClass::Unknown_A0` | marker | NOT EXACT: register (the client loads the client's +0x1130 into eax, ours edx; as ui_petition_stuck.cpp's 0x5D7420) 0x5D6550 |
@@ -734,10 +731,13 @@ edit the comments in the code, not this file.
 | `app/shared/attrib_dir_collective.cpp:295` | `AttribDirCollective::Add_Member` | marker | NOT EXACT: inline budget (explain.py: frame 0x34 vs 0x28), the client calls MemberStruct's constructor 0x4DD240 out of line; ours inlines it (defined here or in the class alike) |
 | `app/shared/auxdata/delta_time.cpp:94` | `DurationAccessorClass::Get` | marker | NOT EXACT: the zero time is a function-local static the client destroys at exit (atexit 0x4A8590: its DurationClass has a destructor ours lacks); the 64-bit arithmetic follows the client's order |
 | `app/shared/auxdata/delta_time.cpp:111` | `DurationAccessorClass::Set` | marker | NOT EXACT: the client keeps time()'s 0 argument in ebx and adds the ticks' zero high half from it; VC6 here pushes an immediate (tried: other orders, a DurationClass temporary) |
-| `app/shared/auxdata/encode.cpp:560` | `RecordTableClass::Add` | marker | NOT EXACT: the client keeps the node in the list argument's slot, calls the first Children.size() out of line (0x4A58C0) in the new compound record and allocates the walk's records inline; VC6 here inlines all three sizes and uses other slots. |
+| `app/shared/auxdata/encode.cpp:64` | `DeltaCollectorClass::Visit` | marker | NOT EXACT: frame, the client keeps the bool in the argument slot (frame 0xC, ours 0x10) |
+| `app/shared/auxdata/encode.cpp:128` | `DeltaCollectorClass::Visit` | marker | NOT EXACT: shape, the client places the sent test after the return (ours inline) |
+| `app/shared/auxdata/encode.cpp:560` | `RecordTableClass::Add` | marker | NOT EXACT: inline budget, the client calls the first record's first Children.size() (0x4A58C0) out of line, ours inlines it; the rest (the walk's records inline) matches. Tried: Get_Size() in the record's constructor, dead size() reads after the first record. |
 | `app/shared/auxdata/encode.cpp:729` | `DeltaListClass::Add` | marker | NOT EXACT: the client loads Count between the two loads of Tail (`*Tail` then `->Next`); tried: Count first, `++Count`, the new in the assignment. |
 | `app/shared/auxdata/lookup.cpp:116` | `LookupClass::Unknown_Test_70` | marker | NOT EXACT: the client calls the map's find out of line (0x4ACBD0); VC6 here inlines it |
 | `app/shared/auxdata/lookup.cpp:125` | `LookupClass::Unknown_Test_70_Above_1` | marker | NOT EXACT: as above (find 0x4ACBD0 out of line in the client) |
+| `app/shared/auxdata/policy.cpp:103` | `CompiledPolicyClass::CompiledPolicyClass` | marker | NOT EXACT: register-only, eax / edx swapped in the rule set loop (D89: not chased) |
 | `app/shared/avatar_desc.cpp:139` | `AvatarDescClass::Read` | marker | NOT EXACT: inline budget (the client calls the string assignment's max_size, _Tidy and _Eos out of line, ours inlines them; six forms tried: dead size()/length() after it, assign(), assign(s, strlen), the Read_String call hoisted; attempts.py show 0x4BF550) 0x4BF550 |
 | `app/shared/boolpars.cpp:311` | `BoolParserClass::Parse` | marker | NOT EXACT: inline budget, the client calls the second Parse_And 0x49A900 out of line (ours inlines it) |
 | `app/shared/boolpars.cpp:488` | `BoolParserClass::Parse_Params` | marker | NOT EXACT: shape, the loop's failure returns jump to the second 'return 0' tail in the client, the first in ours |
