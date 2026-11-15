@@ -1,6 +1,7 @@
 {
  "ambiguous": [
   "0x42B2F0",
+  "0x46BE90",
   "0x474080"
  ],
  "copy": "reconstructed",
@@ -60,9 +61,7 @@
   "0x5C3B40",
   "0x5C3B80",
   "0x5C3C00",
-  "0x5C3C40",
-  "0x5C4030",
-  "0x5C4060"
+  "0x5C3C40"
  ],
  "merged": [],
  "name": "client/ui_mfdm.cpp",
@@ -85,8 +84,7 @@
   "0x5C2D70",
   "0x5C3060",
   "0x5C3680",
-  "0x5C3A60",
-  "0x5C4060"
+  "0x5C3A60"
  ],
  "short_known": [
   "0x5BBB50",
