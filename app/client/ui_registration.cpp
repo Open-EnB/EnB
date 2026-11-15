@@ -1900,8 +1900,8 @@ void RegistrationInterface::Unknown_5F8560()
 		Unknown_5F3770(state);
 	}
 }
-
-// @0x5F86F0
+#pragma auto_inline(off)
+// @0x5F86F0 (out of line: all 19 client callers, 0x5F1A10 / 0x5FBD30 / 0x600000, call it)
 void RegistrationInterface::Unknown_5F86F0()
 {
 	Unknown_5F2990(false);
@@ -1918,7 +1918,7 @@ void RegistrationInterface::Unknown_5F86F0()
 	UnknownBC->Unknown_67A8D0(true);
 	UnknownC0->Go_Next_Step();
 }
-
+#pragma auto_inline(on)
 // @0x5F87D0
 void RegistrationInterface::Unknown_5F87D0()
 {
@@ -2968,8 +2968,8 @@ void RegistrationInterface::Unknown_5F0100()
 
 
 
-// NOT EXACT: literal (explain.py's first mismatch, at case 3's text map lookups; functional, pseudocode-faithful, D89: the client calls
-// Unknown_5F86F0 out of line where ours inlines it, and its stack frame is 0x130 bytes smaller)
+// NOT EXACT: inline-budget (functional, pseudocode-faithful, D89: Unknown_5F86F0 now out of line as in the client (auto_inline(off), IB); the client
+// still calls the radio map's begin out of line at case 0 and its stack frame is 0x80 bytes smaller)
 // @0x5FBD30
 void RegistrationInterface::Unknown_5FBD30()
 {
@@ -3678,8 +3678,8 @@ request_failed:
 static const char *ProductBeta = "EB-BETA";  // NAME 1 [ProductBeta]: client .data 0xB85EE4 (0x600000 compares the bundle ids with it)
 static const char *RegistrationGameId = "2184";  // NAME 1 [RegistrationGameId]: client .data 0xB85EF0 (0x600000: 0x7D7E10's third argument, atoi'd against the game features' ids)
 
-// NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3511 instructions against
-// 3085, frame 0x734 against 0xB34; similarity 0.15, D89): ours inlines 0x5F86F0 where the client calls it out of line
+// NOT EXACT: shape (explain.py's first mismatch is a relocation, the string destructor's thunk; 3453 instructions against
+// 3085, frame 0x718 against 0xB34; D89; 0x5F86F0 out of line as the client's since IB): the client calls 0x603660 out of line
 // @0x600000
 void RegistrationInterface::Unknown_5F00C0()
 {
