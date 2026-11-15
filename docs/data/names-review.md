@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1961 |
 | 2 | describes what the code does | 4957 |
-| 1 | neutral placeholder | 25094 |
+| 1 | neutral placeholder | 25092 |
 
 ## For review (score 3 and below)
 
@@ -7952,9 +7952,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_765DF0` | `app/client/sclient.cpp:5725` | untagged neutral name (D10) |
 | 1 | `Unknown_6425D0` | `app/client/sclient.cpp:5730` | untagged neutral name (D10) |
 | 1 | `Unknown_700820` | `app/client/sclient.cpp:5738` | untagged neutral name (D10) |
-| 1 | `Unknown_BB9C40` | `app/client/sclient.cpp:5746` | neutral (D10): cleared while 0x744690 renders the first frames (Unknown1374) |
-| 1 | `Unknown_BBB5D0` | `app/client/sclient.cpp:5747` | neutral (D10): the same |
-| 1 | `Unknown_568690` | `app/client/sclient.cpp:5756` | untagged neutral name (D10) |
+| 1 | `Unknown_568690` | `app/client/sclient.cpp:5757` | untagged neutral name (D10) |
 | 1 | `Unknown_515440` | `app/client/sclient.cpp:5776` | untagged neutral name (D10) |
 | 1 | `Unknown_Resume_All` | `app/client/sclient.cpp:5795` | untagged neutral name (D10) |
 | 1 | `Unknown_74B680` | `app/client/sclient.cpp:5827` | untagged neutral name (D10) |
