@@ -1555,5 +1555,191 @@
   "address": "0x693090",
   "symbol": "??1?$RefCountPtr@VStarmapPipSupportClass@@@@QAE@XZ",
   "evidence": "map_pip.obj's RefCountPtr<StarmapPipSupportClass> destructor: MapPipClass::MapPipClass 0x6927C0 (funclet 0xABFD10: 0xABFD26 `add ecx, 0x48; jmp 0x412ef9` and 0xABFD31 `add ecx, 0x4c; jmp 0x412ef9`) and MapPipClass::~MapPipClass 0x692A60 (funclet 0xABFD96 `add ecx, 0x48; jmp 0x412ef9`) unwind Unknown48 / Unknown4C (map_pip.h) through it; byte-identical to 0x46BE90 etc. (A10, 2026-11-14)"
+ },
+ {
+  "address": "0x6F2D40",
+  "symbol": "?Unknown_18@PositionalStateClass@@UAE?AVVector3@@H@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_18@Unknown98Class@@UAE?AVVector3@@H@Z"
+ },
+ {
+  "address": "0x6F2D70",
+  "symbol": "?Unknown_1C@PositionalStateClass@@UAE?AVVector3@@H@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_1C@Unknown98Class@@UAE?AVVector3@@H@Z"
+ },
+ {
+  "address": "0x6F2DA0",
+  "symbol": "?Unknown_20@PositionalStateClass@@UAE?AVMatrix3D@@H@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_20@Unknown98Class@@UAE?AVMatrix3D@@H@Z"
+ },
+ {
+  "address": "0x6F2DD0",
+  "symbol": "?Unknown_24@PositionalStateClass@@UAEXPAV1@@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_24@Unknown98Class@@UAEXPAV1@@Z"
+ },
+ {
+  "address": "0x6F2DF0",
+  "symbol": "?Unknown_28@PositionalStateClass@@UAEPAV1@XZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_28@Unknown98Class@@UAEPAV1@XZ"
+ },
+ {
+  "address": "0x6F2E10",
+  "symbol": "?Unknown_2C@PositionalStateClass@@UAE_NXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_2C@Unknown98Class@@UAE_NXZ"
+ },
+ {
+  "address": "0x6F2E30",
+  "symbol": "?Get_Type@UnknownB006B8Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@UnknownB006B8Class@@UAEHXZ"
+ },
+ {
+  "address": "0x714870",
+  "symbol": "??0UnknownB026ECClass@@QAE@PAVPositionalStateClass@@@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "??0UnknownB026ECClass@@QAE@PAVUnknown98Class@@@Z"
+ },
+ {
+  "address": "0x7149D0",
+  "symbol": "?Get_Type@UnknownB026ECClass@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@UnknownB026ECClass@@UAEHXZ"
+ },
+ {
+  "address": "0x714BE0",
+  "symbol": "?Get_Type@Unknown714B50Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown714B50Class@@UAEHXZ"
+ },
+ {
+  "address": "0x7152F0",
+  "symbol": "?Get_Type@Unknown715270Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown715270Class@@UAEHXZ"
+ },
+ {
+  "address": "0x715360",
+  "symbol": "?Unknown_715360@Unknown715270Class@@QAEPAVPositionalStateClass@@XZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_715360@Unknown715270Class@@QAEPAVUnknown98Class@@XZ"
+ },
+ {
+  "address": "0x715B50",
+  "symbol": "?Get_Type@Unknown715AB0Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown715AB0Class@@UAEHXZ"
+ },
+ {
+  "address": "0x715D90",
+  "symbol": "?Get_Type@Unknown715CF0Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown715CF0Class@@UAEHXZ"
+ },
+ {
+  "address": "0x715FB0",
+  "symbol": "?Get_Type@Unknown715EF0Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown715EF0Class@@UAEHXZ"
+ },
+ {
+  "address": "0x7170F0",
+  "symbol": "?Get_Type@Unknown717010Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown717010Class@@UAEHXZ"
+ },
+ {
+  "address": "0x717FB0",
+  "symbol": "?Get_Type@Unknown717EF0Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown717EF0Class@@UAEHXZ"
+ },
+ {
+  "address": "0x718160",
+  "symbol": "??0Unknown718160Class@@QAE@VVector3@@0MHPAVPositionalStateClass@@@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "??0Unknown718160Class@@QAE@VVector3@@0MHPAVUnknown98Class@@@Z"
+ },
+ {
+  "address": "0x7182A0",
+  "symbol": "?Unknown_28@Unknown718160Class@@UAEPAVPositionalStateClass@@XZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_28@Unknown718160Class@@UAEPAVUnknown98Class@@XZ"
+ },
+ {
+  "address": "0x7182C0",
+  "symbol": "?Unknown_24@Unknown718160Class@@UAEXPAVPositionalStateClass@@@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_24@Unknown718160Class@@UAEXPAVUnknown98Class@@@Z"
+ },
+ {
+  "address": "0x718350",
+  "symbol": "?Get_Type@Unknown718160Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown718160Class@@UAEHXZ"
+ },
+ {
+  "address": "0x718510",
+  "symbol": "??0Unknown718510Class@@QAE@HHVVector3@@0PAVPositionalStateClass@@@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "??0Unknown718510Class@@QAE@HHVVector3@@0PAVUnknown98Class@@@Z"
+ },
+ {
+  "address": "0x718650",
+  "symbol": "?Unknown_28@Unknown718510Class@@UAEPAVPositionalStateClass@@XZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_28@Unknown718510Class@@UAEPAVUnknown98Class@@XZ"
+ },
+ {
+  "address": "0x718670",
+  "symbol": "?Unknown_24@Unknown718510Class@@UAEXPAVPositionalStateClass@@@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_24@Unknown718510Class@@UAEXPAVUnknown98Class@@@Z"
+ },
+ {
+  "address": "0x718810",
+  "symbol": "?Get_Type@Unknown718510Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown718510Class@@UAEHXZ"
+ },
+ {
+  "address": "0x718D70",
+  "symbol": "??0Unknown718D70Class@@QAE@HABVMatrix3D@@PAVPositionalStateClass@@@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "??0Unknown718D70Class@@QAE@HABVMatrix3D@@PAVUnknown98Class@@@Z"
+ },
+ {
+  "address": "0x718E60",
+  "symbol": "?Unknown_28@Unknown718D70Class@@UAEPAVPositionalStateClass@@XZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_28@Unknown718D70Class@@UAEPAVUnknown98Class@@XZ"
+ },
+ {
+  "address": "0x718E80",
+  "symbol": "?Unknown_24@Unknown718D70Class@@UAEXPAVPositionalStateClass@@@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_24@Unknown718D70Class@@UAEXPAVUnknown98Class@@@Z"
+ },
+ {
+  "address": "0x718F10",
+  "symbol": "?Get_Type@Unknown718D70Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown718D70Class@@UAEHXZ"
+ },
+ {
+  "address": "0x7192A0",
+  "symbol": "??0Unknown7192A0Class@@QAE@PAVRenderObjClass@@PAVPositionalStateClass@@PBD@Z",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "??0Unknown7192A0Class@@QAE@PAVRenderObjClass@@PAVUnknown98Class@@PBD@Z"
+ },
+ {
+  "address": "0x7193F0",
+  "symbol": "?Get_Type@Unknown7192A0Class@@UAEHXZ",
+  "evidence": "co.h's positional state renamed from emote_data.cpp's FAIL_IF texts 0xBA147C / 0xBA1404 ('PositionalState', 'Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL'; S9A 2026-11-15)",
+  "replaces": "?Unknown_04@Unknown7192A0Class@@UAEHXZ"
  }
 ]

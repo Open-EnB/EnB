@@ -1252,7 +1252,7 @@ int ScriptedMovieViewClass::Unknown_803180(RenderObjClass *robj, const char *bon
 
 	G_ASSERT(robj);
 	ClientObjectClass *object = new ClientObjectClass(client, 0x29, id);
-	object->Unknown98 = new Unknown7192A0Class(robj, object->Unknown98, bone_name);
+	object->PositionalState = new Unknown7192A0Class(robj, object->PositionalState, bone_name);
 	object->Unknown_6F33F0(robj, -1, 1.0f);
 	if (bone_name) {
 		object->Unknown_34(100.0f);

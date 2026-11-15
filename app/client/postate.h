@@ -36,28 +36,28 @@ class DeltaCompoundClass;
 
 
 // A state that forwards every slot to a second one (vtable 0xB026EC; no constructor call found in the client)
-class UnknownB026ECClass : public Unknown98Class	// NAME 1: neutral (D10), named by its vtable
+class UnknownB026ECClass : public PositionalStateClass	// NAME 1: neutral (D10), named by its vtable
 {
 public:
-	UnknownB026ECClass(Unknown98Class *state);	// 0x714870  // NAME 1 [state]: neutral
+	UnknownB026ECClass(PositionalStateClass *state);	// 0x714870  // NAME 1 [state]: neutral
 	virtual ~UnknownB026ECClass();				// 0x714940 (scalar deleting 0x714910)
-	virtual int Unknown_04();					// 0x7149D0
+	virtual int Get_Type();					// 0x7149D0
 	virtual Matrix3D Unknown_08(int unknown);	// 0x714A10  // NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_0C(int unknown);	// 0x714A60  // NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_10(int unknown);	// 0x714AB0  // NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_14(int unknown);	// 0x714B00  // NAME 1 [unknown]: neutral
 
-	Unknown98Class *PositionState;				// +0x04  // NAME 3: the client's assert 'PositionState'
+	PositionalStateClass *PositionState;				// +0x04  // NAME 3: the client's assert 'PositionState'
 };
 
 // Type 1, CONSTANT_POSITIONAL_UPDATE 64's state (vtable 0xB02728, 0x40 bytes): a fixed transform
-class Unknown714B50Class : public Unknown98Class	// NAME 1: neutral (D10)
+class Unknown714B50Class : public PositionalStateClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown714B50Class(ConstantPositionalUpdatePacketClass *packet);	// 0x714B50  // NAME 1 [packet]: what the handler passes
 	void Unknown_714D50(ConstantPositionalUpdatePacketClass *packet);	// 0x714D50  // NAME 1 [packet]: what the handler passes
 
-	virtual int Unknown_04() { return(1); }									// +0x04 0x714BE0
+	virtual int Get_Type() { return(1); }									// +0x04 0x714BE0
 	virtual Matrix3D Unknown_08(int unknown) { return(Transform); }			// +0x08 0x714C00  // NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_0C(int unknown) { return(Position); }			// +0x0C 0x714C70  // NAME 1 [unknown]: neutral
 	virtual Vector3 Unknown_10(int unknown) { return(Vector3(0.0f, 0.0f, 0.0f)); }	// +0x10 0x714CA0  // NAME 1 [unknown]: neutral
@@ -68,7 +68,7 @@ public:
 };
 
 // The base of the states that keep an extrap.cpp object (vtable 0xB027A0, 8 bytes): every slot asks it
-class UnknownB027A0Class : public Unknown98Class	// NAME 1: neutral (D10), named by its vtable
+class UnknownB027A0Class : public PositionalStateClass	// NAME 1: neutral (D10), named by its vtable
 {
 public:
 	UnknownB027A0Class();						// 0x715620 (inlined in the derived constructors)
@@ -92,7 +92,7 @@ public:
 	Unknown715AB0Class(SimplePositionalUpdatePacketClass *packet);	// 0x715AB0  // NAME 1 [packet]: what the handler passes
 	void Unknown_715C20(SimplePositionalUpdatePacketClass *packet);	// 0x715C20  // NAME 1 [packet]: what the handler passes
 
-	virtual int Unknown_04() { return(3); }		// +0x04 0x715B50
+	virtual int Get_Type() { return(3); }		// +0x04 0x715B50
 };
 
 // Type 5, PLANET_POSITIONAL_UPDATE 63's state (vtable 0xB02818, 0x0C bytes)
@@ -102,7 +102,7 @@ public:
 	Unknown715CF0Class(PlanetPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x715CF0  // NAME 1 [packet, client]: what the handler passes
 	void Unknown_715E60(PlanetPositionalUpdatePacketClass *packet);	// 0x715E60  // NAME 1 [packet]: what the handler passes
 
-	virtual int Unknown_04() { return(5); }		// +0x04 0x715D90
+	virtual int Get_Type() { return(5); }		// +0x04 0x715D90
 
 	ClientClass *Client;						// +0x08  // NAME 2: what the handler passes
 };
@@ -114,7 +114,7 @@ public:
 	Unknown717EF0Class(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x717EF0  // NAME 1 [packet, client]: what the handler passes
 	void Unknown_718080(ComponentPositionalUpdatePacketClass *packet, ClientClass *client);	// 0x718080  // NAME 1 [packet, client]: what the handler passes
 
-	virtual int Unknown_04() { return(11); }	// +0x04 0x717FB0
+	virtual int Get_Type() { return(11); }	// +0x04 0x717FB0
 
 	int TractorID;								// +0x08 (the packet's)  // NAME 2: the packet's TractorID
 	int TractorEffectID;						// +0x0C (the packet's)  // NAME 2: the packet's TractorEffectID
@@ -168,7 +168,7 @@ public:
 	bool Unknown_7165D0(AdvancedPositionalUpdatePacketClass *packet, StateNode *extrap, unsigned int time, unsigned int other_time);	// 0x7165D0  // NAME 1 [packet, extrap, time, other_time]: neutral
 	bool Unknown_7166A0(StateNode *extrap, int time, int other_time);	// 0x7166A0  // NAME 1 [extrap, time, other_time]: neutral
 
-	virtual int Unknown_04() { return(8); }		// +0x04 0x715FB0
+	virtual int Get_Type() { return(8); }		// +0x04 0x715FB0
 	virtual Matrix3D Unknown_08(int time);		// +0x08 0x716CA0  // NAME 2 [time]: as UnknownB027A0Class's
 	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x716B50  // NAME 2 [time]: as UnknownB027A0Class's
 	virtual Vector3 Unknown_10(int time);		// +0x10 0x716BC0  // NAME 2 [time]: as UnknownB027A0Class's
@@ -194,7 +194,7 @@ public:
 	void Unknown_717430(int unknown, DeltaCompoundClass *aux_data, int time, float *turn, float *tilt, int *move_direction, bool fixed_speed);	// 0x717430 (sclient.cpp's input; '*move_direction == 0' on line 977)  // NAME 3 [move_direction]: the client's assert  // NAME 1 [unknown, aux_data, time, turn, tilt, fixed_speed]: what it does with them
 	void Unknown_7179A0(int unknown, DeltaCompoundClass *aux_data, int time, bool level, bool auto_level);	// 0x7179A0 (sclient.cpp's input: 0x745B20 ...)  // NAME 1 [unknown, aux_data, time, level, auto_level]: what it does with them
 
-	virtual int Unknown_04() { return(4); }		// +0x04 0x7170F0
+	virtual int Get_Type() { return(4); }		// +0x04 0x7170F0
 	virtual void Unknown_34(int time, AdvancedPositionalUpdatePacketClass *packet, unsigned int duration);	// +0x34 0x717CC0  // NAME 1 [time, packet, duration]: as the base's
 	virtual unsigned int Unknown_38(int time);	// +0x38 0x717ED0 (0)  // NAME 2 [time]: as the base's
 
@@ -205,15 +205,15 @@ public:
 
 // Type 12, a straight move from Start to End at Speed from StartTime (vtable 0xB0292C, 0x34 bytes); it holds
 // a second state (+0x24). co.cpp's 0x6F4C20 treats types 12-14 alike
-class Unknown718160Class : public Unknown98Class	// NAME 1: neutral (D10)
+class Unknown718160Class : public PositionalStateClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown718160Class(Vector3 start, Vector3 end, float speed, int time, Unknown98Class *state);	// 0x718160  // NAME 2 [start, end, speed, time, state]: the members they set
+	Unknown718160Class(Vector3 start, Vector3 end, float speed, int time, PositionalStateClass *state);	// 0x718160  // NAME 2 [start, end, speed, time, state]: the members they set
 
-	virtual Unknown98Class *Unknown_28() { return(State); }			// +0x28 0x7182A0
-	virtual void Unknown_24(Unknown98Class *state) { State = state; }	// +0x24 0x7182C0  // NAME 2 [state]: what it sets
+	virtual PositionalStateClass *Unknown_28() { return(State); }			// +0x28 0x7182A0
+	virtual void Unknown_24(PositionalStateClass *state) { State = state; }	// +0x24 0x7182C0  // NAME 2 [state]: what it sets
 	virtual bool Unknown_2C() { return(true); }						// +0x2C 0x7182E0
-	virtual int Unknown_04();					// +0x04 0x718350 (12)
+	virtual int Get_Type();					// +0x04 0x718350 (12)
 	virtual Matrix3D Unknown_08(int time);		// +0x08 0x718370 (looking at End)  // NAME 2 [time]: as the others'
 	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x718410 (the position at that time)  // NAME 2 [time]: as the others'
 	virtual Vector3 Unknown_10(int time);		// +0x10 0x7184A0 (the velocity)  // NAME 2 [time]: as the others'
@@ -223,28 +223,28 @@ public:
 	Vector3 End;					// +0x10  // NAME 2: what it holds
 	float Speed;					// +0x1C  // NAME 2: what it holds
 	int StartTime;					// +0x20  // NAME 2: what it holds
-	Unknown98Class *State;			// +0x24  // NAME 2: what it holds
+	PositionalStateClass *State;			// +0x24  // NAME 2: what it holds
 	Vector3 Direction;				// +0x28 (End - Start, normalised)  // NAME 2: what it holds
 };
 
 // Type 14, a transform set from outside (vtable 0xB02A00, 0x70 bytes): the last two transforms and their
 // times give the velocity and the spin; it holds a second state (+0x04)
-class Unknown718D70Class : public Unknown98Class	// NAME 1: neutral (D10)
+class Unknown718D70Class : public PositionalStateClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown718D70Class(int time, const Matrix3D &transform, Unknown98Class *state);	// 0x718D70  // NAME 2 [time, transform, state]: the members they set
+	Unknown718D70Class(int time, const Matrix3D &transform, PositionalStateClass *state);	// 0x718D70  // NAME 2 [time, transform, state]: the members they set
 
-	virtual Unknown98Class *Unknown_28() { return(State); }			// +0x28 0x718E60
-	virtual void Unknown_24(Unknown98Class *state) { State = state; }	// +0x24 0x718E80  // NAME 2 [state]: what it sets
+	virtual PositionalStateClass *Unknown_28() { return(State); }			// +0x28 0x718E60
+	virtual void Unknown_24(PositionalStateClass *state) { State = state; }	// +0x24 0x718E80  // NAME 2 [state]: what it sets
 	virtual bool Unknown_2C() { return(true); }						// +0x2C 0x718EA0
-	virtual int Unknown_04();					// +0x04 0x718F10 (14)
+	virtual int Get_Type();					// +0x04 0x718F10 (14)
 	virtual Matrix3D Unknown_08(int time);		// +0x08 0x718F30 (Transform)  // NAME 2 [time]: as the others'
 	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x718FA0 (Transform's translation)  // NAME 2 [time]: as the others'
 	virtual Vector3 Unknown_10(int time);		// +0x10 0x718FD0 (the velocity)  // NAME 2 [time]: as the others'
 	virtual Vector3 Unknown_14(int time);		// +0x14 0x7190E0 (the spin)  // NAME 2 [time]: as the others'
 	virtual void Unknown_30(int time, const Matrix3D &transform);	// +0x30 0x7191C0 (the new transform)  // NAME 2 [time, transform]: the members it sets
 
-	Unknown98Class *State;			// +0x04  // NAME 2: what it holds
+	PositionalStateClass *State;			// +0x04  // NAME 2: what it holds
 	int Time;						// +0x08  // NAME 2: what it holds
 	int LastTime;					// +0x0C  // NAME 2: what it holds
 	Matrix3D Transform;				// +0x10  // NAME 2: what it holds
@@ -254,13 +254,13 @@ public:
 // Type 15, a render object's bone (or the object itself) as the transform (vtable 0xB02A40, 0x0C bytes);
 // the constructor deletes the state it replaces
 class RenderObjClass;
-class Unknown7192A0Class : public Unknown98Class	// NAME 1: neutral (D10)
+class Unknown7192A0Class : public PositionalStateClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown7192A0Class(RenderObjClass *render_object, Unknown98Class *state, const char *bone_name);	// 0x7192A0  // NAME 2 [render_object, state, bone_name]: what it does with them
+	Unknown7192A0Class(RenderObjClass *render_object, PositionalStateClass *state, const char *bone_name);	// 0x7192A0  // NAME 2 [render_object, state, bone_name]: what it does with them
 
 	virtual bool Unknown_2C() { return(true); }	// +0x2C 0x719380
-	virtual int Unknown_04();					// +0x04 0x7193F0 (15)
+	virtual int Get_Type();					// +0x04 0x7193F0 (15)
 	virtual Matrix3D Unknown_08(int time);		// +0x08 0x719410 (the bone's transform, or the object's)  // NAME 2 [time]: as the others'
 	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x719550 (its translation)  // NAME 2 [time]: as the others'
 	virtual Vector3 Unknown_10(int time);		// +0x10 0x7195E0 (zero)  // NAME 2 [time]: as the others'
@@ -272,13 +272,13 @@ public:
 
 // Type 9, a position and orientation relative to another object's state (vtable 0xB02764, 0x34 bytes;
 // its slot +0x14 stays pure, so only a derived class could be made: no constructor call found)
-class Unknown715270Class : public Unknown98Class	// NAME 1: neutral (D10)
+class Unknown715270Class : public PositionalStateClass	// NAME 1: neutral (D10)
 {
 public:
 	Unknown715270Class(ClientClass *client, int game_id, const Vector3 &offset, const Quaternion &orientation);	// 0x715270  // NAME 2 [client, game_id, offset, orientation]: the members they set
-	Unknown98Class *Unknown_715360();			// 0x715360 (the other object's state, or 0)
+	PositionalStateClass *Unknown_715360();			// 0x715360 (the other object's state, or 0)
 
-	virtual int Unknown_04() { return(9); }		// +0x04 0x7152F0
+	virtual int Get_Type() { return(9); }		// +0x04 0x7152F0
 	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x715390 (the other's position plus Offset)  // NAME 2 [time]: as the others'
 	virtual Matrix3D Unknown_08(int time);		// +0x08 0x715450  // NAME 2 [time]: as the others'
 	virtual Vector3 Unknown_10(int time);		// +0x10 0x715510 (the other's velocity)  // NAME 2 [time]: as the others'
@@ -294,17 +294,17 @@ public:
 // Type 13, a move along a Hermite spline from StartTime to EndTime, its up vector turning from StartUp
 // to EndUp (vtable 0xB029C0, 0x30 bytes); it holds a second state (+0x28)
 class HermiteSpline3DClass;
-class Unknown718510Class : public Unknown98Class	// NAME 1: neutral (D10)
+class Unknown718510Class : public PositionalStateClass	// NAME 1: neutral (D10)
 {
 public:
-	Unknown718510Class(int start_time, int end_time, Vector3 start_up, Vector3 end_up, Unknown98Class *state);	// 0x718510  // NAME 2 [start_time, end_time, start_up, end_up, state]: the members they set
+	Unknown718510Class(int start_time, int end_time, Vector3 start_up, Vector3 end_up, PositionalStateClass *state);	// 0x718510  // NAME 2 [start_time, end_time, start_up, end_up, state]: the members they set
 	virtual ~Unknown718510Class();				// 0x7187A0 (deletes the spline)
 
-	virtual Unknown98Class *Unknown_28() { return(State); }			// +0x28 0x718650
-	virtual void Unknown_24(Unknown98Class *state) { State = state; }	// +0x24 0x718670  // NAME 2 [state]: what it sets
+	virtual PositionalStateClass *Unknown_28() { return(State); }			// +0x28 0x718650
+	virtual void Unknown_24(PositionalStateClass *state) { State = state; }	// +0x24 0x718670  // NAME 2 [state]: what it sets
 	virtual bool Unknown_2C() { return(true); }						// +0x2C 0x718690
 	virtual HermiteSpline3DClass *Unknown_30() { return(Spline); }	// +0x30 0x7186B0 (the caller adds the keys)
-	virtual int Unknown_04();					// +0x04 0x718810 (13)
+	virtual int Get_Type();					// +0x04 0x718810 (13)
 	virtual Matrix3D Unknown_08(int time);		// +0x08 0x718830 (along the velocity, the up vector slerped)  // NAME 2 [time]: as the others'
 	virtual Vector3 Unknown_0C(int time);		// +0x0C 0x718C40 (the spline at that time)  // NAME 2 [time]: as the others'
 	virtual Vector3 Unknown_10(int time);		// +0x10 0x718CC0 (its derivative)  // NAME 2 [time]: as the others'
@@ -315,7 +315,7 @@ public:
 	int EndTime;					// +0x0C  // NAME 2: what it holds
 	Vector3 StartUp;				// +0x10  // NAME 2: what 0x718830 does with it
 	Vector3 EndUp;					// +0x1C  // NAME 2: what 0x718830 does with it
-	Unknown98Class *State;			// +0x28  // NAME 2: what it holds
+	PositionalStateClass *State;			// +0x28  // NAME 2: what it holds
 	float Rate;						// +0x2C (1 / (EndTime - StartTime))  // NAME 2: what it holds
 };
 

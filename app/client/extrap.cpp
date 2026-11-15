@@ -1677,7 +1677,7 @@ void Unknown713520Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 		if (OrbitID == 0 || (object = Client->Find_Object(OrbitID)) == 0) {
 			point = Unknown0C;
 		} else {
-			center = object->Unknown98->Unknown_1C(time);
+			center = object->PositionalState->Unknown_1C(time);
 			float angle = dt * OrbitRate + OrbitAngle;
 			transform.Translate(center);
 			transform.Rotate_Z(angle);
@@ -1725,7 +1725,7 @@ bool Unknown713520Class::Unknown_7135F0(int time, int unknown, Vector3 *result)
 	if (object == 0) {
 		return(false);
 	}
-	*result = object->Unknown98->Unknown_1C(time);
+	*result = object->PositionalState->Unknown_1C(time);
 	return(true);
 }
 
@@ -1862,7 +1862,7 @@ bool Unknown713D70Class::Unknown_7140E0(Vector3 *result)
 	if (TractorID) {
 		ClientObjectClass *object = Client->Find_Object(TractorID);
 		if (object) {
-			Unknown98Class *state = object->Unknown98;
+			PositionalStateClass *state = object->PositionalState;
 			if (state) {
 				Matrix3D look;
 				look.Look_At(Transform.Get_Translation(), state->Unknown_1C(Time), 0.0f);
@@ -1936,7 +1936,7 @@ void Unknown714340Class::Unknown_1C(int time, Vector3 *position, Quaternion *ori
 		}
 		return;
 	}
-	Unknown98Class *state = leader->Unknown98;
+	PositionalStateClass *state = leader->PositionalState;
 	if (position || orientation) {
 		Matrix3D transform = unknown ? state->Unknown_20(time) : state->Unknown_08(time);
 		if (position) {

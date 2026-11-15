@@ -97,9 +97,9 @@ void CameraController05Class::Unknown_0C()
 	FAIL_IF(!ship) {
 		return;
 	}
-	Unknown98Class *state = ship->Unknown98;
+	PositionalStateClass *state = ship->PositionalState;
 	if (state && state->Unknown_2C()) {
-		ship->Unknown98 = state->Unknown_28();
+		ship->PositionalState = state->Unknown_28();
 		delete state;
 	}
 	EffectObjectClass *effect = Client->Get_Effect(Unknown14);
@@ -143,7 +143,7 @@ void CameraController05Class::Unknown_793CE0()
 	Vector3 key0 = from + dir * 100.0f;
 	offset.Normalize();
 	Vector3 key1 = key0 + (offset - dir) * 1000.0f;
-	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->Unknown98);
+	Unknown718510Class *state = new Unknown718510Class(Client->Unknown10BC, Client->Unknown10BC + 4000, Vector3(0.0f, 0.0f, 1.0f), dir, ship->PositionalState);
 	HermiteSpline3DClass *spline = state->Unknown_30();
 	dir *= 100.0f;
 	offset *= 1000.0f;
@@ -153,7 +153,7 @@ void CameraController05Class::Unknown_793CE0()
 	spline->Add_Key(key1, 1.0f);
 	Vector3 tangent1 = offset - dir * 5.0f;
 	spline->Set_Tangents(1, tangent1, tangent1);
-	ship->Unknown98 = state;
+	ship->PositionalState = state;
 }
 
 /*

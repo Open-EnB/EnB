@@ -350,7 +350,7 @@ void BridgeInterface::Do_Frame(CameraClass *camera)
 	camera->Set_Transform(view);
 
 	// the bridge leans with the ship's turn (not while the PDA is open)
-	Vector3 turn = pship->Unknown98->Unknown_14(Peek_Client()->Unknown10BC);
+	Vector3 turn = pship->PositionalState->Unknown_14(Peek_Client()->Unknown10BC);
 	if (View == VIEW_MAIN) {
 		turn *= 50.0f;
 	} else {

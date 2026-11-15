@@ -87,7 +87,7 @@ ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id)
 	Unknown8C(0),
 	GameID(id),
 	Type(type),
-	Unknown98(0),
+	PositionalState(0),
 	Radius(1.0f),
 	RadiusAdjust(0),
 	Scale(1.0f),
@@ -115,7 +115,7 @@ ClientObjectClass::ClientObjectClass(ClientClass *client, int type, unsigned id)
 	Unknown184(true)
 {
 	AuxData = (char *)Unknown_Create_Aux_Root(type, id);
-	Unknown98 = new UnknownB006B8Class;
+	PositionalState = new UnknownB006B8Class;
 	Node.Set(this);
 	UnknownB4 = Unknown_731FA0(this);
 	Unknown134.Set(0, 0, Unknown_6F4590());
@@ -170,9 +170,9 @@ ClientObjectClass::~ClientObjectClass()
 		RenderObject->Release_Ref();
 		RenderObject = NULL;
 	}
-	if (Unknown98) {
-		delete Unknown98;
-		Unknown98 = NULL;
+	if (PositionalState) {
+		delete PositionalState;
+		PositionalState = NULL;
 	}
 	if (AuxData) {
 		delete (UnknownRootClass *)AuxData;
@@ -367,7 +367,7 @@ void ClientObjectClass::Unknown_6F3BF0(bool hidden)
 // 0x6F3ED0
 float ClientObjectClass::Unknown_6F3ED0()
 {
-	Vector3 v = Unknown98->Unknown_14(Client->Unknown10BC);
+	Vector3 v = PositionalState->Unknown_14(Client->Unknown10BC);
 	float x = v.Z * -500.0f;
 	float k;
 	if (Unknown_6F5A40()) {
@@ -484,7 +484,7 @@ static inline bool Clamp_Changed(float &value, float min, float max)
 // 0x6F4610
 Matrix3D ClientObjectClass::Unknown_28(bool thrust)
 {
-	Matrix3D tm = Unknown98->Unknown_08(Client->Unknown10BC);
+	Matrix3D tm = PositionalState->Unknown_08(Client->Unknown10BC);
 	if (thrust) {
 		Unknown_6F3FA0(tm);
 		float turn = Unknown144;
@@ -545,12 +545,12 @@ Matrix3D ClientObjectClass::Unknown_28(bool thrust)
 done:
 	if (Unknown_6F5A40()) {
 		Vector3 pos = tm.Get_Translation();
-		if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			if (Clamp_Changed(pos.Z, Client->Unknown10D4, Client->Unknown10D8)) {
 				tm.Set_Translation(pos);
 			}
 		}
-		if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			bool x = Clamp_Changed(pos.X, Client->Unknown10DC, Client->Unknown10E4);
 			bool y = Clamp_Changed(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
 			if (x || y) {
@@ -738,12 +738,12 @@ void ClientObjectClass::Unknown_6F3FA0(Matrix3D &tm)
 // 0x6F4C20
 Vector3 ClientObjectClass::Unknown_24()
 {
-	Vector3 pos = Unknown98->Unknown_0C(Client->Unknown10BC);
+	Vector3 pos = PositionalState->Unknown_0C(Client->Unknown10BC);
 	if (Type == 1) {
-		if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			Clamp_In_Place(pos.Z, Client->Unknown10D4, Client->Unknown10D8);
 		}
-		if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+		if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 			Clamp_In_Place(pos.X, Client->Unknown10DC, Client->Unknown10E4);
 			Clamp_In_Place(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
 		}
@@ -766,7 +766,7 @@ Vector3 ClientObjectClass::Unknown_24()
 // 0x6F4E70 (unreferenced in the client: Unknown_24 clamps on its own) the height into the client's bounds unless the state is 12, 13 or 14
 bool ClientObjectClass::Unknown_6F4E70(Vector3 &pos)
 {
-	if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+	if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 		return(Clamp_In_Place(pos.Z, Client->Unknown10D4, Client->Unknown10D8));
 	}
 	return(false);
@@ -775,7 +775,7 @@ bool ClientObjectClass::Unknown_6F4E70(Vector3 &pos)
 // 0x6F4F30 (unreferenced in the client) X and Y into the client's bounds unless the state is 12, 13 or 14
 bool ClientObjectClass::Unknown_6F4F30(Vector3 &pos)
 {
-	if (Unknown98->Unknown_04() != 12 && Unknown98->Unknown_04() != 13 && Unknown98->Unknown_04() != 14) {
+	if (PositionalState->Get_Type() != 12 && PositionalState->Get_Type() != 13 && PositionalState->Get_Type() != PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
 		bool clamped = Clamp_In_Place(pos.X, Client->Unknown10DC, Client->Unknown10E4);
 		clamped |= Clamp_In_Place(pos.Y, Client->Unknown10E0, Client->Unknown10E8);
 		return(clamped);
@@ -800,13 +800,13 @@ float ClientObjectClass::Unknown_6F4290()
 {
 	if (Unknown_6F5A40()) return(0.0f);
 	int id = Client->Unknown10BC;
-	Vector3 facing = Unknown98->Unknown_18(id);
+	Vector3 facing = PositionalState->Unknown_18(id);
 	float heading = facing.Z;
 	if (facing.Z < 0.0f) heading = facing.Z + 6.28318548f;
-	Vector3 rotation = Unknown98->Unknown_14(id);
+	Vector3 rotation = PositionalState->Unknown_14(id);
 	float turn = rotation.Z;
 	if (rotation.Z == 0.0f) return(0.0f);
-	Vector3 axis = Unknown98->Unknown_08(id).Get_X_Vector();
+	Vector3 axis = PositionalState->Unknown_08(id).Get_X_Vector();
 	Vector2 dir(axis.X, axis.Y);
 	dir.Normalize();
 	if (dir.X * dir.X + dir.Y * dir.Y < 0.0001f) {
@@ -954,7 +954,7 @@ static RenderObjClass *Unknown_6F51D0(int base_asset, ClientClass *client, float
 // 0x6F5050
 Vector3 ClientObjectClass::Unknown_2C()
 {
-	return(Unknown98->Unknown_10(Client->Unknown10BC));
+	return(PositionalState->Unknown_10(Client->Unknown10BC));
 }
 
 // 0x6F5120
@@ -2669,7 +2669,7 @@ void ClientObjectClass::Unknown_6FF7A0(std::string &text)
 **	RelationshipClass at +0x12C (0x848C80), 0x498C10 at +0x134, +0x144 0, +0x148 -1, +0x14C-+0x154 0, six
 **	RefCountPtr at +0x158 (vector constructor 0x5464F0 / 0x4740B0), +0x170 false, +0x174-+0x180 0,
 **	+0x184 true; then the two vtables, AuxData = the factory Unknown_Create_Aux_Root(type, id),
-**	+0x98 = new Unknown98Class (4 bytes, vtable 0xB006B8), +0x70 = this, +0xB4 = 0x731FA0(...) (a
+**	+0x98 = new PositionalStateClass (4 bytes, vtable 0xB006B8), +0x70 = this, +0xB4 = 0x731FA0(...) (a
 **	RefCountPtr assignment), 0x498F00 at +0x134 with a radius from the floats 0xB93AD8-0xB93AE4 by type,
 **	+0x104-+0x114 = 1 and the six RefCountPtrs cleared. The destructor 0x6F2FE0 has 7 EH states and
 **	releases +0x118-+0x124 (slots +0xA0 / +0x70, a ref count at +0x14), +0x8C, +0xB4 (0x732690), +0xAC.

@@ -1352,8 +1352,8 @@ void SClient::Unknown_745750()
 void SClient::Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool fixed_speed)
 {
 	ClientObjectClass *avatar = Get_Avatar();
-	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-		Unknown717010Class *state = (Unknown717010Class *)avatar->Unknown98; state->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, turn, tilt, move_direction, fixed_speed);
+	if (avatar && avatar->PositionalState->Get_Type() == 4) {
+		Unknown717010Class *state = (Unknown717010Class *)avatar->PositionalState; state->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, turn, tilt, move_direction, fixed_speed);
 	}
 }
 
@@ -1361,8 +1361,8 @@ void SClient::Unknown_745AA0(float *turn, float *tilt, int *move_direction, bool
 void SClient::Unknown_745B20(bool level, bool auto_level)
 {
 	ClientObjectClass *avatar = Get_Avatar();
-	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-		Unknown717010Class *state = (Unknown717010Class *)avatar->Unknown98; state->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, level, auto_level);
+	if (avatar && avatar->PositionalState->Get_Type() == 4) {
+		Unknown717010Class *state = (Unknown717010Class *)avatar->PositionalState; state->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, level, auto_level);
 	}
 }
 
@@ -1390,8 +1390,8 @@ void SClient::Unknown_745C70(float tilt)
 void SClient::Unknown_745D50(float turn, float tilt)
 {
 	ClientObjectClass *avatar = Get_Avatar();
-	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-		((Unknown717010Class *)avatar->Unknown98)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, &turn, &tilt, NULL, false);
+	if (avatar && avatar->PositionalState->Get_Type() == 4) {
+		((Unknown717010Class *)avatar->PositionalState)->Unknown_717430((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, &turn, &tilt, NULL, false);
 	}
 }
 
@@ -1399,8 +1399,8 @@ void SClient::Unknown_745D50(float turn, float tilt)
 void SClient::Unknown_745DD0()
 {
 	ClientObjectClass *avatar = Get_Avatar();
-	if (avatar && avatar->Unknown98->Unknown_04() == 4) {
-		((Unknown717010Class *)avatar->Unknown98)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, true, true);
+	if (avatar && avatar->PositionalState->Get_Type() == 4) {
+		((Unknown717010Class *)avatar->PositionalState)->Unknown_7179A0((int)&Unknown10D4, (DeltaCompoundClass *)avatar->AuxData, Unknown10BC, true, true);
 	}
 }
 

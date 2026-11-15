@@ -47,7 +47,7 @@ const float Unknown_B026D0 = 150.0f;	// (0x716400 squares it)  // NAME 1: neutra
 
 
 
-UnknownB026ECClass::UnknownB026ECClass(Unknown98Class *state) :
+UnknownB026ECClass::UnknownB026ECClass(PositionalStateClass *state) :
 	PositionState(state)
 {
 	G_ASSERT(PositionState);
@@ -61,10 +61,10 @@ UnknownB026ECClass::~UnknownB026ECClass()
 
 }
 
-int UnknownB026ECClass::Unknown_04()
+int UnknownB026ECClass::Get_Type()
 {
 	G_ASSERT(PositionState);
-	return(PositionState->Unknown_04());
+	return(PositionState->Get_Type());
 }
 
 Matrix3D UnknownB026ECClass::Unknown_08(int unknown)
@@ -168,18 +168,18 @@ Unknown715270Class::Unknown715270Class(ClientClass *client, int game_id, const V
 {
 }
 
-Unknown98Class *Unknown715270Class::Unknown_715360()
+PositionalStateClass *Unknown715270Class::Unknown_715360()
 {
 	ClientObjectClass *object = Client->Find_Object(GameID);
 	if (!object) {
 		return(0);
 	}
-	return(object->Unknown98);
+	return(object->PositionalState);
 }
 
 Vector3 Unknown715270Class::Unknown_0C(int time)
 {
-	Unknown98Class *state = Unknown_715360();
+	PositionalStateClass *state = Unknown_715360();
 	if (!state) {
 		return(Position + Offset);
 	}
@@ -196,7 +196,7 @@ Matrix3D Unknown715270Class::Unknown_08(int time)
 
 Vector3 Unknown715270Class::Unknown_10(int time)
 {
-	Unknown98Class *state = Unknown_715360();
+	PositionalStateClass *state = Unknown_715360();
 	if (!state) {
 		return(Vector3(0.0f, 0.0f, 0.0f));
 	}
@@ -205,7 +205,7 @@ Vector3 Unknown715270Class::Unknown_10(int time)
 
 Vector3 Unknown715270Class::Unknown_1C(int time)
 {
-	Unknown98Class *state = Unknown_715360();
+	PositionalStateClass *state = Unknown_715360();
 	if (!state) {
 		return(Position + Offset);
 	}
@@ -1097,7 +1097,7 @@ void Unknown717EF0Class::Unknown_718080(ComponentPositionalUpdatePacketClass *pa
 	TractorEffectID = packet->TractorEffectID;
 }
 
-Unknown718160Class::Unknown718160Class(Vector3 start, Vector3 end, float speed, int time, Unknown98Class *state) :
+Unknown718160Class::Unknown718160Class(Vector3 start, Vector3 end, float speed, int time, PositionalStateClass *state) :
 	Start(start),
 	End(end),
 	Speed(speed),
@@ -1108,7 +1108,7 @@ Unknown718160Class::Unknown718160Class(Vector3 start, Vector3 end, float speed, 
 	Direction.Normalize();
 }
 
-int Unknown718160Class::Unknown_04()
+int Unknown718160Class::Get_Type()
 {
 	return(12);
 }
@@ -1135,7 +1135,7 @@ Vector3 Unknown718160Class::Unknown_14(int time)
 	return(Vector3(0.0f, 0.0f, 0.0f));
 }
 
-Unknown718510Class::Unknown718510Class(int start_time, int end_time, Vector3 start_up, Vector3 end_up, Unknown98Class *state) :
+Unknown718510Class::Unknown718510Class(int start_time, int end_time, Vector3 start_up, Vector3 end_up, PositionalStateClass *state) :
 	StartTime(start_time),
 	EndTime(end_time),
 	StartUp(start_up),
@@ -1155,7 +1155,7 @@ Unknown718510Class::~Unknown718510Class()
 	delete Spline;
 }
 
-int Unknown718510Class::Unknown_04()
+int Unknown718510Class::Get_Type()
 {
 	return(13);
 }
@@ -1201,7 +1201,7 @@ Vector3 Unknown718510Class::Unknown_14(int time)
 	return(Vector3(0.0f, 0.0f, 0.0f));
 }
 
-Unknown718D70Class::Unknown718D70Class(int time, const Matrix3D &transform, Unknown98Class *state) :
+Unknown718D70Class::Unknown718D70Class(int time, const Matrix3D &transform, PositionalStateClass *state) :
 	State(state),
 	Time(time),
 	LastTime(time),
@@ -1210,9 +1210,9 @@ Unknown718D70Class::Unknown718D70Class(int time, const Matrix3D &transform, Unkn
 {
 }
 
-int Unknown718D70Class::Unknown_04()
+int Unknown718D70Class::Get_Type()
 {
-	return(14);
+	return(CLIENT_SIDE_PROCEDURAL);
 }
 
 Matrix3D Unknown718D70Class::Unknown_08(int time)
@@ -1413,7 +1413,7 @@ void Unknown718D70Class::Unknown_30(int time, const Matrix3D &transform)
 
 
 
-Unknown7192A0Class::Unknown7192A0Class(RenderObjClass *render_object, Unknown98Class *state, const char *bone_name) :
+Unknown7192A0Class::Unknown7192A0Class(RenderObjClass *render_object, PositionalStateClass *state, const char *bone_name) :
 	RenderObject(render_object),
 	BoneIndex(-1)
 {
@@ -1427,7 +1427,7 @@ Unknown7192A0Class::Unknown7192A0Class(RenderObjClass *render_object, Unknown98C
 	}
 }
 
-int Unknown7192A0Class::Unknown_04()
+int Unknown7192A0Class::Get_Type()
 {
 	return(15);
 }

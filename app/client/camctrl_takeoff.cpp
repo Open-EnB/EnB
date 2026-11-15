@@ -133,8 +133,8 @@ void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 		Matrix3D tm = Build_Matrix3D(q);
 		Vector3 p = (Unknown30 - Unknown24) * t + Unknown24;
 		tm.Set_Translation(p);
-		if (ship->Unknown98 && ship->Unknown98->Unknown_04() == 0x0E) {
-			((Unknown718D70Class *)ship->Unknown98)->Unknown_30(Client->Unknown10BC, tm);
+		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
 			*mode = 2;
 			return;
 		}
@@ -157,8 +157,8 @@ void CameraController09Class::Unknown_08(Vector3 *pos, Quaternion *rot, int *mod
 		Matrix3D tm = Build_Matrix3D(Unknown4C);
 		Vector3 p = (Unknown18 - Unknown30) * t + Unknown30;
 		tm.Set_Translation(p);
-		if (ship->Unknown98 && ship->Unknown98->Unknown_04() == 0x0E) {
-			((Unknown718D70Class *)ship->Unknown98)->Unknown_30(Client->Unknown10BC, tm);
+		if (ship->PositionalState && ship->PositionalState->Get_Type() == PositionalStateClass::CLIENT_SIDE_PROCEDURAL) {
+			((Unknown718D70Class *)ship->PositionalState)->Unknown_30(Client->Unknown10BC, tm);
 			*mode = 2;
 			return;
 		}
@@ -190,9 +190,9 @@ void CameraController09Class::Unknown_0C()
 	FAIL_IF(!ship) {
 		return;
 	}
-	Unknown98Class *state = ship->Unknown98;
+	PositionalStateClass *state = ship->PositionalState;
 	if (state && state->Unknown_2C()) {
-		ship->Unknown98 = state->Unknown_28();
+		ship->PositionalState = state->Unknown_28();
 		delete state;
 	}
 	EffectObjectClass *effect = Client->Get_Effect(Unknown14);
@@ -273,7 +273,7 @@ void CameraController09Class::Unknown_796920()
 	Unknown0C->Unknown18 = Client->AvatarID;
 	Unknown0C->Unknown_04();
 
-	ship->Unknown98 = new Unknown718D70Class(Client->Unknown10BC, ship->Unknown_28(true), ship->Unknown98);
+	ship->PositionalState = new Unknown718D70Class(Client->Unknown10BC, ship->Unknown_28(true), ship->PositionalState);
 }
 
 /*

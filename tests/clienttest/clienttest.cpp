@@ -1112,7 +1112,7 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 		parts = parts && object->Unknown158[i].Peek() != 0 && object->Unknown158[i].Peek()->Is_Hidden();
 	}
 	Check(parts, "the ship's six part models (base assets 0x618, 0x617, 0x73F), hidden, hung on its ~FL ~FR ~BL ~BR bones");
-	Check(object->Unknown98 != 0 && object->Unknown98->Unknown_04() == 0, "the new object holds the constructor's default state (type 0)");
+	Check(object->PositionalState != 0 && object->PositionalState->Get_Type() == 0, "the new object holds the constructor's default state (type 0)");
 
 	const Vector3 pos(100.0f, 200.0f, 30.0f);
 	const Quaternion orient(0.0f, 0.0f, 0.70710677f, 0.70710677f);	// 90 degrees about Z
@@ -1122,7 +1122,7 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	int transforms = model->Transforms;
 	int result = Frame(client, 1500, true);
 	Check(result == 0 && client->Unknown10BC == 1500, "Do_Frame returns 0 and sets the clock from Unknown_Get_Ticks");
-	Check(object->Unknown98 != 0 && object->Unknown98->Unknown_04() == 3, "SIMPLE_POSITIONAL_UPDATE 8 (time 1000) replaced it with the simple state (type 3)");
+	Check(object->PositionalState != 0 && object->PositionalState->Get_Type() == 3, "SIMPLE_POSITIONAL_UPDATE 8 (time 1000) replaced it with the simple state (type 3)");
 	Matrix3D want(orient, pos + vel * 500.0f);
 	Trace_Matrix("model", model->LastTransform);
 	Check(model->Transforms == transforms + 1, "Process_AI: the object's model got one Set_Transform");
@@ -1133,9 +1133,9 @@ static void Test_Path(SClient *client, FakeMainViewClass *main_view)
 	const Vector3 vel2(0.0f, -0.01f, 0.0f);
 	SimplePositionalUpdatePacketClass second(0, id, 2000, pos2, orient2, vel2);
 	Memory->Incoming.push_back(Built_Message(&second));
-	Unknown98Class *state = object->Unknown98;
+	PositionalStateClass *state = object->PositionalState;
 	Frame(client, 2000, false);
-	Check(object->Unknown98 == state && state->Unknown_04() == 3, "a second SIMPLE packet (time 2000) updates the simple state in place");
+	Check(object->PositionalState == state && state->Get_Type() == 3, "a second SIMPLE packet (time 2000) updates the simple state in place");
 	transforms = model->Transforms;
 	Frame(client, 4500, false);
 	Matrix3D want2(orient2, pos2 + vel2 * 2500.0f);
@@ -1333,10 +1333,10 @@ static std::vector<unsigned char> Formation_Message(unsigned id, unsigned leader
 
 static Unknown714340Class *Formation_Node(ClientObjectClass *object)
 {
-	if (object == 0 || object->Unknown98 == 0 || (object->Unknown98->Unknown_04() != 8 && object->Unknown98->Unknown_04() != 4)) {
+	if (object == 0 || object->PositionalState == 0 || (object->PositionalState->Get_Type() != 8 && object->PositionalState->Get_Type() != 4)) {
 		return(0);
 	}
-	return((Unknown714340Class *)((UnknownB027A0Class *)object->Unknown98)->Extrap);
+	return((Unknown714340Class *)((UnknownB027A0Class *)object->PositionalState)->Extrap);
 }
 
 static void Test_Formation(SClient *client)
@@ -1360,16 +1360,16 @@ static void Test_Formation(SClient *client)
 	ClientObjectClass *a = client->Find_Object(avatar);
 	Unknown714340Class *fn = Formation_Node(f);
 	Unknown714340Class *an = Formation_Node(a);
-	Check(f != 0 && f->Unknown98 != 0 && f->Unknown98->Unknown_04() == 8 && fn != 0 && fn->LeaderID == (int)leader
+	Check(f != 0 && f->PositionalState != 0 && f->PositionalState->Get_Type() == 8 && fn != 0 && fn->LeaderID == (int)leader
 		&& fn->Offset.X == 10.0f && fn->Offset.Y == 0.0f && fn->Client == client,
 		"FORMATION 65 for object 4301: the type-8 state (0x716080) with a formation node (0x714340) holding leader 4300 and offset (10, 0, 0)");
-	Check(a != 0 && a->Unknown98 != 0 && a->Unknown98->Unknown_04() == 4 && an != 0 && an->LeaderID == (int)leader && an->Offset.Y == 5.0f,
+	Check(a != 0 && a->PositionalState != 0 && a->PositionalState->Get_Type() == 4 && an != 0 && an->LeaderID == (int)leader && an->Offset.Y == 5.0f,
 		"FORMATION 65 for the avatar 4302: the type-4 state (0x7171C0) with leader 4300 and offset (0, 5, 0)");
 	if (f != 0 && fn != 0) {
-		Unknown98Class *state = f->Unknown98;
+		PositionalStateClass *state = f->PositionalState;
 		Memory->Incoming.push_back(Formation_Message(follower, leader, 20.0f, 0.0f, 0.0f));
 		client->Process_Packets();
-		Check(f->Unknown98 == state && ((UnknownB027A0Class *)state)->Extrap != (StateNode *)fn,
+		Check(f->PositionalState == state && ((UnknownB027A0Class *)state)->Extrap != (StateNode *)fn,
 			"a second FORMATION 65 for 4301 updates its state in place (0x716220: a new extrapolator, the blend to the new node)");
 	}
 	client->AvatarID = saved;

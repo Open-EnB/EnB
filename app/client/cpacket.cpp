@@ -333,13 +333,13 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
-		if (!object->Unknown98) {
-			object->Unknown98 = new Unknown714B50Class(this);
-		} else if (object->Unknown98->Unknown_04() != 1) {
-			delete object->Unknown98;
-			object->Unknown98 = new Unknown714B50Class(this);
+		if (!object->PositionalState) {
+			object->PositionalState = new Unknown714B50Class(this);
+		} else if (object->PositionalState->Get_Type() != 1) {
+			delete object->PositionalState;
+			object->PositionalState = new Unknown714B50Class(this);
 		} else {
-			Unknown714B50Class *state = (Unknown714B50Class *)object->Unknown98;
+			Unknown714B50Class *state = (Unknown714B50Class *)object->PositionalState;
 			state->Unknown_714D50(this);
 		}
 		object->Unknown_3C();
@@ -385,13 +385,13 @@ bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 	}
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
-		if (!object->Unknown98) {
-			object->Unknown98 = new Unknown715AB0Class(this);
-		} else if (object->Unknown98->Unknown_04() != 3) {
-			delete object->Unknown98;
-			object->Unknown98 = new Unknown715AB0Class(this);
+		if (!object->PositionalState) {
+			object->PositionalState = new Unknown715AB0Class(this);
+		} else if (object->PositionalState->Get_Type() != 3) {
+			delete object->PositionalState;
+			object->PositionalState = new Unknown715AB0Class(this);
 		} else {
-			Unknown715AB0Class *state = (Unknown715AB0Class *)object->Unknown98;
+			Unknown715AB0Class *state = (Unknown715AB0Class *)object->PositionalState;
 			state->Unknown_715C20(this);
 		}
 	}
@@ -421,34 +421,34 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 				sclient->Send_Packet(&RequestTimePacketClass());
 				requests = 0;
 			}
-			if (object->Unknown98 && object->Unknown98->Unknown_04() == 4) {
-				((Unknown717010Class *)object->Unknown98)->Unknown_717290(this, sclient->Unknown10BC); return(true);
-			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
-				Unknown98Class *state = object->Unknown98->Unknown_28();
-				if (state && state->Unknown_04() == 4) {
+			if (object->PositionalState && object->PositionalState->Get_Type() == 4) {
+				((Unknown717010Class *)object->PositionalState)->Unknown_717290(this, sclient->Unknown10BC); return(true);
+			} else if (object->PositionalState && object->PositionalState->Unknown_2C()) {
+				PositionalStateClass *state = object->PositionalState->Unknown_28();
+				if (state && state->Get_Type() == 4) {
 					((Unknown717010Class *)state)->Unknown_717290(this, sclient->Unknown10BC); return(true);
 				} else {
 					delete state;
-					object->Unknown98->Unknown_24(new Unknown717010Class(sclient->Unknown10BC, this)); return(true);
+					object->PositionalState->Unknown_24(new Unknown717010Class(sclient->Unknown10BC, this)); return(true);
 				}
 			} else {
-				delete object->Unknown98;
-				object->Unknown98 = new Unknown717010Class(sclient->Unknown10BC, this); return(true);
+				delete object->PositionalState;
+				object->PositionalState = new Unknown717010Class(sclient->Unknown10BC, this); return(true);
 			}
 		} else {
-			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
-				((Unknown715EF0Class *)object->Unknown98)->Unknown_716140(sclient->Unknown10BC, this);
-			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
-				Unknown98Class *state = object->Unknown98->Unknown_28();
-				if (state && state->Unknown_04() == 8) {
+			if (object->PositionalState && object->PositionalState->Get_Type() == 8) {
+				((Unknown715EF0Class *)object->PositionalState)->Unknown_716140(sclient->Unknown10BC, this);
+			} else if (object->PositionalState && object->PositionalState->Unknown_2C()) {
+				PositionalStateClass *state = object->PositionalState->Unknown_28();
+				if (state && state->Get_Type() == 8) {
 					((Unknown715EF0Class *)state)->Unknown_716140(sclient->Unknown10BC, this);
 				} else {
 					delete state;
-					object->Unknown98->Unknown_24(new Unknown715EF0Class(sclient->Unknown10BC, this));
+					object->PositionalState->Unknown_24(new Unknown715EF0Class(sclient->Unknown10BC, this));
 				}
 			} else {
-				delete object->Unknown98;
-				object->Unknown98 = new Unknown715EF0Class(sclient->Unknown10BC, this);
+				delete object->PositionalState;
+				object->PositionalState = new Unknown715EF0Class(sclient->Unknown10BC, this);
 			}
 		}
 	}
@@ -463,13 +463,13 @@ bool PlanetPositionalUpdatePacketClass::Process_Packet(void *instance)
 	TimeStamp = (DurationClass((unsigned)TimeStamp) - sclient->Unknown10C0).Get();
 	ClientObjectClass *object = sclient->Find_Object(GameID);
 	if (object) {
-		if (!object->Unknown98) {
-			object->Unknown98 = new Unknown715CF0Class(this, sclient);
-		} else if (object->Unknown98->Unknown_04() != 5) {
-			delete object->Unknown98;
-			object->Unknown98 = new Unknown715CF0Class(this, sclient);
+		if (!object->PositionalState) {
+			object->PositionalState = new Unknown715CF0Class(this, sclient);
+		} else if (object->PositionalState->Get_Type() != 5) {
+			delete object->PositionalState;
+			object->PositionalState = new Unknown715CF0Class(this, sclient);
 		} else {
-			Unknown715CF0Class *state = (Unknown715CF0Class *)object->Unknown98;
+			Unknown715CF0Class *state = (Unknown715CF0Class *)object->PositionalState;
 			state->Unknown_715E60(this);
 		}
 	}
@@ -586,11 +586,11 @@ bool ComponentPositionalUpdatePacketClass::Process_Packet(void *instance)
 	if (!obj) return(true);
 	G_ASSERT(obj->Is_Component());
 	if (!obj->Is_Component()) return(true);
-	if (obj->Unknown98 && obj->Unknown98->Unknown_04() == 11) {
-		((Unknown717EF0Class *)obj->Unknown98)->Unknown_718080(this, sclient);
+	if (obj->PositionalState && obj->PositionalState->Get_Type() == 11) {
+		((Unknown717EF0Class *)obj->PositionalState)->Unknown_718080(this, sclient);
 	} else {
-		delete obj->Unknown98;
-		obj->Unknown98 = new Unknown717EF0Class(this, sclient);
+		delete obj->PositionalState;
+		obj->PositionalState = new Unknown717EF0Class(this, sclient);
 	}
 
 	return(true);
@@ -1153,34 +1153,34 @@ bool FormationPositionalUpdatePacketClass::Process_Packet(void *instance)
 				sclient->Send_Packet(&RequestTimePacketClass());
 				requests = 0;
 			}
-			if (object->Unknown98 && object->Unknown98->Unknown_04() == 4) {
-				((Unknown717010Class *)object->Unknown98)->Unknown_717400(this, sclient);
-			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
-				Unknown98Class *state = object->Unknown98->Unknown_28();
-				if (state && state->Unknown_04() == 4) {
+			if (object->PositionalState && object->PositionalState->Get_Type() == 4) {
+				((Unknown717010Class *)object->PositionalState)->Unknown_717400(this, sclient);
+			} else if (object->PositionalState && object->PositionalState->Unknown_2C()) {
+				PositionalStateClass *state = object->PositionalState->Unknown_28();
+				if (state && state->Get_Type() == 4) {
 					((Unknown717010Class *)state)->Unknown_717400(this, sclient);
 				} else {
 					delete state;
-					object->Unknown98->Unknown_24(new Unknown717010Class(sclient, this));
+					object->PositionalState->Unknown_24(new Unknown717010Class(sclient, this));
 				}
 			} else {
-				delete object->Unknown98;
-				object->Unknown98 = new Unknown717010Class(sclient, this);
+				delete object->PositionalState;
+				object->PositionalState = new Unknown717010Class(sclient, this);
 			} return(true);
 		} else {
-			if (object->Unknown98 && object->Unknown98->Unknown_04() == 8) {
-				((Unknown715EF0Class *)object->Unknown98)->Unknown_716220(sclient, this);
-			} else if (object->Unknown98 && object->Unknown98->Unknown_2C()) {
-				Unknown98Class *state = object->Unknown98->Unknown_28();
-				if (state && state->Unknown_04() == 8) {
+			if (object->PositionalState && object->PositionalState->Get_Type() == 8) {
+				((Unknown715EF0Class *)object->PositionalState)->Unknown_716220(sclient, this);
+			} else if (object->PositionalState && object->PositionalState->Unknown_2C()) {
+				PositionalStateClass *state = object->PositionalState->Unknown_28();
+				if (state && state->Get_Type() == 8) {
 					((Unknown715EF0Class *)state)->Unknown_716220(sclient, this);
 				} else {
 					delete state;
-					object->Unknown98->Unknown_24(new Unknown715EF0Class(sclient, this));
+					object->PositionalState->Unknown_24(new Unknown715EF0Class(sclient, this));
 				}
 			} else {
-				delete object->Unknown98;
-				object->Unknown98 = new Unknown715EF0Class(sclient, this);
+				delete object->PositionalState;
+				object->PositionalState = new Unknown715EF0Class(sclient, this);
 			}
 		}
 	}

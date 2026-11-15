@@ -185,7 +185,7 @@ void CameraController03Class::Unknown_795C80(bool phase)
 		}
 		Vector3 gate_pos = gate->Unknown_24();
 		Vector3 ship_pos = ship->Unknown_24();
-		ship->Unknown98 = new Unknown718160Class(ship_pos, gate_pos, Unknown_B04FF8, Client->Unknown10BC, ship->Unknown98);
+		ship->PositionalState = new Unknown718160Class(ship_pos, gate_pos, Unknown_B04FF8, Client->Unknown10BC, ship->PositionalState);
 	}
 }
 

@@ -3148,7 +3148,7 @@ void UIStarbaseClass::Unknown_6418F0()
 		Unknown190 = NULL;
 	}
 	Unknown190 = (UIStarbaseUnknown190Class *)new ClientObjectClass((ClientClass *)Client, 0x29, ((ClientClass *)Client)->Next_Local_ID());
-	((ClientObjectClass *)Unknown190)->Unknown98 = new Unknown7192A0Class(InterfaceMesh->Peek_Object(), ((ClientObjectClass *)Unknown190)->Unknown98, "ship");
+	((ClientObjectClass *)Unknown190)->PositionalState = new Unknown7192A0Class(InterfaceMesh->Peek_Object(), ((ClientObjectClass *)Unknown190)->PositionalState, "ship");
 	((ClientObjectClass *)Unknown190)->Unknown_6F33F0(Unknown184.Peek(), -1, 1.0f);
 	SphereClass sphere = Unknown184->Get_Bounding_Sphere();
 	((ClientObjectClass *)Unknown190)->Unknown_34(sphere.Radius);
