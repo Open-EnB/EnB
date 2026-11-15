@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-879 entries in 297 files.
+880 entries in 298 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -57,6 +57,7 @@ edit the comments in the code, not this file.
 | `app/client/camera_manager.cpp:252` | `CameraManagerClass::Unknown_799E40` | marker | NOT EXACT: 0x799E40 (frame order: the client puts target at -0x10 above the 12-byte block locals and Sqrt's float above the avatar position temporary, ours the reverse; bit 15's Length2 keeps Y and Z on the FPU in the client) 0x799E40 |
 | `app/client/camera_manager.cpp:653` | `CameraManagerClass::Unknown_79B4F0` | marker | NOT EXACT: 0x79B4F0 (the default arm: the client keeps true in bl across the assert, so its return is not merged with case 0's mov al,1) |
 | `app/client/camera_manager.cpp:706` | `CameraManagerClass::Unknown_79B6B0` | mention | NOT EXACT (CS1, 2026-11-07). 0x799E40's inlining: 0x79B330 inline for its first 17 requests and 0x799DA0 for 23 sites only with 0x79B330 written without a bit local (with it, the requests 15 and 16 lose theirs to the budget); the 'bit' local form is exact out of line too. 0x7998B0's shifted box needs Set_Translation (Matrix3D(-delta) copies through the FPU). |
+| `app/client/cameraeffects.cpp:85` | `CameraEffectsClass::Unknown_34` | marker | NOT EXACT: functional (D64), register and scheduling (the camera move: the client keeps &Unknown18 in ebx for X and builds the translation from the camera's own matrix for X / Z, the copy for Y) 0x6E2CC0: the ship's 'Shake.Force*' and 'Shake.Damage' fields start a shake and a jitter; every effect adds to +0x18 (the finished ones deleted), the camera moved by it (each axis wrapped into +-12, X / Y ... |
 | `app/client/cammod_chase.cpp:145` | `ChaseCameraModuleClass::Unknown_79BFC0` | marker | NOT EXACT: 0.90, the inlining is the client's; left: the client negates dir.Y before it copies the translation, and its first inline Rotate_X adds row 0's products in the other order |
 | `app/client/cammod_chase.h:30` | `?` | mention | NOT EXACT) // NAME 2 [des_quat, des_pos, obj]: its FAIL_IFs |
 | `app/client/chat_window.cpp:299` | `ChatWindowClass::Unknown_67F7F0` | marker | NOT EXACT: registers only (max_lines, old_size and the old font rotate; the client divides by the stack copy) |
@@ -358,7 +359,7 @@ edit the comments in the code, not this file.
 | `app/client/textgadg.cpp:389` | `TextGadgetClass::Unknown_6AAD10` | marker | NOT EXACT: registers and stack (0.58; 0x128 bytes of locals in the client, 0x12C here): the client keeps the text in ebx and &Text in ebp (recomputed after the width loop), here &Text in ebx and the text spilled |
 | `app/client/tooltip.cpp:93` | `UIViewUnknown30Class::Unknown_6AB5B0` | marker | NOT EXACT: register (0.80): the view's loads for the second 0x65F5F0 call and the sort object go to eax / ecx the other way round |
 | `app/client/tooltip.cpp:216` | `UIViewUnknown30Class::Unknown_6AB930` | marker | NOT EXACT: inline-budget (0.75): the client calls the DestroyGadgetEvent callback's constructor 0x6AC050 out of line for the disconnect (inlined here) and loads the gadget's name before the avatar id |
-| `app/client/tooltip.cpp:268` | `UIViewUnknown30Class::Unknown_6ABC60` | marker | NOT EXACT: shape (0.48): the client keeps the split loop whole (width from the stack, 'lines = MAX_LINES' on the latch); VC6 peels the first pass here |
+| `app/client/tooltip.cpp:268` | `UIViewUnknown30Class::Unknown_6ABC10` | marker | NOT EXACT: shape (0.48): the client keeps the split loop whole (width from the stack, 'lines = MAX_LINES' on the latch); VC6 peels the first pass here |
 | `app/client/ui_analyze.cpp:112` | `UIAnalyzeClass::~UIAnalyzeClass` | marker | NOT EXACT: a relocation target (explain.py: identical once stack offsets, targets and relocations are masked; the unwind funclets look the same) (0x5437C0) @0x5437C0 |
 | `app/client/ui_analyze.cpp:126` | `UIAnalyzeClass::Unknown_54` | marker | NOT EXACT: register (after the button loop the client keeps the zero in ebp and the space client in ebx, ours the other way round, and loads the name table's pointer before the gadget pointer; 0-based loop, named key event, the icon loop 1-based, the buffer at the top: no) (0x5439F0) @0x5439F0 |
 | `app/client/ui_analyze.cpp:314` | `UIAnalyzeClass::Unknown_60` | marker | NOT EXACT: inline budget (the client calls the first 'Validity' find out of line, 0x5465C0, and the 'Validity' / 'Mode' Casts in the second and third, 0x5468D0 / 0x546920, but inlines the last find whole; its blocks also come in another order) (0x5443F0) @0x5443F0 |
