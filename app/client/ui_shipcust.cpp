@@ -1143,8 +1143,8 @@ static const float Unknown_AF7950 = 1.0f;	// NAME 1 [Unknown_AF7950]: neutral (D
 static const float Unknown_AF7954 = 1.0f;	// NAME 1 [Unknown_AF7954]: neutral (D10)
 static void Set_Float(float &dst, float value) { dst = value; }	// NAME 1 [Set_Float]: neutral (D10)
 static bool Is_Pressed(GadgetClass *gadget) { return Unknown_BE5F24 == gadget || Unknown_BE5F28 == gadget; }	// NAME 1 [Is_Pressed]: neutral (D10)
-static void Copy_Desc(ShipCustDescClass &dst, const ShipCustDescClass &src) { dst = src; }	// NAME 1 [Copy_Desc]: neutral (D10)
-// NOT EXACT: functional (D64)
+static void Copy_Desc(ShipCustDescClass &dst, const ShipCustDescClass &src) { dst = src; } static void Set_Decal(ShipCustDescClass &d, int index) { d.Selected_Decal = (index == 0) ? 0x7FFFFFF : index - 1; }	// NAME 1 [Copy_Desc, Set_Decal]: neutral (D10); Set_Decal is a layer of its own (0x624270 stores Selected_Decal before it loads CharacterView)
+
 // @0x624270
 void ShipCustomizeInterface::Unknown_624270()
 {
@@ -1226,7 +1226,7 @@ void ShipCustomizeInterface::Unknown_624270()
 	}
 	if (Unknown215) {
 		if (Unknown218 == 5) {
-			Desc.Selected_Decal = (Unknown264 == 0) ? 0x7FFFFFF : Unknown264 - 1;
+			Set_Decal(Desc, Unknown264);
 			Copy_Desc(CharacterView->Unknown244, Desc);
 			LoginTask->Go_Next_Step();
 		} else {

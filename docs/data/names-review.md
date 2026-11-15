@@ -18163,7 +18163,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Is_Pressed` | `app/client/ui_shipcust.cpp:1145` | neutral (D10) |
 | 1 | `Unknown_BE5F24` | `app/client/ui_shipcust.cpp:1145` | untagged neutral name (D10) |
 | 1 | `Unknown_BE5F28` | `app/client/ui_shipcust.cpp:1145` | untagged neutral name (D10) |
-| 1 | `Copy_Desc` | `app/client/ui_shipcust.cpp:1146` | neutral (D10) |
+| 1 | `Copy_Desc, Set_Decal` | `app/client/ui_shipcust.cpp:1146` | neutral (D10); Set_Decal is a layer of its own (0x624270 stores Selected_Decal before it loads CharacterView) |
 | 1 | `Unknown0B8` | `app/client/ui_shipcust.cpp:1154` | untagged neutral name (D10) |
 | 1 | `Unknown0BC` | `app/client/ui_shipcust.cpp:1162` | untagged neutral name (D10) |
 | 1 | `Unknown0C0` | `app/client/ui_shipcust.cpp:1176` | untagged neutral name (D10) |
@@ -19394,7 +19394,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_10` | `app/client/ui_talkt.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/ui_talkt.cpp:30` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67C4` | `app/client/ui_talkt.cpp:42` | neutral (D10) |
-| 1 | `Unknown_42EB20` | `app/client/ui_talkt.cpp:44` | neutral (D10) |
 | 1 | `Unknown_B8BBC4` | `app/client/ui_talkt.cpp:59` | neutral (D10) |
 | 1 | `Unknown_Empty` | `app/client/ui_talkt.cpp:62` | neutral (D10): a codeless layer |
 | 1 | `Unknown_Clear1` | `app/client/ui_talkt.cpp:63` | neutral (D10): a codeless layer |
@@ -19445,6 +19444,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_64E7A0` | `app/client/ui_talkt.cpp:637` | untagged neutral name (D10) |
 | 1 | `Unknown_64` | `app/client/ui_talkt.cpp:641` | untagged neutral name (D10) |
 | 1 | `Unknown_64DD50` | `app/client/ui_talkt.cpp:713` | untagged neutral name (D10) |
+| 1 | `Unknown_42EB20` | `app/client/ui_talkt.cpp:750` | untagged neutral name (D10) |
 | 1 | `Unknown_64E370` | `app/client/ui_talkt.cpp:801` | untagged neutral name (D10) |
 | 1 | `Is_Unknown2C_02` | `app/client/ui_talkt.cpp:848` | untagged neutral name (D10) |
 | 1 | `Unknown51C800Class` | `app/client/ui_talkt.cpp:899` | untagged neutral name (D10) |
