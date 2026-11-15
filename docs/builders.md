@@ -146,7 +146,7 @@ before placing (`docs/data/triage.md`).
 | The harness check (D182) and a POC run or replay for the coordinator (`.claude/agents/checker.md`: one line back per program) | Sonnet (D226) | the programs decide; it never edits source, and the logs and the frame stay out of the coordinator's context |
 | Filing builders' traps and leftovers into workflow.md §3 and progress.md §4, and returning their calls and proposals to the coordinator (`.claude/agents/doc-filer.md`) | Sonnet (D226, D246) | it quotes the reports and docs_check checks it; the log entry, the decisions and §3 stay the coordinator's |
 | Grep-level searches, log triage | Haiku | never edits tree code |
-| Bounded POC and triage items (the functions of one file, 30-60 min), when the user's agy window has room | Gemini 3.8 Flash (high) through agy (D187; `tools/agy/README.md`) | the user's Google subscription, outside the Claude windows; the coordinator verifies each landing and runs the POC itself |
+| Bounded POC and triage items (the functions of one file, 30-60 min), when the user's agy window has room | Gemini 4 Hydrogen (high) through agy (D187; `tools/agy/README.md`) | the user's Google subscription, outside the Claude windows; the coordinator verifies each landing and runs the POC itself |
 
 **The week of 2026-11-10 to 2026-11-17 (D225)** departs from this table: its first four sessions run the
 coordinator and the reasoning builders on Fable with D89's count limits lifted; the rows that apply per
