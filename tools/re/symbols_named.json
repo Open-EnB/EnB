@@ -1165,9 +1165,9 @@
  },
  {
   "address": "0x758610",
-  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAEXPAVKVEncoderClass@@@Z",
-  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206)",
-  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4UnknownB03970Enum@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
+  "symbol": "?Unknown_00@?$DeltaTemplateClass@W4FormationState@@@@UAEXPAVKVEncoderClass@@@Z",
+  "evidence": "DeltaChildVisitorClass renamed KVEncoderClass (D206); UnknownB03970Enum renamed FormationState (0xBA9734)",
+  "replaces": "?Unknown_00@?$DeltaTemplateClass@W4FormationState@@@@UAEXPAVDeltaChildVisitorClass@@@Z"
  },
  {
   "address": "0x8C0AE0",
