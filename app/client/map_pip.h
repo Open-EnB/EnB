@@ -57,6 +57,7 @@ public:
 	virtual void Unknown_24(int arg);					// +0x24 0x692A10 (empty; 0x5408B0)  // NAME 1 [arg]: neutral
 
 	bool Unknown_693020();								// 0x693020 (ViewportGadget's +0x49)
+	bool Unknown_693040();								// 0x693040 (+0x40; 0x7C8C20, 0x7C8DB0, 0x7C8E50, 0x7C91A0)
 
 	SClient *Client;									// +0x34 (0x6927C0's client)  // NAME 1: neutral (D10): what it holds
 	GadgetPipSceneClass *ViewportGadget;				// +0x38  // NAME 3: the FAIL_IF's
