@@ -4258,13 +4258,13 @@ void SClient::Unknown_74C370(RefCountClass *object)
 		object->Add_Ref();
 	}
 }
-// NOT EXACT: inline budget (explain.py: 11 calls, the client 7): ours inlines the hash table's resize 0x759660 into operator[] (and so std::__stl_next_prime), the client calls it and its bucket helper 0x756D10
+// Exact with two dead reads after operator[] (D130, not the client's): they take its nested budget, so resize 0x759660, the node allocator 0x759030 and the second bucket count go out of line as the client's
 #pragma auto_inline(off)	// 0x74C3B0 (out of line in 0x7511A0, as the client has it)
 void SClient::Unknown_74C3B0(int game_id, AvatarDescClass &desc)
 {
 	if (Unknown1394.find(game_id) != Unknown1394.end()) return;
 	CharacterViewAvatarClass *object = new CharacterViewAvatarClass(&desc, false, false, NULL);
-	Unknown1394[game_id] = object;
+	Unknown1394[game_id] = object; Unknown1394.size(); Unknown1394.size();	// (dead, D130)
 	if (AvatarID == (unsigned)game_id) Bridge->Set_Avatar(&object->Desc);
 }
 #pragma auto_inline(on)
@@ -5743,18 +5743,18 @@ void SClient::Unknown_750F70(const char *name, int channel)
 
 #include "thread.h"
 #include "textureloader.h"
-extern int Unknown_BB9C40;		// NAME 1: neutral (D10): cleared while 0x744690 renders the first frames (Unknown1374)
-extern int Unknown_BBB5D0;		// NAME 1: neutral (D10): the same
-// NOT EXACT: functional (WE1): from the pseudocode, not aligned; the listener's camera turn written as Rotate_X / Rotate_Z
+#include "sortingrenderer.h"	// 0xBBB5D0: SortingRendererClass::_EnableTriangleDraw (0x983410 reads it)
+// 0xBB9C40: DX8Wrapper::_EnableTriangleDraw (DX8Wrapper::Draw 0x9252A0 reads it): both off while 0x744690 renders the first frames
+// NOT EXACT: order only (B97, 15 rows with registers masked): the client's copy of the camera's transform interleaves its loads and stores, ours copies row by row (as 0x7ECDC0's)
 // 0x744690: ClientTaskClass::Render's frame: the loading view's while loading, else the current view's, then the listener
 void SClient::Unknown_64()
 {
 	ThreadClass::Switch_Thread();
 	if (Task->Is_Focused() && LoadingView->Unknown68) {
-		if (ChatPanel) {
-			ChatPanel->Unknown_5685C0();
-			ChatPanel->Unknown_568690();
-		}
+		ChatPanelInterface *panel = ChatPanel.Peek();
+		if (panel) {
+			panel->Unknown_5685C0();
+			panel->Unknown_568690(); }
 		LoadingView->Unknown_0C(true);
 		if (MusicManager) {
 			MusicManager->Update(MusicManagerClass::MUSIC_THEME_WANDER, 0, 0, 8);
@@ -5774,37 +5774,37 @@ void SClient::Unknown_64()
 		return;
 	}
 	Mouse->Unknown_515440();
-	int saved_c40 = Unknown_BB9C40;
-	int saved_5d0 = Unknown_BBB5D0;
+	bool dx8_draw = DX8Wrapper::_Is_Triangle_Draw_Enabled();
+	bool sorting_draw = SortingRendererClass::_Is_Triangle_Draw_Enabled();
 	bool on = true;
 	if (Unknown1374) {
 		on = false;
 		WWAudioClass::Get_Instance()->m_Unknown19A5 = true;
-		Unknown_BB9C40 = 0;
-		Unknown_BBB5D0 = 0;
+		DX8Wrapper::_Enable_Triangle_Draw(false);
+		SortingRendererClass::_Enable_Triangle_Draw(false);
 	}
 	if (CurrentView) {
 		CurrentView->Unknown_0C(on);
 	}
 	if (Unknown1374) {
 		Unknown1374--;
-		Unknown_BB9C40 = saved_c40;
-		Unknown_BBB5D0 = saved_5d0;
+		DX8Wrapper::_Enable_Triangle_Draw(dx8_draw);
+		SortingRendererClass::_Enable_Triangle_Draw(sorting_draw);
 		TextureLoader::Flush_Pending_Load_Tasks();
 		if (Unknown1374 == 0 && WWAudioClass::Get_Instance()) {
 			WWAudioClass::Get_Instance()->Unknown_Resume_All();
 		}
 	}
-	RenderObjClass *camera = (RenderObjClass *)Unknown12B8;
+	RenderObjClass *camera;
+	if (CurrentView && CurrentView == Unknown135C) {
+		camera = (RenderObjClass *)Unknown12B8;
+		if (camera == NULL) camera = *(RenderObjClass **)((char *)Unknown135C + 0x6C);
+	} else {
+		camera = (RenderObjClass *)Unknown12B8;
+		if (camera == NULL) camera = (RenderObjClass *)MainView->Unknown_7C();
+	}
 	if (camera == NULL) {
-		if (CurrentView == NULL || CurrentView != Unknown135C) {
-			camera = (RenderObjClass *)MainView->Unknown_7C();
-		} else {
-			camera = *(RenderObjClass **)((char *)Unknown135C + 0x6C);
-		}
-		if (camera == NULL) {
-			return;
-		}
+		return;
 	}
 	Matrix3D tm = camera->Get_Transform();
 	if (camera->Class_ID() == RenderObjClass::CLASSID_CAMERA) {
