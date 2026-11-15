@@ -1545,5 +1545,15 @@
   "symbol": "??1?$RefCountPtr@VInvDataClass@@@@QAE@XZ",
   "evidence": "ui_slot_info.h's phantom UISlotInfoItemClass retired: the item examination window holds the InvDataClass ui_slot_info.cpp's 0x630280 passes it (slot_data's +0x10 Unknown_10), and the slot +0x90 returns its SlotDataClass (X1, 2026-11-14)",
   "replaces": "??1?$RefCountPtr@VUISlotInfoItemClass@@@@QAE@XZ"
+ },
+ {
+  "address": "0x6650E0",
+  "symbol": "??1?$RefCountPtr@VSkillDataClass@@@@QAE@XZ",
+  "evidence": "gd_attrb_skills.obj's RefCountPtr<SkillDataClass> destructor: Unknown664500Class::Unknown664500Class 0x662DC0 (funclet 0xABD286 `add ecx, 0x68; jmp 0x4073ec`), ~Unknown664500Class 0x6636E0 (0xABD406 `add ecx, 0x68; jmp 0x4073ec`) and Unknown_663DF0 0x663DF0 (0xABD520 `lea ecx, [ebp-0x18]; jmp 0x4073ec`) unwind SkillData (+0x68, gd_attrb_skills.h) through it; byte-identical to 0x5328F0 / 0x66A560 (A10, 2026-11-14)"
+ },
+ {
+  "address": "0x693090",
+  "symbol": "??1?$RefCountPtr@VStarmapPipSupportClass@@@@QAE@XZ",
+  "evidence": "map_pip.obj's RefCountPtr<StarmapPipSupportClass> destructor: MapPipClass::MapPipClass 0x6927C0 (funclet 0xABFD10: 0xABFD26 `add ecx, 0x48; jmp 0x412ef9` and 0xABFD31 `add ecx, 0x4c; jmp 0x412ef9`) and MapPipClass::~MapPipClass 0x692A60 (funclet 0xABFD96 `add ecx, 0x48; jmp 0x412ef9`) unwind Unknown48 / Unknown4C (map_pip.h) through it; byte-identical to 0x46BE90 etc. (A10, 2026-11-14)"
  }
 ]
