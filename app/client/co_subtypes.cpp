@@ -131,14 +131,7 @@ void Unknown70E5A0Class::Unknown_20()
 	bone = base;
 	Vector3 local;
 	Matrix3D::Inverse_Transform_Vector(base, target_pos, &local);
-	Vector3 dir = local;
-	float len2 = dir.Length2();
-	if (len2 != 0.0f) {
-		float oolen = WWMath::Inv_Sqrt(len2);
-		dir.X *= oolen;
-		dir.Y *= oolen;
-		dir.Z *= oolen;
-	}
+	Vector3 dir = Normalize(local);
 	Vector3 y_axis(-dir.Y, dir.X, 0.0f);
 	Vector3 z_axis = Vector3::Cross_Product(dir, y_axis);
 	Matrix3D aim;
@@ -175,7 +168,8 @@ void Unknown70E5A0Class::Unknown_20()
 ** position while +0x1D0 is still 1; detaching (+0x18 0x70E7D0) and the destructor release the bone.
 **
 ** 0x70E850 is NOT EXACT (shape): Inverse_Transform_Vector gives the client's subtractions from memory; the client
-** normalises with one Length2 (the result copied first, vector3.h's Normalize computes it twice), builds the aim
+** normalises with vector3.h's free Normalize (one Length2, the result copied first; NF: the same bytes as the
+** member-wise copy-and-scale S9A wrote out), builds the aim
 ** in a Matrix3D temporary and takes the CRT's fabs (the fabs instruction, not WWMath::Fabs's and): frame 0x128 as
 ** the client's; z is Vector3::Cross_Product(dir, y) (the same bytes as the terms written out). Left: the x87 order
 ** of the inverse rotation's and the length's sums and of z's Y (S9A, 51 rows).
