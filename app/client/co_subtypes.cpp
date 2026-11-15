@@ -109,7 +109,7 @@ void Unknown70E5A0Class::Unknown_18(UnknownB02C90Class *parent, int slot, int ch
 	Bone = -1;
 }
 
-// NOT EXACT: shape (stack layout: the client's frame is 0x128 bytes, ours 0xFC; the inverse transform's terms in another order; attempts.py show 0x70E850)
+// NOT EXACT: shape (the frame, 0x128, and the temporaries are the client's; the x87 order of the inverse rotation's and the length's sums and of z's Y differs; attempts.py show 0x70E850)
 // 0x70E850
 void Unknown70E5A0Class::Unknown_20()
 {
@@ -129,15 +129,23 @@ void Unknown70E5A0Class::Unknown_20()
 	Matrix3D base(true);
 	Matrix3D::Multiply(bone, inverse, &base);
 	bone = base;
-	Vector3 dir;
-	Matrix3D::Inverse_Transform_Vector(base, target_pos, &dir);
-	dir.Normalize();
+	Vector3 local;
+	Matrix3D::Inverse_Transform_Vector(base, target_pos, &local);
+	Vector3 dir = local;
+	float len2 = dir.Length2();
+	if (len2 != 0.0f) {
+		float oolen = WWMath::Inv_Sqrt(len2);
+		dir.X *= oolen;
+		dir.Y *= oolen;
+		dir.Z *= oolen;
+	}
 	Vector3 y_axis(-dir.Y, dir.X, 0.0f);
-	Vector3 z_axis(-(dir.X * dir.Z), dir.Z * y_axis.X, dir.X * y_axis.Y - y_axis.X * dir.Y);
-	Matrix3D aim(dir, y_axis, z_axis, Vector3(0.0f, 0.0f, 0.0f));
-	float x_rotation = WWMath::Fabs(aim.Get_X_Rotation());
-	float y_rotation = WWMath::Fabs(aim.Get_Y_Rotation());
-	float z_rotation = WWMath::Fabs(aim.Get_Z_Rotation());
+	Vector3 z_axis = Vector3::Cross_Product(dir, y_axis);
+	Matrix3D aim;
+	aim = Matrix3D(dir, y_axis, z_axis, Vector3(0.0f, 0.0f, 0.0f));
+	float x_rotation = (float)fabs(aim.Get_X_Rotation());
+	float y_rotation = (float)fabs(aim.Get_Y_Rotation());
+	float z_rotation = (float)fabs(aim.Get_Z_Rotation());
 	if (x_rotation < WWMATH_PI / 2 && y_rotation < WWMATH_PI / 2 && z_rotation < WWMATH_PI / 2) {
 		model->Control_Bone(Bone, aim, false);
 		Unknown190 = aim;
@@ -166,7 +174,9 @@ void Unknown70E5A0Class::Unknown_20()
 ** turns the bone towards the target (rotation limits of a quarter turn about each axis) and remembers the target's
 ** position while +0x1D0 is still 1; detaching (+0x18 0x70E7D0) and the destructor release the bone.
 **
-** 0x70E850 is NOT EXACT (shape): Inverse_Transform_Vector gives the client's subtractions from memory, but its frame
-** holds more temporaries (0x128 bytes against our 0xFC) and the inverse rotation's terms come in another order
-** (attempts.py show 0x70E850 lists the forms tried).
+** 0x70E850 is NOT EXACT (shape): Inverse_Transform_Vector gives the client's subtractions from memory; the client
+** normalises with one Length2 (the result copied first, vector3.h's Normalize computes it twice), builds the aim
+** in a Matrix3D temporary and takes the CRT's fabs (the fabs instruction, not WWMath::Fabs's and): frame 0x128 as
+** the client's; z is Vector3::Cross_Product(dir, y) (the same bytes as the terms written out). Left: the x87 order
+** of the inverse rotation's and the length's sums and of z's Y (S9A, 51 rows).
 */
