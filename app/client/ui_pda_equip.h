@@ -30,6 +30,7 @@ struct UnknownMountSlotStruct	// NAME 1: neutral (D10)
 	int Unknown04;										// +0x04 (the element's I08)  // NAME 1: neutral (D10)
 	int Unknown08;										// +0x08 (the element's I04)  // NAME 1: neutral (D10)
 	int Index;											// +0x0C (the element's index: the slot)  // NAME 2: what it holds
+	UnknownMountSlotStruct() : Type(0), Unknown04(0), Unknown08(0), Index(0) {}	// (0x5D2C50 zeroes the four after its new)
 };
 
 // The equipment window (0x154 bytes, tables 0xAF4C74 / 0xAF4C68 / 0xAF4C5C; pdaint.cpp's set-up 0x693230 makes it: the key
@@ -52,6 +53,7 @@ public:
 	virtual void Unknown_B0();							// +0xB0 0x5D2210 (FAIL_IFs l.298, 340, 344, 363, 367, 373, 386: the mounts onto the buttons, the future slots)
 	void Unknown_5D2B90();								// 0x5D2B90 (the ship's model into the PIP)
 	void Unknown_5D2C50();								// 0x5D2C50 (FAIL_IF '!Get_Client()' l.451: Mounts from 'Inventory.Mounts')
+	void Unknown_5D2EB0();								// 0x5D2EB0 (Mounts deleted and emptied; no caller: inlined into 0x5D1A00 and 0x5D2C50)
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: the FAIL_IF '!Get_Client()')  // NAME 3: the FAIL_IF's
 
 	RefCountPtr<RenderObjClass> InterfaceMesh;			// +0xD0 ('tsi07a'; FAIL_IF '!InterfaceMesh')  // NAME 3: the FAIL_IF's

@@ -36,9 +36,9 @@ public:
 	virtual void Unknown_1C(); virtual void Unknown_20(); virtual void Unknown_24(); virtual void Unknown_28(); virtual void Unknown_2C();
 	virtual ClientObjectClass *Get_Ship();				// +0x30 (client.h's)  // NAME 2: ClientClass's slot +0x30
 };
+template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10): as co.cpp's
 
-
-// 0x5D10C0
+// @0x5D10C0
 UIPdaEquipClass::UIPdaEquipClass(SClient *client) :
 	UIInvClass(client, 11),
 	ShipPip(NULL),
@@ -101,7 +101,7 @@ UIPdaEquipClass::UIPdaEquipClass(SClient *client) :
 
 
 // NOT EXACT: functional from the pseudocode (D64)
-// 0x5D1250
+// @0x5D1250
 void UIPdaEquipClass::Unknown_54()
 {
 	InterfaceSortScopeClass scope(this);
@@ -156,7 +156,7 @@ void UIPdaEquipClass::Unknown_54()
 }
 
 // NOT EXACT: functional from the pseudocode (D64)
-// 0x5D1A00
+// @0x5D1A00
 UIPdaEquipClass::~UIPdaEquipClass()
 {
 	if (Stats) {
@@ -167,10 +167,7 @@ UIPdaEquipClass::~UIPdaEquipClass()
 		delete ShipPip;
 	}
 	ShipPip = NULL;
-	for (std::vector<UnknownMountSlotStruct *>::iterator it = Mounts.begin(); it != Mounts.end(); it++) {
-		delete *it;
-	}
-	Mounts.erase(Mounts.begin(), Mounts.end());
+	Unknown_5D2EB0();
 	for (int i = 0; i < NUM_FRAMES; i++) {
 		Frames[i] = NULL;
 	}
@@ -178,12 +175,15 @@ UIPdaEquipClass::~UIPdaEquipClass()
 		GadgetClass::Destroy(Exit);
 		Exit = NULL;
 	}
-	Unknown_BE67C4->Remove(InterfaceMesh.Peek());
+	Unknown_BE67C4->Unknown_6D2310(InterfaceMesh);
 	Unknown_BE67BC->Unload("fa_tsi07a.ini");
 }
 
 
-// 0x5D1C60
+
+
+
+// @0x5D1C60
 void UIPdaEquipClass::Unknown_7C(UIViewClass *view, bool arg)
 {
 	UIInvClass::Unknown_7C(view, arg);
@@ -215,7 +215,7 @@ void UIPdaEquipClass::Unknown_7C(UIViewClass *view, bool arg)
 
 
 // NOT EXACT: functional from the pseudocode (D64)
-// 0x5D1CA0
+// @0x5D1CA0
 void UIPdaEquipClass::Unknown_58()
 {
 	FAIL_IF(!InterfaceMesh) return;
@@ -254,7 +254,7 @@ void UIPdaEquipClass::Unknown_58()
 
 
 
-// 0x5D20E0
+// @0x5D20E0
 void UIPdaEquipClass::Unknown_5C()
 {
 	FAIL_IF(!InterfaceMesh) return;
@@ -262,7 +262,7 @@ void UIPdaEquipClass::Unknown_5C()
 }
 
 
-// 0x5D2150
+// @0x5D2150
 void UIPdaEquipClass::Unknown_60()
 {
 	UIInvClass::Unknown_60();
@@ -271,7 +271,7 @@ void UIPdaEquipClass::Unknown_60()
 }
 
 // NOT EXACT: functional from the pseudocode (D64)
-// 0x5D2180
+// @0x5D2180
 bool UIPdaEquipClass::Unknown_68(int key)
 {
 	FAIL_IF(!InterfaceMesh) return(false);
@@ -292,7 +292,7 @@ bool UIPdaEquipClass::Unknown_68(int key)
 
 
 // NOT EXACT: functional from the pseudocode (D64)
-// 0x5D2210
+// @0x5D2210
 void UIPdaEquipClass::Unknown_B0()
 {
 	FAIL_IF(!InterfaceMesh) return;
@@ -315,14 +315,14 @@ void UIPdaEquipClass::Unknown_B0()
 		switch (mount->Type) {
 			case 0:
 				continue;
-			case 4:
-				bttn_idx = SHIELD_SLOT;
-				break;
 			case 0x40:
 				bttn_idx = ENGINE_SLOT;
 				break;
 			case 0x80:
 				bttn_idx = POWER_SLOT;
+				break;
+			case 4:
+				bttn_idx = SHIELD_SLOT;
 				break;
 			default:
 				if (mount->Type & 0x1C022) {
@@ -354,26 +354,26 @@ void UIPdaEquipClass::Unknown_B0()
 	}
 
 	ClientObjectClass *ship = Client->Get_Ship();
-	if (!ship || !ship->AuxData) return;
+	if (!ship) return;
 	DeltaCompoundClass *aux = (DeltaCompoundClass *)ship->AuxData;
+	if (!aux) return;
 	NameClass weapons_name("Inventory.FutureWeapons");
-	DeltaTemplateClass<int> *future_weapons = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, weapons_name);
-	if (future_weapons && !future_weapons->Unknown70) future_weapons = NULL;
+	DeltaTemplateClass<int> *future_weapons = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, weapons_name);
 
 	FAIL_IF(!future_weapons) return;
-	NameClass devices_name("Inventory.FutureDevices");
-	DeltaTemplateClass<int> *future_devices = Unknown_Find_Field<DeltaTemplateClass<int> >(aux, devices_name);
-	if (future_devices && !future_devices->Unknown70) future_devices = NULL;
-	FAIL_IF(!future_devices) return;
 	int future_weapon_count = future_weapons->Value;
+	NameClass devices_name("Inventory.FutureDevices");
+	DeltaTemplateClass<int> *future_devices = Unknown_Find_Valid<DeltaTemplateClass<int> >(aux, devices_name);
+	FAIL_IF(!future_devices) return;
 	int future_device_count = future_devices->Value;
+
 	RefCountPtr<TextureClass> blank = Create_Get(WW3DAssetManager::Get_Instance()->Get_Texture("im_blank.tga", MIP_LEVELS_ALL, WW3D_FORMAT_UNKNOWN, true));
 	for (i = weapons; i < future_weapon_count; i++, weapon_idx++) {
 
 		FAIL_IF(weapon_idx > LAST_WEAPON_SLOT) break;
 		if (Frames[weapon_idx]) {
 			Frames[weapon_idx]->Set_Hidden(0);
-			Buttons[weapon_idx]->Unknown_90(blank.Peek());
+			Buttons[weapon_idx]->RObjGadgetClass::Unknown_90(blank.Peek());
 			Buttons[weapon_idx]->Unknown_8C(false);
 			GadgetClass::Set_Tooltip(Buttons[weapon_idx], "UI_PDA_EQUIP", "FUTURE_WEAPON");
 		}
@@ -386,7 +386,7 @@ void UIPdaEquipClass::Unknown_B0()
 		FAIL_IF(device_idx > LAST_SYSTEM_SLOT) break;
 		if (Frames[device_idx]) {
 			Frames[device_idx]->Set_Hidden(0);
-			Buttons[device_idx]->Unknown_90(blank.Peek());
+			Buttons[device_idx]->RObjGadgetClass::Unknown_90(blank.Peek());
 			Buttons[device_idx]->Unknown_8C(false);
 			GadgetClass::Set_Tooltip(Buttons[device_idx], "UI_PDA_EQUIP", "FUTURE_DEVICE");
 		}
@@ -395,35 +395,37 @@ void UIPdaEquipClass::Unknown_B0()
 
 
 
-// NOT EXACT: functional from the pseudocode (D64)
-// 0x5D2850
+
+// @0x5D2850
 void UIPdaEquipClass::Unknown_A4(std::string &name, int index, int bttn_idx)
 {
-	if (bttn_idx == SHIELD_SLOT) {
-		name = "SHIELD_SLOT";
-		return;
+	switch (bttn_idx) {
+		case SHIELD_SLOT:
+			name = "SHIELD_SLOT";
+			break;
+		case POWER_SLOT:
+			name = "POWER_SLOT";
+			break;
+		case ENGINE_SLOT:
+			name = "ENGINE_SLOT";
+			break;
+		default: {
+			char text[32];
+			if (bttn_idx >= 0 && bttn_idx <= LAST_WEAPON_SLOT) {
+				name = "WEAPON_SLOT";
+			} else {
+				G_ASSERT((bttn_idx >= FIRST_SYSTEM_SLOT) && (bttn_idx <= LAST_SYSTEM_SLOT));
+				name = "SYSTEM_SLOT";
+			}
+			sprintf(text, "_%d", index);
+			name += text;
+			break;
+		}
 	}
-	if (bttn_idx == POWER_SLOT) {
-		name = "POWER_SLOT";
-		return;
-	}
-	if (bttn_idx == ENGINE_SLOT) {
-		name = "ENGINE_SLOT";
-		return;
-	}
-	if (bttn_idx >= 0 && bttn_idx <= LAST_WEAPON_SLOT) {
-		name = "WEAPON_SLOT";
-	} else {
-		G_ASSERT((bttn_idx >= FIRST_SYSTEM_SLOT) && (bttn_idx <= LAST_SYSTEM_SLOT));
-		name = "SYSTEM_SLOT";
-	}
-	char text[16];
-	sprintf(text, "_%d", index);
-	name += text;
 }
 
 
-// 0x5D2B90
+// @0x5D2B90
 void UIPdaEquipClass::Unknown_5D2B90()
 {
 	ClientObjectClass *ship = Client->Get_Ship();
@@ -436,24 +438,24 @@ void UIPdaEquipClass::Unknown_5D2B90()
 
 
 
-
-
 // NOT EXACT: functional from the pseudocode (D64)
-// 0x5D2C50
+// @0x5D2C50
 void UIPdaEquipClass::Unknown_5D2C50()
 {
 	if (Mounts.size()) {
-		for (std::vector<UnknownMountSlotStruct *>::iterator it = Mounts.begin(); it != Mounts.end(); it++) {
-			delete *it;
-		}
-		Mounts.erase(Mounts.begin(), Mounts.end());
+		Unknown_5D2EB0();
 	}
+
+
+
 	FAIL_IF(!Get_Client()) return;
 	ClientObjectClass *ship = Client->Get_Ship();
-	if (!ship || !ship->RenderObject || !ship->AuxData) return;
+	if (!ship || !ship->RenderObject) return;
+	DeltaCompoundClass *aux = (DeltaCompoundClass *)ship->AuxData;
+	if (!aux) return;
 	NameClass mounts_name("Inventory.Mounts");
-	DeltaArrayClass<UnknownB016DCType> *mounts = Unknown_Find_Field<DeltaArrayClass<UnknownB016DCType> >((DeltaCompoundClass *)ship->AuxData, mounts_name);
-	if (!mounts || !mounts->Unknown70) return;
+	DeltaArrayClass<UnknownB016DCType> *mounts = Unknown_Find_Valid<DeltaArrayClass<UnknownB016DCType> >(aux, mounts_name);
+	if (!mounts) return;
 	int count = mounts->Children.size();
 	for (int i = 0; i < count; i++) {
 		UnknownB016DCType &value = mounts->Get_Value(i);
@@ -462,8 +464,18 @@ void UIPdaEquipClass::Unknown_5D2C50()
 		mount->Unknown04 = value.I08;
 		mount->Unknown08 = value.I04;
 		mount->Index = i;
-		Mounts.insert(Mounts.end(), 1, mount);
+		Mounts.push_back(mount);
 	}
+}
+
+
+// @0x5D2EB0
+void UIPdaEquipClass::Unknown_5D2EB0()
+{
+	for (std::vector<UnknownMountSlotStruct *>::iterator it = Mounts.begin(); it != Mounts.end(); it++) {
+		delete *it;
+	}
+	Mounts.erase(Mounts.begin(), Mounts.end());
 }
 
 /*
@@ -474,4 +486,13 @@ void UIPdaEquipClass::Unknown_5D2C50()
 **	rebuilt (the POC's stand-ins); the PIP's gadget is gd_ship_equip_pip.cpp's. 0x5D1F60 is co.h's DecalName copied (the ship's
 **	name, emitted here). Slot +0x7C looks up the 'ship' sub-object and drops it (the client's: a reference not
 **	released). Slot +0x68's key 0xFFF is the back gadget's (0x62F4D0).
+**
+**	O4, 2026-11-14: 0x5D2EB0 is not a vector helper but a member with no caller (Mounts deleted and emptied), the
+**	out-of-line copy of what 0x5D1A00 and 0x5D2C50 inline (defined after them). 0x5D2850 is a switch (the client's
+**	sub/dec chain on 12, 13, 14) with a 32-byte buffer (its 0x20 frame). 0x5D2210 calls RObjGadgetClass's +0x90
+**	qualified (a direct call: the slot gadget's own +0x90 asserts), its case bodies in the order 0x40, 0x80, 4, and
+**	the weapons' count read before the devices' find. The finds go through a file-local Unknown_Find_Valid (co.cpp's
+**	form), which sends Cast out of line as the client has it. The destructor removes the mesh's fonts through
+**	0x6D2310 (the reference form). The FAIL_IF '!future_weapons' (l.363) is the client's own test: it fires when the
+**	ship's 'Inventory.FutureWeapons' is missing or its Unknown70 is clear (0x5D2210's bytes test the same).
 */
