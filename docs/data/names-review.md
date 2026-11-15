@@ -9,7 +9,7 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 218 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1930 |
+| 3 | by convention from a client-named file or sibling | 1934 |
 | 2 | describes what the code does | 4885 |
 | 1 | neutral placeholder | 24825 |
 
@@ -31593,6 +31593,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `money.h` | `app/shared/money.h:17` | header name assumed from the client's money.cpp |
 | 3 | `MoneyClass` | `app/shared/money.h:22` | by convention (D24) from the client's file money.cpp (D37) |
 | 3 | `Observers` | `app/shared/observer.h:30` | the assert's 'Observers.Count()' (l.102) |
+| 3 | `opposed_roll_odds.h` | `app/shared/opposed_roll_odds.h:14` | the header of opposed_roll_odds.cpp |
+| 3 | `Opposed_Roll_Odds` | `app/shared/opposed_roll_odds.h:17` | the file's name; [M, N]: the FAIL_IFs' |
+| 3 | `Opposed_Roll_Odds` | `app/shared/opposed_roll_odds.h:18` | the file's name; [M, N, C]: the FAIL_IFs' |
+| 3 | `Opposed_Roll_Odds` | `app/shared/opposed_roll_odds.h:19` | the file's name; [M, N]: the FAIL_IFs'; NAME 1 [scale]: what it does |
 | 3 | `ProjectorManagerClass` | `app/shared/proj_man.h:127` | class-from-file (D24) for app\shared\proj_man.cpp |
 | 3 | `ProjSceneClass` | `app/shared/projscen.h:22` | class-from-file (D24) for app\shared\projscen.cpp |
 | 3 | `EndType` | `app/shared/px.h:28` | PxList's dump prints "LOW" / "HIGH" for it |
