@@ -240,8 +240,8 @@ void UIScanClass::Unknown_54()
 	Unknown5BE980Class::Unknown_54();
 }
 
-// The 'TSI08A' mesh, placed at the screen's lower right, as the display's model
-inline void UIScanClass::Create_Mesh()
+// @0x60DEA0 (out of line, no caller; inline in 0x60D8D0): the 'TSI08A' mesh, placed at the screen's lower right, as the display's model
+void UIScanClass::Create_Mesh()
 {
 
 
@@ -640,11 +640,11 @@ void Unknown59E2C0Class::Unknown_60ECA0(DurationClass time)
 }
 #pragma auto_inline(on)
 
-
-
-
-
-
+// @0x60ECF0
+SClient *UIScanClass::Get_Space_Client()
+{
+	return(Client->As_Space_Client());
+}
 
 
 
@@ -725,8 +725,8 @@ void UIScanClass::Unknown_60EFE0(ClientObjectClass *object)
 	GutterColorStruct color = colors.Target;
 	ConFont->Set_Color(color.Color1);
 }
-// The cockpit's targeting, through the client
-inline TargetingClass *UIScanClass::Get_Targeting()
+#pragma auto_inline(on)
+TargetingClass *UIScanClass::Get_Targeting()	// @0x60F110 (out of line, no caller; inline in 0x60E300): the cockpit's targeting, through the client
 {
 
 
@@ -739,7 +739,7 @@ inline TargetingClass *UIScanClass::Get_Targeting()
 	FAIL_IF(!ts) return(NULL);
 	return(ts);
 }
-
+#pragma auto_inline(off)
 
 
 
@@ -997,47 +997,47 @@ void UIScanClass::Unknown_60F1A0(bool arg)
 
 
 
+#pragma auto_inline(on)
+// @0x60FBA0
+UIScanThreatClass::UIScanThreatClass(UIScanClass *owner) : Owner(owner), AbilityName(""), Unknown18(false), Unknown20(0), Unknown28(0), Unknown2C(NULL)
+{
+}
 
+// @0x60FD50
+void UIScanThreatClass::Unknown_Refresh()
+{
+	bool active = Owner->Is_Active();
+	if (active) {
+		Owner->Unknown_5C();
+	}
+	Unknown_60FEE0();
+	if (active) {
+		Owner->Unknown_58();
+	}
+}
 
+// @0x60FD90
+void UIScanThreatClass::Unknown_Update()
+{
+	Unknown2C->Unknown38 = (InterruptStateType)Unknown28;
+	if (Unknown2C) {
+		Unknown2C->Unknown_10();
+	}
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// @0x60FDC0
+void UIScanThreatClass::Unknown_Clear()
+{
+	if (Unknown2C) {
+		Unknown2C->Unknown_59E970();
+		delete Unknown2C;
+		Unknown2C = NULL;
+	}
+	Unknown28 = 0;
+	AbilityName = "";
+	Unknown18 = false;
+}
+#pragma auto_inline(off)
 
 
 

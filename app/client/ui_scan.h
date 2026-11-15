@@ -16,6 +16,7 @@ class UIMeshClass;
 class GadgetClass;
 class ClientObjectClass;
 class TargetingClass;
+class SClient;
 class PlayerObjectRelationshipChangeEvent;
 
 // What the scanner holds at +0x1A0 (0x38 bytes, made inline in 0x60D8D0, deleted inline in 0x60DF90): the target's threat
@@ -23,23 +24,13 @@ class PlayerObjectRelationshipChangeEvent;
 class UIScanThreatClass	// NAME 1: neutral (D10)
 {
 public:
-	UIScanThreatClass(UIScanClass *owner) : Owner(owner), Unknown18(false), Unknown20(0), Unknown28(0), Unknown2C(NULL) {}	// NAME 2 [owner]: what it holds
+	UIScanThreatClass(UIScanClass *owner);				// 0x60FBA0 (out of line, no caller; inline in 0x60D8D0)  // NAME 2 [owner]: what it holds
 	~UIScanThreatClass();
 	UIScanClass *Get_Interface() { return(Owner); }		// (inline: 0x60FEE0's G_ASSERT 'Get_Interface()->Is_Active()', as UIGroupClass's members')  // NAME 3: the assert's
 	void Unknown_60FEE0();								// 0x60FEE0 (the scanner's 0x60E580 when the target goes; the destructor between hide and show)
-	void Unknown_Update() { Unknown2C->Unknown38 = (InterruptStateType)Unknown28; if (Unknown2C) { Unknown2C->Unknown_10(); } }	// (inline in 0x60F1A0: the progress display's state and redraw)  // NAME 1: neutral (D10)
-	void Unknown_Clear()								// (inline in 0x60E6A0, and 0x60FEE0's after its assert: the progress display deleted, the state and name cleared)  // NAME 1: neutral (D10)
-	{
-		if (Unknown2C) {
-			Unknown2C->Unknown_59E970();
-			delete Unknown2C;
-			Unknown2C = NULL;
-		}
-		Unknown28 = 0;
-		AbilityName = "";
-		Unknown18 = false;
-	}
-	void Unknown_Refresh();								// (inline in 0x60DF90 and 0x60F1A0: 0x60FEE0 between the owner's hide and show)  // NAME 1: neutral (D10)
+	void Unknown_Update();								// 0x60FD90 (out of line, no caller; inline in 0x60F1A0: the progress display's state and redraw)  // NAME 1: neutral (D10)
+	void Unknown_Clear();								// 0x60FDC0 (out of line, no caller; inline in 0x60E6A0, and 0x60FEE0's after its assert: the progress display deleted, the state and name cleared)  // NAME 1: neutral (D10)
+	void Unknown_Refresh();								// 0x60FD50 (out of line, no caller; inline in 0x60DF90 and 0x60F1A0: 0x60FEE0 between the owner's hide and show)  // NAME 1: neutral (D10)
 
 	UIScanClass *Owner;									// +0x00  // NAME 2: what it holds
 	std::string AbilityName;							// +0x04 (the constructor's ''; 0x60E6A0: the target's InterruptibleAbilityName or 'Unknown Skill', shown on +0x14)  // NAME 2: what it holds
@@ -77,7 +68,8 @@ public:
 	void Create_Mesh();									// (inline in 0x60D8D0: G_ASSERT '!UIMesh' l.270)  // NAME 2: what it does
 	ClientObjectClass *Peek_Object() { return(Object); }	// (inline: 0x60ED10's FAIL_IF 'object != Peek_Object()')  // NAME 3: the FAIL_IF's
 	LineDisplayClientClass *Get_Client() { return(Client); }	// (inline: 0x60F1A0's FAIL_IF '!Get_Client()', as UIFactionClass's)  // NAME 3: the FAIL_IF's
-	TargetingClass *Get_Targeting();					// (inline in 0x60E300: FAIL_IFs '!Client', '!sclient', '!ts' l.733-739)  // NAME 2: what it returns
+	TargetingClass *Get_Targeting();					// 0x60F110 (out of line, no caller; inline in 0x60E300: FAIL_IFs '!Client', '!sclient', '!ts' l.733-739)  // NAME 2: what it returns
+	SClient *Get_Space_Client();						// 0x60ECF0 (no caller: Client's As_Space_Client)  // NAME 1: what it returns
 
 	UIMeshClass *UIMesh;								// +0x188  // NAME 5: the client's asserts 'UIMesh', '!UIMesh'
 	GadgetClass *Buttons[3];							// +0x18C (the constructor's memset; [1] 'PREV_TARGET' id 6, [2] 'NEXT_TARGET' id 7)  // NAME 2: what it holds
@@ -88,17 +80,5 @@ public:
 	RefCountPtr<FontSys> ConFont;						// +0x1A8 ('MFD_CON')  // NAME 2: what it holds
 	RefCountPtr<FontSys> FactionFont;					// +0x1AC ('MFD_FACTION')  // NAME 2: what it holds
 };
-
-inline void UIScanThreatClass::Unknown_Refresh()
-{
-	bool active = Owner->Is_Active();
-	if (active) {
-		Owner->Unknown_5C();
-	}
-	Unknown_60FEE0();
-	if (active) {
-		Owner->Unknown_58();
-	}
-}
 
 #endif
