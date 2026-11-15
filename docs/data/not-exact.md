@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-868 entries in 290 files.
+870 entries in 291 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -241,6 +241,8 @@ edit the comments in the code, not this file.
 | `app/client/item/client_item_property_special_profession_requirement.cpp:102` | `ClientItemPropertySpecialProfessionRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52D900 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines) |
 | `app/client/item/client_item_property_special_race_requirement.cpp:108` | `ClientItemPropertySpecialRaceRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52E500 (register-only: the client tests and casts the found field in eax, ours copies it to ecx first; the same code, asserts and lines) |
 | `app/client/item/client_item_property_special_skill_requirement.cpp:88` | `ClientItemPropertySpecialSkillRequirementClass::Is_Usable` | marker | NOT EXACT: 0x52F010 (inline-budget: the client calls UnknownRTTIClass<DeltaItemArrayClass<DeltaSkillClass> >::Cast out of line, 0x52F990 (emitted in this object); ours inlines it; the rest, asserts and lines match) |
+| `app/client/item_timer_gauge.cpp:56` | `ItemTimerGaugeClass::ItemTimerGaugeClass` | marker | NOT EXACT (0.63, attempts.py 0x691170): register: the client stores the three zeros as immediates, ours keeps 0 in ebp 0x691170 |
+| `app/client/item_timer_gauge.cpp:99` | `ItemTimerGaugeClass::~ItemTimerGaugeClass` | mention | NOT EXACT: the client stores the three zeros as immediates and tests with test; ours keeps 0 in ebp (register class). - 0x691320 (Update, not rebuilt yet): hides the model at 0, else turns the 'timer' bone by -2 pi * the time (minutes up to 60000 ms, hours above) through Control_Bone (+0xC8) and colours TimerRObj through 0x496110 when the colour changes ((0, 0.25, 1) for hours, (0.12, 0.924, 0.012... |
 | `app/client/line2d.cpp:15` | `Line2DClass::Set` | marker | NOT EXACT: 0.64, stack layout: the client spills end.Y, the width and the angle into dead parameter slots (frame 0x58, ours 0x60) and copies the translation with integer moves |
 | `app/client/linebox.cpp:66` | `LineBoxClass::~LineBoxClass` | marker | NOT EXACT: objdiff identical with relocations, stack offsets and targets masked (explain.py: identical); objmatch does not pair it (0.80), cause not found |
 | `app/client/linebox.cpp:83` | `LineBoxClass::Render` | marker | NOT EXACT: 0.93, scheduling: the client copies -extent.Z for the lower corners later, and loads NumLines before clearing the last loop's counter |

@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 218 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1935 |
-| 2 | describes what the code does | 4891 |
+| 3 | by convention from a client-named file or sibling | 1940 |
+| 2 | describes what the code does | 4894 |
 | 1 | neutral placeholder | 24825 |
 
 ## For review (score 3 and below)
@@ -26155,6 +26155,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ClientItemPropertyTypeClass` | `app/client/item/client_item_property_type.h:23` | class-from-file (D24) for client_item_property_type.cpp, itself a NAME 2; table 0xAEE14C, 0x14 bytes |
 | 2 | `std:` | `app/client/item/client_item_property_type.h:34` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
 | 2 | `std:` | `app/client/item/client_item_property_unknown_529810.h:31` | what its callers do with it (ui_item_examination_attributes / _options / _specials.cpp make it the row's tooltip; P-L14-2) |
+| 2 | `all` | `app/client/item_timer_gauge.h:27` | what it does |
+| 2 | `TimerBone` | `app/client/item_timer_gauge.h:31` | what it holds |
+| 2 | `Last` | `app/client/item_timer_gauge.h:32` | what it holds |
 | 2 | `Line2DClass` | `app/client/line2d.h:22` | the header's name, Westwood's Class suffix (as Rect3DClass) |
 | 2 | `LineBoxClass` | `app/client/linebox.h:28` | linebox.cpp's class (the file name, Westwood's Class suffix) |
 | 2 | `Class_ID` | `app/client/linebox.h:37` | E&B's class id |
@@ -30135,6 +30138,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `icon_texture` | `app/client/item/client_item_property_icon.h:29` | the FAIL_IF's; NAME 1 [Create]: what it does |
 | 3 | `client_item_property_option.h` | `app/client/item/client_item_property_option.h:16` | the client's __FILE__ 0xB78A58 |
 | 3 | `client_item_property_special.h` | `app/client/item/client_item_property_special.h:16` | the client's __FILE__ 0xB78B68 |
+| 3 | `item_timer_gauge.h` | `app/client/item_timer_gauge.h:15` | the header of item_timer_gauge.cpp |
+| 3 | `ItemTimerGaugeClass` | `app/client/item_timer_gauge.h:22` | class-from-file (D24) for item_timer_gauge.cpp |
+| 3 | `attach` | `app/client/item_timer_gauge.h:25` | the FAIL_IF's |
+| 3 | `RObj` | `app/client/item_timer_gauge.h:29` | the FAIL_IF '!RObj' |
+| 3 | `TimerRObj` | `app/client/item_timer_gauge.h:30` | the FAIL_IF '!TimerRObj' |
 | 3 | `line2d.h` | `app/client/line2d.h:16` | the client's __FILE__ |
 | 3 | `linebox.h` | `app/client/linebox.h:19` | the header of linebox.cpp |
 | 3 | `local_interface_sort.h` | `app/client/local_interface_sort.h:17` | header name assumed from the client's local_interface_sort.cpp |
