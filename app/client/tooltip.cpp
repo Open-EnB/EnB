@@ -46,18 +46,18 @@ bool Unknown_42EC60(int button, int arg);		// 0x42EC60 (input.cpp: a button or k
 
 
 
-inline void UIViewUnknown30Class::Unknown_6ABC10()
-{
-	if (Unknown0C) {
-		Window->Remove_All(false);
-		Window->Remove_From_Scene();
-		if (CurGadget) {
-			CurGadget->Unknown2C_08 = false;
-		}
-		Unknown0C = false;
-		Unknown0D = false;
-	}
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 UIViewUnknown30Class::UIViewUnknown30Class(UIViewClass *view) :
@@ -267,18 +267,18 @@ void UIViewUnknown30Class::Unknown_6AB930(GadgetClass *gadget)
 
 // NOT EXACT: shape (0.48): the client keeps the split loop whole (width from the stack, 'lines = MAX_LINES' on the latch); VC6 peels the first pass here
 
-
-
-
-
-
-
-
-
-
-
-
-
+void UIViewUnknown30Class::Unknown_6ABC10()
+{
+	if (Unknown0C) {
+		Window->Remove_All(false);
+		Window->Remove_From_Scene();
+		if (CurGadget) {
+			CurGadget->Unknown2C_08 = false;
+		}
+		Unknown0C = false;
+		Unknown0D = false;
+	}
+}
 
 
 
