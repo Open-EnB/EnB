@@ -246,6 +246,9 @@ public:
 	void Unknown_6FED30();								// 0x6FED30 the bounding sphere from the model
 	int Unknown_6FFFA0();								// 0x6FFFA0 (client.cpp's 0x7283B0 jumps to it)
 	bool Unknown_700670(Vector3 &color);				// 0x700670 (FAIL_IF '!aux_data' l.2519): the aux data's colour for the same guild as the player's ship or another  // NAME 2 [color]: what it receives
+	int Unknown_6F4550();								// 0x6F4550 returns 0 (unreferenced in the client)  // NAME 1: return type from xor eax, eax
+	int Unknown_6F4570();								// 0x6F4570 returns -1 (unreferenced in the client)  // NAME 1: return type from or eax, -1
+	int Unknown_700800();								// 0x700800 returns 0 (unreferenced in the client)  // NAME 1: return type from xor eax, eax
 	void Unknown_700820(const Vector3 &position);		// 0x700820  // NAME 1 [position]: a Vector3
 	bool Unknown_700860();								// 0x700860
 	void Unknown_6FC880();								// 0x6FC880 stops the two sounds, removes the effect, sets the model's state 2 for a type-1 object

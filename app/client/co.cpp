@@ -2559,12 +2559,12 @@ bool ClientObjectClass::Unknown_700670(Vector3 &color)
 
 
 
-
-
-
-
-
-
+// 0x6F4550 (unreferenced in the client)
+int ClientObjectClass::Unknown_6F4550() { return(0); }
+// 0x6F4570 (unreferenced in the client)
+int ClientObjectClass::Unknown_6F4570() { return(-1); }
+// 0x700800 (unreferenced in the client)
+int ClientObjectClass::Unknown_700800() { return(0); }
 
 
 // 0x700820
