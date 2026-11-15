@@ -4,7 +4,7 @@
   "0x474080"
  ],
  "copy": "reconstructed",
- "description": "interim placement (D137): the avatar window's pull (0x585920, 0x585950, 0x5859A0) and choice (0x585C90, 0x585CC0) helpers, functional, under ui_avatr.cpp's stand-in names (CRE1)",
+ "description": "interim placement (D137): the avatar window's pull (0x585920-0x585B00: constructor, destructor, the model onto the box centre, shown / hidden, +0x0C wrapping) and choice (0x585B50-0x585FB0) helpers under ui_avatr.cpp's stand-in names (CRE1), ui_starbase.cpp's point-to-screen 0x585FD0 and the blend weights 0x5860B0; 0x585A80-0x585B00 and 0x585F30-0x585FB0 have no caller (Q3)",
  "expected": {},
  "in_tree": [
   "0x42F250",
@@ -12,12 +12,18 @@
   "0x585920",
   "0x585950",
   "0x5859A0",
+  "0x585A80",
+  "0x585AC0",
+  "0x585B00",
   "0x585B50",
   "0x585BF0",
   "0x585C90",
   "0x585CC0",
   "0x585CF0",
   "0x585D10",
+  "0x585F30",
+  "0x585F60",
+  "0x585FD0",
   "0x5860B0"
  ],
  "merged": [],
