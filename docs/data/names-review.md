@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1940 |
 | 2 | describes what the code does | 4894 |
-| 1 | neutral placeholder | 24825 |
+| 1 | neutral placeholder | 24826 |
 
 ## For review (score 3 and below)
 
@@ -6103,6 +6103,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_08` | `app/client/item/client_item_property_visitor.cpp:32` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/item/client_item_property_visitor.cpp:37` | untagged neutral name (D10) |
 | 1 | `Unknown_00` | `app/client/item/client_item_property_visitor.cpp:42` | untagged neutral name (D10) |
+| 1 | `Unknown_496110` | `app/client/item_timer_gauge.cpp:5` | untagged neutral name (D10) |
 | 1 | `Unknown6E1AB0Class` | `app/client/line2d.cpp:9` | untagged neutral name (D10) |
 | 1 | `Unknown6E1AB0Class` | `app/client/line2d.h:7` | untagged neutral name (D10) |
 | 1 | `color, from, to, width` | `app/client/line2d.h:25` | what it does with them |
