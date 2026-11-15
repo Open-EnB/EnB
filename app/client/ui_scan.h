@@ -30,6 +30,7 @@ public:
 	void Unknown_60FEE0();								// 0x60FEE0 (the scanner's 0x60E580 when the target goes; the destructor between hide and show)
 	void Unknown_Update();								// 0x60FD90 (out of line, no caller; inline in 0x60F1A0: the progress display's state and redraw)  // NAME 1: neutral (D10)
 	void Unknown_Clear();								// 0x60FDC0 (out of line, no caller; inline in 0x60E6A0, and 0x60FEE0's after its assert: the progress display deleted, the state and name cleared)  // NAME 1: neutral (D10)
+	void Unknown_Set_Sort_Level(int sort_level);		// 0x610010 (out of line, no caller; inline in 0x60E6A0: ro_funcs' 0x496730 on +0x30, dec_if_match 1)  // NAME 1 [Unknown_Set_Sort_Level, sort_level]: 0x496730's
 	void Unknown_Refresh();								// 0x60FD50 (out of line, no caller; inline in 0x60DF90 and 0x60F1A0: 0x60FEE0 between the owner's hide and show)  // NAME 1: neutral (D10)
 
 	UIScanClass *Owner;									// +0x00  // NAME 2: what it holds

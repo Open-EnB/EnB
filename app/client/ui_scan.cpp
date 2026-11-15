@@ -578,7 +578,7 @@ void UIScanClass::Unknown_60E6A0(ClientObjectClass *object)
 			UIMesh->Peek_Mesh_Object()->Add_Sub_Object_To_Bone(InterruptInfo->Unknown30.Peek(), "BONE_INTER");
 			InterruptInfo->Unknown_Clear();
 			InterruptInfo->Unknown2C = new Unknown59E2C0Class(InterruptInfo->Unknown30.Peek(), &Layer, this, object, -1);
-			Unknown_496730(InterruptInfo->Unknown30.Peek(), 8, 1);
+			InterruptInfo->Unknown_Set_Sort_Level(8);
 		}
 	}
 	if (InterruptInfo->Unknown30) {
@@ -1064,6 +1064,12 @@ void UIScanThreatClass::Unknown_60FEE0()
 	}
 }
 #pragma auto_inline(on)
+
+// @0x610010
+void UIScanThreatClass::Unknown_Set_Sort_Level(int sort_level)
+{
+	Unknown_496730(Unknown30.Peek(), sort_level, 1);
+}
 
 /*
 **	Notes (WE9, 2026-11-07)
