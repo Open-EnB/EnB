@@ -2031,7 +2031,7 @@ void CordCon::Set_Header_CRC(unsigned char *data, int len)
 
 // 0x854FC0
 bool CordCon::buildMsgHeader(unsigned char *out, int *len, int size, int channel, unsigned int seq,
-	unsigned char frag, char flags)
+	int frag, int flags)
 {
 	WWPROFILE("CordCon::buildMsgHeader");
 	int pos, n;
