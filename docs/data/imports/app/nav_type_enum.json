@@ -1,0 +1,12 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "client 0x846A50-0x846B60 (__FILE__ 0xBAF6F8 e:\\\\build\\\\beta\\\\G\\\\app\\\\common\\\\nav_type_enum.cpp; FAIL_IF lines 73-74): NavType enum name and string conversion helpers",
+ "expected": {},
+ "in_tree": [
+  "0x846A70",
+  "0x846AE0"
+ ],
+ "merged": [],
+ "name": "common/nav_type_enum.cpp"
+}
