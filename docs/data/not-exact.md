@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-868 entries in 298 files.
+869 entries in 298 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -286,6 +286,7 @@ edit the comments in the code, not this file.
 | `app/client/radar_system_data_cache.cpp:157` | `RadarSystemDataCacheClass::Get_Is_In_Range` | marker | NOT EXACT: order (the client's always-in-range path returns on its own, before the distance test; ours shares the tail) @0x7BE3A0 |
 | `app/client/sbaseview.cpp:413` | `SBaseViewClass::Unknown_69D030` | marker | NOT EXACT: literal (explain.py; 0.87): Rotate_Z's first row multiplies c * x before s * y in the client |
 | `app/client/sbaseview.cpp:1242` | `SBaseViewClass::Unknown_6A0590` | marker | NOT EXACT: frame (0.72): the frame slots (the matrix rows, the cross products' temporaries) and the rotation's row order (the client computes Z, Y, X) |
+| `app/client/sbaseview.cpp:1387` | `SBaseViewClass::Unknown_6A1180` | marker | NOT EXACT: register-only (D89, explain.py): one sub's operands swapped since Starbase / +0x64 became RefCountPtr<Unknown5BB320Class> (D240 entry) 0x6A1180: the frame rate kept; the client's debug pages (Unknown14EC 4: memory, as frameint.cpp's; 1: the frame rate), its audio page, and its text rendered and reset (0x69C5E0 calls it before End_Render) |
 | `app/client/sclient.cpp:406` | `SClient::Init` | marker | NOT EXACT: field offset (explain.py; 103 masked rows): the client keeps the options base (+0x1150) in a register from the Bridge_Mode branch and reads the camera mode through it, and its frame is 4 bytes larger; one form (attempts.py show 0x741180) 0x741180 |
 | `app/client/sclient.cpp:512` | `SClient::Shutdown` | marker | NOT EXACT: inline budget (similarity 0.73): +0x1334 / +0x1338 inlined as the client's (the decal views' real members), 0x7555B0 out of line; left: the client inlines the +0x133C asset's destructor in the vector loop where ours calls its scalar deleting destructor (budget: freed only by dropping two whole deletes), and register phase (eax / edx) in the view calls; 14 forms (attempts.py show 0x741BB... |
 | `app/client/sclient.cpp:730` | `SClient::Unknown_744D80` | marker | NOT EXACT: order (0.95): the client stores Unknown12B0 before Unknown12B4 and pushes the heading before taking the mode's address; 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out) |

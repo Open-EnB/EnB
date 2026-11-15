@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1961 |
 | 2 | describes what the code does | 4958 |
-| 1 | neutral placeholder | 25089 |
+| 1 | neutral placeholder | 25087 |
 
 ## For review (score 3 and below)
 
@@ -6138,7 +6138,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Width` | `app/client/linebox.h:58` | what Render does with it |
 | 1 | `MinSize` | `app/client/linebox.h:59` | what Render does with it |
 | 1 | `Unknown_BE67C4` | `app/client/loadingview.cpp:15` | neutral (D10) |
-| 1 | `Unknown7B3E30Class` | `app/client/loadingview.cpp:25` | untagged neutral name (D10) |
 | 1 | `Unknown65B810ViewClass` | `app/client/loadingview.cpp:46` | untagged neutral name (D10) |
 | 1 | `Unknown50` | `app/client/loadingview.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown54` | `app/client/loadingview.cpp:48` | untagged neutral name (D10) |
@@ -7197,6 +7196,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_1134` | `app/client/sbaseview.cpp:289` | neutral (D10) |
 | 1 | `Unknown1134` | `app/client/sbaseview.cpp:289` | untagged neutral name (D10) |
 | 1 | `Unknown_84` | `app/client/sbaseview.cpp:290` | neutral (D10) |
+| 1 | `Unknown5BB320Class` | `app/client/sbaseview.cpp:290` | untagged neutral name (D10) |
 | 1 | `Unknown_14` | `app/client/sbaseview.cpp:294` | untagged neutral name (D10) |
 | 1 | `Unknown_64CF90` | `app/client/sbaseview.cpp:298` | untagged neutral name (D10) |
 | 1 | `Unknown_639030` | `app/client/sbaseview.cpp:301` | untagged neutral name (D10) |
@@ -7482,7 +7482,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_641B00` | `app/client/sbaseview.h:318` | untagged neutral name (D10) |
 | 1 | `Unknown_641B70` | `app/client/sbaseview.h:318` | untagged neutral name (D10) |
 | 1 | `SBaseViewUnknown184Class` | `app/client/sbaseview.h:325` | neutral (D10): the starbase view's +0x184 (0x69F8F0 case 5: 0x5EB810, 0xB08 bytes; 'TSM03A')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
-| 1 | `Unknown84` | `app/client/sbaseview.h:325` | untagged neutral name (D10) |
+| 1 | `Unknown` | `app/client/sbaseview.h:325` | untagged neutral name (D10) |
 | 1 | `SBaseViewUnknown188Class` | `app/client/sbaseview.h:326` | neutral (D10): the starbase view's +0x188 (0x69F8F0 case 6: 0x5435D0, 0x11C bytes; 'FA_TSM02A.INI')  // NAME 1 [view, layer]: what 0x69F8F0 passes |
 | 1 | `SBaseViewUnknown198Class` | `app/client/sbaseview.h:327` | neutral (D10): the starbase view's +0x198 (0x69F8F0 case 9: 0x65A020, 0xB8 bytes; 'JWEB00')  // NAME 1 [client]: what 0x69F8F0 passes |
 | 1 | `Unknown761C80Class` | `app/client/sbaseview.h:347` | untagged neutral name (D10) |
@@ -7581,6 +7581,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown78` | `app/client/sbaseview.h:450` | untagged neutral name (D10) |
 | 1 | `Unknown7C` | `app/client/sbaseview.h:451` | untagged neutral name (D10) |
 | 1 | `Unknown80` | `app/client/sbaseview.h:452` | untagged neutral name (D10) |
+| 1 | `Unknown84` | `app/client/sbaseview.h:453` | untagged neutral name (D10) |
 | 1 | `UnknownB4` | `app/client/sbaseview.h:454` | untagged neutral name (D10) |
 | 1 | `UnknownE4` | `app/client/sbaseview.h:455` | untagged neutral name (D10) |
 | 1 | `UnknownE8` | `app/client/sbaseview.h:456` | untagged neutral name (D10) |
@@ -8212,7 +8213,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1DC` | `app/client/sclient.h:697` | untagged neutral name (D10) |
 | 1 | `Unknown1E0` | `app/client/sclient.h:698` | untagged neutral name (D10) |
 | 1 | `Unknown1E4` | `app/client/sclient.h:699` | untagged neutral name (D10) |
-| 1 | `Unknown7B3E30Class` | `app/client/sclient.h:704` | neutral (D10): the 0xFC-byte render object of the loading view's +0x64 (constructor 0x7B3E30; loadingview.cpp) |
 | 1 | `source_sector, source_system, name, system` | `app/client/sclient.h:714` | the packet's fields |
 | 1 | `Unknown_691830` | `app/client/sclient.h:714` | untagged neutral name (D10) |
 | 1 | `Unknown_692330` | `app/client/sclient.h:715` | untagged neutral name (D10) |
@@ -15717,20 +15717,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_5D5F00` | `app/client/ui_petition_player.cpp:138` | untagged neutral name (D10) |
 | 1 | `Unknown_40` | `app/client/ui_petition_player.cpp:155` | untagged neutral name (D10) |
 | 1 | `ui_petition_player.h` | `app/client/ui_petition_player.h:4` | provisional header name |
-| 1 | `UIPetitionPlayerClass` | `app/client/ui_petition_player.h:12` | neutral, after its tooltips' section 'UI_PETITION_PLAYER' |
-| 1 | `client` | `app/client/ui_petition_player.h:15` | ChatPanelUIBase's |
-| 1 | `Unknown_54` | `app/client/ui_petition_player.h:17` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_petition_player.h:18` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_petition_player.h:19` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_petition_player.h:20` | untagged neutral name (D10) |
-| 1 | `Unknown_64` | `app/client/ui_petition_player.h:21` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/ui_petition_player.h:22` | InterfaceClass's |
-| 1 | `Unknown_68` | `app/client/ui_petition_player.h:22` | untagged neutral name (D10) |
-| 1 | `view, arg` | `app/client/ui_petition_player.h:23` | intrface.h's |
-| 1 | `Unknown_7C` | `app/client/ui_petition_player.h:23` | untagged neutral name (D10) |
-| 1 | `key` | `app/client/ui_petition_player.h:24` | Unknown_68's |
-| 1 | `Unknown_5D5F00` | `app/client/ui_petition_player.h:24` | untagged neutral name (D10) |
-| 1 | `Unknown_5D5F40` | `app/client/ui_petition_player.h:25` | untagged neutral name (D10) |
+| 1 | `UIPetitionPlayerClass` | `app/client/ui_petition_player.h:14` | neutral, after its tooltips' section 'UI_PETITION_PLAYER' |
+| 1 | `client` | `app/client/ui_petition_player.h:17` | ChatPanelUIBase's |
+| 1 | `Unknown_54` | `app/client/ui_petition_player.h:19` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_petition_player.h:20` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_petition_player.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_petition_player.h:22` | untagged neutral name (D10) |
+| 1 | `Unknown_64` | `app/client/ui_petition_player.h:23` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_petition_player.h:24` | InterfaceClass's |
+| 1 | `Unknown_68` | `app/client/ui_petition_player.h:24` | untagged neutral name (D10) |
+| 1 | `view, arg` | `app/client/ui_petition_player.h:25` | intrface.h's |
+| 1 | `Unknown_7C` | `app/client/ui_petition_player.h:25` | untagged neutral name (D10) |
+| 1 | `key` | `app/client/ui_petition_player.h:26` | Unknown_68's |
+| 1 | `Unknown_5D5F00` | `app/client/ui_petition_player.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown_5D5F40` | `app/client/ui_petition_player.h:27` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C9C` | `app/client/ui_petition_player_entry.cpp:17` | neutral (D10) |
 | 1 | `Unknown0B8` | `app/client/ui_petition_player_entry.cpp:22` | untagged neutral name (D10) |
 | 1 | `Unknown_54` | `app/client/ui_petition_player_entry.cpp:33` | untagged neutral name (D10) |
@@ -16360,8 +16360,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `a, b` | `app/client/ui_ptrade.cpp:37` | neutral |
 | 1 | `a, b` | `app/client/ui_ptrade.cpp:38` | neutral |
 | 1 | `Unknown_BE67C4` | `app/client/ui_ptrade.cpp:40` | 0xBE67C4 |
-| 1 | `UIPTradeAvatarClass` | `app/client/ui_ptrade.cpp:43` | neutral (D10) |
-| 1 | `Unknown` | `app/client/ui_ptrade.cpp:43` | untagged neutral name (D10) |
 | 1 | `Unknown5BB320Class` | `app/client/ui_ptrade.cpp:57` | untagged neutral name (D10) |
 | 1 | `Unknown0D8` | `app/client/ui_ptrade.cpp:61` | untagged neutral name (D10) |
 | 1 | `Unknown0DC` | `app/client/ui_ptrade.cpp:62` | untagged neutral name (D10) |
@@ -27554,8 +27552,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Slider` | `app/client/ui_petition_entry.h:44` | what it is |
 | 2 | `DetailsEditor` | `app/client/ui_petition_entry.h:46` | its tooltip |
 | 2 | `Pending` | `app/client/ui_petition_entry.h:48` | what it holds |
-| 2 | `Page` | `app/client/ui_petition_player.h:27` | what it holds |
-| 2 | `Buttons` | `app/client/ui_petition_player.h:28` | what they are |
+| 2 | `Page` | `app/client/ui_petition_player.h:29` | what it holds |
+| 2 | `Buttons` | `app/client/ui_petition_player.h:30` | what they are |
 | 2 | `ExitButton` | `app/client/ui_popup_browser.h:23` | its model's name |
 | 2 | `Sound` | `app/client/ui_power.cpp:24` | what the warning's name takes |
 | 2 | `EnergyGauge` | `app/client/ui_power.h:31` | its tooltip |
