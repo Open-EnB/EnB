@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1961 |
 | 2 | describes what the code does | 4957 |
-| 1 | neutral placeholder | 25095 |
+| 1 | neutral placeholder | 25097 |
 
 ## For review (score 3 and below)
 
@@ -9568,13 +9568,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown114` | `app/client/starmap_pip_support.cpp:10` | untagged neutral name (D10) |
 | 1 | `Unknown_7C3C60` | `app/client/starmap_pip_support.cpp:154` | untagged neutral name (D10) |
 | 1 | `Unknown_7C3CA0` | `app/client/starmap_pip_support.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown_466920Class` | `app/client/starmap_pip_support.h:26` | neutral (D10): its file is not known |
-| 1 | `Unknown_In_Scene` | `app/client/starmap_pip_support.h:34` | what it returns |
-| 1 | `arg1, arg2` | `app/client/starmap_pip_support.h:45` | neutral |
-| 1 | `Unknown_7C3C60` | `app/client/starmap_pip_support.h:45` | untagged neutral name (D10) |
-| 1 | `Unknown_7C3CA0` | `app/client/starmap_pip_support.h:46` | untagged neutral name (D10) |
-| 1 | `Unknown10C` | `app/client/starmap_pip_support.h:48` | untagged neutral name (D10) |
-| 1 | `Unknown114` | `app/client/starmap_pip_support.h:49` | untagged neutral name (D10) |
+| 1 | `Unknown_466920Class` | `app/client/starmap_pip_support.h:23` | untagged neutral name (D10) |
+| 1 | `arg1, arg2` | `app/client/starmap_pip_support.h:29` | neutral |
+| 1 | `Unknown_7C3C60` | `app/client/starmap_pip_support.h:29` | untagged neutral name (D10) |
+| 1 | `Unknown_7C3CA0` | `app/client/starmap_pip_support.h:30` | untagged neutral name (D10) |
+| 1 | `Unknown10C` | `app/client/starmap_pip_support.h:32` | untagged neutral name (D10) |
+| 1 | `Unknown114` | `app/client/starmap_pip_support.h:33` | untagged neutral name (D10) |
 | 1 | `Unknown_70B3D0` | `app/client/target_find.cpp:14` | untagged neutral name (D10) |
 | 1 | `Unknown_Find_Field` | `app/client/target_find.cpp:183` | untagged neutral name (D10) |
 | 1 | `Unknown70` | `app/client/target_find.cpp:184` | untagged neutral name (D10) |
@@ -24668,6 +24667,10 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_45FB40` | `app/shared/unknown_45f390.h:29` | neutral (D10) |
 | 1 | `SoundName` | `app/shared/unknown_45f390.h:31` | rs.ini's SOUND |
 | 1 | `Unknown38` | `app/shared/unknown_45f390.h:33` | neutral (D10) |
+| 1 | `Unknown_466920Class` | `app/shared/unknown_466920.cpp:7` | untagged neutral name (D10) |
+| 1 | `unknown_466920.h` | `app/shared/unknown_466920.h:14` | neutral (D10): the client's file is not known |
+| 1 | `Unknown_466920Class` | `app/shared/unknown_466920.h:20` | neutral (D10): its file is not known |
+| 1 | `Unknown_In_Scene` | `app/shared/unknown_466920.h:30` | what it returns |
 | 1 | `Unknown_BDC0D8` | `app/shared/unknown_46c730.cpp:45` | unknown |
 | 1 | `LandUnknown466BE0Class` | `app/shared/unknown_46c730.cpp:45` | untagged neutral name (D10) |
 | 1 | `LandClass::Lightmap_Thread` | `app/shared/unknown_46c730.cpp:46` | unknown; deletes a global object (0xBDC0D8) and clears it; called by the land's dtor only |
@@ -24892,7 +24895,6 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6F5090` | `programs/clientpoc/poc_world2.cpp:64` | untagged neutral name (D10) |
 | 1 | `Unknown8CClass` | `programs/clientpoc/poc_world2.cpp:82` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `programs/clientpoc/poc_world2.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown_466920Class` | `programs/clientpoc/poc_world4.cpp:31` | untagged neutral name (D10) |
 | 1 | `DeltaUnknownGlobal` | `stubs/app_stubs.cpp:46` | untagged neutral name (D10) |
 | 1 | `UnknownGlobal` | `stubs/app_stubs.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown_BDB1C0` | `stubs/app_stubs.cpp:84` | untagged neutral name (D10) |
@@ -27094,8 +27096,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `ShowCoords` | `app/client/starmap_pip.h:127` | the option's |
 | 2 | `Label` | `app/client/starmap_pip.h:130` | the option's |
 | 2 | `std:` | `app/client/starmap_pip.h:131` | what it holds |
-| 2 | `SortLevel` | `app/client/starmap_pip_support.h:36` | Get_Sort_Level's |
-| 2 | `total_range` | `app/client/starmap_pip_support.h:46` | the FAIL_IF's  // NAME 1 [arg1, arg2, arg3]: neutral |
+| 2 | `total_range` | `app/client/starmap_pip_support.h:30` | the FAIL_IF's  // NAME 1 [arg1, arg2, arg3]: neutral |
 | 2 | `TARGET_FIND_AVATAR` | `app/client/target_find.h:24` | Type == 1 |
 | 2 | `TARGET_FIND_NOT_AVATAR` | `app/client/target_find.h:25` | Type != 1, no navigation data, not Neutral's type |
 | 2 | `TARGET_FIND_NAVIGATION` | `app/client/target_find.h:26` | has navigation data (Get_Navigation_Data) |
@@ -29842,6 +29843,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `name, proto` | `app/shared/unknown_45e3f0.cpp:25` | the base's / Get_Name's; NAME 1 [owned]: neutral |
 | 2 | `Name` | `app/shared/unknown_45e3f0.cpp:30` | Get_Name's |
 | 2 | `Sound` | `app/shared/unknown_45f390.h:32` | Play_3D_Sound's |
+| 2 | `SortLevel` | `app/shared/unknown_466920.h:32` | Get_Sort_Level's |
 | 2 | `LandDirectionX` | `app/shared/unknown_46c730.cpp:383` | the eight compass directions' unit vectors x (1 - 1/sqrt 2) mixes, per direction (0xAE97BC, 0xAE97DC) |
 | 2 | `Pack_Slope8` | `app/shared/unknown_46c730.cpp:387` | a horizon slope as the high bits of its float, saturating, and back (0x46EE60 / 0x46EEB0: 8 bits; 0x46EEE0 / 0x46EF30: |
 | 2 | `LandHorizonTable` | `app/shared/unknown_46c730.cpp:425` | per direction and per horizon angle step (256), the sky area term and the sun term (0xBDC0E8) |
@@ -30705,7 +30707,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `WarpPath` | `app/client/starmap_pip.h:118` | 0x7C0EE0's FAIL_IF |
 | 3 | `MouseTarget` | `app/client/starmap_pip.h:121` | 0x7C0440's FAIL_IF 'MouseTarget' |
 | 3 | `starmap_pip_support.h` | `app/client/starmap_pip_support.h:16` | header name assumed from the client's starmap_pip_support.cpp |
-| 3 | `StarmapPipSupportClass` | `app/client/starmap_pip_support.h:39` | class-from-file (D24) for app\client\starmap_pip_support.cpp |
+| 3 | `StarmapPipSupportClass` | `app/client/starmap_pip_support.h:23` | class-from-file (D24) for app\client\starmap_pip_support.cpp |
 | 3 | `target_find.h` | `app/client/target_find.h:9` | header name assumed from the client's target_find.cpp |
 | 3 | `TargetFindClass` | `app/client/target_find.h:47` | class-from-file (D24) for target_find.cpp |
 | 3 | `idx` | `app/client/target_find.h:66` | the FAIL_IF's  // NAME 2: what it does |

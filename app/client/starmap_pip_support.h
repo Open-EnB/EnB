@@ -18,23 +18,7 @@
 
 #include "always.h"
 #include "vector2.h"
-#include "..\..\ww3d2\line3d.h"
-
-// A Line3DClass with a sort level: constructor 0x466920 (the object around 0x4669A0-0x466B70 is not in the tree yet),
-// table 0xAE8754, copy constructor 0x4669F0, Clone 0x466A80, Render 0x466B20, 0x10C bytes. 0x7B99C0 makes them as well.
-// PLACEMENT: provisional (D137): the client's file for 0x466920 is unknown; move it there when that file comes in
-class Unknown_466920Class : public Line3DClass  // NAME 1: neutral (D10): its file is not known
-{
-public:
-	Unknown_466920Class(const Vector3 &start, const Vector3 &end, float width, float r, float g, float b, float opacity);	// 0x466920
-	virtual RenderObjClass *Clone() const;				// 0x466A80
-	virtual void Render(RenderInfoClass &rinfo);		// 0x466B20
-	virtual int Get_Sort_Level() const { return SortLevel; }	// 0x466BA0
-	virtual void Set_Sort_Level(int level) { SortLevel = level; }	// 0x466BC0
-	bool Unknown_In_Scene() { return(Scene != NULL); }	// (inline: nav_list_line_draw.cpp's 0x7B9CD0 reads +0x7C)  // NAME 1: what it returns
-
-	int SortLevel;										// +0x108 (0x466B20: the static sort list's level)  // NAME 2: Get_Sort_Level's
-};
+#include "..\shared\unknown_466920.h"	// Unknown_466920Class (constructor 0x466920)
 
 class StarmapPipSupportClass : public Unknown_466920Class  // NAME 3: class-from-file (D24) for app\client\starmap_pip_support.cpp
 {
