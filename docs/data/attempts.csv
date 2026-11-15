@@ -3394,3 +3394,4 @@ date,address,symbol,file,library,status,score,forms,blocker,evidence,stash,model
 2026-11-15 12:48,0x5437C0,UIAnalyzeClass::~UIAnalyzeClass,app/client/ui_analyze.cpp,app,exact,,1,,JD: if (Unknown0FC[i]) Unknown0FC[i] = NULL;,,claude-opus-5-5
 2026-11-15 12:48,0x7ED6C0,MeshSoundClass::Unknown_7ED6C0,app/client/meshsnd.cpp,app,exact,,5,,"JD: nested frame tests with a goto into the else's Playing test (the client's je at +0x68); an else-if on frame >= StartFrame || EndFrame != -1.0, duplicated stop blocks, flags, a split || : no",,claude-opus-5-5
 2026-11-15 12:48,0x5B7430,UIManuUnknownC0Class::~UIManuUnknownC0Class,app/client/ui_manu_util.cpp,app,exact,,1,,JD: Unknown14[i] cleared inside its NULL test (not REF_PTR_RELEASE),,claude-opus-5-5
+2026-11-15 13:22,0x674690,Unknown_AFB77CClass::~Unknown_AFB77CClass,app/client/gd_uiback.cpp,app,exact,,1,,JD: a user-declared empty destructor (the client stores the own table 0xAFB77C first),,claude-opus-5-5

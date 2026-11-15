@@ -56,7 +56,7 @@ UIBackGadget::UIBackGadget(const RefCountPtr<RenderObjClass> &model) : Unknown_6
 // @0x6742F0
 UIBackGadget::~UIBackGadget() {}
 class Unknown_AFB77CClass : public Unknown_AFB794Class { public:	// NAME 1: neutral (D10): the target over a model (table 0xAFB77C); NAME 3 [render_object]: 0x6744E0's FAIL_IF; NAME 1 [position, Object]: neutral
-	Unknown_AFB77CClass(const RefCountPtr<RenderObjClass> &render_object) : Object(render_object) {}
+	Unknown_AFB77CClass(const RefCountPtr<RenderObjClass> &render_object) : Object(render_object) {} ~Unknown_AFB77CClass() {}
 	virtual void Set_Position(const Vector3 &position) { Object->Set_Position(position); } virtual Vector3 Get_Position() { return(Object->Get_Position()); } virtual RenderObjClass *Peek_Object() { return(Object.Peek()); }
 	RefCountPtr<RenderObjClass> Object; };
 // @0x6744E0
@@ -240,4 +240,6 @@ bool BoundedUIBackGadget::Unknown_30(float x, float y)
 **	place in .text says nothing of its place in the source.
 **
 **	The rest of the object: RefCountPtr<Unknown_AFB77CClass>'s Create_NEW 0x674F00 and destructor 0x674F30, and the initialiser.
+**	JD (2026-11-15): Unknown_AFB77CClass declares an empty destructor: the client's 0x674690 stores the class's own table
+**	0xAFB77C first, which the implicit one does not.
 */
