@@ -41,7 +41,7 @@ public:
 
 extern FontManagerClass *Unknown_BE67C4;				// NAME 1: neutral (D10)
 #include "..\shared\unknown_4a1590.h"
-void Unknown_42EB20();									// 0x42EB20  // NAME 1: neutral (D10)
+#include "..\input\input.h"	// Unknown_42EB20 (0x42EB20)
 
 #include "control_key_list.h"	// ControlKeyListClass: InterfaceClass +0x4C (Add 0x721E60, Remove 0x721EF0), keyed by kernel.h's KernelEventClass
 
