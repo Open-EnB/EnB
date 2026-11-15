@@ -2491,15 +2491,15 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown714B50Class` | `app/client/cpacket.cpp:337` | untagged neutral name (D10) |
 | 1 | `Unknown_714D50` | `app/client/cpacket.cpp:343` | untagged neutral name (D10) |
 | 1 | `Unknown_3C` | `app/client/cpacket.cpp:345` | untagged neutral name (D10) |
+| 1 | `Lag_Add` | `app/client/cpacket.cpp:372` | neutral (D10); the references keep VC6 from reusing +0x10CC's conversion and the count, as the client |
 | 1 | `Unknown10C0` | `app/client/cpacket.cpp:380` | untagged neutral name (D10) |
 | 1 | `Unknown10BC` | `app/client/cpacket.cpp:381` | untagged neutral name (D10) |
-| 1 | `Unknown10D0` | `app/client/cpacket.cpp:381` | untagged neutral name (D10) |
 | 1 | `Unknown10C8` | `app/client/cpacket.cpp:382` | untagged neutral name (D10) |
+| 1 | `Unknown10D0` | `app/client/cpacket.cpp:382` | untagged neutral name (D10) |
 | 1 | `Unknown10CC` | `app/client/cpacket.cpp:382` | untagged neutral name (D10) |
 | 1 | `Unknown_728180` | `app/client/cpacket.cpp:384` | untagged neutral name (D10) |
 | 1 | `Unknown715AB0Class` | `app/client/cpacket.cpp:389` | untagged neutral name (D10) |
 | 1 | `Unknown_715C20` | `app/client/cpacket.cpp:395` | untagged neutral name (D10) |
-| 1 | `Unknown_Lag_Average` | `app/client/cpacket.cpp:401` | neutral (D10) |
 | 1 | `requests` | `app/client/cpacket.cpp:419` | what it counts |
 | 1 | `Unknown717010Class` | `app/client/cpacket.cpp:425` | untagged neutral name (D10) |
 | 1 | `Unknown_717290` | `app/client/cpacket.cpp:425` | untagged neutral name (D10) |

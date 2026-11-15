@@ -369,8 +369,8 @@ bool ConstantPositionalUpdatePacketClass::Process_Packet(void *instance)
 
 
 
+static inline void Lag_Add(float &avg, int &count, int &window, float delta) { count++; avg = avg - avg / window + delta; }	// NAME 1: neutral (D10); the references keep VC6 from reusing +0x10CC's conversion and the count, as the client
 
-// NOT EXACT: shape (the Is_Valid chain is the client's now; left: the clock drift's divisor converted once and the count kept in ecx, where the client converts +0x10CC again and rereads +0x10D0; attempts.py show 0x733DC0)
 // 0x733DC0
 bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -378,8 +378,8 @@ bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && Velocity.Is_Valid())) return(true);
 	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
-	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp); sclient->Unknown10D0++;
-	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
+	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp);
+	Lag_Add(sclient->Unknown10C8, sclient->Unknown10D0, sclient->Unknown10CC, delta);
 	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
 		sclient->Unknown_728180();
 	}
@@ -397,10 +397,10 @@ bool SimplePositionalUpdatePacketClass::Process_Packet(void *instance)
 	}
 	return(true);
 }
-// the lag average (+0x10C8 over +0x10CC): ADVANCED 62 recomputes it after the update, as the client does
-static inline float Unknown_Lag_Average(SClient *sclient) { return(sclient->Unknown10C8 / sclient->Unknown10CC); }	// NAME 1: neutral (D10)
 
-// NOT EXACT: shape (the lag average's divisor converted once, the state pointer not in ebp; the Is_Valid chain and size are the client's; attempts.py show 0x734130)
+
+
+// NOT EXACT: register (the clock drift is the client's through Lag_Add; left: the client loads object->Unknown98 into ebp before the three state calls (0x7343CA, 0x734458, 0x7344DB), ours into ecx; cast locals there change the Is_Valid chain's inline budget; attempts.py show 0x734130)
 // 0x734130
 bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 {
@@ -408,9 +408,9 @@ bool AdvancedPositionalUpdatePacketClass::Process_Packet(void *instance)
 	SClient *sclient = (SClient *)instance;
 	FAIL_IF(!(Position.Is_Valid() && Orientation.Is_Valid() && WWMath::Is_Valid_Float(CurrentSpeed) && ImpartedVelocity.Is_Valid())) return(true);
 	TimeStamp = (DurationClass(TimeStamp) - sclient->Unknown10C0).Get();
-	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp); sclient->Unknown10D0++;
-	sclient->Unknown10C8 = sclient->Unknown10C8 - sclient->Unknown10C8 / sclient->Unknown10CC + delta;
-	if (fabs(Unknown_Lag_Average(sclient)) > 50.0 && sclient->Unknown10D0 > 64) {
+	float delta = (float)(int)(sclient->Unknown10BC - TimeStamp);
+	Lag_Add(sclient->Unknown10C8, sclient->Unknown10D0, sclient->Unknown10CC, delta);
+	if (fabs(sclient->Unknown10C8 / sclient->Unknown10CC) > 50.0 && sclient->Unknown10D0 > 64) {
 		sclient->Unknown_728180();
 	}
 	ClientObjectClass *object = sclient->Find_Object(GameID);

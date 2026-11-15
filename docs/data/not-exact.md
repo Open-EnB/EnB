@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-886 entries in 299 files.
+885 entries in 299 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -96,8 +96,7 @@ edit the comments in the code, not this file.
 | `app/client/co_subtypes.cpp:169` | `Unknown70E5A0Class::Unknown_20` | mention | NOT EXACT (shape): Inverse_Transform_Vector gives the client's subtractions from memory, but its frame holds more temporaries (0x128 bytes against our 0xFC) and the inverse rotation's terms come in another order (attempts.py show 0x70E850 lists the forms tried). |
 | `app/client/control_keys_manager.cpp:375` | `ControlKeysManager::Load_Definitions` | marker | NOT EXACT: inline budget, 25 rows: the client calls the first First_Valid 0x71BCC0 out of line and inlines the last KeyMappingStruct() temporary's array constructor, ours the reverse; frame 0x3e0 for 0x3dc (attempts.csv) |
 | `app/client/cpacket.cpp:128` | `StartPacketClass::Process_Packet` | marker | NOT EXACT: register-only (the client loads PlayerID for START_ACK into eax before the temporary's lea and stores the EH state after the push; attempts.py show 0x733440) 0x733440 (placed here, out of address order, so that no assert line moves) |
-| `app/client/cpacket.cpp:373` | `SimplePositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the Is_Valid chain is the client's now; left: the clock drift's divisor converted once and the count kept in ecx, where the client converts +0x10CC again and rereads +0x10D0; attempts.py show 0x733DC0) 0x733DC0 |
-| `app/client/cpacket.cpp:403` | `AdvancedPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: shape (the lag average's divisor converted once, the state pointer not in ebp; the Is_Valid chain and size are the client's; attempts.py show 0x734130) 0x734130 |
+| `app/client/cpacket.cpp:403` | `AdvancedPositionalUpdatePacketClass::Process_Packet` | marker | NOT EXACT: register (the clock drift is the client's through Lag_Add; left: the client loads object->Unknown98 into ebp before the three state calls (0x7343CA, 0x734458, 0x7344DB), ours into ecx; cast locals there change the Is_Valid chain's inline budget; attempts.py show 0x734130) 0x734130 |
 | `app/client/cpacket.cpp:1341` | `SetClientTimePacketClass::Process_Packet` | marker | NOT EXACT: shape (the __int64 sums and differences in other registers and order; frame and size as the client's; attempts.py show 0x737960) 0x737960 (placed after SPLINE 0x737C10 so that no assert line moves) |
 | `app/client/cpacket.cpp:2488` | `ClientChatEventPacketClass::Process_Packet` | marker | NOT EXACT: inline-budget (1,638 instructions vs the client's 1,615: the client calls std::string's range constructor 0x73F680 out of line and inlines other std::string members elsewhere; frame 0x568 vs 0x558; attempts.py show 0x73B150) 0x73B150 |
 | `app/client/cpacket.cpp:2845` | `ClientChatListPacketClass::Process_Packet` | marker | NOT EXACT: shape (the cases' early returns: the client jumps from each to the one exit, ours repeats the profile tail per case; the profile flag in al, sclient in ebx; attempts.py show 0x73CC90) 0x73CC90 |
