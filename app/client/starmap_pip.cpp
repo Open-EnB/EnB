@@ -965,7 +965,7 @@ void StarmapPipClass::Unknown_7C1510(bool arg)
 
 
 
-// NOT EXACT: stack (the client keeps diff at +0x24 and t at +0x1C, the other way round: 0.88)
+
 
 #pragma auto_inline(off)
 // @0x7C1770
@@ -1009,7 +1009,7 @@ void StarmapPipClass::Unknown_7C1770(float x, float y)
 		Vector2 diff = range - min;
 		Vector2 t((x - Unknown74.X) / MapRange_ws.X, (Unknown7C.Y - y) / MapRange_ws.Y);
 		Unknown48->Unknown_7C3CA0(range.X, min.X, diff.X * t.X, true);
-		Unknown4C->Unknown_7C3CA0(range.Y, min.Y, t.Y * diff.Y, false);
+		Unknown4C->Unknown_7C3CA0(range.Y, min.Y, diff.Y * t.Y, false);
 	}
 }
 #pragma auto_inline(on)
@@ -1455,10 +1455,10 @@ void Unknown_7C3220Class::Unknown_7C3A90(int left, int top, int right, int botto
 **
 **	Exact: 0x7BF870, 0x7BF8A0, 0x7BF8D0, 0x7BF900, 0x7BF930, 0x7BFF20, 0x7C01C0, 0x7C0240, 0x7C0330, 0x7C0620, 0x7C0910,
 **	0x7C0AF0, 0x7C0BC0, 0x7C0D40, 0x7C0D70, 0x7C0EA0, 0x7C0EE0, 0x7C0FA0, 0x7C1060, 0x7C10D0, 0x7C1120, 0x7C1200, 0x7C1280,
-**	0x7C1350, 0x7C1510, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C1C50, 0x7C2280, 0x7C2340, 0x7C25B0, 0x7C2D30, 0x7C3220, 0x7C3720,
+**	0x7C1350, 0x7C1510, 0x7C1770, 0x7C1A90, 0x7C1B70, 0x7C1C30, 0x7C1C50, 0x7C2280, 0x7C2340, 0x7C25B0, 0x7C2D30, 0x7C3220, 0x7C3720,
 **	0x7C3830, 0x7C3A90. NOT EXACT (D64, functional; attempts.csv): 0x7C0260 (MapPipClass's slot +0x20 takes an
 **	int, the client tests a byte), 0x7C0440 (the gadget's Position.X load, the else block's place), 0x7C0C80 now exact (its max is a
-**	double compare, O5), 0x7C2060 (registers, order), 0x7C1770 (two stack slots swapped; +0x68..+0x70 is one Vector3, Unknown68,
-**	which it copies whole), 0x7C2850 (inline budget). Not rebuilt: 0x7C2DA0-0x7C30E0 (template instances; the POC and
+**	double compare, O5), 0x7C2060 (registers, order), 0x7C2850 (inline budget). 0x7C1770 exact with t.Y * diff.Y written diff.Y * t.Y
+**	(the operand order picks the slots; +0x68..+0x70 is one Vector3, copied whole). Not rebuilt: 0x7C2DA0-0x7C30E0 (template instances; the POC and
 **	clienttest get them from generated stubs).
 */
