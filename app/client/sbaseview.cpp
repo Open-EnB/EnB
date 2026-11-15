@@ -36,6 +36,14 @@
 float Unknown_77B7D0(float t);	// 0x77B7D0: an easing of 0..1 (0x69ED80)  // NAME 1 [Unknown_77B7D0, t]: neutral (D10)
 #include "sbase_info.h"	// StarbaseInfoClass (+0x1B4; LOUNGE_NPC 0x6A0FD0, 0x6A2120)
 #include "ui_avatar_cust.h"	// AvatarUI (+0x19C, 0x69F8F0)
+#include "render2d.h"	// SClient's Text (0x6A1180)
+#include "texture.h"	// the texture totals (0x6A1180)
+#include "dx8vertexbuffer.h"	// the VB totals (0x6A1180)
+#include "dx8indexbuffer.h"	// the IB totals (0x6A1180)
+#include "wwstring.h"
+#include "wwmemlog.h"	// the categories (0x6A1180)
+#include "fastallocator.h"	// the allocator's totals (0x6A1180)
+int Unknown_94B910();	// 0x94B910 (the textures' 'Frame: %d'; frameint.cpp declares it too)
 // ui_talkt_space.cpp's talk tree (sclient.cpp declares it so); 0x69CDE0 resets SClient's to it
 class UITalkTreeSpaceClass : public InterfaceClass	// NAME 3: class-from-file (D24) for ui_talkt_space.cpp
 {
@@ -77,7 +85,7 @@ SBaseViewClass::SBaseViewClass(ClientTaskClass *task, int arg) :
 	Info(NULL),
 	Unknown1BC(0),
 	Unknown1C4(0),
-	Unknown1C8(0),
+	FrameRate(0),
 	Unknown1D4(0.0f, 0.0f, 0.0f),
 	Unknown1E0(0.0f, 0.0f, 0.0f),
 	Unknown1EC(false),
@@ -492,14 +500,6 @@ void SBaseViewClass::Unknown_69D930(int type)
 	}
 }
 #pragma auto_inline(on)
-
-
-
-
-
-
-
-
 
 
 
@@ -1380,6 +1380,87 @@ void SBaseViewClass::Unknown_6A1130()
 	}
 }
 
+// 0x6A1180's two bucket sums, inlined there (frameint.cpp has them out of line, 0x53F200 / 0x53F250)
+inline unsigned SBaseViewClass::Fast_Allocated_Size(FastAllocatorGeneral *allocator) { int size=0; for (int i=0;i<FastAllocatorGeneral::MAX_ALLOC_SIZE/FastAllocatorGeneral::ALLOC_STEP;++i) { FastCriticalSectionClass::LockClass lock(allocator->CriticalSections[i]); size+=allocator->allocators[i].Get_Allocated_Size(); } return size; }
+inline unsigned SBaseViewClass::Fast_Allocation_Count(FastAllocatorGeneral *allocator) { int count=0; for (int i=0;i<FastAllocatorGeneral::MAX_ALLOC_SIZE/FastAllocatorGeneral::ALLOC_STEP;++i) { FastCriticalSectionClass::LockClass lock(allocator->CriticalSections[i]); count+=allocator->allocators[i].Get_Allocation_Count(); } return count; }
+
+
+// 0x6A1180: the frame rate kept; the client's debug pages (Unknown14EC 4: memory, as frameint.cpp's; 1: the frame
+// rate), its audio page, and its text rendered and reset (0x69C5E0 calls it before End_Render)
+void SBaseViewClass::Unknown_6A1180()
+{
+	float fps = 1.0f / ((float)WW3D::Get_Frame_Time() * 0.001f);
+	FrameRate = FrameRate * 0.9f + fps * 0.1f;
+	SClient *client = (SClient *)Client->As_Space_Client();
+	if (client) {
+		if (((SClient *)Client)->Unknown14EC == 4) {
+			StringClass text;
+			unsigned frame_allocs = FastAllocatorGeneral::Get_Allocator()->UnknownE20[2];
+			unsigned frame_count = FastAllocatorGeneral::Get_Allocator()->UnknownE20[0];
+			unsigned fast_size = Fast_Allocated_Size(FastAllocatorGeneral::Get_Allocator());
+			int fast_count = Fast_Allocation_Count(FastAllocatorGeneral::Get_Allocator());
+			unsigned malloc_size = FastAllocatorGeneral::Get_Allocator()->AllocatedWithMalloc;
+			unsigned malloc_count = FastAllocatorGeneral::Get_Allocator()->AllocatedWithMallocCount;
+			text.Format(
+				"Total: %3.3fMb\n\n"
+				"Count: %d\n"
+				"Size: %3.3fMb\n"
+				"Heap: %3.3fMb\n\n"
+				"Mallocs: %d (%3.3fMb)\n"
+				"FastAllocs: %d (%3.3fMb)\n\n"
+				"Frame: %d (%d)\n"
+				"Bal. %d\n\n"
+				"Textures: %d (%3.3fMb)\n"
+				"Thumbs: %d (%3.3fMb)\n"
+				"Frame: %d\n\n"
+				"VBs: %d (%3.3fMb)\n"
+				"IBs: %d (%3.3fMb)\n",
+				(float)(FastAllocatorGeneral::Get_Allocator()->Get_Total_Allocated_Size() + TextureClass::_Get_Total_Texture_Size() + VertexBufferClass::Get_Total_Allocated_Memory() + IndexBufferClass::Get_Total_Allocated_Memory()) / (1024.0f * 1024.0f),
+				FastAllocatorGeneral::Get_Allocator()->Get_Total_Allocation_Count(),
+				(float)FastAllocatorGeneral::Get_Allocator()->Get_Total_Allocated_Size() / (1024.0f * 1024.0f),
+				(float)FastAllocatorGeneral::Get_Allocator()->Get_Total_Heap_Size() / (1024.0f * 1024.0f),
+				malloc_count,
+				(float)malloc_size / (1024.0f * 1024.0f),
+				fast_count,
+				(float)fast_size / (1024.0f * 1024.0f),
+				frame_count,
+				frame_allocs,
+				WWMemoryLogClass::Get_Allocate_Count() - WWMemoryLogClass::Get_Free_Count(),
+				TextureClass::_Get_Total_Texture_Count() - TextureClass::_Get_Total_Locked_Surface_Count(),
+				(float)(int)(TextureClass::_Get_Total_Texture_Size() - TextureClass::_Get_Total_Locked_Surface_Size()) / (1024.0f * 1024.0f),
+				TextureClass::_Get_Total_Locked_Surface_Count(),
+				(float)(int)TextureClass::_Get_Total_Locked_Surface_Size() / (1024.0f * 1024.0f),
+				Unknown_94B910(),
+				IndexBufferClass::Get_Total_Buffer_Count(),
+				(float)IndexBufferClass::Get_Total_Allocated_Memory() / (1024.0f * 1024.0f),
+				VertexBufferClass::Get_Total_Buffer_Count(),
+				(float)VertexBufferClass::Get_Total_Allocated_Memory() / (1024.0f * 1024.0f));
+			int count = WWMemoryLogClass::Get_Category_Count();
+			for (int k = 0; k < count; k++) {
+				unsigned memory = WWMemoryLogClass::Get_Current_Allocated_Memory(k);
+				if (memory != 0) {
+					StringClass line;
+					line.Format("%s : %2.2fMb\n", WWMemoryLogClass::Get_Category_Name(k), (float)memory / (1024.0f * 1024.0f));
+					text += line;
+				}
+			}
+			((SClient *)Client)->Text->Draw_Text(text);
+			WWMemoryLogClass::Reset_Counters();
+			FastAllocatorGeneral::Get_Allocator()->Unknown_Reset_Statistics();
+		}
+		if (client->Unknown14EC == 1) {
+			StringClass line(255, true);
+			StringClass text(1024, true);
+			line.Format("Frame Rate = %4.0f\n", FrameRate);
+			text += line;
+			client->Text->Draw_Text(text);
+		}
+		client->Unknown_750260(false);
+		client->Text->Render();
+		client->Text->Reset();
+	}
+}
+
 // 0x6A1880: a text object of kind (0 name, 1 / 2 NPC, 3 guild) into text, added to the +0x1C scene
 void SBaseViewClass::Unknown_6A1880(RefCountPtr<FontSys> &text, int kind)
 {
@@ -1580,92 +1661,24 @@ void SBaseViewClass::Unknown_6A2430(bool *a, bool *b, bool *c, bool *d, bool *e)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x6A2480
 void SBaseViewClass::Unknown_6A2480()
 {
 	FAIL_IF(Client == NULL) {return;}
 	StarbaseSound.Reset(Unknown50);
+}
+
+// 0x6A24C0: the room's 2-D sounds of section name, then its sounds at model's bones
+void SBaseViewClass::Unknown_6A24C0(int room, RenderObjClass *model, const char *name)
+{
+	StarbaseSound.Load_Section(room, name);
+	StarbaseSound.Load_Section(room, model, name);
+}
+
+// 0x6A2500: the room's sounds at robj's bones
+void SBaseViewClass::Unknown_6A2500(int room, RenderObjClass *robj, const char *name)
+{
+	StarbaseSound.Load_Section(room, robj, name);
 }
 
 /*
@@ -1676,7 +1689,7 @@ void SBaseViewClass::Unknown_6A2480()
 **	e:\build\beta\G\app\Client\sbaseview.cpp). The asserts sit on the client's lines (D25): 738 ('ViewRObjs[type]',
 **	0x69D9D0) and 1667 ('Client == NULL', 0x6A2480); 1261 / 1262 ('!RKey.Peek()', '!RCamera.Peek()', the lights
 **	loader 0x6A0590, not written) are left free. Not rebuilt
-**	either: 0x69B5E0, 0x69C0D0, 0x69C5E0, 0x69C8F0, 0x69D030, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1180-0x6A1C90.
+**	either: 0x69B5E0, 0x69C0D0, 0x69C5E0, 0x69C8F0, 0x69D030, 0x69F540, 0x69F8F0, 0x6A0590, 0x6A0EC0, 0x6A1880-0x6A1C90.
 **
 **	The object starts before the window (TG3, 2026-10-31): SBaseViewClass's constructor 0x69AD30 and destructor
 **	0x69B0C0 store its table 0xAFD2FC (slots 0x69B090, 0x69B5E0, UIViewClass's 0x08, 0x69C5E0, 0x69C0D0, 0x69C8F0,
