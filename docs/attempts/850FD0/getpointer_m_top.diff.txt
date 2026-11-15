@@ -1,0 +1,89 @@
+diff --git a/app/wwudp/cordcon.cpp b/app/wwudp/cordcon.cpp
+index f1da0f3fd..4bba83e99 100644
+--- a/app/wwudp/cordcon.cpp
++++ b/app/wwudp/cordcon.cpp
+@@ -630,6 +630,7 @@ bool CordCon::read(int *channel, int *len, void *buf, bool peek)
+ {
+ 	WWPROFILE("CordCon::read");
+ 	FAIL_IF(Udp_ == NULL) return false;
++	CordMessageClass *m;
+ 	int count = (int)Ready_.size();
+ 	for (int r = 0; r < count; r++) {
+ 		CordChannelClass *c = Ready_[r];
+@@ -637,21 +638,21 @@ bool CordCon::read(int *channel, int *len, void *buf, bool peek)
+ 		int i = 0;
+ 		int n = (int)c->Incoming.Length();
+ 		for (int k = 0; k < n; k++) {
+-			CordMessageClass &m = *c->Incoming.Get(i);
++			c->Incoming.getPointer(&m, i);
+ 			if (c->Mode == 3) {
+-				if (m.Seq < c->Delivered) {
+-					m.Free();
++				if (m->Seq < c->Delivered) {
++					m->Free();
+ 					c->Incoming.Remove(i);
+ 					removed = true;
+ 					continue;
+ 				}
+-				if (m.Seq != c->Delivered) {
++				if (m->Seq != c->Delivered) {
+ 					i++;
+ 					continue;
+ 				}
+ 			}
+-			bool incomplete = (m.Flags & 1) && m.Fragments != 0 && m.Length != 0
+-				&& memchr(m.Fragments, 0, (m.TotalLength + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE) != 0;
++			bool incomplete = (m->Flags & 1) && m->Fragments != 0 && m->Length != 0
++				&& memchr(m->Fragments, 0, (m->TotalLength + CORD_FRAGMENT_SIZE - 1) / CORD_FRAGMENT_SIZE) != 0;
+ 			if (incomplete) {
+ 				i++;
+ 				continue;
+@@ -659,14 +660,14 @@ bool CordCon::read(int *channel, int *len, void *buf, bool peek)
+ 			if (c->Mode == 3 && !peek) {
+ 				c->Delivered++;
+ 			}
+-			if (m.Length != 0) {
++			if (m->Length != 0) {
+ 				if (buf != 0) {
+-					memcpy(buf, m.Data, m.Length);
++					memcpy(buf, m->Data, m->Length);
+ 				}
+-				*len = (int)m.Length;
++				*len = (int)m->Length;
+ 				*channel = c->Index;
+ 				if (!peek) {
+-					m.Free();
++					m->Free();
+ 					c->Incoming.Remove(i);
+ 				}
+ 				BytesRead_ += *len;
+@@ -2031,7 +2032,7 @@ void CordCon::Set_Header_CRC(unsigned char *data, int len)
+ 
+ // 0x854FC0
+ bool CordCon::buildMsgHeader(unsigned char *out, int *len, int size, int channel, unsigned int seq,
+-	unsigned char frag, char flags)
++	int frag, int flags)
+ {
+ 	WWPROFILE("CordCon::buildMsgHeader");
+ 	int pos, n;
+diff --git a/app/wwudp/cordcon.h b/app/wwudp/cordcon.h
+index d151d5e6e..b16b5d956 100644
+--- a/app/wwudp/cordcon.h
++++ b/app/wwudp/cordcon.h
+@@ -119,6 +119,7 @@ public:
+ 		CurIndex = pos;
+ 		return &n->Node;
+ 	}
++	bool getPointer(T **node, int pos) { if ((node == 0) || (Entries == 0)) return false; if (pos < 0) return false; if (pos >= Entries) return false; if (pos == 0) { *node = &(Head->Node); return true; } else if (pos == Entries - 1) { *node = &(Tail->Node); return true; } if (pos == CurIndex) { *node = &(Current->Node); return true; } else if (pos == CurIndex + 1) { *node = &(Current->Next->Node); CurIndex++; Current = Current->Next; return true; } else if (pos == CurIndex - 1) { *node = &(Current->Prev->Node); CurIndex--; Current = Current->Prev; return true; } NodeType *item = Head->Next; for (int i = 1; i < pos; i++) { item = item->Next; } *node = &(item->Node); CurIndex = pos; Current = item; return true; }	// NAME 4: wlib's (EA's Generals Tools matchbot wlib linkedlist.h)
+ 	// wlib's addTail: add at the end (inline, as wlib's; the client calls add 0x84F220).
+ 	bool Add_Tail(const T &v, T **newnodeptr = 0)
+ 	{
+@@ -426,7 +427,7 @@ public:
+ 	bool examinePacket(unsigned char *data, int datalen);								// 0x8514D0
+ 	bool buildHeader(unsigned char *out, int *len, unsigned short *counter);			// 0x8551F0
+ 	bool buildMsgHeader(unsigned char *out, int *len, int size, int channel, unsigned int seq,
+-		unsigned char frag, char flags);												// 0x854FC0
++		int frag, int flags);												// 0x854FC0
+ 
+ 	CordChannelClass *Get_Channel(int channel);	// NAME 2: grows Channels_ as the client does
+ 	// The messages the active channels hold (queued or awaiting an ack). 0x84FED0
