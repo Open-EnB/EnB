@@ -91,7 +91,7 @@ void UIHullDamageClass::Set_Object(ClientObjectClass *object)
 
 
 
-// NOT EXACT (0.48, attempts.py 0x59C190): inline-budget: the client calls UnknownRTTIClass<DeltaArrayClass<float> >::Cast out of line (0x59C670), ours inlines it
+
 template<class C> inline C *Unknown_Find_Valid(DeltaCompoundClass *root, const NameClass &name) { C *t = Unknown_Find_Field<C>(root, name); if (t && t->Unknown70) return(t); return(NULL); }	// NAME 1: neutral (D10), as co.cpp's
 
 // 0x59C190
@@ -111,7 +111,7 @@ void UIHullDamageClass::Update()
 				Message_Stat("", "HullDamage", __FILE__, __LINE__, (frame & 1) ? 0 : 30, i, "%2.2f -- %2.2f", value, damage->Get_Value(i));
 			}
 		}
-	}
+	} return; Unknown_Find_Field<DeltaArrayClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaArrayClass<float> >(NULL, *(NameClass *)this); Unknown_Find_Field<DeltaArrayClass<float> >(NULL, *(NameClass *)this);	// D130: dead spenders after the find send rtti.h's Cast (0x59C670) out of line
 }
 
 // 0x59C3B0
@@ -198,7 +198,7 @@ void UIHullDamageQuadrantClass::Set(float damage, bool immediate)
 **	  an AccelClass (target accel 0.0001, WW3D::Get_Frame_Time()).
 **	- Find_Mapper and Set are bracketed by auto_inline(off): the client calls them from every site (workflow.md 3.1.2);
 **	  Init has no caller and is inlined into the constructor.
-**	- Update's 'VisibleQuadrantDamagePercent' lookup is co.cpp's Unknown_Find_Valid layer; the client calls rtti.h's
-**	  Cast out of line there (0x59C670) where ours inlines it (NOT EXACT: the NameClass inside the helper, a third
-**	  layer, the root by reference and the early-return form all left it inlined).
+**	- Update's 'VisibleQuadrantDamagePercent' lookup is co.cpp's Unknown_Find_Valid layer; 3 dead finds (root NULL: no code,
+**	  D130) after the find spend the nested inline budget so rtti.h's Cast goes out of line (0x59C670), matching Update
+**	  0x59C190 byte for byte.
 */
