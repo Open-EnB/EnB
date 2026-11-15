@@ -125,6 +125,19 @@ bool Unknown_42EA80(KernelEventClass *event)
 	return TrackMouseCounter > 0;
 }
 
+void Unknown_42EB20()
+{
+	InputQueueClass *queue = Unknown_BDA968;
+	queue->Tail = 0;
+	queue->Head = 0;
+	TrackMouseCounter = 0;
+}
+
+bool Unknown_42EB50(KernelEventClass *event)
+{
+	return Unknown_BDA968->Add(*event);
+}
+
 char Unknown_42EB80(KernelEventClass *event)
 {
 	if (event->Flags & 0x1000) {
@@ -273,19 +286,6 @@ void Unknown_42EDB0()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 bool Unknown_42EE00(bool enable)
 {
 	if (enable) {
@@ -344,4 +344,7 @@ bool KeyQueueClass::Add(KernelEventClass &event)
 **	has the client's test); 0x42E8A0 with the peek and the take both written in the
 **	Unknown_BDAA80 > 0 branch; 0x42EB80 with a 12-byte char buffer and `Key & 0xFF`; 0x42EE00
 **	with one Set_Repeat call after the if / else; 0x42EEC0 with the state read into a local.
+**	0x42EB20 (UITalkTreeClass 0x64DF80's: the queue emptied) needs the queue in a local: through the
+**	global each store is an immediate 0 (26 bytes against 20); 0x42EB50 (the queue's Add, slot +0x04)
+**	has no caller in the client. The two took their 13 lines from the padding before 0x42EE00.
 */

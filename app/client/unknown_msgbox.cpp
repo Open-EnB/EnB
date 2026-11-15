@@ -1,5 +1,6 @@
 // Earth & Beyond client (reconstruction): the views' message box, sclient.h's ViewUnknown34Class (client 0x587570-0x589D20).
 // File PROVISIONAL (D137): no string; after the gadget run 0x585780- and before ui_dynamicwindow.cpp (0x58A030). Notes at the end.
+#define __UI_TRADE_MEMBERS	// sclient.h's ViewUnknown34Class::Unknown_5896C0 (defined here)
 #include "sclient.h"
 #include "dynamic_window_class.h"
 // fontmanager.h (with fontdatabase.h; its 0xBE67B8 is tsk_game.h's since P-H12-3)
@@ -397,6 +398,14 @@ void ViewUnknown34Class::Unknown_589140(const char *type, bool follow_mouse, con
 	Queue.push_back(message);
 }
 
+// 0x5896C0
+void ViewUnknown34Class::Unknown_5896C0(const char *type)
+{
+	if (type && strcmp(Type, type) == 0) {
+		Unknown_5C();
+	}
+}
+
 // 0x589740
 const char *ViewUnknown34Class::Unknown_589740(INIClass &ini)
 {
@@ -423,7 +432,7 @@ const char *ViewUnknown34Class::Unknown_589740(INIClass &ini)
 **	the queued message's destructor 0x587570, the constructor 0x5875C0, the deleting destructor 0x587900 and the
 **	destructor 0x587A10, the dialogbox.ini reader 0x587D50, the clear 0x588340, the slots +0x58 0x588480 (shown),
 **	+0x5C 0x588640 (hidden: the next queued message shown), the browser step 0x588870, slot +0x68 0x588A20, the show
-**	0x588A70, the text 0x588DC0, the button 0x5890B0, the queue 0x589140, the font 0x589740; then the std::deque
+**	0x588A70, the text 0x588DC0, the button 0x5890B0, the queue 0x589140, the close by type 0x5896C0 (ui_trade.cpp's callers), the font 0x589740; then the std::deque
 **	instances 0x589970-0x589C60, the RefCountPtr helper 0x589CA0 and the two adjustor thunks 0x589D10 / 0x589D20.
 **	No string names the file (the client's neighbours: the gadgets before, ui_dynamicwindow.cpp after).
 */
