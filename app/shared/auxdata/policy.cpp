@@ -100,7 +100,7 @@ void PolicyRuleSetClass::Add_Rule(const NameClass &pattern, int action, int valu
 	}
 	Rules.push_back(new PolicyRuleClass(pattern, action, value, &Enabled, this));
 }
-
+// NOT EXACT: register-only, eax / edx swapped in the rule set loop (D89: not chased)
 CompiledPolicyClass::CompiledPolicyClass(PolicyClass *policy, DeltaCompoundClass *c, CompiledPolicyClass *next) :
 	Root(0),
 	Next(next),
@@ -233,9 +233,9 @@ PolicyRuleClass **CompiledPolicyClass::Compile_Rules(const std::vector<PolicyRul
 
 PolicyRuleClass *CompiledPolicyClass::Find_Rule(const std::vector<PolicyRuleClass *> &rules, const NameClass &name)
 {
-	for (PolicyRuleClass * const *rule = rules.begin(); rule != rules.end(); rule++) {
-		if ((*rule)->Pattern.Is_Parent_Or_Same(name)) {
-			return *rule;
+	for (std::vector<PolicyRuleClass *>::const_iterator it = rules.begin(); it != rules.end(); it++) {
+		PolicyRuleClass *rule = *it; if (rule->Pattern.Is_Parent_Or_Same(name)) {
+			return rule;
 		}
 	}
 	return 0;
@@ -317,7 +317,7 @@ void CompiledPolicyClass::Insert(PolicyRuleClass **rules)
 				PolicyNodeClass **link = &Table[i];
 				PolicyNodeClass *node = Table[i];
 				while (node != 0) {
-					if (node->Rule->Action < rule->Action || (node->Rule->Action == rule->Action && rule->Value < node->Rule->Value)) {
+					if (node->Rule->Action < rule->Action || (node->Rule->Action == rule->Action && node->Rule->Value > rule->Value)) {
 						break;
 					}
 					link = &node->Next;
@@ -403,8 +403,8 @@ PolicyStateClass *PolicyClass::Make_State(int a, int b)
 {
 	PolicyStateClass *state = new PolicyStateClass(Sets.size());
 	for (PolicyRuleSetClass **rule_set = Sets.begin(); rule_set != Sets.end(); rule_set++) {
-		RefCountPtr<PolicyConditionClass> condition = (*rule_set)->Get_Condition(a, b);
-		state->Add(condition);
+		state->Add((*rule_set)->Get_Condition(a, b));
+
 	}
 	state->Evaluate(a, b);
 	return state;
@@ -422,22 +422,22 @@ void PolicyClass::Bind(PolicyStateClass *state, DeltaCompoundClass *root)
 {
 	unsigned int count = Sets.size();
 	for (unsigned int i = 0; i < count; i++) {
-		Sets[i]->Enabled = state->Entries[i].second;
+		bool enabled = state->Entries[i].second; Sets[i]->Enabled = enabled;
 	}
-	if (Compiled == 0 || Compiled->Root != root->Name.Get_String()) {
-		CompiledPolicyClass *compiled;
-		for (compiled = PolicyHead; compiled != 0; compiled = compiled->Next) {
-			if (compiled->Root == root->Name.Get_String()) {
-				break;
-			}
-		}
-		if (compiled == 0) {
-			compiled = new CompiledPolicyClass(this, root, PolicyHead);
-			PolicyHead = compiled;
-		}
-		Compiled = compiled;
+	const char *name = root->Name.Get_String(); if (Compiled != 0 && Compiled->Root == name) {
+		return;
 	}
+	for (CompiledPolicyClass *compiled = PolicyHead; compiled != 0; compiled = compiled->Next) {
+		if (compiled->Root == name) {
+			Compiled = compiled;
+			return;
+		}
+	}
+	PolicyHead = new CompiledPolicyClass(this, root, PolicyHead);
+	Compiled = PolicyHead;
 }
+
+
 
 int PolicyClass::Get_Action(int id, int *value) const
 {

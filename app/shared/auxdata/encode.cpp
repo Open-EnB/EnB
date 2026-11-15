@@ -61,7 +61,7 @@ DeltaCollectorClass::~DeltaCollectorClass()
 
 
 
-
+// NOT EXACT: frame, the client keeps the bool in the argument slot (frame 0xC, ours 0x10)
 void DeltaCollectorClass::Visit(DeltaCompoundClass *delta)
 {
 	unsigned int value = 0;
@@ -79,16 +79,16 @@ void DeltaCollectorClass::Visit(DeltaCompoundClass *delta)
 		case 3:
 		case 4:
 		{
-			bool changed = Changes->Entries[id].Changed > 0;
-			if (Changes->Entries[id].Sent == Changes->Entries[id].Size && !changed) {
+			ChangeTableClass *changes = Changes; bool changed = changes->Entries[id].Changed > 0;
+			if (changes->Entries[id].Sent == changes->Entries[id].Size && !changed) {
 				return;
 			}
-			if (Changes->Entries[id].Sent <= 0 && !changed) {
+			if (changes->Entries[id].Sent <= 0 && !changed) {
 				Defaulted.Add(delta);
 				Changes->Set_Sent(delta);
 				return;
 			}
-			if (Changes->Entries[id].Changed == Changes->Entries[id].Size && Changes->Time - Changes->Entries[id].Last >= value) {
+			if (changes->Entries[id].Changed == changes->Entries[id].Size && changes->Time - changes->Entries[id].Last >= value) {
 				Updated.Add(delta);
 				Changes->Set_Sent(delta);
 				return;
@@ -125,7 +125,7 @@ void DeltaCollectorClass::Visit(DeltaCompoundClass *delta)
 
 
 
-
+// NOT EXACT: shape, the client places the sent test after the return (ours inline)
 void DeltaCollectorClass::Visit(DeltaClass *delta)
 {
 	unsigned int value = 0;
@@ -146,19 +146,19 @@ void DeltaCollectorClass::Visit(DeltaClass *delta)
 			unsigned int last = delta->Unknown70;
 			bool sent = changes->Entries[id].Sent > 0;
 			bool changed = last != changes->Entries[id].Stamp;
-			if (sent) {
-				if (!changed || changes->Time - changes->Entries[id].First < value) {
+			if (!sent && !changed) {
+				Defaulted.Add(delta);
+			} else {
+				if (sent && (!changed || changes->Time - changes->Entries[id].First < value)) {
 					return;
 				}
 				Updated.Add(delta);
-			} else if (changed) {
-				Updated.Add(delta);
-			} else {
-				Defaulted.Add(delta);
 			}
 			Changes->Set_Sent(id, delta->Unknown70);
 			return;
 		}
+
+
 
 		case 2:
 			G_ASSERT(0);
@@ -557,18 +557,18 @@ LinearBufferClass *RecordTableClass::Unknown_All(LinearBufferClass *buf)
 
 
 
-// NOT EXACT: the client keeps the node in the list argument's slot, calls the first
-// Children.size() out of line (0x4A58C0) in the new compound record and allocates the walk's
-// records inline; VC6 here inlines all three sizes and uses other slots.
-void RecordTableClass::Add(DeltaListClass *list, int id)
+// NOT EXACT: inline budget, the client calls the first record's first Children.size()
+// (0x4A58C0) out of line, ours inlines it; the rest (the walk's records inline) matches.
+// Tried: Get_Size() in the record's constructor, dead size() reads after the first record.
+void RecordTableClass::Add(DeltaListClass *list, int kind)	// NAME 1: which of the three lists (0 updated, 1 defaulted, 2 cleared); the client's asserts name the record index id
 {
 	for (DeltaListNodeClass *node = list->Head; node != 0; node = node->Next) {
 		DeltaClass *delta = node->Delta;
-		int index = delta->Unknown7C;
-		G_ASSERT(Records[index] == 0);
+		int id = delta->Unknown7C;
+		G_ASSERT(Records[id] == 0);
 		if (delta->As_Compound() != 0) {
 			CompoundRecordClass *record = new CompoundRecordClass(delta->As_Compound(), true);
-			switch (id) {
+			switch (kind) {
 				case 0:
 					record->Updated.Set_All();
 					break;
@@ -579,12 +579,12 @@ void RecordTableClass::Add(DeltaListClass *list, int id)
 					record->Cleared.Set_All();
 					break;
 			}
-			Records[index] = record;
+			Records[id] = record;
 		} else {
-			Records[index] = new LeafRecordClass(delta, id == 0);
+			Records[id] = new LeafRecordClass(delta, kind == 0);
 		}
 
-		G_ASSERT(Records[index]);
+		G_ASSERT(Records[id]);
 		int bit = delta->Unknown78;
 		for (DeltaClass *parent = delta->Parent; parent != 0; parent = parent->Parent) {
 			int parent_index = parent->Unknown7C;
@@ -596,7 +596,7 @@ void RecordTableClass::Add(DeltaListClass *list, int id)
 
 				G_ASSERT(record);
 			}
-			BitSetClass *bits = record->Get_Bits(id);
+			BitSetClass *bits = record->Get_Bits(kind);
 			if (bits->Is_Set(bit)) {
 				break;
 			}
