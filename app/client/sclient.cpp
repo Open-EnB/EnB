@@ -1060,18 +1060,18 @@ void SClient::Unknown_743380(KernelEventClass *event)
 	}
 }
 #pragma auto_inline(on)
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x743440 (no caller in the client: dead code kept): Do_Frame's input block as a function; 0x7436A0's answer unused
+void SClient::Unknown_743440() {
+	if (LoadingView && LoadingView->Unknown68) return;
+	KernelEventClass event; Unknown_42EDB0();
+	if (Unknown1278) { int i = 0;
+		do { event = GadgetClass::Process_Input((GadgetListManagerClass *)Unknown1278);
+			if (!Unknown1270->Unknown_429A20(&event) && (!CurrentView || !CurrentView->Get_Unknown04()->Unknown_429A20(&event))) {
+				if (ScriptedMovieView) ScriptedMovieView->Unknown_802960(event); else Unknown_7436A0(event); }
+		} while ((Unknown_BE5F34 & 0x1100) && i++ < 20);
+	} else { if (Unknown_42EA80(&event)) Unknown_42E8A0(&event);
+		if (!Unknown1270->Unknown_429A20(&event) && (!CurrentView || !CurrentView->Get_Unknown04()->Unknown_429A20(&event))) {
+			if (ScriptedMovieView) ScriptedMovieView->Unknown_802960(event); else Unknown_7436A0(event); } } }
 
 #include "option.h"
 #include "..\packets\pkmove.h"
@@ -2161,17 +2161,17 @@ void SClient::Unknown_745160()
 	cockpit->Unknown_584A60();
 }
 
-
-
-
-
-
-
-
-
-
-
-
+// 0x745080 (no caller in the client: dead code kept): settings.ini's 'Lights' 'GlobalZ' from SOptionsClass +0x1C, then
+// the main view's and +0x1358's interface objects (0x6B4900), saved
+void SClient::Unknown_745080()
+{
+	INIClass ini;
+	ini.Load("settings.ini");
+	ini.Put_Float("Lights", "GlobalZ", GlobalZ);
+	MainView->Unknown_6B4900(ini);
+	Unknown1358->Unknown_6B4900(ini);
+	ini.Save("settings.ini");
+}
 
 
 
@@ -4618,59 +4618,59 @@ void SClient::Unknown_74D990(int color, char *text, int a)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x74DFF0 (cpacket.cpp: GUILD_MESSAGE 208): the text's lines to the chat (0x74D990), or, with the guild window
+// active, type 3's to the window's members (0x81C380) and type 2's to its list window (0x81C060 while that is
+// active, else 0x81C1F0); type 4 is dropped while the window is active, type 3 while it is not; a type of
+// 0xB03208's table asks for the members again ('/gc list all', 0x81BF40)
+static int Unknown_B03208[] = { 69, 72, 76, 97, 119, 120 };	// NAME 1: neutral (D10): the guild messages that change the member list
+static inline void Unknown_Clear_Lines(std::vector<std::string> &lines) { lines.clear(); }	// NAME 1 [Unknown_Clear_Lines, lines]: neutral (D10): the client's erase call sits one inline layer down
+void SClient::Unknown_74DFF0(int color, const char *text, int message_type, int arg)
+{
+	bool to_guild = false;
+	std::vector<std::string> lines;
+	Unknown_Clear_Lines(lines);
+	UIGuildClass *guild = NULL;
+	if (ChatPanel && (guild = ChatPanel->UnknownE0) != NULL && guild->Active) {
+		if (message_type == 3 || message_type == 2) to_guild = true;
+		if (message_type == 4) return;
+	} else if (message_type == 3) {
+		return;
+	}
+	char *copy = nstrdup(text);
+	char *line = copy;
+	while (line != NULL) {
+		char *end;
+		if (*line != '\0' && (end = strchr(line, '\n')) != NULL) {
+			*end = '\0';
+			if (to_guild) lines.push_back(line);
+			else Unknown_74D990(color, line, arg);
+			line = end + 1;
+		} else {
+			if (line != NULL && *line != '\0') {
+				if (to_guild) lines.push_back(line);
+				else Unknown_74D990(color, line, arg);
+			}
+			break;
+		}
+	}
+	delete [] copy;
+	if (to_guild) {
+		if (message_type == 3) {
+			guild->Unknown_81C380(lines);
+		} else if (message_type == 2) {
+			if (((InterfaceClass *)guild->Unknown0BC.Peek())->Active) guild->Unknown_81C060(lines);	// (ui_guild_list.h not included: it brings ui_chat_panel.h)
+			else guild->Unknown_81C1F0(lines);
+		}
+	} else if (ChatPanel) {
+		for (int *type = Unknown_B03208; type < Unknown_B03208 + sizeof(Unknown_B03208) / sizeof(Unknown_B03208[0]); type++) {
+			if (*type == message_type) {
+				UIGuildClass *panel = ChatPanel->UnknownE0;
+				if (panel && panel->Active && Unknown_728300()) panel->Unknown_81BF40();
+				break;
+			}
+		}
+	}
+}
 
 
 

@@ -56,7 +56,7 @@ public:
 	int LandPolyBudget;									// +0x10 'LandPolyBudget'  // NAME 3: the registry value's name
 	int LandLOD;										// +0x14 'LandLOD'  // NAME 3: the registry value's name
 	int TextureReduction;								// +0x18 'TextureReduction'  // NAME 3: the registry value's name
-	int TextureFilter;									// +0x1C 'TextureFilter' (WW3D::Set_Texture_Filter)  // NAME 3: the registry value's name
+	float GlobalZ;										// +0x1C (0: the constructor; SClient 0x745080 pushes it as Put_Float's float to settings.ini's 'Lights' 'GlobalZ'; the registry's 'TextureFilter' goes to a local)  // NAME 3: the INI entry 0x745080 writes
 	bool Unknown20;										// +0x20
 	float Unknown24;									// +0x24 (2.0)
 	bool Unknown28;										// +0x28 (true)

@@ -12,7 +12,7 @@
 // 0x75A280
 SOptionsClass::SOptionsClass() :
 	Unknown04(false), Unknown05(false), Unknown06(true), PolyBudget(0), StarBudget(0), LandPolyBudget(0), LandLOD(0),
-	TextureReduction(0), TextureFilter(0), Unknown20(false), Unknown24(2.0f), Unknown28(true), CameraMode(1),
+	TextureReduction(0), GlobalZ(0), Unknown20(false), Unknown24(2.0f), Unknown28(true), CameraMode(1),
 	CameraModeCount(0), LastCameraMode(1)
 {
 	RegistryClass registry("Software\\Westwood Studios\\Earth and Beyond\\Render");
