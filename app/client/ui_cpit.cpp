@@ -202,7 +202,7 @@ void Unknown_57D6C0(SClient *sclient, bool *lock_speed, bool *lock_orient)
 
 
 // gadget.cpp's and view.cpp's gadgets the set-up makes, as far as it makes them
-class UICpitGadget6B56AClass : public GadgetClass { public: UICpitGadget6B56AClass(int x, int y, int width, int height, UIViewClass *view); virtual bool Unknown_30(float x, float y); char Unknown30[0x49 - 0x30]; bool Unknown49; char Unknown4A[0x5C - 0x4A]; };	// 0x6B56A0 (0x5C bytes; +0xAC)  // NAME 1: neutral (D10); NAME 1 [x, y, width, height, view]: what the set-up passes (0, 0, 640, 480)
+#include "viewbttn.h"	// ViewButtonClass, 0x6B56A0: viewbttn.cpp's gadget (+0xAC)
 class CtrnGadgetClass : public GadgetClass { public: CtrnGadgetClass(int x, int y, int width, int height, LineDisplayClientClass *client); virtual bool Unknown_30(float x, float y); char Unknown30[0x50 - 0x30]; };	// 0x50A850 (0x50 bytes): ctrngadg.h's, as far as the set-up makes it (that header's gadget.h clashes with this file's GadgetClass)  // NAME 3: ctrngadg.h's (D24 class-from-file)
 
 RefCountPtr<RenderObjClass> Unknown_497300(RenderObjClass *robj);	// 0x497300 (cdecl, ro_funcs.cpp's neighbourhood)  // NAME 1 [robj]: neutral
@@ -288,7 +288,7 @@ void UICpitClass::Unknown_54()
 
 	G_ASSERT(View->As_Main_View());
 	Unknown154 = Unknown_BE67C4->Get_Style("SpeedDisplay", InterfaceMesh->Peek_Object());
-	Unknown0AC = new UICpitGadget6B56AClass(0, 0, 640, 480, View->As_Main_View());
+	Unknown0AC = new ViewButtonClass(0, 0, 640, 480, (MainViewClass *)View->As_Main_View());
 	Unknown64.Unknown_6870E0(Unknown0AC, 0x48, View, 1, 1);
 	Unknown0AC->Set_Last_Sort_Group(true);
 	Unknown0AC->Unknown_65FFA0(1000);
@@ -1425,7 +1425,7 @@ void UICpitClass::Unknown_5821C0(ClientObjectClass *avatar)
 	Vector3 velocity = avatar->Unknown_2C();
 	float speed = velocity.Length() * 1000.0f;
 	if (Vector3::Dot_Product(velocity, avatar->Unknown_28(true).Get_X_Vector()) < 0.0f) speed = -speed;
-	if (Unknown144 == 1 || Unknown144 == 3 || ((UICpitGadget6B56AClass *)Unknown0AC)->Unknown49) {
+	if (Unknown144 == 1 || Unknown144 == 3 || ((ViewButtonClass *)Unknown0AC)->Unknown49) {
 		Unknown16C->Set_Hidden(false);
 	} else {
 		Unknown16C->Set_Hidden(true);
