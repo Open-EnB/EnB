@@ -217,7 +217,7 @@ const float &DeltaInterpolatorValueClass::Get()
 **	names are its strings), the destructor 0x4A6330 (implicit), Get_Change 0x4A6360, Update 0x4A6380
 **	(Get's FAIL_IF from duration.h line 190), Set 0x4A6590 (asserts on the client's lines 111-113),
 **	Set 0x4A67A0, Set_Change 0x4A67D0 (line 159, and Get_Value's on delta_interpolator.h line 54),
-**	Unknown_3C 0x4A68E0. The forms the bytes decide: DurationClass's user-defined operator= (Set
+**	Unknown_3C 0x4A68E0. The forms the bytes decide: a user-defined operator= (duration.h's template's; Set
 **	stores both halves of EndTime before the vtable load; Update loads EndTime before the test of
 **	the change), `change >= 0.0f` tested first in Update.
 **	Unknown_00 0x4A6930: the encoder's prefix and flags pushed, EndTime and ChangePerTick through

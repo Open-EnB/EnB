@@ -209,10 +209,6 @@ public:
 	DurationClass() {}
 	DurationClass(__int64 time) : MillisecondsClass(time) {}
 
-	// user-defined (the interpolator's Set 0x4A6590 stores both halves before the vtable load;
-	// the implicit copy schedules the stores after it)
-	DurationClass &operator=(const DurationClass &that) { Time = that.Time; return *this; }
-
 	bool operator==(const DurationClass &that) const { return Time == that.Time; }
 	bool operator!=(const DurationClass &that) const { return Time != that.Time; }
 	bool operator<(const DurationClass &that) const { return Time < that.Time; }
@@ -236,4 +232,7 @@ public:
 **	line 190 stays): the client calls _Tidy(false) out of line in time_string_format's 0x4FE780 and
 **	its four static formatters and stores their limits as immediates, which the compiler's bitwise
 **	copy doesn't give (LV1's value-class-copy lever, run 2026-11-15; +11 pairs in five files).
+**	With them DurationClass needs no operator= of its own: the implicit one calls the template's
+**	inline, which keeps the interpolator's Set 0x4A6590 (both halves stored before the vtable load)
+**	and gives aux_roots 0x6FB1E0 back (DU, run 2026-11-15).
 */
