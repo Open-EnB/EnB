@@ -28,6 +28,7 @@ public:
 	void Unknown_593790();								// 0x593790: +0x3C, +0x38, +0x2C and +0x30 released
 	void Unknown_5938A0(const char *text, float time, int index);	// 0x5938A0 (G_ASSERT line 563; 0x597080 passes the symbol text, 5.0f and the member's index)  // NAME 1 [text, time, index]: what 0x597080 passes
 	void Unknown_593830(const RefCountPtr<RenderObjClass> &object);	// 0x593830: +0x30 set  // NAME 1 [object]: neutral
+	void Unknown_593B50();								// 0x593B50: +0x3C and +0x38 released
 
 	UIGroupClass *Owner;								// +0x00 (the asserts' 'Get_Interface()->Is_Active()': the group window's +0x7C)  // NAME 2: what it holds
 	std::string Name;									// +0x04 (0x596090 compares it; the assert's 'Get_Member(name)')  // NAME 2 [Name]: the assert's name

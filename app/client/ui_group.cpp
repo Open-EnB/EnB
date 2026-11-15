@@ -455,15 +455,15 @@ void UIGroupMemberClass::Unknown_5935C0()
 		if (Unknown24 < 0.0f) {
 			G_ASSERT(Get_Interface()->Is_Active());
 			Get_Interface()->Unknown_5C();
-			if (Unknown3C) {
-				Get_Interface()->Unknown64.Unknown_687150(Unknown3C);
-				GadgetClass::Destroy(Unknown3C);
-				Unknown3C = NULL;
-			}
-			if (Unknown38) {
-				Unknown38->Remove();
-				Unknown38 = NULL;
-			}
+			Unknown_593B50();
+
+
+
+
+
+
+
+
 			Get_Interface()->Unknown_58();
 			if (Unknown28) {
 				delete Unknown28;
@@ -502,8 +502,8 @@ bool UIGroupMemberClass::Unknown_593750()
 // 0x593790
 void UIGroupMemberClass::Unknown_593790()
 {
-	if (Unknown3C) { Get_Interface()->Unknown64.Unknown_687150(Unknown3C); GadgetClass::Destroy(Unknown3C); Unknown3C = NULL; }
-	if (Unknown38) { Unknown38->Remove(); Unknown38 = NULL; }
+	Unknown_593B50();
+
 	if (Unknown2C) { Unknown2C->Unknown_5DCAE0(); delete Unknown2C; Unknown2C = NULL; }
 	Unknown30 = NULL;
 }
@@ -546,8 +546,8 @@ void UIGroupMemberClass::Unknown_5938A0(const char *text, float time, int index)
 		if (Unknown28) { delete Unknown28; Unknown28 = NULL; }
 		Unknown28 = nstrdup(text);
 	}
-	if (Unknown3C) { Get_Interface()->Unknown64.Unknown_687150(Unknown3C); GadgetClass::Destroy(Unknown3C); Unknown3C = NULL; }
-	if (Unknown38) { Unknown38->Remove(); Unknown38 = NULL; }
+	Unknown_593B50();
+
 	Unknown38 = Create_NEW(WW3DAssetManager::Get_Instance()->Create_Render_Obj(Unknown28));
 	if (Unknown38 != NULL && Unknown30 != NULL) {
 		Unknown_496AE0(Unknown38.Peek(), 0);
@@ -567,19 +567,19 @@ void UIGroupMemberClass::Unknown_5938A0(const char *text, float time, int index)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+// 0x593B50
+void UIGroupMemberClass::Unknown_593B50()
+{
+	if (Unknown3C) {
+		Get_Interface()->Unknown64.Unknown_687150(Unknown3C);
+		GadgetClass::Destroy(Unknown3C);
+		Unknown3C = NULL;
+	}
+	if (Unknown38) {
+		Unknown38->Remove();
+		Unknown38 = NULL;
+	}
+}
 
 
 
