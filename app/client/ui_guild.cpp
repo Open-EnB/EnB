@@ -1,6 +1,6 @@
 // Earth & Beyond client (reconstruction): app\client\ui_guild.cpp, the guild window (no __FILE__; client 0x8192C0-0x81E02F
 // after time_mgr.cpp's end 0x8192A7, its data 0xBA7F10-0xBA81FF after time_mgr.cpp's __FILE__). So far the printf helper,
-// the window, its list helpers and chat commands (TM1), 0x81C380 (B9-5, NOT EXACT); not yet: its helper 0x81D290. Notes at the end.
+// the window, its list helpers and chat commands (TM1), 0x81C380 (B9-5, NOT EXACT) and its helper 0x81D290. Notes at the end.
 // PLACEMENT: provisional (D137): the file name from the tooltip section 'UI_GUILD' (the windows' UI_<file> pattern) and the model 'tsi35a'; a __FILE__ or an assert would place it
 #include <stdio.h>
 #include <stdarg.h>
@@ -22,6 +22,7 @@
 #include "gd_robj.h"
 #include "rendobj.h"
 #include "..\audio\soundlib.h"
+#include "..\shared\unknown_4fac20.h"	// String_Get_Token 0x4FB810 (0x81D290)
 
 // One member of the list (0x20 bytes; the window's +0xCC and +0xDC hold them)
 class UIGuildMemberClass	// NAME 1: neutral, after ui_friends.h's UIFriendsPlayerInfoClass
@@ -684,6 +685,16 @@ void UIGuildClass::Unknown_81D130()
 	for (int i = 0; i < (int)Unknown0CC.size(); i++) {
 		((ClientClass *)Client)->Send_Packet(&ClientChatPacketClass(((ClientClass *)Client)->Get_Avatar_ID(), (char *)Unknown_8192C0("/gc contributions %s", Unknown0CC[i]->Name.c_str()).c_str(), 3, NULL));
 	}
+}
+
+// 0x81D290 (0x81C380): a member line's first token (a word or a "quoted string") is the name, the rest the location
+void UIGuildClass::Unknown_81D290(std::string line, std::string &name, std::string &location)
+{
+	const char *next = line.begin();
+	if (!String_Get_Token(next, line.end(), &name, &next)) {
+		return;
+	}
+	location.assign(next, line.end());
 }
 
 /*

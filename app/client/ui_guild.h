@@ -47,7 +47,7 @@ public:
 	void Unknown_81C060(std::vector<std::string> lines);	// 0x81C060 (sclient.cpp 0x74DFF0: lines added to the list window while it is active)  // NAME 1 [lines]: neutral
 	void Unknown_81C1F0(std::vector<std::string> lines);	// 0x81C1F0 (the list window activated, its lines replaced)  // NAME 1 [lines]: neutral
 	void Unknown_81CB90();								// 0x81CB90 (slot +0x60: an entry answered, its /gc recruit, tag, message, stats or create sent)
-	void Unknown_81D130(); void Unknown_81D290(std::string line, std::string &name, std::string &location);	// 0x81D130 (no caller: every member's '/gc contributions'); 0x81D290 (0x81C380: a member line parsed into its name and location; not rebuilt)  // NAME 1 [line, name, location]: what 0x81C380 passes (the new member's +0x00 and +0x10)
+	void Unknown_81D130(); void Unknown_81D290(std::string line, std::string &name, std::string &location);	// 0x81D130 (no caller: every member's '/gc contributions'); 0x81D290 (0x81C380: a member line parsed into its name and location)  // NAME 1 [line, name, location]: what 0x81C380 passes (the new member's +0x00 and +0x10)
 	void Unknown_81C5E0(int rights, int unknown1, int unknown2, int unknown3);	// 0x81C5E0 (sclient.cpp: the rank's rights and limits)  // NAME 1 [rights, unknown1-3]: neutral
 
 	GadgetSlider *Slider;								// +0xA0  // NAME 1: as ui_friends.h's
