@@ -46,29 +46,29 @@ extern HWND Unknown_Main_Window;						// 0xBDAA7C (input.cpp's neighbourhood)  /
 // sets its +0x19A5, which queues sounds started during the load
 #include "WWAudio.h"
 #include "avatar.h"
-
-
-
-
-// The members' classes as far as the constructor and destructor build and free them
+#include "vertmaterial.h"
+// The members' classes as far as the constructor and destructor build and free them (decal.h's layouts)
 class Unknown619280Class		// NAME 1: neutral (D10): 0x44 bytes, constructor 0x619280 (before ui_ship_cust.cpp)
 {
 public:
 	Unknown619280Class();								// 0x619280
-	~Unknown619280Class();
+	// (its destructor 0x618C10 is the implicit one: Shutdown inlines it)
 
-	char Unknown00[0x44];
+	int Unknown00;										// +0x00 the pass count
+	RefCountPtr<TextureClass> Unknown04[4][2];			// +0x04 [pass][stage]
+	ShaderClass Unknown24[4];							// +0x24 [pass]
+	RefCountPtr<VertexMaterialClass> Unknown34[4];		// +0x34 [pass]
 };
 
 class SClientUnknown1334Class
 {
 public:
-	~SClientUnknown1334Class();							// 0x618A50
+	// (its destructor 0x618A50 is the implicit one: ~SClient calls it out of line, Shutdown inlines it)
 	void Load(const char *textures, const char *swatches, const char *secret_textures);	// 0x75BE00 (decal.cpp)  // NAME 2: what it does  // NAME 3 [textures, swatches, secret_textures]: the INI names
 
-	std::vector<int> Unknown00;							// +0x00
-	std::vector<int> Unknown10;							// +0x10
-	std::vector<int> Unknown20;							// +0x20
+	std::vector<RefCountPtr<TextureClass> > Unknown00;	// +0x00 (decal.h's TextureArray)
+	std::vector<RefCountPtr<TextureClass> > Unknown10;	// +0x10 (SecretTextureArray)
+	std::vector<Unknown619280Class> Unknown20;			// +0x20 (SwatchArray)
 	Unknown619280Class Unknown30;						// +0x30
 	Unknown619280Class Unknown74;						// +0x74
 };
@@ -96,9 +96,9 @@ public:
 class Unknown758F40Class		// NAME 1: neutral (D10): 0x0C bytes, destructor 0x758F40
 {
 public:
-	~Unknown758F40Class();								// 0x758F40
+	// (the destructor 0x758F40 is the implicit one: Shutdown inlines it, the vector's 0x755CE0 calls it)
 
-	char Unknown00[0x0C];
+	float BaseSize; RefCountPtr<TextureClass> Texture; bool Lighting;	// +0x00 / +0x04 / +0x08 (proj_decal_manager.h's)
 };
 
 class ProjDecalManagerClass
@@ -509,7 +509,7 @@ void SClient::Unload_INIs()
 	}
 }
 
-// NOT EXACT: shape (similarity 0.32): the talk tree's reset is 0x74C9D0 inlined (its null RefCountPtr argument, EH state 0); the client also inlines the +0x1334 / +0x1338 / +0x133C destructors (0x618A50's arrays, the vectors' loops) and the effect list's removal; two forms (attempts.py show 0x741BB0)
+// NOT EXACT: inline budget (similarity 0.73): +0x1334 / +0x1338 inlined as the client's (the decal views' real members), 0x7555B0 out of line; left: the client inlines the +0x133C asset's destructor in the vector loop where ours calls its scalar deleting destructor (budget: freed only by dropping two whole deletes), and register phase (eax / edx) in the view calls; 14 forms (attempts.py show 0x741BB0)
 // 0x741BB0
 void SClient::Shutdown()
 {
@@ -538,10 +538,10 @@ void SClient::Shutdown()
 	delete SectorSound;
 	SectorSound = NULL;
 
-	int id = (int)CameraManager->Module;
-	SignalMap &notifier = CameraModuleClass::Get_Signal_Map();
-	SClientCallbackClass callback(this, &SClient::Unknown_744E50);
-	notifier.disconnect((void *)id, callback);
+	CameraModuleClass::Get_Signal_Map().Remove((CameraModuleClass *)CameraManager->Module, this, &SClient::Unknown_744E50, CameraModuleSignal(false));
+
+
+
 	delete CameraManager;
 	CameraManager = NULL;
 
@@ -609,9 +609,9 @@ void SClient::Shutdown()
 	HashNodeClass<EffectObjectClass *> *node = EffectList.First_Valid();
 	while (node) {
 		HashNodeClass<EffectObjectClass *> *next = node->Next_Valid();
-		EffectObjectClass *effect = node->Get_Record();
 		EffectList.Remove(node);
-		Unknown_6E6A90(effect);
+		Unknown_6E6A90(node->Get_Record());
+
 		node = next;
 	}
 
@@ -5472,7 +5472,7 @@ void SClient::Unknown_7518A0()
 		}
 	}
 }
-
+#pragma auto_inline(off)	// the client calls 0x7555B0 from Shutdown
 // 0x7555B0 (Shutdown): deletes the roots 0x7518A0 made
 void SClient::Unknown_7555B0()
 {
@@ -5483,7 +5483,7 @@ void SClient::Unknown_7555B0()
 		PlayerVarAuxData[0] = NULL;
 	}
 }
-
+#pragma auto_inline(on)
 // the root to's state set from from's encoding (0x755600's two roots)
 template<class T> inline void Unknown_Copy_Root(T *to, T *from)	// NAME 1: neutral (D10)
 {
