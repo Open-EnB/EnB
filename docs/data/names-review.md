@@ -2823,19 +2823,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_75CB10` | `app/client/decal.cpp:154` | untagged neutral name (D10) |
 | 1 | `epsilon` | `app/client/decal.cpp:169` | neutral; a float variable, not a literal: the client compares with fld / fcompp |
 | 1 | `decal.h` | `app/client/decal.h:5` | provisional header name for decal.cpp |
-| 1 | `Unknown619280Class` | `app/client/decal.h:19` | neutral (D10): 0x44 bytes, constructor 0x619280 |
-| 1 | `Unknown00` | `app/client/decal.h:22` | untagged neutral name (D10) |
-| 1 | `Unknown04` | `app/client/decal.h:26` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `app/client/decal.h:27` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `app/client/decal.h:28` | untagged neutral name (D10) |
-| 1 | `SClientUnknown1334Class` | `app/client/decal.h:33` | neutral (D10): 0xB8 bytes, destructor 0x618A50 |
-| 1 | `index` | `app/client/decal.h:38` | neutral |
-| 1 | `Unknown_61DF40` | `app/client/decal.h:38` | untagged neutral name (D10) |
-| 1 | `Unknown_75CB10` | `app/client/decal.h:39` | untagged neutral name (D10) |
-| 1 | `Unknown30` | `app/client/decal.h:44` | untagged neutral name (D10) |
-| 1 | `Unknown74` | `app/client/decal.h:45` | untagged neutral name (D10) |
-| 1 | `all` | `app/client/decal.h:48` | neutral |
-| 1 | `Unknown_82EF70` | `app/client/decal.h:48` | untagged neutral name (D10) |
+| 1 | `Unknown619280Class` | `app/client/decal.h:18` | neutral (D10): 0x44 bytes, constructor 0x619280 |
+| 1 | `Unknown00` | `app/client/decal.h:21` | untagged neutral name (D10) |
+| 1 | `Unknown04` | `app/client/decal.h:25` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `app/client/decal.h:26` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `app/client/decal.h:27` | untagged neutral name (D10) |
+| 1 | `SClientUnknown1334Class` | `app/client/decal.h:32` | neutral (D10): 0xB8 bytes, destructor 0x618A50 |
+| 1 | `index` | `app/client/decal.h:37` | neutral |
+| 1 | `Unknown_61DF40` | `app/client/decal.h:37` | untagged neutral name (D10) |
+| 1 | `Unknown_75CB10` | `app/client/decal.h:38` | untagged neutral name (D10) |
+| 1 | `Unknown30` | `app/client/decal.h:43` | untagged neutral name (D10) |
+| 1 | `Unknown74` | `app/client/decal.h:44` | untagged neutral name (D10) |
 | 1 | `Converter` | `app/client/deffont.cpp:399` | 0xBE64A4, ConvertClass(Palette, Unknown_B8F870, ...) |
 | 1 | `RemapSizes` | `app/client/deffont.cpp:400` | 0xBE6438, each Remaps row's byte count |
 | 1 | `Remaps` | `app/client/deffont.cpp:401` | 0xBE63CC, fontpal.pcx's rows (byte 0 = 0) |
@@ -21112,17 +21110,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_BA89C8` | `app/client/unknown_82ecb0.cpp:18` | neutral (D10) |
 | 1 | `Unknown_82ECB0` | `app/client/unknown_82ecb0.cpp:23` | untagged neutral name (D10) |
 | 1 | `Unknown_82EF50` | `app/client/unknown_82ecb0.cpp:36` | untagged neutral name (D10) |
-| 1 | `Unknown_82F000` | `app/client/unknown_82ecb0.cpp:41` | untagged neutral name (D10) |
-| 1 | `Unknown_82F090` | `app/client/unknown_82ecb0.cpp:55` | untagged neutral name (D10) |
-| 1 | `Unknown_82EF70` | `app/client/unknown_82ecb0.cpp:99` | untagged neutral name (D10) |
+| 1 | `Unknown_82EF70` | `app/client/unknown_82ecb0.cpp:41` | untagged neutral name (D10) |
+| 1 | `Unknown_82F000` | `app/client/unknown_82ecb0.cpp:55` | untagged neutral name (D10) |
+| 1 | `Unknown_82F090` | `app/client/unknown_82ecb0.cpp:69` | untagged neutral name (D10) |
 | 1 | `unknown_82ecb0.h` | `app/client/unknown_82ecb0.h:2` | provisional header name (D10, D137) |
 | 1 | `all` | `app/client/unknown_82ecb0.h:14` | neutral (D10) |
 | 1 | `Unknown_82ECB0` | `app/client/unknown_82ecb0.h:14` | untagged neutral name (D10) |
 | 1 | `Unknown_82EF50` | `app/client/unknown_82ecb0.h:15` | neutral (D10) |
 | 1 | `all` | `app/client/unknown_82ecb0.h:16` | neutral (D10) |
-| 1 | `Unknown_82F000` | `app/client/unknown_82ecb0.h:16` | untagged neutral name (D10) |
+| 1 | `Unknown_82EF70` | `app/client/unknown_82ecb0.h:16` | untagged neutral name (D10) |
 | 1 | `all` | `app/client/unknown_82ecb0.h:17` | neutral (D10) |
-| 1 | `Unknown_82F090` | `app/client/unknown_82ecb0.h:17` | untagged neutral name (D10) |
+| 1 | `Unknown_82F000` | `app/client/unknown_82ecb0.h:17` | untagged neutral name (D10) |
+| 1 | `all` | `app/client/unknown_82ecb0.h:18` | neutral (D10) |
+| 1 | `Unknown_82F090` | `app/client/unknown_82ecb0.h:18` | untagged neutral name (D10) |
 | 1 | `Unknown_8B3E70` | `app/client/unknown_8b3e70.cpp:14` | neutral placeholder (D10) |
 | 1 | `Unknown_8B3F60` | `app/client/unknown_8b3e70.cpp:43` | neutral placeholder (D10) |
 | 1 | `Unknown_8B4020` | `app/client/unknown_8b3e70.cpp:50` | neutral placeholder (D10) |
@@ -25649,7 +25649,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Get_Blur_Time` | `app/client/debrsint.h:80` | the field it reads |
 | 2 | `Set_Blur_Time` | `app/client/debrsint.h:81` | the field it sets |
 | 2 | `Mode` | `app/client/debrsint.h:84` | SClient's DebrisMode |
-| 2 | `Load` | `app/client/decal.h:37` | what it does |
+| 2 | `Load` | `app/client/decal.h:36` | what it does |
 | 2 | `DefaultFontData` | `app/client/deffont.cpp:17` | the file's name (deffont) and FontData[0] |
 | 2 | `FontNames` | `app/client/deffont.cpp:391` | FontData's file names |
 | 2 | `DefaultFont` | `app/client/deffont.cpp:404` | 0xBE6098 over DefaultFontData |
@@ -30148,8 +30148,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `debris.h` | `app/client/debris.h:16` | the header of debris.cpp |
 | 3 | `DebrisFieldClass` | `app/client/debris.h:28` | the profile name's ('DebrisFieldClass::Render' 0xB921E4) |
 | 3 | `DebrisInterfaceClass` | `app/client/debrsint.h:53` | class-from-file (D24) for debrsint.cpp, as backint.cpp's BackInterfaceClass |
-| 3 | `decal.cpp` | `app/client/decal.cpp:15` | the FAIL_IF's 'i - SECRET_DECALS' |
-| 3 | `i, mat_desc` | `app/client/decal.h:39` | the FAIL_IFs'; NAME 1 [color]: neutral |
+| 3 | `decal.cpp` | `app/client/decal.cpp:151` | the FAIL_IF's 'i - SECRET_DECALS' |
+| 3 | `i, mat_desc` | `app/client/decal.h:38` | the FAIL_IFs'; NAME 1 [color]: neutral |
 | 3 | `distance_calc_client.h` | `app/client/distance_calc_client.h:15` | header name assumed from the client's distance_calc_client.cpp |
 | 3 | `STATE_INACTIVE` | `app/client/drag_mouse.h:13` | the asserts 'State == STATE_INACTIVE', 'State != STATE_INACTIVE' |
 | 3 | `mouse` | `app/client/drag_mouse.h:14` | the assert's |
