@@ -9,8 +9,8 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 218 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1934 |
-| 2 | describes what the code does | 4885 |
+| 3 | by convention from a client-named file or sibling | 1935 |
+| 2 | describes what the code does | 4891 |
 | 1 | neutral placeholder | 24825 |
 
 ## For review (score 3 and below)
@@ -27745,6 +27745,12 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `flag, name` | `app/common/game_action_validity.cpp:61` | what they hold |
 | 2 | `Flag` | `app/common/game_action_validity.cpp:63` | what it holds |
 | 2 | `std:` | `app/common/game_action_validity.cpp:64` | what it holds |
+| 2 | `GroupAccessType` | `app/common/group_common.h:18` | what its names describe |
+| 2 | `GROUP_ACCESS_GROUP` | `app/common/group_common.h:20` | its string |
+| 2 | `GROUP_ACCESS_RESTRICTED` | `app/common/group_common.h:21` | its string |
+| 2 | `GROUP_ACCESS_PUBLIC` | `app/common/group_common.h:22` | its string |
+| 2 | `Value_To_String` | `app/common/group_common.h:25` | as strconv_lib's |
+| 2 | `String_To_Value` | `app/common/group_common.h:26` | as strconv_lib's |
 | 2 | `Sound` | `app/common/guild_strings.cpp:9` | what it holds |
 | 2 | `Text` | `app/common/guild_strings.cpp:10` | what it holds |
 | 2 | `ItemEffectDescriptionClass` | `app/common/item_effect_description.h:30` | item_effect_description.cpp's 0x83E5F0 |
@@ -30770,6 +30776,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `std:` | `app/common/galaxy_map.h:297` | the asserts' |
 | 3 | `MaxDataObjects` | `app/common/galaxy_map.h:298` | Add_Data's FAIL_IF '(int)id >= MaxDataObjects' |
 | 3 | `GameActionValidityClass` | `app/common/game_action_validity.h:9` | the client's 'GameActionValidityBitFlag' (Type_Name 0x83D270), whose bits Flags holds |
+| 3 | `group_common.h` | `app/common/group_common.h:15` | the header of group_common.cpp |
 | 3 | `guild_defs.h` | `app/common/guild_defs.h:17` | header name assumed from the client's guild_defs.cpp |
 | 3 | `guild_strings.h` | `app/common/guild_strings.h:16` | header name assumed from the client's guild_strings.cpp |
 | 3 | `interrupt_defs.h` | `app/common/interrupt_defs.h:17` | header name assumed from the client's interrupt_defs.cpp |

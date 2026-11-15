@@ -1,0 +1,12 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "group_common.cpp: GroupAccessType's Value_To_String / String_To_Value (client 0x83D6A0-0x83D7A5; __FILE__ 0xBA9A84, G_ASSERT '0' line 18 in 0x83D6A0)",
+ "expected": {},
+ "in_tree": [
+  "0x83D6A0",
+  "0x83D740"
+ ],
+ "merged": [],
+ "name": "common/group_common.cpp"
+}
