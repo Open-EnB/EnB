@@ -10,6 +10,7 @@
  "in_tree": [
   "0x42F250",
   "0x46BEC0",
+  "0x47D3A0",
   "0x7C5100",
   "0x7C5500",
   "0x7C55A0",
@@ -19,6 +20,7 @@
  "name": "client/target_reticle.cpp",
  "shared": [
   "0x42F250",
-  "0x46BEC0"
+  "0x46BEC0",
+  "0x47D3A0"
  ]
 }
