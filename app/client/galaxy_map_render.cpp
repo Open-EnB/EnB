@@ -739,7 +739,7 @@ void GalaxyMapRenderClass::Unknown_7A83D0(SphereClass &sphere, bool arg)
 			gate->To->Get_Position(b);
 			Vector3 d = a - b;
 			sphere.Center = d * 0.5f + b;
-			sphere.Radius = d.Length() * 0.5f;
+			sphere.Radius = (a - b).Length() * 0.5f;
 		} else {
 			RenderObjClass *robj = PickedGate->Unknown_7AE220()->Peek_RObj();
 
@@ -760,7 +760,7 @@ void GalaxyMapRenderClass::Unknown_7A83D0(SphereClass &sphere, bool arg)
 		sphere.Center = Point;
 		sphere.Radius = UnknownB8;
 	}
-	sphere.Radius = WWMath::Max(sphere.Radius, SystemZoomMinRadius);
+	sphere.Radius = (sphere.Radius < SystemZoomMinRadius) ? SystemZoomMinRadius : sphere.Radius;
 }
 
 
