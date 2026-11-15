@@ -320,6 +320,14 @@
    "moved_to": null,
    "decision": "D240",
    "note": "run 2026-11-15, TK (objmatch funclet credit, D246 / C21): ~DeltaTemplateClass<UnknownB00A00Type> 0x706AF0 is lost because the exact parents' unwind funclets (DeltaShipClass::~ 0x6F8D30, DeltaLightClass ctor 0x6F9870) jump to 0x6F8CF0 for the same symbol while the ??_G 0x706730 calls 0x706AF0: the client has two instantiations (two ??_G thunks 0x401B8B / 0x409A57); symbols.json's names for the two are swapped (TY's symbols_named swap regains it). Lost until regained."
+  },
+  {
+   "address": "0x609080",
+   "lib": "app",
+   "file": "ui_registration",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "run 2026-11-15, VI 241e15e8a: five files' vector<int> members retyped vector<unsigned long> from their client call targets (selector's cluster 0x4A0850 / 0x4A0880 / 0x4A0B20 / 0x4A0B70 / 0x4A0BD0; /INCREMENTAL keeps each instance's own copy). ui_registration writes at least two 4-byte vector instances as one vector<int> (0x6053F0 calls _Ufill 0x609000, 0x6056F0 calls 0x609080), so objmatch no longer credits its _Ufill 0x609080. Lost until ui_registration's element types are split."
   }
  ]
 }
