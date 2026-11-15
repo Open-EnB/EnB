@@ -295,7 +295,7 @@ extern RectClass Unknown_C07550;						// NAME 1: neutral (D10): the text's coord
 // PxProcessClass::Pop 0x455F60)
 void Unknown_6E6A90(EffectObjectClass *effect);			// 0x6E6A90 (eff_o.cpp): Shutdown, per effect left
 
-
+static std::string Unknown_BE81B0("megan_wlc.wav");	// 0xBE81B0: not used (its initialiser 0x740400 and atexit destructor 0x7404C0 sit between 0x740050 and the constructor)  // NAME 1 [Unknown_BE81B0]: neutral (D10)
 static int INIUsers;									// 0xBE81C0: Load_INIs / Unload_INIs  // NAME 2: what it counts
 
 // 0x7405E0
@@ -475,7 +475,7 @@ void SClient::Init()
 	CameraManager->Set_Tilt(mode.Tilt);
 	CameraManager->Set_Elevation_Offset(mode.ElevationOffset);
 	CameraManager->Unknown_79B4B0(CameraMode == 0);
-	CameraManager->FOV = mode.FOV;
+	{ float fov = mode.FOV; CameraManager->FOV = fov; }	// fld / fstp in the client
 	Unknown_744C10();
 
 	MusicManager = new MusicManagerClass;
@@ -727,8 +727,8 @@ unsigned SClient::Set_Avatar_ID(unsigned id)
 	return(ClientClass::Set_Avatar_ID(id));
 }
 #include "..\packets\pkclientchat.h"
-// 0x744D80 (inline: Init's camera block, 0x7436A0's camera keys; 0x6B58A0 calls the out-of-line copy)
-inline void SClient::Unknown_744D80() {
+// NOT EXACT: order (0.95): the client stores Unknown12B0 before Unknown12B4 and pushes the heading before taking the mode's address; 0x744D80 (out of line for 0x6B58A0, auto-inlined into 0x7436A0's camera keys; Init has the block written out)
+void SClient::Unknown_744D80() {
 	Unknown12B0 = Unknown10BC; Unknown12B4 = 0;
 	CameraModeStruct &mode = CameraModes[CameraMode];
 	CameraManager->Set_Heading(mode.Heading);
@@ -736,7 +736,7 @@ inline void SClient::Unknown_744D80() {
 	CameraManager->Set_Tilt(mode.Tilt);
 	CameraManager->Set_Elevation_Offset(mode.ElevationOffset);
 	CameraManager->Unknown_79B4B0(CameraMode == 0);
-	CameraManager->FOV = mode.FOV;
+	{ float fov = mode.FOV; CameraManager->FOV = fov; }	// the client copies it through the FPU (fld / fstp), as in Init
 	Unknown_744C10(); }
 // NOT EXACT: register (explain.py register-only, 2 rows): the client loads the dialog's table into eax for the button > 1 call, ours into edx; the packet is a temporary (a named local cost 6 rows)
 // 0x7429B0 (Do_Frame, after the lost-connection check: the reset-ship question; out of line as the client has it)

@@ -2781,5 +2781,15 @@
   "address": "0x7E1D90",
   "symbol": "??1?$_com_ptr_t@V?$_com_IIID@UIXMLDOMDocumentType@MSXML@@$1?_GUID_2933bf8b_7b36_11d2_b20e_00c04f983e60@@3U__s_GUID@@A@@@@QAE@XZ",
   "evidence": "Sub14CImplClass::Slot16 0x7E15B0 (unknown_7dfed0.cpp; not exact: paired by its whole unwind map, 4 states, found at no other client function): unwind funclet 0xAD33B8 'lea ecx, [ebp - 0x28]; jmp' reaches it, the same state's funclet in the object jumps to this symbol, and its body matches at 0x7E1D90; FD2 2026-11-15 (C37)"
+ },
+ {
+  "address": "0x73FEF0",
+  "symbol": "?Unknown_73FEF0@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@PBD@Z",
+  "evidence": "sclient.obj's static trim helper: its only callers are sclient.cpp's chat commands 0x749590 (0x749732, 0x749758) and 0x749ED0 (0x74A6A3), inside sclient's range; byte-identical to unknown_4fac20.cpp's String_Trim 0x4FAC20 and the copy at 0x4F2440, so objmatch left it ambiguous (SC, 2026-11-15)"
+ },
+ {
+  "address": "0x740050",
+  "symbol": "?Unknown_740050@@YAXPBD0IAAV?$vector@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@@Z",
+  "evidence": "sclient.obj's static split helper: its only callers are sclient.cpp's chat commands 0x749590 (0x7496B8) and 0x749ED0 (0x74A621), inside sclient's range; byte-identical to unknown_4fb810.cpp's String_Tokenize 0x4FBEC0, so objmatch left it ambiguous (SC, 2026-11-15)"
  }
 ]
