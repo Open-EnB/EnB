@@ -1,0 +1,64 @@
+name: a recorded session played to its end: /play 7 on the Broadcast channel (Zanor, 2026-10-19 11:53), eight sector sessions, then the replay's own hand-off home
+# Recording 7 (session_2026-10-19_115352, Net-7; its note: 2.46: login, warp, gate, dock, combat, craft, loot, mine,
+# merchant, vault, equip, job): 8 sector sessions, 26298 messages, each next one by the recording's own
+# SERVER_HANDOFF: 1 sector 4510 (1946 messages over 86 s), 2 sector 4505 (1129, 21 s), 3 sector 45051 (a starbase:
+# no 'Render: Frame Rate' there on either client, so the entry waits on ui_starbase.cpp's 'Changing room from -1';
+# 654, 218 s), 4 sector 4505 (1058, 36 s), 5 sector 4520 (19802 messages over 5738 s: the long one), 6 to 8 the
+# capture's last minutes; the last one's end antreplay answers with 'End of recording 7; back to Jupiter.' and a
+# SERVER_HANDOFF home, whose connection answers START_ACK. No /stop: the playback runs to its completion (the user,
+# 2026-11-14). About 6400 s: run it alone, at a handoff, not in a landing's smoke. Not yet run to its end (E2,
+# 2026-11-15): both clients reached session 5 alive (retail and ours, after the fix below), but in its first hour
+# e2e.py grew to 4 GB (retail) and 7 GB (ours) and the host ran out of memory: Events keeps every line of
+# messages.log (2 GB on retail: effect_description.cpp's assert flood, on both clients) and antprox.out (1 GB on
+# ours: the same asserts on stderr) in memory.
+# Fault met on ours (E2, 2026-11-15): at the end of session 3 (the starbase) a crash in RateConnectionClass::Send_Packet,
+# the SELECT_TALK_TREE packet of ui_talkt.cpp's UITalkTreeClass::Unknown_5C built by a generated stand-in
+# constructor (SelectTalkTreePacketClass 0x8A75F0: no vptr), as play9's on 0x8A3600.
+timeout: 7200
+messages: on
+include _login
+key 0x08
+expect-event proxy '^input: replayed key 0x8'
+alive 1
+text '/play 7'
+key 0x0D
+expect-event antprox 'command "/play 7"' within 10
+wait-event antprox 'sent SERVER_HANDOFF' within 20
+wait-event antprox 'Sector connection #[0-9]+: playback of 7, sector session 1 of 8' within 60
+move 640,600
+wait-event msg 'Render: Frame Rate|Sbase: .*Changing room from -1' within 90
+shot play7_s1
+wait-event antprox 'Sector connection #[0-9]+: playback of 7, sector session 2 of 8' within 300
+move 640,600
+wait-event msg 'Render: Frame Rate|Sbase: .*Changing room from -1' within 90
+shot play7_s2
+wait-event antprox 'Sector connection #[0-9]+: playback of 7, sector session 3 of 8' within 300
+move 640,600
+wait-event msg 'Render: Frame Rate|Sbase: .*Changing room from -1' within 90
+shot play7_s3
+wait-event antprox 'Sector connection #[0-9]+: playback of 7, sector session 4 of 8' within 400
+move 640,600
+wait-event msg 'Render: Frame Rate|Sbase: .*Changing room from -1' within 90
+shot play7_s4
+wait-event antprox 'Sector connection #[0-9]+: playback of 7, sector session 5 of 8' within 300
+move 640,600
+wait-event msg 'Render: Frame Rate|Sbase: .*Changing room from -1' within 90
+shot play7_s5
+wait-event antprox 'Sector connection #[0-9]+: playback of 7, sector session 6 of 8' within 6200
+move 640,600
+wait-event msg 'Render: Frame Rate|Sbase: .*Changing room from -1' within 90
+shot play7_s6
+wait-event antprox 'Sector connection #[0-9]+: playback of 7, sector session 7 of 8' within 900
+move 640,600
+wait-event msg 'Render: Frame Rate|Sbase: .*Changing room from -1' within 90
+shot play7_s7
+wait-event antprox 'Sector connection #[0-9]+: playback of 7, sector session 8 of 8' within 900
+move 640,600
+wait-event msg 'Render: Frame Rate|Sbase: .*Changing room from -1' within 90
+shot play7_s8
+wait-event antprox 'Playback of 7: end of the recording; back to' within 900
+wait-event antprox 'sent SERVER_HANDOFF.*back to' within 10
+wait-event antprox 'Sector connection #[0-9]+: received START_ACK' within 120
+wait-quiet proxy 2 within 60
+alive 8
+shot play7_home
