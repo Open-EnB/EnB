@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1961 |
 | 2 | describes what the code does | 4957 |
-| 1 | neutral placeholder | 25092 |
+| 1 | neutral placeholder | 25093 |
 
 ## For review (score 3 and below)
 
@@ -22809,6 +22809,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown15` | `app/packets/pkstarbasetow.h:37` | untagged neutral name (D10) |
 | 1 | `pkstart` | `app/packets/pkstart.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown00` | `app/packets/pktalktreeaction.cpp:28` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/packets/pktalktreeaction.cpp:141` | untagged neutral name (D10) |
 | 1 | `pktalktreeaction` | `app/packets/pktalktreeaction.h:16` | provisional, pk + its first named class's name |
 | 1 | `Unknown00` | `app/packets/pktalktreeaction.h:28` | neutral (D10) |
 | 1 | `Unknown11` | `app/packets/pktalktreeaction.h:80` | untagged neutral name (D10) |
