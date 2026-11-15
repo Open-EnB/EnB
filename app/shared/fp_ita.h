@@ -15,7 +15,21 @@
 #ifndef FP_ITA_H  // NAME 3 [fp_ita.h]: the header of fp_ita.cpp
 #define FP_ITA_H
 
-#include "fp_tt.h"	// FpBaseClass
+#include "vector3.h"
+#include "matrix3d.h"
+
+class PxWrapper;
+class DynObj;
+
+// The fp_*.cpp family's base (table 0xAE7910): the slots fp_ita.cpp / fp_tt.cpp fill
+class FpBaseClass  // NAME 1 [FpBaseClass]: neutral (D10), the base of the fp_*.cpp classes
+{
+public:
+	virtual ~FpBaseClass() {}																	// 0x4492D0 (deleting, fp_ita.obj's copy)
+	virtual int Unknown_04(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch) = 0;	// +0x04  // NAME 1 [all]: what fp_tt.cpp's does with them
+	virtual int Unknown_08(const Vector3 &target, Matrix3D *transforms, float dist, float &yaw, float &pitch, PxWrapper &proxim, float radius, DynObj *self, Vector3 *aims) = 0;	// +0x08  // NAME 1 [all but proxim]: as Unknown_04, what fp_tt.cpp's does with them; [proxim]: the G_ASSERT 'proxim.Get_Avoidance()' 0xB705E4
+	virtual void Unknown_0C(float &yaw, float &pitch) = 0;										// +0x0C  // NAME 1 [yaw, pitch]: the angles fp_tt.cpp's returns
+};
 
 class FpItaClass : public FpBaseClass  // NAME 3 [FpItaClass]: class-from-file (D24) for fp_ita.cpp
 {

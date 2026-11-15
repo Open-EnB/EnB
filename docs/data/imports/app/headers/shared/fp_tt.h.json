@@ -1,4 +1,4 @@
 {
  "copy": "reconstructed",
- "description": "fp_tt.h: FpTTClass and the fp_*.cpp family's base (tables 0xAE7934 / 0xAE7910)"
+ "description": "fp_tt.h: FpTTClass (table 0xAE7934; includes fp_ita.h for FpBaseClass)"
 }
