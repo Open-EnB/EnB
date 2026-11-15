@@ -9,9 +9,9 @@ are listed here until better evidence raises their tag. Regenerate with
 |---|---|---|
 | 5 | the client names it | 218 |
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
-| 3 | by convention from a client-named file or sibling | 1927 |
-| 2 | describes what the code does | 4872 |
-| 1 | neutral placeholder | 24810 |
+| 3 | by convention from a client-named file or sibling | 1928 |
+| 2 | describes what the code does | 4885 |
+| 1 | neutral placeholder | 24815 |
 
 ## For review (score 3 and below)
 
@@ -13513,6 +13513,11 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0AC` | `app/client/ui_guild_list.h:38` | untagged neutral name (D10) |
 | 1 | `Unknown0BC` | `app/client/ui_guild_list.h:39` | untagged neutral name (D10) |
 | 1 | `Unknown0C4` | `app/client/ui_guild_list.h:40` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Valid` | `app/client/ui_hdamg.cpp:95` | neutral (D10), as co.cpp's |
+| 1 | `Unknown_Find_Field` | `app/client/ui_hdamg.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_hdamg.cpp:95` | untagged neutral name (D10) |
+| 1 | `frame` | `app/client/ui_hdamg.cpp:100` | neutral (D10) |
+| 1 | `UnknownRTTIClass` | `app/client/ui_hdamg.cpp:191` | untagged neutral name (D10) |
 | 1 | `LineDisplayClientClass` | `app/client/ui_hot_keys.cpp:16` | neutral (D10) |
 | 1 | `Unknown_00` | `app/client/ui_hot_keys.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_04` | `app/client/ui_hot_keys.cpp:19` | untagged neutral name (D10) |
@@ -27029,6 +27034,19 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `FindUI` | `app/client/ui_groupopt.h:36` | what it holds |
 | 2 | `std:` | `app/client/ui_guild.cpp:32` | its style's |
 | 2 | `std:` | `app/client/ui_guild.cpp:33` | its style's |
+| 2 | `UIHullDamageQuadrantClass` | `app/client/ui_hdamg.h:25` | one of 'VisibleQuadrantDamagePercent''s four |
+| 2 | `all` | `app/client/ui_hdamg.h:30` | what it does |
+| 2 | `all` | `app/client/ui_hdamg.h:31` | what it does |
+| 2 | `all` | `app/client/ui_hdamg.h:32` | what it does |
+| 2 | `Mapper0` | `app/client/ui_hdamg.h:34` | the first sub object's mapper |
+| 2 | `Mapper1` | `app/client/ui_hdamg.h:35` | the second sub object's mapper |
+| 2 | `Offset` | `app/client/ui_hdamg.h:36` | what it holds |
+| 2 | `Last` | `app/client/ui_hdamg.h:37` | what it holds |
+| 2 | `UIHullDamageClass` | `app/client/ui_hdamg.h:40` | ui_hdamg.cpp's class, its Message_Stat category 'HullDamage' |
+| 2 | `all` | `app/client/ui_hdamg.h:45` | what it does |
+| 2 | `Update` | `app/client/ui_hdamg.h:46` | what it does |
+| 2 | `Quadrant` | `app/client/ui_hdamg.h:48` | 'VisibleQuadrantDamagePercent' |
+| 2 | `Object` | `app/client/ui_hdamg.h:49` | what it holds |
 | 2 | `owner` | `app/client/ui_interrupt.h:26` | what it holds |
 | 2 | `Owner` | `app/client/ui_interrupt.h:27` | what it holds |
 | 2 | `std:` | `app/client/ui_inv.cpp:22` | as ui_trade.cpp's |
@@ -30435,6 +30453,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `As_Space_Client` | `app/client/ui_groupopt.cpp:27` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UIGroupOptClass` | `app/client/ui_groupopt.h:16` | class-from-file (D24) for ui_groupopt.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_guild.cpp:95` | ui_manu.cpp's FAIL_IF's |
+| 3 | `ui_hdamg.h` | `app/client/ui_hdamg.h:15` | the header of ui_hdamg.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_hot_keys.cpp:21` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIHotKeysClass` | `app/client/ui_hot_keys.h:14` | class-from-file (D24) for app\Client\ui_hot_keys.cpp |
 | 3 | `Millisecond` | `app/client/ui_interrupt.cpp:17` | the assert's |

@@ -1,0 +1,23 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "ui_hdamg.cpp: UIHullDamageClass, the HUD's hull damage quadrants (client 0x59BF30-0x59C660; __FILE__ 0xB80034, Message_Stat 'HullDamage' line 111 in 0x59C190, G_ASSERT 'false' line 161 in 0x59C430, table 0xAF2028)",
+ "expected": {},
+ "in_tree": [
+  "0x42F250",
+  "0x59BF30",
+  "0x59C070",
+  "0x59C0B0",
+  "0x59C150",
+  "0x59C3B0",
+  "0x59C3F0",
+  "0x59C430",
+  "0x59C560",
+  "0x59C640"
+ ],
+ "merged": [],
+ "name": "client/ui_hdamg.cpp",
+ "shared": [
+  "0x42F250"
+ ]
+}
