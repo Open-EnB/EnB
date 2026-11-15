@@ -1631,7 +1631,7 @@ Base copy: reconstructed. Headers: 687 from reconstructed.
 | client/galaxy_map_client.cpp | reconstructed | 18 | 2 | - | - | - |  |
 | client/galaxy_map_focal_point.cpp | reconstructed | 13 | 0 | - | - | - |  |
 | client/galaxy_map_pip.cpp | reconstructed | 21 | 3 | - | - | - |  |
-| client/galaxy_map_render.cpp | reconstructed | 184 | 19 | - | - | - |  |
+| client/galaxy_map_render.cpp | reconstructed | 185 | 19 | - | - | - |  |
 | client/galaxy_map_robj.cpp | reconstructed | 126 | 4 | - | - | - |  |
 | common/game_action_validity.cpp | reconstructed | 24 | 1 | - | - | - |  |
 | client/gauge3d.cpp | reconstructed | 111 | 1 | - | - | - |  |
@@ -1953,7 +1953,7 @@ Base copy: reconstructed. Headers: 687 from reconstructed.
 | client/starbase_lights.cpp | reconstructed | 12 | 0 | - | - | - |  |
 | audio/starbasesound.cpp | reconstructed | 9 | 0 | - | - | - |  |
 | client/starmap_data.cpp | reconstructed | 117 | 5 | - | - | - |  |
-| client/starmap_pip.cpp | reconstructed | 54 | 4 | - | - | - |  |
+| client/starmap_pip.cpp | reconstructed | 55 | 4 | - | - | - |  |
 | client/starmap_pip_support.cpp | reconstructed | 88 | 0 | - | - | - |  |
 | shared/stars.cpp | reconstructed | 120 | 2 | - | - | - |  |
 | shared/strconv_lib.cpp | reconstructed | 5 | 2 | - | - | - |  |
@@ -2064,7 +2064,7 @@ Base copy: reconstructed. Headers: 687 from reconstructed.
 | client/ui_radio_list.cpp | reconstructed | 61 | 3 | - | - | - |  |
 | client/ui_radio_main.cpp | reconstructed | 48 | 4 | - | - | - |  |
 | client/ui_refinery.cpp | reconstructed | 74 | 6 | - | - | - |  |
-| client/ui_registration.cpp | reconstructed | 233 | 10 | - | - | - |  |
+| client/ui_registration.cpp | reconstructed | 231 | 10 | - | - | - |  |
 | client/ui_scan.cpp | reconstructed | 74 | 5 | - | - | - |  |
 | client/ui_scut.cpp | reconstructed | 83 | 1 | - | - | - |  |
 | client/ui_scut_gadgets.cpp | reconstructed | 46 | 1 | - | - | - |  |
