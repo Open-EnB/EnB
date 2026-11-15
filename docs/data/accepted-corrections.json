@@ -312,6 +312,14 @@
    "moved_to": null,
    "decision": "D240",
    "note": "run 2026-11-15, IB f0c5654f8: `#pragma auto_inline(off)` around RegistrationInterface::Unknown_5F86F0, which all 19 client call sites call out of line (client.py callers 0x5F86F0: 0x5F1A10, 0x5FBD30 x7, 0x600000 x11). the combo map's iterator::operator++(int) was emitted at its client address only because ours inlined 0x5F86F0 everywhere; its client callers 0x600000 / 0x5F1A10 / 0x5FB9F0 are NOT EXACT. Lost until regained."
+  },
+  {
+   "address": "0x706AF0",
+   "lib": "app",
+   "file": "aux_roots",
+   "moved_to": null,
+   "decision": "D240",
+   "note": "run 2026-11-15, TK (objmatch funclet credit, D246 / C21): ~DeltaTemplateClass<UnknownB00A00Type> 0x706AF0 is lost because the exact parents' unwind funclets (DeltaShipClass::~ 0x6F8D30, DeltaLightClass ctor 0x6F9870) jump to 0x6F8CF0 for the same symbol while the ??_G 0x706730 calls 0x706AF0: the client has two instantiations (two ??_G thunks 0x401B8B / 0x409A57); symbols.json's names for the two are swapped (TY's symbols_named swap regains it). Lost until regained."
   }
  ]
 }
