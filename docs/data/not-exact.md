@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-882 entries in 297 files.
+879 entries in 297 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -196,9 +196,7 @@ edit the comments in the code, not this file.
 | `app/client/gauge3d.cpp:163` | `Gauge3DClass::Gauge3DClass` | marker | NOT EXACT: 0.83, order-only: the client pushes both of G_ASSERT's strings before storing Size.Y; ours stores between them |
 | `app/client/gd_buffgadg.cpp:188` | `BuffGadgetClass::Unknown_AC` | marker | NOT EXACT: frame (the client keeps the time now on the stack, ours in registers; the body after it matches) 0x665F20 |
 | `app/client/gd_buffgadg.cpp:227` | `BuffGadgetClass::Unknown_6661F0` | marker | NOT EXACT: register (explain.py: identical once registers are normalised; ecx / edx swapped at the time compare) 0x6661F0 |
-| `app/client/gd_inv_slider.cpp:20` | `Unknown669FB0Class::Unknown669FB0Class` | marker | NOT EXACT: functional from the pseudocode (D64) 0x669FB0 |
-| `app/client/gd_inv_slider.cpp:41` | `Unknown669FB0Class::~Unknown669FB0Class` | marker | NOT EXACT: functional from the pseudocode (D64) 0x66A190 |
-| `app/client/gd_inv_slider.cpp:118` | `Unknown669FB0Class::Unknown_66A4E0` | marker | NOT EXACT: functional from the pseudocode (D64) 0x66A4E0 |
+| `app/client/gd_inv_slider.cpp:20` | `Unknown669FB0Class::Unknown669FB0Class` | marker | NOT EXACT: register-only (the client loads the argument into ecx and the member back into eax, ours the reverse: 6 rows) 0x669FB0 |
 | `app/client/gd_robj.cpp:16` | `RObjGadgetClass::RObjGadgetClass` | marker | NOT EXACT: scheduling (similarity 0.93): the client stores the table after the flags byte; 0x66BEC0, the same source, is exact |
 | `app/client/gd_robj.cpp:280` | `RObjGadgetClass::Unknown_A0` | mention | NOT EXACT: the constructor 0x66BDF0 (the table store is scheduled after the flags byte in the client, before it here; the twin 0x66BEC0 is exact with the same source). |
 | `app/client/gd_selct.cpp:79` | `SelectGadgetClass::Unknown_2C` | marker | NOT EXACT (0.73, attempts.py 0x66D1E0): the client pushes edi with ebp after the first test and loads the event after them; the rest matches |
@@ -277,9 +275,8 @@ edit the comments in the code, not this file.
 | `app/client/nlp.cpp:460` | `PlayerNLPClass::Unknown_78F050` | marker | NOT EXACT: functional for POC (D64), shape (a merged or split tail) |
 | `app/client/option.cpp:810` | `OptionClass::Get_String` | marker | NOT EXACT: shape, block order: this order gives the client's inlining (the "" path calls _Grow) but places the "" path first; the client places the copy first |
 | `app/client/option.cpp:856` | `OptionClass::Get_Default_String` | marker | NOT EXACT: shape, as Get_String |
-| `app/client/pdaint.cpp:208` | `PDAInterfaceClass::Unknown_68` | mention | NOT EXACT: shape (the chat window block, the sound tail and the cases' order: 0.17)) |
-| `app/client/pdaint.cpp:530` | `PDAInterfaceClass::Unknown_695780` | mention | NOT EXACT: shape (the client's FAIL_IF returns share one tail: 0.15)) |
-| `app/client/pdaint.cpp:603` | `PDAInterfaceClass::Unknown_695A00` | mention | NOT EXACT: shape (cases 1 and 3 jump to the common return-true tail: 0.36)) |
+| `app/client/pdaint.cpp:208` | `PDAInterfaceClass::Unknown_68` | mention | NOT EXACT: inline-budget (cases in the client's code order; the client inlines the 18 window releases of PDA_Close_Chat_Window, each in its own stack slots, ours calls them: 0.38)) |
+| `app/client/pdaint.cpp:530` | `PDAInterfaceClass::Unknown_695780` | mention | NOT EXACT: shape (the client places the epilogue after the first FAIL_IF and copies the Set_View tail into each case: 0.64)) |
 | `app/client/pdaint.cpp:747` | `PDAInterfaceClass::Unknown_695FE0` | mention | NOT EXACT: block order (the client puts the off branch's own return first: 0.59)) |
 | `app/client/postate.cpp:920` | `Unknown717010Class::Unknown_717430` | marker | NOT EXACT: inline-budget (the client calls the float field's Cast 0x546970 out of line in the first lookups, ours inlines all; 286 vs 314 instructions; one form; attempts.py show 0x717430) |
 | `app/client/postate.cpp:1012` | `Unknown717010Class::Unknown_7179A0` | marker | NOT EXACT: inline-budget (the client calls the bool field's Cast 0x584FF0 out of line for 'AutoLevel', ours inlines it; register-only after; one form; attempts.py show 0x7179A0) |

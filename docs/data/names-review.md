@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 34 |
 | 3 | by convention from a client-named file or sibling | 1953 |
 | 2 | describes what the code does | 4932 |
-| 1 | neutral placeholder | 24950 |
+| 1 | neutral placeholder | 24956 |
 
 ## For review (score 3 and below)
 
@@ -6741,19 +6741,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `UnknownB0` | `app/client/pdaint.cpp:154` | untagged neutral name (D10) |
 | 1 | `Unknown_58` | `app/client/pdaint.cpp:155` | untagged neutral name (D10) |
 | 1 | `Unknown_695780` | `app/client/pdaint.cpp:159` | untagged neutral name (D10) |
+| 1 | `PDA_Window_Active` | `app/client/pdaint.cpp:198` | neutral (D10) |
+| 1 | `Unknown_6956C0` | `app/client/pdaint.cpp:198` | untagged neutral name (D10) |
 | 1 | `PDA_Close_Chat_Window` | `app/client/pdaint.cpp:199` | neutral (D10) |
 | 1 | `Unknown_694AA0` | `app/client/pdaint.cpp:201` | untagged neutral name (D10) |
 | 1 | `Unknown_5C` | `app/client/pdaint.cpp:203` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/pdaint.cpp:209` | untagged neutral name (D10) |
 | 1 | `Unknown_695C50` | `app/client/pdaint.cpp:219` | untagged neutral name (D10) |
 | 1 | `Unknown_695A00` | `app/client/pdaint.cpp:225` | untagged neutral name (D10) |
-| 1 | `Unknown_565F30` | `app/client/pdaint.cpp:251` | untagged neutral name (D10) |
-| 1 | `Unknown_6956C0` | `app/client/pdaint.cpp:268` | untagged neutral name (D10) |
-| 1 | `Unknown_744B60` | `app/client/pdaint.cpp:284` | untagged neutral name (D10) |
-| 1 | `Unknown_5742B0` | `app/client/pdaint.cpp:305` | untagged neutral name (D10) |
-| 1 | `Unknown_574220` | `app/client/pdaint.cpp:308` | untagged neutral name (D10) |
-| 1 | `Unknown_7C8C20` | `app/client/pdaint.cpp:327` | untagged neutral name (D10) |
-| 1 | `Unknown_7C8BA0` | `app/client/pdaint.cpp:329` | untagged neutral name (D10) |
+| 1 | `Unknown_5742B0` | `app/client/pdaint.cpp:238` | untagged neutral name (D10) |
+| 1 | `Unknown_574220` | `app/client/pdaint.cpp:241` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8C20` | `app/client/pdaint.cpp:260` | untagged neutral name (D10) |
+| 1 | `Unknown_7C8BA0` | `app/client/pdaint.cpp:262` | untagged neutral name (D10) |
+| 1 | `Unknown_744B60` | `app/client/pdaint.cpp:300` | untagged neutral name (D10) |
+| 1 | `Unknown_565F30` | `app/client/pdaint.cpp:338` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/pdaint.cpp:378` | untagged neutral name (D10) |
 | 1 | `Unknown_70` | `app/client/pdaint.cpp:456` | untagged neutral name (D10) |
 | 1 | `Unknown4C` | `app/client/pdaint.cpp:459` | untagged neutral name (D10) |
@@ -14076,15 +14077,17 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown1EC` | `app/client/ui_jobs.h:101` | untagged neutral name (D10) |
 | 1 | `Unknown_BDBB84` | `app/client/ui_line_display.cpp:11` | neutral (D10): the random generator the fonts are picked with |
 | 1 | `Unknown_BE67BC` | `app/client/ui_line_display.cpp:14` | neutral (D10); sclient.h declares it so |
-| 1 | `LineDisplayUnknown138Class` | `app/client/ui_line_display.cpp:28` | neutral (D10) |
-| 1 | `Unknown000` | `app/client/ui_line_display.cpp:31` | untagged neutral name (D10) |
-| 1 | `UnknownC8` | `app/client/ui_line_display.cpp:32` | untagged neutral name (D10) |
-| 1 | `LineDisplayUnknown127CClass` | `app/client/ui_line_display.cpp:35` | neutral (D10) |
-| 1 | `Unknown138` | `app/client/ui_line_display.cpp:39` | untagged neutral name (D10) |
-| 1 | `LineDisplaySClientClass` | `app/client/ui_line_display.cpp:42` | neutral (D10): sclient.cpp's class, as far as this file reads it |
-| 1 | `Unknown0000` | `app/client/ui_line_display.cpp:45` | untagged neutral name (D10) |
-| 1 | `Unknown127C` | `app/client/ui_line_display.cpp:46` | untagged neutral name (D10) |
-| 1 | `Unknown1280` | `app/client/ui_line_display.cpp:47` | untagged neutral name (D10) |
+| 1 | `Unknown_Strip_Tags` | `app/client/ui_line_display.cpp:19` | neutral (D10) |
+| 1 | `LineDisplayUnknown138Class` | `app/client/ui_line_display.cpp:26` | neutral (D10) |
+| 1 | `Unknown000` | `app/client/ui_line_display.cpp:29` | untagged neutral name (D10) |
+| 1 | `UnknownC8` | `app/client/ui_line_display.cpp:30` | untagged neutral name (D10) |
+| 1 | `LineDisplayUnknown127CClass` | `app/client/ui_line_display.cpp:33` | neutral (D10) |
+| 1 | `Unknown138` | `app/client/ui_line_display.cpp:37` | untagged neutral name (D10) |
+| 1 | `LineDisplaySClientClass` | `app/client/ui_line_display.cpp:40` | neutral (D10): sclient.cpp's class, as far as this file reads it |
+| 1 | `Unknown0000` | `app/client/ui_line_display.cpp:43` | untagged neutral name (D10) |
+| 1 | `Unknown127C` | `app/client/ui_line_display.cpp:44` | untagged neutral name (D10) |
+| 1 | `Unknown1280` | `app/client/ui_line_display.cpp:45` | untagged neutral name (D10) |
+| 1 | `Unknown12C4` | `app/client/ui_line_display.cpp:47` | untagged neutral name (D10) |
 | 1 | `Unknown1354` | `app/client/ui_line_display.cpp:48` | untagged neutral name (D10) |
 | 1 | `Unknown1358` | `app/client/ui_line_display.cpp:49` | untagged neutral name (D10) |
 | 1 | `Unknown135C` | `app/client/ui_line_display.cpp:50` | untagged neutral name (D10) |
@@ -14115,6 +14118,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_541800` | `app/client/ui_line_display.cpp:415` | untagged neutral name (D10) |
 | 1 | `Unknown_68` | `app/client/ui_line_display.cpp:420` | untagged neutral name (D10) |
 | 1 | `Unknown_7C` | `app/client/ui_line_display.cpp:591` | untagged neutral name (D10) |
+| 1 | `Unknown_Find_Set_Field` | `app/client/ui_line_display.cpp:652` | neutral (D10) |
+| 1 | `Unknown_Find_Field` | `app/client/ui_line_display.cpp:652` | untagged neutral name (D10) |
+| 1 | `Unknown70` | `app/client/ui_line_display.cpp:652` | untagged neutral name (D10) |
 | 1 | `LineDisplayTextClass` | `app/client/ui_line_display.h:36` | neutral (D10): what the line display keeps per STR-n |
 | 1 | `Unknown_54` | `app/client/ui_line_display.h:81` | neutral (D10) |
 | 1 | `Unknown_58` | `app/client/ui_line_display.h:82` | untagged neutral name (D10) |
