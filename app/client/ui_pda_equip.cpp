@@ -100,7 +100,7 @@ UIPdaEquipClass::UIPdaEquipClass(SClient *client) :
 
 
 
-// NOT EXACT: functional from the pseudocode (D64)
+
 // @0x5D1250
 void UIPdaEquipClass::Unknown_54()
 {
@@ -108,11 +108,13 @@ void UIPdaEquipClass::Unknown_54()
 	UIInvClass::Unknown_54();
 	InterfaceMesh = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("tsi07a"));
 	FAIL_IF(!InterfaceMesh) return;
-	bool weapons = Unknown_C0(InterfaceMesh, "w%02d", NUM_WEAPONS);
-	bool devices = Unknown_C0(InterfaceMesh, "s%02d", NUM_DEVICES);
-	bool components = Unknown_C0(InterfaceMesh, "c%02d", NUM_COMPONENTS);
-	SlotDataGadgetClass *first = Buttons.size() ? Buttons[0] : NULL;
-	if (!weapons || !devices || !components || !first) {
+	bool failed = false;
+	if (!Unknown_C0(InterfaceMesh, "w%02d", NUM_WEAPONS)) failed = true;
+	if (!Unknown_C0(InterfaceMesh, "s%02d", NUM_DEVICES)) failed = true;
+	if (!Unknown_C0(InterfaceMesh, "c%02d", NUM_COMPONENTS)) failed = true;
+	SlotDataGadgetClass *first = Buttons[0];
+	if (failed || !first) {
+		InterfaceMesh.Clear();
 		InterfaceMesh = NULL;
 		return;
 	}
@@ -130,23 +132,22 @@ void UIPdaEquipClass::Unknown_54()
 		sprintf(name, "c%02df", i);
 		Frames[SHIELD_SLOT + i] = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name(name));
 	}
-
-	RefCountPtr<RenderObjClass> skills = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("skills01"));
-	Unknown_675120Class *stats = new Unknown_675120Class(skills.Peek(), 0x11);
+	RefCountPtr<RenderObjClass> robj;
+	robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("skills01"));
+	Unknown_675120Class *stats = new Unknown_675120Class(robj.Peek(), 0x11);
 	stats->Unknown_65FFC0(1, (GadgetClass *)first);
 	Unknown64.Unknown_6870E0(stats, 0x10, View, 1, 0);
 	stats->Unknown5C_03 = 0;
 	GadgetClass::Set_Tooltip(stats, "UI_PDA_EQUIP", "STATS_PANEL");
-
-	RefCountPtr<RenderObjClass> exit = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("exit"));
-	Exit = new ButtonGadgetClass(exit.Peek(), 0x55, 3);
+	robj = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("exit"));
+	Exit = new ButtonGadgetClass(robj.Peek(), 0x55, 3);
 	Exit->Unknown_65FFC0(1, (GadgetClass *)first);
 	GadgetClass::Set_Tooltip(Exit, "UI_PDA_EQUIP", "EXIT");
 	Unknown64.Unknown_6870E0(Exit, 0x11, View, 1, 1);
 
 	Unknown_62F4D0(InterfaceMesh, 0xFFF);
-	RenderObjClass *mesh = InterfaceMesh.Peek();
-	Unknown58.Unknown_686DA0(mesh, NULL);
+	Unknown58.Unknown_686DA0(*(RenderObjClass **)&InterfaceMesh, NULL);
+
 	Unknown_BE67C4->Add(InterfaceMesh);
 	Stats = new ShipStatsDisplayClass(Client->As_Space_Client(), InterfaceMesh);
 	ShipPip = new ShipEquipPipClass(Client->As_Space_Client());
@@ -214,7 +215,6 @@ void UIPdaEquipClass::Unknown_7C(UIViewClass *view, bool arg)
 
 
 
-// NOT EXACT: functional from the pseudocode (D64)
 // @0x5D1CA0
 void UIPdaEquipClass::Unknown_58()
 {
@@ -235,15 +235,15 @@ void UIPdaEquipClass::Unknown_58()
 	G_ASSERT(attach);
 	if (attach) {
 		ShipPip->Unknown_7BACD0(attach, false);
-		ShipPip->Unknown_7BB080(View, 0x9C4, attach->Get_Sort_Level() + 1);
+		UIViewClass *view = View;
+		ShipPip->Unknown_7BB080(view, 0x9C4, attach->Get_Sort_Level() + 1);
 	}
 	if (Client) {
 		ClientObjectClass *ship = Client->Get_Ship();
 		if (ship) {
 			RefCountPtr<FontSys> font = Unknown_BE67C4->Unknown_6D2700("Ship_Name", InterfaceMesh);
 			if (font) {
-				std::string name = ship->DecalName;
-				font->Change_Text(name.c_str(), 0);
+				font->Change_Text(ship->Get_Decal_Name().c_str(), 0);
 			}
 		}
 		((GadgetListManagerClass *)Client->As_Space_Client()->Unknown1278)->Unknown_661610(this);
