@@ -363,8 +363,17 @@ class Session:
         self.cp = clientpoc
         self.args = args
         tag = scs[0]['name'] if len(scs) == 1 else 'session'
-        self.out = os.path.join(OUT, time.strftime('%H%M%S') + '-' + tag)
-        os.makedirs(self.out, exist_ok=True)
+        # Two runs started in the same second (another instance) must not share a folder: their antprox.out and
+        # e2e.log would be one file, and each run would wait on the other's lines.
+        base = os.path.join(OUT, time.strftime('%H%M%S') + '-' + tag)
+        self.out, n = base, 1
+        while True:
+            try:
+                os.makedirs(self.out)
+                break
+            except FileExistsError:
+                n += 1
+                self.out = f'{base}-{n}'
         self.elog = open(os.path.join(self.out, 'e2e.log'), 'w', encoding='utf-8', newline='\n')
         self.retail = bool(getattr(args, 'retail', False))
         self.inst = clientpoc.Inst(args.instance, None if self.retail else args.exe, self.retail)
