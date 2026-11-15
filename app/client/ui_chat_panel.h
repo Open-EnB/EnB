@@ -100,7 +100,7 @@ public:
 	void Unknown_56C730(ChatWindowInterfaceEvent *event, ChatWindowInterface *chat_int);	// 0x56C730: the chat window's event handler (FAIL_IF 'chat_int != ChatInt.Peek()' l.2441)  // NAME 3 [chat_int]: the FAIL_IF's; NAME 1 [event]: neutral
 	void Unknown_56C7B0(OptionFontInterfaceEvent *event, InterfaceClass *sender);	// 0x56C7B0: the +0xF8 window's event handler (the chat window's 0x571430)  // NAME 1 [event, sender]: neutral
 
-	int UnknownA0;										// +0xA0
+	RefCountPtr<RenderObjClass> UnknownA0;										// +0xA0
 	ButtonGadgetClass *UnknownA4[7];						// +0xA4 (the constructor clears all seven)
 	RefCountPtr<UIComboBoxClass> Combo[NUM_COMBO];				// +0xC0 (NUM_COMBO, the assert's)  // NAME 2: the assert's NUM_COMBO
 	RefCountPtr<UIComboBoxClass> UnknownD4;				// +0xD4: the combo shown (0x5698F0)
@@ -110,7 +110,7 @@ public:
 	UIRadioListClass *UnknownE4;									// +0xE4
 	UIRadioAdminClass *UnknownE8;									// +0xE8
 	void *UnknownEC;									// +0xEC
-	InterfaceClass *UnknownF0;							// +0xF0
+	RefCountPtr<InterfaceClass> UnknownF0;							// +0xF0
 	bool UnknownF4;										// +0xF4
 	RefCountPtr<ChatPanelUIBase> UnknownF8;		// +0xF8
 	RefCountPtr<ChatPanelUIBase> Get_UnknownF8() { return(UnknownF8); }	// 0x739690 (out of line in cpacket.cpp's object, after FIND_MEMBER 83, the first caller)  // NAME 1: neutral (D10): the member it returns
@@ -121,7 +121,7 @@ public:
 	bool Unknown10C;									// +0x10C
 	bool Unknown10D;									// +0x10D (an event handler registered on +0xF8)
 	AvatarPipClass *Unknown110;							// +0x110
-	RenderObjClass *Unknown114;							// +0x114 (slot +0x184)
+	RefCountPtr<RenderObjClass> Unknown114;							// +0x114 (slot +0x184)
 	unsigned Unknown118;								// +0x118 (a game id)
 	int Unknown11C;										// +0x11C
 	bool Unknown120;									// +0x120 (constructor: true)
@@ -138,7 +138,7 @@ public:
 	std::string Unknown158[3];							// +0x158
 	std::string Unknown188[5];							// +0x188
 	std::string Unknown1D8;								// +0x1D8
-	InterfaceClass *Unknown1E8;							// +0x1E8
+	RefCountPtr<InterfaceClass> Unknown1E8;							// +0x1E8
 	int Unknown1EC;										// +0x1EC
 	bool Unknown1F0;									// +0x1F0
 	std::string Unknown1F4;								// +0x1F4
@@ -151,7 +151,7 @@ public:
 	std::vector<std::string> Unknown228;				// +0x228 (0x565120: the channels offered, +0x214 last)
 	std::string Unknown238;								// +0x238
 	std::string Unknown248;								// +0x248
-	RenderObjClass *Unknown258;							// +0x258 (slot +0x184)
+	RefCountPtr<RenderObjClass> Unknown258;							// +0x258 (slot +0x184)
 	bool Unknown25C;									// +0x25C (the lag flag: 0x56BA40 / 0x56BA80)
 	float Unknown260;									// +0x260 (the lag light's blink time, 0x5630B0)
 	bool MessageButtonShowing;							// +0x264 (sclient.cpp's getter)  // NAME 2: its getter's

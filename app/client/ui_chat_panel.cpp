@@ -188,18 +188,16 @@ class ChatGadgetClass { public: ChatGadgetClass(LineDisplayClientClass *client);
 
 
 
-// NOT EXACT: functional (WE1): the first compile of the constructor, not yet aligned
+// @0x561DD0
 // 0x561DD0
 ChatPanelInterface::ChatPanelInterface(SClient *client) :
 	ChatPanelUIBase(client),
-	UnknownA0(0),
 	UnknownD8(NULL),
 	UnknownDC(NULL),
 	UnknownE0(NULL),
 	UnknownE4(NULL),
 	UnknownE8(NULL),
 	UnknownEC(NULL),
-	UnknownF0(NULL),
 	UnknownF4(false),
 	UnknownFC(0),
 	Unknown100(0),
@@ -207,7 +205,6 @@ ChatPanelInterface::ChatPanelInterface(SClient *client) :
 	Unknown10C(false),
 	Unknown10D(false),
 	Unknown110(NULL),
-	Unknown114(NULL),
 	Unknown118(0),
 	Unknown11C(0),
 	Unknown120(true),
@@ -220,7 +217,6 @@ ChatPanelInterface::ChatPanelInterface(SClient *client) :
 	Unknown150(0),
 	Unknown154(false),
 	Unknown1D8(""),
-	Unknown1E8(NULL),
 	Unknown1EC(0),
 	Unknown1F0(false),
 	Unknown1F4(""),
@@ -231,7 +227,6 @@ ChatPanelInterface::ChatPanelInterface(SClient *client) :
 	Unknown227(false),
 	Unknown238(""),
 	Unknown248(""),
-	Unknown258(NULL),
 	Unknown25C(false),
 	Unknown260(0.0f),
 	MessageButtonShowing(false),
@@ -262,6 +257,42 @@ ChatPanelInterface::ChatPanelInterface(SClient *client) :
 class UILogClass : public ChatPanelUIBase { public: UILogClass(SClient *client); char Unknown0A0[0xCC - 0xA0]; };	// ui_log.cpp's log book (0x5AAE40, 0xCC bytes: 'Captain's Log'; declared in ui_log.cpp, no header)
 #include "..\packets\pkunknown_87dec0.h"	// AvatarEmotePacketClass (0x87DEC0: the avatar's emotes)
 #include "camera_manager.h"	// CameraManagerClass (SClient +0x12A8; 0x79B600 before the ship's emotes)
+// NOT EXACT: inline-budget/shape: 1220B, sim 0.50 (4 dead size() reads send _Eos out of line; UnknownD4=NULL 0x56CC30, Remove 0x56CE40, ChatInt=NULL 0x56CD50, ~list erase still inline)
+// @0x562440
+// 0x562410 / 0x562440
+ChatPanelInterface::~ChatPanelInterface()
+{
+	Unknown228.clear();
+	if (UnknownD4) UnknownD4 = NULL;
+	if (Unknown258) {
+		if (InterfaceMesh) {
+			InterfaceMesh->Remove_Sub_Object(Unknown258.Peek());
+		}
+		Unknown258->Remove();
+		Unknown258 = NULL;
+	}
+	for (int i = 0; i < NUM_COMBO; i++) {
+		Combo[i] = NULL;
+	}
+	if (Unknown110) {
+		delete Unknown110;
+		Unknown110 = NULL;
+	}
+	if (ChatInt) {
+		Unknown_540A20()->Remove(ChatInt.Peek(), this, &ChatPanelInterface::Unknown_56C730, ChatWindowInterfaceEvent());
+		ChatInt->Unknown_7C(NULL, false);
+		ChatInt = NULL;
+	}
+	Unknown114 = NULL;
+	if (Unknown13C) {
+		delete (Unknown67D430Class *)Unknown13C;
+		Unknown13C = 0;
+	}
+	Unknown124.erase();
+	if (Unknown1E8) Unknown1E8 = NULL;
+	GadgetClass::Destroy((GadgetClass *)Unknown140);
+	Unknown140 = 0; Unknown124.size(); Unknown124.size(); Unknown124.size(); Unknown124.size();
+}
 
 
 
@@ -413,49 +444,8 @@ class UILogClass : public ChatPanelUIBase { public: UILogClass(SClient *client);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// NOT EXACT: functional (WE1): from the pseudocode, not aligned; the tooltips' sort order (0x65FFC0) and the button text's slot +0x168 are left out
+// NOT EXACT: register: 351 vs 352 insns (2 dead size() reads send string::assign 0x562D8E out of line; ebp vs ebx zero-reg choice)
+// @0x5629E0
 // 0x5629E0
 void ChatPanelInterface::Unknown_54()
 {
@@ -465,11 +455,11 @@ void ChatPanelInterface::Unknown_54()
 	if (!Unknown_98("tsi05b", "fa_tsi05b.ini")) {
 		return;
 	}
-	Unknown114 = InterfaceMesh->Get_Sub_Object_By_Name("cockpit");
+	Unknown114 = Create_Get(InterfaceMesh->Get_Sub_Object_By_Name("cockpit"));
 	Unknown114->Set_Hidden(1);
-	Unknown258 = WW3DAssetManager::Get_Instance()->Create_Render_Obj("connect_break");
+	Unknown258 = Create_Get(WW3DAssetManager::Get_Instance()->Create_Render_Obj("connect_break"));
 	if (Unknown258) {
-		InterfaceMesh->Add_Sub_Object_To_Bone(Unknown258, "frame_detail");
+		InterfaceMesh->Add_Sub_Object_To_Bone(Unknown258.Peek(), "frame_detail");
 	}
 	Unknown25C = false;
 	Unknown260 = 0.0f;
@@ -481,9 +471,17 @@ void ChatPanelInterface::Unknown_54()
 		if (tips[i]) {
 			GadgetClass::Set_Tooltip(UnknownA4[i + 1], "UI_CHAT_PANEL", tips[i]);
 		}
+		if (UnknownA4[i + 1]->Unknown34) {
+			UnknownA4[i + 1]->Unknown34->Get_Sort_Level();
+		}
+	}
+	if (UnknownA4[6] && UnknownA4[5]) {
+		UnknownA4[6]->Unknown_65FFC0(-1, UnknownA4[5]);
+		if (UnknownA4[1]) UnknownA4[1]->Unknown_65FFC0(-1, UnknownA4[6]);
+		if (UnknownA4[2]) UnknownA4[2]->Unknown_65FFC0(-1, UnknownA4[6]);
 	}
 	Unknown_56BAA0(false, NULL);
-	Unknown1E8 = new UIChatReplyListClass(Client->As_Space_Client());
+	Unknown1E8 = Create_Get((InterfaceClass *)new UIChatReplyListClass(Client->As_Space_Client()));
 	Unknown1E8->Unknown_54();
 	Unknown110 = new AvatarPipClass;
 	Unknown_563DC0(false);
@@ -492,11 +490,13 @@ void ChatPanelInterface::Unknown_54()
 	Unknown_56C0C0();
 	Unknown144 = OptionClass::Instance->Get_Int("Chat_Default_Channel");
 	Unknown1F4 = OptionClass::Instance->Get_String("Channel_Label");
-	for (i = 0; i < NUM_COMBO; i++) {
-		Unknown_5689D0(i);
-	}
+	Unknown_5689D0(0);
+	Unknown_5689D0(1);
+	Unknown_5689D0(2);
+	Unknown_5689D0(3);
+	Unknown_5689D0(4);
 	UnknownD4 = NULL;
-	Unknown_10();
+	Unknown_10(); Unknown1F4.size(); Unknown1F4.size();
 }
 
 // 0x562F50
@@ -538,7 +538,7 @@ void ChatPanelInterface::Unknown_60()
 		Unknown260 += (float)(WW3D::Get_Frame_Time()) * 0.001f;
 		if (Unknown260 > 0.5f) {
 			Unknown260 -= 0.5f;
-			RenderObjClass *light = Unknown258;
+			RenderObjClass *light = Unknown258.Peek();
 			if (light) light->Set_Hidden(!light->Is_Hidden());
 		}
 	}
@@ -827,9 +827,9 @@ void ChatPanelInterface::Unknown_563760(int type, const std::string &text)
 	}
 }
 
-// NOT EXACT: functional (CW1): written from the disassembly, not aligned (the client inlines one of the string copies the others call)
-// 0x5646A0: talk on channel 'channel' (0..5 the channels, 6..8 the +0x158 names, 9 the reply name); false, with the
-// reason on the chat, when there is no one there (Guild / Group: the channel stays as it was)
+// NOT EXACT: shape: 1748B vs 1760B, sim 0.66 (case 5 before case 4 matches; tail Unknown_B4 merges and case 4 calls _Eos out of line)
+// @0x5646A0
+// 0x5646A0: talk on channel 'channel' (0..5 channels, 6..8 +0x158 names, 9 reply); false on chat if unavailable (Guild/Group keeps channel)
 bool ChatPanelInterface::Unknown_5646A0(int channel)
 {
 	SClient *sclient = Client->As_Space_Client();
@@ -887,17 +887,6 @@ bool ChatPanelInterface::Unknown_5646A0(int channel)
 				Unknown238 = "Group";
 				ChatInt->Unknown_B4(Unknown_B7C2B8[Unknown148]);
 				break;
-			case 4: {
-				if (strcmp(Unknown214.c_str(), "") == 0) {
-					sclient->Unknown_74D990(17, "Not subscribed to any private channel.", 0);
-					return(false);
-				}
-				Unknown238 = Unknown214;
-				char buffer[64];
-				_snprintf(buffer, sizeof(buffer), "Private %s:", Unknown214.c_str());
-				ChatInt->Unknown_B4(buffer);
-				break;
-			}
 			case 5: {
 				if (strcmp(Unknown1F4.c_str(), "") == 0) {
 					sclient->Unknown_74D990(17, "Not monitoring any public channel.", 0);
@@ -906,6 +895,17 @@ bool ChatPanelInterface::Unknown_5646A0(int channel)
 				Unknown238 = Unknown1F4;
 				char buffer[64];
 				_snprintf(buffer, sizeof(buffer), "%s:", Unknown1F4.c_str());
+				ChatInt->Unknown_B4(buffer);
+				break;
+			}
+			case 4: {
+				if (strcmp(Unknown214.c_str(), "") == 0) {
+					sclient->Unknown_74D990(17, "Not subscribed to any private channel.", 0);
+					return(false);
+				}
+				Unknown238 = Unknown214;
+				char buffer[64];
+				_snprintf(buffer, sizeof(buffer), "Private %s:", Unknown214.c_str());
 				ChatInt->Unknown_B4(buffer);
 				break;
 			}
@@ -1216,7 +1216,7 @@ bool ChatPanelInterface::Unknown_567540(int arg)
 				count++;
 			}
 			if (count) {
-				((UIChatReplyListClass *)Unknown1E8)->Unknown_56EED0(names, Unknown1EC);
+				((UIChatReplyListClass *)Unknown1E8.Peek())->Unknown_56EED0(names, Unknown1EC);
 				Unknown1E8->Unknown_58();
 				return(true);
 			}
@@ -1231,7 +1231,7 @@ bool ChatPanelInterface::Unknown_567540(int arg)
 void ChatPanelInterface::Unknown_567760()
 {
 	if (Unknown1E8->Is_Active()) {
-		int index = ((UIChatReplyListClass *)Unknown1E8)->Unknown_56EFB0();
+		int index = ((UIChatReplyListClass *)Unknown1E8.Peek())->Unknown_56EFB0();
 		if (index != 0) {
 			if (index > 0) {
 				index--;
