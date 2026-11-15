@@ -7,7 +7,7 @@ comment. The function is the next signature after a comment at column 0, otherwi
 above the line (best effort: check the line). Regenerate with `python tools/re/notexact.py`;
 edit the comments in the code, not this file.
 
-883 entries in 298 files.
+886 entries in 299 files.
 
 | File:line | Function | Form | Comment |
 |---|---|---|---|
@@ -466,9 +466,12 @@ edit the comments in the code, not this file.
 | `app/client/ui_groupopt.cpp:182` | `UIGroupOptClass::Unknown_60` | marker | NOT EXACT: inline budget (explain.py: relocation first, the draft's auxdata.h path, then 12 calls vs 13: the client calls rtti.h's cast 0x598D80 out of line in the GroupInfo find, as ui_group.cpp's 0x598370; attempts.py show 0x59B220) 0x59B220 |
 | `app/client/ui_groupopt.cpp:204` | `UIGroupOptClass::Unknown_68` | marker | NOT EXACT: shape (explain.py; registers / temporaries: the client loads Client earlier and passes the check buttons' Checked through a stack byte; attempts.py show 0x59B380) 0x59B380 |
 | `app/client/ui_groupopt.cpp:408` | `UIGroupOptClass::Unknown_59BC40` | marker | NOT EXACT: inline budget (explain.py as 0x59B220: the client calls rtti.h's cast 0x598D80 out of line; a file-end inline_depth(1) matched it but broke the constructor and destructor; attempts.py show 0x59BC40) 0x59BC40 |
-| `app/client/ui_guild.cpp:190` | `UIGuildClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase out of line; ours expands it) and one register (0x819FB0) 0x819FB0 |
-| `app/client/ui_guild.cpp:254` | `UIGuildClass::Unknown_68` | marker | NOT EXACT: inline budget (the inlined row click 0x81B3F0 expands the name's _Eos, the client calls it) (0x81A420) 0x81A420 |
-| `app/client/ui_guild.cpp:405` | `UIGuildClass::Unknown_81AEB0` | marker | NOT EXACT: scheduling only (the client computes the vector's address for the inlined clean-up's erase before saving edi) (0x81AEB0) 0x81AEB0 |
+| `app/client/ui_guild.cpp:3` | `?` | mention | NOT EXACT) and its helper 0x81D290. Notes at the end. PLACEMENT: provisional (D137): the file name from the tooltip section 'UI_GUILD' (the windows' UI_<file> pattern) and the model 'tsi35a'; a __FILE__ or an assert would place it |
+| `app/client/ui_guild.cpp:191` | `UIGuildClass::Unknown_58` | marker | NOT EXACT: inline budget (the client calls the vector's erase out of line; ours expands it) and one register (0x819FB0) 0x819FB0 |
+| `app/client/ui_guild.cpp:255` | `UIGuildClass::Unknown_68` | marker | NOT EXACT: inline budget (the inlined row click 0x81B3F0 expands the name's _Eos, the client calls it) (0x81A420) 0x81A420 |
+| `app/client/ui_guild.cpp:406` | `UIGuildClass::Unknown_81AEB0` | marker | NOT EXACT: scheduling only (the client computes the vector's address for the inlined clean-up's erase before saving edi) (0x81AEB0) 0x81AEB0 |
+| `app/client/ui_guild.cpp:590` | `UIGuildClass::Unknown_81C380` | marker | NOT EXACT: inline budget (0x81AE10 inline: the client inlines the member's deleting destructor, ours calls it; the client's list clear() is a call) (0x81C380) 0x81C380 (sclient.cpp 0x74DFF0, guild message type 3): the members rebuilt from the lines (0x81D290 parses each into its name and location), then sorted (0x81AEB0), the buttons (0x81BA60) and the rows (0x81ABA0) |
+| `app/client/ui_guild.h:44` | `?` | mention | NOT EXACT); 0x81C630 (sclient.cpp 0x751850: Unknown180 = ranks, then 0x81BA60(true); not rebuilt) // NAME 1 [lines, ranks]: as 0x81C060's; what it copies |
 | `app/client/ui_hdamg.cpp:94` | `Unknown_Find_Valid` | marker | NOT EXACT (0.48, attempts.py 0x59C190): inline-budget: the client calls UnknownRTTIClass<DeltaArrayClass<float> >::Cast out of line (0x59C670), ours inlines it |
 | `app/client/ui_hdamg.cpp:202` | `UIHullDamageQuadrantClass::Set` | mention | NOT EXACT: the NameClass inside the helper, a third layer, the root by reference and the early-return form all left it inlined). |
 | `app/client/ui_interrupt.cpp:19` | `Unknown59E2C0Class::Unknown59E2C0Class` | marker | NOT EXACT: the client loads the bar into edx and the view into ecx for 0x6870E0 (ours: ecx / edx), twice @0x59E2C0 |

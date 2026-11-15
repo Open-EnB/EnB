@@ -11,7 +11,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 4 | EA source, or a structure-confirmed Net-7 / C# name | 37 |
 | 3 | by convention from a client-named file or sibling | 1961 |
 | 2 | describes what the code does | 4950 |
-| 1 | neutral placeholder | 25043 |
+| 1 | neutral placeholder | 25057 |
 
 ## For review (score 3 and below)
 
@@ -7773,6 +7773,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_6E6AD0` | `app/client/sclient.cpp:1021` | untagged neutral name (D10) |
 | 1 | `Unknown_7456B0` | `app/client/sclient.cpp:1028` | untagged neutral name (D10) |
 | 1 | `Unknown86CRecordClass` | `app/client/sclient.cpp:1032` | untagged neutral name (D10) |
+| 1 | `Unknown_743440` | `app/client/sclient.cpp:1064` | untagged neutral name (D10) |
 | 1 | `Unknown_565F30` | `app/client/sclient.cpp:1085` | untagged neutral name (D10) |
 | 1 | `Unknown_745490` | `app/client/sclient.cpp:1141` | untagged neutral name (D10) |
 | 1 | `Unknown28` | `app/client/sclient.cpp:1153` | untagged neutral name (D10) |
@@ -7805,6 +7806,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_AC` | `app/client/sclient.cpp:2113` | untagged neutral name (D10) |
 | 1 | `Unknown_745160` | `app/client/sclient.cpp:2155` | untagged neutral name (D10) |
 | 1 | `Unknown_584A60` | `app/client/sclient.cpp:2161` | untagged neutral name (D10) |
+| 1 | `Unknown_745080` | `app/client/sclient.cpp:2166` | untagged neutral name (D10) |
+| 1 | `Unknown_6B4900` | `app/client/sclient.cpp:2171` | untagged neutral name (D10) |
 | 1 | `Unknown_745000` | `app/client/sclient.cpp:2181` | untagged neutral name (D10) |
 | 1 | `Unknown_513540` | `app/client/sclient.cpp:2184` | untagged neutral name (D10) |
 | 1 | `Unknown_745050` | `app/client/sclient.cpp:2189` | untagged neutral name (D10) |
@@ -7887,12 +7890,20 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_74D8B0` | `app/client/sclient.cpp:4549` | untagged neutral name (D10) |
 | 1 | `Unknown_6F5F60` | `app/client/sclient.cpp:4554` | untagged neutral name (D10) |
 | 1 | `Unknown_563760` | `app/client/sclient.cpp:4617` | untagged neutral name (D10) |
+| 1 | `Unknown_B03208` | `app/client/sclient.cpp:4625` | neutral (D10): the guild messages that change the member list |
+| 1 | `Unknown_Clear_Lines, lines` | `app/client/sclient.cpp:4626` | neutral (D10): the client's erase call sits one inline layer down |
+| 1 | `Unknown_Clear_Lines` | `app/client/sclient.cpp:4626` | untagged neutral name (D10) |
+| 1 | `Unknown_74DFF0` | `app/client/sclient.cpp:4627` | untagged neutral name (D10) |
+| 1 | `UnknownE0` | `app/client/sclient.cpp:4633` | untagged neutral name (D10) |
+| 1 | `Unknown_81C380` | `app/client/sclient.cpp:4659` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/sclient.cpp:4661` | untagged neutral name (D10) |
+| 1 | `Unknown_81C060` | `app/client/sclient.cpp:4661` | untagged neutral name (D10) |
+| 1 | `Unknown_81C1F0` | `app/client/sclient.cpp:4662` | untagged neutral name (D10) |
+| 1 | `Unknown_728300` | `app/client/sclient.cpp:4668` | untagged neutral name (D10) |
+| 1 | `Unknown_81BF40` | `app/client/sclient.cpp:4668` | untagged neutral name (D10) |
 | 1 | `Unknown_750210` | `app/client/sclient.cpp:4720` | untagged neutral name (D10) |
 | 1 | `Unknown_74FA30` | `app/client/sclient.cpp:4722` | untagged neutral name (D10) |
 | 1 | `Unknown_74FEC0` | `app/client/sclient.cpp:4723` | untagged neutral name (D10) |
-| 1 | `UnknownE0` | `app/client/sclient.cpp:4725` | untagged neutral name (D10) |
-| 1 | `Unknown_728300` | `app/client/sclient.cpp:4726` | untagged neutral name (D10) |
-| 1 | `Unknown_81BF40` | `app/client/sclient.cpp:4727` | untagged neutral name (D10) |
 | 1 | `Unknown_74E580` | `app/client/sclient.cpp:4738` | untagged neutral name (D10) |
 | 1 | `Unknown_74E710` | `app/client/sclient.cpp:4755` | untagged neutral name (D10) |
 | 1 | `Unknown11AC` | `app/client/sclient.cpp:4769` | untagged neutral name (D10) |
@@ -13373,83 +13384,85 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown0A4` | `app/client/ui_groupopt.h:35` | untagged neutral name (D10) |
 | 1 | `Unknown0AC` | `app/client/ui_groupopt.h:37` | untagged neutral name (D10) |
 | 1 | `Unknown0C0` | `app/client/ui_groupopt.h:38` | untagged neutral name (D10) |
-| 1 | `UIGuildMemberClass` | `app/client/ui_guild.cpp:27` | neutral, after ui_friends.h's UIFriendsPlayerInfoClass |
-| 1 | `LineDisplayClientClass` | `app/client/ui_guild.cpp:90` | neutral (D10) |
-| 1 | `Unknown_00` | `app/client/ui_guild.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_04` | `app/client/ui_guild.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_08` | `app/client/ui_guild.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_0C` | `app/client/ui_guild.cpp:93` | untagged neutral name (D10) |
-| 1 | `Unknown_10` | `app/client/ui_guild.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown_14` | `app/client/ui_guild.cpp:94` | untagged neutral name (D10) |
-| 1 | `Unknown_BA7F10` | `app/client/ui_guild.cpp:99` | neutral (D10) |
-| 1 | `std:` | `app/client/ui_guild.cpp:102` | neutral (D10): ui_log.cpp and the guild windows' printf into a std::string |
-| 1 | `Unknown_8192C0` | `app/client/ui_guild.cpp:102` | untagged neutral name (D10) |
-| 1 | `Unknown_Delete_Member, member` | `app/client/ui_guild.cpp:113` | neutral |
-| 1 | `Unknown_Delete_Member` | `app/client/ui_guild.cpp:113` | untagged neutral name (D10) |
-| 1 | `Unknown_BE67C4` | `app/client/ui_guild.cpp:118` | 0xBE67C4 |
-| 1 | `Unknown_BA7ED8` | `app/client/ui_guild.cpp:121` | neutral (D10) |
-| 1 | `Unknown0AC` | `app/client/ui_guild.cpp:129` | untagged neutral name (D10) |
-| 1 | `Unknown0C8` | `app/client/ui_guild.cpp:130` | untagged neutral name (D10) |
-| 1 | `Unknown0CC` | `app/client/ui_guild.cpp:131` | untagged neutral name (D10) |
-| 1 | `Unknown0DC` | `app/client/ui_guild.cpp:132` | untagged neutral name (D10) |
-| 1 | `Unknown170` | `app/client/ui_guild.cpp:133` | untagged neutral name (D10) |
-| 1 | `Unknown174` | `app/client/ui_guild.cpp:134` | untagged neutral name (D10) |
-| 1 | `Unknown178` | `app/client/ui_guild.cpp:135` | untagged neutral name (D10) |
-| 1 | `Unknown17C` | `app/client/ui_guild.cpp:136` | untagged neutral name (D10) |
-| 1 | `Unknown180` | `app/client/ui_guild.cpp:137` | untagged neutral name (D10) |
-| 1 | `Unknown0E8` | `app/client/ui_guild.cpp:139` | untagged neutral name (D10) |
-| 1 | `Unknown11C` | `app/client/ui_guild.cpp:140` | untagged neutral name (D10) |
-| 1 | `Unknown138` | `app/client/ui_guild.cpp:142` | untagged neutral name (D10) |
-| 1 | `Unknown154` | `app/client/ui_guild.cpp:143` | untagged neutral name (D10) |
-| 1 | `Unknown0BC` | `app/client/ui_guild.cpp:150` | untagged neutral name (D10) |
-| 1 | `Unknown0C0` | `app/client/ui_guild.cpp:151` | untagged neutral name (D10) |
-| 1 | `Unknown0C4` | `app/client/ui_guild.cpp:152` | untagged neutral name (D10) |
-| 1 | `Unknown_5C` | `app/client/ui_guild.cpp:153` | untagged neutral name (D10) |
-| 1 | `Unknown_66E460` | `app/client/ui_guild.cpp:155` | untagged neutral name (D10) |
-| 1 | `Unknown_54` | `app/client/ui_guild.cpp:160` | untagged neutral name (D10) |
-| 1 | `Unknown_98` | `app/client/ui_guild.cpp:162` | untagged neutral name (D10) |
-| 1 | `Unknown2C_0A` | `app/client/ui_guild.cpp:172` | untagged neutral name (D10) |
-| 1 | `Unknown0CD` | `app/client/ui_guild.cpp:180` | untagged neutral name (D10) |
-| 1 | `Unknown_58` | `app/client/ui_guild.cpp:192` | untagged neutral name (D10) |
-| 1 | `Unknown_81AE10` | `app/client/ui_guild.cpp:201` | untagged neutral name (D10) |
-| 1 | `Unknown_81AAD0` | `app/client/ui_guild.cpp:204` | untagged neutral name (D10) |
-| 1 | `Unknown_66C360` | `app/client/ui_guild.cpp:207` | untagged neutral name (D10) |
-| 1 | `Unknown_728300` | `app/client/ui_guild.cpp:209` | untagged neutral name (D10) |
-| 1 | `Unknown_64A270` | `app/client/ui_guild.cpp:210` | untagged neutral name (D10) |
-| 1 | `Unknown_64A2B0` | `app/client/ui_guild.cpp:212` | untagged neutral name (D10) |
-| 1 | `Unknown_81BA60` | `app/client/ui_guild.cpp:214` | untagged neutral name (D10) |
-| 1 | `Unknown_81BFD0` | `app/client/ui_guild.cpp:218` | untagged neutral name (D10) |
-| 1 | `Unknown_81BF40` | `app/client/ui_guild.cpp:219` | untagged neutral name (D10) |
-| 1 | `Unknown_81AC90` | `app/client/ui_guild.cpp:229` | untagged neutral name (D10) |
-| 1 | `Unknown_60` | `app/client/ui_guild.cpp:236` | untagged neutral name (D10) |
-| 1 | `Unknown_81AB50` | `app/client/ui_guild.cpp:238` | untagged neutral name (D10) |
-| 1 | `Unknown_81B350` | `app/client/ui_guild.cpp:239` | untagged neutral name (D10) |
-| 1 | `Unknown_81CB90` | `app/client/ui_guild.cpp:240` | untagged neutral name (D10) |
-| 1 | `Unknown0A8` | `app/client/ui_guild.cpp:242` | untagged neutral name (D10) |
-| 1 | `Unknown_68` | `app/client/ui_guild.cpp:256` | untagged neutral name (D10) |
-| 1 | `Unknown_81B610` | `app/client/ui_guild.cpp:301` | untagged neutral name (D10) |
-| 1 | `Unknown_81B3F0` | `app/client/ui_guild.cpp:327` | untagged neutral name (D10) |
-| 1 | `Unknown_7C` | `app/client/ui_guild.cpp:334` | untagged neutral name (D10) |
-| 1 | `Unknown_66FA90` | `app/client/ui_guild.cpp:353` | untagged neutral name (D10) |
-| 1 | `Unknown_81ABA0` | `app/client/ui_guild.cpp:363` | untagged neutral name (D10) |
-| 1 | `Unknown_66FD80` | `app/client/ui_guild.cpp:365` | untagged neutral name (D10) |
-| 1 | `Unknown_40` | `app/client/ui_guild.cpp:376` | untagged neutral name (D10) |
-| 1 | `Unknown_81AEB0` | `app/client/ui_guild.cpp:407` | untagged neutral name (D10) |
-| 1 | `Unknown_42ECF0` | `app/client/ui_guild.cpp:465` | untagged neutral name (D10) |
-| 1 | `Unknown_30` | `app/client/ui_guild.cpp:467` | untagged neutral name (D10) |
-| 1 | `Unknown_6CE910` | `app/client/ui_guild.cpp:468` | untagged neutral name (D10) |
-| 1 | `Set_Unknown14` | `app/client/ui_guild.cpp:522` | untagged neutral name (D10) |
-| 1 | `Unknown_81C930` | `app/client/ui_guild.cpp:550` | untagged neutral name (D10) |
-| 1 | `Unknown_728370` | `app/client/ui_guild.cpp:551` | untagged neutral name (D10) |
-| 1 | `Unknown_81C060` | `app/client/ui_guild.cpp:573` | untagged neutral name (D10) |
-| 1 | `Unknown_81EC90` | `app/client/ui_guild.cpp:576` | untagged neutral name (D10) |
-| 1 | `Unknown_81C1F0` | `app/client/ui_guild.cpp:581` | untagged neutral name (D10) |
-| 1 | `Unknown_81EEA0` | `app/client/ui_guild.cpp:586` | untagged neutral name (D10) |
-| 1 | `Unknown_81C5E0` | `app/client/ui_guild.cpp:590` | untagged neutral name (D10) |
-| 1 | `Unknown_81C630` | `app/client/ui_guild.cpp:600` | untagged neutral name (D10) |
-| 1 | `Unknown_64A220` | `app/client/ui_guild.cpp:631` | untagged neutral name (D10) |
-| 1 | `Unknown_64A240` | `app/client/ui_guild.cpp:635` | untagged neutral name (D10) |
-| 1 | `Unknown_81D130` | `app/client/ui_guild.cpp:665` | untagged neutral name (D10) |
+| 1 | `UIGuildMemberClass` | `app/client/ui_guild.cpp:28` | neutral, after ui_friends.h's UIFriendsPlayerInfoClass |
+| 1 | `LineDisplayClientClass` | `app/client/ui_guild.cpp:91` | neutral (D10) |
+| 1 | `Unknown_00` | `app/client/ui_guild.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_04` | `app/client/ui_guild.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_08` | `app/client/ui_guild.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_0C` | `app/client/ui_guild.cpp:94` | untagged neutral name (D10) |
+| 1 | `Unknown_10` | `app/client/ui_guild.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_14` | `app/client/ui_guild.cpp:95` | untagged neutral name (D10) |
+| 1 | `Unknown_BA7F10` | `app/client/ui_guild.cpp:100` | neutral (D10) |
+| 1 | `std:` | `app/client/ui_guild.cpp:103` | neutral (D10): ui_log.cpp and the guild windows' printf into a std::string |
+| 1 | `Unknown_8192C0` | `app/client/ui_guild.cpp:103` | untagged neutral name (D10) |
+| 1 | `Unknown_Delete_Member, member` | `app/client/ui_guild.cpp:114` | neutral |
+| 1 | `Unknown_Delete_Member` | `app/client/ui_guild.cpp:114` | untagged neutral name (D10) |
+| 1 | `Unknown_BE67C4` | `app/client/ui_guild.cpp:119` | 0xBE67C4 |
+| 1 | `Unknown_BA7ED8` | `app/client/ui_guild.cpp:122` | neutral (D10) |
+| 1 | `Unknown0AC` | `app/client/ui_guild.cpp:130` | untagged neutral name (D10) |
+| 1 | `Unknown0C8` | `app/client/ui_guild.cpp:131` | untagged neutral name (D10) |
+| 1 | `Unknown0CC` | `app/client/ui_guild.cpp:132` | untagged neutral name (D10) |
+| 1 | `Unknown0DC` | `app/client/ui_guild.cpp:133` | untagged neutral name (D10) |
+| 1 | `Unknown170` | `app/client/ui_guild.cpp:134` | untagged neutral name (D10) |
+| 1 | `Unknown174` | `app/client/ui_guild.cpp:135` | untagged neutral name (D10) |
+| 1 | `Unknown178` | `app/client/ui_guild.cpp:136` | untagged neutral name (D10) |
+| 1 | `Unknown17C` | `app/client/ui_guild.cpp:137` | untagged neutral name (D10) |
+| 1 | `Unknown180` | `app/client/ui_guild.cpp:138` | untagged neutral name (D10) |
+| 1 | `Unknown0E8` | `app/client/ui_guild.cpp:140` | untagged neutral name (D10) |
+| 1 | `Unknown11C` | `app/client/ui_guild.cpp:141` | untagged neutral name (D10) |
+| 1 | `Unknown138` | `app/client/ui_guild.cpp:143` | untagged neutral name (D10) |
+| 1 | `Unknown154` | `app/client/ui_guild.cpp:144` | untagged neutral name (D10) |
+| 1 | `Unknown0BC` | `app/client/ui_guild.cpp:151` | untagged neutral name (D10) |
+| 1 | `Unknown0C0` | `app/client/ui_guild.cpp:152` | untagged neutral name (D10) |
+| 1 | `Unknown0C4` | `app/client/ui_guild.cpp:153` | untagged neutral name (D10) |
+| 1 | `Unknown_5C` | `app/client/ui_guild.cpp:154` | untagged neutral name (D10) |
+| 1 | `Unknown_66E460` | `app/client/ui_guild.cpp:156` | untagged neutral name (D10) |
+| 1 | `Unknown_54` | `app/client/ui_guild.cpp:161` | untagged neutral name (D10) |
+| 1 | `Unknown_98` | `app/client/ui_guild.cpp:163` | untagged neutral name (D10) |
+| 1 | `Unknown2C_0A` | `app/client/ui_guild.cpp:173` | untagged neutral name (D10) |
+| 1 | `Unknown0CD` | `app/client/ui_guild.cpp:181` | untagged neutral name (D10) |
+| 1 | `Unknown_58` | `app/client/ui_guild.cpp:193` | untagged neutral name (D10) |
+| 1 | `Unknown_81AE10` | `app/client/ui_guild.cpp:202` | untagged neutral name (D10) |
+| 1 | `Unknown_81AAD0` | `app/client/ui_guild.cpp:205` | untagged neutral name (D10) |
+| 1 | `Unknown_66C360` | `app/client/ui_guild.cpp:208` | untagged neutral name (D10) |
+| 1 | `Unknown_728300` | `app/client/ui_guild.cpp:210` | untagged neutral name (D10) |
+| 1 | `Unknown_64A270` | `app/client/ui_guild.cpp:211` | untagged neutral name (D10) |
+| 1 | `Unknown_64A2B0` | `app/client/ui_guild.cpp:213` | untagged neutral name (D10) |
+| 1 | `Unknown_81BA60` | `app/client/ui_guild.cpp:215` | untagged neutral name (D10) |
+| 1 | `Unknown_81BFD0` | `app/client/ui_guild.cpp:219` | untagged neutral name (D10) |
+| 1 | `Unknown_81BF40` | `app/client/ui_guild.cpp:220` | untagged neutral name (D10) |
+| 1 | `Unknown_81AC90` | `app/client/ui_guild.cpp:230` | untagged neutral name (D10) |
+| 1 | `Unknown_60` | `app/client/ui_guild.cpp:237` | untagged neutral name (D10) |
+| 1 | `Unknown_81AB50` | `app/client/ui_guild.cpp:239` | untagged neutral name (D10) |
+| 1 | `Unknown_81B350` | `app/client/ui_guild.cpp:240` | untagged neutral name (D10) |
+| 1 | `Unknown_81CB90` | `app/client/ui_guild.cpp:241` | untagged neutral name (D10) |
+| 1 | `Unknown0A8` | `app/client/ui_guild.cpp:243` | untagged neutral name (D10) |
+| 1 | `Unknown_68` | `app/client/ui_guild.cpp:257` | untagged neutral name (D10) |
+| 1 | `Unknown_81B610` | `app/client/ui_guild.cpp:302` | untagged neutral name (D10) |
+| 1 | `Unknown_81B3F0` | `app/client/ui_guild.cpp:328` | untagged neutral name (D10) |
+| 1 | `Unknown_7C` | `app/client/ui_guild.cpp:335` | untagged neutral name (D10) |
+| 1 | `Unknown_66FA90` | `app/client/ui_guild.cpp:354` | untagged neutral name (D10) |
+| 1 | `Unknown_81ABA0` | `app/client/ui_guild.cpp:364` | untagged neutral name (D10) |
+| 1 | `Unknown_66FD80` | `app/client/ui_guild.cpp:366` | untagged neutral name (D10) |
+| 1 | `Unknown_40` | `app/client/ui_guild.cpp:377` | untagged neutral name (D10) |
+| 1 | `Unknown_81AEB0` | `app/client/ui_guild.cpp:408` | untagged neutral name (D10) |
+| 1 | `Unknown_42ECF0` | `app/client/ui_guild.cpp:466` | untagged neutral name (D10) |
+| 1 | `Unknown_30` | `app/client/ui_guild.cpp:468` | untagged neutral name (D10) |
+| 1 | `Unknown_6CE910` | `app/client/ui_guild.cpp:469` | untagged neutral name (D10) |
+| 1 | `Set_Unknown14` | `app/client/ui_guild.cpp:523` | untagged neutral name (D10) |
+| 1 | `Unknown_81C930` | `app/client/ui_guild.cpp:551` | untagged neutral name (D10) |
+| 1 | `Unknown_728370` | `app/client/ui_guild.cpp:552` | untagged neutral name (D10) |
+| 1 | `Unknown_81C060` | `app/client/ui_guild.cpp:574` | untagged neutral name (D10) |
+| 1 | `Unknown_81EC90` | `app/client/ui_guild.cpp:577` | untagged neutral name (D10) |
+| 1 | `Unknown_81C1F0` | `app/client/ui_guild.cpp:582` | untagged neutral name (D10) |
+| 1 | `Unknown_81EEA0` | `app/client/ui_guild.cpp:587` | untagged neutral name (D10) |
+| 1 | `Unknown_81C380` | `app/client/ui_guild.cpp:594` | untagged neutral name (D10) |
+| 1 | `Unknown_81D290` | `app/client/ui_guild.cpp:599` | untagged neutral name (D10) |
+| 1 | `Unknown_81C5E0` | `app/client/ui_guild.cpp:608` | untagged neutral name (D10) |
+| 1 | `Unknown_81C630` | `app/client/ui_guild.cpp:618` | untagged neutral name (D10) |
+| 1 | `Unknown_64A220` | `app/client/ui_guild.cpp:649` | untagged neutral name (D10) |
+| 1 | `Unknown_64A240` | `app/client/ui_guild.cpp:653` | untagged neutral name (D10) |
+| 1 | `Unknown_81D130` | `app/client/ui_guild.cpp:683` | untagged neutral name (D10) |
 | 1 | `ui_guild.h` | `app/client/ui_guild.h:5` | provisional header name for ui_guild.cpp |
 | 1 | `UIGuildClass` | `app/client/ui_guild.h:23` | neutral, after its tooltip section 'UI_GUILD' |
 | 1 | `client` | `app/client/ui_guild.h:26` | ChatPanelUIBase's |
@@ -13487,7 +13500,9 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `lines` | `app/client/ui_guild.h:48` | neutral |
 | 1 | `Unknown_81C1F0` | `app/client/ui_guild.h:48` | untagged neutral name (D10) |
 | 1 | `Unknown_81CB90` | `app/client/ui_guild.h:49` | untagged neutral name (D10) |
+| 1 | `line, name, location` | `app/client/ui_guild.h:50` | what 0x81C380 passes (the new member's +0x00 and +0x10) |
 | 1 | `Unknown_81D130` | `app/client/ui_guild.h:50` | untagged neutral name (D10) |
+| 1 | `Unknown_81D290` | `app/client/ui_guild.h:50` | untagged neutral name (D10) |
 | 1 | `rights, unknown1-3` | `app/client/ui_guild.h:51` | neutral |
 | 1 | `Unknown_81C5E0` | `app/client/ui_guild.h:51` | untagged neutral name (D10) |
 | 1 | `Slider` | `app/client/ui_guild.h:53` | as ui_friends.h's |
@@ -24946,27 +24961,26 @@ are listed here until better evidence raises their tag. Regenerate with
 | 1 | `Unknown_8B7C60` | `tests/clienttest/clienttest.cpp:1718` | untagged neutral name (D10) |
 | 1 | `Unknown_8B6FC0` | `tests/clienttest/clienttest.cpp:1719` | untagged neutral name (D10) |
 | 1 | `Unknown1134` | `tests/clienttest/clienttest.cpp:1791` | untagged neutral name (D10) |
-| 1 | `Unknown_74DFF0` | `tests/clienttest/clienttest.cpp:1869` | untagged neutral name (D10) |
-| 1 | `Unknown_83D900` | `tests/clienttest/clienttest.cpp:1875` | untagged neutral name (D10) |
-| 1 | `Unknown_83D970` | `tests/clienttest/clienttest.cpp:1877` | untagged neutral name (D10) |
-| 1 | `Unknown119C` | `tests/clienttest/clienttest.cpp:1908` | untagged neutral name (D10) |
-| 1 | `Unknown_5DA600` | `tests/clienttest/clienttest.cpp:1940` | untagged neutral name (D10) |
-| 1 | `Unknown_5DA780` | `tests/clienttest/clienttest.cpp:1940` | untagged neutral name (D10) |
-| 1 | `Unknown_5DA8C0` | `tests/clienttest/clienttest.cpp:1940` | untagged neutral name (D10) |
-| 1 | `Unknown_5E8E30` | `tests/clienttest/clienttest.cpp:1941` | untagged neutral name (D10) |
-| 1 | `Unknown_5E8FF0` | `tests/clienttest/clienttest.cpp:1941` | untagged neutral name (D10) |
-| 1 | `Unknown_5E9160` | `tests/clienttest/clienttest.cpp:1941` | untagged neutral name (D10) |
-| 1 | `Unknown_5E5D70` | `tests/clienttest/clienttest.cpp:1942` | untagged neutral name (D10) |
-| 1 | `Unknown_5E5EF0` | `tests/clienttest/clienttest.cpp:1942` | untagged neutral name (D10) |
-| 1 | `Unknown_5E6030` | `tests/clienttest/clienttest.cpp:1942` | untagged neutral name (D10) |
-| 1 | `Unknown20` | `tests/clienttest/clienttest.cpp:1969` | untagged neutral name (D10) |
-| 1 | `Unknown0C` | `tests/clienttest/clienttest.cpp:1978` | untagged neutral name (D10) |
-| 1 | `Unknown14` | `tests/clienttest/clienttest.cpp:1998` | untagged neutral name (D10) |
-| 1 | `Unknown24` | `tests/clienttest/clienttest.cpp:1999` | untagged neutral name (D10) |
-| 1 | `Unknown34` | `tests/clienttest/clienttest.cpp:2000` | untagged neutral name (D10) |
-| 1 | `Unknown10` | `tests/clienttest/clienttest.cpp:2003` | untagged neutral name (D10) |
-| 1 | `LoginUnknown18Class` | `tests/clienttest/clienttest.cpp:2178` | untagged neutral name (D10) |
-| 1 | `SClientUnknown12C4Class` | `tests/clienttest/clienttest.cpp:2181` | untagged neutral name (D10) |
+| 1 | `Unknown_83D900` | `tests/clienttest/clienttest.cpp:1869` | untagged neutral name (D10) |
+| 1 | `Unknown_83D970` | `tests/clienttest/clienttest.cpp:1871` | untagged neutral name (D10) |
+| 1 | `Unknown119C` | `tests/clienttest/clienttest.cpp:1902` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA600` | `tests/clienttest/clienttest.cpp:1938` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA780` | `tests/clienttest/clienttest.cpp:1938` | untagged neutral name (D10) |
+| 1 | `Unknown_5DA8C0` | `tests/clienttest/clienttest.cpp:1938` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8E30` | `tests/clienttest/clienttest.cpp:1939` | untagged neutral name (D10) |
+| 1 | `Unknown_5E8FF0` | `tests/clienttest/clienttest.cpp:1939` | untagged neutral name (D10) |
+| 1 | `Unknown_5E9160` | `tests/clienttest/clienttest.cpp:1939` | untagged neutral name (D10) |
+| 1 | `Unknown_5E5D70` | `tests/clienttest/clienttest.cpp:1940` | untagged neutral name (D10) |
+| 1 | `Unknown_5E5EF0` | `tests/clienttest/clienttest.cpp:1940` | untagged neutral name (D10) |
+| 1 | `Unknown_5E6030` | `tests/clienttest/clienttest.cpp:1940` | untagged neutral name (D10) |
+| 1 | `Unknown20` | `tests/clienttest/clienttest.cpp:1967` | untagged neutral name (D10) |
+| 1 | `Unknown0C` | `tests/clienttest/clienttest.cpp:1976` | untagged neutral name (D10) |
+| 1 | `Unknown14` | `tests/clienttest/clienttest.cpp:1996` | untagged neutral name (D10) |
+| 1 | `Unknown24` | `tests/clienttest/clienttest.cpp:1997` | untagged neutral name (D10) |
+| 1 | `Unknown34` | `tests/clienttest/clienttest.cpp:1998` | untagged neutral name (D10) |
+| 1 | `Unknown10` | `tests/clienttest/clienttest.cpp:2001` | untagged neutral name (D10) |
+| 1 | `LoginUnknown18Class` | `tests/clienttest/clienttest.cpp:2176` | untagged neutral name (D10) |
+| 1 | `SClientUnknown12C4Class` | `tests/clienttest/clienttest.cpp:2179` | untagged neutral name (D10) |
 | 1 | `Unknown_BE67BC` | `tests/clienttest/tsk_game_stubs.cpp:19` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C90` | `tests/clienttest/ui_avsel_stubs.cpp:18` | untagged neutral name (D10) |
 | 1 | `Unknown_B08C94` | `tests/clienttest/ui_avsel_stubs.cpp:19` | untagged neutral name (D10) |
@@ -27271,8 +27285,8 @@ are listed here until better evidence raises their tag. Regenerate with
 | 2 | `Name` | `app/client/ui_groupfind.h:35` | its style's |
 | 2 | `Level` | `app/client/ui_groupfind.h:37` | its style's |
 | 2 | `FindUI` | `app/client/ui_groupopt.h:36` | what it holds |
-| 2 | `std:` | `app/client/ui_guild.cpp:32` | its style's |
 | 2 | `std:` | `app/client/ui_guild.cpp:33` | its style's |
+| 2 | `std:` | `app/client/ui_guild.cpp:34` | its style's |
 | 2 | `UIHullDamageQuadrantClass` | `app/client/ui_hdamg.h:25` | one of 'VisibleQuadrantDamagePercent''s four |
 | 2 | `all` | `app/client/ui_hdamg.h:30` | what it does |
 | 2 | `all` | `app/client/ui_hdamg.h:31` | what it does |
@@ -30630,7 +30644,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `LandPolyBudget` | `app/client/soptions.h:56` | the registry value's name |
 | 3 | `LandLOD` | `app/client/soptions.h:57` | the registry value's name |
 | 3 | `TextureReduction` | `app/client/soptions.h:58` | the registry value's name |
-| 3 | `TextureFilter` | `app/client/soptions.h:59` | the registry value's name |
+| 3 | `GlobalZ` | `app/client/soptions.h:59` | the INI entry 0x745080 writes |
 | 3 | `CameraMode` | `app/client/soptions.h:63` | the assert's 'cameramode' |
 | 3 | `sound_manager.h` | `app/client/sound_manager.h:15` | beside the client's sound_manager.cpp |
 | 3 | `SoundManagerClass` | `app/client/sound_manager.h:33` | class-from-file (D24) for app\client\sound_manager.cpp |
@@ -30763,7 +30777,7 @@ are listed here until better evidence raises their tag. Regenerate with
 | 3 | `std:` | `app/client/ui_groupfind.h:69` | the assert's |
 | 3 | `As_Space_Client` | `app/client/ui_groupopt.cpp:27` | ui_manu.cpp's FAIL_IF's |
 | 3 | `UIGroupOptClass` | `app/client/ui_groupopt.h:16` | class-from-file (D24) for ui_groupopt.cpp |
-| 3 | `As_Space_Client` | `app/client/ui_guild.cpp:95` | ui_manu.cpp's FAIL_IF's |
+| 3 | `As_Space_Client` | `app/client/ui_guild.cpp:96` | ui_manu.cpp's FAIL_IF's |
 | 3 | `ui_hdamg.h` | `app/client/ui_hdamg.h:15` | the header of ui_hdamg.cpp |
 | 3 | `As_Space_Client` | `app/client/ui_hot_keys.cpp:21` | the FAIL_IF's in ui_manu.cpp |
 | 3 | `UIHotKeysClass` | `app/client/ui_hot_keys.h:14` | class-from-file (D24) for app\Client\ui_hot_keys.cpp |
