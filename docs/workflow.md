@@ -450,7 +450,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   to a local) or one inline call after the helper reproduce it. A `char *` root is read through a
   `char *const &` cast in the inner layer; a root read after the NameClass needs the helper to take it by
   reference. `?:` between two inline finds expands both branches. Where the rule did not decide it:
-  `attempts.py list --blocker inline-budget` (ui_missn 0x5C4C90, lookup.cpp 0x4ACA90).
+  `attempts.py list --blocker inline-budget` (ui_missn 0x5C4C90, lookup.cpp 0x4ACA90). An inline helper's nested `~RefCountPtr` stays out of line (O6, 2026-11-14).
 * **Assignment as a spender:** `T x; x = T(...);` through a user-written inline `operator=` spends budget where
   the matching constructor does not: placed after a site, it cuts that site's deepest nested inline (a
   DurationClass assigned after a two-layer find sent Cast out of line, ui_mfd 0x5BE120). A struct with only
@@ -648,7 +648,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   `!x->Active` adds `xor eax, eax`. `p ? p->f() : false` inside an && loads the member pointer straight into
   ecx. A `sete` before a null test comes from a bool local (`bool fresh = !flag;`); a bool local for the
   return also matches; `if (result = f())` on a RefCountPtr goes through the pointer conversion, `!= NULL`
-  computes `setne` early.
+  computes `setne` early. A bool test of a member mask comes only as `if (x & y) return true; return false;` (`test` / `setne`; L1, 2026-11-14).
 * **Exits and cross-jumps:** early returns after a big local object repeat its destructor chain; nested ifs
   give a single exit, and `if (cond) { ... } return(false);` shares the epilogue with a later
   `return(false)`. VC6 cross-jumps identical arm endings only when the shared tail is not tail-duplicated:
@@ -656,7 +656,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   if / else + `break` versus `return` decides which copy of a shared tail survives; a shared `return(true)`
   reached by `break` keeps the constant live over the switch. A bool flag set in each branch then
   `if (flag)` reproduces block order and shared blocks. An early return kept in place beside an EH dtor
-  comes from a value the next test rejects (`frames = 0` before `frames < 3`).
+  comes from a value the next test rejects (`frames = 0` before `frames < 3`). A shared `Set_View` tail cross-jumps unless the argument loads after `this`; a `break` that sets a tested flag is jump-threaded (O6, 2026-11-14).
 * **Early returns move destructor sites and pushes:** an early return when not found, or the NULL return first
   in an if / else, reorders destructor sites and slots (a conditional expression instead of an if can too);
   a success test after the `if (x)` block, not inside it, gives the return-value EH flag; a slot that saves
@@ -787,7 +787,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   an empty inline dtor on a local iterator gives the client's EH frame. A deleting dtor inlines the class's
   dtor only when the class's own-side interface has no virtual dtor. A missing EH `-1` store: an explicit
   `ptr = NULL;` last. A hash_map / RefCountPtr release repeated with another store order is two written
-  copies; with the same order it is a member inlined. Two RefCountPtr locals under one EH state are a struct.
+  copies; with the same order it is a member inlined. Two RefCountPtr locals under one EH state are a struct. A ctor defined after its callers in the file is inlined into them and drops the `new`'s EH state (N1, 2026-11-14: viewbttn.cpp 0x6B56A0 / 0x6B5FD0 frame).
 * **Bases, members and vtables:** a null-checked `this ? this + off : 0` around an inlined member dtor means a
   base, not a member; a class whose ctor / dtor store no own vtable holds the struct as a member; with a
   non-polymorphic first base VC6 moves the polymorphic base (RefCountClass) to offset 0. An implicit copy
@@ -807,7 +807,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   empty destructor; a `??_G` with flag 0 inside an inlined `clear()` is a one-member struct element with an
   implicit destructor; an empty base destructor the client calls must be out of line; a packet class the
   client destroys out of line needs a declared `virtual ~X();` defined empty; unwind states tell a member's
-  destructor from a cleanup method.
+  destructor from a cleanup method. A declared empty virtual destructor stores the vptr where an implicit one is a `jmp` to the base's (V1, 2026-11-14).
 * **EH states and callee visibility:** a `new` loses its EH state when the same-file ctor can't throw: define
   that ctor after its caller; a state store before an out-of-line call means the callee's body isn't visible
   in the client's TU (a full specialisation with out-of-line members, delta_money.h); a body the client
@@ -861,7 +861,7 @@ Find the row for what `explain.py` or the diff shows; the bullets after the tabl
   240.0f` to fmul / fadd; VC6 moves a literal summand to the end of a sum (a static const or float local keeps
   the order); build differences as a Vector2 then divide per member; `x * 2.0f` is `fadd st(0),st(0)`; a
   compare against a literal or local const folds to `fcomp qword`, the client's `fld dword; fcompp` is a
-  function-static `static const float`; a float the client loads with `mov eax,[.rdata]` is a named const.
+  function-static `static const float`; a float the client loads with `mov eax,[.rdata]` is a named const. VC6 constant-folds `x * 3.0f * -0.71f` (V1, 2026-11-14: write the product the client's way); `Vector2` points in switch cases are filled member by member (L1, 2026-11-14).
 * **Float copies and returns:** route non-zero float stores through an inline `(float &dst, float value)`
   setter where the client uses fld / fstp and zeros come from an integer register; a file-static inline
   returning a float member passes it by fld / fstp, a direct member read by mov; an inlined float-returning
@@ -1401,7 +1401,7 @@ are in 3.0.
   (D196, D197; see accepted corrections below); a copy inside a file's window is no placement evidence (3.3). A guarded initialiser marks an object's end, and its
   absence from the client's object says which headers that file never saw (before adding an `#include`).
   Other dynamic initialisers (PermStringInit's `$E70` / `$E68` pairs) and implicit destructors emitted out of
-  line for funclets need D99 rows.
+  line for funclets need D99 rows. A function only thunks name (nothing calls it) is credited only by a D99 exact row (O1, 2026-11-14: co.cpp 0x6F4550 / 0x6F4570 / 0x700800). A neighbour's `<string>` initialiser reaching a shared header costs the other file a pair the client's object lacks (N1, 2026-11-14: view.cpp 0x6B55D0 / 0x6B5620 against viewbttn.cpp, accepted under D246).
 * **Accepted corrections must be on master, and on the target branch, before landing (D202):** verify_pr.py and
   verify_watch.py judge a PR with master's tools and read accepted-corrections.json from master, never from the
   PR; `wt.py bring-over` reads it at the target's tip. A PR's own objmatch change or corrections entry does not
@@ -1465,7 +1465,7 @@ are in 3.0.
   leased VM's IP in a runner. `clienttest.py build` has no `--pool`: set `ENB_VC6_HOSTS`; in a worktree give
   build.py `--pool 1` (without it build / link failed with FileNotFoundError on cl.log). A build on a
   just-released lease fails every file and deletes app.lib, and the POC then silently runs the old exe: check the
-  build output says 'compiled'.
+  build output says 'compiled'. Without `--pool` it also compiles on a VM lacking the worktree's programs/clientpoc files (C1083, then LNK2005s; L2, 2026-11-14).
 * **A killed or stopped job keeps its pool lease:** a killed verify, auxpad sweep or `appfile.py match` stays
   leased (under its agent, or `importer-PID`): `pool.py release --agent NAME`. TaskStop on a Git Bash loop of
   `appfile.py --pool` runs leaves the Windows python children re-leasing VMs as the agent: kill them by PID
@@ -1605,7 +1605,7 @@ are in 3.0.
   `--window` columns.
 * **objdiff.py display:** it prints every relocated call as `call REL`, so an IAT `call dword ptr [REL]` always
   shows as a mismatch even when the bytes are equal; it stars a row whose relocated immediate is 0; a file-static
-  reached by displacement (`[GutterColors+8]`) shows unrelocated. More in tools/re/README.md (Quirks).
+  reached by displacement (`[GutterColors+8]`) shows unrelocated. More in tools/re/README.md (Quirks). `or eax,-1` shows as REL (O1, 2026-11-14).
 * **objdiff, `appfile.py --diff` and explain.py mask targets and literals:** "identical" there while objmatch says
   `none`, or a similarity like 0.78 with every visible line equal, means compare raw bytes
   (`.work/pk2/patcmp.py OBJ SYM ADDR`): a jump displacement (two `je` to a shared exit), a `jl` against `jb` (a
@@ -1721,7 +1721,7 @@ Builds and links (every program: clienttest, udpreplay, kerneltest, VIDTEST, the
   subject must not claim a program links unless that command ran at that commit. New Win32 imports in app code
   (WinInet) need the library in clienttest.py's and build.py clientpoc's `sys` lists; any harness linking
   CordCon needs the old iostream (LIBCIMT); a file-local `Stub_Log_Line` declaration needs `extern "C"` (else
-  LNK2005: the generated stand-in collides). Scratch `Stub_Log_Line` calls are never committed. Any program that constructs an SClient needs a stub for the registry read 0x75A280 (D69).
+  LNK2005: the generated stand-in collides). Scratch `Stub_Log_Line` calls are never committed. Any program that constructs an SClient needs a stub for the registry read 0x75A280 (D69). A first-call flag in a stand-in's logging must be `static`: a stack flag crashed `Stub_Log_Mark` after 300 s (E1, 2026-11-14).
 * **A link with unresolved symbols still writes and deploys the exe.** `build.py link` prints "clientpoc: exe
   NOT written; N unresolved" and deploys anyway: read the 'deployed' line and the link log's `unresolved:`
   lines. A call to an unresolved symbol (/force:unresolved) jumps into the PE header: EIP 0x400003 with no
@@ -1740,12 +1740,12 @@ Stand-ins and gen_stubs (clienttest, udpreplay, kerneltest, the POC):
 
 * **e2e.py (D237, tools/harness/README.md):** every POC check builds `--lib binkmovie` before the link, else `Play`
   is a generated stand-in and the start-up movie runs to its end; `build.py` has no `--lock-wait`; a trigger file
-  must be renamed into place; input is tagged 0x5043 and `ENB_POC_INPUT_TAG=1` drops untagged input.
+  must be renamed into place; input is tagged 0x5043 and `ENB_POC_INPUT_TAG=1` drops untagged input. Counting asserts in messages.log (stubs.log's copy is appended to it): count timestamped lines only and normalise by frames; retail fires effect_description.cpp's asserts 266 / 318 / 348 in the same 4:3:3 ratio, so a flood there is the client's own (F1, 2026-11-14).
 * **Retiring a stand-in must not take its neighbours with it** (deleting a hand stand-in from stubs/app_stubs.cpp
   also removed the CRT wrappers beside it): gen_stubs' generated stand-ins return null, `standins.py check` and the
   link gate pass, and only a POC run shows it (a crash on a null inside the real function that copies it). Run
   the e2e set after every landing that retires a stand-in (D237). The reverse: a stand-in for a function written
-  later becomes LNK2005; delete it in the commit that adds the function.
+  later becomes LNK2005; delete it in the commit that adds the function. A hand stand-in of an app constructor in programs/clientpoc emits the old vtable: LNK2005 when the real class is rebuilt, and standins.py misses it (S1, 2026-11-14).
 * **A landed app definition collides with stand-ins** in three places: programs/clientpoc/poc_standins.cpp /
   poc_world*.cpp, stubs/app_stubs.cpp and tests/clienttest/client_stubs.cpp. `python tools/vc6/standins.py
   check` finds them (wt.py bring-over refuses on it); a stand-in that must stay gets `// standins: keep (why)`
@@ -2247,7 +2247,7 @@ are alphabetical; add a note under its file's heading (merge with what is there)
 * Float-returning forwarders get the client's `jmp [eax+N]` tail call only as a ternary, `return (p != NULL) ?
   p->F() : k;` (the if form gives `call`); a copy constructor can use the default base `RenderObjClass()`,
   members copied one by one; the client's Cast_* / Intersect_* call ProxyRObj's own slot, not the proxied
-  object's (recursing when one is set): exact as written, kept.
+  object's (recursing when one is set): exact as written, kept. The same form holds for mainview.cpp's six float getters and ui_scan.cpp's Get_Space_Client 0x60ECF0, `return (true ? p->F() : 0.0f);` (O3, 2026-11-14).
 
 #### sbase_info.cpp
 
