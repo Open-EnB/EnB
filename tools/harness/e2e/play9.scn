@@ -1,0 +1,37 @@
+name: a recorded session played to its end: /play 9 on the Broadcast channel (Karen, 2026-10-21 11:18), three sector sessions, then the replay's own hand-off home
+# Recording 9 (session_2026-10-21_111654, Net-7, the capture's second avatar): sector session 1 in sector 3515
+# (1043 messages over 44 s), the recording's SERVER_HANDOFF into session 2, sector 10701 (a starbase: the avatar
+# walks, ui_starbase.cpp 0x63E2B0 sends STARBASE_AVATAR_CHANGE; 398 messages over 47 s), its handoff into session
+# 3, sector 1070 (1019 messages over 210 s), whose end antreplay answers with 'End of recording 9; back to
+# Jupiter.' and a SERVER_HANDOFF of its own home; the home connection answers START_ACK. No /stop: the playback
+# runs to its completion (the user, 2026-11-14). About 340 s on retail (E1, 2026-11-14: PASS).
+# Fault met on ours (E1, 2026-11-14): in session 2 a crash in RateConnectionClass::Send_Packet, the packet of
+# 0x63E2B0 built by a generated stand-in constructor (Starbase_Avatar_ChangePacketClass 0x8A3600: no vptr).
+timeout: 600
+messages: on
+include _login
+key 0x08
+expect-event proxy '^input: replayed key 0x8'
+alive 1
+text '/play 9'
+key 0x0D
+expect-event antprox 'command "/play 9"' within 10
+wait-event antprox 'sent SERVER_HANDOFF' within 20
+wait-event antprox 'Sector connection #[0-9]+: playback of 9, sector session 1 of 3' within 60
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play9_s1
+wait-event antprox 'Sector connection #[0-9]+: playback of 9, sector session 2 of 3' within 120
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play9_s2
+wait-event antprox 'Sector connection #[0-9]+: playback of 9, sector session 3 of 3' within 120
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play9_s3
+wait-event antprox 'Playback of 9: end of the recording; back to' within 300
+wait-event antprox 'sent SERVER_HANDOFF.*back to' within 10
+wait-event antprox 'Sector connection #[0-9]+: received START_ACK' within 120
+wait-quiet proxy 2 within 60
+alive 8
+shot play9_home

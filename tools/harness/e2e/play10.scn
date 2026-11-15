@@ -1,0 +1,50 @@
+name: a recorded session played to its end: /play 10 on the Broadcast channel (Zanor, 2026-10-21 17:47, the C# proxy's capture), six sector sessions, then the replay's own hand-off home
+# Recording 10 (csharp/session_2026-10-21_174700, Net-7 through the C# proxy; its note: login, dock, land, gate,
+# wormhole, prospect, kill mob, loot, fire weapon, use device to buff and to debuff): 6 sector sessions, 4674
+# messages, each next one by the recording's own SERVER_HANDOFF: 1 sector 1070 (27 s), 2 sector 10701 (a
+# starbase, 18 s), 3 sector 1070 (26 s), 4 sector 2210 (27 s), 5 sector 2295 (16 s), 6 sector 2210 (107 s); the
+# last one's end antreplay answers with 'End of recording 10; back to Jupiter.' and a SERVER_HANDOFF home, whose
+# connection answers START_ACK. No /stop: the playback runs to its completion (the user, 2026-11-14). About 260 s
+# on retail and on ours (E1, 2026-11-14: both PASS; the packets the same but for a VERB_REQUEST / MASTER_JOIN
+# order at two handoffs, as in play1_windows). Session 2's starbase needs Starbase_Avatar_ChangePacketClass's
+# sending constructor 0x8A3600 (play9's fault).
+timeout: 700
+messages: on
+include _login
+key 0x08
+expect-event proxy '^input: replayed key 0x8'
+alive 1
+text '/play 10'
+key 0x0D
+expect-event antprox 'command "/play 10"' within 10
+wait-event antprox 'sent SERVER_HANDOFF' within 20
+wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 1 of 6' within 60
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play10_s1
+wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 2 of 6' within 120
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play10_s2
+wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 3 of 6' within 120
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play10_s3
+wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 4 of 6' within 200
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play10_s4
+wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 5 of 6' within 200
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play10_s5
+wait-event antprox 'Sector connection #[0-9]+: playback of 10, sector session 6 of 6' within 200
+move 640,600
+wait-event msg 'Render: Frame Rate' within 90
+shot play10_s6
+wait-event antprox 'Playback of 10: end of the recording; back to' within 300
+wait-event antprox 'sent SERVER_HANDOFF.*back to' within 10
+wait-event antprox 'Sector connection #[0-9]+: received START_ACK' within 120
+wait-quiet proxy 2 within 60
+alive 8
+shot play10_home

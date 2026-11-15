@@ -564,7 +564,10 @@ names the fault) and runs only when named (none today). The recorded session has
 Broadcast, the loading screen, the recording's starbase and sector 4505, `/stop`, the hand-off home) and
 play1_windows (inside sector 4505: the PDA's Skills and Faction tabs, missions, equipment, cargo and the item
 details of a right-click). Data windows belong inside a playback: the home sector has no skills, missions or
-items to show.
+items to show. Two more play a recording to its end, no `/stop` (2026-11-14): play9 (`/play 9`, three sector
+sessions, about 340 s) and play10 (`/play 10`, six, about 260 s); each waits on every session's playback line,
+then antreplay's 'end of the recording; back to' and the home connection's START_ACK, and passes when the client
+is back in the home sector and alive.
 
 **No timed waits where an event exists:** steps advance on events (the replay server's `VERSION_RESPONSE`,
 `GLOBAL_AVATAR_LIST`, `GLOBAL_TICKET_REQUEST`, `START_ACK`). Where the client logs nothing at "ready", two steps
