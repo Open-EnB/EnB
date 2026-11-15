@@ -388,7 +388,7 @@ void UIMissnClass::Unknown_5C5330(bool arg)
 
 
 
-void Unknown_Strip_Tags(std::string &text);	// 0x5C69D0 (defined after 0x5C66D0): the text without its <...> tags  // NAME 1: neutral (D10)
+
 
 // 0x5C5500
 void UIMissnClass::Unknown_5C5500(unsigned int cur_mission_idx)

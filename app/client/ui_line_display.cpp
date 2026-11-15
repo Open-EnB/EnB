@@ -16,7 +16,7 @@ extern FontStringFilesClass *Unknown_BE67BC;	// NAME 1 [Unknown_BE67BC]: neutral
 #include "..\shared\auxdata\auxdata.h"	// Unknown_Find_Field: 0x5A8350's 'Missions' (its copy 0x5AA9D0 sits in this object)
 #include "aux_roots.h"				// DeltaPlayerClass, DeltaMissionClass, DeltaMissionStageClass (0x5A8350)
 #include "..\audio\soundlib.h"		// SoundLibraryClass::Play_2D_Sound (0x5A8350's mission sounds)
-void Unknown_Strip_Tags(std::string &text);	// 0x5C69D0 (ui_missn.cpp): the text without its <...> tags  // NAME 1: neutral (D10)
+#include "ui_missn.h"				// Unknown_Strip_Tags (0x5C69D0)
 
 #include "control_keys_manager.h"	// ControlKeysManager: slots +0x70 / +0x74 call Add_Keys 0x71A960 / Remove_Keys 0x71AB40
 
