@@ -1,0 +1,14 @@
+{
+ "ambiguous": [],
+ "copy": "reconstructed",
+ "description": "RECONSTRUCTED from client.exe 0x685E80-0x685FF4 (after fontsys_cursor.cpp, whose __FILE__ 0xB8FD0C its 'UserData' / 'ToolTip' strings follow): acticon.cpp's ActionClass base, an INI section's ToolTip / UserData / Texture (table 0xAFC788); no __FILE__ in the object, class and file names provisional",
+ "expected": {},
+ "in_tree": [
+  "0x685E80",
+  "0x685F40",
+  "0x685F90",
+  "0x685FD0"
+ ],
+ "merged": [],
+ "name": "client/unknown_685e80.cpp"
+}
