@@ -1852,7 +1852,7 @@ void ClientObjectClass::Unknown_6FD310()
 				for (int slot = 0; slot < size; slot++) {
 					if (pool_changed[slot]) {
 						const ProjectedDecalClass &decal = Unknown_Get_Item(array, slot)->Value;
-						if (decal.I0C < 0) {
+						if (decal.ProjDecalAssetID < 0) {
 							Clear_Decal_Slot(pool, slot);
 						} else {
 							Generator_PoolID = pool;

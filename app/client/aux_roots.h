@@ -129,12 +129,12 @@ const char *Type_Name(GameActionValidityBitFlag value);	// 0x83D270 ('GameAction
 template<> inline const char *KVPairTemplateClass<GameActionValidityBitFlag>::Get_Type_Name() const { return Type_Name(Value); }	// 0x707E80
 bool String_To_Value(const char *text, GameActionValidityBitFlag *value);	// 0x83D290
 char *Value_To_String(char *buf, int size, GameActionValidityBitFlag value);	// 0x83D490
-// NAME 5: the client's Get_Type_Name string 'ProjectedDecalClass' (KVPair vtable 0xB01D00, 0x708C60 inline), leaf vtable 0xB01A40
-struct ProjectedDecalClass { float F00; float F04; float F08; int I0C; float F10; ProjectedDecalClass() : F00(1.0f), F04(0.0f), F08(0.0f), I0C(-1), F10(0.0f) {} ProjectedDecalClass(const ProjectedDecalClass &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; } ProjectedDecalClass &operator=(const ProjectedDecalClass &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; I0C = v.I0C; F10 = v.F10; return *this; } };	// vtable 0xB01A40, 20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; Ship 0x6F70BE stores the zeros as immediates among register zeros: floats, workflow.md 3.1)
-inline bool operator!=(const ProjectedDecalClass &a, const ProjectedDecalClass &b) { return !(a.F00 == b.F00 && a.F04 == b.F04 && a.F08 == b.F08 && a.I0C == b.I0C && a.F10 == b.F10); }
+// NAME 5: the client's Get_Type_Name string 'ProjectedDecalClass' (KVPair vtable 0xB01D00, 0x708C60 inline), leaf vtable 0xB01A40; member ProjDecalAssetID from 0x7633E0 FAIL_IF
+struct ProjectedDecalClass { float F00; float F04; float F08; int ProjDecalAssetID; float F10; ProjectedDecalClass() : F00(1.0f), F04(0.0f), F08(0.0f), ProjDecalAssetID(-1), F10(0.0f) {} ProjectedDecalClass(const ProjectedDecalClass &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; ProjDecalAssetID = v.ProjDecalAssetID; F10 = v.F10; } ProjectedDecalClass &operator=(const ProjectedDecalClass &v) { F00 = v.F00; F04 = v.F04; F08 = v.F08; ProjDecalAssetID = v.ProjDecalAssetID; F10 = v.F10; return *this; } };	// vtable 0xB01A40, 20 bytes, constructed {1.0f, 0.0f, 0.0f, -1, 0.0f} (0x705640; Ship 0x6F70BE stores the zeros as immediates among register zeros: floats, workflow.md 3.1)
+inline bool operator!=(const ProjectedDecalClass &a, const ProjectedDecalClass &b) { return !(a.F00 == b.F00 && a.F04 == b.F04 && a.F08 == b.F08 && a.ProjDecalAssetID == b.ProjDecalAssetID && a.F10 == b.F10); }
 inline const char *Type_Name(ProjectedDecalClass *) { return "ProjectedDecalClass"; }
-inline char *Value_To_String(char *buf, int, const ProjectedDecalClass &value) { sprintf(buf, "%f,%f,%f,%d,%f", value.F00, value.F04, value.F08, value.I0C, value.F10); return buf; }
-inline bool String_To_Value(const char *text, ProjectedDecalClass *value) { return sscanf(text, "%f,%f,%f,%d,%f", &value->F00, &value->F04, &value->F08, &value->I0C, &value->F10) == 5; }
+inline char *Value_To_String(char *buf, int, const ProjectedDecalClass &value) { sprintf(buf, "%f,%f,%f,%d,%f", value.F00, value.F04, value.F08, value.ProjDecalAssetID, value.F10); return buf; }
+inline bool String_To_Value(const char *text, ProjectedDecalClass *value) { return sscanf(text, "%f,%f,%f,%d,%f", &value->F00, &value->F04, &value->F08, &value->ProjDecalAssetID, &value->F10) == 5; }
 // NAME 1: the value type of the leaf vtable 0xB03588 (no name in the client, Net-7 or C#)
 enum UnknownB03588Enum { UNKNOWN_B03588_0 };	// vtable 0xB03588, 4 bytes
 inline const char *Type_Name(UnknownB03588Enum *) { return "UnknownB03588Enum"; }
