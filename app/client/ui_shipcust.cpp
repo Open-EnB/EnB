@@ -1237,18 +1237,18 @@ void ShipCustomizeInterface::Unknown_624270()
 		Unknown_6249D0(true);
 		Unknown_6277A0();
 	}
-	if (CharacterView->Unknown34->Active) {
-		if (!Unknown211) {
-			Unknown211 = true;
-			Unknown_6249D0(false);
-		}
+	if (CharacterView->Unknown34->Active && !Unknown211) {
+		Unknown211 = true;
+		Unknown_6249D0(false);
 		return;
 	}
-	if (Unknown211) {
+	if (!CharacterView->Unknown34->Active && Unknown211) {
 		Unknown211 = false;
 		Unknown_6249D0(true);
 		Unknown_6277A0();
 	}
+
+
 	Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); Gadgets.size(); }	// dead reads (D130; not the client's): with the while loop and the file-static inlines they spend VC6's inline budget as the client does: map::insert out of line at the first four lookups, the step's _Inc 0x6296C0 out of line with the group-0 lookup through the inlined 0x625930 (its extra inline layer puts _Tree::begin 0x628F00 out of line too); 13-15 reads, 10-12 leave three lookups deep
 
 
